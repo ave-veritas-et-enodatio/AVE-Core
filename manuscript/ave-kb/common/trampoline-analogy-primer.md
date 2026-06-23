@@ -331,7 +331,7 @@ The 7-mode framework is canonical at Backmatter app: four-force unification (Q-G
 | Ratio | Subset | Physical role |
 |---|---|---|
 | $\nu_{\text{vac}} = 2/7$ | 2 transverse-shear modes out of 7 | Vacuum Poisson ratio |
-| $\sqrt{3/7}$ | Rotational subset of 7 | Cosserat PAT torsion-shear projection (Q-G27 muon $g$-2 saliency) |
+| $\sqrt{3/7}$ | Rotational subset of 7 | Cosserat PAT torsion-shear projection (Q-G27 muon $g$-2 saliency) — [√(3/7) "torsion-shear" label OPEN-FLAGGED, see lepton-spectrum.md (Generation 2)] |
 | $3/7$ | Translational subset of 7 | $\alpha_s = \alpha^{3/7}$ (Q-G36 strong coupling) |
 | $1/7$ | Trace-reversed projection | Hierarchy Bridge + Newton's $G$ |
 | $g_* = 7^3/4$ | Effective mode count cubed / K4 cell-node count | Cosmological effective DoF |

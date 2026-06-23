@@ -117,8 +117,8 @@
 - confidence: 0.85
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (cylindrical flux-tube model, $d\equiv1\,\ell_{node}$, giving PAT $J=2I$)
-  - $\nu_{vac}=2/7$ (vacuum Poisson ratio; substrate-anchored framework input)
-- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
+  - clm-iouqn9 — K4 Magic-Angle $K=2G$ $\Rightarrow$ $\nu_{vac}=2/7$ (solidity 0.55) [the vacuum Poisson ratio $2/7$ is the GR-imported trace-reversal value, NOT a free framework input; so the FORM $\sin^2\theta_W = 1-1/(1+\nu_{vac})$ is derived but the VALUE $2/9$ is import-capped at $K=2G$'s solidity]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.85, 0.55)]
 - rationale: A clean closed algebraic chain: $J=2I$ is the Perpendicular Axis Theorem for any circular cross-section (geometric identity), the isotropic relation $E=2G(1+\nu)$ is standard elasticity, and substituting $\nu_{vac}=2/7$ gives $(M_W/M_Z)^2=7/9$ and $\sin^2\theta_W=2/9$ with zero free parameters. The only disclosed imports are $\nu_{vac}$ and the on-shell-scheme caveat (must not be compared to $\overline{MS}$). Derivation closes end-to-end modulo those imports.
 - strengthen-by:
   - Derive $\nu_{vac}=2/7$ inside this leaf (or pin its primary source) so the chain is self-contained.
@@ -146,7 +146,7 @@
   - INVARIANT-S2 / Axiom 4 ($\alpha^2$ two-vertex dielectric coupling)
   - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
   - clm-5zuo7g (on-shell mixing ratio $M_W/M_Z=\sqrt{7}/3$ used for $M_Z$)
-- solidity: 0.63 (use as input only, don't build deeper) [= min(0.70, 0.63)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The $M_W=m_e/(\alpha^2 p_c\sqrt{3/7})$ factor-chain is given a first-principles origin for each factor ($\pi$ spherical, $2\pi$ ring, $\alpha^2$ two-vertex, $p_c$ packing, $\sqrt{3/7}$ PAT) and closes to a number ($-0.57\%$ on $M_W$, $-0.62\%$ on $M_Z$). The $\alpha^2$-as-two-vertex identification and the torsional permittivity decomposition are asserted (motivated by analogy to Coulomb self-energy), and the chain rests on disclosed imports ($p_c$, $\sqrt{3/7}$, the $m_e$ baseline). Disclosed methodology bound.
 - strengthen-by:
   - Derive the torsional permittivity ratio $\varepsilon_T/\mu=\pi\alpha^2 p_c\sqrt{3/7}$ from the Cosserat constitutive law rather than assembling it factor-by-factor by analogy.
@@ -260,7 +260,7 @@
   - INVARIANT-S2 / Axiom 1 (torus-knot crossing-number flavor splitting; $1/c^2$ torsional coupling)
   - INVARIANT-S2 / Axiom 4 (dielectric coupling $\alpha$ between Cosserat sectors)
   - clm-q8un7j (W-boson scale $M_W$ entering $m_\nu=m_e\,\alpha\,(m_e/M_W)$)
-- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.63)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.55)]
 - rationale: The suppression form $m_\nu=m_e\,\alpha\,(m_e/M_W)\approx0.024$ eV is a closed formula once $M_W$ is in hand, and the $\Delta m^2$-ratio agreement ($\sim3\%$) follows from $m_i\propto1/c_i^2$. But the factor identification ($\alpha$ = inter-sector dielectric coupling, $m_e/M_W$ = translational/torsional energy ratio) is asserted as physical-meaning labels, per-eigenstate values are inferred from baryon pairing (not measured), and the $\sum m_\nu$ comparison is a cosmological upper bound (consistency, not validation). The inverted-hierarchy commitment is the falsifiable load-bearing content.
 - strengthen-by:
   - Derive the $\alpha\,(m_e/M_W)$ suppression factor from the Cosserat inter-sector coupling rather than labeling it.
@@ -493,7 +493,7 @@
   - INVARIANT-S2 / Axiom 1 (lattice/torus-knot chirality for C and CP violation)
   - $\nu_{vac}=2/7$ ($g_*=7^3/4$ degrees-of-freedom count)
   - clm-5zuo7g (weak coupling $\alpha_W=\alpha/\sin^2\theta_W$)
-- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.85)]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.55)]
 - rationale: The $0.38\%$ headline is a composite of factors each *assigned* a lattice origin rather than cleanly derived: $\delta_{CP}=\pi/\kappa_{FS}$ "the fraction asymmetric under mirror reflection" is asserted, $g_*=7^3/4$ is a numerological "$7$ modes cubed / $4$ K4 nodes" identification, and $C_{sph}=28/79$ uses asserted $N_f=3,N_H=1$ assignments — all fed into the imported electroweak-baryogenesis formula. Multi-factor cancellations make per-factor sensitivity hard to attribute. Asserted-partial.
 - strengthen-by:
   - Derive $g_*=7^3/4$ from a genuine relativistic-DoF count rather than the mode-cubed-over-nodes heuristic.
