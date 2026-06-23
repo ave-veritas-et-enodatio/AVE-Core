@@ -78,7 +78,10 @@ def _compute_local_mu_kernel(
     precision and μ_eff = μ_base exactly; a static external B (dB/dt = 0) likewise
     gives S_μ = 1. The earlier code keyed μ on the static amplitude |B| = μ₀|H|
     against b_yield = B_SNAP (an energy-density scale, not the kernel argument) —
-    removed. μ-grade saturation is real only for bound circulation (Cosserat engine).
+    removed. A free wave saturates μ only as ω → ω_C, the dispersive lattice cutoff
+    (ℏω_C = m_e c² = 511 keV); this coarse-grid engine never reaches it (a dispersive-
+    μ(ω) model handles the cutoff — separate workstream). Bound circulation saturates
+    μ at any ω (Cosserat engine).
 
     mu_0 / b_yield / H_component kept in the signature for call-site compatibility.
     """

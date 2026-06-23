@@ -29,9 +29,12 @@ VCA-R01 (FIXED): the free-EM mu-channel is now LINEAR (mu_eff = mu_0).
   energy readouts, and the JAX twin fdtd_3d_jax._compute_local_mu_kernel).
   scale_invariant.mu_eff() is UNCHANGED — it is the sector-agnostic kernel used by
   genuine static-B MATTER callers (superconductor.meissner_mu_eff, yang_mills),
-  correct as-is. mu-grade saturation under a bound/self-trapped circulation lives in
-  the Cosserat engine (cosserat_field_3d._compute_saturation_factors, keyed on the
-  micro-rotation curvature), not on a free Yee EM wave.
+  correct as-is. A free wave saturates mu only as omega -> omega_C, the dispersive
+  lattice cutoff (hbar*omega_C = m_e c^2 = 511 keV); this coarse-grid engine never
+  reaches omega_C (a dispersive-mu(omega) model handles the cutoff — separate
+  workstream). Bound/self-trapped circulation saturates mu at any frequency (Cosserat
+  engine, cosserat_field_3d._compute_saturation_factors, keyed on micro-rotation
+  curvature).
 
   test_static_external_B_leaves_mu_unloaded now PASSES (was xfail). The companion
   test guards against regression to the old |B|-amplitude keying.

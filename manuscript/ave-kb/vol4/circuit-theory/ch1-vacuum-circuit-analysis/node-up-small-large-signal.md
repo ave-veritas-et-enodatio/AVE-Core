@@ -199,10 +199,13 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > **Scope (caller-local).** Corrected at `fdtd_3d._compute_local_mu` plus the two energy readouts
 > (`total_field_energy`, `energy_density`) and the JAX twin `fdtd_3d_jax._compute_local_mu_kernel`.
 > `scale_invariant.mu_eff()` is **unchanged** — it is the sector-agnostic kernel used by genuine
-> static-$B$ MATTER callers (`superconductor.meissner_mu_eff`, `yang_mills`), correct as-is. $\mu$-grade
-> saturation under a **bound/self-trapped** circulation lives in the Cosserat engine
-> (`cosserat_field_3d._compute_saturation_factors`, keyed on the micro-rotation curvature), not on a free
-> Yee EM wave.
+> static-$B$ MATTER callers (`superconductor.meissner_mu_eff`, `yang_mills`), correct as-is. A free wave saturates $\mu$ only as $\omega\to\omega_C$, the **dispersive lattice cutoff**
+> $\mu_{eff}(\omega)=\mu_0\sqrt{1-(\omega/\omega_C)^2}$, where $\hbar\omega_C=\hbar c/\ell_{node}=m_e c^2=511$ keV
+> (the Compton / pair-production scale). This coarse-grid continuum engine ($dx\gg\ell_{node}$) never reaches
+> $\omega_C$, so $\mu=\mu_0$ for the waves it represents; the cutoff is modeled separately by a
+> dispersive-$\mu(\omega)$ workstream (the AVE-distinct $(q\,\ell_{node})^4$ lattice-dispersion test at the
+> 511 keV scale). A **bound/self-trapped** circulation saturates $\mu$ at any frequency — that lives in the
+> Cosserat engine (`cosserat_field_3d._compute_saturation_factors`, keyed on the micro-rotation curvature).
 >
 > **Tests.** The direct-kernel control `src/tests/test_vca_node_regime_sweep.py` (analytic node-up laws,
 > $A_I=I_{vac}/I_{max}=0\Rightarrow S_\mu=1$) is unchanged and green. The engine test

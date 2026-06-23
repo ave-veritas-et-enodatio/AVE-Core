@@ -223,13 +223,18 @@ for a static external `B`. Sites:
 - `src/ave/axioms/scale_invariant.py`:198 (`mu_eff`) — sector-agnostic kernel evaluation; the leak is in the
   caller, not here.
 
-A free propagating wave does **not** saturate μ. The amplitude ratio `|B|/B_SNAP` and the circulation-rate
-ratio `ω/ω_C` are *independent* for a free plane wave (a Poynting-drift proxy gives `v/c = 1` for every free
-wave; the rate proxy gives `S_μ ≈ 1` for any sub-cutoff `ω ≪ ω_C`), and at FDTD frequencies `ω/ω_C ≲ 10⁻⁶`,
-so `S_μ = 1` to machine precision. The earlier engine amplitude-saturated a free wave on `|B|` — itself an
-artifact, since a free energy-conserving wave is not a bound circulation reaching `c`. μ-grade saturation is
-real only for a **bound/self-trapped circulation** (`v_circ` = boost velocity); a **static external DC-B** has
-`dB/dt = 0` ⟹ no induced circulation ⟹ `S_μ = 1` exactly. Hence the fix: the free-EM μ-channel is linear.
+A free propagating wave does not saturate μ on its **amplitude** — the amplitude ratio `|B|/B_SNAP` and the
+circulation-rate ratio `ω/ω_C` are *independent* for a free plane wave (a Poynting-drift proxy gives `v/c = 1`
+for every free wave; the rate proxy gives `S_μ = √(1−(ω/ω_C)²)`, keyed on **frequency**, not amplitude). A free
+wave **does** saturate μ as `ω → ω_C`, the **dispersive lattice cutoff** `μ_eff(ω) = μ₀√(1−(ω/ω_C)²)`, where
+`ℏω_C = ℏc/ℓ_node = m_e c² = 511 keV` (the Compton / pair-production scale). But this continuum engine's `dx`
+is a computational knob `≫ ℓ_node`, so it runs at `ω/ω_C ≲ 10⁻⁶` and `S_μ = 1` to machine precision — i.e. the
+free-EM μ-channel is **linear in the regime this engine reaches**. (The earlier code amplitude-saturated a free
+wave on `|B|` — wrong: that is neither the bound-circulation case nor the ω_C-cutoff case.) A
+**bound/self-trapped circulation** (`v_circ` = boost velocity) saturates μ at any frequency; a **static external
+DC-B** has `dB/dt = 0` ⟹ no induced circulation ⟹ `S_μ = 1` exactly. So the fix here is: the free-EM μ-channel
+is linear, and **the ω_C cutoff is modeled separately by a dispersive-μ(ω) workstream** — the AVE-distinct
+`(q·ℓ_node)⁴` lattice-dispersion test at the 511 keV scale.
 The engine is also internally inconsistent: its just-merged Lagrangian-EMF coupling (PR #339, the `−2` Lenz
 back-EMF) is on the rate/`I` side, while its FDTD μ-update is on the amplitude side.
 

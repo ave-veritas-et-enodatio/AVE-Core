@@ -233,10 +233,15 @@ class FDTD3DEngine:
 
         (The earlier code keyed μ on the static amplitude |B| = μ₀|H| against
         b_yield = B_SNAP — wrong on two counts: B_SNAP is an energy-density scale,
-        not the kernel argument, and amplitude is not the circulation rate. μ-grade
-        saturation is real only for BOUND/self-trapped circulation, which lives in the
-        Cosserat engine — cosserat_field_3d._compute_saturation_factors, keyed on the
-        micro-rotation curvature — not on a free Yee EM wave.)
+        not the kernel argument, and amplitude is not the circulation rate. A free wave
+        DOES saturate μ — but only as ω → ω_C, the dispersive lattice cutoff
+        μ_eff(ω) = μ₀·√(1 − (ω/ω_C)²), where ℏω_C = m_e c² = 511 keV (the Compton /
+        pair-production scale, since ℓ_node = ℏ/m_e c). This coarse-grid continuum engine
+        (dx ≫ ℓ_node) never reaches ω_C, so μ = μ₀ for every wave it represents; the
+        cutoff itself needs a dispersive-μ(ω) model (separate workstream). Bound /
+        self-trapped circulation saturates μ at ANY frequency — that lives in the Cosserat
+        engine, cosserat_field_3d._compute_saturation_factors, keyed on the micro-rotation
+        curvature.)
         """
         # Diagnostic only (energy-density ratio |B|/B_SNAP) — NOT a μ-saturation
         # argument (see VCA-R01 above); retained so max_mag_strain still tracks drive.
