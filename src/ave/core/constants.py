@@ -8,12 +8,23 @@ Per the framework's structural closure declaration (`manuscript/ave-kb/common/
 trampoline-framework.md` §11.0 + `closure-roadmap.md` §1), the parameter count
 has been sharpened:
 
-  STANDARD framing (pre-2026-05-15): three calibration inputs (ℓ_node, α, G)
-  STRUCTURAL CLOSURE framing (current): one scale (ℓ_node) + one cosmological
-    initial-data parameter (Ω_freeze = 𝒥_cosmic / I_cosmic) + four axioms.
-    α and G are JOINTLY cosmologically anchored — both derive from u_0* at
-    the magic-angle operating point, which derives from Ω_freeze via the
-    phase-transition-while-spinning mechanism. See L5 A-001 / A-030 / A-031.
+  CI-GATED CALIBRATION COUNT (current; authority = `manuscript/ave-kb/common/
+    interlock-register.md:11-13,47`, INVARIANT-S13): THREE imported calibration
+    inputs {m_e, α, G}. `calibration-params: clm-0ktpcn clm-5xon03 clm-dsb560`,
+    `expected-independent-count: 3`, "Live count = 3 (all three fitted/mixed-
+    value, none `real`-reduced)". m_e is value-fitted (mass-scale input), α is
+    value-fitted (echo, golden-torus identification), G is MIXED (form-derived
+    /7 PPN family + value-fitted ξ termination). None is `real`-reduced to value.
+
+  RETRACTION (2026-06-14 G-ruling, B1+B2): the earlier "one scale (ℓ_node) +
+    one cosmological initial-data parameter (Ω_freeze); α and G JOINTLY
+    cosmologically anchored — both derive from u_0* at the magic-angle operating
+    point" reduction is RETRACTED. The value u_0* ≈ 0.187 is asserted/back-fit,
+    not forward-derived; α and G FIX the operating point (the fit inputs,
+    agreement by construction), 𝒥_cosmic independently TESTS it — pass = chord,
+    fail = echo. So the count does NOT drop below 3. Do not refill 0.187 with
+    4/21. See `claim-quality-closure-roadmap.md` §4.1 + the per-constant
+    accounting in `common/form-deriving-value-importing.md`.
 
   GATING-CLAUSE RESOLUTION (2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3): the
     2026-05-28 gating clause that made the structural-closure framing contingent
@@ -38,7 +49,11 @@ empirical commitment):
   Route 2 — Gravitational: G to ~4 decimals → u_0* via Machian impedance integral
   Route 3 — Cosmological: 𝒥_cosmic via CMB/LSS anomalies → u_0* via Ω_freeze
 
-All three routes must give the same u_0* or framework is falsified.
+RE-SCOPED (2026-06-14 G-ruling, B2): these are NOT three independent
+falsifying routes. Routes 1 and 2 are the CALIBRATION inputs — CODATA α and G
+FIX u_0* (so their agreement is guaranteed by construction); only Route 3
+(𝒥_cosmic) independently TESTS it. Pass = chord, fail = echo. Authority:
+`claim-quality-closure-roadmap.md` §4.1 + `interlock-register.md:11-13,47`.
 
 A-034 UNIVERSAL KERNEL (canonical 2026-05-15 late evening): the constants
 defined below (V_SNAP, V_YIELD, ℓ_node, T_EM, etc.) parameterize the
@@ -108,15 +123,21 @@ M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
 M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
 # =============================================================================
-# ONE SCALE + SUBSTRATE-MECHANISM-VALIDATED CONSTANTS
-# (Class B substrate-mechanism manifestation per Q-EMBED-SEL-1 Phase 1+2+3)
+# THREE IMPORTED CALIBRATION INPUTS {m_e, α, G} (CI-GATED COUNT = 3)
+# (authority: manuscript/ave-kb/common/interlock-register.md:11-13,47)
 # =============================================================================
-# Historically labeled "three calibration inputs" {m_e, α, G}. Under the
-# structural-closure framing the count is one scale (ℓ_node) plus constants
-# derived at Class B substrate-mechanism manifestation level per Q-EMBED-SEL-1
-# Phase 1+2+3 (2026-05-31; merged via PR #59 at 7529f7ce). The 2026-05-28 gating
-# clause that made the closure contingent on ropelength-minimality embedding-
-# selection is RESOLVED. Substrate-mechanism for R·r = 1/4 derives via
+# The CI-gated calibration count is THREE imported inputs {m_e, α, G}, all
+# value-fitted/mixed, NONE `real`-reduced to value (interlock-register.md:11-13
+# `calibration-params: clm-0ktpcn clm-5xon03 clm-dsb560`,
+# `expected-independent-count: 3`; :47 "Live count = 3"). The earlier
+# "one scale (ℓ_node) + Ω_freeze; α and G derive from u_0* at the magic-angle
+# operating point" reduction was RETRACTED (2026-06-14 G-ruling, B1+B2):
+# u_0* ≈ 0.187 is asserted/back-fit, α and G FIX it while 𝒥_cosmic TESTS it
+# (pass = chord, fail = echo), so the count does NOT drop below 3.
+# DISTINCT STANDING CLAIM (not the retracted reduction): the 2026-05-28 gating
+# clause that made structural closure contingent on ropelength-minimality
+# embedding-selection is RESOLVED (Q-EMBED-SEL-1 Phase 1+2+3, 2026-05-31;
+# merged via PR #59 at 7529f7ce). Substrate-mechanism for R·r = 1/4 derives via
 # Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-
 # Nyquist-cell-area identification (canonical at research/2026-05-31_Q-EMBED-SEL-
 # 1_step_c_result.md §2.3); cross-particle universal (Phase 2: electron + proton

@@ -42,8 +42,10 @@ invented). The exemplars and the factoring discipline:
 
   birefringence.py — vacuum-birefringence bench physics: AVE retardance
                  (sqrt-S Axiom-4 index shift, E^2-leading), AVE parity-odd
-                 optical-activity ROTATION (chiral srs +-75.462 deg/unit, the
-                 clean QED-zero discriminator), and the QED Euler-Heisenberg
+                 optical-activity ROTATION (the clean zero-vs-nonzero QED
+                 discriminator in FORM; the chiral-srs +-75.462 deg/unit magnitude
+                 is an ETA_ROT_PER_WRITHE engineering decree, NOT a bankable
+                 transport), and the QED Euler-Heisenberg
                  baseline (with the PVLAS A_e ~ 1.32e-24 T^-2 validate-on-known
                  anchor). FORWARD from ave.core.constants; the QED prefactor band
                  + PVLAS A_e are labeled non-AVE literature inputs. Grounded in
