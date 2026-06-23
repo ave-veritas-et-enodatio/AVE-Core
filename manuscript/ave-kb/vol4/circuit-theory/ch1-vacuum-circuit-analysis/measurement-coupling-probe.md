@@ -250,7 +250,7 @@ or control the small-signal drive? *(iv)* where is the boundary node/antinode fo
 | **AVE-Bench-VacuumMirror** | EM transverse / asymmetric-$\varepsilon$ | **MEASURE** | **Axiom 4** | drives $E$ to modulate $\varepsilon_{\mathrm{eff}}$, reads $\Gamma(V)$. |
 | **cRIO $C_{\mathrm{eff}}(V)$ saturation-onset** | EM / VCA mode | **MEASURE** | **Axiom 4** | ratiometric small-signal lock-in quadrature $C_{\mathrm{eff}}(V)$; the observable **IS** the reactance. **NOT power-matched — controlled small-signal, do not call it "matched."** Anchor: [`research/2026-06-10_crio-ceff-saturation-onset_prereg-draft.md`](../../../../../research/2026-06-10_crio-ceff-saturation-onset_prereg-draft.md):235 (§5 lock-in design), :237 (small-signal differential-$C$ principle). |
 | **Vacuum birefringence / optical-activity** | EM transverse (polarization) | **MEASURE** | **Axiom 4** | reads phase $\delta n(E)$. |
-| **GW-echo** | bulk longitudinal $Z_{\mathrm{bulk}}$ | **MEASURE** | **Axiom 4** | reads reflected amplitude at the saturation-$Z$ discontinuity (the bulk-sector siting question of §3.2 applies — flagged OPEN). |
+| **GW-echo** | shear $Z_{\mathrm{shear}}$ | **MEASURE** | **Axiom 4** | reads reflected amplitude at the saturation-$Z$ discontinuity (shear-channel horizon reflection; already LIGO-instrumented). |
 
 **Cleave-01 is the *only* READ-mode bench in the fleet, and the *only* Axiom-2 test.** The other four
 are all MEASURE-mode and all gated on **Axiom 4** (the saturation kernel). Consequence for falsification
