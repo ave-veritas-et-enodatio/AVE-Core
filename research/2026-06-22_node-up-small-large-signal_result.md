@@ -49,7 +49,7 @@ The open fork: **is the μ-grade a saturable reactor or an ideal inductor under 
 
 - **Candidate A — saturable reactor.** Kernel argument `r_μ = B_external/B_SNAP`. If correct, a static `B`
   shifts the μ operating point → vacuum birefringence under a DC magnet → PVLAS bites → AVE constrained.
-  Apparent support: `B_SNAP` is a flux-DENSITY yield (`constants.py`:444), and the fdtd engine wires
+  Apparent support: `B_SNAP` is a flux-DENSITY yield (the `B_SNAP` symbol in `constants.py`), and the fdtd engine wires
   `B_local = μ_0·|H|` against `b_yield` (`fdtd_3d.py`:231,:245).
 - **Candidate B — ideal relativistic inductor.** Kernel argument `r_μ = I_circ/I_max` (the internal
   circulating current). If correct, a static `B` (∂B/∂t = 0) drives no internal circulation → `S_μ = 1` →

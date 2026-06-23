@@ -149,9 +149,7 @@ Three corpus defects were grep-verified fixed/flagged on `analysis/k4-bloch-disp
   leaf. The relationship is internally consistent ($7.763\times10^{20}/2\pi=1.236\times10^{20}$ Hz).
 - **B2 (`OMEGA_C` symbol)** — `constants.py` `OMEGA_C = C_0 / L_NODE` (cited by SYMBOL); $\hbar\,$`OMEGA_C`$=m_ec^2$
   exactly, rel-err $0$. UNITS GUARD comment present.
-- **B3 (cite-drift)** — FLAGGED per flag-don't-fix: `2026-06-22_node-up-small-large-signal_result.md`:52 cites
-  `constants.py:444` for `B_SNAP`, but `:444` is `E_CRIT` and `B_SNAP` is at `:456` (both symbols exist → line
-  drift, not fabrication). Cite the SYMBOL `B_SNAP`, not the line. Build's claimed source for $\kappa_\gamma$,
+- **B3 (cite-drift)** — RESOLVED this revision (cite-the-symbol, bundled into #369): the `B_SNAP` cites that used a drifting `constants.py` line number — `2026-06-22_node-up-small-large-signal_result.md`:52, the `ave-analytical-toolkit-index.md` leaf, and Vol-9 ch02/ch10 — now use file-level pointers + the `B_SNAP` symbol. (`B_SNAP` is at `:456` on this branch, `:444` on main — exactly the drift the symbol-cite immunizes against.) Build's claimed source for $\kappa_\gamma$,
   `vacuum_node_circuit.photon_birefringence`, resolves at `src/ave/core/vacuum_node_circuit.py`:302 and its
   $q^4$-scaling test passes — no fabricated cite.
 
