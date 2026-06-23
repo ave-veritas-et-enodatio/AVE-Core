@@ -175,6 +175,7 @@ def _shared_form_ratio_spec(**over):
         is_physics_test=True,
         magnitude_is_claimed=True,
         result_is_numerical=False,
+        analytic_provenance="closed-form ratio (test fixture)",
     )
     base.update(over)
     return BenchSpec(**base)
@@ -562,3 +563,65 @@ class TestExports:
         ):
             assert hasattr(bench, name), name
             assert name in bench.__all__, name
+
+
+# ============================================================================
+# Adversarial — the gate must reconcile DECLARED labels against the COMPUTED
+# sweep, so a motivated author cannot DECLARE their way to a bankable verdict for
+# a result that discriminates nothing. (Regression for the #384 audit attacks.)
+# ============================================================================
+class TestAdversarialUnriggable:
+    def test_declared_zero_vs_nonzero_with_nonzero_sm_degenerate_fails(self):
+        # ATTACK 1: declare ZERO_VS_NONZERO but AVE == SM (sm nonzero, ratio ~ 1).
+        spec = _zero_vs_nonzero_spec(
+            ave_observable=lambda E: 5.0,
+            sm_observable=lambda E: 5.0,  # NONzero -> sm_identically_zero must be False
+        )
+        r = run_bench_model(spec)
+        assert not r.g3.sm_identically_zero
+        assert not r.g3.observables_diverge
+        assert r.g3.status is GateStatus.FAIL
+        assert r.verdict is Verdict.NOT_BANKABLE
+
+    def test_declared_zero_vs_nonzero_diverging_but_sm_nonzero_contradicts(self):
+        # ATTACK 1 variant: declare ZERO_VS_NONZERO, observables DIVERGE (ratio 10)
+        # but sm is NOT structurally zero -> the label contradicts the sweep.
+        spec = _zero_vs_nonzero_spec(
+            ave_observable=lambda E: 10.0,
+            sm_observable=lambda E: 1.0,
+        )
+        r = run_bench_model(spec)
+        assert r.g3.observables_diverge and not r.g3.sm_identically_zero
+        assert r.g3.axis_contradicts_sweep
+        assert r.g3.status is GateStatus.FAIL
+        assert r.verdict is Verdict.NOT_BANKABLE
+
+    def test_degenerate_ratio_not_rescuable_by_hollow_form_chord(self):
+        # ATTACK 2: degenerate ratio ~ 1 (AVE == SM) must NOT be rescued to the
+        # discriminator tier by adding a hollow non-gating CHORD axis.
+        spec = _shared_form_ratio_spec(
+            ave_observable=lambda E: 5.0,
+            sm_observable=lambda E: 5.0,  # ratio == 1, nothing diverges
+        )
+        r = run_bench_model(spec)
+        assert not r.g3.observables_diverge
+        assert r.g3.has_independent_form_chord  # the hollow chord is present...
+        assert r.g3.status is GateStatus.FAIL  # ...but the rescue does NOT fire
+        assert "degenerate" in r.g3.note
+        assert r.verdict is Verdict.NOT_BANKABLE
+
+    def test_analytic_exemption_requires_provenance(self):
+        # ATTACK 3: result_is_numerical=False with NO analytic_provenance must NOT
+        # dodge the G5 convergence requirement for a magnitude claim.
+        spec = _shared_form_ratio_spec(analytic_provenance="")
+        r = run_bench_model(spec)
+        assert r.g5.magnitude_claim_blocked
+        assert not r.g5.analytic_exemption_granted
+        assert r.verdict is Verdict.NOT_BANKABLE
+
+    def test_analytic_exemption_granted_with_provenance(self):
+        # the legitimate path: non-numerical + positive provenance earns the exemption.
+        r = run_bench_model(_shared_form_ratio_spec())  # base carries provenance
+        assert r.g5.analytic_exemption_granted
+        assert not r.g5.magnitude_claim_blocked
+        assert r.verdict is Verdict.BANKABLE_AS_DISCRIMINATOR

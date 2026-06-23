@@ -11,7 +11,8 @@ inputs, and hands a BenchSpec to ``run_bench_model``.
      coefficient bench. Imports the canonical physics layer
      (``ave.bench.birefringence``) rather than re-deriving it, and headlines the
      MATCHED par-perp DIFFERENTIAL ratio 7.5/alpha^3 ~ 1.93e7 (NOT the demoted
-     single-arm 4.14e6; FLAG-A 2026-06-21). Expected verdict:
+     single-arm 1/(4*(7/45)*alpha^3) ~ 4.14e6 = coefficient_ratio(7/45),
+     birefringence.py:320; FLAG-A 2026-06-21). Expected verdict:
      BANKABLE_AS_DISCRIMINATOR — a forced-given-alpha quantitative ratio + a
      tree-vs-loop FORM chord whose MAGNITUDE is a symmetric alpha-echo (the
      charter's intermediate Fork-2 tier; the 7.5-trace a94672de resolved input b).
@@ -216,7 +217,10 @@ def birefringence_bench_spec() -> BenchSpec:
         ),
         is_physics_test=True,
         magnitude_is_claimed=True,  # the 7.5/alpha^3 ratio is a quantitative claim
-        result_is_numerical=False,  # closed-form analytic -> no convergence sweep required
+        result_is_numerical=False,  # closed-form analytic
+        analytic_provenance="coefficient_ratio_differential() closed form (birefringence.py:328); "
+        "7.5 = lattice-1/2 / textbook-3/45, alpha^-3 via (E_CRIT/E_YIELD)^2 = 1/alpha — no "
+        "discretization to converge",
         regime_note="weak-field probe (A = E/E_YIELD << 1); facility-gated (E-route/HIBEF); "
         "PVLAS resolved (static-B delta_n == 0 exactly)",
         snr_signal=None,

@@ -564,10 +564,17 @@ class BenchSpec:
         FORM/existence only.
     result_is_numerical : bool
         True if the headline magnitude comes from a DISCRETIZED simulation (a grid
-        could introduce an artifact) — then a magnitude claim additionally
-        requires a G5 grid/resolution convergence sweep. False for a closed-form
-        analytic result (e.g. the birefringence 7.5/alpha^3 ratio), which has no
-        discretization to converge; the convergence sweep is then N/A.
+        could introduce an artifact). A closed-form analytic result has no
+        discretization to converge. NOTE: this flag alone does NOT earn the
+        convergence-sweep exemption — see ``analytic_provenance`` (self-attestation
+        cannot dodge the G5 requirement).
+    analytic_provenance : str
+        Positive provenance (a closed-form citation, e.g. "coefficient_ratio_
+        differential() closed form, birefringence.py:328") that the headline
+        magnitude is analytic. ONLY a magnitude claim that is non-numerical AND
+        carries a non-empty analytic_provenance earns the G5 convergence-sweep
+        exemption; a bare result_is_numerical=False with no provenance is BLOCKED
+        (the gate refuses to take "it's analytic" on the author's word alone).
     regime_note : str
         Optional free-text physical-regime note (e.g. "deep Regime I, per-node
         A0 ~ 1e-11" for cRIO), surfaced in the record for context.
@@ -591,6 +598,7 @@ class BenchSpec:
     is_physics_test: bool = True
     magnitude_is_claimed: bool = False
     result_is_numerical: bool = False
+    analytic_provenance: str = ""
     regime_note: str = ""
     snr_signal: Optional[float] = None
     snr_floor: Optional[float] = None
@@ -664,11 +672,13 @@ class G3SMCoComputed:
     discriminator_axis: DiscriminatorAxis
     shared_with: SharedWith
     field_independent: bool
-    sm_identically_zero: bool
+    sm_identically_zero: bool  # COMPUTED: counterpart structurally zero on the grid
+    observables_diverge: bool  # COMPUTED: ratio departs from 1 somewhere on the grid
     ratio_value: float  # the constant ratio if field-independent, else max
     max_divergence: float
     non_discriminating_on_shared_axis: bool
     has_independent_form_chord: bool
+    axis_contradicts_sweep: bool  # declared label inconsistent with the computed sweep
     n_grid: int
     note: str
 
@@ -679,10 +689,12 @@ class G3SMCoComputed:
             "shared_with": self.shared_with.value,
             "field_independent": self.field_independent,
             "sm_identically_zero": self.sm_identically_zero,
+            "observables_diverge": self.observables_diverge,
             "ratio_value": self.ratio_value,
             "max_divergence": self.max_divergence,
             "non_discriminating_on_shared_axis": self.non_discriminating_on_shared_axis,
             "has_independent_form_chord": self.has_independent_form_chord,
+            "axis_contradicts_sweep": self.axis_contradicts_sweep,
             "n_grid": self.n_grid,
             "note": self.note,
         }
@@ -745,7 +757,8 @@ class G5Sensitivity:
     result_kind: str  # "robust_positive" | "tuned_positive" | "no_positive"
     per_param: tuple[ParamSweepResult, ...]
     convergence_sweep_present: bool
-    magnitude_claim_blocked: bool  # magnitude claimed but no convergence sweep
+    magnitude_claim_blocked: bool  # magnitude claimed, no convergence sweep, no analytic provenance
+    analytic_exemption_granted: bool  # non-numerical + positive provenance -> convergence N/A
     response_surface_ref: str
     note: str
 
@@ -761,6 +774,7 @@ class G5Sensitivity:
             "per_param": [p.as_dict() for p in self.per_param],
             "convergence_sweep_present": self.convergence_sweep_present,
             "magnitude_claim_blocked": self.magnitude_claim_blocked,
+            "analytic_exemption_granted": self.analytic_exemption_granted,
             "response_surface_ref": self.response_surface_ref,
             "note": self.note,
         }
@@ -1007,60 +1021,68 @@ def _eval_g3(spec: BenchSpec, sweep: DivergenceSweepResult) -> G3SMCoComputed:
     else:
         diverges = False
 
-    # Step 2.5 auto-flag: discrimination claimed on the SHARED axis is
-    # non-discriminating; a MAGNITUDE/RATIO axis whose observables do not actually
-    # diverge (ratio ~ 1) is likewise non-discriminating (degenerate).
-    non_discriminating = (
-        (shared is SharedWith.FORM and axis is DiscriminatorAxis.RATIO)
-        or (shared is SharedWith.SCALE and axis is DiscriminatorAxis.MAGNITUDE)
-        or (axis in (DiscriminatorAxis.MAGNITUDE, DiscriminatorAxis.RATIO) and not diverges)
+    # Step 2.5: discrimination claimed on the SHARED axis (a RATIO on a shared
+    # FORM, or a MAGNITUDE on a shared SCALE) is non-discriminating.
+    non_discriminating_shared = (shared is SharedWith.FORM and axis is DiscriminatorAxis.RATIO) or (
+        shared is SharedWith.SCALE and axis is DiscriminatorAxis.MAGNITUDE
     )
-    # an independent FORM-within-form chord rescues a shared-axis ratio to the
-    # discriminator tier (the birefringence tree-vs-loop case): a NON-GATING axis
-    # tagged form=chord whose discriminator is structural (not a magnitude). The
-    # gating axis itself cannot rescue its own shared-axis ratio — the rescue
-    # must come from a distinct, independent structural axis.
+    # an independent (NON-GATING) structural FORM chord can rescue a shared-axis
+    # ratio to the discriminator tier (the birefringence tree-vs-loop case) — but
+    # ONLY when the observables actually diverge (the degenerate branch below runs
+    # first, so a rescue can never manufacture discrimination from a ratio ~ 1).
+    # The gating axis cannot rescue its own shared-axis ratio.
     has_form_chord = any(
         (not a.is_gating_axis)
         and a.form_tag is ChordEcho.CHORD
         and a.discriminator_axis is not DiscriminatorAxis.MAGNITUDE
         for a in spec.axis_tags
     )
-    unshared_or_zero = (
-        shared is SharedWith.NONE
-        or sm_zero
-        or axis
-        in (
-            DiscriminatorAxis.ZERO_VS_NONZERO,
-            DiscriminatorAxis.SLOPE,
-            DiscriminatorAxis.EXISTENCE,
-        )
-    )
 
-    if unshared_or_zero:
-        status = GateStatus.PASS
-        note = "discriminator on an UNSHARED axis (or zero-vs-nonzero / slope) — full discriminator."
-    elif non_discriminating and not has_form_chord:
+    # RECONCILE the declared label against the COMPUTED sweep — PASS is EARNED by
+    # observed discrimination, never granted by a self-declared label (the gate
+    # must be unriggable). A declared zero-vs-nonzero / existence axis requires a
+    # computed structural zero; ANY discriminator requires the observables to
+    # actually diverge (or the counterpart to be structurally zero).
+    axis_claims_zero = axis in (DiscriminatorAxis.ZERO_VS_NONZERO, DiscriminatorAxis.EXISTENCE)
+    axis_contradicts = axis_claims_zero and not sm_zero
+
+    if not diverges and not sm_zero:
+        # degenerate: AVE == SM on the grid (ratio ~ 1, counterpart NOT structurally
+        # zero) — nothing is discriminated. UNCONDITIONAL, non-rescuable FAIL.
         status = GateStatus.FAIL
-        if not diverges:
-            note = (
-                "degenerate: the co-computed observables do not diverge (ratio ~ 1) "
-                "on the swept grid — nothing is discriminated, NOT bankable."
-            )
-        else:
-            note = (
-                "Step 2.5: discrimination claimed on the SHARED axis with no "
-                "independent FORM chord — non-discriminating, NOT bankable."
-            )
-    elif non_discriminating and has_form_chord:
+        note = (
+            "degenerate: the co-computed observables do not diverge (ratio ~ 1) and the "
+            "counterpart is not structurally zero — nothing is discriminated, NOT "
+            "bankable (non-rescuable, no form chord can manufacture discrimination)."
+        )
+    elif axis_contradicts:
+        # declared a zero-vs-nonzero / existence discriminator, but the COMPUTED
+        # counterpart is not structurally zero — the label contradicts the sweep.
+        status = GateStatus.FAIL
+        note = (
+            "declared a zero-vs-nonzero/existence discriminator, but the co-computed "
+            "counterpart is NOT structurally zero (sm != 0) — the declared label "
+            "contradicts the computed sweep, NOT bankable."
+        )
+    elif sm_zero:
+        # genuine zero-vs-nonzero, COMPUTED (counterpart structurally zero on the grid).
+        status = GateStatus.PASS
+        note = "counterpart structurally zero on the grid (computed) — genuine zero-vs-nonzero discriminator."
+    elif non_discriminating_shared and not has_form_chord:
+        status = GateStatus.FAIL
+        note = (
+            "Step 2.5: discrimination claimed on the SHARED axis with no independent "
+            "FORM chord — non-discriminating, NOT bankable."
+        )
+    elif non_discriminating_shared and has_form_chord:
         status = GateStatus.PASS
         note = (
-            "shared-axis ratio rescued by an independent FORM-within-form chord "
-            "(tree-vs-loop); discriminator tier (magnitude carries calibration)."
+            "shared-axis ratio rescued by an independent DIVERGING FORM-within-form "
+            "chord (tree-vs-loop); discriminator tier (magnitude carries calibration)."
         )
     else:
         status = GateStatus.PASS
-        note = "discriminator axis classified; AVE-distinct on the swept grid."
+        note = "declared axis reconciled against a diverging co-computed sweep — AVE-distinct."
 
     return G3SMCoComputed(
         status=status,
@@ -1068,10 +1090,12 @@ def _eval_g3(spec: BenchSpec, sweep: DivergenceSweepResult) -> G3SMCoComputed:
         shared_with=shared,
         field_independent=field_independent,
         sm_identically_zero=sm_zero,
+        observables_diverge=diverges,
         ratio_value=ratio_value,
         max_divergence=float(sweep.max_divergence),
-        non_discriminating_on_shared_axis=non_discriminating,
+        non_discriminating_on_shared_axis=non_discriminating_shared,
         has_independent_form_chord=has_form_chord,
+        axis_contradicts_sweep=axis_contradicts,
         n_grid=int(sweep.x.size),
         note=note,
     )
@@ -1137,6 +1161,7 @@ def _eval_g5(spec: BenchSpec, robust_threshold: float = 0.5) -> Optional[G5Sensi
                 per_param=(),
                 convergence_sweep_present=False,
                 magnitude_claim_blocked=spec.magnitude_is_claimed,
+                analytic_exemption_granted=False,
                 response_surface_ref="",
                 note="no sensitivity sweep supplied — single-point result books NEGATIVE.",
             )
@@ -1167,10 +1192,14 @@ def _eval_g5(spec: BenchSpec, robust_threshold: float = 0.5) -> Optional[G5Sensi
     )
 
     conv_present = sens.convergence_param is not None
-    # a convergence (grid/resolution) sweep is required ONLY for a NUMERICAL
-    # magnitude claim — a closed-form analytic result has no discretization to
-    # converge, so the requirement is N/A there.
-    mag_blocked = bool(spec.magnitude_is_claimed and spec.result_is_numerical and not conv_present)
+    # A magnitude claim must be backed by EITHER a convergence (grid/resolution)
+    # sweep OR a positive analytic-provenance citation (a closed-form has no
+    # discretization to converge). The analytic exemption is earned ONLY by a
+    # non-numerical result that ALSO carries a non-empty analytic_provenance — a
+    # bare result_is_numerical=False with no provenance is self-attestation and is
+    # BLOCKED (the gate refuses to dodge convergence on the author's word alone).
+    analytic_exemption = (not spec.result_is_numerical) and bool(spec.analytic_provenance.strip())
+    mag_blocked = bool(spec.magnitude_is_claimed and not conv_present and not analytic_exemption)
 
     if n_in == 0:
         status = GateStatus.FAIL
@@ -1183,7 +1212,10 @@ def _eval_g5(spec: BenchSpec, robust_threshold: float = 0.5) -> Optional[G5Sensi
     elif mag_blocked:
         status = GateStatus.FAIL
         result_kind = "robust_positive"
-        note = "magnitude claimed but no convergence (grid/resolution) sweep — BLOCKED."
+        note = (
+            "magnitude claimed but neither a convergence (grid/resolution) sweep nor a "
+            "positive analytic_provenance citation — BLOCKED (self-attestation insufficient)."
+        )
     elif frac >= robust_threshold:
         status = GateStatus.PASS
         result_kind = "robust_positive"
@@ -1206,6 +1238,7 @@ def _eval_g5(spec: BenchSpec, robust_threshold: float = 0.5) -> Optional[G5Sensi
         per_param=per_param,
         convergence_sweep_present=conv_present,
         magnitude_claim_blocked=mag_blocked,
+        analytic_exemption_granted=analytic_exemption,
         response_surface_ref=sens.response_surface_ref,
         note=note,
     )
