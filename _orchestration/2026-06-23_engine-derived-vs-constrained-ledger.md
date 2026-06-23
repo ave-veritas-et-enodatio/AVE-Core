@@ -3,20 +3,15 @@
 **Date:** 2026-06-23 · **Status:** for review — orchestrator adversarial audit + Grant merge pending.
 **Lane:** engine-consolidation (D1). **Scope:** AVE-Core engine + KB, HEAD = `origin/main`.
 
-> **PLACEMENT IS A GRANT-CALL.** This document is staged in `_orchestration/` (the lane's staging
-> area). Its proposed canonical home is a KB common leaf — e.g.
-> `manuscript/ave-kb/common/engine-derived-vs-constrained-ledger.md` — which would make it greppable
-> and citable but would require KB front-matter + claim-ids + the `verify-kb-metadata` gate. The two
-> options for Grant:
-> - **(a)** Promote to `common/` as a canonical leaf (full KB metadata, cross-linked from
->   `claim-quality.md` and `interlock-register.md`). Best if this is to be cited as the cross-cutting
->   tier authority.
-> - **(b)** Keep in `_orchestration/` as a living lane artifact (no KB metadata burden, clearly a
->   "derived summary, not a leaf"). Best if `claim-quality.md` + `interlock-register.md` remain the
->   sole canonical registers and this is a navigational overlay.
+> **PLACEMENT — RESOLVED (Grant Q0, orchestrator audit 2026-06-23): keep in `_orchestration/`.** Per
+> INVARIANT-S7, a derived cross-cutting summary is a routing aid, **not** a canonical leaf; promoting it to
+> a KB `common/` leaf would create a stale-mirror liability against the canonical leaves. So this stays an
+> `_orchestration/` living artifact (no KB metadata burden), and the promotion-conditional polish nits
+> (full `src/ave/…` anchor paths, `p_c` dedicated-claim re-anchor, A-034 partition wording) are **not
+> applied** — they would only matter under a promotion that is not happening.
 >
-> Either way this is a **derived summary**: the canonical leaves are the source of truth. Where this
-> ledger and a leaf disagree, the leaf wins.
+> This is a **derived summary**: the canonical leaves (`claim-quality.md`, `interlock-register.md`) are the
+> source of truth. Where this ledger and a leaf disagree, the leaf wins.
 
 ---
 
@@ -93,16 +88,18 @@ would be the over-reach.
 | Result | FORM (forced) | VALUE | Band | Anchor |
 |---|---|---|---|---|
 | Charge Q = Link ∈ ℤ | exact integer topological charge | reconciliation **OPEN** (C.3: helicity returns ~18% of p·q) | — | carrier-sector arc |
-| sin²θ_W = 2/9 | forced ratio from ν_vac=2/7 + PAT | **conditional on the K=2G import** (ν_vac=2/7 is GR-borrowed) | 0.85‡ | clm-5zuo7g |
+| sin²θ_W = 2/9 | forced ratio (FORM) from ν_vac=2/7 + PAT | **VALUE capped at the K=2G import** (ν_vac=2/7 is GR-borrowed) | 0.55‡ | clm-5zuo7g |
 | α_s = α^(3/7) | forced exponent 3/7 | dimensionless **value rides the α echo** | 0.50 | clm-ome498 |
 | proton m_p/m_e | cinquefoil-confined Faddeev-Skyrme topology forced | rides imported m_e + α + **chosen Skyrme ansatz + Gaussian flux-tube** | 0.63 | clm-mnb3lt, clm-oygz1i |
 | baryon ladder | shared no-retune ladder structure | each mass value rides m_e echo + ansatz; ~2% band | 0.63 | clm-mnb3lt |
 | finite-by-construction / no-renorm | geometric ℓ_node cutoff removes UV divergences (**structural, no value**) | — (QED-equivalent, not AVE-distinct) | T1-strong | q-g20a/q-g20f; `vol2/claim-quality.md:1425-1429` |
 
-‡ **GENUINE OVER-REACH — Grant-call (see §5).** The 0.85 does **not** propagate the ν_vac=2/7
-(= K=2G, clm-iouqn9, **0.55 input-only**) import cap, because the `depends-on` graph wires
-clm-5zuo7g only to Axiom-1 + INVARIANT-S2, **not** to the import. By the project's own
-min-over-dependencies solidity rule, a ratio riding a 0.55 import should not out-rank it at 0.85.
+‡ **RESOLVED (Grant Q1, executed in D2).** This was a genuine over-reach: the prior 0.85 did **not**
+propagate the ν_vac=2/7 (= K=2G, clm-iouqn9, **0.55 input-only**) import cap, because the `depends-on`
+graph wired clm-5zuo7g only to Axiom-1 + INVARIANT-S2, **not** to the import. Grant ruled to **cap at the
+import**: D2 added the `clm-5zuo7g → clm-iouqn9` depends-on edge and ran `refresh-kb-metadata`, so the
+min-over-dependencies rule now caps clm-5zuo7g to **0.55** (one downstream re-rate: clm-q8un7j 0.63→0.55).
+The **FORM** (1−1/(1+ν_vac)) remains derived; only the **VALUE** 2/9 is import-capped.
 
 ### T4 — CONSISTENCY-CHECK (reproduces a known result via reinterpretation)
 | Result | Status | Band | Anchor |
@@ -186,18 +183,22 @@ Two universal operators do real ranking work and belong in this ledger:
 ### Over-reach watch (carried from the refute-by-default audit)
 1. **ξ_topo (T2)** — derived-FORM / **imported-VALUE**. Carry the qualifier; never headline it as
    "value derived." *(Canonicalization risk, not a current index error.)*
-2. **Weinberg sin²θ_W = 2/9 (T3)** — scored 0.85 but rides the 0.55 K=2G import; the `depends-on` edge
-   to the import is **missing**, so the score is not import-capped. **GRANT-CALL** (§6, Q1).
+2. **Weinberg sin²θ_W = 2/9 (T3)** — **RESOLVED (Q1):** was scored 0.85 with the `depends-on` edge to the
+   0.55 K=2G import missing; D2 wired the edge + refreshed, capping it to **0.55** (FORM derived, VALUE
+   import-capped). The T3 band above reflects the cap.
 
 ---
 
-## 6. Grant-calls surfaced (do not resolve in this lane)
+## 6. Grant-calls (resolved by the orchestrator audit, 2026-06-23)
 
-- **Q0 — Placement** of this ledger: KB `common/` leaf (a) vs `_orchestration/` artifact (b). See header.
-- **Q1 — Weinberg import-cap.** The vacuum Poisson ratio 2/7 is scored as if it were a free dial, but
-  it is the GR-borrowed K=2G value. Should sin²θ_W=2/9's tier be **capped at the import's 0.55** (wire
-  the `depends-on` edge clm-5zuo7g → clm-iouqn9), or **stay 0.85 with a "conditional-on-import"
-  asterisk**? This ledger uses the asterisk (‡) pending the call; it does **not** rewire the index.
+- **Q0 — Placement: RESOLVED → keep in `_orchestration/`.** Per INVARIANT-S7 a derived cross-cutting
+  summary is a routing aid, not a canonical leaf; promotion to a KB `common/` leaf would be a
+  stale-mirror liability. The three promotion-conditional nits (full `src/ave/…` anchor paths,
+  `p_c`→dedicated-claim re-anchor, A-034 partition wording) are therefore **not needed**.
+- **Q1 — Weinberg import-cap: RESOLVED → cap at the import.** Grant ruled the ν_vac=2/7 value is the
+  GR-borrowed K=2G import, not a free dial. D2 wired the `clm-5zuo7g → clm-iouqn9` depends-on edge and ran
+  `refresh-kb-metadata`; the min-rule capped sin²θ_W=2/9 to **0.55** (one downstream re-rate clm-q8un7j
+  0.63→0.55). The T3 row + ‡ footnote above reflect this. FORM derived, VALUE import-capped.
 - *(Cross-lane, for context)* D2(a) surfaces the `eq_axiom_4.tex` physical-subset(19)-vs-total(26)
   fork; D2(b) surfaces the √(3/7) "torsion-shear" label; D2(c) surfaces the predictions.yaml
   type-axis re-tags. Those are owned by the D2 PR.
