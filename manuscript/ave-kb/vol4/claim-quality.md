@@ -1454,3 +1454,62 @@ The electron's EE field components — a real (resistive/radiative) part $R$ and
   - A K4-native graded-$A_0(x)$ FDTD confirmation (CPML, PML-excluded probe, reactance-pair tracking of both $V$ and $I$ states) once the VCA-R01 engine $\mu$-keying bug is fixed.
 
 ---
+
+## Lossless-Port Measurement Back-Action = Re(Z_probe)/Z_channel
+<!-- id: clm-zp4kqr -->
+
+In a lossless-reactive substrate (Axiom 3) the entire **irreversible** measurement back-action on a substrate mode is carried by the probe port's resistive part, with **no internal-medium-loss term**: $(\Delta U/U)_{\text{per cycle}} = \kappa\,\mathrm{Re}(Z_{probe})/Z_{channel}$, $\kappa = O(1)$ port coupling. The reactive part $\mathrm{Im}(Z_{probe})$ contributes a conservative, calibratable mode-detuning only. This specializes standard loaded-$Q$ to a lossless medium by *removing* a term, not adding one; the READ-mode non-invasiveness axis is therefore $\mathrm{Re}(Z_{probe})/Z_{channel}\to0$, **not** $|Z_{probe}|$ large.
+
+- _Specific Claims_
+  - Back-action (irreversible energy drain) $= \kappa\,\mathrm{Re}(Z_{probe})/Z_{channel}$; in a lossless substrate $\mathrm{Re}(Z_{probe})$ is the exact and entire *energy* back-action budget (no internal-loss sink).
+  - $\mathrm{Im}(Z_{probe})$ detunes the mode (calibratable systematic), does not drain it.
+  - The READ-mode design axis is the resistive ratio, not the magnitude; $|Z_{probe}|$ is a proxy that fails for any lossy high-$|Z|$ probe.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY, not emergence / not a chord** (consistency-vs-emergence): predicts no measurable beyond ordinary loaded-$Q$ once Axiom 3 is granted. The lossless axiom removes a term; it does not produce new physics.
+  - "Entire back-action" scopes the *energy* (irreversible) budget only — $\mathrm{Im}(Z_{probe})$ still detunes the mode as a separate, calibratable term.
+  - Most of the surrounding measurement-coupling primitive (read-vs-measure, reactive-tap) is **textbook EE**, asserted-as-textbook, not AVE-distinct.
+  - The symbol $Z_{probe}$ and the ratio name are **proposed, pending Grant ratification** (no new substrate-object glyph — INVARIANT-N1).
+
+> **Leaf references:** [measurement-coupling-probe](./circuit-theory/ch1-vacuum-circuit-analysis/measurement-coupling-probe.md).
+
+### Quality
+- confidence: 0.7
+- depends-on:
+  - Axiom 3 (lossless-reactive substrate — removes the internal-loss sink)
+  - clm-rtdmsn — loaded-vs-intrinsic $Q$ / the matched-port per-cycle leak (solidity 0.85)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.85)]
+- rationale: A clean CONSISTENCY-class reframing: standard loaded-$Q$ back-action ($\propto$ resistive fraction of the loading impedance) specialized to a lossless medium, where Axiom 3 removes the internal-loss term so $\mathrm{Re}(Z_{probe})$ becomes the exact and entire energy budget. The algebra is the textbook loaded-resonator ledger (cited, not novel); the AVE-specific step is the single term-removal granted by Axiom 3. Pinned mid-band because it is a faithful specialization of existing canon with a correct, narrow lossless sharpening — not new physics (it adds no measurable beyond loaded-$Q$) and not a magnitude-framing (it explicitly undercuts $|Z|$). Capped below the spine because $\kappa$ is left as an $O(1)$ port factor rather than derived per geometry, and the symbol naming is unratified.
+- strengthen-by:
+  - Derive the $\kappa$ port coupling factor from the specific port geometry (the existing coupling-coefficient $k$, resonant-lc-solitons.md:118) so the relation is quantitative, not proportional.
+  - Grant-ratify the $Z_{probe}$ symbol + the $\mathrm{Re}(Z_{probe})/Z_{channel}$ ratio name.
+
+---
+
+## Bench-Fleet Mode Partition (READ/MEASURE) Maps onto the Axiom Partition (Ax2/Ax4)
+<!-- id: clm-zp7bds -->
+
+The vacuum-impedance-network measurement frame partitions the falsification-bench fleet by coupling mode, and the mode partition maps onto the axiom partition: **Cleave-01** (femto-electrometer) is the only **READ-mode** bench and the only **Axiom-2** test; the other four benches (VacuumMirror, cRIO $C_{eff}(V)$, vacuum birefringence, GW-echo) are all **MEASURE-mode** and all gated on **Axiom 4** (the saturation kernel). Consequence: **Ax2-fail $\neq$ Ax4-fail** — the framework can survive a partial falsification with a clean walk-back, and this primitive makes that partition explicit.
+
+- _Specific Claims_
+  - Every bench classifies as READ (minimize $\mathrm{Re}(Z_{probe})/Z_{channel}$) or MEASURE (controlled small-signal, observable IS the reactance/response).
+  - Cleave-01 = unique READ-mode / unique Axiom-2 bench; the other four = MEASURE-mode / Axiom-4.
+  - The mode partition coincides with the axiom partition, so Ax2-fail and Ax4-fail are independently survivable.
+- _Specific Non-Claims and Caveats_
+  - **A design-organizing / classification claim**, not a physics claim — it correctly classifies existing bench designs; it predicts nothing on its own.
+  - The MEASURE-mode coupling is **NOT power-matched** ("matched" re-imports the magnitude error); it is controlled small-signal (ratiometric lock-in for cRIO).
+  - The bulk-sector READ coupling LOCATION (short vs rigid) is **OPEN, routed to Grant** (flag-don't-fix).
+
+> **Leaf references:** [measurement-coupling-probe](./circuit-theory/ch1-vacuum-circuit-analysis/measurement-coupling-probe.md).
+
+### Quality
+- confidence: 0.6
+- depends-on:
+  - clm-kezk9z — $Z_0$ + the three-impedance-law channel set (solidity 0.90)
+  - clm-zp4kqr — the READ-mode $\mathrm{Re}(Z_{probe})/Z_{channel}$ axis (this leaf)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.70)]
+- rationale: A framing/classification claim (it explicitly "predicts nothing on its own"). The READ/MEASURE-vs-Ax2/Ax4 mapping is a correct, useful organization of the existing bench fleet and gives every future bench a four-question design checklist. Pinned at the framing-claim band: it is sound as an organizing partition and the per-bench tags are corpus-cited, but it is a design language, not a derivation, and one of its siting questions (bulk-sector short-vs-rigid) is still open. "Use as input only" because building deeper physics on a classification scheme would over-weight a checklist.
+- strengthen-by:
+  - Resolve the bulk-sector coupling-location open question (§3.2 of the leaf, routed to Grant) so the GW-echo MEASURE-mode row's coupling note is settled.
+  - Confirm each bench's mode/axiom tag against its own prereg as those benches mature past draft.
+
+---
