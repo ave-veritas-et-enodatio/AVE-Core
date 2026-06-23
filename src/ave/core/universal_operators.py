@@ -33,12 +33,12 @@ adherence to the core axioms without local redefinitions.
 
 A-034 NOTE (canonical 2026-05-15 evening): Operator 2 (universal_saturation,
 the saturation kernel S(A) = √(1−A²)) is the SAME mechanism applied across
-19 catalog instances spanning 21 orders of magnitude — from atomic dielectric
+26 catalog instances spanning 21 orders of magnitude — from atomic dielectric
 breakdown to cosmic K4 crystallization. Per Grant 2026-05-15:
 "the bulk response of the lattice to strain is universal." See:
   - L5 `research/_archive/L5/axiom_derivation_status.md` A-034 (canonical entry)
   - Vol 3 Ch 4 §sec:tki_strain_snap (manuscript canonical)
-  - Backmatter Ch 7 `07_universal_saturation_kernel.tex` (19-instance catalog)
+  - Backmatter Ch 7 `07_universal_saturation_kernel.tex` (26-instance catalog)
   - `manuscript/ave-kb/common/trampoline-framework.md` §7.5 (user-facing synthesis)
 
 Caller note: when invoking universal_saturation() in a new domain, consider
@@ -82,7 +82,7 @@ def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.nd
 
     A-034 (canonical 2026-05-15 evening): this kernel is the UNIVERSAL
     mechanism governing every topological-reorganization event at every
-    scale. 19 canonical instances span 21 orders of magnitude (atomic
+    scale. 26 canonical instances span 21 orders of magnitude (atomic
     pair creation, BCS B_c(T) at 0.00% error, BH ring-down at 1.7% from
     GR, NOAA-validated solar flares, K4 substrate magic-angle, cosmic
     Big Bang crystallization, etc.). The vertical tangent at A=1 makes

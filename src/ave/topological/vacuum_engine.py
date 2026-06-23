@@ -76,7 +76,7 @@ A-034 + Q-G47 framework context (2026-05-15 evening)
 This engine instantiates the substrate-scale instance of A-034 (Universal
 Saturation-Kernel Strain-Snap Mechanism). The Axiom-4 saturation kernel
 S(A) = √(1−A²) is the universal mechanism governing every topological-
-reorganization event at every scale (19-instance catalog spanning 21 orders
+reorganization event at every scale (26-instance catalog spanning 21 orders
 of magnitude). At substrate scale, the K4 magic-angle K(u_0*) = 2G(u_0*)
 IS the substrate-scale expression of S(A*) = 0 — the substrate is
 "frozen at the saturation boundary" where bound-state solitons stabilize.

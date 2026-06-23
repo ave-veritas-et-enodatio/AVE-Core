@@ -58,7 +58,7 @@ FIX u_0* (so their agreement is guaranteed by construction); only Route 3
 A-034 UNIVERSAL KERNEL (canonical 2026-05-15 late evening): the constants
 defined below (V_SNAP, V_YIELD, ℓ_node, T_EM, etc.) parameterize the
 substrate-scale instance of A-034 (Universal Saturation-Kernel Strain-Snap
-Mechanism). The same kernel S(A) = √(1−A²) governs 19 catalog instances
+Mechanism). The same kernel S(A) = √(1−A²) governs 26 catalog instances
 spanning 21 orders of magnitude — the constants below ARE the substrate-
 scale values; the kernel form is universal. Q-G47 Sessions 9-18
 (2026-05-15 evening) closed Q-G47 at substrate level: K(u_0*) = 2 G(u_0*)

@@ -24,7 +24,7 @@ Three operating regimes (per Vol 1 Ch 4:138-159):
   III. Dielectric Rupture (A ≥ 1): substrate phase-transitions (clipped here)
 
 A-034 (canonical 2026-05-15 evening): the S(A) = √(1−A²) kernel here IS
-the universal A-034 mechanism — same kernel that governs 19 catalog
+the universal A-034 mechanism — same kernel that governs 26 catalog
 instances across 21 orders of magnitude (atomic pair creation, BCS 0.00%
 error, BH ring-down 1.7% from GR, NOAA-validated solar flares, cosmic K4
 crystallization). The vertical tangent at A=1 is what makes Regime III

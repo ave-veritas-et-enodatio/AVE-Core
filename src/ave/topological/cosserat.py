@@ -62,6 +62,16 @@ COS_THETA_W: float = sqrt(COS2_THETA_W)  # = sqrt(7)/3 = 0.88192
 # Internal (torsion-shear) coupling from J=2I + nu=2/7:
 # This is the factor that appears in the M_W derivation via the
 # Perpendicular Axis Theorem: sqrt(GJ/EI) = sqrt(2G/E) = sqrt(2G/(2G(1+nu)))
+#
+# OPEN FLAG (Rule 12 -- "torsion-shear / PAT" label on sqrt(3/7); Grant physics
+#   adjudication pending; constant NOT renamed, numeric value unaffected either way):
+#   sqrt(3/7) = sqrt(1 - 2*nu_vac) at nu_vac = 2/7 is the dilatational/bulk elastic
+#   signature, not the deviatoric/shear one -- (1-2nu) = bulk/volumetric, while
+#   (1+nu) = 9/7 is the shear combination used elsewhere (the M_Z = M_W * 3/sqrt(7)
+#   row below). Whether an independent torsion route reaches sqrt(3/7), or the
+#   "torsion-shear" label is simply wrong, is deferred to Grant. Canonical flag:
+#   manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/lepton-spectrum.md
+#   (Generation 2) and manuscript/ave-kb/common/full-derivation-chain.md.
 _SIN_THETA_W_PAT: float = sqrt(3.0 / 7.0)  # = 0.65465 (Perpendicular Axis Theorem)
 
 # =============================================================================
@@ -101,7 +111,7 @@ _SIN_THETA_W_PAT: float = sqrt(3.0 / 7.0)  # = 0.65465 (Perpendicular Axis Theor
 #   pi        -- spherical geometry of 1/r^2 integral
 #   alpha^2   -- two-vertex coupling (Axiom 4 dielectric x2)
 #   p_c       -- packing fraction (Axiom 4: Saturation)
-#   sqrt(3/7) -- torsion-shear projection (PAT + nu = 2/7)
+#   sqrt(3/7) -- torsion-shear projection (PAT + nu = 2/7)  [label OPEN-FLAGGED, see _SIN_THETA_W_PAT defn]
 #   2*pi      -- ring topology of the unknot (Axiom 1)
 #
 # TREE LEVEL: M_W_tree = m_e / (alpha^2 * p_c * sqrt(3/7))
@@ -534,7 +544,7 @@ _NU_SPECTRUM = neutrino_flavor_spectrum()
 #   The unknot absorbs one quantum of torsional coupling.
 #   The coupling constant is alpha * sqrt(3/7):
 #     alpha   = dielectric compliance (one chirality interaction)
-#     sqrt(3/7) = PAT torsion-shear projection
+#     sqrt(3/7) = PAT torsion-shear projection  [label OPEN-FLAGGED, see _SIN_THETA_W_PAT defn]
 #   m_mu = m_e / (alpha * sqrt(3/7))
 #   Only ONE factor of alpha because the muon is a static defect;
 #   the W boson needs alpha^2 because it creates AND destroys.

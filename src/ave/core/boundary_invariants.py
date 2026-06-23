@@ -48,7 +48,7 @@ Framework cross-refs:
   - A-034 Universal Saturation-Kernel Strain-Snap Mechanism: the
     saturation-kernel mechanism IS observable at 4 smaller scales (BCS
     0.00%, NOAA solar 40-yr, BH ring-down 1.7% from GR, Schwarzschild
-    exact) per the 19-instance catalog at
+    exact) per the 26-instance catalog at
     `manuscript/backmatter/07_universal_saturation_kernel.tex`.
   - Engine target: `src/ave/core/master_equation_fdtd.py` MasterEquationFDTD.V field
 
