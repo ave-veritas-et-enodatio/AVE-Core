@@ -51,7 +51,7 @@ $$
 
 **Comparison:** The PDG on-shell value is $\sin^2\theta_W = 0.2230$, a deviation of $-0.35\%$. The commonly cited $\overline{\text{MS}}$ value ($0.2312$) differs from the on-shell value by radiative corrections; the AVE derivation predicts the pole mass ratio, which is the correct physical comparison.
 
-An internal coupling constant used in the W mass derivation is the torsion-shear projection from the PAT:
+An internal coupling constant used in the W mass derivation is the torsion-shear projection from the PAT: <!-- 🔴 OPEN FLAG (Rule 12): the "torsion-shear / PAT" label on $\sqrt{3/7}$ is contested — $\sqrt{3/7} = \sqrt{1-2\nu_{vac}}$ at $\nu_{vac}=2/7$ is the dilatational/bulk elastic signature, not deviatoric/shear. See the canonical 🔴 flag in lepton-spectrum.md (Generation 2) + common/full-derivation-chain.md. Grant's physics adjudication pending; label preserved unchanged. -->
 
 $$
 \sin\theta_W^{(\text{PAT})} = \sqrt{\frac{3}{7}} \approx 0.6547

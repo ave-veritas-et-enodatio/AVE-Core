@@ -131,7 +131,7 @@
 
 - $m_W = m_e/(\alpha^2 p_c \sqrt{3/7})$, $m_Z = m_W \cdot 3/\sqrt{7}$
 - _Specific Claims_
-  - Both $M_W$ ($-0.57\%$ vs $80{,}379$ MeV) and $M_Z$ ($-0.62\%$ vs $91{,}188$ MeV) are derived from $m_e$, $\alpha$, $\nu_{vac} = 2/7$, and $p_c = 8\pi\alpha$. The $\alpha^2$ scaling reflects the $W$ self-energy as a **two-vertex process** (second-order perturbation theory in the chiral susceptibility); the $\sqrt{3/7}$ factor is the PAT torsion-shear projection.
+  - Both $M_W$ ($-0.57\%$ vs $80{,}379$ MeV) and $M_Z$ ($-0.62\%$ vs $91{,}188$ MeV) are derived from $m_e$, $\alpha$, $\nu_{vac} = 2/7$, and $p_c = 8\pi\alpha$. The $\alpha^2$ scaling reflects the $W$ self-energy as a **two-vertex process** (second-order perturbation theory in the chiral susceptibility); the $\sqrt{3/7}$ factor is the PAT torsion-shear projection. <!-- 🔴 OPEN FLAG (Rule 12): the "PAT torsion-shear" label on $\sqrt{3/7}$ is contested — $\sqrt{3/7} = \sqrt{1-2\nu_{vac}}$ at $\nu_{vac}=2/7$ is the dilatational/bulk elastic signature, not deviatoric/shear. See the canonical 🔴 flag in ch06-electroweak-higgs/lepton-spectrum.md (Generation 2) + common/full-derivation-chain.md. Grant's physics adjudication pending; label preserved unchanged. -->
 - _Specific Non-Claims and Caveats_
   - Does NOT claim derivation of the Higgs VEV $v = 246$ GeV from independent first principles. The Higgs mechanism is reinterpreted (see Higgs Mass entry below) — VEV is identified with $Z_0 = 376.73\,\Omega$ characteristic impedance.
   - Does NOT claim the $W$/$Z$ widths or branching ratios are derived in the same chain. Only the pole masses and the on-shell mixing angle.
