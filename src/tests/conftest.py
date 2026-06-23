@@ -41,6 +41,17 @@ _ENGINE_SIM_TESTS = {
     "test_loop_gap_harness_rank1_regime.py::test_dlite_battery_smoke",     # T2 battery
     "test_loop_gap_harness_bulk_channel.py::test_f1_bulk_on_differs_from_off",   # borderline-wiring + redundant w/ fast keepers
     "test_loop_gap_harness_bulk_channel.py::test_f2_channel_tags_on_bulk_probe", # T1 (flag/tag presence; mistagged T0 in ledger)
+    # Phase-1 chiral-OA Gate-2 convergence cascades (T2 drivers; 15-238s each, ~656s total
+    # of the PR-gate wall-clock). The gate1/gate3/loop keepers in the same file STAY gating
+    # (fast operator/lossless/holonomy checks). Coverage preserved via `make test-engine`.
+    "test_chiral_vector_tlm_phase1.py::test_gate2_bulk_forward_channel_rate_converges_to_screw_pitch",
+    "test_chiral_vector_tlm_phase1.py::test_gate2_bulk_rate_enantiomorph_sign_flip_is_exact",
+    "test_chiral_vector_tlm_phase1.py::test_gate2_dispersion_free_cascade_confirms_screw_pitch",
+    "test_chiral_vector_tlm_phase1.py::test_gate2_transient_skip_kills_the_outcome_c_swing",
+    "test_chiral_vector_tlm_phase1.py::test_gate2_legacy_packet_probe_is_a_known_artifact",
+    "test_chiral_vector_tlm_phase1.py::test_gate2_aggregate_pass",
+    # L3 mass-cage bound-eigenmode solve (T2 resolution-dependent eigensolve, 64s).
+    "test_l3_mass_cage.py::test_t3_4_bound_eigenmode_of_posited_cage",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
