@@ -978,7 +978,12 @@ def _eval_g3(spec: BenchSpec, sweep: DivergenceSweepResult) -> G3SMCoComputed:
     axis = gating.discriminator_axis if gating else DiscriminatorAxis.MAGNITUDE
     shared = gating.shared_with if gating else SharedWith.FORM
 
-    sm_zero = bool(np.allclose(sweep.sm, 0.0))
+    # "identically zero" = a STRUCTURAL zero (the counterpart returns exactly 0,
+    # e.g. QED parity-even -> zero optical rotation), NOT merely numerically small.
+    # Physical observables can sit far below any absolute atol (a QED differential
+    # delta_n ~ 1e-16) yet be structurally nonzero, so np.allclose(., 0, atol=1e-8)
+    # would wrongly flag them zero and trigger the zero-vs-nonzero path. Use exact 0.
+    sm_zero = bool(np.all(sweep.sm == 0.0))
     # field-independent ratio: constant across the grid (guard the inf/zero case)
     finite = np.isfinite(sweep.ratio)
     if sm_zero:
@@ -992,9 +997,23 @@ def _eval_g3(spec: BenchSpec, sweep: DivergenceSweepResult) -> G3SMCoComputed:
         field_independent = False
         ratio_value = float("nan")
 
-    # Step 2.5 auto-flag: discrimination claimed on the SHARED axis is non-discriminating
-    non_discriminating = (shared is SharedWith.FORM and axis is DiscriminatorAxis.RATIO) or (
-        shared is SharedWith.SCALE and axis is DiscriminatorAxis.MAGNITUDE
+    # Do the co-computed observables actually diverge on the swept grid? (A
+    # MAGNITUDE/RATIO discriminator where AVE == SM numerically is degenerate —
+    # the observables are indistinguishable, so nothing is being discriminated.)
+    if sm_zero:
+        diverges = True
+    elif finite.any():
+        diverges = bool(np.any(np.abs(sweep.ratio[finite] - 1.0) > 1e-3))
+    else:
+        diverges = False
+
+    # Step 2.5 auto-flag: discrimination claimed on the SHARED axis is
+    # non-discriminating; a MAGNITUDE/RATIO axis whose observables do not actually
+    # diverge (ratio ~ 1) is likewise non-discriminating (degenerate).
+    non_discriminating = (
+        (shared is SharedWith.FORM and axis is DiscriminatorAxis.RATIO)
+        or (shared is SharedWith.SCALE and axis is DiscriminatorAxis.MAGNITUDE)
+        or (axis in (DiscriminatorAxis.MAGNITUDE, DiscriminatorAxis.RATIO) and not diverges)
     )
     # an independent FORM-within-form chord rescues a shared-axis ratio to the
     # discriminator tier (the birefringence tree-vs-loop case): a NON-GATING axis
@@ -1023,10 +1042,16 @@ def _eval_g3(spec: BenchSpec, sweep: DivergenceSweepResult) -> G3SMCoComputed:
         note = "discriminator on an UNSHARED axis (or zero-vs-nonzero / slope) — full discriminator."
     elif non_discriminating and not has_form_chord:
         status = GateStatus.FAIL
-        note = (
-            "Step 2.5: discrimination claimed on the SHARED axis with no "
-            "independent FORM chord — non-discriminating, NOT bankable."
-        )
+        if not diverges:
+            note = (
+                "degenerate: the co-computed observables do not diverge (ratio ~ 1) "
+                "on the swept grid — nothing is discriminated, NOT bankable."
+            )
+        else:
+            note = (
+                "Step 2.5: discrimination claimed on the SHARED axis with no "
+                "independent FORM chord — non-discriminating, NOT bankable."
+            )
     elif non_discriminating and has_form_chord:
         status = GateStatus.PASS
         note = (

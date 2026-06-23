@@ -61,6 +61,10 @@ the canonical experimental chapter via the exemplars, NOT AVE-derived physics).
 
 from __future__ import annotations
 
+from ave.bench.adopters import (
+    birefringence_bench_spec,
+    crio_validate_on_known_spec,
+)
 from ave.bench.apparatus import (
     ApparatusCoupling,
     fn_dark_current,
@@ -175,4 +179,7 @@ __all__ = [
     "BindingSpec",
     "VerifiabilityClass",
     "SensitivitySpec",
+    # adopters — reference BenchSpec builders (prove the spine shape)
+    "birefringence_bench_spec",
+    "crio_validate_on_known_spec",
 ]

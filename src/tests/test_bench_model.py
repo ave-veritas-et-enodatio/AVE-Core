@@ -10,7 +10,6 @@ Style mirrors test_ave_bench.py: `import ave.bench as bench`, class-organized.
 
 from __future__ import annotations
 
-import dataclasses
 import json
 
 import numpy as np
@@ -97,9 +96,7 @@ def _framing(gating_axis="rotation", n_displayed=5, n_total=5, omitted=()):
     )
 
 
-_VOK = ValidateOnKnownSpec(
-    "PVLAS A_e", 1.32e-24, 1.32e-24, 1e-6, inconclusive_bin="within 3x floor -> UNRESOLVED"
-)
+_VOK = ValidateOnKnownSpec("PVLAS A_e", 1.32e-24, 1.32e-24, 1e-6, inconclusive_bin="within 3x floor -> UNRESOLVED")
 _ROBUST_SENS = SensitivitySpec(
     observable_of=lambda **k: 1.0, param_grids={"L": (0.1, 0.2, 0.3)}, verdict_fn=lambda o: o > 0.5
 )
@@ -250,11 +247,7 @@ class TestVerdictTiers:
     def test_validate_on_known_fail_pilot(self):
         # computed 0.5 vs reference 1.0 at tol 0.15 -> fails recovery
         r = run_bench_model(
-            _pilot_spec(
-                validate_on_known=ValidateOnKnownSpec(
-                    "X7R MLCC C-V", 0.5, 1.0, 0.15, inconclusive_bin="BIN1"
-                )
-            )
+            _pilot_spec(validate_on_known=ValidateOnKnownSpec("X7R MLCC C-V", 0.5, 1.0, 0.15, inconclusive_bin="BIN1"))
         )
         assert r.verdict is Verdict.VALIDATE_ON_KNOWN_FAIL
 
@@ -269,9 +262,7 @@ class TestG1:
         assert r.g1.resolution_margin > 0
 
     def test_missing_inconclusive_bin_fails(self):
-        spec = _zero_vs_nonzero_spec(
-            validate_on_known=ValidateOnKnownSpec("ref", 1.0, 1.0, 1e-6, inconclusive_bin="")
-        )
+        spec = _zero_vs_nonzero_spec(validate_on_known=ValidateOnKnownSpec("ref", 1.0, 1.0, 1e-6, inconclusive_bin=""))
         r = run_bench_model(spec)
         assert r.g1.status is GateStatus.FAIL
         assert r.verdict is Verdict.NOT_BANKABLE
@@ -363,6 +354,30 @@ class TestG3:
         spec = _shared_form_ratio_spec()
         r = run_bench_model(spec)
         assert r.g3.n_grid == 3
+
+    def test_degenerate_observables_fail(self):
+        # AVE == SM numerically (ratio ~ 1) on a MAGNITUDE axis -> degenerate, FAIL.
+        spec = _zero_vs_nonzero_spec(
+            ave_observable=lambda E: 5.0,
+            sm_observable=lambda E: 5.0,
+            axis_tags=(
+                AxisTag(
+                    "magnitude",
+                    ChordEcho.CHORD,
+                    ChordEcho.ECHO,
+                    DiscriminatorAxis.MAGNITUDE,
+                    SharedWith.FORM,
+                    is_gating_axis=True,
+                    calibration_free=False,
+                    interpretive_alternatives=(IA.FLOOR, IA.COINCIDENCE, IA.EXACT),
+                    rationale="observables do not diverge",
+                ),
+            ),
+        )
+        r = run_bench_model(spec)
+        assert r.g3.status is GateStatus.FAIL
+        assert "degenerate" in r.g3.note
+        assert r.verdict is Verdict.NOT_BANKABLE
 
 
 # ============================================================================
@@ -493,18 +508,14 @@ class TestG8:
         assert r.g8.selection_from_pool_clean
 
     def test_undisclosed_selection_from_pool_fails(self):
-        spec = _zero_vs_nonzero_spec(
-            evidence_framing=_framing("rotation", n_displayed=2, n_total=10, omitted=())
-        )
+        spec = _zero_vs_nonzero_spec(evidence_framing=_framing("rotation", n_displayed=2, n_total=10, omitted=()))
         r = run_bench_model(spec)
         assert not r.g8.selection_from_pool_clean
         assert r.g8.status is GateStatus.FAIL
 
     def test_disclosed_subset_is_clean(self):
         spec = _zero_vs_nonzero_spec(
-            evidence_framing=_framing(
-                "rotation", n_displayed=2, n_total=4, omitted=("null-1", "null-2")
-            )
+            evidence_framing=_framing("rotation", n_displayed=2, n_total=4, omitted=("null-1", "null-2"))
         )
         assert run_bench_model(spec).g8.selection_from_pool_clean
 
