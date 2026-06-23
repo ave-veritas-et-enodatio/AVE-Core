@@ -14,57 +14,44 @@ Canonical physics (verified node-up, grep-confirmed at origin/main):
     manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/
     pvlas-static-b-verdict.md).
 
-THE LIVE BUG (VCA-R01, documented; fix flagged for a separate validated PR):
-  src/ave/core/fdtd_3d.py:231,:245,:396-397,:425-426 and
-  src/ave/axioms/scale_invariant.py:198 key mu-saturation on the STATIC field
-  magnitude B_local = mu_0 * |H| against b_yield = B_SNAP. B_SNAP is an
-  ENERGY-DENSITY scale (B_SNAP^2/2mu0 = m_e c^2 / l_node^3 = 1), NOT the
-  mu-grade kernel argument (which is I/I_max). So the current code SATURATES
-  mu under a large static B, contradicting (a) the I-keyed relativistic-inductor
-  primitive and (b) the engine's own Lenz/Faraday coupling (a static B has no
-  dB/dt to induce internal circulation).
+VCA-R01 (FIXED): the free-EM mu-channel is now LINEAR (mu_eff = mu_0).
+  The mu-grade is the relativistic inductor; it saturates only as the circulating
+  current reaches c, i.e. as the circulation rate omega -> omega_C = c/l_node
+  ~= 1.24e20 rad/s (gamma-ray scale). Any wave a Yee EM engine can represent runs
+  at omega << omega_C (omega/omega_C <~ 1e-6 even at optical), so
+  S_mu = sqrt(1 - (omega/omega_C)^2) = 1 to machine precision; a static external B
+  (dB/dt = 0) likewise induces no circulation, so S_mu = 1 exactly (regime R3).
+  The earlier code keyed mu on the static amplitude |B| = mu_0*|H| against
+  b_yield = B_SNAP — wrong twice over: B_SNAP is an energy-density scale, not the
+  kernel argument, and amplitude is not the circulation rate.
 
-WHY THE FIX IS NOT APPLIED IN THIS PR (flag-don't-guess; substrate-first):
-  The correct I-keyed implementation is subtle/ambiguous and NOT yet derived:
-    1. No per-cell circulation -> I_max threshold mapping exists in the corpus.
-       Keying on I = closed-loop integral of H . dl (or the rate dB/dt) and
-       mapping it onto I_max = xi_topo*c = 124.4 A on a Yee grid is a DERIVATION,
-       not a variable swap; inventing the threshold would violate
-       substrate-first-for-numbers.
-    2. Two distinct mu-saturation paths coexist — the simple mu_eff(|B|) here
-       and the chirality-aware _update_saturation_kernels(omega, ...) in
-       cosserat_field_3d.py. A correct fix must reconcile both.
-    3. scale_invariant.mu_eff() is called from 8 modules (yang_mills, plasma,
-       gravity, solvers, ...) passing a B-magnitude; changing its semantics
-       ripples through all of them and needs each re-validated.
+  The fix is LOCAL to the fdtd-vacuum caller (fdtd_3d._compute_local_mu, the two
+  energy readouts, and the JAX twin fdtd_3d_jax._compute_local_mu_kernel).
+  scale_invariant.mu_eff() is UNCHANGED — it is the sector-agnostic kernel used by
+  genuine static-B MATTER callers (superconductor.meissner_mu_eff, yang_mills),
+  correct as-is. A free wave saturates mu only as omega -> omega_C, the dispersive
+  lattice cutoff (hbar*omega_C = m_e c^2 = 511 keV); this coarse-grid engine never
+  reaches omega_C (a dispersive-mu(omega) model handles the cutoff — separate
+  workstream). Bound/self-trapped circulation saturates mu at any frequency (Cosserat
+  engine, cosserat_field_3d._compute_saturation_factors, keyed on micro-rotation
+  curvature).
 
-  This test is marked xfail(strict=False): it ENCODES the desired R3 behaviour
-  (static B -> S_mu = 1) so the eventual validated fix flips it to PASS. Until
-  then it documents the bug as a live, machine-checked TODO rather than a prose
-  note. See node-up-small-large-signal.md:S5 (VCA-R01 code note).
+  test_static_external_B_leaves_mu_unloaded now PASSES (was xfail). The companion
+  test guards against regression to the old |B|-amplitude keying.
+  See node-up-small-large-signal.md:S5 (VCA-R01 code note, RESOLVED).
 """
 
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
 
 
-@pytest.mark.xfail(
-    reason="VCA-R01: mu-grade keys on static |B| (=mu0|H|) vs b_yield=B_SNAP, "
-    "not on circulating current I. A large STATIC B must give S_mu=1 / "
-    "mu_eff=mu0 (relativistic inductor, no dB/dt -> no internal circulation). "
-    "Fix flagged for a separate validated PR (I-keyed threshold not yet "
-    "derived; substrate-first — do not guess). "
-    "See node-up-small-large-signal.md:S5.",
-    strict=False,
-)
 def test_static_external_B_leaves_mu_unloaded():
     """A static (DC) external B near b_yield must NOT saturate the mu-grade.
 
-    Desired (R3, I-keyed): S_mu = 1, mu_eff = mu_0, delta_n_mu = 0 exactly,
-    independent of |B|. Current code (|B|-keyed) instead drives mu_eff -> 0 as
-    |B| -> b_yield, so this assertion fails (xfail) until VCA-R01 is fixed.
+    R3 (VCA-R01 fixed): S_mu = 1, mu_eff = mu_0, delta_n_mu = 0 exactly,
+    independent of |B| — the free-EM mu-channel is linear, so a static external
+    B carries no induced circulation and leaves mu unloaded.
     """
     eng = FDTD3DEngine(nx=8, ny=8, nz=8, dx=0.01, linear_only=False)
 
@@ -86,22 +73,25 @@ def test_static_external_B_leaves_mu_unloaded():
     )
 
 
-def test_static_B_keying_bug_is_present_as_documented():
-    """Positive control: confirm the |B|-keyed defect IS present as described,
-    so the xfail above is documenting a real live bug (not a phantom).
+def test_static_B_does_not_amplitude_saturate_mu():
+    """Regression guard: the OLD |B|-amplitude keying must stay gone.
 
-    With |B|-keying, a static |B| = 0.9*b_yield drives S_mu = sqrt(1-0.9^2)
-    ~= 0.436, i.e. mu_eff is materially below mu_0. This test PASSES on the
-    current (buggy) code and will need updating WHEN VCA-R01 is fixed.
+    Under the removed bug a static |B| = 0.9*b_yield drove
+    mu_eff = mu_0*sqrt(1-0.9^2) ~= 0.436*mu_0. After VCA-R01 the free-EM mu is
+    linear, so mu_eff = mu_0 and is nowhere near that old saturated value. If this
+    regresses, the |B|-amplitude keying has returned.
     """
     eng = FDTD3DEngine(nx=8, ny=8, nz=8, dx=0.01, linear_only=False)
     H_target = 0.9 * eng.b_yield / eng.mu_0
     Hx_static = np.full((eng.nx, eng.ny, eng.nz), H_target)
 
     mu_eff = eng._compute_local_mu(Hx_static)
-    expected_buggy = eng.mu_0 * np.sqrt(1.0 - 0.9**2)
+    old_buggy = eng.mu_0 * np.sqrt(1.0 - 0.9**2)
 
-    assert np.allclose(np.mean(mu_eff), expected_buggy, rtol=1e-3), (
-        "Expected the documented |B|-keyed behaviour (mu_eff = mu_0*sqrt(1-0.81)). "
-        "If this fails, VCA-R01 may already be fixed — update both tests."
+    assert np.allclose(mu_eff, eng.mu_0, rtol=1e-12), (
+        "Free-EM mu must be linear (mu_eff = mu_0) under a static B (VCA-R01)."
+    )
+    assert not np.allclose(np.mean(mu_eff), old_buggy, rtol=1e-2), (
+        "mu_eff collapsed toward the OLD |B|-amplitude-saturated value — "
+        "the VCA-R01 |B|-keying has regressed."
     )

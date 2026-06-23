@@ -210,9 +210,11 @@ regardless of which fork one entertains.
 > ~`10⁻²²` PVLAS floor. The "37,000× falsifies AVE" headline from an earlier tolerance pass is therefore
 > **retracted**: it conflated the ε-route propagating-wave proxy with a static-DC-B response.
 
-## 6. The deferred code-bug (VCA-R01)
+## 6. The code-bug (VCA-R01) — RESOLVED 2026-06-22
 
-**Flag-don't-fix.** The fdtd engine keys μ-saturation on the *static* `|B| = μ₀|H|` against `b_yield = B_SNAP`
+> **RESOLVED 2026-06-22.** VCA-R01 is fixed: the free-EM μ-channel is now LINEAR (μ_eff = μ₀). The μ-grade saturates only as the circulation rate ω → ω_C = c/ℓ_node ≈ 1.24×10²⁰ rad/s (gamma-ray scale); every FDTD-representable wave has ω/ω_C ≲ 10⁻⁶ ⟹ S_μ = 1 to machine precision, and a static external B (dB/dt = 0) gives S_μ = 1 exactly. The |B|-amplitude keying is removed, caller-local: `fdtd_3d._compute_local_mu` + the two energy readouts + the JAX twin `fdtd_3d_jax._compute_local_mu_kernel`; `scale_invariant.mu_eff` is unchanged (it serves genuine static-B MATTER callers — Meissner, Yang-Mills). `test_vca_r01_static_b_mu_keying.py` now PASSES (was `xfail`). The original analysis follows; the "propagating-wave shortcut" claim in it is corrected inline below.
+
+The fdtd engine keyed μ-saturation on the *static* `|B| = μ₀|H|` against `b_yield = B_SNAP`
 — the saturable-reactor (Candidate-A) form — which contradicts the canonical `I`-keyed constitutive primitive
 for a static external `B`. Sites:
 
@@ -221,13 +223,20 @@ for a static external `B`. Sites:
 - `src/ave/axioms/scale_invariant.py`:198 (`mu_eff`) — sector-agnostic kernel evaluation; the leak is in the
   caller, not here.
 
-In an FDTD loop under a propagating wave, `H` tracks the live circulation, so the two readings *coincide* —
-the engine is right as a propagating-wave shortcut. They **diverge on a static external DC-B operating point**,
-where the engine would wrongly saturate μ on an external amplitude the substrate's constitutive law ignores.
+A free propagating wave does not saturate μ on its **amplitude** — the amplitude ratio `|B|/B_SNAP` and the
+circulation-rate ratio `ω/ω_C` are *independent* for a free plane wave (a Poynting-drift proxy gives `v/c = 1`
+for every free wave; the rate proxy gives `S_μ = √(1−(ω/ω_C)²)`, keyed on **frequency**, not amplitude). A free
+wave **does** saturate μ as `ω → ω_C`, the **dispersive lattice cutoff** `μ_eff(ω) = μ₀√(1−(ω/ω_C)²)`, where
+`ℏω_C = ℏc/ℓ_node = m_e c² = 511 keV` (the Compton / pair-production scale). But this continuum engine's `dx`
+is a computational knob `≫ ℓ_node`, so it runs at `ω/ω_C ≲ 10⁻⁶` and `S_μ = 1` to machine precision — i.e. the
+free-EM μ-channel is **linear in the regime this engine reaches**. (The earlier code amplitude-saturated a free
+wave on `|B|` — wrong: that is neither the bound-circulation case nor the ω_C-cutoff case.) A
+**bound/self-trapped circulation** (`v_circ` = boost velocity) saturates μ at any frequency; a **static external
+DC-B** has `dB/dt = 0` ⟹ no induced circulation ⟹ `S_μ = 1` exactly. So the fix here is: the free-EM μ-channel
+is linear, and **the ω_C cutoff is modeled separately by a dispersive-μ(ω) workstream** — the AVE-distinct
+`(q·ℓ_node)⁴` lattice-dispersion test at the 511 keV scale.
 The engine is also internally inconsistent: its just-merged Lagrangian-EMF coupling (PR #339, the `−2` Lenz
 back-EMF) is on the rate/`I` side, while its FDTD μ-update is on the amplitude side.
-
-> **⚠ FLAGGED 2026-06-22 (VCA-R01 derivation pass — [`2026-06-22_vca-r01-mu-keying-derivation.md`](2026-06-22_vca-r01-mu-keying-derivation.md), PR #365): the "propagating-wave shortcut" sentence above is OVERSTATED — surfaced for physical adjudication, not rewritten.** Deriving the engine-computable circulation argument and testing it on a free plane wave shows the amplitude ratio `|B|/B_SNAP` and the frequency ratio `ω/ω_C` are **independent** for a free wave: `H` does NOT track a bound circulation, so the two readings do not generally coincide. (A Poynting-drift proxy `v=|S|/u` gives `v/c=1` for *every* free wave; the rate proxy `A_I=(|dB/dt|/|B|)·ℓ_node/c` gives `S_μ≈1` for any sub-cutoff `ω≪ω_C`.) The coincidence holds only for a **self-trapped soliton** (`v_circ`= the bound-state boost velocity, `relativistic-inductor-newtonian-limit.md:30-38`) — which suggests the engine's amplitude-saturation of a *free* wave is itself an artifact, not a "right shortcut." **This does NOT touch the static-DC-B verdict** (`δn_μ=0`, R3) — that holds independent of the propagating story. It bears on the VCA-R01 engine-refactor scope, not the PVLAS result.
 
 **Engine-vs-direct-kernel — the gap IS the defect.** The direct-kernel control
 (`src/tests/test_vca_node_regime_sweep.py`) gives `A_I = I_vac/I_max = 0 ⟹ S_μ = 1 ⟹ δn_μ = 0` (R3, exact).
