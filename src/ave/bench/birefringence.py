@@ -54,11 +54,15 @@ DISCIPLINE: every AVE physical constant imported from ave.core.constants. The
 QED Euler-Heisenberg prefactor band (a_EH) and the PVLAS A_e closed form are
 LABELED non-AVE literature inputs (Heisenberg-Euler 1936; Rizzo/PVLAS), NOT
 AVE-derived and NOT fit. The optical-activity bare-lattice rate is a tagged
-engineering scale from the validated #195 chiral-grid result.
+engineering scale (ETA_ROT_PER_WRITHE); the +-75.46 deg/unit #195 magnitude is
+an engineering decree, NOT a derived/bankable transport (demoted PR #374 — the
+substrate-DERIVED bulk g0 = the 4_1 screw pitch, geometric; k->0 continuum
+mapping PENDING). The QUALITATIVE chiral-grid facts (signed / enantiomorph-odd /
+diamond-null / writhe-sourced / lossless reciprocal gyrator) stay SOLID.
 
 Canonical leaves:
   manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md  (clm-pp3qwf)
-  manuscript/ave-kb/common/engine-capability-map.md:44  (optical-activity +-75.462 deg/unit, #195)
+  manuscript/ave-kb/common/engine-capability-map.md:44  (optical-activity +-75.46 deg/unit #195 magnitude DEMOTED to ETA-decree engineering scale, PR #374)
   manuscript/ave-kb/common/vocabulary-register.md:522   (def-0pt1ac optical-activity fence)
 """
 
