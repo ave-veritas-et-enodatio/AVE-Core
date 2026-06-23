@@ -76,16 +76,31 @@ def main() -> None:
     check("insertion fits inside bore depth", kd["insert_depth_mm"] <= kd["socket_depth_mm"],
           f"insert {kd['insert_depth_mm']:.1f} <= bore depth {kd['socket_depth_mm']:.1f} mm")
 
-    # as-built boolean: seat a bond between this node and its neighbour, intersect.
-    hat = np.array([1.0, 1.0, 1.0]) / SQRT3
-    bs = bond.copy()
-    bs.apply_transform(trimesh.geometry.align_vectors([0, 0, 1.0], hat))
-    bs.apply_translation(hat * pitch / 2.0)
-    inter = trimesh.boolean.intersection([node, bs], engine="manifold")
-    ivol = float(inter.volume) if (inter is not None and len(inter.faces)) else 0.0
-    tip_prism = (3.0 * SQRT3 / 2.0) * tip_r**2 * kd["insert_depth_mm"]  # full-tip solid vol
-    check("as-built node ∩ bond = press-fit shell", 0.3 < ivol < 0.5 * tip_prism,
-          f"{ivol:.2f} mm^3 (tip prism {tip_prism:.1f}; small shell = interference, not gap/clash)")
+    # As-built press-fit with ROUND joinery (clocking-free). Seat a bond between this node
+    # and its neighbour; measure the interference shell at BOTH ends across several bond
+    # spins. Round tip-in-round-bore is rotation-symmetric, so a rigid bond seats clean in
+    # both independently-oriented sockets — unlike the original HEX joinery, where a rigid
+    # bond could not face-flush both ends at once (two-end clocking constraint; the old
+    # align-vectors check measured a 6.19 mm^3 corner gouge on one end — RETRACTED).
+    from vacuum_lc_geometry import DIAMOND_PORT_HATS  # noqa: E402
+    hat = DIAMOND_PORT_HATS[0]
+    nbr = core.node_body("B"); nbr.apply_translation(hat * pitch)
+    vols_A, vols_B = [], []
+    for spin in (0.0, 30.0, 47.0):
+        bs = bond.copy()
+        bs.apply_transform(trimesh.transformations.rotation_matrix(np.radians(spin), [0, 0, 1.0]))
+        bs.apply_transform(core._rotmat_z_to(hat))
+        bs.apply_translation(hat * pitch / 2.0)
+        iA = trimesh.boolean.intersection([node, bs], engine="manifold")
+        iB = trimesh.boolean.intersection([nbr, bs], engine="manifold")
+        vols_A.append(float(iA.volume) if iA is not None and len(iA.faces) else 0.0)
+        vols_B.append(float(iB.volume) if iB is not None and len(iB.faces) else 0.0)
+    check("both ends press-fit (interference shell > 0, no gap/clash)",
+          min(vols_A) > 0.2 and min(vols_B) > 0.2 and max(vols_A + vols_B) < 0.5 * (3.0 * SQRT3 / 2.0) * tip_r**2 * kd["insert_depth_mm"],
+          f"A-end {vols_A[0]:.2f} mm^3, B-end {vols_B[0]:.2f} mm^3 (round shells)")
+    check("clocking-free (interference rotation-invariant across bond spin)",
+          (max(vols_A) - min(vols_A) < 0.05) and (max(vols_B) - min(vols_B) < 0.05),
+          f"A spin-spread {max(vols_A) - min(vols_A):.3f}, B {max(vols_B) - min(vols_B):.3f} mm^3 (round tips => no clock dependence)")
 
     # headline watertight re-confirm
     for nm, m in (("node_A", node), ("node_B", core.node_body("B")), ("bond", bond)):

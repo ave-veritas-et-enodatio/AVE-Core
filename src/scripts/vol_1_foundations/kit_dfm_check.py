@@ -208,10 +208,10 @@ def main() -> None:
     row("node bed-face chamfer", NODE_CHAMFER, "mm", f">= {CHAMFER} (elephant-foot)",
         "pass" if NODE_CHAMFER >= CHAMFER else "fail", "flat bed face")
 
-    # ---- Bond socket bore on the node (hex hole along port) ----
-    sock_f2f = SQRT3 * R_JOINT
-    row("node bond socket bore f2f", sock_f2f, "mm", f">= {MIN_HOLE} (clean hole)",
-        "pass" if sock_f2f >= MIN_HOLE else "fail")
+    # ---- Bond socket bore on the node (ROUND hole along port; clocking-free) ----
+    sock_dia = 2.0 * R_JOINT
+    row("node bond socket bore dia", sock_dia, "mm", f">= {MIN_HOLE} (clean hole)",
+        "pass" if sock_dia >= MIN_HOLE else "fail", "round bore: rigid bond seats at any clock")
     # socket depth must clear the bond tip and seat in the node body
     row("node bond socket depth", SOCKET_DEPTH, "mm", f"<= {NODE_HALF*SQRT3:.1f} (corner)",
         "pass" if SOCKET_DEPTH <= SURFACE_DIST else "fail",
@@ -266,12 +266,11 @@ def main() -> None:
     new_bond_visible_f2f = SQRT3 * R_SHAFT
     row("bond shaft f2f (visible)", new_bond_visible_f2f, "mm", f">= {MIN_PEG} (robust)",
         "pass" if new_bond_visible_f2f >= MIN_PEG else "fail", "carries helix groove")
-    new_sock_f2f = SQRT3 * R_JOINT  # bond seats in node socket bore (same f2f)
-    row("bond->socket bore match f2f", new_sock_f2f, "mm", f">= {MIN_HOLE} (clean hole)",
-        "pass" if new_sock_f2f >= MIN_HOLE else "fail", "tip mates this bore")
-    # Diametral interference = 2 x per-side radial press (R_TIP = R_JOINT+INTERF
-    # into a bore of R_JOINT). Shape factor SQRT3 cancels — it is the radial
-    # offset that interferes, on both sides -> 2*INTERF_MM = 0.10 mm.
+    new_sock_dia = 2.0 * R_JOINT  # round bond tip seats in round node socket bore
+    row("bond->socket bore match dia", new_sock_dia, "mm", f">= {MIN_HOLE} (clean hole)",
+        "pass" if new_sock_dia >= MIN_HOLE else "fail", "round tip mates round bore (clocking-free)")
+    # Diametral interference = 2 x per-side radial press (round R_TIP = R_JOINT+INTERF
+    # into a round bore of R_JOINT) -> 2*INTERF_MM = 0.10 mm, uniform around the circle.
     new_interf = 2.0 * (R_TIP - R_JOINT)  # = 2 * INTERF_MM
     if new_interf <= 0.0:
         ok, note = "fail", "bond tip == socket bore: parts will NOT mate"

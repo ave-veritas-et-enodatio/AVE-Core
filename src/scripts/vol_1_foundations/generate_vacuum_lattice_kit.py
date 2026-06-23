@@ -166,7 +166,7 @@ def build_manifest(net: cl.LatticeNet, L: int, parts_qc: list[dict]) -> dict:
             "node_A": sub_counts["A"], "node_B": sub_counts["B"],
         },
         "joinery": {
-            "type": "friction_fit_hex_peg_socket",
+            "type": "friction_fit_round_peg_socket (rotation-symmetric, clocking-free)",
             "press_fit_diametral_interference_mm": round(2.0 * kd.get("INTERF_MM", 0.05), 3),
             "tune_env": "KIT_FRICTION_INTERFERENCE_MM (per-side mm; default 0.05; try 0.03-0.08)",
             **{k: round(float(v), 3) for k, v in kd.items()},

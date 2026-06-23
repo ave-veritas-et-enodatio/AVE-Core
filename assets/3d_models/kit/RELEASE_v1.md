@@ -9,8 +9,10 @@ downloadable bundle. Generators (`src/scripts/vol_1_foundations/`) are the sourc
 
 - All 25 gated parts reload `watertight = is_volume = True` (direct trimesh export; the
   legacy numpy-stl round-trip non-manifold bug is fixed).
-- As-built press-fit: bond tip Ø7.30 into node bore Ø7.20 = **0.10 mm diametral**
-  interference, seated 6 mm into a 7 mm hex bore (`verify_kit_assembly.py`: 7/7 PASS).
+- As-built press-fit: **round** bond tip Ø7.30 into a **round** node bore Ø7.20 = **0.10 mm
+  diametral** interference, seated into a 7 mm bore. Round joinery is rotation-symmetric, so a
+  rigid bond seats clean in both end sockets at any clocking (`verify_kit_assembly.py`: 8/8 PASS,
+  incl. clocking-free rotation-invariance).
 - DFM rebuild rows all PASS at the shipped 100 mm/ℓ_node scale (`kit_dfm_check.py`).
 
 ## What's in it

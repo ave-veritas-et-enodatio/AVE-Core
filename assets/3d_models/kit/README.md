@@ -30,7 +30,7 @@ coordinate system each feature stands for:
 **A/B is the bipartite SUBLATTICE label — not a storage split.** The legacy
 cube-vs-sphere bodies encoded a denied "A stores E / B stores B" asymmetry. That is
 fixed: **the A and B node bodies are an identical solid node** (same degree-4 coordination
-shell, 4 tetrahedral hex sockets). A vs B is shown only by **two node colors + an
+shell, 4 tetrahedral round bond sockets — round so a rigid bond seats clean at any rotation, both ends). A vs B is shown only by **two node colors + an
 embossed A/B key**, which is all the sublattice legitimately marks.
 
 **The 7-mode store split.** Every node is the same full LC oscillator carrying all

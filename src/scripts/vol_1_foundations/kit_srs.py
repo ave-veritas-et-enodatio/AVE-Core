@@ -172,14 +172,14 @@ def srs_node(enantiomorph: str = "right") -> trimesh.Trimesh:
         # bore goes inward from a little past the mouth to SOCKET_DEPTH inside.
         outer = d * (surf + 0.5 * NODE_CHAMFER)   # start slightly proud to ensure cut
         inner = d * (surf - SOCKET_DEPTH)
-        sockets.append(_hex_prism(outer, inner, R_JOINT))
+        sockets.append(_cyl(outer, inner, R_JOINT))   # round bore: clocking-free press-fit
 
     # Accent socket: place along +Z (independent axis), a small hex bore.
     acc_dir = np.array([0.0, 0.0, 1.0])
     acc_surf = NODE_HALF
     acc_outer = acc_dir * (acc_surf + 0.5 * NODE_CHAMFER)
     acc_inner = acc_dir * (acc_surf - ACCENT_DEPTH)
-    accent_bore = _hex_prism(acc_outer, acc_inner, ACCENT_JOINT)
+    accent_bore = _cyl(acc_outer, acc_inner, ACCENT_JOINT)
 
     node = body
     for s in sockets:
@@ -221,8 +221,8 @@ def srs_bond() -> trimesh.Trimesh:
     p_z1 = np.array([0.0, 0.0, z1])
 
     shaft = _hex_prism(p_tipA, p_tipB, R_SHAFT)
-    tipA = _hex_prism(p_z0, p_tipA, R_TIP)
-    tipB = _hex_prism(p_tipB, p_z1, R_TIP)
+    tipA = _cyl(p_z0, p_tipA, R_TIP)   # round press-fit tip (clocking-free)
+    tipB = _cyl(p_tipB, p_z1, R_TIP)
     bond = trimesh.boolean.union([shaft, tipA, tipB], engine="manifold")
 
     # Helix groove on the visible shaft: subtract a swept round cutter following a helix

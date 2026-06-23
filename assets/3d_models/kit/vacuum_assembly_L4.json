@@ -21,7 +21,7 @@
     "node_B": 8
   },
   "joinery": {
-    "type": "friction_fit_hex_peg_socket",
+    "type": "friction_fit_round_peg_socket (rotation-symmetric, clocking-free)",
     "press_fit_diametral_interference_mm": 0.1,
     "tune_env": "KIT_FRICTION_INTERFERENCE_MM (per-side mm; default 0.05; try 0.03-0.08)",
     "S_mm_per_node": 100.0,
@@ -102,7 +102,7 @@
       "label": "vacuum_node_A.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 710,
+      "faces": 1196,
       "bbox_mm": [
         20.0,
         20.0,
@@ -114,7 +114,7 @@
       "label": "vacuum_node_B.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 704,
+      "faces": 1192,
       "bbox_mm": [
         20.0,
         20.0,
@@ -126,7 +126,7 @@
       "label": "vacuum_bond.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 36218,
+      "faces": 36494,
       "bbox_mm": [
         150.56,
         8.66,
@@ -138,7 +138,7 @@
       "label": "vacuum_bond_left.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 34098,
+      "faces": 34386,
       "bbox_mm": [
         150.56,
         8.66,
@@ -270,7 +270,7 @@
       "label": "srs_node_right.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 142,
+      "faces": 500,
       "bbox_mm": [
         25.0,
         20.0,
@@ -282,7 +282,7 @@
       "label": "srs_node_left.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 150,
+      "faces": 508,
       "bbox_mm": [
         25.0,
         20.0,
@@ -294,7 +294,7 @@
       "label": "srs_bond.stl",
       "watertight": true,
       "is_volume": true,
-      "faces": 14788,
+      "faces": 14964,
       "bbox_mm": [
         77.36,
         10.0,
