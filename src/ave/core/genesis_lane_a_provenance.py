@@ -5,7 +5,7 @@ Convention (natural-units-cheatsheet.md, constants.py N_* block):
   ℓ_node = c = m_e = ℏ = τ_relax = 1
   Energy unit = m_e c² = 1
   V_YIELD = 1 native  (engine uses V_SNAP=1; r_yield = |V|_vsnap / √α)
-  ξ_topo = e = √α ≈ 0.0854 native
+  e = √α ≈ 0.0854 native  (native value of the elementary charge; ξ_topo = e/ℓ_node, the C/m constant, is distinct)
 
 See research/2026-06-12_genesis-parameter-provenance-audit.md.
 """
@@ -31,8 +31,9 @@ from ave.core.constants import (
     TAU_RELAX_SI,
 )
 
-# √α = ξ_topo = unit charge in native units (natural-units-cheatsheet §4).
-R_XI_TOPO_NATIVE: float = float(np.sqrt(ALPHA))
+# √α = native numeric value of e, the unit charge in native units (e = ξ_topo·ℓ_node).
+# NOT ξ_topo itself (the C/m constant e/ℓ_node); see natural-units-cheatsheet §4 and def-095760 object-4.
+E_NATIVE_SQRT_ALPHA: float = float(np.sqrt(ALPHA))
 
 # Regime I/II knee: A²_vsnap = 2α ⟺ r_yield² = 2 (lattice-impedance-decomposition §2).
 R_YIELD_KNEE_NATIVE: float = float(np.sqrt(2.0))
@@ -99,7 +100,7 @@ class LaneAProvenance:
 
 def vsnap_to_r_yield(a_vsnap: float) -> float:
     """Engine V_SNAP-normalized amplitude → native r_yield = V/V_YIELD."""
-    return float(a_vsnap / R_XI_TOPO_NATIVE)
+    return float(a_vsnap / E_NATIVE_SQRT_ALPHA)
 
 
 def a2_vsnap_to_r_yield(a2_vsnap: float) -> float:
@@ -180,7 +181,7 @@ def local_nucleation_native(
 
 def seed_amp_vsnap() -> float:
     """Engine IC amplitude: r_yield=1 ⟹ |V|_vsnap = √α."""
-    return R_XI_TOPO_NATIVE
+    return E_NATIVE_SQRT_ALPHA
 
 
 def lane_a_timing(*, smoke: bool = False) -> LaneATiming:
@@ -227,7 +228,7 @@ def provenance_dict(p: LaneAProvenance) -> dict:
         "local": asdict(p.local),
         "timing": asdict(p.timing),
         "native_identities": {
-            "xi_topo_sqrt_alpha": R_XI_TOPO_NATIVE,
+            "e_native_sqrt_alpha": E_NATIVE_SQRT_ALPHA,
             "r_yield_knee_sqrt2": R_YIELD_KNEE_NATIVE,
             "A2_vsnap_knee": A_YIELD_SQ,
             "tau_relax_native": TAU_RELAX_NATIVE,
