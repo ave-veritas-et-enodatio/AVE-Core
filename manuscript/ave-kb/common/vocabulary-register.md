@@ -273,6 +273,28 @@ parse it):
 
 ---
 
+## ξ (xi glyph)
+<!-- id: def-095760 -->
+
+- **term:** ξ (the "xi" glyph — one locked primary sense $\xi_{topo}$ plus a cross-file watch-list of distinct ξ-objects, separated by ~50 OOM in magnitude)
+- **adjudicated-meaning:** the **default canonical sense is $\xi_{topo} \equiv e/\ell_{node} \approx 4.149\times10^{-7}$ C/m** (Axiom 2 topological transduction constant; CLAUDE.md INVARIANT-C2). The glyph ξ is overloaded across the corpus by several physically-distinct objects; this node is the canonical mis-use watch-list.
+- **axis:** notation (cross-file glyph overload) — primary sense `dimensionless`-bridge has physical dimension C/m
+- **dimension/type:** $\xi_{topo}$: charge-per-length (C/m); $\xi_M$, $R_H/\ell_{node}$, $\sqrt\alpha$, $\xi_{K1}$, $\xi_{K2}$: dimensionless
+- **status:** SOLID (for the locked $\xi_{topo}$ sense; status and open-ambiguity are orthogonal per the §47/`node` precedent)
+- **canonical-home:** $\xi_{topo}$: `vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md` (Axiom 2); `src/ave/core/constants.py:324` (`XI_TOPO`); traceability map at `common/xi-topo-traceability.md`.
+- **clm-cross-links:** clm-hmiytz (ξ_topo traceability), clm-sxn6eo (zero-free-parameter chain), clm-dsb560 (G via ξ_M / Machian), ilk-gravmb (Machian-boundary-impedance interlock)
+- **open-ambiguity-flag:** YES — the surface glyph ξ is overloaded by distinct objects:
+  - (1) **$\xi_{topo}$** (`XI_TOPO`) — Axiom-2 transduction constant, $e/\ell_{node} \approx 4.149\times10^{-7}$ C/m. **This is the locked primary sense.** Home `constants.py:324`. Derived alias: **`XI_TOPO_SQ`** (= $\xi_{topo}^2 \approx 1.721\times10^{-13}$ C²/m², `src/scripts/vol_5_biology/spice_organic_mapper.py:57`) — the inductance/capacitance² scaling power, NOT a distinct ξ.
+  - (2) **$\xi_M$ / bare ξ** (`XI_MACHIAN`) — dimensionless Machian-hierarchy coupling $\approx 8.15\times10^{43}$, $\xi_M = 4\pi(R_H/\ell_{node})\alpha^{-2}$; sets $G = c^4/(7\xi_M T_{EM}) = \hbar c/(7\xi_M m_e^2)$. Home `constants.py:589`; canonical at `vol_3_macroscopic/chapters/01_gravity_and_yield.tex:101`.
+  - (3) **$R_H/\ell_{node}$ — NOT a ξ, a factor *inside* $\xi_M$.** Cosmic cell-count $\approx 3.46\times10^{38}$. The $4\pi\alpha^{-2}\approx2.36\times10^{5}$ porous-solid-angle lift carries it up to $\xi_M$. **Never equate $R_H/\ell_{node}$ with ξ** — this is the 5.4-OOM mis-pairing the xi-symbol-cleanup PR corrected.
+  - (4) **$\sqrt{\alpha} \approx 0.0854$ (`R_XI_TOPO_NATIVE`, `src/ave/core/genesis_lane_a_provenance.py:35`)** — the native numeric value of the elementary charge $e$ ($e = \xi_{topo}\,\ell_{node} = \sqrt\alpha$ in natural units, canonical at `vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:51`). **Attribute $\sqrt\alpha$ to $e$, NOT to $\xi_{topo}$** (which is C/m, not dimensionless). *(Open Grant-call: the `genesis_lane_a_provenance.py` docstring/comment/JSON-key currently equate $\sqrt\alpha$ with $\xi_{topo}$ — surfaced flag-don't-fix in the xi-symbol-cleanup PR body, not yet resolved.)*
+  - (5) **$\xi_{K1} = 8/3$, $\xi_{K2} = 32$** — substrate-scale Cosserat micropolar moduli prefactors, O(1) dimensionless, $\xi_{K2}/\xi_{K1}=12$ K4-symmetry-forced. Home `common/q-g47-substrate-scale-cosserat-closure.md:58`.
+  - (6) **Standard-physics ξ homonyms** (NOT AVE objects — read by external context): the correlation length ξ (statistical mechanics), the Riemann ξ-function $\xi(s)$ (analytic number theory), the Ginzburg–Landau coherence length $\xi_0$ (superconductivity). These never appear as AVE quantities; flag if one is mis-read as $\xi_{topo}$ or $\xi_M$.
+  - **The dominant numerical clarity risk is (2) vs (3):** $\xi_M\approx8.15\times10^{43}$ vs the factor $R_H/\ell_{node}\approx3.46\times10^{38}$ — a ~5.4 OOM gap. The two were mis-paired (the FORMULA of $\xi_M$ printed with the MAGNITUDE of the factor) at `xi-topo-traceability.md:23` and across the cheatsheet / divergence-map / q-g47 / claim-quality leaves; corrected in the xi-symbol-cleanup PR.
+- **verification:** VERIFIED — $\xi_{topo}=4.149\times10^{-7}$ C/m and $\xi_M=8.154833696927648\times10^{43}$ computed from `src/ave/core/constants.py` (`XI_TOPO`:324, `XI_MACHIAN`:589); $R_H/\ell_{node}=3.4557\times10^{38}$ from `R_HUBBLE`:694 / `L_NODE`; $4\pi\alpha^{-2}\times(R_H/\ell_{node}) = \xi_M$ to machine precision; $\sqrt\alpha=0.08542$ at `genesis_lane_a_provenance.py:35`; $\xi_{K1}=8/3$, $\xi_{K2}=32$ at `q-g47-substrate-scale-cosserat-closure.md:58`. Status SOLID for the locked $\xi_{topo}$ sense; open-ambiguity-flag records the glyph overloading (orthogonal per the SCHEMA Definition-record rule). *(Notation convention — always-subscript sweep vs glyph rename — is a separate Grant-call surfaced in the xi-symbol-cleanup PR body; FIX-12.)*
+
+---
+
 ## κ_share *(proposed)*
 <!-- id: def-24e6e6 -->
 

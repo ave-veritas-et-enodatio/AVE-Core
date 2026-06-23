@@ -9,20 +9,27 @@ AC motor phase slip (Sagnac sheer).
 
 import math
 
-from ave.core.constants import C_0, GRAVITATIONAL_CONSTANT, M_SUN, MACROSCOPIC_BARYON_PHASE_SCALAR, e_charge
+from ave.core.constants import (
+    C_0,
+    EE_TO_TOPO_RESISTANCE,
+    EE_TO_TOPO_VOLTAGE,
+    G,
+    M_SUN,
+    MACROSCOPIC_BARYON_PHASE_SCALAR,
+    XI_TOPO,
+)
 
 # --- VCA Topo-Kinematic Identifiers ---
-# From ave.core.constants
-XI_TOPO = e_charge / 3.8616e-13  # e / L_NODE approx 4.149e-7 C/m
-EE_TO_TOPO_RESISTANCE = XI_TOPO**2
-EE_TO_TOPO_VOLTAGE = XI_TOPO
+# XI_TOPO = e / L_NODE ≈ 4.149e-7 C/m, imported canonically from ave.core.constants.
+# (Previously redefined locally as `e_charge / 3.8616e-13`, with a hardcoded ℓ_node that
+#  drifted ~1.9e-6 from the canonical L_NODE = 3.8615926772428334e-13; the import removes
+#  the drift and makes the "from ave.core.constants" provenance comment true.)
 
 # --- Sun Gravitational Motor ---
 # The Sun's gravitomagnetic spin vector creates the background LC stator flux
 R_SUN = 6.96e8
 OMEGA_SUN = 2.9e-6  # rad/s
 J_SUN = (0.073 * M_SUN * R_SUN**2) * OMEGA_SUN  # kg m^2/s
-G = GRAVITATIONAL_CONSTANT
 
 
 def compute_vca_dynamo(

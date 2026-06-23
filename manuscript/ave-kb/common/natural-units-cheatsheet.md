@@ -124,11 +124,13 @@ The corpus uses Greek letter ξ in **three distinct semantic scopes**:
 
 | Symbol | Magnitude | Scope | Physical meaning |
 |---|---|---|---|
-| **$\xi_{topo}$** | $\approx 4.149 \times 10^{-7}$ C/m | Ax 2 conversion constant (this cheat-sheet) | Electromechanical bridge |
-| **$\xi$** (no subscript) | $\approx 3.455 \times 10^{38}$ (dimensionless) | Vol 3 Ch 1 Machian impedance integral | Cosmological boundary impedance for $G = c^4/(7\xi T_{EM})$ |
-| **$\xi_{K1}, \xi_{K2}$** | O(1) dimensionless | Substrate Cosserat prefactors (Vol 1 Ch~\ref{ch:macroscopic_moduli}) | Substrate Cosserat moduli with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced |
+| **$\xi_{topo}$** (`XI_TOPO`) | $\approx 4.149 \times 10^{-7}$ C/m | Ax 2 conversion constant (this cheat-sheet) | Electromechanical bridge |
+| **$\xi$** (no subscript), a.k.a. $\xi_M$ (`XI_MACHIAN`) | $\approx 8.15 \times 10^{43}$ (dimensionless) | Vol 3 Ch 1 Machian impedance integral | Cosmological boundary impedance for $G = c^4/(7\xi_M T_{EM})$ |
+| $R_H/\ell_{node}$ (**NOT a ξ** — factor inside $\xi_M$) | $\approx 3.46 \times 10^{38}$ (dimensionless) | Cosmic cell-count | Cell-count out to horizon; $4\pi\alpha^{-2}\approx2.36\times10^{5}$ lifts it to $\xi_M$ |
+| **$\xi_{K1}, \xi_{K2}$** | O(1) dimensionless ($8/3$, $32$) | Substrate Cosserat prefactors (Vol 1 Ch~\ref{ch:macroscopic_moduli}) | Substrate Cosserat moduli with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced |
+| $\sqrt{\alpha} \approx 0.0854$ (`R_XI_TOPO_NATIVE`) | dimensionless | Native numeric value of $e$ ($e = \xi_{topo}\cdot\ell_{node}$ in natural units) | **Attribute $\sqrt{\alpha}$ to $e$, not to $\xi_{topo}$** — distinct from the C/m $\xi_{topo}$ constant |
 
-**Same letter, three different magnitudes, three different physical scopes.** This cheat-sheet covers $\xi_{topo}$ only.
+**Same letter ξ, multiple scopes and magnitudes.** This cheat-sheet's §2–§4 cover $\xi_{topo}$ only; the row table above is the full mis-use watch-list (canonical enumeration in [`xi-topo-traceability.md`](xi-topo-traceability.md) and the [`vocabulary-register.md`](vocabulary-register.md) ξ def-node).
 
 ## §6 — How to expand this cheat-sheet
 
