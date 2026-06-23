@@ -14,14 +14,13 @@ import time
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from ave.core.constants import GRAVITATIONAL_CONSTANT
+from ave.core.constants import G
 from ave.gravity.hyperbolic_kinematics import compute_acoustic_sagnac_drag, compute_hyperbolic_flyby_anomaly
 
 # --- Earth Parametric Bounds ---
 # We do not use constants.py M_SUN here because we are explicitly modeling Earth.
 M_EARTH = 5.972e24  # [kg]
 R_EARTH = 6.371e6  # [m]
-G = GRAVITATIONAL_CONSTANT  # [m^3/(kg s^2)]
 MU_EARTH = G * M_EARTH  # [m^3/s^2]
 
 # Earth's Angular Momentum (Solid rigid body approx is fine for order of magnitude)
