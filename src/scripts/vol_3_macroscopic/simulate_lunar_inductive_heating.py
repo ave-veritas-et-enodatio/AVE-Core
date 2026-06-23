@@ -8,14 +8,13 @@ Acoustic Phase-Slip bound (Gamma ~ 1000) derived in Phase 1 and 2,
 the VCA Topo-Kinematic AC induction natively bridges the gap.
 """
 
-from ave.core.constants import GRAVITATIONAL_CONSTANT, MACROSCOPIC_BARYON_PHASE_SCALAR
+from ave.core.constants import G, MACROSCOPIC_BARYON_PHASE_SCALAR
 
 
 def compute_lunar_healing() -> None:
     print("=== AVE LUNAR INDUCTIVE HEATING SOLVER ===\n")
 
     # Parameters
-    G = GRAVITATIONAL_CONSTANT
     M_earth = 5.972e24  # kg
     R_moon = 1.737e6  # m
     e_orbit = 0.0549  # eccentricity

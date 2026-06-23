@@ -39,13 +39,13 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core._constants_compute import _compute_i_scalar_dynamic
 from ave.core.constants import (
     BARYON_LADDER,
     C_0,
     M_E,
     P_C,
     V_TOROIDAL_HALO,
-    _compute_i_scalar_dynamic,
     e_charge,
 )
 
