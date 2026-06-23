@@ -90,7 +90,7 @@ Two facts decide this, and they point the same way:
 So AVE's substrate **does** have a real longitudinal DOF, governed by the Master Equation and the medium —
 matching [`master-equation.md:18,20`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)
 ("the longitudinal re-engages at saturation = the electron"; A1 dilatation-MASS scalar) and the MYTH-GUARD
-in [`common/the-abandoned-interior.md:20-22`](../manuscript/ave-kb/common/the-abandoned-interior.md)
+in [`common/the-abandoned-interior.md:22`](../manuscript/ave-kb/common/the-abandoned-interior.md)
 ("'Heaviside deleted a physical mode' is **false** for standard EM; AVE **adds** a medium with a genuine
 longitudinal DOF").
 
@@ -122,7 +122,7 @@ local-bond Bloch stencil.
 **Why this is a genuine cross-check on the Phase-1 failure mode.** The Phase-1 FAIL-1 stencil was
 **writhe-blind** because operators built from local bond directions {d̂, k·d} cannot see handedness — the
 left and right srs bond-direction multisets are **identical** (spec_R − spec_L ≈ 4.4×10⁻¹⁵,
-[`research/2026-06-23_chiral-vector-tlm-phase1_result.md:31`](2026-06-23_chiral-vector-tlm-phase1_result.md)).
+[`research/2026-06-23_chiral-vector-tlm-phase1_result.md:32`](2026-06-23_chiral-vector-tlm-phase1_result.md)).
 A left/right-derivative / RS-chirality operator is handed **by construction** (F⁺ ≠ F⁻ algebraically), so
 it cannot exhibit that specific blindness — a useful structural confirmation that the handedness is
 intrinsic to the operator, not an artifact of stencil choice.
@@ -209,23 +209,22 @@ borrowed from the lineage.
 
 ---
 
-## 8. ⚠️ Grant-calls (surfaced, NOT resolved)
+## 8. Grant-calls — RESOLVED (orchestrator audit, 2026-06-23)
 
-1. **Adopt Clifford STA as a formal notation layer?** STA cleanly unifies AVE's longitudinal-scalar /
-   transverse-EM / rotational grades in one geometric derivative and gives the chiral (pseudoscalar-I)
-   operator natively — but adopting a new framework-wide notation is a framework-design decision, not a
-   lane call. Recommendation: adopt as an **expository/cross-check layer** (cite STA for the grade
-   structure) **without** rewriting the engine; the FDTD/Cosserat engines already realize the physics.
-2. **Does the external corroboration raise the V-sector's FORM-solidity?** The V-sector's grade-0 identity
-   is now backed by a theorem (Fueter/STA), not just an internal posit. Lean: a **modest FORM-level
-   corroboration** is defensible; the **physical** "mass = A1" grade-assignment stays **ratified-consistency,
-   not driver-validated** ([`master-equation.md:25`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)).
-   Do **not** lift the physical band on the strength of an algebraic identification (that would repeat the
-   lineage's category error).
-3. **Citation hygiene:** cite **Jack (arXiv:math-ph/0307038)** for the operator (restrained, careful) and
-   the **upstream** mathematics (Sudbery/Fueter, Hestenes/STA, Conway/Silberstein/RS) for the formal home;
-   cite Dunning-Davies/Norman and Kennedy **only** as the over-claim cascade to avoid (SCIRP/viXra,
-   fringe-adjacent), never for a physical conclusion.
+1. **Clifford STA notation layer: RESOLVED → do NOT adopt corpus-wide.** STA is pure notation here (D5
+   added no new content), so it does **not** get adopted as a framework-wide layer. Use it **only as a
+   LOCAL expository aid inside the V-sector docs** where it clarifies "the Heaviside-deleted grade is
+   physical" — never as an engine rewrite (the FDTD/Cosserat engines already realize the physics). This
+   doc records that decision.
+2. **External corroboration vs FORM-solidity: RESOLVED → corroboration ONLY, band unchanged.** The
+   Fueter/STA theorem-backing is recorded as **FORM-level corroboration only**; it does **NOT** lift the
+   V-sector's FORM-solidity band. The **physical** "mass = A1" grade-assignment stays
+   **ratified-consistency, not driver-validated** ([`master-equation.md:25`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)).
+   Lifting any band on the strength of an algebraic identification would repeat the lineage's category error.
+3. **Citation hygiene: RESOLVED → apply.** Cite **Jack (arXiv:math-ph/0307038)** for the operator and the
+   **upstream** mathematics (Sudbery/Fueter, Hestenes/STA, Conway/Silberstein/RS) for the formal home; cite
+   Dunning-Davies/Norman and Kennedy **only** as the over-claim cascade to avoid (SCIRP/viXra,
+   fringe-adjacent), **never** for a physical conclusion. (Applied in §9.)
 
 ---
 
@@ -247,6 +246,7 @@ borrowed from the lineage.
 - **Sources** (formal home): Jack [arXiv:math-ph/0307038](https://arxiv.org/abs/math-ph/0307038); Sudbery,
   *Quaternionic Analysis*, Math. Proc. Camb. Phil. Soc. 85 (1979) 199; Hestenes, *Space-Time Algebra* (2nd
   ed. Springer 2015) + Am. J. Phys. 71 (2003) 691; Bialynicki-Birula, *Photon wave function*, Prog. Optics
-  36 (1996); biquaternion = SL(2,C) [arXiv:1602.04050]. Crank cascade (cite as avoid-list only):
+  36 (1996); biquaternion ≅ SL(2,C) is the standard Spin⁺(1,3) double-cover identity (textbook; no
+  preprint pin needed). Crank cascade (cite as avoid-list only):
   Dunning-Davies & Norman, J. Mod. Phys. 11 (2020) 1361 (SCIRP); Kennedy, viXra:2312.0075 / JHEPGC 11 (2025)
   (SCIRP).
