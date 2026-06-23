@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" viewBox="0 0 680 432" role="img">
+<title>Three gestures of the vacuum lattice and why a differential-arm detector sees shear but not the breathing mode</title>
+<desc>Top row: a node cluster shown sliding sideways (EM, transverse, volume unchanged), twisting in shape (shear or gravitational wave, traceless, volume unchanged), and breathing radially (bulk V-sector, longitudinal, volume changes). Bottom row: an L-shaped detector reads the shear wave because its arms anti-correlate, but reads null on the breathing wave because both arms move together so their difference is zero.</desc>
+<style>
+text{font-family:'Helvetica Neue',Arial,sans-serif}
+.th{font-size:14px;font-weight:500;fill:#2C2C2A}
+.t{font-size:14px;font-weight:500;fill:#2C2C2A}
+.ts{font-size:12px;font-weight:400;fill:#5F5E5A}
+.lbl-blue{fill:#0C447C}.lbl-teal{fill:#0F6E56}.lbl-coral{fill:#993C1D}
+</style>
+<defs>
+<marker id="ah-blue" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#378ADD"/></marker>
+<marker id="ah-teal" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1D9E75"/></marker>
+<marker id="ah-coral" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#D85A30"/></marker>
+</defs>
+<rect x="0" y="0" width="680" height="432" fill="#ffffff"/>
+
+<text x="40" y="28" class="th">three gestures of one lattice</text>
+
+<circle cx="114" cy="84" r="3.5" fill="#888780"/><circle cx="140" cy="84" r="3.5" fill="#888780"/><circle cx="166" cy="84" r="3.5" fill="#888780"/>
+<circle cx="114" cy="110" r="3.5" fill="#888780"/><circle cx="140" cy="110" r="3.5" fill="#888780"/><circle cx="166" cy="110" r="3.5" fill="#888780"/>
+<circle cx="114" cy="136" r="3.5" fill="#888780"/><circle cx="140" cy="136" r="3.5" fill="#888780"/><circle cx="166" cy="136" r="3.5" fill="#888780"/>
+<line x1="116" y1="84" x2="129" y2="84" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="142" y1="84" x2="155" y2="84" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="168" y1="84" x2="181" y2="84" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="116" y1="110" x2="129" y2="110" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="142" y1="110" x2="155" y2="110" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="168" y1="110" x2="181" y2="110" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="116" y1="136" x2="129" y2="136" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="142" y1="136" x2="155" y2="136" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<line x1="168" y1="136" x2="181" y2="136" stroke="#378ADD" stroke-width="2" marker-end="url(#ah-blue)"/>
+<text x="140" y="170" text-anchor="middle" class="t lbl-blue">slide — EM (Z_EM)</text>
+<text x="140" y="188" text-anchor="middle" class="ts">transverse · ΔV = 0</text>
+
+<circle cx="314" cy="84" r="3.5" fill="#888780"/><circle cx="340" cy="84" r="3.5" fill="#888780"/><circle cx="366" cy="84" r="3.5" fill="#888780"/>
+<circle cx="314" cy="110" r="3.5" fill="#888780"/><circle cx="340" cy="110" r="3.5" fill="#888780"/><circle cx="366" cy="110" r="3.5" fill="#888780"/>
+<circle cx="314" cy="136" r="3.5" fill="#888780"/><circle cx="340" cy="136" r="3.5" fill="#888780"/><circle cx="366" cy="136" r="3.5" fill="#888780"/>
+<line x1="368" y1="110" x2="384" y2="110" stroke="#1D9E75" stroke-width="2" marker-end="url(#ah-teal)"/>
+<line x1="312" y1="110" x2="296" y2="110" stroke="#1D9E75" stroke-width="2" marker-end="url(#ah-teal)"/>
+<line x1="340" y1="86" x2="340" y2="100" stroke="#1D9E75" stroke-width="2" marker-end="url(#ah-teal)"/>
+<line x1="340" y1="134" x2="340" y2="120" stroke="#1D9E75" stroke-width="2" marker-end="url(#ah-teal)"/>
+<text x="340" y="170" text-anchor="middle" class="t lbl-teal">twist — shear / GW</text>
+<text x="340" y="188" text-anchor="middle" class="ts">traceless · ΔV = 0</text>
+
+<circle cx="514" cy="84" r="3.5" fill="#888780"/><circle cx="540" cy="84" r="3.5" fill="#888780"/><circle cx="566" cy="84" r="3.5" fill="#888780"/>
+<circle cx="514" cy="110" r="3.5" fill="#888780"/><circle cx="540" cy="110" r="3.5" fill="#888780"/><circle cx="566" cy="110" r="3.5" fill="#888780"/>
+<circle cx="514" cy="136" r="3.5" fill="#888780"/><circle cx="540" cy="136" r="3.5" fill="#888780"/><circle cx="566" cy="136" r="3.5" fill="#888780"/>
+<line x1="511" y1="81" x2="502" y2="72" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="540" y1="81" x2="540" y2="70" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="569" y1="81" x2="578" y2="72" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="511" y1="110" x2="498" y2="110" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="569" y1="110" x2="582" y2="110" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="511" y1="139" x2="502" y2="148" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="540" y1="139" x2="540" y2="150" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<line x1="569" y1="139" x2="578" y2="148" stroke="#D85A30" stroke-width="2" marker-end="url(#ah-coral)"/>
+<text x="540" y="170" text-anchor="middle" class="t lbl-coral">breathe — bulk (V)</text>
+<text x="540" y="188" text-anchor="middle" class="ts">longitudinal · ΔV ≠ 0</text>
+
+<text x="40" y="240" class="th">what a differential-arm detector reads</text>
+
+<rect x="156" y="356" width="8" height="8" fill="#888780"/>
+<line x1="160" y1="360" x2="250" y2="360" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="160" y1="360" x2="160" y2="270" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="160" y1="360" x2="262" y2="360" stroke="#1D9E75" stroke-width="3" marker-end="url(#ah-teal)"/>
+<line x1="160" y1="360" x2="160" y2="284" stroke="#1D9E75" stroke-width="3" marker-end="url(#ah-teal)"/>
+<text x="160" y="392" class="t lbl-teal">shear → arms anti-correlate</text>
+<text x="160" y="410" class="ts">Lx ↑, Ly ↓ → detector reads it</text>
+
+<rect x="416" y="356" width="8" height="8" fill="#888780"/>
+<line x1="420" y1="360" x2="510" y2="360" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="420" y1="360" x2="420" y2="270" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="420" y1="360" x2="524" y2="360" stroke="#D85A30" stroke-width="3" marker-end="url(#ah-coral)"/>
+<line x1="420" y1="360" x2="420" y2="258" stroke="#D85A30" stroke-width="3" marker-end="url(#ah-coral)"/>
+<text x="420" y="392" class="t lbl-coral">breathe → arms move together</text>
+<text x="420" y="410" class="ts">Lx − Ly ≈ 0 → null (common-mode)</text>
+</svg>
