@@ -9,6 +9,8 @@ claims: [clm-ome498]
 
 ## $\lambda_H = 1/8$: Higgs Quartic Coupling
 
+> ↗ See also: [longitudinal / "the-3" vocab](../../../common/vocabulary-register.md#longitudinal) — the K4 **breathing mode** here IS the longitudinal A1 / V-sector scalar grade (`def-9a4f07` sense (a) / `def-5d2b8a` "the-3" mass-sense). The SM Higgs is a **FORM-identification** onto that grade, **not** a VALUE-derivation (the quaternion-scalar↔Higgs chord is closed-negative / G3-FAIL — see `research/2026-06-06_biquaternion-node-algebra-result.md`).
+
 > **Scope correction — TWO findings (2026-05-17 Foundation Item 7).**
 >
 > **(1) Higgs mass headline "0.55% match" is reference-shifted** (per `ave-evidence-framing-discipline` trigger 1 + A47 cross-tree-citation): the 0.55% is computed against AVE-derived VEV ($v_{AVE} \approx 248{,}833$ MeV), which is itself ~1.1% off from PDG standard VEV (246,220 MeV). End-to-end forward prediction $G_F \to v_{AVE} \to M_{H,AVE}$ against PDG experimental $M_H$ is **-1.59% to -1.68%**, NOT -0.55%. The 0.55% framing represents internal-consistency between two AVE-derived quantities (Class C consistency check), not forward-prediction error against experiment (Class D emergence test).
