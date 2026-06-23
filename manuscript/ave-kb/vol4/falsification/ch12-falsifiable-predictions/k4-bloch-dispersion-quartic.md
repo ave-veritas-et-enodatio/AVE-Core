@@ -130,6 +130,19 @@ $$
 The cutoff **value** (511 keV) is an ECHO (imports $m_e$, peer-with-QED). The spatial quartic of §2 is a
 **separate** geometric prediction; the two must not be conflated.
 
+> **The temporal cutoff is face (1) of the single substrate scale.** $\hbar\omega_C=m_e c^2$ is one of five
+> algebraic faces of AVE's single imported lattice scale ($m_e$ via $\ell_{node}\equiv\hbar/(m_e c)$) — see
+> [`single-substrate-scale.md`](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md)
+> (`clm-sw5oao`). That leaf records the honest scope (frame-checked 2026-06-22, `claim_survives = false`): the
+> multi-face web is a **one-import ECONOMY** (one dial vs the SM's $\sim$19+) plus a **same-substrate-event
+> explanatory ONTOLOGY**, **NOT** a prediction and **NOT** an AVE-distinct chord. $\hbar\omega_C=m_e c^2$ is true
+> **by the definition of $\ell_{node}$** (constants.py `OMEGA_C` comment), so it is definitional-by-construction,
+> peer-with-QED (QED equally ties the Compton length and Schwinger field to $m_e$). It must **not** be framed as
+> "structural unification the SM lacks." The AVE-distinct content of *this* leaf is the **spatial quartic FORM**
+> of §2 (geometry, node-up to $10^{-15}$), which is a **distinct mechanism** from this temporal value-echo. The
+> open scale-from-substrate theorem (gate `wejkhvnfb`, §6) is the SAME lever that would un-condition both the
+> cutoff-as-echo and the photon slope-4.
+
 ## §5 — Figures
 
 - [`k4_bloch_dispersion_bands`](../../../../../manuscript/vol_4_engineering/figures/k4_bloch_dispersion_bands.pdf)

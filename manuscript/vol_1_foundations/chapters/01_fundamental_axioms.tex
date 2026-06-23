@@ -249,6 +249,22 @@ Volume II demonstrates that the subatomic equations producing discrete, gapped o
 Pathways 1 and 3 ($\alpha$ closure via the Golden Torus; $\ell_{node}$ closure via scale invariance) are closed in current corpus. Pathway 2 ($G$ closure via substrate-local thermodynamics) is \emph{qualitatively identified but quantitatively open}: the corpus carries the mechanism story but no closed-form Chain~B$'$ derivation of $G$ from substrate primitives that avoids routing through $R_H$.
 The framework is \textbf{structurally closed} (operating point $u_0^* \approx 0.187$ \emph{asserted / back-fit} to CODATA $\alpha$ and $G$, not forward-derived; a Class~E operating-point projection links $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ joint-constrained at the cosmic horizon) but \emph{not yet a closed-form zero-parameter theory} pending Chain~B$'$ closure \emph{and} a forward derivation of $u_0^*$.
 
+\section{The Single Substrate Scale: One Import, Five Algebraic Faces}
+\label{sec:single_substrate_scale}
+Of the three retained inputs, the one carrying a dimensionful \emph{scale} is $\ell_{node}$, fixed by the calibration identity $\ell_{node}\equiv\hbar/(m_e c)$. A single imported scale then re-appears across the corpus as five algebraic faces, four of which reduce to the electron rest energy $m_e c^2$ (the fifth, the inductor rest energy, is the Virial-half $\tfrac12 m_e c^2$):
+
+\begin{enumerate}
+    \item \textbf{EM temporal cutoff:} $\hbar\omega_C$, with $\omega_C \equiv c/\ell_{node}$ (\texttt{OMEGA\_C}), so $\hbar\omega_C = \hbar c/\ell_{node} = m_e c^2$.
+    \item \textbf{Node saturation energy:} $(B_{snap}^2/2\mu_0)\,\ell_{node}^3 = m_e c^2$, the energy density at magnetic snap times one cell volume (\texttt{B\_SNAP}).
+    \item \textbf{Relativistic-inductor rest energy:} $E_0 = \tfrac12 L_0 I_{max}^2 = \tfrac12(\xi_{topo}^{-2}m_0)(\xi_{topo}c)^2 = \tfrac12 m_0 c^2$ --- the Virial-half (Vol~4 Ch~1, \emph{Relativistic Inductor}).
+    \item \textbf{Compton length:} $\ell_{node} = \hbar/(m_e c)$ itself (\texttt{L\_NODE}).
+    \item \textbf{Topological current ceiling:} $I_{max} = \xi_{topo}\,c \approx 124.4$~A, with $\xi_{topo} = e/\ell_{node}$ (\texttt{XI\_TOPO}).
+\end{enumerate}
+
+The one-substrate ontology reads these as the \emph{same} substrate event --- a local lattice saturation (the Axiom-4 self-saturation kernel) --- seen in its electric, magnetic, inductive, and topological projections. The driver \texttt{single\_scale\_consistency.py} imports the constants by symbol, verifies each face to a relative error of $10^{-12}$, and recovers $m_e c^2 = 510.999$~keV (validate-on-known).
+
+\paragraph{Honest scope (economy, not chord).} This identity is a \emph{one-import parameter economy} plus an \emph{explanatory ontology}; it is \textbf{not a prediction and not a structural unification the Standard Model lacks}. At the value level only $m_e$ is independently set: $\ell_{node}$ is defined \emph{via} $m_e$, and $\omega_C$, $B_{snap}$, $\xi_{topo}$, and $L_0$ are all $m_e$ downstream. ``All five $= m_e c^2$'' is therefore $m_e = m_e$ --- a multi-definition tautology, not a consistency between independent quantities (the $\xi_{topo}$ factors in face~3 cancel identically, so it carries zero information about the scale). The genuine differentiator from the Standard Model is bookkeeping \emph{economy}: AVE imports one dimensionful dial where the SM imports the electron Yukawa as one of $\sim$19+ independent parameters. But economy is not prediction: the Standard Model, through QED, equally ties the Compton wavelength $\hbar/(m_e c)$ and the Schwinger field $m_e^2 c^3/(e\hbar)$ to the electron mass. The \emph{value} (511~keV) is therefore an \textbf{echo} (peer-with-QED, both import $m_e$); the multi-face \emph{identity} is definitional-by-construction. This economy graduates to a genuine prediction only if the single scale is derived from bare substrate so that $m_e$ becomes a forward output --- the same open theorem that would un-condition the $(q\,\ell_{node})^4$ photon-dispersion quartic (Vol~4 Ch~12). See \kbleaf{single-substrate-scale.md} (\texttt{clm-sw5oao}, solidity 0.25).
+
 \section{Methodology: Explicit Discrete Kirchhoff Execution}
 While the manuscript often evaluates continuous PDEs (the macroscopic fluid approximation) to derive standard physical laws, the true AVE vacuum is strictly a discrete networked graph. 
 
