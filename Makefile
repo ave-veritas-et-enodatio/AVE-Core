@@ -49,7 +49,7 @@ KB_VERIFY = verify-kb-metadata
 # Volume list — public volumes (0–6) + Vol 9 datasheet (synthesis volume)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table vol_9_vacuum_datasheet
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup kit kit-verify kit-release
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -76,6 +76,9 @@ help:
 	@echo "  make vol6                 : Vol VI: The Periodic Table"
 	@echo "  make vol9                 : Vol IX: The Vacuum Datasheet (synthesis volume)"
 	@echo "  make figures              : Generate particle topology figure suite"
+	@echo "  make kit                  : Generate the Vol 9 vacuum-lattice 3D-print kit STLs + manifest (assets/3d_models/kit/)"
+	@echo "  make kit-verify           : As-built assembly gate + DFM rule check for the kit"
+	@echo "  make kit-release          : Package the kit STLs + manifest into a release zip (dist/)"
 	@echo "  make clean                : Remove auxiliary build artifacts (preserves PDFs)"
 	@echo "  make distclean            : Remove ALL build artifacts including PDFs"
 
@@ -266,6 +269,22 @@ figures:
 	@echo "[Figures] Regenerating gyroscopic spin simulator transition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_2_subatomic/simulate_gyroscopic_spin.py
 	@echo "[Figures] All figures generated."
+
+# Vol 9 vacuum-lattice 3D-print kit. Honors env: KIT_PRINT_MM_PER_L_NODE (default 100),
+# ASSEMBLY_L (default 4), KIT_FRICTION_INTERFERENCE_MM (default 0.05). Needs trimesh+manifold3d.
+kit:
+	@echo "[Kit] Generating vacuum-lattice 3D-print kit STLs + manifest -> assets/3d_models/kit/ ..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/generate_vacuum_lattice_kit.py
+
+kit-verify:
+	@echo "[Kit] As-built assembly gate..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_kit_assembly.py
+	@echo "[Kit] DFM rule check..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/kit_dfm_check.py
+
+kit-release:
+	@echo "[Kit] Packaging release zip -> dist/ ..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/package_kit_release.py
 
 # =============================================================================
 # 5. Cleanup

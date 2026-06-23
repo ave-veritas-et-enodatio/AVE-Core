@@ -177,20 +177,28 @@ with `KIT_FRICTION_INTERFERENCE_MM` (per-side mm; default 0.05 → 0.10 mm diame
 ## 9. Regenerate
 
 The STL artifacts are **generated and gitignored** — the generator is the source of
-truth. Regenerate the full kit + manifest with:
+truth. From the repo root, the simplest way is the Make target:
+
+```bash
+make kit            # -> assets/3d_models/kit/*.stl + vacuum_assembly_L{L}.json
+make kit-verify     # as-built assembly gate + DFM rule check
+make kit-release    # package the STLs + manifest into dist/ (release zip)
+```
+
+Or call the driver directly (equivalent):
 
 ```bash
 PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py
 ```
 
-Useful environment knobs:
+Useful environment knobs (work with `make kit` too — they pass through the shell env):
 
 ```bash
 # full crystal instead of the L=4 starter chunk
-ASSEMBLY_L=16 PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py
+ASSEMBLY_L=16 make kit
 
-# smaller print scale (mm per ℓ_node)
-KIT_PRINT_MM_PER_L_NODE=60 ASSEMBLY_L=4 PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py
+# smaller print scale (mm per ℓ_node) — recommended for a jig-assisted full build
+KIT_PRINT_MM_PER_L_NODE=60 ASSEMBLY_L=4 make kit
 
 # tune the friction fit (per-side mm)
 KIT_FRICTION_INTERFERENCE_MM=0.06 PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py
