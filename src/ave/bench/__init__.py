@@ -61,6 +61,10 @@ the canonical experimental chapter via the exemplars, NOT AVE-derived physics).
 
 from __future__ import annotations
 
+from ave.bench.adopters import (
+    birefringence_bench_spec,
+    crio_validate_on_known_spec,
+)
 from ave.bench.apparatus import (
     ApparatusCoupling,
     fn_dark_current,
@@ -85,6 +89,29 @@ from ave.bench.birefringence import (
     optical_activity_rotation_qed,
     substrate_identity_holds,
     vacuum_magnetic_birefringence_constant,
+)
+from ave.bench.model import (
+    AxisTag,
+    BankabilityRecord,
+    BenchSpec,
+    BindingSpec,
+    ChordEcho,
+    CorpusState,
+    DimensionalIngredient,
+    DiscriminatorAxis,
+    EvidenceFraming,
+    GateStatus,
+    LedgerAspect,
+    LedgerRow,
+    LedgerStatus,
+    OutcomeKind,
+    Prereg,
+    SensitivitySpec,
+    SharedWith,
+    ValidateOnKnownSpec,
+    Verdict,
+    VerifiabilityClass,
+    run_bench_model,
 )
 from ave.bench.snr import (
     SNRPoint,
@@ -130,4 +157,29 @@ __all__ = [
     "bench_point",
     "BirefringencePoint",
     "A_EH_LITERATURE",
+    # model — the channel-agnostic BenchModel spine + 8-gate bankability record
+    "run_bench_model",
+    "BenchSpec",
+    "BankabilityRecord",
+    "Verdict",
+    "GateStatus",
+    "ChordEcho",
+    "DiscriminatorAxis",
+    "SharedWith",
+    "LedgerRow",
+    "LedgerStatus",
+    "LedgerAspect",
+    "AxisTag",
+    "Prereg",
+    "DimensionalIngredient",
+    "CorpusState",
+    "OutcomeKind",
+    "ValidateOnKnownSpec",
+    "EvidenceFraming",
+    "BindingSpec",
+    "VerifiabilityClass",
+    "SensitivitySpec",
+    # adopters — reference BenchSpec builders (prove the spine shape)
+    "birefringence_bench_spec",
+    "crio_validate_on_known_spec",
 ]
