@@ -150,8 +150,8 @@ $|\Gamma|=1$ perfect reflectors, [`resonant-lc-solitons.md`](resonant-lc-soliton
 > \qquad
 > \mathrm{Im}(Z_{\mathrm{probe}}) \;\Rightarrow\; \text{conservative detuning only (calibratable).}
 > $$
-> where $\kappa$ is an $O(1)$ geometric coupling factor (the port's $k$,
-> [`resonant-lc-solitons.md`](resonant-lc-solitons.md):118). The READ-mode design target is therefore
+> where $\kappa$ is an $O(1)$ geometric coupling factor (the port coupling factor; cf. the
+> matched/radiative port at [`resonant-lc-solitons.md`](resonant-lc-solitons.md):118). The READ-mode design target is therefore
 > $\mathrm{Re}(Z_{\mathrm{probe}})/Z_{\mathrm{channel}} \to 0$, and $\mathrm{Re}(Z_{\mathrm{probe}})$ is
 > the **exact and entire** *energy* back-action budget — a cleaner statement than in a lossy medium,
 > where it would be only a lower bound.
@@ -173,11 +173,16 @@ Exactly two pieces of this primitive are genuinely AVE-specific. Everything else
 comedown — the SM likewise does not derive its own measurement-back-action principles; they are
 universal instrumentation theory there too.
 
-### 3.1 Axiom-3-lossless ⇒ $\mathrm{Re}(Z_{\mathrm{probe}})$ is the entire *energy* back-action budget
+### 3.1 Axiom-3-lossless makes $\mathrm{Re}(Z_{\mathrm{probe}})$ the *exact* (not merely asymptotic) entire *energy* back-action budget
 
 This is the §2 result. In a normal lab medium some back-action dissipates *in the medium*; in a
 lossless-reactive substrate it cannot, so the probe's resistance is exactly and only the irreversible
-invasiveness. Clean, correct reframing. **Caveat (carried from §1.3):** "entire" scopes the *energy*
+invasiveness. Clean, correct reframing. **Symmetric-standard scope (what is and isn't AVE-distinct here):**
+the *logic* — a lossless single-port resonator means only the external coupling resistance can drain the
+mode — is shared by any high-$Q$ resonator (e.g. an idealized optical cavity); AVE does not invent it.
+What *is* AVE-distinct is that the losslessness is **axiomatic-exact** (Axiom 3), not an engineering
+idealization carrying finite residual loss — so here $\mathrm{Re}(Z_{\mathrm{probe}})$ is the *exact* and
+entire energy budget, where in a real cavity it is only the asymptotic low-loss-limit one. **Caveat (carried from §1.3):** "entire" scopes the *energy*
 (irreversible) budget — the reactive $\mathrm{Im}(Z_{\mathrm{probe}})$ still detunes the mode as a
 separate, *calibratable* systematic. Do not read this as "$\mathrm{Re}(Z)$ is literally the entire probe
 influence with no other term."
