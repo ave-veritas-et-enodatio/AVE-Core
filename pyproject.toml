@@ -21,6 +21,7 @@ dependencies = [
     "jax>=0.10.1",
     "pytest>=8.4.2",
     "pytest-xdist>=3.8.0",
+    "pytest-timeout>=2.3.0",
 ]
 
 [project.optional-dependencies]
