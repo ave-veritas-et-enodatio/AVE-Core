@@ -23,13 +23,21 @@ All canonical-location lines below were spot-verified against HEAD
 (`mathematical-closure.md` table at lines 165–168; back-edges at 130–138) on
 2026-06-23. No line-number drift was found.
 
+**Scope note on the Layer-8 back-edges.** The three Layer-8 closure back-edges are
+**m_e** (Gap 1) and **G** (Gap 3) — the two tracked here — plus the **α** cold-lattice
+back-edge, which is **out of scope** for this owed-derivations pass: α is the
+separately-tracked **scoped standing echo** (closed-negative on all three named routes,
+flip-condition live; Grant-ratified 2026-06-18), not an owed *derivation*. δ_strain
+(Gap 4) is the thermal-running magnitude attached to that α back-edge, carried here only
+because its magnitude route was attempted and closed-negative.
+
 ---
 
 ## Summary table
 
 | Gap | Difficulty class | One-line status |
 |---|---|---|
-| **1 — m_e / ℓ_node Nyquist-independence** | RESEARCH-HARD (no logged attempt) | OPEN conditional back-edge; "smallest stable soliton" not yet shown well-defined without circular reference to m_e. |
+| **1 — m_e / ℓ_node Nyquist-independence** | RESEARCH-HARD (Layer-8 acceptance test unattempted; one adjacent rescue closed-negative 2026-06-11) | OPEN conditional back-edge; "smallest stable soliton" not yet shown well-defined without circular reference to m_e. |
 | **2 — Flux-tube Gaussian-ansatz radial profile** | TRACTABLE (bounded re-eval) | OPEN; result internally consistent *conditional on* the Gaussian ansatz; binds ρ_threshold only, not V_total = 2. |
 | **3 — H_∞ / G Chain B′ (G independent of R_H)** | OPEN-NO-CANDIDATES (route empty, not refuted) | OPEN; 0 closed-form Chain B′ candidates anywhere; one identity in (G, H_∞), disclosed as "consistency proof, not prediction." |
 | **4 — δ_strain magnitude at T_CMB** | CLOSED-NEGATIVE (attempted + refuted) | CLOSED NEGATIVE; magnitude derivation ~31 OOM undershoot + generic-thermal; only the SIGN is substrate-set. |
@@ -54,13 +62,24 @@ All canonical-location lines below were spot-verified against HEAD
   saturation gradient + lattice cutoff alone). Closing removes the input-scale
   degree of freedom — both ℓ_node and m_e become emergent.
 - **Difficulty:** RESEARCH-HARD.
-- **Closed-candidates note:** NO closed-negative on file; NO logged attempt
-  (no Q-id / prereg / result doc / closure-roadmap row). It is stated as a
-  *conditional* back-edge ("acyclic IF…"), not an attempted-and-failed
-  derivation. It reads as **open-stated-conditional**, not research-exhausted.
-  Tractability hinges on whether "smallest stable soliton" can be grounded in
-  the Axiom-4 saturation gradient + lattice cutoff alone — a suggested but
-  undemonstrated path.
+- **Closed-candidates note:** The **canonical Layer-8 acceptance test itself**
+  (define "smallest stable soliton" from K4 + Axiom-4 with m_e nowhere in the
+  inputs) has **no logged attempt** — no Q-id / prereg / result doc / closure-roadmap
+  row directly runs it; it is stated as a *conditional* back-edge ("acyclic IF…").
+  The axis is **not virgin**, however: one **adjacent rescue route was attempted
+  and CLOSED-NEGATIVE** on 2026-06-11 —
+  [`research/2026-06-11_nyquist-binding-route_CLOSED.md`](../research/2026-06-11_nyquist-binding-route_CLOSED.md)
+  demolished the "electron-at-the-lattice-Nyquist-cutoff ⇒ m_e is the sampling-rate
+  *readout*, dissolving the ℓ_node circularity" cash-out on four independent grounds
+  (a factor-π arithmetic slip — the carrier sits at k_C = k_max/π, a factor π *below*
+  the zone edge — plus three mechanism contradictions with canon), and it carries an
+  **anti-pattern marker** against reconstructing that rescue. Critically, that
+  closure's own §4 names *this* Layer-8 acceptance test as the **OPEN successor** — so
+  Gap-1's **core verdict stands (genuinely open: the acceptance test has not been run)**,
+  but the most seductive shortcut is already fenced. Tractability hinges on whether
+  "smallest stable soliton" can be grounded in the Axiom-4 saturation gradient +
+  lattice cutoff alone — a suggested but undemonstrated path (and *not* the
+  closed-negative Nyquist-readout shortcut).
 
 ---
 
@@ -178,12 +197,18 @@ The four gaps are deliberately **not** filed as one undifferentiated backlog.
 They occupy four different epistemic states, and the distinction is itself the
 load-bearing output of this scoping pass:
 
-- **RESEARCH-HARD — no logged attempt (Gap 1).** The back-edge is stated as a
-  *condition* ("acyclic IF 'smallest stable soliton' is well-defined without
-  circular reference to m_e"). No Q-id, prereg, result doc, or closure-roadmap
-  row exists. It is open-stated-conditional — the work has not been *tried*, so
-  it is neither tractable-by-evidence nor refuted; it is genuinely unexplored
-  and plausibly hard.
+- **RESEARCH-HARD — acceptance test unattempted, one adjacent route fenced (Gap 1).**
+  The back-edge is stated as a *condition* ("acyclic IF 'smallest stable soliton'
+  is well-defined without circular reference to m_e"). The **canonical Layer-8
+  acceptance test** (smallest stable soliton with m_e nowhere in inputs) has **no
+  logged attempt** — no Q-id, prereg, result doc, or closure-roadmap row runs it.
+  But the axis is **not unexplored**: the adjacent "electron-at-the-Nyquist-cutoff
+  ⇒ m_e = sampling-rate readout" rescue was attempted and **CLOSED-NEGATIVE
+  2026-06-11** ([`research/2026-06-11_nyquist-binding-route_CLOSED.md`](../research/2026-06-11_nyquist-binding-route_CLOSED.md),
+  anti-pattern marker). So the **core verdict holds — genuinely open** (the
+  acceptance test is unrun, neither tractable-by-evidence nor refuted) — while the
+  most seductive shortcut is already closed; the open work is the harder
+  first-principles soliton-definition path, not the fenced readout shortcut.
 
 - **TRACTABLE — bounded re-eval (Gap 2).** The gap narrowly binds a single
   scalar (ρ_threshold), the candidate replacement profiles are already named,
