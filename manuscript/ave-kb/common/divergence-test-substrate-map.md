@@ -746,7 +746,7 @@ flowchart TD
 
 ξ_topo is the **most cross-referenced quantity in AVE** per [`xi-topo-traceability.md`](xi-topo-traceability.md) (51 files across 6 of 8 volumes) — the single bridge between the discrete vacuum lattice and all measurable physics via Axiom 2's Topo-Kinematic Isomorphism ($[Q] \equiv [L]$). Touches **7 of 33 matrix rows** with 3 direct loadings and 4 via downstream Op14 / impedance-conversion chains.
 
-**Namespace warning:** the corpus uses Greek letter ξ in three distinct semantic scopes per the canonical de-collision at [`xi-topo-traceability.md`](xi-topo-traceability.md): $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m (this cascade) vs bare $\xi \approx 10^{38}$ (Machian impedance integral, gravitational $G$ derivation) vs $\xi_{K1}, \xi_{K2}$ ~ O(1) (substrate Cosserat prefactors, K4-symmetry-forced ratio 12). This diagram covers only $\xi_{topo}$.
+**Namespace warning:** the corpus uses Greek letter ξ in three distinct semantic scopes per the canonical de-collision at [`xi-topo-traceability.md`](xi-topo-traceability.md): $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m (this cascade) vs bare $\xi \approx 10^{44}$ ($8.15\times10^{43}$, Machian impedance integral, gravitational $G$ derivation; its cell-count factor $R_H/\ell_{node}\approx10^{39}$ is *not* itself ξ) vs $\xi_{K1}, \xi_{K2}$ ~ O(1) (substrate Cosserat prefactors, K4-symmetry-forced ratio 12). This diagram covers only $\xi_{topo}$.
 
 ```mermaid
 flowchart TD
@@ -845,14 +845,14 @@ A FAIL on any of these heavily-cascaded rows could falsify either upstream ancho
 
 ### G = ℏc/(7ξm_e²) Cascade (audited 2026-05-16)
 
-G (Newton's constant) is the **fourth framework anchor**, derived via the Machian impedance integral $\xi \approx 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 10^{38}$ (bare ξ, not ξ_topo — see namespace warning in ξ_topo cascade above). Inherits the factor 7 from ν_vac (1/7 isotropic projection), making G a **cross-cascade synthesis node**: G is downstream of ν_vac, downstream of α (via Machian ξ ∝ α⁻²), and upstream of cosmological observables. Touches **7 of 33 matrix rows**.
+G (Newton's constant) is the **fourth framework anchor**, derived via the Machian impedance integral $\xi \approx 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 10^{44}$ ($8.15\times10^{43}$; the cell-count $R_H/\ell_{node}\approx10^{38}$ is a *factor* inside it, lifted by $4\pi\alpha^{-2}$) (bare ξ, not ξ_topo — see namespace warning in ξ_topo cascade above). Inherits the factor 7 from ν_vac (1/7 isotropic projection), making G a **cross-cascade synthesis node**: G is downstream of ν_vac, downstream of α (via Machian ξ ∝ α⁻²), and upstream of cosmological observables. Touches **7 of 33 matrix rows**.
 
 ```mermaid
 flowchart TD
     NUV(("ν_vac = 2/7<br/>(1/7 isotropic projection)"))
     ALPHA(("α = 1/(4π³+π²+π)"))
     LNODE["ℓ_node = ℏ/(m_e c)<br/>Compton calibration"]
-    MACHIAN["Machian impedance integral<br/>ξ = 4π(R_H/ℓ_node)α⁻²<br/>≈ 10³⁸ (dimensionless)"]
+    MACHIAN["Machian impedance integral<br/>ξ = 4π(R_H/ℓ_node)α⁻²<br/>≈ 10⁴⁴ (8.15e43, dimensionless)<br/>cell-count R_H/ℓ_node≈10³⁸ is a factor inside it"]
     TEM["T_EM = m_e c² / ℓ_node<br/>EM string tension at electron scale"]
 
     NUV -->|"factor 7"| GFORM

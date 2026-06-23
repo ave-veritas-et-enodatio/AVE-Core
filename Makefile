@@ -110,6 +110,8 @@ verify: $(KB_VERIFY) verify-md-links
 	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
 	@echo "\n[Verify] Running predictions-manifest validator..."
 	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
+	@echo "\n[Verify] Running ξ namespace collision guard..."
+	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="

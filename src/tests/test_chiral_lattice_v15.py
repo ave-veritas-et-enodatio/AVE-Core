@@ -13,7 +13,7 @@ from ave.core.chiral_lattice_v15 import (
 )
 from ave.core.constants import ALPHA
 from ave.core.genesis_lane_a_provenance import (
-    R_XI_TOPO_NATIVE,
+    E_NATIVE_SQRT_ALPHA,
     R_YIELD_KNEE_NATIVE,
     build_lane_a_provenance,
     cosmic_latent_native,
@@ -29,7 +29,7 @@ def test_cosmic_latent_negligible_vs_yield_native():
 
 
 def test_seed_amp_is_sqrt_alpha_vsnap():
-    assert abs(seed_amp_vsnap() - R_XI_TOPO_NATIVE) < 1e-12
+    assert abs(seed_amp_vsnap() - E_NATIVE_SQRT_ALPHA) < 1e-12
 
 
 def test_provenance_native_r_yield_targets():
