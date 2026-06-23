@@ -688,7 +688,7 @@ For the electron: envelope ~ $\ell_{\text{node}} / (2 \pi)$ horn-torus tube radi
 - **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1** — substrate-vocabulary box (chapter-level canonical)
 - **docs/glossary.md §2** — three boundary invariants canonical-names matrix
 - **Vol 3 Ch 2:43** — BH-electron parallel canonical
-- **Backmatter Ch 7 (A-034 universal saturation-kernel catalog)** — substrate-observability rule applied across 19 cross-scale instances
+- **Backmatter Ch 7 (A-034 universal saturation-kernel catalog)** — substrate-observability rule applied across 26 cross-scale instances
 
 ---
 

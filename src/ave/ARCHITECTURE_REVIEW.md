@@ -420,7 +420,7 @@ changes):
 
 **Canonical** L5 entry (`research/_archive/L5/axiom_derivation_status.md` A-034)
 identifies $S(A) = \sqrt{1 - A^2}$ as the universal mechanism governing
-every topological-reorganization event at every scale. **19 canonical
+every topological-reorganization event at every scale. **26 canonical
 instances span 21 orders of magnitude.** The engine's Op2 (`universal_saturation`
 in `core/universal_operators.py`) is the implementation; `scale_invariant.py`
 and `master_equation_fdtd.py` both reference A-034 in their docstrings.

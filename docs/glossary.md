@@ -34,7 +34,7 @@ invariants + inter-cell coupling + cosmic-IC framing).
 | State | Voltage / $V_{\text{inc}}$ | Force / displacement | Default: substrate-vocabulary. Specify projection when math is probe-coupled. |
 | Propagation | Current flow | (no clean analog) | Default: substrate. How state evolves between nodes. |
 | Impedance $Z$ | already universal | already universal | Use freely. |
-| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. **A-034 universality (canonical 2026-05-15 evening):** governs every topological-reorganization event at every scale across 19 catalog instances spanning 21 orders of magnitude. See [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex). |
+| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. **A-034 universality (canonical 2026-05-15 evening):** governs every topological-reorganization event at every scale across 26 catalog instances spanning 21 orders of magnitude. See [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex). |
 | Boundary | (charged surface) | (yield surface) | Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. |
 | Envelope | (wavefunction support) | (zone of influence) | Default: substrate-vocabulary. What the substrate *actually sees*. |
 | **Boundary linking number $\mathcal{Q}$** | charge $Q$ | (no clean ME analog) | Use universal substrate; project to $Q$ for standard physics. Integer per boundary. |
@@ -50,14 +50,14 @@ invariants + inter-cell coupling + cosmic-IC framing).
 
 | Term | Meaning | Cross-ref |
 |---|---|---|
-| **A-034 (Universal Saturation-Kernel Strain-Snap Mechanism)** | Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ as the universal mechanism for every topological-reorganization event at every scale (19 canonical instances spanning 21 orders of magnitude) | [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
+| **A-034 (Universal Saturation-Kernel Strain-Snap Mechanism)** | Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ as the universal mechanism for every topological-reorganization event at every scale (26 canonical instances spanning 21 orders of magnitude) | [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
 | **TKI Strain-Snap mechanism** | Topo-Kinematic-Isomorphism strain-snap: per Grant 2026-05-15, "the bulk response of the lattice to strain is universal." Vertical tangent at A=1 makes every snap impulsive | A-034 canonical |
 | **SYM / ASYM-N / ASYM-E** | A-034 3-way symmetry classification: SYM = vacuum K=2G (ε and μ saturate together); ASYM-N = asymmetric natural (single-sector, e.g., BCS μ-only or plasma ε-only); ASYM-E = asymmetric engineered decoupled (K/G ≠ 2 by design, e.g., active topological metamaterials) | [Backmatter Ch 7 §3-way classification](../manuscript/backmatter/07_universal_saturation_kernel.tex) |
 | **Measurement-hierarchy framing** | A-034 measurement modes per Grant 2026-05-15: single-emitter highest-SNR / multi-emitter bulk-response / phased-array PLL autoresonant. The same engineered-kernel architecture applied to different goals via different measurement modes | [Backmatter Ch 7 §measurement modes](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
 | **Continuous-springs framing** | Per Grant 2026-05-15: the discrete K4 lattice is a DISCRETIZATION of the underlying continuous Cosserat micropolar field (Axiom 1); "bonds" are visualizations of continuous stress field propagation, not physical springs | [Trampoline-framework §1.2](../manuscript/ave-kb/common/trampoline-framework.md) |
 | **$\xi_{K1}, \xi_{K2}$** | Substrate-scale Cosserat prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{\text{node}}^2$, with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced. **NAMESPACE: distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Axiom 2's $\xi_{topo}$** | [xi-topo-traceability.md](../manuscript/ave-kb/common/xi-topo-traceability.md) namespace de-collision |
 | **\|T\| = 12 universality** | The proper tetrahedral rotation group $T$ has $|T| = 12$; this number appears in K4 physics wherever T acts transitively on a 4×3 mode space (baseline coordination, secondary paths, Cosserat constitutive ratio $\xi_{K2}/\xi_{K1} = 12$). 4 independent routes converge | Backmatter Ch 7 + Vol 1 Ch 1 Axiom 4 |
-| **Lego-click synthesis pattern** | Meta-pattern recurring throughout AVE development: agent generates analytical detail, Grant pattern-spots a connection, framework simplifies. A-034 is the largest such synthesis to date (one kernel, 19 scales) | A-034 §A-034.7 meta-pattern (Backmatter Ch 7) |
+| **Lego-click synthesis pattern** | Meta-pattern recurring throughout AVE development: agent generates analytical detail, Grant pattern-spots a connection, framework simplifies. A-034 is the largest such synthesis to date (one kernel, 26 scales) | A-034 §A-034.7 meta-pattern (Backmatter Ch 7) |
 
 ---
 
@@ -154,7 +154,7 @@ All three must give the same $u_0^*$ or the single-cosmological-parameter framew
 ### Canonical manuscript anchors (substrate vocabulary + boundary invariants)
 - **Common Foreword §Three Boundary Observables** — canonical $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$ definitions + substrate-observability rule
 - **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1** — canonical substrate-vocabulary box (in-chapter version of §1 table above)
-- **Backmatter Ch~7 (Universal Saturation-Kernel Catalog)** — canonical A-034 19-instance catalog with SYM/ASYM-N/ASYM-E classification
+- **Backmatter Ch~7 (Universal Saturation-Kernel Catalog)** — canonical A-034 26-instance catalog with SYM/ASYM-N/ASYM-E classification
 
 ### Chapter cross-references
 - Vol 1 Ch 1 §sec:substrate_vocab_box_ch1 — substrate-vocabulary box near Axiom 1
