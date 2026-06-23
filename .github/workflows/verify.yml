@@ -6,14 +6,15 @@ on:
     branches: [main]
 
 jobs:
-  # PR-blocking gate: physics verify + the bedrock keeper suite (engine-sims
-  # excluded by `make test`'s `-m "not engine_sim"`). Fast (~6-7 min) so it
-  # stays well under timeout. This is the job to mark "required" in branch
-  # protection. (CI partition: research/2026-06-13_ci-engine-sim-partition_prereg.md)
+  # PR-blocking gate: physics verify (~1 min) + the bedrock keeper suite (~1830 unit
+  # tests, engine-sims excluded by `make test`'s `-m "not engine_sim"`), parallelized
+  # via pytest-xdist (`-n auto`). The serial suite had grown to ~30 min and was hitting
+  # the timeout; parallel keeps it well under. This is the job to mark "required" in
+  # branch protection. (CI partition: research/2026-06-13_ci-engine-sim-partition_prereg.md)
   validators:
     name: make verify + make test
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     env:
       MPLBACKEND: Agg
     steps:

@@ -157,7 +157,12 @@ test: test-tools
 	# standalone / via `make verify`, not here.
 	# `-m "not engine_sim"` routes the slow tier-1/2 engine-simulation tests to
 	# the opt-in `make test-engine` lane (CI partition prereg 2026-06-13).
-	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim"
+	# `-n auto` (pytest-xdist): parallelize across cores. The ~1830-test suite ran
+	# ~30 min serial and hit the CI timeout; parallel run keeps the PR gate well under.
+	# `--timeout` (pytest-timeout): per-test hang guard — a single stuck test fails
+	# itself instead of silently eating the whole job budget. NOT on test-engine
+	# (those are legitimately-slow sims; the gate's slowest keeper is now ~50s).
+	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."
