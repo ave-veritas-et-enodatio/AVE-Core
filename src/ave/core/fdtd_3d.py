@@ -225,7 +225,8 @@ class FDTD3DEngine:
 
         VCA-R01 (fixed): the μ-grade is the relativistic inductor, which saturates
         on the circulating CURRENT reaching c — i.e. as the circulation rate ω
-        approaches the node cutoff ω_C = c/ℓ_node ≈ 1.24e20 rad/s (gamma-ray scale).
+        approaches the node cutoff ω_C = c/ℓ_node ≈ 7.76e20 rad/s (f_C ≈ 1.24e20 Hz;
+        gamma-ray scale, ℏω_C = m_e c² = 511 keV).
         Any wave this Yee engine can represent runs at ω ≪ ω_C (ω/ω_C ≲ 1e-6 even at
         optical), so S_μ = √(1 − (ω/ω_C)²) = 1 to machine precision and μ_eff = μ₀
         exactly. A static external B likewise has dB/dt = 0 ⇒ no induced circulation

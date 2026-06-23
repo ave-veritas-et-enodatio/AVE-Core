@@ -49,7 +49,7 @@ The open fork: **is the μ-grade a saturable reactor or an ideal inductor under 
 
 - **Candidate A — saturable reactor.** Kernel argument `r_μ = B_external/B_SNAP`. If correct, a static `B`
   shifts the μ operating point → vacuum birefringence under a DC magnet → PVLAS bites → AVE constrained.
-  Apparent support: `B_SNAP` is a flux-DENSITY yield (`constants.py`:444), and the fdtd engine wires
+  Apparent support: `B_SNAP` is a flux-DENSITY yield (the `B_SNAP` symbol in `constants.py`), and the fdtd engine wires
   `B_local = μ_0·|H|` against `b_yield` (`fdtd_3d.py`:231,:245).
 - **Candidate B — ideal relativistic inductor.** Kernel argument `r_μ = I_circ/I_max` (the internal
   circulating current). If correct, a static `B` (∂B/∂t = 0) drives no internal circulation → `S_μ = 1` →
@@ -212,7 +212,7 @@ regardless of which fork one entertains.
 
 ## 6. The code-bug (VCA-R01) — RESOLVED 2026-06-22
 
-> **RESOLVED 2026-06-22.** VCA-R01 is fixed: the free-EM μ-channel is now LINEAR (μ_eff = μ₀). The μ-grade saturates only as the circulation rate ω → ω_C = c/ℓ_node ≈ 1.24×10²⁰ rad/s (gamma-ray scale); every FDTD-representable wave has ω/ω_C ≲ 10⁻⁶ ⟹ S_μ = 1 to machine precision, and a static external B (dB/dt = 0) gives S_μ = 1 exactly. The |B|-amplitude keying is removed, caller-local: `fdtd_3d._compute_local_mu` + the two energy readouts + the JAX twin `fdtd_3d_jax._compute_local_mu_kernel`; `scale_invariant.mu_eff` is unchanged (it serves genuine static-B MATTER callers — Meissner, Yang-Mills). `test_vca_r01_static_b_mu_keying.py` now PASSES (was `xfail`). The original analysis follows; the "propagating-wave shortcut" claim in it is corrected inline below.
+> **RESOLVED 2026-06-22.** VCA-R01 is fixed: the free-EM μ-channel is now LINEAR (μ_eff = μ₀). The μ-grade saturates only as the circulation rate ω → ω_C = c/ℓ_node ≈ 7.76×10²⁰ rad/s (f_C ≈ 1.24×10²⁰ Hz; gamma-ray scale, ℏω_C = m_e c² = 511 keV); every FDTD-representable wave has ω/ω_C ≲ 10⁻⁶ ⟹ S_μ = 1 to machine precision, and a static external B (dB/dt = 0) gives S_μ = 1 exactly. The |B|-amplitude keying is removed, caller-local: `fdtd_3d._compute_local_mu` + the two energy readouts + the JAX twin `fdtd_3d_jax._compute_local_mu_kernel`; `scale_invariant.mu_eff` is unchanged (it serves genuine static-B MATTER callers — Meissner, Yang-Mills). `test_vca_r01_static_b_mu_keying.py` now PASSES (was `xfail`). The original analysis follows; the "propagating-wave shortcut" claim in it is corrected inline below.
 
 The fdtd engine keyed μ-saturation on the *static* `|B| = μ₀|H|` against `b_yield = B_SNAP`
 — the saturable-reactor (Candidate-A) form — which contradicts the canonical `I`-keyed constitutive primitive
@@ -233,8 +233,12 @@ free-EM μ-channel is **linear in the regime this engine reaches**. (The earlier
 wave on `|B|` — wrong: that is neither the bound-circulation case nor the ω_C-cutoff case.) A
 **bound/self-trapped circulation** (`v_circ` = boost velocity) saturates μ at any frequency; a **static external
 DC-B** has `dB/dt = 0` ⟹ no induced circulation ⟹ `S_μ = 1` exactly. So the fix here is: the free-EM μ-channel
-is linear, and **the ω_C cutoff is modeled separately by a dispersive-μ(ω) workstream** — the AVE-distinct
-`(q·ℓ_node)⁴` lattice-dispersion test at the 511 keV scale.
+is linear, and **the ω_C cutoff is modeled separately**. The AVE-distinct `(q·ℓ_node)⁴` lattice-dispersion
+test is now resolved (**FORK-2**) as a **k-space Bloch eigensolve**, NOT a temporal dispersive-μ(ω) FDTD (a
+coarse-grid μ(ω) FDTD only validates the null μ=μ₀; the directional anisotropy lives in `D(k)`). See
+`research/2026-06-22_k4-bloch-dispersion-quartic_result.md` (driver `src/scripts/vol_4_engineering/k4_bloch_dispersion.py`,
+leaf `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md`,
+clm-k4d4ph). The temporal cutoff ω_C and that spatial quartic are DISTINCT mechanisms (ratio π).
 The engine is also internally inconsistent: its just-merged Lagrangian-EMF coupling (PR #339, the `−2` Lenz
 back-EMF) is on the rate/`I` side, while its FDTD μ-update is on the amplitude side.
 

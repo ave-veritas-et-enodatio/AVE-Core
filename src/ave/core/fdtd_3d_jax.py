@@ -73,7 +73,8 @@ def _compute_local_mu_kernel(
     Free-EM permeability — LINEAR (VCA-R01); mirrors numpy ``_compute_local_mu``.
 
     The μ-grade (relativistic inductor) saturates on the circulating current
-    reaching c, i.e. as the circulation rate ω → ω_C = c/ℓ_node ≈ 1.24e20 rad/s.
+    reaching c, i.e. as the circulation rate ω → ω_C = c/ℓ_node ≈ 7.76e20 rad/s
+    (f_C ≈ 1.24e20 Hz; ℏω_C = m_e c² = 511 keV).
     Any wave this Yee engine represents runs at ω ≪ ω_C, so S_μ = 1 to machine
     precision and μ_eff = μ_base exactly; a static external B (dB/dt = 0) likewise
     gives S_μ = 1. The earlier code keyed μ on the static amplitude |B| = μ₀|H|

@@ -1364,6 +1364,36 @@ The Compton frequency $\omega_C = c/\ell_{\text{node}}$ is a genuine dynamical t
   - Show the V_yield = √α V_snap threshold's α-conditioning consistently with the trefoil/unknot body-topology dependence
 ---
 
+## The Single Substrate Scale — One Import, Five Algebraic Faces
+<!-- id: clm-sw5oao -->
+
+AVE imports exactly **one** dimensionful lattice scale ($m_e$, via the calibration identity $\ell_{node}\equiv\hbar/(m_e c)$) and expresses five corpus quantities as algebraic faces of it: (1) the EM temporal cutoff $\hbar\omega_C$ (`OMEGA_C`), (2) the node saturation energy $(B_{snap}^2/2\mu_0)\ell_{node}^3$ (`B_SNAP`), (3) the relativistic-inductor rest energy $E_0=\tfrac12 L_0 I_{max}^2$, (4) the Compton length $\ell_{node}$ (`L_NODE`), (5) the topological current ceiling $I_{max}=\xi_{topo}c$ (`XI_TOPO`). Faces 1, 2, 4 collapse to $m_e c^2$; face 3 is $\tfrac12 m_e c^2$ (the Virial-half). **Frame-checked 2026-06-22, `claim_survives = false` — canonicalized as a ONE-IMPORT ECONOMY + EXPLANATORY ONTOLOGY, NOT a prediction and NOT an AVE-distinct chord.**
+
+- _Specific Claims_
+  - **PARAMETER ECONOMY (real bookkeeping):** AVE imports one dimensionful scale where the SM imports the electron Yukawa as one of $\sim$19+ independent dials. Fewer independent dials — but **economy ≠ prediction**; none of the five faces is an independent measurement AVE postdicts.
+  - **SAME-SUBSTRATE-EVENT ONTOLOGY (explanatory):** the five faces are the same lattice-saturation (Axiom-4 kernel) event in EM / magnetic / inductive / topological projections. Genuine explanatory differentiation worth recording — interpretive, not a forced number.
+  - **VALIDATE-ON-KNOWN:** the driver computes $m_e c^2 \to 510.999$ keV and asserts each face reduces to its definitional target to $10^{-12}$ (constants chain carries no factor error). The face-3 $\xi_{topo}$-cancellation ($E_0=\tfrac12 m_0 c^2$ for ANY $\xi_{topo}$) is exact.
+- _Specific Non-Claims and Caveats_
+  - 🟡 **CIRCULARITY IS TOTAL AT THE VALUE LEVEL.** Only `M_E` is an independent literal in `constants.py`; `L_NODE=HBAR/(M_E*C_0)`, `OMEGA_C=C_0/L_NODE` ($\hbar\omega_C=m_e c^2$ by def of $\ell_{node}$ — stated in the `OMEGA_C` source comment), `B_SNAP` inserts $m_e c^2$ by hand, `XI_TOPO=e/L_NODE`, $L_0=\xi_{topo}^{-2}m_0$. "All five $=m_e c^2$" is $m_e=m_e$ — a **multi-definition tautology, NOT a multi-quantity consistency.**
+  - **The "SM lacks it" framing is FALSE and forbidden.** QED ties the Compton length $\hbar/(m_e c)$ and the Schwinger field $m_e^2c^3/(e\hbar)$ (AVE's own `E_CRIT`) to $m_e$ routinely. The VALUE is an ECHO, peer-with-QED. Forbidden: "structural unification the SM lacks", "AVE forces these to coincide", "five independent quantities agree".
+  - **Coincidence-magnet tell.** The five-face over-determination is the same family as the $\tfrac12/\tfrac14$ and two-"3"s double-counts — one definition viewed five ways; read as self-consistency, never five corroborations.
+  - **Consistent with standing adjudications** ([`form-deriving-value-importing.md`](../common/form-deriving-value-importing.md) `m_e/ℓ_node` = DEFINITIONAL; `constants.py` `M_E` block = substrate-canonical INPUT not Class-2 emergence) — not an escalation of them.
+
+> **Leaf references:** [single-substrate-scale](./axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md).
+
+### Quality
+- confidence: 0.25
+- depends-on:
+  - clm-5xon03 — Zero-Parameter Closure Status [the one-empirical-input-mass-scale disclosure this leaf restates as a five-face web]
+  - clm-fr3mos — Compton Frequency ω_C [face (1)+(4): ω_C = c/ℓ_node, m_e c² = ℏω_C]
+  - clm-k4d4ph — K4 Bloch dispersion quartic [the graduation lever: the same open scale-from-substrate / no-zone-edge theorem un-conditions both]
+  - clm-p5cf3t — Relativistic Inductor [face (3): E_0 = ½L_0 I_max² = ½m_0c²]
+- solidity: 0.25 (do not build on, rework needed) [= min(0.25, 0.55)]
+- rationale: Frame-check 2026-06-22 returned `claim_survives = false`. At the value level the five faces are a pure chain of definitions rooted in the single literal `M_E` (driver labels 1 IS, 5 CD); "all five = m_e c²" is m_e = m_e. Gate (a) SM-distinctness PARTIAL-FAIL (QED's Compton/Schwinger mechanism also ties an EM scale to m_e); gate (b) FAIL (AVE DEFINES the identity, does not FORCE it from a dynamical calculation outputting independently-computed quantities). What survives honestly: a real one-import parameter ECONOMY (one dial vs ~19+) and a same-substrate-event explanatory ONTOLOGY — both recorded, neither a prediction. Solidity 0.25 reflects consistency/economy class, not chord class. The value is an echo always; the multi-face identity is definitional-by-construction.
+- strengthen-by:
+  - Derive the single scale ($m_e$ / $\ell_{node}$) from bare substrate so that $m_e$ becomes a forward output rather than a CODATA import — the SAME open theorem (scale-from-substrate / weak-C no-zone-edge, gate `wejkhvnfb`) that would un-condition the photon dispersion quartic (clm-k4d4ph). Only then does the economy graduate to a chord.
+---
+
 ## Photon Propagation Baseline — $v/c = \sqrt{2}$ Cardinal-Axis Kinematics
 <!-- id: clm-djpx2v -->
 
