@@ -162,6 +162,14 @@ Three corpus defects were grep-verified fixed/flagged on `analysis/k4-bloch-disp
 - **The OPEN topological-decoupling theorem** — closing the weak-C no-zone-edge premise from a *derived* theorem
   (currently regime-grounded + GRB-corroborated PREDICTION) would upgrade the photon slope-4 from a re-stated
   exponent to a from-eigensolve result. Not landed.
+- **FORK-1 (tracked open fork — Grant directive 2026-06-22).** The **electric-channel free-wave dispersion**
+  is unwritten — the corpus derived the magnetic μ-grade's temporal response only. Does the ε-grade cut off
+  with frequency like the μ-grade (a low-pass band-fold, the $\varepsilon_{eff}(\omega)$ analog of
+  $\mu_{eff}(\omega)=\mu_0\sqrt{1-(\omega/\omega_C)^2}$), or is it a Klein–Gordon-style high-pass? **MOOT for the
+  free photon** (which by the weak-C premise carries no zone-edge term at all), so non-blocking here — but it
+  **GATES a future bound-resonator model** (where the electric grade IS loaded). Resolution path: extend the
+  Bloch eigensolve / per-DOF node circuit to the ε-channel and read off its $\omega$-dependence. Tracked, not
+  actioned.
 
 ### Provenance
 
