@@ -70,21 +70,20 @@ def _compute_local_mu_kernel(
     b_yield: float,
 ) -> jax.Array:
     """
-    Axiom 4 — Inductive saturation (magnetic sector).
+    Free-EM permeability — LINEAR (VCA-R01); mirrors numpy ``_compute_local_mu``.
 
-    μ_eff = μ_base · √(1 − (B / B_yield)²)
+    The μ-grade (relativistic inductor) saturates on the circulating current
+    reaching c, i.e. as the circulation rate ω → ω_C = c/ℓ_node ≈ 1.24e20 rad/s.
+    Any wave this Yee engine represents runs at ω ≪ ω_C, so S_μ = 1 to machine
+    precision and μ_eff = μ_base exactly; a static external B (dB/dt = 0) likewise
+    gives S_μ = 1. The earlier code keyed μ on the static amplitude |B| = μ₀|H|
+    against b_yield = B_SNAP (an energy-density scale, not the kernel argument) —
+    removed. μ-grade saturation is real only for bound circulation (Cosserat engine).
 
-    where B = μ₀ · |H|.  When B → B_yield, the inductor saturates
-    (μ → 0, shorts): the lattice cannot store more magnetic flux.
-
-    NOTE: JIT-optimized copy of ``scale_invariant.mu_eff()``.
-    Canonical source of truth: ``axioms/scale_invariant.py``.
-    Inlined here because JAX @jit cannot call non-JAX Python functions.
+    mu_0 / b_yield / H_component kept in the signature for call-site compatibility.
     """
-    B_local = mu_0 * jnp.abs(H_component)
-    ratio_sq = (B_local / b_yield) ** 2
-    ratio_sq = jnp.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
-    return mu_base * jnp.sqrt(1.0 - ratio_sq)
+    del H_component, mu_0, b_yield  # unused under linear free-EM μ (VCA-R01)
+    return mu_base  # VCA-R01: free-EM μ is linear (no |B|-amplitude saturation)
 
 
 @partial(jit, static_argnums=(7,))

@@ -221,28 +221,37 @@ class FDTD3DEngine:
 
     def _compute_local_mu(self, H_component: np.ndarray) -> np.ndarray:
         """
-        Compute the local non-linear permeability per cell per component.
+        Local permeability per cell per component — LINEAR for the free-EM grade.
 
-        μ_eff = μ₀ · √(1 − (B / B_yield)²)
+        VCA-R01 (fixed): the μ-grade is the relativistic inductor, which saturates
+        on the circulating CURRENT reaching c — i.e. as the circulation rate ω
+        approaches the node cutoff ω_C = c/ℓ_node ≈ 1.24e20 rad/s (gamma-ray scale).
+        Any wave this Yee engine can represent runs at ω ≪ ω_C (ω/ω_C ≲ 1e-6 even at
+        optical), so S_μ = √(1 − (ω/ω_C)²) = 1 to machine precision and μ_eff = μ₀
+        exactly. A static external B likewise has dB/dt = 0 ⇒ no induced circulation
+        ⇒ S_μ = 1. So the free-EM μ-channel is LINEAR.
 
-        where B = μ₀ · |H| (in free space approximation for the iterate).
-        When B → B_yield, μ → 0: the inductor saturates (shorts).
+        (The earlier code keyed μ on the static amplitude |B| = μ₀|H| against
+        b_yield = B_SNAP — wrong on two counts: B_SNAP is an energy-density scale,
+        not the kernel argument, and amplitude is not the circulation rate. μ-grade
+        saturation is real only for BOUND/self-trapped circulation, which lives in the
+        Cosserat engine — cosserat_field_3d._compute_saturation_factors, keyed on the
+        micro-rotation curvature — not on a free Yee EM wave.)
         """
+        # Diagnostic only (energy-density ratio |B|/B_SNAP) — NOT a μ-saturation
+        # argument (see VCA-R01 above); retained so max_mag_strain still tracks drive.
         B_local = self.mu_0 * np.abs(H_component)
         ratio_sq = (B_local / self.b_yield) ** 2
-
         max_r = np.max(ratio_sq) if ratio_sq.size > 0 else 0.0
         if max_r > self.max_mag_strain:
             self.max_mag_strain = max_r
-
-        ratio_sq = np.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
 
         if H_component.shape == self.mu_r.shape:
             mu_base = self.mu_0 * self.mu_r
         else:
             mu_base = self.mu_0
 
-        return mu_base * saturation_factor(B_local, self.b_yield)
+        return mu_base  # VCA-R01: free-EM μ is linear (no |B|-amplitude saturation)
 
     def _compute_ce(self, E_component: np.ndarray) -> np.ndarray | float:
         """
@@ -389,13 +398,9 @@ class FDTD3DEngine:
             eps_local = self.epsilon_0 * saturation_factor(V_local, self.v_yield)
             u_e = 0.5 * eps_local * E_sq
 
-        if self.linear_only:
-            u_m = 0.5 * self.mu_0 * self.mu_r * H_sq
-        else:
-            H_mag = np.sqrt(H_sq)
-            B_local = self.mu_0 * H_mag
-            mu_local = self.mu_0 * saturation_factor(B_local, self.b_yield)
-            u_m = 0.5 * mu_local * H_sq
+        # VCA-R01: free-EM μ is linear (see _compute_local_mu); magnetic energy is the
+        # standard ½μ₀μ_r|H|² in both linear and nonlinear modes.
+        u_m = 0.5 * self.mu_0 * self.mu_r * H_sq
 
         return float(np.sum((u_e + u_m) * self.dx**3))
 
@@ -418,13 +423,8 @@ class FDTD3DEngine:
             eps_local = self.epsilon_0 * self.eps_r * saturation_factor(V_local, self.v_yield)
             u_e = 0.5 * eps_local * E_sq
 
-        if self.linear_only:
-            u_m = 0.5 * self.mu_0 * self.mu_r * H_sq
-        else:
-            H_mag = np.sqrt(H_sq)
-            B_local = self.mu_0 * H_mag
-            mu_local = self.mu_0 * self.mu_r * saturation_factor(B_local, self.b_yield)
-            u_m = 0.5 * mu_local * H_sq
+        # VCA-R01: free-EM μ is linear; magnetic energy density is ½μ₀μ_r|H|².
+        u_m = 0.5 * self.mu_0 * self.mu_r * H_sq
 
         return u_e + u_m
 

@@ -185,40 +185,30 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > O(1) structure QED lacks) and that the static-B route is **exactly** transparent — a categorical
 > prediction.
 
-> **VCA-R01 code note (LIVE BUG; fix flagged for a separate validated PR).** The engine keys
-> $\mu$-saturation on the *static* $|\mathbf B|=\mu_0|\mathbf H|$ against $b_{yield}=B_{SNAP}$ at four
-> sites in `src/ave/core/fdtd_3d.py` (`:231`, `:245`, `:396`–`:397`, `:425`–`:426`) and one in
-> `src/ave/axioms/scale_invariant.py` (`:198`, `mu_eff`). Per this leaf the $\mu$-grade is keyed on
-> the circulating current $I$ (relativistic inductor), NOT the static $|\mathbf B|$ — so a static
-> external $\mathbf B$ must give $S_\mu=1$, $\delta n_\mu=0$ (regime R3). The current code instead
-> saturates $\mu$ on static $|\mathbf B|$, contradicting both the $I$-keyed primitive
-> ([`relativistic-inductor.md`](relativistic-inductor.md):15) and the engine's own Lenz/Faraday
-> coupling. ($B_{SNAP}$ is an energy-density scale, NOT the kernel argument.)
+> **VCA-R01 code note (RESOLVED 2026-06-22).** The fdtd engine previously keyed $\mu$-saturation on the
+> *static* $|\mathbf B|=\mu_0|\mathbf H|$ against $b_{yield}=B_{SNAP}$; that is now corrected. The
+> **free-EM $\mu$-channel is LINEAR** ($\mu_{eff}=\mu_0$). The $\mu$-grade is the relativistic inductor
+> ([`relativistic-inductor.md`](relativistic-inductor.md):15), which saturates only as the circulating
+> current reaches $c$ — i.e. as the circulation rate $\omega\to\omega_C=c/\ell_{node}\approx1.24\times10^{20}$
+> rad/s (gamma-ray scale). Any wave a Yee EM engine can represent has $\omega\ll\omega_C$
+> ($\omega/\omega_C\lesssim10^{-6}$ even at optical), so $S_\mu=\sqrt{1-(\omega/\omega_C)^2}=1$ to machine
+> precision; a static external $\mathbf B$ ($dB/dt=0$) likewise induces no circulation, so $S_\mu=1$,
+> $\delta n_\mu=0$ exactly (regime R3). The old $|B|$-amplitude keying was wrong twice over: $B_{SNAP}$ is
+> an energy-density scale, not the kernel argument, and amplitude is not the circulation rate.
 >
-> **Fix-direction (NOT applied here — substrate-first, do not guess).** The correct $I$-keyed
-> implementation is subtle/ambiguous and not yet derived: (1) no per-cell circulation $\to I_{max}$
-> threshold mapping exists in the corpus — keying on $I=\oint\mathbf H\cdot d\boldsymbol\ell$ (or the
-> rate $dB/dt$) and mapping it onto $I_{max}=\xi_{topo}c=124.4$ A on a Yee grid is a *derivation*, not
-> a variable swap, and inventing the threshold would violate substrate-first-for-numbers; (2) two
-> distinct $\mu$-saturation paths coexist (the simple $\mu_{eff}(|B|)$ and the chirality-aware
-> `_update_saturation_kernels(\omega,\dots)` in `cosserat_field_3d.py`) and a correct fix must
-> reconcile both; (3) `scale_invariant.mu_eff()` is called from 8 modules passing a B-magnitude.
+> **Scope (caller-local).** Corrected at `fdtd_3d._compute_local_mu` plus the two energy readouts
+> (`total_field_energy`, `energy_density`) and the JAX twin `fdtd_3d_jax._compute_local_mu_kernel`.
+> `scale_invariant.mu_eff()` is **unchanged** — it is the sector-agnostic kernel used by genuine
+> static-$B$ MATTER callers (`superconductor.meissner_mu_eff`, `yang_mills`), correct as-is. $\mu$-grade
+> saturation under a **bound/self-trapped** circulation lives in the Cosserat engine
+> (`cosserat_field_3d._compute_saturation_factors`, keyed on the micro-rotation curvature), not on a free
+> Yee EM wave.
 >
-> **Engine-vs-direct-kernel (the gap IS the defect).** Evaluating the Axiom-4 kernel **directly** on
-> the canonical $I$-keyed argument gives $A_I=I_{vac}/I_{max}=0$ ⟹ $S_\mu=1$ ⟹ $\delta n_\mu=0$
-> (regime R3, analytically exact) — this is the direct-kernel positive control
-> `src/tests/test_vca_node_regime_sweep.py`. The **fdtd engine** would NOT reproduce this: it keys
-> $\mu$-saturation on the static $|\mathbf B|$ (against $b_{yield}=B_{SNAP}$), so a large static
-> $\mathbf B$ drives $\mu_{eff}\to0$ there. *That gap — direct-kernel $\delta n_\mu=0$ vs the engine's
-> $|B|$-keyed $\mu_{eff}\to0$ — is precisely the documented VCA-R01 defect.* The defect is
-> machine-confirmed by the regression test `src/tests/test_vca_r01_static_b_mu_keying.py` — the
-> desired R3 behaviour (static B → $S_\mu=1$) is an `xfail` that flips to PASS once VCA-R01 is fixed;
-> a positive-control assertion inside that same file confirms the live $|B|$-keyed defect is present
-> (not a phantom). The two tests are **explicitly distinct**: `test_vca_node_regime_sweep.py`
-> confirms the *analytic node-up laws* at the kernel level (independent of the engine bug);
-> `test_vca_r01_static_b_mu_keying.py` documents the *engine* defect.
-> `code_fix_decision = flagged-for-separate-PR-bug-documented`. (Full bug analysis + fix-direction
-> reasoning:
+> **Tests.** The direct-kernel control `src/tests/test_vca_node_regime_sweep.py` (analytic node-up laws,
+> $A_I=I_{vac}/I_{max}=0\Rightarrow S_\mu=1$) is unchanged and green. The engine test
+> `src/tests/test_vca_r01_static_b_mu_keying.py` — static external $B\Rightarrow\mu_{eff}=\mu_0$ — now
+> **PASSES** (was `xfail`), with a companion regression guard against the old $|B|$-amplitude keying.
+> `code_fix_decision = resolved`. (Derivation + the $\omega_C$ scale argument:
 > [`research/2026-06-22_node-up-small-large-signal_result.md`](../../../../../research/2026-06-22_node-up-small-large-signal_result.md):§6.)
 
 ---
