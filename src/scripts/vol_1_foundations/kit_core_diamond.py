@@ -253,7 +253,7 @@ def _ab_key_dir() -> np.ndarray:
 # 1. NODE BODY  (IDENTICAL for A & B except port sign + key)
 # --------------------------------------------------------------------------------------
 def node_body(sublattice: str = "A") -> trimesh.Trimesh:
-    """Unified solid chamfered-cube node with 4 hex bond sockets, 3 accent sockets, and
+    """Unified solid chamfered-cube node with 4 round bond sockets, 3 accent sockets, and
     one A/B-key accent socket. Identical body for A and B; only port SIGN + key differ.
 
     Returns a watertight, is_volume trimesh.Trimesh centered at the origin.
@@ -262,12 +262,18 @@ def node_body(sublattice: str = "A") -> trimesh.Trimesh:
 
     cutters: list[trimesh.Trimesh] = []
 
-    # 4 hex bond sockets along the tetrahedral ports, mouth at the cube corner.
+    # 4 ROUND bond sockets along the tetrahedral ports, mouth at the cube corner.
+    # Round (not hex): a rigid bond cannot face-flush a HEX tip in two independently-
+    # clocked sockets at once (the two-end clocking constraint fails — verified by boolean:
+    # both ends gouge at 2-3 mm^3 instead of the clean 1 mm^3 face-flush). A round bore +
+    # round tip is rotation-symmetric, so the press-fit seats clean at ANY rotation, both
+    # ends. (Anti-rotation is unneeded for a pressed/glued display lattice; the hex SHAFT
+    # is retained for grip + the helix groove.)
     for d in _port_dirs(sublattice):
         mouth = d * NODE_CORNER_DIST          # surface point on the body diagonal
         inner = mouth - d * SOCKET_DEPTH      # bottom of the bore (toward center)
         outer = mouth + d * (0.02 * S)        # slight overshoot so the mouth opens cleanly
-        bore = _hex_prism_along(inner, outer, R_JOINT)
+        bore = _cyl_along(inner, outer, R_JOINT)
         cutters.append(bore)
 
     # 3 round accent sockets (E / B / V DOF accents) on the +X/+Y/+Z faces.
@@ -290,12 +296,13 @@ def node_body(sublattice: str = "A") -> trimesh.Trimesh:
 
 
 # --------------------------------------------------------------------------------------
-# 2. BOND  (hex rod, helix groove, press-fit hex tips)
+# 2. BOND  (hex shaft, helix groove, round press-fit tips)
 # --------------------------------------------------------------------------------------
 def bond(*, helix: bool = True, left_handed: bool = False) -> trimesh.Trimesh:
-    """Full-length true-pitch hex rod. Visible shaft (R_SHAFT) carries a helical groove;
-    each end steps to a press-fit hex insertion tip (R_TIP = R_JOINT + INTERF) of length
-    INSERT_DEPTH. Total length = BOND_TOTAL_LEN; axis along +Z, centered at origin.
+    """Full-length true-pitch rod: hex visible shaft (R_SHAFT) carrying a helical groove;
+    each end steps to a ROUND press-fit insertion tip (R_TIP = R_JOINT + INTERF) of length
+    INSERT_DEPTH. Round tips so the rigid bond seats clean in both node sockets regardless
+    of clocking. Total length = BOND_TOTAL_LEN; axis along +Z, centered at origin.
 
     helix       : cut the helical groove into the shaft (True) or leave it smooth (False).
     left_handed : flip the groove handedness (chirality marker for the instrument net).
@@ -306,11 +313,11 @@ def bond(*, helix: bool = True, left_handed: bool = False) -> trimesh.Trimesh:
     # Visible hex shaft.
     shaft = _hex_prism(R_SHAFT, BOND_VISIBLE_SPAN)
 
-    # Two press-fit hex tips stepping down from each shaft end.
-    tip_a = _hex_prism(R_TIP, INSERT_DEPTH)
-    tip_a.apply_translation([0.0, 0.0, half_vis + INSERT_DEPTH / 2.0])
-    tip_b = _hex_prism(R_TIP, INSERT_DEPTH)
-    tip_b.apply_translation([0.0, 0.0, -(half_vis + INSERT_DEPTH / 2.0)])
+    # Two ROUND press-fit tips stepping down from each shaft end. Round (not hex) so the
+    # rigid bond seats face-flush in BOTH node sockets regardless of relative clocking —
+    # a rotation-symmetric round tip in a round bore has no two-end clocking constraint.
+    tip_a = _cyl_along([0.0, 0.0, half_vis], [0.0, 0.0, half_vis + INSERT_DEPTH], R_TIP)
+    tip_b = _cyl_along([0.0, 0.0, -half_vis], [0.0, 0.0, -(half_vis + INSERT_DEPTH)], R_TIP)
 
     rod = _union([shaft, tip_a, tip_b])
 

@@ -56,7 +56,7 @@ LC-tank state, $(V_{inc}, V_{ref})$ phasor / impedance plane & phase space & \te
 \end{tabular}
 \end{table}
 
-\textbf{Real space is isomorphic.} The printed skeleton is graph-isomorphic to \texttt{build\_diamond\_net}: a degree-4 diamond production net, an \emph{identical solid node body} for both A and B sublattices, four tetrahedral hex sockets per node, and bonds at the true $\sqrt{3}\,\ell_{node}$ pitch. (Verified: kit port directions equal the engine \texttt{\_DIAMOND\_PORTS}; all bonds bipartite A--B; port-pair angle $109.47^\circ = \arccos(-1/3)$.)
+\textbf{Real space is isomorphic.} The printed skeleton is graph-isomorphic to \texttt{build\_diamond\_net}: a degree-4 diamond production net, an \emph{identical solid node body} for both A and B sublattices, four tetrahedral \textbf{round} bond sockets per node (round so the rigid bond press-fits both end sockets at any relative rotation --- a hex tip cannot face-flush two independently-clocked sockets at once), and bonds at the true $\sqrt{3}\,\ell_{node}$ pitch. (Verified: kit port directions equal the engine \texttt{\_DIAMOND\_PORTS}; all bonds bipartite A--B; port-pair angle $109.47^\circ = \arccos(-1/3)$.)
 
 \textbf{The DOF basis is shown by accents.} The seven kinematic modes are rendered as snap-on color accents, one filament color per store:
 \begin{itemize}
@@ -214,7 +214,7 @@ Optional particle snap-ins are \textbf{topology demos only} (\kbleaf{assets/3d\_
 \textbf{Printed feature} & \textbf{Datasheet primitive} \\
 \midrule
 Identical A/B node bodies $+$ color/key & Ch.~\ref{ch:vol9_topological_characteristics} K4 bipartite graph; Ch.~\ref{ch:vol9_dc_electrical_characteristics} dual reactance \\
-Four hex sockets / node & Ch.~\ref{ch:vol9_pin_port_configuration} Op5 tetrahedral ports \\
+Four round bond sockets / node & Ch.~\ref{ch:vol9_pin_port_configuration} Op5 tetrahedral ports \\
 TL bond insert & Ch.~\ref{ch:vol9_dc_electrical_characteristics} bond transmission line \\
 \texttt{triad\_E} / \texttt{rings\_B} / \texttt{breathing\_V} accents & Ch.~\ref{ch:vol9_mechanical_characteristics} 7-mode store split $A^2=\varepsilon^2+\kappa^2+V^2$; A1 $\perp$ T2 \\
 Impedance disc / phasor dials \texttt{[STATE-SPACE]} & Ch.~\ref{ch:vol9_dc_electrical_characteristics} LC-tank state (phase space, not a coordinate) \\

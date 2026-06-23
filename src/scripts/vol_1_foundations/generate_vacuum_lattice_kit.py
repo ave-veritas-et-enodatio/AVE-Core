@@ -166,7 +166,7 @@ def build_manifest(net: cl.LatticeNet, L: int, parts_qc: list[dict]) -> dict:
             "node_A": sub_counts["A"], "node_B": sub_counts["B"],
         },
         "joinery": {
-            "type": "friction_fit_hex_peg_socket",
+            "type": "friction_fit_round_peg_socket (rotation-symmetric, clocking-free)",
             "press_fit_diametral_interference_mm": round(2.0 * kd.get("INTERF_MM", 0.05), 3),
             "tune_env": "KIT_FRICTION_INTERFERENCE_MM (per-side mm; default 0.05; try 0.03-0.08)",
             **{k: round(float(v), 3) for k, v in kd.items()},
@@ -189,7 +189,11 @@ def build_manifest(net: cl.LatticeNet, L: int, parts_qc: list[dict]) -> dict:
                 "srs_node_right.stl", "srs_node_left.stl", "srs_bond.stl",
                 "srs_handedness_right.stl", "srs_handedness_left.stl",
             ],
-            "assembly_jig": ["jig_unit_cell.stl", "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)"],
+            "assembly_jig": [
+                "jig_unit_cell.stl",
+                "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)",
+                "standoff_post_z<n>_h<H>mm.stl (graded-height glue-up supports; KIT_PRINT_MM_PER_L_NODE=60 for tall builds)",
+            ],
             "reference_only": ["reference_tetra_unit_cell.stl", "scale_plate.stl"],
         },
         "hero_first_print": {
@@ -204,14 +208,16 @@ def build_manifest(net: cl.LatticeNet, L: int, parts_qc: list[dict]) -> dict:
             "elephant_foot_compensation_mm": 0.15,
             "filament": "one color per part; assign accent colors per BOM tier",
         },
+        "assembly_method": "press-fit to LOCATE (round, clocking-free) + GLUE to secure (grip is light by design)",
         "assembly_steps": [
-            "Print the jig tiles; assemble the baseplate (snap/glue tile edges).",
-            "Print node_A x counts.node_A, node_B x counts.node_B in two colors.",
-            "Drop each node into its keyed jig pocket (pocket emboss = node id + A/B).",
-            "Press bonds into sockets; pocket port-pips show which port -> which neighbor (manifest nodes[].ports).",
+            "Print the jig tile(s); set the base plate down. Print node_A x counts.node_A and node_B x counts.node_B in two colors.",
+            "Drop each BOTTOM-layer node into its keyed base-plate pocket (pocket emboss = node id + A/B).",
+            "Build UPWARD: for each upper-layer node, set it on the matching standoff_post (graded height = its Z) so it is held at the right place while the glue sets.",
+            "Press each bond into its sockets (round tips seat at any rotation) and GLUE; pocket port-pips show which port -> which neighbor (manifest nodes[].ports).",
+            "To CLOSE A RING (a loop-completing bond between two already-placed nodes): use it as a SLIP fit and glue it — no axial press needed (rigid press-fit cannot close a loop).",
             "Optional: snap on DOF accents (triad_E / rings_B / breathing_V) + A/B key, color per store.",
             "Optional: set the phasor dial / read the impedance disc as the LC-tank STATE (not a position).",
-            "Tune press-fit via KIT_FRICTION_INTERFERENCE_MM if loose/tight.",
+            "Tall builds: at the 100 mm default the top standoff exceeds the bed Z; rebuild at KIT_PRINT_MM_PER_L_NODE=60 for a jig-assisted full assembly.",
         ],
         "parts_qc": parts_qc,
         "nodes": node_records,
@@ -303,6 +309,14 @@ def main() -> None:
     qc.append(export_part(jig.unit_cell_jig(), out_dir / "jig_unit_cell.stl"))
     for name, tile in jig.assembly_jig(L=ASSEMBLY_L).items():
         qc.append(export_part(tile, out_dir / f"{name}.stl"))
+    # Stepped tier: graded-height standoff posts hold upper nodes at Z during glue-up.
+    BED_Z = 210.0
+    for name, post in jig.standoff_posts(L=ASSEMBLY_L).items():
+        q = export_part(post, out_dir / f"{name}.stl")
+        if q["bbox_mm"][2] > BED_Z:
+            print(f"  WARN {name}: {q['bbox_mm'][2]:.0f} mm > bed Z {BED_Z:.0f} mm — "
+                  f"use KIT_PRINT_MM_PER_L_NODE=60 for a jig-assisted full build")
+        qc.append(q)
 
     # Scale plate (gated — it's a solid).
     qc.append(export_part(scale_plate(), out_dir / "scale_plate.stl"))
