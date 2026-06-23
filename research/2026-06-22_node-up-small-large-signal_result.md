@@ -233,8 +233,12 @@ free-EM μ-channel is **linear in the regime this engine reaches**. (The earlier
 wave on `|B|` — wrong: that is neither the bound-circulation case nor the ω_C-cutoff case.) A
 **bound/self-trapped circulation** (`v_circ` = boost velocity) saturates μ at any frequency; a **static external
 DC-B** has `dB/dt = 0` ⟹ no induced circulation ⟹ `S_μ = 1` exactly. So the fix here is: the free-EM μ-channel
-is linear, and **the ω_C cutoff is modeled separately by a dispersive-μ(ω) workstream** — the AVE-distinct
-`(q·ℓ_node)⁴` lattice-dispersion test at the 511 keV scale.
+is linear, and **the ω_C cutoff is modeled separately**. The AVE-distinct `(q·ℓ_node)⁴` lattice-dispersion
+test is now resolved (**FORK-2**) as a **k-space Bloch eigensolve**, NOT a temporal dispersive-μ(ω) FDTD (a
+coarse-grid μ(ω) FDTD only validates the null μ=μ₀; the directional anisotropy lives in `D(k)`). See
+`research/2026-06-22_k4-bloch-dispersion-quartic_result.md` (driver `src/scripts/vol_4_engineering/k4_bloch_dispersion.py`,
+leaf `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md`,
+clm-k4d4ph). The temporal cutoff ω_C and that spatial quartic are DISTINCT mechanisms (ratio π).
 The engine is also internally inconsistent: its just-merged Lagrangian-EMF coupling (PR #339, the `−2` Lenz
 back-EMF) is on the rate/`I` side, while its FDTD μ-update is on the amplitude side.
 

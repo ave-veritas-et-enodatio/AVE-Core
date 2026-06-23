@@ -369,6 +369,8 @@
 {"source": "clm-jwyy6l", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "topo-kinematic isomorphism $[L]\\equiv[M]$", "fraction": null}
 {"source": "clm-jy8h1x", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel; $S$-kernel regimes", "fraction": null}
 {"source": "clm-jy8h1x", "target": "clm-llqd1n", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-k4d4ph", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — fixes $\\ell_{node}$, the K4 / diamond bond set", "fraction": null}
+{"source": "clm-k4d4ph", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-k6olj8", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}
 {"source": "clm-k6olj8", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "gradient saturation in the eigenvalue functional", "fraction": null}
 {"source": "clm-k6olj8", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}

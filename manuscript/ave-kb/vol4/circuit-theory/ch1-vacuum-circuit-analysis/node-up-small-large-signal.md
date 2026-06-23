@@ -203,9 +203,13 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > static-$B$ MATTER callers (`superconductor.meissner_mu_eff`, `yang_mills`), correct as-is. A free wave saturates $\mu$ only as $\omega\to\omega_C$, the **dispersive lattice cutoff**
 > $\mu_{eff}(\omega)=\mu_0\sqrt{1-(\omega/\omega_C)^2}$, where $\hbar\omega_C=\hbar c/\ell_{node}=m_e c^2=511$ keV
 > (the Compton / pair-production scale). This coarse-grid continuum engine ($dx\gg\ell_{node}$) never reaches
-> $\omega_C$, so $\mu=\mu_0$ for the waves it represents; the cutoff is modeled separately by a
-> dispersive-$\mu(\omega)$ workstream (the AVE-distinct $(q\,\ell_{node})^4$ lattice-dispersion test at the
-> 511 keV scale). A **bound/self-trapped** circulation saturates $\mu$ at any frequency — that lives in the
+> $\omega_C$, so $\mu=\mu_0$ for the waves it represents; the cutoff is modeled separately. **The AVE-distinct
+> $(q\,\ell_{node})^4$ lattice-dispersion test is now resolved (FORK-2) as a k-space Bloch eigensolve, NOT a
+> temporal dispersive-$\mu(\omega)$ FDTD** (a coarse-grid $\mu(\omega)$ FDTD only validates the null $\mu=\mu_0$;
+> the directional anisotropy is a k-space object in $D(\mathbf k)$). See
+> [`k4-bloch-dispersion-quartic.md`](../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md)
+> (clm-k4d4ph) and the §6 result-doc. The temporal cutoff $\omega_C$ (this note's subject) and that spatial
+> quartic are DISTINCT mechanisms (ratio $\pi$). A **bound/self-trapped** circulation saturates $\mu$ at any frequency — that lives in the
 > Cosserat engine (`cosserat_field_3d._compute_saturation_factors`, keyed on the micro-rotation curvature).
 >
 > **Tests.** The direct-kernel control `src/tests/test_vca_node_regime_sweep.py` (analytic node-up laws,

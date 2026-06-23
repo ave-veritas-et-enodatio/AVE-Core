@@ -434,6 +434,38 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
+## K4 Bloch Dispersion — the $(q\,\ell_{node})^4$ Photon-Anisotropy FORM
+<!-- id: clm-k4d4ph -->
+
+The K4 / diamond-cubic Bloch dynamical matrix $D(\mathbf k)$, diagonalized across the Brillouin zone, has its **first** directional anisotropy at order $(q\,\ell_{node})^4$ — the cubic harmonic $\Xi(\hat q)=\hat q_x^4+\hat q_y^4+\hat q_z^4$ (sign-changing, $+0.400$ on $\langle100\rangle$, $-0.267$ on $\langle111\rangle$) — **quartic, not quadratic**, symmetry-protected by the $Fd\bar3m$ point group. A random (non-cubic) bond set breaks the protection to quadratic.
+
+- The discriminating FORM is the bond-moment hierarchy: $\Sigma_b(\hat q\cdot\hat d_b)^2=\tfrac43$ (**isotropic**, spread $6.7\times10^{-16}$) while $\Sigma_b(\hat q\cdot\hat d_b)^4=-\tfrac89\,\Xi(\hat q)+\tfrac43$ (**anisotropic**, verified to $1.3\times10^{-15}$). The random control's 2nd moment is already direction-dependent (spread $0.80$).
+- _Specific Claims_
+  - **FORM-class CHORD:** the first cubic-symmetric angular invariant of the K4/diamond bond set is QUARTIC; random lattices break this to quadratic. Demonstrated node-up from `k4_tlm` geometry + standard lattice-dynamics Bloch form, reproduced by an independent from-scratch eigensolve to $\sim10^{-15}$.
+  - **VALIDATE-ON-KNOWN gate:** small-$|k|$ acoustic branch recovers $c_0$ (rel-err $2.2\times10^{-16}$) and $Z_0$ (rel-err $0$); acoustic-speed spread across directions $=0$ at the isotropic-bond point (the emergent-Lorentz isotropy point).
+  - **DISTINCT mechanisms:** the temporal cutoff $\omega_C=c_0/\ell_{node}$ ($\hbar\omega_C=m_ec^2=511$ keV, ratio $k_{zone}/k_{cutoff}=\pi$) is separate from this spatial quartic.
+- _Specific Non-Claims and Caveats_
+  - 🟡 **The photon slope $=4.0$ is NOT an independent eigenvalue.** The driver's `photon_omega_sq_over_c2k2` and the canonical `vacuum_node_circuit.photon_birefringence` **hardcode** the $1+\kappa_\gamma\Xi(k\ell)^4$ form. An independent eigensolve of the full $6\times6$ dynamical matrix gives slope $2.0$, because the genuine lattice carries the isotropic $O(k^2)$ zone-edge the **unlocked** photon is **ASSERTED** (not derived here) to lack (weak-C, [`binary-kill-switches.md`](./falsification/ch12-falsifiable-predictions/binary-kill-switches.md):17, gate `wejkhvnfb`). The slope-4 re-states an inserted exponent conditional on that canonical premise. The eigensolve-derived content is the matter-vs-photon CONTRAST and the §2 bond-moment identities, NOT quartic-ness of the physical photon.
+  - **MAGNITUDE is an ECHO.** $\kappa_\gamma=1/24$ is a lattice-geometry number; the physical birefringence $\delta\approx2.2\times10^{-22}$ at optical $q\ell_{node}$ sits $\sim$2–3 OOM below current LIV / vacuum-birefringence bounds $\Rightarrow$ **NOT near-term bankable**. The bankable QED-discriminator stays the E-route birefringence COEFFICIENT (clm-pp3qwf).
+  - The 511 keV cutoff **value** is an ECHO (imports $m_e$, peer-with-QED), not an emergence-class derivation.
+  - No new dimensionful constant minted: $c_0,Z_0,\ell_{node},\omega_C$ imported by SYMBOL (`C_0,Z_0,L_NODE,OMEGA_C`).
+
+> **Leaf references:** [k4-bloch-dispersion-quartic](./falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md).
+
+### Quality
+- confidence: 0.70
+- depends-on:
+  - Axiom 1 (Substrate Topology — fixes $\ell_{node}$, the K4 / diamond bond set)
+  - clm-pp3qwf (the bankable E-route birefringence COEFFICIENT this FORM-test sits beneath)
+  - weak-C no-zone-edge premise (gate `wejkhvnfb`, regime-grounded PREDICTION not derived theorem)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: The bond-moment FORM facts — $\Sigma_b(\hat q\cdot\hat d)^2=4/3$ isotropic, $\Sigma_b(\hat q\cdot\hat d)^4=-\tfrac89\Xi+\tfrac43$ anisotropic, random control quadratic — are node-up and reproduce under an independent from-scratch eigensolve to $\sim10^{-15}$; the validate-on-known ($c_0$, $Z_0$) is exact. These carry the CHORD. Confidence is pinned at 0.70 (not higher) because the headline "photon slope = 4" is conditional on the corpus weak-C no-zone-edge ASSERTION (the independent eigensolve gives slope 2 for the genuine lattice), so the quartic-ness of the *physical photon* rests on an imported premise, not an in-leaf derivation; the leaf discloses this. The MAGNITUDE is an echo ~2–3 OOM below bounds, so the claim is CONSISTENCY/FORM-class, not a near-term falsifier.
+- strengthen-by:
+  - Close the weak-C no-zone-edge premise from a derived topological-decoupling theorem (currently OPEN, [`binary-kill-switches.md`](./falsification/ch12-falsifiable-predictions/binary-kill-switches.md):19) so the photon slope-4 becomes a from-eigensolve result rather than a re-stated exponent.
+  - Establish a facility-class observable for the $(q\ell_{node})^4$ anisotropy that closes the $\sim$2–3 OOM gap to current LIV/birefringence bounds, or confirm it stays beneath them (consistency-class).
+
+---
+
 ## Torus Knot Baryon Forward Predictions $(2,17), (2,19), (2,21)$
 <!-- id: clm-to41c7 -->
 
