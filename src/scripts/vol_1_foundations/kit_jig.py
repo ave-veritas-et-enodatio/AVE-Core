@@ -385,6 +385,48 @@ def unit_cell_jig() -> trimesh.Trimesh:
     return _build_plate(records, min(xs) - 1, max(xs) + 1, min(ys) - 1, max(ys) + 1)
 
 
+def standoff_posts(L: int = 4) -> dict[str, trimesh.Trimesh]:
+    """Graded-height support posts (the 'stepped' tier of the jig).
+
+    The flat base plate only locates the BOTTOM node layer; upper-layer nodes would
+    otherwise float on oblique bonds while their glue sets. These posts hold an upper
+    node at (approximately) its true Z during a progressive glue-up: one post per
+    distinct above-base node z-level (the builder reuses a post for every node at that
+    level), each a wide stable foot + square column + a top square cradle that seats a
+    node. Build bottom-up: locate the bottom layer in the base plate, prop each next
+    node on the matching standoff, press+glue its bonds, let it cure, move up.
+
+    At S=100 the L4 chunk spans ~300 mm in Z, so the tallest posts exceed the Prusa
+    bed Z; the driver flags this and recommends KIT_PRINT_MM_PER_L_NODE=60 for a
+    jig-assisted full build (Z span ~180 mm, all posts printable).
+    """
+    net = cl.build_diamond_net(L)
+    bonds = finite_crystal_bonds(net)
+    act = sorted(active_nodes(bonds))
+    pos = lattice_pos_to_mm(net)
+    zs = sorted({round(float(pos[i][2]), 1) for i in act})
+    zmin = zs[0]
+
+    side = 2.0 * POCKET_HALF + 2.0 * (0.03 * S)   # square column around the cradle
+    foot = side * 1.6                              # wide stable foot
+    foot_h = 0.04 * S
+    posts: dict[str, trimesh.Trimesh] = {}
+    for lvl, z in enumerate(zs):
+        h = z - zmin                               # height of this layer above the base
+        if h <= 0.1:
+            continue                               # bottom layer rides the base plate
+        col_h = float(h)
+        base = _box((foot, foot, foot_h), (0.0, 0.0, foot_h / 2.0))
+        col = _box((side, side, col_h), (0.0, 0.0, foot_h + col_h / 2.0))
+        post = _union([base, col])
+        top_z = foot_h + col_h
+        cradle = _box((2 * POCKET_HALF, 2 * POCKET_HALF, POCKET_DEPTH + 1.0),
+                      (0.0, 0.0, top_z - POCKET_DEPTH / 2.0 + 0.5))
+        post = _difference(post, cradle)
+        posts[f"standoff_post_z{lvl}_h{int(round(h))}mm"] = _finalize(post)
+    return posts
+
+
 def jig_spec() -> dict:
     """Manifest-ready jig dimensions (mm)."""
     return {

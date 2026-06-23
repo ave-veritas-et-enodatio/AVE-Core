@@ -96,14 +96,32 @@ kit does not blur them.
 
 ---
 
-## 5. The base jig (forces correct assembly)
+## 5. The jig + how it assembles (press-fit to locate, glue to secure)
 
-A **keyed baseplate** tiles the placement to the **250 × 210 mm bed** (`jig_tile_<row>_<col>`,
-plus a single-cell `jig_unit_cell` for the hero print). Each pocket embosses the
-**node id + A/B label**, and per-port **pips** show which port mates to which neighbor.
-The port→neighbor map is carried in the manifest at **`nodes[].ports`** (each entry is
-`{port, neighbor}`), so placement and connectivity are forced — no guessing which of the
-four geometrically identical ports goes where.
+**Joinery is round and clocking-free.** Bond tips and node bond-sockets are round
+cylinders, so a rigid bond seats at *any* rotation in *both* end sockets (a hex tip can't
+face-flush two independently-clocked sockets at once). The press-fit only **locates**;
+grip is light by design — **glue secures** the joint.
+
+**Base plate (bottom layer).** A keyed baseplate tiles the placement to the **250 × 210 mm
+bed** (`jig_tile_<row>_<col>`, plus `jig_unit_cell` for the hero print). Each pocket embosses
+the **node id + A/B label**; per-port **pips** show which port mates which neighbor (the
+`nodes[].ports` map in the manifest). No guessing which of the four identical ports goes where.
+
+**Standoff posts (upper layers — the stepped tier).** The lattice has nodes at several Z
+levels; the base plate only holds the bottom one. Print the graded-height
+`standoff_post_z<n>_h<H>mm` posts: each holds an upper node at its true Z while you glue its
+bonds and the glue cures. Build **bottom-up** — locate bottom layer, prop the next node on
+its standoff, press+glue its bonds, cure, move up.
+
+**Closing a ring.** A loop-completing bond goes between two already-placed nodes, so you
+can't press a rigid bond into it (no axial room). Use that bond as a **slip fit and glue
+it** — the loop closes without forcing. (The L4 starter is two trees, so it has no rings;
+this matters for larger, ring-bearing chunks.)
+
+**Tall builds.** At the 100 mm default the top standoff exceeds the bed Z (~300 mm); rebuild
+at `KIT_PRINT_MM_PER_L_NODE=60` for a jig-assisted full assembly (Z span ~180 mm, all posts
+print).
 
 ---
 

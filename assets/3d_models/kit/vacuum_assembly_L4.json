@@ -67,7 +67,8 @@
     ],
     "assembly_jig": [
       "jig_unit_cell.stl",
-      "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)"
+      "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)",
+      "standoff_post_z<n>_h<H>mm.stl (graded-height glue-up supports; KIT_PRINT_MM_PER_L_NODE=60 for tall builds)"
     ],
     "reference_only": [
       "reference_tetra_unit_cell.stl",
@@ -88,14 +89,16 @@
     "elephant_foot_compensation_mm": 0.15,
     "filament": "one color per part; assign accent colors per BOM tier"
   },
+  "assembly_method": "press-fit to LOCATE (round, clocking-free) + GLUE to secure (grip is light by design)",
   "assembly_steps": [
-    "Print the jig tiles; assemble the baseplate (snap/glue tile edges).",
-    "Print node_A x counts.node_A, node_B x counts.node_B in two colors.",
-    "Drop each node into its keyed jig pocket (pocket emboss = node id + A/B).",
-    "Press bonds into sockets; pocket port-pips show which port -> which neighbor (manifest nodes[].ports).",
+    "Print the jig tile(s); set the base plate down. Print node_A x counts.node_A and node_B x counts.node_B in two colors.",
+    "Drop each BOTTOM-layer node into its keyed base-plate pocket (pocket emboss = node id + A/B).",
+    "Build UPWARD: for each upper-layer node, set it on the matching standoff_post (graded height = its Z) so it is held at the right place while the glue sets.",
+    "Press each bond into its sockets (round tips seat at any rotation) and GLUE; pocket port-pips show which port -> which neighbor (manifest nodes[].ports).",
+    "To CLOSE A RING (a loop-completing bond between two already-placed nodes): use it as a SLIP fit and glue it \u2014 no axial press needed (rigid press-fit cannot close a loop).",
     "Optional: snap on DOF accents (triad_E / rings_B / breathing_V) + A/B key, color per store.",
     "Optional: set the phasor dial / read the impedance disc as the LC-tank STATE (not a position).",
-    "Tune press-fit via KIT_FRICTION_INTERFERENCE_MM if loose/tight."
+    "Tall builds: at the 100 mm default the top standoff exceeds the bed Z; rebuild at KIT_PRINT_MM_PER_L_NODE=60 for a jig-assisted full assembly."
   ],
   "parts_qc": [
     {
@@ -383,6 +386,42 @@
         151.68,
         136.0,
         12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "standoff_post_z1_h100mm.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 44,
+      "bbox_mm": [
+        45.44,
+        45.44,
+        104.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "standoff_post_z2_h200mm.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 44,
+      "bbox_mm": [
+        45.44,
+        45.44,
+        204.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "standoff_post_z3_h300mm.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 44,
+      "bbox_mm": [
+        45.44,
+        45.44,
+        304.0
       ],
       "gate": true
     },
