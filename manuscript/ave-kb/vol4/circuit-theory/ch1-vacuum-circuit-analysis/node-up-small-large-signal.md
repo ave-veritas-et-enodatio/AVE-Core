@@ -189,8 +189,9 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > *static* $|\mathbf B|=\mu_0|\mathbf H|$ against $b_{yield}=B_{SNAP}$; that is now corrected. The
 > **free-EM $\mu$-channel is LINEAR** ($\mu_{eff}=\mu_0$). The $\mu$-grade is the relativistic inductor
 > ([`relativistic-inductor.md`](relativistic-inductor.md):15), which saturates only as the circulating
-> current reaches $c$ — i.e. as the circulation rate $\omega\to\omega_C=c/\ell_{node}\approx1.24\times10^{20}$
-> rad/s (gamma-ray scale). Any wave a Yee EM engine can represent has $\omega\ll\omega_C$
+> current reaches $c$ — i.e. as the circulation rate $\omega\to\omega_C=c/\ell_{node}\approx7.76\times10^{20}$
+> rad/s ($f_C=\omega_C/2\pi\approx1.24\times10^{20}$ Hz; gamma-ray scale, $\hbar\omega_C=m_e c^2=511$ keV).
+> Any wave a Yee EM engine can represent has $\omega\ll\omega_C$
 > ($\omega/\omega_C\lesssim10^{-6}$ even at optical), so $S_\mu=\sqrt{1-(\omega/\omega_C)^2}=1$ to machine
 > precision; a static external $\mathbf B$ ($dB/dt=0$) likewise induces no circulation, so $S_\mu=1$,
 > $\delta n_\mu=0$ exactly (regime R3). The old $|B|$-amplitude keying was wrong twice over: $B_{SNAP}$ is

@@ -17,7 +17,8 @@ Canonical physics (verified node-up, grep-confirmed at origin/main):
 VCA-R01 (FIXED): the free-EM mu-channel is now LINEAR (mu_eff = mu_0).
   The mu-grade is the relativistic inductor; it saturates only as the circulating
   current reaches c, i.e. as the circulation rate omega -> omega_C = c/l_node
-  ~= 1.24e20 rad/s (gamma-ray scale). Any wave a Yee EM engine can represent runs
+  ~= 7.76e20 rad/s (f_C ~= 1.24e20 Hz; gamma-ray scale, hbar*omega_C = m_e c^2 =
+  511 keV). Any wave a Yee EM engine can represent runs
   at omega << omega_C (omega/omega_C <~ 1e-6 even at optical), so
   S_mu = sqrt(1 - (omega/omega_C)^2) = 1 to machine precision; a static external B
   (dB/dt = 0) likewise induces no circulation, so S_mu = 1 exactly (regime R3).

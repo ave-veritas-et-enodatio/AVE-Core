@@ -256,6 +256,18 @@ DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.225e-6
 # ℓ_node ≡ ℏ / (m_e · c)
 L_NODE: float = HBAR / (M_E * C_0)  # ≈ 3.8616e-13 m
 
+# Node (Compton / pair-production) angular cutoff frequency.
+#   ω_C ≡ c / ℓ_node = m_e c² / ℏ   [rad/s]
+# This is the TEMPORAL cutoff: ℏ·OMEGA_C = m_e c² = 511 keV exactly (since
+#   ℓ_node ≡ ℏ/(m_e c)). It is the circulation-rate ceiling at which the μ-grade
+#   saturates (the dispersive lattice cutoff μ_eff(ω)=μ₀√(1−(ω/ω_C)²)), NOT the
+#   spatial Brillouin zone-edge (k=π/ℓ_node) and NOT the spatial (q·ℓ_node)⁴
+#   anisotropy chord — those are DISTINCT k-space mechanisms.
+#   UNITS GUARD: OMEGA_C ≈ 7.763e20 rad/s; the corresponding ORDINARY frequency
+#   is f_C = OMEGA_C/(2π) ≈ 1.236e20 Hz. Do NOT label 1.24e20 as "rad/s" — that
+#   number is f_C in Hz (the 2π-error fixed corpus-wide 2026-06-22).
+OMEGA_C: float = C_0 / L_NODE  # ≈ 7.763e20 rad/s; ℏ·OMEGA_C = m_e c² = 511 keV
+
 # Cosserat characteristic (coupling) length — the substrate-CONTINUOUS K4
 # discrete↔continuum length ratio of the micropolar lattice.
 #   ℓ_c² = (β+γ)/[2(μ+κ)] = ℓ_node² · ξ_K2/(2·ξ_K1) = 6·ℓ_node²
