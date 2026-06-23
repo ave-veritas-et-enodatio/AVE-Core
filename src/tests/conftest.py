@@ -52,6 +52,10 @@ _ENGINE_SIM_TESTS = {
     "test_chiral_vector_tlm_phase1.py::test_gate2_aggregate_pass",
     # L3 mass-cage bound-eigenmode solve (T2 resolution-dependent eigensolve, 64s).
     "test_l3_mass_cage.py::test_t3_4_bound_eigenmode_of_posited_cage",
+    # Fork-B saturation-tank reconfine-rate sweep (T2 convergence sweep, ~50s + memory-heavy):
+    # OOM-crashed its xdist worker on the CI runner under parallel memory pressure (#386 run 1,
+    # "node down: Not properly terminated"). Same cost+role tier; coverage via make test-engine.
+    "test_fork_b_saturation_tank.py::test_gate2_armB_pooled_reconfine_rate_sweep",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
