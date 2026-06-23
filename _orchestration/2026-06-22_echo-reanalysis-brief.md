@@ -31,7 +31,7 @@ Outcome is **explanatory coherence only — ZERO new falsifiers.** Re-tagging ne
 - m_p/m_e — the one-residual consistency fit
 - charge quantization — `Q = Link(∂Ω,F) ∈ ℤ`
 - the vacuum impedance / saturation scales (Z_vac, B_SNAP family)
-- the 511 keV identity = the already-run **pilot / calibration of the test** (its TKI-organizing-principle backbone, see the single-scale leaf, is the strongest survival case)
+- the 511 keV identity = the already-run **pilot, which FAILED both gates** (frame-check 2026-06-22, `claim_survives=false`; canonicalized as `clm-sw5oao`, solidity 0.25 — one-import-economy + explanatory-ontology, NOT a chord). This is *good* calibration: the two-gate test correctly rejected an import-tautology rather than rubber-stamping it. Even the TKI/inductor backbone deflated (the `E₀=½L₀I_max²=½m₀c²` identity has `ξ_topo` cancel algebraically), and gate (a) failed outright — QED ties an EM scale to `m_e` too (the Compton length, the Schwinger cutoff = AVE's own `E_CRIT`).
 
 ## Structure when it runs
 
@@ -40,4 +40,4 @@ N parallel skeptics (one per candidate) → synthesis → **meta-audit for over-
 ## Open for Grant
 
 - Approve / adjust the candidate list + the tripwire threshold.
-- The TKI angle (the strongest survival case) sharpens the 511 keV gate to "is the *TKI* SM-distinct?" — the frame-check on the single-scale workflow is already pressure-testing that (dimensional-transmutation / QED-scale-anomaly as the SM's nearest analog).
+- The TKI angle did NOT rescue the 511 keV: the inductor/TKI identity is algebraically trivial (`ξ_topo` cancels), and the frame-check found the SM is not distinct here (QED's Compton length + Schwinger cutoff tie an EM scale to `m_e`). TKI-as-Axiom-2-isomorphism stands separately, but it does not make a value-import scale-coincidence a forced prediction. **Lesson carried into the candidate gates:** dimensional-transmutation / the QED-scale-anomaly are the SM's nearest analog and DEFEAT gate (a) if they apply — run that test against every candidate.
