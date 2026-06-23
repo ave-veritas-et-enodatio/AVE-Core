@@ -227,6 +227,8 @@ where the engine would wrongly saturate μ on an external amplitude the substrat
 The engine is also internally inconsistent: its just-merged Lagrangian-EMF coupling (PR #339, the `−2` Lenz
 back-EMF) is on the rate/`I` side, while its FDTD μ-update is on the amplitude side.
 
+> **⚠ FLAGGED 2026-06-22 (VCA-R01 derivation pass — [`2026-06-22_vca-r01-mu-keying-derivation.md`](2026-06-22_vca-r01-mu-keying-derivation.md), PR #365): the "propagating-wave shortcut" sentence above is OVERSTATED — surfaced for physical adjudication, not rewritten.** Deriving the engine-computable circulation argument and testing it on a free plane wave shows the amplitude ratio `|B|/B_SNAP` and the frequency ratio `ω/ω_C` are **independent** for a free wave: `H` does NOT track a bound circulation, so the two readings do not generally coincide. (A Poynting-drift proxy `v=|S|/u` gives `v/c=1` for *every* free wave; the rate proxy `A_I=(|dB/dt|/|B|)·ℓ_node/c` gives `S_μ≈1` for any sub-cutoff `ω≪ω_C`.) The coincidence holds only for a **self-trapped soliton** (`v_circ`= the bound-state boost velocity, `relativistic-inductor-newtonian-limit.md:30-38`) — which suggests the engine's amplitude-saturation of a *free* wave is itself an artifact, not a "right shortcut." **This does NOT touch the static-DC-B verdict** (`δn_μ=0`, R3) — that holds independent of the propagating story. It bears on the VCA-R01 engine-refactor scope, not the PVLAS result.
+
 **Engine-vs-direct-kernel — the gap IS the defect.** The direct-kernel control
 (`src/tests/test_vca_node_regime_sweep.py`) gives `A_I = I_vac/I_max = 0 ⟹ S_μ = 1 ⟹ δn_μ = 0` (R3, exact).
 The fdtd engine would NOT reproduce this. That gap is machine-confirmed by the regression test
