@@ -2,6 +2,19 @@
 
 FROZEN PRE-REG: research/2026-06-24_engine-s3-cavity-pinning_prereg.md (commit 0b5691cd).
 
+LOCUS DISAMBIGUATION + RESULT (2026-06-24, supersedes the bare "real-space (2,3)"
+seed framing below): the canonical (2,3) is a PHASE-SPACE winding portrait on the
+bond-pair LC tank's Clifford torus (ave-kb/CLAUDE.md:22); the electron's REAL-SPACE
+body is the 0_1 unknot. This module seeds and evolves a REAL-SPACE (2,3) phase
+field — i.e. it tests the REAL-SPACE locus. That locus read NEGATIVE: S3 is
+DISPERSE-FALSIFIED (winding + H_couple does NOT pin the dispersing A1 core) and the
+coupled eigensolve (#415) bled the winding off the bound mode (gate-d FAIL). The
+canonical PHASE-SPACE locus was then tested separately by phase_space_winding.py and
+ALSO read NEGATIVE (BREAK, #417): the dynamical orbit carries the LC carrier ratio,
+not the topological (2,3). NET: both internal dynamical loci negative; charge =
+Link(∂Ω,F) ∈ ℤ is STATIC topology and STANDS (un-walked-back). mass = A1 (#260)
+untouched. See research/2026-06-24_engine-reroute-epic-summary.md.
+
 ═══════════════════════════════════════════════════════════════════════════════
 WHAT THIS IS (the S3 make-or-break instrument — the re-route payoff)
 ═══════════════════════════════════════════════════════════════════════════════

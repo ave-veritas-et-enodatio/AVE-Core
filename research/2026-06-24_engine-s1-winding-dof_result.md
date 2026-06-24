@@ -45,7 +45,7 @@ All three refute-by-default auditors returned **CONFIRMED** with **`auto_void=fa
 
 ## What this delivers to the pathway
 
-- **S1 PASS** → the boundary/topological-localization re-route's load-bearing joint holds: the winding can be the conserved, handedness-carrying DOF that (per the post-Stage-2 hypothesis) pins the dispersing A1 core. The mutual-pinning hypothesis itself remains OPEN — tested progressively by S2 (`H_couple`) and S3 (Γ=−1 cavity).
+- **S1 PASS** → the boundary/topological-localization re-route's load-bearing joint holds: the winding can be the conserved, handedness-carrying DOF that (per the post-Stage-2 hypothesis) pins the dispersing A1 core. The mutual-pinning hypothesis itself remains OPEN — tested progressively by S2 (`H_couple`) and S3 (Γ=−1 cavity). 🔴 *(2026-06-24 update: the S1 PASS verdict STANDS — the winding IS a separately-conserved DOF. But the forward-looking "mutual-pinning remains OPEN" is now superseded: S3 (DISPERSE-FALSIFIED) + the coupled eigensolve (#415) + the phase-space coupling-winding BREAK (#417) read NEGATIVE in BOTH internal dynamical loci — the winding does NOT pin the dispersing A1 core. Localizer = cavity-eigenmode; the (2,3) RIDES the cage as STATIC charge (Link, un-walked-back). See research/2026-06-24_engine-reroute-epic-summary.md.)*
 - **NOT a chord.** S1 is the consistency gate that *enables* the parity-odd forward-prediction class (optical-activity sign-flip; the co-vs-anti-handed force ratio) — but the chord lives at S4 / the forward predictions, not here.
 
 ## Recommended follow-up (implementer-lane)

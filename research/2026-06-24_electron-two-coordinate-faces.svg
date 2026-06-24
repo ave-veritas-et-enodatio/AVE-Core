@@ -67,7 +67,7 @@ text{font-family:'Helvetica Neue',Arial,sans-serif}
 <text x="56" y="322" class="th">one object — a common reference</text>
 <text x="56" y="343" class="ts">mass (A1) + charge (ω) share a center: COM = COC</text>
 <text x="56" y="361" class="ts">→ EDM = 0; the two sectors phase-lock</text>
-<text x="56" y="379" class="ts">open: does charge topology pin the A1 core? (S2/S3)</text>
+<text x="56" y="379" class="ts">resolved NO: winding does not pin the A1 core (#415+#417)</text>
 
 <!-- BOTTOM RIGHT: guard -->
 <rect class="coralbox" x="448" y="298" width="192" height="104" rx="8"/>

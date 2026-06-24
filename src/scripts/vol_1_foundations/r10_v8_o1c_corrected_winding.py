@@ -16,6 +16,15 @@ Tests whether engine SUSTAINS the IC's real-space (2,3) pattern over 50P
 closed evolution. Independent of corpus phase-space (2,3) question
 (which is Rule 16 to Grant — separate track).
 
+LOCUS NOTE + RESULT (2026-06-24): the canonical (2,3) is a PHASE-SPACE winding
+portrait (ave-kb/CLAUDE.md:22); the real-space body is the 0_1 unknot. This
+driver tests the REAL-SPACE locus. Both internal dynamical loci have since read
+NEGATIVE: the real-space coupled eigensolve (#415, gate-d FAIL — winding bleeds
+off the bound mode) AND the canonical phase-space coupling-winding test (#417,
+BREAK — the dynamical orbit carries the LC carrier ratio, not the (2,3)). Charge =
+Link(∂Ω,F) ∈ ℤ is STATIC topology and STANDS (un-walked-back). See
+research/2026-06-24_engine-reroute-epic-summary.md.
+
 == Pre-registered observables ==
 
 PRIMARY:

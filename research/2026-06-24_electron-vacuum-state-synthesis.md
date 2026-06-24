@@ -3,7 +3,7 @@
 **Class:** research / WORKING-MODEL synthesis (conceptual). **NOT a chord** — this records the substrate-native *interpretation* that the session's groundings converged on; the AVE-distinct, falsifiable content lives in forward predictions (a separate register), not here.
 **Date:** 2026-06-24
 **Provenance:** AVE-Core @ `origin/main 1d4eae9c` (post S1 merge, PR#407). Synthesizes this session's grounded threads (electron-localization → coupling-geometry → engine-reroute → S1 PASS) + Grant's foundational questions (gravity-as-frequency-modulation; the vacuum-phase-space reframe).
-**Scope-lock:** documents the **settled** conceptual mapping. The **mutual-pinning** mechanism is flagged OPEN (S2/S3 are testing it). KB-promotion of the settled parts (→ `l3-electron-soliton`) is gated on Grant review + an adversarial verify pass.
+**Scope-lock:** documents the **settled** conceptual mapping. The **mutual-pinning** mechanism is flagged OPEN (S2/S3 are testing it). [🔴 now RESOLVED NEGATIVE — see the stale header below; mutual-pinning tested NEGATIVE in both loci, #415 + #417.] KB-promotion of the settled parts (→ `l3-electron-soliton`) is gated on Grant review + an adversarial verify pass.
 **Figure:** ![electron — two coordinate faces of one resonance](2026-06-24_electron-two-coordinate-faces.svg)
 
 ---
