@@ -181,11 +181,19 @@ class MasterEquationFDTD:
         return S ** (-0.5)
 
     def refractive_index(self):
-        """Back-compat alias = the EM-transverse index n_EM = S(A)^(+1/2) → 0.
+        """Back-compat alias = the EM-transverse GROUP index n_EM = S(A)^(+1/2) → 0.
 
         Historical callers read the "n→0 in saturated core" sense; this
         preserves that direction at the CORRECTED ½ magnitude. New code should
         call the wave-typed n_em_index() / n_shear_index() explicitly.
+
+        HARD-SCOPED (Stage 1, `test_stage1_transverse_modes.py::S1.2`): this alias
+        is PINNED to the EM GROUP index √S (NOT the PHASE index S = c₀/c_EM, and
+        NOT n_shear = 1/√S). The Stage-1 wave-typing gate fails if the alias drifts
+        off n_em_index, so no downstream stage (Stage 4 inherits this) can silently
+        read the wrong index. The three live indices: n_EM_phase=S (c_EM=c₀/S, the
+        α-speed), n_EM_group=√S (this alias; the optical SIGNAL index), n_shear=1/√S
+        (Shapiro). See ave-kb/CLAUDE.md:79-80 (phase/group taxonomy, clm-8nkvwy).
         """
         return self.n_em_index()
 
