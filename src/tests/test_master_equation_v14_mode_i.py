@@ -1,9 +1,23 @@
 """
 Regression test: v14 Mode I PASS on Master Equation FDTD breathing soliton.
 
+🔴 2026-06-24 RELABEL (Rule 12 — test KEPT, NO behavior change). This test runs
+on the Cartesian LEAPFROG grid (`MasterEquationFDTD`), NOT the native K4
+substrate. The native-stencil self-trap was FALSIFIED — energy-certified
+MODE-III DISPERSE (research/2026-06-24_engine-stage2-native-cage_result.md;
+src/ave/solvers/native_cage_imex.py): the bulk self-trap is a Cartesian-grid
+artifact. So this is the **Cartesian continuum-reference cross-check, NOT a
+native-substrate** result. It is DELIBERATELY KEPT: the make-or-break driver
+requires this Cartesian Mode-I as a known-good apparatus check (the native run
+must show the Cartesian comparison self-focus, else the instrument is broken).
+mass = A1 (#260) untouched; only the localization mechanism is reframed
+(bulk self-focus → boundary/topological).
+
 Locks in the empirical canonical state from doc 113 (v14 Mode I closure,
 commit 345d55d 2026-05-14): the Master Equation FDTD engine hosts a stable
-breathing-soliton bound state on the K4 substrate.
+breathing-soliton bound state — 🔴 on the **Cartesian** grid (continuum
+cross-check reference); this is NOT a bound state on the native K4 substrate
+(that returned Mode-III; see the relabel note above).
 
 Per closure-roadmap.md Tier 1: prevents future engine regressions from
 breaking the bound-state hosting that took the Path B engine refactor

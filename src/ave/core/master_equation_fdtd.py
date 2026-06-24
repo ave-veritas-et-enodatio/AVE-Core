@@ -18,9 +18,24 @@ both. Without c_eff(V), the wave cannot self-trap at A → 1, which is why
 v14a-e all returned Mode III on the K4-TLM engine. This FDTD engine
 realizes the full Master Equation directly.
 
+🔴 2026-06-24 NATIVE-STENCIL FALSIFICATION (Rule 12 — docstring claim scoped,
+NO behavior change). The premise above — "without c_eff(V) the wave cannot
+self-trap, which is why the K4 returned Mode III" — implies that ADDING
+c_eff(V) recovers the self-trap. That escape-hatch is REFUTED: the native K4
+stencil WITH c_eff(V) STILL returned Mode-III DISPERSE, energy-conservation-
+certified (research/2026-06-24_engine-stage2-native-cage_result.md;
+src/ave/solvers/native_cage_imex.py). So the bulk self-trap below is a
+CARTESIAN-GRID ARTIFACT (this engine runs on a Cartesian leapfrog grid), NOT
+a substrate property. The electron's mass-localization is topological/coupling
+(the (2,3) winding + H_couple) + the Γ=−1 BOUNDARY cavity; mass = A1 (#260) is
+UNTOUCHED. This engine remains the valid CONTINUUM CROSS-CHECK reference.
+
 Three operating regimes (per Vol 1 Ch 4:138-159):
   I.   Linear Acoustic (A ≪ 1):    S ≈ 1, c_eff ≈ c₀ — standard Maxwell
   II.  Non-Linear Tensor (A → 1): S → 0, c_eff → ∞ — bound state forms
+       🔴 (2026-06-24: "bound state forms" is CARTESIAN-GRID-SPECIFIC — the
+       native K4 stencil disperses (Mode-III); the bulk self-trap is a grid
+       artifact, NOT a substrate property. See the falsification note above.)
   III. Dielectric Rupture (A ≥ 1): substrate phase-transitions (clipped here)
 
 A-034 (canonical 2026-05-15 evening): the S(A) = √(1−A²) kernel here IS

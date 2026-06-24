@@ -155,6 +155,8 @@ walk live in each test's docstring.
 
 ## L3 EXISTENCE rung (T3.1 / T3.2 precursors + T3.3 / T3.4 posited mass-cage, RUNG-1)
 
+> **🔴 NATIVE-STENCIL QUALIFIER on the bulk Γ=−1 cage rows T3.3/T3.4 (2026-06-24, Rule 12 — rows + bins UNCHANGED).** These rows **POSIT** a saturated A1-scalar core and test what properties it exhibits GIVEN the core (consistency-class, on the Cartesian Master-Equation engine). The Stage-2 native-cage make-or-break ([`research/2026-06-24_engine-stage2-native-cage_result.md`](../../../../research/2026-06-24_engine-stage2-native-cage_result.md)) returned energy-certified **MODE-III DISPERSE**: the cage does **not dynamically SELF-TRAP a seeded sech on the native K4 stencil** (WITH c_eff(V)). So the **bulk self-focusing-well route is RULED OUT (a Cartesian-grid artifact)** and the **Cartesian PASS on these rows = a continuum-reference**, not a native-substrate self-forming cage. This **sharpens** the existing "HONEST SCOPE — POSITS not SELF-FORMING" qualifier (:237): not only is self-formation un-shown, the *dynamical bulk self-trap is now falsified natively*. What STANDS: the cage as a Γ=−1 **boundary condition** + the static gapped bound-mode / persistence consistency checks (boundary/topological localization); the CI-gated bins are unchanged. **mass = A1 (#260) untouched.**
+
 The L3 EXISTENCE rung extends the suite past the valid-medium L0–L2 layers into the
 **bound longitudinal-bulk (A1 scalar) cage** — the mass precursor. The T3.1/T3.2
 PRECURSORS establish the medium first (the longitudinal grade EXISTS + propagates, and
@@ -239,7 +241,7 @@ on the wall, no monopole DC). Recorded in T3.4a's docstring; it does not change 
 are "GIVEN a saturated core, the corpus's reflective wall + gapped bound mode + persistence
 manifest, α-free" — CONSISTENCY-class, not emergence. The one genuine chord-vs-echo
 question (cold-Q) returned a clean ECHO. No dimensionful electron VALUE (m_e, e, α, Q=137)
-is a cage output.
+is a cage output. 🔴 *(2026-06-24 SHARPER QUALIFIER: the Stage-2 native-cage make-or-break adds that the **dynamical bulk self-trap is FALSIFIED natively** (energy-certified MODE-III DISPERSE) — so the posited cage is not only un-self-formed, its bulk self-focusing-well realization is a Cartesian artifact. The surviving route is the Γ=−1 BOUNDARY condition + topology; mass = A1 (#260) untouched.)*
 
 > **Figures:** each test emits a `<test-id>_debug.png` at
 > `research/figures/engine_acceptance/` (KF_VIZ=1; regen via
