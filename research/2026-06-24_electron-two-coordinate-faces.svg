@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" viewBox="0 0 680 438" role="img">
+<title>The electron as two coordinate faces of one vacuum-state object</title>
+<desc>Left panel: real space — the body unknot and the Cosserat omega twist field, where charge lives as a helicity integral and spin-half as an SU(2) double-cover. Right panel: phase space — the internal LC state plane (V_inc, V_ref) where the (2,3) mode-lock is the breather's own portrait. They couple through the soliton ansatz and the saturation front S(A); the genesis-24 guard forbids defining omega from V; the two are one object sharing a common center (COM=COC).</desc>
+<style>
+text{font-family:'Helvetica Neue',Arial,sans-serif}
+.th{font-size:14px;font-weight:500;fill:#2C2C2A}
+.t{font-size:13px;font-weight:400;fill:#2C2C2A}
+.ts{font-size:12px;font-weight:400;fill:#5F5E5A}
+.teal{fill:#0F6E56}.blue{fill:#0C447C}.coral{fill:#993C1D}
+.boxf{fill:#ffffff;stroke:#D3D1C7;stroke-width:1}
+.coralbox{fill:#FAECE7;stroke:#D85A30;stroke-width:1}
+</style>
+<defs>
+<marker id="ah-gray" markerWidth="9" markerHeight="9" refX="5.5" refY="3" orient="auto-start-reverse"><path d="M0,0 L6,3 L0,6 Z" fill="#888780"/></marker>
+</defs>
+<rect x="0" y="0" width="680" height="438" fill="#ffffff"/>
+
+<text x="40" y="28" class="th">the electron — two coordinate faces of one vacuum state</text>
+
+<!-- LEFT: real space -->
+<rect class="boxf" x="40" y="50" width="275" height="230" rx="8"/>
+<text x="56" y="76" class="th">real space</text>
+<text x="56" y="94" class="ts">where it is · how the medium twists</text>
+
+<ellipse cx="177" cy="150" rx="60" ry="30" fill="none" stroke="#5F5E5A" stroke-width="1.4"/>
+<ellipse cx="177" cy="150" rx="20" ry="10" fill="none" stroke="#5F5E5A" stroke-width="1.4"/>
+<g stroke="#1D9E75" stroke-width="2.4" stroke-linecap="round">
+<line x1="237" y1="150" x2="221" y2="157"/>
+<line x1="231" y1="157" x2="208" y2="176"/>
+<line x1="177" y1="160" x2="162" y2="179"/>
+<line x1="163" y1="157" x2="125" y2="165"/>
+<line x1="157" y1="150" x2="119" y2="143"/>
+<line x1="163" y1="143" x2="147" y2="124"/>
+<line x1="177" y1="140" x2="192" y2="121"/>
+<line x1="191" y1="143" x2="229" y2="135"/>
+</g>
+
+<text x="56" y="212" class="t">body = 0₁ unknot (sub-cell)</text>
+<text x="56" y="231" class="ts teal">ω twist field — own DOF</text>
+<text x="56" y="249" class="ts teal">charge = ∫ ω·(∇×ω)</text>
+<text x="56" y="267" class="ts">spin-½ = 720° SU(2)</text>
+
+<!-- coupling -->
+<text x="340" y="140" class="ts" text-anchor="middle">couple</text>
+<line x1="318" y1="151" x2="362" y2="151" stroke="#888780" stroke-width="1.4" marker-start="url(#ah-gray)" marker-end="url(#ah-gray)"/>
+<text x="340" y="166" class="ts" text-anchor="middle">via S(A)</text>
+
+<!-- RIGHT: phase space -->
+<rect class="boxf" x="365" y="50" width="275" height="230" rx="8"/>
+<text x="381" y="76" class="th">phase space</text>
+<text x="381" y="94" class="ts">how it oscillates · internal state</text>
+
+<line x1="462" y1="151" x2="542" y2="151" stroke="#888780" stroke-width="1"/>
+<line x1="502" y1="116" x2="502" y2="186" stroke="#888780" stroke-width="1"/>
+<ellipse cx="502" cy="151" rx="34" ry="17" fill="none" stroke="#378ADD" stroke-width="2" transform="rotate(32 502 151)"/>
+<ellipse cx="502" cy="151" rx="34" ry="17" fill="none" stroke="#378ADD" stroke-width="2" transform="rotate(-32 502 151)"/>
+<text x="547" y="154" class="ts">V_inc</text>
+<text x="502" y="110" class="ts" text-anchor="middle">V_ref</text>
+
+<text x="381" y="212" class="t">(V_inc, V_ref) state plane</text>
+<text x="381" y="231" class="ts blue">the breather's own portrait</text>
+<text x="381" y="249" class="ts blue">(2,3) = C ⇌ L mode-lock</text>
+<text x="381" y="267" class="ts">V_ref = projection of V</text>
+
+<!-- BOTTOM LEFT: one object -->
+<rect class="boxf" x="40" y="298" width="380" height="104" rx="8"/>
+<text x="56" y="322" class="th">one object — a common reference</text>
+<text x="56" y="343" class="ts">mass (A1) + charge (ω) share a center: COM = COC</text>
+<text x="56" y="361" class="ts">→ EDM = 0; the two sectors phase-lock</text>
+<text x="56" y="379" class="ts">open: does charge topology pin the A1 core? (S2/S3)</text>
+
+<!-- BOTTOM RIGHT: guard -->
+<rect class="coralbox" x="448" y="298" width="192" height="104" rx="8"/>
+<text x="460" y="322" class="th coral">genesis-24 guard</text>
+<text x="460" y="343" class="ts coral">ω ≠ grad(V)</text>
+<text x="460" y="361" class="ts coral">else charge =</text>
+<text x="460" y="379" class="ts coral">the double-count</text>
+
+<text x="40" y="424" class="ts">Two cuts of one vacuum-state object — the spatial profile (where) and the internal LC orbit (how). From the vacuum's view, 3D space is the index; the state is the reality.</text>
+</svg>
