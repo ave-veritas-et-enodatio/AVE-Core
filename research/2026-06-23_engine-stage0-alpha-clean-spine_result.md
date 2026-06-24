@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-23 · implementer lane · branch `analysis/engine-stage0-alpha-clean-spine`
 **Prereg:** [`2026-06-23_engine-stage0-alpha-clean-spine_prereg.md`](2026-06-23_engine-stage0-alpha-clean-spine_prereg.md) (FROZEN pre-run)
-**Epic:** `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0 (lands on main via PR #387, merged; not duplicated into this branch — the link resolves once #399 rebases onto current main)
+**Epic:** [`_orchestration/2026-06-23_full-engine-pathway.md`](../_orchestration/2026-06-23_full-engine-pathway.md) Stage 0
 **Spine code:** `src/tests/engine_acceptance/_spine.py`
 **Tests:** `src/tests/engine_acceptance/test_stage0_alpha_clean_spine.py`
 
@@ -57,13 +57,18 @@ The prereg predicted the cold lossless cage "rings down to Q=∞ honestly **via
 `ringdown_Q`**". Live-fire (Rule 10, run the driver early) surfaced a real
 subtlety the static prereg missed:
 
-> **TWO-CAGE FOUNDATION (Finding 2 nuance).** The PRIMARY witness (the eigenframe:
-> a saturated-core CONFINED cage) and the CORROBORATING witness (the time-domain
-> ring-down: a LINEAR empty-box STANDING mode) are TWO DISTINCT lossless cages —
-> different geometry, different regime, different observable. They AGREE on the
-> ideal lossless Q=∞ limit. The foundation statement is that **two-cage agreement**,
-> not a single-cage claim: an isolated cage's Q could be a geometry artifact, but
-> two distinct cages converging on Q=∞ is the robust substrate property.
+> **CANONICAL CAGE = THE EIGENFRAME (Finding 2 nuance; Grant 2026-06-23).** The PRIMARY
+> witness — the eigenframe: a saturated-core CONFINED cage on the **tetrahedral diamond-K4
+> stencil** (substrate-native `graded_vacuum_network`) — is the **canonical view of how the
+> vacuum hosts mass**: the saturated core IS the formed electron's cage, which is why it ties
+> to electron formation. The CORROBORATING witness — the time-domain ring-down: a LINEAR
+> empty-box STANDING mode on the **Cartesian cubic FDTD grid** (`master_equation_fdtd`, a
+> 7-point Laplacian with literal square, axis-aligned cell cutoffs) — is a **non-native
+> approximation**: it agrees on the ideal lossless Q=∞ limit but carries the square-grid
+> artifact (the same Cartesian-vs-K4 base-crack as the L3 Γ=−1 wall). The foundation statement:
+> the **eigenframe (tetrahedral) is canonical**; the Cartesian FDTD merely corroborates the
+> ideal limit pending its re-expression on the K4 graph-Laplacian at **Stage 3 (the two-grid
+> bridge)**. The two-witness agreement on Q=∞ is corroborating, not co-equal.
 
 - **The eigenframe is the rigorous lossless witness.** With the EM port CLOSED
   (Γ_EM=−1, fully confined) the isolation operator is Hermitian ⇒ Im(ω)=0 ⇒

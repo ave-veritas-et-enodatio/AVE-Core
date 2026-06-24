@@ -1,7 +1,7 @@
 # STAGE 0 PREREG — the α-clean spine lock (re-scoped Gate 0)
 
 **Created:** 2026-06-23 · implementer lane · branch `analysis/engine-stage0-alpha-clean-spine`
-**Epic:** `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0 (lands on main via PR #387, merged; not duplicated into this branch — the link resolves once #399 rebases onto current main)
+**Epic:** [`_orchestration/2026-06-23_full-engine-pathway.md`](../_orchestration/2026-06-23_full-engine-pathway.md) Stage 0
 **Supersedes:** the original Gate 0 (PR #394 HARD-STOP) which targeted the wrong
 host (`CosseratField3D` bakes Q=1/α). This re-scopes onto the α-clean foundation.
 
