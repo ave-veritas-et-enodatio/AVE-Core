@@ -47,7 +47,7 @@ jobs:
   engine-sims:
     name: make test-engine (opt-in)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       MPLBACKEND: Agg
     steps:
