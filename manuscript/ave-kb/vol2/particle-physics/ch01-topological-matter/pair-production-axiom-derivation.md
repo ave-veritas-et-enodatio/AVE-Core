@@ -95,10 +95,10 @@ The corpus states two different "pair production thresholds":
 - **AVE-Fusion + Vol 1 Ch 7 regime map**: rupture begins at $V > V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{SNAP}} \approx 43.65$ kV ($r = 1$, Regime III/IV boundary)
 - **L3 doc 37 + Vol 4 Ch 1 $\Gamma = -1$ derivation**: electron-forming condition is $A^2 = V^2 / V_{\text{SNAP}}^2 = 1$ at the nodes, i.e., $V = V_{\text{SNAP}} \approx 511$ kV
 
-These differ by a factor of $1/\sqrt{\alpha} \approx 11.7$. **Resolution: they describe different stages of the same process.**
+These differ by a factor of $1/\sqrt{\alpha} \approx 11.7$. **Resolution (Grant 2026-06-24, sectoral — supersedes the earlier purely-temporal reading):** the two thresholds belong to **two orthogonal sectors** ($A_1 \perp T_2$) and are crossed at different stages of the process.
 
-- $V_{\text{yield}}$ (43.65 kV) is the **onset of nonlinearity** — $c_{\text{local}}$ starts dropping, wave-tearing begins. The Duffing regime activates. No $\Gamma = -1$ wall yet; no confined pair.
-- $V_{\text{SNAP}}$ (511 kV) is **full saturation at the node** — $Z_{\text{core}} \to 0$, $\Gamma = -1$ forms, the $(2, 3)$ winding closes in a confined standing wave. The electron is now a stable particle.
+- $V_{\text{yield}}$ (43.65 kV) — the **transverse Cosserat ($T_2$) sector self-traps.** Above $V_{\text{yield}}$ the transverse micro-rotation wave's amplitude crosses Axiom-4 onset, $\Gamma \to -1$, and the lattice self-creates its TIR cavity — **a single electron's confining $\Gamma = -1$ wall is already here** (canonical 4-property def, [`electron-identification.md`](electron-identification.md) §1.3, "Property 3 STANDS"). What is **not** yet present at $V_{\text{yield}}$ is the *longitudinal* $A_1$ short or a *pair*. ⚠ **Corrects the prior "No $\Gamma=-1$ wall yet"** — that was true only of the longitudinal/pair channel, never the transverse self-trap (which the canonical electron def puts at $V_{\text{yield}}$).
+- $V_{\text{SNAP}}$ (511 kV) — the **longitudinal $A_1$ sector fully saturates** ($A^2 = 1$, $Z_{\text{core}} \to 0$) **and** this is the **Schwinger / pair-nucleation** energy (create an $e^+e^-$ pair from vacuum). The mass completes here. *(Whether the $(2,3)$ transverse winding "closes" at $V_{\text{yield}}$ — its own sector's threshold — or only at $V_{\text{SNAP}}$ is the open question of the phase-space coupling-winding test; locus pending, not over-asserted here.)*
 
 Step 3 in the seven-step sequence crosses $V_{\text{yield}}$. Step 6 crosses $A^2 = 1$. The **Schwinger limit (standard-model literature value) lands at step 6** in this picture, and Vol 1 Ch 7 confirms: $E_S / E_{\text{yield}} = 1/\sqrt{\alpha} \approx 11.7$, "deep in Regime IV."
 
