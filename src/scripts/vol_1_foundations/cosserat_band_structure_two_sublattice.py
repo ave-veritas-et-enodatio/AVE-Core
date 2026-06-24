@@ -234,6 +234,21 @@ def dynamical_matrix_two_sublattice(kvec, G=1.0, G_c=1.0, gamma=1.0, rho=1.0, I_
     D(k) = M^{-1/2} Φ(k) M^{-1/2}, Φ = 2·Q (the Hessian factor 2, the documented
     Lagrangian-to-EOM conversion, cosserat-mass-gap.md:61). M = diag over (ρ×3,
     I_ω×3) per sublattice. Eigenvalues are ω²(k) — the 12 branches.
+
+    WHY THE k=0 ROTATIONAL GAP IS m² = 4 G_c / I_ω (the two factors of 2).
+    The micropolar energy is W_micropolar = G_c |ε_antisym|² with
+    ε_antisym,ij = ½(∂_i u_j − ∂_j u_i) − ε_ijk ω_k. For uniform ω_z, u=0:
+    ε_antisym,xy = −ω_z AND ε_antisym,yx = +ω_z BOTH contribute, so
+    W_micropolar = G_c[(−ω_z)² + (+ω_z)²] = 2 G_c |ω_z|²  → factor 2(a): the
+    antisymmetric PAIR (ij + ji) double-counts the off-diagonal couple
+    (cosserat-mass-gap.md:54-61, "Σ_ij doubling at antisymmetric pair";
+    trampoline-framework.md:188, m_ω² = 4 G_c/I_ω flywheel-clock gap).
+    The EOM mass term is the SECOND derivative of W w.r.t. ω → another factor
+    2(b): the Lagrangian-to-EOM (Hessian, Φ = 2·Q) conversion. The explicit
+    "4 = 2 × 2" statement is cosserat-mass-gap.md:61.
+    Net m² = 2(a)·2(b)·G_c/I_ω = 4 G_c/I_ω, ω_m = 2.
+    This driver recovers it bit-exact (V3) because it is the Fourier symbol of
+    the SAME Σκ²/Σε_antisym² operator the validated engine integrates.
     """
     kvec = np.asarray(kvec, dtype=float)
     G_self, G_cross = gradient_symbols_two_sublattice(kvec)
@@ -413,12 +428,60 @@ def main():
         "PASS": v5_ok,
     }
 
-    all_pass = v1_ok and v2_ok and v3_ok and v4_ok and v5_ok
+    # --- V5b: V5-HAS-TEETH self-check (audit w1ni1axfg). The bit-exact V5 residual
+    # is FORCED by the real-moduli conjugate-phase Hermitian form (D(-k)=D(k)* ⇒ equal
+    # eigenvalues), so passing V5 alone is construction-consistency, NOT strong
+    # independent evidence. To show V5 is not a no-op, INJECT a real, k-odd,
+    # parity-odd CHIRAL leak (a real coefficient · sin(k·a) coupling the A/B rotational
+    # blocks — exactly the kind of term κ_chiral would add if it leaked into the bare
+    # energy) and confirm V5 BREAKS with a measurable residual (driver-measured 0.874 at
+    # leak=1.0, amplitude-dependent). Backs the result doc's "teeth against a chiral
+    # leak" claim with CODE, not assertion.
+    def _omega2_with_chiral_leak(kvec, leak=1.0):
+        D = dynamical_matrix_two_sublattice(kvec).astype(complex)
+        ka = float(np.dot(np.asarray(kvec, float), TETRA_OFFSETS[0]))
+        s = leak * np.sin(ka)  # REAL, k-ODD amplitude (odd under bond reversal)
+        # Parity ω²(k)=ω²(−k) is FORCED whenever D(−k)=D(k)* (time-reversal of any
+        # real-space real-coupling Hermitian operator). A genuine parity-odd / chiral
+        # leak is a REAL coupling whose amplitude is ODD in k (a handed coupling that
+        # distinguishes the +bond from the −bond direction): T(k)=s(k)·A with A real-
+        # symmetric and s(−k)=−s(k). Then D_leak(−k)=D_base(k)*−T(k) while
+        # D_leak(k)*=D_base(k)*+T(k) (T real) — they differ by 2T(k), so the conjugate
+        # symmetry breaks and ω²(k) ≠ ω²(−k). This is exactly how a κ_chiral term that
+        # leaked into the bare energy would manifest. V5 MUST catch it.
+        for a, b in ((3, 4), (9, 10)):  # ω_x↔ω_y handed coupling on both sublattices
+            D[a, b] += s
+            D[b, a] += s  # real-symmetric (Hermitian), k-odd ⇒ parity-breaking
+        w2 = np.linalg.eigvalsh(D)
+        return np.sort(np.clip(w2, 0.0, None))
+
+    leak_resid = 0.0
+    for d in HIGH_SYM.values():
+        qhat = np.asarray(d, float)
+        qhat /= np.linalg.norm(qhat)
+        for kl in [0.3, 0.9, np.pi]:
+            wp = _omega2_with_chiral_leak(qhat * kl)
+            wm = _omega2_with_chiral_leak(-qhat * kl)
+            leak_resid = max(leak_resid, float(np.max(np.abs(wp - wm))))
+    v5b_ok = bool(leak_resid > 1e-3)  # the injected chiral leak MUST break parity
+    val["V5b_parity_has_teeth"] = {
+        "injected_chiral_leak_parity_residual": leak_resid,
+        "threshold_to_be_nonzero": 1e-3,
+        "note": "V5 residual-0 is FORCED by the real-moduli conjugate-phase Hermitian "
+        "form (D(-k)=D(k)* ⇒ equal eigenvalues); it is construction-consistency, NOT "
+        "strong independent evidence. This self-check injects a REAL k-odd parity-odd "
+        "chiral leak and confirms V5 BREAKS (residual measurably > 0) — so V5 has teeth "
+        "against a chiral-leak bug, but is shallow positive evidence for the spectrum.",
+        "PASS": v5b_ok,
+    }
+
+    all_pass = v1_ok and v2_ok and v3_ok and v4_ok and v5_ok and v5b_ok
     val["ALL_PASS"] = all_pass
     out["validate_on_known"] = val
 
     s1, s2, s3 = ("PASS" if v1_ok else "FAIL"), ("PASS" if v2_ok else "FAIL"), ("PASS" if v3_ok else "FAIL")
     s4, s5 = ("PASS" if v4_ok else "FAIL"), ("PASS" if v5_ok else "FAIL")
+    s5b = "PASS" if v5b_ok else "FAIL"
     e2 = val["V2_rotational_curvature_speed"]["rel_err_vs_engine_target"]
     e3 = val["V3_k0_rotational_gap"]["rel_err"]
     print("(0) VALIDATE-ON-KNOWN on the REAL 12×12 (pre-reg §3):")
@@ -427,6 +490,7 @@ def main():
     print(f"  V3 k=0 rotational gap m² = {m2_recovered:.6f}  (target 4)  ω_m={omega_m:.4f}  rel-err={e3:.2e}  {s3}")
     print(f"  V4 translational gapless branches = {n_acoustic} (target 6)  {s4}")
     print(f"  V5 parity residual ω²(k)-ω²(-k) = {parity_resid:.2e} (target <1e-9, cold parity-sym)  {s5}")
+    print(f"  V5b parity-HAS-TEETH: injected chiral leak breaks parity, residual = {leak_resid:.3f} (must be >1e-3; V5 alone is construction-forced, not strong evidence)  {s5b}")
     print(f"\n  ALL_PASS = {all_pass}")
 
     if not all_pass:
@@ -602,7 +666,7 @@ def main():
           f"(zone-edge X: genuine max={wg_X.max():.3f} vs ansatz max={wa_X.max():.3f})")
 
     print("\nCONSISTENCY-vs-CHORD (pre-reg §4, refute-by-default):")
-    print("  C1 genuine differs from ansatz → CONSISTENCY (substrate-correct band shape; near-k=0 agrees)")
+    print("  C1 genuine differs from ansatz → CONSISTENCY (only ACOUSTIC/validate-on-known agree near k=0; ansatz OPTICAL differs at ALL k incl k→0: 2√2 vs 2)")
     print("  C2 acoustic/optical hard gap    → CONSISTENCY (generic micropolar; gap VALUE = validated echo)")
     print("  C3 cold-spectrum parity-symmetry → CONSISTENCY (forced by parity-even bare energy; κ_chiral=sat-only)")
     print("  NO topology chord in the cold linear spectrum — CORRECT (header substrate fact). The handed")

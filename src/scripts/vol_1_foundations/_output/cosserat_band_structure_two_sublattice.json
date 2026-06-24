@@ -53,6 +53,12 @@
       "note": "\u03c9\u00b2(k)=\u03c9\u00b2(\u2212k); the cold bands are parity-symmetric BY CONSTRUCTION (bare energy has no parity-odd term; \u03ba_chiral is saturation-only, cosserat_field_3d.py:562). A nonzero residual would be a bond-operator BUG, not a chord. This is the substrate fact stated in the header, MEASURED.",
       "PASS": true
     },
+    "V5b_parity_has_teeth": {
+      "injected_chiral_leak_parity_residual": 0.8743518764560481,
+      "threshold_to_be_nonzero": 0.001,
+      "note": "V5 residual-0 is FORCED by the real-moduli conjugate-phase Hermitian form (D(-k)=D(k)* \u21d2 equal eigenvalues); it is construction-consistency, NOT strong independent evidence. This self-check injects a REAL k-odd parity-odd chiral leak and confirms V5 BREAKS (residual measurably > 0) \u2014 so V5 has teeth against a chiral-leak bug, but is shallow positive evidence for the spectrum.",
+      "PASS": true
+    },
     "ALL_PASS": true
   },
   "spectrum": {

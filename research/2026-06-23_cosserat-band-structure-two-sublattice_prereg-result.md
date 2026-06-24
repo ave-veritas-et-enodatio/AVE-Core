@@ -90,7 +90,7 @@ Labeled CONSISTENCY vs CHORD, declared BEFORE the run:
 
 ---
 
-## 5. RESULT — validate-on-known verdict ON THE REAL 12×12: **PASS (all 5)**
+## 5. RESULT — validate-on-known verdict ON THE REAL 12×12: **PASS (all 5 + V5b teeth-check)**
 
 Driver: `cosserat_band_structure_two_sublattice.py`; output `_output/cosserat_band_structure_two_sublattice.json`.
 The 12×12 `D(k)` is the **Fourier symbol of the SAME discrete energy operator** the validated velocity-Verlet
@@ -104,7 +104,8 @@ fix vs PR #389, which ran V1–V4 on the single-node `D6`).
 | V2 | rotational curvature speed (G_c=0) | 1.414214 (=√2) | 2.0e-9 | **PASS** |
 | V3 | k=0 rotational gap `m²=4G_c/I_ω=4` (ω_m=2) | 4.000000 | **0.0 (bit-exact)** | **PASS** |
 | V4 | k=0 translational gapless branches | 6 (3 per sublattice) | exact | **PASS** |
-| V5 | parity `ω²(k)=ω²(−k)` (cold spectrum) | residual 0.0 | **0.0 (bit-exact)** | **PASS** |
+| V5 | parity `ω²(k)=ω²(−k)` (cold spectrum) | residual 0.0 | **0.0 (bit-exact)** | **PASS** (weak — see §5 caveat) |
+| V5b | parity HAS TEETH: injected real k-odd chiral leak BREAKS parity | residual 0.874 (leak=1.0) | must be >1e-3 | **PASS** (confirms V5 is not a no-op) |
 
 **V3 is bit-exact on the GENUINE 12×12** — the two-sublattice bond network reproduces the canonical mass gap
 (the 0.35%-validated number of `cosserat-mass-gap.md`) to machine precision, because the A→B bond operator is
@@ -115,6 +116,25 @@ but "is the same operator, now on the correct two-sublattice basis."
 (`ω²(k)=ω²(−k)`, residual exactly 0), confirming the header claim — the bare energy has NO parity-odd term, so
 `κ_chiral` (saturation-only, `cosserat_field_3d.py:562`) cannot enter the cold bands. A nonzero residual would
 have signalled a bond-operator BUG, not a chord.
+
+> **⚑ AUDIT CAVEAT (2026-06-23, workflow w1ni1axfg — Rule 12, prose above PRESERVED unedited).**
+> The bit-exact V5 residual-0.0 is **NOT a strong independent falsifier** and must not be headlined as one.
+> The 12×12 `D(k)` is built as a **Hermitian quadratic form with REAL moduli (G, G_c, γ) and conjugate-phase
+> A/B coupling** (`dynamical_matrix_two_sublattice`: `Phi = 0.5*(Phi + Phi.conj().T)`, `G_cross_B = conj(G_cross)`).
+> For any such real-moduli conjugate-phase Hermitian construction, `D(−k) = D(k)*` and the eigenvalues of a
+> matrix and its complex conjugate are identical, so `ω²(−k) = ω²(k)` is **FORCED BY THE CONSTRUCTION** — the
+> residual is bit-exact 0 by algebra, independent of whether the bond operator is right. V5 therefore catches
+> only a **real, k-odd, parity-odd LEAK** (a parity-odd term with a real coefficient that survives the conjugate
+> symmetry). It does **have teeth against a chiral leak**: injecting an explicit parity-odd term (a real
+> chiral/handed coupling — a real coupling whose amplitude is ODD in k, distinguishing the +bond from the −bond
+> direction, the form a leaked `κ_chiral` would take) breaks the symmetry with a **measurable residual**. The
+> driver self-check `V5b_parity_has_teeth` injects exactly this term and V5 BREAKS: driver-measured residual
+> **0.874** at injection amplitude `leak=1.0` (amplitude-dependent; ≈0.4 at `leak=0.5`). So V5 is
+> a genuine guard against a chiral-leak bug, not a no-op. But it is **shallow positive evidence**: passing V5
+> does NOT independently confirm the bond operator (that is V1–V4's job, especially the bit-exact V3 gap); it
+> confirms only that no real parity-odd term leaked into the cold bare energy — which the header already states
+> is true BY CONSTRUCTION (`κ_chiral` saturation-only). Read V5 as a **construction-consistency check with teeth
+> against a chiral leak**, NOT as deep independent proof of the spectrum.
 
 ### Two integrator-time bugs caught + fixed (Rule 10, single-mechanism diagnoses)
 
@@ -139,10 +159,23 @@ integrator time by running the real matrix against the pre-registered known numb
 ### ⚑ FLAG (flag-don't-fix): node-twist stiffness convention (the √2)
 
 Carried forward UNCHANGED from PR #389 (this re-run does not re-adjudicate it): the rotational **curvature**
-speed at G_c=0 is `√2` from the actual engine operator, but `cosserat_wave_test.py:10` / `cosserat-mass-gap.md`
-carry the continuum **label `√(γ/I_ω)=1`**. Same √2 / Hessian factor. This is a **node-twist stiffness
-convention** question — which Lagrangian-prefactor normalization is the real substrate value — surfaced for
-Grant/auditor adjudication, NOT silently reconciled. The gap (the load-bearing number) is bit-exact either way.
+speed at G_c=0 is `c_R = √2` from the actual engine operator, but `cosserat_wave_test.py:10` / `cosserat-mass-gap.md`
+carry the continuum **label `c_R = √(γ/I_ω) = 1`**. Same √2 / Hessian factor.
+
+**⚑ GRANT-GATED — DO NOT RESOLVE (flag-don't-fix; this re-run leaves it OPEN for Grant).** The `√2` vs `1`
+discrepancy traces to whether the curvature energy `W_κ` carries a `½` prefactor:
+- **Engine source:** `cosserat_field_3d.py:703` computes `W_kappa = jnp.sum(kappa**2)` — **no `½`**. Summing the
+  `κ` quadratic form with unit (not half) weight is what yields `c_R = √2` here (the same `Σκ²` the engine uses;
+  this driver is its Fourier symbol, so it inherits the no-½ convention verbatim).
+- **Leaf label:** `cosserat_wave_test.py:10` / `cosserat-mass-gap.md` quote the continuum `c_R = √(γ/I_ω) = 1`,
+  i.e. the convention with the standard `½` elastic prefactor folded in.
+- **Internal-consistency read (NOT an adjudication):** the driver is bit-for-bit faithful to the engine operator,
+  so internal consistency *favors* `√2` (the leaf label and the engine `Σκ²` cannot both be the substrate value).
+  **But which `½`-convention is the real node-twist stiffness is a substrate-physics call that belongs to Grant,
+  NOT to this implementer lane.** This flag is RECORDED OPEN, deliberately unresolved.
+
+The gap (the load-bearing number, V3 `m²=4`) is bit-exact either way — this convention question does **not** touch
+the validated gap, only the `c_R` curvature-slope label.
 
 ## 6. RESULT — genuine full-BZ two-sublattice spectrum + DOES-IT-DIFFER-FROM-ANSATZ
 
@@ -163,32 +196,39 @@ with a threshold; the gap is an **LC stop-band** of the chiral LC mesh.
 **Optical-branch curvature:** `ω²(k)=m²+a₂(kℓ)²` with intercept `m²=4.0000` (the validated gap, on the genuine
 bond operator) and `a₂=1.993` (positive curvature — the branch rises from the gap; same √2/Hessian factor flag).
 
-### DOES IT DIFFER FROM THE PR #389 ANSATZ? — **YES, substantially (full-BZ); near-k=0 agrees**
+### DOES IT DIFFER FROM THE PR #389 ANSATZ? — **YES; only the ACOUSTIC / validate-on-known branches agree near k=0**
 
 The genuine bond-operator spectrum and the PR #389 tile-and-scale ansatz (`C=sf_mag·D6`, reconstructed inline
 in the driver for a self-contained comparison) give **substantially different full-BZ spectra**:
 
 | | Genuine bond operator | PR #389 ansatz (`C=sf_mag·D6`) |
 |---|---|---|
-| near-k=0 validate-on-known | PASS (V1–V5, run on the 12×12) | never run on the 12×12 (validated on `D6`) |
+| near-k=0 ACOUSTIC / validate-on-known | PASS (V1–V5, run on the 12×12) | never run on the 12×12 (validated on `D6`) |
+| near-k=0 OPTICAL manifold floor (k→0) | **2.000** (= the gap √(m²)=2) | **2.828** (= 2√2; differs at ALL k incl. k→0) |
 | max\|Δω\| band-by-band over BZ | — | **≈ 2.0 lattice** |
 | zone-edge X [π,0,0] max ω | **2.000** (= the gap; acoustic folds to 0) | 2.828 (= 2√2; structure-factor artifact) |
 
-The **near-k=0 numbers agree** (both → the continuum gradient `ik_j` as k→0, so V1–V4 must match — that is the
-correctness cross-check), but the **full-BZ band shape differs**: at the X zone edge the genuine diamond
-structure factor `Σ_b e^{ik·d_b}` zeroes, so the A and B sublattices decouple and the acoustic branches fold
-back to ω=0 while the optical manifold caps at exactly the gap (ω=2) — the standard diamond two-sublattice BZ
-fold. The ansatz instead SCALES `D6` by the structure-factor magnitude, capping at `2√2≈2.83` — a scaling
-artifact, not the real bond fold. **The PR #389 two-sublattice spectrum was quantitatively wrong off k=0**,
-even though its single-node validate-on-known (on `D6`) passed.
+**Only the ACOUSTIC family (and the V1–V4 validate-on-known numbers it carries) agrees near k=0** — both → the
+continuum gradient `ik_j` as k→0, so the acoustic slopes / massless branches must match, which is the
+correctness cross-check. The **OPTICAL manifold differs at ALL k, INCLUDING k→0**: the genuine optical branches
+floor at the true gap `ω=√(m²)=2`, while the ansatz optical branches floor at `2√2≈2.83` even as `k→0` (the
+structure-factor scaling multiplies the on-site `D6` optical block by ≈√2 at the zone center, not just at the
+edge). So the agreement is **NOT a generic "near-k=0 match"** — it is restricted to the acoustic / validate-on-
+known branches; the optical manifold is off by the `2√2 vs 2` factor everywhere in the zone. At the X zone edge
+the genuine diamond structure factor `Σ_b e^{ik·d_b}` zeroes, so the A and B sublattices decouple and the
+acoustic branches fold back to ω=0 while the optical manifold caps at exactly the gap (ω=2) — the standard
+diamond two-sublattice BZ fold. The ansatz instead SCALES `D6` by the structure-factor magnitude, capping at
+`2√2≈2.83` — a scaling artifact, not the real bond fold. **The PR #389 two-sublattice OPTICAL spectrum was
+quantitatively wrong at every k including k→0 (2√2 vs 2)**, not merely off the zone center, even though its
+single-node validate-on-known (on `D6`) passed.
 
 ## 7. CONSISTENCY-vs-CHORD labeling + honest closure
 
 | Feature | Class | Justification |
 |---|---|---|
-| C1 genuine differs from ansatz | **CONSISTENCY** | substrate-correct band shape; both are micropolar two-sublattice lattices; near-k=0 agrees (the validate-on-known) |
+| C1 genuine differs from ansatz | **CONSISTENCY** | substrate-correct band shape; both are micropolar two-sublattice lattices; only the ACOUSTIC / validate-on-known branches agree near k=0 — the ansatz OPTICAL manifold differs at ALL k incl. k→0 (2√2 vs 2), see §6 |
 | C2 acoustic/optical hard gap | **CONSISTENCY** | generic to any two-sublattice micropolar lattice; the gap VALUE `m²=4G_c/I_ω` is the already-validated echo |
-| C3 cold-spectrum parity symmetry | **CONSISTENCY** | forced by the parity-EVEN bare energy (`κ_chiral` saturation-only) — the substrate fact stated in the header, here MEASURED bit-exact as a bond-operator falsifier |
+| C3 cold-spectrum parity symmetry | **CONSISTENCY** (weak guard) | forced by the parity-EVEN bare energy (`κ_chiral` saturation-only) AND by the real-moduli conjugate-phase Hermitian form (`D(−k)=D(k)*` ⇒ equal eigenvalues) — the bit-exact residual-0 is **construction-forced, not strong independent evidence**; it has teeth only against a real parity-odd / chiral leak (driver self-check `V5b` injects one and it breaks, residual 0.874 at leak=1.0). See §5 AUDIT CAVEAT. |
 
 **NO FORM-distinct chord found in the cold-lattice linear band structure** — exactly the refute-by-default
 outcome the SECTOR HEADER pre-registered. This is correct, NOT a failure: the 4₁-screw handedness is
