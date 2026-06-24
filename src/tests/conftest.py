@@ -63,6 +63,13 @@ _ENGINE_SIM_TESTS = {
     # gating. Coverage via make test-engine.
     "test_s2_hcouple.py::test_s2_criterion_3_independence_slaved_arm_reachable_false",
     "test_s2_hcouple.py::test_s2_full_gate_verdict_pass",
+    # Coupled A1+winding eigensolve: the N=32 resolution-dependent eigensolves (T2
+    # drivers). T0/T2/T7 (α-clean, Hermitian, ladder-shape on small N) STAY gating.
+    "test_coupled_eigensolve.py::test_t1_halt_winding_off_recovers_forkb",
+    "test_coupled_eigensolve.py::test_t3_seeded_winding_reads_2_3",
+    "test_coupled_eigensolve.py::test_t4_winding_bled_out_of_bound_mode",
+    "test_coupled_eigensolve.py::test_t5_arm_b_deconfines",
+    "test_coupled_eigensolve.py::test_t6_committed_verdict_does_not_exist",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
