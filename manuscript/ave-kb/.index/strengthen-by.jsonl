@@ -355,6 +355,8 @@
 {"claim_id": "clm-kezk9z", "item_idx": 1, "text": "<s>Resolve in-leaf the constitutive-parameters-individually-collapsing vs ratio-preserved distinction so the BH-echo branch is not in apparent tension with $\\Gamma=0$ everywhere.</s> *(superseded 2026-06-17 — resolved via channel-split above; preserved per Rule-12.)*", "mentioned_ids": []}
 {"claim_id": "clm-kl1ern", "item_idx": 0, "text": "Quantify the backward-reaction leakage from the finite 75 kV flyback rise time, which sets the actual net-thrust floor.", "mentioned_ids": []}
 {"claim_id": "clm-kl1ern", "item_idx": 1, "text": "Enumerate and bound the Cavendish systematic backgrounds at the $100\\,\\mu$N scale.", "mentioned_ids": []}
+{"claim_id": "clm-kmliqx", "item_idx": 0, "text": "Derive √2 directly from the K4 diamond bond geometry (the discrete curvature stencil's eigenvalue) independent of the engine-operator-faithfulness argument.", "mentioned_ids": []}
+{"claim_id": "clm-kmliqx", "item_idx": 1, "text": "Add a dedicated G_c=0 time-domain wave-speed driver (analogous to T1a) reporting v/c_R against the √2 target, not just the band-structure Fourier symbol.", "mentioned_ids": []}
 {"claim_id": "clm-knveh6", "item_idx": 0, "text": "For at least one problem (e.g. BSD), demonstrate the physical identification computes a known answer for a specific instance.", "mentioned_ids": []}
 {"claim_id": "clm-knveh6", "item_idx": 1, "text": "Sharpen each reinterpretation's scope caveat at the individual-leaf level so the consolidated index is not read as five proofs.", "mentioned_ids": []}
 {"claim_id": "clm-l416hl", "item_idx": 0, "text": "Derive $-\\sqrt{2}/2$ as the unique subleading topological-decoupling correction from AVE primitives", "mentioned_ids": []}

@@ -22,9 +22,9 @@ Here "substrate" / "lattice" refers to the Chiral LC Network of Axiom 1, corresp
 | In natural units | $\langle V^2 \rangle_T = k_B T \cdot 4\pi / \alpha$ |
 | **Vacuum rupture temperature** | $\boxed{T_{V\text{-rupt}} \approx 3.44 \times 10^6 \text{ K}}$ (where $\sigma_V = V_{\text{SNAP}}$) |
 | Cosserat translation $\sigma_u$ | $\sqrt{k_B T / (2\pi)}$ in natural units |
-| Cosserat rotation $\sigma_\omega$ | $0.17 \sqrt{k_B T}$ in natural units (massive field, mass-gap $m^2 = 4 G_c/I_\omega$) |
-| $\sigma_\omega$ at CMB ($T = 2.7$ K) | $3.6 \times 10^{-6}$ — vanishingly small, effectively zero for pair creation |
-| Engine-default for pair-creation runs | $T \sim 10^8$ K, gives $\sigma_\omega \sim 0.02$, sufficient thermal noise for cascade amplification |
+| Cosserat rotation $\sigma_\omega$ | $0.139 \sqrt{k_B T}$ in natural units ($c_R = \sqrt{2}$; massive field, mass-gap $m^2 = 4 G_c/I_\omega$ — see §4 recompute, was $0.17$ at the demoted $c_R = 1$) |
+| $\sigma_\omega$ at CMB ($T = 2.7$ K) | $3.0 \times 10^{-6}$ — vanishingly small, effectively zero for pair creation |
+| Engine-default for pair-creation runs | $T \sim 10^9$ K gives $\sigma_\omega \sim 0.057$ ($c_R = \sqrt{2}$; $T \sim 10^8$ K now only $\sim 0.006$) — sufficient thermal noise for cascade amplification |
 
 ## §1 — Classical equipartition framework
 
@@ -84,22 +84,26 @@ For a massive scalar-like field $\omega$ at temperature $T$, classical equiparti
 
 $$\langle \omega^2(r) \rangle_T = \frac{k_B T}{4\pi^2 I_\omega} \int_0^{k_{\max}} \frac{k^2 \, dk}{c_R^2 k^2 + m^2}$$
 
-In natural units ($I_\omega = \gamma = G_c = 1$, so $c_R = 1$, $m^2 = 4$):
+In natural units ($I_\omega = \gamma = G_c = 1$, so the engine-faithful rotational-curvature speed is $c_R = \sqrt{2}$, $m^2 = 4$):
 
-$$\langle \omega^2 \rangle_T \approx \frac{1.14 \, k_B T}{4\pi^2} \approx 0.0288 \cdot k_B T$$
+> **RULE-12 RECOMPUTE COMPLETE (2026-06-23, Grant-ratified).** The denominator $c_R^2 k^2 + m^2$ now uses the **engine-faithful** value $c_R = \sqrt{2}$ (the engine's $W_\kappa = \gamma\,\Sigma\kappa^2$ carries no $\tfrac{1}{2}$; see [`cosserat-mass-gap.md`](../../axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3.5, `clm-kmliqx`). This stiffens the $k^2$ term and **reduces** $\langle\omega^2\rangle_T$ and $\sigma_\omega$. The prior $c_R = 1$ (continuum-idealized) numbers were $\langle\omega^2\rangle_T \approx 0.0288\,k_BT$, $\sigma_\omega \approx 0.17\sqrt{k_BT}$; they are superseded by the recomputed $c_R = \sqrt{2}$ values below. The lattice-Nyquist cutoff $k_{\max} = \pi$ ($\ell_{\text{node}} = 1$; same cutoff as §5) is unchanged, and reproduces the old integral factor $1.14$ exactly at $c_R = 1$ — so the recompute is an apples-to-apples convention swap, not a re-derivation.
 
-$$\sigma_\omega \approx 0.17 \cdot \sqrt{k_B T} \text{ (natural units, for } G_c = I_\omega = \gamma = 1\text{)}$$
+The dimensionless $k$-integral $\int_0^{\pi} k^2\,dk / (c_R^2 k^2 + m^2)$ evaluates analytically to $(1/c_R^2)\big[k_{\max} - (m/c_R)\arctan(k_{\max} c_R/m)\big]$. At $c_R = \sqrt{2}$, $m^2 = 4$, $k_{\max} = \pi$: the factor drops from $1.14$ (at $c_R = 1$) to $0.759$:
 
-| Temperature | $k_B T$ (in $m_e c^2$) | $\sigma_\omega$ (rad, natural units) |
+$$\langle \omega^2 \rangle_T \approx \frac{0.759 \, k_B T}{4\pi^2} \approx 0.0192 \cdot k_B T$$
+
+$$\sigma_\omega \approx 0.139 \cdot \sqrt{k_B T} \text{ (natural units, } c_R = \sqrt{2}, \; G_c = I_\omega = \gamma = 1\text{)}$$
+
+| Temperature | $k_B T$ (in $m_e c^2$) | $\sigma_\omega$ (rad, natural units, $c_R = \sqrt{2}$) |
 |---|---|---|
 | $T = 0$ | 0 | 0 |
-| $T = 2.7$ K (CMB) | $4.56 \times 10^{-10}$ | $3.6 \times 10^{-6}$ |
-| $T = 10^6$ K | $1.69 \times 10^{-4}$ | $2.2 \times 10^{-3}$ |
-| $T = 10^9$ K | $1.69 \times 10^{-1}$ | $7.0 \times 10^{-2}$ |
+| $T = 2.7$ K (CMB) | $4.56 \times 10^{-10}$ | $3.0 \times 10^{-6}$ |
+| $T = 10^6$ K | $1.69 \times 10^{-4}$ | $1.8 \times 10^{-3}$ |
+| $T = 10^9$ K | $1.69 \times 10^{-1}$ | $5.7 \times 10^{-2}$ |
 
-**Engine default for $T = T_{\text{CMB}}$**: $\sigma_\omega \approx 3.6 \times 10^{-6}$ — vanishingly small, effectively zero for pair-creation purposes. This confirms the C1 prediction that **cold-vacuum cannot produce pairs** by thermal noise alone.
+**Engine default for $T = T_{\text{CMB}}$**: $\sigma_\omega \approx 3.0 \times 10^{-6}$ — vanishingly small, effectively zero for pair-creation purposes. This confirms the C1 prediction that **cold-vacuum cannot produce pairs** by thermal noise alone (the conclusion is unchanged by the $c_R = \sqrt{2}$ stiffening; if anything the cold vacuum is marginally quieter).
 
-**Engine recommendation for pair-creation runs**: $T \sim 10^8$ K gives $\sigma_\omega \sim 0.02$, sufficient thermal noise for cascade amplification into observable pair creation.
+**Engine recommendation for pair-creation runs**: $T \sim 10^8$ K now gives $\sigma_\omega \sim 0.006$ (was $\sim 0.02$ at the demoted $c_R = 1$); reaching $\sigma_\omega \sim 0.02$ for cascade amplification requires $T \sim 10^9$ K at the stiffer $c_R = \sqrt{2}$ speed.
 
 ## §5 — Cosserat translational noise (lattice-Nyquist cutoff)
 

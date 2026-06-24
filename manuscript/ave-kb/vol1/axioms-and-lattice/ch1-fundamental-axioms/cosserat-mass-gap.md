@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-jz0xaw, clm-4mmwb6, clm-dhvhwi, clm-g0mkne]
+claims: [clm-jz0xaw, clm-4mmwb6, clm-dhvhwi, clm-g0mkne, clm-kmliqx]
 path-stable: "referenced from L3 closure synthesis + photon-identification + Vol 4 Ch 1 as canonical Cosserat mass-gap formula"
 -->
 
@@ -96,6 +96,43 @@ i.e., $m^2 = 4 G_c / I_\omega$. The factor 4 = 2 (from $\sum_{ij}$ doubling at a
 | T2 (mass-gap oscillation) | $G_c = 1$, $\nabla \omega = 0$ — mass term only | $T / T_{\text{theory}} = 0.9965$; energy drift $9.0 \times 10^{-3}$ | **0.35% error — essentially exact** |
 | T3 (energy conservation) | All three tests | $|\Delta H / H|_{\max} \leq 1\%$, no secular trend | Velocity-Verlet symplectic-O($dt^2$) confirmed |
 
+## §3.5 — The rotational-curvature wave speed is $c_R = \sqrt{2}$ (node-twist stiffness convention, Grant-ratified 2026-06-23)
+<!-- claim-quality: clm-kmliqx -->
+
+**SECTOR HEADER.** This is the Cosserat **micro-rotation** sector. $c_R$ is the propagation speed of a **twist-gradient (wryness $\kappa = \nabla\omega$) curvature wave**, measured against the shear/transverse speed ($c = 1$). Cold-linear regime; $G_c = 0$ (pure curvature, no mass gap). NOT a translational-strain wave — the carried DOF is the micro-rotation gradient $\kappa$, not the Cauchy strain $\varepsilon_{\text{sym}}$.
+
+**RESOLVED VALUE: $c_R = \sqrt{2}$** (Grant-ratified 2026-06-23).
+
+The engine's curvature energy is $W_\kappa = \gamma \sum_{ij} \kappa_{ij}^2$ — it carries **NO $\tfrac{1}{2}$ prefactor and NO symmetrization** (unlike the symmetrized Cauchy strain $W_{\text{cauchy}}$, which uses $\varepsilon_{\text{sym}} = \tfrac{1}{2}(\varepsilon + \varepsilon^T)$). Summing the $\kappa$ quadratic form with unit (not half) weight is what yields $c_R = \sqrt{2}$ as the engine-faithful Fourier symbol of this operator. Verbatim in `src/ave/topological/cosserat_field_3d.py:704`: `W_kappa = jnp.sum(kappa**2, axis=(-1, -2))` (second identical copy at `:739`).
+
+**Derivation rationale (Grant 2026-06-23, carried verbatim):** translational strain symmetrizes because its **antisymmetric part is a FREE rigid rotation storing no energy**; the **micro-rotation gradient's antisymmetric part is a GENUINE twist-gradient that DOES store energy**, so the **full-gradient (no-$\tfrac{1}{2}$) treatment is physically forced** — AND it is the **SAME no-$\tfrac{1}{2}$ convention that yields the validated $m^2 = 4$ mass gap** (§2, `clm-jz0xaw`: the antisymmetric-pair $\sum_{ij}$ doubling that gives the factor-2 in $W_{\text{micropolar}} = 2 G_c |\omega|^2$ is the same no-$\tfrac{1}{2}$ summation convention). **Internal consistency $\Rightarrow \sqrt{2}$**; the old leaf label "$1$" is a **continuum idealization the discrete substrate does not honor** (it is the convention with the standard $\tfrac{1}{2}$ elastic prefactor folded in, which the engine operator does not carry).
+
+Empirical confirmation (PR #392, the genuine two-sublattice $12\times12$ band structure): the V2 validate-on-known recovers $c_R = 1.414214$ (target $\sqrt{2}$, rel-err $2.0\times10^{-9}$) directly from the engine's bond operator — bit-faithful to the same $\Sigma\kappa^2$ the gap ($m^2 = 4$, also bit-exact there) is read from. The leaf label and the engine $\Sigma\kappa^2$ cannot both be the substrate value; the driver is bit-for-bit faithful to the engine operator, so internal consistency forces $\sqrt{2}$.
+
+> **🔴 RULE-12 DEMOTION (2026-06-23) — the prior $c_R = \sqrt{\gamma/I_\omega} = 1$ label is DEMOTED, not deleted.** Prior to Grant's 2026-06-23 ratification, the companion-test table (§3 T1a row) and the canonical script `cosserat_wave_test.py:10` quoted the rotational-curvature speed as the **continuum idealization** $c_R = \sqrt{\gamma/I_\omega} = 1$. That label folds in the standard $\tfrac{1}{2}$ elastic prefactor that the discrete substrate's $W_\kappa = \gamma\,\Sigma\kappa^2$ operator does NOT carry. The "$1$" is preserved here as the **continuum-limit label** and remains the value the symmetrized-$\tfrac{1}{2}$ convention would give; it is NO LONGER the substrate value. The substrate (engine-faithful) value is $c_R = \sqrt{2}$ per the derivation above. The T1a empirical $v/c_R = 0.858$ row in §3 is a finite-$k$ lattice-dispersion ratio against the continuum-$1$ label and is left unchanged for audit-trail continuity (its 14% deficit is the finite-$k$ dispersion the §3 row already notes).
+
+This convention question does **NOT** touch the validated mass gap (the load-bearing number $m^2 = 4$, `clm-jz0xaw` / `clm-dhvhwi`): the gap is bit-exact under either convention. It resolves only the $c_R$ curvature-slope label.
+
+### §3.5.1 — DISAMBIGUATION: the THREE substrate wave speeds (two are $\sqrt{2}$ — do NOT fuse)
+
+Three K4-substrate wave speeds live near this result. **Two of them are numerically $\sqrt{2}$ but are PHYSICALLY DISTINCT** (different sectors, different moduli). The shared digit is a coincidence of the $K = 2G$ magic-angle operating point and the no-$\tfrac{1}{2}$ curvature convention reaching the same value — it is **NOT an identity**. This table exists so no future reader manufactures a false identity between the two $\sqrt{2}$'s, nor confuses either with the $T_2$ shear photon at $c$. (This is the "three speeds, do not fuse" discipline, parallel to the "three 2's" reactance-count taxonomy in [`../../../common/dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md):42.)
+
+| Claim | Sector | Mode | Modulus | Speed | Source operator / origin |
+|---|---|---|---|---|---|
+| **`clm-uu1qbo`** | **A1 / bulk** | dilatational scalar (longitudinal compression) | bulk $K$ ($K = 2G$ magic angle) | $\sqrt{2}\,c_0 = \sqrt{K_{\text{bulk}}/\rho}$ | macroscopic-moduli $K/G = 2$ ratio; the A1 port-mode of `clm-j550uh` |
+| **`clm-j550uh`** | **T2 / $\omega$** | transverse **SHEAR** (the photon) | shear $G$ | $c = \sqrt{G/\rho} = 1$ | $W_{\text{cauchy}}$ shear / micropolar; V1 of PR #392 (`c = 1`, rel-err 3.6e-8) |
+| **`clm-kmliqx`** | **T2 / $\omega$** | **CURVATURE / wryness** twist-gradient $\kappa = \nabla\omega$ | curvature $\gamma$ | $\sqrt{2} = \sqrt{2\gamma/I_\omega}$ | no-$\tfrac{1}{2}$ $W_\kappa = \gamma\,\Sigma\kappa^2$ (`cosserat_field_3d.py:704`, copy `:739`); V2 of PR #392 (`√2`, rel-err 2.0e-9) |
+
+**Read carefully — the two $\sqrt{2}$'s:**
+- **`clm-uu1qbo`'s $\sqrt{2}$** is the **A1/bulk-$K$ dilatational** speed: a *scalar/longitudinal compression* mode governed by the **bulk modulus** $K$, $\sqrt{2}$ because $K = 2G$ at the magic angle. It is the **other sector** from kmliqx.
+- **`clm-kmliqx`'s $\sqrt{2}$** is the **T2/curvature-$\gamma$** speed: a *micro-rotation twist-gradient* mode governed by the **curvature modulus** $\gamma$, $\sqrt{2}$ because the engine's $W_\kappa$ carries no $\tfrac{1}{2}$. It is the **same sector** as the shear photon but a **different mode/modulus**.
+
+**The two T2 modes:** within the single T2 micro-rotation sector there are TWO distinct modes — the SHEAR mode (`clm-j550uh`, $G$-modulus, speed $c = 1$, the photon) and the CURVATURE mode (`clm-kmliqx`, $\gamma$-modulus, speed $\sqrt{2}$). `clm-j550uh`'s canonical statement "$T_2$ at $c$ (shear modulus)" is **specifically the shear-$G$ transverse photon** — it is NOT the curvature-$\gamma$ mode. (Verified: `claim-quality.md` clm-j550uh body, "$A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus)" — the $T_2$/$c$ entry is the shear mode, distinct from this leaf's curvature-$\gamma$/$\sqrt{2}$ mode. No collision.)
+
+**A FOURTH speed exists and is NOT $\sqrt{2}$ — guard against a 2-vs-3 fusion:** the isotropic-solid longitudinal **P-wave** is $c_L = \sqrt{(K + \tfrac{4}{3}G)/\rho} = \sqrt{10/3}\,c \approx 1.826\,c$ ($\nu = 2/7$; PR #392 reads it as the acoustic-manifold top = $1.826$ *inside* the BZ). The A1/bulk $\sqrt{2}$ (which drops the $\tfrac{4}{3}G$ shear term) is the **bulk-modulus** quantity, NOT this P-wave. The kmliqx $\sqrt{2}$ is the rotational-curvature mode — genuinely $\sqrt{2}$, **not** the $\sqrt{10/3}$ bulk longitudinal P-wave (that distinction is what the read-AND-run adjudication confirmed: the V2 branch is rotational `rot_wt=1.0`, NOT the bulk $\sqrt{10/3} = 1.826$).
+
+The CI gate for the kmliqx curvature-$\gamma$ $\sqrt{2}$ is `src/tests/test_cr_rotational_curvature_sqrt2.py` (asserts V2 rel-err $< 5\times10^{-2}$ and the split from the shear photon $c$).
+
 ## §4 — Why this is the structural mass mechanism for the electron
 <!-- claim-quality: clm-g0mkne -->
 
@@ -125,7 +162,7 @@ The mass-gap is a Phase-I structural property of the Cosserat Lagrangian; the el
 ## Cross-references
 
 - **Canonical script:** `src/scripts/vol_1_foundations/cosserat_wave_test.py` — T1a / T1b / T2 / T3 four-test suite
-- **Engine:** `src/ave/topological/cosserat_field_3d.py` — `CosseratField3D.step()` velocity-Verlet integrator
+- **Engine:** `src/ave/topological/cosserat_field_3d.py` — `CosseratField3D.step()` velocity-Verlet integrator; curvature energy `W_kappa = jnp.sum(kappa**2)` at `:704` (second copy `:739`), the no-½ `Σκ²` operator whose Fourier symbol gives $c_R = \sqrt{2}$ (§3.5, `clm-kmliqx`)
 - **KB cross-cutting:**
   - [Photon Identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md) — $A_1$ massless / $T_2$ massive split confirmed
   - [Vol 1 Ch 8 α Golden Torus](../../ch8-alpha-golden-torus.md) — electron-specific Cosserat (2,3) shell calibration

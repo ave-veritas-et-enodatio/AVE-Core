@@ -1,0 +1,209 @@
+{
+  "config": {
+    "N": 24,
+    "DX": 0.5,
+    "SEED_AMPLITUDE_over_Vyield": 0.85,
+    "SEED_RADIUS": 2.5,
+    "separations": [
+      6,
+      8,
+      10
+    ],
+    "N_RUN": 600,
+    "N_TRANSIENT": 200,
+    "observable": "T^{0x}=(d_t V)(d_x V) field-momentum density, PML-excluded"
+  },
+  "per_separation": [
+    {
+      "d0": 6,
+      "control": {
+        "phi_midplane_floor": 40.19964267887569,
+        "dP_floor": 120.54740394312725,
+        "phi_abs_mean_floor": 8.363847696886598
+      },
+      "in_phase": {
+        "d0": 6,
+        "phase": "in",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 76.14463483602178,
+          "std": 177.87649194519506,
+          "abs_max": 345.5262303681742,
+          "abs_mean": 159.92489701714328
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 76.14463483602178,
+        "dP_std": 177.87649194519506,
+        "dP_ac_dc": 2.3360344734498213
+      },
+      "out_phase": {
+        "d0": 6,
+        "phase": "out",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 0.8598934210161474,
+          "std": 31.405993796773082,
+          "abs_max": 52.80863008892335,
+          "abs_mean": 28.784960696907618
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 0.8598934210161474,
+        "dP_std": 31.405993796773082,
+        "dP_ac_dc": 36.52312371416937
+      },
+      "verdict": "PASS / FM-DIFFRACTION",
+      "rationale": "net transported flux \u03a6_x=0 (symmetry-forced) AND dP is phase-DEPENDENT (in +7.61e+01 vs out +8.60e-01) / AC-dominated (ac/dc=2.34) -> NO phase-independent momentum-transport force; the only field-momentum imbalance is generic-soliton breathing interference. Gravity = c_eff(A\u00b2) frequency-modulation of the carrier phase, NOT a stress-tensor pull (optical-refraction-gravity.md:17). #390's null is REAL for the right reason (momentum-pull-absent)"
+    },
+    {
+      "d0": 8,
+      "control": {
+        "phi_midplane_floor": 57.120900805943535,
+        "dP_floor": 142.66525129139023,
+        "phi_abs_mean_floor": 11.16832353142318
+      },
+      "in_phase": {
+        "d0": 8,
+        "phase": "in",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 102.33368036293734,
+          "std": 198.11049744380406,
+          "abs_max": 427.20723267631547,
+          "abs_mean": 189.16410662765412
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 102.33368036293734,
+        "dP_std": 198.11049744380406,
+        "dP_ac_dc": 1.9359266347226445
+      },
+      "out_phase": {
+        "d0": 8,
+        "phase": "out",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 2.7450627357795203,
+          "std": 60.69213869519561,
+          "abs_max": 105.15791213432774,
+          "abs_mean": 56.21967434749704
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 2.7450627357795203,
+        "dP_std": 60.69213869519561,
+        "dP_ac_dc": 22.109563436975787
+      },
+      "verdict": "PASS / FM-DIFFRACTION",
+      "rationale": "net transported flux \u03a6_x=0 (symmetry-forced) AND dP is phase-DEPENDENT (in +1.02e+02 vs out +2.75e+00) / AC-dominated (ac/dc=1.94) -> NO phase-independent momentum-transport force; the only field-momentum imbalance is generic-soliton breathing interference. Gravity = c_eff(A\u00b2) frequency-modulation of the carrier phase, NOT a stress-tensor pull (optical-refraction-gravity.md:17). #390's null is REAL for the right reason (momentum-pull-absent)"
+    },
+    {
+      "d0": 10,
+      "control": {
+        "phi_midplane_floor": 74.5818800091115,
+        "dP_floor": 172.2443667516184,
+        "phi_abs_mean_floor": 13.88485168589654
+      },
+      "in_phase": {
+        "d0": 10,
+        "phase": "in",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 146.1016973347124,
+          "std": 219.14234853959874,
+          "abs_max": 512.8077165518903,
+          "abs_mean": 223.14642211540152
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 146.1016973347124,
+        "dP_std": 219.14234853959874,
+        "dP_ac_dc": 1.4999302029842507
+      },
+      "out_phase": {
+        "d0": 10,
+        "phase": "out",
+        "p_total_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "phi_midplane_stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "abs_max": 0.0,
+          "abs_mean": 0.0
+        },
+        "dP_stats": {
+          "mean": 5.87950615466485,
+          "std": 99.95117730912034,
+          "abs_max": 173.87787653742726,
+          "abs_mean": 93.57525148474852
+        },
+        "phi_midplane_net": 0.0,
+        "dP_net": 5.87950615466485,
+        "dP_std": 99.95117730912034,
+        "dP_ac_dc": 16.99992732039548
+      },
+      "verdict": "PASS / FM-DIFFRACTION",
+      "rationale": "net transported flux \u03a6_x=0 (symmetry-forced) AND dP is phase-DEPENDENT (in +1.46e+02 vs out +5.88e+00) / AC-dominated (ac/dc=1.50) -> NO phase-independent momentum-transport force; the only field-momentum imbalance is generic-soliton breathing interference. Gravity = c_eff(A\u00b2) frequency-modulation of the carrier phase, NOT a stress-tensor pull (optical-refraction-gravity.md:17). #390's null is REAL for the right reason (momentum-pull-absent)"
+    }
+  ],
+  "overall_verdicts": [
+    "PASS / FM-DIFFRACTION",
+    "PASS / FM-DIFFRACTION",
+    "PASS / FM-DIFFRACTION"
+  ]
+}
