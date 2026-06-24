@@ -113,6 +113,26 @@ Empirical confirmation (PR #392, the genuine two-sublattice $12\times12$ band st
 
 This convention question does **NOT** touch the validated mass gap (the load-bearing number $m^2 = 4$, `clm-jz0xaw` / `clm-dhvhwi`): the gap is bit-exact under either convention. It resolves only the $c_R$ curvature-slope label.
 
+### §3.5.1 — DISAMBIGUATION: the THREE substrate wave speeds (two are $\sqrt{2}$ — do NOT fuse)
+
+Three K4-substrate wave speeds live near this result. **Two of them are numerically $\sqrt{2}$ but are PHYSICALLY DISTINCT** (different sectors, different moduli). The shared digit is a coincidence of the $K = 2G$ magic-angle operating point and the no-$\tfrac{1}{2}$ curvature convention reaching the same value — it is **NOT an identity**. This table exists so no future reader manufactures a false identity between the two $\sqrt{2}$'s, nor confuses either with the $T_2$ shear photon at $c$. (This is the "three speeds, do not fuse" discipline, parallel to the "three 2's" reactance-count taxonomy in [`../../../common/dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md):42.)
+
+| Claim | Sector | Mode | Modulus | Speed | Source operator / origin |
+|---|---|---|---|---|---|
+| **`clm-uu1qbo`** | **A1 / bulk** | dilatational scalar (longitudinal compression) | bulk $K$ ($K = 2G$ magic angle) | $\sqrt{2}\,c_0 = \sqrt{K_{\text{bulk}}/\rho}$ | macroscopic-moduli $K/G = 2$ ratio; the A1 port-mode of `clm-j550uh` |
+| **`clm-j550uh`** | **T2 / $\omega$** | transverse **SHEAR** (the photon) | shear $G$ | $c = \sqrt{G/\rho} = 1$ | $W_{\text{cauchy}}$ shear / micropolar; V1 of PR #392 (`c = 1`, rel-err 3.6e-8) |
+| **`clm-kmliqx`** | **T2 / $\omega$** | **CURVATURE / wryness** twist-gradient $\kappa = \nabla\omega$ | curvature $\gamma$ | $\sqrt{2} = \sqrt{2\gamma/I_\omega}$ | no-$\tfrac{1}{2}$ $W_\kappa = \gamma\,\Sigma\kappa^2$ (`cosserat_field_3d.py:704`, copy `:739`); V2 of PR #392 (`√2`, rel-err 2.0e-9) |
+
+**Read carefully — the two $\sqrt{2}$'s:**
+- **`clm-uu1qbo`'s $\sqrt{2}$** is the **A1/bulk-$K$ dilatational** speed: a *scalar/longitudinal compression* mode governed by the **bulk modulus** $K$, $\sqrt{2}$ because $K = 2G$ at the magic angle. It is the **other sector** from kmliqx.
+- **`clm-kmliqx`'s $\sqrt{2}$** is the **T2/curvature-$\gamma$** speed: a *micro-rotation twist-gradient* mode governed by the **curvature modulus** $\gamma$, $\sqrt{2}$ because the engine's $W_\kappa$ carries no $\tfrac{1}{2}$. It is the **same sector** as the shear photon but a **different mode/modulus**.
+
+**The two T2 modes:** within the single T2 micro-rotation sector there are TWO distinct modes — the SHEAR mode (`clm-j550uh`, $G$-modulus, speed $c = 1$, the photon) and the CURVATURE mode (`clm-kmliqx`, $\gamma$-modulus, speed $\sqrt{2}$). `clm-j550uh`'s canonical statement "$T_2$ at $c$ (shear modulus)" is **specifically the shear-$G$ transverse photon** — it is NOT the curvature-$\gamma$ mode. (Verified: `claim-quality.md` clm-j550uh body, "$A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus)" — the $T_2$/$c$ entry is the shear mode, distinct from this leaf's curvature-$\gamma$/$\sqrt{2}$ mode. No collision.)
+
+**A FOURTH speed exists and is NOT $\sqrt{2}$ — guard against a 2-vs-3 fusion:** the isotropic-solid longitudinal **P-wave** is $c_L = \sqrt{(K + \tfrac{4}{3}G)/\rho} = \sqrt{10/3}\,c \approx 1.826\,c$ ($\nu = 2/7$; PR #392 reads it as the acoustic-manifold top = $1.826$ *inside* the BZ). The A1/bulk $\sqrt{2}$ (which drops the $\tfrac{4}{3}G$ shear term) is the **bulk-modulus** quantity, NOT this P-wave. The kmliqx $\sqrt{2}$ is the rotational-curvature mode — genuinely $\sqrt{2}$, **not** the $\sqrt{10/3}$ bulk longitudinal P-wave (that distinction is what the read-AND-run adjudication confirmed: the V2 branch is rotational `rot_wt=1.0`, NOT the bulk $\sqrt{10/3} = 1.826$).
+
+The CI gate for the kmliqx curvature-$\gamma$ $\sqrt{2}$ is `src/tests/test_cr_rotational_curvature_sqrt2.py` (asserts V2 rel-err $< 5\times10^{-2}$ and the split from the shear photon $c$).
+
 ## §4 — Why this is the structural mass mechanism for the electron
 <!-- claim-quality: clm-g0mkne -->
 
