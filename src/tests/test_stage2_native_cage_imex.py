@@ -149,3 +149,34 @@ def test_GX4_imex_stable_above_explicit_blowup_cfl():
             break
     assert np.isfinite(mx), "IMEX produced non-finite values (unconditional stability violated)"
     assert mx < 10.0, f"IMEX must stay bounded (<10 DETONATION_MAX_V), got {mx:.3f}"
+
+
+# ── GX5: the energy-consistent radiative port is PASSIVE (no energy injection) ──
+def test_GX5_radiative_port_is_passive_not_energy_injecting():
+    """REGRESSION for the PML artifact: the OLD post-solve sponge-MULTIPLY PML
+    INJECTED energy under the implicit solve (142× gain at fine dt — physically
+    impossible for a passive absorber; it manufactured a spurious self-focus
+    past A→1). The energy-consistent Newmark velocity-damping port (C PSD) must
+    be PASSIVE: total energy MONOTONE-NON-INCREASING, Hmax/H0 ≤ 1, on a
+    self-focusing nonlinear sech at fine dt — and the core must NOT grow past the
+    seed amplitude (no manufactured self-focus)."""
+    N = 16
+    cfg = NativeCageIMEXConfig(N=N, dx=0.5, port_sigma=0.05)
+    eng = NativeCageIMEX(cfg)
+    eng.seed_sech(amplitude=0.85, radius=2.5)
+    eng.set_dt_accuracy()
+    eng.dt = 0.066  # fine dt where the explicit stepper detonated
+    H0 = eng.total_energy()
+    Hmax = H0
+    peak_max = eng.interior_peak_abs_V()
+    for _ in range(400):
+        eng.step()
+        Hmax = max(Hmax, eng.total_energy())
+        peak_max = max(peak_max, eng.interior_peak_abs_V())
+    assert Hmax <= H0 * (1.0 + 1e-6), (
+        f"radiative port MUST be passive (Hmax/H0 ≤ 1), got {Hmax / H0:.3f} — "
+        "energy injection = the rejected sponge-multiply artifact has regressed"
+    )
+    assert peak_max <= 0.85 * (1.0 + 1e-3), (
+        f"passive port must NOT manufacture self-focus past seed, peak_max={peak_max:.4f}"
+    )

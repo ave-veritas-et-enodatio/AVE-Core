@@ -196,6 +196,12 @@ class NativeCageIMEXConfig:
     dt_accuracy_factor: float = 1.0
     cg_tol: float = 1e-10
     cg_maxiter: int = 2000
+    port_sigma: float = 0.0  # EM radiative port strength (energy-consistent
+    #   velocity-damping in the boundary shell; 0 = closed/lossless. See
+    #   __init__: the OLD sponge-MULTIPLY PML was REJECTED — it injects energy
+    #   under the implicit solve (142× gain, physically impossible for a passive
+    #   absorber). This is a Newmark damping-matrix C = port_sigma·diag(shell),
+    #   PSD ⇒ dissipative BY CONSTRUCTION (H monotone-decreasing).
 
 
 def _strain(V: np.ndarray, V_yield: float, A_cap: float) -> np.ndarray:
@@ -249,7 +255,7 @@ class NativeCageIMEX:
         # Geometry-fixed sparse Grad/Div assembled ONCE (TETRA_OFFSETS).
         self.Grad, self.Div = build_grad_div_periodic(N)
 
-        self._build_damping_mask()
+        self._build_port_diag()
         self._build_interior_mask()
 
         self.time = 0.0
@@ -257,26 +263,35 @@ class NativeCageIMEX:
         self.dt = 0.0
         self.rho_cold = None
         self.dt_cold_cfl = None
-        # EM port: open (PML damping) by default; closed for the energy gate.
-        self.em_port_closed = False
+        # EM port: closed (lossless) iff port_sigma==0 OR em_port_closed set.
+        # The energy gate forces em_port_closed=True (lossless rigor guard).
+        self.em_port_closed = (cfg.port_sigma == 0.0)
         self.last_cg_iters = 0
 
-    # ── PML sponge (verbatim structure from native_cage_fdtd:162-176) ──
-    def _build_damping_mask(self):
-        N = self.N
+    # ── ENERGY-CONSISTENT radiative port (the REJECTED sponge-multiply's fix) ──
+    def _build_port_diag(self):
+        """Boundary-shell mask for the EM radiative port. The port enters the
+        IMPLICIT update as a Newmark velocity-damping matrix C = port_sigma·
+        diag(shell) — PSD, so the discrete energy is MONOTONE-DECREASING (a
+        passive absorber BY CONSTRUCTION). This REPLACES the post-solve sponge-
+        multiply (`V_new *= damping`), which — applied OUTSIDE the implicit solve
+        — broke the discrete energy balance and INJECTED energy (142× gain at
+        fine dt; verified physically-impossible-for-passive). Interior mask is
+        unchanged (A-Rule 10 PML-exclusion)."""
+        N, t = self.N, self.pml_thickness
         i, j, k = np.indices((N, N, N))
         d = np.minimum.reduce([
             np.minimum(i, N - 1 - i),
             np.minimum(j, N - 1 - j),
             np.minimum(k, N - 1 - k),
         ])
-        damping = np.ones((N, N, N), dtype=np.float64)
-        t = self.pml_thickness
+        # Quadratic ramp into the shell (0 at interior edge → 1 at the wall).
+        shell = np.zeros((N, N, N), dtype=np.float64)
         if t > 0:
-            in_pml = d < t
-            atten = 1.0 - 0.05 * ((t - d[in_pml]) / t) ** 2
-            damping[in_pml] = np.maximum(0.5, atten)
-        self.damping = damping
+            in_shell = d < t
+            shell[in_shell] = ((t - d[in_shell]) / t) ** 2
+        self.port_shell = shell  # (N,N,N) ramp in [0,1]
+        self.port_sigma = self.cfg.port_sigma
 
     def _build_interior_mask(self):
         """Interior mask: pml_thickness ≤ {i,j,k} ≤ N−pml_thickness−1
@@ -346,13 +361,17 @@ class NativeCageIMEX:
 
     # ── the IMEX (Crank–Nicolson, Newmark β=¼) step ──
     def step(self):
-        """One frozen-D Crank–Nicolson step:
-            (I + ¼·dt²·c0²·L_D) V^{n+1}
-                = 2V^n − V^{n-1} − ¼·dt²·c0²·L_D·(2V^n + V^{n-1})
-        D=1/S(A^n) frozen (nonlinearity lagged). SPD solve by CG. PML sponge
-        applied to V_new (EM port; skipped when em_port_closed for the lossless
-        energy gate)."""
-        from scipy.sparse import identity
+        """One frozen-D Crank–Nicolson step with an ENERGY-CONSISTENT radiative
+        port (Newmark velocity-damping C = port_sigma·diag(shell)):
+
+            (I + ¼·dt²·c0²·L_D + ½·dt·C) V^{n+1}
+                = 2V^n − V^{n-1} − ¼·dt²·c0²·L_D·(2V^n + V^{n-1}) + ½·dt·C·V^{n-1}
+
+        D=1/S(A^n) frozen (nonlinearity lagged). SPD (+PSD damping) solve by CG.
+        C is PSD ⇒ the discrete energy is MONOTONE-DECREASING (passive absorber
+        by construction). When port closed (port_sigma=0 / em_port_closed) the
+        update is the exactly-energy-conserving lossless CN (the rigor guard)."""
+        from scipy.sparse import diags, identity
         from scipy.sparse.linalg import cg
 
         if self.dt == 0.0:
@@ -365,17 +384,20 @@ class NativeCageIMEX:
 
         v = self.V.reshape(ndof)
         v_prev = self.V_prev.reshape(ndof)
-        # RHS = 2V^n − V^{n-1} − coef·L_D·(2V^n + V^{n-1})
+        I = identity(ndof, format="csr")
         rhs = 2.0 * v - v_prev - coef * (L_D @ (2.0 * v + v_prev))
-        A_sys = (identity(ndof, format="csr") + coef * L_D).tocsr()
+        A_sys = I + coef * L_D
+        if not self.em_port_closed and self.port_sigma > 0.0:
+            C = diags(self.port_sigma * self.port_shell.reshape(ndof))
+            half_dtC = 0.5 * self.dt * C
+            rhs = rhs + half_dtC @ v_prev
+            A_sys = A_sys + half_dtC
+        A_sys = A_sys.tocsr()
         v_new, info = cg(A_sys, rhs, rtol=self.cfg.cg_tol, maxiter=self.cfg.cg_maxiter, x0=v)
         self.last_cg_iters = self.cfg.cg_maxiter if info != 0 else self.last_cg_iters
-        V_new = v_new.reshape(N, N, N)
 
-        if not self.em_port_closed:
-            V_new *= self.damping  # EM port open (radiative sponge)
         self.V_prev = self.V.copy()
-        self.V = V_new
+        self.V = v_new.reshape(N, N, N)
         self.time += self.dt
         self.step_count += 1
 
