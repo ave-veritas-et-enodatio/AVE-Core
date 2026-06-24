@@ -59,7 +59,7 @@ The most-bound eigenstate of the coupled H (winding ON, `rate=0.3`, resonant
 - **H-eigenvalue** `w_H = −7.065`, triply degenerate (the core breather's symmetry
   multiplicity); gap to the next level `0.0063`.
 - **fork-b breathing frequency** `ω_bound = √((ω_b − w_H)/c²) = 2.840` (dimensionless,
-  FORM) — sits right on the cold-cage ω_cutoff≈2.87 FORM anchor (`test_l3_mass_cage.py:18`).
+  FORM) — sits right on the cold-cage ω_cutoff≈2.87 FORM anchor (`src/tests/engine_acceptance/test_l3_mass_cage.py:18`).
 - **sector split** `a1_frac = bw_frac = 0.500` — the resonant coupling hybridizes the
   A1 core breather 50/50 with a b_ω **core** breather.
 - **localization** `a1_core_frac = 0.995` (deeply confined); BUT `bw_on_torus = 0.0001`
@@ -105,15 +105,17 @@ that ladder**: the MASS cage lives at the **A\*→1 (V_snap) cap**, the coupling
 lives at the **A≈4/7=R_II (V_yield) floor**. The ladder is now a picture you read off
 the spectrum, not two asserted voltages.
 
-### 3b. Two-camps reconciliation (pre-reg §3.4)
+### 3b. Two-camps reconciliation — **OPEN, pending Grant adjudication** (flag-don't-fix)
 
-The corpus carried two readings of where Γ=−1 forms: **V_yield** (electron-
-identification.md:26) vs **V_snap** (pair-production §4). The empirical resolution
-from A* + A_front: **they are NOT competing readings of one wall — they are TWO
-walls.** The A1 **mass cage** is a **V_snap-cap** (A→1) object; the **coupling
-front** (where the winding sector *would* engage) is a **V_yield-floor** (A≈R_II)
-object. camp-1 names the coupling front; camp-2 names the mass cap. Both are real;
-they describe different features of the saturation profile.
+The corpus carries two readings of where Γ=−1 forms, in the **same** chapter:
+- **V_yield:** `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:26` — "Self-saturated TIR cavity (Γ=−1 at V_yield)", the transverse Cosserat-microrotation shell.
+- **V_snap:** `…/ch01-topological-matter/pair-production-axiom-derivation.md:23,101` — "full saturation at the node … Γ=−1 forms, the (2,3) winding closes."
+
+The canonized adjudication ALREADY exists at `pair-production-axiom-derivation.md:98-101`: verbatim *"they describe different stages of the same process"* — V_yield = onset of nonlinearity ("No Γ=−1 wall yet"), V_snap = full saturation ("Γ=−1 forms"). That is **one process, two temporal thresholds at the same node.**
+
+What the eigensolve ADDS: in the *formed* mode it LOCATES the two thresholds **spatially** — the A1 mass cage at the deeply-saturated **core** (A\*→1 = V_snap), the S(A) coupling front at a **shell** (A_front≈4/7 = V_yield) — and these line up with the two camps' **sectors** (the V_snap core = the A1 mass / "winding closes"; the V_yield front = the transverse Cosserat "TIR cavity"). The most likely reading is that this is **compatible with, not competing against, §4**: §4's time-view of a saturating node ↔ the eigensolve's space-view of the formed soliton's radial profile `A(r)` crossing V_yield at the front and reaching V_snap at the core — the **same two thresholds in two frames.**
+
+**OPEN for Grant** (this doc does NOT assert against live canon — the earlier "two walls" framing is WITHDRAWN): is the spatial core/shell picture (i) just §4's two thresholds mapped onto radius + sector (compatible — recommended), or (ii) a distinct claim needing its own framing? No corpus file is modified; the call is yours.
 
 ### 3c. HARD GUARD — coincidence-magnet discipline (pre-reg §3.1)
 
@@ -194,6 +196,12 @@ calibration map (prose), never on a verdict read. The operator reads a dimension
 4. **A_front=4/7=R_II is by-construction** (the front-gate center), not an emergent value.
 5. **The result is robust** across coupling rate (0.1–3.0) and detuning (ω_s=0.2–5.0):
    `bw_on_torus` stays ≤0.002 in every case — the winding never enters the bound mode.
+6. **"R_II" glyph is overloaded in the corpus** (non-verdict-affecting): the front-gate
+   center is 4/7≈0.571 (`coupled_cage_winding.py:167` calls it R_II), but R_II is written
+   ¾=0.75 elsewhere (this run's pre-reg §3.1; the `coupled_eigensolve.py` candidate label,
+   now relabeled `three_quarter`). A\* lands nearest **unity**, not either R_II, so the
+   verdict is unaffected — but the glyph's VALUE is ambiguous and should be single-sourced
+   separately. Load-bearing lines here use the explicit number (4/7 for the front), not the glyph.
 
 ### Reproduce
 

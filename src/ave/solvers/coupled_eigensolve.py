@@ -365,7 +365,7 @@ def read_ladder(cfg: CoupledEigenConfig) -> dict:
 
     # which "suggestive number" is A* nearest? (reported, NOT headlined as chord).
     SQRT_ALPHA = 0.0854245  # √α numeric VALUE — for the coincidence-check ONLY
-    candidates = {"sqrt_alpha": SQRT_ALPHA, "half": 0.5, "R_II_3/4": 0.75, "unity": 1.0}
+    candidates = {"sqrt_alpha": SQRT_ALPHA, "half": 0.5, "three_quarter": 0.75, "unity": 1.0}
     nearest = min(candidates, key=lambda kk: abs(a_star_core - candidates[kk]))
 
     return {
