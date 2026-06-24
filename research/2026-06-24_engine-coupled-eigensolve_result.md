@@ -22,6 +22,18 @@
 > possible BREAK (§1): the conservatively-coupled electron has no confined
 > stationary state that is simultaneously mass and (2,3)-charge.
 
+> **⚠ SCOPE (post-merge rescope, Grant 2026-06-24) — this negative is REAL-SPACE-LOCUS-scoped.**
+> Per the KB's own disambiguation rule (`ave-kb/CLAUDE.md:22`), the canonical **(2,3) is a *phase-space*
+> winding portrait on the bond-pair LC tank (Clifford torus)** — the electron's **real-space body is the 0₁
+> unknot.** This eigensolve seeded and measured the (2,3) as a **real-space geometric torus** (`bw_on_torus`
+> on an R=7 lattice torus) — the WRONG locus. So the negative correctly says *"a real-space (2,3) torus
+> winding does not co-bind with the bound mass mode"* — which is itself **consistent with canon** (the
+> real-space body is an unknot, not a torus knot). It does **NOT** establish "no electron carrying both mass
+> and charge": the charge-winding's canonical home — the **phase-space A1↔ω coupling circulation** (Grant's
+> "coupling profile" / the resonantly-matched LC-tank winding) — is **UNTESTED here.** The phase-space
+> coupling-locus re-test (the proper version of gate d) is scoped separately. Read this as a real-space null,
+> not a wall. Ties to the pre-existing real-space-vs-phase-space tension (task #37, `def-kn0t01`).
+
 **Single-mechanism honest closure (Rule 11):** the b_ω block `ω_s·I − c²·L_D`
 shares the **SAME** stiff-core stiffness `D = 1/S(A)` as the A1 block, so its OWN
 most-bound state is a core breather co-localized with A1 — NOT a torus state. The
