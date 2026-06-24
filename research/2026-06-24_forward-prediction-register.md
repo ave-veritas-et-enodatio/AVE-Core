@@ -12,9 +12,10 @@
 
 **Nothing in this register is experimentally tested.** Every forward prediction
 in the AVE corpus carries `experimental_solidity: None` in the claims index
-(`manuscript/ave-kb/.index/claims.jsonl`) — confirmed by direct read: of the
-298 `clm-` nodes, the birefringence/dispersion/GW/baryon predictions cited here
-all carry `experimental_solidity: null`. "Forward prediction" here means
+(`manuscript/ave-kb/.index/claims.jsonl`) — confirmed by direct read: all 299
+`clm-` nodes (incl. the new `clm-fofwr1` minted here) carry
+`experimental_solidity: null`, and the birefringence/dispersion/GW/baryon
+predictions cited here are among them. "Forward prediction" here means
 **untested-by-construction**: a DERIVED (or asserted) divergence from SM/QED
 that *no experiment has yet confronted*. The solidity numbers quoted (0.80,
 0.70, 0.60, …) are **derivation_solidity** — internal derivation rigor — not
