@@ -59,6 +59,11 @@ def _cfg(N, exponent=0.5, em_closed=False):
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy scipy shift-invert eigensolve (solve_isolation_Q_sparse). Routed
+# to `make test-engine` per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md) after the N=32 sibling
+# OOM-crashed an xdist worker in the PR-blocking `make test` gate (#411).
+@pytest.mark.engine_sim
 def test_gate1_isolation_Q_is_lossless_confined_not_in_band():
     """GATE1 FAIL (pinned): the native eigen-Q is >> 45 (lossless-confined), NOT in
     the validate-on-known band [20,45], NOT ~137, NOT ~3. This is the honest
@@ -76,6 +81,11 @@ def test_gate1_isolation_Q_is_lossless_confined_not_in_band():
     assert Q > 45.0, f"GATE1 outcome moved: Q={Q} is now in/below band (re-run the prereg adjudication)"
 
 
+# engine_sim: THE #411 OOM CRASHER — N=32 scipy shift-invert LU (heavy fill-in)
+# OOM-killed an xdist worker under concurrent load in the PR-blocking `make test`
+# gate. Routed to `make test-engine` per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md). Passes serially in ~15s.
+@pytest.mark.engine_sim
 def test_gate1_Q_grows_with_resolution_lossless_limit():
     """The eigen-Q GROWS with N (the lossless-confined limit): better resolution
     => less geometric leak => higher Q. Witnesses the mechanism, NOT a fixed Q."""
@@ -89,6 +99,10 @@ def test_gate1_Q_grows_with_resolution_lossless_limit():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy scipy shift-invert eigensolve (solve_isolation_Q_sparse). Routed
+# per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md)
+# alongside the #411 OOM crasher.
+@pytest.mark.engine_sim
 def test_gate2_closed_port_is_lossless():
     """GATE2 PASS: with the EM port CLOSED (Gamma_EM=-1, all confined), the operator
     is Hermitian => Im(omega)=0 => Q=inf. Loss enters ONLY via the matched port."""
@@ -103,6 +117,10 @@ def test_gate2_closed_port_is_lossless():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy scipy shift-invert eigensolve (solve_isolation_Q_sparse). Routed
+# per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md)
+# alongside the #411 OOM crasher.
+@pytest.mark.engine_sim
 def test_gate4_bound_mode_gapped_and_peaked():
     """GATE4 PASS: the bound mode is gapped (omega_re>0) and localised (peak bin>1
     analogue = core-localised, not the bin-1 DC artifact)."""
@@ -116,6 +134,10 @@ def test_gate4_bound_mode_gapped_and_peaked():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy scipy shift-invert eigensolve (solve_isolation_Q_sparse). Routed
+# per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md)
+# alongside the #411 OOM crasher.
+@pytest.mark.engine_sim
 def test_anti_coincidence_Q_is_not_Z_radiation():
     """DEC-5 anti-coincidence: confirm the solver computes Q from the dynamics and is
     NOT silently the constant Z_RADIATION = Z_0/(4pi) = 29.98 (which sits in the
@@ -129,6 +151,14 @@ def test_anti_coincidence_Q_is_not_Z_radiation():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy — does an alpha->2alpha RE-SOLVE (two solve_isolation_Q_sparse
+# calls + module reload), so it is routed by COST. NOTE: this is the alpha-INVARIANCE
+# proof (no leak via re-solve), NOT a cheap alpha-token grep; the cheap no-alpha-token
+# guards stay in the blocking gate (test_module_source_has_no_alpha_tokens /
+# test_import_guards_fire_on_alpha_carrier / test_config_asserts_alpha_free in
+# test_graded_vacuum_network_operator.py, and test_saturation_kernel_both_exponents_alpha_free
+# below). Routed per research/2026-06-13_ci-engine-sim-partition_prereg.md (#411 OOM).
+@pytest.mark.engine_sim
 def test_alpha_to_2alpha_invariance():
     """CHORD-bin item 3 / the strongest gate: doubling ALPHA in constants and
     re-solving must leave Q UNCHANGED (the network uses only alpha-free ratios; RHO_BULK
@@ -157,6 +187,10 @@ def test_alpha_to_2alpha_invariance():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy scipy shift-invert eigensolve (solve_isolation_Q_sparse, x2 params).
+# Routed per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md)
+# alongside the #411 OOM crasher.
+@pytest.mark.engine_sim
 @pytest.mark.parametrize("exponent", [0.5, 0.25])
 def test_dec1_gate1_fail_robust_to_op14_exponent(exponent):
     """DEC-1: the GATE1 lossless-confined FAIL holds for BOTH Op14 exponents
