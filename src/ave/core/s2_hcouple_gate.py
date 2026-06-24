@@ -259,3 +259,226 @@ def joint_energy(traj: np.ndarray) -> np.ndarray:
     ‖ψ‖²; |a|² = mode energy/ω, so this IS E_A1 + E_ω + the exchanged H_couple in
     the rotating frame). Conserved EXACTLY under the unitary map."""
     return np.sum(np.abs(traj) ** 2, axis=1)
+
+
+def L_omega_pump(traj: np.ndarray, A_profile: np.ndarray) -> np.ndarray:
+    """|L_ω|(t) — the field-resolved analogue of crystal_graft_v2.spin_L_omega:300:
+    the spatial first-moment of the ω-mode energy about the chain centre,
+        |L_ω|(t) = | Σ_n (n − n_c) · |a_ω(n,t)|² | .
+    A bounded reactive exchange keeps this O(1); a PUMP (the v3 t^0.43 runaway) makes
+    it grow secularly. This is the |L_ω| pump CANARY (criterion 2 + the lock-OFF /
+    photon_deplete neg-control). On a unitary (skew-Hermitian) generator it is bounded
+    by construction; the negative control must make it FIRE on a DIFFERENT generator."""
+    _, aw = split_modes(traj)
+    M = aw.shape[1]
+    nc = (M - 1) / 2.0
+    coord = np.arange(M) - nc
+    e_w = np.abs(aw) ** 2  # (T, M)
+    return np.abs(e_w @ coord)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 3.  THE FOUR MAKE-OR-BREAK CRITERIA (pre-reg §Make-or-break).
+# ═════════════════════════════════════════════════════════════════════════════
+# Pre-stated tolerances (FROZEN before the run — do NOT tune to force a verdict).
+CONS_TOL = 1e-8            # criterion 1: |dH/H| < 1e-8 (test_l1_photon.py:285)
+TRANSFER_MIN = 0.05        # criterion 2: ω fill ≫ the failed 2% inert arm
+# criterion 2: the |L_ω| pump is BOUNDED ⇔ NO SECULAR GROWTH. The pre-reg names
+# "|L_ω| pump BOUNDED" — the substrate-native distinction is bounded-reactive
+# (oscillates, late≈early) vs a PUMP (secular runaway, the v3 t^0.43 / S1's 9.5×).
+# We bin on the late/early quartile-mean ratio (a runaway pump has ratio≫1), NOT an
+# absolute magnitude (the natural oscillation amplitude scales with M+loaded energy,
+# so an absolute cap would be arbitrary). Plus a sanity ceiling at the physical
+# energy-available bound N0·(M−1)/2 (the moment can never exceed it).
+L_OMEGA_SECULAR_RATIO = 1.5  # late-quartile/early-quartile |L_ω| mean ratio bound
+NEG_CTRL_PUMP_RATIO = 3.0  # neg-control: lock-OFF/detonating |L_ω| must FIRE ≥3×
+NEG_CTRL_DH_FLOOR = 1e-6   # neg-control: open/lossy arm |dH/H| must FIRE ≫ tol
+
+
+def criterion_1_conservation(
+    M: int = 8,
+    omega_b: float = 1.0,
+    omega_s: float = 1.3,
+    rate: float = 0.3,
+    chi: int = +1,
+    hop_b: float = 0.05,
+    hop_s: float = 0.07,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+    seed: int = 7,
+) -> dict:
+    """CRITERION 1 — CONSERVATION (pre-reg §Make-or-break 1). The joint
+    H = E_A1 + E_ω + H_couple drifts |dH/H| < 1e-8 over a long CLOSED-system
+    window. The system is closed (NO loss port — T2 guard: conservation must NOT
+    be bought by spurious damping). Generic loaded state, long run, report max
+    drift + late-time pump slope."""
+    A = np.linspace(0.1, 0.9, M)
+    rng = np.random.default_rng(seed)
+    psi0 = rng.standard_normal(2 * M) + 1j * rng.standard_normal(2 * M)
+    H = build_hcouple(A, omega_b=omega_b, omega_s=omega_s, rate=rate, chi=chi,
+                      hop_b=hop_b, hop_s=hop_s, gate="front")
+    traj = evolve_field(psi0, H, dt, n_steps)
+    N = joint_energy(traj)
+    drift = float(np.max(np.abs(N - N[0])) / N[0])
+    tail = N[int(0.75 * len(N)):]
+    slope = float(np.polyfit(np.arange(len(tail), dtype=float), tail, 1)[0])
+    passed = (drift < CONS_TOL) and (abs(slope) < 1e-12)
+    return {
+        "dH_over_H_max": drift, "late_pump_slope_per_step": slope,
+        "n_steps": n_steps, "closed_system": True,
+        "skew_hermitian": is_skew_hermitian_generator(H),
+        "PASS": bool(passed),
+    }
+
+
+def criterion_2_non_vacuity(
+    M: int = 8,
+    omega_b: float = 1.0,
+    omega_s: float = 1.0,  # resonant ⇒ full sloshing (strongest measured flow)
+    rate: float = 0.3,
+    chi: int = +1,
+    hop_b: float = 0.05,
+    hop_s: float = 0.07,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+) -> dict:
+    """CRITERION 2 — NON-VACUITY (pre-reg §Make-or-break 2, LOAD-BEARING). The
+    coupling TRANSFERS: load the A1 (bulk) modes ONLY, ω EMPTY; ω fills measurably
+    (the ~2% inert arm of cross_sector_coupling FAILS this), AND the |L_ω| pump
+    canary stays BOUNDED. ω(0)=0 so any |a_ω|²>0 is energy that physically arrived
+    from A1 through the off-diagonal (a MEASURED flow, not a closure identity)."""
+    A = np.linspace(0.1, 0.9, M)
+    psi0 = np.zeros(2 * M, dtype=complex)
+    psi0[0::2] = 1.0  # all A1 loaded, ω EMPTY
+    H = build_hcouple(A, omega_b=omega_b, omega_s=omega_s, rate=rate, chi=chi,
+                      hop_b=hop_b, hop_s=hop_s, gate="front")
+    traj = evolve_field(psi0, H, dt, n_steps)
+    aA1, aw = split_modes(traj)
+    N0 = float(joint_energy(traj)[0])
+    omega_initial = float(np.sum(np.abs(aw[0]) ** 2))
+    omega_max = float(np.max(np.sum(np.abs(aw) ** 2, axis=1)))
+    transfer_frac = omega_max / N0
+    # ω genuinely OSCILLATES (Rabi flop) — non-vacuity witness (not a static offset)
+    e_w = np.sum(np.abs(aw) ** 2, axis=1)
+    centered = e_w - e_w.mean()
+    sgn = np.sign(centered)
+    crossings = int(np.sum((sgn[:-1] < 0) & (sgn[1:] >= 0)))
+    # |L_ω| pump canary: BOUNDED ⇔ NO SECULAR GROWTH (bounded-reactive, not a pump).
+    Lom = L_omega_pump(traj, A)
+    q = len(Lom) // 4
+    early = float(Lom[:q].mean()) + 1e-12
+    late = float(Lom[3 * q:].mean())
+    secular_ratio = late / early
+    ceiling = N0 * (M - 1) / 2.0  # physical energy-available bound on the moment
+    L_max = float(np.max(Lom))
+    L_bounded = bool(secular_ratio < L_OMEGA_SECULAR_RATIO and L_max <= ceiling)
+    passed = (omega_initial < 1e-15) and (transfer_frac > TRANSFER_MIN) \
+        and (crossings >= 1) and L_bounded
+    return {
+        "omega_initial_energy": omega_initial,
+        "transfer_fraction": transfer_frac,
+        "vs_failed_2pct": f"{transfer_frac / 0.02:.0f}x the failed 2%",
+        "omega_oscillation_crossings": crossings,
+        "L_omega_max": L_max, "L_omega_secular_ratio": secular_ratio,
+        "L_omega_physical_ceiling": ceiling, "L_omega_bounded": L_bounded,
+        "transfer_measured": bool(omega_initial < 1e-15 and transfer_frac > TRANSFER_MIN),
+        "PASS": bool(passed),
+    }
+
+
+def criterion_3_independence(N: int = 48, R: float = 11.0, r: float = 4.0) -> dict:
+    """CRITERION 3 — INDEPENDENCE (pre-reg §Make-or-break 3, FORK B=(b)). ω keeps
+    its OWN conserved winding integer robust under a V-perturbation on the REAL
+    arm, while the SLAVED arm (ω:=F(V)) returns independence=False (reachable-False
+    / AUTO_VOID). NORMAL-MODE SPLITTING IS DECLARED EXPECTED + bounded — NOT a
+    violation (the eigenfrequency-pull below is the S(A) modulation working, the
+    same modulation that with a spatial gradient IS gravity).
+
+    ANTI-REBUILD (Rule 14): the independence discriminator is the EXISTING S1
+    reachable-False slaved-arm gate (s1_winding_conservation_gate.gate_f_positive_
+    control:396-441) run on the REAL engine (CrystalGraftV4, V↔ω coupled). The S1
+    gate already encodes the precise discriminator the pre-reg cites (:439). We do
+    NOT re-implement it — we INVOKE it (this is the operationalization the pre-reg
+    §FORK B names: 'Independence is operationalized by the S1 reachable-False
+    slaved-arm discriminator').
+
+    SPLITTING witness: the field-resolved H_couple's normal-mode eigenfrequencies
+    SPLIT by ≈2Ω at resonance (node_circulator_coupling.py:124-157) — we report the
+    split magnitude as EXPECTED+bounded, explicitly NOT scoring it as a violation."""
+    from ave.core import s1_winding_conservation_gate as S1
+
+    f = S1.gate_f_positive_control(N, R, r)
+
+    # SPLITTING witness on the field-resolved H_couple: at resonance (ω_b=ω_s) the
+    # on-node 2×2 block eigenvalues are ω ± Ω ⇒ split = 2Ω (EXPECTED, bounded).
+    A = np.array([4.0 / 7.0])  # front-center single node ⇒ Ω = rate
+    rate = 0.3
+    H_split = build_hcouple(A, omega_b=1.0, omega_s=1.0, rate=rate, chi=+1, gate="front")
+    eig = np.linalg.eigvalsh(H_split)
+    split = float(np.max(eig) - np.min(eig))
+    split_expected = bool(np.isclose(split, 2.0 * rate, rtol=1e-6))
+
+    return {
+        "real_arm_independent": bool(f["real_arm_independent"]),
+        "slaved_arm_independence_false": bool(f["slaved_arm_independence_false"]),
+        "AUTO_VOID": bool(f["AUTO_VOID"]),
+        "real_winding": f["real"]["w_ref"], "real_winding_pert": f["real"]["w_pert"],
+        "slaved_winding_ref": f["slaved"]["w_ref"], "slaved_winding_pert": f["slaved"]["w_pert"],
+        "normal_mode_split": split, "split_equals_2Omega_EXPECTED": split_expected,
+        "splitting_is_violation": False,  # FORK B=(b): splitting EXPECTED, NOT a violation
+        # PASS ⇔ real arm independent AND slaved arm reachable-False (NOT AUTO_VOID)
+        "PASS": bool(f["real_arm_independent"] and f["slaved_arm_independence_false"]
+                     and not f["AUTO_VOID"]),
+    }
+
+
+def criterion_4_reduced_limit(
+    omega_b: float = 1.0, omega_s: float = 1.3, rate: float = 0.3, chi: int = +1,
+    dt: float = 0.05, n_steps: int = 5000,
+) -> dict:
+    """CRITERION 4 — REDUCED-LIMIT (pre-reg §Make-or-break 4). The field-resolved
+    H_couple recovers the 2-mode node_circulator circulator_generator
+    (node_circulator_coupling.py:124-157) in its 2-mode (M=1, hop=0) limit.
+
+    Recovery is asserted at THREE levels:
+      (i)   GENERATOR EQUALITY — build_hcouple(M=1, front-center A ⇒ g=1) == the
+            EXACT node_circulator circulator_generator(ω_b, ω_s, rate, χ) (to
+            machine precision). [This is the load-bearing structural recovery.]
+      (ii)  TRAJECTORY EQUALITY — evolving the field generator on a 2-vector state
+            == node_circulator's own evolve() on the same state (same dynamics).
+      (iii) RABI ANCHOR — the reduced-limit transfer fraction matches the analytic
+            Rabi formula Ω²/(Ω²+Δ²/4) (the integrator-independent anchor the PR#321
+            gates rest on, node_circulator validate_on_known:664-689).
+    NOTE: recovering ADD-2 (V↔w) would NOT count — this recovers the A1↔ω 2-mode
+    generator (pre-reg WRONG-SECTOR-PAIR + ANTI-SUBSTITUTION guards)."""
+    A0 = np.array([4.0 / 7.0])  # front center ⇒ g_front=1 ⇒ Ω = rate exactly
+    g0 = float(front_gate(A0)[0])
+    Omega0 = rate * g0
+
+    H_field = build_hcouple(A0, omega_b=omega_b, omega_s=omega_s, rate=rate, chi=chi,
+                            hop_b=0.0, hop_s=0.0, gate="front")
+    H_ncc = ncc_circulator_generator(omega_b, omega_s, Omega0, chi)
+    generator_equal = bool(np.allclose(H_field, H_ncc, atol=1e-13))
+
+    # trajectory equality on an identical 2-vector state
+    a0 = np.array([1.0 + 0j, 0.0 + 0j])  # bulk loaded, shear empty
+    traj_field = evolve_field(a0, H_field, dt, n_steps)
+    traj_ncc = ncc_evolve(a0, H_ncc, dt, n_steps)
+    traj_equal = bool(np.allclose(traj_field, traj_ncc, atol=1e-10))
+
+    # Rabi anchor at resonance (Δ=0) — full transfer; and detuned throttle
+    A0r = np.array([4.0 / 7.0])
+    H_res = build_hcouple(A0r, omega_b=1.0, omega_s=1.0, rate=rate, chi=chi, gate="front")
+    tr = evolve_field(np.array([1.0 + 0j, 0.0 + 0j]), H_res, dt, n_steps)
+    _, aw = split_modes(tr)
+    transfer = float(np.max(np.abs(aw[:, 0]) ** 2))
+    f_rabi = Omega0**2 / (Omega0**2 + 0.0)  # Δ=0 ⇒ 1.0
+    rabi_match = bool(np.isclose(transfer, f_rabi, rtol=1e-3, atol=1e-3))
+
+    return {
+        "reduced_Omega": Omega0, "g_front_at_center": g0,
+        "generator_equals_node_circulator": generator_equal,
+        "trajectory_equals_node_circulator": traj_equal,
+        "rabi_anchor_match": rabi_match, "reduced_transfer": transfer,
+        "PASS": bool(generator_equal and traj_equal and rabi_match),
+    }
