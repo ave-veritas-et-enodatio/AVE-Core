@@ -1,0 +1,145 @@
+{
+  "prereg": "research/2026-06-23_engine-stage2-native-cage_prereg.md",
+  "scheme": "frozen-D Crank-Nicolson (Newmark beta=1/4); SPD CG solve",
+  "frozen_update": "(I + 1/4 dt^2 c0^2 L_D) V^{n+1} = 2V^n - V^{n-1} - 1/4 dt^2 c0^2 L_D (2V^n + V^{n-1}); D=1/S(A^n) frozen",
+  "energy_conservation_gate_N24": {
+    "N": 24,
+    "amplitude": 0.02,
+    "n_steps": 600,
+    "dt": 0.8000000000000003,
+    "n_periods_resolved": 31.5,
+    "H0": 0.0063609754757245444,
+    "H_end": 0.006360919690859406,
+    "rel_drift_end": -8.769860118403586e-06,
+    "rel_swing": 1.705411675809176e-05,
+    "secular_slope_per_time": 2.6587401989542898e-09,
+    "omega_eff": 0.41233403578365635,
+    "inv_Q_numerical": 4.4310244712664474e-08,
+    "Q_numerical": 22568144.375744924,
+    "canary_drift_tol": 0.001,
+    "canary_slope_tol": 1e-05,
+    "passed": true
+  },
+  "known_good_linear_native": {
+    "max_abs_over_run": 0.019990779693442238,
+    "v_peak_mean_post": 0.00742341498130043,
+    "bounded": true
+  },
+  "known_good_cartesian_v14_C1": {
+    "v_peak_mean_post": 0.6232852960118589,
+    "v_peak_std_over_mean_post": 0.2868539736778114,
+    "n_em_min_over_window": 0.6053699491239438,
+    "max_abs_over_run": 0.5076584427304632,
+    "reproduces_v14_mode_i": true
+  },
+  "known_good_gaussian_control": {
+    "v_peak_mean_post": 0.23589188882049644,
+    "disperses": true
+  },
+  "primary_N24": {
+    "verdict": "MODE_III_DISPERSE",
+    "bins": {
+      "I-1 mean V_peak > 0.2": true,
+      "I-2 breathing std/mean > 0.05": true,
+      "I-3 not diverging std/mean < 0.5": true,
+      "I-4 saturation engaged n_EM < 0.97": true,
+      "I-5 above radiation floor (>1.5x gaussian late)": false,
+      "I-6 bounded max|V| < 10": true
+    },
+    "sech": {
+      "v_peak_mean_post": 0.31528012994466353,
+      "v_peak_std_over_mean_post": 0.202906096283465,
+      "n_em_min_over_window": 0.7265244798656898,
+      "max_abs_over_run": 0.8493451806787484,
+      "gamma_bulk_min_over_run": -0.15839654943993872,
+      "dt": 0.066,
+      "dt_cold_cfl": 0.8000000000000004
+    },
+    "gaussian_control": {
+      "v_peak_mean_post": 0.23589188882049644,
+      "disperses": true
+    },
+    "physical_adjudication": {
+      "max_abs_over_run": 0.8493451806787484,
+      "physical_rupture": false,
+      "bounded_under_stable_integration": true,
+      "energy_gate_passed": true
+    }
+  },
+  "dt_convergence": {
+    "dt_0.1650": {
+      "dt": 0.165,
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.27142730337602866,
+      "std_over_mean": 0.30555556537486084,
+      "max_abs_over_run": 0.8459213060411791,
+      "gaussian_late": 0.20826415493382927,
+      "self_focuses_above_seed": false,
+      "physical_rupture": false
+    },
+    "dt_0.0660": {
+      "dt": 0.066,
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.31528012994466353,
+      "std_over_mean": 0.202906096283465,
+      "max_abs_over_run": 0.8493451806787484,
+      "gaussian_late": 0.23589188882049644,
+      "self_focuses_above_seed": false,
+      "physical_rupture": false
+    },
+    "dt_0.0264": {
+      "dt": 0.0264,
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.28585020155054397,
+      "std_over_mean": 0.12176456627678374,
+      "max_abs_over_run": 0.8498951714980179,
+      "gaussian_late": 0.2729604973713734,
+      "self_focuses_above_seed": false,
+      "physical_rupture": false
+    }
+  },
+  "dt_verdict_stable": true,
+  "dt_no_detonation": true,
+  "n_robustness": {
+    "20": {
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.3648820173208579,
+      "std_over_mean": 0.23664981253895565,
+      "gaussian_late": 0.2800470461527468,
+      "gaussian_disperses": true,
+      "max_abs": 0.8493451806817718,
+      "dt": 0.066
+    },
+    "32": {
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.22977988839151386,
+      "std_over_mean": 0.1747590321970846,
+      "gaussian_late": 0.1659167969773051,
+      "gaussian_disperses": true,
+      "max_abs": 0.8493451807095515,
+      "dt": 0.066
+    }
+  },
+  "n_robust_agree": true,
+  "gamma_deepening": {
+    "gamma_t0": -0.15839654943993872,
+    "gamma_min_over_run": -0.15839654943993872,
+    "deepened_below_t0": false,
+    "sign_safe_always_negative": true
+  },
+  "apparatus_valid_control_disperses": true,
+  "FINAL": {
+    "mode": "MODE_III_DISPERSE_FALSIFICATION",
+    "reason": "The sech disperses with a CLEAN, energy-conserving integrator (energy gate PASSED) \u2014 a LEGITIMATE falsification (the self-trap is a Cartesian artifact). NOT debugged toward a rescue.",
+    "energy_conservation_proof": {
+      "rel_drift_end": -8.769860118403586e-06,
+      "secular_slope_per_time": 2.6587401989542898e-09,
+      "inv_Q_numerical": 4.4310244712664474e-08,
+      "Q_numerical": 22568144.375744924,
+      "n_periods_resolved": 31.5,
+      "verdict_is_physical_not_numerical": true
+    },
+    "dt_verdict_stable": true,
+    "n_robust_agree": true
+  }
+}
