@@ -159,3 +159,250 @@ def front_gate(A: np.ndarray, *, center: float = 4.0 / 7.0, width: float = 0.18)
 def _strain(absV: np.ndarray, V_yield: float, A_cap: float) -> np.ndarray:
     """A = |V|/V_yield, clipped to A_cap (avoids the S=0 singularity)."""
     return np.minimum(absV / V_yield, A_cap)
+
+
+class CoupledCageWinding:
+    """The S3 coupled real-space A1↔ω PDE on the native tetrahedral K4 stencil.
+
+    State (complex analytic signals, on the periodic N³ native lattice):
+      self.a_A1 : (N,N,N) complex      — the A1 bulk-dilatation breather (MASS).
+      self.a_w  : (N,N,N,3) complex    — the Cosserat ω LC-quadrature (CHARGE/
+                                         helicity winding); its OWN DOF.
+      self.e_w  : (N,N,N,3) real unit  — the seeded winding template ê_w(x); the
+                                         coupling acts on the projection ê_w·a_w.
+
+    Integration: Crank–Nicolson / Cayley (I + i·dt/2·H) a^{n+1} = (I − i·dt/2·H)
+    a^n with H Hermitian ⇒ exactly UNITARY ⇒ joint energy ‖a_A1‖²+‖a_w‖²
+    conserved to solver tolerance (the rigor guard — no damping fakes a pin).
+    D = 1/S(A^n) and Ω(x) = rate·g_front·S frozen each step (nonlinearity lagged).
+    """
+
+    def __init__(self, cfg: CoupledCageWindingConfig):
+        self.cfg = cfg
+        N = cfg.N
+        self.N = N
+        self.ndof = N**3
+        self.dx = cfg.dx
+        self.V_yield = cfg.V_yield
+        self.exponent = cfg.exponent
+        self.S_min = cfg.S_min
+        self.A_cap = cfg.A_cap
+        self.c_A1 = cfg.c_A1
+        self.c_omega = cfg.c_omega
+        self.dt = cfg.dt
+        self.winding_on = cfg.winding_on
+
+        # the native geometry-fixed sparse Grad/Div (assembled ONCE, Stage-2).
+        self.Grad, self.Div = build_grad_div_periodic(N)
+
+        # fields (complex analytic signals).
+        self.a_A1 = np.zeros((N, N, N), dtype=np.complex128)
+        self.a_w = np.zeros((N, N, N, 3), dtype=np.complex128)
+        self.e_w = np.zeros((N, N, N, 3), dtype=np.float64)  # winding template
+
+        self._build_interior_mask()
+        self.time = 0.0
+        self.step_count = 0
+        self.last_gmres_info = 0
+
+    def _build_interior_mask(self):
+        """Interior mask: pml_thickness ≤ {i,j,k} ≤ N−pml_thickness−1 (A-Rule 10
+        PML-exclusion). All field observables read THIS region only."""
+        N, t = self.N, self.cfg.pml_thickness
+        mask = np.zeros((N, N, N), dtype=bool)
+        mask[t:N - t, t:N - t, t:N - t] = True
+        self.interior = mask
+
+    # ── kernel readouts (α-free; A from the A1 breather magnitude) ──
+    def strain(self) -> np.ndarray:
+        return _strain(np.abs(self.a_A1), self.V_yield, self.A_cap)
+
+    def saturation_S(self) -> np.ndarray:
+        return saturation_kernel(self.strain(), exponent=self.exponent, S_min=self.S_min)
+
+    def stiffness_D(self) -> np.ndarray:
+        """D = c_eff²/c0² = 1/S(A). The native saturated stiffness (Stage-2)."""
+        return stiffness_profile(self.strain(), exponent=self.exponent, S_min=self.S_min)
+
+    def coupling_Omega(self) -> np.ndarray:
+        """Ω(x) = rate · g_front(A) · S(A) — the saturation-front-gated A1↔ω rate
+        (S2 FORK A=(a) coupling PORT). winding_on=False ⇒ Ω≡0 (the A1-alone
+        Mode-III negative control)."""
+        if not self.winding_on:
+            return np.zeros((self.N, self.N, self.N), dtype=np.float64)
+        A = self.strain()
+        S = self.saturation_S()
+        if self.cfg.gate == "front":
+            g = front_gate(A)
+        elif self.cfg.gate == "saturation":
+            g = S
+        elif self.cfg.gate == "front_times_S":
+            g = front_gate(A) * S
+        elif self.cfg.gate == "off":
+            g = np.zeros_like(A)
+        else:
+            raise ValueError(f"unknown gate '{self.cfg.gate}'")
+        return self.cfg.rate * g * S
+
+    # ── seeding (A1 + ω separately initialized — genesis-24 guard) ──
+    def seed_A1_sech(self, *, amplitude: float, radius: float):
+        """v14 Mode-I sech A1 breather (byte-identical to native_cage_imex.seed_sech
+        real part; analytic signal at-rest ⇒ p=0 ⇒ a_A1 = q (real seed)). This is
+        the already-localized A1 eigen-precursor (POSITED persistence, pre-reg §0)."""
+        self.a_A1[:] = _sech_profile(self.N, self.dx, amplitude, radius).astype(np.complex128)
+
+    def seed_A1_gaussian(self, *, amplitude: float, sigma: float):
+        """Gaussian A1 breather seed (the seed-robustness control, pre-reg §3 trap 5)."""
+        self.a_A1[:] = _gaussian_profile(self.N, self.dx, amplitude, sigma).astype(np.complex128)
+
+    def seed_A1_field(self, V_seed: np.ndarray):
+        """Plant an arbitrary at-rest A1 seed (∂_t a=0 ⇒ a_A1 = V_seed real)."""
+        self.a_A1[:] = np.asarray(V_seed, dtype=np.complex128)
+
+    def seed_winding(self, *, amplitude: float = 1.0):
+        """Seed the ω winding DOF with the real-space (2,3) phase field
+        (seed_pq_winding — the SAME coordinate compute_Q_link reads). This is the
+        SEPARATELY-initialized charge winding; NEVER grad(V) (genesis-24 guard).
+        The template ê_w(x) = normalized seeded ω is frozen for the coupling
+        projection; the analytic signal starts at-rest (Re = ω config, Im = 0)."""
+        om = seed_pq_winding(self.N, 2, 3, self.cfg.R, self.cfg.r) * amplitude
+        self.a_w[:] = om.astype(np.complex128)
+        nrm = np.sqrt(np.sum(om**2, axis=-1, keepdims=True))
+        self.e_w[:] = np.where(nrm > 1e-12, om / np.maximum(nrm, 1e-30), 0.0)
+
+
+    # ── the Hermitian generator H (native-Laplacian blocks + on-site coupling) ──
+    def _assemble_H(self):
+        """Assemble the sparse Hermitian generator H on the stacked state
+        x = [a_A1 (ndof), a_w0, a_w1, a_w2 (3·ndof)] (total 4·ndof complex):
+
+          A1 block (ndof×ndof)   : ω_b·I − c_A1²·L_D
+          ω blocks (each ndof)   : ω_s·I − c_ω²·L_D     (one per component c)
+          coupling (on-site)     : a_A1 ← Ω·e^{+iχθ_χ}·Σ_c ê_w[c]·a_w[c]
+                                   a_w[c] ← Ω·e^{−iχθ_χ}·ê_w[c]·a_A1
+            (conjugate-transpose pair, ê_w real ⇒ H Hermitian.)
+
+        D = 1/S(A^n) and Ω(x) frozen at the current strain (nonlinearity lagged).
+        Returns the (4·ndof, 4·ndof) complex CSR generator. The native L_D is the
+        Stage-2 operator UNCHANGED (NO Cartesian 7-pt; HR1)."""
+        from scipy import sparse
+
+        nd = self.ndof
+        D = self.stiffness_D().reshape(nd)
+        L_D = assemble_L_D(self.Grad, self.Div, D)  # real SPD native stiffness
+        I = sparse.identity(nd, format="csr", dtype=complex)
+
+        H_A1 = self.cfg.omega_b * I - (self.c_A1**2) * L_D.astype(complex)
+        H_w = self.cfg.omega_s * I - (self.c_omega**2) * L_D.astype(complex)
+
+        # on-site coupling (diagonal in space): per-site rate Ω(x)·e^{±iχθ_χ}·ê_w[c].
+        Omega = self.coupling_Omega().reshape(nd)
+        phase = self.cfg.chi * THETA_CHI
+        cpl = Omega * np.exp(1j * phase)  # A1 ← ω,  e^{+iφ}
+        blocks = [[None, None, None, None] for _ in range(4)]
+        blocks[0][0] = H_A1
+        for c in range(3):
+            ew_c = self.e_w[..., c].reshape(nd)
+            blocks[1 + c][1 + c] = H_w
+            # A1 receives Ω e^{+iφ} ê_w[c] a_w[c]
+            blocks[0][1 + c] = sparse.diags(cpl * ew_c, format="csr")
+            # a_w[c] receives Ω e^{-iφ} ê_w[c] a_A1  (= conj ⇒ Hermitian)
+            blocks[1 + c][0] = sparse.diags(np.conj(cpl) * ew_c, format="csr")
+        H = sparse.bmat(blocks, format="csr")
+        return H
+
+    def _stack(self) -> np.ndarray:
+        """Flatten the state into x = [a_A1, a_w0, a_w1, a_w2] (4·ndof complex)."""
+        nd = self.ndof
+        x = np.empty(4 * nd, dtype=np.complex128)
+        x[:nd] = self.a_A1.reshape(nd)
+        for c in range(3):
+            x[(1 + c) * nd:(2 + c) * nd] = self.a_w[..., c].reshape(nd)
+        return x
+
+    def _unstack(self, x: np.ndarray):
+        nd = self.ndof
+        N = self.N
+        self.a_A1 = x[:nd].reshape(N, N, N)
+        for c in range(3):
+            self.a_w[..., c] = x[(1 + c) * nd:(2 + c) * nd].reshape(N, N, N)
+
+    def step(self):
+        """One Crank–Nicolson / Cayley step (the energy-conserving unitary scheme):
+            (I + i·dt/2·H) x^{n+1} = (I − i·dt/2·H) x^n
+        with H Hermitian (D, Ω frozen this step). Solved by GMRES (H is complex,
+        non-symmetric in the real embedding). Exactly norm-preserving to solver
+        tolerance — NO spurious damping that could fake a pinned core."""
+        from scipy.sparse import identity
+        from scipy.sparse.linalg import gmres
+
+        H = self._assemble_H()
+        nd4 = 4 * self.ndof
+        I = identity(nd4, format="csr", dtype=complex)
+        half = 0.5j * self.dt
+        A_sys = (I + half * H).tocsr()
+        x = self._stack()
+        rhs = (I - half * H) @ x
+        x_new, info = gmres(A_sys, rhs, rtol=self.cfg.gmres_tol,
+                            maxiter=self.cfg.gmres_maxiter, x0=x)
+        self.last_gmres_info = info
+        self._unstack(x_new)
+        self.time += self.dt
+        self.step_count += 1
+
+    # ── energy observables (the rigor guard: BOTH A1-norm AND ω-winding) ──
+    def total_energy(self) -> float:
+        """Joint energy H = ‖a_A1‖² + ‖a_w‖² over the FULL field (the conserved
+        norm of the unitary map). The energy-conservation gate certifies BOTH
+        grades together — a pin bought by bleeding ω into A1 would still have to
+        keep THIS conserved, and the per-grade split (a1_energy / omega_energy)
+        certifies neither grade is silently drained into the other."""
+        return float(np.sum(np.abs(self.a_A1) ** 2) + np.sum(np.abs(self.a_w) ** 2))
+
+    def a1_energy(self) -> float:
+        """‖a_A1‖² over the full field (the A1-norm — genesis-24 separate-cert)."""
+        return float(np.sum(np.abs(self.a_A1) ** 2))
+
+    def omega_energy(self) -> float:
+        """‖a_w‖² over the full field (the ω-winding norm — genesis-24 separate-cert)."""
+        return float(np.sum(np.abs(self.a_w) ** 2))
+
+    # ── A1-core real-space localization observables (A46; interior-only) ──
+    def interior_peak_abs_A1(self) -> float:
+        """Peak |a_A1| over the PML-excluded interior (NOT centroid — pre-reg §3)."""
+        return float(np.abs(self.a_A1[self.interior]).max())
+
+    def interior_A1_energy(self) -> float:
+        """Σ|a_A1|² over the PML-excluded interior (the localized-mass content)."""
+        return float(np.sum(np.abs(self.a_A1[self.interior]) ** 2))
+
+    def a1_centroid_spread(self) -> float:
+        """RMS real-space spread of the A1 energy density about its centroid (the
+        DELTA observable, A46 — real-space 3-D, NOT a 2-mode proxy). A pinned core
+        keeps this BOUNDED; a dispersing core's spread grows toward the box size."""
+        N = self.N
+        i, j, k = np.indices((N, N, N))
+        w = np.abs(self.a_A1) ** 2
+        W = float(w.sum())
+        if W < 1e-30:
+            return float("nan")
+        ci = float((i * w).sum() / W)
+        cj = float((j * w).sum() / W)
+        ck = float((k * w).sum() / W)
+        var = float((((i - ci) ** 2 + (j - cj) ** 2 + (k - ck) ** 2) * w).sum() / W)
+        return float(np.sqrt(var)) * self.dx
+
+
+def _sech_profile(N: int, dx: float, amplitude: float, radius: float) -> np.ndarray:
+    c = N // 2
+    coords = np.arange(N) - c
+    X, Y, Z = np.meshgrid(coords, coords, coords, indexing="ij")
+    r = np.sqrt(X**2 + Y**2 + Z**2) * dx
+    return amplitude * (1.0 / np.cosh(r / radius))
+
+
+def _gaussian_profile(N: int, dx: float, amplitude: float, sigma: float) -> np.ndarray:
+    c = N // 2
+    i, j, k = np.indices((N, N, N))
+    r2 = ((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2) * (dx**2)
+    return amplitude * np.exp(-r2 / (2.0 * sigma**2))
