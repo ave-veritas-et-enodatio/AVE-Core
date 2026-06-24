@@ -7,6 +7,17 @@
 > caveat on the eigensolve "zero," plus the open Phase-1 frontier. Do **not** read this as a positive
 > forward-prediction; it is a permitted-but-undemonstrated channel.
 
+> **🟡 STATUS UPDATE (post-PR#374, 2026-06-24).** The Phase-1 writhe-aware vector-TLM derivation that this
+> doc (below) calls "deferred / never-executed" has since been EXECUTED in
+> [`research/2026-06-23_chiral-vector-tlm-phase1_result.md`](2026-06-23_chiral-vector-tlm-phase1_result.md)
+> (PR #374) — **OUTCOME A (channel open):** a converged, enantiomorph-odd bulk $g_0$ = the $4_1$ screw pitch
+> ($\mp 2.21589$ rad/lattice-z-unit, L-independent to machine precision; GATE-1/2/3 PASS, lossless). **The
+> top-level verdict is UNCHANGED — still FORM-distinct, magnitude-pending, NOT bankable:** the converged $g_0$
+> is a lattice-pitch holonomy whose literal value (~$2\times10^{12}$ rad/m) is ~40 OOM ABOVE the cosmic bound,
+> NOT a k→0 continuum gyration. **What changed: the open make-or-break frontier moved** from "execute Phase-1"
+> to "extract the k→0 continuum $g_0$" (isolated transverse photon band / PML-grade absorbing supercell;
+> PR#374 §3). The "never-executed Phase-1" language below predates PR#374 — read it as the historical record.
+
 ## 0. TL;DR
 
 The chiral srs / Laves-K4 substrate net (space group $I4_1 32$ #214, point group **432 = O**, chiral,
@@ -31,9 +42,12 @@ the substrate-derived constitutive $g_0$):
    resolve handedness; chirality lives in the ring TOPOLOGY, which this stencil discards).
 
 **VERDICT: symmetry-PERMITTED, AVE-distinct-IN-FORM, magnitude-PENDING, NOT bankable as it stands. Do NOT
-promote `def-0pt1ac` to a bankable forward prediction.** The make-or-break OPEN FRONTIER is the deferred,
-never-executed Phase-1 **writhe-aware** full vector-TLM derivation, which is what would settle the
-substrate-derived $g_0$.
+promote `def-0pt1ac` to a bankable forward prediction.** The make-or-break OPEN FRONTIER **(updated
+post-PR#374 — see status note above)** is the **k→0 continuum extraction** of the substrate-derived $g_0$:
+the Phase-1 writhe-aware vector-TLM derivation has since been executed (PR#374, OUTCOME A — a converged
+enantiomorph-odd $g_0$ = the $4_1$ screw pitch exists), but its literal value is a lattice-pitch holonomy
+~40 OOM over the cosmic bound, so the bankability gate is now the continuum mapping, not the Phase-1
+execution itself.
 
 **Consistency-vs-emergence tag:** CONSISTENCY / FORM-class (symmetry permits the form; magnitude
 undetermined and not substrate-derived). The discrimination axis is ZERO-vs-NONZERO (parity), not a
@@ -242,7 +256,8 @@ matching the design-doc record `+4.0867e-02` / exact sign-flip / `0.0` on diamon
 ([`research/2026-06-11_genesis-v9-chiral-lattice_design.md:300`](2026-06-11_genesis-v9-chiral-lattice_design.md)).
 The writhe is a genuine reflection-odd substrate source (`def-wr1th3`, SOLID). What is missing is the
 substrate-derived *coupling* of that source into a propagating-field rotation rate ($g_0$) — that is the
-Phase-1 deliverable, never executed (§7).
+Phase-1 deliverable, executed post-this-doc in PR#374 (OUTCOME A; the $g_0$ converges but its literal value
+is ~40 OOM over-bound, so the k→0 continuum mapping remains the open frontier — see status update, §7).
 
 ## 6. VERDICT
 
@@ -269,10 +284,19 @@ the bankability on the Phase-1 derivation (§7).
 
 ## 7. OPEN FRONTIER (make-or-break)
 
-**The deferred, never-executed Phase-1 WRITHE-AWARE full vector-TLM derivation is what would settle the
-substrate-derived $g_0$ — and hence whether this channel is bankable.**
+> **🟡 UPDATED post-PR#374 (2026-06-24):** the Phase-1 derivation described below as "never executed" has
+> since been executed in [`2026-06-23_chiral-vector-tlm-phase1_result.md`](2026-06-23_chiral-vector-tlm-phase1_result.md)
+> — OUTCOME A (a converged signed bulk $g_0$ = the $4_1$ screw pitch). It met all three convergence criteria
+> (sign-flip + diamond-null + box-size-independence) but the converged value is a lattice-pitch holonomy ~40
+> OOM over the cosmic bound, so the make-or-break frontier is now the **k→0 continuum extraction**, not the
+> Phase-1 execution. The original framing is retained below as the historical record.
 
-- The Phase-1 deliverable is named in the design doc but **never executed**:
+**The Phase-1 WRITHE-AWARE full vector-TLM derivation settles the substrate-derived $g_0$; the k→0 continuum
+mapping of that $g_0$ is what now gates whether this channel is bankable.**
+
+- The Phase-1 deliverable was named in the design doc and, at the time this result was written, **not yet
+  executed** (it has **since been executed** — PR#374, see status update; the design-doc quote below records
+  its pre-execution status):
   [`research/2026-06-11_genesis-v9-chiral-lattice_design.md:89-103`](2026-06-11_genesis-v9-chiral-lattice_design.md)
   ("The dynamical polarization-rotation it sources (frame parallel-transport / full vector-TLM) is the
   **Phase-1** deliverable — the substrate-native locus of optical activity named but never executed in
@@ -288,7 +312,10 @@ substrate-derived $g_0$ — and hence whether this channel is bankable.**
   ring-topology content the local-bond-direction stencil discards, §4), propagate a transverse vector field,
   and measure a CONVERGED per-length circular split / polarization-rotation rate that (i) flips sign with
   enantiomorph, (ii) is zero on the diamond control, and (iii) is box-size-independent. That converged rate
-  IS the substrate-derived $g_0$. Until it exists, the magnitude is pending and the channel is not bankable.
+  IS the substrate-derived $g_0$. **(DONE — PR#374, OUTCOME A: the writhe-aware operator met all three
+  criteria — sign-flip, diamond-null, and box-size-independence to machine precision — converging $g_0$ = the
+  $4_1$ screw pitch. But the literal value is a lattice-pitch holonomy ~40 OOM over the cosmic bound, so the
+  magnitude is still NOT bankable; the open frontier is now the k→0 continuum extraction of that $g_0$.)**
 
 **Separately open:** whether the cosmic-chirality freeze-in ($\hat\Omega_{\text{freeze}}$) injects a
 **complex / TRS-odd** constitutive term. The static eigensolve **cannot** settle this — a real-force-constant
@@ -380,13 +407,14 @@ $\pm75.46°$/unit is an engineering decree (`ETA_ROT_PER_WRITHE`, tagged) × unp
 fraction — NOT substrate-derived, NOT bankable; the substrate-derived $g_0$ is the open Phase-1 deliverable."
 **Grant decides.** Do NOT edit `def-0pt1ac` in this PR.
 
-**(iii) Should the Phase-1 writhe-aware vector-TLM derivation be commissioned?**
-This is the make-or-break (§7): it is the only route to a substrate-derived $g_0$, and hence the gate on
-whether this channel becomes a bankable forward prediction. The first parallel-transport attempt was
-non-converged (sign-flipped L=6 vs L=8); a writhe-AWARE operator (retaining the ring-topology content the
-local-bond-direction stencil discards) is the design requirement. **Recommendation:** *lean yes, but scope it
-as a discrete chartered workstream* with the convergence acceptance criteria stated up front (sign-flip with
-enantiomorph + diamond-null + box-size-independence). **Grant decides** whether to commission now or hold.
+**(iii) Should the Phase-1 writhe-aware vector-TLM derivation be commissioned? — ANSWERED (post-PR#374).**
+It was commissioned and executed in
+[`2026-06-23_chiral-vector-tlm-phase1_result.md`](2026-06-23_chiral-vector-tlm-phase1_result.md) (PR #374),
+OUTCOME A: a writhe-AWARE operator met all three convergence acceptance criteria (sign-flip with enantiomorph
++ diamond-null + box-size-independence to machine precision), converging $g_0$ = the $4_1$ screw pitch. **The
+residual make-or-break is the k→0 continuum extraction** of that $g_0$ — the literal lattice-pitch value is
+~40 OOM over the cosmic bound — which is the discrete chartered workstream now warranting Grant's
+commission-or-hold call.
 
 ---
 
@@ -401,5 +429,6 @@ enantiomorph + diamond-null + box-size-independence). **Grant decides** whether 
   truth-source).
 - Worktree: `/tmp/wt-chiral-oa`, branch `analysis/chiral-srs-optical-activity`, off `origin/main` @ `2967fcb5`.
 - This doc is research substrate only. No `clm-` minted, no `def-0pt1ac` edit. Canonical-propagation
-  Grant-calls (i)/(ii)/(iii) above are surfaced, not executed.
+  Grant-calls (i)/(ii) above are surfaced, not executed; (iii) has since been answered (Phase-1 executed in
+  PR#374, OUTCOME A — see status update / §7).
 

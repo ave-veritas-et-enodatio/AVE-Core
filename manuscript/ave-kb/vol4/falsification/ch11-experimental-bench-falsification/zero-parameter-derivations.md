@@ -15,7 +15,7 @@ When substituted into the macroscopic Maxwell equations, the dimensions flawless
 
 ### The $\sqrt{\alpha}$ Kinetic Yield Limit
 
-In previous phenomenological frameworks, the absolute limit where the spatial metric saturates was heuristically estimated from empirical fusion data. In AVE, it is rigorously and geometrically derived.
+In previous phenomenological frameworks, the absolute limit where the spatial metric saturates was heuristically estimated from empirical fusion data. In AVE the 1D capacitive snap limit ($V_{snap} = m_e c^2 / e$) is structural, but the step to the 3D kinetic yield is a scaling by $\sqrt{\alpha}$ that the substrate does **not** independently derive: in code $\sqrt{\alpha}$ is `np.sqrt(ALPHA)` (imported CODATA, `constants.py:460`), and $\alpha$ is a *retained calibration input / value-scoped echo* (scope note above; the keystone register `vol1/ch8` records $\alpha$ closed-negative on all three named derivation routes, Grant-ratified 2026-06-18).
 
 The absolute 1D Capacitive Saturation limit (the tensile strength of a single flux tube) is identically the electron rest-mass energy ($V_{snap} = m_e c^2 / e = 511.0\,\text{kV}$). To transition from the 1D soliton yield into the 3D macroscopic kinetic yield threshold, the exact dielectric saturation bound set by the Fine-Structure Constant is required:
 
@@ -23,7 +23,7 @@ $$
 V_{yield} = \sqrt{\alpha} \times V_{snap} = \sqrt{7.297 \times 10^{-3}} \times 511.0\,\text{kV} = \mathbf{43.65\,\text{kV}}
 $$
 
-By utilizing this pure, geometrically derived 43.65 kV limit, two breathtaking predictive alignments emerge:
+By utilizing this 43.65 kV limit (a *retained calibration input* — $\sqrt{\alpha} \times V_{snap}$ with $\alpha$ imported, per the scope note above; not a parameter-free derivation), two predictive alignments emerge:
 
 1. **The Nuclear Fusion Limit:** The topological force of 43.65 kV evaluates to $V_{yield} \times \xi_{topo} = 0.01811\,\text{N}$. At the 15 keV temperatures strictly required for D-T fusion, the individual ion collision decelerations generate exactly $60.3\,\text{kV}$ of localized topological strain --- catastrophically exceeding $V_{yield}$ by 38%. Standard Tokamaks consistently hit a wall of "anomalous transport" right as the Maxwell-Boltzmann tail begins to exceed the 43.65 kV yield threshold. The framework mathematically dictates exactly where thermonuclear fusion melts the spacetime containment vessel.
 2. **The Absolute Levitation Limit:** The maximum static gripping force of the 43.65 kV limit dictates a maximum lift mass of exactly $\mathbf{m_{max} = 0.01811\,\text{N} / 9.81 = 1.846\,\text{grams}}$. A US Penny (2.50g), a Ping-Pong ball (2.70g), and a US Dime (2.27g) all categorically exceed the limit and cannot be supported. A standard paper clip (1.0g) and a US wooden match (0.5g) hover safely.
