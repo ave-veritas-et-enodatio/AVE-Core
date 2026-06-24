@@ -233,10 +233,51 @@ reproduces SM at current sensitivity; corroborated-null = agrees with both data
 
 ## 3. WINDING-CHANNEL SUMMARY (what S1 unlocks)
 
-<!-- filled below -->
+S1 (the (2,3) winding as a separately-conserved DOF) **PASSED** 2026-06-24
+(`research/2026-06-24_engine-s1-winding-dof_result.md`, PASS-WITH-FLAGS,
+derived-REAL, scoped to real-space ω director-phase + single-knot conservation;
+`make verify` PASS). With the winding now a genuine independent DOF, its
+distinct prediction is **PARITY** — the cleanest possible divergence axis,
+because **QED vacuum is parity-even and therefore structurally pinned to exactly
+zero** on any chiral-vacuum observable.
+
+Two winding-channel observables sit on this axis:
+
+| Observable | FORM | MAGNITUDE | Status |
+|---|---|---|---|
+| Field-free OA sign-flip (§2.3) | AVE-distinct, live-confirmed (signed / enantiomorph-odd / diamond-null) | **NOT bankable** — ~40 OOM over cosmic bound; k→0 continuum OPEN | minted `clm-` (§9) |
+| Co-vs-anti |F| ratio (§2.4) | follows from S1's PASS; dimensionless (dodges echo trap) | n/a — **UNBUILT** | highest-value unbuilt FORM chord |
+
+**Not winding channels** (real divergences, but parity-mute): E-route
+birefringence (§2.1, field-induced, even-in-k) and the (qℓ_node)⁴ dispersion
+(§2.2, parity-even, achiral diamond point group).
+
+**Net for the winding lane:** the FORM of the parity divergence is solid on both
+observables; the *bankable* magnitude is missing on both (OA is 40 OOM over;
+the |F| ratio is unbuilt). The recommended next build is the co-vs-anti |F|
+ratio — it is the one winding prediction whose magnitude is a dimensionless ratio
+and therefore *cannot* be an m_e/α-echo.
 
 ---
 
 ## 4. CROSS-REFERENCE NOTE (master matrix is a gated follow-on)
 
-<!-- filled below -->
+The canonical C1–D5 divergence matrix lives at
+`manuscript/ave-kb/common/divergence-test-substrate-map.md`. This register is a
+**derived-vs-echo consolidation lens** over a subset of those rows, not a
+replacement. A light cross-ref pointer to this register has been added to that
+map; **full integration of these derived-vs-echo verdicts into the C1–D5 matrix
+is a GATED FOLLOW-ON** (it would rewrite load-bearing matrix rows and must be
+adjudicated separately — flag-don't-fix). Do not treat this register as having
+superseded any matrix row.
+
+**Flag-don't-fix log (drift from source map on re-grep):** none. All cited
+file:line confirmed at HEAD `dc9e1791` — `clm-pp3qwf` body at
+`vol4/claim-quality.md:389`, the `7.5/α³` ratio at `:399`, `clm-k4d4ph`
+slope-4-asserted at `:448` and ECHO-below-bounds at `:449`, `V_YIELD = √α·V_SNAP`
+at `constants.py:460`, `def-0pt1ac` ETA-decree demotion at
+`vocabulary-register.md:551`, the OA OUTCOME-A + 40-OOM caveat at
+`research/2026-06-23_chiral-vector-tlm-phase1_result.md` §0/§9, S1 PASS at
+`research/2026-06-24_engine-s1-winding-dof_result.md`, chiral-thrust FALSIFIED at
+`research/2026-06-08_rrad-l-rectification_result.md`. Q=137 slot left EMPTY (no
+α re-pose).
