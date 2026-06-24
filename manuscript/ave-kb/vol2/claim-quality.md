@@ -294,6 +294,37 @@
 
 ---
 
+## Baryon Charge Two-Ontology Reconciliation: Witten Fractions are the Effective Dressing of the Fundamental Integer
+<!-- id: clm-w8jn3q -->
+
+- $q_{eff} = \mathcal{Q} + \theta/2\pi$ with $\mathcal{Q} \in \mathbb{Z}$ the **fundamental** integer charge-linking (Ontology B) and $\theta/2\pi$ an **effective** body-angular-momentum dressing (Ontology A, the Witten fraction). Grant-ratified 2026-06-23.
+- _Specific Claims_
+  - **The two charge ontologies are NOT contradictory; they are nested.** Ontology B — charge as an integer linking number $\mathcal{Q} = \mathrm{Link}(\partial\Omega, \mathbf{F}) \in \mathbb{Z}$ (a 1D line/loop boundary integral; `boundary-observables-m-q-j.md:20`) — is FUNDAMENTAL. Ontology A — the Witten-effect fractional quark charges $\pm 1/3, \pm 2/3$ (`topological-fractionalization.md`) — is the EFFECTIVE appearance, a dressing of B.
+  - **The reconciliation mechanism is the $\mathcal{Q}/\mathcal{J}$ boundary-integral separability.** The soliton's body angular momentum $\mathcal{J} = \mathrm{Wind}(\partial\Omega)$ (a 2D surface boundary integral; `boundary-observables-m-q-j.md:21`) is a genuinely SEPARATE observable from the 1D linking $\mathcal{Q}$. A rigid body-frame rotation $\mathcal{J}$ leaves the linking integer $\mathcal{Q}$ INVARIANT (linking is a topological invariant; a rigid rotation cannot change it). So $\mathcal{J}$ can carry the $\theta$-phase that dresses the EFFECTIVE charge WITHOUT touching the FUNDAMENTAL integer. This is the substrate-native mechanism for the compatibility the corpus already half-states at `neutron-identification.md:67` (*"The two ontologies make the same predictions about observables; AVE's mechanical picture is the substrate explanation of why the SM ontology works"*).
+  - **The denominator share $1/N$ is FORM (symmetry-forced).** For an $N$-fold-symmetric soliton, the per-constituent share of a symmetric body rotation is exactly $1/N$ by symmetry. This is a genuine structural advance over the corpus's `tensors.py:106` hard-coded literal `theta_angles = [0, (2*np.pi)/3, (4*np.pi)/3]`: the typed-in $2\pi/3$ is replaced by a symmetry-forced $1/N$ angular-momentum share.
+- _Specific Non-Claims and Caveats_
+  - **CLASS: FORM / CONSISTENCY — NOT a chord, NOT emergence.** This entry reconciles the FORM of the charge (fundamental integer + effective dressing) and cleanly separates the two; it does NOT derive the VALUE of the denominator. Do NOT headline an emergence-class result.
+  - **The denominator VALUE $3$ is FED IN, not forced (Rule-11 honesty note).** The $1/N$ share is generic in $N$ (swept $N \in \{2,3,4,5\}$; the substrate excludes none). The value $1/3$ requires $N=3$, and $N=3$ enters as the OBSERVED proton loop count (the $6_2^3$ Borromean is ASSERTED as the proton's real-space topology at `proton-identification.md:22`; "why exactly 3 loops" is OPEN). There is NO 3-loop stability theorem. This is the same free dial as the $\mathbb{Z}_N \to 1/N$ generic-in-$N$ finding; the reconciliation relocates the $3$ from a hard-coded $\theta$-literal to a chosen constituent count — it does not derive it.
+  - **The dressing $\mathcal{J}$ must be the RIGID FRAME rotation, NOT the internal $q$-winding.** The $q$-winding is a multiplicative factor in the linking ($Q_H = p\cdot q$; `torus-knot-uniqueness.md:23`); identifying the dressing with the $q$-lap would double-count the DOF and change $\mathcal{Q}$, breaking the reconciliation. The reconciliation holds only for the rigid-frame $\mathcal{J}$ distinct from the linking-internal $q$.
+  - **The remaining chord-decider is OPEN (parked):** whether the K4/Cosserat lattice FORCES exactly-3-loop Borromean stability as the minimal stable multi-loop closure ($N=3$ coming OUT, independent of observing the proton). No such theorem is in the corpus.
+  - **No dynamical lattice θ.** The corpus θ/Witten term (`tensors.py:99-114`) has no Chern-Simons dynamics; the reconciliation is at the level of the boundary-observable algebra ($\mathcal{Q}, \mathcal{J}$ separability), which is substrate-grounded, NOT an engine-derived θ. Parametric topology + frame-rotation invariance demonstration, not a lattice-field confirmation.
+
+> **Leaf references:** [neutron-identification](./particle-physics/ch02-baryon-sector/neutron-identification.md), [proton-identification](./particle-physics/ch02-baryon-sector/proton-identification.md), [topological-fractionalization](./particle-physics/ch02-baryon-sector/topological-fractionalization.md).
+
+### Quality
+- confidence: 0.6
+- depends-on:
+  - clm-67jn9o (Witten-effect fractional quark charges on $\mathbb{Z}_3$ Borromean symmetry — Ontology A, the effective dressing)
+  - clm-cmic3e (proton canonical identification — Ontology B's integer $+e$ at the Borromean cage center)
+  - clm-ze4clw (the three canonical boundary observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ — the $\mathcal{Q}$ vs $\mathcal{J}$ separability the reconciliation rests on)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
+- rationale: The reconciliation FORM is structurally clean and substrate-grounded — $\mathcal{Q}$ (1D linking) and $\mathcal{J}$ (2D winding) are two genuinely distinct boundary integrals, and a rigid body rotation provably leaves the linking integer invariant (a topological-invariance fact, not a fit). It supplies the substrate mechanism for the A↔B compatibility the corpus already half-states (`neutron-identification.md:67`), and it replaces the hard-coded $\theta = 2\pi/3$ literal with a symmetry-forced $1/N$ share — a real structural advance. But the band is held at the CONSISTENCY level (not chord, not emergence) because the load-bearing VALUE — the denominator $3$ — is FED IN (the observed proton loop count; $1/N$ is generic in $N$, substrate excludes none) rather than forced; there is no 3-loop stability theorem. The θ has no dynamical lattice representation, so the reconciliation is at the boundary-observable-algebra level, not engine-derived. Disclosed methodology bound; FORM/CONSISTENCY-class. Solidity capped at 0.55 by the depended-on $\mathcal{Q}/\mathcal{J}$ separability claim (clm-ze4clw). Source result: `research/2026-06-23_witten-angular-momentum-charge_result.md` (PR #396).
+- strengthen-by:
+  - Derive a K4/Cosserat stability (or minimality) theorem selecting exactly $N=3$ as the minimal stable multi-loop Borromean closure — $N=3$ coming OUT independent of observing the proton. This is the chord-decider; until it exists, denominator-3 is an echo of the observed proton.
+  - Give the θ/Witten term a dynamical lattice representation (Chern-Simons-class θ-from-soliton + body-angular-momentum coupling in the engine) so the dressing is engine-derived, not a parametric arithmetic demonstration.
+
+---
+
 ## Atomic Ionization Energy Solver (Z = 1–14, Max 2.8% Error)
 <!-- id: clm-oltvwy -->
 

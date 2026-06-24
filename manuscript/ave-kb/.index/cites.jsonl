@@ -76,7 +76,7 @@
 {"claim_id": "clm-5zuo7g", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/higgs-mechanism.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-67jn9o", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/quark-flavors.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-67jn9o", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/topological-fractionalization.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-6kwzot", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/neutron-identification.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-6kwzot", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/neutron-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-6mvtsf", "leaf_path": "common/operators.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-6t3p6x", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-6tuqjh", "leaf_path": "vol6/framework/computational-mass-defect/semiconductor-nuclear-analysis.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -163,7 +163,7 @@
 {"claim_id": "clm-cfd5yf", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-cmic3e", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-identification.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-cmic3e", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-crbl60", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/ideal-gas-law.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -643,6 +643,9 @@
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/scale-separation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/screening-rule.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-w8jn3q", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/neutron-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-w8jn3q", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-w8jn3q", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/topological-fractionalization.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-wd5rs0", "leaf_path": "vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-wx5324", "leaf_path": "vol3/cosmology/ch04-generative-cosmology/asymptotic-expansion-limit.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-wx5324", "leaf_path": "vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md", "leaf_kind": "leaf", "tier2_marked": true}

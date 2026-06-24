@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-cmic3e]
+claims: [clm-cmic3e, clm-w8jn3q]
 path-stable: "referenced from vol2 ch01 electron-identification + vol3 ch11 thermal-softening-skyrme + common full-derivation-chain as canonical proton identification"
 -->
 
@@ -13,6 +13,8 @@ The AVE-native canonical identification of the proton, structured to parallel `.
 **Load-bearing audit finding:** unlike the electron (where $m_e$ is a calibration anchor), **the proton's mass ratio $m_p/m_e = 1836.12$ is derived with zero baryon-data-tuned parameters** (electron-physics-provenanced: $m_e + \alpha$, replacing Skyrme's $F_\pi + e$) --- from the $(2,5)$ cinquefoil topology + Vol 1 Ch 8 closure ($\kappa_{FS} = 8\pi$ from $p_c = 8\pi\alpha$) + dual-reactance count $\mathcal{V}_{total} = 2$ (the node's two reactance sectors $X_C + X_L$, NOT a FEM-integrated volume; see [`dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md)) + Ax2 TKI charge twist ($+1.0\,m_e$). 🔴 *[framing precision 2026-06-08]* The **bare topology** ($\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{V}=2$, $p_c=8\pi\alpha$) predicts $m_p/m_e$ to **+0.74%** with **zero baryon input** (live-fire solver: cold $\kappa_{FS}=8\pi$ → $1849.70$, $+0.7377\%$); one canonical thermal correction $\delta_{th}=1/(14\pi^2)$ then refines this to **−0.002%** ($1836.117$ vs CODATA $1836.153$). The $\delta_{th}$ thermal correction is the *precision-setter* — do NOT headline the $-0.002\%$ as pure geometry. Consistency-vs-emergence: the $+0.74\%$ is **emergence** vs the baryon sector (zero baryon input) and **consistency** vs the electron sector (inputs $m_e, \alpha$); $\delta_{th}$ is a *contained precision-residual*. ~~0.002\% from CODATA 1836.153.~~ The per-channel coupling efficiency is forced ($k=1$, Axiom-3 $\Gamma=0$ + Op17); the per-channel loop-gain $= p_c$ identification is a matched structural assignment, same class as the lepton couplings (see parameter ledger). **This is the AVE framework's flagship mass prediction.**
 
 ## §1 — Canonical 4-property definition
+
+<!-- claim-quality: clm-cmic3e -->
 
 The proton in AVE is defined by **four tightly-coupled topological/dynamical properties**:
 
@@ -34,13 +36,15 @@ The proton in AVE is defined by **four tightly-coupled topological/dynamical pro
 
 ### Observable properties — the load-bearing audit
 
+<!-- claim-quality: clm-w8jn3q (the "Fractional quark charges" row below carries the two-ontology reconciliation: Witten fractions = effective $\mathcal{J}$-dressing of the fundamental integer $\mathcal{Q}=+1e$; Grant-ratified 2026-06-23) -->
+
 | Observable | Axiom support | Derivation status | Notes |
 |---|---|---|---|
 | **Rest mass $m_p/m_e = 1836.12$** | Multi-input eigenvalue chain, zero baryon-data-tuned parameters (see §2.1 below for full audit) | ✅ **axiom-derived** (zero baryon-data-tuned; per-channel loop-role a matched assignment, see ledger) — 🔴 [2026-06-08] bare topology **+0.74%** (emergence vs baryon sector); with the canonical $\delta_{th}=1/(14\pi^2)$ thermal correction (precision-setter), ~~0.002%~~ **−0.002%** from CODATA 1836.153 | **Unlike $m_e$ (calibration anchor), $m_p/m_e$ is a real test of the framework.** This is AVE's flagship mass-derivation claim. |
 | Charge $+e$ | Ax2 TKI (+1 integer topological twist trapped at Borromean cage center; "the global invariant charge constraint of the unbroken lattice") | ✅ axiom-derived | The +1.0 in the mass eigenvalue ($x = 1835.12 + 1.0$) IS this charge twist's rest energy. |
 | Spin-½ | Same Cosserat microrotation + Finkelstein-Misner mechanism as the electron (Ax1) | ✅ axiom-derived | Inherits from electron-identification.md §2. |
 | Charge radius $D_p = 4\lambda_p = 0.841$ fm | Ax4 (saturation transition radius); $\lambda_p = \hbar/(m_p c)$ = proton Compton wavelength | ✅ axiom-derived | Matches muonic hydrogen measurement (the famous 0.841 fm from Pohl 2010 et al.). Per [`../../proofs-computation/ch09-computational-proof/anomaly-catalog.md` line 13](../../proofs-computation/ch09-computational-proof/anomaly-catalog.md). |
-| Fractional quark charges $\pm 1/3, \pm 2/3 e$ | Witten Effect on $\mathbb{Z}_3$ symmetric $\theta$-vacua: $q_{eff} = n + \theta e/(2\pi)$, $\theta \in \{0, \pm 2\pi/3, \pm 4\pi/3\}$ | ✅ axiom-derived | Per [`topological-fractionalization.md`](topological-fractionalization.md). The three quark "flavors" are the three $\theta$-vacuum sectors of the same Borromean linkage. |
+| Fractional quark charges $\pm 1/3, \pm 2/3 e$ | Witten Effect on $\mathbb{Z}_3$ symmetric $\theta$-vacua: $q_{eff} = n + \theta e/(2\pi)$, $\theta \in \{0, \pm 2\pi/3, \pm 4\pi/3\}$ | ✅ axiom-derived (as **effective** dressing — `clm-w8jn3q`) | Per [`topological-fractionalization.md`](topological-fractionalization.md). The three quark "flavors" are the three $\theta$-vacuum sectors of the same Borromean linkage. **🔵 RECONCILED 2026-06-23 (`clm-w8jn3q`, Grant-ratified):** these fractions are the EFFECTIVE appearance (a body-angular-momentum $\mathcal{J}$ dressing) of the FUNDAMENTAL integer charge $Q_{total} = +1e$ (the $\mathcal{Q}$ linking number, row "Charge $+e$" above); $\mathcal{Q}$ is invariant under the rigid-frame $\mathcal{J}$, so the fraction dresses without altering the integer. CLASS: FORM/CONSISTENCY — the denominator $3$ is the FED-IN observed loop count ($N$-generic; no 3-loop stability theorem; "why exactly 3" is the §1-property-2 OPEN item), NOT forced. |
 | Magnetic moment, gyromagnetic ratio | Derives from charge + spin + $m_p$ (eigenvalue) via standard QED machinery | ✅ axiom-derived | Composite of above. |
 | Stability against decay (free proton lifetime $> 10^{34}$ yr) | Ax2 TKI topology conservation (cinquefoil is irreducible; cannot decay to electron + neutrinos without breaking topology) | ✅ axiom-derived | Topological protection same mechanism as electron. |
 
@@ -122,7 +126,7 @@ If the **proton mass eigenvalue derivation is challenged** (e.g., $\mathcal{V}_{
 ---
 
 > → Primary: [`self-consistent-mass-oscillator.md`](self-consistent-mass-oscillator.md) — the mass eigenvalue equation + neutral core solution + baryon mass eigenvalue ($1835.12 + 1.0 = 1836.12$); framing #6 source
-> → Primary: [`topological-fractionalization.md`](topological-fractionalization.md) — Borromean confinement + Faddeev-Skyrme proton energy + Witten Effect fractional quark charges; framings #2 + #4 source
+> → Primary: [`topological-fractionalization.md`](topological-fractionalization.md) — Borromean confinement + Faddeev-Skyrme proton energy + Witten Effect fractional quark charges; framings #2 + #4 source; carries the canonical two-ontology reconciliation `clm-w8jn3q` (Witten fractions = effective $\mathcal{J}$-dressing of the fundamental integer charge $\mathcal{Q}$; denominator-3 FED-IN, CONSISTENCY-class)
 > → Primary: [`../../../vol3/condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md`](../../../vol3/condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md) — proton as $6_2^3$ Borromean linkage confined by cinquefoil + thermal softening derivation; framing #2 source
 > → Primary: `../ch01-topological-matter/electron-identification.md` (on sibling branch `analysis/electron-definition-canonical`, not yet merged to L3) — companion canonical-identification leaf for electron; shared mechanisms (Ax1 + Ax2 + Ax4)
 > ↗ See also: [`../../appendices/app-f-solver-toolchain/nuclear-eigenvalue.md`](../../appendices/app-f-solver-toolchain/nuclear-eigenvalue.md), [`../../../common/solver-toolchain.md`](../../../common/solver-toolchain.md) — cinquefoil saturated-core framing (#3)
