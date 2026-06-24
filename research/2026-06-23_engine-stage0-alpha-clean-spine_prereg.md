@@ -1,7 +1,7 @@
 # STAGE 0 PREREG — the α-clean spine lock (re-scoped Gate 0)
 
 **Created:** 2026-06-23 · implementer lane · branch `analysis/engine-stage0-alpha-clean-spine`
-**Epic:** [`_orchestration/2026-06-23_full-engine-pathway.md`](../_orchestration/2026-06-23_full-engine-pathway.md) Stage 0
+**Epic:** `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0 (lands on main via PR #387, merged; not duplicated into this branch — the link resolves once #399 rebases onto current main)
 **Supersedes:** the original Gate 0 (PR #394 HARD-STOP) which targeted the wrong
 host (`CosseratField3D` bakes Q=1/α). This re-scopes onto the α-clean foundation.
 
@@ -35,9 +35,10 @@ Frame circuit-native:
   potential (substrate-native-check CP10 — a bulk well detonates at the wall).
 - The resonator **Q is MEASURED by ring-down** — Hilbert-envelope decay,
   `Q = ω₀·τ/2`, `ringdown_Q` (`src/tests/engine_acceptance/_bulk.py:466`).
-  NEVER read from a closed form. The golden-torus α-echo Q = 4π³+π²+π ≈ 137
-  (`cosserat_field_3d.py:2425`; `ALPHA_COLD_INV` `constants.py:243`) IS the
-  contamination this stage exists to EXCLUDE.
+  NEVER read from a closed form. The α-echo VALUE Q = 4π³+π²+π ≈ 137
+  (`ALPHA_COLD_INV`, `constants.py:243`) — equivalently the GEOMETRIC
+  golden-torus Q-form 16π³(R·r)+4π²(R·r)+π·d (`cosserat_field_3d.py:2425`,
+  =137 at R·r=¼) — IS the contamination this stage exists to EXCLUDE.
 - The spine = the **α-free LC network**. The Q-determining mechanical quantities
   are α-free dimensionless ratios (`ν_vac=2/7`, `c_L²/c_T²=10/3`, K=2G), never α.
 
@@ -74,7 +75,8 @@ Frame circuit-native:
   decision): `cosserat_field_3d.py:56` imports `ALPHA`; `:115`
   `kappa_chiral_from_topology(p, q, alpha: float = ALPHA)` (the exact
   default-kwarg leak); `:131` `KAPPA_CHIRAL_ELECTRON = ALPHA * KAPPA_TILDE`;
-  `:2425` the golden-torus α-echo Q-form. **Stage 0 does NOT import the cosserat
+  `:2425` the geometric golden-torus Q-form (=137 at R·r=¼; the α-echo VALUE
+  literal lives at `constants.py:243`). **Stage 0 does NOT import the cosserat
   host into the engine globals.** Its α-free factor `KAPPA_TILDE_ELECTRON=6/5`
   (`:94`) is the only clean piece, and the spine host (`crystal_engine.py`) uses
   its OWN α-free `kappa_tilde=6/5` default — it never imports the cosserat module.

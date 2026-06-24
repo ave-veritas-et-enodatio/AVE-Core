@@ -1,15 +1,17 @@
 """STAGE 0 — the α-clean SPINE LOCK (re-scoped Gate 0). The immune-system
 foundation everything in the full-engine pathway stands on.
 
-Epic:  `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0
+Epic:  `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0 (lands on main
+       via PR #387, merged; not duplicated into this branch)
 Prereg: `research/2026-06-23_engine-stage0-alpha-clean-spine_prereg.md`
 Result: `research/2026-06-23_engine-stage0-alpha-clean-spine_result.md`
 Spine:  `_spine.py` (the α-clean assembly + the guard triad + the SOLE Q-extractor)
 
 ORIGIN — re-scoped from the original Gate 0 (PR #394 HARD-STOP). #394 targeted the
 WRONG host (`CosseratField3D` imports ALPHA :56, bakes KAPPA_CHIRAL=α·κ̃ :131,
-carries the golden-torus α-echo Q=4π³+π²+π≈137 :2425). This re-scopes onto the
-α-CLEAN foundation: the cold `CrystalEngine` BULK branch + `master_equation_fdtd`
+carries the geometric golden-torus Q-form :2425 — which equals the α-echo value
+Q=4π³+π²+π≈137 (ALPHA_COLD_INV, constants.py:243) at R·r=¼). This re-scopes onto
+the α-CLEAN foundation: the cold `CrystalEngine` BULK branch + `master_equation_fdtd`
 c_eff(V) cage, with the cosserat host NEVER imported into the spine.
 
 ════════════════════════════════════════════════════════════════════════════════

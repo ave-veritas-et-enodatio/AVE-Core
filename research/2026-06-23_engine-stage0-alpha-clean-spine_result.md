@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-23 · implementer lane · branch `analysis/engine-stage0-alpha-clean-spine`
 **Prereg:** [`2026-06-23_engine-stage0-alpha-clean-spine_prereg.md`](2026-06-23_engine-stage0-alpha-clean-spine_prereg.md) (FROZEN pre-run)
-**Epic:** [`_orchestration/2026-06-23_full-engine-pathway.md`](../_orchestration/2026-06-23_full-engine-pathway.md) Stage 0
+**Epic:** `_orchestration/2026-06-23_full-engine-pathway.md` Stage 0 (lands on main via PR #387, merged; not duplicated into this branch — the link resolves once #399 rebases onto current main)
 **Spine code:** `src/tests/engine_acceptance/_spine.py`
 **Tests:** `src/tests/engine_acceptance/test_stage0_alpha_clean_spine.py`
 
@@ -17,7 +17,7 @@ grid scaffold stands. **No α re-leak — no HARD-STOP triggered.**
 
 | Check | Outcome | Verdict |
 |---|---|---|
-| **S0.1** lossless cage → Q=∞ honestly | eigenframe Q=4.70e16 (Im(ω)=1.2e-17, machine-zero); time-domain `ringdown_Q`=∞ (1/Q=0). NOT 137. | **PASS** |
+| **S0.1** lossless cage → Q=∞ honestly | eigenframe Q~1e16 (Im(ω)≈1e-17, machine-zero FP residual; the specific scalar is non-deterministic across eigs runs — the verdict is band-robust, NOT the magnitude); time-domain `ringdown_Q`=∞ (1/Q=0). NOT 137. | **PASS** |
 | **S0.2** guard triad fires at module load | ALPHA/ALPHA_COLD_INV/Q_TANK/ELECTRON/RHO_BULK absent from `_spine`/`crystal_engine`/`master_equation_fdtd` globals; a deliberately-injected ALPHA TRIPS the assert (guard is LIVE). | **PASS** |
 | **S0.3** literal scrubber + landing-zone green | no `'137'`/`'0.00729'` in the spine code path; radiating cross-ref Q=30.754 (finite, NOT in the 117–157 α-leak band). | **PASS** |
 
@@ -32,9 +32,13 @@ grid scaffold stands. **No α re-leak — no HARD-STOP triggered.**
   engine modules' globals. The α-free `kappa_tilde=6/5` (the (2,3) topology
   factor) is the engine's own default; the contaminated cosserat host
   (`cosserat_field_3d.py` imports ALPHA :56, bakes KAPPA_CHIRAL=α·κ̃ :131,
-  carries the golden-torus α-echo Q=4π³+π²+π :2425) is NEVER imported.
+  carries the geometric golden-torus Q-form 16π³(R·r)+4π²(R·r)+π·d :2425 —
+  which equals the α-echo value Q=4π³+π²+π≈137 (`ALPHA_COLD_INV`,
+  `constants.py:243`) at R·r=¼) is NEVER imported.
 - **Q=∞ honest (not 137)?** YES. The rigorous lossless witness is the EIGENFRAME
-  (closed-port Hermitian, Im(ω)=1.2e-17 ⇒ Q=4.70e16 ≈ ∞), MEASURED off the
+  (closed-port Hermitian, Im(ω)≈1e-17 ⇒ Q~1e16 ≈ ∞; the Im(ω) is a machine-zero FP
+  residual whose specific magnitude is non-deterministic across eigs runs — the
+  Q=∞ verdict is band-robust, the scalar is not reproducible), MEASURED off the
   eigensolve, never a closed form. The golden-torus α-echo Q≈137 never appears —
   it cannot, because no α-carrier is in scope. The radiating cross-ref cage gives
   a finite Q=30.754 (the corpus T3.4 value), also NOT 137 — the α-free cold cage
@@ -53,9 +57,19 @@ The prereg predicted the cold lossless cage "rings down to Q=∞ honestly **via
 `ringdown_Q`**". Live-fire (Rule 10, run the driver early) surfaced a real
 subtlety the static prereg missed:
 
+> **TWO-CAGE FOUNDATION (Finding 2 nuance).** The PRIMARY witness (the eigenframe:
+> a saturated-core CONFINED cage) and the CORROBORATING witness (the time-domain
+> ring-down: a LINEAR empty-box STANDING mode) are TWO DISTINCT lossless cages —
+> different geometry, different regime, different observable. They AGREE on the
+> ideal lossless Q=∞ limit. The foundation statement is that **two-cage agreement**,
+> not a single-cage claim: an isolated cage's Q could be a geometry artifact, but
+> two distinct cages converging on Q=∞ is the robust substrate property.
+
 - **The eigenframe is the rigorous lossless witness.** With the EM port CLOSED
   (Γ_EM=−1, fully confined) the isolation operator is Hermitian ⇒ Im(ω)=0 ⇒
-  Q=∞ (Q=4.70e16). This is tuning-independent and is the substrate-native
+  Q=∞ (Q~1e16; Im(ω)≈1e-17 is a machine-zero FP residual whose specific magnitude
+  is non-deterministic across eigs runs — band-robust verdict, non-reproducible
+  scalar). This is tuning-independent and is the substrate-native
   statement of "lossless": a perfectly-reflecting Γ=−1 boundary stores energy
   and dissipates none ⇒ infinite Q. (Corpus precedent: GATE2,
   `test_graded_vacuum_network_isolation.py:92`, Q=1.4e16.)

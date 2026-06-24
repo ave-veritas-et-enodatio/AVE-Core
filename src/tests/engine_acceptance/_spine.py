@@ -1,6 +1,7 @@
 """STAGE 0 — the α-clean spine: the immune-system foundation everything stands on.
 
-Re-scoped Gate 0 (epic `_orchestration/2026-06-23_full-engine-pathway.md`).
+Re-scoped Gate 0 (epic `_orchestration/2026-06-23_full-engine-pathway.md`, which
+lands on main via PR #387 (merged); not duplicated into this branch).
 Prereg: `research/2026-06-23_engine-stage0-alpha-clean-spine_prereg.md`.
 
 ═══════════════════════════════════════════════════════════════════════════════
@@ -21,9 +22,10 @@ THE ARMED α-LEAK IMMUNE SYSTEM (the reason this stage exists):
     `charge_quantization.py:104`.
   * Q IS MEASURED, NEVER BAKED: the SOLE Q-extractor is `ringdown_Q`
     (`_bulk.py:466`) — a Hilbert-envelope decay fit, Q=ω₀·τ/2, α-FREE by
-    construction. The golden-torus α-echo Q=4π³+π²+π≈137
-    (`cosserat_field_3d.py:2425`) is EXCLUDED from the dynamical spine: this
-    module never imports the cosserat host.
+    construction. The α-echo value Q=4π³+π²+π≈137 (`ALPHA_COLD_INV`,
+    `constants.py:243`) — equivalently the geometric golden-torus Q-form
+    16π³(R·r)+4π²(R·r)+π·d (`cosserat_field_3d.py:2425`, =137 at R·r=¼) — is
+    EXCLUDED from the dynamical spine: this module never imports the cosserat host.
 
 VCA FRAMING (Grant directive — circuit-native):
   The Γ=−1 wall = the impedance short (Z_core→0 as A→1; α-free Z_eff=√S route,
@@ -227,6 +229,7 @@ def assert_no_alpha_literal_in_spine() -> None:
         inspect.getsource(make_lossless_cage)
         + inspect.getsource(seed_linear_standing_eigenmode)
         + inspect.getsource(lossless_ringdown_Q)
+        + inspect.getsource(eigenframe_lossless_Q)  # S0.1 PRIMARY verdict path
         + inspect.getsource(shared_grid_descriptor)
     )
     for lit in _FORBIDDEN_VALUE_LITERALS:
@@ -244,7 +247,16 @@ def assert_spine_globals_alpha_clean() -> None:
     import ave.core.master_equation_fdtd as _me
 
     forbidden = ("ALPHA", "ALPHA_COLD_INV", "Q_TANK", "ELECTRON", "RHO_BULK")
-    for mod, name in ((_ce, "crystal_engine"), (_me, "master_equation_fdtd"), (None, "_spine")):
+    # `_bulk` (=`B`) is a SPINE module too (imported at `_spine.py:66`) and reaches
+    # the bulk constitutive (RHO_BULK/C_0/G_VAC/V_LONG) — it MUST be in scope. The
+    # bare magnitudes are kept OUT of `_bulk`'s globals by lazy-import (`_bulk.py`
+    # `c_bulk_over_c0_linear`/`Z_bulk`), so `_bulk` PASSES the same triad.
+    for mod, name in (
+        (_ce, "crystal_engine"),
+        (_me, "master_equation_fdtd"),
+        (B, "_bulk"),
+        (None, "_spine"),
+    ):
         ns = globals() if mod is None else vars(mod)
         for sym in forbidden:
             assert sym not in ns, (
