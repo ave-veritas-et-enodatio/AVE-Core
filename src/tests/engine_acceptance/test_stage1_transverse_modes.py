@@ -17,8 +17,9 @@ STAGE 1 FROZEN-BIN OUTCOMES (BRUTAL HONESTY — Rule 11)
   S1.1  the 2 modes SPLIT the RIGHT way off S=1 (driven smoke-check):  the substance.
         As A rises (S falls below 1): c_EM/c₀=1/S RISES > 1; c_shear/c₀=√S FALLS < 1.
         Opposite directions, monotonic — they diverge from the c₀ degeneracy. The
-        wave-typing is wired: c_EM reads the ε,μ PHASE constitutive, c_shear reads
-        the G √S identity (DIFFERENT moduli). NOT the full near-yield validation
+        wave-typing is wired: c_EM reads the ε,μ PHASE constitutive (TWO live
+        moduli), c_shear is the √S identity ATTRIBUTED to G (NO live modulus read —
+        the G-engine is deferred to Stage 4). NOT the full near-yield validation
         (Stage 4) — the sub-yield sanity check that the 2 modes are genuinely
         distinct + wave-typed. STOP-and-report if they don't split or split wrong.
   S1.2  the THREE indices are PINNED, the legacy alias is HARD-SCOPED:  CONSISTENCY.
@@ -79,8 +80,9 @@ def test_S1_1_driven_split_em_rises_shear_falls():
     EM-transverse PHOTON (c_EM=c₀/S) RISES above c₀ while the transverse SHEAR
     (c_shear=c₀·√S) FALLS below c₀ — they diverge from the cold c₀ degeneracy in
     OPPOSITE directions. This confirms the 2 modes are genuinely DISTINCT and the
-    wave-typing is wired (c_EM ← ε,μ PHASE constitutive; c_shear ← G √S identity;
-    DIFFERENT moduli, never substituted).
+    wave-typing is wired (c_EM ← ε,μ PHASE constitutive — TWO live moduli read;
+    c_shear ← the √S identity ATTRIBUTED to G — NO live modulus read here, the
+    G-engine is deferred to Stage 4; the two channels are never substituted).
 
     REGIME (ave-regime-phase-state-check): MODE = 2 transverse DOF (BOTH channels);
     REGIME = sub-yield linear→weak (A ≤ 0.6, below near-yield r₂=0.866); PHASE-STATE
@@ -99,7 +101,7 @@ def test_S1_1_driven_split_em_rises_shear_falls():
     TX.assert_canonical_constants()
     A = np.array([0.0, 0.2, 0.4, 0.6])
     c_em = np.asarray(TX.c_em_phase_over_c0(A), dtype=float)      # ε,μ PHASE constitutive
-    c_sh = np.asarray(TX.c_shear_over_c0(A), dtype=float)         # G √S identity
+    c_sh = np.asarray(TX.c_shear_over_c0(A), dtype=float)         # √S identity (attrib. G; Stage-4 engine)
     S = TX.S_of_A(A)
 
     print("\n--- S1.1 driven split (sub-yield smoke-check; NOT the Stage-4 validation) ---")
@@ -125,11 +127,13 @@ def test_S1_1_driven_split_em_rises_shear_falls():
         f"S1.1 STOP: modes did NOT split in OPPOSITE directions — "
         f"c_EM/c₀={c_em}, c_shear/c₀={c_sh}"
     )
-    # (d) wave-typing wired: the two speeds read DIFFERENT moduli — c_EM=1/S and
-    #     c_shear=√S are NOT equal off S=1 (the conflation would make them equal).
+    # (d) wave-typing wired: the two speeds carry DISTINCT forms — c_EM=1/S (the
+    #     ε,μ read) and c_shear=√S (the identity attributed to G) are NOT equal off
+    #     S=1 (the conflation would make them equal).
     assert np.all(np.abs(c_em[off] - c_sh[off]) > 1e-3), (
         f"S1.1 STOP: c_EM and c_shear read the SAME form off S=1 — the c_EM↔c_shear "
-        f"category error (ave-kb/CLAUDE.md:71). c_EM={c_em}, c_shear={c_sh}"
+        f"category error (ave-kb/CLAUDE.md:77-86, the 'Two distinct effective wave "
+        f"speeds' Pitfall #5 block). c_EM={c_em}, c_shear={c_sh}"
     )
     # (e) numeric anchor: c_EM=1/S and c_shear=√S to the canonical forms.
     assert np.allclose(c_em, 1.0 / S, rtol=1e-9), "c_EM must equal 1/S (PHASE constitutive)"
@@ -155,6 +159,13 @@ def test_S1_2_three_indices_pinned_and_alias_hard_scoped():
     PRE-REGISTERED BINS (frozen): PASS = all three identities hold at every swept A;
     the alias points at n_em_index() on BOTH engines; phase≠group off S=1.
     FAIL = any index drifts off canonical form / alias points elsewhere / phase==group.
+
+    SELF-CONTAINMENT (Stage-1 audit Finding 3, 2026-06-23): reciprocity (n_em·n_shear
+    ==1) and the alias (alias==n_em) are BOTH invariant under a reciprocal-preserving
+    role-swap (n_em→1/√S, n_shear→√S). To catch that swap with S1.2 ALONE (not only
+    via the inherited test_gamma_sign_gate.py:127-128), part (2) now also pins the
+    ABSOLUTE branch on the engine: n_em=√S (<1 in the strained core) / n_shear=1/√S
+    (>1), and n_em ≡ √S of the engine's own kernel. Verified to trip the swap.
     """
     from ave.core.master_equation_fdtd import MasterEquationFDTD
     from ave.core.crystal_engine import CrystalEngine
@@ -183,15 +194,48 @@ def test_S1_2_three_indices_pinned_and_alias_hard_scoped():
         (CrystalEngine, dict(N=16)),
     ):
         e = Engine(**kw)
-        # seed a sub-yield field so S<1 somewhere (the index forms are nontrivial)
+        # Seed a sub-yield strained core (A_peak=0.5 → S<1) so the index forms are
+        # NONTRIVIAL. CRITICAL (Stage-1 audit Finding 3): use each engine's OWN
+        # native seeder — CrystalEngine has NO inject_gaussian, so the legacy
+        # `if hasattr(e,"inject_gaussian")` guard SKIPPED it and left V≡0 (S=1
+        # everywhere), making the whole CrystalEngine branch VACUOUS (n_em=n_shear=1,
+        # the √S-vs-1/√S distinction had zero discriminating power). Seed both.
         if hasattr(e, "inject_gaussian"):
-            e.inject_gaussian((8, 8, 8), 2.0, 0.5 * e.V_yield)
+            e.inject_gaussian((8, 8, 8), 2.0, 0.5 * e.V_yield)        # FDTD native
+        elif hasattr(e, "seed_bulk"):
+            e.seed_bulk((8, 8, 8), 2.0, frac=0.5, helical=False)     # Crystal native
+        else:  # pragma: no cover
+            raise AssertionError(f"{Engine.__name__}: no native sub-yield seeder")
         n_em = np.asarray(e.n_em_index())
         n_sh = np.asarray(e.n_shear_index())
         n_alias = np.asarray(e.refractive_index())
         # the engine n_em_index is the GROUP index √S; n_shear is its reciprocal 1/√S
         assert np.allclose(n_em * n_sh, 1.0, rtol=1e-9), (
             f"{Engine.__name__}: n_em_index·n_shear_index must be 1 (reciprocal)"
+        )
+        # ── ABSOLUTE-BRANCH PIN (Stage-1 audit Finding 3, self-containment) ──────
+        # Reciprocity + the alias are BOTH symmetric under a role-swap (n_em→1/√S,
+        # n_shear→√S, alias follows): that swap preserves n_em·n_shear==1 AND
+        # alias==n_em, so it slips past both asserts above. The absolute branch
+        # breaks the symmetry. Previously this pin lived ONLY in the inherited
+        # test_gamma_sign_gate.py:127-128; assert it HERE so S1.2 is self-contained
+        # and catches a reciprocal-preserving swap on its own.
+        S_engine = np.asarray(e.saturation_kernel(e.V))   # the engine's OWN S
+        strained = np.asarray(e.strain_field()) > 1e-6    # where S < 1 (cold cells = 1)
+        assert strained.any(), (
+            f"{Engine.__name__}: the sub-yield seed must strain SOME cell (S<1) for "
+            f"the absolute-branch pin to discriminate — none strained (seeder no-op?)"
+        )
+        # n_em is the √S branch (< 1 in the core), n_shear is the 1/√S branch (> 1):
+        assert np.all(n_em[strained] < 1.0) and np.all(n_sh[strained] > 1.0), (
+            f"{Engine.__name__}: ABSOLUTE branch wrong — n_em_index must be √S (<1 "
+            f"strained) and n_shear_index 1/√S (>1); a reciprocal-preserving role-swap "
+            f"would trip exactly here"
+        )
+        # and pin n_em to √S on the engine's OWN S engine-wide (NOT 1/√S):
+        assert np.allclose(n_em, np.sqrt(S_engine), rtol=1e-9), (
+            f"{Engine.__name__}: n_em_index must equal √S of the engine's own kernel "
+            f"(the GROUP index), NOT 1/√S — the role-swap reads 1/√S here"
         )
         # the alias is HARD-SCOPED to n_em_index (the GROUP index) — NOT n_shear.
         assert np.allclose(n_alias, n_em, rtol=1e-12), (
@@ -201,7 +245,8 @@ def test_S1_2_three_indices_pinned_and_alias_hard_scoped():
         assert not np.allclose(n_alias, n_sh, rtol=1e-3) or np.allclose(n_em, n_sh), (
             f"{Engine.__name__}: the alias must NOT silently read n_shear"
         )
-        print(f"  {Engine.__name__}: n_em·n_shear=1 (reciprocal) ✓; "
+        print(f"  {Engine.__name__}: n_em·n_shear=1 (reciprocal) ✓; n_em=√S<1 / "
+              f"n_shear=1/√S>1 in the core (ABSOLUTE branch) ✓; "
               f"refractive_index() is n_em_index() (GROUP √S) ✓")
     print("  → the three indices are PINNED; the alias is HARD-SCOPED to the EM GROUP")
     print("    index → Stage 4 cannot silently re-conflate c_EM and c_shear.")

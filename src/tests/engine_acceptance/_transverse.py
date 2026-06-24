@@ -7,11 +7,15 @@ Prereg: `research/2026-06-23_engine-stage1-transverse-modes_prereg.md`.
 WHAT THIS MODULE IS (and is NOT)
 ═══════════════════════════════════════════════════════════════════════════════
 The 2 transverse DOF (the srs vector field's 2 polarizations) carry BOTH the
-EM-transverse PHOTON (ε,μ modulus → c_EM=c₀/S) AND the transverse SHEAR/GW
-(G modulus → c_shear=c₀·√S). At S=1 (cold) these are DEGENERATE at c₀; the split
+EM-transverse PHOTON (ε,μ moduli → c_EM=c₀/S) AND the transverse SHEAR/GW
+(c_shear=c₀·√S, the identity ATTRIBUTED to the G modulus — the G-engine itself is
+deferred to Stage 4, so c_shear reads NO live modulus here). At S=1 (cold) these
+are DEGENERATE at c₀; the split
 is DRIVEN-only. This module provides the WAVE-TYPED constitutive speeds — each
 keyed by WHICH MODULUS responds — so the twice-conflated c_EM↔c_shear category
-error (`ave-kb/CLAUDE.md:71`) cannot recur.
+error (`ave-kb/CLAUDE.md:77-86`, the "Two distinct effective wave speeds" block:
+Pitfall #5 framework-leakage; conflating them is the documented 3-A3 walk-back)
+cannot recur.
 
 THE THREE LIVE INDICES (canonical taxonomy, ave-kb/CLAUDE.md:79-80, clm-8nkvwy):
   * n_EM PHASE  = S       → c_EM   = c₀/S    (Maxwell phase velocity; the α-speed)
