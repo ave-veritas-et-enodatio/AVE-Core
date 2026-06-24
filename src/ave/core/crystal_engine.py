@@ -445,11 +445,16 @@ class CrystalEngine:
         return self.saturation_kernel(self.V) ** (-0.5)
 
     def refractive_index(self) -> np.ndarray:
-        """Back-compat alias = the EM-transverse index n_EM = S(A)^{+1/2} → 0 in
-        the saturated core. The historical callers (gamma_bulk, the v14 Mode-I /
+        """Back-compat alias = the EM-transverse GROUP index n_EM = S(A)^{+1/2} → 0
+        in the saturated core. The historical callers (gamma_bulk, the v14 Mode-I /
         cage / apparatus-floor diagnostics) all read the "n→0 in core" sense, so
         this preserves that direction at the CORRECTED ½ magnitude. New code
-        should call the wave-typed n_em_index() / n_shear_index() explicitly."""
+        should call the wave-typed n_em_index() / n_shear_index() explicitly.
+
+        HARD-SCOPED (Stage 1, `test_stage1_transverse_modes.py::S1.2`): PINNED to the
+        EM GROUP index √S (NOT the PHASE index S, NOT n_shear=1/√S). The Stage-1
+        wave-typing gate fails if the alias drifts, so Stage 4 (which inherits this)
+        cannot silently re-conflate c_EM and c_shear. See ave-kb/CLAUDE.md:79-80."""
         return self.n_em_index()
 
     def gamma_bulk(self) -> dict:
