@@ -30,9 +30,19 @@
 > winding does not co-bind with the bound mass mode"* — which is itself **consistent with canon** (the
 > real-space body is an unknot, not a torus knot). It does **NOT** establish "no electron carrying both mass
 > and charge": the charge-winding's canonical home — the **phase-space A1↔ω coupling circulation** (Grant's
-> "coupling profile" / the resonantly-matched LC-tank winding) — is **UNTESTED here.** The phase-space
-> coupling-locus re-test (the proper version of gate d) is scoped separately. Read this as a real-space null,
-> not a wall. Ties to the pre-existing real-space-vs-phase-space tension (task #37, `def-kn0t01`).
+> "coupling profile" / the resonantly-matched LC-tank winding) — was **UNTESTED here** at the time of writing.
+> Read this as a real-space null, not a wall. Ties to the pre-existing real-space-vs-phase-space tension
+> (task #37, `def-kn0t01`).
+>
+> **UPDATE (2026-06-24) — the phase-space coupling locus is now tested NEGATIVE** (the phase-space
+> coupling-winding test, `research/2026-06-24_engine-phase-space-winding_result.md`): under the conservative
+> unitary evolver the inter-grade A1↔ω orbit closes and energy sloshes ~47% between sectors while an integer
+> holds — but that integer is the **carrier (oscillator) ratio** (tracks ω_b:ω_s under detuning), **not** the
+> topological (2,3). So the (2,3) does NOT re-emerge as a conserved dynamical time-orbit either. **Both loci
+> now read negative.** Scope (Rule 12, substitution-not-retraction): this denies a *dynamical-orbit* home; it
+> does NOT touch **charge = Link(∂Ω, F)** (the static boundary integer — un-walked-back) — the seed's (2,3) IS
+> a real **static** geometric Clifford-torus texture (validate-on-known sees it where planted). Charge is static
+> topology, not a dynamical/energetic mode.
 
 **Single-mechanism honest closure (Rule 11):** the b_ω block `ω_s·I − c²·L_D`
 shares the **SAME** stiff-core stiffness `D = 1/S(A)` as the A1 block, so its OWN
