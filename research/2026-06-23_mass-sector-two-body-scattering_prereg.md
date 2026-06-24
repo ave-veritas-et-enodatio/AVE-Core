@@ -64,6 +64,17 @@ The gravity mechanism is driven by `A²(r)=|V|²/V_yield²` — the **saturation
 
 ## §2 — Frozen configuration (from canonical Mode-I seed; reused, not re-derived)
 
+> **🔴 AMENDMENT — 2026-06-23 (audit w1ni1axfg; Rule-12; F1 seed swap).** *The
+> frozen table below (the r10 Test-C literal: N=32, amp=0.95·V_yield, R=2.0,
+> DX=1.0, center-cell metric) was NOT the config actually run. The driver
+> substituted the VALIDATED canonical v14 breather (N=24, amp=0.85·V_yield,
+> R=2.5, DX=0.5, V_peak metric — `test_master_equation_v14_mode_i.py` 5/5 PASS
+> on HEAD) because the r10-literal seed FAILS r10 Test-C's own C1 persistence
+> gate (V_center_ratio=−0.089; the bare sech disperses). The frozen body below
+> is PRESERVED VERBATIM (audit-trail); for THIS run it is SUPERSEDED by the
+> validated-v14 config. Full amendment table in the result doc §1.8. Any future
+> re-freeze must adopt the validated config explicitly.*
+
 All constants imported from `ave.core.constants` (ave-canonical-source). Seed-reuse reference: `r10_master_equation_v14.py` Test C (lines 243-300).
 
 | Parameter | Value | Source |
