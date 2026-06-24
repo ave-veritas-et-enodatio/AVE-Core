@@ -5,6 +5,23 @@
 
 > **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
+## 2026-06-23 Lattice Dynamic-Regime Discovery Program (epic CHARTERED — lanes live)
+
+**Authoritative for the current discovery board** (parallel to, not superseding, the engine + manuscript epics below). Origin: the lattice-characterization white-space survey (2026-06-23). Full epic + lane charters + per-lane status tracker: [`2026-06-23_lattice-discovery-program.md`](2026-06-23_lattice-discovery-program.md).
+
+Survey meta-finding: AVE's STATICS + DC/linear regimes are characterized; the **DYNAMIC / many-body / finite-frequency / full-spectrum** regimes are wide open, and the gap is **engineering** (driver code for the settled S(A) kernel), not theory. This is the discovery half of the testing pivot.
+
+### Active discovery lanes (orchestrator-tracked; worktree-isolated background implementers)
+
+| Lane | Pri | Status | Validate-on-known gate |
+|:---:|:---|:---|:---|
+| **A** soliton scattering | P0 lead | LIVE | b=0 head-on → a_s SIGN vs known e-e repulsion |
+| **B** Cosserat band structure (+C) | P1 | LIVE | recover c_EM/c_shear/the k=0 gap → then full BZ + topology |
+| **D-gate** coprime-odd-q rule | P2 | LIVE | rule must recover known electron/proton/(2,q) ladder first |
+| D-full / T (transport) / N (χ³) | — | GATED / deferred | on D-gate / Lane A / behind A·B |
+
+Per-lane discipline: validate-on-known FIRST, pre-register the sign, refute-by-default orchestrator audit (read-AND-run) before any landing, CONSISTENCY-vs-CHORD labeling. Lanes produce reviewed PRs; Grant merges; no self-merge.
+
 ## 2026-06-18 reconciliation (engine merges landed + manuscript stack active)
 
 **Authoritative for current board state.** Supplements §2026-06-16; does not reopen the genesis arc.
