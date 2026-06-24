@@ -1,0 +1,133 @@
+{
+  "prereg": "research/2026-06-23_engine-stage2-native-cage_prereg.md",
+  "frozen_update": "V^{n+1} = 2V^n - V^{n-1} - dt^2*c0^2*L_native[V^n] (MINUS)",
+  "primary_N24": {
+    "verdict": "MODE_III_DISPERSE",
+    "bins": {
+      "I-1 mean V_peak > 0.2": false,
+      "I-2 breathing std/mean > 0.05": true,
+      "I-3 not diverging std/mean < 0.5": false,
+      "I-4 saturation engaged n_EM < 0.97": true,
+      "I-5 above radiation floor (>1.5x gaussian late)": false,
+      "I-6 bounded max|V| < 10": true
+    },
+    "sech": {
+      "v_peak_mean_post": 0.06636967920368946,
+      "v_peak_std_over_mean_post": 0.6457302836730271,
+      "n_em_min_over_window": 0.7875204806062003,
+      "max_abs_over_run": 0.7844528126796003,
+      "gamma_bulk_min_over_run": -0.11886829924418081,
+      "dt": 0.6601134646922477,
+      "rho_measured": 1.4687327915437567,
+      "dt_cartesian_sanity": 0.0036514837167011074
+    },
+    "gaussian_control": {
+      "v_peak_mean_post": 0.048528724636730844,
+      "disperses": true
+    }
+  },
+  "n_robustness": {
+    "20": {
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.04047959998121205,
+      "std_over_mean": 0.83536605402138,
+      "gaussian_late": 0.03367388794847595,
+      "gaussian_disperses": true,
+      "max_abs": 0.7840581285045759,
+      "dt": 0.6620978772086168,
+      "rho": 1.4599419341262194
+    },
+    "32": {
+      "verdict": "MODE_III_DISPERSE",
+      "v_peak_mean_post": 0.10028313359135194,
+      "std_over_mean": 0.5315640787566075,
+      "gaussian_late": 0.06504236288490707,
+      "gaussian_disperses": true,
+      "max_abs": 0.7844644835121685,
+      "dt": 0.6600546946900554,
+      "rho": 1.468994349480826
+    }
+  },
+  "n_robust_agree": true,
+  "cartesian_reference_C1": {
+    "v_peak_mean_post": 0.6232852960118589,
+    "v_peak_std_over_mean_post": 0.2868539736778114,
+    "n_em_min_over_window": 0.6053699491239438,
+    "max_abs_over_run": 0.5076584427304632,
+    "reproduces_v14_mode_i": true
+  },
+  "gamma_deepening": {
+    "gamma_t0": -0.11886829924418081,
+    "gamma_min_over_run": -0.11886829924418081,
+    "deepened_below_t0": false,
+    "sign_safe_always_negative": true
+  },
+  "apparatus_valid_control_disperses": true,
+  "dt_robustness": {
+    "0.6600": {
+      "sech": {
+        "dt": 0.66,
+        "nsteps": 228,
+        "peak_max": 0.7844753441159343,
+        "max_abs_run": 0.7844753441159343,
+        "mean_post": 0.173535016235336,
+        "som": 0.4864581220088024,
+        "unstable": false
+      },
+      "gaussian_mean_post": 0.13593960103647582,
+      "gaussian_unstable": false,
+      "self_focuses_above_seed": false
+    },
+    "0.1650": {
+      "sech": {
+        "dt": 0.165,
+        "nsteps": 910,
+        "peak_max": 1.001283053375067,
+        "max_abs_run": 1.001283053375067,
+        "mean_post": 0.5398554315649309,
+        "som": 0.38350511170327334,
+        "unstable": false
+      },
+      "gaussian_mean_post": 0.40975368817094576,
+      "gaussian_unstable": false,
+      "self_focuses_above_seed": true
+    },
+    "0.0660": {
+      "sech": {
+        "dt": 0.066,
+        "nsteps": 2273,
+        "peak_max": 5.484106241899682,
+        "max_abs_run": 5.484106241899682,
+        "mean_post": 1.1341081586943556,
+        "som": 0.5098349395553777,
+        "unstable": false
+      },
+      "gaussian_mean_post": 0.5111191977163896,
+      "gaussian_unstable": false,
+      "self_focuses_above_seed": true
+    },
+    "0.0264": {
+      "sech": {
+        "dt": 0.0264,
+        "nsteps": 5682,
+        "peak_max": 15.581609989730248,
+        "max_abs_run": 15.581609989730248,
+        "mean_post": 1.912864472201723,
+        "som": 1.1353907935500782,
+        "unstable": true
+      },
+      "gaussian_mean_post": 0.542227293669435,
+      "gaussian_unstable": false,
+      "self_focuses_above_seed": true
+    },
+    "linear_control_amp0.02_dt0.066": {
+      "dt": 0.066,
+      "nsteps": 2273,
+      "peak_max": 0.03234950190047008,
+      "max_abs_run": 0.03234950190047008,
+      "mean_post": 0.015462804807919296,
+      "som": 0.40811604039598937,
+      "unstable": false
+    }
+  }
+}
