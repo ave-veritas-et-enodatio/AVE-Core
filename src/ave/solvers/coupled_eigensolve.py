@@ -142,3 +142,117 @@ def _build_seeded_sim(cfg: CoupledEigenConfig, *, winding_on: bool) -> CoupledCa
     sim.seed_A1_sech(amplitude=cfg.a1_amplitude, radius=cfg.a1_radius)
     sim.seed_winding(amplitude=1.0)
     return sim
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 1. THE CORE EIGENSOLVE — extract the bound cluster of the coupled Hermitian H
+# ═════════════════════════════════════════════════════════════════════════════
+def _interior_radius(N: int) -> np.ndarray:
+    """Radius-from-center field (N,N,N), the real-space localization coordinate."""
+    c = N // 2
+    i, j, k = np.indices((N, N, N))
+    return np.sqrt((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2)
+
+
+def _decompose_eigenvector(v: np.ndarray, sim: CoupledCageWinding) -> dict:
+    """Split a coupled eigenvector into its A1 and b_ω sector content + read the
+    real-space localization of each grade (the genesis-24 BOTH-conserved cert).
+
+    Returns the per-sector NORM FRACTIONS (a1_frac + bw_frac = 1), the A1-core
+    localization (core_frac), the fraction of the b_ω norm ON the winding torus
+    (bw_on_torus — the (d) winding-presence witness, NOT bled into the A1 core),
+    and the (2,3) winding integer read off the b_ω QUADRATURE-INVARIANT |b_ω|·ê_w
+    (the winding-host read, robust to the LC L-state quadrature zeros)."""
+    N, nd = sim.N, sim.ndof
+    a1 = v[:nd]
+    bw = v[nd:]
+    n_a1 = float(np.sum(np.abs(a1) ** 2))
+    n_bw = float(np.sum(np.abs(bw) ** 2))
+    tot = n_a1 + n_bw + 1e-300
+
+    r = _interior_radius(N)
+    rflat = r.reshape(nd)
+    core = rflat <= 4.0  # the A1 stiff-core localization mask (fork-b core scale)
+    pa = np.abs(a1) ** 2
+    pa = pa / (pa.sum() + 1e-300)
+    a1_core_frac = float(pa[core].sum())
+
+    # the winding torus shell (where ê_w lives — the (2,3) winding template).
+    bwr = np.abs(bw.reshape(N, N, N))
+    torus = (r > sim.cfg.R - 2.0) & (r < sim.cfg.R + 2.0)
+    bw_norm = float((bwr ** 2).sum()) + 1e-300
+    bw_on_torus = float((bwr[torus] ** 2).sum() / bw_norm)
+
+    # the (2,3) winding integer of the eigenstate's b_ω grade (QUADRATURE-INVARIANT
+    # winding-host read: ω = |b_ω|·ê_w; NEVER Re(b_ω), which the LC L-state zeros).
+    omega_recon = bwr[..., None] * sim.e_w
+    q = compute_Q_link(omega_recon, sim.cfg.R, sim.cfg.r)
+
+    return {
+        "a1_frac": n_a1 / tot,
+        "bw_frac": n_bw / tot,
+        "a1_core_frac": a1_core_frac,
+        "bw_on_torus": bw_on_torus,
+        "winding_Q_link": int(q["Q_link"]),
+        "winding_w_tor": int(q["w_tor"]),
+        "winding_Q_raw": float(q["Q_link_raw"]),
+    }
+
+
+def solve_coupled_spectrum(cfg: CoupledEigenConfig, *, winding_on: bool | None = None) -> dict:
+    """Eigensolve the coupled Hermitian H at the SMALLEST-algebraic (most-bound)
+    end (the sign-flip: the stiff-core breather is the LOWEST-w eigenvalue of H,
+    NOT the highest, because the A1 block is ω_b·I − c²·L_D).
+
+    Returns the bound cluster (the most-bound LEVEL, degeneracy-aware), its gap to
+    the next level, the per-sector decomposition of its most-A1-core-localized
+    member, and the fork-b breathing frequency ω_bound = √((ω_b − w_H)/c²) for the
+    HALT comparison. Im(ω)=0 EXACTLY (Hermitian closed cage — gate c structural).
+    α-FREE."""
+    from scipy.sparse.linalg import eigsh
+
+    won = cfg.winding_on if winding_on is None else winding_on
+    sim = _build_seeded_sim(cfg, winding_on=won)
+    H = sim._assemble_H()
+    # SA = smallest-algebraic: the most-bound end (the sign-flipped stiff core).
+    vals, vecs = eigsh(H, k=cfg.k_eigs, which="SA")
+    order = np.argsort(vals)
+    vals = vals[order]
+    vecs = vecs[:, order]
+
+    # the bound LEVEL = the most-bound cluster (cluster-aware, degeneracy-safe; the
+    # core breather is multiply degenerate by symmetry — fork-b _cluster_spectrum).
+    clusters = _cluster_spectrum(np.sort(vals - vals.min() + 1e-12))
+    bound_w = float(vals.min())
+    # gap = separation of the most-bound level from the next-higher level.
+    bound_mult = clusters[0][1] if clusters else 1
+    next_idx = min(bound_mult, len(vals) - 1)
+    gap_to_next = float(vals[next_idx] - vals[0])
+
+    # pick the most A1-core-localized member of the bound level (fork-b selector).
+    best = None
+    for idx in range(bound_mult):
+        d = _decompose_eigenvector(vecs[:, idx], sim)
+        if best is None or d["a1_core_frac"] > best["a1_core_frac"]:
+            best = {**d, "idx": int(idx), "w_H": float(vals[idx])}
+
+    # fork-b breathing frequency: H_A1 = ω_b·I − c²·L_D ⇒ L_D-eig = ω_b − w_H ⇒
+    # fork-b ω = √(L_D-eig) (c_A1=1). This is the HALT-gate comparison frequency.
+    ld_eig = sim.cfg.omega_b - bound_w
+    forkb_omega = float(np.sqrt(abs(ld_eig)))
+
+    return {
+        "ok": True,
+        "winding_on": won,
+        "N": cfg.N,
+        "bound_w_H": bound_w,
+        "bound_multiplicity": int(bound_mult),
+        "gap_to_next": gap_to_next,
+        "forkb_omega": forkb_omega,          # the dimensionless ω_bound (FORM)
+        "n_clusters_in_window": len(clusters),
+        "spectrum_window": [float(x) for x in vals[:8]],
+        "bound_mode": best,
+        # Im(ω)=0 EXACTLY (Hermitian) — the lossless reactive cage (gate c).
+        "omega_im": 0.0,
+        "lossless": True,
+    }
