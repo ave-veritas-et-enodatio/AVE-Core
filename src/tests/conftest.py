@@ -57,6 +57,12 @@ _ENGINE_SIM_TESTS = {
     # OOM-crashed its xdist worker on the CI runner under parallel memory pressure (#386 run 1,
     # "node down: Not properly terminated"). Same cost+role tier; coverage via make test-engine.
     "test_fork_b_saturation_tank.py::test_gate2_armB_pooled_reconfine_rate_sweep",
+    # S2 H_couple criterion-3 + full-gate: invoke the REAL CrystalGraftV4 (S1
+    # reachable-False slaved-arm discriminator, N=48 engine evolution). T2 driver
+    # cost+role; the rest of the S2 suite (pure-numpy skew-Hermitian dynamics) STAYS
+    # gating. Coverage via make test-engine.
+    "test_s2_hcouple.py::test_s2_criterion_3_independence_slaved_arm_reachable_false",
+    "test_s2_hcouple.py::test_s2_full_gate_verdict_pass",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
