@@ -588,3 +588,145 @@ def negative_control_conservation(
         "dh_negative_control_fired": fired,  # named per deliverable
         "PASS": fired,
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 5.  α-CLEAN CONFIRMATION  (the chord-deciding readout carries NO α-carrier).
+# ═════════════════════════════════════════════════════════════════════════════
+def assert_alpha_clean() -> dict:
+    """Confirm the S2 chord path is α-clean (pre-reg §α-clean discipline): the host
+    guard triad live, κ̃=6/5 (NOT α·κ̃), κ̃ ∉ the 117–157 α⁻¹ landing band, and NO
+    forbidden α-carrier is a bound name in THIS module's globals. NEVER ALPHA /
+    KAPPA_CHIRAL_ELECTRON / V_SNAP / L_NODE / M_E / Q_TANK."""
+    HOST.assert_winding_host_globals_alpha_clean()
+    HOST.assert_no_alpha_literal_in_chord_path()
+    HOST.assert_not_in_landing_zone(KAPPA_TILDE, "S2 winding κ̃")
+    forbidden = ("ALPHA", "ALPHA_COLD_INV", "KAPPA_CHIRAL_ELECTRON", "V_SNAP",
+                 "L_NODE", "M_E", "Q_TANK", "ELECTRON", "RHO_BULK")
+    g = globals()
+    leaked = [s for s in forbidden if s in g]
+    assert not leaked, f"α-leak: forbidden symbol(s) {leaked} bound in the S2 gate globals"
+    return {
+        "kappa_tilde": KAPPA_TILDE, "kappa_is_six_fifths": bool(KAPPA_TILDE == 6.0 / 5.0),
+        "theta_chi_is_2pi_nu_vac": bool(np.isclose(THETA_CHI, 2.0 * np.pi * (2.0 / 7.0))),
+        "no_forbidden_in_globals": not leaked, "alpha_clean": True,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 6.  THE GATE RUNNER  (bins the verdict per the FROZEN pre-reg).
+# ═════════════════════════════════════════════════════════════════════════════
+def run_s2_gate(N: int = 48, R: float = 11.0, r: float = 4.0,
+                cons_steps: int = 40000, fast: bool = False) -> dict:
+    """Run the full S2 H_couple gate and bin the verdict per the FROZEN pre-reg
+    (research/2026-06-24_engine-s2-hcouple_prereg.md §Make-or-break).
+
+    S2 PASSES iff ALL FOUR criteria hold AND the dual canary fires reachable-FAIL
+    on BOTH negative controls AND the readout is α-clean. Any failing criterion ⇒
+    FAIL. INCONCLUSIVE (Rule 11, NOT rescued) iff the integrator cannot carry the
+    dynamics to a clean verdict (NaN/non-finite drift, or the reduced-limit recovery
+    cannot be formed). The negative-control firing is a PREREQUISITE for a
+    non-vacuous PASS; the slaved-arm reachable-False is a PREREQUISITE (AUTO_VOID
+    otherwise). Normal-mode SPLITTING is EXPECTED (FORK B=(b)), NOT scored as a FAIL.
+
+    fast=True shortens the conservation window (structural smoke), used by the
+    fast pytest path; the full closed-system window is the headline."""
+    steps = 4000 if fast else cons_steps
+    out: dict = {"config": {"N": N, "R": R, "r": r, "cons_steps": steps,
+                            "kappa_tilde": KAPPA_TILDE, "theta_chi": THETA_CHI}}
+
+    out["alpha_clean"] = assert_alpha_clean()
+    out["validate_on_known_node_circulator"] = _validate_node_circulator()
+
+    out["criterion_1_conservation"] = criterion_1_conservation(n_steps=steps)
+    out["criterion_2_non_vacuity"] = criterion_2_non_vacuity(n_steps=steps)
+    out["criterion_4_reduced_limit"] = criterion_4_reduced_limit()
+    out["criterion_3_independence"] = criterion_3_independence(N, R, r)
+
+    out["negative_control_L_omega_pump"] = negative_control_L_omega_pump()
+    out["negative_control_conservation"] = negative_control_conservation()
+
+    c1 = out["criterion_1_conservation"]
+    c2 = out["criterion_2_non_vacuity"]
+    c3 = out["criterion_3_independence"]
+    c4 = out["criterion_4_reduced_limit"]
+    ncL = out["negative_control_L_omega_pump"]
+    ncH = out["negative_control_conservation"]
+
+    out["immune_system"] = {
+        "slaved_arm_independence_false": bool(c3["slaved_arm_independence_false"]),
+        "dh_negative_control_fired": bool(ncH["dh_negative_control_fired"]),
+        "l_omega_negative_control_fired": bool(ncL["L_omega_negative_control_fired"]),
+        "transfer_measured": bool(c2["transfer_measured"]),
+        "real_dynamics_ran": bool(c3["real_winding"] is not None),
+    }
+    out["skew_hermitian"] = bool(c1["skew_hermitian"])
+    out["reduced_limit_recovers_2mode"] = bool(c4["generator_equals_node_circulator"]
+                                               and c4["trajectory_equals_node_circulator"])
+    out["alpha_clean_flag"] = bool(out["alpha_clean"]["alpha_clean"])
+
+    # INCONCLUSIVE detection (Rule 11 — report, do NOT rescue).
+    inconclusive = (not np.isfinite(c1["dH_over_H_max"])) \
+        or (not np.isfinite(c2["transfer_fraction"])) \
+        or c3.get("AUTO_VOID", False) is None
+    out["inconclusive_reason"] = (
+        "non-finite conservation/transfer — integrator could not carry the dynamics"
+        if inconclusive else None
+    )
+
+    crit = {
+        "1_conservation": c1["PASS"], "2_non_vacuity": c2["PASS"],
+        "3_independence": c3["PASS"], "4_reduced_limit": c4["PASS"],
+        "neg_ctrl_L_omega_fires": ncL["PASS"], "neg_ctrl_conservation_fires": ncH["PASS"],
+        "alpha_clean": out["alpha_clean_flag"], "skew_hermitian": out["skew_hermitian"],
+    }
+    out["criterion_pass_flags"] = crit
+    out["failing_criteria"] = [k for k, v in crit.items() if not v]
+
+    if inconclusive:
+        out["verdict"] = "INCONCLUSIVE"
+    elif c3.get("AUTO_VOID", False):
+        out["verdict"] = "AUTO_VOID"
+    elif all(crit.values()):
+        out["verdict"] = "PASS"
+    else:
+        out["verdict"] = "FAIL"
+    return out
+
+
+def _validate_node_circulator() -> dict:
+    """VALIDATE-ON-KNOWN floor: re-confirm the PR#321 node_circulator generator
+    the reduced limit recovers is itself sound (Hermitian, unitary, norm-conserving)
+    — the recover-in-limit anchor (pre-reg §Validate-on-known). Reads ONLY the
+    generator's structural properties (α-free)."""
+    H = ncc_circulator_generator(1.0, 1.3, 0.3, +1)
+    U = propagator(H, 0.1)
+    hermitian = bool(np.allclose(H, H.conj().T))
+    unitary = bool(np.allclose(U @ U.conj().T, np.eye(2), atol=1e-12))
+    a0 = np.array([0.6 + 0.3j, -0.2 + 0.5j])
+    traj = ncc_evolve(a0, H, 0.05, 5000)
+    nb, ns = ncc_mode_energies(traj)
+    Nn = nb + ns
+    norm_ok = bool(np.max(np.abs(Nn - Nn[0])) < 1e-9)
+    return {"node_circulator_hermitian": hermitian, "node_circulator_unitary": unitary,
+            "node_circulator_norm_conserved": norm_ok,
+            "PASS": bool(hermitian and unitary and norm_ok)}
+
+
+def main() -> None:
+    import json
+    import sys
+
+    print("S2 H_COUPLE GATE — field-resolved skew-Hermitian A1↔ω lock")
+    print("=" * 70)
+    out = run_s2_gate()
+    print(json.dumps(out, indent=2, default=str))
+    print("=" * 70)
+    print(f"VERDICT: {out['verdict']}")
+    if out["failing_criteria"]:
+        print(f"FAILING: {out['failing_criteria']}")
+    sys.exit(0 if out["verdict"] == "PASS" else 1)
+
+
+if __name__ == "__main__":
+    main()
