@@ -47,7 +47,8 @@ the Hessian of W in the 12-amplitude basis x=(u^A,ω^A,u^B,ω^B) is the 12×12 �
 
 VALIDATE-ON-KNOWN (prereg §3, ON THE REAL 12×12 MATRIX):
   V1 translational acoustic slope → c_EM = √(G/ρ) = 1
-  V2 gapless rotational slope (G_c=0) → c_R = √(2γ/I_ω) = √2 (engine-faithful; FLAG)
+  V2 gapless rotational slope (G_c=0) → c_R = √(2γ/I_ω) = √2 (engine-faithful;
+     RESOLVED Grant 2026-06-23 → clm-kmliqx; continuum label √(γ/I_ω)=1 DEMOTED)
   V3 k=0 rotational gap (G_c=1) → m² = 4 G_c/I_ω = 4 (ω_m = 2)
   V4 k=0 translational branches gapless (count = 6 acoustic)
   V5 PARITY: ω²(k) = ω²(−k) to machine precision (cold-spectrum parity symmetry;
@@ -357,6 +358,10 @@ def main():
     }
 
     # --- V2: gapless rotational curvature slope (G_c=0) → c_R = √2 ----------
+    # RESOLVED Grant 2026-06-23 → clm-kmliqx (cosserat-mass-gap.md §3.5).
+    # Engine W_kappa = jnp.sum(kappa**2) at cosserat_field_3d.py:704 (NO ½;
+    # :703 is the micropolar term, NOT W_kappa). The continuum √(γ/I_ω)=1 label
+    # is DEMOTED. This V2 value (=√2) is the empirical confirmation clm-kmliqx cites.
     c_rot_target = float(np.sqrt(2.0))
     rot_speeds = []
     for d in HIGH_SYM.values():
@@ -371,9 +376,10 @@ def main():
         "target_engine_faithful_sqrt2": c_rot_target,
         "continuum_label_sqrt_gamma_over_Iomega": 1.0,
         "rel_err_vs_engine_target": abs(c_rot - c_rot_target) / c_rot_target,
-        "FLAG": "engine operator gives √2 (node-twist stiffness convention; same "
-        "Hessian factor as the validated gap). Leaf continuum label says 1. "
-        "Surfaced in result doc §7 flag-don't-fix, NOT silently reconciled.",
+        "RESOLVED": "engine operator gives √2 (node-twist stiffness convention; same "
+        "Hessian factor as the validated gap). Grant-ratified 2026-06-23 → clm-kmliqx "
+        "(cosserat-mass-gap.md §3.5); continuum label '1' DEMOTED. Engine W_kappa at "
+        "cosserat_field_3d.py:704 (NO ½; :703 is the micropolar term, NOT W_kappa).",
         "PASS": v2_ok,
     }
 
@@ -486,7 +492,7 @@ def main():
     e3 = val["V3_k0_rotational_gap"]["rel_err"]
     print("(0) VALIDATE-ON-KNOWN on the REAL 12×12 (pre-reg §3):")
     print(f"  V1 transverse photon  c = {c_trans:.6f}  (target √(G/ρ)=1)  rel-err={abs(c_trans-1.0):.2e}  {s1}")
-    print(f"  V2 rotational curvature c_R = {c_rot:.6f}  (target √2; leaf-label 1 — FLAG)  rel-err={e2:.2e}  {s2}")
+    print(f"  V2 rotational curvature c_R = {c_rot:.6f}  (target √2; continuum-label 1 DEMOTED — RESOLVED clm-kmliqx)  rel-err={e2:.2e}  {s2}")
     print(f"  V3 k=0 rotational gap m² = {m2_recovered:.6f}  (target 4)  ω_m={omega_m:.4f}  rel-err={e3:.2e}  {s3}")
     print(f"  V4 translational gapless branches = {n_acoustic} (target 6)  {s4}")
     print(f"  V5 parity residual ω²(k)-ω²(-k) = {parity_resid:.2e} (target <1e-9, cold parity-sym)  {s5}")

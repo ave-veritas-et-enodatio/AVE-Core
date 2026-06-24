@@ -14,7 +14,7 @@
       "target_engine_faithful_sqrt2": 1.4142135623730951,
       "continuum_label_sqrt_gamma_over_Iomega": 1.0,
       "rel_err_vs_engine_target": 1.9763888954300303e-09,
-      "FLAG": "engine operator gives \u221a2 (node-twist stiffness convention; same Hessian factor as the validated gap). Leaf continuum label says 1. Surfaced in result doc \u00a77 flag-don't-fix, NOT silently reconciled.",
+      "RESOLVED": "engine operator gives \u221a2 (node-twist stiffness convention; same Hessian factor as the validated gap). Grant-ratified 2026-06-23 \u2192 clm-kmliqx (cosserat-mass-gap.md \u00a73.5); continuum label '1' DEMOTED. Engine W_kappa at cosserat_field_3d.py:704 (NO \u00bd; :703 is the micropolar term, NOT W_kappa).",
       "PASS": true
     },
     "V3_k0_rotational_gap": {

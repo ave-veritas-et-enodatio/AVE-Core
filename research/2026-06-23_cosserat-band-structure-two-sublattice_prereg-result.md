@@ -69,7 +69,7 @@ Refute-by-default: each is a number the corpus already owns. The gate is run on 
 | # | Pre-registered target | Corpus value | Tolerance | Rationale |
 |---|---|---|---|---|
 | V1 | translational acoustic slope (lowest branch, k→0) → `c_EM` | `√(G/ρ)=1` | rel-err < 1e-3 | transverse photon `photon-propagation-baseline.md` |
-| V2 | gapless rotational slope (G_c=0, k→0) → `c_R` | engine-faithful `√(2γ/I_ω)=√2` (continuum label `√(γ/I_ω)=1` — see FLAG) | rel-err < 5e-2 | `cosserat_wave_test.py` T1a |
+| V2 | gapless rotational slope (G_c=0, k→0) → `c_R` | engine-faithful `√(2γ/I_ω)=√2` (continuum label `√(γ/I_ω)=1` DEMOTED — RESOLVED §5, `clm-kmliqx`) | rel-err < 5e-2 | `cosserat_wave_test.py` T1a |
 | V3 | k=0 rotational gap (G_c=1) → `m²` | `4 G_c/I_ω = 4` (ω_m=2) | rel-err < 1e-2 | the 0.35%-validated gap `cosserat-mass-gap.md:80` |
 | V4 | k=0 translational branches gapless | `ω(k→0)→0`, count = 6 acoustic (3 per sublattice fold) | abs `ω²` < 1e-6 | A1 + 2 transverse massless per sublattice |
 
@@ -86,7 +86,7 @@ Labeled CONSISTENCY vs CHORD, declared BEFORE the run:
 - **C1 — does the genuine two-sublattice spectrum DIFFER from PR #389's `D6` / `C=sf_mag·D6` ansatz?** Pre-registered expectation: the **near-k=0 validate-on-known numbers AGREE** (the bond operator → continuum gradient as k→0, so V1–V4 must match the single-node values — that is the correctness check). The **full-BZ band structure DIFFERS**: the genuine optical branches come from the real anti-phase bond mode, not a structure-factor-scaled copy of the acoustic block. **Pre-label: the differences are CONSISTENCY-class** (both are micropolar two-sublattice lattices; the genuine one is the substrate-correct band shape, the ansatz is an uncontrolled approximation). The load-bearing question is whether the ansatz got the validate-on-known RIGHT BY LUCK (it never ran V1–V4 on its 12×12) — we report the genuine 12×12 V1–V4 and the genuine optical-branch shape.
 - **C2 — acoustic/optical gap.** Does the genuine bond network still produce a hard acoustic/optical spectral gap? **Pre-label: CONSISTENCY** (generic to two-sublattice micropolar; the gap VALUE is the validated echo).
 - **C3 — parity symmetry of the cold spectrum.** **Pre-label: CONSISTENCY** (forced by the parity-even bare energy; this is the substrate fact stated in the header, here MEASURED as a falsifier of the bond operator).
-- **Refute-by-default self-check:** if the genuine spectrum merely reproduces textbook micropolar two-sublattice phonon bands with no AVE-distinct forward content, the honest verdict is CONSISTENCY-class throughout and the chord stays in the driven/saturated regime (NEXT phase). The √2 node-twist stiffness convention is surfaced flag-don't-fix (§7), not silently picked.
+- **Refute-by-default self-check:** if the genuine spectrum merely reproduces textbook micropolar two-sublattice phonon bands with no AVE-distinct forward content, the honest verdict is CONSISTENCY-class throughout and the chord stays in the driven/saturated regime (NEXT phase). The √2 node-twist stiffness convention was surfaced flag-don't-fix and is now RESOLVED to √2 by Grant (2026-06-23, §5, `clm-kmliqx`), not silently picked.
 
 ---
 
@@ -156,25 +156,29 @@ The first run of the genuine 12×12 FAILED V1/V2/V3 — refute-by-default workin
 Both are the kind of bug A-Rule 10 anticipates: invisible to static analysis / pre-reg, surfaced only at
 integrator time by running the real matrix against the pre-registered known numbers.
 
-### ⚑ FLAG (flag-don't-fix): node-twist stiffness convention (the √2)
+### ✅ RESOLVED (Grant-ratified 2026-06-23): node-twist stiffness convention → `c_R = √2` (`clm-kmliqx`)
 
-Carried forward UNCHANGED from PR #389 (this re-run does not re-adjudicate it): the rotational **curvature**
-speed at G_c=0 is `c_R = √2` from the actual engine operator, but `cosserat_wave_test.py:10` / `cosserat-mass-gap.md`
-carry the continuum **label `c_R = √(γ/I_ω) = 1`**. Same √2 / Hessian factor.
+**RESOLUTION (2026-06-23).** Grant ratified the engine-faithful value: the rotational **curvature** speed at G_c=0
+is **`c_R = √2`** (= `√(2γ/I_ω)`), NOT the continuum label `1`. Minted as **`clm-kmliqx`** (solidity 0.82,
+depends-on `clm-jz0xaw`) in `vol1/claim-quality.md`; canonicalized in `cosserat-mass-gap.md` §3.5; the prior `c_R=1`
+labels are DEMOTED under dated Rule-12 headers (NOT deleted) in `cosserat_wave_test.py:10`, `r8_diag_a_cosserat_wave_speed.py:93`,
+and `thermal-lattice-noise.md`. This re-run's V2 (`c_R = 1.414214`, rel-err `2.0e-9`) is the empirical confirmation
+the claim cites.
 
-**⚑ GRANT-GATED — DO NOT RESOLVE (flag-don't-fix; this re-run leaves it OPEN for Grant).** The `√2` vs `1`
-discrepancy traces to whether the curvature energy `W_κ` carries a `½` prefactor:
-- **Engine source:** `cosserat_field_3d.py:703` computes `W_kappa = jnp.sum(kappa**2)` — **no `½`**. Summing the
-  `κ` quadratic form with unit (not half) weight is what yields `c_R = √2` here (the same `Σκ²` the engine uses;
-  this driver is its Fourier symbol, so it inherits the no-½ convention verbatim).
-- **Leaf label:** `cosserat_wave_test.py:10` / `cosserat-mass-gap.md` quote the continuum `c_R = √(γ/I_ω) = 1`,
-  i.e. the convention with the standard `½` elastic prefactor folded in.
-- **Internal-consistency read (NOT an adjudication):** the driver is bit-for-bit faithful to the engine operator,
-  so internal consistency *favors* `√2` (the leaf label and the engine `Σκ²` cannot both be the substrate value).
-  **But which `½`-convention is the real node-twist stiffness is a substrate-physics call that belongs to Grant,
-  NOT to this implementer lane.** This flag is RECORDED OPEN, deliberately unresolved.
+The `√2` vs `1` discrepancy traced to whether the curvature energy `W_κ` carries a `½` prefactor:
+- **Engine source:** `cosserat_field_3d.py:704` computes `W_kappa = jnp.sum(kappa**2)` — **no `½`** (`:703` is the
+  *micropolar* term `W_micropolar = jnp.sum(eps_antisym**2)`; the second identical `W_kappa` copy is at `:739`).
+  Summing the `κ` quadratic form with unit (not half) weight is what yields `c_R = √2` here (the same `Σκ²` the
+  engine uses; this driver is its Fourier symbol, so it inherits the no-½ convention verbatim).
+- **Leaf label (now demoted):** `cosserat_wave_test.py:10` / `cosserat-mass-gap.md` previously quoted the continuum
+  `c_R = √(γ/I_ω) = 1`, i.e. the convention with the standard `½` elastic prefactor folded in — the continuum
+  idealization the discrete substrate does not honor.
+- **Derivation (Grant, verbatim in `clm-kmliqx`):** translational strain symmetrizes because its antisymmetric part
+  is a FREE rigid rotation storing no energy; the micro-rotation gradient's antisymmetric part is a GENUINE
+  twist-gradient that DOES store energy, so the full-gradient (no-½) treatment is physically forced — AND it is the
+  SAME no-½ convention that yields the validated `m²=4` mass gap. Internal consistency ⇒ `√2`.
 
-The gap (the load-bearing number, V3 `m²=4`) is bit-exact either way — this convention question does **not** touch
+The gap (the load-bearing number, V3 `m²=4`) is bit-exact either way — this resolution does **not** touch
 the validated gap, only the `c_R` curvature-slope label.
 
 ## 6. RESULT — genuine full-BZ two-sublattice spectrum + DOES-IT-DIFFER-FROM-ANSATZ
