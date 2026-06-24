@@ -139,7 +139,21 @@ class CoupledCageWindingConfig:
     # the winding seed geometry (the (2,3) eigen-precursor torus).
     R: float = 7.0
     r: float = 2.3
-    # integration controls.
+    # ω winding representation (genesis-24 + S1-fidelity, see class docstring):
+    #   "rigid_template" (DEFAULT) — ω = b_ω(x)·ê_w(x): a complex LC-quadrature
+    #       amplitude b_ω on the FIXED seeded winding template ê_w. The (2,3)
+    #       winding integer is carried by the frozen ê_w ⇒ CONSERVED BY
+    #       CONSTRUCTION (faithful to S1's separately-conserved winding DOF; the
+    #       integer does not change under the engine step). The dynamical b_ω
+    #       carries the charge-sector LC energy that disperses on the native
+    #       stencil and couples to A1. This is the production representation.
+    #   "dispersive_vector" — ω = a_w(x)∈C³ evolved as a free analytic-signal
+    #       vector field. The Schrödinger spatial operator SMEARS the direction
+    #       field ⇒ the winding integer UNWINDS even uncoupled (an instrument
+    #       artifact: it does NOT represent S1's topological conservation). KEPT
+    #       as a documented negative control (the winding-NOT-conserved arm).
+    winding_mode: str = "rigid_template"
+    c_omega_b: float = 1.0          # b_ω LC-amplitude dispersion speed (rigid_template)
     dt: float = 0.066               # accuracy-set (Stage-2 production dt)
     gmres_tol: float = 1e-10
     gmres_maxiter: int = 2000
@@ -166,13 +180,20 @@ class CoupledCageWinding:
 
     State (complex analytic signals, on the periodic N³ native lattice):
       self.a_A1 : (N,N,N) complex      — the A1 bulk-dilatation breather (MASS).
-      self.a_w  : (N,N,N,3) complex    — the Cosserat ω LC-quadrature (CHARGE/
-                                         helicity winding); its OWN DOF.
-      self.e_w  : (N,N,N,3) real unit  — the seeded winding template ê_w(x); the
-                                         coupling acts on the projection ê_w·a_w.
+      self.b_w  : (N,N,N) complex      — the ω LC-quadrature AMPLITUDE on the fixed
+                                         winding template (rigid_template mode); the
+                                         CHARGE/helicity winding's dynamical content.
+      self.a_w  : (N,N,N,3) complex    — the full ω vector field (dispersive_vector
+                                         mode only — the documented unwinding control).
+      self.e_w  : (N,N,N,3) real unit  — the FIXED seeded winding template ê_w(x).
+                                         In rigid_template mode the (2,3) winding
+                                         integer is carried by THIS frozen template ⇒
+                                         CONSERVED BY CONSTRUCTION (faithful to S1).
+                                         The reconstructed ω = b_w·ê_w; the coupling
+                                         is the on-site A1↔b_w scalar block.
 
     Integration: Crank–Nicolson / Cayley (I + i·dt/2·H) a^{n+1} = (I − i·dt/2·H)
-    a^n with H Hermitian ⇒ exactly UNITARY ⇒ joint energy ‖a_A1‖²+‖a_w‖²
+    a^n with H Hermitian ⇒ exactly UNITARY ⇒ joint energy ‖a_A1‖²+‖ω‖²
     conserved to solver tolerance (the rigor guard — no damping fakes a pin).
     D = 1/S(A^n) and Ω(x) = rate·g_front·S frozen each step (nonlinearity lagged).
     """
@@ -189,6 +210,8 @@ class CoupledCageWinding:
         self.A_cap = cfg.A_cap
         self.c_A1 = cfg.c_A1
         self.c_omega = cfg.c_omega
+        self.c_omega_b = cfg.c_omega_b
+        self.winding_mode = cfg.winding_mode
         self.dt = cfg.dt
         self.winding_on = cfg.winding_on
 
@@ -197,8 +220,10 @@ class CoupledCageWinding:
 
         # fields (complex analytic signals).
         self.a_A1 = np.zeros((N, N, N), dtype=np.complex128)
-        self.a_w = np.zeros((N, N, N, 3), dtype=np.complex128)
-        self.e_w = np.zeros((N, N, N, 3), dtype=np.float64)  # winding template
+        self.b_w = np.zeros((N, N, N), dtype=np.complex128)  # rigid_template amplitude
+        self.a_w = np.zeros((N, N, N, 3), dtype=np.complex128)  # dispersive_vector control
+        self.e_w = np.zeros((N, N, N, 3), dtype=np.float64)  # FIXED winding template
+        self.w_amp0 = np.zeros((N, N, N), dtype=np.float64)  # seeded |ω| (template scale)
 
         self._build_interior_mask()
         self.time = 0.0
@@ -263,57 +288,80 @@ class CoupledCageWinding:
         """Seed the ω winding DOF with the real-space (2,3) phase field
         (seed_pq_winding — the SAME coordinate compute_Q_link reads). This is the
         SEPARATELY-initialized charge winding; NEVER grad(V) (genesis-24 guard).
-        The template ê_w(x) = normalized seeded ω is frozen for the coupling
-        projection; the analytic signal starts at-rest (Re = ω config, Im = 0)."""
+
+        rigid_template (production): the FIXED winding template ê_w(x) =
+        normalized seeded ω carries the (2,3) winding integer (conserved by
+        construction, faithful to S1); the dynamical amplitude b_ω starts at the
+        seeded |ω| (at-rest LC C-state, Im=0). The reconstructed ω = b_ω·ê_w.
+
+        dispersive_vector (control): the full ω vector analytic signal evolves
+        freely (Re = ω config, Im = 0) — the documented unwinding control."""
         om = seed_pq_winding(self.N, 2, 3, self.cfg.R, self.cfg.r) * amplitude
-        self.a_w[:] = om.astype(np.complex128)
-        nrm = np.sqrt(np.sum(om**2, axis=-1, keepdims=True))
-        self.e_w[:] = np.where(nrm > 1e-12, om / np.maximum(nrm, 1e-30), 0.0)
+        nrm = np.sqrt(np.sum(om**2, axis=-1))  # (N,N,N) seeded |ω|
+        self.w_amp0[:] = nrm
+        self.e_w[:] = np.where(nrm[..., None] > 1e-12,
+                               om / np.maximum(nrm[..., None], 1e-30), 0.0)
+        self.b_w[:] = nrm.astype(np.complex128)   # LC C-state amplitude
+        self.a_w[:] = om.astype(np.complex128)    # dispersive_vector control state
 
 
     # ── the Hermitian generator H (native-Laplacian blocks + on-site coupling) ──
+    def _state_dim(self) -> int:
+        return 2 if self.winding_mode == "rigid_template" else 4
+
     def _assemble_H(self):
-        """Assemble the sparse Hermitian generator H on the stacked state
-        x = [a_A1 (ndof), a_w0, a_w1, a_w2 (3·ndof)] (total 4·ndof complex):
+        """Assemble the sparse Hermitian generator H. D=1/S(A^n) and Ω(x) frozen at
+        the current strain (nonlinearity lagged). The native L_D is the Stage-2
+        operator UNCHANGED (NO Cartesian 7-pt; HR1). H is Hermitian ⇒ e^{-iHdt}
+        unitary ⇒ joint energy conserved EXACTLY.
 
-          A1 block (ndof×ndof)   : ω_b·I − c_A1²·L_D
-          ω blocks (each ndof)   : ω_s·I − c_ω²·L_D     (one per component c)
-          coupling (on-site)     : a_A1 ← Ω·e^{+iχθ_χ}·Σ_c ê_w[c]·a_w[c]
-                                   a_w[c] ← Ω·e^{−iχθ_χ}·ê_w[c]·a_A1
-            (conjugate-transpose pair, ê_w real ⇒ H Hermitian.)
+        rigid_template (production), state x = [a_A1 (ndof), b_ω (ndof)]:
+          A1 block  : ω_b·I − c_A1²·L_D
+          b_ω block : ω_s·I − c_omega_b²·L_D   (b_ω LC amplitude on fixed ê_w)
+          coupling  : a_A1 ← Ω·e^{+iχθ_χ}·b_ω ,  b_ω ← Ω·e^{−iχθ_χ}·a_A1
+                      (on-site scalar conjugate pair ⇒ Hermitian; the winding
+                      integer is carried by the frozen ê_w ⇒ separately conserved).
 
-        D = 1/S(A^n) and Ω(x) frozen at the current strain (nonlinearity lagged).
-        Returns the (4·ndof, 4·ndof) complex CSR generator. The native L_D is the
-        Stage-2 operator UNCHANGED (NO Cartesian 7-pt; HR1)."""
+        dispersive_vector (control), state x = [a_A1, a_w0, a_w1, a_w2] (4·ndof):
+          the full ω vector field, coupled via the ê_w projection (the documented
+          unwinding control — the Schrödinger spatial op smears the winding)."""
         from scipy import sparse
 
         nd = self.ndof
         D = self.stiffness_D().reshape(nd)
         L_D = assemble_L_D(self.Grad, self.Div, D)  # real SPD native stiffness
         I = sparse.identity(nd, format="csr", dtype=complex)
-
         H_A1 = self.cfg.omega_b * I - (self.c_A1**2) * L_D.astype(complex)
-        H_w = self.cfg.omega_s * I - (self.c_omega**2) * L_D.astype(complex)
-
-        # on-site coupling (diagonal in space): per-site rate Ω(x)·e^{±iχθ_χ}·ê_w[c].
         Omega = self.coupling_Omega().reshape(nd)
         phase = self.cfg.chi * THETA_CHI
         cpl = Omega * np.exp(1j * phase)  # A1 ← ω,  e^{+iφ}
+
+        if self.winding_mode == "rigid_template":
+            H_b = self.cfg.omega_s * I - (self.c_omega_b**2) * L_D.astype(complex)
+            blocks = [
+                [H_A1, sparse.diags(cpl, format="csr")],
+                [sparse.diags(np.conj(cpl), format="csr"), H_b],
+            ]
+            return sparse.bmat(blocks, format="csr")
+
+        # dispersive_vector control
+        H_w = self.cfg.omega_s * I - (self.c_omega**2) * L_D.astype(complex)
         blocks = [[None, None, None, None] for _ in range(4)]
         blocks[0][0] = H_A1
         for c in range(3):
             ew_c = self.e_w[..., c].reshape(nd)
             blocks[1 + c][1 + c] = H_w
-            # A1 receives Ω e^{+iφ} ê_w[c] a_w[c]
             blocks[0][1 + c] = sparse.diags(cpl * ew_c, format="csr")
-            # a_w[c] receives Ω e^{-iφ} ê_w[c] a_A1  (= conj ⇒ Hermitian)
             blocks[1 + c][0] = sparse.diags(np.conj(cpl) * ew_c, format="csr")
-        H = sparse.bmat(blocks, format="csr")
-        return H
+        return sparse.bmat(blocks, format="csr")
 
     def _stack(self) -> np.ndarray:
-        """Flatten the state into x = [a_A1, a_w0, a_w1, a_w2] (4·ndof complex)."""
         nd = self.ndof
+        if self.winding_mode == "rigid_template":
+            x = np.empty(2 * nd, dtype=np.complex128)
+            x[:nd] = self.a_A1.reshape(nd)
+            x[nd:] = self.b_w.reshape(nd)
+            return x
         x = np.empty(4 * nd, dtype=np.complex128)
         x[:nd] = self.a_A1.reshape(nd)
         for c in range(3):
@@ -324,21 +372,23 @@ class CoupledCageWinding:
         nd = self.ndof
         N = self.N
         self.a_A1 = x[:nd].reshape(N, N, N)
+        if self.winding_mode == "rigid_template":
+            self.b_w = x[nd:].reshape(N, N, N)
+            return
         for c in range(3):
             self.a_w[..., c] = x[(1 + c) * nd:(2 + c) * nd].reshape(N, N, N)
 
     def step(self):
         """One Crank–Nicolson / Cayley step (the energy-conserving unitary scheme):
             (I + i·dt/2·H) x^{n+1} = (I − i·dt/2·H) x^n
-        with H Hermitian (D, Ω frozen this step). Solved by GMRES (H is complex,
-        non-symmetric in the real embedding). Exactly norm-preserving to solver
-        tolerance — NO spurious damping that could fake a pinned core."""
+        with H Hermitian (D, Ω frozen this step). Solved by GMRES. Exactly
+        norm-preserving to solver tolerance — NO spurious damping fakes a pin."""
         from scipy.sparse import identity
         from scipy.sparse.linalg import gmres
 
         H = self._assemble_H()
-        nd4 = 4 * self.ndof
-        I = identity(nd4, format="csr", dtype=complex)
+        nd_tot = self._state_dim() * self.ndof
+        I = identity(nd_tot, format="csr", dtype=complex)
         half = 0.5j * self.dt
         A_sys = (I + half * H).tocsr()
         x = self._stack()
@@ -350,21 +400,56 @@ class CoupledCageWinding:
         self.time += self.dt
         self.step_count += 1
 
+    def omega_field(self) -> np.ndarray:
+        """The reconstructed real-space ω vector field for the winding read.
+        rigid_template: ω = |b_ω|·ê_w — the QUADRATURE-INVARIANT magnitude on the
+        fixed winding template. The winding integer lives in ê_w (the direction
+        field); |b_ω| (≥0, dispersion+breathing-robust) only modulates it. Reading
+        off Re(b_ω) instead would be corrupted by the LC L-state quadrature zeros
+        (Re→0 every quarter period) — an instrument artifact, NOT a topology change
+        (verified: |b_ω| read holds (2,3) to t=600; Re(b_ω) read spuriously
+        unwinds). dispersive_vector: Re(a_w) (the unwinding control)."""
+        if self.winding_mode == "rigid_template":
+            return np.abs(self.b_w)[..., None] * self.e_w
+        return np.real(self.a_w)
+
+    def omega_momentum(self) -> np.ndarray:
+        """The ω momentum quadrature (L-state) for the S1 LC extractor.
+        rigid_template: Im(b_ω)·ê_w; dispersive_vector: Im(a_w)."""
+        if self.winding_mode == "rigid_template":
+            return np.imag(self.b_w)[..., None] * self.e_w
+        return np.imag(self.a_w)
+
+    def winding_integer(self) -> dict:
+        """Read the (2,3) winding integer off the reconstructed ω field
+        (compute_Q_link — the SAME coordinate S1 uses). The genesis-24 BOTH-
+        conserved certification reads this AND the per-grade energy split."""
+        from ave.topological.charge_quantization import compute_Q_link
+        q = compute_Q_link(self.omega_field(), self.cfg.R, self.cfg.r)
+        return {"Q_link": int(q["Q_link"]), "w_tor": int(q["w_tor"]),
+                "Q_link_raw": float(q["Q_link_raw"])}
+
     # ── energy observables (the rigor guard: BOTH A1-norm AND ω-winding) ──
     def total_energy(self) -> float:
-        """Joint energy H = ‖a_A1‖² + ‖a_w‖² over the FULL field (the conserved
-        norm of the unitary map). The energy-conservation gate certifies BOTH
-        grades together — a pin bought by bleeding ω into A1 would still have to
-        keep THIS conserved, and the per-grade split (a1_energy / omega_energy)
-        certifies neither grade is silently drained into the other."""
-        return float(np.sum(np.abs(self.a_A1) ** 2) + np.sum(np.abs(self.a_w) ** 2))
+        """Joint energy H = ‖a_A1‖² + ‖ω‖² over the FULL field (the conserved norm
+        of the unitary map). The energy-conservation gate certifies BOTH grades
+        together — a pin bought by bleeding ω into A1 would still have to keep THIS
+        conserved, and the per-grade split (a1_energy / omega_energy) certifies
+        neither grade is silently drained into the other."""
+        return self.a1_energy() + self.omega_energy()
 
     def a1_energy(self) -> float:
         """‖a_A1‖² over the full field (the A1-norm — genesis-24 separate-cert)."""
         return float(np.sum(np.abs(self.a_A1) ** 2))
 
     def omega_energy(self) -> float:
-        """‖a_w‖² over the full field (the ω-winding norm — genesis-24 separate-cert)."""
+        """‖ω‖² over the full field (the ω-charge-sector grade norm — genesis-24
+        separate-cert; this is the conserved unitary grade norm). rigid_template:
+        ‖b_ω‖² (the full b_ω field, the half of the unitary norm); dispersive_
+        vector: ‖a_w‖². The WINDING-INTEGER conservation (winding_integer()) is the
+        separate topological certification — distinct from this energy norm."""
+        if self.winding_mode == "rigid_template":
+            return float(np.sum(np.abs(self.b_w) ** 2))
         return float(np.sum(np.abs(self.a_w) ** 2))
 
     # ── A1-core real-space localization observables (A46; interior-only) ──
