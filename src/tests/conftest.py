@@ -32,6 +32,7 @@ _ENGINE_SIM_FILES = {
     "test_unified_snap_machine.py",           # T2 genesis-v8 snap-machine
     "test_electron_tlm_eigenmode.py",         # N=48 eigensolve, resolution-DEPENDENT + xfail-strict (Ruling 3)
     "test_cosserat_engine_q_preservation.py", # `>=3 Q before boundary reflection` moves with N (resolution-DEPENDENT, §2b)
+    "test_stage0_alpha_clean_spine.py",       # Stage-0 spine: N=72 cage-build + closed-port eigensolve (T2 engine-acceptance cost+role, matches its siblings)
 }
 # SPECIFIC TESTS in MIXED files (fast keepers in the same file STAY gating):
 _ENGINE_SIM_TESTS = {
