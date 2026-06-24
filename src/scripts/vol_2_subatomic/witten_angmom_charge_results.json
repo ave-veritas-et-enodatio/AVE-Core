@@ -1,0 +1,138 @@
+{
+  "validate_on_known": {
+    "hopf_link": -1.0,
+    "unlinked": -0.0,
+    "electron_single_component": true,
+    "electron_self_linking_int": -6,
+    "sign_flips_with_handedness": true,
+    "electron_q_eff_zero_dressing": -6.0,
+    "HALT": false
+  },
+  "R1_separability": {
+    "base_linking_int": -6,
+    "frame_rotation_sweep": [
+      {
+        "frame_alpha_over_2pi": 0.0,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 0.167,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 0.333,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 0.5,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 0.667,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 0.833,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      },
+      {
+        "frame_alpha_over_2pi": 1.0,
+        "linking_raw": -6.0001,
+        "linking_int": -6
+      }
+    ],
+    "linking_invariant_under_rigid_frame_rotation": true,
+    "self_linking_q3": -6,
+    "self_linking_q5": -10,
+    "q_poloidal_winding_is_a_factor_in_linking": true,
+    "reconciliation_structurally_possible": true,
+    "CAVEAT_q_is_not_the_separate_frame_rotation": true
+  },
+  "R2_dressing_arithmetic": {
+    "rows": [
+      {
+        "theta_over_2pi": 0.0,
+        "n_integer_linking": 0,
+        "q_eff": 0.0,
+        "integer_linking_unchanged": true
+      },
+      {
+        "theta_over_2pi": 0.3333,
+        "n_integer_linking": 0,
+        "q_eff": 0.3333,
+        "integer_linking_unchanged": true
+      },
+      {
+        "theta_over_2pi": 0.6667,
+        "n_integer_linking": 0,
+        "q_eff": 0.6667,
+        "integer_linking_unchanged": true
+      }
+    ],
+    "dressing_form_consistent": true,
+    "NOTE": "the FORM is trivially consistent; it does NOT force theta. The forcing question is C1."
+  },
+  "C1_denominator_forcing": {
+    "rows": [
+      {
+        "N": 2,
+        "angmom_share_per_constituent": 0.5,
+        "theta_over_2pi": 0.5,
+        "fractional_charge_denominator": 2,
+        "closes": true,
+        "substrate_excludes_this_N": false
+      },
+      {
+        "N": 3,
+        "angmom_share_per_constituent": 0.3333,
+        "theta_over_2pi": 0.3333,
+        "fractional_charge_denominator": 3,
+        "closes": true,
+        "substrate_excludes_this_N": false
+      },
+      {
+        "N": 4,
+        "angmom_share_per_constituent": 0.25,
+        "theta_over_2pi": 0.25,
+        "fractional_charge_denominator": 4,
+        "closes": true,
+        "substrate_excludes_this_N": false
+      },
+      {
+        "N": 5,
+        "angmom_share_per_constituent": 0.2,
+        "theta_over_2pi": 0.2,
+        "fractional_charge_denominator": 5,
+        "closes": true,
+        "substrate_excludes_this_N": false
+      }
+    ],
+    "denominator_equals_chosen_N_for_all_N": true,
+    "substrate_excludes_N_not_equal_3": false,
+    "three_is_forced_by_substrate": false,
+    "three_is_the_observed_proton_loop_count_fed_in": true
+  },
+  "U1_up_down": {
+    "theta_sector_charges": {
+      "theta=+2pi/3": 0.3333,
+      "theta=-2pi/3": -0.3333,
+      "theta=+4pi/3": 0.6667,
+      "theta=-4pi/3": -0.6667
+    },
+    "set_falls_out_of_Z3": true,
+    "which_sector_is_up_has_substrate_rule": false,
+    "up_down_labeling_is_hand_fit_to_PDG": true
+  },
+  "VERDICTS": {
+    "reconciliation": "RECONCILED-IN-FORM",
+    "reconciliation_caveat": "the separate body angular momentum that dresses \ud835\udcac must be a RIGID FRAME rotation (\ud835\udcac-invariant, confirmed); it is NOT the internal q-poloidal winding, which IS a factor in the linking (Q_H=p*q).",
+    "denominator_3": "effective-reconciliation-but-3-still-FIT",
+    "up_down": "FIT"
+  }
+}
