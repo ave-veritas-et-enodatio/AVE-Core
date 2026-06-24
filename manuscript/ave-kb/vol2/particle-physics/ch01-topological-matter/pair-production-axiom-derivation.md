@@ -12,6 +12,8 @@ The AVE-native canonical derivation of pair production: **NOT Breit–Wheeler "p
 
 ## Key Results
 
+> **Scope (F3-b disambiguation, 2026-06-24):** this table states the **TWO-NODE PAIR-NUCLEATION** condition — both A and B nodes saturated at $A^2 \geq 1$ (i.e. at $V_{\text{SNAP}}$), the $\Gamma = -1$ walls and $(2,3)$ winding-closure rows below are the **pair-creation event** at the node pair. This is **distinct** from the **single-electron sectoral** thresholds in §4 (Grant 2026-06-24, #416), where the single electron's confining $\Gamma = -1$ transverse-T2 wall is at $V_{\text{yield}}$ and $V_{\text{SNAP}}$ is the longitudinal-A1 saturation + Schwinger/pair energy. The two are not in conflict: this table is the **pair** condition (both nodes at $V_{\text{SNAP}}$), §4 is the **single-electron** sectoral ladder. The "$(2,3)$ winding closes" rows are retained as the pair-nucleation phrasing (not relabeled); note per the phase-space result (#417) the $(2,3)$ does not re-emerge as a dynamical time-orbit — it is the static Clifford-torus / Link texture the bond carries.
+
 | Result | Statement |
 |---|---|
 | Mechanism class | Saturated flux-tube rupture at A-B node pair (NOT Breit–Wheeler) |
