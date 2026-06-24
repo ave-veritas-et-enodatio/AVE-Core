@@ -28,6 +28,8 @@ VERDICT = ECHO-FINAL (the expected, fully-acceptable outcome):
    debugging-toward-a-rescue (Rule 11 wrong-reaction).
 """
 
+import pytest
+
 from ave.solvers.fork_b_near_saturation import (
     _SMOOTH_FAMILIES,
     QUARTER_ARC_NORM,
@@ -64,6 +66,11 @@ def test_all_cross_family_kernels_reach_quarter_arc_norm():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy connect-map eigensolve (solve_near_saturation_shape -> np.linalg.eigh).
+# Routed to `make test-engine` per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md), the same partition that
+# fixed the #411 isolation-eigensolve OOM in the PR-blocking gate.
+@pytest.mark.engine_sim
 def test_near_saturation_reaches_steep_regime():
     """The re-run actually drives A_bond into the steep regime (A_max≥0.95) — the
     regime the merged GATE3 (A_max≈0.77) never reached. Confirms the kernel clip
@@ -75,6 +82,9 @@ def test_near_saturation_reaches_steep_regime():
     assert out["n_bonds_A_gt_0p9"] >= 1  # the steep tail IS exercised by some bonds
 
 
+# engine_sim: heavy connect-map eigensolve (solve_near_saturation_shape). Routed per
+# the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_positive_control_top_hat_discriminates_at_full_sat():
     """ANTI-TAUTOLOGY (load-bearing): the top-hat (step-discontinuous) stiffness
     MUST open a large Δ/L gap (>10%) AND drop the eigenvector overlap (<0.95) at
@@ -87,6 +97,9 @@ def test_positive_control_top_hat_discriminates_at_full_sat():
     assert out["metric_discriminates_at_full_sat"], "metric does NOT discriminate => test void"
 
 
+# engine_sim: heavy connect-map eigensolve (solve_near_saturation_shape). Routed per
+# the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_cross_family_shapes_are_genuinely_different():
     """The zero gap is PHYSICAL, not because the shapes are secretly identical:
     the depth-matched cross-family comparators differ from the quarter-arc by a
@@ -102,6 +115,9 @@ def test_cross_family_shapes_are_genuinely_different():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy connect-map eigensolve (solve_near_saturation_shape). Routed per
+# the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_near_saturation_verdict_is_echo_final():
     """The frozen-binned near-saturation verdict is ECHO-FINAL: every SMOOTH
     cross-family comparator gives Δ/L gap ≪10% AND eigvec overlap ≥0.95 at full
