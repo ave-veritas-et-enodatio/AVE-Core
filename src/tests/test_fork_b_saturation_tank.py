@@ -68,6 +68,11 @@ def test_validate_on_known_varactor_pass():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy connect-map eigensolve (solve_confinement -> np.linalg.eigh).
+# Routed to `make test-engine` per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md), the same partition that
+# fixed the #411 isolation-eigensolve OOM in the PR-blocking gate.
+@pytest.mark.engine_sim
 @pytest.mark.parametrize("net,L", [("diamond", 8), ("srs", 4), ("srs", 6)])
 def test_gate1_confined(net, L):
     """GATE1 PASS: a gapped, discrete, core-localized (>=0.50) A1-scalar bound mode
@@ -82,6 +87,9 @@ def test_gate1_confined(net, L):
     assert r["bound_branch_confirmed"]  # RF-3 Im(ω) sign resolved (not assumed)
 
 
+# engine_sim: heavy connect-map eigensolve (solve_confinement). Routed per the
+# CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate1_im_omega_sign_convention_anchored():
     """RF-3: the Im(ω) sign convention is RESOLVED (anchored by a known port-coupled
     continuum mode that decays, Im<0), NOT assumed. The bound mode is lossless
@@ -101,6 +109,9 @@ def test_gate1_gamma_depth_canonical_floor():
     assert gamma_from_S_floor(1e-6) < g  # deeper floor = harder short
 
 
+# engine_sim: heavy connect-map eigensolve (solve_confinement). Routed per the
+# CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate1_floor_drop_vs_partial_short():
     """RF-3 DEPTH: report whether a PARTIAL short binds or binding needs floor-
     dropping. At the scatter's shallow A_cap=0.99 floor (S~0.14, Γ~-0.43) the well
@@ -115,6 +126,9 @@ def test_gate1_floor_drop_vs_partial_short():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy connect-map eigensolve (solve_scramble -> np.linalg.eigh, x3).
+# Routed per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 @pytest.mark.parametrize("net,L", [("diamond", 8), ("srs", 4), ("srs", 6)])
 def test_gate2_scramble_deconfines_not_void(net, L):
     """GATE2 PASS: ARM-A (S->1) AND ARM-B (histogram-preserving permutation) BOTH
@@ -130,6 +144,9 @@ def test_gate2_scramble_deconfines_not_void(net, L):
     assert not r["auto_void"]
 
 
+# engine_sim: heavy connect-map eigensolve (solve_scramble). Routed per the
+# CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate2_deconfinement_margin_exceeds_threshold():
     """The de-confinement margin (baseline core_frac − arm core_frac) exceeds the
     frozen 0.30 threshold for BOTH arms."""
@@ -138,6 +155,10 @@ def test_gate2_deconfinement_margin_exceeds_threshold():
     assert r["armB_margin"] >= 0.30
 
 
+# engine_sim: heavy — an n_perm=100 permutation sweep of connect-map eigensolves
+# (solve_scramble_rate). Routed per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate2_armB_predominantly_deconfines_rate_pinned():
     """HONEST-SCOPE DISCLOSURE (CI-protected): the single-seed ARM-B NOT-VOID verdict
     is PREDOMINANTLY S-structure-decided, NOT 100%. Over an N-permutation sweep of
@@ -161,6 +182,10 @@ def test_gate2_armB_predominantly_deconfines_rate_pinned():
     assert rr["n_gapped"] >= rr["n_reconfine"]
 
 
+# engine_sim: heavy — a pooled n_perm=200 permutation sweep of connect-map
+# eigensolves (scramble_rate_sweep). Routed per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate2_armB_pooled_reconfine_rate_sweep():
     """The POOLED (srs L=4 + L=6) measured re-confine rate — the headline disclosure
     number reported in the result doc GATE-2 section — is a minority (< 0.20), so the
@@ -191,6 +216,9 @@ def test_gate3_brentq_norm_match_succeeds():
     assert abs(nm["p"] - 0.5) < 1e-3, f"π/4 should recover p=0.5, got {nm['p']}"
 
 
+# engine_sim: heavy connect-map eigensolve (solve_quarter_arc_shape -> np.linalg.eigh).
+# Routed per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_gate3_null_shape_control_passes():
     """RF / GATE3: two same-family shapes matched norm+depth give Δ/L within <<10%
     (the metric reads SHAPE not DEPTH) — the gate BEFORE any cross-family gap counts."""
@@ -199,6 +227,9 @@ def test_gate3_null_shape_control_passes():
     assert r["depth_matched"]  # canon/comparator min-S matched
 
 
+# engine_sim: heavy connect-map eigensolve (solve_quarter_arc_shape, x3 params).
+# Routed per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 @pytest.mark.parametrize("net,L", [("diamond", 8), ("srs", 4), ("srs", 6)])
 def test_gate3_shape_gap_below_10pct_echo(net, L):
     """GATE3 pinned ECHO: the quarter-arc Δ/L is shape-GENERIC — the depth-matched
@@ -214,6 +245,10 @@ def test_gate3_shape_gap_below_10pct_echo(net, L):
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy — electron_anchor_check sweeps L in [2,4,6], each a
+# solve_confinement eigensolve. Routed per the CI-partition prereg
+# (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_electron_anchor_not_reproduced():
     """The electron anchor (ω_cutoff≈2.87 reproduced α-free, converged) is NOT
     reproduced: the connect-map ω is lattice-band-structure-set (diverges with L),
@@ -227,6 +262,9 @@ def test_electron_anchor_not_reproduced():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heavy connect-map eigensolve (dec5_anti_coincidence -> solve_confinement).
+# Routed per the CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_dec5_anti_coincidence_not_Z_radiation():
     """DEC-5: the bound-mode ω is NOT silently Z_RADIATION=29.98 (the only ~30 is
     band-consistent Z_RADIATION, never an identity)."""
@@ -235,6 +273,13 @@ def test_dec5_anti_coincidence_not_Z_radiation():
     assert abs(d["omega_bound"] - 29.98) > 1.0
 
 
+# engine_sim: heavy — does an alpha->2alpha RE-SOLVE (alpha_free_invariance calls
+# solve_confinement + solve_quarter_arc_shape twice), so it is routed by COST. NOTE:
+# this is the alpha-INVARIANCE proof (no leak via re-solve), NOT a cheap import-guard;
+# the cheap no-alpha-carrier import-guard (test_no_alpha_carrier_imported, below)
+# stays in the blocking gate. Routed per
+# research/2026-06-13_ci-engine-sim-partition_prereg.md (#411).
+@pytest.mark.engine_sim
 def test_alpha_free_structural_invariance():
     """VALIDATE-ON-KNOWN (iv): α cancels in the dimensionless A=|V|/V_yield. ALPHA
     is NOT reachable in the module; doubling α leaves ω and Δ/L EXACTLY unchanged."""
@@ -259,6 +304,10 @@ def test_no_alpha_carrier_imported():
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# engine_sim: heaviest — run_fork_b_gate runs ALL gates (confinement + scramble +
+# quarter-arc + anchor sweep), many connect-map eigensolves. Routed per the
+# CI-partition prereg (research/2026-06-13_ci-engine-sim-partition_prereg.md, #411).
+@pytest.mark.engine_sim
 def test_top_level_verdict_is_echo():
     """The frozen-binned verdict is ECHO (pre-committed, expected, successful):
     confined + scramble-de-confines (real, S-dependent) BUT shape-generic + no
