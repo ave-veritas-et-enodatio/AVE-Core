@@ -107,5 +107,5 @@ Read-AND-run adversarial audit (workflow `w1ni1axfg`, 2 auditors/PR) + cleanup r
 ## 7. Reference
 
 - Survey: `w2jugq7ch`. Re-grounding: `w45xlj19e`. Audits: D-gate `a196…` (collapse), B `a28c…` (single-node flag), substrate-native re-grounding (all 3 lanes).
-- Circuit canon: `vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`, `cvr-phasor-reactance.md`, `cvr-reflection-smith.md`; `vol9/ch3-pin-port-configuration/`. Real-space-vs-phase-space: CLAUDE.md:22, vocab-register def-kn0t01/def-3638f2.
+- Circuit canon: `vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`, `cvr-phasor-reactance.md`, `cvr-reflection-smith.md`; `vol9/ch3-pin-port-configuration/`. Real-space-vs-phase-space: ave-kb/CLAUDE.md:22, vocab-register def-kn0t01/def-3638f2.
 - Lane code: A `master_equation_fdtd.py` (path-a) + the Cosserat charge engine (path-b); B `cosserat_field_3d.py` + the two-sublattice driver; D the Nyquist/Beltrami/monopole derivation.
