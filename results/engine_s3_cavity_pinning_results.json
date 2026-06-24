@@ -1,0 +1,157 @@
+{
+  "prereg": "research/2026-06-24_engine-s3-cavity-pinning_prereg.md (0b5691cd)",
+  "scheme": "Crank-Nicolson/Cayley (I+i dt/2 H)x^{n+1}=(I-i dt/2 H)x^n; H Hermitian; GMRES",
+  "winding_mode": "rigid_template",
+  "N": 24,
+  "halt_gate_1_operator_validity": {
+    "H_hermitian_asym": 0.0,
+    "H_hermitian": true,
+    "A1_block_matches_native_op_err": 0.0,
+    "A1_block_matches_native": true,
+    "PASS": true
+  },
+  "halt_gate_2_energy_conservation": {
+    "rel_drift_end": 6.422916998449899e-11,
+    "rel_drift_max": 2.4650821627696407e-10,
+    "tol": 1e-05,
+    "gmres_info": 0,
+    "PASS": true
+  },
+  "halt_gate_3_negative_controls": {
+    "gx3_backward_euler_bleed": {
+      "bleed": 0.9999999999999993,
+      "PASS": true
+    },
+    "gx5_passive_port": {
+      "Hmax_over_H0": 1.0,
+      "PASS": true
+    },
+    "winding_off_reproduces_modeIII": {
+      "peak_post_mean": 0.35073445186656954,
+      "ie0": 641.1477106388058,
+      "ie_end": 59.76585128349315,
+      "spread0": 3.984137650243767,
+      "spread_end": 7.409117749523154,
+      "is_modeIII": true,
+      "PASS": true
+    },
+    "gaussian_disperses": {
+      "peak_post_mean": 0.32597330398643903,
+      "PASS": true
+    },
+    "cartesian_v14_self_traps": {
+      "v_peak_mean_post": 0.6232852960118589,
+      "std_over_mean": 0.2868539736778114,
+      "n_em_min": 0.6053699491239438,
+      "self_traps": true,
+      "PASS": true
+    },
+    "slaved_arm_reachable_false": {
+      "slaved_arm_independence_false": true,
+      "real_arm_independent": true,
+      "PASS": true
+    },
+    "PASS": true
+  },
+  "primary_delta_sech": {
+    "bins": {
+      "I-1 peak_post > 0.2": true,
+      "I-2 breathing std/mean > 0.05": true,
+      "I-3 not diverging std/mean < 0.5": true,
+      "I-5 above radiation floor (>1.5x OFF peak)": true,
+      "I-6 bounded max|V| < 10": true,
+      "L-1 spread bounded (< 0.25\u00b7box)": false,
+      "L-2 spread does NOT grow": false,
+      "L-3 spread DELTA OFF/ON >= 1.30": false
+    },
+    "on_peak_post_mean": 1.4214885313605117,
+    "off_peak_post_mean": 0.35073445186656954,
+    "on_spread_post_mean": 5.890271810657987,
+    "on_spread0": 3.984137650243767,
+    "on_spread_end": 6.507933908107972,
+    "off_spread_post_mean": 6.3631243698723345,
+    "spread_delta_off_over_on": 1.0802768657226918,
+    "on_ie_post_mean": 256.73835586809423,
+    "off_ie_post_mean": 184.05711602219174,
+    "ie_delta_on_over_off": 1.3948841610510692,
+    "verdict": "DISPERSE",
+    "failing_bins": [
+      "L-1 spread bounded (< 0.25\u00b7box)",
+      "L-2 spread does NOT grow",
+      "L-3 spread DELTA OFF/ON >= 1.30"
+    ]
+  },
+  "primary_delta_gaussian": {
+    "bins": {
+      "I-1 peak_post > 0.2": true,
+      "I-2 breathing std/mean > 0.05": true,
+      "I-3 not diverging std/mean < 0.5": true,
+      "I-5 above radiation floor (>1.5x OFF peak)": true,
+      "I-6 bounded max|V| < 10": true,
+      "L-1 spread bounded (< 0.25\u00b7box)": false,
+      "L-2 spread does NOT grow": false,
+      "L-3 spread DELTA OFF/ON >= 1.30": false
+    },
+    "on_peak_post_mean": 1.6325652740576124,
+    "off_peak_post_mean": 0.32597330398643903,
+    "on_spread_post_mean": 5.993386361201999,
+    "on_spread0": 3.0480158200898986,
+    "on_spread_end": 6.818355442395304,
+    "off_spread_post_mean": 6.419615819054411,
+    "spread_delta_off_over_on": 1.0711166329291892,
+    "on_ie_post_mean": 215.70237526197667,
+    "off_ie_post_mean": 108.19359395597237,
+    "ie_delta_on_over_off": 1.9936704880120097,
+    "verdict": "DISPERSE",
+    "failing_bins": [
+      "L-1 spread bounded (< 0.25\u00b7box)",
+      "L-2 spread does NOT grow",
+      "L-3 spread DELTA OFF/ON >= 1.30"
+    ]
+  },
+  "genesis24_both_conserved": {
+    "energy_conserved": true,
+    "rel_drift_max": 2.4650821627696407e-10,
+    "winding_integer_conserved": true,
+    "winding_history": [
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "a1_drain": 0.15563768006562534,
+    "om_drain": -0.10459809001763117,
+    "both_conserved": true,
+    "PASS": true
+  },
+  "immune_system": {
+    "winding_off_disperses_modeIII": true,
+    "energy_gate_passed": true,
+    "both_conserved_A1_and_winding": true,
+    "slaved_arm_independence_false": true,
+    "negative_controls_fired": true
+  },
+  "seed_robust": true,
+  "verdict": "DISPERSE-FALSIFIED",
+  "verdict_reason": "The winding-ON A1 core DISPERSES (reproduces Stage-2 Mode-III): the centroid-spread is NOT held bounded (grows toward the box) and does not clear the Mode-I PERSIST bar, robustly across sech AND gaussian, on an energy-conservation-certified CLOSED box (NOT numerics). winding + H_couple + cavity does NOT pin the core \u2014 the DEEPER negative (pre-reg \u00a70). Reported honestly; NOT rescued (Rule 11)."
+}
