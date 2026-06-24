@@ -229,11 +229,18 @@ def is_skew_hermitian_generator(H: np.ndarray) -> bool:
 
 
 def propagator(H: np.ndarray, dt: float) -> np.ndarray:
-    """Exact unitary U = e^{-iHdt} via Hermitian eigendecomposition (no Trotter
-    error; H Hermitian ⇒ U unitary to machine precision). Mirrors
-    node_circulator_coupling._propagator:160-165 (generalized to 2M dims)."""
-    evals, evecs = np.linalg.eigh(H)
-    return evecs @ np.diag(np.exp(-1j * evals * dt)) @ evecs.conj().T
+    """U = e^{-iHdt}. For a HERMITIAN H (the REAL arm) use the exact Hermitian
+    eigendecomposition (no Trotter error; U unitary to machine precision; mirrors
+    node_circulator_coupling._propagator:160-165). For a NON-Hermitian H (the
+    NEGATIVE-CONTROL arms ONLY — the lossy / directional-gain detonator) fall back
+    to the general matrix exponential so the non-unitary (pump/leak) dynamics are
+    represented FAITHFULLY (a Hermitian-only eigensolver would silently symmetrize
+    the generator and HIDE the very non-conservation the canary must detect)."""
+    if np.allclose(H, H.conj().T, atol=1e-12):
+        evals, evecs = np.linalg.eigh(H)
+        return evecs @ np.diag(np.exp(-1j * evals * dt)) @ evecs.conj().T
+    from scipy.linalg import expm
+    return expm(-1j * H * dt)
 
 
 def evolve_field(psi0: np.ndarray, H: np.ndarray, dt: float, n_steps: int) -> np.ndarray:
@@ -481,4 +488,103 @@ def criterion_4_reduced_limit(
         "trajectory_equals_node_circulator": traj_equal,
         "rabi_anchor_match": rabi_match, "reduced_transfer": transfer,
         "PASS": bool(generator_equal and traj_equal and rabi_match),
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 4.  DUAL-CANARY LIVE NEGATIVE CONTROLS  (each leg demonstrates reachable-FAIL).
+#     T6 guard: a canary no arm can trip is VACUOUS. NEVER photon_deplete=True on
+#     the REAL arm (T5 detonation, cross_sector_coupling.py:130-141).
+# ═════════════════════════════════════════════════════════════════════════════
+def _detonating_generator(A_profile: np.ndarray, *, rate: float = 0.3,
+                          gain: float = 0.02) -> np.ndarray:
+    """A deliberately NON-skew, NON-Hermitian generator with an ANTI-CONSERVATIVE
+    (indefinite / gain) off-diagonal — the field-resolved analogue of the indefinite
+    trilinear H (photon_deplete=True) that DETONATES (H_bel −4107,
+    cross_sector_coupling.py:130-141). Used ONLY by the |L_ω| negative control to
+    prove the pump canary CAN fire. The ω-block carries a REAL secular-pump term
+    (a positive-feedback hop that funnels energy to one end of the chain ⇒ the
+    spatial first-moment |L_ω| grows secularly). This generator is NEVER on the
+    real arm — it exists only to demonstrate the canary is not decorative."""
+    A = np.asarray(A_profile, dtype=float).ravel()
+    M = A.shape[0]
+    H = build_hcouple(A, rate=rate, hop_b=0.05, hop_s=0.07, gate="front")
+    # break Hermiticity with a directional gain on the ω chain: a one-way amplifying
+    # hop a_ω(n+1) += i·gain·a_ω(n) (NOT its conjugate) ⇒ −iH no longer anti-Herm
+    # ⇒ the propagator is NON-unitary and PUMPS the ω spatial moment one-way.
+    for n in range(M - 1):
+        H[2 * (n + 1) + 1, 2 * n + 1] += 1j * gain  # asymmetric ⇒ non-Hermitian
+    return H
+
+
+def negative_control_L_omega_pump(
+    M: int = 8, rate: float = 0.3, dt: float = 0.05, n_steps: int = 4000,
+) -> dict:
+    """LIVE NEGATIVE CONTROL (i) — the |L_ω| PUMP must FIRE (pre-reg dual-canary).
+    The real skew-Hermitian arm keeps |L_ω| BOUNDED (no secular growth). A pre-stated
+    DETONATING arm (non-Hermitian directional-gain generator, the field analogue of
+    photon_deplete=True) MUST pump |L_ω| by ≥ NEG_CTRL_PUMP_RATIO×. A canary no arm
+    can trip is vacuous (T6). Reports the real-arm bound AND the neg-arm firing."""
+    A = np.linspace(0.1, 0.9, M)
+    psi0 = np.zeros(2 * M, dtype=complex)
+    psi0[0::2] = 1.0
+
+    # REAL arm (skew-Hermitian, unitary) — |L_ω| bounded.
+    H_real = build_hcouple(A, rate=rate, hop_b=0.05, hop_s=0.07, gate="front")
+    traj_real = evolve_field(psi0, H_real, dt, n_steps)
+    L_real = L_omega_pump(traj_real, A)
+    real_max = float(np.max(L_real))
+
+    # DETONATING arm (non-Hermitian gain) — |L_ω| pumps. (analogue of photon_deplete)
+    H_det = _detonating_generator(A, rate=rate)
+    traj_det = evolve_field(psi0, H_det, dt, n_steps)
+    L_det = L_omega_pump(traj_det, A)
+    det_max = float(np.max(L_det))
+
+    pump_ratio = det_max / (real_max + 1e-12)
+    fired = bool(pump_ratio >= NEG_CTRL_PUMP_RATIO)
+    return {
+        "L_omega_real_max": real_max, "L_omega_detonating_max": det_max,
+        "pump_ratio": pump_ratio, "is_skew_real_arm": is_skew_hermitian_generator(H_real),
+        "is_skew_detonating_arm": is_skew_hermitian_generator(H_det),
+        "dh_negative_control_fired": fired,  # named per deliverable
+        "L_omega_negative_control_fired": fired,
+        "PASS": fired,
+    }
+
+
+def negative_control_conservation(
+    M: int = 8, rate: float = 0.3, loss: float = 0.02, dt: float = 0.05,
+    n_steps: int = 4000,
+) -> dict:
+    """LIVE NEGATIVE CONTROL (ii) — the |dH/H| conservation canary must FIRE on an
+    OPEN/LOSSY arm (pre-reg dual-canary). The real CLOSED arm conserves |dH/H|<1e-8;
+    a pre-stated OPEN arm (an anti-Hermitian diagonal loss term — energy leaks)
+    MUST blow |dH/H| ≫ tol. This proves the conservation canary is not decorative
+    AND guards T2 (a leak hidden by 'conservation' would be a FAIL): if the canary
+    could not detect a leak, a damping-bought conservation would pass silently."""
+    A = np.linspace(0.1, 0.9, M)
+    rng = np.random.default_rng(11)
+    psi0 = rng.standard_normal(2 * M) + 1j * rng.standard_normal(2 * M)
+
+    # REAL closed arm.
+    H_real = build_hcouple(A, rate=rate, hop_b=0.05, hop_s=0.07, gate="front")
+    N_real = joint_energy(evolve_field(psi0, H_real, dt, n_steps))
+    real_drift = float(np.max(np.abs(N_real - N_real[0])) / N_real[0])
+
+    # OPEN/LOSSY arm: add an anti-Hermitian diagonal (−i·loss on the ω modes) ⇒ a
+    # decaying (non-unitary) propagator ⇒ |dH/H| grows (the norm is NOT conserved).
+    H_open = H_real.astype(complex).copy()
+    for n in range(M):
+        H_open[2 * n + 1, 2 * n + 1] += -1j * loss  # anti-Hermitian ⇒ loss port
+    N_open = joint_energy(evolve_field(psi0, H_open, dt, n_steps))
+    open_drift = float(np.max(np.abs(N_open - N_open[0])) / N_open[0])
+
+    fired = bool(open_drift > NEG_CTRL_DH_FLOOR and real_drift < CONS_TOL)
+    return {
+        "dH_over_H_real_closed": real_drift, "dH_over_H_open_lossy": open_drift,
+        "real_is_hermitian": bool(np.allclose(H_real, H_real.conj().T)),
+        "open_is_hermitian": bool(np.allclose(H_open, H_open.conj().T)),
+        "dh_negative_control_fired": fired,  # named per deliverable
+        "PASS": fired,
     }
