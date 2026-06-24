@@ -396,6 +396,7 @@
 {"source": "clm-kl1ern", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "impedance-rupture / $\\Gamma=-1$ at fast edge", "fraction": null}
 {"source": "clm-kl1ern", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-kl1ern", "target": "clm-ui3m8a", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-kmliqx", "target": "clm-jz0xaw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the same no-½ Σκ²/antisymmetric-pair summation convention; internal consistency with the validated gap forces √2", "fraction": null}
 {"source": "clm-knveh6", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}
 {"source": "clm-knveh6", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "energy-density boundedness used in the Riemann below-cutoff argument", "fraction": null}
 {"source": "clm-knveh6", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}

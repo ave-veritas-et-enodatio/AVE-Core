@@ -1039,6 +1039,34 @@ The micropolar rotational sector of the Cosserat substrate carries a mass gap $m
   - State the convention for the micropolar coupling normalization (factor placement in W) so the "units of G_c" framing is unambiguous.
 ---
 
+## Rotational-Curvature Wave Speed $c_R = \sqrt{2}$ (Node-Twist Stiffness Convention)
+<!-- id: clm-kmliqx -->
+
+The Cosserat micro-rotation sector's twist-gradient (wryness $\kappa = \nabla\omega$) curvature wave propagates at $c_R = \sqrt{2}$ relative to the shear speed ($c = 1$), in the cold-linear $G_c = 0$ regime. This is the engine-faithful value of the curvature-slope label; the prior continuum idealization $c_R = \sqrt{\gamma/I_\omega} = 1$ is demoted (Grant-ratified 2026-06-23).
+
+- _Specific Claims_
+  - The engine's curvature energy $W_\kappa = \gamma\sum_{ij}\kappa_{ij}^2$ carries NO $\tfrac{1}{2}$ prefactor and NO symmetrization (`cosserat_field_3d.py:704`, second copy `:739`), unlike the symmetrized Cauchy strain $W_{\text{cauchy}}$ which uses $\varepsilon_{\text{sym}} = \tfrac{1}{2}(\varepsilon+\varepsilon^T)$. The Fourier symbol of this no-$\tfrac{1}{2}$ operator gives $c_R = \sqrt{2}$.
+  - The no-$\tfrac{1}{2}$, no-symmetrization treatment is physically forced: translational strain symmetrizes because its antisymmetric part is a FREE rigid rotation storing no energy, but the micro-rotation gradient's antisymmetric part is a GENUINE twist-gradient that DOES store energy. This is the SAME no-$\tfrac{1}{2}$ convention that yields the validated $m^2 = 4$ mass gap (clm-jz0xaw).
+  - Empirically confirmed on the genuine two-sublattice $12\times12$ band structure (PR #392): V2 validate-on-known recovers $c_R = 1.414214$ (target $\sqrt{2}$, rel-err $2.0\times10^{-9}$) from the engine bond operator, bit-faithful to the same $\Sigma\kappa^2$ the bit-exact $m^2 = 4$ gap is read from.
+- _Specific Non-Claims and Caveats_
+  - This resolves only the $c_R$ curvature-slope label; it does NOT touch the load-bearing mass gap $m^2 = 4 G_c/I_\omega$ (bit-exact under either convention).
+  - The prior label "$1$" is the continuum idealization (standard $\tfrac{1}{2}$ elastic prefactor folded in) and is preserved as the continuum-limit value; it is no longer the substrate value but is not asserted to be wrong as a continuum statement.
+  - The T1a empirical $v/c_R = 0.858$ ratio in the leaf is a finite-$k$ lattice-dispersion measurement against the continuum-$1$ label; the $\sqrt{2}$ resolution is a convention/operator-faithfulness statement, not a new finite-$k$ measurement.
+  - **THREE-SPEEDS DISAMBIGUATION (do NOT fuse the two $\sqrt{2}$'s).** This claim's $\sqrt{2}$ is the **T2/curvature-$\gamma$** wryness-gradient mode (governed by the curvature modulus $\gamma$; $\sqrt{2}$ from the no-$\tfrac{1}{2}$ $W_\kappa$). It is **distinct from** (a) `clm-uu1qbo`'s $\sqrt{2}$ = the **A1/bulk-$K$** dilatational mode (bulk modulus, $K = 2G$ magic angle — a different sector); and (b) `clm-j550uh`'s **T2/shear-$G$** photon at $c = 1$ (same sector, different mode/modulus). It is also NOT the isotropic-solid longitudinal **P-wave** $\sqrt{10/3}\,c = 1.826\,c$ (the read-AND-run adjudication confirmed the V2 branch is rotational `rot_wt=1.0`, not the bulk $\sqrt{10/3}$). Full table: [`cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3.5.1. CI gate: `src/tests/test_cr_rotational_curvature_sqrt2.py`.
+
+> **Leaf references:** [cosserat-mass-gap](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md).
+
+### Quality
+- confidence: 0.82
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the same no-½ Σκ²/antisymmetric-pair summation convention; internal consistency with the validated gap forces √2]
+- solidity: 0.82 (ok to build on, see caveats) [= min(0.82, 0.82)]
+- rationale: Verified — the engine operator `W_kappa = jnp.sum(kappa**2)` (cosserat_field_3d.py:704, copy :739) carries no ½ and no symmetrization, and its Fourier symbol gives c_R=√2, recovered to rel-err 2.0e-9 on the genuine 12×12 two-sublattice band structure (PR #392, V2). The no-½ convention is the SAME one that yields the bit-exact m²=4 gap (clm-jz0xaw), so internal consistency forces √2; the prior "1" label is the continuum idealization (½ elastic prefactor) the discrete substrate does not honor. Grant-ratified 2026-06-23. Held at 0.82 (matching the parent gap claim) because the physical-forcing argument (free-rigid-rotation-stores-no-energy vs genuine-twist-gradient-stores-energy) is a convention adjudication grounded in the engine + the gap's internal consistency rather than an independent first-principles derivation of the √2 from the K4 lattice geometry.
+- strengthen-by:
+  - Derive √2 directly from the K4 diamond bond geometry (the discrete curvature stencil's eigenvalue) independent of the engine-operator-faithfulness argument.
+  - Add a dedicated G_c=0 time-domain wave-speed driver (analogous to T1a) reporting v/c_R against the √2 target, not just the band-structure Fourier symbol.
+---
+
 ## Gapped Dispersion of the Cosserat Rotational Sector
 <!-- id: clm-4mmwb6 -->
 
@@ -1222,6 +1250,7 @@ Under the tetrahedral group $T_d$, the K4 4-port amplitude space decomposes as $
   - Does NOT claim a new group-theory result — $A_1 \oplus T_2$ is the standard $T_d$ reduction of a 4-element permutation-like representation; the claim is its application to the K4 port space.
   - The empirical $\lambda_4 = 0$ is measured under one specific seeded $(2,3)$ Golden-Torus ansatz at amplitude $0.5$; it is the observed steady state of that run, not an analytic proof that $A_1$ must vanish for every initial condition.
   - The bare scattering matrix is unitary ($A_1$ would propagate forever, $T_2$ reflect forever); the $A_1$-to-zero dissipation is an Op3 effect (separate claim `clm-9kd2t3`), not a property of $S$ alone.
+  - **THREE-SPEEDS DISAMBIGUATION (this claim's "$T_2$ at $c$" is the SHEAR-$G$ mode).** Specific Claim 4 states "$A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus)." The $T_2$/$c$ entry here is **specifically the transverse SHEAR mode** (shear modulus $G$ — the photon), and the $A_1$/$c\sqrt{2}$ is the **bulk-$K$** dilatational mode (`clm-uu1qbo`). Neither is the **T2/curvature-$\gamma$** wryness-gradient mode at $\sqrt{2}$ (`clm-kmliqx`): that is a SECOND, distinct mode within the same $T_2$ micro-rotation sector, governed by the curvature modulus $\gamma$ (not $G$, not $K$). The two $\sqrt{2}$'s (A1/bulk-$K$ here, curvature-$\gamma$ in kmliqx) are numerically coincident but physically distinct — do NOT fuse. Full table: [`cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3.5.1.
 
 > **Leaf references:** [k4-port-irrep-decomposition](./operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md).
 
@@ -1439,6 +1468,7 @@ The K4-substrate $A_1$ and $T_2$ port-modes propagate at distinct speeds — $A_
   - The speeds $\sqrt{K_{\text{bulk}}/\rho}$ and $\sqrt{G/\rho}$ are stated from the macroscopic-moduli relations; the $K = 2G$ magic-angle condition is itself a Vol 1 Ch 2 result this claim depends on, not re-derived here.
   - The split is a substrate-geometry property; it carries the same continuum-limit caveat as the cardinal-axis $\sqrt{2}$.
   - **(2026-06-08 c_L reconciliation)** The $A_1$ speed $\sqrt{K_{\text{bulk}}/\rho} = \sqrt{2}\,c$ is the **bulk-modulus pure-dilatation** port-mode, NOT the isotropic-solid longitudinal **P-wave** $\sqrt{(K+\tfrac{4}{3}G)/\rho} = \sqrt{10/3}\,c$ ($\nu=2/7$; canonical vol_2 Ch 7). Both are real and distinct; this entry's $\sqrt{2}$ (and the cardinal-axis measurement) is the bulk-modulus quantity, correctly used as such.
+  - **THREE-SPEEDS DISAMBIGUATION (this claim's $\sqrt{2}$ is the A1/bulk-$K$ mode, NOT the curvature-$\gamma$ $\sqrt{2}$).** This entry's $A_1$ $\sqrt{2}$ is the **bulk-modulus $K$** dilatational/longitudinal-compression mode ($K = 2G$ magic angle). A SECOND, numerically-coincident $\sqrt{2}$ exists in a **different sector**: the **T2/curvature-$\gamma$** wryness-gradient mode (`clm-kmliqx`), governed by the curvature modulus $\gamma$ and arising from the no-$\tfrac{1}{2}$ $W_\kappa$ operator — NOT from $K = 2G$. The shared digit is a coincidence (bulk-$K$ ratio vs no-$\tfrac{1}{2}$ curvature convention), not an identity; do NOT fuse. This entry's $T_2$ photon at $c$ is the shear-$G$ mode (`clm-j550uh`). Full table: [`cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3.5.1.
 
 > **Leaf references:** [photon-propagation-baseline](./dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md).
 
