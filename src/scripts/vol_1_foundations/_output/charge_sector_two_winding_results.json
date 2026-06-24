@@ -546,6 +546,9 @@
       "10.00": 3.1565357652696413e-06,
       "20.00": 1.9580188997947445e-07
     },
-    "chord": "short-range (d_sat/r)^2 departure from Coulomb 1/r, derived from the Op14 saturation kernel, zero free parameters"
+    "label": "generic Op14 saturation (ALL pairwise forces) — NOT a charge chord; charge-agnostic (r,K,d_sat), same kernel as gravity Gm² and chemistry; short-range 1/r softening = finite-size form-factor = ECHO (audit w1ni1axfg, 2026-06-23)",
+    "classification": "ECHO (charge-agnostic form-factor)",
+    "saturation_form_factor": "short-range (d_sat/r)^4 departure from Coulomb 1/r (frac_dev/(d/r)^4 → 1/32, the Γ² saturation), derived from the Op14 saturation kernel, zero free parameters — but charge-AGNOSTIC, so an ECHO not a chord",
+    "chord_RETRACTED": "RETRACTED 2026-06-23 (audit w1ni1axfg): was 'short-range (d_sat/r)^2 departure from Coulomb 1/r, derived from the Op14 saturation kernel, zero free parameters'; it is neither a charge chord (charge-agnostic operator) nor (d_sat/r)^2 (it is (d_sat/r)^4). Real charge chord deferred to cage⊗winding engine."
   }
 }

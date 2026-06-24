@@ -1,16 +1,28 @@
 """
 Charge-sector two-winding interaction driver — LANE A PATH-(b).
 
-Substrate question (framed substrate-native, NOT "Coulomb scattering"):
+Substrate question (framed substrate-native, NOT "Coulomb scattering"; the
+electron is a Resonant LC Tank = 0_1 unknot + phase-space (2,3) winding, NOT a
+vortex/circulation — category-error guard):
 two electron charge-windings — each a helical Cosserat micro-rotation ω
-circulation with a chosen Beltrami-helicity SIGN (= charge sign) — placed near
-each other in the chiral lattice. Their circulation fields overlap through the
-medium. DOES THE LATTICE PUSH THEM APART?
+winding with a chosen Beltrami-helicity SIGN (= charge sign) — placed near
+each other in the chiral lattice. Their helical micro-rotation helicity fields
+overlap through the medium. DOES THE LATTICE PUSH THEM APART?
 
-Charge = Beltrami helicity H_bel = ∫ω·(∇×ω) on the Cosserat (2,q) micro-rotation
-grade (master-equation.md:20). The engine carries the DOF: two helical ω blobs,
-conservative force I_ω·ω̈ = −∂W/∂ω (velocity-Verlet step, use_impedance_boundary
-=False = bare −∇W/mass), inter-object separation tracked over the window.
+Charge = Beltrami helicity on the Cosserat (2,q) micro-rotation grade
+(master-equation.md:20). NOTE (audit w1ni1axfg, 2026-06-23): the engine
+observable `_beltrami_helicity` (cosserat_field_3d.py:533) returns the
+NORMALIZED, pointwise handedness cosine h_local = ω·(∇×ω)/(|ω|·|∇×ω|) ∈ [−1,+1],
+NOT the extensive volume integral ∫ω·(∇×ω). The engine carries the DOF: two
+helical ω blobs, conservative force I_ω·ω̈ = −∂W/∂ω (velocity-Verlet step,
+use_impedance_boundary=False = bare −∇W/mass), inter-object separation tracked
+over the window.
+WARNING (audit w1ni1axfg): this force path is FORCE-BLIND-TO-CHARGE — the energy
+density `_compute_energy_density` calls the SYMMETRIC `_reflection_density`
+(cosserat_field_3d.py:706), and the charge-distinguishing
+`_reflection_density_asymmetric` (κ_chiral·h term, :554) is NEVER wired into the
+force. So like-charge Arm A == achiral Arm C by construction; the null cannot
+detect a charge force even if one exists.
 
 Pre-reg: research/2026-06-23_charge-sector-two-winding_prereg.md (FROZEN).
 Refute-by-default. Validate-on-known FIRST (like-charge repulsion sign), THEN
@@ -321,14 +333,18 @@ def main() -> None:
     print(f"[Fit] force-law exponent n = {fit.get('exponent')}  "
           f"(Coulomb-force n=-2); R²={fit.get('r2')}")
 
-    # Validated charge-charge LAW + chord (the canonical operator path; the
-    # field-engine arms above are the honest "un-caged windings disperse" record).
-    print("[Operator] universal pairwise potential — charge-charge LAW + chord")
+    # GENERIC Op14 saturation form-factor (ALL pairwise forces — charge-agnostic
+    # operator). NOT the charge chord (audit w1ni1axfg, 2026-06-23): the field
+    # arms above are force-blind-to-charge (symmetric _reflection_density, :706),
+    # and this operator takes no charge/helicity input → ECHO not chord.
+    print("[Operator] universal pairwise potential — GENERIC Op14 saturation "
+          "(ALL pairwise forces; charge-agnostic = ECHO, NOT the charge chord)")
     chord = characterize_pairwise_chord()
     results["pairwise_chord"] = chord
     print(f"   far-field force exponent = {chord['far_field_force_exponent']:.3f} "
           f"(Coulomb -2); near-field = {chord['near_field_force_exponent']:.3f}; "
-          f"frac_dev@1.05·d_sat = {chord['frac_dev_from_coulomb_vs_r_over_dsat']['1.05']:+.4f}")
+          f"frac_dev@1.05·d_sat = {chord['frac_dev_from_coulomb_vs_r_over_dsat']['1.05']:+.4f} "
+          f"[saturation form-factor decays as (d_sat/r)^4, not a charge chord]")
 
     out = args.out or (
         "src/scripts/vol_1_foundations/_output/charge_sector_two_winding_results"
@@ -340,21 +356,34 @@ def main() -> None:
 
 
 def characterize_pairwise_chord() -> dict:
-    """Characterize the AVE charge-charge law via the CANONICAL validated
-    operator `universal_pairwise_energy` (clm-gdd70j, pairwise-potential.md;
-    tests test_universal_operators.py:150,158).
+    """Characterize the GENERIC Op14 saturation form-factor via the operator
+    `universal_pairwise_energy` (clm-gdd70j, pairwise-potential.md; tests
+    test_universal_operators.py:150,158).
+
+    🔴 AUDIT w1ni1axfg (2026-06-23) — RELABEL: this is NOT the charge chord. The
+    operator `universal_pairwise_energy(r, K, d_sat)` is CHARGE-AGNOSTIC — its
+    only inputs are r, K, d_sat (no charge / helicity), and it is the SAME Op14
+    saturation kernel used for gravity (K=Gm²) and chemistry (d_sat=Slater
+    radius). Its short-range 1/r softening is the textbook finite-size FORM-FACTOR
+    that any extended charge (incl. SM) exhibits → ECHO, not an AVE-distinct chord.
+    The function name is retained for call-site stability; read the output as the
+    "generic Op14 saturation (ALL pairwise forces)" characterization. The
+    asymptotic departure law is (d_sat/r)^4 (frac_dev/(d/r)^4 → 1/32), NOT
+    (d_sat/r)^2.
 
     Why this and not the field-engine centroid: per engine-capability-map.md:19
     "No single engine carries more than one or two [DOF]". The Cosserat field
     engine carries the WINDING (charge) DOF but NOT the A1 cage, so the windings
     DISPERSE and the centroid-drift force is dispersion-dominated (Arms A≈C HALT,
-    §3 of the prereg). The validated charge-charge LAW lives in the universal
-    pairwise operator, where the chord (short-range divergence from 1/r) is
-    DERIVED from the Op14 saturation kernel with ZERO free parameters.
+    §3 of the prereg). [Also force-blind-to-charge: the force path uses the
+    SYMMETRIC _reflection_density, :706.] The generic pairwise saturation law
+    below is DERIVED from the Op14 kernel with ZERO free parameters, but it does
+    NOT distinguish charge — the real charge-distinct chord (candidates #2/#3)
+    is DEFERRED to the unbuilt cage⊗winding engine.
 
     U(r) = -(K/r)(T² - Γ²),  Z(r) = Z₀/(1-(d_sat/r)²)^(1/4),  Γ=(Z-Z₀)/(Z+Z₀)
       Regime I  (r≫d_sat): Γ→0, U→-K/r          (Coulomb/gravity — validate-on-known)
-      Regime III (r≤d_sat): Γ→1, U>0             (Pauli repulsive wall — the chord)
+      Regime III (r≤d_sat): Γ→1, U>0             (Pauli repulsive wall — generic)
     """
     from ave.core.universal_operators import universal_pairwise_energy
 
@@ -377,12 +406,23 @@ def characterize_pairwise_chord() -> dict:
     return {
         "operator": "universal_pairwise_energy",
         "claim": "clm-gdd70j",
+        "label": "generic Op14 saturation (ALL pairwise forces) — NOT a charge "
+                 "chord; charge-agnostic (r,K,d_sat), same kernel as gravity Gm² "
+                 "and chemistry; short-range 1/r softening = finite-size "
+                 "form-factor = ECHO (audit w1ni1axfg, 2026-06-23)",
+        "classification": "ECHO (charge-agnostic form-factor)",
         "far_field_force_exponent": far_exp,
         "far_field_coulomb_target": -2.0,
         "near_field_force_exponent": near_exp,
         "frac_dev_from_coulomb_vs_r_over_dsat": frac_dev,
-        "chord": "short-range (d_sat/r)^2 departure from Coulomb 1/r, derived "
-                 "from the Op14 saturation kernel, zero free parameters",
+        "saturation_form_factor": "short-range (d_sat/r)^4 departure from Coulomb "
+                 "1/r (frac_dev/(d/r)^4 → 1/32, the Γ² saturation), derived from "
+                 "the Op14 saturation kernel, zero free parameters — but "
+                 "charge-AGNOSTIC, so an ECHO not a chord",
+        "chord_RETRACTED": "RETRACTED 2026-06-23 (audit w1ni1axfg): was claimed "
+                 "as 'short-range (d_sat/r)^2 charge chord'; it is neither a "
+                 "charge chord (charge-agnostic operator) nor (d_sat/r)^2 (it is "
+                 "(d_sat/r)^4). Real charge chord deferred to cage⊗winding engine.",
     }
 
 
