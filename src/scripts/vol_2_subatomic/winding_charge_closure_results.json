@@ -1,0 +1,123 @@
+{
+  "VERDICT": "COMPLETE",
+  "validate_on_known": {
+    "hopf_link": -1.0,
+    "unlinked": -0.0,
+    "electron_single_component": true,
+    "electron_self_linking_raw": -6.0001,
+    "electron_self_linking_LH_raw": 6.0001,
+    "sign_flips_with_handedness": "True",
+    "HALT": false
+  },
+  "part1_p_forcing": {
+    "rows": [
+      {
+        "p": 1,
+        "q": 3,
+        "single_component": true,
+        "gcd": 1,
+        "self_linking_raw": -3.0,
+        "self_linking_int": -3,
+        "nets_unit_or_more_integer": true
+      },
+      {
+        "p": 2,
+        "q": 3,
+        "single_component": true,
+        "gcd": 1,
+        "self_linking_raw": -6.0,
+        "self_linking_int": -6,
+        "nets_unit_or_more_integer": true
+      },
+      {
+        "p": 3,
+        "q": 3,
+        "single_component": false,
+        "gcd": 3,
+        "self_linking_raw": -9.0,
+        "self_linking_int": -9,
+        "nets_unit_or_more_integer": false
+      }
+    ],
+    "p1_closes_to_unit_integer": true,
+    "p2_closes_to_unit_integer": true,
+    "p2_forced_over_p1": false,
+    "p_eq_2_is_minimality_not_forcing": true
+  },
+  "part2_quark_closure": {
+    "Q2_denominator_table": {
+      "2": {
+        "Z_N_angles_over_2pi": [
+          "0/2",
+          "1/2"
+        ],
+        "fractional_charges": [
+          0.0,
+          0.5
+        ],
+        "denominator": 2
+      },
+      "3": {
+        "Z_N_angles_over_2pi": [
+          "0/3",
+          "1/3",
+          "2/3"
+        ],
+        "fractional_charges": [
+          0.0,
+          0.3333,
+          0.6667
+        ],
+        "denominator": 3
+      },
+      "4": {
+        "Z_N_angles_over_2pi": [
+          "0/4",
+          "1/4",
+          "2/4",
+          "3/4"
+        ],
+        "fractional_charges": [
+          0.0,
+          0.25,
+          0.5,
+          0.75
+        ],
+        "denominator": 4
+      },
+      "5": {
+        "Z_N_angles_over_2pi": [
+          "0/5",
+          "1/5",
+          "2/5",
+          "3/5",
+          "4/5"
+        ],
+        "fractional_charges": [
+          0.0,
+          0.2,
+          0.4,
+          0.6,
+          0.8
+        ],
+        "denominator": 5
+      }
+    },
+    "Q2_denominator_3_forced": false,
+    "Q2_note": "Z_N construction yields denominator N for ANY N; N=3 is the proton's observed loop count, not a forced denominator.",
+    "Q3_borromean_pairwise_linking": {
+      "0-1": 0.0,
+      "0-2": -0.0,
+      "1-2": 0.0
+    },
+    "Q3_pairwise_all_zero_true_borromean": true,
+    "Q1_lone_component_self_linking_raw": 0.0,
+    "Q1_lone_self_closes_to_integer": false
+  },
+  "RESULT_VERDICTS": {
+    "electron_p": "FIT/ECHO (p=1 also closes; p=2 is smallest-coprime minimality, not forcing)",
+    "quark_denominator_3": "FIT/ECHO (Z_N gives 1/N for any N; N=3 = proton loop count, chosen not forced)",
+    "confinement": "CONSISTENCY (closure-requirement forbids a free fractional state \u2014 but this is the [Q]=[L] posit restated, not a novel forcing of N=3 confinement)",
+    "up_down_split": "FIT/ECHO (theta->{+2/3=up,-1/3=down} requires hand-labeling to match PDG; no substrate reason a given handedness is 'up')"
+  }
+}
