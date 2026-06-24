@@ -1,5 +1,7 @@
 # PATHWAY — the complete dynamic multi-soliton, all-modes vacuum engine (NATIVE-FIRST)
 
+> ⚠ **SUPERSEDED 2026-06-24** by [`2026-06-24_engine-reroute-pathway.md`](2026-06-24_engine-reroute-pathway.md). This doc's **Stage 2 ("THE NATIVE CAGE") is 🔴 FALSIFIED** (MODE-III DISPERSE) and its **S0→S1→S2→S5→S6 critical path is DEAD**. The re-route changes the localization mechanism to BOUNDARY/TOPOLOGICAL (the (2,3) winding + `H_couple` + the Γ=−1 cavity); **mass = A1 (#260) is UNTOUCHED**. Read the re-route doc for the live path; this doc is retained as the audit trail.
+
 **Created:** 2026-06-23 · orchestrator-tracked · **Re-architected 2026-06-24 (Grant: "drop the cartesian, draft the proper path").**
 **Directive:** the full pathway to a fully dynamic multi-soliton, all-propagation-modes vacuum engine. Supersedes the cage⊗winding charter ([`2026-06-23_cage-winding-engine-charter.md`](2026-06-23_cage-winding-engine-charter.md)).
 
