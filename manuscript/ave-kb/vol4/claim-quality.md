@@ -466,6 +466,73 @@ The K4 / diamond-cubic Bloch dynamical matrix $D(\mathbf k)$, diagonalized acros
 
 ---
 
+## Field-Free Optical Activity: Parity ZERO-vs-NONZERO FORM (magnitude NOT bankable)
+<!-- id: clm-fofwr1 -->
+
+> 🟡 **MAGNITUDE-PENDING / NOT-bankable — read first.** This is a **FORM-class**
+> node. Its AVE-distinct content is the **PARITY** of the divergence (zero vs
+> nonzero), **NOT** a magnitude prediction. The **magnitude is NOT bankable**:
+> the engine's $\pm75.46°$/unit is an `ETA_ROT_PER_WRITHE=1.0` **engineering
+> DECREE** (demoted PR #374, `def-0pt1ac`), and the substrate-DERIVED bulk $g_0$
+> (Phase-1 EXECUTED, PR #374, OUTCOME A = the $4_1$ screw pitch, $\mp2.21589$
+> rad / lattice-z-unit) converts to $\sim2.0\times10^{12}$ rad/m — roughly **40
+> orders of magnitude OVER** the cosmic bound ($\sim4\times10^{-29}$ rad/m). The
+> **$k\to0$ continuum extraction is OPEN** (`research/2026-06-23_chiral-vector-tlm-phase1_result.md` §9).
+> Do **NOT** quote the magnitude as a forward prediction.
+
+A handed lattice rotates the polarization plane of a transmitted transverse wave
+with a **signed** rotation rate that **flips sign between enantiomorphs** and is
+**identically zero on the achiral diamond control** — sourced by the
+reflection-odd ring-writhe pseudoscalar (`def-wr1th3`, writhe $\pm0.04087$,
+live-confirmed). The optical-activity response is the lossless reciprocal-Faraday
+gyrator `def-0pt1ac`.
+
+- _Specific Claims_
+  - **FORM-class CHORD (the cleanest divergence axis): parity ZERO-vs-NONZERO.**
+    QED vacuum is parity-even $\Rightarrow$ field-free optical activity is
+    *structurally* exactly **0** at any magnitude. AVE's chiral vacuum gives a
+    **nonzero, signed** rotation. This is a qualitative presence/absence
+    divergence, NOT a coefficient comparison.
+  - **Live-confirmed FORM facts** (GATE-1, PR #374): signed / enantiomorph-odd /
+    diamond-null / writhe-sourced / lossless reciprocal gyrator. The substrate-
+    DERIVED bulk $g_0$ converges to the $4_1$ screw pitch with an exact sign-flip
+    and machine-precision $L$-independence (OUTCOME A).
+  - **Winding/charge channel.** This is the parity-axis observable unlocked by
+    the (2,3) winding being a separately-conserved DOF (S1 PASSED 2026-06-24,
+    `research/2026-06-24_engine-s1-winding-dof_result.md`).
+- _Specific Non-Claims and Caveats_
+  - 🔴 **MAGNITUDE is NOT a prediction.** The $\pm75.46°$/unit figure is the
+    `ETA_ROT_PER_WRITHE=1.0` engineering decree (`chiral_lattice_vector.py:27,93`),
+    not derived transport. The derived $g_0$ is a **lattice-pitch holonomy** a
+    633 nm photon ($\lambda \gg a_{cell}$) would average over; the literal rad/m
+    value is $\sim$40 OOM over the cosmic bound. The $k\to0$ continuum gyration
+    — the only thing that could map to a bound-respecting optical rotation — is
+    **OPEN** (no isolated transverse photon band in the degree-3 srs grid; the
+    centroid probe is packet-width/$k$-contaminated).
+  - **DISTINCT from the field-INDUCED birefringence coefficient** `clm-pp3qwf`
+    (that is an $E$-induced, even-in-$k$, parity-EVEN dielectric-saturation
+    coefficient — a *near-term-bankable* test, but NOT a parity test).
+  - **DISTINCT from the even-in-$k$ quartic** `clm-yr6tu4` / `clm-k4d4ph` (that
+    is parity-EVEN, achiral diamond point group — also NOT a parity test).
+  - This node does **NOT** touch the AVE cosmic-birefringence observable
+    ($E/B$ decoupling from $K/G \neq 2$); $g_0$ is a *different mechanism* and is
+    deliberately NOT mapped onto the live $\beta \sim 0.3°$ anomaly (and could
+    not be — the literal lattice-scale value is $\sim$40 OOM too large).
+
+> **Leaf references:** [field-free-optical-activity](./falsification/ch12-falsifiable-predictions/field-free-optical-activity.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - Axiom 1 (Substrate Topology — fixes the chiral srs $I4_1 32$ lattice + the ring-writhe pseudoscalar that sources the rotation)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 1.00)]
+- rationale: The FORM-class CHORD — parity zero-vs-nonzero, with QED structurally pinned to exactly zero — is the cleanest possible divergence axis, and the qualitative facts (signed / enantiomorph-odd / diamond-null / writhe-sourced / lossless reciprocal gyrator) are live-confirmed node-up (GATE-1, PR #374). Solidity is pinned at 0.55 (input-only) because the *bankable* content is missing: the engine magnitude is an `ETA_ROT_PER_WRITHE` engineering decree (demoted PR #374), the substrate-derived $g_0$ = the $4_1$ screw pitch is a lattice-pitch holonomy $\sim$40 OOM over the cosmic bound, and the $k\to0$ continuum extraction — the only route to a bound-respecting optical-rotation magnitude — is OPEN. The node is FORM-class / CONSISTENCY-class on the parity axis, NOT a near-term magnitude falsifier. This is a DISTINCT channel from the field-induced birefringence coefficient (clm-pp3qwf) and the even-in-$k$ quartic (clm-yr6tu4 / clm-k4d4ph), both of which are parity-EVEN.
+- strengthen-by:
+  - Close the $k\to0$ continuum gyration extraction (a clean isolated transverse photon band, or a large/aperiodic-slab supercell with a PML-grade absorbing face for the cascade) so the bulk $g_0$ maps to a physical rad/m value — currently OPEN (`research/2026-06-23_chiral-vector-tlm-phase1_result.md` §9). Until then the magnitude is NOT bankable.
+  - Build the co-vs-anti-handed pairwise $|F|$ ratio (Observable-C / "Stage-6", UNBUILT) — a *dimensionless* winding-parity forward prediction that dodges the $m_e/\alpha$-echo magnitude trap, now buildable since S1 PASSED.
+
+---
+
 ## Torus Knot Baryon Forward Predictions $(2,17), (2,19), (2,21)$
 <!-- id: clm-to41c7 -->
 

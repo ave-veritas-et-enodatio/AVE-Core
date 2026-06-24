@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-9sujp8, clm-gw2wgc, clm-i02mhk, clm-k4d4ph, clm-om0rtq, clm-pp3qwf, clm-qx9bb8, clm-to41c7, clm-trgqtf]
+subtree-claims: [clm-9sujp8, clm-fofwr1, clm-gw2wgc, clm-i02mhk, clm-k4d4ph, clm-om0rtq, clm-pp3qwf, clm-qx9bb8, clm-to41c7, clm-trgqtf]
 subtree-experiments: []
 -->
 
@@ -34,6 +34,7 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | [Autoresonant Dielectric Rupture](autoresonant-dielectric-rupture.md) | Schwinger limit bypass via PLL; nonlinear detuning; low-power pair production |
 | [Binary Kill-Switches](binary-kill-switches.md) | Neutrino Parity Test; GRB Dispersion Test |
 | [Vacuum Birefringence COEFFICIENT](vacuum-birefringence-e4.md) | ~~$E^2$ vs $E^4$ slope~~ → COEFFICIENT ratio $\sim 10^6\times$ QED (both $E^2$-leading; Rule-12 clm-pp3qwf); optical cavity protocol |
+| [Field-Free Optical Activity](field-free-optical-activity.md) | Parity ZERO-vs-NONZERO FORM chord (QED structurally 0); signed / enantiomorph-odd / diamond-null (clm-fofwr1); MAGNITUDE NOT bankable (40 OOM over bound, $k\to0$ continuum OPEN) |
 | [Torus Knot Baryon Predictions](torus-knot-baryon-predictions.md) | $(2,q)$ mass ladder; 6 retrospective matches; 3 forward predictions; $\sim 170\,\text{MeV}$ spacing |
 
 ## Derivations and Detail (Consolidated — Grant)
