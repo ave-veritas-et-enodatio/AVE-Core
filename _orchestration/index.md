@@ -5,22 +5,26 @@
 
 > **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
-## 2026-06-23 Lattice Dynamic-Regime Discovery Program (epic CHARTERED — lanes live)
+## 2026-06-23 Lattice Dynamic-Regime Discovery Program (epic ACTIVE — substrate-native reframe; PRs HELD)
 
-**Authoritative for the current discovery board** (parallel to, not superseding, the engine + manuscript epics below). Origin: the lattice-characterization white-space survey (2026-06-23). Full epic + lane charters + per-lane status tracker: [`2026-06-23_lattice-discovery-program.md`](2026-06-23_lattice-discovery-program.md).
+**Authoritative for the current discovery board** (parallel to, not superseding, the engine + manuscript epics below). Origin: the lattice-characterization white-space survey. Full epic + lane charters + **circuit-native object glossary** + per-lane status: [`2026-06-23_lattice-discovery-program.md`](2026-06-23_lattice-discovery-program.md).
 
-Survey meta-finding: AVE's STATICS + DC/linear regimes are characterized; the **DYNAMIC / many-body / finite-frequency / full-spectrum** regimes are wide open, and the gap is **engineering** (driver code for the settled S(A) kernel), not theory. This is the discovery half of the testing pivot.
+Survey meta-finding: AVE's STATICS + DC/linear regimes are characterized; the **DYNAMIC / driven / many-body / finite-frequency** regimes are wide open, and the gap is **engineering** (driver code for the settled S(A) kernel), not theory. **The AVE-distinct chord lives in the DRIVEN/SATURATED regime, not the cold-linear one.**
+
+**SUBSTRATE-FIRST DISCIPLINE (mandatory, 2026-06-23):** every lane brief/prereg/deliverable LEADS with a sector-header — (1) which sector (A1 compression / shear / Cosserat (2,q) micro-rotation) + does the engine carry that DOF? (2) cold-linear or driven/saturated? The vacuum's native language is EE/circuit (LC mesh, impedance, Γ, the phasor on the Clifford torus); standard-physics nouns (scattering, Chern, Hopf, stress-tensor) are subordinate translations. The electron = a **Resonant LC Tank** (real-space 0₁ unknot + phase-space (2,3) winding), NOT a vortex. See [[feedback_substrate_native_first_sector_header]].
 
 ### Active discovery lanes (orchestrator-tracked; worktree-isolated background implementers)
 
-| Lane | Pri | Status | Validate-on-known gate |
-|:---:|:---|:---|:---|
-| **A** soliton scattering | P0 lead | LIVE | b=0 head-on → a_s SIGN vs known e-e repulsion |
-| **B** Cosserat band structure (+C) | P1 | LIVE | recover c_EM/c_shear/the k=0 gap → then full BZ + topology |
-| **D-gate** coprime-odd-q rule | P2 | LIVE | rule must recover known electron/proton/(2,q) ladder first |
-| D-full / T (transport) / N (χ³) | — | GATED / deferred | on D-gate / Lane A / behind A·B |
+| Lane | Pri | Status | PR |
+|:---:|:---|:---|:---:|
+| **A** path-a mass-sector (A1 compression engine) | P0 | WALL-engine NULL (stress-tensor substrate-closed) | #390 demote |
+| **A** path-b charge-sector (Z_shear / Cosserat winding) | P0 | RUNNING | — |
+| **B** two-sublattice Cosserat bands | P1 | RE-RUNNING (real A→B bond op; #389 single-node/ansatz overstated) | #389 superseded |
+| **D** spinor p=2 route | P2 | COLLAPSED-TO-FIT (read source backwards) | #388 demote |
+| **D** Nyquist/Beltrami/monopole p=2 | P2 | CHARTERED (live substrate-native route) | — |
+| D-full / T (transport) / N (χ³ driven) | — | GATED / deferred | — |
 
-Per-lane discipline: validate-on-known FIRST, pre-register the sign, refute-by-default orchestrator audit (read-AND-run) before any landing, CONSISTENCY-vs-CHORD labeling. Lanes produce reviewed PRs; Grant merges; no self-merge.
+**All discovery PRs (#387/#388/#389/#390) HELD until re-framed substrate-native** (the docs carry the original standard-physics-vocab contamination). Per-lane discipline: sector-header first, validate-on-known first, refute-by-default read-AND-run audit, CONSISTENCY-vs-CHORD labeling, convergence-is-a-tell. Grant merges; no self-merge.
 
 ## 2026-06-18 reconciliation (engine merges landed + manuscript stack active)
 

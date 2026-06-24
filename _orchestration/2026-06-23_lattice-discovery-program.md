@@ -1,127 +1,98 @@
-# EPIC — Lattice Dynamic-Regime Discovery Program
+# EPIC — Lattice Dynamic-Regime Discovery Program (substrate-native)
 
-**Created:** 2026-06-23 · **Role:** orchestrator-tracked epic (living doc) · **Status:** CHARTERED — lanes pending kickoff
-**Origin:** the lattice-characterization white-space survey (workflow `w2jugq7ch`, 5 cartographer lanes + synthesis, 2026-06-23).
+**Created:** 2026-06-23 · **Role:** orchestrator-tracked epic (living doc) · **Status:** ACTIVE — lanes mid-flight, all PRs HELD pending substrate-native cleanup
+**Origin:** the lattice-characterization white-space survey (`w2jugq7ch`). **Reframed 2026-06-23** after Grant flagged standard-physics-vocab contamination (see §0.5).
 
 ---
 
 ## 0. North star
 
-Characterize the **dynamic / many-body / finite-frequency / full-spectrum** regime of the chiral micropolar K4 lattice — the white space the survey found wide open — and convert it into **bankable, falsifiable forward predictions**. This is the *discovery* half of the testing pivot ([[project_state_of_ave_and_testing_pivot]]): AVE forces FORMS / imports VALUES, so the AVE-distinct chord lives only in forward predictions, and the predictions live in the regime we have not yet exercised.
-
-**The governing law is settled** — `S(A)=√(1−(A/A_yield)²)`, zero free parameters. The unbuilt artifacts are **driver codes that exercise it dynamically**, not new theory. The white space is engineering, not physics-unknown. That is what makes this tractable.
+Characterize the **driven / many-body / finite-frequency** regime of the chiral micropolar K4 LC lattice and convert it into **bankable, falsifiable forward predictions** (the discovery half of the testing pivot, [[project_state_of_ave_and_testing_pivot]]). The governing law (S(A)=√(1−(A/A_c)²), zero free parameters) is settled; the unbuilt artifacts are driver codes that exercise it. **The AVE-distinct chord lives in the DRIVEN/SATURATED regime, not the cold-linear one** (confirmed by the re-grounding: the lattice's handedness only acts at saturation).
 
 ---
 
-## 1. The meta-finding (survey convergence)
+## 0.5 THE SUBSTRATE-FIRST DISCIPLINE — mandatory, read before any lane work
 
-All five domain cartographers independently reported the **same shape**:
+Every lane brief, prereg, and deliverable **leads with a sector-declaration BEFORE any standard-physics word**:
+1. **WHICH SECTOR** — A1 dilatation/compression, shear, or Cosserat micro-rotation (2,q) — and **does the engine/operator actually CARRY that DOF?**
+2. **STRAIN / SATURATION / IMPEDANCE state** — is the claim about the **cold linear** operator or the **driven / near-yield saturated** regime?
 
-> **STATICS + DC/linear regimes are well-characterized** (single-soliton bound states, DC moduli K=2G/ν=2/7, small-k photon dispersion + the (q·ℓ_node)⁴ tell, the saturation kernel pinned at ~21 scales). **The DYNAMIC / MANY-BODY / FINITE-FREQUENCY / FULL-SPECTRUM regimes are wide open** — and the gap is the *absence of driver code*, not the absence of theory.
+**The vacuum's native language is EE/circuit:** the LC mesh, impedance, Γ, the phasor/Lissajous loop on the Clifford torus. Standard-physics names (scattering length, Chern number, Hopf fibration, stress-tensor flux, phonon bands, group velocity) are **subordinate translations only.**
 
-This is also the focus answer: discovery here *is* the testing-pivot direction. Re-aiming the effort here is alignment, not detour.
-
----
-
-## 2. White-space map (characterized → open, grep-confirmed)
-
-| Domain | Characterized (evidence) | White space |
-|---|---|---|
-| **Dispersion / bands** | photon acoustic branch ω=c₀k exact + (q·ℓ)⁴ anisotropy (`k4_bloch_dispersion.py`); Cosserat gap m²=4G_c/I_ω at k=0 (`cosserat-mass-gap.md`, verified 0.35% via uniform-ω) | the **full multi-branch BZ spectrum** (~13 branches), the gapped rotational optical branch ω(k) across k, flat bands, van Hove/DOS, **Chern/Berry topology**, mode-character map |
-| **Defect taxonomy** | electron-unknot, proton-Borromean, the (2,q) baryon ladder to c≤19 (`torus-knot-ladder-baryons.md`, `def-kn0t01`) | **constructive a-priori enumeration** of ALL stable (p,q,N,χ); WHY coprime-odd-q; c≥21 continuation; strangeness-as-index; tetra/penta-quark prime-N test |
-| **Nonlinear** | birefringence δn∝E⁴ (`birefringence.py`); SHG/FWM **named** as falsification tests (`vol9/ch15`); much walked-back | the vacuum **χ³ SI-coefficient** itself; dynamical mode-mixing — *partly already-banked/demoted, see Lane N* |
-| **Constitutive / response** | DC moduli K=2G, ν=2/7, 3 channel speeds, DC Z_eff=Z₀/√S | the **frequency-dependent χ(ω,k)** response, couple-stress resonance poles ω~√(γk²/ρ), translation↔rotation cross-coupling impedance |
-| **Thermo / many-body** | δ_strain thermal sliver; single-soliton statics | **soliton-soliton scattering** (σ, θ(b), δ(k), a_s); transport η/κ; substrate phase diagram Ω(T,A,ε); bound states |
-
-The convergence: every "characterized" cell is a *static / DC / single-body* quantity; every "white space" cell is *dynamic / finite-frequency / many-body*.
+**The common trap (the category-error generator):** riding a standard-physics noun onto a sector the lattice doesn't have, then reading the observable off the wrong sector. It already produced three failures this epic — the D-gate p=2 spinor inversion, the Lane-A stress-tensor (no shear momentum in the compression sector), the Lane-B Chern-on-cold-matrix (handedness is saturation-only). Reasoning from the mesh OUT kills these a priori. See [[feedback_substrate_native_first_sector_header]].
 
 ---
 
-## 3. Ranked discovery veins → lanes
+## 1. Circuit-native object glossary (so no lane re-imports vortex/scattering vocab)
 
-Ranked by novelty × yield × tractability (and bankability). Survey synthesis verdict, lightly re-organized into lanes.
+Per Vol 4 Ch1 (`resonant-lc-solitons.md`, `cvr-phasor-reactance.md`) + Vol 9, verbatim-grounded:
 
-### Lane A — Soliton-soliton scattering **(LEAD, P0)** — novelty H / yield H / tract H / bankable **DIRECT**
-The richest seam and the convergence point of three veins (transport, nonlinear interactions, defect fusion). Every AVE soliton is characterized in **statics only**; there is no σ(b) anywhere in `src/` (`build_scattering_matrix` at `k4_tlm.py:64` is a per-node TLM operator, NOT a soliton S-matrix).
-- **Deliverables:** scattering length a_s (+ sign), phase shift δ(k), deflection θ(b), differential cross-section σ(b, v_rel).
-- **First move / validate-on-known:** build a 2-soliton elastic-scattering driver on `src/ave/core/master_equation_fdtd.py`; seed two Mode-I electron-unknot bound states; run **head-on b=0, low-velocity FIRST** → extract a_s and its **SIGN** as the validate-on-known gate (two electron-solitons must repel — like-charge; **pre-register the expected sign** per `ave-prereg`) **before** opening the σ(b, v_rel) sweep.
-- **Why lead:** lowest new-theory cost (pure numerical kinematics of the validated zero-parameter S(A) kernel on the existing FDTD engine); highest leverage (a scattering law is the upstream input that unlocks Lane T transport + Lane D fusion rules); sharply falsifiable (the s-wave scattering-length sign is a first-principles QM pass/fail); cross-sections are *measured* → directly bankable.
-
-### Lane B — Full Cosserat band structure **(P1)** — novelty H / yield M / tract H / bankable indirect
-The kinematic fingerprint. Photon acoustic + quartic anisotropy ARE done; the gapped rotational optical branch + the full ~13-branch BZ spectrum are not.
-- **Deliverables:** ω(k) for all branches across the BZ; band crossings; flat-band search; van Hove/DOS; **Chern/Berry topological indices** of the chiral I4₁32 lattice; the **mass-gap → structural-mass-spectrum** question (does a gap at E = a mode of mass E/c²?).
-- **First move:** extend `k4_bloch_dispersion.py` to the **full 6-DOF-per-node** (3 translational + 3 micro-rotational) Cosserat dynamical matrix, using canonical moduli (G, G_c, γ from `cosserat_field_3d.py`; ℓ_C=√6·L_NODE). Validate-on-known: recover c_EM, c_shear, and the known k=0 Cosserat gap.
-- **Folds in Lane C** (dynamic response χ(ω,k) — read the off-diagonal translation↔rotation block + the couple-stress pole ω~√(γk²/ρ) straight off the dynamical matrix; survey rated it a heavy overlap with B).
-
-### Lane D — Constructive defect enumeration **(P2)** — novelty H / yield H / tract M / bankable DIRECT
-Derive ALL stable (p,q,N,χ) configurations a-priori from K4 + Cosserat + Axiom-4 (vs the current post-hoc match-to-known-particle taxonomy). Most-bankable-if-it-lands (any un-enumerated stable defect = a candidate particle = a forward prediction); the corpus honestly flags the gaps (strange baryons "NOT natively derived").
-- **First move / gate:** before any enumeration, run `ave-canonical-leaf-pull` + `substrate-native-check`, then derive the single load-bearing gate — **WHY** does the K4 lattice admit only coprime-odd-q (2,q) torus knots as stable loops? Everything downstream (c≥21 ladder, strangeness-as-index, tetra(N=4)/penta(N=5)-quark prime-N test) hangs on that selection rule.
-- **Partial dependency on Lane A** for defect-fusion rules.
-
-### Lane T — Transport / thermodynamics **(P3, downstream of A)** — bankable direct
-Substrate transport coefficients (η_eff, κ_eff) from the scattering collision kernel; the phase diagram Ω(T, A, ε) from equipartition + Axiom-4. **Gated on Lane A** (needs the scattering law as input). Not kicked off until A's validate-on-known passes.
-
-### Lane N — Nonlinear wave-mixing **(DEFERRED / fold-in, NOT a full lane)**
-Demoted on symmetric-standard grounds: the survey's nonlinear lane **under-counted** existing work — `vol9/ch15` already names SHG/FWM/parametric-amp as falsification tests, and several pieces are walked-back. **Do NOT re-run an SHG/IMD slope** (echo, already walked-back). If pursued, the only fresh artifact is extracting the vacuum **χ³ coefficient in SI units** (m²/V²) from the Taylor expansion of S(A) (`saturation.py:124`) — a small fold-in, queued behind A/B.
+- **The electron = a Resonant LC Tank** (`BoundResonator`). Real-space body = the **0₁ UNKNOT** — a localized standing reactive mode. **NOT a vortex/whirlpool** ("vortex ring" is research-only, not canon).
+- **Mass = total stored REACTIVE energy** — the C↔L breather cycling capacitive (E, ∝V²) ↔ inductive (B, ∝I²) 90° out of phase; virial ⟨E_C⟩=⟨E_L⟩=½m_e c² ⇒ **E=mc² IS the stored electrical energy of an LC tank.** A1 dilatation sector → Z_bulk channel.
+- **Confinement = the Γ=−1 perfect-short wall** — core dielectric saturation drives C_eff→∞ ⇒ Z_core→0 ⇒ Γ=(0−Z₀)/(0+Z₀)=−1. The particle weaves its own impedance mirror. **Pauli** = two Γ=−1 bubbles can't penetrate.
+- **The (2,3) "knot" = a phase-space winding portrait** on the Clifford torus (2 on the d-axis, 3 on the q-axis) — **NOT real-space laps.** It is the **CHARGE / shear sector** (Z_shear, Cosserat micro-rotation), **orthogonal to the mass-phasor (A1⊥T2), never wired into it** (the ontology fence, `master-equation.md:20`).
+- **Charge = the (2,3) winding = Beltrami helicity** (the through-linking in Z_shear).
+- **Spin = the Γ_spinor=−1 (2π→4π) wall** (T2 sector) — a **distinct** −1 from the mass-confinement −1, numerically coincident.
+- **Q_e = 1/α = 137** is the electron's **instance** value. The α-free cold-cage Q≈30.8≠137 is the corpus **clean negative** — α stays an echo, NOT forced by the tank.
+- **3-channel network:** Z_EM≡Z₀ (matched/radiative PORT, the per-cycle α leak, |Γ_EM|²=1−α) · Z_bulk (mass/A1, Γ→−1) · Z_shear (charge/T2 winding, Γ→−1).
 
 ---
 
-## 4. Lane structure + sequencing
+## 2. Lanes (corrected scopes + status)
 
-```
-KICK OFF IN PARALLEL NOW:
-  Lane A  (scattering, LEAD)      ── independent, highest yield, unlocks T + D
-  Lane B  (band structure + C)    ── independent, the kinematic fingerprint
-  Lane D-gate (coprime-odd-q WHY) ── independent derivation (the selection-rule gate only)
+### Lane A — two-body interaction, charge sector (Z_shear) — P0 lead
+- **Path-(a)** (mass-sector, scalar A1 compression engine): **WALL-engine NULL.** The compression sector has no shear-momentum channel, so a "force on a blob" is structurally impossible — the only measurable two-body signal is phase-dependent **strain-overlap** (generic-soliton, not gravity). The stress-tensor T₀ₓ recheck is **substrate-CLOSED** (no shear momentum to flux; and AVE-gravity is *diffraction* off a c_eff(A²) gradient, not a stress-tensor pull, `optical-refraction-gravity.md:17`) — NOT an open choice. PR **#390** → demote to honest WALL-engine negative.
+- **Path-(b)** (charge-sector, Cosserat (2,3) winding engine — where charge lives): **RUNNING.** Substrate question: two co-handed (2,3) charge-windings near each other in Z_shear — does the lattice push them apart (validate-on-known: like-charge repulsion)? Chord-target: does the charge interaction **diverge from 1/r** (a winding-overlap / chirality / (q·ℓ_node) correction)? Engine-carries-the-DOF check FIRST.
 
-GATED / DOWNSTREAM:
-  Lane D-full   ← needs the D-gate result (+ partial A for fusion)
-  Lane T        ← needs Lane A's scattering law
-  Lane N        ← fold-in behind A/B (χ³ SI-coefficient only)
-```
+### Lane B — full two-sublattice Cosserat band structure (cold LC-mesh spectrum) — P1
+- Prior PR **#389** validated on the **single-node 6×6** + a phenomenological tile-and-scale ansatz coupling (`C=sf_mag·D6`) — so its "full two-sublattice band structure" headline **overstated**. **RE-RUNNING** with the real substrate-native A→B tetrahedral-bond operator.
+- Headline **NULL is correct + expected**: the 4₁-screw handedness is **saturation-only** (`cosserat_field_3d.py:570`), so the cold linear bands are parity-symmetric by construction — no topology chord in the cold spectrum. **The chord is the driven/saturated regime** (converges with Lane N). The √2 = a node-twist **stiffness convention** question (flag-don't-fix). Spectrum substrate-native: LC stop-band; the gapped micro-rotation mode IS mass.
 
-Lanes A and B are orthogonal, both are driver-builds on already-validated engines, and both have clean validate-on-known gates — so they run cleanly in parallel. Lane D's selection-rule gate is an independent derivation that can run alongside; the rest of D waits on it. Lane T waits on A. Lane N is a small fold-in.
+### Lane D — why the BoundResonator phase-portrait winds (2,3) — P2
+- The **spinor/Hopf route COLLAPSED-TO-FIT** (PR **#388** → demote): it read its cited table BACKWARDS (the 4π cover rides **q=3**, not p; p=major not minor; on a `status:ambiguous` axis). The (2,3) is a **phase-space** winding, and the corpus already factors it as an **instance** field — corroborating the fit. C-α (gcd=1)/C-β (≥2)/odd-q-given-p=2 stand; **C-γ (p=2) is not forced.**
+- **NEW substrate-native p=2 route (Grant 2026-06-23 — the live derivation):** the **saturated core drives B force-free (Beltrami)** ⇒ a twist whose minimal closed winding is set by **(a) Nyquist** (≥2 samples/cycle on the discrete mesh — p=1 aliases, can't close a phase loop) and **(b) the monopole double-wind** (need 2 laps to enclose a unit net charge), kept **provably SEPARATE** from the q=3 spin 4π closure. If all three hold + survive Rule-11 → a screw-free **substrate-forced p=2 = a chord.** Derive refute-by-default. *(Caveat: Nyquist-for-m_e is closed-negative `2026-06-11_nyquist-binding-route_CLOSED`; this is Nyquist-for-the-winding-number — different.)*
 
----
-
-## 5. Per-lane status tracker (living)
-
-| Lane | Priority | Status | Owner | Current phase | Next gate |
-|---|:---:|---|---|---|---|
-| **A** scattering | P0 | CHARTERED | — | pre-kickoff | build 2-soliton driver → b=0 a_s-sign validate-on-known |
-| **B** band structure (+C) | P1 | CHARTERED | — | pre-kickoff | extend dispersion to 6-DOF Cosserat matrix → recover c/gap |
-| **D-gate** coprime-odd-q | P2 | CHARTERED | — | pre-kickoff | derive the (2,q) stability selection rule |
-| **D-full** enumeration | P2 | BLOCKED | — | — | needs D-gate (+ partial A) |
-| **T** transport/thermo | P3 | BLOCKED | — | — | needs Lane A scattering law |
-| **N** χ³ coefficient | — | DEFERRED | — | — | fold-in behind A/B |
-
-*(Orchestrator updates this table as lanes report.)*
+### Gated / downstream
+- **D-full** enumeration — on the p=2 derivation. **Lane T** transport — on path-(b). **Lane N** nonlinear — the chord likely lives here (the driven/saturated chiral regime; converges with Lane B). Lane N's only fresh artifact is the χ³ SI-coefficient (don't re-run walked-back SHG).
 
 ---
 
-## 6. Orchestration discipline (per lane)
+## 3. Per-lane status tracker (living)
 
-1. **Validate-on-known FIRST.** Every lane has a known-result gate it must recover before any new number counts as a prediction (A: the a_s sign vs known e-e repulsion; B: recover c_EM/c_shear/the k=0 gap; D: recover the known electron/proton/baryon assignments before predicting new ones). A forward prediction made before the validate-on-known passes is not bankable.
-2. **Pre-register** the expected outcome (`ave-prereg`) before running the forward sweep — especially the *sign/direction*, which is the cheapest falsifier.
-3. **Refute-by-default adversarial audit** before any KB/manuscript landing (deflate-then-document). The orchestrator audits each lane's diffs (read-AND-run, not the self-report — the BenchModel-gate lesson).
-4. **CONSISTENCY vs CHORD labeling** on every result (`ave-discrimination-check`): is this peer-with-SM (consistency / echo) or AVE-distinct (chord / forward prediction)? The chord is the prize; honest labeling protects it.
-5. **Symmetric-standard** both ways (don't demote AVE for what SM also does; don't let a convergence-narrative inflate an echo — the survey's own Lane-N self-catch is the model).
-
----
-
-## 7. Standing constraints (non-negotiable)
-
-- `main` PROTECTED; **NO self-merge** — every change via reviewed PR, Grant merges.
-- Self-isolate git-mutating work in a `/tmp` worktree off `origin/main`. **NEVER** put the substring `build` in a worktree/branch name (trips `predictions_manifest_validator.py:136`).
-- PURE-AVE-CORPUS (physics only). `ave-canonical-source` (import from `constants.py`). verify-before-cite + grep-completeness (auditor not exempt). audit-trail-in-git: do not edit `_archive`, `*_FROZEN`, SESSION_STATE, or result/walk-back docs.
-- Drivers land under `src/scripts/vol_<N>_*/`; pre-regs + results under `research/`; canonical results propagate KB-leaf-first then manuscript (lockstep).
+| Lane | Pri | Status | PR | Next |
+|---|:---:|---|:---:|---|
+| **A path-a** mass-sector | P0 | WALL-engine NULL | #390 | demote to honest-negative (substrate-native cleanup) |
+| **A path-b** charge-sector | P0 | RUNNING | — | engine-carries-DOF check → like-charge-repulsion validate-on-known → chord hunt |
+| **B** two-sublattice bands | P1 | RE-RUNNING (real bond operator) | (#389 superseded) | validate-on-known on the real matrix; cold-NULL expected |
+| **D** spinor route | P2 | COLLAPSED-TO-FIT | #388 | demote to negative |
+| **D** Nyquist/Beltrami/monopole p=2 | P2 | CHARTERED (live route) | — | derive refute-by-default; Rule-11 |
+| D-full / T / N | — | GATED / deferred | — | on p=2 deriv / path-b / driven-regime |
 
 ---
 
-## 8. Reference
+## 4. Cleanup status (all discovery PRs HELD until done)
 
-- Survey output (full): workflow `w2jugq7ch` result (5 lanes + synthesis).
-- Lane A: `src/ave/core/master_equation_fdtd.py`, `k4_tlm.py:64` (the per-node operator NOT to confuse with a soliton S-matrix), `annihilation_evaporation_run.py` (has an impact-parameter seed knob but no far-field σ readout).
-- Lane B: `src/scripts/vol_4_engineering/k4_bloch_dispersion.py`, `src/ave/topological/cosserat_field_3d.py`, `cosserat-mass-gap.md`.
-- Lane D: `torus-knot-ladder-baryons.md`, `def-kn0t01`, `claim-quality-closure-roadmap.md` (FI-13 neutrino-as-screw-defect flag).
-- Lane N: `saturation.py:124`, `birefringence.py`, `vol9/ch15-falsification-tests/index.md`.
+The lane docs (#388/#389/#390) + this epic doc were written in standard-physics vocab and carry the contamination. **Nothing merges until each is re-framed substrate-native.** This epic doc is the root and is being cleaned now (2026-06-23). The lane docs get cleanup passes (sector-header first, vortex/scattering/Chern framing removed) before merge.
+
+---
+
+## 5. Discipline (per lane)
+
+1. **Substrate-first sector-header** (§0.5) — mandatory, before any standard-physics word.
+2. **Validate-on-known FIRST** (recover the known result before any new number is a prediction).
+3. **Refute-by-default orchestrator audit** (read-AND-run, not the self-report) before any landing.
+4. **CONSISTENCY vs CHORD** labelling on every result; **symmetric-standard** both ways; **convergence is a tell** (the cleaner the convergent story, the harder I check it).
+
+---
+
+## 6. Standing constraints
+
+`main` PROTECTED, NO self-merge (Grant merges reviewed PRs). Self-isolate in a `/tmp` worktree off `origin/main`; **never** put `build` in a worktree/branch name. PURE-AVE-CORPUS; `ave-canonical-source`; verify-before-cite + grep-completeness; audit-trail-in-git (no editing `_archive`/`*_FROZEN`/result docs). Drivers → `src/scripts/vol_<N>_*/`; preregs/results → `research/`; canonical results KB-leaf-first then manuscript.
+
+---
+
+## 7. Reference
+
+- Survey: `w2jugq7ch`. Re-grounding: `w45xlj19e`. Audits: D-gate `a196…` (collapse), B `a28c…` (single-node flag), substrate-native re-grounding (all 3 lanes).
+- Circuit canon: `vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`, `cvr-phasor-reactance.md`, `cvr-reflection-smith.md`; `vol9/ch3-pin-port-configuration/`. Real-space-vs-phase-space: CLAUDE.md:22, vocab-register def-kn0t01/def-3638f2.
+- Lane code: A `master_equation_fdtd.py` (path-a) + the Cosserat charge engine (path-b); B `cosserat_field_3d.py` + the two-sublattice driver; D the Nyquist/Beltrami/monopole derivation.
