@@ -85,6 +85,8 @@ Read-AND-run adversarial audit (workflow `w1ni1axfg`, 2 auditors/PR) + cleanup r
 
 **Still owed:** #388 spinor-route demote-to-negative; substrate-native vocab cleanup of the lane docs (folded into the retraction passes above). Only #392 merges clean (post c_R); #391/#390 HOLD for the retractions; #393 is an honest negative (merge or archive, Grant's call).
 
+**▶ NEXT FOCUS (Grant 2026-06-23): build the bottleneck engine.** Every "chord lives in forward predictions" routes through the unbuilt cage⊗winding engine (#391's exact gap). Scoped: [`2026-06-23_cage-winding-engine-charter.md`](2026-06-23_cage-winding-engine-charter.md) — EXTEND `cosserat_field_3d.py`; primary chord = Observable-C (co-vs-anti-handed |F| magnitude asymmetry, NOT the #391 echo); first milestone = Gate 0 (α-clean host de-risk, hard STOP if 137 reappears). The held PRs do not block it.
+
 ---
 
 ## 5. Discipline (per lane)
