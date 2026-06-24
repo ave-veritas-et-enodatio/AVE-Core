@@ -18,7 +18,7 @@ Survey meta-finding: AVE's STATICS + DC/linear regimes are characterized; the **
 | Lane | Pri | Status | PR |
 |:---:|:---|:---|:---:|
 | **A** path-a mass-sector (A1 compression engine) | P0 | WALL-engine NULL (stress-tensor substrate-closed) | #390 demote |
-| **A** path-b charge-sector (Z_shear / Cosserat winding) | P0 | RUNNING | — |
+| **A** path-b charge-sector (Z_shear / Cosserat winding) | P0 | REPORTED — chord #1 (d_sat/r)² DERIVED; audit-pending | #391 |
 | **B** two-sublattice Cosserat bands | P1 | RE-RUNNING (real A→B bond op; #389 single-node/ansatz overstated) | #389 superseded |
 | **D** spinor p=2 route | P2 | COLLAPSED-TO-FIT (read source backwards) | #388 demote |
 | **D** Nyquist/Beltrami/monopole p=2 | P2 | CHARTERED (live substrate-native route) | — |

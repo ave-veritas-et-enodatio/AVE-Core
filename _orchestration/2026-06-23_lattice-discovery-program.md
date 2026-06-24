@@ -42,7 +42,7 @@ Per Vol 4 Ch1 (`resonant-lc-solitons.md`, `cvr-phasor-reactance.md`) + Vol 9, ve
 
 ### Lane A — two-body interaction, charge sector (Z_shear) — P0 lead
 - **Path-(a)** (mass-sector, scalar A1 compression engine): **WALL-engine NULL.** The compression sector has no shear-momentum channel, so a "force on a blob" is structurally impossible — the only measurable two-body signal is phase-dependent **strain-overlap** (generic-soliton, not gravity). The stress-tensor T₀ₓ recheck is **substrate-CLOSED** (no shear momentum to flux; and AVE-gravity is *diffraction* off a c_eff(A²) gradient, not a stress-tensor pull, `optical-refraction-gravity.md:17`) — NOT an open choice. PR **#390** → demote to honest WALL-engine negative.
-- **Path-(b)** (charge-sector, Cosserat (2,3) winding engine — where charge lives): **RUNNING.** Substrate question: two co-handed (2,3) charge-windings near each other in Z_shear — does the lattice push them apart (validate-on-known: like-charge repulsion)? Chord-target: does the charge interaction **diverge from 1/r** (a winding-overlap / chirality / (q·ℓ_node) correction)? Engine-carries-the-DOF check FIRST.
+- **Path-(b)** (charge-sector, Cosserat (2,3) winding engine): **REPORTED → PR #391 (AUDIT-PENDING).** DOF **IS** carried (charge=Beltrami helicity; NOT a path-a capability wall). Validate-on-known **PASS at the law level** (`universal_pairwise_energy` clm-gdd70j: far-field exponent −2.000 exact Coulomb + Regime-III repulsive wall). **Chord candidate #1 DERIVED (zero-parameter):** short-range force softens −2.0→−0.47, +16.6% departure from 1/r at r=1.05·d_sat decaying as (d_sat/r)² (Op14 saturation kernel) = MANIFESTATION. Candidates #2 (handedness magnitude) + #3 ((q·ℓ_node)) **gated** on the unbuilt cage⊗winding two-grid engine. **Field-route closed-NEGATIVE:** the un-caged engine carries the winding but not the A1 cage → free windings disperse → like-charge arm == achiral null (prereg HALT fired; `engine-capability-map.md:19` no engine carries >1–2 DOF). **AUDIT OWED** (refute-by-default read-AND-run) — and the writeup needs the substrate-native cleanup pass before merge.
 
 ### Lane B — full two-sublattice Cosserat band structure (cold LC-mesh spectrum) — P1
 - Prior PR **#389** validated on the **single-node 6×6** + a phenomenological tile-and-scale ansatz coupling (`C=sf_mag·D6`) — so its "full two-sublattice band structure" headline **overstated**. **RE-RUNNING** with the real substrate-native A→B tetrahedral-bond operator.
@@ -62,7 +62,7 @@ Per Vol 4 Ch1 (`resonant-lc-solitons.md`, `cvr-phasor-reactance.md`) + Vol 9, ve
 | Lane | Pri | Status | PR | Next |
 |---|:---:|---|:---:|---|
 | **A path-a** mass-sector | P0 | WALL-engine NULL | #390 | demote to honest-negative (substrate-native cleanup) |
-| **A path-b** charge-sector | P0 | RUNNING | — | engine-carries-DOF check → like-charge-repulsion validate-on-known → chord hunt |
+| **A path-b** charge-sector | P0 | REPORTED (audit-pending) | #391 | validate PASS (−2.000); chord #1 (d_sat/r)² DERIVED; #2/#3 gated on cage⊗winding engine; field-route closed-neg (no cage) |
 | **B** two-sublattice bands | P1 | RE-RUNNING (real bond operator) | (#389 superseded) | validate-on-known on the real matrix; cold-NULL expected |
 | **D** spinor route | P2 | COLLAPSED-TO-FIT | #388 | demote to negative |
 | **D** Nyquist/Beltrami/monopole p=2 | P2 | CHARTERED (live route) | — | derive refute-by-default; Rule-11 |
