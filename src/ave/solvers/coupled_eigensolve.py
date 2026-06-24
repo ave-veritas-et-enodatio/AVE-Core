@@ -256,3 +256,82 @@ def solve_coupled_spectrum(cfg: CoupledEigenConfig, *, winding_on: bool | None =
         "omega_im": 0.0,
         "lossless": True,
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 2. GATE (e) — ARM-B SCRAMBLE (anti-tautology): destroy the S-STRUCTURE
+# ═════════════════════════════════════════════════════════════════════════════
+def solve_arm_b_scramble(cfg: CoupledEigenConfig, *, seed: int = 20260624) -> dict:
+    """ARM-B (the fork-b LOAD-BEARING control, gate e): spatially PERMUTE the
+    saturated A1 strain field A(x) holding its histogram FIXED, then rebuild the
+    SAME coupled H (so D=1/S(A) AND the front-gated coupling Ω scramble TOGETHER,
+    the consistent operator analog of fork-b's per-bond S permutation) and
+    re-eigensolve. A genuine S-structure-decided confinement must DE-CONFINE
+    (core_frac drop ≥ 0.30 OR core_frac < 0.50). A mode surviving ARM-B is
+    BC/projector-decided = AUTO-VOID (NOT a real confinement).
+
+    The permutation is the SAME histogram-preserving shuffle fork-b uses; the
+    bound mode is judged by the IDENTICAL selector as GATE1. α-FREE."""
+    from scipy.sparse.linalg import eigsh
+
+    # baseline: the real graded operator (the make-or-break run).
+    base = solve_coupled_spectrum(cfg, winding_on=cfg.winding_on)
+    base_cf = base["bound_mode"]["a1_core_frac"]
+
+    # ARM-B: build the sim, then PERMUTE the strain field that drives BOTH D and Ω.
+    sim = _build_seeded_sim(cfg, winding_on=cfg.winding_on)
+    rng = np.random.default_rng(seed)
+    # the strain field A(x) the operator reads (from |a_A1|); permute it spatially.
+    A_flat = np.abs(sim.a_A1).reshape(-1).copy()
+    perm = rng.permutation(A_flat.size)
+    A_perm = A_flat[perm].reshape(sim.N, sim.N, sim.N)
+    hist_preserved = bool(np.allclose(np.sort(A_flat), np.sort(A_perm.reshape(-1))))
+    # plant the permuted strain as the A1 field (so strain()/stiffness_D()/Ω read it)
+    sim.a_A1 = A_perm.astype(np.complex128)
+    H = sim._assemble_H()
+    vals, vecs = eigsh(H, k=cfg.k_eigs, which="SA")
+    order = np.argsort(vals)
+    vecs = vecs[:, order]
+    armb = _decompose_eigenvector(vecs[:, 0], sim)
+    armb_cf = armb["a1_core_frac"]
+
+    margin = base_cf - armb_cf
+    deconfines = bool(margin >= 0.30 or armb_cf < 0.50)
+    survives_auto_void = bool(armb_cf >= 0.50 and not deconfines)
+    return {
+        "ok": True,
+        "baseline_core_frac": base_cf,
+        "armB_core_frac": armb_cf,
+        "armB_margin": margin,
+        "armB_histogram_preserved": hist_preserved,
+        "armB_deconfines": deconfines,
+        "armB_survives_AUTO_VOID": survives_auto_void,
+        "seed": seed,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 3. HALT GATE — winding-OFF must recover the fork-b confined A1 mode
+# ═════════════════════════════════════════════════════════════════════════════
+COLD_CAGE_OMEGA_CUTOFF = 2.87  # FORM anchor: test_l3_mass_cage.py:18 (NOT m_e — definitional)
+
+
+def halt_gate(cfg: CoupledEigenConfig) -> dict:
+    """HALT GATE (pre-reg §6.1): with winding_on=False (Ω≡0), the eigensolve MUST
+    recover the fork-b confined A1 mode (core_frac ≥ 0.50, lossless). If not, the
+    instrument is broken → HALT. We ALSO report whether the recovered fork-b ω is
+    near the cold-cage ω_cutoff≈2.87 anchor (a FORM cross-check, NOT a pass
+    condition — the pass condition is core_frac + lossless only)."""
+    r = solve_coupled_spectrum(cfg, winding_on=False)
+    bm = r["bound_mode"]
+    core_ok = bool(bm["a1_core_frac"] >= cfg.core_frac_floor)
+    lossless = bool(r["lossless"])
+    near_anchor = bool(abs(r["forkb_omega"] - COLD_CAGE_OMEGA_CUTOFF) / COLD_CAGE_OMEGA_CUTOFF < 0.10)
+    return {
+        "ok": True,
+        "forkb_omega": r["forkb_omega"],
+        "a1_core_frac": bm["a1_core_frac"],
+        "lossless": lossless,
+        "near_cold_cage_anchor_2p87": near_anchor,
+        "recovers_forkb": bool(core_ok and lossless),
+    }
