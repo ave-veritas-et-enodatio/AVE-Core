@@ -19,6 +19,8 @@ claims: [clm-ka5zdx]
 > $$
 > Vacuum is the absence of such closed tubes. Mass is not a primitive; it is the substrate's response to saturation-locked topological closure.
 
+> **🔴 CLOSURE-MECHANISM SCOPING (2026-06-24, Rule 12 — body below PRESERVED unedited).** Read the derivation's "standing-wave loop" closure (Steps 2–4) as **topological/boundary** closure — the **Axiom-2 winding pins the A1 core** + the **Axiom-4 Γ→−1 boundary trap** — which **SURVIVES**. Any reading of the Step-2 "constructively interferes into a standing-wave loop" as a **bulk self-focused interior mode** is the **FALSIFIED route**: the Stage-2 native-cage make-or-break ([`research/2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md)) returned energy-certified **MODE-III DISPERSE** — a seeded sech does NOT self-focus into a persistent bound interior core on the native K4 stencil (bulk self-trap = Cartesian-grid artifact, RULED OUT). The **$mc^2 = E_{\text{reactive}}$ IDENTITY (lines 18–20, and `E_{\text{reactive}} = mc^2` at the Step-4/§"Closure" line below) STANDS** — it is what mass IS; only the WHAT-LOCALIZES reading is scoped to topology/boundary. mass = A1 (PR#260) untouched.
+
 ### Derivation chain (Axioms 1 + 2 + 4)
 
 **Step 1 — open regime (massless).** A transverse EM wave propagating through unsaturated the substrate satisfies $A \ll 1$ at every node. The saturation kernel $S(A) = \sqrt{1 - A^2} \approx 1$ (Axiom 4), so the local impedance is $Z_{\text{photon}} = Z_0$ and the local reflection coefficient $\Gamma_{\text{local}} \approx 0$. The wave transmits cleanly:
@@ -31,13 +33,13 @@ all energy goes into propagation, none into stored reactance. This is the photon
 $$
 Z_{\text{photon}}(A) = \frac{Z_0}{(1 - A^2)^{1/4}} \;\to\; \infty
 $$
-The reflection coefficient $\Gamma_{\text{local}} \to 1$, and **the wave reflects back on itself**. By Axiom 3 (Minimum Reflection Principle), the substrate finds the configuration that minimizes the reflected action — which for a closed-tube geometry means the reflected wave constructively interferes into a standing-wave loop rather than dissipating.
+The reflection coefficient $\Gamma_{\text{local}} \to 1$, and **the wave reflects back on itself**. By Axiom 3 (Minimum Reflection Principle), the substrate finds the configuration that minimizes the reflected action — which for a closed-tube geometry means the reflected wave constructively interferes into a standing-wave loop rather than dissipating. 🔴 *(2026-06-24: "standing-wave loop" = the BOUNDARY/topological closure that SURVIVES — not a bulk self-focused interior mode, which is the FALSIFIED route. See the closure-scoping banner above.)*
 
 **Step 3 — topological closure (Axiom 2 TKI).** The minimum-action closed configuration is a knotted flux tube. By Axiom 2 ($[Q] \equiv [L]$), the topological winding number of the closed tube *is* the particle's charge in lattice-native units:
 $$
 Q_{\text{particle}} = \ell_{node} \times W
 $$
-where $W$ is the integer winding. The closed tube cannot un-knot without unwinding $W$ — so the standing-wave loop is permanently trapped. The topology stabilizes the closure.
+where $W$ is the integer winding. The closed tube cannot un-knot without unwinding $W$ — so the standing-wave loop is permanently trapped. The topology stabilizes the closure. 🔴 *(2026-06-24: this is the SURVIVING mechanism — **topology** (Ax2 winding) pins the closure, NOT bulk self-focus; the bulk-self-focus reading is FALSIFIED. mass = A1 untouched.)*
 
 **Step 4 — reactive energy = rest mass (Axiom 1 LC).** The closed knotted tube is hosted on the K4 Cosserat lattice where every node carries an LC oscillator (Axiom 1). The standing wave couples into these per-node LC tanks. The total reactive energy stored in the tube's internal oscillation is:
 $$
@@ -61,9 +63,9 @@ The theorem is the convergence of all four axioms on a single derived statement 
 
 ### What this clarifies
 
-The substrate-native answer to *"what is mass?"* is: **mass is the reactive energy of a saturation-locked closed-tube standing wave**. It is not a property attached to particles by external assignment; it is what the substrate does when a transverse wave gets topologically trapped by the Axiom 4 boundary.
+The substrate-native answer to *"what is mass?"* is: **mass is the reactive energy of a saturation-locked closed-tube standing wave**. It is not a property attached to particles by external assignment; it is what the substrate does when a transverse wave gets topologically trapped by the Axiom 4 boundary. 🔴 *(2026-06-24: "topologically trapped by the Axiom-4 BOUNDARY" is the SURVIVING mechanism; a bulk self-focused interior trap is the FALSIFIED route — Stage-2 Mode-III. The mc² = E_reactive identity is unaffected.)*
 
-This also clarifies what vacuum is: vacuum is the absence of closed tubes. Where $A \ll 1$ everywhere, no waves get trapped, and the substrate has no rest mass. Where $A \to 1$ on a closed surface (topological boundary), a standing wave locks in and the substrate carries rest mass = stored reactance.
+This also clarifies what vacuum is: vacuum is the absence of closed tubes. Where $A \ll 1$ everywhere, no waves get trapped, and the substrate has no rest mass. Where $A \to 1$ on a **closed surface (topological boundary)**, a standing wave locks in and the substrate carries rest mass = stored reactance. 🔴 *(2026-06-24: lock-in on a "closed surface (topological boundary)" = the BOUNDARY route that SURVIVES, NOT a bulk interior self-focus well; see the closure-scoping banner. mass = A1 untouched.)*
 
 ### Consequences
 
