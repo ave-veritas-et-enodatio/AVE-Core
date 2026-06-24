@@ -32,7 +32,21 @@
 > (transport-independent) observable could still register a force; this run does
 > not license "force sector absent." (See §1.6.)
 >
-> **R3 — OPEN false-null hatch, GRANT-GATED, NOT run (flag-don't-fix).** A
+> **R3 — ✅ CLOSED 2026-06-23: hatch RUN per Grant ruling → PASS / FM-DIFFRACTION.**
+> *Grant ruled RUN (2026-06-23) with the physical call: gravity = FREQUENCY
+> MODULATION (diffraction), NOT a momentum-transport pull. The T^{0i} integral
+> was run (`mass_sector_field_momentum_T0i.py`, result
+> [`..._T0i_result.md`](2026-06-23_mass-sector-two-body-scattering_T0i_result.md)).
+> Verdict: **net momentum transported between the blobs = ZERO** (M0 P_total=0
+> exact; M2 Φ_x=0 by symmetry; M1 delivered-momentum dP phase-DEPENDENT +
+> AC-dominated → no phase-independent DC pull). The null is REAL for the right
+> reason (momentum-pull-absent), NOT apparatus-limited. The §390 OBSERVABLE-LIMITED
+> re-scope (R2) is resolved: the centroid readout saw nothing because there is no
+> momentum-transport force to transduce — gravity here is frequency modulation,
+> which moves no net momentum (`optical-refraction-gravity.md:17` confirmed). The
+> ORIGINAL R3 body below (recorded as DEFERRED) is preserved verbatim.*
+>
+> **R3 (original, now CLOSED) — OPEN false-null hatch, GRANT-GATED, NOT run (flag-don't-fix).** A
 > transport-INDEPENDENT force observable was available with **zero engine change**
 > and was **NOT run**: the field-momentum integral
 > `P_i = ∫ T^{0i} dV` with `T^{0i} = (∂_t V)(∂_i V)` (the scalar-A1
