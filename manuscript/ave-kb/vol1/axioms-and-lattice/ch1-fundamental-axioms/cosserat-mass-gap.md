@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-jz0xaw, clm-4mmwb6, clm-dhvhwi, clm-g0mkne]
+claims: [clm-jz0xaw, clm-4mmwb6, clm-dhvhwi, clm-g0mkne, clm-kmliqx]
 path-stable: "referenced from L3 closure synthesis + photon-identification + Vol 4 Ch 1 as canonical Cosserat mass-gap formula"
 -->
 
@@ -96,6 +96,23 @@ i.e., $m^2 = 4 G_c / I_\omega$. The factor 4 = 2 (from $\sum_{ij}$ doubling at a
 | T2 (mass-gap oscillation) | $G_c = 1$, $\nabla \omega = 0$ — mass term only | $T / T_{\text{theory}} = 0.9965$; energy drift $9.0 \times 10^{-3}$ | **0.35% error — essentially exact** |
 | T3 (energy conservation) | All three tests | $|\Delta H / H|_{\max} \leq 1\%$, no secular trend | Velocity-Verlet symplectic-O($dt^2$) confirmed |
 
+## §3.5 — The rotational-curvature wave speed is $c_R = \sqrt{2}$ (node-twist stiffness convention, Grant-ratified 2026-06-23)
+<!-- claim-quality: clm-kmliqx -->
+
+**SECTOR HEADER.** This is the Cosserat **micro-rotation** sector. $c_R$ is the propagation speed of a **twist-gradient (wryness $\kappa = \nabla\omega$) curvature wave**, measured against the shear/transverse speed ($c = 1$). Cold-linear regime; $G_c = 0$ (pure curvature, no mass gap). NOT a translational-strain wave — the carried DOF is the micro-rotation gradient $\kappa$, not the Cauchy strain $\varepsilon_{\text{sym}}$.
+
+**RESOLVED VALUE: $c_R = \sqrt{2}$** (Grant-ratified 2026-06-23).
+
+The engine's curvature energy is $W_\kappa = \gamma \sum_{ij} \kappa_{ij}^2$ — it carries **NO $\tfrac{1}{2}$ prefactor and NO symmetrization** (unlike the symmetrized Cauchy strain $W_{\text{cauchy}}$, which uses $\varepsilon_{\text{sym}} = \tfrac{1}{2}(\varepsilon + \varepsilon^T)$). Summing the $\kappa$ quadratic form with unit (not half) weight is what yields $c_R = \sqrt{2}$ as the engine-faithful Fourier symbol of this operator. Verbatim in `src/ave/topological/cosserat_field_3d.py:704`: `W_kappa = jnp.sum(kappa**2, axis=(-1, -2))` (second identical copy at `:739`).
+
+**Derivation rationale (Grant 2026-06-23, carried verbatim):** translational strain symmetrizes because its **antisymmetric part is a FREE rigid rotation storing no energy**; the **micro-rotation gradient's antisymmetric part is a GENUINE twist-gradient that DOES store energy**, so the **full-gradient (no-$\tfrac{1}{2}$) treatment is physically forced** — AND it is the **SAME no-$\tfrac{1}{2}$ convention that yields the validated $m^2 = 4$ mass gap** (§2, `clm-jz0xaw`: the antisymmetric-pair $\sum_{ij}$ doubling that gives the factor-2 in $W_{\text{micropolar}} = 2 G_c |\omega|^2$ is the same no-$\tfrac{1}{2}$ summation convention). **Internal consistency $\Rightarrow \sqrt{2}$**; the old leaf label "$1$" is a **continuum idealization the discrete substrate does not honor** (it is the convention with the standard $\tfrac{1}{2}$ elastic prefactor folded in, which the engine operator does not carry).
+
+Empirical confirmation (PR #392, the genuine two-sublattice $12\times12$ band structure): the V2 validate-on-known recovers $c_R = 1.414214$ (target $\sqrt{2}$, rel-err $2.0\times10^{-9}$) directly from the engine's bond operator — bit-faithful to the same $\Sigma\kappa^2$ the gap ($m^2 = 4$, also bit-exact there) is read from. The leaf label and the engine $\Sigma\kappa^2$ cannot both be the substrate value; the driver is bit-for-bit faithful to the engine operator, so internal consistency forces $\sqrt{2}$.
+
+> **🔴 RULE-12 DEMOTION (2026-06-23) — the prior $c_R = \sqrt{\gamma/I_\omega} = 1$ label is DEMOTED, not deleted.** Prior to Grant's 2026-06-23 ratification, the companion-test table (§3 T1a row) and the canonical script `cosserat_wave_test.py:10` quoted the rotational-curvature speed as the **continuum idealization** $c_R = \sqrt{\gamma/I_\omega} = 1$. That label folds in the standard $\tfrac{1}{2}$ elastic prefactor that the discrete substrate's $W_\kappa = \gamma\,\Sigma\kappa^2$ operator does NOT carry. The "$1$" is preserved here as the **continuum-limit label** and remains the value the symmetrized-$\tfrac{1}{2}$ convention would give; it is NO LONGER the substrate value. The substrate (engine-faithful) value is $c_R = \sqrt{2}$ per the derivation above. The T1a empirical $v/c_R = 0.858$ row in §3 is a finite-$k$ lattice-dispersion ratio against the continuum-$1$ label and is left unchanged for audit-trail continuity (its 14% deficit is the finite-$k$ dispersion the §3 row already notes).
+
+This convention question does **NOT** touch the validated mass gap (the load-bearing number $m^2 = 4$, `clm-jz0xaw` / `clm-dhvhwi`): the gap is bit-exact under either convention. It resolves only the $c_R$ curvature-slope label.
+
 ## §4 — Why this is the structural mass mechanism for the electron
 <!-- claim-quality: clm-g0mkne -->
 
@@ -125,7 +142,7 @@ The mass-gap is a Phase-I structural property of the Cosserat Lagrangian; the el
 ## Cross-references
 
 - **Canonical script:** `src/scripts/vol_1_foundations/cosserat_wave_test.py` — T1a / T1b / T2 / T3 four-test suite
-- **Engine:** `src/ave/topological/cosserat_field_3d.py` — `CosseratField3D.step()` velocity-Verlet integrator
+- **Engine:** `src/ave/topological/cosserat_field_3d.py` — `CosseratField3D.step()` velocity-Verlet integrator; curvature energy `W_kappa = jnp.sum(kappa**2)` at `:704` (second copy `:739`), the no-½ `Σκ²` operator whose Fourier symbol gives $c_R = \sqrt{2}$ (§3.5, `clm-kmliqx`)
 - **KB cross-cutting:**
   - [Photon Identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md) — $A_1$ massless / $T_2$ massive split confirmed
   - [Vol 1 Ch 8 α Golden Torus](../../ch8-alpha-golden-torus.md) — electron-specific Cosserat (2,3) shell calibration

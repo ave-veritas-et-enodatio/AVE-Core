@@ -92,6 +92,16 @@ def _saturated_solver(
     For Diag A we focus on the gapless rotational sector (G_c = 0) so
     the wavepacket propagates at c_R = √(γ/I_ω) = 1 in the linear limit.
     Topology terms off; only Cauchy + curvature + saturation active.
+
+    🔴 RULE-12 DEMOTION (2026-06-23, Grant-ratified — line above PRESERVED):
+    the engine-faithful rotational-curvature speed is c_R = √2 (= √(2γ/I_ω)),
+    NOT 1. The "√(γ/I_ω) = 1" continuum label folds in the standard ½ elastic
+    prefactor; the engine's W_kappa = jnp.sum(kappa**2) (cosserat_field_3d.py:704,
+    copy :739) carries no ½ → Fourier symbol √2 (recovered to rel-err 2.0e-9 on
+    the 12×12 band structure, PR #392 V2). The `c_R_theory_continuum` variable
+    below (= √(γ/I_ω)) is the CONTINUUM-LABEL reference, retained for the
+    existing v/c_R amplitude-sweep ratios; it is no longer the substrate value.
+    See cosserat-mass-gap.md §3.5 / clm-kmliqx.
     """
     s = CosseratField3D(
         nx=N,

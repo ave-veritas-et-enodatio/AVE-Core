@@ -86,6 +86,8 @@ $$\langle \omega^2(r) \rangle_T = \frac{k_B T}{4\pi^2 I_\omega} \int_0^{k_{\max}
 
 In natural units ($I_\omega = \gamma = G_c = 1$, so $c_R = 1$, $m^2 = 4$):
 
+> **🔴 RULE-12 CONVENTION CAVEAT (2026-06-23, additive — body below PRESERVED unrecomputed).** The $c_R = 1$ used in the $k$-integral denominator $c_R^2 k^2 + m^2$ is the **continuum-idealized** rotational-curvature speed. Grant ratified the **engine-faithful** value $c_R = \sqrt{2}$ on 2026-06-23 (the engine's $W_\kappa = \gamma\,\Sigma\kappa^2$ carries no $\tfrac{1}{2}$; see [`cosserat-mass-gap.md`](../../axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3.5, `clm-kmliqx`). Using $c_R = \sqrt{2}$ stiffens the $k^2$ term and would **reduce** $\langle\omega^2\rangle_T$ (and hence $\sigma_\omega$) below the $0.0288\,k_BT$ / $0.17\sqrt{k_BT}$ values below. **This downstream recompute is NOT performed here** (flag-don't-fix) — surfaced as an open propagation item for Grant: the $\sigma_\omega$ numbers in this leaf are computed at the demoted $c_R = 1$ label and should be re-derived at $c_R = \sqrt{2}$ before being treated as load-bearing.
+
 $$\langle \omega^2 \rangle_T \approx \frac{1.14 \, k_B T}{4\pi^2} \approx 0.0288 \cdot k_B T$$
 
 $$\sigma_\omega \approx 0.17 \cdot \sqrt{k_B T} \text{ (natural units, for } G_c = I_\omega = \gamma = 1\text{)}$$

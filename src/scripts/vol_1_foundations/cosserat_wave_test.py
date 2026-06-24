@@ -7,7 +7,25 @@ Tests the new `step()` method (velocity-Verlet) added to CosseratField3D:
         k_op10 = k_refl = k_hopf = 0.  The Lagrangian reduces to
             L = ½·I_ω·|ω̇|² − ½·γ·|∇ω|²
         giving wave equation  ∂_t² ω = (γ/I_ω)·∇² ω.  Expected group
-        velocity  c_R = √(γ/I_ω) = 1  (natural units).
+        velocity  c_R = √(γ/I_ω) = 1  (CONTINUUM-IDEALIZED label — DEMOTED;
+        see note below).
+
+        🔴 RULE-12 DEMOTION (2026-06-23, Grant-ratified — line above PRESERVED):
+        the rotational-curvature wave speed is c_R = √2, NOT 1.  The
+        continuum-idealized "√(γ/I_ω) = 1" label folds in the standard ½
+        elastic prefactor (the −½·γ·|∇ω|² above), but the ENGINE'S curvature
+        energy carries NO ½ and NO symmetrization:
+            cosserat_field_3d.py:704  W_kappa = jnp.sum(kappa**2)   (copy :739)
+        Its Fourier symbol gives c_R = √2 (= √(2γ/I_ω)), recovered to rel-err
+        2.0e-9 on the genuine 12×12 band structure (PR #392, V2).  The no-½
+        treatment is physically forced (translational strain symmetrizes
+        because its antisymmetric part is a FREE rigid rotation storing no
+        energy; the micro-rotation gradient's antisymmetric part is a GENUINE
+        twist-gradient that DOES store energy) — and is the SAME no-½
+        convention that yields the validated m²=4 mass gap.  See
+        cosserat-mass-gap.md §3.5 / clm-kmliqx.  The c_R_theory variable below
+        (= √(γ/I_ω)) is left as the CONTINUUM-LABEL reference for the existing
+        v/c_R finite-k ratios; it is no longer the substrate value.
 
   T1b — GAPPED rotational wave.  Same as T1a but G_c = 1 (full micropolar
         coupling).  The micropolar term W_micropolar = Σᵢⱼ (ε_antisym,ij)²

@@ -1039,6 +1039,33 @@ The micropolar rotational sector of the Cosserat substrate carries a mass gap $m
   - State the convention for the micropolar coupling normalization (factor placement in W) so the "units of G_c" framing is unambiguous.
 ---
 
+## Rotational-Curvature Wave Speed $c_R = \sqrt{2}$ (Node-Twist Stiffness Convention)
+<!-- id: clm-kmliqx -->
+
+The Cosserat micro-rotation sector's twist-gradient (wryness $\kappa = \nabla\omega$) curvature wave propagates at $c_R = \sqrt{2}$ relative to the shear speed ($c = 1$), in the cold-linear $G_c = 0$ regime. This is the engine-faithful value of the curvature-slope label; the prior continuum idealization $c_R = \sqrt{\gamma/I_\omega} = 1$ is demoted (Grant-ratified 2026-06-23).
+
+- _Specific Claims_
+  - The engine's curvature energy $W_\kappa = \gamma\sum_{ij}\kappa_{ij}^2$ carries NO $\tfrac{1}{2}$ prefactor and NO symmetrization (`cosserat_field_3d.py:704`, second copy `:739`), unlike the symmetrized Cauchy strain $W_{\text{cauchy}}$ which uses $\varepsilon_{\text{sym}} = \tfrac{1}{2}(\varepsilon+\varepsilon^T)$. The Fourier symbol of this no-$\tfrac{1}{2}$ operator gives $c_R = \sqrt{2}$.
+  - The no-$\tfrac{1}{2}$, no-symmetrization treatment is physically forced: translational strain symmetrizes because its antisymmetric part is a FREE rigid rotation storing no energy, but the micro-rotation gradient's antisymmetric part is a GENUINE twist-gradient that DOES store energy. This is the SAME no-$\tfrac{1}{2}$ convention that yields the validated $m^2 = 4$ mass gap (clm-jz0xaw).
+  - Empirically confirmed on the genuine two-sublattice $12\times12$ band structure (PR #392): V2 validate-on-known recovers $c_R = 1.414214$ (target $\sqrt{2}$, rel-err $2.0\times10^{-9}$) from the engine bond operator, bit-faithful to the same $\Sigma\kappa^2$ the bit-exact $m^2 = 4$ gap is read from.
+- _Specific Non-Claims and Caveats_
+  - This resolves only the $c_R$ curvature-slope label; it does NOT touch the load-bearing mass gap $m^2 = 4 G_c/I_\omega$ (bit-exact under either convention).
+  - The prior label "$1$" is the continuum idealization (standard $\tfrac{1}{2}$ elastic prefactor folded in) and is preserved as the continuum-limit value; it is no longer the substrate value but is not asserted to be wrong as a continuum statement.
+  - The T1a empirical $v/c_R = 0.858$ ratio in the leaf is a finite-$k$ lattice-dispersion measurement against the continuum-$1$ label; the $\sqrt{2}$ resolution is a convention/operator-faithfulness statement, not a new finite-$k$ measurement.
+
+> **Leaf references:** [cosserat-mass-gap](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md).
+
+### Quality
+- confidence: 0.82
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the same no-½ Σκ²/antisymmetric-pair summation convention; internal consistency with the validated gap forces √2]
+- solidity: 0.82 (ok to build on, see caveats) [= min(0.82, 0.82)]
+- rationale: Verified — the engine operator `W_kappa = jnp.sum(kappa**2)` (cosserat_field_3d.py:704, copy :739) carries no ½ and no symmetrization, and its Fourier symbol gives c_R=√2, recovered to rel-err 2.0e-9 on the genuine 12×12 two-sublattice band structure (PR #392, V2). The no-½ convention is the SAME one that yields the bit-exact m²=4 gap (clm-jz0xaw), so internal consistency forces √2; the prior "1" label is the continuum idealization (½ elastic prefactor) the discrete substrate does not honor. Grant-ratified 2026-06-23. Held at 0.82 (matching the parent gap claim) because the physical-forcing argument (free-rigid-rotation-stores-no-energy vs genuine-twist-gradient-stores-energy) is a convention adjudication grounded in the engine + the gap's internal consistency rather than an independent first-principles derivation of the √2 from the K4 lattice geometry.
+- strengthen-by:
+  - Derive √2 directly from the K4 diamond bond geometry (the discrete curvature stencil's eigenvalue) independent of the engine-operator-faithfulness argument.
+  - Add a dedicated G_c=0 time-domain wave-speed driver (analogous to T1a) reporting v/c_R against the √2 target, not just the band-structure Fourier symbol.
+---
+
 ## Gapped Dispersion of the Cosserat Rotational Sector
 <!-- id: clm-4mmwb6 -->
 
