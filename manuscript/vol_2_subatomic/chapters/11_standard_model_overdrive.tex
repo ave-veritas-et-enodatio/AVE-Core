@@ -79,12 +79,18 @@ Because the universe is scale-invariant, the same $1/d$ impedance topology gover
 
 A high-fidelity empirical model of a 12-residue Polyalanine polypeptide chain is constructed, mapping the exact atomic masses for the Nitrogen ($m_N = 14.007$ u), alpha-Carbon ($m_{C\alpha} = 12.011$ u), and Carbonyl ($m_{CO} = 28.010$ u) backbone nodes. By feeding this unorganised 1D molecular string into the \textit{exact same} $O(N^2)$ topological engine used for Uranium assembly---simply substituting the macroscopic bond stiffnesses for the nuclear $K_{mutual}$---the chain systematically folds itself.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{macro_molecular_folding_dynamic.png}
-    \caption{First-Principles Protein Folding. A high-fidelity empirical Polyalanine polypeptide tracking the deterministic folding pathway. The unorganised 1D chain crumples into its absolute minimum-energy 3D configuration (an $\alpha$-Helix), eliminating empirical AI approximations.}
-    \label{fig:protein_folding}
-\end{figure}
+% FIGURE MISSING -- no generator found for macro_molecular_folding_dynamic.png
+% anywhere in src/scripts/ and it was never committed (git history shows only
+% this .tex reference). Float commented out to unblock the vol2 build (Rule-12
+% honest, reversible). TODO: author a generator that emits
+% macro_molecular_folding_dynamic.png (Polyalanine deterministic folding
+% pathway), then restore this float.
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{macro_molecular_folding_dynamic.png}
+%     \caption{First-Principles Protein Folding. A high-fidelity empirical Polyalanine polypeptide tracking the deterministic folding pathway. The unorganised 1D chain crumples into its absolute minimum-energy 3D configuration (an $\alpha$-Helix), eliminating empirical AI approximations.}
+%     \label{fig:protein_folding}
+% \end{figure}
 
 The optimiser converges the unorganised molecular string down its geometric energy gradient until it locks into the $\alpha$-helical configuration, with backbone dihedral angles ($\phi \approx -57^\circ$, $\psi \approx -47^\circ$) emerging naturally from the impedance minimisation---no Ramachandran map is imposed as a constraint.
 

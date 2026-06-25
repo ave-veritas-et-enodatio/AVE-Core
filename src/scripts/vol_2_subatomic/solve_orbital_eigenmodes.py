@@ -40,7 +40,20 @@ import matplotlib
 import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import brentq
-from scipy.special import sph_harm
+
+# scipy >=1.15 removed the deprecated ``sph_harm`` in favour of ``sph_harm_y``,
+# which keeps the SAME value Y_l^m(theta, phi) but reorders/renames the
+# arguments: old ``sph_harm(m, l, phi_azimuth, theta_polar)`` becomes new
+# ``sph_harm_y(l, m, theta_polar, phi_azimuth)``. This shim restores the legacy
+# call signature so every existing call site -- and the physics it encodes --
+# is byte-for-byte unchanged across scipy versions.
+try:  # pragma: no cover - exercised only on legacy scipy
+    from scipy.special import sph_harm
+except ImportError:  # scipy >= 1.15
+    from scipy.special import sph_harm_y as _sph_harm_y
+
+    def sph_harm(m, l, theta_azimuth, phi_polar):  # noqa: E741 - match legacy API
+        return _sph_harm_y(l, m, phi_polar, theta_azimuth)
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, HBAR, L_NODE, M_E, M_PROTON, MU_0, e_charge
 from ave.core.universal_operators import universal_impedance

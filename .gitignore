@@ -122,6 +122,30 @@ assets/sim_outputs/*
 !assets/sim_outputs/spice_cvr_loop_L2_snap.png
 !assets/sim_outputs/spice_cvr_loop_sweep_metrics.png
 
+# Vol II (subatomic) sim-output figures referenced by \includegraphics in
+# manuscript/vol_2_subatomic/chapters/*.tex. These were generated artifacts that
+# the default sim_outputs/ ignore kept out of the repo, which broke the vol2
+# build on fresh checkouts. Allowlisted so the canonical figures are tracked.
+!assets/sim_outputs/electron_3d_knot.png
+!assets/sim_outputs/photon_helical_spin.png
+!assets/sim_outputs/thermal_skyrmion_comparison.png
+!assets/sim_outputs/topology_muon.png
+!assets/sim_outputs/topology_neutrino.png
+!assets/sim_outputs/topology_neutron.png
+!assets/sim_outputs/topology_particle_zoo.png
+!assets/sim_outputs/topology_tau.png
+!assets/sim_outputs/quantum_spin_gyroscopic_precession.png
+!assets/sim_outputs/torus_knot_baryon_spectrum.png
+!assets/sim_outputs/borromean_proton_3d.png
+!assets/sim_outputs/chiral_parity_violation.png
+!assets/sim_outputs/uranium_235_assembly_dynamic.png
+!assets/sim_outputs/string_theory_lc_mapping.pdf
+!assets/sim_outputs/atomic_orbital_standing_waves.pdf
+!assets/sim_outputs/electroweak_dielectric_spark.pdf
+!assets/sim_outputs/cross_scale_verification.png
+!assets/sim_outputs/hubble_tension_position.png
+!assets/sim_outputs/visualize_topological_bounds.png
+
 # Canonical external research data — explicit allowlist (override of data/* above)
 # External research artifacts (not simulation outputs) tracked for reproducibility.
 # Large covariance files (>5MB) routed through git-LFS per .gitattributes.
