@@ -34,9 +34,17 @@ jax.config.update("jax_enable_x64", True)
 # --- Circulation-keyed vacuum μ-grade (route-C step 2) — JAX twin of fdtd_3d ---
 # Mirrors ave.core.fdtd_3d (the canonical numpy source): the free-EM μ-grade is
 # the relativistic INDUCTOR keyed on the internal circulating current observed as
-# the discrete ∮H·dℓ = curl_h, node-rescaled to ℓ_node (grid-invariant):
+# the discrete ∮H·dℓ = curl_h, scaled to the node pitch ℓ_node:
 #     A_I,i = curl_h_i · ℓ_node / I_max,  μ_eff,i = μ_0·μ_r / √(1 − A_I,i²)
 #     I_max = ξ_topo·c ≈ 124.384 A
+# ⚑ FIRST-CUT NORMALIZATION (NOT grid-invariant) — curl_h is the UNDIVIDED discrete
+# curl ([A/m]), so A_I ∝ dx for a fixed physical field. ℓ_node SCALE per Grant
+# 2026-06-25 ("use ell_node instead of dx"); the precise grid-invariant per-cell
+# factor is OPEN (memo §2/§8 #1). MOOT for the static-B null (A_I=0), LIVE only for
+# a dynamic driver. See the numpy canonical source header for the full scope note.
+# ⚑ α-ECHO: ℓ_node=ℏ/(m_e c), I_max=ξ_topo·c (ξ_topo=e/ℓ_node) carry the electron
+# calibration → the threshold SCALE is an α-echo (CONSISTENCY); the STRUCTURE is
+# α-clean (no ALPHA import). Flagged, not removed (memo §7).
 I_MAX_MU: float = float(XI_TOPO * C_0)  # ≈ 124.384 A
 ELL_NODE: float = float(L_NODE)
 MU_SAT_EPS: float = float(EPS_SAT_RATIO)
@@ -119,11 +127,15 @@ def _compute_local_mu_kernel(
         I_max   = ξ_topo·c ≈ 124.384 A
 
     The kernel argument is the internal circulating CURRENT, observed as the discrete
-    ∮H·dℓ = curl_h_component [A/m], contour-rescaled to ℓ_node (NOT dx) so the onset
-    is grid-invariant. A static uniform B is source-free (curl_h ≡ 0) ⇒ A_I = 0 ⇒
-    S_μ = 1 ⇒ μ_eff = mu_base EXACTLY — the transparency is EMERGENT from zero
-    circulation, not hard-coded. Direction = INCREASING (relativistic inductor), NOT
-    the DECREASING matter/Meissner kernel (scale_invariant.mu_eff, unchanged).
+    ∮H·dℓ = curl_h_component [A/m], scaled to ℓ_node (NOT dx): A_I = curl_h·ℓ_node/I_max.
+    ⚑ FIRST-CUT normalization, NOT grid-invariant: curl_h is the UNDIVIDED discrete
+    curl, so A_I ∝ dx for a fixed physical field; the ℓ_node SCALE is per Grant
+    2026-06-25, the precise grid-invariant per-cell factor is OPEN (memo §2/§8 #1).
+    A static uniform B is source-free (curl_h ≡ 0) ⇒ A_I = 0 ⇒ S_μ = 1 ⇒
+    μ_eff = mu_base EXACTLY — the transparency is EMERGENT from zero circulation, not
+    hard-coded (and robust to the open factor, since A_I=0 for any normalization).
+    Direction = INCREASING (relativistic inductor), NOT the DECREASING matter/Meissner
+    kernel (scale_invariant.mu_eff, unchanged).
 
     NOTE (B_yield disambiguation, def-bdual1, 2026-07-03; carried across the route-C
     circulation-keying rewrite): this μ-grade no longer keys on any b_yield amplitude —
