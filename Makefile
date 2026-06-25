@@ -169,7 +169,11 @@ test-engine:
 	# `engine_sim`-marked: full-resolution harness/eigensolve/genesis drivers,
 	# excluded from the PR-blocking gate on cost+role (never on physics status).
 	# Run this lane (and CI's engine job) for engine-development coverage.
-	$(PYTEST) $(SOURCE_DIR)/tests -m engine_sim
+	# `--timeout=1800` (30 min/test, ~7× the slowest documented driver): converts a
+	# genuinely-hung sim into a bounded per-test failure instead of a silent 60-min job
+	# cancel. Lane stays SERIAL by design (these heavy N=24-48 sims OOM under xdist —
+	# the very crash this routing avoids in the gate), so no `-n auto` here.
+	$(PYTEST) $(SOURCE_DIR)/tests -m engine_sim --timeout=1800 --timeout-method=thread
 
 test-genesis:
 	@echo "[Test] Running genesis / srs research drivers (opt-in, not default CI)..."
