@@ -280,11 +280,114 @@ never mint it as a substrate primitive or read a new number off it.**
 
 ## §G — Screening: what the engine is FOR
 
-<!-- SECTION G PLACEHOLDER -->
+**The lattice is screened from all solitons.** A formed soliton (the electron) sits *below* the lattice's
+resolution in every way that matters:
+
+- **sub-Nyquist** — the electron's structure (e.g. the corpus Beltrami tube cross-section
+  $\sim\ell_{node}/2\pi\approx0.16\,\ell_{node}$) is below the $\ell_{node}$ node spacing; the lattice
+  cannot resolve sub-$\ell_{node}$ structure (§A), so it is structurally blind to the soliton's interior
+  ([`../../../../../research/_archive/L3_electron_soliton/92_round_11_vi_v10_finer_sampling_structural.md`](../../../../../research/_archive/L3_electron_soliton/92_round_11_vi_v10_finer_sampling_structural.md) §4);
+- **no-hair** — the bound mode is a closed, high-$Q$, $\Gamma=-1$ TIR cavity; with the radiative port shut
+  it has no loss channel ($\mathrm{Im}(\omega)=0$, intrinsic $Q\to\infty$), so the lattice sees no leakage
+  texture from the soliton's internals ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):100);
+- **dodges-sub-cell** — sub-cell internal physics does not couple back into the cell-level dynamics.
+
+So the lattice and the solitons are mutually screened: the engine running cell-level dynamics does **not**
+get to watch the soliton's interior, and the soliton's interior does not perturb the cell-level physics.
+
+**The $(q\cdot\ell_{node})^4$ tell is the ONE leak.** The single place the screening is imperfect is the
+band-edge dispersion (§D): the lattice's discreteness imprints a $(q\,\ell_{node})^4$ anisotropy on
+propagating modes (subject to the §D caveat). That is the one channel where below-the-screening physics
+reaches an observable.
+
+**Therefore the engine is the MICROSCOPE below the screening scale — and its JOB is to compute the
+forward-prediction leaks.** The AVE-distinct content lives ONLY in forward predictions (all carrying
+`experimental_solidity: null`; internally peer-with-SM,
+[`../../../../../research/2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md):66).
+The engine exists to turn the screening-leaks into bankable numbers — the divergent-from-SM signatures:
+
+- **optical-activity sign-flip** (the chiral-srs enantiomorph-odd OA);
+- **$(q\,\ell_{node})^4$ dispersion** (the band-edge tell, §D);
+- **vacuum birefringence** (the E-route coefficient $\sim7.5/\alpha^3\approx1.93\times10^7\times$ QED,
+  `clm-pp3qwf` — the bankable near-term QED-discriminator);
+- **GW-echo** (the lattice's discrete signature in gravitational-wave ring-down).
+
+**What the engine's job is NOT: it is NOT "watch the electron form."** The electron is sub-Nyquist and
+screened; self-formation is closed-negative (§H — Stage-2 MODE-III, S3-DISPERSE, #415, #59). Pointing the
+engine at "let the electron self-assemble from a free precursor" asks it to resolve the one thing it is
+structurally screened from. The engine's value is the *forward leaks*, computed from an *assembled* electron
+(or from the linear network directly) — not an emergence movie of the soliton birthing itself.
 
 ## §H — Honesty guards: what keeps the engine on track
 
-<!-- SECTION H PLACEHOLDER -->
+These are the guards that keep the engine honest. Violating any of them silently converts a clean negative
+into a manufactured positive — each is a documented past failure mode.
+
+**1. MEDIUM fully-dynamic; electron ASSEMBLED-not-emergent (self-formation BARRED).** The medium (the linear
+network and its DOFs) is fully dynamic and may be evolved freely. The electron, by contrast, is **assembled**
+(seeded as an already-localized precursor), **not** grown from a free precursor. Bulk self-formation is
+closed-negative across the whole reroute campaign:
+
+- **Stage-2 bulk A1 self-trap → MODE-III DISPERSE** (energy-certified) on the native K4 stencil WITH
+  $c_{eff}(V)$ ([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):4);
+- **S3 winding+$H_{couple}$+cavity pinning → DISPERSE-FALSIFIED**
+  ([`2026-06-24_engine-s3-cavity-pinning_result.md`](../../../../../research/2026-06-24_engine-s3-cavity-pinning_result.md):4);
+- **#415 coupled eigensolve → gate-(d) FAIL** (winding bled out) and **#59 phase-space orbit → BREAK**
+  (reads the carrier-lock $(−5,−5)=(1,1)$, not the topological $(2,3)$)
+  ([`2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md):19-20).
+
+Re-running the bulk self-trap as a fresh "maybe it forms this time" is **substitution-not-retraction**
+(A47 v11b / Rule 12): the falsified bulk-soliton slot is **not** refilled with a new unverified hypothesis
+([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):
+"Anti-substitution discipline"). If a new formation mechanism is to be tried, it gets a new version number
+and its own verification chain — it does not silently re-occupy the closed slot.
+
+**2. The closed-box energy gate MUST be LIVE.** Every soliton/cavity test runs closed-box with NO PML and
+NO damping on the verdict path, and the energy-conservation gate must *trip* on its negative controls or the
+PASS is vacuous:
+
+- **GX3** — the backward-Euler dissipative *negative control* must DO bleed energy (>5%) on the same
+  lossless cage, proving the energy gate (GX2) is live, not vacuous
+  ([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):105,179);
+- **GX5** — the radiative-port-is-passive regression guards the **PML sponge-injection** artifact (the
+  explicit run's post-solve sponge-MULTIPLY PML *injected* energy — a 142× gain at fine $dt$, physically
+  impossible for a passive absorber — manufacturing a spurious self-focus)
+  ([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):181,
+  §4).
+
+**Pump-detonation / damping-bought localization is THE documented failure mode.** The explicit predecessor
+run's apparent self-focus was *both* a CFL pump-detonation AND PML energy-injection combined — not physics.
+A "localization" that only appears once you add a sponge, a damper, or let the stepper detonate is the
+artifact the energy gate exists to catch. **No PML/damping on the verdict path; the energy controls must
+trip.**
+
+**3. Don't anti-alias; don't refine below $\ell_{node}$.** The Nyquist limit is *physical* (§A): there is no
+sub-$\ell_{node}$ signal to recover, so anti-aliasing toward a finer grid invents structure the substrate
+lacks. The band-edge dispersion (the $(q\,\ell_{node})^4$ tell, §D) is **signal, not error** — do not
+"smooth it out" as a discretization artifact; it is the one screening-leak the engine exists to compute (§G).
+
+**4. α-clean verdict path.** No baked α (no ALPHA / Q_TANK / V_SNAP / κ-chiral) may reach the
+verdict-determining computation. The reroute campaign's import-time guard triad blocks these and reads pure
+`arg()`; Q=137 stays EMPTY ([`2026-06-24_engine-phase-space-winding_result.md`](../../../../../research/2026-06-24_engine-phase-space-winding_result.md):30,104).
+A null that depends on `ave.core.constants` for its verdict is not a clean null (consistency-vs-emergence).
+
+**5. Rule-14 — reuse certified cores; the facade defines no steppers/stencils.** New engine work reuses the
+already-certified cores (`coupled_cage_winding._assemble_H()`, the conservative evolver, the seed builders),
+and the unified-engine *facade* defines **no** new stepper or stencil — it dispatches to the certified cores
+([`2026-06-24_engine-coupled-eigensolve_prereg.md`](../../../../../research/2026-06-24_engine-coupled-eigensolve_prereg.md):13,
+[`2026-06-24_engine-phase-space-winding_prereg.md`](../../../../../research/2026-06-24_engine-phase-space-winding_prereg.md):14).
+Re-deriving a stepper inside the facade re-opens every bug the core's certification closed.
+
+**6. Native chiral-srs stencil — NOT Cartesian-on-a-parity-mask.** Any operator on the chiral grid must use
+the substrate-native srs stencil (the rank-2 bond tensor), **not** a Cartesian Laplacian masked to a parity
+sublattice. A Cartesian-on-parity-mask stencil fakes an $O(k^2)$ anisotropy and validates a disabled-flag
+discretization bug as physics (the wpqwmrms0 bug class, the RANK-2 lesson at
+[`k4-bloch-dispersion-quartic.md`](../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md):54-56).
+
+**7. Validate-on-known FIRST.** Before any chord measurement, the engine must recover $c_0/Z_0$ at long
+wavelength — and that recovery is the **CHECK that the discretization is correct, NOT the ground truth**
+(§B, §D). $c_0/Z_0$ recovery is validate-on-known; it is never headlined as emergence. If the validate-on-known
+gate fails, the engine is wrong and HALTs before any chord is read.
 
 ## §I — Open forks: flagged, NOT closed
 
