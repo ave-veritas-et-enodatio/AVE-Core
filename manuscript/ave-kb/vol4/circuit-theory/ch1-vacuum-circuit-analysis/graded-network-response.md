@@ -98,11 +98,19 @@ is $\delta_{aniso}\approx3.5\times10^{-39}$ (preferred-frame:23). The FORM + cub
 are derived; the **magnitude is imported** (per-dof:71), so this is a **FORM-level chord, not a
 value-level chord**.
 
-> **SCOPE GUARD on the $(q\ell_{node})^4$ chord.** It is a chord **only because** the lattice is
-> cubic/tetrahedral ($Fd\bar3m$); a generic lattice gives a $(q\ell_{node})^2$ anisotropy. And it is a
-> chord **only at the FORM level** — the magnitude is imported. The exact-continuum no-LIV theorem
-> ($\delta=0$, $\omega=ck$) remains **OPEN** (gate `wejkhvnfb`, weak-C honest-scope,
-> preferred-frame:66). This leaf does not close that theorem.
+> **SCOPE GUARD on the $(q\ell_{node})^4$ chord (P1b demotion, 2026-06-24).** It is a chord **only because**
+> the lattice is cubic/tetrahedral ($Fd\bar3m$); a generic lattice gives a $(q\ell_{node})^2$ anisotropy. And
+> it is a chord **only at the FORM level** — the magnitude is imported. **The distinctive $(q\ell_{node})^4$
+> PHOTON dispersion tell is DEMOTED to CONDITIONAL:** the P1b genuine 24×24 chiral-srs Bloch eigensolve
+> (driver `src/scripts/vol_4_engineering/srs_bloch_dispersion.py`, branch `engine/p1b-modes-live`) MEASURES the
+> GENERIC band-edge anisotropy slope $1.9999$ (not 4) — the quartic photon horn is a re-stated inserted
+> exponent (`photon_omega_sq_over_c2k2` hardcodes it) that survives ONLY if the unproven weak-C no-zone-edge
+> theorem holds (see `clm-k4d4ph`, register §2.2). The exact-continuum no-LIV theorem ($\delta=0$, $\omega=ck$)
+> remains **OPEN** (gate `wejkhvnfb`, weak-C honest-scope, preferred-frame:66) — the genuine eigensolve has
+> $\max|\omega^2/c^2k^2-1|=10^{-3}$ at $k\ell=0.08$, so $\delta=0$ is NOT exact at the lattice level. This is
+> **DEMOTED, not refuted** (the quartic could RETURN if weak-C is proven), and the small-$k$ emergent-Lorentz
+> ISOTROPY SURVIVES (band-edge anisotropy, NOT a low-$k$ Lorentz violation). This leaf does not close that
+> theorem.
 
 **Matter vs photon (why two exponents, both real).** The **matter** carrier is node-locked: group
 velocity $v_g=c_0\cos(q\ell_{node}/2)$, leading deficit $(q\ell_{node})^2/8$, a real zone-edge
@@ -301,7 +309,7 @@ Per network-level prediction, asking *would SM / standard-optics / effective-med
 |---|---|---|---|
 | 1 | $c_{EM}=c_0$, $Z_0=376.73\,\Omega$ from the LC-ladder continuum limit | **ECHO** | any discrete LC ladder / TLM / phonon lattice recovers these; validate-on-known against known anchors |
 | 2 | Leading $(q\ell_{node})^2$ **scalar** ladder dispersion | **ECHO** | generic to any discrete ladder; SM lattice-QFT has cutoff dispersion too |
-| 3 | Photon's first anisotropy is **QUARTIC** $(q\ell_{node})^4$ (cubic harmonic) | **CHORD** (form) | AVE-distinct: K4 makes the 2nd moment exactly isotropic $(4/3)\mathbb{I}$ while the 4th carries the anisotropy. SCOPE: chord only because cubic/tetrahedral; magnitude imported (per-dof:71) |
+| 3 | Photon's first anisotropy is **QUARTIC** $(q\ell_{node})^4$ (cubic harmonic) | **CHORD-CONDITIONAL** (form; DEMOTED 2026-06-24) | AVE-distinct FORM: K4 makes the 2nd moment exactly isotropic $(4/3)\mathbb{I}$ while the 4th carries the anisotropy. **But the PHOTON quartic is DEMOTED to conditional-on-weak-C**: the P1b genuine 24×24 chiral-srs eigensolve (`srs_bloch_dispersion.py`) MEASURES the GENERIC band-edge slope $1.9999$, not 4 — the quartic photon horn survives only if the unproven weak-C no-zone-edge theorem holds (gate `wejkhvnfb`, OPEN; `clm-k4d4ph`). DEMOTED, not refuted; small-$k$ isotropy SURVIVES. SCOPE: chord only because cubic/tetrahedral; magnitude imported (per-dof:71) |
 | 4 | SYM $\Rightarrow Z=Z_0$ **achromatic $\Gamma=0$** reflectionless lens | **CHORD** (mechanism) / ECHO (value) | a co-doped $\mu_r=\varepsilon_r$ metamaterial also gives $\Gamma=0$; the AVE-distinct content is which physical drive (symmetric internal $\mathbf E$&$\mathbf B$ = gravity) realizes it + the cross-pol isotropy $\Gamma_\parallel=\Gamma_\perp$ |
 | 5 | ASYM static-E $\Rightarrow Z_0(1-A^2)^{-1/4}$, $\Gamma\ne0$ reflective mirror | **ECHO** (form) | an $\varepsilon$-only graded medium reflects in standard EM; the AVE-distinct content is the COEFFICIENT (row 6) |
 | 6 | Birefringence COEFFICIENT $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$ | **MIXED** | CHORD = the vacuum saturates at all at tree-level $O(1)$ (vs QED's $\alpha^2$-loop); ECHO = the magnitude $7.5/\alpha^3$ is an $\alpha$-echo at the value level (claim-quality.md:399,405). Survives the macroscopic bridge intact (§3) |
