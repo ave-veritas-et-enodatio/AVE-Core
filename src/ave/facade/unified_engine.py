@@ -31,7 +31,9 @@ On ONE native K4 graph, per node:
               = the A1 dilatation MASS-"3" projection)
   ω  ∈ R³   — 3 Cosserat micro-rotation DOF ↔ B/μ₀ (the (2,3) winding = charge)
   a_A1 ∈ C  — the A1 bulk-dilatation breather as a NODE-ATTACHED scalar field on
-              the SAME K4 graph (the bet that dissolves the two-grid bridge)
+              the SAME diamond-K4 node set as ω (the bet's LOAD-BEARING half:
+              A1 needs no second grid relative to ω; the remaining srs-z3↔diamond-z4
+              carrier reconciliation is the P1/D1 task, design note §2 verdict)
 
 The A1 scalar is NEVER wired into the (V_inc,V_ref) transverse phasor
 (master-equation.md:20; genesis-24 double-count guard). u and ω are SEPARATELY
@@ -127,6 +129,12 @@ class UnifiedEngineConfig:
     exponent: float = 0.5               # Op14 √S primary (carried; dormant at P0)
     S_min: float = 1e-3
     A_cap: float = 0.999
+    # EM radiative port strength (energy-consistent Newmark velocity-damping in the
+    # boundary shell; 0 = closed/lossless, the P0 default). Carried through to the
+    # certified native_cage_imex core verbatim (NOT a rebuild) so the facade can be
+    # driven in its radiative-port (open) configuration for the GX5 passivity
+    # control — the rejected sponge-MULTIPLY PML is forbidden by construction there.
+    port_sigma: float = 0.0
     # srs free-mode carrier (chiral_lattice)
     srs_L: int = 8                      # srs supercell edge (free-mode carrier)
     enantiomorph: str = "right"
@@ -259,6 +267,7 @@ class UnifiedEngine:
                 N=self.cfg.N, dx=self.cfg.dx, V_yield=self.cfg.V_yield,
                 pml_thickness=self.cfg.pml_thickness, exponent=self.cfg.exponent,
                 S_min=self.cfg.S_min, A_cap=self.cfg.A_cap,
+                port_sigma=self.cfg.port_sigma,
             )
             self._a1_cage = NativeCageIMEX(cfg)
         return self._a1_cage

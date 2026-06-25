@@ -162,11 +162,19 @@ def test_facade_rung1_axiom4_saturation_kernel_and_channels():
 
 
 def test_facade_rung1_single_grid_verdict_joint_energy():
-    """RUNG-1 + SINGLE-GRID VERDICT — the bet's load-bearing test: the A1 scalar
-    node-field AND the ω micro-rotation evolve on the SAME native K4 graph, with
-    the JOINT energy conserved (unitary CN/Cayley) end-to-end and neither grade
-    drained into the other (genesis-24 BOTH-conserved), the (2,3) winding integer
-    held. If GREEN, the two-grid bridge is DISSOLVED. Wires coupled_cage_winding.
+    """RUNG-1 + SINGLE-GRID VERDICT (load-bearing half) — the bet's load-bearing
+    test: the A1 scalar node-field AND the ω micro-rotation evolve on the SAME
+    diamond-K4 node set, with the JOINT energy conserved (unitary CN/Cayley)
+    end-to-end and neither grade drained into the other (genesis-24
+    BOTH-conserved), the (2,3) winding integer held. Wires coupled_cage_winding.
+
+    SCOPE (do NOT overclaim — design note §2 verdict): GREEN here proves the
+    LOAD-BEARING HALF — the A1 scalar does NOT need a second grid relative to ω.
+    It does NOT by itself dissolve the two-grid bridge: two distinct
+    native-K4-FAMILY carriers still remain (the srs z=3 free-photon carrier +
+    this diamond z=4 A1/ω carrier). Collapsing them onto ONE literal node list is
+    the P1 task = the D1 connectivity decision (chiral z=3 srs vs achiral z=4
+    diamond).
 
     REGIME: linear (A≪1) lossless — the closed-box (no PML, no damping) limit.
     """
@@ -196,4 +204,120 @@ def test_facade_rung1_single_grid_verdict_joint_energy():
     assert w1["Q_link"] == w0["Q_link"], (
         f"FAIL: winding integer changed ({w0['Q_link']}→{w1['Q_link']}) — the (2,3) "
         f"charge did not survive on the shared grid."
+    )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# GATE-LIVENESS CONTROLS — the facade's closed-box energy gate is a LIVE
+# discriminator (it catches a fake PASS), exercised THROUGH the facade.
+#
+# The energy-gate rows above are PASSING gates (|dH/H| < 1e-8). On their own a
+# passing gate does not prove the gate would CATCH a dissipative integrator — a
+# gate that always passes is vacuous. These two controls close that: they drive
+# the SAME cage instance the facade exposes (eng.a1_cage(), the certified
+# NativeCageIMEX) and assert the gate's discriminating behaviour.
+#
+# Rule-14 anti-rebuild: the GX3/GX5 logic is REUSED verbatim from the certified
+# control suite src/tests/test_stage2_native_cage_imex.py (GX3 backward-Euler
+# negative control; GX5 radiative-port passivity), only re-pointed at the
+# facade's cage handle so a normal `pytest src/tests/engine_acceptance/` run
+# self-demonstrates the facade's gate is live.
+# ═════════════════════════════════════════════════════════════════════════════
+def test_facade_gx3_backward_euler_trips_the_facade_energy_gate():
+    """GX3-FACADE [GATE-LIVENESS, reachable-FAIL that TRIPS] — drive the facade's
+    energy-gate core (the native_cage_imex instance UnifiedEngine.a1_cage()
+    exposes) with the REJECTED backward-Euler integrator and assert it BLEEDS
+    energy WELL ABOVE the 1e-8 gate (existing GX3 threshold: bleed > 0.05). This
+    proves the facade's closed-box energy gate WOULD CATCH a dissipative
+    integrator — i.e. the PASSING gate rows above are NOT vacuous.
+
+    This is a PASSING test asserting the control TRIPS (a reachable-FAIL that
+    confirms the gate is live). The backward-Euler step
+        (I + dt²c0²L_D)V^{n+1} = 2V^n − V^{n-1}
+    (NO ¼, NO LHS-average) is the rejected dissipative form; the certified CN/
+    Newmark β=¼ stepper the facade actually uses is the energy-conserving one.
+
+    Rule-14: the integrator + bleed logic is reused verbatim from
+    test_stage2_native_cage_imex.py::test_GX3_backward_euler_bleeds_energy_negative_control,
+    only re-pointed at the facade-exposed cage (eng.a1_cage()).
+    """
+    from scipy.sparse import identity
+    from scipy.sparse.linalg import cg
+
+    from ave.solvers.native_cage_imex import assemble_L_D
+
+    # the energy-gate core the facade exposes (NativeCageIMEX, closed-box/lossless)
+    eng = UnifiedEngine()
+    cage = eng.a1_cage()
+    cage.em_port_closed = True
+    cage.seed_sech(amplitude=0.02, radius=2.5)
+    cage.set_dt_accuracy()
+
+    N = cage.N
+    ndof = N**3
+    H0 = cage.total_energy()
+    # backward-Euler step (the REJECTED dissipative form) on the facade's cage:
+    for _ in range(600):
+        D = cage.stiffness_D()
+        L_D = assemble_L_D(cage.Grad, cage.Div, D)
+        coef = (cage.dt**2) * (cage.c0**2)
+        v = cage.V.reshape(ndof)
+        v_prev = cage.V_prev.reshape(ndof)
+        rhs = 2.0 * v - v_prev
+        A_sys = (identity(ndof, format="csr") + coef * L_D).tocsr()
+        v_new, _ = cg(A_sys, rhs, rtol=1e-10, maxiter=2000, x0=v)
+        cage.V_prev = cage.V.copy()
+        cage.V = v_new.reshape(N, N, N)
+        cage.time += cage.dt
+    H_end = cage.total_energy()
+    bleed = (H0 - H_end) / H0
+    print("\n--- GX3-FACADE: backward-Euler TRIPS the facade's energy gate ---")
+    print(f"  backward-Euler bleed (H0−H_end)/H0 = {bleed:.3e}  (TRIPS at > 0.05)")
+    print(f"  ⇒ |dH/H| = {abs(bleed):.3e} ≫ the 1e-8 gate ⇒ the facade gate WOULD CATCH it")
+    assert bleed > 0.05, (
+        f"GATE-LIVENESS FAIL: backward-Euler did NOT bleed through the facade's "
+        f"cage (bleed={bleed:.3e} ≤ 0.05) — if it doesn't trip, the facade's "
+        f"closed-box energy gate is not discriminating and the PASSING gate rows "
+        f"are vacuous."
+    )
+    # belt-and-suspenders: the bleed is many orders above the 1e-8 gate the
+    # facade's energy_gate_lossless_limit() asserts ⇒ the gate is unambiguously live.
+    assert abs(bleed) > 1e-8, "control must trip well above the 1e-8 gate"
+
+
+def test_facade_gx5_radiative_port_is_passive_through_the_facade():
+    """GX5-FACADE [GATE-LIVENESS, port passivity] — the energy-consistent Newmark
+    radiative port (C PSD), driven THROUGH the facade (UnifiedEngine with
+    port_sigma>0 → eng.a1_cage() opens the port), is PASSIVE: total energy
+    MONOTONE-NON-INCREASING, Hmax/H0 ≤ 1, on a self-focusing nonlinear sech at
+    fine dt — and the core does NOT grow past the seed amplitude (no manufactured
+    self-focus). Regression for the REJECTED sponge-MULTIPLY PML that INJECTED
+    energy (142× gain) under the implicit solve.
+
+    Rule-14: the passivity logic is reused verbatim from
+    test_stage2_native_cage_imex.py::test_GX5_radiative_port_is_passive_not_energy_injecting,
+    only re-pointed at the facade-exposed cage configured with port_sigma>0.
+    """
+    eng = UnifiedEngine(UnifiedEngineConfig(N=16, dx=0.5, port_sigma=0.05))
+    cage = eng.a1_cage()
+    cage.seed_sech(amplitude=0.85, radius=2.5)
+    cage.set_dt_accuracy()
+    cage.dt = 0.066  # fine dt where the explicit stepper detonated
+    H0 = cage.total_energy()
+    Hmax = H0
+    peak_max = cage.interior_peak_abs_V()
+    for _ in range(400):
+        cage.step()
+        Hmax = max(Hmax, cage.total_energy())
+        peak_max = max(peak_max, cage.interior_peak_abs_V())
+    print("\n--- GX5-FACADE: radiative port is PASSIVE through the facade ---")
+    print(f"  Hmax/H0 = {Hmax / H0:.6f}  (PASSIVE ⇒ ≤ 1; > 1 = energy injection)")
+    print(f"  interior peak_max = {peak_max:.4f}  (must NOT exceed seed 0.85)")
+    assert Hmax <= H0 * (1.0 + 1e-6), (
+        f"radiative port MUST be passive through the facade (Hmax/H0 ≤ 1), got "
+        f"{Hmax / H0:.3f} — energy injection = the rejected sponge-multiply "
+        f"artifact has regressed."
+    )
+    assert peak_max <= 0.85 * (1.0 + 1e-3), (
+        f"passive port must NOT manufacture self-focus past seed, peak_max={peak_max:.4f}"
     )

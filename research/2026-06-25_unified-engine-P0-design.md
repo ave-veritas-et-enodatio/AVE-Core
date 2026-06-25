@@ -79,19 +79,39 @@ State on the single native K4 graph (N nodes, the srs/diamond node set):
 | **A1 node-field** | `a_A1` (scalar) | +1 | bulk dilatation | **the single-grid bet** |
 
 THE BET: the A1 bulk-dilatation scalar `a_A1` is carried as a **node-attached
-field on the SAME K4 graph** as `u`, `ω` — NOT on a second Cartesian grid. The
-two-grid bridge (Stage-3 reconciliation milestone, `_spine.shared_grid_descriptor`
-"collapse_milestone") is DISSOLVED if this works: the A1 cage operator
-(`native_cage_imex`, native TETRA_OFFSETS) and the transverse/ω medium
-(`chiral_lattice`, srs net) already BOTH live on the native diamond-K4 family,
-so the A1 scalar can ride the same node set as a per-node attribute rather than
-needing an inter-grid interpolation port.
+field on the SAME K4 graph** as `ω` — NOT on a second Cartesian grid. The A1
+cage operator (`native_cage_imex`, native TETRA_OFFSETS) and the ω
+micro-rotation both live on the native diamond-K4 node set, so the A1 scalar
+rides the same node set as a per-node attribute rather than needing an
+inter-grid interpolation port.
 
-The single-grid VERDICT is decided empirically in P0 by whether the A1
-node-field operator and the medium operator can be dispatched on a common K4
-node set with the energy gate staying GREEN end-to-end. If a wall is hit
-(e.g. srs z=3 vs diamond z=4 node-set mismatch forces a real interpolation), it
-is FLAGGED precisely, NOT forced.
+### Single-grid VERDICT (P0): LOAD-BEARING HALF PROVEN; full unification deferred to P1 = the D1 decision
+
+**Proven in P0 (the load-bearing half).** The A1 dilatation scalar node-field
+AND the ω Cosserat micro-rotation **coexist on ONE diamond-K4 node set** with the
+joint closed-box energy gate GREEN end-to-end (`coupled_cage_winding`, 60 coupled
+steps, joint **|dH/H| = 1.18e-11**) and the (2,3) winding integer conserved on
+the shared grid. That is the part the bet most needed: the A1 scalar does NOT
+require a second grid relative to ω — it is a genuine per-node attribute on the
+diamond-K4 graph the cage/winding sector uses.
+
+**NOT proven in P0 (deferred to P1).** Two distinct native-K4-**family** carriers
+still remain in the facade (see the `SingleGridState` docstring):
+* the **srs z=3** net carries the FREE transverse photon modes (`chiral_lattice`,
+  TLM port fields), and
+* the **diamond z=4** N³ node array (TETRA_OFFSETS) carries the A1 node-field +
+  the ω micro-rotation (`native_cage_imex` / `coupled_cage_winding`).
+
+Both are native-K4-family, but they are NOT the same literal node list, and P0
+does NOT collapse them onto one. Unifying these two carriers onto ONE node list
+is the **P1** task, and that unification **IS the D1 connectivity decision**
+(**chiral z=3 srs** for the free-mode carrier **vs achiral z=4 diamond** for the
+A1/ω carrier). The two-grid bridge (Stage-3 reconciliation milestone,
+`_spine.shared_grid_descriptor` "collapse_milestone") is therefore **NOT yet
+dissolved** — its load-bearing half (A1↔ω on one node set) is dissolved; the
+remaining srs↔diamond carrier reconciliation is the open P1/D1 work. This is the
+`srs z=3 vs diamond z=4` node-set mismatch the §0 walk flagged as the wall that
+must be reported precisely, NOT forced — and it is reported here, not forced.
 
 ## 3. regime-dispatch facade API
 
@@ -152,9 +172,22 @@ EXCLUDED (do NOT carry): `master_equation_fdtd` (Cartesian-grid artifact),
 * Both reproduced GREEN **through the facade**; every existing green
   `engine_acceptance` row STAYS green; closed-box energy gate LIVE |dH/H|<1e-8
   in the lossless limit.
+* **Single-grid verdict (load-bearing half only):** A1 node-field + ω coexist on
+  ONE diamond-K4 node set (joint |dH/H|=1.18e-11, winding integer conserved).
+  Full srs-z3↔diamond-z4 carrier unification is NOT done — deferred to P1 = the
+  D1 decision (see §2 verdict). Do NOT headline this as "the two-grid bridge is
+  dissolved" — only its load-bearing half is.
+* **GATE-LIVENESS controls (through the facade):** the closed-box energy gate is
+  proven to be a LIVE discriminator — driving the facade's energy-gate core
+  (`a1_cage()`) with the rejected backward-Euler integrator TRIPS the gate
+  (bleed=1.000 ≫ the 1e-8 gate, GX3-facade), and the radiative port is PASSIVE
+  through the facade (Hmax/H0=1.000000, GX5-facade). Rule-14: GX3/GX5 logic
+  reused verbatim from `test_stage2_native_cage_imex.py`.
 
-**P1 next:** linear all-modes dynamic; flip the bulk/Cosserat ABSENCE-findings
-(`test_l1_multiwave` T1.7/T1.8 MEDIUM-EXTENSION) to PRESENT by routing the
-longitudinal `u_∥` + the ω micro-rotation field through the single-grid A1
-node-field + the `coupled_cage_winding` ω DOF — i.e. give the srs medium the
-grades it currently lacks, on the SAME K4 graph P0 establishes.
+**P1 next:** (1) the D1 connectivity decision — collapse the srs z=3 free-mode
+carrier and the diamond z=4 A1/ω carrier onto ONE literal node list (chiral z=3
+srs vs achiral z=4 diamond); (2) linear all-modes dynamic; flip the bulk/Cosserat
+ABSENCE-findings (`test_l1_multiwave` T1.7/T1.8 MEDIUM-EXTENSION) to PRESENT by
+routing the longitudinal `u_∥` + the ω micro-rotation field through the
+single-grid A1 node-field + the `coupled_cage_winding` ω DOF — i.e. give the srs
+medium the grades it currently lacks, on the unified K4 graph P1 establishes.
