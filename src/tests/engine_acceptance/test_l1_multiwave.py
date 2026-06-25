@@ -261,6 +261,18 @@ def test_t1_6_transverse_shear_wave():
 def test_t1_7_longitudinal_bulk_wave_medium_extension_finding():
     """T1.7 [FINDING — medium extension required; STOP-and-report per the brief].
 
+    🟢 [P1b.1 FLIP — the regression anchor FIRED, 2026-06-25]: the medium
+    extension this finding named has been BUILT. The longitudinal-bulk DOF (the A1
+    dilatation "3") is now DYNAMICALLY PRESENT + PROPAGATING on the UNIFIED chiral
+    srs carrier (ave.solvers.srs_cage_winding) — see
+    test_p1b_modes_live.py::test_t1_7_longitudinal_bulk_dof_present_and_propagates
+    (phase advance 0.77 rad, dilatation packet spreads, energy gate green). THIS
+    test still records the honest FREE-MODE finding it always recorded: the L1
+    free-mode vector-TLM (chiral_lattice_vector) ITSELF carries only the 2
+    transverse photon DOF — the bulk DOF lives on the UNIFIED carrier (the medium
+    EXTENSION), not on the bare free-mode field. The finding is correct AS SCOPED
+    (free-mode field); the extension is the flip (P1b.1). Both are true.
+
     DEF-LOCK (frozen): c_bulk = √(K/ρ)  [the longitudinal DILATATION wave; the A1
     "3" / mass precursor; K = 2G the bulk modulus (K=2G provenance MERGED,
     PR#261); Z_bulk = ρ·c_bulk; freezes c_bulk→0 at dielectric rupture per
@@ -366,6 +378,19 @@ def test_t1_7_longitudinal_bulk_wave_medium_extension_finding():
 # ─────────────────────────────────────────────────────────────────────────────
 def test_t1_8_cosserat_microrotation_wave_medium_extension_finding():
     """T1.8 [FINDING — medium extension required; STOP-and-report per the brief].
+
+    🟢 [P1b.1 FLIP — the regression anchor FIRED, 2026-06-25]: the medium
+    extension this finding named has been BUILT. The Cosserat micro-rotation DOF
+    (the ω winding=charge seat) is now an INDEPENDENT, energy-carrying, oscillating
+    DOF on the UNIFIED chiral srs carrier (ave.solvers.srs_cage_winding) — see
+    test_p1b_modes_live.py::test_t1_8_cosserat_microrotation_dof_present_and_oscillates
+    (ω carries Q_link=3 winding, exchanges energy with A1 under the engaged port,
+    joint energy conserved). THIS test still records the honest FREE-MODE finding
+    it always recorded: the L1 free-mode engine's ONLY rotation is the k-INDEPENDENT
+    optical-activity global-writhe twist of the transverse field — there is no
+    independent ω field on the BARE free-mode engine. The ω DOF lives on the
+    UNIFIED carrier (the medium EXTENSION), not on the free-mode field. The finding
+    is correct AS SCOPED (free-mode field); the extension is the flip (P1b.1).
 
     DEF-LOCK (frozen): the Cosserat MICRO-ROTATION wave is the GAPPED OPTICAL
     branch — a micropolar mode with ω(k→0) > 0 (a finite frequency gap), carried
