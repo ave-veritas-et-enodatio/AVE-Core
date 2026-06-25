@@ -192,6 +192,17 @@ The transverse speed equals $c_0$ \emph{by construction} --- photons are transve
 
 Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-characteristics datasheet entry is $v_T(A_0) = c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$. Under SYM-class saturation scaling (gravity-class realization: $\mu$ and $\varepsilon$ scale together so $Z_0$ stays invariant), this produces gravitational time dilation via the Schwarzschild reduction \emph{while} simultaneously preserving $\alpha$ exactly (canonical at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}). The substrate-physics of the gravity-class SYM scaling is documented in Vol~3 Ch.~\ref{ch:gravity_and_yield}; this datasheet entry records $v_T(A_0) = c_{shear}(A_0)$ as the canonical mechanical wave-speed spec under saturation modulation.
 
+\section{A1 Dilatation Cavity Mode --- Spatial Mode Spectrum}
+\label{sec:vol9_a1_spatial_mode_spectrum}
+
+The bulk-modulus dilatational mode $v_{bulk}=\sqrt2\,c_0$ (\S\ref{sec:vol9_mech_wave_speeds}) supports a discrete bound cavity mode when confined: the A1 dilatation breather, the mass-``3'' of the two-natured electron (Ch.~\ref{ch:vol9_pin_port_configuration}; Fig.~\ref{fig:vol9_two_natured_electron}). This section records its \textbf{spatial mode spectrum} --- the FFT of the most-bound A1 eigenvector taken over the real-space \emph{radial} coordinate (the mode's shape in space). It is a \textsc{consistency}-class re-expression of the same on-main eigenvector used in Ch.~\ref{ch:vol9_pin_port_configuration} (\texttt{src/scripts/vol\_9\_device/a1\_radial\_fft.py}; every array is actual engine output, not a new claim).
+
+\medskip\noindent\textbf{Distinct from the temporal ring-down FFT.} This spatial spectrum must not be conflated with the \emph{temporal} ring-down FFT of Ch.~\ref{ch:vol9_engine_requirements} (the $\omega_{\mathrm{cutoff}}\approx2.87$ bound-mode frequency, an FFT over time-steps of the ring-down envelope). The two answer different questions: the Ch.~\ref{ch:vol9_engine_requirements} temporal FFT reads the mode \emph{frequency} ($\omega_{\mathrm{cutoff}}\approx2.87$); this spatial FFT reads the mode \emph{shape} (node count, overtone structure, dominant wavelength).
+
+\medskip\noindent\textbf{The honest result: a nodeless fundamental.} The radial profile of $|a_{A1}|$ is a \emph{single localized lobe} (peak at $r\approx1.75$ cells, monotone decay outside the stiff core); the 1D radial FFT is therefore \emph{featureless} --- no overtone ladder, no discrete spatial-harmonic peaks (the windowed FFT of one non-periodic lobe smears into a low-$k$ ramp, it does not resolve overtones). The rigorous 3D power spectrum $P(|k|)$ peaks at $\lambda\approx3.7$ cells, with spectral centroid $\lambda_c\approx2.2$ cells and a \emph{broadband} envelope (half-power width $\approx0.54$ cyc/cell). That breadth is the Fourier-conjugate of the sharp $\sim2$-cell stiff-core localization: a tightly localized lobe in real space is broadband in $k$, \emph{not} a multi-mode spectrum. The A1 mass-cavity is a $\Gamma=-1$-boundary-confined nodeless fundamental, not a structured standing wave with overtones. As in Ch.~\ref{ch:vol9_pin_port_configuration}, mass $=$ A1 is the ratified grade-assignment, not a driver measurement of an A1-mass against a $T_2$-mass.
+
+\input{figures/a1_spatial_cavity_mode_fft.tex}
+
 \section{EE Mechanical Translation}
 \label{sec:vol9_mech_ee_translation}
 
