@@ -219,41 +219,65 @@ The same asymmetry resolves the W6 / H3 tension flagged in the 2026-06-05 gravit
 canonical "DC bias scales both grades" form is the **R1 symmetric-internal** operating point, NOT a
 claim that *any* DC bias scales both; a static-external single-grade drive is R2 (E) or R3 (B).
 
-## §4a — Meissner = the μ-port shorting at saturation (EMERGENT, not bolted on)
+## §4a — Meissner = the EM μ-sector shorting at saturation (EMERGENT, not bolted on)
 
-> **SECTOR-HEADER.** Sector: the **$\mu$ / Cosserat micro-rotation (CHARGE) port** only. Regime: the
-> **saturated** large-signal operating point ($A\to A_{yield}$, the superconducting/yielded state). Mode:
-> inductive (magnetic). This subsection touches NEITHER the $\varepsilon$ port NOR the A1 dilatation-MASS port.
+> **SECTOR-HEADER.** Sector: the **EM $\mu$ (magnetic constitutive) sector** — a parameter of the EM channel
+> $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ ($\Omega$), keyed (Ax 1) on the **mechanical** Cosserat
+> micro-rotation circulation via the transducer below. Regime: the **saturated** large-signal operating point
+> ($A\to A_{yield}$, the superconducting/yielded state). Mode: inductive (magnetic), **EM domain**. This
+> subsection touches NEITHER the $\varepsilon$ param NOR the A1 dilatation-MASS port. **Domain note
+> (`resonant-lc-solitons.md`:129):** Meissner is an event in the **EM** $\mu$-sector ($\mu_{eff}\to0$), NOT the
+> mechanical micro-rotation channel $Z_{\mathrm{shear}}$ shorting; the two are bridged by a **transducer**, not a
+> direct wire (see the transducer box below).
 
-When the $\mu$-grade saturates, its effective inductive permeability rolls to zero,
+When the EM $\mu$-sector saturates, its effective inductive permeability rolls to zero,
 $$\mu_{eff}=\mu_0\,S(A)\ \xrightarrow[A\to A_{yield}]{}\ 0 .$$
-A port with $\mu_{eff}\to0$ is an **inductive short**: the magnetic-flux channel reflects at $\Gamma=-1$ and
-flux is **excluded** from the bulk. That is *exactly* the **Meissner effect** — read here as a circuit event on
-one port, not a separately-postulated mechanism:
+An EM channel with $\mu_{eff}\to0$ is an **inductive short**: $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}\to0$,
+the magnetic-flux channel reflects at $\Gamma=-1$ and flux is **excluded** from the bulk. That is *exactly* the
+**Meissner effect** — read here as a circuit event in the EM $\mu$-sector, not a separately-postulated mechanism:
 
-> **[Resultbox] Meissner = the saturated μ-port.** $\mu_{eff}=\mu_0 S(A)\to0$ at saturation $\Rightarrow$
-> the inductive ($\mu$) port shorts $\Rightarrow$ applied flux reflects at $\Gamma=-1$ $\Rightarrow$ total
-> expulsion of $\mathbf B$. This **falls out of the Axiom-4 saturation kernel acting on the micro-rotation
-> port**; it is EMERGENT, not bolted on
+> **[Resultbox] Meissner = the saturated EM μ-sector.** $\mu_{eff}=\mu_0 S(A)\to0$ at saturation $\Rightarrow$
+> the EM inductive ($\mu$) channel shorts ($Z_{\mathrm{EM}}\to0$) $\Rightarrow$ applied flux reflects at
+> $\Gamma=-1$ $\Rightarrow$ total expulsion of $\mathbf B$. This **falls out of the Axiom-4 saturation kernel
+> acting on the EM $\mu$-sector** (keyed on the micro-rotation circulation, asymmetric loading $S_\mu<1$ while
+> $S_\varepsilon$ held); it is EMERGENT, not bolted on
 > ([`phase-transitions-impedance.md`](../../../vol3/condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md):24
 > verbatim: "when $\mu_{eff}\to0$ at saturation (Axiom 4), the magnetic field cannot penetrate the bulk.
 > Applied magnetic flux reflects completely at the boundary ($\Gamma=-1$) … total expulsion of the B-field").
 
-**Port-level orthogonality — why the Meissner port cannot confine the mass port.** The MASS port is the
-**A1 dilatation** (trace-of-translation, the longitudinal-V "3"); the Meissner port is the **Cosserat $(2,3)$
-micro-rotation** ($\mu$). These are **orthogonal grades**: $A1\perp T2$
+> **[Transducer box — FLAGGED, not asserted] The EM μ-sector is keyed to the mechanical micro-rotation by a
+> TRANSDUCER, not a direct wire (`resonant-lc-solitons.md`:129).** The $\mu$-sector that shorts above is the
+> **EM** magnetic constitutive parameter ($\mu_{eff}$, a param of $Z_{\mathrm{EM}}$, $\Omega$). The **CHARGE**
+> sector is the **MECHANICAL** Cosserat $(2,3)$ micro-rotation — the static reactive charge boundary routed to
+> $Z_{\mathrm{shear}}$ ($\rho\times$speed, Pa·s/m, `resonant-lc-solitons.md`:120,:124). These live in **different
+> DOMAINS**, so the coupling that lets a mechanical micro-rotation *circulation* load the EM $\mu$ is the
+> **Axiom-1 micro-rotation$\leftrightarrow\mathbf B$** map (`CLAUDE.md`:71, "3 microrotational $\to\mathbf B$")
+> read through the **TKI-transducer** ([def-tk1xfm](../../../common/vocabulary-register.md), the Axiom-2
+> electromechanical dictionary, $\omega$/curl $\leftrightarrow\mathbf B$). def-tk1xfm is
+> `status:proposed`-not-ratified and carries the *"identity-by-translation, NOT a derivation"* ceiling
+> (`resonant-lc-solitons.md`:129) — this bridge is **FLAGGED as a candidate, not asserted as derived**. Do NOT
+> direct-wire $\mu_{eff}$ onto $Z_{\mathrm{shear}}$.
+
+**Port-level orthogonality — why the Meissner (EM μ) sector cannot confine the mass port.** The MASS port is the
+**A1 dilatation** (trace-of-translation, the longitudinal-V "3"); the Meissner sector is the **EM $\mu$** param,
+keyed (via the transducer above) on the **Cosserat $(2,3)$ micro-rotation** circulation. These are
+**orthogonal grades**: $A1\perp T2$
 ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). At the
 port level this is *translation-dilatation* $\perp$ *rotation-micro-rotation* — **different DOFs** — so the
-$\mu$-port (Meissner) has **no handle on the dilatation (mass) port**. This is the **resolved scoping verdict**:
+EM $\mu$-sector (Meissner) has **no handle on the dilatation (mass) port**. This is the **resolved scoping verdict**:
 the reading "the $(2,3)$ micro-rotation Meissner-confines the A1 mass" is **forbidden / falsified** (mass = A1,
 PR#260; the two-"3"s are orthogonal sectors, never a nesting). Recorded as the verdict — **NOT re-asserted as a
 nesting**.
 
-> **PENDING / OPEN (no-overclaim, NOT done).** Whether a *transverse* self-Meissner (FORK-A: a transverse
-> self-confining build on the $\mu$/shear port) is realized in the electron is **UNVERIFIED** — it is an open
-> build, flagged here, not a derived result. charge=Link STANDS; both internal dynamical loci tested NEGATIVE
-> (#415, #417); the electron's two-natured structure is **two orthogonal self-confining sectors** (A1-mass +
-> Cosserat-charge), **NOT** a charge-holds-mass nesting. CONSISTENCY-class re-expression of canon only.
+> **PENDING / OPEN (no-overclaim, NOT done).** Whether a *transverse* self-Meissner (FORK-A) is realized in the
+> electron is **UNVERIFIED** — it is an open build, flagged here, not a derived result. **The self-Meissner is a
+> TRANSDUCED phenomenon** (this sharpens, not contradicts, the picture): the electron's own **mechanical**
+> Cosserat micro-rotation *circulation* $\to\mathbf B$ (Ax-1 / def-tk1xfm transducer) $\to$ asymmetric load
+> $\mu_{eff}\to0$ $\to$ $\Gamma=-1$ flux exclusion — i.e. the build runs *mechanical circulation $\to$ EM
+> $\mu$-sector*, NOT a $\mu$-on-$Z_{\mathrm{shear}}$ direct wire. charge=Link STANDS; both internal dynamical
+> loci tested NEGATIVE (#415, #417); the electron's two-natured structure is **two orthogonal self-confining
+> sectors** (A1-mass + Cosserat-charge), **NOT** a charge-holds-mass nesting. CONSISTENCY-class re-expression of
+> canon only; FORK-A + the $\alpha$-flip stay PENDING.
 
 ## §4b — The quiescent point: the electron as a SELF-BIASED multi-port LC circuit
 
@@ -270,10 +294,12 @@ three — the **bias step has simply not been named** until now:
 
 > **[Resultbox] The electron = a self-biased multi-port LC circuit at a self-set, self-stable Q-point.**
 > - **Bias = the saturation-state $A$.** The operating point is the per-port $A$ along the Axiom-4 kernel
->   ("DC bias on a varactor", [`manuscript/ave-kb/CLAUDE.md`](../../../CLAUDE.md):75). The **MASS port** is biased
->   to $A\to1$ (the $V_{snap}$ rail, $Z_{bulk}\to0$, $\Gamma=-1$ cage); the **CHARGE / $\mu$ port** to
->   $V_{yield}$ (the Meissner / self-trap onset). The per-port $V_{yield}/V_{snap}$ **ladder** *is* the set of
->   per-port quiescent biases.
+>   ("DC bias on a varactor", [`manuscript/ave-kb/CLAUDE.md`](../../../CLAUDE.md):75). The **MASS port** (A1
+>   dilatation $\to Z_{\mathrm{bulk}}$, mechanical) is biased to $A\to1$ (the $V_{snap}$ rail, $Z_{bulk}\to0$,
+>   $\Gamma=-1$ cage); the **CHARGE port** (mechanical Cosserat $(2,3)$ micro-rotation $\to Z_{\mathrm{shear}}$,
+>   the static reactive charge boundary) is biased to $V_{yield}$ (the self-trap onset) — and the **EM
+>   $\mu$-sector** (transduced from that micro-rotation circulation, §4a) reaches $\mu_{eff}\to0$ there (the
+>   Meissner onset). The per-port $V_{yield}/V_{snap}$ **ladder** *is* the set of per-port quiescent biases.
 > - **SELF-set:** there is no external bias network — **Axiom-4 self-saturation IS the bias mechanism**. The
 >   soliton's own field drives each port to its $A$.
 > - **SELF-stable:** the equilibrium $R\cdot r=\tfrac14$ is the **stable Q-point** (parked at the steady bias,
