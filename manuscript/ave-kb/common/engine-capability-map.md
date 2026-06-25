@@ -128,6 +128,7 @@ Big-bang assembly is rejected: a single all-DOF engine that fails gives an ambig
 
 ## Cross-references
 
+- [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md) — the **design doctrine** companion to this capability map: the ontology (grid IS lattice), the continuum-vs-discrete dispatch, the coupling layer, the honesty guards, and *what the engine is for*. This map audits *what each engine carries*; the doctrine says *how the converged engine is built and used*.
 - [`two-engine-architecture-a027.md`](two-engine-architecture-a027.md) — the K4-TLM + Master-Equation parent this generalizes
 - [`loop-gap-electron-resonator-closure-doctrine.md`](loop-gap-electron-resonator-closure-doctrine.md) — the anhysteretic-loop / channel-routing doctrine
 - [`../vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md`](../vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md) — the three-impedance law (3-channel DOF)

@@ -391,10 +391,65 @@ gate fails, the engine is wrong and HALTs before any chord is read.
 
 ## §I — Open forks: flagged, NOT closed
 
-<!-- SECTION I PLACEHOLDER -->
+These are the things that keep the engine honest. None is closed; do not read any of them as resolved.
+
+**1. Base-crack #37 / Decision-2 — what IS the electron at the substrate scale (GENUINELY OPEN).** The
+electron's canonical Beltrami structure ($\nabla\times A=k\cdot A$, $k\approx6.36$ in $1/\ell_{node}$ units,
+tube radius $\sim\ell_{node}/2\pi\approx0.16\,\ell_{node}$) **cannot be hosted on the K4 substrate at
+$\ell_{node}$ spacing** — a structural conclusion from the v10 trajectory + Nyquist, independent of numerical
+method ([`92_round_11_vi_v10_finer_sampling_structural.md`](../../../../../research/_archive/L3_electron_soliton/92_round_11_vi_v10_finer_sampling_structural.md):81).
+Two readings remain live and are NOT adjudicated:
+
+- **(A) — electron as a sub-cell node-defect (the canonical DEFAULT).** The electron is a defect *at/within*
+  a node, screened sub-Nyquist, assembled-not-emergent (§G, §H). This is the working default this doctrine
+  is written against, and it is consistent with the screening picture. It is a *default*, not a proof.
+- **(B) — sub-$\ell_{node}$-emergent (a LIVE framework-refactor fork).** $\ell_{node}$ is itself *emergent*
+  from a finer fundamental scale $\ell_{fundamental}<\ell_{node}$; K4-at-$\ell_{node}$ is an effective theory
+  ([`92_round_11_vi_v10_finer_sampling_structural.md`](../../../../../research/_archive/L3_electron_soliton/92_round_11_vi_v10_finer_sampling_structural.md):87,
+  §4.1 "Reading A"). This is a **major framework refactor** (Ax 2 charge unit, the $m_e=\hbar/(\ell_{node}c)$
+  scale, every $\ell_{node}$-quantitative claim would re-derive) and aligns with Grant's intuition that the
+  electron lives below the engine grid. **It is GENUINELY OPEN — do NOT claim it closed.**
+
+> ⚠ **The #37 task was mis-marked done — the reconciliation did NOT close (flag-don't-fix).** Per the
+> session record, base-crack #37 (the Decision-2 sub-cell-vs-sub-$\ell_{node}$ electron question) was marked
+> complete, but the substantive reconciliation between Reading A and Reading B was never performed — the
+> 92_round_11 doc's own "path forward" (§5: test the corpus electron in a finer continuum FDTD; honest
+> framework decision point §5.3) was **deferred, not executed**. Treat Decision-2 as OPEN. This is surfaced,
+> not silently re-closed; the actual adjudication is a Grant physics call (which reading, at what cost), not
+> an implementer fix.
+
+**2. Carrier-unification (P1).** The two K4-family carriers — the srs-$z=3$ free-mode (photon) and the
+diamond-TETRA A1/ω cores — currently live on *different* stencils. Unifying them onto ONE chiral $z=3$ srs
+node list (re-homing A1/ω off the diamond TETRA stencil onto srs) is **scoped but not built** — it is the
+P1 workstream (see [`../../../../../research/2026-06-25_unified-engine-P1-scope.md`](../../../../../research/2026-06-25_unified-engine-P1-scope.md)).
+Open until P1's acceptance gates pass.
+
+**3. P3 genesis (rupture→ω, the two-grid bridge) — DEFERRED / un-backed.** Node-creation / pair-production
+(the topology-changing genesis event, §A) and the two-grid bridge between the continuum-scalar grid the
+A1 cage was tested on and the K4-tetrahedral grid the Cosserat ω lives on
+([`../../../common/engine-capability-map.md`](../../../common/engine-capability-map.md):75, the §4
+TWO-GRID-RECONCILIATION) are **deferred and currently un-backed** by any built engine. Not in P1; flagged
+as frontier (the genuine missing physics, capability-map §6).
 
 ---
 
 ## Cross-references
 
-<!-- XREF PLACEHOLDER -->
+- [`computational-solver-selection.md`](computational-solver-selection.md) — the FDTD-vs-K4 *solver*
+  selection matrix this doctrine extends from solver-selection to engine-architecture.
+- [`../../../common/engine-capability-map.md`](../../../common/engine-capability-map.md) — the capability
+  map (what each engine carries, the 7-DOF audit + the §4 substrate-complete-engine design proposal); this
+  doctrine is its *how-it-is-built-and-used* companion.
+- [`resonant-lc-solitons.md`](resonant-lc-solitons.md) — the grade-channel decomposition (mass=A1/$Z_{bulk}$,
+  charge=$(2,3)$/$Z_{shear}$), the $\Gamma=-1$ cavity, the BoundResonator class.
+- [`../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md`](../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md)
+  — the $(q\,\ell_{node})^4$ band-edge tell (with the load-bearing slope-4 caveat).
+- [`../../../../common_equations/eq_axiom_1.tex`](../../../../common_equations/eq_axiom_1.tex) — Axiom 1
+  (chiral Laves K4 Cosserat crystal) + the 2026-06-12 D1 adjudication (in tension with §E — see the flag).
+- [`z0-derivation.md`](z0-derivation.md) — the scale-invariant $Z_0$ ($\ell_{node}$ cancels).
+- [`../../../../../research/2026-06-25_unified-engine-P1-scope.md`](../../../../../research/2026-06-25_unified-engine-P1-scope.md)
+  — the P1 carrier-unification scope doc this doctrine gates.
+- [`../../../../../research/2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md)
+  — the two-natured electron + the self-formation closed-negatives (Stage-2 / S3 / #415 / #59).
+- [`../../../../../research/2026-06-06_biquaternion-node-algebra-result.md`](../../../../../research/2026-06-06_biquaternion-node-algebra-result.md)
+  — the biquaternion = coupling-layer algebra, canonized-to-nothing-as-a-primitive.
