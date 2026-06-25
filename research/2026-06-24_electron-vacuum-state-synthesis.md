@@ -3,8 +3,16 @@
 **Class:** research / WORKING-MODEL synthesis (conceptual). **NOT a chord** — this records the substrate-native *interpretation* that the session's groundings converged on; the AVE-distinct, falsifiable content lives in forward predictions (a separate register), not here.
 **Date:** 2026-06-24
 **Provenance:** AVE-Core @ `origin/main 1d4eae9c` (post S1 merge, PR#407). Synthesizes this session's grounded threads (electron-localization → coupling-geometry → engine-reroute → S1 PASS) + Grant's foundational questions (gravity-as-frequency-modulation; the vacuum-phase-space reframe).
-**Scope-lock:** documents the **settled** conceptual mapping. The **mutual-pinning** mechanism is flagged OPEN (S2/S3 are testing it). KB-promotion of the settled parts (→ `l3-electron-soliton`) is gated on Grant review + an adversarial verify pass.
+**Scope-lock:** documents the **settled** conceptual mapping. The **mutual-pinning** mechanism is flagged OPEN (S2/S3 are testing it). [🔴 now RESOLVED NEGATIVE — see the stale header below; mutual-pinning tested NEGATIVE in both loci, #415 + #417.] KB-promotion of the settled parts (→ `l3-electron-soliton`) is gated on Grant review + an adversarial verify pass.
 **Figure:** ![electron — two coordinate faces of one resonance](2026-06-24_electron-two-coordinate-faces.svg)
+
+---
+
+> 🔴 **STALE — mutual-pinning hypothesis tested NEGATIVE (Rule 12 status header, 2026-06-24).** This doc was written *before* the S3 falsification and the phase-space coupling-winding BREAK that close its central open item. The **mutual-pinning** hypothesis (the (2,3) charge winding pins the dispersing A1 core — flagged OPEN at §0 Scope-lock and at lines below in §3 / §6) is now tested **NEGATIVE in BOTH internal dynamical loci**:
+> - **real-space eigensolve (DISPERSE / DOES-NOT-EXIST, #415):** the coupled A1+winding eigensolve binds a confined lossless A1 mass cage but the (2,3) winding **bleeds out** (gate-d FAIL, `bw_on_torus≈0.0001`); and S3 cavity-pinning is **DISPERSE-FALSIFIED** — winding + H_couple + the Γ=−1 cavity does **NOT** pin the dispersing A1 core (centroid spread grows ON and OFF). See `research/2026-06-24_engine-coupled-eigensolve_result.md` + `research/2026-06-24_engine-s3-cavity-pinning_result.md`.
+> - **phase-space coupling (BREAK, #417):** the dynamical orbit reads a (1,1)-class **carrier ratio** (winding tracks ω_b:ω_s under detuning), **not** the topological (2,3) — a topology-protected charge could not do this. See `research/2026-06-24_engine-phase-space-winding_result.md`.
+>
+> **Net:** the localizer is the **cavity eigenmode**, NOT the winding; charge is **static topology** (`charge = Link(∂Ω, F) ∈ ℤ`), which **STANDS** un-walked-back and is touched by neither negative. `mass = A1` (PR#260) is **untouched**; the A1 mass cavity EXISTS (fork-b). The conclusion is **CONSISTENCY-class** — the AVE-distinct chord lives ONLY in forward predictions, and the Q=137 slot stays EMPTY. Per substitution-not-retraction (A47 v11b) the falsified slot is **not** refilled here; the new framing carries its own verification chain in the epic summary (`research/2026-06-24_engine-reroute-epic-summary.md`). The body below is preserved for the audit trail.
 
 ---
 
@@ -36,14 +44,14 @@ The electron has two genuinely different descriptions, and conflating them is th
 The mass, the charge, and the spin are not three particles glued together; they are excitations of the same nodes sharing a **common reference**:
 
 - **the common reference = COM = COC** (center of mass coincides with center of charge), symmetry-forced (the charge sector is P-odd/T-even, with no T-odd dynamical channel at rest), which is also why the electron's **EDM = 0** (an echo: AVE 0, SM ~1e-38, both ≪ the JILA bound — but structurally *earned* by the same topological-CPT mechanism as θ_QCD=0). The shared center is what lets the sectors phase-lock instead of drifting apart.
-- **mutual-pinning hypothesis (OPEN — S2/S3 testing).** Stage-2 falsified the bulk self-trap: the `A1` mass *alone* disperses on the native lattice (`research/2026-06-24_engine-stage2-native-cage_result.md`). The post-Stage-2 hypothesis is that the **charge topology pins the dispersing A1 core** — a `(2,3)` twist can only live on a saturated core, and the twist can't unwind, so it holds the core the bare `A1` would let disperse; and the core is what the twist needs to exist on. Neither survives alone; together they're a stable lossless object. *This is a hypothesis, not yet shown* — S2 tests whether the conservative `A1↔ω` lock holds without leaking (ω independent), S3 whether the `Γ=−1` boundary confines it.
+- **mutual-pinning hypothesis (🔴 RESOLVED NEGATIVE — see stale header; S3 + #415 + #417 all negative).** Stage-2 falsified the bulk self-trap: the `A1` mass *alone* disperses on the native lattice (`research/2026-06-24_engine-stage2-native-cage_result.md`). The post-Stage-2 hypothesis was that the **charge topology pins the dispersing A1 core** — a `(2,3)` twist can only live on a saturated core, and the twist can't unwind, so it holds the core the bare `A1` would let disperse; and the core is what the twist needs to exist on. *This hypothesis is now tested NEGATIVE in both loci* (real-space DISPERSE/eigensolve gate-d FAIL; phase-space BREAK — the orbit carries the carrier ratio, not the (2,3)). The surviving picture: the localizer is the **cavity eigenmode**, not the winding; `mass = A1` binds independently and charge is **static topology** (`Link`). The original S2/S3 framing is preserved below for the audit trail.
 - **spin-½ rides along but stays separate** — a third structure (real-space SU(2)) on the same object, sharing the center but not part of the mass↔charge lock (the coordinate-category rule).
 
 **S1 result (merged, PR#407):** the charge winding `ω` *is* a separately-conserved dynamical DOF (scoped to the real-space ω director-phase, single-knot) — "A1-sustains-rotation" graduated from asserted-class to derived-real. That is the first ingredient of the pinning hypothesis confirmed.
 
 ## 4. Gravity = the `S(A)` frequency-modulation gradient
 
-A mass sets the local saturation operating point `A` of the surrounding LC tanks. `S(A)` then modulates the local tank parameters (`ε_eff=ε₀S`, `C_eff=C₀/S`, the local clock rate, the wave speed) — the **same varactor-bias mechanism producing refractive-index gradients across all scales** (`CLAUDE.md:75`). Crucially, **only the spatial *gradient* of `A` is observable**, not the absolute per-node value — so the gravitational *field* literally *is* the gradient of the local frequency/clock modulation. A test object refracts down the index gradient (`n(r) = 1 + 2GM/c²r`, `refractive-index-of-gravity.md:11`); it does not get pushed.
+A mass sets the local saturation operating point `A` of the surrounding LC tanks. `S(A)` then modulates the local tank parameters (`ε_eff=ε₀S`, `C_eff=C₀/S`, the local clock rate, the wave speed) — the **same varactor-bias mechanism producing refractive-index gradients across all scales** (`ave-kb/CLAUDE.md:75`). Crucially, **only the spatial *gradient* of `A` is observable**, not the absolute per-node value — so the gravitational *field* literally *is* the gradient of the local frequency/clock modulation. A test object refracts down the index gradient (`n(r) = 1 + 2GM/c²r`, `refractive-index-of-gravity.md:11`); it does not get pushed.
 
 Precision (the two temporal quantities, `temporal-spatial-lattice-decomposition.md:28`): the **local clock rate / redshift** is slope-1 (`√S ≈ 1 − GM/rc²`, `z = GM/rc²`); the **bulk propagation index** is slope-2 (`n = 1 + 2GM/rc²`, Shapiro); bridge `z = (n−1)/2`. "Frequency modulation" = the local clock rate; gravity = its spatial gradient.
 
@@ -55,7 +63,7 @@ Honest scope: at leading order this is **mathematically identical to GR** (the G
 
 From the vacuum's own standpoint, what *we* call "reality" is not the 3D scaffold — it is the vacuum's **state configuration**. Three levels:
 
-1. **the scaffold** — the K4 lattice's node positions, `ℓ_node`. AVE keeps this real 3D, but **relational**: only spatial gradients of the node state are observable; absolute per-node values are gauge (`CLAUDE.md:75`).
+1. **the scaffold** — the K4 lattice's node positions, `ℓ_node`. AVE keeps this real 3D, but **relational**: only spatial gradients of the node state are observable; absolute per-node values are gauge (`ave-kb/CLAUDE.md:75`).
 2. **each node's internal state** — the LC tank `(V_inc, V_ref)`, the saturation `A`, the `ω` twist: the vacuum's actual dynamical variables (its phase/state).
 3. **the whole configuration** — all nodes' states together = the vacuum's phase space.
 
@@ -76,10 +84,10 @@ Consequence for §2 (an observer-centrism corrected): labelling the body "real s
 | EDM = 0 (COM=COC) | SETTLED (echo; structurally earned) |
 | gravity = `S(A)` frequency-modulation gradient | SETTLED mechanism (consistency-class at leading order; = GR/Gordon metric) |
 | ontology: reality = vacuum state-config; 3D = the index | SETTLED as interpretation (label-independent for builds) |
-| **mutual-pinning** (charge topology pins the dispersing A1 core) | **OPEN — S2 (conservative lock) → S3 (Γ=−1 confinement) testing** |
+| **mutual-pinning** (charge topology pins the dispersing A1 core) | 🔴 **RESOLVED NEGATIVE** — tested in BOTH loci: real-space eigensolve gate-d FAIL + S3 DISPERSE (#415) and phase-space BREAK (#417). Localizer = cavity eigenmode, not winding; charge = static Link. See stale header. |
 | the α-free **chord** | OPEN — lives at S4 / forward predictions, NOT here; Q=137 slot stays EMPTY |
 | is the lattice scaffold itself emergent? | OPEN (deeper foundational question) |
 
 ## 7. Provenance
 
-Built from: the S1 result (`research/2026-06-24_engine-s1-winding-dof_result.md`), the Stage-2 falsification (`research/2026-06-24_engine-stage2-native-cage_result.md`), the gravity-frequency-modulation result (`research/2026-06-05_gravity-sign-frequency-modulation-result.md`), the saturation kernel (`src/ave/axioms/saturation.py`, reactive — no internal sink), `master-equation.md:20` (mass=A1 carrying the (2,3) winding; V_ref a projection), `CLAUDE.md:75` (the `S(A)` varactor knob across scales; gauge-relative state), and this session's coupling-geometry + ontology groundings. The figure is a research-draft (white, research-SVG convention); a manuscript version would be rebuilt via `ave.viz.style` at promotion.
+Built from: the S1 result (`research/2026-06-24_engine-s1-winding-dof_result.md`), the Stage-2 falsification (`research/2026-06-24_engine-stage2-native-cage_result.md`), the gravity-frequency-modulation result (`research/2026-06-05_gravity-sign-frequency-modulation-result.md`), the saturation kernel (`src/ave/axioms/saturation.py`, reactive — no internal sink), `master-equation.md:20` (mass=A1 carrying the (2,3) winding; V_ref a projection), `ave-kb/CLAUDE.md:75` (the `S(A)` varactor knob across scales; gauge-relative state), and this session's coupling-geometry + ontology groundings. The figure is a research-draft (white, research-SVG convention); a manuscript version would be rebuilt via `ave.viz.style` at promotion.

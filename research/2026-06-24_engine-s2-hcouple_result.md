@@ -106,7 +106,13 @@ PYTHONPATH=$PWD/src .venv/bin/python -m pytest src/tests/engine_acceptance/test_
 
 - **S2 PASS** → the A1↔ω lock is conservative + non-vacuous + independence-preserving: the
   prerequisite for the S3 mutual-pinning test (Γ=−1 cavity). The pinning hypothesis itself remains
-  OPEN — S2 proves the COUPLING, not the pinning.
+  OPEN — S2 proves the COUPLING, not the pinning. 🔴 *(2026-06-24 update: the S2 PASS verdict
+  STANDS — the coupling IS conservative/non-vacuous/independence-preserving. But the forward-looking
+  "the pinning hypothesis remains OPEN" is now superseded: S3 (DISPERSE-FALSIFIED) + the coupled
+  eigensolve (#415) + the phase-space coupling-winding BREAK (#417) read NEGATIVE in BOTH internal
+  dynamical loci — the winding does NOT pin the dispersing A1 core. Localizer = cavity-eigenmode;
+  the (2,3) RIDES the cage as STATIC charge (Link, un-walked-back). See
+  research/2026-06-24_engine-reroute-epic-summary.md.)*
 - **NOT a chord.** S2 is the consistency gate; the chord lives at S4 / the forward predictions.
 
 ## Recommended follow-up (implementer-lane; auditor lands the manual/pathway entries)

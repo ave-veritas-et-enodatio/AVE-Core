@@ -4,7 +4,7 @@
 **Class:** CONSISTENCY (confirms/denies a *canonical home* for the charge-winding; the integer source is adopted-by-geometry, NOT a novel chord). Q=137 EMPTY. mass=A1 (#260) UNTOUCHED.
 **Branch base:** `analysis/eigensolve-locus-rescope` (#415 — reuses `coupled_eigensolve` + `coupled_cage_winding`; rebase onto main when #415 merges).
 
-**Why this, why now:** the coupled eigensolve (#415) returned DOES-NOT-EXIST but tested the WRONG LOCUS — three ways: real-space (vs phase-space, `CLAUDE.md:22`), longitudinal-mass-V_snap (vs transverse-charge-V_yield, the Q2 sectoral ruling + `#416`), and **static eigenstate (vs dynamic orbit)**. A (2,3) winding is a closed *time-orbit* `θ(t)=2φ+3ψ`; a fixed-point eigenstate has no orbit and cannot host it. This is the proper gate-d **at the canonical locus**: the phase-space inter-grade coupling, traced dynamically.
+**Why this, why now:** the coupled eigensolve (#415) returned DOES-NOT-EXIST but tested the WRONG LOCUS — three ways: real-space (vs phase-space, `ave-kb/CLAUDE.md:22`), longitudinal-mass-V_snap (vs transverse-charge-V_yield, the Q2 sectoral ruling + `#416`), and **static eigenstate (vs dynamic orbit)**. A (2,3) winding is a closed *time-orbit* `θ(t)=2φ+3ψ`; a fixed-point eigenstate has no orbit and cannot host it. This is the proper gate-d **at the canonical locus**: the phase-space inter-grade coupling, traced dynamically.
 
 ## §0 SCOPE-LOCK (the load-bearing distinctions)
 

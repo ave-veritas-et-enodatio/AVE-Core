@@ -13,6 +13,15 @@ WHAT THIS GATE IS (settled negative, framing-locked):
   localization STANDS. mass = A1 (PR#260) is UNTOUCHED — only the localization
   MECHANISM changed (bulk self-focus -> winding + H_couple pin the A1 core).
 
+LOCALIZER RELABEL (2026-06-24 second pass — supersedes "winding + H_couple pin the
+A1 core" above; the Stage-2 DISPERSE verdict this gate binds is UNCHANGED): the
+S3 cavity-pinning result (DISPERSE-FALSIFIED) + the coupled eigensolve (#415) +
+the phase-space coupling-winding BREAK (#417) read NEGATIVE in BOTH internal
+dynamical loci — winding + H_couple does NOT pin the dispersing A1 core. The
+surviving localizer is the Γ=−1 boundary CAVITY-eigenmode (fork-b A1 mass cavity
+EXISTS); the (2,3) winding RIDES the cage as STATIC charge (Link, un-walked-back).
+mass = A1 (#260) untouched. See research/2026-06-24_engine-reroute-epic-summary.md.
+
 Re-generate the JSON with:
   PYTHONPATH=src python src/scripts/engine_stage2_native_cage_imex_makeorbreak.py
 
