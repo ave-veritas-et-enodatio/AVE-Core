@@ -17,7 +17,7 @@
 2. **QED has nonlinear vacuum optics too (the symmetric standard).** Euler-Heisenberg predicts vacuum birefringence `δn ∝ field²` — the PVLAS effect. **AVE's "the vacuum has nonlinear optics" is NOT a chord; QED has it.** Both are E²-leading; both give CUBIC-in-drive IM3 (both descend from a quartic E⁴ effective Lagrangian → χ⁽³⁾). The IM3 drive-exponent is **3 for both** (driver: `im3_loglog_slope = 3.000`) — it does **not** discriminate.
 
 3. **The genuine discriminators (two, ranked by AVE-distinctness):**
-   - **(A) The E-vs-B KEYING ASYMMETRY — the real chord.** A static external **B** is **exactly transparent** (`S_μ = 1`, `δn_μ = 0` at every field), because the μ-grade is a relativistic INDUCTOR keyed on circulation `I`, not on `|B|`; a static E **does** load the V-keyed varactor (`δn ≠ 0`). **QED is E/B symmetric** (it predicts nonzero static-B birefringence ~10⁻²³ at 5 T). This asymmetry is a **categorical, parameter-free, AVE-distinct prediction** QED does not reproduce. This is the chord candidate.
+   - **(A) The E-vs-B KEYING ASYMMETRY — the chord CANDIDATE.** A static external **B** is **exactly transparent** (`S_μ = 1`, `δn_μ = 0` at every field), because the μ-grade is a relativistic INDUCTOR keyed on circulation `I`, not on `|B|`; a static E **does** load the V-keyed varactor (`δn ≠ 0`). **QED is E/B symmetric** (it predicts nonzero static-B birefringence ~10⁻²³ at 5 T). This asymmetry is a **categorical, parameter-free, AVE-distinct prediction** QED does not reproduce. It is a **chord *candidate* with a clean falsifier**, NOT a confirmed/bankable chord: the static-B null that PVLAS *already returns* is the AVE-expected result and **discriminates nothing** until static-B sensitivity reaches the QED ~10⁻²³ level (§3A). The E² scaling and cubic IM3 are QED-SHARED non-falsifiers.
    - **(B) The COEFFICIENT magnitude (~1.93×10⁷ at the matched differential) — an ECHO, not a chord.** The FORM (tree-level O(1) saturation structure vs QED's α²-loop) is AVE-distinct; the **magnitude** `7.5/α³` rides α⁻³ and AVE does not derive α. Symmetric standard: QED's coefficient is *equally* α-rooted. The magnitude is honest but it is an α-echo at the value level — do **not** headline it as a chord.
 
 4. **Bankable number** (driver, live constants): at the PW-class focal field `E = 2.745×10¹⁴ V/m` (`A = E/E_yield = 2.43×10⁻³`):
@@ -78,16 +78,16 @@ with `E_crit = m_e²c³/(eℏ) ≈ 1.32×10¹⁸ V/m` (Schwinger). **QED is E²-
 
 Three candidate discriminators were on the table (per the task framing). Honest classification:
 
-### 3A. The E-vs-B keying asymmetry — the REAL CHORD (parameter-free, categorical)
+### 3A. The E-vs-B keying asymmetry — the chord CANDIDATE (parameter-free, categorical, clean falsifier)
 
-This is the genuinely AVE-distinct, parameter-free forward prediction. The node is a multi-port LC tank with **two reactive grades keyed on DIFFERENT drive variables** (`node-up-small-large-signal.md`:§1, `relativistic-inductor.md`:15,:18):
+This is the genuinely AVE-distinct, parameter-free forward prediction — framed as a **chord candidate with a clean falsifier**, NOT a confirmed chord (the static-B null PVLAS already returns discriminates nothing until ~10⁻²³; see the classification box at the end of this subsection). The node is a multi-port LC tank with **two reactive grades keyed on DIFFERENT drive variables** (`node-up-small-large-signal.md`:§1, `relativistic-inductor.md`:15,:18):
 
 - **ε-grade = VARACTOR, keyed on VOLTAGE** `V` (field `E`): `C_eff = C₀/S(A_V)`, `A_V = V/V_yield`. A static **E** is a real DC operating point → loads `ε` → `δn ≠ 0` (regime R2).
 - **μ-grade = relativistic INDUCTOR, keyed on circulating CURRENT** `I`: `L_eff = L₀/S(A_I)`, `A_I = I/I_max`. A static external **B** has `∂B/∂t = 0` → by Lenz no internal vacuum circulation → `I_vac = 0` → `A_I = 0` → `S_μ = √(1−0²) = 1` → `μ_eff = μ₀` → `δn_μ = 0` **analytically exact at every field** (regime R3).
 
 Driver `keying_asymmetry`: `S_μ = [1,1,1,1]`, `δn_μ = [0,0,0,0]` at `B = 2.5, 10, 100, 1000 T`. This is not a numerical fit — `A_I ≡ 0` under static B, so `S_μ = 1` identically across `2.5 T → 1 kT`.
 
-**Why this is the chord and QED can't reproduce it:**
+**Why this is the chord candidate and QED can't reproduce it:**
 - QED's `δn ∝ (E²−B²)` is **E/B symmetric** → it predicts the *same-sign nonzero* birefringence under static B (~10⁻²³ at 5 T) as under static E.
 - AVE predicts a **categorical zero** under static B, **nonzero** under static E. This E-vs-B asymmetry is **parameter-free** (no α, no fitted coefficient — it follows from *which argument keys which grade*).
 - **This is also why PVLAS/BMV survive**: they apply static B, leave the μ-grade unloaded, and read a null — the *expected* AVE result, not a falsification (`pvlas-static-b-verdict.md`).
@@ -95,7 +95,7 @@ Driver `keying_asymmetry`: `S_μ = [1,1,1,1]`, `δn_μ = [0,0,0,0]` at `B = 2.5,
 
 **Bold falsifiable side-prediction (the chord's kill-switch):** AVE predicts **zero** static-B vacuum birefringence at **any** field. A static-B birefringence detection at or above the QED level (~10⁻²³ at 5 T) **FALSIFIES** AVE. QED says small-but-nonzero; AVE says exactly zero.
 
-> **CHORD classification: this is a genuine AVE-distinct forward prediction.** It is parameter-free (does not ride α), categorical (zero vs nonzero, not a coefficient ratio), and QED structurally cannot reproduce it (its E/B symmetry forbids the asymmetry). **However** — honesty caveat — it is a *consistency* prediction in the sense that no instrument has yet measured static-B birefringence at the QED level to confirm the QED-nonzero leg; the chord becomes a *decisive* test only once static-B sensitivity reaches ~10⁻²³. Until then it is a chord *candidate* with a clean falsifier, not a confirmed discriminating measurement.
+> **CHORD-CANDIDATE classification (not a confirmed/bankable chord): a genuine AVE-distinct forward prediction with a clean falsifier.** It is parameter-free (does not ride α), categorical (zero vs nonzero, not a coefficient ratio), and QED structurally cannot reproduce it (its E/B symmetry forbids the asymmetry). **The honest ceiling:** the static-B null that PVLAS/BMV *already return* is the AVE-expected result — it **discriminates nothing** against QED until static-B sensitivity reaches the QED ~10⁻²³ level (no instrument has yet measured static-B birefringence at the QED level to confirm the QED-nonzero leg). So this is a **chord *candidate* with a clean falsifier**, NOT a confirmed/bankable discriminating measurement. The clean falsifier: a static-B birefringence detection at/above ~10⁻²³ (5 T) FALSIFIES AVE; a null is consistent with AVE but, returned at current sensitivity, is also consistent with QED-small-and-undetected — it does not yet discriminate.
 
 ### 3B. The coefficient magnitude (~1.93×10⁷) — an ECHO, not a chord
 
@@ -109,7 +109,7 @@ using the substrate identity `(E_crit/E_yield)² = 1/α` (driver: `137.0360`, ex
 
 The "E⁴ vs E²" axis is a **retracted false falsifier** (the √ε conflation, §1). Both AVE and QED are E²-leading; both IM3 are cubic. An E² slope does **not** falsify AVE. Anyone re-proposing "AVE predicts E⁴" is re-opening a closed negative. **Not a discriminator.**
 
-**Summary of the three:** (A) keying asymmetry = REAL CHORD (parameter-free, categorical, QED can't); (B) coefficient magnitude = ECHO (α-rooted, GROUNDED-but-echo); (C) E⁴-exponent = RETRACTED (both E²).
+**Summary of the three:** (A) keying asymmetry = **CHORD CANDIDATE** (parameter-free, categorical, QED can't reproduce it — but a clean falsifier, not a confirmed chord: the static-B null PVLAS already returns discriminates nothing until ~10⁻²³); (B) coefficient magnitude = ECHO (α-rooted, GROUNDED-but-echo); (C) E⁴-exponent = RETRACTED (both E²; E² scaling + cubic IM3 are QED-SHARED non-falsifiers).
 
 ## 4. The bankable number (AVE vs QED side by side)
 
@@ -152,8 +152,8 @@ The discriminating test is the **E-route** (static or DC-biased E loading the V-
 >
 > **What is being tested:** the AVE vacuum nonlinear-optics structure (Axiom-4 saturation kernel) via (i) E-route birefringence δn(E), (ii) IM3 dual-tone distortion, (iii) the static-B transparency side-prediction.
 >
-> **PRIMARY FALSIFIER (the chord — parameter-free, ranked first):**
-> A **static-B vacuum birefringence detection at or above the QED level (~10⁻²³ at 5 T)** FALSIFIES AVE. AVE predicts `δn_μ = 0` EXACTLY at every static-B field (`S_μ = 1`, `A_I ≡ 0`). This is parameter-free — it does not ride α or any fitted coefficient. *(Status: requires static-B sensitivity at the QED ~10⁻²³ level to be decisive; until then a clean falsifier, not yet a confirmed measurement.)*
+> **PRIMARY FALSIFIER (the chord CANDIDATE — parameter-free, ranked first):**
+> A **static-B vacuum birefringence detection at or above the QED level (~10⁻²³ at 5 T)** FALSIFIES AVE. AVE predicts `δn_μ = 0` EXACTLY at every static-B field (`S_μ = 1`, `A_I ≡ 0`). This is parameter-free — it does not ride α or any fitted coefficient. *(Status: a chord **candidate** with a clean falsifier, NOT a confirmed/bankable chord. The static-B null PVLAS/BMV ALREADY return is the AVE-expected result and discriminates nothing against QED until static-B sensitivity reaches the QED ~10⁻²³ level. Decisive only at that sensitivity.)*
 >
 > **SECONDARY FALSIFIER (coefficient — α-echo magnitude):**
 > At the matched par−perp differential E-route observable, a **QED-sized differential coefficient** (`δn_bir ~ (3/45)α²(E/E_crit)²`, i.e. ~10⁷× smaller than AVE at matched field) FALSIFIES AVE; an AVE-sized coefficient (`δn_bir ≈ −½(E/E_yield)²`) falsifies QED. *Magnitude ratio `7.5/α³ ≈ 1.93×10⁷` is α-echo-flagged — the FORM (tree O(1) vs α²-loop) is the AVE-distinct content, the value rides α⁻³.*
@@ -190,8 +190,8 @@ The discriminating test is the **E-route** (static or DC-biased E loading the V-
 
 The IM3 / harmonic-distortion characterization is a **Vol-9 device-datasheet** observable (the executable-textbook layer), distinct from the Vol-4 falsifier framing:
 - **Vol-9 Ch.3 (Pin/Port Configuration)** already hosts `per-dof-vacuum-node-circuit.md` (the node-constitutive tensor) and `node-up-small-large-signal.md` lives in Vol-4 Ch.1 circuit-theory. The IM3 *characterization* (the χ⁽³⁾ Taylor expansion + the cubic drive law + the bankable δn table) is the **small-signal-distortion datasheet entry** beneath the multi-port LC node — it characterizes the node's nonlinear-reactance spectral signature.
-- **Proposed Vol-9 home:** a characterization leaf under Ch.3 (or the Vol-9 device chapter that owns the node datasheet), titled e.g. *"Vacuum-node IM3 / harmonic-distortion datasheet"*, containing: (1) the kernel-Taylor χ⁽³⁾ derivation, (2) the cubic-in-drive IM3 law (with the shared-with-QED caveat), (3) the per-node-vs-apparatus A correction (the −360 dBc per-node honest figure), (4) the bankable δn(E) table, (5) the static-B-transparent keying note cross-linking `node-up-small-large-signal.md`. This is **CONSISTENCY-class** (re-expresses the kernel + the canonical IM3 leaf as a device datasheet; originates no new number).
-- **The auditor lands the Vol-9 leaf** (lane discipline); this doc + driver are the implementer substrate.
+- **Vol-9 home (LANDED by the implementer, Rule-15):** the characterization leaf is landed at [`manuscript/ave-kb/vol9/ch3-pin-port-configuration/vacuum-node-im3-distortion.md`](../manuscript/ave-kb/vol9/ch3-pin-port-configuration/vacuum-node-im3-distortion.md) (registered in the Ch.3 index). It contains: (1) the kernel-Taylor χ⁽³⁾ derivation (validate-on-known, HALT), (2) the cubic-in-drive IM3 law with the shared-with-QED caveat, (3) the bankable δn(E) table (AVE vs QED, sign-flip), (4) the static-B-transparent keying note (chord candidate, clean falsifier), (5) the E-route bench params, (6) the frozen pre-reg pointer. This is **CONSISTENCY-class** (re-expresses the kernel + the canonical IM3 leaf as a device datasheet; originates no new number).
+- **Rule-15:** the *implementer* lands this Vol-9 datasheet leaf (per the explicit task directive — this is the datasheet/device layer the implementer owns, NOT an auditor manual entry). The auditor lane reviews; any manuscript `.tex` render counterpart + claim-id propagation is a gated follow-on for the auditor to land.
 
 ---
 
