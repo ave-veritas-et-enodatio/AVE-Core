@@ -76,6 +76,8 @@ class Regime(Enum):
     LINEAR_FREE = "linear_free"        # S=1, all free modes (P0 validate-on-known)
     SATURATED_CAGE = "saturated_cage"  # A1 cage (native_cage_imex), Op14 active (P1+)
     COUPLED_WINDING = "coupled_winding"  # A1↔ω coupled (coupled_cage_winding) (P1+)
+    UNIFIED_SRS = "unified_srs"        # P1a: free modes + A1 + ω ALL on ONE chiral
+    #                                    z=3 srs node list (carrier unification)
 
 
 @dataclass
@@ -141,6 +143,14 @@ class UnifiedEngineConfig:
     # winding seed geometry (the (2,3) torus)
     R: float = 7.0
     r: float = 2.3
+    # P1a UNIFIED-srs carrier: the A1 cage + ω winding RE-HOMED onto the chiral
+    # srs z=3 net (ave.solvers.srs_cage_winding). srs_unified_L is the srs supercell
+    # edge for the UNIFIED carrier (≥12 to resolve the (2,3) winding integer — the
+    # documented resolution floor); frame_N is the cube-frame the (R,r) torus is
+    # specified in (matches the diamond carrier geometry exactly). The unified
+    # carrier and the free-mode carrier share the SAME chiral srs net at this L.
+    srs_unified_L: int = 12
+    frame_N: int = 32
 
 
 class UnifiedEngine:
@@ -159,6 +169,7 @@ class UnifiedEngine:
         self._medium = None
         self._a1_cage = None
         self._coupled = None
+        self._unified_srs = None
 
     def _assert_alpha_clean(self) -> None:
         """Re-assert the import-guard triad in THIS module's globals at
@@ -404,3 +415,125 @@ class UnifiedEngine:
             "n_shear": 1.0 / np.sqrt(S),             # shear index = 1/√S
         }
 
+    # ── ROLE (P1a): the UNIFIED carrier — A1 cage + ω winding RE-HOMED onto the
+    #    SAME chiral srs z=3 net the free modes use (the carrier unification). ──
+    # WIRED VERBATIM: ave.solvers.srs_cage_winding (the z=3 adaptation of the
+    # diamond z=4 coupled_cage_winding — Rule-14 ADAPT). NOT reimplemented here.
+    def unified_srs(self):
+        """Return the SrsCageWinding carrier (the A1 node-field + ω micro-rotation
+        coupled core RE-HOMED onto the chiral srs z=3 net). Built once and cached.
+        This is the P1a carrier-unification instrument: the A1/ω now live on the
+        SAME chiral srs net as the free transverse modes — ONE literal node list."""
+        from ave.solvers.srs_cage_winding import SrsCageWinding, SrsCageWindingConfig
+
+        if self._unified_srs is None:
+            cfg = SrsCageWindingConfig(
+                L=self.cfg.srs_unified_L, enantiomorph=self.cfg.enantiomorph,
+                frame_N=self.cfg.frame_N, V_yield=self.cfg.V_yield,
+                exponent=self.cfg.exponent, S_min=self.cfg.S_min, A_cap=self.cfg.A_cap,
+                R=self.cfg.R, r=self.cfg.r,
+            )
+            self._unified_srs = SrsCageWinding(cfg)
+        return self._unified_srs
+
+    def one_node_list_identity(self) -> dict:
+        """THE UNIFICATION IDENTITY: the free-mode carrier and the unified A1/ω
+        carrier are the SAME chiral srs net (same enantiomorph, same z=3
+        connectivity, same node positions at the shared L) — ONE literal node list,
+        not two K4-family carriers. Builds both at the unified L and asserts the
+        node lists are byte-identical."""
+        from ave.core import chiral_lattice as cl
+
+        free_net = cl.build_srs_net(self.cfg.srs_unified_L, self.cfg.enantiomorph)
+        carrier = self.unified_srs()
+        carrier_net = carrier.net
+        same_n = free_net.n_nodes == carrier_net.n_nodes
+        same_degree = free_net.degree == carrier_net.degree == 3
+        same_pos = (
+            free_net.pos.shape == carrier_net.pos.shape
+            and bool(np.allclose(free_net.pos, carrier_net.pos))
+        )
+        return {
+            "n_nodes": int(carrier_net.n_nodes),
+            "degree": int(carrier_net.degree),
+            "enantiomorph": self.cfg.enantiomorph,
+            "same_node_count": bool(same_n),
+            "srs_z3_both": bool(same_degree),
+            "node_lists_identical": bool(same_pos),
+            "ONE_node_list": bool(same_n and same_degree and same_pos),
+        }
+
+    def srs_chirality_carried(self) -> dict:
+        """The Decision-1 payoff: the unified carrier's net is genuinely CHIRAL —
+        the ring-writhe pseudoscalar is nonzero and SIGN-FLIPS between enantiomorphs,
+        and is IDENTICALLY ZERO on the achiral diamond control. This is what the
+        diamond z=4 carrier could NOT carry: the handedness = charge-sign / parity /
+        optical-activity. Wires chiral_lattice.net_ring_writhe verbatim."""
+        from ave.core import chiral_lattice as cl
+
+        L = self.cfg.srs_L  # the writhe is scale-free; use the smaller free-mode L
+        wr_R = cl.net_ring_writhe(cl.build_srs_net(L, "right"))[0]
+        wr_L = cl.net_ring_writhe(cl.build_srs_net(L, "left"))[0]
+        wr_D = cl.net_ring_writhe(cl.build_diamond_net(L))[0]
+        return {
+            "writhe_srs_right": float(wr_R),
+            "writhe_srs_left": float(wr_L),
+            "writhe_diamond": float(wr_D),
+            "srs_chiral": bool(abs(wr_R) > 1e-6 and np.sign(wr_R) == -np.sign(wr_L)),
+            "diamond_achiral": bool(abs(wr_D) < 1e-9),
+            "carries_handedness": bool(
+                abs(wr_R) > 1e-6 and np.sign(wr_R) == -np.sign(wr_L) and abs(wr_D) < 1e-9
+            ),
+        }
+
+    def unification_verdict(
+        self, *, amplitude: float = 0.02, n_steps: int = 60
+    ) -> dict:
+        """THE P1a MAKE-OR-BREAK: do the free modes + A1 + ω now live on ONE literal
+        chiral z=3 srs node list, with the A1 cavity + ω winding re-homed cleanly
+        (joint-energy conserved + winding integer held)?
+
+        Drives the UNIFIED srs carrier on the closed-box (no PML, no damping)
+        lossless limit: seeds the A1 sech breather + the (2,3) ω winding on the SAME
+        srs net, runs n_steps coupled CN/Cayley steps, and certifies BOTH the joint
+        energy |dH/H| < 1e-8 (the rigor guard — a pin cannot be bought by damping)
+        AND the winding integer survival (the (2,3) charge held on the srs net).
+
+        Returns the verdict dict: WORKS (clean re-homing) or WALLED (which gate
+        failed) — the load-bearing P1a output."""
+        carrier = self.unified_srs()
+        carrier.seed_A1_sech(amplitude=amplitude, radius=2.5)
+        carrier.seed_winding(amplitude=amplitude)
+        H0 = carrier.total_energy()
+        a1_0, om_0 = carrier.a1_energy(), carrier.omega_energy()
+        w0 = carrier.winding_integer()
+        for _ in range(n_steps):
+            carrier.step()
+        H1 = carrier.total_energy()
+        a1_1, om_1 = carrier.a1_energy(), carrier.omega_energy()
+        w1 = carrier.winding_integer()
+        rel = abs(H1 - H0) / H0
+        identity = self.one_node_list_identity()
+        chir = self.srs_chirality_carried()
+        joint_conserved = bool(rel < 1e-8 and carrier.last_gmres_info == 0)
+        winding_held = bool(w1["Q_link"] == w0["Q_link"] and w0["Q_link"] != 0)
+        works = bool(
+            identity["ONE_node_list"] and chir["carries_handedness"]
+            and joint_conserved and winding_held
+        )
+        return {
+            "ONE_node_list": identity["ONE_node_list"],
+            "n_nodes": identity["n_nodes"],
+            "degree": identity["degree"],
+            "carries_handedness": chir["carries_handedness"],
+            "joint_energy_rel_drift": float(rel),
+            "joint_energy_conserved": joint_conserved,
+            "gmres_info": int(carrier.last_gmres_info),
+            "Q_link_before": int(w0["Q_link"]),
+            "Q_link_after": int(w1["Q_link"]),
+            "w_tor_after": int(w1["w_tor"]),
+            "winding_integer_held": winding_held,
+            "a1_energy": (float(a1_0), float(a1_1)),
+            "omega_energy": (float(om_0), float(om_1)),
+            "verdict": "WORKS" if works else "WALLED",
+        }
