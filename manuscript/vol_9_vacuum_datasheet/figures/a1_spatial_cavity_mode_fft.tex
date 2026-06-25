@@ -1,0 +1,39 @@
+% a1_spatial_cavity_mode_fft.tex — A1 SPATIAL cavity-mode spectrum (Vol 9 Ch.9)
+% Included from chapters/09_mechanical_characteristics.tex.
+% Renders the native-engine output of:
+%   src/scripts/vol_9_device/a1_radial_fft.py
+% Every array is ACTUAL on-main engine output. CONSISTENCY-class: re-expresses
+% the SAME most-bound A1 eigenvector the Ch.3a two-natured figure uses, read in
+% SPACE. EXPLICITLY distinct from the Ch.17 TEMPORAL ring-down FFT (omega_cutoff
+% ~2.87): this is the SPATIAL mode spectrum (FFT over the radial coordinate).
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{a1_spatial_cavity_mode_fft.png}
+\caption{The A1 dilatation cavity's \textbf{SPATIAL mode spectrum}, rendered from
+the native engine (\texttt{src/scripts/vol\_9\_device/a1\_radial\_fft.py}; every
+array is actual on-main engine output). This is the FFT of the same most-bound
+A1 eigenvector the two-natured figure
+(Fig.~\ref{fig:vol9_two_natured_electron}) uses, taken over the real-space
+\emph{radial} coordinate --- the mode's shape in space. It is \textbf{explicitly
+distinct from the TEMPORAL ring-down FFT of
+Ch.~\ref{ch:vol9_engine_requirements}} (the $\omega_{\mathrm{cutoff}}\approx2.87$
+ring-down envelope, an FFT over time-steps, which reads the mode
+\emph{frequency}); this reads the mode \emph{shape}.
+\textbf{Panel A:} the radial profile of $|a_{A1}|$ is a \emph{single localized
+lobe} (peak $r\approx1.75$ cells, monotone decay outside the stiff core) --- a
+nodeless fundamental. \textbf{Panel B:} consequently the 1D radial FFT is
+\emph{featureless} --- no overtone ladder, no discrete spatial-harmonic peaks
+(the windowed FFT of one non-periodic lobe smears into a low-$k$ ramp; it does
+not resolve overtones). \textbf{Panel C:} the rigorous 3D power spectrum
+$P(|k|)$ peaks at $\lambda\approx3.7$ cells with spectral centroid
+$\lambda_c\approx2.2$ cells and a \emph{broadband} envelope (half-power width
+$\approx0.54$ cyc/cell). That breadth is the Fourier-conjugate of the sharp
+$\sim2$-cell stiff-core localization: a tightly localized lobe in real space is
+broadband in $k$, \emph{not} a multi-mode spectrum. So the A1 mass-cavity is a
+$\Gamma=-1$-boundary-confined \emph{nodeless fundamental}, not a structured
+standing wave with overtones. mass $=$ A1 is the ratified grade-assignment
+(\kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md}), not a
+driver measurement of A1-vs-$T_2$. \textsc{consistency}-class re-expression of
+the same on-main eigenvector, not a new claim.}
+\label{fig:vol9_a1_spatial_cavity_mode_fft}
+\end{figure}

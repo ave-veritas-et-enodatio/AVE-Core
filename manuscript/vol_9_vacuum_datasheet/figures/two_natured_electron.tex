@@ -1,0 +1,53 @@
+% two_natured_electron.tex — the substrate-decided two-natured electron (Vol 9 Ch.3a)
+% Included from chapters/03a_device_circuit_models.tex, alongside node_2domain_nport.tex.
+% Renders the native-engine output of:
+%   src/scripts/vol_9_device/two_natured_electron_figure.py
+% Every curve is ACTUAL on-main engine output (no hand-drawn array). CONSISTENCY-
+% class: re-expresses passing engine output + the already-canon two-natured
+% structure (A1 mass-"3" / T2 charge-"3", A1 _|_ T2; S-matrix eigenvalues
+% {+1,-1,-1,-1}). Not a new test, not a new claim.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{two_natured_electron_native_engine.png}
+\caption{The substrate-decided two-natured electron, rendered from the native
+engine (\texttt{src/scripts/vol\_9\_device/two\_natured\_electron\_figure.py}; every
+curve is ACTUAL on-main engine output --- no hand-drawn array). This is the
+two-port of \S\ref{sec:vol9_node_2domain_nport} read at the electron: the
+charge-``3'' (Cosserat $(2,3)$ micro-rotation, $T_2$) and the mass-``3'' (A1
+dilatation) are \textbf{two orthogonal natures} ($A_1\perp T_2$; the K4 S-matrix
+eigenvalues $\{+1,-1,-1,-1\}$, already canon in \S\ref{sec:vol9_node_2domain_nport}
+and Ch.~\ref{ch:vol9_pin_port_configuration}), \emph{not} one nature holding the
+other.
+\textbf{Panel A (static charge, cool).} The $(2,3)$ winding read as the boundary
+linking integer $\mathcal{Q}=\mathrm{Link}(\partial\Omega,F)=3\in\mathbb{Z}$
+(\texttt{charge\_quantization.seed\_pq\_winding}$\,\to\,$\texttt{compute\_Q\_link});
+$w_{\mathrm{tor}}=2,\,w_{\mathrm{pol}}=3$, self-link $Q_{\mathrm H}=p\,q=6$. The
+integer is UNCHANGED under four continuous topology-preserving deformations
+(\texttt{deform\_continuous}: smooth-noise, swirl, local-scale, warp) --- pure
+topology, no work. The charge is $\alpha$-\emph{free}: the integer comes from
+\texttt{compute\_Q\_link}, never from $Q=1/\alpha$ or $Q_\text{TANK}=137$
+(the $Q=137$ slot stays EMPTY).
+\textbf{Panel B (dynamical mass, warm).} The A1 dilatation cavity mode, the
+\textbf{$\Gamma=-1$-boundary-confined} dilatation breather (the surviving
+localizer), eigenfrequency $\omega_{\mathrm{fork\,b}}=2.84$ (cold-cage anchor
+$\approx2.84$/$2.87$), $a_{1}$ core-fraction $0.995$, lossless
+($\mathrm{Im}(\omega)=0$); the winding-OFF HALT control recovers the same mode
+(it is not a winding-coupling artifact). It is \emph{not} an autonomous bulk
+self-trapping breather (that DISPERSED, MODE-III) and \emph{not} a
+coupled-Hamiltonian-pinned bound mode (the joint dynamical locus tested NEGATIVE).
+\textbf{mass $=$ A1 is the ratified grade-ASSIGNMENT (PR\#260), not a driver
+measurement} --- no driver discriminates an A1-mass from a $T_2$-mass.
+\textbf{Panel C (real-space body, neutral).} The real-space body is the $0_1$
+unknot ($\mathcal{Q}_{link}=0$, $Q_{\mathrm H}=0$;
+\texttt{cosserat\_field\_3d.initialize\_electron\_unknot\_sector}), trivial in
+contrast to the $(2,3)$ ansatz on the same field type ($\mathcal{Q}_{link}=2$):
+the $(2,3)$ is a PHASE-SPACE Clifford-torus $(V_{\mathrm{inc}},V_{\mathrm{ref}})$
+winding, NOT a real-space knot
+(\kbleaf{ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:20,
+the two-``3''s disambiguation; \texttt{cosserat\_field\_3d.py}:1176--1178,
+Layer-3 phase-space). \textbf{Panels A and C draw the engine's seeded-frame
+parametric tracers} (the toroidal geometry the field is laid on); \textbf{only
+Panel B plots the raw field array}. CONSISTENCY-class re-expression of passing
+engine output, not a new claim.}
+\label{fig:vol9_two_natured_electron}
+\end{figure}
