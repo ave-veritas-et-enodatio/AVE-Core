@@ -162,3 +162,86 @@ class UnifiedEngine:
                 f"— the facade chord path must carry NO α-carrier."
             )
 
+    # ── ROLE: free-mode medium (L0 chiral srs net + scatter-connect TLM) ──
+    # WIRED VERBATIM: ave.core.chiral_lattice{,_vector,_dynamics}. The srs z=3
+    # net is the FREE transverse-mode (photon) carrier. NOT reimplemented.
+    def free_modes(self, *, enantiomorph: str | None = None):
+        """Return the srs LatticeNet (the free-mode carrier) for the requested
+        enantiomorph. Built ONCE and cached. This is the L0 chiral medium core,
+        wired verbatim (Rule-14)."""
+        from ave.core import chiral_lattice as cl
+
+        en = enantiomorph or self.cfg.enantiomorph
+        if self._medium is None:
+            self._medium = {}
+        if en not in self._medium:
+            self._medium[en] = cl.build_srs_net(self.cfg.srs_L, en)
+        return self._medium[en]
+
+    def characteristic_impedance(self) -> dict:
+        """RUNG-0: Z₀ = √(μ₀/ε₀) = 376.730 Ω, the vacuum characteristic impedance.
+
+        Read from the canonical α-clean constants (EPSILON_0, MU_0 — the vacuum
+        moduli; NOT α-carriers). consistency-vs-emergence tag: CONSISTENCY-class
+        — Z₀ is a defined ratio of the two vacuum constants, reproduced (not an
+        emergence claim). This is the impedance LABEL the EM-transverse channel
+        (Z_EM ≡ Z₀) carries.
+        """
+        from ave.core.constants import EPSILON_0, MU_0, Z_0
+
+        # Z₀ is DERIVED from the vacuum moduli sqrt(μ₀/ε₀) — NEVER a hardcoded
+        # literal (the EFT-guard / make-verify magic-number rule; the impedance
+        # MUST come from the topology-derived constants). The canonical Z_0 is
+        # the same derivation in constants.py; the target is that derivation, not
+        # a transcribed numeral.
+        z_from_moduli = float(np.sqrt(MU_0 / EPSILON_0))
+        return {
+            "Z0_ohm": z_from_moduli,
+            "Z0_canonical": float(Z_0),
+            "matches_canonical": bool(abs(z_from_moduli - Z_0) < 1e-9),
+            # validate-on-known: the derivation reproduces the canonical Z_0 to
+            # full precision (the "376.7 Ω" target IS the canonical constant).
+            "reproduces_Z0": bool(abs(z_from_moduli - Z_0) < 1e-3),
+        }
+
+    def unitary_scatter_energy_drift(
+        self, *, n_steps: int = 600, enantiomorph: str | None = None
+    ) -> dict:
+        """RUNG-0: the unitary-scatter / closed-box energy conservation of the
+        free-mode TLM medium. The CONNECT map is a port permutation ⇒ orthogonal
+        one-step operator ⇒ Σ|V_inc|² conserved EXACTLY. Reads the dynamically
+        evolved field (CP9), wiring chiral_lattice_dynamics.energy_drift verbatim.
+        """
+        from ave.core import chiral_lattice_dynamics as cld
+
+        net = self.free_modes(enantiomorph=enantiomorph)
+        is_perm = bool(cld.connect_is_permutation(net))
+        drift = float(cld.energy_drift(net, steps=n_steps))
+        return {
+            "connect_is_permutation": is_perm,
+            "energy_drift": drift,
+            "lossless": bool(drift < 1e-8 and is_perm),
+        }
+
+    def isotropy_factor(
+        self, *, n_steps: int = 600, enantiomorph: str | None = None
+    ) -> dict:
+        """RUNG-0: the 3D-isotropic network-velocity factor c(k→0)/c_link, which
+        must equal 1/√3 (the canonical 3D-TLM geometric factor) on the chiral srs
+        net — the achiral 'did-not-break-it' invariant. Wires
+        chiral_lattice_dynamics.network_velocity_factor verbatim.
+        """
+        from ave.core import chiral_lattice_dynamics as cld
+
+        net = self.free_modes(enantiomorph=enantiomorph)
+        nf = cld.network_velocity_factor(net, n_steps=n_steps)
+        target = float(cld.ANALYTIC_NETWORK_FACTOR)
+        rel = abs(nf["factor"] - target) / target
+        return {
+            "factor": float(nf["factor"]),
+            "target_inv_sqrt3": target,
+            "rel_error": float(rel),
+            "isotropic": bool(rel < 0.02),
+            "linearity_spread": float(nf["linearity_spread"]),
+        }
+
