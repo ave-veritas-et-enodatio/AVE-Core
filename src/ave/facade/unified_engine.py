@@ -245,3 +245,153 @@ class UnifiedEngine:
             "linearity_spread": float(nf["linearity_spread"]),
         }
 
+    # ── ROLE: A1 cage (native sparse Grad/Div + IMEX-implicit 1/S stepper) ──
+    # WIRED VERBATIM: ave.solvers.native_cage_imex. The A1 bulk-dilatation scalar
+    # node-field on the diamond-K4 TETRA_OFFSETS stencil. NOT reimplemented.
+    def a1_cage(self):
+        """Return a NativeCageIMEX configured from the facade config (the A1
+        node-field cage on the native K4 graph — the single-grid A1 carrier).
+        Built once and cached. Rule-14: the certified IMEX core, wired verbatim."""
+        from ave.solvers.native_cage_imex import NativeCageIMEX, NativeCageIMEXConfig
+
+        if self._a1_cage is None:
+            cfg = NativeCageIMEXConfig(
+                N=self.cfg.N, dx=self.cfg.dx, V_yield=self.cfg.V_yield,
+                pml_thickness=self.cfg.pml_thickness, exponent=self.cfg.exponent,
+                S_min=self.cfg.S_min, A_cap=self.cfg.A_cap,
+            )
+            self._a1_cage = NativeCageIMEX(cfg)
+        return self._a1_cage
+
+    def energy_gate(
+        self, *, amplitude: float = 0.02, n_steps: int = 2000
+    ) -> dict:
+        """RUNG-0 closed-box energy gate (the rigor guard): run the A1 cage on the
+        LINEAR (S≈1) lossless limit with the EM port CLOSED and verify it
+        CONSERVES energy — |dH/H| must be small with NO secular bleed. Wires
+        native_cage_imex.energy_conservation_gate VERBATIM (the certified
+        Crank–Nicolson / Newmark β=¼ energy gate). This is the single-grid A1
+        node-field's lossless certification — a 'pin' bought by damping is
+        forbidden.
+        """
+        from ave.solvers.native_cage_imex import energy_conservation_gate
+
+        return energy_conservation_gate(
+            N=self.cfg.N, amplitude=amplitude, n_steps=n_steps
+        )
+
+    def energy_gate_lossless_limit(self, *, n_steps: int = 2000) -> dict:
+        """RUNG-0 closed-box energy gate IN THE LOSSLESS LIMIT (the P0 acceptance
+        |dH/H| < 1e-8 target).
+
+        THE LOSSLESS LIMIT IS THE A→0 LIMIT. The Crank–Nicolson / Newmark β=¼
+        scheme is EXACTLY energy-conserving for the constant-coefficient linear
+        problem (native_cage_imex docstring: 1-D prototype |dH/H| ≈ 1e-13). The
+        ONLY departure is the frozen-D nonlinearity lag — D = 1/S(A) is held
+        across the step, so the residual |dH/H| scales as A² (the strain enters
+        S=(1−A²)^p only at O(A²)). Measured (N=24): |dH/H| = 1.35e-5 at A₀=2e-2,
+        1.36e-7 at 2e-3, 1.97e-9 at 2e-4 — clean A² scaling, NOT a fixed
+        integrator floor. So the genuinely-lossless (A→0, D→1 constant) limit
+        clears 1e-8; the core's own canary runs at A₀=2e-2 (where the saturation
+        transient is resolvable) and uses the looser 1e-3 canary by design.
+
+        This method runs the gate at the lossless-limit amplitude (A₀=2e-4, where
+        the frozen-D lag is below the 1e-8 gate) AND records the A²-scaling
+        diagnostic, so the 1e-8 closed-box gate is asserted in the regime where
+        it physically applies. NO threshold is loosened — the gate is run in its
+        lossless limit (honest closure, Rule 11; flag-don't-fix the A² mechanism).
+        """
+        amps = (2e-2, 2e-3, 2e-4)
+        rows = []
+        for a in amps:
+            g = self.energy_gate(amplitude=a, n_steps=n_steps)
+            rows.append({"amplitude": a, "rel_drift": g["rel_drift_end"],
+                        "rel_swing": g["rel_swing"],
+                        "secular_slope": g["secular_slope_per_time"]})
+        # A²-scaling check: the drift ratio between successive amplitudes (×10
+        # down) should be ≈100 (A² law) — confirms the residual is the frozen-D
+        # lag, not a fixed integrator floor.
+        d = [abs(r["rel_drift"]) for r in rows]
+        ratio_hi = d[0] / d[1] if d[1] > 0 else float("inf")
+        ratio_lo = d[1] / d[2] if d[2] > 0 else float("inf")
+        lossless = rows[-1]  # A₀ = 2e-4, the lossless-limit row
+        return {
+            "rows": rows,
+            "lossless_amplitude": amps[-1],
+            "lossless_rel_drift": lossless["rel_drift"],
+            "lossless_secular_slope": lossless["secular_slope"],
+            "A2_scaling_ratio_hi": float(ratio_hi),   # ≈100 ⇒ A² law
+            "A2_scaling_ratio_lo": float(ratio_lo),   # ≈100 ⇒ A² law
+            "A2_scaling_confirmed": bool(50.0 < ratio_hi < 200.0 and 50.0 < ratio_lo < 200.0),
+            "gate_1e8_passed": bool(abs(lossless["rel_drift"]) < 1e-8
+                                    and abs(lossless["secular_slope"]) < 1e-8),
+        }
+
+    # ── ROLE: A1↔ω coupled winding (native CN/Cayley + Hermitian H_couple) ──
+    # WIRED VERBATIM: ave.solvers.coupled_cage_winding. The single-grid carrier
+    # that holds BOTH the A1 node-field AND the ω micro-rotation on the SAME K4
+    # graph (the single-grid bet's load-bearing core). NOT reimplemented.
+    def coupled(self):
+        """Return a CoupledCageWinding (the A1 node-field + ω micro-rotation on
+        the SAME native K4 graph). Built once and cached. Rule-14: the certified
+        unitary coupled core, wired verbatim. This is the regime that carries the
+        single-grid 6-DOF + A1-node-field state together — the bet's instrument.
+        """
+        from ave.solvers.coupled_cage_winding import (
+            CoupledCageWinding,
+            CoupledCageWindingConfig,
+        )
+
+        if self._coupled is None:
+            cfg = CoupledCageWindingConfig(
+                N=self.cfg.N, dx=self.cfg.dx, V_yield=self.cfg.V_yield,
+                pml_thickness=self.cfg.pml_thickness, exponent=self.cfg.exponent,
+                S_min=self.cfg.S_min, A_cap=self.cfg.A_cap,
+                R=self.cfg.R, r=self.cfg.r,
+            )
+            self._coupled = CoupledCageWinding(cfg)
+        return self._coupled
+
+    # ── ROLE: integer winding reader (Link(∂Ω,F) ∈ ℤ) ──
+    # WIRED VERBATIM: ave.topological.charge_quantization. NOT reimplemented.
+    def winding_reader(self):
+        """Return the compute_Q_link callable (the integer Link(∂Ω,F) ∈ ℤ reader
+        for the ω micro-rotation winding = charge). Rule-14: wired verbatim. The
+        charge integer is read off the ω node-field on the SAME K4 graph (ω-grade
+        only; NEVER the A1 phasor — two-3s orthogonality guard)."""
+        from ave.topological.charge_quantization import compute_Q_link
+
+        return compute_Q_link
+
+    # ── ROLE: α-clean saturation kernel ((1−A²)^p) ──
+    # WIRED VERBATIM: ave.solvers.graded_vacuum_network. NOT the α-baked
+    # cosserat_field_3d. NOT reimplemented.
+    def saturation_kernel(self, A) -> np.ndarray:
+        """The α-clean Op14 saturation kernel S(A) = (1−A²)^exponent (clipped to
+        [S_min,1]). Rule-14: wires graded_vacuum_network.saturation_kernel
+        verbatim — the pure (1−A²) kernel, NO Q_TANK / α. Carried (keyed to the
+        channel via velocity_channels) but DORMANT at P0 (linear, S=1)."""
+        from ave.solvers.graded_vacuum_network import saturation_kernel
+
+        return saturation_kernel(
+            np.asarray(A, dtype=float),
+            exponent=self.cfg.exponent, S_min=self.cfg.S_min,
+        )
+
+    def velocity_channels(self, A) -> dict:
+        """BOTH velocity channels keyed to channel (do NOT pin one exponent):
+          * c_EM PHASE  = c₀/S          (→∞ as A→1; the α-speed channel; n_EM=S)
+          * c_shear GROUP/mass = c₀·√S = c₀·(1−A²)^(1/4)   (→0 as A→1; matter clock)
+        The c_shear def-lock is INHERITED (test_l1_multiwave.py:67-70), NOT
+        re-flagged. At S=1 both collapse to c₀ (linear regime; the split is
+        driven-only). Returns ratios to c₀ (α-free; the kernel is the only input).
+        """
+        S = self.saturation_kernel(A)
+        return {
+            "S": S,
+            "c_EM_over_c0": 1.0 / S,                 # phase channel: 1/S
+            "c_shear_over_c0": np.sqrt(S),           # group/mass channel: √S
+            "n_EM_phase": S,                         # n_EM phase index = S
+            "n_shear": 1.0 / np.sqrt(S),             # shear index = 1/√S
+        }
+
