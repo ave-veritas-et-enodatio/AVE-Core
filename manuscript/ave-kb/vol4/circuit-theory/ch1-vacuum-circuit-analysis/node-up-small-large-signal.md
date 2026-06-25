@@ -327,6 +327,16 @@ VCA impedance trio is [`resonant-lc-solitons.md`](resonant-lc-solitons.md):114-1
 > [`resonant-lc-solitons.md`](resonant-lc-solitons.md):131); $Q=137$ is not refilled. $V_{yield}=\sqrt\alpha\,
 > V_{snap}$ exactly, so the two per-port biases are NOT independent (the $\sqrt\alpha$ is an α-echo). mass=A1
 > (PR#260) untouched. CONSISTENCY-class throughout.
+>
+> **α-flip STATUS (FORK-A, 2026-06-24 — PENDING STANDS):** the :308 "equilibrium $R\cdot r=\tfrac14$ is the
+> stable Q-point" line is where the parked point *sits* (consistent with the √α bias ladder above), **NOT** a
+> derivation that the equilibrium *forces* ¼ α-free. The self-biased **pressure-equilibrium** route (the one
+> named α-free candidate: inside reactive store vs outside bulk stiffness + tube curvature) was tested and
+> returns **closed-NEGATIVE → ECHO** ([`research/2026-06-24_forka-alpha-flip.md`](../../../../../research/2026-06-24_forka-alpha-flip.md)):
+> the balance fixes a *scale* not the *product* $R\cdot r$; α re-enters via the √α ladder and the
+> $Z_0\propto\alpha$ area-bridge; and it is a RELABEL of the conservative $H_{couple}$ slosh (FORK-2). **SCOPE:**
+> this closes the *pressure-equilibrium named route ONLY* — **NOT** route-exhaustion; the **α-flip stays
+> PENDING/open** (a not-yet-named α-free *product* mechanism could still flip it).
 
 ## §5 — Derived-vs-asserted ledger
 
