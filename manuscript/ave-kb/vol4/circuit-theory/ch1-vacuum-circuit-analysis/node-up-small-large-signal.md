@@ -36,16 +36,19 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 | Port / sector | DOF group (Ax 1) | Reactance role | Sat. factor at operating point $A$ | Effective param (verbatim `CLAUDE.md`:73,:75) |
 |---|---|---|---|---|
 | **MASS** — A1 dilatation | trace-of-translation (the $A_1$ breathing "3", longitudinal-V scalar) | longitudinal bond compliance $\to Z_{\mathrm{bulk}}$ | $S_{A_1}(A)$ | $C_{eff}=C_0/S(A)$ (the A1 stretch-compliance, ↑) |
-| **CHARGE** — Cosserat micro-rotation (MECHANICAL) | the 3 microrotational $(2,3)$ winding "3" (deviatoric $G$) | **static reactive charge boundary** $\to Z_{\mathrm{shear}}$ (mechanical, $\rho\,c_{shear}$, Pa·s/m) | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ (the deviatoric-$G$ shear speed) |
+| **CHARGE** — Cosserat micro-rotation (MECHANICAL) | the 3 microrotational $(2,3)$ winding "3" (Cosserat couple-stress / curvature grade) | **static reactive charge boundary** $\to Z_{\mathrm{shear}}$ (mechanical, $\rho\,c_{shear}$, Pa·s/m; the deformation-invariant $\mathrm{Link}$, lossless) | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ (the shear-grade speed) |
 | **$\varepsilon$** — capacitive / electric (EM) | translational $\to\mathbf E$ (displacement / Coulomb) | transverse-T2 permittivity of $Z_{\mathrm{EM}}$ | $S_\varepsilon(A_V)$ | $\varepsilon_{eff}=\varepsilon_0 S(A)$ |
 | **$\mu$** — magnetic constitutive (EM) | (param of the EM channel; sourced by the micro-rotation→$\mathbf B$ coupling, Ax 1) | inductive permeability of $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ — **Meissner lives here** | $S_\mu(A)$ | $\mu_{eff}=\mu_0 S(A)$ |
 | **deviatoric-shear** — transverse-mechanical | traceless translation (deviatoric $G$) | transverse acoustic $\to Z_{\mathrm{shear}}$ | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ |
 
-> **SECTOR-HEADER (read before using this table).** Which sector? — the table spans the four substrate roles
-> (MASS / CHARGE / $\varepsilon$ / $\mu$) across **two DOMAINS**: the MASS and CHARGE rows are **mechanical**
-> ($Z_{\mathrm{bulk}}$, $Z_{\mathrm{shear}}$ — $\rho\times$speed, Pa·s/m), the $\varepsilon$ and $\mu$ rows are
-> the **EM** constitutive params of $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ ($\Omega$). Each row is
-> tagged. Does the engine carry that DOF? — yes (3+3 spatial DOFs are the Master-Equation / Cosserat fields;
+> **SECTOR-HEADER (read before using this table).** Which sector? — the table spans the substrate roles
+> (MASS / CHARGE / $\varepsilon$ / $\mu$ / deviatoric-shear) across **two DOMAINS**: the MASS, CHARGE, and
+> deviatoric-shear rows are **mechanical** ($Z_{\mathrm{bulk}}$, $Z_{\mathrm{shear}}$ — $\rho\times$speed,
+> Pa·s/m), the $\varepsilon$ and $\mu$ rows are the **EM** constitutive params of
+> $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ ($\Omega$). (The CHARGE micro-rotation winding and the
+> deviatoric-shear translation are two distinct mechanical DOFs that both terminate on $Z_{\mathrm{shear}}$ —
+> the charge "3" is the static-reactive $\mathrm{Link}$ boundary, the deviatoric-shear is the transverse
+> acoustic wave.) Each row is tagged. Does the engine carry that DOF? — yes (3+3 spatial DOFs are the Master-Equation / Cosserat fields;
 > the $A$-state is the saturation operating point, Op14/Op16). Cold or saturated? — the *columns* are the
 > per-sector **saturation factors $S_\bullet(A)$**; the cold node is $A=0\Rightarrow S=1$ on every port. The
 > effective parameters modulate with $S(A)$ exactly as `CLAUDE.md`:73,:75 give them: $\varepsilon_{eff}=\varepsilon_0 S$,
