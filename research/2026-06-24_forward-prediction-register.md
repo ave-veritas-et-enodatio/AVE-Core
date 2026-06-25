@@ -59,6 +59,21 @@ register separates these per-prediction.
   dielectric saturation) and the (q·ℓ_node)⁴ dispersion (parity-EVEN, achiral
   diamond point group). These are real divergences but they do not test parity.
 
+- **The bankable AVE-distinct list is THINNING (2026-06-24).** The (q·ℓ_node)⁴
+  dispersion tell is now **DEMOTED** (derived-chord → CONDITIONAL on the
+  unproven weak-C no-zone-edge theorem; the P1b genuine chiral-srs eigensolve
+  measures the GENERIC slope-2 band-edge term — §2.2). It joins the other
+  demoted/non-bankable forward predictions: **OA sign-flip** (FORM-distinct but
+  magnitude NOT bankable, ~40 OOM over the cosmic bound, continuum k→0 OPEN —
+  §2.3); **birefringence** (the E⁴-vs-E² exponent framing was RETRACTED — the
+  divergence is the E²-leading COEFFICIENT, not an E⁴ tell — §2.1); **GW-echo**
+  (consistency-class, retrospective, ~4 ms ringdown-echo claims in tension —
+  §2.5). What stays as the cleanest near-term make-or-break is the **E-route
+  vacuum-birefringence COEFFICIENT** (`clm-pp3qwf`, existence-of-saturation,
+  reachable at HIBEF-class fields) and — once built — the **dimensionless
+  co-vs-anti |F| winding-ratio**. The FORM chords survive; the *bankable* ones
+  are few.
+
 ---
 
 ## 2. PER-PREDICTION REGISTER
@@ -97,7 +112,7 @@ reproduces SM at current sensitivity; corroborated-null = agrees with both data
   (parity-even). This is the cleanest *near-term* test but it is **not** a parity
   test.
 
-### 2.2 (q·ℓ_node)⁴ dispersion / birefringence — `clm-k4d4ph` (0.70) + `clm-yr6tu4` (0.78)
+### 2.2 (q·ℓ_node)⁴ dispersion / birefringence — `clm-k4d4ph` (0.60, DEMOTED) + `clm-yr6tu4` (0.78)
 
 - **Claim.** The K4/diamond-cubic Bloch matrix has its first directional
   anisotropy at order `(q·ℓ_node)⁴` — the cubic harmonic
@@ -107,20 +122,35 @@ reproduces SM at current sensitivity; corroborated-null = agrees with both data
 - **SM/QED divergence.** A quartic (not quadratic) first-anisotropy, symmetry-
   protected; a random (non-cubic) bond set would break it to quadratic. Parity-
   EVEN.
-- **Derivation status.** FORM = **DERIVED** (bond-moment identities
-  `Σ_b(q̂·d̂)² = 4/3` isotropic, `Σ_b(q̂·d̂)⁴ = −8/9·Ξ + 4/3` anisotropic;
-  reproduced by an independent from-scratch eigensolve to ~10⁻¹⁵). **BUT the
-  photon slope-4 is ASSERTED, not derived**: the driver and
-  `vacuum_node_circuit.photon_birefringence` **hardcode** the
-  `1+κ_γ Ξ(kℓ)⁴` form; an independent 6×6 eigensolve gives slope **2.0**
-  because the genuine lattice carries the isotropic O(k²) zone-edge the
-  *unlocked* photon is ASSERTED to lack (weak-C, gate `wejkhvnfb`)
-  (`vol4/claim-quality.md:448`). MAGNITUDE = **ECHO** (`κ_γ = 1/24`, a lattice-
-  geometry number) and sits ~2–3 OOM **BELOW** current LIV/birefringence bounds
-  (`vol4/claim-quality.md:449`) ⟹ **NOT near-term bankable**.
+- **Derivation status — DEMOTED 2026-06-24 (derived-chord → CONDITIONAL).** The
+  bond-moment FORM identities (`Σ_b(q̂·d̂)² = 4/3` isotropic, `Σ_b(q̂·d̂)⁴ =
+  −8/9·Ξ + 4/3` anisotropic; reproduced by an independent from-scratch eigensolve
+  to ~10⁻¹⁵) are DERIVED and node-up — but the **distinctive (q·ℓ_node)⁴ photon
+  EM-dispersion tell is NOT a from-eigensolve result.** The **P1b genuine 24×24
+  chiral-srs Bloch eigensolve** (substrate-native rank-2 bond tensor on the z=3
+  srs bonds; `src/scripts/vol_4_engineering/srs_bloch_dispersion.py` on branch
+  `engine/p1b-modes-live`, cited by path) MEASURES band-edge anisotropy slope
+  **1.9999** (`a₂ = +0.056` dominant over `a₄ = −0.0017`, BOTH enantiomorphs;
+  raw [100]–[111] speed-diff ratio = 4.0 = O(k²); fit returns 4.0 on a synthetic
+  quartic ⟹ slope-2 is a genuine measurement). This CONFIRMS the prior 6×6
+  k4_tlm caveat (`vol4/claim-quality.md:448`): the genuine lattice carries the
+  isotropic O(k²) zone-edge term, so the eigensolve gives the **GENERIC slope-2**
+  band-edge term. The slope-4 is a **re-stated INSERTED exponent**
+  (`photon_omega_sq_over_c2k2` / `vacuum_node_circuit.photon_birefringence`
+  hardcode the `1+κ_γ Ξ(kℓ)⁴` form). The distinctive quartic survives **ONLY
+  conditional on the UNPROVEN weak-C "photon carries no zone-edge (q·ℓ)² term"
+  theorem** (gate `wejkhvnfb`, OPEN). δ=0 continuum-exact is also NOT exact
+  (max|ω²/c²k²−1| = 1e-3 at kℓ=0.08), OPEN on the same weak-C lever. **DEMOTED,
+  not refuted** — the distinctive quartic could RETURN if weak-C is proven. The
+  small-k emergent-Lorentz ISOTROPY SURVIVES (c(k→0)=1/√3, cross-axis spread=0):
+  this is **band-edge anisotropy, NOT a low-k Lorentz violation**. MAGNITUDE =
+  **ECHO** (`κ_γ = 1/24`) ~2–3 OOM **BELOW** current LIV/birefringence bounds
+  (`vol4/claim-quality.md:449`) ⟹ **NOT near-term bankable** regardless.
 - **Falsifier.** A facility-class observable resolving the `(qℓ_node)⁴`
   anisotropy above the ~2–3 OOM gap; or confirmation it stays beneath (then
-  consistency-class).
+  consistency-class). Note the FALSIFIER is now gated twice: the photon must
+  carry a quartic-not-quadratic tell (weak-C, unproven) AND the magnitude must
+  reach facility class.
 - **Winding channel?** **NO.** Parity-EVEN, achiral (diamond point group). Not a
   parity test.
 
