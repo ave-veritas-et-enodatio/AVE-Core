@@ -36,11 +36,15 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 | Port / sector | DOF group (Ax 1) | Reactance role | Sat. factor at operating point $A$ | Effective param (verbatim `CLAUDE.md`:73,:75) |
 |---|---|---|---|---|
 | **MASS** — A1 dilatation | trace-of-translation (the $A_1$ breathing "3", longitudinal-V scalar) | longitudinal bond compliance $\to Z_{\mathrm{bulk}}$ | $S_{A_1}(A)$ | $C_{eff}=C_0/S(A)$ (the A1 stretch-compliance, ↑) |
-| **CHARGE** — Cosserat micro-rotation | the 3 microrotational $\to\mathbf B$ (the $(2,3)$ winding "3") | inductive / $\mu$ sector $\to Z_{\mathrm{shear}}$ | $S_\mu(A)$ | $\mu_{eff}=\mu_0 S(A)$ |
-| **$\varepsilon$** — capacitive / electric | translational $\to\mathbf E$ (displacement / Coulomb) | transverse-T2 permittivity | $S_\varepsilon(A_V)$ | $\varepsilon_{eff}=\varepsilon_0 S(A)$ |
-| **deviatoric-shear** — transverse-mechanical | traceless translation (deviatoric $G$) | transverse acoustic | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ |
+| **CHARGE** — Cosserat micro-rotation (MECHANICAL) | the 3 microrotational $(2,3)$ winding "3" (deviatoric $G$) | **static reactive charge boundary** $\to Z_{\mathrm{shear}}$ (mechanical, $\rho\,c_{shear}$, Pa·s/m) | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ (the deviatoric-$G$ shear speed) |
+| **$\varepsilon$** — capacitive / electric (EM) | translational $\to\mathbf E$ (displacement / Coulomb) | transverse-T2 permittivity of $Z_{\mathrm{EM}}$ | $S_\varepsilon(A_V)$ | $\varepsilon_{eff}=\varepsilon_0 S(A)$ |
+| **$\mu$** — magnetic constitutive (EM) | (param of the EM channel; sourced by the micro-rotation→$\mathbf B$ coupling, Ax 1) | inductive permeability of $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ — **Meissner lives here** | $S_\mu(A)$ | $\mu_{eff}=\mu_0 S(A)$ |
+| **deviatoric-shear** — transverse-mechanical | traceless translation (deviatoric $G$) | transverse acoustic $\to Z_{\mathrm{shear}}$ | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ |
 
-> **SECTOR-HEADER (read before using this table).** Which sector? — the table spans **all four**; each row is
+> **SECTOR-HEADER (read before using this table).** Which sector? — the table spans the four substrate roles
+> (MASS / CHARGE / $\varepsilon$ / $\mu$) across **two DOMAINS**: the MASS and CHARGE rows are **mechanical**
+> ($Z_{\mathrm{bulk}}$, $Z_{\mathrm{shear}}$ — $\rho\times$speed, Pa·s/m), the $\varepsilon$ and $\mu$ rows are
+> the **EM** constitutive params of $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ ($\Omega$). Each row is
 > tagged. Does the engine carry that DOF? — yes (3+3 spatial DOFs are the Master-Equation / Cosserat fields;
 > the $A$-state is the saturation operating point, Op14/Op16). Cold or saturated? — the *columns* are the
 > per-sector **saturation factors $S_\bullet(A)$**; the cold node is $A=0\Rightarrow S=1$ on every port. The
@@ -51,6 +55,19 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 > ports, never wired into one $(V_{inc},V_{ref})$ phasor (the genesis-24 no-double-count). The
 > $C_{eff}=C_0/S$ (↑, A1 compliance) vs $\varepsilon_{eff}=\varepsilon_0 S$ (↓, T2 permittivity) split is the
 > Grant-ratified sector split, NOT a sign error (`CLAUDE.md`:73).
+>
+> **DOMAIN-SEPARATION guard (units discipline, `resonant-lc-solitons.md`:120,:124,:129).** The CHARGE sector is
+> the **MECHANICAL** Cosserat $(2,3)$ micro-rotation — the **static reactive charge boundary**
+> ($\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$, lossless, no real power, `resonant-lc-solitons.md`:124) whose
+> saturation modulation is the **mechanical shear** $c_{shear}=c_0\sqrt{S}$ (deviatoric $G$), routed to
+> $Z_{\mathrm{shear}}$ ($\rho\times$speed, Pa·s/m). It is **NOT** $\mu_{eff}=\mu_0 S$ — $\mu$ is the **EM**
+> magnetic constitutive parameter (a param of $Z_{\mathrm{EM}}$, $\Omega$), its own row above. **The bridge
+> between them is a TRANSDUCER, not a direct wire:** the Axiom-1 **micro-rotation$\leftrightarrow\mathbf B$**
+> coupling (`CLAUDE.md`:71, "3 microrotational $\to\mathbf B$") read through the **TKI-transducer**
+> ([def-tk1xfm](../../../common/vocabulary-register.md), Axiom-2 electromechanical dictionary, $\omega$/curl
+> $\leftrightarrow\mathbf B$) is the candidate bridge — but def-tk1xfm is `status:proposed`-not-ratified and
+> carries the *"identity-by-translation, NOT a derivation"* ceiling (`resonant-lc-solitons.md`:129) — **FLAGGED,
+> not asserted as derived.** Do NOT direct-wire $\mu_{eff}$ onto the mechanical $Z_{\mathrm{shear}}$.
 
 This multi-port view is the **node-constitutive companion** to the per-DOF *mechanical-translation* tensor of
 [`per-dof-vacuum-node-circuit.md`](../../../vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md)
