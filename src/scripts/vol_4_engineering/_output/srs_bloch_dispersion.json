@@ -1,0 +1,31 @@
+{
+  "validate_on_known": {
+    "v_lat_isotropic": 0.7071026388057564,
+    "acoustic_speed_spread_across_dirs": 2.7523347400627268e-05,
+    "Z_recovered_ohm": 376.73031346177066,
+    "Z_0": 376.73031346177066,
+    "Z_rel_err": 0.0,
+    "isotropic": true
+  },
+  "genuine_eigensolve_slope": {
+    "isotropic_bond_point_ks_eq_ka": {
+      "slope_right": 1.9999103081675575,
+      "slope_left": 1.9999093124353706,
+      "slope_mean": 1.999909810301464,
+      "fit_a2_right": 0.055626407042022506,
+      "fit_a4_right": -0.0017014436018872527,
+      "a2_zone_edge_present": true,
+      "a2_direction_dependent_right": true
+    },
+    "off_isotropic_point_ks_half_ka": {
+      "slope": 0.0016326244788523404,
+      "fit_a2": 57.713251542330774
+    },
+    "VERDICT": "SLOPE-2 (quartic is a re-stated exponent; KILLED as from-eigensolve)"
+  },
+  "continuum_exact_delta0": {
+    "max_abs_dispersion_at_kl_0p08": 0.0010083437892083325,
+    "delta0_exact": false,
+    "note": "\u03b4=0 (\u03c9=c|k| exactly) would require NO dispersion at any kl. The genuine srs eigensolve has a nonzero direction-dependent O(k\u00b2) term, so \u03b4=0 is NOT exact at the lattice level \u2014 the continuum-exact claim remains OPEN (it would need the weak-C topological-decoupling theorem to delete the zone-edge term, which is unproven; gate wejkhvnfb)."
+  }
+}
