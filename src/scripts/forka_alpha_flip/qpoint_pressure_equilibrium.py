@@ -21,9 +21,15 @@ re-enters. Pure-stdlib + numpy (no sympy dependency).
 import math
 from fractions import Fraction
 
-# physical α from the corpus closed form (4π³+π²+π); value-level only, for the
-# route-2 numeric check — the AUDIT conclusion does not depend on its precision.
-ALPHA = 1.0 / (4 * math.pi**3 + math.pi**2 + math.pi)
+# α SOURCE LABEL (implementer item 1, cold-vs-CODATA): this driver uses the
+# COLD / closed-form geometric α = 1/(4π³+π²+π) ≈ 7.2973363e-3 for its value-level
+# route-2 / 4π²α check. NOTE this is NOT the same number as constants.ALPHA, which
+# is CODATA α ≈ 7.2973526e-3 — and constants.V_YIELD = √(CODATA α)·V_SNAP is built
+# from the CODATA one. The two differ at the 7th digit (rel diff = δ_strain ≈
+# 2.22e-6, the definitional cold→observed residual). The AUDIT conclusion (ECHO,
+# α re-enters) is INVARIANT to which α: both are α; √α appears either way. Any
+# "√α exact-match" framing must say WHICH α — see the companion result doc §1.
+ALPHA = 1.0 / (4 * math.pi**3 + math.pi**2 + math.pi)  # COLD/closed-form (not CODATA)
 PHI = (1 + math.sqrt(5)) / 2
 
 

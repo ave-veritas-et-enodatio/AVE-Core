@@ -32,7 +32,8 @@ The fork asks: can the self-biased **pressure-equilibrium** supply that second e
 
 1. **α re-enters at the bias ladder.** The two per-port quiescent biases are `V_snap` (MASS) and
    `V_yield = √α·V_snap` (CHARGE/winding) — NOT independent; the √α is an explicit α-echo
-   (`constants.py`:460, INVARIANT-C1). The winding-port inside pressure scale is `α × (mass-port pressure)`.
+   (`constants.py`:460, built from CODATA `ALPHA`:154; INVARIANT-C1 label at `CLAUDE.md`:304). The winding-port
+   inside pressure scale is `α × (mass-port pressure)`.
 2. **The pressure balance fixes a scale, not the product.** A thin-tube Laplace balance gives `r` alone. The
    FULL torus mean-curvature Laplace balance gives `<2H> = (1/r)(2 − R/√(R²−r²))` — a genuine `(R,r)` relation
    but **NOT** `R·r=¼` and NOT proportional to `R·r`. No pressure condition produces the *product* `R·r`; that
@@ -60,12 +61,20 @@ self-stable Q-point** ([`node-up-small-large-signal.md`](../manuscript/ave-kb/vo
 
 **The bias ladder is NOT independent (verified numerically):**
 ```
-V_YIELD / V_SNAP = 0.08542454313193604
-√α               = 0.08542454313193604   (exact match)
+V_YIELD / V_SNAP    = 0.08542454313193604   ( = √(CODATA α), constants.ALPHA:154 )
+√(CODATA α)         = 0.08542454313193604   (exact match — both built from constants.ALPHA)
+√(cold α)           = 0.08542444816365302   ( = √(1/(4π³+π²+π)); differs at 7th digit )
+rel diff cold↔CODATA = 2.22e-6  ( = δ_strain, constants.py:257, the definitional cold→observed residual )
 ```
-`V_YIELD = np.sqrt(ALPHA) * V_SNAP` at `constants.py`:460 (INVARIANT-C1). The corpus already flags this:
-"`V_yield = √α V_snap` exactly, so the two per-port biases are NOT independent (the √α is an α-echo)"
-(`node-up-small-large-signal.md`:328; `resonant-lc-solitons.md`:127).
+`V_YIELD = np.sqrt(ALPHA) * V_SNAP` at `constants.py`:460, where `ALPHA` (`constants.py`:154) is **CODATA**
+(the INVARIANT-C1 label for `V_yield≈43.65 kV` lives at `CLAUDE.md`:304 / `vol4/claim-quality.md`, not on the
+`constants.py` line — corrected here). **α-SOURCE LABEL (implementer item 1, cold-vs-CODATA):** the driver's own
+`ALPHA` is the **cold/closed-form** `1/(4π³+π²+π)` used for the value-level `4π²α` route-2 check, so its `√α` is
+`0.08542444816365302`, NOT the `0.08542454313193604` above (which is `√(CODATA α)` = `V_YIELD/V_SNAP`). The
+"exact match" holds only WITHIN the CODATA family; the driver and `constants.V_YIELD` use different α's that agree
+to `δ_strain`. The ECHO verdict is INVARIANT to the choice (both are α; √α re-enters either way). The corpus
+already flags the dependence: "`V_yield = √α V_snap` exactly, so the two per-port biases are NOT independent (the
+√α is an α-echo)" (`node-up-small-large-signal.md`:328; `resonant-lc-solitons.md`:127).
 
 **The route-2 trap that KILLED the prior lift** ([`ch8-alpha-golden-torus.md`](../manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md):11):
 > "the unit-bridge is α-free on input but closing to R·r=¼ requires *substituting* α (it forces R·r→4π²α ≠ ¼;
@@ -170,7 +179,7 @@ Every dimensionful constant that could enter the `R·r` derivation, traced for �
 | `ε₀` | sets pressure UNITS; cancels in the ratio | **α-free** |
 | `ℓ_node` | Nyquist pitch (Ax-1) | **α-free** |
 | `V_snap = m_e c²/e` | MASS-port bias scale (value-level) | **α-free** |
-| `V_yield = √α·V_snap` | CHARGE/winding-port bias (INVARIANT-C1, `constants.py`:460) | **CARRIES α** |
+| `V_yield = √α·V_snap` | CHARGE/winding-port bias (`constants.py`:460, CODATA `ALPHA`:154; INVARIANT-C1 @ `CLAUDE.md`:304) | **CARRIES α** |
 | `K_bulk = √2 ρ c₀` | outside stiffness at `K=2G` (ν=2/7 GR-import) | α-free (a *separate* echo) |
 | `γ_surf` | line/surface tension; SCALE rides `V_yield` if winding-port | **α-laden** (winding-port) |
 | `Z_0 = 2αh/e²` | any phasor-area → real-space-area unit-bridge | **CARRIES α** (the route-2 trap) |
@@ -224,6 +233,20 @@ named route.
 - The `γ_surf` line-tension scale provenance (does it ride `V_yield` or `V_snap`?) is the one genuinely
   under-specified input; either way the product-vs-scale obstruction stands, but its α-status flips on this
   choice. Surfaced for Grant, not resolved.
+
+**Two minor implementer items (Task 3, NOT verdict-affecting):**
+1. **cold-α vs CODATA-α mix (labeled).** The driver's own `ALPHA` is the **cold/closed-form** `1/(4π³+π²+π)`
+   (`qpoint_pressure_equilibrium.py`:26 + the new α-SOURCE-LABEL comment), used for the value-level `4π²α`
+   route-2 check. `constants.ALPHA` (`:154`) is **CODATA**, and `constants.V_YIELD` (`:460`) is built from it.
+   They differ at the 7th digit (rel diff = `δ_strain` ≈ 2.22e-6, `constants.py`:257). The §1 "exact match" √α
+   line above is now labeled as `√(CODATA α)` (= `V_YIELD/V_SNAP`), distinct from the driver's `√(cold α)`.
+   The ECHO verdict is INVARIANT to which α (both are α); labeled per substrate-first-for-numbers discipline.
+2. **`test_v_snap_v_yield_consistency.py`:129 anchor — re-confirmed LIVE.** Re-ran this session: `13 passed`,
+   and `(V_SNAP/V_YIELD)² == 1/ALPHA` holds at rel 1e-12 (`137.0359990836958`). It is **fragile** in the sense
+   that it is a *round-trip identity*: `V_YIELD ≡ √ALPHA·V_SNAP` (`:460`), so `(V_SNAP/V_YIELD)² ≡ 1/ALPHA` is
+   tautological — it confirms the √α bias-ladder is WIRED (and which `ALPHA` it uses: CODATA), NOT an
+   independent fact. It is exactly the √α-ladder this fork identifies as the α-reentry channel; the test is the
+   wiring-check for it. No edit needed; anchor STANDS (re-confirmed, not assumed-from-context).
 
 ## 9. Pre-registration (frozen)
 
