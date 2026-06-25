@@ -108,11 +108,103 @@ reflection coefficients) is invariant under a change of cell size. Therefore:
 
 ## §C — Coupling architecture: linear WAVES, nonlinear CAVITY, integer winding
 
-<!-- SECTION C PLACEHOLDER -->
+The engine has exactly two regimes, separated by the saturation kernel $S(A)$:
+
+**(1) Linear → WAVES (the network's normal modes, CONTINUOUS).** Below saturation, $S(A)\approx1$, the
+constitutive law is linear, and the lattice is an ordinary (chiral) LC transmission-line network. Its
+excitations are *normal modes* — the four substrate resonance categories, each a wave in its own impedance
+channel:
+
+| Category | Channel | DOF | Carrier |
+|---|---|---|---|
+| **EM-transverse** | $Z_{EM}\equiv Z_0$ ($\Gamma_{EM}=0$, matched/radiative) | T2 transverse field | the photon |
+| **shear** | $Z_{shear}=\rho_{bulk}c_{shear}$ | deviatoric $G$ | shear wave |
+| **bulk** | $Z_{bulk}=\sqrt2\,\rho_{bulk}c_0$ at $K=2G$ | A1 dilatation | longitudinal/bulk wave |
+| **micro-rotation** | (Cosserat $\mu$-sector) | Cosserat $(2,3)$ wryness | rotational wave |
+
+(grade map and channel impedances per [`resonant-lc-solitons.md`](resonant-lc-solitons.md):118-120). These
+are *continuous* — they live in the coarse-grain-up regime, are dispersionless at long wavelength
+($\omega=c|k|$), and are what the continuum PDE core computes cheaply and exactly (§D).
+
+**(2) Nonlinear / saturated → the soliton A1-CAVITY (mass, DISCRETE).** As $A\to1$ the kernel $S(A)\to0$
+turns the linear modes nonlinear: the bulk channel's $Z_{bulk}\to0$ drives a $\Gamma\to-1$ confinement
+wall, and a localized standing mode forms — the A1 dilatation breather, the work-doing $C\leftrightarrow L$
+store that recovers $E=m_ec^2$ ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):17-23). This is the
+*rest-mass cavity*. It is localized by the saturation wall (the $\Gamma=-1$ boundary), **not** by an
+autonomous bulk self-focusing well — the bulk self-trap is a ruled-out Cartesian artifact (§H, and the
+Stage-2 MODE-III result, [`../../../../../research/2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md)).
+
+**$S(A)$ is the ONLY nonlinear coupling — and it is the value-selector.** Every nonlinearity in the engine
+flows through the single kernel $S(A)=\sqrt{1-A^2}$: it is the saturable constitutive law on every cell, the
+mechanism that turns waves into the cavity, and the *only* place where the engine selects a value (where the
+wall sits, where $\Gamma=-1$ forms). Structurally, $S(A)$'s saturation boundary $|\Gamma|=1$ (the wall where
+mass forms) IS the **biquaternion null cone** (§F) — the algebraic re-expression of the one place the linear
+network goes nonlinear. There is no second nonlinear coupling hiding elsewhere.
+
+**The winding (charge) is an ALWAYS-INTEGER topological label — separate from amplitude.** The electron is
+**two-natured** (Grant-ratified, [`../../../../../research/2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md):5):
+the DYNAMICAL energy-bound MASS (the A1 cavity above, which does work) **plus** a STATIC topological CHARGE
+— the Cosserat $(2,3)$ micro-rotation winding, a deformation-invariant boundary linking integer
+$\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$ (`charge_quantization.py:258`). **Preserve the two-natured
+split:**
+
+- the **charge is NOT a high-amplitude wave** — it is an integer topological Link label, invariant under
+  continuous deformation (it jumps only on unwind), and is **never wired into the breather's
+  $(V_{inc},V_{ref})$ phasor** (the genesis-24 no-phasor-wire guard,
+  [`../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
+  Wiring the winding into the A1 amplitude phasor is the genesis-24 double-count and is barred.
+- the dynamical orbit-winding of the *coupled* system reads the **LC oscillator carrier ratio** (proven by
+  carrier-ratio detuning, #59/#417), which is a *distinct* object from the static topological charge — do
+  not conflate the carrier integer with the charge integer
+  ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):124).
+
+So: amplitude lives on the A1 cavity (continuous, dynamical, does work); the integer winding rides the cavity
+as a static reactive boundary (lossless, no work). Two natures, two sectors, orthogonal ($A1\perp T2$).
 
 ## §D — Continuum-vs-discrete dispatch
 
-<!-- SECTION D PLACEHOLDER -->
+The engine carries **two cores** and dispatches between them by regime. This is the engine-architecture
+generalization of the FDTD-vs-K4 *solver* selection in
+[`computational-solver-selection.md`](computational-solver-selection.md): that matrix chooses a solver by
+*observable*; this rule chooses a *core* by *physical regime*.
+
+**Use the CONTINUUM PDE core for the linear, long-wavelength regime.** When $q\cdot\ell_{node}\ll1$ and
+$A\ll1$ (sub-saturation), the lattice is its coarse-grain-up limit: the dispersionless LC ladder with
+$\omega=c_0|k|$, $Z_0=\sqrt{\mu_0/\varepsilon_0}$ EXACTLY ($\ell_{node}$ cancels). This is cheap, $O(N)$,
+and the place to compute photons, achromatic lensing, S-parameters, energy/impedance. The continuum core is
+**validated-on-known here, not ground-truth** — $c_0/Z_0$ recovery is the *check that the discretization is
+correct*, never an emergence result.
+
+**Use the DISCRETE lattice core ONLY in two regimes:**
+
+1. **The band edge** — when $q\cdot\ell_{node}\to1$, the lattice's discreteness becomes physical *signal*.
+   The continuum PDE is blind here by construction; the discrete K4 Bloch operator carries the real
+   dispersion. The discriminating tell is the **$(q\,\ell_{node})^4$ photon anisotropy** — the diamond-cubic
+   bond set's first directional anisotropy is the QUARTIC cubic harmonic
+   $\Xi(\hat q)=\hat q_x^4+\hat q_y^4+\hat q_z^4-\tfrac35$, symmetry-protected by the point group
+   ([`../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md`](../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md):8-18).
+   This is one of the forward-prediction leaks the engine exists to compute (§G).
+
+   > 🟡 **LOAD-BEARING CAVEAT (carried verbatim from the dispersion leaf, flag-don't-fix).** The slope-4
+   > result is **NOT a from-eigensolve derivation of quartic-ness**: the genuine node-up content the
+   > eigensolve establishes is the *bond-moment identities* (the 2nd moment is isotropic $=\tfrac43$, the
+   > 4th moment is the pure cubic harmonic) and the *matter-vs-photon contrast*. The slope-4 itself is a
+   > re-statement of the corpus-canonical weak-C "photon carries no zone-edge $(q\ell)^2$ term" premise; an
+   > independent from-scratch eigensolve of the actual $6\times6$ dynamical matrix gives anisotropy slope 2,
+   > because the genuine lattice DOES carry the isotropic $O(k^2)$ zone-edge term. The rigorous proof that
+   > the continuum limit is exact ($\delta=0$) remains OPEN
+   > ([`k4-bloch-dispersion-quartic.md`](../../falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md):92-103).
+   > Do not over-state the band-edge result as a clean from-geometry quartic.
+
+2. **The nonlinear / soliton regime** — when $A\to1$ the kernel $S(A)$ goes nonlinear and the cavity forms
+   (§C). The continuum long-wavelength approximation breaks (the cavity is $\sim\ell_{node}$-scale), so the
+   soliton must be carried on the discrete lattice core. (This is the regime where the Stage-2 native-cage
+   test ran — and returned MODE-III DISPERSE on the *native* stencil, §H.)
+
+**"Continuous" ALWAYS means the coarse-grain-UP limit, NEVER sub-$\ell_{node}$ refinement.** The continuum
+core is the long-wavelength average of the lattice, reached by going *up* in scale. It is not a finer grid
+reached by going *down* below $\ell_{node}$. Refining the continuum PDE below $\ell_{node}$ does not buy
+more physics — it invents sub-node structure the substrate does not have (the Nyquist bar, §A and §H).
 
 ## §E — Connectivity: chiral z=3 srs vs achiral z=4 diamond
 
