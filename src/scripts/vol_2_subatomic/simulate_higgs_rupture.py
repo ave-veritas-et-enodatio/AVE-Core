@@ -368,7 +368,12 @@ def run_simulation() -> None:
 
     out_path = sim_output("electroweak_dielectric_spark.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
+    # The manuscript embeds the vector .pdf; emit both so \includegraphics
+    # resolves and the raster stays available for previews.
+    pdf_path = sim_output("electroweak_dielectric_spark.pdf")
+    plt.savefig(pdf_path, format="pdf", facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
+    print(f"  ✓ Plot saved → {pdf_path}")
     print("\n  ═══ HIGGS RUPTURE SIMULATION COMPLETE ═══")
 
 

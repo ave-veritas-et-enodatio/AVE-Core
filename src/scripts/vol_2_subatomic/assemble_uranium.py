@@ -107,7 +107,11 @@ def assemble_heavy_nucleus_dynamic() -> None:
     ax.set_zlim([-c_max, c_max])
 
     x0, y0, z0 = history[0][:, 0], history[0][:, 1], history[0][:, 2]
-    scat = ax.scatter(x0, y0, z0, c=colors, s=120, alpha=0.9, edgecolors="black")
+    # depthshade=False: matplotlib's 3D depth-shading desyncs the per-point
+    # colour array against the z-order array for large scatters (a broadcast
+    # ValueError at render time); disabling it keeps every nucleon coloured
+    # correctly and is purely cosmetic.
+    scat = ax.scatter(x0, y0, z0, c=colors, s=120, alpha=0.9, edgecolors="black", depthshade=False)
     energy_text = ax.text2D(0.05, 0.95, "", transform=ax.transAxes, color="#00ffcc", fontsize=14)
 
     # Pre-calculate centers to keep the camera focused
@@ -124,10 +128,66 @@ def assemble_heavy_nucleus_dynamic() -> None:
     # Animate every frame
     anim = animation.FuncAnimation(fig, update, frames=len(history), interval=40, blit=False)
 
+    # Render the final assembled state as the static PNG the manuscript embeds
+    # (\includegraphics requires a raster/vector still, not the GIF). Build a
+    # FRESH figure/scatter for the last frame: reusing the animation scatter via
+    # _offsets3d leaves matplotlib's internal depth-order index stale, which
+    # crashes the 3D renderer on large point counts.
+    final_coords_centered = history[-1] - centers[-1]
+    fig_s = plt.figure(figsize=(10, 10))
+    fig_s.patch.set_facecolor("#0f0f0f")
+    ax_s = fig_s.add_subplot(111, projection="3d")
+    ax_s.set_facecolor("#0f0f0f")
+    ax_s.grid(False)
+    ax_s.xaxis.pane.fill = False
+    ax_s.yaxis.pane.fill = False
+    ax_s.zaxis.pane.fill = False
+    ax_s.set_xticks([])
+    ax_s.set_yticks([])
+    ax_s.set_zticks([])
+    ax_s.set_title(
+        "Nucleosynthesis Simulation: Uranium-235 Core Assembly\n(Dynamic $1/d$ Topological Gradient Descent)",
+        color="white",
+        fontsize=14,
+        pad=20,
+    )
+    ax_s.set_xlim([-c_max, c_max])
+    ax_s.set_ylim([-c_max, c_max])
+    ax_s.set_zlim([-c_max, c_max])
+    ax_s.scatter(
+        final_coords_centered[:, 0],
+        final_coords_centered[:, 1],
+        final_coords_centered[:, 2],
+        c=colors,
+        s=120,
+        alpha=0.9,
+        edgecolors="black",
+        depthshade=False,
+    )
+    ax_s.text2D(
+        0.05,
+        0.95,
+        f"Iter: {len(history) - 1:03d} | Structural Impedance: {energy_history[-1]:.0f}",
+        transform=ax_s.transAxes,
+        color="#00ffcc",
+        fontsize=14,
+    )
+    png_target = sim_output("uranium_235_assembly_dynamic.png")
+    fig_s.savefig(png_target, dpi=150, facecolor=fig_s.get_facecolor(), bbox_inches="tight")
+    plt.close(fig_s)
+    print(f"[*] Saved static U-235 assembly figure: {png_target}")
+
     target = sim_output("uranium_235_assembly_dynamic.gif")
 
-    anim.save(target, writer="pillow", fps=25)
-    print(f"[*] Visualized Dynamic U-235 Assembly: {target}")
+    # The animated GIF reuses a single 3D scatter via _offsets3d, which can trip
+    # a matplotlib depth-ordering bug on large point counts. The GIF is a bonus
+    # artifact (the manuscript embeds the static PNG saved above), so a render
+    # failure here must not fail the build-critical figure generation.
+    try:
+        anim.save(target, writer="pillow", fps=25)
+        print(f"[*] Visualized Dynamic U-235 Assembly: {target}")
+    except Exception as exc:  # noqa: BLE001 - GIF is non-critical, PNG already saved
+        print(f"[!] Skipped GIF render (non-critical, static PNG already saved): {exc}")
 
 
 if __name__ == "__main__":
