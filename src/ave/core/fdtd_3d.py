@@ -28,10 +28,9 @@ from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, L_NODE, MU
 # The free-EM μ-grade is the relativistic INDUCTOR, keyed on the internal
 # circulating CURRENT I (a rate/flux phase-space coordinate, A46), NOT the static
 # field amplitude |B|. The substrate observable is the discrete ∮H·dℓ per Yee
-# face (the curl-of-H), node-rescaled to ℓ_node so the saturation onset is
-# GRID-INVARIANT (independent of the numerical knob dx):
+# face (the curl-of-H), scaled to the node pitch ℓ_node:
 #
-#     A_I,i = curl_h_i · ELL_NODE / I_max          (dimensionless, dx cancels)
+#     A_I,i = curl_h_i · ELL_NODE / I_max          (dimensionless A46 reactance coord)
 #     μ_eff,i = μ_0 / √(1 − A_I,i²)                 (INCREASING; locks at I→I_max)
 #     I_max = ξ_topo · c ≈ 124.384 A               (= XI_TOPO · C_0)
 #
@@ -41,9 +40,34 @@ from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, L_NODE, MU
 # scale_invariant.mu_eff kernel, keyed on static |B|, used by MATTER callers and
 # left UNCHANGED — node-up-small-large-signal.md:383).
 #
+# ⚑ NORMALIZATION SCOPE — FIRST-CUT at ℓ_node, NOT grid-invariant (honest scope).
+# The executed kernel keys on the UNDIVIDED discrete curl_h (the bare oriented sum
+# of H-edge differences, units [A/m]) times ELL_NODE. For a FIXED PHYSICAL field a
+# finite difference scales ∝ dx as the mesh refines (curl_h ≈ (∇×H)·dx), so this
+# A_I scales ∝ dx — it is NOT grid-invariant. (Empirically verified: A_I halves
+# when dx halves for a fixed physical field.) This is a FIRST-CUT normalization at
+# the node scale ℓ_node: Grant signed off the ℓ_node DIRECTION on 2026-06-25
+# ("use ell_node instead of dx"), NOT a grid-invariance claim. The PROPER
+# grid-invariant per-cell circulation→I_max map is OPEN (memo §2/§8 #1, the flagged
+# "derive, don't invent" item): a per-cell loop ∮H·dl over a dx-cell vs the
+# node-perimeter loop I_max is defined against carries an UNRESOLVED dx/ℓ_node
+# geometric factor not present in this kernel. The earlier "dx cancels against
+# ℓ_node/dx" derivation is the PROPOSED (un-ratified) form, NOT what executes here.
+# This normalization gap is MOOT for the static-B null (A_I = 0 for ANY
+# normalization — curl_h ≡ 0) and is LIVE only for a dynamic / large-signal driver.
+#
+# ⚑ α-ECHO SCOPE (consistency-vs-emergence). The threshold SCALE carries the electron
+# calibration: ELL_NODE = ℏ/(m_e c) and I_max = ξ_topo·c with ξ_topo = e/ℓ_node. So the
+# saturation-onset MAGNITUDE is an α/m_e-echo at the value level (CONSISTENCY class, the
+# same α-echo family as the E-route OQ-1 ratio) — do NOT headline it as a from-scratch
+# number. The circulation-keying STRUCTURE (μ loads with circulation rate, ε with
+# potential; categorical static-B null from ∮H·dℓ=0) is α-clean: no ALPHA import in the
+# kernel. This is the documented "electron-instance into the general vacuum path" pattern
+# — flagged, not removed (memo §7).
+#
 # Memo: research/2026-06-25_vca-mu-circulation-observable-derivation.md (step 1).
 I_MAX_MU: float = XI_TOPO * C_0  # ≈ 124.384 A — μ-grade circulation threshold
-ELL_NODE: float = float(L_NODE)  # node pitch — the GRID-INVARIANT contour scale
+ELL_NODE: float = float(L_NODE)  # node pitch — first-cut contour scale (NOT dx)
 # Numerical safety clip for A_I² → [0, 1 − MU_SAT_EPS]; mirrors EPS_SAT_RATIO on
 # the ε-side so the μ-update coefficient cannot diverge at exact A_I=1 (lock).
 MU_SAT_EPS: float = float(EPS_SAT_RATIO)
@@ -257,11 +281,20 @@ class FDTD3DEngine:
         The kernel argument is the internal circulating CURRENT, observed as the
         discrete ∮H·dℓ = curl_h_component [A/m] (born in update_electric_field; here
         recomputed at the magnetic half-step — see update_magnetic_field). It is
-        contour-rescaled to the node pitch ℓ_node (NOT self.dx) so the saturation
-        onset is GRID-INVARIANT: A_I depends only on the physical circulation, never
-        on the numerical mesh knob. The dx that would scale I_cell = curl_h·dx
-        cancels against the (ℓ_node/dx) node-rescaling, leaving A_I = curl_h·ℓ_node/I_max
-        (memo §2; signed off by Grant).
+        scaled to the node pitch ℓ_node (NOT self.dx): A_I = curl_h·ℓ_node/I_max.
+
+        ⚑ FIRST-CUT NORMALIZATION (honest scope — NOT grid-invariant). curl_h is the
+        UNDIVIDED discrete curl (the bare oriented edge-difference sum, [A/m]); for a
+        FIXED PHYSICAL field a finite difference scales ∝ dx (curl_h ≈ (∇×H)·dx), so
+        this A_I scales ∝ dx and is NOT grid-invariant (verified: A_I halves when dx
+        halves). The ℓ_node SCALE is per Grant 2026-06-25 ("use ell_node instead of
+        dx") — the ℓ_node DIRECTION is signed off, NOT a grid-invariance claim. The
+        precise grid-invariant per-cell circulation→I_max factor is OPEN ("derive,
+        don't invent"; memo §2/§8 #1): the dx/ℓ_node geometric factor between a
+        dx-cell ∮H·dl loop and the node-perimeter loop I_max is defined against is
+        unresolved and NOT in this kernel. The "dx cancels against ℓ_node/dx" form is
+        the PROPOSED (un-ratified) normalization, not what executes here. MOOT for the
+        static-B null (A_I = 0 for any factor); LIVE only for a dynamic/AC driver.
 
         EMERGENT static-B null: when ``curl_h_component is None`` (the legacy
         amplitude-only call signature, e.g. a static uniform field probe) OR the
@@ -290,7 +323,9 @@ class FDTD3DEngine:
         if curl_h_component is None:
             return mu_base
 
-        # A_I = curl_h · ℓ_node / I_max  (dx-free, grid-invariant; units A·m⁻¹·m·A⁻¹).
+        # A_I = curl_h · ℓ_node / I_max  (units A·m⁻¹·m·A⁻¹ = dimensionless). curl_h is
+        # the UNDIVIDED discrete curl ⇒ A_I ∝ dx for a fixed field (first-cut at ℓ_node,
+        # NOT grid-invariant — see _compute_local_mu docstring + module header).
         A_I = curl_h_component * ELL_NODE / I_MAX_MU
         a_sq = A_I**2
 
