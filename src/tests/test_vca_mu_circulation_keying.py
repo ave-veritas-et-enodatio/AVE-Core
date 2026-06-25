@@ -205,20 +205,23 @@ def _energy_series(eng: FDTD3DEngine, n_steps: int, backward_euler: bool = False
         if backward_euler:
             # WRONG control: ADD the curl instead of subtracting (sign-flipped /
             # backward-Euler-like H-update) — breaks the leapfrog symplectic
-            # structure and pumps energy without bound.
-            curl_h_x = (eng.Hz[:, 1:, 1:] - eng.Hz[:, :-1, 1:]) - (eng.Hy[:, 1:, 1:] - eng.Hy[:, 1:, :-1])
-            curl_e_x = (eng.Ez[:, 1:, :-1] - eng.Ez[:, :-1, :-1]) - (eng.Ey[:, :-1, 1:] - eng.Ey[:, :-1, :-1])
-            ch_x = eng._compute_ch(eng.Hx[:, :-1, :-1], curl_h_x)
-            eng.Hx[:, :-1, :-1] += ch_x * curl_e_x  # +sign = WRONG
-            curl_h_y = (eng.Hx[1:, :, 1:] - eng.Hx[1:, :, :-1]) - (eng.Hz[1:, :, 1:] - eng.Hz[:-1, :, 1:])
-            curl_e_y = (eng.Ex[:-1, :, 1:] - eng.Ex[:-1, :, :-1]) - (eng.Ez[1:, :, :-1] - eng.Ez[:-1, :, :-1])
-            ch_y = eng._compute_ch(eng.Hy[:-1, :, :-1], curl_h_y)
-            eng.Hy[:-1, :, :-1] += ch_y * curl_e_y
-            eng.update_electric_field()
+            # structure and pumps energy without bound. It diverges to inf/NaN by
+            # design (that IS the trip); errstate silences the expected overflow.
+            with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+                curl_h_x = (eng.Hz[:, 1:, 1:] - eng.Hz[:, :-1, 1:]) - (eng.Hy[:, 1:, 1:] - eng.Hy[:, 1:, :-1])
+                curl_e_x = (eng.Ez[:, 1:, :-1] - eng.Ez[:, :-1, :-1]) - (eng.Ey[:, :-1, 1:] - eng.Ey[:, :-1, :-1])
+                ch_x = eng._compute_ch(eng.Hx[:, :-1, :-1], curl_h_x)
+                eng.Hx[:, :-1, :-1] += ch_x * curl_e_x  # +sign = WRONG
+                curl_h_y = (eng.Hx[1:, :, 1:] - eng.Hx[1:, :, :-1]) - (eng.Hz[1:, :, 1:] - eng.Hz[:-1, :, 1:])
+                curl_e_y = (eng.Ex[:-1, :, 1:] - eng.Ex[:-1, :, :-1]) - (eng.Ez[1:, :, :-1] - eng.Ez[:-1, :, :-1])
+                ch_y = eng._compute_ch(eng.Hy[:-1, :, :-1], curl_h_y)
+                eng.Hy[:-1, :, :-1] += ch_y * curl_e_y
+                eng.update_electric_field()
         else:
             eng.update_magnetic_field()
             eng.update_electric_field()
-        energies.append(eng.total_field_energy())
+        with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+            energies.append(eng.total_field_energy())
     return np.asarray(energies)
 
 
