@@ -208,11 +208,75 @@ more physics — it invents sub-node structure the substrate does not have (the 
 
 ## §E — Connectivity: chiral z=3 srs vs achiral z=4 diamond
 
-<!-- SECTION E PLACEHOLDER -->
+**Decision 1 (RATIFIED, Grant 2026-06-25): the production engine substrate is the chiral z=3 srs net.**
+The chiral $z=3$ srs (Sunada / Laves, $I4_132$) net carries the handedness — and handedness is what
+distinguishes charge / spin / parity / optical-activity sign-flip. An achiral grid cannot carry these:
+
+- the chiral $z=3$ srs net is the **only** grid that hosts structural handedness, with optical-activity
+  facts confirmed signed / enantiomorph-odd / diamond-null / writhe-sourced / lossless-reciprocal
+  ([`../../../common/engine-capability-map.md`](../../../common/engine-capability-map.md):48, #195);
+- the achiral $z=4$ diamond net is reserved for the **coarse-grained macroscopic** regime, where chirality
+  averages out over each computational cell and a Cartesian/diamond discretization introduces no systematic
+  error in chirality-blind observables (energy density, ponderomotive force, impedance matching, S-parameters)
+  ([`computational-solver-selection.md`](computational-solver-selection.md):17).
+
+So the connectivity dispatch is: **chiral $z=3$ srs whenever handedness is load-bearing (charge / spin /
+parity / OA), achiral $z=4$ diamond only for the macroscopic chirality-blind regime.** This is the
+connectivity companion to the FDTD-vs-K4 selection matrix (which already routes "chirality is the observable"
+to the native chiral grid).
+
+> ⚠ **FLAG-DON'T-FIX — D1 adjudication tension (surfaced, NOT silently resolved).** The Decision-1
+> adjudication currently recorded in canon is **older and reads the OPPOSITE WAY** on which net is the
+> *production substrate*:
+>
+> > **[`eq_axiom_1.tex`](../../../../common_equations/eq_axiom_1.tex):37 — verbatim, "D1 adjudication, 2026-06-12":**
+> > *"The production computational net is **z=4 diamond** (α, Lorentz suppression, and FDTD/TLM engines). The
+> > bare **z=3 srs** (Sunada / Laves) net is a validated **discrete instrument** for structural chirality and
+> > optical-activity discrimination (Genesis v9 R3 + Phase-1, test-gated); it is **not** a migration target
+> > for the engine substrate."*
+>
+> The 2026-06-12 .tex text makes z=4 diamond the production substrate and z=3 srs an *instrument only*; this
+> doctrine records a **newer Grant ratification (2026-06-25)** that promotes the chiral z=3 srs to the
+> production substrate (carrying handedness as charge/spin/parity/OA). These are in direct tension. Per
+> flag-don't-fix, this leaf does **not** edit `eq_axiom_1.tex` to match — the canon-propagation of the
+> 2026-06-25 ratification into `eq_axiom_1.tex` (and the α / Lorentz chains that the 2026-06-12 text anchored
+> to diamond) is an **auditor-lane + Grant adjudication** item, not an implementer silent fix. The doctrine
+> states the ratified Decision-1 as its design basis and surfaces the unreconciled .tex with both texts
+> verbatim. **Until the .tex is reconciled, treat the diamond-α/Lorentz chains as the open dependency:**
+> the 2026-06-12 text justified diamond as production *by* the α + Lorentz-suppression derivations, so
+> re-homing to srs must show those chains survive on srs (this is exactly P1 acceptance — see the P1 scope
+> doc, and §I).
 
 ## §F — Algebra: the biquaternion at the coupling layer
 
-<!-- SECTION F PLACEHOLDER -->
+**The biquaternion is the COUPLING-LAYER algebra, not a substrate primitive.** Its place in the engine is
+the layer where the channels couple (the A1↔ω port and the saturation wall) — it is *not* the algebra the
+cores evolve their fields in. Two properties make it the right language *there*, and exactly one is
+genuinely load-bearing:
+
+1. **Chirality is intrinsic.** The biquaternion carries handedness in its own multiplication and its
+   pseudoscalar — so the chiral coupling (the srs handedness of §E) is native to the algebra, not bolted on.
+2. **The saturation wall $|\Gamma|=1$ IS the null cone (the load-bearing thing).** A real (division-algebra)
+   quaternion has no zero divisors; the *bi*quaternion does — its **null cone**. The substrate's
+   reflection/saturation boundary ($|\Gamma|=1$, $Z\to\infty$/$\to0$, the $\Gamma=-1$ TIR wall where mass
+   forms, §C) is exactly that null cone. This is the one genuinely-illuminating observation — *why*
+   biquaternion and not real quaternion — and it is a clean structural re-expression of the canonical
+   $\Gamma=-1$ boundary ([`../../../../../research/2026-06-06_biquaternion-node-algebra-result.md`](../../../../../research/2026-06-06_biquaternion-node-algebra-result.md) §0).
+
+**Cores keep separate-field evolution.** The continuum and discrete cores (§D) evolve their A1 / shear /
+bulk / micro-rotation fields *separately* — they do not pack the fields into a single biquaternion and step
+that. The biquaternion appears only at the coupling ports and the wall. This respects Rule-14 (the algebra
+is a coupling-layer facade; it defines no steppers — see §H).
+
+**Canonized-to-nothing AS A PRIMITIVE.** Adjudicated 2026-06-06: the biquaternion is a CONSISTENCY-class
+re-expression, **not** the substrate's newly-discovered number system. All three "genuinely-new" gates FAIL
+— it does not force closure+longitudinal+Möbius to co-occur as a *new* necessity (they co-occur as standard
+math over already-canonical, independently-derived facts), it does not forward-derive
+$\alpha^{-1}=4\pi^3+\pi^2+\pi$, and it forces no new testable longitudinal prediction
+([`2026-06-06_biquaternion-node-algebra-result.md`](../../../../../research/2026-06-06_biquaternion-node-algebra-result.md) §0,
+G1–G3). It re-expresses the already-canonical $Cl(3,0)$ / SU(2) / Cosserat / Hopf / $4\pi$-spinor / $\Gamma$
+structure in one algebra. So: **use the biquaternion as the coupling-layer notation (chirality + null cone),
+never mint it as a substrate primitive or read a new number off it.**
 
 ## §G — Screening: what the engine is FOR
 
