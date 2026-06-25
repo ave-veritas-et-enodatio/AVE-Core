@@ -1,0 +1,79 @@
+{
+  "constants": {
+    "ALPHA": 0.0072973525693,
+    "E_YIELD_V_per_m": 1.1304105713057405e+17,
+    "E_CRIT_V_per_m": 1.323285474948166e+18,
+    "V_YIELD_V": 43651.851844321354,
+    "L_NODE_m": 3.8615926772428334e-13,
+    "E_crit_over_E_yield_sq": 137.0359990836958,
+    "inv_alpha": 137.0359990836958
+  },
+  "kernel_taylor_coefficients": {
+    "C(V)/C0  A^2 coeff": 0.49999999987499577,
+    "C(V)/C0  A^4 coeff": 0.37511223885591016,
+    "delta_n_iso A^2 coeff": -0.24999999991539035,
+    "delta_n_bir A^2 coeff": -0.5000000000755324
+  },
+  "im3_drive_slope": {
+    "im3_loglog_slope": 2.9999999999999982,
+    "note": "cubic for BOTH AVE and QED (chi^(3))"
+  },
+  "bankable_table": [
+    {
+      "label": "PW-class focal (OQ-1 headline)",
+      "E_V_per_m": 274500000000000.0,
+      "A_per_node": 0.0024283212398033775,
+      "delta_n_AVE_diff": -2.9483894077309003e-06,
+      "delta_n_QED_diff": 1.527625877809797e-13,
+      "ratio_AVE_over_QED": -19300467.807982504
+    },
+    {
+      "label": "1e15 V/m (facility IM3 -80 dBc floor)",
+      "E_V_per_m": 1000000000000000.0,
+      "A_per_node": 0.008846343314402105,
+      "delta_n_AVE_diff": -3.913195745119946e-05,
+      "delta_n_QED_diff": 2.027366701251552e-12,
+      "ratio_AVE_over_QED": -19301864.545295224
+    },
+    {
+      "label": "1e16 V/m",
+      "E_V_per_m": 1e+16,
+      "A_per_node": 0.08846343314402104,
+      "delta_n_AVE_diff": -0.003943806048857246,
+      "delta_n_QED_diff": 2.0273667012515516e-10,
+      "ratio_AVE_over_QED": -19452850.076025326
+    },
+    {
+      "label": "E_yield (saturation onset)",
+      "E_V_per_m": 1.1304105713057405e+17,
+      "A_per_node": 1.0,
+      "delta_n_AVE_diff": NaN,
+      "delta_n_QED_diff": 2.5906260582007416e-08,
+      "ratio_AVE_over_QED": NaN
+    }
+  ],
+  "keying_asymmetry": {
+    "static_B_fields_T": [
+      2.5,
+      10.0,
+      100.0,
+      1000.0
+    ],
+    "S_mu": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "delta_n_mu": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "verdict": "static-B transparent (S_mu=1) at every field -> AVE-distinct categorical",
+    "QED_comparison": "QED is E/B symmetric: static-B birefringence ~1e-23 at 5T (nonzero)"
+  },
+  "ratio_differential_7p5_over_alpha3": 19300353.998108976,
+  "ratio_single_arm_4p14e6": 4135790.1424519233
+}
