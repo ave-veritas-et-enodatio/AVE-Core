@@ -76,11 +76,11 @@ $$
 — **the lattice pitch cancels identically** ([`z0-derivation.md`](z0-derivation.md):37,40). Every cell, at
 every location, presents the same $Z_0$; this is the lattice's *node-to-node impedance ratio*, a property
 independent of the absolute scale $\ell_{node}$. This is the corpus "self-similar at every scale" property
-(`clm-zuf7g1`, dual-axis classification: **Class-2 substrate-mechanism emergence on the scale-invariance
-sub-axis** — the K4 topology forces $L_{cell}\propto\ell_{node}$ and $C_{cell}\propto\ell_{node}$, producing
-the pitch cancellation; the *numerical value* 376.73 Ω is Class-B manifestation via SI substitution of
-$\mu_0/\varepsilon_0$, not a substrate-derived number — see [`claims.jsonl`](../../../.index/claims.jsonl)
-`clm-zuf7g1` rationale).
+(grounded in [`z0-derivation.md`](z0-derivation.md), **not** in a dedicated claim-id): the K4 topology forces
+$L_{cell}\propto\ell_{node}$ and $C_{cell}\propto\ell_{node}$, producing the pitch cancellation; the
+*numerical value* 376.73 Ω is a Class-B manifestation via SI substitution of $\mu_0/\varepsilon_0$, not a
+substrate-derived number. (Do **not** cite `clm-zuf7g1` for this — that id is the unrelated CHSH/Tsirelson
+Bell claim; the filename coincidence with the Z₀-derivation result is a trap.)
 
 **Consequence for the engine: the reactance does NOT renormalize with resolution.** Because $Z_0=\sqrt{\mu_0/\varepsilon_0}$
 holds *independent of $\ell_{node}$*, the physics the engine carries (the impedance, the wave speed, the
