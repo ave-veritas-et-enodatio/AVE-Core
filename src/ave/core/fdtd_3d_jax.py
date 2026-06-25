@@ -26,14 +26,57 @@ import jax.numpy as jnp
 import numpy as np
 from jax import jit
 
-from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, MU_0, V_YIELD
+from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, L_NODE, MU_0, V_YIELD, XI_TOPO
 
 # Enable float64 to match numpy precision for numerical equivalence
 jax.config.update("jax_enable_x64", True)
 
+# --- Circulation-keyed vacuum μ-grade (route-C step 2) — JAX twin of fdtd_3d ---
+# Mirrors ave.core.fdtd_3d (the canonical numpy source): the free-EM μ-grade is
+# the relativistic INDUCTOR keyed on the internal circulating current observed as
+# the discrete ∮H·dℓ = curl_h, node-rescaled to ℓ_node (grid-invariant):
+#     A_I,i = curl_h_i · ℓ_node / I_max,  μ_eff,i = μ_0·μ_r / √(1 − A_I,i²)
+#     I_max = ξ_topo·c ≈ 124.384 A
+I_MAX_MU: float = float(XI_TOPO * C_0)  # ≈ 124.384 A
+ELL_NODE: float = float(L_NODE)
+MU_SAT_EPS: float = float(EPS_SAT_RATIO)
+
 # =====================================================================
 # Pure-function kernels (JIT-compiled, no side effects)
 # =====================================================================
+
+
+@jit
+def _mu_eff_per_component_jax(
+    Hx: jax.Array,
+    Hy: jax.Array,
+    Hz: jax.Array,
+    mu_base: jax.Array,
+) -> tuple[jax.Array, jax.Array, jax.Array]:
+    """
+    Per-component circulation-keyed μ_eff over the FULL grid, for the energy
+    readouts (route-C step 2; JAX mirror of numpy ``_mu_eff_per_component``).
+
+        μ_eff,i = mu_base / √(1 − (curl_h_i·ℓ_node/I_max)²)
+
+    The per-component curl-of-H is padded back to full (nx,ny,nz) shape (boundary
+    cells carry zero circulation → mu_base, the emergent-null edge value), keeping
+    the magnetic energy ledger consistent with the per-component μ the stepper uses.
+    """
+
+    def _mu_from_curl(curl_h: jax.Array, mu_full: jax.Array) -> jax.Array:
+        a_sq = (curl_h * ELL_NODE / I_MAX_MU) ** 2
+        a_sq = jnp.clip(a_sq, 0.0, 1.0 - MU_SAT_EPS)
+        return mu_full / jnp.sqrt(1.0 - a_sq)
+
+    curl_h_x = (Hz[:, 1:, 1:] - Hz[:, :-1, 1:]) - (Hy[:, 1:, 1:] - Hy[:, 1:, :-1])
+    curl_h_y = (Hx[1:, :, 1:] - Hx[1:, :, :-1]) - (Hz[1:, :, 1:] - Hz[:-1, :, 1:])
+    curl_h_z = (Hy[1:, 1:, :] - Hy[:-1, 1:, :]) - (Hx[1:, 1:, :] - Hx[1:, :-1, :])
+
+    mu_x = mu_base.at[:, :-1, :-1].set(_mu_from_curl(curl_h_x, mu_base[:, :-1, :-1]))
+    mu_y = mu_base.at[:-1, :, :-1].set(_mu_from_curl(curl_h_y, mu_base[:-1, :, :-1]))
+    mu_z = mu_base.at[:-1, :-1, :].set(_mu_from_curl(curl_h_z, mu_base[:-1, :-1, :]))
+    return mu_x, mu_y, mu_z
 
 
 @jit
@@ -64,36 +107,36 @@ def _compute_local_epsilon_kernel(
 
 @jit
 def _compute_local_mu_kernel(
-    H_component: jax.Array,
+    curl_h_component: jax.Array,
     mu_base: jax.Array,
-    mu_0: float,
-    b_yield: float,
 ) -> jax.Array:
     """
-    Free-EM permeability — LINEAR (VCA-R01); mirrors numpy ``_compute_local_mu``.
+    Free-EM permeability — circulation-keyed relativistic INDUCTOR (route-C step 2);
+    JAX mirror of numpy ``_compute_local_mu`` (the canonical source).
 
-    The μ-grade (relativistic inductor) saturates on the circulating current
-    reaching c, i.e. as the circulation rate ω → ω_C = c/ℓ_node ≈ 7.76e20 rad/s
-    (f_C ≈ 1.24e20 Hz; ℏω_C = m_e c² = 511 keV).
-    Any wave this Yee engine represents runs at ω ≪ ω_C, so S_μ = 1 to machine
-    precision and μ_eff = μ_base exactly; a static external B (dB/dt = 0) likewise
-    gives S_μ = 1. The earlier code keyed μ on the static amplitude |B| = μ₀|H|
-    against b_yield = B_SNAP (an energy-density scale, not the kernel argument) —
-    removed. A free wave saturates μ only as ω → ω_C, the dispersive lattice cutoff
-    (ℏω_C = m_e c² = 511 keV); this coarse-grid engine never reaches it (a dispersive-
-    μ(ω) model handles the cutoff — separate workstream). Bound circulation saturates
-    μ at any ω (Cosserat engine).
+        A_I,i   = curl_h_i · ℓ_node / I_max
+        μ_eff,i = mu_base / √(1 − A_I,i²)         (INCREASING; locks at I → I_max)
+        I_max   = ξ_topo·c ≈ 124.384 A
 
-    NOTE (B_yield disambiguation, def-bdual1, 2026-07-03): b_yield here is the
-    ENERGY-DENSITY-matched scale B_SNAP (≈1.89e9 T; B_SNAP²/(2μ₀)=m_e c²/ℓ_node³),
-    NOT B_dual=E_yield/c (≈3.77e8 T, the field-amplitude-matched duality scale).
-    The two differ by the √(8π) bridge (see manuscript vocabulary-register def-bdual1).
-    Do not noun-swap b_yield (=B_SNAP) for B_dual.
+    The kernel argument is the internal circulating CURRENT, observed as the discrete
+    ∮H·dℓ = curl_h_component [A/m], contour-rescaled to ℓ_node (NOT dx) so the onset
+    is grid-invariant. A static uniform B is source-free (curl_h ≡ 0) ⇒ A_I = 0 ⇒
+    S_μ = 1 ⇒ μ_eff = mu_base EXACTLY — the transparency is EMERGENT from zero
+    circulation, not hard-coded. Direction = INCREASING (relativistic inductor), NOT
+    the DECREASING matter/Meissner kernel (scale_invariant.mu_eff, unchanged).
 
-    mu_0 / b_yield / H_component kept in the signature for call-site compatibility.
+    NOTE (B_yield disambiguation, def-bdual1, 2026-07-03; carried across the route-C
+    circulation-keying rewrite): this μ-grade no longer keys on any b_yield amplitude —
+    it keys on curl_h·ℓ_node/I_max. Where b_yield DOES still appear in this module (the
+    energy readouts' legacy params contract, see _update_fields_step), it is the
+    ENERGY-DENSITY-matched scale B_SNAP (≈1.89e9 T; B_SNAP²/(2μ₀)=m_e c²/ℓ_node³), NOT
+    B_dual=E_yield/c (≈3.77e8 T, the field-amplitude-matched duality scale). The two
+    differ by the √(8π) bridge (see manuscript vocabulary-register def-bdual1). Do not
+    noun-swap b_yield (=B_SNAP) for B_dual.
     """
-    del H_component, mu_0, b_yield  # unused under linear free-EM μ (VCA-R01)
-    return mu_base  # VCA-R01: free-EM μ is linear (no |B|-amplitude saturation)
+    a_sq = (curl_h_component * ELL_NODE / I_MAX_MU) ** 2
+    a_sq = jnp.clip(a_sq, 0.0, 1.0 - MU_SAT_EPS)
+    return mu_base / jnp.sqrt(1.0 - a_sq)
 
 
 @partial(jit, static_argnums=(7,))
@@ -123,9 +166,11 @@ def _update_fields_step(
     epsilon_0 = params["epsilon_0"]
     mu_0 = params["mu_0"]
     v_yield = params["v_yield"]
-    b_yield = params["b_yield"]
     eps_r = params["eps_r"]
     mu_r = params["mu_r"]
+    # NOTE: params["b_yield"] is intentionally NOT read here — the circulation-keyed
+    # μ-grade (route-C step 2) keys on curl_h·ℓ_node/I_max, not on b_yield = B_SNAP.
+    # b_yield stays in the params dict only for the energy readouts' legacy contract.
 
     # ─────────────────────────────────────────────────────────
     # 1. MAGNETIC FIELD UPDATE  (Faraday's Law: ∂H/∂t = -∇×E / μ)
@@ -143,16 +188,26 @@ def _update_fields_step(
         ch_y = dt / (mu_0 * mu_r[:-1, :, :-1] * dx)
         ch_z = dt / (mu_0 * mu_r[:-1, :-1, :] * dx)
     else:
+        # Per-component circulation observable ∮H·dℓ from the CURRENT H state (H^n,
+        # before the H-update below) — stateless recompute (route-C step 2). Same
+        # stencils as the E-step curl_h_{x,y,z}; here used to KEY μ. Each curl_h_i is
+        # co-located with its H_i M-step slice (shapes equal), so each component keys
+        # on ITS OWN circulation. Half-step: μ_eff,i keys on curl_h_i(H^n) and updates
+        # the same H^n — no staleness between the keying observable and the gated field.
+        curl_h_x = (Hz[:, 1:, 1:] - Hz[:, :-1, 1:]) - (Hy[:, 1:, 1:] - Hy[:, 1:, :-1])
+        curl_h_y = (Hx[1:, :, 1:] - Hx[1:, :, :-1]) - (Hz[1:, :, 1:] - Hz[:-1, :, 1:])
+        curl_h_z = (Hy[1:, 1:, :] - Hy[:-1, 1:, :]) - (Hx[1:, 1:, :] - Hx[1:, :-1, :])
+
         mu_base_x = mu_0 * mu_r[:, :-1, :-1]
-        mu_eff_x = _compute_local_mu_kernel(Hx[:, :-1, :-1], mu_base_x, mu_0, b_yield)
+        mu_eff_x = _compute_local_mu_kernel(curl_h_x, mu_base_x)
         ch_x = dt / (mu_eff_x * dx)
 
         mu_base_y = mu_0 * mu_r[:-1, :, :-1]
-        mu_eff_y = _compute_local_mu_kernel(Hy[:-1, :, :-1], mu_base_y, mu_0, b_yield)
+        mu_eff_y = _compute_local_mu_kernel(curl_h_y, mu_base_y)
         ch_y = dt / (mu_eff_y * dx)
 
         mu_base_z = mu_0 * mu_r[:-1, :-1, :]
-        mu_eff_z = _compute_local_mu_kernel(Hz[:-1, :-1, :], mu_base_z, mu_0, b_yield)
+        mu_eff_z = _compute_local_mu_kernel(curl_h_z, mu_base_z)
         ch_z = dt / (mu_eff_z * dx)
 
     Hx = Hx.at[:, :-1, :-1].add(-ch_x * curl_e_x)
@@ -345,7 +400,6 @@ def _total_field_energy_jax(
     epsilon_0 = params["epsilon_0"]
     mu_0 = params["mu_0"]
     v_yield = params["v_yield"]
-    b_yield = params["b_yield"]
     eps_r = params["eps_r"]
     mu_r = params["mu_r"]
 
@@ -363,12 +417,13 @@ def _total_field_energy_jax(
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
-        # Magnetic sector
-        H_mag = jnp.sqrt(H_sq)
-        B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
-        mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
-        u_m = 0.5 * mu_local * H_sq
+        # Magnetic sector: per-component circulation-keyed μ (route-C step 2),
+        # consistent with the stepper. (Was the OLD |B|-amplitude saturation —
+        # the bug VCA-R01 removed from the stepper but had been left in the JAX
+        # energy readouts; now harmonized.)
+        mu_base = mu_0 * mu_r
+        mu_x, mu_y, mu_z = _mu_eff_per_component_jax(Hx, Hy, Hz, mu_base)
+        u_m = 0.5 * (mu_x * Hx**2 + mu_y * Hy**2 + mu_z * Hz**2)
 
     return jnp.sum((u_e + u_m) * dx**3)
 
@@ -395,7 +450,6 @@ def _energy_density_jax(
     epsilon_0 = params["epsilon_0"]
     mu_0 = params["mu_0"]
     v_yield = params["v_yield"]
-    b_yield = params["b_yield"]
     eps_r = params["eps_r"]
     mu_r = params["mu_r"]
 
@@ -412,11 +466,11 @@ def _energy_density_jax(
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
-        H_mag = jnp.sqrt(H_sq)
-        B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
-        mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
-        u_m = 0.5 * mu_local * H_sq
+        # Magnetic sector: per-component circulation-keyed μ (route-C step 2),
+        # consistent with the stepper (was OLD |B|-amplitude saturation).
+        mu_base = mu_0 * mu_r
+        mu_x, mu_y, mu_z = _mu_eff_per_component_jax(Hx, Hy, Hz, mu_base)
+        u_m = 0.5 * (mu_x * Hx**2 + mu_y * Hy**2 + mu_z * Hz**2)
 
     return u_e + u_m
 
