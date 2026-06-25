@@ -86,21 +86,36 @@ $$
 $$
 
 $\Xi$ is **sign-changing**: $\Xi[100]=+0.400$, $\Xi[111]=-0.267$ — a genuine cubic (four-fold-in-plane)
-birefringence, not an isotropic shift. The directional-anisotropy log-log slope of the photon dispersion is
-$4.00$ (quartic).
+birefringence, not an isotropic shift. The driver reports a directional-anisotropy log-log slope of $4.00$ for
+the photon dispersion — but this is the **hardcoded form's** slope, **conditional on weak-C**; the genuine
+chiral-srs eigensolve MEASURES slope $1.9999$ (see the demotion caveat immediately below).
 
-> 🟡 **LOAD-BEARING CAVEAT (flag-don't-fix).** The reported photon slope $=4.0$ is **NOT** an independent
-> eigenvalue measurement. The driver's `photon_omega_sq_over_c2k2` (and the canonical
+> 🟡 **DEMOTED — LOAD-BEARING CAVEAT (P1b genuine chiral-srs eigensolve, 2026-06-24; flag-don't-fix).** The
+> reported photon slope $=4.0$ is **NOT** an independent eigenvalue measurement. The driver's
+> `photon_omega_sq_over_c2k2` (and the canonical
 > [`vacuum_node_circuit.photon_birefringence`](../../../../../src/ave/core/vacuum_node_circuit.py)) **hardcode**
-> the form $1+\kappa_\gamma\,\Xi\,(k\ell)^4$. An independent from-scratch eigensolve of the actual $6\times6$
-> dynamical matrix gives anisotropy slope $=2.0$, **not** $4.0$, because the genuine lattice carries the
-> isotropic $O(k^2)$ zone-edge term that the unlocked photon is **ASSERTED** (not derived here) to lack. The
-> slope-4 is therefore a **re-statement of the inserted exponent** conditional on the corpus-canonical weak-C
-> no-zone-edge premise ([`binary-kill-switches.md`](binary-kill-switches.md):17, gate `wejkhvnfb`,
-> Grant-confirmed 2026-06-14), **not** a from-eigensolve derivation of quartic-ness. What the eigensolve **does**
-> establish node-up is the matter-vs-photon CONTRAST and the bond-moment identities of §2 — those are the
-> genuine substrate content. The rigorous proof that the continuum limit is exact ($\delta=0$, $\omega=ck$)
-> remains OPEN ([`binary-kill-switches.md`](binary-kill-switches.md):19).
+> the form $1+\kappa_\gamma\,\Xi\,(k\ell)^4$. The **genuine 24×24 chiral-srs Bloch eigensolve** — substrate-native
+> rank-2 bond tensor $\Phi_b=k_a\,\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$ on the lattice's OWN z=3
+> srs bonds (Wyckoff-8a, $I4_132$), NOT a Cartesian Laplacian
+> (driver `src/scripts/vol_4_engineering/srs_bloch_dispersion.py` + result JSON
+> `_output/srs_bloch_dispersion.json`, on branch `engine/p1b-modes-live` — cited by path, not yet on `main`) —
+> **MEASURES** band-edge anisotropy slope $=\mathbf{1.9999}$
+> ($a_2=+0.056$ **dominant** over $a_4=-0.0017$, for **BOTH** enantiomorphs; cross-checked by the raw
+> $[100]$–$[111]$ speed-diff ratio $=4.0=O(k^2)$, and the fit returns $4.0$ on a synthetic quartic so slope-2 is a
+> genuine measurement, not a fit floor). This **confirms** the prior from-scratch $6\times6$ k4_tlm result: the
+> genuine lattice carries the isotropic $O(k^2)$ zone-edge term that the unlocked photon is **ASSERTED** (not
+> derived here) to lack. So the eigensolve gives the **GENERIC slope-2 band-edge term**; the distinctive
+> $(q\ell_{node})^4$ EM-dispersion tell is **CONDITIONAL on the UNPROVEN weak-C no-zone-edge theorem**
+> ([`binary-kill-switches.md`](binary-kill-switches.md):17, gate `wejkhvnfb`, Grant-confirmed 2026-06-14, **OPEN**) —
+> the slope-4 is a **re-statement of the inserted exponent**, not a from-eigensolve derivation of quartic-ness. This
+> is a **DEMOTION, not a refutation**: the distinctive quartic could RETURN if weak-C is proven (the photon must be
+> shown to decouple from the zone-edge $O(k^2)$ quadratic). What the eigensolve **does** establish node-up is the
+> matter-vs-photon CONTRAST, the bond-moment identities of §2, **and** the small-$k$ emergent-Lorentz ISOTROPY
+> ($c(k\to0)=1/\sqrt3$, cross-axis speed-spread $=0$) — so this is **band-edge anisotropy, NOT a low-$k$ Lorentz
+> violation**; the small-$k$ isotropy SURVIVES. The rigorous proof that the continuum limit is exact ($\delta=0$,
+> $\omega=ck$) **remains OPEN on the same weak-C lever** — the genuine eigensolve has $\max|\omega^2/c^2k^2-1|=10^{-3}$
+> at $k\ell=0.08$, so $\delta=0$ is NOT exact at the lattice level
+> ([`binary-kill-switches.md`](binary-kill-switches.md):19).
 
 ## §3 — The matter contrast and the random control
 
@@ -113,9 +128,14 @@ the discriminating signature that the quartic is **K4-symmetry-protected**, not 
 
 | Carrier / lattice | first anisotropic invariant | anisotropy order | slope |
 |---|---|---|---|
-| **K4 photon** (unlocked, cubic) | $\Sigma_b(\hat q\cdot\hat d)^4$ (cubic harmonic) | $(q\ell)^4$ | $4.0$ |
+| **K4 photon** (unlocked, cubic) | $\Sigma_b(\hat q\cdot\hat d)^4$ (cubic harmonic) | $(q\ell)^4$ | $4.0$ **conditional on weak-C** (genuine eigensolve gives $2.0$ — see the §2 demotion caveat) |
 | K4 matter (lattice-locked) | zone-edge $(q\ell)^2$ | $(q\ell)^2$ | $2.0$ |
 | random photon (control) | $\Sigma_b(\hat q\cdot\hat d)^2$ (anisotropic) | $(q\ell)^2$ | $2.0$ |
+
+The genuine 24×24 chiral-srs eigensolve (P1b, 2026-06-24) MEASURES the **K4 photon** row at slope $1.9999$ — i.e.
+the photon's band-edge anisotropy is GENERIC $(q\ell)^2$ at the lattice level. The $(q\ell)^4$ slope holds ONLY if
+the unproven weak-C theorem (the photon decouples from the zone-edge $O(k^2)$ quadratic, gate `wejkhvnfb`) is
+established; until then the "$4.0$" in the table is a re-stated inserted exponent, not a from-eigensolve number.
 
 ## §4 — Temporal cutoff vs spatial zone-edge (DISTINCT mechanisms)
 
