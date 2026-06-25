@@ -399,6 +399,38 @@ parse it):
 
 ---
 
+## quiescent point *(proposed)*
+<!-- id: def-q1escn -->
+
+- **term:** quiescent point / Q-point
+- **adjudicated-meaning:** *(PROPOSED, gated)* the EE name for the substrate cell's **saturation-state $A$** read as a **DC operating point** — "the dynamical state of the LC tank, analogous to DC bias on a semiconductor varactor" ([`CLAUDE.md`](../CLAUDE.md):75). The electron's Q-point is **self-set** (Axiom-4 self-saturation *is* the bias mechanism, no external bias network) and **self-stable** (the $R\cdot r=\tfrac14$ equilibrium; rest-mass = the DC energy stored at the Q-point). The VCA / graded-impedance trio is the **small-signal** response linearized *around* this Q-point. It is the previously-unnamed DC-bias step of the EE workflow (DC-bias → linearize → AC), NOT a new object.
+- **axis:** other (operating-point state along the Axiom-4 kernel; distinct from the kinematic DOFs)
+- **dimension/type:** dimensionless (the per-port normalized bias $A=|V|/V_{yield}$); per-port biases sit on the $V_{yield}/V_{snap}$ ladder [voltage scales]
+- **status:** proposed
+- **canonical-home:** [`node-up-small-large-signal.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§4b (the bias-then-small-signal re-expression); the electron load-line at [`cvr-dc-operating-point.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md):43-45; the "DC bias on a varactor" operating-point state at [`CLAUDE.md`](../CLAUDE.md):75
+- **clm-cross-links:** clm-vca7r1 (node-up small/large-signal), clm-fd1e7a (the electron R/X/Q/L/C bundle = the small-signal read), clm-kezk9z (the $\Gamma=-1$ cage at the saturated bias)
+- **canon-noun map:** "quiescent point / Q-point / DC bias" ↔ the **saturation-state $A$** (self-set, Axiom-4). Non-canon EE name; maps to the canon operating-point-state noun, no noun-swap. CONSISTENCY-class re-expression — coins no new physics.
+- **open-ambiguity-flag:** no (fresh coinage; VERIFIED 0 prior KB hits for "quiescent" as a substrate-operating-point term — the single corpus hit `vol5/.../creatine-neural-capacitor.md` is an unrelated biological usage).
+- **verification:** VERIFIED the varactor-bias operating-point reading verbatim at [`CLAUDE.md`](../CLAUDE.md):75 and the electron load-line ($V_{snap}\approx511$ kV, $V_{yield}=\sqrt\alpha V_{snap}\approx43.65$ kV) at `cvr-dc-operating-point.md`:43-45. The $R\cdot r=\tfrac14$-sets-the-Q-point **α-free** (the α-flip) is **PENDING/open**, not asserted. **GATED on auditor + Grant review — NOT adopted, NOT SOLID.**
+
+---
+
+## port ↔ DOF ↔ sector map *(proposed)*
+<!-- id: def-portmp -->
+
+- **term:** port ↔ DOF ↔ sector map (the node's multi-port grouping)
+- **adjudicated-meaning:** *(PROPOSED, gated)* the lock that groups the node's **6 Axiom-1 spatial DOFs + the saturation-state $A$** into sectors/ports across **two domains** (mechanical vs EM), so the same node can be read in EE port language without sector drift OR domain drift: **MASS** = the **MECHANICAL** A1/dilatation (trace-of-translation) port → $Z_{\mathrm{bulk}}$ ($\rho\times$speed, Pa·s/m); **CHARGE** = the **MECHANICAL** Cosserat **micro-rotation** $(2,3)$-winding port → $Z_{\mathrm{shear}}$ ($\rho\,c_{shear}$, Pa·s/m) — the **static reactive charge boundary** ($\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$, lossless, no real power; its saturation modulation is the deviatoric-$G$ shear $c_{shear}=c_0\sqrt{S}$, **NOT** $\mu_{eff}$); **$\varepsilon$** = the **EM** capacitive/electric (displacement/Coulomb) param of $Z_{\mathrm{EM}}$; **$\mu$** = the **EM** magnetic constitutive param of $Z_{\mathrm{EM}}=\sqrt{\mu_{eff}/\varepsilon_{eff}}$ — **Meissner lives here** ($\mu_{eff}\to0\Rightarrow\Gamma=-1$). Effective params modulate with $S(A)$: $\varepsilon_{eff}=\varepsilon_0 S$, $\mu_{eff}=\mu_0 S$, $C_{eff}=C_0/S$ ([`CLAUDE.md`](../CLAUDE.md):73,:75). **DOMAIN guard (`resonant-lc-solitons.md`:129):** do NOT direct-wire the EM $\mu_{eff}$ onto the mechanical $Z_{\mathrm{shear}}$ — the bridge is the Axiom-1 **micro-rotation$\leftrightarrow\mathbf B$** coupling (`CLAUDE.md`:71) read through the **TKI-transducer** (def-tk1xfm, Axiom-2 dictionary, `status:proposed`, *"identity-by-translation, NOT a derivation"* ceiling) — **FLAGGED, not asserted**. **MASS (A1) $\perp$ CHARGE (T2)** ([`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) — the two homonymous "3"s are orthogonal ports, never one phasor.
+- **axis:** other (sector/port taxonomy)
+- **dimension/type:** class/structure (n/a — a grouping of DOFs into ports)
+- **status:** proposed
+- **canonical-home:** [`node-up-small-large-signal.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§0 (the multi-port table); Axiom-1 6-DOF + $A$-state at [`CLAUDE.md`](../CLAUDE.md):73,:75; the three-channel role map at [`resonant-lc-solitons.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):118-125
+- **clm-cross-links:** clm-vca7r1, clm-kezk9z, clm-p5cf3t (the $\mu$/relativistic-inductor port)
+- **canon-noun map:** the EE "ports/sectors" ↔ the Axiom-1 grades (A1 dilatation, Cosserat micro-rotation, $\varepsilon$/$\mu$); maps to canon grade nouns, no noun-swap. CONSISTENCY-class — re-expresses Axiom 1, coins no new DOF or number.
+- **open-ambiguity-flag:** YES — "port" is overloaded (cf. def-cc2196 node open-ambiguity; the Vol-9 ch3 K4 **bond-port** vs **$\Gamma$-port** disambiguation): THIS map's "port" means a **sector/grade channel**, NOT the four K4 bond-ports nor a single-$\Gamma$ impedance boundary. Do not collapse the per-sector axis into the per-DOF-translation tensor axis of [`per-dof-vacuum-node-circuit.md`](../vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md) (that refines only the 3 translation DOFs; this groups all 6 + $A$ by sector).
+- **verification:** VERIFIED the 6-DOF + $A$-state content at [`CLAUDE.md`](../CLAUDE.md):73,:75 and $A1\perp T2$ at `master-equation.md`:20. The MASS/CHARGE/$\varepsilon$/$\mu$ role attribution re-expresses the three-channel ROLES (`resonant-lc-solitons.md`:118-125, themselves Grant-gated where the $V_{yield}$ fork applies). **DOMAIN-HYGIENE re-materialization (2026-06-24):** the prior "CHARGE = the Cosserat micro-rotation port (the $\mu$/inductive sector) → $Z_{\mathrm{shear}}$" string direct-wired the EM $\mu_{eff}$ onto the mechanical $Z_{\mathrm{shear}}$ — FORBIDDEN by `resonant-lc-solitons.md`:120,:124,:129 (CHARGE = mechanical static-reactive boundary, $\mu$ = EM param of $Z_{\mathrm{EM}}$, bridged by the def-tk1xfm transducer, not a direct wire). Separated above. **GATED on auditor + Grant review — NOT adopted, NOT SOLID.**
+
+---
+
 ## K4
 <!-- id: def-4b1a2c -->
 
