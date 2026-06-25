@@ -22,6 +22,44 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 > (FORK-1 resolution). The C4 / INVARIANT-S2 reconciliation behind §4 is in
 > [`research/2026-06-22_c4-symmetric-loading-reconciliation.md`](../../../../../research/2026-06-22_c4-symmetric-loading-reconciliation.md).
 
+## §0 — The node as a MULTI-PORT LC tank (6 DOF → ports → sectors)
+
+> **[Resultbox — ADDITIVE, CONSISTENCY-class] The node is a multi-port LC tank.** The two-keyed-reactance
+> picture of §1 is the $\varepsilon$/$\mu$ slice of a richer object: by **Axiom 1** each K4 node carries
+> **6 spatial DOFs** (3 translational $\to\mathbf E$, 3 microrotational $\to\mathbf B$;
+> [`manuscript/ave-kb/CLAUDE.md`](../../../CLAUDE.md):73), each an LC resonator, **plus** the saturation-state
+> $A$ per tank — *the operating point* "analogous to DC bias on a semiconductor varactor"
+> ([`manuscript/ave-kb/CLAUDE.md`](../../../CLAUDE.md):75 verbatim). Grouping the DOFs by which reactance and
+> which sector they project to gives the **port map** (this is a re-expression of the canon, NOT a new DOF
+> count — the 6 DOFs and the $A$-state are exactly Axiom 1 + the §75 operating-point state):
+
+| Port / sector | DOF group (Ax 1) | Reactance role | Sat. factor at operating point $A$ | Effective param (verbatim `CLAUDE.md`:73,:75) |
+|---|---|---|---|---|
+| **MASS** — A1 dilatation | trace-of-translation (the $A_1$ breathing "3", longitudinal-V scalar) | longitudinal bond compliance $\to Z_{\mathrm{bulk}}$ | $S_{A_1}(A)$ | $C_{eff}=C_0/S(A)$ (the A1 stretch-compliance, ↑) |
+| **CHARGE** — Cosserat micro-rotation | the 3 microrotational $\to\mathbf B$ (the $(2,3)$ winding "3") | inductive / $\mu$ sector $\to Z_{\mathrm{shear}}$ | $S_\mu(A)$ | $\mu_{eff}=\mu_0 S(A)$ |
+| **$\varepsilon$** — capacitive / electric | translational $\to\mathbf E$ (displacement / Coulomb) | transverse-T2 permittivity | $S_\varepsilon(A_V)$ | $\varepsilon_{eff}=\varepsilon_0 S(A)$ |
+| **deviatoric-shear** — transverse-mechanical | traceless translation (deviatoric $G$) | transverse acoustic | $S_{shear}(A)$ | $c_{shear}=c_0\sqrt{S}$ |
+
+> **SECTOR-HEADER (read before using this table).** Which sector? — the table spans **all four**; each row is
+> tagged. Does the engine carry that DOF? — yes (3+3 spatial DOFs are the Master-Equation / Cosserat fields;
+> the $A$-state is the saturation operating point, Op14/Op16). Cold or saturated? — the *columns* are the
+> per-sector **saturation factors $S_\bullet(A)$**; the cold node is $A=0\Rightarrow S=1$ on every port. The
+> effective parameters modulate with $S(A)$ exactly as `CLAUDE.md`:73,:75 give them: $\varepsilon_{eff}=\varepsilon_0 S$,
+> $\mu_{eff}=\mu_0 S$, $C_{eff}=C_0/S$. **Two-"3"s guard:** the MASS row (A1 dilatation) and the CHARGE row
+> (Cosserat $(2,3)$ micro-rotation) are **orthogonal grades** ($A1\perp T2$,
+> [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) — distinct
+> ports, never wired into one $(V_{inc},V_{ref})$ phasor (the genesis-24 no-double-count). The
+> $C_{eff}=C_0/S$ (↑, A1 compliance) vs $\varepsilon_{eff}=\varepsilon_0 S$ (↓, T2 permittivity) split is the
+> Grant-ratified sector split, NOT a sign error (`CLAUDE.md`:73).
+
+This multi-port view is the **node-constitutive companion** to the per-DOF *mechanical-translation* tensor of
+[`per-dof-vacuum-node-circuit.md`](../../../vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md)
+(which refines only the 3 translation DOFs into a directional $(L_i,C_i)$ tensor): this table instead groups
+**all 6 DOFs + the $A$-state** by *sector / port*, the axis that carries the MASS / CHARGE / $\varepsilon$ / $\mu$
+roles. The two leaves are the same node read on two orthogonal axes (per-direction vs per-sector); neither is a
+new primitive. **Consistency-vs-emergence: CONSISTENCY** — it re-expresses Axiom 1 + the §75 operating-point
+state + the §73 varactor specialization; it originates no new dimensionful number.
+
 ## §1 — The LC-tank node and the two keyed reactances
 
 Each substrate cell is a resonant LC tank ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$,
@@ -164,6 +202,86 @@ The same asymmetry resolves the W6 / H3 tension flagged in the 2026-06-05 gravit
 canonical "DC bias scales both grades" form is the **R1 symmetric-internal** operating point, NOT a
 claim that *any* DC bias scales both; a static-external single-grade drive is R2 (E) or R3 (B).
 
+## §4a — Meissner = the μ-port shorting at saturation (EMERGENT, not bolted on)
+
+> **SECTOR-HEADER.** Sector: the **$\mu$ / Cosserat micro-rotation (CHARGE) port** only. Regime: the
+> **saturated** large-signal operating point ($A\to A_{yield}$, the superconducting/yielded state). Mode:
+> inductive (magnetic). This subsection touches NEITHER the $\varepsilon$ port NOR the A1 dilatation-MASS port.
+
+When the $\mu$-grade saturates, its effective inductive permeability rolls to zero,
+$$\mu_{eff}=\mu_0\,S(A)\ \xrightarrow[A\to A_{yield}]{}\ 0 .$$
+A port with $\mu_{eff}\to0$ is an **inductive short**: the magnetic-flux channel reflects at $\Gamma=-1$ and
+flux is **excluded** from the bulk. That is *exactly* the **Meissner effect** — read here as a circuit event on
+one port, not a separately-postulated mechanism:
+
+> **[Resultbox] Meissner = the saturated μ-port.** $\mu_{eff}=\mu_0 S(A)\to0$ at saturation $\Rightarrow$
+> the inductive ($\mu$) port shorts $\Rightarrow$ applied flux reflects at $\Gamma=-1$ $\Rightarrow$ total
+> expulsion of $\mathbf B$. This **falls out of the Axiom-4 saturation kernel acting on the micro-rotation
+> port**; it is EMERGENT, not bolted on
+> ([`phase-transitions-impedance.md`](../../../vol3/condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md):24
+> verbatim: "when $\mu_{eff}\to0$ at saturation (Axiom 4), the magnetic field cannot penetrate the bulk.
+> Applied magnetic flux reflects completely at the boundary ($\Gamma=-1$) … total expulsion of the B-field").
+
+**Port-level orthogonality — why the Meissner port cannot confine the mass port.** The MASS port is the
+**A1 dilatation** (trace-of-translation, the longitudinal-V "3"); the Meissner port is the **Cosserat $(2,3)$
+micro-rotation** ($\mu$). These are **orthogonal grades**: $A1\perp T2$
+([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). At the
+port level this is *translation-dilatation* $\perp$ *rotation-micro-rotation* — **different DOFs** — so the
+$\mu$-port (Meissner) has **no handle on the dilatation (mass) port**. This is the **resolved scoping verdict**:
+the reading "the $(2,3)$ micro-rotation Meissner-confines the A1 mass" is **forbidden / falsified** (mass = A1,
+PR#260; the two-"3"s are orthogonal sectors, never a nesting). Recorded as the verdict — **NOT re-asserted as a
+nesting**.
+
+> **PENDING / OPEN (no-overclaim, NOT done).** Whether a *transverse* self-Meissner (FORK-A: a transverse
+> self-confining build on the $\mu$/shear port) is realized in the electron is **UNVERIFIED** — it is an open
+> build, flagged here, not a derived result. charge=Link STANDS; both internal dynamical loci tested NEGATIVE
+> (#415, #417); the electron's two-natured structure is **two orthogonal self-confining sectors** (A1-mass +
+> Cosserat-charge), **NOT** a charge-holds-mass nesting. CONSISTENCY-class re-expression of canon only.
+
+## §4b — The quiescent point: the electron as a SELF-BIASED multi-port LC circuit
+
+> **SECTOR-HEADER + REGIME.** This subsection is the **bias-then-small-signal** re-expression of the whole node.
+> Regime: the electron sits at the **saturated operating point**; the VCA (impedance network) is the
+> **small-signal** response *around* it. CONSISTENCY-class: this names the previously-unnamed DC-bias step of the
+> EE workflow and identifies the canon's saturation-state $A$ as the **quiescent point** — it derives no new
+> number.
+
+In electrical engineering a nonlinear reactive network is analyzed in three steps: **(1) set the DC bias** (the
+quiescent / Q-point), **(2) linearize** the constitutive parameters at that bias, **(3) read off the AC /
+small-signal impedance**. The substrate node is exactly such a network, and the AVE canon already supplies all
+three — the **bias step has simply not been named** until now:
+
+> **[Resultbox] The electron = a self-biased multi-port LC circuit at a self-set, self-stable Q-point.**
+> - **Bias = the saturation-state $A$.** The operating point is the per-port $A$ along the Axiom-4 kernel
+>   ("DC bias on a varactor", [`manuscript/ave-kb/CLAUDE.md`](../../../CLAUDE.md):75). The **MASS port** is biased
+>   to $A\to1$ (the $V_{snap}$ rail, $Z_{bulk}\to0$, $\Gamma=-1$ cage); the **CHARGE / $\mu$ port** to
+>   $V_{yield}$ (the Meissner / self-trap onset). The per-port $V_{yield}/V_{snap}$ **ladder** *is* the set of
+>   per-port quiescent biases.
+> - **SELF-set:** there is no external bias network — **Axiom-4 self-saturation IS the bias mechanism**. The
+>   soliton's own field drives each port to its $A$.
+> - **SELF-stable:** the equilibrium $R\cdot r=\tfrac14$ is the **stable Q-point** (parked at the steady bias,
+>   no net work; rest-mass = the DC energy stored at the Q-point — the virial-balanced $C\leftrightarrow L$
+>   store recovering $E=m_ec^2$).
+> - **The VCA is the small-signal network around this Q-point.** The graded impedance trio
+>   ($Z_{\mathrm{EM}}/Z_{\mathrm{shear}}/Z_{\mathrm{bulk}}$) is the linearized AC response *around* the saturated
+>   bias: $\varepsilon_{eff}=\varepsilon_0 S(A)$, $\mu_{eff}=\mu_0 S(A)$, $C_{eff}=C_0/S(A)$ evaluated **at** $A$
+>   (CLAUDE.md:73,:75). This **completes the EE workflow** — DC-bias (the Q-point, the previously-unnamed step)
+>   → linearize (the $S(A)$-modulated $\varepsilon/\mu/C$) → AC (the VCA impedance trio).
+
+**Where each step already lives in canon (verify-before-cite):** the bias step (electron operating point on the
+varactor C-V curve, $V_{snap}\approx511$ kV, $V_{yield}=\sqrt\alpha\,V_{snap}\approx43.65$ kV, the load-line
+intersection) is the worked DC view of
+[`cvr-dc-operating-point.md`](cvr-dc-operating-point.md):43-45; the small-signal index read-off is §3 above; the
+VCA impedance trio is [`resonant-lc-solitons.md`](resonant-lc-solitons.md):114-131. This subsection only adds the
+**name** ("quiescent point") and the **workflow ordering** (bias → linearize → AC) that ties them together.
+
+> **PENDING / OPEN (no-overclaim).** Whether the Q-point *sets* $R\cdot r=\tfrac14$ **α-free** (the α-flip
+> question) is **UNVERIFIED / open** — flagged, not done. The channel-impedance-mismatch $Q$ target stays
+> **EMPTY** (the α-free cold-cage $Q\approx30.8\ne137$ is the corpus clean NEGATIVE,
+> [`resonant-lc-solitons.md`](resonant-lc-solitons.md):131); $Q=137$ is not refilled. $V_{yield}=\sqrt\alpha\,
+> V_{snap}$ exactly, so the two per-port biases are NOT independent (the $\sqrt\alpha$ is an α-echo). mass=A1
+> (PR#260) untouched. CONSISTENCY-class throughout.
+
 ## §5 — Derived-vs-asserted ledger
 
 | Element | Status | Basis |
@@ -176,10 +294,17 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 | $B_{SNAP}$ = energy-density scale, not $\mu$-kernel argument | **DERIVED** | $B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$ |
 | OQ-1 par−perp differential $-\tfrac12 A_V^2$, ratio $7.5/\alpha^3$ | **DERIVED (E-route)** | clm-pp3qwf; the magnitude is an $\alpha$-echo (value rides $\alpha^{-3}$) |
 | Which grade is "magnetic primary" vs "capacitive primary" under chirality | **ASSERTED** (degenerate) | wall-branch fork B3-DEGENERATE (PR#260); mute on this leaf's static-field result |
+| §0 node = multi-port LC tank (6 DOF → MASS/CHARGE/$\varepsilon$/$\mu$ ports + $A$-state) | **CONSISTENCY** (re-expression) | Axiom 1 (`CLAUDE.md`:73) + operating-point state (`CLAUDE.md`:75); no new DOF/number |
+| §4a Meissner = $\mu_{eff}=\mu_0 S\to0$ shorting the $\mu$-port (EMERGENT) | **CONSISTENCY** (re-expression) | `phase-transitions-impedance.md`:24 + Axiom 4; $A1\perp T2$ scoping (`master-equation.md`:20, PR#260) |
+| §4b electron = self-biased multi-port LC at the self-set/stable Q-point; VCA = small-signal-around-Q | **CONSISTENCY** (re-expression) | saturation-state-$A$ bias (`CLAUDE.md`:75) + electron load-line (`cvr-dc-operating-point.md`:43-45) + VCA trio (`resonant-lc-solitons.md`:114-131); α-flip + transverse-self-Meissner are PENDING/open |
 
 > **Consistency-vs-emergence tag.** This leaf is **CONSISTENCY / manifestation class**: it
 > re-expresses the already-derived Axiom-4 kernel and the relativistic-inductor primitive (clm-p5cf3t)
-> as the operating-point taxonomy and reads off the static-field asymmetry. It originates no new
+> as the operating-point taxonomy and reads off the static-field asymmetry. The added §0 (multi-port map),
+> §4a (Meissner-from-$\mu$), and §4b (quiescent-point / bias-then-small-signal) are likewise **CONSISTENCY-class
+> re-expressions** of the saturation-operating-point + varactor + VCA canon — they name and re-order existing
+> content (the previously-unnamed DC-bias step) and originate no new derivation; the transverse-self-Meissner
+> build (FORK-A) and the α-flip ($R\cdot r=\tfrac14$ α-free) are flagged **PENDING/open**, not done. It originates no new
 > dimensionful constant. The R2 ratio $7.5/\alpha^3$ is an **$\alpha$-echo** at the value level (AVE
 > does not derive $\alpha$); the AVE-distinct CHORD is that the vacuum saturates at all (tree-level
 > O(1) structure QED lacks) and that the static-B route is **exactly** transparent — a categorical
