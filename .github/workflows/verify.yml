@@ -47,7 +47,11 @@ jobs:
   engine-sims:
     name: make test-engine (opt-in)
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # 120 (was 60): the serial engine_sim lane was overrunning the 60-min budget on
+    # main itself (only ~55-65% complete at cancel), so the opt-in job never went
+    # green. It is NON-required, so the extra latency blocks nothing. Serial-by-design
+    # for OOM-safety; the per-test --timeout (Makefile) bounds any true hang.
+    timeout-minutes: 120
     env:
       MPLBACKEND: Agg
     steps:
