@@ -70,6 +70,14 @@ _ENGINE_SIM_TESTS = {
     "test_coupled_eigensolve.py::test_t4_winding_bled_out_of_bound_mode",
     "test_coupled_eigensolve.py::test_t5_arm_b_deconfines",
     "test_coupled_eigensolve.py::test_t6_committed_verdict_does_not_exist",
+    # P0 facade closed-box energy gate: full-resolution N=24³ × 2000-step × 3-amplitude
+    # Crank–Nicolson/Newmark lossless-limit drive (~37s, ~211 MB peak). It is numerically
+    # SOUND (passes serially, |dH/H|=1.97e-9<1e-8, no RuntimeWarning) but OOM-crashed its
+    # xdist worker on the CI runner under parallel memory pressure ("node down: Not properly
+    # terminated", #426 run 28155807905) — the same cost+role tier + crash signature as the
+    # fork_b saturation-tank sweep above (#386). The fast validate-on-known checks in the
+    # same file (impedance/isotropy/scatter@400, ≤2s) STAY gating. Coverage via make test-engine.
+    "test_facade_p0_validate_on_known.py::test_facade_rung0_closed_box_energy_gate",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
