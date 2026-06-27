@@ -1,7 +1,7 @@
 # Biquaternion complex coupled network integration (epic)
 
 **Date:** 2026-06-27 · **Branch:** `analysis/2026-06-27-biquaternion-coupled-network-integration` (off `origin/main`)  
-**Status:** ACTIVE — Phase 1 (KB leaf). Worktree: `AVE-Core/.worktrees/biq-coupled-network/`. No merge to `main` without reviewed PR.
+**Status:** ACTIVE — Phase 2 (Vol. 9 render). Worktree: `AVE-Core/.worktrees/biq-coupled-network/`. No merge to `main` without reviewed PR.
 
 ---
 
@@ -59,7 +59,7 @@ Include explicit **stress → operating point → channel → wave vs mass** dis
 | Phase | Deliverable | Status |
 |:---|:---|:---|
 | **0** | This epic doc + discipline map | **COMPLETE** |
-| **1** | KB leaf (Layers 0–4 + dispatch table); `kind: leaf`, `no-claim` | **IN PROGRESS** |
+| **1** | KB leaf (Layers 0–4 + dispatch table); `kind: leaf`, `no-claim` | **COMPLETE** (`0b1b707d`) |
 | **2** | Vol. 9 Ch. 3 § render (KB-first); optional Vol. 4 cross-ref | PENDING |
 | **3** | Build-B: wire \(H_{\mathrm{couple}}\) into `graded_vacuum_network.py` spectral solve | PENDING |
 | **4** | Driver + tests: stress-regime → \((S_\varepsilon,S_\mu,S_{\mathrm{bulk}},S_{\mathrm{shear}})\) → \(\Gamma\), mode-split (no α-chord) | PENDING |
@@ -275,7 +275,7 @@ Implementor sessions: one deliverable per PR slice (Phase 1 KB leaf, Phase 3 sol
 ## Test plan (PR acceptance)
 
 - [ ] Phase 0 epic doc reviewed (this file)
-- [ ] Phase 1: `make verify-kb-metadata` green after KB leaf
+- [x] Phase 1: `make verify-kb-metadata` green after KB leaf
 - [ ] Phase 3: `pytest src/tests/test_graded_vacuum_network*.py` green + new coupled-arm tests
 - [ ] No `alpha` / `Q_TANK` / `137` in new Q-verdict paths (grep gate)
 - [ ] Manuscript sync PR separate or stacked with KB leaf PR
