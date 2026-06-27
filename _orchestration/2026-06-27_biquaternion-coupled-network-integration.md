@@ -1,7 +1,7 @@
 # Biquaternion complex coupled network integration (epic)
 
 **Date:** 2026-06-27 · **Branch:** `analysis/2026-06-27-biquaternion-coupled-network-integration` (off `origin/main`)  
-**Status:** ACTIVE — Phase 0 (discipline map + KB leaf scaffold). No merge to `main` without reviewed PR.
+**Status:** ACTIVE — Phase 1 (KB leaf). Worktree: `AVE-Core/.worktrees/biq-coupled-network/`. No merge to `main` without reviewed PR.
 
 ---
 
@@ -58,8 +58,8 @@ Include explicit **stress → operating point → channel → wave vs mass** dis
 
 | Phase | Deliverable | Status |
 |:---|:---|:---|
-| **0** | This epic doc + discipline map | **IN PROGRESS** |
-| **1** | KB leaf (Layers 0–4 + dispatch table); `kind: leaf`, `no-claim` or minimal cross-links only | PENDING |
+| **0** | This epic doc + discipline map | **COMPLETE** |
+| **1** | KB leaf (Layers 0–4 + dispatch table); `kind: leaf`, `no-claim` | **IN PROGRESS** |
 | **2** | Vol. 9 Ch. 3 § render (KB-first); optional Vol. 4 cross-ref | PENDING |
 | **3** | Build-B: wire \(H_{\mathrm{couple}}\) into `graded_vacuum_network.py` spectral solve | PENDING |
 | **4** | Driver + tests: stress-regime → \((S_\varepsilon,S_\mu,S_{\mathrm{bulk}},S_{\mathrm{shear}})\) → \(\Gamma\), mode-split (no α-chord) | PENDING |
