@@ -6,6 +6,15 @@
 **Driver:** [`src/scripts/verify/alpha_variational_strain_projection.py`](../src/scripts/verify/alpha_variational_strain_projection.py)
 **JSON artifact:** [`src/scripts/verify/alpha_variational_strain_projection_results.json`](../src/scripts/verify/alpha_variational_strain_projection_results.json)
 
+> **Driver reconstruction note (2026-06-25 consolidation).** The original driver
+> was lost from every tree/stash before preservation. The committed driver is a
+> faithful reconstruction from this prereg/result chain; it **reproduces the
+> Open-A table below to the reported precision** (B2 1/α=138.92 +1.38%, B1
+> 1/α=129.96 K/G=1.83, DIAG 1/α=137.04, B4≡B2). The driver's signed `pct_err`
+> reports B1 as −5.17% (pred below CODATA); the table's "+5.17%" is the same
+> magnitude. CODATA `ALPHA`/`P_C` enter only as the post-solve DIAGNOSTIC; z₀=52
+> and p_cauchy=0.3068 are the prereg-frozen α-free verdict-path inputs.
+
 ---
 
 ## Verdict: **FORK-for-Grant** + **PARTIAL** (unchanged classification; physics clarified)

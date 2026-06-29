@@ -7,6 +7,15 @@
 **Driver:** [`src/scripts/verify/alpha_variational_strain_projection.py`](../src/scripts/verify/alpha_variational_strain_projection.py)
 **JSON:** [`alpha_variational_strain_projection_results.json`](../src/scripts/verify/alpha_variational_strain_projection_results.json)
 
+> **Driver reconstruction note (2026-06-25 consolidation).** Driver reconstructed
+> from this prereg/result chain (original lost). It reproduces the load-bearing
+> Open-B numbers and the verdict band: sensitivity `d ln α⁻¹/d ln u ≈ 0.473`
+> (doc ~0.47), B0 identity 2.223×10⁻⁶ (tautology), B1 5.6×10⁻¹¹ (−4.6 dex,
+> exact), FT-1 BE control −31 dex (exact). The B2 percolation cell reconstructs
+> at 1.5×10⁻¹⁰ (−4.2 dex) vs the published 1.2×10⁻¹⁰ (−4.3 dex) — same OOM, same
+> **−4 to −5 dex CLOSED-NEGATIVE verdict** (the published cell rounded the thermal
+> `du/u` differently; the percolation amplification is `p/(p−p_G)≈2.70`).
+
 ---
 
 ## Verdict: **CLOSED-NEGATIVE** (percolation does not forward-derive δ_strain magnitude)
