@@ -1,0 +1,496 @@
+{
+  "prereg": "research/2026-06-08_native-electron-model-v2-prereg.md",
+  "parent": "native_electron_model_v2.py",
+  "description": "v3 sweep: stabilized BEMF + local avalanche velocity decay on u_dot, omega_dot",
+  "rows": [
+    {
+      "variant": "v3_gain_0.12_damp_0.0",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12,
+        "damping_rate": 0.0,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799922978733,
+      "gamma_final": -0.9936953806969168,
+      "eps_gamma_mean": 0.012538636768604665,
+      "abs_eps_minus_alpha": 0.005241300424540024,
+      "omega_persistence_ratio": 188.25839529433267,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.12_damp_0.01",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12,
+        "damping_rate": 0.01,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799923224424,
+      "gamma_final": -0.9938318104677558,
+      "eps_gamma_mean": 0.008056634517268662,
+      "abs_eps_minus_alpha": 0.0007592981732040208,
+      "omega_persistence_ratio": 3.0076492634439154,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.12_damp_0.02",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12,
+        "damping_rate": 0.02,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799923229789,
+      "gamma_final": -0.9936627148319684,
+      "eps_gamma_mean": 0.010522147757192644,
+      "abs_eps_minus_alpha": 0.0032248114131280033,
+      "omega_persistence_ratio": 0.184821225598551,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.12_damp_0.05",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12,
+        "damping_rate": 0.05,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799923239521,
+      "gamma_final": -0.9936628040056781,
+      "eps_gamma_mean": 0.011763281425005665,
+      "abs_eps_minus_alpha": 0.004465945080941024,
+      "omega_persistence_ratio": 0.0036247090093504894,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.06_damp_0.0",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.06,
+        "damping_rate": 0.0,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.999979992488297,
+      "gamma_final": -0.9936953807719229,
+      "eps_gamma_mean": 0.012476273645733749,
+      "abs_eps_minus_alpha": 0.005178937301669108,
+      "omega_persistence_ratio": 94.00134777738577,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.06_damp_0.01",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.06,
+        "damping_rate": 0.01,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799925423505,
+      "gamma_final": -0.9936280902139524,
+      "eps_gamma_mean": 0.008369564912570841,
+      "abs_eps_minus_alpha": 0.0010722285685062002,
+      "omega_persistence_ratio": 1.8922572339236279,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.06_damp_0.02",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.06,
+        "damping_rate": 0.02,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799925436585,
+      "gamma_final": -0.9936627612258245,
+      "eps_gamma_mean": 0.01083144954968399,
+      "abs_eps_minus_alpha": 0.003534113205619348,
+      "omega_persistence_ratio": 0.1091541081510468,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.03_damp_0.0",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.03,
+        "damping_rate": 0.0,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799810952203,
+      "gamma_final": -0.9999739248415007,
+      "eps_gamma_mean": 0.01023073001418263,
+      "abs_eps_minus_alpha": 0.0029333936701179883,
+      "omega_persistence_ratio": 47.23486895843616,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.03_damp_0.01",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.03,
+        "damping_rate": 0.01,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9999799810722458,
+      "gamma_final": -0.9936568822354402,
+      "eps_gamma_mean": 0.009309302269628667,
+      "abs_eps_minus_alpha": 0.0020119659255640257,
+      "omega_persistence_ratio": 0.7133397802568375,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "v3_gain_0.0_damp_0.0",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u_v3": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.0,
+        "damping_rate": 0.0,
+        "avalanche_n": 1.8095
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9936823100696934,
+      "gamma_final": -0.9936628370183164,
+      "eps_gamma_mean": 0.012656877590854782,
+      "abs_eps_minus_alpha": 0.005359541246790141,
+      "omega_persistence_ratio": 0.03251205557899562,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V3_PARTIAL_TRAP",
+      "outcome": "C"
+    }
+  ],
+  "classification": {
+    "aggregate_verdict": "V3_CHANNELS_EPS_IMPROVED",
+    "best_variant": "v3_gain_0.12_damp_0.0",
+    "best_properties_passed": 3,
+    "best_omega_persistence": 188.25839529433267,
+    "baseline_omega_persistence": 0.03251205557899562,
+    "improved_omega": true,
+    "improved_eps": true
+  }
+}

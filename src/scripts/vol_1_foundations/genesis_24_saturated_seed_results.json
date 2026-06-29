@@ -609,10 +609,10 @@
   "verdict": "C1",
   "verdict_msg": "FALSIFIER \u2014 dE_V<=eps_machine at deep saturation: GAP-1 STRUCTURAL (missing primitive)",
   "figures": {
-    "fig1": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis24_fig1_dEV_headline.png",
-    "fig2": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis24_fig2_smith_chart.png",
-    "fig3": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis24_fig3_reactance_pair.png",
-    "fig4": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis24_fig4_ledger.png",
-    "fig5": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis24_fig5_arm4_charge_flip.png"
+    "fig1": "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations/genesis24_fig1_dEV_headline.png",
+    "fig2": "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations/genesis24_fig2_smith_chart.png",
+    "fig3": "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations/genesis24_fig3_reactance_pair.png",
+    "fig4": "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations/genesis24_fig4_ledger.png",
+    "fig5": "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations/genesis24_fig5_arm4_charge_flip.png"
   }
 }

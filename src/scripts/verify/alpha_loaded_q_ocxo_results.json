@@ -1,0 +1,87 @@
+{
+  "prereg": "research/2026-06-25_alpha-loaded-q-ocxo_prereg.md",
+  "question": "OCXO-style loaded-Q boundary drift vs bulk BE at T_CMB",
+  "delta_strain_target": 2.22344133782304e-06,
+  "audit_identities": {
+    "DELTA_STRAIN_constants": 2.22344133782304e-06,
+    "1_minus_alpha_cold_over_alpha": 2.22344133782304e-06,
+    "1_minus_p_cold_over_p_obs": 2.22344133782304e-06,
+    "2_delta_sqrt_over_sqrt": 2.2234450454611124e-06,
+    "all_equal_to_machine_precision": true,
+    "note": "All are the same CODATA-vs-cold residual; not independent predictions"
+  },
+  "qpoint": {
+    "V_snap_kV": 510.9989499961642,
+    "V_yield_kV": 43.65185184432136,
+    "V_yield_over_V_snap": 0.08542454313193604,
+    "sqrt_alpha_CODATA": 0.08542454313193604,
+    "sqrt_alpha_cold": 0.08542444816365302,
+    "P_C_CODATA": 0.18340247377893987,
+    "P_C_cold": 0.1834020659942982,
+    "note": "Charge port biased at sqrt(alpha)*V_snap; cold vs CODATA alpha is the load spec split"
+  },
+  "routes": {
+    "L0_bias_ladder": {
+      "sqrt_alpha_cold": 0.08542444816365302,
+      "sqrt_alpha_obs": 0.08542454313193604,
+      "delta_sqrt_over_sqrt": 1.1117225227305562e-06,
+      "delta_alpha_over_alpha_predicted": 2.2234450454611124e-06,
+      "delta_alpha_inv_predicted": -2.2234450454611124e-06,
+      "delta_strain_target": 2.22344133782304e-06,
+      "relative_error": 1.6675223264900103e-06,
+      "verdict": "CONSISTENCY \u2014 bias-ladder tautology (FORK-A)"
+    },
+    "L1_parallel_cap": {
+      "C_ext_over_C_0": -2.22344133782304e-06,
+      "delta_f_over_f_series": 1.11172066891152e-06,
+      "delta_f_over_f_parallel": -1.1117231407627074e-06,
+      "delta_alpha_inv_from_cap_first_order": 2.22344133782304e-06,
+      "relative_error_cap_to_target": 0.0,
+      "note": "|delta f/f| is half delta(alpha^-1)/alpha^-1 at leading order \u2014 not a miss",
+      "verdict": "CONSISTENCY \u2014 cap ratio = 1 - alpha_cold/alpha = delta_strain"
+    },
+    "L2_loaded_Q": {
+      "Q_0_cold": 137.0363037758784,
+      "Q_ext_from_small_load_limit": 61632422.19798552,
+      "Q_loaded": 137.0359990838652,
+      "alpha_eff_over_alpha_cold": 1.0000022234450454,
+      "delta_alpha_inv_predicted": -2.2234450454128307e-06,
+      "relative_error": 1.6675006116265665e-06,
+      "verdict": "CONSISTENCY \u2014 small-load Q_ext equivalent to bias ladder"
+    },
+    "L3_BE_control": {
+      "eta_epsilon_BE": 2.2e-37,
+      "delta_alpha_inv_predicted": 1.1e-37,
+      "log10_miss_vs_target": -31.30563299056699,
+      "verdict": "CLOSED-NEGATIVE \u2014 bulk BE (same as FT-1)"
+    },
+    "L4_rim_8pi_alpha3": {
+      "eta_epsilon_forward": 9.766365006061369e-06,
+      "delta_alpha_inv_predicted": 4.8831825030306845e-06,
+      "relative_error": 1.196227271645396,
+      "factor_over_target": 2.196227271645396,
+      "f_boundary_to_close": 0.4553262828991318,
+      "verdict": "PARTIAL \u2014 forward 8pi*alpha^3 overshoots by factor 2.20x"
+    },
+    "L5_latent_floor": {
+      "rho_latent_over_rad": 1.3333333333333333,
+      "p_cold": 0.1834020659942982,
+      "T_CMB_over_T_melt": 4.595278246205734e-10,
+      "eta_epsilon_forward": 1.1237113655637159e-10,
+      "delta_alpha_inv_predicted": 5.618556827818579e-11,
+      "log10_miss_vs_target": -4.597400897914582,
+      "verdict": "CLOSED-NEGATIVE \u2014 latent floor undershoots"
+    },
+    "L6_packing_alpha2": {
+      "eta_epsilon": 9.766365006061367e-06,
+      "duplicate_of_L4": true,
+      "verdict": "REDUNDANT \u2014 algebraically identical to L4 (p_cold = 8*pi*alpha)"
+    }
+  },
+  "overall_verdict": "CONSISTENCY-REFRAME \u2014 delta_strain = Q-point bias-ladder / loaded-spec mismatch (L0/L1/L2 tautology); forward L4 ~2.2x high; L3/L5 dead; L6 redundant",
+  "interpretation": {
+    "sign_mechanism": "E hot / B frozen at T_CMB (Cosserat-Curie) \u2014 sign only",
+    "magnitude_mechanism": "2 ppm is bias-ladder / loaded-system specification (cold geometry vs CODATA in-situ port coupling), not bulk phonon occupancy at 2.7 K",
+    "forward_work": "L4/L6 OOM bracket; need derived boundary participation fraction"
+  }
+}

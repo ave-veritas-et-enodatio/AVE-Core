@@ -584,6 +584,9 @@ class CoupledK4Cosserat:
             S_mu_np = np.asarray(S_mu)
             S_eps_np = np.asarray(S_eps)
             z_local = np.sqrt(np.maximum(S_mu_np, 1e-12) / np.maximum(S_eps_np, 1e-12))
+            
+            # [PATH B] Store the geometric saturation kernel for the Cosserat non-linear stiffness trap
+            self.cos.S_mu = S_mu_np
         else:
             A_sq_k4 = V_sq / (self.V_SNAP**2)
             A_sq_cos = _cosserat_A_squared(
@@ -597,6 +600,7 @@ class CoupledK4Cosserat:
             A_sq_total = np.clip(A_sq_total, 0.0, 1.0 - 1e-12)
             S = np.sqrt(1.0 - A_sq_total)
             z_local = 1.0 / np.maximum(np.sqrt(S), 1e-6)
+            self.cos.S_mu = S
 
         # Inactive sites stay at Z_0 = 1 (unity).
         z_local = np.where(self.k4.mask_active, z_local, 1.0)
@@ -710,11 +714,19 @@ class CoupledK4Cosserat:
         outer step). NO coupling W_refl force (CP8 isolation; A28 runaway channel
         avoided) — the sectors couple only through the shared front."""
         cos = self.cos
+        
+        # [PATH B] Geometric Non-Linearity Trap:
+        S_factor = getattr(cos, 'S_mu', 1.0)
+        if isinstance(S_factor, np.ndarray):
+            S_factor = S_factor[..., None]
+            
         a_u, a_w = cos._bulk_accel()
+        a_w = a_w * S_factor
+        
         if self.use_trilinear_converter:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u = a_u + f_w / cos.rho
-            a_w = a_w + f_omega / cos.I_omega
+            a_w = a_w + f_omega * S_factor / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w
         cos._zero_velocities_outside_alive()
@@ -722,10 +734,12 @@ class CoupledK4Cosserat:
         cos._rotate_clamp(omega0, dt)
         cos._zero_outside_alive()
         a_u_new, a_w_new = cos._bulk_accel()
+        a_w_new = a_w_new * S_factor
+        
         if self.use_trilinear_converter:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u_new = a_u_new + f_w / cos.rho
-            a_w_new = a_w_new + f_omega / cos.I_omega
+            a_w_new = a_w_new + f_omega * S_factor / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u_new
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w_new
         cos._zero_velocities_outside_alive()
@@ -758,12 +772,20 @@ class CoupledK4Cosserat:
         # Force at current state = standalone Cosserat + coupling
         dE_du_s, dE_dw_s = self.cos.energy_gradient()
         dE_du_c, dE_dw_c = self._compute_coupling_force_on_cosserat()
+        
+        # [PATH B] Geometric Non-Linearity Trap: 
+        # The wave speed goes to zero (structural inertia goes to infinity) as the saturation yields.
+        # This acts as the structural "surface tension" that traps the Cosserat spin.
+        S_factor = getattr(self.cos, 'S_mu', 1.0)
+        if isinstance(S_factor, np.ndarray):
+            S_factor = S_factor[..., None]
+            
         a_u = -(dE_du_s + dE_du_c) / self.cos.rho
-        a_w = -(dE_dw_s + dE_dw_c) / self.cos.I_omega
+        a_w = -(dE_dw_s + dE_dw_c) * S_factor / self.cos.I_omega
         if self.use_trilinear_converter:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u = a_u + f_w / self.cos.rho
-            a_w = a_w + f_omega / self.cos.I_omega
+            a_w = a_w + f_omega * S_factor / self.cos.I_omega
 
         # Half-kick
         self.cos.u_dot = self.cos.u_dot + 0.5 * dt * a_u
@@ -779,11 +801,11 @@ class CoupledK4Cosserat:
         dE_du_s_new, dE_dw_s_new = self.cos.energy_gradient()
         dE_du_c_new, dE_dw_c_new = self._compute_coupling_force_on_cosserat()
         a_u_new = -(dE_du_s_new + dE_du_c_new) / self.cos.rho
-        a_w_new = -(dE_dw_s_new + dE_dw_c_new) / self.cos.I_omega
+        a_w_new = -(dE_dw_s_new + dE_dw_c_new) * S_factor / self.cos.I_omega
         if self.use_trilinear_converter:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u_new = a_u_new + f_w / self.cos.rho
-            a_w_new = a_w_new + f_omega / self.cos.I_omega
+            a_w_new = a_w_new + f_omega * S_factor / self.cos.I_omega
 
         # Second half-kick
         self.cos.u_dot = self.cos.u_dot + 0.5 * dt * a_u_new

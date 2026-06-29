@@ -56,6 +56,7 @@ class FDTD3DEngine:
         b_yield: float = B_SNAP,
         use_pml: bool = False,
         pml_layers: int = 8,
+        cfl_factor: float = 0.80,
     ) -> None:
         self.nx = nx
         self.ny = ny
@@ -66,6 +67,7 @@ class FDTD3DEngine:
         self.b_yield = b_yield
         self.use_pml = use_pml
         self.pml_layers = pml_layers
+        self.cfl_factor = cfl_factor
 
         # Physical Constants
         self.c = float(C_0)
@@ -73,8 +75,8 @@ class FDTD3DEngine:
         self.epsilon_0 = float(EPSILON_0)
 
         # CFL Condition for 3D stability: dt <= dx / (c * √3)
-        # Inject 0.80 stability buffer against Axiom 4 varactor steepening.
-        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * 0.80
+        # Inject stability buffer against Axiom 4 varactor steepening.
+        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * self.cfl_factor
 
         # Core Field Matrices (E and H vectors)
         self.Ex = np.zeros((nx, ny, nz))
@@ -217,7 +219,7 @@ class FDTD3DEngine:
         else:
             eps_base = self.epsilon_0  # sub-grid slice, use vacuum
 
-        return eps_base * saturation_factor(V_local, self.v_yield)
+        return eps_base * np.sqrt(1.0 - ratio_sq)
 
     def _compute_local_mu(self, H_component: np.ndarray) -> np.ndarray:
         """
@@ -401,7 +403,8 @@ class FDTD3DEngine:
             # Non-linear permittivity per cell
             E_mag = np.sqrt(E_sq)
             V_local = E_mag * self.dx
-            eps_local = self.epsilon_0 * saturation_factor(V_local, self.v_yield)
+            ratio_sq = np.clip((V_local / self.v_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
+            eps_local = self.epsilon_0 * np.sqrt(1.0 - ratio_sq)
             u_e = 0.5 * eps_local * E_sq
 
         # VCA-R01: free-EM μ is linear (see _compute_local_mu); magnetic energy is the
@@ -426,7 +429,8 @@ class FDTD3DEngine:
         else:
             E_mag = np.sqrt(E_sq)
             V_local = E_mag * self.dx
-            eps_local = self.epsilon_0 * self.eps_r * saturation_factor(V_local, self.v_yield)
+            ratio_sq = np.clip((V_local / self.v_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
+            eps_local = self.epsilon_0 * self.eps_r * np.sqrt(1.0 - ratio_sq)
             u_e = 0.5 * eps_local * E_sq
 
         # VCA-R01: free-EM μ is linear; magnetic energy density is ½μ₀μ_r|H|².

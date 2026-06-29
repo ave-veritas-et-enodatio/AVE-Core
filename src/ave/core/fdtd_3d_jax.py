@@ -448,6 +448,7 @@ class FDTD3DEngineJAX:
         b_yield: float = B_SNAP,
         use_pml: bool = False,
         pml_layers: int = 8,
+        cfl_factor: float = 0.80,
     ) -> None:
         self.nx = nx
         self.ny = ny
@@ -458,6 +459,7 @@ class FDTD3DEngineJAX:
         self.b_yield = b_yield
         self.use_pml = use_pml
         self.pml_layers = pml_layers
+        self.cfl_factor = cfl_factor
 
         # Physical Constants (from AVE axioms — zero free parameters)
         self.c = float(C_0)
@@ -465,10 +467,10 @@ class FDTD3DEngineJAX:
         self.epsilon_0 = float(EPSILON_0)
 
         # CFL Condition for 3D stability: dt ≤ dx / (c_max · √3).
-        # We inject an explicit 0.80 stability buffer because as the lattice saturates (Axiom 4),
+        # We inject an explicit stability buffer because as the lattice saturates (Axiom 4),
         # eps_eff drops toward zero causing c_local to rapidly increase. Without this buffer,
         # the engine immediately diverges when driven near V_yield.
-        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * 0.80
+        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * self.cfl_factor
 
         # Core Field Arrays (JAX device arrays)
         self.Ex = jnp.zeros((nx, ny, nz))
