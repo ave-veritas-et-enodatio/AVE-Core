@@ -249,9 +249,13 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 # The observed α⁻¹ (CODATA 137.035999) sits below the cold geometric asymptote
 # (4π³+π²+π = 137.0363038) by the Vacuum Strain Coefficient:
 #
-#     δ_strain = 1 − α_obs / α_cold
-#              = 1 − 137.035999 / 137.036304
-#              ≈ 2.225 × 10⁻⁶
+#     δ_strain = 1 − α_cold / α_obs           # 🔴 Rule-12 2026-06-25: was "1 − α_obs/α_cold"
+#              = 1 − 137.035999 / 137.036304   # (the symbolic form had the ratio inverted →
+#              ≈ 2.225 × 10⁻⁶                   #  a literal sign error: 1 − α_obs/α_cold = −2.22e-6.
+#                                               #  The code (line ~266) + this numeric line are the
+#                                               #  correct +2.223e-6 form: 1 − α_cold/α_obs, i.e.
+#                                               #  1 − (1/ALPHA)/ALPHA_COLD_INV. DELTA_STRAIN value
+#                                               #  UNCHANGED; only the symbolic notation is corrected.)
 #
 # HONEST SCOPE (2026-06-04, FT-1 + bijection closure). δ_strain as defined here is a
 # DEFINITIONAL RESIDUAL (1 − CODATA/α_cold), NOT a derived thermal observable. The

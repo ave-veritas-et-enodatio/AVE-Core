@@ -1,0 +1,120 @@
+{
+  "prereg": [
+    "research/2026-06-25_alpha-variational-strain-projection_prereg.md",
+    "research/2026-06-25_alpha-lattice-strain-projection_prereg-v2.md",
+    "research/2026-06-25_openB-delta-strain-percolation_prereg-v4.md"
+  ],
+  "reconstructed": "2026-06-25 consolidation pass A (original driver lost)",
+  "question": "Does substrate strain-projection s_grav=Pi*gamma select the alpha packing, and does EMT percolation forward-derive delta_strain?",
+  "frozen_inputs_alpha_free": {
+    "z0_path_count": 52.0,
+    "p_cauchy_delaunay": 0.3068,
+    "p_G_isostatic": 0.11538461538461539
+  },
+  "open_A": {
+    "B1_max": {
+      "u": 0.1662834761051881,
+      "p": 0.19339399618433276,
+      "K_over_G": 1.8271887258139492,
+      "nu": 0.26857445269624297,
+      "Pi": 0.15428369820250468,
+      "eps_11": 0.394143204553185,
+      "gamma": 0.05619517336832331,
+      "s_grav": 0.008669999168395821,
+      "alpha_inv_pred": 129.95616060781518,
+      "pct_err_vs_CODATA": -0.05166407749219648,
+      "route": "B1",
+      "meaning": "unconstrained max of s_grav x admissibility",
+      "objective": 0.00216669944258779,
+      "verdict": "CLOSED-NEGATIVE +5.17% \u2014 admissibility-weighted max lands DENSER (K/G~1.83), not the floppy edge the prereg expected; distinct from B2"
+    },
+    "B2_constraint": {
+      "u": 0.19251243256780792,
+      "p": 0.1809116809116809,
+      "K_over_G": 2.0000000000000004,
+      "nu": 0.28571428571428575,
+      "Pi": 0.14285714285714282,
+      "eps_11": 0.3888888888888889,
+      "gamma": 0.06278001298266128,
+      "s_grav": 0.008968573283237323,
+      "alpha_inv_pred": 138.92271135874236,
+      "pct_err_vs_CODATA": 0.013768004667840783,
+      "route": "B2",
+      "meaning": "trace-reversal gravity lock (K/G=2 constraint)",
+      "verdict": "PARTIAL +1.38% \u2014 constraint crossing, z=52 wrong target"
+    },
+    "B4_weighted": {
+      "u": 0.19251084461696613,
+      "p": 0.18091240362017413,
+      "K_over_G": 1.9999880886385202,
+      "nu": 0.2857131918081574,
+      "Pi": 0.14285787212789508,
+      "eps_11": 0.38888921976201163,
+      "gamma": 0.06277963214905986,
+      "s_grav": 0.008968564661786685,
+      "alpha_inv_pred": 138.92215639058432,
+      "pct_err_vs_CODATA": 0.013763954869526973,
+      "route": "B4",
+      "meaning": "K/G=2-proximity-weighted max (v1 A2 in lattice units)",
+      "verdict": "RELABEL \u2014 recovers the B2 crossing; no new selection principle"
+    },
+    "DIAG_codata": {
+      "u": 0.18708929521370377,
+      "p": 0.18340247377893992,
+      "K_over_G": 1.960450735143049,
+      "nu": 0.28201958638063135,
+      "Pi": 0.14532027574624576,
+      "eps_11": 0.39000964206138905,
+      "gamma": 0.061466841082648674,
+      "s_grav": 0.008932378295381172,
+      "alpha_inv_pred": 137.03599908369574,
+      "pct_err_vs_CODATA": -4.440892098500626e-16,
+      "route": "DIAG",
+      "meaning": "CODATA packing (post-solve diagnostic only)",
+      "P_C_CODATA": 0.18340247377893987,
+      "P_C_constants": 0.18340247377893987,
+      "verdict": "DIAGNOSTIC \u2014 CODATA p_c gives K/G~1.96, between B1 and B2"
+    },
+    "verdict": "CLOSED-NEGATIVE / FORK-for-Grant \u2014 B1 != B2 (|du|=0.026); the admissibility-weighted max lands DENSER (K/G~1.83), not the floppy edge the prereg expected. Gravity-stable projection is a CONSTRAINT (K/G=2), not the unconstrained optimum of Pi*gamma. B4 relabels B2."
+  },
+  "open_B": {
+    "p_cold": 0.1834020659942982,
+    "p_obs_CODATA": 0.18340247377893987,
+    "u_at_p_cold": 0.18709017502281156,
+    "rigidity_margin_above_pG": 0.5894845719505843,
+    "percolation_amplification": 2.696397238507929,
+    "d_ln_alphainv_d_ln_u": 0.47281203804476574,
+    "delta_strain_target": 2.22344133782304e-06,
+    "B0_identity": {
+      "delta_pred": 2.22344133782304e-06,
+      "verdict": "TAUTOLOGY \u2014 1 - p_cold/p_obs is the packing readout, not a derivation"
+    },
+    "B1_dilution_thermal_du": {
+      "delta_pred": 5.5980945304500266e-11,
+      "log10_miss": -4.598985447956951,
+      "verdict": "CLOSED-NEGATIVE \u2014 ~-4.6 dex (thermal du driver too small)"
+    },
+    "B2_percolation_beta1": {
+      "delta_pred": 1.5094686632811793e-10,
+      "log10_miss": -4.168201574268934,
+      "verdict": "CLOSED-NEGATIVE \u2014 ~-4.3 dex (no independent du driver)"
+    },
+    "FT1_BE_control": {
+      "eta_epsilon": 2.2e-37,
+      "delta_pred": 1.1e-37,
+      "log10_miss": -31.30563299056699,
+      "verdict": "CLOSED-NEGATIVE \u2014 -31 dex (hardest control; bulk BE)"
+    },
+    "verdict": "CLOSED-NEGATIVE \u2014 percolation does not forward-derive delta_strain; B0 tautology, B1/B2 miss by -4 to -5 dex, FT-1 BE -31 dex"
+  },
+  "audit_identities": {
+    "1_minus_alpha_cold_over_alpha": 2.22344133782304e-06,
+    "1_minus_p_cold_over_p_obs": 2.22344133782304e-06,
+    "equal_to_machine_precision": true,
+    "note": "1 - alpha_cold/alpha = 1 - p_cold/p_obs exactly (p = 8*pi*alpha); the delta_strain residual is the same CODATA-vs-cold spec gap, not an independent prediction"
+  },
+  "diagnostics_post_solve_only": {
+    "alpha_inv_CODATA": 137.0359990836958,
+    "P_C_CODATA": 0.18340247377893987
+  }
+}
