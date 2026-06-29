@@ -92,6 +92,8 @@ elastic-Poisson / Schwarzschild profile is reproduced.
 **Verdict: PASS** — the saturating modulus collapses to the inherited GR core in the weak field. This leg is
 **consistency-class** (reproduce a known theory at its limit), NOT an emergence claim.
 
+**(Honest note — definitional vs load-bearing.)** The first-row closed-form check $\varepsilon_{11}^{sat}/(r_{sat}/r)=1$ is *definitional* in the far field ($\min(r_{sat}/r,1)\equiv r_{sat}/r$ for $r>r_{sat}$), not an independent recovery. The non-tautological recover-the-known evidence is the **relaxed-field exterior tail** (an unsaturated $A<0.4$ regime exists, row 4) plus the **$D\to1$** stiffness recovery (row 2). The leg as a whole is non-tautological; the headline strain-match alone is.
+
 ## 5 · Test 2 — ACTIVATE-AT-THE-EXTREME (manifestation-class) ✅
 
 The radial strain reaches the yield $A=1$ at $r_{sat}=3.5\,r_s$; the bulk stiffness diverges; a saturated
@@ -127,6 +129,8 @@ Sweep $S_{min}\in\{10^{-4},10^{-3},10^{-2}\}$ (two orders of magnitude), all oth
 
 - shell-radius relative spread: **$0.00\times10^{0}$** (bit-identical)
 - $M_{eff}$ relative spread: **$0.00\times10^{0}$** (source-only invariant)
+
+**Wider-sweep transparency (no silent cap; independently re-run).** A 6-decade sweep $S_{min}\in\{10^{-1}\ldots10^{-6}\}$ holds shell $=4.0$ ($=\sqrt{16}$) for $S_{min}\le10^{-2}$; only at the *loose* floor $S_{min}=10^{-1}$ does it shift to $4.123$ ($=\sqrt{17}$, the **adjacent lattice ring**) — a 3.06% spread over the full range, within the 5% tolerance. This is the ±1-ring discretization granularity (§9), **NOT** $S_{min}$-dependence of the physics: $S_{min}$ materially binds the D-field ($\max D = 1/S_{min}$ exactly), yet the saturation locus $A\to1$ is set by $r_{sat}$ geometry. The reported window $\{10^{-4},10^{-3},10^{-2}\}$ is bit-identical because at those tighter floors $\max A$ saturates identically and the shell snaps to $\sqrt{16}$.
 
 **VERDICT: PASS — $S_{min}$-INDEPENDENT (the yield-physics set the wall, NOT the numerical clamp).** The
 shell sits where the integrated source drives the strain to the yield $A=1$ — a geometric/$r_{sat}$ fact
