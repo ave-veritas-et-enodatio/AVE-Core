@@ -1,0 +1,201 @@
+{
+  "prereg": "research/2026-06-25_f-boundary-participation_prereg.md",
+  "coupling_kernel_kappa": 9.766365006061369e-06,
+  "delta_strain_target_post_solve": 2.22344133782304e-06,
+  "alpha_cold": 0.007297336344064641,
+  "alpha_codata_comparison_only": 0.0072973525693,
+  "unknot_geometry": {
+    "r_tube_over_ell_node": 0.15915494309189535,
+    "r_loop_over_ell_node": 1.0,
+    "tube_cross_section_over_nyquist_face": 0.07957747154594767,
+    "torus_surface_over_nyquist_face": 6.283185307179586,
+    "note": "From electron-identification \u00a71: tube circ \u2113_node, loop 2\u03c0\u2113_node"
+  },
+  "forward_routes": {
+    "G1_E_dof_fraction": {
+      "route_id": "G1",
+      "f_b": 0.5,
+      "rationale": "Cosserat E-mode fraction (3 stretch / 6 total DOFs per node)",
+      "eta_epsilon": 4.8831825030306845e-06,
+      "delta_strain_predicted": 2.4415912515153422e-06,
+      "relative_error": 0.09811363582269803,
+      "log10_miss": 0.040647284428413935,
+      "factor_over_target": 1.098113635822698,
+      "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+    },
+    "G2_exterior_E": {
+      "route_id": "G2",
+      "f_b": 0.25,
+      "rationale": "E modes \u00d7 exterior-facing half of \u0393 boundary (interior sealed)",
+      "eta_epsilon": 2.4415912515153422e-06,
+      "delta_strain_predicted": 1.2207956257576711e-06,
+      "relative_error": 0.450943182088651,
+      "log10_miss": -0.2603827112355673,
+      "factor_over_target": 0.549056817911349,
+      "verdict": "PARTIAL (<50%)"
+    },
+    "G3_shared_bond_half": {
+      "route_id": "G3",
+      "f_b": 0.5,
+      "rationale": "K4 bond shared between two cells \u2014 half ownership at boundary",
+      "eta_epsilon": 4.8831825030306845e-06,
+      "delta_strain_predicted": 2.4415912515153422e-06,
+      "relative_error": 0.09811363582269803,
+      "log10_miss": 0.040647284428413935,
+      "factor_over_target": 1.098113635822698,
+      "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+    },
+    "G4_Rr_quarter": {
+      "route_id": "G4",
+      "f_b": 0.25000000000000006,
+      "rationale": "Golden Torus R\u00b7r = 1/4 Nyquist identification (Q-EMBED-SEL-1)",
+      "eta_epsilon": 2.4415912515153427e-06,
+      "delta_strain_predicted": 1.2207956257576713e-06,
+      "relative_error": 0.4509431820886509,
+      "log10_miss": -0.26038271123556717,
+      "factor_over_target": 0.5490568179113491,
+      "verdict": "PARTIAL (<50%)"
+    },
+    "G5_four_over_pi_sq": {
+      "route_id": "G5",
+      "f_b": 0.4052847345693511,
+      "rationale": "Geometric 4/\u03c0\u00b2 scale (tube/face area ratio order)",
+      "eta_epsilon": 3.9581586491889806e-06,
+      "delta_strain_predicted": 1.9790793245944903e-06,
+      "relative_error": 0.10990261315722559,
+      "log10_miss": -0.05056247396791019,
+      "factor_over_target": 0.8900973868427744,
+      "verdict": "PARTIAL (<50%)"
+    },
+    "G6_inv_two_phi": {
+      "route_id": "G6",
+      "f_b": 0.3090169943749474,
+      "rationale": "1/(2\u03c6) from Golden Torus minor radius r = (\u03c6\u22121)/2",
+      "eta_epsilon": 3.0179727601417493e-06,
+      "delta_strain_predicted": 1.5089863800708746e-06,
+      "relative_error": 0.3213284495518485,
+      "log10_miss": -0.1683403558215648,
+      "factor_over_target": 0.6786715504481514,
+      "verdict": "PARTIAL (<50%)"
+    },
+    "G7_phi_minus_one": {
+      "route_id": "G7",
+      "f_b": 0.6180339887498949,
+      "rationale": "\u03c6\u22121 = 1/\u03c6 inverse golden ratio",
+      "eta_epsilon": 6.0359455202834994e-06,
+      "delta_strain_predicted": 3.0179727601417497e-06,
+      "relative_error": 0.3573431008963031,
+      "log10_miss": 0.13268963984241647,
+      "factor_over_target": 1.357343100896303,
+      "verdict": "PARTIAL (<50%)"
+    },
+    "G8_E_times_tube_correction": {
+      "route_id": "G8",
+      "f_b": 0.4204225284540523,
+      "rationale": "E fraction \u00d7 (1 \u2212 1/(2\u03c0)) tube circumference correction",
+      "eta_epsilon": 4.1059998696534965e-06,
+      "delta_strain_predicted": 2.0529999348267483e-06,
+      "relative_error": 0.07665657739509783,
+      "log10_miss": -0.03463674014146358,
+      "factor_over_target": 0.9233434226049022,
+      "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+    },
+    "G9_secondary_link_area": {
+      "route_id": "G9",
+      "f_b": 0.7097388232104467,
+      "rationale": "(\u2113_node/r_sec)\u00b2 with r_sec=1.187 \u2113_node, capped at 1",
+      "eta_epsilon": 6.931568406445683e-06,
+      "delta_strain_predicted": 3.4657842032228416e-06,
+      "relative_error": 0.5587477592802934,
+      "log10_miss": 0.19277584218321264,
+      "factor_over_target": 1.5587477592802934,
+      "verdict": "OOM-BRACKET (~2x)"
+    },
+    "G10_bondpair_over_z0": {
+      "route_id": "G10",
+      "f_b": 0.03902439024390244,
+      "rationale": "Two-node bond-pair vs amorphous z\u2080=51.25 coordination",
+      "eta_epsilon": 3.811264392609315e-07,
+      "delta_strain_predicted": 1.9056321963046574e-07,
+      "relative_error": 0.9142935698870089,
+      "log10_miss": -1.0669865939714156,
+      "factor_over_target": 0.08570643011299107,
+      "verdict": "CLOSED-NEGATIVE (undershoot)"
+    },
+    "G11_two_node_quadrature": {
+      "route_id": "G11",
+      "f_b": 0.5,
+      "rationale": "Two-node complete projector screened variance (phase space; 68\u00d7\u03b1 \u2014 wrong sector)",
+      "eta_epsilon": 4.8831825030306845e-06,
+      "delta_strain_predicted": 2.4415912515153422e-06,
+      "relative_error": 0.09811363582269803,
+      "log10_miss": 0.040647284428413935,
+      "factor_over_target": 1.098113635822698,
+      "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+    },
+    "G12_half_direct": {
+      "route_id": "G12",
+      "f_b": 0.5,
+      "rationale": "Direct 1/2 hypothesis: half of boundary channels participate in env load",
+      "eta_epsilon": 4.8831825030306845e-06,
+      "delta_strain_predicted": 2.4415912515153422e-06,
+      "relative_error": 0.09811363582269803,
+      "log10_miss": 0.040647284428413935,
+      "factor_over_target": 1.098113635822698,
+      "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+    }
+  },
+  "controls": {
+    "I0_inversion": {
+      "route_id": "I0",
+      "f_b": 0.4553262828991318,
+      "rationale": "f_b = \u03b4_target / (4\u03c0\u03b1_cold\u00b3) \u2014 definitional inversion",
+      "eta_epsilon": 4.44688267564608e-06,
+      "delta_strain_predicted": 2.22344133782304e-06,
+      "relative_error": 0.0,
+      "log10_miss": 0.0,
+      "factor_over_target": 1.0,
+      "verdict": "TAUTOLOGY / CIRCULAR"
+    },
+    "I1_alpha_in_f_b": {
+      "route_id": "I1",
+      "f_b": 0.007297336344064641,
+      "rationale": "f_b = \u03b1_cold \u2014 circular (\u03b1 inside participation fraction)",
+      "eta_epsilon": 7.126845030813271e-08,
+      "delta_strain_predicted": 3.5634225154066355e-08,
+      "relative_error": 0.983973390910796,
+      "log10_miss": -1.795158355975767,
+      "factor_over_target": 0.016026609089203874,
+      "verdict": "TAUTOLOGY / CIRCULAR"
+    },
+    "I2_BE_control": {
+      "route_id": "I2",
+      "f_b": null,
+      "rationale": "FT-1 BE thermal \u03b7_\u03b5 control (no f_b)",
+      "eta_epsilon": 2.2e-37,
+      "delta_strain_predicted": 1.1e-37,
+      "relative_error": 1.0,
+      "log10_miss": -31.30563299056699,
+      "factor_over_target": 4.947285908955009e-32,
+      "verdict": "CLOSED-NEGATIVE \u2014 bulk BE"
+    }
+  },
+  "best_forward": {
+    "route_id": "G8",
+    "f_b": 0.4204225284540523,
+    "rationale": "E fraction \u00d7 (1 \u2212 1/(2\u03c0)) tube circumference correction",
+    "eta_epsilon": 4.1059998696534965e-06,
+    "delta_strain_predicted": 2.0529999348267483e-06,
+    "relative_error": 0.07665657739509783,
+    "log10_miss": -0.03463674014146358,
+    "factor_over_target": 0.9233434226049022,
+    "verdict": "NEAR-HIT (<10%) \u2014 audit for hidden alpha import"
+  },
+  "f_b_required_for_exact_match": 0.4553262828991318,
+  "overall_verdict": "PARTIAL-NEAR-HIT \u2014 G8 within 10%; not CHORD until unique f_b selector (I0=0.455 still tautology)",
+  "interpretation": {
+    "G2_vs_target_factor": 0.549056817911349,
+    "G12_vs_target_factor": 1.098113635822698,
+    "honest_read": "If best forward is ~10% high with f_b=1/2 or 1/4, geometry brackets \u03b4_strain but does not close without a second underived factor"
+  }
+}
