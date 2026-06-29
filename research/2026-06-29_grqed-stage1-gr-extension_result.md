@@ -136,6 +136,64 @@ wall and the gate would have **FAILED** — it does not.
 
 ## 7 · Honesty — the singularity is RELOCATED, not removed
 
+> **The point singularity is replaced by a strain-saturated SHELL at $r_{sat}=3.5\,r_s$; the density still
+> diverges there; true removal needs the yield→rupture→genesis physics (a separate frontier).**
+
+The strain saturates ($A$ capped at $1$) but the **inertial density diverges** at the shell:
+$\rho_{eff}=\rho_0/S_{topo}^3$ with $S_{topo}=\sqrt{1-\varepsilon_{11}^2}\to0$, so $\rho_{eff}\to\infty$ as the
+yield is approached (manuscript leaf
+`manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`:14–25;
+`lattice-extreme-bh-rationality.md` §6). What Stage-1 demonstrates is the **Topological Halting** — the bulk
+modulus diverges and the collapse freezes at the phase-transition boundary, replacing the $r=0$ point with a
+shell at $r\approx r_{sat}$. This is **RELOCATION**, not regularization.
+
+Additionally: the strain-cap implemented here ($\min(\varepsilon_{11},1)$ / `clip(x,0,1)` in the relaxation)
+is a **numerical clip, NOT modeled yield-physics**. The genuine yield (the lattice phase transition at $A=1$,
+its rupture, and the genesis that follows) is a separate frontier and is not modeled in Stage-1.
+
+**This result does NOT claim** "regularizes the singularity" or "removes the infinity." It claims the strain
+saturates into a shell while the density still diverges.
+
 ## 8 · How this integrates: GR's linear core + the saturating-modulus shell
 
+Stage-1 is a **correction ON the inherited GR solver**, not a replacement. The linear elastic-Poisson core
+($-(c^4/7G)\nabla^2\varepsilon_{11}=T_{00}\Rightarrow\varepsilon_{11}=7GM/c^2r$, $n=1+(2/7)\varepsilon_{11}$)
+is the **weak-field limit** and is left exactly as inherited — at $r\gg r_{sat}$ the correction collapses to
+it identically (§4). The Stage-1 addition is the saturating modulus $D(A)=1/S(A)$ multiplying the elliptic
+operator: in the weak field $D\to1$ (GR recovered, consistency); at the strong-field extreme $D\to\infty$
+(the bulk goes rigid, a yield shell appears at $r_{sat}=3.5\,r_s$, manifestation). The **one** Op14 kernel
+$S(A)=(1-A^2)^{1/2}$ supplies both regimes; the per-channel sign-lock (BULK stiffens / SHEAR softens / EM
+matched) keeps the three channels physically distinct. The EM channel (`refractive_index()`) is untouched —
+photons still see the GR geometry at the EM horizon $r_s=2GM/c^2$, while the matter/shear yield reflector
+sits deeper at $r_{sat}=7GM/c^2$ (the $r_s$-vs-$r_{sat}$ channel split, `lattice-extreme-bh-rationality.md`
+§6). Stage-1 is thus the first rung of the GR/QED-extension engine: **GR's linear core + the
+saturating-modulus shell**, sharing the canonical kernel and stencil with the rest of the framework.
+
 ## 9 · Honest flags + spec deviations
+
+1. **Picard limit-cycle at the yield edge (numerical, not physical).** The hard yield cap ($A=1$) makes the
+   fixed point non-smooth at the wall: individual edge sites limit-cycle between just-below and just-at unity
+   while the shell **radius** is stationary. Convergence is therefore judged on the **physical observable**
+   (shell-radius stationary over 15 iterations), not pointwise $\lVert\Delta\varepsilon\rVert_\infty$ (which
+   plateaus at $\sim2\times10^{-2}$ and is reported as `picard_delta` for transparency). This is the honest
+   substrate-native convergence measure for a non-smooth yield problem; it is recorded, not papered over.
+2. **±1-ring discretization granularity in the shell radius.** The shell radius is quantized to the lattice
+   ($4.0=\sqrt{16}$ vs $4.123=\sqrt{17}$ are adjacent rings); the exact ring can shift by one with the Picard
+   under-relaxation `picard_mix`. This is **discretization granularity, NOT $S_{min}$-dependence** — the
+   clip-independence gate (§6) holds `picard_mix` fixed and sweeps only $S_{min}$, returning zero spread. The
+   gate is therefore clean; the ring-granularity is a separate, expected lattice-resolution effect (a
+   convergence-vs-$N$ study is deferred to a later stage).
+3. **Distributed-source shell vs the $3.5\,r_s$ point-source shell.** The finite-core demo uses a compact
+   distributed Gaussian $T_{00}$ (not the inherited δ-source), so its shell sits at the radius where the
+   *integrated* source drives $\varepsilon_{11}\to1$ ($\approx4$ sites for the default source/box), which is a
+   geometric function of the chosen source, not literally $3.5\,r_s$. The **closed-form** $r_{sat}=3.5\,r_s$
+   relation (the point-source / far-field result) is tested separately and exactly in §5. No deviation — the
+   two are different, both-correct measures (point-source analytic vs distributed-source relaxed).
+4. **No spec deviations on the load-bearing requirements.** The canonical kernel is reused (no 2nd kernel
+   minted); `refractive_index()` is unchanged (EM spectator, guard-tested); the source is distributed (not
+   δ); the demo is elliptic relaxation (not a time-march); the gate passes $S_{min}$-independent; the honesty
+   framing is verbatim. α-CLEAN (source-level guard test).
+
+---
+
+**Branch:** `analysis/grqed-stage1-gr-extension` · **next:** Grant merges via reviewed PR (not merged here).
