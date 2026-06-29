@@ -77,11 +77,62 @@ All on the host `src/ave/gravity/gw_propagation.py` (a new STAGE-1 section after
 `src/tests/test_grqed_stage1_gr_extension.py`; the heavy relaxation/gate tests are routed to the `engine_sim`
 lane via `src/tests/conftest.py` (`_ENGINE_SIM_TESTS`, #411 OOM-class discipline).
 
-## 4 · Test 1 — RECOVER-THE-KNOWN (consistency-class)
+## 4 · Test 1 — RECOVER-THE-KNOWN (consistency-class) ✅
 
-## 5 · Test 2 — ACTIVATE-AT-THE-EXTREME (manifestation-class)
+At $r\gg r_{sat}$: $A\to0$, $S\to1$, $D\to1$ — the correction vanishes and the inherited linear
+elastic-Poisson / Schwarzschild profile is reproduced.
 
-## 6 · ★ LOAD-BEARING GATE — clip-independence verdict
+| Check | Result | Tol |
+|---|---|---|
+| $\varepsilon_{11}^{sat}(r)/(r_{sat}/r)$ at $r/r_{sat}=10^2,10^3,10^6$ | $1.0,\,1.0,\,1.0$ | rtol $10^{-12}$ |
+| $D(A)$ at $A=0,10^{-3},10^{-2}$ | $1.0,\,1.000001,\,1.00005\to1$ | atol $2\times10^{-4}$ |
+| $n(r)=1+(2/7)\varepsilon_{11}$ (linear form) at far field | matches | rtol $10^{-3}$ |
+| relaxed finite-core exterior tail (unsaturated $A<1$ regime exists) | $A=0.18$ at $r=N{-}3$ | $<0.4$ |
+
+**Verdict: PASS** — the saturating modulus collapses to the inherited GR core in the weak field. This leg is
+**consistency-class** (reproduce a known theory at its limit), NOT an emergence claim.
+
+## 5 · Test 2 — ACTIVATE-AT-THE-EXTREME (manifestation-class) ✅
+
+The radial strain reaches the yield $A=1$ at $r_{sat}=3.5\,r_s$; the bulk stiffness diverges; a saturated
+shell forms.
+
+| Check | Result |
+|---|---|
+| $r_{sat}/r_s$ | $3.5$ ($=7GM/c^2=(2/\nu_{vac})\,r_s$) |
+| $\varepsilon_{11}^{sat}(r_{sat})$ | $1.0$ (the yield); capped at $1$ inside |
+| $D(0.9),D(0.99)$ | $2.294,\,7.089$ (rising) |
+| $D(A{=}1;S_{min}{=}10^{-3}),\,D(A{=}1;S_{min}{=}10^{-4})$ | $10^3,\,10^4$ (floor-capped — the divergence) |
+| BULK $D\cdot S=1$ (reciprocal, NOT $D\propto S$) | $1.0$ to rtol $10^{-9}$ — sign-lock confirmed |
+| finite-core relaxation $N=24$: $\max A$ | $1.000000$ (core saturates) |
+| shell radius (outermost $A\ge0.99$ ring) | $4.0$ sites (interior, well inside the box) |
+| Picard iterations to shell-radius convergence | $73$ (observable-converged) |
+
+Relaxed radial $A$-profile ($r=0\ldots10$ sites): `1.00, 0.97, 1.00, 0.97, 1.00, 0.82, 0.70, 0.49, 0.38,
+0.22, 0.18` — a saturated core ($A\approx1$, $r\lesssim4$), a yield wall at $r\approx4$, then a smooth
+$\sim1/r$ unsaturated falloff.
+
+**Verdict: PASS** — the saturation extreme of the **one** kernel produces a strain-saturated shell (the bulk
+goes rigid and halts the collapse). This leg is **manifestation-class**.
+
+## 6 · ★ LOAD-BEARING GATE — clip-independence verdict: **PASS**
+
+Sweep $S_{min}\in\{10^{-4},10^{-3},10^{-2}\}$ (two orders of magnitude), all other parameters fixed:
+
+| $S_{min}$ | shell radius | $M_{eff}$ | $\max A$ |
+|---|---|---|---|
+| $10^{-4}$ | $4.0000$ | $100.797503$ | $1.000000$ |
+| $10^{-3}$ | $4.0000$ | $100.797503$ | $1.000000$ |
+| $10^{-2}$ | $4.0000$ | $100.797503$ | $1.000000$ |
+
+- shell-radius relative spread: **$0.00\times10^{0}$** (bit-identical)
+- $M_{eff}$ relative spread: **$0.00\times10^{0}$** (source-only invariant)
+
+**VERDICT: PASS — $S_{min}$-INDEPENDENT (the yield-physics set the wall, NOT the numerical clamp).** The
+shell sits where the integrated source drives the strain to the yield $A=1$ — a geometric/$r_{sat}$ fact
+upstream of the kernel floor. $S_{min}$ only bounds the divergence of $D=1/S$; it does **not** move the
+location where $A\to1$. Had the shell radius tracked $S_{min}$, the clamp (not the physics) would have set the
+wall and the gate would have **FAILED** — it does not.
 
 ## 7 · Honesty — the singularity is RELOCATED, not removed
 
