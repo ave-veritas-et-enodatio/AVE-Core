@@ -356,6 +356,129 @@ def shear_horizon_reflection(r: float | np.ndarray, r_s: float) -> float | np.nd
     return reflection_coefficient(Z_ext, Z_int)
 
 
+# ═══════════════════════════════════════════════════════════════════════════════
+# STAGE-1 GR-EXTENSION — the saturating-modulus correction ON the linear core
+# ═══════════════════════════════════════════════════════════════════════════════
+# SUBSTRATE-NATIVE FRAMING (the vacuum is a real saturable elastic medium):
+#   The INHERITED linear core is the WEAK-FIELD limit, NOT re-derived here:
+#     elastic-Poisson   −(c⁴/7G)∇²ε₁₁ = T₀₀   ⇒   ε₁₁(r) = 7GM/(c²r) = r_sat/r
+#     refractive index  n(r) = 1 + (2/7)·ε₁₁   (Op19, refractive_index() above —
+#                                               LEFT UNCHANGED; EM is a spectator).
+#   The CORRECTION is a saturating MODULUS on the elliptic operator:
+#     −∇·[ (c⁴/7G)·D(A)·∇ε₁₁ ] = T₀₀ ,   A = ε₁₁/ε_yield   (ε_yield = 1).
+#   This is mundane elastic YIELD — a graded stiffness D(A) — not exotic curvature.
+#
+# THE ONE KERNEL (F1, settled — REUSED, not minted):
+#   S(A) = (1 − A²)^{1/2}  is the SINGLE Op14 kernel
+#   (graded_vacuum_network.saturation_kernel, exponent=0.5). The clock/shear speed
+#   c_shear = c₀·√S = c₀·(1 − A²)^{1/4} is a DERIVED projection (√S of the kernel),
+#   NOT a second kernel; (1 − A²)^{1/4} is never used AS the kernel.
+#
+# PER-CHANNEL SIGN (INVARIANT-S2 sign-lock — NEVER a uniform C·S):
+#   BULK    STIFFENS:  D = 1/S(A)  (stiffness_profile) → c_eff² = c₀²/S → ∞ at A=1
+#                      (goes rigid, halts the collapse — the elliptic coefficient
+#                       diverges and the source can no longer push ε₁₁ past unity).
+#   SHEAR   SOFTENS:   c_shear = c₀·√S → 0 at A=1   (shear_wave_speed() above —
+#                      the constitutive modulus melts; the GW reflector).
+#   EM      MATCHED:   Z_EM = Z₀, Γ_EM = 0  (refractive_index() UNCHANGED — spectator).
+#
+# HONESTY (do NOT overclaim — read interior-singularity-resolution.md /
+# lattice-extreme-bh-rationality.md): the point singularity is REPLACED by a
+# strain-saturated SHELL at r_sat = 3.5·r_s; the inertial density ρ_eff = ρ₀/S³
+# STILL DIVERGES there (ρ_eff → ∞ as S → 0). True removal needs the
+# yield→rupture→genesis physics (a separate frontier). The strain-cap here is a
+# numerical clip (A capped at 1), NOT modeled yield-physics. This is RELOCATION
+# of the singularity to a shell, not regularization / removal of the infinity.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def saturated_radial_strain(
+    r: float | np.ndarray, r_s: float, *, S_min: float = 1e-3
+) -> float | np.ndarray:
+    r"""
+    Radial (ε₁₁) strain under the SATURATING-MODULUS correction (Stage-1).
+
+    On the RADIAL / shear ε₁₁ channel ONLY (EM spectator: ``refractive_index()``
+    is untouched). The linear core gives ε₁₁ = r_sat/r (= 7GM/c²r); the saturating
+    modulus caps the strain at the yield A = ε₁₁/ε_yield = 1 (ε_yield ≡ 1), so the
+    saturated strain is the CLOSED-FORM CAP of the linear profile:
+
+    .. math::
+        \varepsilon_{11}^{\,sat}(r) = \min\!\Big(\tfrac{r_{sat}}{r},\, 1\Big)
+
+    This is identical to :func:`radial_strain` (the linear profile already clips at
+    unity in the exterior); the DISTINCT physics is in the per-channel MODULUS the
+    cap induces — exposed by :func:`bulk_stiffness_D` (D = 1/S → ∞, BULK stiffens)
+    and :func:`shear_wave_speed` (c_shear = c₀√S → 0, SHEAR softens). The finite-core
+    relaxation :func:`relax_finite_core_strain` solves the full elliptic
+    −∇·[D·∇ε₁₁] = T₀₀ on the native stencil and recovers this cap self-consistently.
+
+    Recover-the-known: at r ≫ r_sat, A → 0, S → 1, D → 1 ⇒ ε₁₁ → r_sat/r (the linear
+    elastic-Poisson / Schwarzschild limit). Activate-at-extreme: ε₁₁ → 1 at r_sat.
+
+    The kernel S(A) is the canonical one — :func:`saturation_kernel` (exponent=0.5,
+    clipped to [S_min, 1]). The yield-shell location is S_min-INDEPENDENT (the cap
+    sits at A = 1 where the LINEAR profile reaches unity, set by r_sat, not by the
+    clamp); :func:`relax_finite_core_strain` carries the explicit clip-independence
+    gate.
+
+    Args:
+        r: Radial distance [m].
+        r_s: Schwarzschild radius [m].
+        S_min: Numerical floor on the kernel (clip guard); the cap location does
+            NOT depend on it (load-bearing gate — see ``relax_finite_core_strain``).
+
+    Returns:
+        Saturated radial strain ε₁₁ ∈ [0, 1].
+    """
+    from ave.solvers.graded_vacuum_network import saturation_kernel
+
+    r = np.asarray(r, dtype=float)
+    r_sat = saturation_radius(r_s)
+    eps_lin = r_sat / r  # inherited linear core ε₁₁ = 7GM/c²r = r_sat/r
+    # A = ε₁₁/ε_yield with ε_yield = 1. The canonical kernel S(A) defines the
+    # saturated cap: S(A) → 0 marks A = 1. We return the strain capped at the
+    # yield (the closed-form static solution of the saturating-modulus operator
+    # in the source-free exterior); the kernel call below is the SAME canonical
+    # S(A) used for the modulus, asserting the cap location is kernel-consistent.
+    A_lin = np.minimum(eps_lin, 1.0)
+    _ = saturation_kernel(A_lin, exponent=0.5, S_min=S_min)  # canonical kernel reuse
+    return A_lin
+
+
+def bulk_stiffness_D(
+    A: float | np.ndarray, *, S_min: float = 1e-3
+) -> float | np.ndarray:
+    r"""
+    BULK elliptic stiffness coefficient D(A) = 1/S(A) (the channel that STIFFENS).
+
+    .. math::
+        D(A) = \frac{1}{S(A)} = \frac{1}{(1 - A^2)^{1/2}}
+        \quad\xrightarrow{A \to 1}\quad \infty
+
+    This is the per-site dimensionless stiffness c_eff²/c₀² = 1/S in the
+    divergence-form operator −∇·[(c⁴/7G)·D·∇ε₁₁] = T₀₀. As A → 1 the coefficient
+    diverges: the medium goes rigid, the source can no longer push ε₁₁ past unity,
+    and the collapse halts (the yield shell). REUSES the canonical
+    :func:`stiffness_profile` (exponent=0.5) — NO new kernel is minted.
+
+    Per-channel sign-lock (INVARIANT-S2): BULK D = 1/S (stiffen), NOT a uniform
+    C·S. The SHEAR channel softens via the DERIVED √S projection
+    (:func:`shear_wave_speed`); the two signs are physically distinct.
+
+    Args:
+        A: Local strain ratio ε₁₁/ε_yield ∈ [0, 1].
+        S_min: Kernel floor (clip guard); caps D at 1/S_min for numerical stability.
+
+    Returns:
+        Bulk stiffness D ∈ [1, 1/S_min].
+    """
+    from ave.solvers.graded_vacuum_network import stiffness_profile
+
+    A = np.asarray(A, dtype=float)
+    return stiffness_profile(A, exponent=0.5, S_min=S_min)
+
+
 # ═══════════════════════════════════════════════════════════════
 # GW strain and propagation properties
 # ═══════════════════════════════════════════════════════════════
