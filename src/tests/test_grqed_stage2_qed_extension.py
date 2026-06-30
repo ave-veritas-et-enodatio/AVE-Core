@@ -132,9 +132,9 @@ class TestBZPropagatorActivateAtCutoff:
             continuum_loop_integral(f * K_MAX_SPATIAL, m_sq=_M_SQ)
             for f in (1, 2, 4, 8)
         ]
-        # strictly increasing with Λ (monotone divergence, ~Λ³)
+        # strictly increasing with Λ (monotone divergence, ~Λ linear)
         assert all(vals[i + 1] > vals[i] for i in range(len(vals) - 1))
-        # doubling Λ roughly doubles-and-more (super-linear, Λ³-dominated tail)
+        # doubling Λ roughly doubles-and-more (linear ~Λ (a 1/(k^2+m^2) bubble is linearly UV-divergent in 3D))
         assert vals[-1] / vals[0] > 5.0  # 8× Λ → > 5× integral
 
 

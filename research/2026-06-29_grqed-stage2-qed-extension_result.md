@@ -18,7 +18,7 @@ discrete-Hilbert commutator (DCVE App-E, `dcve-specification.md`:36-42) gives `p
 `[x,p]=iℏcos(kℓ)=iℏ√(1−(ℓp/ℏ)²)`, so the lattice supplies a **PHYSICAL momentum cutoff** at the Brillouin
 edge `|k|≤k_max=π/ℓ_node` — **no counterterm**. A 1-loop integral over the FIRST Brillouin zone is **FINITE
 by mode-count** (`loop_integral_brillouin_zone` → 1.25e14, converged N=48≈N=72); the same integrand in the
-continuum **DIVERGES** with the cutoff (7.1e13 → 7.8e14 as Λ goes 1→8×k_max, ~Λ³). At `qℓ≪1` the lattice
+continuum **DIVERGES** with the cutoff (7.1e13 → 7.8e14 as Λ goes 1→8×k_max, ~Λ (linear)). At `qℓ≪1` the lattice
 dispersion `(2/ℓ²)Σ_b(1−cos(k·b̂·ℓ))→|k|²` (the continuum QED propagator) to the `(kℓ)²/12` Taylor remainder
 — **recover-QED**. **(2) The E-route birefringence** — REUSING the canonical Op14 kernel `S(A)=√(1−A²)` (the
 SAME `saturation_factor` `fdtd_3d._compute_local_epsilon` applies), the static-E-driven ε-grade gives uniaxial
@@ -43,7 +43,7 @@ rides α⁻³). See the FORM/VALUE ledger (§8) and the F4 self-energy honesty (
 |---|---|---|
 | Inherited continuum QED core (NOT re-derived) | continuum propagator `|k|²−ω²/c²`; the low-momentum / weak-field limit | (inherited; recovered at `qℓ≪1` / `E≪E_yield`) |
 | ★ The BZ-cutoff propagator (FORM-DERIVED) | lattice denominator `(2/ℓ²)Σ_b(1−cos(k·b̂·ℓ))−ω²/c²`; loop integral over the FIRST BZ `|k|≤k_max=π/ℓ_node` | `qed/brillouin_cutoff.py`: `lattice_dispersion_denominator`, `loop_integral_brillouin_zone` |
-| Continuum contrast (the divergence) | `∫_{|k|<Λ} d³k/(k²+m²)` grows ~Λ³ — the UV divergence the cutoff removes (no AVE claim) | `qed/brillouin_cutoff.py`: `continuum_loop_integral` |
+| Continuum contrast (the divergence) | `∫_{|k|<Λ} d³k/(k²+m²)` grows ~Λ (linear) — the UV divergence the cutoff removes (no AVE claim) | `qed/brillouin_cutoff.py`: `continuum_loop_integral` |
 | Distinct-cutoff discipline | SPATIAL `k_max=π/ℓ_node` (LOOP bound) vs TEMPORAL `ω_C=c/ℓ_node` (μ bound); ratio exactly π | `K_MAX_SPATIAL` (DECLARED); constants.py:286-294 |
 | The E-route birefringence (the chord) | `A=E/E_yield`; `n_⊥=(1−A²)^(1/4)`, `n_∥=√[(1−2A²)/√(1−A²)]`, `δn_bir=n_∥−n_⊥≈−½A²` | `qed/birefringence.py`: `birefringence_dn`, `birefringence_eigenindices` |
 | The ONE kernel (REUSED, not minted) | `S(A)=√(1−A²)` via `scale_invariant.saturation_factor` — the SAME `fdtd_3d._compute_local_epsilon` uses | `qed/birefringence.py` (imports `saturation_factor`) |
@@ -88,7 +88,7 @@ New QED-extension package `src/ave/qed/` (distinct from the GR-extension which l
 | `brillouin_cutoff.K_MAX_SPATIAL` | the DECLARED spatial loop bound `k_max=π/ℓ_node≈8.135e12 /m` (NOT `ω_C`) |
 | `brillouin_cutoff.lattice_dispersion_denominator(k, *, ell, omega_over_c)` | the lattice propagator denominator `(2/ℓ²)Σ_b(1−cos(k·b̂·ℓ))−ω²/c²`; recover-QED at `kℓ≪1`, band-limits at the BZ edge |
 | `brillouin_cutoff.loop_integral_brillouin_zone(*, m_sq, ell, n_grid)` | the 1-loop integral over the FIRST BZ — FINITE by mode-count (no counterterm) |
-| `brillouin_cutoff.continuum_loop_integral(cutoff_lambda, *, m_sq, n_radial)` | the continuum contrast `∫_{|k|<Λ} d³k/(k²+m²)` — DIVERGES ~Λ³ (no AVE claim) |
+| `brillouin_cutoff.continuum_loop_integral(cutoff_lambda, *, m_sq, n_radial)` | the continuum contrast `∫_{|k|<Λ} d³k/(k²+m²)` — DIVERGES ~Λ (linear) (no AVE claim) |
 | `birefringence.birefringence_eigenindices(A)` | the uniaxial eigen-indices; `n_⊥` built from the REUSED canonical `S(A)` |
 | `birefringence.birefringence_dn(E, *, e_yield)` | the par−perp differential `δn_bir(E)≈−½A²` (the polarimeter observable) |
 | `birefringence.chord_magnitude_ratio()` | the α-echo magnitude `7.5/α³≈1.93×10⁷` (NOT the chord — the chord is the existence) |
@@ -130,7 +130,7 @@ The dispersion **band-limits** at the Brillouin edge, and the 1-loop integral ov
 | continuum `∫_{|k|<Λ} d³k/(k²+m²)`, Λ=1·k_max | `7.118×10¹³` |
 | Λ=2·k_max | `1.709×10¹⁴` |
 | Λ=4·k_max | `3.741×10¹⁴` |
-| Λ=8·k_max | `7.824×10¹⁴` (still growing — ~Λ³, **divergent**) |
+| Λ=8·k_max | `7.824×10¹⁴` (still growing — ~Λ (linear), **divergent**) |
 
 The contrast is the whole point: **SAME integrand**, FINITE on the compact Brillouin zone (a finite mode
 count), ARBITRARILY LARGE in the continuum as the cutoff is lifted (8× Λ → 11× the integral, no plateau). The

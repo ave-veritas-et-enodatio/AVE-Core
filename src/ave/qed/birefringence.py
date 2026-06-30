@@ -79,7 +79,7 @@ def birefringence_eigenindices(A: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     A = np.asarray(A, dtype=float)
     S = saturation_factor(A, yield_limit=1.0)  # √(1−A²) — canonical Op14 kernel
     n_perp = np.sqrt(S)  # (1−A²)^(1/4)
-    n_par = np.sqrt((1.0 - 2.0 * A**2) / np.sqrt(1.0 - A**2))
+    n_par = np.sqrt((1.0 - 2.0 * A**2) / S)  # inner sqrt(1-A^2) IS the canonical S (single-source)
     return n_perp, n_par
 
 

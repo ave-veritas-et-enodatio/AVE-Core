@@ -110,7 +110,7 @@ def continuum_loop_integral(
             = 4\pi\!\int_0^{\Lambda}\!\frac{k^2}{k^2+m^2}\,dk
 
     This is the prototypical UV-divergent vacuum-polarization / self-energy
-    integrand: it **grows without bound** (~Λ³/3) as Λ → ∞. In standard QED this
+    integrand: it **grows without bound** (~Λ, linear) as Λ → ∞. In standard QED this
     is the divergence that *needs* a regulator (dim-reg + a counterterm). It is
     provided here ONLY to exhibit the divergence the BZ cutoff removes — there is
     no AVE claim in the continuum branch.
