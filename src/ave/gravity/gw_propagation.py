@@ -517,6 +517,62 @@ def distributed_source_T00(
     return amplitude * np.exp(-r2 / (2.0 * sigma**2))
 
 
+def _build_native_grad_div(N: int):
+    r"""Assemble the native diamond-K4 Grad / Div sparse operators on an N³ cube.
+
+    Factored out of :func:`relax_finite_core_strain` (BIT-IDENTICAL build) so the
+    Stage-3 self-gravitation loop reuses the SAME native tetrahedral gradient for
+    its binding-energy density |∇ε₁₁|² — the load-bearing K4 checkpoint (a Cartesian
+    np.gradient here would be a non-native leak). Grad/Div are D-independent
+    permutation-difference operators on ``TETRA_OFFSETS`` (the 4 diamond diagonals);
+    the Cartesian 7-pt Laplacian is never used.
+
+    Returns:
+        (Grad, Div) where Grad is (3·N³, N³) and Div is (N³, 3·N³).
+    """
+    from scipy import sparse
+
+    from ave.topological.cosserat_field_3d import TETRA_OFFSETS
+
+    ndof = N**3
+    lin = np.arange(ndof)
+
+    def _roll_perm(shift):
+        idx3 = np.unravel_index(lin, (N, N, N))
+        ri = (
+            (idx3[0] - shift[0]) % N,
+            (idx3[1] - shift[1]) % N,
+            (idx3[2] - shift[2]) % N,
+        )
+        return np.ravel_multi_index(ri, (N, N, N))
+
+    eye = sparse.identity(ndof, format="csr")
+    grad_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
+    for p in TETRA_OFFSETS:
+        P = sparse.csr_matrix(
+            (np.ones(ndof), (lin, _roll_perm((-p[0], -p[1], -p[2])))),
+            shape=(ndof, ndof),
+        )
+        delta = P - eye
+        for m in range(3):
+            if p[m] != 0:
+                grad_blocks[m] = grad_blocks[m] + 0.25 * p[m] * delta
+    Grad = sparse.vstack(grad_blocks, format="csr")  # (3·ndof, ndof)
+
+    div_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
+    for p in TETRA_OFFSETS:
+        Pp = sparse.csr_matrix(
+            (np.ones(ndof), (lin, _roll_perm((p[0], p[1], p[2])))),
+            shape=(ndof, ndof),
+        )
+        delta = Pp - eye
+        for m in range(3):
+            if p[m] != 0:
+                div_blocks[m] = div_blocks[m] + 0.25 * p[m] * delta
+    Div = sparse.hstack(div_blocks, format="csr")  # (ndof, 3·ndof)
+    return Grad, Div
+
+
 def relax_finite_core_strain(
     N: int = 32,
     *,
@@ -526,6 +582,9 @@ def relax_finite_core_strain(
     n_picard: int = 400,
     picard_mix: float = 0.2,
     return_history: bool = False,
+    T00_override: np.ndarray | None = None,
+    eps_init: np.ndarray | None = None,
+    picard_tol: float | None = None,
 ) -> dict:
     r"""
     Solve the saturating-modulus elliptic problem on the native tetrahedral stencil.
@@ -582,54 +641,24 @@ def relax_finite_core_strain(
     from scipy.sparse.linalg import spsolve
 
     from ave.solvers.graded_vacuum_network import saturation_kernel, stiffness_profile
-    from ave.topological.cosserat_field_3d import TETRA_OFFSETS
 
     ndof = N**3
     c = N // 2
     i, j, k = np.indices((N, N, N))
     rr = np.sqrt((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2)
 
-    T00 = distributed_source_T00(N, sigma=sigma, amplitude=amplitude)
+    if T00_override is None:
+        T00 = distributed_source_T00(N, sigma=sigma, amplitude=amplitude)
+    else:
+        T00 = np.asarray(T00_override, dtype=float)
     M_eff = float(T00.sum())  # integrated source — clip-independent invariant
 
     # ---- native divergence-form Grad / Div (D-independent), built ONCE ----------
     # SAME factored permutation-difference build as _build_sparse_stiffness: the
     # tetrahedral gradient grad[...,j] += 0.25·p_j·(roll(V,-p) − V) and its adjoint.
-    lin = np.arange(ndof)
-
-    def _roll_perm(shift):
-        idx3 = np.unravel_index(lin, (N, N, N))
-        ri = (
-            (idx3[0] - shift[0]) % N,
-            (idx3[1] - shift[1]) % N,
-            (idx3[2] - shift[2]) % N,
-        )
-        return np.ravel_multi_index(ri, (N, N, N))
-
-    eye = sparse.identity(ndof, format="csr")
-    grad_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
-    for p in TETRA_OFFSETS:
-        P = sparse.csr_matrix(
-            (np.ones(ndof), (lin, _roll_perm((-p[0], -p[1], -p[2])))),
-            shape=(ndof, ndof),
-        )
-        delta = P - eye
-        for m in range(3):
-            if p[m] != 0:
-                grad_blocks[m] = grad_blocks[m] + 0.25 * p[m] * delta
-    Grad = sparse.vstack(grad_blocks, format="csr")  # (3·ndof, ndof)
-
-    div_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
-    for p in TETRA_OFFSETS:
-        Pp = sparse.csr_matrix(
-            (np.ones(ndof), (lin, _roll_perm((p[0], p[1], p[2])))),
-            shape=(ndof, ndof),
-        )
-        delta = Pp - eye
-        for m in range(3):
-            if p[m] != 0:
-                div_blocks[m] = div_blocks[m] + 0.25 * p[m] * delta
-    Div = sparse.hstack(div_blocks, format="csr")  # (ndof, 3·ndof)
+    # Extracted into the shared _build_native_grad_div helper (BIT-IDENTICAL) so the
+    # Stage-3 self-gravitation loop reuses the SAME native K4 gradient.
+    Grad, Div = _build_native_grad_div(N)
 
     # Dirichlet-zero faces: solve on interior DOFs only.
     bnd = np.zeros((N, N, N), dtype=bool)
@@ -647,7 +676,10 @@ def relax_finite_core_strain(
     # on the observable is the honest substrate-native measure; the pointwise
     # residual is still reported as ``picard_delta`` for transparency.
     rr_flat = rr.reshape(ndof)
-    eps = np.zeros(ndof)
+    # Warm-start (Stage-3 reuse): seed ε from the previous outer iterate to avoid
+    # re-converging from zero each two-way step. Defaults to the Stage-1 cold start
+    # (zeros) ⇒ BIT-IDENTICAL when eps_init is None.
+    eps = np.zeros(ndof) if eps_init is None else np.asarray(eps_init, dtype=float).reshape(ndof).copy()
     history: list[float] = []
     n_iter = 0
     converged = False
@@ -676,6 +708,14 @@ def relax_finite_core_strain(
             shell_window.pop(0)
         if it >= 30 and len(set(shell_window)) == 1 and sr_now > 0.0:
             converged = True  # shell radius stationary for 15 consecutive iterations
+            break
+        # Optional pointwise-residual early-exit (Stage-3 weak/no-shell regime): when
+        # NO shell forms (max A < 0.99, the operator is smooth/near-linear), the
+        # observable criterion above never triggers; the pointwise residual is then
+        # the honest convergence measure. Defaults OFF (picard_tol is None) ⇒ Stage-1
+        # behaviour is BIT-IDENTICAL (this branch is never entered).
+        if picard_tol is not None and it >= 1 and picard_delta < picard_tol and sr_now == 0.0:
+            converged = True
             break
 
     eps11 = eps.reshape(N, N, N)
