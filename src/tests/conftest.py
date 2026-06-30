@@ -87,6 +87,14 @@ _ENGINE_SIM_TESTS = {
     "test_grqed_stage1_gr_extension.py::TestFiniteCoreShellForms::test_relaxation_forms_saturated_shell",
     "test_grqed_stage1_gr_extension.py::TestFiniteCoreShellForms::test_core_saturated_exterior_unsaturated",
     "test_grqed_stage1_gr_extension.py::TestClipIndependenceGate::test_shell_radius_and_M_eff_are_S_min_independent",
+    # Stage-2 QED-extension heavy BZ loop-integral quadrature: the convergence +
+    # finite-vs-continuum sweeps run N=48/72 3D mode grids (~0.4-1s each, several
+    # grids per test). The CLOSED-FORM Stage-2 tests (dispersion recover-QED,
+    # BZ-edge band-limit, birefringence δn, distinct-cutoff, α-echo, FORM/VALUE
+    # guards) in the same file STAY gating (sub-second). Coverage via
+    # `make test-engine`.
+    "test_grqed_stage2_qed_extension.py::TestBZLoopIntegralConvergence::test_bz_loop_integral_converges_with_grid",
+    "test_grqed_stage2_qed_extension.py::TestBZLoopIntegralConvergence::test_bz_finite_while_continuum_diverges_same_integrand",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
