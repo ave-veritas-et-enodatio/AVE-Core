@@ -78,6 +78,15 @@ _ENGINE_SIM_TESTS = {
     # fork_b saturation-tank sweep above (#386). The fast validate-on-known checks in the
     # same file (impedance/isotropy/scatter@400, ≤2s) STAY gating. Coverage via make test-engine.
     "test_facade_p0_validate_on_known.py::test_facade_rung0_closed_box_energy_gate",
+    # Stage-1 GR-extension finite-core elliptic relaxation + clip-independence gate
+    # (sparse Picard spsolve at N=20/24; ~2-7s each, and the gate runs 3 solves).
+    # The CLOSED-FORM Stage-1 tests (strain/stiffness/r_sat/EM-spectator/α-clean) in
+    # the same file STAY gating (sub-second). Coverage via `make test-engine`.
+    "test_grqed_stage1_gr_extension.py::TestRecoverTheKnown::test_finite_core_far_tail_is_unsaturated",
+    "test_grqed_stage1_gr_extension.py::TestDistributedSource::test_source_integral_is_clip_independent_invariant",
+    "test_grqed_stage1_gr_extension.py::TestFiniteCoreShellForms::test_relaxation_forms_saturated_shell",
+    "test_grqed_stage1_gr_extension.py::TestFiniteCoreShellForms::test_core_saturated_exterior_unsaturated",
+    "test_grqed_stage1_gr_extension.py::TestClipIndependenceGate::test_shell_radius_and_M_eff_are_S_min_independent",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
