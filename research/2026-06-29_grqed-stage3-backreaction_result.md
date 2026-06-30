@@ -20,7 +20,8 @@ converged field the effective mass **EMERGES** with the binding-deficit subtract
 ADM mass — the self-energy is SUBTRACTED, not added; adding it double-counts). **All four at-risk checks PASS,
 honestly** (each with a boundary-/truncation-robust discriminator whose artifacts were diagnosed against
 controls, not papered over): an unlabeled blob sources a 1/r monopole; the emergent M_eff is exactly
-S_min-independent; the ray-traced deflection comes out GR-doubled (4GM/bc², not the Newtonian 2GM/bc²); and
+S_min-independent; the ray-traced deflection magnitude is an output of the emergent monopole (the GR-vs-Newton
+*doubling factor* itself is the imported ν_vac=2/7, not dynamically produced — see §6); and
 the two-mass superposition engages the nonlinearity (combined field ≠ linear sum, 2.4×). The Picard fixed
 point is **PROVABLY contractive** (ρ measured, not asserted — ρ grows with compactness from 0.012 to 0.098
 across the weak/moderate band, all < 1) and **energy-stationary** at the fixed point (|dH/H| ≤ 1×10⁻⁴, no
@@ -159,7 +160,15 @@ divergence-cap is irrelevant to the mass; the integrated energy is clamp-free.)
 Ray-trace a photon (eikonal) through the EMERGENT optical metric `n(r) = 1 + ν_vac·ε₁₁(r)` of the converged
 two-way field; does the deflection come out GR-doubled (4GM/bc²), not Newtonian (2GM/bc²)? The only imported
 constant is ν_vac = 2/7 (the trace-reversed Poisson ratio — a gravity-sector geometry constant, NOT α). The
-monopole coefficient K is read OUT of the converged field, so 4GM/bc² is an OUTPUT.
+monopole coefficient K is read OUT of the converged field, so the deflection **magnitude** is an OUTPUT
+(emergent K, emergent field shape).
+
+**FORM/VALUE precision (verify flag).** The GR-vs-Newton *doubling factor itself* is NOT dynamically produced
+by the back-reaction loop — it is the imported `ν_vac = 2/7` (trace-reversed). The deflection is exactly linear
+in `ν_vac` (`ln(1+ν·ε) ≈ ν·ε`, so halving `ν_vac` halves the coefficient, 0.4495 → 0.2257). So: the emergent
+content is the monopole magnitude `K`; the factor-of-2 is the imported gravity-sector geometry constant — same
+plumbing as a transformer turns-ratio setting the output voltage. This is FORM-derived/VALUE-imported, stated
+exactly.
 
 **Analytic mapping (the GR doubling is the discriminator).** For `ε₁₁ = K/r` the eikonal deflection is
 `δ = ∫ ∂_⊥ ln n ds = 2·ν_vac·K/b = (4/7)·K/b = 4GM_eff/(bc²)` — exactly 4GM/bc², DOUBLE the Newtonian
@@ -330,6 +339,18 @@ real reactive energy), the sign flips and M_eff > M_matter. **Flagging, not fixi
 flipping `effective_mass`'s sign is a one-line change, and the at-risk checks (all ratio/shape) are sign-
 agnostic. The result doc and tests assert the SUBTRACT convention; your adjudication decides whether that holds
 or Stage-4 revisits it.
+
+> **★ RULED 2026-06-29 (Grant): SUBTRACT.** The sign is forced by gravity being *attractive*, which is local
+> (bound systems are bound everywhere, not only at infinity) — and the substrate-native reason is the
+> **frequency down-regulation**: deeper into the well the compliance reduces (`S↓`, bulk stiffens), the local
+> clock `ω_local = ω√S` down-regulates; energy *is* frequency (`E=ℏω`) and mass *is* energy (`mc²`), so matter
+> in the well weighs *less* → the mass defect → SUBTRACT. The positive strain energy is not a separate ledger
+> to ADD — it is already accounted in the down-regulated frequency (no double-count). The capacitor-ADD reading
+> would predict a mass *excess* and *repulsive* gravity (the field-energy cross-term flips to `+Gm₁m₂/r`),
+> falsified by every bound orbit. **The chord is NOT the weak-field sign** (that is the observed redshift /
+> defect); it is the *saturation* of the down-regulation in the strong field — where `S→0` at the yield shell,
+> `ω_local→0` (the clock freezes) and AVE's `√S` can peel from GR's `√(1−r_s/r)`, measurable only by a ruler
+> that cannot leave the region of influence. Carried as the Stage-4 strong-field target.
 
 ---
 
