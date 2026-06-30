@@ -95,6 +95,17 @@ _ENGINE_SIM_TESTS = {
     # `make test-engine`.
     "test_grqed_stage2_qed_extension.py::TestBZLoopIntegralConvergence::test_bz_loop_integral_converges_with_grid",
     "test_grqed_stage2_qed_extension.py::TestBZLoopIntegralConvergence::test_bz_finite_while_continuum_diverges_same_integrand",
+    # Stage-3 TWO-WAY back-reaction (#86): the self-consistent outer Picard loop
+    # wrapping the Stage-1 elliptic solve. Each at-risk check runs several converged
+    # two-way solves (warm-started spsolve; ~3-30s each). The fast closed-form /
+    # single-solve Stage-3 tests (α-clean, field-energy ledger, g_self=0 recovery)
+    # in the same file STAY gating (sub-second). Coverage via `make test-engine`.
+    "test_grqed_stage3_backreaction.py::TestRecoverGR::test_recover_gr_weak_field",
+    "test_grqed_stage3_backreaction.py::TestAtRiskCheck1InverseR::test_extended_source_recovers_inverse_r",
+    "test_grqed_stage3_backreaction.py::TestAtRiskCheck2SminIndependent::test_emergent_mass_is_smin_independent",
+    "test_grqed_stage3_backreaction.py::TestAtRiskCheck3Raytrace::test_raytrace_recovers_4GM",
+    "test_grqed_stage3_backreaction.py::TestAtRiskCheck4Nonlinearity::test_two_mass_nonlinearity_engages",
+    "test_grqed_stage3_backreaction.py::TestBoundednessEnergyGate::test_contractive_and_energy_stationary",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
