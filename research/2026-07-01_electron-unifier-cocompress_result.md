@@ -70,7 +70,7 @@ BOTH sectors. Unitary lossless Crank–Nicolson (`port_sigma=0`).
 | Guard | Status |
 |---|---|
 | FIELD SELF-ENERGY pull (gradient ∫|∇·|²/S off the engine's L_D), NOT the varactor ⟨S⟩ | ✅ measured the substrate's own gradient term |
-| CO-COMPRESSING (one collective R; A1 envelope + winding torus scale together) | ✅ `s=R/R_ref` scales `a1_radius, R_w, r_w` together |
+| CO-COMPRESSING (one collective R; A1 envelope + winding torus scale together) | ✅ `s=R/R_ref` scales `a1_radius, R_w, r_w` together — but note (§0/§3) this makes the measured Derrick exponents a re-read of the seed convention, NOT an independent dynamical test |
 | `Γ_w=∮ω·dl` conserved (seed ∝1/R) | ✅ within-window drift **4.2–4.5% < 5%** (prior 17%); converges 5.2→4.6→4.3 for N=32→40→48 |
 | Tellegen-LOSSLESS (NO dissipative term) | ✅ `|dH/H|≈10⁻¹²` every row, both grids |
 | TRAP-not-CREATE (winding pre-exists) | ✅ rigid_template ê_w; barred genesis slot not re-entered |
@@ -125,40 +125,60 @@ have been bankable — the gate was live).
 Grids N=40, N=48 (both Link-valid across the whole `s∈[0.85,1.6]` sweep; `Γ_w` drift converged <5%).
 The collective radius `R` = the winding-loop energy-density-peak radius (top-K `|b_ω|²`, interior).
 
-### 3.1 The field self-energy scaling — Part-1 CONFIRMED to three nines
+### 3.1 The field self-energy scaling — the seed's Derrick exponent, RE-READ (not independently confirmed)
 
-| N | `E_grad_A1` energy exponent (expect `R⁻²`) | fit r² | `b_measured` (A1-gradient force, expect `p=3`) | fit r² |
+| N | `E_grad_A1` energy exponent (seed forces `R⁻²`) | BRACE-fit r² | `b_measured` (A1-gradient force) | force-fit r² |
 |---|---|---|---|---|
 | 40 | **2.12** | 0.9997 | **2.51** | 0.98 |
 | 48 | **2.06** | 0.9998 | **2.53** | 0.98 |
 
-The A1 gradient self-energy scales as `R⁻²` (the OUTWARD brace) to r²≈0.9998 on both grids — the Part-1
-prediction, MEASURED. The brace force exponent `b_measured≈2.5` converges toward the derived `p=3`
-(the finite-difference force fit under-reads the exponent slightly on the coarse sweep; the ENERGY
-exponent, less noisy, pins `R⁻²` exactly).
+The A1 gradient self-energy scales as `R⁻²` (the OUTWARD brace) to r²≈0.9998 on both grids. **The "three
+nines" (r²=0.9997/0.9998) belong to THIS brace-energy fit ONLY.** And the `R⁻²` it fits is the exponent
+the fixed-charge seed convention HARD-WIRES (`Q=∫|a|²` fixed ⇒ `A²∝R⁻³` ⇒ `E_grad_A1∝R⁻²`), present at
+the instant of seeding — so this r²=0.9998 measures how cleanly the sim re-reads the seed, not whether
+the dynamics independently produce `R⁻²`. The brace force exponent `b_measured≈2.5` (r²≈0.98)
+finite-difference-under-reads the derived `p=3`.
 
-### 3.2 The inward pull exponent `p_measured` — `< 3`, resolution-robust
+### 3.2 The inward pull exponent `p_measured` — near-constant (consistent with `p≈0`), NOT precisely pinned
 
-| N | `p_measured` (winding LC-tank inward pull) | `E_tank_w` energy exponent (expect `+R`) | brace out-steepens pull? |
-|---|---|---|---|
-| 40 | **0.32** | `+0.90` | ✅ (`2.51 > 0.32`) |
-| 48 | **0.15** | `+0.94` | ✅ (`2.53 > 0.15`) |
+| N | `p_measured` (winding LC-tank inward pull) | PULL-fit r² | `E_tank_w` energy exponent (seed forces `E∝R⁺¹`) | brace out-steepens pull? |
+|---|---|---|---|---|
+| 40 | **0.32** | **0.76** | `+0.90` (`p_E=−0.90` in JSON, `|y|∝x⁻ᵖ` convention) | ✅ (`2.51 > 0.32`) |
+| 48 | **0.15** | **0.56** | `+0.94` (`p_E=−0.94` in JSON) | ✅ (`2.53 > 0.15`) |
 
-The inward binder is the winding LC-tank `ω_s∫|b|²` (energy `∝+R`, force `∝R⁰`), `p_measured≈0.15–0.32`,
-matching the Part-1 `p_derived=0`. **`p_measured < 3` on both grids; it does NOT flip** (the prior
-INCONCLUSIVE grid-flip is gone). The brace out-steepens the pull on every grid.
+**Convention note (§3.2 sign).** The `E_tank_w` energy column is written as the PHYSICAL exponent
+(`E∝R^{+0.90}`, energy RISES with `R` — the LC-tank store). The raw JSON reports it under the driver's
+`fit_power_law` convention `|y|∝x⁻ᵖ` (`fit_power_law` docstring, `electron_unifier_cocompress.py:245`),
+so the banked value is `E_tankw_energy_exp = −0.90 / −0.94`; the `+0.90 / +0.94` in this table is the
+same quantity with the sign flipped to the physical `E∝R⁺⁰·⁹` reading. Both are the same fit; the sign
+difference is the convention, not a discrepancy.
 
-### 3.3 The force balance `dF_net/dR` and the equilibrium `R*`
+The inward binder is the winding LC-tank `ω_s∫|b|²`. Its force is **near-constant** across the window
+(`F_tank_w ≈ −90`, an 18.5% spread N=40 / 12.9% N=48), i.e. **consistent with `p≈0`** — but the pull-fit
+r² is only **0.76 (N=40) / 0.56 (N=48)**, so `p_measured=0.15–0.32` is NOT a precisely-pinned exponent;
+it is "near-constant, consistent with `p≈0`," not "`p=0.2`." Do not read the `p_measured` figures as a
+tight measurement (the three-nines r² is the BRACE fit, §3.1, not this pull fit). **`p_measured < 3` on
+both grids and it does not flip — but this too is forced by the seed** (`E_tank_w∝R⁺¹` is the fixed-`Γ_w`
+seed convention re-read), not an independent dynamical result.
 
-Within the resolvable co-compress window (`R≈2.9–5.6`), the **net collective-radius force `F_net` is
-inward everywhere** (`≈−80`, dominated by the winding LC-tank pull ~80 vs the gradient braces ~0.06–0.26).
-The `r⁻³`-class braces overtake the ~constant tank pull only at smaller `R`, **below the window** — where
-the single stable `R*` sits (Part-1 analytic: `dF_R/dR<0` everywhere ⇒ the crossing is stable). **The sim
-confirms the EXPONENT CONTEST (`p_pull=0.15–0.32 < b_brace≈2.5`) that Part 1 uses to PROVE the crossing
-is stable; it does NOT directly observe `R*`** (which is prefactor/calibration-set, below the window —
-the derivation §4 flagged the size as imported, not derived). This is the honest scope: derived +
-measured confirmation of the MECHANISM (a steeper brace out-running a shallower pull under one collective
-radius), not a directly-observed equilibrium. `crossing_bracketed=False`, stated as-is.
+### 3.3 The force balance `dF_net/dR` and the equilibrium `R*` — NO equilibrium observed or observable
+
+Within the sampled co-compress window (`R≈2.94–5.57`), the **net collective-radius force `F_net` is
+inward EVERYWHERE** (`F_net≈−70…−89`, dominated by the winding LC-tank pull `F_tank_w≈−90` vs the gradient
+braces `F_grad_A1≈0.06–0.26`). There is **no sign change in-window**: `crossing_exists=False`,
+`crossing_bracketed=False`, `R_star=NaN`, `stable_robust=False` (all banked, stated as-is). **No
+equilibrium was observed, and none is observable in this window.**
+
+The single crossing the Part-1 analytic guarantees sits at **`R*≈0.4`** (solving the fitted
+`F_grad_A1 = c₃/R³` brace against the near-constant `F_tank_w≈−c₀` pull: `R*=(c₃/c₀)^{1/3}≈0.44`). That
+is **below the sampled window (min `R=2.94`, a ≈7× extrapolation) AND below one lattice cell (`dx=0.5`)**
+— i.e. `R*` is unresolvable on this lattice by more than a factor of a cell. The "well" is therefore a
+**7× downward extrapolation of two fitted exponents** (a clean `R⁻²`/`R⁻³` brace and a near-constant
+pull), NOT a measured or bracketable feature. The correct phrasing is
+**"consistent-with-binding-at-the-exponent-level,"** not "the electron binds." The sim exercises the
+exponent CONTEST (`p_pull≈0.2 < b_brace≈2.5`), but — per §0/§3.1 — that contest is itself the seed
+convention re-read, so it is a consistency check on the FORM, not a dynamical demonstration of an
+equilibrium.
 
 ### 3.4 `Γ_w` (circulation) conservation — the co-compress fix LANDED
 
