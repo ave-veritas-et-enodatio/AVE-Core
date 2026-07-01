@@ -196,10 +196,35 @@ verdict-grids pass the frozen `<5%` gate.
 
 ---
 
-## 4. FLAG — a mechanism inversion inside the derivation, surfaced not fixed (flag-don't-fix)
+## 4. FLAG — the load-bearing physics choice + a mechanism inversion, surfaced not fixed (flag-don't-fix)
 
-**The merged derivation §5.2 asserts the FIELD SELF-ENERGY is the INWARD pull; the substrate says it is
-an OUTWARD brace.**
+### 4.0 THE LOAD-BEARING FLAG (add for Grant): which compression ENSEMBLE?
+
+**The entire brace-vs-pull SIGN assignment is CONDITIONED on fixed-reactive-charge normalization.** The
+Part-1 Derrick scaling (§2) holds the enclosed reactive charge `Q=∫|a|²` FIXED as `R` shrinks
+(`A²∝R⁻³`), and the co-compress driver seeds/renormalizes to the same fixed `Q`
+(`electron_unifier_cocompress.py:275–277`, `Q_fixed=∫|a|²` from the `s=1` seed). Under THAT ensemble the
+A1-gradient term is an OUTWARD brace (`E∝R⁻²`, `F=+/R³`).
+
+**Under a fixed-AMPLITUDE ensemble instead** — the Part-1 `a=0` row / peak-strain-held-fixed convention —
+**the A1-gradient term FLIPS to an INWARD pull.** (With `A=const`, the gradient energy `∫|∇a|²/S` scales
+as `R^{d-2}=R⁺¹`, so its force is `−dE/dR<0`, inward — the opposite sign.) The whole "steeper brace
+out-runs a shallower pull ⇒ stable well" story is therefore ensemble-dependent: it is the fixed-charge
+picture. A fixed-amplitude picture rearranges which terms are braces and which are pulls.
+
+**The question for Grant (plumber-physical):** *when you squeeze the electron, what stays fixed — the
+reactive charge it stores (`Q=∫|a|²`), or the peak strain / amplitude (`A`) at its core?* This is not a
+cosmetic mechanism-name difference; it is the load-bearing physics choice that determines the sign of the
+dominant force and hence whether the Derrick balance even has the shape claimed. Fixed reactive charge is
+the natural choice IF the electron's charge is the conserved topological/circulation quantity being held
+(consistent with the (2,3)-winding = charge ownership); fixed amplitude is natural if the core saturates
+to a strain the medium sets. **This is surfaced, NOT resolved — it is the physical premise the whole
+consistency-class result rests on.**
+
+### 4.1 The mechanism-NAME inversion (retained — note it is downstream of §4.0)
+
+**The merged derivation §5.2 asserts the FIELD SELF-ENERGY is the INWARD pull; the substrate says (under
+fixed reactive charge, §4.0) it is an OUTWARD brace.**
 
 Verbatim, the two statements in tension:
 - Derivation `research/2026-06-30_electron-portmap-derivation_result.md`:363 (Regime I) — *"A localized
@@ -228,23 +253,36 @@ mechanism-identity question for Grant; the `r⁻³` SCALING (hence the stability
 
 ---
 
-## 5. VERDICT MAPPING (frozen criteria, none dropped)
+## 5. VERDICT MAPPING (frozen criteria, none dropped — with the independent-verify downgrade applied)
 
-- **(U1)** `p_derived < 3` (Part 1) — **HOLDS** (`p_derived=0`; structurally forced in 3D).
-- **(U2)** `p_measured < 3` resolution-robust — **HOLDS** (`0.32`@N=40 / `0.15`@N=48; no flip; the
-  A1-gradient energy exponent `R⁻²` pinned to r²=0.9998).
-- **(U3)** `dF_net/dR` STABLE at `R*` — **HOLDS BY EXPONENT** (the brace `p≈2.5` out-steepens the pull
-  `p≈0.2` on both grids, which is the load-bearing, prefactor-independent condition; Part-1 proves the
-  resulting single crossing is stable). The absolute `R*` is NOT bracketed by the window (prefactor/
-  calibration; derivation §4) — stated honestly, not claimed as a directly-observed equilibrium.
-- **(U4)** `Γ_w` conserved <5% — **HOLDS** (4.2–4.5%; converging; 3–4× better than prior 17%).
+- **(U1)** `p_derived < 3` (Part 1) — **HOLDS** (`p_derived=0`; structurally forced in 3D). This is the
+  genuine, sound Part-1 FORM result.
+- **(U2)** `p_measured < 3` resolution-robust — **HOLDS but NON-INDEPENDENT.** The measured exponents
+  (`E_grad_A1∝R⁻²` r²=0.9998; `E_tank_w∝R⁺¹`; `p_measured=0.15–0.32`) are the fixed-charge /
+  conserved-circulation SEED convention re-read (present before any dynamics; CN moves them <1%), so
+  `p_measured<3` could not have failed in-window. It confirms the FORM is self-consistent, not that the
+  dynamics independently realize it. (The pull-fit r² is only 0.56–0.76; see §3.2.)
+- **(U3)** `dF_net/dR` STABLE at `R*` — **NOT DEMONSTRATED.** `crossing_exists=False`,
+  `crossing_bracketed=False`, `R_star=NaN`, `stable_robust=False` (banked). `F_net` is inward everywhere
+  in-window; the single crossing `R*≈0.4` sits below the window (≈7× extrapolation) AND below one lattice
+  cell (`dx=0.5`). No equilibrium was observed or is observable. The stability is a Part-1 ANALYTIC
+  property of `F_R(R)`, not a Part-2 measurement — correct phrasing is
+  "consistent-with-binding-at-the-exponent-level," NOT "the electron binds."
+- **(U4)** `Γ_w` conserved <5% — **HOLDS** (4.2–4.5%; converging; 3–4× better than prior 17%). This
+  confirms the co-compress instrument's measurement PREMISE landed; it does not bear on binding.
 - **(U5)** Tellegen-lossless — **HOLDS** (`|dH/H|≈10⁻¹²`, NO dissipative term).
 
-All five hold ⇒ **UNIFIER-CONFIRMED.** No criterion was dropped; no INCONCLUSIVE/DEAD sub-condition
-fired on the fully-resolved grids; the grid set (N=40/48) was chosen because the coarser grids cannot
-carry the co-compressed template (N=24 Link-misreads; N=32's deepest-loop row grazes the 5% boundary the
-finer grids resolve) — recorded transparently, not to game the criterion (the frozen prereg froze
-"≥2 grids, no flip," not specific N; the convergence trend certifies the choice).
+**Revised verdict: CONSISTENCY-class, NOT UNIFIER-CONFIRMED.** U1/U4/U5 hold cleanly; U2 holds only as a
+non-independent re-read of the seed (no failure route — the prereg "HOLD REAL ODDS IT FAILS" guard was
+NOT met); **U3 is NOT DEMONSTRATED** — no bound state was dynamically observed, and none is observable in
+the sampled window. The frozen `UNIFIER-CONFIRMED iff ALL of U1–U5` therefore does NOT trigger, because
+U3 (the stable equilibrium — the actual "does it hold together" criterion) is not met. Per Rule 11 this
+is reported as the honest downgrade, not debugged toward a pass: the criteria were not dropped; U3 was
+re-read correctly against the banked `crossing_exists=False` after the independent verify caught that the
+prior "HOLDS BY EXPONENT" reading imported the Part-1 analytic conclusion into a Part-2 slot the sim
+never measured. The grid set (N=40/48) note stands (N=24 Link-misreads; N=32's deepest-loop row grazes
+the 5% boundary), but resolution-robustness of a re-read seed exponent is not, by itself, a confirmation
+of binding.
 
 ---
 
