@@ -8,7 +8,9 @@ pass/fail (§ADJUDICATION) is frozen here; Part 1 (the Derrick derivation) is sy
 precedes and INFORMS the frozen sim criteria (it is not a fit to sim data). Per Rule 11 no criterion is
 dropped/weakened post-hoc to convert a NEGATIVE into a CONFIRMED.
 
-**SHA-pin (this file, frozen commit):** _(filled at commit time; criteria below are frozen as written)._
+**SHA-pin (this file, frozen commit):** `9f388305` — the derivation (Part 1) and co-compress driver
+(Part 2) are built AFTER this commit and cite it. (This edit adds only the pin; the frozen §ADJUDICATION
+criteria are unchanged from `9f388305`.)
 
 ---
 
