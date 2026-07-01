@@ -190,9 +190,10 @@ Both reads agree: **the time-averaged μ→A1 back-reaction is COMPRESSIVE.** (V
 ### 2.2 The rectification IS the mechanism (why AC → DC envelope)
 
 The sign came out inward *because* `S(A)=√(1−A²)` is an EVEN, concave-down function of `A`: the fast
-AC swing `A=Ā+δA cos ω_C t` gives, to second order, `⟨S(A)⟩ ≈ S(Ā) + ½ S''(Ā) δA²` with
-`S''(A) = −(1−A²)^{−3/2} < 0` everywhere. So the AC swing DEPRESSES the time-averaged `⟨S⟩` below
-`S(Ā)` by `½|S''|δA²` — a strictly nonlinear (∝ amplitude²) DC softening. **The winding's AC
+AC swing `A=Ā+δA cos ω_C t` gives, to second order, `⟨S(A)⟩ ≈ S(Ā) + ¼ S''(Ā) δA²` (the `¼` = `½`
+Taylor coefficient × `⟨cos²ω_C t⟩=½`) with `S''(A) = −(1−A²)^{−3/2} < 0` everywhere. So the AC swing
+DEPRESSES the time-averaged `⟨S⟩` below `S(Ā)` by `¼|S''|δA²` — a strictly nonlinear (∝ amplitude²) DC
+softening. **The winding's AC
 oscillation rectifies, through the concave saturation kernel, into a DC reduction of the envelope
 stiffness = a DC inward (ponderomotive) compression.** This is the "AC circulation rectified into a
 DC compression = rest mass" hypothesis, DERIVED (not assumed) from `S''<0`. The rectified DC envelope
