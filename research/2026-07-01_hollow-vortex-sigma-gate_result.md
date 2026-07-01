@@ -179,6 +179,16 @@ genesis-v5 seed value Γ=80.75 (a specific initial condition, not the topologica
    This is the corpus cavitation-ONSET result: to drill the void open, the wall swirl must reach
    v_θ = M_edge*·c₀. So the void-wall swirl is **fixed** at v_θ = M_edge*·c₀ — this is the
    substrate-derived swirl, read off the cavitation threshold, not a free parameter.
+
+   > **PROVENANCE CLIP-CAVEAT (verify, Finding 3).** The M_edge*≈0.75 source
+   > (`cavitation-core-probe_result.md`) is **CLIP-demoted (LOCK→CLIP)**: its FLASH/LOCK
+   > verdict TRACKS the positive-c²-floor apparatus (`cavitation_flow.py:159-163`; the dynamics
+   > never integrated c²<0, so any irreversible LOCK was excluded by construction — see
+   > `sonic-horizon-closure_prereg.md:22`). Only the **clip-INVARIANT** part of that probe is
+   > load-bearing here: the *reach/crossing-drive* — that the cavitation floor ρ̄_cav=−1/φ is
+   > REACHABLE by circulation at edge Mach ~0.75, which is a smooth reversible crossing and does
+   > NOT depend on any FLASH/LOCK event. That reach is all Γ needs (Γ reads the crossing swirl,
+   > not a locked state), so **Γ is unweakened** while its provenance stays honest.
 3. **The contour length — ropelength-fixed.** The 0₁ unknot has tube radius a = ℓ_node/(2π)
    (ropelength 2π; `de-broglie-standing-wave.md:141`, `constants.py:75-77`). The tube
    circumference is 2πa = **ℓ_node exactly** — and this equals the loop circumference C_loop =
@@ -336,7 +346,9 @@ Per prereg §3, even on PASS this is **Class-C consistency**, NOT a chord:
   = σ_bulk-step) are solid; the absolute value carries the #190 ceiling.
 - Γ: **CANDIDATE-class** value. The winding integer (n) and ropelength contour (ℓ_node) are
   solid; the swirl speed rides the corpus M_edge*≈0.75–0.80 cavitation-onset result (itself a
-  probe result with a ~7% range and a stabilizer-bias caveat, `cavitation-core-probe_result.md`).
+  probe result with a ~7% range and a stabilizer-bias caveat, `cavitation-core-probe_result.md`,
+  now **CLIP-demoted** — only its clip-invariant reachability of ρ̄_cav is load-bearing here;
+  §2.1 caveat).
 - balance FORM: an honest FORK (three opener models, §3.2). Two are self-consistent with Part-2;
   they bracket R*/ℓ_node ∈ [0.59, 3.58]. The verdict is ROBUST across this fork (all inside the
   band), which is why the fork does not weaken the SIM-GREENLIT call — but it IS the first thing
