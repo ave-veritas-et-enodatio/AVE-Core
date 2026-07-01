@@ -234,15 +234,21 @@ Verbatim, the two statements in tension:
   it scales `E∝R⁻²` and its force is `+2Qc²k_S/R³` — **OUTWARD (a brace, `p=3`), not an inward pull.**
   The actual inward binder is the winding LC-tank potential `ω_s∫|b|²` (`E∝+R`, force `−Γ²ω_s`, `p=0`).
 
-**Why the verdict is unchanged either way.** Whether the inward pull is the winding LC-tank (`p=0`, what
-the substrate says) OR a hypothetical Coulomb self-energy term (`p∈[1,2]`, what §5.2 asserts), **both are
-`< 3`** and both are out-steepened by the `r⁻³` A1-gradient brace. `p<3` ⇒ STABLE holds under either
-reading. **What differs is the mechanism NAME:** "the electron's mass compresses because its field
-self-energy pulls it in" (§5.2) vs "the electron's field self-energy is what braces it OUTWARD against
-the winding LC-tank's inward pull" (substrate). **Both file paths + verbatim content above; no reframe
-applied.** Grant adjudicates which mechanism the corpus headlines. (Per the memory note: I carry the
-same SM/soliton prior that a "self-energy pulls in" — but the substrate functional, at fixed charge,
-is explicit: gradient energy RISES as the loop shrinks, so its force is outward. Surfaced, not resolved.)
+**Why this name-inversion does not change the (already-downgraded) exponent-level reading — WITHIN the
+fixed-charge ensemble only.** Whether the inward pull is the winding LC-tank (`p=0`, what the substrate
+says) OR a hypothetical Coulomb self-energy term (`p∈[1,2]`, what §5.2 asserts), **both are `< 3`** and
+both are out-steepened by the `r⁻³` A1-gradient brace, so the exponent-level CONSISTENCY reading is the
+same under either NAME. **What differs is the mechanism NAME:** "the electron's mass compresses because
+its field self-energy pulls it in" (§5.2) vs "the electron's field self-energy is what braces it OUTWARD
+against the winding LC-tank's inward pull" (substrate). **Both file paths + verbatim content above; no
+reframe applied.** Grant adjudicates which mechanism the corpus headlines. **Important caveat (downstream
+of §4.0):** this name-invariance is asserted only WITHIN the fixed-charge ensemble; the more basic §4.0
+flag — that the A1-gradient term's SIGN itself flips (brace↔pull) between the fixed-charge and
+fixed-amplitude ensembles — is the load-bearing one, and it is NOT verdict-invariant. And in any case the
+overall verdict is already CONSISTENCY-class (no bound state observed, §0/§3.3/§5), so nothing here
+recovers a binding claim. (Per the memory note: I carry the same SM/soliton prior that a "self-energy
+pulls in" — but the substrate functional, at fixed charge, is explicit: gradient energy RISES as the loop
+shrinks, so its force is outward. Surfaced, not resolved.)
 
 **A second, smaller flag (§2.4-analog):** the derivation §3.1 brace is the winding **centrifugal**
 circulation `L_w²/(m r³)` (a specific `r⁻³` from angular momentum). The substrate's steepest `r⁻³` brace
