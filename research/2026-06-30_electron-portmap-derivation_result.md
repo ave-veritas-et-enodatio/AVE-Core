@@ -383,3 +383,145 @@ attribution of `V_yield`...)". The ambiguity is real and named, not a debugging 
 > (an un-adjudicated Grant fork). **This is NOT a clean STABLE-EQUILIBRIUM-EXISTS pass, and it is NOT
 > a clean NO-STABLE-EQUILIBRIUM negative.** It is a well-posed conditional whose remaining unknown is a
 > measurable pair of `r`-slopes — which is precisely what a greenlit sim would settle (see §7).
+
+---
+
+## 6. REST-MASS / INERTIA LEDGER
+
+### 6.1 The DC store = rest mass (canonical, reused, verified)
+
+The rectified DC envelope (§2.2) IS the stored reactive energy of the LC tank. Canonically
+(`resonant-lc-solitons.md`:17–23, verify-before-cite): peak inductive energy `E_mag=½L_e I_max²` with
+the relativistic-inductor hardware limit `I_max=ξ_topo·c`; the Virial theorem for a lossless LC tank
+gives `E_elec=E_mag=½m_e c²`; summing the two isolated ledgers recovers `E_total=m_e c²`. So the DC
+envelope stored energy = rest mass. In our port language: `P_A1`'s capacitive store (the compressed
+varactor) + `P_μ`'s inductive store (the DC circulation `L_w`) are the two virial halves; their sum is
+`E_0=m_e c²`. **The two ports we identified as the pull-source and the brace-source are the SAME two
+ports whose reactive stores sum to the rest mass** — the mechanism and the mass ledger are one object,
+which is the internally-consistent version of the hypothesis (mass = the self-braced store).
+
+### 6.2 The SAME reactance's opposition-to-change = inertia
+
+Inertia is the reactive back-EMF of the same store (`clm-jwyy6l`, `vol2/claim-quality.md`:666,
+verify-before-cite): `E_mass=½L_eff|A|²`, back-EMF `V=−L_eff dI/dt` = the resistance to acceleration
+(`M_inertial ≡ L_drag`). This is the "mass IS inductive resistance" of the hypothesis, DERIVED as the
+Lenz reaction of the DC-circulation inductor `L_e`: accelerating the soliton changes the circulation's
+flux linkage, and `−L_e dI/dt` opposes the change. The DC STORE (rest energy) and the OPPOSITION-TO-
+CHANGE (inertia) are the same inductance `L_e` read as energy vs as impedance — one reactance, two
+faces. This is the internally-consistent closure the picture wanted: the store that braces the
+envelope IS the reactance whose Lenz-opposition is the inertial mass.
+
+### 6.3 DOWNSTREAM CHECK — FLAGGED OPEN (not resolved here)
+
+The EXACT rest-mass = inertial-mass equality (`m_rest = m_inertial`) is NOT closed by §6.1–6.2. It
+requires the boosted winding-field momentum to come out `p = E_0 v/c²` (the relativistic-consistency
+of the moving reactive store — that the same `L_e` gives BOTH `E_0=½m_e c²`-per-arm AND the correct
+relativistic `p`). The reactance is α-encoded through the SI definition (`theorem-3-1:32`:
+`ω_C L_e = ℏ/e² = Z_0/(4πα)`, so `L_e=(ℓ_node/e)² m_e` carries `e,ℏ` CODATA). **This is an OPEN
+named downstream check** — a relativistic-consistency / boosted-momentum derivation — NOT resolved in
+this static existence/stability analysis. Flagged per the prereg §derivation-plan item 6. It is the
+right next object AFTER the stability fork (§5) is settled, because a store that is unstable (§5
+Regime II fail) would not have a well-defined boost at all.
+
+---
+
+## 7. SOLIDITY, OPEN ITEMS, AND WHAT A GREENLIT SIM WOULD SETTLE
+
+### 7.1 Solidity of each part
+
+| Part | Claim | Solidity |
+|---|---|---|
+| §1 network | 3-channel reactive port map; binding loop = P_A1↔P_μ, P_Γ termination, P_EM outside | **SOLID** (reuse of canonical `resonant-lc-solitons.md` structure) |
+| §1.3 Tellegen | binding loop lossless (Σ Re(V I*)=0); #83 dissipative crutch disqualified | **SOLID** (Tellegen is a topological identity; all binding branches imaginary) |
+| §2 inward sign | COMPRESSIVE; two independent reads agree; rectification from `S''<0` | **SOLID** (sympy-verified `S''=−(1−A²)^{−3/2}<0`; sign-lock `n_grav=S^{−1/2}` cited) |
+| §2.3 runaway | inward leg is self-steepening positive feedback (`|S''|→∞`) | **SOLID** (same sympy) |
+| §3.1 brace (a) | winding DC circulation `r^{−3}` reactive pressure PRESENT, lossless | **SOLID form, OPEN magnitude** (`L_w` quantum un-fixed) |
+| §3.2 brace (b) | ropelength hard-wall backstop | **SOLID as a floor**, not a smooth brace |
+| §3.3 brace (c) | saturation stiffening DISQUALIFIED (same `1/S` as the pull) | **SOLID** (no-double-counting) |
+| §4 equilibrium | `r*~L_NODE` (Compton) order-consistent | **CONSISTENCY** (scale imported, not derived) |
+| §5 stability | `sign(dF_net/dr)=sign(3−p)`; STABLE iff `p<3` | **SOLID criterion, CONDITIONAL evaluation** |
+| §5.3 verdict | CONDITIONAL-BIND / FORK-FOR-GRANT | the honest state |
+| §6 mass/inertia | DC store=rest mass, same `L_e`'s Lenz-opposition=inertia | **CONSISTENCY** (canonical reuse) |
+| §6.3 downstream | `p=E_0 v/c²` relativistic-consistency | **OPEN, flagged** |
+
+### 7.2 Open items (surfaced, not resolved — flag-don't-fix)
+
+1. **The `V_yield` grade-attribution fork (BLOCKING, def-vyvsn1, `resonant-lc-solitons.md`:127).** The
+   strain-vs-radius law `(1−Ā²)∝r^q` near the core — which decides whether the deep-core pull exponent
+   `p_eff` crosses 3 — depends on which grade `V_yield` attributes to (KB-A1
+   `nonlinear-vacuum-capacitance.md`:16 vs engine-`ε_eff`/`pair-production`:100). **This is a Grant
+   physics call, not an implementer fix.** It is the single load-bearing input for the §5 verdict.
+2. **The `S^{0.25}`-vs-`S^{0.5}` exponent defect** (`cvr-reflection-smith.md`:66, still carried). It
+   changes the runaway steepening rate in §5.2 (`|S''|`'s exponent), hence `p_eff`.
+3. **The circulation quantum `L_w` magnitude** (§3.1) — sets the brace prefactor `c_B` and thus `r*`
+   AND the Regime-II prefactor contest.
+4. **The `p=E_0 v/c²` boosted-momentum downstream check** (§6.3) — OPEN, deferred until §5 settles.
+5. **NOT a route-space exhaustion.** This closes the analytic question for the CANONICAL 3-channel
+   network with the winding-circulation brace. A not-yet-named additional reactive brace (e.g. a
+   bulk-stiffness term genuinely independent of `1/S`) could shift Regime II; not claimed exhausted.
+
+### 7.3 What a greenlit sim WOULD settle (the fork is a MEASUREMENT, not a debugging gap)
+
+The §5 verdict is CONDITIONAL on ONE measurable quantity: **the `r`-slope of the deep-core
+ponderomotive pull `P(r)` vs the `r^{−3}` brace, both measured at the self-consistent operating
+point.** Per Rule-10 empirical-driver discipline this is a clean, well-posed measurement:
+- record BOTH reactance states (the C-state `V_inc/ω` AND the L-state `Φ_link/ω_dot`) over the
+  recording window (reactance-pair-tracking) — a snapshot at one phase cannot distinguish the static
+  brace from the oscillator caught at peak;
+- sample at the energy-density PEAK (`top-K |field|²`) of the shell, NOT the centroid (the centroid of
+  a shell is the empty middle);
+- filter PML cells before any top-K extraction;
+- fit `P(r)` and `B(r)` slopes with a LOCAL-clock modulation `ω_local(r)=ω_global·√(1−A²(r))` since
+  Op14 saturation is active at the load-bearing core.
+If the measured deep-core `p < 3` → STABLE-EQUILIBRIUM-EXISTS (electron viable). If `p > 3` →
+NO-STABLE-EQUILIBRIUM in the deep-saturation regime (honest negative: the naive network implodes at
+the core). The symbolic analysis has REDUCED the make-or-break to this single slope comparison and
+supplied the criterion `sign(3−p)` to adjudicate it — which is the deliverable's job: determine
+ANALYTICALLY the feedback path, the brace, the equilibrium, and the stability criterion BEFORE any sim.
+
+### 7.4 Classification (consistency-vs-emergence — final)
+
+**Class C — CONSISTENCY, throughout.** The mechanism (a reactive brace against a rectified pull) is at
+best a FORM-chord: it gives the SM-absent mechanism for a stable localized electron mass, but the SIZE
+is a scale tied to imported `L_NODE`/`R·r=¼` (Class-B input), and every dimensionful anchor (`m_e`, α
+via `V_yield=√α V_snap` and `Z_0=2αh/e²`) is imported/echo. There is NO Class-D emergence here (no
+dimensionless observable computed free of the target). The verdict CONDITIONAL-BIND does not change the
+class: even a clean STABLE pass would be a Class-C FORM-chord (mass VALUE definitional), consistent
+with the mass-sector ceiling (`mass-sector-characterization_synthesis.md` §2). α touches the result
+ONLY through the flagged echo channels; it is not headlined as emergence (A47 v17 family).
+
+### 7.5 Guards walked (checklist)
+
+- **substrate-native-check:** equilibrium posed as reactive PRESSURE balance at a self-set Q-point, NOT
+  an energy-landscape minimum / gradient descent / Helmholtz eigensolve (CP1–5); the inward force is a
+  BOUNDARY/ponderomotive read, not a singular bulk force term (CP10); ports are native Cosserat, not
+  Cartesian.
+- **phase-space-coordinate-check:** the (2,3) winding is treated in its PHASE-SPACE home (the circulation
+  / Link integer on the Clifford torus), not as a real-space geometric torus (the wrong-locus error the
+  #415 eigensolve made); `R·r=¼` handled as the phase-space product INPUT, not a real-space fit; the sim
+  spec (§7.3) records the reactance PAIR in native (C-state, L-state) coordinates.
+- **consistency-vs-emergence:** classified Class-C throughout (§7.4); α/`m_e` echo channels flagged.
+- **ave-prereg:** frozen prereg `a6c03c72` BEFORE deriving; existing coupled-network + electron leaves
+  greped first (§prior-state); criteria applied, none dropped.
+- **ave-canonical-source:** constants from `src/ave/core/constants.py` (`L_NODE`, `V_SNAP`, `V_YIELD`,
+  `ALPHA`, `Z_0`); no hardcoded targets.
+- **verify-before-cite:** every file:line quoted was greped this session; the `S''` and `sign(3−p)` math
+  sympy-verified in-commit.
+- **flag-don't-fix:** the `V_yield` grade fork, the `S^{0.25}`/`S^{0.5}` defect, and the `L_w` magnitude
+  surfaced as Grant-adjudication items — NOT silently resolved to force a verdict.
+- **honest-closure (Rule 11):** no criterion dropped; the CONDITIONAL verdict is reported as-is, not
+  debugged toward a PASS; no dissipative brace introduced to force a balance (#83 lesson); no new
+  hypothesis refills the un-settled slot (A47 v11b).
+
+### 7.6 Provenance / reproducibility
+
+- Symbolic checks (in-commit, reproducible): `S(A)=√(1−A²)` ⇒ `S''=−(1−A²)^{−3/2}<0` (§2);
+  `dF_net/dr|_{r*} = (X/r*)(3−p)` for `P=c_P r^{−p}`, `B=c_B r^{−3}` (§5) — both via `sympy`.
+- Canonical anchors (verify-before-cite, this session): `resonant-lc-solitons.md`:17–52,92,100–104,
+  120–127; `boundary_invariants.py`:129–133; `constants.py`:154,282,455,464; `ch8-alpha-golden-torus.md`;
+  `mass-sector-characterization_synthesis.md`:32; `theorem-3-1:32`; `clm-jwyy6l`.
+- Prior negatives held as prior odds: `2026-06-24_engine-coupled-eigensolve_result.md` (#415/#417
+  eigenmode DOES-NOT-EXIST); `2026-06-26_stabilized-electron-feedback-loop_result.md` (#83 RETRACTED
+  artifact); `2026-06-24_forka-alpha-flip.md` (#419 pressure fixes a scale, not `R·r=¼`).
+- NO simulation run (per scope). NO KB/manuscript edits (research/ only). Branch-only; orchestrator
+  opens the PR after an independent verify.
