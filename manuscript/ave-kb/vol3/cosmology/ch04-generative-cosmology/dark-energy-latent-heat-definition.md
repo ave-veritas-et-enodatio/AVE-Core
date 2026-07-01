@@ -76,11 +76,65 @@ matter non-decay.
 
 ## §3 — The arrow of time is the T2 entropic sink, NOT chirality
 
-_(placeholder — §3 commit)_
+The one Ax3-legal, corpus-carried arrow driving the DE lifecycle forward is
+**geometric entropic spreading of latent heat at the crystallization frontier
+into the exponentially-growing T2 CMB photon-mode count** — not a chirality
+ratchet. Per [arrow-of-time.md:16](../../condensed-matter/ch11-thermodynamics/arrow-of-time.md)
+(verbatim): *"spherical wave radiation across a Cartesian grid is effectively a
+one-way street"* — the reconvergence probability is "effectively zero." This is an
+**energy-conserving one-way TRANSFER** into the huge T2 reservoir ($dS>0$), NOT a
+friction loss, so it is Ax3-COMPLIANT; and it is $\propto$ crystallization-
+FRONTIER-rate ($3H\rho_{\text{latent}}$), i.e. reading-ii by construction.
+
+**Chirality is a PARITY selector, not the arrow — and "chirality-ratchet as
+arrow" is REFUTED.** The genesis freeze is mirror-symmetric: per
+[trampoline-framework.md:105](../../../common/trampoline-framework.md) (verbatim)
+*"Mirror-image freeze-in gives left-handed universe with identical magnitude
+$|u_0|$ and identical physics."* A static handedness is a PARITY choice
+(matter/antimatter sign, §2) that cannot set a TIME direction. A negative-search
+for a chiral-ratchet arrow ($\text{chiral}.\ast\text{ratchet}$ / dissipative-
+structure) returns zero, and the one measured chiral-director payment attempt
+(`bemf-smoke` 2026-06-10) landed inert: the reactive back-EMF "never pays for its
+torque" because the source is undepleting — panel verdict "the missing primitive
+is SOURCE DEPLETION, not reaction." **No future reader should re-introduce the
+chirality-ratchet as the cosmological arrow.**
+
+**Honesty:** the arrow is ASSERTED (the 2nd law imported as geometric spreading),
+not FORCED from substrate primitives; and `arrow-of-time.md` is a
+vol3/CONDENSED-MATTER leaf used cosmologically here — a cross-chapter import
+flagged in §6. WATCH: `crystal_graft_v4.py:225`'s interior $L_\omega$
+velocity-damping is an un-booked interior drain with no named T2 sink; under Ax3
+it must be adjudicated **formation-only** (map-safe, reading-ii holds) vs
+**ongoing** (would force reading-i, §5) before this null is hardened.
 
 ## §4 — The honest ledger
 
-_(placeholder — §4 commit)_
+**This is the whole point of banking the definition truthfully.** Per
+`consistency-vs-emergence`: the AVE-distinct content is the DEFINITION / MECHANISM
+(latent heat of crystallization), NOT the number. The $\rho_\Lambda$ value is a
+CONSISTENCY-class Friedmann back-projection of standard GR — do NOT headline it as
+emergence.
+
+| Element | Class | Status / evidence |
+|---|---|---|
+| $\rho_\Lambda = 3H_\infty^2/8\pi G = 9.03\times10^{-27}$ kg/m³ (+ $H_\infty$) | **ECHO / CONSISTENCY** | Friedmann/de Sitter projection of standard GR — [cosmological-constant-closure.md:101](../ch05-dark-sector/cosmological-constant-closure.md) "no AVE-distinct content — standard GR, accepted by AVE." **The VALUE is imported**; the AVE content is the definition, not the number. |
+| Latent-heat expulsion $\Gamma = 3H\rho_{\text{latent}}$ | FORCED (form) / **ASSERTED (rate)** | continuity form is FORCED ([cmb-thermal-attractor.md:10](cmb-thermal-attractor.md)); the RATE is asserted — [closure.md:111](../ch05-dark-sector/cosmological-constant-closure.md) "corpus claims $\Gamma = 3H\rho_{\text{latent}}$ but doesn't derive $\Gamma$ from substrate." |
+| $\rho_{\text{latent}}$ numeric value | **SYMBOLIC-ONLY / ABSENT** | zero numeric value anywhere; `clm-s4n33u` solidity 0.45, build_status "input-only, don't build deeper." $\Delta E_{\text{cryst}}$ from $\{\ell_{\text{node}},\alpha,G\}$ is **OPEN** ([closure.md:110](../ch05-dark-sector/cosmological-constant-closure.md)). |
+| Phantom EoS $w_{\text{vac}}<-1$ | FORCED | first-law constraint ([phantom-energy-equation-of-state.md:10,17](phantom-energy-equation-of-state.md)); distinct-in-SIGN from ΛCDM's $w=-1$, but ECHO at value-level ($\rho_{\text{latent}}$ symbolic). |
+| Op14 cross-sector reactive trade (DE placement) | FORCED | [op14-cosmic-horizon-profile.md:72,91](op14-cosmic-horizon-profile.md). |
+| Arrow = geometric entropic-spreading into T2 CMB modes (§3) | **ASSERTED** | [arrow-of-time.md:16](../../condensed-matter/ch11-thermodynamics/arrow-of-time.md); Ax3-legal, but imported cross-chapter (§6 flag 2). |
+| Interior lossless null-flow (electron = finished lossless A1 tank, $\partial_t\rho_n=0$) | POSTULATED-NULL | Ax3 + $\partial_t\rho_n=0$ grounded; defended by negative-search, NOT positive proof; `crystal_graft_v4.py:225` a live counterexample (§3 WATCH). |
+| μ-chirality-ratchet as arrow-setter (§3) | **ABSENT-INVENTED** | mirror-symmetric freeze ([trampoline-framework.md:105](../../../common/trampoline-framework.md)); grep zero. |
+| reading-i $dQ/dt\propto n_{\text{matter}}$ (F6 depletion, §5) | **ABSENT-INVENTED** | new physics AVE does not possess; one attempt `photon_deplete=True` DETONATES. |
+| Era-ordering + scale-factor laws $a\sim t^{0.5}/t^{0.667}$ | **ABSENT / IMPORTED** | negative-search; era ORDER imported by assumption. |
+| Total state vector + global conservation law | **ABSENT** | only LOCAL first-law + $\partial_t\rho_n=0$ anywhere in Vol-3 cosmology. |
+| $a(t)$ Friedmann time-evolver | **ABSENT** | `solve_backreaction` is static-elliptic; de Sitter fate ASSERTED analytically, never simulated. |
+
+**Bottom line:** the definition/mechanism is FORCED and sector-clean; the number is
+imported (consistency); $\rho_{\text{latent}}$ is symbolic-only and $\Gamma$ is
+asserted — the map is un-pressure-testable numerically until $\Delta E_{\text{cryst}}$
+is derived. Do NOT build deeper on `clm-s4n33u` (build_status "input-only")
+without Grant go.
 
 ## §5 — The one ΛCDM-distinct chord: F6 (UNBUILT)
 
