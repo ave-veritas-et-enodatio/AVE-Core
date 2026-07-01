@@ -349,9 +349,16 @@ class MovingFrontFreezeIn:
         T_compton = 2.0 * np.pi * C.TAU_RELAX_NATIVE
         dt = self.sim.outer_dt
         n_post = int(np.ceil(cfg.n_post_compton * T_compton / max(dt, 1e-12)))
-        # Front transit time to clear the defect ring + full sweep length.
-        y_end = cfg.N - cfg.pml
-        t_clear = (y_end - self._x_front(0.0)) / max(cfg.v_front, 1e-12)
+        # Front transit: only needs to CLEAR the defect ring + a margin (the
+        # ring poloidal extent + a few cells), NOT sweep the whole grid. This
+        # keeps the slow-front step count bounded — the post-window (persistence
+        # observation AFTER the front cleared) is where the freeze/heal read
+        # happens, and the front-clear margin fixes where that window starts.
+        # (Rule-10 efficiency finding: sweeping to the far edge made slow fronts
+        # intractable while adding no physics past clear+margin.)
+        ring_extent = self.seed_kw.get("R_major", 5.0) + 3.0 * self.seed_kw.get("sigma", 2.0)
+        y_clear = self._defect_y + ring_extent
+        t_clear = (y_clear - self._x_front(0.0)) / max(cfg.v_front, 1e-12)
         n_front = int(np.ceil(t_clear / max(dt, 1e-12)))
         n_total = n_front + n_post
 
