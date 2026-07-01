@@ -8,8 +8,9 @@ SHA-pin below is filled at commit time and the adjudication criteria (§5) are f
 any derivation line is written. Per Rule 11 no criterion is dropped/weakened post-hoc to
 convert a NO-BIND verdict into a BIND verdict.
 
-**SHA-pin (this file, frozen commit):** `<filled at commit>` — the derivation parts (result
-doc) are built AFTER this commit and cite it.
+**SHA-pin (this file, frozen commit):** `a6c03c72` — the derivation parts (result
+doc) are built AFTER this commit and cite it. (This edit adds only the pin; the frozen
+adjudication criteria in §5 are unchanged from `a6c03c72`.)
 
 ---
 
