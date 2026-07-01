@@ -276,3 +276,110 @@ BUT §2.3's runaway: in the DEEP-saturation core (`Ā→1`), the pull's effectiv
 acquire an effective `r`-exponent STEEPER than `−3`, overrunning the brace. **The verdict hinges on
 whether `P(r)` stays shallower than `r^{−3}` all the way in, or whether the `S→0` runaway makes it
 steeper before the brace arrests it.** This is the un-adjudicated symbolic crux — evaluated in §5.
+
+## 4. EQUILIBRIUM — the SIZE
+
+Solving inward-pull = outward-brace with the §3.4 model `P(r)=c_P r^{−p}`, `B_a(r)=c_B r^{−3}`
+(`c_B = L_w²/m_eff`):
+```
+   c_P r*^{−p} = c_B r*^{−3}   ⇒   r* = (c_P/c_B)^{1/(p−3)}       (sympy-verified, §5)
+```
+`r*` is finite and positive whenever `p ≠ 3` and `c_P, c_B > 0`. The equilibrium SCALE is set by the
+ratio of the pull prefactor `c_P` (the rectified self-energy strength, tied to the reactive charge and
+`V_yield`) to the brace prefactor `c_B = L_w²/m_eff` (the circulation quantum). Both prefactors carry
+the substrate's one length scale `L_NODE = ℏ/(m_e c)` (`constants.py`:282) and the winding's `R·r=¼`
+Golden-torus geometry (`ch8-alpha-golden-torus.md`). So:
+
+- **`r* ~ O(L_NODE)` = the Compton scale.** Order-consistent with the canonical electron size
+  (`L_NODE ≈ 3.86×10⁻¹³ m`, the reduced Compton length) and with `R·r=¼` at `d=1 ℓ_node`. **(V5
+  holds — an ORDER-consistent scale.)**
+- **This is calibration-consistency, NOT a derivation of the size.** Per Fork-A (#419), the pressure
+  balance fixes a SCALE, not the product `R·r=¼` (which is a Class-B INPUT), and `L_w`, `V_yield=√α
+  V_snap` both carry imported values (`m_e`, α). We do NOT claim to derive `r*`; we claim it is
+  order-consistent with the imported Compton scale, which is the most a Class-C consistency result
+  can claim. `m_e` VALUE is calibrated; only the FORM (a finite crossing exists) is derived.
+
+**Honest note on `p=3` marginality.** If the pull happens to scale EXACTLY as `r^{−3}` (same as the
+brace), the crossing degenerates: `r*` is either undefined (prefactors unequal → no crossing, runaway
+one way) or a scale-free continuum (prefactors equal → neutral). The (2,3) winding's own `r^{−3}`-like
+self-energy makes `p=3` a live possibility, not a measure-zero curiosity — see §5.
+
+---
+
+## 5. STABILITY CRITERION (the MAKE-OR-BREAK) — symbolic + evaluation
+
+### 5.1 The criterion, symbolically
+
+Net inward force `F_net(r) = P(r) − B(r)` (pull minus brace). The equilibrium `r*` is STABLE iff a
+small expansion (`r>r*`) produces a NET INWARD (restoring) force and a small compression (`r<r*`)
+produces a NET OUTWARD force — i.e. `dF_net/dr|_{r*} > 0`. With `P=c_P r^{−p}`, `B=c_B r^{−3}`, at the
+crossing (sympy-verified above):
+```
+   dF_net/dr |_{r*}  =  (X / r*) · (3 − p),   where X = P(r*) = B(r*) > 0.
+   ⇒  sign(dF_net/dr|_{r*})  =  sign(3 − p).
+```
+
+**THE CRITERION (frozen §5 form, now filled):**
+```
+   ┌────────────────────────────────────────────────────────────────────┐
+   │  STABLE   ⇔  p < 3   (pull SHALLOWER than the r^{−3} brace)         │
+   │  UNSTABLE ⇔  p > 3   (pull STEEPER — out-runs the brace)            │
+   │  MARGINAL ⇔  p = 3   (scale-free prefactor contest, no smooth well) │
+   └────────────────────────────────────────────────────────────────────┘
+```
+Physically: the brace must out-STEEPEN the pull at the crossing for the well to restore. The `r^{−3}`
+centrifugal brace beats any pull shallower than `r^{−3}`; it LOSES to any pull steeper than `r^{−3}`.
+
+### 5.2 Evaluation — the two regimes, and why the verdict is CONDITIONAL
+
+**Regime I — SUB-saturation pull (`Ā` not near 1).** A localized soliton's ponderomotive self-energy
+pull, away from the deep-saturation limit, scales like a Coulomb-class self-energy gradient,
+`P ∝ r^{−1}` to `r^{−2}` (`p ∈ [1,2] < 3`). **In this regime, `p < 3` ⇒ STABLE well.** The brace
+out-steepens the pull; `dF_net/dr>0`; the electron binds as a self-braced reactive soliton. This is
+the "electron viable" branch.
+
+**Regime II — DEEP-saturation core (`Ā→1`, the near-yield regime this prereg's SECTOR HEADER
+declares LIVE).** Here the §2.3 runaway bites: the pull's effective stiffness carries `|S''(Ā)| =
+(1−Ā²)^{−3/2}`. If, as the envelope compresses, `(1−Ā²) ∝ r^{q}` for some `q>0`, the ponderomotive
+pull acquires an EXTRA steepening `r^{−3q/2}` on top of its base exponent. For a shell whose strain
+saturates linearly in the compression (`q≈1`), the pull can reach `p_eff ≈ base + 3/2`, which crosses
+`p=3` from below — i.e. **in the deep core the pull can become STEEPER than `r^{−3}` (`p>3`) ⇒ the
+crossing there is UNSTABLE.** The `r^{−3}` centrifugal brace, which wins in Regime I, can LOSE to the
+`S→0` varactor runaway in Regime II.
+
+**The competition is between two `r^{−3}`-class terms** (the brace's exact `r^{−3}` and the deep-core
+pull's runaway approach to and past `r^{−3}`), so it is a PREFACTOR + higher-order contest that the
+leading-order symbolic scaling does NOT resolve. The `p=3` marginal case (§4) is exactly the boundary
+this contest sits on. **The winner depends on:**
+- the circulation quantum `L_w` (brace prefactor `c_B`) — magnitude OPEN (§3.1),
+- the strain-vs-radius law `(1−Ā²)∝r^q` near the core — depends on the un-adjudicated grade-
+  attribution of `V_yield` (`resonant-lc-solitons.md`:127, the BLOCKING Grant fork def-vyvsn1) and
+  the `S^{0.25}`-vs-`S^{0.5}` exponent defect (`cvr-reflection-smith.md`:66, still carried).
+
+Neither input is fixed at the symbolic level. **Therefore the stability verdict is CONDITIONAL.**
+
+### 5.3 VERDICT (frozen adjudication applied — no criterion dropped)
+
+Mapping to the frozen §5 prereg verdicts:
+- (V1) inward sign COMPRESSIVE — **HOLDS** (§2).
+- (V2) a reactive brace PRESENT with a finite crossing — **HOLDS in Regime I** (§3.1, §4); the
+  crossing exists and is reactive/lossless.
+- (V3) `dF_net/dr>0` at `r*` — **HOLDS in Regime I (`p<3`)**, **FAILS in Regime II (`p>3`)**.
+- (V4) no dissipative port required — **HOLDS** (§1.3, Tellegen).
+- (V5) `r*` order-consistent with Compton scale — **HOLDS** (§4).
+
+The frozen criteria give a split: STABLE-EQUILIBRIUM-EXISTS requires V1–V5 ALL; V3 is regime-
+dependent. Since the prereg's SECTOR HEADER declares the **near-yield (deep-saturation, Regime II)**
+the LIVE regime, and Regime II is exactly where V3 is NOT established (and can fail), the honest
+verdict is **FORK-FOR-GRANT / CONDITIONAL-BIND**, per the frozen "FORK-FOR-GRANT if the brace-
+presence/steepness is genuinely AMBIGUOUS at the symbolic level (depends on an un-adjudicated grade-
+attribution of `V_yield`...)". The ambiguity is real and named, not a debugging gap.
+
+> **VERDICT: CONDITIONAL-BIND / FORK-FOR-GRANT.** A self-braced reactive electron network DOES
+> assemble (real inward pull, real lossless outward brace, no dissipative crutch) and BINDS STABLY in
+> the sub-saturation regime (`p<3`, `dF_net/dr>0`). In the LIVE near-yield deep-saturation regime, the
+> `r^{−3}` centrifugal brace competes with the `S→0` varactor runaway in a prefactor contest that the
+> symbolic scaling does NOT resolve — the winner turns on `L_w` and the `V_yield` grade-attribution
+> (an un-adjudicated Grant fork). **This is NOT a clean STABLE-EQUILIBRIUM-EXISTS pass, and it is NOT
+> a clean NO-STABLE-EQUILIBRIUM negative.** It is a well-posed conditional whose remaining unknown is a
+> measurable pair of `r`-slopes — which is precisely what a greenlit sim would settle (see §7).
