@@ -626,7 +626,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - "Forbids Big Rip" is a framework-internal consequence of the latent-heat injection / asymptotic Unruh-Hawking attractor; it is an interpretive prediction, not a quantitative bound on $w$ time-evolution.
   - The CMB asymptotic-attractor picture (radiation density floors at $\frac{3}{4}\rho_{latent}$, asymptoting to Unruh-Hawking $\sim 10^{-30}$ K) is structural, not numerically validated against observation.
 
-> **Leaf references:** [cmb-thermal-attractor](./cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md), [phantom-energy-equation-of-state](./cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md).
+> **Leaf references:** [cmb-thermal-attractor](./cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md), [dark-energy-latent-heat-definition](./cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md), [phantom-energy-equation-of-state](./cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md).
 
 ### Quality
 - confidence: 0.7
