@@ -13,32 +13,37 @@ Standard circuit simulators rely on ideal, linear RLC components. However, the p
 
 > **Sector note (Q1 = (B), Grant-ratified 2026-06-15; `research/2026-06-15_ceff-epsilon-monotonicity_result.md`).** The diverging $C_0/S$ below is the **longitudinal-A1 bond compliance** ($1/k_a$, the stretch-reactance), **NOT** the transverse dielectric capacitance. The transverse permittivity $\varepsilon_{eff}=\varepsilon_0 S$ and the LCR-measured cell capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$ *roll off* (the bench-netlist $C_0\!\cdot\!S$ form, [ee-bench-netlist.md](../../simulation/ch17-hardware-netlists/ee-bench-netlist.md):15). The two are **orthogonal reactances** (A1 ⊥ T2) that share the EE name "capacitance"; identifying them is the genesis-24 double-count (`master-equation.md:20`). See INVARIANT-S2 sector split.
 
-As defined by Axiom 4, the effective **bond compliance** of the spatial substrate is bounded by the saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the **longitudinal (A1) stretch sector**:
+As defined by Axiom 4, the effective **bond compliance** of the spatial substrate is bounded by the saturation limit of the **longitudinal (A1) stretch sector**, which reaches $A^2=1$ ($C_{eff}\to\infty$) at $V_{snap} = m_e c^2/e \approx 511$ kV.
+
+> **Grade-fork RESOLVED = T2 (Grant 2026-06-30; `def-vyvsn1` adjudicated, `research/2026-06-30_electron-portmap-derivation_result.md` §5).** The prior wording keyed this A1 varactor's saturation-completion voltage on $V_{yield}=\sqrt\alpha\,V_{snap}\approx43.65$ kV. That is **corrected**: $V_{yield}$ is the **transverse Cosserat ($T_2$) self-trap wall** (the electron's confining $\Gamma=-1$; [`pair-production-axiom-derivation.md`](../../../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md):102), **not** the A1 compliance bound. The **longitudinal-A1** bond compliance below diverges at the higher $V_{snap}$ (a factor $1/\sqrt\alpha\approx11.7$ above $V_{yield}$). **Consequence:** a standing electron's A1 mass core operates at strain $A=V_{yield}/V_{snap}=\sqrt\alpha\approx0.085$ — deeply **sub-saturated** ($S(\sqrt\alpha)=\sqrt{1-\alpha}\approx0.996$), which is *why* it binds (the $S\to0$ varactor runaway never fires on the mass channel). Since $V_{yield}=\sqrt\alpha\,V_{snap}$ EXACTLY, $A=\sqrt\alpha$ is an $\alpha$-echo operating point (Class-C), not a free parameter.
+
+The constitutive equation follows directly from the Axiom-4 saturation kernel $S(V)=\sqrt{1-(V/V_{snap})^2}$ applied to the **longitudinal (A1) stretch sector**:
 
 <!-- claim-quality: clm-vjv4zf -->
 <!-- claim-quality: clm-8nkvwy (Asymmetric saturation case: only $\varepsilon$ scales by $S$ → $C_{eff} \to \infty$, $Z_{asym} = Z_0/\sqrt{S} \to \infty$; this is the canonical statement of the asymmetric branch of the Universal Saturation Kernel) -->
 > **[Resultbox]** *Vacuum Varactor Constitutive Equation*
 >
 > $$
-> C_{eff}(V) = \frac{C_0}{\sqrt{1 - \left(\dfrac{V}{V_{yield}}\right)^{\!2}}} = \frac{C_0}{S(V)}
+> C_{eff}(V) = \frac{C_0}{\sqrt{1 - \left(\dfrac{V}{V_{snap}}\right)^{\!2}}} = \frac{C_0}{S(V)}
 > $$
 
 To verify consistency with the weak-field limit, the Taylor expansion about $V = 0$ yields:
 
 $$
-C_{eff}(V) = C_0 \left[1 + \frac{1}{2}\left(\frac{V}{V_{yield}}\right)^{\!2} + \frac{3}{8}\left(\frac{V}{V_{yield}}\right)^{\!4} + \cdots\right]
+C_{eff}(V) = C_0 \left[1 + \frac{1}{2}\left(\frac{V}{V_{snap}}\right)^{\!2} + \frac{3}{8}\left(\frac{V}{V_{snap}}\right)^{\!4} + \cdots\right]
 $$
 
-At low voltages ($V \ll V_{yield}$), the leading correction is quadratic---identical to the Euler-Heisenberg effective Lagrangian of QED. The classical linear vacuum ($C_{eff} = C_0$) is recovered to arbitrary precision.
+At low voltages ($V \ll V_{snap}$), the leading correction is quadratic---identical to the Euler-Heisenberg effective Lagrangian of QED. The classical linear vacuum ($C_{eff} = C_0$) is recovered to arbitrary precision. **Note the electron's A1 mass-core operating point** $A=V_{yield}/V_{snap}=\sqrt\alpha\approx0.085$ sits in the **first (linear) row** of the table below ($C_{eff}/C_0\approx1.004$) — sub-saturated, far from the $V_{snap}$ divergence; the confining $\Gamma=-1$ wall is supplied by the *transverse* $T_2$ self-trap at $V_{yield}$, not by any A1-varactor divergence.
 
-| $V/V_{yield}$ | $V$ (kV) | $C_{eff}/C_0$ | $S(V)$ |
-|---|---|---|---|
-| 0.10 | 4.37 | 1.005 | 0.995 |
-| 0.50 | 21.83 | 1.155 | 0.866 |
-| 0.90 | 39.29 | 2.294 | 0.436 |
-| 0.99 | 43.21 | 7.089 | 0.141 |
-| 0.999 | 43.61 | 22.37 | 0.045 |
-| 1.000 | 43.65 | $\infty$ | 0 |
+| $V/V_{snap}$ | $V$ (kV) | $C_{eff}/C_0$ | $S(V)$ | note |
+|---|---|---|---|---|
+| $\sqrt{\alpha}\approx0.085$ | 43.65 | 1.004 | 0.996 | **$V_{yield}$ = T2 self-trap wall; electron A1-core operating point** |
+| 0.10 | 51.1 | 1.005 | 0.995 | |
+| 0.50 | 255.5 | 1.155 | 0.866 | |
+| 0.90 | 459.9 | 2.294 | 0.436 | |
+| 0.99 | 505.9 | 7.089 | 0.141 | |
+| 0.999 | 510.5 | 22.37 | 0.045 | |
+| 1.000 | 511.0 | $\infty$ | 0 | **$V_{snap}$ = A1 mass-completion + Schwinger** |
 
 ### The Vacuum Memristor (Thixotropic Hysteresis)
 
