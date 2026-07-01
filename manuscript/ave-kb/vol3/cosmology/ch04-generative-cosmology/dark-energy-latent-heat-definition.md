@@ -138,12 +138,87 @@ without Grant go.
 
 ## §5 — The one ΛCDM-distinct chord: F6 (UNBUILT)
 
-_(placeholder — §5 commit)_
+Exactly ONE ΛCDM-distinct chord lives anywhere in the DE lifecycle map:
+**DE-tracks-the-crystallization-FRONTIER** (reading-ii, $\Gamma=3H\rho_{\text{latent}}$,
+realized) **vs DE-tracks-EXISTING-$n_{\text{matter}}$** (reading-i). The corpus
+realizes ONLY the frontier form; the $n_{\text{matter}}$ chord is the **UNBUILT F6
+depletion primitive** — new physics AVE does not possess, whose one prior attempt
+(`photon_deplete=True`) detonates (indefinite Hamiltonian). F6 does NOT modify the
+frontier flow; it is a NEW second dissipation channel that would drain the
+ε-free-store $\propto$ existing $n_{\text{matter}}$, routed entropically into T2.
+It is the instantiation of reading-i (matter as a Prigogine dissipative structure)
+vs Design B's completed lossless tank (this map's default).
+
+**F6 is the open forward-prediction HANDLE, not a realized result.** Its
+make-or-break gates: (1) a BOUNDED norm-preserving $\varepsilon\to$ T2 depletion
+primitive that does NOT detonate (hard blocker); (2) Ax3-legality (entropic
+transfer THROUGH the winding to T2, not friction on the winding's own energy);
+(3) coupling $k$ + response derived from $\{\ell_{\text{node}},\alpha,G\}$ (chord)
+vs hand-set (echo); (4) proton-lifetime consistency ($>10^{34}$ yr); (5) the
+$\rho_{\text{latent}}$ numeric prerequisite (hard blocker). The chord lives in
+F6's forward observable — **DESI/Euclid DE-vs-matter cross-correlation** (does the
+reconstructed DE density field correlate with the galaxy/$n_{\text{matter}}$ field,
+or with the crystallization-frontier/expansion geometry?) — NOT inside the
+lifecycle mechanics. **Cite reading-ii / frontier-only as the canonical default;
+do NOT headline F6 as corpus physics.**
 
 ## §6 — Two open flags (surfaced, not resolved)
 
-_(placeholder — §6 commit)_
+Per flag-don't-fix: surfaced with verbatim evidence for Grant adjudication; NOT
+silently reconciled here.
+
+**FLAG 1 — Daughter-cosmology contradiction.**
+[`vol9/ch12-cosmological-characteristics/index.md:23-24`](../../../vol9/ch12-cosmological-characteristics/index.md)
+FORBIDS daughter cosmologies (verbatim: *"NO baby-universe black holes with
+daughter cosmologies"* and *"NOT a daughter cosmology; NOT an inner cosmic
+genesis"*), whereas
+[`omega-freeze-cosmic-grain-cascade.md:122`](../../../common/omega-freeze-cosmic-grain-cascade.md)
+ASSERTS *"our cosmic substrate is the daughter K4 lattice formed inside a parent
+BH"* and
+[`cosmic-parameter-horizon-a031-refinement.md:12`](../../../common/cosmic-parameter-horizon-a031-refinement.md)
+ASSERTS *"the parent black hole that crystallized our K4 lattice."* The likely
+reconciliation ("we are a daughter but spawn none") is UNWRITTEN, and it is
+load-bearing for the $\hat{\Omega}_{\text{freeze}}$ source + the CMB-QNM low-$\ell$
+observable. Adjudication owed to Grant.
+
+**FLAG 2 — Arrow mechanism imported cross-chapter.** The sole Ax3-legal arrow of
+this map (§3) is
+[`arrow-of-time.md`](../../condensed-matter/ch11-thermodynamics/arrow-of-time.md),
+a **vol3/CONDENSED-MATTER** leaf used cosmologically; neither the map nor the
+source flags the import, and the discrete-K4 (non-Cartesian) version of its
+spherical-spreading + $\hat{S}$ operator is "asserted but not separately worked
+out" (claim-quality:758). Verify $\hat{S}$ is defined at the cosmic impedance
+boundary before leaning on it cosmologically, OR lift the arrow properly into a
+cosmology leaf. Surfaced, not lifted.
 
 ## Cross-references
 
-_(placeholder — §7 commit)_
+- **Consolidated mechanism leaves (this leaf states the definition once; these
+  carry the mechanisms):**
+  - [Phantom Energy Equation of State](phantom-energy-equation-of-state.md) —
+    $w_{\text{vac}}=-1-\rho_{\text{latent}}/\rho_{\text{vac}}<-1$ first-law
+    argument; the verbatim "latent heat of crystallisation" identification.
+  - [CMB Thermal Attractor](cmb-thermal-attractor.md) — the $\Gamma=3H\rho_{\text{latent}}$
+    continuity equation + the permanent $\tfrac{3}{4}\rho_{\text{latent}}$ latent
+    floor (T2 entropic sink).
+  - [Op14 Cosmic-Horizon Saturation Profile](op14-cosmic-horizon-profile.md) —
+    the ε-sector cross-sector-trade PLACEMENT at $r\to R_H$; dynamic-vs-frozen
+    horizon distinction.
+  - [Lattice Genesis and Hubble Tension](lattice-genesis-hubble-tension.md) —
+    $H_\infty$ as the LC crystallisation rate (the frontier advance rate).
+  - [Cosmological Constant Closure (Vol 3 Ch 5)](../ch05-dark-sector/cosmological-constant-closure.md) —
+    the $\rho_\Lambda = 3H_\infty^2/8\pi G$ VALUE (ECHO/consistency, §4).
+- **Arrow-of-time + parity anchors (§3):**
+  - [Arrow of Time (Vol 3 Ch 11 condensed-matter)](../../condensed-matter/ch11-thermodynamics/arrow-of-time.md) —
+    geometric spherical-spreading one-way street (imported cross-chapter, §6 flag 2).
+  - [Trampoline Framework (common)](../../../common/trampoline-framework.md) —
+    mirror-symmetric freeze-in: chirality is PARITY, not the time-arrow.
+- **Flag anchors (§6):**
+  - [Vol 9 Ch 12 Cosmological Characteristics](../../../vol9/ch12-cosmological-characteristics/index.md) —
+    forbids daughter cosmologies (contradiction with the daughter-K4 assertion).
+  - [$\Omega_{\text{freeze}}$ Cosmic-Grain Cascade (common)](../../../common/omega-freeze-cosmic-grain-cascade.md) +
+    [A-031 Cosmic-Parameter Horizon (common)](../../../common/cosmic-parameter-horizon-a031-refinement.md) —
+    assert our substrate IS a daughter K4 formed inside a parent BH.
+- **Research trace:**
+  [`research/2026-06-30_thermo-lifecycle-map_result.md`](../../../../../research/2026-06-30_thermo-lifecycle-map_result.md)
+  — the map-verified DE-definition workflow (`wfe1g5zjn`, Grant greenlit 2026-06-30).
