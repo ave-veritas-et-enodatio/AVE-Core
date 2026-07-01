@@ -11,8 +11,9 @@ filled at commit time and the adjudication criteria (§ADJUDICATION) are frozen 
 is written. Per Rule 11 no criterion is dropped/weakened post-hoc to convert a NO-BIND verdict into a
 BIND verdict. Per A47 v11b no new hypothesis refills a NO-BIND slot.
 
-**SHA-pin (this file, frozen commit):** `__FILL_AT_COMMIT__` — the driver + result are built AFTER this
-commit and cite it.
+**SHA-pin (this file, frozen commit):** `f678b0fc` — the driver + result are built AFTER this
+commit and cite it. (This edit adds only the pin; the frozen adjudication criteria in §ADJUDICATION
+are unchanged from `f678b0fc`.)
 
 **Upstream derivation this sim CONFIRMS (SHA-pinned, verify-before-cite):**
 - merged @ `e1e14572` (PR #441). Derivation result: `research/2026-06-30_electron-portmap-derivation_result.md`
