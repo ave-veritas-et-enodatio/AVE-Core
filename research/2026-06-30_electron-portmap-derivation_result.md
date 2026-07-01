@@ -132,3 +132,59 @@ viscosity term `e^{−η dt M}`, which is a REAL-part (dissipative) branch — i
 loop has NO such branch: the ONLY real-power port is P_EM, and P_EM is explicitly OUTSIDE the binding
 loop (it is the radiative carrier / loaded-Q coupling, not a binding force). **Losslessness of the
 binding loop: CONFIRMED. (V4 holds.)**
+
+## 2. INWARD LEG — DERIVE THE SIGN (do not assume)
+
+**Question:** is the time-average of the μ(AC)→A1 back-reaction COMPRESSIVE (inward) or EXPANSIVE?
+
+### 2.1 The ponderomotive rectification (the fast→slow average)
+
+The winding runs an AC circulation at the tank frequency `ω_C`: locally `A(r,t) = Ā(r) + δA(r)cos(ω_C t)`,
+where `Ā` is the slow (DC) envelope and `δA` the fast AC swing. The A1 bulk sector sees this strain
+through the varactor compliance and the ponderomotive index. The DC force on the slow envelope is the
+time-average of the fast field's stress. Two equivalent substrate reads, both give the same sign:
+
+**(i) Compliance / capacitance read (energy of the varactor).** The reactive energy stored in the A1
+bond capacitor is `U_C = ½ Q²/C_eff = ½ Q² S(A)/C_0` (using `C_eff=C_0/S`). The ponderomotive force on
+the slow envelope is `F = −∂⟨U⟩/∂r` at fixed reactive charge. Now `S(A)=√(1−A²)` DECREASES as `A`
+grows, and `A` grows as the envelope COMPRESSES (same reactive charge squeezed into a smaller,
+higher-strain volume). So along "compress → `r`↓ → `A`↑ → `S`↓", the stored `U_C=½Q²S/C_0` DROPS.
+Energy is LOWERED by compressing ⇒ the force `F=−∂U/∂r` points toward SMALLER `r`. **Inward.**
+
+Cross-check the standard varactor intuition: `C_eff=C_0/S → ∞` as `A→1` (`resonant-lc-solitons.md`:32).
+A capacitor whose capacitance DIVERGES as you compress it is a capacitor that WANTS to be compressed
+(at fixed charge, `U=½Q²/C` falls as `C` rises). This is exactly the SELF-FOCUSING varactor: the more
+strained the core, the softer (higher-C) it gets, the more energy is released by compressing further.
+
+**(ii) Refractive-index read (the ponderomotive lens).** `boundary_invariants.py`:129–133 fixes the
+sign LOCK `n_grav = S^(−1/2)`, with the mass integrand `n_grav−1 > 0` where strained. `n_grav` RISES
+as `A→1` (`S→0`). A wave concentrating strain raises its own local index; the index gradient `∇n>0`
+toward the core bends rays INWARD (Fermat / ponderomotive `F=−∇U_wave`,
+`research/2026-06-09_...self-focusing...`:15). **The field lenses itself inward. Inward.**
+
+Both reads agree: **the time-averaged μ→A1 back-reaction is COMPRESSIVE.** (V1 HOLDS.)
+
+### 2.2 The rectification IS the mechanism (why AC → DC envelope)
+
+The sign came out inward *because* `S(A)=√(1−A²)` is an EVEN, concave-down function of `A`: the fast
+AC swing `A=Ā+δA cos ω_C t` gives, to second order, `⟨S(A)⟩ ≈ S(Ā) + ½ S''(Ā) δA²` with
+`S''(A) = −(1−A²)^{−3/2} < 0` everywhere. So the AC swing DEPRESSES the time-averaged `⟨S⟩` below
+`S(Ā)` by `½|S''|δA²` — a strictly nonlinear (∝ amplitude²) DC softening. **The winding's AC
+oscillation rectifies, through the concave saturation kernel, into a DC reduction of the envelope
+stiffness = a DC inward (ponderomotive) compression.** This is the "AC circulation rectified into a
+DC compression = rest mass" hypothesis, DERIVED (not assumed) from `S''<0`. The rectified DC envelope
+IS the mass envelope (the `⟨U⟩` lowering IS the binding energy well). The rest-mass ledger (§6) reads
+the same store.
+
+### 2.3 The HONEST caveat — the inward leg is a POSITIVE FEEDBACK, not a well by itself
+
+The sign is inward — but note WHAT KIND of inward. Because `S'' < 0` and steepens as `A→1`
+(`|S''| = (1−A²)^{−3/2}` diverges), the DC softening `∝ |S''|δA²` GROWS as the core compresses. More
+compression → more softening → more inward force. **This is a RUNAWAY (self-focusing) positive
+feedback, NOT a restoring well.** By itself the inward leg has `dP/dr < 0` with `|dP/dr|` GROWING as
+`r→r_core` (the pull gets stronger, faster, the more you compress). A pull that self-steepens toward
+collapse is precisely the "would IMPLODE unless braced" of the hypothesis. So §2 confirms the pull's
+sign AND confirms the pull is dangerous — the entire question now rests on whether §3's brace
+out-steepens this runaway. **The inward leg alone predicts IMPLOSION;** the electron exists only if
+the brace wins the steepness contest (§5). This is the honest framing — the inward sign is not, by
+itself, good news for binding.
