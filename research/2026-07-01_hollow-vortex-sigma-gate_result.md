@@ -292,32 +292,68 @@ R*/ℓ_node = 1.34 – 1.85   (midpoint ≈ 1.6)          [O(1) — squarely ele
 
 ## 4. THE GATE VERDICT
 
-Against the FROZEN band (prereg §4): `R*/ℓ_node ∈ [0.1, 10]` → SIM-GREENLIT; else DEAD-ON-PAPER.
+Against the FROZEN band (prereg §4): `R*/ℓ_node ∈ [0.1, 10]`.
 
 - Headline (Model 1, drill n=1): **R*/ℓ_node = 1.34–1.85** → INSIDE [0.1, 10].
 - Robust self-consistent band (Models 1+3, all σ/Γ/M choices): **[0.59, 3.58]** → INSIDE [0.1, 10].
 
-### ➤ VERDICT: **SIM-GREENLIT.**
+### ➤ VERDICT (corrected register): **CONSISTENCY-CONFIRMED → BANK-AS-CLASS-C.**
+
+> **REGISTER DEMOTION (verify, Finding 2).** The original verdict "SIM-GREENLIT (discriminating
+> pass) / squarely electron-scale" is withdrawn. R\*/ℓ_node = n·M_edge/√σ is a **product of
+> three O(1) dimensionless numbers**, and ℓ_node is the theory's ONLY length scale, so the O(1)
+> landing is **FORCED by dimensional analysis** — M_edge<1 caps the numerator, σ~O(0.1) caps
+> √σ, and there is no other length for R\* to land near. **The gate could NOT have returned DEAD
+> for any physical σ,Γ>0.** A test that cannot fail is not discriminating: this is a
+> **CONSISTENCY check**, not a discriminating pass. The only non-forced content is the specific
+> coefficient (≈1.6, band 0.59–3.58), and even that rides the σ/Γ/opener ranges. Passing the
+> [0.1,10] band was never in doubt once M_edge and σ were both known to be O(0.1–1).
 
 The hollow vortex binds at **R\* ≈ 1.6 ℓ_node** — an O(1) multiple of the reduced Compton
-wavelength, i.e. **electron-scale**. This is NOT the sub-lattice R* that killed the co-compress
-sim (PR #443): R* sits at ~1.6 ℓ_node, comfortably resolvable on any lattice with dx < ℓ_node.
-A hollow-vortex dynamical-stability sim is greenlit, seeded at R ≈ 1.6 ℓ_node with the void
-interior at ρ̄_cav = −1/φ and wall swirl at M_edge* ≈ 0.775·c₀.
+wavelength. The FORM is self-consistent at electron scale, which is a real (if unsurprising)
+result: the incompressible open/close balance closes with the substrate's own numbers landing
+where the substrate's only length puts them. But because the O(1) landing is dimensionally
+forced, this is **BANKED as a Class-C consistency result**, not advanced to a sim.
 
-**What the ★ guard means we did NOT claim.** We did NOT report "it binds" as the result (that is
-the near-tautology / PR#443 trap). The result is the DIMENSIONLESS coefficient R*/ℓ_node ≈ 1.6,
-which is what discriminates viable-electron-scale from DEAD. It landed O(1) — that is the content.
+### ➤ BANK-AS-CLASS-C — why NO stability sim is run (verify, Finding 7)
 
-### 4.1 Why this is a real (non-trivial) pass, not the tautology
+A dynamical-stability sim seeded at R≈1.6 ℓ_node would return one of two **uninformative**
+outcomes, neither a chord:
 
-The tautology guarantees a *stable crossing exists* for any σ,Γ>0. It does NOT guarantee the
-crossing lands near ℓ_node. It landed near ℓ_node because the two O(1) engine-native quantities
-that set the scale — Γ ≈ 0.775 (the cavitation-Mach swirl on the ropelength contour) and √σ ≈
-0.43 (the golden-ratio/√6 interface tension) — are BOTH O(1) in ℓ_node units, and their ratio
-is O(1). Had either been O(10±) off, R*/ℓ_node would have failed the band. The pass is that the
-substrate's own cavitation-onset swirl and its own interface tension conspire to O(1) — a
-genuine (if consistency-class) coincidence, not a structural inevitability.
+1. **It reproduces the analytic R\*** — the seed-pinned trap that sank PR#443. Seeding the void
+   at ρ̄_cav=−1/φ with wall swirl M_edge*·c₀ and finding it sits near the balance radius is the
+   input played back; it confirms the algebra, not the physics.
+2. **It produces an integrator ARTIFACT from the known positive-c²-floor defect**
+   (`cavitation_flow.py:159-163`: `c_bulk2` returns `max(raw, c2_floor·c₀²)` with
+   `c2_floor=1e-3>0`). The void **cannot go tensile in the integrated dynamics** — c² is floored
+   positive, so the "hollow" renders as **reversible compliance, not a held void**. This is a
+   REGIME-ARTIFACT: the corpus characterizes the crossing as *smooth and reversible* with any
+   irreversible held-void requiring "a separate, named, dynamical mechanism"
+   (`cavitation-core-probe_result.md:173`, per `fluid-analog-bench-program.md:126`); the floor's
+   role in excluding the tensile branch "by construction" is confirmed independently at
+   `sonic-horizon-closure_prereg.md:44` ("the `+1e-3·c₀²` floor kept `c²` strictly positive
+   everywhere → only reversible compliance was representable"). The current integrator lacks the
+   below-floor mechanism, so a held void cannot form in it.
+
+**The ONLY future sim worth running** is a **FORWARD R\*-vs-drive prediction** — R\* as a
+function of the drive amplitude (edge Mach / circulation), which is the one place a chord could
+live (a nontrivial functional dependence the algebra alone does not pin). That sim needs (a) its
+OWN frozen prereg with a **pre-registered discriminating observable** (not the O(1) landing,
+which is forced), AND (b) the **positive-c²-floor integrator fixed or replaced first** so the
+void can actually hold tensile. Absent both, no sim advances the claim.
+
+### 4.1 Why the O(1) landing is FORCED (not a non-trivial coincidence)
+
+> **CORRECTION (verify, Finding 2).** The original §4.1 argued the O(1) landing was "a genuine
+> (if consistency-class) coincidence, not a structural inevitability" — that Γ≈0.775 and √σ≈0.43
+> "conspire" to O(1) and could have been O(10±) off. That argument is **withdrawn**. Both
+> quantities are dimensionless numbers built from the SAME substrate primitives (φ, √6, K=2G,
+> the cavitation Mach), all of which are O(0.1–1) by construction; there is no independent scale
+> in the theory for either to be O(10±) away from. With M_edge<1 (subsonic cap) and σ~O(0.1),
+> the ratio n·M_edge/√σ is **algebraically pinned** to O(1). The landing is a **structural
+> inevitability of dimensional analysis**, which is exactly why this is CONSISTENCY-class, not a
+> discriminating coincidence. The pass carries no discriminating information; the coefficient
+> value (≈1.6) is the only content, and it rides the imported ranges.
 
 ---
 
@@ -336,48 +372,59 @@ Per prereg §3, even on PASS this is **Class-C consistency**, NOT a chord:
   self-consistent at electron scale — it is NOT an independent prediction of the electron scale,
   and NOT an AVE-distinct chord. We do NOT headline it as emergence.
 - Per the corpus meta-finding (AVE forces FORMS, imports VALUES): this is another FORM-derived /
-  SCALE-consistency instance. The chord, if any, lives in a FORWARD prediction the greenlit sim
-  might expose (e.g. an R*-vs-drive law), not in this O(1) coefficient.
+  SCALE-consistency instance. The chord, if any, lives ONLY in a FORWARD R*-vs-drive prediction
+  (a separate future workstream with its own frozen prereg and a pre-registered discriminating
+  observable — §4), NOT in this O(1) coefficient, whose landing is dimensionally forced.
 
 ### 5.2 Honest solidity
 
 - σ: **CANDIDATE-class** value (tanh-CH gradient scaling across a non-double-well EOS; O(1)
-  prefactor c_σ=1/3; K-vs-M modulus ~1.7× spread). The FORM and the interface IDENTITY (σ_cavity
-  = σ_bulk-step) are solid; the absolute value carries the #190 ceiling.
+  prefactor c_σ=1/3; K-vs-M modulus ~1.7× spread). The c_σ=1/3 prefactor derivation and the
+  interface IDENTITY (σ_cavity ≡ σ_#190-shell, same interface twice, §1.4) are solid; the
+  absolute value is INHERITED (not independently re-derived) and carries the #190 ceiling.
 - Γ: **CANDIDATE-class** value. The winding integer (n) and ropelength contour (ℓ_node) are
   solid; the swirl speed rides the corpus M_edge*≈0.75–0.80 cavitation-onset result (itself a
   probe result with a ~7% range and a stabilizer-bias caveat, `cavitation-core-probe_result.md`,
   now **CLIP-demoted** — only its clip-invariant reachability of ρ̄_cav is load-bearing here;
   §2.1 caveat).
 - balance FORM: an honest FORK (three opener models, §3.2). Two are self-consistent with Part-2;
-  they bracket R*/ℓ_node ∈ [0.59, 3.58]. The verdict is ROBUST across this fork (all inside the
-  band), which is why the fork does not weaken the SIM-GREENLIT call — but it IS the first thing
-  the greenlit sim should resolve (which opener law the dynamics actually realize).
-- Overall: **the VERDICT (O(1), sim-greenlit) is solid** (robust across the self-consistent fork
-  and the σ/Γ ranges); the **specific R\* number (~1.6 ℓ_node) is CANDIDATE-class** (rides the
-  σ, Γ, and opener-law ranges).
+  they bracket R*/ℓ_node ∈ [0.59, 3.58]. All land O(1) — but per §4 that landing is dimensionally
+  forced, so fork-robustness inside the band is expected, not a strengthening. Which opener law
+  the dynamics realize is the first thing a FORWARD R*-vs-drive sim (§4) would resolve.
+- Overall: **the VERDICT is CONSISTENCY-CONFIRMED (O(1), banked Class-C)** — solid AS a
+  consistency result, but NOT a discriminating pass (the O(1) landing is forced, §4); the
+  **specific R\* number (~1.6 ℓ_node) is CANDIDATE-class** (rides the σ, Γ, and opener-law ranges).
 
 ### 5.3 Findings surfaced (flag-don't-fix), for the auditor/Grant
 
-1. **σ interface IDENTITY** (§1.4): the independently-derived void↔vacuum σ EQUALS the existing
-   bulk-density-step σ ≈ 0.187 (exact: 3√6/10−√30/10). This is a genuine identity (same Δρ̄=1/φ,
-   ℓ_c=√6, K=2G), surfaced as a finding — not a plug-in.
+1. **σ interface IDENTITY** (§1.4): the void↔vacuum σ EQUALS the existing bulk-density-step σ ≈
+   0.187 (exact: 3√6/10−√30/10) **BY IDENTITY** — same interface described twice (same Δρ̄=1/φ,
+   ℓ_c=√6, K=2G, all imported from the #190 shell), NOT an independent coincidence. Inherited,
+   not plugged; the earned content is the c_σ=1/3 prefactor + the structural recognition.
 2. **Opener-law FORK** (§3.2): three physical models for the void-opener pressure give different
    R*-vs-Γ laws; Model 2 is self-inconsistent with the fixed-Mach Γ and is rejected; Models 1 & 3
-   both land O(1). The greenlit sim should resolve which the dynamics realize. Surfaced, not
-   silently collapsed.
+   both land O(1). A FORWARD R*-vs-drive sim (§4) would resolve which the dynamics realize.
+   Surfaced, not silently collapsed.
 3. **Model 3 is n-independent** (§3.2): the most substrate-native opener (fixed-Mach Bernoulli
    wall) does not reference the winding integer — a distinct physical statement worth noting for
-   the sim design.
+   any forward-prediction sim design.
+4. **The O(1) landing is dimensionally FORCED** (§4, verify Finding 2): R*/ℓ_node = n·M_edge/√σ
+   is a product of three O(1) numbers with ℓ_node the only length; the gate could not have
+   returned DEAD for physical σ,Γ>0. Consistency check, not a discriminating test.
 
 ---
 
 ## 6. Scope / what this does NOT establish
 
-- **NOT a sim.** This is analytic paper-gate only. Dynamical stability at R*≈1.6 ℓ_node is the
-  greenlit next step, not established here.
+- **NOT a sim, and NO sim is greenlit.** This is analytic paper-gate only, BANKED as Class-C
+  (§4). A stability sim is NOT run: it would reproduce the analytic R* (the PR#443 seed-pinned
+  trap) or produce a positive-c²-floor artifact (`cavitation_flow.py:159-163`). The only future
+  sim worth running is a FORWARD R*-vs-drive prediction — separate, with its own frozen prereg,
+  a pre-registered discriminating observable, and the integrator floor fixed first (§4).
+- **NOT a discriminating pass.** The O(1) landing is dimensionally FORCED (§4); the gate could
+  not have failed. This is CONSISTENCY-CONFIRMED, not a chord.
 - **NOT an emergence claim / NOT a chord.** Class-C consistency (§5.1); the O(1) coefficient
-  rides imported ℓ_node.
+  rides imported ℓ_node and its landing is forced.
 - **NOT a promotion.** research/ only; no KB/manuscript edits. Any canonization is a separate
   session after independent audit (per lane discipline: the auditor lands manuscript entries).
 - **Does NOT resolve** the stiffening-vs-softening bubble-identity firewall
@@ -395,6 +442,16 @@ Symbolic derivations (sympy 1.14.0), engine-native units (c₀=1, ρ₀=1, ℓ_n
 - All three scratch scripts reproduce the tables above (values in §1.3, §2.2, §3.3).
 - `make verify` PASS.
 
-**BOTTOM LINE:** σ = 3√6/10−√30/10 = 0.18712 (= 0.187, interface identity, derived not plugged);
-Γ = 0.775 engine units (drill n=1, cavitation-Mach swirl on ropelength contour); R*/ℓ_node ≈ 1.6
-(robust band 0.59–3.58, all inside [0.1,10]). **VERDICT: SIM-GREENLIT.** Class-C consistency.
+**BOTTOM LINE (corrected — SOFT positive, honestly banked):** The electron is a self-consistent
+**hollow-vortex STRUCTURE** (Class-C FORM: cavitated core at ρ̄_cav=−1/φ + (2,3)-circulation
+opener + σ=shell-interface closer, binding at electron-scale R*≈1.6 ℓ_node). σ = 3√6/10−√30/10 =
+0.18712 is **inherited by interface-identity** (= the #190 shell interface, same interface twice
+— NOT independently re-derived; the c_σ=1/3 prefactor derivation IS earned). Γ = 0.775 engine
+units (drill n=1, cavitation-Mach swirl on ropelength contour; M_edge* provenance CLIP-demoted,
+reach-only load-bearing). R*/ℓ_node ≈ 1.6 (band 0.59–3.58, inside [0.1,10]) — but the O(1)
+landing is **dimensionally FORCED** (ℓ_node is the only length; gate could not have failed).
+**VERDICT: CONSISTENCY-CONFIRMED → BANK-AS-CLASS-C** — a consistency result, NOT a discriminating
+pass. **No stability sim** (it would reproduce R* or hit the positive-c²-floor artifact,
+`cavitation_flow.py:159-163`). Electron EXISTENCE stays secure via the independent T2 charge/spin
+WALL (PR#442, `resonant-lc-solitons:136`); the **chord lives ONLY in a forward R*-vs-drive
+prediction** (future, separate prereg + discriminating observable + fixed integrator).
