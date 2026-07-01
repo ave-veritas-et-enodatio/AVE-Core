@@ -15,33 +15,49 @@ raw [`drivers/electron_unifier_cocompress_results.json`](drivers/electron_unifie
 
 ## 0. VERDICT (headline)
 
-> **UNIFIER-CONFIRMED.** The electron holds together as ONE self-braced object. The DERIVED field
-> self-energy pull exponent is **`p_derived = 0`** (Part 1, sympy, from the actual engine Hamiltonian);
-> the CO-COMPRESS-MEASURED inward-pull exponent is **`p_measured = 0.15–0.32 < 3`** (Part 2, resolution-
-> robust N=40/N=48); the steepest brace is the A1 gradient self-energy at **`b_measured ≈ 2.5`**
-> (Part-1 `p_brace=3`), which OUT-STEEPENS the pull on every grid. `Γ_w` (circulation) is now conserved
-> to **4.2–4.5% < 5%** (down 3–4× from the prior fixed-per-cell 17%), and the run is Tellegen-lossless
-> (`|dH/H|≈10⁻¹²`, NO dissipative term). The collective-radius force balance is **stable in EXPONENT**
-> (`p_pull < p_brace`), which is the load-bearing, coordinate-matched, prefactor-independent physics; the
-> absolute equilibrium radius `R*` is prefactor/calibration-set (size not derived, consistent with the
-> derivation §4) and sits below the resolvable co-compress window.
+> **CONSISTENCY-class** (DOWNGRADED from UNIFIER-CONFIRMED after independent verify — see the
+> near-tautology note directly below). **The substrate's fixed-charge Derrick scaling is CONSISTENT with
+> a self-braced electron (exponent-level, `p<3` forced in 3D); NO bound state was dynamically observed,
+> and the co-compress sim reproduces the seed geometry's Derrick exponents rather than independently
+> testing them.** Stated plainly: **the electron is NOT shown to hold together as one object.** What is
+> shown: (Part 1) an analytic, substrate-native Derrick balance on the engine energy functional with a
+> single crossing and `p<3` forced in 3D — a genuine Class-C FORM result; and (Part 2) a co-compress sim
+> whose measured exponents (`E_grad_A1 ∝ R⁻²`, `E_tank_w ∝ R⁺¹`) simply **re-measure the seed geometry's
+> Derrick exponents**, which are hard-wired by the fixed-charge / conserved-circulation seed convention
+> and are present at the instant of seeding, before any dynamics (CN evolution moves them <1%).
+
+> **WHY THIS IS A DOWNGRADE, NOT A CONFIRMATION (independent verify — the near-tautology).** The Part-2
+> "measured" exponents could NEVER have come out `p≥3`: the co-compress driver seeds the field with a
+> fixed reactive charge `Q=∫|a|²` and conserved circulation `Γ_w=∮ω·dl`, which by construction FORCE
+> `A²∝R⁻³` (⇒ `E_grad_A1∝R⁻²`) and `B∝R⁻¹` (⇒ `E_tank_w∝R⁺¹`). Those are the SAME algebraic constraints
+> Part 1 uses to derive the exponents — so the sim re-reads the seed, it does not test it. The CN
+> evolution changes the seeded exponents by <1%. The prereg's own anti-rescue guard **"HOLD REAL ODDS IT
+> FAILS"** (§GUARDS, prereg) was therefore **NOT MET**: there was no failure route in-window. The sim is
+> a REPRODUCTION of the seed geometry's Derrick exponents, NOT an independent dynamical confirmation that
+> could have refuted. The verdict is downgraded to CONSISTENCY-class accordingly.
 
 **Plain reading.** The prior bind-sim (PR #442, INCONCLUSIVE) measured the WRONG pull — the varactor
-`dS/dr` ponderomotive pull, which is genuinely null at `A=√α` (`S=0.996`, flat) — and flagged that the
-merged derivation invokes a SECOND, field-self-energy pull it never modeled. This run went to the
-substrate: it read the field self-energy off the engine's own Hermitian generator `⟨x|H|x⟩` and
-Derrick-scaled it. The result is decisive at the derivation level alone: **in 3D, a localized field's
-gradient (self-energy) force can never be steeper than `r⁻³`, and at fixed charge/circulation it points
-OUTWARD** — so no field self-energy pull can out-steepen the `r⁻³` brace, `p<3` is structurally forced,
-and there is exactly one stable equilibrium radius. The co-compressing sim — one collective `R`
-squeezing both sectors with the circulation genuinely conserved — then confirms the load-bearing
-exponents to three nines of fit quality. The electron binds as one object.
+`dS/dr` ponderomotive pull, which is genuinely null at `A=√α` (`S=0.996`, flat). This run correctly
+identified and measured the FIELD SELF-ENERGY gradient term off the engine's own Hermitian generator
+`⟨x|H|x⟩`, and the **Part-1 derivation is sound**: in 3D, a localized field's gradient (self-energy)
+force can never be steeper than `r⁻³`, and at fixed charge/circulation it points OUTWARD — so no field
+self-energy pull can out-steepen the `r⁻³` brace, `p<3` is structurally forced, and the analytic
+`F_R(R)` has exactly one crossing. **But that crossing was never dynamically reached or observed.** The
+co-compress sim did not find a bound state; its window (`R≈2.9–5.6`) is entirely on the inward-pull side
+(`F_net` inward everywhere), and the crossing `R*≈0.4` — below the sampled window (min 2.94) AND below
+one lattice cell (`dx=0.5`) — is a `≈7×` extrapolation of two fitted exponents, not a measured
+equilibrium. `crossing_bracketed=False`, `R_star=NaN` (stated as-is). The Part-2 exponents that "confirm"
+Part 1 are the seed geometry's own Derrick exponents re-measured; the confirmation is a near-tautology,
+not an independent test.
 
-> **FLAG-DON'T-FIX (mechanism inversion, surfaced for Grant — see §4).** The `p<3` verdict is robust,
-> but the substrate says the INWARD binder is NOT the field self-energy the derivation §5.2 named. The
-> field self-energy (gradient) terms are OUTWARD braces; the actual inward pull is the winding **LC-tank
-> potential** `ω_s∫|b|²` (`p=0`). The verdict is identical under both readings; only the mechanism NAME
-> inverts. Grant adjudicates the headline.
+> **FLAG-DON'T-FIX (the load-bearing physics choice, surfaced for Grant — see §4).** The entire
+> brace-vs-pull SIGN assignment is CONDITIONED on the **fixed-reactive-charge** compression ensemble
+> (`Q=∫|a|²` held fixed). Under a fixed-AMPLITUDE ensemble instead (the Part-1 `a=0` row), the A1-gradient
+> term FLIPS from an outward brace to an inward pull. Which ensemble is the physically-correct compression
+> for a bound electron — fixed reactive charge, or fixed peak strain — is the load-bearing choice, and it
+> is not settled here. Grant adjudicates. (A SECOND, smaller flag — the mechanism-NAME inversion between
+> the derivation §5.2 "self-energy pulls in" and the substrate "self-energy braces out" — is retained in
+> §4; note it is downstream of the same ensemble choice.)
 
 ---
 
