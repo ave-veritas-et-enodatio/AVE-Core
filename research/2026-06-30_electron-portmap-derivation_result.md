@@ -21,6 +21,21 @@ input; α appears only through the flagged echo channels). NOT Class-D emergence
 > Class-C (`A=√α`, `m_e`, α all imported/echo). See §5.3. The two former open items — def-vyvsn1 and
 > the `S^0.25`-vs-`S^0.5` exponent — are RESOLVED (§7.2).
 
+> **🔴 2026-06-30 (sim result folded, Rule 12): the anticipated sim-confirmation is UNMET.** The
+> greenlit sim ([`research/2026-06-30_electron-bind-sim_result.md`](2026-06-30_electron-bind-sim_result.md),
+> INCONCLUSIVE) could NOT confirm the deep-core p-slope: at `A=√α` the varactor S-range is ~0.37%
+> (`α/2`-bounded), so the §2.1(i) ponderomotive `dS/dr` pull is flat to <1% and `p` flips with grid
+> (`5.23`@N24 ↔ `−0.06`@N32 = fitting noise). The symbolic BIND at `A=√α` is NEITHER confirmed NOR
+> refuted — **UNTESTED by this instrument**, because the load-bearing §5.2 pull is a Coulomb-class
+> self-energy term (ASSERTED, unmodeled), NOT the null varactor pull; and the varactor pull, carried
+> through the small-A expansion, is `p=3`-MARGINAL not `p<3`. §5 BIND solidity DOWNGRADED from
+> "sim-confirmed" → **SYMBOLIC-ONLY, sim-untested** — pending a co-compressing-soliton instrument + a
+> substrate derivation of the §5.2 Coulomb pull. (This is a caveat, NOT a retraction: the symbolic BIND
+> is untested, not refuted. The electron's EXISTENCE is unthreatened — the A1 mass is confined by the
+> independent T2/charge `Γ=−1` wall at `V_yield`, sim-surviving; see the leaf note at
+> [`resonant-lc-solitons.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):136.
+> What is untested is the narrower SELF-BRACED UNIFIER — one object supplying pull + brace + mass.)
+
 ---
 
 ## 0. HEADLINE (the four deliverable answers, one line each)
@@ -68,6 +83,10 @@ self-braced reactive soliton. This is the SYMBOLIC verdict at the `A=√α` oper
 sim confirms the deep-core slope and the α-robustness. Reported as **BINDS (under the T2 ruling)** —
 a closed fork, not a manufactured PASS: the ruling is Grant's physics call, and the operating point
 `A=√α` it forces is an exact α-echo (Class-C), not a fitted convenience.
+
+> **🔴 2026-06-30 (Rule 12):** the "greenlit sim confirms" clause above is UNMET — the sim came back
+> INCONCLUSIVE (the varactor pull is flat to <1% at `A=√α`, `p` flips with grid). The BIND is
+> SYMBOLIC-ONLY, sim-untested (NOT refuted). See the full 🔴 caveat after the §0 UPDATE box.
 
 ---
 
@@ -365,6 +384,16 @@ pull, away from the deep-saturation limit, scales like a Coulomb-class self-ener
 out-steepens the pull; `dF_net/dr>0`; the electron binds as a self-braced reactive soliton. This is
 the "electron viable" branch.
 
+> **🔴 2026-06-30 (Rule 12): the `p ∈ [1,2]` Coulomb-class self-energy pull is ASSERTED, not derived.**
+> The `p<3` that makes Regime I bind rests entirely on this Coulomb-class term — but it is asserted by
+> analogy, not derived from the substrate, and is UNMODELED by the sim engine. The ONLY pull the
+> derivation actually DERIVES is the varactor ponderomotive `dS/dr` term (§2.1(i)); carried through the
+> small-A expansion at `A=√α` that derived pull is `p=3`-**MARGINAL**, NOT `p<3`. So the `p<3` verdict
+> cannot come from the varactor at all — it requires the ASSERTED §5.2 Coulomb term. The greenlit sim
+> ([`2026-06-30_electron-bind-sim_result.md`](2026-06-30_electron-bind-sim_result.md)) measured only the
+> varactor channel (flat to <1% at `A=√α`) and returned INCONCLUSIVE. A substrate derivation of this
+> Coulomb-class pull is now an OPEN item the BIND depends on.
+
 **Regime II — DEEP-saturation core (`Ā→1`, the near-yield regime this prereg's SECTOR HEADER
 declares LIVE).** Here the §2.3 runaway bites: the pull's effective stiffness carries `|S''(Ā)| =
 (1−Ā²)^{−3/2}`. If, as the envelope compresses, `(1−Ā²) ∝ r^{q}` for some `q>0`, the ponderomotive
@@ -435,6 +464,15 @@ frozen prereg specified.
 > deep-core `p`-slope and the α-robustness (§7). Still **Class-C** throughout: `A=√α`, `m_e`, and α (via
 > `V_yield=√α V_snap`) are all imported/echo — a FORM-chord, not emergence.
 >
+> **🔴 2026-06-30 (sim result folded, Rule 12):** the "greenlit sim CONFIRMS" clause is UNMET — the sim
+> ([`2026-06-30_electron-bind-sim_result.md`](2026-06-30_electron-bind-sim_result.md)) returned
+> INCONCLUSIVE. At `A=√α` the varactor S-range is ~0.37% (`α/2`-bounded), the §2.1(i) `dS/dr` pull is
+> flat to <1%, and `p` FLIPS with grid (`5.23`↔`−0.06`). The BIND is **SYMBOLIC-ONLY, sim-untested**
+> (NEITHER confirmed NOR refuted), because the load-bearing pull is the §5.2 Coulomb-class term
+> (ASSERTED, unmodeled), NOT the null varactor pull — and the varactor pull, expanded at small A, is
+> `p=3`-MARGINAL not `p<3`. This is a caveat NOT a retraction; the electron's existence is held by the
+> independent T2/charge wall (see the full 🔴 caveat after the §0 UPDATE box).
+>
 > **Pre-ruling §5.3 text (preserved, git is the trail — this was the honest CONDITIONAL before the
 > ruling): FORK-FOR-GRANT / CONDITIONAL-BIND** — the network bound stably in the sub-saturation regime
 > (`p<3`) but the LIVE near-yield regime's `r^{−3}`-brace-vs-`S→0`-runaway prefactor contest was not
@@ -495,7 +533,7 @@ Regime II fail) would not have a well-defined boost at all.
 | §3.2 brace (b) | ropelength hard-wall backstop | **SOLID as a floor**, not a smooth brace |
 | §3.3 brace (c) | saturation stiffening DISQUALIFIED (same `1/S` as the pull) | **SOLID** (no-double-counting) |
 | §4 equilibrium | `r*~L_NODE` (Compton) order-consistent | **CONSISTENCY** (scale imported, not derived) |
-| §5 stability | `sign(dF_net/dr)=sign(3−p)`; STABLE iff `p<3`; at `A=√α`, `p∈[1,2]<3` | **SOLID criterion + BINDING evaluation** (T2 ruling fixes `A=√α`, Regime I) |
+| §5 stability | `sign(dF_net/dr)=sign(3−p)`; STABLE iff `p<3`; at `A=√α`, `p∈[1,2]<3` | **SOLID criterion; evaluation SYMBOLIC-ONLY (sim-untested, 2026-06-30)** — the `p<3` rests on the §5.2 ASSERTED Coulomb pull; the DERIVED varactor pull is `p=3`-marginal; sim INCONCLUSIVE (🔴 Rule-12 caveat, §0/§5.2/§7.3) |
 | §5.3 verdict | BINDS (under Grant 2026-06-30 T2 ruling) | the honest state (fork closed by Grant) |
 | §6 mass/inertia | DC store=rest mass, same `L_e`'s Lenz-opposition=inertia | **CONSISTENCY** (canonical reuse) |
 | §6.3 downstream | `p=E_0 v/c²` relativistic-consistency | **OPEN, flagged** |
@@ -530,6 +568,20 @@ The greenlit sim = **measure the deep-core `p`-slope at `A=√α` + run the α-r
 the symbolic BIND, not decide it) — see §7.3.
 
 ### 7.3 What a greenlit sim WOULD settle (the fork is a MEASUREMENT, not a debugging gap)
+
+> **🔴 2026-06-30 (sim result folded, Rule 12): the sim RAN and returned INCONCLUSIVE.** The
+> instrument built to this §7.3 spec ([`2026-06-30_electron-bind-sim_result.md`](2026-06-30_electron-bind-sim_result.md))
+> could NOT settle the measurement. Named mechanism: at `A=√α` the varactor S-range is ~0.37%
+> (`α/2`-bounded) — the ponderomotive `⟨S(A(r))⟩` potential is flat to <1%, so the fitted deep-core
+> `p` is the gradient of a flat-to-noise potential and FLIPS with grid (`p=5.23`@N24 ↔ `p=−0.06`@N32).
+> This is a physics floor, resolution-robust (S-range identical at both grids), NOT a resolution bug.
+> The deeper reason: the load-bearing pull for `p<3` is the §5.2 Coulomb-class self-energy term, which
+> is ASSERTED (not derived) and UNMODELED by the `CoupledCageWinding` engine; the only DERIVED pull is
+> the varactor, and it is `p=3`-MARGINAL (not `p<3`) at `A=√α`. The BIND is therefore SYMBOLIC-ONLY,
+> **sim-untested — NEITHER confirmed NOR refuted.** A real test needs a co-compressing-soliton
+> instrument that exercises the pull-vs-brace steepness contest, plus a substrate derivation of the
+> §5.2 Coulomb pull. (Caveat, not retraction; the electron's existence is held by the independent
+> T2/charge wall.) The pre-sim expectation text below is PRESERVED (git is the trail).
 
 The §5 verdict now BINDS symbolically (under the T2 ruling, `A=√α`); the greenlit sim **CONFIRMS**
 (does not decide) it by measuring **the `r`-slope of the ponderomotive pull `P(r)` vs the `r^{−3}`
