@@ -38,8 +38,8 @@ Per `consistency-vs-emergence` v1.3 + `ave-discrimination-check`:
 
 ## Carry-forward framings (preserved verbatim per chapter discipline)
 
-- **Lattice-genesis single-seed cosmology** — no multiverse, no baby universes (Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_lattice_genesis} in the manuscript).
-- **BH interior = Regime IV ruptured plasma**, NOT a B-sublattice or daughter cosmology (Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_substrate_rupture}).
+- **Lattice-genesis single-seed cosmology** — single-seed *within our cosmic horizon* (one seed event, not many simultaneous disjoint seeds; NOT a claim ours is the only universe). Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_lattice_genesis} in the manuscript.
+- **BH interior = Regime IV ruptured plasma** (NOT a B-sublattice; single-medium). A melted interior **can** re-crystallize into a **daughter cosmology** — nested parent/daughter cosmologies across $\Gamma=-1$ melt→recrystallize boundaries are **permitted** (our own universe is a daughter; [`common/omega-freeze-cosmic-grain-cascade.md`](../../common/omega-freeze-cosmic-grain-cascade.md)). Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_substrate_rupture}.
 - **Machian $G$ is MIXED** (G-ruling 2026-06-14, `ilk-gravmb`) — form-derived (the Achromatic-Lens), value-fitted ($\xi$ back-solved from CODATA $G$; Chain B$'$ open); canonical at `common/full-derivation-chain.md` `clm-9oazz0`; not a primitive axiom. NOT "echo" — the derived-form half stands. *(Mirrors the §-20 table row + 13.tex; the high-salience row was reconciled first, this carry-forward bullet follows per the parallel-site gate.)*
 - **$\nu_{vac} = 2/7$ is Ax~1 LC + Ax~2 α interlink** (canonical at `vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md` `clm-x19btt`; NOT promoted to fundamental axiom).
 - **$c_{EM}$ vs $c_{shear}$ distinction** (CLAUDE.md INVARIANT-S2 Pitfall \#5); the α formula uses $c_{EM}$, Schwarzschild reduction uses $c_{shear}$.
