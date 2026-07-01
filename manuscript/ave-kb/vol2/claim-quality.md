@@ -1532,3 +1532,38 @@ The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65%
   - Carry the composition to the next-order ($\alpha^5$ Bethe-log, recoil, nuclear size) to test beyond leading order.
 
 ---
+
+## The Electron as a HOLLOW VORTEX — Class-C Binding-Structure Consistency
+<!-- id: clm-hvb7q3 -->
+
+The electron admits a self-consistent **hollow-vortex** structural description: a cavitated core at the incompressible-melt EOS floor $\bar\rho_{\text{cav}} = -1/\varphi$, drilled and held open by the $(2,3)$ Cosserat circulation (outward $\propto \Gamma^2/R^3$) and closed by the surface tension of the void↔vacuum boundary (inward $\sigma/R$), with equilibrium $R^* = \Gamma/\sqrt\sigma \approx 1.6\,\ell_{node}$ (reduced-Compton scale). This is a **Class-C CONSISTENCY** description (a FORM AVE *describes*), **NOT a chord** (it does not *predict* the electron) — the FORM-derives / VALUE-imports meta-finding restated. It does **not** establish the electron's existence: that is held **independently** by the sim-surviving T2/charge $\Gamma=-1$ self-trap wall at $V_{yield}$ (clm-kezk9z; def-vyvsn1 = T2, Grant 2026-06-30), which this claim cross-links and does NOT re-derive.
+
+- _Specific Claims_
+  - **FORM (earned):** the incompressible-cavity open/close balance is a genuine substrate-native structure — a Laplace-vs-circulation *cavity* balance (the bulk-K compression term is DELETED because the melted vacuum is incompressible), NOT an energy-basin soliton. The $c_\sigma = 1/3$ tanh-kink prefactor of $\sigma = c_\sigma K \ell_c (\Delta\bar\rho)^2$ is genuinely derived (sympy square-gradient integration).
+  - **Γ (derived, provenance-clipped):** $\Gamma_{\text{drill}} = n\cdot\ell_{node}\cdot M_{\text{edge}}^*\cdot c_0 \approx 0.775$ engine units, from the winding integer, the ropelength contour ($2\pi\cdot\ell_{node}/2\pi = \ell_{node}$ exactly), and the cavitation-onset edge Mach; only the clip-invariant *reachability* of $\bar\rho_{\text{cav}}$ by circulation is load-bearing.
+  - **$R^*/\ell_{node} \approx 1.6$** (headline, Model-1 drill $n{=}1$; robust self-consistent band $[0.59, 3.58]$ across opener-law and $K$-vs-$M$ modulus choices) — an $O(1)$ multiple of the reduced Compton wavelength.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY, not emergence / not a chord.** AVE DESCRIBES the electron as one self-consistent hollow vortex; it does NOT PREDICT it. Do NOT write "binds / confirmed / derived-from-scratch / discriminating." ([`form-deriving-value-importing.md`](../common/form-deriving-value-importing.md)).
+  - **$\sigma = 0.18712$ is IMPORT-BY-IDENTITY, not from-scratch.** The void↔vacuum boundary IS the same $\Delta\bar\rho = 1/\varphi$ / $\ell_c = \sqrt6$ / $K = 2G$ bulk-density step already derived at the #190 shell (`research/2026-06-11_bubble-physics-completion.md`:54-67); same interface described twice, so $\sigma$ coincides BY CONSTRUCTION. Same inputs → same output is an identity, not a corroborating coincidence. $\sigma$ carries the #190 CANDIDATE-class ceiling (tanh-CH scaling on a non-double-well EOS; $\sim 1.7\times$ modulus spread).
+  - **$R^*/\ell_{node} \approx 1.6$ is DIMENSIONALLY FORCED.** $R^*/\ell_{node} = n\cdot M_{\text{edge}}/\sqrt\sigma$ is a product of three $O(1)$ numbers, and $\ell_{node}$ is the theory's ONLY length — so the $O(1)$ landing could NOT have failed for any physical $\sigma, \Gamma > 0$. It is a consistency check, not a discriminating test; only the coefficient ($\approx 1.6$) is content, and it rides the imported ranges.
+  - **Scale rides imports.** $R^*/\ell_{node}$ is dimensionless but $\ell_{node} = \hbar/(m_e c)$ is CODATA-derived (through $m_e$); the $O(1)$ landing is self-consistency at electron scale, not an independent prediction of the electron scale.
+  - **Existence is NOT this claim.** The A1 mass is confined by the independent T2/charge $\Gamma=-1$ wall at $V_{yield}$ (clm-kezk9z; A1 core sub-saturated at $A=\sqrt\alpha$ inside the cage). The 5-attempt existence-side trail (front-freeze FALSIFIED / static eigensolve DOES-NOT-EXIST #415/#417 / bind-sim INCONCLUSIVE / co-compress TAUTOLOGY / this SOFT-CONSISTENCY) yields NO chord.
+  - **The only chord-locus is a FORWARD $R^*$-vs-drive prediction** — a different / future experiment, NOT realized here; it needs its own frozen prereg with a pre-registered discriminating observable AND the positive-$c^2$-floor integrator (`cavitation_flow.py:159-163`) fixed first. No stability sim at $R\approx 1.6\,\ell_{node}$ advances the claim (it reproduces the analytic $R^*$ or hits the $c^2$-floor artifact).
+  - **No number is claimed.** $\alpha$, $A=\sqrt\alpha$, $m_e$, $\ell_{node}$ are all imported/echo; NO dimensionless observable computed free of the target (consistency-vs-emergence, Class-C).
+
+> **Leaf references:** [hollow-vortex-binding](./particle-physics/ch01-topological-matter/hollow-vortex-binding.md).
+
+### Quality
+- confidence: 0.45
+- depends-on:
+  - clm-uatcql — canonical electron identification ($0_1$ unknot + $(2,3)$ + $\Gamma=-1$ + T2 core) that this claim structurally describes (solidity 0.70)
+  - clm-kezk9z — $Z_0$ from discrete LC ladder + the $\Gamma=-1$ confinement wall (the independent existence binder) (solidity 0.90)
+  - def-vyvsn1 — $V_{yield}$ = T2 self-trap wall (Grant 2026-06-30); A1 mass sub-saturated at $A=\sqrt\alpha$ inside it
+  - #190 shell $\sigma$ (`research/2026-06-11_bubble-physics-completion.md`:54-67) — the void↔vacuum interface, imported by identity
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.70)]
+- rationale: A Class-C CONSISTENCY structural description, banked as a SOFT positive, not a chord. The earned content is real (the $c_\sigma=1/3$ prefactor derivation, the incompressible-cavity open/close FORM, the Model-2 rejection, the opener-law fork surfaced) but capped low because the two load-bearing numbers are not independent: $\sigma$ is import-by-identity from the #190 shell (same interface twice), and $R^*/\ell_{node} \approx 1.6$ is dimensionally forced ($\ell_{node}$ is the only length, so the $O(1)$ landing could not have failed). The picture does not establish existence (held independently by the T2 wall) and does not predict the electron; it describes it self-consistently. Honestly tagged Class-C throughout; do not headline as emergence.
+- strengthen-by:
+  - Run the FORWARD $R^*$-vs-drive prediction (its own frozen prereg + pre-registered discriminating observable) — the one place a chord could live — after fixing/replacing the positive-$c^2$-floor integrator (`cavitation_flow.py:159-163`) so the void can hold tensile.
+  - An independent (non-#190) determination of $\sigma$ from a coexistence surface tension (a genuine double-well EOS), which would lift $\sigma$ off the import-by-identity ceiling.
+
+---
