@@ -8,28 +8,57 @@
 **Disciplines applied:** `ave-prereg`, `ave-canonical-source`, `consistency-vs-emergence`,
 `substrate-native-check`, `phase-space-coordinate-check`, `verify-before-cite`.
 
-> **★ GUARD (from prereg).** The structural bind (opener ∝ R⁻³ vs closer ∝ R⁻¹) is a
-> near-tautology (the PR#443 trap). The RESULT here is NOT "it binds" — it is the DERIVED
-> value **R\*** and the DIMENSIONLESS **R\*/ℓ_node**, which is what discriminates
-> electron-scale-viable from DEAD.
+> **★ GUARD (from prereg) — COMPLETED by the verify.** The prereg's guard correctly noted
+> the structural bind (opener ∝ R⁻³ vs closer ∝ R⁻¹) is a near-tautology (the PR#443 trap)
+> and moved the content to the DIMENSIONLESS **R\*/ℓ_node**. The verify completes the guard
+> logic the prereg started: R\*/ℓ_node = n·M_edge/√σ is a **product of three O(1)
+> dimensionless numbers**, and since ℓ_node is the theory's ONLY length scale, the O(1)
+> landing is itself **FORCED by dimensional analysis** — M_edge<1 caps the numerator, σ~O(0.1)
+> caps √σ, so the gate could NOT have returned DEAD for any physical σ,Γ>0. Therefore
+> R\*/ℓ_node is **NOT a discriminating test** either; it is a **consistency check**. The only
+> content that is not forced is the specific coefficient (≈1.6, band 0.59–3.58), which rides
+> the σ/Γ/opener ranges.
 
 ---
 
 ## Headline (fill order: σ → Γ → R* → verdict)
 
+> **HONESTY CORRECTION (independent verify, 2026-07-01).** This result is a **SOFT
+> positive** and is corrected below to say so plainly: (1) σ=0.18712 is **inherited by
+> INTERFACE-IDENTITY** — the void↔vacuum boundary is definitionally the same #190 bulk-
+> density step already characterized, NOT an independent re-derivation (§1). (2) The
+> R*/ℓ_node = O(1) landing is **DIMENSIONALLY FORCED** — ℓ_node is the theory's only length,
+> so the gate could not have returned DEAD for any physical σ,Γ>0; this is a CONSISTENCY
+> check, not a discriminating test (§4). (3) The verdict is **BANKED as Class-C**; no
+> stability sim is run (§4 — it would reproduce the analytic R* or an integrator artifact).
+> The genuine FORM content (incompressible open/close balance, σ=shell-interface closer,
+> Model-2 rejection, opener-law fork) is preserved and correct.
+
 | quantity | derived value (engine units) | provenance |
 |---|---|---|
-| σ (void↔vacuum interface tension) | **3√6/10 − √30/10 = 0.18712** ρ₀c₀²·ℓ_node | §1, from scratch |
-| — coincides with existing 0.187? | **YES** (identity, §1.4) | finding, not plug-in |
-| Γ (conserved Kelvin circulation, drill n=1) | **n·ℓ_node·M_edge*·c₀ = 0.75–0.80** (mid 0.775) | §2, from winding + cavitation Mach |
+| σ (void↔vacuum interface tension) | **3√6/10 − √30/10 = 0.18712** ρ₀c₀²·ℓ_node | §1, **inherited by interface-identity** (not from scratch) |
+| — equals existing #190 shell σ ≈ 0.187? | **YES, BY IDENTITY** (same interface described twice, §1.4) | identity, not independent coincidence |
+| Γ (conserved Kelvin circulation, drill n=1) | **n·ℓ_node·M_edge*·c₀ = 0.75–0.80** (mid 0.775) | §2, from winding + cavitation Mach (M_edge* CLIP-demoted, §2.1) |
 | R* = Γ/√σ (prereg headline, Model 1) | **Γ·√(ρ₀ℓ_node/σ)** | §3 |
-| **R\*/ℓ_node (headline, drill n=1)** | **1.34 – 1.85 (mid ≈ 1.6)** | §3 |
+| **R\*/ℓ_node (headline, drill n=1)** | **1.34 – 1.85 (mid ≈ 1.6)** | §3 (O(1) landing dimensionally FORCED, §4) |
 | — robust band (self-consistent Models 1+3) | **0.59 – 3.58** | §3 |
-| **GATE VERDICT** | **SIM-GREENLIT** (O(1), inside [0.1,10]) | §4 |
+| **GATE VERDICT** | **CONSISTENCY-CONFIRMED → BANK-AS-CLASS-C** (O(1) forced; no sim) | §4 |
 
 ---
 
-## 1. Part 1 — σ DERIVED FROM SCRATCH (no 0.187 plug-in)
+## 1. Part 1 — σ INHERITED BY INTERFACE-IDENTITY (the #190 shell, described twice)
+
+> **REFRAME (verify, Finding 1).** The original title here was "σ DERIVED FROM SCRATCH (no
+> 0.187 plug-in)." That framing is withdrawn. The **c_σ=1/3 symbolic prefactor derivation is
+> correct and re-verified** and is kept in full below. But the *value* σ=0.18712 is **inherited
+> by identity, not independently re-derived**: the cavity void↔vacuum boundary is
+> DEFINITIONALLY the same Δρ̄=1/φ / ℓ_c=√6 / K=2G bulk-density step already characterized at
+> `bubble-physics-completion.md:54-67` (the #190 shell). "No assumptions on 0.187" was honored
+> in FORM (the literal string 0.187 was never typed into the integrand), but the three inputs
+> that FORCE the value — Δρ̄=1/φ, ℓ_c=√6, K=2G — were imported wholesale from that same shell.
+> So this is **the same interface described twice**, not a genuine coincidence of two
+> independent derivations. Said honestly: identical inputs → identical output is an identity,
+> not evidence.
 
 **substrate-native-check:** CP2 bulk-K density-step interface (the void↔vacuum boundary is a
 dilatation-sector density step, NOT a Cartesian gradient); CP4 the interface energy is a
@@ -61,10 +90,13 @@ the gradient stiffness λ_grad carries the bulk-energy scale K over the couple-s
 `bubble-physics-completion.md:45-51`). For a tanh kink profile
 `ρ̄(x) = (Δρ̄/2)·tanh(x/ℓ_c)` at gradient/bulk equipartition, the integral is analytic.
 
-### 1.3 The DERIVED prefactor and value (sympy, from scratch)
+### 1.3 The DERIVED prefactor (correct + re-verified) and the value (inputs imported)
 
-I did **not** assume c_σ = 1/3 or the value 0.187. sympy integrates the gradient functional
-across the tanh kink and returns the prefactor:
+The c_σ = 1/3 prefactor is **genuinely derived** (the literal string "0.187" was never typed
+into the integrand); sympy integrates the gradient functional across the tanh kink and returns
+it. What is NOT independent is the *value*: the three inputs substituted below (Δρ̄=1/φ, ℓ_c=√6,
+K=2G) are imported wholesale from the #190 shell (`bubble-physics-completion.md:54-67`), so the
+resulting 0.18712 is inherited by identity (§1.4), not re-derived. sympy returns the prefactor:
 
 ```
 σ = ∫_{-∞}^{∞} λ_grad (dρ̄/dx)² dx  =  (1/3) · K · ℓ_c · (Δρ̄)²      ⇒  c_σ = 1/3  (DERIVED)
@@ -90,21 +122,28 @@ co-equal (as `bubble-physics-completion.md:85` found) — the tanh-CH σ is not 
 under-estimate by orders. It does NOT change the headline (the CH square-gradient σ is the
 interface tension; e_bulk is the bulk driving energy, a consistency cross-check).
 
-### 1.4 THE INTERFACE IDENTITY (the honesty hinge — pre-committed finding rule)
+### 1.4 THE INTERFACE IDENTITY (the honesty hinge — corrected framing)
 
-**FINDING: the independently-derived cavity-boundary σ EQUALS the existing σ ≈ 0.187.** The
-exact form is 3√6/10 − √30/10 = 0.187124; the existing corpus value (`bubble-physics-
-completion.md:67`) is the rounded 0.187 — the 0.00012 gap is pure decimal rounding, not a
-physical difference.
+**FINDING (corrected): the cavity-boundary σ EQUALS the existing σ ≈ 0.187 BY IDENTITY — it is
+the same interface described twice, not two derivations coinciding.** The exact form is
+3√6/10 − √30/10 = 0.187124; the existing corpus value (`bubble-physics-completion.md:67`) is
+the rounded 0.187 — the 0.00012 gap is pure decimal rounding, not a physical difference.
 
-**Why they coincide (the identity, stated explicitly).** The existing 0.187 is the surface
+**Why they are equal (the identity, stated honestly).** The existing 0.187 is the surface
 tension of a *generic bulk-density step* of depth Δρ̄ = 1/φ. The hollow-vortex cavity boundary
 is *precisely such a step*: the void interior sits at exactly the cavitation floor ρ̄_cav = −1/φ
 (the deepest reversible tensile state the incompressible-melt EOS allows), and the exterior is
 ambient ρ̄ = 0. Same Δρ̄ = 1/φ, same couple-stress width ℓ_c = √6, same modulus K = 2G ⇒ **the
-void↔vacuum interface IS the canonical bulk-density-step interface.** This is a genuine
-coincidence of the two derivations, not a circular plug-in: the value was rebuilt from φ, √6,
-and K=2G with the c_σ=1/3 prefactor derived symbolically, and only *then* compared.
+void↔vacuum interface IS the canonical bulk-density-step interface** — literally the #190 shell
+(`bubble-physics-completion.md:54-67`), not a second object that happens to match.
+
+**Correction (verify, Finding 1) — this is NOT a coincidence of two independent derivations.**
+The earlier claim that the value "was rebuilt from φ, √6, K=2G and only *then* compared" is
+withdrawn as the honesty basis: those three inputs ARE the #190 shell's inputs, imported
+wholesale. Feeding a shell's own inputs into a (correct) prefactor and recovering the shell's
+own output is an **identity**, not a corroborating coincidence. The genuine content of §1 is
+(a) the c_σ=1/3 prefactor derivation, and (b) the *structural* recognition that the hollow-
+vortex closer is the #190 interface — NOT an independent second determination of 0.187.
 
 **Honest ceiling (carried from #190).** This σ is a *gradient-energy scaling* with an assumed
 tanh profile across a NON-double-well EOS (the canonical cavitation branch is a dynamical
