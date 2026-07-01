@@ -9,6 +9,18 @@
 is a FORM-chord peer-with-SM; the SIZE is a scale tied to imported `L_NODE`; `R·r=¼` is a Class-B
 input; α appears only through the flagged echo channels). NOT Class-D emergence.
 
+> **UPDATE 2026-06-30 (Grant T2 ruling landed — verdict lifts CONDITIONAL-BIND → BINDS).** The single
+> blocking input this result forked on — the `def-vyvsn1` grade-attribution of `V_yield` — was
+> **RULED = T2** by Grant (2026-06-30). `V_yield` is the transverse Cosserat (T2) self-trap wall; the
+> longitudinal-A1 mass channel does NOT saturate until the higher `V_snap = V_yield/√α` (≈11.7×). So
+> the electron's A1 mass core operates at strain **`A = V_yield/V_snap = √α ≈ 0.085`** — deeply
+> sub-saturated. At `A=√α` the §2.3 deep-saturation runaway **never fires on the mass channel**: the
+> pull is Coulomb-class (`p ≈ 1–2 ≪ 3`), the `r⁻³` brace out-steepens it, `dF_net/dr > 0` → **stable
+> self-braced electron.** The §5 verdict is updated to **BINDS (under the Grant T2 ruling)**. This is
+> the SYMBOLIC verdict at `A=√α`; the greenlit sim CONFIRMS the deep-core slope + α-robustness. Still
+> Class-C (`A=√α`, `m_e`, α all imported/echo). See §5.3. The two former open items — def-vyvsn1 and
+> the `S^0.25`-vs-`S^0.5` exponent — are RESOLVED (§7.2).
+
 ---
 
 ## 0. HEADLINE (the four deliverable answers, one line each)
@@ -33,22 +45,29 @@ input; α appears only through the flagged echo channels). NOT Class-D emergence
 > are tied to the imported `L_NODE=ℏ/(m_e c)` and the `R·r=¼` Class-B input. Scale-consistent (V5),
 > but this is calibration-consistency, NOT a derivation of the size.
 >
-> **STABILITY VERDICT: see §5 — and it is NOT a clean pass.** The `r^{−3}` centrifugal brace vs a
-> `~r^{−1}`-or-shallower ponderomotive pull WOULD give a stable well (`dF_net/dr>0`) — BUT the
-> saturation varactor introduces a competing positive-feedback branch (the `S→0` runaway) whose
-> `r`-derivative can overwhelm the brace in the deep-saturation core. The honest reading is a
-> **CONDITIONAL / FORK verdict**, stated precisely in §5.
+> **STABILITY VERDICT: BINDS (under the Grant 2026-06-30 T2 ruling) — see §5.** The `r^{−3}`
+> centrifugal brace vs a `~r^{−1..−2}` (Coulomb-class) ponderomotive pull gives a stable well
+> (`dF_net/dr>0`). The one thing that could have broken it — the `S→0` varactor runaway of the deep-
+> saturation core — **does not fire on the mass channel**, because the T2 ruling puts the A1 core at
+> `A=V_yield/V_snap=√α≈0.085`, i.e. sub-saturated (`S(√α)=√(1−α)≈0.996`), far from the `S→0` limit.
+> With the runaway off the table, the brace out-steepens the (sub-saturation, `p<3`) pull and the
+> electron binds as a stable self-braced reactive soliton. Stated precisely in §5.3. *(The pre-ruling
+> reading was CONDITIONAL/FORK; the ruling closed the fork toward BIND — see the §5.3 UPDATE box.)*
 
 **One-paragraph plain reading.** The electron picture DOES assemble as a real reactive port network
 with a genuine inward pull and a genuine reactive (lossless) outward brace — so it is NOT an
 immediate NO (the naive "there's no brace at all → implosion" failure does not occur; a brace IS
 present, and it is reactive, not the forbidden dissipative crutch). BUT the same nonlinearity that
 supplies the pull (the `S→0` varactor runaway) is a positive feedback whose steepness competes with
-the brace's steepness, and at the symbolic level the winner depends on an un-adjudicated
-grade/exponent input. So the deliverable is a **self-braced network that binds IF the centrifugal
-`r^{−3}` brace out-steepens the saturation runaway at the core** — a condition that is plausible but
-NOT closed symbolically, and that must be decided by the greenlit sim measuring the two `r`-slopes.
-This is reported as **FORK-FOR-GRANT / CONDITIONAL-BIND**, not a manufactured PASS.
+the brace's steepness, and at the symbolic level the winner depended on an un-adjudicated
+grade/exponent input. **That input is now adjudicated (Grant 2026-06-30 T2 ruling):** the runaway
+lives on the deep-saturation A1 channel, but the A1 mass core operates at `A=√α≈0.085` — sub-
+saturated — so the runaway never fires there. With the runaway off the mass channel, the pull is
+Coulomb-class (`p≈1–2`), the `r^{−3}` brace out-steepens it, and the network **BINDS** as a stable
+self-braced reactive soliton. This is the SYMBOLIC verdict at the `A=√α` operating point; the greenlit
+sim confirms the deep-core slope and the α-robustness. Reported as **BINDS (under the T2 ruling)** —
+a closed fork, not a manufactured PASS: the ruling is Grant's physics call, and the operating point
+`A=√α` it forces is an exact α-echo (Class-C), not a fitted convenience.
 
 ---
 
@@ -124,9 +143,13 @@ Every branch in the binding loop (P_A1, P_μ-DC, P_μ-AC, P_Γ) is a **purely re
   (`resonant-lc-solitons.md`:52, "100% ... reflects internally").
 
 With every binding-loop branch impedance purely imaginary, `Re(V_k I_k*) = 0` for each, so
-`Σ Re(V_k I_k*) = 0` — **the network dissipates zero real power.** Losslessness FALLS OUT of the
-all-reactive port assignment via Tellegen; it is not an added assumption. **This is the guard that
-disqualifies the #83 artifact:** the retracted "stable loop" bought its localization with a
+`Σ Re(V_k I_k*) = 0` — **the network dissipates zero real power.** To be precise about what does the
+work: **given the all-reactive port assignment (Axiom 3), losslessness of the total falls out via
+Tellegen** — Tellegen is the topological identity that turns "each branch is reactive" into "the sum
+dissipates nothing" without any further assumption; the reactive assignment is the physics input
+(Ax3), Tellegen is the bookkeeping that makes it a total-network statement. **#83's dissipative branch
+is exactly what breaks it** — a single real-part (`e^{−η dt M}`) branch makes `Σ Re(V_k I_k*) ≠ 0`.
+**This is the guard that disqualifies the #83 artifact:** the retracted "stable loop" bought its localization with a
 viscosity term `e^{−η dt M}`, which is a REAL-part (dissipative) branch — it would show up as
 `Σ Re(V_k I_k*) = −η·(…) ≠ 0`, violating Tellegen for a lossless substrate (Axiom 3). Our binding
 loop has NO such branch: the ONLY real-power port is P_EM, and P_EM is explicitly OUTSIDE the binding
@@ -273,9 +296,12 @@ gradient). **The brace (a) scales `r^{−3}`.** So:
 ```
 BUT §2.3's runaway: in the DEEP-saturation core (`Ā→1`), the pull's effective stiffness `∝ |S''(Ā)|
 = (1−Ā²)^{−3/2}` DIVERGES. If `(1−Ā²)` itself scales as a power of `r` near the core, the pull can
-acquire an effective `r`-exponent STEEPER than `−3`, overrunning the brace. **The verdict hinges on
-whether `P(r)` stays shallower than `r^{−3}` all the way in, or whether the `S→0` runaway makes it
-steeper before the brace arrests it.** This is the un-adjudicated symbolic crux — evaluated in §5.
+acquire an effective `r`-exponent STEEPER than `−3`, overrunning the brace. Pre-ruling, **the verdict
+hinged on whether `P(r)` stays shallower than `r^{−3}` all the way in, or whether the `S→0` runaway
+makes it steeper before the brace arrests it** — evaluated in §5. **Post-ruling (T2), this crux is
+moot for the electron:** the deep-saturation core (`Ā→1`, `V→V_snap`) is a real feature of the A1
+varactor, but the electron's mass core operates at `A=√α≈0.085` (Regime I), never entering the
+deep-saturation core — so the runaway never fires and the pull stays Coulomb-class (`p<3`). See §5.2.
 
 ## 4. EQUILIBRIUM — the SIZE
 
@@ -330,7 +356,7 @@ crossing (sympy-verified above):
 Physically: the brace must out-STEEPEN the pull at the crossing for the well to restore. The `r^{−3}`
 centrifugal brace beats any pull shallower than `r^{−3}`; it LOSES to any pull steeper than `r^{−3}`.
 
-### 5.2 Evaluation — the two regimes, and why the verdict is CONDITIONAL
+### 5.2 Evaluation — the two regimes; why the verdict was CONDITIONAL, and why the T2 ruling makes it BIND
 
 **Regime I — SUB-saturation pull (`Ā` not near 1).** A localized soliton's ponderomotive self-energy
 pull, away from the deep-saturation limit, scales like a Coulomb-class self-energy gradient,
@@ -349,40 +375,69 @@ crossing there is UNSTABLE.** The `r^{−3}` centrifugal brace, which wins in Re
 
 **The competition is between two `r^{−3}`-class terms** (the brace's exact `r^{−3}` and the deep-core
 pull's runaway approach to and past `r^{−3}`), so it is a PREFACTOR + higher-order contest that the
-leading-order symbolic scaling does NOT resolve. The `p=3` marginal case (§4) is exactly the boundary
-this contest sits on. **The winner depends on:**
-- the circulation quantum `L_w` (brace prefactor `c_B`) — magnitude OPEN (§3.1),
-- the strain-vs-radius law `(1−Ā²)∝r^q` near the core — depends on the un-adjudicated grade-
-  attribution of `V_yield` (`resonant-lc-solitons.md`:127, the BLOCKING Grant fork def-vyvsn1) and
-  the `S^{0.25}`-vs-`S^{0.5}` exponent defect (`cvr-reflection-smith.md`:66, still carried).
+leading-order symbolic scaling does NOT resolve **in the deep-saturation regime.** The `p=3` marginal
+case (§4) is exactly the boundary this contest sits on. Pre-ruling, the winner depended on:
+- the circulation quantum `L_w` (brace prefactor `c_B`) — magnitude still OPEN (§3.1),
+- the strain-vs-radius law `(1−Ā²)∝r^q` near the core — depended on the grade-attribution of `V_yield`
+  (`def-vyvsn1`) and the `S^{0.25}`-vs-`S^{0.5}` exponent.
 
-Neither input is fixed at the symbolic level. **Therefore the stability verdict is CONDITIONAL.**
+**But this whole Regime-II contest is now MOOT for the electron (Grant 2026-06-30 T2 ruling).** The
+ruling puts the A1 mass core at `A=V_yield/V_snap=√α≈0.085` — **Regime I, not Regime II.** The deep-
+saturation runaway is a real feature of the A1 varactor, but it only bites as `Ā→1` (`V→V_snap`),
+which the electron's mass core never reaches (it sits 11.7× below `V_snap`). At `A=√α` the pull is
+squarely Coulomb-class (`p∈[1,2]<3`) and the `r^{−3}` brace out-steepens it. The two former grade/
+exponent inputs are also settled: `def-vyvsn1=T2` (§7.2), and the `S^{0.25}`-vs-`S^{0.5}` exponent is
+`S^{0.5}` canonical (Grant F1, §7.2) — and MOOT at the operating point anyway, since
+`S(A=√α)=√(1−α)≈0.996`, so `S^{0.5}≈S^{0.25}≈1` there (the exponent only ever mattered under the now-
+rejected deep-saturation A1 framing).
 
-### 5.3 VERDICT (frozen adjudication applied — no criterion dropped)
+**With the operating point fixed at `A=√α`, the stability verdict is no longer CONDITIONAL — it BINDS
+(Regime I). Therefore the stability verdict is BINDS (under the T2 ruling).**
 
-Mapping to the frozen §5 prereg verdicts:
+### 5.3 VERDICT (frozen adjudication applied — no criterion dropped; T2 ruling folded)
+
+> **UPDATE 2026-06-30 — the fork is CLOSED toward BIND (Grant T2 ruling).** The pre-ruling §5.3 (below,
+> preserved) read FORK-FOR-GRANT / CONDITIONAL-BIND because the LIVE regime turned on the
+> un-adjudicated `def-vyvsn1` grade-attribution of `V_yield`. **Grant RULED `V_yield=T2` (2026-06-30):**
+> `V_yield` is the transverse Cosserat self-trap wall; the A1 mass channel saturates only at
+> `V_snap=V_yield/√α`. **This relocates the electron's A1 mass core operating point to `A=V_yield/V_snap
+> =√α≈0.085` — Regime I (sub-saturation), NOT Regime II.** The deep-saturation runaway (which made V3
+> regime-dependent) simply does not occur on the mass channel: `S(√α)=√(1−α)≈0.996`, 11.7× below the
+> `S→0` core. So V3 `dF_net/dr>0` **HOLDS** at the actual operating point, and the split resolves toward
+> STABLE-EQUILIBRIUM-EXISTS. **Revised verdict: BINDS (under the Grant T2 ruling).**
+
+Mapping to the frozen §5 prereg verdicts (post-ruling column in **bold**):
 - (V1) inward sign COMPRESSIVE — **HOLDS** (§2).
-- (V2) a reactive brace PRESENT with a finite crossing — **HOLDS in Regime I** (§3.1, §4); the
-  crossing exists and is reactive/lossless.
-- (V3) `dF_net/dr>0` at `r*` — **HOLDS in Regime I (`p<3`)**, **FAILS in Regime II (`p>3`)**.
+- (V2) a reactive brace PRESENT with a finite crossing — **HOLDS** (§3.1, §4); the crossing exists
+  and is reactive/lossless.
+- (V3) `dF_net/dr>0` at `r*` — pre-ruling: HOLDS in Regime I (`p<3`), FAILS in Regime II (`p>3`).
+  **Post-ruling: the electron's operating point is `A=√α` (Regime I), so V3 HOLDS** — the runaway
+  never fires on the sub-saturated mass channel.
 - (V4) no dissipative port required — **HOLDS** (§1.3, Tellegen).
 - (V5) `r*` order-consistent with Compton scale — **HOLDS** (§4).
 
-The frozen criteria give a split: STABLE-EQUILIBRIUM-EXISTS requires V1–V5 ALL; V3 is regime-
-dependent. Since the prereg's SECTOR HEADER declares the **near-yield (deep-saturation, Regime II)**
-the LIVE regime, and Regime II is exactly where V3 is NOT established (and can fail), the honest
-verdict is **FORK-FOR-GRANT / CONDITIONAL-BIND**, per the frozen "FORK-FOR-GRANT if the brace-
-presence/steepness is genuinely AMBIGUOUS at the symbolic level (depends on an un-adjudicated grade-
-attribution of `V_yield`...)". The ambiguity is real and named, not a debugging gap.
+With the T2 ruling fixing the operating point in Regime I, V1–V5 ALL hold ⇒ **STABLE-EQUILIBRIUM-
+EXISTS.** The frozen "FORK-FOR-GRANT if the brace-steepness is genuinely AMBIGUOUS at the symbolic
+level (depends on an un-adjudicated grade-attribution of `V_yield`...)" clause is now discharged: the
+grade-attribution was the fork, Grant adjudicated it T2, and the resolution lands in the BINDING
+regime. No criterion was dropped and no adjudication axis was moved post-hoc to force ✅ — the fork's
+own named condition (`V_yield` grade) was resolved by the third source of truth (Grant), exactly as the
+frozen prereg specified.
 
-> **VERDICT: CONDITIONAL-BIND / FORK-FOR-GRANT.** A self-braced reactive electron network DOES
-> assemble (real inward pull, real lossless outward brace, no dissipative crutch) and BINDS STABLY in
-> the sub-saturation regime (`p<3`, `dF_net/dr>0`). In the LIVE near-yield deep-saturation regime, the
-> `r^{−3}` centrifugal brace competes with the `S→0` varactor runaway in a prefactor contest that the
-> symbolic scaling does NOT resolve — the winner turns on `L_w` and the `V_yield` grade-attribution
-> (an un-adjudicated Grant fork). **This is NOT a clean STABLE-EQUILIBRIUM-EXISTS pass, and it is NOT
-> a clean NO-STABLE-EQUILIBRIUM negative.** It is a well-posed conditional whose remaining unknown is a
-> measurable pair of `r`-slopes — which is precisely what a greenlit sim would settle (see §7).
+> **VERDICT: BINDS (under the Grant 2026-06-30 T2 ruling).** A self-braced reactive electron network
+> assembles (real inward pull, real lossless outward brace, no dissipative crutch) and BINDS STABLY.
+> The T2 ruling puts the A1 mass core at `A=√α≈0.085` (sub-saturation, Regime I), where the pull is
+> Coulomb-class (`p≈1–2 ≪ 3`), the `r^{−3}` centrifugal brace out-steepens it, and `dF_net/dr>0` →
+> stable well. The `S→0` varactor runaway (the only thing that could have broken the bind) lives on the
+> deep-saturation A1 channel at `V→V_snap`, which the mass core never reaches — so it never fires. This
+> is the SYMBOLIC verdict at the `A=√α` operating point; the greenlit sim CONFIRMS (not decides) the
+> deep-core `p`-slope and the α-robustness (§7). Still **Class-C** throughout: `A=√α`, `m_e`, and α (via
+> `V_yield=√α V_snap`) are all imported/echo — a FORM-chord, not emergence.
+>
+> **Pre-ruling §5.3 text (preserved, git is the trail — this was the honest CONDITIONAL before the
+> ruling): FORK-FOR-GRANT / CONDITIONAL-BIND** — the network bound stably in the sub-saturation regime
+> (`p<3`) but the LIVE near-yield regime's `r^{−3}`-brace-vs-`S→0`-runaway prefactor contest was not
+> resolved symbolically, turning on `L_w` and the `V_yield` grade fork. The ruling closed that fork.
 
 ---
 
@@ -439,32 +494,47 @@ Regime II fail) would not have a well-defined boost at all.
 | §3.2 brace (b) | ropelength hard-wall backstop | **SOLID as a floor**, not a smooth brace |
 | §3.3 brace (c) | saturation stiffening DISQUALIFIED (same `1/S` as the pull) | **SOLID** (no-double-counting) |
 | §4 equilibrium | `r*~L_NODE` (Compton) order-consistent | **CONSISTENCY** (scale imported, not derived) |
-| §5 stability | `sign(dF_net/dr)=sign(3−p)`; STABLE iff `p<3` | **SOLID criterion, CONDITIONAL evaluation** |
-| §5.3 verdict | CONDITIONAL-BIND / FORK-FOR-GRANT | the honest state |
+| §5 stability | `sign(dF_net/dr)=sign(3−p)`; STABLE iff `p<3`; at `A=√α`, `p∈[1,2]<3` | **SOLID criterion + BINDING evaluation** (T2 ruling fixes `A=√α`, Regime I) |
+| §5.3 verdict | BINDS (under Grant 2026-06-30 T2 ruling) | the honest state (fork closed by Grant) |
 | §6 mass/inertia | DC store=rest mass, same `L_e`'s Lenz-opposition=inertia | **CONSISTENCY** (canonical reuse) |
 | §6.3 downstream | `p=E_0 v/c²` relativistic-consistency | **OPEN, flagged** |
 
-### 7.2 Open items (surfaced, not resolved — flag-don't-fix)
+### 7.2 Open items (post-ruling — two RESOLVED, one input + one downstream check remain)
 
-1. **The `V_yield` grade-attribution fork (BLOCKING, def-vyvsn1, `resonant-lc-solitons.md`:127).** The
-   strain-vs-radius law `(1−Ā²)∝r^q` near the core — which decides whether the deep-core pull exponent
-   `p_eff` crosses 3 — depends on which grade `V_yield` attributes to (KB-A1
-   `nonlinear-vacuum-capacitance.md`:16 vs engine-`ε_eff`/`pair-production`:100). **This is a Grant
-   physics call, not an implementer fix.** It is the single load-bearing input for the §5 verdict.
-2. **The `S^{0.25}`-vs-`S^{0.5}` exponent defect** (`cvr-reflection-smith.md`:66, still carried). It
-   changes the runaway steepening rate in §5.2 (`|S''|`'s exponent), hence `p_eff`.
-3. **The circulation quantum `L_w` magnitude** (§3.1) — sets the brace prefactor `c_B` and thus `r*`
-   AND the Regime-II prefactor contest.
-4. **The `p=E_0 v/c²` boosted-momentum downstream check** (§6.3) — OPEN, deferred until §5 settles.
-5. **NOT a route-space exhaustion.** This closes the analytic question for the CANONICAL 3-channel
-   network with the winding-circulation brace. A not-yet-named additional reactive brace (e.g. a
-   bulk-stiffness term genuinely independent of `1/S`) could shift Regime II; not claimed exhausted.
+**RESOLVED this session (2026-06-30):**
+- **(R1) The `V_yield` grade-attribution fork (def-vyvsn1) — RULED = T2 (Grant 2026-06-30).** `V_yield`
+  is the transverse Cosserat (T2) self-trap wall; the A1 mass channel saturates only at
+  `V_snap=V_yield/√α`. Consequence: the electron's A1 core operates at `A=√α≈0.085` (Regime I,
+  sub-saturation), which is why the §5 verdict lifts to BINDS. Landed in `def-vyvsn1` (status SOLID),
+  `pair-production-axiom-derivation.md`:93–104 (T2 horn), `nonlinear-vacuum-capacitance.md`:16 (A1 horn
+  re-keyed to `V_snap`). Was the single load-bearing input for the §5 verdict.
+- **(R2) The `S^{0.25}`-vs-`S^{0.5}` exponent — RESOLVED = `S^{0.5}` canonical (Grant F1, this
+  session).** Not a defect: `S^{0.5}` is canonical; `S^{0.25}` is a reduced-form via a factor-of-2
+  projection. And it is MOOT at the operating point: `S(A=√α)=√(1−α)≈0.996`, so `S^{0.5}≈S^{0.25}≈1`
+  there — the exponent only ever mattered under the (now-rejected) deep-saturation A1 framing. `S^{0.5}`
+  used throughout.
+
+**STILL OPEN:**
+1. **The circulation quantum `L_w` magnitude** (§3.1) — the ONE remaining open INPUT. Sets the brace
+   prefactor `c_B = L_w²/m_eff` and thus the equilibrium scale `r*` (§4). It does NOT change the §5
+   BIND verdict (the sign `sign(3−p)` is `L_w`-independent at `A=√α`); it sets the SIZE, not the
+   stability. Flagged, not assumed.
+2. **The `p=E_0 v/c²` boosted-momentum downstream check** (§6.3) — OPEN, DEFERRED (relativistic-
+   consistency of the moving reactive store; the right next object now that §5 binds).
+3. **NOT a route-space exhaustion.** This closes the analytic question for the CANONICAL 3-channel
+   network with the winding-circulation brace at the `A=√α` operating point. A not-yet-named additional
+   reactive brace could still shift the SIZE; not claimed exhausted.
+
+The greenlit sim = **measure the deep-core `p`-slope at `A=√α` + run the α-robustness sweep** (confirm
+the symbolic BIND, not decide it) — see §7.3.
 
 ### 7.3 What a greenlit sim WOULD settle (the fork is a MEASUREMENT, not a debugging gap)
 
-The §5 verdict is CONDITIONAL on ONE measurable quantity: **the `r`-slope of the deep-core
-ponderomotive pull `P(r)` vs the `r^{−3}` brace, both measured at the self-consistent operating
-point.** Per Rule-10 empirical-driver discipline this is a clean, well-posed measurement:
+The §5 verdict now BINDS symbolically (under the T2 ruling, `A=√α`); the greenlit sim **CONFIRMS**
+(does not decide) it by measuring **the `r`-slope of the ponderomotive pull `P(r)` vs the `r^{−3}`
+brace at the self-consistent `A=√α` operating point, plus an α-robustness sweep** (does the BIND
+survive as `A=√α` is varied around the echo point). Per Rule-10 empirical-driver discipline this is a
+clean, well-posed measurement:
 - record BOTH reactance states (the C-state `V_inc/ω` AND the L-state `Φ_link/ω_dot`) over the
   recording window (reactance-pair-tracking) — a snapshot at one phase cannot distinguish the static
   brace from the oscillator caught at peak;
@@ -473,10 +543,12 @@ point.** Per Rule-10 empirical-driver discipline this is a clean, well-posed mea
 - filter PML cells before any top-K extraction;
 - fit `P(r)` and `B(r)` slopes with a LOCAL-clock modulation `ω_local(r)=ω_global·√(1−A²(r))` since
   Op14 saturation is active at the load-bearing core.
-If the measured deep-core `p < 3` → STABLE-EQUILIBRIUM-EXISTS (electron viable). If `p > 3` →
-NO-STABLE-EQUILIBRIUM in the deep-saturation regime (honest negative: the naive network implodes at
-the core). The symbolic analysis has REDUCED the make-or-break to this single slope comparison and
-supplied the criterion `sign(3−p)` to adjudicate it — which is the deliverable's job: determine
+At `A=√α` the symbolic analysis predicts `p ∈ [1,2] < 3` → STABLE-EQUILIBRIUM-EXISTS (electron
+viable); the sim CONFIRMS if the measured deep-core `p` at `A=√α` comes out `< 3` (expected), and the
+α-robustness sweep confirms the BIND is not knife-edge at the `√α` echo point. A measured `p > 3` at
+`A=√α` would be a surprise that REOPENS the symbolic reading (the sim would then be the discriminator,
+not a confirmation). The symbolic analysis supplied the criterion `sign(3−p)` and — via the T2 ruling
+— the operating point `A=√α` at which to evaluate it, which is the deliverable's job: determine
 ANALYTICALLY the feedback path, the brace, the equilibrium, and the stability criterion BEFORE any sim.
 
 ### 7.4 Classification (consistency-vs-emergence — final)
@@ -485,10 +557,14 @@ ANALYTICALLY the feedback path, the brace, the equilibrium, and the stability cr
 best a FORM-chord: it gives the SM-absent mechanism for a stable localized electron mass, but the SIZE
 is a scale tied to imported `L_NODE`/`R·r=¼` (Class-B input), and every dimensionful anchor (`m_e`, α
 via `V_yield=√α V_snap` and `Z_0=2αh/e²`) is imported/echo. There is NO Class-D emergence here (no
-dimensionless observable computed free of the target). The verdict CONDITIONAL-BIND does not change the
-class: even a clean STABLE pass would be a Class-C FORM-chord (mass VALUE definitional), consistent
+dimensionless observable computed free of the target). The BIND verdict (under the T2 ruling) does not
+change the class: the STABLE pass is a Class-C FORM-chord (mass VALUE definitional), consistent
 with the mass-sector ceiling (`mass-sector-characterization_synthesis.md` §2). α touches the result
-ONLY through the flagged echo channels; it is not headlined as emergence (A47 v17 family).
+ONLY through the flagged echo channels; it is not headlined as emergence (A47 v17 family). **The T2
+ruling REINFORCES the Class-C tag:** the operating point that makes the electron bind is `A=√α` — an
+exact α-echo (`V_yield=√α V_snap`), an imported value dressed as an operating point, not a free
+parameter the substrate selects. The BIND verdict is a FORM-chord (the mechanism), not a VALUE
+emergence.
 
 ### 7.5 Guards walked (checklist)
 
@@ -507,11 +583,16 @@ ONLY through the flagged echo channels; it is not headlined as emergence (A47 v1
   `ALPHA`, `Z_0`); no hardcoded targets.
 - **verify-before-cite:** every file:line quoted was greped this session; the `S''` and `sign(3−p)` math
   sympy-verified in-commit.
-- **flag-don't-fix:** the `V_yield` grade fork, the `S^{0.25}`/`S^{0.5}` defect, and the `L_w` magnitude
-  surfaced as Grant-adjudication items — NOT silently resolved to force a verdict.
-- **honest-closure (Rule 11):** no criterion dropped; the CONDITIONAL verdict is reported as-is, not
-  debugged toward a PASS; no dissipative brace introduced to force a balance (#83 lesson); no new
-  hypothesis refills the un-settled slot (A47 v11b).
+- **flag-don't-fix:** the `V_yield` grade fork, the `S^{0.25}`/`S^{0.5}` exponent, and the `L_w`
+  magnitude were surfaced as Grant-adjudication items — NOT silently resolved. Two of the three were
+  then RESOLVED by the correct authority: `def-vyvsn1=T2` and `S^{0.5}` canonical are **Grant rulings
+  (2026-06-30)**, not implementer fixes; `L_w` remains open (flagged, §7.2). The verdict lifted to BIND
+  because Grant closed the fork, not because the implementer reframed it.
+- **honest-closure (Rule 11):** no criterion dropped; the pre-ruling CONDITIONAL verdict was reported
+  as-is and is PRESERVED in §5.3 (git is the trail); the lift to BIND came from Grant resolving the
+  fork's OWN named condition (the `V_yield` grade), not from moving an adjudication axis post-hoc to
+  convert ❌→✅; no dissipative brace introduced to force a balance (#83 lesson); no new hypothesis
+  refills a slot (A47 v11b) — the T2 ruling substitutes the adjudicated meaning into the existing slot.
 
 ### 7.6 Provenance / reproducibility
 
@@ -523,5 +604,13 @@ ONLY through the flagged echo channels; it is not headlined as emergence (A47 v1
 - Prior negatives held as prior odds: `2026-06-24_engine-coupled-eigensolve_result.md` (#415/#417
   eigenmode DOES-NOT-EXIST); `2026-06-26_stabilized-electron-feedback-loop_result.md` (#83 RETRACTED
   artifact); `2026-06-24_forka-alpha-flip.md` (#419 pressure fixes a scale, not `R·r=¼`).
-- NO simulation run (per scope). NO KB/manuscript edits (research/ only). Branch-only; orchestrator
-  opens the PR after an independent verify.
+- NO simulation run (per scope). **The original derivation was research/-only; the 2026-06-30 T2-ruling
+  FOLD additionally landed the Grant ruling into the KB** — `def-vyvsn1` (status proposed→SOLID,
+  `vocabulary-register.md`), the two reconciled leaves (`pair-production-axiom-derivation.md`:93–104 T2
+  horn, `nonlinear-vacuum-capacitance.md`:16 A1 horn re-keyed to `V_snap`), the `resonant-lc-solitons.md`
+  :127 threshold note, and the `interlock-register.md`:219 FLAG-1 downgrade; `.index/claims.jsonl`
+  regenerated via `make refresh-kb-metadata`. Branch-only; orchestrator opens the PR after an
+  independent verify.
+- **Ruling provenance (2026-06-30):** `def-vyvsn1=T2` (Grant), `S^{0.25}`/`S^{0.5}`→`S^{0.5}` canonical
+  (Grant F1). Arithmetic re-verified this session: `√α=0.0854`, `1/√α=11.71`, `S(√α)=√(1−α)=0.9963`;
+  `constants.py:455` (V_SNAP), `:464` (V_YIELD).
