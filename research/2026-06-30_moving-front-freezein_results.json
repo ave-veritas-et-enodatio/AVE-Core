@@ -1,0 +1,58 @@
+{
+  "prereg": "research/2026-06-30_moving-front-freezein_prereg_FROZEN.md",
+  "prereg_sha": "7b97e76d",
+  "engine": "src/ave/topological/moving_front_freezein.py",
+  "driver": "src/tests/test_moving_front_freezein.py (run_full / warm_sweep)",
+  "run": "single JAX-warm process, N=12, 3-point sweep; authoritative dataset",
+  "persist_metric_note": "persistence = Compton periods holding Q>=Q_pre (3-sample window-median) AFTER the front cleared the defect ring; T_Compton = 2*pi*tau_relax. beats_disp threshold = tau_disperse*1.5 is WEAK (front-present hold inflates it) — see result doc; the load-bearing reads are the memristive S_min monotone rise and the LASTING-persistence failure.",
+  "N": 12,
+  "pml": 3,
+  "seed": {
+    "R_major": 4.0,
+    "amp": 0.3,
+    "sigma": 1.8
+  },
+  "tau_disperse_compton": 0.225,
+  "sweep": [
+    {
+      "v_front": 0.5,
+      "dtc_over_tau": 4.0,
+      "regime": "SLOW\u2192HEAL",
+      "bare_Qend": 1,
+      "bare_persist": 1.013,
+      "bare_Smin": 0.0,
+      "bare_beats_disp": true,
+      "memristive_Qend": 1,
+      "memristive_persist": 3.039,
+      "memristive_Smin": 0.04,
+      "memristive_beats_disp": true
+    },
+    {
+      "v_front": 1.0,
+      "dtc_over_tau": 2.0,
+      "regime": "SLOW\u2192HEAL",
+      "bare_Qend": 1,
+      "bare_persist": 1.35,
+      "bare_Smin": 0.0,
+      "bare_beats_disp": true,
+      "memristive_Qend": 1,
+      "memristive_persist": 0.45,
+      "memristive_Smin": 0.189,
+      "memristive_beats_disp": true
+    },
+    {
+      "v_front": 4.0,
+      "dtc_over_tau": 0.5,
+      "regime": "FAST\u2192FREEZE",
+      "bare_Qend": 1,
+      "bare_persist": 1.576,
+      "bare_Smin": 0.0,
+      "bare_beats_disp": true,
+      "memristive_Qend": 0,
+      "memristive_persist": 1.463,
+      "memristive_Smin": 0.561,
+      "memristive_beats_disp": true
+    }
+  ],
+  "note": "persistence = Compton periods holding Q>=Q_pre (window-median) AFTER the front cleared the defect ring"
+}
