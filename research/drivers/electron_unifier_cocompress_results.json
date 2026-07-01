@@ -1,6 +1,6 @@
 {
- "verdict": "UNIFIER-CONFIRMED",
- "reason": "p_derived<3 (Part 1) AND p_measured<3 resolution-robust AND the r\u207b\u00b3-class brace out-steepens the pull on every grid AND \u0393_w<5% AND lossless. The collective-radius force balance is stable in EXPONENT (p_pull<p_brace); the absolute crossing R* is prefactor/calibration-set (size not derived, consistent with the derivation \u00a74) and is not required to be bracketed by the resolvable co-compress window.",
+ "verdict": "CONSISTENCY-class (DOWNGRADED from UNIFIER-CONFIRMED by independent verify \u2014 the co-compress sim RE-MEASURES the seed geometry Derrick exponents, it does not independently test them; NO bound state observed)",
+ "reason": "Part-1 Derrick derivation is a genuine Class-C FORM result (p_derived<3 forced in 3D under fixed-charge ensemble, single analytic crossing). Part-2 is a REPRODUCTION not a confirmation: E_grad_A1 propto R^-2 and E_tank_w propto R^+1 are hard-wired by the fixed-charge/conserved-circulation seed convention (present before dynamics; CN moves them <1%), so p_measured<3 had no failure route in-window (prereg HOLD-REAL-ODDS-IT-FAILS NOT met). U3 NOT DEMONSTRATED: crossing_exists=False, R_star=NaN, stable_robust=False; R* approx 0.4 sits below the sampled window (min 2.94, ~7x extrapolation) AND below one lattice cell (dx=0.5); F_net inward everywhere in-window. pull-fit r2=0.56-0.76 (three-nines r2=0.9998 is the BRACE fit only). OPEN: brace/pull sign assignment is conditioned on fixed-reactive-charge; under fixed-amplitude the A1-gradient term flips to an inward pull (Grant adjudicates the compression ensemble).",
  "p_measured_by_grid": {
   "40": 0.31524525959961525,
   "48": 0.15438579249015055

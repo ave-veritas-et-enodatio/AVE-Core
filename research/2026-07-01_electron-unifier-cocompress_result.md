@@ -290,29 +290,36 @@ of binding.
 
 | Part | Finding | Solidity |
 |---|---|---|
-| Part-1 Derrick scaling | 4 terms, `p_derived=0` pull, `p_brace=3`, single stable `R*` | **SOLID** (sympy, reproducible; robustness `p=a` closed-form) |
-| Part-1 `p<3` FORCED in 3D | no gradient force steeper than `r⁻³`, steepest is outward | **SOLID** (dimensional, constraint-independent) |
-| E_grad_A1 `∝R⁻²` | measured r²=0.9997/0.9998 | **SOLID** (both grids, the Part-1 prediction MEASURED) |
-| `p_measured<3` | 0.15–0.32, no grid-flip | **SOLID** (resolution-robust; the prior INCONCLUSIVE flip resolved) |
-| brace out-steepens pull | `2.5 > 0.2` both grids | **SOLID** (the load-bearing exponent contest) |
-| `Γ_w` conservation | 4.2–4.5%, converging | **SOLID-with-residual** (3–4× better than 17%; ~4% residual is a converging lattice artifact, Link exact) |
+| Part-1 Derrick scaling | 4 terms, `p_derived=0` pull, `p_brace=3`, single analytic crossing | **SOLID** (sympy, reproducible; robustness `p=a` closed-form) — the genuine Class-C FORM result |
+| Part-1 `p<3` FORCED in 3D | no gradient force steeper than `r⁻³`, steepest is outward (at fixed charge) | **SOLID** (dimensional, constraint-independent) — CONDITIONED on the fixed-charge ensemble (§4.0) |
+| E_grad_A1 `∝R⁻²` | measured r²=0.9997/0.9998 | **CONSISTENCY-only** — this exponent is HARD-WIRED by the fixed-charge seed convention (present before dynamics); the sim RE-READS it, does not independently test it |
+| `p_measured<3` | 0.15–0.32, no grid-flip; pull-fit r²=0.56–0.76 | **CONSISTENCY-only** — seed convention re-read; no failure route in-window (prereg "HOLD REAL ODDS IT FAILS" NOT met); the pull is near-constant (consistent with `p≈0`), NOT a pinned exponent |
+| brace out-steepens pull | `2.5 > 0.2` both grids | **CONSISTENCY-only** — the exponent contest is the seed convention re-read, not a dynamical demonstration |
+| directly-observed bound state / `R*` | `crossing_exists=False`, `R_star=NaN`, `stable_robust=False`; `R*≈0.4` below window (≈7×) + below one cell (dx=0.5) | **NOT OBSERVED / NOT DEMONSTRATED** — no equilibrium observed or observable; the electron is NOT shown to hold together |
+| `Γ_w` conservation | 4.2–4.5%, converging | **SOLID-with-residual** (3–4× better than 17%; measurement premise landed; ~4% converging lattice artifact, Link exact) |
 | Losslessness | `|dH/H|≈10⁻¹²`, no dissipative term | **SOLID** (unitary CN; #83 crutch NOT used) |
-| directly-observed `R*` | crossing below the window | **NOT OBSERVED** (prefactor/calibration; size imported per derivation §4) |
-| mechanism identity (which pull, which brace) | §4 inversion | **FLAGGED for Grant** (verdict-invariant) |
+| compression ensemble (fixed charge vs fixed amplitude) | §4.0 — brace/pull sign flips with ensemble | **FLAGGED for Grant** (load-bearing; the whole sign story rests on it) |
+| mechanism identity (which pull, which brace) | §4.1 inversion | **FLAGGED for Grant** (downstream of §4.0) |
 
 **Open items:**
-1. **Mechanism headline** (§4) — Grant: is the inward binder the winding LC-tank (`p=0`, substrate) or
-   the field self-energy (`p∈[1,2]`, §5.2 asserted)? Verdict-invariant; the derivation §5.2 wording
-   should be reconciled to the substrate reading either way (the field self-energy is a BRACE at fixed
-   charge). Does NOT block UNIFIER-CONFIRMED.
-2. **Absolute `R*`** — not derived (prefactor/calibration, imported scale). A directly-observed
-   equilibrium would need a seed calibration that places `R*` inside the resolvable window; the physics
-   (exponent contest) is settled without it.
-3. **`Γ_w` ~4% residual** — a converging lattice artifact (reactive `|curl ω|`↔A1 exchange); the
-   topological Link is exact. A finer grid / longer converge study would pin the asymptote; not
-   load-bearing for the verdict.
-4. **NOT a route-space exhaustion.** This confirms the CANONICAL 3-channel functional's unifier at
-   `A=√α`. A not-yet-named additional term could shift `R*`; not claimed exhausted.
+1. **Compression ENSEMBLE (§4.0) — load-bearing, for Grant.** Is fixed-reactive-charge (`Q=∫|a|²` fixed)
+   the physically-correct compression ensemble for a bound electron, or is it fixed-amplitude (peak strain
+   held)? The A1-gradient term is an OUTWARD brace under fixed charge and an INWARD pull under fixed
+   amplitude — so the sign of the dominant force, and whether the Derrick balance has the claimed shape,
+   depends on this choice. This is the premise the entire consistency-class result rests on; surfaced, not
+   resolved.
+2. **A dynamical binding test that COULD fail (Rule-11 / prereg follow-on).** The co-compress sim as built
+   cannot refute (it re-reads the seed exponents). A genuine test would (a) place `R*` INSIDE the
+   resolvable window via a seed calibration, and (b) NOT normalize to the fixed-charge convention that
+   pre-determines the exponents — e.g. free-relax a seeded soliton and watch whether it settles to a
+   finite `R` or collapses/disperses. Until such a test runs, the electron's binding is NOT demonstrated.
+3. **Mechanism headline** (§4.1) — Grant: is the inward binder the winding LC-tank (`p=0`, substrate) or
+   the field self-energy (`p∈[1,2]`, §5.2 asserted)? Downstream of item 1 (the ensemble choice). The
+   derivation §5.2 wording should be reconciled to whichever ensemble Grant selects.
+4. **`Γ_w` ~4% residual** — a converging lattice artifact (reactive `|curl ω|`↔A1 exchange); the
+   topological Link is exact. Not load-bearing for the (downgraded) verdict.
+5. **NOT a route-space exhaustion.** The Part-1 balance is on the CANONICAL 3-channel functional at
+   `A=√α`. A not-yet-named additional term could change the picture; not claimed exhausted.
 
 ---
 
@@ -321,10 +328,15 @@ of binding.
 **Class C — CONSISTENCY / FORM-chord.** No number was claimed. `α` sets the operating point `A=√α`
 (`V_yield=√α·V_snap`, `constants.py:464`, an exact α-echo); `m_e`, `L_NODE` imported; the SIZE `R*` is a
 scale tied to imported `L_NODE=ℏ/(m_e c)`. The mechanism (a steeper brace out-running a shallower pull
-under one collective radius) is a FORM-chord peer-with-SM: it supplies the SM-absent mechanism for a
-stable localized electron, but computes NO dimensionless observable free of the target ⇒ NOT Class-D
-emergence (A47 v17 family). The UNIFIER-CONFIRMED verdict is a Class-C FORM result: the electron's
-self-braced FORM is derived + measured; its VALUE (`m_e`, size) remains definitional/imported.
+under one collective radius) is at best a FORM-chord peer-with-SM: it supplies a candidate SM-absent
+FORM for a stable localized electron, but computes NO dimensionless observable free of the target ⇒ NOT
+Class-D emergence (A47 v17 family). **The downgraded verdict is a Class-C CONSISTENCY result, not a
+confirmation:** the Part-1 Derrick FORM is genuinely derived (a single crossing, `p<3` forced in 3D under
+the fixed-charge ensemble); but the Part-2 sim re-reads the seed's Derrick exponents rather than
+independently testing them, no bound state was dynamically observed, and the sign of the whole balance is
+conditioned on the un-adjudicated compression ensemble (§4.0). The substrate's fixed-charge scaling is
+CONSISTENT with a self-braced electron; the electron is NOT shown to hold together as one object, and its
+VALUE (`m_e`, size) remains definitional/imported.
 
 ---
 
@@ -339,20 +351,28 @@ self-braced FORM is derived + measured; its VALUE (`m_e`, size) remains definiti
   phase-space home (frozen ê_w integer); the DIMENSIONFUL circulation `Γ_w` is the co-compressed
   conserved quantity. No real-space-vs-φ² mismatch (the A47/A46 error avoided).
 - **consistency-vs-emergence:** Class-C throughout (§7); α a KNOB/echo, not computed.
-- **ave-prereg:** frozen `9f388305` BEFORE the Part-2 run; criteria applied, none dropped;
-  UNIFIER-CONFIRMED is a frozen verdict earned on the resolution-robust grids.
+- **ave-prereg:** frozen `9f388305` BEFORE the Part-2 run; criteria applied, none dropped. On re-read
+  against the frozen `UNIFIER-CONFIRMED iff ALL of U1–U5`, **U3 (stable equilibrium) is NOT met**
+  (`crossing_exists=False`), so the verdict is CONSISTENCY-class, not UNIFIER-CONFIRMED. The prereg
+  anti-rescue guard "HOLD REAL ODDS IT FAILS" was NOT met by the Part-2 sim (the co-compress instrument
+  re-reads the seed convention and had no failure route in-window) — this is recorded, not papered over.
 - **ave-canonical-source:** `ALPHA`, `V_SNAP`, `V_YIELD`, `L_NODE` from `src/ave/core/constants.py`
   (`:154,455,464,282`); no hardcoded targets; the winding factor κ̃=6/5 / θ_χ α-free path inherited.
 - **verify-before-cite:** the §4 derivation quote greped from `:363` this session; the engine H terms
   read from `coupled_cage_winding.py:325–358`, `native_cage_imex.py:148`, `graded_vacuum_network.py:245`
   this session; constants read this session.
-- **flag-don't-fix:** the mechanism inversion (field self-energy = brace not pull, §4) and the brace-
-  identity (A1-gradient vs winding-centrifugal) are SURFACED with both paths + verbatim, NOT silently
-  resolved; the verdict is shown to be invariant under both readings so no reframe is load-bearing.
-- **honest-closure (Rule 11):** no criterion dropped; the crossing-not-bracketed limit reported as-is
-  (not claimed as a directly-observed equilibrium); the `Γ_w` residual + its converging-artifact
-  mechanism named; NO dissipative rescue (#83 lesson); NO slot refilled (A47 v11b) — the co-compress
-  instrument confirms the existing hypothesis, it does not substitute a new one.
+- **flag-don't-fix:** the load-bearing compression-ensemble choice (fixed reactive charge vs fixed
+  amplitude, §4.0 — the sign of the dominant force flips with it), the mechanism-name inversion (§4.1),
+  and the brace-identity (A1-gradient vs winding-centrifugal) are SURFACED with both paths + verbatim,
+  NOT silently resolved. No reframe applied to make the sim look like a confirmation.
+- **honest-closure (Rule 11):** the independent verify caught that the Part-2 sim RE-MEASURES the seed
+  geometry's Derrick exponents (a near-tautology — no failure route), so the verdict is DOWNGRADED
+  UNIFIER-CONFIRMED → CONSISTENCY-class rather than debugged toward a pass; U3 (equilibrium) reported as
+  NOT DEMONSTRATED against the banked `crossing_exists=False`; no criterion dropped; the `Γ_w` residual +
+  its converging-artifact mechanism named; NO dissipative rescue (#83 lesson); NO slot refilled (A47
+  v11b — the substitution-not-retraction discipline: the falsified "confirmed-binding" claim is retracted
+  in place, NOT refilled with a new unverified binding hypothesis). Part-1 (the genuine FORM result) is
+  preserved; only the Part-2 over-claim is downgraded.
 - **Rule-10 empirical-driver:** the driver was piloted early; two instrument defects were CAUGHT and
   FIXED at pilot (A1-core peak radius does not track the collective size → winding-loop radius; N=24/N=32
   cannot carry the template → N=40/48), and surfaced in the driver comments + this doc, not hidden.
