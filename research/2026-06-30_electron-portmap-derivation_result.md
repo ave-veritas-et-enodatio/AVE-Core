@@ -188,3 +188,91 @@ sign AND confirms the pull is dangerous — the entire question now rests on whe
 out-steepens this runaway. **The inward leg alone predicts IMPLOSION;** the electron exists only if
 the brace wins the steepness contest (§5). This is the honest framing — the inward sign is not, by
 itself, good news for binding.
+
+## 3. BRACE LEG — DERIVE WHICH reactance supplies it
+
+Three candidates were pre-registered. We derive which are actually present in the network and their
+`r`-scaling, and we do NOT assume (a).
+
+### 3.1 Candidate (a) — winding DC-circulation angular-momentum reactive pressure: **PRESENT**
+
+The (2,3) winding carries a nonzero DC circulation. Its home is the inductive shear channel P_μ. The
+circulation is a persistent loop current `I_w` with flux linkage `Φ_w = L_ind I_w`; the associated
+angular momentum of the circulating field is `L_w = m_eff · (circulation)`. The winding integer
+`Link(∂Ω,F) = −1` (electron) is a TOPOLOGICAL invariant — it is CONSERVED under any smooth
+compression of the loop (`resonant-lc-solitons.md`:124; charge = static Link, deformation-invariant).
+Conservation of a fixed circulation quantum in a shrinking loop is the substrate-native version of
+angular-momentum conservation `L_w = const` as `r` shrinks.
+
+The reactive (centrifugal) pressure of a conserved circulation confined to radius `r`:
+```
+   U_rot(r) = L_w² / (2 I(r)),   I(r) = m_eff r²   (moment of inertia of the circulating field)
+   ⇒ U_rot(r) = L_w² / (2 m_eff r²)
+   ⇒ B_a(r) = −dU_rot/dr = + L_w² / (m_eff r³)          (OUTWARD, ∝ r^{−3})
+```
+This is a genuine reactive (lossless) outward pressure — it is the stored inductive/kinetic energy of
+the circulation, no real power, Axiom-3-clean. It is PRESENT because the winding demonstrably carries
+a nonzero circulation (the whole charge sector). **Scaling: `B_a ∝ r^{−3}`.** This is the load-bearing
+brace candidate: `r^{−3}` is steeper than any ponderomotive pull that scales as `r^{−1}` or shallower
+(§3.4), so it CAN out-run the pull as `r→0` — the necessary property of a brace.
+
+> **Verify-don't-assume note.** We did NOT assume (a). We derived that a conserved winding circulation
+> (which the charge sector requires to exist) produces an `r^{−3}` reactive pressure by the standard
+> `L²/2I` centrifugal-energy argument, and that this is lossless (reactive store, no dissipative port).
+> The one genuinely open input is the MAGNITUDE of `L_w` (the circulation quantum), which sets the
+> equilibrium scale (§4) — flagged, not assumed.
+
+### 3.2 Candidate (b) — topological ropelength floor: **PRESENT as a HARD WALL (not a smooth brace)**
+
+The (2,3) torus knot has a ropelength: the minimum length of unit-diameter tube needed to tie it. A
+knotted/linked winding cannot be compressed below its ropelength floor without the tube self-
+intersecting — i.e. without UNWINDING (changing the Link integer, forbidden while the charge is
+conserved). Substrate-native: the Nyquist pitch `d = 1 ℓ_node` (Ax-1) sets the minimum tube diameter;
+the (2,3) closed curve on the Golden torus has a minimum perimeter `∼ 2π R_min` with `R_min ≳ O(ℓ_node)`.
+So there is a HARD FORBIDDEN WALL at `r → r_floor ~ (1/2π)·(ropelength·ℓ_node)`, below which the
+configuration cannot go while carrying `Link=−1`.
+
+**This is NOT a smooth `r`-power brace — it is a vertical wall** (`B_b → ∞` as `r→r_floor⁺`, `B_b=0`
+above it). It cannot set a SMOOTH equilibrium (there is no finite crossing of a vertical wall with a
+finite pull; the pull would just pin the envelope AT `r_floor`). Its role is a BACKSTOP: it prevents
+literal collapse to `r=0` even if (a) fails to arrest the runaway first. A pull pinned at `r_floor` is
+a HARD-wall equilibrium, not a self-braced reactive well — and it would generically be a stiff,
+non-smooth, possibly-unstable-to-unwinding state. **Derived: (b) is present as a hard floor, load-
+bearing as a collapse-backstop, but it is not the smooth reactive brace the picture wants.**
+
+### 3.3 Candidate (c) — saturation stiffening `D=1/S→∞`: **DISQUALIFIED as an independent brace**
+
+The confinement operator `L=adjoint_div(D∇)`, `D=1/S(A)` (`fork_b_saturation_tank`;
+`mass-sector-characterization_synthesis.md`:32) has `D→∞` at the saturated core — a stiff-core
+breather. It is tempting to read this stiffness as an outward brace. **But it is the SAME `S→0` that
+supplies the INWARD pull (§2).** The varactor compliance `C_eff=C_0/S→∞` (soft, wants compression)
+and the stiffness `D=1/S→∞` (stiff) are the SAME kernel `1/S` read in two sectors — they are the
+capacitive vs the wave-impedance faces of one saturation, RESOLVED as a sector split, not two
+independent forces (`resonant-lc-solitons.md`:41, INVARIANT-S2, Grant-ratified). A single nonlinearity
+cannot supply BOTH a pull and an equal-and-opposite brace of the same sign structure — that would be
+asserting the mechanism balances itself by construction (a tautology, the coincidence-magnet tell).
+
+**Derived: (c) is NOT an independent brace.** It is the pull's own kernel; counting it as a brace
+would double-count `1/S`. (This is exactly the trap the #83 artifact fell into differently — there the
+"cage" was a dissipative `e^{−ηM}`; here the temptation is to reuse `1/S` as its own antagonist. Both
+are disqualified: one by Tellegen/Axiom-3, this one by no-double-counting.)
+
+### 3.4 The `r`-scaling contest (the crux, set up here, evaluated in §5)
+
+The pull `P(r)` from §2: the ponderomotive DC compression from the rectified varactor. Its `r`-scaling
+depends on how the strain `A(r)` and swing `δA(r)` scale with the envelope radius. For a fixed reactive
+charge `Q` in a shell of radius `r`, `A ∼ Q/(r·something)` grows as `r` shrinks; the ponderomotive
+energy `⟨U⟩ ∼ −½Q²|S''(Ā)|δA²/C_0` deepens. Away from the deep-saturation limit (`Ā` not yet near 1),
+`P(r)` scales like a Coulomb/self-energy pull, `P ∼ r^{−1}` to `r^{−2}` (a standard soliton self-energy
+gradient). **The brace (a) scales `r^{−3}`.** So:
+
+```
+   BRACE (a):  B_a(r) ∝ r^{−3}          (steeper — dominates as r→0)
+   PULL:       P(r)  ∝ r^{−1..−2}        (shallower, IN THE SUB-SATURATION regime)
+   ⇒ crossing at a finite r*  (B and P equal) — a well, IF the pull stays shallower than −3.
+```
+BUT §2.3's runaway: in the DEEP-saturation core (`Ā→1`), the pull's effective stiffness `∝ |S''(Ā)|
+= (1−Ā²)^{−3/2}` DIVERGES. If `(1−Ā²)` itself scales as a power of `r` near the core, the pull can
+acquire an effective `r`-exponent STEEPER than `−3`, overrunning the brace. **The verdict hinges on
+whether `P(r)` stays shallower than `r^{−3}` all the way in, or whether the `S→0` runaway makes it
+steeper before the brace arrests it.** This is the un-adjudicated symbolic crux — evaluated in §5.
