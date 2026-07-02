@@ -56,7 +56,7 @@ predictions:
   - id: P01
     clm: clm-0ktpcn
     name: "α⁻¹ from Golden Torus S₁₁-min"
-    type: derived_prediction
+    type: axiom_manifestation
     calibration_role: echo
     derivation_label: "ch:alpha_golden_torus"
     derivation_equation: "eq:alpha_cold"
