@@ -20,9 +20,9 @@ The appendix extends the periodic table framework beyond Silicon ($Z=14$) and de
 | Exact solutions | S-32 ($0.000\%$, Large Signal) and Ca-40 ($0.000\%$, Large Signal) |
 | Near-exact solutions | Ar-40, Ti-48, Cr-52, Fe-56 ($< 0.001\%$, Platonic/Archimedean packing) |
 | Fibonacci proxy accuracy | Typically $< 0.5\%$ across remaining elements |
-| $g_* = 85.75$ | Baryon asymmetry to $0.38\%$ (vs SM $g_* = 106.75$ at $20\%$ error) |
-| $\alpha_s = \alpha^{3/7} \approx 0.121$ | Strong coupling to $2.97\%$ |
-| $\lambda_H = 1/8 = 0.125$ | Higgs quartic coupling; $m_H$ to $0.55\%$ |
+| $g_* = 85.75$ | Baryon-asymmetry "0.38%" **headline retracted** (g-star leaf, Rule-12): consistency-class with an SM-imported formula, $\eta$ corrected to $\approx 6.05\times10^{-10}$ / **0.79%**; OOM peer-or-ahead of SM |
+| $\alpha_s = \alpha^{3/7} \approx 0.121$ | Strong coupling: **3.5σ tension** vs PDG $0.1179\pm0.0010$ (candidate prediction, not a match) |
+| $\lambda_H = 1/8 = 0.125$ | Higgs quartic coupling; forward $m_H$ vs PDG = **$-1.59\%$ to $-1.68\%$** ($0.55\%$ is Class-C internal-consistency vs AVE-derived VEV) |
 
 ## Derivations and Detail
 

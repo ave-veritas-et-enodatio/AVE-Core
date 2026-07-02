@@ -19,9 +19,9 @@ Every "mystical" constant in physics is a geometric packing theorem in disguise.
 | $\pi$ at Boron-11 | $R_{\text{halo}} = 11.84\,d \approx 4\pi - \sqrt{2}/2$: topological horizon |
 | Magic numbers | $Z = 2, 8, 20, 28$: impedance-matched geometric shell closures |
 | Platonic progression | C-12 $\to$ O-16 $\to$ Ne-20 $\to$ Mg-24 $\to$ Si-28 $\to$ S-32 $\to$ $\ldots$ Fe-56 |
-| $g_* = 85.75$ | $7^3/4$: lattice mode count; baryon asymmetry to $0.38\%$ |
-| $\alpha_s = \alpha^{3/7}$ | Spatial compliance projection; strong coupling to $2.97\%$ |
-| $\lambda_H = 1/8$ | K4 breathing mode; Higgs mass to $0.55\%$ |
+| $g_* = 85.75$ | $7^3/4$: lattice mode count. **Baryon-asymmetry "0.38%" headline RETRACTED** (Rule-12 walk-back, g-star leaf): consistency-class with an SM-imported electroweak-baryogenesis formula, NOT emergence; $g_*$ is reverse-validated against $\eta_{obs}$; displayed $\eta$ corrected to $\approx 6.05\times10^{-10}$ / **0.79%** (thermal $\kappa_{FS}$). OOM $\eta\sim6\times10^{-10}$ peer-or-ahead of SM |
+| $\alpha_s = \alpha^{3/7}$ | Spatial compliance projection ($\approx 0.1214$). **NOT a "match": 3.5σ TENSION** against PDG $0.1179\pm0.0010$ (alpha_s leaf); the 2.97% central-value framing reads as success, the 3.5σ statistical framing reads as failure; candidate prediction with a named falsifier |
+| $\lambda_H = 1/8$ | K4 breathing mode. **"0.55%" is reference-shifted internal-consistency (Class C), not forward-prediction error** (lambda_H leaf): computed against AVE-derived VEV; end-to-end forward prediction $G_F\to v_{AVE}\to M_{H,AVE}$ vs PDG $M_H$ is **$-1.59\%$ to $-1.68\%$** |
 | $n_{coop} = 9$ | $6 \times 3/2 = 7 \times 9/7$: cooperative lattice amplification |
 | $T_c^{\text{water}} = 278.3$ K | Water density anomaly to $0.40\%$; zero free parameters |
 | $\beta_\text{fold} = 0.471$ | Protein folding barrier; $\ln(3) \times 3/7$; error $4.1\%$ |
@@ -36,9 +36,9 @@ Every "mystical" constant in physics is a geometric packing theorem in disguise.
 | [Nuclear Magic Numbers: Shell Closure as Impedance Matching](magic-numbers-shell-closure.md) | $Z = 2, 8, 20, 28$ as Platonic/Archimedean closures |
 | [The Platonic Progression](platonic-progression.md) | Complete $N_\alpha = 3$--$14$ geometry table with error |
 | [Derived Numerical Constants](derived-numerical-constants.md) | 20+ constants: $\delta_{th}$, $K_{mut}$, $d_p$, $a_0$, $\beta_\text{fold}$, $\varphi_{FCC}$, $n_{coop}$, $T_c$, $T_m$, $E_{yield}$, etc. |
-| [$g_* = 7^3/4 = 85.75$: Lattice Mode Count](g-star-derivation.md) | $\nu_{vac} = 2/7 \to$ 7 modes $\to g_* = 343/4$; baryon asymmetry verification |
-| [$\alpha_s = \alpha^{3/7}$: Strong Coupling](alpha-s-derivation.md) | Spatial projection of 7-mode compliance manifold; $2.97\%$ error |
-| [$\lambda_H = 1/8$: Higgs Quartic Coupling](lambda-higgs-derivation.md) | K4 breathing mode; $m_H = v/2 \approx 124{,}400$ MeV; $0.55\%$ error |
+| [$g_* = 7^3/4 = 85.75$: Lattice Mode Count](g-star-derivation.md) | $\nu_{vac} = 2/7 \to$ 7 modes $\to g_* = 343/4$; baryon-asymmetry step is a **consistency-check with an SM-imported formula (headline retracted)**, not a verification of $g_*$ |
+| [$\alpha_s = \alpha^{3/7}$: Strong Coupling](alpha-s-derivation.md) | Spatial projection of 7-mode compliance manifold; $\alpha_s \approx 0.1214$ = **3.5σ tension** vs PDG (candidate prediction, not a match) |
+| [$\lambda_H = 1/8$: Higgs Quartic Coupling](lambda-higgs-derivation.md) | K4 breathing mode; $m_H = v/2 \approx 124{,}400$ MeV; forward prediction vs PDG $M_H$ = **$-1.59\%$ to $-1.68\%$** ($0.55\%$ is Class-C internal-consistency vs AVE-derived VEV) |
 | [Conclusion: The Death of Numerology](conclusion-death-of-numerology.md) | Every mystical constant is a packing theorem; geometry + minimum strain |
 
 > **Cross-volume**: `derived-numerical-constants.md` references `eq:H_infinity` and `sec:galactic_saturation` (both defined in vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) and `sec:membrane_phase_buffering` (defined in vol5, Chapter 2).
