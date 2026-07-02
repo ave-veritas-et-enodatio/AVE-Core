@@ -86,6 +86,7 @@ The corpus describes the electron from **eight distinct angles**, each correct, 
 | 6 | **Beltrami standing wave** | $\mathbf{E}$ and $\mathbf{B}$ orthogonal, closed-loop feed; $\nabla \times \mathbf{A} = k\mathbf{A}$ | [`electron-unknot.md`](electron-unknot.md) | *"A Beltrami standing wave where the continuous $\mathbf{E}$ and $\mathbf{B}$ field lines are mutually orthogonal and feed into each other in a closed topological loop ($\nabla \times \mathbf{A} = k\mathbf{A}$), permanently trapping the energy."* |
 | 7 | **LC tank cavity resonance at Compton frequency** | $\omega_C = c/\ell_{node}$ is single-bond LC eigenfrequency; resonance + saturation = electron | [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md); Vol 4 Ch 1 | *"$\omega_C = c/\ell_{node}$ (Compton frequency = LC tank eigenfrequency)"* — combined with photon-identification §4 step C-F: at $\omega_C$ + $V \to V_{yield}$, the LC tank traps the photon into a standing wave |
 | 8 | **Constructive topological trap (vs BH destructive)** | Topology preservation vs destruction; permanent non-radiating ground state | [`../../../vol3/cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md` lines 8, 11](../../../vol3/cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md) | *"Electron (Constructive): The topological unknot is a stable geometric structure. The confined photon maintains its $0_1$ knot invariant indefinitely. Topology is preserved. The electron is a permanent, non-radiating ground state."* |
+| 9 | **Hollow vortex (Class-C binding-structure)** | Cavitated-core open/close balance; incompressible-cavity, NOT bulk-compression soliton | [`hollow-vortex-binding.md`](hollow-vortex-binding.md) (clm-hvb7q3, Class-C) | *"a self-consistent hollow vortex — a cavitated core ($\bar\rho_{cav}=-1/\varphi$) drilled and held open by the $(2,3)$ circulation ($\propto\Gamma^2/R^3$) and closed by the void↔vacuum surface tension ($\sigma/R$), equilibrium $R^*=\Gamma/\sqrt\sigma\approx1.6\,\ell_{node}$."* ⚠ *Class-C CONSISTENCY, NOT a chord: $\sigma$ import-by-identity (#190 shell), $R^*/\ell_{node}$ dimensionally forced; existence held INDEPENDENTLY by the T2 $\Gamma=-1$ wall (framing 3 / property 3), not by this balance.* |
 
 ### Reconciliation matrix — framing × canonical property
 
@@ -103,8 +104,11 @@ Every framing above maps cleanly to one or more of the four canonical properties
 | 6. Beltrami standing wave | "closed topological loop" | implicit | "permanently trapping the energy" | "$\mathbf{E}$ and $\mathbf{B}$ mutually orthogonal" = transverse |
 | 7. LC tank resonance | implied (loop = single-bond tank) | implied (Golden Torus = resonant geometry) | "$V \to V_{yield}$ traps photon" | implicit |
 | 8. Constructive topological trap | "topological unknot...stable geometric structure" | implicit | "confined photon...indefinitely" = TIR cavity | implicit |
+| 9. Hollow vortex (Class-C) | implied (the cavitated core sits inside the $0_1$ loop) | **explicit** (the $(2,3)$ circulation is the drill/opener) | implied (the same T2 $\Gamma=-1$ wall confines; existence held there, not by this balance) | implicit (the circulation is the Cosserat micro-rotation) |
 
-**All 8 framings are equivalent statements of the same physical object** — the canonical 4 properties capture them all. Choice of framing depends on reader domain:
+**All 9 framings are equivalent statements of the same physical object** (framing 9 is a Class-C
+*structural* description — a self-consistent picture AVE DESCRIBES, not a chord it predicts; it adds no
+independent existence claim, that is framing 3 / property 3's T2 wall) — the canonical 4 properties capture them all. Choice of framing depends on reader domain:
 - Knot theorist → framing 2 (ropelength)
 - Field theorist → framing 6 (Beltrami) or 1 (self-trapped photon)
 - Circuit engineer → framing 7 (LC tank resonance)

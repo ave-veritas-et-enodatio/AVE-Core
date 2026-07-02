@@ -326,6 +326,8 @@
 {"source": "clm-hp7nlm", "target": "clm-8nkvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-huhz7r", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "vacuum impedance $Z_0 \\approx 376.73\\,\\Omega$ as the carboxyl termination", "fraction": null}
 {"source": "clm-huhz7r", "target": "clm-lm9b3j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-hvb7q3", "target": "clm-kezk9z", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.9, "strength": null, "context": null, "fraction": null}
+{"source": "clm-hvb7q3", "target": "clm-uatcql", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.7, "strength": null, "context": null, "fraction": null}
 {"source": "clm-hvvvop", "target": "clm-dxdsvt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the instance set being partitioned", "fraction": null}
 {"source": "clm-i02mhk", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "chiral Cosserat microrotation of the substrate", "fraction": null}
 {"source": "clm-i02mhk", "target": "clm-wzezvt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
