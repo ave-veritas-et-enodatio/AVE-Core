@@ -7,7 +7,7 @@ claims: [clm-rd9cjm]
 
 ---
 
-**Topological Frame-Dragging (Lense-Thirring):** The rotation of the mass singularity creates an asymmetric strain footprint in the surrounding dielectric matrix. Unlike standard aerospace models, this is not a circulating fluid current. The angular momentum convolutes the static $Z_{local}$ impedance gradient into a non-reciprocal topological bias. In a Kerr spacetime with angular momentum parameter $a = a_\star M$, the saturation metric acquires an angular dependence:
+**Topological Frame-Dragging (Lense-Thirring):** The rotation of the mass singularity creates an asymmetric strain footprint in the surrounding dielectric matrix. Unlike standard aerospace models, this is not a circulating fluid current. The angular momentum convolutes the static $Z_{local}$ impedance gradient into a non-reciprocal topological bias. (This microscopic "impedance convolution" is the *same* native-EE process expressed macroscopically as mutual inductance $M_{12}$ in the companion leaf [`../ch03-macroscopic-relativity/gravitomagnetism-frame-dragging.md`](../ch03-macroscopic-relativity/gravitomagnetism-frame-dragging.md) — one mechanism, two scales, not two competing pictures.) In a Kerr spacetime with angular momentum parameter $a = a_\star M$, the saturation metric acquires an angular dependence:
 
 > **[Resultbox]** *Frame-Dragging Impedance Convolution*
 >
