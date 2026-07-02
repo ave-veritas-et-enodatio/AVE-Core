@@ -60,7 +60,7 @@ The minimum discrete diameter of the flux tube is normalised to one fundamental 
 
 ### Deriving the Running Coupling Constant
 
-Standard Quantum Electrodynamics (QED) dictates that the fine-structure constant ($\alpha$) is not perfectly static; it "runs" (increases in strength) at higher energy scales due to vacuum polarization. The AVE framework analytically predicts this continuous mechanical behavior without requiring the infinite summation of virtual point-particles.
+Standard Quantum Electrodynamics (QED) dictates that the fine-structure constant ($\alpha$) is not perfectly static; it "runs" (increases in strength) at higher energy scales due to vacuum polarization. The Axiom-4 dynamic capacitive-yielding $C_{eff}$ form below is the continuous-mechanical *analog* of this QED running, obtained without the infinite summation of virtual point-particles. **This is a sketch**, not a quantitative reproduction of the QED $\beta$-function: the static dielectric-saturation form is not a momentum-dependent renormalization-group flow, and a rigorous AVE running-coupling derivation is an **open problem** (per [`../../claim-quality.md`](../../claim-quality.md) `clm-h9aqmt` §Specific Non-Claims and Caveats). Treat as a mechanism claim, not a numerical-prediction match.
 
 The baseline empirical value ($\alpha \approx 1/137.036$) defines the unperturbed, static **Infrared (IR) Limit** ($q^2 \to 0$) of the geometric node. However, as localised kinetic energy (topological stress) increases, the continuous displacement of the lattice engages the non-linear saturation limit defined in Axiom 4. The effective compliance (capacitance) of the local vacuum geometrically diverges:
 
