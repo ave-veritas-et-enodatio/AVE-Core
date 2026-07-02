@@ -9,7 +9,7 @@
 \begin{itemize}
     \item Derive the C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ from the AVE lattice pitch $\ell_{\text{node}}$ through a chain of topological identities involving the Bohr radius and covalent bond lengths.
     \item Classify the 20 canonical amino acids by their sidechain impedance relative to the backbone quality factor ($Q_{\text{backbone}} \approx 7$).
-    \item Interpret topological structural evaluations as a Level~6 Emergence validation using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
+    \item Benchmark the transmission-line folding picture on the Chignolin mini-protein (a coarse-correctness result, the leaf's qualitative ``Level~6 Emergence'' classification --- not an atomic-precision validation) using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
     \item Evaluate the Molecular Chiral FRET Parallax as a future falsification target, understanding why terrestrial baselines are insufficient.
 \end{itemize}
 \end{objectivebox}
@@ -105,16 +105,20 @@ Noise floor            & Thermal cytosol bath       & Wien $kT$ at 310 K \\
 \label{tab:rf_bio_dict}
 \end{table}
 
-\section{Biophysical Validation Bounds}
+\section{Biophysical Coarse-Correctness Benchmark}
 
-To validate the strict limits of macroscopic biophysics, topological bounds must predictably cascade from an extended chain configuration to a rigid $\beta$-hairpin equilibrium:
-\begin{resultbox}{Biophysical Falsification}
+As a benchmark of the transmission-line folding picture, the topological bounds should cascade from an extended chain configuration toward a rigid $\beta$-hairpin equilibrium. For the 10-residue Chignolin mini-protein (CLN025), the AVE engine returns:
+\begin{resultbox}{Chignolin backbone RMSD}
 \begin{equation}
-    \text{RMSD}_{\text{backbone}} = 2.59 \text{ \AA} \quad \text{(sub-3 \AA: Level 6 Emergence)}
+    \text{RMSD}_{\text{backbone}} = 2.59 \text{ \AA}
 \end{equation}
 \end{resultbox}
 
-This validation uses the \textit{same three functions} as every other chapter in this volume: \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}. The protein backbone is not ``biology''---it is a transmission line.
+\begin{tcolorbox}[colback=white, colframe=black, title=\textbf{Scope: coarse-correctness benchmark, not an atomic-precision validation}]
+This is a \textbf{coarse-correctness} result for a \emph{single} 10-residue mini-protein, not an atomic-precision validation. Per the truth-source card (\kbleaf{manuscript/ave-kb/vol5/claim-quality.md} \texttt{clm-u4vmgk}, solidity 0.30): the framework ``does NOT claim sub-\AA{} agreement on backbone coordinates. RMSD of 2.59 \AA{} is roughly the C$\alpha$--C$\alpha$ virtual bond distance (3.80 \AA) scale of mismatch --- a coarse-correctness result, not atomic precision''; and it ``does NOT claim performance comparable to AlphaFold-class predictors on the standard CASP/PDB benchmarks.'' The folding \emph{engine} and the ``20-protein PDB validation'' quoted elsewhere are maintained in a \textbf{separate private repository} (\texttt{AVE-Protein}); per the card, ``treat the 20-PDB result as an external claim; this sidecar cannot bound it from leaf evidence.'' The volume includes only the LC mapping theory.
+\end{tcolorbox}
+
+This benchmark uses the \textit{same three functions} as every other chapter in this volume: \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}. The protein backbone is not ``biology''---it is a transmission line.
 
 \section{Molecular Chiral FRET Parallax}
 To experimentally map the continuous boundary of Axiom 2 (Chirality) into living biophysics, the AVE framework proposes the \textbf{Molecular Chiral FRET Parallax} test. Standard biochemistry assumes the left-handed bias of terrestrial amino acids is a random, isolated historical accident. AVE dictates it is the macroscopic manifestation of the $h_{\perp}$ chiral metric bias structurally enforcing the Ramachandran exclusion zones.
