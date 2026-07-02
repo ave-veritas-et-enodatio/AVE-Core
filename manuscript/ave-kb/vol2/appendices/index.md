@@ -24,7 +24,7 @@ The appendices collect cross-domain reference material: the complete interdiscip
 | Quality factor | $Q = \ell$ from lattice phase transition at saturation boundary |
 | Spin-1/2 resolution | Extended $0_1$ unknot on $SO(3)$ manifold generates Finkelstein-Misner kink — $SU(2)$ spinor from $SO(3)$ substrate |
 | Holographic principle | Information bandwidth bounded by 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$ via Nyquist-Shannon on substrate graph |
-| Peierls-Nabarro resolution | Saturable dielectric LC network; leading boundary reaches the matched-impedance point ($\Gamma \to 0$, Op17) and couples through reactively — co-moving zero-impedance phase slipstream, lossless, no Bremsstrahlung |
+| Peierls-Nabarro resolution | Saturable dielectric LC network; the electron is a co-moving self-matched envelope presenting a matched impedance ($\Gamma \to 0$, Op17) and coupling through reactively — zero-impedance phase slipstream, lossless, no Bremsstrahlung (distinct from the $\Gamma \to -1$ saturation confinement wall) |
 | Zero-parameter closure (target) | All 25--26 SM parameters derive from ($l_{node}$, $p_c$, $G$), 🔴 *[recon 2026-06-15 §A.4]* ~~which themselves are geometric outcomes~~ **which remain retained calibration inputs — lifting them to geometric outcomes is the stated *target*, gated on open gaps (per `app-f-solver-toolchain/universal-constants-exchange.md` :21), not achieved** |
 
 ## Derivations and Detail

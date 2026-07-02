@@ -16,7 +16,7 @@ When translating the vacuum into a discrete mechanical solid, the framework inhe
 |---|---|
 | Spin-1/2 | Extended $0_1$ unknot on $SO(3)$ manifold generates $SU(2)$ spinor behaviour via Finkelstein-Misner kink (Dirac Belt Trick) |
 | Holographic principle | Cross-sectional porosity $\Phi_A \equiv \alpha^2$ bounds information channel capacity to 2D bounding surface area via Nyquist-Shannon |
-| Peierls-Nabarro | Saturable dielectric LC network (chiral K4 crystal); leading boundary reaches the matched-impedance point ($\Gamma \to 0$, Op17) and couples through reactively — a co-moving zero-impedance phase slipstream, lossless, no Bremsstrahlung |
+| Peierls-Nabarro | Saturable dielectric LC network (chiral K4 crystal); the electron is a co-moving self-matched envelope presenting a matched impedance ($\Gamma \to 0$, Op17) and coupling through reactively — a zero-impedance phase slipstream, lossless, no Bremsstrahlung (distinct from the $\Gamma \to -1$ saturation confinement wall) |
 
 ## Derivations and Detail
 
