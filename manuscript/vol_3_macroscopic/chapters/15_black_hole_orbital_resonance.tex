@@ -14,16 +14,19 @@
 TWO of A-034's strongest empirical anchors in the 26-instance catalog:
 (1) BH event horizon at $\varepsilon_{11}(r) = 2GM/(c^2 r) = 1$ matches
 the Schwarzschild radius \textbf{exactly} (canonical AVE-native derivation);
-(2) BH merger ring-down QNM eigenvalue $\omega_R M_g = 18/49 = 0.3673$
-agrees with GR exact $0.3737$ to \textbf{1.7\%} cold, and the Phase-3+5
-v2 refined formula (via (2,3) torus-knot topology + Cosserat back-reaction
-+ lattice-Q preservation) matches three LIGO events (GW150914, GW170104,
-GW151226) at \textbf{$-0.45\%$ mean ringdown frequency error and $-0.47\%$ mean
-decay-time error per event}; Phase-4 spin sweep confirms generalization
-across $a_* \in [0, 0.85]$ covering the entire LIGO BBH catalog (GW190521
-IMBH-class at $-0.25\%$); v2 outperforms standard GR Kerr QNM for $\tau$.
-All from zero free parameters (per the KB \texttt{ch15} ringdown-eigenvalue
-leaf + driver \kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}).
+(2) the Schwarzschild BH merger ring-down QNM eigenvalue
+$\omega_R M_g = 18/49 = 0.3673$ agrees with GR exact $0.3737$ to
+\textbf{1.7\%} with \textbf{zero free parameters} --- the genuine forward
+prediction. The spinning-remnant (Kerr) comparison against three LIGO events
+(GW150914, GW170104, GW151226), refined via the Phase-3+5 v2 formula ((2,3)
+torus-knot topology + Cosserat back-reaction + lattice-Q preservation),
+reaches $-0.45\%$ mean frequency and $-0.47\%$ mean decay-time agreement, but
+this is a \textbf{post-hoc consistency check}, \emph{not} a zero-parameter
+forward prediction: the v2 $\tau$ is a Q-preservation fit reconciling a v1
+10--14\% shortfall against the same LIGO data, and per \texttt{clm-395gps} the
+spinning-remnant case is validated only for $a_* = 0.3$--$0.8$ (10--18\%
+frequency error otherwise). Full detail and the driver
+\kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py} below.
 
 Both phenomena are governed by the universal saturation kernel
 $S(A) = \sqrt{1 - A^2}$ at gravitational scale --- same kernel as atomic
@@ -37,7 +40,7 @@ The preceding chapter demonstrated that the $1/d$ mutual-impedance topology gove
 
 \section{The Electron--Black Hole Isomorphism}
 
-In the AVE framework, the electron is a self-trapped photon---a topological $0_1$ unknot confined at the lattice node scale ($\ell_{node}$) by a $\Gamma = -1$ total internal reflection boundary. The event horizon of a Schwarzschild black hole is governed by isomorphic confinement physics operating at cosmological scale---not via impedance mismatch, but via a \textbf{lattice phase transition}.
+In the AVE framework, the electron is a self-trapped photon---a topological $0_1$ unknot confined at the lattice node scale ($\ell_{node}$) by a $\Gamma = -1$ total internal reflection boundary. The event horizon of a Schwarzschild black hole is governed by isomorphic confinement physics operating at cosmological scale via a \textbf{lattice phase transition}. This phase transition is \emph{channel-resolved}: the EM-transverse channel stays matched ($\Gamma_{EM} = 0$, symmetric gravity $Z_{EM} \equiv Z_0$), while the shear and bulk channels undergo an impedance collapse ($G_{shear} \to 0 \Rightarrow Z_{shear}, Z_{bulk} \to 0 \Rightarrow \Gamma_{shear} = \Gamma_{bulk} = -1$) at the deeper strain-unity boundary $r_{sat} = 7GM/c^2$ (developed in the Saturation Boundary subsection below). The earlier ``not an impedance mismatch'' framing was the EM channel only; the shear/bulk channels do short.
 
 \subsection{Symmetric Gravity and Saturation}
 
@@ -259,10 +262,14 @@ where $\Omega$ is the asymmetric impedance convolution rate (formerly interprete
     Q_{v2} = Q_{v1} \quad\Longrightarrow\quad \tau_{v2}(a_*) = \tau_{v1}(a_*) \cdot \frac{\omega_{R,v1}(a_*)}{\omega_{R,v2}(a_*)}
 \end{equation}
 \end{resultbox}
-\noindent The same rigid-skeleton mechanism that PARTIALLY resists spin-induced cavity shrinkage in v2 $\omega_R$ is the \emph{full} mechanism behind Q preservation. v2 $\tau$ matches LIGO obs at $-0.47\%$ mean per event, OUTPERFORMING standard GR Kerr QNM ($\tau_{GR}$ mean $-6.94\%$ per Berti+Cardoso+Will 2006 Leaver-method) because GR's damping mechanism IS the boundary geometry while AVE adds substrate impedance physics (lattice-Q from rigid Cosserat skeleton). GR cannot replicate this.
+\noindent The same rigid-skeleton mechanism that PARTIALLY resists spin-induced cavity shrinkage in v2 $\omega_R$ is the \emph{full} mechanism behind Q preservation. This $\tau$ value is a \textbf{post-hoc Q-preservation refinement} (2026-05-18): the v1 formula under-predicted the LIGO-observed $\tau$ by 10--14\% per event, and the lattice-Q-preservation step was introduced afterward to reconcile the discrepancy. It is \textbf{not} a parameter-free forward prediction of the decay time; unlike the Schwarzschild $\ell=2$ eigenvalue above, it is a fitted reconciliation of the spinning-remnant case against the same LIGO data it is compared to.
+
+\begin{tcolorbox}[colback=white, colframe=black, title=\textbf{Scope: post-hoc consistency check, not a forward discriminator}]
+The Schwarzschild $\ell=2$ QNM eigenvalue $18/49 \approx 0.3673$ (vs GR exact $0.3737$, \textbf{1.7\% error}, \textbf{zero free parameters}) is the genuine forward prediction of this section. The \emph{spinning-remnant} (Kerr) comparison against LIGO below is a \textbf{post-hoc consistency check}, not a forward AVE-vs-GR discriminator. Per the truth-source card (\kbleaf{manuscript/ave-kb/vol3/claim-quality.md} \texttt{clm-395gps}): AVE ``does NOT claim sub-percent agreement on ringdown frequency for spinning remnants. The Kerr-corrected LIGO ringdown comparisons \dots show \textbf{10--18\%} frequency error and 10--14\% decay-time error, not the sub-percent precision the Schwarzschild case suggests.'' The Kerr correction ``inherits the Schwarzschild AVE structure via a \textbf{phenomenological photon-sphere shift formula}''; and the Kerr quality factor ``matches GR sub-2\% only for $a_* = 0.3$--$0.8$; behaviour outside this spin range is not validated.'' The sub-percent per-event agreement in the table below is achieved \emph{after} the Phase-5 Q-preservation fit and should be read accordingly.
+\end{tcolorbox}
 
 \medskip\noindent
-Comparison against three LIGO detections (Phase-3 v2 $\omega_R$ + Phase-5 v2 $\tau$, 2026-05-18):
+Post-hoc consistency comparison against three LIGO detections (Phase-3 v2 $\omega_R$ + Phase-5 v2 $\tau$, 2026-05-18):
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -278,7 +285,7 @@ GW151226 & 20.8 $M_\odot$ & 0.74 & \textbf{764.0 Hz} & 750 Hz & \textbf{$+1.9$\%
 \end{center}
 \noindent \textbf{Frequency mean $-0.45\%$, decay-time mean $-0.47\%$ per event}. Live-fire driver at \kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}; full Phase-3+5 outputs in research \kbleaf{ligo-ringdown-driver-design.md} \S 8--10.
 
-\paragraph{Phase-4 spin sweep + mass-independence (2026-05-18).} v2 generalizes across the full Berti+Cardoso+Will 2006 Kerr QNM curve: 9 of 11 swept spin values $a_* \in \{0.0, 0.1, \ldots, 0.95\}$ PASS at $|\text{dev}| < 3\%$ vs GR reference; divergence onset $a_* \geq 0.90$ (near-extremal regime, currently unattested in LIGO catalog). Mass-independence confirmed at $7\times$ range: GW190521 ($M = 142\ M_\odot$, IMBH-class) matches at $-0.25\%$ per v2; GW170729 ($a_* = 0.81$) matches at $+1.77\%$. \textbf{v2 covers entire currently-detected LIGO BBH catalog at GR-class precision.} Near-extremal regime ($a_* > 0.90$) deferrable to Option B (full spheroidal cavity) when LIGO/ET detects such an event.
+\paragraph{Phase-4 spin sweep + mass-independence (2026-05-18).} v2 generalizes across the full Berti+Cardoso+Will 2006 Kerr QNM curve: 9 of 11 swept spin values $a_* \in \{0.0, 0.1, \ldots, 0.95\}$ PASS at $|\text{dev}| < 3\%$ vs GR reference; divergence onset $a_* \geq 0.90$ (near-extremal regime, currently unattested in LIGO catalog). Mass-independence confirmed at $7\times$ range: GW190521 ($M = 142\ M_\odot$, IMBH-class) matches at $-0.25\%$ per v2; GW170729 ($a_* = 0.81$) matches at $+1.77\%$. These agreements are the \emph{post-hoc} spinning-remnant consistency check (Phase-5 Q-preservation fit); the validated spin range is $a_* = 0.3$--$0.8$ per \texttt{clm-395gps}, and near-extremal remnants ($a_* > 0.90$) are deferrable to Option B (full spheroidal cavity) when LIGO/ET detects such an event.
 
 \subsection{Iron K$\alpha$ Line Profile from the Refractive Gradient}
 
@@ -323,7 +330,7 @@ The Event Horizon Telescope (EHT) resolved the shadow of M87*. In the impedance 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1.0\textwidth]{bh_untapped_predictions.png}
-    \caption{\textbf{Untapped First-Principles Predictions.} All panels derived from the AVE impedance topology with zero free parameters. (1) Merger ringdown frequency vs. LIGO observations: v2 Cosserat-back-reaction formula achieves \textbf{$-0.45\%$ mean $\omega_R$ + $-0.47\%$ mean $\tau$} per event (Phase 3+5 closure 2026-05-18; outperforms GR Kerr QNM for $\tau$). (2) Iron K$\alpha$ line profile showing discrete sub-peaks at impedance band energies. (3) Jet impedance map: polar impedance matching ($\Gamma \approx 0$) produces a natural jet channel. (4) Hawking temperature from impedance boundary noise leakage. (5) GW memory strain as residual lattice deformation above $h_{yield} = \sqrt{\alpha}$. (6) Scale invariance: the same $1/d$ topology from the electron unknot ($10^{-13}$ m) to M87* ($10^{13}$ m).}
+    \caption{\textbf{Untapped Impedance-Topology Predictions.} Panels derived from the AVE impedance topology; the Schwarzschild $\ell=2$ QNM eigenvalue is zero-free-parameter, while the spinning-remnant comparison in panel (1) is a post-hoc consistency check (see text). (1) Merger ringdown frequency vs. LIGO observations: the v2 Cosserat-back-reaction formula reaches \textbf{$-0.45\%$ mean $\omega_R$ + $-0.47\%$ mean $\tau$} per event (Phase 3+5 closure 2026-05-18) --- a post-hoc Kerr consistency check, not a forward prediction. (2) Iron K$\alpha$ line profile showing discrete sub-peaks at impedance band energies. (3) Jet impedance map: polar impedance matching ($\Gamma \approx 0$) produces a natural jet channel. (4) Hawking temperature from impedance boundary noise leakage. (5) GW memory strain as residual lattice deformation above $h_{yield} = \sqrt{\alpha}$. (6) Scale invariance: the same $1/d$ topology from the electron unknot ($10^{-13}$ m) to M87* ($10^{13}$ m).}
     \label{fig:untapped}
 \end{figure}
 
@@ -373,7 +380,7 @@ GW190521 & 0.72 & 2 & 5.0 & 15.0 & $\dagger$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
-\noindent\textbf{Updated 2026-05-18 (Phase 5 closure):} the bare Schwarzschild $Q = \ell = 2$ approximation above is the cold-cavity prediction; the Kerr correction to $Q$ \textbf{IS} now derived via the v1$\to$v2 lattice-Q preservation mechanism (Cosserat skeleton sets Q-factor invariant of cavity-radius refinement). See the upgraded \emph{Kerr Quality Factor} subsection above for the v2 formula $\tau_{v2} = \tau_{v1} \cdot (\omega_{R,v1}/\omega_{R,v2})$ and the corresponding LIGO comparison table at $-0.47\%$ mean $\tau$ error per event (outperforms standard GR Kerr QNM at $-6.94\%$). The 38-43\% errors above are an artifact of the cold $Q = \ell$ approximation, NOT a residual gap in the AVE framework.
+\noindent\textbf{Updated 2026-05-18 (Phase 5 closure):} the bare Schwarzschild $Q = \ell = 2$ eigenvalue above is the cold-cavity forward prediction (zero free parameters). The spinning-remnant Kerr correction to $Q$ is a \textbf{post-hoc refinement}: the v1$\to$v2 lattice-Q preservation mechanism (Cosserat skeleton sets Q-factor invariant of cavity-radius refinement) was introduced after the fact to reconcile the v1 shortfall against LIGO data. See the \emph{Kerr Quality Factor} subsection above for the v2 formula $\tau_{v2} = \tau_{v1} \cdot (\omega_{R,v1}/\omega_{R,v2})$ and the corresponding LIGO comparison table at $-0.47\%$ mean $\tau$ error per event (the standard GR Kerr QNM comparison figure for the same events is $-6.94\%$ mean; both are \emph{post-hoc} spinning-remnant consistency checks, not forward predictions). Per \texttt{clm-395gps}, this Kerr comparison is validated only for $a_* = 0.3$--$0.8$ (10--18\% frequency error otherwise); the larger cold-$Q=\ell$ discrepancies in the table above reflect that the cold approximation is not the Kerr-refined case.
 
 \section{The Compactness Limit (AVE Buchdahl Bound)}
 \label{sec:compactness_limit}
