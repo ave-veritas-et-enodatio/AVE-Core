@@ -971,24 +971,24 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 <!-- id: clm-ghs75o -->
 
 - _Specific Claims_
-  - The Peierls-Nabarro objection (a charged particle traversing a discrete vacuum grid would stutter and radiate away its kinetic energy via Bremsstrahlung) is resolved by reinterpreting the vacuum substrate as an **amorphous Dielectric Saturation-Plastic Network**, not a cold rigid periodic crystal. The translating electron's leading-edge shear stress dynamically exceeds the dielectric saturation threshold ($\tau_{local} > \tau_{yield}$), initiating a localised **Shear Transformation Zone (STZ)**: the particle generates its own continuous frictionless zero-impedance phase slipstream. The lattice thixotropically re-freezes behind it, permitting smooth kinematic translation and forbidding unprovoked Bremsstrahlung radiation.
+  - The Peierls-Nabarro objection (a charged particle traversing a discrete vacuum grid would stutter and radiate away its kinetic energy via Bremsstrahlung) is resolved by reinterpreting the vacuum substrate as a **saturable dielectric LC network** (the chiral K4 crystal, sub-yield lossless-reactive regime), not a cold rigid periodic crystal. As the translating electron biases the leading nodes up their saturation curve, at the dielectric-saturation point the moving soliton presents a **matched impedance** ($\Gamma \to 0$) to them: by Op17 ($T^2 = 1 - \Gamma^2 \to 1$ at $\Gamma = 0$) the coupling is perfectly transmitted and reflectionless. The leading boundary couples through **reactively**, opening a co-moving **zero-impedance phase slipstream**; the saturation-biased nodes store and return the field reversibly as the soliton passes (lossless, Axiom 3), so there is no Peierls-Nabarro barrier and no dissipation — permitting smooth kinematic translation and forbidding unprovoked Bremsstrahlung radiation.
 - _Specific Non-Claims and Caveats_
   - This is a **stress-test resolution** (App B paradox), demonstrating internal consistency of the lattice picture against an established condensed-matter constraint. It is not an independent prediction of a new observable.
-  - The STZ mechanism is asserted at the qualitative level (dielectric-saturation-plastic flow on the leading edge); the leaf does not produce a quantitative threshold for the onset velocity or a coupling constant for the slipstream dynamics. Treat as a mechanism claim, not a numerical prediction.
-  - Does NOT claim falsification of the standard PN-stress framework in real crystallographic dislocations; the framework's claim is that the AVE vacuum's plastic regime preempts the rigid-PN-barrier picture for fundamental charged particles, not that real-material PN dynamics is wrong.
+  - The matched-impedance slipstream mechanism is asserted at the qualitative level (reactive $\Gamma \to 0$ coupling at the leading-edge saturation point); the leaf does not produce a quantitative threshold for the onset velocity or a coupling constant for the slipstream dynamics. Treat as a mechanism claim, not a numerical prediction.
+  - Does NOT claim falsification of the standard PN-stress framework in real crystallographic dislocations; the framework's claim is that the AVE vacuum's reactive matched-impedance coupling preempts the rigid-PN-barrier picture for fundamental charged particles, not that real-material PN dynamics is wrong.
 
 > **Leaf references:** [peierls-nabarro-paradox](./appendices/app-b-paradoxes/peierls-nabarro-paradox.md).
 
 ### Quality
 - confidence: 0.3
 - depends-on:
-  - INVARIANT-S2 / Axiom 1 (amorphous dielectric-saturation-plastic network, not a rigid periodic crystal)
-  - INVARIANT-S2 / Axiom 4 (local yield $\tau_{local}>\tau_{yield}$ initiating the STZ slipstream)
+  - INVARIANT-S2 / Axiom 1 (saturable dielectric LC network / chiral K4 crystal, not a rigid periodic crystal)
+  - INVARIANT-S2 / Axiom 4 (dielectric-saturation point $\Gamma \to 0$ opening the reactive matched-impedance slipstream)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
-- rationale: A qualitative stress-test resolution: the PN-stuttering/Bremsstrahlung objection is dissolved by reinterpreting the substrate as an amorphous saturation-plastic network where the leading edge liquefies into a frictionless Shear Transformation Zone. The STZ slipstream mechanism is asserted at the qualitative level — no onset-velocity threshold and no slipstream coupling constant are produced (the entry acknowledges this). Asserted mechanism.
+- rationale: A qualitative stress-test resolution: the PN-stuttering/Bremsstrahlung objection is dissolved by reinterpreting the substrate as a saturable dielectric LC network where the leading edge reaches the matched-impedance point ($\Gamma \to 0$, Op17) and couples through reactively — a co-moving zero-impedance phase slipstream, lossless and reflectionless. The slipstream mechanism is asserted at the qualitative level — no onset-velocity threshold and no slipstream coupling constant are produced (the entry acknowledges this). Asserted mechanism.
 - strengthen-by:
-  - Derive a quantitative onset velocity / shear threshold for STZ formation from Axiom 4.
-  - Show (quantitatively) that the re-freezing rate suppresses Bremsstrahlung below an observable bound.
+  - Derive a quantitative onset velocity / saturation-point threshold for the matched-impedance slipstream from Axiom 4.
+  - Show (quantitatively) that the reactive matched-impedance coupling suppresses Bremsstrahlung below an observable bound.
 
 ---
 
