@@ -46,11 +46,3 @@ The two-state LC partition + Axiom-4 yield boundary ($r_{\text{crit}} = \sqrt{2\
 > ↗ See also: [Ω_freeze Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) §6 — full open-derivation-work statement; correspondence table + analog choice tracked there as canonical destination
 
 ---
-
-## Cross-scale instance: cosmic K4 crystallization (Ω_freeze)
-
-The two-state LC partition + Axiom-4 yield boundary ($r_{\text{crit}} = \sqrt{2\alpha}$) is a general mechanism class: any substrate undergoing a first-order structural phase transition under applied stress is in this class. Per Grant's 2026-05-16 framing, Ω_freeze (cosmic K4 crystallization into the I4₁32 ordered chiral ground state under cosmic angular momentum) is a cosmic-scale instance of the same mechanism class — same Axiom-4 yield boundary, same √(1-A²) kernel. The specific cosmic-scale Landau formalism + materials-science analog (ferromagnetic Curie field-cooling vs chiral nematic alignment vs multiferroic ME vs spin-glass freezing) is open derivation work.
-
-> ↗ See also: [Ω_freeze Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) §6 — full open-derivation-work statement; correspondence table + analog choice tracked there as canonical destination
-
----
