@@ -167,7 +167,7 @@ When a bond transitions asymmetrically between shells (e.g., C--S, moving from $
 | C--N | 1.42 | 1.47 | $-4\%$ | 416 | 461 |
 | S--S | 2.66 | 2.05 | $+30\%$ | 230 | 236 |
 
-*Bond parameters from the Fabry--Perot eigenvalue (Eq. eq:bond_eigenvalue) and topological force constant projections. The first five bonds (O--H through S--H) are predicted to within $\leq 4\%$ in both $d$ and $k$. Bonds between two heavily-loaded shells (C--C, C--N, C--O single) show systematic overcorrection ($-13$ to $-17\%$), indicating that symmetric cavity loading requires degenerate mode hybridisation (open refinement). All force constants remain within $\leq 10\%$.*
+*Bond parameters from the Fabry--Perot eigenvalue (Eq. eq:bond_eigenvalue) and topological force constant projections. All $k_\text{pred}$ values are the direct output of the canonical Soliton Bond Solver driver (`src/ave/topological/soliton_bond_solver.py`, derived from $\varepsilon_0$, $m_e$, $\hbar$, $e$ and lattice topology --- no spectroscopic input). Across all eleven bonds the force-constant deviation ranges from $-9.8\%$ (C--N, $k_\text{pred}=416$ vs $461$) to $+6.2\%$ (O--H, $791$ vs $745$); the largest-magnitude misses are the heavily-loaded interior--interior bonds (C--N $-9.8\%$, C--O $-4.5\%$; C--C is $+4.1\%$), consistent with symmetric cavity loading requiring degenerate mode hybridisation (open refinement). All force constants remain within $\leq 10\%$.*
 
 ### Discussion
 
