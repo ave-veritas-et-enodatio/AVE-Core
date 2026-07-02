@@ -967,28 +967,28 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 ---
 
-## Peierls-Nabarro Friction Paradox: STZ / Dielectric Saturation-Plastic Resolution
+## Peierls-Nabarro Friction Paradox: Reactive Matched-Impedance Slipstream Resolution
 <!-- id: clm-ghs75o -->
 
 - _Specific Claims_
-  - The Peierls-Nabarro objection (a charged particle traversing a discrete vacuum grid would stutter and radiate away its kinetic energy via Bremsstrahlung) is resolved by reinterpreting the vacuum substrate as an **amorphous Dielectric Saturation-Plastic Network**, not a cold rigid periodic crystal. The translating electron's leading-edge shear stress dynamically exceeds the dielectric saturation threshold ($\tau_{local} > \tau_{yield}$), initiating a localised **Shear Transformation Zone (STZ)**: the particle generates its own continuous frictionless zero-impedance phase slipstream. The lattice thixotropically re-freezes behind it, permitting smooth kinematic translation and forbidding unprovoked Bremsstrahlung radiation.
+  - The Peierls-Nabarro objection (a charged particle traversing a discrete vacuum grid would stutter and radiate away its kinetic energy via Bremsstrahlung) is resolved by reinterpreting the vacuum substrate as a **saturable dielectric LC network** (the chiral K4 crystal, sub-yield lossless-reactive regime), not a cold rigid periodic crystal. The electron ($0_1$ unknot) is a **co-moving self-matched envelope** — constructed impedance-matched to the lattice it translates through — so the soliton presents a **matched impedance** ($\Gamma \to 0$) as a whole-soliton property: by Op17 ($T^2 = 1 - \Gamma^2 \to 1$ at $\Gamma = 0$) the coupling is perfectly transmitted and reflectionless. Its co-moving envelope couples through **reactively**, opening a **zero-impedance phase slipstream**; the nodes it passes store and return the field reversibly (lossless, Axiom 3), so there is no Peierls-Nabarro barrier and no dissipation — permitting smooth kinematic translation and forbidding unprovoked Bremsstrahlung radiation. (Distinct from confinement: single-sector dielectric saturation $S \to 0$ drives $Z_{core} = Z_0\sqrt{S} \to 0$ and $\Gamma \to -1$ — the short-circuit / TIR wall that *confines* the electron, not a match.)
 - _Specific Non-Claims and Caveats_
   - This is a **stress-test resolution** (App B paradox), demonstrating internal consistency of the lattice picture against an established condensed-matter constraint. It is not an independent prediction of a new observable.
-  - The STZ mechanism is asserted at the qualitative level (dielectric-saturation-plastic flow on the leading edge); the leaf does not produce a quantitative threshold for the onset velocity or a coupling constant for the slipstream dynamics. Treat as a mechanism claim, not a numerical prediction.
-  - Does NOT claim falsification of the standard PN-stress framework in real crystallographic dislocations; the framework's claim is that the AVE vacuum's plastic regime preempts the rigid-PN-barrier picture for fundamental charged particles, not that real-material PN dynamics is wrong.
+  - The matched-impedance slipstream mechanism is asserted at the qualitative level (the soliton's co-moving self-matched envelope presents reactive $\Gamma \to 0$ coupling); the leaf does not produce a quantitative threshold for the onset velocity or a coupling constant for the slipstream dynamics. Treat as a mechanism claim, not a numerical prediction.
+  - Does NOT claim falsification of the standard PN-stress framework in real crystallographic dislocations; the framework's claim is that the AVE vacuum's reactive matched-impedance coupling preempts the rigid-PN-barrier picture for fundamental charged particles, not that real-material PN dynamics is wrong.
 
 > **Leaf references:** [peierls-nabarro-paradox](./appendices/app-b-paradoxes/peierls-nabarro-paradox.md).
 
 ### Quality
 - confidence: 0.3
 - depends-on:
-  - INVARIANT-S2 / Axiom 1 (amorphous dielectric-saturation-plastic network, not a rigid periodic crystal)
-  - INVARIANT-S2 / Axiom 4 (local yield $\tau_{local}>\tau_{yield}$ initiating the STZ slipstream)
+  - INVARIANT-S2 / Axiom 1 (saturable dielectric LC network / chiral K4 crystal, not a rigid periodic crystal)
+  - INVARIANT-S2 / Axiom 4 (saturation kernel $Z_{core}=Z_0\sqrt{S}\to0$, $\Gamma\to-1$ — the confinement wall; contrasted against the co-moving self-matched envelope's $\Gamma\to0$ translation slipstream)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
-- rationale: A qualitative stress-test resolution: the PN-stuttering/Bremsstrahlung objection is dissolved by reinterpreting the substrate as an amorphous saturation-plastic network where the leading edge liquefies into a frictionless Shear Transformation Zone. The STZ slipstream mechanism is asserted at the qualitative level — no onset-velocity threshold and no slipstream coupling constant are produced (the entry acknowledges this). Asserted mechanism.
+- rationale: A qualitative stress-test resolution: the PN-stuttering/Bremsstrahlung objection is dissolved by reinterpreting the substrate as a saturable dielectric LC network in which the electron is a co-moving self-matched envelope presenting $\Gamma \to 0$ (Op17), coupling through reactively — a zero-impedance phase slipstream, lossless and reflectionless (distinct from the $\Gamma \to -1$ saturation confinement wall). The slipstream mechanism is asserted at the qualitative level — no onset-velocity threshold and no slipstream coupling constant are produced (the entry acknowledges this). Asserted mechanism.
 - strengthen-by:
-  - Derive a quantitative onset velocity / shear threshold for STZ formation from Axiom 4.
-  - Show (quantitatively) that the re-freezing rate suppresses Bremsstrahlung below an observable bound.
+  - Derive a quantitative onset velocity threshold for the self-matched-envelope slipstream from the soliton's impedance-matching condition.
+  - Show (quantitatively) that the reactive matched-impedance coupling suppresses Bremsstrahlung below an observable bound.
 
 ---
 

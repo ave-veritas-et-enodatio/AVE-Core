@@ -16,7 +16,7 @@ When translating the vacuum into a discrete mechanical solid, the framework inhe
 |---|---|
 | Spin-1/2 | Extended $0_1$ unknot on $SO(3)$ manifold generates $SU(2)$ spinor behaviour via Finkelstein-Misner kink (Dirac Belt Trick) |
 | Holographic principle | Cross-sectional porosity $\Phi_A \equiv \alpha^2$ bounds information channel capacity to 2D bounding surface area via Nyquist-Shannon |
-| Peierls-Nabarro | Amorphous dielectric saturation-plastic network creates localised Shear Transformation Zone — frictionless zero-impedance phase slipstream |
+| Peierls-Nabarro | Saturable dielectric LC network (chiral K4 crystal); the electron is a co-moving self-matched envelope presenting a matched impedance ($\Gamma \to 0$, Op17) and coupling through reactively — a zero-impedance phase slipstream, lossless, no Bremsstrahlung (distinct from the $\Gamma \to -1$ saturation confinement wall) |
 
 ## Derivations and Detail
 
@@ -24,6 +24,6 @@ When translating the vacuum into a discrete mechanical solid, the framework inhe
 |---|---|
 | [Spin-1/2 Paradox](./spin-half-paradox.md) | $SO(3)$ integer-spin objection resolved by extended knotted line defect topology |
 | [Holographic Paradox](./holographic-paradox.md) | $R^3$ volume scaling objection resolved by 1D flux tube bandwidth constraint |
-| [Peierls-Nabarro Paradox](./peierls-nabarro-paradox.md) | Discrete lattice Bremsstrahlung objection resolved by saturation-plastic substrate |
+| [Peierls-Nabarro Paradox](./peierls-nabarro-paradox.md) | Discrete lattice Bremsstrahlung objection resolved by reactive matched-impedance ($\Gamma \to 0$) coupling through the saturable dielectric LC network — a co-moving zero-impedance phase slipstream |
 
 ---

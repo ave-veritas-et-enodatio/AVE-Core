@@ -259,8 +259,8 @@
 {"claim_id": "clm-gfdplp", "item_idx": 1, "text": "Demonstrate Mode I PASS on K4-TLM (currently Mode III; Mode I PASS only on Master Equation FDTD).", "mentioned_ids": []}
 {"claim_id": "clm-gfs4j8", "item_idx": 0, "text": "Prove the uniqueness of the zero-charge AVE vacuum topology against competing ground states.", "mentioned_ids": []}
 {"claim_id": "clm-gfs4j8", "item_idx": 1, "text": "Quantify the inter-sector tunneling suppression to show it is exactly (not approximately) zero.", "mentioned_ids": []}
-{"claim_id": "clm-ghs75o", "item_idx": 0, "text": "Derive a quantitative onset velocity / shear threshold for STZ formation from Axiom 4.", "mentioned_ids": []}
-{"claim_id": "clm-ghs75o", "item_idx": 1, "text": "Show (quantitatively) that the re-freezing rate suppresses Bremsstrahlung below an observable bound.", "mentioned_ids": []}
+{"claim_id": "clm-ghs75o", "item_idx": 0, "text": "Derive a quantitative onset velocity threshold for the self-matched-envelope slipstream from the soliton's impedance-matching condition.", "mentioned_ids": []}
+{"claim_id": "clm-ghs75o", "item_idx": 1, "text": "Show (quantitatively) that the reactive matched-impedance coupling suppresses Bremsstrahlung below an observable bound.", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 0, "text": "Derive z₀≈51.25 from first-principles K4 amorphous-network geometry (flagged still-open) so the K4-TLM route stops depending on inverting the EMT quadratic given α", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 1, "text": "State the numerical agreement tolerance between the two routes' p* values rather than asserting \"identical\"", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 2, "text": "Make explicit that the FDTD route's α=1/(4π³+π²+π) is the actual derived input and p*=8πα is downstream definitional", "mentioned_ids": []}

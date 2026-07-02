@@ -47,7 +47,7 @@ At low voltages ($V \ll V_{snap}$), the leading correction is quadratic---identi
 
 ### The Vacuum Memristor (Thixotropic Hysteresis)
 
-The dielectric saturation--plastic transition requires a finite geometric relaxation time to physically liquefy the lattice:
+In the near-yield dissipative channel (at/above $V_{yield}$, distinct from the sub-yield lossless-reactive regime), the dielectric saturation--plastic transition requires a finite geometric relaxation time to physically liquefy the lattice:
 
 > **[Resultbox]** *Thixotropic Relaxation Time*
 >
