@@ -346,7 +346,32 @@ All fields READ from records.
 
 ## §5 — Kernels (the kernel machinery)
 
-<!-- filled in a later commit -->
+The kernels (grep `[Kk]ernel` in the `claim-quality.md` registers). **The
+saturation-kernel SHAPE $S(A)=\sqrt{1-A^2}$ itself is Axiom 4 — rung 1, NOT here
+(§1 kernel-vs-Axiom-4 boundary).** These two members are the *derived* /
+*organizing* kernel machinery built ON Axiom 4. All fields READ from records.
+
+### Parametric Coupling Kernel (Axiom-4 Vacuum Varactor at Sub-Yield α-Slew Operating Point)
+<!-- view of claim node: clm-6t3p6x -->
+
+- **clm-id:** `clm-6t3p6x` ([`vol4/claim-quality.md:1246`](../vol4/claim-quality.md)) — a **brief-named seed**.
+- **title:** "Parametric Coupling Kernel (Axiom 4 Vacuum Varactor at Sub-Yield α-Slew Operating Point)" — the $\varepsilon_{det}=4\pi\kappa_{quality}/N^2$ apparatus kernel ($C_{eff}(V)=C_0/\sqrt{1-(V/V_{yield})^2}$ varactor + α-slew refresh) the DAMA / detector-network predictions build on.
+- **status:** **DERIVED** — a theorem of Axiom 4 (the vacuum-varactor $C_{eff}(V)$) plus Theorem 3.1′; `depends-on` = `axiom-4, clm-rtdmsn, clm-vjv4zf`.
+- **axiom-provenance:** `axiom-4` (direct, READ) + Theorem 3.1′ (`clm-rtdmsn`, the $Z_{radiation}=Z_0/4\pi$ inheritance) + `clm-vjv4zf` (constitutive $C_{eff}(V)$ form).
+- **solidity:** 0.60, `input-only` (READ) — closes to leading order; the entry is candid that $\kappa_{quality}$ per detector + per-defect detuning are load-bearing-open.
+- **usage:** `citation_count = 1`.
+- **flags:** **vol3→vol4 mis-volume** (§7). REACTIVE-power class; the entry explicitly disclaims being the real-power κ_entrain Sagnac mechanism (a co-located but distinct kernel — not double-counted here).
+
+### A-034 Single-Kernel Unification — One Saturation Kernel at All Scales
+<!-- view of claim node: clm-gz7ryg -->
+
+- **clm-id:** `clm-gz7ryg` ([`common/claim-quality.md:794`](claim-quality.md)).
+- **title:** "A-034 Single-Kernel Unification — One Saturation Kernel at All Scales" — the reusable "same dimensionless $S(A)=\sqrt{1-A^2}$ at every scale, inherited from Axiom 4 not re-postulated per scale" thesis (the machinery-tier claim over the 26-instance A-034 catalog).
+- **status:** **DEFINITIONAL** — the entry's OWN caveat: "**Does NOT derive Axiom 4 itself; the kernel is the postulated Axiom 4 form. This entry asserts its single-kernel cross-scale applicability, not its first-principles origin.**" It POSITS cross-scale applicability (via TKI); its `depends-on` is `clm-sysqaf` (the catalog), reaching no axiom of its own. A machinery *organizing posit*, not a theorem.
+- **axiom-provenance:** `(none direct — asserts inheritance from axiom-4 via TKI/axiom-2, but its recorded depends-on is clm-sysqaf only)`.
+- **solidity:** 0.62, `input-only` (READ).
+- **usage:** `citation_count = 1`.
+- **flags:** the SHAPE it unifies is Axiom 4 (rung 1); this member is the *unification claim*, not the kernel. The per-scale INSTANCES (protein / Schwinger / Big Bang / BCS / `clm-dxdsvt` 26-catalog) are EXCLUDED as applications (§1).
 
 ## §6 — Summary roll-up + the DERIVED-vs-DEFINITIONAL audit count
 
