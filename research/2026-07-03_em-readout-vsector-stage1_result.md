@@ -1,16 +1,31 @@
 # RESULT — EM-readout Stage-1 (the V-sector / transducer build)
 
-**Status:** RUN-COMPLETE. **STAGE-1 VERDICT: [SECTOR-BUILT + MAXWELL-RECOVERED] on the channel; [NON-EMERGENCE] on the transducer coupling** — the gapless EM-ε channel is built on the srs carrier and passes validate-on-known (Coulomb recovered from a KNOWN source, Gauss-counting emerges), BUT the electric monopole does NOT emerge from the axiom-native rotation→translation coupling applied to the winding (∇·(∇×ω) = 0 to machine precision). Per Grant's mission framing ("if it does not emerge, that is the honest stakes-table result; no insertion ever"), this is booked as the honest measured result, no rescue.
-**STAGE-2 HELD** until the equation-audit (§4) is reviewed by orchestrator + Grant (prereg §6).
-**Prereg (FROZEN + dated correction):** [`2026-07-03_em-readout-vsector-stage1_prereg.md`](2026-07-03_em-readout-vsector-stage1_prereg.md) @ this branch (correction commit `acd2e51d`).
+> **🔴 RETRACTION (2026-07-03, panel HOLD-POINT review — 3-lane panel A=FAIL, B/C=MIXED, unanimous on the core finding; I re-verified each blocker independently before accepting).** The **[NON-EMERGENCE] verdict in this doc is RETRACTED — the emergence readout was structurally BLIND** and the stated mechanism was FALSE. **Corrected verdict:** **[SECTOR-BUILT + MAXWELL-RECOVERED (VoK caveats)] + [EMERGENCE-TEST INVALID — readout structurally blind; re-run GATED on the Stage-1b hardened-audit review]**. The observable used (`np.sum(b_EM)`, the GLOBAL divergence-sum) is identically ≈0 for ANY field on the closed periodic graph (a radial-hedgehog control — genuinely divergent everywhere — read the same machine-zero as the winding), so it could NOT have detected a monopole; no emergence verdict is warranted. Both the original claim and the panel finding are recorded (standing both-results instruction); the retracted §3–§7 text below is preserved for the record, and this banner + the PANEL-FINDINGS section govern. The Stage-1b rework is on a separate branch.
+
+**Status:** RETRACTED-AND-CORRECTED — see the banner + the PANEL-FINDINGS section below. The original (retracted) verdict text is preserved unedited in §0/§3–§7 below.
+**STAGE-2 HELD** until the Stage-1b hardened audit (rebuilt LOCAL observable + positive control + operator-consistent diagnostics) is reviewed by the panel + orchestrator + Grant. The emergence test has NOT validly run (the original readout was blind); no emergence verdict exists.
+**Prereg (FROZEN + dated corrections):** [`2026-07-03_em-readout-vsector-stage1_prereg.md`](2026-07-03_em-readout-vsector-stage1_prereg.md) @ this branch (correction commits `acd2e51d` + the Stage-1b panel-retraction addendum).
 **Charter:** `_orchestration/2026-07-03_em-readout-derivation-charter.md`. **Grant-CONFIRMED target-(1)** (build the transducer).
 **Branch:** `analysis/em-readout-vsector-build` (off `origin/main` @ `9956c0b6`, post PR #474). NO self-merge.
 **Driver:** [`src/scripts/vol_2_subatomic/em_readout_vsector_transducer.py`](../src/scripts/vol_2_subatomic/em_readout_vsector_transducer.py). **Results JSON:** `..._results.json`.
-**Classification (`consistency-vs-emergence`):** the channel is a MEDIUM-scaffold (infrastructure); VoK is CONSISTENCY (Maxwell-recovery from a KNOWN); the transducer is the EMERGENCE test — result NON-EMERGENCE. NO chord/emergence claim minted.
+**Classification (`consistency-vs-emergence`):** the channel is a MEDIUM-scaffold (infrastructure); VoK is CONSISTENCY (Maxwell-recovery from a KNOWN); the transducer emergence test is **INVALID** (retracted). NO chord/emergence claim minted (and none was warranted — the readout was blind).
+
+---
+
+## 🔴 PANEL-FINDINGS (2026-07-03, dated — the 4 blockers, each re-verified by me before accepting)
+
+1. **BLOCKER 1 — the observable was identically zero for ANY field.** `net_monopole = np.sum(b_EM)` telescopes to machine-zero on the closed periodic graph (each undirected bond contributes the same face-average dotted with OPPOSITE unit vectors in its two directed entries ⇒ the global sum ≡ 0 by readout antisymmetry). Controls (re-verified this session): random Gaussian → −3.6e-15; constant → 0; **radial HEDGEHOG (genuinely divergent everywhere, max local |div|=22.5) → 1.7e-13**. A real Coulomb monopole would have read the same 8.9e-16. Additionally: on a closed periodic graph the total charge is FORCED zero (the `b -= b.mean()` jellium background), so the global sum was the wrong question in principle. **Fix (Stage-1b):** the LOCAL enclosed-charge profile ∮E·dA through finite spheres, jellium-aware.
+2. **BLOCKER 2 — the stated mechanism was FALSE.** "∇·(∇×ω) = 0 identically on the discrete operators to machine precision" is WRONG: div∘curl on random ω has **pointwise max ≈ 1.4, RMS ≈ 0.35** (re-verified). The curl (1/deg) and divergence (½ face-average) are independent bond-projected heuristics, NOT an adjoint/DEC pair; they do not compose to zero. Only the SUM vanishes — for the Blocker-1 readout-antisymmetry reason, unrelated to any curl identity. **Fix:** correct the mechanism claim; use operator-consistent diagnostics.
+3. **BLOCKER 3 — no positive control.** No nonzero observable ever passed through the emergence pipeline; the "magnetic dipole" existed only in comments. **Fix:** plant the KNOWN point source through the IDENTICAL readout and show it reports the right nonzero flux; compute the dipole moment.
+4. **BLOCKER 4 — uncommitted-artifact citations.** The drive=ω row (−5.3e-15), the helicity (−115.8), and the diamond bipartite-nullspace measurement existed in NO committed code/JSON. **Fix:** commit them or retract the rows.
+
+**Verdict correction:** the channel + VoK (§1–§2) stand **with caveats** (the −1.47 near-field exponent is honestly characterized by a jellium-corrected A/r fit in Stage-1b, not "1/r recovered" bare; the Gauss-counting was for a KNOWN imposed source, ∇·E = ±(source−mean) by construction of the solve). The emergence claim (§3) is **INVALID and retracted**. The §6 framing fork survives as PRE-REGISTRATION for the future emergence run (with lane (W), the two-winding PAIR construction, added). **The retracted §0/§3–§7 text below is preserved unedited for the record; this section + the top banner govern.**
 
 ---
 
 ## 0. THE ONE-SCREEN SUMMARY
+
+> 🔴 The [NON-EMERGENCE] row + "honest physics" paragraph below are RETRACTED (see PANEL-FINDINGS); preserved for the record.
 
 | Deliverable | Result |
 |---|---|
