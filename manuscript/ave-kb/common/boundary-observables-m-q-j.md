@@ -22,6 +22,8 @@ At every $\Gamma = -1$ saturation surface $\partial\Omega$ in the substrate — 
 
 **Stokes-theorem dimensional structure.** Each invariant uses one fewer integration dimension than the substrate's 3D bulk — $\mathcal{M}$ counts a volume, $\mathcal{J}$ counts a surface winding, $\mathcal{Q}$ counts a line/loop linking. The three dimensions are exhaustive: there is no fourth integrated boundary observable at this scale-invariant structure.
 
+> **Pair physics on $\mathcal{Q}$ (2026-07-03).** Two $\mathcal{Q}$ (winding) objects now have an engine-derived *interaction* — like windings repel / unlike attract with Coulomb sign structure (`clm-wcoul2`, consistency-class; `vol4/claim-quality.md`) — the Axiom-2 interaction leg, complementing the single-object $\mathcal{Q}=\mathrm{Link}(\partial\Omega,\mathbf{F})$ dictionary above.
+
 ## The substrate-observability rule
 
 <!-- claim-quality: clm-ofys5v -->

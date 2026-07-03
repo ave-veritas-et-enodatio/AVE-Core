@@ -59,6 +59,14 @@ $$
 > N-band [`..._cleave-registry-pump-chern-nband_result.md`](../../../../../research/2026-07-02_cleave-registry-pump-chern-nband_result.md).
 > **Claim: `clm-clvchn` (vol4/claim-quality).** The chord-gating prose below is preserved as the bench's
 > historical framing (git carries the trail); read it through this current-status header.
+>
+> **★ NON-CONFLATION GUARD (2026-07-03).** The separately-landed **engine-derived winding-PAIR
+> interaction** (`clm-wcoul2`: like windings repel / unlike attract, Coulomb sign structure) does **NOT**
+> reopen this bench's **displacement-PUMP** coupling (`clm-clvchn`, NULL-CONFIRMED-FINAL). They are
+> **different observables**: `clm-wcoul2` measures the *force between two static windings* (the Axiom-2
+> interaction leg); `clm-clvchn` measures whether a *single* winding *pumps a displacement charge across
+> the cleave gap* under adiabatic screw-registry drive ($C=0$, no pump). A derived pair-force says
+> nothing about a registry-pump Chern number. **Both verdicts stand.**
 
 Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10\,\text{pF}$, the voltage readout step ($V = Q/C$) projects to a clean step of approximately **$41.5\,\text{mV}$** on the oscilloscope at $1\,\mu\text{m}$ — but **the slope magnitude is NOT the falsifiable axis** (see below). The slope is a consistency-class echo: $\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ is the electron Compton wavelength, so the $41.5\,\text{mV/µm}$ figure is doubly over-determined and a slope-match cannot by itself distinguish chord from $\alpha$-chain (F3 note). **What the bench tests — the chord — is the topological integer-charge floor**: a gap-INDEPENDENT, polarity-odd, material-independent, linear-in-$x$ charge component ($\mathcal{Q} = \mathrm{Link}(\partial\Omega,\mathbf{F}) \in \mathbb{Z}$) surviving a $\ge 4\times$ gap-sweep at fixed $C_{in}$, which no single classical mechanism can fake (the 4-corner conjunction). If no such gap-independent floor survives the sweep, the framework is falsified at Axiom-2. If the 4-corner floor survives, the **topological integer-charge chord** ($[Q] \equiv [L]$) has been validated on a tabletop — a two-sided, non-fakeable result. The slope value ($41.5\,\text{mV/µm}$) is a secondary corroborator of the over-determined $\xi_{topo}$ magnitude, not the test.
 
