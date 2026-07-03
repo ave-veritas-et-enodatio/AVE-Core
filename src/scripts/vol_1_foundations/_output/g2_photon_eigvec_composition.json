@@ -1,0 +1,321 @@
+{
+  "step1_eigvec_composition": {
+    "k_lattice": 0.001,
+    "gap_target_m2": 4.0,
+    "moduli": {
+      "G": 1.0,
+      "G_c": 1.0,
+      "gamma": 1.0,
+      "rho": 1.0,
+      "I_omega": 1.0
+    },
+    "per_direction": {
+      "[100]": {
+        "n_massless": 6,
+        "n_gapped": 6,
+        "massless_branches": [
+          {
+            "omega2": 9.9999991659056e-07,
+            "u_fraction": 0.9999997500002707,
+            "w_fraction": 2.49999729166959e-07
+          },
+          {
+            "omega2": 9.9999991659056e-07,
+            "u_fraction": 0.9999997500002707,
+            "w_fraction": 2.49999729166959e-07
+          },
+          {
+            "omega2": 9.999999166664193e-07,
+            "u_fraction": 0.9999997500002707,
+            "w_fraction": 2.49999729166959e-07
+          },
+          {
+            "omega2": 9.999999166664193e-07,
+            "u_fraction": 0.9999997500002707,
+            "w_fraction": 2.49999729166959e-07
+          },
+          {
+            "omega2": 3.33333222222237e-06,
+            "u_fraction": 1.0,
+            "w_fraction": 0.0
+          },
+          {
+            "omega2": 3.33333222222237e-06,
+            "u_fraction": 1.0,
+            "w_fraction": 0.0
+          }
+        ],
+        "gapped_branches": [
+          {
+            "omega2": 4.000001999999333,
+            "u_fraction": 0.0,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000001999999333,
+            "u_fraction": 0.0,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.00000299999875,
+            "u_fraction": 2.49999729166959e-07,
+            "w_fraction": 0.9999997500002707
+          },
+          {
+            "omega2": 4.00000299999875,
+            "u_fraction": 2.49999729166959e-07,
+            "w_fraction": 0.9999997500002707
+          },
+          {
+            "omega2": 4.00000299999875,
+            "u_fraction": 2.49999729166959e-07,
+            "w_fraction": 0.9999997500002707
+          },
+          {
+            "omega2": 4.00000299999875,
+            "u_fraction": 2.49999729166959e-07,
+            "w_fraction": 0.9999997500002707
+          }
+        ]
+      },
+      "[110]": {
+        "n_massless": 6,
+        "n_gapped": 6,
+        "massless_branches": [
+          {
+            "omega2": 9.99999833723417e-07,
+            "u_fraction": 0.9999997500002917,
+            "w_fraction": 2.499997083336476e-07
+          },
+          {
+            "omega2": 9.99999833873996e-07,
+            "u_fraction": 0.9999997500002916,
+            "w_fraction": 2.49999708333652e-07
+          },
+          {
+            "omega2": 1.000000403372782e-06,
+            "u_fraction": 0.9999997500003732,
+            "w_fraction": 2.4999962670117214e-07
+          },
+          {
+            "omega2": 1.000000406207477e-06,
+            "u_fraction": 0.9999997500003733,
+            "w_fraction": 2.499996267011863e-07
+          },
+          {
+            "omega2": 3.3333313735572487e-06,
+            "u_fraction": 0.9999999999999183,
+            "w_fraction": 8.163266153564573e-14
+          },
+          {
+            "omega2": 3.333331373868044e-06,
+            "u_fraction": 0.9999999999999183,
+            "w_fraction": 8.16326617980374e-14
+          }
+        ],
+        "gapped_branches": [
+          {
+            "omega2": 4.000001999999165,
+            "u_fraction": 5.798553931578129e-25,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000001999999165,
+            "u_fraction": 1.9502420254122556e-25,
+            "w_fraction": 0.9999999999999999
+          },
+          {
+            "omega2": 4.000002999998497,
+            "u_fraction": 2.499997083336871e-07,
+            "w_fraction": 0.9999997500002916
+          },
+          {
+            "omega2": 4.000002999998498,
+            "u_fraction": 2.4999970833384373e-07,
+            "w_fraction": 0.9999997500002917
+          },
+          {
+            "omega2": 4.000002999998499,
+            "u_fraction": 2.49999708333842e-07,
+            "w_fraction": 0.9999997500002916
+          },
+          {
+            "omega2": 4.000002999998499,
+            "u_fraction": 2.4999970833363764e-07,
+            "w_fraction": 0.9999997500002916
+          }
+        ]
+      },
+      "[111]": {
+        "n_massless": 6,
+        "n_gapped": 6,
+        "massless_branches": [
+          {
+            "omega2": 9.999998051434514e-07,
+            "u_fraction": 0.9999997500002986,
+            "w_fraction": 2.499997013892397e-07
+          },
+          {
+            "omega2": 9.99999805424943e-07,
+            "u_fraction": 0.9999997500002987,
+            "w_fraction": 2.499997013891536e-07
+          },
+          {
+            "omega2": 9.999998061047842e-07,
+            "u_fraction": 0.9999997500002986,
+            "w_fraction": 2.499997013891378e-07
+          },
+          {
+            "omega2": 9.999998065178072e-07,
+            "u_fraction": 0.9999997500002985,
+            "w_fraction": 2.499997013892412e-07
+          },
+          {
+            "omega2": 3.3333318515921776e-06,
+            "u_fraction": 1.0,
+            "w_fraction": 1.6460065987088232e-27
+          },
+          {
+            "omega2": 3.3333318533148576e-06,
+            "u_fraction": 1.0,
+            "w_fraction": 7.732773477692816e-28
+          }
+        ],
+        "gapped_branches": [
+          {
+            "omega2": 4.00000199999911,
+            "u_fraction": 6.191784429146986e-25,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000001999999111,
+            "u_fraction": 1.0668974354050108e-24,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000002999998415,
+            "u_fraction": 2.499997013892415e-07,
+            "w_fraction": 0.9999997500002986
+          },
+          {
+            "omega2": 4.000002999998417,
+            "u_fraction": 2.4999970138906353e-07,
+            "w_fraction": 0.9999997500002984
+          },
+          {
+            "omega2": 4.000002999998418,
+            "u_fraction": 2.499997013892784e-07,
+            "w_fraction": 0.9999997500002988
+          },
+          {
+            "omega2": 4.0000029999984195,
+            "u_fraction": 2.4999970138923045e-07,
+            "w_fraction": 0.9999997500002986
+          }
+        ]
+      },
+      "[210]": {
+        "n_massless": 6,
+        "n_gapped": 6,
+        "massless_branches": [
+          {
+            "omega2": 9.999998639050293e-07,
+            "u_fraction": 0.9999997500002842,
+            "w_fraction": 2.499997158335807e-07
+          },
+          {
+            "omega2": 9.99999863994597e-07,
+            "u_fraction": 0.9999997500002842,
+            "w_fraction": 2.499997158336637e-07
+          },
+          {
+            "omega2": 1.0000002288457234e-06,
+            "u_fraction": 0.9999997500003365,
+            "w_fraction": 2.499996635888574e-07
+          },
+          {
+            "omega2": 1.0000002301752358e-06,
+            "u_fraction": 0.9999997500003365,
+            "w_fraction": 2.499996635888588e-07
+          },
+          {
+            "omega2": 3.333331678681532e-06,
+            "u_fraction": 0.9999999999999478,
+            "w_fraction": 5.224490254651538e-14
+          },
+          {
+            "omega2": 3.333331678873222e-06,
+            "u_fraction": 0.9999999999999478,
+            "w_fraction": 5.224490231820447e-14
+          }
+        ],
+        "gapped_branches": [
+          {
+            "omega2": 4.000001999999224,
+            "u_fraction": 7.383795759316295e-25,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000001999999225,
+            "u_fraction": 1.888463273870089e-25,
+            "w_fraction": 1.0
+          },
+          {
+            "omega2": 4.000002999998586,
+            "u_fraction": 2.4999971583371533e-07,
+            "w_fraction": 0.9999997500002842
+          },
+          {
+            "omega2": 4.000002999998588,
+            "u_fraction": 2.4999971583382766e-07,
+            "w_fraction": 0.9999997500002844
+          },
+          {
+            "omega2": 4.00000299999859,
+            "u_fraction": 2.4999971583355937e-07,
+            "w_fraction": 0.9999997500002842
+          },
+          {
+            "omega2": 4.00000299999859,
+            "u_fraction": 2.4999971583361374e-07,
+            "w_fraction": 0.9999997500002841
+          }
+        ]
+      }
+    },
+    "E1_photon_pair_u_dominated": {
+      "photon_pair_max_w_fraction": 2.49999729166959e-07,
+      "photon_pair_mean_u_fraction": 0.9999997500002864,
+      "massless_family_max_w_fraction": 2.49999729166959e-07,
+      "massless_family_mean_u_fraction": 0.9999998333335242,
+      "tolerance_w_frac": 0.01,
+      "PASS": true,
+      "note": "The 2 transverse-translational photon-family branches carry essentially ALL their amplitude in u (translational); \u03c9-fraction \u2192 0 at k\u21920. This is the DECISIVE number for the G2 ruling: the photon lives in the translational-u sector, NOT the node micro-rotation \u03c9 sector."
+    },
+    "E2_gapped_w_dominated": {
+      "gapped_min_w_fraction": 0.9999997500002707,
+      "gapped_mean_w_fraction": 0.9999998333335242,
+      "tolerance_w_frac_floor": 0.99,
+      "PASS": true,
+      "note": "The 6 gapped branches (\u03c9_m=2) carry essentially ALL their amplitude in \u03c9 (micro-rotational); \u03c9-fraction \u2192 1. This is the GAPPED mechanical Cosserat sector \u2014 the home of the static winding topology (Yukawa-screened, short-range, clm-wcoul2), NOT the photon."
+    },
+    "E3_two_sublattice_fold_structure": {
+      "n_massless_per_dir": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "n_gapped_per_dir": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "expected_each": 6,
+      "PASS": true
+    },
+    "RULING_CONFIRMED": true,
+    "ruling_verbatim": "the photon = the two massless transverse-TRANSLATIONAL branches (u-family); its magnetic content = the EM-inductive circulation of the u-wave (bond-level curl), NOT the node micro-rotation; the node \u03c9 = the GAPPED mechanical Cosserat sector (home of the static winding topology, Yukawa-screened, short-range). Grant 2026-07-03."
+  }
+}
