@@ -756,6 +756,25 @@ parse it):
 
 ---
 
+## T₂ (photon-family disambiguation)
+<!-- id: def-t2ph01 -->
+
+- **term:** T₂ (the tetrahedral-group triplet label — TWO physically-distinct objects share it, separated by the massless-vs-gapped mass status)
+- **adjudicated-meaning:** the **default canonical "T₂ = the photon" sense is the massless transverse-TRANSLATIONAL mode pair (u-family)** — the two massless transverse-shear branches at $c = \sqrt{G/\rho}$ whose eigenvectors are u-dominated (translational). The glyph T₂ is overloaded in the corpus by a *second* object — the **Cosserat microrotational (ω) family** (gapped, mechanical, the static (2,3) winding's home) — historically ALSO called "the photon." Per the G2 ruling (Grant 2026-07-03) the photon is sense (1); the node ω is sense (2), NOT the photon. This node is the canonical disambiguation + mis-use watch-list.
+- **axis:** spatial-Brillouin (band-family label on the K4 two-sublattice dispersion)
+- **dimension/type:** DOF-family label (n/a — classifies which Cosserat sector a mode lives in); the modes themselves are frequency ($T^{-1}$)
+- **status:** SOLID (for the locked "photon = transverse-translational u-family" sense; the disambiguation is Grant-adjudicated 2026-07-03, so the canonical sense seeds SOLID — status and open-ambiguity are orthogonal per the `node`/`ξ` precedent)
+- **canonical-home:** sense (1) the photon = transverse-translational u-family: `research/2026-07-03_g2-photon-relabel_note.md` (ruling) + `photon-identification.md:11` (with the G2 relabel note); the decisive eigenvector read at `src/scripts/vol_1_foundations/g2_photon_eigvec_composition.py` / `_output/g2_photon_eigvec_composition.json`. sense (2) the gapped mechanical ω: `cosserat-mass-gap.md` §4 ($m^2 = 4G_c/I_\omega$); `clm-wcoul2` (Yukawa-screened winding pair).
+- **clm-cross-links:** clm-g0mkne (Cosserat rotational mass mechanism — carries the G2-RESOLVED photon-family note), clm-j550uh + clm-9kd2t3 (k4-port irrep decomposition), clm-wcoul2 (gapped-ω winding-pair Coulomb), clm-kmliqx (c_R = √2 rotational curvature speed)
+- **open-ambiguity-flag:** YES — the surface label T₂ names TWO distinct objects:
+  - (1) **the transverse-TRANSLATIONAL mode pair (THE PHOTON's family, MASSLESS)** — the two massless transverse-shear branches, u-dominated (ω-fraction → 0 at k→0: Step-1 rider reads $2.5\times10^{-7}$; u-fraction $= 1.000000$), propagating at $c = \sqrt{G/\rho}$. Its magnetic content = the **EM-inductive circulation of the u-wave** (bond-level curl $\nabla\times u$, the Axiom-1 μ₀-family B), NOT a node micro-rotation.
+  - (2) **the Cosserat MICROROTATIONAL (ω) family (GAPPED, mechanical, the winding's home)** — ω-dominated (ω-fraction $= 1.000000$), gapped at $m^2 = 4G_c/I_\omega$ (the mechanical Cosserat mass; Yukawa-screened, short-range, `clm-wcoul2`); the home of the *static* (2,3) winding topology. This is NOT the photon.
+  - **The watch-list qualifier rule:** **never write bare "T₂" or "T₂ microrotational ω" for the photon** — the photon is the transverse-*translational* u-family. When a leaf says "T₂ … the photon" it means sense (1) (translational-u); when it says "T₂ … carries the mass-gap / the winding" it means sense (2) (gapped microrotational ω). The two are separated by the massless-vs-gapped mass status, which is the load-bearing distinction (not the free-vs-locked one).
+  - **CONFLICTING SITES (verified 2026-07-03, now carrying G2 KEEP-BOTH relabel notes):** `photon-identification.md:11` ("Cosserat shear wave with $u=0$, $\omega\neq0$" — sense-2 label on the photon, CORRECTED to sense 1); `k4-port-irrep-decomposition.md:26` ("Microrotational ω … THIS IS THE PHOTON" — sense-2 label, CORRECTED); `cosserat-mass-gap.md:145` + `vol1/claim-quality.md:1131` (had the RIGHT family — sense 1 translational — with the gapped ω correctly as sense 2; G2-RESOLVED notes added).
+- **verification:** VERIFIED — the massless-branch u-dominance ($\omega$-fraction $2.5\times10^{-7}$, u-fraction $1.000000$) and gapped-branch ω-dominance ($1.000000$) computed on the genuine two-sublattice A→B bond operator (`g2_photon_eigvec_composition.json`, k=1e-3, 4 directions); the operator is the same that recovers the gap $m^2 = 4$ bit-exact (V3, `research/2026-06-23_cosserat-band-structure-two-sublattice_prereg-result.md`). Ruling Grant 2026-07-03 (`research/2026-07-03_g2-photon-relabel_note.md`). Status SOLID for the locked "photon = transverse-translational u" sense; open-ambiguity records the T₂ overload (orthogonal per the SCHEMA Definition-record rule). NOTE (flag-don't-fix): the original GAP-G2 orchestration diagnosis (`_orchestration/2026-06-07_electron-synthesis-epic.md:319`) pinned "photon = microrotational ω" as canonical — the eigenvector read contradicts it, resolved AGAINST that side per the ruling.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
@@ -769,6 +788,12 @@ parse it):
 FORM-vs-VALUE axis, locking the prose labels to the interlock register's
 CI-gated `real_or_fitted` tags (INVARIANT-S13). Umbrella leaf:
 [`form-deriving-value-importing.md`](form-deriving-value-importing.md).
+
+**Sector disambiguation (1 SOLID, added 2026-07-03):** `T₂` (`def-t2ph01`,
+photon-family disambiguation) — locks "T₂ = the photon" to the massless
+transverse-TRANSLATIONAL u-family (NOT the gapped Cosserat microrotational ω);
+open-ambiguity YES (the two T₂ objects, separated by massless-vs-gapped). G2
+ruling Grant 2026-07-03, `research/2026-07-03_g2-photon-relabel_note.md`.
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —
