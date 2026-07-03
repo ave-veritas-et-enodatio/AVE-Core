@@ -150,6 +150,7 @@
 {"claim_id": "clm-b9eura", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-baoa36", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-baoa36", "leaf_path": "vol4/falsification/ch11-experimental-bench/tabletop-null-results.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-bdualb", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bh9p6s", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-bjceop", "leaf_path": "common/q-g47-substrate-scale-cosserat-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bqtasn", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -467,7 +468,7 @@
 {"claim_id": "clm-pp3qwf", "leaf_path": "vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-pp3qwf", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-pp3qwf", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-pvlas1", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-pvlas1", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-q39qct", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/kirchhoff-network-method.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-q4c615", "leaf_path": "common/cosmic-parameter-horizon-a031-refinement.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-q5izb7", "leaf_path": "vol2/nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md", "leaf_kind": "leaf", "tier2_marked": false}
