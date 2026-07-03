@@ -15,6 +15,8 @@ $$
 C_{eff}(V) = C_0 \sqrt{1 - \left(\frac{V}{V_{yield}}\right)^2}
 $$
 
+> **↗ FLAG-2 sector tag (2026-07-03, RESOLVED-BY-EXISTING-RULING; Grant-ratified 2026-06-15, `research/2026-06-15_ceff-epsilon-monotonicity_result.md` Q1=(B)).** This `$C_{eff}=C_0\cdot S$` (**collapse**) form is the **transverse-T2 dielectric permittivity** ($\varepsilon_{eff}=\varepsilon_0 S\Rightarrow C_{diel}=\varepsilon_{eff}A/d\propto S$) — exactly the LCR-bench-measured capacitance this leaf describes. It is the RECIPROCAL of the ch18/`.lib` metric-varactor `$C_0/S$` (**divergent**) — but the two are **NOT** contradictory: `$C_0/S$` is the **longitudinal-A1 bond compliance** (a different, orthogonal reactance; A1 ⊥ T2), not this transverse permittivity. The SPICE-charter FLAG-2 "sign contradiction" is this name-collision between two orthogonal reactances sharing the EE name "capacitance," resolved by the ratified split. Source: [`nonlinear-vacuum-capacitance.md:14`](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
+
 This non-linear saturation is detectable with a precision LCR meter well before any spark occurs. The "Anomaly Window" (approximately $0.85 \times V_{yield}$ to $V_{yield}$) represents the measurable regime where $C_{eff}$ deviates by more than $10\%$ from the linear baseline.
 
 ## SPICE Netlist: EE Bench Yield Plateau (ee_bench.cir)

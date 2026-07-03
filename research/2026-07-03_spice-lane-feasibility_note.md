@@ -112,6 +112,31 @@ the vacuum capacitance go at yield?) and must be adjudicated before any
 ngspice run — a run would silently validate whichever sign the netlist
 happens to carry. NOT resolved here.
 
+> **🟢 FLAG-2 RESOLVED-BY-EXISTING-RULING (2026-07-03, additive — inventory
+> body above PRESERVED).** On verify-then-tag (branch
+> `analysis/sector-hygiene-batch`): FLAG-2 is **not** a sign error, and the
+> `C0/S` vs `C0·S` forms are **not** reciprocal laws of one object. They are
+> two **orthogonal reactances** under the Grant-ratified **2026-06-15 A1⊥T2
+> capacitance sector split** (`research/2026-06-15_ceff-epsilon-monotonicity_result.md`
+> ADJUDICATION Q1=(B)): `C0/S` (divergent — `.lib`, ch18, App-6, vol9 §1) is
+> the **longitudinal-A1 bond compliance** ($1/k_a$); `C0·S` (collapse —
+> ch15, ch17) is the **transverse-T2 dielectric permittivity**
+> ($\varepsilon_{eff}=\varepsilon_0 S$, the LCR-bench capacitance). They
+> share the EE name "capacitance"; identifying them is the genesis-24
+> double-count. **Verified per-site — every `C0/S` site models the A1
+> compliance, every `C0·S` site models the T2 permittivity; no site models
+> the SAME sector with the opposite law.** Canonical source
+> `nonlinear-vacuum-capacitance.md:14` already carries the split verbatim.
+> Per-site sector tags landed at the `.lib`, ch18 index + spice-subcircuit,
+> ch15, ch17. The "must be adjudicated before any ngspice run" gate is
+> **satisfied by the existing ruling** — a run now certifies two orthogonal
+> reactances, not one contradictory law. (Separate, out-of-scope nuance
+> surfaced not fixed: per `nonlinear-vacuum-capacitance.md:18` (Grant
+> 2026-06-30 grade-fork) the A1 compliance completes at `V_SNAP` (511 kV),
+> not `V_YLD`; the `.lib`/ch18 varactors key on `V_YLD` — a mis-scoping of
+> the varactor's saturation voltage, distinct from FLAG-1/FLAG-2, flagged
+> for a later pass.)
+
 ### FLAG-3 — App-6 "solver-independent" claim vs never-run reality
 
 `06_spice_verification_manual.tex:71-73` asserts agreement between the

@@ -35,6 +35,8 @@ R_DAMP A B {R0 + 1e-15}
 .ends AVE_VACUUM_CELL
 ```
 
+> **↗ FLAG-2 sector tag (2026-07-03, RESOLVED-BY-EXISTING-RULING; Grant-ratified 2026-06-15, `research/2026-06-15_ceff-epsilon-monotonicity_result.md` Q1=(B)).** The `B_VAR` metric varactor `$C_{eff}=C_0/S$` (divergent) is the **longitudinal-A1 bond compliance** ($1/k_a$), NOT the transverse dielectric permittivity. The ch15/ch17 KB netlists' reciprocal `$C_0\cdot S$` (collapse) form is the **transverse-T2** dielectric permittivity ($C_{diel}\propto S$, the LCR bench capacitance). Orthogonal reactances (A1 ⊥ T2), same EE name — **NOT reciprocal laws of one object**; the SPICE-charter FLAG-2 is this name-collision, resolved by the ratified split. Source: [`nonlinear-vacuum-capacitance.md:14`](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
+
 ## Numerical Stability Notes
 
 - `min((V/V_YLD)^2, 0.9999)` clamps the ratio below 1.0 to prevent `sqrt` of negative values
