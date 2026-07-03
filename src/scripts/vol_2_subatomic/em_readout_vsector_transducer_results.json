@@ -78,6 +78,10 @@
       12.0,
       16.970562748477143
     ],
+    "cg_info_pos": 0,
+    "cg_info_neg": 0,
+    "cg_converged": true,
+    "neg_control_rng_seed": 1,
     "KNOWN_point_source_Q_enc": [
       0.99971064814815,
       0.9967447916659004,
@@ -86,8 +90,10 @@
       0.8171296296319542,
       0.4747540508783061
     ],
-    "known_monopole_reads_unity_at_core": true,
-    "curl_divfree_Q_enc": [
+    "known_monopole_charge_read_back": true,
+    "jellium_boxhalf_pred": 0.4764012244017012,
+    "jellium_matches_prediction": true,
+    "curl_type_drive_Q_enc": [
       0.6205055302650434,
       -0.8911473648136465,
       1.6807546883733917,
@@ -95,8 +101,8 @@
       3.442360714797554,
       8.240323852682687
     ],
-    "observable_discriminates_monopole_vs_curl": true,
-    "observable_valid": true
+    "control_reads_nonplateau": true,
+    "arithmetic_certified": true
   },
   "ngspice_cross_solve": {
     "test": "ngspice_cross_solve",
@@ -112,6 +118,18 @@
   },
   "winding_source_curl_GATED": {
     "coupling": "curl",
+    "seed_params": {
+      "p": 2,
+      "q": 3,
+      "R": 7.0,
+      "r": 2.3,
+      "frame_N": 32,
+      "amplitude": 1.0,
+      "srs_L": 12
+    },
+    "cg_info": 0,
+    "cg_converged": true,
+    "profile_center_node": 7536,
     "Q_link": 3,
     "w_tor": 2,
     "source_total_abs": 265.9242954389223,
@@ -139,10 +157,22 @@
       2.9313929871483593
     ],
     "magnetic_dipole_magnitude": 3.504783784010104,
-    "emergence_verdict": "GATED \u2014 deferred to the post-hardened-audit run"
+    "emergence_verdict": "GATED \u2014 Q_enc UNBLINDED; adjudication \u2192 orchestrator+Grant"
   },
   "winding_source_omega_GATED": {
     "coupling": "omega",
+    "seed_params": {
+      "p": 2,
+      "q": 3,
+      "R": 7.0,
+      "r": 2.3,
+      "frame_N": 32,
+      "amplitude": 1.0,
+      "srs_L": 12
+    },
+    "cg_info": 0,
+    "cg_converged": true,
+    "profile_center_node": 7536,
     "Q_link": 3,
     "w_tor": 2,
     "source_total_abs": 697.9738201011709,
@@ -170,10 +200,10 @@
       2.9313929871483593
     ],
     "magnetic_dipole_magnitude": 3.504783784010104,
-    "emergence_verdict": "GATED \u2014 deferred to the post-hardened-audit run"
+    "emergence_verdict": "GATED \u2014 Q_enc UNBLINDED; adjudication \u2192 orchestrator+Grant"
   },
   "equation_audit": {
-    "test": "equation_audit_gate_HARDENED",
+    "test": "equation_audit_gate_HARDENED_v2",
     "ledger": [
       {
         "term": "L = D \u2212 A (srs graph Laplacian)",
@@ -260,6 +290,36 @@
         "cite": "prereg \u00a75(b)-sanctioned: a KNOWN source validates the SECTOR; LABELED as imposed, distinct from the winding coupling (which must emerge)"
       },
       {
+        "term": "\u03c6 \u2212= \u03c6.mean() OUTPUT gauge",
+        "role": "fix the constant null mode of the solution",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "item-5: distinct from the RHS jellium projection; fixes the 1-dim null space of L on the output side (physical gauge); does not change E=\u2212grad \u03c6"
+      },
+      {
+        "term": "winding-seed params (p=2,q=3,R=7,r=2.3,frame_N=32,amplitude=1)",
+        "role": "the (2,3) winding geometry",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "item-5: the canonical electron (2,3) on the Golden-Torus frame; exported in seed_params; \u03b1-free amplitude"
+      },
+      {
+        "term": "Q_enc radii set {1.5,3,5,8,12,box/2} + profile-center = nearest node to centroid",
+        "role": "the observable sampling",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "item-5/7: r=1.5 is the torus HOLE (point-source certification only); r\u22658 are the winding-enclosing spheres; center exported (profile_center_node)"
+      },
+      {
+        "term": "negative-control rng seed (neg_seed=1)",
+        "role": "reproducibility of the curl-type control",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "item-5: exported (neg_control_rng_seed); the curl-type-drive control is seed-dependent, made reproducible"
+      },
+      {
+        "term": "A = \u00bd(A + A\u1d40) symmetrization of the adjacency",
+        "role": "undirected graph Laplacian",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "item-5: the srs net's directed edge list is symmetrized so L=D\u2212A is SPD (the physical undirected resistor network); machine-eps asymmetry removed"
+      },
+      {
         "term": "b = \ud835\udcac\u00b7\u03b4\u00b3(r) (winding as charge density)",
         "role": "would source 1/r by fiat",
         "tag": "FORBIDDEN-INSERTION",
@@ -279,16 +339,25 @@
       }
     ],
     "n_axiom_derived": 8,
-    "n_engineering_choice": 6,
+    "n_engineering_choice": 11,
     "n_forbidden_rejected": 3,
-    "scanned_modules": [
-      "em_readout_vsector_transducer.py",
-      "srs_cage_winding.py",
-      "charge_quantization.py",
+    "scanned_modules_from_closure": [
+      "__init__.py",
+      "__init__.py",
+      "__init__.py",
       "chiral_lattice.py",
-      "native_cage_imex.py"
+      "constants.py",
+      "cosserat_field_3d.py",
+      "em_readout_vsector_transducer.py",
+      "graded_vacuum_network.py",
+      "grid.py",
+      "native_cage_imex.py",
+      "node.py",
+      "srs_cage_winding.py",
+      "universal_operators.py"
     ],
-    "forbidden_pattern_grep_ALL_MODULES": {
+    "n_scanned_modules": 13,
+    "forbidden_pattern_grep_ALL_CLOSURE": {
       "rho_eq_Q_delta": false,
       "gauss_enforced": false,
       "helicity_or_Q_into_solve": false,
@@ -309,8 +378,17 @@
     ],
     "unexpected_solve_sources": [],
     "all_solve_sources_allowed": true,
-    "alpha_carriers_found_in_code": [],
-    "alpha_clean": true,
+    "alpha_carriers_in_closure": [
+      "ALPHA@constants.py",
+      "ALPHA@cosserat_field_3d.py",
+      "Q_TANK@graded_vacuum_network.py",
+      "Q_TANK@native_cage_imex.py",
+      "Q_TANK@srs_cage_winding.py",
+      "V_SNAP@cosserat_field_3d.py"
+    ],
+    "alpha_carriers_in_this_module": [],
+    "this_module_alpha_clean": true,
+    "runtime_RHS_independent_of_Qlink": true,
     "static_curl_free_supported": true,
     "propagating_longitudinal_absent": true,
     "gate_passed": true
