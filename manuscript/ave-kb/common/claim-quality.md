@@ -607,6 +607,31 @@ At any Γ=−1 saturation surface in the substrate, exactly three integrated qua
   - Q has no clean mechanical-engineering analog (the ME projection column is empty for Q).
   - The half-integer value of J is tied to the SU(2) double-cover; the leaf treats this as AVE-native, not an imported QM postulate.
 
+> **🟢 STRENGTHENS (2026-07-03, DEC MINI-ARC + FOUR-LOCK CASCADE; no retraction).**
+> The **Q (boundary linking-number) charge dictionary's LOCAL sector is sharpened
+> to a theorem.** On the srs DEC 2-complex the cold-linear-static-local closure of
+> the CURL-COUPLING CLASS is upgraded from "a property of the
+> (`_srs_curl_nodes`, `_srs_node_divergence`) engineering-choice operator pair"
+> (`research/2026-07-03_em-readout-vsector-stage1_result.md` PANEL-FINDINGS
+> §Blocker-2) to a **`∂₁∂₂ = 0` STRUCTURAL IDENTITY** (`ave.topological.srs_dec`;
+> [`research/2026-07-03_srs-dec-operators_result.md`](../../../research/2026-07-03_srs-dec-operators_result.md)
+> §3). On the DEC operators `div = −∂₁`, `curl_adj = ∂₂`, **every** field
+> `F = curl_adj(c)` has `div F ≡ 0` (exact integer `∂₁∂₂ = 0`), so **zero enclosed
+> charge at every radius for the entire curl class**, not just the two tested
+> members. **Consequence for Q:** a pure-curl (exact) substrate flux `F` carries
+> **zero Gauss/enclosed charge as an identity** — the `Q = Link(∂Ω, F) ∈ ℤ` charge
+> label therefore lives in the **HARMONIC** sector (`H₁ = ker∂₁ ∩ ker∂₂ᵀ`,
+> `b₁ = 3`; DEC §4), NOT in the exact/co-exact sector the theorem kills. This is
+> the class-level dependency the **four-lock sourced-charge no-go cascade**
+> (`clm-nogo4l`, [`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md))
+> is built on (Lock 4's `∂∂=0` continuity core). **Scope boundary (DEC §3 box):**
+> NOTHING is claimed for non-curl couplings (`∇·ω` remains a measured non-identity),
+> `S(A)`-modulated couplings, self-consistent nonlinear statics, dynamics, or the
+> pair-as-DEC-pair (they are not). The complementary CO-EXACT (gradient) sector —
+> the part that DOES source divergence — is `clm-4r4jiy` (the `A_geom ∝ 1/r`
+> Coulomb potential). **No retraction: this is a sharpening of the LOCAL sector, not
+> a change to the M/Q/J catalog or the exhaustiveness claim.**
+
 > **Leaf references:** [boundary-observables-m-q-j](./boundary-observables-m-q-j.md).
 
 ### Quality
@@ -1244,3 +1269,73 @@ yet scored).
 - rationale: *pending*
 - supports:
   - clm-pe8lpx (f=*pending*) — Eight Cosmic-Axis Observables aligned with the Ω_freeze axis
+
+---
+
+## The Sourced-Charge No-Go Cascade — Four Locks Close One Route
+<!-- id: clm-nogo4l -->
+
+The 2026-07-03 EM-readout derivation epic (Axiom 2's last underived leg — does the winding's charge label emerge as a **sourced static exterior field**?) closed the sourced-static-monopole route through **four independent locks**, each discovered by a different instrument and each with its own proof class. This is the SYNTHESIS claim: the four locks close **one route** (the *sourced* co-exact/gradient monopole readout), and the survivors are structurally distinct from the closed sector. Prose umbrella + per-lock cites: [`common/the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md).
+
+- _Specific Claims_
+  - **Lock 1 — blind-readout retraction (INSTRUMENT class; PR #477).** The Stage-1 blind-readout panel caught a merged null read on a structurally-degenerate observable without a same-pipeline positive control (CLASS-2 apparatus pathology), motivating the 31-row verdict-exposure sweep. An instrument-audit, not a physics negative: it grades evidentiary standing and hard-wired the same-pipeline-liveness requirement into every subsequent Stage.
+  - **Lock 2 — sourced-solve tautology (INSTRUMENT/identity class; Stage-1b).** A linear static solve `L φ = b` with a hand-assembled `b` is informationally transparent: `∇·E = +(source − mean)` by construction, so `Q_enc = Σ_Ω(b − mean)` returns its own RHS. A mirror, not an instrument — a tautology of the discrete Gauss theorem. Closes the sourced branch: any reported monopole was assembled by hand.
+  - **Lock 3 — [NO-FLUX-STRUCTURAL] maximum principle (THEOREM class; ε > 0).** For the source-free variable-coefficient problem `L_w φ = 0`, `L_w = Bᵀ diag(ε_eff) B`, the Dirichlet energy `φᵀ L_w φ = Σ_edge ε_eff·(Δφ)²` vanishes iff every term does, forcing `φ = const` on the connected srs graph — zero flux for ANY `ε_eff = S(A) > 0`, ANY texture, ANY composition rule (Q/M/X), ANY regime. Established three ways (maximum-principle analytic + panel ablation `max|φ| = 0` exact + 1-D-nullspace check). Honest caveat: the hypothesis is `S > 0` *strictly*; the `S = 0` (rupture-point, `ε → 0`) puncture is out-of-scope and is lane Z's doorway.
+  - **Lock 4 — ∂∂=0 continuity (THEOREM-GRADE LEAN; Stage-2b step-0).** Taking the discrete divergence of the chartered Ampère update and using `∇·∇× ≡ 0` (the exact `∂₁∂₂ = 0` boundary-of-boundary identity, PR #483): `∂_t(∇·E) = −∇·J_coupling`, and for the default Ampère-form curl coupling `J_coupling = ∇×(g ω) = curl_adj(·)` the divergence is identically zero, so the enclosed charge is a **conserved constant of motion** set by initial data, not emergent. An algebraic identity needing no integrator. Lean: holds *unless* a J-mixed coupling term (`∇·J ≠ 0`, ω-field-derived, non-texture, non-longitudinal-wave) exists — a term canon does not currently supply.
+  - **The unifying observation.** Locks 3 and 4 are one theorem operating twice: statics dies because `F = ∇×ω = curl_adj(ω)` is a curl (`∇·F ≡ 0`); curl-coupled dynamics dies because `J_coupling = ∇×(gω)` is again `curl_adj(·)`. The same `∂₁∂₂ = 0` theorem closes both routes.
+  - **The survivor map.** Lane Z — the harmonic sector `H₁ = ker∂₁ ∩ ker∂₂ᵀ` (the structural complement; `b₁ = 3`, L-independent; the part `∇·∇×≡0` does NOT reach, requiring an edge-field E representation) is where `Q = Link(∂Ω, F) ∈ ℤ` (`clm-ze4clw`) would land. Lane W — winding pairs (`clm-wcoul2`, the inter-winding force). The J-mixed entry condition — Lock 4's one escape, pending at the orchestrator review gate.
+- _Specific Non-Claims and Caveats_
+  - **Does NOT claim charge fails.** The claim is that charge is UNSOURCED (no sourced static exterior monopole from constitutive texture or curl-coupled dynamics). Topology (lane Z) and pairs (lane W) remain live; the `Q = Link` label (`clm-ze4clw`) is untouched.
+  - **Does NOT touch mass = A1 (PR #260).** Only the sourced-monopole route to the charge readout is closed; the mass sector is unaffected.
+  - **The `ε → 0` puncture is a doorway, not a closed door.** Lock 3's honest caveat (a bond exactly at the rupture point, `S = 0`) is where the maximum-principle hypothesis fails; it routes to lane Z, not booked as a closed escape.
+  - **CONSISTENCY-class synthesis, not a chord.** This claim consolidates settled adjudications (two instrument-class, two theorem-class) into one route-closure statement; it originates no new emergence content. Lane W's `clm-wcoul2` is itself CONSISTENCY-class (signed-Coulomb is SM-shared).
+  - **Lock 4 is a LEAN, not a theorem.** The `∂₁∂₂ = 0` core is theorem-grade; the *route-closure* leans on the coupling being a pure curl, which is the default but not canon-forced (the J-mixed term is a flag-don't-fix surface to Grant, not a resolved negative).
+
+> **Leaf references:** [the-sourced-charge-no-go-cascade](./the-sourced-charge-no-go-cascade.md).
+
+### Quality
+- confidence: 0.75
+- depends-on:
+  - clm-ze4clw — Q = Link(∂Ω, F) ∈ ℤ, the boundary linking-number charge dictionary (the label the cascade routes to the harmonic sector)
+  - clm-4r4jiy — the A_geom ∝ 1/r Coulomb potential in the gapless EM-ε channel (the co-exact/gradient sector the cascade closes)
+  - clm-wcoul2 — the engine-derived Axiom-2 winding-pair interaction leg (lane W survivor)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.75, 0.55)]
+- rationale: CONSISTENCY-class SYNTHESIS. Consolidates four independently-established locks into one route-closure statement: two instrument-class (Lock 1 blind-readout, PR #477; Lock 2 sourced-solve tautology, Stage-1b — records of what an apparatus can/cannot read, not physics negatives) and two theorem-class (Lock 3 [NO-FLUX-STRUCTURAL] maximum principle, established three independent ways; Lock 4 ∂∂=0 continuity, an algebraic identity on the chartered update grounded in the srs DEC `∂₁∂₂=0` theorem, PR #483). Own-confidence 0.75 reflects that (a) the two theorem-class locks are solid and mutually reinforcing (the unifying observation shows they are one theorem operating twice), but (b) Lock 4 is a LEAN not a theorem — the route-closure depends on the axiom-native LC coupling being a pure curl (the default, not canon-forced; the J-mixed escape is a flag-don't-fix surface to Grant), and (c) the scope guard is load-bearing: this is UNSOURCED-charge, not failed-charge — topology (lane Z, `b₁=3` harmonic sector) and pairs (lane W, `clm-wcoul2`) remain live, and the `ε→0` puncture is a doorway. Solidity 0.55 is the dep-floor from `clm-wcoul2` (minimum-link), gating below own-confidence 0.75. An organizing-frame synthesis, not a new emergence claim.
+- strengthen-by:
+  - Establish (or refute) the J-mixed coupling term's divergence analytically at the orchestrator review gate BEFORE any Stage-2b integrator build (Lock 4's one escape; make-or-break entry condition)
+  - Build the lane-Z edge-field E instrument (the DEC harmonic projector `H₁ = ker∂₁ ∩ ker∂₂ᵀ` on the 1-cochain) and test whether the winding's Link charge lands on the harmonic sector (the fluxoid hypothesis, surfaced to the topological lane)
+  - Merge the srs DEC operator module (`ave.topological.srs_dec`) to upgrade Lock 4's `∂₁∂₂ = 0` continuity core from a source-reconciled result to an imported theorem-grade dependency
+
+---
+
+## The AC/DC Carve — the Epistemological Mechanism of FORM/VALUE
+<!-- id: clm-acdc07 -->
+
+The organizing-principle META-FINDING (Grant-ratified 2026-07-03; evidence = the entire 2026-07 arc ledger): **modern physics is a perfected AC theory that demoted the DC sector to bookkeeping; AVE's distinctive bet is that the DC sector is a physical medium state.** This is the epistemological MECHANISM underneath the FORM/VALUE split — the reason the per-constant record reads "FORM = chord, VALUE = echo." Prose home + evidence cites: [`common/form-deriving-value-importing.md`](form-deriving-value-importing.md) §"The AC/DC carve" (this claim is hosted there).
+
+- _Specific Claims_
+  - **The carve.** The incumbent frameworks systematically removed the static/longitudinal/uniform-offset DOFs from the dynamics and kept them only as bookkeeping: Gauss's law is a **constraint, not an evolution equation** (`∇·E = ρ/ε₀` fixes the longitudinal field, does not propagate); the longitudinal/static DOFs are **gauge-quotiented** (Coulomb-gauge static field non-dynamical; longitudinal + timelike photon cancel; free photon transverse by construction); **vacuum energy is renormalized away** (the DC offset subtracted, only differences observable). AVE's bet re-physicalizes each discarded DC quantity as a real medium operating-point state: gravity = the `S(A)` operating-point field; dark energy = a real DC offset; charge = topological boundary data (`Q = Link(∂Ω, F) ∈ ℤ`); yield walls = material limits (`V_yield`).
+  - **(i) Measurement principle.** All measurement is AC — a uniform DC bias is gauge-relative and self-cancels (= relativity, with the constructive-relativity mechanism: wave-made rulers/clocks ride the same offset). Every AVE-distinct observable is an AC reading of a DC gradient or topology — differential BY PRINCIPLE, not by experimental limitation (the PHASE-ONLY north-star, mechanized).
+  - **(ii) FORM/VALUE unification.** The FORMS AVE derives are the shared AC equations (⇒ peer-with-SM recurs BY CONSTRUCTION); the VALUES it imports are DC calibrations (`α` = operating point `A = √α`; `m_e` = bias scale; `G` = boundary termination). "FORM = chord / VALUE = echo" and "AC = shared / DC = where the bet lives" are the SAME statement — this is why the carve extends the FORM/VALUE leaf.
+  - **(iii) Falsification asymmetry.** AC agreement cannot distinguish (consistency, never a chord); AC disagreement = an AVE bug (Maxwell recovery mandatory in the `S → 1` linear limit); distinctive kills AND wins live DC-side or in DC→AC coupling.
+  - **(iv) Selection rule.** A candidate discriminating test must be DC→AC coupling class (take a DC medium state, read it out through an AC channel where the DC-blind incumbent predicts nothing distinctive). The lone bankable forward falsifier — E-route vacuum birefringence (`clm-pp3qwf`) — IS one: a DC E-bias loads the ε-varactor DC operating point, the AC probe-index readout sees a tree-level coefficient the incumbent loop-suppresses by `α³`. Confirming instance.
+  - **Empirical validation.** The 2026-07-03 sourced-charge no-go cascade (`clm-nogo4l`) is the carve operating in code: the statics deaths (Stage-1b sourced-solve tautology `∇·E = +(source − mean)`; Stage-2a [NO-FLUX-STRUCTURAL] `φ = const`) re-find "you cannot AC-source a DC monopole" (Gauss-is-a-constraint, on the lattice); the `∂∂=0` continuity closure (`∂_t(∇·E) ≡ 0`) re-finds "vacuum DC content is not created by AC dynamics" (theorem grade). The survivors (lane Z harmonic-DC, lane W DC-linking pair, the J-mixed DC→AC coupling) are exactly the carve's selection rule read off the engine output.
+- _Specific Non-Claims and Caveats_
+  - **Organizing PRINCIPLE, not a theorem.** The carve is the reason the accumulated FORM/VALUE record reads the way it does (a strong, evidence-backed frame) — it is NOT derived from the axioms. A single AC-side discriminating chord, or a DC-side null on the selection rule, would revise it. Booked at consistency / meta-finding class, the same standing as the FORM/VALUE umbrella it mechanizes.
+  - **Not an emergence claim.** It mints no new value, forces no new number; it re-reads the settled provenance record through the DC/AC lens. Do NOT headline it as emergence.
+  - **Does NOT redefine the per-constant table.** Added KEEP-BOTH — the α/G/K=2G/E_yield/m_e verdicts stand unchanged; the carve supplies WHY they land where they do.
+  - **The DC-side bet is itself untested.** That gravity, dark energy, charge, and yield walls ARE physical DC medium states (not bookkeeping) is AVE's distinctive HYPOTHESIS — the thing the framework is betting on, not a result. The carve names the bet cleanly; it does not confirm it.
+
+> **Leaf references:** [form-deriving-value-importing](./form-deriving-value-importing.md).
+
+### Quality
+- confidence: 0.65
+- depends-on:
+  - clm-pp3qwf — E-route vacuum birefringence coefficient (the confirming DC→AC coupling-class instance of selection rule iv)
+  - clm-nogo4l — the sourced-charge no-go cascade (the 2026-07-03 empirical validation: the carve operating in code)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.65, 0.55)]
+- rationale: ORGANIZING-PRINCIPLE / META-FINDING, consistency-class — NOT a theorem and NOT an emergence claim. Own-confidence 0.65 reflects that the carve is a strong evidence-backed FRAME (it is the mechanism the accumulated FORM/VALUE record already exhibits: the incumbent's Gauss-constraint / gauge-quotient / renormalized-vacuum DC bookkeeping vs AVE's DC-medium-state bet, each documented in canon), with one confirming DC→AC selection-rule instance (`clm-pp3qwf`) and one empirical validation (the 2026-07-03 cascade, `clm-nogo4l`, the carve operating in code) — but it is NOT derived from the axioms, and (a) a single AC-side discriminating chord or (b) a DC-side null on the selection rule would revise it. Booked at the same standing as the FORM/VALUE umbrella it mechanizes (`def-ch0rd1`/`def-ech0v1`/`def-fmv001`), not headlined as emergence. The DC-side bet itself (gravity/DE/charge/yield ARE physical DC states, not bookkeeping) is AVE's distinctive HYPOTHESIS — named cleanly, not confirmed. Solidity 0.55 is the dep-floor from the confirming instances (minimum-link), gating below own-confidence 0.65 — honest: a meta-frame is no stronger than its strongest confirming test.
+- strengthen-by:
+  - Land a second independent DC→AC coupling-class forward falsifier beyond `clm-pp3qwf` (the selection rule iv predicts the discriminating tests cluster here; a second instance would move the carve from one-example to a pattern)
+  - Convert the DC-side bet from hypothesis to test on ONE of its four medium-state claims (gravity = `S(A)` operating point / DE = real DC offset / charge = topological boundary data / yield = material limit) — the `𝒥_cosmic` three-route operating-point test is the standing candidate (one DC operating point setting EM + gravity + cosmology)
+  - Formalize the "all measurement is AC" principle against a concrete uniform-bias null (the retired rotor-Sagnac / static-fiber corroborative-nulls) as a machine-checkable selection filter in `ave-discrimination-check`

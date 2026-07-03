@@ -78,6 +78,57 @@ register separates these per-prediction.
 
 ---
 
+## 1b. THE SECTOR AXIS (added 2026-07-03, KEEP-BOTH — a NEW axis, no row redefinition)
+
+Per the **AC/DC epistemological carve** (`clm-acdc07`,
+[`manuscript/ave-kb/common/form-deriving-value-importing.md`](../manuscript/ave-kb/common/form-deriving-value-importing.md)
+§"The AC/DC carve"), a forward prediction can only *discriminate* if it reads a **DC
+medium state through an AC channel**. This axis tags each existing §2 row by sector
+— it does NOT redefine any row's FORM/MAGNITUDE/winding-channel classification
+above; it adds one orthogonal question: **where does the discriminating content
+live?**
+
+**The three sector classes:**
+
+- **pure-AC** — the observable is an AC dynamics quantity both frameworks share.
+  **NON-DISCRIMINATING BY PRINCIPLE:** AC agreement is expected (consistency), AC
+  disagreement would be an AVE bug (Maxwell recovery mandatory). A pure-AC "chord"
+  is dead on arrival.
+- **DC→AC coupling** — the observable reads a DC medium state (a bias, operating
+  point, topology, or yield limit) out through an AC channel where the DC-blind
+  incumbent predicts nothing distinctive. **THE LIVE DISCRIMINATING CLASS** — the
+  carve's selection rule (iv). This is where a real chord OR a fatal kill can live.
+- **DC-internal** — a DC medium-state quantity with no AC readout yet (a topology, a
+  linking number, a static operating point). Not directly measurable as-is; needs a
+  DC→AC transducer to become a test. Where the *bet* lives, not yet a *test*.
+
+| §  | Prediction | Sector | One-line rationale |
+|:--|:--|:--|:--|
+| 2.1 | E-route vacuum birefringence (`clm-pp3qwf`) | **DC→AC coupling** | A DC **E**-bias loads the ε-varactor DC operating point (near `V_yield`); the AC probe-index readout sees a tree-level coefficient the incumbent DC-blind vacuum loop-suppresses by `α³`. **The confirming instance of the selection rule** — the lone bankable near-term falsifier. |
+| 2.2 | (q·ℓ_node)⁴ dispersion (`clm-k4d4ph`/`clm-yr6tu4`) | **pure-AC** | A band-edge anisotropy of the shared AC wave operator (photon dispersion on the lattice). The genuine srs eigensolve gives the GENERIC slope-2 AC term; the quartic tell is conditional on an unproven weak-C AC-decoupling theorem. Even if it returned, it is an AC-dispersion feature (parity-even), ~2–3 OOM below bounds — non-discriminating by the sector axis, corroborating the §2.2 DEMOTED verdict from a second direction. |
+| 2.3 | Field-free optical activity (`def-0pt1ac`) | **DC-internal** (chiral lattice = a DC medium property) → needs an AC readout | The lattice handedness is a **DC structural property** of the medium (a fixed chirality bias); a transmitted AC wave reads it out as a signed rotation. FORM is a genuine DC→AC parity divergence, BUT the MAGNITUDE is ~40 OOM over bound and the k→0 continuum (the AC-readout scaling) is OPEN — so the DC-state is real but its AC transducer is not yet bankable. Sits between DC-internal (the handedness) and DC→AC (the readout, unbankable). |
+| 2.4 | Writhe co-vs-anti \|F\| ratio (`clm-wcoul2`) | **DC-internal** (winding-pair topology) | The relative-handedness of two windings is **DC topological/boundary data**; the pair force is a DC-linking quantity (lane W of the no-go cascade). It resolved to signed-Coulomb (SM-shared) — SM ALSO has this DC→AC coupling (Coulomb), so it is not AVE-distinct. A DC-internal quantity whose only AC readout recovers the shared force. |
+| 2.5 | GW echo / BH ringdown (`clm-rd9cjm`) | **pure-AC** | A ringdown frequency — an AC (oscillatory) quantity of the shared GR/wave dynamics. Reproduces GR (consistency-class) at current sensitivity; divergence only at unobserved high spin. Pure-AC ⇒ non-discriminating by principle at current data, corroborating the §2.5 consistency-class verdict. |
+| 2.6 | GRB no-dispersion (`clm-gw2wgc`) | **pure-AC** | A NULL on the shared AC photon-dispersion relation (`ω = ck`). Agrees with SM AND data — a survival, not a divergence. Pure-AC ⇒ cannot discriminate by construction; the corroborated-null verdict is the sector axis's expected reading. |
+| 2.7 | Neutrino parity (C6) | **DC→AC coupling** (chiral bandgap = a DC boundary) but null-EXPECTED | A right-handed-neutrino detection would read the DC chiral-LC-bandgap boundary (a DC medium state) out through an AC interaction channel — but it is a disclosed-IMPORT, null-EXPECTED falsifier (SM also expects ~no light RH-neutrino coupling). A DC→AC-class test whose distinctive prediction is the null. |
+| 2.8 | Torus-knot baryon ladder (`clm-to41c7`) | **DC-internal** (knot topology → mass) | The knot winding `(2,q)` is DC topological data; the mass is its DC-internal consequence (a static ground-state energy). Postdiction, walked-back; the topology→mass map is DC-internal with no AC discriminator. |
+| 2.9 | Cleave-01 displacement-charge (`clm-clvchn`) | **DC→AC coupling** (attempted) → NULL | The bench attempted exactly a DC→AC coupling: a mechanical DC displacement pumping topological charge read out electrically. The engine returned `C=0` (NULL-CONFIRMED-FINAL) — the DC→AC transducer does not exist (no derived displacement pump). A DC→AC-class test that AVE itself predicts null (corroborative-null, one-sided kill-test only). |
+
+**Net (the sector axis reading):** the discriminating forward tests cluster in the
+**DC→AC coupling** class exactly as the carve's selection rule (iv) predicts — and
+the **only bankable near-term one is §2.1** (`clm-pp3qwf`), the confirming instance.
+The pure-AC rows (2.2, 2.5, 2.6) are non-discriminating BY PRINCIPLE (each is a
+consistency-class / corroborated-null / demoted verdict independently — the sector
+axis corroborates those verdicts from the carve direction). The DC-internal rows
+(2.3, 2.4, 2.8) carry a real DC medium-state bet but lack a bankable AC transducer
+(the §2.4 lane-W pair force and the §2.3 handedness are DC-internal; their AC
+readouts either recover the SM-shared force or sit far below bound). **The sector
+axis is a lens over the existing rows, not a re-verdict** — every §2 row's
+FORM/MAGNITUDE status stands; this axis only names WHERE each row's discriminating
+content would have to live.
+
+---
+
 ## 2. PER-PREDICTION REGISTER
 
 Each row: **claim** / **SM-QED divergence** / **derivation status** / **falsifier** /
