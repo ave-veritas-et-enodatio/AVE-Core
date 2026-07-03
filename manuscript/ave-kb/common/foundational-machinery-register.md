@@ -375,7 +375,58 @@ saturation-kernel SHAPE $S(A)=\sqrt{1-A^2}$ itself is Axiom 4 — rung 1, NOT he
 
 ## §6 — Summary roll-up + the DERIVED-vs-DEFINITIONAL audit count
 
-<!-- filled in a later commit -->
+| tier | `clm-` | machinery | status | axiom-prov (direct) | solidity | cites |
+|---|---|---|---|---|---|---|
+| operator | `clm-gdd70j` | Op1–Op8 universal operators (owner) | DERIVED | axiom-4 | 0.80 | **9** |
+| operator | `clm-sysqaf` | Op1–Op22 catalog of record | DEFINITIONAL | (via clm-gdd70j) | 0.80 | 1 |
+| operator | `clm-6mvtsf` | Op1 single-structural-invariant thesis | DERIVED | (via clm-gdd70j) | 0.60 | 1 |
+| operator | `clm-1eg13f` | Op14 local-clock modulation | DERIVED | axiom-4 | 0.80 | 1 |
+| theorem | `clm-rtdmsn` | Theorem 3.1′ — electron Q-factor | DERIVED / VALUE-echo | axiom-1,2,3 | **0.85** | 1 |
+| theorem | `clm-ka5zdx` | Mass-Closure Theorem | DERIVED | axiom-1,2,3,4 | 0.50 | 1 |
+| theorem | `clm-ofys5v` | Substrate-Observability / No-Hair rule | DEFINITIONAL | (none) | 0.55 | 1 |
+| theorem | `clm-law1ho` | BH horizon + Area Theorem | DERIVED (borderline) | axiom-2,4 | 0.55 | 1 |
+| kernel | `clm-6t3p6x` | Parametric-coupling kernel | DERIVED | axiom-4 | 0.60 | 1 |
+| kernel | `clm-gz7ryg` | A-034 single-kernel unification | DEFINITIONAL | (none direct) | 0.62 | 1 |
+
+### The audit count — FORM-derives / VALUE-imports at the machinery tier
+
+> **Of the N = 10 machinery entries: 7 DERIVED, 3 DEFINITIONAL.**
+> (`expected-machinery-count: 10`, `expected-derived-count: 7`,
+> `expected-definitional-count: 3` in the `foundational-machinery-meta` block.)
+
+- **7 DERIVED** (theorems of the axioms): `clm-gdd70j`, `clm-6mvtsf`,
+  `clm-1eg13f`, `clm-rtdmsn`, `clm-ka5zdx`, `clm-law1ho`, `clm-6t3p6x`.
+- **3 DEFINITIONAL** (posits / catalogs / organizing claims): `clm-sysqaf`
+  (the operator catalog — a naming register), `clm-ofys5v` (the No-Hair rule —
+  corpus-self-called "a definitional rule"), `clm-gz7ryg` (the single-kernel
+  unification — corpus-self-stated "does NOT derive Axiom 4").
+
+> **The meta-finding, restated at the machinery tier.** The
+> [FORM-deriving / VALUE-importing](form-deriving-value-importing.md) principle
+> lands here as a **provenance split**: most machinery is a genuine THEOREM of
+> the axioms (7/10 DERIVED — the substrate *forces the forms* of its operators
+> and kernels), while the remaining tier is CATALOG / naming / organizing
+> structure that is *posited* (3/10 DEFINITIONAL — it labels and unifies, it
+> does not derive). This is the machinery-tier instance of the same pattern the
+> axiom tier shows (3 POSTULATED + 1 SHAPE-DERIVED axioms) and the
+> calibration-input tier shows (FORM-derived / VALUE-fitted {m_e, α, G}).
+
+> **Two orthogonal caveats the count does NOT collapse (kept honest):**
+> 1. **DERIVED ≠ value-forced.** Theorem 3.1′ (`clm-rtdmsn`) is DERIVED in FORM
+>    yet a Class-B **VALUE echo** (α is a retained input; §4). A DERIVED tag is a
+>    provenance statement about the FORM, never a claim that a numerical value is
+>    substrate-forced — that lives on the chord/echo axis in
+>    [`interlock-register.md`](interlock-register.md).
+> 2. **DERIVED ≠ high-solidity.** The DERIVED members span solidity 0.50
+>    (`clm-ka5zdx`) to 0.85 (`clm-rtdmsn`); provenance class and solidity are
+>    independent axes (§2). The count is a *provenance* audit, not a rigor audit.
+
+> **Usage skew.** `citation_count` is **9 for `clm-gdd70j`** (the operator basis)
+> and **1 for every other member** — the operator-owner claim is the load-bearing
+> machinery the rest of the corpus builds on; the theorems/kernels are cited
+> narrowly (often only by their own anchor leaf). This is the "how much does
+> vol1/vol2/vol3 build on this" signal the brief asked for, READ from
+> `cites.jsonl`, not inferred.
 
 ## §7 — Companion registers + the vol3→vol4 mis-volume artifact
 
