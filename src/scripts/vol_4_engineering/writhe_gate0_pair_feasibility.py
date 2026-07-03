@@ -236,14 +236,27 @@ def _midplane_flux(e: CrystalGraftV4) -> float:
     return 0.5 * (float(np.sum(t0x[face_lo])) + float(np.sum(t0x[face_hi])))
 
 
-def _mirror_symmetry_residual(e: CrystalGraftV4) -> float:
-    """max|ω(x) − ω(N−1−x)| over the interior — 0 ⇒ exactly mirror-symmetric about XC (so
-    a zero Φ_mid is symmetry-forced, prereg §5.2). Reuses the mass-sector symmetry check
-    (…T0i.py:42)."""
-    omega = e.omega
-    mirror = omega[::-1, :, :, :]
-    interior = _interior(e)[..., None]
-    return float(np.max(np.abs((omega - mirror) * interior)))
+def _flux_oddness_residual(e: CrystalGraftV4) -> tuple[float, float]:
+    """The load-bearing symmetry test for Φ_mid (prereg §5.2, mass-sector M2 caveat,
+    …T0i.py:44): is the ω-momentum-flux density T^{0x}_ω ODD about XC? If so, the
+    face-flux is zero BY ANTISYMMETRY (symmetry-forced), independent of any physics.
+
+    Returns (odd_residual, amplitude): odd_residual = max|T^{0x}(x) + T^{0x}(N−1−x)| over
+    the interior (→0 iff T^{0x} is odd about XC ⇒ face-flux forced 0); amplitude = the
+    T^{0x} scale. A zero Φ_mid is SYMMETRY-FORCED iff odd_residual ≪ amplitude.
+
+    NOTE (flag-don't-fix, driver-time): the naive FULL-vector mirror ω(x) vs ω(N−1−x) is
+    the WRONG test for a winding pair — a spatial mirror also flips the internal winding
+    chirality, so an RR pair is neither pure-even nor pure-odd under it (residual ~0.57)
+    even though its FLUX is exactly odd (residual ~2e-15). The physically correct
+    symmetry statement is on the flux T^{0x}, matching the mass-sector construction where
+    the flux (not the field) carries the antisymmetry that zeroes the face-integral."""
+    t0x = _T0x_omega_density(e)
+    interior = _interior(e)
+    t0x_mir = t0x[::-1, :, :]  # mirror about XC (cell i ↔ N−1−i)
+    odd_resid = float(np.max(np.abs((t0x + t0x_mir) * interior)))
+    amp = float(np.max(np.abs(t0x * interior)))
+    return odd_resid, amp
 
 
 # ──────────────────────────────────────────────────────────────────────────────────────
@@ -393,7 +406,7 @@ def run_transmission_probe(d: int, floor: dict) -> dict:
     e = _seed_pair(d, mirror_A=False, mirror_B=False)  # RR
     for _ in range(WARMUP):
         e.step()
-    phi_series, sym_resid, midamp_series = [], [], []
+    phi_series, odd_resid_series, flux_amp_series, midamp_series = [], [], [], []
     _I = np.indices((N, N, N))[0]
     i_lo = int(np.floor(XC))
     midface = _interior(e) & ((_I == i_lo) | (_I == i_lo + 1))
@@ -404,17 +417,21 @@ def run_transmission_probe(d: int, floor: dict) -> dict:
         # well-separated cold-gap pair has ~0 field there -> Φ=0 is no-overlap, NOT
         # symmetry-forced NOR transmission. Distinguishing this is honest — Rule 10.)
         midamp_series.append(float(np.max(np.abs(e.omega[midface]))))
-        if len(sym_resid) < 5:  # sample the mirror-symmetry residual a few times
-            sym_resid.append(_mirror_symmetry_residual(e))
+        if len(odd_resid_series) < 5:  # sample the flux-oddness residual a few times
+            orr, famp = _flux_oddness_residual(e)
+            odd_resid_series.append(orr)
+            flux_amp_series.append(famp)
     phi_abs_max = float(np.max(np.abs(phi_series)))
     phi_net = float(np.mean(phi_series))
     floor_max = floor["phi_mid_floor_max"]
-    sym_res = float(np.mean(sym_resid)) if sym_resid else float("nan")
+    odd_resid = float(np.mean(odd_resid_series)) if odd_resid_series else float("nan")
+    flux_amp = float(np.mean(flux_amp_series)) if flux_amp_series else float("nan")
     midamp_max = float(np.max(midamp_series)) if midamp_series else 0.0
     interior_amp = float(np.max(np.abs(e.omega * _interior(e)[..., None])))
-    # is the field mirror-symmetric about XC (so a zero Φ_mid is symmetry-forced)?
-    mirror_symmetric = bool(np.isfinite(sym_res) and interior_amp > 0
-                            and sym_res < 0.05 * interior_amp)
+    # is the FLUX T^{0x}_ω ODD about XC (so a zero Φ_mid is symmetry-forced by
+    # antisymmetry, mass-sector M2 caveat)? The physically correct symmetry test.
+    flux_odd_symmetric = bool(np.isfinite(odd_resid) and flux_amp > 0
+                              and odd_resid < 0.01 * flux_amp)
     # is there ANY appreciable field at the midplane? (>1% of the interior ω amp)
     has_midplane_overlap = bool(interior_amp > 0 and midamp_max > 0.01 * interior_amp)
 
@@ -429,15 +446,17 @@ def run_transmission_probe(d: int, floor: dict) -> dict:
             "the cold mid-plane; wall-supplied saturation SUFFICES (the cold medium need "
             "NOT be driven near-yield). NOTE: this is a PRESENCE/floor check on the RR "
             "pair only — NOT a co-vs-anti force ratio (that is the HELD campaign).")
-    elif mirror_symmetric:
+    elif flux_odd_symmetric:
         tbin = "T-SYMMETRY-ZEROED"
         rationale = (
-            f"|Φ_mid|_max={phi_abs_max:.3e} ~ floor ({floor_max:.3e}) AND the field is "
-            f"mirror-symmetric about XC (residual {sym_res:.2e} < 5% of interior ω amp "
-            f"{interior_amp:.2e}) -> the parity-EVEN mid-plane flux is SYMMETRY-FORCED to "
-            "zero (mass-sector M2 caveat). This is NOT a transmission null and NOT a "
-            "cold-medium wrong-regime null: the handedness signal is parity-ODD and needs "
-            "the RL/LR configs (HELD campaign). Documented-open.")
+            f"|Φ_mid|_max={phi_abs_max:.3e} ~ floor ({floor_max:.3e}) AND the ω-flux "
+            f"T^{{0x}} is ODD about XC (odd-residual {odd_resid:.2e} < 1% of flux amp "
+            f"{flux_amp:.2e}) -> the face-integral of an odd density is SYMMETRY-FORCED to "
+            "zero by antisymmetry (mass-sector M2 caveat, …T0i.py:44). The knots DO overlap "
+            f"at XC (mid ω amp {midamp_max:.3e}), so this is NOT a no-overlap zero and NOT a "
+            "cold-medium wrong-regime null (the brief forbids booking one): it is the "
+            "parity-EVEN observable being symmetry-zeroed. The handedness (parity-ODD) "
+            "signal needs the RL/LR configs (HELD campaign). Documented-open.")
     elif not has_midplane_overlap:
         tbin = "T-DOCUMENTED-OPEN"
         rationale = (
@@ -457,10 +476,10 @@ def run_transmission_probe(d: int, floor: dict) -> dict:
             "full RL/LR four-config set (HELD) is needed to resolve.")
     return {
         "d": d, "phi_mid_abs_max": phi_abs_max, "phi_mid_net": phi_net,
-        "floor_max": floor_max, "mirror_symmetry_residual": sym_res,
+        "floor_max": floor_max, "flux_oddness_residual": odd_resid, "flux_amp": flux_amp,
         "interior_omega_amp": interior_amp, "midplane_omega_amp_max": midamp_max,
         "has_midplane_overlap": has_midplane_overlap,
-        "mirror_symmetric": mirror_symmetric,
+        "flux_odd_symmetric": flux_odd_symmetric,
         "above_floor": above_floor, "transmission_bin": tbin, "rationale": rationale,
     }
 
@@ -562,7 +581,9 @@ def main() -> None:
         tprobe = run_transmission_probe(d_probe, floor)
         results["transmission_probe"] = tprobe
         print(f"  |Φ_mid|_max={tprobe['phi_mid_abs_max']:.4e}  floor={tprobe['floor_max']:.4e}  "
-              f"mirror-symmetric={tprobe['mirror_symmetric']} (resid {tprobe['mirror_symmetry_residual']:.2e})")
+              f"flux-odd-symmetric={tprobe['flux_odd_symmetric']} (odd-resid "
+              f"{tprobe['flux_oddness_residual']:.2e} / flux amp {tprobe['flux_amp']:.2e})  "
+              f"mid-overlap={tprobe['has_midplane_overlap']}")
         print(f"  TRANSMISSION BIN: {tprobe['transmission_bin']}")
         print(f"    {tprobe['rationale']}")
     else:

@@ -1,0 +1,868 @@
+{
+  "config": {
+    "N": 96,
+    "R": 11.0,
+    "r": 4.0,
+    "L_core": 22.0,
+    "XC": 47.5,
+    "separations": [
+      24,
+      34,
+      44
+    ],
+    "warmup": 50,
+    "window": 600,
+    "kappa_tilde": 1.2,
+    "alias_tol": 0.34,
+    "thresholds": {
+      "energy_retain_min": 0.5,
+      "sep_drift_max": 0.3,
+      "peak_merge_frac": 0.5,
+      "alias_detonate": 0.95,
+      "transmission_floor_mult": 3.0
+    }
+  },
+  "validate_on_known": {
+    "s1_static_floor": {
+      "Q_link": 3,
+      "w_tor": 2,
+      "null_Q_link": 0,
+      "PASS": true
+    },
+    "live_single_knot_N96": {
+      "w_tor": 2,
+      "w_pol": 3,
+      "alias_frac": 0.1667,
+      "reads_2_3": true
+    },
+    "PASS": true
+  },
+  "RR_pair_sweep": [
+    {
+      "label": "RR",
+      "d": 24,
+      "d_over_Lcore": 1.091,
+      "d0_measured": 25.07,
+      "sep_end": 25.32,
+      "sep_drift": 0.0099,
+      "E_frac_end": 0.9418,
+      "alias_max": 0.5,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.89,
+          "E_frac": 0.7428,
+          "alias": 0.083
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.75,
+          "E_frac": 0.9211,
+          "alias": 0.083
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.13,
+          "E_frac": 1.0283,
+          "alias": 0.25
+        },
+        {
+          "step": 340,
+          "wA": [
+            3,
+            3
+          ],
+          "wB": [
+            3,
+            3
+          ],
+          "sep": 25.25,
+          "E_frac": 0.8765,
+          "alias": 0.5
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.69,
+          "E_frac": 0.8657,
+          "alias": 0.083
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.86,
+          "E_frac": 0.9246,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.31,
+          "E_frac": 0.9417,
+          "alias": 0.083
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.32,
+          "E_frac": 0.9418,
+          "alias": 0.167
+        }
+      ],
+      "criteria": {
+        "winding_conserved": false,
+        "alias_ok": false,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "UNSTABLE",
+      "failing_criteria": [
+        "winding_conserved",
+        "alias_ok"
+      ]
+    },
+    {
+      "label": "RR",
+      "d": 34,
+      "d_over_Lcore": 1.545,
+      "d0_measured": 34.01,
+      "sep_end": 34.01,
+      "sep_drift": 0.0001,
+      "E_frac_end": 0.9504,
+      "alias_max": 0.25,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.7371,
+          "alias": 0.0
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9105,
+          "alias": 0.0
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 1.0313,
+          "alias": 0.0
+        },
+        {
+          "step": 340,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.8808,
+          "alias": 0.0
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.8516,
+          "alias": 0.0
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9177,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9503,
+          "alias": 0.0
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9504,
+          "alias": 0.0
+        }
+      ],
+      "criteria": {
+        "winding_conserved": true,
+        "alias_ok": true,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "STABLE",
+      "failing_criteria": []
+    },
+    {
+      "label": "RR",
+      "d": 44,
+      "d_over_Lcore": 2.0,
+      "d0_measured": 44.0,
+      "sep_end": 44.0,
+      "sep_drift": 0.0,
+      "E_frac_end": 0.9503,
+      "alias_max": 0.25,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.7371,
+          "alias": 0.0
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9104,
+          "alias": 0.0
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 1.0313,
+          "alias": 0.0
+        },
+        {
+          "step": 340,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.8808,
+          "alias": 0.0
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.8516,
+          "alias": 0.0
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9177,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9502,
+          "alias": 0.0
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9503,
+          "alias": 0.0
+        }
+      ],
+      "criteria": {
+        "winding_conserved": true,
+        "alias_ok": true,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "STABLE",
+      "failing_criteria": []
+    }
+  ],
+  "pair_feasibility_bin": "STABLE-IN-A-WINDOW",
+  "pair_feasibility_rationale": "STABLE at d=[34, 44], UNSTABLE at d=[24] -> the stable-d window IS the measurement domain for the HELD campaign; recorded.",
+  "transmission_probe": {
+    "d": 34,
+    "phi_mid_abs_max": 1.3487475025719675e-16,
+    "phi_mid_net": -3.203046478540506e-17,
+    "floor_max": 0.006562691473156298,
+    "flux_oddness_residual": 2.120525977034049e-15,
+    "flux_amp": 0.1386790456551406,
+    "interior_omega_amp": 0.3386532420761318,
+    "midplane_omega_amp_max": 0.019999413099091857,
+    "has_midplane_overlap": true,
+    "flux_odd_symmetric": true,
+    "above_floor": false,
+    "transmission_bin": "T-SYMMETRY-ZEROED",
+    "rationale": "|\u03a6_mid|_max=1.349e-16 ~ floor (6.563e-03) AND the \u03c9-flux T^{0x} is ODD about XC (odd-residual 2.12e-15 < 1% of flux amp 1.39e-01) -> the face-integral of an odd density is SYMMETRY-FORCED to zero by antisymmetry (mass-sector M2 caveat, \u2026T0i.py:44). The knots DO overlap at XC (mid \u03c9 amp 2.000e-02), so this is NOT a no-overlap zero and NOT a cold-medium wrong-regime null (the brief forbids booking one): it is the parity-EVEN observable being symmetry-zeroed. The handedness (parity-ODD) signal needs the RL/LR configs (HELD campaign). Documented-open."
+  },
+  "LL_pair_sweep": [
+    {
+      "label": "LL",
+      "d": 24,
+      "d_over_Lcore": 1.091,
+      "d0_measured": 25.07,
+      "sep_end": 25.32,
+      "sep_drift": 0.0099,
+      "E_frac_end": 0.9418,
+      "alias_max": 0.5,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.89,
+          "E_frac": 0.7428,
+          "alias": 0.083
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.75,
+          "E_frac": 0.9211,
+          "alias": 0.083
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.13,
+          "E_frac": 1.0283,
+          "alias": 0.25
+        },
+        {
+          "step": 340,
+          "wA": [
+            3,
+            3
+          ],
+          "wB": [
+            3,
+            3
+          ],
+          "sep": 25.25,
+          "E_frac": 0.8765,
+          "alias": 0.5
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.69,
+          "E_frac": 0.8657,
+          "alias": 0.083
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 24.86,
+          "E_frac": 0.9246,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.31,
+          "E_frac": 0.9417,
+          "alias": 0.083
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 25.32,
+          "E_frac": 0.9418,
+          "alias": 0.167
+        }
+      ],
+      "criteria": {
+        "winding_conserved": false,
+        "alias_ok": false,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "UNSTABLE",
+      "failing_criteria": [
+        "winding_conserved",
+        "alias_ok"
+      ]
+    },
+    {
+      "label": "LL",
+      "d": 34,
+      "d_over_Lcore": 1.545,
+      "d0_measured": 34.01,
+      "sep_end": 34.01,
+      "sep_drift": 0.0001,
+      "E_frac_end": 0.9504,
+      "alias_max": 0.25,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.7371,
+          "alias": 0.0
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9105,
+          "alias": 0.0
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 1.0313,
+          "alias": 0.0
+        },
+        {
+          "step": 340,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.8808,
+          "alias": 0.0
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.8516,
+          "alias": 0.0
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9177,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9503,
+          "alias": 0.0
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 34.01,
+          "E_frac": 0.9504,
+          "alias": 0.0
+        }
+      ],
+      "criteria": {
+        "winding_conserved": true,
+        "alias_ok": true,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "STABLE",
+      "failing_criteria": []
+    },
+    {
+      "label": "LL",
+      "d": 44,
+      "d_over_Lcore": 2.0,
+      "d0_measured": 44.0,
+      "sep_end": 44.0,
+      "sep_drift": 0.0,
+      "E_frac_end": 0.9503,
+      "alias_max": 0.25,
+      "reads": [
+        {
+          "step": 85,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.7371,
+          "alias": 0.0
+        },
+        {
+          "step": 170,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9104,
+          "alias": 0.0
+        },
+        {
+          "step": 255,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 1.0313,
+          "alias": 0.0
+        },
+        {
+          "step": 340,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.8808,
+          "alias": 0.0
+        },
+        {
+          "step": 425,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.8516,
+          "alias": 0.0
+        },
+        {
+          "step": 510,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9177,
+          "alias": 0.25
+        },
+        {
+          "step": 595,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9502,
+          "alias": 0.0
+        },
+        {
+          "step": 600,
+          "wA": [
+            2,
+            3
+          ],
+          "wB": [
+            2,
+            3
+          ],
+          "sep": 44.0,
+          "E_frac": 0.9503,
+          "alias": 0.0
+        }
+      ],
+      "criteria": {
+        "winding_conserved": true,
+        "alias_ok": true,
+        "no_dispersal": true,
+        "no_merger": true,
+        "sep_bounded": true
+      },
+      "verdict": "STABLE",
+      "failing_criteria": []
+    }
+  ],
+  "LL_feasibility_bin": "STABLE-IN-A-WINDOW",
+  "LL_matches_RR": true,
+  "overall_verdict": "STABLE-IN-A-WINDOW"
+}
