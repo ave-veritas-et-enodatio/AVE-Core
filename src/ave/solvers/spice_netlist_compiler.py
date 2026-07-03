@@ -21,7 +21,7 @@ Reference: Backmatter App 6 — SPICE Verification Manual
 import textwrap
 from pathlib import Path
 
-from ave.core.constants import C_0, V_YIELD, XI_TOPO
+from ave.core.constants import C_0, V_SNAP, V_YIELD, XI_TOPO
 
 # Current saturation limit (xi_topo × c ≈ 124.384 A): the topological-current
 # analog of the dielectric yield voltage, sourced from canonical constants.
@@ -49,9 +49,17 @@ def compile_ee_bench_dc_sweep(
 
     This is the simplest possible verification: a single vacuum cell
     driven through a DC sweep from 0 to V_max.  The measured charge
-    Q(V) should follow Q = C0 × V / sqrt(1 - (V/V_yield)^2).
+    Q(V) follows the AVE_EE_BENCH subckt's behavioral source.
 
     Plotting dQ/dV vs. V reveals the Axiom 4 capacitance plateau.
+
+    ADJUDICATION-PENDING (2026-07-03 sector-keying pass, flag-don't-fix):
+    AVE_EE_BENCH currently implements the DIVERGENT C0/S (A1-compliance)
+    form keyed on V_YLD, but the canonical EE bench
+    (vol4/simulation/ch17-hardware-netlists/ee-bench-netlist.md:15) measures
+    the COLLAPSE C0*S (transverse-T2 permittivity) roll-off. The subckt's
+    form and sector are surfaced for adjudication in ave_vacuum_cell.lib
+    (see the AVE_EE_BENCH note); this compiler emits the subckt unchanged.
 
     Parameters
     ----------
@@ -109,6 +117,7 @@ def compile_lcr_network(
     f_stop: float = 1e15,
     n_points: int = 1000,
     v_yield: float = V_YIELD,
+    v_snap: float = V_SNAP,
     i_max: float = I_YIELD_MAX,
     use_nonlinear: bool = True,
 ) -> str:
@@ -172,10 +181,14 @@ def compile_lcr_network(
         R = edge.get("R", 0.0)
 
         if use_nonlinear:
+            # V_SNAP keys the A1 metric-varactor divergence (511 kV); V_YLD keys
+            # the transverse-T2 yield/rupture (TVS Zener, memristor S_eq). The
+            # 2026-07-03 sector-keying fix (nonlinear-vacuum-capacitance.md:18,
+            # def-vyvsn1) put the A1 B_VAR knee at V_SNAP in the .lib.
             lines.append(
                 f"X{i} {n_from} {n_to} {cell_type}"
                 f" L0={L:.6e} C0={C:.6e} R0={R:.6e}"
-                f" V_YLD={v_yield:.1f} I_YMAX={i_max:.1f}"
+                f" V_SNAP={v_snap:.1f} V_YLD={v_yield:.1f} I_YMAX={i_max:.1f}"
             )
         else:
             lines.append(f"X{i} {n_from} {n_to} {cell_type}" f" L0={L:.6e} C0={C:.6e} R0={R:.6e}")

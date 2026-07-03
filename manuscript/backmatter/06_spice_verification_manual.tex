@@ -86,7 +86,7 @@ below the SPICE timestep floor):
 The effective capacitance of the vacuum lattice, governed by Axiom~4:
 \begin{resultbox}{SPICE Metric Varactor}
 \begin{equation}
-    C_{eff}(V) = \frac{C_0}{S(V)} = \frac{C_0}{\sqrt{1 - (V/V_{yield})^2}}
+    C_{eff}(V) = \frac{C_0}{S(V)} = \frac{C_0}{\sqrt{1 - (V/V_{snap})^2}}
     \label{eq:spice_varactor}
 \end{equation}
 \end{resultbox}
@@ -95,14 +95,22 @@ The effective capacitance of the vacuum lattice, governed by Axiom~4:
 \begin{codebox}{Behavioral Charge Source (ngspice)}
 \begin{verbatim}
 B_VAR A B Q = {C0 * V(A,B)
-+   / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
++   / sqrt(1 - min((V(A,B)/V_SNAP)**2, 0.9999))}
 \end{verbatim}
 \end{codebox}
 
-\noindent The \texttt{min(\ldots, 0.9999)} clamp prevents the argument
-of \texttt{sqrt} from reaching zero during numerical iteration, which
-would produce a divide-by-zero.  This is a numerical guard only; the
-physics demands $V < V_{yield}$ (otherwise the lattice has ruptured).
+\noindent \textbf{Sector-keying fix (2026-07-03, VALUE CHANGE).} The divergent
+$C_0/S$ metric varactor is the \emph{longitudinal-A1 bond compliance}, which
+diverges at $V_{snap} = m_e c^2/e \approx 511$~kV, \emph{not} at the transverse-T2
+yield wall $V_{yield} \approx 43.65$~kV (Grant-ratified grade-fork, 2026-06-30;
+\texttt{def-vyvsn1}; Vol~4 Ch~1 nonlinear-vacuum-capacitance sector note). The
+prior keying on $V_{yield}$ was a mis-scoping by the factor $1/\sqrt{\alpha}
+\approx 11.7$; the A1 varactor knee moves $43.65$~kV~$\to 511$~kV. The
+\texttt{min(\ldots, 0.9999)} clamp prevents the argument of \texttt{sqrt} from
+reaching zero during numerical iteration, which would produce a divide-by-zero.
+This is a numerical guard only; the physics demands $V < V_{snap}$ (otherwise the
+A1 mass core has completed). The separate TVS-Zener rupture at $V_{yield}$ (the T2
+yield wall) is unchanged.
 
 
 \subsection{Relativistic Inductor (Magnetic Sector)}
@@ -156,15 +164,19 @@ domain-specific adapter.
 \texttt{L0}      & $L_0$      & --- (required)      & Base inductance (mass analogue) \\
 \texttt{C0}      & $C_0$      & --- (required)      & Base capacitance (compliance analogue) \\
 \texttt{R0}      & $R_0$      & 0                   & Base resistance (viscosity analogue) \\
-\texttt{V\_YLD}  & $V_{yield}$ & 43651.85 V         & Dielectric yield voltage \\
+\texttt{V\_SNAP} & $V_{snap}$ & 510998.95 V         & A1 bond-compliance divergence voltage (metric varactor knee) \\
+\texttt{V\_YLD}  & $V_{yield}$ & 43651.85 V         & Transverse-T2 dielectric yield / rupture voltage \\
 \texttt{I\_YMAX} & $I_{max}$  & 124.384 A           & Current saturation limit \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent The physical values $V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V and
+\noindent The physical values $V_{snap} = m_e c^2/e = 510998.95$ V,
+$V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V and
 $I_{max} = \xi_{topo}\,c = 124.384$ A are the canonical
-\texttt{ave.core.constants} values.
+\texttt{ave.core.constants} values. \textbf{The A1 metric varactor keys on
+$V_{snap}$; the TVS-Zener rupture and the thixotropic memristor key on
+$V_{yield}$} (the sector split, 2026-07-03).
 % FLAG-1 correction (2026-07-03, ave-canonical-source): the prior 43653.7 V /
 % 124.4 A defaults were DRIFTED; corrected to the constants.py canonical values.
 % The prior claim "No constants are hardcoded in the .lib file" was FALSE — the
@@ -221,6 +233,20 @@ The core simulation methodology relies on generalizing any complex hardware topo
 
 The simplest possible verification: a single varactor cell driven
 through a DC voltage sweep.
+
+\begin{warningbox}[ADJUDICATION-PENDING (2026-07-03 sector-keying pass)]
+The \texttt{AVE\_EE\_BENCH} subcircuit and this worked example implement the
+\emph{divergent} $C_0/S$ (longitudinal-A1 compliance) form keyed on $V_{yield}$,
+but the canonical EE bench (Vol~4 Ch~17 ee-bench-netlist) measures the
+\emph{collapse} $C_0\!\cdot\!S$ (transverse-T2 dielectric permittivity) roll-off
+--- the LCR-bench capacitance. These are the two orthogonal reactances of the
+FLAG-2 sector split (A1 $\perp$ T2), so this section models a different sector
+than the EE bench actually reads, \emph{and} the keying question (A1~$\Rightarrow
+V_{snap}$ vs T2~$\Rightarrow V_{yield}$) rides on which sector it is. This is
+surfaced for adjudication (which sector is the EE bench modelling?) rather than
+force-resolved. The A1 metric-varactor knee elsewhere in this manual is fixed to
+$V_{snap}$; this EE-bench section is left as-is pending the sector ruling.
+\end{warningbox}
 
 \paragraph{Python prediction.}
 \texttt{saturation\_factor(V, V\_YIELD)} from

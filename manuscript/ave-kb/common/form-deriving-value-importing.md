@@ -68,6 +68,7 @@ inherits its provenance.
 | **K = 2G** (ν_vac = 2/7) | **GR-IMPORTED** (echo for the value) | the substrate forces the *form* of the elastic response `K/G = f(ρ)` | the *value* 2/7 — the GR trace-reversal identity, not crystalline-forced nor constitutively-forced | [`q-g47-substrate-scale-cosserat-closure.md:28`](q-g47-substrate-scale-cosserat-closure.md); PR [#261](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/261) (MERGED) |
 | **E_yield** (saturation field) | **MIXED** | the **existence** of a saturation field is an AVE-distinct chord (the medium *has* a yield the SM vacuum lacks); the Axiom-4 kernel **√ FORM** `√(1−(A/arc*)²)` is a robust α-free geometric theorem for any ρ (Axiom-4 arc, [#460](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/460)) | the √α *value* — since `e = √α` in natural units, the magnitude rides the α-echo; **and** the Axiom-4 kernel's **yield anchor** `arc*=4ρ/(4ρ+1)·ℓ_node` — which inherits from GR-imported `K=2G` (the ρ=k_a/k_s that sets `arc*` is `K=2G`-set: ρ=2 ⟺ K=2G), the **fourth+ named instance** of this meta-finding (Axiom-4 √ form-derived / yield-anchor value-imported) | this leaf (adjudication `wlmbl6d5f`, 2026-06-20); kernel home [`CLAUDE.md`](../CLAUDE.md) INVARIANT-S2 (Axiom 4); Axiom-4 arc [`research/2026-07-02_axiom4-moduli-hierarchy_result.md`](../../../research/2026-07-02_axiom4-moduli-hierarchy_result.md) §5 |
 | **m_e / ℓ_node** | **DEFINITIONAL** | (n/a — the anchor by which the lattice is calibrated) | `ℓ_node ≡ ℏ/(m_e c)` is an Axiom-1 calibration identity — an input *by construction*, not a value the substrate is asked to select | [`interlock-register.md`](interlock-register.md) `ilk-cmptrp`; `clm-5xon03` |
+| **charge-flux** (the winding's Q) | **FORM-derived / VALUE-imported** (a further named instance, 2026-07-03) | the **Link integer** (`Q = Link(∂Ω, F) ∈ ℤ`, `clm-ze4clw`), the **phase holonomy** (`∮∇θ = 2πq`, the LC-tank phasor single-valuedness forces the integer), the **linking-DOF existence** (the lane-Z step-0 doorway: puncturing the (2,3) torus core opens exactly one new source-free harmonic 1-cochain on `H₁`, `Δb₁=+1`, disc-fill-certified core-linking, STABLE across `L=3,4,5`), and the **global neutrality** of the A44 coupling texture (`sum(∇·J)=0` exact on the closed complex, the β-arc net-monopole closure) are ALL FORM-derived | the **flux-per-Link quantum** — the conversion of the geometric linking integer into the charge `e` routes through `ξ_topo ≡ e/ℓ_node` (`axiom-definitions.md:28`, a *definition*), whose value rides the α-echo (`α` is Class-B; `xi-topo-traceability.md:136`); the three axiom-native pinning candidates (LC-phasor single-valuedness / `ξ_topo` dictionary / `S→0` wall BC) each pin only the integer, reduce to the `ξ_topo` insertion, or fail to fix flux → **[DOORWAY-NO-PINNING]** | [`research/2026-07-03_lanez-fluxoid-step0_note.md`](../../../research/2026-07-03_lanez-fluxoid-step0_note.md) §4 (the pinning ledger), PR #489; `clm-ze4clw`; the four-lock leaf [`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md) (`clm-nogo4l`) |
 
 So the banner "VALUE-IMPORTING" is cleanest and strongest for **α**; for **G** it
 is the *value half* of a mixed mechanism (the derived-form half is real and must
@@ -84,6 +85,47 @@ definitional anchor. **The FORM-DERIVING half applies to all of them.**
 > flip-condition is live; the route-space is not provably exhausted —
 > [`vol1/ch8-alpha-golden-torus.md:13`](../vol1/ch8-alpha-golden-torus.md)
 > "scoped-echo register").
+
+## Charge-flux — a further named instance (2026-07-03, KEEP-BOTH additive)
+
+*(Added additively; does NOT redefine the α/G/K=2G/E_yield/m_e verdicts above. The
+charge-flux entry in the per-constant table is the one-line home; this section is
+the paragraph companion.)*
+
+The 2026-07-03 EM-readout derivation epic surfaced the meta-pattern **inside the
+charge sector** — the same FORM-derived / VALUE-imported split the table records for
+α, G, K=2G, E_yield, m_e, now landing on the winding's charge-flux. The FORM half is
+**lattice-forced** on multiple legs, all verified:
+
+- **The Link integer** — `Q = Link(∂Ω, F) ∈ ℤ` (`clm-ze4clw`) is a boundary
+  linking-number dictionary, an integer topological invariant.
+- **The phase holonomy** — LC-tank phasor single-valuedness around the core-linking
+  loop forces `∮∇θ = 2πq` (an integer winding number, dimensionless), per the
+  lane-Z step-0 candidate-(a) derivation.
+- **The linking-DOF existence** — the lane-Z step-0 note
+  ([`research/2026-07-03_lanez-fluxoid-step0_note.md`](../../../research/2026-07-03_lanez-fluxoid-step0_note.md),
+  PR #489) computed that puncturing the srs domain with the electron's (2,3) torus
+  core opens **exactly one** new source-free harmonic 1-cochain on `H₁`
+  (`Δb₁ = +1`, STABLE across `L=3,4,5`, disc-fill-certified as the core-linking
+  meridian). A **ball** core opens none (`Δb₁ = 0`) — a real substrate-native
+  ball-vs-torus prediction. This is the doorway the four-lock cascade
+  ([`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md),
+  `clm-nogo4l`) leaves open.
+- **The global neutrality** — the A44 coupling texture's sourced charge sums to
+  exactly zero on the closed complex (`sum(∇·J) = 0`, the β-arc net-monopole
+  closure), so no net monopole is sourced by the LC coupling.
+
+The VALUE half is **imported**: the conversion of the geometric linking integer into
+the physical charge `e` routes through `ξ_topo ≡ e/ℓ_node` (`axiom-definitions.md:28`,
+a *definition*), whose magnitude rides the α-echo (`α` is Class-B). The lane-Z step-0
+pinning ledger (§4) tested the three axiom-native candidates that could fix the DOF's
+value — LC-phasor single-valuedness, the `ξ_topo` flux-per-Link dictionary, and the
+`S→0`/`Γ=−1` wall boundary condition — and each either pins only the *integer*
+holonomy, reduces to the `ξ_topo` insertion, or imposes a Dirichlet short that does
+not fix flux. Verdict: **[DOORWAY-NO-PINNING]** — the FORM (a quantized harmonic
+flux DOF, Link-labeled) is forced; the VALUE of the quantum is imported. This is the
+FORM-derived / VALUE-imported meta-pattern landing on charge-flux (the table row
+above is the one-line home; the pinning ledger is the derivation).
 
 ## The AC/DC carve — the MECHANISM of FORM/VALUE
 

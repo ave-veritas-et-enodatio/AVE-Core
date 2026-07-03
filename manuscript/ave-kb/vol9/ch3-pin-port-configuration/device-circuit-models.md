@@ -25,9 +25,9 @@ Between any two substrate nodes **A** and **B**, the canonical nonlinear constit
 
 | Element | Sector | Constitutive law | Canonical source |
 |---|---|---|---|
-| Metric varactor | Electric | $C_{\mathrm{eff}}(V) = C_0/S(V)$, $S(V)=\sqrt{1-(V/V_{\mathrm{yield}})^2}$ | [`nonlinear-vacuum-capacitance.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) |
+| Metric varactor | Longitudinal-A1 | $C_{\mathrm{eff}}(V) = C_0/S(V)$, $S(V)=\sqrt{1-(V/V_{\mathrm{snap}})^2}$ (divergent $C_0/S$ = A1 bond compliance, knee at $V_{\mathrm{snap}}$; sector-keying fix 2026-07-03, `def-vyvsn1`) | [`nonlinear-vacuum-capacitance.md`:18](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) |
 | Relativistic inductor | Magnetic | $L_{\mathrm{eff}}(I)$ rises as $\|I\|\to I_{\max}$; $dI/dt\to 0$ at cap | Same Axiom 4 kernel, magnetic projection |
-| TVS / rupture | Either | $R_{\mathrm{eff}}=0$ at $\|V\|\ge V_{\mathrm{yield}}$ | Regime IV boundary |
+| TVS / rupture | Transverse-T2 | $R_{\mathrm{eff}}=0$ at $\|V\|\ge V_{\mathrm{yield}}$ (the T2 yield wall — stays keyed on $V_{\mathrm{yield}}$) | Regime IV boundary |
 | Memristor | Level 2 | $\tau_{\mathrm{relax}}=\ell_{\mathrm{node}}/c$ — `AVE_MEMRISTOR_S_STATE` / `AVE_VACUUM_CELL_L1` (**scaled** $\tau$ in ngspice; canonical SI in harness) | [`tau-relax-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md); [`substrate-hysteresis-index.md`](../../common/substrate-hysteresis-index.md) §5b |
 
 **SPICE subcircuit:** [`spice-subcircuit.md`](../../vol4/simulation/ch18-universal-vacuum-cell/spice-subcircuit.md). Implementation: `src/ave/solvers/spice_models/ave_vacuum_cell.lib`.

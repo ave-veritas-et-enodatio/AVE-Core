@@ -89,7 +89,7 @@ at the rupture point) the positivity fails and the connectedness argument no lon
 forces `φ = const`. This `ε → 0` puncture is out-of-scope for the sub-yield
 instrument — and it is **lane Z's doorway** (see survivor map).
 
-### Lock 4 — ∂∂=0 continuity (theorem-grade lean; step-0 note)
+### Lock 4 — ∂∂=0 continuity (DERIVATION GRADE; step-0 note + the β-arc coupling-zoo derivation)
 
 The Stage-2b Step-0 continuity note
 ([`research/2026-07-03_em-readout-stage2b-step0-continuity_note.md`](../../../research/2026-07-03_em-readout-stage2b-step0-continuity_note.md))
@@ -101,13 +101,42 @@ an Ampère-form curl drive `J_coupling = ∇×(g(A) ω) = curl_adj(·)`** — th
 divergence is identically zero, so `∂_t(∇·E) ≡ 0`: **the enclosed charge is a
 conserved constant of motion**, set by initial data, not emergent. The DC monopole
 content of any settled state is whatever was seeded — the statics tautology in
-dynamical clothing. **Proof class: THEOREM-GRADE LEAN** (an algebraic identity on
-the chartered update equations, needing no integrator; the `∂₁∂₂ = 0` core is
-theorem-grade and test-asserted, PR #483). The lean qualifier: it holds *unless* a
-specific **J-mixed** coupling term exists — one with `∇·J_coupling ≠ 0` that is
-(a) ω-field-derived (no integer), (b) not a static texture (evades Lock 3),
-(c) not a forbidden propagating longitudinal mode — a term **canon does not
-currently supply**, surfaced flag-don't-fix to the orchestrator review gate.
+dynamical clothing.
+
+**Proof class: DERIVATION GRADE (upgraded 2026-07-03 from the theorem-grade LEAN).**
+The step-0 note booked Lock 4 as a *lean* pending exactly one open question: does a
+**J-mixed** coupling term exist — one with `∇·J_coupling ≠ 0` that is (a) ω-field-
+derived (no integer), (b) not a static texture (evades Lock 3), (c) not a forbidden
+propagating longitudinal mode? That question is now **settled by derivation**. The
+β-arc note
+([`research/2026-07-03_jcoupling-divergence-derivation_note.md`](../../../research/2026-07-03_jcoupling-divergence-derivation_note.md),
+PR #488) derived `J_coupling` from Axiom 1 (the node = LC tank, `eq_axiom_1.tex:25`),
+**swept the corpus's entire existing coupling zoo** (the skew-Hermitian circulator,
+the gyrotropic/trilinear converter, the genesis-24 Lenz addendum, the chiral-lattice
+pitch coupling) *before* deriving fresh, and computed `∇·J` for every branch on the
+exact srs DEC. The result: **[NO-AXIOM-NATIVE-TERM]** at the net-monopole grade.
+The one candidate that does source a nonzero `∇·J` — the **(J-mixed)
+`W(A) ⊙ curl_adj(ω)` weight-after-curl form**, which is exactly the A44 gyrotropic
+converter (adjudicated an Axiom-1 non-centrosymmetry consequence, α-free) — sources
+`∇·J ≠ 0` **only LOCALLY**: on the closed periodic srs, `sum(∇·J) = 0` **exactly**
+(Gauss-with-no-boundary: `1ᵀ(−∂₁)J = −(grad 1)ᵀJ = 0`), so the A44 converter sources
+a globally-**NEUTRAL polarization / form-factor texture**, NOT a net monopole (the
+running `Q(r)` rises to ±0.6 at finite `r` then returns to 0 at the boundary — the
+bound-charge signature, not a free charge). The directive's flagged **chirality
+candidate** (the I4₁32 screw) is **CLOSED-NEGATIVE**: both enantiomorphs source the
+identical neutral texture, and the one intermediate probe that looked chirality-
+sourcing was a cross-complex category error, corrected verbatim in the note. **So
+the lean's escape is now derivation-closed:** every axiom-licensed coupling either
+(a) is divergence-free by `∂₁∂₂=0` (pure/source-weighted curl, harmonic sector),
+(b) is the retired-static / forbidden-longitudinal (J-grad), or (c) sources a
+globally-neutral texture (J-mixed) — none sources the electron's NET Coulomb
+monopole. The single residue is a **framing fork** (is the electron's charge a
+net-`∇·E` monopole at all, or purely the far-field of a harmonic/winding holonomy?)
+surfaced to Grant (β-note §6, [STUCK-FRAMING] on the *target interpretation*, not the
+bin) — the strong lean is that reading (a) needs no new postulate and matches Axiom-2
+charge=winding. The dynamical (lane Y) route to a *sourced* net monopole is
+**CLOSED at derivation grade**; the epic routes to lane Z (harmonic/holonomy) + lane
+W (pairs) definitively.
 
 ## The unifying observation (why statics AND curl-coupled dynamics die by the same theorem)
 
@@ -126,8 +155,13 @@ operator: any F=curl_adj(anything) has div F ≡ 0, hence zero enclosed charge."
 
 The **same `∂₁∂₂ = 0` theorem closes both routes.** The only escape — statically
 or dynamically — is a mechanism whose source is NOT a pure curl of the ω field
-(Lock 4's J-mixed, canon-unsupplied) OR a field that lives where `∂₁∂₂ = 0` does
-NOT reach: the **harmonic sector**.
+(Lock 4's J-mixed) OR a field that lives where `∂₁∂₂ = 0` does NOT reach: the
+**harmonic sector**. The β-arc derivation (PR #488) showed the J-mixed escape does
+exist as an axiom-native term (the A44 converter, `W(A)⊙curl_adj(ω)`) but sources a
+**globally-neutral polarization texture, never a net monopole** (`sum(∇·J)=0` exact
+on the closed complex) — so it does not reopen the sourced-net-charge route. The
+harmonic sector (lane Z) is therefore the sole structurally-distinct survivor for a
+Link-counting net charge, with lane W (pairs) carrying the inter-winding force.
 
 ## The survivor map
 
@@ -152,6 +186,25 @@ potential φ) read through the DEC harmonic projector, invisible to every
 scalar-φ instrument the cascade retired. The `ε → 0` puncture (Lock 3's honest
 caveat) is lane Z's doorway.
 
+**Step-0 result (2026-07-03, PR #489;
+[`research/2026-07-03_lanez-fluxoid-step0_note.md`](../../../research/2026-07-03_lanez-fluxoid-step0_note.md)).**
+The doorway was walked analytically. Puncturing the srs domain with the electron's
+(2,3) torus core opens **exactly one** new source-free harmonic 1-cochain on `H₁`
+(`Δb₁ = +1`, STABLE across `L=3,4,5` at the geometrically-matched cut,
+disc-fill-certified as the core-linking meridian loop); a **ball** core opens none
+(`Δb₁ = 0`) — a real substrate-native ball-vs-torus prediction. **So the DOF is
+confirmed on `H₁`** (the earlier `srs_dec` §4 open question, answered). **But its
+charge VALUE is not axiom-pinned:** the three pinning candidates (LC-tank phasor
+single-valuedness, the `ξ_topo ≡ e/ℓ_node` flux-per-Link quantum, the `S→0`/`Γ=−1`
+wall BC) each pin only the *integer* holonomy (`2πq`), reduce to the ECHO-tagged
+`ξ_topo` insertion, or impose a Dirichlet short that does not fix flux. Verdict:
+**[DOORWAY-NO-PINNING]** — the harmonic DOF exists (FORM lattice-forced) but its flux
+quantum is imported (VALUE = the α-echo). This is the FORM-derived / VALUE-imported
+meta-pattern landing on charge-flux (see
+[`common/form-deriving-value-importing.md`](form-deriving-value-importing.md)
+§"Charge-flux"). Lane Z stays a live *topological* survivor; the value pin is the
+imported ceiling, not a further route.
+
 ### Lane W — winding pairs
 
 The field *between* two windings (the clm-wcoul2 inter-winding force). The
@@ -162,14 +215,29 @@ mediated, electric-not-magnetic) is the first landing in this lane. It is
 CONSISTENCY-class (signed-Coulomb is SM-shared), booked as enabling infrastructure
 for a future winding-pair *magnitude* chord.
 
-### The J-mixed entry condition (β arc, in flight)
+### The J-mixed entry condition (β arc — RESOLVED at derivation grade, 2026-07-03)
 
-The one escape Lock 4 leaves open: a coupling current `J_coupling` with
+The one escape Lock 4 left open — a coupling current `J_coupling` with
 `∇·J_coupling ≠ 0` that is ω-field-derived, not a static texture, and not a
-forbidden longitudinal mode. **Pending** — surfaced to the orchestrator review gate
-as the make-or-break entry condition for any Stage-2b build; the divergence of the
-coupling must be established analytically BEFORE any integrator run (the discipline
-the Stage-2a anchor-source violated). Cited here as **pending**, not resolved.
+forbidden longitudinal mode — is now **derivation-closed at the net-monopole grade**
+by the β-arc note (PR #488,
+[`research/2026-07-03_jcoupling-divergence-derivation_note.md`](../../../research/2026-07-03_jcoupling-divergence-derivation_note.md)).
+The coupling was derived from Axiom 1, the corpus coupling zoo was swept before
+deriving fresh, and `∇·J` was computed per branch on the exact srs DEC:
+**[NO-AXIOM-NATIVE-TERM]**. The one J-mixed candidate that sources a nonzero local
+`∇·J` (the A44 gyrotropic converter, `W(A)⊙curl_adj(ω)`) sources only a
+**globally-neutral polarization texture** (`sum(∇·J)=0` exact by Gauss-no-boundary),
+NOT a net monopole; the chirality candidate is **closed-negative** (both enantiomorphs
+give the identical neutral texture; the chiral-difference net-divergence was a
+cross-complex category error, corrected). **This does NOT reopen a sourced-charge
+route** — but it DOES name a real axiom-derived transducer for a *future* study: the
+(J-mixed) A44 converter is the natural home of a **bound-charge / vacuum-polarization
+form factor** around a winding (a polarization, not a net charge). The single open
+item is a **framing fork** on the target interpretation (β-note §6, surfaced to Grant):
+whether the electron's Coulomb field is a net-`∇·E` monopole at all in AVE, or purely
+the far-field of a harmonic/winding holonomy (the strong lean, needing no new
+postulate). That fork does not affect this bin — every reading closes the *sourced-
+net-monopole* route.
 
 ## Where the pieces live (consolidation map)
 
@@ -186,7 +254,12 @@ This leaf is the prose umbrella; the load-bearing machinery lives elsewhere:
   §R1 (the proof triple + the `ε → 0` caveat).
 - **Lock 4** — the ∂∂=0 continuity note
   [`research/2026-07-03_em-readout-stage2b-step0-continuity_note.md`](../../../research/2026-07-03_em-readout-stage2b-step0-continuity_note.md)
-  §2/§4 (the divergence-of-the-coupling reduction + J-mixed escape).
+  §2/§4 (the divergence-of-the-coupling reduction + J-mixed escape); the
+  **derivation-grade upgrade** — the β-arc coupling-zoo derivation
+  [`research/2026-07-03_jcoupling-divergence-derivation_note.md`](../../../research/2026-07-03_jcoupling-divergence-derivation_note.md)
+  (PR #488) §3 (the zoo sweep) + §4 (the per-branch `∇·J` computation: J-mixed
+  local-nonzero / global-neutral, chirality closed-negative) + §5 (the
+  [NO-AXIOM-NATIVE-TERM] bin).
 - **The class-level upgrade** — the srs DEC ∂₁∂₂=0 theorem,
   [`research/2026-07-03_srs-dec-operators_result.md`](../../../research/2026-07-03_srs-dec-operators_result.md)
   §3 (the theorem) + §4 (the harmonic `b₁=3` survivor sector); module

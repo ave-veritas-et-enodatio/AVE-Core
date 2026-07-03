@@ -20,10 +20,10 @@ claims: [clm-vjv4zf]
 
 ```spice
 .subckt AVE_VACUUM_CELL A B
-+ params: L0=1n C0=1p R0=0 V_YLD=43651.85 I_YMAX=124.384
++ params: L0=1n C0=1p R0=0 V_SNAP=510998.95 V_YLD=43651.85 I_YMAX=124.384
 
-* (a) Metric Varactor — charge-based behavioral source
-B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
+* (a) Metric Varactor — charge-based behavioral source (A1 compliance, knee at V_SNAP)
+B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_SNAP)**2, 0.9999))}
 
 * (b) Relativistic Inductor — small linear L + behavioral correction
 L_BASE A N_L {L0}
@@ -35,11 +35,22 @@ R_DAMP A B {R0 + 1e-15}
 .ends AVE_VACUUM_CELL
 ```
 
+> **⚠ SECTOR-KEYING FIX (2026-07-03, follow-up batch; VALUE CHANGE).** The metric
+> varactor `B_VAR` is now keyed on **`V_SNAP` (≈ 511 kV)**, not `V_YLD` (≈ 43.65 kV).
+> Per the Grant-ratified grade-fork (2026-06-30, `def-vyvsn1`,
+> [`nonlinear-vacuum-capacitance.md:18`](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md))
+> the **divergent `C₀/S` metric varactor is the longitudinal-A1 bond compliance**,
+> which diverges at `V_SNAP = m_e c²/e`, *not* at the transverse-T2 yield wall
+> `V_YLD`. The prior keying was a mis-scoping by the factor `1/√α ≈ 11.7`. **This
+> CHANGES the divergence voltage of the A1 varactor from 43.65 kV to 511 kV.** The
+> `V_YLD` parameter remains the yield/rupture threshold for the TVS Zener and the
+> thixotropic memristor `S_eq` (the transverse-T2 yield wall — those stay on `V_YLD`).
+
 > **↗ FLAG-2 sector tag (2026-07-03, RESOLVED-BY-EXISTING-RULING; Grant-ratified 2026-06-15, `research/2026-06-15_ceff-epsilon-monotonicity_result.md` Q1=(B)).** The `B_VAR` metric varactor `$C_{eff}=C_0/S$` (divergent) is the **longitudinal-A1 bond compliance** ($1/k_a$), NOT the transverse dielectric permittivity. The ch15/ch17 KB netlists' reciprocal `$C_0\cdot S$` (collapse) form is the **transverse-T2** dielectric permittivity ($C_{diel}\propto S$, the LCR bench capacitance). Orthogonal reactances (A1 ⊥ T2), same EE name — **NOT reciprocal laws of one object**; the SPICE-charter FLAG-2 is this name-collision, resolved by the ratified split. Source: [`nonlinear-vacuum-capacitance.md:14`](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
 
 ## Numerical Stability Notes
 
-- `min((V/V_YLD)^2, 0.9999)` clamps the ratio below 1.0 to prevent `sqrt` of negative values
+- `min((V/V_SNAP)^2, 0.9999)` (A1 metric varactor) / `min((V/V_YLD)^2, 0.9999)` (T2 memristor `S_eq`) clamps the ratio below 1.0 to prevent `sqrt` of negative values
 - `1e-30` added to denominators to avoid division by zero
 - `1e-15` added to R0 to ensure a finite numerical path always exists
 
