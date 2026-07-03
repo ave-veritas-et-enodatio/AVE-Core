@@ -7,14 +7,16 @@ claims: [clm-3i66gp]
 
 # Q-G20a Lamb Shift: Structural Closure via Today's Inputs
 
-The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is the QED canonical demonstration of vacuum-fluctuation effects. AVE reproduces it at **0.65% structural precision** at leading order by composing three substrate-native inputs that each have separately-closed AVE derivations:
+🔴 **2026-07-02 (α-factor cutoff correction + honesty re-tag, Rule 12):** the geometric UV cutoff was written as $1/\ell_{\text{node}} = m_e c/\alpha$ at :29,:39 below — **WRONG by a factor $1/\alpha$**. Canonical $\ell_{\text{node}} = \hbar/(m_e c)$ (electron-unknot.md:28, $C_{\text{loop}} = \hbar/(m_e c)$), so the momentum cutoff is $1/\ell_{\text{node}} = m_e c$ (the Compton momentum), **not** $m_e c/\alpha$. The corrected Bethe-log-equivalent runs $\alpha m_e c \to m_e c$, giving $\ln(1/\alpha) \approx 4.92$ — **not** $\ln(1/\alpha^2) = 2\ln(1/\alpha) \approx 9.84$. Corrected AVE log $4.92$ vs QED's $2.81$ is a **$1.75\times$ ratio** (was mis-stated as a $3.5\times$ gap). **Consequence for the headline:** this is a **likely structural match on the FORM** — AVE produces a Bethe-log-type self-energy of the right shape and order — with a **coefficient $\sim 1.75\times$ tension/echo**, NOT a clean numerical AVE prediction. The $+1010$ MHz self-energy magnitude was always **QED-imported** (consistency-class; there is no independent AVE numerical generator of $+1010$ MHz anywhere in the KB — the AVE log was a structural comparison, never the magnitude generator; see claim-quality.md rationale). Correcting the log therefore does **not** move the $\approx +1051$ MHz total (it was never generated from the AVE log), but the total "lands right" only because the dominant term is imported — so the honest headline is **structural/consistency-class, not a $0.65\%$ AVE precision result.** Body preserved below for audit; read the header for current status.
+
+The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is the QED canonical demonstration of vacuum-fluctuation effects. AVE reproduces the **form** of it (a Bethe-log-type self-energy of the right shape and order) at leading order by composing three substrate-native inputs, with the dominant self-energy magnitude QED-imported (consistency-class, see header):
 
 | Contribution | QED value | AVE input | AVE-derived | Notes |
 |---|---|---|---|---|
-| Self-energy | $+1010$ MHz | Finite-size electron $T_{EM}\,\ell_{\text{node}} = m_e c^2$ (Vol 2 Ch 1) | $\approx +1010$ MHz | Finite-size geometric integral replaces UV-renormalized Bethe logarithm |
+| Self-energy | $+1010$ MHz | Finite-size electron $T_{EM}\,\ell_{\text{node}} = m_e c^2$ (Vol 2 Ch 1) | $\approx +1010$ MHz (QED-imported magnitude) | Finite-size geometric integral gives the Bethe-log FORM; corrected AVE log $\approx 4.92$ vs QED $2.81$ ($1.75\times$). Magnitude is QED-imported (consistency), not an AVE numerical output — see header |
 | Vacuum polarization | $-27$ MHz | Q-G20f $\Pi(q^2)$ closed | $\approx -27$ MHz | Matches QED at observable scales |
 | Anomalous moment | $+68$ MHz | Q-G19α $a_e$ matched at 50 ppm (postulate-conditional; see note) | $\approx +68$ MHz | AVE inherits QED $a_e$ structurally |
-| **Total (leading order)** | **$+1057.85$ MHz** | (sum) | $\approx +1051$ MHz | **$0.65\%$ off — percent-precision structural match** |
+| **Total (leading order)** | **$+1057.85$ MHz** | (sum) | $\approx +1051$ MHz | **$0.65\%$ off, but the total lands right only because the dominant self-energy term is QED-imported — consistency/structural-class, NOT a clean AVE precision prediction (see header)** |
 
 The remaining $\sim 7$ MHz to measurement comes from higher-order QED corrections (Bethe logarithm at $\alpha^5$, recoil, nuclear size) — explicitly outside the leading-order scope.
 
@@ -26,7 +28,7 @@ The remaining $\sim 7$ MHz to measurement comes from higher-order QED correction
 
 **QED mechanism:** electron radiates and reabsorbs photons; the Bethe logarithm integrates over all virtual-photon momenta from $\sim \alpha m_e c$ (orbital scale) to UV cutoff. Renormalization removes the UV divergence.
 
-**AVE mechanism:** the electron is a closed flux tube of finite size $\ell_{\text{node}}$, with self-energy $T_{EM} \cdot \ell_{\text{node}} = m_e c^2$ (canonical at [Vol 2 Ch 1 Electron Unknot](../../particle-physics/ch01-topological-matter/electron-unknot.md)). The Bethe-logarithm-equivalent integral runs from $\alpha m_e c$ (orbital scale) to $1/\ell_{\text{node}} = m_e c / \alpha$ (lattice cutoff). **The UV divergence is naturally absent** — the cutoff is geometric, finite, and derivable from Axiom 1.
+**AVE mechanism:** the electron is a closed flux tube of finite size $\ell_{\text{node}}$, with self-energy $T_{EM} \cdot \ell_{\text{node}} = m_e c^2$ (canonical at [Vol 2 Ch 1 Electron Unknot](../../particle-physics/ch01-topological-matter/electron-unknot.md)). The Bethe-logarithm-equivalent integral runs from $\alpha m_e c$ (orbital scale) to $1/\ell_{\text{node}} = m_e c$ (Compton / lattice cutoff, since $\ell_{\text{node}} = \hbar/(m_e c)$). **The UV divergence is naturally absent** — the cutoff is geometric, finite, and derivable from Axiom 1.
 
 For the Lamb shift, only the **2S vs 2P differential** matters:
 - $2S$ amplitude at $r = 0$: $|\psi_{2s}(0)|^2 = 1/(8\pi a_0^3)$
@@ -36,7 +38,7 @@ The electron's finite-size self-interaction at $r \sim \ell_{\text{node}}$ coupl
 
 $$\Delta E_{\text{SE,AVE}} = \frac{\alpha^4\, m_e c^2\, \langle\ln(...)\rangle}{6\pi\, n^3} \cdot \delta_{\ell,0}$$
 
-where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c / \alpha$, giving $\ln(1/\alpha^2) = 2\ln(1/\alpha) \approx 9.84$. QED's Bethe logarithm for $2S_{1/2}$ is $\ln(K_{2S}/Z\alpha m_e c) \approx 2.81$ — different numerical values but **same magnitude** — leading-order contributions agree at the few-percent level.
+where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c$, giving $\ln(1/\alpha) \approx 4.92$. QED's Bethe logarithm for $2S_{1/2}$ is $\ln(K_{2S}/Z\alpha m_e c) \approx 2.81$ — a **$1.75\times$ ratio** (not the previously mis-stated $3.5\times$): the same functional FORM (Bethe-log self-energy) with a coefficient $\sim 1.75\times$ tension/echo. This is a **likely structural match on the form, NOT a numerical match**; the $+1010$ MHz magnitude used below is QED-imported (consistency-class), not generated from this AVE log — see the 🔴 header.
 
 ### Vacuum polarization contribution ($-27$ MHz)
 
@@ -52,7 +54,7 @@ where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c / 
 
 ## Status
 
-**Structurally closed** at leading-order (sub-percent) precision. The 0.65% deviation at leading order is consistent with QED's own remaining-7-MHz higher-order corrections being the precision floor for AVE-Core; the leading-order match demonstrates that AVE reproduces the QED Lamb shift from three independent substrate-native inputs, none of which is calibrated to the Lamb measurement.
+**Structural match on the FORM** (Bethe-log self-energy of the right shape and order), coefficient $\sim 1.75\times$ tension/echo after the α-factor cutoff correction (corrected AVE log $4.92$ vs QED $2.81$). The $\approx +1051$ MHz total is a **consistency composition**: none of the three inputs is calibrated to the Lamb measurement, but the dominant self-energy magnitude ($+1010$ MHz) is QED-imported, not an AVE numerical output — so the total "landing" at $0.65\%$ is **not** a clean AVE precision prediction. This is a likely structural match, not a numerical match (Grant 2026-07-02).
 
 **Full quantitative closure to $10^{-6}$ precision** requires explicit bound-state integration (Bethe-equivalent logarithm, recoil corrections, nuclear-size effects) — multi-session work, deferred. The structural match at leading order is the load-bearing claim.
 

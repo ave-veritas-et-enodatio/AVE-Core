@@ -116,6 +116,16 @@ Grant-confirmed) AND closed at v14 Mode I (doc 113; Master Equation FDTD hosts t
 K4-TLM cannot). The geometric-locked channel was reframed-against + empirically unneeded. Q-G42 stays
 the one clean discriminator.**
 
+> **DEPENDENT (2026-07-02, KEEP-BOTH cross-ref).** The Cleave-01 plate-displacement coupling is a
+> DEPENDENT of this sliding-vs-locked fork — but via a DIFFERENT channel than the piezo E-field
+> "RULED OUT, not gated" above. Doc-109's closure is scoped to the piezo E-field transducer; the
+> Cleave **registry-pump** reading (screw-registry spectral flow / boundary linking) is a separate
+> channel. Grant ruled (b) 2026-07-02 — reopen the sliding-vs-locked question *for the registry-pump
+> reading specifically* and let the **engine** adjudicate (which reading reproduces the OA anchor).
+> The engine returned **NULL-DERIVED** ($C_{slide}=C_{lock}=0$, operator-derived construction). This
+> is NOT a reconciliation of the two channels (flag-don't-fix — different transducers):
+> [`research/2026-07-02_cleave-coupling-derivation_adjudication.md`](2026-07-02_cleave-coupling-derivation_adjudication.md) §f.
+
 ---
 
 ## 5. The R-A re-freeze plan (queued, not executed)

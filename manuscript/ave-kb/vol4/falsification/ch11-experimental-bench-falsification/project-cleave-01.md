@@ -35,6 +35,22 @@ $$
 Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7}\,\text{C/m}) \times 10^{-6}\,\text{m} = \mathbf{0.415\,\text{pC (picoCoulombs)}}
 $$
 
+> **COUPLING-STATUS (2026-07-02, KEEP-BOTH cross-ref).** "Analytically derived" above is a
+> `def-tk1xfm` **unit-bridge** substitution ($Q=\xi_{topo}x$), not a derived pump mechanism (the
+> datasheet already concedes this at the $\xi_{topo}$ level — F2 note, line 62). A three-angle
+> adversarial derivation returned **UNDECIDABLE-AT-PAPER** with a single surviving mechanism class
+> (an adiabatic Thouless registry pump over the 4₁ screw); Grant ruled (b) — the engine adjudicates.
+> The dual-reading Chern driver **ran** and returned **NULL-DERIVED** ($C_{slide}=0$, $C_{lock}=0$,
+> gapped + converged) for the operator-derived construction: the registry-pump coupling is dead;
+> $Q=\xi_{topo}x$ is a unit-bridge, and the bench is best framed as an **Axiom-2 null-test** (a
+> nonzero gap-independent floor would falsify AVE) rather than a confirmation of a derived pump.
+> The exact 414.9 fC/µm is NOT integer-C-reachable (needs $C=2\sqrt2$); a pump, had it existed, would
+> give $C\times\{146.7\ |\ 586.8\}$ fC/µm. Receipts:
+> [`research/2026-07-02_cleave-coupling-derivation_adjudication.md`](../../../../../research/2026-07-02_cleave-coupling-derivation_adjudication.md);
+> result: [`research/2026-07-02_cleave-registry-pump-chern_result.md`](../../../../../research/2026-07-02_cleave-registry-pump-chern_result.md)
+> (scope caveat: construction-specific negative; a full N-band $\mathrm{Link}(\partial\Omega,F)$ srs
+> solve is the gated upgrade path). **Full rewrite gated; legacy prose preserved (KEEP-BOTH).**
+
 Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10\,\text{pF}$, the voltage readout step ($V = Q/C$) projects to a clean step of approximately **$41.5\,\text{mV}$** on the oscilloscope at $1\,\mu\text{m}$ — but **the slope magnitude is NOT the falsifiable axis** (see below). The slope is a consistency-class echo: $\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ is the electron Compton wavelength, so the $41.5\,\text{mV/µm}$ figure is doubly over-determined and a slope-match cannot by itself distinguish chord from $\alpha$-chain (F3 note). **What the bench tests — the chord — is the topological integer-charge floor**: a gap-INDEPENDENT, polarity-odd, material-independent, linear-in-$x$ charge component ($\mathcal{Q} = \mathrm{Link}(\partial\Omega,\mathbf{F}) \in \mathbb{Z}$) surviving a $\ge 4\times$ gap-sweep at fixed $C_{in}$, which no single classical mechanism can fake (the 4-corner conjunction). If no such gap-independent floor survives the sweep, the framework is falsified at Axiom-2. If the 4-corner floor survives, the **topological integer-charge chord** ($[Q] \equiv [L]$) has been validated on a tabletop — a two-sided, non-fakeable result. The slope value ($41.5\,\text{mV/µm}$) is a secondary corroborator of the over-determined $\xi_{topo}$ magnitude, not the test.
 
 ### Discriminator vs standard piezoelectric / triboelectric effects (two-sided)

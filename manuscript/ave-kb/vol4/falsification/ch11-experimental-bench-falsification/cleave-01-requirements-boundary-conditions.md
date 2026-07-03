@@ -18,6 +18,17 @@ experiments: [exp-742kv5]
 
 **Discipline tags.** The **floor** ($Q = \xi_{topo}\,x$, gap-independent integer-charge) is an **Axiom-2 MANIFESTATION (emergence-class)** prediction — zero free parameters, forced by $\xi_{topo} = e/\ell_{node}$. The **slope magnitude** (0.415 pC/µm) is a **consistency-class echo** ($\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ = electron Compton wavelength — doubly over-determined). Per `consistency-vs-emergence`: the requirements that protect the **chord** carry the emergence weight; the tight requirements that protect the **slope** are consistency-polishing and are explicitly demoted (they gate the non-gating Level-2 corroborator only).
 
+> **COUPLING-STATUS (2026-07-02, KEEP-BOTH cross-ref).** The $Q=\xi_{topo}x$ coupling is a
+> `def-tk1xfm` unit-bridge, not a derived pump: the dual-reading registry-pump Chern driver returned
+> **NULL-DERIVED** ($C_{slide}=C_{lock}=0$, operator-derived construction). The exact `CLV-REQ-FLOOR`
+> 414.9 fC/µm is NOT integer-C-reachable ($C=2\sqrt2$); a pump would give $C\times\{146.7\ |\ 586.8\}$
+> fC/µm. **Three NEW discriminating corners to add as axes alongside the legacy slope/floor (full
+> landing gated):** (a) sidereal/orientation period-modulation (screw-axis fingerprint, a *period*
+> effect, NOT $(q\ell)^4$-suppressed); (b) moving-dielectric-slab-at-fixed-gap **exact-null** control;
+> (c) the **STAIRCASE** phase-native readout (quantized charge per closed 2-axis drive cycle,
+> V-independent, present at $V=0$ — slope-without-staircase = dictionary echo). Receipts +
+> result-doc as in `project-cleave-01.md` coupling-status. **Legacy prose preserved (KEEP-BOTH).**
+
 ### REQ-ID INDEX — the canonical requirement identifiers (the bench repo cites + builds to these)
 
 **These `CLV-REQ-<NAME>` identifiers are the canonical, stable CLEAVE-01 requirement IDs.** The bench-engineering sibling repo `AVE-Bench-FemtoElectrometer` **REFERENCES these IDs and builds to spec**; this Vol-4 KB leaf is the **single source of truth** for every derived requirement. The IDs are **descriptive and reorder-proof** — each names the physics object it constrains (readout / gap / PZT / vacuum / thermal / vibration / EMI / calibration / a named master coupling), **NOT** a section number — so a future §-reorder, insertion, or split leaves every ID and every external citation intact. **Stamping an ID changes no derived number, no STATUS:OPEN, and selects no design knob.** Each requirement below carries its `CLV-REQ-*` tag inline at the point of derivation.
