@@ -430,7 +430,60 @@ saturation-kernel SHAPE $S(A)=\sqrt{1-A^2}$ itself is Axiom 4 — rung 1, NOT he
 
 ## §7 — Companion registers + the vol3→vol4 mis-volume artifact
 
-<!-- filled in a later commit -->
+### Companion registers (the provenance ladder)
+
+This register is one of a **VIEW-register family**, each making one rung of the
+provenance ladder first-class. All share the same discipline (a `no-claim` VIEW
+over existing nodes, minting no new id, INVARIANT-S11):
+
+| rung | register | VIEW over | count line |
+|---|---|---|---|
+| 1 — axioms | `axiom-register.md` *(forthcoming, branch `analysis/axiom-register`)* | `axiom-N` framework nodes | `expected-independent-axiom-count: 4` |
+| 2 — **machinery** | **THIS register** | machinery `clm-` claim nodes | `expected-machinery-count: 10` |
+| 3 — calibration-inputs | [`interlock-register.md`](interlock-register.md) | `ilk-` nodes + `{m_e, α, G}` claims | `expected-independent-count: 3` |
+| 4 — applications | (the per-domain scale-instance `clm-`s — tracked in the per-volume `claim-quality.md` registers) | — | — |
+
+Cross-refs: the operator catalog [`operators.md`](operators.md) (the Op1–Op22
+catalog of record, `clm-sysqaf`) and the [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md)
+(the WHEN-TO-USE tool-selection index) are the **application-facing catalogs**
+this register points at — it does NOT duplicate them; it adds the
+status/provenance/usage VIEW they lack.
+
+### The vol3→vol4 mis-volume artifact this register homes
+
+Three members of this register — `clm-1eg13f` (Op14 clock), `clm-rtdmsn`
+(Theorem 3.1′), `clm-6t3p6x` (parametric kernel) — physically live in
+**`vol4/claim-quality.md`** yet are cross-volume machinery that **vol1 / vol2 /
+vol3 build on**. This is a *provenance-vs-filing* mismatch: the machinery is
+foundational-tier but filed in an applications volume.
+
+The signature is visible as **forward-dependency edges**: verified at
+[`vol3/claim-quality.md`](../vol3/claim-quality.md) lines 948, 1011–1012, 1043–
+1044, 1075 — vol3 macroscopic results carry `depends-on` edges to
+`clm-1eg13f` / `clm-rtdmsn` / `clm-6t3p6x` each tagged **`[vol3→vol4 exception,
+D11]`** (a vol3 result depending on a *later* volume is the D11 mis-volume
+tell). The root cause is recorded verbatim at
+[`session/kb-improvements.md:16`](../session/kb-improvements.md): *"the universal
+operators (Op14 `clm-1eg13f`, etc.), Theorem 3.1′ (`clm-rtdmsn`), and the
+parametric-coupling kernel (`clm-6t3p6x`) are **near-foundational machinery**
+that vol1/vol2/vol3 build on … A vol3 macroscopic result depending on vol4 is the
+signature of that foundational machinery being mis-volumed."*
+
+> **What this register does about it — and does NOT.** This register gives the
+> mis-volumed machinery a **first-class conceptual home** (the machinery tier is
+> now tracked as a set, independent of which volume the `clm-` happens to be
+> filed in), which is the *lightweight* half of the fix. It does **NOT** perform
+> the relocation. The heavyweight fix — physically relocating the
+> circuit-theory/operator content out of vol4 into vol1 / `common/` so every
+> vol3→vol4 edge points backward — is the **"decided-right, NOT-yet-scheduled"**
+> move recorded at [`session/kb-improvements.md:18,23,25`](../session/kb-improvements.md)
+> (solidity-neutral pure relocation; verify each target's own dependency feet are
+> axioms/common/vol1-only before moving). That relocation is a separate
+> workstream; this register does not pre-empt it, and its members' `clm-` ids +
+> `canonical_path`s are READ as-is (vol4) so the VIEW stays consistent whether or
+> not the relocation later lands. **Flag for Grant + the auditor:** whether to
+> schedule the D11 relocation now that the machinery has a first-class register
+> is a corpus-state decision surfaced here, not taken here.
 
 ## §8 — Schema / gate note (flagged, NOT built this pass) + design decisions to ratify
 
