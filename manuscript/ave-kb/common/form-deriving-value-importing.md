@@ -2,13 +2,13 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "Canonical organizing-frame leaf for the FORM-deriving / VALUE-importing meta-principle. It is a SYNTHESIS / register-consolidation of settled adjudications (the α echo-triangulation, the K=2G GR-import, the G-ruling mixed verdict, the E_yield mixed verdict), NOT a new derivation — every per-constant verdict it tabulates is grounded in an EXISTING canonical leaf or the CI-gated interlock register (common/interlock-register.md). The canonical chord/echo/mixed DEFINITIONS live as def- nodes in common/vocabulary-register.md (def-ch0rd1 / def-ech0v1 / def-fmv001); the CI-gated per-mechanism classification lives in the interlock register; this leaf is the prose umbrella the scattered cites point to. Originates no clm-/exp-/sup- node-body, so it carries no-claim."
-path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella under which G-mixed, the three-route commitment, and honest-α fall"
+claims: [clm-acdc07]
+path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella under which G-mixed, the three-route commitment, honest-α, and the AC/DC epistemological carve fall"
 -->
 
 # FORM-Deriving / VALUE-Importing — the Framework's Organizing Principle
 
-> **What this leaf is.** A **consolidation home**, not a derivation. The
+> **What this leaf is.** Primarily a **consolidation home**, not a derivation. The
 > FORM-vs-VALUE distinction is the framework's current organizing principle; it
 > was adjudicated piecewise across 2026-06-14 → 2026-06-18 and previously lived
 > only in research docs and orchestration memory. This leaf states the principle
@@ -16,7 +16,11 @@ path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella un
 > chord / echo / mixed **definitions** are `def-` nodes in
 > [`vocabulary-register.md`](vocabulary-register.md); the **per-mechanism
 > classification** is CI-gated in [`interlock-register.md`](interlock-register.md);
-> this leaf is the prose umbrella.
+> this leaf is the prose umbrella. **The one node-body it now hosts** is the
+> §"The AC/DC carve" meta-finding (`clm-acdc07`, added 2026-07-03) — the
+> epistemological MECHANISM underneath the FORM/VALUE split; every *per-constant*
+> verdict below remains grounded in its own existing canonical leaf / the interlock
+> register, unchanged.
 
 ## The principle (one line)
 
@@ -80,6 +84,154 @@ definitional anchor. **The FORM-DERIVING half applies to all of them.**
 > flip-condition is live; the route-space is not provably exhausted —
 > [`vol1/ch8-alpha-golden-torus.md:13`](../vol1/ch8-alpha-golden-torus.md)
 > "scoped-echo register").
+
+## The AC/DC carve — the MECHANISM of FORM/VALUE
+
+*(Grant-ratified 2026-07-03; evidence = the entire 2026-07 arc ledger. Added
+KEEP-BOTH as an additive section: it does NOT redefine the per-constant table
+above; it supplies the underlying reason the table reads the way it does.)*
+
+<!-- claim-quality: clm-acdc07 — the AC/DC epistemological carve (META-FINDING, organizing-principle class) -->
+
+The FORM/VALUE split above is not a coincidence of which targets we picked — it
+is the surface reading of a deeper **epistemological carve** between AVE and the
+incumbent frameworks. Stated once:
+
+> **Modern physics is a perfected AC theory that demoted the DC sector to
+> bookkeeping. AVE's distinctive bet is that the DC sector is a physical medium
+> state.**
+
+**What "AC theory" means here.** Across the incumbent formalisms the *static /
+longitudinal / uniform-offset* degrees of freedom were systematically removed from
+the dynamics and kept only as constraints or conventions:
+
+- **Gauss's law is a constraint, not an evolution equation** — `∇·E = ρ/ε₀` fixes
+  the longitudinal field from the sources at each instant; it does not *propagate*.
+  (This is exactly the discrete statement the sourced-charge no-go cascade re-finds
+  on the lattice: `∇·E` is set by initial data, conserved, never emergent — see the
+  empirical-validation paragraph below.)
+- **The longitudinal / static DOFs are gauge-quotiented** — in the Coulomb gauge
+  the static field is non-dynamical (no independent equation of motion); in the
+  covariant gauges the longitudinal and timelike photon polarizations cancel
+  (Gupta–Bleuler / BRST), leaving only the two transverse propagating modes. The
+  free photon is transverse *by construction of the quotient*.
+- **Vacuum energy is renormalized away** — the DC offset of the field energy (the
+  zero-point sum) is subtracted as an unobservable constant; only *differences*
+  (Casimir, Lamb) survive as observables.
+
+Each of these is a place where the incumbent **discards a DC quantity as
+bookkeeping**. AVE's bet is that each discarded DC quantity is instead a **physical
+operating-point state of a real medium**:
+
+| Incumbent DC bookkeeping | AVE DC medium state |
+|---|---|
+| Gauss constraint (longitudinal field fixed by sources) | gravity = the `S(A)` operating-point field (the bulk-strain DC state that sets the local ε/μ) |
+| vacuum energy renormalized to zero | dark energy = a real DC offset (the latent heat of substrate crystallization; a genuine medium pressure) |
+| charge = a gauge-quotiented source label | charge = topological boundary data (`Q = Link(∂Ω, F) ∈ ℤ`, the winding's DC linking content) |
+| no material limit (linear vacuum to all fields) | yield walls = real material limits (`V_yield`, the saturation ceiling the SM vacuum lacks) |
+
+### (i) MEASUREMENT PRINCIPLE — all measurement is AC
+
+The carve's first consequence is an epistemology, and it is exactly AVE's PHASE-ONLY
+north-star with a mechanism attached: **all measurement is AC.** A uniform DC bias
+is gauge-relative — it self-cancels, because rulers and clocks are wave-made and
+ride the same offset (the constructive-relativity mechanism, Thread 3 of the
+foreword: motion through the medium contracts the instruments by exactly the amount
+that renders the uniform state undetectable). So **every AVE-distinct observable is
+an AC reading of a DC gradient or topology** — a *difference*, a *slew*, a *sign
+flip*, an *edge* — never the absolute DC level itself. This is differential *by
+principle*, not by experimental limitation. (Evidence: the corpus's own retirement
+of the rotor-Sagnac and static-fiber preferred-frame tests to corroborative-null —
+a uniform bias leaves no AC signature — and the standing PHASE-ONLY epistemology.)
+
+### (ii) FORM/VALUE UNIFICATION — the carve IS the mechanism
+
+The carve *is* why the FORM/VALUE meta-finding reads the way it does — which is why
+this section extends THIS leaf rather than standing alone:
+
+- **The FORMS AVE derives are the shared AC equations.** Maxwell, the wave
+  operator, the dispersion relations, the `/7` PPN projection form, the winding's
+  conservation — these are the AC dynamics both frameworks share, so AVE recovering
+  them is **peer-with-SM by construction** (the recurring "peer, not chord" verdict).
+  Deriving the AC forms is real and falsifiable, but it cannot *distinguish*.
+- **The VALUES AVE imports are DC calibrations.** Each imported calibration constant
+  is a **DC operating-point setting**: `α` is the operating point `A = √α` (the
+  sub-saturation bias of the electron's core); `m_e` (≡ `ℓ_node`) is the bias scale
+  (the DC length the lattice is calibrated to); `G` is the boundary termination (the
+  `ξ`/`u_0^*` DC value at which the Machian impedance integral closes). These are
+  echoes *because they are DC calibrations the AC dynamics does not fix* — an AC
+  theory is blind to the DC level it operates around.
+
+So "FORM = chord, VALUE = echo" and "AC = shared/non-distinguishing, DC = where the
+bet lives" are **the same statement**. The FORM/VALUE table above is the DC/AC carve
+seen through the calibration-constant lens.
+
+### (iii) FALSIFICATION ASYMMETRY
+
+The carve makes falsification **asymmetric by sector**:
+
+- **AC agreement cannot distinguish.** If AVE and the incumbent agree on an AC
+  observable, that is expected (both carry the same AC dynamics) — it is a
+  consistency check, never a chord.
+- **AC disagreement = a bug.** If AVE *disagrees* with the incumbent on a
+  well-tested AC observable, AVE is wrong — **Maxwell recovery is mandatory** (the
+  linear limit `S → 1` must reproduce standard electrodynamics exactly; the
+  foreword's "reduces to Maxwell in the linear limit"). An AC disagreement is a
+  falsification *of AVE*, not a discovery.
+- **Distinctive kills AND wins live DC-side or in DC→AC coupling.** The only place a
+  genuinely AVE-distinct result — a chord OR a fatal falsification — can live is the
+  DC sector itself or the coupling that reads a DC state out through an AC channel.
+
+### (iv) SELECTION RULE — candidate tests must be DC→AC coupling class
+
+The operational consequence: **a candidate discriminating test must be DC→AC
+coupling class** — it must take a DC medium state (a bias, an operating point, a
+topology, a yield limit) and read it out through an AC channel where the incumbent,
+being blind to that DC state, predicts nothing distinctive. A pure-AC test cannot
+discriminate (i); a pure-DC-internal quantity has no AC readout to measure (i). The
+lone bankable forward falsifier the corpus currently carries — the **E-route vacuum
+birefringence coefficient** (`clm-pp3qwf`) — **IS one**: a DC field (the static E
+bias) loads the medium's DC operating point (ε-varactor near `V_yield`), and the
+AC readout (the probe beam's differential index) sees a tree-level coefficient the
+incumbent's DC-blind vacuum loop-suppresses by `α³`. That is the DC→AC coupling
+class in one instrument, and it is the confirming instance of this selection rule.
+
+### Empirical validation — the 2026-07-03 cascade is the carve in code
+
+The carve is not a philosophy bolted on after the fact; the 2026-07-03 arc ledger is
+the carve **operating in the engine**. The sourced-charge no-go cascade
+([`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md),
+`clm-nogo4l`) is exactly the statement "the DC sector is not sourced-AC-emergent":
+
+- **The statics deaths** — the Stage-1b sourced-solve tautology
+  ([`research/2026-07-03_em-readout-stage2-redesign_prereg.md`](../../../research/2026-07-03_em-readout-stage2-redesign_prereg.md)
+  §1: `∇·E = +(source − mean)`, the solve returns its own DC RHS) and the Stage-2a
+  [NO-FLUX-STRUCTURAL] maximum principle (§R1: a source-free DC texture forces
+  `φ = const`, zero flux) — are the code re-finding that **you cannot AC-source a DC
+  monopole**: the DC content is either put in by hand (Lock 2) or structurally zero
+  (Lock 3). That is Gauss-is-a-constraint, discovered on the lattice.
+- **The `∂∂=0` continuity closure** — the Stage-2b step-0 note
+  ([`research/2026-07-03_em-readout-stage2b-step0-continuity_note.md`](../../../research/2026-07-03_em-readout-stage2b-step0-continuity_note.md))
+  and its class-level DEC theorem
+  ([`research/2026-07-03_srs-dec-operators_result.md`](../../../research/2026-07-03_srs-dec-operators_result.md)):
+  `∂_t(∇·E) ≡ 0` for the curl-coupled dynamics — **the enclosed DC charge is a
+  conserved constant of motion**, set by initial data, never AC-emergent. That is
+  vacuum-DC-content-is-not-created-by-AC-dynamics, at theorem grade.
+
+And the *survivors* are exactly where the carve says the distinctive content lives:
+lane Z (the harmonic/topological DC sector, `b₁ = 3`), lane W (the DC-linking pair
+force), and the J-mixed DC→AC coupling term. The cascade closed the *sourced-AC*
+route to charge and pointed at the *topological-DC* and *DC→AC-coupling* survivors —
+the carve's selection rule (iv), read straight off the engine output.
+
+> **Confidence, graded honestly.** The AC/DC carve is an **organizing principle, not
+> a theorem.** It is the reason the accumulated FORM/VALUE record reads the way it
+> does (a strong, evidence-backed *frame*), and its selection rule (iv) has one
+> confirming instance (`clm-pp3qwf`) and one empirical validation (the 2026-07-03
+> cascade) — but it is not *derived* from the axioms, and a single AC-side
+> discriminating chord (or a DC-side null) would revise it. It is booked at
+> consistency / meta-finding class (`clm-acdc07`), the same standing as the
+> FORM/VALUE umbrella it mechanizes — not headlined as an emergence result.
 
 ## The testing consequence
 
