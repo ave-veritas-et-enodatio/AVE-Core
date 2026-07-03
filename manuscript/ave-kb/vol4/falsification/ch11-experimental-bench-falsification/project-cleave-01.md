@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-ydksh6]
+claims: [clm-ydksh6, clm-clvchn]
 exp-id: exp-742kv5
 status: pending
 strengthens:
@@ -19,6 +19,7 @@ strengthens:
 
 ### The Hypothesis (Axiom 2 — Topo-Kinematic Isomorphism)
 
+<!-- claim-quality: clm-ydksh6 -->
 Per Axiom 2 (Topo-Kinematic Isomorphism, [Q] ≡ [L]) in [`vol1/axioms-and-lattice/ch1-fundamental-axioms/`](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md), Electrical Charge is mathematically identical to physical macroscopic spatial displacement: $Q \equiv \xi_{topo} \cdot x$ via the canonical electromechanical-transduction constant $\xi_{topo} = e/\ell_{node}$. The polarity-odd, gap-INDEPENDENT charge component is classically $0.0$ — mechanically separating two equipotential, single-work-function, patch-free plates in hard vacuum liberates no net *gap-independent* charge. The raw vacuum charge, however, is NOT classically zero: contact-potential-difference (CPD / moving-Kelvin-probe, the dominant Casimir/Kelvin-probe systematic) gives a polarity-odd, gap-DEPENDENT term $\propto V_{CPD}/g^2$ (surface patch potentials), which the gap-sweep separates from the floor. AVE explicitly predicts the generation of topological charge natively from the capacity of the spatial metric, gap-independent, on top of (and separable from) the classical CPD background.
 
 ### The PCBA Implementation
@@ -35,21 +36,29 @@ $$
 Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7}\,\text{C/m}) \times 10^{-6}\,\text{m} = \mathbf{0.415\,\text{pC (picoCoulombs)}}
 $$
 
-> **COUPLING-STATUS (2026-07-02, KEEP-BOTH cross-ref).** "Analytically derived" above is a
+<!-- claim-quality: clm-clvchn -->
+> **★ COUPLING-STATUS — NULL-CONFIRMED-FINAL (2026-07-02, `clm-clvchn`). The derived-pump reading is
+> closed; the bench is a corroborative-null discriminator.** "Analytically derived" above is a
 > `def-tk1xfm` **unit-bridge** substitution ($Q=\xi_{topo}x$), not a derived pump mechanism (the
-> datasheet already concedes this at the $\xi_{topo}$ level — F2 note, line 62). A three-angle
-> adversarial derivation returned **UNDECIDABLE-AT-PAPER** with a single surviving mechanism class
-> (an adiabatic Thouless registry pump over the 4₁ screw); Grant ruled (b) — the engine adjudicates.
-> The dual-reading Chern driver **ran** and returned **NULL-DERIVED** ($C_{slide}=0$, $C_{lock}=0$,
-> gapped + converged) for the operator-derived construction: the registry-pump coupling is dead;
-> $Q=\xi_{topo}x$ is a unit-bridge, and the bench is best framed as an **Axiom-2 null-test** (a
-> nonzero gap-independent floor would falsify AVE) rather than a confirmation of a derived pump.
-> The exact 414.9 fC/µm is NOT integer-C-reachable (needs $C=2\sqrt2$); a pump, had it existed, would
-> give $C\times\{146.7\ |\ 586.8\}$ fC/µm. Receipts:
-> [`research/2026-07-02_cleave-coupling-derivation_adjudication.md`](../../../../../research/2026-07-02_cleave-coupling-derivation_adjudication.md);
-> result: [`research/2026-07-02_cleave-registry-pump-chern_result.md`](../../../../../research/2026-07-02_cleave-registry-pump-chern_result.md)
-> (scope caveat: construction-specific negative; a full N-band $\mathrm{Link}(\partial\Omega,F)$ srs
-> solve is the gated upgrade path). **Full rewrite gated; legacy prose preserved (KEEP-BOTH).**
+> datasheet already concedes this at the $\xi_{topo}$ level — F2 note below). A three-angle adversarial
+> derivation returned **UNDECIDABLE-AT-PAPER** with a single surviving mechanism class (an adiabatic
+> Thouless registry pump over the 4₁ screw); Grant ruled (b) — the engine adjudicates via reproduction
+> of the OA anchor. Both the 2-band AND the faithful **N-band** srs occupied-manifold Chern over the
+> $(k_z,\theta)$ registry torus return $C=0$ in **both** substrate readings ($C_{slide}=C_{lock}=0$,
+> sliding/Eulerian + locked/Lagrangian) and **both** enantiomorphs (gapped, grid-converged
+> $n=24/36/48$, validate-on-known PASS). **VERDICT: NULL-CONFIRMED-FINAL** — the registry-pump
+> mechanism is dead; per the frozen last-roll pre-commitment the coupling question closes permanently.
+> **Consequence for THIS bench (rescope, see Outcome adjudication below): AVE itself predicts the
+> displacement-charge null**, so the bench is NOT a chord-*confirming* forward prediction. It is a
+> **corroborative-null-class discriminator** — a one-sided falsifier (an *unexpected* gap-independent
+> integer floor surviving the $\ge4\times$ sweep would still falsify AVE), NOT a build-target for
+> confirming $[Q]\equiv[L]$. The exact 414.9 fC/µm is a VALUE-import (not integer-$C$-reachable; needs
+> $C=2\sqrt2$); a pump, had it existed, would give $C\times\{146.7\ |\ 586.8\}$ fC/µm, never 414.9.
+> Receipts: [`2026-07-02_cleave-coupling-derivation_adjudication.md`](../../../../../research/2026-07-02_cleave-coupling-derivation_adjudication.md);
+> 2-band [`..._cleave-registry-pump-chern_result.md`](../../../../../research/2026-07-02_cleave-registry-pump-chern_result.md);
+> N-band [`..._cleave-registry-pump-chern-nband_result.md`](../../../../../research/2026-07-02_cleave-registry-pump-chern-nband_result.md).
+> **Claim: `clm-clvchn` (vol4/claim-quality).** The chord-gating prose below is preserved as the bench's
+> historical framing (git carries the trail); read it through this current-status header.
 
 Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10\,\text{pF}$, the voltage readout step ($V = Q/C$) projects to a clean step of approximately **$41.5\,\text{mV}$** on the oscilloscope at $1\,\mu\text{m}$ — but **the slope magnitude is NOT the falsifiable axis** (see below). The slope is a consistency-class echo: $\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ is the electron Compton wavelength, so the $41.5\,\text{mV/µm}$ figure is doubly over-determined and a slope-match cannot by itself distinguish chord from $\alpha$-chain (F3 note). **What the bench tests — the chord — is the topological integer-charge floor**: a gap-INDEPENDENT, polarity-odd, material-independent, linear-in-$x$ charge component ($\mathcal{Q} = \mathrm{Link}(\partial\Omega,\mathbf{F}) \in \mathbb{Z}$) surviving a $\ge 4\times$ gap-sweep at fixed $C_{in}$, which no single classical mechanism can fake (the 4-corner conjunction). If no such gap-independent floor survives the sweep, the framework is falsified at Axiom-2. If the 4-corner floor survives, the **topological integer-charge chord** ($[Q] \equiv [L]$) has been validated on a tabletop — a two-sided, non-fakeable result. The slope value ($41.5\,\text{mV/µm}$) is a secondary corroborator of the over-determined $\xi_{topo}$ magnitude, not the test.
 
@@ -110,6 +119,28 @@ The GO/NO-GO gates on the **chord** (the 4-corner gap-independent integer floor)
 | **B — partial (chord ambiguous)** | floor detected (non-zero, polarity-odd, material-indep) but gap-sweep inconclusive ($C_{in}$ drift / too few gaps / floor not separated from $1/g^2$ CPD) | Integer-charge chord suggested but gap-independence corner not established. Re-run gap-sweep at fixed $C_{in}$, wider span. **NOT a GO.** |
 | **C — null (chord falsified, NO-GO)** | no gap-INDEPENDENT floor survives the sweep — displacement charge absent within noise OR fully explained by the $\propto1/g^2$ CPD background — all §5 corners checked + positive-control passing | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back across ξ_topo family. *A slope-deviation with the floor still gap-independent is A-with-flag, NOT C.* |
 | **D — confound** | floor fails a corner (tracks dielectric / fails polarity-reversal / decaying tribo / fails zero-displacement null) OR positive-control did NOT register (dead-instrument null) | Re-design guards; re-test. NOT adjudicated A or C. |
+
+> **★ OUTCOME-C RESCOPE (2026-07-02, `clm-clvchn`) — supersedes the "Outcome C → Ax2 dies" reading
+> above.** The engine adjudication (NULL-CONFIRMED-FINAL; coupling-status header) established that the
+> derived AVE prediction for the displacement pump is $C = 0$ — i.e. **AVE itself predicts NO
+> gap-independent floor** (there is no derived registry pump). Consequences for the table:
+> - **Outcome C is now the AVE-CONSISTENT expectation, not a falsification of AVE.** "No floor
+>   survives the sweep" is what the *derived* framework predicts; it does not "kill Ax2." Ax2 (the
+>   $[Q]\equiv[L]$ isomorphism) stands on its own grounds independent of a *pumped* displacement
+>   charge — the bench never tested the isomorphism, it tested a putative pump that turns out to be
+>   absent by AVE's own reckoning.
+> - **The bench is one-sided (corroborative-null).** Only an *unexpected* Outcome A — a gap-independent
+>   integer floor surviving the $\ge4\times$ sweep — would be a signal, and it would be a signal
+>   *against* the current derived null (a REOPENS trigger for `clm-clvchn`), not a "chord confirmed."
+>   The legacy "Outcome A → chord confirmed, foreword-promotion-grade" reading is **retired**: a
+>   positive floor now contradicts the derived null and must be adjudicated as a reopening, not a
+>   confirmation.
+> - **Do NOT build this bench as a chord-confirmation.** It retains value only as a one-sided
+>   falsifier / SM-vs-AVE null cross-check. The three fingerprints of the (now-null) registry
+>   mechanism — sidereal/orientation period-modulation, fixed-gap moving-slab null, and the staircase
+>   phase-native readout — are retained as diagnostics **for any future REOPENS**, not as live bench
+>   corners (see the requirements leaf). The chord-gating prose in this section is preserved as the
+>   bench's historical framing; read it through this rescope.
 
 ### Femto-side (cross-repo) propagation status (2026-06-22)
 

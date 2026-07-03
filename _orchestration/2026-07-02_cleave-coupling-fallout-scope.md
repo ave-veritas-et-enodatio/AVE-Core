@@ -141,3 +141,35 @@ Per cross-repo-session-scope: these are Femto-repo edits, NOT performed here. En
   5, 6, 7, 9 — plus the formal claim-quality row.
 - **Unresolved flags (surfaced, not fixed):** the 2√2 / sign-convention ambiguity (item 8, OPEN);
   the OA k→0 coupling (item 8); the full N-band `Link(∂Ω, F)` srs upgrade path (result §5).
+
+---
+
+## ★ MISSION-2 EXECUTION STATUS (2026-07-02, branch `analysis/cleave-nband-chern`)
+
+The N-band upgrade RAN (the gated §5 path): `research/2026-07-02_cleave-registry-pump-chern-nband_result.md`
+— **NULL-CONFIRMED-FINAL** ($C_N=0$ both readings, both enantiomorphs, gapped + converged, VOK PASS).
+The coupling question is now **CLOSED** per Grant's frozen last-roll pre-commitment. With the FINAL
+verdict in hand, the previously-[GATED-ON-RESULT] AVE-Core items are EXECUTED this branch:
+
+- **Item 1 (project-cleave-01.md coupling-status) — EXECUTED.** Full rewrite: NULL-CONFIRMED-FINAL
+  header + **Outcome-C rescope** (Outcome C is now the AVE-consistent expectation, NOT a falsification;
+  the bench is a one-sided corroborative-null discriminator; legacy chord-gating prose preserved as
+  historical per Rule 12, no in-doc banner). Back-linked to `clm-clvchn` (frontmatter + Tier-2 marker).
+- **Item 2 (requirements leaf) — EXECUTED.** Final disposition: the three new corners are **moot for
+  THIS bench** (fingerprints of the now-null mechanism), retained as diagnostics for any future
+  REOPENS; legacy `CLV-REQ-*` specs kept for the one-sided-falsifier reading. Supersedes the #454
+  "add-as-axes" note.
+- **Item 5 (forward-prediction register) — EXECUTED.** New §2.9: Cleave/Ax2 = **RETIRED-AS-DISCRIMINATOR**
+  (corroborative-null class).
+- **Item 7 (def-tk1xfm) — EXECUTED.** Ceiling **REAFFIRMED by a computed null** (KEEP-BOTH one-liner in
+  the vocabulary-register entry).
+- **Item 10 (claim-quality) — EXECUTED.** `clm-clvchn` row minted in `vol4/claim-quality.md`
+  (solidity 0.85, NULL-CONFIRMED-FINAL, scope history 2-band → N-band).
+- **STILL REMAINING:** Item 3 (AVE-Bench-FemtoElectrometer stale sites) stays **[SEPARATE SESSION]**
+  per cross-repo discipline — the sibling repo is NOT touched this branch. Item 6 (ξ_topo cascade
+  coupling-vs-unit-bridge per-leaf audit) remains a follow-on scope item (preliminary read: SAFE =
+  unit-bridge, the null does not disturb unit-bridge uses). Item 9 (D4 trade-study staircase knob) is
+  moot given the retirement (folded into item 2's disposition).
+- **Unresolved flags carried:** the 2√2 / sign-convention ambiguity (still OPEN; the null does not
+  depend on it); the OA k→0 coupling (OPEN). The N-band `Link(∂Ω,F)` upgrade path (result §5.2 / the
+  claim-quality strengthen-by) is the only remaining route and is a *strengthen-by*, not a reopen.

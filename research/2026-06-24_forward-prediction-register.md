@@ -262,6 +262,36 @@ reproduces SM at current sensitivity; corroborated-null = agrees with both data
 
 ---
 
+### 2.9 Cleave-01 plate-displacement charge coupling — Ax2 bench: **RETIRED-AS-DISCRIMINATOR** (2026-07-02)
+
+- **Claim (prior).** Mechanically displacing a capacitor plate pumps topological
+  charge `Q = ξ_topo·x` (dQ/dx = e/ℓ_node = 414.9 fC/µm), a bench falsifier of
+  Axiom 2 (`[Q] ≡ [L]`).
+- **Derivation status → NULL-CONFIRMED-FINAL.** The coupling was ASSERTED (a
+  `def-tk1xfm` unit-bridge, not a mechanism). A three-angle adversarial derivation
+  returned UNDECIDABLE-AT-PAPER with a single surviving candidate — an adiabatic
+  Thouless registry pump over the 4₁ screw. Grant ruled (b): the engine
+  adjudicates. Both the 2-band
+  (`research/2026-07-02_cleave-registry-pump-chern_result.md`) and the faithful
+  **N-band** srs occupied-manifold Chern
+  (`research/2026-07-02_cleave-registry-pump-chern-nband_result.md`) return
+  **C = 0** in BOTH substrate readings (sliding + locked) and BOTH enantiomorphs
+  (gapped, grid-converged, validate-on-known PASS). The registry-pump mechanism is
+  dead; per Grant's frozen last-roll pre-commitment the coupling question CLOSES.
+- **Disposition.** **AVE itself predicts the bench null** — there is no derived
+  displacement pump. The bench is **corroborative-null class**: it is NOT a
+  chord-confirming forward prediction. It retains one-sided value as a *falsifier*
+  (a nonzero gap-independent integer floor surviving a ≥4× gap-sweep would still
+  falsify AVE), so it is a **do-not-build-as-a-chord-confirmation** discriminator,
+  kept only as a one-sided kill-test.
+- **SM/QED divergence.** None at the derived level: both frameworks predict the
+  null (SM: no displacement charge; AVE: C=0 pump). The `ξ_topo = e/ℓ_node` slope
+  is a VALUE-import (unit-bridge), not an AVE-distinct magnitude.
+- **Winding channel?** It probes the T2 winding sector, but the *derived* answer is
+  a null — it is not a live winding-channel chord.
+
+---
+
 ## 3. WINDING-CHANNEL SUMMARY (what S1 unlocks)
 
 S1 (the (2,3) winding as a separately-conserved DOF) **PASSED** 2026-06-24
