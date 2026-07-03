@@ -127,6 +127,163 @@ two places:
 > divergence from SM / GR / ΛCDM; the FORM-EXISTENCE vs FORCED-RATIO split above
 > is the chord-class lens over that catalog.
 
+## Why the pattern holds (Wilsonian universality) — and where the teeth live
+
+The per-constant record above is not an accident of which targets we happened to
+pick. It is the **empirical footprint of Wilsonian universality**, and reading it
+that way tells us — precisely — where an AVE-distinct test can and cannot live.
+
+### (a) The WHY — renormalization is an insensitivity proof, not a wound
+
+Renormalization in the incumbent frameworks (QED, the SM, GR-as-EFT) is
+routinely narrated as a defect — infinities swept under a rug. Read
+substrate-natively it is the **opposite**: it is a *proof of insensitivity to
+microphysics*. Wilsonian universality states that **any UV completion carrying
+the right symmetries flows to the same IR physics**; the microscopic differences
+between completions are carried entirely by **irrelevant operators**, suppressed
+by powers of $(E\cdot\ell_{node})$ (the ratio of the probe energy to the node
+scale). At laboratory energies $E\ell_{node}\lll1$, so those differences are
+invisible **by construction** — the incumbent cannot see them not because it is
+wrong but because it is *insensitive* to them.
+
+A **divergence** in an incumbent calculation marks **exactly the place where that
+framework cannot see its own microphysics** — the loop integral runs up to a
+cutoff the theory refuses to name, and the physics of the cutoff is precisely the
+node-scale physics AVE claims to *be*. So the incumbent's "the value is a free
+parameter I must measure and feed in" is the same statement as AVE's "this is a
+calibration input the substrate is fed."
+
+**Consequence — the meta-finding is universality's footprint, not AVE's defect.**
+A divergence-adjacent target (a coupling renormalized in the incumbent, a mass
+that runs, a vacuum response whose leading coefficient is a counterterm) will
+**systematically return FORM-forced / VALUE-imported** in AVE: the incumbent's
+insensitivity to the node scale is *why* AVE can force the dimensionless FORM (the
+symmetry/topology content that survives the RG flow) while the dimensionful VALUE
+(the coefficient the incumbent absorbs into a counterterm) remains a calibration
+input on both sides. The pattern this leaf tabulates — α echo, G mixed, K=2G
+GR-imported, E_yield value-echo — is therefore **expected**: it is what
+universality *predicts* an honest lattice theory will find when it audits its own
+targets against a renormalizable incumbent. It is not a symptom that AVE is
+"just" the incumbent re-derived; it is the signature that AVE sits at the *right
+level* — below the cutoff the incumbent draws.
+
+> **On invoking incumbent "problems."** When a divergence tempts you to inherit
+> the incumbent's *problem* as AVE's problem (e.g. "the substrate-scale field
+> energy is 30 OOM over the observed dark-energy density — the cosmological
+> constant catastrophe persists in AVE"), that is a **projection-vs-measurement
+> category question**, not a magnitude match. It is gated by the
+> **`ave-canonical-leaf-pull` skill's projection-trace rule** (its rule (e):
+> (e-i) projection resolves / (e-ii) projection-incomplete / (e-iii)
+> genuine-shared-problem, the load-bearing gate). **Do not duplicate that
+> machinery here** — run the skill. The single incumbent SELF-contradiction where
+> divergence-hunting is *legitimately* AVE's too is named in (b-iv) below, and it
+> routes through exactly that (e-iii) gate.
+
+### (b) Where the teeth live (the corollary)
+
+Universality says the FORM/VALUE pattern is generic, but it also says — sharply —
+where a genuinely AVE-distinct, experiment-discriminating test *can* live. The
+teeth are the places universality does **not** cover:
+
+- **(b-i) Loop-suppression points.** Effects the incumbent *predicts* but
+  loop-suppresses or $(E/m)^n$-suppresses, where a **real medium responds at tree
+  level**. Universality guarantees the incumbent's IR answer only up to
+  irrelevant operators — but a *dispersive medium* that actually carries the
+  microphysics responds to those same operators at **tree level**, with no loop
+  factor. The existence proof is the **E-route birefringence coefficient**
+  (`clm-pp3qwf`): QED sources vacuum birefringence at $\alpha^2$-loop
+  (Euler–Heisenberg), AVE's graded medium at tree level, giving the
+  field-independent COEFFICIENT ratio $\delta n_{AVE}/\delta n_{QED} =
+  7.5/\alpha^3 \approx 1.93\times10^{7}$ (~$10^7\times$). That ratio is a tooth
+  precisely because it lives in the *loop-vs-tree* gap universality leaves open,
+  not in a magnitude universality forces to agree.
+
+- **(b-ii) Incumbent tensions.** Where the incumbent's own data-vs-model
+  disagreements sit (the $H_0$ / $S_8$ class of tensions). Universality tells you
+  the two incumbent completions agree in the IR — but a *tension* is the incumbent
+  disagreeing with **data**, which is the one place a different microphysics is
+  licensed to matter. These are teeth by virtue of being where the incumbent is
+  already *known* to be incomplete, not merely insensitive.
+
+- **(b-iii) Structure-without-mechanism WITH a number attached.** Where the
+  incumbent has a *structure* it cannot mechanize (a pattern it parametrizes but
+  does not derive) **and there is a number attached**. Mechanizing the structure
+  at *peer* accuracy is an **echo** (you reproduced what the incumbent already
+  fits). The **tooth is the forced number** — the dimensionless ratio the AVE
+  mechanization *forces* that the incumbent had to *fit*. (This is the forced-ratio
+  category of "The testing consequence" above, sharpened: a mechanism is a chord
+  only when it *emits* a number the incumbent had to import.)
+
+- **(b-iv) The one genuine incumbent SELF-contradiction.** The
+  vacuum-energy / $\Lambda$ catastrophe is the single place where the incumbent
+  contradicts *itself* (its own vacuum-energy sum vs its own gravitational
+  response) rather than merely being insensitive — so divergence-hunting there is
+  **legitimate**. But whether it is *also* AVE's problem is **not** a magnitude
+  match: it is gated on the projection-trace rule (a) points at — it becomes AVE's
+  problem only under the skill's **(e-iii)** determination (the projection chain
+  provably produces magnitude-equality with the raw substrate energy). The default
+  is **(e-i)** — the DE observable is a *projection* of bulk substrate dynamics, not
+  a sum of microscopic over-bracing energies, so the "30 OOM" framing is a category
+  error, not an inherited catastrophe. **Route it through the skill, do not book it
+  here.**
+
+### (c) The observable-level instance list (the ladder)
+
+The FORM/VALUE split is not confined to the calibration-constant level; it
+operates **at the observable level too**, as a ladder of discriminating power:
+
+> **magnitude → ratio → sign → existence**
+
+— where the **form-end of the ladder is what survives an honest knife**. A raw
+magnitude is the weakest (it is echo-by-construction, per "The testing
+consequence"); a ratio strips the dimensionful echo; a sign strips even the ratio
+to pure structure; an existence claim is the bare FORM. When a magnitude is
+knocked out (blocked, null, or retracted), the surviving form-end content is where
+the real content — chord *or* consistency-infrastructure — lives. Three
+2026-06/07 instances, each a rung-collapse under an honest knife:
+
+- **Cleave: slope → gap-independence-shape → (coupling NULL).** The Cleave-01
+  bench began as a displacement-charge *slope* ($dQ/dx = 414.9$ fC/µm); the
+  audit stripped the magnitude to its **gap-independent, polarity-odd,
+  linear-in-$x$ FORM** (a Thouless registry-pump shape); then the engine computed
+  the pump's Chern number and returned **$C=0$ — NULL-CONFIRMED-FINAL**
+  (`clm-clvchn`). The magnitude was a $\xi_{topo}$ unit-bridge import; the
+  form-end survived the audit *as a shape* but the mechanism it required is dead.
+  The bench retires as a corroborative-null-class falsifier (AVE predicts the
+  null), not a chord.
+
+- **Writhe: |F|-magnitude → interaction-SIGN → Coulomb-recovery** (`clm-wcoul2`,
+  2026-07-03). The winding-pair force campaign began as a dimensionless
+  *|F|-ratio* $R=|F|_{co}/|F|_{anti}$ chord; the **magnitude-R was BLOCKED**
+  (knot overlap ⇒ no plane-conservative integral; Yukawa screening ⇒ no
+  source-free far-field); what survived to the form-end was the **SIGN**: like
+  windings **repel**, unlike **attract** — signed-Coulomb under Axiom 2's own
+  winding=charge mapping, mediated by the gapped ω sector, electric-not-magnetic
+  (opposite the classical current-loop rule). **Note — a consistency landing that
+  DERIVED an axiom leg.** The sign is signed-Coulomb, which is SM-shared, so by the
+  symmetric standard it is **CONSISTENCY-class, not a chord** — but resolving it
+  **DERIVED the Ax2 INTERACTION leg** (the first engine-derived winding-pair
+  interaction, the coupling-class content the Cleave arc lacked). Consistency
+  results are **enabling infrastructure**: each is booked with the question *"what
+  hunt does this newly enable?"* — here, the interaction leg is the substrate on
+  which any future winding-pair chord (a magnitude, once the range/mediator scale
+  is de-knobbed) must stand.
+
+- **Birefringence: exponent(retracted) → coefficient → existence+form**
+  (`clm-pp3qwf`). The vacuum-birefringence falsifier began as a field-**exponent**
+  discriminator ("AVE $E^4$ vs QED $E^2$"); that rung was **RETRACTED** (Rule 12,
+  2026-06-04) as a $\sqrt{\varepsilon}$-conflation false-falsifier — both AVE and
+  QED are $E^2$-leading. The surviving form-end is the field-independent
+  **COEFFICIENT** ($7.5/\alpha^3$, the (b-i) tree-vs-loop tooth) plus the bare
+  **existence + form** of a native-birefringent vacuum (a structure the SM vacuum
+  lacks). The exponent rung fell; the coefficient-and-existence form-end stands.
+
+> **The ladder is the teeth-corollary made operational.** Rungs collapse
+> downward under honest knives (Rule 11 / A47 v11b); the surviving form-end is
+> either a chord (b-i/b-iii) or consistency-infrastructure that *enables* a future
+> chord (writhe). A magnitude at the top of the ladder is echo-by-construction and
+> is never, on its own, the AVE-distinct content.
+
 ## Where the pieces live (consolidation map)
 
 This leaf is the prose umbrella; the load-bearing machinery lives elsewhere and
@@ -162,6 +319,16 @@ this leaf points at it (consolidate, don't duplicate):
   new derivation.
 - **The testing consequence** — [`divergence-test-substrate-map.md`](divergence-test-substrate-map.md)
   (the FORM-EXISTENCE vs FORCED-RATIO chord-class lens; ν_vac cascade).
+- **The Wilsonian-why projection-trace gate** — the `ave-canonical-leaf-pull`
+  skill's rule (e) (projection-trace before invoking an incumbent "problem";
+  (e-i)/(e-ii)/(e-iii)). The §"Why the pattern holds" (b-iv) Λ-catastrophe gate
+  routes through it; **not duplicated here**.
+- **The observable-level ladder instances** — Cleave slope→shape→null
+  `clm-clvchn` ([`vol4/claim-quality.md`](../vol4/claim-quality.md), on main);
+  writhe |F|→sign→Coulomb `clm-wcoul2` ([`vol4/claim-quality.md`](../vol4/claim-quality.md),
+  **lands with PR #466 `analysis/writhe-campaign-linear-channel`** — this leaf's
+  ladder cite stacks on it); birefringence exponent→coefficient→existence
+  `clm-pp3qwf` ([`vol4/claim-quality.md`](../vol4/claim-quality.md), on main).
 - **The settled SOURCE doc** — `research/2026-06-15_form-deriving-value-importing_meta-finding.md`
   (the α-triangulation synthesis this leaf promotes to canonical register).
 

@@ -210,6 +210,46 @@ content. The count drops `4 → 3` only if an axiom's *whole* content becomes a
 theorem of the others + a bare pre-existing identification (DERIVED-TO-THEOREM),
 which the Axiom-4 full-reduction epic would test but has not established.
 
+## Per-axiom DERIVED-LEGS (dictionary-vs-dynamics decomposition)
+
+A finer view than the `status` axis: each axiom is decomposed into (1) what it
+**DEFINES** (its *dictionary* content — a naming/identification, not a dynamical
+claim), (2) what **dynamics** it **ASSERTS**, and (3) which of those assertions
+the **engine has DERIVED** (with `clm-` / result cite) vs which remain
+**ASSERTED / OPEN**. This is the P1 audit template made canonical: **the
+underived legs ARE the next-arc map** — each ASSERTED/OPEN cell is a live
+derivation target. A DERIVED leg does **not** change the axiom's `status` (an
+axiom's dynamics being partly engine-confirmed is a *content* fact; only whole
+content becoming a theorem-of-the-others moves the count — see the status axis).
+
+| Axiom | DEFINES (dictionary) | ASSERTS (dynamics) | DERIVED (engine, cited) | ASSERTED / OPEN |
+|---|---|---|---|---|
+| **1** | the substrate: K4 Cosserat crystal lattice + per-node 6-DOF (3 transl→$\varepsilon_0$, 3 microrot→$\mu_0$) | the lattice *responds* — impedance, screw kinematics, buckling | **three-impedance law** ($Z_{EM}/Z_{shear}/Z_{bulk}$, graded-network); the **$4_1$ screw operator** (chiral holonomy); the **buckling-kernel SHAPE chain** (fixed-arc-length strut projection → Axiom-4 √ form, PRs #459/#460) | the **D1 $z{=}3$-vs-$z{=}4$ production identity** (unified-srs arc tension — bare srs instrument $z{=}3$ vs diamond production engine $z{=}4$); the **continuum-limit legs** (rigorous lattice→continuum) |
+| **2** | $[Q]\equiv[L]/\xi_{topo}$ — charge = Burgers-vector dislocation ($\xi_{topo}\equiv e/\ell_{node}$) | HOW windings interact (coupling class); charge sign; formation; $\mathbb{Z}_3$ splitting | the **INTERACTION leg** — `clm-wcoul2` (2026-07-03, **lands with PR #466**): like windings **repel** / unlike **attract**, signed-Coulomb sign structure under the winding=charge mapping, gapped-ω-mediated (electric-not-magnetic) — the **first engine-derived winding-pair interaction** (CONSISTENCY-class; sign-only, magnitude BLOCKED) | **computed-NULL:** the **displacement-PUMP leg** — `clm-clvchn` (**NULL-CONFIRMED-FINAL**, $C{=}0$ registry-pump Chern over the $4_1$ texture). **ASSERTED/OPEN:** winding-**formation**/genesis (leans-falsified *as a route*, not as existence); **fractional-charge $\mathbb{Z}_3$** splitting |
+| **3** | lossless-reactive extremal principle, in two co-canonical FORMS: **variational** ($\mathcal{L}_{node}$) and **boundary** (min $|\Gamma|^2$) | the substrate *evolves toward* the extremum (and the two forms agree) | **Noether consequences** in the continuum limit (conservation laws — *with the emergent-Lorentz qualifier*) | **ASSERTED-not-derived:** the **variational ↔ min-$|\Gamma|^2$ equivalence** — the EL-continuity argument is **loose** (field continuity holds at *reflecting* boundaries too, so "EL ⟹ $|\Gamma|^2$-minimum" is not tight); an **underived dynamics leg** awaiting its own engine adjudication: *"does the engine evolve toward reflection minima?"* |
+| **4** | $S(A)=\sqrt{1-(A/A_{yield})^2}$ — the universal saturation kernel | the response *has this specific √ shape*, with a yield anchor, combined across grades | the kernel **SHAPE** (the √ form is a robust α-free geometric theorem — fixed-arc-length strut projection, exact in $u=A/arc^*$ for any $\rho$; buckling-kernel arc, **conditional on the $arc^*$/K=2G anchor** — see this register's Axiom-4 `residual_content` + `derived_by`, PRs #459/#460) | **cross-grade combine rule** underdetermined at $O(\alpha)$ (**PR #457**); the ceiling's **HARDNESS** (yield *exists* — derived — vs yield is *hard/impulsive* — open); the **yield-anchor $arc^*$ = K=2G import** (GR-imported value, standing `Chain B′` in [`interlock-register.md`](interlock-register.md)) |
+
+> **Non-conflation guard (Axiom 2, load-bearing).** `clm-wcoul2` (the DERIVED
+> interaction leg) and `clm-clvchn` (the NULL pump leg) are **different
+> observables** — the pair-interaction SIGN over the mid-plane ω-field
+> normal-stress vs the single-plate displacement→charge registry-pump Chern. **The
+> derived pair-interaction does NOT reopen the pump / Cleave-01.** A REOPEN of
+> `clm-clvchn` needs a nonzero gap-independent displacement-charge floor, which
+> `clm-wcoul2` neither measures nor implies.
+>
+> **Consistency legs are enabling infrastructure.** `clm-wcoul2` is CONSISTENCY-
+> class (signed-Coulomb is SM-shared) — booked here **not** as a chord but because
+> it **derives an axiom's dynamics leg**. Each such leg is recorded with *"what
+> hunt does this newly enable?"*: the Ax2 interaction leg is the substrate any
+> future winding-pair *magnitude* chord must stand on (once $\omega_{gap}$ is
+> mapped to $\Omega_C$ and a plane-conservative force integral is found —
+> `clm-wcoul2` strengthen-by).
+>
+> **Merge-order note.** `clm-wcoul2` is minted on
+> `analysis/writhe-campaign-linear-channel` (PR #466); if that has not merged when
+> this register lands, the Axiom-2 DERIVED cell **stacks on PR #466** (verified
+> present in this branch's tree, absent from `origin/main` at authoring time).
+
 ## Schema / gate note (flagged for the auditor + Grant — NOT built this pass)
 
 This register is a **VIEW leaf** and needs no new node-type to be correct today:
