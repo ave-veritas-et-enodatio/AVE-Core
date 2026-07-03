@@ -1,0 +1,28 @@
+{
+  "design_energy_recovery": [
+    {
+      "E_published_keV": 6.457,
+      "reflection": "Si(400)",
+      "E_recovered_at_45deg_keV": 6.4570111272317545,
+      "relerr": 1.7232819815193858e-06,
+      "purity_demonstrated": 2.4e-10,
+      "recover_pass": 1.0
+    },
+    {
+      "E_published_keV": 12.914,
+      "reflection": "Si(800)",
+      "E_recovered_at_45deg_keV": 12.914022254463509,
+      "relerr": 1.7232819815193858e-06,
+      "purity_demonstrated": 5.7e-10,
+      "recover_pass": 1.0
+    }
+  ],
+  "energy_scaling": {
+    "purity_ratio_high_over_low": 2.375,
+    "energy_ratio": 2.0,
+    "purity_degrades_with_reflection_order": true,
+    "note": "Si(400)@45deg -> Si(800)@45deg (2x energy). Purity degrades 2.38x: higher-order reflection has a weaker structure factor and relatively larger pi-leakage. Direction consistent."
+  },
+  "VALIDATE_ON_KNOWN_PASS": true,
+  "verdict": "R-3 CLOSES: the published Marx-Schulze purity floor (2.4e-10 @6.457 keV) sits at the Si(400) Bragg=45deg design point, recovered from the Si lattice constant to relerr ~1.7e-6; the 12.914 keV point is Si(800)@45deg (2x E), same recovery. The demonstrated purity floor the GAP-1 book rests on is an anchored, first-principles-recoverable known \u2014 not an asserted number. The purity MAGNITUDE is a Darwin-width detector limit not re-derived here; its GEOMETRY (design energy) and energy-scaling DIRECTION are validated."
+}

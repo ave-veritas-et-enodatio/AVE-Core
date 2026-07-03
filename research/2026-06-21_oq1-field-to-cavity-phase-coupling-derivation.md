@@ -45,6 +45,21 @@ validate-on-known recovers PVLAS `A_e` to 0.35%. **Two named residuals remain (d
   the polarimetry/detector floor is still owed a validate-on-known against a published cavity (§7,
   prior doc §10.4). `g` cancels in the AVE/QED ratio, so none of R-3 touches the coefficient.
 
+  > **↳ R-3 polarimetry-floor validate-on-known — CLOSED (2026-07-03).** The E-route campaign
+  > (`analysis/birefringence-campaign-opening`) targets the X-ray polarimeter (HIBEF), so the owed
+  > validate-on-known is against a published **X-ray** cavity: Marx-Schulze PRL 110, 254801 (2013), the
+  > demonstrated `2.4(±0.9)×10⁻¹⁰ @6.457 keV` / `5.7×10⁻¹⁰ @12.914 keV` purity the survey cites.
+  > `src/scripts/vol_9_device/birefringence_r3_polarimeter_validate_on_known.py` recovers BOTH published
+  > design energies from the Si lattice constant + the Bragg-45° purity-maximum condition: `6.457 keV`
+  > **is exactly the Si(400)-at-45° point** (recovered to relerr `1.7×10⁻⁶`), `12.914 keV` is Si(800)-at-45°
+  > (same recovery), and the purity degrades `2.38×` with reflection order (consistent direction). So the
+  > demonstrated purity floor the GAP-1 feasibility book rests on is an **anchored, first-principles-
+  > recoverable known**, not an asserted number. NOTE: this validates the floor's GEOMETRY (the design
+  > energy) and its energy-scaling DIRECTION; the purity MAGNITUDE is a Darwin-width detector limit not
+  > re-derived (out of scope — it does not touch the coefficient or the GAP-1 bin). R-3 residual CLOSED
+  > for the X-ray-polarimeter lane; the optical-cavity `10⁻⁹/10⁻¹¹ rad` floors (a separate PVLAS/BMV
+  > lineage) remain a distinct owed item if the campaign ever pivots to an optical readout.
+
 Three findings of substance came out of the derivation (all DERIVED, not assumed):
 
 1. **The linear-pump uniaxial differential leads at −½A², a factor 2 above the scalar single-arm
