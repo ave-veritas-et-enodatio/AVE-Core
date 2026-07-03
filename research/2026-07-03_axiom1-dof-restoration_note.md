@@ -114,7 +114,60 @@ Bethe-lattice admittance sum silently changes a numerical result. **flag-don't-f
 
 ---
 
-## 3. THE NEW SENTENCE (verbatim) — see §THE-REWRITE below (filled at edit time)
+## 3. THE NEW SENTENCE (verbatim, eq_axiom_1.tex:37)
+
+> The physical vacuum IS a **chiral Laves K4 Cosserat crystal** --- a 3D crystallized
+> substrate of nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$
+> chiral space group, with **3-fold ($z=3$) chiral srs (Sunada-K4 / Laves)
+> nearest-neighbor connectivity** at each node.
+
+(Only the connectivity clause changed. The rest of the DOF sentence — 6 intrinsic DOF,
+3 translational ↔ E/ε₀ ⊥ 3 microrotational ↔ B/μ₀, the Cosserat spin origin — is
+byte-for-byte preserved.) The former clause was:
+`with \textbf{4-fold (z=4 diamond) nearest-neighbor connectivity} at each node in the production engine.`
+
+Engine-implementation status moved to (i) the provenance comment block (lines 11-34) and
+(ii) the D1 in-body block (line 43, "DOF-sentence restoration (2026-07-03, completed)").
+
+## SITES EDITED (this arc) vs DEFERRED
+
+**Edited (7 files, 3 commits):**
+- `eq_axiom_1.tex` (a1 — DOF sentence + D1 block + provenance comment) — commit a047461a
+- `axiom-register.md:145,:147` (a2, a3 — canonical-statement + provenance) — commit 34510d3c
+- `axiom-definitions.md:16` (a4 — KB mirror) — commit 34510d3c
+- `vocabulary-register.md` (d1-d4 — stale eq_axiom_1.tex:35/:37/:23-24/:18-21/:18 cites in def-4b1a2c + def-7c3f9e re-pinned) — commit 34510d3c
+- `backmatter/12_mathematical_closure.tex:77` (a5) — commit 50c475bf
+- `vol_9.../01_general_description.tex:18` (a6) — commit 50c475bf
+- this research note
+
+**DEFERRED / FLAGGED (not this arc):**
+- **a-fig1** `node_anatomy.tex:16,:22` — figure geometry (3-strut re-render); datasheet-figure arc.
+- **d5** `unified-engine-design-doctrine.md:236` — Vol-4 leaf's flag-don't-fix block cites
+  `eq_axiom_1.tex:37` verbatim for "D1 adjudication, 2026-06-12 … z=4 diamond" (content
+  DELETED by 63fea0ae). This leaf owns its own flag-don't-fix record of the 2026-06-25-vs-.tex
+  tension and names its canon-propagation as auditor-lane work. FLAG-ONLY (auditor queue).
+- **c/c′** the ENGINE-SCOPED diamond descriptions (print-kit `18_experimental_prints`,
+  `vol9/ch18-.../index.md`, `numerical-provenance-manifest.md`) and the z=4-as-K4-coordination
+  DERIVATION-USES (Bethe-lattice/Higgs, water z/3, K=2G FORM, Kirkwood-Fröhlich, src loops):
+  migration-policy P0/P1/P2 territory. NEVER edited here. Editing z=4→z=3 in a Bethe-lattice
+  admittance sum is a physics re-derivation, not a documentation edit.
+- **Historical research notes** (`neutrino-3-regrounding-check.md`, `grid-definition-cartography.md`,
+  `vol0-kb-reconciliation-ledger.md`, `figure-audit-ledger.md`, `vacuum-cell-representative-print.md`,
+  `genesis-v9`, `vocab-operator-unification-audit.md`) quote the OLD eq_axiom_1.tex:20/:26/:35
+  z=4 content verbatim: these are DATED snapshots (correct as-of-their-date), NOT canon; git is
+  the audit trail. NOT retroactively edited. (Note: several pre-date even the 2026-06-25 z=3
+  ratification and record the then-live z=4 wording faithfully.)
+
+## SWEEP COUNTS (per category)
+
+| Category | Count | Disposition |
+|:--|:--:|:--|
+| (a) MUST-CHANGE substrate-connectivity axiom-restatements | 6 | ALL EDITED this arc |
+| (a-fig) figure geometry depicting z=4 substrate | 1 file (2 lines + geometry) | DEFERRED (datasheet-figure arc) |
+| (b) ALREADY-CORRECT (z=3/srs) | 7+ | no edit needed |
+| (c) ENGINE-SCOPED diamond-as-implementation | ~5 manuscript + src | migration-policy territory, LIST-only |
+| (c′) z=4-as-K4-coordination DERIVATION-USES | ~9 manuscript + ~20 src | DISTINCT PHYSICS, flag-don't-fix, LIST-only |
+| (d) STALE-CITE to eq_axiom_1.tex | 5 (d1-d4 in-scope FIXED; d5 flagged) | 4 fixed, 1 flagged to auditor |
 
 ## 4. Register / vocab findings (INVARIANT-S12)
 
