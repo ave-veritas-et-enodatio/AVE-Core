@@ -1,0 +1,75 @@
+{
+  "prereg": "research/2026-07-03_localization-readjudication_prereg.md",
+  "step": "1 \u2014 native-diamond positive control",
+  "pipeline": "IDENTICAL classify()+run_native_imex imported verbatim",
+  "N": 24,
+  "routes": {
+    "route1_low_lambda_localized_eigenmode": {
+      "constructed": true,
+      "route1_lambda": 0.0669872981077695,
+      "route1_participation_frac": 0.11354318255683725,
+      "label": "route1_low_lambda_localized_eigenmode",
+      "nullspace_fraction_N24": 3.6565293975814234e-32,
+      "live_fraction_N24": 1.0,
+      "nullspace_dim_N24": 16,
+      "verdict": "MODE_I_PERSIST",
+      "bins": {
+        "I-1 mean V_peak > 0.2": true,
+        "I-2 breathing std/mean > 0.05": true,
+        "I-3 not diverging std/mean < 0.5": true,
+        "I-4 saturation engaged n_EM < 0.97": true,
+        "I-5 above radiation floor (>1.5x gaussian late)": true,
+        "I-6 bounded max|V| < 10": true
+      },
+      "v_peak_mean_post": 0.505413194762226,
+      "v_peak_std_over_mean_post": 0.4330029165135836,
+      "max_abs_over_run": 0.8497516743767487,
+      "persist_is_frozen_artifact": false
+    },
+    "route2_single_sublattice_localized": {
+      "constructed": true,
+      "route2_note": "even-sublattice-only sech",
+      "label": "route2_single_sublattice_localized",
+      "nullspace_fraction_N24": 0.6719918044919843,
+      "live_fraction_N24": 0.32800819550801574,
+      "nullspace_dim_N24": 16,
+      "verdict": "MODE_III_DISPERSE",
+      "bins": {
+        "I-1 mean V_peak > 0.2": true,
+        "I-2 breathing std/mean > 0.05": true,
+        "I-3 not diverging std/mean < 0.5": true,
+        "I-4 saturation engaged n_EM < 0.97": true,
+        "I-5 above radiation floor (>1.5x gaussian late)": false,
+        "I-6 bounded max|V| < 10": true
+      },
+      "v_peak_mean_post": 0.31539073880463875,
+      "v_peak_std_over_mean_post": 0.20000219538161118,
+      "max_abs_over_run": 0.8496082066165972,
+      "persist_is_frozen_artifact": false
+    },
+    "route3_nullspace_orthogonal": {
+      "constructed": true,
+      "route3_null_modes_removed": 16,
+      "route3_note": "v14 sech projected out of L_D near-nullspace",
+      "label": "route3_nullspace_orthogonal",
+      "nullspace_fraction_N24": 1.9567183666460777e-29,
+      "live_fraction_N24": 1.0,
+      "nullspace_dim_N24": 16,
+      "verdict": "MODE_III_DISPERSE",
+      "bins": {
+        "I-1 mean V_peak > 0.2": true,
+        "I-2 breathing std/mean > 0.05": true,
+        "I-3 not diverging std/mean < 0.5": true,
+        "I-4 saturation engaged n_EM < 0.97": true,
+        "I-5 above radiation floor (>1.5x gaussian late)": false,
+        "I-6 bounded max|V| < 10": true
+      },
+      "v_peak_mean_post": 0.21997695533693395,
+      "v_peak_std_over_mean_post": 0.3219443045878602,
+      "max_abs_over_run": 0.8491724824288356,
+      "persist_is_frozen_artifact": false
+    }
+  },
+  "STEP1_VERDICT": "INSTRUMENT_CAN_SEE_TRAP",
+  "STEP1_REASON": "routes ['route1_low_lambda_localized_eigenmode'] read MODE_I_PERSIST with a GENUINE live fraction (not a frozen-nullspace artifact) \u2192 the diamond readout CAN register bound; the original DISPERSE verdicts regain partial standing."
+}
