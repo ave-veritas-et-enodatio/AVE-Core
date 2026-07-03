@@ -110,6 +110,8 @@ The canonical electron is a $0_1$ unknot (real-space curve) carrying a Beltrami 
 | $A^2_{\text{local}}$ | $\approx 0$ — vacuum |
 | $S_{\text{local}}$ | $\approx 1$, $Z_{\text{eff}} \approx Z_0$, $c_{\text{eff}} \approx c_0$ |
 
+> **↗ Rotation/tail-flavor tag (2026-07-03, KEEP-BOTH — §8 rotation un-conflation, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8; additive).** The $\|\omega\|^2$ "hedgehog tail; exponentially-suppressed" row above is the **GAPPED mechanical Cosserat micro-rotation $\omega$** — short-range because it is massive (Yukawa-screened, `clm-wcoul2`), so its residue decays **exponentially**. It is **NOT** the **gapless EM-$\varepsilon$ Coulomb tail** (the $A_{geom}\propto 1/r$ curl-free static-$E$, massless, at [`translation-circuit.md:541`](../../../common/translation-tables/translation-circuit.md)). Same "tail leaking out," two sectors/decays: mechanical-$\omega$ hedgehog = exponential (gapped); EM-$\varepsilon$ Coulomb = $1/r$ power-law (massless). Reference: [`node-up-small-large-signal.md:39`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md).
+
 But **not perfectly** — there's a long-range effect ($1/r^2$ via Op14 coupling per Vol 3 Ch 3 macroscopic-relativity):
 - **Local clock slowing** persists at long range as $O(GM/rc^2)$ — gravitational analog
 - **Refractive-index gradient** — light bends around the saturated region (gravitational lensing analog, weakly)

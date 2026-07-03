@@ -24,18 +24,24 @@ Characterization + tracking only — not a ranking or a recommendation. Every nu
 ## 0. The discriminator (why field magnitude is not the gate)
 
 Verified in-code (`src/ave/bench/birefringence.py`, origin/main): the substrate identity
-`(E_CRIT/E_YIELD)² = 137.035999 = 1/α` EXACT; `E_YIELD = 1.1304×10¹⁷ V/m`; `B_yield = 3.77×10⁸ T`
-(`= √α·B_crit`). The AVE/QED **ratio is FIELD-INDEPENDENT** — at every reachable field, AVE rides a
+`(E_CRIT/E_YIELD)² = 137.035999 = 1/α` EXACT; `E_YIELD = 1.1304×10¹⁷ V/m`; `B_dual = 3.77×10⁸ T`
+(`= √α·B_crit = E_yield/c`; retagged `B_yield → B_dual` per `def-bdual1` 2026-07-03 — see the scale-name tag below). The AVE/QED **ratio is FIELD-INDEPENDENT** — at every reachable field, AVE rides a
 fixed factor above the QED Euler-Heisenberg signal on a *shared E²-leading slope* (the discriminator is the
 COEFFICIENT, not the exponent; the historical "E⁴" form is retracted as a `√ε` conflation, `clm-pp3qwf`).
 
-> **Scale-name tag (A2 KEEP-BOTH, Grant 2026-07-03).** This doc's `B_yield = 3.77×10⁸ T = E_yield/c` is
+> **Scale-name tag (A2 KEEP-BOTH, Grant 2026-07-03).** This doc's `3.77×10⁸ T = E_yield/c` scale is
 > the **field-amplitude-matched duality scale** — canonically named **`B_dual` (`def-bdual1`, proposed)**
 > to distinguish it from the **energy-density-matched** `B_SNAP = 1.89×10⁹ T`. The two are BOTH correct
 > and answer different questions; they sit on the exact, α-free bridge `B_SNAP/(E_yield/c) = √(8π) =
 > 5.013257` (`clm-bdualb`, `research/2026-07-03_bsnap-byield-sqrt8pi-dissolution.md`). The surface form
 > `B_yield` is overloaded corpus-wide (elsewhere `B_yield = B_SNAP` in the fdtd engine/tests/prose), which
 > is why `B_dual` is the disambiguating name for THIS (duality) scale; no number changes.
+>
+> **↳ RETAG DONE (2026-07-03, PR #476 follow-on hygiene, `def-bdual1` open-ambiguity item).** The three
+> raw `B_yield` uses in this doc (§0 line 27, §Peak-field row, §Coefficient-convention note) are now
+> **retagged `B_yield → B_dual`** (values unchanged). This doc therefore no longer contributes to the
+> `def-bdual1` sense-(b) conflict list; the only `B_yield` mentions remaining here are inside THIS tag
+> block, where the overloaded surface form is quoted deliberately to document the retag.
 
 The highest *real* focused field in the lane (CoReLS, `E ~ 9.1×10¹³ V/m`) is still ~1.2×10³ below `E_YIELD`,
 so `A_E = E/E_yield ~ 6.5×10⁻⁷` even at record intensity. **But the AVE/QED ratio does not depend on field**,
@@ -145,7 +151,7 @@ construction, NOT a static-DC-B response. The correct μ-grade response to a sta
 | Dimension | Range across setups (cited) |
 |---|---|
 | **Ellipticity / polarimetry floor** | B-route (rad-ellipticity): BMV diff-arm shot-noise `~10⁻¹³ rad/√Hz` → PVLAS integrated `1.5×10⁻¹⁰ rad @1600 s` (wideband `~3×10⁻⁷ rad/√Hz` with cavity) → OVAL σ² = 3×10⁻⁷ → VMB@CERN `3.5×10⁻⁷ rad/√Hz`. E-route (X-ray purity, different unit): required `P = 1.4×10⁻¹⁰`, best demonstrated `2.4×10⁻¹⁰ @6.457 keV` [PRL 110, 254801]. Two non-commensurable detector families. |
-| **Peak field** | B-route: PVLAS 2.5 T → BMV 6.5 T (XXL ∫B²L 100 T²m) → OVAL 9 T → VMB@CERN ~8.3 T × 15 m → magnet labs 37-200 T. E-route: `I` from `10²¹ → 10²⁴ W/cm²`; highest real focused field CoReLS `E ~ 9.1×10¹³ V/m`; ELI-Beamlines L4 design `E ~ 2.7×10¹⁴ V/m`. All ~7-9 orders below `E_yield = 1.13×10¹⁷ V/m` / `B_yield = 3.77×10⁸ T` — but the ratio is field-independent, so peak field never gates discrimination. |
+| **Peak field** | B-route: PVLAS 2.5 T → BMV 6.5 T (XXL ∫B²L 100 T²m) → OVAL 9 T → VMB@CERN ~8.3 T × 15 m → magnet labs 37-200 T. E-route: `I` from `10²¹ → 10²⁴ W/cm²`; highest real focused field CoReLS `E ~ 9.1×10¹³ V/m`; ELI-Beamlines L4 design `E ~ 2.7×10¹⁴ V/m`. All ~7-9 orders below `E_yield = 1.13×10¹⁷ V/m` / `B_dual = 3.77×10⁸ T` (= `E_yield/c`; `def-bdual1`) — but the ratio is field-independent, so peak field never gates discrimination. |
 | **Cavity finesse** | B-route tightly clustered `F ~ 4-7×10⁵`, all λ = 1064 nm (PVLAS / BMV / OVAL). E-route: NO Fabry-Perot — single-pass X-ray probe `z ~ 10 µm`, enhancement via dark-field crossed-polarizer + flip-photon yield. |
 | **Dominant systematic** | B-route wall is universally MIRROR INTRINSIC BIREFRINGENCE (caps the whole lineage ~7× short of QED). E-route wall is finite X-ray polarimeter purity (perpendicular-mode scatter) + pump-probe overlap/jitter. |
 | **Integration / duty** | PVLAS 100% DC duty (`T_max = 10⁶ s` target). BMV/OVAL pulsed (ms flat-top, capacitor-recharge-limited). E-route: HIBEF EuXFEL `27,000 pulses/s` but optical ReLaX gates `~1 shot/min`; ELI-ALPS HF 10 Hz (highest PW-class). |
@@ -167,7 +173,7 @@ construction, NOT a static-DC-B response. The correct μ-grade response to a sta
 8. BIREF@HIBEF LoI exact HPLSE journal DOI (Cambridge Core article ID + arXiv:2405.18063 are solid).
 
 **Coefficient-convention note (verified in-code, origin/main):** `(E_CRIT/E_YIELD)² = 1/α` EXACT;
-`E_YIELD = 1.1304×10¹⁷ V/m`; `B_yield = 3.77×10⁸ T`. The field-independent ratio is `a_EH`-dependent, NOT a
+`E_YIELD = 1.1304×10¹⁷ V/m`; `B_dual = 3.77×10⁸ T` (= `E_yield/c`; `def-bdual1`). The field-independent ratio is `a_EH`-dependent, NOT a
 single number: `4.14×10⁶` (7/45 single-mode), `9.65×10⁶` (3/45 differential), `4.42×10⁵` (PVLAS `A_e`
 convention). The prompt's `−½A² + 7.5/α³ = 1.93×10⁷` is exactly 2× the code's differential ratio. Cite as a
 **range `[4×10⁵, 2×10⁷]`**, not a point — physics verdict identical (`~10⁶-10⁷×` QED, field-independent).

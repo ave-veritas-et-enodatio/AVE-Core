@@ -84,6 +84,12 @@ def _compute_local_mu_kernel(
     μ(ω) model handles the cutoff — separate workstream). Bound circulation saturates
     μ at any ω (Cosserat engine).
 
+    NOTE (B_yield disambiguation, def-bdual1, 2026-07-03): b_yield here is the
+    ENERGY-DENSITY-matched scale B_SNAP (≈1.89e9 T; B_SNAP²/(2μ₀)=m_e c²/ℓ_node³),
+    NOT B_dual=E_yield/c (≈3.77e8 T, the field-amplitude-matched duality scale).
+    The two differ by the √(8π) bridge (see manuscript vocabulary-register def-bdual1).
+    Do not noun-swap b_yield (=B_SNAP) for B_dual.
+
     mu_0 / b_yield / H_component kept in the signature for call-site compatibility.
     """
     del H_component, mu_0, b_yield  # unused under linear free-EM μ (VCA-R01)

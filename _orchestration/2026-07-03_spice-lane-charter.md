@@ -56,6 +56,8 @@ clm-cbwd77, clm-kezk9z. All describe forms; none asserts a run result.
   numbers (1.155 at half-yield) confirm the `/S(V)` intent; the ch15/ch17
   leaves are the outliers.
 
+> **🟢 FLAG-2 RESOLVED-BY-EXISTING-RULING (2026-07-03, additive — charter body above PRESERVED).** FLAG-2 was NOT a sign error and the two forms are NOT reciprocal laws of one object. The Grant-ratified **2026-06-15 A1⊥T2 capacitance sector split** (`research/2026-06-15_ceff-epsilon-monotonicity_result.md` ADJUDICATION Q1=(B)) already resolves it: `$C_{eff}=C_0/S$` (divergent — `.lib`, ch18, App-6, vol9 §1) is the **longitudinal-A1 bond compliance** ($1/k_a$); `$C_{eff}=C_0\cdot S$` (collapse — ch15, ch17) is the **transverse-T2 dielectric permittivity** ($\varepsilon_{eff}=\varepsilon_0 S$, the LCR-bench capacitance). Two ORTHOGONAL reactances (A1 ⊥ T2) sharing the EE name "capacitance"; identifying them is the genesis-24 double-count. Verified per-site (this session): every `C_0/S` site models the A1 compliance, every `C_0\cdot S` site models the T2 permittivity — **no site models the SAME sector with the opposite law**. Per-site sector tags landed at the `.lib`, ch18 (index + spice-subcircuit), ch15, ch17; canonical source `nonlinear-vacuum-capacitance.md:14` already carries the split verbatim. Branch: `analysis/sector-hygiene-batch`.
+
 These two flags **gate any live ngspice run** (§9): a run silently certifies
 whichever inconsistent form the netlist carries.
 
@@ -447,7 +449,7 @@ already proves the linear-statics floor.*
 | ID | Fork | Charter lean |
 |---|---|---|
 | **FLAG-1** | V_YIELD value drift (43651.85 / 43651.9 / 43653.7) — which is canonical? | constants.py (43651.85); regenerate `.lib` + retag KB/LaTeX |
-| **FLAG-2** | Varactor sign: C_eff = C0/S (diverge) vs C0·S (collapse) — reciprocal laws | `/S` (diverge) — App-6 worked numbers imply it; ch15/ch17 are outliers |
+| **FLAG-2** | Varactor sign: C_eff = C0/S (diverge) vs C0·S (collapse) — reciprocal laws | **🟢 RESOLVED-BY-EXISTING-RULING (2026-07-03):** NOT reciprocal laws of one object — the ratified 2026-06-15 A1⊥T2 split makes `C0/S`=longitudinal-A1 compliance, `C0·S`=transverse-T2 permittivity (orthogonal reactances, same EE name). Per-site tags landed; no genuine same-sector contradiction. See FLAG-2 resolution note §1. |
 | **a-1** | 6-DOF node: 6 replicated 2-terminal networks vs one 6-pin multi-terminal cell | replicated (orthogonality by construction) |
 | **b-1** | Build a netlist chirality element at all (magnitude imposed)? | only as an echo-tagged consistency fixture, never headlined |
 | **d-1** | Generated `.lib`: checked-in artifact vs generate-at-test-time | `.lib.template` + substitute-at-test-time |

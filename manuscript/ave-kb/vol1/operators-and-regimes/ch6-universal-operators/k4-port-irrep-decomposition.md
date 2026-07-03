@@ -28,6 +28,8 @@ Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a 
 | Op3 asymmetric dissipation | $A_1$ loses energy monotonically; $T_2$ settles into quasi-stable pattern |
 | Physical origin of asymmetry | Gauss's law forbids longitudinal EM in vacuum: $\nabla \cdot \mathbf{E} = 0$ |
 
+> **↗ Rotation-flavor tag (2026-07-03, KEEP-BOTH — §8 rotation un-conflation, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8; additive):** the "$T_2$ … Microrotational $\omega$ … **THIS IS THE PHOTON**" row above is the **MASSLESS EM-inductive rotation** — the Axiom-1 μ₀-family **B** field, matched ($\Gamma=0$), propagating at $c$. It must be distinguished from the **GAPPED mechanical Cosserat couple-stress $\omega$** that the *static* (2,3) Link rides (Yukawa-screened, short-range; `clm-wcoul2`). These are TWO rotation-flavored fields sharing the symbol $\omega$: the row's free/continuum-limit $T_2$ is the massless photon; the saturation-regime bound mode (§6 line 134, "the same $T_2$ sector hosts the … massive mode") is the gapped mechanical one. The gapped-vs-massless split, not the free-vs-bound one, is the load-bearing sector distinction for the V-sector transducer. Clean reference: [`node-up-small-large-signal.md:39`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md).
+
 ## §1 — Group-theoretic foundation
 
 <!-- claim-quality: clm-j550uh -->

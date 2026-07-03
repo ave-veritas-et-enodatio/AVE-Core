@@ -34,4 +34,6 @@ B_DRIVE 0 N_VAC I = {Drive_Amp} * cos(V(N_FREQ))
 .END
 ```
 
+> **↗ FLAG-2 sector tag (2026-07-03, RESOLVED-BY-EXISTING-RULING; Grant-ratified 2026-06-15, `research/2026-06-15_ceff-epsilon-monotonicity_result.md` Q1=(B)).** The "Shifting Vacuum Capacitance" `$C_{eff}=C_0\cdot\sqrt{1-(V/V_{yield})^2}=C_0\cdot S$` (**collapse**) form above is the **transverse-T2 dielectric permittivity** ($\varepsilon_{eff}=\varepsilon_0 S\Rightarrow C_{diel}\propto S$), matching the ch17 EE-bench leaf. It is the RECIPROCAL of the ch18/`.lib` metric-varactor `$C_0/S$` (**divergent**), but the two are **NOT** contradictory: `$C_0/S$` is the **longitudinal-A1 bond compliance** (orthogonal reactance, A1 ⊥ T2). The SPICE-charter FLAG-2 "sign contradiction" is this name-collision, resolved by the ratified split. Source: [`nonlinear-vacuum-capacitance.md:14`](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
+
 ---

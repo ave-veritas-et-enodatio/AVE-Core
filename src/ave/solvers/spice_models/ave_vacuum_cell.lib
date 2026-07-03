@@ -11,9 +11,21 @@
 *
 * Constants (from ave.core.constants):
 *   V_SNAP  = 510998.95 V     (m_e c^2 / e)
-*   V_YIELD = 43651.9 V       (sqrt(alpha) × V_SNAP)
+*   V_YIELD = 43651.85 V      (sqrt(alpha) × V_SNAP; ave.core.constants.V_YIELD = 43651.851844...)
 *   I_MAX   = 124.384 A       (xi_topo × c)
 *   Z_0     = 376.73 Ohm      (sqrt(mu_0 / eps_0))
+*
+* ⚠ FLAG-1 VALUE-DRIFT WARNING (2026-07-03, ave-canonical-source).
+*   V_YLD / I_YMAX below are HAND-WRITTEN literals — they are NOT
+*   generated from ave.core.constants and WILL drift. Canonical values:
+*     V_YIELD = 43651.851844... V  (ave.core.constants.V_YIELD)
+*     I_MAX   = 124.384 A          (ave.core.constants.I_MAX)
+*   The prior 43651.9 / KB-spec 43653.7 disagreements are corrected to
+*   43651.85 here (2026-07-03, FLAG-1). The DURABLE fix is to GENERATE
+*   this .lib from constants.py (SPICE-charter design-(d):
+*   _orchestration/2026-07-03_spice-lane-charter.md §2(d) — .lib.template
+*   + substitute-at-test-time). Generator NOT built here; values fixed +
+*   warned only. Do NOT hand-edit these literals to a rounded value again.
 *
 * Subcircuit parameters:
 *   L0       — base inductance (mass analog)
@@ -49,17 +61,28 @@
 * -----------------------------------------------------------------
 
 .subckt AVE_VACUUM_CELL A B
-+ params: L0=1n C0=1p R0=0 V_YLD=43651.9 I_YMAX=124.384
++ params: L0=1n C0=1p R0=0 V_YLD=43651.85 I_YMAX=124.384
 
 * Internal nodes
 * N_I = current sense node  (inductor branch)
 * N_V = voltage sense       (capacitor branch)
 
-* ── (a) Metric Varactor (Axiom 4, electric sector) ──
+* ── (a) Metric Varactor (Axiom 4, longitudinal-A1 sector) ──
 * Q = C0 × V / sqrt(1 - (V/V_YLD)^2)
 * ngspice B-source with charge output:
 *   B<name> node+ node- Q = { expression }
 * The sqrt saturation ensures C_eff → ∞ as V → V_YLD.
+*
+* SECTOR TAG (FLAG-2 RESOLVED-BY-EXISTING-RULING, Grant-ratified 2026-06-15;
+*   research/2026-06-15_ceff-epsilon-monotonicity_result.md ADJUDICATION Q1=(B)):
+*   This C_eff = C0/S DIVERGENT form is the LONGITUDINAL-A1 BOND COMPLIANCE
+*   (C_comp = 1/k_a, the stretch-reactance; "Metric" = metric-dilatation = A1),
+*   NOT the transverse dielectric permittivity. The ch15/ch17 KB netlists use
+*   the reciprocal C_eff = C0*S (COLLAPSE) form — that is the TRANSVERSE-T2
+*   dielectric permittivity (eps_eff = eps_0*S => C_diel ∝ S, the bench
+*   LCR-measured capacitance). The two are ORTHOGONAL reactances (A1 ⊥ T2)
+*   sharing the EE name "capacitance"; NOT reciprocal laws of one object.
+*   Canonical source: nonlinear-vacuum-capacitance.md:14 (sector note).
 B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
 
 * ── (b) Relativistic Inductor (Axiom 4, magnetic sector) ──
@@ -92,7 +115,7 @@ R_DAMP A B {R0 + 1e-15}
 * tau_relax_si ≈ 1.288e-21 s — log omega*tau in harness, not ngspice DC.
 
 .subckt AVE_MEMRISTOR_S_STATE A B N_S
-+ params: TAU_REL=1n V_YLD=43651.9
++ params: TAU_REL=1n V_YLD=43651.85
 
 B_S_EQ N_SEQ 0 V = {sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
 C_S N_S 0 1
@@ -110,7 +133,7 @@ G_REL_N N_S 0 N_S 0 {-1/TAU_REL}
 * L1 arm = this subcircuit (lagging S on N_S modulates Q).
 
 .subckt AVE_VACUUM_CELL_L1 A B
-+ params: L0=1n C0=1p R0=0 V_YLD=43651.9 I_YMAX=124.384 TAU_REL=1n
++ params: L0=1n C0=1p R0=0 V_YLD=43651.85 I_YMAX=124.384 TAU_REL=1n
 
 XN_MEM A B N_S AVE_MEMRISTOR_S_STATE TAU_REL={TAU_REL} V_YLD={V_YLD}
 
@@ -157,7 +180,7 @@ R1 A B {R0 + 1e15}
 *   .PROBE I(V_SWEEP)
 
 .subckt AVE_EE_BENCH A B
-+ params: C0=10p V_YLD=43651.9
++ params: C0=10p V_YLD=43651.85
 
 B_Q A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
 
