@@ -8,13 +8,14 @@
 % boundaries below are DERIVED from those axioms; they set the empirical scale
 % at which the axioms operate.
 %
-% Axiom attributions per Vol 1 Ch 1:218-222 master constants table:
+% Axiom FORM-attributions (values are calibration inputs, per FORM/VALUE signature):
 %   Z_0      <- Axiom 1 (LC network, sqrt(mu_0/epsilon_0))
 %   ell_node <- Axiom 1 (unknot ground-state ropelength)
-%   alpha    <- Axiom 4 (EMT K=2G operating point)
+%   alpha    <- Class-B named identification; value = STANDING echo (3 routes closed)
 %   xi_topo  <- Axiom 2 ([Q] equiv [L])
-%   V_snap   <- Axiom 4 (dielectric snap voltage)
-%   V_yield  <- Axiom 4 (dielectric yield, sqrt(alpha)*V_snap)
+%   V_snap   <- Axiom 4, longitudinal A1 dilatation (rest energy m_e c^2; def-vyvsn1)
+%   V_yield  <- Axiom 4, transverse Cosserat T2 self-trap wall (sqrt(alpha)*V_snap;
+%               def-vyvsn1 = T2, PR#260; sqrt(alpha) is an alpha-echo, not independent)
 %
 % Newton's constant G is a fourth derived calibration parameter, emerging from
 % Machian thermodynamic equilibrium of the LC lattice. Its formal definition and
@@ -23,8 +24,12 @@
 % Ax 1 + Ax 4 under Symmetric Scaling, not a primitive axiom).
 %
 \begin{resultbox}{Master Calibration Constants}
-The numerical scale of the macroscopic continuum is set by the following constants,
-each derived from the four foundational axioms (cited inline):
+The numerical scale of the macroscopic continuum is set by the following constants.
+Their \textbf{FORM} is attributed to the four foundational axioms (cited inline); their
+\textbf{VALUES} are \textbf{calibration inputs the substrate does not independently
+select} --- the framework's FORM-deriving / VALUE-importing signature (KB leaf
+\texttt{form-deriving-value-importing.md}). ``Derived'' below means form-attributed,
+not value-forced.
 
 \medskip
 
@@ -48,21 +53,24 @@ $\varepsilon_0$ is the per-node capacitance (elastic compliance).
     \label{eq:cal_xi_topo}
 \end{equation}
 
-\noindent\textbf{Fine-Structure Constant} (per Axiom 4, EMT $K = 2G$ trace-reversal operating point):
+\noindent\textbf{Fine-Structure Constant} (Class-B named identification; value = \textbf{STANDING echo}):
 \begin{equation}
-    \alpha = \frac{e^2}{4\pi\varepsilon_0\hbar c} = \frac{p_c}{8\pi} \approx \frac{1}{137.036}
+    \alpha = \frac{e^2}{4\pi\varepsilon_0\hbar c} = \frac{p_c}{8\pi} \approx \frac{1}{137.036}, \qquad
+    \alpha^{-1} = 4\pi^3 + \pi^2 + \pi
     \label{eq:cal_alpha}
 \end{equation}
+The closed-form $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ is \textbf{Class-B substrate-mechanism manifestation via a named identification} ($R\cdot r = 1/4$ on the Golden Torus) that the substrate does \emph{not} independently select. The value is a \textbf{STANDING echo} (Grant-ratified 2026-06-18): all three named lift-routes are \textbf{closed-negative} --- dynamical selection (flat), kinematic unit-bridge (Class-B, absorbs $\alpha$), and the rigidity-percolation count (structurally closed at the central-force isostatic ceiling $z_{eff} \to 6$, \texttt{alpha\_free\_map\_to\_137\_exists = False}). NOT a first-principles derivation and NOT a zero-parameter closure; the flip-condition ($R\cdot r = 1/4$ forced without $\alpha$-circularity) stays live. Canon: KB \texttt{ch8-alpha-golden-torus.md}, \texttt{form-deriving-value-importing.md}.
 
-\noindent\textbf{Dielectric Snap Voltage} (per Axiom 4, saturation limit):
+\noindent\textbf{Dielectric Snap Voltage} (per Axiom 4; the \textbf{longitudinal A1 dilatation} saturation / rest-energy scale, $m_e c^2$; \texttt{def-vyvsn1}, PR\,\#260):
 \begin{equation}
     V_{snap} = \frac{m_e c^2}{e} \approx 511.0\;\text{kV}
     \label{eq:cal_vsnap}
 \end{equation}
 
-\noindent\textbf{Dielectric Yield Voltage} (per Axiom 4, saturation activates at $\sqrt{\alpha}$ fraction of $V_{snap}$):
+\noindent\textbf{Dielectric Yield Voltage} (per Axiom 4; the \textbf{transverse Cosserat $T_2$ self-trap wall} --- the electron's confining $\Gamma = -1$; \texttt{def-vyvsn1} adjudicated = $T_2$, PR\,\#260):
 \begin{equation}
     V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65\;\text{kV}
     \label{eq:cal_vyield}
 \end{equation}
+Because $V_{yield} = \sqrt{\alpha}\, V_{snap}$ \emph{exactly}, the two are \textbf{not} independent per-sector thresholds: the $\sqrt{\alpha}$ is an \textbf{$\alpha$-echo} (Class-C), and the A1 mass core operates sub-saturated at $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ ($S \approx 0.996$) inside the $T_2$ cage --- which is why the mass channel binds without the $S \to 0$ runaway firing.
 \end{resultbox}
