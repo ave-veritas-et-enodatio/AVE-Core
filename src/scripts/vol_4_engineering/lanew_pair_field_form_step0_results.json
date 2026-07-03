@@ -1,0 +1,170 @@
+{
+  "liveness": {
+    "unlike_coulomb_exponent": -0.999998151511849,
+    "like_coulomb_exponent": -0.999998151511849,
+    "planted_dipole_exponent": -2.978151146142863,
+    "unlike_all_attract": true,
+    "like_all_repel": true,
+    "coulomb_reads_minus1": true,
+    "dipole_reads_minus3": true,
+    "PASS": true
+  },
+  "scalar": {
+    "name": "SCALAR (engine f_V)",
+    "multipoles": {
+      "monopole_sum_rho": -5.551115123125783e-17,
+      "sum_abs_rho": 0.44417576683227855,
+      "dipole_p": [
+        1.5883719919088992,
+        1.8349684527118366e-17,
+        2.3920277639895337e-18
+      ],
+      "dipole_mag": 1.5883719919088992,
+      "quadrupole_frob_norm": 0.9880544404262858,
+      "quadrupole_trace": -3.552713678800501e-15,
+      "centroid": [
+        47.49999999999999,
+        47.50000000000001,
+        47.5
+      ]
+    },
+    "far_field_phi_exponent": -1.4214523079925168,
+    "pair": {
+      "per_d": [
+        {
+          "d": 16,
+          "overlap_frac": 0.1332367849384504,
+          "U": -8365.846322389814,
+          "clean": false
+        },
+        {
+          "d": 20,
+          "overlap_frac": 0.08689355539464157,
+          "U": -108.15088277269501,
+          "clean": false
+        },
+        {
+          "d": 24,
+          "overlap_frac": 0.023171614771904415,
+          "U": -0.6844178284454286,
+          "clean": false
+        },
+        {
+          "d": 28,
+          "overlap_frac": 0.0,
+          "U": -1.7030811662776037e-05,
+          "clean": true
+        },
+        {
+          "d": 32,
+          "overlap_frac": 0.0,
+          "U": -1.1308183011247442e-05,
+          "clean": true
+        },
+        {
+          "d": 36,
+          "overlap_frac": 0.0,
+          "U": -7.970649302233487e-06,
+          "clean": true
+        },
+        {
+          "d": 40,
+          "overlap_frac": 0.0,
+          "U": -5.849177404861827e-06,
+          "clean": true
+        }
+      ],
+      "exponent_clean": -2.9952762992704347,
+      "floor_limited": false
+    },
+    "mirror_monopole": 2.7755575615628914e-17,
+    "mirror_dipole": [
+      -1.5883719919088992,
+      -2.3527154211059843e-17,
+      8.404784844027038e-19
+    ]
+  },
+  "covariant": {
+    "name": "COVARIANT (beta DEC)",
+    "multipoles": {
+      "monopole_sum_rho": -6.5751886937562304e-18,
+      "sum_abs_rho": 0.5905456768915646,
+      "dipole_p": [
+        1.3877787807814457e-17,
+        -4.141504469555065e-18,
+        -1.9594300718719274e-19
+      ],
+      "dipole_mag": 1.448390304345254e-17,
+      "quadrupole_frob_norm": 13.477783278306799,
+      "quadrupole_trace": 9.659346324308901e-16,
+      "centroid": [
+        47.49999999999999,
+        47.49999999999999,
+        47.49999999999999
+      ]
+    },
+    "far_field_phi_exponent": -2.563633876894916,
+    "pair": {
+      "per_d": [
+        {
+          "d": 16,
+          "overlap_frac": 0.12203389830508475,
+          "U": 88.5603378404805,
+          "clean": false
+        },
+        {
+          "d": 20,
+          "overlap_frac": 0.18014527845036318,
+          "U": 182.36792859436233,
+          "clean": false
+        },
+        {
+          "d": 24,
+          "overlap_frac": 0.06779661016949153,
+          "U": 34.375745710286196,
+          "clean": false
+        },
+        {
+          "d": 28,
+          "overlap_frac": 0.001937046004842615,
+          "U": 0.058836319663964735,
+          "clean": true
+        },
+        {
+          "d": 32,
+          "overlap_frac": 0.0,
+          "U": 3.987858469466009e-07,
+          "clean": true
+        },
+        {
+          "d": 36,
+          "overlap_frac": 0.0,
+          "U": 2.152076791139631e-07,
+          "clean": true
+        },
+        {
+          "d": 40,
+          "overlap_frac": 0.0,
+          "U": 1.2485432980751276e-07,
+          "clean": true
+        }
+      ],
+      "exponent_clean": NaN,
+      "floor_limited": true
+    },
+    "mirror_monopole": 1.2213039990680835e-17,
+    "mirror_dipole": [
+      1.3877787807814457e-17,
+      3.6181792526563407e-17,
+      8.3336161478657875e-19
+    ]
+  },
+  "bin": "MULTIPOLE-FORM",
+  "reason": "scalar exponent -3.00 (dipole-dipole class); covariant far-|phi| -2.56 (quadrupole). Monopole=0 forced.",
+  "d_window_fit": [
+    28,
+    32,
+    36,
+    40
+  ]
+}
