@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-y9old1, clm-zf8eah]
+subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-w5ez6i, clm-y9old1, clm-zbvfpi, clm-zf8eah]
 subtree-experiments: []
 -->
 
@@ -31,6 +31,7 @@ Maps Einstein's Field Equation onto the variable-impedance LC medium. The Stress
 | [Frame-Dragging Impedance Convolution](frame-dragging-impedance-convolution.md) | Kerr angular dependence $\omega(r)$, D-shaped shadow, Doppler beaming |
 | [K4-TLM Lensing Validation](k4-tlm-lensing-validation.md) | Native Diamond lattice cross-validation of photon deflection |
 | [Double Deflection](double-deflection.md) | Factor-of-2 (light vs matter deflection) from the $2/7 : 1/7$ transverse-vs-scalar Poisson projection |
+| [Saturating-Modulus + Two-Way Back-Reaction](saturating-modulus-and-backreaction.md) | GR-QED Stages 1+3: the saturating modulus $D=1/S$ on the linear core (clip-independence gate) + the TWO-WAY self-gravitation loop making $M_{\text{eff}}$ emergent (item #86, all gates green — engine-capability class) |
 | [GR <-> AVE Translation Dictionary](gr-ave-translation-dictionary.md) | Pointers to common translation tables |
 
 ## Cross-Volume References

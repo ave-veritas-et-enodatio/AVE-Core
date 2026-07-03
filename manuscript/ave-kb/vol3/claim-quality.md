@@ -1223,3 +1223,64 @@ The substrate-mechanism class for the CMB-thermal-running of $\alpha$ ($\delta_{
   - Cross-validate the engineering-scale instance prediction (§6.3 of leaf): TCC of ceramic + ferrite-Curie-frozen LC oscillator frequency-temperature curve should follow the substrate-Cosserat-Curie thermal-mode-population ASYM mechanism scaled to engineering temperatures; quantitative test against empirical EE-component frequency-temperature data validates the substrate-mechanism extrapolation across $\sim 10^{10}$ K temperature range.
 
 ---
+
+## Saturating-Modulus Correction on the Linear GR Core (GR-QED Stage-1)
+<!-- id: clm-zbvfpi -->
+
+The FIRST increment of the GR-QED extension engine (2026-06-29): a saturating modulus $D(A)=1/S(A)$ multiplying the inherited elastic-Poisson elliptic operator, $-\nabla\!\cdot[(c^4/7G)D(A)\nabla\varepsilon_{11}]=T_{00}$ with $A=\varepsilon_{11}/\varepsilon_{yield}$, $S(A)=(1-A^2)^{1/2}$ (the ONE canonical Op14 kernel, REUSED not minted). **Engine-capability / consistency-class** — a correction ON the linear GR core, NOT a re-derivation of it.
+
+- _Specific Claims_
+  - **Recover-the-known (consistency):** at $r\gg r_{sat}$ ($A\to0$, $S\to1$, $D\to1$) the correction vanishes and the inherited linear elastic-Poisson / Schwarzschild profile ($\varepsilon_{11}=7GM/c^2r$, $n=1+(2/7)\varepsilon_{11}$) is reproduced. Non-tautological evidence = relaxed-field exterior tail (unsaturated $A<0.4$ regime exists) + $D\to1$ stiffness recovery.
+  - **Activate-at-the-extreme (manifestation):** the radial strain reaches yield $A=1$ at $r_{sat}=3.5\,r_s=7GM/c^2$; the bulk modulus diverges ($D\to\infty$); a strain-saturated shell forms. This is the elliptic-relaxation numerical realisation of the analytic Topological Halting (clm-ir8h78).
+  - **★ Load-bearing clip-independence gate PASSES:** shell radius + $M_{eff}$ are bit-identical across $S_{min}\in\{10^{-4},10^{-3},10^{-2}\}$ (relative spread 0.00) — the yield-physics ($r_{sat}$ geometry), NOT the numerical clamp, set the wall.
+  - Per-channel sign-lock (INVARIANT-S2): BULK stiffens ($D=1/S$), SHEAR softens ($c_{shear}=c_0\sqrt S$, a derived $\sqrt S$ projection — NOT a 2nd kernel), EM matched ($Z_{EM}=Z_0$, `refractive_index()` untouched spectator). α-CLEAN (source-level guard test).
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim "regularizes the singularity" or "removes the infinity." The point singularity is RELOCATED to a shell at $r_{sat}$; the inertial density $\rho_{eff}=\rho_0/S_{topo}^3$ STILL DIVERGES there. True removal needs yield→rupture→genesis physics (a separate frontier).
+  - The strain cap ($\min(\varepsilon_{11},1)$) is a NUMERICAL CLIP, not modeled yield-physics.
+  - Does NOT derive gravity or the value-scale — the modulus $c^4/7G$ imports $G$; recover-GR is consistency-class.
+
+> **Leaf references:** [saturating-modulus-and-backreaction](./gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md).
+
+### Quality
+- confidence: 0.75
+- depends-on:
+  - clm-rd9cjm — Refractive Index of Gravity $n(r)=1+2GM/c^2r$ — the inherited linear GR core this corrects-ON and recovers in the weak field
+  - clm-ir8h78 — Interior Topology and Singularity Resolution — the analytic Topological Halting ($\rho_{eff}=\rho_0/S_{topo}^3$, shell at $r_{sat}$) this numerically realises
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.75, 0.55)]
+- rationale: The two-test doctrine (recover-the-known + activate-at-the-extreme) both pass, and the ★ clip-independence gate — the load-bearing discriminator that the yield-physics not the numerical clamp sets the wall — passes bit-identical across two decades of $S_{min}$. The correction is a clean elliptic-relaxation demonstration on the native diamond-K4 stencil (no Cartesian leak), reusing the ONE canonical kernel with the correct per-channel sign-lock. Confidence 0.75 (not higher): the strain cap is a numerical clip not modeled yield-physics (honestly flagged), the finite-core shell sits at a source-dependent radius (not literally $3.5\,r_s$, the point-source relation tested separately), and the result is consistency+manifestation of a known core, not a new value-level chord. α-CLEAN.
+- strengthen-by:
+  - Model the genuine yield-physics (the lattice phase transition at $A=1$, its rupture) to convert the RELOCATION into a demonstrated removal — the separate genesis frontier.
+  - A convergence-vs-$N$ study to remove the $\pm1$-ring shell-radius discretization granularity.
+
+---
+
+## Two-Way Gravitational Back-Reaction — Emergent $M_{\text{eff}}$ (GR-QED Stage-3, #86)
+<!-- id: clm-w5ez6i -->
+
+The make-or-break increment (2026-06-29): the TWO-WAY back-reaction — the gravitational field sources ITSELF. The field's own strain energy $T_{00}^{field}=\tfrac12 g|\nabla\varepsilon_{11}|^2$ is added to the matter source, the Stage-1 elliptic problem re-solved to a self-consistent fixed point, and the effective mass EMERGES with the binding-DEFICIT subtraction $M_{eff}c^2=\int\rho_{matter}c^2\,dV-\int u_{bind}\,dV$. This is the two-way coupling the engine-architecture frontier flagged as the **ABSENT make-or-break capability (item #86)**. **Architectural EMERGENCE (an unlabeled blob sources its own gravity), but the value-map imports $G$** — NOT a new value-level chord.
+
+- _Specific Claims_
+  - **All four at-risk checks PASS honestly** (boundary-/truncation-robust discriminators, artifacts diagnosed against controls per Rule-10): (1) an unlabeled extended blob sources a $1/r$ monopole exterior ($a+b/r$ vs $a+b/r^2$ competition; $b$ box-stable $<4\%$); (2) the emergent $M_{eff}$ is $S_{min}$-independent (bit-identical, $U_{bind}=4.7\%$ of $M_{matter}$); (3) ray-traced deflection is GR-doubled ($4GM/bc^2$, truncation-cancelled ratio 0.90, decisively past Newtonian); (4) two-mass superposition engages the nonlinearity (2.38× on/off).
+  - **Boundedness PROVEN, energy-honest:** the Picard fixed point is provably contractive ($\rho$ MEASURED $\in[0.012,0.098]$, grows with compactness as predicted) and energy-stationary ($|dH/H|\le10^{-4}$, no damping — pure Picard).
+  - **Binding energy SUBTRACTED (Grant-ruled 2026-06-29):** the substrate-native reason is frequency down-regulation ($\omega_{local}=\omega\sqrt S$ down-regulates in the well; $E=\hbar\omega$, $m=E/c^2$ → mass defect). Native diamond-K4 gradient for $|\nabla\varepsilon_{11}|^2$ (no Cartesian leak); ONE kernel reused. α-CLEAN.
+- _Specific Non-Claims and Caveats_
+  - Does NOT replace GR or derive gravity. The value-map $r_s=2GM_{eff}/c^2$ imports $G$ (modulus $c^4/7G$; $K{=}2G$ GR-imported PR#261). Recover-GR is consistency-class.
+  - The GR-vs-Newton doubling FACTOR is the imported $\nu_{vac}=2/7$ (deflection linear in it), NOT dynamically produced. The emergent content is the monopole magnitude $K$ + field shape.
+  - REVERSIBLE half only. The irreversible depletion primitive (F6 / DE-tracks-matter chord) is UNBUILT, deferred to Stage-4. `solve_backreaction` is static-elliptic — no $a(t)$ Friedmann evolver; the de Sitter fate is asserted analytically, not simulated.
+  - The BH / O(1)-compactness regime ($\rho\to1$) is NOT modelled — a separate gated stage.
+
+> **Leaf references:** [saturating-modulus-and-backreaction](./gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md).
+
+### Quality
+- confidence: 0.7
+- depends-on:
+  - clm-zbvfpi — Saturating-Modulus Correction on the Linear GR Core — the Stage-1 elliptic machinery ($D=1/S$, native stencil) that the two-way loop re-solves at each outer Picard step
+  - clm-rd9cjm — Refractive Index of Gravity — the linear GR core the weak-field two-way solve recovers (consistency)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
+- rationale: The make-or-break two-way loop is BUILT and all four at-risk checks pass with boundary-/truncation-robust discriminators whose artifacts were diagnosed (Rule-10, not papered over); the Picard contraction is measured (not asserted) and the energy is stationary with no damping. The architectural EMERGENCE is real — an unlabeled blob sources its own $1/r$ gravity and $M_{eff}$ emerges from the integrated field energy with the physically-correct (Grant-ruled) binding-deficit subtraction. Confidence 0.7 (not higher): the value-map imports $G$ (consistency, not emergence at the value level), the GR-doubling factor is imported $\nu_{vac}$ (not dynamically produced), and the result is the REVERSIBLE half — the DE-tracks-matter chord (F6, the actual ΛCDM-distinct payoff) is unbuilt. This is a CAPABILITY milestone, not a physics chord.
+- strengthen-by:
+  - Build the Stage-4 irreversible depletion primitive (F6) as a BOUNDED norm-preserving $\varepsilon\to$T2 channel that does NOT detonate — the actual DE-tracks-matter chord, whose forward observable is the DESI/Euclid DE-vs-$n_{matter}$ cross-correlation.
+  - Add an $a(t)$ Friedmann time-evolver so the de Sitter fate is simulated, not asserted analytically.
+  - Model the BH / O(1)-compactness regime ($\rho\to1$) as a separate gated stage.
+
+---

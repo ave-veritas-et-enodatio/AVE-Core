@@ -16,6 +16,7 @@
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/gravitational-coupling-constant.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/planck-mass.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-1wmyx3", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/brillouin-zone-uv-cutoff.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-219e8j", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-239tr4", "leaf_path": "vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-2dwzib", "leaf_path": "vol1/axioms-and-lattice/ch2-macroscopic-moduli/dielectric-snap-limit.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -637,6 +638,7 @@
 {"claim_id": "clm-vjv4zf", "leaf_path": "vol4/simulation/ch17-hardware-netlists/ee-bench-netlist.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-vjv4zf", "leaf_path": "vol4/simulation/ch18-universal-vacuum-cell/spice-subcircuit.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-vnp57s", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-w5ez6i", "leaf_path": "vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-w6kk5y", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -693,6 +695,7 @@
 {"claim_id": "clm-ys0xl1", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-yyhczl", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-z73h6n", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/computational-graph.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-zbvfpi", "leaf_path": "vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ze4clw", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zf8eah", "leaf_path": "vol3/gravity/ch02-general-relativity/double-deflection.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zfqd9v", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}

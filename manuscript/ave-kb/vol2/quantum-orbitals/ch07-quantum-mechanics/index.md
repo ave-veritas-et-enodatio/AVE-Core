@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-3i66gp, clm-ak97cb, clm-oltvwy, clm-qde5gn, clm-w6kk5y]
+subtree-claims: [clm-1wmyx3, clm-3i66gp, clm-ak97cb, clm-oltvwy, clm-qde5gn, clm-w6kk5y]
 subtree-experiments: []
 -->
 
@@ -60,3 +60,4 @@ Chapter 7 reinterprets the Schrödinger wave equation as the continuous Helmholt
 | [Ionization Energy Validation](./ionization-energy-validation.md) | Ionization Energy Validation: Z = 1 to 14 |
 | [Orbital Penetration Penalties](./orbital-penetration-penalties.md) | 1/d ABCD impedance mismatch breaks $l$-degeneracy; Lithium 2s/2p splitting validation |
 | [Q-G20a Lamb Shift Structural Closure (FORM match)](./q-g20a-lamb-shift-structural-closure.md) | Hydrogen 2S-2P Lamb shift at $\approx +1051$ MHz vs measured $+1057.85$ MHz via three composing inputs: finite-size self-energy ($+1010$ MHz, QED-imported magnitude) + Q-G20f vacuum polarization ($-27$ MHz) + Q-G19α anomalous moment ($+68$ MHz). FORM/consistency match (Bethe-log self-energy); dominant term QED-imported, so NOT a clean $0.65\%$ AVE precision prediction (corrected AVE log $4.92$ vs QED $2.81$, $1.75\times$) |
+| [Brillouin-Zone UV Cutoff (finite by mode-count)](./brillouin-zone-uv-cutoff.md) | GR-QED Stage-2: the lattice pitch $\ell_{\text{node}}$ supplies a physical BZ cutoff $k_{\max}=\pi/\ell_{\text{node}}$ so the 1-loop integral is FINITE by mode-count (no counterterm) while the continuum diverges — the driver confirmation of clm-3i66gp's "UV divergence naturally absent." FORM-DERIVED, α-CLEAN, distinct-cutoff discipline declared. Engine-capability class |

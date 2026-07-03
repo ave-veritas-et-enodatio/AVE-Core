@@ -1568,3 +1568,33 @@ The electron admits a self-consistent **hollow-vortex** structural description: 
   - An independent (non-#190) determination of $\sigma$ from a coexistence surface tension (a genuine double-well EOS), which would lift $\sigma$ off the import-by-identity ceiling.
 
 ---
+
+## Brillouin-Zone UV Cutoff: 1-Loop Finite by Mode-Count (GR-QED Stage-2)
+<!-- id: clm-1wmyx3 -->
+
+The FORM-DERIVED half of GR-QED Stage-2 (2026-06-29): the discrete lattice pitch $\ell_{node}$ supplies a PHYSICAL momentum cutoff at the Brillouin edge $|k|\le k_{max}=\pi/\ell_{node}$ (no counterterm), so a 1-loop integral over the FIRST Brillouin zone is FINITE by mode-count while the same integrand in the continuum diverges. **Engine-capability / consistency-class** — the numerical driver confirmation of the "UV divergence is naturally absent" claim already canonical at clm-3i66gp; no new value-level content.
+
+- _Specific Claims_
+  - **FORM-DERIVED cutoff:** the exact discrete-Hilbert commutator (DCVE App-E) $[x,p]=i\hbar\cos(k\ell)=i\hbar\sqrt{1-(\ell p/\hbar)^2}$ gives the Brillouin edge $k_{max}=\pi/\ell_{node}$ as a physical lattice fact, not a hand-imposed subtraction. α-CLEAN (purely geometric, guard-tested).
+  - **Recover-QED (consistency, Class C):** at $q\ell\ll1$ the lattice dispersion $(2/\ell^2)\sum_b(1-\cos(k\cdot\hat b\ell))\to|k|^2$ — the continuum QED propagator — to the Taylor remainder $(k\ell)^2/12$ (quadratic in $k\ell$, verified on- and off-axis).
+  - **Finite-by-mode-count (manifestation, Class B):** the BZ loop integral $=1.245\times10^{14}$ (FINITE, converged $N=32\approx48\approx72$); the continuum contrast diverges $\sim\Lambda$ (linear) — same integrand, side-by-side. No renormalization, no counterterm — the lattice pitch IS the regulator.
+  - **Distinct-cutoff discipline declared + guard-tested:** SPATIAL $k_{max}=\pi/\ell_{node}$ (the loop bound) vs TEMPORAL $\omega_C=c/\ell_{node}$ (the μ-grade ceiling, NOT in the loop); ratio exactly $\pi$. Conflating them is a factor-$\pi$ error.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim "AVE predicts the Lamb shift." The self-energy is made FINITE (a real structural win), but the matched numeric agreement is a cutoff-ratio log, NOT a derived dynamical Bethe logarithm. This build makes NO Lamb-shift prediction.
+  - The continuum branch carries NO AVE claim — it exists only to exhibit the divergence the cutoff removes.
+  - Does NOT derive $\alpha$ — the loop-regulator FORM is α-CLEAN, but the Stage-2 birefringence MAGNITUDE ($7.5/\alpha^3$) is an α-echo (canonical at clm-pp3qwf, a separate leaf; NOT re-minted here).
+  - The observables are analytic (a BZ quadrature), NOT dynamically evolved through `engine.step()` — correct for a loop-regulator demonstration.
+
+> **Leaf references:** [brillouin-zone-uv-cutoff](./quantum-orbitals/ch07-quantum-mechanics/brillouin-zone-uv-cutoff.md).
+
+### Quality
+- confidence: 0.75
+- depends-on:
+  - clm-3i66gp — Q-G20a Lamb Shift Structural Closure — the "UV divergence naturally absent, cutoff geometric/finite/Axiom-1" claim this driver numerically confirms
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.75, 0.45)]
+- rationale: The cutoff FORM is genuinely FORM-DERIVED (the exact discrete-Hilbert commutator, α-CLEAN and guard-tested — the more-principled-than-dim-reg half), and the finite-vs-divergent contrast is demonstrated side-by-side with the same integrand, converged over three grid resolutions. Both two-test legs (recover-QED + finite-by-mode-count) pass, and the distinct-cutoff discipline (loop bound $=$ spatial $k_{max}$, ratio $\pi$) is declared and guard-tested. Confidence 0.75 (not higher): the observables are analytic quadratures not engine-dynamically-evolved (correct for a regulator demo, but not a time-domain confirmation), the cubic-axis bond sum is the simplest BZ (K4-diamond refinement deferred, does not change the finite-vs-divergent verdict), and the Lamb magnitude is matched-not-predicted (explicitly NOT claimed). This is the driver confirmation of clm-3i66gp, not an independent new claim.
+- strengthen-by:
+  - A time-domain FDTD confirmation (reactance-pair tracking) if a dynamical, non-analytic demonstration is later wanted.
+  - A K4-diamond BZ refinement (vs the cubic-axis bond sum) for the precise finite value of the loop integral.
+
+---
