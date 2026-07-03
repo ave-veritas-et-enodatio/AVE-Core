@@ -335,3 +335,135 @@ def validate_superposition(srs_L: int = 12) -> dict:
         if np.isfinite(ratio) else False,
     }
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. THE AXIOM-1 LC TRANSDUCER — the emergence test (the heart of Stage-1).
+#
+#    THE ONLY AXIOM-NATIVE PLACE a rotational winding can push the translational
+#    (E) sector is Axiom-1's intra-node rotation↔translation LC coupling
+#    (axiom-definitions.md:16: translational u ↔ E/ε₀ ⊥ microrotational ω ↔ B/μ₀,
+#    LC-coupled). The substrate flux is F = ∇×ω (compute_F_curl). The Ampère-like
+#    LC relation drives the translational-E sector from the CURL of the rotational
+#    field: ∂_t E ∝ ∇×(∇×ω)-family terms. The static EM-ε channel's SOURCE is the
+#    divergence of that translational drive: b_EM = ∇·(drive).
+#
+#    THE UN-RIGGABILITY CRUX (stated, not hidden): the source term is built ONLY
+#    from the Ax1 coupling applied to ω — NEVER b = 𝒬·δ³ (FORBIDDEN-INSERTION).
+#    We measure ∇·E of whatever emerges. Note the identity ∇·(∇×ω) = 0: a PURE
+#    curl flux has NO divergence ⇒ NO monopole source. So whether a NON-ZERO
+#    monopole emerges depends entirely on whether the Ax1 coupling produces a
+#    translational drive with a non-vanishing divergence — the substrate decides.
+#    If it is identically curl (divergence-free), the honest outcome is NO electric
+#    monopole (the winding sources a magnetic DIPOLE, Grant ruling (ii), not the
+#    electric monopole (i)) — booked as NON-EMERGENCE, no rescue.
+#
+#    LEDGER (every term):
+#      F = ∇×ω (the substrate flux) ............ AXIOM-DERIVED (compute_F_curl;
+#          Link(∂Ω,F) = charge, boundary-observables-m-q-j.md:20)
+#      drive = Ax1 rotation→translation coupling AXIOM-DERIVED (the LC ω↔u
+#          relation; the translational sector responds to the rotational field)
+#      b_EM = ∇·drive (the EM-ε source) ........ AXIOM-DERIVED (the divergence of
+#          the axiom-native translational drive — MEASURED, the emergence question)
+#      b = 𝒬·δ³ (winding as charge source) ..... FORBIDDEN-INSERTION — NOT used
+#      ∮E·dA = 𝒬/ε₀ enforced .................. FORBIDDEN-INSERTION — NOT used
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def _srs_node_divergence(net, vec_nodes: np.ndarray) -> np.ndarray:
+    """Discrete node divergence of a per-node vector field on the srs net:
+    (∇·v)[u] = Σ_{v∈nbr(u)} (vec[u] + vec[v])/2 · ê_{u→v}  (flux out through bonds).
+    The substrate-native graph divergence (bond-projected), NOT a Cartesian stencil.
+    """
+    Nn = net.n_nodes
+    div = np.zeros(Nn)
+    for u in range(Nn):
+        for p, v in enumerate(net.neighbors[u]):
+            ehat = net.bond_unit[u][p]                      # unit u→v (min-image)
+            face = 0.5 * (vec_nodes[u] + vec_nodes[int(v)])  # bond-face average
+            div[u] += float(face @ ehat)
+    return div
+
+
+def axiom1_lc_transducer(srs_L: int = 12, p: int = 2, q: int = 3,
+                         R: float = 7.0, r: float = 2.3,
+                         frame_N: int = 32, amplitude: float = 1.0) -> dict:
+    """Seed the (p,q) winding ω on the srs carrier, build the Ax1-native
+    translational drive from it, and MEASURE whether the EM-ε channel's emergent
+    ∇·E counts the Link (electric monopole EMERGES) or is ~zero (NON-emergence:
+    the winding is a magnetic dipole, not an electric monopole).
+
+    NO 𝒬→b insertion. The source is ∇·(Ax1 rotation→translation drive) only.
+    """
+    from ave.solvers.srs_cage_winding import compute_Q_link_srs, seed_pq_winding_on_srs
+
+    ch = EMEpsChannel(srs_L)
+    net = ch.net
+    # ── the winding ω on the srs nodes (its OWN DOF; genesis-24-clean seed) ──
+    omega, env = seed_pq_winding_on_srs(
+        net, p, q, R, r, frame_N=frame_N, amplitude_scale=amplitude)
+    # read the Link integer the winding carries (the charge it should source)
+    qlink = compute_Q_link_srs(net, omega, R, r, frame_N=frame_N)
+
+    # ── the Ax1 rotation→translation DRIVE (the ONLY axiom-native coupling) ──
+    # The substrate flux F = ∇×ω; the translational sector is driven by the
+    # rotational field via the LC coupling. The Ampère-like drive on the E-sector
+    # is the curl of the rotational field (F itself is the natural "B→E" drive
+    # vector in the LC relation). We take drive = F = ∇×ω evaluated on the nodes.
+    F = _srs_curl_nodes(net, omega)                    # F = ∇×ω, per-node 3-vector
+    # ── the EM-ε SOURCE = ∇·(drive) — MEASURED, the emergence question ──
+    b_EM = _srs_node_divergence(net, F)                # b_EM = ∇·F = ∇·(∇×ω)
+    # solve the gapless EM-ε channel with THIS emergent source (no 𝒬 inserted)
+    phi = ch.solve_static(b_EM.copy())
+    divE = ch.div_E_diagnostic(phi)
+
+    # ── the DIAGNOSTIC readouts (Gauss measured, never enforced) ──
+    # total source injected (the emergent b_EM, NOT 𝒬 — measure what it is)
+    total_b = float(np.sum(np.abs(b_EM)))
+    net_b = float(np.sum(b_EM))                         # net monopole charge sourced
+    # the Link the winding carries (for comparison — is the emergent net_b ∝ 𝒬?)
+    Q = qlink["Q_link"]
+    # exterior field exponent (only meaningful if a monopole emerged)
+    ctr = ch.pos.mean(axis=0)
+    i0 = int(np.argmin(((ch.pos - ctr) ** 2).sum(axis=1)))
+    rr = _node_radii(ch.pos, i0, ch.box)
+    Emag = ch.node_field_mag(phi)
+    fit = _fit_exterior_exponent(Emag, rr, 1.5, 6.0)
+
+    # EMERGENCE VERDICT: did a non-zero electric MONOPOLE emerge, counting 𝒬?
+    # ∇·(∇×ω) = 0 identically (up to discretisation) ⇒ expect net_b ≈ 0 ⇒ NO
+    # monopole (the honest non-emergence: pure-curl flux = magnetic dipole only).
+    monopole_emerged = bool(abs(net_b) > 1e-6 * max(total_b, 1e-30) and abs(net_b) > 1e-9)
+    return {
+        "test": "axiom1_lc_transducer_emergence",
+        "carrier": "srs_z3",
+        "Q_link": int(Q),
+        "w_tor": int(qlink.get("w_tor", 0)),
+        "emergent_source_total_abs": total_b,
+        "emergent_source_NET_monopole": net_b,
+        "net_over_total": float(abs(net_b) / max(total_b, 1e-30)),
+        "exterior_E_exponent": fit["exponent"],
+        "exterior_E_r2": fit["r2"],
+        # the honest emergence readout: does ∇·(Ax1 drive) produce a net monopole
+        # that counts the Link? For drive = ∇×ω, ∇·drive = ∇·(∇×ω) = 0 identically
+        # ⇒ NO electric monopole emerges from this coupling (the winding sources a
+        # magnetic DIPOLE, not the electric monopole). Measured, not asserted.
+        "electric_monopole_emerged": monopole_emerged,
+        "coupling_used": "b_EM = div(curl(omega)) — Ax1 rotation->translation, NO Q-insertion",
+    }
+
+
+def _srs_curl_nodes(net, omega: np.ndarray) -> np.ndarray:
+    """F = ∇×ω on the srs node cloud (bond-projected curl). Per-node 3-vector.
+    (∇×ω)[u] ≈ Σ_{v∈nbr(u)} ê_{u→v} × (ω[v] − ω[u]) / |bonds|  — the substrate-
+    native discrete curl (NOT a Cartesian stencil)."""
+    Nn = net.n_nodes
+    F = np.zeros((Nn, 3))
+    for u in range(Nn):
+        acc = np.zeros(3)
+        nb = net.neighbors[u]
+        for pp, v in enumerate(nb):
+            ehat = net.bond_unit[u][pp]
+            acc += np.cross(ehat, omega[int(v)] - omega[u])
+        F[u] = acc / max(len(nb), 1)
+    return F
+
