@@ -386,3 +386,11 @@ is a **sharper localization** of the L3 open problem: the residual gap is the **
 an energize-LOCK). No framework failure; no debug-toward-A; no dropped adjudication criteria. Per
 substrate-native-check, the winder-primitive question must be re-walked BEFORE any new coupling primitive is
 added — surfaced for Grant / auditor adjudication, NOT auto-resolved.
+
+---
+
+## ⚠ EVIDENTIARY-EXPOSURE (2026-07-03 — verdict-exposure sweep; MEDIUM, status-demotion)
+
+The 2026-07-03 sweep grades the Case-C **residual pump** finding **MEDIUM-exposed**: this is a PUMP verdict on a diamond-family engine (`VacuumEngine3D` wraps `CoupledK4Cosserat`, bipartite z=4), and the diamond operator's nullspace / ill-conditioning is the class of defect that can feed an unphysical secular mode. **The lock claim was already self-retracted** (Case C = NOT RESOLVED; the CORRECTING HEADER demoted "ABSORPTION VERIFIED" to non-conservative secular pump) — so no live localization/genesis claim rests on it; the exposure is MEDIUM, not HIGH.
+
+**Corpus-state note (verify-before-cite, this lane — the sweep's framing is superseded here):** the sweep row treats the pump as a *residual* finding plausibly caused by coupling-routing. But this doc's own **2026-06-21 Lenz-sign ADDENDUM** (above) already resolved it: the runaway rested on a `+2` EMF sign-wiring bug; under the corrected `−2` (Lenz back-EMF, derived) the V-sector source is **bounded** (E_V ~12→5, `v_secular<1`, verdict C1), NOT a runaway. So the pump is a **confirmed sign-artifact**, not a live residual pump — this is *stronger* than the sweep's "plausibly a coupling-routing artifact." The stencil-exposure note stands as an additional lens (a diamond nullspace could in principle feed a secular mode), but the specific genesis-24 runaway is already accounted for by the sign correction. **What is UNCHANGED and sign-independent:** the §8 structural finding that the (2,3) does not close (the residual gap is the poloidal winder primitive) stands. See [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](2026-07-03_engine-verdict-exposure-sweep_result.md) §6(A).

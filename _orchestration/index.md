@@ -5,6 +5,17 @@
 
 > **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
+## 2026-07-03 Open decisions — verdict-exposure re-adjudication (INTERIM EXPOSURE-CAVEAT arc landed)
+
+The 2026-07-03 engine verdict-exposure sweep was canonized ([`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](../research/2026-07-03_engine-verdict-exposure-sweep_result.md)); dated ⚠ EVIDENTIARY-EXPOSURE caveats landed on the 2 HIGH + 4 MEDIUM verdicts (status-demotion, NOT retraction; 25 LOW untouched). `clm-sjjvhf` demoted 0.65→0.60. mass = A1 (PR#260) untouched throughout. Two open decisions follow:
+
+| Decision | State | Gate / dispatch |
+|:--|:--|:--|
+| **Verdict-exposure RE-ADJUDICATION arc** — build a NATIVE-pipeline positive control (a config known to bind on the diamond stencil, or an explicit `L_D` eigenmode at nonzero λ) + report the v14 seed's `L_D` nullspace-energy fraction as a first-class driver diagnostic + re-run Stage-2 / S3 / #415 / #417 on the chiral **srs z=3** net | **APPROVED direction (Grant), dispatch PENDING** | implementer-lane dispatch; worktree-isolated; no self-merge. Confirms or overturns the DISPERSE/BREAK evidence that is now EVIDENCE-EXPOSED. |
+| **D1 — srs-z3 as the production carrier** (retire the bipartite diamond `TETRA_OFFSETS` production stencil for localization verdicts in favor of the chiral srs z=3 net) | **PROPOSED, GATED** | gated on the re-adjudication srs data above. The srs/diamond asymmetry (genesis-v13 srs-z3 LOCALIZATION-LANDED vs Stage-2/S3 diamond-z4 DISPERSE) is the motivating tell but is tagged exploratory-not-adjudicated; do NOT ratify D1 until the srs re-run lands. |
+
+**Discipline:** the seduction-trap ("bulk localization is real after all") is named and rejected in the sweep doc; the re-adjudication resolves neither direction until it runs. Substrate-native-check + phase-space-coordinate-check apply to the srs re-run (chiral z=3 host, phase-space observables in matching coordinates).
+
 ## 2026-06-23 Lattice Dynamic-Regime Discovery Program (epic ACTIVE — substrate-native reframe; PRs HELD)
 
 **Authoritative for the current discovery board** (parallel to, not superseding, the engine + manuscript epics below). Origin: the lattice-characterization white-space survey. Full epic + lane charters + **circuit-native object glossary** + per-lane status: [`2026-06-23_lattice-discovery-program.md`](2026-06-23_lattice-discovery-program.md).

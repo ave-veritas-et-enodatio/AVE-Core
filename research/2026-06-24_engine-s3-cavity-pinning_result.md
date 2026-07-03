@@ -86,3 +86,17 @@ PYTHONPATH=/tmp/s3-impl/src /Users/grantlindblom/AVE-staging/AVE-Core/.venv/bin/
 ```
 
 Branch-only (`analysis/engine-s3-cavity-pinning`); NEVER self-merge — Grant merges.
+
+---
+
+## ⚠ EVIDENTIARY-EXPOSURE (2026-07-03 — verdict-exposure sweep; status-demotion, NOT retraction)
+
+The 2026-07-03 engine verdict-exposure sweep grades this DISPERSE-FALSIFIED verdict **HIGH-exposed**. The verdict text above is preserved unchanged; this block demotes its evidentiary *status*, it does not retract the conclusion.
+
+- **CLASS-1 (stencil pathology, inherited from Stage-2).** S3 reuses the **exact** Stage-2 nullspace-bearing operator on the A1 block: `from ave.solvers.native_cage_imex import assemble_L_D, build_grad_div_periodic` (`src/ave/solvers/coupled_cage_winding.py:105`), applied to the A1-Laplacian block at `:345` (the apply-site comment asserts "real SPD" — the same doc-error; the operator is positive-**semi**-definite). Because all four `TETRA_OFFSETS` have odd coordinate-sum (`src/ave/topological/cosserat_field_3d.py:134-139`), the A1 block inherits the same two-sublattice decoupling and the same nullspace onto which a smooth centered seed dominantly projects (≈98% at N=8; see the Stage-2 exposure block for the reproduced arithmetic).
+- **CLASS-2 (mislocated positive control).** The only "the apparatus can SEE a self-trap" control (`_cartesian_v14_self_traps`, `src/ave/core/s3_cavity_pinning_gate.py:200`) runs on the **Cartesian `MasterEquationFDTD`** engine — its own docstring says it "confirms the apparatus can SEE a self-trap when one exists" — NOT the native coupled PDE that renders this verdict. The in-harness HERO-CANARY (winding-OFF reproduces Mode-III) is a **negative** control (confirms the harness reads DISPERSE), not a positive one; the genesis-24 conservation guard is a rigor guard, not a bound-reading demonstration. Both native seeds disperse.
+- **Corroborating self-disclosure.** This doc's own **§5 "load-bearing build finding"** (`:70`) shows the native vector operator **unwinds** the (2,3) integer even uncoupled (3→0→−1) — an admitted instrument artifact on this stencil, corroborating that the native diamond operator mishandles localized structure. The winding-conserved rescue (rigid template) does not address the A1-block nullspace.
+
+**Status: DISPERSE verdict = EVIDENCE-EXPOSED, UNDER RE-ADJUDICATION (native positive control + `L_D` spectral decomposition + srs-z3 re-run pending); conclusion NOT retracted, NOT confirmed.** The scope-lock is unaffected: only the diamond-stencil *evidence* for the winding-pins-the-core mechanism is exposed — **mass = A1 (PR#260) is UNTOUCHED** (this doc's `§Scope-lock`, line 6). The seduction-trap ("the core is really pinned after all") is **named and rejected** pending the re-adjudication arc.
+
+**Cite:** [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](2026-07-03_engine-verdict-exposure-sweep_result.md).

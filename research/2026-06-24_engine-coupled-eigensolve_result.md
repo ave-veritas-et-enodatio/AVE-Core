@@ -238,3 +238,11 @@ PYTHONPATH=src <py> -m pytest src/tests/test_coupled_eigensolve.py -m engine_sim
 Python: `/Users/grantlindblom/AVE-staging/AVE-Core/.venv/bin/python`. `make verify` PASSES.
 **8/8 tests pass** (5 engine_sim + 3 gating-lane). Branch `analysis/engine-coupled-eigensolve`; branch-only, NEVER self-merge (Grant merges).
 
+---
+
+## ⚠ EVIDENTIARY-EXPOSURE (2026-07-03 — verdict-exposure sweep; MEDIUM, status-demotion)
+
+**Stencil note (CLASS-1).** This eigensolve is built on the diamond `TETRA_OFFSETS` `L_D = Div·diag(D)·Grad` (`src/ave/solvers/coupled_cage_winding.py:29` "native TETRA_OFFSETS stencil"; geometry from `native_cage_imex.build_grad_div_periodic`/`assemble_L_D`). All four offsets have odd coordinate-sum, so `L_D` is **nullspace-bearing** (positive-**semi**-definite, contradicting the `assemble_L_D:151` "SPD" docstring): the sweep's auditor arithmetic (independently reproduced) gives an **8–16-dim nullspace** at N=4/6/8, and the checkerboard `(-1)^(i+j+k)` is in the `Grad`-nullspace (`‖Grad·checker‖=0`, Rayleigh=0) **under any diagonal `D`**.
+
+**Why MEDIUM, not HIGH.** For `H = ω_b·I − c²·L_D` solved `which='SA'`, the nullspace maps to eigenvalue `ω_b=+1` at the **largest**-algebraic end — the opposite end from the most-bound state this doc reads (`w_H=−7.065`). So the reported A1-confinement gates (a/b/c/e) are **not** directly nullspace-contaminated. **Residual concern:** gate-(d)'s "winding bled to core, `bw_on_torus=0.0001`" conclusion runs through the same achiral divergence-form operator whose `Grad` cannot represent lattice chirality — an achiral gradient hosting a chiral (2,3) torus mode is a phase-space-coordinate mismatch, so "winding cannot bind" may be partly a stencil-representation artifact (the doc's own honest-flag #1, :204, concedes the operator-class difference from fork-b's graph Laplacian). **Status: gate-(d) DOES-NOT-EXIST = evidence-exposed, srs-z3 re-run queued; the A1-sector gates are de-risked.** See [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](2026-07-03_engine-verdict-exposure-sweep_result.md).
+

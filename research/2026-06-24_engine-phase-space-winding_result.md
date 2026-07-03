@@ -154,3 +154,13 @@ cd /tmp/pswind && PYTHONPATH=/tmp/pswind/src \
   /Users/grantlindblom/AVE-staging/AVE-Core/.venv/bin/python \
   -m pytest src/tests/test_phase_space_winding.py -m engine_sim -q
 ```
+
+---
+
+## ⚠ EVIDENTIARY-EXPOSURE (2026-07-03 — verdict-exposure sweep; MEDIUM, status-demotion)
+
+**Stencil disclosure (fills a gap in this doc).** This result doc carried **zero acknowledgment** of the host stencil (grep: no diamond / srs / achiral / stencil / TETRA mention). For the record: the evolver `CoupledCageWinding` (`src/ave/solvers/coupled_cage_winding.py:29,67`) builds the A1↔ω generator on the **native diamond `TETRA_OFFSETS` stencil** (`adjoint_tetrahedral_divergence(D·tetrahedral_gradient)`). The four offsets `(+1,+1,+1)/(+1,-1,-1)/(-1,+1,-1)/(-1,-1,+1)` all have **odd coordinate-sum** — the host is a **bipartite, ACHIRAL diamond z=4** lattice.
+
+**The chiral-on-achiral category note (CLASS-1).** This is a **(2,3) CHIRAL-winding** BREAK verdict evolved on an **achiral** host. The electron's chiral (2,3) winding lives natively on **srs z=3**; evolving a chiral template on an achiral host could suppress a chirality-locked orbit that srs would support — so an **srs-native re-run is queued** to exclude host-achirality suppression.
+
+**Why MEDIUM, not HIGH (the mitigants that keep the verdict standing).** (a) the `validate_positive_control` (`phase_space_winding.py:476`) **plants a (2,3) on the same diamond and reads it back** — the readout is live for chiral integers even on the achiral host; (b) the load-bearing mechanism (carrier-ratio detuning: the orbit tracks `ω_b:ω_s`, reads back the carrier ratio not the topology) is **carrier-frequency-based and stencil-chirality-independent**; (c) the result is CONSISTENCY-class and does not touch `charge = Link(∂Ω,F)` (a structural gate on a separate real-space coordinate). The hand-set lattice-handedness `θ_χ = 2π·ν_vac` (`coupled_cage_winding.py:82,125`) is a spectator here (`χ=+1`), so **no parity conclusion is drawn** — only the mode-existence conclusion. **Status: BREAK verdict = evidence-exposed on the category axis, srs re-run queued; the carrier-detuning discriminator carries the negative independent of the stencil.** See [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](2026-07-03_engine-verdict-exposure-sweep_result.md).
