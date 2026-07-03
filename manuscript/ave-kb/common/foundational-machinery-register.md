@@ -559,7 +559,5 @@ silently committed — this is canonical infrastructure):
 
 ---
 
-**Validation footer (populated at the final gate pass).**
-
-<!-- populated in the validation commit -->
+**Validation footer.** Gated against `origin/main` @ f556dcdc: `make verify-kb-metadata` PASS — **406 nodes UNCHANGED** (300 claims / 38 definitions / 12 experiments / 4 interlock-mechanisms / 25 support / 23 invariants / 4 axioms), confirming this leaf mints **zero new IDs** (a pure VIEW, per D-M1). `make verify-md-links`: no broken link originates from this leaf (all `clm-`/register cross-refs resolve; the pre-existing `_orchestration/` warn-level links are unrelated). `make verify` (precommit): PASS.
 
