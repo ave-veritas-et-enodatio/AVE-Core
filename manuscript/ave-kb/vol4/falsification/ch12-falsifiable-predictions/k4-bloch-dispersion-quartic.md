@@ -98,7 +98,7 @@ chiral-srs eigensolve MEASURES slope $1.9999$ (see the demotion caveat immediate
 > rank-2 bond tensor $\Phi_b=k_a\,\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$ on the lattice's OWN z=3
 > srs bonds (Wyckoff-8a, $I4_132$), NOT a Cartesian Laplacian
 > (driver `src/scripts/vol_4_engineering/srs_bloch_dispersion.py` + result JSON
-> `_output/srs_bloch_dispersion.json`, on branch `engine/p1b-modes-live` — cited by path, not yet on `main`) —
+> `_output/srs_bloch_dispersion.json` — **now on `main` @ commit `19a31836`** "P1b.3: the band-edge dispersion gate — genuine srs eigensolve gives SLOPE-2"; the earlier "on branch `engine/p1b-modes-live`, not yet on main" cite is STALE, corrected 2026-07-03 per the verdict-exposure sweep) —
 > **MEASURES** band-edge anisotropy slope $=\mathbf{1.9999}$
 > ($a_2=+0.056$ **dominant** over $a_4=-0.0017$, for **BOTH** enantiomorphs; cross-checked by the raw
 > $[100]$–$[111]$ speed-diff ratio $=4.0=O(k^2)$, and the fit returns $4.0$ on a synthetic quartic so slope-2 is a
