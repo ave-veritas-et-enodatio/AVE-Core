@@ -190,3 +190,34 @@ P1 acceptance gate) is chartered — but NOT executed — in
 (def-4b1a2c, status → SOLID production-carrier sense); `eq_axiom_1.tex:18` in-body
 D1 note; `_orchestration/index.md` (D1 moved open → adjudicated); the migration
 charter above.
+
+---
+
+## ADDENDUM (2026-07-03, cold-eyes note) — the PRIMARY independence anchor is the 2026-06-25 ratification
+
+**Append-only. Records the cold-eyes program audit's anti-circularity finding
+([`2026-07-03_cold-eyes-program-audit_result.md`](2026-07-03_cold-eyes-program-audit_result.md) §1);
+does not edit the addendum above.**
+
+The strongest anti-circularity finding of the 2026-07-03 ruling-chain audit is that
+**D1's true primary independence anchor is a PRE-SESSION Grant ratification, not the
+day's srs-favorable arcs.** The z=3 chiral srs was **already ratified by Grant on
+2026-06-25** — verbatim at
+[`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md:211`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md):
+*"Decision 1 (RATIFIED, Grant 2026-06-25): the production engine substrate is the
+chiral z=3 srs net."*
+
+So the 2026-07-03 D1 "ratification" is a **re-confirmation of a decision substantially
+already made** (plus a deferred wording restoration — the z=4 clause was a drive-by
+contamination, never a Grant-adjudicated sentence). The day's arcs (the diamond-statics
+nullspace, the five-axis instrument comparison, the srs DEC operators) supplied
+*confirming instrument evidence* for the standing decision — they did NOT bootstrap it.
+**This is the load-bearing reason the 2026-07-03 chain is BENIGN-DEPENDENCE, not a real
+circle.**
+
+**Foregrounding correction:** the evidence-basis list in the addendum above lists this
+anchor as evidence-item-4 ("Axiom-1 canon itself"). Per the cold-eyes recommendation,
+the PRIMARY independence anchor is the **2026-06-25 `unified-engine-design-doctrine.md:211`
+ratification**; the four evidence items are *corroboration of a pre-session decision*,
+not the decision's foundation. Even if any one of them (e.g. the diamond-nullspace
+arithmetic) were wrong, the 2026-06-25 anchor survives.
