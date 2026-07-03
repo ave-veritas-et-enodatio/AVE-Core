@@ -106,6 +106,14 @@ _ENGINE_SIM_TESTS = {
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck3Raytrace::test_raytrace_recovers_4GM",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck4Nonlinearity::test_two_mass_nonlinearity_engages",
     "test_grqed_stage3_backreaction.py::TestBoundednessEnergyGate::test_contractive_and_energy_stationary",
+    # Cleave registry-pump Chern (2026-07-02, Grant (b) dual-reading): the srs
+    # (k_z, theta) torus Chern + gap-scan over BOTH readings x BOTH enantiomorphs
+    # (run_all / srs_registry_chern; several 48x48 Fukui-Hatsugai integrations +
+    # a 48x48 gap scan each). T2 driver cost+role. The FAST validate-on-known
+    # (toy C=+-1), slope-from-constants, anchor, and adjudicate() bin-logic checks
+    # in the same file STAY gating (sub-second). Coverage via `make test-engine`.
+    "test_cleave_registry_pump_chern.py::test_gverdict_frozen_bin_null_derived",
+    "test_cleave_registry_pump_chern.py::test_srs_chern_both_readings_gapped_and_converged",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
