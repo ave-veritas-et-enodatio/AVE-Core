@@ -59,13 +59,17 @@ $\omega$ is the substrate microrotation per node. The SO(3) → SU(2) double cov
 | $c_{\text{eff}}$ | $c_0 \cdot \sqrt{S}$ | Effective wave speed |
 | $n_{\text{eff}}$ | $c_0 / c_{\text{eff}} = 1/\sqrt{S}$ | Effective refractive index (gravitational analog per Vol 3 Ch 2) |
 
+> **What $A$ is (DP-1, 2026-07-02, Grant-ratified).** The Axiom-4 argument $A$ is the **normalized substrate strain** — the deformation of the one Cosserat medium (dilatation, translational strain, or curvature), normalized to yield. It is **per-sector** (each sector against its *own* yield, per the per-yield-normalized combine) and is the reactive-amplitude **envelope** (the cycle time-average / conserved reactive energy of the $(V_{\text{inc}},\Phi_{\text{link}})$-type tank), NOT an instantaneous phase snapshot. "Strain" is generic across static fields, waves, and bound modes because all three are deformations of the same medium — which is *why* the kernel is scale-universal. The $A^2_{\text{local}}=\Sigma V_{\text{inc}}^2/V_{\text{SNAP}}^2$ row above is the C-state projection of this envelope for the K4-V sector.
+
 ### Coupled K4-Cosserat saturation (full Axiom 4 mixing)
 
 When both K4 $V_{\text{inc}}$ and Cosserat $\omega$ are non-zero, the saturation couples both:
 
 $$A^2_{\text{total}} = A^2_V + A^2_\omega$$
 
-where $A^2_V = (V_{\text{inc}}^2 + V_{\text{ref}}^2) / V_{\text{SNAP}}^2$ and $A^2_\omega = \kappa^2 / \omega_{\text{yield}}^2$.
+where $A^2_V = (V_{\text{inc}}^2 + \Phi_{\text{link}}^2/(LC)) / V_{\text{SNAP}}^2$ and $A^2_\omega = \kappa^2 / \omega_{\text{yield}}^2$.
+
+> **R2 fix (DP-3, 2026-07-02, Grant-ratified).** The V-sector strain is the bond-LC tank's **reactive-energy envelope** — its C-state $V_{\text{inc}}$ plus its *conjugate* L-state $\Phi_{\text{link}}$ (the inductive voltage-equivalent $\Phi_{\text{link}}/\sqrt{LC}$, so $\tfrac12 C\,(\Phi_{\text{link}}/\sqrt{LC})^2 = \tfrac12\Phi_{\text{link}}^2/L$ is the L-state energy, per :39). The **superseded** form $A^2_V=(V_{\text{inc}}^2+V_{\text{ref}}^2)/V_{\text{SNAP}}^2$ wired in $V_{\text{ref}}$ — a **read-only projection of the same scalar $V$, not an independent DOF** ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) — the genesis-24 $w_{\text{pol}}=0$ double-count. *(Normalization of the $\Phi_{\text{link}}^2/(LC)$ term flagged for review-on-merge.)*
 
 This is the substrate-level coupling channel (Op14 cross-block) that connects K4 sector dynamics to Cosserat sector dynamics.
 
