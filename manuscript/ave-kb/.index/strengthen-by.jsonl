@@ -12,6 +12,8 @@
 {"claim_id": "clm-15nwqy", "item_idx": 2, "text": "Address that routes 1/3/4 are admittedly windows into the same Axiom-1 symmetry, so quantify how independent the cross-check truly is", "mentioned_ids": []}
 {"claim_id": "clm-1eg13f", "item_idx": 0, "text": "Derive $c_{eff}=c_0\\sqrt{S}$ from the per-cell dispersion relation inline so the clock-rate result is fully self-contained.", "mentioned_ids": []}
 {"claim_id": "clm-1klgo2", "item_idx": 0, "text": "(Not applicable to local rigor — an identity is maximal at 1.0. Predictive content would require an independent derivation of $\\xi$ or $G$, which is a separate claim.)", "mentioned_ids": []}
+{"claim_id": "clm-1wmyx3", "item_idx": 0, "text": "A time-domain FDTD confirmation (reactance-pair tracking) if a dynamical, non-analytic demonstration is later wanted.", "mentioned_ids": []}
+{"claim_id": "clm-1wmyx3", "item_idx": 1, "text": "A K4-diamond BZ refinement (vs the cubic-axis bond sum) for the precise finite value of the loop integral.", "mentioned_ids": []}
 {"claim_id": "clm-219e8j", "item_idx": 0, "text": "none — algebraic identity within the framework's existing definitions; the entry is correctly self-bounded as interpretive", "mentioned_ids": []}
 {"claim_id": "clm-239tr4", "item_idx": 0, "text": "Derive the $h_\\perp$ chiral metric bias and the resulting Ramachandran exclusion zones numerically from Axiom 2 rather than asserting the identification.", "mentioned_ids": []}
 {"claim_id": "clm-239tr4", "item_idx": 1, "text": "Specify the coherent resonant amplification mechanism that would lift the signal above the single-molecule detection threshold.", "mentioned_ids": []}
@@ -596,6 +598,9 @@
 {"claim_id": "clm-vnp57s", "item_idx": 0, "text": "Establish functional orthogonality of Λ_vol/Λ_surf/Λ_line (currently the open structural element)", "mentioned_ids": []}
 {"claim_id": "clm-vnp57s", "item_idx": 1, "text": "Show the M/J/Q dimensional assignment is forced rather than pattern-matched to the three π-powers", "mentioned_ids": []}
 {"claim_id": "clm-vnp57s", "item_idx": 2, "text": "Tie each Λ term to its boundary-integral via an explicit Stokes-reduction computation, not analogy", "mentioned_ids": []}
+{"claim_id": "clm-w5ez6i", "item_idx": 0, "text": "Build the Stage-4 irreversible depletion primitive (F6) as a BOUNDED norm-preserving $\\varepsilon\\to$T2 channel that does NOT detonate — the actual DE-tracks-matter chord, whose forward observable is the DESI/Euclid DE-vs-$n_{matter}$ cross-correlation.", "mentioned_ids": []}
+{"claim_id": "clm-w5ez6i", "item_idx": 1, "text": "Add an $a(t)$ Friedmann time-evolver so the de Sitter fate is simulated, not asserted analytically.", "mentioned_ids": []}
+{"claim_id": "clm-w5ez6i", "item_idx": 2, "text": "Model the BH / O(1)-compactness regime ($\\rho\\to1$) as a separate gated stage.", "mentioned_ids": []}
 {"claim_id": "clm-w6kk5y", "item_idx": 0, "text": "Complete and validate the E2k action-consistent same-shell treatment for B and beyond.", "mentioned_ids": []}
 {"claim_id": "clm-w6kk5y", "item_idx": 1, "text": "Independently validate the coupled-line even/odd-mode same-shell coupling at the atomic scale rather than importing it from protein/antenna analogy.", "mentioned_ids": []}
 {"claim_id": "clm-w8jn3q", "item_idx": 0, "text": "Derive a K4/Cosserat stability (or minimality) theorem selecting exactly $N=3$ as the minimal stable multi-loop Borromean closure — $N=3$ coming OUT independent of observing the proton. This is the chord-decider; until it exists, denominator-3 is an echo of the observed proton.", "mentioned_ids": []}
@@ -642,6 +647,8 @@
 {"claim_id": "clm-yyhczl", "item_idx": 1, "text": "Resolve or quarantine the S–S $+30\\%$ geometry failure with a derived correction rather than flagging it open.", "mentioned_ids": []}
 {"claim_id": "clm-z73h6n", "item_idx": 0, "text": "Replace the summary table with per-row links to the canonical derivation + its own confidence, so the headline cannot be read as uniform sub-percent.", "mentioned_ids": []}
 {"claim_id": "clm-z73h6n", "item_idx": 1, "text": "Distinguish \"exact\" regime/identity rows from quantitative matches explicitly in the table.", "mentioned_ids": []}
+{"claim_id": "clm-zbvfpi", "item_idx": 0, "text": "Model the genuine yield-physics (the lattice phase transition at $A=1$, its rupture) to convert the RELOCATION into a demonstrated removal — the separate genesis frontier.", "mentioned_ids": []}
+{"claim_id": "clm-zbvfpi", "item_idx": 1, "text": "A convergence-vs-$N$ study to remove the $\\pm1$-ring shell-radius discretization granularity.", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 0, "text": "Prove (or formally bound) the no-fourth-observable exhaustiveness rather than asserting it from Stokes dimensionality", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 1, "text": "Show the 0D point integral does not yield a fourth observable (the dimensional-reduction chain implicitly stops at 1D)", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 2, "text": "Give an explicit operational evaluation of Q as a 1D linking integral over a concrete substrate field", "mentioned_ids": []}

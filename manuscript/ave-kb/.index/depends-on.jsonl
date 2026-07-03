@@ -15,6 +15,7 @@
 {"source": "clm-1klgo2", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Topo-Kinematic Isomorphism — $\\ell_{node} = \\hbar/m_ec$ scale", "fraction": null}
 {"source": "clm-1klgo2", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — definition of $G$", "fraction": null}
 {"source": "clm-1klgo2", "target": "clm-wx5324", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-1wmyx3", "target": "clm-3i66gp", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-239tr4", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Chirality — $h_\\perp$ chiral metric bias", "fraction": null}
 {"source": "clm-239tr4", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "gravitational VSWR $\\varepsilon_{11}$ strain entering the relaxation magnitude", "fraction": null}
 {"source": "clm-2dwzib", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.63, "strength": null, "context": "for $V_{yield}$'s $\\sqrt{\\alpha}$ factor", "fraction": null}
@@ -655,6 +656,8 @@
 {"source": "clm-vjv4zf", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-vjv4zf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-vnp57s", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "owns the geometric closure of α⁻¹=4π³+π²+π that this entry reads dimensionally", "fraction": null}
+{"source": "clm-w5ez6i", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-w5ez6i", "target": "clm-zbvfpi", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-w6kk5y", "target": "INVARIANT-N3", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "Op4 potential well; coupled-line even/odd-mode formalism", "fraction": null}
 {"source": "clm-w6kk5y", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "cross-shell Gauss screening $\\sigma_{cross}=N_{inner}$", "fraction": null}
 {"source": "clm-w6kk5y", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "same-shell chiral coupling $J_{shell}$ via Op4", "fraction": null}
@@ -707,6 +710,8 @@
 {"source": "clm-z73h6n", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "x,x_{yield}", "fraction": null}
 {"source": "clm-z73h6n", "target": "clm-d9ivj1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-z73h6n", "target": "clm-dboxok", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-zbvfpi", "target": "clm-ir8h78", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-zbvfpi", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-ze4clw", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies that the Γ=−1 boundary exposes only integrated boundary observables", "fraction": null}
 {"source": "clm-zf8eah", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-zfqd9v", "target": "clm-zgllr2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the engine split this localization claim partitions across", "fraction": null}

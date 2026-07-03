@@ -126,6 +126,35 @@ Big-bang assembly is rejected: a single all-DOF engine that fails gives an ambig
 
 ---
 
+## §7 — Gravity / QED-extension engine capabilities (a DIFFERENT axis than the 7-DOF electron matrix)
+
+> **Scope note (flag-don't-fix — schema honesty).** The §2 matrix above tracks the **7 DOF of a complete
+> electron** on the *electron engines* (Master-Equation FDTD, crystal_engine, K4-TLM, cavitation_flow, srs, the
+> harness). It has **no "back-reaction" / "two-way" / "self-gravitation" row** — those are not electron-cage DOF.
+> The GR-QED extension engine (`src/ave/gravity/`, `src/ave/qed/`) is a **separate build axis** (a correction ON
+> the inherited GR/QED continuum solvers), so its capabilities are tracked here in prose, NOT as a new column in
+> the electron DOF matrix (which would misuse that schema). The GR-QED arc's ★make-or-break — **two-way
+> gravitational back-reaction (item #86)** — was flagged **ABSENT** by the engine-architecture frontier; it is
+> now **LANDED (2026-06-29)**. This section records the transition.
+
+| GR-QED engine capability | Before | After (2026-06-29) | Anchor |
+|---|---|---|---|
+| **Two-way gravitational back-reaction (#86)** — the field sources ITSELF; $M_{\text{eff}}$ emerges from the converged field energy | **ABSENT** (the ★make-or-break; only the one-way $T_{00}^{\text{matter}}\to\varepsilon_{11}$ forward solve existed) | **PRESENT / landed** — self-consistent Picard fixed point, provably contractive ($\rho$ measured $<1$), energy-stationary, all 4 at-risk gates + recover-GR green | clm-w5ez6i; `backreaction.solve_backreaction`; recover-GR gate `backreaction.recover_gr_weak_field` |
+| **Saturating-modulus strong-field correction** — bulk stiffens to a yield shell at $r_{\text{sat}}=3.5\,r_s$ | absent (linear core only) | **PRESENT** — elliptic relaxation on the native K4 stencil; clip-independence gate green (yield-physics, not the clamp, sets the wall) | clm-zbvfpi; `gw_propagation.relax_finite_core_strain`, `clip_independence_gate` |
+| **Brillouin-zone UV cutoff** — 1-loop finite by mode-count, no counterterm | (analytic claim only: clm-3i66gp "UV divergence naturally absent") | **PRESENT** — numerical driver confirmation; finite-vs-divergent side-by-side; distinct-cutoff discipline declared | clm-1wmyx3; `qed/brillouin_cutoff.loop_integral_brillouin_zone` |
+
+**Honest class (do NOT over-read).** These are **engine-capability / consistency-class** landings, not new
+value-level chords. The back-reaction makes $M_{\text{eff}}$ EMERGENT (architectural win) but the value-map
+$r_s=2GM_{\text{eff}}/c^2$ still imports $G$; recover-GR is consistency-class. What #86 UNBLOCKS is the
+*reversible* self-gravitation loop — the DE-tracks-matter chord (the irreversible F6 depletion primitive) is a
+**separate, still-UNBUILT Stage-4** capability (see
+[`../vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md`](../vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md)
+§5: F6 = ABSENT-INVENTED; `solve_backreaction` is static-elliptic, no $a(t)$ evolver). Landing #86 is a
+necessary precursor, NOT the chord itself. Canonical detail:
+[`../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md).
+
+---
+
 ## Cross-references
 
 - [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md) — the **design doctrine** companion to this capability map: the ontology (grid IS lattice), the continuum-vs-discrete dispatch, the coupling layer, the honesty guards, and *what the engine is for*. This map audits *what each engine carries*; the doctrine says *how the converged engine is built and used*.
