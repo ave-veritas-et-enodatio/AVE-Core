@@ -246,7 +246,9 @@ These are independent at the kinematic level. The full rotational symmetry is $\
 
 $$A^2 = \varepsilon^2 + \kappa^2 + V^2$$
 
-**Saturation kernel $S(A) = \sqrt{1 - A^2}$** acts on the total — not on any single mode. At $A = 1$, the $\Gamma = -1$ wall forms.
+**Saturation kernel $S(A) = \sqrt{1 - A^2}$** acts on the **per-yield-normalized** strain in each grade — each mode measured against its *own* yield, not a single shared radius. The $\Gamma = -1$ wall forms in a grade when that grade's $S \to 0$.
+
+> **Per-yield-normalized combine (DP-3, 2026-07-02, Grant-ratified; `research/2026-07-02_axiom4-combine-rule_result.md`).** A single shared-$V_{\text{SNAP}}^2$ radius — one wall at total $A^2=\varepsilon^2+\kappa^2+V^2=1$ — is **falsified**: (a) the electron confines at $A_{A1}=\sqrt\alpha\approx0.085$, where a single-radius total would read only $2\alpha=0.0146$ (68× short of 1); (b) the operative engine [`cosserat_field_3d.py`](../../../src/ave/topological/cosserat_field_3d.py):411,600 computes $A^2=\varepsilon^2/\varepsilon_{\text{yield}}^2+\kappa^2/\omega_{\text{yield}}^2$ (per-yield-normalized) with **separate $S_\mu,S_\varepsilon$ kernels** — L2-sum *within* a grade, L∞ (first grade to $S\to0$) *across* grades. The Pythagorean $A^2=\varepsilon^2+\kappa^2+V^2$ above is the raw coupled strain-energy bookkeeping (additive), NOT a single-radius rupture criterion. Whether the cross-grade combine is L∞-max or normalized-L2-sum is degenerate to $O(\alpha)$ at the electron and stays an open discriminator (a non-$\alpha$-suppressed operating point is needed).
 
 **Why the breathing mode is special.** It's the only mode with no rotational character — pure radial dilation. The Master Equation $\nabla^2 V - \mu_0\varepsilon_0 \sqrt{1-(V/V_{\text{yield}})^2}\,\partial_t^2 V = 0$ (Vol 1 Ch 4 line 73) **integrates only this mode.** The other 6 (Cosserat $u + \omega$) require coupling to the Cosserat engine.
 
