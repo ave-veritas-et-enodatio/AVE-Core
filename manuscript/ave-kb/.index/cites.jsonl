@@ -164,6 +164,7 @@
 {"claim_id": "clm-cfd5yf", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-clvchn", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-cmic3e", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-crbl60", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -682,7 +683,7 @@
 {"claim_id": "clm-y9old1", "leaf_path": "vol3/gravity/ch02-general-relativity/stress-energy-lc-density.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-yawl6z", "leaf_path": "common/appendices-overview.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-yc7fgm", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-ydksh6", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-ydksh6", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ydksh6", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-yiyyi3", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-yr6tu4", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md", "leaf_kind": "leaf", "tier2_marked": true}

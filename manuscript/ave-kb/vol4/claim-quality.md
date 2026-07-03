@@ -36,6 +36,34 @@ The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomor
 
 ---
 
+## Cleave-01 Plate-Displacement Charge Coupling — Chern Adjudication (NULL-CONFIRMED-FINAL)
+<!-- id: clm-clvchn -->
+
+The Cleave-01 bench posited that mechanically displacing a capacitor plate pumps topological charge $Q = \xi_{topo}\,x$ ($dQ/dx = e/\ell_{node} = 414.9$ fC/µm), a tabletop falsifier of Axiom 2. The coupling was audited (2026-07-02): "analytically derived" was found to be a `def-tk1xfm` **unit-bridge** substitution, not a mechanism.
+
+- _Specific Claims_
+  - The coupling is UNDECIDABLE-AT-PAPER; the sole surviving mechanism class is an adiabatic Thouless-class **registry pump** over the 4₁ screw texture (gap-independent, polarity-odd, linear-in-$x$, area-independent — all FORM-forced), whose existence rides an uncomputed Chern number $C$ over the $(k_z,\theta)$ registry torus.
+  - Grant ruled (b): the engine adjudicates via reproduction of the OA anchor ($g_0 = 2.21589$ rad/z-unit). Both the effective 2-band and the faithful **N-band** srs occupied-manifold Chern return $C = 0$ in BOTH substrate readings (sliding/Eulerian + locked/Lagrangian) and BOTH enantiomorphs (gapped, grid-converged $n=24/36/48$, validate-on-known PASS: recovers the 2-band 0, detects a known $|C|=2$).
+  - **VERDICT: NULL-CONFIRMED-FINAL.** The registry-pump mechanism is dead at the faithful N-band level; per the frozen last-roll pre-commitment the coupling question closes.
+- _Specific Non-Claims and Caveats_
+  - Does NOT falsify Axiom 2. It falsifies the *derived-pump* reading of the bench coupling. The bench retires as a **corroborative-null-class discriminator** — AVE itself predicts the null; it retains one-sided value as a falsifier (a nonzero gap-independent floor would still falsify AVE), but is NOT a chord-confirming forward prediction.
+  - The exact $414.9$ fC/µm is a VALUE-import through the $\xi_{topo}$ unit-bridge; it is NOT integer-$C$-reachable (needs $C=2\sqrt2$). Had a pump existed, the derived slope would be $C\times\{146.7\ |\ 586.8\}$ fC/µm.
+  - Scope: the null is on the faithful srs tight-binding manifold at half-filling — the substrate-native object — not a proof over every conceivable coupling functional; the pre-commitment closes the question on that (substrate-faithful) basis.
+
+> **Leaf references:** [project-cleave-01](./falsification/ch11-experimental-bench-falsification/project-cleave-01.md).
+
+### Quality
+- confidence: 0.85
+- depends-on:
+  - clm-i9l284 ($\xi_{topo}$ unit-bridge — the coupling is its displacement row)
+  - Axiom 2 (Topo-Kinematic Isomorphism — the bench tests $[Q]\equiv[L]$)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.90)]
+- rationale: The verdict is a NULL from a genuine computation (non-Abelian occupied-manifold Chern over the $(k_z,\theta)$ torus), gated by a two-sided validate-on-known (recovers the 2-band 0 AND detects a known $|C|=2$ with sign-flip), grid-converged across $n=24/36/48$, gapped, and enantiomorph-odd-consistent. It closes an ASSERTED coupling to unit-bridge status via the engine, not fiat. Pinned below identity because it is a construction-specific null (the faithful srs half-filled manifold), honestly bounded — not an all-couplings impossibility proof.
+- strengthen-by:
+  - A direct real-space $\mathrm{Link}(\partial\Omega, F)$ sweep on an evolved srs ground state (rather than the Bloch tight-binding manifold) as an independent confirmation of the $C=0$ null.
+
+---
+
 ## $V_{yield}$ vs $V_{snap}$ — Two Distinct Dielectric Thresholds
 <!-- id: clm-0vxzfu -->
 
