@@ -1608,3 +1608,35 @@ The vacuum-impedance-network measurement frame partitions the falsification-benc
   - Confirm each bench's mode/axiom tag against its own prereg as those benches mature past draft.
 
 ---
+
+## Winding-Pair Interaction Leg of Axiom 2 — Coulomb Sign Structure via the Gapped ω Sector
+<!-- id: clm-wcoul2 -->
+
+The first **engine-derived winding-pair interaction**. Two (2,3) winding solitons, seeded at controlled separation on the S1 buckle-OFF host and evolved under the real `step()`, interact with a **Coulomb sign structure: like windings REPEL, unlike windings ATTRACT** — measured as the sign of the self-subtracted Maxwell ω-field normal-stress force $F_{int}=T^{xx}_\omega$ integrated over the mid-plane. Under Axiom 2's own winding=charge mapping (anti-handed = opposite charge sign), signed Coulomb predicts exactly co-repel/anti-attract, and the engine reproduces it. This is the **interaction leg of Axiom 2** the Cleave-01 arc lacked — the coupling-class content that says HOW like windings interact, engine-derived rather than asserted.
+
+- _Specific Claims_
+  - Self-subtracted interaction force $F_{int}$ = co-handed **REPULSIVE** (+7.07e-3 at $d$=34), anti-handed **ATTRACTIVE** (−2.02e-3) — the signed-Coulomb like/unlike rule.
+  - The sign is **plane-invariant** (identical across integration planes XC±0/±1/±3), **enantiomorph-consistent** (sign(RR)=sign(LL), sign(RL)=sign(LR)), **window-invariant** ({150,250,350} steps), and **α-invariant** (α is absent from the force path; $\kappã$=6/5 literal) at $d\in\{34,38\}$.
+  - **Mechanism (electric, not magnetic):** the sign is the OPPOSITE of the classical current-loop rule (co-directed circulations attract; the winding pair co-repels — validated: the classical-circulation baseline reproduces co-attract/anti-repel, its own current-loop validate-on-known). So the winding **acts as a charge, not a current** — it couples through the ELECTRIC (charge) channel of the rotation sector. A massive-vector-like exchange through the gapped ω sector gives like-repel/unlike-attract; a scalar mediator would give universal attraction. The observed signs indicate the ω (rotation) sector mediates the winding interaction electrically.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY-class, NOT a chord.** The sign structure is signed-Coulomb, which is SM-shared; by the symmetric standard it is NOT an AVE-distinct parity divergence. The winding-force parity-chord objective (register §2.4) is **RESOLVED-TO-CONSISTENCY** (not falsified) — the winding-force question produced this Ax2 interaction leg instead of a chord.
+  - **The magnitude ratio $R=|F|_{co}/|F|_{anti}$ is BLOCKED** (ill-defined at current engine capability): knot overlap at stable separations ⇒ no plane-conservative integral (plane spread 4.7–9.5×); Yukawa screening ⇒ no source-free far-field ($|F|$ falls 2.6e5× over $d$=34→44). Only the SIGN STRUCTURE is claimed; NO magnitude, NO ratio.
+  - **$\omega_{gap}$ = HOST KNOB.** $\omega_{gap}$=1.0 is a host default (`crystal_graft_v2.py:65`), NOT the canonical $\Omega_C=c/\ell_{node}$. So the Yukawa range ($\xi=c_\omega/\omega_{gap}\approx$0.548 cells) — the mediator "mass" / screening scale — is **artifact-scale, not a substrate prediction**. The robust content is the SIGN STRUCTURE; the range/mediator-mass is not claimed. **No bench-scale range or force magnitude is predicted.**
+  - **Linear / buckle-OFF host.** The κ_chiral saturation channel is NOT exercised (the pre-committed stage-(b) successor is **MOOT** — its trigger, classical degeneracy, never fired; the sign was resolved by the Axiom-2 mapping).
+  - **Verdict domain $d\in\{34,38\}$.** $d$=44 is a dead-instrument cell (force 5 OOM into the numerical floor, Yukawa-screened); the anti sign there is noise-jittered and out-of-scope (Grant SNR-scoped-gate ruling, α, 2026-07-03).
+
+> **Leaf references:** [field-free-optical-activity](./falsification/ch12-falsifiable-predictions/field-free-optical-activity.md).
+
+### Quality
+- confidence: 0.7
+- depends-on:
+  - Axiom 2 (Topo-Kinematic Isomorphism — the winding=charge mapping that adjudicates the sign as signed-Coulomb)
+  - Gate-0 pair-feasibility (STABLE-IN-A-WINDOW, PR #465 — the stable-pair substrate this measures on)
+  - S1 winding-DOF (the (2,3) as a separately-conserved DOF, the seeded object)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: The SIGN result is robust — plane-, enantiomorph-, window-, and α-invariant at both signal-bearing separations, deterministic, self-subtracted, with two co-computed classical baselines (the current-loop circulation, which passes its own validate-on-known, and the achiral charge control). The Axiom-2 winding=charge mapping cleanly adjudicates the sign as signed-Coulomb (consistency, not chord), and the classical-circulation inversion pins the electric-not-magnetic mechanism. Held below the 0.9 identity band by two honest limits disclosed in the leaf: the mediator mass / range rides a host knob ($\omega_{gap}$, so no physical scale), and the magnitude-R is blocked (non-conservative overlap integral + screening) — so only the sign structure, not any magnitude, is claimed. Scope history: the objective began as a 2-band "dimensionless |F|-ratio chord" (register §2.4, highest-value unbuilt FORM chord), narrowed through Gate-0 (pair feasibility STABLE-IN-A-WINDOW) to the linear-channel campaign, where the magnitude-R was blocked (Grant's C) and the sign resolved-to-consistency (Grant's α + Coulomb-recovery) — the chord did not survive the symmetric standard, but the engine-derived Ax2 interaction leg did.
+- strengthen-by:
+  - Map $\omega_{gap}$ onto the canonical $\Omega_C=c/\ell_{node}$ (or derive the ω-tank restoring from lattice primitives) so the Yukawa range / mediator mass becomes a substrate scale rather than a host knob — then a physical range (and bench-reachability) could be assessed.
+  - Find a plane-conservative force extraction (a source-free enclosing surface) at a larger domain / separation where the knots do not overlap, to convert the blocked magnitude-R into a real number — currently structurally dead at the Gate-0 stable window (screening).
+
+---

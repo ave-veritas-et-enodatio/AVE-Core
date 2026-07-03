@@ -2,10 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-fofwr1]
+claims: [clm-fofwr1, clm-wcoul2]
 -->
 
 ## Field-Free Optical Activity: the Parity ZERO-vs-NONZERO Chord (magnitude NOT bankable)
+
+<!-- claim-quality: clm-fofwr1 -->
 
 A handed (chiral) AVE vacuum rotates the polarization plane of a transmitted transverse wave with a
 **signed** rotation rate that **flips sign between enantiomorphs** and is **identically zero on the achiral
@@ -60,9 +62,17 @@ to be measured to distinguish the two, only the *existence* and the *enantiomorp
   holonomy $\sim$40 OOM over the cosmic bound, and the $k\to0$ continuum mapping is OPEN, so the magnitude is
   not yet a bankable prediction. The bankable near-term QED-discriminator stays the E-route birefringence
   COEFFICIENT (clm-pp3qwf), a separate (parity-even) test.
-- **Highest-value next build:** the co-vs-anti-handed pairwise $|F|$ ratio (Observable-C / "Stage-6",
-  UNBUILT) — a *dimensionless* winding-parity forward prediction that dodges the $m_e/\alpha$-echo trap,
-  buildable now that S1 has PASSED.
+<!-- claim-quality: clm-wcoul2 -->
+- **Co-vs-anti-handed pairwise $|F|$ ratio (Observable-C / "Stage-6") — CLOSED → RESOLVED-TO-CONSISTENCY
+  (2026-07-03, `clm-wcoul2`).** Built through Gate-0 (pair feasibility STABLE-IN-A-WINDOW) + the
+  linear-channel campaign. The *magnitude*-ratio objective is **BLOCKED** (knot-overlap ⇒ no
+  plane-conservative integral + Yukawa screening ⇒ no source-free far-field; $\omega_{gap}$ is a host knob so
+  the range is artifact-scale). The interaction **SIGN** is well-defined and resolved to **CONSISTENCY**: the
+  quantized pair does co-REPEL / anti-ATTRACT, which **matches signed-Coulomb under Axiom 2's winding=charge
+  mapping** (SM-shared, so NOT an AVE-distinct parity chord by the symmetric standard). It produced the
+  **engine-derived Axiom-2 interaction leg** (`clm-wcoul2`: like windings repel / unlike attract, mediated by
+  the gapped $\omega$ rotation sector, electrically not magnetically) instead of a chord. Not falsified —
+  resolved-to-consistency. See `research/2026-07-03_writhe-campaign-linear-channel_result.md`.
 
 ---
 

@@ -1,10 +1,11 @@
 # RESULT — Writhe arc STAGE (a): the linear-channel |F|-ratio campaign
 
-**Status:** RUN-COMPLETE. **Mechanical bin: ILL-DEFINED** (the frozen G-plane gate fails — but ONLY at the noise-limited d=44 that the prereg's own §3 magnitude-blocker predicted). **The parity-odd SIGN chord-candidate is CLEAN and fully-armed at d=34 and d=38, noise-limited at d=44.** A prereg-internal tension is surfaced to Grant (§4) rather than resolved by dropping d=44 (Rule 7 — no post-hoc criterion drop).
+**Status:** RUN-COMPLETE + ADJUDICATED. **FINAL VERDICT: COULOMB-RECOVERY (CONSISTENCY-class)** — the engine-derived interaction leg of Axiom 2 (like windings repel / unlike attract with Coulomb sign structure, mediated by the gapped ω sector). Minted `clm-wcoul2` (§9). The parity-odd |F|-ratio CHORD is **RESOLVED-TO-CONSISTENCY** (not falsified): the winding-force question produced the Ax2 interaction leg instead of an AVE-distinct chord. Magnitude-R = **BLOCKED** (Grant's C). Stage-(b) = **MOOT** (no classical degeneracy fired the successor; the sign resolved by mapping adjudication).
+**Adjudication (Grant, 2026-07-03):** *"A full, and C"* → then, on the §4 tension, *"i agree with a"* = **(α) SNR-scoped gate + COULOMB-RECOVERY consistency-class bin**. See §4 (KEEP-BOTH: the mechanical ILL-DEFINED strict-letter reading is preserved alongside the α ruling).
 **Prereg (FROZEN):** [`2026-07-03_writhe-campaign-linear-channel_prereg.md`](2026-07-03_writhe-campaign-linear-channel_prereg.md)
 **Driver:** [`src/scripts/vol_4_engineering/writhe_campaign_linear_channel.py`](../src/scripts/vol_4_engineering/writhe_campaign_linear_channel.py)
 **Results:** `src/scripts/vol_4_engineering/writhe_campaign_linear_channel_results.json`
-**Grant ruling built on:** "A full, and C" (2026-07-03).
+**Minted claim:** `clm-wcoul2` — [`manuscript/ave-kb/vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md)
 **Branch:** `analysis/writhe-campaign-linear-channel` (PR for audit + Grant merge; NO self-merge).
 
 ---
@@ -31,11 +32,11 @@ Self-subtracted interaction force F_int; sign convention F>0 REPULSIVE / F<0 ATT
 | **CLASSICAL circulation** | −9.77e-2 **ATTRACTIVE** | +1.27e-1 **REPULSIVE** | YES — but **OPPOSITE** to quantized |
 | **CHARGE-like (achiral)** | +8.70e-5 REPULSIVE | +8.70e-5 REPULSIVE | **NO** (co = anti, `|co−anti|/max = 0.000`) |
 
-**The quantized winding is DISCRIMINATED from both baselines:**
-- vs **circulation** (current-loop knife): the quantized sign structure is the OPPOSITE of the classical current-loop rule — the quantized winding pair does co-REPEL / anti-ATTRACT, whereas classical co-directed circulations attract. **Not classically degenerate.**
-- vs **charge-like** (Coulomb-recovery knife): the achiral charge pair has NO parity-odd distinction (co = anti exactly) — so the quantized sign's parity-oddness is genuinely sourced by the winding handedness, not by geometry/charge. **Coulomb recovery is what the achiral control does, and the quantized winding does NOT reduce to it.**
+**Reading of the table (Grant-adjudicated, §4.2 — the Coulomb-recovery mechanism, NOT a chord):**
+- vs **circulation** (current-loop knife): the quantized sign is the OPPOSITE of the classical current-loop rule (co-directed circulations attract; the quantized winding pair co-REPELS). **This inversion is the MECHANISM fact, not a chord:** it says the winding pair interacts as a *charge* pair, NOT a *current* pair — "winding-acts-as-charge-not-current." Under signed-Coulomb, like charges repel; the quantized co-REPEL / anti-ATTRACT is exactly the signed-Coulomb rule (§4.2).
+- vs **charge-like** (Coulomb-recovery knife): the achiral scalar hedgehog has NO parity-odd distinction (co = anti exactly). This baseline **could not adjudicate the winding=charge mapping** — it correctly showed the quantized pattern is not reducible to an achiral *scalar* interaction, but a *signed* (achiral-magnitude-but-sign-carrying) charge is what Axiom 2 maps the winding onto, and the achiral hedgehog carries no sign to test that. Construction limitation, not a defect (§4.2b).
 
-This is the strongest content of the campaign: **at the separations where signal exists (d=34, d=38), the parity-odd SIGN is a genuine discriminator** — distinct from the current-loop circulation (opposite sign) and from achiral charge (no distinction).
+**The honest content (Grant-adjudicated):** the quantized sign structure (co-REPEL / anti-ATTRACT) **MATCHES signed-Coulomb under Axiom 2's winding=charge mapping** (anti-handed = opposite charge sign ⇒ attract). By the symmetric standard, an SM-shared sign structure cannot be booked as SM-divergent. So this is **Coulomb-recovery (CONSISTENCY-class)** — the engine-derived Axiom-2 interaction leg — **NOT** an AVE-distinct parity chord. See §4.2.
 
 ---
 
@@ -61,22 +62,36 @@ By contrast the d=34 and d=38 anti signals (2.02e-3, 2.29e-5) are 5–6 OOM abov
 
 ---
 
-## 4. The prereg-internal tension — SURFACED to Grant (NOT resolved here; Rule 7)
+## 4. Adjudication (Grant, 2026-07-03) — α gate-scope + COULOMB-RECOVERY bin (KEEP-BOTH)
 
-**The mechanical bin is ILL-DEFINED** because the frozen §8 classifier applies G-plane across the entire §1 measurement domain {34, 38, 44}, and d=44 fails it. But d=44 fails for a reason the prereg's OWN §3 blocker predicted (Yukawa noise), while the chord observable is clean at d=34/38.
+### 4.0 The tension (preserved — the strict-letter reading stays visible)
 
-**This is a genuine tension between two frozen prereg clauses:**
-- §1 froze the measurement domain as {34, 38, 44} (all Gate-0-stable), for the separation-scaling check.
-- §3 froze that the signal is Yukawa-screened and NOISE-LIMITED at the far separation (the magnitude blocker's second derived reason).
+**The MECHANICAL bin is ILL-DEFINED** because the frozen §8 classifier applies G-plane across the entire §1 measurement domain {34, 38, 44}, and d=44 fails it. This strict-letter record is KEPT (KEEP-BOTH). The tension is between two clauses of the SAME frozen prereg:
+- §1 froze the domain {34, 38, 44} (all Gate-0-stable), for separation-scaling.
+- §3 froze that the signal is Yukawa-screened and NOISE-LIMITED at the far separation.
+They collide at d=44: a valid STABILITY point but a noise-limited FORCE point. The §8 G-plane gate carried no SNR precondition, so it failed mechanically on the one separation §3 said would be noise-limited. This tension was **internal to the frozen document, not post-hoc** — both clauses were frozen before the run.
 
-These two clauses collide at d=44: it is a valid STABILITY point but a noise-limited FORCE point. The §8 G-plane gate does not carry a signal-to-noise precondition, so it fails mechanically on the one separation §3 said would be noise-limited.
+### 4.1 Gate-scope ruling: (α) — the G-plane gate carries the SNR precondition
 
-**I am NOT resolving this by dropping d=44** (Rule 7 forbids dropping an adjudication criterion post-hoc to convert ❌→chord; and Rule 11 forbids debugging toward a rescue). The honest options are Grant's to rule:
+**Grant ruled (verbatim "i agree with a"): option (α).** The G-plane sign-invariance gate is evaluated only where |F| is above the noise floor. Provenance argument (why this is not a post-hoc criterion drop): the d=44 anti noise-limit was frozen in **§3 of the same prereg** (the Yukawa magnitude-blocker) — a dead-instrument condition established before the run, not a result-driven exclusion. Therefore:
+- **d=44 books OUT-OF-SCOPE** for the sign gate — a **dead-instrument cell, not a verdict cell** (the force is 5 OOM into the numerical floor; §3.1).
+- **Verdict domain = d ∈ {34, 38}** (both pass every gate: plane-invariant, enantiomorph-consistent, window-invariant, α-invariant), with **d=44-co (the repulsive co-handed reading, +2.71e-8, still sign-consistent) as SUPPLEMENTARY** (it retains the co-REPEL sign even at the floor; only the anti reading is noise-jittered).
 
-- **(Ruling option α) The G-plane gate carries an implicit SNR precondition** (evaluate sign-invariance only where |F| is above the noise floor). Then d=44 is out-of-scope for the sign gate (noise-limited, as §3 booked), d=34/38 pass all gates, and the bin becomes **PARITY-ODD-SIGN-CHORD-CANDIDATE**. This is a plausible reading — §3 already established d=44 as noise — but it is a criterion REFINEMENT, so it needs Grant's explicit ruling, not my unilateral call.
-- **(Ruling option β) The frozen gate stands as literally written** ⇒ **ILL-DEFINED** is the verdict, recorded as-is: the sign is not uniformly plane-invariant across the frozen domain. Clean, honest, closes the linear channel's magnitude AND leaves the sign as "clean-at-close-range, noise-limited-at-range, not uniformly gated." Under this reading the stage-(b) successor question is whether the noise-limited far field disqualifies the chord.
+KEEP-BOTH: the §4.0 mechanical ILL-DEFINED record and this §4.1 α-scoped record both stand in the doc.
 
-**My lean (stated as a lean):** option α is the physically honest reading — the sign chord IS armed where signal exists, and d=44's failure is the already-booked Yukawa noise, not a physics sign-flip. But because collapsing {34,38,44}→{34,38} for the sign gate is exactly the kind of domain-narrowing Rule 7 warns against, I will not make that call. **Surfaced for Grant's adjudication.**
+### 4.2 Bin adjudication: COULOMB-RECOVERY, CONSISTENCY-class (NOT the parity chord)
+
+Under (α) the sign is well-defined on {34,38}. Grant ruled the bin is **COULOMB-RECOVERY (CONSISTENCY-class)**, NOT the AVE-distinct parity chord. Rationale (honest, symmetric-standard-applied):
+
+- **(a) The quantized sign MATCHES signed-Coulomb under Axiom 2's own winding=charge mapping.** Axiom 2 maps the winding onto charge; anti-handed = opposite charge sign. Signed Coulomb then predicts exactly **like repels / unlike attracts** = **co-REPEL / anti-ATTRACT** — which is precisely the quantized pattern. The **symmetric standard** (do not book an SM-shared structure as SM-divergent) forbids calling this a parity divergence: a signed-charge Coulomb interaction is SM-shared. So the sign is a *consistency* result, not a chord.
+- **(b) The achiral charge-like baseline could not adjudicate the winding=charge mapping — a construction LIMITATION, not a defect.** The hedgehog is achiral (no sign to carry), so co = anti (it correctly showed the pattern is not reducible to an achiral *scalar* interaction). But Axiom 2 maps the winding onto a *signed* charge, and an achiral scalar carries no sign to test the like/unlike distinction. So baseline (ii) rules out "achiral scalar" but cannot itself confirm-or-deny "signed Coulomb" — that adjudication is the Axiom-2 mapping (a), not the numerical hedgehog.
+- **(c) Supporting mechanism prose.** A **massive-vector-like exchange through the gapped ω (rotation) sector** gives like-repel / unlike-attract; a scalar mediator would give *universal* attraction (like AND unlike attract). The observed like-repel/unlike-attract signs therefore indicate the **rotation sector mediates the winding interaction ELECTRICALLY** (vector-mediator sign structure), not gravitationally/scalar. The classical-circulation INVERSION (§2) is the concrete mechanism fact: the winding **acts as a charge, not a current** — a current pair would follow the current-loop rule (co-attract), and the winding does the opposite, i.e. it couples through the electric (charge) channel of the rotation sector, not the magnetic (current) channel.
+
+**Verdict: COULOMB-RECOVERY (CONSISTENCY-class).** Minted as `clm-wcoul2` (§9): the engine-derived interaction leg of Axiom 2. The parity |F|-ratio CHORD is **RESOLVED-TO-CONSISTENCY** — not falsified; the winding-force question produced the Ax2 interaction leg instead of an AVE-distinct chord.
+
+### 4.3 Stage-(b) = MOOT
+
+The stage-(b) successor (the κ_chiral saturation channel, prereg §9) fires ONLY on classical DEGENERACY with no AVE-distinct residue. **It does NOT fire:** the sign is not degenerate-with-noise (it is a clean, Axiom-2-consistent Coulomb sign at d=34/38). The sign question was resolved by **mapping adjudication** (§4.2a), not by a classical-degeneracy finding. So **stage-(b) is MOOT** — the successor condition was never met. Recorded per prereg §9 (the successor is retired unfired, not pending).
 
 ---
 
@@ -94,7 +109,7 @@ Per prereg §3, R = |F|_co/|F|_anti is formally BLOCKED (ill-defined at current 
 1. **Knot overlap ⇒ no plane-conservative integral.** The magnitude spread across integration planes is 4.7–9.5× (result table §3, "mag spread") — R read at any single plane is knob-riding. R also drifts with d (3.51 → 4.82 → 6.86) as the signal sinks toward noise.
 2. **Yukawa screening ⇒ no source-free far-field.** |F_co| falls 2.6×10⁵ over d=34→44; ξ = c_ω/ω_gap ≈ 0.548 cells. There is no far-field surface with nonzero signal.
 
-The register §2.4 "dimensionless ratio" objective gets this honest status change: **the magnitude-ratio target is ill-defined in the linear channel at current engine capability** (auditor lands the register edit).
+The register §2.4 "dimensionless ratio" objective gets this honest status change (landed this branch): **magnitude-R = BLOCKED** (knot-overlap non-conservative integral + Yukawa screening); the **sign observable = RESOLVED-TO-CONSISTENCY** (Coulomb-recovery, the minted `clm-wcoul2`); the **"highest-value unbuilt FORM chord" designation = CLOSED** (resolved-to-consistency, not falsified). See §4.2 + the register §2.4 status-history block.
 
 ---
 
@@ -104,22 +119,27 @@ The register §2.4 "dimensionless ratio" objective gets this honest status chang
 
 ---
 
-## 7. Bench-reachability + prior-art note (auditor-marked, per prereg §8 bin 1)
+## 7. Bench-reachability note (the chord did NOT land — Coulomb-recovery is consistency-class)
 
-*IF Grant rules option α (§4) and the chord-candidate lands:* the prior-art mapping goes here, auditor-marked. Even under the chord reading, the range is artifact-scale/short (§6), so the expected classification is a **FORM result (a parity-odd interaction sign/direction), likely NOT bench-reachable** — the torsion-balance / Eöt-Wash spin-dependent-force bound classes apply only after a physical range is established, which the linear channel does not provide (ω_gap is a host knob). **[AUDITOR: land the register §2.4 status + the prior-art bound-class mapping only after Grant's §4 ruling.]**
+The bin is COULOMB-RECOVERY (§4.2), NOT the parity chord — so the prereg §8-bin-1 prior-art / bench-reachability mapping does **not** apply (there is no AVE-distinct force to map against torsion-balance / Eöt-Wash bounds). For completeness: even had the chord landed, the range is artifact-scale/short (§6, ω_gap is a host knob), so it would have been a FORM result, likely NOT bench-reachable. As a consistency result, the content is the SIGN STRUCTURE (like-repel/unlike-attract), whose robust part is the Axiom-2-consistent Coulomb sign, not a magnitude or a range.
 
 ---
 
 ## 8. What the campaign establishes / does NOT establish
 
-**Establishes (robust, at d=34/38 where signal exists):**
-- The quantized (2,3) winding pair has a **parity-odd interaction sign** (co-REPEL / anti-ATTRACT), plane-invariant, enantiomorph-consistent, window- and α-invariant at the signal-bearing separations.
-- This sign is **DISCRIMINATED from both classical baselines**: opposite to the current-loop circulation rule, and absent-of-distinction in the achiral charge control. The classical circulation baseline passes its own current-loop validate-on-known.
+**Establishes (CONSISTENCY-class, robust at d ∈ {34, 38}):**
+- The quantized (2,3) winding pair interacts with a **Coulomb sign structure** — like windings REPEL, unlike windings ATTRACT — plane-invariant, enantiomorph-consistent, window- and α-invariant at the signal-bearing separations.
+- This **matches signed-Coulomb under Axiom 2's winding=charge mapping** (§4.2a) — the **engine-derived interaction leg of Axiom 2**, the first engine-derived winding-pair interaction (minted `clm-wcoul2`, §9).
+- **Mechanism (§4.2c):** the classical-circulation inversion shows the winding **acts as a charge, not a current** (co-REPEL, opposite to the current-loop rule); the like-repel/unlike-attract signs indicate a massive-vector-like (electric) exchange through the gapped ω rotation sector, not a scalar (universally-attractive) mediator.
 
 **Does NOT establish:**
-- **NO magnitude-R** (§5 named blocker — ill-defined, knob-riding + noise-limited).
-- **NO bench-reachable range** (§6 — ω_gap is a host knob; the range is artifact-scale).
-- **NO uniform-domain sign verdict** — the sign fails plane-invariance at the noise-limited d=44 (§3.1); whether this disqualifies the chord or is out-of-scope-by-SNR is the §4 tension surfaced to Grant.
-- All results are on the LINEAR buckle-OFF host; the κ_chiral saturation channel (stage-b) says nothing until fired.
+- **NO parity chord** — the sign is SM-shared (signed-Coulomb), so by the symmetric standard it is NOT AVE-distinct (§4.2). The parity |F|-ratio chord is RESOLVED-TO-CONSISTENCY, not confirmed.
+- **NO magnitude-R** (§5 named blocker — ill-defined: knob-riding + noise-limited).
+- **NO bench-reachable range** (§6 — ω_gap is a host knob; the range is artifact-scale; the mediator "mass"/screening scale is not a substrate prediction).
+- All results are on the LINEAR buckle-OFF host; the κ_chiral saturation channel (stage-b) is **MOOT** (§4.3), not merely untested — its successor condition (classical degeneracy) was never met.
 
-**Stage-(b) trigger (prereg §9):** fires only if the sign books classically-degenerate. It does NOT — the sign discriminates from both baselines at d=34/38. So the stage-(b) successor is NOT triggered by the physics; the open question is purely the §4 gate-scope ruling, which is a domain/SNR adjudication, not a classical-degeneracy finding.
+---
+
+## 9. Minted claim (CONSISTENCY-class)
+
+**`clm-wcoul2`** (landed this branch, `manuscript/ave-kb/vol4/claim-quality.md`): *"Engine-derived interaction leg of Axiom 2 — like windings repel / unlike attract with Coulomb sign structure, mediated by the gapped ω (rotation) sector; the first engine-derived winding-pair interaction."* Consistency-class. Caveats in the claim body: ω_gap = host knob (the screening scale / mediator "mass" is artifact-scale; the SIGN STRUCTURE is the robust content); linear/buckle-OFF host (κ_chiral / stage-b MOOT — the sign question was resolved by the Axiom-2 mapping, no classical degeneracy fired the successor). See `vol4/claim-quality.md` for the full quality block + scope history.
