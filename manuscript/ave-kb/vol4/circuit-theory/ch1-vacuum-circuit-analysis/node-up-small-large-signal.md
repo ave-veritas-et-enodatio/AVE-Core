@@ -72,6 +72,8 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 > carries the *"identity-by-translation, NOT a derivation"* ceiling (`resonant-lc-solitons.md`:129) — **FLAGGED,
 > not asserted as derived.** Do NOT direct-wire $\mu_{eff}$ onto the mechanical $Z_{\mathrm{shear}}$.
 
+> **↗ REFERENCE-ANCHOR tag (2026-07-03 — §8 rotation un-conflation + FLAG-2 sector split, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8, `research/2026-06-15_ceff-epsilon-monotonicity_result.md`).** This table is the **clean reference** the other rotation-flavored sites reconcile to. Two things are already correctly separated here and cross-linked from elsewhere: (1) **rotation un-conflation** — the CHARGE row's **MECHANICAL Cosserat $(2,3)$ micro-rotation $\omega$** (gapped, $Z_{\mathrm{shear}}$, static Link) is distinct from the **$\mu$ EM-inductive** row (the massless $\mathbf B$/$T_2$-photon channel); (2) **FLAG-2 capacitance sector split** — `$C_{eff}=C_0/S$` (MASS row, ↑, the **longitudinal-A1 bond compliance**) vs `$\varepsilon_{eff}=\varepsilon_0 S \Rightarrow C_{diel}\propto S$` ($\varepsilon$ row, ↓, the **transverse-T2 dielectric permittivity**) — orthogonal reactances sharing the EE name, Grant-ratified 2026-06-15, NOT a sign error.
+
 This multi-port view is the **node-constitutive companion** to the per-DOF *mechanical-translation* tensor of
 [`per-dof-vacuum-node-circuit.md`](../../../vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md)
 (which refines only the 3 translation DOFs into a directional $(L_i,C_i)$ tensor): this table instead groups

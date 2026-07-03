@@ -70,6 +70,8 @@ commutes with $i,j,k$).
 | $\mathrm{Re}(w) = V_{A1}$ | A1 dilatation / volumetric breathing | bulk / mass-"3" |
 | $\mathrm{Im}(w) = \mathcal Q_{\mathrm{wind}}$ | charge = topological Link label (integer) | shear / charge-"3" |
 
+> **↗ Rotation-flavor tag (2026-07-03, KEEP-BOTH — §8 rotation un-conflation, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8; additive):** the $\mathrm{Im}(w)=\mathcal Q_{\mathrm{wind}}$ charge-Link boundary lives on the **mechanical SHEAR sector** ($Z_{\mathrm{shear}}=\rho\,c_{shear}$, lossless static/gapless-carrying — the deformation-invariant Link rides the **gapped mechanical Cosserat micro-rotation $\omega$**). The $F=\mathbf E+\iota\mathbf B$ row above labels $\boldsymbol\omega$ "EM transverse ($T_2$)" — that is the **massless EM-inductive** rotation (the $\mathbf B$ half of $F$). Same symbol $\omega$, two sectors: the static (2,3) Link is carried on the mechanical/shear grade (gapped, short-range), NOT on the massless EM-inductive $T_2$-photon grade. Reconciles with the clean reference [`node-up-small-large-signal.md:39`](node-up-small-large-signal.md) (MECHANICAL Cosserat → $Z_{\mathrm{shear}}$, static reactive charge boundary).
+
 **Algebraic facts (verified, consistency-class):**
 
 - Vector product forces a **scalar slot**: $(a\hat{\mathbf i})(b\hat{\mathbf i}) = -(a\cdot b) + (a\times b)\hat{\mathbf i}$
