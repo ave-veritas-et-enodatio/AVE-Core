@@ -1,0 +1,28 @@
+{
+  "pilot": "spice_lane_pilot_poisson",
+  "n_nodes": 24,
+  "n_edges": 32,
+  "seed": 20260703,
+  "ground_node": 0,
+  "inject_mA": {
+    "23": 1.0
+  },
+  "max_abs_diff_mna_vs_laplacian_V": 7.549516567451064e-15,
+  "verdict": "PASS",
+  "v_mna_sample_V": [
+    0.0,
+    0.6555500494066935,
+    0.6860627169333221,
+    0.7101114803930606,
+    0.7554434288496598
+  ],
+  "v_laplacian_sample_V": [
+    0.0,
+    0.6555500494066946,
+    0.6860627169333259,
+    0.7101114803930634,
+    0.7554434288496622
+  ],
+  "ngspice_executed": false,
+  "ngspice_note": "ngspice not installed on this machine; MNA numpy stand-in builds the identical G v = i system ngspice .OP assembles. Emitted .cir is runnable via `ngspice -b pilot.cir` once `brew install ngspice` lands (charter prerequisite)."
+}
