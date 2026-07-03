@@ -1,0 +1,39 @@
+{
+  "_provenance": {
+    "note": "research/2026-07-03_lanez-fluxoid-step0_note.md",
+    "module": "src/ave/topological/srs_dec_punctured.py",
+    "tests": "src/tests/test_srs_dec_punctured.py (18 keepers, PASS)",
+    "generated_by": "python -m ave.topological.srs_dec_punctured emit (see note §7)",
+    "frame_N": 20,
+    "winding_torus_cube_frame": {"R": 7.0, "r": 2.3, "src": "srs_cage_winding.py:301-302"},
+    "alpha_clean": true,
+    "two_method_b1": "rank-nullity AND 1-Laplacian nullity agree in every row"
+  },
+  "closed_box": {
+    "L3": {"V": 216, "E": 324, "F": 324, "b0": 1, "b1": 3, "b2_overcomplete": 218},
+    "L4": {"V": 512, "E": 768, "F": 768, "b0": 1, "b1": 3, "b2_overcomplete": 514},
+    "L5": {"V": 1000, "E": 1500, "F": 1500, "b0": 1, "b1": 3, "b2_overcomplete": 1002}
+  },
+  "ball_puncture_delta_b1": {
+    "_verdict": "delta_b1 = 0 at EVERY radius and box size -> NO source-free harmonic DOF; NO-DOORWAY for the ball shape",
+    "L3": {"r2.5": 0, "r3.0": 0, "r3.5": 0, "r4.0": 0},
+    "L4": {"r2.5": 0, "r3.0": 0, "r3.5": 0, "r4.0": 0},
+    "L5": {"r2.5": 0, "r3.0": 0, "r3.5": 0, "r4.0": 0}
+  },
+  "torus_puncture_delta_b1": {
+    "_verdict": "delta_b1 = +1 STABLE across L at the geometrically-matched cut (rc in [2.3,2.8], the r=2.3 tube) -> ONE new harmonic 1-cochain = the meridian linking cycle; DOORWAY exists for the (2,3) torus shape",
+    "_note": "rc=1.8 (under-cut, tube not severed) and rc>=3.3 (ragged over-cut) give unstable outliers (+2,+3,+5); the matched-cut plateau is the invariant",
+    "matched_cut_rc2.8": {"L3": 1, "L4": 1, "L5": 1},
+    "matched_cut_rc2.3": {"L3": 2, "L4": 1, "L5": 1},
+    "raw_sweep_L3": {"rc1.8": 0, "rc2.3": 2, "rc2.8": 1, "rc3.3": 1},
+    "raw_sweep_L4": {"rc1.8": 2, "rc2.3": 1, "rc2.8": 1, "rc3.3": 1},
+    "raw_sweep_L5": {"rc1.8": 3, "rc2.3": 1, "rc2.8": 1, "rc3.3": 5}
+  },
+  "disc_fill_certification_L3": {
+    "_verdict": "adding ONE meridian disc (a synthetic 2-cell over a psi-winding edge-loop) drops b1 from 4 to 3 -> the new torus generator is the CORE-LINKING meridian, not boundary roughness",
+    "b1_torus": 4,
+    "b1_plus_meridian_disc": 3,
+    "drop": 1,
+    "meridian_loop_edges": 14
+  }
+}
