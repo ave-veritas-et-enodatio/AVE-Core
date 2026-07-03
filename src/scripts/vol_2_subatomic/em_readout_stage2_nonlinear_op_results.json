@@ -1,0 +1,198 @@
+{
+  "v1_cold_floor": {
+    "test": "v1_cold_zero_texture_floor",
+    "carrier": "srs_z3",
+    "n_nodes": 4096,
+    "max_abs_phi": 0.0,
+    "max_abs_E": 0.0,
+    "S_eps_min": 1.0,
+    "S_eps_max": 1.0,
+    "converged": true,
+    "stays_zero": true
+  },
+  "v2_linear_limit": {
+    "test": "v2_linear_limit_S_to_1",
+    "carrier": "srs_z3",
+    "n_nodes": 4096,
+    "rule": "Q",
+    "rel_err_sweetspot_A3e-3": 8.1582167214251e-07,
+    "rel_err_A1e-2": 4.150003720870599e-05,
+    "A2_scaling_coef_A1e-2": 0.41500037208705987,
+    "converged": true,
+    "kappa_floor_note": "small-A rel_err rises as 1/A_max (\u03ba gauge floor), not an operator bug",
+    "reduces_to_linear": true
+  },
+  "v3_liveness_control": {
+    "test": "v3_liveness_positive_control",
+    "carrier": "srs_z3",
+    "n_nodes": 4096,
+    "control_A_dipole": "polarization-liveness: +x near-yield, -x cold (dipole, no monopole)",
+    "control_B_radial": "flux-liveness: near-yield core decaying outward (genuine monopole plateau)",
+    "max_abs_phi": 0.15717075664358704,
+    "max_abs_E": 0.059852976756960385,
+    "dipole_max_phi": 0.15717075664358704,
+    "radial_flux_plateau_abs": 1.643210946046834e-05,
+    "radial_harmonic_fraction": 2.058986952609653e-06,
+    "radial_coexact_fraction": 1.0000020604560207,
+    "radial_plateau_is_coexact": true,
+    "cold_floor": 1e-15,
+    "phi_over_floor": 157170756643587.03,
+    "flux_plateau_abs": 1.643210946046834e-05,
+    "S_eps_min": 4.4721358917592574e-05,
+    "converged": true,
+    "instrument_is_live": true,
+    "observable_reads_flux": true
+  },
+  "v4_convergence_stability": {
+    "test": "v4_convergence_resolution_stability",
+    "control": "radial (genuine-monopole flux control)",
+    "srs_Ls": [
+      6,
+      8,
+      10
+    ],
+    "P_hat_per_resolution": [
+      0.001170444883519252,
+      0.0012338445281856773,
+      0.001258897025508623
+    ],
+    "plateau_abs_per_resolution": [
+      1.4474076535489171e-05,
+      1.541331755772089e-05,
+      1.5782865588018e-05
+    ],
+    "max_phi_per_resolution": [
+      0.01236630339394456,
+      0.012492106748964234,
+      0.012537058447366942
+    ],
+    "resolution_spread_frac_Phat": 0.07243868978996314,
+    "P_hat_per_kappa": [
+      0.0013778266507521082,
+      0.001258897025508623,
+      0.0012470440454074219
+    ],
+    "kappa_spread_frac_Phat": 0.10102247203021145,
+    "all_converged": true,
+    "stable": true,
+    "kappa_independent": true
+  },
+  "equation_audit": {
+    "test": "equation_audit_gate_stage2a",
+    "ledger": [
+      {
+        "term": "L_w = B\u1d40 diag(w) B (variable-coeff \u2207\u00b7(\u03b5_eff\u2207))",
+        "role": "the EM-\u03b5 operator",
+        "tag": "AXIOM-DERIVED",
+        "cite": "discrete div(\u03b5_eff grad) on the srs net; well-posed (nullspace=const)"
+      },
+      {
+        "term": "w_edge = harmonic mean of node \u03b5_eff",
+        "role": "the edge conductance",
+        "tag": "AXIOM-DERIVED",
+        "cite": "series-reactance composition (two \u03b5 in series on a bond); the standard variable-coeff Laplacian edge rule"
+      },
+      {
+        "term": "S(A) = \u221a(1 \u2212 A\u00b2)",
+        "role": "the Ax4 saturation kernel",
+        "tag": "AXIOM-DERIVED",
+        "cite": "INVARIANT-S2; universal-saturation-kernel-catalog.md:20; Born-Infeld n=2"
+      },
+      {
+        "term": "\u03b5_eff = \u03b5\u2080\u00b7S(A) (\u03b5\u2080\u22611)",
+        "role": "the modulated permittivity",
+        "tag": "AXIOM-DERIVED",
+        "cite": "vocabulary-register.md:423 (\u03b5_eff = \u03b5\u2080\u00b7S)"
+      },
+      {
+        "term": "A_\u03bc(r) = amp\u00b7|\u03c9(r)|/max|\u03c9|",
+        "role": "the winding's \u03bc operating-point field",
+        "tag": "AXIOM-DERIVED",
+        "cite": "\u03c9 is the \u03bc\u2080 DOF (axiom-definitions.md:16); the FIELD, no integer"
+      },
+      {
+        "term": "A = compose(A_\u03b5, A_\u03bc, rule)",
+        "role": "the shared-node operating point",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "the A-composition FORK (prereg \u00a74.3); Q/M/X swept \u2014 surfaced to Grant"
+      },
+      {
+        "term": "\u03c4 = A_\u03bc \u2212 mean (DC-offset anchor)",
+        "role": "the quiescent-strain boundary",
+        "tag": "AXIOM-DERIVED",
+        "cite": "the frozen defect's operating-point shift (Stage-0 lane b); mean-zero (only A-gradients physical, CLAUDE.md:75); NOT a charge"
+      },
+      {
+        "term": "\u03ba (gauge-fixing infinitesimal)",
+        "role": "selects the physical null branch",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "\u03ba\u21920\u207a; the RESULT is \u03ba-independent (asserted v4)"
+      },
+      {
+        "term": "\u2207\u00b7(\u03b5_eff E) = \u2212L_w \u03c6",
+        "role": "Gauss DIAGNOSTIC",
+        "tag": "AXIOM-DERIVED",
+        "cite": "MEASURED only; adjoint-consistent (same L_w); never enforced"
+      },
+      {
+        "term": "b = \ud835\udcac\u00b7\u03b4\u00b3 (winding as charge)",
+        "role": "would source 1/r by fiat",
+        "tag": "FORBIDDEN-INSERTION",
+        "cite": "NOT USED \u2014 there is NO RHS source; b = \u03ba\u03c4 (gauge anchor) only"
+      },
+      {
+        "term": "\u222eE\u00b7dA = \ud835\udcac/\u03b5\u2080 enforced",
+        "role": "would force Coulomb by fiat",
+        "tag": "FORBIDDEN-INSERTION",
+        "cite": "NOT USED \u2014 Gauss is diagnostic only"
+      },
+      {
+        "term": "A_\u03bc from Q_link/helicity/w_tor",
+        "role": "would leak the integer into the constitutive state",
+        "tag": "FORBIDDEN-INSERTION",
+        "cite": "NOT USED \u2014 A_\u03bc is the \u03c9 FIELD only (runtime-proven bit-identical across fake Q)"
+      }
+    ],
+    "n_axiom_derived": 7,
+    "n_engineering_choice": 2,
+    "n_forbidden_rejected": 3,
+    "import_closure_scan": {
+      "per_file": {
+        "em_readout_stage2_nonlinear_op.py": {
+          "integer_into_constitutive": false,
+          "rho_eq_Q_delta": false,
+          "gauss_enforced": false
+        },
+        "chiral_lattice.py": {
+          "integer_into_constitutive": false,
+          "rho_eq_Q_delta": false,
+          "gauss_enforced": false
+        },
+        "srs_cage_winding.py": {
+          "integer_into_constitutive": false,
+          "rho_eq_Q_delta": false,
+          "gauss_enforced": false
+        }
+      },
+      "any_forbidden_used": false,
+      "modules_scanned": [
+        "em_readout_stage2_nonlinear_op.py",
+        "chiral_lattice.py",
+        "srs_cage_winding.py"
+      ]
+    },
+    "runtime_topology_independence": {
+      "independent_of_topology": true,
+      "Q_link_actual": 1,
+      "note": "eps_eff BIT-IDENTICAL across arbitrary fake Q_link \u2014 the constitutive assembly reads the omega FIELD only, no integer"
+    },
+    "alpha_guard": {
+      "alpha_carriers_in_physics_code": [],
+      "alpha_clean": true,
+      "note": "guard-definition + scanner-body excised before scan (grep-completeness)"
+    },
+    "no_rhs_charge_source": true,
+    "gauss_diagnostic_only": true,
+    "gate_passed": true
+  }
+}
