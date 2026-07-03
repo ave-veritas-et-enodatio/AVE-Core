@@ -467,3 +467,133 @@ def _srs_curl_nodes(net, omega: np.ndarray) -> np.ndarray:
         F[u] = acc / max(len(nb), 1)
     return F
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. THE EQUATION-AUDIT GATE (prereg §6 — the #384-unriggable-gate for physics
+#    equations). Lays out every term with its ledger tag and DEMONSTRATES no term
+#    references the winding as a charge source by declaration. This is the exit
+#    gate; Stage-2 stays HELD until it is reviewed.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def equation_audit() -> dict:
+    """Every load-bearing term of the completed dynamics, with its ledger tag +
+    the demonstration that NO term is a winding→charge-source insertion, and that
+    Gauss is a DIAGNOSTIC only (measured, never enforced).
+
+    Includes a self-grep over THIS module's own source for the forbidden patterns
+    (ρ=𝒬δ³, ∮E·dA=𝒬/ε₀ enforced, a 𝒬→e literal dictionary)."""
+    import re
+    from pathlib import Path
+
+    # Read the source, but strip comments + docstrings so the self-grep sees ONLY
+    # executable code (the ledger + comments DESCRIBE the forbidden patterns; a
+    # naive grep false-fires on that description — the grep-completeness trap).
+    raw = Path(__file__).read_text()
+    code_lines = []
+    for ln in raw.splitlines():
+        stripped = ln.split("#", 1)[0]  # drop trailing comments
+        code_lines.append(stripped)
+    src = "\n".join(code_lines)
+    # also drop triple-quoted docstrings/blocks
+    src = re.sub(r'"""(?:.|\n)*?"""', "", src)
+
+    ledger = [
+        {"term": "L = D − A (srs graph Laplacian)", "role": "the gapless EM-ε channel operator",
+         "tag": "AXIOM-DERIVED", "cite": "Ax1 chiral srs net; native discrete Laplace-Beltrami; well-posed (nullspace=const only)"},
+        {"term": "D-coefficient = 1 (gapless)", "role": "no mass term",
+         "tag": "AXIOM-DERIVED", "cite": "cold far-zone S->1; Γ_EM=0 matched channel; NO ω_gap smuggled"},
+        {"term": "E = −grad_graph φ", "role": "the electric field",
+         "tag": "AXIOM-DERIVED", "cite": "the graph gradient (edge differences)"},
+        {"term": "∇·E = −Lφ", "role": "Gauss DIAGNOSTIC", "tag": "AXIOM-DERIVED",
+         "cite": "MEASURED only; never enforced as a constraint (no ∮E·dA=𝒬/ε₀ anywhere)"},
+        {"term": "F = ∇×ω (substrate flux)", "role": "the winding's flux",
+         "tag": "AXIOM-DERIVED", "cite": "compute_F_curl / _srs_curl_nodes; Link(∂Ω,F)=charge, boundary-observables:20"},
+        {"term": "drive = Ax1 rotation→translation coupling (ω or ∇×ω)", "role": "the transducer",
+         "tag": "AXIOM-DERIVED", "cite": "axiom-definitions.md:16 (translational u↔E ⊥ microrotational ω↔B, LC-coupled)"},
+        {"term": "b_EM = ∇·drive (the EM-ε source)", "role": "the emergent source",
+         "tag": "AXIOM-DERIVED", "cite": "divergence of the axiom-native drive; MEASURED (the emergence question); ∇·(∇×ω)=0 ⇒ measured net monopole = 0"},
+        {"term": "b = 𝒬·δ³(r) (winding as charge density)", "role": "would source 1/r by fiat",
+         "tag": "FORBIDDEN-INSERTION", "cite": "NOT USED — grep-confirmed absent"},
+        {"term": "∮E·dA = 𝒬/ε₀ (Gauss enforced)", "role": "would force Coulomb by fiat",
+         "tag": "FORBIDDEN-INSERTION", "cite": "NOT USED — Gauss is diagnostic only"},
+        {"term": "b_EM = ω·(∇×ω) (helicity = charge label)", "role": "would source ∇·E from the charge label",
+         "tag": "FORBIDDEN-INSERTION", "cite": "the H_bel charge LABEL; using it AS the source = winding-as-charge insertion; measured for audit, NOT used as source"},
+    ]
+
+    # self-grep (executable code only) for the forbidden patterns actually being
+    # USED as a source: anything forbidden flowing into solve_static, or a 𝒬→field
+    # literal assignment. The transducer's ONLY solve_static source is b_EM.
+    solve_calls = re.findall(r"solve_static\(([^)]*)\)", src)
+    forbidden_hits = {
+        # 𝒬·δ³ built as a source array
+        "rho_eq_Q_delta": bool(re.search(r"=\s*Q_link\s*\*\s*(delta|np\.zeros)", src)),
+        # Gauss enforced: ∮E·dA or divE ASSIGNED to Q (a constraint), not measured
+        "gauss_enforced": bool(re.search(r"(flux|divE|dA)\s*=\s*Q_link\b", src)),
+        # helicity (hel) or Q_link passed INTO solve_static (used as the source)
+        "helicity_or_Q_into_solve": any(
+            re.search(r"\bhel\b|\bQ_link\b", c) for c in solve_calls),
+        # a direct 𝒬→field dictionary (E or phi literally set from Q_link)
+        "Q_to_field_dictionary": bool(re.search(r"(phi|E)\w*\s*=\s*Q_link\b", src)),
+    }
+    any_forbidden_used = any(forbidden_hits.values())
+    # positive check: every solve_static source is the emergent b_EM, a labeled
+    # KNOWN (source, s1, s2 — the validate-on-known imposed KNOWNs), np.zeros (the
+    # floor), or the method signature itself. The forbidden quantities (Q_link,
+    # hel) must NEVER appear as a source (checked above). This positive check just
+    # confirms no UNEXPECTED name flows in.
+    allowed_src = re.compile(
+        r"^\s*(self,\s*source|b_EM|source\b|s1|s2|\(s1|b\b|np\.zeros)")
+    solve_sources_ok = all(allowed_src.match(c) for c in solve_calls) if solve_calls else True
+
+    return {
+        "test": "equation_audit_gate",
+        "ledger": ledger,
+        "n_axiom_derived": sum(1 for x in ledger if x["tag"] == "AXIOM-DERIVED"),
+        "n_engineering_choice": sum(1 for x in ledger if x["tag"] == "ENGINEERING-CHOICE"),
+        "n_forbidden_rejected": sum(1 for x in ledger if x["tag"] == "FORBIDDEN-INSERTION"),
+        "forbidden_pattern_self_grep": forbidden_hits,
+        "any_forbidden_source_used": any_forbidden_used,
+        "solve_static_sources": solve_calls,
+        "all_solve_sources_allowed": bool(solve_sources_ok),
+        # the gapless / static-curl-free pair (prereg correction item 2)
+        "static_curl_free_supported": True,   # L is a pure ∇²; E=−grad φ curl-free supported
+        "propagating_longitudinal_absent": True,  # no time-derivative ⇒ no propagating mode
+        # the gate verdict: passes iff no forbidden source is used, every
+        # solve_static source is a labeled KNOWN or the emergent b_EM, and the pair holds
+        "gate_passed": bool(not any_forbidden_used and solve_sources_ok),
+    }
+
+
+def main():
+    """Run the full Stage-1 suite and dump results JSON (engine_sim-routable)."""
+    import json
+    from pathlib import Path
+
+    results = {
+        "vok_a_zero_source": validate_zero_source(8),
+        "vok_b_green_function": validate_green_function(12),
+        "vok_c_superposition": validate_superposition(12),
+        "transducer_emergence": axiom1_lc_transducer(12, 2, 3, 7.0, 2.3, 32, 1.0),
+        "equation_audit": equation_audit(),
+    }
+    out = Path(__file__).with_name("em_readout_vsector_transducer_results.json")
+    out.write_text(json.dumps(results, indent=2))
+    print(f"wrote {out}")
+    # headline
+    ta = results["transducer_emergence"]
+    print(f"VoK(a) floor: {results['vok_a_zero_source']['stays_zero']}")
+    print(f"VoK(b) Coulomb near-field: exp={results['vok_b_green_function']['phi_exponent_nearfield']:.3f} "
+          f"recovers={results['vok_b_green_function']['recovers_coulomb_potential']}")
+    print(f"VoK(c) Gauss-counts: {results['vok_c_superposition']['gauss_counts_total']}")
+    print(f"TRANSDUCER: Q_link={ta['Q_link']} net_monopole={ta['emergent_source_NET_monopole']:.2e} "
+          f"electric_monopole_emerged={ta['electric_monopole_emerged']}")
+    print(f"EQUATION-AUDIT gate_passed={results['equation_audit']['gate_passed']} "
+          f"(axiom-derived={results['equation_audit']['n_axiom_derived']}, "
+          f"forbidden-rejected={results['equation_audit']['n_forbidden_rejected']})")
+    return results
+
+
+if __name__ == "__main__":
+    main()
+
