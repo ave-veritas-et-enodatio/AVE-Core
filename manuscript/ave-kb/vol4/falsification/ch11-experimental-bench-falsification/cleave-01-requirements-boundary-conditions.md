@@ -32,6 +32,11 @@ experiments: [exp-742kv5]
 > They are **retained as diagnostics for any future REOPENS** of `clm-clvchn` (an unexpected positive
 > floor), not added as gating requirement corners now. The legacy slope/floor `CLV-REQ-*` specs stay
 > as written for the one-sided falsifier reading. **Legacy prose preserved (KEEP-BOTH).**
+>
+> **Non-conflation note (2026-07-03):** the engine-derived winding-*pair* interaction (`clm-wcoul2`,
+> Coulomb sign structure) is a **different observable** (force between two static windings) and does NOT
+> reopen this bench's displacement-*pump* null (`clm-clvchn`). Both verdicts stand — see the guard in
+> [`project-cleave-01.md`](project-cleave-01.md).
 
 ### REQ-ID INDEX — the canonical requirement identifiers (the bench repo cites + builds to these)
 

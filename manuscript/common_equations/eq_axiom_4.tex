@@ -13,7 +13,11 @@ $A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}
 \textbf{Behavior:} $A = 0 \Rightarrow S = 1$ (linear regime: Maxwell, BCS small-signal, Newtonian gravity recovered); $A \to A_{yield} \Rightarrow S \to 0$ with vertical tangent (saturation event is impulsive at every scale). When $S(A) \to 0$ locally, the substrate cannot sustain linear response and \emph{must reorganize topologically} to a new configuration. This is the universal mechanism behind the substrate's nonlinear repertoire.
 
 \medskip\noindent
-% [2026-06-15 LF-03 NOAA-solar-flare scope correction -- prior wording preserved per Rule 12]: was "with four empirical anchors at zero free parameters" + Stellar bullet "solar CME / flare onset, NOAA GOES 40-yr empirical validation". SUPERSEDED per KB leaf vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md (LF-03): the NOAA GOES comparison is a synthesized illustrative timeline, NOT a live catalog fetch; the stellar solar-flare instance is an A-034 forward prediction (the 0.46-yr FWHM), with NOAA validation pending a live fetch -- it is NOT one of the validated zero-free-parameter anchors. Count corrected four -> three.
+% LF-03 status (git carries the trail): the stellar solar-flare instance is an
+% A-034 forward prediction (0.46-yr FWHM), NOT a validated zero-free-parameter
+% anchor; the NOAA GOES 40-yr comparison is a synthesized illustrative timeline
+% pending a live fetch. Anchor count is THREE. Canon: KB leaf
+% solar-flares-led-avalanche.md.
 \textbf{A-034 universality (canonical 2026-05-15 evening):} the same kernel governs the physical-substrate subset of 19 cross-scale topological-reorganization events (19 of the 26 total cross-scale saturation events in the catalog: 17 canonical + 2 scoped physical-substrate rows; the full catalog of 26 = 19 physical + 2 biological + 5 engineered is enumerated in Backmatter Ch.7) spanning 21 orders of magnitude, with \textbf{three} validated empirical anchors at \textbf{zero free parameters} (no per-domain refit), plus a stellar-scale forward prediction pending validation:
 \begin{itemize}\itemsep 0pt
     \item \textbf{Condensed matter:} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at \textbf{0.00\% error} across all measured Type-I/II superconductors
@@ -35,17 +39,20 @@ $\mu_{eff}$   & $\mu_0 \cdot S$       & $\to 0$       & Inductor shorts (Meissne
 $\varepsilon_{eff}$ & $\varepsilon_0 \cdot S$ & $\to 0$     & Dielectric collapses \\
 $C_{eff}$     & $C_0 / S$             & $\to \infty$  & Capacitance absorbs energy \\
 $Z$ (symmetric) & $\sqrt{\mu/\varepsilon} = Z_0$ & invariant & Impedance preserved \\
-$c_{eff}$     & $c_0 \cdot S^{1/2}$  & $\to 0$       & Wave packet confined (mass) \\
+$c_{eff}$     & $c_0 \cdot S^{1/2}$\,$^{\dagger}$  & $\to 0$       & Wave packet confined (mass) \\
 \bottomrule
 \end{tabular}
 \end{center}
 
+\smallskip\noindent\footnotesize $^{\dagger}$\emph{Open exponent flag ($\sqrt{S}$ vs $S^{1/4}$):} the $c_{eff}$ exponent is \textbf{not settled}. This row states $c_{eff}\propto S^{1/2}$ (index $n = S^{1/2}$), while the A1-cage engine sets $c_{eff}^2 = c_0^2/S$ (a \emph{stiffening} $c_{eff}\propto S^{-1/4}\to\infty$) yet its \texttt{refractive\_index()} returns $S^{1/4}$ --- a flagged in-code exponent defect (physics-review item, understates wall depth without flipping sign; KB \texttt{engine-capability-map.md}). Carried as an open flag; not resolved here.\normalsize
+
+\medskip\noindent
+\textbf{Kernel status (register):} the kernel is \textbf{SHAPE-DERIVED (conditional)}: the $\sqrt{\cdot}$ form is a robust $\alpha$-free geometric theorem (the fixed-arc-length compressible-strut projection), but the yield anchor $A_{yield}$ inherits from the GR-imported $K = 2G$ --- FORM-derived, VALUE-imported. The axiom does \emph{not} collapse to a theorem; independent-axiom count stays 4. Per the KB \texttt{axiom-register.md} Axiom-4 entry.
+
 \medskip\noindent
 \textbf{Confinement theorem (two paths at atomic / gravitational scale):}
 \begin{itemize}
-    \item \textbf{Particles:} At a torus knot self-intersection,
-    $B$ saturates $\mu$ (ASYM-N) $\to$ $Z \to 0$, $\Gamma \to -1$
-    (short circuit) $\to$ standing wave = rest mass.
+    \item \textbf{Particles:} The electron is a real-space \textbf{$0_1$ unknot} (\emph{no} self-intersection). Its \textbf{rest mass is the A1 dilatation sector} at $V_{snap}$ ($m_e c^2 = $ trapped acoustic-compression energy; \texttt{def-vyvsn1}, PR\,\#260) --- \emph{not} a $\mu$-short at a torus-knot self-intersection. The confining $\Gamma = -1$ wall is the transverse Cosserat ($T_2$) self-trap at $V_{yield}$, inside which the A1 mass core operates \emph{sub}-saturated at $A = \sqrt{\alpha} \approx 0.085$. The magnetic-vs-capacitive $\Gamma = -1$ fork is a \textbf{degenerate sign / spin selector} (chirality-set, $|\Gamma| = 1$ both ways), \emph{not} the mass mechanism (B3-degenerate, PR\,\#260).
     \item \textbf{Gravity:} Near a massive defect, $\varepsilon_{11} \to 1$
     $\to$ shear modulus $G_{shear} \to 0$ (lattice phase transition)
     $\to$ transverse (GW) waves cannot propagate

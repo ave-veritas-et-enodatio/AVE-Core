@@ -79,6 +79,8 @@ commutes with $i,j,k$).
 
 **Scope fence:** $\mathcal Q_{\mathrm{wind}}$ is a **static integer label**, not a wave amplitude — never wire it into the A1 $(V_{\mathrm{inc}},V_{\mathrm{ref}})$ phasor ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
 
+**Prior art (biquaternion electrodynamics — the notation is not novel here).** The field slot $F = \mathbf E + \iota\mathbf B$ is the **Riemann–Silberstein vector**: Silberstein (1912/1914) cast Maxwell's equations in complex/biquaternion form (Silberstein L., *Ann. Phys.* 22/24, 1907; *The Theory of Relativity*, Macmillan 1914), and the biquaternion Maxwell program continues through Conway and Lanczos (Lanczos, *Die Funktionentheoretischen Beziehungen der Maxwellschen Aethergleichungen*, 1919; Conway's biquaternion electrodynamics, 1911). Algebraically the **unit biquaternions are isomorphic to $SL(2,\mathbb C)$**, whose adjoint action is the (proper orthochronous) Lorentz group — the same $SL(2,\mathbb C)$ that appears here as the $\Gamma$/Smith-chart PSL(2,$\mathbb C$) reflection geometry (§facts above). This connects the foreword's Thread 1 (the quaternion-era longitudinal/scalar channel) and Thread 3 (the emergent Lorentz structure) at the **algebra level**: a biquaternionic field carries both the scalar grade and the Lorentz action in one object. AVE adds no new algebra here — the biquaternion is coupling-layer notation (G1–G3 FAIL); the substrate content is the port assignment above, not the biquaternion structure itself.
+
 ---
 
 ## §2 — Layer 1: large-signal operating point (stress → saturation)

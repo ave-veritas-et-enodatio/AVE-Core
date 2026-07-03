@@ -2,22 +2,13 @@
 % Single source of truth. \input this wherever Axiom 3 is formally restated.
 % Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:61-66.
 %
-% PROVENANCE:
-% (1) Pre-2026-04-27 this file was titled "Axiom 3 — Gravity" and documented
-%     Newton's constant G, the gravitational refractive index n(r), Symmetric
-%     Gravity, and alpha-invariance under gravitational strain. Per axiom
-%     homologation 2026-04-27, gravity is a derived consequence of Axiom 1 +
-%     Axiom 4 (Symmetric Scaling), not a primitive axiom; G is a calibration
-%     constant emerging from Machian thermodynamic equilibrium. The gravity
-%     content has been moved to eq_gravity_derived.tex.
-% (2) Pre-2026-05-16 this axiom was named "Effective Action Principle." Per
-%     Grant 2026-05-16, renamed to "Minimum Reflection Principle" because the
-%     substrate-observable quantity is the boundary reflection |Γ|² (per the
-%     substrate-observability rule), not the interior Lagrangian density.
-%     The variational form (Maxwell Lagrangian) and the boundary form
-%     (min|Γ|² at every ∂Ω) are co-canonical; both extremize the same
-%     externally-observable quantity. The legacy name "Effective Action
-%     Principle" remains a valid equivalent.
+% CURRENT STATUS (git carries the full provenance trail — Grant 2026-06-22 ruling):
+%   Gravity / G / n(r) content lives in eq_gravity_derived.tex (gravity is a
+%   derived consequence of Axioms 1+4, not a primitive). Legacy name "Effective
+%   Action Principle" is the variational dialect; the substrate-native name
+%   follows the externally-observable |Γ|² per the substrate-observability rule.
+%   The variational⇄boundary equivalence status is tracked in the KB leaf
+%   axiom-register.md (Ax3 entry) — see the in-body Equivalence note.
 %
 \begin{resultbox}{Axiom 3 — Minimum Reflection Principle}
 The substrate, in its continuum limit, evolves to extremize the macroscopic substrate action $S_{AVE}$. Two mathematically equivalent forms of this principle are co-canonical:
@@ -28,7 +19,12 @@ The substrate, in its continuum limit, evolves to extremize the macroscopic subs
     S_{AVE} = \int \mathcal{L}_{node}\, d^4x
     \label{eq:axiom3_lagrangian}
 \end{equation}
-This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). Energy conservation, Lorentz invariance, and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
+This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$).
+
+\medskip\noindent\textbf{Lossless-reactive.} The substrate action is \textbf{lossless and purely reactive}: $\mathcal{L}_{node}$ carries only capacitive ($\tfrac12\varepsilon_0|\partial_t\mathbf{A}_n|^2$) and inductive ($\tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$) energy-storage terms and \emph{no resistive / dissipative term}. This is the ``Ax3-lossless'' property the corpus relies on throughout (the bond-LC tank conserves $E = \tfrac12 C V^2 + \tfrac12\Phi^2/L$ exactly): the vacuum stores and returns energy but does not dissipate it, so any apparent loss must be a boundary-radiation or mode-conversion channel, never a bulk resistive one.
+
+\medskip\noindent
+Energy conservation and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure. \textbf{Lorentz invariance} follows only \emph{in the continuum limit} --- it is \textbf{emergent}, not exact: the discrete K4 substrate is a preferred-frame medium, and Lorentz symmetry is recovered as a low-energy / long-wavelength effective symmetry (KB \texttt{preferred-frame-and-emergent-lorentz.md}).
 
 \medskip\noindent\textbf{Boundary form} (substrate-native, engineering-natural). The substrate evolves to minimize the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary:
 \begin{equation}
@@ -38,5 +34,5 @@ This is the standard Maxwell Lagrangian (in vector-potential form), recovered as
 \end{equation}
 Equivalent names: \textit{Minimum Reflection Principle} (substrate-native, this axiom's canonical name), \textit{minimum-$|\Gamma|^2$ principle}, \textit{minimum boundary reflection}, \textit{least reflected action}, \textit{impedance-match principle}, \textit{Effective Action Principle} (legacy variational-dialect name). This form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (substrate-observability rule, formalized in the Common Foreword $\S$``Three Boundary Observables''). The axiom name follows the substrate-observable: the externally-measurable quantity being extremized is the boundary reflection $|\Gamma|^2$, not the interior action.
 
-\medskip\noindent\textbf{Equivalence.} The variational extremum (Eq.~\ref{eq:axiom3_lagrangian}) corresponds bijectively to the boundary reflection minimum (Eq.~\ref{eq:axiom3_boundary}): the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimizes $|\Gamma|^2$. The two forms describe the same physics from different starting points --- volumetric Lagrangian (standard QFT dialect) vs.~boundary impedance (engineering / substrate-native dialect).
+\medskip\noindent\textbf{Equivalence (ASSERTED --- an underived dynamics leg).} The variational extremum (Eq.~\ref{eq:axiom3_lagrangian}) is \emph{asserted} to correspond to the boundary reflection minimum (Eq.~\ref{eq:axiom3_boundary}). The usual argument --- the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which minimizes $|\Gamma|^2$ --- does \textbf{not} by itself establish the equivalence: field continuity holds at \emph{reflecting} boundaries too (a $\Gamma = -1$ TIR wall is $E$/$B$-continuous yet is a reflection \emph{maximum}, not a minimum), so continuity is necessary but not sufficient for the $|\Gamma|^2$-extremum. The two forms are treated as co-canonical dialects of one postulated axiom, but the bijection between ``extremize $S_{AVE}$'' and ``minimize $|\Gamma|^2$ at every $\partial\Omega$'' is a \textbf{flagged underived dynamics leg}. See the derived-legs status in the KB \texttt{axiom-register.md}. (Note: the register presently records this equivalence as a proven internal theorem; the field-continuity gap above is surfaced for adjudication rather than silently overwriting either statement.)
 \end{resultbox}
