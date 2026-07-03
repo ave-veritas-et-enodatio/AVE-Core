@@ -62,7 +62,7 @@ inherits its provenance.
 | **α** | **ECHO** | the α-decomposition FORM (`Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π`); the *scale* (~1/137) forced by the Compton-resonance trap | the *exact value* — rests on `R·r = ¼`, a named identification the substrate does NOT independently select; **every named lift-route closed-negative** (the original three + the 2026-06-24 keystone + the four 2026-06-25 routes — variational/lattice A, EMT-percolation B, OCXO loaded-Q C consistency-reframe, f_b-boundary D partial; consolidated closed-route register at [`research/2026-06-25_delta-strain-session-synthesis.md`](../../../research/2026-06-25_delta-strain-session-synthesis.md), audit-verified SOUND) | [`interlock-register.md`](interlock-register.md) `ilk-rr14gt`; [`vol1/ch8-alpha-golden-torus.md:11,13`](../vol1/ch8-alpha-golden-torus.md) |
 | **G** | **MIXED** *(never a pure echo)* | the Achromatic-Lens `/7` PPN projection FORM (SYM ε·μ co-scaling → Z = Z₀, Γ = 0) — substrate-derived | the value-fitted ξ termination (`ξ = ℏc/(7 G m_e²)`, back-solved from CODATA G, circular not forward) | [`interlock-register.md`](interlock-register.md) `ilk-gravmb`; [`common/full-derivation-chain.md:59,85`](full-derivation-chain.md) |
 | **K = 2G** (ν_vac = 2/7) | **GR-IMPORTED** (echo for the value) | the substrate forces the *form* of the elastic response `K/G = f(ρ)` | the *value* 2/7 — the GR trace-reversal identity, not crystalline-forced nor constitutively-forced | [`q-g47-substrate-scale-cosserat-closure.md:28`](q-g47-substrate-scale-cosserat-closure.md); PR [#261](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/261) (MERGED) |
-| **E_yield** (saturation field) | **MIXED** | the **existence** of a saturation field is an AVE-distinct chord (the medium *has* a yield the SM vacuum lacks) | the √α *value* — since `e = √α` in natural units, the magnitude rides the α-echo | this leaf (adjudication `wlmbl6d5f`, 2026-06-20); kernel home [`CLAUDE.md`](../CLAUDE.md) INVARIANT-S2 (Axiom 4) |
+| **E_yield** (saturation field) | **MIXED** | the **existence** of a saturation field is an AVE-distinct chord (the medium *has* a yield the SM vacuum lacks); the Axiom-4 kernel **√ FORM** `√(1−(A/arc*)²)` is a robust α-free geometric theorem for any ρ (Axiom-4 arc, [#460](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/460)) | the √α *value* — since `e = √α` in natural units, the magnitude rides the α-echo; **and** the Axiom-4 kernel's **yield anchor** `arc*=4ρ/(4ρ+1)·ℓ_node` — which inherits from GR-imported `K=2G` (the ρ=k_a/k_s that sets `arc*` is `K=2G`-set: ρ=2 ⟺ K=2G), the **fourth+ named instance** of this meta-finding (Axiom-4 √ form-derived / yield-anchor value-imported) | this leaf (adjudication `wlmbl6d5f`, 2026-06-20); kernel home [`CLAUDE.md`](../CLAUDE.md) INVARIANT-S2 (Axiom 4); Axiom-4 arc [`research/2026-07-02_axiom4-moduli-hierarchy_result.md`](../../../research/2026-07-02_axiom4-moduli-hierarchy_result.md) §5 |
 | **m_e / ℓ_node** | **DEFINITIONAL** | (n/a — the anchor by which the lattice is calibrated) | `ℓ_node ≡ ℏ/(m_e c)` is an Axiom-1 calibration identity — an input *by construction*, not a value the substrate is asked to select | [`interlock-register.md`](interlock-register.md) `ilk-cmptrp`; `clm-5xon03` |
 
 So the banner "VALUE-IMPORTING" is cleanest and strongest for **α**; for **G** it
@@ -149,6 +149,17 @@ this leaf points at it (consolidate, don't duplicate):
   + [`full-derivation-chain.md:85`](full-derivation-chain.md).
 - **The K=2G GR-import** — PR [#261](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/261)
   (MERGED) + [`q-g47-substrate-scale-cosserat-closure.md`](q-g47-substrate-scale-cosserat-closure.md).
+- **The Axiom-4 yield-anchor (via K=2G)** — the fourth+ named instance
+  (2026-07-02): the saturation-kernel √ **FORM** is a robust α-free geometric
+  theorem for any ρ, but its **yield anchor** `arc*=4ρ/(4ρ+1)·ℓ_node` inherits
+  from the same GR-imported `K=2G` (ρ is `K=2G`-set), and inextensibility
+  (`ρ≫1`) is affirmatively `K=2G`-forbidden. Axiom-4 buckling/moduli arc
+  PR [#459](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/459) /
+  [#460](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/460) (MERGED) +
+  [`research/2026-07-02_axiom4-moduli-hierarchy_result.md`](../../../research/2026-07-02_axiom4-moduli-hierarchy_result.md)
+  §5 (its own "fourth instance of the meta-finding"). A CONFIRMATION of the
+  K=2G-value-not-geometry-forced negative via elastic-moduli energetics, NOT a
+  new derivation.
 - **The testing consequence** — [`divergence-test-substrate-map.md`](divergence-test-substrate-map.md)
   (the FORM-EXISTENCE vs FORCED-RATIO chord-class lens; ν_vac cascade).
 - **The settled SOURCE doc** — `research/2026-06-15_form-deriving-value-importing_meta-finding.md`
