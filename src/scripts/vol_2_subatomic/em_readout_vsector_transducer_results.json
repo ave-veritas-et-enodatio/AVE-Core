@@ -1,4 +1,36 @@
 {
+  "carrier_diagnostics": {
+    "test": "carrier_diagnostics",
+    "diamond_K4_smallest12_abs_eig": [
+      3.212450881438533e-18,
+      4.1119371282413226e-18,
+      4.1119371282413226e-18,
+      4.111937128241324e-18,
+      4.111937128241324e-18,
+      4.111937128241324e-18,
+      4.111937128241324e-18,
+      4.111937128241325e-18,
+      4.111937128241325e-18,
+      4.111937128241326e-18,
+      4.1119371282413265e-18,
+      4.111937128241327e-18
+    ],
+    "diamond_K4_nullspace_dim": 12,
+    "diamond_K4_static_solve_max_phi": 3.3562859513854424e+16,
+    "diamond_K4_bipartite_illposed": true,
+    "srs_smallest8_abs_eig": [
+      3.382710778155107e-17,
+      0.03842943919353908,
+      0.03842943919353908,
+      0.03842943919353912,
+      0.03842943919353912,
+      0.03842943919353916,
+      0.03842943919353916,
+      0.07609066504979003
+    ],
+    "srs_nullspace_dim": 1,
+    "srs_wellposed": true
+  },
   "vok_a_zero_source": {
     "test": "zero_source_floor",
     "carrier": "srs_z3",
@@ -13,15 +45,17 @@
     "n_nodes": 13824,
     "box": 33.941125496954285,
     "cg_info": 0,
-    "phi_exponent_nearfield": -1.4681604745034575,
-    "phi_r2_nearfield": 0.9907293850183189,
-    "phi_n_nearfield": 298,
+    "phi_exponent_nearfield_bare": -1.4681604745034575,
+    "phi_r2_nearfield_bare": 0.9907293850183189,
     "phi_exponent_farfield_ARTIFACT": -5.3290654164330755,
-    "phi_r2_farfield": 0.7154984457778866,
     "near_window": [
       1.5,
       6.0
     ],
+    "coulomb_coeff_A": 0.459245767633346,
+    "jellium_corrected_r2": 0.9965513872356815,
+    "jellium_c2_parabola": 2.836977265071721e-05,
+    "spec_deviation": "point-source Green's fn (equiv. to boundary-flux by div-thm); recorded",
     "recovers_coulomb_potential": true
   },
   "vok_c_superposition": {
@@ -29,28 +63,105 @@
     "carrier": "srs_z3",
     "field_linearity_rel_err": 2.203958274870928e-12,
     "linear": true,
-    "divE_at_two_sources": -1.9997106481481457,
-    "divE_at_one_source": -0.9999276620370364,
-    "count_ratio_two_to_one": 1.999855313607754,
-    "global_divE_sum_source2": 1.5543122344752192e-15,
-    "global_divE_sum_source1": -5.551115123125783e-17,
+    "enclosed_one_source_smallsphere": 0.9992766203703682,
+    "enclosed_two_sources_bigsphere": 1.9563078703752577,
+    "count_ratio_two_to_one": 1.9577240480720732,
     "gauss_counts_total": true
   },
-  "transducer_emergence": {
-    "test": "axiom1_lc_transducer_emergence",
-    "carrier": "srs_z3",
+  "positive_control": {
+    "test": "positive_control_local_observable",
+    "radii": [
+      1.5,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      16.970562748477143
+    ],
+    "KNOWN_point_source_Q_enc": [
+      0.99971064814815,
+      0.9967447916659004,
+      0.9866174768505959,
+      0.9458912036837057,
+      0.8171296296319542,
+      0.4747540508783061
+    ],
+    "known_monopole_reads_unity_at_core": true,
+    "curl_divfree_Q_enc": [
+      0.6205055302650434,
+      -0.8911473648136465,
+      1.6807546883733917,
+      2.779775848265691,
+      3.442360714797554,
+      8.240323852682687
+    ],
+    "observable_discriminates_monopole_vs_curl": true,
+    "observable_valid": true
+  },
+  "winding_source_curl_GATED": {
+    "coupling": "curl",
     "Q_link": 3,
     "w_tor": 2,
-    "emergent_source_total_abs": 265.9242954389223,
-    "emergent_source_NET_monopole": 8.881784197001252e-16,
-    "net_over_total": 3.339967182141591e-18,
-    "exterior_E_exponent": 0.7225522369441426,
-    "exterior_E_r2": 0.059327216012109774,
-    "electric_monopole_emerged": false,
-    "coupling_used": "b_EM = div(curl(omega)) \u2014 Ax1 rotation->translation, NO Q-insertion"
+    "source_total_abs": 265.9242954389223,
+    "source_global_sum_FORCED_zero": 8.881784197001252e-16,
+    "enclosed_charge_radii": [
+      1.5,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      16.970562748477143
+    ],
+    "enclosed_charge_profile": [
+      -0.09495609479458994,
+      0.021572622845919515,
+      0.5617468267066915,
+      -1.113803511398358,
+      -0.26672919784298893,
+      -0.16252411026287517
+    ],
+    "helicity_H_bel_MEASURED_not_used": -115.77167637715192,
+    "magnetic_dipole_moment": [
+      0.8511427427340406,
+      -1.722208047550811,
+      2.9313929871483593
+    ],
+    "magnetic_dipole_magnitude": 3.504783784010104,
+    "emergence_verdict": "GATED \u2014 deferred to the post-hardened-audit run"
+  },
+  "winding_source_omega_GATED": {
+    "coupling": "omega",
+    "Q_link": 3,
+    "w_tor": 2,
+    "source_total_abs": 697.9738201011709,
+    "source_global_sum_FORCED_zero": -5.329070518200751e-15,
+    "enclosed_charge_radii": [
+      1.5,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      16.970562748477143
+    ],
+    "enclosed_charge_profile": [
+      -1.0680521674372176,
+      -2.8583187463163466,
+      5.85387588908986,
+      -24.57052221529231,
+      0.8278845615982191,
+      0.22256683925366438
+    ],
+    "helicity_H_bel_MEASURED_not_used": -115.77167637715192,
+    "magnetic_dipole_moment": [
+      0.8511427427340406,
+      -1.722208047550811,
+      2.9313929871483593
+    ],
+    "magnetic_dipole_magnitude": 3.504783784010104,
+    "emergence_verdict": "GATED \u2014 deferred to the post-hardened-audit run"
   },
   "equation_audit": {
-    "test": "equation_audit_gate",
+    "test": "equation_audit_gate_HARDENED",
     "ledger": [
       {
         "term": "L = D \u2212 A (srs graph Laplacian)",
@@ -71,34 +182,76 @@
         "cite": "the graph gradient (edge differences)"
       },
       {
-        "term": "\u2207\u00b7E = \u2212L\u03c6",
+        "term": "\u2207\u00b7E = +L\u03c6 (operator-consistent)",
         "role": "Gauss DIAGNOSTIC",
         "tag": "AXIOM-DERIVED",
-        "cite": "MEASURED only; never enforced as a constraint (no \u222eE\u00b7dA=\ud835\udcac/\u03b5\u2080 anywhere)"
+        "cite": "the discrete divergence of THIS solver's L; MEASURED only, never enforced (no \u222eE\u00b7dA=\ud835\udcac/\u03b5\u2080). SIGN-corrected (Stage-1b): +L\u03c6 so a +1 source reads +1"
+      },
+      {
+        "term": "b -= b.mean() (jellium/neutralizing background)",
+        "role": "the periodic-graph RHS projection",
+        "tag": "AXIOM-DERIVED",
+        "cite": "TOPOLOGY-FORCED \u2014 L annihilates the constant, so L\u03c6=b is solvable IFF \u03a3b=0; the mean-subtraction is the UNIQUE compatible RHS (uniform compensating jellium). This is WHY the global \u03a3(\u2207\u00b7E)=0 always \u21d2 the LOCAL enclosed-charge profile is the observable"
       },
       {
         "term": "F = \u2207\u00d7\u03c9 (substrate flux)",
         "role": "the winding's flux",
         "tag": "AXIOM-DERIVED",
-        "cite": "compute_F_curl / _srs_curl_nodes; Link(\u2202\u03a9,F)=charge, boundary-observables:20"
+        "cite": "_srs_curl_nodes; Link(\u2202\u03a9,F)=charge, boundary-observables:20"
       },
       {
-        "term": "drive = Ax1 rotation\u2192translation coupling (\u03c9 or \u2207\u00d7\u03c9)",
+        "term": "drive \u2208 {\u2207\u00d7\u03c9, \u03c9} (Ax1 rot\u2192transl)",
         "role": "the transducer",
         "tag": "AXIOM-DERIVED",
-        "cite": "axiom-definitions.md:16 (translational u\u2194E \u22a5 microrotational \u03c9\u2194B, LC-coupled)"
+        "cite": "axiom-definitions.md:16 (translational u\u2194E \u22a5 microrotational \u03c9\u2194B, LC-coupled); BOTH committed + measured (build_winding_source)"
       },
       {
         "term": "b_EM = \u2207\u00b7drive (the EM-\u03b5 source)",
         "role": "the emergent source",
         "tag": "AXIOM-DERIVED",
-        "cite": "divergence of the axiom-native drive; MEASURED (the emergence question); \u2207\u00b7(\u2207\u00d7\u03c9)=0 \u21d2 measured net monopole = 0"
+        "cite": "divergence of the axiom-native drive; MEASURED. NOTE (Stage-1b): \u2207\u00b7(\u2207\u00d7\u03c9) is NOT identically zero on these operators (div\u2218curl RMS\u22480.35 pointwise); the emergence verdict is GATED, not decided by a false curl-identity"
+      },
+      {
+        "term": "_srs_node_divergence: \u00bd face-average weight",
+        "role": "discrete divergence operator",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "bond-face midpoint rule; a standard FV choice, NOT the adjoint of _srs_curl_nodes (so div\u2218curl\u22600) \u2014 flagged, gate does NOT rely on any curl-identity"
+      },
+      {
+        "term": "_srs_curl_nodes: 1/deg normalization",
+        "role": "discrete curl operator",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "per-node bond-average; heuristic, NOT a DEC pair with the divergence \u2014 the reason the false '\u2207\u00b7(\u2207\u00d7\u03c9)=0' claim was retracted"
+      },
+      {
+        "term": "CG rtol=1e-10, maxiter=30000",
+        "role": "linear solve tolerance",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "tight convergence; cg_info reported, checked = 0"
+      },
+      {
+        "term": "fit windows [1.5,6] near / jellium A/r+c+r\u00b2 model",
+        "role": "Green's-fn characterization",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "physical near-zone excl. source core + finite-box far zone; the jellium parabola subtracts the periodic-image correction (MAJOR-d honesty)"
+      },
+      {
+        "term": "acceptance bands (jellium R\u00b2>0.95, |A|>1e-3, unity\u00b10.05, ratio\u00b10.3)",
+        "role": "pass/fail thresholds",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "chosen for the VoK/positive-control; reported alongside raw numbers so the reader can re-judge"
+      },
+      {
+        "term": "KNOWN imposed source (point \u03b4) for VoK / positive control",
+        "role": "the validate-on-known probe",
+        "tag": "ENGINEERING-CHOICE",
+        "cite": "prereg \u00a75(b)-sanctioned: a KNOWN source validates the SECTOR; LABELED as imposed, distinct from the winding coupling (which must emerge)"
       },
       {
         "term": "b = \ud835\udcac\u00b7\u03b4\u00b3(r) (winding as charge density)",
         "role": "would source 1/r by fiat",
         "tag": "FORBIDDEN-INSERTION",
-        "cite": "NOT USED \u2014 grep-confirmed absent"
+        "cite": "NOT USED \u2014 grep-confirmed absent (all modules in solve path)"
       },
       {
         "term": "\u222eE\u00b7dA = \ud835\udcac/\u03b5\u2080 (Gauss enforced)",
@@ -110,29 +263,41 @@
         "term": "b_EM = \u03c9\u00b7(\u2207\u00d7\u03c9) (helicity = charge label)",
         "role": "would source \u2207\u00b7E from the charge label",
         "tag": "FORBIDDEN-INSERTION",
-        "cite": "the H_bel charge LABEL; using it AS the source = winding-as-charge insertion; measured for audit, NOT used as source"
+        "cite": "the H_bel charge LABEL; measured for audit, NEVER fed to solve_static"
       }
     ],
-    "n_axiom_derived": 7,
-    "n_engineering_choice": 0,
+    "n_axiom_derived": 8,
+    "n_engineering_choice": 6,
     "n_forbidden_rejected": 3,
-    "forbidden_pattern_self_grep": {
+    "scanned_modules": [
+      "em_readout_vsector_transducer.py",
+      "srs_cage_winding.py",
+      "charge_quantization.py",
+      "chiral_lattice.py",
+      "native_cage_imex.py"
+    ],
+    "forbidden_pattern_grep_ALL_MODULES": {
       "rho_eq_Q_delta": false,
       "gauss_enforced": false,
       "helicity_or_Q_into_solve": false,
       "Q_to_field_dictionary": false
     },
     "any_forbidden_source_used": false,
-    "solve_static_sources": [
+    "solve_static_sources_this_module": [
       "self, source: np.ndarray",
       "np.zeros(ch.Nn",
       "source",
       "s1.copy(",
       "s2.copy(",
       "(s1 + s2",
-      "b_EM.copy("
+      "b_EM.copy(",
+      "src.copy(",
+      "b_curl.copy("
     ],
+    "unexpected_solve_sources": [],
     "all_solve_sources_allowed": true,
+    "alpha_carriers_found_in_code": [],
+    "alpha_clean": true,
     "static_curl_free_supported": true,
     "propagating_longitudinal_absent": true,
     "gate_passed": true

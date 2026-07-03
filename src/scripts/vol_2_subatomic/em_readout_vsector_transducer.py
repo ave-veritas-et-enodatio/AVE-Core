@@ -706,63 +706,88 @@ def equation_audit() -> dict:
 
     # ── enforce the alpha guard (MAJOR-b: _FORBIDDEN_ALPHA was declared, never
     #    consumed = dead code). Consume it: assert none of the forbidden α-carriers
-    #    appears in THIS module's executable code (the coupling path is α-free). ──
-    alpha_leak = [a for a in _FORBIDDEN_ALPHA if re.search(rf"\b{a}\b", src)]
+    #    is IMPORTED or USED as a value in THIS module's executable code (the coupling
+    #    path is α-free). Exclude the guard's OWN declaration (the tuple that LISTS
+    #    the names as strings) and the audit's own scan code, else it self-matches. ──
+    src_no_guard = re.sub(r'_FORBIDDEN_ALPHA\s*=\s*\([^)]*\)', "", src)
+    src_no_guard = re.sub(r"for a in _FORBIDDEN_ALPHA.*", "", src_no_guard)
+    alpha_leak = [a for a in _FORBIDDEN_ALPHA
+                  if re.search(rf"(import\s+{a}\b|\b{a}\s*[=(\[]|=\s*{a}\b)", src_no_guard)]
     alpha_clean = (len(alpha_leak) == 0)
-    # positive check: every solve_static source is the emergent b_EM, a labeled
-    # KNOWN (source, s1, s2 — the validate-on-known imposed KNOWNs), np.zeros (the
-    # floor), or the method signature itself. The forbidden quantities (Q_link,
-    # hel) must NEVER appear as a source (checked above). This positive check just
-    # confirms no UNEXPECTED name flows in.
+    # positive check: every solve_static source in THIS module is the emergent
+    # b_EM, a labeled KNOWN (source/s1/s2/src — the validate-on-known + positive-
+    # control imposed KNOWNs), a div-of-a-drive (b_curl/b_EM), np.zeros (floor), or
+    # the method signature. The forbidden quantities (Q_link, hel/helicity) must
+    # NEVER appear as a source (checked above). Confirms no UNEXPECTED name flows in.
     allowed_src = re.compile(
-        r"^\s*(self,\s*source|b_EM|source\b|s1|s2|\(s1|b\b|np\.zeros)")
-    solve_sources_ok = all(allowed_src.match(c) for c in solve_calls) if solve_calls else True
+        r"^\s*(self,\s*source|b_EM|source|s1|s2|\(s1|b_curl|src|b\b|np\.zeros)")
+    unexpected = [c for c in all_solve_calls if not allowed_src.match(c)]
+    solve_sources_ok = (len(unexpected) == 0)
 
     return {
-        "test": "equation_audit_gate",
+        "test": "equation_audit_gate_HARDENED",
         "ledger": ledger,
         "n_axiom_derived": sum(1 for x in ledger if x["tag"] == "AXIOM-DERIVED"),
         "n_engineering_choice": sum(1 for x in ledger if x["tag"] == "ENGINEERING-CHOICE"),
         "n_forbidden_rejected": sum(1 for x in ledger if x["tag"] == "FORBIDDEN-INSERTION"),
-        "forbidden_pattern_self_grep": forbidden_hits,
+        # MAJOR-b: hardened — scanned every ave-module in the solve import path
+        "scanned_modules": [str(f.name) for f in scanned_files],
+        "forbidden_pattern_grep_ALL_MODULES": forbidden_hits,
         "any_forbidden_source_used": any_forbidden_used,
-        "solve_static_sources": solve_calls,
+        "solve_static_sources_this_module": all_solve_calls,
+        "unexpected_solve_sources": unexpected,
         "all_solve_sources_allowed": bool(solve_sources_ok),
+        # MAJOR-b: the alpha guard is now CONSUMED (was dead code)
+        "alpha_carriers_found_in_code": alpha_leak,
+        "alpha_clean": bool(alpha_clean),
         # the gapless / static-curl-free pair (prereg correction item 2)
         "static_curl_free_supported": True,   # L is a pure ∇²; E=−grad φ curl-free supported
         "propagating_longitudinal_absent": True,  # no time-derivative ⇒ no propagating mode
-        # the gate verdict: passes iff no forbidden source is used, every
-        # solve_static source is a labeled KNOWN or the emergent b_EM, and the pair holds
-        "gate_passed": bool(not any_forbidden_used and solve_sources_ok),
+        # the gate verdict: passes iff (no forbidden source in ANY scanned module)
+        # AND (every solve source is a labeled KNOWN/emergent) AND (α-clean coupling path)
+        "gate_passed": bool(not any_forbidden_used and solve_sources_ok and alpha_clean),
     }
 
 
 def main():
-    """Run the full Stage-1 suite and dump results JSON (engine_sim-routable)."""
+    """Run the Stage-1b suite and dump results JSON. STOPS BEFORE the emergence
+    interpretation (panel PROCESS directive): the winding-source builder is run as
+    a GATED diagnostic (it emits NO emergence verdict); the emergence test runs
+    only after the hardened-audit review."""
     import json
     from pathlib import Path
 
     results = {
+        "carrier_diagnostics": carrier_diagnostics(12, 8),
         "vok_a_zero_source": validate_zero_source(8),
         "vok_b_green_function": validate_green_function(12),
         "vok_c_superposition": validate_superposition(12),
-        "transducer_emergence": axiom1_lc_transducer(12, 2, 3, 7.0, 2.3, 32, 1.0),
+        "positive_control": positive_control(12),
+        # GATED diagnostic instruments (both couplings committed; NO emergence verdict)
+        "winding_source_curl_GATED": build_winding_source(12, 2, 3, 7.0, 2.3, 32, 1.0, "curl"),
+        "winding_source_omega_GATED": build_winding_source(12, 2, 3, 7.0, 2.3, 32, 1.0, "omega"),
         "equation_audit": equation_audit(),
     }
     out = Path(__file__).with_name("em_readout_vsector_transducer_results.json")
     out.write_text(json.dumps(results, indent=2))
     print(f"wrote {out}")
-    # headline
-    ta = results["transducer_emergence"]
+    cd = results["carrier_diagnostics"]
+    b = results["vok_b_green_function"]
+    pc = results["positive_control"]
+    ea = results["equation_audit"]
+    print(f"CARRIER: diamond illposed={cd['diamond_K4_bipartite_illposed']} "
+          f"(nullspace {cd['diamond_K4_nullspace_dim']}); srs wellposed={cd['srs_wellposed']}")
     print(f"VoK(a) floor: {results['vok_a_zero_source']['stays_zero']}")
-    print(f"VoK(b) Coulomb near-field: exp={results['vok_b_green_function']['phi_exponent_nearfield']:.3f} "
-          f"recovers={results['vok_b_green_function']['recovers_coulomb_potential']}")
+    print(f"VoK(b) Coulomb: jellium A={b['coulomb_coeff_A']:.3f} R²={b['jellium_corrected_r2']:.4f} "
+          f"recovers={b['recovers_coulomb_potential']}")
     print(f"VoK(c) Gauss-counts: {results['vok_c_superposition']['gauss_counts_total']}")
-    print(f"TRANSDUCER: Q_link={ta['Q_link']} net_monopole={ta['emergent_source_NET_monopole']:.2e} "
-          f"electric_monopole_emerged={ta['electric_monopole_emerged']}")
-    print(f"EQUATION-AUDIT gate_passed={results['equation_audit']['gate_passed']} "
-          f"(axiom-derived={results['equation_audit']['n_axiom_derived']}, "
-          f"forbidden-rejected={results['equation_audit']['n_forbidden_rejected']})")
+    print(f"POSITIVE CONTROL: known monopole reads unity={pc['known_monopole_reads_unity_at_core']} "
+          f"discriminates={pc['observable_discriminates_monopole_vs_curl']} VALID={pc['observable_valid']}")
+    print(f"WINDING (GATED, no verdict): curl Q_enc[0]={results['winding_source_curl_GATED']['enclosed_charge_profile'][0]:+.3f} "
+          f"omega Q_enc[0]={results['winding_source_omega_GATED']['enclosed_charge_profile'][0]:+.3f}")
+    print(f"EQUATION-AUDIT gate_passed={ea['gate_passed']} "
+          f"(axiom-derived={ea['n_axiom_derived']}, eng-choice={ea['n_engineering_choice']}, "
+          f"forbidden-rejected={ea['n_forbidden_rejected']}, alpha_clean={ea['alpha_clean']})")
     return results
 
 
