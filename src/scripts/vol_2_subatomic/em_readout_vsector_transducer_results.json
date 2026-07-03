@@ -98,6 +98,18 @@
     "observable_discriminates_monopole_vs_curl": true,
     "observable_valid": true
   },
+  "ngspice_cross_solve": {
+    "test": "ngspice_cross_solve",
+    "n_nodes": 1728,
+    "n_resistors": 2592,
+    "max_rel_diff_solve_vs_MNA": 2.534590684750212e-11,
+    "max_rel_diff_solve_vs_densePINV": 2.5353179709004903e-11,
+    "solve_matches_independent_MNA": true,
+    "cir_written": "em_readout_srs_poisson_crosscheck.cir",
+    "cir_note": "the .cir is the GROUNDED-sink variant (+1A source, 1 grounded node); it differs from the jellium/mean-zero solve by a known uniform-background gauge (exactly 50% on this graph). The MNA certification above uses the jellium-consistent RHS (same physical problem as solve_static). To reproduce in ngspice with the jellium BC, distribute a \u22121/N A sink at every node.",
+    "ngspice_installed": false,
+    "ngspice_external_leg": "NAMED LIMITATION: ngspice not installed in this env; the .cir is emitted + TWO independent solves (grounded MNA elimination + dense pseudo-inverse, both ngspice's own KCL math) ARE run and match solve_static to ~1e-11"
+  },
   "winding_source_curl_GATED": {
     "coupling": "curl",
     "Q_link": 3,
@@ -292,7 +304,8 @@
       "(s1 + s2",
       "b_EM.copy(",
       "src.copy(",
-      "b_curl.copy("
+      "b_curl.copy(",
+      "src.copy("
     ],
     "unexpected_solve_sources": [],
     "all_solve_sources_allowed": true,
