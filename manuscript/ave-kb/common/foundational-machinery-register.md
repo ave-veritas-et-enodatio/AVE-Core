@@ -44,7 +44,42 @@ vol1/vol2/vol3 build on"). This register consolidates the status view.
 
 ## §0 — Register discipline (VIEW, not new-id-scheme)
 
-<!-- filled in a later commit -->
+> **This is a VIEW, not a new node scheme (INVARIANT-S11 — extend, don't
+> reinvent).** Every member of this register is an **ALREADY first-class claim
+> node**: `refresh-kb-metadata` materializes one `node_type: "claim"` record per
+> `<!-- id: clm-xxxxxx -->` entry across the `claim-quality.md` registers into
+> [`.index/claims.jsonl`](../.index/claims.jsonl). This register does **not**
+> re-declare those nodes and mints **no** new id — that would be the
+> shadow-scheme rot INVARIANT-S11 exists to stop. It is a bolded-field register
+> that **POINTS AT** the existing machinery `clm-` nodes (by id) and **READS**
+> their recorded fields (title / solidity / build_band / depends-on /
+> citation_count) — it never recomputes or rescores anything. It is the direct
+> machinery-tier analog of the `axiom-register.md` (a VIEW over the four
+> `axiom-N` framework nodes — the forthcoming companion register on branch
+> `analysis/axiom-register`; cross-linked as a live link when it merges, kept as
+> a backtick reference here so this leaf's link-integrity gate does not depend on
+> an unmerged sibling) and the interlock-register's
+> [Calibration-Constant Criteria Register](interlock-register.md) (a VIEW over
+> the `ilk-` nodes that mints no `ilk-` id and touches no count machinery).
+
+> **Node-count invariance (zero new IDs).** Because every member is an existing
+> `clm-` node and this leaf carries `no-claim` (no `claims:` / `exp-id:` /
+> `sup-id:` frontmatter), materializing this leaf adds **zero** nodes to
+> `claims.jsonl`. The `foundational-machinery:` meta line is a machine-readable
+> list of member ids (the analog of the interlock-register's
+> `calibration-params:` line), NOT a node declaration — parsing it emits no
+> record and no edge. `make verify-kb-metadata` node count is **UNCHANGED** by
+> this leaf (see §8 for the gate note; the count-invariance is confirmed in the
+> validation footer).
+
+> **What "machinery" means here (the tier boundary).** A member is
+> **derived MACHINERY** iff it is a reusable theorem / operator / kernel that the
+> per-domain application leaves *build on* (it is a `depends-on` target of
+> downstream claims and/or the engine's shared code path), as distinct from an
+> **application** — a scale-instance that USES the machinery at one domain
+> (galactic rotation, protein fold, BCS, a specific bench). The boundary is not
+> always sharp; §1 flags every borderline machinery-vs-application inclusion for
+> Grant rather than silently deciding it.
 
 ## §1 — Membership set (the load-bearing call — surface for Grant)
 
