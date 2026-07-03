@@ -664,6 +664,7 @@
 {"source": "clm-w8jn3q", "target": "clm-67jn9o", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-w8jn3q", "target": "clm-cmic3e", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-w8jn3q", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-wcoul2", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Topo-Kinematic Isomorphism — the winding=charge mapping that adjudicates the sign as signed-Coulomb", "fraction": null}
 {"source": "clm-wd5rs0", "target": "clm-a71inj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-wd5rs0", "target": "clm-k3p9wz", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-wx5324", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — the action that fixes $G$", "fraction": null}

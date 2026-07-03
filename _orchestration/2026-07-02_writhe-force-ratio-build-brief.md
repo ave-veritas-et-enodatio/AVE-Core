@@ -50,3 +50,9 @@ Research doc + frozen prereg + driver + result per the Chern-arc pattern. Indica
 ## 6. What success and failure both buy
 
 If R ≠ 1 and forced: AVE's first **echo-free quantitative** forward prediction — a pure number QED cannot produce, in principle bench-reachable (torsion-balance class), and the register's headline changes. If R ≡ 1: the winding-force chord dies cleanly by the framework's own hand, the register thins further, and the bankable frontier concentrates fully on the EM-photon channel — which is itself decision-relevant for where the facility effort goes. Either outcome moves the program; only not-running-it doesn't.
+
+---
+
+## CORRECTION NOTES (appended; the commissioning body above is preserved verbatim)
+
+- **2026-07-03 (path correction, from the linear-channel campaign):** §3 step 0 above refers to `cosserat_field_3d.py` for the `_reflection_density_asymmetric` κ_chiral coupling. The canonical path is **`src/ave/topological/cosserat_field_3d.py`** (NOT `src/ave/core/…`, which the Gate-0 dispatch brief carried). Verified at HEAD. This `κ_chiral` saturation-bias term lives in the JAX `CosseratField3D` engine and is **NOT active in the S1 seed host `CrystalGraftV4`** (buckle OFF) — so it is the pre-committed **STAGE-(b)** channel, a separate arc, not the linear channel. See `research/2026-07-03_writhe-campaign-linear-channel_prereg.md` §Stage-(b)-successor.

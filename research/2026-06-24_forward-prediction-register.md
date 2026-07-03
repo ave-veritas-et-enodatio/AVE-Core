@@ -50,10 +50,12 @@ register separates these per-prediction.
      live-confirmed (writhe ±0.04087, sign-flips between enantiomorphs, exactly
      0 on achiral diamond). MAGNITUDE **not bankable** (~40 OOM over the cosmic
      bound; continuum mapping OPEN). Minted as `clm-` this session (see §9).
-  2. **Writhe co-vs-anti-handed |F| ratio** — **UNBUILT**. A dimensionless
-     pairwise force-asymmetry ratio (dodges the m_e/α-echo trap). The cleanest
-     forward prediction that *follows from* S1's now-passed winding-DOF, and
-     the highest-value unbuilt FORM chord.
+  2. **Writhe co-vs-anti-handed |F| ratio** — **CLOSED → RESOLVED-TO-CONSISTENCY**
+     (2026-07-03; was "highest-value unbuilt FORM chord"). Built through Gate-0 +
+     the linear-channel campaign: magnitude-R BLOCKED (overlap + Yukawa), SIGN =
+     signed-Coulomb under the Ax2 winding=charge mapping (SM-shared, not
+     parity-distinct). Did NOT bank as a chord; produced the engine-derived
+     Axiom-2 interaction leg instead (`clm-wcoul2`). See §2.4 status history.
 
 - **NOT winding channels:** E-route birefringence (field-INDUCED, even-in-k,
   dielectric saturation) and the (q·ℓ_node)⁴ dispersion (parity-EVEN, achiral
@@ -184,7 +186,18 @@ reproduces SM at current sensitivity; corroborated-null = agrees with both data
 - **Winding channel?** **YES.** This is the winding/charge channel — the
   parity-axis observable. FORM solid; magnitude not bankable.
 
-### 2.4 Writhe co-vs-anti-handed |F| ratio — Observable-C / "Stage-6": **UNBUILT**
+### 2.4 Writhe co-vs-anti-handed |F| ratio — Observable-C / "Stage-6": **CLOSED → RESOLVED-TO-CONSISTENCY** (2026-07-03)
+
+> **STATUS HISTORY (edit-in-place, row preserved per KEEP-BOTH — the original UNBUILT framing stays below for provenance):**
+> - **2026-06-24 → 2026-07-02:** UNBUILT; "highest-value unbuilt FORM chord."
+> - **2026-07-03 (Gate-0, PR #465):** pair-feasibility STABLE-IN-A-WINDOW (d∈{34,44}); the arc proceeds.
+> - **2026-07-03 (linear-channel campaign, this PR):** **CLOSED.**
+>   - **Magnitude-R objective = BLOCKED** (Grant ruling C): R=|F|_co/|F|_anti is ill-defined at current engine capability — knot-overlap ⇒ no plane-conservative integral (plane spread 4.7–9.5×), + Yukawa screening ⇒ no source-free far-field (|F| falls 2.6e5× over d=34→44; ξ=c_ω/ω_gap≈0.548 cells, and ω_gap is a HOST KNOB so the range is artifact-scale).
+>   - **Sign observable = RESOLVED-TO-CONSISTENCY** (Grant ruling α + Coulomb-recovery): the quantized pair does co-REPEL / anti-ATTRACT, which MATCHES signed-Coulomb under Axiom 2's winding=charge mapping — SM-shared, so by the symmetric standard NOT an AVE-distinct parity chord. Minted `clm-wcoul2` (the engine-derived Axiom-2 interaction leg: like windings repel / unlike attract, mediated by the gapped ω rotation sector, electrically not magnetically).
+>   - **"Highest-value unbuilt FORM chord" designation = CLOSED** — resolved-to-consistency, **NOT falsified**: the winding-force question produced the Ax2 interaction leg instead of an AVE-distinct chord. Stage-(b) (κ_chiral saturation channel) = MOOT (no classical degeneracy fired the successor).
+>   - Cross-ref: `research/2026-07-03_writhe-campaign-linear-channel_result.md` + `manuscript/ave-kb/vol4/claim-quality.md` (`clm-wcoul2`).
+
+**[Below: the original UNBUILT framing, preserved for provenance.]**
 
 - **Claim (proposed, not built).** A pairwise force whose magnitude depends on
   the **RELATIVE handedness** of two winding solitons — a **dimensionless**
@@ -307,17 +320,22 @@ Two winding-channel observables sit on this axis:
 | Observable | FORM | MAGNITUDE | Status |
 |---|---|---|---|
 | Field-free OA sign-flip (§2.3) | AVE-distinct, live-confirmed (signed / enantiomorph-odd / diamond-null) | **NOT bankable** — ~40 OOM over cosmic bound; k→0 continuum OPEN | minted `clm-` (§9) |
-| Co-vs-anti |F| ratio (§2.4) | follows from S1's PASS; dimensionless (dodges echo trap) | n/a — **UNBUILT** | highest-value unbuilt FORM chord |
+| Co-vs-anti |F| ratio (§2.4) | ~~follows from S1's PASS; dimensionless (dodges echo trap)~~ → SIGN = signed-Coulomb (SM-shared, not parity-distinct) | **magnitude-R BLOCKED** (overlap + Yukawa) | **CLOSED → RESOLVED-TO-CONSISTENCY** (2026-07-03; `clm-wcoul2`, Ax2 interaction leg) |
 
 **Not winding channels** (real divergences, but parity-mute): E-route
 birefringence (§2.1, field-induced, even-in-k) and the (qℓ_node)⁴ dispersion
 (§2.2, parity-even, achiral diamond point group).
 
-**Net for the winding lane:** the FORM of the parity divergence is solid on both
-observables; the *bankable* magnitude is missing on both (OA is 40 OOM over;
-the |F| ratio is unbuilt). The recommended next build is the co-vs-anti |F|
-ratio — it is the one winding prediction whose magnitude is a dimensionless ratio
-and therefore *cannot* be an m_e/α-echo.
+**Net for the winding lane (updated 2026-07-03):** the FORM of the parity
+divergence is solid on the OA observable (§2.3, still minted, still 40 OOM over
+on magnitude). The co-vs-anti |F| ratio (§2.4) is now **CLOSED**: built through
+Gate-0 + the linear-channel campaign, its magnitude-R is BLOCKED (overlap +
+Yukawa) and its SIGN resolved-to-CONSISTENCY (signed-Coulomb under the Ax2
+winding=charge mapping — SM-shared, not parity-distinct). It did NOT bank as a
+chord; it produced the engine-derived Axiom-2 interaction leg instead
+(`clm-wcoul2`). So the winding lane's chord hope now rests on the OA
+observable alone (§2.3); the |F|-ratio path is spent (resolved-to-consistency,
+not falsified).
 
 ---
 
