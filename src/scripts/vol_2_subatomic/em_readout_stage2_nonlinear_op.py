@@ -1059,6 +1059,101 @@ def equation_audit() -> dict:
     }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. THE HELD DECISIVE-RUN HARNESS (prereg §7/§9 — the winding readout).
+#
+#    ⚠⚠⚠ HOLD-POINT GUARD ⚠⚠⚠  This harness is BUILT for panel review but is
+#    GUARDED behind `unlock=True`. The decisive winding runs fire ONLY after the
+#    orchestrator + panel review the audit (prereg §8). The Stage-1 sequence
+#    violation (emergence run before the audit) does NOT repeat: build → validate →
+#    audit → STOP → review → THEN this. Calling it without unlock=True raises.
+#
+#    WHAT IT WILL RUN (for review): seed the (2,3) winding on the srs carrier; map
+#    ω → A_μ (the FIELD only, no integer); run the self-consistent .OP under ALL
+#    THREE composition rules (Q/M/X) across the regime sweep (deep-cold →
+#    near-yield); read the FROZEN observable + harmonic diagnostic; classify per the
+#    frozen bins. The robustness ladder (existence primary, counting the prize) is
+#    the Q=1,2,3 seed scaling + the enantiomorph sign-flip.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def _decisive_winding_run(srs_L, p, q, R, r, frame_N, A_max, rule, amu_field,
+                          enantiomorph):
+    """ONE decisive winding configuration (a single point in the sweep). Seeds the
+    winding, maps ω→A_μ (FIELD only), runs the .OP, reads the frozen observable +
+    harmonic diagnostic. NO integer reaches the constitutive path (audited)."""
+    from ave.solvers.srs_cage_winding import seed_pq_winding_on_srs, compute_Q_link_srs
+
+    ch = NonlinearEMEpsChannel(srs_L, enantiomorph)
+    omega, _ = seed_pq_winding_on_srs(ch.net, p, q, R, r, frame_N=frame_N,
+                                      amplitude_scale=1.0)
+    # the winding's Link (for the audit-comparison ONLY — NEVER fed to the solve)
+    ql = compute_Q_link_srs(ch.net, omega, R, r, frame_N=frame_N)
+    Q_link = int(ql.get("Q_link", 0))
+    # the constitutive path: ω FIELD → A_μ → A → S → ε_eff (NO integer)
+    A_mu = winding_A_mu(ch.net, omega, amplitude=A_max, field=amu_field)
+    rc = solve_op_fixed_point(ch, A_mu, rule=rule, kappa=1e-6, max_iter=300, tol=1e-10)
+    core = winding_core_node(ch, A_mu)
+    prof = enclosed_flux_profile(ch, rc["eps_eff"], rc["phi"], core, r_min=8.0, n_shells=10)
+    harm = harmonic_sector_diagnostic(ch, rc["phi"])
+    floor = 1e-12
+    return {
+        "config": {"srs_L": srs_L, "p": p, "q": q, "A_max": A_max, "rule": rule,
+                   "amu_field": amu_field, "enantiomorph": enantiomorph},
+        "Q_link_for_audit_only": Q_link,           # NEVER entered the solve
+        "regime": ("deep-cold" if A_max < 0.1 else
+                   "intermediate" if A_max < 0.7 else "near-yield"),
+        "S_eps_min": rc["S_eps_min"], "S_eps_max": rc["S_eps_max"],
+        "converged": rc["converged"], "n_iter": rc["n_iter"],
+        "flux_plateau": prof["plateau"], "flux_plateau_abs": prof["plateau_abs"],
+        "flux_over_floor": prof["plateau_abs"] / floor,
+        "harmonic_fraction": harm["harmonic_fraction"],
+        "coexact_fraction": harm["coexact_fraction"],
+        "Q_enc_profile": prof["Q_enc"], "radii": prof["radii"],
+    }
+
+
+def run_decisive_winding_sweep(*, unlock: bool = False,
+                               srs_L: int = 8, frame_N: int = 32,
+                               R: float = 7.0, r: float = 2.3,
+                               A_max_sweep=(0.01, 0.05, 0.2, 0.5, 0.8, 0.95, 0.99),
+                               rules=("Q", "M", "X"),
+                               amu_fields=("omega", "curl"),
+                               Q_seeds=((2, 3), (2, 5), (2, 7)),
+                               enantiomorphs=("right", "left")) -> dict:
+    """The HELD decisive winding sweep. GUARDED: raises unless unlock=True.
+
+    Fires ONLY after the hold-point review. The full sweep: the regime ladder
+    (deep-cold → near-yield) × the 3 composition rules × the 2 A_μ maps × the
+    Q=1,2,3 seed ladder × the 2 enantiomorphs, each read with the frozen observable
+    + harmonic diagnostic + classified per the frozen bins.
+
+    The classification the panel will apply (prereg §9):
+      [FLUX-EMERGES-COUNTING]     nonzero co-exact plateau; tracks Q_link across
+                                  seeds; sign-flips with enantiomorph
+      [FLUX-EMERGES-NON-COUNTING] nonzero co-exact plateau; no Link-tracking
+      [NO-FLUX]                   plateau at/below floor across all regimes/rules
+      [NO-CONVERGENCE]            the fixed point fails to converge
+      [STUCK-FRAMING]             the verdict is composition-rule-DEPENDENT
+    """
+    if not unlock:
+        raise RuntimeError(
+            "HOLD-POINT: the decisive winding runs are GATED. They fire only after "
+            "the orchestrator + panel review the Stage-2a audit (prereg §8). Call "
+            "with unlock=True ONLY post-review. The Stage-1 sequence violation "
+            "(emergence before audit) does not repeat.")
+    runs = []
+    for enant in enantiomorphs:
+        for (p, q) in Q_seeds:
+            for field in amu_fields:
+                for rule in rules:
+                    for A_max in A_max_sweep:
+                        runs.append(_decisive_winding_run(
+                            srs_L, p, q, R, r, frame_N, A_max, rule, field, enant))
+    return {"test": "decisive_winding_sweep", "n_runs": len(runs), "runs": runs,
+            "note": "classification per prereg §9 bins — applied by the panel"}
+
+
 def main():
     """Run the Stage-2a VALIDATION + AUDIT suite (NOT the decisive winding runs —
     those are HELD at the hold-point). engine_sim-routable."""
