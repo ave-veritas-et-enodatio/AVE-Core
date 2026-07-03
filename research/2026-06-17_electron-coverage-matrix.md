@@ -65,7 +65,7 @@ GAP = not derived natively.
 | **Mott / Rutherford scattering** | Mott σ | **C** — HARDEST GAP, zero coverage | NONE | grep 'mott' (.md/.tex) = 0 hits | NOT cage-testable — not even a qualitative framing |
 | **vacuum polarization** / running α(q²) | Uehling, α runs | **C-at-distinction** — matches QED by RT-EQUIVALENCE | clm-bqtasn 0.60 | FORM=imported (q-g20f 'Identical functional form', 'No way to distinguish AVE from QED' at accessible scales) / VALUE=ECHO (α/3π). NUANCE: q-g20f:10 DOES claim a sub-Compton structural difference (removes the Landau pole), inaccessible | NOT cage-testable |
 | **classical radius r_e** | 2.8179e-15 m | **C** — GENUINE GAP, absent-by-design | NONE (no clm-, no constants.py entry) | GAP: the-abandoned-interior.md:22 frames classical-radius + 4/3-problem + Abraham-Lorentz as the RETIRED EM-mass program; AVE's self-energy is the unknot ropelength (ℓ_node/2π), a DIFFERENT object — do NOT dress ℓ_node/2π as r_e | NOT cage-testable — no AVE r_e to test |
-| **compositeness / contact interaction** (probe q² > Λ) | LEP: electron point-like to Λ ≳ 10 TeV (contact-interaction limits, e⁺e⁻→ff̄) | **C** — OPEN-GAP, flagged not defended | NONE (no clm-, no corpus derivation) | GAP: AVE models the electron as an EXTENDED soliton at the ℓ_node ≈ 2.4e-12 m loop scale (Compton wavelength / 2π; the (2,3) winding + Γ=−1 wall). The substrate-observability rule (no-hair: only 𝓜,𝓠,𝓙 externally measurable) is asserted UNCONDITIONED on the probe momentum q²/energy — but LEP contact-interaction bounds probe DEEP INSIDE the loop (Λ ≳ 10 TeV ⇒ substructure scale ≲ 2e-20 m, ~8 OOM below the loop) and find the electron point-like. AVE has NO derivation that the winding/wall substructure stays invisible to a q² well above the Compton scale — the no-hair exemption is a boundary-observability POSTULATE, not shown for high-q² probes of the interior. Classified OPEN-GAP, flagged not defended. | NOT cage-testable — no high-q² probe apparatus; the interior is asserted causally disconnected but that assertion is UNCONDITIONED on q² |
+| **compositeness / contact interaction** (probe q² > Λ) | LEP: electron point-like to Λ ≳ 10 TeV (contact-interaction limits, e⁺e⁻→ff̄) | **C → OPEN-GAP NARROWED** (docket B2 Gate-0, PR #471 merged + engine leg) | wall channel DEFENSE-DERIVED (corpus-cited, no new clm; wall-channel CONSISTENCY-class claim proposed for auditor); charge channel NO clm (ENGINE-BLOCKED) | NARROWED per docket B2 (`research/2026-07-03_compositeness-defense-gate0_result.md` + `..._engine-leg_result.md`), split by channel: **(ii) WALL — DEFENSE-DERIVED:** a transverse EM hard probe does NOT reflect off the Γ=−1 wall — the EM-transverse channel is impedance-matched (Γ_EM=0 everywhere under SYM scaling; `electron-bh-isomorphism.md:24`, `bulk-impedance-at-saturation-boundary.md:71`), the wall is a bulk/shear object. The naive "7-OOM body vs ≲2e-20 m bound" tension is DISSOLVED at the impedance level (matched channel, not a reflector). **(iii) MOMENT — CONSISTENCY:** F₂ is gapped-ω; g=2 POSITED (imported), a_e=α/2π ECHO, magnitude BLOCKED (ω_gap host-knob, clm-wcoul2). No bound-exceeding deviation, no distinct sub-bound chord. **(i) CHARGE F₁ — STILL OPEN, ENGINE-BLOCKED:** F₁≡1 holds IFF the exterior EM readout of the boundary integer is exactly Coulombic (1/r); the corpus does NOT derive the exterior E-field shape (`translation-circuit.md:541` asserts 1/r; `substrate-perspective-electron.md:109` says exponential hedgehog + 1/r² gravitational; shape flagged open `claim-quality.md:1311`). The engine cannot decide: NO winding→EM-source coupling is implemented (validate-on-known FAILED — `fdtd_3d` curl-Maxwell has no charge-source, cannot maintain a static 1/r Coulomb field). The winding→massless-EM-channel coupling is the NAMED next derivation target. | wall channel testable-by-derivation (Γ_EM=0, DISCHARGED); charge F₁ NOT cage-testable at current grade — the winding→EM-source coupling is unbuilt in code + underived in canon (SAME gap) |
 | **LC-tank Q ≈ α⁻¹ ≈ 137** (cold-Q) | AVE-internal | A-for-FORM; VALUE is the α-echo | clm-rtdmsn 0.85 (highest here) | FORM=chord (Q_tank=ω_C·L_e/R=1/α is clean LC algebra) / VALUE=ECHO: theorem-3-1:19 'obtains Q_tank=1/α USING α=e²Z0/(4πℏ) — predicts no independent value', :21 instrument-echo-trap + cvr_model.py:72 Q_TANK=1/ALPHA baked at instance | **T3.4b** — cold/α-FREE Q from ring-down (α-bake REMOVED). **RESULT: Q_ringdown≈30.8, NOT 137 → the corpus Q=1/α is an instance-baked ECHO, not cage-emergent** |
 | **stability / lifetime** >10²⁸ yr | non-decay | A (zero-drive persistence) + B (topological-protection reason) | clm-uatcql 0.70 (electron canonical id — stability/non-decay property, two-reason trap); clm-ka5zdx 0.50 (mass-closure: saturation-locked standing-wave stability) | FORM=chord (loop-can't-untangle + Γ=−1 impedance) / VALUE=N/A | **T3.4c** — zero-drive persistence (late/mid≈1.31, non-radiating) PASSES via sup-x7h9yh → clm-ka5zdx, clm-uatcql; the topological-winding protection is winding-sector (NOT cage-testable). [Rule-12-clean fix 2026-06-17: prior cite to clm-zuf7g1 was stale — that id is the CHSH/Tsirelson-bound claim, NOT winding-protection; the KB leaf's T3.4c sup- correctly uses clm-uatcql + clm-ka5zdx] |
 | **Γ=−1 TIR wall** (via gamma_bulk, Z_eff=√S) | self-trap at V_yield | A — stiffening precursor (T3.2) + the wall itself (T3.3) | clm-uatcql 0.70; crystal_engine.gamma_bulk :455-486 Z_eff=√S→0 ⇒ Γ→−1 | FORM=chord (Ax4 kernel: A→1 ⇒ S→0 ⇒ Z→0 ⇒ Γ→−1) / VALUE=N/A | **T3.3** — Γ_bulk crosses OP2 gate −0.25 by A=0.95 (Γ_min(0.95)=−0.283), monotone toward −1, →0 in vacuum; α-FREE. PASS |
@@ -127,17 +127,23 @@ Each item names WHAT'S MISSING. These are honest gaps, not claims.
    (constants.py:100, tied to α at :310); μ_B combines e+anchor. MISSING: any
    native dimensionful electron number. AVE forces FORMS (chords), imports VALUES
    (echoes).
-9. **COMPOSITENESS / CONTACT INTERACTION (probe q² ≫ Compton scale).** AVE models
+9. **COMPOSITENESS / CONTACT INTERACTION (probe q² ≫ Compton scale). → OPEN-GAP
+   NARROWED (docket B2, PR #471 merged + engine leg 2026-07-03).** AVE models
    the electron as an EXTENDED soliton at the ℓ_node ≈ 2.4e-12 m loop scale, yet
-   LEP contact-interaction limits (e⁺e⁻→ff̄) find it point-like to Λ ≳ 10 TeV —
-   a substructure scale ~8 OOM below the loop. MISSING: any derivation that the
-   winding + Γ=−1-wall substructure stays invisible to a probe momentum q² well
-   above the Compton scale. The substrate-observability rule (no-hair: only
-   𝓜,𝓠,𝓙 externally measurable) is asserted UNCONDITIONED on q² — but it is a
-   boundary-observability POSTULATE, not shown for high-q² interior probes. This
-   is the sharpest UNADDRESSED experimental tension for the extended-soliton
-   picture. Classified OPEN-GAP, flagged not defended (per audit A) — NOT dressed
-   as covered.
+   LEP contact-interaction limits (e⁺e⁻→ff̄) find it point-like to Λ ≳ 10 TeV.
+   Docket B2 split the gap by channel: **(ii) the wall is NOT an EM scatterer** —
+   the EM-transverse channel is impedance-matched (Γ_EM=0 under SYM scaling), so a
+   hard EM probe does not reflect off the Γ=−1 wall (bulk/shear object); the naive
+   7-OOM tension DISSOLVES at the impedance level (DEFENSE-DERIVED, corpus-cited).
+   **(iii) the moment channel is CONSISTENCY** (F₂ gapped-ω; g=2 imported; a_e echo;
+   magnitude blocked). **(i) the charge F₁ channel STAYS OPEN — ENGINE-BLOCKED:**
+   F₁≡1 holds IFF the exterior charge field is exactly Coulombic, which the corpus
+   does NOT derive (leaf-level 1/r-vs-hedgehog tension; shape flagged open at
+   `claim-quality.md:1311`) and NO engine can measure (no winding→massless-EM-source
+   coupling is implemented; validate-on-known failed on `fdtd_3d`). The winding→EM
+   readout coupling is the NAMED next derivation target — the code-block and the
+   canon-gap are the SAME gap. The sharpest tension is thus NARROWED (wall dissolved,
+   moment consistency) to the one open, well-localized charge-F₁ derivation item.
 9. **CLASSICAL ELECTRON RADIUS r_e.** GENUINE GAP / absent-by-design. No clm-, no
    constants.py entry. the-abandoned-interior.md:22 frames classical-radius +
    4/3-problem + Abraham-Lorentz as the RETIRED EM-mass program 'that collapsed on
