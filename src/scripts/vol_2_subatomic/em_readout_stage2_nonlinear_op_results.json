@@ -1,4 +1,16 @@
 {
+  "RETRACTION": {
+    "test": "retraction_evidence",
+    "source_free_max_phi": 0.0,
+    "source_free_field_is_zero": true,
+    "divE_corr_with_minus_kappa_tau": 0.9999884933679813,
+    "anchor_is_the_source": true,
+    "nullspace_lambda0": 3.7025504190384025e-17,
+    "nullspace_lambda1": 0.03833792667721139,
+    "homogeneous_gives_const_only": true,
+    "eps_min": 0.40810618080123107,
+    "verdict": "[NO-FLUX-STRUCTURAL] \u2014 static texture cannot source static E (anchor-free); the committed signal was the anchor-source \u03ba\u03c4"
+  },
   "v1_cold_floor": {
     "test": "v1_cold_zero_texture_floor",
     "carrier": "srs_z3",
@@ -31,13 +43,13 @@
     "max_abs_phi": 0.15717075664358704,
     "max_abs_E": 0.059852976756960385,
     "dipole_max_phi": 0.15717075664358704,
-    "radial_flux_plateau_abs": 1.643210946046834e-05,
+    "radial_flux_plateau_abs": 1.541331755772089e-05,
     "radial_harmonic_fraction": 2.058986952609653e-06,
     "radial_coexact_fraction": 1.0000020604560207,
     "radial_plateau_is_coexact": true,
     "cold_floor": 1e-15,
     "phi_over_floor": 157170756643587.03,
-    "flux_plateau_abs": 1.643210946046834e-05,
+    "flux_plateau_abs": 1.541331755772089e-05,
     "S_eps_min": 4.4721358917592574e-05,
     "converged": true,
     "instrument_is_live": true,
@@ -79,6 +91,7 @@
   },
   "equation_audit": {
     "test": "equation_audit_gate_stage2a",
+    "status": "\ud83d\udd34 RETIRED \u2014 instrument NO-GO (anchor-sourced + NO-FLUX-STRUCTURAL theorem)",
     "ledger": [
       {
         "term": "L_w = B\u1d40 diag(w) B (variable-coeff \u2207\u00b7(\u03b5_eff\u2207))",
@@ -117,28 +130,28 @@
         "cite": "the A-composition FORK (prereg \u00a74.3); Q/M/X swept \u2014 surfaced to Grant"
       },
       {
-        "term": "\u03c4 = A_\u03bc \u2212 mean (DC-offset anchor)",
-        "role": "the quiescent-strain boundary",
-        "tag": "AXIOM-DERIVED",
-        "cite": "the frozen defect's operating-point shift (Stage-0 lane b); mean-zero (only A-gradients physical, CLAUDE.md:75); NOT a charge"
+        "term": "b = \u03ba\u03c4, \u03c4 = A_\u03bc \u2212 mean (the 'gauge anchor')",
+        "role": "\ud83d\udd34 IS THE SOURCE (retracted)",
+        "tag": "FORBIDDEN-INSERTION (found post-hoc)",
+        "cite": "\ud83d\udd34 RETRACTED 2026-07-03: this was tagged a benign gauge anchor but it IS a winding-derived textured RHS source \u2014 the SOLE drive of every readable signal (ablation: b=0 with textured eps KEPT \u2192 max|\u03c6|=0.0 EXACT; algebra: \u2207\u00b7E=\u2212\u03ba\u03c4+O(\u03ba\u00b2), \u03b5-independent, corr 0.99999). The instrument's rig."
       },
       {
         "term": "\u03ba (gauge-fixing infinitesimal)",
-        "role": "selects the physical null branch",
-        "tag": "ENGINEERING-CHOICE",
-        "cite": "\u03ba\u21920\u207a; the RESULT is \u03ba-independent (asserted v4)"
+        "role": "sets the anchor-source AMPLITUDE",
+        "tag": "\ud83d\udd34 RETRACTED framing",
+        "cite": "was '\u03ba\u21920\u207a gauge-fixing'; actually \u03ba sets the |signal| (\u03c4 sets its shape) \u2014 P\u0302's \u03ba-invariance is a ratio of two anchor-set quantities, not physics"
       },
       {
         "term": "\u2207\u00b7(\u03b5_eff E) = \u2212L_w \u03c6",
         "role": "Gauss DIAGNOSTIC",
         "tag": "AXIOM-DERIVED",
-        "cite": "MEASURED only; adjoint-consistent (same L_w); never enforced"
+        "cite": "MEASURED only; adjoint-consistent (same L_w); never enforced. But on this instrument it reads the anchor \u2212\u03ba\u03c4, not emergent physics."
       },
       {
-        "term": "b = \ud835\udcac\u00b7\u03b4\u00b3 (winding as charge)",
+        "term": "b = \ud835\udcac\u00b7\u03b4\u00b3 (winding-as-charge, explicit)",
         "role": "would source 1/r by fiat",
         "tag": "FORBIDDEN-INSERTION",
-        "cite": "NOT USED \u2014 there is NO RHS source; b = \u03ba\u03c4 (gauge anchor) only"
+        "cite": "NOT USED \u2014 but b=\u03ba\u03c4 is an IMPLICIT winding-derived source that slipped through (the retracted row above)"
       },
       {
         "term": "\u222eE\u00b7dA = \ud835\udcac/\u03b5\u2080 enforced",
@@ -150,12 +163,12 @@
         "term": "A_\u03bc from Q_link/helicity/w_tor",
         "role": "would leak the integer into the constitutive state",
         "tag": "FORBIDDEN-INSERTION",
-        "cite": "NOT USED \u2014 A_\u03bc is the \u03c9 FIELD only (runtime-proven bit-identical across fake Q)"
+        "cite": "NOT USED \u2014 A_\u03bc is the \u03c9 FIELD only (the field-only path is real; but that is NOT the un-riggability needed \u2014 the anchor \u03c4 is field-derived and STILL a source)"
       }
     ],
-    "n_axiom_derived": 7,
-    "n_engineering_choice": 2,
-    "n_forbidden_rejected": 3,
+    "n_axiom_derived": 6,
+    "n_engineering_choice": 1,
+    "n_forbidden_rejected": 4,
     "import_closure_scan": {
       "per_file": {
         "em_readout_stage2_nonlinear_op.py": {
@@ -172,27 +185,66 @@
           "integer_into_constitutive": false,
           "rho_eq_Q_delta": false,
           "gauss_enforced": false
+        },
+        "graded_vacuum_network.py": {
+          "integer_into_constitutive": false,
+          "rho_eq_Q_delta": false,
+          "gauss_enforced": false
+        },
+        "_winding_host.py": {
+          "integer_into_constitutive": false,
+          "rho_eq_Q_delta": false,
+          "gauss_enforced": false
         }
       },
       "any_forbidden_used": false,
       "modules_scanned": [
         "em_readout_stage2_nonlinear_op.py",
         "chiral_lattice.py",
-        "srs_cage_winding.py"
+        "srs_cage_winding.py",
+        "graded_vacuum_network.py",
+        "_winding_host.py"
       ]
     },
     "runtime_topology_independence": {
       "independent_of_topology": true,
-      "Q_link_actual": 1,
-      "note": "eps_eff BIT-IDENTICAL across arbitrary fake Q_link \u2014 the constitutive assembly reads the omega FIELD only, no integer"
+      "leak_detectable": true,
+      "actual_path_invariant_to_fake_Q": true,
+      "note": "field-only path CONFIRMED \u2014 but this is NOT the un-riggability the instrument needed; the rig is the anchor-source b=kappa*tau (field-derived RHS), untested here. See validate_retraction_evidence().",
+      "Q_link_actual": 1
     },
     "alpha_guard": {
       "alpha_carriers_in_physics_code": [],
       "alpha_clean": true,
       "note": "guard-definition + scanner-body excised before scan (grep-completeness)"
     },
-    "no_rhs_charge_source": true,
+    "no_rhs_charge_source": false,
+    "retraction_evidence": {
+      "test": "retraction_evidence",
+      "source_free_max_phi": 0.0,
+      "source_free_field_is_zero": true,
+      "divE_corr_with_minus_kappa_tau": 0.9999884798632929,
+      "anchor_is_the_source": true,
+      "nullspace_lambda0": 2.7113085439342046e-17,
+      "nullspace_lambda1": 0.06778338901953251,
+      "homogeneous_gives_const_only": true,
+      "eps_min": 0.40810618080131894,
+      "verdict": "[NO-FLUX-STRUCTURAL] \u2014 static texture cannot source static E (anchor-free); the committed signal was the anchor-source \u03ba\u03c4"
+    },
     "gauss_diagnostic_only": true,
-    "gate_passed": true
+    "gate_passed": false
+  },
+  "legacy_v3_gate": {
+    "control": "single maximally-asymmetric S-depression DIPOLE",
+    "gate": "max|Q_enc| > 100*floor AND profile structured (not noise)",
+    "superseded_by": "two-control (dipole polarization + radial flux); dipole flux plateau ~0",
+    "deviation": "redefined IN-PLACE in the results commit ae781c45 \u2014 freeze violation"
+  },
+  "legacy_v4_gate": {
+    "sweep": "srs_L in {8,10,12}",
+    "gate": "RAW plateau varies < 20% across resolutions",
+    "superseded_by": "P_hat = plateau/max|phi| varies < 25% across {6,8,10}",
+    "reason": "raw plateau found resolution-DEPENDENT (real finding)",
+    "deviation": "redefined IN-PLACE in the results commit ae781c45 \u2014 freeze violation; honest move was ADD the P_hat axis alongside, not REPLACE"
   }
 }
