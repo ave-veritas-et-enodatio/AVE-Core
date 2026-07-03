@@ -197,7 +197,53 @@ exclusion is auditable, not silent):**
 
 ## §2 — Per-entry view fields (READ from existing claim records)
 
-<!-- filled in a later commit -->
+Each `### <machinery name>` entry in §3–§5 carries a bolded field block. **Every
+field is READ from the member's existing claim record (`claims.jsonl` /
+`depends-on.jsonl` / its `claim-quality.md` entry) — none is recomputed or
+rescored here.** The fields:
+
+- **clm-id** — the existing `clm-` node this entry is a view over (the grep
+  anchor: `grep -rn "id: clm-…"` reaches the canonical entry; `grep -rn "clm-…"`
+  reaches every citing leaf). Never a new id.
+- **title** — the member claim's `## ` heading title, verbatim from its record.
+- **status** ∈ {**DERIVED**, **DEFINITIONAL**} — the machinery-tier provenance
+  axis (the analog of the axiom-register's status axis, but two-valued for the
+  machinery tier):
+  - **DERIVED** = proven-from-axioms: the member's `depends-on` cone bottoms out
+    in one or more `axiom-N` framework nodes (± intermediate `clm-`s), i.e. it is
+    a *theorem of* the axioms, not a fresh posit.
+  - **DEFINITIONAL** = posited: the member is a definition / catalog / naming /
+    identification that INTRODUCES structure rather than deriving it from the
+    axioms (its content is a chosen convention or an organizing catalog, not a
+    proof). This is the FORM-derives / VALUE-imports meta-finding at the
+    machinery tier: a DEFINITIONAL member is a machinery *posit*, a DERIVED
+    member is a machinery *theorem*.
+  > **status ≠ solidity, and DERIVED ≠ "value-forced".** `status` records
+  > *provenance* (theorem-of-axioms vs posit), a separate axis from `solidity`
+  > (how solid the derivation/measurement is) and from the chord/echo VALUE axis
+  > (`interlock-register.md`). A member can be DERIVED (a genuine theorem of the
+  > axioms) and still be a **VALUE-level echo** — Theorem 3.1′ (`clm-rtdmsn`) is
+  > the canonical case: DERIVED in FORM (α⁻¹ = Q-factor is a theorem of Ax 1/2/3)
+  > yet VALUE-scoped as a Class-B echo (the exact 137 rests on R·r=¼, which the
+  > substrate does not independently select; see §4). The two axes are
+  > orthogonal and this register keeps them so.
+- **axiom-provenance** — the `axiom-N` ids in the member's `depends-on` cone
+  (READ from `depends-on.jsonl` `target_kind == "axiom"`), cross-referenced to
+  `axiom-register.md`. `(none direct — via clm-deps)` when the member reaches the
+  axioms only transitively through claim dependencies.
+- **solidity** — the member's recorded `solidity` + `build_band` (READ from
+  `claims.jsonl`; NOT recomputed). The number is the corpus's, restated.
+- **usage** — the member's `citation_count` (READ from `claims.jsonl`; = the
+  number of leaves citing it in `cites.jsonl`). The machinery-tier "how much does
+  vol1/vol2/vol3 build on this" signal — high citation_count = load-bearing
+  machinery.
+- **flags** — any borderline / mis-volume / value-echo caveat, cross-referenced
+  to the §1 flag.
+
+> **All §3–§5 numbers are as-of the branch base (`origin/main` @ f556dcdc).**
+> This register READS them; if a member's solidity or citation_count changes in a
+> later refresh, this VIEW is regenerated to match (it is never the source of
+> truth for those numbers — the claim record is).
 
 ## §3 — Operators (the universal-operator machinery)
 
