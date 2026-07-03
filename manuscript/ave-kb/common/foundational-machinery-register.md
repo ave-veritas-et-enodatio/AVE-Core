@@ -297,7 +297,52 @@ represented by its owner + catalog + Op1-invariant + Op14-mechanism claim nodes
 
 ## §4 — Theorems (the named-theorem machinery)
 
-<!-- filled in a later commit -->
+The named theorems (grep `^## .*Theorem` in the `claim-quality.md` registers).
+All fields READ from records.
+
+### Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary
+<!-- view of claim node: clm-rtdmsn -->
+
+- **clm-id:** `clm-rtdmsn` ([`vol4/claim-quality.md:1352`](../vol4/claim-quality.md)) — a **brief-named seed**.
+- **title:** "Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary" — $\alpha^{-1}=Q_{tank}=Q_{vol}+Q_{surf}+Q_{line}=4\pi^3+\pi^2+\pi=137.036$; two independent paths (LC-tank + multipole) agree to $\delta_{strain}=2.225\times10^{-6}$.
+- **status:** **DERIVED (in FORM) / VALUE-ECHO.** DERIVED: the Q-factor decomposition is a theorem of Ax 1/2/3 (`depends-on` = `axiom-1, axiom-2, axiom-3`). **But VALUE-scoped:** the entry itself carries a 🔴 (2026-06-15 keystone α-verdict) — this is the Q-factor *reframe* of α⁻¹, a **Class-B named geometric identification** whose *scale* (~1/137) is forced but whose *exact value* rests on R·r=¼, which the substrate does not independently select (both lift-routes closed). Cross-ref the `interlock-register.md` `ilk-rr14gt` echo tag.
+- **axiom-provenance:** `axiom-1, axiom-2, axiom-3` (direct, READ).
+- **solidity:** 0.85, `ok-to-build` (READ) — the **highest-solidity machinery member**; two-path-agreeing closed derivation (form). (Solidity is on the FORM; it does not certify the value as forced — that is the orthogonal echo axis.)
+- **usage:** `citation_count = 1`.
+- **flags:** the DERIVED-form / VALUE-echo split is the canonical demonstration that `status` (§2) is orthogonal to the chord/echo VALUE axis. **vol3→vol4 mis-volume** (§7). Do NOT headline this as a value-derivation of 137 (α is a *retained input*, per the entry's 🔴).
+
+### Mass-Closure Theorem: $mc^2 = E_{\text{reactive}}$
+<!-- view of claim node: clm-ka5zdx -->
+
+- **clm-id:** `clm-ka5zdx` ([`vol2/claim-quality.md:1231`](../vol2/claim-quality.md)).
+- **title:** "Mass-Closure Theorem: $mc^2 = E_{\text{reactive}}$" — mass as stored reactive (LC-tank) energy.
+- **status:** **DERIVED** — a theorem of ALL FOUR axioms (`depends-on` = `axiom-1, axiom-2, axiom-3, axiom-4`; the only member reaching all four directly).
+- **axiom-provenance:** `axiom-1, axiom-2, axiom-3, axiom-4` (direct, READ).
+- **solidity:** 0.50, `input-only` (READ) — the softest theorem member.
+- **usage:** `citation_count = 1`.
+- **flags:** included as machinery (a reusable mass↔reactive-energy identity the electron/soliton leaves build on); a Grant call whether its low solidity + single citation argue for application-tier instead — surfaced, not decided.
+
+### The Substrate-Observability Rule (Universal No-Hair Theorem)
+<!-- view of claim node: clm-ofys5v -->
+
+- **clm-id:** `clm-ofys5v` ([`common/claim-quality.md:624`](claim-quality.md)).
+- **title:** "The Substrate-Observability Rule (Universal No-Hair Theorem)" — a $\Gamma=-1$ boundary totally traps the interior; only M, Q, J are externally measurable, at every scale (electron → nucleus → planetary magnetopause → BH → cosmic horizon).
+- **status:** **DEFINITIONAL** — the entry's OWN rationale: "**Internally coherent as a definitional rule; the trapping mechanism is asserted, not derived**." It POSITS a universal observability constraint (no `axiom-N` or `clm-` dependency at all). A machinery posit, not a theorem.
+- **axiom-provenance:** `(none — no depends-on edges; a standalone posited rule)`.
+- **solidity:** 0.55, `input-only` (READ) — the trapping step (|Γ|²→1) is asserted from the Axiom-4 kernel, not shown.
+- **usage:** `citation_count = 1`.
+- **flags:** "No-Hair *Theorem*" in the title but the corpus classes it a *rule/posit* — a naming-vs-provenance mismatch surfaced for Grant. DEFINITIONAL per the corpus's own honest self-statement, not a downgrade by this register.
+
+### AVE BH Horizon: $r_{\text{sat}}=7GM/c^2$ + Area Theorem
+<!-- view of claim node: clm-law1ho -->
+
+- **clm-id:** `clm-law1ho` ([`vol3/claim-quality.md:1084`](../vol3/claim-quality.md)).
+- **title:** "AVE BH Horizon: $r_{\text{sat}}=7GM/c^2$ + Area Theorem".
+- **status:** **DERIVED** — deps `axiom-2, axiom-4` + `clm-iouqn9` (magic-angle) + `clm-x19btt` (compactness limit).
+- **axiom-provenance:** `axiom-2, axiom-4` (direct, READ) + transitively via `clm-iouqn9`.
+- **solidity:** 0.55, `input-only` (READ; confidence 0.90 but gated down to 0.55 by its `clm-iouqn9` dep at 0.55).
+- **usage:** `citation_count = 1`.
+- **flags:** **BORDERLINE machinery-vs-application (§1).** The "+ Area Theorem" facet is reusable machinery; the $r_{\text{sat}}=7GM/c^2$ horizon-radius facet is a vol3 gravity APPLICATION. Included provisionally; Grant's call whether to keep (as an Area-Theorem-only member) or move to application tier. The single strongest exclusion candidate in the set.
 
 ## §5 — Kernels (the kernel machinery)
 
