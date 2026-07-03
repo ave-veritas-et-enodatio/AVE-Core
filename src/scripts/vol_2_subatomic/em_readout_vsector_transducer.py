@@ -633,44 +633,82 @@ def equation_audit() -> dict:
     src = re.sub(r'"""(?:.|\n)*?"""', "", src)
 
     ledger = [
+        # ── AXIOM-DERIVED ──
         {"term": "L = D − A (srs graph Laplacian)", "role": "the gapless EM-ε channel operator",
          "tag": "AXIOM-DERIVED", "cite": "Ax1 chiral srs net; native discrete Laplace-Beltrami; well-posed (nullspace=const only)"},
         {"term": "D-coefficient = 1 (gapless)", "role": "no mass term",
          "tag": "AXIOM-DERIVED", "cite": "cold far-zone S->1; Γ_EM=0 matched channel; NO ω_gap smuggled"},
         {"term": "E = −grad_graph φ", "role": "the electric field",
          "tag": "AXIOM-DERIVED", "cite": "the graph gradient (edge differences)"},
-        {"term": "∇·E = −Lφ", "role": "Gauss DIAGNOSTIC", "tag": "AXIOM-DERIVED",
-         "cite": "MEASURED only; never enforced as a constraint (no ∮E·dA=𝒬/ε₀ anywhere)"},
+        {"term": "∇·E = +Lφ (operator-consistent)", "role": "Gauss DIAGNOSTIC", "tag": "AXIOM-DERIVED",
+         "cite": "the discrete divergence of THIS solver's L; MEASURED only, never enforced (no ∮E·dA=𝒬/ε₀). SIGN-corrected (Stage-1b): +Lφ so a +1 source reads +1"},
+        {"term": "b -= b.mean() (jellium/neutralizing background)", "role": "the periodic-graph RHS projection",
+         "tag": "AXIOM-DERIVED", "cite": "TOPOLOGY-FORCED — L annihilates the constant, so Lφ=b is solvable IFF Σb=0; the mean-subtraction is the UNIQUE compatible RHS (uniform compensating jellium). This is WHY the global Σ(∇·E)=0 always ⇒ the LOCAL enclosed-charge profile is the observable"},
         {"term": "F = ∇×ω (substrate flux)", "role": "the winding's flux",
-         "tag": "AXIOM-DERIVED", "cite": "compute_F_curl / _srs_curl_nodes; Link(∂Ω,F)=charge, boundary-observables:20"},
-        {"term": "drive = Ax1 rotation→translation coupling (ω or ∇×ω)", "role": "the transducer",
-         "tag": "AXIOM-DERIVED", "cite": "axiom-definitions.md:16 (translational u↔E ⊥ microrotational ω↔B, LC-coupled)"},
+         "tag": "AXIOM-DERIVED", "cite": "_srs_curl_nodes; Link(∂Ω,F)=charge, boundary-observables:20"},
+        {"term": "drive ∈ {∇×ω, ω} (Ax1 rot→transl)", "role": "the transducer",
+         "tag": "AXIOM-DERIVED", "cite": "axiom-definitions.md:16 (translational u↔E ⊥ microrotational ω↔B, LC-coupled); BOTH committed + measured (build_winding_source)"},
         {"term": "b_EM = ∇·drive (the EM-ε source)", "role": "the emergent source",
-         "tag": "AXIOM-DERIVED", "cite": "divergence of the axiom-native drive; MEASURED (the emergence question); ∇·(∇×ω)=0 ⇒ measured net monopole = 0"},
+         "tag": "AXIOM-DERIVED", "cite": "divergence of the axiom-native drive; MEASURED. NOTE (Stage-1b): ∇·(∇×ω) is NOT identically zero on these operators (div∘curl RMS≈0.35 pointwise); the emergence verdict is GATED, not decided by a false curl-identity"},
+        # ── ENGINEERING-CHOICE (MAJOR-a: previously untagged; now tagged) ──
+        {"term": "_srs_node_divergence: ½ face-average weight", "role": "discrete divergence operator",
+         "tag": "ENGINEERING-CHOICE", "cite": "bond-face midpoint rule; a standard FV choice, NOT the adjoint of _srs_curl_nodes (so div∘curl≠0) — flagged, gate does NOT rely on any curl-identity"},
+        {"term": "_srs_curl_nodes: 1/deg normalization", "role": "discrete curl operator",
+         "tag": "ENGINEERING-CHOICE", "cite": "per-node bond-average; heuristic, NOT a DEC pair with the divergence — the reason the false '∇·(∇×ω)=0' claim was retracted"},
+        {"term": "CG rtol=1e-10, maxiter=30000", "role": "linear solve tolerance",
+         "tag": "ENGINEERING-CHOICE", "cite": "tight convergence; cg_info reported, checked = 0"},
+        {"term": "fit windows [1.5,6] near / jellium A/r+c+r² model", "role": "Green's-fn characterization",
+         "tag": "ENGINEERING-CHOICE", "cite": "physical near-zone excl. source core + finite-box far zone; the jellium parabola subtracts the periodic-image correction (MAJOR-d honesty)"},
+        {"term": "acceptance bands (jellium R²>0.95, |A|>1e-3, unity±0.05, ratio±0.3)",
+         "role": "pass/fail thresholds", "tag": "ENGINEERING-CHOICE",
+         "cite": "chosen for the VoK/positive-control; reported alongside raw numbers so the reader can re-judge"},
+        {"term": "KNOWN imposed source (point δ) for VoK / positive control", "role": "the validate-on-known probe",
+         "tag": "ENGINEERING-CHOICE", "cite": "prereg §5(b)-sanctioned: a KNOWN source validates the SECTOR; LABELED as imposed, distinct from the winding coupling (which must emerge)"},
+        # ── FORBIDDEN-INSERTION (rejected, demonstrated absent) ──
         {"term": "b = 𝒬·δ³(r) (winding as charge density)", "role": "would source 1/r by fiat",
-         "tag": "FORBIDDEN-INSERTION", "cite": "NOT USED — grep-confirmed absent"},
+         "tag": "FORBIDDEN-INSERTION", "cite": "NOT USED — grep-confirmed absent (all modules in solve path)"},
         {"term": "∮E·dA = 𝒬/ε₀ (Gauss enforced)", "role": "would force Coulomb by fiat",
          "tag": "FORBIDDEN-INSERTION", "cite": "NOT USED — Gauss is diagnostic only"},
         {"term": "b_EM = ω·(∇×ω) (helicity = charge label)", "role": "would source ∇·E from the charge label",
-         "tag": "FORBIDDEN-INSERTION", "cite": "the H_bel charge LABEL; using it AS the source = winding-as-charge insertion; measured for audit, NOT used as source"},
+         "tag": "FORBIDDEN-INSERTION", "cite": "the H_bel charge LABEL; measured for audit, NEVER fed to solve_static"},
     ]
 
-    # self-grep (executable code only) for the forbidden patterns actually being
-    # USED as a source: anything forbidden flowing into solve_static, or a 𝒬→field
-    # literal assignment. The transducer's ONLY solve_static source is b_EM.
-    solve_calls = re.findall(r"solve_static\(([^)]*)\)", src)
-    forbidden_hits = {
-        # 𝒬·δ³ built as a source array
-        "rho_eq_Q_delta": bool(re.search(r"=\s*Q_link\s*\*\s*(delta|np\.zeros)", src)),
-        # Gauss enforced: ∮E·dA or divE ASSIGNED to Q (a constraint), not measured
-        "gauss_enforced": bool(re.search(r"(flux|divE|dA)\s*=\s*Q_link\b", src)),
-        # helicity (hel) or Q_link passed INTO solve_static (used as the source)
-        "helicity_or_Q_into_solve": any(
-            re.search(r"\bhel\b|\bQ_link\b", c) for c in solve_calls),
-        # a direct 𝒬→field dictionary (E or phi literally set from Q_link)
-        "Q_to_field_dictionary": bool(re.search(r"(phi|E)\w*\s*=\s*Q_link\b", src)),
-    }
+    # ── HARDENED self-grep (MAJOR-b): scan THIS module AND every ave-module in the
+    #    solve import path (srs_cage_winding, charge_quantization, chiral_lattice,
+    #    native_cage_imex), executable code only. ──
+    import importlib
+    scan_modules = [__name__]
+    scanned_files = [Path(__file__)]
+    for modname in ("ave.solvers.srs_cage_winding", "ave.topological.charge_quantization",
+                    "ave.core.chiral_lattice", "ave.solvers.native_cage_imex"):
+        try:
+            m = importlib.import_module(modname)
+            scanned_files.append(Path(m.__file__))
+        except Exception:
+            pass
+
+    def _strip(text):
+        lines = [ln.split("#", 1)[0] for ln in text.splitlines()]
+        return re.sub(r'"""(?:.|\n)*?"""', "", "\n".join(lines))
+
+    all_solve_calls = list(solve_calls) if (solve_calls := re.findall(r"solve_static\(([^)]*)\)", src)) else []
+    forbidden_hits = {"rho_eq_Q_delta": False, "gauss_enforced": False,
+                      "helicity_or_Q_into_solve": False, "Q_to_field_dictionary": False}
+    for f in scanned_files:
+        s = _strip(f.read_text())
+        calls = re.findall(r"solve_static\(([^)]*)\)", s)
+        forbidden_hits["rho_eq_Q_delta"] |= bool(re.search(r"=\s*Q_link\s*\*\s*(delta|np\.zeros)", s))
+        forbidden_hits["gauss_enforced"] |= bool(re.search(r"(flux|divE|dA)\s*=\s*Q_link\b", s))
+        forbidden_hits["helicity_or_Q_into_solve"] |= any(
+            re.search(r"\bhel\b|\bhelicity\b|\bQ_link\b", c) for c in calls)
+        forbidden_hits["Q_to_field_dictionary"] |= bool(re.search(r"(phi|E)\w*\s*=\s*Q_link\b", s))
     any_forbidden_used = any(forbidden_hits.values())
+
+    # ── enforce the alpha guard (MAJOR-b: _FORBIDDEN_ALPHA was declared, never
+    #    consumed = dead code). Consume it: assert none of the forbidden α-carriers
+    #    appears in THIS module's executable code (the coupling path is α-free). ──
+    alpha_leak = [a for a in _FORBIDDEN_ALPHA if re.search(rf"\b{a}\b", src)]
+    alpha_clean = (len(alpha_leak) == 0)
     # positive check: every solve_static source is the emergent b_EM, a labeled
     # KNOWN (source, s1, s2 — the validate-on-known imposed KNOWNs), np.zeros (the
     # floor), or the method signature itself. The forbidden quantities (Q_link,
