@@ -1,0 +1,250 @@
+{
+  "prereg": "research/2026-07-03_localization-readjudication_prereg.md",
+  "step": "3 \u2014 srs-z3 re-run (the physics reading)",
+  "carrier": "chiral srs z=3 (Axiom-1 canonical); A1-only (mass=A1 scope-lock)",
+  "operator": "L_srs = B\u1d40\u00b7diag(D_bond)\u00b7B (canon srs_cage_winding, nullspace dim 1)",
+  "scheme": "Crank\u2013Nicolson/Cayley unitary (energy-conserving; no damping fakes a pin)",
+  "engineering_choices": {
+    "dt": "0.066 (accuracy-set; CN unconditionally stable)",
+    "L": "L\u2208{4,6} robustness (finite-size cross-check)",
+    "seed_width": "radius=2.5 cube-frame cells (matched to v14)"
+  },
+  "localization_metric": "closed-box participation number PN=1/\u03a3p\u1d62\u00b2 (LOCAL, degeneracy-safe); legacy peak-persistence reported alongside (KEEP-BOTH)",
+  "results": {
+    "L4": {
+      "radiation_floor_pn": 256.0713525389025,
+      "positive_control": {
+        "label": "positive_control_eigenmode_L4",
+        "n_nodes": 512,
+        "nullspace_fraction": 0.46894531250000054,
+        "live_fraction": 0.5310546874999995,
+        "nullspace_dim": 1,
+        "peak0": 0.8385874050934014,
+        "v_peak_mean_post": 1.2906582798982618,
+        "v_peak_std_over_mean_post": 0.15866832982287307,
+        "n_em_min_over_window": 0.21144781344865218,
+        "max_abs_over_run": 1.6746830724161401,
+        "participation_number_0": 48.52649011275201,
+        "participation_number_post_mean": 13.023036206510664,
+        "participation_ratio_grew": 0.26836963020097787,
+        "a1_energy_rel_drift": 2.2846236148574157e-10,
+        "eigenmode_lambda": 2.0000000000000004,
+        "legacy_verdict": "MODE_I_PERSIST",
+        "srs_verdict": "LOCALIZED_PERSIST",
+        "bins": {
+          "I-1 mean V_peak > 0.2": true,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": true,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": true,
+          "LOC-3 bounded (max|V| < 10)": true
+        },
+        "readout_live": true
+      },
+      "smooth_core": {
+        "label": "smooth_core_L4",
+        "n_nodes": 512,
+        "nullspace_fraction": 0.10506651582007762,
+        "live_fraction": 0.8949334841799224,
+        "nullspace_dim": 1,
+        "peak0": 0.6751485848961682,
+        "v_peak_mean_post": 0.23943199055023767,
+        "v_peak_std_over_mean_post": 0.34362062706411933,
+        "n_em_min_over_window": 0.8588840237699539,
+        "max_abs_over_run": 0.6751485848961682,
+        "participation_number_0": 9.81600163965174,
+        "participation_number_post_mean": 162.0214867500286,
+        "participation_ratio_grew": 16.50585367626089,
+        "a1_energy_rel_drift": 6.265566849383912e-09,
+        "legacy_verdict": "MODE_I_PERSIST",
+        "srs_verdict": "DISPERSED",
+        "bins": {
+          "I-1 mean V_peak > 0.2": true,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": false,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": false,
+          "LOC-3 bounded (max|V| < 10)": true
+        }
+      },
+      "delocalized_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 256.0713525389025,
+        "participation_number_0": 152.45949182214352
+      },
+      "constant_mode_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 512.0
+      }
+    },
+    "L6": {
+      "radiation_floor_pn": 862.4876826310941,
+      "positive_control": {
+        "label": "positive_control_eigenmode_L6",
+        "n_nodes": 1728,
+        "nullspace_fraction": 0.3476346628906066,
+        "live_fraction": 0.6523653371093934,
+        "nullspace_dim": 1,
+        "peak0": 0.8501339509600042,
+        "v_peak_mean_post": 1.1685463400371945,
+        "v_peak_std_over_mean_post": 0.078449709644878,
+        "n_em_min_over_window": 0.21144781344865218,
+        "max_abs_over_run": 1.4407055871721115,
+        "participation_number_0": 80.24771115856088,
+        "participation_number_post_mean": 31.411492527784226,
+        "participation_ratio_grew": 0.3914316318096411,
+        "a1_energy_rel_drift": 1.557790890601251e-10,
+        "eigenmode_lambda": 4.000000000000001,
+        "legacy_verdict": "MODE_I_PERSIST",
+        "srs_verdict": "LOCALIZED_PERSIST",
+        "bins": {
+          "I-1 mean V_peak > 0.2": true,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": true,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": true,
+          "LOC-3 bounded (max|V| < 10)": true
+        },
+        "readout_live": true
+      },
+      "smooth_core": {
+        "label": "smooth_core_L6",
+        "n_nodes": 1728,
+        "nullspace_fraction": 0.10500374863075508,
+        "live_fraction": 0.8949962513692449,
+        "nullspace_dim": 1,
+        "peak0": 0.7628164852396355,
+        "v_peak_mean_post": 0.17203861006380053,
+        "v_peak_std_over_mean_post": 0.21701504043695916,
+        "n_em_min_over_window": 0.8041237715158246,
+        "max_abs_over_run": 0.7628164852396355,
+        "participation_number_0": 32.695874187160314,
+        "participation_number_post_mean": 801.8867061760321,
+        "participation_ratio_grew": 24.525623679177645,
+        "a1_energy_rel_drift": 2.2035120373184657e-09,
+        "legacy_verdict": "MODE_III_DISPERSE",
+        "srs_verdict": "DISPERSED",
+        "bins": {
+          "I-1 mean V_peak > 0.2": false,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": false,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": false,
+          "LOC-3 bounded (max|V| < 10)": true
+        }
+      },
+      "delocalized_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 862.4876826310941,
+        "participation_number_0": 572.1264886629815
+      },
+      "constant_mode_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 1728.0
+      }
+    },
+    "L8": {
+      "radiation_floor_pn": 2056.15066212153,
+      "positive_control": {
+        "label": "positive_control_eigenmode_L8",
+        "n_nodes": 4096,
+        "nullspace_fraction": 0.2687618840045126,
+        "live_fraction": 0.7312381159954874,
+        "nullspace_dim": 1,
+        "peak0": 0.8501338278582883,
+        "v_peak_mean_post": 1.2722271823194922,
+        "v_peak_std_over_mean_post": 0.046624122737637524,
+        "n_em_min_over_window": 0.21144781344865218,
+        "max_abs_over_run": 1.4740367262502936,
+        "participation_number_0": 119.90345998439588,
+        "participation_number_post_mean": 35.20849005577176,
+        "participation_ratio_grew": 0.2936403174716873,
+        "a1_energy_rel_drift": 3.0216483330741197e-10,
+        "eigenmode_lambda": 3.9999999999999996,
+        "legacy_verdict": "MODE_III_DISPERSE",
+        "srs_verdict": "LOCALIZED_PERSIST",
+        "bins": {
+          "I-1 mean V_peak > 0.2": true,
+          "I-2 breathing std/mean > 0.05": false,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": true,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": true,
+          "LOC-3 bounded (max|V| < 10)": true
+        },
+        "readout_live": true
+      },
+      "smooth_core": {
+        "label": "smooth_core_L8",
+        "n_nodes": 4096,
+        "nullspace_fraction": 0.10498653371439014,
+        "live_fraction": 0.8950134662856098,
+        "nullspace_dim": 1,
+        "peak0": 0.7989217109095668,
+        "v_peak_mean_post": 0.14429358379741247,
+        "v_peak_std_over_mean_post": 0.10479737116816182,
+        "n_em_min_over_window": 0.7755224263442408,
+        "max_abs_over_run": 0.7989217109095668,
+        "participation_number_0": 77.3201112371052,
+        "participation_number_post_mean": 2089.310038946251,
+        "participation_ratio_grew": 27.02156018036884,
+        "a1_energy_rel_drift": 7.619382338550558e-10,
+        "legacy_verdict": "MODE_III_DISPERSE",
+        "srs_verdict": "DISPERSED",
+        "bins": {
+          "I-1 mean V_peak > 0.2": false,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": false,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": false,
+          "LOC-3 bounded (max|V| < 10)": true
+        }
+      },
+      "delocalized_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 2056.15066212153,
+        "participation_number_0": 1433.4820206307948
+      },
+      "constant_mode_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 4096.0
+      }
+    }
+  },
+  "dt_convergence_L4": {
+    "sweep": {
+      "dt_0.0660": {
+        "dt": 0.066,
+        "n_total": 600,
+        "participation_number_post_mean": 162.0214867500286,
+        "srs_verdict": "DISPERSED",
+        "a1_energy_rel_drift": 6.265566849383912e-09
+      },
+      "dt_0.0330": {
+        "dt": 0.033,
+        "n_total": 1200,
+        "participation_number_post_mean": 162.39493700212347,
+        "srs_verdict": "DISPERSED",
+        "a1_energy_rel_drift": 1.728386093182207e-11
+      }
+    },
+    "verdict_dt_invariant": true,
+    "verdicts": {
+      "dt_0.0660": "DISPERSED",
+      "dt_0.0330": "DISPERSED"
+    }
+  },
+  "STEP3_VERDICT": "DISPERSES_ON_SRS_LIVE",
+  "STEP3_REASON": "the srs readout is PROVEN LIVE (positive control reads LOCALIZED_PERSIST at L=['L4', 'L6', 'L8']), and the smooth A1 core DISPERSES at every L ({'L4': 'DISPERSED', 'L6': 'DISPERSED', 'L8': 'DISPERSED'}). The bulk self-trap falsification RE-BOOKS with solid evidence on the Axiom-1 canonical carrier; the boundary/topological reroute (#403/#404) stands, now grounded."
+}
