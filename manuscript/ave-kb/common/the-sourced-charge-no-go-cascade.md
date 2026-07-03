@@ -186,6 +186,25 @@ potential φ) read through the DEC harmonic projector, invisible to every
 scalar-φ instrument the cascade retired. The `ε → 0` puncture (Lock 3's honest
 caveat) is lane Z's doorway.
 
+**Step-0 result (2026-07-03, PR #489;
+[`research/2026-07-03_lanez-fluxoid-step0_note.md`](../../../research/2026-07-03_lanez-fluxoid-step0_note.md)).**
+The doorway was walked analytically. Puncturing the srs domain with the electron's
+(2,3) torus core opens **exactly one** new source-free harmonic 1-cochain on `H₁`
+(`Δb₁ = +1`, STABLE across `L=3,4,5` at the geometrically-matched cut,
+disc-fill-certified as the core-linking meridian loop); a **ball** core opens none
+(`Δb₁ = 0`) — a real substrate-native ball-vs-torus prediction. **So the DOF is
+confirmed on `H₁`** (the earlier `srs_dec` §4 open question, answered). **But its
+charge VALUE is not axiom-pinned:** the three pinning candidates (LC-tank phasor
+single-valuedness, the `ξ_topo ≡ e/ℓ_node` flux-per-Link quantum, the `S→0`/`Γ=−1`
+wall BC) each pin only the *integer* holonomy (`2πq`), reduce to the ECHO-tagged
+`ξ_topo` insertion, or impose a Dirichlet short that does not fix flux. Verdict:
+**[DOORWAY-NO-PINNING]** — the harmonic DOF exists (FORM lattice-forced) but its flux
+quantum is imported (VALUE = the α-echo). This is the FORM-derived / VALUE-imported
+meta-pattern landing on charge-flux (see
+[`common/form-deriving-value-importing.md`](form-deriving-value-importing.md)
+§"Charge-flux"). Lane Z stays a live *topological* survivor; the value pin is the
+imported ceiling, not a further route.
+
 ### Lane W — winding pairs
 
 The field *between* two windings (the clm-wcoul2 inter-winding force). The

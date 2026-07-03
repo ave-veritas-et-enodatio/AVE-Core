@@ -213,6 +213,26 @@ genuine topological invariant of the periodic supercell, not an L=3 accident.
 > finding and stop; whether the fluxoid hypothesis actually lands its charge on
 > `H₁` is a separate test (surfaced to Grant / the topological lane, not decided
 > here).
+>
+> **✅ ANSWERED (2026-07-03, lane-Z step-0; `research/2026-07-03_lanez-fluxoid-step0_note.md`, PR #489).**
+> The separate test flagged above was run. **The DOF lands on `H₁` — confirmed for
+> the electron's (2,3) torus core.** Puncturing the srs domain with the winding's
+> solid-torus tube opens **exactly one** new source-free harmonic 1-cochain
+> (`Δb₁ = +1`, STABLE across `L=3,4,5` at the geometrically-matched cut), and a
+> disc-fill certification proves the new generator is the **core-linking meridian
+> loop** (a single meridian disc kills it: `b₁` drops `4→3`). A **ball** core opens
+> NO such DOF (`Δb₁ = 0` at every radius) — the ball-vs-torus split is a real
+> substrate-native prediction, not a bug. **But its charge VALUE is NOT axiom-pinned:**
+> the three pinning candidates (LC-phasor single-valuedness, the `ξ_topo` flux-per-Link
+> quantum, the `S→0`/`Γ=−1` wall BC) each either pin only the *integer* holonomy
+> (`2πq`, a dimensionless winding number), reduce to the ECHO-tagged `ξ_topo ≡ e/ℓ_node`
+> insertion, or impose a Dirichlet short that does NOT fix flux. Verdict:
+> **[DOORWAY-NO-PINNING]** — the harmonic DOF exists on `H₁` (the FORM is lattice-forced)
+> but its flux quantum is imported (the VALUE is the α-echo). So the answer to the
+> flagged question is: **DOF confirmed on `H₁`; value unpinned (echo).** This is a
+> FORM-derived / VALUE-imported instance landing on charge-flux (see
+> [`common/form-deriving-value-importing.md`](../manuscript/ave-kb/common/form-deriving-value-importing.md)
+> §"Charge-flux").
 
 ---
 
