@@ -336,6 +336,8 @@ closed-negative across the whole reroute campaign:
   (reads the carrier-lock $(−5,−5)=(1,1)$, not the topological $(2,3)$)
   ([`2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md):19-20).
 
+> 🟡 **EVIDENTIARY-EXPOSURE POINTER (2026-07-03, verdict-exposure sweep — status-demotion, NOT retraction).** The four reroute negatives listed above (Stage-2, S3, #415, #417) are graded **HIGH/MEDIUM-exposed** by the 2026-07-03 sweep — they all run through the diamond `TETRA_OFFSETS` operator (nullspace-heavy / sublattice-decoupled) and the DISPERSE positive control ran on a *Cartesian* engine, not the native pipeline. The closed-negative status of the *bulk-self-trap localization mechanism* is therefore **UNDER RE-ADJUDICATION** (native positive control + `L_D` spectral decomposition + srs-z3 re-run pending); no negative is retracted or confirmed. **mass = A1 (#260) untouched.** See [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](../../../../../research/2026-07-03_engine-verdict-exposure-sweep_result.md).
+
 Re-running the bulk self-trap as a fresh "maybe it forms this time" is **substitution-not-retraction**
 (A47 v11b / Rule 12): the falsified bulk-soliton slot is **not** refilled with a new unverified hypothesis
 ([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):
