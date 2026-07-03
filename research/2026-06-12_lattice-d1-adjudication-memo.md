@@ -122,3 +122,71 @@ to untouched historical docs (electron-synthesis epic, vocab audit).
 - Phase-2 prereg: `research/2026-06-12_genesis-v9-phase2-prereg_FROZEN.md`
 - Lattice resolution: `_orchestration/2026-06-07_lattice-net-resolution.md`
 - Two-engine A-027: `manuscript/ave-kb/common/two-engine-architecture-a027.md`
+
+---
+
+## ADDENDUM (2026-07-03) — D1 RATIFIED: srs-z3 is the production carrier (provisional (B) SUPERSEDED)
+
+**Append-only. This addendum SUPERSEDES §2.3's provisional operational default (B)
+and the §3 "D1 framing — OPEN" label. It does NOT edit the body above (git is the
+trail); the body stands as the 2026-06-12 session record.**
+
+**Ruling (Grant 2026-07-03, verbatim charter: "yup makes sense, ratify"):**
+**srs-z3** — the true Sunada-K4 / Laves / srs net (degree-3, chiral, $I4_1 32$ —
+the object Axiom 1 names) — is **RATIFIED as the engine's production carrier**.
+The provisional framing default **(B)** of §2.3 / §5-P0 ("srs = discrete
+instrument, diamond = production engine"; this memo `:44`, `:61`, `:65`) is
+**SUPERSEDED**. The **(A) substrate-challenge axis** of §2.3 is **CLOSED**: the
+axiom object and the production object are now the SAME, so there is no
+substrate-vs-axiom challenge left to litigate.
+
+**Scope guard (carried verbatim):** this is an **ENGINEERING-FIDELITY** ruling —
+the engine implements the lattice the axiom already names. It mints **NO** new
+ontological claim beyond Axiom 1. `mass = A1` (PR#260 / PR#311 ECHO-final) is
+untouched. This is NOT a re-opening of the crystalline-vs-amorphous structural
+seam (`the-abandoned-interior.md:183`), which is a DISTINCT question and stays
+open.
+
+**Evidence basis (cite, NOT re-derived here — all re-verified at the ratification
+arc's HEAD per verify-before-cite):**
+
+1. **Diamond statics ill-posed** — the bipartite-checkerboard nullspace: the four
+   diamond `TETRA_OFFSETS` all have odd coordinate-sum, so
+   `L_D = Div·diag·Grad` couples only same-parity nodes → two non-communicating
+   sublattices carrying a large frozen kernel a smooth seed dominantly occupies.
+   `research/2026-07-03_localization-readjudication_result.md:51-60,196-197`;
+   independently reproduced in the exposure sweep
+   `research/2026-07-03_engine-verdict-exposure-sweep_result.md:79-93`.
+2. **The five-axis instrument comparison** (§5 of the readjudication result,
+   `research/2026-07-03_localization-readjudication_result.md:194-208`):
+   statics well-posedness (diamond sublattice-decoupled vs srs well-posed graph
+   Laplacian); nullspace burden (diamond 8–16 dim vs srs **1**); smooth-core live
+   fraction (diamond **6.5%** vs srs **89.5%**); positive-control constructibility
+   (both, but the diamond smooth-seed read is muddied by the dead-leg); chirality
+   (**diamond achiral $Fd\bar3m$ CANNOT host the (2,3) winding = charge**; srs
+   chiral $I4_1 32$ carries charge/spin/parity).
+3. **The DEC 2-complex + exact operator calculus on srs**
+   (`research/2026-07-03_srs-dec-operators_result.md`): $\partial_1\partial_2=0$
+   exact (integer), $\mathrm{div}=-\mathrm{grad}^\top$ exact (the adjoint relation
+   the Stage-1b pair LACKED), $b_1=3$ = the periodic-3-torus wraps (correct
+   topology). A valid coordinate-free cochain calculus exists on srs.
+4. **Axiom-1 canon itself** — z=3 chiral ($I4_1 32$), `eq_axiom_1.tex:23-24`.
+
+**What §2.1 (structural D1-A LANDED) and this addendum say together:** §2.1 already
+established srs carries a structural chiral channel diamond cannot mimic; the
+2026-07-03 evidence establishes the diamond statics operator is *pathological* and
+srs is the *well-posed, chirality-carrying* carrier. The ratification takes the
+final step §2.3 explicitly deferred to Grant: **migrate the production carrier to
+srs-z3.**
+
+**Falsifier §6 status:** §6's re-open condition ("Production P5 PASS + BIN-G on
+srs → reopen (A) at full strength") is now MOOT — (A) is not "reopened," it is
+CLOSED-BY-RATIFICATION in srs's favor. The migration itself (re-homing the
+existing diamond `TETRA_OFFSETS` modules onto srs, α/Lorentz-chain survival as a
+P1 acceptance gate) is chartered — but NOT executed — in
+`_orchestration/2026-07-03_srs-migration-policy.md` (future arcs execute).
+
+**Corpus propagation of this addendum:** vocabulary register K4 def-entry
+(def-4b1a2c, status → SOLID production-carrier sense); `eq_axiom_1.tex:18` in-body
+D1 note; `_orchestration/index.md` (D1 moved open → adjudicated); the migration
+charter above.
