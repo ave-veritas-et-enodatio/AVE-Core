@@ -83,7 +83,117 @@ vol1/vol2/vol3 build on"). This register consolidates the status view.
 
 ## §1 — Membership set (the load-bearing call — surface for Grant)
 
-<!-- filled in a later commit -->
+> **This is the load-bearing decision — surfaced for Grant to RATIFY, not
+> silently frozen.** The membership set is 10 `clm-` nodes (the
+> `foundational-machinery:` meta line). Below: the enumeration, its provenance
+> grep, and every borderline machinery-vs-application call flagged (per §0's tier
+> boundary — I did NOT silently decide the borderline ones).
+
+**The three brief-named seeds (verified present, canonical entries):**
+
+| `clm-` | machinery | canonical entry |
+|---|---|---|
+| `clm-1eg13f` | Op14 — Saturation Modulates Local Clock Rate | `vol4/claim-quality.md:1222` |
+| `clm-rtdmsn` | Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary | `vol4/claim-quality.md:1352` |
+| `clm-6t3p6x` | Parametric Coupling Kernel (Axiom-4 vacuum varactor) | `vol4/claim-quality.md:1246` |
+
+All three verified: `grep -rn "id: clm-1eg13f"` / `clm-rtdmsn` / `clm-6t3p6x`
+each resolve to exactly one `<!-- id: … -->` marker in `vol4/claim-quality.md`.
+
+**The operator-machinery core (the universal-operator basis, READ, not enumerated
+per-Op):**
+
+The universal operators Op1–Op22 are **NOT** each their own `clm-` node — the
+corpus tracks them as **catalog + owner claims**, not 22 separate claim entries.
+Verified by `grep -rniE "^## .*\bOp[0-9]+\b"` in the `claim-quality.md` files:
+the only operator-owning claim entries are three, plus the two Op14 vol4 entries:
+
+| `clm-` | machinery | canonical entry | what it owns |
+|---|---|---|---|
+| `clm-gdd70j` | Universal Operators (Z, S, Γ, …) — Same Function, Different Scales | `vol1/claim-quality.md:551` | the Op1–Op8 shared-code-path OWNER claim (the operator formulae) |
+| `clm-sysqaf` | Universal Operator Catalog (Op1–Op22) — Catalog of Record | `common/claim-quality.md:946` | the Op1–Op22 catalog of record (cited by `operators.md`) |
+| `clm-6mvtsf` | Op1 Universal Impedance — the Single Structural Invariant | `common/claim-quality.md:974` | the scale-invariance-inheritance thesis (Op4–22 inherit from Op1) |
+| `clm-1eg13f` | Op14 — Saturation Modulates Local Clock Rate | `vol4/claim-quality.md:1222` | the Op14 local-clock-modulation mechanism |
+
+> **DESIGN CALL (surfaced): operators are tracked as owner+catalog claims, not
+> 22 per-Op nodes.** The brief said "the universal operators Op1–Op21 → their
+> `clm-`s (enumerate from `operators.md` … e.g. Op14=`clm-1eg13f`)." The corpus
+> reality (grep-verified) is that `operators.md` frontmatter declares exactly
+> THREE `clm-`s — `clm-sysqaf` (catalog), `clm-6mvtsf` (Op1 invariant thesis),
+> `clm-gdd70j` (Op1 impedance formula, owned in vol1) — and Op14 additionally
+> has two vol4 mechanism claims (`clm-1eg13f` local-clock, `clm-p2tp9i`
+> cross-sector-trading). There is **no per-Op claim node** for Op2, Op3, Op5–13,
+> Op15–22. So the operator machinery is represented by its **owner + catalog +
+> Op1-invariant + Op14-mechanism** nodes, which IS the reusable-machinery layer
+> the applications build on. **FLAG for Grant:** two Op14-specific vol4 entries
+> exist — `clm-1eg13f` (local-clock, the brief seed, INCLUDED) and `clm-p2tp9i`
+> (cross-sector-trading ρ=−0.990, `vol4/claim-quality.md:1194`). `clm-p2tp9i` is
+> an **empirical engine-MEASUREMENT of an Op14 consequence** (a simulation
+> result, not the operator definition), so it reads as an application-of-Op14,
+> NOT operator machinery — **EXCLUDED, flagged**. Op1's owner is split across two
+> nodes (`clm-gdd70j` the formula in vol1, `clm-6mvtsf` the invariant thesis in
+> common); both are included as they are distinct machinery facets.
+
+> **NUMBERING FLAG (Grant): "Op1–Op21" vs the catalog's "Op1–Op22".** The brief
+> said Op1–Op21; the canonical catalog `operators.md:9` + `clm-sysqaf` title both
+> say **Op1–Op22** (Op22 = Avalanche Factor $M=1/S^2$). This register defers to
+> the canonical catalog (Op1–**Op22**). Not a membership change (no per-Op nodes
+> exist either way) — surfaced so the "21" in the brief is not silently adopted
+> over the corpus's "22".
+
+**The named-theorem machinery (grep `^## .*Theorem` in `claim-quality.md`):**
+
+| `clm-` | theorem | canonical entry | machinery vs application |
+|---|---|---|---|
+| `clm-rtdmsn` | Theorem 3.1′ — Electron Q-Factor at TIR Boundary | `vol4/claim-quality.md:1352` | MACHINERY (brief seed) — but VALUE-scoped echo (see §4) |
+| `clm-ka5zdx` | Mass-Closure Theorem: $mc^2 = E_{\text{reactive}}$ | `vol2/claim-quality.md:1231` | MACHINERY — reusable mass↔reactive-energy identity |
+| `clm-ofys5v` | Substrate-Observability Rule (Universal No-Hair Theorem) | `common/claim-quality.md:624` | MACHINERY — universal $\Gamma=-1$ boundary-observability rule |
+| `clm-law1ho` | AVE BH Horizon $r_{\text{sat}}=7GM/c^2$ + Area Theorem | `vol3/claim-quality.md:1084` | **BORDERLINE** (see flag) |
+
+> **BORDERLINE FLAG (Grant) — `clm-law1ho` BH Area Theorem.** Titled "…+ Area
+> Theorem" (a named theorem, so it grepped in), but its body is an **AVE-specific
+> BH-horizon RESULT** ($r_{\text{sat}}=7GM/c^2$) applying the machinery (it
+> depends on `clm-iouqn9` the magic-angle + `clm-x19btt`, and axioms 2,4). It
+> reads more as a **gravity APPLICATION that contains a theorem-shaped
+> sub-result** than as reusable cross-domain machinery. **INCLUDED provisionally,
+> flagged** — Grant's call whether the Area-Theorem sub-result is machinery (the
+> entropy/area law is reused) or the whole entry is a vol3 application. Recommend:
+> if kept, it is machinery only in its Area-Theorem facet, not the $7GM/c^2$
+> horizon-radius facet.
+
+**The kernel machinery (grep `[Kk]ernel` in `claim-quality.md`):**
+
+| `clm-` | kernel | canonical entry | machinery vs application |
+|---|---|---|---|
+| `clm-6t3p6x` | Parametric Coupling Kernel (Axiom-4 vacuum varactor) | `vol4/claim-quality.md:1246` | MACHINERY (brief seed) |
+| `clm-gz7ryg` | A-034 Single-Kernel Unification — one saturation kernel at all scales | `common/claim-quality.md:794` | MACHINERY — the cross-scale kernel-unification claim |
+
+> **KERNEL-vs-Axiom-4 boundary (Grant).** The saturation kernel *shape*
+> $S(A)=\sqrt{1-A^2}$ itself is **Axiom 4** — it lives on rung 1
+> (`axiom-register.md`), NOT here. What IS machinery here: the **parametric
+> coupling kernel** `clm-6t3p6x` (an Axiom-4-varactor apparatus kernel the DAMA/
+> detector predictions build on) and the **single-kernel unification claim**
+> `clm-gz7ryg` (the reusable "one kernel at all scales" thesis, dep `clm-sysqaf`).
+> **EXCLUDED as applications, flagged:** the per-scale saturation-kernel INSTANCES
+> — protein fold (`vol5`, A-034), Schwinger pair (`vol2` Q-G18), Big Bang
+> (`common` A-034 cosmic), the A4 constitutive gate (`vol9`) — these USE the
+> kernel at one domain, they are not the kernel machinery. The
+> `universal-saturation-kernel-catalog.md` (26 instances) is the application
+> catalog; `clm-gz7ryg` is its machinery-tier unification claim.
+
+**Deliberately NOT included (application tier, per §0 boundary — flagged so the
+exclusion is auditable, not silent):**
+
+- `clm-p2tp9i` — Op14 cross-sector-trading ρ=−0.990 (empirical engine
+  measurement of an Op14 consequence — an application/measurement, not the
+  operator).
+- The saturation-kernel scale-instances (protein / Schwinger / Big Bang / BCS /
+  galactic) — applications of Axiom-4's kernel at one domain each.
+- `clm-4r4jiy` (Q-G22 strain convention), `clm-fgo20a` (Q-G24 Newtonian limit),
+  `clm-n3un96` (τ_relax) — these are Op14/Axiom-4 **usage/derivation results**
+  physically co-located in `vol4/claim-quality.md`, not reusable operator/theorem/
+  kernel machinery. (Flagged because they sit adjacent to the seeds in the same
+  register and could be mis-swept in.)
 
 ## §2 — Per-entry view fields (READ from existing claim records)
 
