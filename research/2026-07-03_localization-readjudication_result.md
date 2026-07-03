@@ -134,20 +134,40 @@ Step 3.8 provenance names).
 |---|---|---|---|---|---|---|
 | **positive control** (λ eigenmode) | 4 | 0.469 | MODE_I_PERSIST | **LOCALIZED_PERSIST** | 48.5 → 13.0 | 2.3e-10 |
 | **positive control** (λ eigenmode) | 6 | 0.348 | MODE_I_PERSIST | **LOCALIZED_PERSIST** | 80.2 → 31.4 | 1.6e-10 |
+| **positive control** (λ eigenmode) | 8 | 0.269 | MODE_I_PERSIST | **LOCALIZED_PERSIST** | 119.9 → 35.2 | 3.0e-10 |
 | **smooth core** (v14 sech) | 4 | 0.105 | MODE_I_PERSIST | **DISPERSED** | 9.8 → 162.0 | 6.3e-9 |
 | **smooth core** (v14 sech) | 6 | 0.105 | MODE_III_DISPERSE | **DISPERSED** | 32.7 → 801.9 | 2.2e-9 |
-| delocalized null | 4/6 | — | — | DISPERSED (floor) | → 256 / 862 | — |
-| constant-mode null | 4/6 | — | — | DISPERSED | = 512 / 1728 | — |
+| **smooth core** (v14 sech) | 8 | 0.105 | MODE_III_DISPERSE | **DISPERSED** | 77.3 → 2089.3 | 7.6e-10 |
+| delocalized null | 4/6/8 | — | — | DISPERSED (floor) | → 256 / 862 / 2056 | — |
+| constant-mode null | 4/6/8 | — | — | DISPERSED | = 512 / 1728 / 4096 | — |
 
 **Readout-liveness gate PASSED (Step 3.8a):** the positive-control eigenmode reads
-LOCALIZED_PERSIST at both L (it stays localized and sharpens: PN drops 48.5→13.0
-and 80.2→31.4). The smooth-core verdict is booked only AFTER this certification.
+LOCALIZED_PERSIST at every L (it stays localized and sharpens: PN drops 48.5→13.0,
+80.2→31.4, 119.9→35.2). The smooth-core verdict is booked only AFTER this
+certification.
 
 **The smooth A1 core DISPERSES at every L** with energy conserved (drift ~1e-9,
-so no numerical damping is masking or faking the result). PN grows 16.5× (L=4)
-and 24.5× (L=6) toward the delocalized floor. The null controls behave (both read
-DISPERSED at the full-box PN), so the metric is not trivially calling everything
-localized.
+so no numerical damping is masking or faking the result). PN grows **16.5× (L=4),
+24.5× (L=6), 27.0× (L=8)** toward the delocalized floor — the dispersal
+strengthens MONOTONICALLY with box size (a finite-size trap would weaken, not
+strengthen). The null controls behave (both read DISPERSED at the full-box PN),
+so the metric is not trivially calling everything localized. (The L=8 row was
+added to complete the prereg §6.2 L∈{4,6,8} commitment; the figures reproduce the
+2026-07-03 auditor's independent L=8 run bit-for-bit.)
+
+### 4.2b dt-convergence (prereg §6.2 "dt-convergence check required")
+
+A 2-point dt sweep at L=4 over the SAME physical window (600 steps at dt=0.066;
+1200 steps at dt=0.033). The CN/Cayley stepper is unconditionally A-stable, so
+this is an accuracy check, not a stability limit. **The verdict is dt-invariant:**
+
+| dt | steps | PN_post | verdict | E-drift |
+|---|---|---|---|---|
+| 0.066 (production) | 600 | 162.0 | DISPERSED | 6.3e-9 |
+| 0.033 (2× finer) | 1200 | 162.4 | DISPERSED | 1.7e-11 |
+
+PN_post agrees to 0.25% and the verdict does not change; the finer dt tightens the
+energy drift as expected. The DISPERSES verdict is not a timestep artifact.
 
 ### 4.3 KEEP-BOTH payoff (flag)
 

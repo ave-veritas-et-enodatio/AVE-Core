@@ -150,8 +150,101 @@
         "srs_verdict": "DISPERSED",
         "participation_number_post_mean": 1728.0
       }
+    },
+    "L8": {
+      "radiation_floor_pn": 2056.15066212153,
+      "positive_control": {
+        "label": "positive_control_eigenmode_L8",
+        "n_nodes": 4096,
+        "nullspace_fraction": 0.2687618840045126,
+        "live_fraction": 0.7312381159954874,
+        "nullspace_dim": 1,
+        "peak0": 0.8501338278582883,
+        "v_peak_mean_post": 1.2722271823194922,
+        "v_peak_std_over_mean_post": 0.046624122737637524,
+        "n_em_min_over_window": 0.21144781344865218,
+        "max_abs_over_run": 1.4740367262502936,
+        "participation_number_0": 119.90345998439588,
+        "participation_number_post_mean": 35.20849005577176,
+        "participation_ratio_grew": 0.2936403174716873,
+        "a1_energy_rel_drift": 3.0216483330741197e-10,
+        "eigenmode_lambda": 3.9999999999999996,
+        "legacy_verdict": "MODE_III_DISPERSE",
+        "srs_verdict": "LOCALIZED_PERSIST",
+        "bins": {
+          "I-1 mean V_peak > 0.2": true,
+          "I-2 breathing std/mean > 0.05": false,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": true,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": true,
+          "LOC-3 bounded (max|V| < 10)": true
+        },
+        "readout_live": true
+      },
+      "smooth_core": {
+        "label": "smooth_core_L8",
+        "n_nodes": 4096,
+        "nullspace_fraction": 0.10498653371439014,
+        "live_fraction": 0.8950134662856098,
+        "nullspace_dim": 1,
+        "peak0": 0.7989217109095668,
+        "v_peak_mean_post": 0.14429358379741247,
+        "v_peak_std_over_mean_post": 0.10479737116816182,
+        "n_em_min_over_window": 0.7755224263442408,
+        "max_abs_over_run": 0.7989217109095668,
+        "participation_number_0": 77.3201112371052,
+        "participation_number_post_mean": 2089.310038946251,
+        "participation_ratio_grew": 27.02156018036884,
+        "a1_energy_rel_drift": 7.619382338550558e-10,
+        "legacy_verdict": "MODE_III_DISPERSE",
+        "srs_verdict": "DISPERSED",
+        "bins": {
+          "I-1 mean V_peak > 0.2": false,
+          "I-2 breathing std/mean > 0.05": true,
+          "I-3 not diverging std/mean < 0.5": true,
+          "I-4 saturation engaged n_EM < 0.97": true,
+          "I-6 bounded max|V| < 10": true,
+          "LOC-1 stays localized (PN_post < 25% of box)": false,
+          "LOC-2 did not disperse to floor (PN_post < 50% of delocalized PN)": false,
+          "LOC-3 bounded (max|V| < 10)": true
+        }
+      },
+      "delocalized_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 2056.15066212153,
+        "participation_number_0": 1433.4820206307948
+      },
+      "constant_mode_null": {
+        "srs_verdict": "DISPERSED",
+        "participation_number_post_mean": 4096.0
+      }
+    }
+  },
+  "dt_convergence_L4": {
+    "sweep": {
+      "dt_0.0660": {
+        "dt": 0.066,
+        "n_total": 600,
+        "participation_number_post_mean": 162.0214867500286,
+        "srs_verdict": "DISPERSED",
+        "a1_energy_rel_drift": 6.265566849383912e-09
+      },
+      "dt_0.0330": {
+        "dt": 0.033,
+        "n_total": 1200,
+        "participation_number_post_mean": 162.39493700212347,
+        "srs_verdict": "DISPERSED",
+        "a1_energy_rel_drift": 1.728386093182207e-11
+      }
+    },
+    "verdict_dt_invariant": true,
+    "verdicts": {
+      "dt_0.0660": "DISPERSED",
+      "dt_0.0330": "DISPERSED"
     }
   },
   "STEP3_VERDICT": "DISPERSES_ON_SRS_LIVE",
-  "STEP3_REASON": "the srs readout is PROVEN LIVE (positive control reads LOCALIZED_PERSIST at L=['L4', 'L6']), and the smooth A1 core DISPERSES at every L ({'L4': 'DISPERSED', 'L6': 'DISPERSED'}). The bulk self-trap falsification RE-BOOKS with solid evidence on the Axiom-1 canonical carrier; the boundary/topological reroute (#403/#404) stands, now grounded."
+  "STEP3_REASON": "the srs readout is PROVEN LIVE (positive control reads LOCALIZED_PERSIST at L=['L4', 'L6', 'L8']), and the smooth A1 core DISPERSES at every L ({'L4': 'DISPERSED', 'L6': 'DISPERSED', 'L8': 'DISPERSED'}). The bulk self-trap falsification RE-BOOKS with solid evidence on the Axiom-1 canonical carrier; the boundary/topological reroute (#403/#404) stands, now grounded."
 }

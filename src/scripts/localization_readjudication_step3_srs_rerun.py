@@ -239,7 +239,7 @@ def main():
         ),
     }
     results = {}
-    for L in (4, 6):
+    for L in (4, 6, 8):  # prereg §6.2: L∈{4,6,8} (L=8 added — FLAG-A discharge)
         cfg = SrsCageWindingConfig(L=L, winding_on=False)
 
         # radiation floor (delocalized null) FIRST — sets the srs-native floor.
@@ -290,6 +290,55 @@ def main():
             },
         }
     out["results"] = results
+
+    # ── dt-CONVERGENCE (prereg §6.2: "dt-convergence check required" — FLAG-B) ──
+    # A 2-point sweep at L=4: the production dt=0.066 and dt=0.033 (2× finer). The
+    # CN/Cayley stepper is unconditionally A-stable, so this is an ACCURACY check,
+    # not a stability limit; the smooth-core VERDICT must be dt-invariant.
+    dt_conv = {}
+    cfg4 = SrsCageWindingConfig(L=4, winding_on=False)
+    deloc4 = _run_srs(cfg4, seed_delocalized_null(cfg4), label="dtconv_deloc_L4")
+    floor4 = deloc4["participation_number_post_mean"]
+    core4_seed = seed_smooth_core(cfg4)
+    for dt_val in (PROD_DT, PROD_DT / 2.0):
+        eng = SrsCageWinding(cfg4)
+        eng.winding_on = False
+        eng.seed_A1_field(core4_seed)
+        eng.dt = dt_val
+        # match the PHYSICAL evolution window: same total time ⇒ 2× steps at ½ dt.
+        n_total = int(round(N_STEPS_TOTAL * (PROD_DT / dt_val)))
+        n_transient = int(round(N_STEPS_TRANSIENT * (PROD_DT / dt_val)))
+        # reuse the run machinery via a tmp cfg-less call (inline mini-run for dt):
+        H0 = eng.a1_energy()
+        pn_hist, peak_hist = [], []
+        for _ in range(n_total):
+            eng.step()
+            pn_hist.append(_participation_number(eng.a_A1))
+            peak_hist.append(float(np.abs(eng.a_A1).max()))
+        pn_post = np.array(pn_hist)[n_transient:]
+        peak_post = np.array(peak_hist)[n_transient:]
+        H1 = eng.a1_energy()
+        pn_post_mean = float(pn_post.mean())
+        localized_frac = pn_post_mean / max(eng.n, 1)
+        grew_toward_floor = pn_post_mean > 0.5 * floor4
+        verdict = (
+            "LOCALIZED_PERSIST"
+            if (localized_frac < 0.25 and not grew_toward_floor and peak_post.max() < BIN_MAXABS)
+            else "DISPERSED"
+        )
+        dt_conv[f"dt_{dt_val:.4f}"] = {
+            "dt": dt_val,
+            "n_total": n_total,
+            "participation_number_post_mean": pn_post_mean,
+            "srs_verdict": verdict,
+            "a1_energy_rel_drift": float(abs(H1 - H0) / max(H0, 1e-30)),
+        }
+    dt_verdicts = {k: v["srs_verdict"] for k, v in dt_conv.items()}
+    out["dt_convergence_L4"] = {
+        "sweep": dt_conv,
+        "verdict_dt_invariant": bool(len(set(dt_verdicts.values())) == 1),
+        "verdicts": dt_verdicts,
+    }
 
     # ── STEP-3 VERDICT (open-goal; the physics reading) ──
     # readout-liveness gate: the positive control MUST read LOCALIZED_PERSIST.
