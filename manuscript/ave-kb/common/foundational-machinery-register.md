@@ -9,8 +9,8 @@ path-stable: "the canonical foundational-machinery register leaf; makes AVE's de
 <!-- foundational-machinery-meta
 foundational-machinery: clm-gdd70j clm-sysqaf clm-6mvtsf clm-1eg13f clm-rtdmsn clm-6t3p6x clm-ka5zdx clm-law1ho clm-ofys5v clm-gz7ryg
 expected-machinery-count: 10
-expected-derived-count: 8
-expected-definitional-count: 2
+expected-derived-count: 7
+expected-definitional-count: 3
 -->
 
 # Foundational-Machinery Register — Derived Theorems / Operators / Kernels (status / provenance / usage view)
@@ -247,7 +247,53 @@ rescored here.** The fields:
 
 ## §3 — Operators (the universal-operator machinery)
 
-<!-- filled in a later commit -->
+The universal-operator basis (Op1–Op22 per `operators.md` / `clm-sysqaf`),
+represented by its owner + catalog + Op1-invariant + Op14-mechanism claim nodes
+(§1 explains why there is no per-Op node). All fields READ from records.
+
+### Op1–Op8 Universal Operators (Z, S, Γ, …) — Same Function, Different Scales
+<!-- view of claim node: clm-gdd70j -->
+
+- **clm-id:** `clm-gdd70j` ([`vol1/claim-quality.md:551`](../vol1/claim-quality.md)).
+- **title:** "Universal Operators (Z, S, Γ) — Same Function, Different Scales" — the Op1–Op8 shared-code-path owner claim (Z impedance, S saturation, Γ reflection, U pairwise, Y→S multiport, λ_min eigenvalue-target, FFT spectral, Γ_pack packing).
+- **status:** **DERIVED** — a theorem of Axiom 4 (the S / impedance / reflection algebra is built on the saturation kernel; its `depends-on` is `Axiom 4`).
+- **axiom-provenance:** `axiom-4` (direct, READ from `depends-on`).
+- **solidity:** 0.80, `ok-with-caveats` (READ). Caveat: operator-identity is *structural* (same code path), not per-scale predictive.
+- **usage:** `citation_count = 9` — the **most-cited machinery member**; the operator basis vol1–vol5 leaves build on. Load-bearing.
+- **flags:** Op1's owner is split — this node owns the Op1–Op8 *formulae*; `clm-6mvtsf` (below) owns the Op1 *invariant-inheritance thesis*. Both included as distinct facets (§1).
+
+### Op1–Op22 Universal Operator Catalog — Catalog of Record
+<!-- view of claim node: clm-sysqaf -->
+
+- **clm-id:** `clm-sysqaf` ([`common/claim-quality.md:946`](claim-quality.md)).
+- **title:** "Universal Operator Catalog (Op1–Op22) — Catalog of Record" — the single-source-of-truth catalog cited by `operators.md`.
+- **status:** **DEFINITIONAL** — a CATALOG / naming register (it *names + tags* the 22 operators CANONICAL/SYNTHESIS; it does not derive them). Its `depends-on` is `clm-gdd70j` (the one formula it restates), reaching no axiom of its own. Machinery *posit*, not theorem.
+- **axiom-provenance:** `(none direct — via clm-gdd70j → axiom-4)`.
+- **solidity:** 0.80, `ok-with-caveats` (READ).
+- **usage:** `citation_count = 1`.
+- **flags:** the "Op1–**Op22**" span (canonical) vs the brief's "Op1–Op21" numbering flag lives here (§1). SYNTHESIS-labelled Op15/18/20 + A43 v10/v11 corrections are internal to this catalog, not membership.
+
+### Op1 Universal Impedance — the Single Structural Invariant
+<!-- view of claim node: clm-6mvtsf -->
+
+- **clm-id:** `clm-6mvtsf` ([`common/claim-quality.md:974`](claim-quality.md)).
+- **title:** "Op1 Universal Impedance — the Single Structural Invariant" — the scale-invariance-inheritance thesis (Op4–Op22 inherit invariance from Op1's $Z=\sqrt{\mu/\varepsilon}$).
+- **status:** **DERIVED** — the inheritance thesis is a (structural) theorem over the operator basis; deps `clm-gdd70j` + `clm-sysqaf` reach `axiom-4` transitively. (Its own rationale concedes the per-operator inheritance is asserted-by-construction, which lowers its *solidity*, not its provenance class.)
+- **axiom-provenance:** `(none direct — via clm-gdd70j → axiom-4)`.
+- **solidity:** 0.60, `input-only` (READ) — the softest operator member; the "all Op4–22 inherit" step is structural, not per-operator-proven.
+- **usage:** `citation_count = 1`.
+- **flags:** none beyond the Op1-owner-split noted on `clm-gdd70j`.
+
+### Op14 — Saturation Modulates Local Clock Rate
+<!-- view of claim node: clm-1eg13f -->
+
+- **clm-id:** `clm-1eg13f` ([`vol4/claim-quality.md:1222`](../vol4/claim-quality.md)) — a **brief-named seed**.
+- **title:** "Op14 Saturation Modulates Local Clock Rate" — Op14's $Z_{eff}(r)=Z_0/\sqrt{S(r)}$ modulates the local clock rate $\omega_{local}=\omega_{global}\sqrt{1-A^2(r)}$ (the substrate-native time-dilation mechanism; parallels gravitational $n(r)=1/\sqrt S$).
+- **status:** **DERIVED** — a clean theorem of Axiom 4 ($\omega_{local}$ follows from $c_{eff}=c_0\sqrt S$; `depends-on` is `Axiom 4`).
+- **axiom-provenance:** `axiom-4` (direct, READ).
+- **solidity:** 0.80, `ok-with-caveats` (READ) — pinned just below 0.9 because the $c_{eff}=c_0\sqrt S$ step is asserted from the kernel rather than re-derived in-leaf.
+- **usage:** `citation_count = 1`.
+- **flags:** **vol3→vol4 mis-volume artifact** (§7) — this Op14 machinery lives in vol4/ though it is cross-volume operator machinery vol1/vol3 build on. The sibling Op14 entry `clm-p2tp9i` (cross-sector-trading ρ=−0.990, engine MEASUREMENT) is EXCLUDED as an application (§1).
 
 ## §4 — Theorems (the named-theorem machinery)
 
