@@ -487,4 +487,79 @@ signature of that foundational machinery being mis-volumed."*
 
 ## §8 — Schema / gate note (flagged, NOT built this pass) + design decisions to ratify
 
-<!-- filled in a later commit -->
+This register is a **VIEW leaf** and needs no new node-type to be correct today:
+it originates no node-body (frontmatter `no-claim`), and the 10 `clm-` claim
+nodes it views are already materialized + gated. Two extensions would make its
+derived quantities **machine-enforced** (mirroring the interlock register's
+CI-gated `expected-independent-count`). Both are **flagged, deliberately NOT
+built** this pass (get the leaf right first; a schema change is Grant-ratify-gated
+canonical infrastructure):
+
+1. **A `foundational-machinery-meta` parser + a machine-recomputed count.** The
+   `foundational-machinery:` / `expected-machinery-count:` /
+   `expected-derived-count:` / `expected-definitional-count:` meta lines are
+   currently **hand-asserted** — there is no `verify-kb-metadata` parser for
+   them. To make the count CI-asserted (the way the interlock count is),
+   `verify-kb-metadata` would (a) parse the `foundational-machinery:` id list +
+   confirm each resolves to a `claim` node (referential integrity, reusing the
+   existing `clm_cross_links`-style check), (b) recompute
+   `expected-machinery-count = len(list)`, and (c) — for the derived/definitional
+   split — read each member's `depends-on` axiom-provenance and flag drift. **The
+   DERIVED/DEFINITIONAL split is the subtle part:** it is NOT purely mechanical
+   from `depends-on` (a member can reach an axiom transitively yet be a
+   definitional catalog, e.g. `clm-sysqaf`; and `clm-ofys5v` has no deps but is a
+   posit). So the split is a **human-authored view field** the gate can range-
+   check (counts sum to N) but should NOT auto-derive from edges alone. **Design
+   question for Grant:** wire a `foundational-machinery` count gate now (the
+   interlock precedent), or keep it hand-maintained until the D11 relocation
+   moves members between volumes (which would churn `canonical_path`s the gate
+   would otherwise have to track)?
+2. **Nothing else.** No new id prefix, no new edge class, no new node-type — the
+   members are already `clm-` claim nodes (INVARIANT-S11 satisfied by reusing
+   them). This register mints zero ids; the node count is unchanged (validation
+   footer).
+
+**Design decisions made in this pass that Grant should ratify** (surfaced, not
+silently committed — this is canonical infrastructure):
+
+- **(D-M1) Register-as-VIEW, not new-id-scheme.** The machinery members are
+  already `clm-` claim nodes, so this register mints NO new id and re-declares
+  nothing — a status/provenance/usage VIEW over them. *Alternative rejected:*
+  minting fresh `mach-`-style ids would be a parallel scheme forbidden by
+  INVARIANT-S11.
+- **(D-M2) The 10-member set** (§1). The load-bearing call. Includes the 3
+  brief seeds + operator owner/catalog/invariant + 3 named theorems + 1
+  unification kernel. **Borderline inclusions flagged for Grant, NOT silently
+  decided:** `clm-law1ho` (BH-Area, application-leaning — the strongest
+  exclusion candidate), `clm-ka5zdx` (Mass-Closure, low-solidity single-cite),
+  and the operators-tracked-as-owner-not-per-Op design call. **Explicit
+  exclusions flagged:** `clm-p2tp9i` (Op14 cross-sector engine-measurement),
+  the per-scale kernel instances, `clm-4r4jiy`/`clm-fgo20a`/`clm-n3un96` (vol4
+  co-located usage-results).
+- **(D-M3) The two-value provenance axis** {DERIVED (theorem-of-axioms),
+  DEFINITIONAL (posit)} — chosen to make the FORM-derives/VALUE-imports
+  meta-finding machine-legible at the machinery tier, and kept ORTHOGONAL to
+  both solidity and the chord/echo VALUE axis (§2, §6). *Chosen over* a
+  finer-grained axis because the tier's honest split is binary
+  (theorem-vs-posit); the value-echo nuance is captured by cross-ref to
+  `interlock-register.md`, not by a third status value.
+- **(D-M4) `status` is a human-authored view field, gate deferred.** Per item 1
+  — the DERIVED/DEFINITIONAL split cannot be auto-derived from `depends-on`
+  edges alone (transitive-axiom-reach ≠ theorem-hood), so it is authored + gate-
+  range-checked, not machine-inferred. Flagged for Grant's ratify on whether to
+  wire the count gate now or after the D11 relocation.
+- **(D-M5) Op1–Op22 numbering** (not Op1–Op21): defers to the canonical catalog
+  (`operators.md:9`, `clm-sysqaf`). Surfaced so the brief's "Op1–Op21" is not
+  silently adopted.
+
+> **Numbers are as-of `origin/main` @ f556dcdc.** Every solidity / citation_count
+> / axiom-provenance in §3–§6 is READ from the claim records at that base; this
+> VIEW is regenerated to match if a member's record changes. This register is
+> never the source of truth for those numbers.
+
+---
+
+**Validation footer (populated at the final gate pass).**
+
+<!-- populated in the validation commit -->
+
