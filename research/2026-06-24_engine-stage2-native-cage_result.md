@@ -199,3 +199,16 @@ Re-generate the JSON with:
 - Predecessor explicit run: `3a4c3227` (INCONCLUSIVE) — SUPERSEDED.
 - Recovery/source commit (this PR): brings the IMEX subset onto a main-based
   branch for citability.
+
+---
+
+## ⚠ EVIDENTIARY-EXPOSURE (2026-07-03 — verdict-exposure sweep; status-demotion, NOT retraction)
+
+The 2026-07-03 engine verdict-exposure sweep grades this DISPERSE verdict **HIGH-exposed** on both apparatus-pathology classes. The verdict text above is preserved unchanged; this block demotes its evidentiary *status*, it does not retract the conclusion.
+
+- **CLASS-1 (stencil pathology).** The native operator `L_D = Div·diag(D)·Grad` (`src/ave/solvers/native_cage_imex.py:97/148`) is built on the diamond `TETRA_OFFSETS` stencil, whose four offsets all have **odd coordinate-sum** (`src/ave/topological/cosserat_field_3d.py:134-139`). So `Grad` maps node → opposite-parity and `L_D` connects **only same-parity** nodes: the periodic box **decouples into two interpenetrating sublattices**, each nullspace-bearing (the operator is positive-**semi**-definite, not the "SPD" the `:151` docstring asserts). Independently reproduced: cold `L_D` off-diagonal coupling is **100% same-parity** (384.0 same / 0.0 cross at N=8); **8–16 near-zero eigenvalues** at N=8/10/12; the centered v14 sech (`amp=0.85`, `radius=2.5`) projects **≈98% of its energy onto the frozen nullspace at N=8** (null-projected peak 0.653 of 0.850), **≈67% at production N=24**. The DISPERSE observable (interior peak) is therefore governed dominantly by a decoupled-sublattice operator artifact, not by the bulk self-focusing physics the make-or-break claims to test.
+- **CLASS-2 (mislocated positive control).** The only "the instrument can SEE a self-trap" control (`run_cartesian_reference`, `src/scripts/engine_stage2_native_cage_imex_makeorbreak.py:99`) runs on the **Cartesian `MasterEquationFDTD`** engine — its own docstring calls it "the known-good self-trap the native run is compared to" — NOT the native `TETRA_OFFSETS` pipeline that renders this verdict. On the native pipeline **every** seed disperses (sech 0.315, gaussian 0.236, linear 0.0074); the native pipeline has never been shown to read "bound/persist" for **any** input. The energy-conservation gate is a rigor guard against dissipation-bought results, not a liveness proof that the readout can register a bound core.
+
+**Status: DISPERSE verdict = EVIDENCE-EXPOSED, UNDER RE-ADJUDICATION (native positive control + `L_D` spectral decomposition + srs-z3 re-run pending); conclusion NOT retracted, NOT confirmed.** The scope-lock is unaffected: only the diamond-stencil *evidence* for the localization-mechanism switch is exposed — **mass = A1 (PR#260) is UNTOUCHED**. The seduction-trap ("a real self-trap was masked, so the electron localizes in the bulk after all") is **named and rejected** pending the re-adjudication arc.
+
+**Cite:** [`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](2026-07-03_engine-verdict-exposure-sweep_result.md) (methodology, full 31-row triage, reproduced arithmetic).
