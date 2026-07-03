@@ -518,6 +518,10 @@ EPS_DIVZERO: float = 1e-30  # Hard division-by-zero floor
 
 # EPS_SAT_RATIO — saturation-ratio clamp ceiling for the Axiom 4 macroscopic
 # kernel  ε_eff = ε₀·√(1 − r²),  r = V/V_yield (or B/B_yield).
+#   NOTE (B_yield disambiguation, def-bdual1, 2026-07-03): the "B_yield" in this
+#   kernel ratio is the ENERGY-DENSITY-matched scale B_SNAP, NOT B_dual=E_yield/c
+#   (the field-amplitude-matched duality scale; the two differ by the √(8π)
+#   bridge). See manuscript vocabulary-register def-bdual1; do not noun-swap.
 #
 # Distinct from EPS_CLIP: both clamp √(1 − x²) near x = 1, but they operate at
 # different scales. EPS_CLIP (1e-15) is the analytical tight bound used by the
