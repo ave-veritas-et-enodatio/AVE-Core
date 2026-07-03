@@ -1509,12 +1509,13 @@ AVE forward-predicts a topological/Cosserat second-order effect contributing to 
 ## Q-G20a Lamb Shift: Structural Closure via Today's Inputs
 <!-- id: clm-3i66gp -->
 
-The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65% structural precision at leading order by composing three substrate-native inputs, each with a separately-closed AVE derivation: finite-size self-energy ($+1010$ MHz) + Q-G20f vacuum polarization ($-27$ MHz) + Q-G19α anomalous moment ($+68$ MHz), totaling $\approx +1051$ MHz.
+The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is matched in **FORM** at leading order (a Bethe-log self-energy of the right shape and order) by composing three substrate-native inputs: finite-size self-energy ($+1010$ MHz, QED-imported magnitude) + Q-G20f vacuum polarization ($-27$ MHz) + Q-G19α anomalous moment ($+68$ MHz), totaling $\approx +1051$ MHz. The $0.65\%$ total is a **consistency composition**, not a clean AVE precision prediction — the dominant self-energy magnitude is QED-imported (see Quality rationale, 2026-07-02).
 
 - _Specific Claims_
-  - Lamb shift $\approx +1051$ MHz vs measured $+1057.85$ MHz (0.65%), composed from three separately-closed AVE derivations.
+  - Lamb-shift FORM match (Bethe-log self-energy) at $\approx +1051$ MHz vs measured $+1057.85$ MHz; consistency composition of three inputs, dominant term QED-imported.
 - _Specific Non-Claims and Caveats_
-  - Structural-precision match at leading order only.
+  - **NOT** a clean $0.65\%$ AVE precision prediction: the dominant self-energy ($+1010$ MHz) is QED-imported, not an AVE numerical output. Structural/consistency-class only.
+  - Corrected AVE Bethe-log-equivalent $\approx 4.92$ vs QED $\approx 2.81$ = $1.75\times$ coefficient tension/echo (after the 2026-07-02 α-factor cutoff correction).
 
 > **Leaf references:** [q-g20a-lamb-shift-structural-closure](./quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md).
 
@@ -1526,9 +1527,9 @@ The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65%
   - clm-bqtasn (Q-G20f vacuum-polarization contribution, $-27$ MHz)
   - clm-v2sg8z (Q-G19α anomalous-moment contribution, $+68$ MHz)
 - solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.60)]
-- rationale: A three-input composition reaching $\approx+1051$ MHz vs measured $+1057.85$ (0.65%). The vacuum-polarization and anomalous-moment terms inherit separately-closed AVE derivations, but the dominant self-energy term ($+1010$ MHz) has an acknowledged log discrepancy: the AVE Bethe-log-equivalent ($\approx9.84$) differs from QED's ($\approx2.81$) by 3.5×, glossed as "same magnitude — agree at the few-percent level." The total lands right, but the load-bearing self-energy magnitude effectively leans on the QED value rather than being cleanly derived. Disclosed-bound composition with a papered-over dominant-term discrepancy.
+- rationale: A three-input composition reaching $\approx+1051$ MHz vs measured $+1057.85$ (0.65%). Honesty framing (2026-07-02 α-factor cutoff correction, Grant-ruled): the AVE self-energy is a **structural match on the FORM** (a Bethe-log self-energy of the right shape and order). After correcting the geometric UV cutoff — it was written $1/\ell_{node}=m_e c/\alpha$, WRONG by $1/\alpha$; canonical $\ell_{node}=\hbar/(m_e c)$ gives $1/\ell_{node}=m_e c$ — the corrected AVE Bethe-log-equivalent is $\ln(1/\alpha)\approx4.92$ (not $2\ln(1/\alpha)\approx9.84$), vs QED's $\approx2.81$: a **1.75× coefficient tension/echo** (not the previously-stated 3.5× gap). The vacuum-polarization and anomalous-moment terms inherit separately-closed AVE derivations, but the dominant self-energy term ($+1010$ MHz) is **QED-imported** (there is no independent AVE numerical generator of $+1010$ MHz in the KB; the AVE log was a structural comparison, never the magnitude generator). Correcting the log does not move the $\approx+1051$ total (it was never generated from the AVE log), so the total "lands right" only because the dominant term is imported — **consistency/structural-class, NOT a clean $0.65\%$ AVE precision prediction.**
 - strengthen-by:
-  - Resolve the Bethe-log magnitude gap (9.84 vs 2.81) so the $+1010$ MHz self-energy is a clean AVE output, not a "same-magnitude" match.
+  - Generate the $+1010$ MHz self-energy magnitude from the AVE Bethe-log-equivalent as a genuine AVE output (currently QED-imported), then the $\sim1.75\times$ coefficient tension (AVE log $4.92$ vs QED $2.81$) becomes the load-bearing test rather than a decorative comparison.
   - Carry the composition to the next-order ($\alpha^5$ Bethe-log, recoil, nuclear size) to test beyond leading order.
 
 ---

@@ -24,7 +24,7 @@
 {"claim_id": "clm-3bwhad", "item_idx": 1, "text": "Show ε_eff, μ_eff modulation reproduces n(r)=1+2GM/(rc²) quantitatively to confirm the impedance-gradient reading", "mentioned_ids": []}
 {"claim_id": "clm-3bwhad", "item_idx": 2, "text": "State the regime where fixed-dx Eulerian small-strain is \"correct for observability\" vs where it would fail, to bound the engine-correctness claim", "mentioned_ids": []}
 {"claim_id": "clm-3dc9qt", "item_idx": 0, "text": "none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input", "mentioned_ids": []}
-{"claim_id": "clm-3i66gp", "item_idx": 0, "text": "Resolve the Bethe-log magnitude gap (9.84 vs 2.81) so the $+1010$ MHz self-energy is a clean AVE output, not a \"same-magnitude\" match.", "mentioned_ids": []}
+{"claim_id": "clm-3i66gp", "item_idx": 0, "text": "Generate the $+1010$ MHz self-energy magnitude from the AVE Bethe-log-equivalent as a genuine AVE output (currently QED-imported), then the $\\sim1.75\\times$ coefficient tension (AVE log $4.92$ vs QED $2.81$) becomes the load-bearing test rather than a decorative comparison.", "mentioned_ids": []}
 {"claim_id": "clm-3i66gp", "item_idx": 1, "text": "Carry the composition to the next-order ($\\alpha^5$ Bethe-log, recoil, nuclear size) to test beyond leading order.", "mentioned_ids": []}
 {"claim_id": "clm-3ii690", "item_idx": 0, "text": "Derive $\\rho_{latent}/\\rho_{vac}$ numerically (from crystallisation energetics) to give a falsifiable $w$ value.", "mentioned_ids": []}
 {"claim_id": "clm-3ii690", "item_idx": 1, "text": "Show the Big-Rip-forbidding bound on $w(t)$ as a quantitative time-evolution, not a verbal attractor argument.", "mentioned_ids": []}

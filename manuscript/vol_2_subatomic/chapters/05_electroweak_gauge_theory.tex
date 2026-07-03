@@ -83,18 +83,19 @@ where $T_{EM}$ is the lattice tension (torsional ``charge''), $r_0 = \ell_{node}
 
 The Chiral SRS net (Axiom 2) has an intrinsic handedness. A twist that \emph{matches} the lattice chirality propagates freely (this is why left-handed neutrinos are nearly massless). A twist that \emph{opposes} the chirality fights the LC ground state, incurring a stiffness penalty.
 
-The factor $\alpha^2$ is derived from the interaction Lagrangian. The twist field $\phi$ couples to the EM background through the Axiom~4 dielectric susceptibility $\varepsilon(\phi) = \varepsilon_0(1 + \alpha f(\phi))$, giving:
-\begin{resultbox}{Torsional-EM Interaction Lagrangian}
+The factor $\alpha^2$ is the product of \textbf{two Axiom~4 susceptibility couplings}. The twist field $\phi$ modulates the local dielectric susceptibility of the vacuum, $\varepsilon(\phi) = \varepsilon_0(1 + \alpha f(\phi))$ (the Axiom~4 nonlinear permittivity): the vacuum is a \emph{varactor} whose reactance is tuned by the twist amplitude. Each such coupling carries one factor of $\alpha$, giving the interaction term (here $\mathcal{L}_{\text{int}}$ denotes the interaction contribution to the S11/impedance-minimization action, the corpus's substrate-native reading of ``Lagrangian''):
+\begin{resultbox}{Torsional-EM Susceptibility Coupling}
 \begin{equation}
     \mathcal{L}_{\text{int}} = \frac{\varepsilon_0 \alpha}{2}\,\phi\,|\mathbf{E}|^2
 \end{equation}
 \end{resultbox}
-The self-energy is a \textbf{two-vertex process} (second-order perturbation theory):
-\begin{resultbox}{Second-Order Self-Energy}
+The twist self-energy is a \textbf{second-order reactive (intermodulation) term} --- the varactor is driven twice, so the response goes as the product of two susceptibility couplings, exactly as a mixer generates a second-order product of its two inputs:
+\begin{resultbox}{Second-Order Reactive Self-Energy}
 \begin{equation}
     E_{\text{self}} = \iint \mathcal{L}_{\text{int}}(\mathbf{x})\, G(\mathbf{x}-\mathbf{x}')\, \mathcal{L}_{\text{int}}(\mathbf{x}')\, d^3x\, d^3x' \;\propto\; \alpha \times \alpha = \alpha^2
 \end{equation}
 \end{resultbox}
+where $G$ is the lattice Green function propagating the reactive response between the two susceptibility-coupling sites. The $\alpha^2$ scaling is thus the intermodulation product of two Axiom~4 varactor couplings, not a Feynman two-vertex loop.
 
 \section{Electroweak Mechanics: Forward Reference}
 
