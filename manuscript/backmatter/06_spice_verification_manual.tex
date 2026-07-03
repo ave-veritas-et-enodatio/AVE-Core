@@ -156,16 +156,26 @@ domain-specific adapter.
 \texttt{L0}      & $L_0$      & --- (required)      & Base inductance (mass analogue) \\
 \texttt{C0}      & $C_0$      & --- (required)      & Base capacitance (compliance analogue) \\
 \texttt{R0}      & $R_0$      & 0                   & Base resistance (viscosity analogue) \\
-\texttt{V\_YLD}  & $V_{yield}$ & 43653.7 V          & Dielectric yield voltage \\
-\texttt{I\_YMAX} & $I_{max}$  & 124.4 A             & Current saturation limit \\
+\texttt{V\_YLD}  & $V_{yield}$ & 43651.85 V         & Dielectric yield voltage \\
+\texttt{I\_YMAX} & $I_{max}$  & 124.384 A           & Current saturation limit \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent The physical values $V_{yield} = \sqrt{\alpha}\,V_{snap}$ and
-$I_{max} = \xi_{topo}\,c$ are computed in \texttt{constants.py} and passed
-as subcircuit parameters by the netlist compiler.  No constants are
-hardcoded in the \texttt{.lib} file.
+\noindent The physical values $V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V and
+$I_{max} = \xi_{topo}\,c = 124.384$ A are the canonical
+\texttt{ave.core.constants} values.
+% FLAG-1 correction (2026-07-03, ave-canonical-source): the prior 43653.7 V /
+% 124.4 A defaults were DRIFTED; corrected to the constants.py canonical values.
+% The prior claim "No constants are hardcoded in the .lib file" was FALSE — the
+% .lib DOES hardcode these as subckt defaults (now the canonical values, still
+% hand-written). The durable fix is to GENERATE the .lib from constants.py
+% (SPICE-charter design-(d): .lib.template + substitute-at-test-time); until then
+% these defaults are a maintained copy, not a generated one.
+The default literals above are also carried as subcircuit-parameter defaults in
+the hand-written \texttt{.lib}; until the generated-\texttt{.lib} mechanism
+(charter design-(d)) lands, they are a maintained copy of the
+\texttt{constants.py} values, not an auto-substituted one.
 
 
 \section{Domain-Specific Wiring Topologies}

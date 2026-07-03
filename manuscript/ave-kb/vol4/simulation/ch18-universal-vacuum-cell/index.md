@@ -41,7 +41,7 @@ The `AVE_VACUUM_CELL` contains three behavioral elements between nodes A and B:
 | Parameter | Value | Origin |
 |---|---|---|
 | $V_{SNAP}$ | 510,998.95 V | $m_e c^2 / e$ |
-| $V_{YIELD}$ | 43,653.7 V | $\sqrt{\alpha} \times V_{SNAP}$ |
+| $V_{YIELD}$ | 43,651.85 V | $\sqrt{\alpha} \times V_{SNAP}$ (`ave.core.constants.V_YIELD` = 43651.851844… — FLAG-1 fix 2026-07-03; prior 43,653.7 was drifted) |
 | $I_{MAX}$ | 124.4 A | $\xi_{topo} \times c$ |
 | $Z_0$ | 376.73 Ω | $\sqrt{\mu_0 / \varepsilon_0}$ |
 

@@ -130,7 +130,7 @@ class TestMemristorSubcircuit:
 * Memristor state integrator syntax check
 {'.INCLUDE ' + str(lib_path())}
 V1 N1 GND SIN(0 10000 1Meg)
-X1 N1 GND N_S AVE_MEMRISTOR_S_STATE TAU_REL=1n V_YLD=43653.7
+X1 N1 GND N_S AVE_MEMRISTOR_S_STATE TAU_REL=1n V_YLD=43651.85
 R1 N_S GND 1G
 .TRAN 1n 10u
 .END

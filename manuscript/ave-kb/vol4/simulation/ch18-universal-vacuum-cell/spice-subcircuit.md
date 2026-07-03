@@ -20,7 +20,7 @@ claims: [clm-vjv4zf]
 
 ```spice
 .subckt AVE_VACUUM_CELL A B
-+ params: L0=1n C0=1p R0=0 V_YLD=43653.7 I_YMAX=124.4
++ params: L0=1n C0=1p R0=0 V_YLD=43651.85 I_YMAX=124.384
 
 * (a) Metric Varactor — charge-based behavioral source
 B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
@@ -77,7 +77,7 @@ Any deviation between `AVE_VACUUM_CELL` and `AVE_VACUUM_CELL_LINEAR` runs is due
 
 ```spice
 .subckt AVE_MEMRISTOR_S_STATE A B N_S
-+ params: TAU_REL=1n V_YLD=43653.7
++ params: TAU_REL=1n V_YLD=43651.85
 * dS/dt = (S_eq - S) / TAU_REL; S_eq = sqrt(1 - (V/V_YLD)^2)
 .ends AVE_MEMRISTOR_S_STATE
 ```
@@ -85,3 +85,5 @@ Any deviation between `AVE_VACUUM_CELL` and `AVE_VACUUM_CELL_LINEAR` runs is due
 `TAU_REL` is **simulation-scaled** (default 1 ns). Canonical vacuum $\tau_{\mathrm{relax}}=\ell_{\mathrm{node}}/c\approx 1.288\times 10^{-21}$ s is below ngspice timestep — constitutive-loop tests use the Python ODE harness with dimensionless $\omega\tau$.
 
 *Implementation*: `src/ave/solvers/spice_models/ave_vacuum_cell.lib`
+
+> **⚠ FLAG-1 value-drift note (2026-07-03, ave-canonical-source).** The `V_YLD` / `I_YMAX` literals in the subckt-param lines above are **hand-written** and were drifted (`43653.7` / `124.4`); corrected here to the `ave.core.constants` canonical `V_YIELD = 43651.851844… V` (`≈ 43651.85`) and `I_MAX = 124.384 A`. These are NOT generated from `constants.py` and will drift again if hand-edited. The **durable fix** is to GENERATE the `.lib` (and this spec) from `constants.py` — SPICE-charter design-(d) (`_orchestration/2026-07-03_spice-lane-charter.md` §2(d): `.lib.template` + substitute-at-test-time + a FORM/VALUE-drift CI gate). Generator not built here; values fixed + warned only.
