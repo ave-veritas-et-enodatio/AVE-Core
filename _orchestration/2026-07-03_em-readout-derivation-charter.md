@@ -41,3 +41,46 @@ Adding Gauss's law with ρ defined from the winding **inserts the answer** (Gaus
 ## 5. Cross-references
 
 `research/2026-07-03_compositeness-defense-gate0_{prereg,result}.md` + `_engine-leg_{prereg,result}.md` (the bounds table, the frozen bins, the host audit) · clm-wcoul2 (the gapped-channel interaction + channel-coherence) · clm-clvchn (the pump null; non-conflation guard applies — this epic is the READOUT, not the pump) · `unified_engine.py` P0/P1 docs (the 6-DOF host) · `translation-circuit.md:541` / `substrate-perspective-electron.md:109` (the sector-conflation pair, corrections gated) · `common/boundary-observables-m-q-j.md` (q²-conditioned no-hair, wall channel) · the axiom-register derived-legs table (Ax2 row updates on this epic's outcomes).
+
+---
+
+## OUTCOME (2026-07-03, append-only) — the epic CLOSED on BRANCH 3
+
+**Ruling (Grant 2026-07-03, verbatim: "ratify it").** Every live lane of the
+EM-readout epic has reported. **The epic closes on §2 branch 3** (verbatim above,
+`:25`): *"UNDERIVABLE (stuck at grade) — recorded as a permanent FORM-level ceiling
+on charge-as-winding unless/until new machinery: the honest 'posited forever' state,
+named."*
+
+**What reported:**
+- **The sourced-static-monopole route — CLOSED** by the four-lock cascade (`clm-nogo4l`;
+  Lock 3 maximum-principle theorem + Lock 4 ∂₁∂₂=0 continuity at derivation grade,
+  β-arc PR #488). Two structural closures + two instrument gates (cold-eyes corrected
+  count — the "four independent locks" headline over-counted).
+- **Lane Z (harmonic sector) — `[DOORWAY-NO-PINNING]`** (PR #489): the Δb₁=+1 core-
+  linking DOF is confirmed on H₁, but its flux VALUE is imported (the ξ_topo echo).
+- **Lane W (winding pairs) — `[MULTIPOLE-FORM]`** (PR #492): the massless pair field
+  is p=−3.0 dipole-or-steeper, not Coulomb; monopole forced zero. The last live lane,
+  closed at FORM grade.
+
+**Where the ceiling is LOCATED:** the London-analog integer→flux-VALUE conversion
+(`ξ_topo ≡ e/ℓ_node`, the α-echo). The FORM is derived — the `Q = Link(∂Ω, F) ∈ ℤ`
+integer, the holonomy `∮∇θ = 2πq`, the linking-DOF existence, forced neutrality
+(`sum(∇·J)=0` exact). The VALUE is imported. That conversion is the one machinery-gap
+that would promote branch 3 to branch 1.
+
+**Peer-with-SM (context only, corrected per the cold-eyes audit §3):** both frameworks
+import the charge quantum; SM's anomaly cancellation structurally constrains the charge
+RATIOS (the "SM doesn't derive quantization" line is retired). The genuine AVE
+structural surplus is narrower: the integer FORM + forced neutrality + the no-sourcing
+four-lock structure + the ball-vs-torus Δb₁ prediction (no direct SM counterpart).
+
+**Basis:** the cold-eyes charter-vs-grade adjudication
+(`research/2026-07-03_cold-eyes-program-audit_result.md` §4, Grant-ratified) surfaced
+that the earlier proposed "sourcing-peer-with-SM" framing was a fourth label the
+charter never offered — it would launder a charter-acknowledged ceiling into a neutral
+grade. The lane-Z step-0 note fires branch 3 verbatim
+(`research/2026-07-03_lanez-fluxoid-step0_note.md`: "the charter's 'posited forever'
+stakes branch fires"). Landed on: the cascade leaf's closure section
+(`the-sourced-charge-no-go-cascade.md` §"The epic closure — BRANCH 3"); the Ax2
+axiom-register row (final state CLOSED, branch-3, ceiling named); this annotation.
