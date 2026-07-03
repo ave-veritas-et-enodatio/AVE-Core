@@ -144,9 +144,31 @@ class EMEpsChannel:
         return np.sqrt(Emag / np.maximum(cnt, 1))
 
     def div_E_diagnostic(self, phi: np.ndarray | None = None) -> np.ndarray:
-        """∇·E = −L φ (the Gauss DIAGNOSTIC — measured, never enforced)."""
+        """The per-node DISCRETE DIVERGENCE of E, OPERATOR-CONSISTENT with the
+        solver (MAJOR-b/c fix): the field is E = −grad φ, and the solver's channel
+        operator is L = D − A = Div_L∘Grad_L, so the per-node source density is
+        (∇·E)[u] = +(L φ)[u]. (The prior version returned −Lφ, a SIGN FLIP that made
+        a +1 imposed source read −0.9999; corrected: (∇·E) = +Lφ, so for the solved
+        field ∇·E = +(source − mean) exactly — the discrete Gauss law of THIS L,
+        MEASURED not enforced.)"""
         p = self.phi if phi is None else phi
-        return -(self.L @ p)
+        return +(self.L @ p)
+
+    def enclosed_charge_profile(self, phi, core_node: int,
+                                radii) -> "tuple[np.ndarray, np.ndarray]":
+        """THE LOCAL OBSERVABLE (Blocker-1 fix): Q_enc(r) = Σ_{u∈Ω(r)} (∇·E)[u]
+        over the node-set Ω(r) = {u : |pos_u − pos_core| < r}, using the
+        operator-consistent (∇·E) = +Lφ. By the discrete divergence theorem for L,
+        this equals the boundary flux ∮_{∂Ω(r)} E·dA MINUS the enclosed jellium
+        background, i.e. the NET enclosed charge inside radius r. For a genuine
+        monopole of strength q at the core, Q_enc(r) rises toward q and plateaus
+        (minus the growing jellium −(r/box)³·q correction); for a divergence-free
+        field it stays ~0 at EVERY r (the local test the global sum could not do).
+        Returns (radii, Q_enc)."""
+        divE = self.div_E_diagnostic(phi)
+        r = _node_radii(self.pos, core_node, self.box)
+        return np.asarray(radii, float), np.array(
+            [float(divE[r < rr].sum()) for rr in radii])
 
     def solve_static(self, source: np.ndarray) -> np.ndarray:
         """Solve L φ = source (CG on the well-posed srs Laplacian).
@@ -155,11 +177,19 @@ class EMEpsChannel:
         (labeled). For the transducer it is the emergent Ax1-LC output. This
         method does NOT know which — it is the channel's own gapless static
         dynamics, sourced from outside. NO ρ is fabricated here. The constant
-        null mode is fixed by the mean-zero gauge (the physical gauge)."""
+        null mode is fixed by the mean-zero gauge (the physical gauge).
+
+        LEDGER: `b -= b.mean()` is the JELLIUM / NEUTRALIZING-BACKGROUND projection
+        — TOPOLOGY-FORCED on a closed periodic graph (L annihilates the constant,
+        so Lφ=b is solvable IFF Σb=0; the mean-subtraction is the unique compatible
+        RHS, the uniform compensating background). AXIOM-DERIVED (forced by the
+        periodic-graph solvability condition), NOT a free choice. This is exactly
+        why the GLOBAL Σ(∇·E)=0 always (Blocker-1) — the enclosed-charge PROFILE
+        (enclosed_charge_profile) is the correct local observable."""
         from scipy.sparse.linalg import cg
 
         b = np.asarray(source, dtype=np.float64).reshape(self.Nn)
-        b = b - b.mean()  # project onto the mean-zero (physical) subspace
+        b = b - b.mean()  # jellium/neutralizing-background projection (see docstring)
         phi, info = cg(self.L, b, rtol=1e-10, maxiter=30000)
         phi = phi - phi.mean()
         self.phi = phi
