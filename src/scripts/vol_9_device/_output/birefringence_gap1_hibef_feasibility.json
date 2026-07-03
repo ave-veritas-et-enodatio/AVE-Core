@@ -1,0 +1,134 @@
+{
+  "validate_qed_leg": {
+    "substrate_identity_holds": true,
+    "A_e_recovers_1.32e-24": true,
+    "A_e_value": 1.3246686621582372e-24,
+    "A_e_relerr": 0.0035368652713918544,
+    "qed_leg_at_loi_design": [
+      {
+        "I_L_wcm2": 1e+22,
+        "E_field": 274492372739852.56,
+        "A2": 5.896416354237648e-06,
+        "P_qed_exact": 1.449110624479183e-15,
+        "dphi_qed": 7.613437133067255e-08
+      },
+      {
+        "I_L_wcm2": 1e+23,
+        "E_field": 868021098201847.5,
+        "A2": 5.896416354237645e-05,
+        "P_qed_exact": 1.4491106244791132e-13,
+        "dphi_qed": 7.613437133067254e-07
+      }
+    ],
+    "qed_design_flip_prob_band": {
+      "min": 1.449110624479183e-15,
+      "max": 1.4491106244791132e-13
+    },
+    "qed_design_in_literature_order_band": true,
+    "qed_exact_reduces_to_perturbative": true,
+    "qed_demonstrated_pump": {
+      "E_field": 87000000000000.0,
+      "P_qed_exact": 1.4623705278200472e-17,
+      "P_qed_pert": 1.4623705278200472e-17,
+      "dphi_qed": 7.648190708448756e-09
+    },
+    "VALIDATE_PASS": true
+  },
+  "matched_differential_ratio_7.5_over_alpha3": 19300353.99810898,
+  "hibef_points": {
+    "NJP_9835eV": {
+      "E_field": 87000000000000.0,
+      "A": 0.0007696318683529831,
+      "E_probe_eV": 9835.0,
+      "wavelength_m": 1.2606425862453764e-10,
+      "dn_ave": -2.9616678176580535e-07,
+      "dn_qed": 1.5345138561772993e-14,
+      "dphi_ave": 0.1476128755262726,
+      "dphi_qed": 7.648190708448756e-09,
+      "P_ave_pert": 0.005447390255283713,
+      "P_ave_exact": 0.005437506083232918,
+      "P_qed_pert": 1.4623705278200472e-17,
+      "P_qed_exact": 1.4623705278200472e-17,
+      "ave_perturbative_breaks": false
+    },
+    "LoI_low_8766eV": {
+      "E_field": 87000000000000.0,
+      "A": 0.0007696318683529831,
+      "E_probe_eV": 8766.0,
+      "wavelength_m": 1.4143759794345515e-10,
+      "dn_ave": -2.9616678176580535e-07,
+      "dn_qed": 1.5345138561772993e-14,
+      "dphi_ave": 0.13156832403287297,
+      "dphi_qed": 6.8168825368847765e-09,
+      "P_ave_pert": 0.004327555972204765,
+      "P_ave_exact": 0.004321316992876082,
+      "P_qed_pert": 1.1617471880421156e-17,
+      "P_qed_exact": 1.1617471880421156e-17,
+      "ave_perturbative_breaks": false
+    },
+    "LoI_high_12914eV": {
+      "E_field": 87000000000000.0,
+      "A": 0.0007696318683529831,
+      "E_probe_eV": 12914.0,
+      "wavelength_m": 9.600758739138358e-11,
+      "dn_ave": -2.9616678176580535e-07,
+      "dn_qed": 1.5345138561772993e-14,
+      "dphi_ave": 0.19382538632905794,
+      "dphi_qed": 1.004257598463724e-08,
+      "P_ave_pert": 0.00939207009640214,
+      "P_ave_exact": 0.009362703232976787,
+      "P_qed_pert": 2.5213333101803152e-17,
+      "P_qed_exact": 2.5213333101803152e-17,
+      "ave_perturbative_breaks": false
+    }
+  },
+  "gap1_bins": {
+    "NJP_9835eV": {
+      "bin": "CLEARS-FLOOR",
+      "P_ave_exact": 0.005437506083232918,
+      "P_ave_perturbative": 0.005447390255283713,
+      "perturbative_breaks_over_unity": false,
+      "dphi_ave_rad": 0.1476128755262726,
+      "dphi_half_rad": 0.0738064377631363,
+      "many_radian_wrap": false,
+      "margin_vs_demonstrated_2.4e-10": 22656275.346803825,
+      "margin_vs_required_1.4e-10": 38839329.16594941,
+      "bin_margin": 22656275.346803825,
+      "note": "AVE saturated flip-prob 5.438e-03 >= demonstrated purity floor 2.4e-10 by 2.27e+07x -> HIBEF's own planned QED run adjudicates AVE by reanalysis (piggyback prize)."
+    },
+    "LoI_low_8766eV": {
+      "bin": "CLEARS-FLOOR",
+      "P_ave_exact": 0.004321316992876082,
+      "P_ave_perturbative": 0.004327555972204765,
+      "perturbative_breaks_over_unity": false,
+      "dphi_ave_rad": 0.13156832403287297,
+      "dphi_half_rad": 0.06578416201643648,
+      "many_radian_wrap": false,
+      "margin_vs_demonstrated_2.4e-10": 18005487.47031701,
+      "margin_vs_required_1.4e-10": 30866549.94911487,
+      "bin_margin": 18005487.47031701,
+      "note": "AVE saturated flip-prob 4.321e-03 >= demonstrated purity floor 2.4e-10 by 1.80e+07x -> HIBEF's own planned QED run adjudicates AVE by reanalysis (piggyback prize)."
+    },
+    "LoI_high_12914eV": {
+      "bin": "CLEARS-FLOOR",
+      "P_ave_exact": 0.009362703232976787,
+      "P_ave_perturbative": 0.00939207009640214,
+      "perturbative_breaks_over_unity": false,
+      "dphi_ave_rad": 0.19382538632905794,
+      "dphi_half_rad": 0.09691269316452897,
+      "many_radian_wrap": false,
+      "margin_vs_demonstrated_2.4e-10": 39011263.470736615,
+      "margin_vs_required_1.4e-10": 66876451.66411991,
+      "bin_margin": 39011263.470736615,
+      "note": "AVE saturated flip-prob 9.363e-03 >= demonstrated purity floor 2.4e-10 by 3.90e+07x -> HIBEF's own planned QED run adjudicates AVE by reanalysis (piggyback prize)."
+    }
+  },
+  "e_vs_b_asymmetry": {
+    "ave_static_B_delta_n": 0.0,
+    "qed_static_B_delta_n_at_B_pump": 3.3467680657932756e-13,
+    "B_pump_propagating_T": 290200.7628223923,
+    "pump_B_is_propagating_wave": true,
+    "asymmetry_clean_at_hibef": false,
+    "verdict": "NOT a clean zero-vs-nonzero test in HIBEF's geometry. HIBEF's ReLaX pump is a PROPAGATING optical wave (B = E/c, dB/dt != 0), so AVE's mu-grade IS loaded by circulation (the E and B of a propagating wave co-move; the \u03b5-route birefringence clm-pp3qwf already captures the full wave response). The clean E-vs-B asymmetry (clm-pvlas1) needs a STATIC-B leg (dB/dt = 0) that HIBEF does not provide \u2014 it is the PVLAS/BMV magnetic-route facilities (static B) that would test it, and there AVE predicts EXACTLY zero. So at HIBEF the asymmetry is NOT the discriminator; the E-route coefficient gap (clm-pp3qwf) is. flag-don't-fix."
+  }
+}

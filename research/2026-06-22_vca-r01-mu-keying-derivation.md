@@ -175,6 +175,30 @@ owns — NOT this PR. **Decision is Grant's** on whether to schedule it (and on 
 separate carried open: B_SNAP vs E_YIELD/c are not energy-density duals, differ
 ~5.01×; which magnetic-yield scale is canonical — see the leaf §-ledger).
 
+> **↳ LOCATOR NOTE (2026-07-03, GAP-2 debt reconciliation, Rule-12 empty-slot discipline).**
+> The loaded-μ **energy-conservation figure** `|dH/H| ≈ 1.4×10⁻³` (μ-attributable excess over the
+> linear baseline; total secular `|dH/H| ≈ 7.1×10⁻³`, bounded, no secular growth) — cited in the
+> `project_mu_circulation_keying_route_c` MEMORY entry as "loaded-μ energy conserves (|dH/H|=1.4e-3);
+> step-3 figure pending #80" — **is NOT at main HEAD.** Two independent searches confirm it
+> (this GAP-2 pass + `research/2026-07-03_engine-verdict-exposure-sweep_result.md:111`).
+>
+> - **LOCATED (off-main):** branch `engine/mu-circulation-keying` (local + origin, UNMERGED), commit
+>   `55adf185` ("test(mu): … add the load-bearing LOADED-mu energy test — fix-pass C/E"), test
+>   `src/tests/test_vca_mu_circulation_keying.py:380-408` (drives μ to `A_I≈0.77`, linearizes ε to
+>   isolate the μ path; assertion messages carry "nl secular ~7e-3, μ-attributable excess over linear
+>   ~1.4e-3"). This is a TEST-ENCODED figure on an unmerged branch — it never landed as a merged driver
+>   or a research/KB artifact.
+> - **The MEMORY "PR#80" reference is WRONG:** PR #80 in this repo is `qg42 follow-up: rename A_hot → A_RMS`
+>   (unrelated, "do not merge"). The correct provenance is the branch above.
+> - **Mechanism vs number split (the honest disposition).** The Route-C μ-grade MECHANISM (static B →
+>   `∂B/∂t=0` → `I_circ=0` → `A_I=0` → `S_μ=1` → `δn_μ=0` exactly) IS canon-complete and load-bearing at
+>   HEAD (`clm-vca7r1`, `clm-p5cf3t`, `clm-pvlas1`; `test_static_external_B_leaves_mu_unloaded` PASSES).
+>   **No HEAD leaf cites the `1.4e-3` NUMBER** as a survival leg (grep-confirmed 2026-07-03) — the leaves
+>   rest on the mechanism, not the energy figure. So no leaf edit is owed; this locator + the MEMORY
+>   correction (auditor-lane) are the disposition. **Per Rule-12: the `1.4e-3` number must be RE-RUN and
+>   re-landed as a tracked driver before it is cited again** — do not refill the slot with the off-branch
+>   test value as if it were at-HEAD-validated.
+
 ## 7. Verdict
 
 **FLAGGED — derivation correct, clean implementation BLOCKED. No code changed.**

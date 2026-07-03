@@ -25,8 +25,8 @@ rides the α-echo family.
 | Canonicalization | **PR #357** (`canon/birefringence-nodeup` → `main`, merged 2026-06-22) | leaves `clm-vca7r1` (node-up) + `clm-pvlas1` (PVLAS verdict); `test_vca_node_regime_sweep.py` + `test_vca_r01_static_b_mu_keying.py` | MERGED |
 | Facility / tolerance survey | `w14ptjz80` | 26 setups, cited tolerances, E-route vs magnetic-route split | DONE → [`research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md`](../research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md) |
 | VCA skill | `w5pj40157` | the VCA (vacuum-circuit-analysis) discipline skill | DONE (AVE-Skills commit PENDING, Grant-gated) |
-| Network derivation | `w9yaz7tku` | coupled-grade network equations | **RUNNING** |
-| Bench-hunt | `wmjbpekmc` | E-route bench candidate / discriminator design | **RUNNING** |
+| Network derivation | `w9yaz7tku` | coupled-grade network equations | **DONE** (2026-07-03) → landed as [`graded-network-response.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md) (`clm-gvn4r1`, confidence 0.83). Reconciled 2026-07-03 against the node-up dual (`clm-vca7r1`) — consistent; the `(qℓ_node)⁴` anisotropy horn + LC-ladder `c_EM=c_0`/`Z_0` validate-on-known are the network-layer content. |
+| Bench-hunt | `wmjbpekmc` | E-route bench candidate / discriminator design | **DEAD-MID-FLIGHT** (2026-07-03). Left NO tracked output (grep-confirmed corpus-wide: only this doc's own markers). NOTE: `src/ave/bench/birefringence.py` + `src/scripts/vol_9_device/vacuum_birefringence_bench.py`/`_facility_sweep.py` DO exist and cite `clm-pp3qwf`, but are UNATTRIBUTED to `wmjbpekmc` (they landed via PR #327 `analysis/2026-06-20-vacuum-birefringence-bench`, before this arc). The discriminator-design deliverable is **re-scoped INTO the RANK-1 E-route birefringence campaign** (opened 2026-07-03, `analysis/birefringence-campaign-opening`): GAP-1 HIBEF flip-prob feasibility already landed the first discriminator-arithmetic (`research/2026-07-03_birefringence-gap1-hibef-feasibility_result.md`). |
 | Doc arc (this) | — | the 3 research docs + leaf-citation fix + this arc record | DONE (this PR) |
 
 ## §2 Lessons
@@ -72,10 +72,18 @@ rides the α-echo family.
 - **VCA skill AVE-Skills commit** — `w5pj40157` produced the VCA discipline skill; the AVE-Skills repo commit
   is HARD-GATED on Grant go (one-repo-two-checkouts amendment ledger).
 
-> **PENDING: fold in network-derivation (`w9yaz7tku`) + bench-hunt (`wmjbpekmc`) results when they land.**
-> The coupled-grade network equations (the central derivation) and the E-route bench candidate /
-> discriminator design are in flight; their results extend §1 and may add a 4th research doc + a bench
-> pre-reg. Do not close this arc until both land and are reconciled against the node-up dual.
+> **CLOSED (2026-07-03).** Both mid-flight workflows are resolved:
+> - **`w9yaz7tku` (network derivation) — LANDED** as `graded-network-response.md` (`clm-gvn4r1`), reconciled
+>   against the node-up dual (`clm-vca7r1`): consistent. The coupled-grade network equations are the
+>   network-layer content (LC-ladder `c_EM=c_0`/`Z_0` validate-on-known + `(qℓ_node)⁴` anisotropy horn).
+> - **`wmjbpekmc` (bench-hunt / discriminator design) — DEAD-MID-FLIGHT.** No tracked output was ever
+>   produced (grep-confirmed corpus-wide 2026-07-03). The existing bench code (`src/ave/bench/birefringence.py`
+>   + the vol_9 drivers) is unattributed to it and predates this arc (PR #327). The discriminator-design
+>   deliverable is **re-scoped into the RANK-1 E-route birefringence campaign** (`analysis/birefringence-campaign-opening`,
+>   2026-07-03), whose GAP-1 HIBEF flip-prob feasibility is the first landed discriminator arithmetic.
+>
+> This arc's original scope (FORK-1 resolution + node-up dual + PVLAS static-B verdict + facility survey +
+> network derivation) is COMPLETE. The bench-DESIGN work continues in the campaign arc, not here.
 
 ---
 
