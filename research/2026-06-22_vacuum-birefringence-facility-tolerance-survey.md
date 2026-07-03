@@ -29,6 +29,14 @@ Verified in-code (`src/ave/bench/birefringence.py`, origin/main): the substrate 
 fixed factor above the QED Euler-Heisenberg signal on a *shared E²-leading slope* (the discriminator is the
 COEFFICIENT, not the exponent; the historical "E⁴" form is retracted as a `√ε` conflation, `clm-pp3qwf`).
 
+> **Scale-name tag (A2 KEEP-BOTH, Grant 2026-07-03).** This doc's `B_yield = 3.77×10⁸ T = E_yield/c` is
+> the **field-amplitude-matched duality scale** — canonically named **`B_dual` (`def-bdual1`, proposed)**
+> to distinguish it from the **energy-density-matched** `B_SNAP = 1.89×10⁹ T`. The two are BOTH correct
+> and answer different questions; they sit on the exact, α-free bridge `B_SNAP/(E_yield/c) = √(8π) =
+> 5.013257` (`clm-bdualb`, `research/2026-07-03_bsnap-byield-sqrt8pi-dissolution.md`). The surface form
+> `B_yield` is overloaded corpus-wide (elsewhere `B_yield = B_SNAP` in the fdtd engine/tests/prose), which
+> is why `B_dual` is the disambiguating name for THIS (duality) scale; no number changes.
+
 The highest *real* focused field in the lane (CoReLS, `E ~ 9.1×10¹³ V/m`) is still ~1.2×10³ below `E_YIELD`,
 so `A_E = E/E_yield ~ 6.5×10⁻⁷` even at record intensity. **But the AVE/QED ratio does not depend on field**,
 so reaching `E_yield` is NOT the gate; the gate is whether a fielded polarimeter can read a retardance that

@@ -1515,6 +1515,31 @@ The electron's EE field components — a real (resistive/radiative) part $R$ and
 
 ---
 
+## Two Magnetic Yield-Scales: the $\sqrt{8\pi}$ Bridge (B_SNAP vs B_dual)
+<!-- id: clm-bdualb -->
+
+- The corpus carries **two DIFFERENT magnetic yield-scales**, and their ratio is the exact, α-free geometric constant $\sqrt{8\pi} = 5.013257$ — a **definitional identity**, not a coincidence and not a chord. **$B_{\text{SNAP}} \approx 1.89\times10^9$ T** is the **energy-density-matched** scale ($B_{\text{SNAP}}^2/(2\mu_0) = m_ec^2/\ell_{node}^3$, `constants.py` `B_SNAP`); **$B_{\text{dual}} \equiv E_{\text{yield}}/c \approx 3.77\times10^8$ T** (def-bdual1, proposed) is the **field-amplitude-matched** scale (the $cB\leftrightarrow E$ duality image of the T2 electric yield wall $E_{\text{yield}}$). They answer DIFFERENT questions; **KEEP-BOTH (Grant 2026-07-03)**.
+- _Specific Claims_
+  - **The bridge is $c\,B_{\text{SNAP}}/E_{\text{yield}} = \sqrt{8\pi}$, with α cancelling.** Chain (all from `constants.py`): $B_{\text{SNAP}}^2 = 2\mu_0 m_ec^2/\ell^3 \Rightarrow (cB_{\text{SNAP}})^2 = 2m_ec^2/(\varepsilon_0\ell^3)$; with $E_{\text{snap}} = V_{\text{snap}}/\ell = m_ec^2/(e\ell)$ (= the Schwinger field $E_S$), $(cB_{\text{SNAP}}/E_{\text{snap}})^2 = 2e^2/(\varepsilon_0\hbar c) = 8\pi\alpha$ (using $\ell=\hbar/(m_ec)$, $\alpha=e^2/(4\pi\varepsilon_0\hbar c)$); then $E_{\text{yield}}=\sqrt{\alpha}\,E_{\text{snap}}$ makes $cB_{\text{SNAP}}/E_{\text{yield}}=\sqrt{8\pi\alpha}/\sqrt{\alpha}=\sqrt{8\pi}$ — **α CANCELS in the bridge**. Re-verified numerically against `src/ave/core/constants.py` to rel $3.3\times10^{-11}$ (ave-canonical-source; `research/2026-07-03_bsnap-byield-sqrt8pi-dissolution.md` §3).
+  - **The two scales are BOTH correct — they answer different questions.** $B_{\text{SNAP}}$ = energy-budget question ("what B stores the cell's rest energy in field-energy-density form?"); $B_{\text{dual}}$ = duality question ("what is the duality image of the T2 yield wall?"). An energy-density scale ($B^2$ budget) and a field-amplitude scale ($cB\leftrightarrow E$) of the same cell are NOT equal — they differ by exactly the $\sqrt{8\pi}$ geometric factor the energy integral introduces. This **dissolves** the earlier ⚑ FLAG (`pvlas-static-b-verdict.md`, the two scales "disagree by ~5×") — a naming collision resolved by derivation.
+- _Specific Non-Claims and Caveats_
+  - **NOT a chord, NOT emergence (consistency-vs-emergence).** Both scales are algebraic faces of the single imported lattice scale $m_e$ (via $\ell_{node}\equiv\hbar/(m_ec)$; cf. the one-import economy at `vol1/claim-quality.md`:1399, `claim_survives=false`). The $\sqrt{8\pi}$ is a pure geometric constant with α cancelled — it buys **no parameter reduction** and predicts nothing measurable. It is convention bookkeeping made explicit — **definitional-identity / consistency-class**.
+  - **Does NOT touch the R3 / Route-C static-B μ-kernel verdict (clm-pvlas1, clm-vca7r1).** $A_I=0\Rightarrow\delta n_\mu=0$ holds regardless of which B-scale a downstream argument nominally references — a static $\mathbf B$ never enters the μ-kernel as an amplitude (the kernel argument is $I/I_{max}$). **No physics number changes**; the ruling is labeling only.
+  - **`B_dual` is a proposed coinage (def-bdual1), NOT SOLID.** `B_yield` was NOT used for this scale because it is already overloaded in the corpus (= $B_{\text{SNAP}}$ in the fdtd engine/tests/prose; = $E_{\text{yield}}/c$ in the facility survey); the collision is surfaced, not forced (INVARIANT-S12).
+
+> **Leaf references:** [pvlas-static-b-verdict](./falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
+
+### Quality
+- confidence: 0.95
+- depends-on:
+  - clm-pvlas1 (the static-B verdict leaf that hosts the KEEP-BOTH ruling; the bridge does not touch its μ-kernel content)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.95, 0.80)]
+- rationale: A **definitional-identity / consistency-class** derivation: every quantity is imported from `src/ave/core/constants.py` (ave-canonical-source, nothing hard-coded) and the ratio $c\,B_{\text{SNAP}}/E_{\text{yield}}=\sqrt{8\pi}$ is an exact algebraic consequence of the two scales' definitions, re-verified numerically to rel $3.3\times10^{-11}$ ($<10^{-8}$ gate). α cancels in the bridge, so the identity is a pure geometric constant — it makes NO emergence claim and buys NO parameter reduction (both scales are faces of the single $m_e$ import). Confidence high because it is a checkable identity, not a modeled prediction; it is explicitly NOT a chord (consistency-vs-emergence). The R3 static-B verdict (clm-pvlas1) is untouched — the bridge is a naming reconciliation, not a physics change.
+- strengthen-by:
+  - (hygiene, out of A2 scope) retag the facility-survey's `B_yield` (Sense B) → `B_dual` and, separately, disambiguate the engine's `b_yield`-defaults-to-`B_SNAP` parameter naming so the `B_yield` surface form stops carrying two senses.
+
+---
+
 ## Graded-Network Response: TLM Dispersion + Symmetric/Asymmetric Loading
 <!-- id: clm-gvn4r1 -->
 

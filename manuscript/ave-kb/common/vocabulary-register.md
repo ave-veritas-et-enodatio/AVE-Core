@@ -672,6 +672,27 @@ parse it):
 
 ---
 
+<!-- PROPOSED CANDIDATE — awaiting Grant ratification; NOT yet canonical. status:proposed, GATED on auditor + Grant. Coined 2026-07-03 for the A2 KEEP-BOTH ruling. Verified 0 prior corpus hits for the surface form 'B_dual' / 'B_DUAL' / 'b_dual'. B_yield was NOT used because it is already OVERLOADED in the corpus (Sense A = B_SNAP in the fdtd engine/tests/prose; Sense B = E_yield/c in the facility survey) — see open-ambiguity. -->
+
+## B_dual *(proposed — the E_yield/c duality scale)*
+<!-- id: def-bdual1 -->
+
+- **term:** B_dual ($\equiv E_{\text{yield}}/c$)
+- **adjudicated-meaning:** *(PROPOSED, gated)* the **duality image of the transverse-$T_2$ electric yield wall** — the magnetic field-scale obtained by applying the $cB \leftrightarrow E$ field-scale duality to $E_{\text{yield}} \approx 1.13\times10^{17}$ V/m, i.e. $B_{\text{dual}} \equiv E_{\text{yield}}/c \approx 3.77\times10^8$ T. It is the **field-amplitude-matched** magnetic scale, answering *"what is the duality image of the T2 yield wall?"* — DISTINCT from **$B_{\text{SNAP}} \approx 1.89\times10^9$ T** (the `constants.py` symbol `B_SNAP`), the **energy-density-matched** scale defined by $B_{\text{SNAP}}^2/(2\mu_0) = m_ec^2/\ell_{node}^3$, which answers *"what B stores the cell's rest energy in field-energy-density form?"*. **KEEP-BOTH (Grant 2026-07-03):** the two are BOTH correct and answer DIFFERENT questions; they are related by the derived, α-free bridge $B_{\text{SNAP}}/(E_{\text{yield}}/c) = c\,B_{\text{SNAP}}/E_{\text{yield}} = \sqrt{8\pi} = 5.013257$ (clm-bdualb, `research/2026-07-03_bsnap-byield-sqrt8pi-dissolution.md`). **Neither** is the Route-C static-B μ-kernel argument (circulation-keyed, $I_{vac}=0$); the R3 verdict $A_I=0 \Rightarrow \delta n_\mu=0$ is untouched by the choice of B-scale.
+- **axis:** other (a magnetic field-scale; the duality image of the T2 electric yield wall)
+- **dimension/type:** magnetic flux density (T); $B_{\text{dual}} = E_{\text{yield}}/c = \sqrt{\alpha}\,E_S/c$, so it inherits the $\sqrt{\alpha}$ echo of $E_{\text{yield}}$ (`src/ave/core/constants.py:475` `E_YIELD`, `:481` `B_SNAP`).
+- **status:** proposed — VERIFIED **0 prior corpus hits** for `B_dual`; a coinage is NEVER seeded SOLID (INVARIANT-S12). GATED on auditor + Grant ratification.
+- **canonical-home:** *(none — coinage; the underlying scale is `E_YIELD/c` from `src/ave/core/constants.py:475`; the KEEP-BOTH ruling + √(8π) bridge at `research/2026-07-03_bsnap-byield-sqrt8pi-dissolution.md` and `vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md` §1 flag-resolution block)*
+- **clm-cross-links:** clm-bdualb (the √(8π) bridge identity), clm-pvlas1 (the static-B verdict leaf that hosts the ruling)
+- **canon-noun map:** `B_dual` is a NON-CANON engineering name for the field-amplitude-matched magnetic scale `E_yield/c`; it MUST NOT be noun-swapped for `B_SNAP` (the energy-density scale) — the two differ by the √(8π) bridge. Cross-link: `def-vyvsn1` (the $V_{\text{yield}}/V_{\text{snap}}$ ladder $B_{\text{dual}}$ is the magnetic duality image of).
+- **open-ambiguity-flag:** YES — the RELATED surface form **`B_yield` is overloaded in the corpus in TWO conflicting senses**, which is exactly why `B_dual` (not `B_yield`) was coined for this scale:
+  - (a) **`B_yield = B_SNAP`** (the ENERGY-DENSITY scale): the fdtd engine parameter `b_yield` **defaults to `B_SNAP`** (`src/ave/core/fdtd_3d_jax.py:81`, `src/tests/test_vca_r01_static_b_mu_keying.py:26`, `src/tests/test_vca_node_regime_sweep.py:18`); prose "b_yield = B_SNAP" at `vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md:370`; `constants.py:520` comment ("r = V/V_yield (or B/B_yield)"). [energy-density scale]
+  - (b) **`B_yield = E_yield/c = 3.77×10⁸ T`** (the DUALITY scale, = THIS node's `B_dual`): `research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md:27,140,162`. [duality scale]
+  - conflicting sites: (a) `src/ave/core/fdtd_3d_jax.py:81`, `src/tests/test_vca_r01_static_b_mu_keying.py:26`, `node-up-small-large-signal.md:370`, `constants.py:520`; (b) `research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md:27,140,162`. A follow-on hygiene pass MAY retag the survey's `B_yield` → `B_dual`; flagged, not swept (out of the A2 arc's scope).
+- **verification:** VERIFIED **0 prior corpus hits** for `B_dual` / `B_DUAL` / `b_dual` across `manuscript/`, `research/`, `src/` (2026-07-03). VERIFIED the √(8π) bridge numerically against `src/ave/core/constants.py` to rel 3.3e-11 (< 1e-8), α cancels (clm-bdualb, research note §3). VERIFIED the `B_yield` overload: Sense A (=B_SNAP) at the engine/test sites above; Sense B (=E_yield/c) at the facility-survey sites above. **GATED on auditor + Grant — NOT adopted, NOT SOLID.**
+
+---
+
 ## chiral circulator
 <!-- id: def-ch1crc -->
 
