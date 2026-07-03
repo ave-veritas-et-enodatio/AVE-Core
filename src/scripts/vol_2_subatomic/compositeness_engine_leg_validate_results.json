@@ -1,0 +1,42 @@
+{
+  "docket": "B2",
+  "leg": "engine-validate-on-known",
+  "host": "fdtd_3d (curl-Maxwell)",
+  "subtest_1_zero_source_control": {
+    "max_|E|_after_200_steps": 0.0,
+    "stays_zero": true,
+    "reading": "curl-only, no charge-source => field stays 0 (no spurious source)"
+  },
+  "subtest_2_would_be_point_charge": {
+    "planted_field_exponent_p": -1.999999999999998,
+    "planted_n_valid": 54,
+    "final_field_exponent_p": -1.956708642589687,
+    "final_n_valid": 54,
+    "mean_frac_change_interior": 0.14423238985649392,
+    "energy_series_every_100_steps": [
+      5756313753312.727,
+      5587177828944.338,
+      5195961016577.951,
+      5188869887672.82,
+      5184629725482.6
+    ],
+    "charge_source_term_present": false,
+    "reading": "The planted field IS a perfect Coulomb 1/r^2 (p~-2), but the curl-Maxwell update does NOT hold it as a static monopole because there is no charge-source (Gauss's law div E = rho/eps is not enforced). The static longitudinal monopole is not a fixed point of the curl-only solver."
+  },
+  "validate_on_known": {
+    "pass": false,
+    "why_fail": "fdtd_3d is a curl-only Yee-Maxwell solver (E from curl H, H from curl E). It has NO charge-source term (no rho, no J in update_electric_field; grep confirmed 0 hits). A static point charge has no representation: it cannot SOURCE a 1/r Coulomb field, and a planted monopole is not a fixed point of the curl-only update. The static/longitudinal electrostatic sector \u2014 the sector the boundary integer would source \u2014 is absent from the EM host."
+  },
+  "winding_to_EM_source_coupling": {
+    "exists_in_any_engine": false,
+    "hosts_audited": [
+      "crystal_graft_v4 (omega-only, gapped, no E)",
+      "fdtd_3d (curl-Maxwell E/B, no charge-source)",
+      "unified_engine (reads Q_link, no Q_link->u/E path)"
+    ],
+    "grep_winding_to_E_source": "EMPTY across src/ave/**/*.py",
+    "missing_piece": "the coupling by which Q = Link(dOmega, F) in Z sources the massless EM channel's static 1/r Coulomb field \u2014 underived in code exactly as in canon (claim-quality.md:1311 open item)."
+  },
+  "bin": "ENGINE-BLOCKED",
+  "grant_ruling_status": "UNDECIDED-BY-ENGINE, block-localized. The engine can neither confirm nor break the sector-conflation ruling: the mechanism the ruling posits (winding sources the massless EM channel) is exactly the unimplemented/underived piece. Ruling stands as the leading hypothesis; engine verdict = cannot-decide."
+}
