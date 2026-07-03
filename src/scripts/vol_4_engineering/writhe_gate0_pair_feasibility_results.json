@@ -456,7 +456,7 @@
     "flux_odd_symmetric": true,
     "above_floor": false,
     "transmission_bin": "T-SYMMETRY-ZEROED",
-    "rationale": "|\u03a6_mid|_max=1.349e-16 ~ floor (6.563e-03) AND the \u03c9-flux T^{0x} is ODD about XC (odd-residual 2.12e-15 < 1% of flux amp 1.39e-01) -> the face-integral of an odd density is SYMMETRY-FORCED to zero by antisymmetry (mass-sector M2 caveat, \u2026T0i.py:44). The knots DO overlap at XC (mid \u03c9 amp 2.000e-02), so this is NOT a no-overlap zero and NOT a cold-medium wrong-regime null (the brief forbids booking one): it is the parity-EVEN observable being symmetry-zeroed. The handedness (parity-ODD) signal needs the RL/LR configs (HELD campaign). Documented-open."
+    "rationale": "|\u03a6_mid|_max=1.349e-16 ~ floor (6.563e-03) AND the \u03c9-flux T^{0x} is ODD about XC (odd-residual 2.12e-15 < 1% of flux amp 1.39e-01) -> the face-integral of an odd density is SYMMETRY-FORCED to zero by antisymmetry (mass-sector M2 caveat, \u2026T0i.py:276). The knots DO overlap at XC (mid \u03c9 amp 2.000e-02), so this is NOT a no-overlap zero and NOT a cold-medium wrong-regime null (the brief forbids booking one): it is the parity-EVEN observable being symmetry-zeroed. The handedness (parity-ODD) signal needs the RL/LR configs (HELD campaign). Documented-open."
   },
   "LL_pair_sweep": [
     {

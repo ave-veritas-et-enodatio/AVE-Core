@@ -238,7 +238,7 @@ def _midplane_flux(e: CrystalGraftV4) -> float:
 
 def _flux_oddness_residual(e: CrystalGraftV4) -> tuple[float, float]:
     """The load-bearing symmetry test for Φ_mid (prereg §5.2, mass-sector M2 caveat,
-    …T0i.py:44): is the ω-momentum-flux density T^{0x}_ω ODD about XC? If so, the
+    …T0i.py:276): is the ω-momentum-flux density T^{0x}_ω ODD about XC? If so, the
     face-flux is zero BY ANTISYMMETRY (symmetry-forced), independent of any physics.
 
     Returns (odd_residual, amplitude): odd_residual = max|T^{0x}(x) + T^{0x}(N−1−x)| over
@@ -452,7 +452,7 @@ def run_transmission_probe(d: int, floor: dict) -> dict:
             f"|Φ_mid|_max={phi_abs_max:.3e} ~ floor ({floor_max:.3e}) AND the ω-flux "
             f"T^{{0x}} is ODD about XC (odd-residual {odd_resid:.2e} < 1% of flux amp "
             f"{flux_amp:.2e}) -> the face-integral of an odd density is SYMMETRY-FORCED to "
-            "zero by antisymmetry (mass-sector M2 caveat, …T0i.py:44). The knots DO overlap "
+            "zero by antisymmetry (mass-sector M2 caveat, …T0i.py:276). The knots DO overlap "
             f"at XC (mid ω amp {midamp_max:.3e}), so this is NOT a no-overlap zero and NOT a "
             "cold-medium wrong-regime null (the brief forbids booking one): it is the "
             "parity-EVEN observable being symmetry-zeroed. The handedness (parity-ODD) "
