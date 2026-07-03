@@ -460,6 +460,9 @@
 {"source": "clm-nk6c43", "target": "clm-5965y1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-nk6c43", "target": "clm-llqd1n", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-nk6c43", "target": "clm-mlwm3h", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-nogo4l", "target": "clm-4r4jiy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-nogo4l", "target": "clm-wcoul2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-nogo4l", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-nu1ir7", "target": "clm-q39qct", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the discrete-update engine ontology that the Yee-grid identification specializes", "fraction": null}
 {"source": "clm-nxc9gy", "target": "clm-k6quve", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the dimensional/natural-units table the decomposition is read in", "fraction": null}
 {"source": "clm-nxfmh0", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}

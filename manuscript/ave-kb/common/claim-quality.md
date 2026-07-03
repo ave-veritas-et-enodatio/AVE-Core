@@ -1244,3 +1244,39 @@ yet scored).
 - rationale: *pending*
 - supports:
   - clm-pe8lpx (f=*pending*) — Eight Cosmic-Axis Observables aligned with the Ω_freeze axis
+
+---
+
+## The Sourced-Charge No-Go Cascade — Four Locks Close One Route
+<!-- id: clm-nogo4l -->
+
+The 2026-07-03 EM-readout derivation epic (Axiom 2's last underived leg — does the winding's charge label emerge as a **sourced static exterior field**?) closed the sourced-static-monopole route through **four independent locks**, each discovered by a different instrument and each with its own proof class. This is the SYNTHESIS claim: the four locks close **one route** (the *sourced* co-exact/gradient monopole readout), and the survivors are structurally distinct from the closed sector. Prose umbrella + per-lock cites: [`common/the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md).
+
+- _Specific Claims_
+  - **Lock 1 — blind-readout retraction (INSTRUMENT class; PR #477).** The Stage-1 blind-readout panel caught a merged null read on a structurally-degenerate observable without a same-pipeline positive control (CLASS-2 apparatus pathology), motivating the 31-row verdict-exposure sweep. An instrument-audit, not a physics negative: it grades evidentiary standing and hard-wired the same-pipeline-liveness requirement into every subsequent Stage.
+  - **Lock 2 — sourced-solve tautology (INSTRUMENT/identity class; Stage-1b).** A linear static solve `L φ = b` with a hand-assembled `b` is informationally transparent: `∇·E = +(source − mean)` by construction, so `Q_enc = Σ_Ω(b − mean)` returns its own RHS. A mirror, not an instrument — a tautology of the discrete Gauss theorem. Closes the sourced branch: any reported monopole was assembled by hand.
+  - **Lock 3 — [NO-FLUX-STRUCTURAL] maximum principle (THEOREM class; ε > 0).** For the source-free variable-coefficient problem `L_w φ = 0`, `L_w = Bᵀ diag(ε_eff) B`, the Dirichlet energy `φᵀ L_w φ = Σ_edge ε_eff·(Δφ)²` vanishes iff every term does, forcing `φ = const` on the connected srs graph — zero flux for ANY `ε_eff = S(A) > 0`, ANY texture, ANY composition rule (Q/M/X), ANY regime. Established three ways (maximum-principle analytic + panel ablation `max|φ| = 0` exact + 1-D-nullspace check). Honest caveat: the hypothesis is `S > 0` *strictly*; the `S = 0` (rupture-point, `ε → 0`) puncture is out-of-scope and is lane Z's doorway.
+  - **Lock 4 — ∂∂=0 continuity (THEOREM-GRADE LEAN; Stage-2b step-0).** Taking the discrete divergence of the chartered Ampère update and using `∇·∇× ≡ 0` (the exact `∂₁∂₂ = 0` boundary-of-boundary identity, PR #483): `∂_t(∇·E) = −∇·J_coupling`, and for the default Ampère-form curl coupling `J_coupling = ∇×(g ω) = curl_adj(·)` the divergence is identically zero, so the enclosed charge is a **conserved constant of motion** set by initial data, not emergent. An algebraic identity needing no integrator. Lean: holds *unless* a J-mixed coupling term (`∇·J ≠ 0`, ω-field-derived, non-texture, non-longitudinal-wave) exists — a term canon does not currently supply.
+  - **The unifying observation.** Locks 3 and 4 are one theorem operating twice: statics dies because `F = ∇×ω = curl_adj(ω)` is a curl (`∇·F ≡ 0`); curl-coupled dynamics dies because `J_coupling = ∇×(gω)` is again `curl_adj(·)`. The same `∂₁∂₂ = 0` theorem closes both routes.
+  - **The survivor map.** Lane Z — the harmonic sector `H₁ = ker∂₁ ∩ ker∂₂ᵀ` (the structural complement; `b₁ = 3`, L-independent; the part `∇·∇×≡0` does NOT reach, requiring an edge-field E representation) is where `Q = Link(∂Ω, F) ∈ ℤ` (`clm-ze4clw`) would land. Lane W — winding pairs (`clm-wcoul2`, the inter-winding force). The J-mixed entry condition — Lock 4's one escape, pending at the orchestrator review gate.
+- _Specific Non-Claims and Caveats_
+  - **Does NOT claim charge fails.** The claim is that charge is UNSOURCED (no sourced static exterior monopole from constitutive texture or curl-coupled dynamics). Topology (lane Z) and pairs (lane W) remain live; the `Q = Link` label (`clm-ze4clw`) is untouched.
+  - **Does NOT touch mass = A1 (PR #260).** Only the sourced-monopole route to the charge readout is closed; the mass sector is unaffected.
+  - **The `ε → 0` puncture is a doorway, not a closed door.** Lock 3's honest caveat (a bond exactly at the rupture point, `S = 0`) is where the maximum-principle hypothesis fails; it routes to lane Z, not booked as a closed escape.
+  - **CONSISTENCY-class synthesis, not a chord.** This claim consolidates settled adjudications (two instrument-class, two theorem-class) into one route-closure statement; it originates no new emergence content. Lane W's `clm-wcoul2` is itself CONSISTENCY-class (signed-Coulomb is SM-shared).
+  - **Lock 4 is a LEAN, not a theorem.** The `∂₁∂₂ = 0` core is theorem-grade; the *route-closure* leans on the coupling being a pure curl, which is the default but not canon-forced (the J-mixed term is a flag-don't-fix surface to Grant, not a resolved negative).
+
+> **Leaf references:** [the-sourced-charge-no-go-cascade](./the-sourced-charge-no-go-cascade.md).
+
+### Quality
+- confidence: 0.75
+- depends-on:
+  - clm-ze4clw — Q = Link(∂Ω, F) ∈ ℤ, the boundary linking-number charge dictionary (the label the cascade routes to the harmonic sector)
+  - clm-4r4jiy — the A_geom ∝ 1/r Coulomb potential in the gapless EM-ε channel (the co-exact/gradient sector the cascade closes)
+  - clm-wcoul2 — the engine-derived Axiom-2 winding-pair interaction leg (lane W survivor)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.75, 0.55)]
+- rationale: CONSISTENCY-class SYNTHESIS. Consolidates four independently-established locks into one route-closure statement: two instrument-class (Lock 1 blind-readout, PR #477; Lock 2 sourced-solve tautology, Stage-1b — records of what an apparatus can/cannot read, not physics negatives) and two theorem-class (Lock 3 [NO-FLUX-STRUCTURAL] maximum principle, established three independent ways; Lock 4 ∂∂=0 continuity, an algebraic identity on the chartered update grounded in the srs DEC `∂₁∂₂=0` theorem, PR #483). Own-confidence 0.75 reflects that (a) the two theorem-class locks are solid and mutually reinforcing (the unifying observation shows they are one theorem operating twice), but (b) Lock 4 is a LEAN not a theorem — the route-closure depends on the axiom-native LC coupling being a pure curl (the default, not canon-forced; the J-mixed escape is a flag-don't-fix surface to Grant), and (c) the scope guard is load-bearing: this is UNSOURCED-charge, not failed-charge — topology (lane Z, `b₁=3` harmonic sector) and pairs (lane W, `clm-wcoul2`) remain live, and the `ε→0` puncture is a doorway. Solidity 0.55 is the dep-floor from `clm-wcoul2` (minimum-link), gating below own-confidence 0.75. An organizing-frame synthesis, not a new emergence claim.
+- strengthen-by:
+  - Establish (or refute) the J-mixed coupling term's divergence analytically at the orchestrator review gate BEFORE any Stage-2b integrator build (Lock 4's one escape; make-or-break entry condition)
+  - Build the lane-Z edge-field E instrument (the DEC harmonic projector `H₁ = ker∂₁ ∩ ker∂₂ᵀ` on the 1-cochain) and test whether the winding's Link charge lands on the harmonic sector (the fluxoid hypothesis, surfaced to the topological lane)
+  - Merge the srs DEC operator module (`ave.topological.srs_dec`) to upgrade Lock 4's `∂₁∂₂ = 0` continuity core from a source-reconciled result to an imported theorem-grade dependency
