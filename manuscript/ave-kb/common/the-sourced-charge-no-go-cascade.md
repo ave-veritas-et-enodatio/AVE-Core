@@ -6,14 +6,26 @@ claims: [clm-nogo4l]
 path-stable: "the canonical home for the four-lock sourced-charge no-go cascade + the survivor map (lane Z harmonic sector, lane W pairs, the J-mixed entry condition)"
 -->
 
-# The Sourced-Charge No-Go Cascade — Four Locks, One Route
+# The Sourced-Charge No-Go Cascade — Two Structural Closures + Two Instrument Gates, One Route
+
+> **Title note (2026-07-03, cold-eyes corrective, KEEP-BOTH).** This leaf's
+> original title was *"Four Locks, One Route."* The cold-eyes program audit
+> ([`research/2026-07-03_cold-eyes-program-audit_result.md`](../../../research/2026-07-03_cold-eyes-program-audit_result.md) §1)
+> found the "four INDEPENDENT locks" headline over-counts: Locks 1–2 are
+> **instrument-class** (an INSTRUMENT-AUDIT + a discrete-Gauss identity — neither is
+> a physics negative) and Locks 3–4 are **one theorem operating twice** (see §"The
+> unifying observation" below, which the leaf's own body already conceded). The
+> honest count is **~2 independent physical closures + 2 instrument gates.** The
+> title is corrected to match the body; the original "Four Locks" framing is kept
+> here as superseded, not deleted (git is the trail).
 
 > **What this leaf is.** A **consolidation home**, not a derivation. Across
 > 2026-07-03 the EM-readout derivation epic (Axiom 2's last underived leg — does
 > the winding's charge label emerge as a *sourced* static exterior field?) closed
-> the SOURCED-static-monopole route through **four independent locks**, each
-> discovered by a different instrument and each with its own proof class. This
-> leaf gathers all four in one place, states the survivor map, and points at the
+> the SOURCED-static-monopole route through **four locks — two structural closures
+> and two instrument gates**, each discovered by a different instrument and each
+> with its own proof class. This leaf gathers all four in one place, states the
+> survivor map, records the epic's **branch-3 closure**, and points at the
 > canonical per-lock homes. The synthesis claim is `clm-nogo4l`
 > ([`common/claim-quality.md`](claim-quality.md)); this leaf is the prose umbrella.
 
@@ -35,8 +47,11 @@ path-stable: "the canonical home for the four-lock sourced-charge no-go cascade 
 ## The four locks
 
 Each lock closes the route from a different direction. Two are **instrument-class**
-(an apparatus could not have read the alternative); two are **theorem-class** (the
-route is structurally forbidden). Ordered by discovery.
+(an apparatus could not have read the alternative — these are the two *instrument
+gates*, not physics negatives); two are **theorem-class** (the route is structurally
+forbidden — and, per the unification below, these two are **one theorem operating
+twice**, so the honest count is ~2 independent physical closures, not 4). Ordered by
+discovery.
 
 ### Lock 1 — blind-readout retraction (instrument class; PR #477)
 
@@ -205,7 +220,7 @@ meta-pattern landing on charge-flux (see
 §"Charge-flux"). Lane Z stays a live *topological* survivor; the value pin is the
 imported ceiling, not a further route.
 
-### Lane W — winding pairs
+### Lane W — winding pairs [MULTIPOLE-FORM] (step-0 CLOSED, 2026-07-03, PR #492)
 
 The field *between* two windings (the clm-wcoul2 inter-winding force). The
 pair-interaction may carry Coulomb sign structure even if the single-winding
@@ -214,6 +229,31 @@ derived Axiom-2 interaction leg: like windings repel, unlike attract, gapped-ω-
 mediated, electric-not-magnetic) is the first landing in this lane. It is
 CONSISTENCY-class (signed-Coulomb is SM-shared), booked as enabling infrastructure
 for a future winding-pair *magnitude* chord.
+
+**Step-0 result (2026-07-03, PR #492;
+[`research/2026-07-03_lanew-pair-field-form_prereg.md`](../../../research/2026-07-03_lanew-pair-field-form_prereg.md)
+§3.7).** The survivor map's **last live lane closed at the FORM grade.** The
+question: does the *massless-channel* field between two windings (mediated by the
+A44 gyrotropic neutral texture) carry the **COULOMB FORM** (unscreened 1/r) or the
+**MULTIPOLE FORM** (dipole/quadrupole, 1/r³-or-steeper)? Frozen-seed multipole
+analysis (analytic, decisive, done before any dynamical build): the A44 texture
+around a (2,3) winding has **monopole = 0 (forced** by `sum ρ = 0`, Gauss-no-boundary
+— the same ∂₁∂₂=0-family fact), and its lowest surviving moment is a **dipole**
+(SCALAR form, the engine's literal `f_V` source) or a **quadrupole** (COVARIANT DEC
+form). The frozen-seed pair interaction exponent is **`p = −3.0`** (dipole-dipole,
+tol-robust) or steeper — **NOT `p = −1` (Coulomb)**. A planted-control liveness pass
+reads a true monopole pair at `p = −1.000` exactly, so the `−3.0` is a real
+dipole-form, not a pipeline artifact. All three Coulomb-candidate channels (near-
+contact overlap, the harmonic-meridian Δb₁=+1 holonomy, a 2-complex log) are
+assessed and none restores a monopole. **Verdict: [MULTIPOLE-FORM]** — the massless
+winding-pair force is NOT Coulomb; it is the multipole interaction of a globally-
+neutral polarization form-factor, exactly the null the mechanism predicts. Booked as
+the honest charge-FORM negative (Rule 11: a single mechanism — globally-neutral
+texture ⇒ zero monopole ⇒ lowest surviving moment is dipole/quadrupole — explains the
+whole result; no rescue). The dynamical confirmatory runs are HELD for orchestrator
+review (expected dynamically-robust: the monopole is forced zero at every instant by
+Gauss-no-boundary, a topological not a dynamical fact). **So lane W joins lane Z as a
+FORM-forced result: the pair channel derives no Coulomb monopole either.**
 
 ### The J-mixed entry condition (β arc — RESOLVED at derivation grade, 2026-07-03)
 
@@ -238,6 +278,52 @@ whether the electron's Coulomb field is a net-`∇·E` monopole at all in AVE, o
 the far-field of a harmonic/winding holonomy (the strong lean, needing no new
 postulate). That fork does not affect this bin — every reading closes the *sourced-
 net-monopole* route.
+
+## The epic closure — BRANCH 3 (Grant-ratified, 2026-07-03)
+
+With the sourced route closed by the cascade (Locks 1–4), the harmonic survivor at
+`[DOORWAY-NO-PINNING]` (lane Z), and the pair channel at `[MULTIPOLE-FORM]` (lane W),
+**every live lane of the EM-readout epic has reported.** The epic closes.
+
+**The closure branch (charter §2, verbatim to the pre-registered wording,
+[`_orchestration/2026-07-03_em-readout-derivation-charter.md:25`](../../../_orchestration/2026-07-03_em-readout-derivation-charter.md)):**
+
+> **UNDERIVABLE (stuck at grade)** → recorded as a permanent FORM-level ceiling on
+> charge-as-winding unless/until new machinery: the honest **"posited forever"**
+> state, named.
+
+The epic pre-committed three asymmetric branches (1: 1/r DERIVED; 2: SCREENED/ABSENT
+derived; 3: UNDERIVABLE-at-grade). **It lands on branch 3.** The lane-Z step-0 note
+fires exactly this branch verbatim
+([`research/2026-07-03_lanez-fluxoid-step0_note.md`](../../../research/2026-07-03_lanez-fluxoid-step0_note.md):
+"the charter's 'posited forever' stakes branch fires"). This is the honest FORM-level
+ceiling, named — NOT a neutral "peer" grade the charter never offered (the cold-eyes
+audit's charter-vs-grade adjudication, ratified;
+[`research/2026-07-03_cold-eyes-program-audit_result.md`](../../../research/2026-07-03_cold-eyes-program-audit_result.md) §4).
+
+**Where the ceiling is LOCATED.** The FORM is derived — the `Q = Link(∂Ω, F) ∈ ℤ`
+integer, the single-valuedness holonomy `∮∇θ = 2πq`, the linking-DOF existence on
+`H₁` (Δb₁=+1 for the torus core, ball-vs-torus split), and forced NEUTRALITY
+(`sum(∇·J)=0` exact). What is IMPORTED is the **integer→flux-VALUE conversion**: the
+London-analog `ξ_topo ≡ e/ℓ_node` flux-per-Link quantum whose value rides the α-echo
+(lane-Z pinning ledger, [`common/form-deriving-value-importing.md`](form-deriving-value-importing.md)
+§"Charge-flux"). **That conversion is the ceiling** — the one machinery-gap that would
+have to be filled to promote branch 3 to branch 1.
+
+**Peer-with-SM comparison (CONTEXT ONLY — corrected per the cold-eyes audit §3).**
+Read against the symmetric standard, the FORM/VALUE split is NOT an AVE surplus over
+SM at the quantization level: **both frameworks import the charge quantum** (SM
+imports the absolute gauge coupling `e`; AVE imports `ξ_topo`), and **SM's gauge
+anomaly cancellation DOES structurally constrain the charge RATIOS** of a generation
+(the `[SU(3)]²U(1)`, `[SU(2)]²U(1)`, `U(1)³` and gravitational-`U(1)` conditions force
+the hypercharge integers once the fermion content is fixed) — the same
+consistency/topology-forces-the-integer-value-imported result AVE has for the winding.
+So the earlier "SM doesn't derive quantization" line is **retired.** The genuine,
+defensible AVE structural surplus is narrower: **AVE derives the integer FORM of
+quantization + forced neutrality (`sum(∇·J)=0` exact) + the no-sourcing structure (the
+four-lock closure) + the ball-vs-torus Δb₁ prediction** — structures with no direct SM
+counterpart. It does NOT claim a derived charge-quantization VALUE that SM cannot
+match. (Cold-eyes audit §3, Grant-ratified.)
 
 ## Where the pieces live (consolidation map)
 
@@ -269,12 +355,23 @@ This leaf is the prose umbrella; the load-bearing machinery lives elsewhere:
   Coulomb potential (co-exact) sector `clm-4r4jiy`
   ([`vol4/claim-quality.md`](../vol4/claim-quality.md)).
 - **The Axiom-2 interaction leg** (lane W) — `clm-wcoul2`
-  ([`vol4/claim-quality.md`](../vol4/claim-quality.md)); the Ax2 leg-map is in
+  ([`vol4/claim-quality.md`](../vol4/claim-quality.md)); the lane-W FORM step-0
+  [MULTIPOLE-FORM] result
+  [`research/2026-07-03_lanew-pair-field-form_prereg.md`](../../../research/2026-07-03_lanew-pair-field-form_prereg.md)
+  §3 (PR #492); the Ax2 leg-map is in
   [`common/axiom-register.md`](axiom-register.md) §"Axiom 2".
+- **The branch-3 closure** — the cold-eyes charter-vs-grade adjudication
+  [`research/2026-07-03_cold-eyes-program-audit_result.md`](../../../research/2026-07-03_cold-eyes-program-audit_result.md)
+  §4 (Grant-ratified 2026-07-03); the charter §2 branches + the dated outcome
+  annotation in the charter file itself.
 - **The charter** — the EM-readout derivation charter §5 cross-references
   (`_orchestration/2026-07-03_em-readout-derivation-charter.md`).
 
 > ↗ See also: [FORM-Deriving / VALUE-Importing](form-deriving-value-importing.md)
 > §"The AC/DC carve" — the epistemological frame under which this cascade is the
-> DC-sector empirical validation (the sourced-monopole DC readout is closed
-> co-exact-side; the survivors are DC→AC-coupling and topological/harmonic).
+> DC-sector **illustration** (the sourced-monopole DC readout is closed
+> co-exact-side; the survivors are DC→AC-coupling and topological/harmonic). Not
+> "validation" — the cold-eyes audit (§1) found the cascade was steered by the
+> carve's own selection rule, so it is a *consistent-with instance*, not
+> independent support; independent validation would be a forward DC→AC falsifier
+> landing (the E-route birefringence `clm-pp3qwf`).

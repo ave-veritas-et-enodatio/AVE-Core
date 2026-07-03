@@ -238,10 +238,29 @@ AC readout (the probe beam's differential index) sees a tree-level coefficient t
 incumbent's DC-blind vacuum loop-suppresses by `α³`. That is the DC→AC coupling
 class in one instrument, and it is the confirming instance of this selection rule.
 
-### Empirical validation — the 2026-07-03 cascade is the carve in code
+### The 2026-07-03 cascade — a CONSISTENT-WITH illustration (not independent validation)
+
+> **Honesty correction (2026-07-03, cold-eyes audit).** An earlier draft of this
+> section headlined the 2026-07-03 cascade as the carve's "empirical validation." The
+> cold-eyes program audit
+> ([`research/2026-07-03_cold-eyes-program-audit_result.md`](../../../research/2026-07-03_cold-eyes-program-audit_result.md) §1)
+> found that is **mildly circular**: the carve's selection rule (iv) predicts
+> distinctive content lives DC-side or in DC→AC coupling, and the cascade's arc
+> designs (routing survivors to lane Z "harmonic-DC" + lane W "DC-linking") were
+> *steered by exactly that routing logic* — so the cascade is the carve's own
+> selection rule producing the routing it then reads back as confirmation. It is
+> therefore a **consistent-with instance / illustration**, NOT independent empirical
+> support. **Independent validation** would be a forward DC→AC FALSIFIER landing
+> (the E-route birefringence `clm-pp3qwf` — external/experimental, the non-circular
+> leg). The word "validation" is reserved for that class. This is not a defect in the
+> cascade (its core facts — ∂₁∂₂=0, the maximum principle — are TRUE independent of
+> the carve; the carve only supplies the interpretive frame), and the carve was always
+> booked as an organizing PRINCIPLE not a theorem (solidity 0.55) — but the frame
+> should not count an arc it steered as its own independent support.
 
 The carve is not a philosophy bolted on after the fact; the 2026-07-03 arc ledger is
-the carve **operating in the engine**. The sourced-charge no-go cascade
+the carve **operating in the engine** — a consistent-with illustration, read below.
+The sourced-charge no-go cascade
 ([`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md),
 `clm-nogo4l`) is exactly the statement "the DC sector is not sourced-AC-emergent":
 
@@ -269,11 +288,14 @@ the carve's selection rule (iv), read straight off the engine output.
 > **Confidence, graded honestly.** The AC/DC carve is an **organizing principle, not
 > a theorem.** It is the reason the accumulated FORM/VALUE record reads the way it
 > does (a strong, evidence-backed *frame*), and its selection rule (iv) has one
-> confirming instance (`clm-pp3qwf`) and one empirical validation (the 2026-07-03
-> cascade) — but it is not *derived* from the axioms, and a single AC-side
-> discriminating chord (or a DC-side null) would revise it. It is booked at
-> consistency / meta-finding class (`clm-acdc07`), the same standing as the
-> FORM/VALUE umbrella it mechanizes — not headlined as an emergence result.
+> confirming forward instance (`clm-pp3qwf`, the non-circular leg) and one
+> consistent-with illustration (the 2026-07-03 cascade — steered by the carve's own
+> selection rule, so NOT independent validation; cold-eyes audit §1) — but it is not
+> *derived* from the axioms, and a single AC-side discriminating chord (or a DC-side
+> null) would revise it. Its *independent* validation is still owed: a forward DC→AC
+> falsifier landing (`clm-pp3qwf`-class). It is booked at consistency / meta-finding
+> class (`clm-acdc07`), the same standing as the FORM/VALUE umbrella it mechanizes —
+> not headlined as an emergence result.
 
 ## The testing consequence
 
