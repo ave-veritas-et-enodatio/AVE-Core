@@ -114,6 +114,13 @@ _ENGINE_SIM_TESTS = {
     # in the same file STAY gating (sub-second). Coverage via `make test-engine`.
     "test_cleave_registry_pump_chern.py::test_gverdict_frozen_bin_null_derived",
     "test_cleave_registry_pump_chern.py::test_srs_chern_both_readings_gapped_and_converged",
+    # Cleave registry-pump Chern N-BAND (2026-07-02, the last roll): the full
+    # 8-band srs (k_z,theta) occupied-manifold Chern convergence sweep (n=24/36/48
+    # x 12 transverse slices x 4 configs; batched eigh, ~1.6s but T2 driver
+    # cost+role). The FAST VOK/anchor/Hermiticity/sliding-flat/adjudicate checks in
+    # the same file STAY gating (sub-second). Coverage via `make test-engine`.
+    "test_cleave_registry_pump_chern_nband.py::test_gverdict_null_confirmed_final",
+    "test_cleave_registry_pump_chern_nband.py::test_srs_all_configs_gapped_converged",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
