@@ -116,7 +116,35 @@ Each lane skipped analytic-only drivers, figure generators, consistency scaffold
 
 ## 5. Disposition and the caveats landed
 
-<!-- filled next commit -->
+**This is a STATUS-DEMOTION arc, not a retraction arc.** Conclusions stay; their evidentiary status demotes to under-re-adjudication. **25 LOW rows survive untouched.** The 2 HIGH + 4 MEDIUM rows receive dated caveats (this PR):
+
+**HIGH — the load-bearing pair (dated ⚠ EVIDENTIARY-EXPOSURE blocks appended; original text preserved, git is the trail):**
+
+- **Stage-2 native-cage** (`research/2026-06-24_engine-stage2-native-cage_result.md`) — CLASS-1 nullspace/decoupling (98% N=8 projection) + CLASS-2 mislocated Cartesian control. Status line: *DISPERSE verdict = EVIDENCE-EXPOSED, UNDER RE-ADJUDICATION (native positive control + `L_D` spectral decomposition + srs-z3 re-run pending); conclusion NOT retracted, NOT confirmed.*
+- **S3 cavity-pinning** (`research/2026-06-24_engine-s3-cavity-pinning_result.md`) — inherits Stage-2's CLASS-1 (same `L_D` on the A1 block) + CLASS-2, plus its own §5 self-admitted instrument artifact (native vector operator unwinds the integer). Same status line.
+
+**MEDIUM — one short dated note each:**
+
+- **Genesis-24** (`research/2026-06-09_genesis-24-saturated-seed_result.md`, Case C) — grades the residual pump finding. **See §6: the sweep's "residual pump" framing is superseded by the doc's own 2026-06-21 Lenz-sign ADDENDUM.**
+- **#415 coupled-eigensolve** (`research/2026-06-24_engine-coupled-eigensolve_result.md`) — stencil note: diamond `L_D` nullspace confirmed by sweep arithmetic; checkerboard in `Grad`-nullspace under any diagonal `D`.
+- **#417 phase-space carrier-ratio** (`research/2026-06-24_engine-phase-space-winding_result.md`) — chiral-on-achiral category note (a (2,3) chirality verdict evolved on the achiral diamond host; srs re-run queued). **Also fixes the doc's zero-stencil-acknowledgment gap.**
+- **K4-quartic** (`clm-k4d4ph` at `vol4/claim-quality.md`, leaf `k4-bloch-dispersion-quartic.md`) — **existing in-corpus demotion already covers the sweep's finding including the inserted-exponent point; NO register edit.** One stale leaf cite fixed (see §6).
+
+**Claim-spine demotion (the one entry that rides the DISPERSE evidence):** `clm-sjjvhf` (interior-eigenmode Nyquist exemption, `common/claim-quality.md:679`) had its rationale caveat "partially discharged" by the Stage-2 DISPERSE evidence via the additive-corroboration banner at `boundary-observables-m-q-j.md:91`. With that evidence exposed, the discharge is itself under re-adjudication, so `clm-sjjvhf`'s authored confidence demotes (see the PR final message for old→new). **`clm-uatcql` (electron-identification) does NOT demote** — its confidence rests on the Axiom 1–4 per-property audit, not the DISPERSE readout; the electron-identification banner explicitly says the build-on claim STANDS. **mass = A1 (PR#260) untouched** across the entire spine.
+
+## 6. What the claim-trail surfaced that the sweep missed
+
+Two verify-before-cite catches where the corpus state at HEAD is ahead of the sweep's framing:
+
+**(A) Genesis-24: the "residual pump" is already resolved as a sign-artifact.** The sweep row grades a "residual pump finding … plausibly a coupling-routing artifact per `k4_cosserat_coupling.py:242` docstring". But the genesis-24 result doc at HEAD carries a **2026-06-21 Lenz-sign ADDENDUM** (below the CORRECTING HEADER) that already resolved this: the runaway rested on a `+2` EMF sign-wiring bug; the method's own docstring and doc 67_ §13.6 derive `−2` (Lenz back-EMF). Under the corrected `−2` the source is **bounded** (E_V ~12→5, `v_secular<1`, verdict **C1**), NOT a runaway. So the pump is a **confirmed sign-artifact**, not a live residual pump — the sweep's "residual pump" framing is superseded. (The `:242` docstring the sweep cites is now a superseded NOTE at `:260`; the `:703` EMF cite has drifted to the `_compute_emf_per_port` symbol — both line-drifts are already self-flagged in the doc.) The MEDIUM note reflects the ADDENDUM, not the pre-ADDENDUM framing.
+
+**(B) K4-quartic: the stale leaf cite.** The sweep flagged that the leaf `k4-bloch-dispersion-quartic.md:101` says `srs_bloch_dispersion.py` is "on branch `engine/p1b-modes-live` — cited by path, not yet on `main`". **Verified stale:** `srs_bloch_dispersion.py` IS on main (commit `19a31836`, "P1b.3: the band-edge dispersion gate — genuine srs eigensolve gives SLOPE-2"). This PR fixes that one-line stale cite (a factual on-main correction, not a conclusion change).
+
+Neither catch breaks a conclusion; both are corpus-state-ahead-of-sweep corrections landed faithfully.
+
+---
+
+**Cross-references:** the two HIGH result docs (`2026-06-24_engine-stage2-native-cage_result.md`, `2026-06-24_engine-s3-cavity-pinning_result.md`) carry the dated ⚠ EVIDENTIARY-EXPOSURE blocks pointing back to this doc. The re-adjudication arc and the D1 srs-z3 production-carrier ratification are tracked in `_orchestration/index.md`.
 
 ## 6. What the claim-trail surfaced that the sweep missed
 
