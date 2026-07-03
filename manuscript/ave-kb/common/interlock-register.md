@@ -99,6 +99,23 @@ block, so refresh can parse it):
 > `ilk-` node and changes no `interlocks` edge — it is a VIEW over the nodes here,
 > so the count machinery (`expected-independent-count: 3`) is byte-untouched.
 
+> **Yield consumer-map (pointer, 2026-07-03 exposure-audit residuals).** The
+> AVE-Core-internal consumer-map for the **yield object** (which downstream
+> consumers need the yield KERNEL SHAPE vs the yield VALUE vs both, and what
+> each breaks if) is tabulated in
+> `research/2026-07-03_historical-exposure-audits_synthesis.md` §yield-residuals
+> (Y3) — E-route birefringence, vacuum IM3, pair-production/portmap, cRIO,
+> ruptured-core, Meissner, and the vacuum memristor. It is hosted there rather
+> than here because a free-form consumer table does not fit the `ilk-` node
+> schema; like the orthogonal view above, it mints no `ilk-` node and touches no
+> `interlocks` edge or the `expected-independent-count` machinery. That doc also
+> logs the `A_yield` identifier overload (three code meanings: $\sqrt\alpha$,
+> $\sqrt{2\alpha}$, $1.0$-kernel) as a code-hygiene ticket and records the
+> $B_{SNAP}$-vs-$E_{yield}/c$ $\approx 5\times$ discrepancy as Grant-deferred
+> (`pvlas-static-b-verdict.md` FLAG). Sibling-repo yield exposure (PONDER-05
+> value-rider; AVE-Fusion `V_yield`-as-bulk-rupture cross-wire) is flagged for a
+> separate sibling-repo session — not edited from AVE-Core.
+
 ---
 
 ## R·r = 1/4 (Golden-Torus screening)
