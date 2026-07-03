@@ -607,6 +607,31 @@ At any Γ=−1 saturation surface in the substrate, exactly three integrated qua
   - Q has no clean mechanical-engineering analog (the ME projection column is empty for Q).
   - The half-integer value of J is tied to the SU(2) double-cover; the leaf treats this as AVE-native, not an imported QM postulate.
 
+> **🟢 STRENGTHENS (2026-07-03, DEC MINI-ARC + FOUR-LOCK CASCADE; no retraction).**
+> The **Q (boundary linking-number) charge dictionary's LOCAL sector is sharpened
+> to a theorem.** On the srs DEC 2-complex the cold-linear-static-local closure of
+> the CURL-COUPLING CLASS is upgraded from "a property of the
+> (`_srs_curl_nodes`, `_srs_node_divergence`) engineering-choice operator pair"
+> (`research/2026-07-03_em-readout-vsector-stage1_result.md` PANEL-FINDINGS
+> §Blocker-2) to a **`∂₁∂₂ = 0` STRUCTURAL IDENTITY** (`ave.topological.srs_dec`;
+> [`research/2026-07-03_srs-dec-operators_result.md`](../../../research/2026-07-03_srs-dec-operators_result.md)
+> §3). On the DEC operators `div = −∂₁`, `curl_adj = ∂₂`, **every** field
+> `F = curl_adj(c)` has `div F ≡ 0` (exact integer `∂₁∂₂ = 0`), so **zero enclosed
+> charge at every radius for the entire curl class**, not just the two tested
+> members. **Consequence for Q:** a pure-curl (exact) substrate flux `F` carries
+> **zero Gauss/enclosed charge as an identity** — the `Q = Link(∂Ω, F) ∈ ℤ` charge
+> label therefore lives in the **HARMONIC** sector (`H₁ = ker∂₁ ∩ ker∂₂ᵀ`,
+> `b₁ = 3`; DEC §4), NOT in the exact/co-exact sector the theorem kills. This is
+> the class-level dependency the **four-lock sourced-charge no-go cascade**
+> (`clm-nogo4l`, [`the-sourced-charge-no-go-cascade.md`](the-sourced-charge-no-go-cascade.md))
+> is built on (Lock 4's `∂∂=0` continuity core). **Scope boundary (DEC §3 box):**
+> NOTHING is claimed for non-curl couplings (`∇·ω` remains a measured non-identity),
+> `S(A)`-modulated couplings, self-consistent nonlinear statics, dynamics, or the
+> pair-as-DEC-pair (they are not). The complementary CO-EXACT (gradient) sector —
+> the part that DOES source divergence — is `clm-4r4jiy` (the `A_geom ∝ 1/r`
+> Coulomb potential). **No retraction: this is a sharpening of the LOCAL sector, not
+> a change to the M/Q/J catalog or the exhaustiveness claim.**
+
 > **Leaf references:** [boundary-observables-m-q-j](./boundary-observables-m-q-j.md).
 
 ### Quality
