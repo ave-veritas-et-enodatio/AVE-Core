@@ -9,32 +9,33 @@
         "I_L_wcm2": 1e+22,
         "E_field": 274492372739852.56,
         "A2": 5.896416354237648e-06,
-        "P_qed_exact": 1.449110624479183e-15,
-        "dphi_qed": 7.613437133067255e-08
+        "P_qed_exact": 2.757218197028086e-12,
+        "dphi_qed": 3.3209746744175088e-06
       },
       {
         "I_L_wcm2": 1e+23,
         "E_field": 868021098201847.5,
         "A2": 5.896416354237645e-05,
-        "P_qed_exact": 1.4491106244791132e-13,
-        "dphi_qed": 7.613437133067254e-07
+        "P_qed_exact": 2.7572181967772097e-10,
+        "dphi_qed": 3.320974674417508e-05
       }
     ],
     "qed_design_flip_prob_band": {
-      "min": 1.449110624479183e-15,
-      "max": 1.4491106244791132e-13
+      "min": 2.757218197028086e-12,
+      "max": 2.7572181967772097e-10
     },
     "qed_design_in_literature_order_band": true,
     "qed_exact_reduces_to_perturbative": true,
     "qed_demonstrated_pump": {
       "E_field": 87000000000000.0,
-      "P_qed_exact": 1.4623705278200472e-17,
-      "P_qed_pert": 1.4623705278200472e-17,
-      "dphi_qed": 7.648190708448756e-09
+      "P_qed_exact": 2.7824477731338222e-14,
+      "P_qed_pert": 2.7824477731338478e-14,
+      "dphi_qed": 3.336134153857634e-07
     },
     "VALIDATE_PASS": true
   },
-  "matched_differential_ratio_7.5_over_alpha3": 19300353.99810898,
+  "matched_differential_ratio_7.5pi_over_alpha2_propagating": 442466.5835078048,
+  "matched_differential_ratio_15pi_over_alpha2_static": 884933.1670156096,
   "hibef_points": {
     "NJP_9835eV": {
       "E_field": 87000000000000.0,
@@ -42,13 +43,13 @@
       "E_probe_eV": 9835.0,
       "wavelength_m": 1.2606425862453764e-10,
       "dn_ave": -2.9616678176580535e-07,
-      "dn_qed": 1.5345138561772993e-14,
+      "dn_qed": 6.693536132023572e-13,
       "dphi_ave": 0.1476128755262726,
-      "dphi_qed": 7.648190708448756e-09,
+      "dphi_qed": 3.336134153857634e-07,
       "P_ave_pert": 0.005447390255283713,
       "P_ave_exact": 0.005437506083232918,
-      "P_qed_pert": 1.4623705278200472e-17,
-      "P_qed_exact": 1.4623705278200472e-17,
+      "P_qed_pert": 2.7824477731338478e-14,
+      "P_qed_exact": 2.7824477731338222e-14,
       "ave_perturbative_breaks": false
     },
     "LoI_low_8766eV": {
@@ -57,13 +58,13 @@
       "E_probe_eV": 8766.0,
       "wavelength_m": 1.4143759794345515e-10,
       "dn_ave": -2.9616678176580535e-07,
-      "dn_qed": 1.5345138561772993e-14,
+      "dn_qed": 6.693536132023572e-13,
       "dphi_ave": 0.13156832403287297,
-      "dphi_qed": 6.8168825368847765e-09,
+      "dphi_qed": 2.9735182504032555e-07,
       "P_ave_pert": 0.004327555972204765,
       "P_ave_exact": 0.004321316992876082,
-      "P_qed_pert": 1.1617471880421156e-17,
-      "P_qed_exact": 1.1617471880421156e-17,
+      "P_qed_pert": 2.2104526963703094e-14,
+      "P_qed_exact": 2.210452696370293e-14,
       "ave_perturbative_breaks": false
     },
     "LoI_high_12914eV": {
@@ -72,13 +73,13 @@
       "E_probe_eV": 12914.0,
       "wavelength_m": 9.600758739138358e-11,
       "dn_ave": -2.9616678176580535e-07,
-      "dn_qed": 1.5345138561772993e-14,
+      "dn_qed": 6.693536132023572e-13,
       "dphi_ave": 0.19382538632905794,
-      "dphi_qed": 1.004257598463724e-08,
+      "dphi_qed": 4.38056293471454e-07,
       "P_ave_pert": 0.00939207009640214,
       "P_ave_exact": 0.009362703232976787,
-      "P_qed_pert": 2.5213333101803152e-17,
-      "P_qed_exact": 2.5213333101803152e-17,
+      "P_qed_pert": 4.797332906248715e-14,
+      "P_qed_exact": 4.797332906248639e-14,
       "ave_perturbative_breaks": false
     }
   },

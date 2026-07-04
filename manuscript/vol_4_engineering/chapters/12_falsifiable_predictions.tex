@@ -102,6 +102,21 @@ Aside from the physical engineering applications, the structural math underpinni
 
 \section{The Vacuum Birefringence Limit: the Coefficient (AVE $\sim 10^7\times$ QED at the matched differential observable)}
 
+% ===========================================================================
+% QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 -- body preserved below).
+% Every "7.5/alpha^3 = 1.93e7" (differential) and "4.14e6" (single-arm) ratio in
+% this section carries an UNDERSTATED QED denominator: (3/45)alpha^2 and the
+% alpha^3 single-arm form are too small by exactly 1/(2 pi alpha) = 21.8 relative
+% to the PVLAS-anchored magnetic leg (A_e = 1.32e-24 T^-2). At the E<->cB duality
+% point the leading Euler-Heisenberg (E^2-B^2)^2 invariant forces the electric
+% coefficient = 3 A_e B_crit^2 = alpha/(30 pi) = 1.454 alpha^2, not 3/45.
+% CORRECTED matched-differential ratio: 7.5 pi/alpha^2 ~ 4.42e5 (propagating,
+% LoI-matched) or 15 pi/alpha^2 ~ 8.85e5 (static-E). The AVE leg -1/2 A^2 is
+% UNAFFECTED; falsifier logic survives (AVE ~7 OOM above the polarimeter floor,
+% corrected QED still ~4 OOM below). Reconciliation:
+% research/2026-07-03_birefringence-qed-normalization-correction.md.
+% ===========================================================================
+
 A core distinction between standard Quantum Electrodynamics (QED) and the Applied Vacuum Engineering (AVE) framework is the \emph{magnitude} of vacuum optical nonlinearity under extreme fields --- not its leading power. Both predict an $E^2$-leading refractive-index shift; the discriminator is the \textbf{coefficient}. A birefringence instrument (polarimeter/ellipsometer, PVLAS/BMV lineage) measures the \emph{difference} $n_\parallel-n_\perp$ between the two polarization eigenmodes of the pumped vacuum --- a pure phase/interference observable; the isotropic common-mode index shift is rejected by the instrument. The AVE-vs-QED comparison must therefore be made differential-against-differential (matched observables).
 
 Standard QED (via the Euler-Heisenberg Lagrangian) predicts $\delta n \approx a_{EH}\,\alpha^2 (E/E_{crit})^2$, with O(1) prefactors but suppressed by the loop factor $\alpha^2\approx 5\times10^{-5}$ and referencing the Schwinger field $E_{crit}\approx\qty{1.32e18}{\volt\per\metre}$. In AVE, the vacuum is a rigid LC string network whose permittivity saturates under the Axiom-4 kernel $S=\sqrt{1-(E/E_{yield})^2}$; the index follows the wave-speed identity $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$ (only $\varepsilon$ strained, $\mu=\mu_0$). Under a linearly-polarized pump the vacuum is \emph{uniaxial} (optic axis $\parallel$ the pump): the probe-response tensor $\varepsilon_{ij}=\varepsilon\,\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$ (the exact differential of the scalar kernel; derived, OQ-1 Step 1) gives the two eigen-indices and the \emph{$E^2$-leading, negative} birefringence

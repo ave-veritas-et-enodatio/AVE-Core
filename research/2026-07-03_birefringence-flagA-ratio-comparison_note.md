@@ -1,5 +1,12 @@
 # FLAG-A — the two coexisting AVE/QED birefringence ratios: one-page comparison for Grant's leaf-promotion ruling
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** BOTH ratios compared here (`7.5/α³ ≈ 1.93×10⁷`
+> differential, `4.14×10⁶` single-arm) use an understated QED denominator (too small by `1/(2πα) ≈ 21.8` —
+> `(3/45)α²` and the `α³` single-arm form contradict the module's PVLAS-anchored magnetic leg at the `E↔cB`
+> duality point). Corrected differential: `7.5π/α² ≈ 4.42×10⁵` (propagating). The observable-matching LOGIC of
+> this note (differential ↔ polarimeter; single-arm ↔ interferometric probe) is unaffected — only the magnitudes
+> change. See [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-07-03 · **Lane:** implementer · **Branch:** `analysis/birefringence-campaign-opening`
 **Class:** ADJUDICATION MATERIAL — this note does NOT rule. It lays out the two ratios, which observable each pairs with, which one a real instrument reads, and where each appears in the corpus, for Grant's leaf-promotion decision (falsifier open-item #10 / R-1 residual).
 **HEAD:** origin/main 93c7424d (both ratios live-verified this session).

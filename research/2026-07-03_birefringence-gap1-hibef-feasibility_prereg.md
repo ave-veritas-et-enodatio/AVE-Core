@@ -1,5 +1,10 @@
 # FROZEN MINI-PRE-REG — GAP-1: AVE realized observable at HIBEF's actual parameters
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** Any `7.5/α³ ≈ 1.93×10⁷` ratio / QED `~10⁻¹⁷`
+> co-prediction in this prereg uses an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected:
+> ratio `7.5π/α² ≈ 4.42×10⁵`, QED P_flip `~2.8×10⁻¹⁴`. The AVE leg and the STEP-3.8 liveness gate are unaffected.
+> See [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Status:** FROZEN. Committed BEFORE the GAP-1 driver code (freeze-before-code discipline).
 **Arc:** E-route vacuum-birefringence campaign opening (RANK-1, cold-eyes-audit-ratified 2026-07-03).
 **Scope cap:** GAP-1 ONLY — the feasibility arithmetic that sizes the campaign. Bins frozen here; the campaign charter, the exp-vs-sup S9 classification, and any facility partnership are HELD downstream.

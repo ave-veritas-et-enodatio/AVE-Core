@@ -1,5 +1,11 @@
 # FLAG-A leaf-promotion — RULING (Grant-ratified 2026-07-03: "the matched-differential")
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** The `7.5/α³ ≈ 1.93×10⁷` and `4.14×10⁶` ratios in
+> this ruling use an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected differential ratio:
+> `7.5π/α² ≈ 4.42×10⁵` (propagating). The ruling's SUBSTANCE (promote the matched-differential; KEEP-BOTH the
+> single-arm) is unaffected — only the numeric ratio values change. See
+> [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-07-03 · **Lane:** implementer (landing a Grant ruling) · **Branch:** `analysis/birefringence-prediction-doc`
 **Class:** ADJUDICATION RULING — records Grant's decision on falsifier open-item #10 / R-1 residual and the
 edits that land it. Comparison material that fed the decision:

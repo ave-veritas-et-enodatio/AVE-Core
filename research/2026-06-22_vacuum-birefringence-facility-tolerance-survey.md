@@ -1,5 +1,10 @@
 # RESULT — Vacuum-Birefringence Facility / Tolerance Survey (E-route is the AVE test; magnetic-route does NOT test AVE)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** Any `7.5/α³ ≈ 1.93×10⁷` (or the single-arm band
+> `[4×10⁵, 2×10⁷]`) in this survey uses an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected
+> differential ratio: `7.5π/α² ≈ 4.42×10⁵` (propagating). The E-route-vs-magnetic-route conclusion is unaffected.
+> See [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-06-22 · **Lane:** implementer · **Branch:** `docs/birefringence-arc-2026-06-22`
 **Scope:** the global facility landscape + tolerance ranges that could run the AVE vacuum-birefringence test.
 Characterization + tracking only — not a ranking or a recommendation. Every number carries an inline

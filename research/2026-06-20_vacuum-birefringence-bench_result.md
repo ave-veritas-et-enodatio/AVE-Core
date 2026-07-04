@@ -1,5 +1,10 @@
 # Vacuum-Birefringence BENCH-MODEL — RESULT (the bankable-number gate)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** Any `7.5/α³ ≈ 1.93×10⁷` / `4.14×10⁶` ratio here uses
+> an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected differential ratio: `7.5π/α² ≈ 4.42×10⁵`
+> (propagating). AVE leg unaffected. See
+> [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 > 🔵 **Current headline number.** This doc's bankable number and the per-row $4.14\times10^6$ in §0 / the table below were computed as
 > the AVE **scalar single-arm** ($-\tfrac14 A^2$) over the QED **parallel single-mode** ($7/45$). A
 > birefringence instrument measures the **par−minus−perp differential**, so the corrected falsifier

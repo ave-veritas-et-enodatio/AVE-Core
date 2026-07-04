@@ -18,8 +18,10 @@ numbers, not asserted.
 KEY PHYSICS (verify live): AVE flip-prob P = sin^2(dphi/2) ~ (dphi/2)^2 deep-cold,
 and dphi ~ delta_n ~ A^2 ~ I. So P_flip ~ I^2 (field^4) at fixed (lambda, z). A
 5.4e-3 flip @1e21 falls as (I/1e21)^2 -> ~5.4e-11 @1e19, ~5.4e-19 @1e17. The
-AVE/QED ratio (7.5/alpha^3) is I-INDEPENDENT (both ride delta_n^2), so the
-DISCRIMINATION does not weaken at lower field; only the absolute signal shrinks.
+AVE/QED ratio (CORRECTED 2026-07-03: 7.5 pi/alpha^2 ~ 4.42e5 propagating; was
+7.5/alpha^3 ~ 1.93e7 before the QED-normalization fix) is I-INDEPENDENT (both ride
+delta_n^2), so the DISCRIMINATION does not weaken at lower field; only the absolute
+signal shrinks.
 
 DISCIPLINE:
   - consistency-vs-emergence: CONSISTENCY-class. Canonical AVE delta_n
@@ -60,9 +62,9 @@ from birefringence_gap1_hibef_feasibility import (  # noqa: E402
 )
 
 from ave.bench import (  # noqa: E402
-    coefficient_ratio_differential,
+    coefficient_ratio_differential_pvlas,
     delta_n_ave_differential_exact,
-    delta_n_qed,
+    delta_n_qed_electric_pvlas,
     substrate_identity_holds,
 )
 from ave.core.constants import E_YIELD  # noqa: E402
@@ -207,7 +209,9 @@ def ave_flip_prob_at_intensity(I_wcm2: float, E_probe_eV: float = E_PROBE_STD_EV
     E = field_from_intensity_wcm2(I_wcm2)
     lam = probe_wavelength_m(E_probe_eV)
     dn_ave = float(delta_n_ave_differential_exact(E))
-    dn_qed = float(delta_n_qed(E, a_eh=3.0 / 45.0))
+    # CORRECTED (2026-07-03): PVLAS-anchored electric leg (propagating/LoI-matched),
+    # replacing the understated (3/45) alpha^2 (too small by 1/(2 pi alpha)=21.8).
+    dn_qed = float(delta_n_qed_electric_pvlas(E, geometry="propagating"))
     dphi_ave = retardance_phase(dn_ave, lam, z_m)
     dphi_qed = retardance_phase(dn_qed, lam, z_m)
     return {
@@ -345,11 +349,15 @@ def main(make_figure: bool = False, fig_path: Path | None = None) -> None:
     # ---- (0) liveness: substrate identity + the I^2 scaling law -------------
     print("\n[0] LIVENESS + scaling law:")
     id_ok = substrate_identity_holds()
-    ratio = coefficient_ratio_differential()
+    # CORRECTED (2026-07-03): PVLAS-anchored ratio (propagating/LoI-matched
+    # 7.5 pi/alpha^2 ~ 4.42e5). The old 7.5/alpha^3 ~ 1.93e7 was too large by
+    # 1/(2 pi alpha) (understated QED denom); the AVE leg is UNAFFECTED.
+    ratio = coefficient_ratio_differential_pvlas(geometry="propagating")
     out["substrate_identity_holds"] = id_ok
-    out["matched_differential_ratio"] = ratio
+    out["matched_differential_ratio_7.5pi_over_alpha2_propagating"] = ratio
     print(f"    substrate identity (E_crit/E_yield)^2 = 1/alpha: {id_ok}")
-    print(f"    matched differential ratio 7.5/alpha^3 = {ratio:.4e} (field-INDEPENDENT)")
+    print(f"    matched differential ratio (CORRECTED, propagating) 7.5 pi/alpha^2 = "
+          f"{ratio:.4e} (field-INDEPENDENT)")
 
     # Verify P_flip ~ I^2: compare 1e21 and 1e20.
     p21 = ave_flip_prob_at_intensity(1e21)

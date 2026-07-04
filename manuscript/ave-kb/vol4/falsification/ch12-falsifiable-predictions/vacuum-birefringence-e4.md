@@ -5,6 +5,23 @@ kind: leaf
 claims: [clm-pp3qwf]
 -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The QED denominator of the matched-differential ratio in this leaf, $\delta n_{QED}=(3/45)\alpha^2(E/E_{crit})^2$,
+> is **understated by exactly $1/(2\pi\alpha)\approx21.8$**. Two independent external arbiters fix it:
+> **(a)** the module's OWN PVLAS-anchored magnetic leg ($3A_e B^2$, $A_e=1.32\times10^{-24}$ T$^{-2}$, textbook) —
+> at the $E\leftrightarrow cB$ duality point the leading Euler-Heisenberg $(E^2-B^2)^2$ invariant gives IDENTICAL
+> differentials, so the electric coefficient MUST equal $3A_eB_{crit}^2=\alpha/(30\pi)=1.454\,\alpha^2$, NOT
+> $3/45=0.0667\,\alpha^2$; **(b)** the BIREF@HIBEF LoI Eq.19 (focus-integrated) reproduces $\sim10^{-12}$ at
+> $10^{21}$ W/cm$^2$ and implies, for a **propagating** plane-wave pump, $\alpha/(15\pi)$ (a further factor 2).
+> **Corrected ratio:** $\delta n_{AVE}/\delta n_{QED}=\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$ (propagating,
+> LoI-matched, the headline) or $15\pi/\alpha^2\approx8.85\times10^5$ (pure-static-E duality). The **AVE leg
+> $-\tfrac12 A^2$ is UNAFFECTED** (independently re-derived); only the QED co-prediction and the ratio change.
+> **Falsifier LOGIC survives intact:** AVE flip-prob $\sim5\times10^{-3}$ still sits $\sim7$ OOM above the
+> $\sim10^{-10}$ polarimeter floor; the corrected QED flip-prob ($\sim3\times10^{-14}$ single-pass) still sits
+> $\sim4$ OOM below it. Every "$7.5/\alpha^3$", "$1.93\times10^7$", and "$4.14\times10^6$" (single-arm) below is
+> superseded by the corrected values. Reconciliation harness: `src/ave/bench/birefringence.py`
+> (`delta_n_qed_electric_pvlas`, `coefficient_ratio_differential_pvlas`).
+
 ## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 
 > **Route scope (E-route only; DERIVED via the node-up dual).** This birefringence prediction is
