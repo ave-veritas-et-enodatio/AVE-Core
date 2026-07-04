@@ -4,15 +4,16 @@
 \begin{figure}[htbp]
 \centering
 \begin{circuitikz}[american, scale=0.85, transform shape]
-    % --- The node LC tank (shared) ---
+    % --- The node LC tank (shared); designators mirror the .lib (L_REL, C_VAR) ---
     \draw (0,0) node[left] {node} to[short, o-] (1,0);
-    \draw (1,0) to[L, l=$L_{\mathrm{eff}}(I)$, i>=$I$] (3.5,0);
+    \draw (1,0) to[L, l=$L_{\mathrm{REL}}$, i>=$I$] (3.5,0);
     \draw (3.5,0) to[short] (5.0,0);
-    \draw (4.25,0) to[C, l=$C_{\mathrm{eff}}(V)$, *-] (4.25,-1.6) node[ground] {};
+    \draw (4.25,0) to[C, l=$C_{\mathrm{VAR}}$, *-] (4.25,-1.6) node[ground] {};
     \draw (5.0,0) to[short, -o] (6.0,0) node[right] {};
     % grade labels
-    \node[align=center, font=\scriptsize] at (2.25, 0.95) {$\mu$-grade: keyed on $I$};
-    \node[align=center, font=\scriptsize] at (4.25, 1.25) {$\varepsilon$-grade: keyed on $V$};
+    \node[align=center, font=\scriptsize] at (2.25, 0.95) {$\mu$-grade $L_{\mathrm{REL}}$: keyed on $I$};
+    \node[align=center, font=\scriptsize] at (4.25, 1.25) {$\varepsilon$-grade $C_{\mathrm{VAR}}$: keyed on $V$};
+    \node[align=center, font=\scriptsize\itshape] at (1.7, -2.05) {EM domain ($\Omega$); reactive symbols per \texttt{.lib}};
 \end{circuitikz}
 
 \vspace{0.6em}

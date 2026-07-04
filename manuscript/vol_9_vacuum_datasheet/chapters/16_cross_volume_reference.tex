@@ -50,12 +50,12 @@ $Q = \ell$ & Confined-mode quality at $\Gamma = -1$ (Op21) & 3 & Vol 1 Ch.~6 (Op
 SYM port & $\mu, \varepsilon$ scale together; $\alpha$-invariant & 3 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6} \\
 ASYM port & $\mu \ne \varepsilon$ scaling; $\alpha$-modulating & 3, 6 & Vol 2 Ch.~1 (pair production) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}; \texttt{clm-8nkvwy} \\
 % --- Ch 4 DC Electrical Characteristics ---
-$\varepsilon_0$ & Vacuum permittivity & 4 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{src/ave/core/constants.py:97} \texttt{EPSILON\_0}; CLAUDE.md INVARIANT-S2 Ax 1 \\
+$\varepsilon_0$ & Vacuum permittivity & 4 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{src/ave/core/constants.py} \texttt{EPSILON\_0}; CLAUDE.md INVARIANT-S2 Ax 1 \\
 $\mu_0$ & Vacuum permeability & 4, 10 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{src/ave/core/constants.py} \texttt{MU\_0}; CLAUDE.md INVARIANT-S2 Ax 1 \\
 $Z_0$ & Characteristic impedance $\sqrt{\mu_0/\varepsilon_0}$ & 4, 5 & Vol 4 Ch.~1 ($Z_0$ derivation) & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md} \\
 $c_0$ & Cold-lattice EM wave speed (Op16) & 4 & Vol 1 Ch.~6 (Op16) & \kbleaf{common/operators.md} Op16 row \\
 $\ell_{node}$ & K4 lattice pitch & 4 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/natural-units-cheatsheet.md} \\
-$T_{EM}$ & EM string tension $m_e c^2/\ell_{node}$ & 4, 12 & Vol 1 Ch.~1 (Ax 1+2) & \kbleaf{src/ave/core/constants.py:448} \texttt{T\_EM} \\
+$T_{EM}$ & EM string tension $m_e c^2/\ell_{node}$ & 4, 12 & Vol 1 Ch.~1 (Ax 1+2) & \kbleaf{src/ave/core/constants.py} \texttt{T\_EM} \\
 $\alpha$ & Fine-structure constant (cold-lattice asymptote) & 4, 6, 13 & Vol 1 Ch.~8 (Golden Torus) & \kbleaf{vol1/ch8-alpha-golden-torus.md}; \texttt{clm-0ktpcn} \\
 $\xi_{topo}$ & Topological transduction $e/\ell_{node}$ (Ax 2) & 4, 11, 13 & Vol 4 + Vol 5 (organic circuitry) & \kbleaf{vol5/.../electromechanical-transduction-constant.md}; \texttt{clm-i9l284}; \texttt{clm-fy05jc} \\
 % --- Ch 5 AC Electrical Characteristics ---
@@ -77,13 +77,13 @@ $A_0$ & LC-tank operating-point amplitude (gauge-relative) & 7 & Vol 1 Ch.~1 (Ax
 % --- Ch 8 Breakdown Characteristics ---
 $M(r)$ & Miller multiplication $1/S^2$ (Regime III) & 8 & Vol 1 Ch.~7 (four-regimes) & \kbleaf{vol1/.../four-regimes.md}; \texttt{clm-b2anl4} \\
 % --- Ch 9 Mechanical Characteristics ---
-$G_{vac}$ & Vacuum shear modulus $\rho_{bulk}\,c_0^2$ & 9 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{src/ave/core/constants.py:672} \texttt{G\_VAC} \\
+$G_{vac}$ & Vacuum shear modulus $\rho_{bulk}\,c_0^2$ & 9 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{src/ave/core/constants.py} \texttt{G\_VAC} \\
 $K_{vac}$ & Vacuum bulk modulus $2\,G_{vac}$ & 9 & Vol 3 Ch.~1 (gravity-yield; EMT closure $p^* = 8\pi\alpha$) & Vol 3 derived-numerology Appendix \\
 $\nu_{vac}$ & Vacuum Poisson ratio $2/7$ & 9, 12, 13 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md}; \texttt{clm-x19btt} \\
 $\gamma_c$ & Cosserat couple-stress modulus & 9, 10, 15 & Vol 2 Ch.~5 (electroweak mechanics) & \kbleaf{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
-$\rho_{bulk}$ & Substrate bulk mass density & 9, 15 & Vol 3 derived-numerology & \kbleaf{src/ave/core/constants.py:697} \texttt{RHO\_BULK} \\
+$\rho_{bulk}$ & Substrate bulk mass density & 9, 15 & Vol 3 derived-numerology & \kbleaf{src/ave/core/constants.py} \texttt{RHO\_BULK} \\
 $v_T$ & Transverse wave speed $\sqrt{G/\rho} = c_0$ & 9 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{src/ave/core/constants.py} (derived) \\
-$v_{bulk}$ ($A_1$) & Bulk-modulus dilatational speed $\sqrt{2}\,c_0$ (A1-scalar port-mode; \emph{not} the solid P-wave $c_L=\sqrt{10/3}\,c_0$ --- KEEP-BOTH, Ch.~9) & 9 & Vol 3 (derived-numerology); \texttt{clm-uu1qbo} & \kbleaf{src/ave/core/constants.py:709} \texttt{V\_LONG} \\
+$v_{bulk}$ ($A_1$) & Bulk-modulus dilatational speed $\sqrt{2}\,c_0$ (A1-scalar port-mode; \emph{not} the solid P-wave $c_L=\sqrt{10/3}\,c_0$ --- KEEP-BOTH, Ch.~9) & 9 & Vol 3 (derived-numerology); \texttt{clm-uu1qbo} & \kbleaf{src/ave/core/constants.py} \texttt{V\_LONG} \\
 $l_c$ & Cosserat characteristic length $\sqrt{\gamma_c/G_{vac}}$; weak-force range $r_W$ & 9, 10 & Vol 2 Ch.~5 (electroweak mechanics) & \kbleaf{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
 % --- Ch 10 Magnetic / Microrotational Characteristics ---
 $I_\omega$ & Cosserat micro-inertia (bond-scale rotational moment) & 10 & Vol 1 Ch.~5 (trampoline framework) & \kbleaf{common/trampoline-framework.md}:181 \\
@@ -97,7 +97,7 @@ $R_H$ & Cosmic horizon $c/H_\infty$ & 12 & Vol 3 Ch.~4 (generative cosmology) & 
 $H_\infty$ & Asymptotic Hubble rate $\approx 69.33$ km/s/Mpc & 12 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324} \\
 $R_H/\ell_{node}$ & Cosmic-scale topological transduction count $\sim 10^{39}$ & 12 & Vol 3 Ch.~4 + translation-circuit & \kbleaf{common/translation-tables/translation-circuit.md}; \texttt{clm-eemap1} \\
 $G$ & Newton's constant (MIXED: derived Machian-impedance form, calibration-fitted $\xi$ value; \kbleaf{common/interlock-register.md} \texttt{ilk-gravmb}) & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{common/full-derivation-chain.md}; \kbleaf{common/mathematical-closure.md} Layer 7 \\
-$\xi$ ($\xi_M$) & Dimensionless Machian-hierarchy coupling $\approx \num{8.15e43}$ (the cell-count $R_H/\ell_{node}\approx\num{3.46e38}$ is a factor inside it, not $\xi$) & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{src/ave/core/constants.py:589} (\texttt{XI\_MACHIAN}) \\
+$\xi$ ($\xi_M$) & Dimensionless Machian-hierarchy coupling $\approx \num{8.15e43}$ (the cell-count $R_H/\ell_{node}\approx\num{3.46e38}$ is a factor inside it, not $\xi$) & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{src/ave/core/constants.py} (\texttt{XI\_MACHIAN}) \\
 $\hat{\Omega}_{freeze}$ & Cosmological initial-data parameter (cosmic angular momentum at lattice genesis) & 12, 15 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq} \\
 $u_0^*$ & Magic-angle operating point $\approx 0.187$ (calibrated to $\alpha$ and $G$; $\mathcal{J}_{cosmic}$ provides an independent experimental test --- Ch.~15~$\S$\ref{sec:vol9_three_route_falsifiability}) & 12, 15 & Vol 3 Ch.~4 + L5 A-034 & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
 $\mathcal{J}_{cosmic}$ & Cosmic-boundary winding $\hat{\Omega}_{freeze} \cdot I_{cosmic}$ & 12 & Vol 3 Ch.~4 + boundary-observables & \kbleaf{common/boundary-observables-m-q-j.md}; \kbleaf{common/omega-freeze-cosmic-grain-cascade.md} \\

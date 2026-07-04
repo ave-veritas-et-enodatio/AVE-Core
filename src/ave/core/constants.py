@@ -293,6 +293,23 @@ L_NODE: float = HBAR / (M_E * C_0)  # ≈ 3.8616e-13 m
 #   number is f_C in Hz (the 2π-error fixed corpus-wide 2026-06-22).
 OMEGA_C: float = C_0 / L_NODE  # ≈ 7.763e20 rad/s; ℏ·OMEGA_C = m_e c² = 511 keV
 
+# Per-node lumped reactive pair — the cell LC-tank element values (Henries, Farads).
+#   L_CELL ≡ Z_0 / OMEGA_C = μ₀·ℓ_node   ≈ 4.85e-19 H
+#   C_CELL ≡ 1/(Z_0·OMEGA_C) = ε₀·ℓ_node ≈ 3.42e-24 F
+# Two equivalent derivations that agree to machine precision (verified 2026-07-04):
+#   (a) the reactive-scale form Z_0/ω_c and 1/(Z_0·ω_c) — the impedance/clock pair;
+#   (b) the lumped-per-node form μ₀·ℓ_node / ε₀·ℓ_node — the canonical cell tank
+#       (per-dof-vacuum-node-circuit.md:18, device-circuit-models.md:52).
+# Round-trip identities (both machine-exact): √(L_CELL/C_CELL) = Z_0;
+#   1/√(L_CELL·C_CELL) = OMEGA_C; √(L_CELL·C_CELL) = ℓ_node/c₀ (the lumped-section
+#   propagation delay across one node span — NOT a per-unit-length c, per the
+#   per-dof leaf's validate-on-known gate).
+# ⚠ NAME GUARD: C_0 (line 110) is the SPEED OF LIGHT, not a capacitance. The cell
+#   capacitance is C_CELL. Do NOT hard-code the cell reactances against C_0.
+# CLASS: consistency re-expression of Z_0 + OMEGA_C (Axiom 1); no new primitive.
+L_CELL: float = Z_0 / OMEGA_C  # ≈ 4.853e-19 H  (= μ₀·ℓ_node)
+C_CELL: float = 1.0 / (Z_0 * OMEGA_C)  # ≈ 3.419e-24 F  (= ε₀·ℓ_node)
+
 # Cosserat characteristic (coupling) length — the substrate-CONTINUOUS K4
 # discrete↔continuum length ratio of the micropolar lattice.
 #   ℓ_c² = (β+γ)/[2(μ+κ)] = ℓ_node² · ξ_K2/(2·ξ_K1) = 6·ℓ_node²

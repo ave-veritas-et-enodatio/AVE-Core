@@ -44,16 +44,16 @@ Eight canonical substrate-primitive DC parameters. The TYPICAL column lists the 
 \midrule
 \endhead
 % --- Vacuum impedance trio ---
-$\varepsilon_0$ & Vacuum permittivity & $\num{8.854e-12}$ & \si{\farad\per\metre} & Translational E-DOF capacitance density per K4 node bond (Ax~1) & \texttt{EPSILON\_0} \newline (\texttt{constants.py}:97) \\
-$\mu_0$ & Vacuum permeability & $4\pi \times 10^{-7}$ & \si{\henry\per\metre} & Microrotational B-DOF inductance density per K4 node bond (Ax~1) & \texttt{MU\_0} \newline (\texttt{constants.py}:96) \\
-$Z_0$ & Characteristic impedance & $\num{376.730}$ & \si{\ohm} & Bond TLM characteristic impedance $\sqrt{\mu_0/\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op1) & \texttt{Z\_0} \newline (\texttt{constants.py}:98); \newline z0-derivation leaf \\
+$\varepsilon_0$ & Vacuum permittivity & $\num{8.854e-12}$ & \si{\farad\per\metre} & Translational E-DOF capacitance density per K4 node bond (Ax~1) & \texttt{EPSILON\_0} \newline (\texttt{constants.py}) \\
+$\mu_0$ & Vacuum permeability & $4\pi \times 10^{-7}$ & \si{\henry\per\metre} & Microrotational B-DOF inductance density per K4 node bond (Ax~1) & \texttt{MU\_0} \newline (\texttt{constants.py}) \\
+$Z_0$ & Characteristic impedance & $\num{376.730}$ & \si{\ohm} & Bond TLM characteristic impedance $\sqrt{\mu_0/\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op1) & \texttt{Z\_0} \newline (\texttt{constants.py}); \newline z0-derivation leaf \\
 % --- Propagation primitives ---
-$c_0$ & Cold-lattice EM wave speed & $\num{299792458}$ & \si{\metre\per\second} & Bond LC propagation phase velocity $1/\sqrt{\mu_0\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op16) & \texttt{C\_0} \newline (\texttt{constants.py}:95); \newline operators leaf Op16 \\
-$\ell_{node}$ & Lattice pitch & $\num{3.862e-13}$ & \si{\metre} & K4 nearest-neighbour spacing; single scale primitive per structural closure framing (Ax~1) & \texttt{L\_NODE} \newline (\texttt{constants.py}:257); natural-units cheatsheet \\
-$T_{EM}$ & EM string tension & $\num{0.212}$ & \si{\newton} & 1D substrate-native tension scale $m_e c^2 / \ell_{node}$ (Ax~1 + Ax~2) & \texttt{T\_EM} \newline (\texttt{constants.py}:415) \\
+$c_0$ & Cold-lattice EM wave speed & $\num{299792458}$ & \si{\metre\per\second} & Bond LC propagation phase velocity $1/\sqrt{\mu_0\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op16) & \texttt{C\_0} \newline (\texttt{constants.py}); \newline operators leaf Op16 \\
+$\ell_{node}$ & Lattice pitch & $\num{3.862e-13}$ & \si{\metre} & K4 nearest-neighbour spacing; single scale primitive per structural closure framing (Ax~1) & \texttt{L\_NODE} \newline (\texttt{constants.py}); natural-units cheatsheet \\
+$T_{EM}$ & EM string tension & $\num{0.212}$ & \si{\newton} & 1D substrate-native tension scale $m_e c^2 / \ell_{node}$ (Ax~1 + Ax~2) & \texttt{T\_EM} \newline (\texttt{constants.py}) \\
 % --- Coupling primitives ---
-$\alpha$ & Fine-structure constant & $\num{7.2974e-3}$ \newline ($\approx 1/137.036$) & --- & EM coupling at cold-lattice $S_{11}$-min Golden Torus operating point; cosmic-LC-tank reactive leak per cycle (Theorem 3.1) & \texttt{ALPHA} \newline (\texttt{constants.py}:133); \texttt{ALPHA\_COLD\_INV} \newline (:222); ch8-alpha-golden-torus leaf \\
-$\xi_{topo}$ & Topological transduction constant & $\num{4.149e-7}$ & \si{\coulomb\per\metre} & EE $\leftrightarrow$ mechanical bridge $e/\ell_{node}$; substrate-native dimensional isomorphism (Ax~2) & \texttt{XI\_TOPO} \newline (\texttt{constants.py}:291); xi-topo-traceability leaf; vol4 circuit-theory leaf \\
+$\alpha$ & Fine-structure constant & $\num{7.2974e-3}$ \newline ($\approx 1/137.036$) & --- & EM coupling at cold-lattice $S_{11}$-min Golden Torus operating point; cosmic-LC-tank reactive leak per cycle (Theorem 3.1) & \texttt{ALPHA} \newline (\texttt{constants.py}); \texttt{ALPHA\_COLD\_INV}; ch8-alpha-golden-torus leaf \\
+$\xi_{topo}$ & Topological transduction constant & $\num{4.149e-7}$ & \si{\coulomb\per\metre} & EE $\leftrightarrow$ mechanical bridge $e/\ell_{node}$; substrate-native dimensional isomorphism (Ax~2) & \texttt{XI\_TOPO} \newline (\texttt{constants.py}); xi-topo-traceability leaf; vol4 circuit-theory leaf \\
 \bottomrule
 \end{longtable}
 \end{footnotesize}
@@ -134,7 +134,7 @@ These three set the substrate's intrinsic length, time, and mechanical-tension s
 \begin{itemize}
     \item $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$ is the bond LC propagation phase velocity at cold-lattice $S(0) = 1$. By the two-effective-wave-speeds distinction, this is the Maxwell phase velocity (the speed that enters $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$ and all Maxwell-equation derivations), distinct from $c_{shear} = c_0\sqrt{S}$ (group/rest-mass velocity, used in Schwarzschild-class gravitational time-dilation). At cold-lattice both reduce to a single $c_0$; finite-$A_0$ separation appears in Ch.~\ref{ch:vol9_saturation_characteristics}. Op16 (Universal Wave Speed) in \kbleaf{common/operators.md} is the cross-scale operator form.
     \item $\ell_{node}$ is the K4 nearest-neighbour spacing of the substrate lattice. Numerically $\ell_{node} = \hbar/(m_e c) \approx \qty{3.862e-13}{\metre}$, the electron's reduced Compton wavelength --- a calibration consequence of the structural-closure framing where $\ell_{node}$ is the framework's single scale primitive and $m_e$ derives from the unknot ground-state energy on that lattice. The natural-units cheatsheet \S 1--\S 2 documents the four-base unit convention ($\ell_{node} = c = \hbar = m_e = 1$) used throughout AVE.
-    \item $T_{EM} = m_e c^2 / \ell_{node} \approx \qty{0.212}{\newton}$ is the substrate-native electromagnetic string tension --- the axial tension of a 1D substrate flux-tube segment. Per the engine constant comment (\kbleaf{constants.py:414-415} \texttt{T\_EM}), this is the natural-unit-1 value of the mechanical tension scale; it appears in the unknot ground-state-energy relation $m_e = T_{EM}\,\ell_{node}/c^2$ that anchors the electron mass derivation, and in the gravitational-coupling expression $G = c^4/(7\xi\,T_{EM})$ via the Machian impedance integral $\xi$.
+    \item $T_{EM} = m_e c^2 / \ell_{node} \approx \qty{0.212}{\newton}$ is the substrate-native electromagnetic string tension --- the axial tension of a 1D substrate flux-tube segment. Per the engine constant comment (\kbleaf{constants.py} \texttt{T\_EM}), this is the natural-unit-1 value of the mechanical tension scale; it appears in the unknot ground-state-energy relation $m_e = T_{EM}\,\ell_{node}/c^2$ that anchors the electron mass derivation, and in the gravitational-coupling expression $G = c^4/(7\xi\,T_{EM})$ via the Machian impedance integral $\xi$.
 \end{itemize}
 
 \subsection{Coupling primitives: $\alpha$, $\xi_{topo}$}
@@ -182,7 +182,7 @@ Free-space permeability & K4 microrotational-DOF inductance density per bond (Ax
 Characteristic impedance of free space & Bond TLM $\sqrt{\mu_0/\varepsilon_0}$ at $S(0) = 1$ (Op1) & z0-derivation leaf; operators leaf Op1 \\
 EM wave propagation speed in free space & Bond LC phase velocity $1/\sqrt{\mu_0\varepsilon_0}$ (Op16) & operators leaf Op16 \\
 Substrate length scale (component pitch analog) & K4 lattice pitch $\ell_{node} = \hbar/(m_e c)$ & natural-units cheatsheet \S 1 \\
-Substrate-native tension scale (1D bond axial tension) & EM string tension $T_{EM} = m_e c^2/\ell_{node}$ & \texttt{constants.py}:414--415 \\
+Substrate-native tension scale (1D bond axial tension) & EM string tension $T_{EM} = m_e c^2/\ell_{node}$ & \texttt{constants.py} \\
 Dimensionless coupling constant of substrate-LC network & Cosmic LC tank Q-factor at $S_{11}$-min Golden Torus geometry (Theorem 3.1); cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ (Class-B identification, retained input --- $R\cdot r=1/4$ not substrate-selected) & ch8-alpha-golden-torus leaf; theorem-3-1-q-factor leaf \\
 Charge-to-length electromechanical transduction ratio & Topological Conversion Constant $\xi_{topo} = e/\ell_{node}$ (Ax~2; $[Q] \equiv [L]$) & vol4 circuit-theory leaf; translation-circuit \S 1; xi-topo-traceability leaf \\
 \bottomrule

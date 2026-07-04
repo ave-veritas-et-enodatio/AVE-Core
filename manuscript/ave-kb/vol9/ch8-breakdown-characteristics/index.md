@@ -24,7 +24,7 @@ The chapter is a **synthesis chapter** per Vol 9 charter — no substrate primit
 - **Autoresonant Schwinger-bypass programme (bench-scale falsifier; Vol 4 PROJECT-ZENER-04):** [`vol4/falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md`](../../vol4/falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md).
 - **Saturation-kernel context (Vol 9 Ch 7 datasheet counterpart):** [`vol9/ch7-saturation-characteristics/index.md`](../ch7-saturation-characteristics/index.md).
 - **Absolute Maximum Ratings (Vol 9 Ch 2 datasheet counterpart; limit tabulation):** [`vol9/ch2-absolute-maximum-ratings/index.md`](../ch2-absolute-maximum-ratings/index.md).
-- **Numerical constants:** `src/ave/core/constants.py` (`V_SNAP` line 333; `V_YIELD` line 342; `E_CRIT` line 347; `E_YIELD` line 353; `B_SNAP` line 359) per `ave-canonical-source` discipline.
+- **Numerical constants:** `src/ave/core/constants.py` symbols `V_SNAP`, `V_YIELD`, `E_CRIT`, `E_YIELD`, `B_SNAP` per `ave-canonical-source` discipline (symbol-name cites; line numbers are unstable across `constants.py` renumbers).
 
 ## BH-interior framing (canonical preservation)
 

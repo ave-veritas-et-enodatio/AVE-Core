@@ -86,7 +86,7 @@ The discriminating axis across all three is impedance **symmetry** (Γ=0 matched
 ### Three-route $u_0^*$ falsifiability
 
 - [`common/omega-freeze-cosmic-grain-cascade.md`](../../common/omega-freeze-cosmic-grain-cascade.md) §1 (clm-dsb560)
-- `src/ave/core/constants.py` header preamble lines 18–24 (three-route framework commitment)
+- `src/ave/core/constants.py` header preamble (module docstring; three-route framework commitment)
 - Vol 9 Ch.12 cosmological characteristics §three-routes
 
 ## Manuscript counterpart

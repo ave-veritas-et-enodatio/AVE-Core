@@ -1,0 +1,54 @@
+% electron_selfbiased_multiport.tex — the electron as a self-biased multi-port
+% LC circuit at a self-set Q-point (Vol 9 Ch.3a).
+% Source: resonant-lc-solitons.md:133-147 (Q-point resultbox) + cvr-dc-operating-point.md:43-45.
+% House style: WHITE, american circuitikz.
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.92, transform shape]
+    % ================= EM carrier port (single external, matched) =================
+    \node[font=\bfseries\scriptsize, align=center] at (1.4,3.1) {EM carrier port (sole external)};
+    \draw (0,2.2) node[left, font=\scriptsize] {far field}
+        to[short, o-] (1.0,2.2);
+    \draw (1.0,2.2) to[generic, l=\scriptsize$Z_{\mathrm{EM}}{=}Z_0$] (3.2,2.2);
+    \node[font=\scriptsize, align=center] at (2.1,1.35) {$\Gamma_{\mathrm{EM}}{=}0$ matched; $|\Gamma|^2{=}1{-}\alpha$/cycle};
+
+    % ================= transducer (ideal transformer, provisional) =================
+    \node[font=\scriptsize, align=center] at (4.4,0.65) {TKI transducer\\(\texttt{def-tk1xfm}, provisional)};
+    \draw (3.2,2.2) to[short] (4.0,2.2);
+    \draw[line width=0.8pt] (4.1,1.5) .. controls (4.5,1.85) and (4.5,2.55) .. (4.1,2.9);
+    \draw[line width=0.8pt] (4.7,1.5) .. controls (4.3,1.85) and (4.3,2.55) .. (4.7,2.9);
+    \draw (4.8,2.2) to[short] (5.8,2.2);
+
+    % ================= MASS port (A1 bulk, sub-saturated varactor) =================
+    \node[font=\bfseries\scriptsize, align=center] at (8.2,3.1) {MASS port (A1 bulk)};
+    \draw (5.8,2.2) to[L, l=\scriptsize$L_{\mathrm{bulk}}$] (7.8,2.2);
+    \draw (7.8,2.2) to[short] (8.8,2.2);
+    \draw (8.8,2.2) to[C, l=\scriptsize$C_{\mathrm{eff}}{=}C_0/S$, *-] (8.8,0.9) node[ground]{};
+    \node[font=\scriptsize, align=center] at (10.6,2.5)
+        {energy scale $V_{\mathrm{snap}}{=}m_ec^2/e$};
+    \node[font=\scriptsize, align=center] at (10.6,1.9)
+        {$E{=}m_ec^2$ (rest energy)};
+    \node[font=\scriptsize, align=center] at (7.4,1.25)
+        {sub-saturated $A{=}\sqrt{\alpha}{\approx}0.085$, $S{\approx}0.996$};
+
+    % ================= mu Meissner note — EM-SECTOR param, tied to the EM branch =================
+    % mu_eff is a param of Z_EM = sqrt(mu_eff/eps_eff), NOT a mechanical branch;
+    % it is TRANSDUCED from the CHARGE-port micro-rotation (see caption + transducer symbol),
+    % NOT direct-wired to the mechanical Z_shear/Z_bulk.
+    \draw[dashed, blue!45!black] (2.1,2.05) -- (2.1,0.95);
+    \node[font=\scriptsize, align=center, blue!55!black] at (1.35,0.5)
+        {EM $\mu$-sector on $Z_{\mathrm{EM}}$:\\$\mu_{\mathrm{eff}}{\to}0$ Meissner\\(transduced from charge port,\\not mech.\ direct-wired)};
+
+    % ================= CHARGE port (T2 shear, shorted-stub Gamma=-1 wall) =================
+    \node[font=\bfseries\scriptsize, align=center] at (4.7,-0.35) {CHARGE port (T2 shear)};
+    \draw (5.8,2.2) to[short] (5.8,-1.0);
+    \draw (5.8,-1.0) to[generic, l^=\scriptsize$Z_{\mathrm{shear}}$] (3.6,-1.0);
+    \draw[thick, red!70!black] (3.6,-0.4) -- (3.6,-1.6);   % shorted stub / Gamma=-1 wall
+    \node[font=\scriptsize, red!70!black, align=center] at (2.35,-1.35)
+        {$\Gamma{=}-1$ wall\\(shorted stub, $Z_{\mathrm{shear}}{\to}0$)};
+    \node[font=\scriptsize, align=center] at (5.9,-1.9)
+        {self-traps at $V_{\mathrm{yield}}{=}\sqrt{\alpha}V_{\mathrm{snap}}{\approx}\SI{43.65}{\kV}$};
+\end{circuitikz}
+\caption[The electron as a self-biased multi-port LC circuit]{The electron as a \textbf{self-biased multi-port LC circuit at a self-set, self-stable Q-point} (consistency-class; canonical at \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md}:133--147). Three channels at their per-port quiescent biases: the single external \textbf{EM carrier port} ($Z_{\mathrm{EM}}{=}Z_0$, matched, the per-cycle $\alpha$ leak $|\Gamma|^2{=}1{-}\alpha$); the \textbf{CHARGE port} (mechanical Cosserat $(2,3)$ micro-rotation $\to Z_{\mathrm{shear}}$) self-trapped at $V_{\mathrm{yield}}$ as a $\Gamma{=}-1$ shorted stub ($Z_{\mathrm{shear}}{\to}0$, the confinement cage); the \textbf{MASS port} (A1 dilatation $\to$ bulk) sub-saturated at $A{=}V_{\mathrm{yield}}/V_{\mathrm{snap}}{=}\sqrt{\alpha}{\approx}0.085$ ($S{\approx}0.996$), with its energy scale $E{=}m_ec^2$ at $V_{\mathrm{snap}}$ but operating well below it (the $S{\to}0$ varactor runaway never fires --- why it binds); and the EM $\mu_{\mathrm{eff}}{\to}0$ Meissner onset (transduced from the micro-rotation circulation via the provisional \texttt{def-tk1xfm} dictionary, flagged not derived). Self-biased: Axiom-4 self-saturation \emph{is} the bias mechanism (no external network); self-stable: the $R\!\cdot\!r{=}\tfrac14$ Q-point. Sector keying \texttt{def-vyvsn1} (Grant 2026-06-30). The $A1\perp T2$ orthogonality holds: the two homonymous ``3''s are never wired into one phasor.}
+\label{fig:vol9_electron_selfbiased_multiport}
+\end{figure}

@@ -99,7 +99,7 @@ $l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~\si{\metr
 \textbf{Weak-force-range} Cosserat characteristic length, identified with $r_W$. Couple-stress / shear-modulus ratio sets the length over which Cosserat micro-rotation correlates; weak interactions operating below the medium's natural cutoff frequency become evanescent waves with characteristic decay length $l_c^{\text{(weak)}}$. The $W^\pm / Z^0$ gauge bosons are the evanescent cutoff modes of the substrate's bending and torsional rotation sectors respectively. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39. \emph{Distinct from the LATTICE Cosserat coupling length $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m (\texttt{ELL\_C}) --- see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Two Cosserat Characteristic Lengths for the disambiguation.} \\
 
 $m_W / m_Z$ & $\sqrt{7}/3 \approx 0.882$ & --- &
-Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson identity (Ax~1 LC + Ax~2 $\alpha$ interlink; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio). On-shell Weinberg angle $\sin^2 \theta_W = 1 - 7/9 = 2/9$ follows directly. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md}; \kbleaf{src/ave/core/constants.py:563} (\texttt{SIN2\_THETA\_W}, on-shell $\sin^2 \theta_W$). \\
+Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson identity (Ax~1 LC + Ax~2 $\alpha$ interlink; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio). On-shell Weinberg angle $\sin^2 \theta_W = 1 - 7/9 = 2/9$ follows directly. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md}; \kbleaf{src/ave/core/constants.py} (\texttt{SIN2\_THETA\_W}, on-shell $\sin^2 \theta_W$). \\
 
 \bottomrule
 \end{tabular}
@@ -186,7 +186,7 @@ and the standard isotropic-elastic identity $E = 2 G (1 + \nu)$ at $\nu = \nu_{v
 m_W / m_Z = \sqrt{2 G / [2 G (1 + 2/7)]} = \sqrt{7/9} = \sqrt{7}/3 \approx 0.882.
 \]
 
-The on-shell Weinberg angle is $\sin^2 \theta_W = 1 - m_W^2/m_Z^2 = 1 - 7/9 = 2/9$ (canonical-source \kbleaf{src/ave/core/constants.py:563} \texttt{SIN2\_THETA\_W}; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio for the downstream electroweak observables propagating from $\nu_{vac} = 2/7$).
+The on-shell Weinberg angle is $\sin^2 \theta_W = 1 - m_W^2/m_Z^2 = 1 - 7/9 = 2/9$ (canonical-source \kbleaf{src/ave/core/constants.py} \texttt{SIN2\_THETA\_W}; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio for the downstream electroweak observables propagating from $\nu_{vac} = 2/7$).
 
 \textbf{EE-substrate-native projection} (\kbleaf{common/translation-tables/translation-circuit.md} \S 4): the Cosserat couple-stress modulus $\gamma_c$ \emph{is} the \textbf{transformer leakage-inductance characteristic length} at the bond scale. Weak interactions are the substrate-physics manifestation of below-cutoff coupling between two LC tanks separated by a Cosserat-rotational coupling; the same below-cutoff evanescent-wave mathematics governs both. The W/Z mass scale is set by the substrate's transformer-leakage-inductance characteristic frequency (canonical at \kbleaf{gauge-boson-masses.md:39}).
 

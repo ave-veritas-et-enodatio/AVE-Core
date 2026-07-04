@@ -27,7 +27,7 @@ At $K_{\mathrm{bulk}} = 2G_{\mathrm{vac}}$: $c_{\mathrm{bulk}} = \sqrt{2}\,c_0$ 
 
 | Anchor | Content |
 |---|---|
-| `src/ave/core/constants.py` | `Z_0`:98, `RHO_BULK`:646, `G_VAC`:654, `V_LONG`:658 |
+| `src/ave/core/constants.py` | symbols `Z_0`, `RHO_BULK`, `G_VAC`, `V_LONG` |
 | [`z0-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md) | $Z_{\mathrm{EM}} = Z_0$ derivation |
 | [`bulk-impedance-at-saturation-boundary.md`](../../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md) | $\Gamma_{\mathrm{bulk}}=-1$ at $r_{\mathrm{sat}}$ |
 | [`device-circuit-models.md`](../ch3-pin-port-configuration/device-circuit-models.md) | Electron TIR barriers = bulk channel, not EM $\Gamma$ at $Z_0$ |
@@ -41,7 +41,7 @@ Electron confinement uses **bulk-channel** ports (Fig. `fig:vol9_circuit_electro
 
 | Quantity | Source | Match |
 |---|---|---|
-| $Z_0 \approx 376.73\,\Omega$ | `constants.py:98` (`np.sqrt(MU_0/EPSILON_0)`) | ✓ |
+| $Z_0 \approx 376.73\,\Omega$ | `constants.py` symbol `Z_0` (`np.sqrt(MU_0/EPSILON_0)`) | ✓ |
 | $c_{\mathrm{bulk}}=\sqrt{2}\,c_0$ | `test_vacuum_moduli_and_channels.py`:66–70 | ✓ pytest gate |
 | $\Gamma_{\mathrm{EM}}=0$ SYM | `clm-3zz0f6` / `electron-bh-isomorphism.md`:24 | ✓ |
 

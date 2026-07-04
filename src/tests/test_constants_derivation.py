@@ -26,6 +26,7 @@ from ave.core.constants import (
     ALPHA_S,
     B_SNAP,
     C_0,
+    C_CELL,
     DELTA_CP_PMNS,
     E_CRIT,
     E_YIELD,
@@ -38,6 +39,7 @@ from ave.core.constants import (
     ISOTROPIC_PROJECTION,
     KAPPA_FS_COLD,
     ELL_C,
+    L_CELL,
     L_NODE,
     LAMBDA_CKM,
     LAMBDA_HIGGS,
@@ -49,6 +51,7 @@ from ave.core.constants import (
     N_K4,
     NU_KIN,
     NU_VAC,
+    OMEGA_C,
     P_C,
     R_HUBBLE,
     RHO_ETA_MAG,
@@ -124,6 +127,34 @@ class TestTopologicalDerivations:
 
     def test_b_snap(self) -> None:
         assert B_SNAP == pytest.approx(np.sqrt(2 * MU_0 * M_E * C_0**2 / L_NODE**3), rel=1e-12)
+
+    def test_l_cell_reactive_scale_form(self) -> None:
+        # L_CELL ≡ Z_0 / OMEGA_C (the impedance/clock reactive-scale form)
+        assert L_CELL == pytest.approx(Z_0 / OMEGA_C, rel=1e-12)
+
+    def test_c_cell_reactive_scale_form(self) -> None:
+        # C_CELL ≡ 1/(Z_0·OMEGA_C)
+        assert C_CELL == pytest.approx(1.0 / (Z_0 * OMEGA_C), rel=1e-12)
+
+    def test_l_cell_lumped_per_node_form(self) -> None:
+        # L_CELL = μ₀·ℓ_node — the canonical cell tank inductance (per-dof leaf)
+        assert L_CELL == pytest.approx(MU_0 * L_NODE, rel=1e-12)
+
+    def test_c_cell_lumped_per_node_form(self) -> None:
+        # C_CELL = ε₀·ℓ_node — the canonical cell tank capacitance
+        assert C_CELL == pytest.approx(EPSILON_0 * L_NODE, rel=1e-12)
+
+    def test_cell_tank_recovers_z0(self) -> None:
+        # √(L_CELL/C_CELL) = Z_0 (the network characteristic impedance)
+        assert math.sqrt(L_CELL / C_CELL) == pytest.approx(Z_0, rel=1e-12)
+
+    def test_cell_tank_recovers_omega_c(self) -> None:
+        # 1/√(L_CELL·C_CELL) = OMEGA_C (the node clock)
+        assert 1.0 / math.sqrt(L_CELL * C_CELL) == pytest.approx(OMEGA_C, rel=1e-12)
+
+    def test_cell_tank_delay_is_node_span(self) -> None:
+        # √(L_CELL·C_CELL) = ℓ_node/c₀ (lumped-section propagation delay, NOT per-unit-length)
+        assert math.sqrt(L_CELL * C_CELL) == pytest.approx(L_NODE / C_0, rel=1e-12)
 
 
 class TestDielectricDerivations:
