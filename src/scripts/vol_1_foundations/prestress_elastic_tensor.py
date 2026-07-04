@@ -75,6 +75,7 @@ import numpy as np
 # (identical pipeline is what licenses the pre-stressed number).
 from scripts.vol_1_foundations.srs_elastic_tensor import (  # noqa: E402
     _cubic_gamma_row,
+    extract_cubic_Cij,
     moduli_from_Cij,
     simple_cubic_ref,
     srs_primitive,
@@ -669,6 +670,50 @@ def main():
     # ---- (3) the sweep (both assignments) --------------------------------
     sweep = run_sweep(pos_r, bonds_r, rho_r)
     out["sweep_both_assignments"] = sweep
+
+    # ---- (3a) delta_y NORMALIZATION BAND (item 2, orchestrator fix round) --
+    # T=Phi'(A) integrates over DIMENSIONLESS amplitude A; turning it into a FORCE that adds to
+    # k_shear silently identifies the yield-DISPLACEMENT delta_y = 1 bond length (T_phys = delta_y*T,
+    # k0=1). This is an ENGINEERING/NORMALIZATION choice (substrate-first-for-numbers), NOT canon-
+    # forced. Canon's Ax4 residual-content (axiom-register.md:189) bounds the arc* yield anchor at
+    # ~0.89-0.96 l_node (tent) and ~0.79x that under the continuum elastica -> delta_y in ~[0.70,0.96].
+    # Every headline MAGNITUDE is a BAND over this range; the BINARY verdict is robust far beyond it.
+    A_ax_c0, A_sh_c0 = _channel_bias(A_WALL_518_CROSSING, True)
+    S_ax0 = float(saturation_factor(A_ax_c0, yield_limit=1.0))
+    S_sh0 = float(saturation_factor(A_sh_c0, yield_limit=1.0))
+    rho_eff0 = S_ax0 / S_sh0
+    T0 = float(bond_tension(A_ax_c0))
+    ell0 = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds_r]))
+    band = []
+    for dy in (0.70, 0.76, 0.89, 0.96, 1.0):
+        rr = extract_cubic_Cij(pos_r, bonds_r, k_axial=S_ax0, k_shear=S_sh0 + dy * T0 / ell0, rho=rho_r)
+        mm = moduli_from_Cij(rr["C11"], rr["C12"], rr["C44"])
+        band.append({"delta_y_bond_lengths": dy, "T_phys": dy * T0,
+                     "nu_at_crossing": mm["nu_Hill"], "cap_rho_prime": S_ax0 * ell0 / (dy * T0)})
+    # binary robustness: smallest delta_y that still deforms past the 1e-4 nu tolerance
+    thr_dy = None
+    for dy in (1e-4, 1.5e-4, 1e-3, 1e-2):
+        rr = extract_cubic_Cij(pos_r, bonds_r, k_axial=S_ax0, k_shear=S_sh0 + dy * T0 / ell0, rho=rho_r)
+        mm = moduli_from_Cij(rr["C11"], rr["C12"], rr["C44"])
+        if abs(mm["nu_Hill"] - NU_2_7) / NU_2_7 > 1e-4:
+            thr_dy = dy
+            break
+    out["delta_y_normalization_band"] = {
+        "STATUS": "ENGINEERING/NORMALIZATION-CHOICE (NOT canon-forced) -- ledger row added",
+        "meaning": "T=Phi'(A) integrates over dimensionless A; force = delta_y*T with delta_y the "
+        "yield displacement in bond lengths. delta_y=1 was the implicit default (T_phys=T).",
+        "canon_arc_star_band": "0.89-0.96 (tent) / *0.79 (elastica) => delta_y ~ [0.70, 0.96] "
+        "(axiom-register.md:189, Ax4 residual-content)",
+        "nu_at_crossing_BAND": [band[0]["nu_at_crossing"], band[-2]["nu_at_crossing"]],
+        "cap_BAND": [band[-2]["cap_rho_prime"], band[0]["cap_rho_prime"]],
+        "band_table": band,
+        "binary_verdict_deforms_for_delta_y_above": thr_dy,
+        "binary_robustness_margin": f"~{0.70 / (thr_dy or 1e-4):.0f}x (physical delta_y>=0.70 is "
+        f">{0.70 / (thr_dy or 1e-4):.0f}x the ~{thr_dy:.1e} deform threshold)",
+        "note": "MAGNITUDES are BANDS: nu_at_crossing in ~[0.098, 0.151], cap in ~[12.2, 16.7]. "
+        "The BINARY verdict [MAP-DEFORMED] holds for any delta_y > ~1.5e-4 -- a ~5000x margin below "
+        "the physical delta_y. Six-digit headline numbers without the band are false precision.",
+    }
 
     # ---- (3b) KEEP-BOTH tension-form sensitivity (prereg §3) --------------
     # standard form uses each bond's OWN AXIAL tension in (T/l)(I-P). The alternative uses the
