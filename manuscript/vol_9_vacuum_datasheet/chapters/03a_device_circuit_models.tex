@@ -12,15 +12,17 @@
 
 \input{figures/circuit_vacuum_cell.tex}
 
+\noindent\textbf{Metric-varactor sector keying (\texttt{def-vyvsn1}, Grant 2026-07-03).} The cell's metric varactor is the \emph{divergent} longitudinal-A1 bond compliance $C_{eff}(V) = C_0/S(V)$ with $S(V) = \sqrt{1-(V/V_{snap})^2}$: it \textbf{knees at $V_{snap} = m_ec^2/e \approx 511$ kV} (the A1 stretch sector fully saturating, $C_{eff}\to\infty$), \emph{not} at $V_{yield}$. This is distinct from the \emph{roll-off} transverse-$T_2$ permittivity $\varepsilon_{eff}=\varepsilon_0 S$ (bench form $C\propto S$), which keys on the transverse yield wall $V_{yield}=\sqrt\alpha\,V_{snap}\approx43.65$ kV. The two share the EE name ``capacitance'' but are orthogonal reactances (A1 $\perp$ T2); identifying them is the genesis-24 double-count. The SPICE cell (\kbleaf{src/ave/solvers/spice\_models/ave\_vacuum\_cell.lib}, 2026-07-03 sector-keying fix) and the source-of-truth leaf (\kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md}) both key the divergent varactor on $V_{snap}$; this render is synced to that keying (the earlier render carried only the $A^2{=}0.23$ scout row, not the sector split). Consistency-class.
+
 \subsection{Electron Device: TIR-Confined LC Tank}
 \label{sec:vol9_electron_device_circuit}
 
 \input{figures/circuit_electron_barrier.tex}
 
-\subsubsection{Operating-point coefficients at $A^2 \approx 0.23$}
+\subsubsection{Operating-point coefficients at the swept-$\gamma$ characterization point $A^2 \approx 0.23$}
 \label{subsec:vol9_electron_op_coefficients}
 
-Values from \kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md} (driver \texttt{\seqsplit{src/scripts/vol\_1\_foundations/operating\_point\_coefficients.py}}; consistency-class):
+Values from \kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md} (driver \texttt{\seqsplit{src/scripts/vol\_1\_foundations/operating\_point\_coefficients.py}}; consistency-class). \textbf{Which operating point (KEEP-BOTH --- two distinct quantities).} The $A^2 \approx 0.23$ below is the \textbf{swept-$\gamma$ loss-characterization} operating point --- an $m_ec^2$-calibrated \emph{impose} from swept-$\gamma$ device characterization (driver docstring; $A \equiv V/V_{yield}$), used to forward-compute the datasheet nonlinearity slopes ($\mathrm{d}C_{eff}/\mathrm{d}A$, $\mathrm{d}\varepsilon/\mathrm{d}E$). It is \emph{not} the same quantity as the electron's \textbf{A1-mass-core static confinement bias} $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ ($S(\sqrt\alpha)=\sqrt{1-\alpha}\approx0.996$, deeply sub-saturated), which is the strain at which the standing electron's longitudinal-A1 mass channel actually sits inside the transverse-$T_2$ confinement cage (\kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md}:16; \texttt{def-vyvsn1}, Grant 2026-06-30). The two are a device-characterization scout ($A^2=0.23$, for the slopes) vs.\ the derived $\alpha$-echo static bias ($A=\sqrt\alpha$, why the mass channel binds and does not run away) --- both consistency-class, kept distinct here so neither is read as ``the'' electron operating point:
 
 \begin{table}[htbp]
 \centering\footnotesize
