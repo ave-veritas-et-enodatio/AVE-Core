@@ -40,8 +40,11 @@ WHAT THIS DRIVER DOES (three consistency-class re-expressions + one cross-check)
 (3) THE MATCHED-LINE READING (Ax3). At ρ_bond=1 the internal-boundary Γ vanishes
     (clm-mfb2ax): in TL language the line is MATCHED — no internal reflections,
     no mismatch-added dispersion = the Heaviside distortionless face. We report
-    the matched-line Γ=0 numerically. This is a CONSISTENCY re-expression of
-    clm-mfb2ax, NOT a new claim.
+    the matched-line Γ=0 numerically (a TRUE N-section cascade march, plus a
+    heterogeneous-Z accumulation demo). This is a CONSISTENCY re-expression of
+    clm-mfb2ax, NOT a new claim — and it re-expresses only the MATCH/HEAVISIDE
+    (scalar-Z) face; it is BLIND to the BALANCE (k_a/k_s elastic) axis by
+    construction. clm-mfb2ax co-locates all three faces at ρ_bond=1.
 
 α-CLEAN: no α / Q_TANK on any path. c₀, Z₀, ℓ_node, L_CELL, C_CELL imported by
 SYMBOL from ave.core.constants. Everything is CONSISTENCY-class; the only
@@ -297,6 +300,20 @@ def tl_vs_bloch_crosscheck(kls: np.ndarray) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # (3) THE MATCHED-LINE READING — Ax3 Γ=0 at ρ_bond=1 (consistency re-expression)
 # ─────────────────────────────────────────────────────────────────────────────
+def cascade_gamma(z_sections, z_term, theta) -> complex:
+    """March the input impedance through an N-section TL cascade (far→near) and
+    return the input reflection Γ=(Z_in−Z_0)/(Z_in+Z_0). The march is a GENUINE
+    cascade: each section's output-side load is the running Z_in of everything
+    already accumulated behind it (z_load ← z_in at the end of each iteration)."""
+    z_load = z_term
+    z_in = z_load
+    for z_sec in z_sections[::-1]:
+        z_in = z_sec * (z_load + 1j * z_sec * np.tan(theta)) / (
+            z_sec + 1j * z_load * np.tan(theta))
+        z_load = z_in  # ← the running load for the NEXT section back (true cascade)
+    return (z_in - Z_0) / (z_in + Z_0)
+
+
 def matched_line_reading() -> dict:
     """(3) The TL-native statement of clm-mfb2ax: at ρ_bond=1 the line is MATCHED.
 
@@ -306,28 +323,40 @@ def matched_line_reading() -> dict:
     at every bond join. This IS the Heaviside distortionless / matched-line
     condition: a matched line adds NO reflection and NO mismatch-dispersion. This
     is a CONSISTENCY re-expression of clm-mfb2ax (Ax3 forces ρ_bond=1 → Γ=0), NOT
-    a new claim. K<0 honest flag carried (clm-mfb2ax §3): ρ_bond=1 is a lossless-
-    reactive photon point, not a stable static solid."""
-    # Cascade of N identical Z_0 sections: input impedance stays Z_0, Γ=0 exactly.
+    a new claim.
+
+    FACE SCOPE (preempt cross-face conflation): the TL Γ functional re-expresses
+    the MATCH / HEAVISIDE (achromatic εμ / distortionless-line, Z-invariance) face
+    of clm-mfb2ax's one parent condition. It is BLIND to the BALANCE (elastic
+    k_a/k_s axial↔shear) axis BY CONSTRUCTION — a scalar-Z TL carries no elastic
+    axial/shear split. clm-mfb2ax's own result is that MATCH/BALANCE/HEAVISIDE
+    co-locate at ρ_bond=1; this driver reads only the MATCH/HEAVISIDE face.
+
+    K<0 honest flag carried (clm-mfb2ax §3): ρ_bond=1 is a lossless-reactive
+    photon point, not a stable static solid."""
+    theta = 0.3  # arbitrary electrical length per section
     N = 20
-    z_sections = np.full(N, Z_0)  # every bond at the cold matched value
-    # march input impedance from the far termination (matched load = Z_0) back:
-    z_load = Z_0
-    theta = 0.3  # arbitrary electrical length per section (matched ⇒ θ-independent)
-    z_in = z_load
-    for z_sec in z_sections[::-1]:
-        z_in = z_sec * (z_load + 1j * z_sec * np.tan(theta)) / (
-            z_sec + 1j * z_load * np.tan(theta))
-        # for a matched section z_sec==z_load, z_in==z_sec identically
-    gamma = (z_in - Z_0) / (z_in + Z_0)
-    # contrast: a single mismatched bond (ρ_bond≠1 ⇒ Z_bond≠Z_0) DOES reflect.
-    z_mismatch = Z_0 * 1.5  # illustrative internal step (NOT the cold value)
+    # (a) TRUE 20-section MATCHED cascade: every section at the cold Z_0, matched
+    #     load. z_in stays Z_0 at every step ⇒ Γ=0 (a genuine 20-step march now).
+    gamma_matched = cascade_gamma(np.full(N, Z_0), Z_0, theta)
+    # (b) HETEROGENEOUS-Z cascade (accumulation demo): the SAME cascade march with
+    #     a run of mismatched interior sections DOES accumulate reflection — proves
+    #     the loop now performs the march (vs the old one-section-×-20 artifact).
+    z_het = np.array([Z_0, 1.5 * Z_0, 0.7 * Z_0, 1.5 * Z_0, Z_0] + [Z_0] * (N - 5))
+    gamma_het = cascade_gamma(z_het, Z_0, theta)
+    # (c) single mismatched interface (ρ_bond≠1 ⇒ Z_bond≠Z_0) DOES reflect.
+    z_mismatch = Z_0 * 1.5
     gamma_mismatch = (z_mismatch - Z_0) / (z_mismatch + Z_0)
     return {
         "matched_cascade_N": N,
-        "Gamma_internal_matched": float(abs(gamma)),
-        "Gamma_matched_is_zero": bool(abs(gamma) < 1e-12),
+        "Gamma_internal_matched": float(abs(gamma_matched)),
+        "Gamma_matched_is_zero": bool(abs(gamma_matched) < 1e-12),
+        "Gamma_internal_heterogeneous_cascade": float(abs(gamma_het)),
+        "heterogeneous_accumulates": bool(abs(gamma_het) > 1e-3),
         "Gamma_internal_mismatch_example": float(abs(gamma_mismatch)),
+        "face_scope": "TL Γ = the MATCH/HEAVISIDE face of clm-mfb2ax; BLIND to the "
+        "BALANCE (k_a/k_s) axis by construction (scalar-Z line has no axial/shear "
+        "split). MATCH/BALANCE/HEAVISIDE co-locate at ρ_bond=1 per clm-mfb2ax §2.",
         "cites": "clm-mfb2ax (Ax3 forces ρ_bond=1 → Γ_internal=0); consistency-"
         "class re-expression, NOT a new claim.",
         "K_lt_0_honest_flag": "ρ_bond=1 is the lossless-reactive PHOTON operating "
@@ -387,11 +416,16 @@ def main():
           "Brillouin zones — labeled, not a discrepancy.")
 
     ml = out["matched_line_reading"]
-    print("\n(3) MATCHED-LINE READING (clm-mfb2ax, consistency-class):")
-    print(f"    Γ_internal (matched cascade, ρ_bond=1) = {ml['Gamma_internal_matched']:.2e}  "
-          f"(=0: {ml['Gamma_matched_is_zero']})")
-    print(f"    Γ_internal (mismatched bond example)   = {ml['Gamma_internal_mismatch_example']:.4f}")
-    print(f"    K<0 honest flag: {ml['K_lt_0_honest_flag'][:70]}...")
+    print("\n(3) MATCHED-LINE READING (clm-mfb2ax, MATCH/HEAVISIDE face, consistency):")
+    print(f"    Γ_internal (TRUE 20-section matched cascade, ρ_bond=1) = "
+          f"{ml['Gamma_internal_matched']:.2e}  (=0: {ml['Gamma_matched_is_zero']})")
+    print(f"    Γ_internal (heterogeneous-Z cascade, accumulation demo) = "
+          f"{ml['Gamma_internal_heterogeneous_cascade']:.4f}  "
+          f"(accumulates: {ml['heterogeneous_accumulates']})")
+    print(f"    Γ_internal (single mismatched interface)               = "
+          f"{ml['Gamma_internal_mismatch_example']:.4f}")
+    print(f"    face scope: {ml['face_scope'][:66]}...")
+    print(f"    K<0 honest flag: {ml['K_lt_0_honest_flag'][:66]}...")
 
     out_dir = Path(__file__).resolve().parent / "_output"
     out_dir.mkdir(exist_ok=True)

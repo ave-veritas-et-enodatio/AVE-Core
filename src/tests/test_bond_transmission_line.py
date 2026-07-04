@@ -18,6 +18,7 @@ from ave.core.constants import C_0, C_CELL, EPSILON_0, L_CELL, L_NODE, MU_0, Z_0
 from scripts.vol_4_engineering.bond_transmission_line import (
     abcd_lossless_line,
     abcd_lumped_lc_section,
+    cascade_gamma,
     core_identity,
     loaded_line_dispersion,
     matched_line_reading,
@@ -103,3 +104,32 @@ def test_matched_line_gamma_zero():
     assert ml["Gamma_internal_matched"] < 1e-12
     # a mismatched internal bond DOES reflect (the functional genuinely sees it)
     assert ml["Gamma_internal_mismatch_example"] > 0.1
+    # the heterogeneous-Z cascade ACCUMULATES reflection (proves the march runs,
+    # not the old one-section-×-20 artifact)
+    assert ml["heterogeneous_accumulates"] is True
+    assert ml["Gamma_internal_heterogeneous_cascade"] > 1e-3
+
+
+def test_cascade_march_is_genuine():
+    """The cascade must MARCH (each section's load = the running Z_in), which the
+    old fixed-z_load bug could not do. Two independent witnesses:
+      (i)  a uniform-Z_0 line off a MISMATCHED load: |Γ| is length-invariant
+           (standard lossless-matched-line result) but the PHASE advances 2θ per
+           section — so the march is visible in arg(Γ), N=1 vs N=8 must differ;
+      (ii) a HETEROGENEOUS-Z cascade: |Γ| genuinely accumulates with length (the
+           old one-section-×-20 artifact gave a length-independent single step)."""
+    theta = 0.3
+    # N matched sections off a matched load stay Γ=0 for any N
+    for N in (1, 50):
+        assert abs(cascade_gamma(np.full(N, Z_0), Z_0, theta)) < 1e-12
+    # (i) uniform-Z line, mismatched load: |Γ| invariant, phase marches
+    g1 = cascade_gamma(np.full(1, Z_0), 2.0 * Z_0, theta)
+    g8 = cascade_gamma(np.full(8, Z_0), 2.0 * Z_0, theta)
+    assert abs(abs(g1) - abs(g8)) < 1e-9              # |Γ| length-invariant (matched)
+    assert abs(np.angle(g1) - np.angle(g8)) > 1e-3    # but the PHASE marches
+    assert abs(g1) <= 1.0 + 1e-9 and abs(g8) <= 1.0 + 1e-9
+    # (ii) heterogeneous cascade: |Γ| depends on how many interior mismatches — a
+    # longer run of the SAME mismatch pattern is not equal to one section
+    z5 = np.array([1.5 * Z_0, 0.7 * Z_0, 1.5 * Z_0, 0.7 * Z_0, 1.5 * Z_0])
+    z1 = np.array([1.5 * Z_0])
+    assert abs(abs(cascade_gamma(z5, Z_0, theta)) - abs(cascade_gamma(z1, Z_0, theta))) > 1e-3

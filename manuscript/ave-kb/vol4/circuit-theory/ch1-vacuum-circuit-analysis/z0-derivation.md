@@ -170,11 +170,19 @@ worst $1.8\times10^{-3}$.
 internal-boundary reflection vanishes ([`parent-condition-match-forces-balance.md`](parent-condition-match-forces-balance.md),
 clm-mfb2ax). In transmission-line language this is a **matched line**: a cascade of bond TL segments all
 at the same cold $Z_0$ presents no impedance step at any internal node join, so
-$\Gamma_{internal}=(Z_0-Z_0)/(Z_0+Z_0)=0$ at every bond (driver: matched cascade $\Gamma=4.6\times10^{-18}$;
-a deliberately mismatched $Z=1.5Z_0$ bond reflects $|\Gamma|=0.20$, so the reading genuinely sees a
+$\Gamma_{internal}=(Z_0-Z_0)/(Z_0+Z_0)=0$ at every bond (driver: a true 20-section matched cascade
+$\Gamma=4.6\times10^{-18}$; a heterogeneous-$Z$ interior run accumulates $|\Gamma|=0.089$; a single
+mismatched $Z=1.5Z_0$ interface reflects $|\Gamma|=0.20$ — so the reading genuinely marches and sees a
 mismatch). A matched line adds no reflection and no mismatch-dispersion — the **Heaviside distortionless
 line**, the line face of the one Ax3 parent condition (MATCH / BALANCE / HEAVISIDE co-locate at
 $\rho_{bond}=1$; clm-mfb2ax §2). This is a **CONSISTENCY re-expression** of clm-mfb2ax, not a new claim.
+
+> **Face scope (preempts cross-face conflation).** This scalar-$Z$ TL $\Gamma$ functional re-expresses
+> the **MATCH / HEAVISIDE** face (achromatic $\varepsilon\mu$ / distortionless-line, $Z$-invariance) of
+> clm-mfb2ax's one parent condition. It is **blind to the BALANCE** ($k_a/k_s$ axial↔shear elastic) axis
+> **by construction** — a scalar characteristic impedance carries no elastic axial/shear split. The
+> co-location of all three faces at $\rho_{bond}=1$ is clm-mfb2ax's own result (§2); this TL reading
+> supplies only the MATCH/HEAVISIDE face, not an independent BALANCE derivation.
 
 > **$K<0$ honest flag (carried, not re-opened).** $\rho_{bond}=1$ is the **lossless-reactive photon
 > operating point** ($K<0$, mechanically unstable per clm-mfb2ax §3 / the `srs-elastic-tensor` result
