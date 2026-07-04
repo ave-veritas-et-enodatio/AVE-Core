@@ -170,7 +170,11 @@ to leading order in $A$. This is negative, $E^2$-leading, and $O(1)$ against the
 saturation scale $\Ec$ --- it is not loop-suppressed. It vanishes at low field
 ($A\to0$), recovering an unbirefringent tree-level vacuum exactly as QED does at
 tree level; the distinction from QED is one of \emph{coefficient}, at the same
-leading power (Sec.~\ref{sec:prediction}).
+leading power (Sec.~\ref{sec:prediction}). Every coefficient in this paper
+follows from Eq.~\eqref{eq:kernel} by differentiation --- the tensor structure,
+both eigen-indices, the differential and common-mode shifts, and the ratio of
+Sec.~\ref{sec:prediction}; no additional parameter or coupling enters anywhere
+(Appendix~\ref{app:eigen}).
 
 \subsection{The one calibrated scale}
 
@@ -596,6 +600,88 @@ construction and singles out the electric-route XFEL geometry as decisive. We
 have stated the kill criterion in advance and ledgered the one imported scale
 plainly. The measurement that decides the model is within reach of
 commissioning-grade data at an already-operating facility.
+
+\appendix
+
+% ============================================================================
+\section{Derivation of the eigen-indices}
+\label{app:eigen}
+% ============================================================================
+
+The eigen-indices of Eq.~\eqref{eq:eigenindices} follow from the constitutive law
+Eq.~\eqref{eq:kernel} by direct differentiation; we display every step. The
+scalar law relates displacement and field through the field-magnitude invariant
+$u\equiv|E|^2$,
+%
+\begin{equation}
+  D_i=\varepsilon_0\,S(u)\,E_i,\qquad S(u)=\sqrt{1-u/\Ec^2}.
+  \label{eq:app-constitutive}
+\end{equation}
+%
+A weak probe $\mathbf e$ rides on a strong, linearly polarized pump $\mathbf E_0$.
+Its small-signal response is the permittivity tensor
+$\varepsilon_{ij}=\partial D_i/\partial E_j$ evaluated at the pump. Applying the
+product rule to Eq.~\eqref{eq:app-constitutive},
+%
+\begin{equation}
+  \varepsilon_{ij}=\frac{\partial}{\partial E_j}
+  \bigl[\varepsilon_0 S(u)E_i\bigr]
+  =\varepsilon_0\Bigl(S\,\frac{\partial E_i}{\partial E_j}
+  +E_i\,\frac{\partial S}{\partial E_j}\Bigr),
+  \qquad\frac{\partial E_i}{\partial E_j}=\delta_{ij},
+  \label{eq:app-productrule}
+\end{equation}
+%
+and the chain rule fixes the second term through
+$\partial S/\partial E_j=S'(u)\,\partial u/\partial E_j=2S'(u)E_j$, so that
+evaluated at the pump
+%
+\begin{equation}
+  \varepsilon_{ij}=\left.\frac{\partial}{\partial E_j}
+  \bigl[\varepsilon_0 S(u)E_i\bigr]\right|_{\mathbf E_0}
+  =\varepsilon_0 S(u_0)\,\delta_{ij}+2\varepsilon_0 S'(u_0)\,E_{0i}E_{0j},
+  \label{eq:app-tensor}
+\end{equation}
+%
+with $u_0=|\mathbf E_0|^2\equiv E^2$ and $S'=\mathrm dS/\mathrm du$. This is
+uniaxial, with optic axis along $\hat{\mathbf E}_0$: the two eigenvalues are
+$\varepsilon_0 S$ (transverse, twofold) and $\varepsilon_0(S+2S'E^2)$
+(longitudinal). Differentiating the kernel gives, with $A\equiv E/\Ec$,
+%
+\begin{equation}
+  S'(u)=-\frac{1}{2\Ec^2\sqrt{1-u/\Ec^2}}=-\frac{1}{2\Ec^2 S},
+  \label{eq:app-Sprime}
+\end{equation}
+%
+so that $2S'(u_0)\,E^2=-A^2/S$. The probe indices are the square roots of the
+eigenvalues,
+%
+\begin{align}
+  n_\perp&=\sqrt{S}=(1-A^2)^{1/4}, \label{eq:app-nperp}\\
+  n_\parallel&=\sqrt{S-\frac{A^2}{S}}
+  =\sqrt{\frac{S^2-A^2}{S}}
+  =\sqrt{\frac{1-2A^2}{\sqrt{1-A^2}}}, \label{eq:app-npar}
+\end{align}
+%
+which are Eq.~\eqref{eq:eigenindices}. Expanding for $A\ll1$,
+%
+\begin{equation}
+  n_\perp\simeq1-\tfrac14 A^2,\qquad n_\parallel\simeq1-\tfrac34 A^2,
+  \label{eq:app-expand}
+\end{equation}
+%
+so the birefringence (the polarimeter observable) and the common-mode shift (the
+polarimeter rejects it) are
+%
+\begin{equation}
+  \dnbir=n_\parallel-n_\perp\simeq-\tfrac12 A^2,\qquad
+  \delta n_{\mathrm{iso}}=n_\perp-1\simeq-\tfrac14 A^2,
+  \label{eq:app-shifts}
+\end{equation}
+%
+the differential being exactly twice the common-mode shift. The ratio of
+Sec.~\ref{sec:prediction} then follows from Eq.~\eqref{eq:app-shifts} and the QED
+coefficient alone; no parameter beyond $\Ec$ enters at any step.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{refs}
