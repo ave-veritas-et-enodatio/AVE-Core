@@ -67,6 +67,32 @@ polarization-flip meter reads the SVE prediction against the QED co-prediction.
 
 ---
 
+## Verified engine numbers (at HEAD)
+
+Visual 1 (`electron_lattice_scene.json` meta): srs net z=3 (1728 nodes, all
+degree-3), winding **Q_link=3** (raw 2.9984), **w_tor=2** (reader-certified),
+kernel S(A)=(1−A²)^0.5, doorway **Δb₁=+1** (two-method agree), meridian
+**linking=±1**, cycle length 34.0. Canonical matched cut rc=2.8 (extends the
+committed lane-Z +1 plateau to L=6). 19 wall nodes at yield (A>0.9, S→0.045).
+
+Visual 2 (`hibef_moment_scene.json`): demonstrated pump A²=5.923e-07; NJP
+9835 eV scenario **Δφ=0.1476 rad, Δφ/2=0.0738 rad**, P_SVE=5.438e-03,
+P_QED=2.782e-14, ratio 1.95e11 (field-independent across all 3 probes — the
+α-echo magnitude). S_true=1.000000 at the true amplitude (recorded honestly;
+motivates the labelled visual exaggeration).
+
+## Cross-checks (pre-push audit)
+
+* HTML client-side kernel `Sof(a)=clip((1−a²)^p, S_min, 1)` reproduces the
+  Python `saturation_kernel` **exactly** (max|diff|=0.0 over all 1728 nodes) —
+  the amplitude slider re-evaluates the canonical Ax4 form, not an approximation.
+* Both scene JSONs regenerate **bit-identically** (deterministic drivers).
+* Chirality carrier is the writhe pseudoscalar (flips −0.0409 ↔ +0.0409 L/R),
+  correctly **distinct** from the winding integer (Q_link=+3 both hands) — the
+  scene labels the enantiomorph without conflating the two.
+* Both HTMLs validated headless (node harness): JS executes clean, canvas draws.
+* Public-naming leak scan clean (SVE only; no framework/external terms).
+
 ## Reproduce
 
 ```
