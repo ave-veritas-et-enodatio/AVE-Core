@@ -38,6 +38,68 @@ venv
 # Build auxiliary files (logs, synctex, etc.) — PDFs are tracked
 build/aux/
 
+# ── Driver output directories (2026-07-03 figure-hygiene policy, D4) ──────────
+# Figures are DERIVED ARTIFACTS. The driver + its committed input data are the
+# artifact of record; the rendered binary is regenerable and NOT tracked by
+# default. Only figures CITED from a .tex/.md (via \includegraphics / markdown
+# image / an explicit path reference) are committed — those live in the
+# volumes' `figures/` dirs, which are NOT matched below.
+#
+# These are the deterministic driver scratch dirs (regenerate by re-running the
+# driver named in the sibling result-doc / test). Anything here is safe to lose.
+# Policy note: manuscript/ave-kb/common/engine-capability-map.md §8.
+src/tests/outputs/
+src/scripts/**/_output/
+**/simulations/outputs/
+# (manuscript/**/figures/ is deliberately NOT ignored — those are the tracked,
+#  cited render targets. A cited figure that a driver writes into a `figures/`
+#  dir stays tracked; only the scratch `_output`/`outputs` dirs are ignored.)
+#
+# EXCEPTIONS — 38 CITED figures currently live inside these scratch dirs (a
+# pre-existing policy smell: cited renders belong in `figures/`, not `_output/`;
+# migrating them is a future-arc item, NOT done here). They are already tracked,
+# but the allowlist below makes the intent explicit so a regenerate-then-readd
+# does not silently drop them from a clean-worktree build. verify-before-cite:
+# this list was machine-generated (grep of \includegraphics / markdown-image /
+# path refs) 2026-07-04; re-derive on change.
+!src/scripts/vol_1_foundations/_output/chiral_orbital_holonomy.png
+!src/scripts/vol_1_foundations/_output/secondshell_screw_holonomy.png
+!src/scripts/vol_1_foundations/_output/two_node_alpha_projection.png
+!src/scripts/vol_1_foundations/_output/window_blind_two_threes.png
+!src/scripts/vol_4_engineering/_output/vvs_fig_a_gamma_vs_A.png
+!src/scripts/vol_4_engineering/_output/vvs_fig_b_scramble.png
+!src/scripts/vol_4_engineering/_output/vvs_fig_c_bedrock_spectrum.png
+!src/scripts/vol_4_engineering/_output/vvs_fig_d_sat_admittance.png
+!src/scripts/vol_4_engineering/outputs/optical_caustic_resolution.png
+!src/scripts/vol_6_periodic_table/simulations/outputs/carbon_strain.png
+!src/scripts/vol_9_device/_output/a1_spatial_cavity_mode_fft.png
+!src/scripts/vol_9_device/_output/electron_s11_gate.png
+!src/scripts/vol_9_device/_output/electron_s11_unknown.png
+!src/scripts/vol_9_device/_output/s11_denovo_gate.png
+!src/scripts/vol_9_device/_output/s11_denovo_made.png
+!src/scripts/vol_9_device/_output/s11_denovo_paired.png
+!src/scripts/vol_9_device/_output/s11_denovo_planted.png
+!src/scripts/vol_9_device/_output/two_natured_electron_native_engine.png
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.pdf
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_signal_vs_field.png
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.pdf
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_time_to_5sigma.png
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.pdf
+!src/scripts/vol_9_device/_output/vacuum_birefringence_facility_sweep_window_E_vs_g.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig1_dc_operating_point.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig2_transfer_function_bode.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig3_reflection_smith.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig4_phasor_reactance.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig5_stability_eigenmode.png
+!src/scripts/vol_9_device/cvr_ee_sweep/_output/fig6_parameter_basin.png
+!src/tests/outputs/beryllium_9_density_equator.png
+!src/tests/outputs/beryllium_9_density_z_pos.png
+!src/tests/outputs/boron_11_density_equator.png
+!src/tests/outputs/ee_network_analysis.png
+!src/tests/outputs/helium_4_density_equator.png
+!src/tests/outputs/helium_4_density_z_pos.png
+!src/tests/outputs/lithium_7_density_equator.png
+
 # Simulation data
 data/*
 simulations/*
