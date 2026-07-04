@@ -73,21 +73,21 @@ def test_loaded_line_recovers_sine_law():
     assert edge["w_bloch_over_wmax"] == pytest.approx(1.0, rel=1e-12)
 
 
-# ── (4) TL-vs-Bloch cross-check (positive control) ───────────────────────────
-def test_tl_vs_bloch_small_k_agreement():
-    # POSITIVE CONTROL: at the photon point (small kℓ) the 1D loaded-line band
-    # matches the genuine srs acoustic eigensolve to <1e-4.
+# ── (4) lumped-cell-band-vs-Bloch cross-check (LUMPED-vs-LUMPED positive control) ─
+def test_lumpcell_vs_bloch_small_k_agreement():
+    # POSITIVE CONTROL: at the photon point (small kℓ) the lumped-node-cell Bloch
+    # band (the ωτ≪1 face) matches the genuine srs acoustic eigensolve to <1e-4.
     cc = tl_vs_bloch_crosscheck(np.array([0.01, 0.02, 0.05, 0.1]))
     for r in cc["rows"]:
-        assert r["tl_vs_bloch_rel_dev"] < 1e-4
+        assert r["lumpcell_vs_bloch_rel_dev"] < 1e-4
 
 
-def test_tl_vs_bloch_within_first_bz_and_anisotropy_grows():
-    # within the first BZ the sine-law tracks the srs branch to <1%; the srs
-    # rank-2 anisotropy spread grows toward the zone edge (the existing weak-C
-    # zone-edge flag the scalar TL cannot host — reported, not forced).
+def test_lumpcell_vs_bloch_within_first_bz_and_anisotropy_grows():
+    # within the first BZ the lumped-cell sine-law tracks the srs branch to <1%;
+    # the srs anisotropy spread grows toward the zone edge (the existing weak-C
+    # zone-edge flag the scalar 1D line cannot host — reported, not forced).
     cc = tl_vs_bloch_crosscheck(np.array([0.1, 0.4, 0.8, 1.11, 2.5]))
-    assert cc["worst_rel_dev_within_first_bz"] < 1e-2
+    assert cc["worst_lumpcell_rel_dev_within_first_bz"] < 1e-2
     # anisotropy is monotone-increasing over the first-BZ window
     in_bz = [r for r in cc["rows"] if not r["past_first_bz_edge"]]
     aniso = [r["srs_anisotropy_spread"] for r in in_bz]
@@ -95,6 +95,19 @@ def test_tl_vs_bloch_within_first_bz_and_anisotropy_grows():
     assert aniso[-1] > aniso[0]
     # the kℓ=2.5 row is past the first BZ edge (folded — not an agreement row)
     assert any(r["past_first_bz_edge"] and abs(r["kl"] - 2.5) < 1e-9 for r in cc["rows"])
+
+
+def test_distributed_linear_band_deviates_from_srs():
+    # HONEST SCOPE: a TRULY-DISTRIBUTED matched cell gives the LINEAR band ω=c₀q
+    # (dispersionless), which deviates from srs by the band-bending itself — ~2.5e-2
+    # at kℓ=0.8 and ~5.4e-2 at the BZ edge (14-52× the lumped-cell headline). This
+    # gates the "lumped-vs-lumped, not distributed-vs-lumped" honest-scope numbers.
+    cc = tl_vs_bloch_crosscheck(np.array([0.8, 1.1107]))
+    assert cc["distributed_linear_rel_dev_at_kl_0p8"] == pytest.approx(2.53e-2, abs=3e-3)
+    assert cc["distributed_linear_rel_dev_at_bz_edge"] == pytest.approx(5.44e-2, abs=3e-3)
+    # and the distributed-linear deviation is >> the lumped-cell deviation
+    r08 = next(r for r in cc["rows"] if abs(r["kl"] - 0.8) < 1e-6)
+    assert r08["distributed_linear_vs_bloch_rel_dev"] > 10 * r08["lumpcell_vs_bloch_rel_dev"]
 
 
 # ── (5) matched-line Γ=0 reading of clm-mfb2ax ───────────────────────────────

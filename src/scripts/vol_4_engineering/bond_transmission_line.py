@@ -257,43 +257,65 @@ def tl_vs_bloch_crosscheck(kls: np.ndarray) -> dict:
 
     rows = []
     for kl in kls:
-        # 1D TL scalar band, normalized so its small-k slope matches c_srs:
-        #   ω_TL(kl) = (2 c_srs / bond_len)·|sin(kl/2)|  (uses srs bond_len + c_srs
-        #   so the two bands share the SAME small-k slope → the deviation at large
-        #   kl is a pure dispersion-shape comparison, not a speed-calibration one).
-        w_tl = (2.0 * c_srs / bond_len) * abs(np.sin(kl / 2.0))
-        # srs eigensolve band per direction:
+        # LUMPED-NODE-CELL Bloch band (the ωτ≪1 face): normalized so its small-k
+        # slope matches c_srs. ω_lump(kl)=(2 c_srs/bond_len)·|sin(kl/2)|. This is
+        # the DISPERSIVE (band-folding) sine-law of a lumped LC section per cell.
+        w_lump = (2.0 * c_srs / bond_len) * abs(np.sin(kl / 2.0))
+        # TRULY-DISTRIBUTED matched-cell band: a matched (Z_0-uniform) distributed
+        # line has NO band-folding — phase accumulates linearly, ω=c₀q exactly
+        # (dispersionless). This is what a genuinely distributed bond cell gives;
+        # it deviates from srs by the band-bending itself (reported as the honest
+        # distributed-cell number).
+        w_linear = c_srs * (kl / bond_len)
+        # srs eigensolve band per direction. NOTE: the srs engine is ITSELF a
+        # discrete mass-spring dynamical matrix (a generalized lumped sine-law), so
+        # this cross-check is LUMPED-vs-LUMPED; it validates the lumped-node-cell
+        # band, it does NOT adjudicate distributed-vs-lumped bond microphysics.
         w_srs_dirs = np.array([
             acoustic_omega(q, kl, pos, a, bonds, bond_len=bond_len) for q in dvecs
         ])
         w_srs_mean = float(np.mean(w_srs_dirs))
         w_srs_spread = float((w_srs_dirs.max() - w_srs_dirs.min()) / w_srs_mean)
-        rel_dev_mean = abs(w_tl / w_srs_mean - 1.0) if w_srs_mean > 0 else 0.0
+        rel_dev_lump = abs(w_lump / w_srs_mean - 1.0) if w_srs_mean > 0 else 0.0
+        rel_dev_linear = abs(w_linear / w_srs_mean - 1.0) if w_srs_mean > 0 else 0.0
         rows.append({
             "kl": float(kl),
-            "w_tl": float(w_tl),
+            "w_lumpcell": float(w_lump),
+            "w_distributed_linear": float(w_linear),
             "w_srs_dirmean": w_srs_mean,
-            "tl_vs_bloch_rel_dev": float(rel_dev_mean),
+            "lumpcell_vs_bloch_rel_dev": float(rel_dev_lump),
+            "distributed_linear_vs_bloch_rel_dev": float(rel_dev_linear),
             "srs_anisotropy_spread": w_srs_spread,
             "past_first_bz_edge": bool(kl > kl_bz_edge),
         })
     # summary: worst rel-dev WITHIN the first BZ (the honest agreement window)
-    in_bz = [r["tl_vs_bloch_rel_dev"] for r in rows if not r["past_first_bz_edge"]]
+    in_bz = [r for r in rows if not r["past_first_bz_edge"]]
     return {
         "c_srs_isotropic": c_srs,
         "bond_len_lnode_units": bond_len,
         "kl_first_bz_edge_100": kl_bz_edge,
-        "worst_rel_dev_within_first_bz": float(max(in_bz)) if in_bz else None,
+        "worst_lumpcell_rel_dev_within_first_bz":
+            float(max(r["lumpcell_vs_bloch_rel_dev"] for r in in_bz)) if in_bz else None,
+        "distributed_linear_rel_dev_at_kl_0p8":
+            next((r["distributed_linear_vs_bloch_rel_dev"] for r in rows
+                  if abs(r["kl"] - 0.8) < 1e-6), None),
+        "distributed_linear_rel_dev_at_bz_edge":
+            next((r["distributed_linear_vs_bloch_rel_dev"] for r in rows
+                  if abs(r["kl"] - kl_bz_edge) < 1e-2), None),
         "worst_aniso_within_first_bz": float(max(
-            r["srs_anisotropy_spread"] for r in rows if not r["past_first_bz_edge"])),
+            r["srs_anisotropy_spread"] for r in in_bz)),
         "rows": rows,
-        "note": "1D TL scalar band vs srs directional-mean, SAME small-k slope. "
-        "Within the first BZ (kℓ<%.3f) the sine-law tracks the srs acoustic "
-        "branch; the growing srs-anisotropy-spread column is the rank-2 direction-"
-        "dependent zone-edge term the scalar 1D TL cannot carry (reported, not "
-        "forced). Rows with past_first_bz_edge=true compare DIFFERENT Brillouin "
-        "zones (srs folds higher bands in at kℓ_edge; the 1D chain edge is kℓ=π) — "
-        "not a physics discrepancy." % kl_bz_edge,
+        "note": "LUMPED-NODE-CELL Bloch band (ωτ≪1 face) vs srs directional-mean, "
+        "SAME small-k slope — and the srs engine is itself a discrete mass-spring "
+        "dynamical matrix, so this is a LUMPED-vs-LUMPED cross-check (validates the "
+        "lumped-node band; does NOT adjudicate distributed-vs-lumped bond micro"
+        "physics). Within the first BZ (kℓ<%.3f) the lumped-cell sine-law tracks "
+        "the srs branch. A TRULY-DISTRIBUTED matched cell would give the LINEAR "
+        "band ω=c₀q, deviating from srs by ~2.5e-2 (kℓ=0.8) / ~5.4e-2 (BZ edge) — "
+        "reported as the distributed-cell figure. The growing srs-anisotropy-spread "
+        "column is a rank-2/graph zone-edge term the scalar 1D line cannot carry "
+        "(reported, not forced). past_first_bz_edge=true rows compare DIFFERENT "
+        "Brillouin zones (srs folds higher bands in; the 1D chain edge is kℓ=π)." % kl_bz_edge,
     }
 
 
@@ -401,17 +423,23 @@ def main():
     print("\n(2) PERIODICALLY-LOADED LINE — Bloch cos(qℓ)=tr(ABCD)/2:")
     print("    ⇒ ω(q)=(2c₀/ℓ_node)|sin(qℓ_node/2)|  (recovers the canonical sine-law).")
     cc = out["tl_vs_bloch_crosscheck"]
-    print(f"\n    TL-vs-srs-Bloch CROSS-CHECK (c_srs={cc['c_srs_isotropic']:.4f}, "
-          f"bond_len={cc['bond_len_lnode_units']:.4f}, "
+    print(f"\n    LUMPED-CELL-band-vs-srs-Bloch CROSS-CHECK (LUMPED-vs-LUMPED; "
+          f"c_srs={cc['c_srs_isotropic']:.4f}, "
           f"1st-BZ edge kℓ≈{cc['kl_first_bz_edge_100']:.3f}):")
-    print(f"    {'kℓ':>7s}  {'ω_TL':>10s}  {'ω_srs(mean)':>12s}  "
-          f"{'|TL/Bloch−1|':>12s}  {'srs aniso':>10s}  BZ")
+    print(f"    {'kℓ':>7s}  {'ω_lumpcell':>10s}  {'ω_srs(mean)':>12s}  "
+          f"{'|lump/Bloch−1|':>13s}  {'|lin/Bloch−1|':>13s}  {'srs aniso':>10s}  BZ")
     for r in cc["rows"]:
         flag = "  <folded>" if r["past_first_bz_edge"] else ""
-        print(f"    {r['kl']:7.3f}  {r['w_tl']:10.4f}  {r['w_srs_dirmean']:12.4f}  "
-              f"{r['tl_vs_bloch_rel_dev']:12.2e}  {r['srs_anisotropy_spread']:10.2e}{flag}")
-    print(f"    ⇒ WITHIN 1st BZ: worst |TL/Bloch−1|={cc['worst_rel_dev_within_first_bz']:.2e}, "
+        print(f"    {r['kl']:7.3f}  {r['w_lumpcell']:10.4f}  {r['w_srs_dirmean']:12.4f}  "
+              f"{r['lumpcell_vs_bloch_rel_dev']:13.2e}  "
+              f"{r['distributed_linear_vs_bloch_rel_dev']:13.2e}  "
+              f"{r['srs_anisotropy_spread']:10.2e}{flag}")
+    print(f"    ⇒ WITHIN 1st BZ: worst |lumpcell/Bloch−1|="
+          f"{cc['worst_lumpcell_rel_dev_within_first_bz']:.2e}, "
           f"worst srs-aniso={cc['worst_aniso_within_first_bz']:.2e}")
+    print(f"    ⇒ a TRULY-DISTRIBUTED matched cell (ω=c₀q, linear) would deviate from srs "
+          f"by {cc['distributed_linear_rel_dev_at_kl_0p8']:.2e} (kℓ=0.8) / "
+          f"{cc['distributed_linear_rel_dev_at_bz_edge']:.2e} (BZ edge).")
     print(f"    ⇒ folded rows (kℓ>{cc['kl_first_bz_edge_100']:.2f}) compare DIFFERENT "
           "Brillouin zones — labeled, not a discrepancy.")
 

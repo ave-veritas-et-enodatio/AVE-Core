@@ -94,10 +94,14 @@ $D$-coeff $= +0.5000$ — the analytic $\mp\tfrac12$. So the lumped LC node is t
 correction is $O(\theta^2)=O((\omega\ell_{node}/c_0)^2)$, i.e. the $\omega\tau\sim1$
 regime is where the lumped picture breaks.
 
-## §2 — THE PERIODICALLY-LOADED LINE: Bloch condition $\cos(q\ell)=\mathrm{tr(ABCD)}/2$
+## §2 — THE PERIODIC-CELL LINE: Bloch condition $\cos(q\ell)=\mathrm{tr(ABCD)}/2$
 
-The lattice is TL segments periodically loaded by the node admittances. The
-standard Bloch/Floquet condition on the cell ABCD is
+The lattice is a periodic chain of identical cells, one cell per bond. *Single
+consistent ontology (no double-booked $C$):* $C_{CELL}=\varepsilon_0\ell_{node}$
+IS the bond segment's own shunt capacitance (§1) — there is no separate node
+admittance to add on top; the "loading" is the periodic cell structure itself
+(the repeated series-$L$/shunt-$C$ unit), not an extra lumped node hung on a bare
+line. The standard Bloch/Floquet condition on the cell ABCD is
 $\cos(q\ell_{eff}) = (A+D)/2 = \mathrm{tr(ABCD)}/2$. For the lumped-node cell
 ($A=1-\theta^2$, $D=1$):
 
@@ -136,29 +140,38 @@ units, bond length $=1.0\,\ell_{node}$). The **first Brillouin zone edge** along
 $a=2\sqrt2\,\ell_{node}$) — a **different** zone from the 1D monatomic chain's
 $k\ell=\pi$ edge:
 
-| $k\ell$ | $\omega_{TL}$ | $\omega_{srs}$(mean) | $|TL/Bloch-1|$ | srs aniso spread | zone |
-|---|---|---|---|---|---|
-| 0.010 | 0.0071 | 0.0071 | $6.4\times10^{-6}$ | $2.8\times10^{-6}$ | 1st BZ |
-| 0.020 | 0.0141 | 0.0141 | $8.0\times10^{-6}$ | $1.1\times10^{-5}$ | 1st BZ |
-| 0.050 | 0.0354 | 0.0354 | $1.9\times10^{-5}$ | $7.0\times10^{-5}$ | 1st BZ |
-| 0.100 | 0.0707 | 0.0707 | $5.9\times10^{-5}$ | $2.8\times10^{-4}$ | 1st BZ |
-| 0.200 | 0.1412 | 0.1412 | $2.1\times10^{-4}$ | $1.1\times10^{-3}$ | 1st BZ |
-| 0.400 | 0.2810 | 0.2812 | $7.7\times10^{-4}$ | $4.5\times10^{-3}$ | 1st BZ |
-| 0.600 | 0.4179 | 0.4185 | $1.5\times10^{-3}$ | $1.0\times10^{-2}$ | 1st BZ |
-| 0.800 | 0.5507 | 0.5517 | $1.8\times10^{-3}$ | $1.8\times10^{-2}$ | 1st BZ |
-| 1.000 | 0.6780 | 0.6785 | $7.8\times10^{-4}$ | $3.3\times10^{-2}$ | 1st BZ |
-| 1.110 | 0.7452 | 0.7444 | $1.0\times10^{-3}$ | $4.6\times10^{-2}$ | 1st BZ edge |
-| 1.500 | 0.9640 | 0.7632 | $2.6\times10^{-1}$ | $5.8\times10^{-1}$ | **folded** |
-| 2.500 | 1.3421 | 0.5681 | $1.4\times10^{0}$ | $1.2\times10^{0}$ | **folded** |
-| 2.985 | 1.4098 | 0.4767 | $2.0\times10^{0}$ | $1.2\times10^{0}$ | **folded** |
+The two comparison bands: the **lumped-node-cell** Bloch band (the $\omega\tau\ll1$
+face, the sine-law) and — for honest scope — the **truly-distributed** matched-cell
+linear band $\omega=c_0 q$ (dispersionless).
+
+| $k\ell$ | $\omega_{lumpcell}$ | $\omega_{srs}$(mean) | $|lumpcell/Bloch-1|$ | $|linear/Bloch-1|$ | srs aniso spread | zone |
+|---|---|---|---|---|---|---|
+| 0.010 | 0.0071 | 0.0071 | $6.4\times10^{-6}$ | $2.2\times10^{-6}$ | $2.8\times10^{-6}$ | 1st BZ |
+| 0.100 | 0.0707 | 0.0707 | $5.9\times10^{-5}$ | $3.6\times10^{-4}$ | $2.8\times10^{-4}$ | 1st BZ |
+| 0.200 | 0.1412 | 0.1412 | $2.1\times10^{-4}$ | $1.5\times10^{-3}$ | $1.1\times10^{-3}$ | 1st BZ |
+| 0.400 | 0.2810 | 0.2812 | $7.7\times10^{-4}$ | $5.9\times10^{-3}$ | $4.5\times10^{-3}$ | 1st BZ |
+| 0.600 | 0.4179 | 0.4185 | $1.5\times10^{-3}$ | $1.4\times10^{-2}$ | $1.0\times10^{-2}$ | 1st BZ |
+| 0.800 | 0.5507 | 0.5517 | $1.8\times10^{-3}$ | $2.5\times10^{-2}$ | $1.8\times10^{-2}$ | 1st BZ |
+| 1.000 | 0.6780 | 0.6785 | $7.8\times10^{-4}$ | $4.2\times10^{-2}$ | $3.3\times10^{-2}$ | 1st BZ |
+| 1.110 | 0.7452 | 0.7444 | $1.0\times10^{-3}$ | $5.4\times10^{-2}$ | $4.6\times10^{-2}$ | 1st BZ edge |
+| 1.500 | 0.9640 | 0.7632 | $2.6\times10^{-1}$ | $3.9\times10^{-1}$ | $5.8\times10^{-1}$ | **folded** |
+| 2.500 | 1.3421 | 0.5681 | $1.4\times10^{0}$ | $2.1\times10^{0}$ | $1.2\times10^{0}$ | **folded** |
+| 2.985 | 1.4098 | 0.4767 | $2.0\times10^{0}$ | $3.4\times10^{0}$ | $1.2\times10^{0}$ | **folded** |
 
 **Reading:**
-- **Small $k\ell$ (the photon point):** TL and srs-Bloch agree to $6.4\times10^{-6}$
-  (at $k\ell=0.01$). The 1D loaded-line sine-law **IS** the srs acoustic branch at
-  the photon point. **Positive control PASSES.**
-- **Through the first BZ** ($k\ell<1.11$): the scalar TL tracks the srs
-  directional-mean to worst $1.8\times10^{-3}$ (at $k\ell=0.8$). The lumped/1D-TL
-  scalar approximation is good to $\sim0.2\%$ across the entire first BZ.
+- **Small $k\ell$ (the photon point):** the **lumped-node-cell** band and srs-Bloch
+  agree to $6.4\times10^{-6}$ (at $k\ell=0.01$). **Positive control PASSES.**
+- **Through the first BZ** ($k\ell<1.11$): the lumped-node-cell band tracks the srs
+  directional-mean to worst $1.8\times10^{-3}$ (at $k\ell=0.8$).
+- **Honest scope — lumped-vs-lumped, not distributed-vs-lumped.** The srs engine is
+  itself a discrete mass-spring dynamical matrix (a generalized lumped sine-law),
+  so the agreement above validates the **lumped-node-cell** band; it does NOT
+  adjudicate distributed-vs-lumped bond microphysics. A **truly-distributed**
+  matched-segment cell would give the **linear** band $\omega=c_0 q$
+  (dispersionless — a matched line has no band-folding), deviating from srs by
+  $2.5\times10^{-2}$ ($k\ell=0.8$) / $5.4\times10^{-2}$ (BZ edge) — 14–52× the
+  lumped-cell headline (the $|linear/Bloch-1|$ column above). Both cells are
+  legitimate readings of the SAME bond constants.
 - **The srs anisotropy spread** grows monotonically $2.8\times10^{-6}\to4.6\times10^{-2}$
   across the first-BZ window — this is the **rank-2 direction-dependent zone-edge
   term** the scalar 1D TL cannot carry. It reproduces the existing engine finding:

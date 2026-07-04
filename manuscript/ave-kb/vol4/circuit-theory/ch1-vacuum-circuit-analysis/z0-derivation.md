@@ -129,8 +129,12 @@ section ABCD are:
 > $-0.5000$, $+0.5000$). The lumped LC node is the **$\omega\tau\ll1$ (low-frequency) limit** of the
 > distributed bond TL; the $\omega\tau\sim1$ regime is where the lumped picture breaks.
 
-**Periodically-loaded line — the Bloch condition recovers the sine-law.** The lattice is TL segments
-periodically loaded by the node admittances; the standard Bloch/Floquet condition on the cell ABCD is
+**Periodic-cell line — the Bloch condition recovers the sine-law.** The lattice is a **periodic chain of
+identical cells**, one cell per bond. *Single consistent ontology (no double-booked $C$):* per §1 above,
+$C_{cell}=\varepsilon_0\ell_{node}$ **is** the bond segment's own shunt capacitance — there is **no
+separate node admittance to add on top**; the "loading" is the periodic **cell structure itself** (the
+repeated series-$L$ / shunt-$C$ unit), not an extra lumped node hung on a bare line. The standard
+Bloch/Floquet condition on the cell ABCD is
 $\cos(q\ell_{eff})=(A+D)/2=\mathrm{tr(ABCD)}/2$. For the lumped-node cell this gives
 $1-\tfrac12\theta^2=\cos(q\ell_{node})\Rightarrow\theta=2|\sin(q\ell_{node}/2)|$, i.e.
 
@@ -144,14 +148,25 @@ in `ngspice-46`, recovering $\omega(k)=2\omega_0|\sin(ka/2)|$ to median rel-err 
 the concurrent phase-1 ladder ([`research/2026-07-04_spice-phase1-ladder_result.md`](../../../../../research/2026-07-04_spice-phase1-ladder_result.md);
 Vol 9 Ch 13).
 
-**TL-vs-engine-Bloch cross-check (positive control).** The 1D loaded-line band was cross-checked against
-the genuine 24×24 chiral-srs Bloch eigensolve (`src/scripts/vol_4_engineering/srs_bloch_dispersion.py`,
-`acoustic_omega`) at the isotropic-bond photon point $k_s=k_a$, in the **same** $k\ell=|k|\ell_{node}$
-coordinate (coordinate-matched — the srs claim and the TL are both $q$-space dispersion). At small $k\ell$
-(the photon point) the TL band matches the srs acoustic branch to $6\times10^{-6}$; across the entire
+**Lumped-node-cell-band vs engine-Bloch cross-check (positive control).** The **lumped-node-cell Bloch
+band (the $\omega\tau\ll1$ face)** — Eq. above — was cross-checked against the genuine 24×24 chiral-srs
+Bloch eigensolve (`src/scripts/vol_4_engineering/srs_bloch_dispersion.py`, `acoustic_omega`) at the
+isotropic-bond photon point $k_s=k_a$, in the **same** $k\ell=|k|\ell_{node}$ coordinate (coordinate-
+matched — the srs claim and the TL are both $q$-space dispersion). At small $k\ell$ (the photon point)
+the **lumped-node-cell band** matches the srs acoustic branch to $6\times10^{-6}$; across the entire
 **first Brillouin zone** ($k\ell<1.11$, since the srs cubic cell edge $a=2\sqrt2\,\ell_{node}$ puts the
-[100] zone edge at $k\ell=\pi\ell_{node}/a\approx1.11$) the scalar TL tracks the srs directional-mean to
-worst $1.8\times10^{-3}$.
+[100] zone edge at $k\ell=\pi\ell_{node}/a\approx1.11$) the lumped-node-cell band tracks the srs
+directional-mean to worst $1.8\times10^{-3}$.
+
+> **Honest scope — this is a LUMPED-vs-LUMPED cross-check, not a distributed-vs-lumped adjudication.** The
+> srs engine is **itself a discrete mass-spring dynamical matrix** (a generalized lumped sine-law), so the
+> agreement above validates the **lumped-node-cell** band; it does **NOT** adjudicate distributed-vs-lumped
+> bond microphysics. A **truly distributed** matched-segment cell would give the **linear** band
+> $\omega=c_0 q$ (dispersionless — a matched line has no band-folding), which deviates from the srs branch
+> by the band-bending itself: $2.5\times10^{-2}$ at $k\ell=0.8$ and $5.4\times10^{-2}$ at the first-BZ edge
+> (driver-emitted; 14–52× the $6\times10^{-6}$ lumped-cell headline). Both cells are legitimate readings of
+> the SAME bond constants; the sine-law agreement is a statement about the lumped-node model, not a claim
+> that the bond is physically lumped rather than distributed.
 
 > **Scope — the scalar TL vs the RANK-2 srs anisotropy (no new zone-edge tension).** The 1D TL carries a
 > **scalar** (direction-independent) dispersion by construction; the srs eigensolve carries the full
