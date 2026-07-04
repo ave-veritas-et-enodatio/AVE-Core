@@ -323,11 +323,174 @@ def four_tracks(pos, bonds, rho, delta_y=1.0) -> dict:
 
 
 # ===========================================================================
-# PLACEHOLDERS -- filled in subsequent commits (incremental-write discipline)
+# (4) THE BIN SELECTOR -- no fall-through else; DISCREPANT-HALT reachable + unit-tested
 # ===========================================================================
-# (4) THE BIN SELECTOR -- no fall-through else; DISCREPANT-HALT reachable
+class DiscrepantHalt(RuntimeError):
+    """Raised when a derived FORCE SIGN contradicts the remap STRUCTURE it feeds.
+
+    A TENSION (T>0) must GROW k_shear_eff (cap rho'); a COMPRESSION (T<0) must
+    SHRINK it (uncap). If a track's sign and its remap structure disagree, that is
+    a contradiction to surface loudly, NOT silently bin (closes the #521/#526
+    dead-else gap). Unit-tested to TRIGGER on synthetic input.
+    """
+
+
+def _sign_structure_consistent(T_signed: float, S_shear: float, k_shear_eff: float) -> bool:
+    """A tension must not uncap; a compression must not strictly cap.
+
+    tension (T>0)  => k_shear_eff > S_shear (STRICTLY CAPPED, grown).
+    compression (T<0) => k_shear_eff < S_shear (uncapped direction, shrunk).
+    T==0 => k_shear_eff == S_shear (no pre-stress).
+    """
+    if T_signed > 0:
+        return k_shear_eff > S_shear
+    if T_signed < 0:
+        return k_shear_eff < S_shear
+    return abs(k_shear_eff - S_shear) < 1e-12
+
+
+def select_bin(tracks: dict) -> dict:
+    """Map the four tracks to the FROZEN bins. NO fall-through else.
+
+    Reads the SIGN of each arm's end-to-end force (arm a tension, arm b compression)
+    and adjudicates:
+      both arms opposite sign  -> [SIGN-RULE-DERIVED]
+      both arms same sign      -> [SAME-SIGN]
+      an arm's force undefined -> [PATH-INDETERMINATE]
+    DISCREPANT-HALT fires FIRST if any track's sign contradicts its remap structure.
+    """
+    # DISCREPANT-HALT gate (reachable; unit-tested to trigger on synthetic input)
+    for name, t in tracks.items():
+        T, S_sh, kse = t["T_signed"], t["S_shear"], t["k_shear_eff"]
+        if not _sign_structure_consistent(T, S_sh, kse):
+            raise DiscrepantHalt(
+                f"sign<->structure contradiction in track {name!r}: "
+                f"T={T:+.4e}, S_shear={S_sh:.4e}, k_shear_eff={kse:.4e} "
+                f"(tension must cap / compression must uncap)"
+            )
+
+    # arm signs from the SIGN of T (not the remap -- the force is the primary datum)
+    arm_a_signs = {np.sign(t["T_signed"]) for k, t in tracks.items() if t["arm"] == "a_pluck"}
+    arm_b_signs = {np.sign(t["T_signed"]) for k, t in tracks.items() if t["arm"] == "b_endload"}
+
+    # PATH-INDETERMINATE: a force analytically undefined (NaN/inf) or a sign of 0
+    def _undefined(sgns):
+        return (len(sgns) == 0) or any(
+            (s == 0) or (not np.isfinite(s)) for s in sgns
+        )
+
+    if _undefined(arm_a_signs) or _undefined(arm_b_signs):
+        verdict = "PATH-INDETERMINATE"
+        reason = ("an arm's end-to-end force is analytically undefined / zero-signed "
+                  "without additional structure the canon does not supply")
+    else:
+        a_sign = arm_a_signs.pop() if len(arm_a_signs) == 1 else None
+        b_sign = arm_b_signs.pop() if len(arm_b_signs) == 1 else None
+        if a_sign is None or b_sign is None:
+            # an arm carries BOTH signs across laws -> the sign is not law-robust
+            verdict = "PATH-INDETERMINATE"
+            reason = "an arm's sign is not robust across its banded magnitude laws"
+        elif a_sign != b_sign:
+            verdict = "SIGN-RULE-DERIVED"
+            reason = ("opposite-sign end forces from the same fixed-arc constraint: "
+                      "pluck->tension->capped, end-load->compression->uncapped")
+        else:
+            verdict = "SAME-SIGN"
+            reason = (f"both loading paths give sign {a_sign:+.0f}; the channel-keyed "
+                      "hypothesis fails, the #526 fork collapses to a single global sign")
+
+    return {
+        "verdict": verdict, "reason": reason,
+        "arm_a_sign": ("tension(+)" if 1 in {np.sign(t["T_signed"]) for k, t in tracks.items()
+                                             if t["arm"] == "a_pluck"} else "n/a"),
+        "arm_b_sign": ("compression(-)" if -1 in {np.sign(t["T_signed"]) for k, t in tracks.items()
+                                                  if t["arm"] == "b_endload"} else "n/a"),
+    }
+
+
+# ===========================================================================
 # (5) main()
+# ===========================================================================
+def _band_over_arc_star(pos, bonds, rho) -> dict:
+    """Report every rho'/nu track banded over delta_y in the arc* band [0.70, 0.96]."""
+    lo, hi = ARC_STAR_BAND
+    band = {}
+    for dy_name, dy in (("lo", lo), ("hi", hi), ("ref_dy1", 1.0)):
+        band[dy_name] = {"delta_y": dy, "tracks": four_tracks(pos, bonds, rho, delta_y=dy)}
+    return band
 
 
-if __name__ == "__main__":  # pragma: no cover
-    raise SystemExit("physics WIP -- bins/main in subsequent commits")
+def _write(out: dict) -> None:
+    outdir = Path(__file__).resolve().parent / "_output"
+    outdir.mkdir(exist_ok=True)
+    path = outdir / "bond_force_sign_rule.json"
+    path.write_text(json.dumps(out, indent=2, default=str))
+    print(f"\nwrote {path}")
+
+
+def main() -> int:
+    out = {
+        "title": "THE END-TO-END BOND FORCE PER LOADING PATH (resolves the #526 sign fork)",
+        "prereg": "research/2026-07-04_bond-force-sign-rule_prereg_FROZEN.md",
+        "scope": "per-channel SIGN+MAGNITUDE of the per-bond axial load ONLY; "
+        "the cell-dilation relaxation (#526 test 2) is DOWNSTREAM (this is its input)",
+        "arc_star_band_delta_y": ARC_STAR_BAND,
+    }
+    print("=" * 78)
+    print("BOND-FORCE SIGN RULE PER LOADING PATH — resolving the PR #526 sign fork")
+    print("=" * 78)
+
+    pos_r, bonds_r, rho_r = srs_primitive("right")
+
+    # ---- (0) POSITIVE CONTROLS (HALT if fail) ----------------------------
+    pc = run_positive_controls(pos_r, bonds_r, rho_r)
+    out["positive_controls"] = pc
+    print("(0) POSITIVE CONTROLS (HALT if fail):")
+    for k in ("PC_a1_ok", "PC_a2_ok", "PC_b1_ok", "PC_b2_ok", "PC_recon_ok",
+              "PC_dim_symbolic_all_exact_zero"):
+        print(f"  {k:34s} = {pc[k]}")
+    print(f"  ALL_PC_PASS = {pc['ALL_PC_PASS']}")
+    if not pc["ALL_PC_PASS"]:
+        print("\nHALT: positive controls FAILED — no verdict.")
+        _write(out)
+        return 1
+
+    # ---- (1) THE FOUR TRACKS, banded over arc* ---------------------------
+    band = _band_over_arc_star(pos_r, bonds_r, rho_r)
+    out["four_tracks_banded"] = band
+    print("\n(1) THE FOUR TRACKS (delta_y=1 reference; banded lo/hi in JSON):")
+    for name, t in band["ref_dy1"]["tracks"].items():
+        rp = t["rho_prime"]
+        rps = "inf" if rp == float("inf") else f"{rp:.4f}"
+        print(f"  {name:20s}: {t['sign']:14s} law={t['law']:9s} "
+              f"T={t['T_signed']:+.5f} k_sh_eff={t['k_shear_eff']:+.6f} "
+              f"rho'={rps:>9s} nu={t['nu']:+.5f}")
+
+    # ---- (2) THE BIN (no fall-through else; DISCREPANT-HALT reachable) ----
+    try:
+        verdict = select_bin(band["ref_dy1"]["tracks"])
+    except DiscrepantHalt as e:
+        out["verdict"] = {"verdict": "DISCREPANT-HALT", "detail": str(e)}
+        print(f"\nDISCREPANT-HALT: {e}")
+        _write(out)
+        return 2
+    out["verdict"] = verdict
+    print(f"\n(2) VERDICT: [{verdict['verdict']}]  — {verdict['reason']}")
+
+    # ---- (3) THE KNIFE on the plateau 1/4 (condition 4) ------------------
+    out["knife"] = {
+        "plateau_P_c": arm_b_plateau_buckling_load(1.0, 1.0),
+        "quarter_provenance": "tent geometry: (1/2 bend-energy prefactor) x "
+        "(1/2 half-chord chain); a pinned-pinned elastica gives pi^2 instead; "
+        "a FORCE in kernel units, not a charge-fraction 1/4 => KNIFE=noise",
+        "lands_on_canon_distinguished_value": False,
+    }
+    print(f"(3) KNIFE: plateau P_c={out['knife']['plateau_P_c']} (=-1/4, tent geometry, "
+          f"KNIFE=noise)")
+
+    _write(out)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
