@@ -16,6 +16,31 @@ claims: [clm-vjv4zf]
 **Volume:** 4 (Applied Vacuum Engineering)
 **Chapter:** 18
 
+> **✅ NGSPICE-LIVE STATUS (2026-07-04, PR #513 — the validate-on-known ladder passes 5/5).**
+> The canonical `.lib` (`src/ave/solvers/spice_models/ave_vacuum_cell.lib`) and this spec had
+> **never been parsed by a SPICE engine** — the lane was emit-only (charter §1). ngspice-46 is
+> now installed and the five-rung validation ladder ran live and **PASSES 5/5** (HALT-gate never
+> tripped): rung-1 RC/LC analytic transients; rung-2 the Ax4 kernel `S(V)=√(1−(V/V_x)²)` in BOTH
+> orthogonal sectors (A1-divergent `C₀/S` keyed **V_SNAP**, T2-collapse `C₀·S` keyed **V_YIELD**,
+> both to ~1e-7 vs `ave.axioms.scale_invariant.saturation_factor`); rung-3 Poisson `.OP` ==
+> numpy MNA == graph-Laplacian (4.17e-10 V); rung-4 the 1D LC-chain band `ω(k)=2ω₀|sin(ka/2)|`
+> (sub-percent median); rung-5 the first live **bias-couples-to-wave** DC→AC measurement
+> (`C_eff=C₀/S³`, shift tracks S(A)). Class INFRASTRUCTURE / consistency+manifestation — no
+> physics chord/echo minted; `mass = A1` untouched. Full ladder + provenance:
+> `research/2026-07-04_spice-phase1-ladder_result.md`.
+>
+> **Three ngspice-46 `.lib` syntax bugs were caught + fixed at first live parse** (mechanical
+> corrections, physics expressions preserved verbatim — no physics adjudication): (1) a bare
+> standalone `IC=1` line parsed as a phantom element → folded onto the cap line `C_S N_S 0 1 IC=1`;
+> (2) the charge behavioral source `B..Q={expr}` is unsupported → converted to the native charge
+> element `C..Q={expr}` (`B_VAR`→`C_VAR`; sector keying A1↔V_SNAP / T2↔V_YLD UNCHANGED); (3) the
+> relativistic inductor's `idt()` (time-integral) is unsupported → replaced with the native flux
+> element `L_REL A B Flux={L0·i(L_REL)/S(I)}` (physics unchanged). The full nonlinear composite
+> cell + the L2 memristor-relaxation arm PARSE cleanly but do NOT converge a full nonlinear
+> `.TRAN` in ngspice-46 (near-short `R_DAMP`, self-referential flux inductor) — a genuine
+> composite-design numerical limitation, `xfail`'d not papered over; the kernel itself (rung-2)
+> is validated via the isolated per-point `.op` path.
+
 ## `AVE_VACUUM_CELL` Subcircuit
 
 ```spice

@@ -147,6 +147,7 @@
 {"source": "clm-a95yx1", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\alpha$", "fraction": null}
 {"source": "clm-acdc07", "target": "clm-nogo4l", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-acdc07", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-acgyr1", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — fixes the chiral srs $I4_1 32$ / point group $432$ that PERMITS the gyrotropy diamond forbids", "fraction": null}
 {"source": "clm-ak97cb", "target": "INVARIANT-N3", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "operator-boundary tripwires Op4/Op6 etc.", "fraction": null}
 {"source": "clm-ak97cb", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "Gauss cross-shell screening", "fraction": null}
 {"source": "clm-ak97cb", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "cavity saturation boundary $r_{sat}=a_0=\\ell_{node}/\\alpha$; standing-wave radii", "fraction": null}

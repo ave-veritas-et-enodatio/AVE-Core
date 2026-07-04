@@ -5,6 +5,17 @@
 > untouched by everything here. The program hardens the *instruments* so that a
 > future physics verdict cannot be an operator-bug artifact.
 
+> **✅ PROGRAM COMPLETE (2026-07-04).** All five items delivered: items 1/2/5 LANDED
+> via PR #512 (DEC canonicalization + operator-registry CI, validation-harness library,
+> carrier-declaration guard); item 4 LANDED via PR #513 (the ngspice-46 validate-on-known
+> ladder, **5/5 PASS**); item 3 (Lorentz-on-srs, the P1 make-or-break) DELIVERED via
+> PR #515 — the migration's **P1 Lorentz acceptance gate CLEARS** `[ISOTROPY-EMERGES]` on
+> srs-z3 (first full consumer of items 1/2/5). Completion rows mirrored to the capability
+> map §8b.6. **Honesty note:** PR #515 is open (REVIEW: pending-orchestrator, no self-merge);
+> the item-3 row reads DELIVERED-pending-merge, flips to LANDED on merge. The α-chain P1 leg
+> is a SEPARATE gate (not this program). The two SPICE-lane varactor ADJUDICATION-PENDING
+> questions stay OPEN (Grant-gated).
+
 ## Why this program exists — the operator-failure provenance it eliminates
 
 The week's engine-verdict-exposure sweep and the EM-readout Stage-1/1b/2a
@@ -56,8 +67,8 @@ the SPICE ladder (4) is carrier-independent and runs in parallel; Lorentz-on-srs
 | **1** | **DEC canonicalization** — inventory every discrete div/curl/grad; route live consumers through the exact DEC set (`srs_dec.py` ∂₁/∂₂; weighted `BᵀDB`) or scope-tag the heuristic with a DEC pointer (KEEP-BOTH for frozen provenance); CI adjoint-consistency + ∂∂=0 check over the registered operator sets. | `srs_dec.py` (built) | **THIS ARC — ✅ LANDED** | see §1-log |
 | **2** | **Validation-harness library** — extract the proven gate machinery into `src/ave/validation/`: planted-source positive-control, structural-degeneracy checks, runtime-independence assert, hardened equation-audit, spectral-liveness re-export. Retrofit one driver as the demo consumer. | 1 (operator sets registered) | **THIS ARC — ✅ LANDED** | see §2-log |
 | **5** | **Carrier-declaration guard** — every lattice-constructing entry point declares its carrier (`srs-z3` / `diamond-z4-instrument` / `cartesian-reference` / `k-space`); diamond-stencil consumers REQUIRE an explicit `instrument_scope=` acknowledgment or raise. Additive + backward-compatible. | independent (uses 5's own enum) | **THIS ARC — ✅ LANDED** | see §5-log |
-| **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | **PARALLEL ARC** (`analysis/spice-phase1`) | not in this arc |
-| **3** | **Lorentz-on-srs** — boost/transport operator on the srs carrier. | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | **QUEUED behind this arc** | reopens after this arc merges |
+| **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | **PARALLEL ARC** (`analysis/spice-phase1`) — **✅ LANDED (PR #513, 5/5 PASS)** | see §8b.6 / `spice-phase1-ladder_result.md` |
+| **3** | **Lorentz-on-srs** — the P1 make-or-break: photon isotropy / emergent-Lorentz chain on the srs carrier (uses `micropolar_bloch` + the canonical operators + the declared carrier). | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | **✅ DELIVERED (PR #515 — P1 gate CLEARS `[ISOTROPY-EMERGES]`)** | open, REVIEW: pending-orchestrator; flips LANDED on merge; §8b.6 |
 
 ## NOT-NOW items (recorded with reopen-conditions)
 

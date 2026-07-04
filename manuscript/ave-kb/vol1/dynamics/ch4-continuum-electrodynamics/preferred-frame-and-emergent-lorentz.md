@@ -49,6 +49,8 @@ The argument (per AVE-QED [`2026-05-13_lorentz_violation_constraints.md:44-69`](
 
 **Therefore anisotropic corrections are suppressed by $(q\ell_{node})^4$**, not the naive $(q\ell_{node})^2$ a non-cubic lattice would give.
 
+> **↗ CARRIER-NATIVE — the suppression is a CUBIC-POINT-GROUP fact, not diamond-specific (2026-07-04, PR #515, Lorentz-on-srs P1 gate).** The "first anisotropic invariant for a cubic point group is quartic" statement is a property of the cubic point group as such, and the ratified chiral srs-z3 carrier (point group **432**, which is cubic) delivers it identically: the genuine srs Bloch bond-moment sum gives $\langle(\hat q\cdot\hat d)^2\rangle$ isotropic and $\langle(\hat q\cdot\hat d)^4\rangle$ the pure cubic harmonic ($\kappa_{srs}=-1/12$), exactly as diamond ($Fd\bar3m$, i.e. point group $m\bar3m$, gives $\kappa_{diamond}=-2/9$). The **"diamond-cubic" phrasing above over-specifies** — the load-bearing fact is "cubic point group," and **432 ∈ cubic**, so the isotropy defense is carrier-native on the migrated substrate (diamond was an equivalent-order instrument, not the sole host). The $\delta_{aniso}\approx2.2\times10^{-22}$ optical number is an ECHO either way, below the SME bounds. (The raw eigensolve band-edge anisotropy is $\mathcal O(k^2)$ on BOTH carriers, so the distinctive $(q\ell)^4$ photon-DISPERSION tell stays conditional on weak-C, gate `wejkhvnfb` OPEN — unchanged; see §4.1 + the 🔴 blocks below.) Provenance: `research/2026-07-04_lorentz-on-srs_result.md` §4 (S2).
+
 **Optical scale ($\lambda = 633$ nm HeNe, $q = 2\pi/\lambda \approx 10^7$ m$^{-1}$):**
 
 $$q \ell_{node} = 10^7 \times 3.86 \times 10^{-13} = 3.86 \times 10^{-6}$$

@@ -294,6 +294,29 @@ green, `clm-w5ez6i`). Honest class unchanged: this makes `M_eff` EMERGENT (archi
 value-map `r_s = 2GM_eff/c²` still imports G — consistency-class, NOT a new value-chord. The DE-tracks-matter
 irreversible-depletion chord remains a separate, still-UNBUILT Stage-4 capability.
 
+### §8b.6 — engine-upgrade program COMPLETE (2026-07-04; PRs #512 / #513 / #515)
+
+The five-item engine-upgrade program (tracker `_orchestration/2026-07-04_engine-upgrade-program.md`)
+— chartered to retire the "uncertified operator drives a verdict" failure class the verdict-exposure
+sweep exposed (§8b.3) — is **COMPLETE**. Class INFRASTRUCTURE / INSTRUMENT-HARDENING; no physics
+chord/echo/emergence minted; `mass = A1` (PR#260 / #311) untouched. Program-completion rows (cites
+verified at their merge PRs):
+
+| Item | Deliverable | State | PR |
+|:--|:--|:--|:--|
+| **1 — DEC canonicalization** | `operator_registry.py::OPERATOR_SETS` (4 sets registered w/ carrier + adjoint spec); **CI-certified** by `test_operator_adjoint_consistency.py` (adjoint-consistency + ∂∂=0; 15 pass / 3 skip). Sign-convention split (srs `div=−∂₁` vs solver/diamond `div=+gradᵀ`) recorded per-set, reconciled not forced (Rule-10 catch). 2 non-adjoint heuristics scope-tagged, NOT registered. | **✅ LANDED** | #512 |
+| **2 — validation-harness library** | `src/ave/validation/` (5 guards: planted-source, structural-degeneracy, runtime-independence, hardened equation-audit, spectral-liveness re-export); each with a positive AND a negative test. Retrofit demo on the 48×48 micropolar Φ(k). 20 tests green. | **✅ LANDED** | #512 |
+| **5 — carrier-declaration guard** | `src/ave/core/carrier.py` `Carrier` enum (srs-z3 / diamond-z4-instrument / cartesian-reference / k-space); diamond-stencil consumers REQUIRE `instrument_scope=` (RAISE on new construction, DeprecationWarning on frozen-provenance = KEEP-BOTH). Byte-identity preserved (`native_cage L_D` sha256 unchanged). 12 keepers. | **✅ LANDED** | #512 |
+| **4 — SPICE phase-1 ladder** | ngspice-46-backed **validate-on-known ladder 5/5 PASS** (HALT-gate never tripped): RC/LC transients, Ax4 kernel in A1+T2 sectors, Poisson `.OP`==MNA, LC-chain dispersion, live **bias-couples-to-wave** DC→AC. `src/ave/bench/spice_runner.py`; 3 `.lib` syntax bugs caught+fixed at first live parse. `research/2026-07-04_spice-phase1-ladder_result.md`. | **✅ LANDED** | #513 |
+| **3 — Lorentz-on-srs (the P1 make-or-break)** | The migration policy's **P1 acceptance gate CLEARS** `[ISOTROPY-EMERGES]` on srs-z3: leading-order c isotropic to machine precision, NO cold birefringence (transverse branches degenerate `1.7e-14`), the (qℓ)⁴ isotropy FORM re-clears carrier-native (`κ_srs=−1/12`, cubic-point-group fact), the chiral k-linear gyrotropy is srs-distinct + below-bound. First full consumer of items 1/2/5. The Lorentz leg PASSES; the α-chain P1 leg is separate (not this arc). | **✅ DELIVERED** (PR #515 open, REVIEW: pending-orchestrator) | #515 |
+
+**Scope honesty:** item-3 (PR #515) is DELIVERED and the P1 Lorentz gate CLEARS, but the PR is
+still open pending orchestrator review — this row reads the deliverable state, not a merge stamp
+(the §8b "date wins for validation-state" doctrine; the row updates to LANDED on merge). The 🟡
+weak-C demotion of `clm-k4d4ph` / `clm-yr6tu4` is UNCHANGED by this program (the raw eigensolve
+band-edge anisotropy is O(k²) on BOTH carriers; gate `wejkhvnfb` OPEN). The two varactor
+ADJUDICATION-PENDING questions in the SPICE lane remain OPEN (Grant-gated).
+
 ---
 
 ## §8 — Figure-artifact hygiene policy (2026-07-04, D4 — going-forward)

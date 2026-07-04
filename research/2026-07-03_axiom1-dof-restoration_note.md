@@ -92,6 +92,17 @@ these should migrate to z=3 is a **physics re-derivation** (P1/P2 migration acce
 territory — the α/Lorentz-chain survival gate), NOT a documentation edit. Editing z=4→z=3 in a
 Bethe-lattice admittance sum silently changes a numerical result. **flag-don't-fix.**
 
+> **↗ STATUS (2026-07-04, PR #515 — Lorentz-on-srs P1 gate): ONE (c′) derivation-use CLEARED for
+> migration.** The specific `Fd3̄m`-averaging → `(qℓ_node)⁴`-suppression derivation-use (the Lorentz /
+> emergent-isotropy leg) is **RE-DERIVED node-up on the ratified chiral srs-z3 net** (point group
+> 432, `κ_srs=−1/12`) — equivalent isotropy to the diamond instrument (`m3̄m`, `κ=−2/9`). It is
+> therefore **NO LONGER a migration STOP**: the P1 Lorentz acceptance gate CLEARS
+> (`research/2026-07-04_lorentz-on-srs_result.md` §4-S5). **Scope is exactly this one use.** The
+> other ~28 (c′) sites in this table (Bethe-lattice admittance, Higgs Dyson fixed point,
+> Kirkwood-Fröhlich, the K=2G FORM, water z/3) are OUT of this arc's scope and each migrate on their
+> own P2 gate — they stay flag-don't-fix here. (The α-chain P1 leg is separate from the Lorentz leg
+> and is NOT cleared by PR #515.)
+
 | file:line | use |
 |:--|:--|
 | `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:230,:257` | "z=4 is the K4 coordination number" (Higgs Dyson/Bethe-lattice fixed point) |
