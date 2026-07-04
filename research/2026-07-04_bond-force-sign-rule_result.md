@@ -154,21 +154,42 @@ orchestrator review 2026-07-04)** and **banded over arc* ∈ [0.70 elastica, 0.9
 
 ---
 
-## 3. THE KNIFE (condition 4) — the plateau ¼ is tent geometry, KNIFE=noise
+## 3. THE KNIVES (condition 4 + item 3) — plateau ¼ AND the arm-(a) cap at the srs K=0 crossing
 
-The visible knife targets (2/7, 9.7734, ρ'_max≈11.68, 1/√α, ½, **¼**, arc* edges) were armed. The one
-arm-derived new value is the buckling plateau `P_c = −k_b·ℓ/4`. Knife-check of the ¼:
+The visible knife targets (2/7, 9.7734, ρ'_max≈11.68, 1/√α, ½, **¼**, **ρ=2**, arc* edges) were armed.
 
-> The ¼ = (½ bend-energy prefactor) × (½ tent half-chord chain), a **MECHANICAL tent-geometry factor**
-> (sympy `quarter_factor_trace = 0`). A pinned-pinned Euler elastica gives **π²** instead — the ¼ is
-> tent-model-specific, model-dependent (arc* band discipline applies). It is a **FORCE in kernel
-> units** (`k_b·ℓ`), dimensionally distinct from a charge-fraction ¼. A different bend stiffness gives
-> a different plateau (`P_c(k_b=2)=−0.5`, test-locked), so the ¼ is not universal. **KNIFE=noise** —
-> `lands_on_canon_distinguished_value = False`. Reported here under coincidence discipline, not in
-> passing.
+### 3a. The plateau ¼ (condition 4) — tent geometry, KNIFE=noise
+
+> The ¼ in `P_c = −k_b·ℓ/4` = (½ bend-energy prefactor) × (½ tent half-chord chain), a **MECHANICAL
+> tent-geometry factor** (sympy `quarter_factor_trace = 0`). A pinned-pinned Euler elastica gives **π²**
+> instead — tent-model-specific, model-dependent. It is a **FORCE in kernel units** (`k_b·ℓ`),
+> dimensionally distinct from a charge-fraction ¼. A different bend stiffness gives a different plateau
+> (`P_c(k_b=2)=−0.5`, test-locked), so the ¼ is not universal. **KNIFE=noise**.
+
+### 3b. The arm-(a) in-regime cap straddles the srs K=0 crossing at ρ=2 (item 3)
+
+The in-regime arm-(a) cap band is ρ' ∈ [1.97, 7.10]; the **arm_a_phi_prime elastica edge lands at
+ρ'=1.97**, just below the srs K=0 crossing, and **K sign-flips inside the band** (K=−0.001 at ρ'≈1.97 →
+K>0 at ρ'≈7.10). This is knifed explicitly:
+
+> On srs the cold family has **K=0 at ρ=2** (verified: K_bulk=+0.00000, ν=−1) and **K=2G at ρ=9.7734**
+> (K_bulk=+0.458, ν=2/7). The arm-(a) cap band straddles the srs K=0 pole. This is **NOT a
+> canon-distinguished landing**: ρ=2 here is the srs **swapped-spring** coordinate's K=0 zero, an
+> ordinary sign-change of the bulk modulus, not a chord. **KNIFE=noise** — but the K=0 crossing is
+> noted so the ν<0 arm-(a) readings are correctly read as *across the K=0 pole* (the Poisson pole), not
+> as a lost sound mode (`min_acoustic_eig>0` throughout).
+
+> **FLAG (item 3, cross-carrier ρ-convention — auditor-lane, NOT fixed here).** `axiom-register.md:189`
+> reads "$\rho$ is K=2G-set: $\rho=2\Leftrightarrow$ K=2G" — but that is the **moduli-model ρ** (the
+> $k_a/k_s$ stiffness-hierarchy ratio in the buckling derivation, where the z=4/Keating convention puts
+> ρ=2 at K=2G). On **srs**, the swapped-spring coordinate has **K=0 at ρ=2 and K=2G at ρ=9.77** — a
+> DIFFERENT ρ. The two ρ's share the symbol across carriers (moduli-model vs srs swapped-spring). This
+> **cross-carrier ρ-convention ambiguity in the axiom register** is surfaced for the auditor lane; I do
+> not edit the register (flag-don't-fix). Verified this session: srs K(ρ=2)=0, K(ρ=9.77)=2G.
 
 The inherited near-misses (ρ'_max≈1/√α to 0.24% = trivial small-A expansion; 9.7734/cap≈5/6) are
-#526's, restated as noise (`prestress-tensor_result.md:66-69`); no new coincidence.
+#526's, restated as noise (`prestress-tensor_result.md:66-69`); no new coincidence. **KNIFE=False**
+overall — `lands_on_canon_distinguished_value = False`.
 
 ---
 
@@ -293,6 +314,13 @@ It resolves the SIGN axis #526 left explicitly open (`prestress-tensor_result.md
    is law-invariant; the magnitude band is not. Four tracks reported separately (§2) for Grant's noun
    ruling at review. Surfaced, NOT unilaterally resolved.
 
+3. **CROSS-CARRIER ρ-CONVENTION AMBIGUITY in the axiom register (item 3, auditor-lane).**
+   `axiom-register.md:189` "$\rho=2\Leftrightarrow$ K=2G" is the **moduli-model ρ** ($k_a/k_s$
+   hierarchy, z=4/Keating convention); on **srs** the swapped-spring ρ has **K=0 at ρ=2, K=2G at
+   ρ=9.77** — a different ρ sharing the symbol. Verified this session (srs cold family). A register line
+   that reads "ρ=2⟺K=2G" without the carrier qualifier is ambiguous across the moduli-model and srs
+   carriers. Surfaced for the auditor lane; NOT edited here (flag-don't-fix).
+
 ---
 
 ## 9. FALLOUT / AUDITOR-QUEUE (surfaced; implementer does NOT land manuals)
@@ -302,7 +330,9 @@ It resolves the SIGN axis #526 left explicitly open (`prestress-tensor_result.md
 | **#526 ledger row 8** (`prestress-tensor_result.md:403`: "Sign of T … OPEN GRANT-FORK") | **RESOLVE-THE-FORK (candidate):** the sign is now DERIVED and channel-keyed — pluck→T>0→capped, end-load→T<0→uncapped. #526's assumed T>0 (stretched-pair) is the PLUCK arm; the AXIAL bias #526 physically modeled (A1/gravity) is the END-LOAD arm ⟹ **T<0 compression** for the gravitational bias. Provenance `bond-force-sign-rule_result.md`. |
 | **#526 §6.5 SIGN FORK table** (`prestress-tensor_result.md:285-288`) | **REFINE (candidate):** the "T<0 compressive buckling strut (canon)" row is now the DERIVED arm-(b) reading for the A1 end-load; the T>0 row is the arm-(a) pluck reading for the T2 transverse bias. Both are real, channel-keyed — not a single un-adjudicated fork. |
 | **#526 driver docstring** (`prestress_elastic_tensor.py:127-128`) | **STALE-DOCSTRING (flag §8.1):** reconcile the `_prestress_phi_of_k` docstring to §2's corrected (VS4) mechanism. Code correct; comment stale. |
-| **axiom-register.md:189** "A1 dilatation load → T2 bow response" | **CROSS-LINK (candidate):** this arc shows that phrasing IS the force-sign rule (A1 load→compression, T2 response→tension). No rewrite; a cross-link that the sign-keying follows from the load/response split. |
+| **axiom-register.md:189** "A1 dilatation load → T2 bow response" | **CROSS-LINK (candidate):** this arc shows that phrasing IS the force-sign rule (A1 load→compression, T2 *bow* response→tension), read as the MECHANICAL load/response split — NOT the A1-mass/T2-charge sector map (§4 homonym guard). |
+| **axiom-register.md:189** "$\rho=2\Leftrightarrow$ K=2G" (item 3) | **FLAG (cross-carrier ρ-convention, §8.3):** ambiguous across the moduli-model ρ (K=2G at ρ=2) and the srs swapped-spring ρ (K=0 at ρ=2, K=2G at ρ=9.77). Add a carrier qualifier. Auditor-lane. |
+| **T2 homonym in the register grammar** (item 1) | **CROSS-LINK (candidate):** the "T2 bow" (mechanical, axiom-register:189) vs the "T2 self-trap wall" (Cosserat charge winding, vocabulary-register:664, resonant-lc-solitons:95/128) are DISTINCT objects sharing the label; a homonym-guard cross-link would prevent the conflation this review caught. |
 | **The K=2G GR-import grade** (PR#261) | **UNTOUCHED:** this arc adds no value derivation; it adjudicates a SIGN. 9.7734/2/7/K=2G stay GR-imported. |
 
 **No rewrites performed.** Resolve / refine / cross-link / flag ROWS only; the auditor lane lands the
