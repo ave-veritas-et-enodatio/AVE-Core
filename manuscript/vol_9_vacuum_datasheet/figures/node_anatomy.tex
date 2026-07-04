@@ -26,19 +26,19 @@
 
     % --- intrinsic LC tank (drawn to the right as the node's internal reactance) ---
     \begin{scope}[shift={(5.3,0)}]
-        \node[font=\footnotesize\bfseries] at (0,1.75) {Intrinsic LC tank};
+        \node[font=\footnotesize\bfseries] at (0,2.15) {Intrinsic LC tank};
         % inductor (coil) top branch
         \draw[line width=0.8pt] (-1.3,1.0) -- (-0.6,1.0);
         \draw[line width=0.8pt, decorate, decoration={coil, aspect=0.5, segment length=4pt, amplitude=4pt}]
               (-0.6,1.0) -- (0.6,1.0);
         \draw[line width=0.8pt] (0.6,1.0) -- (1.3,1.0);
-        \node at (0,1.45) {$L_{cell}=\mu_0\,\ell_{node}$};
+        \node[align=center, font=\scriptsize] at (0,1.55) {$L_{cell}=\mu_0\,\ell_{node}\approx\SI{4.85e-19}{\henry}$};
         % capacitor bottom branch
         \draw[line width=0.8pt] (-1.3,-1.0) -- (-0.1,-1.0);
         \draw[line width=0.8pt] (-0.1,-0.65) -- (-0.1,-1.35);
         \draw[line width=0.8pt] (0.1,-0.65) -- (0.1,-1.35);
         \draw[line width=0.8pt] (0.1,-1.0) -- (1.3,-1.0);
-        \node at (0,-1.7) {$C_{cell}=\varepsilon_0\,\ell_{node}$};
+        \node[align=center, font=\scriptsize] at (0,-1.7) {$C_{cell}=\varepsilon_0\,\ell_{node}\approx\SI{3.42e-24}{\farad}$};
         % side wires closing the loop
         \draw[line width=0.8pt] (-1.3,1.0) -- (-1.3,-1.0);
         \draw[line width=0.8pt] (1.3,1.0) -- (1.3,-1.0);
@@ -67,6 +67,6 @@
     \end{scope}
 
 \end{tikzpicture}
-\caption{K4 node anatomy. Each node of the chiral Laves K4 Cosserat lattice carries one intrinsic electromagnetic LC tank ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$, resonating at $\omega_0=c_0/\ell_{node}$), connects to its three nearest neighbours (3-fold $z=3$ chiral srs / Sunada-K4 / Laves connectivity) through $Z_0=\sqrt{\mu_0/\varepsilon_0}\approx376.73\,\Omega$ bond transmission lines, and hosts six Cosserat degrees of freedom: three translational (capacitive $\varepsilon_0$, identified with $\mathbf{E}$) and three microrotational (inductive $\mu_0$, identified with $\mathbf{B}$; the substrate-native origin of intrinsic spin). Axioms~1 (substrate topology). Schematic; not driver-generated.}
+\caption{K4 node anatomy. Each node of the chiral Laves K4 Cosserat lattice carries one intrinsic electromagnetic LC tank ($L_{cell}=\mu_0\ell_{node}\approx\SI{4.85e-19}{\henry}$, $C_{cell}=\varepsilon_0\ell_{node}\approx\SI{3.42e-24}{\farad}$; \kbleaf{src/ave/core/constants.py} \texttt{L\_CELL}, \texttt{C\_CELL}), resonating at $\omega_0=c_0/\ell_{node}=\sqrt{1/(L_{cell}C_{cell})}\approx\SI{7.76e20}{\radian\per\second}$ (\texttt{OMEGA\_C}), connects to its three nearest neighbours (3-fold $z=3$ chiral srs / Sunada-K4 / Laves connectivity) through $Z_0=\sqrt{\mu_0/\varepsilon_0}=\sqrt{L_{cell}/C_{cell}}\approx376.73\,\Omega$ bond transmission lines, and hosts six Cosserat degrees of freedom: three translational (capacitive $\varepsilon_0$, identified with $\mathbf{E}$) and three microrotational (inductive $\mu_0$, identified with $\mathbf{B}$; the substrate-native origin of intrinsic spin). Axioms~1 (substrate topology). Schematic; not driver-generated.}
 \label{fig:vol9_node_anatomy}
 \end{figure}

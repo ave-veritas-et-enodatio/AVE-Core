@@ -8,21 +8,25 @@
     \draw (7,0) node[right] {B} to[short, o-] (8,0);
 
     % Relativistic inductor branch (series L + behavioral correction)
-    \draw (1,0) to[L, l=$L_0$, i=$I$] (3.5,0);
+    % L_REL mirrors the .lib designator; cold value L_0 = L_CELL
+    \draw (1,0) to[L, l=$L_{\mathrm{REL}}$, i>^=$I$] (3.5,0);
+    \node[font=\scriptsize] at (2.5, 0.75) {$L_0\approx\SI{4.85e-19}{\henry}$};
 
-    % Metric varactor (shunt nonlinear C)
+    % Metric varactor (shunt nonlinear C); C_VAR mirrors the .lib designator
     \draw (3.5,0) to[short] (5.5,0);
-    \draw (4.5,0) to[C, l=$C_{\mathrm{eff}}(V)$, *-] (4.5,-1.8) node[ground] {};
+    \draw (4.5,0) to[C, l_=$C_{\mathrm{VAR}}$, *-] (4.5,-1.8) node[ground] {};
+    \node[right, font=\scriptsize] at (4.85,-0.9) {$C_0\approx\SI{3.42e-24}{\farad}$};
 
-    % Optional damping (dashed)
-    \draw[dashed, gray] (1,0) to[R, l=\scriptsize $R_0$] (1,-1.2) node[ground] {};
+    % Optional damping (dashed); R_DAMP mirrors the .lib designator
+    \draw[dashed, gray] (1.7,0) to[R, l=\scriptsize $R_{\mathrm{DAMP}}$] (1.7,-1.5) node[ground] {};
     \draw (5.5,0) to[short] (7,0);
 
     % Annotations
-    \node[align=center, font=\scriptsize] at (4.5, 1.35) {Metric varactor: $C_{\mathrm{eff}} = C_0/S(V)$};
-    \node[align=center, font=\scriptsize] at (2.25, 1.0) {Relativistic inductor: $L_{\mathrm{eff}}(I)$};
-    \node[align=center, font=\scriptsize] at (4.5, -2.55) {TVS / rupture at $|V| \ge V_{\mathrm{yield}}$ (optional)};
+    \node[align=center, font=\scriptsize] at (4.6, 1.95) {Metric varactor $C_{\mathrm{VAR}}$: $C_{\mathrm{eff}} = C_0/S(V)$\\(A1 divergent, knee at $V_{\mathrm{snap}}\approx\SI{511}{\kV}$)};
+    \node[align=center, font=\scriptsize] at (2.5, 1.35) {Relativistic inductor $L_{\mathrm{REL}}$: $L_{\mathrm{eff}}(I)$};
+    \node[align=center, font=\scriptsize] at (4.5, -2.55) {TVS / rupture (T2) at $|V| \ge V_{\mathrm{yield}}\approx\SI{43.65}{\kV}$};
+    \node[align=center, font=\scriptsize] at (4.0, -3.15) {bond TL: $Z_0=\sqrt{L_0/C_0}\approx\SI{376.73}{\ohm}$};
 \end{circuitikz}
-\caption{\texttt{AVE\_VACUUM\_CELL} schematic (Vol.~9 Ch.~3 device-circuit-models \S1; SPICE subcircuit Vol.~4 Ch.~18). Canonical leaves cited in \S\ref{sec:vol9_device_circuit_models}.}
+\caption{\texttt{AVE\_VACUUM\_CELL} schematic (Vol.~9 Ch.~3 device-circuit-models \S1; SPICE subcircuit Vol.~4 Ch.~18). Reference designators (\texttt{L\_REL}, \texttt{C\_VAR}, \texttt{R\_DAMP}) mirror the \texttt{.lib} netlist (\kbleaf{src/ave/solvers/spice\_models/ave\_vacuum\_cell.lib}). Cold-lattice element values: $L_0 = L_{cell} = \mu_0\ell_{node}\approx\SI{4.85e-19}{\henry}$, $C_0 = C_{cell} = \varepsilon_0\ell_{node}\approx\SI{3.42e-24}{\farad}$ (\kbleaf{src/ave/core/constants.py} \texttt{L\_CELL}, \texttt{C\_CELL}), $Z_0=\sqrt{L_0/C_0}\approx\SI{376.73}{\ohm}$. Sector keying (\texttt{def-vyvsn1}): the divergent A1 varactor $C_{\mathrm{VAR}}$ knees at $V_{\mathrm{snap}}$; the T2 rupture wall is at $V_{\mathrm{yield}}$. Canonical leaves cited in \S\ref{sec:vol9_device_circuit_models}.}
 \label{fig:vol9_circuit_vacuum_cell}
 \end{figure}
