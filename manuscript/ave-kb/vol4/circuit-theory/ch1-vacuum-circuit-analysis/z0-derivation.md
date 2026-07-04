@@ -144,7 +144,7 @@ $$
 
 — the **same** LC-ladder sine-law derived in [`graded-network-response.md`](graded-network-response.md):55
 (clm-gvn4r1 §1), now read off the ABCD trace. A real-SPICE cross-check of this band (40-cell LC ladder
-in `ngspice-46`, recovering $\omega(k)=2\omega_0|\sin(ka/2)|$ to median rel-err $1.9\times10^{-3}$) is
+in `ngspice-46`, recovering $\omega(k)=2\omega_0|\sin(ka/2)|$ to median rel-err $1.87\times10^{-3}$) is
 the concurrent phase-1 ladder ([`research/2026-07-04_spice-phase1-ladder_result.md`](../../../../../research/2026-07-04_spice-phase1-ladder_result.md);
 Vol 9 Ch 13).
 

@@ -252,7 +252,7 @@ dispersion rung is already landed and merged by the concurrent SPICE phase-1 arc
 ([`2026-07-04_spice-phase1-ladder_result.md`](2026-07-04_spice-phase1-ladder_result.md),
 Vol 9 Ch 13 §"Lattice dispersion (.AC, cold ladder)": a 40-cell LC ladder in
 `ngspice-46` recovers $\omega(k)=2\omega_0|\sin(ka/2)|$ to median rel-err
-$1.9\times10^{-3}$). That is the same sine-law this leaf's ABCD-trace Bloch
+$1.87\times10^{-3}$). That is the same sine-law this leaf's ABCD-trace Bloch
 condition derives, cross-checked in a real SPICE engine. This driver cites it
 rather than duplicating it (per the bonus-rung instruction: skip if the deliverable
 is met without it).
