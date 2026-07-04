@@ -392,9 +392,7 @@ def shear_horizon_reflection(r: float | np.ndarray, r_s: float) -> float | np.nd
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def saturated_radial_strain(
-    r: float | np.ndarray, r_s: float, *, S_min: float = 1e-3
-) -> float | np.ndarray:
+def saturated_radial_strain(r: float | np.ndarray, r_s: float, *, S_min: float = 1e-3) -> float | np.ndarray:
     r"""
     Radial (ε₁₁) strain under the SATURATING-MODULUS correction (Stage-1).
 
@@ -446,9 +444,7 @@ def saturated_radial_strain(
     return A_lin
 
 
-def bulk_stiffness_D(
-    A: float | np.ndarray, *, S_min: float = 1e-3
-) -> float | np.ndarray:
+def bulk_stiffness_D(A: float | np.ndarray, *, S_min: float = 1e-3) -> float | np.ndarray:
     r"""
     BULK elliptic stiffness coefficient D(A) = 1/S(A) (the channel that STIFFENS).
 
@@ -491,9 +487,7 @@ def bulk_stiffness_D(
 # ───────────────────────────────────────────────────────────────────────────────
 
 
-def distributed_source_T00(
-    N: int, *, sigma: float, amplitude: float
-) -> np.ndarray:
+def distributed_source_T00(N: int, *, sigma: float, amplitude: float) -> np.ndarray:
     r"""
     A DISTRIBUTED T₀₀ source profile (a smooth Gaussian energy-density blob),
     centred in an N³ cube. This REPLACES the inherited δ-source (a point mass) so
@@ -517,7 +511,7 @@ def distributed_source_T00(
     return amplitude * np.exp(-r2 / (2.0 * sigma**2))
 
 
-def _build_native_grad_div(N: int):
+def _build_native_grad_div(N: int, *, instrument_scope: str | None = None):
     r"""Assemble the native diamond-K4 Grad / Div sparse operators on an N³ cube.
 
     Factored out of :func:`relax_finite_core_strain` (BIT-IDENTICAL build) so the
@@ -527,12 +521,25 @@ def _build_native_grad_div(N: int):
     permutation-difference operators on ``TETRA_OFFSETS`` (the 4 diamond diagonals);
     the Cartesian 7-pt Laplacian is never used.
 
+    CARRIER (ENGINE-HARDENING item 5): DIAMOND-Z4 NON-CANONICAL INSTRUMENT stencil.
+    New callers should pass `instrument_scope="…"`; omitting it emits a
+    DeprecationWarning (frozen-provenance: this build is the #86 back-reaction leg,
+    so a missing ack does NOT raise — KEEP-BOTH).
+
     Returns:
         (Grad, Div) where Grad is (3·N³, N³) and Div is (N³, 3·N³).
     """
+    from ave.core.carrier import Carrier, require_instrument_scope
     from scipy import sparse
 
     from ave.topological.cosserat_field_3d import TETRA_OFFSETS
+
+    require_instrument_scope(
+        Carrier.DIAMOND_Z4,
+        instrument_scope,
+        site="gw_propagation._build_native_grad_div",
+        frozen_provenance=True,
+    )
 
     ndof = N**3
     lin = np.arange(ndof)
@@ -658,7 +665,7 @@ def relax_finite_core_strain(
     # tetrahedral gradient grad[...,j] += 0.25·p_j·(roll(V,-p) − V) and its adjoint.
     # Extracted into the shared _build_native_grad_div helper (BIT-IDENTICAL) so the
     # Stage-3 self-gravitation loop reuses the SAME native K4 gradient.
-    Grad, Div = _build_native_grad_div(N)
+    Grad, Div = _build_native_grad_div(N, instrument_scope="saturating-modulus finite-core relax (#86 leg)")
 
     # Dirichlet-zero faces: solve on interior DOFs only.
     bnd = np.zeros((N, N, N), dtype=bool)
@@ -780,9 +787,7 @@ def clip_independence_gate(
     masses: list[float] = []
     rows: list[dict] = []
     for s in s_min_values:
-        res = relax_finite_core_strain(
-            N=N, sigma=sigma, amplitude=amplitude, S_min=s
-        )
+        res = relax_finite_core_strain(N=N, sigma=sigma, amplitude=amplitude, S_min=s)
         radii.append(res["shell_radius"])
         masses.append(res["M_eff"])
         rows.append(

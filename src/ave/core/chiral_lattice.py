@@ -125,6 +125,11 @@ class LatticeNet:
     box: float
     a_cell: float = 1.0
     interior_mask: np.ndarray = field(default=None)
+    # ENGINE-HARDENING item 5: the D1-ratified carrier this net speaks. Additive +
+    # defaulted (backward-compatible: a net built without a carrier declaration reports
+    # "unknown"). The builders set it (build_srs_net → "srs-z3"; build_diamond_net →
+    # "diamond-z4-instrument"). See ave.core.carrier.Carrier for the vocabulary.
+    carrier: str = "unknown"
 
     @property
     def n_nodes(self) -> int:
@@ -156,6 +161,7 @@ def _build_net_from_points(
     handedness: str,
     a_cell: float = 1.0,
     nn_tol: float = 0.05,
+    carrier: str = "unknown",
 ) -> LatticeNet:
     """Build a LatticeNet from fractional points under PBC (minimum image)."""
     from scipy.spatial import cKDTree
@@ -166,7 +172,7 @@ def _build_net_from_points(
     n = len(pts)
     neighbors = [[] for _ in range(n)]
     bond_unit = [[] for _ in range(n)]
-    for (i, j) in pairs:
+    for i, j in pairs:
         dij = pts[j] - pts[i]
         dij -= box * np.round(dij / box)  # minimum image
         u = dij / np.linalg.norm(dij)
@@ -193,6 +199,7 @@ def _build_net_from_points(
         box=box * a_cell,
         a_cell=a_cell,
         interior_mask=interior,
+        carrier=carrier,
     )
 
 
@@ -208,20 +215,25 @@ def build_srs_net(L: int = 4, enantiomorph: str = "right", a_cell: float | None 
         a_cell = 2.0 * np.sqrt(2.0)
     motif = srs_motif(enantiomorph)
     pts = []
-    for (cx, cy, cz) in product(range(L), repeat=3):
+    for cx, cy, cz in product(range(L), repeat=3):
         for m in motif:
             pts.append(m + np.array([cx, cy, cz], dtype=float))
     pts = np.array(pts)
     hand = "right (I4_1 32)" if enantiomorph == "right" else "left (I4_3 32)"
     return _build_net_from_points(
-        pts, float(L), _SRS_NN, 3, f"srs[{enantiomorph}]", hand, a_cell=a_cell
+        pts,
+        float(L),
+        _SRS_NN,
+        3,
+        f"srs[{enantiomorph}]",
+        hand,
+        a_cell=a_cell,
+        carrier="srs-z3",  # the D1-ratified production carrier (Axiom-1's object)
     )
 
 
 # Canonical diamond ports (k4_tlm.py:101-114). A joins B via these; B via negatives.
-_DIAMOND_PORTS = np.array(
-    [(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)], dtype=float
-)
+_DIAMOND_PORTS = np.array([(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)], dtype=float)
 
 
 def build_diamond_net(L: int = 4, a_cell: float | None = None) -> LatticeNet:
@@ -238,7 +250,7 @@ def build_diamond_net(L: int = 4, a_cell: float | None = None) -> LatticeNet:
     if a_cell is None:
         a_cell = 1.0
     nodes, index = [], {}
-    for (i, j, k) in product(range(L), repeat=3):
+    for i, j, k in product(range(L), repeat=3):
         all_even = i % 2 == 0 and j % 2 == 0 and k % 2 == 0
         all_odd = i % 2 == 1 and j % 2 == 1 and k % 2 == 1
         if all_even or all_odd:
@@ -272,6 +284,7 @@ def build_diamond_net(L: int = 4, a_cell: float | None = None) -> LatticeNet:
         box=float(L) * a_cell,
         a_cell=a_cell,
         interior_mask=(deg == 4),
+        carrier="diamond-z4-instrument",  # NON-CANONICAL instrument (D1); consumers ack
     )
 
 
@@ -422,5 +435,4 @@ def bond_lc():
     c0 = C_0
     L_per = Z_0 / c0
     C_per = 1.0 / (Z_0 * c0)
-    return {"Z_0": Z_0, "c0": c0, "L_per": L_per, "C_per": C_per, "ell_node": L_NODE,
-            "mu_0": MU_0, "eps_0": EPSILON_0}
+    return {"Z_0": Z_0, "c0": c0, "L_per": L_per, "C_per": C_per, "ell_node": L_NODE, "mu_0": MU_0, "eps_0": EPSILON_0}
