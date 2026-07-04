@@ -1,0 +1,38 @@
+{
+  "rung": 4,
+  "name": "1D LC-chain dispersion omega(k) vs analytic band",
+  "ngspice_version": "ngspice-46",
+  "class": "manifestation (ngspice .AC phase-per-cell == analytic LC-ladder band)",
+  "coordinate_note": "lumped-network omega-vs-(phase-per-cell); measurement + prediction in matching coords (phase-space-coordinate-check ok)",
+  "n_cells": 40,
+  "L_henry": 1e-06,
+  "C_farad": 1e-09,
+  "omega0_rad_s": 31622776.601683795,
+  "cutoff_omega_over_omega0": 2.0,
+  "n_freqs": 60,
+  "max_rel_err_ka": 0.030337030044597424,
+  "median_rel_err_ka": 0.0018738760103086003,
+  "tolerance": 0.05,
+  "samples": [
+    {
+      "omega_over_omega0": 0.7549152532155906,
+      "ka_analytic": 0.7740985822167707,
+      "ka_measured": 0.773981654833127,
+      "rel_error": 0.00015104973233374188
+    },
+    {
+      "omega_over_omega0": 1.4220338906044443,
+      "ka_analytic": 1.5818867471561604,
+      "ka_measured": 1.5862715811066936,
+      "rel_error": 0.002771901312414484
+    },
+    {
+      "omega_over_omega0": 1.699999988523008,
+      "ka_analytic": 2.031970565842693,
+      "ka_measured": 2.033869982257405,
+      "rel_error": 0.000934765712968976
+    }
+  ],
+  "cir": "spice_ladder_rung4_dispersion.cir",
+  "verdict": "PASS"
+}
