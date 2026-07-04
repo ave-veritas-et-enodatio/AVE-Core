@@ -94,7 +94,7 @@ assert "RHO_BULK" not in globals(), "second-leak: bare RHO_BULK magnitude must N
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def build_grad_div_periodic(N: int):
+def build_grad_div_periodic(N: int, *, instrument_scope: str | None = None):
     """Assemble the native tetrahedral Grad (3·ndof × ndof) and Div (ndof × 3·ndof)
     as scipy sparse operators on a periodic N³ cube, from TETRA_OFFSETS ONLY.
 
@@ -103,7 +103,23 @@ def build_grad_div_periodic(N: int):
     L_D = Div · diag(tile(D,3)) · Grad reproduces adjoint_div(D·grad(V)) EXACTLY.
 
     The Cartesian 7-pt Laplacian is FORBIDDEN (HR1) and never built.
+
+    CARRIER (ENGINE-HARDENING item 5): this is the DIAMOND-Z4 NON-CANONICAL
+    INSTRUMENT stencil (TETRA_OFFSETS). New callers should pass
+    `instrument_scope="…"` acknowledging WHY the non-canonical carrier is used;
+    omitting it emits a DeprecationWarning (frozen-provenance: this build backs the
+    Stage-2 native-cage DISPERSE merged verdict, so a missing ack does NOT raise —
+    KEEP-BOTH). The srs-z3 production analog is srs_cage_winding.build_incidence.
     """
+    from ave.core.carrier import Carrier, require_instrument_scope
+
+    require_instrument_scope(
+        Carrier.DIAMOND_Z4,
+        instrument_scope,
+        site="native_cage_imex.build_grad_div_periodic",
+        frozen_provenance=True,
+    )
+
     from scipy import sparse
 
     ndof = N**3
@@ -216,7 +232,7 @@ def cold_explicit_cfl_dt(N: int, dx: float, c0: float, cfl_safety: float = 0.4) 
     limit). Computed from the assembled cold operator's spectral radius."""
     from scipy.sparse.linalg import eigsh
 
-    Grad, Div = build_grad_div_periodic(N)
+    Grad, Div = build_grad_div_periodic(N, instrument_scope="stage-2 native-cage IMEX (merged provenance)")
     L_cold = assemble_L_D(Grad, Div, np.ones(N**3))
     rho = float(eigsh(L_cold, k=1, which="LM", return_eigenvectors=False)[0])
     return cfl_safety * 2.0 / np.sqrt(max(rho * c0**2, 1e-30))
@@ -253,7 +269,9 @@ class NativeCageIMEX:
         self.V_prev = np.zeros((N, N, N), dtype=np.float64)
 
         # Geometry-fixed sparse Grad/Div assembled ONCE (TETRA_OFFSETS).
-        self.Grad, self.Div = build_grad_div_periodic(N)
+        self.Grad, self.Div = build_grad_div_periodic(
+            N, instrument_scope="stage-2 native-cage IMEX (merged provenance)"
+        )
 
         self._build_port_diag()
         self._build_interior_mask()
@@ -265,7 +283,7 @@ class NativeCageIMEX:
         self.dt_cold_cfl = None
         # EM port: closed (lossless) iff port_sigma==0 OR em_port_closed set.
         # The energy gate forces em_port_closed=True (lossless rigor guard).
-        self.em_port_closed = (cfg.port_sigma == 0.0)
+        self.em_port_closed = cfg.port_sigma == 0.0
         self.last_cg_iters = 0
 
     # ── ENERGY-CONSISTENT radiative port (the REJECTED sponge-multiply's fix) ──
@@ -280,11 +298,13 @@ class NativeCageIMEX:
         unchanged (A-Rule 10 PML-exclusion)."""
         N, t = self.N, self.pml_thickness
         i, j, k = np.indices((N, N, N))
-        d = np.minimum.reduce([
-            np.minimum(i, N - 1 - i),
-            np.minimum(j, N - 1 - j),
-            np.minimum(k, N - 1 - k),
-        ])
+        d = np.minimum.reduce(
+            [
+                np.minimum(i, N - 1 - i),
+                np.minimum(j, N - 1 - j),
+                np.minimum(k, N - 1 - k),
+            ]
+        )
         # Quadratic ramp into the shell (0 at interior edge → 1 at the wall).
         shell = np.zeros((N, N, N), dtype=np.float64)
         if t > 0:
@@ -298,7 +318,7 @@ class NativeCageIMEX:
         (A-Rule 10 PML-exclusion). All field observables read THIS region only."""
         N, t = self.N, self.pml_thickness
         mask = np.zeros((N, N, N), dtype=bool)
-        mask[t:N - t, t:N - t, t:N - t] = True
+        mask[t : N - t, t : N - t, t : N - t] = True
         self.interior = mask
 
     # ── kernel readouts (α-free; D=1/S folded once) ──
@@ -469,8 +489,12 @@ class NativeCageIMEX:
 
 
 def energy_conservation_gate(
-    *, N: int = 24, amplitude: float = 0.02, radius: float = 2.5,
-    n_steps: int = 2000, dt_accuracy_factor: float = 1.0,
+    *,
+    N: int = 24,
+    amplitude: float = 0.02,
+    radius: float = 2.5,
+    n_steps: int = 2000,
+    dt_accuracy_factor: float = 1.0,
 ) -> dict:
     """THE IMEX-SPECIFIC RIGOR GUARD (the analog of the explicit sign-check).
 

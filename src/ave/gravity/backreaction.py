@@ -88,9 +88,7 @@ KAPPA_GRAV: float = C_0**4 / (7.0 * G)  # c⁴/7G  [Pa] — the bulk elastic mod
 # ════════════════════════════════════════════════════════════════════════════════
 
 
-def field_energy_density(
-    eps11: np.ndarray, Grad: np.ndarray, *, kappa: float = 1.0
-) -> np.ndarray:
+def field_energy_density(eps11: np.ndarray, Grad: np.ndarray, *, kappa: float = 1.0) -> np.ndarray:
     r"""
     The gravitational field's OWN energy density, on the native K4 gradient.
 
@@ -122,9 +120,7 @@ def field_energy_density(
     return 0.5 * kappa * grad_sq
 
 
-def binding_energy_density(
-    eps11: np.ndarray, Grad: np.ndarray, *, kappa: float = 1.0
-) -> np.ndarray:
+def binding_energy_density(eps11: np.ndarray, Grad: np.ndarray, *, kappa: float = 1.0) -> np.ndarray:
     r"""
     The binding-energy density u_bind = ½ κ |∇ε₁₁|² (the ADM-mass DEFICIT integrand).
 
@@ -295,7 +291,7 @@ def solve_backreaction(
     else:
         T00_matter = np.asarray(T00_matter, dtype=float)
 
-    Grad, _ = _build_native_grad_div(N)
+    Grad, _ = _build_native_grad_div(N, instrument_scope="#86 two-way back-reaction Picard leg")
 
     eps = np.zeros((N, N, N))
     delta_history: list[float] = []
@@ -329,11 +325,9 @@ def solve_backreaction(
     # (the Picard/Banach contraction constant; ρ < 1 ⇒ provably contractive).
     if len(delta_history) >= 3:
         ratios = [
-            delta_history[t] / delta_history[t - 1]
-            for t in range(1, len(delta_history))
-            if delta_history[t - 1] > 0
+            delta_history[t] / delta_history[t - 1] for t in range(1, len(delta_history)) if delta_history[t - 1] > 0
         ]
-        tail = ratios[max(0, len(ratios) - 5):] if ratios else []
+        tail = ratios[max(0, len(ratios) - 5) :] if ratios else []
         contraction_factor = float(np.exp(np.mean(np.log(tail)))) if tail else float("nan")
     else:
         contraction_factor = float("nan")
@@ -348,7 +342,7 @@ def solve_backreaction(
     # is also returned for transparency.
     if len(H_history) >= 2 and H_history[-1] > 0:
         dH_over_H = float(abs(H_history[-1] - H_history[-2]) / max(abs(H_history[-1]), 1e-30))
-        tailH = H_history[max(0, len(H_history) - 5):]
+        tailH = H_history[max(0, len(H_history) - 5) :]
         dH_over_H_tail = float((max(tailH) - min(tailH)) / max(abs(H_history[-1]), 1e-30))
     else:
         dH_over_H = float("nan")
@@ -469,9 +463,7 @@ def check1_extended_source_recovers_inverse_r(
     The window is [r_inner_frac·N (outside the blob), N/2 − r_outer_margin (inside the
     Dirichlet faces)].
     """
-    res = solve_backreaction(
-        N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, return_fields=True
-    )
+    res = solve_backreaction(N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, return_fields=True)
     eps = res["eps11"]
     rr = res["rr"]
     r_in = r_inner_frac * N
@@ -532,9 +524,7 @@ def check2_smin_independent_emergent_rs(
     rows = []
     masses = []
     for s in s_min_values:
-        res = solve_backreaction(
-            N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, S_min=s, return_fields=False
-        )
+        res = solve_backreaction(N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, S_min=s, return_fields=False)
         masses.append(res["M_eff"])
         rows.append(
             {
@@ -619,7 +609,7 @@ def ray_trace_deflection(
     # native K4 gradient of ln n (for the transverse kick — same native operator).
     from ave.gravity.gw_propagation import _build_native_grad_div
 
-    Grad, _ = _build_native_grad_div(N)
+    Grad, _ = _build_native_grad_div(N, instrument_scope="#86 back-reaction recover-GR leg")
     grad_lnn = (Grad @ ln_n.reshape(-1)).reshape(3, N, N, N)
 
     # Ray along +x at fixed (y=c+b, z=c); accumulate the y-momentum kick.
@@ -679,9 +669,7 @@ def check3_raytrace_recovers_4GM(
     the raw δ·b/K is closer to 2ν_vac (GR) than to ν_vac (Newton) AND δ·b/K > 1.5·ν_vac
     (decisively past Newton toward GR).
     """
-    res = solve_backreaction(
-        N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, return_fields=True
-    )
+    res = solve_backreaction(N=N, sigma=sigma, amplitude=amplitude, g_self=g_self, return_fields=True)
     eps = res["eps11"]
     rr = res["rr"]
     # K = monopole coefficient from the boundary-robust a+b/r fit (Check-1 method).
@@ -830,9 +818,7 @@ def check4_two_mass_superposition_engages_nonlinearity(
 # ════════════════════════════════════════════════════════════════════════════════
 
 
-def recover_gr_weak_field(
-    N: int = 24, *, sigma: float = 2.0, amplitude: float = 0.02
-) -> dict:
+def recover_gr_weak_field(N: int = 24, *, sigma: float = 2.0, amplitude: float = 0.02) -> dict:
     r"""
     RECOVER-GR (consistency-class) — the weak-field limit reproduces the one-way core.
 
@@ -874,8 +860,7 @@ def recover_gr_weak_field(
             f"PASS — weak-field two-way recovers the one-way GR core (shape dev "
             f"{shape_dev:.2%}, binding {bf:.2%}, exterior 1/r); consistency-class"
             if passed
-            else f"FAIL — weak-field recovery off (shape dev {shape_dev:.2%}, "
-            f"binding {bf:.2%}, 1/r={inv_r_ok})"
+            else f"FAIL — weak-field recovery off (shape dev {shape_dev:.2%}, " f"binding {bf:.2%}, 1/r={inv_r_ok})"
         ),
     }
 
@@ -913,9 +898,7 @@ def boundedness_energy_gate(
     all_contractive = True
     all_energy_ok = True
     for amp in amplitudes:
-        res = solve_backreaction(
-            N=N, sigma=sigma, amplitude=amp, g_self=g_self, return_fields=False
-        )
+        res = solve_backreaction(N=N, sigma=sigma, amplitude=amp, g_self=g_self, return_fields=False)
         rho = res["contraction_factor"]
         dH = res["dH_over_H"]
         contractive = bool(np.isfinite(rho) and rho < 1.0)

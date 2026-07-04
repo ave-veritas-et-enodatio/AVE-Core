@@ -154,13 +154,12 @@ def _build_srs_incidence_set() -> dict:
 
 def _build_diamond_native_cage_set() -> dict:
     """The diamond-z4 native-cage Grad/Div (native_cage_imex). FROZEN provenance
-    (backs the Stage-2 DISPERSE merged verdict). Div is the exact discrete adjoint
-    of Grad (Div = Gradᵀ up to the periodic-roll transpose); machine-tier."""
+    (backs the Stage-2 DISPERSE merged verdict). Div = +Gradᵀ EXACTLY (positive
+    adjoint; the +PSD L_D = GradᵀDGrad invariant); machine-tier."""
     from ave.solvers.native_cage_imex import build_grad_div_periodic
 
-    Grad, Div = build_grad_div_periodic(N=4)
-    # native convention: Div is the negative adjoint of Grad (roll(+p) vs roll(−p)),
-    # so div = −gradᵀ holds. Register directly.
+    # DIAMOND-Z4 instrument consumption — acknowledged (item-5 guard).
+    Grad, Div = build_grad_div_periodic(N=4, instrument_scope="operator-registry adjoint certification")
     return {"grad": Grad, "div": Div}
 
 
@@ -170,7 +169,8 @@ def _build_gw_native_set() -> dict:
     exact-adjoint permutation-difference construction; machine-tier."""
     from ave.gravity.gw_propagation import _build_native_grad_div
 
-    Grad, Div = _build_native_grad_div(N=4)
+    # DIAMOND-Z4 instrument consumption — acknowledged (item-5 guard).
+    Grad, Div = _build_native_grad_div(N=4, instrument_scope="operator-registry adjoint certification")
     return {"grad": Grad, "div": Div}
 
 

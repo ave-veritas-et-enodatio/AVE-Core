@@ -53,9 +53,9 @@ the SPICE ladder (4) is carrier-independent and runs in parallel; Lorentz-on-srs
 
 | # | Item | Depends on | Arc | Status |
 |:-:|:--|:--|:--|:--|
-| **1** | **DEC canonicalization** — inventory every discrete div/curl/grad; route live consumers through the exact DEC set (`srs_dec.py` ∂₁/∂₂; weighted `BᵀDB`) or scope-tag the heuristic with a DEC pointer (KEEP-BOTH for frozen provenance); CI adjoint-consistency + ∂∂=0 check over the registered operator sets. | `srs_dec.py` (built) | **THIS ARC** | see §1-log |
-| **2** | **Validation-harness library** — extract the proven gate machinery into `src/ave/validation/`: planted-source positive-control, structural-degeneracy checks, runtime-independence assert, hardened equation-audit, spectral-liveness re-export. Retrofit one driver as the demo consumer. | 1 (operator sets registered) | **THIS ARC** | see §2-log |
-| **5** | **Carrier-declaration guard** — every lattice-constructing entry point declares its carrier (`srs-z3` / `diamond-z4-instrument` / `cartesian-reference` / `k-space`); diamond-stencil consumers REQUIRE an explicit `instrument_scope=` acknowledgment or raise. Additive + backward-compatible. | independent (uses 5's own enum) | **THIS ARC** | see §5-log |
+| **1** | **DEC canonicalization** — inventory every discrete div/curl/grad; route live consumers through the exact DEC set (`srs_dec.py` ∂₁/∂₂; weighted `BᵀDB`) or scope-tag the heuristic with a DEC pointer (KEEP-BOTH for frozen provenance); CI adjoint-consistency + ∂∂=0 check over the registered operator sets. | `srs_dec.py` (built) | **THIS ARC — ✅ LANDED** | see §1-log |
+| **2** | **Validation-harness library** — extract the proven gate machinery into `src/ave/validation/`: planted-source positive-control, structural-degeneracy checks, runtime-independence assert, hardened equation-audit, spectral-liveness re-export. Retrofit one driver as the demo consumer. | 1 (operator sets registered) | **THIS ARC — ✅ LANDED** | see §2-log |
+| **5** | **Carrier-declaration guard** — every lattice-constructing entry point declares its carrier (`srs-z3` / `diamond-z4-instrument` / `cartesian-reference` / `k-space`); diamond-stencil consumers REQUIRE an explicit `instrument_scope=` acknowledgment or raise. Additive + backward-compatible. | independent (uses 5's own enum) | **THIS ARC — ✅ LANDED** | see §5-log |
 | **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | **PARALLEL ARC** (`analysis/spice-phase1`) | not in this arc |
 | **3** | **Lorentz-on-srs** — boost/transport operator on the srs carrier. | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | **QUEUED behind this arc** | reopens after this arc merges |
 
@@ -177,5 +177,46 @@ honestly reported (scope-honesty preserved from the em_readout original).
 each guard has a positive AND a negative test (a guard that only ever passes is a
 checklist, not a gate).
 
-### §5-log — carrier-declaration guard
-(populated by the arc)
+### §5-log — carrier-declaration guard  [LANDED 2026-07-04]
+
+**Carrier vocabulary** (`src/ave/core/carrier.py`): `Carrier` enum with the
+D1-ratified values `srs-z3` | `diamond-z4-instrument` | `cartesian-reference` |
+`k-space`; `DIAMOND_Z4.is_instrument = True`. `require_instrument_scope()` is the
+guard; `coerce_carrier()` rejects an unknown carrier.
+
+**Lattice-constructing entry points declare their carrier** (additive, defaulted).
+`LatticeNet` gains a `carrier: str = "unknown"` field (backward-compatible — a net
+built without a declaration reports `"unknown"`). `build_srs_net` → `"srs-z3"`;
+`build_diamond_net` → `"diamond-z4-instrument"` (threaded through
+`_build_net_from_points` via a new defaulted `carrier=` param).
+
+**Diamond-stencil consumers require an `instrument_scope=` acknowledgment.** The two
+diamond-stencil builders (`native_cage_imex.build_grad_div_periodic`,
+`gw_propagation._build_native_grad_div`) gain a keyword-only `instrument_scope`. The
+guard behavior:
+- **non-instrument carrier** (srs / cartesian) → no acknowledgment needed.
+- **diamond + no ack, NEW construction** → **RAISES** `ValueError` (the target).
+- **diamond + no ack, frozen-provenance driver** → **DeprecationWarning** (KEEP-BOTH;
+  does not break the merged byte-identical output). Both diamond builders are frozen
+  (Stage-2 DISPERSE / #86 back-reaction), so they warn rather than raise on a naked
+  legacy call.
+- **diamond + ack** → clean.
+
+The 6 internal frozen callers (`native_cage_imex` ×2, `coupled_cage_winding`,
+`gw_propagation`, `backreaction` ×2) now pass an explicit `instrument_scope=`
+naming their provenance, so the normal engine paths are warning-free and
+self-documenting; only a NAKED legacy `build_grad_div_periodic(N)` call (e.g. an
+old test) trips the deprecation nudge — the intended behavior.
+
+**Byte-identity preserved** (the guard is a gate, not a computation change):
+`native_cage L_D` (N=6, graded D) sha256 `30986dc1538bf4c5c9ddbcd82f6c957e`,
+IDENTICAL to the ITEM-1 baseline; `gw Div = +Gradᵀ` still exact. Verified by
+recompute at HEAD.
+
+**Test:** `src/tests/test_carrier_declaration.py`, 12 keepers — constructing a
+diamond-carrier operator without the acknowledgment RAISES (new-construction path);
+the frozen path WARNS; srs is clean; the builders' carrier fields are correct; the
+frozen builder still runs byte-identical WITH the guard active. Regression: the
+affected consumer suites (native-cage / stage-3 back-reaction / chiral-lattice)
+stay green (57 pass; the only warnings are pre-existing test files that call the
+diamond builder nakedly — the guard nudging them, not a failure).
