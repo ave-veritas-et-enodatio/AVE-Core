@@ -137,7 +137,7 @@ class CoupledCageWindingConfig:
     dx: float = 0.5
     V_yield: float = 1.0
     pml_thickness: int = 4
-    exponent: float = 0.5            # Op14 saturation (√S primary)
+    exponent: float = 0.5  # Op14 saturation (√S primary)
     S_min: float = 1e-3
     A_cap: float = 0.999
     # A1 + ω wave speeds (c_eff folds 1/S into D; these are the cold speeds).
@@ -145,10 +145,10 @@ class CoupledCageWindingConfig:
     c_omega: float = 1.0
     # H_couple (the S2 FORM): breather/tank frequencies + the gated rate + χ.
     omega_b: float = 1.0
-    omega_s: float = 1.0             # resonant ⇒ strongest A1↔ω exchange
-    rate: float = 0.3               # the S2 coupling rate scale (× g_front × S)
-    chi: int = +1                   # lattice handedness (matter)
-    gate: str = "front"             # saturation-front-gated coupling PORT (FORK A=(a))
+    omega_s: float = 1.0  # resonant ⇒ strongest A1↔ω exchange
+    rate: float = 0.3  # the S2 coupling rate scale (× g_front × S)
+    chi: int = +1  # lattice handedness (matter)
+    gate: str = "front"  # saturation-front-gated coupling PORT (FORK A=(a))
     # the winding seed geometry (the (2,3) eigen-precursor torus).
     R: float = 7.0
     r: float = 2.3
@@ -166,12 +166,12 @@ class CoupledCageWindingConfig:
     #       artifact: it does NOT represent S1's topological conservation). KEPT
     #       as a documented negative control (the winding-NOT-conserved arm).
     winding_mode: str = "rigid_template"
-    c_omega_b: float = 1.0          # b_ω LC-amplitude dispersion speed (rigid_template)
-    dt: float = 0.066               # accuracy-set (Stage-2 production dt)
+    c_omega_b: float = 1.0  # b_ω LC-amplitude dispersion speed (rigid_template)
+    dt: float = 0.066  # accuracy-set (Stage-2 production dt)
     gmres_tol: float = 1e-10
     gmres_maxiter: int = 2000
-    winding_on: bool = True          # winding OFF (False) ⇒ Ω≡0 ⇒ A1-alone control
-    port_sigma: float = 0.0          # 0 = closed/lossless (the energy-gate rigor)
+    winding_on: bool = True  # winding OFF (False) ⇒ Ω≡0 ⇒ A1-alone control
+    port_sigma: float = 0.0  # 0 = closed/lossless (the energy-gate rigor)
 
 
 def front_gate(A: np.ndarray, *, center: float = 4.0 / 7.0, width: float = 0.18) -> np.ndarray:
@@ -229,7 +229,9 @@ class CoupledCageWinding:
         self.winding_on = cfg.winding_on
 
         # the native geometry-fixed sparse Grad/Div (assembled ONCE, Stage-2).
-        self.Grad, self.Div = build_grad_div_periodic(N)
+        self.Grad, self.Div = build_grad_div_periodic(
+            N, instrument_scope="stage-3 A1↔ω coupled cage-winding (merged provenance)"
+        )
 
         # fields (complex analytic signals).
         self.a_A1 = np.zeros((N, N, N), dtype=np.complex128)
@@ -248,7 +250,7 @@ class CoupledCageWinding:
         PML-exclusion). All field observables read THIS region only."""
         N, t = self.N, self.cfg.pml_thickness
         mask = np.zeros((N, N, N), dtype=bool)
-        mask[t:N - t, t:N - t, t:N - t] = True
+        mask[t : N - t, t : N - t, t : N - t] = True
         self.interior = mask
 
     # ── kernel readouts (α-free; A from the A1 breather magnitude) ──
@@ -312,11 +314,9 @@ class CoupledCageWinding:
         om = seed_pq_winding(self.N, 2, 3, self.cfg.R, self.cfg.r) * amplitude
         nrm = np.sqrt(np.sum(om**2, axis=-1))  # (N,N,N) seeded |ω|
         self.w_amp0[:] = nrm
-        self.e_w[:] = np.where(nrm[..., None] > 1e-12,
-                               om / np.maximum(nrm[..., None], 1e-30), 0.0)
-        self.b_w[:] = nrm.astype(np.complex128)   # LC C-state amplitude
-        self.a_w[:] = om.astype(np.complex128)    # dispersive_vector control state
-
+        self.e_w[:] = np.where(nrm[..., None] > 1e-12, om / np.maximum(nrm[..., None], 1e-30), 0.0)
+        self.b_w[:] = nrm.astype(np.complex128)  # LC C-state amplitude
+        self.a_w[:] = om.astype(np.complex128)  # dispersive_vector control state
 
     # ── the Hermitian generator H (native-Laplacian blocks + on-site coupling) ──
     def _state_dim(self) -> int:
@@ -378,7 +378,7 @@ class CoupledCageWinding:
         x = np.empty(4 * nd, dtype=np.complex128)
         x[:nd] = self.a_A1.reshape(nd)
         for c in range(3):
-            x[(1 + c) * nd:(2 + c) * nd] = self.a_w[..., c].reshape(nd)
+            x[(1 + c) * nd : (2 + c) * nd] = self.a_w[..., c].reshape(nd)
         return x
 
     def _unstack(self, x: np.ndarray):
@@ -389,7 +389,7 @@ class CoupledCageWinding:
             self.b_w = x[nd:].reshape(N, N, N)
             return
         for c in range(3):
-            self.a_w[..., c] = x[(1 + c) * nd:(2 + c) * nd].reshape(N, N, N)
+            self.a_w[..., c] = x[(1 + c) * nd : (2 + c) * nd].reshape(N, N, N)
 
     def step(self):
         """One Crank–Nicolson / Cayley step (the energy-conserving unitary scheme):
@@ -406,8 +406,7 @@ class CoupledCageWinding:
         A_sys = (I + half * H).tocsr()
         x = self._stack()
         rhs = (I - half * H) @ x
-        x_new, info = gmres(A_sys, rhs, rtol=self.cfg.gmres_tol,
-                            maxiter=self.cfg.gmres_maxiter, x0=x)
+        x_new, info = gmres(A_sys, rhs, rtol=self.cfg.gmres_tol, maxiter=self.cfg.gmres_maxiter, x0=x)
         self.last_gmres_info = info
         self._unstack(x_new)
         self.time += self.dt
@@ -438,9 +437,9 @@ class CoupledCageWinding:
         (compute_Q_link — the SAME coordinate S1 uses). The genesis-24 BOTH-
         conserved certification reads this AND the per-grade energy split."""
         from ave.topological.charge_quantization import compute_Q_link
+
         q = compute_Q_link(self.omega_field(), self.cfg.R, self.cfg.r)
-        return {"Q_link": int(q["Q_link"]), "w_tor": int(q["w_tor"]),
-                "Q_link_raw": float(q["Q_link_raw"])}
+        return {"Q_link": int(q["Q_link"]), "w_tor": int(q["w_tor"]), "Q_link_raw": float(q["Q_link_raw"])}
 
     # ── energy observables (the rigor guard: BOTH A1-norm AND ω-winding) ──
     def total_energy(self) -> float:

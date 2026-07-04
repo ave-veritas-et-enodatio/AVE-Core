@@ -352,11 +352,34 @@ lane's *self-qualification*; rung 5 is the first physics cross-check.
 
 | Rung | Test | Validates | Needs ngspice? | Status |
 |---|---|---|---|---|
-| 1 | RC/LC analytic transients — τ=RC, f_res=1/(2π√LC) | the engine parses + integrates correctly | yes (or numpy MNA) | pending install |
-| 2 | Single `AVE_VACUUM_CELL` Ax4 curve vs the kernel from constants.py — the varactor C(V) plateau | the `.lib` B-source == `saturation_factor()` (**catches FLAG-1 + FLAG-2**) | yes (B-source eval) | **blocked** — the sign/value flags must be adjudicated first |
-| 3 | Known Poisson profile on a small graph vs numpy | `.OP` == graph-Laplacian; the neutrality/ground fix | **no** (numpy MNA) | **DONE** — pilot, 1e-15 |
-| 4 | 1D LC-chain dispersion vs analytic ω(k) | `.AC` on a biased chain == engine dispersion | yes | pending install |
-| 5 | Biased-chain small-signal speed shift vs the S(A) prediction | **first bias-couples-to-wave test** — the S(A)→c_local map | yes | pending install |
+| 1 | RC/LC analytic transients — τ=RC, f_res=1/(2π√LC) | the engine parses + integrates correctly | yes (or numpy MNA) | **✅ PASS (SPICE PHASE-1, 2026-07-04)** — τ err 1.2e-7, f_res err 1.3e-3 |
+| 2 | Single `AVE_VACUUM_CELL` Ax4 curve vs the kernel from constants.py — the varactor C(V) plateau | the `.lib` B-source == `saturation_factor()` (**catches FLAG-1 + FLAG-2**) | yes (B-source eval) | **✅ PASS** — A1 (V_SNAP) err 3.9e-7, T2 (V_YIELD) err 4.8e-8; FLAG-2 sector split respected; 3 `.lib` ngspice-syntax bugs fixed live |
+| 3 | Known Poisson profile on a small graph vs numpy | `.OP` == graph-Laplacian; the neutrality/ground fix | **no** (numpy MNA) | **✅ PASS** — pilot 1e-15 loop CLOSED with real ngspice `.OP` (err 4.2e-10 V) |
+| 4 | 1D LC-chain dispersion vs analytic ω(k) | `.AC` on a biased chain == engine dispersion | yes | **✅ PASS** — ka err 1.9e-3 med / 3.0e-2 max |
+| 5 | Biased-chain small-signal speed shift vs the S(A) prediction | **first bias-couples-to-wave test** — the S(A)→c_local map | yes | **✅ PASS** — Δka vs S(A) err 4.0e-3 med / 1.8e-2 max; first live DC→AC bias-couples-to-wave measurement |
+
+> **🟢 SPICE PHASE-1 COMPLETE (2026-07-04).** ngspice is installed
+> (`/opt/homebrew/bin/ngspice`, **ngspice-46**); the charter's §3/§6 "ngspice
+> itself did NOT run" limitation is LIFTED. All five ladder rungs PASS
+> (validate-on-known, analytic target + recovery error each); HALT-gate never
+> tripped. Engine hook: `src/ave/bench/spice_runner.py`. Full results:
+> [`research/2026-07-04_spice-phase1-ladder_result.md`](../research/2026-07-04_spice-phase1-ladder_result.md).
+> Empirical-driver (Rule 10) payoff: first live parse of `ave_vacuum_cell.lib`
+> surfaced 3 real ngspice-46 syntax bugs (standalone `IC=1`; `B..Q=` charge
+> B-source → `C..Q=`; `idt()` → `L..Flux=`) the emit-only lane had never
+> engine-verified — all mechanically fixed, physics/sector-keying verbatim;
+> and 2 measurement artifacts (`.dc`-sweep behavioral-lag, bias/2 divider
+> midpoint) caught, not papered over. Composite-cell + L2-memristor `.TRAN`
+> convergence limitation surfaced + `xfail`'d. SPICE test suite: 20 passed,
+> 2 xfailed (was 14 passed / 5 skipped pre-ngspice).
+>
+> **Engine-upgrade tracker item-4 note (tracker doc not yet at this HEAD).** The
+> tracker `_orchestration/2026-07-04_engine-upgrade-program.md` (being created by
+> the sibling engine-hardening arc) did NOT exist at the SPICE PHASE-1 HEAD, so
+> its item-4 (SPICE lane) row is recorded HERE for the tracker to fold in:
+> **item-4 = SPICE lane run-and-cross-check — DELIVERED (PHASE-1 ladder 5/5
+> PASS, ngspice-46 live).** Flag for the tracker; do not create a duplicate
+> tracker doc.
 
 **Charter note on rung 5.** This class — a bias-coupled-to-wave effect — is
 where the corpus's ONE bankable falsifier lives: E-route vacuum

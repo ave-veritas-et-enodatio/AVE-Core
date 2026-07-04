@@ -1,0 +1,104 @@
+{
+  "rung": 2,
+  "name": "AVE_VACUUM_CELL Ax4 saturation curve vs canonical kernel",
+  "ngspice_version": "ngspice-46",
+  "class": "manifestation (.lib behavioral source == canonical Ax4 kernel)",
+  "value_provenance": "V_SNAP/V_YIELD imported live from ave.core.constants (FLAG-1 safe)",
+  "sector_split": "A1 divergent (C0/S, keyed V_SNAP) + T2 collapse (C0*S, keyed V_YIELD)",
+  "V_SNAP_V": 510998.9499961642,
+  "V_YIELD_V": 43651.851844321354,
+  "tolerance": 1e-06,
+  "a1_divergent_metric_varactor": {
+    "v_key_V": 510998.9499961642,
+    "v_max_frac": 0.9,
+    "n_points": 41,
+    "method": "per-point .op (artifact-free; see METHOD NOTE)",
+    "max_abs_err_collapse_S": 4.832103384089237e-08,
+    "max_rel_err_divergent_invS": 3.9425081729348514e-07,
+    "samples": [
+      {
+        "V_over_Vkey": 0.0,
+        "S_ngspice": 1.0,
+        "S_canonical": 1.0,
+        "Ceff_over_C0_divergent_ngspice": 1.0,
+        "Ceff_over_C0_divergent_canonical": 1.0
+      },
+      {
+        "V_over_Vkey": 0.2475,
+        "S_ngspice": 0.9688879,
+        "S_canonical": 0.9688878934118229,
+        "Ceff_over_C0_divergent_ngspice": 1.032111,
+        "Ceff_over_C0_divergent_canonical": 1.0321111521773891
+      },
+      {
+        "V_over_Vkey": 0.495,
+        "S_ngspice": 0.868893,
+        "S_canonical": 0.8688929738466067,
+        "Ceff_over_C0_divergent_ngspice": 1.15089,
+        "Ceff_over_C0_divergent_canonical": 1.1508897299203376
+      },
+      {
+        "V_over_Vkey": 0.7424999999999999,
+        "S_ngspice": 0.6698461,
+        "S_canonical": 0.6698460644058455,
+        "Ceff_over_C0_divergent_ngspice": 1.49288,
+        "Ceff_over_C0_divergent_canonical": 1.4928803095782932
+      },
+      {
+        "V_over_Vkey": 0.9,
+        "S_ngspice": 0.4358899,
+        "S_canonical": 0.4358898943540673,
+        "Ceff_over_C0_divergent_ngspice": 2.294157,
+        "Ceff_over_C0_divergent_canonical": 2.294157338705618
+      }
+    ],
+    "cir": "spice_ladder_rung2_a1_vsnap.cir"
+  },
+  "t2_collapse_dielectric": {
+    "v_key_V": 43651.851844321354,
+    "v_max_frac": 0.9,
+    "n_points": 41,
+    "method": "per-point .op (artifact-free; see METHOD NOTE)",
+    "max_abs_err_collapse_S": 4.832103384089237e-08,
+    "max_rel_err_divergent_invS": 3.9425081729348514e-07,
+    "samples": [
+      {
+        "V_over_Vkey": 0.0,
+        "S_ngspice": 1.0,
+        "S_canonical": 1.0,
+        "Ceff_over_C0_divergent_ngspice": 1.0,
+        "Ceff_over_C0_divergent_canonical": 1.0
+      },
+      {
+        "V_over_Vkey": 0.2475,
+        "S_ngspice": 0.9688879,
+        "S_canonical": 0.9688878934118229,
+        "Ceff_over_C0_divergent_ngspice": 1.032111,
+        "Ceff_over_C0_divergent_canonical": 1.0321111521773891
+      },
+      {
+        "V_over_Vkey": 0.495,
+        "S_ngspice": 0.868893,
+        "S_canonical": 0.8688929738466067,
+        "Ceff_over_C0_divergent_ngspice": 1.15089,
+        "Ceff_over_C0_divergent_canonical": 1.1508897299203376
+      },
+      {
+        "V_over_Vkey": 0.7424999999999999,
+        "S_ngspice": 0.6698461,
+        "S_canonical": 0.6698460644058455,
+        "Ceff_over_C0_divergent_ngspice": 1.49288,
+        "Ceff_over_C0_divergent_canonical": 1.4928803095782932
+      },
+      {
+        "V_over_Vkey": 0.9,
+        "S_ngspice": 0.4358899,
+        "S_canonical": 0.4358898943540673,
+        "Ceff_over_C0_divergent_ngspice": 2.294157,
+        "Ceff_over_C0_divergent_canonical": 2.294157338705618
+      }
+    ],
+    "cir": "spice_ladder_rung2_t2_vyield.cir"
+  },
+  "verdict": "PASS"
+}

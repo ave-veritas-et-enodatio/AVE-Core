@@ -1,8 +1,22 @@
 # Repo Formatting & Cleanup Conventions — PROPOSED (P0 deliverable)
 
-**Status:** PROPOSED — all six sections (a)–(f) drafted; awaiting Grant ratification (owner: P0 implementor, drafted 2026-07-04). Last-verified HEAD: `43d53e06`.
+**Status:** RATIFIED (Grant, 2026-07-04, post-merge of PR #510) — all six sections (a)–(f) adopted with their recommended defaults; rulings in the Ratification record below. Drafted 2026-07-04 at HEAD `43d53e06` (owner: P0 implementor); RATIFY blocks below preserved as-proposed (append-only record, per section (c)).
 **Scope class:** ORGANIZATION AND FORMATTING ONLY — this document proposes conventions; it executes no move, rename, archive, or fix. Every execution phase is gated on Grant ratifying the relevant **RATIFY:** block below.
 **Merge discipline:** lands via a reviewed PR (`[REVIEW: pending-orchestrator]`), no self-merge, per CLAUDE.md branching pattern.
+
+
+## Ratification record (2026-07-04, Grant)
+
+All six sections adopted; every recommended default stands (Grant assented per-section with no overrides: a "ratify" · b "ratify" · c "approve" · d "agree" · e adopted · f "agree").
+
+- **(a) RATIFIED** — figure policy adopt-as-stated; **data-artifact policy = Option (1)**: tracked per-volume `results/` dirs mirroring `figures/`.
+- **(b) RATIFIED** — filename grammar + closed type-vocabulary as listed; keep-flat; archive-tier 3-of/never-if criteria with honesty-trail UNTOUCHABLE; **grandfather** existing off-grammar names (no mass-rename).
+- **(c) APPROVED** — mandatory status-header enum as worded; append-only dated RESOLUTION/CORRECTION as the only stale-framing fix; `index.md` hygiene rule.
+- **(d) AGREED** — **N = 30 days** (resumable re-affirm-or-tag), **M = 14 days** (pushed-no-PR triage).
+- **(e) ADOPTED** — marker grammar as specified; **warn-then-error** rollout; `stale-after` **optional**.
+- **(f) AGREED** — basis-declaration rule; **drift gate = derive-and-compare** (validator emits the badge number from the manifest, CI-compared to `README.md:6`; built in P4).
+
+Execution consequences: P1 read-only lint sweep dispatched 2026-07-04; P3 executes moves only per P2 rulings; P4 builds the marker linter + drift gate.
 
 > **What this doc is NOT.** It is not a physics adjudication, not a claim-id-spine change, not a KB-frontmatter change. The claim-id spine (`clm-`/`exp-`/`sup-`/`def-`/`ilk-`, INVARIANT-S8..S13) and solidity machinery are healthy + CI-enforced and OUT OF SCOPE. Nothing here touches content — only where files live, how they are named, and how their status is marked.
 
