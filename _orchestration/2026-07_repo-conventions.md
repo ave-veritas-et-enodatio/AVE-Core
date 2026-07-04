@@ -140,7 +140,28 @@ When an epic doc carries a physics framing later refuted, the correction lands *
 
 ## (d) Branch lifecycle SLA
 
-_(section body lands in commit 5)_
+**Standing pattern (restated from CLAUDE.md).** Implementor branches (`analysis/<topic>`) branch off `main`, push + open a PR, never self-merge. On merge, the orchestrator tags the branch tip `audit/<date>_<topic>` (immutable), merges the PR `--no-ff`, pushes the tag, then deletes the branch (local + remote). At HEAD there are **213 `audit/*` tags on origin** — the audit-tag-then-delete discipline is live and working. (Note: CLAUDE.md's own "Current state" line still reads "109 audit tags" — that number is stale; the SLA below keys off the HEAD-true 213. Flagged, not fixed — CLAUDE.md is out of this PR's edit scope.)
+
+**The gap this section closes.** The pattern covers *merged* branches. It is silent on **unmerged branches that linger** — resumable snapshots that age past usefulness, and pushed branches that never get a PR. PR #502's D2 triage found **50 unmerged remote branches** at audit start (6 tag-and-deleted as fully-superseded, 44 dispositioned but not executed — most awaiting a Grant land-or-archive call). That backlog is the symptom of a missing SLA.
+
+### Proposed staleness limits
+
+**Class 1 — resumable branches** (intentional snapshots of paused work, e.g. the 2026-06-11 alpha/winding resumable branches). At HEAD, `git branch -r | grep 2026-06-11` shows **three**: `analysis/2026-06-11-alpha-a3-reservoir`, `analysis/2026-06-11-chiral-angle-of-attack`, `analysis/2026-06-11-screened-winding-probe` (the brief said "four" — HEAD shows three; flagged in the ledger). These are ~3 weeks old.
+- **SLA:** a resumable branch must be **re-affirmed in a tracker** (a line in `index.md` or the owning epic doc naming it as still-resumable, with a date) OR **audit-tagged + deleted** after **N days** of no re-affirmation. The tag preserves it immutably; re-opening later is `git checkout -b <topic> <tag>`.
+- **Proposed N = 30 days** (RECOMMENDED). Rationale: long enough that a genuinely paused arc survives a normal work cycle; short enough that a 3-week-old branch like the 2026-06-11 set gets an explicit re-affirm-or-tag decision rather than drifting indefinitely.
+
+**Class 2 — pushed branches with no PR** (an implementor pushed but never opened a PR, or the PR was never opened after the branch went up).
+- **SLA:** triaged within **M days** — either a PR opens, or the branch is re-classified as Class-1-resumable (re-affirmed in a tracker), or it is audit-tagged + deleted.
+- **Proposed M = 14 days** (RECOMMENDED). Rationale: a pushed-but-PR-less branch is either about to become a PR (days) or is abandoned; two weeks is a generous triage window. Shorter than N because a no-PR branch has no declared "I am intentionally paused" signal — the burden is to declare intent.
+
+**Disposition vocabulary (consume PR #502 D2 as the input template):** each unmerged branch is one of — `LAND-candidate` (open a PR), `re-affirmed-resumable` (tracker line + date), `TAG-AND-DELETE` (fully superseded, `git cherry` unique=0 or content-verified-in-main), or `GRANT-CALL` (substantive un-landed content — land-or-archive is Grant's). The N/M SLA converts a `GRANT-CALL` that ages out into a forced re-affirm-or-tag decision rather than an indefinite hold.
+
+**RATIFY:** Adopt the two staleness classes with the audit-tag-then-delete discipline as the enforcement mechanism. The genuine choices are the two horizons:
+
+- **[RECOMMENDED] N = 30 days** for resumable branches before re-affirm-or-tag. (Alternatives: 21 days — tighter, forces the 2026-06-11 set now; or 45 days — looser.)
+- **[RECOMMENDED] M = 14 days** for pushed-no-PR branches before triage. (Alternatives: 7 days — tight; 21 days — loose.)
+
+The N/M values are the decision points; the class structure and audit-tag-preservation mechanism are adopt-as-stated. Enforcement is a periodic orchestrator sweep (a P1+ lane item, not built here) — this section defines the SLA, not the sweeper.
 
 ---
 
@@ -161,6 +182,7 @@ _(section body lands in commit 7)_
 - **(a) Figure placement** — adopt "cited renders → tracked `figures/`, `_output/`=scratch" + the link-coupled 5-step migration; decide the **data-artifact policy** (RECOMMENDED: tracked per-volume `results/` dir).
 - **(b) `research/` grammar** — adopt `YYYY-MM-DD_<slug>_<type>.md` + closed type-vocab + register-class exemption + **keep-flat**; adopt archive-tier 3-of/never-if criteria with honesty-trail UNTOUCHABLE; confirm the type-vocab closed set and **grandfather** (no mass-rename) off-grammar names.
 - **(c) `_orchestration/` lifecycle** — adopt the mandatory `Status:` header enum (ACTIVE/CLOSED/ARCHIVED + last-verified date + owner); adopt the append-only dated `🔴 RESOLUTION/CORRECTION` note as the ONLY stale-framing fix (no rewrites/banners); adopt the `index.md`→`_archive/index-stale.md` hygiene rule. Confirm header wording only (rest is codified existing practice).
+- **(d) Branch lifecycle SLA** — adopt the two staleness classes (resumable / pushed-no-PR) enforced by audit-tag-then-delete. Decide **N** (resumable re-affirm-or-tag horizon; RECOMMENDED 30 days) and **M** (pushed-no-PR triage horizon; RECOMMENDED 14 days).
 
 ---
 
@@ -188,3 +210,9 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - `index.md` = 784 lines at HEAD (brief said 785 — off-by-one; 784 is HEAD truth). `index.md:3` audit-trail note ✓; `index.md:6` `> **Staleness notice (2026-06-16)**` ✓.
 - `_orchestration/_archive/` exists; contains `index-stale.md` ✓.
 - Append-only precedent: `_orchestration/2026-06-07_electron-synthesis-epic.md:319` = G2 diagnosis, `:320` = append-only `🔴 RESOLUTION (2026-07-03 ...)` ending "This entry stands as history (git is the trail)" ✓ (brief said "~line 315-319"; diagnosis at 319, resolution at 320 — HEAD truth).
+
+**(d) Branch lifecycle SLA**
+- 213 `audit/*` tags on origin ✓ (brief=213; CLAUDE.md:87 self-reports "109 tags" — stale, flagged not fixed).
+- CLAUDE.md audit-tag pattern at `CLAUDE.md:41` + `:80-86` ✓.
+- Resumable 2026-06-11 branches on origin: **3** (`alpha-a3-reservoir`, `chiral-angle-of-attack`, `screened-winding-probe`) — brief said "four"; HEAD shows three.
+- PR #502 D2 triage (from PR body): 50 unmerged at start → 6 tag-and-deleted → 44 dispositioned (LAND-candidate / re-affirmed-resumable / TAG-AND-DELETE / GRANT-CALL) ✓.
