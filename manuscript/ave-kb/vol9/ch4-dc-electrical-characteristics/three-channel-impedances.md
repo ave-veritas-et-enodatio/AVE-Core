@@ -27,7 +27,7 @@ At $K_{\mathrm{bulk}} = 2G_{\mathrm{vac}}$: $c_{\mathrm{bulk}} = \sqrt{2}\,c_0$ 
 
 | Anchor | Content |
 |---|---|
-| `src/ave/core/constants.py` | `Z_0`:98, `RHO_BULK`:646, `G_VAC`:654, `V_LONG`:658 |
+| `src/ave/core/constants.py` | symbols `Z_0`, `RHO_BULK`, `G_VAC`, `V_LONG` |
 | [`z0-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md) | $Z_{\mathrm{EM}} = Z_0$ derivation |
 | [`bulk-impedance-at-saturation-boundary.md`](../../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md) | $\Gamma_{\mathrm{bulk}}=-1$ at $r_{\mathrm{sat}}$ |
 | [`device-circuit-models.md`](../ch3-pin-port-configuration/device-circuit-models.md) | Electron TIR barriers = bulk channel, not EM $\Gamma$ at $Z_0$ |

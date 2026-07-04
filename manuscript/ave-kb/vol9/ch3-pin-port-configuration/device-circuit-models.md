@@ -253,7 +253,7 @@ provisional slot.**
 | Cited anchor | Verification |
 |---|---|
 | `orbital-friction-paradox.md`:35 | Grep: $m_e c^2 \cdot \alpha$ in reactive-shell row ✓ |
-| `constants.py` | `Z_0`:98, `RHO_BULK`:646, `G_VAC`:654, `V_LONG`:658 ✓ |
+| `constants.py` | symbols `Z_0`, `RHO_BULK`, `G_VAC`, `V_LONG` ✓ |
 | OP table numerics | `operating_point_coefficients.json` (driver run 2026-06-11) ✓ |
 | Electron $\Gamma_{\mathrm{bulk}}$ not $\Gamma_{\mathrm{EM}}$ | [`electron-bh-isomorphism.md`](../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):26 ✓ |
 

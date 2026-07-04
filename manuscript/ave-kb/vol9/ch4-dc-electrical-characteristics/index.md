@@ -18,9 +18,9 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 
 | Source | Content |
 |---|---|
-| `src/ave/core/constants.py` lines 78-81 (`C_0`, `MU_0`, `EPSILON_0`, `Z_0`) | Vacuum impedance trio + cold-lattice EM wave speed |
-| `src/ave/core/constants.py` lines 101, 164 (`ALPHA`, `ALPHA_COLD_INV`) | Fine-structure constant (CODATA input + cold-lattice Golden-Torus closed-form identification $4\pi^3 + \pi^2 + \pi$; Class-B, retained input) |
-| `src/ave/core/constants.py` lines 194, 206, 329-330 (`L_NODE`, `XI_TOPO`, `T_EM`) | Lattice pitch + topological transduction + EM string tension |
+| `src/ave/core/constants.py` symbols `C_0`, `MU_0`, `EPSILON_0`, `Z_0` | Vacuum impedance trio + cold-lattice EM wave speed |
+| `src/ave/core/constants.py` symbols `ALPHA`, `ALPHA_COLD_INV` | Fine-structure constant (CODATA input + cold-lattice Golden-Torus closed-form identification $4\pi^3 + \pi^2 + \pi$; Class-B, retained input) |
+| `src/ave/core/constants.py` symbols `L_NODE`, `XI_TOPO`, `T_EM` | Lattice pitch + topological transduction + EM string tension |
 | CLAUDE.md INVARIANT-S2 (Axioms 1–4 + two-effective-wave-speeds clause + SYM/ASYM scaling) | Substrate-axiom anchor for every primitive |
 | `manuscript/ave-kb/common/natural-units-cheatsheet.md` | Natural-units cheatsheet; four-base convention ($\ell_{node} = c = \hbar = m_e = 1$) + SI ↔ Native conversion table |
 | `manuscript/ave-kb/common/translation-tables/translation-circuit.md` §1 (`clm-fy05jc`) | Six-row $\xi_{topo}$ EE↔mechanical identity |
