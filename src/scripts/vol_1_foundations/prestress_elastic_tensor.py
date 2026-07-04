@@ -99,14 +99,115 @@ def bond_tension(A: float | np.ndarray, k0: float = 1.0) -> np.ndarray:
 # ===========================================================================
 # PLACEHOLDERS -- filled in subsequent commits (incremental-write discipline)
 # ===========================================================================
-def prestress_christoffel(*args, **kwargs):  # noqa: D401
-    """[filled next commit] internal-strain-relaxed acoustic Christoffel WITH pre-stress term."""
-    raise NotImplementedError
+# ===========================================================================
+# THE PRE-STRESSED FORCE-CONSTANT MATRIX (prereg §3) -- adds (T/l)(I-P) per bond
+# ===========================================================================
+def _prestress_phi_of_k(kv, pos, bonds, k_axial, k_shear, T_per_bond):
+    """Force-constant Bloch matrix Phi(k) with the INITIAL-STRESS transverse term.
+
+    Each directed bond (i,j,d) of length l=|d| carries (prereg §3, Born-Huang/Wallace):
+        Phi_bond = Phi''*(d^d^)  +  (k_shear + T/l)*(I - d^d^)
+    where Phi'' = k_axial is the axial (swapped-spring softened) stiffness and (T/l) is the
+    ADDED transverse string-tension term (T = this bond's own axial-channel tension Phi'(A_axial)).
+    The pre-stress term is ADDITIVE to the transverse block; it is NOT an overall scale, so it
+    can break the #521 degree-1 homogeneity. T_per_bond is a dict {bond_index: T} or a scalar T
+    applied to every bond (the uniform-loading convention, #518).
+    """
+    n = len(pos)
+    D = np.zeros((3 * n, 3 * n), dtype=complex)
+    for bidx, (i, j, d) in enumerate(bonds):
+        ell = np.linalg.norm(d)
+        dn = d / ell
+        P = np.outer(dn, dn)
+        T = T_per_bond[bidx] if hasattr(T_per_bond, "__getitem__") and not np.isscalar(T_per_bond) else float(T_per_bond)
+        k_shear_eff = k_shear + T / ell          # <-- the pre-stress addition to the transverse block
+        Phi = k_axial * P + k_shear_eff * (np.eye(3) - P)
+        ph = np.exp(1j * np.dot(kv, d))
+        D[3 * i:3 * i + 3, 3 * j:3 * j + 3] += -Phi * ph
+        D[3 * i:3 * i + 3, 3 * i:3 * i + 3] += Phi
+    return 0.5 * (D + D.conj().T)
 
 
-def extract_prestress_Cij(*args, **kwargs):  # noqa: D401
-    """[filled next commit] fit cubic (C11,C12,C44) on the PRE-STRESSED acoustic tensor."""
-    raise NotImplementedError
+def prestress_christoffel(qhat, pos, bonds, *, k_axial=1.0, k_shear=1.0, T_per_bond=0.0,
+                          rho=1.0, m=1.0, h=1e-4):
+    """Internal-strain-RELAXED 3x3 acoustic Christoffel Gamma(q^)=rho*c^2 WITH the pre-stress term.
+
+    Identical Born-Huang method-of-long-waves as the cold acoustic_christoffel (Gamma = Phi2_aa -
+    Phi1_ao.Phi0_oo^-1.Phi1_oa), but on the PRE-STRESSED Phi(k) (transverse block gains (T/l)).
+    Reduces EXACTLY to the cold acoustic_christoffel when T_per_bond=0 (PC1/PC3 gate this).
+    """
+    qhat = np.asarray(qhat, float)
+    qhat = qhat / np.linalg.norm(qhat)
+    n = len(pos)
+
+    def phi(kv):
+        return _prestress_phi_of_k(kv, pos, bonds, k_axial, k_shear, T_per_bond)
+
+    P0 = phi(np.zeros(3))
+    Pp = phi(qhat * h)
+    Pm = phi(-qhat * h)
+    P1 = (Pp - Pm) / (2.0 * h)
+    P2 = (Pp - 2.0 * P0 + Pm) / (h ** 2) / 2.0
+
+    Ea = np.zeros((3 * n, 3), dtype=complex)
+    for al in range(3):
+        v = np.zeros(3 * n)
+        v[al::3] = 1.0
+        v /= np.linalg.norm(v)
+        Ea[:, al] = v
+    w0, U0 = np.linalg.eigh(P0)
+    optic = U0[:, w0 > 1e-9]
+
+    Paa = Ea.conj().T @ P2 @ Ea
+    P1ao = Ea.conj().T @ P1 @ optic
+    P0oo = optic.conj().T @ P0 @ optic
+    P1oa = optic.conj().T @ P1 @ Ea
+    Gamma = Paa - P1ao @ np.linalg.inv(P0oo) @ P1oa
+    Gamma = 0.5 * (Gamma + Gamma.conj().T)
+    return (rho / m) * Gamma.real
+
+
+def extract_prestress_Cij(pos, bonds, *, k_axial=1.0, k_shear=1.0, T_per_bond=0.0,
+                          m=1.0, rho=1.0, directions=None):
+    """Fit cubic (C11,C12,C44) on the PRE-STRESSED internal-strain-relaxed acoustic tensor.
+
+    Same polarization-free least-squares assembly as the cold extract_cubic_Cij (_cubic_gamma_row
+    reused unmodified), over the same over-determined direction set. The ONLY change vs the cold
+    pipeline is the pre-stress transverse term inside prestress_christoffel. Also returns the
+    smallest acoustic eigenvalue min over directions (the [DESTABILIZED] readout: an acoustic
+    Christoffel eigenvalue going <=0 = a lost sound mode).
+    """
+    if directions is None:
+        directions = [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [1, 0, 1],
+                      [0, 1, 1], [1, 1, 1], [2, 1, 0], [1, 2, 0], [3, 1, 2]]
+    A, b = [], []
+    slope_table = {}
+    min_acoustic_eig = np.inf
+    for dd in directions:
+        q = np.array(dd, float)
+        q /= np.linalg.norm(q)
+        G = prestress_christoffel(q, pos, bonds, k_axial=k_axial, k_shear=k_shear,
+                                  T_per_bond=T_per_bond, m=m, rho=rho)
+        eigs = np.sort(np.linalg.eigvalsh(G))
+        min_acoustic_eig = min(min_acoustic_eig, float(eigs[0]))
+        key = "".join(str(int(x)) for x in dd)
+        slope_table[key] = {"rho_c2_eigs_ascending": eigs.tolist()}
+        for i in range(3):
+            for jl in range(i, 3):
+                A.append(_cubic_gamma_row(q, i, jl))
+                b.append(G[i, jl])
+    A = np.array(A, float)
+    b = np.array(b, float)
+    x, _res, *_ = np.linalg.lstsq(A, b, rcond=None)
+    fit = A @ x
+    resid_rel = float(np.max(np.abs(fit - b)) / (np.max(np.abs(b)) + 1e-30))
+    C11, C12, C44 = (float(v) for v in x)
+    return {
+        "C11": C11, "C12": C12, "C44": C44,
+        "max_rel_residual": resid_rel,
+        "min_acoustic_eig": min_acoustic_eig,
+        "slope_table": slope_table,
+    }
 
 
 def run_positive_controls(*args, **kwargs):  # noqa: D401
