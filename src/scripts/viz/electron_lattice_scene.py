@@ -417,6 +417,28 @@ def render_static(scene: dict) -> list:
     return written
 
 
+def inject_html(scene: dict) -> Path | None:
+    """Inject the engine scene JSON into the interactive HTML between the
+    ``/* SCENE_JSON */ ... /* END_SCENE_JSON */`` markers, making the page fully
+    self-contained (opens directly in a browser, no server/fetch/CORS). The HTML
+    template ships committed; this replaces only the embedded data block, so the
+    presentation code and the engine data stay separable (edit template freely;
+    re-run driver to refresh the data). Returns the HTML path, or None if the
+    template is absent."""
+    html_path = _OUT_DIR / "electron_lattice.html"
+    if not html_path.exists():
+        return None
+    html = html_path.read_text()
+    start, end = "/* SCENE_JSON */", "/* END_SCENE_JSON */"
+    i, j = html.find(start), html.find(end)
+    if i == -1 or j == -1:
+        return None
+    payload = "\n" + json.dumps(scene, separators=(",", ":")) + "\n"
+    new_html = html[: i + len(start)] + payload + html[j:]
+    html_path.write_text(new_html)
+    return html_path
+
+
 def main() -> None:
     _OUT_DIR.mkdir(parents=True, exist_ok=True)
     scene = build_scene()
@@ -443,6 +465,10 @@ def main() -> None:
     renders = render_static(scene)
     for r in renders:
         print(f"  render written: {r}")
+
+    html = inject_html(scene)
+    if html is not None:
+        print(f"  HTML self-contained: {html}")
 
 
 if __name__ == "__main__":
