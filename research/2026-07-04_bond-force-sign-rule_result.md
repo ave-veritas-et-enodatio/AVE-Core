@@ -306,11 +306,29 @@ It resolves the SIGN axis #526 left explicitly open (`prestress-tensor_result.md
 | [SAME-SIGN] | NOT triggered (reachability-tested) | would need both arms same sign; falsified by the derivation |
 | [PATH-INDETERMINATE] | NOT triggered (reachability-tested) | would need an undefined/non-sign-robust force; both arms sign-robust across laws |
 
-- **NO fall-through else + reachable DISCREPANT-HALT (closes the #521/#526 dead-else gap PROPERLY this
-  time):** the selector raises `DiscrepantHalt` if a force's sign contradicts its remap structure
-  (tension that uncaps, or compression that caps). **TWO synthetic-input tests TRIGGER it**
-  (`test_discrepant_halt_fires_on_tension_that_uncaps`, `…compression_that_caps`) + one no-false-fire
-  test on the live tracks. Both non-primary bins also have reachability tests.
+- **NO fall-through else + reachable DISCREPANT-HALT.** The selector raises `DiscrepantHalt` on a
+  sign↔structure contradiction (tension that uncaps, or compression that caps). Both non-primary bins
+  and the HALT branch have reachability tests (synthetic-input triggers).
+- **THE LIVE GATE IS NOW A REAL GATE (item 6b — this defect class has now RECURRED 3× across #521/#526/
+  #527).** The first #527 draft's live DISCREPANT-HALT re-checked the identity that DEFINED its inputs
+  (`k_shear_eff = S_shear + T/ℓ` makes `T>0 ⟹ k_shear_eff>S_shear` algebraically forced), so it was
+  **incapable of firing on any live track** — a checklist, not a gate. **Fixed:** the live gate now
+  RECONCILES the stored prestressed-tensor ν against an **independently-assembled cold tensor at the
+  shifted spring** (`extract_cubic_Cij(k_axial, k_shear=k_shear_eff)` — a DIFFERENT solver code path;
+  the VS4 collapse forces agreement ONLY if the remap is correct). Tests:
+  `test_live_gate_independent_reconcile_CAN_fire` (a corrupted `k_shear_eff` breaks the VS4 ν-reconcile
+  and the gate fires) + `test_live_gate_reconcile_is_exact_on_truth` (rel<1e-9 on every live track).
+  **This is NOT a claim of closure for the defect CLASS:** per the orchestrator, the 3× recurrence is
+  flagged to Grant for a **harness-level fix — a reusable reconcile-gate helper in
+  `src/ave/validation/`** — so future gates get an independent-recompute helper by default rather than
+  re-deriving one per arc. This arc fixes ITS gate; the class-level fix is the follow-on.
+- **Self-verifying-control augmentation (item 6a).** Controls whose "expected" value was computed the
+  same way as the "measured" value were augmented with independent references: PC-recon ties arm-(b)
+  magnitude to the **CONSUMED #526 `bond_tension`** (an independent, separately-committed function, not
+  a same-file recompute); the live gate's ν-reconcile (above) is the independent reference for the
+  remap. The remaining `==0` controls (PC-a1 `T_a(0)=0`, PC-b2 Hooke→0) are **boundary-value** checks
+  (a value AT a point, not an identity re-check) and the sympy backbone derives them from the energy
+  independently (`arm_a_from_energy=0`).
 - Sector classification (v1.5): the decision observable is **DC-internal** (a DC medium-state sign; the
   tensor readout is a same-pipeline DC consistency check). No pure-AC null; no framework-level-negative
   claimed (CONSISTENCY-class sign adjudication).

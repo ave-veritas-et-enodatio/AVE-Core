@@ -252,8 +252,38 @@ def test_discrepant_halt_does_not_fire_on_consistent_tracks(srs):
     """The live four tracks are all sign<->structure consistent (no false HALT)."""
     pos, bonds, rho = srs
     tr = four_tracks(pos, bonds, rho, arc_star=0.96)
-    v = select_bin(tr)                     # must not raise
+    v = select_bin(tr, pos, bonds, rho)    # LIVE path (independent reconcile) -- must not raise
     assert v["verdict"] == "SIGN-RULE-DERIVED"
+
+
+def test_live_gate_independent_reconcile_CAN_fire(srs):
+    """Item 6b (THIRD recurrence closed): the LIVE gate recomputes nu via an INDEPENDENT
+    cold-at-k_shear_eff tensor (VS4 collapse) and fires when the stored remap is corrupted.
+
+    This proves the gate is a real gate, not a re-check of the defining identity: a
+    wrong k_shear_eff breaks the VS4 nu-reconcile even though the stored fields are
+    internally consistent."""
+    import copy
+    pos, bonds, rho = srs
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
+    bad = copy.deepcopy(tr)
+    bad["arm_a_geometric"]["k_shear_eff"] = 0.5   # WRONG (real ~0.14) -> VS4 nu diverges
+    with pytest.raises(DiscrepantHalt):
+        select_bin(bad, pos, bonds, rho)
+
+
+def test_live_gate_reconcile_is_exact_on_truth(srs):
+    """The VS4 nu-reconcile is EXACT (rel ~ 0) on every live track -- the independent
+    cold-at-k_shear_eff nu equals the stored prestressed nu to machine precision."""
+    from scripts.vol_1_foundations.bond_force_sign_rule import _independent_remap_reconcile
+    pos, bonds, rho = srs
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
+    for name, t in tr.items():
+        rec = _independent_remap_reconcile(
+            pos, bonds, rho, t["A_axial"], t["A_shear"], t["T_signed"],
+            t["nu"], t["k_shear_eff"])
+        if rec["reconcilable"]:                    # capped tracks (k_shear_eff>0)
+            assert rec["nu_reconcile_rel"] < 1e-9
 
 
 # --------------------------------------------------------------------------

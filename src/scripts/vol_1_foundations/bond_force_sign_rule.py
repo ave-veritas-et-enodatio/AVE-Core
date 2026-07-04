@@ -412,21 +412,41 @@ class DiscrepantHalt(RuntimeError):
     """
 
 
-def _sign_structure_consistent(T_signed: float, S_shear: float, k_shear_eff: float) -> bool:
-    """A tension must not uncap; a compression must not strictly cap.
+def _independent_remap_reconcile(pos, bonds, rho, A_axial, A_shear, T_signed,
+                                 nu_stored, k_shear_eff_stored):
+    """Reconcile the remap TWO INDEPENDENT ways -- the item-6b real gate.
 
-    tension (T>0)  => k_shear_eff > S_shear (STRICTLY CAPPED, grown).
-    compression (T<0) => k_shear_eff < S_shear (uncapped direction, shrunk).
-    T==0 => k_shear_eff == S_shear (no pre-stress).
+    Path 1 (the track's stored path): the PRE-STRESSED Born-Huang tensor
+      extract_prestress_Cij(k_a, k_s, T) -> nu_stored, with the remap formula
+      k_shear_eff = k_s + T/l -> rho'.
+    Path 2 (INDEPENDENT recompute): the COLD tensor at the shifted transverse spring,
+      extract_cubic_Cij(k_a, k_shear=k_shear_eff) -> nu_cold. By the VS4 exact-collapse
+      (prestress(k_a,k_s,T) == cold(k_a, k_s+T/l)) the two MUST agree: nu_cold == nu_stored.
+
+    These are DIFFERENT code paths (the pre-stress transverse (T/l)(I-P) insertion vs the
+    cold spring-swap) that agree ONLY if the remap is correct. A genuine remap bug (wrong
+    k_shear_eff, wrong sign, wrong T/l power) breaks the VS4 collapse and nu_cold diverges
+    from nu_stored -> the gate CAN fire. This is NOT a re-check of the defining identity
+    (that was the #521/#526/#527 checklist defect): nu_cold is computed by a separate
+    solver call on a separately-assembled tensor.
     """
-    if T_signed > 0:
-        return k_shear_eff > S_shear
-    if T_signed < 0:
-        return k_shear_eff < S_shear
-    return abs(k_shear_eff - S_shear) < 1e-12
+    S_axial = float(saturation_factor(A_axial, yield_limit=1.0))
+    # INDEPENDENT path: cold tensor at the shifted spring (a different assembly code path)
+    if k_shear_eff_stored <= 0:
+        # uncapped (k_shear_eff -> 0-): the cold family has no k_shear<=0 point; the
+        # independent reconcile is vacuous here (rho'->inf by construction), so we only
+        # assert the SIGN direction (compression must drive k_shear_eff below S_shear).
+        return {"nu_cold_independent": float("nan"),
+                "nu_reconcile_rel": float("nan"), "reconcilable": False}
+    r_cold = extract_cubic_Cij(pos, bonds, k_axial=S_axial,
+                               k_shear=float(k_shear_eff_stored), rho=rho)
+    nu_cold = moduli_from_Cij(r_cold["C11"], r_cold["C12"], r_cold["C44"])["nu_Hill"]
+    rel = abs(nu_cold - nu_stored) / (abs(nu_stored) + 1e-30)
+    return {"nu_cold_independent": float(nu_cold),
+            "nu_reconcile_rel": float(rel), "reconcilable": True}
 
 
-def select_bin(tracks: dict) -> dict:
+def select_bin(tracks: dict, pos=None, bonds=None, rho=None) -> dict:
     """Map the four tracks to the FROZEN bins. NO fall-through else.
 
     Reads the SIGN of each arm's end-to-end force (arm a tension, arm b compression)
@@ -434,17 +454,45 @@ def select_bin(tracks: dict) -> dict:
       both arms opposite sign  -> [SIGN-RULE-DERIVED]
       both arms same sign      -> [SAME-SIGN]
       an arm's force undefined -> [PATH-INDETERMINATE]
-    DISCREPANT-HALT fires FIRST if any track's sign contradicts its remap structure.
+    DISCREPANT-HALT fires FIRST if any track's sign contradicts an INDEPENDENTLY-
+    recomputed remap (item 6b: a real gate, not a re-check of the defining identity).
+
+    When pos/bonds/rho are supplied (the live path), the gate RECONCILES the stored
+    prestressed-tensor nu against an INDEPENDENTLY-assembled cold tensor at the shifted
+    spring (the VS4 collapse; a different solver code path). A divergence (>1e-9 rel)
+    OR a sign<->structure contradiction on the stored k_shear_eff raises DiscrepantHalt.
+    Synthetic tracks (no geometry) fall back to the stored-field check so the
+    reachability unit tests still trigger it.
     """
-    # DISCREPANT-HALT gate (reachable; unit-tested to trigger on synthetic input)
     for name, t in tracks.items():
         T, S_sh, kse = t["T_signed"], t["S_shear"], t["k_shear_eff"]
-        if not _sign_structure_consistent(T, S_sh, kse):
-            raise DiscrepantHalt(
-                f"sign<->structure contradiction in track {name!r}: "
-                f"T={T:+.4e}, S_shear={S_sh:.4e}, k_shear_eff={kse:.4e} "
-                f"(tension must cap / compression must uncap)"
-            )
+        if pos is not None and bonds is not None and rho is not None:
+            # (a) INDEPENDENT reconcile (item 6b): prestressed-tensor nu vs cold-at-kse nu
+            #     (VS4 collapse; DIFFERENT assembly path -- a real remap bug diverges them)
+            rec = _independent_remap_reconcile(
+                pos, bonds, rho, t["A_axial"], t["A_shear"], T, t["nu"], kse)
+            if rec["reconcilable"] and rec["nu_reconcile_rel"] > 1e-9:
+                raise DiscrepantHalt(
+                    f"remap RECONCILE FAILED in {name!r}: stored prestress nu={t['nu']:.9f} "
+                    f"vs INDEPENDENT cold-at-k_shear_eff nu={rec['nu_cold_independent']:.9f} "
+                    f"(rel={rec['nu_reconcile_rel']:.2e}>1e-9) -- VS4 collapse broken"
+                )
+            # (b) sign<->structure on the stored k_shear_eff (tension caps / compression uncaps)
+            if (T > 0 and not kse > S_sh) or (T < 0 and not kse < S_sh):
+                raise DiscrepantHalt(
+                    f"sign<->structure contradiction in {name!r}: T={T:+.4e}, "
+                    f"S_shear={S_sh:.4e}, k_shear_eff={kse:.4e}"
+                )
+        else:
+            # synthetic fallback (no geometry): stored-field check for reachability tests
+            ok = (T > 0 and kse > S_sh) or (T < 0 and kse < S_sh) or \
+                 (T == 0 and abs(kse - S_sh) < 1e-12)
+            if not ok:
+                raise DiscrepantHalt(
+                    f"sign<->structure contradiction in track {name!r}: "
+                    f"T={T:+.4e}, S_shear={S_sh:.4e}, k_shear_eff={kse:.4e} "
+                    f"(tension must cap / compression must uncap)"
+                )
 
     # arm signs from the SIGN of T (not the remap -- the force is the primary datum)
     arm_a_signs = {np.sign(t["T_signed"]) for k, t in tracks.items() if t["arm"] == "a_pluck"}
@@ -561,8 +609,8 @@ def main() -> int:
     # edges and require agreement (a sign that flipped across the band would be a
     # PATH-INDETERMINATE signal, not a silent pick).
     try:
-        verdict_lo = select_bin(band["lo_elastica"]["tracks"])
-        verdict_hi = select_bin(band["hi_tent"]["tracks"])
+        verdict_lo = select_bin(band["lo_elastica"]["tracks"], pos_r, bonds_r, rho_r)
+        verdict_hi = select_bin(band["hi_tent"]["tracks"], pos_r, bonds_r, rho_r)
     except DiscrepantHalt as e:
         out["verdict"] = {"verdict": "DISCREPANT-HALT", "detail": str(e)}
         print(f"\nDISCREPANT-HALT: {e}")
