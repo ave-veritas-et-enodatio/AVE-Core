@@ -103,15 +103,21 @@
 *   grade-fork 2026-06-30, def-vyvsn1: "the longitudinal-A1 bond compliance
 *   diverges at the higher V_snap"). VALUE CHANGE: the divergence voltage moves
 *   43.65 kV -> 511 kV for this element (a factor 1/sqrt(alpha) ~ 11.7).
-B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_SNAP)**2, 0.9999))}
+* ngspice-46 FIX (SPICE PHASE-1, Rule 10): B...Q= UNSUPPORTED ("unknown
+* parameter (q)"). Native nonlinear-cap idiom is the charge element C...Q=.
+* Physics UNCHANGED: A1-compliance divergent Q=C0*V/S(V), keyed V_SNAP.
+C_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_SNAP)**2, 0.9999))}
 
 * -- (b) Relativistic Inductor (Axiom 4, magnetic sector) --
 * Phi = L0 * I / sqrt(1 - (I/I_YMAX)^2)
 * At I -> I_YMAX, L_eff -> inf and dI/dt -> 0 (velocity cannot exceed c).
 * ngspice implements this via a behavioral voltage source in series with
 * a small linear inductor for numerical integration:
-L_BASE A N_L {L0}
-B_REL_V N_L B V = {L0 * idt(V(A,B)) * (1/sqrt(1 - min((I(L_BASE)/I_YMAX)**2, 0.9999)) - 1) / (L0 + 1e-30)}
+* ngspice-46 FIX (SPICE PHASE-1, empirical-driver Rule 10): idt() UNSUPPORTED
+* here ("no such function 'idt'"). Native relativistic-inductor idiom is the
+* flux element L...Flux={Phi}. Physics: Phi = L0*I/S(I) (flux DIVERGES as
+* I -> I_YMAX => dI/dt -> 0, velocity cannot exceed c).
+L_REL A B Flux = {L0 * i(L_REL) / sqrt(1 - min((i(L_REL)/I_YMAX)**2, 0.9999))}
 
 * -- (c) Optional Damping (Regime I: viscous drag) --
 * R0 = 0 for free vacuum; nonzero for material domains
@@ -182,10 +188,16 @@ XN_MEM A B N_S AVE_MEMRISTOR_S_STATE TAU_REL={TAU_REL} V_YLD={V_YLD}
 * ADJUDICATION-PENDING: modulated-by-memristor A1/T2 cross-sector varactor (see
 * header note). S from the (T2-yield) memristor state node; UNCHANGED pending
 * adjudication.
-B_VAR A B Q = {C0 * V(A,B) / max(V(N_S), 1e-6)}
+* ngspice-46 FIX (SPICE PHASE-1, Rule 10): B...Q= -> charge element C...Q=.
+* Modulated-varactor expression UNCHANGED (A1/T2 cross-sector, still
+* ADJUDICATION-PENDING per header note).
+C_VAR A B Q = {C0 * V(A,B) / max(V(N_S), 1e-6)}
 
-L_BASE A N_L {L0}
-B_REL_V N_L B V = {L0 * idt(V(A,B)) * (1/sqrt(1 - min((I(L_BASE)/I_YMAX)**2, 0.9999)) - 1) / (L0 + 1e-30)}
+* ngspice-46 FIX (SPICE PHASE-1, empirical-driver Rule 10): idt() UNSUPPORTED
+* here ("no such function 'idt'"). Native relativistic-inductor idiom is the
+* flux element L...Flux={Phi}. Physics: Phi = L0*I/S(I) (flux DIVERGES as
+* I -> I_YMAX => dI/dt -> 0, velocity cannot exceed c).
+L_REL A B Flux = {L0 * i(L_REL) / sqrt(1 - min((i(L_REL)/I_YMAX)**2, 0.9999))}
 
 R_DAMP A B {R0 + 1e-15}
 
@@ -244,7 +256,9 @@ R1 A B {R0 + 1e15}
 .subckt AVE_EE_BENCH A B
 + params: C0=10p V_YLD=43651.85
 
-B_Q A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
+* ngspice-46 FIX (SPICE PHASE-1, Rule 10): B...Q= -> charge element C...Q=.
+* Expression UNCHANGED (still ADJUDICATION-PENDING sector per header note).
+C_Q A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
 
 .ends AVE_EE_BENCH
 

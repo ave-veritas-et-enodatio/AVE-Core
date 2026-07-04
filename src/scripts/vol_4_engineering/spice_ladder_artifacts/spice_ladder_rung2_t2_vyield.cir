@@ -1,0 +1,13 @@
+* SPICE PHASE-1 rung 2 — Ax4 kernel at one operating point
+* V = 39286.6666598892 V ; v_key = 43651.8518443214 V ; S = sqrt(1 - (V/v_key)^2)
+V1 A 0 DC 39286.6666598892
+B_S  N_S 0 V = {sqrt(1 - min((V(A)/43651.8518443214)**2, 0.9999))}
+B_I  N_I 0 V = {1 / sqrt(1 - min((V(A)/43651.8518443214)**2, 0.9999))}
+R_S N_S 0 1e12
+R_I N_I 0 1e12
+R_A A 0 1e15
+.control
+op
+print v(N_S) v(N_I)
+.endc
+.end
