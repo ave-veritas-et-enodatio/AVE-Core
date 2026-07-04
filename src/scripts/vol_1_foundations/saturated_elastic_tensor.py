@@ -475,16 +475,31 @@ def main():
         # UNSTABLE at the matter operating points: is K<0 where rho_eff>1 matters?
         # stability floor is rho_eff=2 (sign-invariant); report the boundary.
         unstable_rows = [row for row in d["ladder"] if row["sign_K"] < 0]
-        # bin selection (VS3 pass => family not deformed => SAME-TENSOR-POINT applies)
-        if same_tensor and val["VS3_saturated_equals_cold_at_matched_rho_eff"]["PASS"]:
-            primary = "SAME-TENSOR-POINT"
-        elif not val["VS3_saturated_equals_cold_at_matched_rho_eff"]["PASS"]:
+        # bin selection (reconcile-don't-declare: the STRONG bin is EARNED only when the
+        # frozen crossing criterion is SATISFIED; a VS3-pass-but-crossing-fail state is a
+        # LOUD discrepancy, never a silent default to the strong bin).
+        vs3_pass = val["VS3_saturated_equals_cold_at_matched_rho_eff"]["PASS"]
+        vs3_deformed = not vs3_pass
+        reaches_crossing = bool(d["crosses_rho_star_9.77"])
+        if vs3_deformed:
+            # the saturated map is NOT the cold map at matched rho_eff -> deformed family
             primary = "DEFORMED-FAMILY"
-        elif d["direction"] == "SOFTENING":
-            # axial-loads: rho_eff falls, never reaches 9.77 -> mirror control
-            primary = "SAME-TENSOR-POINT (mirror: rho_eff<1, no 9.77 crossing; map undeformed)"
-        else:
+        elif same_tensor:
+            # map undeformed AND the crossing delivers nu=2/7/K=2G to cold precision
             primary = "SAME-TENSOR-POINT"
+        elif not reaches_crossing:
+            # map undeformed AND this assignment never reaches rho_eff=9.77 (the SOFTENING /
+            # mirror control: rho_eff<1). SAME-TENSOR-POINT holds by the undeformed-map VS3
+            # evidence, scoped to "no 9.77 crossing on this branch".
+            primary = "SAME-TENSOR-POINT (mirror: no 9.77 crossing on this branch; map undeformed)"
+        else:
+            # map undeformed AND the branch REACHES the crossing but the crossing does NOT
+            # deliver nu=2/7/K=2G to cold precision. This CONTRADICTS the undeformed-map
+            # evidence (a reconcile FAILURE) -- do NOT silently claim the strong bin. Loud.
+            primary = ("DISCREPANT-HALT: VS3 says map undeformed, but the rho_eff=9.77 crossing "
+                       "does NOT deliver nu=2/7/K=2G to cold precision "
+                       f"(nu_at_crossing={nu_c}, KG_at_crossing={kg_c}) -- these cannot both be "
+                       "true; the extraction or the crossing readout is inconsistent. NEEDS REVIEW.")
         verdicts[name] = {
             "PRIMARY_BIN": primary,
             "direction": d["direction"],
