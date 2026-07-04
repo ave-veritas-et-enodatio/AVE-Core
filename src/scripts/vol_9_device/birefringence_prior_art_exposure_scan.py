@@ -331,8 +331,12 @@ def export_exposure_figure(out: dict, fig_path: Path) -> Path:
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(style.axis_label("Optical pump intensity", "I", "W/cm$^2$"))
-    ax.set_ylabel(style.axis_label("Polarization-flip probability", "P_{\\rm flip}", ""))
+    # Symbol-only y-label (the quantity is named in the caption); keeps the long
+    # "[dimensionless]" bracket from clipping the left margin (figure-discipline
+    # Axis 2: symbol + unit present, quantity carried by the caption).
+    ax.set_ylabel(style.axis_label("Flip probability", "P_{\\rm flip}", ""))
     ax.set_ylim(1e-26, 30.0)
+    fig.subplots_adjust(left=0.16)
     style.legend(ax, where="right", fontsize=8)
 
     written = style.save(fig, fig_path)
