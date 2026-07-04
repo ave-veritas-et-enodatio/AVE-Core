@@ -199,6 +199,21 @@ separate carried open: B_SNAP vs E_YIELD/c are not energy-density duals, differ
 >   re-landed as a tracked driver before it is cited again** — do not refill the slot with the off-branch
 >   test value as if it were at-HEAD-validated.
 
+> **↳ CURRENCY NOTE (2026-07-03, LAND-FIRST cleanup — debt DISCHARGED).**
+> The Rule-12 directive above is now satisfied. The 7 unique commits of `origin/engine/mu-circulation-keying`
+> (numpy kernel `f2997870`, JAX twin `8ae10b57`, validation suite `0e6af04f`, warning-silence `7e765496`,
+> honest-scope `fce2e444`, de-circularize + LOADED-μ energy test `55adf185`, step-1 memo `2ef4990f`) were
+> cherry-picked onto `analysis/cleanup-land-first` and land as a tracked driver + test. Two commits needed a
+> conflict resolution in `fdtd_3d_jax.py` (the main-only def-bdual1 disambiguation note `081915af` was
+> **preserved** across the circulation-keying docstring rewrite — physics unchanged). **RE-RUN at this HEAD:**
+> `src/tests/test_vca_mu_circulation_keying.py::test_energy_honesty_LOADED_mu_conserves_no_secular_growth`
+> reproduces the figure — **μ-attributable excess `|dH/H| = 1.44×10⁻³`** (drift_nl `= 7.14×10⁻³`,
+> drift_lin `= 5.70×10⁻³`), at `A_I` peak `= 0.768` (μ_eff `= 1.5625·μ_0`, a genuine reactive load). This
+> matches the branch-recorded `1.4×10⁻³` to two significant figures; the number is now HEAD-validated and
+> citable as a tracked driver (was off-branch only). Full circulation-keying suite: 13 passed + 1 xfail
+> (the grid-invariance gap, still OPEN by design — memo §2/§8 #1). FDTD numpy+JAX equivalence regression:
+> green.
+
 ## 7. Verdict
 
 **FLAGGED — derivation correct, clean implementation BLOCKED. No code changed.**
