@@ -16,8 +16,8 @@
 >
 > | Loading path | Sector | End force | #526 remap | ν trajectory |
 > |---|---|---|---|---|
-> | **transverse pluck** | T2 (self-trap response) | **TENSION (T>0)** | k_shear_eff GROWS ⟹ **CAPPED** | ν → K<0 pole region (cold ρ<2 band, via remap) |
-> | **axial end-load** | A1 (dilatation/gravity load) | **COMPRESSION (T<0)** | k_shear_eff SHRINKS ⟹ **UNCAPPED** | ν RISES toward +½ |
+> | **transverse pluck** | T2 mechanical BOW response (the strut coordinate; NOT the charge winding — §4 homonym guard) | **TENSION (T>0)** | k_shear_eff GROWS ⟹ **CAPPED** | ν → K<0 pole region (cold ρ<2 band, via remap) |
+> | **axial end-load** | A1 dilatation load, at the A1 op-point amplitude (gravitational per-bond mapping PENDING — §1) | **COMPRESSION (T<0)** | k_shear_eff SHRINKS ⟹ **UNCAPPED** | ν RISES toward +½ |
 >
 > **The rule:** pluck→tension→capped track; end-load→compression→uncapped track. Both tracks reported
 > (four sub-tracks per the orchestrator ruling below); the sign is the verdict, the magnitude is a band.
@@ -41,7 +41,8 @@ finite compressive; PC-b2 pre-buckle Hooke `−k_a·u→0`; **PC-recon arm(b) ma
 ## SUBSTRATE-FIRST SECTOR HEADER (as run)
 
 - **SECTOR:** the K4/srs bond microfoundation (Ax4 quarter-arc kernel as a fixed-arc-length strut).
-  Arm (a) = **T2-delivered** transverse bias (bow response). Arm (b) = **A1-delivered** axial bias
+  Arm (a) = the T2 **mechanical BOW** transverse bias (the strut coordinate — NOT the Cosserat charge
+  winding; §4 homonym guard). Arm (b) = **A1-delivered** axial bias
   (dilatational/gravitational end-load). **NOT cross-wired** (mass=A1 load; transverse bow=T2 response).
 - **MODE:** quasi-static loading-path analysis on the bond microfoundation + small-signal tensor
   readout via the MERGED #526 remap. Symbolic (sympy) force derivation FIRST; numeric bands second.
@@ -74,7 +75,7 @@ Energy convention (stated per the δ_y ledger discipline): the kernel `Φ''(a)=k
 is the axial constitutive energy `Φ(A)`, `Φ''(0)=k0` (Maxwell recovered — sympy exact). This is #526's
 `Φ'(A)` reading; the fixed-arc-length picture attaches the geometry that fixes the SIGN.
 
-### ARM (a) — TRANSVERSE PLUCK (T2 self-trap response) → TENSION
+### ARM (a) — TRANSVERSE PLUCK (T2 mechanical BOW response — NOT the charge winding, §4 guard) → TENSION
 
 Chord held at ℓ; transverse bow driven to y. To bow the strut the arc lengthens from ℓ to
 `2√((ℓ/2)²+y²)` (tent geometry), stretching the material line → axial tension whose chord-directed
@@ -175,17 +176,45 @@ itself a reportable finding. Verbatim grep quotes (this session, at branch HEAD)
   transverse bow = the RESPONSE (arm a, pluck, tension).** The sign-keying follows from which coordinate
   is the load and which is the response.
 
-- **`vocabulary-register.md:664`** — the sector split is Grant-ratified:
-  > "**$V_{\text{yield}} = \sqrt{\alpha}\cdot V_{\text{snap}}$** … = the **transverse Cosserat ($T_2$)
-  > self-trap wall** (Grant 2026-06-30 ruling)… **$V_{\text{snap}}$** … = the **longitudinal $A_1$
-  > sector fully saturates**"
+**Arm (a) is grounded on the axiom-register BOW ONLY.** The "transverse T2 bow response" in the line
+above is the **mechanical bow COORDINATE** of the strut (the geometric transverse displacement in
+`A²+S²=arc*²`). That is the whole grounding arm (a) needs and claims.
 
-  The T2 self-trap (arm a) and the A1 longitudinal sector (arm b) are canonically distinct sectors; the
-  A1 core operates at `A=√α` (sub-saturated), which is exactly the arm-(b) end-load amplitude the driver
-  uses. **The two arms map onto the two canonical sectors 1:1; do not cross-wire.**
+> **T2 HOMONYM GUARD (MAJOR fix, orchestrator review 2026-07-04).** The label "T2" names TWO
+> categorically distinct canon objects, and this doc's first draft welded them. They must NOT be
+> conflated:
+> - **(i) the mechanical T2 BOW coordinate** — the strut's transverse displacement (axiom-register:189).
+>   This is arm (a)'s legitimate geometric grounding.
+> - **(ii) the Cosserat T2 MICRO-ROTATION charge winding** — `vocabulary-register.md:664`'s "transverse
+>   Cosserat (T2) self-trap wall" is THIS object. Canon pins it as a **DISTINCT object**: a "static
+>   reactive CHARGE BOUNDARY, a lossless-REACTIVE constraint **carrying no real power**," **STATIC
+>   topology, not a dynamical/energetic mode** (both internal dynamical loci tested NEGATIVE, #415 +
+>   #417) — `resonant-lc-solitons.md:95` ("a **DISTINCT object**… $A1 \perp T2$ per
+>   master-equation.md:20 … Grant-ratified 2026-06-14"), `:128` ("static reactive CHARGE BOUNDARY …
+>   lossless-REACTIVE … carrying no real power … STATIC topology, not a dynamical/energetic mode … both
+>   internal dynamical loci … NEGATIVE (#415 + #417)"). **A mechanical midpoint pluck is NOT the charge
+>   winding.**
+>
+> Therefore: the earlier "the two arms map onto the two canonical sectors 1:1" sentence is **WITHDRAWN**.
+> Arm (a) is the **mechanical bow response** (object i), NOT the charge sector (object ii). The
+> `vocabulary-register.md:664` cite is downgraded from grounding to this homonym guard: it shares the
+> "T2" label but names a distinct object; do not cross-wire. The A1⊥T2 master-equation anchor forbids
+> exactly the conflation the first draft made.
 
-Finding: **the fork's resolution was latent in the axiom-register's "A1 load → T2 response" phrasing.**
-Grant's ratified "it does both depending on interaction" is that phrasing read as a force-sign rule.
+**Finding (corrected):** the fork's resolution is latent in the axiom-register's "A1 load → T2 *bow*
+response" phrasing — read strictly as the mechanical load/response split (which coordinate is clamped
+vs driven), NOT as the A1-mass / T2-charge sector map. Grant's ratified "it does both depending on
+interaction" is that mechanical phrasing read as a force-sign rule.
+
+> **OPEN QUESTION SURFACED (flagged for Grant, NOT resolved — item 1c).** If the electron's self-trap
+> wall is the **STATIC T2 winding** (object ii, "carrying no real power," #415+#417 negative), then
+> **what physically PLUCKS the bond in matter** to deliver arm (a)'s transverse mechanical bias? The
+> mechanical bow (object i) needs a dynamical driver, but the charge winding (object ii) is static and
+> does no work. Candidate distinction (Grant's fork to rule, recorded not resolved): the **dynamical
+> standing shear wave** (a pre-trap / dynamic transverse excitation that CAN do work and pluck the
+> bond) vs the **static winding** (the post-trap topological object). Whether arm (a)'s pluck is
+> delivered by the dynamical shear wave — and how that relates to the static winding it may leave
+> behind — is a substrate-ontology question I do not adjudicate. Surfaced for Grant.
 
 ---
 
@@ -281,5 +310,5 @@ manual entries.
   `extract_prestress_Cij`, `k_shear_eff`/`rho_prime` remap)
 - #526 result + open sign fork: `research/2026-07-04_prestress-tensor_result.md:53-60,278-294,365-371,403`
 - Ax4 microfoundation (fixed-arc-length, A1-load/T2-response grammar): `manuscript/ave-kb/common/axiom-register.md:188-192`
-- V_yield=T2 self-trap wall / A1 sector split (Grant 2026-06-30): `manuscript/ave-kb/common/vocabulary-register.md:664`
+- T2 HOMONYM GUARD (mechanical bow vs charge winding — the two distinct T2 objects): `resonant-lc-solitons.md:95,:128` (A1⊥T2 per `master-equation.md:20`, Grant-ratified 2026-06-14; #415+#417 NEGATIVE); `vocabulary-register.md:664` (the charge-winding object, downgraded to homonym guard)
 - Kernel S(A) / differential stiffness: `src/ave/axioms/scale_invariant.py:107-156`
