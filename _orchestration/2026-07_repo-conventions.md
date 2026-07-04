@@ -248,7 +248,7 @@ The delta closes exactly. `predictions.yaml` has **36 entries = 33 numbered + 3 
 
 | Manifest entry `id:` | Covers prediction #(s) | Basis note |
 |:--|:--|:--|
-| `P01`…`P10` (10 simple ids) | 1–10 (via P01–P10, incl. P24/P23/P47/P25/P43 out of numeric order) | 1:1 numbered |
+| `P01`…`P10` (10 simple ids) | 1–10 | 1:1 numbered |
 | `P11_12` | 11–12 | compound range |
 | `P13`, `P14`, `P15`, `P16` | 13, 14, 15, 16 | 1:1 |
 | `P17_18` | 17–18 | compound range |
