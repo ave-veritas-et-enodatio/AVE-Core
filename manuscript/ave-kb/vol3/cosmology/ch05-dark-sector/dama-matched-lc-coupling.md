@@ -134,7 +134,7 @@ A 9.39 kg single-crystal high-purity germanium (HPGe) detector observing at 3.72
 
 2. **$4\pi/N_{single}^2$ rate magnitude formula**. Predicted rate $\approx 4.96 \times 10^{-7}$ events/s/kg = 1.03× DAMA observed (matched-N).
 
-3. **CMB-velocity phase-lock of annual modulation**. June peak (day-of-year ~152) matching DAMA observed phase.
+3. **CMB-velocity phase-lock of annual modulation**. ~~June peak (day-of-year ~152) matching DAMA observed phase.~~ 🔴 **EXCLUDED (2026-07-04):** the CMB dipole apex (l≈264°,b≈48°) peaks in **DECEMBER (day ~348)**, not June — the June peak is the standard-halo/Cygnus phase (a different sky direction, ~170° away in ecliptic longitude). DAMA's measured 145±5 d matches the HALO, not the CMB frame; the phase-lock discriminator dies. See [`dama-alpha-slew-derivation.md`](dama-alpha-slew-derivation.md) §11.3 header + `research/2026-07-04_dama-cmb-phase-lock-check_note.md`.
 
 4. **Solid-vs-liquid binary gate**. HPGe is solid (G > 0), so coupling should exist; molten Ge would show null.
 
@@ -171,7 +171,7 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 
 3. **Sapphire 2.64 kg at 3.728 keV observes rate $\neq 1.15 \times$ DAMA rate/kg** within $\kappa_{quality}$ uncertainty. The 1.15× factor is set by the electron-density ratio between Sapphire and NaI; any other ratio falsifies the per-cycle matched-coupling formula.
 
-4. **The CMB-velocity phase-lock fails** in a new detector (modulation peak shifted from day-of-year ~152 to perihelion ~3 or other phase). Already supported by DAMA but cross-detector replication remains weak.
+4. **The CMB-velocity phase-lock fails** in a new detector (modulation peak shifted from day-of-year ~152 to perihelion ~3 or other phase). ~~Already supported by DAMA but cross-detector replication remains weak.~~ 🔴 **(2026-07-04) — this test is moot as a CMB-frame discriminator:** the CMB apex predicts a **December** peak (day ~348), while DAMA's observed ~day-145 peak is the standard-HALO phase; DAMA never supported the CMB-frame reading. See §11.3 of [`dama-alpha-slew-derivation.md`](dama-alpha-slew-derivation.md) + `research/2026-07-04_dama-cmb-phase-lock-check_note.md`.
 
 ## §7 — Cross-references
 

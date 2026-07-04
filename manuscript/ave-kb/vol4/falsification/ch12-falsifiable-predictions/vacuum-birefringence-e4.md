@@ -99,3 +99,9 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 > ($7.5/\alpha^3$) does not depend on either residual** — it is field- and apparatus-independent.
 
 ---
+
+## The HIBEF facility point (engine-exact)
+
+![The HIBEF moment: the birefringence discriminator at HIBEF's demonstrated ReLaX pump (single-pass, X-ray dark-field polarimeter, no Fabry-Perot). Left: the E²-leading SVE |δn|(E) at the demonstrated-pump point A²=5.92e-7. Centre: the probe polarization walk-off — SVE Δφ=0.148 rad (NJP 9835 eV) vs QED Δφ=3.3e-7 rad. Right: the single-pass flip probability P=sin²(Δφ/2) — SVE P≈5.4e-3 sits ~7 OOM above the required (1.4e-10) and demonstrated (2.4e-10) polarimeter floors; QED P≈2.8e-14 sits ~4 OOM below.](../../../../vol_4_engineering/figures/hibef_moment_panels.png)
+
+*Figure — the falsifier-floor logic of the 🔴 header (line 19–20) rendered at the facility point. The plotted numbers are engine-exact driver outputs at their stated observables (Δφ, P=sin²(Δφ/2), δn). This render does NOT restate the matched-differential COEFFICIENT ratio; the `7.5/α³≈1.93e7` δn-ratio in this leaf's body carries the open QED-normalization correction of the 🔴 header (→ `7.5π/α²≈4.42e5`), tracked there and unresolved by this figure. Amplitude of the displayed pump stripe exaggerated ×3e5 for visibility (labelled). CONSISTENCY-class: FORM=SVE chord, magnitude ratio=α-echo (symmetric-standard). Driver: `src/scripts/viz/hibef_moment_scene.py` (`scripts.vol_9_device.birefringence_gap1_hibef_feasibility` + `ave.bench.delta_n_ave_differential_exact` + `graded_vacuum_network.saturation_kernel`); provenance ledger `viz/README.md` Visual 2.*
