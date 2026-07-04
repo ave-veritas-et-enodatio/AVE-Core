@@ -38,6 +38,29 @@ False-positive avoidance:
     NOT extracted (doc/example links live in fences).
   - a trailing `#anchor` fragment and a trailing `:linenum` suffix are stripped
     before resolving (the codebase cites locations as `path/file.md:42`).
+
+kbleaf (.tex) citation pass:
+  The rendered manuscript cites canonical KB leaves / repo files inline via
+  `\\kbleaf{<path>}` (defined in manuscript/structure/commands.tex). This pass
+  crawls `manuscript/**/*.tex` and verifies every path-shaped argument resolves
+  to a real file, so a dead KB path in the manuscript gates `make verify`
+  instead of passing silently. Resolution is PATH-SUFFIX matching: every
+  directory segment the cite names must lie on the tail of a real repo path,
+  so tail-of-path shorthand (`ch01-gravity-yield/leaf.md`) resolves while a
+  cite naming a WRONG directory fails even when a same-named leaf exists
+  elsewhere. Bare filenames resolve by basename, and only when they carry a
+  known file extension; `...` ellipses and `[..]` ranges resolve as globs;
+  targets starting `AVE-<Repo>/` resolve against the sibling-repo umbrella
+  dir and are classified `broken inter` (sibling checkouts are legitimately
+  absent on a fresh CI checkout). Non-path arguments (identifiers, skill
+  names, shell snippets — \\kbleaf is also used as a generic monospace
+  typesetter) are skipped and counted. A `\\texttt{prefix-} \\kbleaf{tail}`
+  split cite is flagged as `split kbleaf`: the tail alone resolves against
+  the wrong leaf or nothing, defeating the check — cite the full name in one
+  \\kbleaf{} (its seqsplit already provides the line breaking). Findings gate
+  the exit code except (source, argument) pairs in WAIVED_KBLEAF
+  (adjudicated report-don't-fix), and a waiver that no longer matches a live
+  dead cite is itself a gating `stale kbleaf waiver` failure.
 """
 
 import argparse
@@ -291,6 +314,256 @@ def check_ids(md_file: Path, body: str, known_ids: set[str]) -> list[Finding]:
     return findings
 
 
+# --- \kbleaf{...} citation checking (manuscript .tex) -----------------------
+
+_KBLEAF_RE = re.compile(r"\\kbleaf\{([^}]*)\}")
+
+# LaTeX line comment (an unescaped %). \% is literal percent, not a comment.
+_TEX_COMMENT_RE = re.compile(r"(?<!\\)%.*")
+
+# A leaf name split across a literal \texttt{...-} prefix and a \kbleaf tail.
+# The tail alone resolves against the WRONG leaf (or nothing), so the pattern
+# defeats path checking — cite the full name in one \kbleaf{} (seqsplit
+# already provides the any-character line breaking the split was doing by hand).
+_SPLIT_KBLEAF_RE = re.compile(r"\\texttt\{[^{}]*-\}\s*\\kbleaf\{[^}]*\}")
+
+# Trailing location suffixes stripped before resolution:
+#   :42  :8-24  :133--147          (line / line-range cites)
+#   ::member  :member()  ::member() (python symbol cites on a path)
+_TEX_LINE_SUFFIX_RE = re.compile(r":\d+(?:-{1,2}\d+)?$")
+_TEX_MEMBER_SUFFIX_RE = re.compile(r"(?:::|:)[A-Za-z_][\w.]*(?:\(\))?$")
+
+# LaTeX escapes that appear inside path arguments.
+_TEX_ESCAPES = ((r"\_", "_"), (r"\&", "&"), (r"\%", "%"), (r"\#", "#"), (r"\$", "$"))
+
+# An argument containing any of these (after suffix stripping) is not a path:
+# whitespace / parens / assignment (shell snippets, formulae), $ (math), or a
+# residual :: (unstripped symbol form).
+_TEX_UNCHECKABLE_RE = re.compile(r"[\s()=$`]|::")
+
+# A bare (single-segment) argument is only checkable when it names a file by a
+# known extension; extensionless bare tokens (skill names, identifiers, leaf
+# STEMS like `theorem-3-1-q-factor`) are typography, not checkable paths.
+_BARE_CHECKABLE_EXTS = {
+    ".md", ".py", ".tex", ".sty", ".json", ".jsonl",
+    ".yaml", ".yml", ".csv", ".txt", ".stl",
+}
+
+_SIBLING_REPO_RE = re.compile(r"^AVE-[A-Za-z0-9-]+/")
+
+# Ephemeral / generated dirs excluded from the kbleaf TARGET index. Narrower
+# than SKIP_DIRS: `_archive` and `.index` ARE valid citation targets (tracked,
+# present on a fresh checkout); gitignored or generated trees are not.
+_TARGET_INDEX_SKIP = {".venv", "venv", ".git", "build", "node_modules", ".agents", "__pycache__"}
+
+# (source repo-relative path, verbatim \kbleaf argument) pairs adjudicated
+# report-don't-fix: the dead cite is KNOWN and tracked here, and the correct
+# canonical target is an open judgment call. A waived pair that no longer
+# matches a live dead cite is a STALE WAIVER and fails the run, so this list
+# can only shrink truthfully — it cannot silently outlive its subject.
+WAIVED_KBLEAF: frozenset[tuple[str, str]] = frozenset({
+    # p2.9b_goldstone_proof.md never existed in tracked history (it named a
+    # gitignored session-handoff-era artifact); the four-lemma Goldstone
+    # derivation needs a canonical tracked anchor before this cite can be
+    # repointed. See the PR that introduced this pass for the adjudication.
+    (
+        "manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex",
+        r"p2.9b\_goldstone\_proof.md",
+    ),
+})
+
+
+def iter_tex_files(root: Path):
+    """Yield every `manuscript/**/*.tex`, with the same skips as the md crawl."""
+    manuscript = root / "manuscript"
+    if not manuscript.is_dir():
+        return
+    for path in sorted(manuscript.rglob("*.tex")):
+        parts = path.relative_to(root).parts
+        if any(part in SKIP_DIRS for part in parts):
+            continue
+        if any(_contains_run(parts, run) for run in SKIP_SEGMENT_RUNS):
+            continue
+        yield path
+
+
+def normalize_kbleaf_target(raw: str) -> str:
+    r"""LaTeX-unescape a \kbleaf argument and strip :line / :symbol suffixes."""
+    target = raw.strip()
+    for esc, char in _TEX_ESCAPES:
+        target = target.replace(esc, char)
+    target = _TEX_LINE_SUFFIX_RE.sub("", target)
+    target = _TEX_MEMBER_SUFFIX_RE.sub("", target)
+    return target
+
+
+def build_kbleaf_target_index(
+    repo_root: Path,
+) -> tuple[dict[str, list[tuple[str, ...]]], dict[str, list[tuple[str, ...]]]]:
+    """Index repo files and dirs by basename -> [relative path parts].
+
+    Backs bare-name and path-suffix resolution. Includes `_archive` and
+    `.index` (tracked, legitimately citable); excludes gitignored/generated
+    trees, nested worktrees, and test fixtures (placeholder files must not
+    satisfy citations).
+    """
+    files: dict[str, list[tuple[str, ...]]] = {}
+    dirs: dict[str, list[tuple[str, ...]]] = {}
+    for path in repo_root.rglob("*"):
+        parts = path.relative_to(repo_root).parts
+        if any(part in _TARGET_INDEX_SKIP for part in parts):
+            continue
+        if any(_contains_run(parts, run) for run in SKIP_SEGMENT_RUNS):
+            continue
+        if path.is_file():
+            files.setdefault(parts[-1], []).append(parts)
+        elif path.is_dir():
+            dirs.setdefault(parts[-1], []).append(parts)
+    return files, dirs
+
+
+def _suffix_hit(target_parts: tuple[str, ...], index: dict[str, list[tuple[str, ...]]]) -> bool:
+    """True if some indexed path ENDS WITH target_parts (segment-wise)."""
+    candidates = index.get(target_parts[-1], ())
+    return any(cand[-len(target_parts):] == target_parts for cand in candidates)
+
+
+def _any_glob(base: Path, pattern: str) -> bool:
+    try:
+        return next(iter(base.glob(pattern)), None) is not None
+    except (ValueError, NotImplementedError):
+        return False
+
+
+def check_kbleaf(
+    tex_file: Path,
+    text: str,
+    repo_root: Path,
+    file_index: dict[str, list[tuple[str, ...]]],
+    dir_index: dict[str, list[tuple[str, ...]]],
+    waived: frozenset[tuple[str, str]] = WAIVED_KBLEAF,
+) -> tuple[list[Finding], int, int, set[tuple[str, str]]]:
+    r"""Check every \kbleaf{...} in one .tex file.
+
+    Returns (findings, checked_count, skipped_count, matched_waiver_keys).
+    """
+    findings: list[Finding] = []
+    checked = 0
+    skipped = 0
+    matched_waivers: set[tuple[str, str]] = set()
+    try:
+        rel_source = str(tex_file.resolve().relative_to(repo_root))
+    except ValueError:
+        rel_source = str(tex_file)
+
+    for lineno, line in enumerate(text.splitlines(), 1):
+        line = _TEX_COMMENT_RE.sub("", line)
+        for split in _SPLIT_KBLEAF_RE.finditer(line):
+            findings.append(Finding(tex_file, lineno, "split kbleaf", split.group(0)))
+        for match in _KBLEAF_RE.finditer(line):
+            raw = match.group(1)
+            target = normalize_kbleaf_target(raw)
+            if (
+                not target
+                or target.startswith(("~", "/"))
+                or _TEX_UNCHECKABLE_RE.search(target)
+            ):
+                skipped += 1
+                continue
+            checked += 1
+
+            def dead() -> None:
+                key = (rel_source, raw)
+                if key in waived:
+                    matched_waivers.add(key)
+                    findings.append(Finding(tex_file, lineno, "waived kbleaf", raw))
+                else:
+                    findings.append(Finding(tex_file, lineno, "dead kbleaf", raw))
+
+            # Sibling-repo target: resolved against the umbrella dir that holds
+            # the sibling checkouts. Absent siblings are `broken inter`, which
+            # participates in --inter-repo (warn by default) — same semantics
+            # as md inter-repo links.
+            if _SIBLING_REPO_RE.match(target):
+                pattern = target.replace("...", "**")
+                umbrella = repo_root.parent
+                if "*" in pattern or "[" in pattern:
+                    hit = _any_glob(umbrella, pattern.rstrip("/"))
+                else:
+                    hit = (umbrella / target).exists()
+                if not hit:
+                    findings.append(Finding(tex_file, lineno, "broken inter", raw))
+                continue
+
+            # Glob-shaped target (`...` ellipsis, `[..]` range, `*`): must
+            # match under repo root, manuscript/, or manuscript/ave-kb/.
+            if "..." in target or "*" in target or "[" in target:
+                pattern = target.replace("...", "**").rstrip("/")
+                bases = (repo_root, repo_root / "manuscript", repo_root / "manuscript" / "ave-kb")
+                if not any(_any_glob(base, pattern) for base in bases):
+                    dead()
+                continue
+
+            parts = tuple(p for p in target.split("/") if p and p != ".")
+            if not parts:
+                skipped += 1
+                checked -= 1
+                continue
+            # Gitignored generated-artifact carveout (mirrors IGNORED_PATHS).
+            if any(
+                parts[i : i + len(ignored.parts)] == ignored.parts
+                for ignored in IGNORED_PATHS
+                for i in range(len(parts))
+            ):
+                continue
+            if len(parts) == 1 and not target.endswith("/"):
+                # Bare filename: basename resolution, extension-gated.
+                if Path(parts[0]).suffix not in _BARE_CHECKABLE_EXTS:
+                    skipped += 1
+                    checked -= 1
+                    continue
+                if not _suffix_hit(parts, file_index):
+                    dead()
+                continue
+            # Multi-segment (or explicit directory) path: suffix resolution —
+            # every named directory segment must lie on a real path's tail.
+            if not (_suffix_hit(parts, file_index) or _suffix_hit(parts, dir_index)):
+                dead()
+    return findings, checked, skipped, matched_waivers
+
+
+def scan_kbleaf(
+    repo_root: Path,
+    waived: frozenset[tuple[str, str]] = WAIVED_KBLEAF,
+) -> tuple[list[Finding], int, int]:
+    """Run the kbleaf pass over manuscript/**/*.tex.
+
+    Returns (findings, checked_count, skipped_count). Stale waivers (entries
+    in `waived` that matched no live dead cite) are appended as gating
+    `stale kbleaf waiver` findings.
+    """
+    file_index, dir_index = build_kbleaf_target_index(repo_root)
+    findings: list[Finding] = []
+    checked = 0
+    skipped = 0
+    matched: set[tuple[str, str]] = set()
+    for tex_file in iter_tex_files(repo_root):
+        try:
+            text = tex_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            logger.warning("could not read %s: %s", tex_file, exc)
+            continue
+        f, c, s, m = check_kbleaf(tex_file, text, repo_root, file_index, dir_index, waived)
+        findings.extend(f)
+        checked += c
+        skipped += s
+        matched |= m
+    for rel_source, raw in sorted(waived - matched):
+        findings.append(Finding(repo_root / rel_source, 0, "stale kbleaf waiver", raw))
+    logger.info("kbleaf pass: %d cites checked, %d non-path args skipped", checked, skipped)
+    return findings, checked, skipped
+
+
 def scan(repo_root: Path, check_ids_enabled: bool) -> list[Finding]:
     known_ids = load_known_ids(repo_root) if check_ids_enabled else None
     findings: list[Finding] = []
@@ -307,14 +580,25 @@ def scan(repo_root: Path, check_ids_enabled: bool) -> list[Finding]:
     return findings
 
 
+# kbleaf finding kinds that always gate: every manuscript/**/*.tex source is
+# the rendered manuscript — canonical-authority surface, like the KB tree.
+_KBLEAF_GATING_KINDS = {"dead kbleaf", "split kbleaf", "stale kbleaf waiver"}
+
+
 def is_gating(finding: Finding, repo_root: Path) -> bool:
     """True if `finding` flips the exit code.
 
     Broken-inter findings are handled separately by --inter-repo and are never
     gating here. Broken-intra and unknown-id findings gate iff their source is
-    an error source (see `is_error_source`).
+    an error source (see `is_error_source`). kbleaf findings gate
+    unconditionally (their source is always the rendered manuscript), except
+    `waived kbleaf` (adjudicated report-don't-fix, warn-only).
     """
     if finding.kind == "broken inter":
+        return False
+    if finding.kind in _KBLEAF_GATING_KINDS:
+        return True
+    if finding.kind == "waived kbleaf":
         return False
     return is_error_source(finding.file, repo_root)
 
@@ -355,6 +639,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="disable the consumer-side claim/experiment/support id-validity check",
     )
+    parser.add_argument(
+        "--no-kbleaf-check",
+        action="store_true",
+        help=r"disable the manuscript \kbleaf{} tex-citation existence check",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="enable info-level logging")
     args = parser.parse_args(argv)
 
@@ -368,6 +657,11 @@ def main(argv: list[str] | None = None) -> int:
 
     findings = scan(repo_root, check_ids_enabled=not args.no_id_check)
 
+    kbleaf_checked = kbleaf_skipped = 0
+    if not args.no_kbleaf_check:
+        kbleaf_findings, kbleaf_checked, kbleaf_skipped = scan_kbleaf(repo_root)
+        findings.extend(kbleaf_findings)
+
     if args.inter_repo == "dont-check":
         findings = [f for f in findings if f.kind != "broken inter"]
 
@@ -375,10 +669,10 @@ def main(argv: list[str] | None = None) -> int:
 
     broken_inter = sum(1 for f in findings if f.kind == "broken inter")
 
-    # Split intra/id findings by source: gating (error source) vs warn-only.
-    intra_id = [f for f in findings if f.kind in ("broken intra", "unknown id")]
-    gating_errors = sum(1 for f in intra_id if is_gating(f, repo_root))
-    warn_only = len(intra_id) - gating_errors
+    # Split non-inter findings by gating status (error source / kbleaf kind).
+    non_inter = [f for f in findings if f.kind != "broken inter"]
+    gating_errors = sum(1 for f in non_inter if is_gating(f, repo_root))
+    warn_only = len(non_inter) - gating_errors
 
     print(
         f"\n[verify-md-links] gating errors: {gating_errors}  "
@@ -386,6 +680,15 @@ def main(argv: list[str] | None = None) -> int:
         f"(inter-repo mode: {args.inter_repo})",
         file=sys.stderr,
     )
+    if not args.no_kbleaf_check:
+        kb_dead = sum(1 for f in findings if f.kind in _KBLEAF_GATING_KINDS)
+        kb_waived = sum(1 for f in findings if f.kind == "waived kbleaf")
+        print(
+            f"[verify-md-links] kbleaf: {kbleaf_checked} cites checked  "
+            f"{kbleaf_skipped} non-path args skipped  "
+            f"gating: {kb_dead}  waived: {kb_waived}",
+            file=sys.stderr,
+        )
 
     # Exit 1 iff there is >=1 gating error (error-source broken-intra or
     # unknown-id), plus broken-inter under --inter-repo error. Warn-only

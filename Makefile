@@ -59,7 +59,7 @@ help:
 	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
 	@echo "  make $(KB_REFRESH)  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
 	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
-	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
+	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity + manuscript kbleaf tex-cites (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make test                 : Run unit tests, bedrock keepers (src/tests + kb tools; engine-sims excluded)"

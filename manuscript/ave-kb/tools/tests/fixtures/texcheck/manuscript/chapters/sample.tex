@@ -1,0 +1,13 @@
+% Fixture for the \kbleaf{} tex-citation pass. Deliberately mixes resolvable,
+% dead, glob, sibling-repo, split, and non-path arguments.
+% \kbleaf{commented/out/path.md} — inside a LaTeX comment, never extracted.
+Direct: \kbleaf{ave-kb/vol1/good-leaf.md} and rooted \kbleaf{manuscript/ave-kb/vol1/good-leaf.md:12}.
+Suffix: \kbleaf{deep/nested-leaf.md:5--9} resolves by path tail.
+Wrong dir: \kbleaf{ave-kb/vol1/nested-leaf.md} is dead (same basename, wrong directory).
+Bare good: \kbleaf{tool\_script.py}; bare dead: \kbleaf{missing\_leaf.md}; stem skipped: \kbleaf{some-skill-name}.
+Symbol suffix: \kbleaf{tool\_script.py::some_fn()} resolves after stripping.
+Glob: \kbleaf{ave-kb/vol1/good-leaf.[a-z]d}; ellipsis good: \kbleaf{ave-kb/.../nested-leaf.md}; ellipsis dead: \kbleaf{ave-kb/.../gone.md}.
+Split cite: \texttt{nested-} \kbleaf{leaf.md} is flagged as a split.
+Sibling ok: \kbleaf{AVE-Sib/manuscript/doc.tex}; sibling dead: \kbleaf{AVE-Nope/manuscript/x.tex}.
+Non-path skipped: \kbleaf{grep -r "id" manuscript/} and \kbleaf{M.ELECTRON} and \kbleaf{A = B / np.sqrt(C)}.
+Dir good: \kbleaf{ave-kb/vol4/deep/}; dir dead: \kbleaf{ave-kb/vol4/void/}.

@@ -163,6 +163,92 @@ def test_strip_code_preserves_line_numbers() -> None:
     assert stripped.splitlines()[0] == "a"
 
 
+def test_kbleaf_normalize() -> None:
+    vml = _load_module()
+    norm = vml.normalize_kbleaf_target
+    assert norm(r"a\_b/c\_d.md") == "a_b/c_d.md"
+    assert norm("leaf.md:42") == "leaf.md"
+    assert norm("leaf.md:8-24") == "leaf.md"
+    assert norm("leaf.md:133--147") == "leaf.md"
+    assert norm("mod.py::fn") == "mod.py"
+    assert norm("mod.py::fn()") == "mod.py"
+    assert norm("mod.py:fn()") == "mod.py"
+
+
+def test_kbleaf_fixture_findings() -> None:
+    vml = _load_module()
+    repo_root = (_FIXTURES / "texcheck").resolve()
+    findings, checked, skipped = vml.scan_kbleaf(repo_root, waived=frozenset())
+    by_kind = {}
+    for f in findings:
+        by_kind.setdefault(f.kind, set()).add(f.target)
+
+    # Dead: wrong-directory cite (same basename elsewhere), bare missing file,
+    # dead ellipsis glob, dead directory ref, and the split cite's bare tail.
+    assert by_kind.get("dead kbleaf") == {
+        "ave-kb/vol1/nested-leaf.md",
+        r"missing\_leaf.md",
+        "ave-kb/.../gone.md",
+        "ave-kb/vol4/void/",
+        "leaf.md",
+    }, by_kind.get("dead kbleaf")
+    # Split \texttt{prefix-} \kbleaf{tail} pattern is flagged.
+    assert by_kind.get("split kbleaf") == {r"\texttt{nested-} \kbleaf{leaf.md}"}
+    # Missing sibling repo is inter-class; present sibling resolves.
+    assert by_kind.get("broken inter") == {"AVE-Nope/manuscript/x.tex"}
+    # Everything resolvable resolved: no good target appears in any finding.
+    flagged = {t for ts in by_kind.values() for t in ts}
+    for good in (
+        "ave-kb/vol1/good-leaf.md",
+        "manuscript/ave-kb/vol1/good-leaf.md:12",
+        "deep/nested-leaf.md:5--9",
+        r"tool\_script.py",
+        r"tool\_script.py::some_fn()",
+        "ave-kb/vol1/good-leaf.[a-z]d",
+        "ave-kb/.../nested-leaf.md",
+        "AVE-Sib/manuscript/doc.tex",
+        "ave-kb/vol4/deep/",
+        "commented/out/path.md",
+    ):
+        assert good not in flagged, good
+    # Non-path args (identifiers, shell snippets, extensionless stems) skipped.
+    assert skipped == 4, skipped  # grep-snippet, M.ELECTRON, formula, stem
+    assert checked == 15, checked
+
+
+def test_kbleaf_waiver_and_staleness() -> None:
+    vml = _load_module()
+    repo_root = (_FIXTURES / "texcheck").resolve()
+    src = "manuscript/chapters/sample.tex"
+
+    # A waived (source, arg) pair downgrades to `waived kbleaf` (non-gating).
+    waived = frozenset({(src, "ave-kb/vol1/nested-leaf.md")})
+    findings, _, _ = vml.scan_kbleaf(repo_root, waived=waived)
+    kinds = {(f.kind, f.target) for f in findings}
+    assert ("waived kbleaf", "ave-kb/vol1/nested-leaf.md") in kinds
+    assert ("dead kbleaf", "ave-kb/vol1/nested-leaf.md") not in kinds
+    assert ("stale kbleaf waiver", "ave-kb/vol1/nested-leaf.md") not in kinds
+
+    # A waiver matching no live dead cite is reported stale (gating).
+    stale = frozenset({(src, "already-fixed.md")})
+    findings, _, _ = vml.scan_kbleaf(repo_root, waived=stale)
+    assert ("stale kbleaf waiver", "already-fixed.md") in {(f.kind, f.target) for f in findings}
+
+
+def test_kbleaf_gating_kinds() -> None:
+    vml = _load_module()
+    repo_root = Path("/repo")
+    Finding = vml.Finding
+    tex = repo_root / "manuscript/vol_1_foundations/chapters/x.tex"
+
+    assert vml.is_gating(Finding(tex, 1, "dead kbleaf", "gone.md"), repo_root)
+    assert vml.is_gating(Finding(tex, 1, "split kbleaf", "..."), repo_root)
+    assert vml.is_gating(Finding(tex, 0, "stale kbleaf waiver", "x.md"), repo_root)
+    assert not vml.is_gating(Finding(tex, 1, "waived kbleaf", "x.md"), repo_root)
+    # kbleaf sibling-repo misses stay inter-class (never gating here).
+    assert not vml.is_gating(Finding(tex, 1, "broken inter", "AVE-X/y.tex"), repo_root)
+
+
 if __name__ == "__main__":
     test_fixture_findings()
     test_tex_and_home_targets_skipped()
@@ -171,4 +257,8 @@ if __name__ == "__main__":
     test_source_gating_exit_code()
     test_ignored_paths_carveout()
     test_strip_code_preserves_line_numbers()
+    test_kbleaf_normalize()
+    test_kbleaf_fixture_findings()
+    test_kbleaf_waiver_and_staleness()
+    test_kbleaf_gating_kinds()
     print("OK: all self-tests passed")
