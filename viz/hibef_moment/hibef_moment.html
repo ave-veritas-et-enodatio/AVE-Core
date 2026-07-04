@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+  VISUAL 2 — "The HIBEF moment" (SVE) — self-contained pump-probe animation.
+
+  The engine scene JSON is INJECTED by the driver
+  (src/scripts/viz/hibef_moment_scene.py, SCENE_JSON marker below), so the page
+  opens directly in a browser (no server, no fetch, no build step).
+
+  Engine-exact (see viz/README.md ledger): A²=5.9e-7 at the demonstrated pump,
+  the SVE relative retardance Δφ (0.1476 rad @ NJP 9835 eV) and Δφ/2, the
+  flip-prob P=sin²(Δφ/2) for SVE and the QED co-prediction, the probe wavelengths.
+  Stylized: the pump-stripe SHAPE, the animation TIME axis, and the ×N amplitude
+  exaggeration used ONLY to make the (invisibly small) saturation legible on
+  screen (labelled on-canvas). Every reported number is a driver number.
+
+  Public naming: SVE. "QED" is the standard-physics co-prediction (a real
+  external theory named as such).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The HIBEF moment — SVE</title>
+<style>
+  :root { --ink:#111; --muted:#666; --panel:#f4f4f4; --edge:#d8d8d8;
+          --ave:#0072B2; --qed:#D55E00; --accent:#009E73; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+         color:var(--ink); background:#fff; }
+  header { padding:14px 20px 6px; }
+  h1 { font-size:18px; margin:0 0 2px; font-weight:600; }
+  .sub { color:var(--muted); font-size:13px; max-width:900px; }
+  .wrap { display:flex; flex-wrap:wrap; gap:16px; padding:10px 20px 24px; align-items:flex-start; }
+  .stage { border:1px solid var(--edge); border-radius:8px; background:#fff; }
+  canvas { display:block; border-radius:8px; }
+  .panel { width:320px; font-size:13px; }
+  .panel h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:14px 0 6px; }
+  .row { display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dotted var(--edge); }
+  .row b { font-weight:600; }
+  .ctl { margin:10px 0; }
+  select, button { font:inherit; padding:5px 8px; border:1px solid var(--edge); border-radius:6px; background:var(--panel); }
+  button { cursor:pointer; } button:hover { background:#eaeaea; }
+  .meter { height:16px; background:#eee; border-radius:8px; overflow:hidden; margin:4px 0; position:relative; }
+  .meter > span { display:block; height:100%; }
+  .ave-fill { background:var(--ave); } .qed-fill { background:var(--qed); }
+  .note { color:var(--muted); font-size:11px; margin-top:12px; line-height:1.45; }
+  .tag { display:inline-block; font-size:10px; padding:1px 6px; border-radius:9px; background:#eee; color:#444; }
+</style>
+</head>
+<body>
+<header>
+  <h1>The HIBEF moment</h1>
+  <div class="sub">Structured-vacuum electrodynamics (SVE). The ReLaX pump (moving
+  saturated stripe) sweeps the X-ray probe; the probe's two polarization
+  eigenmodes accumulate the real relative retardance &Delta;&phi; over the
+  single pass, and the flip meter reads the SVE polarization-flip probability
+  against the QED co-prediction.</div>
+</header>
+<div class="wrap">
+  <div class="stage"><canvas id="cv" width="720" height="420"></canvas></div>
+  <div class="panel">
+    <h2>Scenario</h2>
+    <div class="ctl">
+      <select id="probe"></select>
+      <button id="play">pause</button>
+      <button id="restart">restart pass</button>
+    </div>
+
+    <h2>Engine-exact readout</h2>
+    <div id="facts"></div>
+
+    <h2>Polarization-flip probability</h2>
+    <div>SVE &nbsp;<b><span id="pAve"></span></b></div>
+    <div class="meter"><span class="ave-fill" id="mAve"></span></div>
+    <div>QED &nbsp;<b><span id="pQed"></span></b></div>
+    <div class="meter"><span class="qed-fill" id="mQed"></span></div>
+    <div class="note" id="floors"></div>
+
+    <div class="note" id="prov"></div>
+  </div>
+</div>
+
+<script id="scene-data" type="application/json">
+/* SCENE_JSON */
+{"meta":{"title":"The HIBEF moment","public_name":"SVE (structured-vacuum electrodynamics)","facility":"HIBEF ReLaX pump + X-ray dark-field polarimeter (single-pass, no Fabry-Perot)","pump":{"E_field_Vpm":87000000000000.0,"A":0.0007696318683529831,"A2":5.923332127845034e-07,"S_true":0.9999997038333497,"note_vis":"pump saturation exaggerated x3e+05 for on-screen visibility","S_vis":0.9068076070284419},"floors":{"P_required_1.4e-10":1.4e-10,"P_demonstrated_2.4e-10":2.4e-10},"provenance":{"A2, dphi, P":"scripts.vol_9_device.birefringence_gap1_hibef_feasibility (ENGINE-EXACT)","delta_n_ave":"ave.bench.delta_n_ave_differential_exact (ENGINE-EXACT)","S(A)":"ave.solvers.graded_vacuum_network.saturation_kernel (ENGINE-EXACT)","stripe_shape/time_axis":"presentation (STYLIZED)","amplitude_exaggeration":"x3e+05 on the DISPLAYED stripe only (labelled)"},"classification":"CONSISTENCY-class; FORM=SVE chord, MAGNITUDE ratio=alpha-echo (symmetric-standard)"},"probes":[{"label":"NJP 9835 eV","E_probe_eV":9835.0,"wavelength_pm":126.06425862453764,"dn_ave":-2.9616678176580535e-07,"dn_qed":6.693536132023572e-13,"dphi_ave_rad":0.1476128755262726,"dphi_half_ave_rad":0.0738064377631363,"dphi_qed_rad":3.336134153857634e-07,"P_ave_exact":0.005437506083232918,"P_qed_exact":2.7824477731338222e-14,"ratio_ave_over_qed":195421676400.73077},{"label":"LoI low 8766 eV","E_probe_eV":8766.0,"wavelength_pm":141.43759794345516,"dn_ave":-2.9616678176580535e-07,"dn_qed":6.693536132023572e-13,"dphi_ave_rad":0.13156832403287297,"dphi_half_ave_rad":0.06578416201643648,"dphi_qed_rad":2.9735182504032555e-07,"P_ave_exact":0.004321316992876082,"P_qed_exact":2.210452696370293e-14,"ratio_ave_over_qed":195494660436.3878},{"label":"LoI high 12914 eV","E_probe_eV":12914.0,"wavelength_pm":96.00758739138358,"dn_ave":-2.9616678176580535e-07,"dn_qed":6.693536132023572e-13,"dphi_ave_rad":0.19382538632905794,"dphi_half_ave_rad":0.09691269316452897,"dphi_qed_rad":4.38056293471454e-07,"P_ave_exact":0.009362703232976787,"P_qed_exact":4.797332906248639e-14,"ratio_ave_over_qed":195164759585.09457}],"field_sweep":{"E_Vpm":[0.0,364016736401.67365,728033472803.3473,1092050209205.021,1456066945606.6946,1820083682008.3682,2184100418410.042,2548117154811.7153,2912133891213.389,3276150627615.063,3640167364016.7363,4004184100418.41,4368200836820.084,4732217573221.758,5096234309623.431,5460251046025.1045,5824267782426.778,6188284518828.452,6552301255230.126,6916317991631.799,7280334728033.473,7644351464435.146,8008368200836.82,8372384937238.494,8736401673640.168,9100418410041.842,9464435146443.516,9828451882845.188,10192468619246.861,10556485355648.535,10920502092050.209,11284518828451.883,11648535564853.557,12012552301255.23,12376569037656.904,12740585774058.578,13104602510460.252,13468619246861.926,13832635983263.598,14196652719665.271,14560669456066.945,14924686192468.62,15288702928870.293,15652719665271.967,16016736401673.64,16380753138075.314,16744769874476.988,17108786610878.662,17472803347280.336,17836820083682.008,18200836820083.684,18564853556485.355,18928870292887.03,19292887029288.703,19656903765690.375,20020920502092.05,20384937238493.723,20748953974895.4,21112970711297.07,21476987447698.746,21841004184100.418,22205020920502.094,22569037656903.766,22933054393305.44,23297071129707.113,23661087866108.785,24025104602510.46,24389121338912.133,24753138075313.81,25117154811715.48,25481171548117.156,25845188284518.83,26209205020920.504,26573221757322.176,26937238493723.85,27301255230125.523,27665271966527.195,28029288702928.87,28393305439330.543,28757322175732.22,29121338912133.89,29485355648535.566,29849372384937.24,30213389121338.914,30577405857740.586,30941422594142.26,31305439330543.934,31669456066945.605,32033472803347.28,32397489539748.953,32761506276150.63,33125523012552.3,33489539748953.977,33853556485355.65,34217573221757.324,34581589958158.996,34945606694560.67,35309623430962.34,35673640167364.016,36037656903765.69,36401673640167.37,36765690376569.04,37129707112970.71,37493723849372.38,37857740585774.06,38221757322175.734,38585774058577.41,38949790794979.08,39313807531380.75,39677824267782.43,40041841004184.1,40405857740585.77,40769874476987.445,41133891213389.125,41497907949790.8,41861924686192.47,42225941422594.14,42589958158995.82,42953974895397.49,43317991631799.164,43682008368200.836,44046025104602.51,44410041841004.19,44774058577405.86,45138075313807.53,45502092050209.2,45866108786610.88,46230125523012.555,46594142259414.23,46958158995815.9,47322175732217.57,47686192468619.25,48050209205020.92,48414225941422.59,48778242677824.266,49142259414225.945,49506276150627.62,49870292887029.29,50234309623430.96,50598326359832.63,50962343096234.31,51326359832635.984,51690376569037.66,52054393305439.33,52418410041841.01,52782426778242.68,53146443514644.35,53510460251046.02,53874476987447.7,54238493723849.375,54602510460251.05,54966527196652.72,55330543933054.39,55694560669456.07,56058577405857.74,56422594142259.414,56786610878661.086,57150627615062.766,57514644351464.44,57878661087866.11,58242677824267.78,58606694560669.45,58970711297071.13,59334728033472.805,59698744769874.48,60062761506276.15,60426778242677.83,60790794979079.5,61154811715481.17,61518828451882.84,61882845188284.52,62246861924686.195,62610878661087.87,62974895397489.54,63338912133891.21,63702928870292.89,64066945606694.56,64430962343096.234,64794979079497.91,65158995815899.586,65523012552301.26,65887029288702.93,66251046025104.6,66615062761506.27,66979079497907.95,67343096234309.625,67707112970711.3,68071129707112.97,68435146443514.65,68799163179916.32,69163179916317.99,69527196652719.664,69891213389121.34,70255230125523.016,70619246861924.69,70983263598326.36,71347280334728.03,71711297071129.7,72075313807531.38,72439330543933.06,72803347280334.73,73167364016736.4,73531380753138.08,73895397489539.75,74259414225941.42,74623430962343.1,74987447698744.77,75351464435146.44,75715481171548.12,76079497907949.8,76443514644351.47,76807531380753.14,77171548117154.81,77535564853556.48,77899581589958.16,78263598326359.83,78627615062761.5,78991631799163.19,79355648535564.86,79719665271966.53,80083682008368.2,80447698744769.88,80811715481171.55,81175732217573.22,81539748953974.89,81903765690376.56,82267782426778.25,82631799163179.92,82995815899581.6,83359832635983.27,83723849372384.94,84087866108786.61,84451882845188.28,84815899581589.95,85179916317991.64,85543933054393.31,85907949790794.98,86271966527196.66,86635983263598.33,87000000000000.0],"dn_ave":[0.0,5.1848525473019436e-12,2.07396322338127e-11,4.666400599262488e-11,8.295830689064587e-11,1.2962242390557321e-10,1.866563570374069e-10,2.540599952638445e-10,3.318334496071884e-10,4.199767200674387e-10,5.184899176668978e-10,6.273727093386583e-10,7.466254281496276e-10,8.762478520552008e-10,1.0162402030999829e-09,1.1666021482170663e-09,1.3273340204733586e-09,1.4984357088465572e-09,1.6799072133366622e-09,1.871748422921371e-09,2.073959448622986e-09,2.2865402904415078e-09,2.509491059399238e-09,2.74281142242927e-09,2.986501823620813e-09,3.240561707862355e-09,3.5049916302654083e-09,3.7797912577630655e-09,4.0649605903553265e-09,4.360499961109099e-09,4.666409036957475e-09,4.982687817900455e-09,5.309336414960342e-09,5.6463548281371345e-09,5.993743168453136e-09,6.351501102841439e-09,6.719628853346649e-09,7.098126642013369e-09,7.486994135774694e-09,7.886231334630622e-09,8.295838238581155e-09,8.715815069670896e-09,9.146161716877543e-09,9.586878180201097e-09,1.0037964459641557e-08,1.0499420333154319e-08,1.097124613380629e-08,1.1453441750575166e-08,1.194600718346095e-08,1.2448942321441336e-08,1.2962247386560932e-08,1.3485922267797434e-08,1.401996685412854e-08,1.4564381256576553e-08,1.511916536411917e-08,1.5684319509823297e-08,1.6259843249599726e-08,1.684573680549306e-08,1.7442000288525605e-08,1.8048633476652753e-08,1.8665636480896808e-08,1.929300941228007e-08,1.9930752048757938e-08,2.0578864279308107e-08,2.1237346436997484e-08,2.190619852182607e-08,2.2585420422771563e-08,2.3275011917789357e-08,2.397497333994636e-08,2.468530457822027e-08,2.540600552158878e-08,2.61370762810742e-08,2.687851696769883e-08,2.7630327470440363e-08,2.8392507678276502e-08,2.9165057702229547e-08,2.99479775422995e-08,3.074126708746405e-08,3.1544926448745514e-08,3.2358955737166184e-08,3.318335473068146e-08,3.401812354031364e-08,3.4863262166062725e-08,3.571877060792872e-08,3.6584648754889315e-08,3.746089682898912e-08,3.834751471920583e-08,3.9244502536561754e-08,4.0151859836967674e-08,4.1069587175535105e-08,4.199768410817484e-08,4.293615096795378e-08,4.388498764384963e-08,4.484419402484008e-08,4.581377033296974e-08,4.6793716346194e-08,4.7784032286557476e-08,4.878471793201555e-08,4.979577350461284e-08,5.0817198671282426e-08,5.184899365406892e-08,5.289115856399462e-08,5.394369329003723e-08,5.5006597832196746e-08,5.607987196842856e-08,5.716351625384419e-08,5.825753002230982e-08,5.936191382893696e-08,6.047666734065871e-08,6.160179066849736e-08,6.273728370143061e-08,6.388314666150308e-08,6.503937943769245e-08,6.620598191897642e-08,6.73829543273996e-08,6.857029655193969e-08,6.976800859259669e-08,7.097609022732598e-08,7.219454178919449e-08,7.34233632782022e-08,7.466255436128222e-08,7.591211537150144e-08,7.717204619783757e-08,7.844234684029061e-08,7.972301718783825e-08,8.10140574625251e-08,8.231546744230656e-08,8.362724734922722e-08,8.494939696124248e-08,8.628191627835236e-08,8.762480563362374e-08,8.897806469398972e-08,9.034169368149492e-08,9.171569237409471e-08,9.310006066076681e-08,9.449479909662273e-08,9.589990723757325e-08,9.731538519464067e-08,9.87412328568027e-08,1.0017745044610393e-07,1.0162403774049977e-07,1.0308099496203482e-07,1.0454832199968678e-07,1.0602601863141103e-07,1.075140853012968e-07,1.0901252167627717e-07,1.1052132797839676e-07,1.1204050398561094e-07,1.1357004991996433e-07,1.1510996555941233e-07,1.1666025112599954e-07,1.1822090639768135e-07,1.1979193137445776e-07,1.2137332638939569e-07,1.2296509110942822e-07,1.2456722564557765e-07,1.261797298868217e-07,1.2780260405520494e-07,1.294358481507274e-07,1.3107946172929985e-07,1.3273344545705612e-07,1.34397798889907e-07,1.3607252213887477e-07,1.3775761509293716e-07,1.3945307808516105e-07,1.4115891067145725e-07,1.4287511318489265e-07,1.4460168540342266e-07,1.4633862766011418e-07,1.48085939510878e-07,1.4984362139980334e-07,1.5161167277177867e-07,1.5339009429293782e-07,1.5517888540816926e-07,1.5697804645053992e-07,1.5878757719800518e-07,1.6060747787260965e-07,1.6243774836333102e-07,1.642783886701693e-07,1.661293987931245e-07,1.6799077862117429e-07,1.698625284873856e-07,1.717446479476692e-07,1.736371375571366e-07,1.7553999664965403e-07,1.7745322578033296e-07,1.7937682439406188e-07,1.8131079304595232e-07,1.8325513162498197e-07,1.8520983990910622e-07,1.8717491800934738e-07,1.8915036603672775e-07,1.9113618376920272e-07,1.931323714288169e-07,1.9513892879352568e-07,1.9715585586332907e-07,1.9918315308231627e-07,2.0122081978435347e-07,2.0326885641352987e-07,2.053272630808678e-07,2.0739603945330032e-07,2.0947518564184975e-07,2.1156470164651608e-07,2.1366458746729933e-07,2.1577484299317717e-07,2.1789546866823883e-07,2.200264638263505e-07,2.2216782891160136e-07,2.2431956381296914e-07,2.2648166853045382e-07,2.286541431750777e-07,2.308369876358185e-07,2.330302018016539e-07,2.3523378600565081e-07,2.3744773991474233e-07,2.3967206352892845e-07,2.419067570702538e-07,2.441518205387183e-07,2.4640725371227745e-07,2.486730567019535e-07,2.5094922961876875e-07,2.532357722406786e-07,2.555326847897277e-07,2.5783996715489366e-07,2.6015761922515424e-07,2.624856413335763e-07,2.648240332581153e-07,2.671727949987712e-07,2.6953192633349943e-07,2.7190142781741145e-07,2.7428129889539576e-07,2.766715399005193e-07,2.790721506107374e-07,2.8148313147013937e-07,2.839044818125913e-07,2.8633620219320477e-07,2.8877829238993513e-07,2.912307524027824e-07,2.9369358212072427e-07,2.9616678176580535e-07]},"kernel_form":{"exponent":0.5,"S_min":0.001}}
+/* END_SCENE_JSON */
+</script>
+
+<script>
+"use strict";
+const SCENE = JSON.parse(document.getElementById("scene-data").textContent
+  .replace(/\/\* SCENE_JSON \*\//,"").replace(/\/\* END_SCENE_JSON \*\//,""));
+
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+const probes = SCENE.probes || [];
+const pump = (SCENE.meta && SCENE.meta.pump) || {A2:0,S_vis:0.5};
+const floors = (SCENE.meta && SCENE.meta.floors) || {};
+let pIdx = 0, tPass = 0, playing = true, log10floor = -14;
+
+// css var helper
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+// populate scenario dropdown
+const sel = document.getElementById("probe");
+probes.forEach((p,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=p.label; sel.appendChild(o); });
+sel.addEventListener("change", e=>{ pIdx=+e.target.value; tPass=0; facts(); });
+document.getElementById("play").addEventListener("click", e=>{ playing=!playing; e.target.textContent=playing?"pause":"play"; });
+document.getElementById("restart").addEventListener("click", ()=>{ tPass=0; });
+
+function P(){ return probes[pIdx] || {dphi_ave_rad:0,dphi_qed_rad:0,P_ave_exact:0,P_qed_exact:0,dphi_half_ave_rad:0}; }
+
+// The layout: a horizontal beamline. The pump stripe sweeps left->right (time).
+// The probe rides along; a phasor inset shows the accumulating Δφ (SVE vs QED),
+// growing linearly with the fraction of the pass completed (single-pass buildup).
+function draw(){
+  ctx.clearRect(0,0,W,H); ctx.fillStyle="#fff"; ctx.fillRect(0,0,W,H);
+  const p = P();
+  const beamY = 150, beamX0 = 40, beamX1 = W-40, beamLen = beamX1-beamX0;
+  const frac = tPass; // 0..1 fraction of the single pass completed
+
+  // ---- the moving saturated pump stripe (S(A) exaggerated, labelled) ----
+  const stripeW = 60;
+  const sx = beamX0 + frac*(beamLen - stripeW);
+  // colour by exaggerated saturation: darker = more saturated (magma-ish)
+  const Svis = pump.S_vis!==undefined ? pump.S_vis : 0.5;
+  const sat = 1 - Svis; // 0..1 displayed saturation depth
+  const g = ctx.createLinearGradient(sx,0,sx+stripeW,0);
+  g.addColorStop(0, "rgba(213,94,0,0)");
+  g.addColorStop(0.5, `rgba(213,94,0,${0.25+0.55*sat})`);
+  g.addColorStop(1, "rgba(213,94,0,0)");
+  ctx.fillStyle=g; ctx.fillRect(sx, beamY-46, stripeW, 92);
+  ctx.fillStyle=css('--muted'); ctx.font="11px sans-serif";
+  ctx.fillText("ReLaX pump  (saturation ×"+ (SCENE.meta.pump.note_vis?"exagg.":"") +")", sx-10, beamY-54);
+
+  // ---- the beamline + probe wave ----
+  ctx.strokeStyle=css('--edge'); ctx.lineWidth=1; ctx.beginPath();
+  ctx.moveTo(beamX0,beamY); ctx.lineTo(beamX1,beamY); ctx.stroke();
+  ctx.fillStyle=css('--ink'); ctx.font="12px sans-serif";
+  ctx.fillText("X-ray probe →", beamX0, beamY-58);
+
+  // two polarization components: draw as two sinusoids that DEPHASE by Δφ*frac
+  const dphi = p.dphi_ave_rad * frac;
+  for(const [ph,col,amp] of [[0, css('--ave'), 20],[dphi, css('--accent'), 20]]){
+    ctx.strokeStyle=col; ctx.lineWidth=1.6; ctx.beginPath();
+    for(let x=0;x<=beamLen;x+=3){ const xx=beamX0+x;
+      const yy=beamY + amp*Math.sin(x*0.09 + ph);
+      if(x===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+    ctx.stroke();
+  }
+
+  // ---- the Δφ phasor inset (SVE vs QED) ----
+  const cxp=W-120, cyp=310, r=60;
+  ctx.strokeStyle=css('--edge'); ctx.beginPath(); ctx.arc(cxp,cyp,r,0,2*Math.PI); ctx.stroke();
+  ctx.fillStyle=css('--muted'); ctx.font="11px sans-serif";
+  ctx.fillText("Δφ accumulated", cxp-r, cyp-r-8);
+  // reference (probe in)
+  arrow(cxp,cyp, cxp+r, cyp, css('--ink'), 1.2);
+  // SVE
+  arrow(cxp,cyp, cxp+r*Math.cos(-dphi), cyp+r*Math.sin(-dphi), css('--ave'), 2.4);
+  // QED (tiny; scale-visible only near ref)
+  const dphiQ = p.dphi_qed_rad*frac;
+  arrow(cxp,cyp, cxp+r*Math.cos(-dphiQ), cyp+r*Math.sin(-dphiQ), css('--qed'), 2.0);
+  ctx.fillStyle=css('--ave'); ctx.fillText("SVE Δφ="+dphi.toFixed(3)+" rad", 40, 300);
+  ctx.fillStyle=css('--qed'); ctx.fillText("QED Δφ="+dphiQ.toExponential(1)+" rad", 40, 318);
+
+  // pass progress
+  ctx.fillStyle=css('--muted'); ctx.font="11px sans-serif";
+  ctx.fillText("single-pass progress: "+(frac*100|0)+"%   (interaction length z=10 µm)", 40, 400);
+
+  // live flip meters (fill at current frac -> full at pass end)
+  updateMeters(p, frac);
+}
+
+function arrow(x0,y0,x1,y1,col,lw){
+  ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=lw;
+  ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.stroke();
+  const a=Math.atan2(y1-y0,x1-x0), s=7;
+  ctx.beginPath(); ctx.moveTo(x1,y1);
+  ctx.lineTo(x1-s*Math.cos(a-0.4), y1-s*Math.sin(a-0.4));
+  ctx.lineTo(x1-s*Math.cos(a+0.4), y1-s*Math.sin(a+0.4));
+  ctx.closePath(); ctx.fill();
+}
+
+// log-scaled meter fill (P spans many decades)
+function logfill(P){ if(P<=0) return 0; const l=Math.log10(P);
+  return Math.max(0,Math.min(1,(l-log10floor)/(0-log10floor))); }
+
+function updateMeters(p, frac){
+  const Pa = Math.pow(Math.sin(p.dphi_half_ave_rad*frac),2);
+  const Pq = Math.pow(Math.sin((p.dphi_qed_rad/2)*frac),2);
+  document.getElementById("mAve").style.width=(100*logfill(Pa)).toFixed(1)+"%";
+  document.getElementById("mQed").style.width=(100*logfill(Pq)).toFixed(1)+"%";
+  document.getElementById("pAve").textContent = Pa>0? Pa.toExponential(2):"0";
+  document.getElementById("pQed").textContent = Pq>0? Pq.toExponential(2):"0";
+}
+
+function facts(){
+  const p=P(), m=SCENE.meta||{};
+  const rows=[
+    ["pump A²", (pump.A2!==undefined?pump.A2.toExponential(2):"?")],
+    ["probe λ", (p.wavelength_pm!==undefined?p.wavelength_pm.toFixed(1)+" pm":"?")],
+    ["SVE Δn", (p.dn_ave!==undefined?p.dn_ave.toExponential(2):"?")],
+    ["SVE Δφ", (p.dphi_ave_rad!==undefined?p.dphi_ave_rad.toFixed(4)+" rad":"?")],
+    ["SVE Δφ/2", (p.dphi_half_ave_rad!==undefined?p.dphi_half_ave_rad.toFixed(4)+" rad":"?")],
+    ["QED Δφ", (p.dphi_qed_rad!==undefined?p.dphi_qed_rad.toExponential(2)+" rad":"?")],
+    ["P_SVE / P_QED", (p.ratio_ave_over_qed!==undefined && p.ratio_ave_over_qed!==null?p.ratio_ave_over_qed.toExponential(2):"?")],
+  ];
+  document.getElementById("facts").innerHTML =
+    rows.map(r=>`<div class="row"><span>${r[0]}</span><b>${r[1]}</b></div>`).join("");
+  const fr = floors;
+  document.getElementById("floors").innerHTML =
+    "purity floors: required "+(fr["P_required_1.4e-10"]!==undefined?fr["P_required_1.4e-10"].toExponential(1):"1.4e-10")+
+    ", demonstrated "+(fr["P_demonstrated_2.4e-10"]!==undefined?fr["P_demonstrated_2.4e-10"].toExponential(1):"2.4e-10")+
+    ". The SVE bar clears both by ~1e7; QED sits far below.";
+  document.getElementById("prov").innerHTML =
+    "Engine-exact: A², Δn, Δφ, P (SVE and QED) from the GAP-1 feasibility driver. "+
+    "Stylized: the stripe shape, time axis, and the ×N amplitude exaggeration (the "+
+    "true A²=5.9e-7 saturation is invisible at scale). No number on this page is "+
+    "exaggerated — only the on-screen stripe darkness.";
+}
+
+function loop(){ if(playing){ tPass += 0.006; if(tPass>1) tPass=0; } draw(); requestAnimationFrame(loop); }
+facts(); draw(); loop();
+</script>
+</body>
+</html>
