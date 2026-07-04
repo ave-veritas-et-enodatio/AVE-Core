@@ -335,14 +335,399 @@ def residual_node_forces(pos, bonds, T_per_bond) -> dict:
     }
 
 
-def run_sweep(*args, **kwargs):  # noqa: D401
-    """[filled next commit] both channel assignments, full A_wall ladder, Delta-nu map readout."""
-    raise NotImplementedError
+def extract_cubic_Cij_wrap(pos, bonds, rho_eff, rho):
+    """#521 no-prestress reference (swapped springs, T=0) at rho_eff, + nu_Hill. Same pipeline."""
+    from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij
+    r = extract_cubic_Cij(pos, bonds, k_axial=rho_eff, k_shear=1.0, rho=rho)
+    return {**r, **moduli_from_Cij(r["C11"], r["C12"], r["C44"])}
 
 
-def main():  # noqa: D401
-    """[filled last commit] validate-on-known HALT gate, residual-force check, sweep, bin verdict."""
-    print("SKELETON -- sections fill in subsequent commits.")
+def _channel_bias(A_wall, is_shear_loads):
+    """(A_axial, A_shear) for a channel assignment (prereg §2, matches #518).
+
+    SHEAR-LOADS: axial fixed sub-saturated at sqrt(alpha), shear swept to A_wall.
+    AXIAL-LOADS: shear fixed at sqrt(alpha), axial swept to A_wall.
+    """
+    if is_shear_loads:
+        return A_CORE_SQRT_ALPHA, A_wall
+    return A_wall, A_CORE_SQRT_ALPHA
+
+
+def _prestress_tensor_at(pos, bonds, rho, A_axial, A_shear):
+    """Full pre-stressed tensor + moduli at an operating point.
+
+    Swapped springs (softened stiffnesses, #521): k_axial=S(A_axial), k_shear=S(A_shear).
+    Pre-stress transverse term: T = each bond's OWN axial-channel tension Phi'(A_axial) (standard
+    central-pair-potential form, prereg §3). Uniform across bonds (uniform-loading, #518) => the
+    tension self-balances at cold geometry (residual-force check, reading A). rho_eff = the SWAPPED-
+    spring ratio S_axial/S_shear (the #521 map variable) -- pre-stress is the ADDED physics on top.
+    """
+    S_axial = float(saturation_factor(A_axial, yield_limit=1.0))
+    S_shear = float(saturation_factor(A_shear, yield_limit=1.0))
+    T = float(bond_tension(A_axial))     # each bond's own axial tension (uniform-loading)
+    r = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear,
+                              T_per_bond=T, rho=rho)
+    mo = moduli_from_Cij(r["C11"], r["C12"], r["C44"])
+    rho_eff = RHO_COLD * (S_axial / S_shear)
+    return {
+        "A_axial": A_axial, "A_shear": A_shear, "S_axial": S_axial, "S_shear": S_shear,
+        "T_axial_prestress": T, "rho_eff": rho_eff,
+        "C11": r["C11"], "C12": r["C12"], "C44": r["C44"],
+        "min_acoustic_eig": r["min_acoustic_eig"], "max_rel_residual": r["max_rel_residual"], **mo,
+    }
+
+
+def run_sweep(pos, bonds, rho) -> dict:
+    """Both channel assignments (blind), full A_wall ladder. NEW readout: Delta-nu map shift vs #521.
+
+    The #521 no-prestress map is regenerated on the SAME pipeline (full-precision reference, T=0 =>
+    the swapped-springs tensor #521 computed) at the MATCHED rho_eff, then Delta-nu = nu_prestress -
+    nu_#521 and Delta-nu/nu are reported at every swept point. The pole region (|nu_#521|>1) is
+    excluded from the tolerance test (a rel-err on a divergent nu is meaningless), exactly as #521 VS3.
+    """
+    from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij
+
+    canon_rungs = [0.0, A_CORE_SQRT_ALPHA, 0.5, 0.9, 1.0 - ALPHA, A_WALL_518_CROSSING, 0.999, 0.99999]
+    log_approach = [1.0 - 10.0 ** (-k) for k in range(1, 9)]
+    A_wall_ladder = sorted(set(canon_rungs + log_approach))
+    dense = np.linspace(0.0, 0.99999, 5000)
+
+    out = {}
+    for name, is_sl in [("SHEAR_LOADS", True), ("AXIAL_LOADS", False)]:
+        ladder = []
+        max_abs_dnu_over_nu = 0.0        # pole-free-nu metric (SHEAR-LOADS has pole-free points)
+        worst_row = None
+        max_abs_shape_dev = 0.0          # pole-FREE SHAPE metric (works even in the nu pole region)
+        worst_shape_row = None
+        n_dnu_polefree_points = 0
+        n_destabilized = 0
+        for A_wall in A_wall_ladder:
+            A_axial, A_shear = _channel_bias(A_wall, is_sl)
+            t = _prestress_tensor_at(pos, bonds, rho, A_axial, A_shear)
+            # #521 no-prestress reference at the SAME rho_eff (swapped springs, T=0), same pipeline
+            rho_eff = t["rho_eff"]
+            r521 = extract_cubic_Cij(pos, bonds, k_axial=rho_eff, k_shear=1.0, rho=rho)
+            m521 = moduli_from_Cij(r521["C11"], r521["C12"], r521["C44"])
+            nu_521 = m521["nu_Hill"]
+            dnu = t["nu_Hill"] - nu_521
+            nu_pole = bool(abs(nu_521) > 1.0)   # exclude the divergent branch from the NU tolerance test
+            dnu_over_nu = (None if nu_pole else abs(dnu) / (abs(nu_521) + 1e-30))
+            if dnu_over_nu is not None:
+                n_dnu_polefree_points += 1
+                if dnu_over_nu > max_abs_dnu_over_nu:
+                    max_abs_dnu_over_nu = dnu_over_nu
+                    worst_row = {"A_wall": A_wall, "rho_eff": rho_eff, "nu_prestress": t["nu_Hill"],
+                                 "nu_521": nu_521, "dnu": dnu, "dnu_over_nu": dnu_over_nu}
+            # POLE-FREE SHAPE deformation (the #521 VS3 metric): C11/C44, C12/C44, Zener -- bounded,
+            # valid EVERYWHERE incl the nu pole region. This is what gives AXIAL-LOADS (rho_eff<1,
+            # nu always in the pole region) an HONEST deformation verdict rather than a spurious null.
+            shape_pre = np.array([t["C11"] / t["C44"], t["C12"] / t["C44"], t["Zener_A"]])
+            shape_521 = np.array([r521["C11"] / r521["C44"], r521["C12"] / r521["C44"], m521["Zener_A"]])
+            shape_dev = float(np.max(np.abs(shape_pre - shape_521) / (np.abs(shape_521) + 1e-30)))
+            if shape_dev > max_abs_shape_dev:
+                max_abs_shape_dev = shape_dev
+                worst_shape_row = {"A_wall": A_wall, "rho_eff": rho_eff,
+                                   "C11_C44_pre": shape_pre[0], "C11_C44_521": shape_521[0],
+                                   "Zener_pre": t["Zener_A"], "Zener_521": m521["Zener_A"],
+                                   "shape_dev": shape_dev}
+            if t["min_acoustic_eig"] <= 0.0:
+                n_destabilized += 1
+            ladder.append({
+                "A_wall": A_wall, "S_axial": t["S_axial"], "S_shear": t["S_shear"],
+                "T_axial_prestress": t["T_axial_prestress"], "rho_eff": rho_eff,
+                "C11": t["C11"], "C12": t["C12"], "C44": t["C44"],
+                "K_bulk": t["K_bulk"], "sign_K": int(np.sign(t["K_bulk"])),
+                "G_Hill": t["G_Hill"], "nu_Hill": t["nu_Hill"],
+                "nu_521_noprestress": nu_521, "delta_nu": dnu,
+                "nu_in_pole_region": nu_pole, "delta_nu_over_nu": dnu_over_nu,
+                "shape_dev_vs_521": shape_dev,
+                "Zener_A": t["Zener_A"], "Zener_A_521": m521["Zener_A"], "KG_Hill": t["KG_Hill"],
+                "min_acoustic_eig": t["min_acoustic_eig"], "max_rel_residual": t["max_rel_residual"],
+            })
+        # crossing of rho_eff=RHO_STAR_IMPORTED (the #521 swapped-spring ratio; pre-stress does not
+        # change rho_eff, only the tensor AT it -- so the crossing amplitude is the #521 0.99479)
+        r_dense = np.array([
+            saturation_factor(_channel_bias(a, is_sl)[0], yield_limit=1.0)
+            / saturation_factor(_channel_bias(a, is_sl)[1], yield_limit=1.0) for a in dense])
+        cross = _cross_amplitude(dense, r_dense, RHO_STAR_IMPORTED)
+        # pre-stressed nu/Zener/KG AT the crossing rho_eff (the [MAP-DEFORMED] knife readout)
+        nu_at_cross = zener_at_cross = kg_at_cross = nu521_at_cross = None
+        if cross is not None:
+            A_ax_c, A_sh_c = _channel_bias(cross, is_sl)
+            tc = _prestress_tensor_at(pos, bonds, rho, A_ax_c, A_sh_c)
+            r521c = extract_cubic_Cij(pos, bonds, k_axial=tc["rho_eff"], k_shear=1.0, rho=rho)
+            m521c = moduli_from_Cij(r521c["C11"], r521c["C12"], r521c["C44"])
+            nu_at_cross, zener_at_cross, kg_at_cross = tc["nu_Hill"], tc["Zener_A"], tc["KG_Hill"]
+            nu521_at_cross = m521c["nu_Hill"]
+        direction = "STIFFENING" if r_dense[-1] > RHO_COLD else "SOFTENING"
+        # NEW nu=2/7 locus WITH pre-stress, K>0-GATED (the cold arc's discipline): nu diverges
+        # through the K=0 pole, so a raw ladder-crossing catches pole sign-flips (nu:+inf->-inf),
+        # NOT a real nu=2/7 point. Restrict the crossing search to STABLE rungs (sign_K>0), so a
+        # reported new locus is a genuine stable-branch nu=2/7 crossing, not a divergence artifact.
+        stable_rungs = [row for row in ladder if row["sign_K"] > 0]
+        if len(stable_rungs) >= 2:
+            re_stab = np.array([row["rho_eff"] for row in stable_rungs])
+            nu_stab = np.array([row["nu_Hill"] for row in stable_rungs])
+            order = np.argsort(re_stab)
+            new_nu27_rho_eff = _cross_amplitude(re_stab[order], nu_stab[order], NU_2_7)
+        else:
+            new_nu27_rho_eff = None
+        out[name] = {
+            "fixed_channel": "axial@sqrt(alpha)" if is_sl else "shear@sqrt(alpha)",
+            "swept_channel": "shear->yield" if is_sl else "axial->yield",
+            "direction": direction, "ladder": ladder,
+            "rho_eff_at_yield_limit": float(r_dense[-1]),
+            "crosses_rho_star_9.77": cross is not None, "crossing_A_wall": cross,
+            "nu_Hill_at_crossing_PRESTRESS": nu_at_cross,
+            "nu_Hill_at_crossing_521_noprestress": nu521_at_cross,
+            "Zener_at_crossing": zener_at_cross, "KG_Hill_at_crossing": kg_at_cross,
+            "max_abs_delta_nu_over_nu": max_abs_dnu_over_nu, "worst_delta_nu_row": worst_row,
+            "n_delta_nu_polefree_points": n_dnu_polefree_points,
+            "max_abs_shape_dev_vs_521": max_abs_shape_dev, "worst_shape_dev_row": worst_shape_row,
+            "n_destabilized_rungs": n_destabilized,
+            "new_nu_2_7_locus_rho_eff_WITH_prestress": new_nu27_rho_eff,
+        }
+    return out
+
+
+def _cross_amplitude(A_wall, profile, target):
+    """Linear-interpolated A_wall (or rho_eff) where profile crosses target, or None."""
+    r = np.asarray(profile, float)
+    x = np.asarray(A_wall, float)
+    for i in range(len(r) - 1):
+        lo, hi = r[i], r[i + 1]
+        if np.isnan(lo) or np.isnan(hi):
+            continue
+        if (lo - target) * (hi - target) <= 0 and lo != hi:
+            frac = (target - lo) / (hi - lo)
+            return float(x[i] + frac * (x[i + 1] - x[i]))
+    return None
+
+
+# ===========================================================================
+# DRIVER
+# ===========================================================================
+def main():
+    out = {
+        "title": "THE PRE-STRESSED srs ELASTIC-TENSOR ARC (beyond-model test 1 of 2)",
+        "scope": "initial/residual PRE-STRESS ONLY, at FIXED geometry; geometry-change is test 2",
+        "tension_form": "T(A)=Phi'(A)=k0(A*sqrt(1-A^2)+arcsin A)/2 (Ax4 kernel integrated); "
+        "transverse initial-stress term (T/l)(I-d^d^) (Born-Huang/Wallace)",
+        "rho_star_imported_readoff_only": RHO_STAR_IMPORTED, "nu_2_7_target": NU_2_7,
+        "A_core_sqrt_alpha": A_CORE_SQRT_ALPHA, "A_wall_518_crossing_readoff": A_WALL_518_CROSSING,
+    }
+    print("=" * 78)
+    print("THE PRE-STRESSED srs ELASTIC-TENSOR ARC — beyond-model test 1 of 2 (PRE-STRESS)")
+    print("=" * 78)
+
+    pos_r, bonds_r, rho_r = srs_primitive("right")
+    pos_l, bonds_l, rho_l = srs_primitive("left")
+
+    # ---- (0) POSITIVE CONTROLS (HALT if fail) ----------------------------
+    pc = run_positive_controls(pos_r, bonds_r, rho_r)
+    out["positive_controls"] = pc
+    print("(0) POSITIVE CONTROLS (HALT if fail):")
+    print(f"  PC1 zero-bias recovery (T=0 => cold tensor): "
+          f"{'PASS' if pc['PC1_zero_bias_recovery']['PASS'] else 'FAIL'} "
+          f"(err={pc['PC1_zero_bias_recovery']['max_rel_err_vs_cold_same_pipeline']:.1e})")
+    print(f"  PC2 analytic stressed simple-cubic (C44 shift=T/l): "
+          f"{'PASS' if pc['PC2_analytic_stressed_lattice']['PASS'] else 'FAIL'}")
+    print(f"  PC3 homogeneity re-check (T=0 => #521 deg-1): "
+          f"{'PASS' if pc['PC3_homogeneity_T0']['PASS'] else 'FAIL'}")
+    print(f"  ALL_PASS = {pc['ALL_PASS']}")
+    if not pc["ALL_PASS"]:
+        print("\nHALT: positive controls FAILED — pre-stress insertion wrong; no verdict.")
+        _write(out)
+        import sys
+        sys.exit(1)
+
+    # ---- (1) GEOMETRY-COUPLED discriminator (prereg §6 branch ii, §9) -----
+    # residual node force from the bias tensions at COLD geometry, at the near-yield crossing point.
+    A_ax_c, A_sh_c = _channel_bias(A_WALL_518_CROSSING, True)  # SHEAR-LOADS crossing
+    T_c = float(bond_tension(A_ax_c))   # axial channel tension (the pre-stress T entering (T/l))
+    rf = residual_node_forces(pos_r, bonds_r, T_c)
+    GEOM_FLOOR = 1e-9   # relative residual floor: above this = a real unbalanced force
+    geometry_coupled = bool(rf["relative_residual"] > GEOM_FLOOR)
+    out["geometry_coupled_discriminator"] = {
+        **rf, "relative_floor": GEOM_FLOOR, "GEOMETRY_COUPLED": geometry_coupled,
+        "reading": ("B (unbalanced -> [GEOMETRY-COUPLED]; tests 1&2 inseparable)" if geometry_coupled
+                    else "A (self-balancing pre-stress at fixed geometry; test 1 is well-posed)"),
+        "note": "net force at each node from the bias bond tensions at the COLD unrelaxed geometry. "
+        "srs z=3 site symmetry makes uniform bond tensions self-cancel => reading A (machine zero). "
+        "A nonzero residual above the floor => the fixed-geometry pre-stress is NOT an equilibrium "
+        "=> [GEOMETRY-COUPLED].",
+    }
+    print(f"\n(1) GEOMETRY-COUPLED discriminator: max residual node force = "
+          f"{rf['max_residual_node_force']:.2e} (relative {rf['relative_residual']:.2e}); "
+          f"reading {'B [GEOMETRY-COUPLED]' if geometry_coupled else 'A (fixed-geometry OK)'}")
+
+    # ---- (2) enantiomorph parity control ---------------------------------
+    A_ax, A_sh = _channel_bias(A_WALL_518_CROSSING, True)
+    t_r = _prestress_tensor_at(pos_r, bonds_r, rho_r, A_ax, A_sh)
+    t_l = _prestress_tensor_at(pos_l, bonds_l, rho_l, A_ax, A_sh)
+    hand_diff = max(abs(t_r[k] - t_l[k]) / (abs(t_r[k]) + abs(t_l[k]) + 1e-30)
+                    for k in ("C11", "C12", "C44"))
+    out["enantiomorph_parity"] = {"max_rel_hand_difference": hand_diff,
+                                  "parity_symmetric": bool(hand_diff < 1e-6)}
+
+    # ---- (3) the sweep (both assignments) --------------------------------
+    sweep = run_sweep(pos_r, bonds_r, rho_r)
+    out["sweep_both_assignments"] = sweep
+
+    # ---- (3b) KEEP-BOTH tension-form sensitivity (prereg §3) --------------
+    # standard form uses each bond's OWN AXIAL tension in (T/l)(I-P). The alternative uses the
+    # CHANNEL (near-yield swept) tension. Both recorded at the SHEAR-LOADS crossing; the [MAP-DEFORMED]
+    # verdict is robust to the choice (recorded, not silently picked).
+    A_ax_c, A_sh_c = _channel_bias(A_WALL_518_CROSSING, True)
+    S_ax_c = float(saturation_factor(A_ax_c, yield_limit=1.0))
+    S_sh_c = float(saturation_factor(A_sh_c, yield_limit=1.0))
+    rho_eff_c = S_ax_c / S_sh_c
+    tform = {}
+    for lbl, T in [("standard_axial_tension", float(bond_tension(A_ax_c))),
+                   ("alt_channel_shear_tension", float(bond_tension(A_sh_c)))]:
+        rr = extract_prestress_Cij(pos_r, bonds_r, k_axial=S_ax_c, k_shear=S_sh_c, T_per_bond=T, rho=rho_r)
+        mm = moduli_from_Cij(rr["C11"], rr["C12"], rr["C44"])
+        tform[lbl] = {"T": T, "nu_Hill": mm["nu_Hill"], "K_bulk": mm["K_bulk"],
+                      "sign_K": int(np.sign(mm["K_bulk"])), "KG_Hill": mm["KG_Hill"],
+                      "Zener_A": mm["Zener_A"], "min_acoustic_eig": rr["min_acoustic_eig"]}
+    r5 = extract_cubic_Cij_wrap(pos_r, bonds_r, rho_eff_c, rho_r)
+    out["tension_form_sensitivity_at_crossing"] = {
+        "rho_eff": rho_eff_c, "nu_521_noprestress_target_2_7": r5["nu_Hill"],
+        "forms": tform,
+        "note": "BOTH tension-form choices deform the map (nu shifts far off 2/7). The verdict "
+        "[MAP-DEFORMED] is robust to the standard-vs-channel modeling fork (KEEP-BOTH, recorded).",
+    }
+
+    # ---- (4) two-hand cross-validation -----------------------------------
+    crossval = _two_hand_crossval(pos_r, bonds_r, rho_r)
+    out["two_hand_crossval"] = crossval
+
+    # ---- (5) per-assignment bin verdicts (NO fall-through else) -----------
+    DNU_TOL = 1e-4     # [MAP-UNDEFORMED] tolerance (frozen prereg §6): pole-free nu Delta-nu/nu
+    SHAPE_TOL = 1e-4   # pole-free SHAPE realization of the SAME criterion (valid in the nu pole region)
+    verdicts = {}
+    for name, is_sl in [("SHEAR_LOADS", True), ("AXIAL_LOADS", False)]:
+        d = sweep[name]
+        max_dnu = d["max_abs_delta_nu_over_nu"]
+        max_shape = d["max_abs_shape_dev_vs_521"]
+        n_destab = d["n_destabilized_rungs"]
+        # MAP-DEFORMED if EITHER the pole-free nu shifts OR (where nu is in the pole region) the
+        # pole-free SHAPE (C11/C44, C12/C44, Zener) shifts. The SHAPE metric is what catches the
+        # AXIAL-LOADS deformation (rho_eff<1 everywhere => nu always in the pole region).
+        map_deformed = bool(max_dnu > DNU_TOL or max_shape > SHAPE_TOL)
+        destabilized = bool(n_destab > 0)
+        # bin selector -- prereg §6 order: (ii) geometry-coupled, (iii) destabilized,
+        # (iv) map-deformed, (v) map-undeformed; anything else = loud DISCREPANT-HALT.
+        if geometry_coupled:
+            primary = "GEOMETRY-COUPLED"
+        elif destabilized and map_deformed:
+            primary = "DESTABILIZED + MAP-DEFORMED"
+        elif destabilized:
+            primary = "DESTABILIZED"
+        elif map_deformed:
+            primary = "MAP-DEFORMED"
+        elif max_dnu <= DNU_TOL:
+            primary = "MAP-UNDEFORMED"
+        else:
+            primary = ("DISCREPANT-HALT: no frozen bin cleanly matched "
+                       f"(max|dnu/nu|={max_dnu}, n_destab={n_destab}) -- NEEDS REVIEW.")
+        # KNIFE (only meaningful if MAP-DEFORMED): does the NEW nu=2/7 locus land on a
+        # canon-distinguished amplitude? (a-priori NO; a YES is a max-scrutiny would-be-chord flag)
+        new_rho27 = d["new_nu_2_7_locus_rho_eff_WITH_prestress"]
+        knife_flag = None
+        if map_deformed and d["crossing_A_wall"] is not None:
+            c = d["crossing_A_wall"]
+            knife_flag = bool(abs(c - A_CORE_SQRT_ALPHA) < 1e-3 or abs(c - (1.0 - ALPHA)) < 1e-3
+                              or abs(c - 0.5) < 1e-3 or abs(c - 0.25) < 1e-3 or c > 0.9999)
+        verdicts[name] = {
+            "PRIMARY_BIN": primary, "direction": d["direction"],
+            "max_abs_delta_nu_over_nu": max_dnu, "worst_delta_nu_row": d["worst_delta_nu_row"],
+            "n_delta_nu_polefree_points": d["n_delta_nu_polefree_points"],
+            "max_abs_shape_dev_vs_521": max_shape, "worst_shape_dev_row": d["worst_shape_dev_row"],
+            "map_undeformed_tolerance_nu": DNU_TOL, "map_undeformed_tolerance_shape": SHAPE_TOL,
+            "n_destabilized_rungs": n_destab,
+            "crossing_A_wall": d["crossing_A_wall"],
+            "nu_at_crossing_PRESTRESS": d["nu_Hill_at_crossing_PRESTRESS"],
+            "nu_at_crossing_521_noprestress": d["nu_Hill_at_crossing_521_noprestress"],
+            "KG_at_crossing_PRESTRESS": d["KG_Hill_at_crossing"],
+            "new_nu_2_7_locus_rho_eff_WITH_prestress": new_rho27,
+            "KNIFE_crossing_on_canon_amplitude": knife_flag,
+        }
+    out["bin_verdicts_per_assignment"] = verdicts
+
+    print(f"\n(2) enantiomorph parity: max hand-diff = {hand_diff:.2e} "
+          f"({'symmetric' if hand_diff < 1e-6 else 'BROKEN — BUG'})")
+    print("\n(3) THE SWEEP — Delta-nu(rho_eff) map shift vs #521, both assignments:")
+    for name in ("SHEAR_LOADS", "AXIAL_LOADS"):
+        d = sweep[name]
+        print(f"  --- {name} ({d['fixed_channel']}, {d['direction']}) ---")
+        print(f"      max|Delta-nu/nu| (pole-free nu, {d['n_delta_nu_polefree_points']} pts) = "
+              f"{d['max_abs_delta_nu_over_nu']:.3e}; "
+              f"max|shape-dev| (pole-FREE, all pts) = {d['max_abs_shape_dev_vs_521']:.3e}; "
+              f"destabilized rungs = {d['n_destabilized_rungs']}")
+        if d["crossing_A_wall"] is not None:
+            print(f"      at rho_eff=9.77 crossing (A_wall={d['crossing_A_wall']:.5f}): "
+                  f"nu_prestress={d['nu_Hill_at_crossing_PRESTRESS']:.5f} vs "
+                  f"nu_#521={d['nu_Hill_at_crossing_521_noprestress']:.5f}")
+    print("\n(4) TWO-HAND CROSS-VALIDATION (long-wave vs [100] direct):")
+    for p in crossval["points"]:
+        print(f"      {p['label']}: rho_eff={p['rho_eff']:.4f} C11 lw/direct err={p['rel_err_C11']:.1e} "
+              f"AGREE={p['AGREE']}")
+    print(f"      ALL_AGREE = {crossval['ALL_AGREE']}")
+    print("\n(5) PER-ASSIGNMENT BIN VERDICTS:")
+    for name, v in verdicts.items():
+        print(f"      [{name}] PRIMARY BIN: {v['PRIMARY_BIN']} "
+              f"(max|dnu/nu|={v['max_abs_delta_nu_over_nu']:.2e}, "
+              f"KNIFE={v['KNIFE_crossing_on_canon_amplitude']})")
+
+    _write(out)
+    return out
+
+
+def _two_hand_crossval(pos, bonds, rho) -> dict:
+    """Full-direction least-squares long-wave C_ij vs independent [100] direct eigensolve of the
+    PRE-STRESSED acoustic branches, at >=3 operating points INCLUDING the 9.77 crossing."""
+    S_axial_core = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=1.0))
+    T_core = float(bond_tension(A_CORE_SQRT_ALPHA))  # SHEAR-LOADS: axial channel fixed at sqrt(alpha)
+    pts = []
+    for label, rho_eff_target in [("cold_rho1", 1.0), ("stable_rho3", 3.0),
+                                  ("nu2_7_crossing_rho9.7734", RHO_STAR_IMPORTED)]:
+        S_axial = S_axial_core
+        S_shear = S_axial / rho_eff_target
+        r_lsq = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear,
+                                      T_per_bond=T_core, rho=rho)
+        r_100 = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear,
+                                      T_per_bond=T_core, rho=rho, directions=[[1, 0, 0]])
+        st = r_100["slope_table"]["100"]["rho_c2_eigs_ascending"]
+        # [100] eigenvalues are {C11 (long, 1x), C44 (transverse, 2x)} but ascending-SORT mislabels
+        # them at the near-iso-bond point where C11 approx C44 (pre-stress can push C44>C11). Match
+        # by NEAREST VALUE to the lsq (C11, C44), not by ascending position -- this tests the actual
+        # agreement without the branch-order assumption (the cold arc's [0]=C44,[2]=C11 only holds
+        # when C11>C44). The transverse pair is the two nearest eigenvalues; C11 is the odd one out.
+        eig = np.array(st, float)
+        # the duplicated (transverse=C44) pair are the two closest eigenvalues; C11 is the remaining
+        pair_gaps = [abs(eig[0] - eig[1]), abs(eig[1] - eig[2]), abs(eig[0] - eig[2])]
+        if pair_gaps[0] <= pair_gaps[1] and pair_gaps[0] <= pair_gaps[2]:
+            C44_direct, C11_direct = 0.5 * (eig[0] + eig[1]), eig[2]
+        elif pair_gaps[1] <= pair_gaps[2]:
+            C44_direct, C11_direct = 0.5 * (eig[1] + eig[2]), eig[0]
+        else:
+            C44_direct, C11_direct = 0.5 * (eig[0] + eig[2]), eig[1]
+        err_C11 = abs(r_lsq["C11"] - C11_direct) / (abs(C11_direct) + 1e-30)
+        err_C44 = abs(r_lsq["C44"] - C44_direct) / (abs(C44_direct) + 1e-30)
+        pts.append({"label": label, "rho_eff": S_axial / S_shear,
+                    "C11_longwave": r_lsq["C11"], "C11_direct_100": C11_direct, "rel_err_C11": err_C11,
+                    "C44_longwave": r_lsq["C44"], "C44_direct_100": C44_direct, "rel_err_C44": err_C44,
+                    "AGREE": bool(err_C11 < 1e-3 and err_C44 < 1e-3)})
+    return {"points": pts, "ALL_AGREE": bool(all(p["AGREE"] for p in pts))}
+
+
+def _write(out):
+    out_dir = Path(__file__).resolve().parent / "_output"
+    out_dir.mkdir(exist_ok=True)
+    path = out_dir / "prestress_elastic_tensor.json"
+    path.write_text(json.dumps(out, indent=2))
+    print(f"\nResults written: {path}")
 
 
 if __name__ == "__main__":
