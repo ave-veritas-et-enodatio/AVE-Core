@@ -52,6 +52,25 @@ srs or the migration STOPS."*
 > the chiral scalar is parity-odd (`detect_symmetry_forced_zero` harness — so the diamond
 > null is symmetry-protected, not accidental); the anisotropy order n is parity-even.
 
+> **↗ UPGRADE (2026-07-04, PR #516 MERGED — the parent-condition derivation): the k_s=k_a
+> operating point is now DERIVED, not asserted.** This result took the photon's isotropic-bond
+> point k_s=k_a as an INPUT — "the emergent-Lorentz photon point," established at leading order
+> as **cubic-symmetry-automatic** (§Readout-2, "a rank-2 velocity tensor is forced isotropic by
+> any cubic point group") and, for the operating-point choice itself, **ASSERTED not derived**
+> here (§Readout-2, "ASSERTED (not derived here)"). The follow-on parent-condition arc CLOSES
+> that surfaced plumber-question: minimising the srs net's **internal-boundary acoustic
+> reflection** Γ_internal(ρ_bond) under Axiom 3 (Minimum Reflection Principle, boundary form,
+> `axiom-definitions.md:48`) lands on **ρ_bond = k_a/k_s = 1 (k_s = k_a) to machine precision,
+> KNOB-FREE** — the ½/¼ knife passes, no tuned ρ_bond* supplied. So the k_s=k_a operating point
+> this result runs at is an **AXIOM-3 CONSEQUENCE** ([MECHANISM-DERIVED], axiom-manifestation
+> class), not a hand-chosen locus. MATCH / BALANCE / HEAVISIDE co-locate at ρ_bond=1 as **one
+> parent condition**. Scope note (KEEP-BOTH): this upgrades the OPERATING-POINT PINNING only —
+> the 🟡 weak-C demotion of the (qℓ)⁴ photon-DISPERSION tell (gate `wejkhvnfb`, §4-S1) is
+> UNCHANGED; this arc derives the isotropy/MATCH pinning, not the zone-edge decoupling.
+> Provenance: `research/2026-07-04_parent-condition-match-forces-balance_result.md` (VERDICT BOX
+> + §5); driver `src/scripts/vol_4_engineering/parent_condition_match_forces_balance.py`. *(This
+> result body is a frozen record; banner-append only.)*
+
 ---
 
 ## SUBSTRATE-FIRST SECTOR HEADER (as run)
