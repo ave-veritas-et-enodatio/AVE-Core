@@ -145,8 +145,11 @@ R_DAMP A B {R0 + 1e-15}
 + params: TAU_REL=1n V_YLD=43651.85
 
 B_S_EQ N_SEQ 0 V = {sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
-C_S N_S 0 1
-IC=1
+* IC=1 must be inline on the C_S line (an initial-condition suffix), NOT a
+* standalone continuation. ngspice parses a bare `IC=1` line as a new element
+* named "IC" => "Not enough parameters for i source" (empirical-driver Rule 10,
+* surfaced 2026-07-04 SPICE PHASE-1 when ngspice first parsed the .lib live).
+C_S N_S 0 1 IC=1
 G_REL_P N_S 0 N_SEQ 0 {1/TAU_REL}
 G_REL_N N_S 0 N_S 0 {-1/TAU_REL}
 

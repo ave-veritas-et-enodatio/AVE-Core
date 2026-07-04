@@ -1,0 +1,11 @@
+* SPICE PHASE-1 rung 1(b) — LC oscillation transient
+* f_res = 1/(2 pi sqrt(LC)) = 5.032921e+03 Hz (L=0.001, C=1e-06)
+L1 NC 0 1.000000e-03
+C1 NC 0 1.000000e-06 IC=1
+R1 NC 0 1e6
+.tran 4.967294e-07 3.973835e-03 uic
+.control
+run
+wrdata /private/tmp/claude-501/-Users-grantlindblom-AVE-staging/7da0835f-20b5-4ae5-aa06-9ae9eec5721e/scratchpad/wt-spice-phase1/src/scripts/vol_4_engineering/_output/spice_ladder/spice_ladder_rung1_lc.dat v(NC)
+.endc
+.end

@@ -1,0 +1,25 @@
+{
+  "rung": 1,
+  "name": "RC/LC analytic transients",
+  "ngspice_version": "ngspice-46",
+  "class": "consistency (engine-integrates-known-analytic-circuit)",
+  "rc": {
+    "R_ohm": 1000.0,
+    "C_farad": 1e-06,
+    "tau_analytic_s": 0.001,
+    "tau_measured_s": 0.0010000001208290148,
+    "rel_error": 1.2082901476237473e-07,
+    "tolerance": 0.02,
+    "cir": "spice_ladder_rung1_rc.cir"
+  },
+  "lc": {
+    "L_henry": 0.001,
+    "C_farad": 1e-06,
+    "fres_analytic_hz": 5032.921210448703,
+    "fres_measured_hz": 5039.672573667337,
+    "rel_error": 0.0013414402761993233,
+    "tolerance": 0.02,
+    "cir": "spice_ladder_rung1_lc.cir"
+  },
+  "verdict": "PASS"
+}
