@@ -16,11 +16,12 @@
     \draw[thick, red!70!black] (10.0,0) -- (10.0,0.9) -- (10.8,0.9) -- (10.8,-0.9) -- (10.0,-0.9) -- (10.0,0);
     \node[font=\scriptsize, red!70!black, align=center] at (10.4, 1.55) {$\Gamma_{\mathrm{bulk}}=-1$\\$Z_{\mathrm{bulk}}\!\to\!0$};
 
-    % Confined LC tank (bond pair at ell_node)
+    % Confined LC tank (bond pair at ell_node); designators mirror the .lib
     \draw (2.0,0) to[short] (4.0,0);
-    \draw (4.0,0) to[L, l=$L_{\mathrm{cell}}$, i=$i$] (6.0,0);
+    \draw (4.0,0) to[L, l=$L_{\mathrm{REL}}$, i=$i$] (6.0,0);
     \draw (6.0,0) to[short] (8.0,0);
-    \draw (7.0,0) to[C, l=$C_{\mathrm{eff}}$, *-] (7.0,-1.6) node[ground] {};
+    \draw (7.0,0) to[C, l=$C_{\mathrm{VAR}}$, *-] (7.0,-1.6) node[ground] {};
+    \node[font=\scriptsize] at (5.5,-0.5) {$L_{\mathrm{cell}},\,C_{\mathrm{eff}}$};
     \draw (8.0,0) to[short] (10.0,0);
 
     % Tank labels
@@ -32,6 +33,6 @@
     \draw[dashed, gray] (7.0,-1.6) -- (7.0,-3.8);
     \node[align=center, font=\scriptsize, gray] at (9.2, -3.8) {$Q_{\mathrm{react}} = m_e c^2 \cdot \alpha$};
 \end{circuitikz}
-\caption{Electron $\Gamma_{\mathrm{bulk}}=-1$ LC tank (Vol.~9 Ch.~3 \S2). Astrophysical bulk impedance at saturation boundary: Vol.~3 Ch.~15 KB leaf (see \S\ref{sec:vol9_device_circuit_models}).}
+\caption{Electron $\Gamma_{\mathrm{bulk}}=-1$ LC tank (Vol.~9 Ch.~3 \S2), confined between two matched $Z_{\mathrm{EM}}=Z_0$ vacuum transmission-line ports. Reference designators $L_{\mathrm{REL}}$, $C_{\mathrm{VAR}}$ mirror the \texttt{.lib} netlist; the tank values are $L_{\mathrm{cell}}=\mu_0\ell_{node}$, $C_{\mathrm{eff}}=C_0/S$ (\kbleaf{src/ave/core/constants.py} \texttt{L\_CELL}, \texttt{C\_CELL}). Astrophysical bulk impedance at saturation boundary: Vol.~3 Ch.~15 KB leaf (see \S\ref{sec:vol9_device_circuit_models}).}
 \label{fig:vol9_circuit_electron_barrier}
 \end{figure}
