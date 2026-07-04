@@ -131,8 +131,51 @@ reconciliation (`L_srs = BᵀB = −L0`) asserted exactly in the CI check.
 **CI check:** 15 passed / 3 skipped (the 3 skips are the no-∂₂ 1-complex sets,
 correctly declared `dd_zero=False`).
 
-### §2-log — validation-harness library
-(populated by the arc)
+### §2-log — validation-harness library  [LANDED 2026-07-04]
+
+Extracted the proven gate machinery into `src/ave/validation/` (6 modules:
+`__init__` + 5 guards), each carrying its live-fire provenance in its module
+docstring and a positive+negative test:
+
+| Guard | Module | Retires | Live-fire source |
+|:--|:--|:--|:--|
+| (a) planted-source positive control | `planted_source.py` | the blind null read | srs localization positive-control eigenmode; em_readout point-δ VoK |
+| (b) structural-degeneracy | `structural_degeneracy.py` | the Stage-1 global-sum blind readout | closed-graph `Σ(∇·E)=0` topology-forced; em_readout jellium ledger |
+| (c) runtime-independence | `runtime_independence.py` | smuggled-dependency (α-into-RHS) | em_readout `Q_link`-stub bit-identity (#4d, reconcile-grade) |
+| (d) hardened equation-audit | `equation_audit.py` | smuggled forbidden constant | #482-era em_readout `equation_audit` (import-closure + allowlist + strip) |
+| (e) spectral-liveness | `spectral_liveness.py` (re-export) | energy-gate-mistaken-for-liveness | `ave.solvers.spectral_liveness` (Step-3.8a) — RE-EXPORTED, not duplicated |
+
+**RETROFIT DEMO — the five-line adoption** on the Stage-2 micropolar Bloch
+pipeline (`ave.core.micropolar_bloch.micropolar_phi`, the newest/cleanest
+micropolar computation; the `srs_chiral_micropolar` driver builds on it).
+`src/tests/test_validation_retrofit_micropolar.py` wires all five guards onto the
+real 48×48 Φ(k) and gives the copy-paste `test_micropolar_five_line_adoption`
+template. NB: the Stage-2 driver script itself lives in `src/scripts/` and carries
+a SPICE-adjacent cross-check → NOT edited in-place (collision-guard + domain); the
+retrofit is demonstrated as an in-domain test consumer.
+
+**Two Rule-10 empirical findings baked into the demo (running the driver caught
+both):**
+1. With `kappa_rot>0` the micropolar Φ0 has a **3-dim** rigid nullspace (the 3
+   uniform translations), NOT 6 — the micro-rotations are GAPPED. The naive
+   "6 rigid modes" assumption is wrong when rotational stiffness is on.
+2. The global-sum degeneracy detector's flat-`1` weight is **scalar-operator-only**.
+   For a block/multi-DOF operator the forcing weight is the STRUCTURED
+   translation-null vector (`v[axis::6]=1`). Generalized `detect_global_sum_
+   degeneracy` to take a `weight=` argument; the flat-`1` default is documented as
+   correct only when `1` really is L's constant. The detector correctly returns
+   safe-to-use for the WRONG (flat) weight on Φ0 — proving it is not a rubber-stamp.
+
+**Also caught (equation-audit generalization):** the α-leak GUARD assertions the
+DEC modules ship (`assert "ALPHA" not in globals()`) self-fired the naive scan; the
+extracted audit strips `assert "…" not in globals()` in every file so a defensive
+guard is not read as a use (grep-completeness trap). srs_dec now audits
+`driver_clean=True` while its transitive `ALPHA@constants.py` closure leak is
+honestly reported (scope-honesty preserved from the em_readout original).
+
+**Tests:** 20 collected (14 harness keepers + 6 retrofit), all green; flake8-clean;
+each guard has a positive AND a negative test (a guard that only ever passes is a
+checklist, not a gate).
 
 ### §5-log — carrier-declaration guard
 (populated by the arc)
