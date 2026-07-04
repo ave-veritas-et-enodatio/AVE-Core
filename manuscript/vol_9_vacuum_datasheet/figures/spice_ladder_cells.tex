@@ -1,0 +1,53 @@
+% spice_ladder_cells.tex — SPICE phase-1 validation-ladder cells (Vol 9 Ch.13)
+% Renders the committed netlists in src/scripts/vol_4_engineering/spice_ladder_artifacts/.
+% House style: WHITE, american circuitikz, reference designators mirroring the .cir.
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.82, transform shape]
+    % ---- (a) RC charging cell (rung 1a) ----
+    \node[font=\bfseries\scriptsize] at (2.0, 2.3) {(a) RC transient — rung 1a};
+    \draw (0,0) node[left, font=\scriptsize] {$V_1$}
+        to[V, invert] (0,-2.2);       % step source
+    \draw (0,0) to[R, l=$R_1$, a=$1\,\mathrm{k}\Omega$] (2.5,0);
+    \draw (2.5,0) to[C, l=$C_1$, a=$1\,\mu\mathrm{F}$, *-] (2.5,-2.2)
+        node[ground] {};
+    \draw (0,-2.2) -- (2.5,-2.2);
+    \node[circle, fill=black, inner sep=1pt] at (2.5,0) {};
+    \node[right, font=\scriptsize] at (2.7,0) {$v(N_C)$};
+    \node[font=\scriptsize, align=center] at (1.25,-3.0)
+        {$\tau = R_1 C_1$};
+
+    % ---- (b) LC oscillator cell (rung 1b) ----
+    \begin{scope}[xshift=6.6cm]
+    \node[font=\bfseries\scriptsize] at (1.6, 2.3) {(b) LC tank — rung 1b};
+    \draw (0,0) to[C, l=$C_1$, a=$1\,\mu\mathrm{F}$] (3.2,0);
+    \draw (0,0) to[L, l_=$L_1$, a^=$1\,\mathrm{mH}$] (0,-2.2);
+    \draw (3.2,0) -- (3.2,-2.2);
+    \draw (0,-2.2) -- (3.2,-2.2) node[ground, midway] {};
+    \node[circle, fill=black, inner sep=1pt] at (3.2,0) {};
+    \node[right, font=\scriptsize] at (3.35,0) {$v(N_C)$};
+    \node[font=\scriptsize, align=center] at (1.6,-3.0)
+        {$f_{\mathrm{res}} = \dfrac{1}{2\pi\sqrt{L_1 C_1}}$, \; $\mathrm{IC}{=}1\,\mathrm{V}$};
+    \end{scope}
+
+    % ---- (c) 1D LC ladder (rungs 4 + 5) ----
+    \begin{scope}[yshift=-5.4cm]
+    \node[font=\bfseries\scriptsize] at (3.4, 1.5) {(c) $N$-cell LC ladder — rungs 4 (dispersion) \& 5 (biased small-signal)};
+    \draw (0,0) node[left, font=\scriptsize] {AC in}
+        to[L, l=$L$] (2,0)
+        to[L, l=$L$] (4,0)
+        to[L, l=$L$] (6,0)
+        to[short] (7,0)
+        node[right, font=\scriptsize] {$\cdots\;Z_c$};
+    \draw (2,0) to[C, l=$C_{\mathrm{eff}}$, *-] (2,-1.8) node[ground] {};
+    \draw (4,0) to[C, l=$C_{\mathrm{eff}}$, *-] (4,-1.8) node[ground] {};
+    \draw (6,0) to[C, l=$C_{\mathrm{eff}}$, *-] (6,-1.8) node[ground] {};
+    \node[font=\scriptsize, align=center] at (3.4,-2.6)
+        {rung 4: $C_{\mathrm{eff}}{=}C_0$ (cold); rung 5: $C_{\mathrm{eff}}{=}C_0/S(V_b)^3$ (biased small-signal, A1 varactor)};
+    \node[font=\scriptsize, align=center] at (3.4,-3.3)
+        {band: $\;ka = 2\arcsin(\omega/2\omega_0)$, \; $\omega_0 = 1/\sqrt{LC_{\mathrm{eff}}}$};
+    \end{scope}
+\end{circuitikz}
+\caption[SPICE phase-1 validation-ladder cells]{The SPICE phase-1 validation-ladder cells, drawn from the committed netlists (\kbleaf{src/scripts/vol\_4\_engineering/spice\_ladder\_artifacts/}). (a) The RC charging cell (\texttt{spice\_ladder\_rung1\_rc.cir}); (b) the pre-charged LC tank (\texttt{spice\_ladder\_rung1\_lc.cir}); (c) the $N$-cell LC ladder used for the dispersion band (rung 4, cold $C_{\mathrm{eff}}{=}C_0$) and the biased small-signal shift (rung 5, $C_{\mathrm{eff}}{=}C_0/S(V_b)^3$). Reference designators mirror the \texttt{.cir} files. All quantities are lumped-network (matching coordinates throughout, A46-clean).}
+\label{fig:vol9_spice_ladder_cells}
+\end{figure}
