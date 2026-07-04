@@ -18,6 +18,7 @@ from ave.core.constants import C_0, C_CELL, EPSILON_0, L_CELL, L_NODE, MU_0, Z_0
 from scripts.vol_4_engineering.bond_transmission_line import (
     abcd_lossless_line,
     abcd_lumped_lc_section,
+    anisotropy_source_control,
     cascade_gamma,
     core_identity,
     loaded_line_dispersion,
@@ -108,6 +109,20 @@ def test_distributed_linear_band_deviates_from_srs():
     # and the distributed-linear deviation is >> the lumped-cell deviation
     r08 = next(r for r in cc["rows"] if abs(r["kl"] - 0.8) < 1e-6)
     assert r08["distributed_linear_vs_bloch_rel_dev"] > 10 * r08["lumpcell_vs_bloch_rel_dev"]
+
+
+def test_anisotropy_is_graph_not_tensor():
+    # The srs zone-edge anisotropy at k_s=k_a=1 (where Φ=I is inert) is GRAPH
+    # connectivity, NOT tensor rank: the spread from the rank-2 run must be
+    # bit-identical (rtol 1e-9) to a 1-DOF scalar graph Laplacian with no tensor.
+    asc = anisotropy_source_control()
+    assert asc["graph_not_tensor"] is True
+    for r in asc["rows"]:
+        assert r["identical_rtol_1e-9"] is True
+        assert r["spread_rank2_PhiI"] == pytest.approx(
+            r["spread_scalar_graph_laplacian"], rel=1e-9, abs=1e-12)
+    # sanity: the spread is genuinely nonzero (there IS anisotropy to attribute)
+    assert asc["rows"][-1]["spread_rank2_PhiI"] > 1e-3
 
 
 # ── (5) matched-line Γ=0 reading of clm-mfb2ax ───────────────────────────────

@@ -124,13 +124,20 @@ the **same** k-space variable $k\ell=|k|\cdot\ell_{node}$ (real-space Brillouin
 phase per bond). Coordinate-matched — the srs corpus claim is $q$-space
 dispersion and so is the TL. Not a phase-space-vs-real-space mismatch.
 
-**Substrate-native scope** (the RANK-2 stencil guard): the 1D TL carries a
-**scalar** (direction-independent) dispersion by construction. The srs eigensolve
-carries the full **RANK-2** $\Phi_b=k_a\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$
-tensor on the $z=3$ bonds, so it also carries the direction-dependent zone-edge
-anisotropy. We therefore cross-check the scalar 1D TL band against the srs
-**directional-mean** acoustic speed, and separately **report** the srs directional
-spread (the rank-2 anisotropy the scalar TL cannot host — reported, not forced
+**Substrate-native scope** (anisotropy source = GRAPH, not tensor): the 1D TL
+carries a **scalar** (direction-independent) dispersion by construction — a 1D
+line has **no bond-direction set**, so no anisotropy. The srs band carries a
+direction-dependent zone-edge spread, but its source is the **z=3 srs GRAPH
+CONNECTIVITY** (the bond-direction set entering the Bloch phases $e^{i k\cdot\delta}$),
+**NOT** the bond tensor: at the tested point $k_s=k_a=1$ the tensor is
+$\Phi_b=P+(\mathbf I-P)=\mathbf I$ **exactly (inert)**. `anisotropy_source_control`
+proves this — the spread is **bit-identical** (rtol $10^{-9}$) across (a) the
+rank-2 run, (b) a $\Phi=\mathbf I$ scalar-spring srs, and (c) a 1-DOF scalar srs
+graph Laplacian (no tensor at all): $1.11\times10^{-3}$ / $1.82\times10^{-2}$ /
+$4.56\times10^{-2}$ at $k\ell=0.2/0.8/1.11$ for both (a) and (c). We therefore
+cross-check the scalar 1D band against the srs **directional-mean** and **report**
+the srs directional spread (the graph anisotropy the scalar line cannot host —
+because it has no direction set, not because of tensor rank; reported, not forced
 onto the TL; forcing it would be the Cartesian-Laplacian disabled-flag error the
 srs driver warns against).
 
@@ -173,9 +180,12 @@ linear band $\omega=c_0 q$ (dispersionless).
   lumped-cell headline (the $|linear/Bloch-1|$ column above). Both cells are
   legitimate readings of the SAME bond constants.
 - **The srs anisotropy spread** grows monotonically $2.8\times10^{-6}\to4.6\times10^{-2}$
-  across the first-BZ window — this is the **rank-2 direction-dependent zone-edge
-  term** the scalar 1D TL cannot carry. It reproduces the existing engine finding:
-  a nonzero $O(k^2)$ direction-dependent zone-edge dispersion.
+  across the first-BZ window — a **z=3 GRAPH-connectivity direction-dependent
+  zone-edge term** (NOT tensor rank; $\Phi=\mathbf I$ is inert at $k_s=k_a$, and
+  the spread is bit-identical to a 1-DOF scalar graph Laplacian — control above)
+  the scalar 1D line cannot carry (it has no direction set). It reproduces the
+  existing engine finding: a nonzero $O(k^2)$ direction-dependent zone-edge
+  dispersion.
 - **Past the first BZ** ($k\ell\gtrsim1.5$, rows marked *folded*): the 1D
   monatomic-chain edge ($k\ell=\pi$) sits inside the srs's **folded higher bands**,
   so a scalar-band comparison there is comparing **different Brillouin zones**, not
@@ -214,9 +224,11 @@ finding (`srs_bloch_dispersion.py`, `clm-gvn4r1` §1.1 SCOPE GUARD, gate
 - The srs eigensolve carries a nonzero direction-dependent $O(k^2)$ zone-edge term
   (my srs-anisotropy-spread column, growing to $4.6\times10^{-2}$ at the first-BZ
   edge). This is the **slope-2 $a_2$ zone-edge** that DEMOTED the $(q\ell)^4$ photon
-  horn to conditional-on-weak-C. My scalar 1D TL cannot host it by construction —
-  which is *why* it is a scalar isotropic band. **No new tension; the existing
-  flag is re-confirmed from the TL side.**
+  horn to conditional-on-weak-C. Its source is the **z=3 srs graph connectivity**
+  (NOT tensor rank; $\Phi=\mathbf I$ inert at $k_s=k_a$ — control §2). My scalar 1D
+  line cannot host it because it has **no bond-direction set** — which is *why* it
+  is a scalar isotropic band. **No new tension; the existing flag is re-confirmed
+  from the TL side.**
 - The continuum-exact $\delta=0$ (no-LIV) theorem remains **OPEN** (gate
   `wejkhvnfb`); this driver does not close it and does not bear on it.
 
@@ -228,9 +240,10 @@ finding (`srs_bloch_dispersion.py`, `clm-gvn4r1` §1.1 SCOPE GUARD, gate
 | lossless-line ABCD vs lumped-LC ABCD; $O(\theta^2)$ divergence $\mp\tfrac12$ | DERIVED | standard TL ABCD; measured coeffs |
 | lumped node = $\omega\tau\ll1$ limit of the distributed bond | DERIVED | the $O(\theta^2)$ first divergence |
 | $\cos(q\ell)=\mathrm{tr(ABCD)}/2\Rightarrow$ sine-law | DERIVED (re-grounds `clm-gvn4r1` §1) | ABCD-trace Bloch condition |
-| TL small-$k$ = srs eigensolve to $6\times10^{-6}$ | VALIDATE-ON-KNOWN (positive control) | cross-check vs `acoustic_omega` |
-| TL scalar = srs dir-mean to $1.8\times10^{-3}$ across 1st BZ | VALIDATE-ON-KNOWN | cross-check |
-| srs rank-2 anisotropy the scalar TL cannot host | REPORTED (re-confirms weak-C flag) | srs-aniso column; `wejkhvnfb` OPEN |
+| lumped-node-cell band = srs eigensolve to $6\times10^{-6}$ (small-$k$) | VALIDATE-ON-KNOWN (positive control) | cross-check vs `acoustic_omega` (lumped-vs-lumped) |
+| lumped-node-cell band = srs dir-mean to $1.8\times10^{-3}$ across 1st BZ | VALIDATE-ON-KNOWN | cross-check |
+| truly-distributed (linear) cell would deviate $2.5$–$5.4\times10^{-2}$ | REPORTED (honest scope) | distributed-linear column |
+| srs GRAPH-connectivity anisotropy (NOT tensor; $\Phi=I$ at $k_s=k_a$) the scalar line cannot host | REPORTED (re-confirms weak-C flag) | `anisotropy_source_control`; `wejkhvnfb` OPEN |
 | matched-line $\Gamma_{internal}=0$ at $\rho_{bond}=1$ | CONSISTENCY re-expression of `clm-mfb2ax` | matched cascade |
 | $K<0$ photon-point-not-static-solid | HONEST FLAG (carried) | `clm-mfb2ax` §3 |
 

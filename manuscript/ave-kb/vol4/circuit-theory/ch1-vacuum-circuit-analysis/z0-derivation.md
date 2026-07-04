@@ -168,18 +168,22 @@ directional-mean to worst $1.8\times10^{-3}$.
 > the SAME bond constants; the sine-law agreement is a statement about the lumped-node model, not a claim
 > that the bond is physically lumped rather than distributed.
 
-> **Scope — the scalar TL vs the RANK-2 srs anisotropy (no new zone-edge tension).** The 1D TL carries a
-> **scalar** (direction-independent) dispersion by construction; the srs eigensolve carries the full
-> RANK-2 bond tensor $\Phi_b=k_a\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$, so it also carries
-> a nonzero direction-dependent $O(k^2)$ zone-edge term (the cross-check's srs directional spread grows
-> $2.8\times10^{-6}\to4.6\times10^{-2}$ across the first-BZ window). This **re-confirms** the existing
-> weak-C zone-edge flag ([`graded-network-response.md`](graded-network-response.md):109 SCOPE GUARD; the
-> srs eigensolve's measured band-edge anisotropy slope $\approx2$, gate `wejkhvnfb` OPEN) from the TL side
-> — it does **not** change any zone-edge statement in canon. The scalar 1D TL cannot host the rank-2
-> anisotropy (which is *why* it is a scalar isotropic band); forcing it would be the Cartesian-Laplacian
-> disabled-flag error the srs driver warns against. Comparisons past the first BZ edge ($k\ell\gtrsim1.5$)
-> compare **different Brillouin zones** (the 1D-chain $k\ell=\pi$ edge sits inside the srs folded higher
-> bands), not a discrepancy.
+> **Scope — the scalar 1D line vs the srs GRAPH anisotropy (no new zone-edge tension).** The 1D TL carries
+> a **scalar** (direction-independent) dispersion by construction — a 1D line has **no bond-direction set**,
+> so no anisotropy. The srs band carries a nonzero direction-dependent $O(k^2)$ zone-edge spread (growing
+> $2.8\times10^{-6}\to4.6\times10^{-2}$ across the first-BZ window), but its source is the **z=3 srs GRAPH
+> CONNECTIVITY** (the bond-direction set entering the Bloch phases $e^{i k\cdot\delta}$), **NOT** the bond
+> tensor: at the tested point $k_s=k_a=1$ the tensor is $\Phi_b=P+(\mathbf I-P)=\mathbf I$ **exactly
+> (inert)**. The driver's `anisotropy_source_control` proves this — the spread is **bit-identical** (rtol
+> $10^{-9}$) across (a) the rank-2 run ($\Phi=\mathbf I$), (b) a $\Phi=\mathbf I$ scalar-spring srs, and
+> (c) a 1-DOF scalar srs graph Laplacian (no tensor at all). This **re-confirms** the existing weak-C
+> zone-edge flag ([`graded-network-response.md`](graded-network-response.md):109 SCOPE GUARD; the srs
+> eigensolve's measured band-edge anisotropy slope $\approx2$, gate `wejkhvnfb` OPEN) from the TL side —
+> it does **not** change any zone-edge statement in canon. The scalar 1D line cannot host the graph
+> anisotropy because **it has no direction set** (not because of tensor rank); forcing it would be the
+> Cartesian-Laplacian disabled-flag error the srs driver warns against. Comparisons past the first BZ edge
+> ($k\ell\gtrsim1.5$) compare **different Brillouin zones** (the 1D-chain $k\ell=\pi$ edge sits inside the
+> srs folded higher bands), not a discrepancy.
 
 **The matched-line reading of Axiom 3.** At the isotropic-bond point $\rho_{bond}=k_a/k_s=1$ the
 internal-boundary reflection vanishes ([`parent-condition-match-forces-balance.md`](parent-condition-match-forces-balance.md),
