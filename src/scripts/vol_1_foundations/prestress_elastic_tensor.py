@@ -210,18 +210,129 @@ def extract_prestress_Cij(pos, bonds, *, k_axial=1.0, k_shear=1.0, T_per_bond=0.
     }
 
 
-def run_positive_controls(*args, **kwargs):  # noqa: D401
-    """[filled next commit] PC1 zero-bias recovery + PC2 analytic stressed-lattice + PC3 homogeneity."""
-    raise NotImplementedError
+# ===========================================================================
+# POSITIVE CONTROLS (prereg §4) -- HALT-gated, run BEFORE any adjudicated number
+# ===========================================================================
+def run_positive_controls(pos, bonds, rho) -> dict:
+    """PC1 zero-bias recovery + PC2 analytic stressed-lattice limit + PC3 homogeneity re-check.
 
-
-def residual_node_forces(*args, **kwargs):  # noqa: D401
-    """[filled next commit] net force at each node from the bias tensions at COLD geometry.
-
-    The GEOMETRY-COUPLED discriminator (prereg §6 branch ii, §9): reading A (self-balancing) vs
-    reading B (unbalanced -> geometry-coupled). Nonzero residual above floor => [GEOMETRY-COUPLED].
+    All against full-precision references on the SAME pipeline (never rounded literals).
     """
-    raise NotImplementedError
+    from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij
+
+    val = {}
+
+    # --- PC1: zero-bias recovery. A=0 => T=Phi'(0)=0 => (T/l) term vanishes => the pre-stress
+    #     driver with tension OFF IS the cold/#521 driver. Must match to machine precision (1e-9). --
+    cold_ref = extract_cubic_Cij(pos, bonds, k_axial=RHO_STAR_IMPORTED, k_shear=1.0, rho=rho)
+    pre0 = extract_prestress_Cij(pos, bonds, k_axial=RHO_STAR_IMPORTED, k_shear=1.0,
+                                 T_per_bond=0.0, rho=rho)
+    pc1_err = max(abs(cold_ref[k] - pre0[k]) / (abs(cold_ref[k]) + 1e-30) for k in ("C11", "C12", "C44"))
+    pc1_ok = bool(pc1_err < 1e-9 and abs(bond_tension(0.0)) < 1e-15)
+    val["PC1_zero_bias_recovery"] = {
+        "T_at_A0": float(bond_tension(0.0)),
+        "max_rel_err_vs_cold_same_pipeline": pc1_err,
+        "gated_rel_tol": 1e-9,
+        "note": "A=0 => T=Phi'(0)=0 => (T/l)(I-P) vanishes => pre-stress tensor == cold tensor "
+        "at rho=9.7734 to MACHINE PRECISION. Full-precision cold ref on the SAME pipeline "
+        "(NOT the rounded literal). This is the identity control.",
+        "PASS": pc1_ok,
+    }
+
+    # --- PC2: analytic stressed-lattice limit. Uniformly-tensioned SIMPLE CUBIC: the transverse
+    #     (shear) branch gains C44 = k_shear + T/l EXACTLY (string-tension term adds to the
+    #     transverse force constant along a cubic axis; no cross-coupling by cubic symmetry).
+    #     Gate: extracted (C44_stressed - C44_unstressed) == T/l to numerical tolerance. This
+    #     validates the (T/l)(I-d^d^) FORM on a lattice where the answer is closed-form. ------------
+    pos_sc, bonds_sc, rho_sc = simple_cubic_ref()  # 6 axial bonds, ell=1
+    ka_sc, ks_sc = 1.0, 0.4
+    pc2_cases = []
+    pc2_ok = True
+    for T in (0.0, 0.15, 0.3):
+        r_un = extract_prestress_Cij(pos_sc, bonds_sc, k_axial=ka_sc, k_shear=ks_sc,
+                                     T_per_bond=0.0, rho=rho_sc)
+        r_st = extract_prestress_Cij(pos_sc, bonds_sc, k_axial=ka_sc, k_shear=ks_sc,
+                                     T_per_bond=T, rho=rho_sc)
+        ell = 1.0  # simple-cubic bond length in pipeline units
+        c44_shift = r_st["C44"] - r_un["C44"]
+        predicted = T / ell
+        err = abs(c44_shift - predicted)
+        ok = bool(err < 1e-6 and r_st["max_rel_residual"] < 1e-3)
+        pc2_ok = pc2_ok and ok
+        pc2_cases.append({
+            "T": T, "T_over_ell": predicted, "C44_shift_measured": c44_shift,
+            "abs_err": err, "max_rel_residual": r_st["max_rel_residual"], "PASS": ok,
+        })
+    val["PC2_analytic_stressed_lattice"] = {
+        "cases": pc2_cases,
+        "note": "uniformly-tensioned simple-cubic: transverse acoustic speed shift is analytic, "
+        "C44_stressed - C44_unstressed = T/l EXACTLY (string-tension adds to the transverse force "
+        "constant). Validates the (T/l)(I-d^d^) initial-stress FORM on a KNOWN case BEFORE srs.",
+        "PASS": pc2_ok,
+    }
+
+    # --- PC3: homogeneity re-check (the #521 VS2) with T=0. Confirms the pipeline still gives the
+    #     #521 degree-1 homogeneity when tension is off => any homogeneity BREAK with T!=0 is
+    #     attributable to the pre-stress term, not a pipeline change. -----------------------------
+    ka, ks = 9.7734, 1.0
+    r_base = extract_prestress_Cij(pos, bonds, k_axial=ka, k_shear=ks, T_per_bond=0.0, rho=rho)
+    m_base = moduli_from_Cij(r_base["C11"], r_base["C12"], r_base["C44"])
+    lam = 0.37
+    r_scl = extract_prestress_Cij(pos, bonds, k_axial=lam * ka, k_shear=lam * ks,
+                                  T_per_bond=0.0, rho=rho)
+    m_scl = moduli_from_Cij(r_scl["C11"], r_scl["C12"], r_scl["C44"])
+    cij_homog_err = max(abs(r_base[k] - r_scl[k] / lam) / (abs(r_base[k]) + 1e-30)
+                        for k in ("C11", "C12", "C44"))
+    ratio_inv_err = max(abs(m_base[k] - m_scl[k]) / (abs(m_base[k]) + 1e-30)
+                        for k in ("nu_Hill", "Zener_A", "KG_Hill"))
+    pc3_ok = bool(cij_homog_err < 1e-7 and ratio_inv_err < 1e-7)
+    val["PC3_homogeneity_T0"] = {
+        "lam": lam, "cij_over_lam_rel_err": cij_homog_err, "ratio_invariance_rel_err": ratio_inv_err,
+        "note": "the #521 VS2 degree-1 homogeneity re-run WITH pre-stress OFF (T=0). Passing here "
+        "means any homogeneity break seen with T!=0 is the pre-stress term, not a pipeline change.",
+        "PASS": pc3_ok,
+    }
+
+    val["ALL_PASS"] = bool(pc1_ok and pc2_ok and pc3_ok)
+    return val
+
+
+# ===========================================================================
+# THE GEOMETRY-COUPLED DISCRIMINATOR (prereg §6 branch ii, §9)
+# ===========================================================================
+def residual_node_forces(pos, bonds, T_per_bond) -> dict:
+    """Net force at each node from the bias bond tensions T, at the COLD (unrelaxed) geometry.
+
+    Reading A (prereg §9): srs site symmetry makes the vector sum of bond tensions at each node
+    ZERO at cold geometry => the pre-stress is a genuine fixed-geometry state => the small-signal
+    tensor about it is well-defined. Reading B: a nonzero residual node force appears => the
+    "pre-stressed at fixed geometry" state is NOT a mechanical equilibrium => [GEOMETRY-COUPLED]
+    (tests 1 and 2 inseparable).
+
+    A central-bond tension T along d^ pulls node i toward node j with force +T*d^ (and -T*d^ on i
+    from the reverse). We sum the tension force contributions at each node over its bonds and report
+    the max |net force|. The directed-bond list contains BOTH (i,j,d) and (j,i,-d), so a
+    self-balanced site has the two contributions cancel.
+    """
+    n = len(pos)
+    Fnet = np.zeros((n, 3))
+    for bidx, (i, j, d) in enumerate(bonds):
+        ell = np.linalg.norm(d)
+        dn = d / ell
+        T = T_per_bond[bidx] if hasattr(T_per_bond, "__getitem__") and not np.isscalar(T_per_bond) else float(T_per_bond)
+        # tension pulls node i toward node j (along +d^): force on i is +T*d^
+        Fnet[i] += T * dn
+    per_node = np.linalg.norm(Fnet, axis=1)
+    max_res = float(np.max(per_node))
+    total_scale = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds])) * (
+        float(np.max([abs(T_per_bond[b]) if (hasattr(T_per_bond, "__getitem__") and not np.isscalar(T_per_bond)) else abs(float(T_per_bond))
+                      for b in range(len(bonds))])) + 1e-30)
+    return {
+        "max_residual_node_force": max_res,
+        "per_node_residual": per_node.tolist(),
+        "tension_scale": total_scale,
+        "relative_residual": max_res / (total_scale + 1e-30),
+    }
 
 
 def run_sweep(*args, **kwargs):  # noqa: D401
