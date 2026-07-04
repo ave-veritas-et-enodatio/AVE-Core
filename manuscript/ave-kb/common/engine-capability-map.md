@@ -157,6 +157,174 @@ necessary precursor, NOT the chord itself. Canonical detail:
 
 ---
 
+## §8b — 2026-07-04 engine-capability refresh (carrier-tagged module status — ADDITIVE)
+
+> **Refresh note (KEEP-BOTH, dated supersession — NOT a rewrite).** §2's engine × DOF matrix
+> (verified 2026-06-13) stands as the DOF-coverage source of truth. This section ADDS the
+> **carrier axis** the 2026-07-03 D1 ratification made load-bearing, and folds in the day's
+> engine changes. Where a §2 cell and a §8b row disagree, the §8b date wins for
+> carrier/validation-state; §2 wins for DOF-mechanism coverage. Every cite re-verified at
+> `origin/main` HEAD `d187ed59` (PR#500 merged), verify-before-cite.
+>
+> **Class:** INFRASTRUCTURE / INSTRUMENT-AUDIT. No physics chord/echo/emergence claim is minted
+> here. `mass = A1` (PR#260 / #311 ECHO-final) is untouched by everything below.
+
+### §8b.0 — D1 RATIFICATION (2026-07-03): srs-z3 is the production carrier
+
+Grant ratified (`_orchestration/2026-07-03_srs-migration-policy.md`; ruling record
+`research/2026-06-12_lattice-d1-adjudication-memo.md` 2026-07-03 addendum; def-entry `def-4b1a2c`):
+**srs-z3** — the true Sunada-K4 / Laves / (10,3)-a / srs net (degree-3, chiral, $I4_1 32$ — the
+object Axiom 1 names) — is the engine's **production carrier**. The historical achiral **diamond
+z=4** (`TETRA_OFFSETS`) engine is re-tagged a **non-canonical instrument** (statics-pathological;
+verdicts carrier-tagged). This is an **ENGINEERING-FIDELITY** ruling — the engine implements the
+lattice the axiom already names — **no new ontological claim beyond Axiom 1.** The policy EXECUTES
+NOTHING (migration is future-arc work); it sets three standing rules: (1) new engine work builds on
+srs-z3 by default; (2) every `TETRA_OFFSETS` module gets, at next touch, MIGRATE or an explicit
+`# non-canonical instrument` scope-tag; (3) every future engine verdict declares its carrier.
+
+**Carrier vocabulary (this refresh):**
+- **srs-z3** — chiral Laves z=3 net; the ratified production carrier. Well-posed graph Laplacian
+  `L_srs = Bᵀ·diag(D)·B` (nullspace dim 1 = the physical DC mode). CARRIES chirality (writhe ≠ 0,
+  L/R sign-flip) → can host the (2,3) winding = charge.
+- **diamond-z4 (instrument-tagged)** — achiral bipartite-FCC `TETRA_OFFSETS` net. `L_D =
+  Div·diag(D)·Grad` connects only same-parity nodes → two non-communicating sublattices, an
+  8–16-dim frozen nullspace (`native_cage_imex.py`). CANNOT carry chirality. Retained as a
+  *documented instrument* (the α / Lorentz chains were hosted here — P1 migration gate; §8b.3).
+- **Cartesian (7-pt)** — `CrystalEngine` / `MasterEquationFDTD` continuum FDTD; the reference /
+  continuum-cross-check carrier. NOT diamond, NOT srs. Hosts the `c_eff(V)` cage cross-check and
+  the Q≈30.8 cold-cage clean-negative (`crystal_engine.py:154`).
+- **k-space** — spectral / Bloch-eigensolve carrier (Debye spectrum, band-structure eigensolves).
+
+### §8b.1 — carrier-tagged engine-module table (the lattice-carrying modules)
+
+Per the srs-migration-policy §B inventory + a grep census of the 175 `src/ave/` modules (the
+~30 that touch a substrate lattice; the remaining ~145 are constants / analytic / circuit /
+facade / utility modules that carry no lattice DOF). Migration status per the policy ladder.
+
+| Module | Carrier | Role | Validation state | Migration status (policy) | Claims served |
+|:--|:--|:--|:--|:--|:--|
+| `topological/cosserat_field_3d.py` | diamond-z4 | **defines** `TETRA_OFFSETS` (`:134-139`) + Grad/Div/helicity primitives | root of the stencil pathology (odd coord-sum → checkerboard nullspace) | rung-1 (migrate first); carrier-tag at next touch | `clm-ze4clw` (Q=Link winding) primitives |
+| `solvers/native_cage_imex.py` | diamond-z4 | Stage-2 native-cage IMEX `L_D = Div·diag(D)·Grad` | **CLASS-1 exposed** (HIGH #1); DISPERSE re-booked on srs (see §8b.2) | **rung-1: re-run LANDED on srs**; fold `assemble_L_srs` in as default; retire `L_D` to instrument | bulk-self-trap make-or-break |
+| `solvers/coupled_cage_winding.py` | diamond-z4 | Stage-3 A1↔ω PDE, extends Stage-2 `L_D` | **CLASS-1 exposed** (HIGH #2, inherits #1) | **rung-2: TOP OPEN re-run** (S3 cavity-pinning on srs, gated downstream) | Stage-3 cavity-pinning |
+| `solvers/srs_cage_winding.py` | **srs-z3** | `SrsCageWinding` / `assemble_L_srs` (`Bᵀ·diag·B`, nullspace dim 1) | GREEN; the migration TARGET pattern | **already srs** — the destination, not a source | localization re-run operator |
+| `solvers/spectral_liveness.py` | srs-z3 + diamond | **NEW (2026-07-03)** — spectral-liveness diagnostic; nullspace-energy fraction of a seed vs any SPD div-form operator | GREEN (7 keepers `test_spectral_liveness.py`); reproduces the exposure independently | already srs-aware; first-class reusable | the Step 3.8 readout-liveness gate (INFRASTRUCTURE) |
+| `topological/srs_dec.py` | **srs-z3** | **NEW (2026-07-03)** — DEC 2-complex on girth-10 faces; exact `∂₁,∂₂`; ∂∂=0 (int64 exact) | GREEN (14 keepers `test_srs_dec_operators.py`, ~0.5 s); THEOREM stated (§8b.4) | born-on-srs; new infrastructure | `clm-ze4clw` (harmonic sector), `clm-4r4jiy` (co-exact Coulomb) |
+| `topological/srs_dec_punctured.py` | **srs-z3** | **NEW (2026-07-03)** — punctured-domain DEC (lane-Z fluxoid step-0); solid-torus tube puncture opens Δb₁=+1 | GREEN (`test_srs_dec_punctured.py`); disc-fill certifies the core-linking meridian | born-on-srs | winding-DOF-on-H₁ (`[DOORWAY-NO-PINNING]`; FORM-derived/VALUE-imported) |
+| `topological/k4_cosserat_coupling.py` | diamond-z4 | `CoupledK4Cosserat` K4⊗Cosserat time-domain (band-structure host) | dynamical rank-2 eigensolve (no statics-nullspace bite); MED #21 (#417 phase-space) | rung-4 re-run (#417 (2,3) BREAK on srs); **name walk-back target d5** (not a statics migrate) | #417 phase-space winding |
+| `solvers/graded_vacuum_network.py` | srs + diamond | graded-Z network; builds srs via `build_srs_net` (`:87`) but also uses the 4 diamond diagonals | mixed; statics `Div·Grad` on diamond leg | carrier-tag at next touch | graded vacuum impedance network |
+| `solvers/node_scattering_multiplicity.py` | srs/diamond connect-map | Fork-A REFUTE-R3; uses CONNECT-map not dense cube | LOW (self-caught R3 overclaim, Rule 12) | opportunistic (rung-6) | node-scattering multiplicity |
+| `core/scalar_grade_seed.py` | diamond-z4 | seeds A1 grade using `TETRA_OFFSETS` helicity | seed helper | migrates with the operators it feeds | A1 grade seeding |
+| `gravity/gw_propagation.py` | diamond-z4 | GW permutation-difference operators on the 4 diagonals; **`relax_finite_core_strain`** (saturating-modulus) | LOW (#27 back-reaction leg live); clip-independence gate GREEN | carrier-tag at next touch (rung-6) | `clm-zbvfpi` (saturating-modulus), #86 leg |
+| `gravity/backreaction.py` | Cartesian / K4-native | **#86 two-way back-reaction** — Picard fixed point (`solve_backreaction`), recover-GR gate | **PRESENT / LANDED 2026-06-29**; contractive (ρ<1), energy-stationary, 4 at-risk gates GREEN | n/a (GR-QED extension axis, §7) | `clm-w5ez6i` (back-reaction), recover-GR |
+| `qed/brillouin_cutoff.py` | k-space | Brillouin-zone UV cutoff (`loop_integral_brillouin_zone`) | PRESENT; finite-vs-divergent side-by-side | n/a (GR-QED axis) | `clm-1wmyx3` (UV-finite by mode-count) |
+| `facade/unified_engine.py` | diamond-z4 facade | N³-node diamond-K4 facade over the above | facade; migrates when backends do | carrier-tag at next touch (rung-6) | unified-engine facade |
+| `core/crystal_engine.py` | Cartesian (7-pt) | graft-v2..v4; `c_eff(V)` cage SIGN-confirmed | cage SIGN + monotone-with-depth; magnitude apparatus-bound (§6) | n/a (Cartesian reference, not a migration target) | cage-stiffening, Q≈30.8 cold-cage |
+| `core/master_equation_fdtd.py` | Cartesian (7-pt) | the `c_eff(V)` A1-cage continuum FDTD; v14 Mode-I PASS | Mode-I PASS = continuum cross-check reference (native self-trap FALSIFIED, §8b.2) | n/a (Cartesian reference) | A1-cage (§2 `master_eq` row) |
+| `core/fdtd_3d.py`, `core/fdtd_3d_jax.py` | Cartesian (7-pt) | free-EM FDTD; **circulation-keyed vacuum μ-grade (PR#500)** | GREEN — loaded-μ energy debt DISCHARGED at HEAD (`\|dH/H\|=1.44×10⁻³`, μ-attributable); test `test_vca_mu_circulation_keying.py` (470 lines) | n/a (Cartesian free-EM) | Route-C μ-keying (birefringence FORK-1) |
+| `core/chiral_lattice.py` | **srs-z3** (+ diamond builder) | `build_srs_net` (z=3 chiral) AND `build_diamond_net` (achiral z=4 — walk-back name target d8) | GREEN; L0–L2 acceptance suite GREEN | destination; `build_diamond_net` callers scope-tag as instrument | chiral-grid (§2 `srs_v9`) |
+| `core/chiral_lattice_v9..v17.py` | srs-z3 | genesis / chiral-lattice series (v9 FROZEN falsifier; v13 "LOCALIZATION-LANDED") | v9 frozen; series exploratory | already srs | genesis exploration |
+| `solvers/vacuum_varactor_scatter.py` | srs/diamond connect-map | S(A) per-bond scatter operator | LOW; recovers bedrock at S=1 | opportunistic | vacuum-varactor scatter |
+| `solvers/fork_b_saturation_tank.py` | srs-z3 | fork-b A1 mass cavity (the surviving localizer) | cavity-eigenmode EXISTS | already srs | boundary-cavity localization |
+| `core/cavitation_flow.py` | achiral flow grid | the "fourth object" — softening rarefaction pocket + circulation | circulation HAVE (Kelvin-conserved); firewalled from the cage | n/a (not diamond/srs) | winding/circulation (§2 `cavitation_flow`) |
+| `topological/vacuum_engine.py` | diamond-K4 | `VacuumEngine3D` / loop-gap harness; softening-only, scalar = projection | §2 `harness` row (softening-only, no independent A1) | carrier-tag at next touch | three-channel harness |
+
+### §8b.2 — localization re-adjudication LANDED on srs (rung-1 done)
+
+The Stage-2 bulk-self-trap DISPERSE make-or-break — flagged CLASS-1-exposed (diamond `L_D`
+93%-frozen-nullspace, no same-pipeline positive control) by the 2026-07-03 verdict-exposure sweep
+(`research/2026-07-03_engine-verdict-exposure-sweep_result.md`) — was **re-asked on the canonical
+srs-z3 carrier with a proven-live readout** (`research/2026-07-03_localization-readjudication_result.md`):
+
+> **VERDICT `[DISPERSES-ON-SRS-LIVE]`.** A smooth A1 core, seeded on srs-z3, DISPERSES at every
+> box size (participation number grows 16.5×/24.5×/27.0× at L=4/6/8, energy-conserved to ~1e-9)
+> — while the SAME instrument reads a known-bound positive control as `LOCALIZED_PERSIST`. The
+> boundary/topological localization reroute (#403/#404) **stands, now grounded** on the Axiom-1
+> carrier rather than the exposed diamond instrument.
+
+Seduction-trap explicitly rejected: the exposure did NOT establish "the electron localizes in the
+bulk after all." **mass = A1 untouched** (only the localization MECHANISM was ever at stake).
+Class: MANIFESTATION (α-free, no CODATA). The srs instrument is cleaner on all five axes
+(§5 of that doc): well-posed statics, nullspace dim 1, 89.5% smooth-core live fraction (vs
+diamond's 6.5%), clean positive control, and it carries the chirality the charge lives in.
+
+### §8b.3 — retired instruments (2026-07-03)
+
+Two instruments were RETIRED this day — recorded so the map does not read them as live engines:
+
+- **Stage-2a nonlinear static .OP** (`src/scripts/vol_2_subatomic/em_readout_stage2_nonlinear_op.py`)
+  — **RETIRED** (`research/2026-07-03_em-readout-stage2-redesign_prereg.md` §R3). It cannot answer
+  the winding-emergence question: (a) its only readable signal is the anchor-source `κτ` (not
+  physics), and (b) a source-free version returns `φ ≡ const` by theorem. `run_decisive_winding_sweep`
+  never unlocks. Preserved as the reasoning-record + the theorem's empirical triple (nullspace +
+  ablation), NOT as a live instrument.
+- **The blind Stage-1 readout** (the #477 catch) — a merged null read on a **structurally-degenerate
+  global-sum observable** without a same-pipeline positive control. This catch *triggered* the whole
+  verdict-exposure sweep (CLASS-2 blind-readout pathology). The Stage-1b operator pair
+  (`_srs_curl_nodes`, `_srs_node_divergence`) is pinned as a **regression** — NOT a DEC pair
+  (`div∘curl` RMS ≈ 0.35, decisively not a machine zero); superseded by the `srs_dec` operators (§8b.4).
+
+### §8b.4 — the srs DEC theorem + liveness doctrine (new infrastructure)
+
+- **srs DEC operators (`ave.topological.srs_dec`).** A valid ∂₂ on the srs girth-10 faces;
+  ∂₁∂₂=0 (int64 EXACT); harmonic dims (b₀,b₁,b₂)=(1,3,over-complete). **THEOREM** (srs curl-class
+  charge-neutrality, cold-linear-static-local): for any 2-cochain `c`, `div(curl_adj(c)) = −∂₁∂₂c = 0`
+  identically — **every curl-class field is divergence-free = zero enclosed charge at every radius**,
+  as a structural identity, not a numerical near-zero. Upgrades the Stage-1b `{∇×ω, ω}` closure from
+  an operator-pair property to a class theorem. SCOPE: NOTHING claimed for non-curl couplings,
+  S(A)-modulated couplings, nonlinear statics, dynamics, or the winding's topological Q (which lives
+  in the harmonic H₁ sector, §8b.4 punctured). Reconciled with the solver Laplacian: `BᵀB = ∂₁∂₁ᵀ = −L0`
+  EXACTLY (same operator, sign convention only).
+- **Winding-DOF lands on H₁ (punctured DEC).** Puncturing srs with the winding's solid-torus tube
+  opens exactly one new source-free harmonic 1-cochain (Δb₁=+1, stable L=3,4,5); a ball core opens
+  none. But the flux VALUE is unpinned — verdict `[DOORWAY-NO-PINNING]`: the harmonic DOF exists (FORM
+  lattice-forced), its flux quantum is imported (VALUE = α-echo). A FORM-derived / VALUE-imported
+  instance on charge-flux.
+- **Liveness doctrine (Step 3.8 / trigger-10, ave-prereg v1.4).** Operationalized this day: any
+  null / disperse / does-not-exist read must first pass a **same-pipeline readout-liveness gate**
+  (Step 3.8a) — the instrument must be shown ABLE to register the OPPOSITE (a positive control on the
+  SAME operator), and the seed's nullspace-energy fraction read BEFORE the verdict. Enforced by
+  `spectral_liveness.py`. This is the doctrine that the exposure sweep's CLASS-2 (blind readout)
+  pathology violated — an energy-conservation gate is a rigor guard, NOT a liveness proof.
+
+### §8b.5 — #86 two-way back-reaction: TRUE state confirmed
+
+§7's transition (ABSENT → LANDED 2026-06-29) is re-confirmed at this HEAD: `backreaction.solve_backreaction`
+is the self-consistent Picard fixed point (provably contractive, energy-stationary, recover-GR gate
+green, `clm-w5ez6i`). Honest class unchanged: this makes `M_eff` EMERGENT (architectural win) but the
+value-map `r_s = 2GM_eff/c²` still imports G — consistency-class, NOT a new value-chord. The DE-tracks-matter
+irreversible-depletion chord remains a separate, still-UNBUILT Stage-4 capability.
+
+---
+
+## §8 — Figure-artifact hygiene policy (2026-07-04, D4 — going-forward)
+
+> **Policy note (infrastructure, no physics).** Landed with the 2026-07-04 engine-capability
+> refresh + figure-disposition pass. This governs which rendered artifacts the repo tracks.
+
+**Figures are derived artifacts.** The driver + its committed input data are the artifact of
+record; the rendered binary (`.png`/`.pdf`/`.svg`/`.gif`) is a regenerable convenience. Three
+standing rules:
+
+1. **Only CITED figures are tracked.** A figure is *cited* iff it is referenced from a `.tex`
+   (`\includegraphics`) or a `.md` (markdown image / explicit path). Cited figures live in the
+   volumes' `figures/` dirs and are committed. Everything else is scratch.
+2. **Driver-output scratch dirs are git-ignored.** `src/tests/outputs/`, `src/scripts/**/_output/`,
+   and `**/simulations/outputs/` are ignored (`.gitignore`, D4 block). A driver may write freely
+   there; nothing in those dirs is tracked unless explicitly allowlisted.
+3. **Drivers must be deterministic-regenerable.** A deleted uncited figure must be reproducible by
+   re-running its named driver (recorded in the sibling result-doc / test). If a figure is *not*
+   regenerable, it is not scratch — it is a tracked asset and belongs in `figures/` with a
+   provenance note (orphan-non-regenerable artifacts are a Grant-call, not auto-deleted).
+
+**Known policy smell (flagged, not fixed — future-arc item).** 38 CITED figures currently live
+inside scratch `_output/` dirs (e.g. `src/scripts/vol_9_device/_output/*.png` cited by the vol-9
+datasheet). They are `!`-allowlisted in `.gitignore` so they stay tracked, but cited renders
+*belong in `figures/`*. Migrating them (and repointing the `\includegraphics` paths) is a
+mechanical future-arc cleanup, deliberately NOT done in the D4 pass (path-repointing risks a
+build break; out of the hygiene pass's scope).
+
+---
+
 ## Cross-references
 
 - [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md) — the **design doctrine** companion to this capability map: the ontology (grid IS lattice), the continuum-vs-discrete dispatch, the coupling layer, the honesty guards, and *what the engine is for*. This map audits *what each engine carries*; the doctrine says *how the converged engine is built and used*.
