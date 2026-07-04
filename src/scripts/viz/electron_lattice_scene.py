@@ -291,6 +291,132 @@ def build_scene() -> dict:
     return scene
 
 
+def _project(pos, az_deg, el_deg):
+    """Orthographic 3D->2D projection (same math the HTML canvas uses)."""
+    az = np.radians(az_deg)
+    el = np.radians(el_deg)
+    ca, sa, ce, se = np.cos(az), np.sin(az), np.cos(el), np.sin(el)
+    x, y, z = pos[:, 0], pos[:, 1], pos[:, 2]
+    xr = ca * x + sa * z
+    zr = -sa * x + ca * z
+    yr = ce * y - se * zr
+    depth = se * y + ce * zr
+    return np.column_stack([xr, yr]), depth
+
+
+def render_static(scene: dict) -> list:
+    """Three static renders in the house style (WHITE, Okabe-Ito, honest legend).
+
+    (a) the srs net projected + coloured by S(A), the meridian generator overlaid
+        as the Δb1=+1 loop, wall (saturated) nodes marked;
+    (b) the Ax4 kernel S(A)=(1-A^2)^p over the four regime bands, with the
+        scene's actual node A-values as a rug (where the engine's nodes sit);
+    (c) the winding-amplitude field A on the net (the (2,3) knot shape).
+
+    All numbers are the exported engine scene's own arrays; only the projection
+    is presentation-layer. No baked title (caption lives in LaTeX).
+    """
+    import matplotlib.pyplot as plt
+
+    from ave.core.regime_map import R_LINEAR_MAX, R_NONLINEAR_MAX
+    from ave.viz import style
+
+    style.apply("print")  # WHITE background, Okabe-Ito, house default
+
+    pos = np.asarray(scene["nodes"]["pos"])
+    A = np.asarray(scene["nodes"]["A"])
+    S = np.asarray(scene["nodes"]["S"])
+    bonds = np.asarray(scene["bonds"])
+    mer_xyz = np.asarray(scene["meridian"]["xyz"])
+    exponent = scene["kernel_form"]["exponent"]
+    s_min = scene["kernel_form"]["S_min"]
+
+    az, el = 32.0, 20.0
+    xy, depth = _project(pos, az, el)
+    mxy, _ = _project(mer_xyz, az, el)
+    order = np.argsort(depth)  # painter's algorithm
+
+    written = []
+
+    # ── (a) net coloured by S(A) + meridian loop ──────────────────────────────
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
+    # bonds (thin, behind)
+    seg = np.stack([xy[bonds[:, 0]], xy[bonds[:, 1]]], axis=1)
+    from matplotlib.collections import LineCollection
+
+    ax.add_collection(LineCollection(seg, colors=style.COLORS["muted"], linewidths=0.15, alpha=0.35, zorder=0))
+    sc = ax.scatter(xy[order, 0], xy[order, 1], c=S[order], cmap=style.CMAP_SEQ, vmin=0.0, vmax=1.0, s=14, zorder=1)
+    # the meridian generator (the Δb1=+1 doorway loop)
+    ax.plot(
+        mxy[:, 0],
+        mxy[:, 1],
+        color=style.COLORS["accent"],
+        lw=2.4,
+        zorder=3,
+        label="meridian generator (Δb₁=+1, links core)",
+    )
+    # wall (saturated) nodes highlighted
+    wall = A > 0.9
+    ax.scatter(
+        xy[wall, 0],
+        xy[wall, 1],
+        facecolors="none",
+        edgecolors=style.COLORS["comparison"],
+        s=44,
+        linewidths=1.1,
+        zorder=2,
+        label="wall nodes at yield (A>0.9, S→0)",
+    )
+    cb = fig.colorbar(sc, ax=ax, fraction=0.046, pad=0.04)
+    cb.set_label(style.axis_label("Saturation", "S(A)", ""))
+    ax.set_xlabel(style.axis_label("projected", "x'", "a_cell"))
+    ax.set_ylabel(style.axis_label("projected", "y'", "a_cell"))
+    ax.set_aspect("equal")
+    style.legend(ax, where="below", ncol=1)
+    written += style.save(fig, _OUT_DIR / "electron_lattice_net_S")
+    plt.close(fig)
+
+    # ── (b) the Ax4 kernel over the four regime bands + the scene's node rug ───
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+    a_axis = np.linspace(0.0, 1.0, 400)
+    s_curve = np.clip(np.maximum(1.0 - a_axis**2, 0.0) ** exponent, s_min, 1.0)
+    ax.plot(a_axis, s_curve, color=style.COLORS["ave"], lw=2.2, label=f"S(A) = (1 − A²)^{exponent:g}  (Ax4 kernel)")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1.02)
+    style.shade_regimes(ax, (R_LINEAR_MAX, R_NONLINEAR_MAX, 1.0), axis="x")
+    # rug: where the engine's actual nodes sit on the A axis
+    ax.plot(
+        A,
+        np.full_like(A, -0.02),
+        "|",
+        color=style.COLORS["data"],
+        alpha=0.5,
+        ms=6,
+        clip_on=False,
+        label="engine node A-values",
+    )
+    ax.set_xlabel(style.axis_label("Winding amplitude", r"A = |\omega|/A_\mathrm{yield}", ""))
+    ax.set_ylabel(style.axis_label("Saturation", "S(A)", ""))
+    style.legend(ax, where="below", ncol=2)
+    written += style.save(fig, _OUT_DIR / "electron_lattice_kernel")
+    plt.close(fig)
+
+    # ── (c) the winding-amplitude field A on the net (the (2,3) knot shape) ────
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
+    ax.add_collection(LineCollection(seg, colors=style.COLORS["muted"], linewidths=0.15, alpha=0.3, zorder=0))
+    sc = ax.scatter(xy[order, 0], xy[order, 1], c=A[order], cmap=style.CMAP_SEQ, vmin=0.0, vmax=1.0, s=14, zorder=1)
+    ax.plot(mxy[:, 0], mxy[:, 1], color=style.COLORS["accent"], lw=2.0, zorder=3, alpha=0.9)
+    cb = fig.colorbar(sc, ax=ax, fraction=0.046, pad=0.04)
+    cb.set_label(style.axis_label("Winding amplitude", "A", ""))
+    ax.set_xlabel(style.axis_label("projected", "x'", "a_cell"))
+    ax.set_ylabel(style.axis_label("projected", "y'", "a_cell"))
+    ax.set_aspect("equal")
+    written += style.save(fig, _OUT_DIR / "electron_lattice_winding_A")
+    plt.close(fig)
+
+    return written
+
+
 def main() -> None:
     _OUT_DIR.mkdir(parents=True, exist_ok=True)
     scene = build_scene()
@@ -313,6 +439,10 @@ def main() -> None:
         f"length={m['doorway']['meridian_length']:.2f}"
     )
     print(f"  scene written: {out_json}")
+
+    renders = render_static(scene)
+    for r in renders:
+        print(f"  render written: {r}")
 
 
 if __name__ == "__main__":
