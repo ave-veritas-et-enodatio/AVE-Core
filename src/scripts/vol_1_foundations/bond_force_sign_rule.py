@@ -212,13 +212,122 @@ def symbolic_backbone() -> dict:
 
 
 # ===========================================================================
+# (2) POSITIVE CONTROLS (HALT-gated) -- run BEFORE any adjudicated number
+# ===========================================================================
+def run_positive_controls(pos, bonds, rho) -> dict:
+    """All HALT-gated positive controls (prereg PC-a1/a2/b1/b2/recon/dim)."""
+    import numpy as _np
+
+    results = {}
+
+    # PC-dim: sympy backbone, every derivative exact-zero
+    backbone = symbolic_backbone()
+    backbone_ok = all(v == 0 for v in backbone.values())
+    results["PC_dim_symbolic_all_exact_zero"] = bool(backbone_ok)
+    results["PC_dim_residuals"] = {k: str(v) for k, v in backbone.items()}
+
+    # PC-a1: arm (a) tension vanishes at zero pluck
+    ta0 = arm_a_pluck_tension(0.0)
+    results["PC_a1_pluck_at_zero"] = float(ta0)
+    results["PC_a1_ok"] = bool(ta0 == 0.0)
+
+    # PC-a2: small-y limit matches 2 k_a y^2 / ell to O(y^4)
+    ys = _np.array([1e-3, 1e-2, 5e-2])
+    exact = _np.array([arm_a_pluck_tension(float(y)) for y in ys])
+    lead = _np.array([arm_a_pluck_tension_leading(float(y)) for y in ys])
+    rel = _np.abs(exact - lead) / _np.abs(lead)
+    results["PC_a2_max_rel_dev_smally"] = float(_np.max(rel))
+    results["PC_a2_ok"] = bool(rel[0] < 1e-4)  # y=1e-3 -> O(y^2)=1e-6 dev
+
+    # PC-b1: buckling plateau finite as bow->0+ (Euler analog)
+    pc = arm_b_plateau_buckling_load(k_b=1.0, ell=1.0)
+    results["PC_b1_plateau_kernel_units"] = float(pc)
+    results["PC_b1_ok"] = bool(_np.isfinite(pc) and pc < 0.0 and abs(pc + 0.25) < 1e-15)
+
+    # PC-b2: pre-buckle Hooke -> 0 as u->0, compressive for u>0
+    results["PC_b2_hooke_at_zero"] = float(arm_b_prebuckle_hooke(0.0))
+    results["PC_b2_ok"] = bool(
+        arm_b_prebuckle_hooke(0.0) == 0.0 and arm_b_prebuckle_hooke(0.1) < 0.0
+    )
+
+    # PC-recon: arm (b) magnitude == #526 bond_tension bit-exactly (consumed fn)
+    As = _np.linspace(0.05, 0.95, 19)
+    recon = _np.array(
+        [abs(arm_b_magnitude(float(a), "phi_prime")) - float(bond_tension(a)) for a in As]
+    )
+    results["PC_recon_max_abs_dev"] = float(_np.max(_np.abs(recon)))
+    results["PC_recon_ok"] = bool(_np.max(_np.abs(recon)) < 1e-12)
+
+    all_ok = all(
+        results[k] for k in results if k.endswith("_ok")
+    )
+    results["ALL_PC_PASS"] = bool(all_ok)
+    return results
+
+
+# ===========================================================================
+# (3) THE FOUR TRACKS -- rho'/nu per {arm} x {magnitude law} through the remap
+# ===========================================================================
+def _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, T_signed):
+    """Feed a SIGNED per-bond axial force T into the MERGED #526 remap machinery.
+
+    Consumes extract_prestress_Cij (the #526 pre-stressed Born-Huang tensor) and the
+    #526 remap formula k_shear_eff = S_shear + T/ell, rho' = S_ax/k_shear_eff. The
+    ONLY thing this arc changes vs #526 is the SIGN (and, per Reading (b), the
+    magnitude LAW) of T -- everything downstream is the merged pipeline verbatim.
+    """
+    S_axial = float(saturation_factor(A_axial, yield_limit=1.0))
+    S_shear = float(saturation_factor(A_shear, yield_limit=1.0))
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))  # =1 on srs
+    r = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear,
+                              T_per_bond=float(T_signed), rho=rho)
+    mo = moduli_from_Cij(r["C11"], r["C12"], r["C44"])
+    k_shear_eff = S_shear + float(T_signed) / ell         # #526 shifted shear spring
+    rho_prime = (S_axial / k_shear_eff) if k_shear_eff > 0 else float("inf")
+    return {
+        "A_axial": A_axial, "A_shear": A_shear, "S_axial": S_axial, "S_shear": S_shear,
+        "ell": ell, "T_signed": float(T_signed), "k_shear_eff": k_shear_eff,
+        "rho_prime": rho_prime, "nu": mo["nu_Hill"], "K": mo["K_bulk"],
+        "Zener": mo["Zener_A"], "min_acoustic_eig": r["min_acoustic_eig"],
+    }
+
+
+def four_tracks(pos, bonds, rho, delta_y=1.0) -> dict:
+    """The FOUR tracks (prereg cond.2): {arm a, arm b} x {geometric, phi_prime} laws.
+
+    Reported SEPARATELY (Grant rules on the noun at review). At the #518 SHEAR-LOADS
+    crossing operating point (A_axial=sqrt(alpha), A_shear swept to the crossing
+    A_wall=0.99479); the SIGN of T flows into cap-vs-uncap. delta_y scales the force
+    magnitude (arc* band); default 1.0, banded in main().
+    """
+    A_axial = A_CORE_SQRT_ALPHA
+    A_shear = 0.99479          # #518 crossing amplitude (read-off, VISIBLE target)
+    # arm (a): TENSION (T>0). The bias here is the TRANSVERSE (shear) channel; the
+    # pluck amplitude is A_shear. Both banded laws are POSITIVE.
+    tracks = {}
+    for law in ("geometric", "phi_prime"):
+        T_a = delta_y * arm_a_magnitude(A_shear, law)          # >0 tension
+        tracks[f"arm_a_{law}"] = {
+            "arm": "a_pluck", "sign": "tension(+)", "law": law,
+            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, +abs(T_a)),
+        }
+    # arm (b): COMPRESSION (T<0). The bias is the AXIAL (A1) channel; the load
+    # amplitude is A_axial=sqrt(alpha) (the actual #526 bias). Both laws NEGATIVE.
+    for law in ("phi_prime", "geometric"):
+        T_b = delta_y * arm_b_magnitude(A_axial, law)          # <0 compression
+        tracks[f"arm_b_{law}"] = {
+            "arm": "b_endload", "sign": "compression(-)", "law": law,
+            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, -abs(T_b)),
+        }
+    return tracks
+
+
+# ===========================================================================
 # PLACEHOLDERS -- filled in subsequent commits (incremental-write discipline)
 # ===========================================================================
-# (2) POSITIVE CONTROLS (HALT-gated)
-# (3) THE FOUR TRACKS -- rho'/nu per {arm} x {magnitude law} through the remap
 # (4) THE BIN SELECTOR -- no fall-through else; DISCREPANT-HALT reachable
 # (5) main()
 
 
 if __name__ == "__main__":  # pragma: no cover
-    raise SystemExit("physics WIP -- controls/tracks/bins/main in subsequent commits")
+    raise SystemExit("physics WIP -- bins/main in subsequent commits")
