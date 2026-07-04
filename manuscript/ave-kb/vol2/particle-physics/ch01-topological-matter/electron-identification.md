@@ -34,6 +34,10 @@ The electron in AVE is defined by **four tightly-coupled topological/dynamical p
 
 > **Symmetric framing with the photon (corollary of property 3+4):** photon and electron are TWO amplitude phases of the same underlying K4 transverse-Cosserat-microrotation wave. Below $V_{yield}$ → photon (impedance-matched, free); above $V_{yield}$ → electron (self-trapped, standing wave). The boundary is a dynamical threshold, not an ontological one. Per the photon-identification §4.0 symmetric framing block. 🔴 *(2026-06-24: "self-trapped, standing wave" here = the BOUNDARY-CONDITION flip (Γ=0 → Γ=−1) of property 3/4 — the SURVIVING route; not a bulk self-focusing interior well, which Stage-2 ruled out. The amplitude-threshold framing is unaffected.)*
 
+![The electron on the real vacuum lattice (engine-exact): the seeded (2,3) winding on the chiral srs net (z=3, I4_1 32 / (10,3)-a; L=6, 1728 interior z=3 nodes), node colour = the Axiom-4 kernel S(A)=(1−A²)^0.5 at the winding amplitude field, the ring of open markers = the 19 wall nodes at yield (A>0.9, S→0.045) = the property-3 self-formed Γ=−1 TIR cage, and the teal cycle = the Δb₁=+1 meridian doorway (linking ±1 with the winding core, verified).](../../../../vol_2_subatomic/figures/electron_lattice_net_S.png)
+
+*Figure — the whole-particle statics view of properties 1–3, engine-exact on the canonical z=3 srs carrier. In-plane projection is presentation-layer; all node/bond/winding/kernel values are engine-exact. Driver: `src/scripts/viz/electron_lattice_scene.py` (`ave.core.chiral_lattice.build_srs_net` + `ave.solvers.srs_cage_winding` + `graded_vacuum_network.saturation_kernel`); provenance ledger at `viz/README.md` Visual 1.*
+
 ## §2 — First-principles axiom audit per property
 
 The audit applies the four-axiom test (per `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2) to each property: **which axiom(s) derive it, and is the derivation rigorous from first principles or does it embed circularity/calibration/hand-waving?**

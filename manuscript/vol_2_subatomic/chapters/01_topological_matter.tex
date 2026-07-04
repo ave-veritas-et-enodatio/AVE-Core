@@ -108,6 +108,7 @@ Because the substrate possesses a discrete minimum pitch (Axiom 1), a topologica
 The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$). The unknot, being the simplest closed loop, achieves a minimum ropelength of $2\pi$---the circumference of a circle with unit tube diameter. This is the most compact non-intersecting geometry for a volume-bearing flux tube on a discrete grid, establishing the electron's physical role as the structural mass-gap of the spatial medium.
 
 \subsection{The Hollow-Vortex Binding Structure (Class-C Consistency)}
+\label{sec:hollow_vortex_binding}
 The electron admits a self-consistent structural description as a \textbf{hollow vortex}. This is a \emph{consistency-class} (Class-C) picture: the framework \emph{describes} the electron as one self-consistent object, it does not independently \emph{predict} it, and the electron's existence is established separately (below). The structure is a \textbf{cavitated core}---the incompressible melted-vacuum equation-of-state floor $\bar\rho_{cav} = -1/\varphi$, reachable by circulation---drilled and held open by the $(2,3)$ Cosserat circulation, and closed by the surface tension of the void--vacuum boundary. Because the melted vacuum is incompressible, the bulk-compression restoring term is deleted: this is a \emph{cavity} balance (Laplace pressure versus circulation), not a bulk-compression soliton.
 
 Balancing the outward curved-filament opener ($\propto \Gamma^2/R^3$) against the inward cylindrical Laplace closer ($\sigma/R$) fixes the equilibrium radius:
@@ -142,6 +143,13 @@ This dynamic structural yielding lowers the local geometric Q-factor of the disc
     \includegraphics[width=0.8\textwidth]{electron_3d_knot.png}
     \caption{\textbf{Unknot ($0_1$) Topology of the Electron.} A spatial rendering of the $0_1$ Unknot---a single closed flux tube loop at minimum ropelength $= 2\pi$---colour-mapped to represent the continuous $U(1)$ chiral phase circulating the loop. The topological winding number ($N = 1$) derives the origin of integer charge quantisation. Watertight 3D-printable STL meshes for all particle topologies are available in \texttt{assets/3d\_models/}.}
     \label{fig:electron_3d}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.62\textwidth]{electron_lattice_net_S.png}
+    \caption{\textbf{The electron on the real vacuum lattice (engine-exact).} The seeded $(2,3)$ winding on the chiral \emph{srs} net (degree-$3$, $I4_132$ / (10,3)-a; $L=6$, $1728$ interior $z=3$ nodes), projected to the $(x',y')$ plane. Node colour is the Axiom-4 saturation kernel $S(A)=(1-A^2)^{0.5}$ evaluated at the winding's amplitude field $A=|\omega|/A_{\mathrm{yield}}$; the ring of open markers is the set of $19$ \textbf{wall nodes at yield} ($A>0.9$, $S\!\to\!0.045$) --- the self-formed $\Gamma=-1$ TIR cage wall (\S\ref{sec:hollow_vortex_binding}; the transverse-Cosserat $T_2$ self-trap of the vacuum-circuit sector), the whole-particle statics view of the per-node Q-point. The teal cycle is the meridian generator (the $\Delta b_1=+1$ harmonic doorway of the punctured complex; linking number $\pm1$ with the winding core, verified). Axes in $a_{\mathrm{cell}}$; the in-plane projection is presentation-layer, all node/bond/winding/kernel values are engine-exact. Driver: \texttt{src/scripts/viz/electron\_lattice\_scene.py} (\texttt{ave.core.chiral\_lattice.build\_srs\_net} + \texttt{srs\_cage\_winding} + \texttt{graded\_vacuum\_network.saturation\_kernel}).}
+    \label{fig:electron_lattice_net_s}
 \end{figure}
 
 \section{Regime Classification of Topological Matter}
