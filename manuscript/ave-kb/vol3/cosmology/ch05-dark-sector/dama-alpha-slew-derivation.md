@@ -11,7 +11,7 @@ claims: [clm-b27pnp]
 
 The DAMA/LIBRA annual modulation detector sees a signal in the 2-6 keV window with ~4% annual amplitude — long interpreted by particulate-DM models requiring WIMP-class cross-sections + per-detector fitting. In AVE, the substrate-physics derivation predicts a coupling quantum at $E = \alpha \cdot m_e c^2 \approx 3.728$ keV via Schwinger anomalous-moment substrate-rate — a direct consequence of Axiom 4 saturation-kernel back-reaction on the LC tank, projected through the Hoop Stress 2π geometric factor.
 
-**Honest scope (post-2026-05-17 night walk-back)**: this energy value coincides within 1% with Ca Kα (3.691 keV) which Moseley's law also derives from α + m_e c². The numerical match alone does NOT discriminate AVE-substrate-physics from SM-atomic-physics. **AVE-distinguishing claims** (per §11): Z-independence across cross-crystal swap; CMB-velocity phase-lock of annual modulation; solid-vs-liquid binary gate (DAMA positive, XENONnT null). This leaf documents the substrate derivation chain; rate magnitude (events/kg/keV/day) is PAUSED pending anti-anchor framework and substrate-mode-density foundational work.
+**Honest scope (post-2026-05-17 night walk-back)**: this energy value coincides within 1% with Ca Kα (3.691 keV) which Moseley's law also derives from α + m_e c². The numerical match alone does NOT discriminate AVE-substrate-physics from SM-atomic-physics. **AVE-distinguishing claims** (per §11): Z-independence across cross-crystal swap; ~~CMB-velocity phase-lock of annual modulation~~ 🔴 **[CMB-PHASE-EXCLUDED] (2026-07-04; see §11.3)** — the CMB apex peaks in December, DAMA's mid-May peak is the standard-halo phase, NOT AVE-distinct; solid-vs-liquid binary gate (DAMA positive, XENONnT null). This leaf documents the substrate derivation chain; rate magnitude (events/kg/keV/day) is PAUSED pending anti-anchor framework and substrate-mode-density foundational work.
 
 ## Key Results
 
@@ -219,7 +219,7 @@ Status: AVE-distinct claim CONFIRMED by DAMA-positive + XENONnT-null contrast.
 The α-slew DAMA prediction can promote to foreword-grade load-bearing AVE-distinct claim **only** via:
 
 1. **Cross-crystal swap test confirming Z-independence** (current SPARC-parity gap), OR
-2. **COSINE-100 + ANAIS-112 confirming DAMA's CMB-velocity phase-lock** at AVE-equivalent precision (would consolidate Claim B from "DAMA-only" to "cross-detector replicated")
+2. ~~**COSINE-100 + ANAIS-112 confirming DAMA's CMB-velocity phase-lock** at AVE-equivalent precision (would consolidate Claim B from "DAMA-only" to "cross-detector replicated")~~ 🔴 **[CMB-PHASE-EXCLUDED] (2026-07-04)** — moot: the CMB apex predicts a December peak (day ~348), while DAMA's observed mid-May phase (145±5 d) is the standard-halo phase, so Claim B never had a CMB-frame phase to replicate (see §11.3 header + `research/2026-07-04_dama-cmb-phase-lock-check_note.md`). The surviving promotion route is the cross-crystal Z-independence swap (item 1).
 
 The numerical "α m_e c² in DAMA window" framing alone is NOT sufficient for foreword promotion given the Moseley Ca Kα coincidence and the CXB OOM match. Foreword bullet was rewritten 2026-05-17 night to reflect this.
 

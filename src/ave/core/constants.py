@@ -353,7 +353,15 @@ XI_TOPO: float = e_charge / L_NODE  # ≈ 4.149e-7 C/m
 
 # --- Fundamental dimensionless constants (same in any unit system) ---
 N_ALPHA: float = ALPHA  # ≈ 1/137.036 (soliton-lattice coupling)
-N_NU: float = 2.0 / 7.0  # Poisson ratio (Axiom 2)
+# PROVENANCE NOTE (2026-07-04, srs elastic-tensor fallout, PR#506; value UNCHANGED):
+# ν = 2/7 ⟺ K = 2G is an ALGEBRAIC IDENTITY (vacuum-poisson-ratio.md, clm-x19btt) and
+# holds. But K = 2G is GR-IMPORTED (PR#261), re-confirmed at the ratified z=3 srs carrier
+# by PR#506: the srs Cauchy elastic tensor is a ONE-PARAMETER FAMILY in ρ=k_a/k_s; ν=2/7
+# requires an externally-supplied ρ*≈9.77 (NOT geometrically distinguished), and there the
+# crystal is materially anisotropic (Zener 1.23). So 2/7 is NOT lattice-forced/geometry-
+# derived — it is the GR-imported K=2G value. (Stage-2 chiral-coupling question OPEN,
+# analysis/srs-chiral-micropolar.) See research/2026-07-04_srs-elastic-tensor_result.md.
+N_NU: float = 2.0 / 7.0  # Poisson ratio (Axiom 2; value = GR-imported K=2G, see note above)
 N_P_C: float = 8.0 * pi * ALPHA  # Critical packing fraction (Axiom 3)
 
 # --- Derived atomic constants in native units ---
@@ -567,9 +575,18 @@ P_RIGIDITY: float = 6.0 / Z_COORDINATION  # ≈ 0.117
 
 # Isotropic Strain Projection factor (trace-reversed Poisson ν = 2/7)
 # 1D → 3D volumetric bulk projection = 1/7
+# PROVENANCE (2026-07-04, srs fallout PR#506; value UNCHANGED): 1/7 is a projection of
+# ν=2/7, whose value is GR-imported via K=2G (not crystalline-derived — the srs Cauchy
+# tensor is a one-param family; see N_NU note above and NU_VAC below).
 ISOTROPIC_PROJECTION: float = 1.0 / 7.0
 
 # Poisson ratio of the vacuum  ν_vac = 2/7
+# PROVENANCE (2026-07-04, srs elastic-tensor fallout PR#506; value UNCHANGED): ν=2/7 ⟺
+# K=2G is an algebraic identity that HOLDS; but K=2G is GR-IMPORTED (PR#261, re-confirmed
+# at z=3 by PR#506 — srs Cauchy tensor is a one-parameter family, ν=2/7 only at externally-
+# supplied ρ*≈9.77, Zener 1.23 anisotropic). So this value is the GR-imported K=2G value,
+# NOT an independent crystalline/amorphous-network determination. Stage-2 chiral-coupling
+# question OPEN (analysis/srs-chiral-micropolar). research/2026-07-04_srs-elastic-tensor_result.md.
 NU_VAC: float = 2.0 / 7.0
 
 # Strong coupling constant  α_s = α^(3/7)
@@ -713,7 +730,11 @@ G_STRING: float = T_EM / L_NODE  # ≈ 5.49×10¹¹ Pa
 G_VAC: float = RHO_BULK * C_0**2
 
 # Longitudinal wave speed  v_long = √(K_bulk / ρ_bulk) = √(2G/ρ)
-# From K = 2G (Effective Medium Theory, Ch 2).
+# From K = 2G.  PROVENANCE RE-ATTRIBUTED (2026-07-04, srs fallout PR#506; value UNCHANGED):
+# the "(Effective Medium Theory)" attribution is doubly-superseded — K=2G is GR-IMPORTED
+# (not EMT-forced; PR#261), and the crystalline srs Cauchy tensor is a one-parameter family
+# (PR#506), so neither the amorphous EMT nor the z=3 crystal forces K=2G. Re-attribute to
+# GR-imported K=2G. research/2026-07-04_srs-elastic-tensor_result.md.
 V_LONG: float = np.sqrt(2.0 * G_VAC / RHO_BULK)
 
 # Kinematic mutual inductance  ν_vac_kin = α · c · ℓ_node

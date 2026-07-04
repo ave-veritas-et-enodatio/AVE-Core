@@ -5,6 +5,14 @@ kind: leaf
 claims: [clm-gvn4r1]
 -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> Every "$7.5/\alpha^3\approx1.93\times10^7$" birefringence-ratio below carries an understated QED denominator
+> ($(3/45)\alpha^2$ too small by $1/(2\pi\alpha)\approx21.8$). **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$**
+> (propagating, the headline; $15\pi/\alpha^2\approx8.85\times10^5$ static-E). The AVE leg $-\tfrac12 A^2$ and the
+> MIXED chord-vs-echo grade are UNAFFECTED (the magnitude was and remains an $\alpha$-echo). Canonical:
+> [`../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 ## Graded-Network Response: TLM Dispersion + Symmetric/Asymmetric Loading
 
 The [node-up leaf](node-up-small-large-signal.md) (clm-vca7r1) fixes the small- and large-signal

@@ -993,7 +993,7 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
 
 - _Specific Claims_
   - Substrate derivation gives a coupling quantum $E = \alpha\,m_e c^2 \approx 3.728$ keV in the DAMA window.
-  - AVE-distinguishing claims (§11): Z-independence under cross-crystal swap; CMB-velocity phase-lock of the annual modulation; solid-vs-liquid binary gate (DAMA positive / XENONnT null).
+  - AVE-distinguishing claims (§11): Z-independence under cross-crystal swap; ~~CMB-velocity phase-lock of the annual modulation~~ 🔴 **[CMB-PHASE-EXCLUDED] (2026-07-04)** (the CMB apex peaks in December, day ~348; DAMA's mid-May 145±5 d peak is the standard-halo phase, NOT AVE-distinct — `research/2026-07-04_dama-cmb-phase-lock-check_note.md`); solid-vs-liquid binary gate (DAMA positive / XENONnT null).
   - α m_e c² is the per-cycle reactive power of the electron LC tank ($P_{real}=0$), not a real radiated photon quantum.
 - _Specific Non-Claims and Caveats_
   - Energy-scale "zero-parameter CONFIRMED" status DEMOTED (2026-05-17 audit): 1% coincidence with Ca Kα via Moseley; magnitude alone does not discriminate.

@@ -8,6 +8,14 @@ path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella un
 
 # FORM-Deriving / VALUE-Importing — the Framework's Organizing Principle
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The birefringence-tooth "$7.5/\alpha^3\approx1.93\times10^7$" quoted below (as an example of an $\alpha$-echo
+> magnitude) carries an understated QED denominator. **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$**
+> (propagating, the headline). The FORM-vs-VALUE point is UNAFFECTED — indeed sharpened: the magnitude was and
+> remains an $\alpha$-echo, only its numerical value moves. Canonical:
+> [`../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 > **What this leaf is.** Primarily a **consolidation home**, not a derivation. The
 > FORM-vs-VALUE distinction is the framework's current organizing principle; it
 > was adjudicated piecewise across 2026-06-14 → 2026-06-18 and previously lived

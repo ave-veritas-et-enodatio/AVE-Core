@@ -5,6 +5,14 @@ kind: leaf
 no-claim: "Vol-9 Class-C CONSISTENCY re-expression — the per-DOF node-constitutive layer (reactive tensor (L_i,C_i) per translation DOF) BENEATH AVE_VACUUM_CELL (§1) and the graded vacuum impedance network (§6). Unifies three already-asserted behaviors (isotropic achromatic / deviatoric birefringence / high-k (qℓ)⁴ anisotropy) into one node-constitutive structure. Originates NO new substrate primitive and NO value-prediction; the c₀/Z₀ recovered in the isotropic continuum limit are KNOWN anchors (validate-on-known gate), not emergent values."
 -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The birefringence coefficient ratio "7.5/α³ ≈ 1.93×10⁷" referenced below carries an understated QED
+> denominator. **Corrected: 7.5π/α² ≈ 4.42×10⁵** (propagating, the headline). The node-constitutive structure
+> (per-DOF (Lᵢ,Cᵢ), the deviatoric-strain split, the (qℓ)⁴ anisotropy) is UNAFFECTED — only the field-E²-index
+> AVE/QED magnitude ratio changes. Canonical:
+> [`../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 ## Per-DOF Vacuum Node Circuit (node-constitutive layer, canonical leaf)
 
 **Classification:** Class C — CONSISTENCY re-expression. The cell-level `AVE_VACUUM_CELL` ([`device-circuit-models.md`](device-circuit-models.md):52) gives ONE scalar reactive pair per node ($L_{\mathrm{cell}}=\mu_0\ell_{\mathrm{node}}$, $C_{\mathrm{cell}}=\varepsilon_0\ell_{\mathrm{node}}$). This leaf makes that pair a **constitutive TENSOR**: each translation DOF $i\in\{x,y,z\}$ carries its OWN reactive pair $(L_i,C_i)$. This is the node-level structure REQUIRED beneath the cell model, because **a scalar node cannot represent the directional anisotropy that shear induces** — and it is the missing node-constitutive layer beneath the graded vacuum impedance network ([`device-circuit-models.md`](device-circuit-models.md):127, §6).
