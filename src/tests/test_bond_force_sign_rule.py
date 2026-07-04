@@ -141,28 +141,47 @@ def test_positive_controls_all_pass(srs):
 # --------------------------------------------------------------------------
 def test_four_tracks_present(srs):
     pos, bonds, rho = srs
-    tr = four_tracks(pos, bonds, rho, delta_y=1.0)
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
     assert set(tr) == {"arm_a_geometric", "arm_a_phi_prime",
                        "arm_b_geometric", "arm_b_phi_prime"}
 
 
 def test_tension_arm_caps_compression_arm_uncaps(srs):
-    """Arm a (tension, T>0) GROWS k_shear_eff (caps rho'); arm b (T<0) SHRINKS it (uncaps)."""
+    """Arm a (tension, T>0) GROWS k_shear_eff (caps rho'); arm b (T<0) SHRINKS it (uncaps).
+
+    IN-REGIME (item 2): the pluck is at the fixed-arc premise's bow ceiling, so the cap is
+    WEAKER than the old out-of-regime numbers (arm_a rho' in [1.97, 7.10], not [1.17, 2.04]).
+    """
     pos, bonds, rho = srs
-    tr = four_tracks(pos, bonds, rho, delta_y=1.0)
+    for arc_star in (0.70, 0.96):
+        tr = four_tracks(pos, bonds, rho, arc_star=arc_star)
+        for name, t in tr.items():
+            if t["arm"] == "a_pluck":
+                assert t["T_signed"] > 0 and t["k_shear_eff"] > t["S_shear"]
+                assert t["rho_prime"] < 8.0            # capped (in-regime, weaker)
+            else:
+                assert t["T_signed"] < 0 and t["k_shear_eff"] < t["S_shear"]
+                assert t["rho_prime"] > 10.0           # uncapped large
+
+
+def test_arm_a_in_regime_bow_replaces_out_of_regime(srs):
+    """Item 2: the pluck bow is the fixed-arc ceiling, NOT y=0.99479 (arc=2.23*ell)."""
+    from scripts.vol_1_foundations.bond_force_sign_rule import in_regime_pluck_bow
+    # tent arc*=0.96 -> small bow ~0.14; elastica arc*=0.70 -> ~0.42; both << 0.99479
+    assert in_regime_pluck_bow(0.96) < 0.2
+    assert in_regime_pluck_bow(0.70) < 0.5
+    assert in_regime_pluck_bow(0.96) < in_regime_pluck_bow(0.70)   # tighter arc, smaller bow
+    tr = four_tracks(pos=srs[0], bonds=srs[1], rho=srs[2], arc_star=0.96)
     for name, t in tr.items():
         if t["arm"] == "a_pluck":
-            assert t["T_signed"] > 0 and t["k_shear_eff"] > t["S_shear"]
-            assert t["rho_prime"] < 5.0            # capped small
-        else:
-            assert t["T_signed"] < 0 and t["k_shear_eff"] < t["S_shear"]
-            assert t["rho_prime"] > 10.0           # uncapped large
+            assert abs(t["y_pluck_in_regime"] - in_regime_pluck_bow(0.96)) < 1e-12
 
 
 def test_arm_b_phi_prime_reproduces_526_t_negative_arm(srs):
-    """arm_b_phi_prime reproduces #526's T<0 arm: nu=+0.466, rho'=59.93 at the crossing."""
+    """arm_b_phi_prime at the tent edge (arc*=0.96, dy=1) reproduces #526's T<0 arm:
+    nu=+0.466, rho'=59.93 at the crossing (bit-consistent with the merged remap)."""
     pos, bonds, rho = srs
-    tr = four_tracks(pos, bonds, rho, delta_y=1.0)
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
     t = tr["arm_b_phi_prime"]
     assert abs(t["nu"] - 0.46594) < 1e-3
     assert abs(t["rho_prime"] - 59.93) < 0.1
@@ -172,8 +191,8 @@ def test_bands_move_magnitudes_not_signs(srs):
     """Over the arc* band the FORCE magnitude bands but the SIGN is invariant (verdict robust)."""
     pos, bonds, rho = srs
     lo, hi = ARC_STAR_BAND
-    tlo = four_tracks(pos, bonds, rho, delta_y=lo)
-    thi = four_tracks(pos, bonds, rho, delta_y=hi)
+    tlo = four_tracks(pos, bonds, rho, arc_star=lo)
+    thi = four_tracks(pos, bonds, rho, arc_star=hi)
     for name in tlo:
         assert np.sign(tlo[name]["T_signed"]) == np.sign(thi[name]["T_signed"])
         # magnitude actually differs (a band, not a point)
@@ -185,7 +204,7 @@ def test_bands_move_magnitudes_not_signs(srs):
 # --------------------------------------------------------------------------
 def test_verdict_is_sign_rule_derived(srs):
     pos, bonds, rho = srs
-    tr = four_tracks(pos, bonds, rho, delta_y=1.0)
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
     v = select_bin(tr)
     assert v["verdict"] == "SIGN-RULE-DERIVED"
 
@@ -232,7 +251,7 @@ def test_discrepant_halt_fires_on_compression_that_caps():
 def test_discrepant_halt_does_not_fire_on_consistent_tracks(srs):
     """The live four tracks are all sign<->structure consistent (no false HALT)."""
     pos, bonds, rho = srs
-    tr = four_tracks(pos, bonds, rho, delta_y=1.0)
+    tr = four_tracks(pos, bonds, rho, arc_star=0.96)
     v = select_bin(tr)                     # must not raise
     assert v["verdict"] == "SIGN-RULE-DERIVED"
 

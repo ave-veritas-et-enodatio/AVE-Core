@@ -266,6 +266,32 @@ def run_positive_controls(pos, bonds, rho) -> dict:
 
 
 # ===========================================================================
+# THE IN-REGIME BOW BOUND (review item 2) -- the fixed-arc premise's own limit
+# ===========================================================================
+def in_regime_pluck_bow(arc_star: float, ell: float = 1.0) -> float:
+    """Max IN-REGIME transverse pluck bow y at fixed-arc premise arc* (review item 2).
+
+    The microfoundation premise (axiom-register.md:189) fixes the arc at arc* (a FEW %
+    to ~30% below ell over the band). For arm (a) (chord clamped near ell, bow driven,
+    the arc-STRETCHING finite-stiffness pluck), the largest bow the premise LICENSES is
+    the one whose pluck-arc does not exceed the arc the premise admits: the OUTWARD arc
+    excess is bounded by the SAME magnitude as the arc* deficit (|1 - arc*/ell|). So the
+    in-regime arc bound is ell*(1 + (1 - arc*/ell)) = ell*(2 - arc*/ell), and
+
+        arc(y) = 2*sqrt((ell/2)^2 + y^2) <= ell*(2 - arc*/ell)
+        => y_max = sqrt((arc_bound/2)^2 - (ell/2)^2),   arc_bound = ell*(2 - arc*/ell).
+
+    This REPLACES the out-of-regime y=0.99479 (arc=2.23*ell, 2.3x the premise). At the
+    band edges (arc*=0.70 elastica / 0.96 tent): y_max ~ 0.42 / 0.14. NOT an ad-hoc
+    number -- it is the fixed-arc premise's own displacement ceiling.
+    """
+    slack = abs(1.0 - arc_star / ell)             # arc* deficit = admissible arc excess
+    arc_bound = ell * (1.0 + slack)
+    val = (arc_bound / 2.0) ** 2 - (ell / 2.0) ** 2
+    return float(np.sqrt(val)) if val > 0 else 0.0
+
+
+# ===========================================================================
 # (3) THE FOUR TRACKS -- rho'/nu per {arm} x {magnitude law} through the remap
 # ===========================================================================
 def _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, T_signed):
@@ -292,32 +318,46 @@ def _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, T_signed):
     }
 
 
-def four_tracks(pos, bonds, rho, delta_y=1.0) -> dict:
+def four_tracks(pos, bonds, rho, arc_star=0.96) -> dict:
     """The FOUR tracks (prereg cond.2): {arm a, arm b} x {geometric, phi_prime} laws.
 
-    Reported SEPARATELY (Grant rules on the noun at review). At the #518 SHEAR-LOADS
-    crossing operating point (A_axial=sqrt(alpha), A_shear swept to the crossing
-    A_wall=0.99479); the SIGN of T flows into cap-vs-uncap. delta_y scales the force
-    magnitude (arc* band); default 1.0, banded in main().
+    IN-REGIME (review item 2). Reported SEPARATELY (Grant rules on the noun at review).
+    - arm (a) TENSION: plucked at the IN-REGIME bow y_max = in_regime_pluck_bow(arc*),
+      the fixed-arc premise's own displacement ceiling (NOT the out-of-regime y=0.99479
+      whose arc was 2.23*ell). The BAND is over arc* itself (the DISPLACEMENT premise),
+      applied inside the geometry -- NOT delta_y multiplying the force. arc_star in the
+      canon band [0.70, 0.96].
+    - arm (b) COMPRESSION: end-loaded at the A1 op-point amplitude A_axial=sqrt(alpha)
+      (in-regime: S(sqrt(alpha))=0.996, the arc is unshifted); its band is over arc*
+      likewise entering the force magnitude through the constitutive law.
+
+    The #518 shear operating channel (A_shear=0.99479) sets k_shear=S(A_shear) at the
+    crossing; the SIGN of T flows into cap-vs-uncap.
     """
     A_axial = A_CORE_SQRT_ALPHA
-    A_shear = 0.99479          # #518 crossing amplitude (read-off, VISIBLE target)
-    # arm (a): TENSION (T>0). The bias here is the TRANSVERSE (shear) channel; the
-    # pluck amplitude is A_shear. Both banded laws are POSITIVE.
+    A_shear_op = 0.99479       # #518 crossing amplitude (read-off; sets k_shear at crossing)
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))  # =1 on srs
+    y_pluck = in_regime_pluck_bow(arc_star, ell)   # IN-REGIME displacement (item 2)
+
     tracks = {}
+    # arm (a): TENSION (T>0), plucked to the in-regime bow. Both laws POSITIVE.
     for law in ("geometric", "phi_prime"):
-        T_a = delta_y * arm_a_magnitude(A_shear, law)          # >0 tension
+        T_a = arm_a_magnitude(y_pluck, law)                    # >0 tension at in-regime bow
         tracks[f"arm_a_{law}"] = {
             "arm": "a_pluck", "sign": "tension(+)", "law": law,
-            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, +abs(T_a)),
+            "y_pluck_in_regime": y_pluck, "arc_star": arc_star,
+            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +abs(T_a)),
         }
-    # arm (b): COMPRESSION (T<0). The bias is the AXIAL (A1) channel; the load
-    # amplitude is A_axial=sqrt(alpha) (the actual #526 bias). Both laws NEGATIVE.
+    # arm (b): COMPRESSION (T<0) at A_axial=sqrt(alpha) (the actual #526 A1 bias).
+    # The arc* band enters as a displacement scale on the constitutive force (the bias
+    # amplitude is fixed at the op-point; the band scales the yield-displacement d_y).
+    dy = arc_star / 0.96       # in-regime displacement scale, normalized to the tent edge
     for law in ("phi_prime", "geometric"):
-        T_b = delta_y * arm_b_magnitude(A_axial, law)          # <0 compression
+        T_b = dy * arm_b_magnitude(A_axial, law)               # <0 compression
         tracks[f"arm_b_{law}"] = {
             "arm": "b_endload", "sign": "compression(-)", "law": law,
-            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear, -abs(T_b)),
+            "arc_star": arc_star,
+            **_remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, -abs(T_b)),
         }
     return tracks
 
@@ -412,11 +452,18 @@ def select_bin(tracks: dict) -> dict:
 # (5) main()
 # ===========================================================================
 def _band_over_arc_star(pos, bonds, rho) -> dict:
-    """Report every rho'/nu track banded over delta_y in the arc* band [0.70, 0.96]."""
+    """Report every rho'/nu track IN-REGIME, banded over arc* in [0.70, 0.96] (item 2).
+
+    arc* is the fixed-arc premise (axiom-register.md:189); the band is over arc* itself,
+    entering the geometry (arm a: the in-regime pluck bow) and the displacement scale
+    (arm b), NOT delta_y multiplying the force. lo=elastica edge, hi=tent edge.
+    """
     lo, hi = ARC_STAR_BAND
     band = {}
-    for dy_name, dy in (("lo", lo), ("hi", hi), ("ref_dy1", 1.0)):
-        band[dy_name] = {"delta_y": dy, "tracks": four_tracks(pos, bonds, rho, delta_y=dy)}
+    for name, arc_star in (("lo_elastica", lo), ("hi_tent", hi)):
+        band[name] = {"arc_star": arc_star,
+                      "in_regime_pluck_bow": in_regime_pluck_bow(arc_star),
+                      "tracks": four_tracks(pos, bonds, rho, arc_star=arc_star)}
     return band
 
 
@@ -434,7 +481,10 @@ def main() -> int:
         "prereg": "research/2026-07-04_bond-force-sign-rule_prereg_FROZEN.md",
         "scope": "per-channel SIGN+MAGNITUDE of the per-bond axial load ONLY; "
         "the cell-dilation relaxation (#526 test 2) is DOWNSTREAM (this is its input)",
-        "arc_star_band_delta_y": ARC_STAR_BAND,
+        "arc_star_band": ARC_STAR_BAND,
+        "regime_bound": "IN-REGIME (item 2): arm (a) plucked at in_regime_pluck_bow(arc*) "
+        "(the fixed-arc premise's own displacement ceiling), NOT the out-of-regime y=0.99479 "
+        "(arc=2.23*ell). arm (b) at A1 op-point sqrt(alpha), S=0.996 (arc unshifted).",
     }
     print("=" * 78)
     print("BOND-FORCE SIGN RULE PER LOADING PATH — resolving the PR #526 sign fork")
@@ -455,38 +505,71 @@ def main() -> int:
         _write(out)
         return 1
 
-    # ---- (1) THE FOUR TRACKS, banded over arc* ---------------------------
+    # ---- (1) THE FOUR TRACKS, IN-REGIME, banded over arc* [both edges] ----
     band = _band_over_arc_star(pos_r, bonds_r, rho_r)
-    out["four_tracks_banded"] = band
-    print("\n(1) THE FOUR TRACKS (delta_y=1 reference; banded lo/hi in JSON):")
-    for name, t in band["ref_dy1"]["tracks"].items():
-        rp = t["rho_prime"]
-        rps = "inf" if rp == float("inf") else f"{rp:.4f}"
-        print(f"  {name:20s}: {t['sign']:14s} law={t['law']:9s} "
-              f"T={t['T_signed']:+.5f} k_sh_eff={t['k_shear_eff']:+.6f} "
-              f"rho'={rps:>9s} nu={t['nu']:+.5f}")
+    out["four_tracks_banded_in_regime"] = band
+    print("\n(1) THE FOUR TRACKS (IN-REGIME; banded over arc* both edges):")
+    for edge in ("lo_elastica", "hi_tent"):
+        b = band[edge]
+        print(f"  -- {edge} (arc*={b['arc_star']}, in-regime pluck bow y={b['in_regime_pluck_bow']:.4f}) --")
+        for name, t in b["tracks"].items():
+            rp = t["rho_prime"]
+            rps = "inf" if rp == float("inf") else f"{rp:.4f}"
+            print(f"     {name:18s}: {t['sign']:14s} law={t['law']:9s} "
+                  f"T={t['T_signed']:+.5f} k_sh_eff={t['k_shear_eff']:+.6f} "
+                  f"rho'={rps:>9s} nu={t['nu']:+.5f} K={t['K']:+.5f}")
 
     # ---- (2) THE BIN (no fall-through else; DISCREPANT-HALT reachable) ----
+    # The verdict is a SIGN verdict; it is band-edge-invariant. Adjudicate at both
+    # edges and require agreement (a sign that flipped across the band would be a
+    # PATH-INDETERMINATE signal, not a silent pick).
     try:
-        verdict = select_bin(band["ref_dy1"]["tracks"])
+        verdict_lo = select_bin(band["lo_elastica"]["tracks"])
+        verdict_hi = select_bin(band["hi_tent"]["tracks"])
     except DiscrepantHalt as e:
         out["verdict"] = {"verdict": "DISCREPANT-HALT", "detail": str(e)}
         print(f"\nDISCREPANT-HALT: {e}")
         _write(out)
         return 2
-    out["verdict"] = verdict
-    print(f"\n(2) VERDICT: [{verdict['verdict']}]  — {verdict['reason']}")
+    if verdict_lo["verdict"] != verdict_hi["verdict"]:
+        out["verdict"] = {"verdict": "BAND-INCONSISTENT",
+                          "lo": verdict_lo["verdict"], "hi": verdict_hi["verdict"]}
+        print(f"\nBAND-INCONSISTENT: lo={verdict_lo['verdict']} hi={verdict_hi['verdict']}")
+        _write(out)
+        return 3
+    out["verdict"] = verdict_lo
+    print(f"\n(2) VERDICT: [{verdict_lo['verdict']}]  — {verdict_lo['reason']}")
+    print(f"    (band-edge-invariant: elastica AND tent both [{verdict_lo['verdict']}])")
 
-    # ---- (3) THE KNIFE on the plateau 1/4 (condition 4) ------------------
-    out["knife"] = {
+    # ---- (3) THE KNIVES (condition 4 + item 3) --------------------------
+    # (3a) the plateau 1/4 (condition 4)
+    # (3b) the srs K=0 crossing at rho=2 -- the arm_a in-regime cap can land near it
+    arm_a_rho_primes = [t["rho_prime"] for edge in band.values()
+                        for name, t in edge["tracks"].items() if t["arm"] == "a_pluck"]
+    arm_a_Ks = [t["K"] for edge in band.values()
+                for name, t in edge["tracks"].items() if t["arm"] == "a_pluck"]
+    k_sign_flips = (min(arm_a_Ks) < 0) and (max(arm_a_Ks) > 0)
+    out["knives"] = {
         "plateau_P_c": arm_b_plateau_buckling_load(1.0, 1.0),
-        "quarter_provenance": "tent geometry: (1/2 bend-energy prefactor) x "
-        "(1/2 half-chord chain); a pinned-pinned elastica gives pi^2 instead; "
-        "a FORCE in kernel units, not a charge-fraction 1/4 => KNIFE=noise",
+        "plateau_quarter_provenance": "tent geometry: (1/2 bend prefactor) x (1/2 half-chord "
+        "chain); a pinned-pinned elastica gives pi^2; a FORCE in kernel units, not a "
+        "charge-fraction 1/4 => KNIFE=noise",
+        "arm_a_rho_prime_range_in_regime": [float(min(arm_a_rho_primes)),
+                                            float(max(arm_a_rho_primes))],
+        "arm_a_straddles_srs_K0_rho2": bool(min(arm_a_rho_primes) <= 2.0 <= max(arm_a_rho_primes)
+                                            or k_sign_flips),
+        "srs_K0_note": "on srs K=0 at rho=2 (K sign-flips), K=2G at rho=9.77 -- the arm_a "
+        "in-regime cap band straddles the srs K=0 pole; this is the srs swapped-spring rho, "
+        "NOT the axiom-register:189 moduli-model rho (where rho=2<=>K=2G by the z=4 "
+        "convention) -- a cross-carrier rho-convention homonym, FLAGGED for the auditor lane",
+        "K_sign_flips_across_arm_a_band": bool(k_sign_flips),
         "lands_on_canon_distinguished_value": False,
     }
-    print(f"(3) KNIFE: plateau P_c={out['knife']['plateau_P_c']} (=-1/4, tent geometry, "
+    print(f"(3a) KNIFE: plateau P_c={out['knives']['plateau_P_c']} (=-1/4, tent geometry, "
           f"KNIFE=noise)")
+    print(f"(3b) KNIFE: arm_a in-regime rho' in {out['knives']['arm_a_rho_prime_range_in_regime']}; "
+          f"straddles srs K=0 at rho=2: {out['knives']['arm_a_straddles_srs_K0_rho2']} "
+          f"(K sign-flips: {k_sign_flips}); cross-carrier rho-convention FLAGGED")
 
     _write(out)
     return 0

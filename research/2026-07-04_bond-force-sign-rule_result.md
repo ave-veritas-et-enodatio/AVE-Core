@@ -118,30 +118,39 @@ band, the sign is the verdict.
 
 Through the MERGED #526 remap (`extract_prestress_Cij` + `k_shear_eff = S_shear + T/ℓ` +
 `ρ' = S_ax/k_shear_eff`, consumed verbatim). Operating point: the #518 SHEAR-LOADS crossing
-(A_axial=√α for the A1 load; A_shear=0.99479 for the T2 pluck). **All numbers banded over
-δ_y ∈ [0.70, 0.96]** (arc* band, `axiom-register.md:189`); δ_y=1 is a labeled reference, not headline.
+(A_axial=√α for the A1 end-load; A_shear=0.99479 sets k_shear at the crossing). **IN-REGIME (item 2,
+orchestrator review 2026-07-04)** and **banded over arc* ∈ [0.70 elastica, 0.96 tent]**
+(`axiom-register.md:189`).
 
-| Track (arm × law) | Sign | T (δ_y band 0.70→0.96) | k_shear_eff | ρ' (band) | ν (band) | remap |
-|---|---|---|---|---|---|---|
-| **arm_a_geometric** | tension(+) | +0.386 → +0.529 | +0.49 → +0.63 | 2.04 → 1.58 | −0.94 → −1.95 | CAPPED |
-| **arm_a_phi_prime** | tension(+) | +0.550 → +0.754 | +0.65 → +0.86 | 1.53 → 1.17 | −2.16 → −7.44 | CAPPED |
-| **arm_b_phi_prime** | compression(−) | −0.060 → −0.082 | +0.042 → +0.020 | 23.6 → 49.7 | +0.413 → +0.459 | UNCAPPED |
-| **arm_b_geometric** | compression(−) | −0.010 → −0.014 | +0.092 → +0.088 | 10.8 → 11.3 | +0.308 → +0.316 | UNCAPPED |
+> **REGIME BOUND (item 2 — disclosed).** Arm (a) is plucked at the **in-regime bow ceiling**
+> `y = in_regime_pluck_bow(arc*)` — the fixed-arc premise's OWN maximum transverse displacement (the
+> admissible pluck-arc excess equals the arc* deficit |1−arc*/ℓ|): `y ≈ 0.14` (tent) to `0.42`
+> (elastica). This **REPLACES** the first draft's out-of-regime `y = 0.99479`, whose pluck-arc was
+> `2.23 ℓ` — 2.3× beyond the arc*≤0.96 premise (undisclosed in the first draft). The band is over arc*
+> itself (the displacement premise), applied **inside the geometry**, NOT δ_y multiplying the force.
+> **The first draft's arm-(a) numbers (ρ'∈[1.17, 2.04]) are SUPERSEDED as out-of-regime.**
 
-(δ_y=1 reference row, for cross-check to #526: arm_b_phi_prime T=−0.08532, ρ'=59.93, ν=+0.466 —
-**reproduces #526's T<0 arm verbatim**, `prestress-tensor_result.md:288`; test-locked.)
+| Track (arm × law) | Sign | T (arc* 0.70→0.96) | k_shear_eff | ρ' (in-regime band) | ν | K | remap |
+|---|---|---|---|---|---|---|---|
+| **arm_a_geometric** | tension(+) | +0.231 → +0.038 | +0.33 → +0.14 | **2.99 → 7.10** | −0.32 → +0.20 | +0.020 → +0.042 | CAPPED |
+| **arm_a_phi_prime** | tension(+) | +0.403 → +0.142 | +0.51 → +0.24 | **1.97 → 4.08** | −1.04 → −0.056 | −0.001 → +0.030 | CAPPED |
+| **arm_b_phi_prime** | compression(−) | −0.062 → −0.085 | +0.040 → +0.017 | 25.1 → 59.9 | +0.418 → +0.466 | +0.054 → +0.057 | UNCAPPED |
+| **arm_b_geometric** | compression(−) | −0.010 → −0.014 | +0.092 → +0.088 | 10.9 → 11.4 | +0.308 → +0.317 | +0.048 → +0.048 | UNCAPPED |
+
+(At the tent edge arc*=0.96 the arm_b_phi_prime track = #526's T<0 arm verbatim: T=−0.08532, ρ'=59.93,
+ν=+0.466 — `prestress-tensor_result.md:288`; test-locked.)
 
 **Reading the tracks (Grant rules the noun at review):**
-- **The SIGN split is law-invariant:** both arm-(a) laws are tension→capped; both arm-(b) laws are
-  compression→uncapped. The verdict does not depend on the magnitude noun.
-- **The magnitude noun changes only HOW FAR:** arm_a_phi_prime caps harder (ρ'→1.17) than
-  arm_a_geometric (ρ'→1.58); arm_b_phi_prime uncaps to ρ'≈50 while arm_b_geometric only to ρ'≈11.
-  The envelope is {arm a: ρ'∈[1.17, 2.04] capped; arm b: ρ'∈[10.8, 49.7] uncapped} — a summary view,
-  NOT the finding. The four tracks are the finding.
+- **The SIGN split is law-invariant AND band-edge-invariant:** both arm-(a) laws are tension→capped at
+  both edges; both arm-(b) laws are compression→uncapped. The verdict does not depend on the magnitude
+  noun or the arc* edge. (`main()` adjudicates the bin at BOTH edges and requires agreement.)
+- **The magnitude noun changes only HOW FAR (in-regime):** arm-(a) ρ' spans [1.97, 7.10] across
+  {laws × band}; arm-(b) ρ' spans [10.9, 59.9]. The envelope is {arm a capped, arm b uncapped} — a
+  summary view, NOT the finding. The four tracks are the finding.
 - **Arm (a)'s ν<0 is the PRE-EXISTING cold K<0 band, not new instability** (matches #526 §6): cold ν at
-  ρ=1.1233 = −9.9864 vs arm_a_phi_prime −9.987 — same object via the remap. `min_acoustic_eig>0`
-  everywhere (all four tracks), so ν<0 is the Poisson pole, NOT a lost sound mode ([DESTABILIZED] is
-  NOT triggered).
+  ρ=1.97 tracks the pre-stressed value; `min_acoustic_eig>0` everywhere (all four tracks), so ν<0 is
+  the Poisson pole, NOT a lost sound mode ([DESTABILIZED] NOT triggered). **The K sign-flips inside the
+  arm-(a) band** (K<0 at ρ'≈1.97 → K>0 at ρ'≈7.10) — knifed in §3 (item 3).
 
 ---
 
