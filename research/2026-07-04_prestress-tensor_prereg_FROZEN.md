@@ -310,6 +310,18 @@ residual is EXPECTED PHYSICS (reading B is the real answer) or a BUG to chase (r
 and a residual means the tension insertion is wrong). **This is the framing input; the bin is
 engine-decided.**
 
+> **↗ ENGINE-DECIDED (2026-07-04, per Trigger-9 fork-to-computable; this appends the disposition —
+> prereg body above is a frozen record, banner-append only).** The residual-force discriminator ran
+> and returned **reading A: self-balancing.** Max residual node force = **3.6×10⁻¹⁷** (relative
+> 4.2×10⁻¹⁶ — machine zero) under uniform bias bond tension at the cold srs geometry. The srs z=3
+> site symmetry (each node's three bond directions sum to zero) cancels the bias tensions at fixed
+> geometry, so the "pre-stressed at fixed geometry" state IS a mechanical equilibrium and the
+> small-signal tensor about it is well-defined. **[GEOMETRY-COUPLED] is NOT triggered; test 1 is
+> well-posed and NOT collapsed into test 2.** The framing question is STILL surfaced to Grant (does
+> a machine-zero residual match his intuition for the srs site symmetry?) — but the bin logic did
+> not wait on it. Provenance: `research/2026-07-04_prestress-tensor_result.md` (VERDICT BOX + §7);
+> driver §(1) geometry_coupled_discriminator.
+
 ---
 
 ## 10. FREEZE
