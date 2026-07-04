@@ -316,10 +316,11 @@ def export_exposure_figure(out: dict, fig_path: Path) -> Path:
     # false data markers (honest-axes: do not plot points where no measurement
     # of this observable exists).
     ax.annotate(
-        "no prior pump-on\npolarimetric measurement\n(CLEAN-FIELD)",
+        "no prior pump-on\npolarimetric data\n(CLEAN-FIELD)",
         xy=(I_HIBEF_DEMONSTRATED_WCM2, 5e-3),
-        xytext=(1.3e19, 2e-1),
-        fontsize=8, color=style.COLORS["data"],
+        xytext=(1.2e17, 3e-3),
+        fontsize=7.5, color=style.COLORS["data"],
+        ha="left", va="center",
         arrowprops=dict(arrowstyle="->", color=style.COLORS["muted"], lw=1.0),
     )
 
@@ -327,7 +328,7 @@ def export_exposure_figure(out: dict, fig_path: Path) -> Path:
     ax.set_yscale("log")
     ax.set_xlabel(style.axis_label("Optical pump intensity", "I", "W/cm$^2$"))
     ax.set_ylabel(style.axis_label("Polarization-flip probability", "P_{\\rm flip}", ""))
-    ax.set_ylim(1e-26, 3.0)
+    ax.set_ylim(1e-26, 30.0)
     style.legend(ax, where="right", fontsize=8)
 
     written = style.save(fig, fig_path)
