@@ -735,8 +735,45 @@ def main():
     out["tension_form_sensitivity_at_crossing"] = {
         "rho_eff": rho_eff_c, "nu_521_noprestress_target_2_7": r5["nu_Hill"],
         "forms": tform,
-        "note": "BOTH tension-form choices deform the map (nu shifts far off 2/7). The verdict "
-        "[MAP-DEFORMED] is robust to the standard-vs-channel modeling fork (KEEP-BOTH, recorded).",
+        "note": "BOTH tension-form choices feed the SAME axial string slot (item 5a: this KEEP-BOTH "
+        "fork does NOT bracket a genuinely different carrier -- see keep_both_bracketing_note). Both "
+        "deform the #521 dictionary. Verdict [MAP-DEFORMED] robust to the standard-vs-channel choice.",
+    }
+
+    # ---- (3c) THE SIGN FORK (item 3, GRANT-FORK -- report both arms, do NOT resolve) --
+    # I assumed the STRETCHED-PAIR reading (T>0, taut string). Canon's Ax4 residual-content
+    # (axiom-register.md:189) reads the SAME kernel as a fixed-arc-length BOWED STRUT (Euler
+    # buckling) -- whose end-to-end AXIAL force is plausibly COMPRESSIVE (T<0). The bin verdict
+    # survives either sign; the physical narrative INVERTS. Report both arms with the remap reading.
+    ell_sf = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds_r]))
+    sign_arms = {}
+    for lbl, Tsign in [("T_positive_stretched_pair", +T0), ("T_negative_compressive_buckling", -T0)]:
+        k_shear_eff = S_sh0 + Tsign / ell_sf
+        rr = extract_prestress_Cij(pos_r, bonds_r, k_axial=S_ax0, k_shear=S_sh0, T_per_bond=Tsign, rho=rho_r)
+        mm = moduli_from_Cij(rr["C11"], rr["C12"], rr["C44"])
+        rho_prime = (S_ax0 / k_shear_eff) if k_shear_eff > 0 else float("inf")
+        sign_arms[lbl] = {
+            "T": Tsign, "nu_at_crossing": mm["nu_Hill"], "K_bulk": mm["K_bulk"],
+            "sign_K": int(np.sign(mm["K_bulk"])), "Zener_A": mm["Zener_A"],
+            "k_shear_eff": k_shear_eff, "rho_prime_remap": rho_prime,
+            "remap_reading": ("k_s+T/l > 0 => rho' CAPPED at finite S_ax*l/T (yield wall finite)"
+                              if Tsign > 0 else
+                              "k_s+T/l -> 0 as |T| grows => rho' UNCAPPED -> +inf at finite amplitude "
+                              "(the divergence direction)"),
+        }
+    out["sign_fork_GRANT"] = {
+        "STATUS": "OPEN GRANT-FORK -- both arms reported, NOT resolved (flag-don't-fix)",
+        "my_assumed_arm": "T_positive_stretched_pair (taut-string pair-potential analogy)",
+        "canon_alternative_arm": "T_negative_compressive_buckling (Ax4 residual-content: the kernel "
+        "is a fixed-arc-length BOWED STRUT / Euler buckling, axiom-register.md:189)",
+        "arms": sign_arms,
+        "verdict_survives_either_sign": True,
+        "narrative_inverts": "T>0: nu DROPS 2/7->0.089 (rho' capped). T<0: nu RISES 2/7->0.466 toward "
+        "1/2, approaches instability, rho' UNCAPPED (k_s+T/l->0 => rho'->inf at finite amplitude).",
+        "fork_resolution_condition": "derive the END-TO-END axial force of the biased bond from the "
+        "BUCKLING MICROFOUNDATION (fixed arc-length, A^2+S^2=arc*^2, Euler-strut), NOT the pair-"
+        "potential Phi'(A) analogy. The sign of that end-to-end force decides the arm. Flagged for "
+        "Grant alongside result-doc section 10.1.",
     }
 
     # ---- (4) two-hand cross-validation -----------------------------------
