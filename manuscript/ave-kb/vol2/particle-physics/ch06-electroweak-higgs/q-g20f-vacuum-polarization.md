@@ -7,6 +7,13 @@ claims: [clm-bqtasn]
 
 # Q-G20f Vacuum Polarization: Matches QED at All Observable Scales
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The E-route birefringence ratio "$7.5/\alpha^3\approx1.93\times10^7$" referenced below carries an understated
+> QED denominator. **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$** (propagating, the headline). The static-B
+> null verdict and the vacuum-polarization matching are UNAFFECTED. Canonical:
+> [`../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all observable scales via a **Renormalization Theorem equivalence** (RT-equivalence): AVE's saturation kernel + lattice cutoff and QED's UV-renormalized polynomial expansion produce structurally identical results at $q \ll 1/\ell_{\text{node}}$. Differences appear only at sub-Compton scales where pair-production physics takes over, and at ultra-high energies where AVE removes QED's Landau pole structurally.
 
 ## The structural match

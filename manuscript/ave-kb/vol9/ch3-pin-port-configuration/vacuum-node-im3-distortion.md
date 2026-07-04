@@ -5,6 +5,14 @@ kind: leaf
 no-claim: "Vol-9 Class-C CONSISTENCY characterization datasheet — the vacuum-node IM3 / harmonic-distortion / nonlinear-birefringence δn(E) spectral signature. Re-expresses the Axiom-4 saturation kernel S(A)=√(1−A²) and the canonical Vol-4 IM3 leaf (intermodulation-distortion.md, clm-vjv4zf/clm-pp3qwf) as a node-level small-signal-distortion datasheet entry beneath the multi-port LC node. Originates NO new substrate primitive and NO value-prediction: the χ⁽³⁾ Taylor coefficients (½, ⅜, −¼, −½) are kernel-set O(1) (validate-on-known, HALT-on-mismatch in the driver); the bankable δn ratio 7.5/α³ is an α-ECHO at the value level. The ONE parameter-free AVE-distinct content is the E-vs-B keying asymmetry, surfaced here as a chord CANDIDATE with a clean falsifier, not a confirmed/bankable chord."
 -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> Every "7.5/α³ ≈ 1.93×10⁷" bankable-δn-ratio below carries an understated QED denominator ((3/45)α² is too
+> small by 1/(2πα) ≈ 21.8 vs the PVLAS-anchored magnetic leg). **Corrected: 7.5π/α² ≈ 4.42×10⁵** (propagating,
+> the headline; 15π/α² ≈ 8.85×10⁵ static-E). The χ⁽³⁾ kernel coefficients, the α-ECHO grade, and the E-vs-B
+> keying chord-candidate are UNAFFECTED. Canonical:
+> [`../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 ## Vacuum-Node IM3 / Harmonic-Distortion Datasheet (δn(E) spectral signature, characterization leaf)
 
 **Classification:** Class C — CONSISTENCY characterization. This leaf is the **device-datasheet** companion to the Vol-4 falsifiers [`intermodulation-distortion.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md) (clm-vjv4zf, clm-pp3qwf) and [`vacuum-birefringence-e4.md`](../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md) (clm-pp3qwf). It characterizes the **nonlinear-reactance spectral signature** of the multi-port LC vacuum node ([`device-circuit-models.md`](device-circuit-models.md), [`per-dof-vacuum-node-circuit.md`](per-dof-vacuum-node-circuit.md)) — the χ⁽³⁾ intermodulation, the cubic-in-drive IM3 law, and the field-dependent index shift δn(E) — as one Axiom-4-kernel characterization. It originates no new number; the kernel coefficients are validate-on-known, the bankable magnitude is an α-echo.

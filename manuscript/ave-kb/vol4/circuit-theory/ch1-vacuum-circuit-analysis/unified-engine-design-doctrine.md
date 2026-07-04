@@ -5,6 +5,14 @@ kind: leaf
 no-claim: "ARCHITECTURE / ONTOLOGY doctrine for the unified vacuum engine (CONSISTENCY-class — no new physics, no new derived number). Captures the engine-design conclusions worked out 2026-06-24/25 so future engine work stays ON TRACK and knows HOW TO USE the engine. Every load-bearing statement is grounded against an existing file:line or an existing research-doc verdict; the OPEN forks (§ honesty + § open-forks) are flagged-not-closed per flag-don't-fix. Extends `computational-solver-selection.md` (the FDTD-vs-K4 selection matrix) from solver-selection to engine-architecture; referenced from `../../../common/engine-capability-map.md`. Hosts no claim id and mints no number."
 -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The E-route birefringence coefficient "$\sim7.5/\alpha^3\approx1.93\times10^7\times$ QED" quoted below carries an
+> understated QED denominator. **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$** (propagating, the headline).
+> The engine-design conclusions are UNAFFECTED (the birefringence magnitude was always tagged an $\alpha$-echo).
+> Canonical:
+> [`../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 ## The Unified-Engine Design Doctrine — ontology, scale-invariance, coupling, and what the engine is FOR
 
 > **Class + scope (read first).** This leaf is **CONSISTENCY / ARCHITECTURE-class**. It does **not**

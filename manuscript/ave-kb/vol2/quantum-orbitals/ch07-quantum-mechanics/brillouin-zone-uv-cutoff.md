@@ -8,6 +8,13 @@ claims: [clm-1wmyx3]
 
 # Brillouin-Zone UV Cutoff: the 1-loop integral is FINITE by mode-count (engine capability)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> The E-route birefringence "$7.5/\alpha^3$ α-echo" referenced below carries an understated QED denominator.
+> **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$** (propagating, the headline). The UV-cutoff mode-count
+> finiteness and the static-B null are UNAFFECTED. Canonical:
+> [`../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+
 > **Class + scope (load-bearing honesty).** This is the *engine-capability / consistency-class* driver
 > confirmation (clm-1wmyx3) of a claim already canonical elsewhere: **the electron's finite-size lattice pitch
 > $\ell_{\text{node}}$ supplies a PHYSICAL UV cutoff, so the self-energy loop is finite with no
