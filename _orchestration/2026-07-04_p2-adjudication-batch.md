@@ -10,7 +10,7 @@ Each section is a one-word-per-row (or one-word-per-group) ruling surface. "Reco
 
 ## §1 — The 44 unmerged-branch dispositions (PR #502 §D2, re-verified at HEAD)
 
-Origin holds exactly 44 non-main branches. Family table (branch inventory verbatim in PR #502 §D2; `u=` unique commits):
+The adjudication set = the 44 branches enumerated in PR #502 §D2 (pinned; verified 1:1 against origin at assembly HEAD `2a7d01dc`). The live origin count drifts transiently as concurrent arcs merge — post-merge close-outs (audit-tag-then-delete) of non-set branches are routine hygiene, not adjudication rows. Family table (branch inventory verbatim in PR #502 §D2; `u=` unique commits):
 
 | # | Family | Branches / u | Recommend | Grant |
 |---|---|---|---|---|
