@@ -199,6 +199,22 @@ the emergent-Lorentz light-cone.
 > `research/2026-07-04_matter-stiffening-rho_result.md` (VERDICT BOX + §6 + §8). *(This result body
 > is a frozen record; banner-append only.)*
 
+> **↗ RESOLUTION UPDATE (2026-07-04, PR #521 MERGED — the saturated-elastic-tensor arc; the REFINE
+> banner above is PRESERVED — KEEP-BOTH).** The "running arc" the REFINE banner defers to has landed:
+> verdict **[SAME-TENSOR-POINT]**. The Born-Huang run on the saturated Φ_b was performed, and driving
+> the saturated ρ_eff to 9.7734 DOES land the same cold ν=2/7 / K=2G tensor (undeformed map;
+> homogeneous degree-1 → dimensionless ratios degree-0, an overall scale drops out, VS2/VS3 ≤4×10⁻⁸).
+> **The cold-vs-saturated tensor gap CLOSES — MODEL-SCOPED** to the small-signal swapped-springs model
+> (fixed geometry); the **RESIDUAL STAYS OPEN** (initial/residual pre-stress + bias-induced geometry
+> change OMITTED, § MODEL SCOPE). **This does NOT change the state-diagram VALUE grade of this result:**
+> the two loci here are unchanged — the matter point stays at the GR-imported ρ*≈9.77 (crossing
+> amplitude A_wall=0.99479 canon-undistinguished), the photon point stays at the Ax3-forced ρ=1, and
+> the K<0 lossless-reactive honest flag (§4) is untouched. [SAME-TENSOR-POINT] is a CONSISTENCY
+> finding, NOT a value derivation. Provenance:
+> `research/2026-07-04_saturated-elastic-tensor_result.md` (VERDICT BOX + § MODEL SCOPE); driver
+> `src/scripts/vol_1_foundations/saturated_elastic_tensor.py`. *(Frozen record; banner-append only —
+> the REFINE banner above is unedited.)*
+
 ---
 
 ## 5. WHAT THIS DOES / DOES NOT CLAIM

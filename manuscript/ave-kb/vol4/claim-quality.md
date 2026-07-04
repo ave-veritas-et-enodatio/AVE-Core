@@ -152,6 +152,38 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
+## Parent Condition: Ax3 Forces the Isotropic-Bond Point $k_s=k_a$ (MATCH = BALANCE = HEAVISIDE)
+<!-- id: clm-mfb2ax -->
+
+Axiom 3 (Minimum Reflection Principle, boundary form: minimise $|\Gamma|^2$ at every internal impedance boundary) applied to the srs net's internal acoustic boundary **forces the isotropic-bond ratio $\rho_{bond}=k_a/k_s=1$ ($k_s=k_a$) knob-free** — an unseeded golden-section minimiser lands on $\rho_{bond}=1$ to machine precision ($\Gamma_{min}=1.5\times10^{-8}$), the ½/¼ knife passing (no tuned $\rho_{bond}^\ast$ supplied). The three "transparencies" the corpus tracked separately — the achromatic $\varepsilon\mu$ **MATCH**, the bond-isotropy **BALANCE**, and the distortionless **HEAVISIDE** line — **co-locate at $\rho_{bond}=1$ (spread $4.75\times10^{-8}$): one parent condition, not three.** The photon's emergent-Lorentz operating point is therefore an **axiom consequence**, not a hand-chosen locus. **[MECHANISM-DERIVED / axiom-manifestation class]** — derives the FORM/pinning, not any VALUE.
+
+- _Specific Claims_
+  - **Ax3 forces $k_s=k_a$ knob-free.** Minimising $\Gamma_{internal}(\rho_{bond})$ over $\rho_{bond}=k_a/k_s$ (RANK-2 bond tensor $\Phi_b=k_a\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$) lands on $\rho_{bond}=1$ to machine precision ($\rho^\ast=0.99999999$, $\Gamma_{min}=1.5\times10^{-8}$) from an unseeded minimiser — the ½/¼ knife PASSES.
+  - **The instrument genuinely measures reflection** (not a blind functional): $\Gamma_{internal}=1.5\times10^{-8}$ on the isotropic control $k_s=k_a$, $9.3\times10^{-2}$ on the anisotropic control $k_a=2k_s$.
+  - **MATCH / BALANCE / HEAVISIDE = one parent condition:** all four loci (achromatic $\varepsilon\mu$ match, photon-branch isotropy, distortionless line, Zener-$A=1$) minimise at $\rho_{bond}=1$ to spread $4.75\times10^{-8}$. The EM MATCH (cap↔ind) and the elastic BALANCE (axial↔shear) are the transverse-EM and translational-elastic faces of the SAME Axiom-3 minimum.
+  - **Axiom-consequence upgrade for the isotropy story:** the Lorentz-on-srs "photon at $k_s=k_a$" (previously ASSERTED) is now DERIVED from Axiom 3 — the emergent-Lorentz light-cone is the unique point where the internal-boundary reflection vanishes; cold birefringence, dispersion, and anisotropy are forbidden at the SAME point by the SAME axiom.
+- _Specific Non-Claims and Caveats_
+  - **FORM not VALUE.** [MECHANISM-DERIVED / axiom-manifestation]: this derives the FORM/pinning of the operating point, not any VALUE. It mints no new dimensionful constant and makes no emergence claim about $Z_0$'s or $\alpha$'s value (both by symbol). NOT a weak-C proof — the $(q\ell)^4$ photon-DISPERSION tell stays conditional on gate `wejkhvnfb` (this arc derives the isotropy/MATCH pinning, not the zone-edge decoupling).
+  - **Honest flag (K<0 lossless-reactive, verbatim from the source):** the match point $\rho_{bond}=1$ is mechanically UNSTABLE (bulk modulus $K<0$, per the `srs-elastic-tensor` result $K<0$ for $\rho<2$). The photon's zero-reflection point is a **lossless-reactive operating point** for the transverse photon, NOT a stable static elastic solid — so the PHOTON point ($\rho=1$) and the MATTER point ($\nu=2/7$ / $K=2G$, $\rho^\ast\approx9.77$, $K>0$ stable) are genuinely DIFFERENT loci.
+  - **Post-#521 state (the two loci connect model-scoped, value still imported):** the saturated-elastic-tensor arc ([SAME-TENSOR-POINT], PR #521) shows the saturated small-signal tensor is the cold tensor with $\rho\to\rho_{eff}$ (homogeneous degree-1 ⇒ ratios degree-0), so driving $\rho_{eff}$ to $9.7734$ lands the same cold $\nu=2/7$ / $K=2G$ tensor — **but MODEL-SCOPED** (small-signal swapped-springs, fixed geometry; pre-stress + bias-induced geometry OMITTED, OPEN) and **value-unchanged** (CONSISTENCY finding; $9.77$ stays GR-imported, crossing $A_{wall}=0.99479$ canon-undistinguished; $K=2G$ GR-import grade PR#261 untouched).
+  - **`mass=A1` untouched** (PR#260/#311 ECHO-final); the two-"3"s stay orthogonal grades.
+
+> **Leaf references:** [parent-condition-match-forces-balance](./circuit-theory/ch1-vacuum-circuit-analysis/parent-condition-match-forces-balance.md).
+
+### Quality
+- confidence: 0.80
+- depends-on:
+  - Axiom 3 (Minimum Reflection Principle, boundary form — the parent whose $|\Gamma|^2$-min this leaf minimises)
+  - Axiom 1 (the srs-z3 RANK-2 bond set $\Phi_b$ whose stiffness ratio is minimised)
+  - clm-rd9cjm (achromatic impedance matching — the transverse-EM MATCH face, the sibling this BALANCE co-locates with)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.80, 0.55)]
+- rationale: The load-bearing step is clean and knob-free — an unseeded golden-section minimiser of the srs internal-boundary $\Gamma_{internal}(\rho_{bond})$ lands on $\rho_{bond}=1$ to machine precision ($\Gamma_{min}=1.5\times10^{-8}$), the ½/¼ knife passing, and the functional genuinely measures reflection (anisotropic control reads $9.3\times10^{-2}$). MATCH/BALANCE/HEAVISIDE co-locate to $4.75\times10^{-8}$ — a genuine one-parent finding, confirmed by an independence control (the mechanical-stability $K$-sign locus sits at $\rho\ge2$, NOT at $\rho=1$, so the co-location is physics not construction). It is [MECHANISM-DERIVED / axiom-manifestation]: FORM-class, no VALUE (no new dimensionful constant; $Z_0$/$\alpha$ by symbol). **Solidity capped at 0.55 by the lowest dependency, clm-rd9cjm** (achromatic impedance matching, the sibling MATCH face this leaf's BALANCE co-locates with) — "use as input only, don't build deeper" until that parent strengthens. The K<0 honest flag (lossless-reactive photon point, not a static solid) and the value-imported status of the matter locus (post-#521) are carried explicitly; the derivation is of the pinning, not any value.
+- strengthen-by:
+  - Close the weak-C no-zone-edge $(q\ell)^4$ dispersion theorem (gate `wejkhvnfb`, OPEN) so the isotropy pinning derived here also underwrites the distinctive photon-dispersion tell rather than only the leading-order isotropy/MATCH.
+  - Test whether the RESIDUAL layer the #521 model omits (initial/residual pre-stress + bias-induced geometry change) preserves [SAME-TENSOR-POINT] at the matter locus, closing the model-scope caveat on the two-loci connection.
+
+---
+
 ## Relativistic Inductor and SPICE Native Special Relativity
 <!-- id: clm-p5cf3t -->
 
