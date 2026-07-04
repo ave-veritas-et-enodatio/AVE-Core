@@ -621,8 +621,20 @@ $u\equiv|E|^2$,
 A weak probe $\mathbf e$ rides on a strong, linearly polarized pump $\mathbf E_0$.
 Its small-signal response is the permittivity tensor
 $\varepsilon_{ij}=\partial D_i/\partial E_j$ evaluated at the pump. Applying the
-product and chain rules to Eq.~\eqref{eq:app-constitutive} (using
-$\partial u/\partial E_j=2E_j$),
+product rule to Eq.~\eqref{eq:app-constitutive},
+%
+\begin{equation}
+  \varepsilon_{ij}=\frac{\partial}{\partial E_j}
+  \bigl[\varepsilon_0 S(u)E_i\bigr]
+  =\varepsilon_0\Bigl(S\,\frac{\partial E_i}{\partial E_j}
+  +E_i\,\frac{\partial S}{\partial E_j}\Bigr),
+  \qquad\frac{\partial E_i}{\partial E_j}=\delta_{ij},
+  \label{eq:app-productrule}
+\end{equation}
+%
+and the chain rule fixes the second term through
+$\partial S/\partial E_j=S'(u)\,\partial u/\partial E_j=2S'(u)E_j$, so that
+evaluated at the pump
 %
 \begin{equation}
   \varepsilon_{ij}=\left.\frac{\partial}{\partial E_j}
@@ -647,6 +659,7 @@ eigenvalues,
 \begin{align}
   n_\perp&=\sqrt{S}=(1-A^2)^{1/4}, \label{eq:app-nperp}\\
   n_\parallel&=\sqrt{S-\frac{A^2}{S}}
+  =\sqrt{\frac{S^2-A^2}{S}}
   =\sqrt{\frac{1-2A^2}{\sqrt{1-A^2}}}, \label{eq:app-npar}
 \end{align}
 %
