@@ -105,7 +105,36 @@ with lifecycle modifiers `_FROZEN` · `_DRAFT` · `_CLOSED` appended after the t
 
 ## (c) `_orchestration/` lifecycle + currency rule
 
-_(section body lands in commit 4)_
+**The problem this solves.** Epic docs accrete stale physics framings and stale status in-place. Today lifecycle is carried by ad-hoc in-prose warnings: `index.md` (784 lines at HEAD) carries an audit-trail note at `:3` and a `> **Staleness notice (2026-06-16)**` at `:6`; `_orchestration/_archive/` already exists (with `index-stale.md` as the precedent for migrating superseded index sections). This section codifies three things: a mandatory status header, the append-only correction pattern, and an `index.md` hygiene rule.
+
+### 1. Mandatory status header on every epic doc
+
+Every `_orchestration/*.md` epic doc must open with a status header carrying **state + last-verified date + owner**:
+
+```
+**Status:** ACTIVE | CLOSED | ARCHIVED-to-`_archive/` — last-verified YYYY-MM-DD (owner: <session/role>)
+```
+
+- **ACTIVE** — a live workstream; the doc is the current phase log. Must carry a last-verified date that is refreshed whenever the doc is materially touched.
+- **CLOSED** — the workstream finished (result landed, branch closed); the doc stays in `_orchestration/` as the record but is no longer a live tracker. A CLOSED doc is a candidate for archive only under the (c)-3 hygiene rule.
+- **ARCHIVED-to-`_archive/`** — the doc has been moved (link-coupled) to `_orchestration/_archive/`; the header records the move date.
+
+### 2. Append-only correction pattern (the standing fix for stale physics framings)
+
+When an epic doc carries a physics framing later refuted, the correction lands **append-only, in-place, dated** — it does NOT rewrite the original framing and does NOT add a preservation banner (git is the trail).
+
+**Live-fire precedent (the pattern to codify).** `_orchestration/2026-06-07_electron-synthesis-epic.md:319` carried the G2 "channel→DOF mapping INVERTED" diagnosis pinning "photon = microrotational ω" as canonical. That side was later REFUTED. The correction landed at `:320` as an append-only `🔴 RESOLUTION (2026-07-03, append-only — this diagnosis's "photon = microrotational ω" side was REFUTED)` note that ends verbatim: *"This entry stands as history (git is the trail); the KB relabel ... carry the adjudicated forward state."* The original `:319` diagnosis was left intact; the resolution appended below it. That is the standing pattern.
+
+**Rule:** stale physics framing in an epic doc is corrected by an append-only dated `🔴 RESOLUTION` (or `🔴 CORRECTION`) note immediately following the stale passage, naming what was refuted, by what evidence, and where the forward state now lives. The stale passage is never edited or deleted. No in-doc "PRESERVED — see git" banner (that IS the banner the constraint forbids; the append-only note carries the correction, git carries the preservation).
+
+### 3. `index.md` hygiene rule
+
+`index.md` is the live tracker and drifts long (784 lines). Rule:
+- When a section of `index.md` is fully superseded (its workstream CLOSED and its state captured elsewhere), migrate that section to `_orchestration/_archive/index-stale.md` (the existing precedent) in a link-coupled commit — move + any citer update + gates green.
+- The live `index.md` keeps only ACTIVE-epic state + the current priority ladder + open decisions + last-updated HEAD + tag count. Staleness notices (like the `:6` 2026-06-16 notice) are acceptable transitional markers but each should carry a date and a pointer to what supersedes it.
+- `index.md` itself carries the mandatory status header semantics implicitly (it is always the ACTIVE live tracker); it is exempt from the ACTIVE/CLOSED/ARCHIVED enum but must carry a `last-updated HEAD + date` line.
+
+**RATIFY:** Adopt (1) the mandatory `**Status:** ACTIVE|CLOSED|ARCHIVED — last-verified DATE (owner)` header on every `_orchestration/*.md` epic doc; (2) the append-only dated `🔴 RESOLUTION/CORRECTION` note as the ONLY sanctioned fix for stale physics framings in epic docs (no rewrites, no preservation banners); (3) the `index.md` hygiene rule (superseded sections migrate link-coupled to `_orchestration/_archive/index-stale.md`; live `index.md` carries only current state). No sub-fork here beyond confirming the header enum wording — the append-only pattern is already live-fire-precedented (`electron-synthesis-epic.md:320`) and the archive precedent already exists (`index-stale.md`); this section codifies existing practice rather than inventing it.
 
 ---
 
@@ -131,6 +160,7 @@ _(section body lands in commit 7)_
 
 - **(a) Figure placement** — adopt "cited renders → tracked `figures/`, `_output/`=scratch" + the link-coupled 5-step migration; decide the **data-artifact policy** (RECOMMENDED: tracked per-volume `results/` dir).
 - **(b) `research/` grammar** — adopt `YYYY-MM-DD_<slug>_<type>.md` + closed type-vocab + register-class exemption + **keep-flat**; adopt archive-tier 3-of/never-if criteria with honesty-trail UNTOUCHABLE; confirm the type-vocab closed set and **grandfather** (no mass-rename) off-grammar names.
+- **(c) `_orchestration/` lifecycle** — adopt the mandatory `Status:` header enum (ACTIVE/CLOSED/ARCHIVED + last-verified date + owner); adopt the append-only dated `🔴 RESOLUTION/CORRECTION` note as the ONLY stale-framing fix (no rewrites/banners); adopt the `index.md`→`_archive/index-stale.md` hygiene rule. Confirm header wording only (rest is codified existing practice).
 
 ---
 
@@ -153,3 +183,8 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - ~477 (bare-token) distinct `research/*.md` references corpus-wide from outside `research/`; markdown-link subset = 209. Brief's "~476" matches the bare-token scale.
 - Type-suffix frequency (flat `research/`): `result` 125, `prereg` 91, `note` 16, `synthesis` 2, `ruling`/`registered`/`framing`/`diagnostic`/`design`/`derivation`/`audit`/`adjudication` 1 each; lifecycle `_FROZEN` 19, `_DRAFT`/`_draft` 10, `_CLOSED` 1.
 - Honesty-trail exemplars confirmed: `research/2026-05-17_C14-DAMA_audit_walk-back.md`, `*_prereg_FROZEN.md` family.
+
+**(c) `_orchestration/` lifecycle**
+- `index.md` = 784 lines at HEAD (brief said 785 — off-by-one; 784 is HEAD truth). `index.md:3` audit-trail note ✓; `index.md:6` `> **Staleness notice (2026-06-16)**` ✓.
+- `_orchestration/_archive/` exists; contains `index-stale.md` ✓.
+- Append-only precedent: `_orchestration/2026-06-07_electron-synthesis-epic.md:319` = G2 diagnosis, `:320` = append-only `🔴 RESOLUTION (2026-07-03 ...)` ending "This entry stands as history (git is the trail)" ✓ (brief said "~line 315-319"; diagnosis at 319, resolution at 320 — HEAD truth).
