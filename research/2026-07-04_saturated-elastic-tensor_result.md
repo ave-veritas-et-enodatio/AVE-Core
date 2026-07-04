@@ -16,15 +16,28 @@
 > long waves on the **SATURATED** bond tensor `Φ_b(A) = k_{a,0}·S(A_axial)·d̂⊗d̂ +
 > k_{s,0}·S(A_shear)·(I−d̂⊗d̂)`, i.e. the differential stiffnesses at the DC bias point — is the
 > **COLD tensor with ρ → ρ_eff = ρ_cold·(S_axial/S_shear)**, exactly. The regime gap flagged in
-> #518 §6 **CLOSES**: driving the saturated ρ_eff to 9.7734 (SHEAR-LOADS, A_wall=0.99479) DOES
-> land the same tensor — **ν_Hill = 0.285714 = 2/7, K/G_Hill = 2.0000, Zener A = 1.2293** — that
-> the cold arc found at cold ρ*=9.7734. Saturated ρ_eff is **tensor-equivalent** to cold ρ.
+> #518 §6 **CLOSES at the tensor level of this model**: driving the saturated ρ_eff to 9.7734
+> (SHEAR-LOADS, A_wall=0.99479) DOES land the same tensor — **ν_Hill = 0.285714 = 2/7, K/G_Hill =
+> 2.0000, Zener A = 1.2293** — that the cold arc found at cold ρ*=9.7734. Saturated ρ_eff is
+> **tensor-equivalent** to cold ρ **within the small-signal swapped-springs model (§ MODEL SCOPE).**
+>
+> **MODEL SCOPE (explicit — the closure is model-bounded).** This arc models the DC-biased lattice
+> as the cold Born-Huang tensor with the two bond springs SOFTENED by their per-channel S(A) factor
+> at FIXED reference geometry ("swapped springs at fixed geometry"). A real DC-biased lattice can
+> carry contributions this model OMITS: **(a) initial/residual stress** (the bias pre-loads the
+> bonds → a nonzero reference stress that shifts the effective moduli beyond spring-softening), and
+> **(b) bias-induced geometry change** (the operating point may relax the node positions / bond
+> directions away from the cold geometry). Both are **OUT OF SCOPE here and remain OPEN.** The
+> [SAME-TENSOR-POINT] closure is therefore scoped: *the small-signal differential-stiffness tensor
+> is the cold tensor at ρ_eff* — the pre-stress and bias-geometry terms are a separate, untested
+> layer. "The regime gap closes" means "closes for the swapped-springs small-signal model", not
+> "closes unconditionally".
 >
 > **THE REASON (proven, not asserted):** the Born-Huang map `(k_a, k_s) ↦ C_ij` is **homogeneous
 > of degree 1**, so the dimensionless RATIOS (ν, Zener, K/G) are homogeneous **degree 0** — an
 > overall stiffness scale drops out (verified to 4×10⁻⁸, VS2). The saturated ν(ρ_eff) map is the
-> cold ν(ρ) map with ρ→ρ_eff, bit-for-bit (VS3, ≤1×10⁻⁶ at every operating point). The
-> **[DEFORMED-FAMILY]** bin is empty (the map is not deformed).
+> cold ν(ρ) map with ρ→ρ_eff to **machine-precision agreement** (VS3 measured ≤4×10⁻⁸; gated at
+> 1×10⁻⁷ at every operating point). The **[DEFORMED-FAMILY]** bin is empty (the map is not deformed).
 >
 > **THE KNIFE HOLDS — [NEW-DISTINGUISHED-POINT] is EMPTY.** ν=2/7 is reached at the free-knob
 > crossing A_wall=0.99479, which is **NOT** √α, **NOT** 1−α, **NOT** the A→1 yield wall — the
@@ -40,9 +53,10 @@
 > through ρ_eff to A_wall≈0.9 for shear-loads), **unshifted** by saturation magnitude.
 
 **Cold positive control PASSED.** A_wall=0 (both channels de-energized, S_axial=S_shear=1) →
-ρ_eff=1 → the saturated tensor is bit-identical to the merged cold tensor at ρ=1 (C11=C12↔=C44=
-±0.17678, K=−0.05893 UNSTABLE, Zener=1.0000). Enantiomorph parity 2×10⁻¹⁶. Two-hand
-cross-validation ALL_AGREE (long-wave vs [100] direct eigensolve, ≤3×10⁻⁸) at cold ρ=1, stable
+ρ_eff=1 → the saturated tensor agrees with the merged cold tensor at ρ=1 to **machine precision**
+(measured ≤10⁻⁹ on C_ij; gated 1×10⁻⁹): C11=C44=+0.17678, C12=−0.17678, K=−0.05893 UNSTABLE,
+Zener=1.0000. Enantiomorph parity 2×10⁻¹⁶. Two-hand cross-validation ALL_AGREE (long-wave vs [100]
+direct eigensolve, ≤3×10⁻⁸) at cold ρ=1, stable
 ρ=3, and the ν=2/7 crossing.
 
 ---
@@ -165,7 +179,8 @@ affected: the driven S_axial at the crossing is 0.996345, ρ_eff=9.7733.)*
   The substrate distinguishes them.
 - **At the ν=2/7 crossing (SHEAR-LOADS, A_wall=0.99479): ν_Hill=0.285714=2/7, K/G_Hill=2.0000,
   Zener=1.2293** — the cold ν=2/7/K=2G tensor, reached from the saturated bonds. The regime gap
-  closes at the tensor level.
+  closes at the tensor level **of the small-signal swapped-springs model** (pre-stress /
+  bias-geometry OUT OF SCOPE, § MODEL SCOPE).
 - **Note the ρ_eff=1 / iso-bond rows show a ν "pole" (huge magnitude)** — this is the K→0
   divergence of ν, NOT a physics anomaly; the tensor SHAPE there is clean (Zener=1.000). Reported
   honestly rather than suppressed.
@@ -276,7 +291,7 @@ Auditor-lane manual landings (implementer surfaces, auditor lands):
 
 | Site | Proposed disposition |
 |---|---|
-| **#518 §6 scope flag** (`matter-stiffening-rho_result.md`: "recompute the saturated C_ij(ρ_eff)… I do NOT claim it") | **RESOLVE (candidate):** the saturated C_ij IS recomputed here; driving ρ_eff to 9.77 DOES land the same cold ν=2/7/K=2G tensor. The regime gap closes at the tensor level. **Scope caveat (the knife):** this is a CONSISTENCY finding (undeformed map), NOT a value derivation — 9.77 stays GR-imported (crossing at the free-knob A_wall=0.99479). |
+| **#518 §6 scope flag** (`matter-stiffening-rho_result.md`: "recompute the saturated C_ij(ρ_eff)… I do NOT claim it") | **RESOLVE (candidate, MODEL-SCOPED):** the saturated C_ij IS recomputed here; driving ρ_eff to 9.77 DOES land the same cold ν=2/7/K=2G tensor. The regime gap closes **at the tensor level of the small-signal swapped-springs model**. **Two scope caveats:** (1) *the knife* — this is a CONSISTENCY finding (undeformed map), NOT a value derivation; 9.77 stays GR-imported (crossing at the free-knob A_wall=0.99479); (2) *model scope* — pre-stress (bias pre-loading) and bias-induced geometry-change contributions a DC-biased lattice can carry are OMITTED here and remain OPEN (see § MODEL SCOPE). The closure is bounded to differential spring-softening at fixed geometry. |
 | **#518 cross-link to `srs-elastic-tensor_result.md`** ("reaching the same ν=2/7 tensor from the saturated bonds is UNTESTED") | **STRENGTHEN (candidate):** now TESTED and CONFIRMED. Add forward evidence `saturated_elastic_tensor.py`. |
 | **`node-up-small-large-signal.md`** (R1 symmetric-internal null: S_ε=S_μ ⟹ Z=Z_0) | **STRENGTHEN (candidate):** the elastic-sector sibling now has its own tensor form — S_axial=S_shear ⟹ ρ_eff=ρ_cold ⟹ the FULL saturated tensor = the cold tensor (not just the ratio): symmetric loading is elastically transparent at the tensor level, not merely the ρ level. |
 | **The K=2G "GR-imported" grade** (PR#261, `k2g-crystalline-provenance_result.md`) | **UNTOUCHED / re-confirmed:** the saturated tensor reaches K=2G only at the imported ρ_eff=9.77 point; saturation does NOT force K=2G at any canon-distinguished operating point. The GR-import grade stands. |
