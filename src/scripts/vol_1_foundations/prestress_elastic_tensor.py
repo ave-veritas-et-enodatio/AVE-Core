@@ -283,6 +283,12 @@ def run_positive_controls(pos, bonds, rho) -> dict:
         "note": "uniformly-tensioned simple-cubic: transverse acoustic speed shift is analytic, "
         "C44_stressed - C44_unstressed = T/l EXACTLY (string-tension adds to the transverse force "
         "constant). Validates the (T/l)(I-d^d^) initial-stress FORM on a KNOWN case BEFORE srs.",
+        "DISCLOSURE_item_5b": "PC2 runs ONLY at l=1 (simple-cubic unit spacing), where all powers of "
+        "l degenerate -- so PC2 validates the T/l FORM but does NOT independently pin the l-POWER "
+        "(l^1 vs l^0 etc.). The srs bond length is ALSO l=1 (uniform), so the l-power does not affect "
+        "THIS result's numbers; but a lattice with l!=1 bonds would need a separate l-power check. "
+        "The l^1 (T/l) power is the standard string-tension form (Born-Huang/Wallace); disclosed, "
+        "not independently validated by PC2.",
         "PASS": pc2_ok,
     }
 
@@ -776,6 +782,43 @@ def main():
         "Grant alongside result-doc section 10.1.",
     }
 
+    # ---- (3d) KEEP-BOTH does NOT bracket (item 5a) --------------------------
+    out["keep_both_bracketing_note"] = {
+        "STATUS": "the standard-vs-channel KEEP-BOTH does NOT bracket a different CARRIER",
+        "why": "both the standard (axial-tension) and alt (channel/shear-tension) forms feed the SAME "
+        "transverse (I-P) string slot -- they differ only in the SCALAR T magnitude, not in the "
+        "force-constant STRUCTURE. Both collapse to a shifted shear spring (VS4). So KEEP-BOTH here "
+        "brackets a MAGNITUDE choice, not a genuinely different pre-stress carrier.",
+        "what_a_different_carrier_would_need": "a pre-stress term with a DIFFERENT projector structure "
+        "-- e.g. an axial-tension contribution to the P (d^d^) block (a stretch-stiffening of the "
+        "longitudinal spring), or a Cosserat couple-stress (Stage 2) transverse-BENDING term with an "
+        "off-(I-P) structure. Such a carrier could leave the cold family (break VS4) and is the only "
+        "way pre-stress could produce a genuinely NEW tensor -- untested here (fixed-geometry, "
+        "Cauchy-only scope).",
+    }
+
+    # ---- (3e) CELL-STRESS honesty note (item 5g, Grant's question) ---------
+    # The residual-force check (section 1) covers INTERNAL node DOFs only. The CELL VIRIAL under
+    # uniform bond tension is NONZERO and is clamped by the FIXED geometry -- the uniform dilation/
+    # compression (A1-owned) response is exactly test 2's leading mode.
+    ell_cv = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds_r]))
+    T_cv = float(bond_tension(A_CORE_SQRT_ALPHA))
+    # cell virial (scalar) = sum over bonds of T * l (per-bond tension * length), a NONZERO dilational
+    # stress that the fixed cell clamps. Central-pair form -> pure dilation; channel form -> +deviatoric.
+    cell_virial = float(sum(T_cv * np.linalg.norm(d) for (_, _, d) in bonds_r))
+    out["cell_stress_honesty_note"] = {
+        "STATUS": "DISCLOSED -- the residual-force check covers INTERNAL node DOFs ONLY",
+        "internal_node_residual": "self-balances to machine zero (section 1, reading A)",
+        "cell_virial_under_uniform_tension": cell_virial,
+        "meaning": "the CELL (macroscopic) virial under uniform bond tension is NONZERO -- a uniform "
+        "dilational stress clamped by the FIXED cell geometry. That uniform dilation/compression is "
+        "A1-owned and is EXACTLY test 2's (bias-geometry-change) leading mode: central-pair form -> "
+        "pure dilation; channel form -> + deviatoric. So [GEOMETRY-COUPLED]=NOT-triggered is scoped "
+        "to INTERNAL DOFs; the CELL-scale relaxation is deferred to test 2, honestly. This does NOT "
+        "change test 1's fixed-geometry small-signal tensor (the internal DOFs are the ones the "
+        "acoustic modes ride on), but it is stated so the scope boundary is exact.",
+    }
+
     # ---- (4) two-hand cross-validation -----------------------------------
     crossval = _two_hand_crossval(pos_r, bonds_r, rho_r)
     out["two_hand_crossval"] = crossval
@@ -792,7 +835,23 @@ def main():
         # MAP-DEFORMED if EITHER the pole-free nu shifts OR (where nu is in the pole region) the
         # pole-free SHAPE (C11/C44, C12/C44, Zener) shifts. The SHAPE metric is what catches the
         # AXIAL-LOADS deformation (rho_eff<1 everywhere => nu always in the pole region).
-        map_deformed = bool(max_dnu > DNU_TOL or max_shape > SHAPE_TOL)
+        # item 5c -- prereg-fidelity: the FROZEN bin [MAP-UNDEFORMED] criterion is "nu(rho_eff)
+        # matches the #521 map within tolerance". Report the PER-FROZEN-BINS verdict VERBATIM FIRST
+        # (on the frozen nu-ratio metric), THEN the SHAPE metric as explicitly POST-HOC supplementary.
+        n_polefree = d["n_delta_nu_polefree_points"]
+        if n_polefree == 0:
+            # the frozen nu-ratio metric is UNDEFINED here (nu in the pole region at every rung) --
+            # do NOT read a verdict from an undefined metric; the SHAPE metric (post-hoc) decides.
+            frozen_metric_verdict = ("FROZEN nu-ratio metric UNDEFINED (nu in the pole region at "
+                                     "every rung; 0 pole-free points) -- no verdict from the frozen "
+                                     "metric alone")
+            deformed_by_frozen = None
+        else:
+            deformed_by_frozen = bool(max_dnu > DNU_TOL)
+            frozen_metric_verdict = ("MAP-DEFORMED" if deformed_by_frozen else "MAP-UNDEFORMED") + \
+                " (frozen nu-ratio metric, %d pole-free points)" % n_polefree
+        deformed_by_shape_posthoc = bool(max_shape > SHAPE_TOL)  # POST-HOC supplementary metric
+        map_deformed = bool((deformed_by_frozen is True) or deformed_by_shape_posthoc)
         # NOTE (mechanism correction): [MAP-DEFORMED] here means the #521 DICTIONARY tie nu<->
         # S_ax/S_shear breaks (the map, as #521 defined it, is deformed). It does NOT mean a new
         # tensor family or new instability (VS4 exact-collapse: the tensor stays in the cold family).
@@ -849,6 +908,11 @@ def main():
         knife["lands_on_canon_distinguished_value"] = canon_hit
         verdicts[name] = {
             "PRIMARY_BIN": primary, "direction": d["direction"],
+            "FROZEN_metric_verdict_VERBATIM": frozen_metric_verdict,        # item 5c: report first
+            "SHAPE_metric_POST_HOC_supplementary": deformed_by_shape_posthoc,  # item 5c: post-hoc
+            "prereg_fidelity_note": "the frozen bin criterion is the nu-ratio match; the SHAPE metric "
+            "was ADDED post-freeze to give AXIAL-LOADS (nu in the pole region) an honest verdict -- "
+            "reported as explicitly POST-HOC supplementary, not as the frozen criterion.",
             "max_abs_delta_nu_over_nu": max_dnu, "worst_delta_nu_row": d["worst_delta_nu_row"],
             "n_delta_nu_polefree_points": d["n_delta_nu_polefree_points"],
             "max_abs_shape_dev_vs_521": max_shape, "worst_shape_dev_row": d["worst_shape_dev_row"],

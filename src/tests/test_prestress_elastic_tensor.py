@@ -87,7 +87,22 @@ def test_positive_controls_all_pass(srs):
     assert pc["PC1_zero_bias_recovery"]["PASS"]
     assert pc["PC2_analytic_stressed_lattice"]["PASS"]
     assert pc["PC3_homogeneity_T0"]["PASS"]
+    assert pc["VS4_exact_collapse_to_shifted_shear_spring"]["PASS"]
     assert pc["ALL_PASS"]
+
+
+def test_vs4_exact_collapse_to_shifted_shear_spring(srs):
+    """CORRECTED MECHANISM (orchestrator 16-agent review): prestress(k_a,k_s,T) == cold(k_a,
+    k_s+T/l) BIT-EXACTLY. The (T/l)(I-P) string term has the SAME projector structure as the shear
+    spring, so the tensor NEVER leaves the cold one-parameter family. Homogeneity INTACT; only #521's
+    dictionary breaks."""
+    pos, bonds, rho = srs
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))
+    for (ka, ks, T) in [(0.996345, 0.10194, 0.08532), (9.7734, 1.0, 0.3), (0.5, 0.9, 0.7850)]:
+        pre = extract_prestress_Cij(pos, bonds, k_axial=ka, k_shear=ks, T_per_bond=T, rho=rho)
+        cold = extract_cubic_Cij(pos, bonds, k_axial=ka, k_shear=ks + T / ell, rho=rho)
+        err = max(abs(pre[k] - cold[k]) / (abs(cold[k]) + 1e-30) for k in ("C11", "C12", "C44"))
+        assert err < 1e-9
 
 
 def test_pc2_analytic_stressed_lattice_c44_shift_equals_T_over_ell():
@@ -140,16 +155,63 @@ def test_axial_loads_map_is_deformed_by_shape_metric(srs):
     assert d["max_abs_shape_dev_vs_521"] > 1e-4    # but the SHAPE is deformed
 
 
-def test_crossing_amplitude_not_canon_distinguished(srs):
-    """The KNIFE: the rho_eff=9.77 crossing stays at the free-knob A_wall=0.99479 (pre-stress does
-    not move rho_eff, only the tensor at it) -- NOT canon-distinguished. No would-be-chord."""
+def test_crossing_amplitude_analytically_invariant(srs):
+    """The crossing AMPLITUDE is analytically invariant (pre-stress does not move rho_eff, only the
+    tensor at it) -- so it stays at the free-knob A_wall=0.99479 = #518's. The KNIFE is re-aimed off
+    this invariant onto the MOVABLE quantities (cap, locus) -- see the knife test below."""
     pos, bonds, rho = srs
     sweep = run_sweep(pos, bonds, rho)
     cross = sweep["SHEAR_LOADS"]["crossing_A_wall"]
     assert cross is not None
-    assert abs(cross - A_WALL_518_CROSSING) < 1e-3          # unchanged from #518
-    assert abs(cross - A_CORE_SQRT_ALPHA) > 1e-2            # not sqrt(alpha)
-    assert not (cross > 0.9999)                             # not the yield wall
+    assert abs(cross - A_WALL_518_CROSSING) < 1e-3          # unchanged from #518 (invariant)
+
+
+def test_true_coordinate_cap_and_corrected_locus(srs):
+    """CORRECTED (item 1/4): rho' = S_ax/(S_shear+T/l) is CAPPED at S_ax*l/T = 11.6777 (yield wall
+    finite, no longer -> inf); the nu=2/7 OLD-coord locus by BISECTION is 59.93 (not the 66.6 linear-
+    interpolation artifact). Neither is canon-distinguished (KNIFE re-aimed, lands-on-canon False)."""
+    pos, bonds, rho = srs
+    sweep = run_sweep(pos, bonds, rho)
+    d = sweep["SHEAR_LOADS"]
+    assert abs(d["rho_prime_cap"] - 11.6777) < 1e-2          # the finite cap
+    assert d["rho_prime_true_coord_at_yield_limit"] < 12.0   # capped, not diverging
+    assert abs(d["new_nu_2_7_locus_rho_eff_OLD_coord_bisected"] - 59.93) < 0.2  # bisected, not 66.6
+
+
+def test_knife_reaimed_lands_on_no_canon_value(srs):
+    """The re-aimed knife (cap + OLD-coord locus, the MOVABLE quantities) lands on NO canon-
+    distinguished value. cap ~ 1/sqrt(alpha) is the KNOWN small-A expansion (not a new coincidence)."""
+    from scripts.vol_1_foundations.prestress_elastic_tensor import run_positive_controls  # noqa: F401
+    pos, bonds, rho = srs
+    # re-run the bin verdicts through main-equivalent path by calling run_sweep + checking knife inputs
+    sweep = run_sweep(pos, bonds, rho)
+    cap = sweep["SHEAR_LOADS"]["rho_prime_cap"]
+    locus = sweep["SHEAR_LOADS"]["new_nu_2_7_locus_rho_eff_OLD_coord_bisected"]
+    from ave.core.constants import ALPHA
+    inv_sqrt_alpha = 1.0 / np.sqrt(ALPHA)
+    # cap ~ 1/sqrt(alpha) is the small-A expansion (T~k0*A), documented -- NOT a new chord
+    assert abs(cap - inv_sqrt_alpha) / inv_sqrt_alpha < 3e-3
+    # neither cap nor locus lands on 9.7734 or 2 (the other canon values)
+    for val in (cap, locus):
+        assert abs(val - RHO_STAR_IMPORTED) > 1e-2
+        assert abs(val - 2.0) > 1e-2
+
+
+def test_sign_fork_both_arms_and_narrative_inverts(srs):
+    """The SIGN FORK (item 3): T>0 (stretched) drops nu 2/7->0.089; T<0 (compressive/buckling) RAISES
+    nu 2/7->0.466 toward 1/2 and UNCAPS the coordinate. Bin verdict survives either sign; the physical
+    narrative inverts. Reported as an OPEN Grant-fork, not resolved."""
+    pos, bonds, rho = srs
+    from ave.axioms.scale_invariant import saturation_factor
+    S_ax = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=1.0))
+    S_sh = float(saturation_factor(A_WALL_518_CROSSING, yield_limit=1.0))
+    T0 = float(bond_tension(A_CORE_SQRT_ALPHA))
+    pos_ = extract_prestress_Cij(pos, bonds, k_axial=S_ax, k_shear=S_sh, T_per_bond=+T0, rho=rho)
+    neg = extract_prestress_Cij(pos, bonds, k_axial=S_ax, k_shear=S_sh, T_per_bond=-T0, rho=rho)
+    nu_pos = moduli_from_Cij(pos_["C11"], pos_["C12"], pos_["C44"])["nu_Hill"]
+    nu_neg = moduli_from_Cij(neg["C11"], neg["C12"], neg["C44"])["nu_Hill"]
+    assert nu_pos < NU_2_7        # T>0 drops nu below 2/7
+    assert nu_neg > NU_2_7        # T<0 raises nu above 2/7 (toward 1/2) -- narrative inverts
 
 
 # --------------------------------------------------------------------------
