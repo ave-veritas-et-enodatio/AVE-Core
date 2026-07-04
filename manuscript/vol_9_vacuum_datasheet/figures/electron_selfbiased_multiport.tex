@@ -31,16 +31,20 @@
     \node[font=\scriptsize, align=center] at (7.4,1.25)
         {sub-saturated $A{=}\sqrt{\alpha}{\approx}0.085$, $S{\approx}0.996$};
 
-    % ================= mu Meissner note on the bulk inductor =================
-    \node[font=\scriptsize, align=center, blue!55!black] at (6.85,1.7)
-        {$\mu_{\mathrm{eff}}{\to}0$ Meissner};
+    % ================= mu Meissner note — EM-SECTOR param, tied to the EM branch =================
+    % mu_eff is a param of Z_EM = sqrt(mu_eff/eps_eff), NOT a mechanical branch;
+    % it is TRANSDUCED from the CHARGE-port micro-rotation (see caption + transducer symbol),
+    % NOT direct-wired to the mechanical Z_shear/Z_bulk.
+    \draw[dashed, blue!45!black] (2.1,2.05) -- (2.1,0.95);
+    \node[font=\scriptsize, align=center, blue!55!black] at (1.35,0.5)
+        {EM $\mu$-sector on $Z_{\mathrm{EM}}$:\\$\mu_{\mathrm{eff}}{\to}0$ Meissner\\(transduced from charge port,\\not mech.\ direct-wired)};
 
     % ================= CHARGE port (T2 shear, shorted-stub Gamma=-1 wall) =================
-    \node[font=\bfseries\scriptsize, align=center] at (4.6,-0.35) {CHARGE port (T2 shear)};
+    \node[font=\bfseries\scriptsize, align=center] at (4.7,-0.35) {CHARGE port (T2 shear)};
     \draw (5.8,2.2) to[short] (5.8,-1.0);
     \draw (5.8,-1.0) to[generic, l^=\scriptsize$Z_{\mathrm{shear}}$] (3.6,-1.0);
     \draw[thick, red!70!black] (3.6,-0.4) -- (3.6,-1.6);   % shorted stub / Gamma=-1 wall
-    \node[font=\scriptsize, red!70!black, align=center] at (2.35,-1.0)
+    \node[font=\scriptsize, red!70!black, align=center] at (2.35,-1.35)
         {$\Gamma{=}-1$ wall\\(shorted stub, $Z_{\mathrm{shear}}{\to}0$)};
     \node[font=\scriptsize, align=center] at (5.9,-1.9)
         {self-traps at $V_{\mathrm{yield}}{=}\sqrt{\alpha}V_{\mathrm{snap}}{\approx}\SI{43.65}{\kV}$};
