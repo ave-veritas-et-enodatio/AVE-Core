@@ -173,26 +173,43 @@ def run_validation(pos, bonds, rho) -> dict:
     #     at sqrt(alpha) (S=0.9963), which is the LOADED cold vacuum, NOT the fully cold
     #     control. VS1 tests the fully-cold (both-off) planted-source gate; the loaded
     #     A_wall=0 rung (rho_eff=0.9963/1.0037) is reported separately in the sweep.
-    tol = {"C11": 0.17678, "C12": -0.17678, "C44": 0.17678}
+    #
+    #     TOLERANCE (review finding 2): compare against the FULL-PRECISION cold tensor
+    #     computed on the SAME pipeline at rho=1 -- NOT the 5-sig-fig literal 0.17678 (a
+    #     1e-6 gate vs the rounded literal is unpassable: computed 0.176776696 vs 0.17678 is
+    #     rel 1.9e-5, a ROUNDING artifact, not a physics disagreement). Against the
+    #     full-precision cold reference the recovery is exact to machine precision, so VS1 is
+    #     gated at the FROZEN 1e-9 (tighter than the prereg's 1e-6). The rounded literals are
+    #     retained as `target_5sigfig` for the human-readable table only.
+    cold_ref = extract_cubic_Cij(pos, bonds, k_axial=1.0, k_shear=1.0, rho=rho)  # rho=1
+    m_cold_ref = moduli_from_Cij(cold_ref["C11"], cold_ref["C12"], cold_ref["C44"])
     t = saturated_tensor(pos, bonds, rho, 1.0, 1.0)  # S_axial = S_shear = 1 (both off)
     vs1_ok = bool(
-        abs(t["C11"] - tol["C11"]) / abs(tol["C11"]) < 1e-4
-        and abs(t["C12"] - tol["C12"]) / abs(tol["C12"]) < 1e-4
-        and abs(t["C44"] - tol["C44"]) / abs(tol["C44"]) < 1e-4
+        abs(t["C11"] - cold_ref["C11"]) / abs(cold_ref["C11"]) < 1e-9
+        and abs(t["C12"] - cold_ref["C12"]) / abs(cold_ref["C12"]) < 1e-9
+        and abs(t["C44"] - cold_ref["C44"]) / abs(cold_ref["C44"]) < 1e-9
         and abs(t["rho_eff"] - RHO_COLD) < 1e-9
-        and abs(t["Zener_A"] - 1.0) < 1e-5
+        and abs(t["Zener_A"] - m_cold_ref["Zener_A"]) < 1e-9
+        and t["K_bulk"] < 0.0  # iso-bond point is mechanically UNSTABLE (cold arc finding)
     )
     val["VS1_cold_recovery"] = {
-        "target": tol,
+        "target_5sigfig": {"C11": 0.17678, "C12": -0.17678, "C44": 0.17678},
+        "cold_reference_full_precision": {
+            "C11": cold_ref["C11"], "C12": cold_ref["C12"], "C44": cold_ref["C44"],
+            "K_bulk": m_cold_ref["K_bulk"], "Zener_A": m_cold_ref["Zener_A"],
+        },
         "both_channels_off": {
             "S_axial": 1.0, "S_shear": 1.0, "rho_eff": t["rho_eff"],
             "C11": t["C11"], "C12": t["C12"], "C44": t["C44"],
             "K_bulk": t["K_bulk"], "Zener_A": t["Zener_A"],
         },
+        "gated_rel_tol": 1e-9,
         "note": "TRUE cold control = both channels de-energized (S_axial=S_shear=1) => "
-        "saturated tensor == merged cold tensor at rho=1 (C11/C12/C44=+/-0.17678, K<0 "
-        "unstable, Zener=1). The #518 fixed-channel-at-sqrt(alpha) A_wall=0 rung is a "
-        "LOADED cold vacuum (rho_eff=0.9963), reported in the sweep -- not this gate.",
+        "saturated tensor == merged cold tensor at rho=1 to MACHINE PRECISION (gated 1e-9). "
+        "K<0 (iso-bond unstable, cold arc finding). Compared against the full-precision cold "
+        "reference on the SAME pipeline, NOT the 5-sig-fig 0.17678 literal (rounding, not "
+        "physics). The #518 fixed-channel-at-sqrt(alpha) A_wall=0 rung is a LOADED cold vacuum "
+        "(rho_eff=0.9963), reported in the sweep -- not this gate.",
         "PASS": vs1_ok,
     }
 
@@ -212,7 +229,8 @@ def run_validation(pos, bonds, rho) -> dict:
         for k in ("nu_Hill", "Zener_A", "KG_Hill")
     )
     abs_scale_err = abs(m_scl["K_bulk"] / m_base["K_bulk"] - lam)  # K scales by lam
-    vs2_ok = bool(cij_homog_err < 1e-6 and ratio_inv_err < 1e-6 and abs_scale_err < 1e-6)
+    # gated at the FROZEN prereg tolerance 1e-7 (measured agreement is 1e-8-class; review-2)
+    vs2_ok = bool(cij_homog_err < 1e-7 and ratio_inv_err < 1e-7 and abs_scale_err < 1e-7)
     val["VS2_homogeneity"] = {
         "lam": lam,
         "cij_over_lam_rel_err": cij_homog_err,
@@ -226,10 +244,17 @@ def run_validation(pos, bonds, rho) -> dict:
 
     # --- VS3: saturated == cold-at-matched-rho_eff (the SAME-TENSOR-POINT discriminator) ---
     # The scale-free comparison: normalize C_ij by C44 (a scale-invariant tensor SHAPE), which
-    # is bounded and pole-free. Ratios nu/Zener/(K/G) are also compared, but nu is EXCLUDED
-    # near the K=0 pole (rho_eff in [1.8,2.2]) where it DIVERGES -- a relative error on a
-    # diverging quantity is meaningless even when the two AGREE bit-for-bit. Zener and the
-    # C_ij-shape are pole-free and always compared. Points span both sides of the pole.
+    # is bounded and pole-free. Ratios nu/Zener/(K/G) are also compared, but nu is EXCLUDED in
+    # its DIVERGENT regime, where a relative error on a diverging quantity is meaningless even
+    # when the two AGREE bit-for-bit. Zener and the C_ij-shape are pole-free and always compared.
+    #
+    # THE nu POLE (review finding 4 -- corrected): nu = (3K-2G)/(2(3K+G)) diverges where the
+    # DENOMINATOR 3K+G = 0. For the srs Cauchy family this is at rho_eff = 1.00000 (the iso-bond
+    # point: K=-0.05893, G=+0.17678, 3K+G=0 exactly -> nu -> -1.2e15). NOTE rho_eff=2 is NOT a nu
+    # pole: there K=0 (the bulk-stability floor), and nu = (3*0-2G)/(2(3*0+G)) = -2G/2G = -1
+    # EXACTLY (finite). So the exclusion is keyed on nu itself being in its divergent branch
+    # (|nu_cold| > 1), which captures the rho_eff~1 pole and the steep region around it; it is
+    # NOT keyed on the K=0 point. Test points span both sides of both rho_eff=1 and rho_eff=2.
     vs3_cases = []
     vs3_ok = True
     test_pts = [(0.9927, 0.1019), (0.7, 0.35), (0.5, 0.9), (0.99, 0.05), (0.3, 0.3), (0.8, 0.2)]
@@ -244,20 +269,22 @@ def run_validation(pos, bonds, rho) -> dict:
         shape_err = max(abs(shape_sat[k] - shape_cold[k]) / (abs(shape_cold[k]) + 1e-30)
                         for k in shape_sat)
         zener_err = abs(t_sat["Zener_A"] - m_cold["Zener_A"]) / (abs(m_cold["Zener_A"]) + 1e-30)
-        # nu diverges near BOTH K=0 (rho_eff=2, numerator 3K-2G through 0 is not it -- the
-        # denominator 3K+G->0 is the pole) AND the low-rho iso-bond region (rho_eff<=~1.5,
-        # K<0 small, nu enters its |nu|>>1 divergent branch). Exclude nu wherever it is in
-        # its divergent regime (|nu_cold|>1): the SHAPE + Zener comparison (pole-free) is the
-        # robust discriminator and passes at machine precision there. A rel-err on a divergent
-        # nu is meaningless EVEN WHEN the two AGREE (they do -- shape_err ~1e-16).
-        nu_divergent = bool(abs(rho_eff - 2.0) < 0.2 or abs(m_cold["nu_Hill"]) > 1.0)
+        # Exclude nu wherever it is in its DIVERGENT branch (|nu_cold| > 1). The nu pole is at
+        # the denominator zero 3K+G=0 (rho_eff=1.00000, the iso-bond point); |nu_cold|>1 captures
+        # that pole and the steep region around it. This is keyed on nu itself, NOT on the K=0
+        # point (rho_eff=2, where nu=-1 is finite). The SHAPE + Zener comparison (pole-free) is
+        # the robust discriminator and passes at machine precision even where nu diverges -- a
+        # rel-err on a divergent nu is meaningless EVEN WHEN the two AGREE (shape_err ~1e-16).
+        nu_divergent = bool(abs(m_cold["nu_Hill"]) > 1.0)
         nu_err = (None if nu_divergent
                   else abs(t_sat["nu_Hill"] - m_cold["nu_Hill"]) / (abs(m_cold["nu_Hill"]) + 1e-30))
-        near_pole = nu_divergent
-        ok = bool(shape_err < 1e-6 and zener_err < 1e-6 and (nu_err is None or nu_err < 1e-6))
+        nu_in_divergent_branch = nu_divergent
+        # gated at the FROZEN prereg tolerance 1e-7 (measured agreement is 1e-8-class; review-2)
+        ok = bool(shape_err < 1e-7 and zener_err < 1e-7 and (nu_err is None or nu_err < 1e-7))
         vs3_ok = vs3_ok and ok
         vs3_cases.append({
-            "S_axial": Sa, "S_shear": Ss, "rho_eff": rho_eff, "near_K0_pole": near_pole,
+            "S_axial": Sa, "S_shear": Ss, "rho_eff": rho_eff,
+            "nu_in_divergent_branch": nu_in_divergent_branch,
             "C11_C44_shape_saturated": shape_sat["C11_C44"], "C11_C44_shape_cold": shape_cold["C11_C44"],
             "shape_rel_err": shape_err, "zener_rel_err": zener_err,
             "nu_rel_err": nu_err, "PASS": ok,
@@ -265,10 +292,12 @@ def run_validation(pos, bonds, rho) -> dict:
     val["VS3_saturated_equals_cold_at_matched_rho_eff"] = {
         "cases": vs3_cases,
         "note": "saturated tensor SHAPE (C11/C44, C12/C44) + Zener == cold at rho=S_axial/S_shear "
-        "to 1e-6 at every operating point (both sides of the K=0 pole) => the map is NOT deformed "
-        "(SAME-TENSOR-POINT). nu is excluded in the pole neighborhood rho_eff in [1.8,2.2] where "
-        "it diverges (a rel-err on a divergence is meaningless even when the values AGREE). A "
-        "SHAPE/Zener failure at some rho_eff would be DEFORMED-FAMILY (report where + how much).",
+        "to 1e-7 at every operating point (both sides of the nu pole at rho_eff=1 AND the K=0 "
+        "floor at rho_eff=2) => the map is NOT deformed (SAME-TENSOR-POINT). nu is excluded only "
+        "in its DIVERGENT branch (|nu_cold|>1, keyed on nu itself: the pole is at 3K+G=0, "
+        "rho_eff=1.00000, NOT at the K=0 point rho_eff=2 where nu=-1 is finite) -- a rel-err on a "
+        "divergence is meaningless even when the values AGREE. A SHAPE/Zener failure at some "
+        "rho_eff would be DEFORMED-FAMILY (report where + how much).",
         "PASS": vs3_ok,
     }
 

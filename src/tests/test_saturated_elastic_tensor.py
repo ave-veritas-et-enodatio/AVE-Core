@@ -74,21 +74,31 @@ def test_ratios_scale_invariant_absolute_moduli_scale(net):
     scaled = saturated_tensor(pos, bonds, rho, lam, lam / 3.0)  # same rho_eff, scaled by lam
     assert scaled["rho_eff"] == pytest.approx(base["rho_eff"], rel=1e-12)
     for k in ("nu_Hill", "Zener_A", "KG_Hill"):
-        assert scaled[k] == pytest.approx(base[k], rel=1e-6)
-    assert scaled["K_bulk"] == pytest.approx(lam * base["K_bulk"], rel=1e-6)
+        assert scaled[k] == pytest.approx(base[k], rel=1e-7)  # frozen tol (measured 1e-8-class)
+    assert scaled["K_bulk"] == pytest.approx(lam * base["K_bulk"], rel=1e-7)
 
 
 def test_cold_positive_control(net):
     """A_wall=0 both channels off => saturated tensor == merged cold tensor at rho=1
-    (planted-source gate: C11/C12/C44=+/-0.17678, K<0 unstable, Zener=1)."""
+    (planted-source gate: K<0 unstable, Zener=1). Compared against the full-precision cold
+    reference on the SAME pipeline (NOT the 5-sig-fig 0.17678 literal, a rounding artifact)
+    so the gate can be the machine-precision 1e-9 rather than the rounding-forced 1e-4."""
+    from scripts.vol_1_foundations.srs_elastic_tensor import (  # type: ignore
+        extract_cubic_Cij,
+        moduli_from_Cij,
+    )
     pos, bonds, rho = net
+    cold_ref = extract_cubic_Cij(pos, bonds, k_axial=1.0, k_shear=1.0, rho=rho)  # full precision
+    m_cold_ref = moduli_from_Cij(cold_ref["C11"], cold_ref["C12"], cold_ref["C44"])
     t = saturated_tensor(pos, bonds, rho, 1.0, 1.0)
     assert t["rho_eff"] == pytest.approx(1.0, abs=1e-12)
-    assert t["C11"] == pytest.approx(0.17678, rel=1e-4)
-    assert t["C12"] == pytest.approx(-0.17678, rel=1e-4)
-    assert t["C44"] == pytest.approx(0.17678, rel=1e-4)
+    assert t["C11"] == pytest.approx(cold_ref["C11"], rel=1e-9)
+    assert t["C12"] == pytest.approx(cold_ref["C12"], rel=1e-9)
+    assert t["C44"] == pytest.approx(cold_ref["C44"], rel=1e-9)
+    # sanity: the cold reference IS the ~0.17678 iso-bond value (to 5 sig figs)
+    assert cold_ref["C11"] == pytest.approx(0.17678, rel=1e-4)
     assert t["K_bulk"] < 0.0  # iso-bond point is mechanically UNSTABLE (cold arc finding)
-    assert t["Zener_A"] == pytest.approx(1.0, abs=1e-5)
+    assert t["Zener_A"] == pytest.approx(m_cold_ref["Zener_A"], rel=1e-9)
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -106,10 +116,10 @@ def test_saturated_equals_cold_at_matched_rho_eff(net):
         rho_eff = Sa / Ss
         r_cold = extract_cubic_Cij(pos, bonds, k_axial=rho_eff, k_shear=1.0, rho=rho)
         m_cold = moduli_from_Cij(r_cold["C11"], r_cold["C12"], r_cold["C44"])
-        # scale-free tensor shape (pole-free) must be identical
+        # scale-free tensor shape (pole-free) must be identical (frozen tol; measured 1e-8-class)
         assert t_sat["C11"] / t_sat["C44"] == pytest.approx(
-            r_cold["C11"] / r_cold["C44"], rel=1e-6)
-        assert t_sat["Zener_A"] == pytest.approx(m_cold["Zener_A"], rel=1e-6)
+            r_cold["C11"] / r_cold["C44"], rel=1e-7)
+        assert t_sat["Zener_A"] == pytest.approx(m_cold["Zener_A"], rel=1e-7)
 
 
 def test_nu_2_7_at_the_crossing_shear_loads(net):
