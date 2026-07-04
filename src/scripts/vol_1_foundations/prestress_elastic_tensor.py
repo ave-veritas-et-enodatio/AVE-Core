@@ -18,10 +18,24 @@ Its MODEL SCOPE names two OMITTED, OPEN contributions a real DC-biased lattice c
   (b) bias-induced GEOMETRY change (node/bond relaxation off the cold geometry).
 THIS DRIVER computes (a) ONLY, at FIXED geometry. (b) is test 2 of 2.
 
-The pre-stress term is NOT spring-softening: it adds a NEW transverse "string-tension" force constant
-(T/l)(I - d^d^) per bond, T=Phi'(A) the integrated bond tension. That term does NOT scale as the
-overall S factor, so it CAN break the degree-1 homogeneity that made #521 hold. That is why the test
-is informative.
+The pre-stress adds a transverse "string-tension" force constant (T/l)(I - d^d^) per bond,
+T=Phi'(A) the integrated bond tension.
+
+  *** MECHANISM CORRECTION (2026-07-04, orchestrator 16-agent review, PR #526 fix round) ***
+  The FIRST framing said "(T/l)(I-P) breaks the degree-1 homogeneity, the tensor leaves the cold
+  family." That is FALSE (verifier-proved bit-exact). The (T/l)(I-P) term has the SAME PROJECTOR
+  STRUCTURE as the shear spring k_s*(I-P), so the pre-stressed force-constant matrix is EXACTLY the
+  COLD matrix with a SHIFTED SHEAR SPRING k_s -> k_s + T/l. On the srs net (uniform bond length l=1)
+  a single scalar shift works. Verified: extract_prestress_Cij(k_a,k_s,T) == extract_cubic_Cij(k_a,
+  k_s+T/l) to <=8e-16 at every probe point, both assignments (VS4 gate). The Born-Huang degree-1
+  HOMOGENEITY IS INTACT; the tensor NEVER leaves the cold one-parameter family.
+  WHAT BREAKS is ONLY #521's DICTIONARY rho_eff = S_ax/S_shear. The true family coordinate is
+    rho' = S_ax / (S_shear + T/l),
+  monotone in the swept channel and CAPPED: as A_wall->1 (S_shear->0) rho' -> rho'_max = S_ax*l/T,
+  FINITE -- the yield wall no longer sends the coordinate to infinity. So the honest statement is:
+  FAMILY SURVIVES, DICTIONARY BREAKS, COORDINATE CAPPED. The bin verdict [MAP-DEFORMED] is EARNED
+  (the #521 map ties nu to S_ax/S_shear, and THAT tie breaks), but the physical narrative is the
+  remap, not a new tensor family or new instability.
 
 ═══════════════════════════════════════════════════════════════════════════════
 SUBSTRATE-FIRST SECTOR HEADER (see prereg §1 — stated before any standard term)
@@ -293,7 +307,35 @@ def run_positive_controls(pos, bonds, rho) -> dict:
         "PASS": pc3_ok,
     }
 
-    val["ALL_PASS"] = bool(pc1_ok and pc2_ok and pc3_ok)
+    # --- VS4 (added 2026-07-04, orchestrator fix round): EXACT-COLLAPSE. The load-bearing mechanism
+    #     fact -- prestress(k_a, k_s, T) == cold(k_a, k_s + T/l) bit-exactly, because (T/l)(I-P) has
+    #     the SAME PROJECTOR STRUCTURE as the shear spring k_s(I-P). This is what proves the tensor
+    #     never leaves the cold one-parameter family (the corrected mechanism). srs bond length is
+    #     uniform (l=1), so a single scalar shift works. HALT-gate. ---------------------------------
+    from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij  # (already imported)
+    ell_srs = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))
+    ell_unique = sorted(set(round(float(np.linalg.norm(d)), 12) for (_, _, d) in bonds))
+    vs4_cases = []
+    vs4_ok = bool(len(ell_unique) == 1)  # uniform bond length is required for a single scalar shift
+    for (ka, ks, T) in [(0.996345, 0.10194, 0.08532), (9.7734, 1.0, 0.3), (0.5, 0.9, 0.7850)]:
+        pre = extract_prestress_Cij(pos, bonds, k_axial=ka, k_shear=ks, T_per_bond=T, rho=rho)
+        cold = extract_cubic_Cij(pos, bonds, k_axial=ka, k_shear=ks + T / ell_srs, rho=rho)
+        err = max(abs(pre[k] - cold[k]) / (abs(cold[k]) + 1e-30) for k in ("C11", "C12", "C44"))
+        ok = bool(err < 1e-9)
+        vs4_ok = vs4_ok and ok
+        vs4_cases.append({"k_a": ka, "k_s": ks, "T": T, "k_s_shifted": ks + T / ell_srs,
+                          "prestress_vs_cold_shifted_rel_err": err, "PASS": ok})
+    val["VS4_exact_collapse_to_shifted_shear_spring"] = {
+        "srs_bond_length_unique": ell_unique, "srs_bond_length_uniform": bool(len(ell_unique) == 1),
+        "cases": vs4_cases,
+        "note": "prestress(k_a,k_s,T) == cold(k_a, k_s+T/l) BIT-EXACTLY -- the (T/l)(I-P) string term "
+        "has the same projector structure as the shear spring, so the pre-stress is a SHIFTED SHEAR "
+        "SPRING, NOT a new tensor family. The Born-Huang degree-1 homogeneity is INTACT; only #521's "
+        "dictionary rho_eff=S_ax/S_shear breaks (the true coordinate is rho'=S_ax/(S_shear+T/l)).",
+        "PASS": vs4_ok,
+    }
+
+    val["ALL_PASS"] = bool(pc1_ok and pc2_ok and pc3_ok and vs4_ok)
     return val
 
 
@@ -365,13 +407,17 @@ def _prestress_tensor_at(pos, bonds, rho, A_axial, A_shear):
     S_axial = float(saturation_factor(A_axial, yield_limit=1.0))
     S_shear = float(saturation_factor(A_shear, yield_limit=1.0))
     T = float(bond_tension(A_axial))     # each bond's own axial tension (uniform-loading)
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))  # srs bond length (=1)
     r = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear,
                               T_per_bond=T, rho=rho)
     mo = moduli_from_Cij(r["C11"], r["C12"], r["C44"])
-    rho_eff = RHO_COLD * (S_axial / S_shear)
+    rho_eff = RHO_COLD * (S_axial / S_shear)          # #521 DICTIONARY coordinate (the one that breaks)
+    k_shear_eff = S_shear + T / ell                    # the shifted shear spring (corrected mechanism)
+    rho_prime = (S_axial / k_shear_eff) if k_shear_eff > 0 else float("inf")  # TRUE family coordinate
     return {
         "A_axial": A_axial, "A_shear": A_shear, "S_axial": S_axial, "S_shear": S_shear,
         "T_axial_prestress": T, "rho_eff": rho_eff,
+        "k_shear_eff": k_shear_eff, "rho_prime_true_coord": rho_prime,
         "C11": r["C11"], "C12": r["C12"], "C44": r["C44"],
         "min_acoustic_eig": r["min_acoustic_eig"], "max_rel_residual": r["max_rel_residual"], **mo,
     }
@@ -435,6 +481,7 @@ def run_sweep(pos, bonds, rho) -> dict:
             ladder.append({
                 "A_wall": A_wall, "S_axial": t["S_axial"], "S_shear": t["S_shear"],
                 "T_axial_prestress": t["T_axial_prestress"], "rho_eff": rho_eff,
+                "k_shear_eff": t["k_shear_eff"], "rho_prime_true_coord": t["rho_prime_true_coord"],
                 "C11": t["C11"], "C12": t["C12"], "C44": t["C44"],
                 "K_bulk": t["K_bulk"], "sign_K": int(np.sign(t["K_bulk"])),
                 "G_Hill": t["G_Hill"], "nu_Hill": t["nu_Hill"],
@@ -460,18 +507,23 @@ def run_sweep(pos, bonds, rho) -> dict:
             nu_at_cross, zener_at_cross, kg_at_cross = tc["nu_Hill"], tc["Zener_A"], tc["KG_Hill"]
             nu521_at_cross = m521c["nu_Hill"]
         direction = "STIFFENING" if r_dense[-1] > RHO_COLD else "SOFTENING"
-        # NEW nu=2/7 locus WITH pre-stress, K>0-GATED (the cold arc's discipline): nu diverges
-        # through the K=0 pole, so a raw ladder-crossing catches pole sign-flips (nu:+inf->-inf),
-        # NOT a real nu=2/7 point. Restrict the crossing search to STABLE rungs (sign_K>0), so a
-        # reported new locus is a genuine stable-branch nu=2/7 crossing, not a divergence artifact.
-        stable_rungs = [row for row in ladder if row["sign_K"] > 0]
-        if len(stable_rungs) >= 2:
-            re_stab = np.array([row["rho_eff"] for row in stable_rungs])
-            nu_stab = np.array([row["nu_Hill"] for row in stable_rungs])
-            order = np.argsort(re_stab)
-            new_nu27_rho_eff = _cross_amplitude(re_stab[order], nu_stab[order], NU_2_7)
+        # NEW nu=2/7 locus in the OLD (rho_eff) coordinate, K>0-gated, by BISECTION (not linear
+        # interpolation -- item 4 fix: interpolation on the sparse ladder gave 66.6; the true
+        # bisected stable-branch locus is 59.93). nu diverges through the K=0 pole, so the search is
+        # restricted to the stable K>0 branch. Uses the exact-collapse remap: prestress at rho_eff =
+        # cold at k_shear=S_shear+T/l, so we bisect the COLD-family nu directly.
+        new_nu27_rho_eff = _bisect_nu27_old_coord(pos, bonds, rho, is_sl)
+        # the CAP on the true coordinate rho'_max = S_ax*l/T (finite; the yield wall no longer -> inf).
+        # SHEAR-LOADS: axial fixed at sqrt(alpha) => T, S_ax both fixed => a single cap. AXIAL-LOADS:
+        # axial is swept so T,S_ax both vary => rho' still bounded but not a single scalar; report the
+        # SHEAR-LOADS cap (the physically-relevant matter branch).
+        ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))
+        if is_sl:
+            S_ax_c = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=1.0))
+            T_c = float(bond_tension(A_CORE_SQRT_ALPHA))
+            rho_prime_cap = S_ax_c * ell / T_c
         else:
-            new_nu27_rho_eff = None
+            rho_prime_cap = None  # axial swept -> no single scalar cap; reported on SHEAR-LOADS
         out[name] = {
             "fixed_channel": "axial@sqrt(alpha)" if is_sl else "shear@sqrt(alpha)",
             "swept_channel": "shear->yield" if is_sl else "axial->yield",
@@ -485,9 +537,51 @@ def run_sweep(pos, bonds, rho) -> dict:
             "n_delta_nu_polefree_points": n_dnu_polefree_points,
             "max_abs_shape_dev_vs_521": max_abs_shape_dev, "worst_shape_dev_row": worst_shape_row,
             "n_destabilized_rungs": n_destabilized,
-            "new_nu_2_7_locus_rho_eff_WITH_prestress": new_nu27_rho_eff,
+            "new_nu_2_7_locus_rho_eff_OLD_coord_bisected": new_nu27_rho_eff,
+            "rho_prime_true_coord_at_yield_limit": float(ladder[-1]["rho_prime_true_coord"]),
+            "rho_prime_cap": rho_prime_cap,
         }
     return out
+
+
+def _bisect_nu27_old_coord(pos, bonds, rho, is_shear_loads, lo=2.5, hi=200.0, tol=1e-7, nmax=100):
+    """Bisect the OLD-coordinate rho_eff where the PRE-STRESSED nu_Hill = 2/7, in the stable K>0
+    branch (item 4 fix: bisection not linear interpolation). Uses the exact-collapse remap:
+    prestress at a given rho_eff = cold at k_shear = S_shear + T/l. Returns rho_eff or None."""
+    from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))
+    A_core = A_CORE_SQRT_ALPHA
+    S_ax = float(saturation_factor(A_core, yield_limit=1.0))
+    T = float(bond_tension(A_core))  # SHEAR-LOADS fixed axial tension
+
+    def nu_and_K(rho_eff):
+        # SHEAR-LOADS: axial fixed (S_ax, T), shear set to hit rho_eff = S_ax/S_shear
+        if is_shear_loads:
+            S_shear = S_ax / rho_eff
+            k_shear_eff = S_shear + T / ell
+            k_ax = S_ax
+        else:  # AXIAL-LOADS: axial swept -> rho_eff<1 branch, nu in the pole region (no stable 2/7)
+            return None, None
+        r = extract_cubic_Cij(pos, bonds, k_axial=k_ax, k_shear=k_shear_eff, rho=rho)
+        m = moduli_from_Cij(r["C11"], r["C12"], r["C44"])
+        return m["nu_Hill"], m["K_bulk"]
+
+    nlo, Klo = nu_and_K(lo)
+    if nlo is None:
+        return None
+    nhi, _ = nu_and_K(hi)
+    if nlo is None or nhi is None or (nlo - NU_2_7) * (nhi - NU_2_7) > 0:
+        return None
+    for _ in range(nmax):
+        mid = 0.5 * (lo + hi)
+        nm, Km = nu_and_K(mid)
+        if abs(nm - NU_2_7) < tol:
+            return mid if (Km is not None and Km > 0) else None
+        if (nlo - NU_2_7) * (nm - NU_2_7) < 0:
+            hi = mid
+        else:
+            lo, nlo = mid, nm
+    return 0.5 * (lo + hi)
 
 
 def _cross_amplitude(A_wall, profile, target):
@@ -534,6 +628,8 @@ def main():
           f"{'PASS' if pc['PC2_analytic_stressed_lattice']['PASS'] else 'FAIL'}")
     print(f"  PC3 homogeneity re-check (T=0 => #521 deg-1): "
           f"{'PASS' if pc['PC3_homogeneity_T0']['PASS'] else 'FAIL'}")
+    print(f"  VS4 exact-collapse (prestress == cold at shifted shear spring): "
+          f"{'PASS' if pc['VS4_exact_collapse_to_shifted_shear_spring']['PASS'] else 'FAIL'}")
     print(f"  ALL_PASS = {pc['ALL_PASS']}")
     if not pc["ALL_PASS"]:
         print("\nHALT: positive controls FAILED — pre-stress insertion wrong; no verdict.")
@@ -615,30 +711,60 @@ def main():
         # pole-free SHAPE (C11/C44, C12/C44, Zener) shifts. The SHAPE metric is what catches the
         # AXIAL-LOADS deformation (rho_eff<1 everywhere => nu always in the pole region).
         map_deformed = bool(max_dnu > DNU_TOL or max_shape > SHAPE_TOL)
+        # NOTE (mechanism correction): [MAP-DEFORMED] here means the #521 DICTIONARY tie nu<->
+        # S_ax/S_shear breaks (the map, as #521 defined it, is deformed). It does NOT mean a new
+        # tensor family or new instability (VS4 exact-collapse: the tensor stays in the cold family).
+        # NOTE (item 5e -- reachability): the frozen prereg §6 bin logic is (ii) geom, (iii) destab,
+        # (iv) deformed, (v) undeformed. Under the corrected mechanism the STANDARD form is NEVER
+        # destabilized and ALWAYS deformed, so those branches would look dead on THIS run -- but the
+        # else-branch and the destab branch ARE reachable (the alt-channel-form arm below drives K<0,
+        # and the reconcile-contradiction below can fire the halt). Reachability proven, item 5e.
+        # reconcile-don't-declare: a state that is map_deformed but VS4 exact-collapse FAILED would be
+        # a self-contradiction (deformed map yet tensor in the cold family) -> loud DISCREPANT-HALT.
         destabilized = bool(n_destab > 0)
-        # bin selector -- prereg §6 order: (ii) geometry-coupled, (iii) destabilized,
-        # (iv) map-deformed, (v) map-undeformed; anything else = loud DISCREPANT-HALT.
+        vs4_pass = bool(out["positive_controls"]["VS4_exact_collapse_to_shifted_shear_spring"]["PASS"])
         if geometry_coupled:
             primary = "GEOMETRY-COUPLED"
+        elif map_deformed and not vs4_pass:
+            # deformed map AND tensor left the cold family -> the corrected mechanism is WRONG here;
+            # this must never happen silently -- loud halt (item 5e: the halt is now REACHABLE).
+            primary = ("DISCREPANT-HALT: map reads DEFORMED but VS4 exact-collapse FAILED "
+                       "(the tensor left the cold family) -- these contradict; the shifted-shear-"
+                       "spring mechanism does not hold here. NEEDS REVIEW.")
         elif destabilized and map_deformed:
             primary = "DESTABILIZED + MAP-DEFORMED"
         elif destabilized:
             primary = "DESTABILIZED"
         elif map_deformed:
             primary = "MAP-DEFORMED"
-        elif max_dnu <= DNU_TOL:
+        elif max_dnu <= DNU_TOL and max_shape <= SHAPE_TOL:
             primary = "MAP-UNDEFORMED"
         else:
             primary = ("DISCREPANT-HALT: no frozen bin cleanly matched "
-                       f"(max|dnu/nu|={max_dnu}, n_destab={n_destab}) -- NEEDS REVIEW.")
-        # KNIFE (only meaningful if MAP-DEFORMED): does the NEW nu=2/7 locus land on a
-        # canon-distinguished amplitude? (a-priori NO; a YES is a max-scrutiny would-be-chord flag)
-        new_rho27 = d["new_nu_2_7_locus_rho_eff_WITH_prestress"]
-        knife_flag = None
-        if map_deformed and d["crossing_A_wall"] is not None:
-            c = d["crossing_A_wall"]
-            knife_flag = bool(abs(c - A_CORE_SQRT_ALPHA) < 1e-3 or abs(c - (1.0 - ALPHA)) < 1e-3
-                              or abs(c - 0.5) < 1e-3 or abs(c - 0.25) < 1e-3 or c > 0.9999)
+                       f"(max|dnu/nu|={max_dnu}, max|shape|={max_shape}, n_destab={n_destab}) "
+                       "-- NEEDS REVIEW.")
+        # KNIFE (re-aimed, item 5d): the crossing AMPLITUDE is analytically invariant (pre-stress
+        # does not move rho_eff), so testing IT was testing a fixed quantity. Re-aim at the things
+        # that DO move under pre-stress: (a) the true-coordinate cap rho'_max, and (b) the OLD-coord
+        # nu=2/7 locus. A canon-distinguished landing on EITHER is a max-scrutiny would-be-chord flag.
+        cap = d["rho_prime_cap"]
+        locus = d["new_nu_2_7_locus_rho_eff_OLD_coord_bisected"]
+        knife = {"cap_rho_prime": cap, "new_nu27_locus_OLD_coord": locus}
+        if cap is not None:
+            # cap ~ 1/sqrt(alpha) is the trivial small-A expansion (T~k0*A at A=sqrt(alpha)), NOT a
+            # coincidence; documented in the result. Also test 9.7734/cap against ratio families.
+            knife["cap_vs_inv_sqrt_alpha"] = cap * float(np.sqrt(ALPHA))  # ~0.9976
+            knife["cap_is_small_A_expansion_not_coincidence"] = True
+            r_9_cap = RHO_STAR_IMPORTED / cap
+            knife["rho_star_over_cap"] = r_9_cap  # ~0.8369
+            knife["rho_star_over_cap_near_5_6"] = bool(abs(r_9_cap - 5.0 / 6.0) < 5e-3)  # near-miss noise
+        canon_hit = False
+        for val_ in [locus, cap]:
+            if val_ is not None:
+                canon_hit = canon_hit or bool(
+                    abs(val_ - RHO_STAR_IMPORTED) < 1e-2 or abs(val_ - 2.0) < 1e-2
+                    or abs(val_ - 1.0 / np.sqrt(ALPHA)) < 1e-2)  # 1/sqrt(alpha) is the KNOWN expansion
+        knife["lands_on_canon_distinguished_value"] = canon_hit
         verdicts[name] = {
             "PRIMARY_BIN": primary, "direction": d["direction"],
             "max_abs_delta_nu_over_nu": max_dnu, "worst_delta_nu_row": d["worst_delta_nu_row"],
@@ -646,12 +772,13 @@ def main():
             "max_abs_shape_dev_vs_521": max_shape, "worst_shape_dev_row": d["worst_shape_dev_row"],
             "map_undeformed_tolerance_nu": DNU_TOL, "map_undeformed_tolerance_shape": SHAPE_TOL,
             "n_destabilized_rungs": n_destab,
-            "crossing_A_wall": d["crossing_A_wall"],
+            "crossing_A_wall_ANALYTICALLY_INVARIANT": d["crossing_A_wall"],
             "nu_at_crossing_PRESTRESS": d["nu_Hill_at_crossing_PRESTRESS"],
             "nu_at_crossing_521_noprestress": d["nu_Hill_at_crossing_521_noprestress"],
             "KG_at_crossing_PRESTRESS": d["KG_Hill_at_crossing"],
-            "new_nu_2_7_locus_rho_eff_WITH_prestress": new_rho27,
-            "KNIFE_crossing_on_canon_amplitude": knife_flag,
+            "new_nu_2_7_locus_rho_eff_OLD_coord": locus,
+            "rho_prime_cap": cap,
+            "KNIFE_reaimed_at_movable_quantities": knife,
         }
     out["bin_verdicts_per_assignment"] = verdicts
 
@@ -676,9 +803,11 @@ def main():
     print(f"      ALL_AGREE = {crossval['ALL_AGREE']}")
     print("\n(5) PER-ASSIGNMENT BIN VERDICTS:")
     for name, v in verdicts.items():
+        kn = v["KNIFE_reaimed_at_movable_quantities"]
         print(f"      [{name}] PRIMARY BIN: {v['PRIMARY_BIN']} "
-              f"(max|dnu/nu|={v['max_abs_delta_nu_over_nu']:.2e}, "
-              f"KNIFE={v['KNIFE_crossing_on_canon_amplitude']})")
+              f"(max|dnu/nu|={v['max_abs_delta_nu_over_nu']:.2e}, cap={v['rho_prime_cap']}, "
+              f"nu=2/7 locus(OLD coord)={v['new_nu_2_7_locus_rho_eff_OLD_coord']}, "
+              f"KNIFE lands-on-canon={kn['lands_on_canon_distinguished_value']})")
 
     _write(out)
     return out
