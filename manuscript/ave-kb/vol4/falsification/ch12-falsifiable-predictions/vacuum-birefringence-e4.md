@@ -63,14 +63,16 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 > and the facility proposal [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md).
 > This closes the prior "Gaussian-overlap asserted" residual — the coupling is no longer asserted.
 >
-> **FLAG-A adjudicated (Grant, 2026-06-21).** A birefringence instrument measures the **par−minus−perp
-> differential**, so the falsifier observable is now $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$
-> (DERIVED), headlined above at the matched-observable ratio $7.5/\alpha^3\approx1.93\times10^7$ (AVE
-> $-\tfrac12$ vs QED differenced $3/45$). The scalar $\delta n_{iso}\approx-\tfrac14 A^2$ is retained
-> as the **isotropic (common-mode) index shift** the polarimeter is blind to — **not** the
-> birefringence. The single-arm/isotropic-vs-parallel ratio $4.14\times10^6$ compared MISMATCHED
-> observables (AVE scalar single-arm vs QED parallel single-mode) and is no longer the falsifier
-> headline; it is kept only for traceability.
+> **FLAG-A PROMOTED (Grant-ratified 2026-07-03: "the matched-differential"; supersedes the 2026-06-21
+> adjudication).** The par$-$perp **differential** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$
+> (DERIVED) is the **canonical falsifier identity** of this leaf and of `clm-pp3qwf`, headlined above at
+> the matched-observable ratio $7.5/\alpha^3\approx1.93\times10^7$ (AVE $-\tfrac12$ vs QED differenced $3/45$).
+> The scalar $\delta n_{iso}\approx-\tfrac14 A^2$ is retained **KEEP-BOTH** as the **isotropic (common-mode)
+> index shift** the polarimeter is blind to; paired against the QED parallel single-mode $7/45$ it gives the
+> **single-arm-retardance-probe** ratio $4.14\times10^6$ — the ratio a distinct interferometric single-pass-phase
+> instrument (not the polarimeter/ellipsometer) would read. **Scope:** single-arm-retardance probe $\to4.14\times10^6$;
+> differential ellipsometer/polarimeter $\to1.93\times10^7$. The single-arm is a scoped secondary, NOT the falsifier
+> headline. Ruling note: [`research/2026-07-03_birefringence-flagA-promotion_ruling.md`](../../../../../research/2026-07-03_birefringence-flagA-promotion_ruling.md).
 >
 > **Named residuals carried (do NOT over-state "closed"):**
 > (a) **CHECK-3** — the gated-cavity round-trip $\tau_{rt}$ factor-of-2 / "recovers both finesse and
