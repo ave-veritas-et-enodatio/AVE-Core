@@ -56,8 +56,8 @@ the SPICE ladder (4) is carrier-independent and runs in parallel; Lorentz-on-srs
 | **1** | **DEC canonicalization** — inventory every discrete div/curl/grad; route live consumers through the exact DEC set (`srs_dec.py` ∂₁/∂₂; weighted `BᵀDB`) or scope-tag the heuristic with a DEC pointer (KEEP-BOTH for frozen provenance); CI adjoint-consistency + ∂∂=0 check over the registered operator sets. | `srs_dec.py` (built) | **THIS ARC — ✅ LANDED** | see §1-log |
 | **2** | **Validation-harness library** — extract the proven gate machinery into `src/ave/validation/`: planted-source positive-control, structural-degeneracy checks, runtime-independence assert, hardened equation-audit, spectral-liveness re-export. Retrofit one driver as the demo consumer. | 1 (operator sets registered) | **THIS ARC — ✅ LANDED** | see §2-log |
 | **5** | **Carrier-declaration guard** — every lattice-constructing entry point declares its carrier (`srs-z3` / `diamond-z4-instrument` / `cartesian-reference` / `k-space`); diamond-stencil consumers REQUIRE an explicit `instrument_scope=` acknowledgment or raise. Additive + backward-compatible. | independent (uses 5's own enum) | **THIS ARC — ✅ LANDED** | see §5-log |
-| **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | **PARALLEL ARC** (`analysis/spice-phase1`) | not in this arc |
-| **3** | **Lorentz-on-srs** — boost/transport operator on the srs carrier. | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | **QUEUED behind this arc** | reopens after this arc merges |
+| **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | PARALLEL ARC (`analysis/spice-phase1`) | **✅ DELIVERED — PR #513 MERGED** (2026-07-04; SPICE PHASE-1 validation ladder live, 5/5 PASS, ngspice-46). See §4-log. |
+| **3** | **Lorentz-on-srs** — photon-sector isotropy / emergent-Lorentz chain re-derived on the srs carrier (the migration P1 acceptance gate). | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | `analysis/lorentz-on-srs` | **✅ LANDED — [ISOTROPY-EMERGES], P1 GATE CLEARS.** See §3-log. |
 
 ## NOT-NOW items (recorded with reopen-conditions)
 
@@ -220,3 +220,70 @@ frozen builder still runs byte-identical WITH the guard active. Regression: the
 affected consumer suites (native-cage / stage-3 back-reaction / chiral-lattice)
 stay green (57 pass; the only warnings are pre-existing test files that call the
 diamond builder nakedly — the guard nudging them, not a failure).
+
+### §4-log — SPICE phase-1 ladder  [DELIVERED 2026-07-04 · PR #513 MERGED]
+
+The ngspice-backed circuit-domain validation ladder landed on `main` via **PR #513**
+("SPICE PHASE-1: the validation ladder, live for the first time (5/5 PASS, ngspice-46)",
+merged 2026-07-04, `gh pr view 513 → MERGED` verified this arc). The parallel SPICE
+lane (`analysis/spice-phase1`) delivered it independently of the carrier axis. Result
+doc: `research/2026-07-04_spice-phase1-ladder_result.md`.
+
+**Carry-forward (NOT this arc's scope — flag-don't-fix, no rekey).** The two
+varactor **ADJUDICATION-PENDING** questions raised in the SPICE lane's own zone remain
+**OPEN**; this Lorentz-on-srs arc does NOT touch or rekey them (they live in the SPICE
+lane's domain — the `spice_ladder_rung2_ax4_varactor` metric-varactor + the EE-bench /
+L1 varactor set). Surfaced here for the tracker's carry-forward ledger only; the SPICE
+lane / Grant adjudicate them, not this arc.
+
+### §3-log — Lorentz-on-srs (the migration P1 acceptance gate)  [LANDED 2026-07-04]
+
+**The FINAL item of the engine-upgrade program**, and the srs-migration policy's **P1
+make-or-break acceptance gate** (`_orchestration/2026-07-03_srs-migration-policy.md`:
+*"the Lorentz chain must re-clear on srs or the migration STOPS"*). First full consumer
+of the new hardened infrastructure (items 1/2/5): `micropolar_bloch`, the `carrier`
+guard (diamond reference instrument-scoped), the `validation` harness
+(`detect_symmetry_forced_zero` chiral-parity guard).
+
+**VERDICT: [ISOTROPY-EMERGES] — the P1 GATE CLEARS.** carrier: srs-z3.
+- **Leading-order c ISOTROPIC** (both transverse photon branches, spread extrapolated to
+  k=0 = machine precision; HS speeds agree <1e-6); Z₀ recovered exactly.
+- **NO cold birefringence** — the two transverse branches are DEGENERATE
+  (max|ω_T1−ω_T2| = 1.7e-14 at a floor-clear probe). The Letter's baseline holds.
+- **The (qℓ)⁴ anisotropy-suppression FORM RE-CLEARS** — first anisotropic bond-moment
+  invariant is QUARTIC on srs (432, κ=−1/12) IDENTICALLY to diamond (m3̄m, κ=−2/9);
+  ⟨(q̂·d̂)²⟩ isotropic, ⟨(q̂·d̂)⁴⟩ = pure cubic harmonic (resid 1.9e-16). The isotropy
+  defense is a cubic-point-group fact, NOT diamond-specific; it survives the migration.
+- **Chiral k-linear gyrotropy is srs-DISTINCT** (432 permits, m3̄m forbids): B_signed
+  −4.30e-4, parity-odd (flips under enantiomorph swap); diamond null 4.8e-37. δ_chiral ≈
+  1.7e-9·(qℓ_node) at optical — ~11 OOM below LIV bounds, negligible but genuine.
+- **UNCHANGED (not re-opened):** the raw acoustic-branch dispersion anisotropy is O(k²)
+  on BOTH carriers (n=2.0001, matching the merged `srs_bloch_dispersion.py` slope 1.9999);
+  the distinctive (qℓ)⁴ photon-DISPERSION tell stays CONDITIONAL on the unproven weak-C
+  no-zone-edge theorem (gate `wejkhvnfb`, OPEN). The 🟡 demotion of `clm-k4d4ph` STANDS.
+
+**Files:** driver `src/scripts/vol_4_engineering/lorentz_on_srs.py`; test
+`src/tests/test_lorentz_on_srs.py` (12 pass); prereg
+`research/2026-07-04_lorentz-on-srs_prereg_FROZEN.md`; result
+`research/2026-07-04_lorentz-on-srs_result.md`.
+
+**Rule-10 empirical catches** (running the driver, flag-don't-fix): (a) a bare Miller
+index fakes a √3 O(k⁰) anisotropy — unit-normalize q̂ internally; (b) the tiny-kl
+eigsolve floor makes |c_T1−c_T2| = floor/kl² blow up as kl→0 — probe the transverse
+degeneracy by the absolute ω-split at a floor-clear kl=0.05.
+
+**Fallout (auditor-lane manual landings — surfaced, not landed by implementer):** the
+diamond-tied isotropy-defense sites S1–S5 (`clm-k4d4ph`, `preferred-frame-and-emergent-
+lorentz.md:22,56` `clm-yr6tu4`, `00_foreword.tex:106`, `the-abandoned-interior.md:180,185`,
+the `axiom1-dof-restoration_note.md` §c′ Fd3̄m-averaging use) are all RE-CLEARED on srs —
+add carrier-declaration lines, re-word "diamond-cubic"→"cubic point group" where the
+FORM is the load-bearing content. The crystalline-vs-amorphous seam (S4) narrows on the
+crystalline side (does not fully close — the amorphous ν=2/7 side stays open). The
+srs-distinct chiral gyrotropy is a new (tiny, below-bound) forward statement — auditor/
+Grant decide whether it earns a Letter line or a KB leaf. Full dispositions in the result
+doc §4.
+
+**The migration proceeds.** The Lorentz P1 leg CLEARS (the α P1 leg is a separate leg
+of the same P1 gate, not addressed here). The diamond stays a documented instrument (its
+(qℓ)⁴ FORM is reproduced as V1); it is NOT the sole α/Lorentz host — the Lorentz chain is
+now carrier-native on srs.
