@@ -157,6 +157,103 @@ def build_scene() -> dict:
     return scene
 
 
+def render_static(scene: dict) -> list:
+    """The static 3-panel companion (house style, WHITE, Okabe-Ito). All numbers
+    are the exported engine scene's own; only the walk-off phasor drawing is
+    presentation-layer.
+
+    (a) SVE Δn(E) ramp to the demonstrated pump, with A² = 5.9e-7 marked -- the
+        realized birefringence magnitude;
+    (b) the polarization walk-off: the two probe eigenmodes accumulate the
+        relative retardance Δφ over the single pass; SVE (0.148 rad) vs QED
+        (tiny), drawn as phasor fans on the crossed-polarizer plane;
+    (c) the polarization-flip probability P = sin²(Δφ/2), SVE vs QED, against the
+        two X-ray-polarimeter purity floors (required 1.4e-10, demonstrated
+        2.4e-10) -- the SVE bar clears both by ~1e7.
+    """
+    import matplotlib.pyplot as plt
+
+    from ave.viz import style
+
+    style.apply("print")
+
+    probes = scene["probes"]
+    pump = scene["meta"]["pump"]
+    floors = scene["meta"]["floors"]
+    njp = probes[0]  # scenario 1
+
+    fig, axes = plt.subplots(1, 3, figsize=style.figsize("wide"))
+
+    # ── (a) SVE Δn(E) ramp ────────────────────────────────────────────────────
+    ax = axes[0]
+    E = np.asarray(scene["field_sweep"]["E_Vpm"])
+    dn = np.asarray(scene["field_sweep"]["dn_ave"])
+    ax.plot(E / 1e13, dn, color=style.COLORS["ave"], lw=2.0, label="SVE |Δn|(E)")
+    ax.axvline(pump["E_field_Vpm"] / 1e13, color=style.COLORS["muted"], ls="--", lw=1.0)
+    ax.plot(
+        [pump["E_field_Vpm"] / 1e13],
+        [abs(njp["dn_ave"])],
+        "o",
+        color=style.COLORS["comparison"],
+        label=f"pump: A²={pump['A2']:.2e}",
+    )
+    ax.set_xlabel(style.axis_label("Pump field", "E", "10^{13} V/m"))
+    ax.set_ylabel(style.axis_label("Birefringence", r"|\Delta n|", ""))
+    style.legend(ax, where="below")
+
+    # ── (b) the polarization walk-off (phasor fan, single pass) ───────────────
+    ax = axes[1]
+    th = np.linspace(0, 2 * np.pi, 200)
+    ax.plot(np.cos(th), np.sin(th), color=style.COLORS["muted"], lw=0.8, alpha=0.6)
+    for phi, col, lab in [
+        (njp["dphi_ave_rad"], style.COLORS["ave"], f"SVE Δφ = {njp['dphi_ave_rad']:.3f} rad"),
+        (njp["dphi_qed_rad"], style.COLORS["comparison"], f"QED Δφ = {njp['dphi_qed_rad']:.1e} rad"),
+    ]:
+        ax.annotate(
+            "", xy=(np.cos(phi), np.sin(phi)), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color=col, lw=2.2)
+        )
+        ax.plot([], [], color=col, lw=2.2, label=lab)
+    ax.annotate("", xy=(1, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color=style.COLORS["data"], lw=1.4))
+    ax.plot([], [], color=style.COLORS["data"], lw=1.4, label="probe in (ref.)")
+    ax.set_xlim(-1.15, 1.15)
+    ax.set_ylim(-1.15, 1.15)
+    ax.set_aspect("equal")
+    ax.set_xlabel(style.axis_label("polarization", r"\cos\Delta\varphi", ""))
+    ax.set_ylabel(style.axis_label("polarization", r"\sin\Delta\varphi", ""))
+    style.legend(ax, where="below")
+
+    # ── (c) flip-prob bars vs the purity floors ───────────────────────────────
+    ax = axes[2]
+    labels = ["SVE", "QED"]
+    vals = [njp["P_ave_exact"], njp["P_qed_exact"]]
+    ax.bar(
+        [0, 1],
+        vals,
+        color=[style.COLORS["ave"], style.COLORS["comparison"]],
+        width=0.6,
+        label="flip-prob P = sin²(Δφ/2)",
+    )
+    ax.axhline(
+        floors["P_required_1.4e-10"], color=style.COLORS["muted"], ls="--", lw=1.0, label="required floor 1.4e-10"
+    )
+    ax.axhline(
+        floors["P_demonstrated_2.4e-10"],
+        color=style.COLORS["accent"],
+        ls=":",
+        lw=1.2,
+        label="demonstrated floor 2.4e-10",
+    )
+    ax.set_yscale("log")
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(labels)
+    ax.set_ylabel(style.axis_label("Flip probability", "P", ""))
+    style.legend(ax, where="below")
+
+    written = style.save(fig, _OUT_DIR / "hibef_moment_panels")
+    plt.close(fig)
+    return written
+
+
 def main() -> None:
     _OUT_DIR.mkdir(parents=True, exist_ok=True)
     scene = build_scene()
@@ -175,6 +272,9 @@ def main() -> None:
             f"ratio={p['ratio_ave_over_qed']:.2e}"
         )
     print(f"  scene written: {out_json}")
+
+    for r in render_static(scene):
+        print(f"  render written: {r}")
 
 
 if __name__ == "__main__":
