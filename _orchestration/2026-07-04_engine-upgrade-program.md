@@ -78,8 +78,58 @@ the SPICE ladder (4) is carrier-independent and runs in parallel; Lorentz-on-srs
 
 ## Item logs
 
-### §1-log — DEC canonicalization
-(populated by the arc)
+### §1-log — DEC canonicalization  [LANDED 2026-07-04]
+
+**Inventory of discrete div/curl/grad across `src/ave/` (grep census + read).**
+Every operator set a LIVE `src/ave/` solver drives a verdict on is now REGISTERED
+in `src/ave/topological/operator_registry.py::OPERATOR_SETS` with its carrier +
+adjoint spec, and CERTIFIED by the parameterized CI check
+`src/tests/test_operator_adjoint_consistency.py`.
+
+**Routed / certified (4 sets, all adjoint-consistent + ∂∂=0 where applicable):**
+
+| Set | Carrier | div=s·gradᵀ | Exactness | Frozen | adj residual |
+|:--|:--|:--:|:--|:--:|:--|
+| `srs_dec` (∂₁/∂₂) | srs-z3 | s=−1 | exact_integer | no | 0.0 (∂∂=0 exact-int) |
+| `srs_incidence` (B) | srs-z3 | s=+1 | exact_integer | no | 0.0 |
+| `diamond_native_cage` | diamond-z4 | s=+1 | machine | **yes** | 0.0 |
+| `gw_native` | diamond-z4 | s=+1 | machine | **yes** | 0.0 |
+
+**FLAG (flag-don't-fix) — sign-convention split, reconciled not forced.** The
+srs-z3 DEC set ships the NEGATIVE-adjoint convention (`div = −∂₁`, so `L0 = −PSD`);
+the solver incidence + both diamond native sets ship the POSITIVE-adjoint
+convention (`div = +gradᵀ`, so the Laplacian is `+PSD`). Both are valid — the
+physics invariant is `div∘grad` SYMMETRIC. The registry records `adjoint_sign`
+per set rather than forcing one convention onto frozen provenance. Empirical catch
+(Rule 10): the first draft assumed `Div = −Gradᵀ` for the diamond sets; running
+the check gave residual 0.5, and the direct probe showed `Div = +Gradᵀ` EXACTLY
+(`Div−Gradᵀ` max=0.0) — the load-bearing `L_D = GradᵀDGrad` +PSD invariant. Fixed
+the registry, not the frozen operator.
+
+**Scope-tagged heuristics (2, NOT registered — non-adjoint, must not drive a
+verdict; DEC-alternative pointer recorded in `SCOPE_TAGGED_HEURISTICS`):**
+- `_srs_curl_nodes` / `_srs_node_divergence` — non-adjoint (`div∘curl` RMS ≈ 0.35);
+  live in `src/scripts/vol_2_subatomic/em_readout_vsector_transducer.py` (a driver
+  OUTSIDE `src/ave/`, retired instrument per capability-map §8b.3). Already flagged
+  ENGINEERING-CHOICE + non-adjoint in that driver's own `equation_audit` ledger
+  (:694-697). NOT touched (collision-guard: that driver also carries
+  `ngspice_cross_solve`, in the sibling SPICE arc's zone). DEC alternative =
+  `ave.topological.srs_dec`.
+- `universal_topological_curl` / `universal_topological_divergence` (Op11/Op12,
+  `universal_operators.py:673,711`) — Yee-staggered FDTD; E-curl and H-curl live
+  on different staggered meshes, so NOT a mutual negative-adjoint pair BY FDTD
+  DESIGN (not a bug). Cartesian-reference carrier; not a verdict-driving substrate
+  operator. Recorded for inventory completeness.
+
+**Provenance-frozen driver byte-identity.** ITEM 1 added only two NEW files
+(`operator_registry.py`, `test_operator_adjoint_consistency.py`); it changed NO
+existing operator code, so every merged-result driver is bit-identical by
+construction. Cross-check: `native_cage_imex` `L_D` (N=6, graded D) sha256
+`30986dc1538bf4c5c9ddbcd82f6c957e…` recomputed at HEAD; the DEC↔solver Laplacian
+reconciliation (`L_srs = BᵀB = −L0`) asserted exactly in the CI check.
+
+**CI check:** 15 passed / 3 skipped (the 3 skips are the no-∂₂ 1-complex sets,
+correctly declared `dd_zero=False`).
 
 ### §2-log — validation-harness library
 (populated by the arc)
