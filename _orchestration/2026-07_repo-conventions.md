@@ -167,7 +167,60 @@ The N/M values are the decision points; the class structure and audit-tag-preser
 
 ## (e) Status-marker grammar (lintable)
 
-_(section body lands in commit 6)_
+**The problem this solves.** Live status markers (`RUNNING`, `PENDING`, `IN-FLIGHT`, `MID-FLIGHT`) that carry no owner or date silently rot. **Live-fire precedent:** the 2026-06-22 birefringence arc's `RUNNING` workflow markers masked a dead workflow for ~12 days until `0b82e3f2` ("reconcile stale arc tracker") landed the CLOSED reconciliation. At HEAD, `_orchestration/2026-06-22_birefringence-vca-bench-arc.md:75` reads `> **CLOSED (2026-07-03).** Both mid-flight workflows are resolved:` and `:79` records the `wmjbpekmc` bench-hunt as `DEAD-MID-FLIGHT`. Had the original `RUNNING` markers carried an owner + a stale-after date, the 12-day masking window would have been a lint failure, not a silent drift. (The brief cited this file as `research/2026-06-22_birefringence-vca-bench-arc.md:75` — it is actually in `_orchestration/`, not `research/`; flagged in the ledger.)
+
+**Design principle: codify the existing practice, don't invent.** Informal owner-bearing markers already occur (`PENDING Grant merge via PR #43`, `PENDING Grant sign-off`, `PENDING (Grant framing call)`). The grammar makes the owner + date **required and machine-checkable** rather than optional and free-form.
+
+### Required marker grammar
+
+A live status marker in `_orchestration/**.md` or `research/**.md` (excluding `_archive`) must carry **owner + date**, optionally a stale-after horizon:
+
+```
+<MARKER> (owner: <name>, YYYY-MM-DD[, stale-after: YYYY-MM-DD])
+```
+
+where `<MARKER>` ∈ `{RUNNING, PENDING, IN-FLIGHT, MID-FLIGHT}`. Examples of compliant markers:
+- `RUNNING (owner: em-readout-lane, 2026-06-22, stale-after: 2026-07-06)`
+- `PENDING (owner: Grant, 2026-05-28)`
+- `IN-FLIGHT (owner: P0-implementor, 2026-07-04)`
+
+Terminal states (`CLOSED`, `DONE`, `DEAD`, `RESOLVED`, `MERGED`, `FROZEN`) are NOT live markers and are exempt — they carry their own dated resolution per the (c) append-only pattern (e.g. `CLOSED (2026-07-03)`).
+
+### Lintable regex (proposed)
+
+A marker is a **finding** (lint failure) if a bare live-marker token appears without the trailing `(owner: ..., DATE...)` structure. Concretely, flag any line matching the live-marker token that does NOT match the compliant form:
+
+```python
+# Live-marker tokens that MUST carry owner+date:
+MARKER = r'\b(RUNNING|PENDING|IN-FLIGHT|MID-FLIGHT)\b'
+
+# Compliant attribution immediately trailing the marker (allowing ** / : / — between):
+ATTRIB = r'[\*_:\s—-]*\(owner:\s*[^,)]+,\s*\d{4}-\d{2}-\d{2}(?:\s*,\s*stale-after:\s*\d{4}-\d{2}-\d{2})?\)'
+
+# A line FAILS lint if it contains MARKER but the marker is not immediately followed by ATTRIB.
+FAIL_IF = re.compile(MARKER + r'(?!' + ATTRIB + r')')
+```
+
+Scope: `_orchestration/**.md` + `research/**.md`, excluding any `_archive` dir at any depth (reuse the `verify-md-links.py` SKIP_DIRS convention — `_archive` at `manuscript/ave-kb/tools/verify-md-links.py:65`). Markers inside fenced code blocks and inside the compliant-example lines of THIS conventions doc are excluded (the linter skips ``` fences and this doc's own `(e)` example block).
+
+**Grandfathering.** The linter runs in **warn** mode initially (reports, does not gate) so the existing ~hundreds of informal markers surface as a disposition list (a P1 mechanical-sweep lane) before the gate flips to **error**. Flipping to error is a separate ratified step after the backlog is cleared.
+
+### `make` lint-target sketch (SPEC ONLY — not added in this PR)
+
+```makefile
+# NOT added by this PR — proposed for a post-ratification phase.
+lint-status-markers:
+	@echo "[Lint] Status-marker grammar (owner+date on live markers)..."
+	$(PYTHON) tools/lint_status_markers.py --scope _orchestration research \
+	    --skip _archive --mode warn   # flip to --mode error after backlog cleared
+```
+
+The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, skips `_archive` + fenced code + this doc's example block, applies `FAIL_IF`, and prints `path:line  [live-marker missing owner+date]  -> <marker text>` — the same reporting shape as `verify-md-links`.
+
+**RATIFY:** Adopt the marker grammar `<MARKER> (owner: <name>, YYYY-MM-DD[, stale-after: YYYY-MM-DD])` for live markers in `_orchestration/**.md` + `research/**.md` (excl. `_archive`), with terminal states exempt. Adopt the proposed regex + the `lint-status-markers` `make`-target sketch as the P1 build spec (the target + tool are built and wired in a later phase, NOT this PR). The genuine choices:
+
+- **Warn-then-error rollout [RECOMMENDED]** — land the linter in `warn` mode, clear the informal-marker backlog as a P1 sweep, then flip to `error` in a ratified follow-up. (Alternative: go straight to `error` — would fail CI immediately against the existing backlog; not recommended.)
+- **`stale-after` horizon: optional [RECOMMENDED] vs required** — RECOMMENDED optional (owner+date is the load-bearing minimum; a mandatory stale-after adds friction to every marker). Grant may prefer required stale-after on `RUNNING`/`IN-FLIGHT` specifically (the classes that masked the birefringence drift) while leaving it optional on `PENDING`/`MID-FLIGHT`.
 
 ---
 
@@ -183,6 +236,7 @@ _(section body lands in commit 7)_
 - **(b) `research/` grammar** — adopt `YYYY-MM-DD_<slug>_<type>.md` + closed type-vocab + register-class exemption + **keep-flat**; adopt archive-tier 3-of/never-if criteria with honesty-trail UNTOUCHABLE; confirm the type-vocab closed set and **grandfather** (no mass-rename) off-grammar names.
 - **(c) `_orchestration/` lifecycle** — adopt the mandatory `Status:` header enum (ACTIVE/CLOSED/ARCHIVED + last-verified date + owner); adopt the append-only dated `🔴 RESOLUTION/CORRECTION` note as the ONLY stale-framing fix (no rewrites/banners); adopt the `index.md`→`_archive/index-stale.md` hygiene rule. Confirm header wording only (rest is codified existing practice).
 - **(d) Branch lifecycle SLA** — adopt the two staleness classes (resumable / pushed-no-PR) enforced by audit-tag-then-delete. Decide **N** (resumable re-affirm-or-tag horizon; RECOMMENDED 30 days) and **M** (pushed-no-PR triage horizon; RECOMMENDED 14 days).
+- **(e) Status-marker grammar** — adopt `<MARKER> (owner: <name>, YYYY-MM-DD[, stale-after: DATE])` for live markers (excl. `_archive`) + the proposed regex + `lint-status-markers` make-target spec (built in a later phase). Decide **warn-then-error rollout** (RECOMMENDED) and whether **`stale-after` is optional** (RECOMMENDED) or required on RUNNING/IN-FLIGHT.
 
 ---
 
@@ -216,3 +270,8 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - CLAUDE.md audit-tag pattern at `CLAUDE.md:41` + `:80-86` ✓.
 - Resumable 2026-06-11 branches on origin: **3** (`alpha-a3-reservoir`, `chiral-angle-of-attack`, `screened-winding-probe`) — brief said "four"; HEAD shows three.
 - PR #502 D2 triage (from PR body): 50 unmerged at start → 6 tag-and-deleted → 44 dispositioned (LAND-candidate / re-affirmed-resumable / TAG-AND-DELETE / GRANT-CALL) ✓.
+
+**(e) Status-marker grammar**
+- Birefringence arc CLOSED marker at `_orchestration/2026-06-22_birefringence-vca-bench-arc.md:75` (`> **CLOSED (2026-07-03).** Both mid-flight workflows are resolved:`) ✓; `:79` = `wmjbpekmc` bench-hunt `DEAD-MID-FLIGHT`. Brief cited path as `research/2026-06-22_birefringence-vca-bench-arc.md:75` — the file is in `_orchestration/`, not `research/` (flagged).
+- Commit `0b82e3f2` "reconcile stale arc tracker" ✓.
+- Informal owner-bearing markers already occur (`PENDING Grant merge via PR #43`, `PENDING Grant sign-off`) ✓; no already-well-formed `MARKER (owner: ..., DATE)` markers exist at HEAD (the practice is informal — the grammar formalizes it).
