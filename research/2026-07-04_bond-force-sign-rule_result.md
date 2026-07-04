@@ -90,7 +90,7 @@ component pulls the clamped ends together:
   first-order `Φ'(A)`; the difference is why Reading (b) bands both laws.
 - Cross-derived independently from the energy `U=½k_a(arc−ℓ)²+½k_b y²` (sympy `arm_a_from_energy=0`).
 
-### ARM (b) — AXIAL END-LOAD (A1 dilatation/gravity load) → COMPRESSION
+### ARM (b) — AXIAL END-LOAD at the A1 op-point amplitude (affine bulk mapping) → COMPRESSION
 
 Chord driven below ℓ; bow free to equilibrate on the fixed-arc constraint → the strut BUCKLES and
 resists compression:
@@ -104,6 +104,18 @@ resists compression:
   end-load.** PC-recon gates the magnitude tie bit-exact (max_abs_dev = 0.0).
 - **POSITIVE CONTROL PC-b1** (Euler phenomenology): finite compressive force as bow→0⁺, plateau
   `k_b·ℓ/4 = 0.25` in kernel units (k_b=ℓ=1). PC-b2: `−k_a·u→0` as u→0.
+
+> **THE BULK→BOND MAPPING (item 4 — derived, no nominal "gravity" label).** The driver end-loads at the
+> **A1 op-point amplitude** `A_axial = √α` (the #526 bias), NOT a nominal gravity value. The mapping
+> from a bulk strain to the per-bond amplitude is the trivial **AFFINE** one, derived + PC-checked this
+> session (`bulk_strain_to_per_bond_amplitude`): a uniform bulk strain `ε` deforms every bond
+> `d → (1−ε)d`, giving a per-bond axial strain `A_bond = ε` on **every bond identically**
+> (orientation-independent — verified min==max across all srs bonds; PC-affine). **Coplanar-node
+> caveat:** srs z=3 sites are not centrosymmetric, so a uniform cell strain also drives internal
+> relaxation; `A_bond = ε` is the AFFINE (leading) part, and the relaxed part is exactly what the
+> internal-strain-relaxed #526 Christoffel already handles. **A full gravitational bulk-strain PROFILE
+> (ε(r) from the A1/bulk sector) is PENDING and out of scope** — this arc uses the affine map at the A1
+> op-point, labeled as such (no nominal-gravity claim on an underived profile).
 
 ### The reconciliation
 

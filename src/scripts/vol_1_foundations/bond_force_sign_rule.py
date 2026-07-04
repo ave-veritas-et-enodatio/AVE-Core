@@ -258,6 +258,11 @@ def run_positive_controls(pos, bonds, rho) -> dict:
     results["PC_recon_max_abs_dev"] = float(_np.max(_np.abs(recon)))
     results["PC_recon_ok"] = bool(_np.max(_np.abs(recon)) < 1e-12)
 
+    # PC-affine: the bulk-strain -> per-bond amplitude map is uniform/affine (item 4)
+    aff = bulk_strain_to_per_bond_amplitude(0.01, pos, bonds)
+    results["PC_affine_map"] = aff
+    results["PC_affine_ok"] = bool(aff["uniform"] and abs(aff["A_bond_affine"] - 0.01) < 1e-12)
+
     all_ok = all(
         results[k] for k in results if k.endswith("_ok")
     )
@@ -268,6 +273,38 @@ def run_positive_controls(pos, bonds, rho) -> dict:
 # ===========================================================================
 # THE IN-REGIME BOW BOUND (review item 2) -- the fixed-arc premise's own limit
 # ===========================================================================
+def bulk_strain_to_per_bond_amplitude(eps: float, pos, bonds) -> dict:
+    """The AFFINE bulk-strain -> per-bond axial amplitude mapping (review item 4).
+
+    A uniform (isotropic) bulk strain eps deforms every position x -> (1-eps)x, so each
+    bond vector d -> (1-eps)d and its chord |d| -> (1-eps)|d|. The per-bond axial
+    (compressive) strain is therefore A_bond = -d|d|/|d| = eps on EVERY bond identically
+    -- orientation-independent (verified: min==max across all srs bonds). So the arm-(b)
+    end-load amplitude A_axial IS the affine bulk strain, for an affine uniform strain.
+
+    COPLANAR-NODE CAVEAT: srs z=3 sites are NOT centrosymmetric, so a uniform CELL strain
+    also induces internal relaxation (the internal-strain modes). A_bond=eps is the AFFINE
+    (leading) part; the relaxed part is exactly what the internal-strain-relaxed #526
+    Christoffel pipeline already handles. This is why the driver uses the A1 op-point
+    amplitude directly and calls the mapping AFFINE (not "gravity") -- the bulk->bond
+    map is the trivial affine one; a full gravitational bulk-strain profile is PENDING.
+    """
+    strains = []
+    for (_, _, d) in bonds:
+        dv = np.asarray(d, float)
+        ell = np.linalg.norm(dv)
+        dell = np.linalg.norm((1.0 - eps) * dv) - ell
+        strains.append(-dell / ell)
+    strains = np.array(strains)
+    return {
+        "eps": float(eps),
+        "per_bond_axial_strain_min": float(strains.min()),
+        "per_bond_axial_strain_max": float(strains.max()),
+        "uniform": bool(np.ptp(strains) < 1e-12),   # orientation-independent affine map
+        "A_bond_affine": float(strains.mean()),      # == eps
+    }
+
+
 def in_regime_pluck_bow(arc_star: float, ell: float = 1.0) -> float:
     """Max IN-REGIME transverse pluck bow y at fixed-arc premise arc* (review item 2).
 

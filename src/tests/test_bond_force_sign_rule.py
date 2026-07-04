@@ -270,3 +270,14 @@ def test_a_core_is_sqrt_alpha_readoff():
     """A_core = sqrt(alpha) is read-off, not tuned (anti-tune guard)."""
     from ave.core.constants import ALPHA
     assert abs(A_CORE_SQRT_ALPHA - float(np.sqrt(ALPHA))) < 1e-15
+
+
+def test_bulk_strain_to_per_bond_is_affine_uniform(srs):
+    """Item 4: uniform bulk strain eps -> per-bond axial strain eps on EVERY bond (affine)."""
+    from scripts.vol_1_foundations.bond_force_sign_rule import bulk_strain_to_per_bond_amplitude
+    pos, bonds, rho = srs
+    aff = bulk_strain_to_per_bond_amplitude(0.01, pos, bonds)
+    assert aff["uniform"] is True                              # orientation-independent
+    assert abs(aff["A_bond_affine"] - 0.01) < 1e-12           # A_bond == eps
+    assert abs(aff["per_bond_axial_strain_max"]
+               - aff["per_bond_axial_strain_min"]) < 1e-12    # min == max
