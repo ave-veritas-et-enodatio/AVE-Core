@@ -497,6 +497,7 @@ The K4 / diamond-cubic Bloch dynamical matrix $D(\mathbf k)$, diagonalized acros
   - **MAGNITUDE is an ECHO.** $\kappa_\gamma=1/24$ is a lattice-geometry number; the physical birefringence $\delta\approx2.2\times10^{-22}$ at optical $q\ell_{node}$ sits $\sim$2–3 OOM below current LIV / vacuum-birefringence bounds $\Rightarrow$ **NOT near-term bankable**. The bankable QED-discriminator stays the E-route birefringence COEFFICIENT (clm-pp3qwf).
   - The 511 keV cutoff **value** is an ECHO (imports $m_e$, peer-with-QED), not an emergence-class derivation. It is **face (1)** of AVE's single imported scale ($m_e$ via $\ell_{node}\equiv\hbar/(m_e c)$) — $\hbar\omega_C=m_e c^2$ holds **by the definition of $\ell_{node}$**, so it is definitional-by-construction; the five-face web is a one-import ECONOMY + explanatory ONTOLOGY (frame-check 2026-06-22 `claim_survives=false`), **NOT** "structural unification the SM lacks." See [single-substrate-scale](../vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md) (clm-sw5oao). This temporal value-echo is a DISTINCT mechanism from the §2 spatial quartic FORM (the AVE-distinct content of this leaf).
   - No new dimensionful constant minted: $c_0,Z_0,\ell_{node},\omega_C$ imported by SYMBOL (`C_0,Z_0,L_NODE,OMEGA_C`).
+  - **↗ CARRIER-NATIVE on srs-z3 (2026-07-04, PR #515 — the Lorentz-on-srs P1 acceptance gate; FORM re-clears, 🟡 demotion UNCHANGED).** The $(q\ell_{node})^4$ **bond-moment FORM** (the AVE-distinct §2 content of this leaf) is **carrier-native**, not diamond-specific: the ratified chiral srs-z3 net (point group 432) delivers the SAME quartic first-anisotropy — $\langle(\hat q\cdot\hat d)^2\rangle$ isotropic (spread 1.7e-16), $\langle(\hat q\cdot\hat d)^4\rangle$ the pure cubic harmonic with $\kappa_{srs}=-1/12$ (residual 1.9e-16) — IDENTICALLY to diamond ($m\bar3m$, $\kappa_{diamond}=-2/9$, reproduced as the driver's validate-on-known V1, reconciling to the §2 per-bond $-8/9$-over-4-bonds value exactly). So the isotropy defense is a **cubic-point-group fact** (both 432 and $m\bar3m$ are cubic), NOT tied to the diamond instrument; the diamond was an equivalent-order host, not the sole one — the migration does not lose the FORM. **The 🟡 weak-C DEMOTION is UNCHANGED:** the raw eigensolve band-edge anisotropy is $\mathcal O(k^2)$ on BOTH carriers (srs $n=2.0001$, diamond $n=2$), so the distinctive $(q\ell)^4$ photon-DISPERSION tell stays CONDITIONAL on the unproven weak-C no-zone-edge theorem (gate `wejkhvnfb`, OPEN). CONSISTENCY / FORM-class; α-CLEAN. Provenance: `research/2026-07-04_lorentz-on-srs_result.md` §4 (S1), driver `src/scripts/vol_4_engineering/lorentz_on_srs.py`.
 
 > **Leaf references:** [k4-bloch-dispersion-quartic](./falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md).
 
@@ -578,6 +579,37 @@ gyrator `def-0pt1ac`.
 - strengthen-by:
   - Close the $k\to0$ continuum gyration extraction (a clean isolated transverse photon band, or a large/aperiodic-slab supercell with a PML-grade absorbing face for the cascade) so the bulk $g_0$ maps to a physical rad/m value — currently OPEN (`research/2026-06-23_chiral-vector-tlm-phase1_result.md` §9). Until then the magnitude is NOT bankable.
   - Build the co-vs-anti-handed pairwise $|F|$ ratio (Observable-C / "Stage-6", UNBUILT) — a *dimensionless* winding-parity forward prediction that dodges the $m_e/\alpha$-echo magnitude trap, now buildable since S1 PASSED.
+
+---
+
+## Chiral Mechanical & Acoustic Gyrotropy on srs-z3 (geometry-fixed, parity-odd, below-bound)
+<!-- id: clm-acgyr1 -->
+
+The ratified chiral **srs-z3** carrier (non-centrosymmetric point group $432$, space group $I4_1 32$) PERMITS a **$k$-linear gyrotropy** — an acoustic-activity / rotatory pseudo-tensor $B$ — that the historical centrosymmetric **diamond** ($m\bar3m$) carrier structurally FORBIDS. Two 2026-07-04 srs-z3 Bloch arcs measured it in independent sectors: the mechanical couple-stress face (PR #508, the 48×48 micropolar eigensolve, $B$ nonzero, geometry-fixed on the $\sigma^A$ lever-arm channel, parity-odd, diamond-null) and the photon/acoustic dispersion face (PR #515, the $k$-linear rotatory term, parity-odd, diamond-forbidden). The FORM (existence + parity + geometry-fixedness) is carrier-native; the MAGNITUDE is an ECHO and negligible — $\delta_{chiral}\approx1.7\times10^{-9}\cdot(q\ell_{node})$ at optical, $\sim$11 OOM below current LIV/SME cavity bounds.
+
+- _Specific Claims_
+  - **PERMITTED-vs-FORBIDDEN FORM (carrier-distinct).** Point group $432$ (srs) permits the $k$-linear gyrotropic pseudo-tensor $B$; centrosymmetric $m\bar3m$ (diamond) forbids it. Diamond null-controls read machine-zero in BOTH faces ($B\approx7.0\times10^{-19}$ mechanical; $4.8\times10^{-37}$ dispersion), symmetry-protected (`detect_symmetry_forced_zero` harness), not accidental.
+  - **PARITY-ODD.** $B$ flips sign exactly under enantiomorph swap (mechanical $R+L=0$ to $2.8\times10^{-16}$; dispersion sign-flip resid $5.6\times10^{-13}$), while modulus ratios stay parity-even — a parity-odd pseudo-tensor riding a parity-even lattice observable, no bug-mixing.
+  - **GEOMETRY-FIXED, zero new knobs.** The coupling is the lever arm ($\sigma^A$ channel, $B_{\sigma^A}\approx1.05\times10^{-1}$), set by lattice geometry (node radius + bond length + $4_1$ screw connectivity); the couple-stress $\kappa_{rot}/\mu$ channel is $\sim$30 OOM smaller ($B_\mu\approx5.4\times10^{-33}$). No stiffness is tuned.
+  - **Honest magnitude (below-bound).** $\delta_{chiral}\sim|B|\cdot(q\ell_{node})$: $1.7\times10^{-9}$ at optical (633 nm), $1.0\times10^{-5}$ at X-ray (1 Å). The $k$-linear term dominates the even-in-$k$ quartic at long wavelength but its coefficient sits $\sim$11 OOM below the $\sim10^{-19}$–$10^{-20}$ SME cavity bounds.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY / FORM-class, NOT a near-term falsifier.** The AVE-distinct content is the existence + parity + geometry-fixedness; the magnitude is an ECHO $\sim$11 OOM below bound. Surfaced honestly as a genuine carrier-native prediction the diamond could not host, NOT a bankable chord. α-CLEAN (dimensionless ratios; no CODATA / SI substitution).
+  - **DISTINCT from `clm-fofwr1`** (the reciprocal writhe-driven optical-activity gyrator, $\pm75.46°$/unit, `ETA_ROT_PER_WRITHE` decree, $\sim$40 OOM over bound). This is a $k$-linear point-group-sourced gyrotropic-dispersion pseudo-tensor — different mechanism, much smaller size. Also DISTINCT (parity-ODD) from the parity-EVEN quartic anisotropy `clm-k4d4ph` / `clm-yr6tu4`.
+  - **EM face magnitude is separately pending** (`def-ch1crc`, the chiral circulator): the mechanical/photon sibling's magnitude does NOT supply the EM non-reciprocity $S$-parameter, which still awaits the chiral-crystal EM engine.
+  - **`mass = A1` untouched** (PR#260 / #311). A photon/mechanical-sector gyrotropy, orthogonal to the mass sector.
+  - **Whether it earns a Letter line is deferred** — a Grant/auditor framing call; this leaf is KB context, the standalone birefringence Letter is not edited by the arc that surfaced this.
+
+> **Leaf references:** [chiral-mechanical-gyrotropy](./falsification/ch12-falsifiable-predictions/chiral-mechanical-gyrotropy.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - Axiom 1 (Substrate Topology — fixes the chiral srs $I4_1 32$ / point group $432$ that PERMITS the gyrotropy diamond forbids)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 1.00)]
+- rationale: The AVE-distinct content — a $k$-linear gyrotropy PERMITTED by the non-centrosymmetric srs $432$ point group and FORBIDDEN by centrosymmetric diamond $m\bar3m$ — is measured node-up in TWO independent sectors (mechanical couple-stress, PR #508; photon/acoustic dispersion, PR #515), both parity-odd (exact enantiomorph sign-flip, symmetry-protected via the `detect_symmetry_forced_zero` harness), both diamond-null (machine-zero controls), and geometry-fixed with zero new knobs (the $\sigma^A$ lever-arm channel dominating $\kappa_{rot}$ by $\sim$30 OOM). Solidity is 0.55 (input-only): the FORM/parity is clean and carrier-native, but the MAGNITUDE is an ECHO $\sim$11 OOM below the SME cavity bounds — CONSISTENCY-class, NOT a near-term magnitude falsifier. DISTINCT from the reciprocal writhe gyrator (clm-fofwr1) and from the parity-EVEN quartic (clm-k4d4ph / clm-yr6tu4).
+- strengthen-by:
+  - Map the parity-odd $k$-linear term onto the explicit SME operator basis and show which Kostelecký coefficient it feeds, to sharpen the $\sim$11-OOM below-bound margin into a per-operator statement.
+  - Extract the EM (non-mechanical) face of the coupling from a chiral-crystal EM engine so the `def-ch1crc` circulator $S$-parameter magnitude is computed, not STATED-pending.
 
 ---
 

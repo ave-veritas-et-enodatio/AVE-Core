@@ -5,6 +5,16 @@
 > untouched by everything here. The program hardens the *instruments* so that a
 > future physics verdict cannot be an operator-bug artifact.
 
+> **✅ PROGRAM COMPLETE (2026-07-04).** All five items delivered: items 1/2/5 LANDED
+> via PR #512 (DEC canonicalization + operator-registry CI, validation-harness library,
+> carrier-declaration guard); item 4 LANDED via PR #513 (the ngspice-46 validate-on-known
+> ladder, **5/5 PASS**); item 3 (Lorentz-on-srs, the P1 make-or-break) DELIVERED via
+> PR #515 — the migration's **P1 Lorentz acceptance gate CLEARS** `[ISOTROPY-EMERGES]` on
+> srs-z3 (first full consumer of items 1/2/5). Completion rows mirrored to the capability
+> map §8b.6. PR #515 MERGED 2026-07-04 — the item-3 row reads LANDED. The α-chain P1 leg
+> is a SEPARATE gate (not this program). The two SPICE-lane varactor ADJUDICATION-PENDING
+> questions stay OPEN (Grant-gated).
+
 ## Why this program exists — the operator-failure provenance it eliminates
 
 The week's engine-verdict-exposure sweep and the EM-readout Stage-1/1b/2a
@@ -57,7 +67,7 @@ the SPICE ladder (4) is carrier-independent and runs in parallel; Lorentz-on-srs
 | **2** | **Validation-harness library** — extract the proven gate machinery into `src/ave/validation/`: planted-source positive-control, structural-degeneracy checks, runtime-independence assert, hardened equation-audit, spectral-liveness re-export. Retrofit one driver as the demo consumer. | 1 (operator sets registered) | **THIS ARC — ✅ LANDED** | see §2-log |
 | **5** | **Carrier-declaration guard** — every lattice-constructing entry point declares its carrier (`srs-z3` / `diamond-z4-instrument` / `cartesian-reference` / `k-space`); diamond-stencil consumers REQUIRE an explicit `instrument_scope=` acknowledgment or raise. Additive + backward-compatible. | independent (uses 5's own enum) | **THIS ARC — ✅ LANDED** | see §5-log |
 | **4** | **SPICE phase-1 ladder** — ngspice-backed circuit-domain ladder (now installed). | independent | PARALLEL ARC (`analysis/spice-phase1`) | **✅ DELIVERED — PR #513 MERGED** (2026-07-04; SPICE PHASE-1 validation ladder live, 5/5 PASS, ngspice-46). See §4-log. |
-| **3** | **Lorentz-on-srs** — photon-sector isotropy / emergent-Lorentz chain re-derived on the srs carrier (the migration P1 acceptance gate). | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | `analysis/lorentz-on-srs` | **✅ LANDED — [ISOTROPY-EMERGES], P1 GATE CLEARS.** See §3-log. |
+| **3** | **Lorentz-on-srs** — photon-sector isotropy / emergent-Lorentz chain re-derived on the srs carrier (the migration P1 acceptance gate). | 1 (canonical operators) + 5 (declared carrier) + `micropolar_bloch` | `analysis/lorentz-on-srs` | **✅ LANDED — [ISOTROPY-EMERGES], P1 GATE CLEARS** (PR #515 MERGED 2026-07-04). See §3-log. |
 
 ## NOT-NOW items (recorded with reopen-conditions)
 
