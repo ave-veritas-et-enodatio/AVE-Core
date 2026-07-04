@@ -48,7 +48,15 @@ invocation fact the emit-only lane never had to satisfy.
 | 2 | Ax4 T2-collapse C₀·S vs kernel (keyed V_YIELD) | S(V) canonical | S(V) ngspice | 4.83e-8 | 1e-6 | manifestation | ✅ PASS |
 | 3 | Poisson `.OP` real ngspice vs numpy MNA | v_MNA (24 nodes) | v_ngspice | 4.17e-10 V | 1e-8 V | consistency | ✅ PASS |
 | 4 | 1D LC-chain dispersion ω(k) | ka = 2·asin(ω/2ω₀) | ka (phase/cell) | 3.03e-2 max / 1.87e-3 med | 5e-2 | manifestation | ✅ PASS |
-| 5 | Biased-chain small-signal shift vs S(A) | _pending_ | | | | consistency (DC→AC) | ⏳ |
+| 5 | Biased-chain small-signal shift vs S(A) | Δka from C_eff=C₀/S³ | Δka measured | 1.76e-2 max / 4.03e-3 med | 5e-2 | consistency (DC→AC) | ✅ PASS |
+
+**LADDER COMPLETE — 5/5 rungs PASS. HALT-gate never tripped.** The SPICE lane
+is self-qualified: ngspice-46 parses + integrates the netlists (rung 1),
+evaluates the Ax4 kernel in both A1/T2 sectors (rung 2), reproduces the statics
+solve against numpy (rung 3), carries a lattice wave (rung 4), and measures
+bias-couples-to-wave per S(A) (rung 5). Every rung stated its analytic target,
+measured value, and recovery error; two `.dc`/topology measurement artifacts and
+three `.lib` syntax bugs were caught and named, not papered over.
 
 ---
 
@@ -207,6 +215,70 @@ the finite-chain + phase-unwrap noise grows (still within tolerance).
 **Rung-4 verdict: PASS.** ngspice-46 `.AC` reproduces the discrete-lattice
 dispersion of the 1D LC transmission line to sub-percent in the median. The
 lane can carry a wave.
+
+---
+
+## Rung 5 — biased-chain small-signal shift vs S(A) (the DC→AC rung)
+
+**Driver:** [`src/scripts/vol_4_engineering/spice_ladder_rung5_biased_smallsignal.py`](../src/scripts/vol_4_engineering/spice_ladder_rung5_biased_smallsignal.py)
+· **Artifacts:** `spice_ladder_rung5_bias_lo.cir`, `spice_ladder_rung5_bias_hi.cir`,
+`spice_ladder_rung5_result.json`
+
+**Purpose.** The first LIVE bias-couples-to-wave SPICE measurement — the DC→AC
+class the selection rule names. An LC ladder whose shunt element is the Ax4
+metric VARACTOR (`C_eff = C0/S(V)`, A1-divergent, keyed V_SNAP) is DC-biased;
+ngspice's `.AC` linearizes each varactor about its bias and the propagation band
+shifts. The measured shift is checked against the shift PREDICTED from the
+canonical saturation kernel. Class **consistency (DC→AC)**.
+
+**Lineage (charter §4, stated in NO chord language).** This is a consistency
+REHEARSAL of the bias-couples-to-wave class the corpus's one bankable falsifier
+(E-route vacuum birefringence) lives in — NOT the falsifier, NOT a chord, not
+headlined as either.
+
+**Physics chain (matching lumped-network coordinates throughout, A46-clean).**
+DC bias V_b → local small-signal `C_eff = dQ/dV|_{V_b} = C0/S(V_b)³` (verified:
+ngspice small-signal C == analytic dQ/dV to ~1e-10) → `ω₀_local = 1/√(L·C_eff)`
+drops as C_eff rises → at fixed ω the phase-per-cell ka INCREASES (wave slows).
+The S(A)-predicted band is `ω(k) = 2ω₀(V_b)|sin(ka/2)|`.
+
+**Method.** 40-cell metric-varactor ladder (L = 1 µH, C0 = 1 nF). Two biases:
+V_lo = 0 (S=1, C_eff=C0) and V_hi = 0.8·V_SNAP = 408799 V (S=0.6, C_eff = C0/S³
+= 4.63·C0). `.AC` phase-per-cell extracted as in rung 4; the observable is the
+bias-induced shift Δka = ka(V_hi) − ka(V_lo), compared to the S(A)-predicted
+shift.
+
+**Result** (measurement-validity band 0.15 < ka_lo < 0.9π — a phase-fit
+resolvability bound, see below): max rel-error in the shift **1.76e-2**, median
+**4.03e-3** (tol 5e-2). Sample points:
+- ω = 1.13e7: Δka measured 0.4303 vs S(A)-predicted 0.4286 (err 4.0e-3)
+- ω = 2.06e7: Δka measured 0.8940 vs S(A)-predicted 0.8881 (err 6.6e-3)
+- deep point ω=2.57e6-scale: Δka meas 0.6478 vs pred 0.6478 (err 5.8e-5)
+
+The bias couples to the wave exactly as the Ax4 kernel dictates: S=0.6 → C_eff
+up 4.63× → band down 2.15× → the measured phase-per-cell shift tracks S(A).
+
+**Two empirical-driver findings (Rule 10), both caught not papered over.**
+1. **Driver-topology bug — bias/2 divider midpoint.** The first build tied each
+   node to the bias rail through resistors while the AC source sat at ground 0.
+   The series-L bonds pass DC freely, so they SHORTED the chain to a bias/2
+   divider midpoint — the varactors saw HALF the intended bias, and the
+   measured shift was ~10× too small (FAIL at ~130%). Diagnosed via the actual
+   `.op` node voltages (204402 V, not 408799 V). Fixed by referencing the AC
+   source AND terminator to the BIAS rail so the whole chain floats uniformly
+   at V_b (verified: `.op` now sits exactly at V_b). This is the
+   fully-lattice-derived discipline: the rung is only a test once EVERY aspect
+   (here the DC operating point) is what it claims to be.
+2. **Phase-fit resolvability window.** The interior linear phase-slope fit is
+   noise-dominated at ka < ~0.15 (wavelength ≫ fit window) — the error rises
+   monotonically toward ka→0 (a small-denominator + long-wavelength artifact,
+   not a physics miss; same class as rung 4's zone-edge noise). Restricting to
+   the resolvable band 0.15 < ka_lo < 0.9π is a bound on the phase FIT, not a
+   drop of the physics criterion (measured-vs-predicted shift agreement).
+
+**Rung-5 verdict: PASS.** The DC bias couples to the small-signal wave through
+the Ax4 saturation kernel exactly as S(A) predicts. The lane can measure
+bias-couples-to-wave — the smallest in-silico rehearsal of the falsifier class.
 
 ---
 

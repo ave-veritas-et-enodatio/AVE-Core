@@ -1,0 +1,51 @@
+{
+  "rung": 5,
+  "name": "biased-chain small-signal shift vs S(A) prediction",
+  "ngspice_version": "ngspice-46",
+  "class": "consistency (DC->AC bias-couples-to-wave; NOT a chord, NOT the falsifier)",
+  "lineage_note": "consistency rehearsal of the bias-couples-to-wave class the corpus's one bankable falsifier (E-route vacuum birefringence) lives in; NOT headlined as the falsifier (charter \u00a74)",
+  "n_cells": 40,
+  "L_henry": 1e-06,
+  "C0_farad": 1e-09,
+  "V_bias_lo_V": 0.0,
+  "V_bias_hi_V": 408799.1599969314,
+  "S_at_bias_hi": 0.5999999999999999,
+  "C_eff_lo_F": 1e-09,
+  "C_eff_hi_F": 4.629629629629633e-09,
+  "C_eff_ratio_hi_over_lo": 4.629629629629632,
+  "omega0_lo_rad_s": 31622776.601683795,
+  "omega0_hi_rad_s": 14696938.456699064,
+  "band_ratio_pred_omega0_lo_over_hi": 2.151657414559677,
+  "max_rel_err_shift": 0.01756544560257164,
+  "median_rel_err_shift": 0.0040314046604790045,
+  "tolerance": 0.05,
+  "samples": [
+    {
+      "omega_rad_s": 11267652.816802613,
+      "ka_unbiased_meas": 0.35761199156904516,
+      "ka_biased_meas": 0.7879182154042755,
+      "ka_shift_meas": 0.4303062238352304,
+      "ka_shift_pred_S(A)": 0.42857845067181116,
+      "rel_error": 0.0040314046604790045
+    },
+    {
+      "omega_rad_s": 20575713.83937869,
+      "ka_unbiased_meas": 0.6623242376266418,
+      "ka_biased_meas": 1.556297065340224,
+      "ka_shift_meas": 0.8939728277135821,
+      "ka_shift_pred_S(A)": 0.8880723384622253,
+      "rel_error": 0.0066441538552748855
+    },
+    {
+      "omega_rad_s": 20575713.83937869,
+      "ka_unbiased_meas": 0.6623242376266418,
+      "ka_biased_meas": 1.556297065340224,
+      "ka_shift_meas": 0.8939728277135821,
+      "ka_shift_pred_S(A)": 0.8880723384622253,
+      "rel_error": 0.0066441538552748855
+    }
+  ],
+  "cir_lo": "spice_ladder_rung5_bias_lo.cir",
+  "cir_hi": "spice_ladder_rung5_bias_hi.cir",
+  "verdict": "PASS"
+}
