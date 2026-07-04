@@ -175,6 +175,30 @@ particle-core canon). **The photon point is where the substrate is transparent; 
 is where it is not.** Ax3 forces the photon to the transparent point; that is the whole content of
 the emergent-Lorentz light-cone.
 
+> **↗ REFINE (2026-07-04, PR #518 MERGED — the matter-stiffening derivation): the two "different
+> loci" are the endpoints of a saturation-driven state diagram, with a DERIVED direction but an
+> IMPORTED matter value.** The photon locus ρ_bond=1 (this §4) and the matter locus ρ*≈9.77 are
+> not merely disjoint points — a follow-on arc shows the canon-forced composition **ρ_eff =
+> ρ_cold·(S_axial/S_shear)** (with ρ_cold=1, this result's Ax3-forced cold point) supplies the
+> MECHANISM connecting them: under **asymmetric shear-channel loading** (the shear/T2-charge spring
+> driven toward yield while the axial/A1-mass spring stays sub-saturated), ρ_eff RISES —
+> STIFFENING, off the cold ρ=1 point toward the matter regime. **So the DIRECTION between the two
+> loci is now a canon-forced Ax4 mechanism.** BUT (honest, mandatory framing): the ρ*=9.77 crossing
+> occurs at an **ARBITRARY wall-amplitude** (A_wall=0.99479, NOT canon-distinguished — not √α, not
+> 1−α, not the yield wall); the electron's actual near-yield T2 wall (A→1) sends ρ_eff→∞
+> (ρ_eff≈222 at A_wall=0.99999), **OVERSHOOTING** 9.77 — 9.77 is crossed only in passing, not a
+> landing point / attractor / canon-distinguished operating point. **The state-diagram SHAPE is
+> derived (ρ=1 vacuum/radiation ↔ ρ_eff>1 matter-loaded); its matter VALUE 9.77 stays
+> GR-imported** (`srs-elastic-tensor` result, PR #506) — the import is relocated ("the
+> wall-amplitude that hits ρ* set by hand"), not removed. **This does NOT derive the /7 value.**
+> Regime scope (carried verbatim, flag-don't-fix): the ρ*=9.77 of the `srs-elastic-tensor` result
+> is a **COLD** bond ratio (REGIME: cold linear, sub-yield, saturation OFF), whereas ρ_eff is a
+> **SATURATED** effective ratio; driving the saturated ρ_eff to 9.77 is NOT proven to land the same
+> ν=2/7 / K=2G elastic tensor — that would need a Born-Huang run on the saturated Φ_b, UNTESTED (a
+> running arc tests exactly this gap; no reading here pre-judges it). Provenance:
+> `research/2026-07-04_matter-stiffening-rho_result.md` (VERDICT BOX + §6 + §8). *(This result body
+> is a frozen record; banner-append only.)*
+
 ---
 
 ## 5. WHAT THIS DOES / DOES NOT CLAIM
