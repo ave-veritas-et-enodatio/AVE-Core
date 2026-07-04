@@ -210,7 +210,7 @@ never read charge/spin/μ off the scalar cage). The companion property×bucket s
   DISCRETE gapped breathing eigenmode ω_cutoff≈2.87 (natural units; peak/mean≈456, 23
   zero-crossings) EXISTS on the posited cage. The mass=ground-state-cutoff-energy of the
   bound resonator is the FORM (a chord); m_e the VALUE is NEVER a cage output
-  (definitional, `constants.py:129` "Input 1"; `electron-identification.md:50` "CALIBRATION
+  (definitional, `constants.py` symbol `M_E` "Input 1"; `electron-identification.md:50` "CALIBRATION
   ANCHOR, not derivation"). Lifts the DERIVATION branch of the mass-closure standing-wave
   theorem (clm-ka5zdx) and the electron body-topology bound-loop (clm-unk0bd).
 - **T3.4b → sup-wuy333 → clm-rtdmsn** [ECHO-CORROBORATION — NOT a Q-value chord]. The cold,

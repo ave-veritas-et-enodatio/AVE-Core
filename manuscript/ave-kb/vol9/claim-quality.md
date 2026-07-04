@@ -476,7 +476,7 @@ Simulation support (INVARIANT-S9/S10): the T3.4a acceptance test
 (`src/tests/engine_acceptance/test_l3_mass_cage.py:645`) confirms a DISCRETE gapped breathing
 eigenmode ω_cutoff≈2.87 (natural units; ipk=15, peak/mean≈456, 23 zero-crossings) EXISTS on
 the posited cage — the mass=ground-state-cutoff-energy of the bound resonator is the FORM (a
-chord). m_e the VALUE is NEVER read off the cage (definitional, `constants.py:129` "Input 1";
+chord). m_e the VALUE is NEVER read off the cage (definitional, `constants.py` symbol `M_E` "Input 1";
 `electron-identification.md:50` "CALIBRATION ANCHOR, not derivation"). FORM-chord / VALUE-
 definitional. Integrator-time note (Rule 10): the mode rings only under a radial-SHELL
 breathing kick, not a monopole/DC kick (the latter is the bin-1 1/n_steps relaxation

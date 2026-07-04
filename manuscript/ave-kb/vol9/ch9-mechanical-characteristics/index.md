@@ -31,7 +31,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 | [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) (`clm-eemap1`) | EE-substrate-native META framework + comprehensive substrate-primitive-to-EE-component mapping table |
 | [`common/trampoline-framework.md`](../../common/trampoline-framework.md) line 188 | Cosserat rotation-sector mass-gap $m_\omega \sim 1$ MeV (consequence for Ch.10) |
 | [`vol9/ch3-pin-port-configuration/device-circuit-models.md`](../ch3-pin-port-configuration/device-circuit-models.md):143-149 | Node-model channel tags: bulk = MASS-"3"/A1 dilatation ($Z_{bulk}$), shear = CHARGE-"3"/Cosserat micro-rotation ($Z_{shear}$), EM = matched radiative PORT ($Z_0$, $\Gamma_{EM} = 0$); $A1 \perp T2$ orthogonality fence |
-| `src/ave/core/constants.py` | `NU_VAC` line 532; `RHO_BULK` line 664; `G_VAC` line 672; `V_LONG` line 676; `XI_TOPO` line 291; `P_C` line 400; `L_NODE` line 257 |
+| `src/ave/core/constants.py` | symbols `NU_VAC`, `RHO_BULK`, `G_VAC`, `V_LONG`, `XI_TOPO`, `P_C`, `L_NODE` (symbol-name cites; line numbers unstable across renumbers) |
 
 ## Manuscript counterpart
 

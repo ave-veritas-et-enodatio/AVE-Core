@@ -55,7 +55,7 @@ a **lattice-geometric** count (mode-cube $7^3$ over $N_{K4} = 4$ K4 sublattice v
 | [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) (`clm-eemap1`) | EE-substrate-native META framework; canonical entry $R_H/\ell_{node} \sim 10^{39}$ as "number of lumped substrate cells along cosmic-scale distributed TL" |
 | [`vol3/condensed-matter/ch11-thermodynamics/effective-dof-g-star.md`](../../vol3/condensed-matter/ch11-thermodynamics/effective-dof-g-star.md) (`clm-uu6dl5`) | Effective relativistic DOF $g_* = 7^3/4 = 343/4 = 85.75$ from $\nu_{vac} = 2/7$ (vs SM $g_{*,SM} = 106.75$); lattice-geometric, no particle catalog; the dark-sector cutoff row |
 | [`common/divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md) (C1-BH-RING, C11-MACH-ZEHNDER, C12-G-STAR) | The $\nu_{vac} = 2/7$ triangulation: $r_{sat} = 7GM/c^2$, $n_s/n_t = 9/7, 2/7$, and $g_* = 7^3/4$ all root in one Poisson ratio; simultaneous FAIL of the three rows $=$ framework-level falsification of $\nu_{vac} = 2/7$ |
-| `src/ave/core/constants.py` | `H_INFINITY` line 658; `R_HUBBLE` line 661; `XI_MACHIAN` line 556; `G` line 156; `ALPHA` line 133; `ALPHA_COLD_INV` line 222; `M_E` line 129; `L_NODE` line 257 |
+| `src/ave/core/constants.py` | symbols `H_INFINITY`, `R_HUBBLE`, `XI_MACHIAN`, `G`, `ALPHA`, `ALPHA_COLD_INV`, `M_E`, `L_NODE` (symbol-name cites; line numbers unstable across renumbers) |
 
 ## Manuscript counterpart
 

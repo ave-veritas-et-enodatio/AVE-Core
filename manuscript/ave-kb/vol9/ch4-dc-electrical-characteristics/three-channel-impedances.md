@@ -41,7 +41,7 @@ Electron confinement uses **bulk-channel** ports (Fig. `fig:vol9_circuit_electro
 
 | Quantity | Source | Match |
 |---|---|---|
-| $Z_0 \approx 376.73\,\Omega$ | `constants.py:98` (`np.sqrt(MU_0/EPSILON_0)`) | ✓ |
+| $Z_0 \approx 376.73\,\Omega$ | `constants.py` symbol `Z_0` (`np.sqrt(MU_0/EPSILON_0)`) | ✓ |
 | $c_{\mathrm{bulk}}=\sqrt{2}\,c_0$ | `test_vacuum_moduli_and_channels.py`:66–70 | ✓ pytest gate |
 | $\Gamma_{\mathrm{EM}}=0$ SYM | `clm-3zz0f6` / `electron-bh-isomorphism.md`:24 | ✓ |
 

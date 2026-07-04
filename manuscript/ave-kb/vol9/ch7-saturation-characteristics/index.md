@@ -34,7 +34,7 @@ The Axiom 4 kernel governs **26 canonical cross-scale instances** per the canoni
 The substrate Miller multiplication identity $M(r) = 1/S(r)^2 = 1/(1-r^2)$ is the **1D Miller
 form** (semiconductor avalanche-multiplication law $M = 1/(1-(V_R/V_{BR})^n)$ at exponent $n=2$).
 The **3D-corrected macroscopic exponent** is `AVALANCHE_N_3D = 2(1 − ν_vac/3) = 38/21 ≈ 1.8095`
-(`src/ave/core/constants.py:336`), where $ν_{vac}=2/7$ is the vacuum Poisson ratio: the 3D
+(`src/ave/core/constants.py` symbol `AVALANCHE_N_3D`), where $ν_{vac}=2/7$ is the vacuum Poisson ratio: the 3D
 solid-angle correction to the carrier-multiplication geometry softens the 1D $n=2$ to $n≈1.81$.
 Both forms are canonical at their respective scopes — the $n=2$ 1D form for the bond-line
 (per-channel) avalanche, the $n=38/21$ 3D-corrected form for the bulk macroscopic avalanche.
