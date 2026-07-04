@@ -104,16 +104,29 @@ isotropy — all GREEN, `srs-elastic-tensor_result.md` §1), THREE saturated-spe
 | **VS2** | homogeneity: C_ij deg-1, ratios deg-0, K scales by λ | ratio-inv 4×10⁻⁸; K-scale err 1×10⁻⁸ | **PASS** |
 | **VS3** | saturated == cold-at-matched-ρ_eff (SHAPE + Zener, pole-free) | ≤1×10⁻⁶ at every operating point, both sides of the K=0 pole | **PASS** |
 
-**Rule-10 note (empirical-driver discipline caught two TEST-construction defects early, not
-physics):** the first run HALTed on VS1/VS3. Both were adjudication-metric bugs, surfaced by
-running the imperfect driver early: (i) VS1 initially wired the #518 fixed-channel-at-√α point as
-"cold", but that is a *loaded* cold vacuum (ρ_eff=0.9963), not the fully-de-energized control — the
-true cold control is BOTH channels off (S=1); (ii) VS3 initially compared ν *through* its
-divergence poles (ρ_eff=1 iso-bond, ρ_eff=2 K=0), where a relative error on a diverging quantity is
-meaningless **even when the two values agree bit-for-bit** (shape_err was ~1×10⁻¹⁶ there). Fixed by
-comparing the pole-free tensor SHAPE (C11/C44, C12/C44) + Zener, excluding ν in its divergent
-regime. The underlying physics was correct on the first run (VS2 passed immediately); the fixes were
-to the *test*, not the tensor.
+**Rule-10 note (empirical-driver discipline caught test-construction defects early, not physics):**
+the first run HALTed on VS1/VS3. All were adjudication-metric bugs, surfaced by running the
+imperfect driver early — the physics (VS2) passed immediately and every fix was to the *test*, not
+the tensor:
+
+- **(i) VS1 cold-recovery point.** Initially wired the #518 fixed-channel-at-√α point as "cold", but
+  that is a *loaded* cold vacuum (ρ_eff=0.9963), not the fully-de-energized control — the true cold
+  control is BOTH channels off (S=1).
+- **(ii) VS3 ν-pole exclusion.** Initially compared ν *through* its divergent branch, where a
+  relative error on a diverging quantity is meaningless **even when the two values agree bit-for-bit**
+  (shape_err was ~1×10⁻¹⁶ there). The ν pole is the DENOMINATOR zero 3K+G=0, at **ρ_eff=1.00000**
+  (the iso-bond point). **NOTE ρ_eff=2 is NOT a ν pole** — there K=0 (the bulk-stability floor) and
+  ν=(3·0−2G)/(2(3·0+G))=**−1 exactly (finite)**; ρ_eff=2 is correctly *included* in the ν
+  comparison (ν_err=6×10⁻⁹). Fixed by comparing the pole-free tensor SHAPE (C11/C44, C12/C44) + Zener
+  everywhere and excluding ν only in its divergent branch (|ν_cold|>1).
+- **(iii) VS1 tolerance vs the 5-sig-fig literal (disclosed per review; finding 2).** The frozen
+  prereg set VS1 rel<1×10⁻⁶. As first shipped, VS1 compared against the rounded literal 0.17678,
+  but the computed cold C11 is 0.176776696 — a rel-**1.9×10⁻⁵** ROUNDING gap that made a 1×10⁻⁶ gate
+  against the literal unpassable. This was NOT a physics disagreement. Fixed by comparing against the
+  **full-precision cold reference computed on the SAME pipeline** at ρ=1, where the recovery is
+  machine-exact — so VS1 is now gated at **1×10⁻⁹**, *tighter* than the frozen 1×10⁻⁶. VS2/VS3 (whose
+  measured agreement is 1×10⁻⁸-class) are gated at the frozen **1×10⁻⁷**. No gate is looser than the
+  frozen prereg; the only relaxation ever present was the VS1-vs-rounded-literal artifact, now removed.
 
 ---
 
@@ -121,8 +134,11 @@ to the *test*, not the tensor.
 
 Per #518's exact loading definitions (`matter_stiffening_rho.py`), run BOTH blind:
 
-**SHEAR-LOADS** (axial fixed sub-saturated at √α, S_axial=0.99270; shear swept to A_wall,
-S_shear=S(A_wall)): ρ_eff = S_axial/S_shear **RISES** → **STIFFENING**.
+**SHEAR-LOADS** (axial fixed sub-saturated at √α, S_axial=S(√α)=√(1−α)=**0.996345**; shear swept
+to A_wall, S_shear=S(A_wall)): ρ_eff = S_axial/S_shear **RISES** → **STIFFENING**. *(Corrected
+pre-merge from a propagated prereg arithmetic typo "0.99270"; √(1−α)=0.996345, whereas 0.992703 is
+1−α itself — see the prereg ERRATUM banner. The driver computes S in code, so no result number was
+affected: the driven S_axial at the crossing is 0.996345, ρ_eff=9.7733.)*
 
 | A_wall | S_shear | ρ_eff | ν_Hill | Zener A | K (abs) | sign(K) | C44 (abs) |
 |---|---|---|---|---|---|---|---|

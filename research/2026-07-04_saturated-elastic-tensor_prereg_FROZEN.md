@@ -1,5 +1,20 @@
 # FROZEN PREREG — The SATURATED srs Elastic-Tensor Arc: small-signal C_ij about a DC Q-point, swept across the full operating-point regime, both channel assignments
 
+> 🔴 **ERRATUM (2026-07-04, appended post-freeze — Rule 12, body preserved below unedited; git is the trail).**
+> **§0.6 (prereg line 123) arithmetic slip, NON-LOAD-BEARING.** The line reads
+> "`S_axial = S(√α) = √(1−α) = 0.992703`" and "`ρ_eff = 0.992703/0.10194 = 9.737`". The SYMBOLIC
+> form `√(1−α)` is correct (S(√α)=√(1−(√α)²)=√(1−α)), but its NUMERIC evaluation is wrong:
+> **√(1−α) = 0.996345**, not 0.992703 (0.992703 is `1−α` ITSELF, a different quantity that also
+> appears legitimately elsewhere in the doc as the 1−α amplitude rung). The correct downstream
+> hand-calc is **ρ_eff = 0.996345/0.10194 = 9.774** (which correctly lands near the read-off
+> ρ*=9.7734, as the driver confirms).
+> **NO COMPUTED NUMBER WAS AFFECTED** — verified: the driver computes S in code via
+> `saturation_factor(A_axial, ...)` (`saturated_elastic_tensor.py:101,127`), never from the
+> hand-written 0.992703; the driver's actual S_axial at the crossing is **0.996345** and ρ_eff =
+> **9.7733** (`_output/saturated_elastic_tensor.json`, SHEAR_LOADS crossing rung). The slip is a
+> prereg-prose arithmetic typo in a dimensional-check sanity line only; the frozen bins, the
+> positive-control target table, and every driven result are unaffected.
+
 **Date:** 2026-07-04 · **Lane:** implementer · **Status:** FROZEN — all adjudication bins,
 the fallout, and the positive-control target are frozen BEFORE any saturated number is read.
 **Branch:** `analysis/saturated-elastic-tensor` (branched off `origin/main`; PR #518
