@@ -64,6 +64,19 @@ the general-force-constant tensor restores all three linear acoustic branches.
 > is $0$ (machine precision) — this is the **emergent-Lorentz isotropy point** of the K4 lattice, genuinely
 > node-up. If this gate fails the model is wrong and the driver HALTs.
 
+> **↗ STRENGTHEN — the isotropic-bond point $k_s=k_a$ is now Axiom-3-FORCED (2026-07-04, PR #516 MERGED — the
+> parent-condition derivation).** The leading-order isotropy above is now **doubly protected**: it is (i)
+> **cubic-symmetry-automatic** at leading order (a rank-2 velocity tensor is forced isotropic by any cubic point
+> group — the standing argument), and (ii) evaluated at the operating point $k_s=k_a$ that Axiom 3 (the Minimum
+> Reflection Principle, boundary form) **forces knob-free**: $k_s=k_a$ is the UNIQUE stiffness ratio where the
+> srs net's internal-boundary acoustic reflection $\Gamma_{internal}(\rho_{bond})$ vanishes ($\rho_{bond}=k_a/k_s=1$
+> to machine precision, unseeded minimiser; the ½/¼ knife passes). So the "isotropic-bond point" this gate reads at
+> is an **axiom consequence** (MECHANISM-DERIVED, axiom-manifestation class), not a hand-chosen locus.
+> **KEEP-BOTH scope:** this strengthens the LEADING-ORDER ISOTROPY statement ONLY — it does **NOT** touch the
+> 🟡 weak-C demotion of the $(q\ell_{node})^4$ photon-DISPERSION tell in §2 below (gate `wejkhvnfb`, OPEN, UNCHANGED);
+> the parent-condition arc derives the isotropy/MATCH pinning, not the zone-edge decoupling. Provenance:
+> [`research/2026-07-04_parent-condition-match-forces-balance_result.md`](../../../../../research/2026-07-04_parent-condition-match-forces-balance_result.md).
+
 ## §2 — The quartic chord (the bond-moment identities)
 
 The angular structure is carried by the bond moments $\Sigma_b(\hat q\cdot\hat d_b)^n$. The node-up facts

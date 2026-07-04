@@ -33,6 +33,26 @@ picture subsuming the amorphous ν=2/7.** The amorphous-EMT averaging (z₀≈51
 produces ν=2/7 does **not** transfer to the crystalline srs carrier — the crystalline
 calc gives a one-parameter family with the same GR-imported-ρ* structure as z=4.
 
+> **↗ CROSS-LINK (2026-07-04, PR #518 MERGED — the matter-stiffening derivation): the GR-imported
+> cold ρ*≈9.77 here is APPROACHED IN DIRECTION by a saturated ρ_eff mechanism, but reaching the
+> same ν=2/7 tensor from the saturated bonds is UNTESTED.** A follow-on arc runs the canon-forced
+> composition **ρ_eff = ρ_cold·(S_axial/S_shear)** (ρ_cold=1, Ax3-forced): under asymmetric
+> shear-channel loading, the SATURATED effective ratio ρ_eff rises (STIFFENS) off the cold ρ=1
+> point and crosses this result's ρ*=9.77 — so the DIRECTION toward the matter Poisson point is a
+> canon-forced Ax4 mechanism. **But (mandatory honest framing) it does NOT derive the /7 value:**
+> the crossing is at an arbitrary wall-amplitude (A_wall=0.99479, not canon-distinguished), the
+> electron's actual wall OVERSHOOTS ρ_eff→∞, and — the load-bearing regime caveat carried verbatim
+> (flag-don't-fix) — **the ρ*=9.77 of THIS result is a COLD bond ratio** (per the §"SUBSTRATE-FIRST
+> SECTOR HEADER (as run)" REGIME line, verbatim: "cold linear, sub-yield, saturation OFF"), whereas
+> ρ_eff is a **SATURATED** effective ratio; the RATIO
+> VARIABLE (k_a/k_s) is the same, but **driving the saturated ρ_eff to 9.77 is NOT proven to land
+> the same ν=2/7 / K=2G elastic tensor** as setting the cold ρ=9.77 here — that would require a
+> Born-Huang run on the saturated Φ_b, which is UNTESTED (a running arc tests exactly this
+> cold-vs-saturated gap; this cross-link does NOT pre-judge it). **K=2G / the /7 value stays
+> GR-imported** (PR #506, this result). Provenance:
+> `research/2026-07-04_matter-stiffening-rho_result.md` (VERDICT BOX + §6 + §8). *(This result body
+> is a frozen record; banner-append only.)*
+
 ---
 
 ## SUBSTRATE-FIRST SECTOR HEADER (as run)
