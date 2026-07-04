@@ -5,6 +5,25 @@ does not carry (pure-physics rule: the paper cites no private repo, no framework
 volumes, no program history). Every quantitative claim in `main.tex` maps here to
 its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 
+> 📐 **REVISION-4 (2026-07-04, exposition armor): Appendix A "Derivation of the eigen-indices" + §II pointer.**
+> No numbers move — this makes the tensor derivation EXPLICIT so the experimentalist audience does not read the
+> stated-not-shown tensor as phenomenological insertion.
+> - **Appendix A** shows the full chain, every step displayed (no "it can be shown"): `D_i=ε₀S(u)E_i` (A1) →
+>   chain-rule tensor `ε_ij=ε₀S δ_ij + 2ε₀S' E_0i E_0j` with `∂u/∂E_j=2E_j` shown (A2) → `S'(u)=−1/(2E_c²S)` (A3)
+>   → eigen-indices `n_⊥=√S=(1−A²)^(1/4)`, `n_∥=√(S−A²/S)=√((1−2A²)/√(1−A²))` (A4/A5) → small-A `1−¼A²`/`1−¾A²`
+>   (A6) → `δn_bir≈−½A²`, `δn_iso≈−¼A²` (A7).
+> - **Cross-check:** every line matches the OQ-1 derivation `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`
+>   §1 (the canonical DERIVED chain; PR #345). **Re-verified symbolically this session** (sympy): `dε/du=−1/(2E_c²S)`,
+>   `2ε'E₀²/ε₀=−A²/S`, `S−A²/S=(1−2A²)/√(1−A²)` (the two n_∥ forms identical), small-A expansions, and `δn_bir/δn_iso→2`
+>   — all confirmed. INTERNAL grounding only; the appendix cites nothing private.
+> - **§II pointer sentence** (after Eq. 3): "Every coefficient in this paper follows from Eq. (1) by
+>   differentiation … no additional parameter or coupling enters anywhere (Appendix A)." — the pre-emptive answer
+>   to phenomenological-insertion dismissal.
+> - Build: 6→**7 pp** (appendix + refs page; at the 7pp threshold, not over), pdflatex+bibtex+pdflatex×2 clean,
+>   zero undefined refs/citations, no large overfull boxes, 11 refs resolve. main.pdf rebuilt + committed. make
+>   verify GREEN. Grep-clean of lattice/framework terms. Fresh branch off merged HEAD d357bec9.
+>   Grant's five standing decisions UNTOUCHED.
+
 > ⚙️ **REVISION-3 (2026-07-03, reinforcement round): three external-reviewer-driven additions.** Each converts
 > an objection into a theorem or a prediction. Public-safe (no lattice/framework terms; grep-clean).
 > 1. **Kernel uniqueness (§II.B):** the `√(1−(E/E_c)²)` form is the UNIQUE lossless-oscillator response under a
