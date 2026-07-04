@@ -91,7 +91,7 @@ Regenerate: `PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum
 
 ## Laboratory Exercise L-EP1 — Assemble the diamond topology-demo chunk
 
-**Objective.** Confirm by assembly that the production vacuum is a **bipartite diamond** with **four tetrahedral ports per node** and **TL segments between port tips** (not centre-to-centre struts).
+**Objective.** Confirm by assembly that the diamond topology-demo net is a **bipartite diamond** with **four tetrahedral bond-ports per node** and **TL segments between port tips** (not centre-to-centre struts). (D1 carrier note: this is the non-canonical topology-demo instrument, not the ratified `srs` $z=3$ production carrier.)
 
 **Materials.** Printed kit parts; the keyed base jig; manifest `vacuum_assembly_L{L}.json`.
 
