@@ -1,0 +1,20 @@
+{
+  "rung": 3,
+  "name": "Poisson .OP cross-check \u2014 real ngspice vs numpy MNA vs Laplacian",
+  "ngspice_version": "ngspice-46",
+  "class": "consistency (real SPICE .OP == numpy MNA == graph-Laplacian)",
+  "n_nodes": 24,
+  "n_edges": 32,
+  "seed": 20260703,
+  "ground_node": 0,
+  "inject_mA": {
+    "23": 1.0
+  },
+  "max_abs_diff_ngspice_vs_mna_V": 4.167246547837067e-10,
+  "max_abs_diff_ngspice_vs_laplacian_V": 4.167257650067313e-10,
+  "max_abs_diff_mna_vs_laplacian_V": 7.549516567451064e-15,
+  "tolerance_V": 1e-08,
+  "closes_pilot_caveat": "pilot matched MNA<->Laplacian at 7.55e-15 in numpy but ngspice never ran (charter \u00a73 caveat); this rung closes the loop with the live ngspice-46 .OP engine",
+  "cir": "spice_ladder_rung3_poisson.cir",
+  "verdict": "PASS"
+}

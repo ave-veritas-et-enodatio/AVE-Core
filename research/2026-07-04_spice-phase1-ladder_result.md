@@ -46,7 +46,7 @@ invocation fact the emit-only lane never had to satisfy.
 | 1 | LC transient (f_res) | f_res = 5032.92 Hz | 5039.67 Hz | 1.34e-3 | 2e-2 | consistency | ✅ PASS |
 | 2 | Ax4 A1-divergent C₀/S vs kernel (keyed V_SNAP) | 1/S(V) canonical | 1/S(V) ngspice | 3.94e-7 | 1e-6 | manifestation | ✅ PASS |
 | 2 | Ax4 T2-collapse C₀·S vs kernel (keyed V_YIELD) | S(V) canonical | S(V) ngspice | 4.83e-8 | 1e-6 | manifestation | ✅ PASS |
-| 3 | Poisson `.OP` vs numpy MNA / Laplacian (real ngspice) | _pending_ | | | | consistency | ⏳ |
+| 3 | Poisson `.OP` real ngspice vs numpy MNA | v_MNA (24 nodes) | v_ngspice | 4.17e-10 V | 1e-8 V | consistency | ✅ PASS |
 | 4 | 1D LC-chain dispersion ω(k) | _pending_ | | | | manifestation | ⏳ |
 | 5 | Biased-chain small-signal shift vs S(A) | _pending_ | | | | consistency (DC→AC) | ⏳ |
 
@@ -126,6 +126,44 @@ have been a false green; a `.dc`-sweep hard-fail would have been a false red.
 **Rung-2 verdict: PASS.** The canonical `.lib` kernel, as ngspice-46 evaluates
 it, IS the AVE Axiom-4 saturation kernel, in both orthogonal capacitance
 sectors, at their correct keying voltages.
+
+---
+
+## Rung 3 — Poisson `.OP` cross-check, now with REAL ngspice
+
+**Driver:** [`src/scripts/vol_4_engineering/spice_ladder_rung3_poisson_ngspice.py`](../src/scripts/vol_4_engineering/spice_ladder_rung3_poisson_ngspice.py)
+· **Artifacts:** `spice_ladder_rung3_poisson.cir`, `spice_ladder_rung3_result.json`
+
+**Purpose.** The charter marked rung 3 "DONE" in the pilot — but only in NUMPY:
+the pilot built the identical MNA matrix ngspice would build and matched it to
+a graph-Laplacian solve at 7.55e-15, while **ngspice itself never ran**
+(charter §3 caveat). This rung closes that loop with the live engine. Class
+**consistency** (real SPICE `.OP` == numpy MNA == graph-Laplacian).
+
+**Method.** Reuses the pilot's `build_random_resistor_graph` / `solve_mna` /
+`solve_laplacian_pinned` / `emit_netlist` (imported, not reimplemented — the
+pilot IS the reusable harness, charter design-(g)). The pilot's verbatim
+resistor + current-source emission is run through ngspice-46 `.OP`; only the
+output directive is rewritten to `print v(Nk)` at `numdgt=15` (unambiguous,
+full precision). 24-node / 32-edge random graph, 1 mA injected into the far
+node, node 0 grounded (the neutrality/ground fix, charter design-(e)).
+
+**Result.** Three-way agreement:
+- `max|v_ngspice − v_MNA|` = **4.17e-10 V**
+- `max|v_ngspice − v_Laplacian|` = **4.17e-10 V**
+- `max|v_MNA − v_Laplacian|` = **7.55e-15 V** (the pilot's dense-double floor)
+
+**Residual is a print artifact, verified (not asserted).** At ngspice's default
+~7 sig figs the ngspice-vs-numpy diff is 3.7e-7 V; bumping to `numdgt=15`
+shrinks it to 4.17e-10 V. The residual TRACKS the print precision ⇒ it is a
+text-serialization artifact, NOT a solver difference. ngspice's sparse-LU `.OP`
+IS the numpy dense MNA system. Tolerance 1e-8 V, comfortably above the 4e-10
+print floor.
+
+**Rung-3 verdict: PASS.** The SPICE `.OP` MNA system a real engine assembles is
+the weighted graph-Laplacian the srs engine solves; the ground-node row/col
+deletion is the principled neutrality boundary condition. The charter's open
+loop is closed.
 
 ---
 
