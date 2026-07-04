@@ -1,0 +1,7 @@
+# Pre-Registered Predictions By SHA
+
+## 0597f0c627ac7b6959e2887b527cee80b86ad4e8
+ - LIGO BH shear echo ~4ms
+
+## f34e755998a9d92674bd25d4ce7ec9f80c1659ed
+ - SVE vacuum-birefringence pre-registration for BIREF@HIBEF (papers/2026_birefringence_letter/main.pdf + research/2026-07-03_birefringence-hibef-prediction_registered.md at this SHA): pump-on polarization-flip probability P_flip = 5.39e-3 / 4.28e-3 / 9.28e-3 for the LoI scenarios (9835/8766/12914 eV probe) at demonstrated pump 1e21 W/cm2; coefficient ratio to Euler-Heisenberg QED = 7.5*pi/alpha^2 ~ 4.42e5 (propagating), field-independent; QED co-prediction ~2.8e-14 class. KILL CRITERION (5-sigma): pump-on null P_flip < 1e-8 at >= 1e18 W/cm2 falsifies the model E-sector. Signatures: (1) tree-level coefficient, (2) static-B transparency (PVLAS-consistent by construction), (3) sidereal modulation at (v/c)^2 ~ 1.5e-6 phased to the CMB dipole. Registered before any pump-on polarimetric data exists.
