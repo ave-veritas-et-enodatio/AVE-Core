@@ -47,7 +47,7 @@ invocation fact the emit-only lane never had to satisfy.
 | 2 | Ax4 A1-divergent C₀/S vs kernel (keyed V_SNAP) | 1/S(V) canonical | 1/S(V) ngspice | 3.94e-7 | 1e-6 | manifestation | ✅ PASS |
 | 2 | Ax4 T2-collapse C₀·S vs kernel (keyed V_YIELD) | S(V) canonical | S(V) ngspice | 4.83e-8 | 1e-6 | manifestation | ✅ PASS |
 | 3 | Poisson `.OP` real ngspice vs numpy MNA | v_MNA (24 nodes) | v_ngspice | 4.17e-10 V | 1e-8 V | consistency | ✅ PASS |
-| 4 | 1D LC-chain dispersion ω(k) | _pending_ | | | | manifestation | ⏳ |
+| 4 | 1D LC-chain dispersion ω(k) | ka = 2·asin(ω/2ω₀) | ka (phase/cell) | 3.03e-2 max / 1.87e-3 med | 5e-2 | manifestation | ✅ PASS |
 | 5 | Biased-chain small-signal shift vs S(A) | _pending_ | | | | consistency (DC→AC) | ⏳ |
 
 ---
@@ -164,6 +164,49 @@ print floor.
 the weighted graph-Laplacian the srs engine solves; the ground-node row/col
 deletion is the principled neutrality boundary condition. The charter's open
 loop is closed.
+
+---
+
+## Rung 4 — 1D LC-chain dispersion ω(k)
+
+**Driver:** [`src/scripts/vol_4_engineering/spice_ladder_rung4_lc_dispersion.py`](../src/scripts/vol_4_engineering/spice_ladder_rung4_lc_dispersion.py)
+· **Artifacts:** `spice_ladder_rung4_dispersion.cir`, `spice_ladder_rung4_result.json`
+
+**Purpose.** The lane's first live WAVE cross-check. An N-cell LC ladder (series
+L per bond, shunt C per node) is the lumped-network 1D lattice; its discrete
+dispersion is the textbook band `ω(k) = 2ω₀·|sin(ka/2)|`, `ω₀ = 1/√(LC)` — a
+band with a Brillouin-zone-edge cutoff at `ω_max = 2ω₀` (ka = π), NOT the
+continuum `ω = ck` line. Class **manifestation** (ngspice `.AC` phase-per-cell
+== analytic band).
+
+**Coordinate discipline (A46 / phase-space-coordinate-check).** Both the
+measurement and the prediction live in the SAME coordinate: a lumped-network
+ω-vs-(phase-per-cell) dispersion. This rung does not touch a φ² substrate claim,
+so there is no real-space-Cartesian-vs-phase-space mismatch; it validates that
+ngspice reproduces the discrete-lattice band — the substrate-native transmission
+line the SPICE lane owns.
+
+**Method.** 40-cell ladder (L = 1 µH, C = 1 nF ⇒ ω₀ = 3.16e7 rad/s), node 0
+driven by a 1 V AC source through a soft `Z_c = √(L/C)` launch, terminated in
+`Z_c` (matched load ⇒ forward-only travelling wave). `.AC` sweep reads the
+COMPLEX voltage at every node (`wrdata` emits freq, re, im per node). The
+phase advance per cell `Δφ = arg(V_{m+1}/V_m)` is fit over an INTERIOR window
+(away from both ends) ⇒ measured `ka(ω)`, compared against
+`ka = 2·asin(ω/2ω₀)`.
+
+**Result.** Across the pass-band (0.05 < ka < 0.9π): median rel-error in ka
+**1.87e-3**, max **3.03e-2** (tol 5e-2). Sample points:
+- ω/ω₀ = 0.76: ka_analytic 0.774, ka_measured 0.774 (err 1.5e-4)
+- ω/ω₀ = 1.42: ka_analytic 1.582, ka_measured 1.586 (err 2.8e-3) — mid-band, the sin-bend
+- ω/ω₀ = 1.70: ka_analytic 2.032, ka_measured 2.034 (err 9.4e-4)
+
+The measured band follows the sin-bending away from the linear continuum line;
+the largest residuals are near the zone edge where the group velocity → 0 and
+the finite-chain + phase-unwrap noise grows (still within tolerance).
+
+**Rung-4 verdict: PASS.** ngspice-46 `.AC` reproduces the discrete-lattice
+dispersion of the 1D LC transmission line to sub-percent in the median. The
+lane can carry a wave.
 
 ---
 
