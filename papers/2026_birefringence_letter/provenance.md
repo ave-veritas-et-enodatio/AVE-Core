@@ -5,6 +5,27 @@ does not carry (pure-physics rule: the paper cites no private repo, no framework
 volumes, no program history). Every quantitative claim in `main.tex` maps here to
 its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 
+> ⚙️ **REVISION-3 (2026-07-03, reinforcement round): three external-reviewer-driven additions.** Each converts
+> an objection into a theorem or a prediction. Public-safe (no lattice/framework terms; grep-clean).
+> 1. **Kernel uniqueness (§II.B):** the `√(1−(E/E_c)²)` form is the UNIQUE lossless-oscillator response under a
+>    hard-bound + energy-conservation constraint (`E²+E_c²S²=E_c²`, Pythagorean complement); an Lᵖ invariant
+>    forces `S=(1−(E/E_c)ᵖ)^(1/p)`, a different curve for every `p`, and only the quadratic (energy) norm `p=2`
+>    is selected. **Internal grounding:** the Ax4 buckling-kernel shape-derivation — the √ form is the axial
+>    projection of a fixed-arc-length compressible-strut bowing, an α-free geometric theorem (`axiom-register.md`
+>    Ax4 `residual_content`/`derived_by`; `research/2026-07-02_axiom4-buckling-kernel_result.md` PR #459,
+>    `research/2026-07-02_axiom4-forced_result.md` the L² 1-to-1 map). CITED NOTHING PRIVATE — restated in
+>    public oscillator/EE language. Plus: kernel exponent testable at 2nd order (common-mode vs differential
+>    leading-order ratio is `p`-dependent — sympy-verified: `p=2` → iso `−A²/4`, `p=4` → iso `−A⁴/8`).
+> 2. **Dispersion bound (§II.D):** scale separation `ω_probe/ω_0 = E_probe/(m_ec²) = 9835/511000 ≈ 0.019`
+>    (~1.7 OOM below); fractional dispersive correction `~(ω_probe/ω_0)² ≈ 3.7×10⁻⁴` (<0.1%), computed properly.
+> 3. **SME/sidereal (§II.D):** SVE classified in the SME preferred-frame photon-sector class (cite Kostelecký-
+>    Russell 2011, Rev.Mod.Phys. 83, 11, DOI 10.1103/RevModPhys.83.11, Crossref-verified). NEW PREDICTION:
+>    sidereal modulation sidebands at `(v/c)² = (370e3/c)² = 1.523×10⁻⁶` — the model's THIRD falsifiable
+>    signature (coefficient / E-B asymmetry / sidereal). Ref added to refs.bib (now 11 refs).
+> Build: pdflatex+bibtex+pdflatex×2 clean, 6pp, 11 refs resolve, zero undefined/citation warnings. main.pdf
+> rebuilt + committed (standing pattern). make verify GREEN. Fresh branch `analysis/letter-reinforcement` off
+> merged HEAD 81180f15. Grant's five standing decisions (headline form, SVE name, author, venue, floors) UNTOUCHED.
+
 > ⚠️ **REVISION-2 (2026-07-03, post-referee): QED-normalization correction landed.** The two-lane hostile
 > referee pass (PR #498) found the QED electric leg `(3/45)α²` understated by `1/(2πα) ≈ 21.8` vs the repo's own
 > PVLAS-anchored magnetic leg. **Independently re-derived and CONFIRMED** (analytic + numeric): the corrected

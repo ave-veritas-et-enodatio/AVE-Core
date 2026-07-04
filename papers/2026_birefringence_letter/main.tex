@@ -217,13 +217,26 @@ framework derives $\alpha$. We therefore do not present the numerical magnitude
 as the discriminating claim. The discriminating claim is the \emph{existence of
 an $O(1)$ tree-level differential coefficient} where QED has only a
 loop-suppressed one --- and this is what the experiment tests.
-\emph{(iv) Two open honesty items.} The QED denominator $\alpha/(15\pi)$ is a
+\emph{(iv) One open honesty item.} The QED denominator $\alpha/(15\pi)$ is a
 literature coefficient whose normalization we anchor explicitly (Sec.~\ref{sec:prediction});
 a different but still $\alpha$-rooted convention shifts the numerical ratio, not
-the order of magnitude. And, from the paper's self-contained vantage, the elliptic
-form $\sqrt{1-(E/\Ec)^2}$ is one \emph{chosen} member of a one-parameter family of
-saturating laws (e.g.\ $1/(1+x^2)$, $\tanh$); it is a stated hypothesis, not a
-forced one. Both are exactly the kind of assumption the experiment adjudicates.
+the order of magnitude.
+
+\emph{The elliptic form is not a free choice.} The kernel
+$S=\sqrt{1-(E/\Ec)^2}$ is the unique response of a lossless oscillator whose
+amplitude is confined to a hard bound under energy conservation. If the two
+reactive stores exchange a conserved energy while the drive amplitude $E$ and the
+residual stiffness $S$ are complementary components of a fixed-length state
+($E^2+\Ec^2 S^2=\Ec^2$, the Pythagorean complement --- as for a saturating
+inductor at its flux ceiling, or the frequency pull of a pendulum swinging to a
+hard stop), then $S=\sqrt{1-(E/\Ec)^2}$ follows and no other exponent does: a
+general power law $S=(1-(E/\Ec)^p)^{1/p}$ satisfies the same endpoints and
+small-field limit for \emph{every} $p$, and only the quadratic (energy) norm
+$p=2$ is selected by energy conservation. The exponent is therefore a theorem of
+the confinement, not a fitted parameter. And it is testable in its own right:
+different kernel exponents predict different ratios of the anisotropic (par$-$perp)
+to the common-mode index shift, so measuring both channels fixes $p$ --- a
+second-order discriminator beyond the leading coefficient of Sec.~\ref{sec:prediction}.
 
 \subsection{The magnetic sector: static-flux transparency}
 
@@ -264,16 +277,37 @@ frame reintroduces a spurious signal. For a laboratory static field of $\SI{2.5}
 (a PVLAS-scale magnet) and a boost of $\SI{370}{\kilo\meter\per\second}$ (the
 Solar System's motion relative to the CMB), the motional electric field is
 $E\sim vB\simeq\SI{9e5}{\volt\per\meter}$, giving $A^2\sim\num{7e-23}$ and
-$\delta n\sim\num{3e-23}$ --- far below any current bound and orders of magnitude
-below QED's own static-$\mathbf B$ prediction. The frame dependence is therefore
-operationally negligible for realistic experiments; the static-$\mathbf B$
-transparency of Eq.~\eqref{eq:staticB} is not resurrected by the boost.
+$\delta n\sim\num{3e-23}$. In the language of the Standard-Model Extension, the
+model belongs to the class of preferred-frame photon-sector modifications whose
+coefficients are experimentally bounded~\cite{KosteleckyRussell2011}; the estimate
+above shows that all current photon-sector Lorentz-invariance bounds are satisfied
+with orders of magnitude to spare, so the frame dependence is operationally
+negligible and the static-$\mathbf B$ transparency of Eq.~\eqref{eq:staticB} is not
+resurrected by the boost.
+
+\emph{A sidereal signature.} If the model's response frame coincides with the CMB
+rest frame, the preferred-frame dependence is not merely a null constraint but a
+positive prediction. As the Earth rotates and orbits, the projection of the
+$\SI{370}{\kilo\meter\per\second}$ boost onto the pump--probe geometry varies,
+modulating the birefringence coefficient at the fractional level
+$(v/c)^2\simeq\num{1.5e-6}$ with sidereal and annual periods. Operationally, a
+pump-on flip probability measured across many sidereal days would carry
+$\sim\!\num{1.5e-6}$ fractional sidebands at the sidereal frequency (and its
+harmonics), phased to the known CMB dipole direction. This is a pre-registered
+\emph{third} falsifiable signature of the model --- alongside the tree-level
+coefficient (Sec.~\ref{sec:prediction}) and the static-$\mathbf B$ transparency
+(Sec.~\ref{sec:signature}) --- accessible as a second-generation measurement once
+the leading signal is established.
 \emph{Dispersion.} We treat the coefficient as frequency-independent (a DC-Kerr
 response), so the same $\Ec$ governs both the $\SI{1.55}{\electronvolt}$ pump and
-the $\sim\SI{10}{\kilo\electronvolt}$ probe; this assumes the probe frequency lies
-well below the saturation-response scale, i.e.\ the AC-Kerr coefficient reduces to
-the DC one. A dispersive correction would enter only through Kramers--Kronig
-partners of the saturation edge and is not modeled here. \emph{Common-mode
+the $\sim\SI{10}{\kilo\electronvolt}$ probe. This is justified by scale
+separation: the medium's natural response scale is the electron rest energy
+$m_ec^2\simeq\SI{511}{\kilo\electronvolt}$, so the probe sits nearly two orders of
+magnitude below it, $\omega_{\mathrm{probe}}/\omega_0\simeq0.02$. A dispersive
+correction enters at second order in this ratio, bounding the fractional shift of
+the coefficient at $(\omega_{\mathrm{probe}}/\omega_0)^2\sim\num{4e-4}$ ($<0.1\%$)
+across the probe band --- negligible against the $\sim\!10^7$ discrimination margin,
+so the quasi-static coefficient is safe. \emph{Common-mode
 channel.} Beyond the birefringence, the model predicts an isotropic index shift
 $\delta n_{\mathrm{iso}}=\sqrt{S}-1\simeq-\tfrac14 A^2$, common to both probe
 eigenmodes and hence rejected by a polarimeter. It is in principle accessible to
@@ -518,8 +552,8 @@ gives a self-focusing critical power $\sim\!\num{6.5e3}\,\mathrm{PW}$, far above
 existing laser, so no vacuum self-focusing is expected; the circulating fields of
 gravitational-wave interferometers produce a retardance $\sim\!\num{e-11}$ rad, far
 below their sensitivity; and, as shown in Sec.~\ref{sec:model}, laboratory
-static-field experiments are unaffected by the substrate boost. The model is thus
-not already excluded by any published precision-optics bound~\cite{Fouche2016}.
+static-field experiments are unaffected by the preferred-frame boost. The model is
+thus not already excluded by any published precision-optics bound~\cite{Fouche2016}.
 
 \paragraph*{Pre-registration.}
 The predictions of Table~\ref{tab:scenarios} are fixed before any BIREF@HIBEF
