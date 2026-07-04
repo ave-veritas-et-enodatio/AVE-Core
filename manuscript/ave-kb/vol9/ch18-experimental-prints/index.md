@@ -7,7 +7,7 @@ no-claim: "Vol-9 Ch.18 experimental-prints routing leaf: documents the rebuilt F
 
 # Experimental Prints — Topology Laboratory Exercises
 
-Vol.~9 Ch.~18 documents **bench-adjacent pedagogical exercises** using a 3D-printable kit that renders the production diamond K4 vacuum lattice. These are **not** falsification experiments (Ch.~15) and **not** numerical simulations (Ch.~17). They are **hands-on consistency checks** that the exported graph matches the engine substrate (`build_diamond_net`).
+Vol.~9 Ch.~18 documents **bench-adjacent pedagogical exercises** using a 3D-printable kit that renders a K4 vacuum lattice. These are **not** falsification experiments (Ch.~15) and **not** numerical simulations (Ch.~17). They are **hands-on consistency checks** that the exported graph matches its engine net. (D1 carrier note: the kit's assembled crystal currently prints the degree-4 `build_diamond_net`, which is the non-canonical topology-demo instrument, not the ratified `srs` $z=3$ production carrier — see the Production-carrier-vs-instrument table below.)
 
 > **STATUS — REBUILT + VALIDATED (2026-06-21).** The kit was rebuilt from the cube/sphere preview into a representative, printable model. All ~25 part STLs reload **watertight + `is_volume=True`** (verified on-disk; the saved-QC gate is GATING — the generator exits non-zero if any gated part fails). Press-fit interference is **0.10 mm diametral**. The legacy limitations (non-manifold node STLs; 0 mm press-fit) are **resolved** and are recorded below under *Resolved status* for provenance — they are not current.
 
@@ -32,7 +32,7 @@ A 3D print lives in real space, so each canonical quantity is rendered only in t
 | Translational vs micro-rotational vs breathing DOF basis | real-space *directions* at each node | **snap-on color accents** — triad ($\mathbf E$) + 3 rings ($\mathbf B$) + breathing core ($V$) |
 | LC-tank saturation-amplitude $A$, $(V_{inc}, V_{ref})$ phasor / impedance plane | **phase space** | **labeled proxy only** — impedance disc + phasor dial, never a printed length |
 
-**Real space is isomorphic.** The kit prints the degree-4 diamond production net with an **identical solid node body for both A and B** sublattices, four tetrahedral **round** bond sockets (round so a rigid bond press-fits both end sockets at any relative rotation — a hex tip cannot face-flush two independently-clocked sockets at once), and bonds at the true $\sqrt{3}\,\ell_{node}$ pitch. **A/B is the bipartite SUBLATTICE label only** (shown by color + a snap-on embossed A/B key) — *not* the old cube-vs-sphere storage split. Per Axiom 1 (Ch.~9), **every** node is a full LC oscillator carrying all 6 spatial DOF (3 translational $\to \mathbf E$ store *and* 3 microrotational $\to \mathbf B$ store); the prior `_capacitive` (A) / `_inductive` (B) shapes encoded a denied storage asymmetry and have been removed.
+**Real space is isomorphic.** The kit prints the degree-4 diamond net (the topology-demo instrument, not the `srs` production carrier — D1) with an **identical solid node body for both A and B** sublattices, four tetrahedral **round** bond sockets (round so a rigid bond press-fits both end sockets at any relative rotation — a hex tip cannot face-flush two independently-clocked sockets at once), and bonds at the true $\sqrt{3}\,\ell_{node}$ pitch. **A/B is the bipartite SUBLATTICE label only** (shown by color + a snap-on embossed A/B key) — *not* the old cube-vs-sphere storage split. Per Axiom 1 (Ch.~9), **every** node is a full LC oscillator carrying all 6 spatial DOF (3 translational $\to \mathbf E$ store *and* 3 microrotational $\to \mathbf B$ store); the prior `_capacitive` (A) / `_inductive` (B) shapes encoded a denied storage asymmetry and have been removed.
 
 **The DOF basis is shown by accents, not by node shape.** Three snap-on color-accent parts, identical on every node:
 
@@ -44,14 +44,14 @@ This is the **7-mode store split** $A^2 = \varepsilon^2 + \kappa^2 + V^2$ (6 spa
 
 **Phase space is a labeled proxy, never a length.** The LC-tank state — the saturation amplitude $A$ and the $(V_{inc}, V_{ref})$ phasor — is rendered only by a separate **impedance disc + phasor dial**, each stamped **`[STATE-SPACE — NOT A COORDINATE]`** (the physical analog of the `[RENDERING]` scale tag). Because **A1 $\perp$ T2**, the phasor instrument provides *two independent orthogonal* indicators, never one merged dial. The saturation amplitude $A$ is the LC-tank **state**, not a 7th spatial DOF.
 
-## Production substrate vs chirality instrument
+## Production carrier vs topology-demo instrument (D1, Grant 2026-07-03)
 
 | Export | Engine source | Role |
 |---|---|---|
-| **Production vacuum** | `build_diamond_net` | Degree-4 diamond K4 (achiral Fd-3m); **this is the exercise substrate** |
-| **Chiral srs instrument** | `build_srs_net` | Degree-3 chirality **acceptance instrument** (both enantiomorphs $I4_1 32$ right / $I4_3 32$ left, $120°$ bonds); **not** the production engine net |
+| **Production carrier** | `build_srs_net` | Degree-3 chiral `srs` net (Sunada-K4 / Laves / $I4_1 32$; the object Axiom 1 names) — the **ratified production carrier** (D1, Grant 2026-07-03); both enantiomorphs ($I4_1 32$ right / $I4_3 32$ left, $120°$ bonds), handedness glyph. Currently shipped as an accent piece. |
+| **Topology-demo instrument** | `build_diamond_net` | Degree-4 diamond K4 (achiral Fd-3m); a **non-canonical topology-demo instrument** (statics-pathological). The kit's assembled crystal currently prints this net — a **deferred code-migration item** (re-home onto `srs`; `_orchestration/2026-07-03_srs-migration-policy.md` §d). |
 
-The kit honestly labels its substrate "diamond production K4 (`build_diamond_net`)" and ships the srs piece as a clearly distinct degree-3 instrument with a handedness glyph. The "K4" surface form is a documented three-way overload (axiom-name *chiral Laves K4* $=$ degree-3 srs; engine *K4* $=$ degree-4 diamond; rotation group $K_4$); the kit does not silently conflate them. The kit follows the adjudicated **diamond-primary / achiral-cold** reading: production is the achiral diamond, and chirality is the srs instrument's story.
+Per the **D1 ratification** (Grant 2026-07-03, [`_orchestration/index.md`](../../../../_orchestration/index.md)), the production substrate is the chiral `srs` $z=3$ net (the object Axiom 1 names) and the achiral diamond $z=4$ net is re-tagged a non-canonical instrument (statics-pathological). The kit's historical manifest label "diamond production K4 (`build_diamond_net`)" is therefore a **naming defect**, pending the deferred srs-name-walkback arc (§d; executes nothing here — the current print still emits the diamond net). The "K4" surface form is a documented three-way overload (axiom-name *chiral Laves K4* $=$ degree-3 srs, the carrier; engine *K4* $=$ degree-4 diamond, this instrument; rotation group $K_4$, a distinct group label); the kit labels each piece by its actual degree and does not silently conflate them.
 
 ## Kit roster (BOM tiers)
 
@@ -89,7 +89,7 @@ Corpus $\ell_{node} = \hbar/(m_e c) \approx 386\,\mathrm{fm}$ is **definitional*
 
 Regenerate: `PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py`. Environment: `KIT_PRINT_MM_PER_L_NODE` (kit default **100**), `ASSEMBLY_L` (default **4**), `KIT_FRICTION_INTERFERENCE_MM` (per-side mm; default 0.05), `KIT_ALLOW_NONMANIFOLD=1` (WIP escape hatch for the GATING QC). Requires `trimesh` + `manifold3d`.
 
-## Laboratory Exercise L-EP1 — Assemble the production chunk
+## Laboratory Exercise L-EP1 — Assemble the diamond topology-demo chunk
 
 **Objective.** Confirm by assembly that the production vacuum is a **bipartite diamond** with **four tetrahedral ports per node** and **TL segments between port tips** (not centre-to-centre struts).
 
@@ -112,11 +112,11 @@ Regenerate: `PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum
 
 **Pass criterion.** Bbox span and bond pitch agree within print tolerance; node bodies are identical (A/B distinguished only by key + colour, *not* by shape — the storage-split mnemonic is gone).
 
-## Laboratory Exercise L-EP3 — The chirality instrument (optional)
+## Laboratory Exercise L-EP3 — Production carrier vs topology-demo instrument (optional)
 
-**Objective.** Hold the degree-3 srs acceptance instrument (both enantiomorphs) beside the degree-4 production diamond and confirm they are **distinct objects**: srs is $120°$, degree-3, handed; the production net is tetrahedral, degree-4, achiral.
+**Objective.** Hold the degree-3 `srs` production-carrier piece (both enantiomorphs) beside the degree-4 achiral diamond topology-demo instrument and confirm they are **distinct objects**: srs is $120°$, degree-3, handed ($I4_1 32$); the diamond net is tetrahedral, degree-4, achiral (Fd-3m).
 
-**Pass criterion.** The handedness glyph distinguishes $I4_1 32$ (right) from $I4_3 32$ (left); the builder can state which piece carries the optical-activity / chirality story (the srs instrument) and which is the production substrate (the diamond). Asserts nothing beyond the adjudicated diamond-primary / achiral-cold reading.
+**Pass criterion.** The handedness glyph distinguishes $I4_1 32$ (right) from $I4_3 32$ (left); the builder can state which piece is the **ratified production carrier** (the chiral `srs` net — the object Axiom 1 names, carrying the optical-activity / chirality story) and which is the **non-canonical topology-demo instrument** (the achiral diamond, statics-pathological). Records the D1-ratified srs-$z=3$-production / diamond-$z=4$-instrument reading (Grant 2026-07-03); the current kit still prints the diamond instrument (a deferred code-migration item, `_orchestration/2026-07-03_srs-migration-policy.md` §d).
 
 ## Resolved status (was: known limitations)
 
@@ -133,7 +133,7 @@ Regenerate: `PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum
 
 The print stays consistent with the adjudicated reading and asserts nothing beyond it; these seams remain open in the corpus, unchanged:
 
-- **Chirality realization** — achiral diamond + excited $k_\chi$ Cosserat order-parameter vs natively-chiral lattice (an unmerged z4-walk-back exists; physics is reconciled via $Fd\text{-}3m \supset I4_1 32$, but the single-source Axiom-1 wording remains a naming defect).
+- **Chirality realization** — achiral diamond + excited $k_\chi$ Cosserat order-parameter vs natively-chiral lattice. **D1 RATIFIED (Grant 2026-07-03):** the natively-chiral `srs` $z=3$ net is the production carrier; the achiral diamond $z=4$ net is a non-canonical instrument. The physics reconciliation $Fd\text{-}3m \supset I4_1 32$ stands; the residual is purely the **naming defect** in the kit's manifest/generator (it still emits `build_diamond_net`), which the deferred srs-name-walkback arc (`_orchestration/2026-07-03_srs-migration-policy.md` §d) resolves — the datasheet prose is now walked to the ratified framing; the generator rename is future-arc code work.
 - **Crystalline vs amorphous** — degree-4 crystalline $Fd\text{-}3m$ graph vs the amorphous $z_0$ effective-coordination picture (a real open seam the corpus admits). The kit prints the degree-4 crystalline graph and implies neither $z_0$ nor $z_{\text{eff}}$.
 - **Proton multi-node vs nucleus-in-single-node** — sub-node body scale ($D_p \ll \ell_{node}$) is unrenderable as resolved lattice geometry; particle snap-ins would be topology demos only.
 - **Phase-space $(2,q)$ windings** — dynamics *inside* nodes/bonds, represented only by the phase-space disc/dial, never as separate kit bricks.
