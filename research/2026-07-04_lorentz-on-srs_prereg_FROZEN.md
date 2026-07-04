@@ -217,5 +217,4 @@ carrier. The verdict box of the result doc states `carrier: srs-z3`.
 - The demoted (qℓ)⁴ claim: `clm-k4d4ph` (already 🟡 demoted; weak-C gate `wejkhvnfb` OPEN).
 - Migration policy: `_orchestration/2026-07-03_srs-migration-policy.md` (P1 acceptance gate).
 - Engine-upgrade tracker: `_orchestration/2026-07-04_engine-upgrade-program.md` (item-3).
-</content>
 </invoke>
