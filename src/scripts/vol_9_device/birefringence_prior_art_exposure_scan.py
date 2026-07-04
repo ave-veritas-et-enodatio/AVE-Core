@@ -33,6 +33,7 @@ Run:  PYTHONPATH=src python3 src/scripts/vol_9_device/birefringence_prior_art_ex
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from dataclasses import dataclass
@@ -266,7 +267,75 @@ def classify_prior_experiment(exp: PriorExperiment) -> dict:
     }
 
 
-def main() -> None:
+def export_exposure_figure(out: dict, fig_path: Path) -> Path:
+    """ADDITIVE figure export (opt-in via --figure): the intensity x
+    polarimetric-sensitivity exposure plane for the standalone Letter.
+
+    Draws the AVE flip-prob line and the QED co-prediction line across the
+    optical-pump intensity plane, the demonstrated X-ray polarimeter purity
+    floor, and the prior/commissioning experiments (none of which passes a
+    polarized X-ray probe through a PW-class optical focus -> the CLEAN-FIELD
+    verdict is visible as the empty exposure region). House style (white bg,
+    Okabe-Ito, honest axes+units, legend outside data) via ave.viz.style.
+
+    Consumes the already-computed `out['ave_exposure_line']` (single source of
+    truth); no physics is recomputed here. Kept opt-in so the default driver
+    run (and `make verify`) is unchanged.
+    """
+    import matplotlib.pyplot as plt  # local import: figure path only
+
+    from ave.viz import style
+
+    style.apply()  # print profile: white background (house default)
+
+    line = out["ave_exposure_line"]
+    intensities = [p["I_wcm2"] for p in line]
+    P_ave = [p["P_ave_exact"] for p in line]
+    P_qed = [p["P_qed_exact"] for p in line]
+
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+
+    # AVE prediction line (blue) and QED co-prediction (vermillion).
+    ax.plot(intensities, P_ave, "-o", color=style.COLORS["ave"],
+            label="Saturable-vacuum (this work)")
+    ax.plot(intensities, P_qed, "--s", color=style.COLORS["comparison"],
+            label="QED (Euler--Heisenberg)")
+
+    # The demonstrated X-ray polarimeter purity floor (pump-off record).
+    ax.axhline(BEST_XRAY_POLARIMETER_PURITY, color=style.COLORS["muted"], ls=":",
+               lw=1.5, label=r"Demonstrated purity floor $8\times10^{-11}$")
+
+    # The demonstrated ReLaX pump intensity (the bankable operating point).
+    ax.axvline(I_HIBEF_DEMONSTRATED_WCM2, color=style.COLORS["accent"], ls="-.",
+               lw=1.5, label=r"Demonstrated pump $10^{21}\,$W/cm$^2$")
+
+    # Prior/commissioning experiments: NONE combines pump-on + polarized X-ray +
+    # flip analysis, so none constrains the E-route flip-prob. Mark the
+    # demonstrated-pump intensity band as CLEAN (no prior point occupies the
+    # pump-on polarimetric exposure region) with a text annotation rather than
+    # false data markers (honest-axes: do not plot points where no measurement
+    # of this observable exists).
+    ax.annotate(
+        "no prior pump-on\npolarimetric measurement\n(CLEAN-FIELD)",
+        xy=(I_HIBEF_DEMONSTRATED_WCM2, 5e-3),
+        xytext=(1.3e19, 2e-1),
+        fontsize=8, color=style.COLORS["data"],
+        arrowprops=dict(arrowstyle="->", color=style.COLORS["muted"], lw=1.0),
+    )
+
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(style.axis_label("Optical pump intensity", "I", "W/cm$^2$"))
+    ax.set_ylabel(style.axis_label("Polarization-flip probability", "P_{\\rm flip}", ""))
+    ax.set_ylim(1e-26, 3.0)
+    style.legend(ax, where="right", fontsize=8)
+
+    written = style.save(fig, fig_path)
+    plt.close(fig)
+    return written[0]
+
+
+def main(make_figure: bool = False, fig_path: Path | None = None) -> None:
     out: dict = {}
     print("=" * 78)
     print("PRIOR-ART / COMMISSIONING EXPOSURE SCAN (the gate before the prediction doc)")
@@ -350,8 +419,21 @@ def main() -> None:
     out_path = out_dir / "birefringence_prior_art_exposure_scan.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
+
+    # ---- optional ADDITIVE figure export (opt-in; --figure) -----------------
+    if make_figure:
+        target = fig_path or (Path(__file__).resolve().parent / "_output"
+                              / "birefringence_exposure_plane")
+        written = export_exposure_figure(out, target)
+        print(f"Figure written: {written}")
     print("=" * 78)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--figure", action="store_true",
+                        help="also export the exposure-plane figure (house style)")
+    parser.add_argument("--fig-path", type=Path, default=None,
+                        help="output path stem for the figure (default: _output/)")
+    args = parser.parse_args()
+    main(make_figure=args.figure, fig_path=args.fig_path)
