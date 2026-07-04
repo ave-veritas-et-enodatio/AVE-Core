@@ -30,12 +30,13 @@ WHAT THIS DRIVER DOES (three consistency-class re-expressions + one cross-check)
     (ωτ≪1) limit — a single L–C section. We form both ABCDs symbolically-then-
     numerically and expand to 2nd order in θ=ωτ to show WHERE they diverge.
 
-(2) THE PERIODICALLY-LOADED LINE (Bloch). The lattice = TL segments periodically
-    loaded by node shunt admittances. The standard Bloch condition on the ABCD
-    product is cos(qℓ_eff)=trace(ABCD_cell)/2. We derive the loaded-line
-    dispersion and CROSS-CHECK it numerically against the existing engine srs
-    Bloch eigensolve (srs_bloch_dispersion.acoustic_omega) at (a) small kℓ (the
-    photon point) and (b) toward the zone edge.
+(2) THE PERIODIC-CELL LINE (Bloch). The lattice = a periodic chain of identical
+    series-L/shunt-C cells, one per bond (C_CELL=ε₀ℓ IS the segment's own shunt C —
+    no separate node admittance is added; single consistent ontology). The standard
+    Bloch condition on the ABCD product is cos(qℓ_eff)=trace(ABCD_cell)/2. We derive
+    the periodic-cell dispersion and CROSS-CHECK it numerically against the existing
+    engine srs Bloch eigensolve (srs_bloch_dispersion.acoustic_omega) at (a) small
+    kℓ (the photon point) and (b) toward the zone edge.
 
 (3) THE MATCHED-LINE READING (Ax3). At ρ_bond=1 the internal-boundary Γ vanishes
     (clm-mfb2ax): in TL language the line is MATCHED — no internal reflections,
@@ -177,7 +178,7 @@ def core_identity():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# (2) THE PERIODICALLY-LOADED LINE — Bloch condition cos(qℓ)=tr(ABCD)/2
+# (2) THE PERIODIC-CELL LINE — Bloch condition cos(qℓ)=tr(ABCD)/2
 # ─────────────────────────────────────────────────────────────────────────────
 def loaded_line_dispersion(kls: np.ndarray) -> dict:
     """The loaded-line Bloch dispersion from the ABCD cell trace.
@@ -485,7 +486,7 @@ def main():
     print(f"      ⇒ lumped LC node = ωτ≪1 limit of the distributed bond TL; "
           "first divergence at O(θ²).")
 
-    print("\n(2) PERIODICALLY-LOADED LINE — Bloch cos(qℓ)=tr(ABCD)/2:")
+    print("\n(2) PERIODIC-CELL LINE — Bloch cos(qℓ)=tr(ABCD)/2:")
     print("    ⇒ ω(q)=(2c₀/ℓ_node)|sin(qℓ_node/2)|  (recovers the canonical sine-law).")
     cc = out["tl_vs_bloch_crosscheck"]
     print(f"\n    LUMPED-CELL-band-vs-srs-Bloch CROSS-CHECK (LUMPED-vs-LUMPED; "
