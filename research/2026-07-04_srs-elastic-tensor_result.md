@@ -42,8 +42,9 @@ calc gives a one-parameter family with the same GR-imported-ρ* structure as z=4
 > canon-forced Ax4 mechanism. **But (mandatory honest framing) it does NOT derive the /7 value:**
 > the crossing is at an arbitrary wall-amplitude (A_wall=0.99479, not canon-distinguished), the
 > electron's actual wall OVERSHOOTS ρ_eff→∞, and — the load-bearing regime caveat carried verbatim
-> (flag-don't-fix) — **the ρ*=9.77 of THIS result is a COLD bond ratio** (REGIME §header:44: cold
-> linear, sub-yield, saturation OFF), whereas ρ_eff is a **SATURATED** effective ratio; the RATIO
+> (flag-don't-fix) — **the ρ*=9.77 of THIS result is a COLD bond ratio** (per the §"SUBSTRATE-FIRST
+> SECTOR HEADER (as run)" REGIME line, verbatim: "cold linear, sub-yield, saturation OFF"), whereas
+> ρ_eff is a **SATURATED** effective ratio; the RATIO
 > VARIABLE (k_a/k_s) is the same, but **driving the saturated ρ_eff to 9.77 is NOT proven to land
 > the same ν=2/7 / K=2G elastic tensor** as setting the cold ρ=9.77 here — that would require a
 > Born-Huang run on the saturated Φ_b, which is UNTESTED (a running arc tests exactly this
