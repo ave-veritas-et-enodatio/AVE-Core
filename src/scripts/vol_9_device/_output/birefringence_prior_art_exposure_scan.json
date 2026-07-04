@@ -1,0 +1,140 @@
+{
+  "substrate_identity_holds": true,
+  "matched_differential_ratio": 19300353.99810898,
+  "flip_prob_scaling_1e21_over_1e20": 99.82209805467991,
+  "flip_prob_scales_as_I_squared": true,
+  "ave_exposure_line": [
+    {
+      "I_wcm2": 1e+17,
+      "E_field": 868021098201.8475,
+      "A2": 5.896416354237646e-11,
+      "P_ave_exact": 5.3979907896023994e-11,
+      "P_ave_pert": 5.3979907896995266e-11,
+      "P_qed_exact": 1.4491106244791835e-25,
+      "dphi_ave": 1.4694204013419069e-05
+    },
+    {
+      "I_wcm2": 1e+18,
+      "E_field": 2744923727398.5254,
+      "A2": 5.896416354237645e-10,
+      "P_ave_exact": 5.397990779986757e-09,
+      "P_ave_pert": 5.397990789699526e-09,
+      "P_qed_exact": 1.4491106244791835e-23,
+      "dphi_ave": 0.00014694204013419068
+    },
+    {
+      "I_wcm2": 1e+19,
+      "E_field": 8680210982018.475,
+      "A2": 5.896416354237645e-09,
+      "P_ave_exact": 5.397989005322673e-07,
+      "P_ave_pert": 5.39798997659913e-07,
+      "P_qed_exact": 1.4491106244791822e-21,
+      "dphi_ave": 0.001469420290672363
+    },
+    {
+      "I_wcm2": 1e+20,
+      "E_field": 27449237273985.254,
+      "A2": 5.896416354237646e-08,
+      "P_ave_exact": 5.397893703370256e-05,
+      "P_ave_pert": 5.397990830354549e-05,
+      "P_qed_exact": 1.4491106244791827e-19,
+      "dphi_ave": 0.014694204068753842
+    },
+    {
+      "I_wcm2": 3e+20,
+      "E_field": 47543473587555.88,
+      "A2": 1.7689249062712935e-07,
+      "P_ave_exact": 0.00048574061857588856,
+      "P_ave_pert": 0.00048581928693977513,
+      "P_qed_exact": 1.3041995620312646e-18,
+      "dphi_ave": 0.04408261729706053
+    },
+    {
+      "I_wcm2": 1e+21,
+      "E_field": 86802109820184.75,
+      "A2": 5.896416354237646e-07,
+      "P_ave_exact": 0.00538829074546565,
+      "P_ave_pert": 0.005397996546452089,
+      "P_qed_exact": 1.449110624479183e-17,
+      "dphi_ave": 0.14694211848822772
+    },
+    {
+      "I_wcm2": 1e+22,
+      "E_field": 274492372739852.56,
+      "A2": 5.896416354237648e-06,
+      "P_ave_exact": 0.4494030819132369,
+      "P_ave_pert": 0.5398053836471105,
+      "P_qed_exact": 1.449110624479183e-15,
+      "dphi_ave": 1.4694289824923292
+    }
+  ],
+  "prior_experiment_classifications": [
+    {
+      "label": "LULI all-optical two-beam",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "all-optical two-beam collision; NO X-ray probe, NO polarimetric flip channel",
+      "sensitivity": "sigma < 9.9e-40 cm^2 @ omega*=1.7 eV (QED 1.6e-64)",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: all-optical two-beam collision; NO X-ray probe, NO polarimetric flip channel",
+      "cite": "LoI Table 1 (Moulin 1996 [41]); Bernard 2000 [42]"
+    },
+    {
+      "label": "LULI all-optical three-beam",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "all-optical three-beam; NO X-ray probe, NO polarimetric flip channel",
+      "sensitivity": "sigma < 1.5e-48 cm^2 @ omega*=0.8 eV (QED 1e-66)",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: all-optical three-beam; NO X-ray probe, NO polarimetric flip channel",
+      "cite": "LoI Table 1 (Bernard 2000 [42])"
+    },
+    {
+      "label": "SACLA XFEL+XFEL",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "X-ray+X-ray collision; NO optical PW focus, cross-section not polarization flip",
+      "sensitivity": "sigma < 1.9e-23 cm^2 @ omega*=6.5 keV (QED 2.5e-43)",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: X-ray+X-ray collision; NO optical PW focus, cross-section not polarization flip",
+      "cite": "LoI Table 1 (Yamaji 2016 [44]); Inada 2014 [43]"
+    },
+    {
+      "label": "HED-HIBEF X-ray polarimetry record purity",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "crossed-polarizer extinction, ReLaX pump OFF: NO strong field in the beam path",
+      "sensitivity": "P <= 8e-11 (upper limit, photon-flux limited; Si 400 CC, 6 refl)",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: crossed-polarizer extinction, ReLaX pump OFF: NO strong field in the beam path",
+      "cite": "LoI Sec 4.1 + Fig.14 ([71], Schulze/Marx-Schulze lineage)"
+    },
+    {
+      "label": "HED-HIBEF March-2024 priority-access dark-field PoP",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "X-ray-ONLY dark-field beam-shaping PoP; ReLaX pump NOT fired -> NO collision, NO flip signal",
+      "sensitivity": "outcomes 'currently being analysed' (LoI as of 2024); background-rate characterization",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: X-ray-ONLY dark-field beam-shaping PoP; ReLaX pump NOT fired -> NO collision, NO flip signal",
+      "cite": "LoI Sec 4 'first x-ray-only beamtime allocated for March 2024 ... outcomes currently being analysed'"
+    },
+    {
+      "label": "PVLAS-FE static-B",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "STATIC-B route (dB/dt=0). AVE predicts EXACTLY zero (clm-pvlas1) -> CONSISTENT, not a test of the E-route",
+      "sensitivity": "Delta_n/B^2 = (19 +- 27)e-24 T^-2 (QED CMV 4e-24)",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: STATIC-B route (dB/dt=0). AVE predicts EXACTLY zero (clm-pvlas1) -> CONSISTENT, not a test of the E-route",
+      "cite": "LoI Eq.20 ([77] PVLAS-FE)"
+    },
+    {
+      "label": "STAR polarized gamma-gamma -> e+e-",
+      "verdict": "CANNOT-BOUND-E-ROUTE",
+      "ave_flip_prob_at_its_field": null,
+      "geometry": "ultra-peripheral heavy-ion; virtual-photon Landau-Lifshitz, NOT X-ray-through-optical-focus",
+      "sensitivity": "modulation amplitudes A_2delta, A_4delta consistent with polarized-QED",
+      "note": "no PW-class optical focus in the beam path (A^2=0 -> no E-route AVE signal to bound); does not pass a polarized X-ray probe through a strong optical field. Geometry: ultra-peripheral heavy-ion; virtual-photon Landau-Lifshitz, NOT X-ray-through-optical-focus",
+      "cite": "LoI Sec 2.4 + Fig.6 ([10] STAR)"
+    }
+  ],
+  "scan_bin": "CLEAN-FIELD",
+  "verdict_set": [
+    "CANNOT-BOUND-E-ROUTE"
+  ]
+}
