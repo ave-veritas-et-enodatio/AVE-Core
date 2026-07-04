@@ -58,7 +58,48 @@ Recommended default for the figure half is not a real fork (adopt as stated); th
 
 ## (b) `research/` naming + organization grammar
 
-_(section body lands in commit 3)_
+**The corpus is LOAD-BEARING.** At HEAD: **523 active docs** in flat `research/`, **147 more** under `research/_archive/`. **149 distinct `research/*.md` paths are hard-linked (markdown-link form) from `manuscript/ave-kb/`** — `verify-md-links` gates those as HARD errors. Corpus-wide, `research/*.md` paths are referenced ~**477 times** in bare-token form from outside `research/` (grep over `manuscript/ _orchestration/ src/ papers/ docs/ README.md`; second-method caveat applies — treat as scale, not exact; the markdown-link subset of those is 209). This section formalizes naming so the flat dir stays navigable, and defines the ONLY conditions under which a doc may move to the archive tier.
+
+### Filename grammar
+
+**Canonical form:** `YYYY-MM-DD_<slug>_<type>.md`
+
+- **Date prefix** `YYYY-MM-DD_` — the doc's authoring/registration date, ISO-8601, always present for dated research artifacts (preregs, results, notes). It is the primary sort key in a flat dir and must not be back-dated or edited after the fact (git carries the real history; the filename date is the intended-registration date).
+- **Slug** `<slug>` — kebab-case topic, lowercase, hyphen-separated. May itself contain claim/topic tokens (e.g. `alpha-boundary-energy`, `birefringence-vca-bench`).
+- **Type suffix** `_<type>` — the artifact class. Observed vocabulary at HEAD (by frequency): `result` (125), `prereg` (91), `note` (16), `synthesis` (2), `ruling`, `registered`, `framing`, `diagnostic`, `design`, `derivation`, `audit`, `adjudication`. Plus lifecycle-state suffixes that ride ON the type: `_FROZEN` (frozen prereg of a live claim — 19 files), `_DRAFT`/`_draft` (in-progress), `_CLOSED`.
+
+**Proposed canonical type vocabulary (closed set — new types are a RATIFY amendment, not an ad-hoc coinage):**
+`prereg` · `result` · `note` · `synthesis` · `ruling` · `adjudication` · `audit` · `derivation` · `design` · `diagnostic` · `framing` · `registered`
+with lifecycle modifiers `_FROZEN` · `_DRAFT` · `_CLOSED` appended after the type where they apply (e.g. `..._prereg_FROZEN.md`).
+
+**Undated / register-class names — when allowed.** A minority of docs are register-class (living cross-cutting registers, not dated one-shot artifacts) — e.g. `2026-06-24_forward-prediction-register.md` is date-prefixed but register-class (no `_<type>` suffix; the slug ends `-register`). Rule: a register-class doc MAY omit the `_<type>` suffix if its slug ends in a register-class token (`-register`, `-index`, `-glossary`, `-roadmap`, `-plan`, `-ledger`, `-tracker`). It still carries a date prefix. A doc with no date prefix at all is disallowed for new research artifacts (existing undated docs are grandfathered, not renamed — renaming would break the 149 hard links; see below).
+
+### Flat-dir policy
+
+**RECOMMENDED: keep the flat dir, enforce the grammar.** Trade-offs:
+- *Keep-flat* — zero link churn (the 149 ave-kb hard links + ~477 corpus-wide references all point at `research/<file>.md`; any subdir move breaks every citer unless link-coupled across the whole corpus). Date-prefix sorting gives a usable chronological spine. Cost: 523 files in one `ls`.
+- *Subdirs* (by volume, by topic, or by year) — better `ls`-ergonomics, but every move is a link-coupled corpus-wide rewrite of hundreds of citations, HARD-gated on `verify-md-links`, executed in atomic commits. High risk, low payoff given the date-prefix already provides sort order. Not recommended.
+
+### Archive-tier criteria (`research/_archive/`)
+
+`research/_archive/` is the archive tier and is in `verify-md-links` SKIP_DIRS (`_archive` at any depth — `manuscript/ave-kb/tools/verify-md-links.py:65`), so links INTO it do not gate and links OUT of it are frozen-stale by design.
+
+**A doc MAY move to `research/_archive/` only if ALL of:**
+1. It is **superseded** (a later doc carries the current state of its claims), AND
+2. It is **not cited by any live claim** (no ave-kb hard link, no live-claim citation — grep the full citer set first), AND
+3. It is **not an honesty-trail doc** (see below).
+
+**A doc NEVER moves to archive if ANY of:**
+- It is **honesty-trail** — a RETRACTED / walk-back / correction record, or a **frozen prereg of a live claim** (`*_FROZEN.md` of a claim still on the matrix). Honesty-trail docs stay next to the live claim they document. Examples at HEAD: `research/2026-05-17_C14-DAMA_audit_walk-back.md`, the `*_prereg_FROZEN.md` family. These are UNTOUCHABLE — never archived, never rewritten, never banner-stamped (git is the trail).
+- It is **hard-linked from ave-kb** (one of the 149) — UNLESS the ave-kb link moves in the SAME commit (link-coupled) and `verify-md-links` stays green. In practice a hard-linked doc is by definition cited by a live claim, so criterion (2) already blocks it; this restates the gate explicitly.
+
+**Link-coupling (restated with HEAD numbers).** Any archive move executes as move + every-citer update in ONE commit, `verify-md-links` + `verify-kb-metadata` green. The 149 ave-kb hard links are HARD-gated; the ~477 corpus-wide references are the broader coupling surface to sweep.
+
+**RATIFY:** Adopt the filename grammar `YYYY-MM-DD_<slug>_<type>.md` with the closed type-vocabulary + lifecycle modifiers above; adopt the register-class exemption; adopt **keep-flat** as the standing dir policy; adopt the 3-of / never-if archive-tier criteria with honesty-trail docs UNTOUCHABLE. Genuine choices:
+
+- **[RECOMMENDED]** Keep-flat with enforced grammar (vs subdirs). Low risk, preserves all links.
+- The **type-vocabulary closed set** — Grant should confirm the list is complete or name additions. (RECOMMENDED closed set as listed; new types via amendment.)
+- **Grandfathering** existing off-grammar filenames: RECOMMENDED do NOT mass-rename (renaming breaks the 149 hard links + hundreds of references and buys nothing); enforce the grammar only on NEW docs. Alternative: rename off-grammar docs via link-coupled commits — high churn, not recommended.
 
 ---
 
@@ -89,6 +130,7 @@ _(section body lands in commit 7)_
 ## RATIFY decision list (rollup)
 
 - **(a) Figure placement** — adopt "cited renders → tracked `figures/`, `_output/`=scratch" + the link-coupled 5-step migration; decide the **data-artifact policy** (RECOMMENDED: tracked per-volume `results/` dir).
+- **(b) `research/` grammar** — adopt `YYYY-MM-DD_<slug>_<type>.md` + closed type-vocab + register-class exemption + **keep-flat**; adopt archive-tier 3-of/never-if criteria with honesty-trail UNTOUCHABLE; confirm the type-vocab closed set and **grandfather** (no mass-rename) off-grammar names.
 
 ---
 
@@ -104,3 +146,10 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - Full citer set for `vol_9_device/_output` (md+tex+py): `engine-capability-map.md`, `vacuum-node-im3-distortion.md`, 8 research docs, `_orchestration/2026-06-11_session-handoff.md`, `alpha_boundary_forward_check.py`. Brief named only the 2 ave-kb md-link citers.
 - `engine-capability-map.md:320` cites `.../_output/*.png` (wildcard pattern) ✓; `vacuum-node-im3-distortion.md:14` cites `.../im3_vacuum_harmonic_distortion.json` (data, not figure) ✓.
 - SKIP_DIRS `_archive` at `manuscript/ave-kb/tools/verify-md-links.py:65` ✓ (brief cited path as `tools/verify-md-links.py:65` — the line number is right, the directory prefix in the brief is wrong; true path is `manuscript/ave-kb/tools/`).
+
+**(b) `research/` grammar**
+- 523 active `research/*.md` (flat) ✓; 147 under `research/_archive/` ✓.
+- 149 distinct `research/*.md` paths in markdown-link form `](...research/...)` from `manuscript/ave-kb/**` ✓ (the HARD-gated set). Broader bare-token mention count from ave-kb = 236 (includes non-link references).
+- ~477 (bare-token) distinct `research/*.md` references corpus-wide from outside `research/`; markdown-link subset = 209. Brief's "~476" matches the bare-token scale.
+- Type-suffix frequency (flat `research/`): `result` 125, `prereg` 91, `note` 16, `synthesis` 2, `ruling`/`registered`/`framing`/`diagnostic`/`design`/`derivation`/`audit`/`adjudication` 1 each; lifecycle `_FROZEN` 19, `_DRAFT`/`_draft` 10, `_CLOSED` 1.
+- Honesty-trail exemplars confirmed: `research/2026-05-17_C14-DAMA_audit_walk-back.md`, `*_prereg_FROZEN.md` family.
