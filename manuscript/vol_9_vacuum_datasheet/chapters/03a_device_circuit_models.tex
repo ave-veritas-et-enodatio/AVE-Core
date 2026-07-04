@@ -19,6 +19,20 @@
 
 \input{figures/circuit_electron_barrier.tex}
 
+\subsubsection{The electron as a self-biased multi-port circuit at a self-set Q-point}
+\label{subsec:vol9_electron_selfbiased_multiport}
+
+The single-tank picture of Fig.~\ref{fig:vol9_circuit_electron_barrier} expands into the full \textbf{self-biased multi-port} circuit of Fig.~\ref{fig:vol9_electron_selfbiased_multiport} (canonical at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/resonant-lc-solitons.md}:133--147; the bias ladder at \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md}:43--45). The electron is one external EM carrier port plus two confined mechanical ports, each parked at its own quiescent bias: the CHARGE port (T2 shear) self-traps at $V_{yield}$ as a $\Gamma=-1$ shorted stub ($Z_{shear}\to0$, the confinement cage); the MASS port (A1 bulk) sits sub-saturated at $A=\sqrt{\alpha}\approx0.085$ inside that cage ($S\approx0.996$, $Z_{bulk}$ finite --- the $S\to0$ runaway never fires, which is \emph{why} it binds), with its energy scale $E=m_ec^2$ at $V_{snap}$; and the EM $\mu_{eff}\to0$ Meissner onset transduced from the micro-rotation circulation (\texttt{def-tk1xfm}, provisional). The bias is \textbf{self-set} (Axiom-4 self-saturation \emph{is} the bias mechanism --- no external network) and \textbf{self-stable} (the $R\!\cdot\!r=\tfrac14$ Q-point). Consistency-class; $A1\perp T2$ (the two ``3''s are never one phasor).
+
+\input{figures/electron_selfbiased_multiport.tex}
+
+\paragraph{Small-signal equivalents per regime (large-vs-small-signal $C_{eff}$).} The VCA is the linearized AC network around this Q-point. There are \emph{two} varactor capacitances, correct at different operating points (Ch.~\ref{ch:vol9_application_examples} \S Worked Cell Analysis exercises the split in SPICE):
+\begin{itemize}
+    \item \textbf{Large-signal (chord)} $C_{eff} = C_0/S(V)$ --- the constitutive metric-varactor law (A1 divergent, keyed $V_{snap}$).
+    \item \textbf{Small-signal (differential)} $C_{ss} = \mathrm{d}Q/\mathrm{d}V|_{V_b} = C_0/S(V_b)^3$ --- since $Q = C_0 V/S(V)$, the AC-propagation capacitance is the $S^3$ form, \emph{not} the chord (rung-5 tested the $S^3$ to $\sim\!\num{1e-10}$).
+\end{itemize}
+Per regime, the small-signal equivalent is the same tank topology evaluated at the regime's bias: \emph{cold} ($A\to0$, $S\to1$: $C_{ss}\to C_0$, $Z\to Z_0$, matched); \emph{biased sub-yield} (the electron's A1 core at $A=\sqrt\alpha$: $S\approx0.996$, $C_{ss}\approx1.011\,C_0$ --- barely perturbed, why the mass channel is stable); \emph{near-yield} ($A\to1$, $S\to0$: $C_{ss}=C_0/S^3\to\infty$, the varactor runaway). The bias point marks which regime; the $S^3$ differential is the load-bearing small-signal quantity a datasheet AC row must carry.
+
 \subsubsection{Operating-point coefficients at the swept-$\gamma$ characterization point $A^2 \approx 0.23$}
 \label{subsec:vol9_electron_op_coefficients}
 
