@@ -1,6 +1,6 @@
 # Repo Formatting & Cleanup Conventions — PROPOSED (P0 deliverable)
 
-**Status:** PROPOSED — awaiting Grant ratification (owner: P0 implementor, drafted 2026-07-04). Last-verified HEAD: `43d53e06`.
+**Status:** PROPOSED — all six sections (a)–(f) drafted; awaiting Grant ratification (owner: P0 implementor, drafted 2026-07-04). Last-verified HEAD: `43d53e06`.
 **Scope class:** ORGANIZATION AND FORMATTING ONLY — this document proposes conventions; it executes no move, rename, archive, or fix. Every execution phase is gated on Grant ratifying the relevant **RATIFY:** block below.
 **Merge discipline:** lands via a reviewed PR (`[REVIEW: pending-orchestrator]`), no self-merge, per CLAUDE.md branching pattern.
 
@@ -226,7 +226,51 @@ The tool (`tools/lint_status_markers.py`, also not built here) walks the scope, 
 
 ## (f) Badge / manifest accounting rule
 
-_(section body lands in commit 7)_
+**The split (verified at HEAD).** Three public surfaces count "predictions" on **three different bases**, and the split was flagged in PR #501 but never reconciled into a rule:
+- **README badge** (`README.md:6`): `![Predictions](.../badge/predictions-47_derived-orange)` — counts **47** (individual numbered predictions).
+- **README Master Prediction Table** (`README.md:181`+): rows numbered **1–47**, some rows compound (`11–12`, `17–18`, `20–21`, `26–28`, `29–32`, `33–38`, `44–45`) — same 47-individual basis, displayed as 40 rows.
+- **`manuscript/predictions.yaml`**: **36 entries** (`id:` count), validated by `src/scripts/predictions_manifest_validator.py` (+ `src/tests/test_predictions_manifest_validator.py`). The manifest counts **entries**, where an entry may cover a numbered range.
+
+These are not contradictory numbers — they are **different accounting bases**. The rule below names each basis and requires every public count to declare its basis + names a drift gate. The 47↔36 mapping is enumerated in the disposition table below (the delta fully closes).
+
+### The accounting rule (proposed)
+
+1. **Every public-facing prediction count names its accounting basis** in-line or by an adjacent note. The three bases are:
+   - **individual-prediction basis** (the badge + the README table numbering) — counts distinct numbered predictions 1..47.
+   - **manifest-entry basis** (`predictions.yaml`) — counts `id:` entries, where compound `P##_##` ids cover a numbered range and `P_A034_*` ids are unnumbered astrophysics entries outside the 1..47 numbering.
+   - **table-row basis** (the rendered README table) — counts displayed rows (40), collapsing compound ranges into one row.
+2. **The badge number is derived from a named source, not hand-typed.** RECOMMENDED: the badge's `47` is computed as the count of distinct numbered predictions the manifest covers (see disposition table: the 33 numbered manifest entries expand to exactly 47), so the badge and manifest can never silently drift. A `predictions_manifest_validator.py` extension (P1, not built here) emits the badge number from the manifest and a CI check compares it to `README.md:6`.
+3. **A documented 47↔36 mapping lives next to the manifest** (the disposition table below is that mapping's first instance) so any future edit to `predictions.yaml` must keep the mapping's totals consistent (badge-47 = numbered-manifest-33-expanded; +3 A034 = 36 total entries).
+
+### Disposition table — the 47↔36 delta (READ-ONLY; any fix lands post-ratification)
+
+The delta closes exactly. `predictions.yaml` has **36 entries = 33 numbered + 3 `P_A034_*` unnumbered**. The 33 numbered entries expand (7 of them are compound `P##_##` ranges) to cover **all 47** individual prediction numbers 1–47 with none missing.
+
+| Manifest entry `id:` | Covers prediction #(s) | Basis note |
+|:--|:--|:--|
+| `P01`…`P10` (10 simple ids) | 1–10 (via P01–P10, incl. P24/P23/P47/P25/P43 out of numeric order) | 1:1 numbered |
+| `P11_12` | 11–12 | compound range |
+| `P13`, `P14`, `P15`, `P16` | 13, 14, 15, 16 | 1:1 |
+| `P17_18` | 17–18 | compound range |
+| `P19` | 19 | 1:1 |
+| `P20_21` | 20–21 | compound range |
+| `P22` | 22 | 1:1 |
+| `P26_28` | 26–28 | compound range (3 numbers) |
+| `P29_32` | 29–32 | compound range (4 numbers) |
+| `P33_38` | 33–38 | compound range (6 numbers) |
+| `P39`, `P40`, `P41`, `P42`, `P44_45`, `P46`, `P47` | 39, 40, 41, 42, 44–45, 46, 47 | mix of 1:1 + one compound (`P44_45`) |
+| `P23`, `P24`, `P25`, `P43` | 23, 24, 25, 43 | 1:1 (stored out of numeric order in the yaml) |
+| **Subtotal: 33 numbered entries** | **→ 1–47 (all 47, none missing)** | badge basis |
+| `P_A034_solar_flare` | (unnumbered) | astrophysics — not in 1..47 badge count |
+| `P_A034_bh_ringdown` | (unnumbered) | astrophysics |
+| `P_A034_schwarzschild` | (unnumbered) | astrophysics |
+| **Total: 36 entries** | **= 33 numbered + 3 A034** | manifest basis |
+
+**Reconciliation:** badge-`47` (individual, numbered 1–47) = the expansion of the 33 numbered manifest entries. The manifest's `36` = those 33 + 3 unnumbered A034 astrophysics entries the badge does not count. No prediction is missing or double-counted; the two numbers measure different things.
+
+**RATIFY:** Adopt the accounting rule: (1) every public prediction count declares its basis (individual / manifest-entry / table-row); (2) the badge `47` is derived from a named source (RECOMMENDED: emitted from the manifest's numbered-entry expansion by a validator extension, CI-compared to `README.md:6`); (3) the 47↔36 disposition table above is the documented mapping kept next to the manifest, and any `predictions.yaml` edit must preserve its totals. The single choice:
+
+- **Drift gate: derive-and-compare [RECOMMENDED]** — extend `predictions_manifest_validator.py` (P1 build, not this PR) to emit the badge number from the manifest and fail CI if it disagrees with `README.md:6`. Makes the badge self-maintaining. (Alternative: a documented mapping only, no gate — cheaper, but the badge can drift again silently; not recommended given PR #501 already caught one drift.)
 
 ---
 
@@ -237,6 +281,7 @@ _(section body lands in commit 7)_
 - **(c) `_orchestration/` lifecycle** — adopt the mandatory `Status:` header enum (ACTIVE/CLOSED/ARCHIVED + last-verified date + owner); adopt the append-only dated `🔴 RESOLUTION/CORRECTION` note as the ONLY stale-framing fix (no rewrites/banners); adopt the `index.md`→`_archive/index-stale.md` hygiene rule. Confirm header wording only (rest is codified existing practice).
 - **(d) Branch lifecycle SLA** — adopt the two staleness classes (resumable / pushed-no-PR) enforced by audit-tag-then-delete. Decide **N** (resumable re-affirm-or-tag horizon; RECOMMENDED 30 days) and **M** (pushed-no-PR triage horizon; RECOMMENDED 14 days).
 - **(e) Status-marker grammar** — adopt `<MARKER> (owner: <name>, YYYY-MM-DD[, stale-after: DATE])` for live markers (excl. `_archive`) + the proposed regex + `lint-status-markers` make-target spec (built in a later phase). Decide **warn-then-error rollout** (RECOMMENDED) and whether **`stale-after` is optional** (RECOMMENDED) or required on RUNNING/IN-FLIGHT.
+- **(f) Badge / manifest accounting** — adopt the basis-declaration rule (individual / manifest-entry / table-row) + the 47↔36 disposition table (enumerated, delta closes: 36 = 33 numbered→47 + 3 A034). Decide the **drift gate**: derive-and-compare the badge from the manifest (RECOMMENDED) vs documented-mapping-only.
 
 ---
 
@@ -275,3 +320,9 @@ Every `file:line` here was grep-verified at this doc's worktree HEAD. Where the 
 - Birefringence arc CLOSED marker at `_orchestration/2026-06-22_birefringence-vca-bench-arc.md:75` (`> **CLOSED (2026-07-03).** Both mid-flight workflows are resolved:`) ✓; `:79` = `wmjbpekmc` bench-hunt `DEAD-MID-FLIGHT`. Brief cited path as `research/2026-06-22_birefringence-vca-bench-arc.md:75` — the file is in `_orchestration/`, not `research/` (flagged).
 - Commit `0b82e3f2` "reconcile stale arc tracker" ✓.
 - Informal owner-bearing markers already occur (`PENDING Grant merge via PR #43`, `PENDING Grant sign-off`) ✓; no already-well-formed `MARKER (owner: ..., DATE)` markers exist at HEAD (the practice is informal — the grammar formalizes it).
+
+**(f) Badge / manifest accounting**
+- `README.md:6` = `![Predictions](https://img.shields.io/badge/predictions-47_derived-orange)` ✓.
+- `manuscript/predictions.yaml` = 36 `id:` entries ✓; validator `src/scripts/predictions_manifest_validator.py` + test `src/tests/test_predictions_manifest_validator.py` both exist ✓.
+- 36 entries = 33 numbered + 3 `P_A034_*` (unnumbered). The 33 numbered (7 compound `P##_##`: P11_12, P17_18, P20_21, P26_28, P29_32, P33_38, P44_45) expand to cover exactly predictions 1–47, none missing (Python-verified). Delta closes.
+- README Master Prediction Table at `README.md:181`+ (rows 1–47, 40 displayed rows) ✓.
