@@ -95,6 +95,93 @@ To computationally prove that macroscopic Special Relativity emerges determinist
 
 [Figure: condensate_transmission_line.png — see manuscript/vol_4_engineering/chapters/]
 
+### The Bond as a Distributed Transmission Line (ABCD identity, loaded-line Bloch, matched line)
+
+> **Sector + regime header.** EM-transverse / translational-**capacitive** face (the
+> $\varepsilon$–$\mu$ photon port), **cold** lattice $S(A)=1$, lossless-reactive (Axiom 3). Not the
+> T2/charge sector and not the A1 mass store. **CONSISTENCY class** — this re-expresses the per-cell
+> lumped pair above and the LC-ladder sine-law ([`graded-network-response.md`](graded-network-response.md):55,
+> clm-gvn4r1) as a distributed transmission line; it originates **no** new claim or dimensionful value
+> ($Z_0$, $c_0$ are validate-on-known). Provenance: [`research/2026-07-04_bond-transmission-line_result.md`](../../../../../research/2026-07-04_bond-transmission-line_result.md);
+> driver `src/scripts/vol_4_engineering/bond_transmission_line.py`; test
+> `src/tests/test_bond_transmission_line.py` (8 pass).
+
+The lumped per-cell pair above ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$) is
+the **low-frequency limit** of a distributed object: each K4/srs bond **is** a lossless transmission-line
+segment of length $\ell_{node}$ with per-length $\mu_0$, $\varepsilon_0$, so its characteristic
+impedance is $Z_0=\sqrt{\mu_0/\varepsilon_0}$ and its one-span delay is $\tau=\sqrt{L_{cell}C_{cell}}=\ell_{node}/c_0$
+(both machine-exact against the `L_CELL`/`C_CELL`/`Z_0` symbols in `src/ave/core/constants.py`).
+
+**ABCD identity — the lumped node is the $\omega\tau\ll1$ limit of the distributed bond.** The exact
+lossless-line ABCD (electrical length $\theta=\beta\ell=\omega\tau$) and the lumped series-$L$/shunt-$C$
+section ABCD are:
+
+> **[Resultbox]** *Distributed line vs lumped section (both $O(\theta)$-equal; first divergence $O(\theta^2)$)*
+>
+> $$
+> \mathrm{ABCD}_{line}=\begin{bmatrix}\cos\theta & jZ_0\sin\theta\\ j\sin\theta/Z_0 & \cos\theta\end{bmatrix},
+> \qquad
+> \mathrm{ABCD}_{lump}=\begin{bmatrix}1-\theta^2 & jZ_0\theta\\ j\theta/Z_0 & 1\end{bmatrix}.
+> $$
+>
+> The off-diagonals agree to $O(\theta^3)$; the diagonals first diverge at $O(\theta^2)$:
+> $A_{lump}-A_{line}=-\tfrac12\theta^2$, $D_{lump}-D_{line}=+\tfrac12\theta^2$ (driver-measured coefficients
+> $-0.5000$, $+0.5000$). The lumped LC node is the **$\omega\tau\ll1$ (low-frequency) limit** of the
+> distributed bond TL; the $\omega\tau\sim1$ regime is where the lumped picture breaks.
+
+**Periodically-loaded line — the Bloch condition recovers the sine-law.** The lattice is TL segments
+periodically loaded by the node admittances; the standard Bloch/Floquet condition on the cell ABCD is
+$\cos(q\ell_{eff})=(A+D)/2=\mathrm{tr(ABCD)}/2$. For the lumped-node cell this gives
+$1-\tfrac12\theta^2=\cos(q\ell_{node})\Rightarrow\theta=2|\sin(q\ell_{node}/2)|$, i.e.
+
+$$
+\omega(q)=\frac{2c_0}{\ell_{node}}\left|\sin\tfrac{q\ell_{node}}{2}\right|
+$$
+
+— the **same** LC-ladder sine-law derived in [`graded-network-response.md`](graded-network-response.md):55
+(clm-gvn4r1 §1), now read off the ABCD trace. A real-SPICE cross-check of this band (40-cell LC ladder
+in `ngspice-46`, recovering $\omega(k)=2\omega_0|\sin(ka/2)|$ to median rel-err $1.9\times10^{-3}$) is
+the concurrent phase-1 ladder ([`research/2026-07-04_spice-phase1-ladder_result.md`](../../../../../research/2026-07-04_spice-phase1-ladder_result.md);
+Vol 9 Ch 13).
+
+**TL-vs-engine-Bloch cross-check (positive control).** The 1D loaded-line band was cross-checked against
+the genuine 24×24 chiral-srs Bloch eigensolve (`src/scripts/vol_4_engineering/srs_bloch_dispersion.py`,
+`acoustic_omega`) at the isotropic-bond photon point $k_s=k_a$, in the **same** $k\ell=|k|\ell_{node}$
+coordinate (coordinate-matched — the srs claim and the TL are both $q$-space dispersion). At small $k\ell$
+(the photon point) the TL band matches the srs acoustic branch to $6\times10^{-6}$; across the entire
+**first Brillouin zone** ($k\ell<1.11$, since the srs cubic cell edge $a=2\sqrt2\,\ell_{node}$ puts the
+[100] zone edge at $k\ell=\pi\ell_{node}/a\approx1.11$) the scalar TL tracks the srs directional-mean to
+worst $1.8\times10^{-3}$.
+
+> **Scope — the scalar TL vs the RANK-2 srs anisotropy (no new zone-edge tension).** The 1D TL carries a
+> **scalar** (direction-independent) dispersion by construction; the srs eigensolve carries the full
+> RANK-2 bond tensor $\Phi_b=k_a\hat d\otimes\hat d+k_s(\mathbf I-\hat d\otimes\hat d)$, so it also carries
+> a nonzero direction-dependent $O(k^2)$ zone-edge term (the cross-check's srs directional spread grows
+> $2.8\times10^{-6}\to4.6\times10^{-2}$ across the first-BZ window). This **re-confirms** the existing
+> weak-C zone-edge flag ([`graded-network-response.md`](graded-network-response.md):109 SCOPE GUARD; the
+> srs eigensolve's measured band-edge anisotropy slope $\approx2$, gate `wejkhvnfb` OPEN) from the TL side
+> — it does **not** change any zone-edge statement in canon. The scalar 1D TL cannot host the rank-2
+> anisotropy (which is *why* it is a scalar isotropic band); forcing it would be the Cartesian-Laplacian
+> disabled-flag error the srs driver warns against. Comparisons past the first BZ edge ($k\ell\gtrsim1.5$)
+> compare **different Brillouin zones** (the 1D-chain $k\ell=\pi$ edge sits inside the srs folded higher
+> bands), not a discrepancy.
+
+**The matched-line reading of Axiom 3.** At the isotropic-bond point $\rho_{bond}=k_a/k_s=1$ the
+internal-boundary reflection vanishes ([`parent-condition-match-forces-balance.md`](parent-condition-match-forces-balance.md),
+clm-mfb2ax). In transmission-line language this is a **matched line**: a cascade of bond TL segments all
+at the same cold $Z_0$ presents no impedance step at any internal node join, so
+$\Gamma_{internal}=(Z_0-Z_0)/(Z_0+Z_0)=0$ at every bond (driver: matched cascade $\Gamma=4.6\times10^{-18}$;
+a deliberately mismatched $Z=1.5Z_0$ bond reflects $|\Gamma|=0.20$, so the reading genuinely sees a
+mismatch). A matched line adds no reflection and no mismatch-dispersion — the **Heaviside distortionless
+line**, the line face of the one Ax3 parent condition (MATCH / BALANCE / HEAVISIDE co-locate at
+$\rho_{bond}=1$; clm-mfb2ax §2). This is a **CONSISTENCY re-expression** of clm-mfb2ax, not a new claim.
+
+> **$K<0$ honest flag (carried, not re-opened).** $\rho_{bond}=1$ is the **lossless-reactive photon
+> operating point** ($K<0$, mechanically unstable per clm-mfb2ax §3 / the `srs-elastic-tensor` result
+> $K<0$ for $\rho<2$) — **not** a stable static elastic solid. The matched-line reading applies to the
+> transverse photon port only; the matter sector sits at a different, mechanically-stable
+> $\rho^\ast\approx9.77$ (GR-imported, PR #506/#261/#521).
+
 ### The Horizon Mirror: Predicting Black Hole Echoes
 
 While the bulk continuous gravity well remains perfectly impedance-matched ($Z = Z_0$), the exact mathematical boundary of the Event Horizon represents a profound physical discontinuity.
