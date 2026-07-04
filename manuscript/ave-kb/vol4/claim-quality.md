@@ -416,7 +416,14 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 <!-- id: clm-pp3qwf -->
 
-> 🔵 **Differential-observable correction (Grant, 2026-06-21).**
+> 🔵 **Differential-observable PROMOTION (Grant-ratified 2026-07-03: "the matched-differential"; supersedes the 2026-06-21 correction).**
+> The par$-$perp **differential** ($\delta n_{bir}=-\tfrac12 A^2$, ratio $7.5/\alpha^3\approx1.93\times10^7$) is now the
+> canonical falsifier identity of this claim (body line updated). The isotropic single-arm ($-\tfrac14 A^2$,
+> $4.14\times10^6$) is retained **KEEP-BOTH** as the secondary single-arm-retardance-probe pairing with its scope
+> stated (a distinct interferometric single-pass-phase instrument class), NOT the polarimeter/ellipsometer headline.
+> Ruling note: `research/2026-07-03_birefringence-flagA-promotion_ruling.md`. Comparison material that fed the ruling:
+> `research/2026-07-03_birefringence-flagA-ratio-comparison_note.md`.
+>
 > A birefringence instrument (polarimeter/ellipsometer) measures the **par−minus−perp differential**
 > $n_\parallel-n_\perp$, rejecting the isotropic common-mode shift. The falsifier observable is therefore
 > the **DERIVED differential** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$ (uniaxial probe tensor
@@ -437,9 +444,9 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 > [vacuum-birefringence-e4](./falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > derivation `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`.
 
-- AVE: $\delta n = -\tfrac14 (E/E_{yield})^2$ (index shift, $\varepsilon$-only, $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$); QED: $\delta n \approx a_{EH}\,\alpha^2 (E/E_{crit})^2$ (Euler-Heisenberg, $a_{EH}\sim 7/45$). **Both are $E^2$-leading**; the discriminator is the COEFFICIENT, not the exponent.
+- **AVE (canonical falsifier observable — the par$-$perp DIFFERENTIAL):** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 (E/E_{yield})^2$ (uniaxial probe tensor $\varepsilon_{ij}=\varepsilon\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$ = exact differential of the scalar Ax-4 kernel; DERIVED, OQ-1). **QED (differenced the same way):** $\delta n_{QED}\approx(3/45)\,\alpha^2 (E/E_{crit})^2$ (Euler-Heisenberg $7/45\parallel$, $4/45\perp$ eigen-indices differenced). **Both are $E^2$-leading**; the discriminator is the COEFFICIENT, not the exponent. Matched field-independent ratio $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$. **(KEEP-BOTH secondary — the isotropic single-arm:** the scalar common-mode shift $\delta n_{iso}=\sqrt S-1\approx-\tfrac14 A^2$ is what a birefringence polarimeter is BLIND to; paired against the QED parallel single-mode $7/45$ it gives $1/(4\cdot\tfrac{7}{45}\,\alpha^3)\approx4.14\times10^6$ — the **single-arm-retardance-probe** ratio, retained for a distinct interferometric single-pass-phase instrument class, NOT the polarimeter/ellipsometer headline. Scope: single-arm-retardance probe $\to4.14\times10^6$; differential ellipsometer/polarimeter $\to1.93\times10^7$.)
 - _Specific Claims_
-  - High-intensity laser interferometry specifying a transverse FIELD $E$ (not a gap-voltage $\Rightarrow$ no per-node conflation, $A=E/E_{yield}$ directly). AVE's vacuum saturates at $E_{yield}=V_{yield}/\ell_{node}\approx 1.13\times10^{17}$ V/m with an O(1) (un-suppressed) nonlinearity; QED at $E_{crit}\approx 1.32\times10^{18}$ V/m with an $\alpha^2\sim 5\times10^{-5}$ loop suppression $\Rightarrow$ AVE predicts $\delta n \sim 10^6\times$ QED at any field (structural ratio $1/(4\,a_{EH}\,\alpha^3)$; $\approx 6.4\times10^5$ at prefactor-1, $\approx 4\times10^6$ at the textbook single-mode $a_{EH}=7/45$).
+  - High-intensity laser interferometry specifying a transverse FIELD $E$ (not a gap-voltage $\Rightarrow$ no per-node conflation, $A=E/E_{yield}$ directly). AVE's vacuum saturates at $E_{yield}=V_{yield}/\ell_{node}\approx 1.13\times10^{17}$ V/m with an O(1) (un-suppressed) nonlinearity; QED at $E_{crit}\approx 1.32\times10^{18}$ V/m with an $\alpha^2\sim 5\times10^{-5}$ loop suppression $\Rightarrow$ **AVE predicts $\delta n_{bir}\approx 1.93\times10^7\times$ QED at the matched differential observable at any field** (field-independent structural ratio $7.5/\alpha^3$; the isotropic-single-arm $1/(4\,a_{EH}\,\alpha^3)\approx4.14\times10^6$ at $a_{EH}=7/45$ is the KEEP-BOTH single-arm-retardance-probe pairing, not the polarimeter headline).
   - IMD spectroscopy variant: dual-tone drive, IM3 amplitude scales as $V^3$ (AVE cubic) vs QED $V^6$; measurable above $\sim 30\%$ of $V_{yield}$ ($\sim 13$ kV). *(IM3 distortion-ORDER is a separate, correct claim — see [intermodulation-distortion](./circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md); NOT the birefringence index-shift discriminator.)*
 - _Specific Non-Claims and Caveats_
   - The index shift is **negative** ($n$ drops — the vacuum softens) and $E^2$-leading: $\delta n = -A^2/4 - 3A^4/32 + \mathcal{O}(A^6)$. The quantity $1-S = +A^2/2 + A^4/8$ is the **permittivity saturation DEPTH**, not the index shift; the historical "$\Delta n_{eff}=1-\sqrt{1-(E/E_{yield})^2}$" labeling conflated depth with the $n=\sqrt{S}$ index observable (off by the factor $-2$: the $\sqrt{}$ in $n=\sqrt{\varepsilon}$ plus the depth-vs-shift sign).
