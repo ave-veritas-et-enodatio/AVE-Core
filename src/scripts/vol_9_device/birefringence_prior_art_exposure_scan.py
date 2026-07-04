@@ -18,8 +18,10 @@ numbers, not asserted.
 KEY PHYSICS (verify live): AVE flip-prob P = sin^2(dphi/2) ~ (dphi/2)^2 deep-cold,
 and dphi ~ delta_n ~ A^2 ~ I. So P_flip ~ I^2 (field^4) at fixed (lambda, z). A
 5.4e-3 flip @1e21 falls as (I/1e21)^2 -> ~5.4e-11 @1e19, ~5.4e-19 @1e17. The
-AVE/QED ratio (7.5/alpha^3) is I-INDEPENDENT (both ride delta_n^2), so the
-DISCRIMINATION does not weaken at lower field; only the absolute signal shrinks.
+AVE/QED ratio (CORRECTED 2026-07-03: 7.5 pi/alpha^2 ~ 4.42e5 propagating; was
+7.5/alpha^3 ~ 1.93e7 before the QED-normalization fix) is I-INDEPENDENT (both ride
+delta_n^2), so the DISCRIMINATION does not weaken at lower field; only the absolute
+signal shrinks.
 
 DISCIPLINE:
   - consistency-vs-emergence: CONSISTENCY-class. Canonical AVE delta_n
@@ -33,6 +35,7 @@ Run:  PYTHONPATH=src python3 src/scripts/vol_9_device/birefringence_prior_art_ex
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from dataclasses import dataclass
@@ -59,9 +62,9 @@ from birefringence_gap1_hibef_feasibility import (  # noqa: E402
 )
 
 from ave.bench import (  # noqa: E402
-    coefficient_ratio_differential,
+    coefficient_ratio_differential_pvlas,
     delta_n_ave_differential_exact,
-    delta_n_qed,
+    delta_n_qed_electric_pvlas,
     substrate_identity_holds,
 )
 from ave.core.constants import E_YIELD  # noqa: E402
@@ -206,7 +209,9 @@ def ave_flip_prob_at_intensity(I_wcm2: float, E_probe_eV: float = E_PROBE_STD_EV
     E = field_from_intensity_wcm2(I_wcm2)
     lam = probe_wavelength_m(E_probe_eV)
     dn_ave = float(delta_n_ave_differential_exact(E))
-    dn_qed = float(delta_n_qed(E, a_eh=3.0 / 45.0))
+    # CORRECTED (2026-07-03): PVLAS-anchored electric leg (propagating/LoI-matched),
+    # replacing the understated (3/45) alpha^2 (too small by 1/(2 pi alpha)=21.8).
+    dn_qed = float(delta_n_qed_electric_pvlas(E, geometry="propagating"))
     dphi_ave = retardance_phase(dn_ave, lam, z_m)
     dphi_qed = retardance_phase(dn_qed, lam, z_m)
     return {
@@ -266,7 +271,80 @@ def classify_prior_experiment(exp: PriorExperiment) -> dict:
     }
 
 
-def main() -> None:
+def export_exposure_figure(out: dict, fig_path: Path) -> Path:
+    """ADDITIVE figure export (opt-in via --figure): the intensity x
+    polarimetric-sensitivity exposure plane for the standalone Letter.
+
+    Draws the AVE flip-prob line and the QED co-prediction line across the
+    optical-pump intensity plane, the demonstrated X-ray polarimeter purity
+    floor, and the prior/commissioning experiments (none of which passes a
+    polarized X-ray probe through a PW-class optical focus -> the CLEAN-FIELD
+    verdict is visible as the empty exposure region). House style (white bg,
+    Okabe-Ito, honest axes+units, legend outside data) via ave.viz.style.
+
+    Consumes the already-computed `out['ave_exposure_line']` (single source of
+    truth); no physics is recomputed here. Kept opt-in so the default driver
+    run (and `make verify`) is unchanged.
+    """
+    import matplotlib.pyplot as plt  # local import: figure path only
+
+    from ave.viz import style
+
+    style.apply()  # print profile: white background (house default)
+
+    line = out["ave_exposure_line"]
+    intensities = [p["I_wcm2"] for p in line]
+    P_ave = [p["P_ave_exact"] for p in line]
+    P_qed = [p["P_qed_exact"] for p in line]
+
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+
+    # AVE prediction line (blue) and QED co-prediction (vermillion).
+    ax.plot(intensities, P_ave, "-o", color=style.COLORS["ave"],
+            label="Saturable-vacuum (this work)")
+    ax.plot(intensities, P_qed, "--s", color=style.COLORS["comparison"],
+            label="QED (Euler--Heisenberg)")
+
+    # The demonstrated X-ray polarimeter purity floor (pump-off record).
+    ax.axhline(BEST_XRAY_POLARIMETER_PURITY, color=style.COLORS["muted"], ls=":",
+               lw=1.5, label=r"Demonstrated purity floor $8\times10^{-11}$")
+
+    # The demonstrated ReLaX pump intensity (the bankable operating point).
+    ax.axvline(I_HIBEF_DEMONSTRATED_WCM2, color=style.COLORS["accent"], ls="-.",
+               lw=1.5, label=r"Demonstrated pump $10^{21}\,$W/cm$^2$")
+
+    # Prior/commissioning experiments: NONE combines pump-on + polarized X-ray +
+    # flip analysis, so none constrains the E-route flip-prob. Mark the
+    # demonstrated-pump intensity band as CLEAN (no prior point occupies the
+    # pump-on polarimetric exposure region) with a text annotation rather than
+    # false data markers (honest-axes: do not plot points where no measurement
+    # of this observable exists).
+    ax.annotate(
+        "no prior pump-on\npolarimetric data\n(CLEAN-FIELD)",
+        xy=(I_HIBEF_DEMONSTRATED_WCM2, 5e-3),
+        xytext=(1.2e17, 3e-3),
+        fontsize=7.5, color=style.COLORS["data"],
+        ha="left", va="center",
+        arrowprops=dict(arrowstyle="->", color=style.COLORS["muted"], lw=1.0),
+    )
+
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(style.axis_label("Optical pump intensity", "I", "W/cm$^2$"))
+    # Symbol-only y-label (the quantity is named in the caption); keeps the long
+    # "[dimensionless]" bracket from clipping the left margin (figure-discipline
+    # Axis 2: symbol + unit present, quantity carried by the caption).
+    ax.set_ylabel(style.axis_label("Flip probability", "P_{\\rm flip}", ""))
+    ax.set_ylim(1e-26, 30.0)
+    fig.subplots_adjust(left=0.16)
+    style.legend(ax, where="right", fontsize=8)
+
+    written = style.save(fig, fig_path)
+    plt.close(fig)
+    return written[0]
+
+
+def main(make_figure: bool = False, fig_path: Path | None = None) -> None:
     out: dict = {}
     print("=" * 78)
     print("PRIOR-ART / COMMISSIONING EXPOSURE SCAN (the gate before the prediction doc)")
@@ -275,11 +353,15 @@ def main() -> None:
     # ---- (0) liveness: substrate identity + the I^2 scaling law -------------
     print("\n[0] LIVENESS + scaling law:")
     id_ok = substrate_identity_holds()
-    ratio = coefficient_ratio_differential()
+    # CORRECTED (2026-07-03): PVLAS-anchored ratio (propagating/LoI-matched
+    # 7.5 pi/alpha^2 ~ 4.42e5). The old 7.5/alpha^3 ~ 1.93e7 was too large by
+    # 1/(2 pi alpha) (understated QED denom); the AVE leg is UNAFFECTED.
+    ratio = coefficient_ratio_differential_pvlas(geometry="propagating")
     out["substrate_identity_holds"] = id_ok
-    out["matched_differential_ratio"] = ratio
+    out["matched_differential_ratio_7.5pi_over_alpha2_propagating"] = ratio
     print(f"    substrate identity (E_crit/E_yield)^2 = 1/alpha: {id_ok}")
-    print(f"    matched differential ratio 7.5/alpha^3 = {ratio:.4e} (field-INDEPENDENT)")
+    print(f"    matched differential ratio (CORRECTED, propagating) 7.5 pi/alpha^2 = "
+          f"{ratio:.4e} (field-INDEPENDENT)")
 
     # Verify P_flip ~ I^2: compare 1e21 and 1e20.
     p21 = ave_flip_prob_at_intensity(1e21)
@@ -350,8 +432,21 @@ def main() -> None:
     out_path = out_dir / "birefringence_prior_art_exposure_scan.json"
     out_path.write_text(json.dumps(out, indent=2, default=float))
     print(f"\nResults written: {out_path}")
+
+    # ---- optional ADDITIVE figure export (opt-in; --figure) -----------------
+    if make_figure:
+        target = fig_path or (Path(__file__).resolve().parent / "_output"
+                              / "birefringence_exposure_plane")
+        written = export_exposure_figure(out, target)
+        print(f"Figure written: {written}")
     print("=" * 78)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--figure", action="store_true",
+                        help="also export the exposure-plane figure (house style)")
+    parser.add_argument("--fig-path", type=Path, default=None,
+                        help="output path stem for the figure (default: _output/)")
+    args = parser.parse_args()
+    main(make_figure=args.figure, fig_path=args.fig_path)

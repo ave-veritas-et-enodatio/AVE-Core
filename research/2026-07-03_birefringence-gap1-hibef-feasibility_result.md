@@ -1,5 +1,11 @@
 # RESULT — GAP-1: AVE's realized birefringence observable at HIBEF (the campaign-sizing arithmetic)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** The QED P_flip `~10⁻¹⁷` and ratio `7.5/α³ ≈ 1.93×10⁷`
+> here use an understated QED denominator (`(3/45)α²` too small by `1/(2πα) ≈ 21.8`). Corrected: QED P_flip
+> `~2.8×10⁻¹⁴` single-pass, ratio `7.5π/α² ≈ 4.42×10⁵` (propagating). The AVE realized flip-prob `5.4×10⁻³` and the
+> CLEARS-FLOOR verdict are UNAFFECTED. See
+> [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-07-03 · **Lane:** implementer · **Branch:** `analysis/birefringence-campaign-opening`
 **Pre-reg:** [`2026-07-03_birefringence-gap1-hibef-feasibility_prereg.md`](2026-07-03_birefringence-gap1-hibef-feasibility_prereg.md) (FROZEN before this driver)
 **Driver:** `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py` · **Output:** `_output/birefringence_gap1_hibef_feasibility.json`

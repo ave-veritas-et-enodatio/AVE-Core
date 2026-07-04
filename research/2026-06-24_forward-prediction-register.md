@@ -1,5 +1,10 @@
 # Forward-Prediction Register — AVE-distinct vs SM/QED, derived-vs-echo
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** The birefringence entry's `7.5/α³ ≈ 1.93×10⁷` ratio
+> uses an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected: `7.5π/α² ≈ 4.42×10⁵`
+> (propagating). The AVE leg and the derived-vs-echo classification are unaffected. See
+> [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-06-24
 **Class:** research (low canonical-risk consolidation; not a new claim node, not a pre-reg).
 **Branch:** `analysis/forward-prediction-register-oa-node`

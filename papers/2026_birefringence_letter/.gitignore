@@ -1,0 +1,10 @@
+# LaTeX build artifacts — the .tex/.bib/figures are the source of record.
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+mainNotes.bib

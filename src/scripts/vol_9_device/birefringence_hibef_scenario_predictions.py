@@ -42,7 +42,7 @@ from birefringence_gap1_hibef_feasibility import (  # noqa: E402
     hibef_point,
 )
 
-from ave.bench import coefficient_ratio_differential, substrate_identity_holds  # noqa: E402
+from ave.bench import coefficient_ratio_differential_pvlas, substrate_identity_holds  # noqa: E402
 from ave.core.constants import E_YIELD  # noqa: E402
 
 # ============================================================================
@@ -130,11 +130,17 @@ def main() -> None:
 
     # liveness
     id_ok = substrate_identity_holds()
-    ratio = coefficient_ratio_differential()
+    # CORRECTED (2026-07-03): PVLAS-anchored ratio (propagating/LoI-matched
+    # 7.5 pi/alpha^2 ~ 4.42e5; static 15 pi/alpha^2 ~ 8.85e5). The old
+    # 7.5/alpha^3 ~ 1.93e7 was too large by 1/(2 pi alpha) (understated QED denom).
+    ratio = coefficient_ratio_differential_pvlas(geometry="propagating")
     out["substrate_identity_holds"] = id_ok
-    out["matched_differential_ratio_7.5_over_alpha3"] = ratio
+    out["matched_differential_ratio_7.5pi_over_alpha2_propagating"] = ratio
+    out["matched_differential_ratio_15pi_over_alpha2_static"] = (
+        coefficient_ratio_differential_pvlas(geometry="static"))
     print(f"\nsubstrate identity (E_crit/E_yield)^2=1/alpha: {id_ok}")
-    print(f"matched differential ratio 7.5/alpha^3 = {ratio:.4e} (field-independent)")
+    print(f"matched differential ratio (CORRECTED, propagating) 7.5 pi/alpha^2 = "
+          f"{ratio:.4e} (field-independent)")
     print(f"LoI floors: record polarimeter purity {P_POLARIMETER_RECORD:.0e}, "
           f"required-to-show {P_REQUIRED_1EM12:.0e}")
 

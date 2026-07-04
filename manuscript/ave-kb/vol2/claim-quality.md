@@ -1582,7 +1582,7 @@ The FORM-DERIVED half of GR-QED Stage-2 (2026-06-29): the discrete lattice pitch
 - _Specific Non-Claims and Caveats_
   - Does NOT claim "AVE predicts the Lamb shift." The self-energy is made FINITE (a real structural win), but the matched numeric agreement is a cutoff-ratio log, NOT a derived dynamical Bethe logarithm. This build makes NO Lamb-shift prediction.
   - The continuum branch carries NO AVE claim — it exists only to exhibit the divergence the cutoff removes.
-  - Does NOT derive $\alpha$ — the loop-regulator FORM is α-CLEAN, but the Stage-2 birefringence MAGNITUDE ($7.5/\alpha^3$) is an α-echo (canonical at clm-pp3qwf, a separate leaf; NOT re-minted here).
+  - Does NOT derive $\alpha$ — the loop-regulator FORM is α-CLEAN, but the Stage-2 birefringence MAGNITUDE (🔴 CORRECTED 2026-07-03: $7.5\pi/\alpha^2\approx4.42\times10^5$; was $7.5/\alpha^3\approx1.93\times10^7$ before the QED-normalization fix, `research/2026-07-03_birefringence-qed-normalization-correction.md`) is an α-echo (canonical at clm-pp3qwf, a separate leaf; NOT re-minted here).
   - The observables are analytic (a BZ quadrature), NOT dynamically evolved through `engine.step()` — correct for a loop-regulator demonstration.
 
 > **Leaf references:** [brillouin-zone-uv-cutoff](./quantum-orbitals/ch07-quantum-mechanics/brillouin-zone-uv-cutoff.md).

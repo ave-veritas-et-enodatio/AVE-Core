@@ -416,6 +416,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 <!-- id: clm-pp3qwf -->
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> Every "$7.5/\alpha^3\approx1.93\times10^7$" (differential) and "$4.14\times10^6$" (single-arm) ratio in this
+> claim carries an **understated QED denominator** — $(3/45)\alpha^2$ and the $\alpha^3$ single-arm form are too
+> small by exactly $1/(2\pi\alpha)\approx21.8$. Cross-checked against the module's own PVLAS-anchored magnetic leg
+> ($A_e=1.32\times10^{-24}$ T$^{-2}$, textbook): at the $E\leftrightarrow cB$ duality point the leading
+> Euler-Heisenberg $(E^2-B^2)^2$ invariant forces the electric coefficient to equal $3A_eB_{crit}^2=\alpha/(30\pi)
+> =1.454\,\alpha^2$, not $3/45$. **Corrected matched-differential ratio: $\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$**
+> (propagating/LoI-matched headline) or $15\pi/\alpha^2\approx8.85\times10^5$ (static-E duality). **The AVE leg
+> $-\tfrac12 A^2$ is UNAFFECTED; only the QED co-prediction and the ratio change.** Falsifier LOGIC survives: AVE
+> $\sim7$ OOM above the polarimeter floor, corrected QED still $\sim4$ OOM below it. Harness:
+> `src/ave/bench/birefringence.py::delta_n_qed_electric_pvlas / coefficient_ratio_differential_pvlas`. Reconciliation
+> note: `research/2026-07-03_birefringence-qed-normalization-correction.md`.
+>
 > 🔵 **Differential-observable PROMOTION (Grant-ratified 2026-07-03: "the matched-differential"; supersedes the 2026-06-21 correction).**
 > The par$-$perp **differential** ($\delta n_{bir}=-\tfrac12 A^2$, ratio $7.5/\alpha^3\approx1.93\times10^7$) is now the
 > canonical falsifier identity of this claim (body line updated). The isotropic single-arm ($-\tfrac14 A^2$,

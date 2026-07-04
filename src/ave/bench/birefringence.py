@@ -231,8 +231,55 @@ def delta_n_qed(E: np.ndarray | float, a_eh: float = 7.0 / 45.0) -> np.ndarray:
     The standard one-loop weak-field vacuum-birefringence form. a_eh defaults to
     the single-mode parallel coefficient 7/45. alpha^2-loop-suppressed against
     the Schwinger field E_CRIT.
+
+    ==== NORMALIZATION CORRECTION (2026-07-03) — READ BEFORE USING FOR PREDICTION ====
+    The a_eh = 3/45 = 0.0667 DIFFERENTIAL convention this function was called with
+    in the birefringence-campaign drivers is UNDERSTATED by exactly 1/(2*pi*alpha)
+    = 21.81 relative to the module's OWN PVLAS-anchored magnetic leg
+    (delta_n_qed_magnetic, whose A_e recovers the textbook 1.32e-24 T^-2). At the
+    E<->cB duality point the leading Euler-Heisenberg (E^2-B^2)^2 invariant gives
+    IDENTICAL differentials, so delta_n_qed(E_crit, 3/45) MUST equal
+    delta_n_qed_magnetic(B_crit) -- it does not (3.55e-6 vs 7.74e-5). The bug is in
+    the module comment's "B -> E/c translation": that translation gives the
+    A_e-derived coefficient alpha/(30*pi) = 1.454*alpha^2, NOT 3/45. The
+    arbiter-validated electric leg is delta_n_qed_electric_pvlas() below; use THAT
+    for any prediction. This raw a_eh form is retained for the historical/traceability
+    calls and for the single-mode 7/45, 4/45 bracket coefficients only.
     """
     return a_eh * ALPHA**2 * (np.asarray(E, dtype=float) / E_CRIT) ** 2
+
+
+def delta_n_qed_electric_pvlas(E: np.ndarray | float, *, geometry: str = "propagating") -> np.ndarray:
+    """QED electric-field vacuum-birefringence differential, ANCHORED to the PVLAS
+    magnetic leg (the arbiter-validated normalization; corrects the 3/45 leg).
+
+    Two external arbiters pin this coefficient (2026-07-03 reconciliation):
+      (a) PVLAS A_e cross-check via E<->cB duality. The magnetic differential is
+          3 A_e B^2; at B=B_crit it equals 3 A_e B_crit^2 = alpha/(30*pi)
+          = 1.454*alpha^2 (analytic; A_e recovers 1.32e-24 T^-2). The leading
+          Euler-Heisenberg (E^2-B^2)^2 invariant is E<->cB symmetric, so the
+          STATIC-E differential coefficient equals the magnetic one:
+              delta_n_static = (alpha/(30*pi)) (E/E_crit)^2.
+      (b) The BIREF@HIBEF LoI Eq.19 focus form N'/N = (4 alpha^2/225)(I_L/I_S)^2
+          (z/lambda)^2 reproduces to ~1e-12 at 1e21 W/cm^2 and implies, for a
+          PROPAGATING plane-wave pump (E and B co-moving, BOTH invariants active),
+          a differential a FACTOR 2 larger:
+              delta_n_propagating = (alpha/(15*pi)) (E/E_crit)^2.
+
+    geometry="propagating" (default) returns the LoI-matched plane-wave value
+    alpha/(15*pi) -- the correct value for a HIBEF-type optical pump and the
+    CONSERVATIVE (larger-QED) choice. geometry="static" returns the pure-static-E
+    duality value alpha/(30*pi) (the PVLAS-magnetic-matched number).
+
+    LABELED non-AVE literature closed form; NOT an AVE prediction.
+    """
+    if geometry == "propagating":
+        coeff = ALPHA / (15.0 * np.pi)
+    elif geometry == "static":
+        coeff = ALPHA / (30.0 * np.pi)
+    else:
+        raise ValueError(f"geometry must be 'propagating' or 'static', got {geometry!r}")
+    return coeff * (np.asarray(E, dtype=float) / E_CRIT) ** 2
 
 
 def vacuum_magnetic_birefringence_constant() -> float:
@@ -326,22 +373,49 @@ def coefficient_ratio(a_eh: float = 7.0 / 45.0) -> float:
 
 
 def coefficient_ratio_differential() -> float:
-    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (the falsifier headline).
+    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (SUPERSEDED value).
 
-    A birefringence instrument measures n_par - n_perp, rejecting the isotropic
-    common-mode shift. Both observables are differenced the same way:
-        AVE differential delta_n_bir = n_par - n_perp ~ -(1/2) A^2  (DERIVED;
-            uniaxial probe tensor = exact differential of the scalar Ax-4 kernel)
-        QED differential = (3/45) alpha^2 (E/E_crit)^2  (Euler-Heisenberg 7/45
-            parallel and 4/45 perp eigen-indices differenced)
-    =>  delta_n_AVE / delta_n_QED = (1/2) / ((3/45) alpha^2) * (E_CRIT/E_YIELD)^2
-                                  = (45/6) / alpha^3 = 7.5 / alpha^3 ~ 1.93e7.
-    Field-independent (both E^2-leading), riding the substrate identity
-    (E_CRIT/E_YIELD)^2 = 1/alpha. The MAGNITUDE is an alpha-echo (symmetric
-    standard: QED's coefficient is equally alpha-rooted); the FORM (tree-O(1)/2
-    saturation vs alpha^2 loop) is the AVE-distinct chord.
+    ==== SUPERSEDED (2026-07-03) — this returns the WRONG-NORMALIZATION 7.5/alpha^3.
+    The QED denominator (3/45) alpha^2 is understated by 1/(2*pi*alpha) = 21.81
+    (see delta_n_qed correction note). The corrected, arbiter-validated ratio is
+    coefficient_ratio_differential_pvlas() below. This function is retained ONLY so
+    historical callers do not break; do NOT use its value in any prediction. ====
+
+    AVE differential delta_n_bir = n_par - n_perp ~ -(1/2) A^2  (DERIVED; UNAFFECTED
+    by the correction). Paired against the understated QED (3/45) alpha^2 it gave
+        (1/2) / ((3/45) alpha^2) * (E_CRIT/E_YIELD)^2 = 7.5/alpha^3 ~ 1.93e7 (WRONG).
     """
     return (0.5 / ((3.0 / 45.0) * ALPHA**2)) * (E_CRIT / E_YIELD) ** 2
+
+
+def coefficient_ratio_differential_pvlas(*, geometry: str = "propagating") -> float:
+    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (CORRECTED, arbiter-anchored).
+
+    The AVE differential (numerator) is UNCHANGED: delta_n_bir ~ -(1/2) A^2, whose
+    coefficient of (E/E_crit)^2 is (1/2)(E_crit/E_yield)^2 = 1/(2 alpha) (substrate
+    identity (E_crit/E_yield)^2 = 1/alpha).
+
+    The QED denominator is the PVLAS-anchored electric leg
+    (delta_n_qed_electric_pvlas):
+        propagating (LoI-matched, default): alpha/(15*pi) (E/E_crit)^2
+            => ratio = [1/(2 alpha)] / [alpha/(15 pi)] = 15*pi/(2 alpha^2)
+                     = 7.5*pi/alpha^2 ~ 4.42e5.
+        static (PVLAS-magnetic-matched):    alpha/(30*pi) (E/E_crit)^2
+            => ratio = 15*pi/alpha^2 ~ 8.85e5.
+
+    The FORM (tree-O(1)/2 saturation vs an alpha^2 loop) is the AVE-distinct chord;
+    the MAGNITUDE is an alpha-echo (symmetric standard: QED is equally alpha-rooted).
+    Falsifier LOGIC unchanged: AVE ~7 OOM above the polarimeter floor, corrected QED
+    still ~4 OOM below it.
+    """
+    ave_num = 0.5 * (E_CRIT / E_YIELD) ** 2  # = 1/(2 alpha)
+    if geometry == "propagating":
+        qed_coeff = ALPHA / (15.0 * np.pi)
+    elif geometry == "static":
+        qed_coeff = ALPHA / (30.0 * np.pi)
+    else:
+        raise ValueError(f"geometry must be 'propagating' or 'static', got {geometry!r}")
+    return ave_num / qed_coeff
 
 
 def substrate_identity_holds() -> bool:

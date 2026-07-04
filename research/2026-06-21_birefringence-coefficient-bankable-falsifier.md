@@ -1,5 +1,11 @@
 # Vacuum-Birefringence Coefficient — the Bankable AVE-Distinct Falsifier (facility proposal)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12).** The matched-differential `7.5/α³ ≈ 1.93×10⁷` and the
+> single-arm `4.14×10⁶` in this doc use an understated QED denominator (too small by `1/(2πα) ≈ 21.8`). Corrected
+> differential ratio: `7.5π/α² ≈ 4.42×10⁵` (propagating). The bankability argument (field-independent coefficient
+> gap, AVE ~7 OOM above the polarimeter floor) is unaffected. See
+> [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-06-21
 **Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS. OQ-1 (field→cavity-phase coupling) now **PARTIALLY CLOSED** (adversarial-verify verdict `partially-closed`): the coupling is **DERIVED** from the Axiom-4 kernel and the geometry factor *g* is **PINNED per apparatus config** — see the derivation [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md). Named residuals carried (R-1 differential-vs-leaf observable, R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed); §5, §8 below superseded with the pinned per-config numbers.
 

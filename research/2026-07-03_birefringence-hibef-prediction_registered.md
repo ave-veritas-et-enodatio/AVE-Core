@@ -1,5 +1,12 @@
 # PRE-REGISTERED PREDICTION — AVE vacuum birefringence at BIREF@HIBEF (FROZEN, pre-data)
 
+> 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved, git is the trail).** Every
+> `7.5/α³ ≈ 1.93×10⁷` ratio and every QED P_flip `~10⁻¹⁷` in this doc uses an understated QED denominator
+> (`(3/45)α²` too small by `1/(2πα) ≈ 21.8`; cross-checked against the PVLAS-anchored magnetic leg). **Corrected
+> ratio `7.5π/α² ≈ 4.42×10⁵` (propagating/LoI-matched); corrected QED P_flip `~2.8×10⁻¹⁴` single-pass.** The AVE
+> leg (`−½A²`, `5.4/4.3/9.3×10⁻³`) is UNAFFECTED; the falsifier LOGIC survives (AVE ~7 OOM above floor, QED still
+> ~4 OOM below). Full reconciliation: [`2026-07-03_birefringence-qed-normalization-correction.md`](2026-07-03_birefringence-qed-normalization-correction.md).
+
 **Date:** 2026-07-03 · **Lane:** implementer · **Branch:** `analysis/birefringence-prediction-doc`
 **Status:** FROZEN PRE-REGISTRATION. Every number below is computed from canonical AVE (`clm-pp3qwf`)
 through the LoI's stated readout, BEFORE any BIREF@HIBEF pump-on collision data exists.

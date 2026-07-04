@@ -15,8 +15,10 @@ polarization-FLIP PROBABILITY read as X-ray purity, and derives the HONEST
 SATURATED prediction where the naive perturbative flip-prob would exceed unity.
 
 THE FORM-BREAK (survey :77-79). On flip-PROBABILITY the field-independent
-amplitude ratio squares to ~9e13x QED, driving the naive perturbative AVE
-flip-prob P = (dphi/2)^2 > 1. That form BREAKS. The honest bounded observable is
+amplitude ratio squares to ~2e11x QED (CORRECTED 2026-07-03: the amplitude ratio
+is 7.5 pi/alpha^2 ~ 4.42e5 propagating, so flip ratio ~1.95e11; was ~9e13 under the
+pre-fix 1.93e7 amplitude ratio), driving the naive perturbative AVE flip-prob at
+the DESIGN fields P = (dphi/2)^2 > 1. That form BREAKS. The honest bounded observable is
 the EXACT single-pass flip-prob P = sin^2(dphi/2) in [0,1] (the Ax-4 kernel's
 retardance accumulated over the single pass, read on the Poincare sphere). This
 driver computes BOTH and books the saturated one against the two X-ray purity
@@ -30,11 +32,16 @@ DISCIPLINE:
   - consistency-vs-emergence: CONSISTENCY-class. Canonical AVE delta_n
     (clm-pp3qwf) through a LITERATURE HIBEF readout. No new clm/constant.
   - chord-vs-echo: the FORM (tree-O(1) saturation, static-B transparent) is the
-    AVE chord; the 7.5/alpha^3 MAGNITUDE is an alpha-echo (symmetric standard).
+    AVE chord; the MAGNITUDE (CORRECTED 2026-07-03: 7.5 pi/alpha^2 ~ 4.42e5
+    propagating / 15 pi/alpha^2 ~ 8.85e5 static; was 7.5/alpha^3 ~ 1.93e7 before
+    the QED-normalization fix) is an alpha-echo (symmetric standard).
   - phase-space-coordinate-check PASS: flip-prob is a polarization-PHASE
     observable; both legs ride the identical delta_n -> dphi -> flip chain.
-  - the a_EH~1.45 PVLAS back-solve artifact anchors NOTHING (1/(2 pi alpha)
-    units artifact; excluded).
+  - QED-NORMALIZATION FIX (2026-07-03): the a_EH~1.45 (= alpha/(30 pi) as a mult
+    of alpha^2) value is the CORRECT PVLAS-anchored electric coefficient, NOT an
+    artifact. The prior "3/45 electric" leg was understated by 1/(2 pi alpha)=21.8
+    relative to the module's own A_e-validated magnetic leg (they must match at the
+    E<->cB duality point). Now uses delta_n_qed_electric_pvlas (propagating).
 
 Run:  PYTHONPATH=src python3 src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py
 """
@@ -49,9 +56,9 @@ from pathlib import Path
 import numpy as np
 
 from ave.bench import (  # noqa: E402
-    coefficient_ratio_differential,
+    coefficient_ratio_differential_pvlas,
     delta_n_ave_differential_exact,
-    delta_n_qed,
+    delta_n_qed_electric_pvlas,
     delta_n_qed_magnetic,
     substrate_identity_holds,
     vacuum_magnetic_birefringence_constant,
@@ -174,7 +181,10 @@ def hibef_point(E_field: float, E_probe_eV: float, z_m: float = Z_INTERACTION_M)
     -1/2 A^2 (canonical); QED = differenced Euler-Heisenberg 3/45 (literature)."""
     lam = probe_wavelength_m(E_probe_eV)
     dn_ave = float(delta_n_ave_differential_exact(E_field))
-    dn_qed = float(delta_n_qed(E_field, a_eh=3.0 / 45.0))
+    # CORRECTED (2026-07-03): PVLAS-anchored electric leg (propagating/LoI-matched
+    # alpha/(15 pi)), replacing the understated (3/45) alpha^2 that was too small by
+    # 1/(2 pi alpha) = 21.8 vs the module's own A_e-validated magnetic leg.
+    dn_qed = float(delta_n_qed_electric_pvlas(E_field, geometry="propagating"))
     dphi_ave = retardance_phase(dn_ave, lam, z_m)
     dphi_qed = retardance_phase(dn_qed, lam, z_m)
     P_ave_pert = flip_prob_perturbative(dphi_ave)
@@ -366,10 +376,16 @@ def main() -> None:
     print(f"    -> VALIDATE_PASS: {val['VALIDATE_PASS']}")
 
     # ---- (1) the field-independent matched-differential ratio (context) -----
-    ratio = coefficient_ratio_differential()
-    out["matched_differential_ratio_7.5_over_alpha3"] = ratio
-    print(f"\n[1] Matched differential ratio delta_n_AVE/delta_n_QED = 7.5/alpha^3 = "
-          f"{ratio:.4e} (field-independent, ECHO-tagged)")
+    # CORRECTED (2026-07-03): PVLAS-anchored ratio. Propagating/LoI-matched =
+    # 7.5 pi/alpha^2 ~ 4.42e5; static-duality = 15 pi/alpha^2 ~ 8.85e5. The old
+    # 7.5/alpha^3 ~ 1.93e7 was too large by 1/(2 pi alpha) (understated QED denom).
+    ratio = coefficient_ratio_differential_pvlas(geometry="propagating")
+    out["matched_differential_ratio_7.5pi_over_alpha2_propagating"] = ratio
+    out["matched_differential_ratio_15pi_over_alpha2_static"] = (
+        coefficient_ratio_differential_pvlas(geometry="static"))
+    print(f"\n[1] Matched differential ratio delta_n_AVE/delta_n_QED (CORRECTED, "
+          f"PVLAS-anchored, propagating) = 7.5 pi/alpha^2 = {ratio:.4e} "
+          f"(field-independent, ECHO-tagged)")
 
     # ---- (2) AVE realized flip-prob at HIBEF (the GAP-1 arithmetic) ---------
     print("\n[2] AVE REALIZED FLIP-PROB AT HIBEF (demonstrated pump E=8.7e13 V/m, z=10um):")
