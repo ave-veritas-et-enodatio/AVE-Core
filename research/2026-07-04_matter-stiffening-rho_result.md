@@ -194,6 +194,26 @@ A substrate-native scope tension I do NOT resolve unilaterally (flag-don't-fix f
   claim the matter-Poisson operating point is reached. I do NOT claim it. This further weakens any
   quantitative reading and is the natural next test IF Grant wants to push the state-diagram harder.
 
+> **↗ RESOLUTION STATUS (2026-07-04, PR #521 MERGED — the saturated-elastic-tensor arc; the flag
+> above is PRESERVED, this appends its disposition — KEEP-BOTH).** The "natural next test" named in
+> the last bullet was RUN. The saturated C_ij(ρ_eff) WAS recomputed (the Born-Huang run on the
+> saturated Φ_b), verdict **[SAME-TENSOR-POINT]**: driving the saturated ρ_eff to 9.7734 DOES land
+> the same cold ν=2/7 / K=2G tensor (ν_Hill = 0.285714 = 2/7, K/G_Hill = 2.0000, Zener A = 1.2293,
+> to cold precision), because the Born-Huang map (k_a,k_s)↦C_ij is homogeneous of degree 1 so the
+> dimensionless ratios are degree 0 (an overall stiffness scale drops out; VS2/VS3 to ≤4×10⁻⁸). **So
+> the regime gap CLOSES — but MODEL-SCOPED: it closes "at the tensor level of the small-signal
+> swapped-springs model" (the DC-biased lattice as the cold tensor with each bond spring softened by
+> its per-channel S(A) at FIXED reference geometry), NOT unconditionally.** The RESIDUAL STAYS OPEN:
+> the two contributions a real DC-biased lattice can carry that this model OMITS — (a) initial/residual
+> (pre-)stress from bias pre-loading, and (b) bias-induced geometry change (node/bond relaxation off
+> the cold geometry) — are OUT OF SCOPE there and remain OPEN. **VALUE GRADE UNCHANGED (rides along):**
+> [SAME-TENSOR-POINT] is a CONSISTENCY finding (the saturated map is the undeformed cold map), **NOT a
+> value derivation** — 9.7734 stays GR-imported, reached at the canon-undistinguished free-knob
+> crossing A_wall=0.99479 (not √α, not 1−α, not the A→1 yield wall); K=2G's GR-import grade (PR#261)
+> is UNTOUCHED. Provenance: `research/2026-07-04_saturated-elastic-tensor_result.md` (VERDICT BOX +
+> § MODEL SCOPE); driver `src/scripts/vol_1_foundations/saturated_elastic_tensor.py`. *(This result
+> body is a frozen record; banner-append only — the flag above is unedited.)*
+
 ---
 
 ## 7. WHAT THIS DOES / DOES NOT CLAIM

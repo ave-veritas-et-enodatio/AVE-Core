@@ -53,6 +53,24 @@ calc gives a one-parameter family with the same GR-imported-ρ* structure as z=4
 > `research/2026-07-04_matter-stiffening-rho_result.md` (VERDICT BOX + §6 + §8). *(This result body
 > is a frozen record; banner-append only.)*
 
+> **↗ RESOLUTION UPDATE (2026-07-04, PR #521 MERGED — the saturated-elastic-tensor arc; the
+> CROSS-LINK banner above is PRESERVED, this appends the tested outcome — KEEP-BOTH).** The "UNTESTED"
+> the banner above flags is now **TESTED and CONFIRMED [SAME-TENSOR-POINT]**: the Born-Huang run on
+> the saturated Φ_b WAS performed, and driving the saturated ρ_eff to 9.7734 DOES land the same cold
+> ν=2/7 / K=2G tensor this result found at cold ρ*=9.7734 (ν_Hill=2/7, K/G_Hill=2.0000, Zener
+> A=1.2293, to cold precision) — because the Born-Huang map is homogeneous of degree 1, so the
+> dimensionless ratios are degree 0 and an overall stiffness scale drops out (VS2/VS3 ≤4×10⁻⁸; the
+> saturated ν(ρ_eff) map IS the cold ν(ρ) map, undeformed). **So the cold-vs-saturated tensor gap
+> CLOSES — MODEL-SCOPED** to the small-signal swapped-springs model (cold tensor with each bond spring
+> softened by its per-channel S(A) at FIXED geometry); the **RESIDUAL STAYS OPEN**: initial/residual
+> (pre-)stress from bias pre-loading and bias-induced geometry change are OMITTED and remain OPEN
+> (§ MODEL SCOPE). **VALUE GRADE UNCHANGED:** this is a CONSISTENCY finding (undeformed map), NOT a
+> value derivation — this result's cold ρ*≈9.7734 / K=2G stays GR-imported (PR #506 / PR#261), the
+> crossing amplitude A_wall=0.99479 stays canon-undistinguished. Provenance:
+> `research/2026-07-04_saturated-elastic-tensor_result.md` (VERDICT BOX + § MODEL SCOPE); driver
+> `src/scripts/vol_1_foundations/saturated_elastic_tensor.py`. *(Frozen record; banner-append only —
+> the CROSS-LINK banner above is unedited.)*
+
 ---
 
 ## SUBSTRATE-FIRST SECTOR HEADER (as run)
