@@ -98,6 +98,16 @@ resists compression:
 > **F_b(A) = −|Φ'(A)| = −bond_tension(A)** . **SIGN = −COMPRESSION.** Post-buckling plateau
 > **P_c = −k_b·ℓ/4** (buckling-load analog, FINITE as bow→0⁺). Pre-buckle branch: Hooke **−k_a·u→0**.
 
+> **TWO PHYSICALLY DISTINCT QUANTITIES (item 5, not two facets of one force).** `F_b = −|Φ'(A)|` is the
+> **AXIAL pre-stress INPUT** that feeds the #526 remap slot — the transverse `(T/ℓ)(I−P)` term takes
+> `T = the bond's own axial-channel tension Φ'(A_axial)` (the remap-slot contract,
+> `prestress_elastic_tensor.py:126`); this is the number that flows into `k_shear_eff` and sets the
+> tracks. `P_c = −k_b·ℓ/4` is a **DIFFERENT object**: the transverse **bend-force phenomenology** of the
+> post-buckled strut (the Euler plateau), used ONLY in the PC-b1 positive control and the §3a knife — it
+> is NOT fed into the remap. Do not read `F_b` and `P_c` as two facets of one force: the sign-and-law
+> carrier for the tracks is `F_b`; `P_c` is the buckling-phenomenology check that arm (b) IS an Euler
+> strut.
+
 - **The magnitude is the SAME LAW as #526** (`|Φ'(A)|`); the SIGN is the ONLY difference. #526 used
   `+|Φ'(A)|` (tensile); the fixed-arc end-load derivation gives the same magnitude, compressive. This
   is the load-bearing reconciliation: **#526 already IS the axial arm — with the wrong sign for an
