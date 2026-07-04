@@ -427,10 +427,18 @@ def main():
         "saturation-only). A nonzero difference = a bug.",
     }
 
-    # per-direction slope table at the isotropic-bond point (the deliverable table)
+    # per-direction slope table (the deliverable table) at two points: the iso-bond
+    # point (rho=1, unstable K<0, but Zener-isotropic) and a STABLE representative
+    # (rho=3) + the nu=2/7 / K=2G point (rho~9.77, the physically meaningful one).
     pos_s, bonds_s, rho_s = srs_primitive("right")
-    r_iso_srs = extract_cubic_Cij(pos_s, bonds_s, k_axial=1.0, k_shear=1.0, rho=rho_s)
-    srs["slope_table_iso_bond_right"] = r_iso_srs["slope_table"]
+    srs["slope_table_right"] = {
+        "iso_bond_rho1_UNSTABLE": extract_cubic_Cij(
+            pos_s, bonds_s, k_axial=1.0, k_shear=1.0, rho=rho_s)["slope_table"],
+        "stable_rho3": extract_cubic_Cij(
+            pos_s, bonds_s, k_axial=3.0, k_shear=1.0, rho=rho_s)["slope_table"],
+        "nu_2_7_point_rho9p7734": extract_cubic_Cij(
+            pos_s, bonds_s, k_axial=9.7734, k_shear=1.0, rho=rho_s)["slope_table"],
+    }
 
     # ===== (2) THE THREE READOUTS (frozen; reported whatever they say) ======
     right = enantio_check["right"]
