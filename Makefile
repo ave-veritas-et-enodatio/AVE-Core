@@ -49,7 +49,13 @@ KB_VERIFY = verify-kb-metadata
 # Volume list — public volumes (0–6) + Vol 9 datasheet (synthesis volume)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table vol_9_vacuum_datasheet
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+# Standalone papers — release artifacts on a submission-gated lifecycle.
+# Deliberately NOT part of `all`/`pdf`: the committed PDF is the artifact of
+# record for a pre-registered document; it is rebuilt only via `make paper`.
+PAPER_DIR = papers/2026_birefringence_letter
+PAPER_JOB = sve_vacuum_birefringence_letter
+
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -67,6 +73,7 @@ help:
 	@echo "  make test-tools           : Run KB tooling tests only (manuscript/ave-kb/tools/tests)"
 	@echo "  make pdf                  : Compile all 8 public volumes (Vols 0-6 + Vol 9 Datasheet)"
 	@echo "  make pdf_manuscript       : Compile manuscript volumes"
+	@echo "  make paper                : Rebuild the birefringence Letter PDF ($(PAPER_DIR)/$(PAPER_JOB).pdf; NOT part of 'all')"
 	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
 	@echo "  make vol1                 : Vol I:  Foundations & Universal Operators"
 	@echo "  make vol2                 : Vol II: The Subatomic Lattice"
@@ -112,6 +119,11 @@ verify: $(KB_VERIFY) verify-md-links
 	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
 	@echo "\n[Verify] Running ξ namespace collision guard..."
 	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
+	@TEX_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/main.tex $(PAPER_DIR)/refs.bib $(PAPER_DIR)/figures 2>/dev/null || echo 0); \
+	PDF_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/$(PAPER_JOB).pdf 2>/dev/null || echo 0); \
+	if [ "$${TEX_T:-0}" -gt "$${PDF_T:-0}" ]; then \
+		echo "\n[Verify][warn] Letter source ($(PAPER_DIR)) has commits newer than the committed PDF — run 'make paper' and commit $(PAPER_JOB).pdf (warn-only, non-gating)"; \
+	fi
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
@@ -215,6 +227,12 @@ endef
 
 pdf: pdf_manuscript
 
+# The Letter builds ONLY on demand — see the PAPER_DIR comment above.
+paper:
+	@echo "[Paper] Building the birefringence Letter ($(PAPER_JOB).pdf)..."
+	cd $(PAPER_DIR) && latexmk -pdf -jobname=$(PAPER_JOB) main.tex
+	@echo "[Paper] Done: $(PAPER_DIR)/$(PAPER_JOB).pdf"
+
 pdf_manuscript:
 	@echo "[Build] Compiling Volumes 0–VI + Vol IX (two-pass for cross-volume xr-hyper resolution)..."
 	@echo "[Build] === Pass 1 (collect aux files) ==="
@@ -286,7 +304,7 @@ clean:
 	rm -rf $(OUT_DIR)/aux
 	rm -f $(OUT_DIR)/*.pdf
 	@echo "[Clean] Removing in-tree LaTeX artifacts..."
-	@find $(SRC_DIR) future_work \
+	@find $(SRC_DIR) future_work papers \
 		\( -name "*.aux" -o -name "*.toc" -o -name "*.lof" -o -name "*.lot" \
 		   -o -name "*.fls" -o -name "*.fdb_latexmk" -o -name "*.out" \
 		   -o -name "*.log" -o -name "*.synctex.gz" -o -name "*.bbl" \

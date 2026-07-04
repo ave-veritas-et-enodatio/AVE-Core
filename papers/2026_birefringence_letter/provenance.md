@@ -176,3 +176,19 @@ All refs verified via Crossref DOI lookup / arXiv abstract this session:
 - `make verify`: GREEN (xi-namespace advisory pre-existing + non-gating).
 - src/ change is additive only (`--figure` opt-in export on the scan driver);
   default driver runs and JSON outputs unchanged; ruff-clean.
+
+## 7. Artifact rename + repo build target (2026-07-04)
+
+- The committed PDF is renamed `main.pdf` → `sve_vacuum_birefringence_letter.pdf`
+  (Grant directive: the artifact should not be named "main"). PDF metadata
+  (`pdftitle`, `pdfauthor`) added via `\hypersetup` — no visual change; hyperref
+  was already loaded with the same options.
+- New repo target `make paper` (latexmk, `-jobname=sve_vacuum_birefringence_letter`)
+  rebuilds it on demand. Deliberately NOT part of `make all`/`make pdf`: this PDF
+  is the artifact of record for a pre-registered document (numbers Bitcoin-anchored
+  under SHA f34e7559) and is rebuilt only on an explicit `make paper`.
+- `make verify` now carries a warn-only staleness check: if `main.tex`/`refs.bib`/
+  `figures/` have commits newer than the committed PDF, it prints a rebuild
+  reminder (non-gating).
+- Rebuilt at this rename: 7 pages, source unchanged from the merged PR #504 state (the
+  Appendix-A micro-steps) plus this hypersetup line; content identical, metadata added.
