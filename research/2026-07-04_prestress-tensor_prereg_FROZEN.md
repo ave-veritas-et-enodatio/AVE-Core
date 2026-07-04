@@ -10,6 +10,24 @@ cold family `research/2026-07-04_srs-elastic-tensor_result.md`.
 **Test:** `src/tests/test_prestress_elastic_tensor.py`
 **Result:** `research/2026-07-04_prestress-tensor_result.md`
 
+> **↗ POST-RUN AMENDMENTS (2026-07-04, orchestrator 16-agent review, PR #526 fix round — banner-
+> append only; the frozen body below is a record, NOT edited).** The bin verdict [MAP-DEFORMED] is
+> EARNED (all three review lenses reproduce it). Two corrections to the frozen body's INTERPRETATION
+> (not its bins/gates):
+> - **MECHANISM (body §0 "breaks the degree-1 homogeneity").** RETRACTED as the mechanism. Verified
+>   bit-exact: the `(T/ℓ)(I−P)` term has the same projector structure as the shear spring, so
+>   `prestress(k_a,k_s,T) == cold(k_a, k_s+T/ℓ)` (≤8×10⁻¹⁶, new VS4 gate). The Born-Huang homogeneity
+>   is INTACT; the tensor stays in the cold family. What breaks is #521's DICTIONARY ρ_eff=S_ax/S_shear
+>   — the true coordinate is ρ'=S_ax/(S_shear+T/ℓ), CAPPED at S_ax·ℓ/T. Family survives, dictionary
+>   breaks, coordinate capped. See result §2.
+> - **CITE FIX (item 5f).** Body §3 and §7 row 6 cite "#521 `:141`" for the units-into-ρ convention.
+>   That line is a VS1-tolerance line; the correct target is the DRIVER
+>   `saturated_elastic_tensor.py:139` ("units absorbed into rho"). Corrected in the result doc.
+> - **δ_y ledger row + T-sign fork** added in the result (§11, §6.5) — the frozen ledger (body §7)
+>   did not carry the δ_y normalization row or the T-sign fork; both added post-review.
+> - The ENGINE-DECIDED reading-A banner already appended at §9 stands (residual node force covers
+>   INTERNAL DOFs; the cell virial is deferred to test 2 — result §6.6).
+
 ---
 
 ## 0. THE SEAM THIS OPENS — the #521 MODEL SCOPE block, verbatim
