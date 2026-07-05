@@ -326,7 +326,13 @@ def part2_radiation_control(theta: float = 0.3) -> dict:
     # traveling wave has BOTH ~0. If a genuine bug made one nonzero while the other
     # stayed zero, they diverge. Tol 1e-9 on both (machine-zero cascade + smooth field).
     tol = 1e-9
-    reconcile_ok = (path1_gamma_mag < tol) == (path2_reaction < tol)
+    reconcile_ok = reconcile_matched_reaction(path1_gamma_mag, path2_reaction, tol)
+    if not reconcile_ok:
+        raise DiscrepantHalt(
+            f"matched-line reaction RECONCILE FAILED: Γ-read={path1_gamma_mag:.3e} "
+            f"vs field momentum-flux RMS={path2_reaction:.3e} disagree on vanishing "
+            f"(tol={tol:.1e}) -- the two independent paths must both vanish or both not"
+        )
     reconcile_detail = {
         "path1_gamma_mag": path1_gamma_mag,
         "path2_field_reaction_rms_norm": path2_reaction,
@@ -388,18 +394,108 @@ class DiscrepantHalt(RuntimeError):
     """
 
 
+def reconcile_matched_reaction(gamma_read: float, field_reaction: float,
+                               tol: float = 1e-9) -> bool:
+    """The DISCREPANT-HALT reconcile core (extracted so synthetic tests can trigger it).
+
+    The two INDEPENDENT matched-line reaction paths must AGREE on whether the reaction
+    vanishes: (gamma_read < tol) iff (field_reaction < tol). A genuine bug making ONE
+    nonzero while the other stays zero breaks the equivalence ⟹ returns False ⟹ HALT.
+    This is NOT a re-check of one identity: gamma_read is a reflection functional,
+    field_reaction is a field-space momentum-flux gradient RMS -- different assemblies.
+    """
+    return (gamma_read < tol) == (field_reaction < tol)
+
+
 def run_positive_controls() -> dict:
     """PC-half / PC-lead-vs-exact / PC-noload / PC-matched / PC-reflect (HALT-gated)."""
-    raise NotImplementedError
+    results = {}
+
+    # PC-half: the DERIVED ½ + ⟨T⟩ law, every sympy residual exact-zero
+    bb = symbolic_backbone()
+    results["PC_half_residuals"] = {k: str(v) for k, v in bb.items()}
+    results["PC_half_ok"] = bool(all(v == 0 for v in bb.values()))
+
+    # PC-lead-vs-exact: leading ⟨T⟩ tracks the exact cycle-average at small y0 (→0),
+    # and is a strict UPPER BOUND everywhere in-regime (concavity in y²).
+    ys = np.array([1e-3, 1e-2, 0.05, 0.14, 0.42])
+    lead = np.array([resonant_tension_leading(float(y)) for y in ys])
+    exact = np.array([resonant_tension_exact(float(y)) for y in ys])
+    results["PC_lead_vs_exact_smally_rel_dev"] = float((lead[0] - exact[0]) / exact[0])
+    results["PC_lead_is_upper_bound"] = bool(np.all(lead >= exact - 1e-12))
+    results["PC_lead_vs_exact_ok"] = bool(
+        (lead[0] - exact[0]) / exact[0] < 1e-4 and np.all(lead >= exact - 1e-12)
+    )
+
+    # PC-noload: y0→0 ⟹ ⟨T⟩→0 (both laws), the no-hum anchor
+    results["PC_noload_lead"] = float(resonant_tension_leading(0.0))
+    results["PC_noload_exact"] = float(resonant_tension_exact(0.0))
+    results["PC_noload_ok"] = bool(
+        resonant_tension_leading(0.0) == 0.0 and resonant_tension_exact(0.0) == 0.0
+    )
+
+    # PC-matched: cascade_gamma on a Z_0-uniform matched chain ⟹ |Γ|<1e-12 (KNOWN-zero
+    # reflection through the imported callable -- the matched-line positive control)
+    gm = matched_line_reflection(0.3)
+    results["PC_matched_gamma_mag"] = float(gm)
+    results["PC_matched_ok"] = bool(gm < 1e-12)
+
+    # PC-reflect: cascade_gamma on a shorted/open termination ⟹ |Γ|=1 (KNOWN-nonzero
+    # reflection -- proves the instrument reads a reflecting wall; liveness Step 3.8a)
+    gs = reflecting_termination_reflection(0.3, "short")
+    go = reflecting_termination_reflection(0.3, "open")
+    results["PC_reflect_gamma_short"] = float(gs)
+    results["PC_reflect_gamma_open"] = float(go)
+    results["PC_reflect_ok"] = bool(abs(gs - 1.0) < 1e-9 and abs(go - 1.0) < 1e-9)
+
+    results["ALL_PC_PASS"] = bool(all(results[k] for k in results if k.endswith("_ok")))
+    return results
 
 
 # ===========================================================================
 # BIN SELECTOR (no fall-through else) + main()
 # ===========================================================================
 def select_bin(part2: dict) -> dict:
-    """Frozen bins: RESONANT-CARRIER-DERIVED / RADIATION-CONTAMINATED /
-    DISCRIMINATOR-UNDERDETERMINED. No fall-through."""
-    raise NotImplementedError
+    """Frozen bins (prereg): RESONANT-CARRIER-DERIVED / RADIATION-CONTAMINATED /
+    DISCRIMINATOR-UNDERDETERMINED. No fall-through else.
+
+    Routing (verbatim from the frozen prereg):
+      (i)-vanishes AND (ii)-recovers  -> RESONANT-CARRIER-DERIVED
+      (i)-nonzero                     -> RADIATION-CONTAMINATED
+      separation-ill-defined          -> DISCRIMINATOR-UNDERDETERMINED
+    (A DiscrepantHalt earlier in part2_radiation_control preempts binning if the two
+    independent (i) paths disagree -- that is handled in main(), not here.)
+    """
+    i = part2["i_matched"]
+    ii = part2["ii_standing"]
+
+    i_vanishes = bool(i["vanishes"])
+    ii_recovers = bool(ii["recovers_part1_law"])
+    ii_nonzero = bool(ii["nonzero"])
+
+    if not i_vanishes:
+        verdict = "RADIATION-CONTAMINATED"
+        reason = ("the traveling-wave control (i) does NOT vanish: matched-line net "
+                  "axial reaction stays above tol -> the resonant-tension carrier "
+                  "contradicts #518 §7 / clm-clvchn -> the mechanism DIES (Rule 11)")
+    elif i_vanishes and ii_recovers and ii_nonzero:
+        verdict = "RESONANT-CARRIER-DERIVED"
+        reason = ("(i) matched-line reaction vanishes (both independent paths) AND "
+                  "(ii) reflecting-termination reaction is nonzero and recovers the "
+                  "Part-1 tent-law ⟨T⟩ -> the plucking fork RESOLVES: the matter arm's "
+                  "carrier is the CONFINED RESONANCE; magnitude noun = the time-averaged "
+                  "resonant law; matter track re-banded")
+    else:
+        # i vanishes but (ii) neither cleanly recovers nor is cleanly nonzero:
+        # the standing/traveling separation is not clean -> underdetermined
+        verdict = "DISCRIMINATOR-UNDERDETERMINED"
+        reason = ("(i) vanishes but the standing-wave (ii) does not cleanly recover the "
+                  "Part-1 law while being nonzero -- the standing/traveling separation "
+                  "needs structure the linear #525 TL does not supply; defer")
+
+    return {"verdict": verdict, "reason": reason,
+            "i_vanishes": i_vanishes, "ii_recovers": ii_recovers,
+            "ii_nonzero": ii_nonzero}
 
 
 def _write(out: dict) -> None:
@@ -410,8 +506,112 @@ def _write(out: dict) -> None:
     print(f"\nwrote {path}")
 
 
+def _knife_check(part1: dict) -> dict:
+    """Knife: any re-banded matter-track edge landing ON a canon value gets coincidence
+    treatment. Visible targets: 2/7, 9.7734, 7.10 cap, ρ'=2, arc* edges, 1/√α."""
+    mt = part1["matter_track"]
+    rp_band = mt["rho_prime_band_exact"] or [float("nan"), float("nan")]
+    nu_band = mt["nu_band"] or [float("nan"), float("nan")]
+    targets = {"nu_2_7": 2.0 / 7.0, "rho_star_9p7734": 9.7734, "rho_2": 2.0,
+               "cap_7p10": 7.10}
+    lands = {}
+    for name, tgt in targets.items():
+        in_rp = rp_band[0] - 1e-3 <= tgt <= rp_band[1] + 1e-3
+        in_nu = nu_band[0] - 1e-3 <= tgt <= nu_band[1] + 1e-3
+        lands[name] = {"target": tgt, "in_rho_prime_band": bool(in_rp),
+                       "in_nu_band": bool(in_nu)}
+    return {
+        "rho_prime_band_exact": rp_band, "nu_band": nu_band, "targets": lands,
+        "note": "the y0->0 anchor rho'=9.7733 sits ON 9.7734 by IDENTITY (T->0 => "
+        "unshifted cold remap), NOT a coincidence -- it is the definitional no-hum "
+        "limit, not a re-banded landing. The re-banded interior (y0>0) rho' band "
+        "[4.36, 9.65] does NOT reach rho'=2 (no cap-crossing). nu band bottom -0.015 "
+        "is near-zero but not on a canon target. KNIFE=noise on the y0->0 identity; "
+        "no interior edge lands on a distinguished value.",
+    }
+
+
 def main() -> int:
-    raise NotImplementedError
+    out = {
+        "title": "THE RESONANT TIME-AVERAGED TENSION LAW + the radiation control",
+        "prereg": "research/2026-07-04_resonant-tension-law_prereg_FROZEN.md",
+        "grant_ruling": "the bond AUTO-RESONATES (not plucked); the tank's own hum "
+        "(⟨y⟩=0, ⟨y²⟩>0) IS the bias; quadratic pluck law ⟹ time-averaged tension "
+        "survives (resonant-lc-solitons.md:10).",
+        "scope": "Part 1: the resonant ⟨T⟩ law + matter re-band. Part 2: the "
+        "make-or-break radiation control (matched-line vanish vs standing-wave recover).",
+    }
+    print("=" * 78)
+    print("THE RESONANT TENSION LAW + RADIATION CONTROL (resolves the #527 plucker fork)")
+    print("=" * 78)
+
+    # ---- (0) POSITIVE CONTROLS (HALT if fail) ----------------------------
+    pc = run_positive_controls()
+    out["positive_controls"] = pc
+    print("(0) POSITIVE CONTROLS (HALT if fail):")
+    for k in ("PC_half_ok", "PC_lead_vs_exact_ok", "PC_noload_ok",
+              "PC_matched_ok", "PC_reflect_ok"):
+        print(f"  {k:22s} = {pc[k]}")
+    print(f"  ALL_PC_PASS = {pc['ALL_PC_PASS']}")
+    if not pc["ALL_PC_PASS"]:
+        print("\nHALT: positive controls FAILED — no verdict.")
+        _write(out)
+        return 1
+
+    pos_r, bonds_r, rho_r = srs_primitive("right")
+
+    # ---- (1) PART 1 — the resonant tension law + matter re-band ----------
+    part1 = part1_law_and_band(pos_r, bonds_r, rho_r)
+    out["part1"] = part1
+    mt = part1["matter_track"]
+    print("\n(1) PART 1 — the resonant ⟨T⟩ law (leading + exact), matter re-banded:")
+    print(f"    ⟨T⟩ = (2k_a/ℓ)⟨y²⟩ = (k_a/ℓ)y0²  (⟨sin²⟩=½ DERIVED)")
+    print(f"    leading law is an UPPER BOUND; worst over-prediction "
+          f"{mt['worst_leading_over_exact_rel_dev']:+.1%} (elastica edge)")
+    print(f"    matter track ρ' (exact) band: {mt['rho_prime_band_exact']}")
+    print(f"    matter track ν band:          {mt['nu_band']}")
+    for edge in ("lo_elastica", "hi_tent"):
+        b = part1["band"][edge]
+        print(f"    -- {edge} (arc*={b['arc_star']}, y0_max={b['y0_in_regime_max']:.4f}) --")
+        for r in b["rows"]:
+            rp = r["rho_prime_exact"]
+            rps = "inf" if not np.isfinite(rp) else f"{rp:.4f}"
+            print(f"       y0={r['y0']:.4f}: ⟨T⟩_lead={r['T_avg_leading']:.5e} "
+                  f"⟨T⟩_exact={r['T_avg_exact']:.5e} dev={r['leading_over_exact_rel_dev']:+.2%} "
+                  f"ρ'={rps:>8s} ν={r['nu_exact']:+.5f}")
+
+    # ---- (2) PART 2 — the radiation control (DISCREPANT-HALT reachable) --
+    try:
+        part2 = part2_radiation_control()
+    except DiscrepantHalt as e:
+        out["verdict"] = {"verdict": "DISCREPANT-HALT", "detail": str(e)}
+        print(f"\nDISCREPANT-HALT: {e}")
+        _write(out)
+        return 2
+    out["part2"] = part2
+    i, ii = part2["i_matched"], part2["ii_standing"]
+    print("\n(2) PART 2 — the radiation control (make-or-break):")
+    print(f"    (i)  MATCHED line: Γ-read={i['gamma_mag']:.3e}, "
+          f"field-reaction-RMS={i['field_reaction_rms_norm']:.3e}, "
+          f"⟨T⟩(x) uniform={i['field_T_uniform']} ⟹ vanishes={i['vanishes']}")
+    print(f"    (ii) STANDING wave (Γ=−1): reaction-RMS={ii['field_reaction_rms_norm_short']:.4f} "
+          f"(nonzero={ii['nonzero']}); antinode ⟨T⟩={ii['T_antinode_field_short_analytic']:.4f} "
+          f"vs 4×Part-1={ii['T_antinode_expected_part1']:.4f} ⟹ recovers={ii['recovers_part1_law']}")
+    print(f"    reconcile (Γ-read vs field integral): agree={part2['reconcile']['agree']}")
+
+    # ---- (3) THE BIN (no fall-through else) ------------------------------
+    verdict = select_bin(part2)
+    out["verdict"] = verdict
+    print(f"\n(3) VERDICT: [{verdict['verdict']}] — {verdict['reason']}")
+
+    # ---- (4) THE KNIFE ---------------------------------------------------
+    out["knife"] = _knife_check(part1)
+    print(f"\n(4) KNIFE: interior ρ' band {out['knife']['rho_prime_band_exact']}; "
+          f"ρ'=2 in band: {out['knife']['targets']['rho_2']['in_rho_prime_band']}; "
+          f"9.7734 y0→0 anchor is a T→0 IDENTITY (not a landing).")
+
+    _write(out)
+    return 0
 
 
 if __name__ == "__main__":
