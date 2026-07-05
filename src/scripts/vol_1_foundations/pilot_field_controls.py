@@ -32,7 +32,6 @@ from pilot_field_wavetrain import (  # noqa: E402
     run_wavetrain,
 )
 from ring_bondframe_probe import (  # noqa: E402
-    open_chain_cyclemean,
     three_host_table,
 )
 
@@ -52,19 +51,54 @@ def control_a_filled_ring(band: float = 3e-3):
             "can_fire_proven": res.can_fire_proven, "band": band}
 
 
-# ── control (b): OPEN-FREE-chain envelope recovers the free SOFT reading LOCALLY ──
+# ── control (b): ENVELOPE on an OPEN-FREE chain recovers the free SOFT reading LOCALLY ──
 def control_b_free_local(band_rel: float = 0.10):
-    """The free open-chain LOCAL bond-frame reading must be SOFT by <dy^2>/2 (0.9926-class).
-    Claimed = the imported #534 free-host cycle-mean reading; independent = the analytic
-    1 - <dy^2>/2 free-host prediction (a DIFFERENT code path: the `pred_soft_free` closed
-    form vs the relaxed-config measurement). Reconciles the free host to the SOFT theorem."""
-    free = open_chain_cyclemean(n_nodes=1024, host="free")
-    claimed = float(free["cyclemean_bondframe_k_ratio"])
-    independent = float(free["pred_soft_free"])   # 1 - <dy^2>/2 (closed form, different path)
-    gate = ReconcileGate(label="control-b-free-local-soft", claimed=claimed,
-                         independent=independent, rtol=band_rel, atol=0.0)
+    """The frozen control: an ENVELOPE on an OPEN FREE chain must recover the free reading
+    LOCALLY under the envelope (0.9926-class, soft by <dy^2>/2).
+
+    ITEM-4a FIX (orchestrator review of PR #535): the PR #535 implementation reran the #534
+    FILLED free chain (`open_chain_cyclemean`, the whole chain excited), NOT the frozen
+    envelope-on-open-free LOCAL control. This now imposes a LOCALIZED envelope on an open
+    free chain, takes the analytic free-equilibrium (T=0 => du = sqrt(1-dy^2)-1) UNDER the
+    envelope, and reads the imported (canon #534) bond-frame trans_tangent_stiffness at the
+    DC config LOCALLY at the envelope peak. Claimed = that local reading; independent =
+    1 - <dy^2>_local/2 (the free-host closed form at the LOCAL envelope-peak <dy^2>). A
+    different code path (imported probe vs closed form)."""
+    import numpy as np
+    from ring_bondframe_probe import (
+        _free_equilibrium_u,
+        _ktrans_open,
+        wave_number_cold,
+    )
+    n = 1024
+    y0 = 0.1428
+    k = wave_number_cold(1.2)
+    j = np.arange(n)
+    j0 = n // 2
+    l_env = 80.0
+    d = j - j0
+    env = np.exp(-0.5 * (d / l_env) ** 2)
+    # localized envelope on an OPEN chain (ends free), phase-averaged local reading under it
+    kcold = _ktrans_open(np.zeros(n), np.zeros(n), j0)
+    ratios, dy2_local = [], []
+    for m_ in range(24):
+        ph = 2 * np.pi * m_ / 24
+        y = y0 * env * np.sin(k * j - ph)
+        y[0] = 0.0
+        y[-1] = 0.0
+        u = _free_equilibrium_u(y)                # analytic T=0 free equilibrium (imported)
+        # imported bond-frame probe at the DC config under the envelope peak:
+        ratios.append(_ktrans_open(u, np.zeros(n), j0) / kcold)
+        # <dy^2> LOCAL under the envelope (envelope peak neighborhood)
+        near = np.abs(d[:-1]) <= l_env
+        dyloc = (y[1:] - y[:-1])[near]
+        dy2_local.append(float(np.mean(dyloc ** 2)))
+    claimed = float(np.mean(ratios))
+    independent = float(1.0 - 0.5 * np.mean(dy2_local))   # 1 - <dy^2>_local/2 (free-host closed form)
+    gate = ReconcileGate(label="control-b-free-local-envelope-soft", claimed=claimed,
+                         independent=independent, rtol=band_rel, atol=1e-3)
     res = gate.enforce(prove_first=True)
-    return {"claimed_free_ratio": claimed, "pred_soft": independent,
+    return {"local_under_envelope_ratio": claimed, "pred_soft_local": independent,
             "reconciled": res.passed, "can_fire_proven": res.can_fire_proven}
 
 
@@ -92,12 +126,17 @@ def control_c_linear_axial(rho_bond: float = 2.0, band_rel: float = 0.05, fast: 
 
 # ── control (d): envelope/ring sweep, local-reading convergence quantified ──
 def control_d_scale_sweep(rho_bond: float = 4.0, fast: bool = True):
-    """The local contraction depth -> -<dy^2>/2 and the compensating stretch -> 0 as
-    L_env/N -> 0. Quantify: report the DC depth and the far-field stretch across the
-    (L_env, N) grid. NOT a single-gate reconcile — a REPORTED convergence table (the
-    [PILOT-CONFIRMED] verdict requires both; this control supplies the numbers)."""
-    # vary L_env/N so the dilution is a real convergence, not fixed-ratio N-scaling:
-    grid = [(80, 512), (80, 1024)] if fast else [(80, 512), (80, 1024), (80, 2048)]
+    """The local contraction depth vs the frozen L_env sweep {40,80,160}, and the causally-
+    reached wake compensation, across the (L_env, N) grid. A REPORTED convergence table (the
+    [PILOT-CONFIRMED] verdict would require the local depth -> free amplitude AND the
+    compensation -> global; this control supplies the numbers — here the depth is L_env-set
+    per transit and the compensation lives in the causal wake, consistent with the
+    [RETARDATION-LIMITED] verdict).
+
+    ITEM-4b FIX (orchestrator review of PR #535): sweep L_env per the FROZEN {40,80,160}
+    (the PR #535 code swept {80,80,80} at varying N); the field is the item-3 causal-wake
+    compensation `comp_wake_mean_du` (the `du_dc_far_mean` antipode field is retired)."""
+    grid = [(40, 512), (80, 1024)] if fast else [(40, 512), (80, 1024), (160, 2048)]
     n_periods = 12.0 if fast else 18.0
     rows = []
     for (le, n) in grid:
@@ -106,9 +145,10 @@ def control_d_scale_sweep(rho_bond: float = 4.0, fast: bool = True):
         c = contraction_depth(run)
         rows.append({"L_env": le, "N": n, "L_env_over_N": le / n,
                      "du_dc_min_under": c["du_dc_min_under"],
-                     "du_dc_far_mean": c["du_dc_far_mean"]})
+                     "comp_wake_mean_du": c["comp_wake_mean_du"]})
     return {"rows": rows,
-            "far_dilutes": bool(abs(rows[-1]["du_dc_far_mean"]) <= abs(rows[0]["du_dc_far_mean"]) + 1e-6)}
+            "l_env_swept": [r["L_env"] for r in rows],
+            "depth_reported": True}
 
 
 # ── control (e): ENERGY-MOMENTUM LEDGER closure (the crank check) ──

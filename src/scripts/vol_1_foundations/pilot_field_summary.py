@@ -49,13 +49,15 @@ def sonic_sweep(n_nodes=2048, l_env=80.0, n_periods=20.0, dt=0.02,
             "rho_bond": rho,
             "c_long": float(np.sqrt(rho)),
             "mach_vg_over_clong": float(V_GROUP / np.sqrt(rho)),
-            "du_dc_depth": c["du_dc_min_under"],
-            "depth_frac_of_pred": float(c["du_dc_min_under"] / PRED_LOCAL_DEPTH),
+            "du_dc_depth_SLICE": c["du_dc_min_under"],
+            # LABELED as a SLICE (item-1 review): this is the n_periods-transit depth, NOT the
+            # settled asymptote (see settled_asymptote_frac below, run separately per rho).
+            "depth_frac_of_pred_SLICE": float(c["du_dc_min_under"] / PRED_LOCAL_DEPTH),
             "depth_growth": c["depth_growth_early_to_settled"],
             "comotion_lag_nodes": cm["comotion_lag_nodes"],
             "speed_ratio_du_over_env": cm["speed_ratio_du_over_env"],
-            "under_bondframe_k": lf["under_bondframe_k_ratio"],
-            "far_bondframe_k": lf["far_bondframe_k_ratio"],
+            "under_bondframe_k_IMPORTED": lf["under_bondframe_k_ratio"],   # item-2: genuine probe
+            "far_bondframe_k_wake": lf["far_bondframe_k_ratio"],           # item-3: causal wake node
             "leak_frac_final": lk["frac_long_in_window_final"],
             "energy_drift": ld["energy_drift_rel"],
         })
@@ -75,7 +77,7 @@ def make_figure(rows: list[dict], path: str) -> None:
         pass
 
     mach = [r["mach_vg_over_clong"] for r in rows]
-    depth = [100 * r["depth_frac_of_pred"] for r in rows]
+    depth = [100 * r["depth_frac_of_pred_SLICE"] for r in rows]
     sratio = [r["speed_ratio_du_over_env"] for r in rows]
     rho = [r["rho_bond"] for r in rows]
 
@@ -83,11 +85,11 @@ def make_figure(rows: list[dict], path: str) -> None:
     ax1.plot(mach, depth, "o-", color="#0072B2")
     ax1.axhline(100, ls="--", color="#999999", lw=1)
     ax1.set_xlabel(r"Mach number  $v_g / c_{\mathrm{long}}$")
-    ax1.set_ylabel(r"co-moving contraction depth  (% of $-\langle dy^2\rangle/2$)")
+    ax1.set_ylabel(r"contraction depth, per-transit SLICE  (% of $-\langle dy^2\rangle/2$)")
     for m, d, rr in zip(mach, depth, rho):
         ax1.annotate(rf"$\rho={rr:g}$", (m, d), textcoords="offset points",
                      xytext=(6, -10), fontsize=8)
-    ax1.set_title("companion completeness vs Mach (retardation law)", fontsize=9)
+    ax1.set_title("companion completeness vs Mach (per-transit slice)", fontsize=9)
 
     ax2.plot(mach, sratio, "s-", color="#D55E00")
     ax2.axhline(1.0, ls="--", color="#999999", lw=1)
@@ -104,12 +106,20 @@ def make_figure(rows: list[dict], path: str) -> None:
 
 
 if __name__ == "__main__":
+    from pilot_field_wavetrain import settled_asymptote_depth
     os.makedirs(OUT_DIR, exist_ok=True)
     fast = "--fast" in sys.argv
     kw = dict(n_nodes=1024, n_periods=14.0) if fast else dict(n_nodes=2048, n_periods=20.0)
     rows = sonic_sweep(**kw)
-    out = {"verdict": "RETARDATION-LIMITED / LEAKY", "sonic_sweep": rows,
-           "pred_local_depth": PRED_LOCAL_DEPTH, "v_group": V_GROUP}
+    # ITEM-1: the settled ASYMPTOTE (not a slice) at rho=4, the well-developed reference
+    grid = (20, 40) if fast else (20, 40, 56, 72)
+    asymptote = settled_asymptote_depth(rho_bond=4.0, n_nodes=4096, periods_grid=grid)
+    out = {"verdict": "RETARDATION-LIMITED / LEAKY", "sonic_sweep_SLICES": rows,
+           "settled_asymptote_rho4": asymptote,
+           "pred_phase_avg_depth": PRED_LOCAL_DEPTH, "v_group": V_GROUP,
+           "note": "sonic_sweep values are per-transit SLICES; the settled asymptote at rho=4 "
+                   "saturates ~112% of the phase-average prediction (item-1 review); the ~12% "
+                   "excess is an OPEN residual (candidate: peak-vs-phase-average form factor)."}
     with open(os.path.join(OUT_DIR, "pilot_field_summary.json"), "w") as f:
         json.dump(out, f, indent=2, default=float)
     make_figure(rows, os.path.join(OUT_DIR, "pilot_field_speed_ratio_law.png"))

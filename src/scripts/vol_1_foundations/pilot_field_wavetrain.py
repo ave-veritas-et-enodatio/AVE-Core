@@ -140,6 +140,8 @@ class WavetrainRun:
     t: np.ndarray | None = None
     du_frames: np.ndarray | None = None      # per-bond du = u[j+1]-u[j] (the contraction profile)
     env_frames: np.ndarray | None = None     # |y|-envelope per frame (Hilbert-free: rolling |y| peak)
+    u_frames: np.ndarray | None = None       # full u config per frame (for the IMPORTED bond-frame probe)
+    y_frames: np.ndarray | None = None       # full y config per frame (live-config probe / <y> checks)
     energy_trace: np.ndarray | None = None
     energy_long_trace: np.ndarray | None = None   # longitudinal (axial) energy only
     p_long_trace: np.ndarray | None = None        # total longitudinal momentum
@@ -187,13 +189,15 @@ def run_wavetrain(n_nodes: int = 1024, rho_bond: float = 2.0, y0: float = 0.1428
         return ring.force_x(u_, y_) / m_node, ring.force_y(u_, y_) / m_node
 
     ax, ay = accel(u, y)
-    t_rec, du_rec, env_rec, e_rec, el_rec, p_rec = [], [], [], [], [], []
+    t_rec, du_rec, env_rec, u_rec, y_rec, e_rec, el_rec, p_rec = [], [], [], [], [], [], [], []
     for step in range(n_steps + 1):
         if step % record_every == 0:
             du = np.roll(u, -1) - u                  # per-bond du (the contraction profile)
             t_rec.append(step * dt)
             du_rec.append(du.copy())
             env_rec.append(_envelope_estimate(y, l_env))
+            u_rec.append(u.copy())                   # full u config (for the imported probe, item-2 fix)
+            y_rec.append(y.copy())                   # full y config
             e_rec.append(_total_energy(ring, u, y, udot, ydot, m_node))
             el_rec.append(_long_energy(ring, u, y, udot, m_node))
             p_rec.append(float(m_node * np.sum(udot)))
@@ -209,6 +213,7 @@ def run_wavetrain(n_nodes: int = 1024, rho_bond: float = 2.0, y0: float = 0.1428
         n_nodes=n_nodes, rho_bond=rho_bond, y0=y0, k=k, l_env=l_env, dt=dt,
         n_steps=n_steps, record_every=record_every, linear_axial=linear_axial,
         t=np.array(t_rec), du_frames=np.array(du_rec), env_frames=np.array(env_rec),
+        u_frames=np.array(u_rec), y_frames=np.array(y_rec),
         energy_trace=np.array(e_rec), energy_long_trace=np.array(el_rec),
         p_long_trace=np.array(p_rec), j0=float(j0),
     )
@@ -262,17 +267,25 @@ def contraction_depth(run: WavetrainRun, settle_frac: float = 0.75) -> dict:
     env = run.env_frames
     n_frames = du.shape[0]
     s = max(1, int(n_frames * settle_frac))
-    depths_dc, far_dc, depths_raw = [], [], []
+    depths_dc, comp_wake, depths_raw, comp_causal = [], [], [], []
     N = run.n_nodes
+    c_long = float(np.sqrt(run.rho_bond))
     for f in range(s, n_frames):
         peak = int(np.argmax(env[f]))
         du_dc = _du_dc(du[f], run.l_env)
         j = np.arange(N)
         d = (j - peak + N // 2) % N - N // 2
         under = np.abs(d) <= run.l_env
-        far = np.abs(d) >= 3 * run.l_env
+        # ITEM-3 FIX: the compensating STRETCH lives in the CAUSALLY-REACHED wake near the
+        # envelope, NOT at the antipode (which the signal has not reached — sampling it gives
+        # a trivial causally-disconnected ~0, not evidence of global dilution). Measure the
+        # positive-du (stretch) region within the causal cone: |d| in [L_env, min(3.5 L_env,
+        # causal reach)]. The causal reach from launch = c_long * t.
+        reach = max(2.0 * run.l_env, c_long * run.t[f])
+        wake = (np.abs(d) > run.l_env) & (np.abs(d) <= min(3.5 * run.l_env, reach))
         depths_dc.append(float(np.min(du_dc[under])))       # deepest DC contraction under
-        far_dc.append(float(np.mean(du_dc[far])))           # far-field DC (compensating stretch)
+        comp_wake.append(float(np.sum(du_dc[wake][du_dc[wake] > 0])))  # integrated positive stretch in the wake
+        comp_causal.append(float(np.mean(du_dc[wake])))     # mean du in the causally-reached wake
         depths_raw.append(float(np.min(du[f][under])))      # raw (AC+DC) min for reference
     # depth growth over the whole run (retardation signal): early-quarter vs settled
     e0 = max(1, n_frames // 5)
@@ -286,11 +299,39 @@ def contraction_depth(run: WavetrainRun, settle_frac: float = 0.75) -> dict:
     return {
         "du_dc_min_under": float(np.mean(depths_dc)),
         "du_dc_min_under_std": float(np.std(depths_dc)),
-        "du_dc_far_mean": float(np.mean(far_dc)),
+        # ITEM-3: the compensation in the CAUSALLY-REACHED wake (not the antipode)
+        "comp_wake_integrated_stretch": float(np.mean(comp_wake)),
+        "comp_wake_mean_du": float(np.mean(comp_causal)),
         "du_raw_min_under": float(np.mean(depths_raw)),      # AC-dominated (~2.5x the DC)
         "depth_growth_early_to_settled": float(np.mean(depths_dc) / (np.mean(early_dc) + 1e-30)),
         "early_dc_depth": float(np.mean(early_dc)),
     }
+
+
+def settled_asymptote_depth(rho_bond: float = 4.0, n_nodes: int = 4096, l_env: float = 80.0,
+                            dt: float = 0.02, periods_grid=(20, 40, 56, 72)) -> dict:
+    """ITEM-1 FIX (orchestrator review of PR #535): the SETTLED-ASYMPTOTE contraction depth,
+    NOT a single-transit slice. The PR #535 table reported 20-period slices as developed
+    values; the reviewer showed the well SATURATES at ~112-114% of the phase-average
+    prediction (40p=113.6%, 56p=112.4%, 72p=110.7%), and the 103% at 20p is a still-climbing
+    crossing of 100%. This runs the periods grid and returns the settled depth at each, so the
+    ASYMPTOTE (not a slice) anchors the verdict. The ~12-14% excess over the traveling-wave
+    phase-average -<dy^2>/2 is an OPEN residual (candidate: peak-vs-phase-average envelope
+    form factor — the prediction uses the phase-averaged <dy^2>, the metric reads the deepest
+    point at the envelope peak; candidate, NOT closure)."""
+    pred = -0.5 * (0.1428 ** 2) * (1.0 - np.cos(wave_number_cold(1.2)))
+    rows = []
+    for npers in periods_grid:
+        run = run_wavetrain(n_nodes=n_nodes, rho_bond=rho_bond, l_env=l_env,
+                            n_periods=float(npers), dt=dt)
+        c = contraction_depth(run, settle_frac=0.75)
+        rows.append({"n_periods": npers, "settled_depth": c["du_dc_min_under"],
+                     "frac_of_pred": float(c["du_dc_min_under"] / pred)})
+    # asymptote estimate = mean of the last two (saturated) points
+    asymptote = float(np.mean([r["frac_of_pred"] for r in rows[-2:]]))
+    return {"pred_phase_avg_depth": pred, "rows": rows,
+            "settled_asymptote_frac_of_pred": asymptote,
+            "excess_over_prediction": float(asymptote - 1.0)}
 
 
 def co_motion(run: WavetrainRun) -> dict:
@@ -338,46 +379,49 @@ def co_motion(run: WavetrainRun) -> dict:
 
 
 def local_vs_far_probe(run: WavetrainRun) -> dict:
-    """MEASUREMENT 3 — the LOCAL bond-frame probe reading UNDER the envelope vs FAR from
-    it. Uses the imported (canon #534) trans_tangent_stiffness at the (u,y) configuration
-    at the mid-window frame, sampled at the envelope PEAK (density-peak sampling, NOT
-    centroid) and at a far node. Ratio to cold. free-like (soft, <1) under / cold (~1) far
-    is the pilot signature (bin criterion 2)."""
-    ring = make_ring(run.n_nodes, rho_bond=run.rho_bond, linear_axial=run.linear_axial)
-    du = run.du_frames
-    env = run.env_frames
-    n_frames = du.shape[0]
-    N = run.n_nodes
-    kcold = ring.k_s
+    """MEASUREMENT 3 — the LOCAL bond-frame probe reading UNDER the envelope vs FAR from it.
 
-    # bond-frame transverse tangent stiffness felt through a bond at mean DC strain A
-    # (the imported kernel's tangent shape; contracted bond A<0 => softer; A~0 => cold).
-    # A CONTRACTED (A<0) bond is SOFTER than cold via the -T/ell slot (compression), the
-    # free-host SOFT signature. We report the DC-WELL depth at the envelope peak (density-
-    # peak sampling, per the mission) vs a far node, averaged over the settled window.
-    def kframe(A):
-        # tangent shear stiffness k_s*sqrt(1-A^2) + the compression slot T(A)/ell (A<0 => T<0 => softer)
-        tang = ring.k_s * np.sqrt(max(0.0, 1.0 - A * A))
-        T = float(ring.tension(np.array([A]))[0])   # rho-scaled bond tension (negative under compression)
-        return tang + T / ELL
+    ITEM-2 FIX (orchestrator review of PR #535): this now CALLS the genuine imported (canon
+    #534) `RingChain.trans_tangent_stiffness` — an INDEPENDENT finite-difference of the
+    imported force_y — at the recorded DC longitudinal config (u_frame, y=0), sampled at the
+    envelope PEAK (density-peak sampling, NOT centroid) and at a far node. The PRE-#535 code
+    evaluated a local closed-form `k = 1 + rho*A` at the DC strain from measurement 1, making
+    this an algebraic restatement of the depth rather than independent evidence (the false
+    provenance the review caught). It is now real, independent probe evidence.
+
+    The FAR node is a CAUSALLY-REACHED node (item-3 lesson: the antipode has NOT been reached
+    by the signal, so it is cold trivially / uninformatively). We sample far = peak + 3*L_env
+    (inside the causal cone once the wake has spread) so the far reading is a genuine
+    outside-the-well reading, not a causally-disconnected zero.
+
+    Ratio to cold: free-like (soft, <1) under / cold (~1) far is the pilot signature."""
+    ring = make_ring(run.n_nodes, rho_bond=run.rho_bond, linear_axial=run.linear_axial)
+    env = run.env_frames
+    u_fr = run.u_frames
+    n_frames = u_fr.shape[0]
+    N = run.n_nodes
+    zeros = np.zeros(N)
 
     s = max(1, n_frames * 3 // 4)               # settled window
     under_ratio, far_ratio, A_und, A_fr = [], [], [], []
     for f in range(s, n_frames):
         peak = int(np.argmax(env[f]))
-        du_dc = _du_dc(du[f], run.l_env)
-        far = int((peak + N // 2) % N)
-        A_under = float(du_dc[peak])            # DC strain at the envelope PEAK (density-peak sample)
-        A_far = float(du_dc[far])
-        under_ratio.append(kframe(A_under) / kcold)
-        far_ratio.append(kframe(A_far) / kcold)
-        A_und.append(A_under)
-        A_fr.append(A_far)
+        u = u_fr[f]
+        # IMPORTED canon probe: trans_tangent_stiffness = -dF_y/dy from the imported force_y,
+        # at the DC longitudinal config (u as-is, y=0 — the cycle-mean-config a slow probe reads).
+        kcold = ring.trans_tangent_stiffness(zeros, zeros, peak)
+        far = int((peak + 3 * int(run.l_env)) % N)   # causally-reached far node (not the antipode)
+        under_ratio.append(ring.trans_tangent_stiffness(u, zeros, peak) / kcold)
+        far_ratio.append(ring.trans_tangent_stiffness(u, zeros, far) / ring.trans_tangent_stiffness(zeros, zeros, far))
+        du_dc = _du_dc(np.roll(u, -1) - u, run.l_env)
+        A_und.append(float(du_dc[peak]))
+        A_fr.append(float(du_dc[far]))
     return {
-        "under_bondframe_k_ratio": float(np.mean(under_ratio)),
+        "under_bondframe_k_ratio": float(np.mean(under_ratio)),   # IMPORTED probe, DC config
         "far_bondframe_k_ratio": float(np.mean(far_ratio)),
         "A_under": float(np.mean(A_und)),
         "A_far": float(np.mean(A_fr)),
+        "probe_source": "imported RingChain.trans_tangent_stiffness (canon #534)",
     }
 
 

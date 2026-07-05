@@ -116,17 +116,35 @@ def test_contraction_is_geometric_not_kernel_fast():
 # ─────────────────────────── SLOW (engine_sim) ───────────────────────────
 
 @pytest.mark.engine_sim
-def test_companion_develops_at_free_host_depth():
-    """The co-moving DC contraction develops toward the free-host depth -<dy^2>/2 at
-    high rho with enough transit time (rho=4, well-developed): du_dc_min_under reaches
-    ~free-host depth (the LOCALLY-realized free reading). Grant's pilot picture's
-    contraction amplitude is realized on the closed ring."""
+def test_companion_develops_toward_free_host_depth_and_grows():
+    """The co-moving DC contraction develops toward the free-host depth -<dy^2>/2 at high
+    rho (rho=4). The 20-period slice is ~103% (a still-climbing crossing of 100%, NOT the
+    settled value — item-1 review). The load-bearing facts: (i) a real well of order the
+    free-host depth develops, (ii) it GROWS with transit (the RETARDATION signal, not an
+    instantaneous floor). The settled ASYMPTOTE (~112%) is tested separately."""
     run = wt.run_wavetrain(n_nodes=2048, rho_bond=4.0, l_env=80.0, n_periods=20.0, dt=0.02)
     c = wt.contraction_depth(run)
-    # reaches free-host depth within band (the [PILOT]-amplitude at high rho)
+    # a well of order the free-host depth develops (the 20-period slice near 100%)
     assert c["du_dc_min_under"] / PRED_LOCAL_DEPTH > 0.9
     # the depth GROWS from early to settled (the RETARDATION signal, not an instantaneous floor)
     assert c["depth_growth_early_to_settled"] > 1.5
+
+
+@pytest.mark.engine_sim
+def test_settled_asymptote_saturates_above_prediction_open_residual():
+    """ITEM-1 (review): the well SATURATES at ~112% of the traveling-wave phase-average
+    prediction (past 40 periods), OUTSIDE the frozen +-10% band. This is the settled
+    asymptote (not a slice). The ~12% excess is an OPEN residual (candidate: peak-vs-phase-
+    average envelope form factor); recorded, not closed. NO adjudication criteria dropped —
+    the bin routing (RETARDATION-LIMITED) stands on lag/leak, not on hitting 100%."""
+    out = wt.settled_asymptote_depth(rho_bond=4.0, n_nodes=4096, periods_grid=(20, 40, 56))
+    asym = out["settled_asymptote_frac_of_pred"]
+    # saturates above prediction (the excess is real), NOT at the frozen 100% +-10%
+    assert asym > 1.05
+    # bounded (not runaway): the asymptote is a saturation, not secular growth
+    assert asym < 1.25
+    # the excess is recorded as an open residual
+    assert out["excess_over_prediction"] > 0.05
 
 
 @pytest.mark.engine_sim
@@ -142,15 +160,21 @@ def test_companion_co_moves_with_envelope():
 
 
 @pytest.mark.engine_sim
-def test_local_probe_soft_under_cold_far():
-    """The bond-frame probe reads FREE-LIKE (soft, <1) UNDER the envelope and COLD (~1)
-    FAR from it (rho=4). The pilot spatial signature: the well is where the wave is."""
+def test_local_probe_soft_under_via_imported_canon():
+    """ITEM-2 (review): the bond-frame probe reads FREE-LIKE (soft, <1) UNDER the envelope,
+    measured via the GENUINE imported (canon #534) trans_tangent_stiffness (an independent
+    finite-difference of the imported force_y), NOT the pre-#535 closed-form restatement of
+    the depth. The FAR node is a CAUSALLY-REACHED wake node (item-3): it reads STIFFER than
+    cold (>1) because the compensating STRETCH lives there — an honest, independent reading,
+    not the trivially-cold antipode the signal never reached."""
     run = wt.run_wavetrain(n_nodes=2048, rho_bond=4.0, l_env=80.0, n_periods=20.0, dt=0.02)
     lf = wt.local_vs_far_probe(run)
-    assert lf["under_bondframe_k_ratio"] < 0.99      # SOFT under the envelope
-    assert lf["far_bondframe_k_ratio"] == pytest.approx(1.0, abs=1e-3)   # COLD far
+    assert lf["probe_source"].startswith("imported RingChain.trans_tangent_stiffness")
+    assert lf["under_bondframe_k_ratio"] < 0.99      # SOFT under (imported probe)
     assert lf["A_under"] < -0.005                    # contracted under (the free-host reading)
-    assert abs(lf["A_far"]) < 1e-6                   # no far-field DC (compensating stretch diluted)
+    # the causally-reached wake carries the compensating STRETCH: A_far > 0, reads stiffer
+    assert lf["A_far"] > 0.0
+    assert lf["far_bondframe_k_ratio"] > 1.0
 
 
 @pytest.mark.engine_sim
@@ -181,16 +205,20 @@ def test_sonic_point_no_secular_blowup():
 
 @pytest.mark.engine_sim
 def test_all_controls_pass_with_can_fire():
-    """The five HALT-gated controls (a filled-ring cold, b free-local soft, c geometric,
-    d dilution, e ledger) all reconcile, each with the #528 can-fire self-test proven."""
+    """The five HALT-gated controls all reconcile, each with the #528 can-fire self-test
+    proven: (a) filled-ring cold, (b) ENVELOPE-on-open-free local soft (the frozen control,
+    item-4a fix — not the filled chain), (c) geometric-not-kernel, (d) frozen L_env sweep
+    (item-4b), (e) energy+momentum ledger."""
     import pilot_field_controls as ctl
     out = ctl.run_all_controls(fast=True)
     assert out["control_a_filled_ring"]["reconciled"]
     assert out["control_a_filled_ring"]["can_fire_proven"]
-    assert out["control_b_free_local"]["reconciled"]
+    assert out["control_b_free_local"]["reconciled"]       # envelope-on-open-free, local reading
     assert out["control_b_free_local"]["can_fire_proven"]
+    assert out["control_b_free_local"]["local_under_envelope_ratio"] < 0.995   # SOFT locally
     assert out["control_c_linear_axial"]["reconciled"]
-    assert out["control_d_scale_sweep"]["far_dilutes"]
+    assert out["control_d_scale_sweep"]["depth_reported"]  # frozen L_env sweep reported
+    assert 40 in out["control_d_scale_sweep"]["l_env_swept"]
     assert out["control_e_ledger"]["energy_reconciled"]
     assert out["control_e_ledger"]["momentum_reconciled"]
     assert out["control_e_ledger"]["can_fire_proven"]
