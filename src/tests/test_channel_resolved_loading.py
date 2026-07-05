@@ -269,6 +269,56 @@ def test_null_liveness_confined_reads_biased_ratio(geom):
 
 
 # --------------------------------------------------------------------------------------
+# item 2 -- PC-denominator honest band (NOT vacuous) + dropped/flipped-term rejection triggers
+# --------------------------------------------------------------------------------------
+def test_pc_denominator_band_is_honest_not_vacuous(geom):
+    """The PC-denominator tolerance is the DERIVED y0^4/32 truncation residual (~4e-5), NOT the old
+    vacuous 5*y0^2 (~0.10). Assert the band is tight (< 1e-3), so a dropped/flipped soft term
+    (rel-dev ~5e-3 / ~1e-2) cannot slip through."""
+    pos, bonds, rho = geom
+    pc = run_positive_controls(pos, bonds, rho)
+    assert pc["PC_denominator"]["honest_truncation_band_rtol"] < 1e-3
+
+
+def test_pc_denominator_rejects_dropped_and_flipped_soft_term(geom):
+    """The honest band REJECTS both mutations (a DROPPED soft term and a SIGN-FLIPPED soft term) --
+    the gate-disease-in-a-new-costume (right helper, vacuous tolerance) is retired."""
+    pos, bonds, rho = geom
+    pc = run_positive_controls(pos, bonds, rho)
+    assert pc["PC_denominator"]["dropped_soft_term_rejected"] is True
+    assert pc["PC_denominator"]["flipped_soft_term_rejected"] is True
+
+
+def test_pc_denominator_residual_is_derived_y0_4_over_32():
+    """The truncation residual coefficient is the sympy-DERIVED y0^4/32 (backbone residual 10)."""
+    r = symbolic_backbone()
+    assert r["residuals"]["pc_denominator_residual_is_y0_4_over_32"] == "0"
+
+
+# --------------------------------------------------------------------------------------
+# item 3 -- PC-numerator and PC-cold use GENUINELY INDEPENDENT references (not self-verifying)
+# --------------------------------------------------------------------------------------
+def test_pc_numerator_reference_is_raw_formula_not_kernel_fn(geom):
+    """PC-numerator reconciles S_axial against the RAW sqrt(1-A^2) formula evaluated directly (a
+    different code path than saturation_factor), so a kernel-fn bug would be caught."""
+    pos, bonds, rho = geom
+    pc = run_positive_controls(pos, bonds, rho)
+    raw = float(np.sqrt(1.0 - (A_CORE_SQRT_ALPHA / A_Y) ** 2))
+    assert pc["PC_numerator"]["raw_sqrt_formula"] == pytest.approx(raw, abs=1e-15)
+    assert pc["PC_numerator"]["reconciled"] is True
+
+
+def test_pc_cold_reference_is_merged_NU_VAC_at_rho_star(geom):
+    """PC-cold reconciles nu at rho*=9.7734 against the MERGED cold-arc constant NU_VAC=2/7 (an
+    independent provenance from the Born-Huang assembler), plus the algebraic cold rho'=1."""
+    from ave.core.constants import NU_VAC
+    pos, bonds, rho = geom
+    pc = run_positive_controls(pos, bonds, rho)
+    assert pc["PC_cold"]["nu_at_rho_star"] == pytest.approx(float(NU_VAC), abs=1e-5)
+    assert pc["PC_cold"]["reconciled"] is True
+
+
+# --------------------------------------------------------------------------------------
 # The mandatory synthetic DISCREPANT-HALT / DeadGate triggers (can-fire on real data paths)
 # --------------------------------------------------------------------------------------
 def test_reconcile_gate_fires_on_synthetic_discrepancy():

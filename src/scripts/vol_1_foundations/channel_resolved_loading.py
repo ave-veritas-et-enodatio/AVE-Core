@@ -50,7 +50,7 @@ from ave.axioms.scale_invariant import saturation_factor  # noqa: E402
 from ave.core.constants import ALPHA  # noqa: E402
 
 # --- #528 reconcile-gate: the ONLY acceptable discrepancy gate -------------------------
-from ave.validation.reconcile_gate import ReconcileGate  # noqa: E402
+from ave.validation.reconcile_gate import DiscrepantHalt, ReconcileGate  # noqa: E402
 
 # ---------------------------------------------------------------------------------------
 # CANON ANCHORS (imported / read-off -- NOT tuned)
@@ -147,6 +147,17 @@ def symbolic_backbone() -> dict:
     axial_leading_order = sp.Poly(sp.series(axial_osc_rms2, y0, 0, 6).removeO(), y0).monoms()
     lowest_power = min(m[0] for m in axial_leading_order) if axial_leading_order else 0
     residuals["axial_osc_variance_is_4th_order"] = sp.Integer(0) if lowest_power >= 4 else sp.Integer(1)
+
+    # (10) the PC-denominator truncation residual (EXTENDED arm, D1, A_y=1, k_a=k_s=1, A_dc=0):
+    #      rho'_full = 1/(sqrt(1 - y0^2/2) + y0^2);  rho'_2nd = 1/(1 + 3/4 y0^2).
+    #      Their difference is EXACTLY y0^4/32 at leading order -- this is the HONEST band PC-denominator
+    #      uses (NOT the old vacuous 5*y0^2). Derived here so the gate's tolerance is provably honest.
+    rho_full_sym = 1 / (sp.sqrt(1 - y0**2 / 2) + y0**2)
+    rho_2nd_sym = 1 / (1 + sp.Rational(3, 4) * y0**2)
+    trunc_series = sp.series(rho_full_sym - rho_2nd_sym, y0, 0, 6).removeO()
+    residuals["pc_denominator_residual_is_y0_4_over_32"] = sp.simplify(
+        trunc_series.coeff(y0, 4) - sp.Rational(1, 32)
+    )
 
     all_zero = all(bool(sp.simplify(r) == 0) for r in residuals.values())
     return {
@@ -429,54 +440,85 @@ def run_positive_controls(pos, bonds, rho, ell: float = 1.0) -> dict:
     # PC-consistency (the #529 reproduction)
     out["PC_consistency_529"] = consistency_gate_529(pos, bonds, rho, ell=ell)
 
-    # PC-cold: y0=0 travel rho' vs a DIRECT merged-tensor call at T=0, S_axial=1, S_shear=1
+    # PC-cold (item 3 fix -- TWO INDEPENDENT references, neither a re-run of the claimed assembler):
+    #  (a) the pipeline cold rho' (y0=0, A_dc=0) reconciled against the ALGEBRAIC cold identity
+    #      rho'=S_axial/S_shear=1/1=1 (a different construction than the Born-Huang tensor path); AND
+    #  (b) the pipeline nu AT THE MERGED ratio rho*=9.7734 reconciled against the merged cold-arc
+    #      constant NU_VAC=2/7 (independent provenance: ave.core.constants). NB the COLD point rho=1 is
+    #      in the nu POLE region (nu diverges at equal springs), so nu is checked at rho*=9.7734 where
+    #      it is well-defined and equals 2/7 -- a meaningful independent cross-check, not a self-verify.
+    from ave.core.constants import NU_VAC  # merged cold-arc Poisson ref (independent provenance)
     t0 = _remap_through_tensor(pos, bonds, rho, y0=0.0, A_dc=0.0, dictionary="D1_angle", ell=ell)
-    r_direct = extract_prestress_Cij(pos, bonds, k_axial=1.0, k_shear=1.0, T_per_bond=0.0, rho=rho)
-    mo_direct = moduli_from_Cij(r_direct["C11"], r_direct["C12"], r_direct["C44"])
-    # reconcile the tensor invariants (nu, K) -- an independent assembly of the cold point
+    r_star = extract_prestress_Cij(pos, bonds, k_axial=9.7734, k_shear=1.0, T_per_bond=0.0, rho=rho)
+    nu_star = moduli_from_Cij(r_star["C11"], r_star["C12"], r_star["C44"])["nu_Hill"]
     gate_cold = ReconcileGate(
-        label="PC-cold-y0-zero-recovers-cold",
-        claimed=[t0["nu_Hill"], t0["K_bulk"], t0["rho_prime"]],
-        independent=[mo_direct["nu_Hill"], mo_direct["K_bulk"], 1.0],  # cold rho'=S_ax/S_shear=1/1=1
-        rtol=1e-10, atol=1e-12,
+        label="PC-cold-rho-prime-algebraic-and-nu-at-rho-star-vs-NU_VAC",
+        claimed=[t0["rho_prime"], nu_star],
+        independent=[1.0, float(NU_VAC)],   # algebraic cold rho'=1 ; merged cold Poisson 2/7 at rho*
+        rtol=1e-5, atol=1e-10,   # 1e-5: nu(rho*=9.7734) vs 2/7 residual is the 9.7734-rounding (2.2e-6)
     )
     res_cold = gate_cold.enforce(prove_first=True)
     out["PC_cold"] = {"reconciled": res_cold.reconciled, "can_fire_proven": res_cold.can_fire_proven,
-                      "max_rel": res_cold.max_rel_discrepancy, "rho_prime_at_y0_zero": t0["rho_prime"]}
+                      "max_rel": res_cold.max_rel_discrepancy, "rho_prime_at_y0_zero": t0["rho_prime"],
+                      "nu_vac_ref": float(NU_VAC), "nu_at_rho_star": nu_star,
+                      "note": "cold rho'=1 vs algebraic identity; nu at rho*=9.7734 vs merged NU_VAC=2/7 "
+                              "(nu is pole-divergent at the cold rho=1 point, so checked at rho* where "
+                              "it is well-defined -- a meaningful independent cross-check)."}
 
-    # PC-numerator: my S_axial(sqrt alpha) vs the kernel (different code path is the point -- but here
-    # BOTH are the kernel, so this is a self-consistency floor; the INDEPENDENT check is that the
-    # confined numerator equals the kernel value AND != 1). Use a genuinely different reference:
-    # the axial saturation via impedance_at_strain-consistent form would be circular; instead
-    # reconcile against the #526 driver's own S(sqrt alpha) usage via bond_tension-free path:
+    # PC-numerator (item 3 fix -- INDEPENDENT formula, not saturation_factor on both sides): my
+    # S_axial(sqrt alpha) [via channel_loading -> saturation_factor] vs the RAW KERNEL FORMULA
+    # sqrt(1 - A^2/A_y^2) evaluated DIRECTLY here (a different code path -- plain arithmetic, NOT the
+    # saturation_factor function). If saturation_factor had a bug, this would catch it.
     my_S_axial = channel_loading(0.0, A_CORE_SQRT_ALPHA, "D1_angle", ell=ell)["S_axial_numerator"]
-    kernel_S_axial = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=A_Y))
+    raw_formula_S = float(np.sqrt(1.0 - (A_CORE_SQRT_ALPHA / A_Y) ** 2))  # raw sqrt(1-A^2), no kernel fn
     gate_num = ReconcileGate(
-        label="PC-numerator-S-axial-at-sqrt-alpha",
-        claimed=my_S_axial, independent=kernel_S_axial, rtol=1e-12,
+        label="PC-numerator-S-axial-vs-raw-sqrt-formula",
+        claimed=my_S_axial, independent=raw_formula_S, rtol=1e-12,
     )
     res_num = gate_num.enforce(prove_first=True)
     out["PC_numerator"] = {"reconciled": res_num.reconciled, "can_fire_proven": res_num.can_fire_proven,
-                           "S_axial_confined": my_S_axial, "kernel": kernel_S_axial,
+                           "S_axial_confined": my_S_axial, "raw_sqrt_formula": raw_formula_S,
                            "is_shifted_off_cold": bool(abs(my_S_axial - 1.0) > 1e-6)}
 
-    # PC-denominator: my ANALYTIC 2nd-order rho' vs the FULL-kernel assembled rho' (INDEPENDENT path).
-    # analytic: rho'_analytic = 1 / (1 + 3/4 y0^2)  [travel, D1, A_y=1, k_a=k_s=1]
-    # full-kernel: channel_loading rho_prime (uses saturation_factor + resonant_tension_leading).
-    # They must agree within the y0^4 truncation (the analytic drops O(y0^4)); rtol set by that band.
+    # PC-denominator (item 2 fix -- HONEST truncation band + dropped/flipped triggers): my ANALYTIC
+    # 2nd-order rho' = 1/(1 + 3/4 y0^2) vs the FULL-kernel assembled rho' (INDEPENDENT path). The
+    # series drops O(y0^4); the residual is EXACTLY y0^4/32 (sympy-derived, symbolic_backbone). rtol
+    # is set to 3x that residual's relative size -- NOT the old vacuous 5*y0^2 (~0.10) that passed a
+    # DROPPED or SIGN-FLIPPED soft term. The can-fire proof below injects BOTH mutations and asserts
+    # the honest gate REJECTS them (they sit at ~5e-3 / ~1e-2, well outside the ~4e-5 honest band).
     y0_test = 0.1428
     rho_analytic = 1.0 / (1.0 + 0.75 * y0_test**2)
     rho_full = channel_loading(y0_test, 0.0, "D1_angle", ell=ell)["rho_prime"]
-    trunc_band = 5.0 * y0_test**2  # 2nd-order truncation: rel error ~ O(y0^2) between series and full
+    resid_y0_4 = (y0_test**4 / 32.0) / rho_analytic  # the DERIVED O(y0^4) relative residual
+    trunc_band = 3.0 * resid_y0_4                     # honest rtol: just above the y0^4/32 residual
     gate_den = ReconcileGate(
-        label="PC-denominator-analytic-vs-fullkernel",
+        label="PC-denominator-analytic-vs-fullkernel-honest-band",
         claimed=rho_analytic, independent=rho_full, rtol=trunc_band,
     )
     res_den = gate_den.enforce(prove_first=True)
+    # ITEM 2 dropped-term / sign-flip synthetic triggers: prove the honest band REJECTS the mutations
+    A_sh2 = (y0_test) ** 2 / 2.0  # D1, ell=1
+    rho_dropped_soft = 1.0 / (1.0 + y0_test**2)                       # soft term DROPPED (S_shear=1)
+    rho_flipped_soft = 1.0 / (1.0 + y0_test**2 + A_sh2 / 2.0)          # soft term SIGN-FLIPPED
+    dropped_rejected = flipped_rejected = False
+    try:
+        ReconcileGate(label="den-dropped-trigger", claimed=rho_dropped_soft,
+                      independent=rho_full, rtol=trunc_band).enforce(prove_first=False)
+    except DiscrepantHalt:
+        dropped_rejected = True
+    try:
+        ReconcileGate(label="den-flipped-trigger", claimed=rho_flipped_soft,
+                      independent=rho_full, rtol=trunc_band).enforce(prove_first=False)
+    except DiscrepantHalt:
+        flipped_rejected = True
     out["PC_denominator"] = {"reconciled": res_den.reconciled, "can_fire_proven": res_den.can_fire_proven,
                              "rho_analytic_2nd_order": rho_analytic, "rho_full_kernel": rho_full,
-                             "truncation_band_rtol": trunc_band, "max_rel": res_den.max_rel_discrepancy,
-                             "note": "series and full-kernel agree within the y0^4 truncation -- NOT the "
+                             "honest_truncation_band_rtol": trunc_band,
+                             "derived_O_y0_4_rel_residual": resid_y0_4,
+                             "dropped_soft_term_rejected": dropped_rejected,
+                             "flipped_soft_term_rejected": flipped_rejected,
+                             "max_rel": res_den.max_rel_discrepancy,
+                             "note": "series and full-kernel agree within the DERIVED y0^4/32 truncation -- NOT the "
                                      "defining identity (the #527 defect); different assemblies."}
 
     # PC-null-liveness (Step 3.8a): the confined-mode pipeline MUST read the biased ratio != rho_cold.
