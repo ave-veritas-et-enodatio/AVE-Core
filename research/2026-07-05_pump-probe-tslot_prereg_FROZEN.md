@@ -1,5 +1,20 @@
 # PREREG (FROZEN) — Pump-probe on the honest nonlinear chain: the substrate adjudicates the #526 T-slot scope fork
 
+> ## ⚠ ERRATUM / DEVIATION BANNER (2026-07-05, orchestrator review of PR #532 — MAJOR-a)
+> The frozen prereg (§PROBE, §CONVERGENCE) specified a **genuinely dynamical slow weak probe
+> WAVE** — "measuring the effective transverse stiffness / phase velocity in the measurement
+> window", with an Ω/ω sweep. **The driver as implemented did NOT run that probe.** It measured
+> the **cycle-averaged transverse tangent stiffness** `⟨−∂F_y/∂y⟩` — a frozen-configuration
+> finite-difference on the pump snapshots, which OMITS the pump's back-reaction to the probe and,
+> critically, is a **LAB-FRAME** observable (it feels the axial spring through the bond slope).
+> This silent substitution is the root of the [ADJUDICATION-INVALID] verdict: the finite-difference
+> observable is not the frozen dynamical-probe observable, and it mixes in a kinematic tilt term the
+> frozen (bond-frame) arms never modeled. The frozen prereg body below is PRESERVED (Rule 12); this
+> banner records the deviation. A valid future adjudication must run the frozen dynamical probe (or
+> a bond-frame observable) — see `2026-07-05_pump-probe-tslot_result.md` §REQUIREMENTS.
+> (The one numeric correction: the DC-BIAS liveness prediction 1.0376 was for a zig-zag held bow,
+> found to confound channels; the clean uniform-stretch control 1.0786 is the one that ran.)
+
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/pump-probe-tslot`
 **Driver (dynamics):** `src/scripts/vol_1_foundations/pump_probe_chain.py` (to be scaffolded)
 **Prediction module (INDEPENDENT):** `src/scripts/vol_1_foundations/pump_probe_predictions.py` (the frozen arm formulas; NEVER consumed by the dynamics — the #531 tautology guard)
