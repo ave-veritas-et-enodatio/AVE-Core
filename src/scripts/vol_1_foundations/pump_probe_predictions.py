@@ -130,18 +130,18 @@ def symbolic_backbone() -> dict:
     exact-zero residuals. Called by the test to lock the derivation."""
     import sympy as sp
 
-    a, A, k0, l, k_a, y0, theta = sp.symbols("a A k0 l k_a y0 theta", positive=True)
+    a, A, k0, ell, k_a, y0, theta = sp.symbols("a A k0 ell k_a y0 theta", positive=True)
     Phi_dd = k0 * sp.sqrt(1 - a**2)
     T_closed = k0 * (A * sp.sqrt(1 - A**2) + sp.asin(A)) / 2
     T_integral = sp.integrate(Phi_dd, (a, 0, A))
     mean_sin2 = sp.integrate(sp.sin(theta) ** 2, (theta, 0, 2 * sp.pi)) / (2 * sp.pi)
-    T_pump_lead = 2 * (k_a / l) * (y0**2 * mean_sin2)
+    T_pump_lead = 2 * (k_a / ell) * (y0**2 * mean_sin2)
     return {
         "R1_tension_integral": sp.simplify(T_integral - T_closed),
         "R2_phi_prime_0": sp.simplify(T_closed.subs(A, 0)),
         "R3_phi_prime_1_minus_pik0_4": sp.simplify(T_closed.subs(A, 1) - k0 * sp.pi / 4),
         "R4_mean_sin2_minus_half": sp.simplify(mean_sin2 - sp.Rational(1, 2)),
-        "R5_pump_lead_minus_law": sp.simplify(T_pump_lead - k_a / l * y0**2),
+        "R5_pump_lead_minus_law": sp.simplify(T_pump_lead - k_a / ell * y0**2),
     }
 
 
