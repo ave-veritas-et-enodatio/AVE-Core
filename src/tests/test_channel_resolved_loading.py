@@ -32,6 +32,7 @@ from scripts.vol_1_foundations.channel_resolved_loading import (
     RHO_COLD,
     channel_loading,
     consistency_gate_529,
+    rho_prime_both_arms,
     rho_prime_both_cases,
     run_positive_controls,
     select_bin,
@@ -46,9 +47,15 @@ def geom():
 
 
 @pytest.fixture(scope="module")
-def cases(geom):
+def arms(geom):
     pos, bonds, rho = geom
-    return rho_prime_both_cases(pos, bonds, rho)
+    return rho_prime_both_arms(pos, bonds, rho)
+
+
+@pytest.fixture(scope="module")
+def cases(arms):
+    # legacy fixture: the EXTENDED arm (this arc's re-keying) -- the [ASYMMETRIC-BOTH] arm
+    return arms["EXTENDED"]
 
 
 # --------------------------------------------------------------------------------------
@@ -138,23 +145,29 @@ def test_consistency_reproduces_529_uniform_T(geom):
 
 
 # --------------------------------------------------------------------------------------
-# S4/S6 -- the verdict
+# S4/S6 -- the verdict (EXTENDED arm; the DC_ONLY arm + the fork are below)
 # --------------------------------------------------------------------------------------
-def test_both_cases_move_rho_prime(cases):
-    """Both travel and confined MOVE ρ' (not preserved) -- the traveling wave is NOT ratio-preserving."""
+def test_both_cases_hum_move_rho_prime_extended(cases):
+    """[EXTENDED arm] Both travel and confined HUM-move ρ' (not preserved) -- under this arc's
+    AC-cycle-averaged re-keying the traveling wave is NOT ratio-preserving."""
     v = select_bin(cases)
-    assert v["travel_max_move"] > v["tol"]
-    assert v["confined_max_move"] > v["tol"]
+    assert v["arm"] == "EXTENDED"
+    assert v["travel_hum_move"] > v["tol"]
+    assert v["confined_hum_move"] > v["tol"]
 
 
-def test_moves_are_indistinguishable(cases):
-    """The hum responses are indistinguishable (diff ≤ machine ε) -- no hum discriminator exists."""
+def test_hum_factor_identity_is_by_construction(cases):
+    """[EXTENDED arm] The hum responses are identical BY CONSTRUCTION, not by measurement: ρ' =
+    S_axial · [1/(k_s·S_shear + T/ℓ)], and S_axial is a CONSTANT (the DC bias) that divides out of
+    the hum factor. The shared denominator (same S_shear, same T for both wave types under this arm)
+    forces hum_factor_travel ≡ hum_factor_confined. The ≤1.1e-16 is machine round-off on an ALGEBRAIC
+    identity -- NOT a measured null (item 5a). We assert it lands at round-off, and label it so."""
     v = select_bin(cases)
-    assert v["hum_factor_max_diff_travel_vs_confined"] < 1e-10
+    assert v["hum_factor_max_diff_travel_vs_confined"] < 1e-13  # algebraic identity ⇒ round-off only
 
 
-def test_verdict_is_asymmetric_both(cases):
-    """The frozen routing lands [ASYMMETRIC-BOTH]: both move, indistinguishably."""
+def test_verdict_extended_arm_is_asymmetric_both(cases):
+    """[EXTENDED arm] The frozen routing lands [ASYMMETRIC-BOTH]: both HUM-move, indistinguishably."""
     v = select_bin(cases)
     assert v["bin"] == "ASYMMETRIC-BOTH"
 
@@ -162,6 +175,55 @@ def test_verdict_is_asymmetric_both(cases):
 def test_dictionary_does_not_flip_verdict(cases):
     v = select_bin(cases)
     assert v["dictionary_verdict_flips"] is False
+
+
+# --------------------------------------------------------------------------------------
+# THE T-SLOT SCOPE FORK -- both arms (Grant's to resolve; we report both, do NOT pick)
+# --------------------------------------------------------------------------------------
+def test_dc_only_arm_radiation_preserves_rho_exactly():
+    """[DC_ONLY arm, canon keying] a pure-AC ⟨A⟩=0 traveling wave loads NOTHING: T=Φ'(0)=0 and no DC
+    S-shift, so ρ'=ρ_cold EXACTLY at every hum amplitude (radiation transparent)."""
+    for y0 in (0.0, 0.1428, 0.42):
+        cl = channel_loading(y0, A_dc=0.0, dictionary="D1_angle", arm="DC_ONLY")
+        assert cl["rho_prime"] == pytest.approx(1.0, abs=1e-14)
+        assert cl["T_over_ell_stiff"] == pytest.approx(0.0, abs=1e-14)  # canon keying: T=Phi'(0)=0
+
+
+def test_dc_only_arm_hum_enters_nothing():
+    """[DC_ONLY arm] the confined mode's ρ' is y0-INDEPENDENT: the hum (an AC quantity) cannot enter
+    the DC-scoped slot; only the static DC bias Φ'(√α) loads (legitimately in-slot, y0-independent)."""
+    base = channel_loading(0.0, A_CORE_SQRT_ALPHA, "D1_angle", arm="DC_ONLY")["rho_prime"]
+    for y0 in (0.0, 0.1428, 0.42):
+        cl = channel_loading(y0, A_dc=A_CORE_SQRT_ALPHA, dictionary="D1_angle", arm="DC_ONLY")
+        assert cl["rho_prime"] == pytest.approx(base, abs=1e-14)  # NO hum dependence
+
+
+def test_dc_only_verdict_is_symmetric_both(arms):
+    """[DC_ONLY arm] the HUM moves neither wave type -> [SYMMETRIC-BOTH] at the hum level (carrier
+    family dead; matter/radiation split = #518's DC S-ratio asymmetry alone)."""
+    v = select_bin(arms["DC_ONLY"])
+    assert v["arm"] == "DC_ONLY"
+    assert v["travel_hum_move"] == pytest.approx(0.0, abs=1e-12)
+    assert v["confined_hum_move"] == pytest.approx(0.0, abs=1e-12)
+    assert v["bin"] == "SYMMETRIC-BOTH"
+
+
+def test_dc_only_confined_dc_bias_matches_bond_tension():
+    """[DC_ONLY arm] the confined mode's in-slot tension is exactly canon's keying T=bond_tension(√α)
+    (Φ'(√α)), proving the DC_ONLY slot uses canon's own tension function, not a re-keyed AC average."""
+    from scripts.vol_1_foundations.prestress_elastic_tensor import bond_tension
+    cl = channel_loading(0.1428, A_dc=A_CORE_SQRT_ALPHA, dictionary="D1_angle", arm="DC_ONLY")
+    assert cl["T_stiff"] == pytest.approx(float(bond_tension(A_CORE_SQRT_ALPHA)))
+
+
+def test_fork_arms_give_opposite_verdicts(arms):
+    """The two arms of the T-slot scope fork give OPPOSITE verdicts -- which is why the fork is
+    load-bearing and Grant's to resolve, not ours to pick."""
+    dc = select_bin(arms["DC_ONLY"])["bin"]
+    ext = select_bin(arms["EXTENDED"])["bin"]
+    assert dc == "SYMMETRIC-BOTH"
+    assert ext == "ASYMMETRIC-BOTH"
+    assert dc != ext
 
 
 def test_identity_endpoints_excluded_from_moved_band(cases):

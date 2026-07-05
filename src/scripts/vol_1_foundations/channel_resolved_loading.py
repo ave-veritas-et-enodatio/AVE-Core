@@ -191,37 +191,61 @@ def _mean_A_shear2(y0: float, dictionary: str, ell: float) -> float:
 
 
 def channel_loading(y0: float, A_dc: float, dictionary: str, ell: float = 1.0,
-                    k0: float = 1.0) -> dict:
-    """The three per-channel remap inputs at FULL-KERNEL precision (not the truncated series),
-    for a given transverse hum amplitude y0 and axial DC bias A_dc, under one dictionary.
+                    k0: float = 1.0, arm: str = "EXTENDED") -> dict:
+    """The three per-channel remap inputs at FULL-KERNEL precision, for a transverse hum amplitude
+    y0 and axial DC bias A_dc, under one dictionary and ONE OF TWO ARMS.
 
-    Per Grant 2026-07-05 (Q-point ruling), no-double-count:
-      - NUMERATOR  (axial):  S_axial = saturation_factor(A_dc)  -- keyed on the DC deformation ONLY.
-                             The hum y0 does NOT enter (axial deform oscillation 4th-order, S1 proof).
-                             Radiation: A_dc=0 -> S_axial=1 (cold). Confined: A_dc=sqrt(alpha).
-      - DENOMINATOR (shear-adjacent), TWO competing terms:
-          soft:  k0 * S_shear, S_shear = saturation_factor(sqrt(<A_shear^2>))  -- <A^2>-keyed, SOFTENING.
-                 The effective time-averaged shear stiffness under a <A>=0 hum with RMS^2=<A_shear^2>.
-          stiff: +T/ell, T = resonant_tension_leading(y0) = (k0/ell) y0^2  -- geometric, STIFFENING,
-                 the #529 Part-1 law IMPORTED (NOT re-derived). This is a STRESS -> denominator ONLY.
+    THE T-SLOT SCOPE FORK (orchestrator review 2026-07-05, item 1 -- Grant's to resolve, NOT ours):
+    the #526 FROZEN prereg (2026-07-04_prestress-tensor_prereg_FROZEN.md:64-78,:100-120) scopes the
+    pre-stress T-slot to a STATIC DC BIAS verbatim -- "A DC bias is a real operating point ... NOT the
+    amplitude of an AC standing wave ... CONSEQUENCE: NO <sin^2>=1/2 time-average factor", with the
+    canon keying T = bond_tension(A_axial) = Phi'(A_DC), which is ZERO at <A>=0. A cycle-averaged AC
+    <T> entering the slot is an EXTRAPOLATION this arc made, not canon. So two arms:
 
-    Returns the pieces AND the assembled k_shear_eff = k0*S_shear + T/ell (the remap denominator).
-    NB: S_shear is evaluated at the RMS deformation sqrt(<A_shear^2>) -- this is the full-kernel
-    value the small-signal 2nd-order series (S1) approximates; the two are reconciled in PC-denominator.
+      arm="DC_ONLY" (canon's keying -- the conservative reading):
+        S is keyed on the QUIESCENT DEFORMATION (Grant Reading-A) = the DC bias amplitude A_dc ONLY.
+        A pure-AC <A>=0 wave has NO DC bias in EITHER channel -> S_axial=1 AND S_shear=1 (cold);
+        T = Phi'(A_dc) = bond_tension(A_dc); for radiation A_dc=0 -> T=0. So a traveling wave loads
+        NOTHING (rho' = rho_cold exactly), AND -- symmetrically -- the confined mode's hum cannot
+        enter either (its cycle-averaged <T> is an AC quantity the slot rejects); only its true DC
+        bias A_dc=sqrt(alpha) enters the numerator. Bin at the hum level: [SYMMETRIC-BOTH].
+
+      arm="EXTENDED" (this arc's re-keying -- the extrapolated reading):
+        S_shear is keyed on the AC RMS deformation sqrt(<A_shear^2>) (the R1 delta n~+1/4 A^2 small-
+        signal shift, node-up:144), and T is the #529 cycle-averaged <T>=(k0/ell)y0^2. Both waves
+        then move rho'; the hum response is bit-identical (the by-construction shared-denominator
+        identity). Bin: [ASYMMETRIC-BOTH] and #518's null needs revision.
+
+    Grant Reading-A (Q-point = quiescent DEFORMATION relative to rest) BEARS on the fork: a passing
+    wave's cycle-averaged stress is arguably not a quiescent bias (-> DC_ONLY) -- but that reading is
+    HIS to make, not ours. We report both arms; we do not pick.
+
+    Per Grant no-double-count (both arms): T is a STRESS -> denominator +T/ell only, never an S-factor.
     """
-    # NUMERATOR -- axial S at the DC bias only (no-double-count; hum excluded)
+    if arm not in ("DC_ONLY", "EXTENDED"):
+        raise ValueError(f"unknown arm {arm!r} (expected DC_ONLY or EXTENDED)")
+
+    # NUMERATOR -- axial S at the DC bias only (no-double-count; hum excluded). SAME in both arms:
+    # the axial numerator only ever saw the DC bias (hum 4th-order), so the arms agree here.
     S_axial = float(saturation_factor(A_dc, yield_limit=A_Y))
 
-    # DENOMINATOR soft -- shear S at the time-averaged RMS deformation of the transverse hum
-    A_shear_rms = float(np.sqrt(_mean_A_shear2(y0, dictionary, ell)))
-    S_shear = float(saturation_factor(A_shear_rms, yield_limit=A_Y))
-
-    # DENOMINATOR stiff -- the #529 Part-1 geometric tension (IMPORTED), a STRESS
-    T = float(resonant_tension_leading(y0, k_a=k0, ell=ell))  # = (k0/ell) y0^2
+    if arm == "DC_ONLY":
+        # canon's keying: S on the DC deformation only; the AC hum enters NO slot.
+        # radiation A_dc=0 -> S_shear=1, T=Phi'(0)=0 -> denominator = k0 (cold), rho'=S_axial.
+        A_shear_rms = 0.0                                   # no AC RMS enters (Grant Reading-A / #526 DC scope)
+        S_shear = float(saturation_factor(0.0, yield_limit=A_Y))   # = 1 (cold), no shear softening
+        T = float(bond_tension(A_dc))                       # canon keying: Phi'(A_dc); =0 at A_dc=0
+    else:  # EXTENDED
+        # DENOMINATOR soft -- shear S at the time-averaged AC RMS deformation of the transverse hum
+        A_shear_rms = float(np.sqrt(_mean_A_shear2(y0, dictionary, ell)))
+        S_shear = float(saturation_factor(A_shear_rms, yield_limit=A_Y))
+        # DENOMINATOR stiff -- the #529 Part-1 CYCLE-AVERAGED geometric tension (IMPORTED), a STRESS
+        T = float(resonant_tension_leading(y0, k_a=k0, ell=ell))  # = (k0/ell) y0^2
 
     k_shear_eff = k0 * S_shear + T / ell
     rho_prime = (S_axial / k_shear_eff) if k_shear_eff > 0 else float("inf")
     return {
+        "arm": arm,
         "y0": y0, "A_dc": A_dc, "dictionary": dictionary, "ell": ell,
         "A_shear_rms": A_shear_rms,
         "S_axial_numerator": S_axial,
@@ -284,16 +308,18 @@ def consistency_gate_529(pos, bonds, rho, theta: float = 0.3, y0: float = 1.0,
 # ---------------------------------------------------------------------------------------
 # (S4) THE TWO CASES THROUGH THE REMAP -- rho'_travel and rho'_conf, banded over y0 (log grid)
 # ---------------------------------------------------------------------------------------
-def _remap_through_tensor(pos, bonds, rho, y0: float, A_dc: float, dictionary: str, ell: float):
+def _remap_through_tensor(pos, bonds, rho, y0: float, A_dc: float, dictionary: str, ell: float,
+                          arm: str = "EXTENDED"):
     """Feed the channel-resolved per-channel inputs through the MERGED #526 Born-Huang tensor
     (extract_prestress_Cij) -- the SAME assembler the mechanism consumes. Returns rho' AND the
     tensor-level nu (the actual consumed observable), so the verdict is gated on what the remap
     consumes, not on my analytic rho' alone (the #529 CRITICAL lesson).
 
     NB: rho' here is the true family coordinate S_axial/(k0*S_shear + T/ell); nu_Hill is the
-    #526 pre-stressed tensor's Poisson ratio at that operating point.
+    #526 pre-stressed tensor's Poisson ratio at that operating point. `arm` selects the T-slot
+    scope (DC_ONLY = canon keying; EXTENDED = this arc's re-keying) -- see channel_loading.
     """
-    cl = channel_loading(y0, A_dc, dictionary, ell=ell, k0=1.0)
+    cl = channel_loading(y0, A_dc, dictionary, ell=ell, k0=1.0, arm=arm)
     S_axial = cl["S_axial_numerator"]
     S_shear = cl["S_shear_soft"]         # the k0=1 shear spring at its RMS deformation
     T = cl["T_stiff"]
@@ -307,13 +333,17 @@ def _remap_through_tensor(pos, bonds, rho, y0: float, A_dc: float, dictionary: s
     }
 
 
-def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -> dict:
-    """Feed BOTH cases through the merged remap; rho'-shift per case, banded over the in-regime y0
-    range (log-spaced -- the #529 review dinged grid artifacts) for both arc* edges and both
-    dictionaries. The y0->0 identity endpoints are LABELED and EXCLUDED from the moved band.
+def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6,
+                         arm: str = "EXTENDED") -> dict:
+    """Feed BOTH cases through the merged remap under ONE ARM; rho'-shift per case, banded over the
+    in-regime y0 range (log-spaced -- the #529 review dinged grid artifacts) for both arc* edges and
+    both dictionaries. The y0->0 identity endpoints are LABELED and EXCLUDED from the moved band.
 
     (i)  TRAVELING wave:  A_dc = 0        (radiation, no DC bias, <A>=0)
     (ii) CONFINED  mode:  A_dc = sqrt(alpha)  (electron axial core, def-vyvsn1)
+
+    `arm` selects the T-slot scope fork (DC_ONLY canon keying vs EXTENDED this-arc re-keying).
+    Call `rho_prime_both_arms` to get both at once.
 
     THE DISCRIMINATOR TEST (prereg routing):
       travel_preserves = |rho'_travel/rho_cold - 1| <= tol  across the band
@@ -326,7 +356,7 @@ def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -
     lo, hi = ARC_STAR_BAND
     S_dc = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=A_Y))  # biased-cold ratio, y0->0
 
-    cases: dict = {}
+    cases: dict = {"arm": arm}
     for name, A_dc, cold_ref in (("i_travel", 0.0, RHO_COLD), ("ii_confined", A_CORE_SQRT_ALPHA, S_dc)):
         per_dict = {}
         for dictionary in ("D1_angle", "D2_displacement"):
@@ -337,7 +367,7 @@ def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -
                 y0_grid = np.concatenate([[0.0], y0_max * np.logspace(-4, 0, 9)])
                 rows = []
                 for y0 in y0_grid:
-                    t = _remap_through_tensor(pos, bonds, rho, float(y0), A_dc, dictionary, ell)
+                    t = _remap_through_tensor(pos, bonds, rho, float(y0), A_dc, dictionary, ell, arm=arm)
                     is_identity = bool(y0 <= 1e-3 * y0_max)
                     hum_factor = t["rho_prime"] / cold_ref  # constant numerator divided out
                     rows.append({
@@ -366,6 +396,15 @@ def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -
         cases[name] = {"A_dc": A_dc, "cold_ref": cold_ref, "per_dictionary": per_dict}
 
     return cases
+
+
+def rho_prime_both_arms(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -> dict:
+    """Both arms of the T-slot scope fork, each fully banded. The fork is Grant's to resolve; we
+    report BOTH and do NOT pick (orchestrator review 2026-07-05 item 1)."""
+    return {
+        "DC_ONLY": rho_prime_both_cases(pos, bonds, rho, ell=ell, tol=tol, arm="DC_ONLY"),
+        "EXTENDED": rho_prime_both_cases(pos, bonds, rho, ell=ell, tol=tol, arm="EXTENDED"),
+    }
 
 
 # ---------------------------------------------------------------------------------------
@@ -490,6 +529,24 @@ def select_bin(cases: dict, tol: float = 1e-6) -> dict:
                 moves.append(cases[name]["per_dictionary"][d][edge]["max_abs_move_vs_coldref"])
         return float(max(moves))
 
+    def _max_hum_move(name):
+        # the HUM-DRIVEN move ONLY: the y0-VARIATION of rho' across the interior grid (max-min,
+        # normalized by the y0->0 endpoint). This strips any CONSTANT DC-bias offset (e.g. the DC_ONLY
+        # confined mode's Phi'(A_dc) static tension, which is y0-independent), isolating the hum's
+        # contribution -- the quantity the auto-resonance carrier hypothesis actually claims.
+        v = 0.0
+        for d in ("D1_angle", "D2_displacement"):
+            for edge in ("lo_elastica", "hi_tent"):
+                rows = cases[name]["per_dictionary"][d][edge]["rows"]
+                interior = [r for r in rows if not r["is_identity_limit"]]
+                y0zero = [r for r in rows if r["is_identity_limit"]]
+                if not interior or not y0zero:
+                    continue
+                base = y0zero[0]["rho_prime"]  # the y0->0 endpoint (DC-bias only, no hum)
+                span = max(abs(r["rho_prime"] - base) for r in interior)
+                v = max(v, span / (abs(base) + 1e-300))
+        return float(v)
+
     def _hum_factor_diff():
         # max |hum_factor_travel - hum_factor_confined| across the interior grid (the discriminator test)
         diff = 0.0
@@ -513,13 +570,19 @@ def select_bin(cases: dict, tol: float = 1e-6) -> dict:
                 flips = True
         return flips
 
-    travel_move = _max_move("i_travel")
-    conf_move = _max_move("ii_confined")
+    arm = cases.get("arm", "EXTENDED")
+    # THE VERDICT ROUTES ON THE HUM MOVE (the carrier's actual claim), not the total move that
+    # includes the constant DC-bias offset. In DC_ONLY the confined mode has a nonzero DC-bias tension
+    # Phi'(sqrt alpha) in-slot (a legitimate static bias, y0-independent) -- that is NOT a hum move.
+    travel_hum = _max_hum_move("i_travel")
+    conf_hum = _max_hum_move("ii_confined")
+    travel_total = _max_move("i_travel")
+    conf_total = _max_move("ii_confined")
     hum_diff = _hum_factor_diff()
     dict_flips = _dictionary_verdict_flips()
 
-    travel_preserves = travel_move <= tol
-    conf_moves = conf_move > tol
+    travel_preserves = travel_hum <= tol       # does the HUM move the traveling wave's rho'?
+    conf_moves = conf_hum > tol                 # does the HUM move the confined mode's rho'?
     travel_moves = not travel_preserves
     conf_preserves = not conf_moves
     distinguish = hum_diff > tol
@@ -530,19 +593,30 @@ def select_bin(cases: dict, tol: float = 1e-6) -> dict:
                   "dictionary is the missing structure canon does not supply (prereg scope caveat b).")
     elif travel_preserves and conf_moves:
         binv = "CHANNEL-DISCRIMINATOR-DERIVED"
-        reason = ("(i) traveling wave ratio-preserving AND (ii) confined mode moves rho'. KNIFE: the (i) "
-                  "cancellation MUST be a derived theorem or reported unexplained-numerical (weaker grade).")
+        reason = ("(i) traveling wave ratio-preserving under the HUM AND (ii) confined mode's HUM moves "
+                  "rho'. KNIFE: the (i) cancellation MUST be a derived theorem or reported "
+                  "unexplained-numerical (weaker grade).")
     elif travel_preserves and conf_preserves:
         binv = "SYMMETRIC-BOTH"
-        reason = "both preserve rho' -- no tension-based discriminator; the carrier family dies entirely."
+        if arm == "DC_ONLY":
+            reason = ("[ARM DC_ONLY, canon keying] the HUM enters NO slot (the #526 T-slot is scoped to a "
+                      "STATIC DC bias; a pure-AC <A>=0 wave has T=Phi'(0)=0 and no DC S-shift). Radiation "
+                      "preserves rho' exactly; the confined mode's HUM cannot enter either -- only its "
+                      "true DC bias sqrt(alpha) loads (numerator + the legitimate static Phi'(sqrt alpha) "
+                      "in-slot). No TENSION-hum discriminator; the auto-resonance carrier family is DEAD at "
+                      "the hum level. The matter/radiation split = #518's DC S-ratio asymmetry ALONE; "
+                      "#526/#527's static results are UNTOUCHED (those ARE DC biases, legitimately in-slot).")
+        else:
+            reason = "both preserve rho' under the hum -- no tension-based discriminator; carrier family dead."
     elif travel_moves and conf_moves and not distinguish:
         binv = "ASYMMETRIC-BOTH"
-        reason = ("both MOVE rho' by an INDISTINGUISHABLE hum response (hum_factor diff <= tol) -- the "
-                  "#526 +T/ell denominator remap moves rho' for the traveling wave too, CONFLICTING with "
-                  "canon's #518 s7 radiation null (S_axial=S_shear => rho invariant). SURFACE VERBATIM; "
-                  "flag-don't-fix; Grant adjudicates. The only travel/confined difference is the constant "
-                  "numerator DC-bias S(sqrt alpha) = the pre-existing #518 operating point, NOT a hum "
-                  "discriminator.")
+        reason = ("[ARM EXTENDED, this-arc re-keying] both MOVE rho' by an INDISTINGUISHABLE hum response "
+                  "(hum_factor diff <= tol, a by-construction shared-denominator identity). The re-keyed "
+                  "#526 +T/ell slot (AC cycle-averaged <T>) moves rho' for the traveling wave too. Under "
+                  "canon's DC-only keying (ARM DC_ONLY) this would NOT happen -- so this is CONDITIONAL on "
+                  "the T-slot scope fork (Grant's to resolve). IF this arm holds, #518's radiation null "
+                  "needs revision. The only travel/confined difference is the constant numerator DC-bias "
+                  "S(sqrt alpha), NOT a hum discriminator.")
     elif travel_moves and conf_moves and distinguish:
         binv = "CHANNEL-DISCRIMINATOR-DERIVED (with-caveat)"
         reason = ("both move rho' but the hum responses DIFFER (a real discriminator hides in the "
@@ -552,8 +626,9 @@ def select_bin(cases: dict, tol: float = 1e-6) -> dict:
         reason = "outcome not routed by the frozen table (final else, no fall-through)."
 
     return {
-        "bin": binv, "reason": reason,
-        "travel_max_move": travel_move, "confined_max_move": conf_move,
+        "bin": binv, "reason": reason, "arm": arm,
+        "travel_hum_move": travel_hum, "confined_hum_move": conf_hum,
+        "travel_total_move": travel_total, "confined_total_move": conf_total,
         "hum_factor_max_diff_travel_vs_confined": hum_diff,
         "dictionary_verdict_flips": dict_flips,
         "travel_preserves": travel_preserves, "conf_moves": conf_moves,
@@ -583,34 +658,54 @@ def main() -> int:
     out["positive_controls"] = run_positive_controls(pos, bonds, rho, ell=ell)
     assert out["positive_controls"]["all_passed"], "A POSITIVE CONTROL FAILED -- no verdict readable"
 
-    # S4 -- both cases through the merged remap
-    out["cases"] = rho_prime_both_cases(pos, bonds, rho, ell=ell)
+    # S4 -- BOTH ARMS of the T-slot scope fork through the merged remap (Grant's fork; we report both)
+    out["arms"] = rho_prime_both_arms(pos, bonds, rho, ell=ell)
 
-    # S6 -- bin selection (no fall-through)
-    out["verdict"] = select_bin(out["cases"])
+    # S6 -- bin selection per arm (no fall-through)
+    out["verdicts"] = {arm: select_bin(out["arms"][arm]) for arm in ("DC_ONLY", "EXTENDED")}
 
-    # per-channel loading table (both cases, both channels) at the tent-edge in-regime bow
-    y0_report = float(out["cases"]["i_travel"]["per_dictionary"]["D1_angle"]["hi_tent"]["y0_in_regime_max"])
-    table = {}
-    for name, A_dc in (("i_travel", 0.0), ("ii_confined", A_CORE_SQRT_ALPHA)):
-        cl = channel_loading(y0_report, A_dc, "D1_angle", ell=ell)
-        table[name] = {
-            "A_dc": A_dc,
-            "AXIAL_numerator_S_axial": cl["S_axial_numerator"],
-            "SHEAR_slot_soft_k_shear_S": cl["k_shear_soft"],
-            "SHEAR_slot_stiff_T_over_ell": cl["T_over_ell_stiff"],
-            "denominator_k_shear_eff": cl["k_shear_eff_denominator"],
-            "rho_prime": cl["rho_prime"],
-        }
-    out["per_channel_loading_table_at_tent_edge"] = {"y0": y0_report, **table}
+    # the T-slot scope fork statement (the load-bearing open item -- Grant's to resolve, NOT ours)
+    out["T_slot_scope_fork"] = {
+        "status": "OPEN -- Grant's to resolve; this arc reports both arms and does NOT pick",
+        "canon_DC_scope_source": "research/2026-07-04_prestress-tensor_prereg_FROZEN.md (#526 FROZEN) "
+            ":64-78 -- T-slot scoped to a STATIC DC BIAS verbatim ('A DC bias is a real operating point "
+            "... NOT the amplitude of an AC standing wave ... CONSEQUENCE: NO <sin^2>=1/2 time-average "
+            "factor'); merged keying T = bond_tension(A_axial) = Phi'(A_DC) = 0 at <A>=0.",
+        "ARM_DC_ONLY": "canon keying: traveling wave T=0 -> radiation preserves rho'; confined hum "
+            "cannot enter either -> [SYMMETRIC-BOTH] at hum level; carrier family dead; matter/radiation "
+            "split = #518's DC S-ratio asymmetry ALONE; #526/#527 static results UNTOUCHED.",
+        "ARM_EXTENDED": "this-arc re-keying (AC cycle-averaged <T> + RMS-keyed S_shear): both move rho', "
+            "hum bit-identical -> [ASYMMETRIC-BOTH]; IF this arm holds, #518's null needs revision.",
+        "grant_reading_A_bears_on_it": "Grant's Reading-A ruling (Q-point = quiescent DEFORMATION state "
+            "relative to rest) bears on the fork: a passing wave's cycle-averaged stress is arguably NOT "
+            "a quiescent bias (-> DC_ONLY) -- but that reading is HIS to make, not ours.",
+    }
+
+    # per-channel loading table (both cases, both channels, BOTH ARMS) at the tent-edge in-regime bow
+    y0_report = float(out["arms"]["EXTENDED"]["i_travel"]["per_dictionary"]["D1_angle"]["hi_tent"]["y0_in_regime_max"])
+    tables = {}
+    for arm in ("DC_ONLY", "EXTENDED"):
+        table = {}
+        for name, A_dc in (("i_travel", 0.0), ("ii_confined", A_CORE_SQRT_ALPHA)):
+            cl = channel_loading(y0_report, A_dc, "D1_angle", ell=ell, arm=arm)
+            table[name] = {
+                "A_dc": A_dc,
+                "AXIAL_numerator_S_axial": cl["S_axial_numerator"],
+                "SHEAR_slot_soft_k_shear_S": cl["k_shear_soft"],
+                "SHEAR_slot_stiff_T_over_ell": cl["T_over_ell_stiff"],
+                "denominator_k_shear_eff": cl["k_shear_eff_denominator"],
+                "rho_prime": cl["rho_prime"],
+            }
+        tables[arm] = table
+    out["per_channel_loading_table_at_tent_edge"] = {"y0": y0_report, **tables}
 
     _write(out)
-    v = out["verdict"]
-    print(f"VERDICT: [{v['bin']}]")
-    print(f"  {v['reason']}")
-    print(f"  travel_max_move={v['travel_max_move']:.6e}  confined_max_move={v['confined_max_move']:.6e}")
-    print(f"  hum_factor_max_diff(travel vs confined)={v['hum_factor_max_diff_travel_vs_confined']:.2e}")
-    print(f"  dictionary_verdict_flips={v['dictionary_verdict_flips']}")
+    print("T-SLOT SCOPE FORK (Grant's to resolve; both arms reported):")
+    for arm in ("DC_ONLY", "EXTENDED"):
+        v = out["verdicts"][arm]
+        print(f"  [ARM {arm}] -> [{v['bin']}]")
+        print(f"     travel_hum_move={v['travel_hum_move']:.3e}  confined_hum_move={v['confined_hum_move']:.3e}"
+              f"  hum_diff={v['hum_factor_max_diff_travel_vs_confined']:.2e}  dict_flips={v['dictionary_verdict_flips']}")
     print(f"  positive controls all passed: {out['positive_controls']['all_passed']}")
     return 0
 
