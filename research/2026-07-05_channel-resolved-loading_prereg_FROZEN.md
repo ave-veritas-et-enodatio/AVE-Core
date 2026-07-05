@@ -1,8 +1,25 @@
 # PREREG (FROZEN) — Channel-resolved loading: does ρ' preserve for the traveling wave and move for the confined mode?
 
+> ## 🔴 ERRATA (2026-07-05, post-run, orchestrator review of PR #531 — Rule-12 banners; frozen body preserved)
+> 1. **Numeric (item 5b):** `:134` states `S(√α) ≈ 0.99617` — WRONG. Correct: **S(√α) = 0.996345**
+>    (`saturation_factor(√α, 1.0) = 0.9963446428975768`). The result doc uses the correct value.
+> 2. **Verdict re-frame (item 1):** this prereg's bins assumed the #526 T-slot accepts the hum's AC
+>    cycle-averaged ⟨T⟩. The review found the #526 FROZEN prereg scopes the slot to a STATIC DC bias
+>    (`2026-07-04_prestress-tensor_prereg_FROZEN.md`:64-78). The verdict is therefore a T-SLOT SCOPE
+>    FORK: **ARM DC_ONLY (canon keying) → [SYMMETRIC-BOTH]**, **ARM EXTENDED (this-arc re-keying) →
+>    [ASYMMETRIC-BOTH]** — Grant's to resolve. The frozen bins map: DC_ONLY realizes [SYMMETRIC-BOTH]
+>    (both preserve the ρ' HUM-move); EXTENDED realizes [ASYMMETRIC-BOTH]. No bin is orphaned; the
+>    [CHANNEL-DISCRIMINATOR-DERIVED] bin is reached on neither arm (the hum is not a discriminator).
+> 3. **Grade (item 5c):** `:134` and the ledger grade the numerator hum-independence as fully DERIVED;
+>    the sympy covers the axial-oscillation term (4th-order) only — the FULL numerator invariance also
+>    rests on Grant's no-double-count RULING. Graded honestly in the result as sympy + ruling.
+> See `research/2026-07-05_channel-resolved-loading_result.md` for the full re-framed verdict.
+
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/channel-discriminator`
 **Freeze order:** this doc is committed BEFORE the driver (`channel_resolved_loading.py`); commit
-order is the freeze proof. Bins below are VERBATIM-FROZEN; no post-data edits (Rule 11).
+order is the freeze proof. Bins below are VERBATIM-FROZEN; no post-data edits (Rule 11) — the ERRATA
+banner above is Rule-12 (post-run correction of a numeric typo + verdict re-frame; the frozen body
+below is UNEDITED).
 
 **Successor to:** the merged NEGATIVE PR #529 (`research/2026-07-04_resonant-tension-law_result.md`,
 [RADIATION-CONTAMINATED]) — the scalar ⟨y²⟩-tension carrier died because a matched CW traveling wave

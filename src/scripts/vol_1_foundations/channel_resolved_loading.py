@@ -170,7 +170,10 @@ def symbolic_backbone() -> dict:
             "stiff_term": "+k_a y0^2/ell^2 (DERIVED, STIFFENING, #529 Part-1)",
             "dD_over_k0_at_Ay1_D1": "+3/4 y0^2 (DERIVED -- NO cancellation at canonical yield)",
             "cancellation_condition": "A_y = 1/2 (KNIFE TELL: imported yield in a costume, NOT canon)",
-            "axial_numerator": "S_axial y0-independent at 2nd order (axial deform oscillation 4th-order)",
+            "axial_numerator": "S_axial y0-independent at 2nd order: sympy covers the axial-osc term "
+                               "(4th-order); the FULL numerator invariance ALSO rests on Grant's "
+                               "no-double-count RULING (the stress T does not re-enter S). Graded honestly "
+                               "as SYMPY + RULING, NOT pure-sympy (review item 5c).",
         },
         "central_finding": (
             "At the canonical yield A_y=1 the traveling-wave denominator does NOT cancel: the geometric "
