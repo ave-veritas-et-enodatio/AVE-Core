@@ -1,15 +1,153 @@
-# RESULT — [DC-ONLY-DERIVED]: the bond-frame T-slot content of a traveling transverse wave = 0 at O(y₀²) on the CLEAN periodic ring, as a THEOREM. The #526 fork CLOSES DC_ONLY; #518 intact (both legs). The lab-frame stiffening is fully the kinematic tilt + established S-channel.
+# RESULT — [CONSTRAINT-DEPENDENT] (CORRECTED). The bond-frame T-slot content of a traveling wave is CONSTRAINT-DEPENDENT: COLD on fixed-contour hosts (ring/pinned), SOFT by ⟨dy²⟩/2 on the free host. The #526 fork DISSOLVES into a boundary-condition question for Grant. The original [DC-ONLY-DERIVED] verdict below is SUPERSEDED (Rule 12, preserved).
 
-**Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/bondframe-tslot-closure`
+> ## 🔴 SUPERSEDED VERDICT (2026-07-05, orchestrator review of PR #533 — 12 confirmed, 2 CRITICAL, 0 refuted)
+>
+> **The live verdict is [CONSTRAINT-DEPENDENT], NOT [DC-ONLY-DERIVED].** The original body below is
+> PRESERVED (Rule 12) as the record of the overclaimed verdict, with the load-bearing false claims
+> corrected here. Rule 11: no rescue — the theorem was overclaimed; the fork DISSOLVES to a
+> boundary-condition question for Grant.
+>
+> **HONESTY-ABOUT-THE-WINDOW:** PR #533 was merged at its pre-correction head, so `origin/main`
+> carried this [DC-ONLY-DERIVED] framing (the overclaimed theorem, the wrong bin, no cross-host table)
+> from the #533 merge until this correction lands. This correction supersedes it; the window is
+> recorded here for the audit trail.
+>
+> **What the review verified (all reproduced this session — see §CORRECTION):**
+>
+> 1. **CRITICAL — THE RE-BIN.** The cross-host measurement the FROZEN prereg bin (iv) required (and
+>    #533 never ran): at TRUE equilibrium the FREE open chain's cycle-mean-config bond-frame stiffness
+>    reads **0.992563** — soft by exactly ⟨dy²⟩/2, **BULK** (N-independent; T≡0 per snapshot forces
+>    `du = √(1−dy²)−1 ≈ −dy²/2` uniformly), while **ring (1.000000) and pinned (0.999978) read COLD**.
+>    Materially different bond-frame readings across the prereg's own named hosts = the frozen
+>    **[CONSTRAINT-DEPENDENT]** signature, verbatim. My original driver's `relax_iter=20000` damped
+>    relaxation was a **TRANSIENT** that had not converged to the free equilibrium — that is why I
+>    missed the soft reading and mis-attributed a relaxation transient as a "200× gradient" boundary
+>    artifact (the gate-(b) bug). **RETRACTED:** the [DC-ONLY-DERIVED] bin, the "bond-frame deposit = 0
+>    as a theorem" headline, the "boundary-independent"/"bit-exact"/"promoted to theorem" framing.
+> 2. **CRITICAL — THE SCOPED THEOREM.** The two premises (⟨y⟩=0 + Σdu=0) do NOT force the per-bond cold
+>    reading: a **STANDING** wave on the ring satisfies both and deposits a node-local per-bond
+>    ±O(y₀²) strain pattern (~±0.0038, stiffness dev up to 9.7×10⁻⁴ — within the cold BAND but
+>    STRUCTURED). The hidden load-bearing premise is the traveling mode's **spatial homogeneity of
+>    ⟨dy²⟩_j**. The scoped statement (a single traveling mode on a fixed-contour host reads cold PER
+>    BOND) survives; the unqualified theorem does not.
+>
+> **THE DISSOLVED FORK (the arc's real product — Grant's to adjudicate):** the bond-frame T-slot content
+> is set by the host's global constraint, not by bulk-universal physics. Fixed-contour hosts (ring, or
+> a pinned chain whose wall absorbs the contraction as constraint force) read COLD; a free-tension host
+> contracts under the wave by ⟨dy²⟩/2 and reads SOFT (the wave pulls its own ends in). **Which global
+> constraint does the cosmological lattice impose?** — flag for Grant, NOT resolved here. (Context only,
+> Grant to draw the connection: the vol3 gravity=bulk-strain frame — whether/how radiation gravitates
+> in the bulk-strain sector. The factual statement: free-tension hosts contract under radiation by
+> ⟨dy²⟩/2; fixed-contour hosts absorb it into constraint force.)
+>
+> **FLAG-2 (bond-frame-probe reading) IS CLOSED-BY-CANON, not open:** the #526 static-DC keying + Grant's
+> standing Reading-A ruling already pin the cycle-mean-config reading as "the tensor input." (The #531
+> keying-fork lesson — not a decision to hand Grant.)
+>
+> **Gate corrections (item 4):** (a) the tilt anchor 0.013969 is mis-cited — it is NOT in #532's result
+> doc (which reports "+1.40%"); the real anchor is #532's in-branch `tilt_decomposition` = 0.01397,
+> and the honest truncation band (~1.1%) does NOT cover the 2.7% static-vs-dynamical discrepancy, so the
+> pure-truncation gate FAILS honestly (validated at order-of-magnitude level instead). (b) the bin
+> selector's N-convergence conjunct is restored. (c) the "O(y₀⁴)~2e-6" order was wrong — both channels'
+> kernel correction is O(y₀⁶) (sympy: tilt −dy⁶/8, tension −dy⁶/48); erratum-bannered. (d) sympy R6 was
+> a tautology — replaced with a real closure derivation; R8 (a duplicate) replaced with the free-host
+> contraction coefficient.
+
+**Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/bondframe-tslot-closure` → correction on `fix/533-constraint-dependent-rebin`
 **Prereg (FROZEN):** `research/2026-07-05_bondframe-tslot-closure_prereg_FROZEN.md` (committed BEFORE the prediction/driver code; commit order = freeze proof)
 **Prediction module (symbolic, INDEPENDENT):** `src/scripts/vol_1_foundations/bondframe_tslot_predictions.py`
 **Driver (numeric ring, INDEPENDENT path):** `src/scripts/vol_1_foundations/ring_bondframe_probe.py`
-**Tests:** `src/tests/test_bondframe_tslot_closure.py` (24 pass: 18 fast + 6 engine_sim)
+**Tests (corrected):** `src/tests/test_bondframe_tslot_closure.py` (22 pass: 17 fast + 5 engine_sim)
 **Output:** `src/scripts/vol_1_foundations/_output/ring_bondframe_probe.json` (driver-regenerable; gitignored)
-**Closes (Grant path (a), analytic):** the OPEN #526 T-slot SCOPE FORK (`research/2026-07-05_pump-probe-tslot_result.md` [ADJUDICATION-INVALID], fork OPEN; PR #531 fork-record).
-**Grant directive (verbatim, attributed Grant 2026-07-05):** *"let the vacuum substrate lead the way..."* · **Path selection (verbatim, Grant 2026-07-05):** path (a) — close the #526 T-slot fork ANALYTICALLY on a clean host.
+**Adjudicates (Grant path (a), analytic):** the OPEN #526 T-slot SCOPE FORK (`research/2026-07-05_pump-probe-tslot_result.md` [ADJUDICATION-INVALID], fork OPEN; PR #531 fork-record).
+**Grant directive (verbatim, attributed Grant 2026-07-05):** *"let the vacuum substrate lead the way..."* · **Path selection (verbatim, Grant 2026-07-05):** path (a) — adjudicate the #526 T-slot fork ANALYTICALLY on a clean host.
 
 ---
+
+## §CORRECTION (live, post-review — the [CONSTRAINT-DEPENDENT] verdict + its evidence)
+
+### THE THREE-HOST TABLE (item 1 — the frozen bin (iv) signature)
+
+The bond-frame cycle-mean-config transverse tangent stiffness (ratio to cold) at TRUE equilibrium,
+across the prereg's own named hosts, single traveling mode y₀=0.1428, ω=1.2:
+
+| host | global constraint | bond-frame reading | interpretation |
+|---|---|---|---|
+| **ring** | fixed contour, `Σ Δu = 0` | **1.000000** (COLD) | contraction absorbed into the closed loop |
+| **pinned** open chain | both ends pinned | **0.999978** (COLD) | wall absorbs the contraction as constraint force |
+| **free** open chain | far end free, `T ≡ 0` | **0.992563** (SOFT by ⟨dy²⟩/2) | the wave pulls its own free ends in |
+
+**spread = 0.007437 ≫ cold band (3×10⁻³).** Materially different readings across the hosts = the
+frozen **[CONSTRAINT-DEPENDENT]** signature (prereg §6 bin (iv), verbatim). The free-host softness is
+**BULK (N-independent):** 0.99256319 identical at N=120/240/480, with `max|A_bond| at equilibrium = 1×10⁻¹⁶`
+(a genuine T=0 equilibrium, analytic: `du_b = √(1−dy_b²) − 1`). The verdict is routed by the restored
+N-convergence conjunct (item 4b): the spread is N-convergent ⟹ CONSTRAINT-DEPENDENT (a BULK deposit
+that is CONSTRAINT-SET), not a finite-N artifact (which HALTs).
+
+### THE CONSTRAINT ANALYSIS (the dissolved fork — Grant's to adjudicate)
+
+The bond-frame T-slot content is set by the host's **global constraint**, not by bulk-universal physics.
+A single traveling transverse mode makes each bond LONGER via `dy` (`L = √(1+dy²) > 1`); how that
+lengthening resolves depends on whether the contour is fixed:
+
+- **Fixed contour** (ring, or pinned chain): `Σ Δu = 0` (or the wall) prevents net axial contraction; the
+  bond-frame cycle-mean config is the cold geometry (`⟨dx⟩ = 1`) ⟹ COLD.
+- **Free tension** (free end): no bond can carry axial tension at equilibrium, so `T = Φ'(A_bond) = 0`
+  forces `A_bond = 0` on every bond ⟹ `du_b = √(1−dy_b²) − 1 ≈ −dy_b²/2` ⟹ the chain CONTRACTS by
+  ⟨dy²⟩/2 ⟹ the cycle-mean bond is axially COMPRESSED ⟹ SOFT transverse tangent stiffness.
+
+**The dissolved fork (flag for Grant, NOT resolved):** *which global constraint does the cosmological
+lattice impose?* Context only (Grant to draw the connection): the vol3 gravity=bulk-strain frame —
+whether/how radiation gravitates in the bulk-strain sector. Factual statement, no narrative:
+free-tension hosts contract under radiation by ⟨dy²⟩/2; fixed-contour hosts absorb it into constraint
+force.
+
+### THE SCOPED THEOREM (item 2 — three premises, not two; KEEP-BOTH standing counterexample)
+
+The cold PER-BOND reading needs THREE premises: (1) `⟨y⟩ = 0` (wave odd symmetry); (2) fixed contour;
+(3) **spatial homogeneity of ⟨dy²⟩_j** (the traveling mode makes it uniform). A **STANDING** wave
+satisfies (1) and (2) but VIOLATES (3): it deposits a per-bond ±O(y₀²) strain pattern
+(`A_per_bond_max_abs ≈ 0.0038`, stiffness dev up to 9.7×10⁻⁴ — within the cold band but STRUCTURED).
+**MEAN-vs-PER-BOND (item 2):** the geometry witnesses `⟨dx⟩`, `⟨A_bond at mean config⟩` are means OVER
+BONDS; they read cold for the standing wave TOO (a mean can be cold while per-bond is patterned). The
+per-bond cold claim holds only for the single traveling mode. Factual: standing components deposit local
+patterns while traveling ones do not (the matter/radiation asymmetry shape at the geometry level).
+
+### THE TILT (item 4a — honest anchor + honest gate failure)
+
+The lab-frame tilt `⟨Φ''(A)(dy/L)²⟩` = **0.014366** (static single-mode). The #532 anchor is NOT the
+"+0.013969" originally cited (that 5-digit value is not in #532's result doc, which reports **"+1.40%"**);
+the real anchor is #532's in-branch `tilt_decomposition` = **0.013970**. The honestly-derived pure-
+truncation band (dispersion shift + #532 numeric floor) is **~1.1% of leading**, which does **NOT cover
+the 2.7% discrepancy** — so the pure-truncation gate **FAILS honestly** (reported, per item-4a). The
+residual gap is the static-single-mode-vs-#532's-sponge-terminated-finite-chain modeling difference.
+The derivation is validated at the **order-of-magnitude + dominant-channel level** (~3%), which is all
+the corrected verdict needs — the tilt is NOT the load-bearing quantity for the re-bin; the cross-host
+table is.
+
+### FLAG-2 CLOSED-BY-CANON (item 3)
+
+The bond-frame-probe reading (cycle-mean-config tangent stiffness vs slot-⟨T⟩/ℓ) is CLOSED-BY-CANON: the
+#526 static-DC keying + Grant's standing Reading-A ruling already pin the cycle-mean-config reading as
+"the tensor input." Not an open fork to hand Grant (the #531 keying-fork lesson).
+
+### KERNEL ORDER ERRATUM (item 4c)
+
+The FROZEN prereg's "O(y₀⁴)~2e-6" order label is WRONG. Both channels' kernel correction is **O(y₀⁶)**
+(sympy: tilt `−dy⁶/8`, tension `−dy⁶/48`); the full lab-frame linear-vs-nonlinear residual scales as y₀⁶
+(4.97×10⁻⁷ at y₀=0.1428, 7.84×10⁻⁹ at y₀/2 → ratio 63 ≈ 2⁶). The PHYSICS (kernel negligible, effect
+kinematic) is unchanged; only the order label is corrected 4→6.
+
+### SYMPY R6/R8 (item 4d)
+
+R6 was a tautology (`x − x = 0`); replaced with a REAL closure derivation (an explicit 4-bond ring where
+sympy SOLVES the closure `Σ Δu = 0` for the uniform equilibrium strain A* and derives A* = ⟨dy²⟩/2). R8
+was a duplicate of R3; replaced with the free-host contraction coefficient (`√(1−dy²) = 1 − dy²/2 + …`,
+the −½ that makes the free host soft). All 8 residuals remain exactly 0.
+
+---
+
+<details><summary>🔴 PRESERVED (Rule 12) — the original [DC-ONLY-DERIVED] body, SUPERSEDED. Read as the record of the overclaimed verdict; the live corrections are above.</summary>
 
 ## VERDICT BOX
 
@@ -333,3 +471,19 @@ lands the manual entries.
 - ReconcileGate (#528): `src/ave/validation/reconcile_gate.py`
 - arc* tent band (y₀ read-off): `manuscript/ave-kb/common/axiom-register.md`:189
 - T2 homonym guard: `resonant-lc-solitons.md`:95,:128 (A1⊥T2, Grant-ratified 2026-06-14)
+
+</details>
+
+---
+
+## CORRECTED FALLOUT / AUDITOR-QUEUE (live, post-review — supersedes the preserved rows)
+
+| Site | Corrected disposition |
+|---|---|
+| **#526 prestress T-slot scope fork** | **DISSOLVES to a boundary-condition question (CONSTRAINT-DEPENDENT).** This arc does NOT close it DC_ONLY — the bond-frame reading is host-set (ring/pinned COLD vs free SOFT). The fork becomes: which global constraint does the cosmological lattice impose? Flag for Grant. |
+| **#518 §7 radiation null** (`matter-stiffening-rho_result.md:146,:149`) | **UNTOUCHED — the null STANDS (both legs).** The CONSTRAINT-DEPENDENT reading does not bear on either the ⟨A⟩=0 field-mean leg or the ⟨A²⟩ channel-symmetry leg. NO revision. |
+| **#529 [RADIATION-CONTAMINATED]** | **CONSISTENT / independent.** Unchanged. |
+| **The dissolved fork (which constraint the cosmological lattice imposes)** | **OPEN FOR GRANT** — the arc's real product. Context: vol3 gravity=bulk-strain frame (whether/how radiation gravitates in the bulk-strain sector). Auditor lane lands nothing until Grant adjudicates. |
+
+**Rule 12 note:** no slot is refilled with a new mechanism. The verdict re-bins to CONSTRAINT-DEPENDENT;
+the forward path is Grant's constraint adjudication, not a new hypothesis.
