@@ -130,19 +130,24 @@ def wave_number_cold(omega=1.2, k_s=K_S, m=1.0):
     return float(np.arccos(1.0 - omega**2 / (2.0 * k_s / m)))
 
 
-# ── the three measurements on the ring (cycle = phase average) ────────────────
+# ── the ring measurement, for a SINGLE TRAVELING MODE (cycle = phase average) ──
 def measure_ring(n_nodes=240, y0=0.1428, omega=1.2, n_wavelengths=None,
-                 n_phase=64, relax_iter=20000, linear_axial=False, probe_node=None):
-    """Phase-average the RELAXED (u, y) over the traveling wave; return the three
-    derived quantities measured independently:
+                 n_phase=64, relax_iter=20000, linear_axial=False, probe_node=None,
+                 standing=False):
+    """Phase-average the RELAXED (u, y) over a SINGLE TRAVELING MODE on the fixed-contour
+    ring; return the derived quantities measured independently:
       - tilt          = <Phi''(A)*(dy/L)^2>       (cycle+space mean over live snapshots)
-      - mean_chord_A  = <A_bond>                  (cycle+space mean; the ring theorem)
+      - mean_chord_A  = <A_bond>                  (cycle+space mean; = <dy^2>/2 for the mode)
       - cyclemean_k   = trans stiffness AT the cycle-mean config (u_mean, y_mean~0)/cold
-                        (the BOND-FRAME DC content a slow probe feels)
+                        (the BOND-FRAME reading — COLD on the fixed-contour ring)
       - labframe_k    = cycle-mean of the LIVE-snapshot trans stiffness / cold
                         (the LAB-FRAME observable that feels the tilt — the #532 artifact)
-      - energy_drift  = max |H(u_relaxed)-H_ref|/... relaxation conservation diagnostic
-    """
+
+    SCOPE (item-2, orchestrator review): the COLD bond-frame reading holds for a SINGLE
+    TRAVELING MODE (whose <dy^2>_j is spatially HOMOGENEOUS). `standing=True` imposes a
+    STANDING wave (satisfies <y>=0 and fixed contour but NOT the homogeneity premise): it
+    deposits a per-bond +/-O(y0^2) strain PATTERN. The mean-over-bonds geometry witnesses
+    still read cold (a mean can be cold while per-bond is patterned) — reported KEEP-BOTH."""
     if probe_node is None:
         probe_node = n_nodes // 2
     ring = RingChain(n_nodes, linear_axial=linear_axial)
@@ -154,6 +159,7 @@ def measure_ring(n_nodes=240, y0=0.1428, omega=1.2, n_wavelengths=None,
     j = np.arange(n_nodes)
 
     umean = np.zeros(n_nodes)
+    A_per_bond_acc = np.zeros(n_nodes)      # per-bond mean strain (item-2: per-bond vs mean)
     tilt_acc = 0.0
     A_acc = 0.0
     lab_k = []
@@ -161,104 +167,168 @@ def measure_ring(n_nodes=240, y0=0.1428, omega=1.2, n_wavelengths=None,
     max_relax_resid = 0.0
     for m_ in range(n_phase):
         ph = 2 * np.pi * m_ / n_phase
-        y = y0 * np.sin(k * j - ph)
+        # traveling (default): y = y0 sin(kj - ph); standing: y = y0 sin(kj) cos(ph)
+        y = y0 * np.sin(k * j) * np.cos(ph) if standing else y0 * np.sin(k * j - ph)
         u = ring.relax_u(y, n_iter=relax_iter)
         L, dx, dy = ring.bond_lengths(u, y)
         A = L - ELL
-        # tilt integrand Phi''(A)*(dy/L)^2, space-mean this snapshot
         tilt_acc += float(np.mean(np.sqrt(np.clip(1 - A**2, 0, 1)) * (dy / L) ** 2))
         A_acc += float(np.mean(A))
+        A_per_bond_acc += A
         lab_k.append(ring.trans_tangent_stiffness(u, y, probe_node))
         umean += u
-        # relaxation residual: max |force_x| after relaxation (should be ~0)
         max_relax_resid = max(max_relax_resid, float(np.max(np.abs(ring.force_x(u, y)))))
     umean /= n_phase
+    A_per_bond = A_per_bond_acc / n_phase   # per-bond cycle-mean strain
     tilt = tilt_acc / n_phase
     mean_chord_A = A_acc / n_phase
-    ymean = np.zeros(n_nodes)               # <y>=0 (wave odd symmetry)
+    ymean = np.zeros(n_nodes)               # <y>=0 (odd symmetry / half-cycle for standing)
     cyclemean_k = ring.trans_tangent_stiffness(umean, ymean, probe_node) / kcold
     labframe_k = float(np.mean(lab_k)) / kcold
-    # cycle-mean-config bond geometry (for the theorem: <dx>=1, A~0)
     Lm, dxm, dym = ring.bond_lengths(umean, ymean)
     return {
         "n_nodes": n_nodes, "y0": y0, "omega": omega, "k_wave": k,
-        "n_wavelengths": n_wavelengths, "linear_axial": linear_axial,
+        "n_wavelengths": n_wavelengths, "linear_axial": linear_axial, "standing": standing,
         "tilt": tilt,
         "mean_chord_A": mean_chord_A,
-        "cyclemean_bondframe_k_ratio": cyclemean_k,     # -> ~1 (DC-ONLY theorem)
+        "cyclemean_bondframe_k_ratio": cyclemean_k,     # traveling -> ~1 (cold, mean-over-bonds)
         "labframe_k_ratio": labframe_k,                 # -> 1 + tilt (the artifact)
-        "cyclemean_dx": float(np.mean(dxm)),            # -> 1 (un-stretched mean bond)
-        "cyclemean_A": float(np.mean(Lm - ELL)),        # -> ~0
+        "cyclemean_dx": float(np.mean(dxm)),            # mean-over-bonds: ~1
+        "cyclemean_A": float(np.mean(Lm - ELL)),        # mean-over-bonds: ~0
+        # ITEM-2 per-bond pattern: traveling -> ~uniform; standing -> +/-O(y0^2) structured
+        "A_per_bond_range": float(A_per_bond.max() - A_per_bond.min()),
+        "A_per_bond_max_abs": float(np.max(np.abs(A_per_bond))),
         "k_cold_raw": kcold,
         "max_relax_residual": max_relax_resid,
     }
 
 
-# ── reconciliation (b): the OPEN-chain boundary POSITION-DEPENDENCE ────────────
-def open_chain_strain_profile(n_nodes=400, y0=0.1428, omega=1.2, n_phase=48,
-                              relax_iter=20000, free_end=False):
-    """The #532 boundary artifact on an OPEN chain: the mean chord strain <A_bond> is
-    boundary-set (NOT ring-closure-pinned) and POSITION-DEPENDENT — it varies along the
-    chain and can change sign, unlike the ring's UNIFORM positive value.
+# ── THE OPEN-CHAIN HOSTS at TRUE equilibrium (item 1 re-bin: the cross-host table) ─
+# The FREE open chain carries NO end tension, so its equilibrium forces T = Phi'(A_bond)
+# = 0 on EVERY bond => A_bond = 0 => (1+du)^2 + dy^2 = 1 => du_b = sqrt(1-dy^2) - 1
+# EXACTLY (analytic; a damped relaxation reaches this only asymptotically — the earlier
+# `relax_iter=20000` was a TRANSIENT that had not converged, the item-2 gate-(b) bug).
+def _free_equilibrium_u(y):
+    """EXACT T=0 free-open-chain equilibrium: du_b = sqrt(1-dy_b^2) - 1 per bond, cumsum
+    (node 0 pinned). Verified T = Phi'(A_bond) = 0 to machine precision (max A ~ 1e-16)."""
+    dy = y[1:] - y[:-1]
+    du = np.sqrt(np.clip(1.0 - dy**2, 0.0, 1.0)) - 1.0
+    return np.concatenate([[0.0], np.cumsum(du)])
 
-    This reproduces the #532 STRUCTURAL finding (`pump-probe-tslot_result.md:77`:
-    "boundary-concentrated, [+0.0075, +0.0011, -0.0026, -0.0036] at nodes [20,100,200,380],
-    a 3.7x gradient toward the pin"): the mean strain has a near-drive POSITIVE (Jensen
-    bulk) region that RELAXES toward NEGATIVE down the gradient as the pinned wall pulls
-    the chain. HONEST SCOPE (flag-don't-fix): this static-relaxation model reproduces the
-    #532 GRADIENT STRUCTURE and its boundary-config sensitivity, NOT the exact -0.0026
-    node-200 value (that requires #532's full traveling-wave TIME-DOMAIN dynamics with the
-    absorbing sponge, out of scope for the analytic path (a)). The LOAD-BEARING reconciliation
-    is the CONTRAST: open = position-dependent / boundary-set / sign-varying (the artifact);
-    ring = uniform / boundary-independent / positive (the theorem).
 
-    Open chain: node 0 pinned (u[0]=0). free_end=False pins the far end (u[-1]=0, the
-    Dirichlet wall); free_end=True releases it. Transverse ends clamped y[0]=y[-1]=0."""
-    k = wave_number_cold(omega)
-    j = np.arange(n_nodes)
+def _bl_open(u, y):
+    du = u[1:] - u[:-1]
+    dy = y[1:] - y[:-1]
+    dx = ELL + du
+    return np.sqrt(dx * dx + dy * dy), dx, dy
 
-    def bl_open(u, y):
-        du = u[1:] - u[:-1]
-        dy = y[1:] - y[:-1]
-        dx = ELL + du
-        return np.sqrt(dx * dx + dy * dy), dx, dy
 
-    def fx_open(u, y):
-        L, dx, _dy = bl_open(u, y)
+def _fy_open(u, y):
+    L, dx, dy = _bl_open(u, y)
+    T = _phi_prime(L - ELL)
+    Ty = T * dy / L
+    Fy = np.zeros(len(y))
+    Fy[:-1] += Ty
+    Fy[1:] -= Ty
+    curv = y[:-2] - 2.0 * y[1:-1] + y[2:]
+    Fy[1:-1] += K_S * curv
+    return Fy
+
+
+def _ktrans_open(u, y, node, delta=1e-6):
+    yp = y.copy()
+    yp[node] += delta
+    ym = y.copy()
+    ym[node] -= delta
+    return float(-(_fy_open(u, yp)[node] - _fy_open(u, ym)[node]) / (2.0 * delta))
+
+
+def _relax_pinned_u(y, both_ends, n_iter, dt=0.05, gamma=0.3):
+    """Damped relaxation of u on an OPEN chain with node 0 pinned; both_ends also pins
+    the far end (u[-1]=0). Used for the PINNED host (whose equilibrium is NOT T=0)."""
+    n = len(y)
+    u = np.zeros(n)
+    vu = np.zeros(n)
+    for _ in range(int(n_iter)):
+        L, dx, _dy = _bl_open(u, y)
         Tx = _phi_prime(L - ELL) * dx / L
-        Fx = np.zeros(len(u))
+        Fx = np.zeros(n)
         Fx[:-1] += Tx
         Fx[1:] -= Tx
-        return Fx
+        vu = (vu + dt * Fx) * (1.0 - gamma * dt)
+        u = u + dt * vu
+        u[0] = 0.0
+        if both_ends:
+            u[-1] = 0.0
+    return u
 
-    A_profile_acc = np.zeros(n_nodes - 1)   # per-bond mean strain
+
+def open_chain_cyclemean(n_nodes=240, y0=0.1428, omega=1.2, n_phase=48,
+                         host="free", relax_iter=200000, probe_node=None):
+    """The bond-frame cycle-mean-config transverse tangent stiffness on an OPEN chain at
+    TRUE equilibrium — the measurement the frozen prereg bin (iv) required across hosts.
+
+    host="free" : far end free -> T=0 equilibrium (analytic, exact) -> reads SOFT by
+                  <dy^2>/2 (BULK, N-independent: the wave contracts its own free ends).
+    host="pinned": both ends pinned (u[0]=u[-1]=0) -> the wall absorbs the contraction
+                  as constraint force -> reads COLD (like the ring).
+
+    This is the [CONSTRAINT-DEPENDENT] cross-host discriminator: materially different
+    bond-frame readings (free SOFT vs pinned/ring COLD) across the prereg's own hosts."""
+    if probe_node is None:
+        probe_node = n_nodes // 2
+    k = wave_number_cold(omega)
+    j = np.arange(n_nodes)
+    umean = np.zeros(n_nodes)
+    max_A_at_equil = 0.0
     for m_ in range(n_phase):
         ph = 2 * np.pi * m_ / n_phase
         y = y0 * np.sin(k * j - ph)
         y[0] = 0.0
         y[-1] = 0.0
-        u = np.zeros(n_nodes)
-        vu = np.zeros(n_nodes)
-        dt, gamma = 0.05, 0.3
-        for _ in range(int(relax_iter)):
-            Fx = fx_open(u, y)
-            vu = (vu + dt * Fx) * (1.0 - gamma * dt)
-            u = u + dt * vu
-            u[0] = 0.0                      # pinned drive end (Dirichlet)
-            if not free_end:
-                u[-1] = 0.0                 # pinned far end (the wall)
-        L, _, _ = bl_open(u, y)
-        A_profile_acc += (L - ELL)
-    A_profile = A_profile_acc / n_phase
-    # sample near-drive, mid, and toward-far, matching #532's profile-gradient reporting
-    idx = [n_nodes // 20, n_nodes // 4, n_nodes // 2, int(n_nodes * 0.95)]
+        if host == "free":
+            u = _free_equilibrium_u(y)
+        elif host == "pinned":
+            u = _relax_pinned_u(y, both_ends=True, n_iter=relax_iter)
+        else:
+            raise ValueError(f"host must be 'free' or 'pinned', got {host!r}")
+        L, _, _ = _bl_open(u, y)
+        max_A_at_equil = max(max_A_at_equil, float(np.max(np.abs(L - ELL))) if host == "free" else 0.0)
+        umean += u
+    umean /= n_phase
+    ymean = np.zeros(n_nodes)
+    kcold = _ktrans_open(np.zeros(n_nodes), np.zeros(n_nodes), probe_node)
+    kmean = _ktrans_open(umean, ymean, probe_node) / kcold
+    du_m = umean[1:] - umean[:-1]
     return {
-        "free_end": free_end,
-        "mean_A_whole_chain": float(np.mean(A_profile)),
-        "A_profile_samples": [float(A_profile[i]) for i in idx],
-        "profile_min": float(A_profile.min()),
-        "profile_max": float(A_profile.max()),
-        "position_gradient": float(A_profile.max() - A_profile.min()),
+        "host": host,
+        "cyclemean_bondframe_k_ratio": kmean,
+        "cyclemean_dx": float(np.mean(ELL + du_m)),
+        "pred_soft_free": float(1.0 - 0.5 * y0**2 * (1.0 - np.cos(k))),  # 1 - <dy^2>/2
+        "max_A_at_equil": max_A_at_equil,
+    }
+
+
+def three_host_table(n_nodes=240, y0=0.1428, omega=1.2, n_phase=48):
+    """The cross-host bond-frame reading table (item 1): ring / pinned / free. Materially
+    different readings = the frozen [CONSTRAINT-DEPENDENT] signature. Each is the bond-frame
+    cycle-mean-config transverse tangent stiffness (ratio to cold) at TRUE equilibrium."""
+    ring = measure_ring(n_nodes=n_nodes, y0=y0, omega=omega, n_phase=n_phase)
+    pinned = open_chain_cyclemean(n_nodes=n_nodes, y0=y0, omega=omega, n_phase=n_phase,
+                                  host="pinned")
+    free = open_chain_cyclemean(n_nodes=n_nodes, y0=y0, omega=omega, n_phase=n_phase,
+                                host="free")
+    return {
+        "ring": ring["cyclemean_bondframe_k_ratio"],
+        "pinned": pinned["cyclemean_bondframe_k_ratio"],
+        "free": free["cyclemean_bondframe_k_ratio"],
+        "free_pred_soft": free["pred_soft_free"],
+        "spread": float(max(ring["cyclemean_bondframe_k_ratio"],
+                            pinned["cyclemean_bondframe_k_ratio"],
+                            free["cyclemean_bondframe_k_ratio"])
+                        - min(ring["cyclemean_bondframe_k_ratio"],
+                              pinned["cyclemean_bondframe_k_ratio"],
+                              free["cyclemean_bondframe_k_ratio"])),
     }
 
 
@@ -270,10 +340,11 @@ if __name__ == "__main__":
     out["ring_nonlinear"] = measure_ring(linear_axial=False)
     # reconciliation (a): the LINEAR-axial ring reproduces the tilt to ~kernel_o4
     out["ring_linear_axial"] = measure_ring(linear_axial=True)
-    # N-convergence (the CONSTRAINT-DEPENDENT discriminator: does the ring reading converge?)
-    out["ring_N120"] = measure_ring(n_nodes=120)
-    out["ring_N480"] = measure_ring(n_nodes=480)
-    # reconciliation (b): the open-chain position-dependence + boundary sensitivity
-    out["open_pinned"] = open_chain_strain_profile(free_end=False)
-    out["open_free"] = open_chain_strain_profile(free_end=True)
+    # ITEM-1 THE CROSS-HOST TABLE: ring / pinned / free bond-frame readings at TRUE
+    # equilibrium. Materially different (free SOFT vs ring/pinned COLD) = the frozen
+    # bin (iv) [CONSTRAINT-DEPENDENT] signature.
+    out["three_host_table"] = three_host_table()
+    # the free-end soft reading is BULK (N-independent): the [CONSTRAINT-DEPENDENT] core
+    out["free_N120"] = open_chain_cyclemean(n_nodes=120, host="free")
+    out["free_N480"] = open_chain_cyclemean(n_nodes=480, host="free")
     print(json.dumps(out, indent=2, default=float))
