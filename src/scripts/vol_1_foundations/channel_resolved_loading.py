@@ -284,9 +284,88 @@ def consistency_gate_529(pos, bonds, rho, theta: float = 0.3, y0: float = 1.0,
 # ---------------------------------------------------------------------------------------
 # (S4) THE TWO CASES THROUGH THE REMAP -- rho'_travel and rho'_conf, banded over y0 (log grid)
 # ---------------------------------------------------------------------------------------
-def rho_prime_both_cases(pos, bonds, rho) -> dict:
-    """Placeholder -- feeds both cases through the #526 remap; rho'-shift per case, banded."""
-    raise NotImplementedError("rho_prime_both_cases lands after S3")
+def _remap_through_tensor(pos, bonds, rho, y0: float, A_dc: float, dictionary: str, ell: float):
+    """Feed the channel-resolved per-channel inputs through the MERGED #526 Born-Huang tensor
+    (extract_prestress_Cij) -- the SAME assembler the mechanism consumes. Returns rho' AND the
+    tensor-level nu (the actual consumed observable), so the verdict is gated on what the remap
+    consumes, not on my analytic rho' alone (the #529 CRITICAL lesson).
+
+    NB: rho' here is the true family coordinate S_axial/(k0*S_shear + T/ell); nu_Hill is the
+    #526 pre-stressed tensor's Poisson ratio at that operating point.
+    """
+    cl = channel_loading(y0, A_dc, dictionary, ell=ell, k0=1.0)
+    S_axial = cl["S_axial_numerator"]
+    S_shear = cl["S_shear_soft"]         # the k0=1 shear spring at its RMS deformation
+    T = cl["T_stiff"]
+    # the merged pre-stressed tensor: k_axial=S_axial, k_shear=S_shear, T_per_bond=T (the STRESS)
+    r = extract_prestress_Cij(pos, bonds, k_axial=S_axial, k_shear=S_shear, T_per_bond=T, rho=rho)
+    mo = moduli_from_Cij(r["C11"], r["C12"], r["C44"])
+    return {
+        **cl,
+        "nu_Hill": mo["nu_Hill"], "K_bulk": mo["K_bulk"], "Zener_A": mo["Zener_A"],
+        "min_acoustic_eig": r["min_acoustic_eig"], "max_rel_residual": r["max_rel_residual"],
+    }
+
+
+def rho_prime_both_cases(pos, bonds, rho, ell: float = 1.0, tol: float = 1e-6) -> dict:
+    """Feed BOTH cases through the merged remap; rho'-shift per case, banded over the in-regime y0
+    range (log-spaced -- the #529 review dinged grid artifacts) for both arc* edges and both
+    dictionaries. The y0->0 identity endpoints are LABELED and EXCLUDED from the moved band.
+
+    (i)  TRAVELING wave:  A_dc = 0        (radiation, no DC bias, <A>=0)
+    (ii) CONFINED  mode:  A_dc = sqrt(alpha)  (electron axial core, def-vyvsn1)
+
+    THE DISCRIMINATOR TEST (prereg routing):
+      travel_preserves = |rho'_travel/rho_cold - 1| <= tol  across the band
+      conf_moves       = |rho'_conf/S(A_dc) - 1|   >  tol   across the band  (moved vs BIASED cold)
+      distinguish      = the HUM RESPONSE (rho' with the constant numerator divided out) differs
+                         between travel and confined by > tol -- a real hum discriminator
+    """
+    from scripts.vol_1_foundations.bond_force_sign_rule import in_regime_pluck_bow
+
+    lo, hi = ARC_STAR_BAND
+    S_dc = float(saturation_factor(A_CORE_SQRT_ALPHA, yield_limit=A_Y))  # biased-cold ratio, y0->0
+
+    cases: dict = {}
+    for name, A_dc, cold_ref in (("i_travel", 0.0, RHO_COLD), ("ii_confined", A_CORE_SQRT_ALPHA, S_dc)):
+        per_dict = {}
+        for dictionary in ("D1_angle", "D2_displacement"):
+            band = {}
+            for edge, arc_star in (("lo_elastica", lo), ("hi_tent", hi)):
+                y0_max = float(in_regime_pluck_bow(arc_star, ell))
+                # log-spaced toward y0->0 (identity endpoint) + the ceiling; no arbitrary linear step
+                y0_grid = np.concatenate([[0.0], y0_max * np.logspace(-4, 0, 9)])
+                rows = []
+                for y0 in y0_grid:
+                    t = _remap_through_tensor(pos, bonds, rho, float(y0), A_dc, dictionary, ell)
+                    is_identity = bool(y0 <= 1e-3 * y0_max)
+                    hum_factor = t["rho_prime"] / cold_ref  # constant numerator divided out
+                    rows.append({
+                        "y0": float(y0), "is_identity_limit": is_identity,
+                        "rho_prime": t["rho_prime"], "rho_prime_over_coldref": t["rho_prime"] / cold_ref,
+                        "hum_factor": hum_factor,
+                        "nu_Hill": t["nu_Hill"], "K_bulk": t["K_bulk"],
+                        "S_axial": t["S_axial_numerator"], "S_shear": t["S_shear_soft"],
+                        "T_over_ell": t["T_over_ell_stiff"],
+                        "min_acoustic_eig": t["min_acoustic_eig"],
+                    })
+                interior = [r for r in rows if not r["is_identity_limit"]]
+                band[edge] = {
+                    "arc_star": arc_star, "y0_in_regime_max": y0_max, "rows": rows,
+                    "interior_rho_prime_range": [
+                        float(min(r["rho_prime"] for r in interior)),
+                        float(max(r["rho_prime"] for r in interior)),
+                    ],
+                    "interior_nu_range": [
+                        float(min(r["nu_Hill"] for r in interior)),
+                        float(max(r["nu_Hill"] for r in interior)),
+                    ],
+                    "max_abs_move_vs_coldref": float(max(abs(r["rho_prime_over_coldref"] - 1.0) for r in interior)),
+                }
+            per_dict[dictionary] = band
+        cases[name] = {"A_dc": A_dc, "cold_ref": cold_ref, "per_dictionary": per_dict}
+
+    return cases
 
 
 # ---------------------------------------------------------------------------------------
