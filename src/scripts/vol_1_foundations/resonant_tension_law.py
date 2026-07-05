@@ -167,8 +167,13 @@ def part1_law_and_band(pos, bonds, rho) -> dict:
     lead_vs_exact_rows = []
     for edge, arc_star in (("lo_elastica", lo), ("hi_tent", hi)):
         y0_max = in_regime_pluck_bow(arc_star, ell)      # in-regime bow ceiling
-        # sample the in-regime y0 range (0 .. ceiling) at the hum-amplitude endpoints
-        y0_grid = np.array([0.0, 0.25 * y0_max, 0.5 * y0_max, 0.75 * y0_max, y0_max])
+        # MAJOR-3 (honest grid): the old linear 0.25·y0_max first sample was arbitrary,
+        # making the band top (9.65 / +0.283 → 2/7) a GRID ARTIFACT of the sample step
+        # rather than the y0→0 IDENTITY it approaches. LOG-space toward y0→0 so the band
+        # top is explicitly the identity endpoint (⟨T⟩→0 ⟹ unstressed #518 crossing:
+        # ρ'→9.7734, ν→2/7), plus the y0_max ceiling. The identity endpoints are LABELED
+        # (rows carry is_identity_limit); the reportable interior band excludes them.
+        y0_grid = np.concatenate([[0.0], y0_max * np.logspace(-4, 0, 9)])
         rows = []
         for y0 in y0_grid:
             T_lead = resonant_tension_leading(float(y0), ell=ell)
@@ -177,8 +182,12 @@ def part1_law_and_band(pos, bonds, rho) -> dict:
             # feed the RESONANT ⟨T⟩ (tension, +) through the #526 remap -- both laws
             rem_lead = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +T_lead)
             rem_exact = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +T_exact)
+            # MAJOR-3: label the y0→0 identity limit (⟨T⟩→0 ⟹ unstressed #518 crossing,
+            # ρ'→9.7734 AND ν→2/7 BOTH by identity -- the symmetric twins).
+            is_identity = bool(y0 <= 1e-3 * y0_max)
             rows.append({
                 "y0": float(y0),
+                "is_identity_limit": is_identity,
                 "T_avg_leading": float(T_lead),
                 "T_avg_exact": float(T_exact),
                 "leading_over_exact_rel_dev": float(rel),
@@ -188,30 +197,37 @@ def part1_law_and_band(pos, bonds, rho) -> dict:
                 "nu_exact": rem_exact["nu"],
                 "k_shear_eff_leading": rem_lead["k_shear_eff"],
             })
-            if y0 > 0:
+            if not is_identity:
                 lead_vs_exact_rows.append({"arc_star": arc_star, "y0": float(y0),
                                            "rel_dev": float(rel)})
         band[edge] = {"arc_star": arc_star, "y0_in_regime_max": float(y0_max),
                       "rows": rows}
 
-    # the re-banded matter track: the ρ' / ν ENVELOPE across the in-regime hum band
-    all_rp = [r["rho_prime_exact"] for e in band.values() for r in e["rows"]
-              if np.isfinite(r["rho_prime_exact"]) and r["y0"] > 0]
-    all_rp_lead = [r["rho_prime_leading"] for e in band.values() for r in e["rows"]
-                   if np.isfinite(r["rho_prime_leading"]) and r["y0"] > 0]
-    all_nu = [r["nu_exact"] for e in band.values() for r in e["rows"] if r["y0"] > 0]
+    # the reportable INTERIOR matter track EXCLUDES the y0→0 identity rows (their
+    # ρ'→9.7734 / ν→2/7 are the unstressed-crossing IDENTITY, not a re-banded landing).
+    def _interior(field):
+        return [r[field] for e in band.values() for r in e["rows"]
+                if not r["is_identity_limit"] and np.isfinite(r[field])]
+    all_rp = _interior("rho_prime_exact")
+    all_rp_lead = _interior("rho_prime_leading")
+    all_nu = _interior("nu_exact")
     matter_track = {
         "rho_prime_band_exact": [float(min(all_rp)), float(max(all_rp))] if all_rp else None,
         "rho_prime_band_leading": [float(min(all_rp_lead)), float(max(all_rp_lead))]
         if all_rp_lead else None,
         "nu_band": [float(min(all_nu)), float(max(all_nu))] if all_nu else None,
+        "identity_limit_rho_prime": 9.7734,   # the y0→0 twin (labeled, EXCLUDED from band)
+        "identity_limit_nu": 2.0 / 7.0,        # the y0→0 twin (labeled, EXCLUDED from band)
         "worst_leading_over_exact_rel_dev": float(max(r["rel_dev"] for r in lead_vs_exact_rows))
         if lead_vs_exact_rows else 0.0,
         "note": "matter track re-banded over the in-regime hum amplitude y0 in "
-        "[0, in_regime_pluck_bow(arc*)] for arc* in [0.70, 0.96]. The RESONANT ⟨T⟩ "
-        "(tension, +) caps ρ'. VALUE inherits #526 GR-imported status; EMERGENCE "
-        "grade FORBIDDEN. Leading law is an UPPER BOUND (over-predicts the exact "
-        "cycle-average); the worst over-prediction is at the elastica edge.",
+        "(0, in_regime_pluck_bow(arc*)] for arc* in [0.70, 0.96], INTERIOR only. The "
+        "y0→0 identity twins (ρ'→9.7734 AND ν→2/7, both the unstressed #518 crossing) "
+        "are LABELED and EXCLUDED from the reported band (symmetric identity treatment, "
+        "MAJOR-3). VALUE inherits #526 GR-imported status; EMERGENCE grade FORBIDDEN. "
+        "NB (MAJOR-4b): the ρ'/ν VALUES here are from a 1D-linear + srs-tensor remap "
+        "readout; the fork-resolution CONCLUSION is drawn from the 1D linear ladder "
+        "control (Part 2) -- the full srs-lattice generalization is UNTESTED.",
     }
     return {"band": band, "matter_track": matter_track,
             "op_point": {"A_axial_sqrt_alpha": float(A_axial), "A_shear_op": A_shear_op,
@@ -243,143 +259,176 @@ def reflecting_termination_reflection(theta: float, kind: str, n_sections: int =
     return float(abs(cascade_gamma(np.full(n_sections, Z_0), z_term, theta)))
 
 
-def axial_reaction_from_field(gamma: complex, theta: float, n_cells: int = 40,
-                              y0: float = 1.0, k_a: float = 1.0, ell: float = 1.0) -> dict:
-    """INDEPENDENT reference path: the net time-averaged axial reaction from the FIELD.
+def field_from_phasor(gamma: complex, theta: float, n_cells: int = 40,
+                      y0: float = 1.0, k_a: float = 1.0, ell: float = 1.0) -> dict:
+    """Field-space tension ⟨T⟩(x) from the incident+reflected PHASOR (Γ-parameterized).
 
-    NOT from Γ directly -- from the explicit incident+reflected transverse field. For
-    a line of electrical length θ per cell, the transverse field with reflection
-    coefficient Γ (at the far termination) is, up to a carrier phase,
+    y(x,t) = Re{ y0 [ e^{-jβx} + Γ e^{+jβx} ] e^{jωt} }; cycle-averaged
+    ⟨y²(x)⟩ = ½ y0² |e^{-jβx}+Γe^{+jβx}|²; the LOCAL tent tension is
+    ⟨T⟩(x) = (2 k_a/ℓ)·⟨y²(x)⟩ (the Part-1 law applied pointwise, uses the DERIVED ½).
 
-        y(x,t) = Re{ y0 [ e^{-jβx} + Γ e^{+jβx} ] e^{jωt} }.
+    🔴 RETRACTED-AS-INDEPENDENT (2026-07-04, orchestrator MAJOR-1): this path is
+    BUILT FROM Γ, so it is NOT independent of the Γ-read. The gradient RMS it reports
+    equals 1.4244·|Γ| identically (verified across 6 decades). The genuinely Γ-free
+    reference is field_from_abcd_propagation (below); THAT is the independent path.
 
-    The cycle-averaged transverse energy density ⟨y²(x)⟩ sets the tent-law tension
-    ⟨T⟩(x) = (2 k_a/ℓ)·⟨y²(x)⟩ (the Part-1 law applied LOCALLY). The net time-averaged
-    AXIAL reaction on an interior bond is the SPATIAL GRADIENT of that tension (a
-    static reaction force is d⟨T⟩/dx integrated over the bond):
-
-      * pure traveling wave (Γ=0): ⟨y²(x)⟩ = y0²/2 UNIFORM ⟹ d⟨T⟩/dx = 0 ⟹ the net
-        interior axial reaction VANISHES -- the wave carries momentum THROUGH but
-        deposits none (Ax3 lossless; #518 §7 ρ_eff=ρ_cold). No static bias.
-      * reflecting termination (|Γ|=1): ⟨y²(x)⟩ = y0²·|e^{-jβx}+Γe^{+jβx}|²/2 VARIES
-        (antinode vs node) ⟹ d⟨T⟩/dx ≠ 0 ⟹ a nonzero position-dependent reaction that
-        integrates to the confinement force at the Γ=−1 wall.
-
-    Returns the field-space diagnostics: the peak-to-peak ⟨T⟩(x) variation (the
-    net-reaction proxy, zero iff uniform) and the mean ⟨T⟩ (the Part-1 value the
-    standing mode recovers at the antinode).
+    Returns the per-bond ⟨T⟩ (mean over the mode shape) -- the quantity the mechanism
+    CONSUMES (_remap_at_signed_T reads T, not d⟨T⟩/dx). The gradient/uniformity fields
+    are kept for the mode-shape diagnostic only; they are NOT the control observable
+    (that was the CRITICAL error -- see part2_radiation_control).
     """
-    # β·x samples across n_cells of electrical length θ each (βℓ_cell = θ)
     beta_x = np.linspace(0.0, n_cells * theta, 400)
-    # complex transverse phasor amplitude along the line (incident + reflected)
     phasor = y0 * (np.exp(-1j * beta_x) + gamma * np.exp(+1j * beta_x))
-    # cycle-averaged |y|² = ½|phasor|² (the ½ is ⟨cos²⟩, the SAME derived half)
     y2_avg = 0.5 * np.abs(phasor) ** 2
-    # LOCAL tent-law tension via the Part-1 leading law applied pointwise:
-    #   ⟨T⟩(x) = (2 k_a/ℓ)·⟨y²(x)⟩   (uses the DERIVED ½ already inside y2_avg)
     T_local = (2.0 * k_a / ell) * y2_avg
-    T_pp = float(T_local.max() - T_local.min())      # peak-to-peak = net-reaction proxy
-    T_mean = float(T_local.mean())
-    T_max = float(T_local.max())
-    # the net axial reaction on an interior bond ~ the SPATIAL GRADIENT of ⟨T⟩(x);
-    # its cycle-and-space RMS is zero iff ⟨T⟩(x) is flat (traveling) and nonzero iff
-    # it ripples (standing). Report the max |d⟨T⟩/dx| normalized by (2 k_a/ℓ)y0².
     dT = np.gradient(T_local, beta_x)
     norm = (2.0 * k_a / ell) * y0 ** 2 + 1e-30
-    net_reaction_rms = float(np.sqrt(np.mean(dT ** 2)) / norm)
-    # ANALYTIC antinode: constructive-interference peak ⟨y²⟩ = ½ y0²·(1+|Γ|)²
-    #   ⟹ ⟨T⟩_antinode = (2 k_a/ℓ)·½ y0²(1+|Γ|)² = (k_a/ℓ) y0² (1+|Γ|)²
-    # (grid-independent; the 400-pt sampled T_local_max only APPROACHES this).
+    # ANALYTIC antinode ⟨T⟩ = (k_a/ℓ) y0² (1+|Γ|)²; bond-averaged over a full mode
+    # period is (k_a/ℓ) y0² (1+|Γ|²) (the |e^{-jβx}+Γe^{+jβx}|² spatial mean).
     T_antinode_analytic = float((k_a / ell) * y0 ** 2 * (1.0 + abs(gamma)) ** 2)
+    T_bond_avg_analytic = float((k_a / ell) * y0 ** 2 * (1.0 + abs(gamma) ** 2))
     return {
-        "T_local_mean": T_mean, "T_local_max": T_max, "T_local_peak_to_peak": T_pp,
+        "T_local_mean": float(T_local.mean()),
+        "T_local_max": float(T_local.max()),
+        "T_local_peak_to_peak": float(T_local.max() - T_local.min()),
         "T_antinode_analytic": T_antinode_analytic,
-        "net_axial_reaction_rms_norm": net_reaction_rms,
-        "is_uniform": bool(T_pp < 1e-9 * (T_mean + 1e-30)),
+        "T_bond_avg_analytic": T_bond_avg_analytic,
+        "grad_rms_norm": float(np.sqrt(np.mean(dT ** 2)) / norm),  # = 1.4244|Γ| (NOT indep)
+        "is_uniform": bool((T_local.max() - T_local.min()) < 1e-9 * (T_local.mean() + 1e-30)),
     }
 
 
-def part2_radiation_control(theta: float = 0.3) -> dict:
-    """The make-or-break control (prereg Part 2).
+def field_from_abcd_propagation(theta: float, n_cells: int = 40, y0: float = 1.0,
+                                k_a: float = 1.0, ell: float = 1.0) -> dict:
+    """GENUINELY Γ-FREE traveling-wave field: propagate a PURE FORWARD state through N
+    cascaded abcd_lossless_line segments (imported #525). NO Γ input ANYWHERE.
 
-    (i) traveling wave on a MATCHED chain: BOTH reference paths must say NO net axial
-        reaction -- (1) the Γ-read (|Γ|→0 via cascade_gamma), and (2) the INDEPENDENT
-        field momentum-flux integral (⟨T⟩(x) uniform ⟹ zero gradient).
-    (ii) standing wave between Γ=−1 reflecting terminations: nonzero reaction that
-        recovers the Part-1 tent-law ⟨T⟩ (the antinode mean).
+    A forward-only wave has I = V/Z_0 (the matched-line forward-wave relation). Seeding
+    (V,I)=(y0, y0/Z_0) at x=0 and cascading the lossless-line ABCD M(θ,Z_0) advances the
+    PHASE of V while |V(x)| stays constant along the matched line (Ax3 lossless: no loss,
+    no reflection). The cycle-averaged transverse energy density is ⟨y²(x)⟩=½|V(x)|² and
+    the per-bond tent tension is ⟨T⟩(x)=(2k_a/ℓ)⟨y²(x)⟩.
 
-    DISCREPANT-HALT: the two independent (i) paths must AGREE that the reaction
-    vanishes; if they disagree beyond tol the driver HALTs (does not bin). The
-    Γ-read says "no reflection"; the field integral says "uniform ⟨T⟩(x)". Different
-    assemblies -- a genuine reconcile, not a re-check of one identity.
+    This is the prereg-promised Γ-free construction (MAJOR-1 fix): it computes the
+    per-bond ⟨T⟩ from the propagated FIELD directly, so it can GENUINELY disagree with
+    the phasor/Γ path. If a bug made one nonzero while the other stayed zero they'd
+    diverge -- the reconcile is now real.
+
+    RESULT (the honest negative): a pure forward traveling wave carries a PERSISTENT,
+    UNIFORM ⟨T⟩ = (k_a/ℓ)y0² per bond -- it does NOT vanish. Same as the confined hum's
+    per-bond ⟨T⟩. The mechanism, which consumes ⟨T⟩, would stiffen radiation too.
     """
-    y0 = 1.0  # unit hum amplitude for the control (the RATIO/uniformity is the datum)
-
-    # -- (i) traveling wave on the MATCHED chain --------------------------------
-    gamma_matched = complex(cascade_gamma(np.full(20, Z_0), Z_0, theta))
-    path1_gamma_mag = float(abs(gamma_matched))                       # Γ-read path
-    field_matched = axial_reaction_from_field(gamma_matched, theta, y0=y0)  # field path
-    path2_reaction = field_matched["net_axial_reaction_rms_norm"]     # field path
-
-    # RECONCILE (independent): both paths report the matched-line reaction. Path 1
-    # is |Γ| (reflection); path 2 is the field-gradient RMS (momentum-flux). A pure
-    # traveling wave has BOTH ~0. If a genuine bug made one nonzero while the other
-    # stayed zero, they diverge. Tol 1e-9 on both (machine-zero cascade + smooth field).
-    tol = 1e-9
-    reconcile_ok = reconcile_matched_reaction(path1_gamma_mag, path2_reaction, tol)
-    if not reconcile_ok:
-        raise DiscrepantHalt(
-            f"matched-line reaction RECONCILE FAILED: Γ-read={path1_gamma_mag:.3e} "
-            f"vs field momentum-flux RMS={path2_reaction:.3e} disagree on vanishing "
-            f"(tol={tol:.1e}) -- the two independent paths must both vanish or both not"
-        )
-    reconcile_detail = {
-        "path1_gamma_mag": path1_gamma_mag,
-        "path2_field_reaction_rms_norm": path2_reaction,
-        "both_vanish": bool(path1_gamma_mag < tol and path2_reaction < tol),
-        "agree": bool(reconcile_ok),
-        "tol": tol,
+    state = np.array([y0, y0 / Z_0], dtype=complex)   # pure FORWARD wave (I=V/Z_0)
+    M = abcd_lossless_line(theta, Z_0)
+    Vs = [state[0]]
+    for _ in range(n_cells):
+        state = M @ state
+        Vs.append(state[0])
+    Vs = np.asarray(Vs)
+    y2 = 0.5 * np.abs(Vs) ** 2                          # ⟨y²⟩(x) = ½|V(x)|² (derived ½)
+    T_local = (2.0 * k_a / ell) * y2                    # per-bond ⟨T⟩(x)
+    return {
+        "T_bond_mean": float(T_local.mean()),           # the per-bond ⟨T⟩ the remap eats
+        "T_peak_to_peak": float(T_local.max() - T_local.min()),
+        "is_uniform": bool((T_local.max() - T_local.min()) < 1e-9 * (T_local.mean() + 1e-30)),
+        "gamma_free": True,   # NO Γ was input on this path -- genuinely independent
     }
 
-    # -- (ii) standing wave between reflecting terminations ---------------------
-    gamma_short = complex(cascade_gamma(np.full(20, Z_0), 0.0, theta))   # Γ=−1 wall
-    gamma_open = complex(cascade_gamma(np.full(20, Z_0), 1e18, theta))   # Γ=+1
-    field_short = axial_reaction_from_field(gamma_short, theta, y0=y0)
-    field_open = axial_reaction_from_field(gamma_open, theta, y0=y0)
 
-    # the standing-wave antinode recovers the Part-1 tent law: at |Γ|=1 the antinode
-    # ⟨y²⟩ = ½y0²(1+|Γ|)² = 2 y0² (constructive) ⟹ ⟨T⟩_antinode = (2 k_a/ℓ)(2 y0²) =
-    # 4·(k_a/ℓ)y0² = 4·resonant_tension_leading(y0). Check the ANALYTIC antinode (grid-
-    # independent) against 4× the Part-1 unit law -- a genuine recovery of the Part-1
-    # FORM (the tent-law ⟨T⟩), computed through the SAME field integrand as (i).
+def part2_radiation_control(pos, bonds, rho, theta: float = 0.3) -> dict:
+    """The make-or-break control (prereg Part 2), RE-GATED on the quantity the
+    mechanism CONSUMES: the per-bond ⟨T⟩ (and its remap consequence), NOT the gradient.
+
+    🔴 CRITICAL RE-GATE (2026-07-04, orchestrator): the original gate read the field
+    GRADIENT (d⟨T⟩/dx), which is trivially zero for a uniform traveling wave, and
+    called that "vanishes." But the stiffening path _remap_at_signed_T reads T ITSELF
+    (k_shear_eff = S_shear + T/ℓ). The matched CW traveling wave carries a PERSISTENT,
+    UNIFORM per-bond ⟨T⟩ = (k_a/ℓ)y0² -- identical in kind to the confined hum -- and
+    fed through the SAME remap it stiffens ρ' identically. So control (i) does NOT
+    vanish in the consumed observable. Rule 11: report the negative, no rescue.
+
+    (i) traveling wave on a MATCHED chain -- gated on the per-bond ⟨T⟩, TWO GENUINELY
+        INDEPENDENT paths:
+          path A (phasor, Γ=0):        ⟨T⟩_bond from field_from_phasor
+          path B (Γ-FREE ABCD-propag): ⟨T⟩_bond from field_from_abcd_propagation (no Γ)
+        Both must AGREE on the per-bond ⟨T⟩ value (real reconcile). The vanish test is
+        on ⟨T⟩ (does the traveling wave leave a persistent per-bond tension?), NOT on
+        the gradient. The remap consequence (ρ' shift) is reported.
+    (ii) standing wave between reflecting terminations -- gated on the FIELD-INTEGRAND
+        antinode value (not the |Γ|=1 tautology): the sampled antinode ⟨T⟩ must reach
+        the constructive-interference value 4·(k_a/ℓ)y0² (MAJOR-2 fix).
+    """
+    y0 = 1.0  # unit hum amplitude for the control (the RATIO is the datum)
+    ell = 1.0
+    A_axial = A_CORE_SQRT_ALPHA
+    A_shear_op = 0.99479
+
+    # -- (i) traveling wave on the MATCHED chain, RE-GATED on ⟨T⟩ ----------------
+    gamma_matched = complex(cascade_gamma(np.full(20, Z_0), Z_0, theta))
+    # path A: phasor (Γ=0) per-bond ⟨T⟩
+    fieldA = field_from_phasor(gamma_matched, theta, y0=y0, ell=ell)
+    T_bond_phasor = fieldA["T_local_mean"]
+    # path B: GENUINELY Γ-FREE ABCD propagation per-bond ⟨T⟩ (no Γ input)
+    fieldB = field_from_abcd_propagation(theta, y0=y0, ell=ell)
+    T_bond_gamma_free = fieldB["T_bond_mean"]
+
+    # REAL reconcile (MAJOR-1): the phasor path and the Γ-FREE ABCD-propagation path
+    # must agree on the per-bond ⟨T⟩ value. These are DIFFERENT assemblies (a Γ-
+    # parameterized phasor vs a forward-state ABCD cascade); a genuine bug diverges
+    # them. Both report ⟨T⟩ = 1.0 -- and CRUCIALLY, they agree it is NONZERO.
+    tol = 1e-9
+    reconcile_rel = abs(T_bond_phasor - T_bond_gamma_free) / (abs(T_bond_gamma_free) + 1e-30)
+    if not reconcile_matched_T(T_bond_phasor, T_bond_gamma_free, tol):
+        raise DiscrepantHalt(
+            f"matched-line per-bond ⟨T⟩ RECONCILE FAILED: phasor path ⟨T⟩="
+            f"{T_bond_phasor:.9f} vs Γ-FREE ABCD-propagation ⟨T⟩={T_bond_gamma_free:.9f} "
+            f"(rel={reconcile_rel:.2e}>{tol:.0e}) -- the two independent paths diverge"
+        )
+
+    # the CONSUMED consequence: feed the matched-wave per-bond ⟨T⟩ through the SAME
+    # remap the mechanism uses. If the traveling wave stiffens ρ' like the hum does,
+    # the carrier as formulated cannot distinguish matter from radiation.
+    rem_cold = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, 0.0)
+    rem_travel = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +T_bond_gamma_free)
+    T_vanishes = bool(abs(T_bond_gamma_free) < tol)   # the HONEST gate: ⟨T⟩→0?
+
+    # -- (ii) standing wave between reflecting terminations, gated on the FIELD ------
+    gamma_short = complex(cascade_gamma(np.full(20, Z_0), 0.0, theta))   # Γ=−1 wall
+    field_short = field_from_phasor(gamma_short, theta, y0=y0, ell=ell)
+    # MAJOR-2: gate on the FIELD-INTEGRAND antinode (sampled + analytic agree), not the
+    # algebraic |Γ|=1 restatement. The analytic antinode feeds the check; the sampled
+    # grid value is reported alongside to show the field integrand actually reaches it.
     T_part1_unit = resonant_tension_leading(y0)          # (k_a/ℓ) y0²
     T_antinode_expected = 4.0 * T_part1_unit             # constructive |Γ|=1 antinode
-    recovers = abs(field_short["T_antinode_analytic"] - T_antinode_expected) \
-        < 1e-9 * T_antinode_expected
+    recovers = (abs(field_short["T_antinode_analytic"] - T_antinode_expected)
+                < 1e-9 * T_antinode_expected
+                and abs(field_short["T_local_max"] - T_antinode_expected)
+                < 1e-3 * T_antinode_expected)
 
     return {
         "theta": theta,
-        # (i) matched line -- must vanish
+        # (i) matched line -- HONESTLY gated on the CONSUMED per-bond ⟨T⟩
         "i_matched": {
-            "gamma_mag": path1_gamma_mag,
-            "field_reaction_rms_norm": path2_reaction,
-            "field_T_uniform": field_matched["is_uniform"],
-            "vanishes": bool(path1_gamma_mag < tol and path2_reaction < tol
-                             and field_matched["is_uniform"]),
+            "T_bond_phasor": T_bond_phasor,
+            "T_bond_gamma_free": T_bond_gamma_free,
+            "T_bond_reconcile_rel": float(reconcile_rel),
+            "T_vanishes": T_vanishes,           # the HONEST gate -- does ⟨T⟩→0?
+            "rho_prime_cold": rem_cold["rho_prime"],
+            "rho_prime_under_traveling_wave": rem_travel["rho_prime"],
+            "radiation_stiffens": bool(
+                abs(rem_travel["rho_prime"] - rem_cold["rho_prime"]) > 1e-3),
+            "note": "the matched traveling wave carries a PERSISTENT per-bond ⟨T⟩ that "
+            "the remap consumes -> ρ' shifts (radiation stiffens). ⟨T⟩ does NOT vanish.",
         },
-        # (ii) standing wave -- must NOT vanish AND must recover the Part-1 law
+        # (ii) standing wave -- gated on the field-integrand antinode (MAJOR-2)
         "ii_standing": {
             "gamma_mag_short": float(abs(gamma_short)),
-            "gamma_mag_open": float(abs(gamma_open)),
-            "field_reaction_rms_norm_short": field_short["net_axial_reaction_rms_norm"],
-            "field_reaction_rms_norm_open": field_open["net_axial_reaction_rms_norm"],
-            "T_antinode_field_short_grid": field_short["T_local_max"],
-            "T_antinode_field_short_analytic": field_short["T_antinode_analytic"],
+            "T_antinode_field_analytic": field_short["T_antinode_analytic"],
+            "T_antinode_field_grid": field_short["T_local_max"],
             "T_antinode_expected_part1": float(T_antinode_expected),
+            "T_bond_avg_standing": field_short["T_bond_avg_analytic"],
             "recovers_part1_law": bool(recovers),
-            "nonzero": bool(field_short["net_axial_reaction_rms_norm"] > 1e-3),
         },
-        "reconcile": reconcile_detail,
     }
 
 
@@ -394,17 +443,22 @@ class DiscrepantHalt(RuntimeError):
     """
 
 
-def reconcile_matched_reaction(gamma_read: float, field_reaction: float,
-                               tol: float = 1e-9) -> bool:
+def reconcile_matched_T(T_phasor: float, T_gamma_free: float, tol: float = 1e-9) -> bool:
     """The DISCREPANT-HALT reconcile core (extracted so synthetic tests can trigger it).
 
-    The two INDEPENDENT matched-line reaction paths must AGREE on whether the reaction
-    vanishes: (gamma_read < tol) iff (field_reaction < tol). A genuine bug making ONE
-    nonzero while the other stays zero breaks the equivalence ⟹ returns False ⟹ HALT.
-    This is NOT a re-check of one identity: gamma_read is a reflection functional,
-    field_reaction is a field-space momentum-flux gradient RMS -- different assemblies.
+    The two GENUINELY INDEPENDENT matched-line per-bond ⟨T⟩ paths must AGREE on the VALUE
+    (relative), not merely on a shared boolean: |T_phasor − T_gamma_free|/|T_gamma_free|
+    ≤ tol. A genuine bug diverging them ⟹ returns False ⟹ HALT. These are DIFFERENT
+    assemblies: T_phasor is the Γ-parameterized incident+reflected phasor mean;
+    T_gamma_free is a forward-state abcd_lossless_line CASCADE with NO Γ input.
+
+    🔴 SUPERSEDES the old reconcile_matched_reaction (2026-07-04, MAJOR-1): that gate
+    reconciled the Γ-read against a field path that was ALGEBRAICALLY 1.4244·|Γ| -- i.e.
+    the SAME Γ, rescaled. It could never disagree (the 4th recurrence of the reconcile-
+    gate defect). This value-reconcile on two genuinely-independent ⟨T⟩ computations
+    can disagree.
     """
-    return (gamma_read < tol) == (field_reaction < tol)
+    return abs(T_phasor - T_gamma_free) / (abs(T_gamma_free) + 1e-30) <= tol
 
 
 def run_positive_controls() -> dict:
@@ -448,6 +502,14 @@ def run_positive_controls() -> dict:
     results["PC_reflect_gamma_open"] = float(go)
     results["PC_reflect_ok"] = bool(abs(gs - 1.0) < 1e-9 and abs(go - 1.0) < 1e-9)
 
+    # PC-gammafree-live: the Γ-free ABCD-propagation path returns a NONZERO per-bond ⟨T⟩
+    # for a traveling wave -- proves the CONSUMED observable (⟨T⟩) can be nonzero on this
+    # path (the liveness that makes an "⟨T⟩ vanishes" verdict meaningful). If this were
+    # forced to zero by construction, the (i)-vanish test would be blind (Step 3.8a).
+    tbf = field_from_abcd_propagation(0.3, y0=1.0)["T_bond_mean"]
+    results["PC_gammafree_travel_T"] = float(tbf)
+    results["PC_gammafree_live_ok"] = bool(tbf > 0.9)   # ⟨T⟩=(k_a/ℓ)y0²=1.0 expected
+
     results["ALL_PC_PASS"] = bool(all(results[k] for k in results if k.endswith("_ok")))
     return results
 
@@ -459,43 +521,45 @@ def select_bin(part2: dict) -> dict:
     """Frozen bins (prereg): RESONANT-CARRIER-DERIVED / RADIATION-CONTAMINATED /
     DISCRIMINATOR-UNDERDETERMINED. No fall-through else.
 
-    Routing (verbatim from the frozen prereg):
-      (i)-vanishes AND (ii)-recovers  -> RESONANT-CARRIER-DERIVED
-      (i)-nonzero                     -> RADIATION-CONTAMINATED
-      separation-ill-defined          -> DISCRIMINATOR-UNDERDETERMINED
-    (A DiscrepantHalt earlier in part2_radiation_control preempts binning if the two
-    independent (i) paths disagree -- that is handled in main(), not here.)
+    Routing (verbatim from the FROZEN prereg; the bins stay frozen, only the
+    OBSERVABLE they read was corrected per the orchestrator CRITICAL -- that is not a
+    bin edit):
+      (i)-vanishes-in-⟨T⟩ AND (ii)-recovers  -> RESONANT-CARRIER-DERIVED
+      (i)-does-NOT-vanish-in-⟨T⟩              -> RADIATION-CONTAMINATED
+      separation-ill-defined                 -> DISCRIMINATOR-UNDERDETERMINED
+
+    🔴 The (i) test now reads the CONSUMED per-bond ⟨T⟩ (i_matched["T_vanishes"]), NOT
+    the gradient. The matched traveling wave leaves a persistent ⟨T⟩ ⟹ (i) does NOT
+    vanish ⟹ [RADIATION-CONTAMINATED] (the honest negative; Rule 11, no rescue).
     """
     i = part2["i_matched"]
     ii = part2["ii_standing"]
 
-    i_vanishes = bool(i["vanishes"])
+    i_vanishes = bool(i["T_vanishes"])          # the CONSUMED observable (⟨T⟩), not grad
     ii_recovers = bool(ii["recovers_part1_law"])
-    ii_nonzero = bool(ii["nonzero"])
 
     if not i_vanishes:
         verdict = "RADIATION-CONTAMINATED"
-        reason = ("the traveling-wave control (i) does NOT vanish: matched-line net "
-                  "axial reaction stays above tol -> the resonant-tension carrier "
-                  "contradicts #518 §7 / clm-clvchn -> the mechanism DIES (Rule 11)")
-    elif i_vanishes and ii_recovers and ii_nonzero:
+        reason = ("the traveling-wave control (i) does NOT vanish in the CONSUMED "
+                  "observable: a matched CW traveling wave carries a PERSISTENT per-bond "
+                  "⟨T⟩ (both independent paths agree, phasor & Γ-free ABCD) that the "
+                  "#526 remap consumes (k_shear_eff=S_shear+T/ℓ), stiffening ρ' "
+                  "identically in kind to the confined hum -> the resonant-tension "
+                  "carrier as formulated cannot distinguish matter from radiation and "
+                  "CONTRADICTS #518 §7 -> the mechanism DIES (Rule 11, no rescue)")
+    elif i_vanishes and ii_recovers:
         verdict = "RESONANT-CARRIER-DERIVED"
-        reason = ("(i) matched-line reaction vanishes (both independent paths) AND "
-                  "(ii) reflecting-termination reaction is nonzero and recovers the "
-                  "Part-1 tent-law ⟨T⟩ -> the plucking fork RESOLVES: the matter arm's "
-                  "carrier is the CONFINED RESONANCE; magnitude noun = the time-averaged "
-                  "resonant law; matter track re-banded")
+        reason = ("(i) matched-line per-bond ⟨T⟩ vanishes (both independent paths) AND "
+                  "(ii) reflecting-termination antinode recovers the Part-1 tent-law "
+                  "⟨T⟩ -> the plucking fork RESOLVES: carrier = the confined resonance")
     else:
-        # i vanishes but (ii) neither cleanly recovers nor is cleanly nonzero:
-        # the standing/traveling separation is not clean -> underdetermined
         verdict = "DISCRIMINATOR-UNDERDETERMINED"
-        reason = ("(i) vanishes but the standing-wave (ii) does not cleanly recover the "
-                  "Part-1 law while being nonzero -- the standing/traveling separation "
-                  "needs structure the linear #525 TL does not supply; defer")
+        reason = ("(i) vanishes in ⟨T⟩ but (ii) does not cleanly recover the Part-1 law "
+                  "-- the standing/traveling separation needs structure the linear #525 "
+                  "TL does not supply; defer")
 
     return {"verdict": verdict, "reason": reason,
-            "i_vanishes": i_vanishes, "ii_recovers": ii_recovers,
-            "ii_nonzero": ii_nonzero}
+            "i_vanishes_in_T": i_vanishes, "ii_recovers": ii_recovers}
 
 
 def _write(out: dict) -> None:
@@ -522,12 +586,20 @@ def _knife_check(part1: dict) -> dict:
                        "in_nu_band": bool(in_nu)}
     return {
         "rho_prime_band_exact": rp_band, "nu_band": nu_band, "targets": lands,
-        "note": "the y0->0 anchor rho'=9.7733 sits ON 9.7734 by IDENTITY (T->0 => "
-        "unshifted cold remap), NOT a coincidence -- it is the definitional no-hum "
-        "limit, not a re-banded landing. The re-banded interior (y0>0) rho' band "
-        "[4.36, 9.65] does NOT reach rho'=2 (no cap-crossing). nu band bottom -0.015 "
-        "is near-zero but not on a canon target. KNIFE=noise on the y0->0 identity; "
-        "no interior edge lands on a distinguished value.",
+        "identity_twins": {
+            "rho_prime": 9.7734, "nu": 2.0 / 7.0,
+            "caveat": "SYMMETRIC (MAJOR-3): BOTH the y0→0 ρ'→9.7734 AND ν→2/7 are the "
+            "SAME identity -- ⟨T⟩→0 recovers the unstressed #518 crossing, where ρ*=9.7734 "
+            "and ν=2/7 co-locate by construction. Neither is a re-banded landing; both are "
+            "LABELED identities and EXCLUDED from the reported interior band. (The prior "
+            "doc caveated ρ' but not ν -- asymmetric knife, now corrected.)",
+        },
+        "note": "the y0→0 twins ρ'→9.7734 / ν→2/7 are the unstressed-crossing IDENTITY "
+        "(T→0 ⟹ unshifted cold remap), NOT re-banded landings -- symmetrically knifed and "
+        "excluded from the band. The reported INTERIOR (y0>0) rho' band does not reach "
+        "rho'=2. KNIFE=noise on both identity twins; no interior edge lands on a "
+        "distinguished value. (Moot for the verdict: the carrier DIED at Part 2 -- the "
+        "matter re-band is reported for completeness, not as a live result.)",
     }
 
 
@@ -550,7 +622,7 @@ def main() -> int:
     out["positive_controls"] = pc
     print("(0) POSITIVE CONTROLS (HALT if fail):")
     for k in ("PC_half_ok", "PC_lead_vs_exact_ok", "PC_noload_ok",
-              "PC_matched_ok", "PC_reflect_ok"):
+              "PC_matched_ok", "PC_reflect_ok", "PC_gammafree_live_ok"):
         print(f"  {k:22s} = {pc[k]}")
     print(f"  ALL_PC_PASS = {pc['ALL_PC_PASS']}")
     if not pc["ALL_PC_PASS"]:
@@ -581,8 +653,9 @@ def main() -> int:
                   f"ρ'={rps:>8s} ν={r['nu_exact']:+.5f}")
 
     # ---- (2) PART 2 — the radiation control (DISCREPANT-HALT reachable) --
+    # RE-GATED (CRITICAL) on the CONSUMED per-bond ⟨T⟩, not the gradient.
     try:
-        part2 = part2_radiation_control()
+        part2 = part2_radiation_control(pos_r, bonds_r, rho_r)
     except DiscrepantHalt as e:
         out["verdict"] = {"verdict": "DISCREPANT-HALT", "detail": str(e)}
         print(f"\nDISCREPANT-HALT: {e}")
@@ -590,25 +663,29 @@ def main() -> int:
         return 2
     out["part2"] = part2
     i, ii = part2["i_matched"], part2["ii_standing"]
-    print("\n(2) PART 2 — the radiation control (make-or-break):")
-    print(f"    (i)  MATCHED line: Γ-read={i['gamma_mag']:.3e}, "
-          f"field-reaction-RMS={i['field_reaction_rms_norm']:.3e}, "
-          f"⟨T⟩(x) uniform={i['field_T_uniform']} ⟹ vanishes={i['vanishes']}")
-    print(f"    (ii) STANDING wave (Γ=−1): reaction-RMS={ii['field_reaction_rms_norm_short']:.4f} "
-          f"(nonzero={ii['nonzero']}); antinode ⟨T⟩={ii['T_antinode_field_short_analytic']:.4f} "
-          f"vs 4×Part-1={ii['T_antinode_expected_part1']:.4f} ⟹ recovers={ii['recovers_part1_law']}")
-    print(f"    reconcile (Γ-read vs field integral): agree={part2['reconcile']['agree']}")
+    print("\n(2) PART 2 — the radiation control (make-or-break; RE-GATED on ⟨T⟩):")
+    print(f"    (i)  MATCHED line per-bond ⟨T⟩: phasor={i['T_bond_phasor']:.6f}, "
+          f"Γ-FREE ABCD={i['T_bond_gamma_free']:.6f} "
+          f"(reconcile rel={i['T_bond_reconcile_rel']:.1e}) ⟹ ⟨T⟩ vanishes={i['T_vanishes']}")
+    print(f"         remap consequence: ρ'_cold={i['rho_prime_cold']:.4f} → "
+          f"ρ'_under_traveling_wave={i['rho_prime_under_traveling_wave']:.4f} "
+          f"(radiation stiffens={i['radiation_stiffens']})")
+    print(f"    (ii) STANDING wave (Γ=−1): antinode ⟨T⟩={ii['T_antinode_field_analytic']:.4f} "
+          f"(grid={ii['T_antinode_field_grid']:.4f}) vs 4×Part-1="
+          f"{ii['T_antinode_expected_part1']:.4f} ⟹ recovers={ii['recovers_part1_law']}")
 
     # ---- (3) THE BIN (no fall-through else) ------------------------------
     verdict = select_bin(part2)
     out["verdict"] = verdict
     print(f"\n(3) VERDICT: [{verdict['verdict']}] — {verdict['reason']}")
 
-    # ---- (4) THE KNIFE ---------------------------------------------------
+    # ---- (4) THE KNIFE (symmetric identity twins; moot — carrier died) --
     out["knife"] = _knife_check(part1)
     print(f"\n(4) KNIFE: interior ρ' band {out['knife']['rho_prime_band_exact']}; "
           f"ρ'=2 in band: {out['knife']['targets']['rho_2']['in_rho_prime_band']}; "
-          f"9.7734 y0→0 anchor is a T→0 IDENTITY (not a landing).")
+          f"y0→0 twins ρ'→9.7734 AND ν→2/7 are the SAME identity (symmetric, labeled).")
+    print("    (moot for the verdict: the carrier DIED at Part 2 — matter re-band "
+          "reported for completeness only.)")
 
     _write(out)
     return 0
