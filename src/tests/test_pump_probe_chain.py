@@ -1,0 +1,231 @@
+"""Tests for the pump-probe T-slot adjudication.
+
+Locks: (1) the FROZEN prediction module (the freeze proof — arms pinned before the
+dynamics run); (2) the honest-dynamics measurement (COLD=1, DC-liveness sees the
+tension, SWR≈1, dt-converged); (3) the #528 ReconcileGate + bin selector (can-fire
+proven on dropped-term / sign-flip synthetics; no fall-through; HALT reachable).
+
+The #531 tautology guard is enforced structurally: the dynamics module
+(`pump_probe_chain`) does NOT import the prediction module (`pump_probe_predictions`);
+test_tautology_guard_no_cross_import asserts it.
+"""
+from __future__ import annotations
+
+import numpy as np
+import pytest
+
+from ave.validation.reconcile_gate import DiscrepantHalt, ReconcileGate
+from scripts.vol_1_foundations import pump_probe_chain as dyn
+from scripts.vol_1_foundations import pump_probe_predictions as pred
+
+
+# ── FROZEN prediction module: symbolic backbone (5 exact-zero residuals) ──────
+def test_symbolic_backbone_all_exact_zero():
+    for name, val in pred.symbolic_backbone().items():
+        assert val == 0, f"{name} must be exactly 0, got {val}"
+
+
+# ── FROZEN prediction numbers (the arms, pinned before the dynamics) ──────────
+def test_cold_prediction_is_ks():
+    assert pred.k_trans_cold() == pytest.approx(1.0, abs=1e-15)
+
+
+def test_dc_liveness_prediction_tent_edge():
+    assert pred.k_trans_dc_liveness(pred.Y0_TENT) == pytest.approx(1.0376370905760846, rel=1e-12)
+    assert pred.k_trans_dc_liveness(pred.Y0_TENT) > pred.k_trans_cold()
+
+
+def test_pump_arms_tent_edge():
+    assert pred.k_trans_pump_dc_only() == pytest.approx(1.0, abs=1e-15)
+    assert pred.k_trans_pump_extended(pred.Y0_TENT) == pytest.approx(1.02039184, rel=1e-12)
+
+
+def test_arm_separation_tent_edge_is_2pct_and_knife_clean():
+    sep = pred.arm_separation(pred.Y0_TENT)
+    assert sep == pytest.approx(0.02039184, rel=1e-9)
+    assert sep == pytest.approx(pred.Y0_TENT**2, rel=1e-12)  # a derived geometric factor
+    for target in (0.5, 0.25, 2 / 7, 9.7734):
+        assert abs(sep - target) > 0.1, f"separation must NOT land on canon target {target}"
+
+
+def test_held_bow_is_twice_pump_second_order():
+    y = 0.05
+    L, A_bond = pred.held_bow_geometry(y)
+    held = float(pred.bond_tension(A_bond)) / L   # the geometric tension term T/L
+    pump = pred.arm_separation(y)                 # the pump's rectified mean (k_a/ℓ)y²
+    assert held == pytest.approx(2.0 * pump, rel=2e-2)
+
+
+# ── the #531 tautology guard: dynamics must NOT import the prediction module ──
+def test_tautology_guard_no_cross_import():
+    import inspect
+    src = inspect.getsource(dyn)
+    # the ONLY place the prediction module may be IMPORTED is inside adjudicate() (the
+    # comparator), NEVER in the force/dynamics path. Assert no import statement for it
+    # appears before def adjudicate (docstring mentions by name are fine — we grep the
+    # actual `import` token, not any textual mention).
+    top = src.split("def adjudicate")[0]
+    import_lines = [ln for ln in top.splitlines()
+                    if "import" in ln and "pump_probe_predictions" in ln]
+    assert not import_lines, (
+        "TAUTOLOGY GUARD VIOLATION: the dynamics/force path IMPORTS the prediction "
+        f"module: {import_lines}. The measurement must not consume the slot formulas "
+        "it adjudicates.")
+    # and confirm the comparator DOES import it (so the guard is meaningful, not vacuous)
+    assert "from scripts.vol_1_foundations import pump_probe_predictions" in src
+
+
+# ── honest dynamics: the load-bearing measurements ───────────────────────────
+# The full-chain integration runs (~5s each) are marked engine_sim (T2 driver
+# cost+role, CI-partition convention conftest.py:§engine_sim); routed to the opt-in
+# `make test-engine` lane. The fast prediction / gate-plumbing / synthetic-HALT
+# tests above and below STAY in the gating lane.
+@pytest.fixture(scope="module")
+def run_A():
+    return dyn.run_three_states(shear_saturates=True)
+
+
+@pytest.fixture(scope="module")
+def run_B():
+    return dyn.run_three_states(shear_saturates=False)
+
+
+@pytest.mark.engine_sim
+def test_cold_recovers_ks_from_dynamics(run_A):
+    assert run_A["cold"]["k_trans"] == pytest.approx(1.0, abs=1e-12)
+
+
+@pytest.mark.engine_sim
+def test_dc_liveness_probe_sees_held_tension(run_A):
+    # the uniform-stretch control MUST reproduce the merged #526 form k_s + T/L,
+    # and MUST exceed cold by well over the derived band — the instrument is LIVE.
+    s = run_A["dc_bias_stretch"]
+    assert s["k_trans"] == pytest.approx(s["merged_526_form"], rel=1e-4)
+    assert s["k_trans"] - 1.0 > 10 * dyn.DERIVED_BAND, "probe must see a large tension excess"
+
+
+@pytest.mark.engine_sim
+def test_swr_near_one_in_measurement_window(run_A, run_B):
+    assert run_A["pump"]["swr"] == pytest.approx(1.0, abs=0.05), "pump must be genuinely traveling"
+    assert run_B["pump"]["swr"] == pytest.approx(1.0, abs=0.05)
+
+
+@pytest.mark.engine_sim
+def test_energy_drift_measured_over_full_window(run_A):
+    # MAJOR-d (orchestrator review): the drift is now the MAX over the FULL window, not
+    # the truncated 6-period slice the original "4.7e-4" hid behind. The full-window
+    # diagnostic reads ~0.11 — but this is NOT dt-convergent (0.13 at dt=0.0025) and is
+    # present in the Hamiltonian keying B too, so it is a DIAGNOSTIC-DEFINITION artifact:
+    # the large-amplitude seed + the linear ½k_s(Δy)² energy proxy for the SATURATING
+    # shear over-reads. The honest statement (in the result doc): the undriven-drift
+    # diagnostic is not a clean drift measure at this seed amplitude. Assert only that it
+    # is measured over the full window and finite (not the truncated artifact, not a NaN).
+    drift = run_A["energy_drift_undriven"]
+    assert np.isfinite(drift)
+    assert drift > 1e-2, "full-window value >> the truncated-window 4.7e-4 (MAJOR-d point)"
+
+
+# ── POST-REVIEW: the CRITICAL falsifiers (orchestrator PR #532) ──────────────
+@pytest.mark.engine_sim
+def test_CRITICAL1_linear_chain_reproduces_verdict_kinematic_not_jensen():
+    # a LINEAR chain (no kernel, no concavity, no Jensen) reproduces the nonlinear
+    # keying-B pump verdict to ~2e-6 → the effect is KINEMATIC tilt, not Jensen.
+    import math
+    period = 2 * math.pi / 1.2
+    n_steps = int(200 * period / 0.005)
+    lin = dyn.LinearChain(600, sponge_width=200, sponge_gamma=0.5)
+    k_cold = lin.transverse_tangent_stiffness(np.zeros(600), np.zeros(600), 200)
+    r_lin = dyn._run_pump(lin, 0.005, n_steps, 1.2, 0.1428, 200,
+                          int(180 * period / 0.005), 200, k_cold)["k_trans"]
+    r_nl = dyn.run_three_states(shear_saturates=False)["pump"]["k_trans"]
+    assert abs(r_lin - r_nl) < 1e-4, "linear chain must reproduce the verdict (kinematic, not Jensen)"
+
+
+@pytest.mark.engine_sim
+def test_CRITICAL1_kinematic_tilt_dominates():
+    # the tilt term is the dominant channel (> the bond-frame tension term).
+    ch = dyn.PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5, shear_saturates=False)
+    d = dyn.tilt_decomposition(ch)
+    assert d["kinematic_tilt_frac"] > 2 * d["tension_frac"], "kinematic tilt must dominate"
+    assert d["shear_frac"] == pytest.approx(0.0, abs=1e-9), "keying B shear must be exactly 0 (Flag-3)"
+
+
+@pytest.mark.engine_sim
+def test_CRITICAL2_cycle_mean_config_reads_cold():
+    # the tangent stiffness AT the cycle-mean configuration reads COLD → no deposited
+    # DC bias the slow probe feels; the stiffening is entirely in the AC slope oscillation.
+    cm = dyn.cycle_mean_config_stiffness(
+        dyn.PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5, shear_saturates=True))
+    assert cm["k_trans_at_cycle_mean"] < 1.0 + dyn.DERIVED_BAND, "cycle-mean config must read ~COLD"
+
+
+@pytest.mark.engine_sim
+def test_CRITICAL2_A_bond_deposit_is_boundary_artifact():
+    # the ⟨A_bond⟩ "deposit" sign-flips with a free drive end → a Dirichlet-pin artifact.
+    pinned = dyn.cycle_mean_config_stiffness(
+        dyn.PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5), free_drive_end=False)
+    free = dyn.cycle_mean_config_stiffness(
+        dyn.PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5), free_drive_end=True)
+    # both are non-positive / sign-unstable → NOT a positive bulk deposit
+    assert free["A_bond_at_probe"] < pinned["A_bond_at_probe"], "free end must move the deposit (boundary artifact)"
+    assert pinned["A_bond_at_probe"] < dyn.DERIVED_BAND, "no positive bulk deposit at the probe"
+
+
+# ── the bin selector: POST-REVIEW verdict is [ADJUDICATION-INVALID] ──────────
+@pytest.mark.engine_sim
+def test_bin_is_adjudication_invalid_both_keyings():
+    # the observable is lab-frame mixed → neither bond-frame arm is testable → INVALID.
+    for keying in (True, False):
+        binv, _, gate = dyn.adjudicate(shear_saturates=keying)
+        assert binv == "ADJUDICATION-INVALID"
+        assert gate["kinematic_tilt_frac"] > gate["bondframe_tension_frac"]
+
+
+def test_reconcile_gate_can_fire_on_dropped_term():
+    # dropped-term synthetic: claim = cold (dropped the tension term) vs the true
+    # merged form → the gate MUST fire (DiscrepantHalt).
+    with pytest.raises(DiscrepantHalt):
+        ReconcileGate(label="dropped_term", claimed=1.0, independent=1.0786, rtol=1e-4).enforce()
+
+
+def test_reconcile_gate_can_fire_on_sign_flip():
+    # sign-flip synthetic: claim = 1 − excess (compression, wrong sign) vs the true
+    # 1 + excess (tension) → the gate MUST fire.
+    with pytest.raises(DiscrepantHalt):
+        ReconcileGate(label="sign_flip", claimed=1.0 - 0.0786, independent=1.0786, rtol=1e-4).enforce()
+
+
+@pytest.mark.engine_sim
+def test_bin_selector_halts_on_broken_cold(monkeypatch):
+    # inject a COLD that isn't 1 → the structural HALT must fire before any verdict.
+    orig = dyn.run_three_states
+
+    def broken(**kw):
+        r = orig(**kw)
+        r["cold"]["k_trans"] = 1.5
+        return r
+
+    monkeypatch.setattr(dyn, "run_three_states", broken)
+    with pytest.raises(dyn.DiscrepantHaltBin):
+        dyn.adjudicate(shear_saturates=True)
+
+
+@pytest.mark.engine_sim
+def test_bin_selector_halts_on_blind_instrument(monkeypatch):
+    # inject a DC-bias liveness that does NOT exceed cold → instrument blind → HALT.
+    orig = dyn.run_three_states
+
+    def blind(**kw):
+        r = orig(**kw)
+        r["dc_bias_stretch"]["k_trans"] = 1.0 + 0.5 * dyn.DERIVED_BAND  # below the band
+        return r
+
+    monkeypatch.setattr(dyn, "run_three_states", blind)
+    with pytest.raises(dyn.DiscrepantHaltBin):
+        dyn.adjudicate(shear_saturates=True)
+
+
+def test_derived_band_below_arm_separation():
+    # the #531 discipline: the band must be strictly below the 2.04% arm separation
+    # (else the arms are unresolvable and the verdict is vacuous).
+    assert dyn.DERIVED_BAND < pred.arm_separation(pred.Y0_TENT)
