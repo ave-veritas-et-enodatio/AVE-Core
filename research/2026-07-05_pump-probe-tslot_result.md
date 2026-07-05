@@ -85,6 +85,15 @@ original claimed. Keying-B's EXTENDED "confirmation" (0.24% margin) is inside th
 and flips to [NEITHER] under the probe-node sweep. **No arm is excluded or confirmed at
 bond-frame level. The #526 T-slot fork REMAINS OPEN.**
 
+**PC-ENERGY correction (MAJOR-d):** the original doc reported undriven drift = 4.7×10⁻⁴, but
+that was measured over a TRUNCATED 6-period window. Over the FULL n_periods window the diagnostic
+reads ~0.11 — however this is NOT dt-convergent (0.13 at dt=0.0025) and is present in the
+Hamiltonian keying B too, so it is a **diagnostic-definition artifact**: the large-amplitude
+seed + the linear ½k_s(Δy)² energy proxy for the SATURATING shear over-read the "energy." The
+honest statement is that the undriven-drift diagnostic is not a clean drift measure at this seed
+amplitude — the "4.7e-4" claim is retracted, and a valid arc needs a saturation-consistent
+energy functional (part of §REQUIREMENTS).
+
 **What survives (KEEP-BOTH):**
 - **Instrument liveness** (untouched): the uniform-stretch DC-bias control = merged #526 form
   k_s+T/L = 1.078606 to 6 digits — the probe sees a genuine BOND-FRAME static tension.
