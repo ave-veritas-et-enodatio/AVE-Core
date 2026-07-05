@@ -466,10 +466,99 @@ def run_positive_controls(pos, bonds, rho, ell: float = 1.0) -> dict:
 # ---------------------------------------------------------------------------------------
 # (S6) BIN SELECTOR -- verbatim from the FROZEN prereg; no fall-through
 # ---------------------------------------------------------------------------------------
-def select_bin(cases: dict) -> dict:
-    """Placeholder -- routes to CHANNEL-DISCRIMINATOR-DERIVED / SYMMETRIC-BOTH / ASYMMETRIC-BOTH /
-    UNDERDETERMINED per the frozen routing table; final else = UNDERDETERMINED (no fall-through)."""
-    raise NotImplementedError("select_bin lands last")
+def select_bin(cases: dict, tol: float = 1e-6) -> dict:
+    """Route to one of the four FROZEN bins per the prereg routing table. No fall-through: the final
+    else is UNDERDETERMINED by construction.
+
+    Frozen routing (verbatim from research/2026-07-05_channel-resolved-loading_prereg_FROZEN.md):
+      travel_preserves = |rho'_travel/rho_cold - 1| <= tol  (both dictionary readings)
+      conf_moves       = |rho'_conf/S(A_dc) - 1|   >  tol
+      travel_moves     = not travel_preserves
+      conf_preserves   = not conf_moves
+      distinguish      = the two rho'-moves differ by > tol in sign or magnitude (a real hum discriminator)
+
+      travel_preserves and conf_moves            -> CHANNEL-DISCRIMINATOR-DERIVED
+      travel_preserves and conf_preserves        -> SYMMETRIC-BOTH
+      travel_moves and conf_moves and not distinguish -> ASYMMETRIC-BOTH
+      else (dictionary-split or ill-defined)     -> UNDERDETERMINED
+    """
+    def _max_move(name):
+        # worst-case move (vs the case's own cold_ref) across both dictionaries and both arc* edges
+        moves = []
+        for d in ("D1_angle", "D2_displacement"):
+            for edge in ("lo_elastica", "hi_tent"):
+                moves.append(cases[name]["per_dictionary"][d][edge]["max_abs_move_vs_coldref"])
+        return float(max(moves))
+
+    def _hum_factor_diff():
+        # max |hum_factor_travel - hum_factor_confined| across the interior grid (the discriminator test)
+        diff = 0.0
+        for d in ("D1_angle", "D2_displacement"):
+            for edge in ("lo_elastica", "hi_tent"):
+                rt = cases["i_travel"]["per_dictionary"][d][edge]["rows"]
+                rc = cases["ii_confined"]["per_dictionary"][d][edge]["rows"]
+                for a, b in zip(rt, rc):
+                    if a["is_identity_limit"]:
+                        continue
+                    diff = max(diff, abs(a["hum_factor"] - b["hum_factor"]))
+        return float(diff)
+
+    def _dictionary_verdict_flips():
+        # does travel_preserves differ between D1 and D2? (verdict-flip => UNDERDETERMINED)
+        flips = False
+        for edge in ("lo_elastica", "hi_tent"):
+            m1 = cases["i_travel"]["per_dictionary"]["D1_angle"][edge]["max_abs_move_vs_coldref"]
+            m2 = cases["i_travel"]["per_dictionary"]["D2_displacement"][edge]["max_abs_move_vs_coldref"]
+            if (m1 <= tol) != (m2 <= tol):
+                flips = True
+        return flips
+
+    travel_move = _max_move("i_travel")
+    conf_move = _max_move("ii_confined")
+    hum_diff = _hum_factor_diff()
+    dict_flips = _dictionary_verdict_flips()
+
+    travel_preserves = travel_move <= tol
+    conf_moves = conf_move > tol
+    travel_moves = not travel_preserves
+    conf_preserves = not conf_moves
+    distinguish = hum_diff > tol
+
+    if dict_flips:
+        binv = "UNDERDETERMINED"
+        reason = ("the verdict flips between dictionary reading D1 and D2 -- the y0<->A_shear "
+                  "dictionary is the missing structure canon does not supply (prereg scope caveat b).")
+    elif travel_preserves and conf_moves:
+        binv = "CHANNEL-DISCRIMINATOR-DERIVED"
+        reason = ("(i) traveling wave ratio-preserving AND (ii) confined mode moves rho'. KNIFE: the (i) "
+                  "cancellation MUST be a derived theorem or reported unexplained-numerical (weaker grade).")
+    elif travel_preserves and conf_preserves:
+        binv = "SYMMETRIC-BOTH"
+        reason = "both preserve rho' -- no tension-based discriminator; the carrier family dies entirely."
+    elif travel_moves and conf_moves and not distinguish:
+        binv = "ASYMMETRIC-BOTH"
+        reason = ("both MOVE rho' by an INDISTINGUISHABLE hum response (hum_factor diff <= tol) -- the "
+                  "#526 +T/ell denominator remap moves rho' for the traveling wave too, CONFLICTING with "
+                  "canon's #518 s7 radiation null (S_axial=S_shear => rho invariant). SURFACE VERBATIM; "
+                  "flag-don't-fix; Grant adjudicates. The only travel/confined difference is the constant "
+                  "numerator DC-bias S(sqrt alpha) = the pre-existing #518 operating point, NOT a hum "
+                  "discriminator.")
+    elif travel_moves and conf_moves and distinguish:
+        binv = "CHANNEL-DISCRIMINATOR-DERIVED (with-caveat)"
+        reason = ("both move rho' but the hum responses DIFFER (a real discriminator hides in the "
+                  "asymmetry); routes to DERIVED-with-caveat -- the cancellation clause still applies.")
+    else:
+        binv = "UNDERDETERMINED"
+        reason = "outcome not routed by the frozen table (final else, no fall-through)."
+
+    return {
+        "bin": binv, "reason": reason,
+        "travel_max_move": travel_move, "confined_max_move": conf_move,
+        "hum_factor_max_diff_travel_vs_confined": hum_diff,
+        "dictionary_verdict_flips": dict_flips,
+        "travel_preserves": travel_preserves, "conf_moves": conf_moves,
+        "distinguish_hum": distinguish, "tol": tol,
+    }
 
 
 def _write(out: dict) -> None:
@@ -485,9 +574,44 @@ def main() -> int:
         "geometry": {"n_bonds": len(bonds), "ell": ell, "rho": rho},
         "anchors": {"A_y": A_Y, "A_core_sqrt_alpha": A_CORE_SQRT_ALPHA, "rho_cold": RHO_COLD},
     }
-    # sections land one per commit; skeleton exits clean.
+
+    # S1 -- symbolic backbone (exact-zero residuals)
+    out["symbolic_backbone"] = symbolic_backbone()
+    assert out["symbolic_backbone"]["residuals_all_zero"], "SYMPY BACKBONE HAS A NONZERO RESIDUAL"
+
+    # S5 -- positive controls (HALT-gated; each can-fire proven). Run BEFORE reading any verdict.
+    out["positive_controls"] = run_positive_controls(pos, bonds, rho, ell=ell)
+    assert out["positive_controls"]["all_passed"], "A POSITIVE CONTROL FAILED -- no verdict readable"
+
+    # S4 -- both cases through the merged remap
+    out["cases"] = rho_prime_both_cases(pos, bonds, rho, ell=ell)
+
+    # S6 -- bin selection (no fall-through)
+    out["verdict"] = select_bin(out["cases"])
+
+    # per-channel loading table (both cases, both channels) at the tent-edge in-regime bow
+    y0_report = float(out["cases"]["i_travel"]["per_dictionary"]["D1_angle"]["hi_tent"]["y0_in_regime_max"])
+    table = {}
+    for name, A_dc in (("i_travel", 0.0), ("ii_confined", A_CORE_SQRT_ALPHA)):
+        cl = channel_loading(y0_report, A_dc, "D1_angle", ell=ell)
+        table[name] = {
+            "A_dc": A_dc,
+            "AXIAL_numerator_S_axial": cl["S_axial_numerator"],
+            "SHEAR_slot_soft_k_shear_S": cl["k_shear_soft"],
+            "SHEAR_slot_stiff_T_over_ell": cl["T_over_ell_stiff"],
+            "denominator_k_shear_eff": cl["k_shear_eff_denominator"],
+            "rho_prime": cl["rho_prime"],
+        }
+    out["per_channel_loading_table_at_tent_edge"] = {"y0": y0_report, **table}
+
     _write(out)
-    print("skeleton: geometry + anchors written; physics sections land per-commit.")
+    v = out["verdict"]
+    print(f"VERDICT: [{v['bin']}]")
+    print(f"  {v['reason']}")
+    print(f"  travel_max_move={v['travel_max_move']:.6e}  confined_max_move={v['confined_max_move']:.6e}")
+    print(f"  hum_factor_max_diff(travel vs confined)={v['hum_factor_max_diff_travel_vs_confined']:.2e}")
+    print(f"  dictionary_verdict_flips={v['dictionary_verdict_flips']}")
+    print(f"  positive controls all passed: {out['positive_controls']['all_passed']}")
     return 0
 
 
