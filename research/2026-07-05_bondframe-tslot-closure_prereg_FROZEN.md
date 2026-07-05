@@ -1,5 +1,21 @@
 # PREREG (FROZEN) — The bond-frame 2nd-order content of a traveling transverse wave on a CLEAN periodic-ring host: closing the #526 T-slot fork ANALYTICALLY
 
+> ## ↗ ERRATA BANNER (2026-07-05, orchestrator review of PR #533 — banner-append only; the frozen body below is a record, NOT edited)
+> The bin OUTCOME is [CONSTRAINT-DEPENDENT] (this prereg's own bin (iv)), not the [DC-ONLY-DERIVED] the
+> #533 result claimed. The FROZEN bins and adjudication contract below are UNCHANGED and CORRECT — the
+> #533 result mis-routed them (it never ran the cross-host measurement bin (iv) required). Two frozen-body
+> errata, corrected in the result's §CORRECTION (the bins themselves stand):
+> - **§4(a) / §"DERIVED TOLERANCE BANDS" / ledger row 8 — the "O(y₀⁴)~2e-6" kernel-correction ORDER is
+>   WRONG.** Derived post-freeze (sympy): both channels are O(y₀⁶) (tilt −dy⁶/8, tension −dy⁶/48); the
+>   full residual scales as y₀⁶. The physics (kernel negligible) is unchanged; only the order label is 4→6.
+> - **§6 tilt anchor "+0.013969" is mis-cited** — that value is not in #532's result doc (which reports
+>   "+1.40%"); the real anchor is #532's in-branch `tilt_decomposition` = 0.01397, and the honest
+>   truncation band does not cover the static-vs-dynamical discrepancy (the pure-truncation gate fails
+>   honestly — the derivation is validated at order-of-magnitude level instead).
+>
+> See `research/2026-07-05_bondframe-tslot-closure_result.md` §CORRECTION (live verdict) for the full
+> disposition. Correction PR: `fix/533-constraint-dependent-rebin`.
+
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/bondframe-tslot-closure`
 **Prediction module (symbolic, INDEPENDENT):** `src/scripts/vol_1_foundations/bondframe_tslot_predictions.py` (to be scaffolded AFTER this freeze)
 **Driver (numeric ring confirmation, INDEPENDENT path):** `src/scripts/vol_1_foundations/ring_bondframe_probe.py` (to be scaffolded AFTER this freeze)
