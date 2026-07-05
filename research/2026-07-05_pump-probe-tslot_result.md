@@ -1,4 +1,45 @@
-# RESULT — the substrate leads: a traveling pump EXCLUDES the DC-ONLY arm on BOTH keyings; whether it lands ON the EXTENDED arm turns on a shear-channel keying fork. [PRIMARY: EXCLUDES-DC_ONLY (robust) · SECONDARY: NEITHER (keying A) / EXTENDED-CONFIRMED (keying B)]
+# RESULT — [ADJUDICATION-INVALID — LAB-FRAME OBSERVABLE / FORK STILL OPEN]. The measured observable was lab-frame mixed; NO frozen arm is excluded or confirmed at bond-frame level. The real products are the instrument-liveness result, the kinematic-tilt characterization, and the boundary-artifact documentation — a methods result, fork OPEN.
+
+> ## 🔴 SUPERSEDED VERDICT (2026-07-05, orchestrator review of PR #532 — 12 confirmed, 3 CRITICAL, 5 MAJOR, 0 refuted)
+>
+> **The live verdict is [ADJUDICATION-INVALID — LAB-FRAME OBSERVABLE / FORK STILL OPEN], NOT
+> [EXCLUDES-DC_ONLY].** The original body below is PRESERVED (Rule 12) as the record of the
+> invalid adjudication, with the load-bearing false claims corrected here. Rule 11: no rescue —
+> the mechanism DIES, the fork stays OPEN. Summary of what the review verified (all reproduced
+> this session — see §HONEST RE-ANALYSIS):
+>
+> 1. **CRITICAL-1 — the Jensen mechanism is FALSIFIED by my own dynamics.** ~77% of the measured
+>    stiffening is an unmodeled **lab-frame KINEMATIC TILT-PROJECTION** term ⟨Φ''(A)·u_y²⟩ — the
+>    probe feeling the AXIAL spring through the instantaneous bond SLOPE of the wiggling rope. A
+>    **LINEAR chain** (no kernel, no concavity, no Jensen anywhere) reproduces the verdict number
+>    to **2×10⁻⁶** (reproduced: 1.018048 vs 1.018046). The tangent stiffness read AT the
+>    cycle-MEAN configuration is **0.9973 (COLD)** — there is NO deposited DC bias the slow probe
+>    feels; the stiffening lives entirely in the cycle-averaged AC slope oscillation. **RETRACTED:**
+>    the Jensen-deposited-DC mechanism, the "AC deposits DC — yes" clm-acdc07 framing, the PONDER
+>    cross-link, and the #518 fallout row (Rule 12: preserved-struck below, NOT refilled).
+> 2. **CRITICAL-2 — the ⟨A_bond⟩=+0.0045 "deposit" is a BOUNDARY ARTIFACT.** The drive pins
+>    u[0]=0 (Dirichlet), letting the wall exert an arbitrary mean axial force. The cycle-mean
+>    strain at the probe is actually **−0.0026 (pinned)** and **−0.0083 (free drive end)** — it
+>    SIGN-FLIPS and is boundary-concentrated (0.0075 at node 20 → −0.0036 at node 380). **The
+>    +0.0045 bulk-deposit claim is retracted.**
+> 3. **RE-BIN.** The observable was lab-frame mixed while BOTH frozen arms predict BOND-FRAME slot
+>    content; keying-B's [EXTENDED-CONFIRMED] flips to [NEITHER] under the probe-node sweep the doc
+>    itself cited as the dominant residual; the honest band is **~0.5% (window spread 0.0049), not
+>    0.30%**; the keying-A margin is band-edge under the free-end boundary. **No arm is excluded or
+>    confirmed at bond-frame level. The #526 T-slot fork REMAINS OPEN.**
+>
+> **What is PRESERVED (KEEP-BOTH — the real products, a methods result in miniature):**
+> - **Instrument liveness** — the uniform-stretch DC-bias control reads k_s+T/L = 1.078606 == the
+>   merged #526 form to 6 digits. The probe DOES see a genuine BOND-FRAME static tension. (Untouched.)
+> - **The kinematic-tilt characterization** — the dominant channel is real lab-frame kinematic
+>   mixing, present identically in a linear chain, which NEITHER frozen arm modeled. This is the
+>   thing to subtract for a future valid adjudication (§REQUIREMENTS).
+> - **The boundary-artifact documentation** — both boundary configs + the strain profile.
+>
+> Corrected ledger split at the probe (keying A): shear ≈ −0.6 to −0.9% + bond-frame tension
+> +0.45% + **kinematic tilt +1.40%** ≈ +0.87% (the tilt dominates). Keying B: shear **exactly
+> 0.000000** (the keying-B deficit vs EXTENDED is longitudinal relaxation, NOT shear — Flag-3
+> corrected). See §HONEST RE-ANALYSIS for the full reproduction + §REQUIREMENTS for the forward path.
 
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/pump-probe-tslot`
 **Prereg (FROZEN):** `research/2026-07-05_pump-probe-tslot_prereg_FROZEN.md` (committed BEFORE the driver; commit order = freeze proof, 15fdee0a)
@@ -10,6 +51,74 @@
 **Grant directive (verbatim, attributed Grant 2026-07-05):** *"let the vacuum substrate lead the way..."*
 
 ---
+
+## HONEST RE-ANALYSIS (the live result, 2026-07-05, post-review — all reproduced this session)
+
+**Verdict: [ADJUDICATION-INVALID — LAB-FRAME OBSERVABLE / FORK STILL OPEN].** The frozen arms
+(DC_ONLY, EXTENDED) both predict BOND-FRAME slot content (`k_shear_eff = k_s·S(A_shear) + T/ℓ`).
+The measured tangent-stiffness observable `⟨−∂F_y/∂y⟩` is LAB-FRAME: it also feels the AXIAL
+spring through the bond SLOPE, a term neither arm modeled. So the comparison was ill-posed.
+
+**The dominant channel is kinematic, not Jensen (CRITICAL-1, reproduced):**
+- A **LINEAR chain** (axial force `= k_a·(L−1)`, NO kernel, NO concavity, constant shear spring)
+  gives pump ratio **1.018048** vs the nonlinear keying-B **1.018046** — agreement to **2×10⁻⁶**.
+  If the effect were Jensen rectification (which requires the concave kernel), the linear chain
+  would give nothing. It gives the whole thing. **The effect is a lab-frame kinematic
+  tilt-projection**, present identically with no nonlinearity.
+- Reading the tangent stiffness AT the cycle-MEAN configuration: **0.997355 (COLD**, in fact
+  slightly below). There is **no deposited DC bias** the slow probe feels; the +0.87%/+1.80%
+  lives entirely in the cycle-averaged AC slope oscillation `⟨Φ''(A)·u_y²⟩`.
+- Channel decomposition at the probe (reproduced): keying A shear ≈ −0.6% + bond-frame tension
+  +0.45% + **kinematic tilt +1.40%**; keying B shear **exactly 0.000000** + tension +0.44% + tilt
+  +1.40% = +1.80%. **The tilt dominates (~77% of the keying-B signal).**
+
+**The ⟨A_bond⟩ deposit is a boundary artifact (CRITICAL-2, reproduced):**
+- Cycle-mean strain at the probe: **−0.002646** (pinned drive end, u[0]=0 Dirichlet) →
+  **−0.008319** (free drive end). It SIGN-FLIPS and is boundary-concentrated (profile [node
+  20,100,200,380] = [+0.0075, +0.0011, −0.0026, −0.0036], a 3.7× gradient toward the pin). The
+  Dirichlet wall exerts an arbitrary mean axial force. **The +0.0045 bulk-deposit is retracted.**
+
+**Honest band (RE-BIN grounds):** the pump ratio vs n_periods {160,200,240,280} = {1.0130,
+1.0087, 1.0136, 1.0087}, spread **0.0049 (~0.5%)** — NOT window-converged; the honest band is
+~0.5–0.66% (window non-convergence + drive-boundary + absorber systematics), not the 0.30% the
+original claimed. Keying-B's EXTENDED "confirmation" (0.24% margin) is inside this honest band,
+and flips to [NEITHER] under the probe-node sweep. **No arm is excluded or confirmed at
+bond-frame level. The #526 T-slot fork REMAINS OPEN.**
+
+**What survives (KEEP-BOTH):**
+- **Instrument liveness** (untouched): the uniform-stretch DC-bias control = merged #526 form
+  k_s+T/L = 1.078606 to 6 digits — the probe sees a genuine BOND-FRAME static tension.
+- **The kinematic-tilt characterization** — the term to SUBTRACT for a valid adjudication.
+- **The boundary-artifact documentation** — both configs + the profile.
+
+---
+
+## REQUIREMENTS FOR A FUTURE VALID ADJUDICATION (the forward value of this arc)
+
+A valid engine adjudication of the #526 T-slot fork must have, all of which this arc lacked:
+
+1. **A BOND-FRAME observable** — measure the slot content `k_s·S(A_shear) + T/ℓ` in the bond's
+   own frame, NOT the lab-frame tangent stiffness (which mixes in the axial spring via the bond
+   slope). The kinematic tilt term ⟨Φ''(A)·u_y²⟩ characterized here is precisely what must be
+   subtracted.
+2. **A genuinely DYNAMICAL probe with pump back-reaction** — the prereg-FROZEN slow weak probe
+   WAVE (phase velocity through the pumped region), NOT a frozen-configuration finite-difference
+   on snapshots (which omits the pump's response to the probe). See the prereg erratum.
+3. **Momentum-closed or free boundaries with the ledger CLOSING** — not a Dirichlet pin that
+   lets the wall inject an arbitrary mean axial force (CRITICAL-2). Report the mean-force ledger.
+4. **Hamiltonian-consistent keyings only** — keying A as coded is non-Hamiltonian (Ax3-lossless
+   violated in the bulk; MAJOR-b); a valid arm must derive the shear saturation from a potential.
+5. **Systematics-honest bands** — window-convergence + boundary + absorber + chain-length sweeps,
+   with the band ABOVE the demonstrated residual floor (the honest ~0.5–0.66% here, not 0.30%).
+
+**Follow-on derivation candidate (NOT this scope):** on a LINEAR chain the entire effect is
+kinematic — so the bond-frame slot content may be derivable ANALYTICALLY by subtracting the
+now-characterized tilt term. A linear-chain analytic subtraction is a candidate shortcut to the
+valid adjudication.
+
+---
+
+<details><summary>🔴 PRESERVED (Rule 12) — the original [EXCLUDES-DC_ONLY] body, INVALID. Read as the record of the invalid adjudication; the live corrections are above.</summary>
 
 ## VERDICT BOX
 
@@ -333,3 +442,22 @@ auditor lane lands the manual entries.
 - Jensen-rectification chain: `manuscript/ave-kb/vol4/claim-quality.md:263`
 - SPICE lane charter (DC→AC sibling): `_orchestration/2026-07-03_spice-lane-charter.md:243`
 - T2 homonym guard: `resonant-lc-solitons.md:95,:128` (A1⊥T2, Grant-ratified 2026-06-14)
+
+</details>
+
+---
+
+## CORRECTED FALLOUT / AUDITOR-QUEUE (live, post-review — supersedes the preserved rows above)
+
+| Site | Corrected disposition |
+|---|---|
+| **#526 prestress T-slot scope fork** | **STILL OPEN.** This arc does NOT adjudicate it — the observable was lab-frame mixed. The dynamics EXCLUDE neither arm at bond-frame level. A valid adjudication needs the §REQUIREMENTS list (bond-frame observable, dynamical probe, closed boundaries, Hamiltonian keyings, honest bands). |
+| **#518 §7 radiation null** (`matter-stiffening-rho_result.md:37,:146`) | **UNTOUCHED — the null STANDS.** 🔴 RETRACTED the prior "up-for-revision on the 2nd-order strain moment" row: the ⟨A_bond⟩>0 "deposit" was a boundary artifact (sign-flips to −0.0083 with a free end; cycle-mean reads COLD). #518's null rests on TWO independent legs — the ⟨A⟩=0 field mean AND the **⟨A²⟩ channel-SYMMETRY argument** (`matter-stiffening-rho_result.md:149`: a pure AC field drives BOTH grades with the same ⟨A²⟩, so ρ_eff is symmetric-invariant). Both survive this arc untouched. NO revision warranted. |
+| **PONDER-01 Jensen chain** (`claim-quality.md:263`) | 🔴 RETRACTED the cross-link. This arc's stiffening is kinematic tilt, NOT Jensen (a linear chain reproduces it to 2e-6). No Jensen realization is claimed. |
+| **clm-acdc07 "AC deposits DC — yes"** | 🔴 RETRACTED. The cycle-mean config reads COLD; no DC is deposited. This arc says nothing about AC→DC deposition. |
+| **#529 [RADIATION-CONTAMINATED]** | **UNCHANGED / independent.** This arc does not bear on #529 (the corroboration claim rested on the retracted ⟨A_bond⟩ deposit). #529 stands on its own record. |
+| **The instrument-liveness result** | **KEEP (the real product):** the uniform-stretch probe reads the merged #526 bond-frame form to 6 digits — a live bond-frame tension readout. |
+| **The kinematic-tilt characterization + boundary-artifact documentation** | **KEEP (the real products):** the tilt term to subtract, both boundary configs, the strain profile. |
+
+**Rule 12 note:** no slot is refilled with a new mechanism. The fork returns to OPEN; the forward
+path is the §REQUIREMENTS list, not a new hypothesis.
