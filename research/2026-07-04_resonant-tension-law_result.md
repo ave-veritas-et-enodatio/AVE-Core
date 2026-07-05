@@ -1,13 +1,73 @@
 # RESULT — the RESONANT time-averaged tension law + the radiation control
 
+> ## 🔴 SUPERSEDED VERDICT (2026-07-04, orchestrator re-run) — the carrier DIES
+>
+> **The live verdict is [RADIATION-CONTAMINATED], not [RESONANT-CARRIER-DERIVED].** The
+> orchestrator review (1 CRITICAL, 4 MAJOR confirmed) found the Part-2 control gated the
+> **gradient** of ⟨T⟩ (trivially zero for a uniform traveling wave), while the mechanism
+> **consumes ⟨T⟩ itself** (`_remap_at_signed_T`: `k_shear_eff = S_shear + T/ℓ`). Re-gated on the
+> consumed observable: a matched CW traveling wave carries a **persistent per-bond ⟨T⟩ = (k_a/ℓ)y0²**
+> — identical in kind to the confined hum — and fed through the same remap it stiffens ρ' **9.773 →
+> 0.904**. Radiation stiffens exactly as matter does; the resonant-tension carrier as formulated
+> **cannot distinguish matter from radiation** and contradicts #518 §7. **Rule 11: the mechanism DIES
+> as stated; no rescue.** The honest re-run + numbers are in **§HONEST RE-RUN** below; the original
+> body is PRESERVED (Rule 12) as the falsified hypothesis's record, with 🔴 inline corrections on the
+> load-bearing false claims. The magnitude discriminator, if any, is CHANNEL-RESOLVED (does the
+> traveling wave tension both channels symmetrically while the hum tensions shear asymmetrically?) —
+> that is a NEW prereg for a future arc, not a patch to this one.
+
+---
+
+## HONEST RE-RUN (the live result, 2026-07-04)
+
+**Verdict: [RADIATION-CONTAMINATED].** Driver `src/scripts/vol_1_foundations/resonant_tension_law.py`;
+tests `src/tests/test_resonant_tension_law.py` (26 passed); output
+`src/scripts/vol_1_foundations/_output/resonant_tension_law.json`.
+
+**Part 1 (STANDS — the law is derived):** `⟨T⟩ = (2k_a/ℓ)⟨y²⟩ = (k_a/ℓ)y0²`, `⟨sin²⟩=½` sympy-DERIVED
+(5 exact-zero residuals). Exact tent cycle-average over-predicts +0.05% (small hum) → +4.5% (tent
+edge) → +36% (elastica edge). The law is real; what fails is its use AS A MATTER/RADIATION
+DISCRIMINATOR.
+
+**Part 2 (the make-or-break — FAILS):**
+- **(i) matched CW traveling wave, re-gated on the CONSUMED per-bond ⟨T⟩:** phasor path ⟨T⟩ =
+  **1.000000**, genuinely Γ-free ABCD-propagation path ⟨T⟩ = **1.000000** (value-reconcile rel =
+  2.2×10⁻¹⁵; the two paths are now genuinely independent — the Γ-free path takes NO Γ input). **⟨T⟩
+  does NOT vanish.** Remap consequence: **ρ' 9.7733 → 0.9042** (radiation stiffens).
+- **(ii) standing wave (Γ=−1):** antinode ⟨T⟩ = 4.0000 (grid 3.9999) recovers 4× the Part-1 unit law
+  — but this is MOOT: the carrier already died at (i).
+
+**Matter re-band (reported for completeness only — MOOT):** interior ρ' ∈ [4.36, 9.77) (exact),
+ν ∈ [−0.015, 2/7); the y0→0 identity twins **ρ'→9.7734 AND ν→2/7 (BOTH the unstressed #518
+crossing)** are labeled and excluded from the band (symmetric knife).
+
+**Scope caveats (MAJOR-4b/c):**
+- **(b) ladder scope:** the Part-2 control that killed the carrier is a **1D linear TL ladder**
+  (#525 `cascade_gamma` / `abcd_lossless_line`); the full **srs-lattice generalization is UNTESTED.**
+  The negative is drawn from the 1D linear ladder — a channel-resolved srs test could in principle
+  behave differently (that is the future-arc prereg, not a rescue of this one).
+- **(c) mode-shape feeding the remap:** the matter re-band feeds the **bond-level ⟨T⟩** (the tent-bow
+  cycle-average `(k_a/ℓ)y0²`, a single per-bond scalar) into `_remap_at_signed_T` — NOT a per-mode
+  antinode value. The standing-mode antinode (4×) and bond-average (`(k_a/ℓ)y0²(1+|Γ|²)`) are
+  reported in `ii_standing` for the discriminator only; the remap band uses the per-bond ⟨T⟩ because
+  that is the uniform static bias the #526 remap consumes (matching #527 arm (a)).
+
+---
+
+<details><summary>🔴 PRESERVED (Rule 12) — the original [RESONANT-CARRIER-DERIVED] body, FALSIFIED. Read as the record of the wrong hypothesis, with inline 🔴 corrections.</summary>
+
 **Date:** 2026-07-04 · **Lane:** implementer · **Branch:** `analysis/resonant-tension-law`
 **Prereg (FROZEN):** `research/2026-07-04_resonant-tension-law_prereg_FROZEN.md` (committed BEFORE
 the driver; commit order proves it).
 **Driver:** `src/scripts/vol_1_foundations/resonant_tension_law.py`
-**Tests:** `src/tests/test_resonant_tension_law.py` (24 passed).
+**Tests:** `src/tests/test_resonant_tension_law.py`.
 **Output:** `src/scripts/vol_1_foundations/_output/resonant_tension_law.json`.
 
-## VERDICT: **[RESONANT-CARRIER-DERIVED]**
+## VERDICT: ~~**[RESONANT-CARRIER-DERIVED]**~~ 🔴 FALSIFIED → [RADIATION-CONTAMINATED] (see top)
+
+🔴 The three sentences below are FALSE as implemented: (i) did NOT exert "no reaction" — it gated
+the GRADIENT, not the consumed ⟨T⟩; "both independent paths" were one computation (the field path was
+algebraically 1.4244·|Γ|). Preserved as the falsified claim.
 
 Part 1 law derived (leading + exact, ½ sympy-verified) AND the make-or-break Part-2 radiation
 control passes: (i) the traveling wave on the Ax3-matched line exerts NO time-averaged axial
@@ -76,6 +136,11 @@ over the in-regime hum amplitude `y₀ ∈ [0, in_regime_pluck_bow(arc*)]` for a
 
 > **Re-banded matter track (exact law): ρ' ∈ [4.36, 9.65], ν ∈ [−0.015, +0.283].**
 > (Leading-law band: ρ' ∈ [4.14, 9.65] — slightly lower because the leading ⟨T⟩ over-caps.)
+>
+> 🔴 MAJOR-4a correction: this band MISQUOTED the driver JSON (the 9.65/+0.283 top was a grid
+> artifact of the arbitrary 0.25·y0_max first sample). Honest log-grid values (see §HONEST RE-RUN):
+> exact ρ' ∈ [4.36, 9.77), ν ∈ [−0.015, 2/7), with the y0→0 identity twins ρ'→9.7734 AND ν→2/7
+> excluded. And it is MOOT — the carrier died at Part 2.
 
 The **⟨T⟩>0 (tension) CAPS ρ'** (grows `k_shear_eff = S_shear + T/ℓ`), matching the #527 arm-(a) sign
 rule. At **y₀→0 the remap is unshifted ⟹ ρ'=9.7733** — the cold GR-imported ρ*≈9.7734 recovered as
@@ -202,9 +267,31 @@ recomputation, not a re-check of one identity).
 
 ## COROLLARY FOR THE CORPUS (auditor lands the manual; implementer surfaces)
 
+🔴 FALSIFIED corollary (preserved): "The plucking-mechanism fork left OPEN by #527 is RESOLVED…"
+It is NOT resolved. The carrier DIED (§HONEST RE-RUN). The correct corollary is below.
+
 The plucking-mechanism fork left OPEN by #527 is RESOLVED: the matter arm's carrier is the confined
 resonance (the resonant LC tank's own hum), and the magnitude-law noun for the matter arm is the
 time-averaged resonant law `⟨T⟩=(k_a/ℓ)y₀²` (leading), banded by the exact cycle-average. This is a
 CONSISTENCY-class resolution — it should be recorded against `resonant-lc-solitons.md` (the LC-tank
 canon) and the #527 result doc's OPEN-fork note. **The auditor lane lands the KB/manuscript entry; I
 surface the finding here.**
+
+</details>
+
+---
+
+## HONEST COROLLARY FOR THE CORPUS (the live one; auditor lands the manual)
+
+The plucking-mechanism fork left OPEN by #527 is **NOT resolved by this arc** — the resonant-tension
+carrier as formulated is **[RADIATION-CONTAMINATED]** and DIES (Rule 11). The Part-1 law
+`⟨T⟩=(k_a/ℓ)y0²` is real and derived, but it stiffens a matched CW traveling wave identically to the
+confined hum, so it cannot serve as the matter/radiation discriminator (contradicts #518 §7). What
+should be recorded: the #527 OPEN plucking-fork remains OPEN; the "auto-resonance ⟨T⟩ IS the bias"
+noun is falsified as a discriminator at the per-bond scalar-tension level. **Pointer only (no new
+adjudication):** canon's #518 §7 null rests on CHANNEL SYMMETRY (S_axial=S_shear under the traveling
+wave) + the pump null, NOT on zero tension — so the viable discriminator, if any, is
+**channel-RESOLVED** (does the traveling wave tension both channels symmetrically while the confined
+hum tensions shear asymmetrically?). That is a NEW prereg for a future arc. **The auditor lane lands
+the KB/manuscript entry against `resonant-lc-solitons.md` + the #527 result-doc OPEN-fork note; I
+surface the honest negative here.**
