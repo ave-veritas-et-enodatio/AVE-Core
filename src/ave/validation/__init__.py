@@ -6,7 +6,7 @@ one driver after another — into a single reusable library, so every future
 null/disperse/does-not-exist verdict passes the SAME certified guards before it is
 believed. Each utility carries its live-fire provenance in its module docstring.
 
-The five guards, and the failure each retires:
+The six guards, and the failure each retires:
 
   (a) planted_source       — positive-control runner: push a KNOWN-nonzero signal
                              through the SAME pipeline callable and assert the
@@ -30,6 +30,15 @@ The five guards, and the failure each retires:
   (e) spectral_liveness     — re-export of ave.solvers.spectral_liveness (already a
                              first-class module): the seed's nullspace-energy
                              fraction read BEFORE its persistence verdict.
+  (f) reconcile_gate        — a claimed quantity vs an INDEPENDENT recomputation
+                             (different code path, NOT the defining identity) at a
+                             registered tolerance, with a can-fire self-test that
+                             injects a synthetic discrepancy and asserts the
+                             DISCREPANT-HALT triggers. Retires the checklist-
+                             masquerading-as-a-gate failure caught by adversarial
+                             review in THREE consecutive arcs (#521 dead-else,
+                             #526 unreachable halt, #527 identity-recheck).
+                             Live-fire: the #527 fix-round independent ν-reconcile.
 
 α-CLEAN: this package imports NO physical constant on its own path. The
 equation-audit guard NAMES forbidden constants (as strings to scan for) but never
@@ -48,6 +57,14 @@ from ave.validation.planted_source import (
     PlantedSourceResult,
     planted_source_control,
     project_out_nullspace,
+)
+from ave.validation.reconcile_gate import (
+    DeadGateError,
+    DiscrepantHalt,
+    ReconcileGate,
+    ReconcileGateResult,
+    assert_reconciled,
+    reconcile,
 )
 from ave.validation.runtime_independence import (
     RuntimeIndependenceResult,
@@ -87,4 +104,11 @@ __all__ = [
     "spectral_liveness",
     "localized_eigenmode",
     "SpectralLiveness",
+    # (f) reconcile-gate
+    "ReconcileGate",
+    "ReconcileGateResult",
+    "DiscrepantHalt",
+    "DeadGateError",
+    "reconcile",
+    "assert_reconciled",
 ]

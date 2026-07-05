@@ -318,17 +318,38 @@ def run_positive_controls(pos, bonds, rho) -> dict:
     #     fact -- prestress(k_a, k_s, T) == cold(k_a, k_s + T/l) bit-exactly, because (T/l)(I-P) has
     #     the SAME PROJECTOR STRUCTURE as the shear spring k_s(I-P). This is what proves the tensor
     #     never leaves the cold one-parameter family (the corrected mechanism). srs bond length is
-    #     uniform (l=1), so a single scalar shift works. HALT-gate. ---------------------------------
+    #     uniform (l=1), so a single scalar shift works. HALT-gate.
+    #     RETROFIT (reconcile-gate helper, follow-on flagged in the #527 fix round): the comparison
+    #     now runs through ave.validation.ReconcileGate. claimed = the prestressed tensor
+    #     (extract_prestress_Cij); independent = the cold tensor at the shifted spring
+    #     (extract_cubic_Cij -- a DIFFERENT assembler, the #527-fix reference pattern, NOT the
+    #     defining identity). prove_can_fire() live-fire proves the halt plumbing each run (raises
+    #     DeadGateError loudly if the gate has gone dead); the PASS aggregation and 1e-9 criterion
+    #     are unchanged, so the merged [MAP-DEFORMED] verdict flow is untouched. -------------------
+    from ave.validation import ReconcileGate
+
     from scripts.vol_1_foundations.srs_elastic_tensor import extract_cubic_Cij  # (already imported)
     ell_srs = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))
     ell_unique = sorted(set(round(float(np.linalg.norm(d)), 12) for (_, _, d) in bonds))
     vs4_cases = []
     vs4_ok = bool(len(ell_unique) == 1)  # uniform bond length is required for a single scalar shift
-    for (ka, ks, T) in [(0.996345, 0.10194, 0.08532), (9.7734, 1.0, 0.3), (0.5, 0.9, 0.7850)]:
+    vs4_can_fire = None
+    for i, (ka, ks, T) in enumerate([(0.996345, 0.10194, 0.08532), (9.7734, 1.0, 0.3), (0.5, 0.9, 0.7850)]):
         pre = extract_prestress_Cij(pos, bonds, k_axial=ka, k_shear=ks, T_per_bond=T, rho=rho)
-        cold = extract_cubic_Cij(pos, bonds, k_axial=ka, k_shear=ks + T / ell_srs, rho=rho)
-        err = max(abs(pre[k] - cold[k]) / (abs(cold[k]) + 1e-30) for k in ("C11", "C12", "C44"))
-        ok = bool(err < 1e-9)
+        gate = ReconcileGate(
+            label=f"VS4_exact_collapse k_a={ka} k_s={ks} T={T}",
+            claimed=np.array([pre[k] for k in ("C11", "C12", "C44")]),
+            independent=lambda ka=ka, ks=ks, T=T: np.array(
+                [extract_cubic_Cij(pos, bonds, k_axial=ka, k_shear=ks + T / ell_srs, rho=rho)[k]
+                 for k in ("C11", "C12", "C44")]),
+            rtol=1e-9,
+        )
+        if i == 0:
+            # one liveness proof per run: the comparator+halt plumbing is shared by every case
+            vs4_can_fire = bool(gate.prove_can_fire().can_fire_proven)
+        res = gate.check()
+        err = res.max_rel_discrepancy
+        ok = bool(res.passed)
         vs4_ok = vs4_ok and ok
         vs4_cases.append({"k_a": ka, "k_s": ks, "T": T, "k_s_shifted": ks + T / ell_srs,
                           "prestress_vs_cold_shifted_rel_err": err, "PASS": ok})
@@ -339,6 +360,12 @@ def run_positive_controls(pos, bonds, rho) -> dict:
         "has the same projector structure as the shear spring, so the pre-stress is a SHIFTED SHEAR "
         "SPRING, NOT a new tensor family. The Born-Huang degree-1 homogeneity is INTACT; only #521's "
         "dictionary rho_eff=S_ax/S_shear breaks (the true coordinate is rho'=S_ax/(S_shear+T/l)).",
+        "reconcile_gate": {
+            "library": "ave.validation.ReconcileGate", "rtol": 1e-9,
+            "independent_reference": "extract_cubic_Cij at k_s+T/l (different assembler, not the "
+            "defining identity)",
+            "selftest_can_fire_proven": vs4_can_fire,
+        },
         "PASS": vs4_ok,
     }
 
@@ -637,6 +664,8 @@ def main():
           f"{'PASS' if pc['PC3_homogeneity_T0']['PASS'] else 'FAIL'}")
     print(f"  VS4 exact-collapse (prestress == cold at shifted shear spring): "
           f"{'PASS' if pc['VS4_exact_collapse_to_shifted_shear_spring']['PASS'] else 'FAIL'}")
+    print(f"  VS4 reconcile-gate can-fire self-test (synthetic discrepancy fired the halt): "
+          f"{'PROVEN' if pc['VS4_exact_collapse_to_shifted_shear_spring']['reconcile_gate']['selftest_can_fire_proven'] else 'FAIL'}")
     print(f"  ALL_PASS = {pc['ALL_PASS']}")
     if not pc["ALL_PASS"]:
         print("\nHALT: positive controls FAILED — pre-stress insertion wrong; no verdict.")

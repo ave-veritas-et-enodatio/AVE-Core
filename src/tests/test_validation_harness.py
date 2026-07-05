@@ -35,6 +35,9 @@ def test_all_guards_exported():
         "audit_solve_path",
         "spectral_liveness",
         "localized_eigenmode",
+        "ReconcileGate",
+        "reconcile",
+        "assert_reconciled",
     ):
         assert hasattr(V, name), f"ave.validation must export {name}"
 
@@ -241,3 +244,91 @@ def test_equation_audit_scan_strips_comments_and_docstrings(tmp_path):
     g.write_text("from ave.core.constants import ALPHA\ny = ALPHA * 2\n")
     hits2 = scan_forbidden_constants([Path(g)])
     assert any("ALPHA" in h for h in hits2), "a real import+use must be flagged"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# (f) reconcile-gate — claim vs INDEPENDENT recompute; the halt MUST be able to fire
+# ─────────────────────────────────────────────────────────────────────────────
+def test_reconcile_gate_passes_on_true_reconcile():
+    """POSITIVE: a claim that agrees with a genuinely different-code-path
+    recomputation (trace vs eigenvalue sum) reconciles; the can-fire proof runs
+    first and is recorded on the result."""
+    A = np.random.default_rng(5).standard_normal((6, 6))
+    A = A + A.T
+    gate = V.ReconcileGate(
+        label="trace_vs_eigsum",
+        claimed=float(np.trace(A)),
+        independent=lambda: float(np.sum(np.linalg.eigvalsh(A))),
+        rtol=1e-10,
+        atol=1e-12,
+    )
+    res = gate.enforce()  # prove_first=True default: liveness proven, THEN reconciled
+    assert res.passed
+    assert res.can_fire_proven
+    assert res.max_rel_discrepancy < 1e-10
+
+
+def test_reconcile_gate_halts_on_discrepancy():
+    """NEGATIVE: a claim that disagrees with its independent recomputation must
+    raise the loud DISCREPANT-HALT (hard path) and report not-passed (soft path)."""
+    from ave.validation import DiscrepantHalt
+
+    with pytest.raises(DiscrepantHalt):
+        V.assert_reconciled(6.5, lambda: 6.3, rtol=1e-9, label="corrupted_claim")
+
+    soft = V.reconcile(6.5, 6.3, rtol=1e-9, label="corrupted_claim_soft")
+    assert not soft.passed
+    assert soft.max_rel_discrepancy > 1e-2
+
+
+def test_reconcile_gate_selftest_proves_can_fire():
+    """POSITIVE (self-test): prove_can_fire injects a synthetic discrepancy through
+    the SAME comparator+halt path and confirms the halt triggers — including for an
+    exact-equality gate (rtol=atol=0)."""
+    gate = V.ReconcileGate(label="live_plumbing", claimed=1.0, independent=1.0, rtol=1e-9)
+    proof = gate.prove_can_fire()
+    assert proof.passed and proof.can_fire_proven
+
+    exact = V.ReconcileGate(label="exact_equality", claimed=1.0, independent=1.0, rtol=0.0)
+    assert exact.prove_can_fire().can_fire_proven
+
+
+def test_reconcile_gate_detects_dead_gate(monkeypatch):
+    """NEGATIVE (self-test — THE #521/#526/#527 defect): a comparator that can
+    never report disagreement must be caught by prove_can_fire as DeadGateError.
+    Simulated by deadening the comparator, standing in for any future edit that
+    makes the halt unreachable or algebraically incapable of firing."""
+    import ave.validation.reconcile_gate as rg
+
+    monkeypatch.setattr(rg, "_compare", lambda x, y, rtol, atol: (True, 0.0, 0.0, int(x.size)))
+    gate = rg.ReconcileGate(label="deadened", claimed=1.0, independent=1.0, rtol=1e-9)
+    with pytest.raises(rg.DeadGateError):
+        gate.prove_can_fire()
+
+
+def test_reconcile_gate_rejects_vacuous_tolerance():
+    """NEGATIVE (registration): an infinite/NaN/negative tolerance is a checklist
+    by construction — registration must refuse it."""
+    for bad in (float("inf"), float("nan"), -1e-9):
+        with pytest.raises(ValueError):
+            V.ReconcileGate(label="vacuous", claimed=1.0, independent=1.0, rtol=bad)
+        with pytest.raises(ValueError):
+            V.ReconcileGate(label="vacuous", claimed=1.0, independent=1.0, rtol=1e-9, atol=bad)
+
+
+def test_reconcile_gate_nan_and_shape_mismatch_never_reconcile():
+    """NEGATIVE (rubber-stamp guards): a NaN claim or a shape-mismatched pair must
+    never read as reconciled (NaN comparisons are False, not silently true)."""
+    assert not V.reconcile(float("nan"), 1.0, rtol=1e-9).passed
+    assert not V.reconcile(np.ones(2), np.ones(3), rtol=1e-9).passed
+
+
+def test_reconcile_gate_soft_path_surfaces_evaluation_error():
+    """A reference that cannot be computed is surfaced as an error string on the
+    soft path (never a silent pass); the hard path lets the exception propagate."""
+    res = V.reconcile(lambda: 1 / 0, 1.0, rtol=1e-9, label="broken_claim")
+    assert not res.passed
+    assert isinstance(res.reconciled, str) and "error" in res.reconciled
+
+    with pytest.raises(ZeroDivisionError):
+        V.assert_reconciled(lambda: 1 / 0, 1.0, rtol=1e-9, prove_first=False)
