@@ -188,3 +188,23 @@ resolution. The re-banded matter-track ρ'/ν edges are reported as bands, never
   EXPECTED (Maxwell/radiation recovery is mandatory, #518 §7), so (i)→0 is a REQUIRED consistency
   pass, NOT a falsifiable framework negative. The falsifiable content is the ASYMMETRY: (i)=0 while
   (ii)≠0. A failure of that asymmetry (RADIATION-CONTAMINATED) is the real negative.
+
+---
+
+<!-- FOOT-NOTE (2026-07-04, orchestrator re-run; appended at foot so it shifts NO body line
+numbers — cites index this prereg by line). The BINS above stay FROZEN and are UNCHANGED. Only the
+(i) OBSERVABLE they read was corrected, which is NOT a bin edit:
+
+  🔴 OBSERVABLE CORRECTION (CRITICAL): this frozen prereg named the (i) observable as the "net axial
+  reaction / momentum-flux GRADIENT (|inc|²−|ref|²)" (lines ~105,115-118,127,131,162,175). That was
+  the WRONG observable — the gradient is trivially zero for a uniform traveling wave, but the
+  mechanism CONSUMES the per-bond ⟨T⟩ itself (_remap_at_signed_T: k_shear_eff=S_shear+T/ℓ). The
+  driver + result doc re-gate (i) on the CONSUMED per-bond ⟨T⟩. Re-gated, (i) does NOT vanish (the
+  matched CW traveling wave carries a persistent ⟨T⟩), routing the SAME frozen bins to
+  [RADIATION-CONTAMINATED]. See research/2026-07-04_resonant-tension-law_result.md §HONEST RE-RUN.
+
+  🔴 INDEPENDENCE CORRECTION (MAJOR-1): the prereg promised a "Γ-free abcd_lossless_line" independent
+  path (lines ~114-118); the original driver imported but never called it, and the field path it did
+  use was algebraically 1.4244·|Γ| (the SAME Γ). The re-run builds the genuinely Γ-free
+  ABCD-propagation path (field_from_abcd_propagation); the reconcile is now a real value-reconcile. -->
+
