@@ -175,9 +175,61 @@ def symbolic_backbone() -> dict:
 # ---------------------------------------------------------------------------------------
 # (S2) PER-CHANNEL LOADING -- the axial numerator + the shear-adjacent denominator, both waves
 # ---------------------------------------------------------------------------------------
-def channel_loading(y0: float, A_dc: float, dictionary: str, ell: float = 1.0) -> dict:
-    """Placeholder -- lands after the symbolic backbone."""
-    raise NotImplementedError("channel_loading lands after S1")
+def _mean_A_shear2(y0: float, dictionary: str, ell: float) -> float:
+    """Time-averaged shear-channel deformation <A_shear^2> from the y0<->A_shear dictionary.
+
+    The dictionary is UNDERDETERMINED by canon (prereg scope caveat b) -- both readings run
+    (KEEP-BOTH). On srs ell=1 they COINCIDE; they diverge only if ell != 1.
+      D1 (bond-angle):        A_shear = y0/ell  -> <A_shear^2> = (y0/ell)^2 / 2
+      D2 (displacement-direct): A_shear = y0    -> <A_shear^2> = y0^2 / 2
+    """
+    if dictionary == "D1_angle":
+        return (y0 / ell) ** 2 / 2.0
+    if dictionary == "D2_displacement":
+        return y0**2 / 2.0
+    raise ValueError(f"unknown dictionary {dictionary!r}")
+
+
+def channel_loading(y0: float, A_dc: float, dictionary: str, ell: float = 1.0,
+                    k0: float = 1.0) -> dict:
+    """The three per-channel remap inputs at FULL-KERNEL precision (not the truncated series),
+    for a given transverse hum amplitude y0 and axial DC bias A_dc, under one dictionary.
+
+    Per Grant 2026-07-05 (Q-point ruling), no-double-count:
+      - NUMERATOR  (axial):  S_axial = saturation_factor(A_dc)  -- keyed on the DC deformation ONLY.
+                             The hum y0 does NOT enter (axial deform oscillation 4th-order, S1 proof).
+                             Radiation: A_dc=0 -> S_axial=1 (cold). Confined: A_dc=sqrt(alpha).
+      - DENOMINATOR (shear-adjacent), TWO competing terms:
+          soft:  k0 * S_shear, S_shear = saturation_factor(sqrt(<A_shear^2>))  -- <A^2>-keyed, SOFTENING.
+                 The effective time-averaged shear stiffness under a <A>=0 hum with RMS^2=<A_shear^2>.
+          stiff: +T/ell, T = resonant_tension_leading(y0) = (k0/ell) y0^2  -- geometric, STIFFENING,
+                 the #529 Part-1 law IMPORTED (NOT re-derived). This is a STRESS -> denominator ONLY.
+
+    Returns the pieces AND the assembled k_shear_eff = k0*S_shear + T/ell (the remap denominator).
+    NB: S_shear is evaluated at the RMS deformation sqrt(<A_shear^2>) -- this is the full-kernel
+    value the small-signal 2nd-order series (S1) approximates; the two are reconciled in PC-denominator.
+    """
+    # NUMERATOR -- axial S at the DC bias only (no-double-count; hum excluded)
+    S_axial = float(saturation_factor(A_dc, yield_limit=A_Y))
+
+    # DENOMINATOR soft -- shear S at the time-averaged RMS deformation of the transverse hum
+    A_shear_rms = float(np.sqrt(_mean_A_shear2(y0, dictionary, ell)))
+    S_shear = float(saturation_factor(A_shear_rms, yield_limit=A_Y))
+
+    # DENOMINATOR stiff -- the #529 Part-1 geometric tension (IMPORTED), a STRESS
+    T = float(resonant_tension_leading(y0, k_a=k0, ell=ell))  # = (k0/ell) y0^2
+
+    k_shear_eff = k0 * S_shear + T / ell
+    rho_prime = (S_axial / k_shear_eff) if k_shear_eff > 0 else float("inf")
+    return {
+        "y0": y0, "A_dc": A_dc, "dictionary": dictionary, "ell": ell,
+        "A_shear_rms": A_shear_rms,
+        "S_axial_numerator": S_axial,
+        "S_shear_soft": S_shear, "k_shear_soft": k0 * S_shear,
+        "T_stiff": T, "T_over_ell_stiff": T / ell,
+        "k_shear_eff_denominator": k_shear_eff,
+        "rho_prime": rho_prime,
+    }
 
 
 # ---------------------------------------------------------------------------------------
