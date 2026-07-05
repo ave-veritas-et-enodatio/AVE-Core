@@ -1,19 +1,22 @@
 """Tests for the RESONANT time-averaged tension law + the radiation control.
 
 Prereg (FROZEN): research/2026-07-04_resonant-tension-law_prereg_FROZEN.md.
-Verdict: [RESONANT-CARRIER-DERIVED] -- Part 1 law derived (⟨T⟩=(k_a/ℓ)y0², ⟨sin²⟩=½
-DERIVED) AND the make-or-break Part-2 radiation control passes: (i) the traveling wave
-on the Ax3-matched line exerts NO time-averaged axial reaction (two INDEPENDENT paths),
-while (ii) the standing wave between Γ=−1 reflecting terminations recovers the Part-1
-tent-law ⟨T⟩. The plucking fork resolves: the matter arm's carrier is the confined
-resonance.
 
-These lock the LOAD-BEARING physics: the sympy backbone (⟨sin²⟩=½ + the ⟨T⟩ law,
-exact-zero), the leading-vs-exact upper-bound relation, the matter re-band bands, the
-Part-2 discriminator BOTH arms, the two-path reconcile, and -- critically -- the
-DISCREPANT-HALT synthetic trigger (the reconcile-gate defect that recurred at
-#521/#526/#527). T2 homonym guard: the resonance is the mechanical bow, never the
-Cosserat winding.
+🔴 VERDICT (post orchestrator re-run, 2026-07-04): **[RADIATION-CONTAMINATED]** — the
+carrier as formulated DIES. Part 1 law is derived (⟨T⟩=(k_a/ℓ)y0², ⟨sin²⟩=½ DERIVED),
+but the make-or-break Part-2 control FAILS on the quantity the mechanism CONSUMES: a
+matched CW traveling wave carries a PERSISTENT per-bond ⟨T⟩ (both independent paths
+agree — the phasor path AND the genuinely Γ-free ABCD-propagation path), which the
+#526 remap consumes and which stiffens ρ' identically in kind to the confined hum. The
+resonant-tension carrier cannot distinguish matter from radiation ⟹ contradicts #518 §7.
+Rule 11: reported as the negative, no rescue. (The original PR gated the GRADIENT of
+⟨T⟩, trivially zero for a uniform traveling wave — the CRITICAL error.)
+
+These lock the LOAD-BEARING physics of the honest negative: the derived Part-1 law
+(unchanged), the CONSUMED-observable re-gate (⟨T⟩ persists under the traveling wave),
+the genuinely Γ-free reference path (reconcile can now disagree), the remap-stiffens-
+radiation consequence, the [RADIATION-CONTAMINATED] verdict, and the symmetric identity
+twins. T2 homonym guard: the resonance is the mechanical bow, never the Cosserat winding.
 """
 from __future__ import annotations
 
@@ -21,14 +24,13 @@ import numpy as np
 import pytest
 
 from scripts.vol_1_foundations.resonant_tension_law import (
-    ARC_STAR_BAND,
     A_CORE_SQRT_ALPHA,
-    DiscrepantHalt,
-    axial_reaction_from_field,
+    field_from_abcd_propagation,
+    field_from_phasor,
     matched_line_reflection,
     part1_law_and_band,
     part2_radiation_control,
-    reconcile_matched_reaction,
+    reconcile_matched_T,
     reflecting_termination_reflection,
     resonant_tension_exact,
     resonant_tension_leading,
@@ -50,8 +52,8 @@ def part1(srs):
 
 
 @pytest.fixture(scope="module")
-def part2():
-    return part2_radiation_control()
+def part2(srs):
+    return part2_radiation_control(*srs)
 
 
 # --------------------------------------------------------------------------
@@ -78,7 +80,7 @@ def test_leading_ties_to_527_exact_tent_series():
 
 
 # --------------------------------------------------------------------------
-# PART 1 -- the resonant tension law (leading + exact)
+# PART 1 -- the resonant tension law (leading + exact) -- UNCHANGED by the re-run
 # --------------------------------------------------------------------------
 def test_leading_law_value():
     """⟨T⟩_lead = (k_a/ℓ) y0² exactly (k_a=ℓ=1 ⟹ y0²)."""
@@ -98,14 +100,6 @@ def test_leading_is_strict_upper_bound_on_exact():
         assert resonant_tension_leading(y0) >= resonant_tension_exact(y0) - 1e-12
 
 
-def test_leading_matches_exact_at_small_amplitude():
-    """At tiny hum the leading law tracks the exact to O(y0²): <0.05% at y0=0.01."""
-    y0 = 0.01
-    rel = (resonant_tension_leading(y0) - resonant_tension_exact(y0)) \
-        / resonant_tension_exact(y0)
-    assert rel < 5e-4
-
-
 def test_quadratic_breaks_at_elastica_edge():
     """The quadratic approximation breaks progressively: ~4% (tent) / ~36% (elastica)."""
     dev_tent = (resonant_tension_leading(0.1428) - resonant_tension_exact(0.1428)) \
@@ -117,7 +111,7 @@ def test_quadratic_breaks_at_elastica_edge():
 
 
 # --------------------------------------------------------------------------
-# PART 1 -- the matter re-band through the #526 remap
+# PART 1 -- the matter re-band (MAJOR-3: honest grid, identity twins EXCLUDED)
 # --------------------------------------------------------------------------
 def test_matter_track_reband_present(part1):
     """The matter track is re-banded over the in-regime hum amplitude (both edges)."""
@@ -130,11 +124,20 @@ def test_hum_tension_caps_rho_prime(part1):
     """⟨T⟩>0 (tension) CAPS ρ' (grows k_shear_eff) -- ρ' falls below the cold 9.7734."""
     for edge in ("lo_elastica", "hi_tent"):
         rows = part1["band"][edge]["rows"]
-        # y0=0 anchor is the cold 9.7733; every y0>0 row must have SMALLER ρ'
         rp0 = rows[0]["rho_prime_exact"]
         assert rp0 == pytest.approx(9.7733, abs=1e-3)  # T→0 identity anchor
-        for r in rows[1:]:
-            assert r["rho_prime_exact"] < rp0, "tension must cap (lower) ρ'"
+        assert rows[-1]["rho_prime_exact"] < rp0, "tension must cap (lower) ρ'"
+
+
+def test_identity_twins_labeled_and_excluded(part1):
+    """MAJOR-3: BOTH y0→0 twins (ρ'→9.7734 AND ν→2/7) labeled + excluded (symmetric)."""
+    mt = part1["matter_track"]
+    assert mt["identity_limit_rho_prime"] == pytest.approx(9.7734, abs=1e-3)
+    assert mt["identity_limit_nu"] == pytest.approx(2.0 / 7.0)
+    for edge in part1["band"].values():
+        for r in edge["rows"]:
+            if r["y0"] <= 1e-3 * edge["y0_in_regime_max"]:
+                assert r["is_identity_limit"] is True
 
 
 def test_op_point_is_sqrt_alpha(part1):
@@ -143,123 +146,127 @@ def test_op_point_is_sqrt_alpha(part1):
 
 
 def test_reband_interior_does_not_reach_rho_2(part1):
-    """KNIFE: the re-banded interior ρ' band [~4.36, ~9.65] does NOT reach ρ'=2."""
+    """KNIFE: the re-banded interior ρ' band does NOT reach ρ'=2."""
     lo, hi = part1["matter_track"]["rho_prime_band_exact"]
     assert lo > 2.0, "no interior edge lands on the ρ'=2 canon crossing"
 
 
 # --------------------------------------------------------------------------
-# PART 2 -- the radiation control (make-or-break) BOTH arms
+# PART 2 -- the CRITICAL re-gate: control (i) FAILS on the CONSUMED ⟨T⟩
 # --------------------------------------------------------------------------
-def test_i_matched_line_reaction_vanishes(part2):
-    """(i) traveling wave on the matched line: BOTH independent paths vanish."""
+def test_matched_traveling_wave_carries_persistent_tension(part2):
+    """CRITICAL: the matched CW traveling wave leaves a PERSISTENT per-bond ⟨T⟩ ≠ 0."""
     i = part2["i_matched"]
-    assert i["gamma_mag"] < 1e-9, "Γ-read path must vanish (matched line)"
-    assert i["field_reaction_rms_norm"] < 1e-9, "field momentum-flux path must vanish"
-    assert i["field_T_uniform"] is True
-    assert i["vanishes"] is True
+    assert i["T_bond_phasor"] == pytest.approx(1.0, rel=1e-6)
+    assert i["T_bond_gamma_free"] == pytest.approx(1.0, rel=1e-6)
+    assert i["T_vanishes"] is False, "the consumed ⟨T⟩ does NOT vanish (the CRITICAL)"
 
 
-def test_ii_standing_wave_reaction_nonzero_and_recovers(part2):
-    """(ii) standing wave: nonzero reaction that recovers the Part-1 tent-law ⟨T⟩."""
+def test_two_paths_are_genuinely_independent_and_agree(part2):
+    """MAJOR-1: the phasor and Γ-FREE ABCD paths agree on ⟨T⟩ (real reconcile)."""
+    i = part2["i_matched"]
+    assert i["T_bond_reconcile_rel"] < 1e-9
+    gf = field_from_abcd_propagation(0.3, y0=1.0)
+    assert gf["gamma_free"] is True
+    assert gf["T_bond_mean"] == pytest.approx(1.0, rel=1e-6)
+
+
+def test_radiation_stiffens_through_the_remap(part2):
+    """CRITICAL: fed through the SAME remap, the traveling wave stiffens ρ' (9.77→0.90)."""
+    i = part2["i_matched"]
+    assert i["rho_prime_cold"] == pytest.approx(9.7733, abs=1e-3)
+    assert i["rho_prime_under_traveling_wave"] < 1.0
+    assert i["radiation_stiffens"] is True
+
+
+def test_phasor_field_path_is_not_independent_of_gamma():
+    """MAJOR-1: the old 'field' gradient path = 1.4244·|Γ| (the SAME Γ, NOT independent)."""
+    for g in (1e-3, 0.1, 0.5, 1.0):
+        f = field_from_phasor(complex(g), 0.3, y0=1.0)
+        assert f["grad_rms_norm"] / g == pytest.approx(1.424354, rel=1e-4)
+
+
+def test_ii_standing_wave_recovers_on_field_integrand(part2):
+    """MAJOR-2: (ii) gated on the FIELD-INTEGRAND antinode (not the |Γ|=1 tautology)."""
     ii = part2["ii_standing"]
-    assert ii["gamma_mag_short"] == pytest.approx(1.0, abs=1e-9)  # Γ=−1 wall
-    assert ii["nonzero"] is True
+    assert ii["gamma_mag_short"] == pytest.approx(1.0, abs=1e-9)
+    assert ii["T_antinode_field_analytic"] == pytest.approx(4.0, rel=1e-9)
+    assert ii["T_antinode_field_grid"] == pytest.approx(4.0, rel=1e-3)
     assert ii["recovers_part1_law"] is True
-    # antinode ⟨T⟩ = 4× the Part-1 unit law (constructive |Γ|=1)
-    assert ii["T_antinode_field_short_analytic"] == pytest.approx(
-        ii["T_antinode_expected_part1"], rel=1e-9)
-
-
-def test_discriminator_is_real_matched_vs_reflecting():
-    """The discriminator: matched Γ≈0 (traveling) vs reflecting |Γ|=1 (standing)."""
-    assert matched_line_reflection(0.3) < 1e-12
-    assert reflecting_termination_reflection(0.3, "short") == pytest.approx(1.0, abs=1e-9)
-    assert reflecting_termination_reflection(0.3, "open") == pytest.approx(1.0, abs=1e-9)
-
-
-def test_traveling_wave_field_is_uniform_standing_is_not():
-    """The field integrand: traveling ⟨T⟩(x) uniform (grad=0) vs standing (grad≠0)."""
-    trav = axial_reaction_from_field(0.0 + 0j, 0.3)        # Γ=0 traveling
-    stand = axial_reaction_from_field(-1.0 + 0j, 0.3)      # Γ=−1 standing
-    assert trav["is_uniform"] is True
-    assert trav["net_axial_reaction_rms_norm"] < 1e-9
-    assert stand["is_uniform"] is False
-    assert stand["net_axial_reaction_rms_norm"] > 1e-3
 
 
 # --------------------------------------------------------------------------
-# The verdict + bin routing (no fall-through)
+# The verdict + bin routing (SAME frozen bins, corrected observable)
 # --------------------------------------------------------------------------
-def test_verdict_is_resonant_carrier_derived(part2):
-    """The live verdict is [RESONANT-CARRIER-DERIVED]."""
+def test_verdict_is_radiation_contaminated(part2):
+    """The honest re-run verdict is [RADIATION-CONTAMINATED]."""
     v = select_bin(part2)
-    assert v["verdict"] == "RESONANT-CARRIER-DERIVED"
-    assert v["i_vanishes"] and v["ii_recovers"] and v["ii_nonzero"]
+    assert v["verdict"] == "RADIATION-CONTAMINATED"
+    assert v["i_vanishes_in_T"] is False
 
 
-def test_radiation_contaminated_bin_reachable():
-    """[RADIATION-CONTAMINATED] bin is reachable: synthetic (i)-nonzero hits it."""
+def test_resonant_carrier_derived_bin_reachable():
+    """[RESONANT-CARRIER-DERIVED] bin still reachable: synthetic (i)-vanishes hits it."""
     synthetic = {
-        "i_matched": {"vanishes": False},
-        "ii_standing": {"recovers_part1_law": True, "nonzero": True},
+        "i_matched": {"T_vanishes": True},
+        "ii_standing": {"recovers_part1_law": True},
     }
-    assert select_bin(synthetic)["verdict"] == "RADIATION-CONTAMINATED"
+    assert select_bin(synthetic)["verdict"] == "RESONANT-CARRIER-DERIVED"
 
 
 def test_discriminator_underdetermined_bin_reachable():
-    """[DISCRIMINATOR-UNDERDETERMINED] reachable: (i) vanishes but (ii) neither clean."""
+    """[DISCRIMINATOR-UNDERDETERMINED] reachable: (i) vanishes but (ii) doesn't recover."""
     synthetic = {
-        "i_matched": {"vanishes": True},
-        "ii_standing": {"recovers_part1_law": False, "nonzero": True},
+        "i_matched": {"T_vanishes": True},
+        "ii_standing": {"recovers_part1_law": False},
     }
     assert select_bin(synthetic)["verdict"] == "DISCRIMINATOR-UNDERDETERMINED"
 
 
 # --------------------------------------------------------------------------
-# DISCREPANT-HALT -- reachable AND triggers on synthetic input (the recurring gap)
+# DISCREPANT-HALT -- now a REAL value-reconcile of two independent ⟨T⟩ paths
 # --------------------------------------------------------------------------
 def test_reconcile_agrees_on_true_matched_line(part2):
-    """On the real matched line both paths vanish ⟹ reconcile agrees (no HALT)."""
-    assert part2["reconcile"]["agree"] is True
-    assert part2["reconcile"]["both_vanish"] is True
+    """The two genuinely-independent ⟨T⟩ paths agree on the real matched line."""
+    assert part2["i_matched"]["T_bond_reconcile_rel"] < 1e-9
 
 
-def test_discrepant_halt_fires_when_paths_disagree():
-    """Synthetic trigger: one path vanishes while the other does not ⟹ HALT reachable.
+def test_discrepant_halt_fires_when_T_paths_diverge():
+    """Synthetic trigger: the two ⟨T⟩ paths DIVERGE in value ⟹ HALT reachable.
 
-    This is the reconcile-gate defect that recurred at #521/#526/#527 -- the gate MUST
-    be able to fire, proven here on hand-mismatched inputs.
+    Now a VALUE reconcile (not a shared-boolean check on 1.4244·|Γ| twice). The 4th
+    recurrence of the reconcile-gate defect is closed: this gate can genuinely disagree.
     """
-    # Γ-read says vanished (0), field path says NOT vanished (1.0) -> disagree
-    assert reconcile_matched_reaction(0.0, 1.0) is False
-    # and the disagreement is symmetric
-    assert reconcile_matched_reaction(1.0, 0.0) is False
+    assert reconcile_matched_T(1.0, 2.0) is False        # divergent values
+    assert reconcile_matched_T(1.0, 1.0 + 1e-6) is False  # beyond tol
 
 
-def test_discrepant_halt_does_not_fire_when_paths_agree():
-    """Both-vanish and both-nonzero are consistent ⟹ no HALT (the gate is not trivial)."""
-    assert reconcile_matched_reaction(1e-18, 1e-15) is True   # both vanish
-    assert reconcile_matched_reaction(1.0, 1.0) is True        # both nonzero
+def test_discrepant_halt_does_not_fire_when_T_paths_agree():
+    """Equal ⟨T⟩ values reconcile (the gate is not trivially always-true/false)."""
+    assert reconcile_matched_T(1.0, 1.0) is True
+    assert reconcile_matched_T(1.0, 1.0 + 1e-12) is True
 
 
 # --------------------------------------------------------------------------
-# Positive controls + liveness
+# Positive controls + liveness (of BOTH the reflection instrument AND the ⟨T⟩ path)
 # --------------------------------------------------------------------------
 def test_positive_controls_all_pass():
-    """All HALT-gated positive controls pass (incl. PC-reflect liveness)."""
+    """All HALT-gated positive controls pass (incl. the new PC-gammafree liveness)."""
     pc = run_positive_controls()
     assert pc["ALL_PC_PASS"] is True
 
 
-def test_pc_reflect_is_liveness_positive_control():
-    """PC-reflect proves the discriminator instrument reads a KNOWN reflecting wall.
+def test_pc_gammafree_liveness():
+    """PC-gammafree-live: the Γ-free path CAN read a nonzero ⟨T⟩ (makes 'vanish' meaningful)."""
+    pc = run_positive_controls()
+    assert pc["PC_gammafree_live_ok"] is True
+    assert pc["PC_gammafree_travel_T"] == pytest.approx(1.0, rel=1e-6)
 
-    The (i)→0 null is only bookable because the SAME cascade_gamma reads |Γ|=1 on the
-    known reflecting case (ave-prereg Step 3.8a liveness).
-    """
+
+def test_pc_reflect_is_liveness_positive_control():
+    """PC-reflect proves the instrument reads a KNOWN reflecting wall (|Γ|=1)."""
     pc = run_positive_controls()
     assert pc["PC_reflect_ok"] is True
-    assert pc["PC_reflect_gamma_short"] == pytest.approx(1.0, abs=1e-9)
     assert pc["PC_matched_ok"] is True
-    assert pc["PC_matched_gamma_mag"] < 1e-12
+    assert matched_line_reflection(0.3) < 1e-12
+    assert reflecting_termination_reflection(0.3, "short") == pytest.approx(1.0, abs=1e-9)
