@@ -19,6 +19,7 @@ dependencies = [
     "pandas>=2.0.0",
     "jupyter>=1.0.0",
     "jax>=0.10.1",
+    "sympy>=1.12",
     "pytest>=8.4.2",
     "pytest-xdist>=3.8.0",
     "pytest-timeout>=2.3.0",
