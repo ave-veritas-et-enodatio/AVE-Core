@@ -79,25 +79,143 @@ from ave.core.constants import Z_0  # noqa: E402
 # PART 1 -- THE RESONANT TIME-AVERAGED TENSION LAW
 # ===========================================================================
 def symbolic_backbone() -> dict:
-    """Sympy: <sin^2>=1/2 (DERIVED) and <T_lead>=(k_a/l) y0^2. Exact-zero residuals."""
-    raise NotImplementedError
+    """Sympy verification of the two DERIVED time-average facts (prereg Part 1a).
+
+    Returns a dict of exact-zero residuals; main()/PC HALTs if any is not exactly 0.
+    The ONE ½ this arc introduces (⟨sin²⟩) is DERIVED here, not asserted (knife).
+    """
+    import sympy as sp
+
+    t, w, y0, k_a, ell = sp.symbols("t omega y0 k_a ell", positive=True)
+    out = {}
+    period = 2 * sp.pi / w
+
+    # (1) ⟨sin²⟩ = ½ over a full period -- the ONE derived-half of this arc.
+    s2 = sp.integrate(sp.sin(w * t) ** 2, (t, 0, period)) / period
+    out["sin2_avg_minus_half"] = sp.simplify(s2 - sp.Rational(1, 2))          # == 0
+
+    # (2) ⟨y²⟩ = y0²/2 for y=y0 sin(wt).
+    y = y0 * sp.sin(w * t)
+    y2 = sp.integrate(y ** 2, (t, 0, period)) / period
+    out["y2_avg_minus_y0sq_over_2"] = sp.simplify(y2 - y0 ** 2 / 2)           # == 0
+
+    # (3) leading-tent time-average ⟨T_lead⟩ = (2 k_a/ℓ)⟨y²⟩ = (k_a/ℓ) y0².
+    T_lead = 2 * k_a / ell * y ** 2
+    T_lead_avg = sp.integrate(T_lead, (t, 0, period)) / period
+    out["T_lead_avg_minus_ka_y0sq_over_ell"] = sp.simplify(
+        T_lead_avg - k_a * y0 ** 2 / ell
+    )                                                                        # == 0
+
+    # (4) the ⟨T⟩ = (2 k_a/ℓ)⟨y²⟩ identity chain (the substitution the noun rests on).
+    out["T_lead_avg_minus_2ka_over_ell_times_y2avg"] = sp.simplify(
+        T_lead_avg - 2 * k_a / ell * y2
+    )                                                                        # == 0
+
+    # (5) the leading tent law IS the 2nd-order series of the EXACT tent law (ties the
+    #     resonant law to the #527 exact tent geometry, not a fresh guess).
+    T_exact = k_a * ell * (1 - ell / sp.sqrt(ell ** 2 + 4 * y0 ** 2))
+    lead_coeff = sp.limit(sp.series(T_exact, y0, 0, 4).removeO() / y0 ** 2, y0, 0)
+    out["exact_leading_coeff_minus_2ka_over_ell"] = sp.simplify(
+        lead_coeff - 2 * k_a / ell
+    )                                                                        # == 0
+
+    return out
 
 
 def resonant_tension_leading(y0: float, k_a: float = 1.0, ell: float = 1.0) -> float:
-    """Leading-order time-averaged tension <T> = (2 k_a/l)*<y^2> = (k_a/l) y0^2."""
-    raise NotImplementedError
+    """Leading-order time-averaged tension ⟨T⟩ = (2 k_a/ℓ)·⟨y²⟩ = (k_a/ℓ) y0².
+
+    ⟨y²⟩ = y0²·⟨sin²⟩ = y0²/2 (⟨sin²⟩=½ DERIVED in symbolic_backbone). The ½ is the
+    ONLY declared-derived half of this arc; no other un-derived ½/¼ enters.
+    """
+    return float(k_a * y0 ** 2 / ell)
 
 
 def resonant_tension_exact(y0: float, k_a: float = 1.0, ell: float = 1.0,
                            n_theta: int = 200_000) -> float:
-    """Exact tent law, cycle-averaged over one period (numeric quadrature)."""
-    raise NotImplementedError
+    """Exact tent law, cycle-averaged over one period (numeric quadrature).
+
+    ⟨T_a⟩ = (1/2π)∮ T_a(y0·sinθ) dθ with T_a the #527 exact tent law (imported, NOT
+    reimplemented). Concave in y² ⟹ this is ≤ the leading law (the leading is an
+    upper bound); the gap is the quadratic-approximation breakdown (prereg Part 1b).
+    """
+    theta = np.linspace(0.0, 2.0 * np.pi, n_theta, endpoint=False)
+    y = y0 * np.sin(theta)
+    # arm_a_pluck_tension is even in y and vectorizes elementwise; call the imported fn
+    T = np.array([arm_a_pluck_tension(float(yy), k_a=k_a, ell=ell) for yy in y])
+    return float(np.mean(T))
 
 
 def part1_law_and_band(pos, bonds, rho) -> dict:
     """The Part-1 law (leading + exact), banded over arc* and the in-regime y0 range,
-    fed through the #526 remap. Re-bands the matter track."""
-    raise NotImplementedError
+    fed through the #526 remap. Re-bands the matter track.
+
+    - The in-regime y0 ceiling per arc* is the #527 in_regime_pluck_bow(arc*) (the
+      fixed-arc premise's own displacement ceiling) -- IMPORTED, not re-derived.
+    - ⟨T⟩>0 (tension) ⟹ caps ρ' (grows k_shear_eff), matching #527 arm (a) sign.
+    - The matter track ρ'/ν is read through the #526 _remap_at_signed_T at the A1
+      op-point A_axial=√α (S≈0.996) and the #518 shear operating amplitude, exactly
+      as #527's arm (a) -- the ONLY change is that T is now the RESONANT ⟨T⟩ instead
+      of the #527 static in-regime-bow tension.
+    """
+    A_axial = A_CORE_SQRT_ALPHA
+    A_shear_op = 0.99479  # #518 crossing amplitude (read-off; sets k_shear at crossing)
+    ell = float(np.mean([np.linalg.norm(d) for (_, _, d) in bonds]))  # =1 on srs
+    lo, hi = ARC_STAR_BAND
+
+    band = {}
+    lead_vs_exact_rows = []
+    for edge, arc_star in (("lo_elastica", lo), ("hi_tent", hi)):
+        y0_max = in_regime_pluck_bow(arc_star, ell)      # in-regime bow ceiling
+        # sample the in-regime y0 range (0 .. ceiling) at the hum-amplitude endpoints
+        y0_grid = np.array([0.0, 0.25 * y0_max, 0.5 * y0_max, 0.75 * y0_max, y0_max])
+        rows = []
+        for y0 in y0_grid:
+            T_lead = resonant_tension_leading(float(y0), ell=ell)
+            T_exact = resonant_tension_exact(float(y0), ell=ell)
+            rel = (T_lead - T_exact) / T_exact if T_exact > 0 else 0.0
+            # feed the RESONANT ⟨T⟩ (tension, +) through the #526 remap -- both laws
+            rem_lead = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +T_lead)
+            rem_exact = _remap_at_signed_T(pos, bonds, rho, A_axial, A_shear_op, +T_exact)
+            rows.append({
+                "y0": float(y0),
+                "T_avg_leading": float(T_lead),
+                "T_avg_exact": float(T_exact),
+                "leading_over_exact_rel_dev": float(rel),
+                "rho_prime_leading": rem_lead["rho_prime"],
+                "rho_prime_exact": rem_exact["rho_prime"],
+                "nu_leading": rem_lead["nu"],
+                "nu_exact": rem_exact["nu"],
+                "k_shear_eff_leading": rem_lead["k_shear_eff"],
+            })
+            if y0 > 0:
+                lead_vs_exact_rows.append({"arc_star": arc_star, "y0": float(y0),
+                                           "rel_dev": float(rel)})
+        band[edge] = {"arc_star": arc_star, "y0_in_regime_max": float(y0_max),
+                      "rows": rows}
+
+    # the re-banded matter track: the ρ' / ν ENVELOPE across the in-regime hum band
+    all_rp = [r["rho_prime_exact"] for e in band.values() for r in e["rows"]
+              if np.isfinite(r["rho_prime_exact"]) and r["y0"] > 0]
+    all_rp_lead = [r["rho_prime_leading"] for e in band.values() for r in e["rows"]
+                   if np.isfinite(r["rho_prime_leading"]) and r["y0"] > 0]
+    all_nu = [r["nu_exact"] for e in band.values() for r in e["rows"] if r["y0"] > 0]
+    matter_track = {
+        "rho_prime_band_exact": [float(min(all_rp)), float(max(all_rp))] if all_rp else None,
+        "rho_prime_band_leading": [float(min(all_rp_lead)), float(max(all_rp_lead))]
+        if all_rp_lead else None,
+        "nu_band": [float(min(all_nu)), float(max(all_nu))] if all_nu else None,
+        "worst_leading_over_exact_rel_dev": float(max(r["rel_dev"] for r in lead_vs_exact_rows))
+        if lead_vs_exact_rows else 0.0,
+        "note": "matter track re-banded over the in-regime hum amplitude y0 in "
+        "[0, in_regime_pluck_bow(arc*)] for arc* in [0.70, 0.96]. The RESONANT ⟨T⟩ "
+        "(tension, +) caps ρ'. VALUE inherits #526 GR-imported status; EMERGENCE "
+        "grade FORBIDDEN. Leading law is an UPPER BOUND (over-predicts the exact "
+        "cycle-average); the worst over-prediction is at the elastica edge.",
+    }
+    return {"band": band, "matter_track": matter_track,
+            "op_point": {"A_axial_sqrt_alpha": float(A_axial), "A_shear_op": A_shear_op,
+                         "ell": ell}}
 
 
 # ===========================================================================
