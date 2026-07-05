@@ -1,5 +1,13 @@
 # PREREG (FROZEN) — The PILOT-FIELD arc: does a LOCALIZED traveling wavetrain on the 2-DOF ring carry a CO-MOVING 2nd-order longitudinal contraction companion (Grant's "pilot field" / longitudinal back-EMF), demoting the fixed/free trichotomy to closure-scale bookkeeping?
 
+> ## ↗ ERRATA BANNER (2026-07-05, orchestrator review of PR #535 — banner-append only; the FROZEN body below is a record, NOT edited; the bins/tolerances/controls STAND, the #535 result mis-implemented three of them)
+> The VERDICT [RETARDATION-LIMITED / LEAKY] and the frozen bins/controls are UNCHANGED and CORRECT; the PR #535 result-and-driver deviated from the frozen promises in three ways, corrected in the result's CORRECTIONS BANNER + §OPEN RESIDUAL:
+> - **§DERIVED TOLERANCE BANDS + bin criterion 2 — the free-host coefficient band (±10%) is EXCEEDED by the SETTLED asymptote.** The frozen band applies to the SETTLED local depth; PR #535 reported 20-period SLICES. The settled ρ=4 asymptote is ~112% (past the ±10% band); the ~12% excess is an OPEN residual (candidate: peak-vs-phase-average envelope form factor). The band is not loosened — the excess is reported OUTSIDE it, honestly (Rule 11).
+> - **§CONTROLS / §THE COMPUTATION measurement 3 — the imported `trans_tangent_stiffness` (listed here as consumed machinery) was NOT actually called** by the PR #535 driver (it evaluated a closed-form restatement). CORRECTED: the result's driver now calls the genuine imported probe (the frozen promise is now honored).
+> - **§CONTROLS (b) — the frozen "envelope on an OPEN FREE chain, local reading" control was implemented as the #534 FILLED free chain.** CORRECTED to the frozen local control.
+>
+> See `research/2026-07-05_pilot-field-comoving-companion_result.md` CORRECTIONS BANNER for the full disposition. Correction commits: same branch. The frozen bins routed the verdict CORRECTLY (lag/leak); the deviations were implementation, not adjudication.
+
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/pilot-field-comoving-companion`
 **Prediction module (symbolic, INDEPENDENT):** `src/scripts/vol_1_foundations/pilot_field_predictions.py` (scaffolded AFTER this freeze)
 **Driver (numeric time-domain wavetrain, INDEPENDENT path):** `src/scripts/vol_1_foundations/pilot_field_wavetrain.py` (scaffolded AFTER this freeze)
