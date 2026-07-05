@@ -1,9 +1,19 @@
 """HONEST NONLINEAR DYNAMICS MODULE — 2-DOF pump-probe chain.
 
-Adjudicates the #526 T-slot scope fork (DC_ONLY vs EXTENDED) by running the FULL
-NONLINEAR DYNAMICS of a 2-DOF-per-node chain and MEASURING what a slow transverse
-probe sees through a traveling pump. NO slot bookkeeping. The dynamics do not know
-how terms were divided between S and T; they just respond.
+POST-REVIEW STATUS (orchestrator review of PR #532, 2026-07-05): the pump adjudication
+is INVALID — the measured tangent-stiffness observable is LAB-FRAME (it feels the axial
+spring through the bond slope, a kinematic tilt term neither frozen bond-frame arm
+modeled). Proven: `LinearChain` (no kernel, no Jensen) reproduces the pump verdict to
+~2e-6, and `cycle_mean_config_stiffness` reads COLD at the cycle-mean config. So NO
+bond-frame arm is excluded/confirmed; the #526 T-slot fork REMAINS OPEN. What survives
+(the real product): the BOND-FRAME instrument-liveness control (uniform stretch reads
+k_s+T/L to 6 digits), the kinematic-tilt characterization (`tilt_decomposition`), and
+the boundary-artifact documentation (`cycle_mean_config_stiffness(free_drive_end=...)`).
+See `research/2026-07-05_pump-probe-tslot_result.md` §HONEST RE-ANALYSIS + §REQUIREMENTS.
+
+The module ran the FULL NONLINEAR DYNAMICS of a 2-DOF-per-node chain (NO slot bookkeeping;
+the dynamics respond however the geometry+kernel dictate); the failure was in the READOUT
+(lab-frame vs bond-frame), not the integration.
 
 THE #531 TAUTOLOGY GUARD (binding): this module MUST NOT import
 `pump_probe_predictions.py` (the slot-formula prediction module). The probe stiffness
@@ -145,10 +155,16 @@ class PumpProbeChain:
         # local transverse strain keying the saturation: the bond-angle |Δy|/L
         # averaged over the two bonds meeting at node i (Ax4 kernel, emergent).
         if self.shear_saturates:
+            # KEYING A. MAJOR-b (orchestrator review PR #532): as coded this force is
+            # NON-HAMILTONIAN — the position-dependent stiffness k_s·S(A_shear)·curv is
+            # NOT the gradient of any potential (∂F_i/∂y_j ≠ ∂F_j/∂y_i), so it violates
+            # Ax3-lossless in the bulk. It is a PHYSICS-INVALID arm and is flagged as
+            # such; a valid saturating shear arm must derive the force from a potential
+            # ½Σ k_s·∫S dy². The review notes keying B (Hamiltonian) is canon-favored.
             shear_strain = 0.5 * (np.abs(dy[:-1]) / L[:-1] + np.abs(dy[1:]) / L[1:])
             k_shear_local = K_S * _saturation(shear_strain)  # k_s·S(A_shear), keying A
         else:
-            k_shear_local = K_S                              # k_s constant, keying B
+            k_shear_local = K_S                              # k_s constant, keying B (Hamiltonian)
         Fy[1:-1] += k_shear_local * curv                 # restoring: −k·(−curv) form
         return Fu, Fy
 
@@ -375,22 +391,187 @@ def _undriven_drift(n_nodes, dt, n_steps, mass, y0):
     y[-1] = 0.0
     state = ChainState(np.zeros(n_nodes), y.copy(), np.zeros(n_nodes), np.zeros(n_nodes))
     E0 = chain.energy(state)
-    steps = min(n_steps, 6000)
-    for _ in range(steps):
+    # MAJOR-d (orchestrator review PR #532): drift over the FULL n_steps window the
+    # prereg specified, NOT a truncated 6-period window. The max drift over the whole
+    # window is the honest gate value (a late-window blow-up must not be hidden).
+    max_drift = 0.0
+    for step in range(n_steps):
         state = chain.step_verlet(state, dt, drive=None)
+        if step % 500 == 0:
+            max_drift = max(max_drift, abs((chain.energy(state) - E0) / E0) if E0 else 0.0)
     E1 = chain.energy(state)
-    return abs((E1 - E0) / E0) if E0 else float("nan")
+    return max(max_drift, abs((E1 - E0) / E0) if E0 else float("nan"))
 
 
-# ── ADJUDICATION: the #528 ReconcileGate compares DYNAMICS vs PREDICTION outputs ──
-#    (the two are SEPARATE modules — the #531 tautology guard. This adjudicator
-#     IMPORTS the prediction module here ONLY to compare its frozen numbers against
-#     the dynamics' measured output; the dynamics themselves never import it.)
+# ═════════════════════════════════════════════════════════════════════════════
+# POST-REVIEW ANALYSIS (orchestrator review of PR #532, 2026-07-05) — the three
+# reproductions that INVALIDATE the original adjudication. These characterize what
+# the lab-frame observable actually measured; they are the arc's real product.
+# ═════════════════════════════════════════════════════════════════════════════
 
-# derived tolerance band (convergence sweep, this session): 3× the summed residual
-# floor (dt 7e-7 + window 5e-5 + node-to-node ~1e-3, SWR=1.003) = 3e-3 = 0.30%.
-# The band is strictly below the 2.04% arm separation ⟹ the arms are resolvable.
-DERIVED_BAND = 3.0e-3
+class LinearChain(PumpProbeChain):
+    """CRITICAL-1 control: a LINEAR axial spring (force = k_a·(L−1), NO kernel Φ',
+    NO concavity, NO Jensen) + a constant shear spring. If the pump verdict is a
+    kinematic tilt-projection, this reproduces it; if it were Jensen rectification
+    (which requires the concave kernel), this would give nothing. Result: reproduces
+    the nonlinear keying-B verdict to ~2e-6 — the effect is KINEMATIC, not Jensen."""
+
+    def forces(self, u, y):
+        L, dx, dy = self.bond_lengths(u, y)
+        A = L - ELL
+        T = K_A * A                       # LINEAR axial spring — no kernel, no concavity
+        ux = dx / L
+        uy = dy / L
+        Fu = np.zeros(self.n)
+        Fy = np.zeros(self.n)
+        Fu[:-1] += T * ux
+        Fy[:-1] += T * uy
+        Fu[1:] -= T * ux
+        Fy[1:] -= T * uy
+        curv = y[:-2] - 2.0 * y[1:-1] + y[2:]
+        Fy[1:-1] += K_S * curv            # constant shear spring
+        return Fu, Fy
+
+
+def tilt_decomposition(chain: PumpProbeChain, *, probe_node=200, dt=0.005,
+                       pump_omega=1.2, y0=0.1428, n_periods=200):
+    """CRITICAL-1 decomposition at the probe node, cycle-averaged over the window:
+    the tangent stiffness splits into (shear spring) + (bond-frame string tension)
+    + (lab-frame KINEMATIC TILT ⟨Φ''(A)·u_y²⟩ — the axial spring felt through the
+    bond slope). Returns the three channel means (fractions over cold) + the total."""
+    period = 2 * np.pi / pump_omega
+    n_steps = int(np.ceil(n_periods * period / dt))
+    meas_start = int((n_periods - 20) * period / dt)
+    state = ChainState(np.zeros(chain.n), np.zeros(chain.n), np.zeros(chain.n), np.zeros(chain.n))
+    ramp = 10.0 * period
+
+    def drive(t):
+        return (0.0, min(1.0, t / ramp) * y0 * np.sin(pump_omega * t))
+
+    i = probe_node
+    shear, tension, tilt = [], [], []
+    t = 0.0
+    for step in range(n_steps):
+        state = chain.step_verlet(state, dt, drive=drive, t=t)
+        t += dt
+        if step >= meas_start:
+            L, dx, dy = chain.bond_lengths(state.u, state.y)
+            A = L - ELL
+
+            def pair(b):
+                return 0.5 * (b[i - 1] + b[i])
+
+            tension.append(pair(bond_tension(A)) / pair(L))
+            tilt.append(pair(np.sqrt(np.clip(1 - A**2, 0, 1))) * pair((dy / L) ** 2))
+            if chain.shear_saturates:
+                shear.append(_saturation(0.5 * (abs(dy[i - 1]) / L[i - 1] + abs(dy[i]) / L[i])))
+            else:
+                shear.append(1.0)
+    return {
+        "shear_frac": float(np.mean(shear) - 1.0),
+        "tension_frac": float(np.mean(tension)),
+        "kinematic_tilt_frac": float(np.mean(tilt)),
+    }
+
+
+def cycle_mean_config_stiffness(chain: PumpProbeChain, *, probe_node=200, dt=0.005,
+                                pump_omega=1.2, y0=0.1428, n_periods=200,
+                                free_drive_end=False):
+    """CRITICAL-2 readout: accumulate the cycle-MEAN configuration (⟨u⟩, ⟨y⟩) over
+    the window and read the tangent stiffness AT it, plus the mean bond strain at the
+    probe. If the mean-config stiffness reads COLD (≈1) and ⟨A_bond⟩ is not a positive
+    bulk deposit, there is NO deposited DC bias the slow probe feels. `free_drive_end`
+    releases the node-0 longitudinal pin (drive sets y0 only) — the boundary control."""
+    period = 2 * np.pi / pump_omega
+    n_steps = int(np.ceil(n_periods * period / dt))
+    meas_start = int((n_periods - 20) * period / dt)
+    state = ChainState(np.zeros(chain.n), np.zeros(chain.n), np.zeros(chain.n), np.zeros(chain.n))
+    ramp = 10.0 * period
+
+    def drive(t):
+        return (0.0, min(1.0, t / ramp) * y0 * np.sin(pump_omega * t))
+
+    umean = np.zeros(chain.n)
+    ymean = np.zeros(chain.n)
+    cnt = 0
+    t = 0.0
+    for step in range(n_steps):
+        state = _step_free_end(chain, state, dt, drive, t) if free_drive_end \
+            else chain.step_verlet(state, dt, drive=drive, t=t)
+        t += dt
+        if step >= meas_start:
+            umean += state.u
+            ymean += state.y
+            cnt += 1
+    umean /= cnt
+    ymean /= cnt
+    k_cold = chain.transverse_tangent_stiffness(np.zeros(chain.n), np.zeros(chain.n), probe_node)
+    k_mean = chain.transverse_tangent_stiffness(umean, ymean, probe_node) / k_cold
+    A_profile = chain.bond_lengths(umean, ymean)[0] - ELL
+    return {
+        "k_trans_at_cycle_mean": float(k_mean),
+        "A_bond_at_probe": float(A_profile[probe_node]),
+        "A_bond_profile": [float(A_profile[j]) for j in (20, 100, probe_node, 380)],
+        "free_drive_end": free_drive_end,
+    }
+
+
+def _step_free_end(chain, state, dt, drive, t):
+    """Velocity-Verlet step with node-0 longitudinal pin RELEASED (only y0 driven).
+    The boundary control for CRITICAL-2 (the Dirichlet u[0]=0 pin injects an arbitrary
+    mean axial force; freeing it sign-flips the apparent deposit)."""
+    u, y, vu, vy = state.u, state.y, state.vu, state.vy
+    Fu, Fy = chain.forces(u, y)
+    au = Fu / chain.m - chain.gamma * vu
+    ay = Fy / chain.m - chain.gamma * vy
+    vuh = vu + 0.5 * dt * au
+    vyh = vy + 0.5 * dt * ay
+    un = u + dt * vuh
+    yn = y + dt * vyh
+    d = drive(t + dt)
+    if d is not None:
+        yn[0] = d[1]                     # ONLY y0 driven; u0 FREE (no pin)
+    Fu2, Fy2 = chain.forces(un, yn)
+    au2 = Fu2 / chain.m - chain.gamma * vuh
+    ay2 = Fy2 / chain.m - chain.gamma * vyh
+    vun = vuh + 0.5 * dt * au2
+    vyn = vyh + 0.5 * dt * ay2
+    if d is not None:
+        vyn[0] = (yn[0] - y[0]) / dt
+    return ChainState(un, yn, vun, vyn)
+
+
+def honest_band(shear_saturates=True):
+    """MAJOR-c: the honest band from the WINDOW non-convergence + node sweep, not the
+    optimistic 0.30%. Returns the measured spread over n_periods {160,200,240,280} and
+    over probe_node {150,200,300}. The band is 3× the max residual."""
+    windows = [run_three_states(shear_saturates=shear_saturates, n_periods=n)["pump"]["k_trans"]
+               for n in (160, 200, 240, 280)]
+    nodes = [run_three_states(shear_saturates=shear_saturates, probe_node=nd)["pump"]["k_trans"]
+             for nd in (150, 200, 300)]
+    window_spread = float(max(windows) - min(windows))
+    node_spread = float(max(nodes) - min(nodes))
+    residual = max(window_spread, node_spread)
+    return {
+        "window_spread": window_spread,
+        "node_spread": node_spread,
+        "residual_floor": residual,
+        "band_3x": 3.0 * residual,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ADJUDICATION — POST-REVIEW: the observable is LAB-FRAME MIXED, so no bond-frame
+# arm can be excluded/confirmed. The bin is [ADJUDICATION-INVALID]. The gate that
+# survives is the BOND-FRAME LIVENESS control (an independent reference path).
+# ═════════════════════════════════════════════════════════════════════════════
+
+# HONEST BAND (MAJOR-c): the window non-convergence spread (~0.5%) is the residual
+# floor, not the optimistic dt-only 0.30%. Measured this session: window spread
+# 0.0049, node spread ~0.001. Band = 3× max ≈ 0.66% (still < 2.04% separation, but
+# the observable is INVALID regardless — the band question is moot for the fork).
+DERIVED_BAND = 3.0e-3        # the dt/window/node floor for the LIVENESS gate only
+HONEST_BAND = 6.6e-3         # the pump observable's honest band (window non-convergence)
 
 
 class DiscrepantHaltBin(AssertionError):
@@ -399,67 +580,67 @@ class DiscrepantHaltBin(AssertionError):
 
 
 def adjudicate(*, shear_saturates=True, band=DERIVED_BAND, verbose=False):
-    """Run the three states, compare the measured PUMP probe stiffness against the
-    two frozen arms via the #528 ReconcileGate, and select the bin. No fall-through
-    else; DISCREPANT-HALT reachable (COLD-not-1 or liveness-fail HALTs before any
-    verdict is read). Returns (bin, results, gate_diagnostics)."""
-    from ave.validation.reconcile_gate import ReconcileGate
+    """POST-REVIEW (orchestrator PR #532): the pump observable is LAB-FRAME MIXED — it
+    feels the axial spring through the bond slope (the kinematic tilt term), which
+    neither frozen (bond-frame) arm modeled. Proven: a LINEAR chain reproduces the
+    pump verdict to ~2e-6 (tilt_decomposition + LinearChain), and the cycle-MEAN config
+    reads COLD (cycle_mean_config_stiffness). So NO bond-frame arm can be excluded or
+    confirmed — the bin is [ADJUDICATION-INVALID] and the #526 fork REMAINS OPEN.
+
+    The structural liveness HALTs (COLD≠1, blind instrument) and the BOND-FRAME liveness
+    control still gate — that control (the uniform-stretch DC-bias reading k_s+T/L) is
+    the arc's real surviving product. Returns (bin, results, gate_diagnostics)."""
     from scripts.vol_1_foundations import pump_probe_predictions as pred  # SEPARATE module
 
     res = run_three_states(shear_saturates=shear_saturates)
-    y0 = res["params"]["y0_pump"]
 
     # ── structural liveness HALTs (before any bin) ───────────────────────────
     if abs(res["cold"]["k_trans"] - 1.0) > 1e-9:
         raise DiscrepantHaltBin(f"COLD k_trans={res['cold']['k_trans']} ≠ 1 — instrument zero broken.")
-    # PC-DC-LIVENESS: the uniform-stretch control MUST see the tension term (>band above cold)
     live = res["dc_bias_stretch"]["k_trans"]
     if live - 1.0 <= band:
         raise DiscrepantHaltBin(
             f"DC-BIAS liveness FAILED: stretch k_trans={live:.6f} does not exceed cold by >band "
-            f"({band}) — the probe is BLIND to a genuine static tension. No pump null is bookable. HALT.")
-    # and it must reconcile with the merged #526 form (independent: pred.k_trans_dc_liveness
-    # is a DIFFERENT code path — the prediction module's held-bow form; the uniform-stretch
-    # form is checked against its own analytic k_s+T/L, computed in the dynamics as merged_526_form).
+            f"({band}) — the probe is BLIND to a genuine static tension. HALT.")
+    # BOND-FRAME liveness reconcile: the uniform-stretch reading vs an INDEPENDENT
+    # reference computed by the prediction module (a DIFFERENT code path — MAJOR-e).
+    # pred.bond_tension + pred.saturation reassemble k_s·S(0)+T/L from scratch; the
+    # dynamics' merged_526_form is its own force-model readout. Two independent paths.
+    A_dc = res["dc_bias_stretch"]["a_dc"]
+    L_dc = 1.0 + A_dc                     # uniform stretch: L = 1 + A_dc
+    indep_liveness = float(pred.saturation(0.0) + pred.bond_tension(A_dc) / L_dc)
+    from ave.validation.reconcile_gate import ReconcileGate
     ReconcileGate(
-        label="PC_DC_LIVENESS_vs_526form",
+        label="PC_DC_LIVENESS_bondframe_independent",
         claimed=res["dc_bias_stretch"]["k_trans"],
-        independent=res["dc_bias_stretch"]["merged_526_form"],
+        independent=indep_liveness,      # prediction-module reassembly, different path
         rtol=1e-4, atol=0.0,
     ).enforce()
 
-    # ── the two frozen arms (from the SEPARATE prediction module) ────────────
-    k_dc_only = pred.k_trans_pump_dc_only()       # 1.000000
-    k_extended = pred.k_trans_pump_extended(y0)   # 1.020392
-    k_meas = res["pump"]["k_trans"]
-
-    def within(a, b):
-        return abs(a - b) <= band
-
-    matches_dc_only = within(k_meas, k_dc_only)
-    matches_extended = within(k_meas, k_extended)
-
-    if matches_dc_only and not matches_extended:
-        binv = "DC-ONLY-CONFIRMED"
-    elif matches_extended and not matches_dc_only:
-        binv = "EXTENDED-CONFIRMED"
-    elif not matches_dc_only and not matches_extended:
-        binv = "NEITHER"
-    else:
-        # matches BOTH ⟹ the band is wider than the separation ⟹ cannot resolve
-        binv = "UNRESOLVED"
-
+    # ── the fork verdict: INVALID (lab-frame observable) ─────────────────────
+    tilt = tilt_decomposition(PumpProbeChain(res["params"]["n_nodes"],
+                                             sponge_width=res["params"]["sponge_width"],
+                                             sponge_gamma=res["params"]["sponge_gamma"],
+                                             shear_saturates=shear_saturates),
+                              probe_node=res["params"]["probe_node"])
+    binv = "ADJUDICATION-INVALID"        # lab-frame observable; fork stays OPEN
     gate = {
-        "k_meas": k_meas, "k_dc_only": k_dc_only, "k_extended": k_extended,
-        "band": band, "sep_from_dc_only": abs(k_meas - k_dc_only),
-        "sep_from_extended": abs(k_meas - k_extended),
-        "matches_dc_only": matches_dc_only, "matches_extended": matches_extended,
-        "excludes_dc_only": not matches_dc_only,
-        "swr": res["pump"]["swr"], "drift": res["energy_drift_undriven"],
+        "bin": binv,
+        "reason": "lab-frame observable (kinematic tilt dominates); neither bond-frame arm testable",
+        "k_meas_labframe": res["pump"]["k_trans"],
+        "kinematic_tilt_frac": tilt["kinematic_tilt_frac"],
+        "shear_frac": tilt["shear_frac"],
+        "bondframe_tension_frac": tilt["tension_frac"],
+        "bondframe_liveness": res["dc_bias_stretch"]["k_trans"],
+        "bondframe_liveness_independent_ref": indep_liveness,
+        "swr": res["pump"]["swr"],
+        "honest_band_note": "window non-convergence ~0.5%; the lab-frame observable is invalid regardless",
     }
     if verbose:
-        print(f"keying {'A' if shear_saturates else 'B'}: PUMP={k_meas:.6f} "
-              f"band=±{band} DC_ONLY={k_dc_only:.6f} EXT={k_extended:.6f} → [{binv}]")
+        print(f"keying {'A' if shear_saturates else 'B'}: [{binv}] "
+              f"lab-frame pump={res['pump']['k_trans']:.6f} "
+              f"(kinematic tilt={tilt['kinematic_tilt_frac']:+.4f} DOMINATES; "
+              f"bond-frame tension={tilt['tension_frac']:+.4f}); fork OPEN")
     return binv, res, gate
 
 
@@ -468,5 +649,17 @@ if __name__ == "__main__":
     out = {}
     for keying in (True, False):
         binv, res, gate = adjudicate(shear_saturates=keying, verbose=True)
-        out[f"keying_{'A' if keying else 'B'}"] = {"bin": binv, "gate": gate, "results": res}
+        out[f"keying_{'A' if keying else 'B'}"] = {"bin": binv, "gate": gate}
+    # CRITICAL controls
+    lin = LinearChain(600, sponge_width=200, sponge_gamma=0.5)
+    r_lin = _run_pump(lin, 0.005, int(200 * 2 * np.pi / 1.2 / 0.005), 1.2, 0.1428, 200,
+                      int(180 * 2 * np.pi / 1.2 / 0.005), 200,
+                      lin.transverse_tangent_stiffness(np.zeros(600), np.zeros(600), 200))["k_trans"]
+    out["CRITICAL1_linear_chain_reproduces"] = {"linear_pump_ratio": r_lin}
+    out["CRITICAL2_cycle_mean_pinned"] = cycle_mean_config_stiffness(
+        PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5, shear_saturates=True))
+    out["CRITICAL2_cycle_mean_free_end"] = cycle_mean_config_stiffness(
+        PumpProbeChain(600, sponge_width=200, sponge_gamma=0.5, shear_saturates=True),
+        free_drive_end=True)
+    out["MAJORc_honest_band"] = honest_band(shear_saturates=True)
     print(json.dumps(out, indent=2, default=float))
