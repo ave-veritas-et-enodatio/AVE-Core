@@ -235,9 +235,50 @@ def channel_loading(y0: float, A_dc: float, dictionary: str, ell: float = 1.0,
 # ---------------------------------------------------------------------------------------
 # (S3) THE PUMP-NULL CONSISTENCY GATE -- reproduce #529's uniform scalar <T> BEFORE channel-resolved
 # ---------------------------------------------------------------------------------------
-def consistency_gate_529(pos, bonds, rho) -> dict:
-    """Placeholder -- the HARD reconcile against field_from_abcd_propagation (#529 Gamma-free path)."""
-    raise NotImplementedError("consistency_gate_529 lands after S2")
+def consistency_gate_529(pos, bonds, rho, theta: float = 0.3, y0: float = 1.0,
+                         ell: float = 1.0) -> dict:
+    """THE PUMP-NULL CONSISTENCY GATE (prereg Requirement 3): before going channel-resolved, the
+    framework MUST reproduce #529's finding -- the per-bond scalar <T> is UNIFORM and IDENTICAL for
+    both wave types, = (k_a/ell) y0^2.
+
+    HARD reconcile via the #528 helper ONLY: my channel-resolved stiff term T (the denominator's
+    geometric piece, = resonant_tension_leading) vs the imported field_from_abcd_propagation
+    (#529's genuinely Gamma-free ABCD-propagated traveling-wave field -- a DIFFERENT code path I do
+    NOT reimplement). If they disagree I have a bookkeeping error, not a result: DISCREPANT-HALT.
+
+    The can-fire self-test runs FIRST (enforce(prove_first=True)) on THIS real data pair -- the
+    #521/#526/#527 dead-gate defect cannot recur. The independent reference is field-space ABCD
+    propagation, NOT the defining identity T=(k_a/ell)y0^2 (that would be the #527 defect); the two
+    are different assemblies that must agree the traveling wave carries the SAME uniform <T>.
+    """
+    # my channel-resolved stiff term (the T that enters the denominator), a per-bond scalar
+    my_T = float(resonant_tension_leading(y0, k_a=1.0, ell=ell))  # = (k_a/ell) y0^2
+
+    # the #529 Gamma-free path: propagate a pure forward wave through cascaded ABCD segments and read
+    # the per-bond mean <T> from the FIELD directly (a genuinely independent assembly).
+    ref = field_from_abcd_propagation(theta, y0=y0, ell=ell)
+    ref_T = float(ref["T_bond_mean"])
+
+    gate = ReconcileGate(
+        label="PC-consistency-529-uniform-T",
+        claimed=my_T,
+        independent=ref_T,   # value (not the defining identity) from the ABCD field path
+        rtol=1e-9,
+    )
+    res = gate.enforce(prove_first=True)   # can-fire self-test on THIS pair, THEN DISCREPANT-HALT
+
+    return {
+        "my_stiff_T_per_bond": my_T,
+        "ref_field_from_abcd_T_bond_mean": ref_T,
+        "reconciled": res.reconciled,
+        "can_fire_proven": res.can_fire_proven,
+        "max_rel_discrepancy": res.max_rel_discrepancy,
+        "note": (
+            "Reproduces #529: the per-bond scalar <T> is uniform (=(k_a/ell)y0^2) and identical to the "
+            "Gamma-free ABCD traveling-wave field's <T>. This is the scalar-carrier death (scalar T can't "
+            "discriminate); the CHANNEL-resolved question (does the RATIO rho' move differently) is S4."
+        ),
+    }
 
 
 # ---------------------------------------------------------------------------------------
