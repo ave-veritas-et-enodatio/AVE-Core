@@ -93,6 +93,7 @@ def E_field_full(E_C_local):
         x = E_C_local[idx]
         if not ok[idx]:
             continue
+
         # lower branch: E in [E_C_local, E_c/sqrt(2)]; f(E)=E sqrt(1-(E/E_c)^2)-x, monotone up to turnover
         def f(E, _x=x):
             return E * np.sqrt(max(1.0 - (E / E_C) ** 2, 0.0)) - _x
@@ -345,6 +346,31 @@ def main():
     print(f"context: full splitting = {SPLIT_meV} meV = {SPLIT_meV*1e3:.1f} ueV ; the shifts vs that:")
     print(f"  continuum |shift|/splitting = [{cont_lo/(SPLIT_meV*1e3):.2e}, {cont_hi/(SPLIT_meV*1e3):.2e}]")
     print(f"  lattice   |shift|/splitting = [{latt_lo/(SPLIT_meV*1e3):.2e}, {latt_hi/(SPLIT_meV*1e3):.2e}]")
+
+    print()
+    r_defeat = b_defeat_cutoff()
+    print("=== [B]-defeat cutoff scale (hard-cutoff shift == 2.3 ueV window) ===")
+    print(f"  r_cut = {r_defeat/L_NODE:.2f} * ell_node = {r_defeat*1e12:.3f} pm")
+    print(
+        f"  vs memo ~300 fm floor (={300e-15/L_NODE:.2f} ell_node): actual clearing scale ~{r_defeat/300e-15:.0f}x larger"
+    )
+    print("  -> REFUTES the ~300 fm floor as the protective scale (routing language; memo immutable).")
+
+
+def shift_hardcut_ueV(r_cut):
+    """|leading-tail hard-cutoff shift| in ueV as a function of the cutoff radius r_cut.
+    Used for the [B]-defeat scale (the r_cut at which the lattice-scoped shift clears the window)."""
+    a = A_MU
+    coeff = K**3 / (10.0 * E_C**2)
+    uc = r_cut / a
+    e2s = e_charge * coeff / (2.0 * a**5) * (_upper_negpow(3, uc) - _upper_negpow(2, uc) + 0.25 * _upper_negpow(1, uc))
+    e2p = e_charge * coeff / (24.0 * a**5) * special.exp1(uc)
+    return (e2s - e2p) / e_charge * 1e6
+
+
+def b_defeat_cutoff():
+    """Cutoff radius at which |hard-cutoff lattice-scoped shift| == the 2.3 ueV window."""
+    return optimize.brentq(lambda rc: abs(shift_hardcut_ueV(rc)) - WINDOW_ueV_primary, 5 * L_NODE, 40 * L_NODE)
 
 
 if __name__ == "__main__":
