@@ -58,6 +58,8 @@ where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c$, 
 
 **Full quantitative closure to $10^{-6}$ precision** requires explicit bound-state integration (Bethe-equivalent logarithm, recoil corrections, nuclear-size effects) — multi-session work, deferred. The structural match at leading order is the load-bearing claim.
 
+> **ORTHOGONALITY GUARD (2026-07-05; #539/Problem-3 lineage — no walk-back, distinction only).** This leaf is the **QED vacuum-fluctuation** Lamb-shift mechanism — a Bethe-log self-energy + Uehling vacuum polarization + anomalous-moment composition, in the **electronic** hydrogen 2S–2P sector ($+1057.85$ MHz). It is a **DIFFERENT object** from the **SVE static-E constitutive shift** examined for **muonic** hydrogen in the electrostatic-sector arc (Problem 3, [C-EXCLUDED], `research/2026-07-05_problem3-muonic-lamb_RESULT.md`). That arc computes the correction the saturating-permittivity kernel $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$ makes to the muonic-H Lamb shift via the near-nucleus field enhancement $\delta V(r)=k^3/(10\,E_c^2 r^5)$ — a **constitutive static-field** effect, NOT a virtual-photon self-energy. The two do not conflict and are not the same computation: this leaf's structural/consistency-class self-energy match stands untouched by the [C-EXCLUDED] verdict on the static-E extrapolation, which excludes the continuum SVE kernel down to atomic scales (a separate sector — see the survival ledger there). Do not conflate the QED-fluctuation Lamb mechanism (here) with the SVE constitutive Lamb correction (Problem 3).
+
 ## Cross-references
 
 - **Composing closures:**
