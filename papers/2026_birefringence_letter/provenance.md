@@ -332,9 +332,13 @@ this round;** this round adds a sector boundary the model *acquired in public*, 
   `research/2026-07-05_em-saturation-keying-functional_RESULT.md`): the LOCAL-Poynting transport-keying
   scoping mechanism (`S_E = sqrt(1 - c_T · <E×H>/S_yield)`) FAILS on the PHYSICAL atom — the proton
   magnetic moment sources a permanent static, divergence-free `E×H` circulation (hidden-momentum class)
-  that engages the local functional at **1278× the 2.3 µeV window** (−2939 µeV @ `r_cut=0.5 a_μ`). The
-  **net-flux (closed-surface) round-2 derivation is OPEN** (the atom's circulation is divergence-free →
-  zero closed-surface flux → blind for the right reason).
+  that engages the local functional at **1278× the 2.3 µeV window** (−2939 µeV @ `r_cut=0.5 a_μ`). As
+  recorded at #542 merge, the net-flux (closed-surface) round-2 candidate was named OPEN. **Subsequent
+  (post-draft, Grant-walked, recorded in the round-2 arc's prereg addendum): the net-flux candidate is
+  DEAD** — closed-surface net flux = `dU/dt = 0` for every steady state, including the pump (Poynting
+  degeneracy), so it cannot distinguish the pump from the held atom. The scoping mechanism therefore
+  remains OPEN and is stated **candidate-agnostically** in the Letter (see the fix note below); the
+  Letter names no specific open candidate, so it needs no edit as the round-2 derivation iterates.
 
 **The edit (surgical — 8pp referee-facing Letter, one logical fix per commit):**
 - **Item 1 — SCOPE paragraph (§II.B, `main.tex`):** a "Sector scope, stated explicitly" paragraph after
@@ -344,8 +348,9 @@ this round;** this round adds a sector boundary the model *acquired in public*, 
   non-perturbatively (the induced level shift exceeds the entire measured 202.3706(23) meV interval,
   `\cite{Antognini2013}`; inside a high-Z ion the kernel has no real solution). The radiative scoping is
   a POSTULATE: one candidate mechanism (local `E×H` transport keying) tested and excluded (the physical
-  atom's bound magnetic moment engages it); a net-flux formulation is under derivation. The B-sector
-  circulation keying [Eq. (6)] is a separate sector, unaffected.
+  atom's bound magnetic moment engages it); the scoping mechanism remains under derivation, stated
+  **candidate-agnostically** (the Letter names no specific open candidate — see the fix note below). The
+  B-sector circulation keying [Eq. (6)] is a separate sector, unaffected.
 - **Item 2 — HONESTY LEDGER item (v) (§II.B, `main.tex`):** claimed (implicitly universal constitutive
   law) / ruled (static sector dead) / survives (the AC falsifier unchanged — `P_flip` and the kill
   criterion are radiative-sector quantities) / open (the scoping mechanism). Keith's Outcome-B posture
@@ -394,3 +399,15 @@ refs resolve incl. new `Antognini2013`; only the pre-existing appendix overfull 
 remains — my paragraphs introduced no large overfull box). `make verify` GREEN. src/ + JSON UNCHANGED
 (byte-identical to v1; no driver touched). Fresh branch `analysis/letter-electrostatic-exclusion` off
 merged HEAD `fc6a2379` (contains #542). Grant's five standing decisions UNTOUCHED.
+
+**FIX NOTE (2026-07-05, post-draft, one commit) — candidate-agnostic scoping-mechanism wording.** The
+draft's scope paragraph (item 1) and honesty-ledger item (v) (item 2) both named "a net-flux
+(closed-surface) formulation under derivation" as the open scoping candidate. That candidate is now
+**DEAD** (Grant-walked; recorded in the round-2 arc's prereg addendum): closed-surface net flux =
+`dU/dt = 0` for every steady state including the pump (Poynting degeneracy), so a net-flux key cannot
+distinguish the pump from the held atom. The Letter must not name a killed candidate — and should not
+name the current (cyclic-drive) candidate either, so it needs no edit each time the derivation iterates.
+Both sentences re-worded to the **candidate-agnostic** form: *"…has itself been tested and excluded; the
+scoping mechanism remains under derivation."* The honest state is **mechanism-open**. This changes no
+number, no falsifier verdict, no anchored value; it is a physical-picture-accuracy wording fix only.
+`make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs); `make verify` GREEN.
