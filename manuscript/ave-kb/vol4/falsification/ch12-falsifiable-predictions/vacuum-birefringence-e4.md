@@ -22,6 +22,31 @@ claims: [clm-pp3qwf, clm-sve3xc]
 > superseded by the corrected values. Reconciliation harness: `src/ave/bench/birefringence.py`
 > (`delta_n_qed_electric_pvlas`, `coefficient_ratio_differential_pvlas`).
 
+> 🔵 **FOOTING RE-FREEZE (2026-07-05; Grant-ratified via the Letter v2 Arm-2 round — KEEP-BOTH, the
+> $7.5\pi/\alpha^2$ value above is preserved as v1 convention history).** The QED-normalization header
+> above quotes $\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$ as the propagating headline. That value
+> pairs the **instantaneous** SVE kernel ($-\tfrac12(E/E_c)^2$, algebraic in $|E|^2$ at the pump) against
+> the **cycle-averaged** one-loop coefficient $\alpha/(15\pi)$ — a **mixed temporal footing**. The
+> flagship Letter re-froze the headline to a **single consistent footing** (both coefficients
+> instantaneous / peak-field), pairing the instantaneous SVE kernel against the **instantaneous** one-loop
+> coefficient $2\alpha/(15\pi)$ [the $\alpha/(15\pi)$ headline is its $\langle\cos^2\rangle=\tfrac12$
+> carrier average]:
+> $$\boxed{\;\frac{\delta n_{AVE}}{\delta n_{QED}}=\frac{\tfrac12}{2\alpha/(15\pi)}\left(\frac{E_{crit}}{E_c}\right)^2=\frac{15\pi}{4\alpha^2}=\frac{3.75\pi}{\alpha^2}\approx2.2\times10^5\;}$$
+> — **exactly HALF** the mixed-footing $7.5\pi/\alpha^2$, the difference being precisely the
+> $\langle\cos^2\rangle=\tfrac12$ carrier average. **The $7.5\pi/\alpha^2$ value is KEEP-BOTH-preserved
+> above as v1 convention history**, not deleted (the OTS anchor is on the v1 content; git is the trail).
+> The **static-to-propagating decomposition** carried by the QED-normalization header — $\alpha/(30\pi)$
+> (static $E\leftrightarrow cB$ duality) $\xrightarrow{\times4}$ $2\alpha/(15\pi)$ (head-on crossing
+> geometry, the birefringence living in the pump--probe cross terms) $\xrightarrow{\times\tfrac12}$
+> $\alpha/(15\pi)$ (carrier average) — is the same $\times4$-geometry $\times\tfrac12$-carrier chain; the
+> instantaneous headline stops it at the $2\alpha/(15\pi)$ step (no carrier average), which is why the
+> consistent-footing ratio is a factor 2 below the mixed one. **No order of magnitude and no falsifier
+> verdict changes** (the SVE $P_{flip}\sim5\times10^{-3}$ headline is footing-invariant; the kill
+> criterion $P_{flip}<10^{-8}$ is unchanged). Provenance: the flagship Letter's
+> `papers/2026_birefringence_letter/provenance.md` §9 (Arm-2 re-freeze, Grant ruling verbatim) and §10
+> (electrostatic-sector scope round). The Letter's own §II.B honesty-item (iv) carries both footings
+> with the $7.5\pi/\alpha^2$ mixed value ledgered as convention history.
+
 ## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 <!-- claim-quality: clm-pp3qwf (this section is the canonical statement of the E-route field-induced birefringence COEFFICIENT discriminator — the matched par−perp differential δn≈−½A² vs QED's differenced Euler-Heisenberg) -->
 
