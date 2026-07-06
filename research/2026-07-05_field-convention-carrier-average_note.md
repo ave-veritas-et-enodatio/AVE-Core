@@ -96,6 +96,31 @@ footing** the ratio is HALF that:
 **Both consistent footings give `3.75 pi/alpha^2 ≈ 2.21e5` — exactly half the anchored `7.5 pi/alpha^2 ≈ 4.42e5`.**
 (Live-derived three independent ways this session; all converge.)
 
+**GENEALOGY — the mixed-footing x2 and the documented propagating-vs-static x2 are the SAME
+`<cos^2> = 1/2` carrier average through two doors.** The QED-normalization correction
+(`research/2026-07-03_birefringence-qed-normalization-correction.md §1`) documented a
+static->propagating x2 taking `alpha/30pi -> alpha/15pi`. That x2 DECOMPOSES (verified live,
+`x4 * 1/2 = x2` exactly):
+- **x4 (head-on collision geometry):** `alpha/30pi -> 2 alpha/15pi`. Pump-probe cross terms of the
+  field invariants (a single on-shell plane wave has `S = P = 0`); the `(1-cos theta_coll)^4`-maximized
+  head-on value.
+- **x1/2 (temporal `<cos^2>` carrier average):** `2 alpha/15pi -> alpha/15pi`. Static endpoint is DC
+  (no carrier); the headline is cycle-averaged.
+
+The `1/2` in THIS decomposition is the SAME `<cos^2> = 1/2` that makes the QED coefficient
+cycle-averaged while the SVE `-1/2(E/E_c)^2` stays peak-instantaneous — i.e. the documented
+"propagating-vs-static x2" and the "mixed-footing x2" are ONE temporal average, entering the ledger
+through two different doors (the geometry-normalization door in 2026-07-03, and the SVE-footing door
+here). This is why the composite label "propagating-versus-static geometry factor" is imprecise: the
+factor is `x4 geometry x 1/2 temporal`, and the temporal half is exactly the footing asymmetry.
+
+**FORWARD DOUBLE-COUNT TRAP — documented shut.** If a future pass treats `alpha/15pi` as an
+INSTANTANEOUS coefficient and applies a `<cos^2> = 1/2` carrier average to it AGAIN, it reconstructs
+`alpha/30pi` and a ratio `15 pi/alpha^2` — the WRONG door (that is the DC static coefficient, not a
+cycle-averaged propagating one). `alpha/15pi` is ALREADY cycle-averaged (§2); it must NOT be averaged
+a second time. The correct instantaneous QED coefficient is `2 alpha/15pi`; the correct cycle-averaged
+one is `alpha/15pi`. Any consistent-footing resolution uses ONE of these, never both-then-average.
+
 **What this is and is not:**
 - It is **not** what Keith flagged (he flagged the absolute Table-I field convention; this is a
   ratio-normalization footing that his question exposed on follow-through).

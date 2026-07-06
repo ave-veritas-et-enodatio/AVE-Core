@@ -64,11 +64,28 @@ move the QED numbers.
 
 The `alpha/(15 pi)` propagating leg is precisely the crossing-geometry-correct value because the
 2026-07-03 correction anchored it to two external arbiters that both encode the geometry:
-- **PVLAS `A_e` via `E<->cB` duality** → static-field `alpha/(30 pi)`; a **propagating** plane-wave
-  pump (both invariants active, head-on) DOUBLES it to `alpha/(15 pi)` — the factor-2 IS the head-on
-  propagating-vs-static geometry factor (`birefringence.py:252-282`,
-  `research/2026-07-03_birefringence-qed-normalization-correction.md §1`).
+- **PVLAS `A_e` via `E<->cB` duality** → static-field (DC) `alpha/(30 pi)`. The step to the headline
+  `alpha/(15 pi)` is a NET factor 2, and it DECOMPOSES into two physically distinct factors (verified
+  live: `x4 * 1/2 = x2` exactly):
+  - **x4 (head-on collision geometry):** `alpha/(30 pi) -> 2 alpha/(15 pi)`. The birefringence of a
+    probe crossing a strong pump lives in the pump--probe CROSS terms of the field invariants, not in
+    the single on-shell plane wave (for which both Euler-Heisenberg invariants `S`, `P` vanish). This
+    is the `(1-cos theta_coll)^4`-maximized head-on value.
+  - **x1/2 (temporal `<cos^2>` carrier average):** `2 alpha/(15 pi) -> alpha/(15 pi)`. The static
+    endpoint is DC (no carrier); the headline is cycle-averaged over the optical carrier. This is the
+    SAME `<cos^2> = 1/2` factor the field-convention note §2-3 identifies as the mixed-footing factor
+    -- the documented propagating-vs-static x2 and the mixed-footing x2 are the SAME temporal average
+    through two doors (x4 geometry x 1/2 temporal).
 - **LoI Eq.19** (the KGRZ crossing-geometry signal) — reproduced to 1.1% (§2 above).
+
+> **[AUDITOR-QUEUE flag — merged docstring carries the composite mislabel.]** The merged
+> `src/ave/bench/birefringence.py:265-267` docstring says the propagating leg is `FACTOR 2 larger`
+> because "BOTH invariants active" for a "PROPAGATING plane-wave pump (E and B co-moving)". This is
+> value-CORRECT (`alpha/15pi` is right) but the LABEL is the same composite mislabel: (i) a single
+> on-shell plane wave has `S = P = 0`, so "both invariants active" is loose (the birefringence is in
+> the pump-probe cross terms); (ii) the `2x` is `4x` geometry times `1/2` carrier average, not a pure
+> geometry factor. NOT edited by this Phase-0 round (the value is correct; the merged docstring is the
+> auditor's to relabel). Surfaced for the auditor queue.
 
 The pre-fix `(3/45) alpha^2 = 0.0667 alpha^2` was understated by `1/(2 pi alpha) = 21.81` (it was a
 single-mode/differential mislabel, NOT a geometry error). The fix already moved the leg onto the
