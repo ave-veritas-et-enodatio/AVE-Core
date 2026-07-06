@@ -1,4 +1,10 @@
-# Problem 3 — muonic-hydrogen 2S–2P shift from the SVE elliptic kernel: RESULT
+# Problem 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel: RESULT
+
+> **Precision label (orchestrator finding 6).** The measured `202.3706(23) meV` is the *extracted Lamb
+> shift* `ΔE(2P_1/2 − 2S_1/2)` (Pohl et al./CREMA 2010 measured the 2S_1/2→2P_3/2 transition and
+> extracted the 2P_1/2−2S_1/2 Lamb interval), NOT a raw "2S–2P splitting." The frozen memo's loose "2S–2P
+> splitting" wording is what I route on (immutable); this doc uses the precise extracted-Lamb-shift label
+> `ΔE(2P_1/2 − 2S_1/2)` throughout.
 
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/problem3-muonic-lamb` (stacked on freeze)
 **Gated on FREEZE commit:** `4747630bf35e5e5abdd816ca022e8fcb5ba343ca` (fork memo FROZEN, Grant-ratified
@@ -10,7 +16,8 @@
 ## ROUTED BIN: **[C-EXCLUDED]** — both arms violate the µeV window by 4–7 orders of magnitude.
 
 The static-E sector of the SVE continuum kernel is EXCLUDED as written for muonic hydrogen. Even scoped
-to the lattice pitch `r >> ℓ_node = 386 fm`, the 2S–2P shift exceeds the CREMA window by ~2×10⁴×. Per
+to the lattice pitch `r >> ℓ_node = 386 fm`, the SVE correction to the Lamb shift ΔE(2P_1/2 − 2S_1/2)
+exceeds the CREMA window by ~2×10⁴×. Per
 the frozen memo §3 [C] ledger, the **AC pump–probe birefringence and the µ-sector circulation-keying
 survive** — they are DIFFERENT sectors, untouched by a static-E exclusion.
 
@@ -87,7 +94,7 @@ lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire Lamb shift**.
 > larger than the entire level structure cannot be hidden by any higher-order rescue (higher orders
 > would have to conspire to cancel a leading term bigger than the thing being corrected). The honest
 > statement is simply "the SVE static-E correction to the muonic-H Lamb shift is non-perturbatively
-> large — orders of magnitude beyond the measured splitting, let alone the µeV window." The routing does
+> large — orders of magnitude beyond the measured Lamb shift, let alone the µeV window." The routing does
 > not depend on the exact multiple, only on "hugely exceeds the window," which every variant does.
 
 ¹ C-i (D-cap) interior is dominated by full non-tail cap physics: with D capped at D_max=ε₀E_c/2 inside
@@ -123,9 +130,9 @@ non-perturbatively large in every variant.)
 ## Routing per the FROZEN bins (verbatim, §3)
 
 - **[A-CONSISTENT]** requires the continuum arm to clear "even without any regime scoping" — it does
-  NOT (band 7.5×–114× the full splitting). **[A] excluded.**
+  NOT (band 7.5×–114× the full Lamb shift). **[A] excluded.**
 - **[B-AVE]** requires continuum-violates AND lattice-scoped-clears — the continuum violates, but the
-  lattice-scoped arm ALSO violates (band 0.24×–3× the full splitting, smallest variant ~2×10⁴× the
+  lattice-scoped arm ALSO violates (band 0.24×–3× the full Lamb shift, smallest variant ~2×10⁴× the
   2.3 µeV window). **[B] excluded.**
 - **[C-EXCLUDED]** — both arms violate. **ROUTED [C].**
 
@@ -176,11 +183,11 @@ number is bookable.
 
 - Consistency-vs-emergence: this is a **falsification/consistency-class** result — the SVE kernel
   (whose E_c is CODATA-derived through α, m_e per the Letter honesty ledger (iii)) is compared to a
-  measured splitting; no emergence claimed. The verdict is [C-EXCLUDED] for the static-E extrapolation.
+  measured Lamb shift; no emergence claimed. The verdict is [C-EXCLUDED] for the static-E extrapolation.
 - Honest closure (Rule 11): pre-registered predictions were routed against the FROZEN bins with no
   post-hoc criterion drops. The continuum arm decisively violates; the lattice-scoped arm ALSO violates;
   a single mechanism (the 1/r⁵ near-nucleus enhancement surviving even the ℓ_node cutoff) explains both.
   Branch closed [C].
 - Two independent code paths + live ReconcileGate (positive control fires); no self-verifying gate;
-  gates the CONSUMED observable (the 2S−2P shift).
+  gates the CONSUMED observable (the SVE correction δ[ΔE(2P_1/2 − 2S_1/2)]).
 - Canonical constants only; muon mass declared as external CODATA input.
