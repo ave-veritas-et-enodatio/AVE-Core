@@ -369,6 +369,14 @@ this round;** this round adds a sector boundary the model *acquired in public*, 
   `7.5pi/alpha^2` preserved as v1 convention history, the `x4`-geometry `x1/2`-carrier decomposition
   shown, provenance §9/§10 cited. No OOM / falsifier verdict moves.
 - **Item 5 — this §10 entry.**
+- **Item 6 — II.B lineage-clause removal (`main.tex`, commit `abd1438f`):** the Family-context lineage
+  paragraph previously deferred the static sector inline — "*the behaviour of the elliptic branch in the
+  static electrostatic sector, and any comparison of self-energy properties across branches, is outside
+  the scope of this Letter*" (stood at `origin/main` `main.tex:270`). That clause was narrowed to "*any
+  comparison of self-energy properties across branches is outside the scope of this Letter*" (now
+  `main.tex:290–292`): the static-electrostatic deferral is superseded by the [C-EXCLUDED] Sector-scope
+  paragraph (Item 1) + honesty-ledger item (v) (Item 2), which state the exclusion non-perturbatively
+  rather than deferring it. Content-correct but itemized nowhere at draft time — logged here.
 
 **refs.bib:** `Antognini2013` added — Antognini et al., Science 339, 417–420 (2013), DOI
 `10.1126/science.1230016` (the CREMA muonic-H 2S–2P measurement; extracted `2P_1/2−2S_1/2` Lamb interval
@@ -406,7 +414,7 @@ draft's scope paragraph (item 1) and honesty-ledger item (v) (item 2) both named
 **DEAD** (Grant-walked; recorded in the round-2 arc's prereg addendum): closed-surface net flux =
 `dU/dt = 0` for every steady state including the pump (Poynting degeneracy), so a net-flux key cannot
 distinguish the pump from the held atom. The Letter must not name a killed candidate — and should not
-name the current (cyclic-drive) candidate either, so it needs no edit each time the derivation iterates.
+name whichever candidate is currently live either, so it needs no edit each time the derivation iterates.
 Both sentences re-worded to the **candidate-agnostic** form: *"…has itself been tested and excluded; the
 scoping mechanism remains under derivation."* The honest state is **mechanism-open**. This changes no
 number, no falsifier verdict, no anchored value; it is a physical-picture-accuracy wording fix only.
