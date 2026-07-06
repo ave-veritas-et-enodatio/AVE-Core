@@ -80,6 +80,16 @@ routing is sign-independent.)
 **Band summary (|δ[ΔE]|):** continuum [1.5e6, 2.3e7] µeV = **7.5×–114× the entire 202 meV Lamb shift**;
 lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire Lamb shift**.
 
+> **Non-perturbatively large (perturbation theory is itself invalid here).** A correction that is many
+> times the full level structure means first-order perturbation theory — the framework used to compute
+> these numbers — has ALREADY broken down; the precise multiples (7.5×, 114×, etc.) are ILLUSTRATIVE of
+> scale, not literal predictions. This does not weaken the verdict — it STRENGTHENS [C]: a correction
+> larger than the entire level structure cannot be hidden by any higher-order rescue (higher orders
+> would have to conspire to cancel a leading term bigger than the thing being corrected). The honest
+> statement is simply "the SVE static-E correction to the muonic-H Lamb shift is non-perturbatively
+> large — orders of magnitude beyond the measured splitting, let alone the µeV window." The routing does
+> not depend on the exact multiple, only on "hugely exceeds the window," which every variant does.
+
 ¹ C-i (D-cap) interior is dominated by full non-tail cap physics: with D capped at D_max=ε₀E_c/2 inside
 the D-turnover radius `r_turn=159.6 fm` (the real-branch boundary — see the interior-boundary disclosure
 above; NOT `r_ns=112.9 fm`, where the field would already be complex), the reference Coulomb field
