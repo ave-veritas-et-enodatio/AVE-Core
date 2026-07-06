@@ -120,12 +120,18 @@ def test_transport_coefficient_geometric_and_normalization_honest():
 
 
 # ============================================= constraints (analytic, fast)
-def test_constraint_pump_table_I_unchanged_norm_yield():
-    """NORM-YIELD: T=(E/Ec)^2 -> dn_bir = -1/2 A^2 EXACTLY -> P_flip rescale 1.0."""
+def test_constraint_pump_norm_yield_is_tautological():
+    """MAJOR-b: NORM-YIELD's 'Table I unchanged' (P_flip rescale 1.0) is a TAUTOLOGY
+    of the normalization definition -- NORM-YIELD is DEFINED as the flux that reaches
+    1 at E=E_c, so it trivially reproduces the Letter's calibration. This is NOT a
+    substrate reason to prefer it; the norm fork is fully open. NORM-CLOCK gives a
+    different (1/4pi)^2 rescale. Both are reported; neither is forced."""
     c2 = K.constraint_2_pump()
-    assert c2["A2_letter"] == pytest.approx(5.9e-7, rel=2e-2)  # Letter's A^2
-    assert c2["dn_bir_yield"] == pytest.approx(c2["dn_bir_letter"], rel=1e-12)
+    assert c2["A2_letter"] == pytest.approx(5.9e-7, rel=2e-2)
+    # NORM-YIELD trivially matches (tautology); NORM-CLOCK differs by (1/4pi)^2:
     assert c2["Pflip_rescale_yield"] == pytest.approx(1.0, rel=1e-12)
+    assert c2["Pflip_rescale_clock"] == pytest.approx((1.0 / (4.0 * np.pi)) ** 2, rel=1e-9)
+    assert c2["Pflip_rescale_yield"] != c2["Pflip_rescale_clock"]  # fork is real + open
 
 
 def test_constraint_probe_dispersion_qell2_ordering():
@@ -142,18 +148,22 @@ def test_constraint_probe_dispersion_qell2_ordering():
     assert cv / df == pytest.approx((E_cv / E_df) ** 2, rel=1e-9)
 
 
-def test_constraint_magnetic_pvlas_bmv_dn_mu_zero():
-    """PVLAS/BMV: both DC in the clock frame (omega/wC ~ 1e-20/-18) -> A_I=0 ->
-    S_mu=1 -> dn_mu=0 (Route C, clm-pvlas1)."""
+def test_constraint_magnetic_pvlas_bmv_dn_mu_computed():
+    """MAJOR-d: PVLAS/BMV dn_mu is COMPUTED from S_B(A_I) with A_I built from the
+    physical dBdt via Faraday, NOT a hardcoded literal. The computed A_I is
+    negligibly small (1e-27/-25) because the induced vacuum circulation per node
+    clock period is I_max-negligible -> dn_mu ~ 0. The number is an evaluation."""
     c = K.constraint_3_4_magnetic()
-    assert c["pvlas_dn_mu"] == 0.0
-    assert c["bmv_dn_mu"] == 0.0
-    assert c["pvlas_omega_over_wC"] < 1e-18
-    assert c["bmv_omega_over_wC"] < 1e-16
+    assert c["pvlas_A_I"] > 0.0  # computed, not declared
+    assert c["pvlas_A_I"] < 1e-20  # negligible -> dn_mu ~ 0
+    assert c["bmv_A_I"] < 1e-20
+    assert abs(c["pvlas_dn_mu"]) < 1e-40  # computed dn_mu ~ machine-zero (A_I^2 tiny)
+    assert abs(c["bmv_dn_mu"]) < 1e-40
 
 
-def test_constraint_dellight_common_mode_unchanged():
-    """DeLLight common-mode dn_iso = -1/4 A^2 (NORM-YIELD, unchanged)."""
+def test_constraint_dellight_norm_yield_tautological():
+    """DeLLight common-mode dn_iso = -1/4 A^2 under NORM-YIELD -- tautological match
+    (MAJOR-b), fork open. Reported, not crowned."""
     c = K.constraint_5_dellight()
     assert c["dn_iso_yield"] == pytest.approx(c["dn_iso_letter"], rel=1e-12)
 
