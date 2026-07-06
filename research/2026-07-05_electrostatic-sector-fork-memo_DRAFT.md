@@ -2,13 +2,19 @@
 
 **Date:** 2026-07-05 · **Lane:** implementer (DRAFT for Grant freeze) · **Branch:** `analysis/letter-v2-phase0`
 **Status:** **[GRANT-RATIFY]** — this memo is a FREEZE-CLASS document. Keith's discipline requires it
-be FROZEN by Grant's ratification **BEFORE Problem 3 (the muonic-hydrogen shift) is computed.** The
-Problems 1–3 do not fire until Grant freezes the pre-registered outcomes below.
+be FROZEN by Grant's ratification **BEFORE Problem 3 (the muonic-hydrogen 2S–2P shift) is computed.**
+**The freeze gates Problem 3 — the muonic-hydrogen ADJUDICATOR — only.** Problems 1–2 (the
+no-solution radius and the Z-table of Coulomb fields) are pure kinematic reconnaissance; they are
+DISCLOSED as already-run inputs to this memo (the tables in §1, verified this session) — they are what
+MAKES the fork real and are stated up front so the pre-registration is honest about what is known.
+Problem 3, the µeV-scale muonic-H comparison that adjudicates [A] vs [B] vs [C], is what does not fire
+until Grant freezes the pre-registered outcomes below.
 **Class:** PRE-REGISTRATION of a fork the substrate adjudicates. No claim minted; no number retracted.
 
 > This memo states an exposure and PRE-REGISTERS three outcomes so the Problem-3 computation cannot be
-> rationalized after the fact. It does not run Problem 3. The consonance noted in §2 is flagged with
-> the knife armed: it is suggestive only, adjudicated exclusively by the frozen computation.
+> rationalized after the fact. Problems 1–2 (reconnaissance) are already run and disclosed in §1; the
+> memo does NOT run Problem 3 (the adjudicator). The consonance noted in §2 is flagged with the knife
+> armed: it is suggestive only, adjudicated exclusively by the frozen Problem-3 computation.
 
 ---
 
@@ -106,9 +112,41 @@ as a flag, not a finding.
   Expected FORM (to be derived, not tuned): the leading cutoff correction to each probe's coefficient
   scales as `(q ell_node)^2` where `q` is the probe momentum transfer — i.e. the higher-energy probe
   carries a larger fractional correction, in a fixed ratio set by `ell_node` alone. The three
-  coefficients are then over-determined by one scale, a distinct forward prediction. [B-AVE] is the
-  outcome that turns the exposure into a strength: the same `ell_node` that sets `E_c` also sets the
-  regime floor, and the floor makes a new, testable prediction.
+  coefficients are then over-determined by one scale, a distinct forward prediction.
+
+  **Tension with clm-k4d4ph, and why the SCALAR channel can still be quadratic (derivation sketch).**
+  The corpus's cubic-point-group result (`manuscript/ave-kb/vol4/claim-quality.md:520`, clm-k4d4ph)
+  states that the K4/diamond-cubic Bloch dynamical matrix `D(k)` has its **first DIRECTIONAL
+  ANISOTROPY at order `(q ell_node)^4`** — the cubic harmonic `Xi(q_hat) = q_x^4 + q_y^4 + q_z^4`,
+  **quartic not quadratic, symmetry-protected by the `Fd-3m` point group** (a random bond set breaks
+  it to quadratic). This looks like it forbids my `(q ell_node)^2` form. It does NOT, because the two
+  are DIFFERENT channels — the same claim's own note (`:526`) records it: "the temporal cutoff
+  `omega_C = c0/ell_node` is separate from this spatial quartic." Concretely:
+  - The `(q ell_node)^2` correction I name is the **ISOTROPIC / scalar** cutoff term — the
+    direction-AVERAGED leading Taylor coefficient of the lattice dispersion `omega^2(q) = c^2 q^2 [1 -
+    a (q ell_node)^2 + ...]`. The scalar (angle-independent) piece is generically **quadratic**; there
+    is no symmetry that forbids an isotropic `(q ell)^2` term (it is the trace part, present for ANY
+    lattice).
+  - clm-k4d4ph's quartic is the **first ANISOTROPIC (direction-dependent) invariant** — the cubic
+    harmonic `Xi(q_hat)`, whose quadratic angular term is symmetry-KILLED by `Fd-3m` (the only
+    invariant quadratic in `q_hat` is the isotropic `|q_hat|^2 = 1`, a constant, i.e. no angular
+    dependence). So anisotropy first appears at quartic; isotropy appears at quadratic. No conflict.
+  - **The Problem-3-relevant coefficient is the SCALAR one** (a birefringence coefficient magnitude
+    per probe energy is a scalar per `q`, set by `|q|`, not by `q_hat` direction), so its leading
+    cutoff correction is `(q ell_node)^2`. The anisotropic quartic is a SEPARATE, higher-order
+    directional signature (and a distinct forward prediction in its own right).
+
+  **HONEST HEDGE:** this is a derivation SKETCH, not the derivation. If the Problem-3 computation finds
+  that the load-bearing correction is not the scalar dispersion term but a genuinely anisotropic one
+  (e.g. because the near-nucleus Coulomb field probes a preferred lattice direction), the quartic
+  `(q ell_node)^4` of clm-k4d4ph governs and the form is quartic. **Pending Problem 3, the [B-AVE]
+  bonus FORM is stated as: scalar-channel `(q ell_node)^2` if the correction is isotropic (expected),
+  anisotropic `(q ell_node)^4` per clm-k4d4ph if it is directional — the computation adjudicates
+  which channel is load-bearing.** Either way the form is DERIVED from `ell_node`, not fitted; the
+  over-determination-by-one-scale prediction holds in both channels.
+
+  [B-AVE] is the outcome that turns the exposure into a strength: the same `ell_node` that sets `E_c`
+  also sets the regime floor, and the floor makes a new, testable prediction.
 
 - **[C-EXCLUDED] — the lattice-scale scoping fails to protect the windows.** Even with the kernel
   scoped to `r >> ell_node`, the atomic-sector shifts violate the µeV windows (e.g. the muonic-H
@@ -148,11 +186,14 @@ saturation into the radiative sector; the Q-point-is-the-saturating-bias canon s
 ## 4. What freezes, and when Problem 3 fires
 
 - This memo carries **[GRANT-RATIFY]** status. The three outcomes in §3 (including the U91+ caveat on
-  [A], the derived `(q ell_node)^2` FORM on [B], and the sector-survival ledger on [C]) are the
+  [A], the scalar-vs-anisotropic FORM fork on [B] — `(q ell_node)^2` scalar / `(q ell_node)^4`
+  anisotropic per clm-k4d4ph, computation-adjudicated — and the sector-survival ledger on [C]) are the
   pre-registered adjudication criteria.
-- **Problems 1–3 do NOT fire until Grant freezes this memo.** Problem 1/2 arithmetic is previewed in
-  §1 (verified, for the fork to be real); Problem 3 (the muonic-H 2S–2P computation that adjudicates
-  [A] vs [B] vs [C]) is the frozen computation and is held until ratification.
+- **Problems 1–2 are ALREADY RUN and disclosed (§1); Problem 3 is what the freeze gates.** The
+  Problem-1/2 kinematics (no-solution radii; the Z-table of Coulomb fields) are verified in §1 and are
+  the disclosed inputs that make the fork real — they are NOT held. Problem 3 (the muonic-H 2S–2P
+  µeV-scale computation that adjudicates [A] vs [B] vs [C]) is the frozen computation, held until Grant
+  ratifies this memo.
 - On freeze, Problem 3 runs against these criteria; the substrate picks the arm; the result doc
   records the verdict without dropping or adding criteria post-hoc (Rule 11 honest closure).
 
