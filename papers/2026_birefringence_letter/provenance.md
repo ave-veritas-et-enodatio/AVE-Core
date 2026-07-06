@@ -192,3 +192,61 @@ All refs verified via Crossref DOI lookup / arXiv abstract this session:
   reminder (non-gating).
 - Rebuilt at this rename: 7 pages, source unchanged from the merged PR #504 state (the
   Appendix-A micro-steps) plus this hypersetup line; content identical, metadata added.
+
+## 8. Letter-v2 (Phase-0 co-author review round, 2026-07-05)
+
+Keith's independent reproduction + Phase-0 review. Five exposition/citation items landed; the fork
+memo (`research/2026-07-05_electrostatic-sector-fork-memo_DRAFT.md`) is a SEPARATE freeze-class doc
+(Grant-ratify, held before Problem 3). **No anchored v1 number moved this round.**
+
+**ANCHORED v1 (SHA f34e755998a9, OTS proof on v1 — `claim-prereg-ots/claims_by_hash.md`), preserved
+verbatim:** `P_flip = 5.39e-3 / 4.28e-3 / 9.28e-3` (9835/8766/12914 eV, demonstrated pump
+1e21 W/cm^2); coefficient ratio `7.5 pi/alpha^2 ~ 4.42e5` (propagating), field-independent; QED
+co-prediction `~2.76/2.19/4.75e-14`. These are UNCHANGED by the Phase-0 round.
+
+**Item 1 — FIELD CONVENTION (derived; Table I did NOT move).** The Table I fields ARE the peak carrier
+amplitude `E = sqrt(2 I/(c eps0))` (= `8.68e13 V/m` at 1e21 W/cm^2; verified vs
+`field_from_intensity_wcm2`). Derivation: the probe crosses ~13 pump carrier cycles, so the accumulated
+retardance is carrier-averaged for BOTH legs; the QED `alpha/15pi` coefficient already carries this
+average (it is defined on the LoI intensity, reproduces LoI Eq.16 EXACTLY and Eq.19 to 1.1%), so on a
+consistent peak-field footing the anchored v1 numbers stand. The Letter now STATES the peak-field
+convention explicitly (§III.A + honesty-item (iv)). Full derivation:
+`research/2026-07-05_field-convention-carrier-average_note.md`.
+  - **[GRANT-ADJUDICATE] flagged exposure (flag-don't-fix):** carrying item 1 to its end surfaces a
+    MIXED FOOTING in the anchored ratio — the SVE leg `-1/2(E/E_c)^2` is peak-INSTANTANEOUS while the
+    QED `alpha/15pi` is cycle-AVERAGED; a consistent single footing gives `3.75 pi/alpha^2 ~ 2.21e5`,
+    HALF the anchored `7.5 pi/alpha^2`. Surfaced with full derivation for Grant; NOT edited. Folded
+    into honesty-item (iv) as an α-rooted-convention O(1) shift (order of magnitude + every falsifier
+    verdict unchanged). Three adjudication arms in the note §3.
+
+**Item 2 — QED LEG AT THE TRUE CROSSING GEOMETRY (verified; numbers did NOT move).** The driver's
+`alpha/15pi` propagating leg IS the head-on (`theta_coll = pi`), 45°-polarization crossing-geometry
+value of Karbstein-Gies-Reuter-Zepf 2015 / LoI Eq.16-19 (reproduces Eq.19 to 1.1%). The O(1) geometry
+factor is already baked in; the 21.8x = 1/(2 pi alpha) correction (`7.5 pi/alpha^2`) is CONFIRMED, not
+regressed. Letter §III.A now states the head-on/45° crossing-geometry provenance + `(1-cos theta)^4`
+scaling, citing `Karbstein2015`. Note: `research/2026-07-05_qed-leg-crossing-angle_note.md`.
+
+**Item 3 — DELLIGHT (citation added).** Replaced "below existing interferometric bounds"-class
+language with the actual DeLLight number: Sagnac-interferometer common-mode vacuum-index measurement,
+QED-level projected sensitivity (refraction angle ~0.13 prad, 5σ in ~1 month, extinction factor
+F=0.4e-5). Ref `Robertson2021DeLLight` = Phys. Rev. A 103, 023524 (2021), DOI
+10.1103/PhysRevA.103.023524, arXiv:2011.13889 (author list + DOI Crossref/arXiv-verified this session).
+Cited in §II.D (common-mode channel) + §V (consistency with bounds).
+
+**Item 4 — ARCHIVAL WORDING (made exact).** §V "Pre-registration" para: "public archival record" ->
+explicit OpenTimestamps (SHA-256 of the frozen prediction committed to the Bitcoin blockchain; hash
+public, content private until disclosure). No overclaim.
+
+**Item 5 — BORN-INFELD FAMILY (paragraph added).** §II.B now situates SVE's elliptic kernel within the
+90-year saturating-field-electrodynamics family: Born-Infeld 1934 engineered the `sqrt(1+F/b^2)` form
+to keep electrostatics/self-energy finite; SVE's `sqrt(1-(E/E_c)^2)` is a DISTINCT BRANCH (reversed
+sign, softening not stiffening, E-B asymmetric). FAMILY CONTEXT ONLY — no branch-survival or
+self-energy claim (that is the electrostatic-sector gauntlet, not yet run). Ref `BornInfeld1934`
+(already present).
+
+**Build/verify:** `make paper` clean (7 pages, zero undefined refs/citation warnings, 12 refs resolve
+incl. new DeLLight). `make verify` GREEN (staleness warn satisfied by the rebuilt+committed PDF). src/
+UNCHANGED this round (a strawman one-leg cycle-average driver edit was written, caught at compute time
+via the ratio-invariance check, and REVERTED — see the field-convention note §3; the anchored driver +
+JSON are byte-identical to v1). Fresh branch `analysis/letter-v2-phase0` off merged HEAD 3188b052.
+Grant's five standing decisions (headline form, SVE name, author, venue, floors) UNTOUCHED.
