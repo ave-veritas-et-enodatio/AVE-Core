@@ -38,6 +38,16 @@ Inverting `E·√(1−(E/E_c)²)=E_C` on the lower branch gives `E/E_c = x + ½x
 The expected (E/E_snap)²-class tail. Interior structure: LHS `E·√(1−(E/E_c)²)` has maximum `E_c/2` at
 `E=E_c/√2` (D-turnover); above `E_C>E_c/2` no real lower branch — the interior, `r<r_turn=r_ns√2=159.6 fm`.
 
+> **Interior-boundary disclosure (prereg §3 wording superseded by §2's turnover constraint).** The
+> frozen prereg §3 declares the continuum interior variants at the no-solution radius `r_ns=112.9 fm`.
+> The real lower branch of `E·√(1−(E/E_c)²)=E_C` is actually lost at the **D-turnover** `E_C=E_c/2`, i.e.
+> at `r_turn=r_ns·√2=159.6 fm` (exactly §2's constraint) — so `δV(r_ns)` as §3 literally worded it is
+> incomputable (no real field there). The variants are therefore implemented at `r_turn`, the physically
+> correct branch boundary. This is **direction-conservative**: since `r_turn>r_ns`, cutting at `r_turn`
+> includes LESS of the divergent near-nucleus region than a literal-`r_ns` cut would, so the
+> literal-`r_ns` variant would give an EVEN LARGER shift — it only strengthens [C]. Recorded as prereg
+> erratum E2 (Rule 12, append-only); no routed magnitude changes direction.
+
 ## The shift table — TWO arms × variants × TWO independent code paths (µeV)
 
 muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830, EXTERNAL input),
@@ -71,9 +81,11 @@ routing is sign-independent.)
 lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire Lamb shift**.
 
 ¹ C-i (D-cap) interior is dominated by full non-tail cap physics: with D capped at D_max=ε₀E_c/2 inside
-r_ns, the reference Coulomb field `E_C=k/r²` diverges, so `E_cap−E_C→−∞` and δV goes large-negative deep
-inside. The leading 1/r⁵ tail (PATH A) cannot represent this — the A/B gap is EXPECTED, not a failure.
-PATH B is authoritative.
+the D-turnover radius `r_turn=159.6 fm` (the real-branch boundary — see the interior-boundary disclosure
+above; NOT `r_ns=112.9 fm`, where the field would already be complex), the reference Coulomb field
+`E_C=k/r²` continues to diverge as `r→0`, so `E_cap−E_C→−∞` and δV goes large-negative deep inside. The
+leading 1/r⁵ tail (PATH A) cannot represent this — the A/B gap is EXPECTED, not a failure. PATH B is
+authoritative.
 ² L-ii (soft form) multiplies the FULL kernel by `1/(1+(ℓ_node/r)²)` extending below r_turn; PATH A's
 hard-ℓ_node bound is only a proxy. A/B gap expected; PATH B authoritative.
 
