@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""PROBLEM 3 — muonic-hydrogen 2S-2P shift from the SVE elliptic kernel.
+"""PROBLEM 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel.
 
-Computes delta(2S-2P) = <2S|deltaV|2S> - <2P|deltaV|2P> for the SVE-saturated
+Computes d[Delta E] = d[E(2P_1/2)-E(2S_1/2)] (the SVE correction to the physically
+MEASURED muonic-H Lamb shift) for the SVE-saturated
 Coulomb potential, over TWO arms x declared interior/scoping variants, via TWO
 INDEPENDENT CODE PATHS (tautology guard), routed against the FROZEN fork-memo bins.
 
@@ -13,7 +14,13 @@ Physics (prereg section 2):
   Gauss-forced D(r)=e/(4 pi r^2) => Coulomb field E_C(r)=D/eps0=k/r^2, k=e/(4 pi eps0).
   Constitutive: E*sqrt(1-(E/E_c)^2)=E_C(r).  True field E(r)=lower real branch.
   deltaV(r)=int_r^inf (E-E_C) dr'.  Leading tail: deltaV=k^3/(10 E_c^2 r^5).
-  Shift = <2S|e deltaV|2S> - <2P|e deltaV|2P>, hydrogen-like wavefns at muonic reduced mass.
+
+SIGN CONVENTION (see RESULT doc "SIGN CONVENTION" box): the bound particle is the mu- (q=-e), so the
+  level energy shift is dE(nl)=q<nl|dV|nl>=-e<nl|dV|nl>. The quantity accumulated below,
+  e*<2S|dV|2S> - e*<2P|dV|2P>, equals dE(2P)-dE(2S) = d[E(2P)-E(2S)] = the SVE correction to the
+  physically MEASURED Lamb shift Delta E(2P_1/2 - 2S_1/2) (the double sign flip cancels). Positive =
+  the measured 2P-2S splitting grows (Uehling direction). Magnitudes are convention-independent; the
+  routing is by |value| and is sign-independent.
 
 EXTERNAL INPUT (declared): muon mass via CODATA 2018 ratio m_mu/m_e = 206.7682830
   (same value used at src/scripts/vol_1_foundations/phi_winding_stability_kam_firstpass.py:150),
