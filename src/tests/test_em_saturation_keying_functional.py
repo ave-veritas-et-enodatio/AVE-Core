@@ -181,19 +181,32 @@ def test_no_mechanical_qpoint_numbers_in_em_coefficient():
         assert not np.isclose(P["T_coeff"], forbidden, rtol=1e-3)
 
 
-# =============================================== engine_sim: full muonic pipeline
+# ===================== STANDING FALSIFIER: the physical-H atom (CRITICAL-1) ======
+def test_physical_atomic_H_is_nonzero_local_poynting():
+    """CRITICAL-1: the real muonic atom is NOT transport-dead. The proton magnetic
+    dipole creates a permanent static H(r) -> the LOCAL Poynting engagement T(r) is
+    NONZERO everywhere the physical H is nonzero. The H=0 fiat was an artifact."""
+    import em_saturation_keying_constraints as KK
+    a = KK.p3.A_MU
+    for f in (0.1, 0.5, 1.0, 2.0):
+        E_C_r = KK.p3.K / (f * a) ** 2
+        T = float(KK.transport_engagement_T(E_C_r, KK.H_atomic(f * a)))
+        assert T > 0.0  # physical H -> nonzero local Poynting (not transport-dead)
+
+
 @pytest.mark.engine_sim
-def test_muonic_shift_blind_positive_control_live():
-    """MUONIC-H via the full #539-reuse bracket-integral pipeline: held Coulomb
-    (H=0) -> delta[DeltaE]=0 (blind, < 2.3 ueV window). NULL-VERDICT-LIVENESS: the
-    SAME pipeline with a bounded transport perturbation returns a NONZERO, FINITE
-    shift -> the zero is physics (held stock = no transport), not a structural
-    bookkeeping zero."""
+def test_muonic_physical_H_CONSTRAINT_KILLED():
+    """STANDING FALSIFIER (CRITICAL-1): the boxed LOCAL-Poynting functional
+    evaluated on the PHYSICAL atomic H(r) (proton dipole) OVERSHOOTS the 2.3 ueV
+    CREMA window by 10^0-10^4 x -- it FAILS its own headline constraint. The
+    functional keys on LOCAL pointwise E x H and cannot distinguish divergence-free
+    circulation (hidden-momentum class) from net transport. This is the
+    [CONSTRAINT-KILLED] result; the test is a permanent falsifier of the LOCAL form."""
     c1 = K.constraint_1_muonic()
-    assert c1["T_held_at_a_mu"] == 0.0  # held Coulomb: no transport
-    assert c1["shift_held_ueV"] == 0.0  # blind, exactly
-    assert c1["passes"]  # < 2.3 ueV window
-    # positive control: nonzero + finite (pipeline is LIVE)
-    assert c1["shift_positive_control_ueV"] != 0.0
-    assert np.isfinite(c1["shift_positive_control_ueV"])
-    assert abs(c1["shift_positive_control_ueV"]) > 1.0  # meaningfully nonzero
+    assert not c1["passes"]  # FAILS -> [CONSTRAINT-KILLED]
+    assert c1["overshoot_factor"] > 1.0  # exceeds the window
+    # even deleting everything inside 2 a_mu leaves > the window:
+    outer = c1["shifts_ueV_by_rcut"]["2a_mu"]
+    assert abs(outer) > c1["window_ueV"]  # near-nucleus cutoff cannot rescue
+    # worst-case is far above the window (the near-nucleus r^-3 dipole dominates):
+    assert c1["overshoot_factor"] > 100.0

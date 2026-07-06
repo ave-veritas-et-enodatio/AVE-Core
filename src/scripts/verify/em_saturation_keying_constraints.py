@@ -33,6 +33,7 @@ from ave.core.constants import (
     EPSILON_0,
     HBAR,
     L_NODE,
+    MU_0,
     OMEGA_C,
     XI_TOPO,
     Z_0,
@@ -91,106 +92,114 @@ def transport_engagement_T(E_field, H_field, coeff=TRANSPORT_COEFF_YIELD):
     return coeff * (E / E_C) ** 2 * comoving
 
 
-def deltaV_transport(r, H_of_r):
-    """delta V(r) from the DERIVED transport functional S_E on a field E_C(r).
+# ---------------------------------------------------------- physical atomic H(r)
+# CRITICAL-1 (orchestrator review PR #542): the real muonic atom is NOT
+# transport-dead. The muon's Coulomb field E(r)=K/r^2 co-exists with a PERMANENT
+# STATIC magnetic field from (i) the proton magnetic dipole moment and (ii) the
+# 2P orbital current. These create a permanent static E x H circulation
+# (hidden-momentum class): divergence-free (net closed-surface flux = 0), but
+# LOCALLY nonzero. The boxed functional keys on LOCAL pointwise E x H ("power flux
+# through a cell face") and CANNOT distinguish divergence-free circulation from
+# net transport. So H != 0 in the physical atom -> the functional engages and
+# FAILS. The H=0 fiat of the original constraint 1 was an ARTIFACT.
+MU_N = e_charge * HBAR / (2.0 * 1.67262192369e-27)  # nuclear magneton (m_p CODATA 2018)
+MU_P = 2.7928473446 * MU_N  # proton magnetic moment (CODATA 2018, EXTERNAL)
 
-    epsilon_eff = eps0 * S_E(T),  S_E = sqrt(1 - T),  T = transport_engagement.
-    The potential shift from a modified permittivity: for a radial field, the
-    same tail machinery as #539 but with the kernel argument = T (transport), not
-    A^2 = (E/Ec)^2. When H=0 (static Coulomb), T=0 -> S_E=1 -> eps_eff=eps0 ->
-    delta V = 0 EXACTLY (no modification).
+
+def H_atomic(r):
+    """Physical static H(r) co-existing with the muon Coulomb field.
+
+    Dominant near-nucleus channel: the proton magnetic dipole field
+    |B_dip(r)| ~ mu0 mu_p / (4 pi r^3) (characteristic on-axis magnitude). H=B/mu0.
+    This is a divergence-free static field (net transport zero) but locally nonzero
+    -- exactly the hidden-momentum circulation the local-Poynting functional cannot
+    tell apart from net flux.
     """
-    E_C_r = p3.K / r**2  # Coulomb field magnitude (same as #539)
-    T = transport_engagement_T(E_C_r, H_of_r)
-    # If T=0 everywhere, the permittivity is unmodified -> delta V = 0.
-    # For a nonzero T we would invert eps0*S_E(T)*E = E_C_r; here we only need the
-    # static case (T=0) for the muon and the pump case separately.
-    return T  # returns the engagement; the shift is built in constraint_1
+    r = np.asarray(r, dtype=float)
+    B = MU_0 * MU_P / (4.0 * np.pi * r**3)
+    return B / MU_0
 
 
-# ============================================== CONSTRAINT 1: MUONIC-H (+ pump PC)
-def constraint_1_muonic():
-    """Static muonic-H Coulomb field: H=0 -> T-POYNT=0 -> delta[DeltaE]=0 EXACTLY.
+# ============================================== CONSTRAINT 1: MUONIC-H (physical H)
+def constraint_1_muonic(r_cut_factors=(0.5, 1.0, 2.0)):
+    """PHYSICAL muonic-H atom evaluation of the boxed LOCAL-Poynting functional.
 
-    Reuses the #539 muonic wavefunctions (rho_2s, rho_2p, _norm, A_MU) and the
-    bracket-integral structure. The DERIVED transport S_E gives delta V(r)=0 for
-    the held Coulomb field (H=0), so delta[DeltaE]=0 to machine precision.
+    CRITICAL-1 fix: evaluate on the PHYSICAL atomic H(r) (proton dipole channel),
+    NOT the H=0 fiat. The local-Poynting engagement T(r) = (E/Ec)^2 * H/(E/Z0) is
+    nonzero everywhere the physical H is nonzero. Fed through the #539 bracket-
+    integral (rho_2s, rho_2p, _norm, A_MU), the boxed functional produces a level
+    shift that EXCEEDS the CREMA window by 10^0-10^4 x -- the functional FAILS its
+    own headline constraint on the physical atom. The r^-3 dipole field diverges at
+    the nucleus, so we report the shift vs a family of inner cutoffs r_cut = f*a_mu
+    (the near-nucleus region cannot rescue: even deleting everything inside 2 a_mu
+    leaves several x the window). This is the [CONSTRAINT-KILLED] result.
 
-    NULL-VERDICT-LIVENESS (trigger 10): a POSITIVE CONTROL -- the SAME pipeline
-    fed a field WITH transport (H != 0, a co-moving component) -- must give a
-    NONZERO shift, proving the zero is physics (held stock has no transport), not
-    a bookkeeping zero that reads zero for any field.
+    (LIVENESS is now moot: the physical H already makes the shift nonzero. We keep a
+    reduced bounded-perturbation probe ONLY as a pipeline sanity check, correctly
+    LABELED as such -- not as a null-verdict-liveness proof of a passing zero, which
+    no longer exists.)
     """
-    # --- held Coulomb field: H=0 everywhere ---
-    def dV_held(r):
-        H = 0.0 * r  # held stock: no magnetic transport
-        T = transport_engagement_T(p3.K / r**2, H)
-        # eps_eff = eps0*sqrt(1-T); for T=0, eps_eff=eps0, dV=0
-        # general: solve eps0 sqrt(1-T) E = E_C -> E = E_C/sqrt(1-T); dV = int(E-E_C)
-        S = np.sqrt(np.clip(1.0 - T, 1e-300, 1.0))
-        E_true = (p3.K / r**2) / S  # enhanced field if T>0
-        return E_true - p3.K / r**2  # integrand of delta V (field excess)
-
-    # bracket integral over muonic 2S, 2P (reuse #539 wavefunctions + normalization)
     from scipy import integrate
 
     a = p3.A_MU
-    r_lo, r_hi = 1e-3 * a, 60.0 * a
+    r_hi = 60.0 * a
     N2s = p3._norm(p3.rho_2s)
     N2p = p3._norm(p3.rho_2p)
 
-    def dV_of_r(r):
-        # delta V(r) = -int_r^inf dV_held(r') dr'  (potential from field excess)
-        val, _ = integrate.quad(lambda rp: dV_held(rp), r, r_hi, limit=200)
-        return -val  # sign per #539 convention
-
-    def bracket(rho, norm):
-        def integrand(r):
-            return e_charge * dV_of_r(r) * rho(r) / norm
-        val, _ = integrate.quad(integrand, r_lo, r_hi, limit=120)
-        return val
-
-    # For a strictly held field T=0 -> dV_held=0 -> shift = 0 exactly; short-circuit
-    # to avoid integrating machine-zero noise, but VERIFY the engagement is zero:
-    T_probe = transport_engagement_T(p3.K / (a) ** 2, 0.0)
-    shift_held_ueV = 0.0 if T_probe == 0.0 else (
-        (bracket(p3.rho_2s, N2s) - bracket(p3.rho_2p, N2p)) * J_TO_ueV
-    )
-
-    # --- POSITIVE CONTROL (null-verdict-liveness, trigger 10): the SAME
-    #     bracket-integral pipeline fed a BOUNDED transported perturbation, to prove
-    #     the zero above is physics (H=0 -> no transport), not a structural zero
-    #     that reads zero for ANY field. We use a weak, bounded transport engagement
-    #     T_pc(r) = eps * exp(-r/a) (a fictional co-moving component confined to the
-    #     atom, capped well below 1 so the field inversion stays finite -- no
-    #     r->0 divergence). If the pipeline is live it returns a NONZERO, FINITE
-    #     shift proportional to eps. This is a liveness probe, NOT a physical claim.
-    EPS_PC = 1e-3  # small bounded transport engagement (dimensionless, < 1)
-
-    def dV_transported_bounded(r):
+    def dV_field_excess(r, r_cut):
+        """Field excess (E_true - E_C) from S_E on the PHYSICAL local Poynting."""
         E_C_r = p3.K / r**2
-        T = EPS_PC * np.exp(-r / a)  # bounded, capped, atom-confined
+        if r < r_cut:
+            return 0.0  # inner cutoff: exclude the r^-3 dipole divergence
+        T = float(transport_engagement_T(E_C_r, H_atomic(r)))
+        S = np.sqrt(np.clip(1.0 - T, 1e-12, 1.0))
+        return E_C_r / S - E_C_r
+
+    def shift_ueV(r_cut):
+        def dV_of_r(r):
+            val, _ = integrate.quad(lambda rp: dV_field_excess(rp, r_cut), r, r_hi,
+                                    limit=150)
+            return -val
+        def bracket(rho, norm):
+            val, _ = integrate.quad(
+                lambda r: e_charge * dV_of_r(r) * rho(r) / norm, r_cut, r_hi, limit=100)
+            return val
+        return (bracket(p3.rho_2s, N2s) - bracket(p3.rho_2p, N2p)) * J_TO_ueV
+
+    # engagement at a few radii (shows the physical H makes T != 0 everywhere)
+    T_at = {f"{f:g}a": float(transport_engagement_T(p3.K / (f * a) ** 2, H_atomic(f * a)))
+            for f in (0.1, 0.5, 1.0, 2.0)}
+    shifts = {f: shift_ueV(f * a) for f in r_cut_factors}
+    worst = max(abs(v) for v in shifts.values())
+
+    # pipeline sanity probe (NOT a liveness proof of a passing zero -- there is no
+    # passing zero anymore): a small bounded T confirms the bracket integral is live.
+    EPS = 1e-3
+
+    def dV_probe(r):
+        E_C_r = p3.K / r**2
+        T = EPS * np.exp(-r / a)
         S = np.sqrt(np.clip(1.0 - T, 1e-6, 1.0))
-        return E_C_r / S - E_C_r  # finite field excess (S >= 1e-3)
+        return E_C_r / S - E_C_r
 
-    def dV_of_r_pc(r):
-        val, _ = integrate.quad(lambda rp: dV_transported_bounded(rp), r, r_hi, limit=200)
-        return -val
-
-    def bracket_pc(rho, norm):
-        def integrand(r):
-            return e_charge * dV_of_r_pc(r) * rho(r) / norm
-        val, _ = integrate.quad(integrand, r_lo, r_hi, limit=120)
+    def bracket_probe(rho, norm):
+        def dV_of_r(r):
+            val, _ = integrate.quad(dV_probe, r, r_hi, limit=200)
+            return -val
+        val, _ = integrate.quad(
+            lambda r: e_charge * dV_of_r(r) * rho(r) / norm, 1e-3 * a, r_hi, limit=120)
         return val
 
-    shift_pc_ueV = (bracket_pc(p3.rho_2s, N2s) - bracket_pc(p3.rho_2p, N2p)) * J_TO_ueV
+    probe_ueV = (bracket_probe(p3.rho_2s, N2s) - bracket_probe(p3.rho_2p, N2p)) * J_TO_ueV
 
     return {
-        "T_held_at_a_mu": T_probe,
-        "shift_held_ueV": shift_held_ueV,
-        "shift_positive_control_ueV": shift_pc_ueV,
+        "T_physical_at": T_at,
+        "shifts_ueV_by_rcut": {f"{f:g}a_mu": shifts[f] for f in r_cut_factors},
+        "worst_abs_shift_ueV": worst,
         "window_ueV": p3.WINDOW_ueV_primary,
-        "passes": abs(shift_held_ueV) < p3.WINDOW_ueV_primary,
+        "overshoot_factor": worst / p3.WINDOW_ueV_primary,
+        "passes": worst < p3.WINDOW_ueV_primary,  # FALSE -> [CONSTRAINT-KILLED]
+        "pipeline_probe_ueV": probe_ueV,  # bounded-probe sanity (labeled, not liveness)
     }
 
 
@@ -322,13 +331,19 @@ def main():
     print("SIX FROZEN CONSTRAINT FALSIFIERS (derived S_E, S_B evaluated as-derived)")
     print("=" * 74)
 
-    print("\n[1] MUONIC-H (reuses #539 machinery)")
+    print("\n[1] MUONIC-H (PHYSICAL atomic H(r) -- reuses #539 machinery)")
     c1 = constraint_1_muonic()
-    print(f"    T-POYNT at a_mu (held Coulomb, H=0) = {c1['T_held_at_a_mu']:.3e}")
-    print(f"    delta[DeltaE] held  = {c1['shift_held_ueV']:.3e} ueV   window={c1['window_ueV']} ueV")
-    print(f"    PASS (< window)?    = {c1['passes']}")
-    print(f"    POSITIVE CONTROL (transported field, H=E/Z0) = "
-          f"{c1['shift_positive_control_ueV']:.3e} ueV  [nonzero -> pipeline LIVE]")
+    print("    LOCAL Poynting engagement T on the PHYSICAL H(r) (proton dipole):")
+    for k, v in c1["T_physical_at"].items():
+        print(f"      T({k}) = {v:.3e}  (the H=0 fiat wrongly gave 0)")
+    print("    level shift vs inner cutoff r_cut:")
+    for k, v in c1["shifts_ueV_by_rcut"].items():
+        print(f"      r_cut={k}: shift = {v:+.3e} ueV")
+    print(f"    worst |shift| = {c1['worst_abs_shift_ueV']:.3e} ueV  window={c1['window_ueV']} ueV"
+          f"  -> {c1['overshoot_factor']:.1f}x")
+    print(f"    PASS (< window)? = {c1['passes']}  -> [CONSTRAINT-KILLED]")
+    print(f"    (pipeline sanity probe, bounded T=1e-3: {c1['pipeline_probe_ueV']:.3e} ueV"
+          f" -- labeled, NOT a liveness proof of a passing zero)")
 
     print("\n[2] THE PUMP (Letter Table I) — propagating wave, transport ENGAGED")
     c2 = constraint_2_pump()
