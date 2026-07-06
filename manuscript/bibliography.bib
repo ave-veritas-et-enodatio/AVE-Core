@@ -372,3 +372,47 @@
   year      = {1847},
   note      = {Stereological principle: the area fraction of a phase on a random planar section equals its volume fraction in the bulk}
 }
+
+% --- Saturating constitutive law + network-model lineage (historical framing, 2026-07-06) ---
+% Two 20th-century precedents for AVE's core moves: a saturating vacuum constitutive law
+% (Born--Infeld 1934) and the vacuum-as-electrical-network model (Kron 1939/1945).
+% Bibliographics verified 2026-07-06 against secondary sources (Wikipedia Born--Infeld model
+% + Gabriel Kron entries; ADS bibcodes 1934RSPSA.144..425B and 1945PhRv...67...39K;
+% OpenLibrary for the Kron 1939 publisher). The Royal Society and APS primary pages returned
+% HTTP 403 this session, so the primaries themselves were not fetched; the entries below carry
+% only the cross-verified fields. The Kron 1944 "Equivalent Circuit of the Field Equations of
+% Maxwell" (Proc. IRE) is deliberately NOT added here: its volume/pages could not be verified
+% against a primary this session (it remains CITE-NEEDS-CONFIRMATION in cem-methods-survey.md).
+
+@article{borninfeld1934foundations,
+  title     = {Foundations of the New Field Theory},
+  author    = {Born, Max and Infeld, Leopold},
+  journal   = {Proceedings of the Royal Society of London A},
+  volume    = {144},
+  number    = {852},
+  pages     = {425--451},
+  year      = {1934},
+  doi       = {10.1098/rspa.1934.0059},
+  note      = {Nonlinear vacuum electrodynamics with an absolute field-strength limit; the square-root Lagrangian $\mathcal{L} \propto \sqrt{1 + F/b^2}$ renders the point-charge field and electron self-energy finite --- the historical ancestor of saturating vacuum constitutive laws}
+}
+
+@book{kron1939tensor,
+  title     = {Tensor Analysis of Networks},
+  author    = {Kron, Gabriel},
+  year      = {1939},
+  publisher = {John Wiley \& Sons},
+  address   = {New York},
+  note      = {Recast physical systems as generalized electrical networks; the foundation of the equivalent-circuit-of-the-field-equations tradition. Second edition 1965 (Macdonald, London)}
+}
+
+@article{kron1945schrodinger,
+  title     = {Electric Circuit Models of the {S}chr{\"o}dinger Equation},
+  author    = {Kron, Gabriel},
+  journal   = {Physical Review},
+  volume    = {67},
+  number    = {1--2},
+  pages     = {39--43},
+  year      = {1945},
+  doi       = {10.1103/PhysRev.67.39},
+  note      = {Explicit equivalent circuit for the field equations of quantum mechanics; methodological ancestor of treating the vacuum as a literal LC network. AVE takes the equivalent-circuit isomorphism literally (the medium IS the network) rather than as an analog-computing device. Page range 39--43 per the Crossref/publisher (Phys. Rev.) record; the ADS bibcode 1945PhRv...67...39K carries only the first page. Title case-protected {S}...{\"o} so the bibliography style does not downcase Schr{\"o}dinger.}
+}
