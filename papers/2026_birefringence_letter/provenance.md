@@ -244,9 +244,13 @@ sign, softening not stiffening, E-B asymmetric). FAMILY CONTEXT ONLY — no bran
 self-energy claim (that is the electrostatic-sector gauntlet, not yet run). Ref `BornInfeld1934`
 (already present).
 
-**Build/verify:** `make paper` clean (7 pages, zero undefined refs/citation warnings, 12 refs resolve
+**Build/verify:** `make paper` clean (7 pages, zero undefined refs/citation warnings, 13 refs resolve
 incl. new DeLLight). `make verify` GREEN (staleness warn satisfied by the rebuilt+committed PDF). src/
-UNCHANGED this round (a strawman one-leg cycle-average driver edit was written, caught at compute time
-via the ratio-invariance check, and REVERTED — see the field-convention note §3; the anchored driver +
-JSON are byte-identical to v1). Fresh branch `analysis/letter-v2-phase0` off merged HEAD 3188b052.
-Grant's five standing decisions (headline form, SVE name, author, venue, floors) UNTOUCHED.
+UNCHANGED this round: a strawman one-leg cycle-average driver edit (a `field_convention` parameter that
+halved ONLY the SVE leg's field) was written and caught at compute time — it broke the field-independent
+delta_n coefficient ratio, which `coefficient_ratio_differential_pvlas` returns as a field-independent
+constant by construction, so a one-leg edit that halves it is provably wrong. Both driver files were
+`git checkout`-reverted and the JSON regenerated to byte-identical anchored v1. The full story +
+the invariant gate that caught it live in the field-convention note **§4a** (`research/2026-07-05_field-convention-carrier-average_note.md`).
+Fresh branch `analysis/letter-v2-phase0` off merged HEAD 3188b052. Grant's five standing decisions
+(headline form, SVE name, author, venue, floors) UNTOUCHED.

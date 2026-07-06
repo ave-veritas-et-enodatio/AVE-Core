@@ -167,6 +167,30 @@ Per the recommendation, the Letter edits for item 1 are:
 - **Table I numbers do NOT move** under arm 1 (peak-field footing = the anchored v1). No v2 of the
   anchored table this round; the v2/arm-2 question is flagged in §3 for Grant.
 
+## 4a. The strawman driver edit — caught at compute time and reverted (Rule 10 empirical-driver discipline)
+
+While working item 1 I first coded the WRONG fix: I added a `field_convention="cycle-averaged"`
+parameter to `hibef_point` that halved ONLY the SVE leg's field (`E -> E/sqrt(2)`) while leaving the
+QED leg at peak `E`. That is a STRAWMAN: it evaluates the two legs on DIFFERENT fields, and it broke
+the field-independent ratio (the per-row `P_ave/P_qed` printed `~4.9e10` instead of the anchored
+`~1.95e11`, and the delta_n ratio dropped to `221221 = 3.75pi/alpha^2` — a HALF that looked like the
+§3 finding but was arrived at by the wrong mechanism, one-leg-only).
+
+**The gate that caught it: the ratio-invariance cross-check.** After running the modified driver I
+computed the delta_n ratio `|dn_ave|/dn_qed` directly and saw it was no longer field-independent at
+`7.5 pi/alpha^2` — the coefficient ratio MUST be invariant (both legs are `coeff * (E/E_crit)^2` on
+the SAME field variable), so a driver that produces a field-dependent or halved ratio by editing ONE
+leg's field is provably wrong. This is a static invariant (`coefficient_ratio_differential_pvlas`
+returns a field-independent constant by construction), and the driver output violated it. **I reverted
+both driver files** (`git checkout src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py
+birefringence_hibef_scenario_predictions.py`) and regenerated the JSON to the byte-identical anchored
+v1. The CORRECT resolution is NOT a one-leg driver edit — it is the footing question of §3, which is
+prose/adjudication, not a driver change. `src/` + JSON are byte-identical to the anchored v1.
+
+This is the Rule 10 lesson in miniature: the bug (a strawman that broke the invariant ratio) only
+manifested at compute time, not in the static plan. The invariant check is the gate; the revert is the
+fix; the real finding (§3 mixed footing) is a prose flag, not a code change.
+
 ## 5. Discipline tags + provenance
 - **flag-don't-fix:** the §3 mixed-footing exposure is surfaced with full derivation + both file
   paths; NOT silently resolved. Precedent: `research/2026-05-18_q-g27-q-g19a-systemic-conversion-error-finding.md`
