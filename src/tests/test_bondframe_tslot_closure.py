@@ -337,15 +337,19 @@ def test_nonlinear_tension_scales_with_ka_regression_guard():
 def test_ka_fix_blast_radius_cleared_at_ka1():
     """BLAST-RADIUS CLEARANCE (PR #535 review): every merged consumer (#533/#534 and this
     module's drivers) runs the nonlinear branch at k_a=1, where the pre-fix baked k0=1 is
-    coincidentally correct. So the fix is a NO-OP at k_a=1 — no merged result changes."""
+    coincidentally correct. So the fix is a NO-OP at k_a=1 — no merged result changes.
+
+    The k_a=1 bit-identity below IS the blast-radius clearance logic: `tension` is the ONLY
+    site the fix touched (plus `energy`, which integrates it), so if the nonlinear tension is
+    unchanged at k_a=1, every downstream k_a=1 result is unchanged by construction. The
+    three-host table itself is guarded by the existing #533/#534 suite tests on this same
+    branch: `test_three_host_table_constraint_dependent` (runs `three_host_table()` and
+    asserts ring COLD + free SOFT 0.992563) and `test_free_host_softness_is_bulk_N_independent`
+    (already engine_sim, opt-in) — no need to re-run the (memory-heavy, free-chain-to-
+    equilibrium) table here in the default xdist lane, where it OOM-crashes the worker."""
     from scripts.vol_1_foundations.ring_bondframe_probe import RingChain, _phi_prime
 
     A = np.linspace(-0.3, 0.3, 13)
     r = RingChain(10, k_a=1.0)
     # at k_a=1 the fixed nonlinear tension is bit-identical to the pre-fix _phi_prime(A)
     assert np.allclose(r.tension(A), _phi_prime(A), rtol=0, atol=0)
-    # the three-host table (all merged computations at k_a=1) is unchanged
-    from scripts.vol_1_foundations.ring_bondframe_probe import three_host_table
-    t = three_host_table()
-    assert t["ring"] == pytest.approx(1.0, abs=3e-3)
-    assert t["free"] == pytest.approx(0.992563, abs=1e-4)
