@@ -27,13 +27,6 @@ from pathlib import Path
 import numpy as np
 from scipy.integrate import IntegrationWarning
 
-# The muonic bracket integrals over the 1/r^2 Coulomb field are slowly convergent
-# near r->0 (a KNOWN, benign feature also present in the #539 evaluator); the
-# positive-control liveness probe deliberately uses a divergent-tail field. Silence
-# only these convergence warnings so the routed output is readable; the numeric
-# results are cross-checked by the T=0 short-circuit and the ReconcileGate.
-warnings.filterwarnings("ignore", category=IntegrationWarning)
-
 from ave.core.constants import (
     C_0,
     E_YIELD,
@@ -49,6 +42,13 @@ from ave.core.constants import (
 # import the #539 muonic-H machinery (reuse, do not reimplement)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import problem3_muonic_lamb_shift as p3  # noqa: E402
+
+# The muonic bracket integrals over the 1/r^2 Coulomb field are slowly convergent
+# near r->0 (a KNOWN, benign feature also present in the #539 evaluator); the
+# positive-control liveness probe deliberately uses a divergent-tail field. Silence
+# only these convergence warnings so the routed output is readable; the numeric
+# results are cross-checked by the T=0 short-circuit and the ReconcileGate.
+warnings.filterwarnings("ignore", category=IntegrationWarning)
 
 E_C = E_YIELD
 I_MAX = XI_TOPO * C_0  # 124.384 A (Route C)

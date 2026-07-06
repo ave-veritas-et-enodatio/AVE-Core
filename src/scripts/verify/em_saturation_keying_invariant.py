@@ -49,7 +49,7 @@ from __future__ import annotations
 import numpy as np
 import sympy as sp
 
-from ave.core.constants import C_0, E_YIELD, EPSILON_0, MU_0, OMEGA_C, Z_0
+from ave.core.constants import C_0, E_YIELD, EPSILON_0, L_NODE, M_E, OMEGA_C, Z_0
 
 E_C = E_YIELD  # saturation field
 
@@ -165,7 +165,6 @@ def poynting_coefficient_honesty():
     the 1/(4pi) value.
     """
     import math
-    from ave.core.constants import L_NODE, M_E
     Ec = E_C
     ell = L_NODE
     mc2 = M_E * C_0**2
@@ -204,8 +203,6 @@ def boost_tensor_check():
     Returns the boosted motional-field Poynting for the Letter's 2.5 T / 370 km/s
     case, in E^2 units, to confirm it lands at the Letter's A^2~7e-23 level.
     """
-    import math
-    from ave.core.constants import L_NODE, M_E
     v = 370e3  # m/s, CMB boost
     B = 2.5  # T, PVLAS-scale static magnet
     E_mot = v * B  # motional E ~ v B (Letter main.tex:312)
