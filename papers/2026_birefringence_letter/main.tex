@@ -241,6 +241,29 @@ carrier average, and neither the order of magnitude nor any falsifier verdict of
 Sec.~\ref{sec:falsify} depends on the choice. (This same $\tfrac12$ carrier
 average is one of the two factors in the static-to-propagating QED normalization
 step of Sec.~\ref{sec:prediction}.)
+\emph{(v) The sector boundary was acquired, not assumed.} We record where the
+model failed and what that costs. \emph{What was implicitly claimed:} the kernel
+of Eq.~\eqref{eq:kernel}, written as a constitutive law with no regime boundary,
+reads as a universal permittivity for any electric field. \emph{What the data
+ruled:} that reading is dead. Run as a continuum static law down to atomic
+scales, the same kernel overshoots the muonic-hydrogen Lamb
+interval~\cite{Antognini2013} non-perturbatively --- the induced level shift
+exceeds the entire measured splitting, not merely its error bar (and inside a
+high-$Z$ ion the kernel has no real solution at all) --- with no
+physically-motivated short-distance cutoff to rescue it. The static-field sector
+of the constitutive law is therefore excluded (Sec.~\ref{sec:model}, sector
+scope). \emph{What survives:} the falsifier of this Letter, unchanged. The
+registered prediction --- $\Pflip$ and the kill criterion of
+Sec.~\ref{sec:falsify} --- is a \emph{radiative}-sector quantity (a propagating,
+weak-field, time-varying pump crossed by a probe), disjoint from the atomic
+static-DC sector that was excluded; the static-$\mathbf B$ transparency of
+Eq.~\eqref{eq:staticB} is disjoint again. Neither is touched by the exclusion.
+\emph{What is open:} the \emph{mechanism} that scopes the law to the radiative
+sector. That the law is radiative-sector is here a postulate; a first candidate
+scoping (local power-transport keying) has been tested and excluded, and the
+scoping mechanism remains under derivation. We flag this openly rather than
+present the constitutive law as though it carried a settled sector boundary from
+the outset.
 
 \emph{The elliptic form is not a free choice.} The kernel
 $S=\sqrt{1-(E/\Ec)^2}$ is the unique response of a lossless oscillator whose
@@ -266,10 +289,40 @@ finite. The present kernel $S=\sqrt{1-(E/\Ec)^2}$ belongs to the same
 saturating-field family but is a distinct branch of it: the sign under the root is
 reversed, so the response \emph{softens} toward a hard ceiling $\Ec$ rather than
 stiffening, and (Sec.~\ref{sec:signature}) the magnetic sector is not symmetric
-with the electric one. We situate the model here only to place its lineage; the
-behaviour of the elliptic branch in the static electrostatic sector, and any
-comparison of self-energy properties across branches, is outside the scope of this
+with the electric one. We situate the model here only to place its lineage; any
+comparison of self-energy properties across branches is outside the scope of this
 Letter, whose registered claim is the pump--probe birefringence coefficient.
+
+\paragraph*{Sector scope, stated explicitly.} We assert the constitutive law of
+Eq.~\eqref{eq:kernel} for the \emph{radiative} (pump--probe) sector only: a
+deep-cold, weak-field ($A^2\simeq\num{6e-7}$), time-varying dielectric response
+read at optical/X-ray frequencies. We do \emph{not} assert it as a universal
+static-field constitutive law extending to strong, near-nucleus atomic fields.
+This boundary was not assumed but tested. Before any external submission, we
+pre-registered a fork with a committed-in-advance outcome and computed the
+elliptic kernel's contribution, as a continuum static constitutive law, to the
+muonic-hydrogen Lamb shift. An atomic Coulomb field is not weak against $\Ec$
+(at the muonic-hydrogen Bohr scale $A^2\simeq\num{2.5e-2}$, and inside a
+high-$Z$ ion the field exceeds $\Ec$, where the elliptic kernel has no real
+solution at all), and the muonic-hydrogen $2P_{1/2}$--$2S_{1/2}$ interval is
+measured to $\SI{202.3706(23)}{\milli\electronvolt}$~\cite{Antognini2013}. The
+continuum static extension \emph{fails this test non-perturbatively}: the induced
+level shift exceeds not merely the sub-$\si{\micro\electronvolt}$ measurement
+window but the \emph{entire} measured Lamb interval by orders of magnitude, and
+no lattice-scale short-distance cutoff placed at a physically motivated scale
+rescues it. The continuum static-field extension of Eq.~\eqref{eq:kernel} is
+therefore \emph{excluded}; the registered radiative-sector prediction of this
+Letter is a separate sector, untouched by that exclusion (honesty ledger,
+Sec.~\ref{sec:model}). The radiative scoping is at present a \emph{postulate}: it
+states \emph{that} the law is radiative-sector, not yet \emph{why}. One candidate
+scoping mechanism --- a response keyed on the local power transport ($\mathbf
+E\times\mathbf H$) that a propagating field carries but a held static field does
+not --- has itself been tested and excluded, because a physical atom's bound
+magnetic moment sources a static, divergence-free $\mathbf E\times\mathbf H$
+circulation that engages the local functional; the scoping mechanism remains
+under derivation. The magnetic sector's
+circulation keying [Eq.~\eqref{eq:staticB}, static-$\mathbf B$ transparency] is a
+distinct sector again and is unaffected by any of this.
 
 \subsection{The magnetic sector: static-flux transparency}
 
@@ -623,10 +676,16 @@ The same calibrated scale $\Ec$ leaves the model consistent with precision
 optical measurements that do not use the pump--probe geometry. The implied vacuum
 Kerr coefficient $n_2=1/(2c\varepsilon_0\Ec^2)\simeq\SI{1.5e-32}{\meter\squared\per\watt}$
 gives a self-focusing critical power $\sim\!\num{6.5e3}\,\mathrm{PW}$, far above any
-existing laser, so no vacuum self-focusing is expected; the circulating fields of
+existing laser, so no vacuum self-focusing is expected (a propagating-field, and
+hence radiative-sector, bound); the circulating fields of
 gravitational-wave interferometers produce a retardance $\sim\!\num{e-11}$ rad, far
-below their sensitivity; and, as shown in Sec.~\ref{sec:model}, laboratory
-static-field experiments are unaffected by the preferred-frame boost. The
+below their sensitivity (again a propagating-field bound); and, as shown in
+Sec.~\ref{sec:model}, \emph{weak} laboratory static fields are unaffected by the
+preferred-frame boost (the motional field they induce is $A^2\sim\num{7e-23}$).
+This last is a bound on weak macroscopic static fields only; it is \emph{not} a
+claim that the constitutive law extends into the strong, near-nucleus atomic
+static sector, which is separately excluded (Sec.~\ref{sec:model}, sector scope).
+The
 interferometric route that would probe the common-mode index --- the DeLLight
 experiment~\cite{Robertson2021DeLLight}, projecting sensitivity to the QED-level
 index change --- has not yet reported a pump-on measurement in this regime, so it

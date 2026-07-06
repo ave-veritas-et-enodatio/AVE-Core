@@ -309,3 +309,113 @@ so 8pp is accepted over cutting ratified physics; no large overfull boxes introd
 pre-existing appendix one at main.tex:~711 remains). `make verify` GREEN. src/ + JSON UNCHANGED
 (byte-identical to v1). Fresh branch `analysis/letter-v2-arm2` off merged HEAD a6c8f844 (contains #537).
 Grant's five standing decisions UNTOUCHED.
+
+## 10. Electrostatic-sector scope + exclusion ledger entry (2026-07-05, Grant go)
+
+**Grant go (2026-07-05):** the flagship must carry its own sector's adjudication — the Letter states
+the electrostatic-sector exclusion in its OWN standalone terms (corpus-independent), with the muonic
+result phrased self-contained and the CREMA measurement cited properly. **No anchored v1 number moved
+this round;** this round adds a sector boundary the model *acquired in public*, ledger open.
+
+**The merged canon this round surfaces into the flagship (each verified verbatim this session):**
+- **Static-E [C-EXCLUDED]** (Problem 3, merged #539/#540, claim `clm-sve3xc`;
+  `research/2026-07-05_problem3-muonic-lamb_RESULT.md`): the CONTINUUM static-E constitutive law
+  `eps_eff = eps0 sqrt(1-(E/E_c)^2)` is EXCLUDED at atomic scales by muonic hydrogen,
+  **non-perturbatively**. Both arms violate the CREMA 2.3 µeV window by 4–7 OOM: continuum
+  `[1.5e6, 2.3e7]` µeV = 7.5×–114× the full 202.37 meV Lamb interval; lattice-scoped (`r >> ell_node`)
+  still `[4.9e4, 6.2e5]` µeV (smallest variant ~2e4× the window). U91+ continuum arm is genuinely
+  INCOMPUTABLE (`A^2 = 12.6 > 1`, no real solution). The protective cutoff would need `~9·ell_node ≈
+  3.5 pm` — an independent free parameter (the ~300 fm floor estimate is REFUTED, ~12× too small). The
+  Letter states this in standalone terms: the constitutive law as written cannot extend to strong static
+  atomic fields, the induced level shift exceeding the *entire* measured splitting.
+- **Rescue round 1 [CONSTRAINT-KILLED]** (merged #542;
+  `research/2026-07-05_em-saturation-keying-functional_RESULT.md`): the LOCAL-Poynting transport-keying
+  scoping mechanism (`S_E = sqrt(1 - c_T · <E×H>/S_yield)`) FAILS on the PHYSICAL atom — the proton
+  magnetic moment sources a permanent static, divergence-free `E×H` circulation (hidden-momentum class)
+  that engages the local functional at **1278× the 2.3 µeV window** (−2939 µeV @ `r_cut=0.5 a_μ`). As
+  recorded at #542 merge, the net-flux (closed-surface) round-2 candidate was named OPEN. **Subsequent
+  (post-draft, Grant-walked, recorded in the round-2 arc's prereg addendum): the net-flux candidate is
+  DEAD** — closed-surface net flux = `dU/dt = 0` for every steady state, including the pump (Poynting
+  degeneracy), so it cannot distinguish the pump from the held atom. The scoping mechanism therefore
+  remains OPEN and is stated **candidate-agnostically** in the Letter (see the fix note below); the
+  Letter names no specific open candidate, so it needs no edit as the round-2 derivation iterates.
+
+**The edit (surgical — 8pp referee-facing Letter, one logical fix per commit):**
+- **Item 1 — SCOPE paragraph (§II.B, `main.tex`):** a "Sector scope, stated explicitly" paragraph after
+  the Family-context lineage. The constitutive law is asserted for the RADIATIVE pump-probe sector only
+  (`A^2~6e-7`, time-varying); the static-field sector was tested against muonic-H under a pre-registered
+  outcome fork BEFORE any external submission; the continuum static extension is EXCLUDED
+  non-perturbatively (the induced level shift exceeds the entire measured 202.3706(23) meV interval,
+  `\cite{Antognini2013}`; inside a high-Z ion the kernel has no real solution). The radiative scoping is
+  a POSTULATE: one candidate mechanism (local `E×H` transport keying) tested and excluded (the physical
+  atom's bound magnetic moment engages it); the scoping mechanism remains under derivation, stated
+  **candidate-agnostically** (the Letter names no specific open candidate — see the fix note below). The
+  B-sector circulation keying [Eq. (6)] is a separate sector, unaffected.
+- **Item 2 — HONESTY LEDGER item (v) (§II.B, `main.tex`):** claimed (implicitly universal constitutive
+  law) / ruled (static sector dead) / survives (the AC falsifier unchanged — `P_flip` and the kill
+  criterion are radiative-sector quantities) / open (the scoping mechanism). Keith's Outcome-B posture
+  executed: the model acquired its sector boundary in public, ledger open.
+- **Item 3 — sentence sweep (two-method: grep `static|constitutive|universal|electrostatic|D(E)` + §II
+  end-to-end read).** ONE static-E-sector consistency sentence scoped: §V "Consistency with existing
+  bounds" — the preferred-frame-boost sentence scoped to WEAK macroscopic static fields only
+  (`A^2~7e-23`), explicitly NOT a claim into the strong near-nucleus atomic static sector (separately
+  excluded). Self-focusing (propagating Kerr) + GW-interferometer (circulating cavity fields) + DeLLight
+  (optically-induced common-mode) rows verified RADIATIVE-sector (labelled propagating-field bounds); no
+  scoping needed. All other `static` occurrences are the magnetic-sector static-B transparency (a
+  separate sector, already correctly scoped).
+- **Item 4 — KB seam (`manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`):**
+  the leaf headlined `7.5pi/alpha^2 ~ 4.42e5` (v1 mixed footing); reconciled to the consistent-footing
+  `3.75pi/alpha^2 ~ 2.2e5` (Letter v2 Arm-2, §9) via a KEEP-BOTH FOOTING RE-FREEZE note — the
+  `7.5pi/alpha^2` preserved as v1 convention history, the `x4`-geometry `x1/2`-carrier decomposition
+  shown, provenance §9/§10 cited. No OOM / falsifier verdict moves.
+- **Item 5 — this §10 entry.**
+- **Item 6 — II.B lineage-clause removal (`main.tex`, commit `abd1438f`):** the Family-context lineage
+  paragraph previously deferred the static sector inline — "*the behaviour of the elliptic branch in the
+  static electrostatic sector, and any comparison of self-energy properties across branches, is outside
+  the scope of this Letter*" (stood at `origin/main` `main.tex:270`). That clause was narrowed to "*any
+  comparison of self-energy properties across branches is outside the scope of this Letter*" (now
+  `main.tex:290–292`): the static-electrostatic deferral is superseded by the [C-EXCLUDED] Sector-scope
+  paragraph (Item 1) + honesty-ledger item (v) (Item 2), which state the exclusion non-perturbatively
+  rather than deferring it. Content-correct but itemized nowhere at draft time — logged here.
+
+**refs.bib:** `Antognini2013` added — Antognini et al., Science 339, 417–420 (2013), DOI
+`10.1126/science.1230016` (the CREMA muonic-H 2S–2P measurement; extracted `2P_1/2−2S_1/2` Lamb interval
+`202.3706(23) meV`). DOI + full author list + volume/page Crossref-verified this session. The Letter is
+STANDALONE: it cites its own pre-registered mechanism ("a pre-registered atomic-sector test") and this
+external CREMA measurement; no private-repo cite.
+
+**Discipline tags.**
+- **consistency-vs-emergence:** the exclusion is FALSIFICATION/CONSISTENCY-class (the SVE `E_c` is
+  CODATA-derived through `alpha`, `m_e` per honesty-item (iii)); no emergence claimed. Matches
+  `clm-sve3xc` solidity 0.80.
+- **honest closure (Rule 11):** the static-E extension was routed against FROZEN bins with no post-hoc
+  criterion drops; both arms violate; a single mechanism (`1/r^5` near-nucleus enhancement surviving the
+  `ell_node` cutoff) explains both. The Letter records the falsification, scopes the branch, ledger open.
+- **flag-don't-fix:** the leaf-vs-flagship footing staleness (KB `7.5pi/alpha^2` vs Letter
+  `3.75pi/alpha^2`) surfaced + reconciled KEEP-BOTH (not silently overwritten). The leaf body
+  (`7.5/alpha^3`) is left under the existing header-supersession chain; NOT rewritten this round.
+- **phase-space-coordinate-check:** N/A / PASS — the muonic-H test measures a level-shift (energy), the
+  matching coordinate for a constitutive-law level-shift prediction; no real-space-vs-phase-space
+  mismatch.
+- **verify-before-cite:** every exclusion magnitude (both arms' bands, the `~9·ell_node` protective
+  cutoff, U91+ incomputability, the 1278× local-Poynting overshoot) live-read from the merged #539/#540/#542
+  docs this session; the CREMA value + Antognini DOI Crossref-verified; the `3.75pi/alpha^2` arithmetic
+  re-checked (`15pi/(4 alpha^2)`).
+
+**Build/verify (scope round):** `make paper` clean (8 pages, zero undefined refs/citation warnings, 16
+refs resolve incl. new `Antognini2013`; only the pre-existing appendix overfull box at `main.tex:~741`
+remains — my paragraphs introduced no large overfull box). `make verify` GREEN. src/ + JSON UNCHANGED
+(byte-identical to v1; no driver touched). Fresh branch `analysis/letter-electrostatic-exclusion` off
+merged HEAD `fc6a2379` (contains #542). Grant's five standing decisions UNTOUCHED.
+
+**FIX NOTE (2026-07-05, post-draft, one commit) — candidate-agnostic scoping-mechanism wording.** The
+draft's scope paragraph (item 1) and honesty-ledger item (v) (item 2) both named "a net-flux
+(closed-surface) formulation under derivation" as the open scoping candidate. That candidate is now
+**DEAD** (Grant-walked; recorded in the round-2 arc's prereg addendum): closed-surface net flux =
+`dU/dt = 0` for every steady state including the pump (Poynting degeneracy), so a net-flux key cannot
+distinguish the pump from the held atom. The Letter must not name a killed candidate — and should not
+name whichever candidate is currently live either, so it needs no edit each time the derivation iterates.
+Both sentences re-worded to the **candidate-agnostic** form: *"…has itself been tested and excluded; the
+scoping mechanism remains under derivation."* The honest state is **mechanism-open**. This changes no
+number, no falsifier verdict, no anchored value; it is a physical-picture-accuracy wording fix only.
+`make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs); `make verify` GREEN.
