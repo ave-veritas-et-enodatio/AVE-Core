@@ -42,9 +42,20 @@ The expected (E/E_snap)²-class tail. Interior structure: LHS `E·√(1−(E/E_c
 
 muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830, EXTERNAL input),
 `a_μ=284.75 fm`, `r_ns=112.86 fm`, `r_turn=159.61 fm`, `ℓ_node=386.16 fm`. Window (primary) = 2.3 µeV
-(CREMA 1σ). Full splitting 202.3706 meV = 202371 µeV.
+(CREMA 1σ). Full Lamb shift ΔE(2P_1/2−2S_1/2) = 202.3706 meV = 202371 µeV.
 
-| arm | variant | PATH B (full kernel, µeV) | PATH A (leading tail, µeV) | reconcile | flag |
+> **SIGN CONVENTION (stated once, explicitly).** The tabulated observable is the SVE correction to the
+> **physically MEASURED Lamb shift**, `δ[ΔE] = δ[E(2P_1/2) − E(2S_1/2)]`. The bound particle is the
+> **µ⁻ (charge q = −e)**, so its potential energy is `U(r) = q·V(r) = −e·V(r)` and the energy shift of a
+> level is `δE(nℓ) = −e·⟨nℓ|δV|nℓ⟩`. Because `δV > 0` (the SVE field is enhanced ⟹ the potential is
+> raised ⟹ the µ⁻ is bound MORE deeply), the penetrating 2S is pulled DOWN, so the measured 2P−2S
+> splitting INCREASES — a POSITIVE `δ[ΔE]`, the same direction as the Uehling (vacuum-polarization)
+> correction. The driver internally accumulates `e·⟨2S|δV|2S⟩ − e·⟨2P|δV|2P⟩`, which is algebraically
+> IDENTICAL to `δ[E(2P) − E(2S)]` (the double sign flip cancels); the tabulated magnitudes are therefore
+> already the physical `δ[ΔE]` values in the µ⁻ frame. Magnitudes are convention-independent; this note
+> fixes the label and the direction narrative (the prior draft labeled the column "2S−2P" — inverted).
+
+| arm | variant | δ[ΔE]=δ[E(2P)−E(2S)] PATH B (µeV) | PATH A (leading tail, µeV) | reconcile | flag |
 |---|---|---|---|---|---|
 | continuum | C-i (D-cap) | −2.31e7 | 4.04e6 | 1.18 | NA¹ |
 | continuum | C-ii (δV-freeze) | +5.65e6 | 4.04e6 | 0.284 | OK |
@@ -52,8 +63,12 @@ muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830,
 | lattice | L-i (hard ℓ_node) | −4.92e4 | −4.91e4 | 0.0024 | OK |
 | lattice | L-ii (soft (qℓ)²) | +6.17e5 | −4.91e4 | 1.08 | NA² |
 
-**Band summary (|shift|):** continuum [1.5e6, 2.3e7] µeV = **7.5×–114× the entire 202 meV splitting**;
-lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire splitting**.
+(A positive entry = the measured 2P−2S Lamb shift GROWS; a negative entry = it shrinks. The sign varies
+by variant — see the "Sign structure" section — but every |entry| grossly exceeds the window, so the
+routing is sign-independent.)
+
+**Band summary (|δ[ΔE]|):** continuum [1.5e6, 2.3e7] µeV = **7.5×–114× the entire 202 meV Lamb shift**;
+lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire Lamb shift**.
 
 ¹ C-i (D-cap) interior is dominated by full non-tail cap physics: with D capped at D_max=ε₀E_c/2 inside
 r_ns, the reference Coulomb field `E_C=k/r²` diverges, so `E_cap−E_C→−∞` and δV goes large-negative deep
@@ -68,12 +83,20 @@ ReconcileGate **positive control** (pure 1/r⁵, known coefficient) fires at rel
 LIVE, not a tautology. The two code paths share no code (A = exponential-integral closed forms; B =
 transcendental root-find of the full kernel + adaptive quadrature).
 
-## Sign of the lattice-scoped shift (real physics, not a bug)
+## Sign structure of δ[ΔE] (real physics, not a bug) — in the µ⁻ energy frame
 
-L-i is NEGATIVE (−4.9e4 µeV) because scoping the cutoff OUT to ℓ_node=386 fm ≈ 1.36 a_μ removes the
-entire near-nucleus region where 2S penetration dominates. In the remaining outer region (r>386 fm) the
-2P density exceeds the 2S density (2S has its node at r=2a and dips), so ⟨2P|δV|2P⟩ > ⟨2S|δV|2S⟩ and the
-differential flips sign. The MAGNITUDE is what routes; it is still ~2×10⁴× the window.
+For the near-nucleus-dominated variants (continuum C-ii/C-iii, where the 2S penetration of the enhanced
+field controls) `δ[ΔE] > 0`: the µ⁻ 2S is pulled DOWN by the deeper binding, so the measured 2P−2S Lamb
+shift GROWS — the same direction as the Uehling correction. This is the expected sign.
+
+The lattice hard-cutoff **L-i is δ[ΔE] < 0** (−4.9e4 µeV): scoping the cutoff OUT to ℓ_node=386 fm ≈
+1.36 a_μ removes the entire near-nucleus region where 2S penetration dominates. In the remaining outer
+region (r>386 fm) the 2P density exceeds the 2S density (2S has its node at r=2a and dips), so the 2P
+level is shifted more than 2S and the measured 2P−2S splitting SHRINKS — the differential flips sign
+relative to the penetration-dominated variants. This is genuine physics of where the cutoff sits, not a
+bug. The MAGNITUDE is what routes; it is still ~2×10⁴× the window. (The variant-to-variant sign
+variation is itself a signature that no single sign can be leaned on — only the magnitude, which is
+non-perturbatively large in every variant.)
 
 ## Routing per the FROZEN bins (verbatim, §3)
 

@@ -4,6 +4,19 @@
 **Class:** METHOD pre-registration (frozen BEFORE any Problem-3 shift number is computed).
 **Gates on:** the FROZEN electrostatic-sector fork memo.
 
+> ## 🔴 ERRATUM (2026-07-05, post-freeze, Rule 12 — append-only; frozen body preserved below)
+> **E1 — sign convention (orchestrator review PR #539, finding 1).** The §7 falsifier clause "*If the
+> shift is NEGATIVE (it should be positive — field enhanced), my sign/inversion-branch is wrong*" is
+> written in the positive-test-charge (δV) convention, which is the WRONG frame for the observable. The
+> bound particle is the **µ⁻ (q = −e)**: the energy shift is `δE(nℓ) = −e·⟨nℓ|δV|nℓ⟩`, so `δV>0` (field
+> enhanced) pulls levels DOWN, not up. The physical falsifier is on the level-energy sign in the µ⁻
+> frame, NOT on ⟨δV⟩. Also the sign of `δ[ΔE]` is variant-dependent (penetration-dominated variants give
+> `δ[ΔE]>0`, the Uehling direction; the ℓ_node-cutoff variant gives `δ[ΔE]<0` because the 2P outer
+> region dominates) — so NO single sign is a clean falsifier; the routing is by MAGNITUDE, which is
+> non-perturbatively large in every variant regardless of sign. The correct signed observable and the
+> convention are stated in the RESULT doc's "SIGN CONVENTION" box and "Sign structure of δ[ΔE]" section.
+> This erratum does not change any magnitude or the routed bin ([C-EXCLUDED]).
+
 > ## FREEZE-GATE RECORD (the ordering proof)
 > **Fork-memo FREEZE commit (Grant-ratified 2026-07-05):**
 > `4747630bf35e5e5abdd816ca022e8fcb5ba343ca`
