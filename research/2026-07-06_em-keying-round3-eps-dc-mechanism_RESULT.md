@@ -129,7 +129,7 @@ comparison* — not just at a cold small-A point.
   turnover construction**, and the `A→1` floppy zone lies **wholly inside the excluded interior**
   (`r < r_turn`). Across that entire counted band `C₄₄` is **strictly positive and O(0.1)**:
   `C₄₄ = 0.17661` at `A=0`, `0.09213` at `A_wall=0.9`, `0.02536` at `A_wall=0.99479`, and `→4×10⁻⁵`
-  **only as `A→1`** (`research/2026-07-04_saturated-elastic-tensor_result.md`:159-163). So **rigidity
+  **only as `A→1`** (`research/2026-07-04_saturated-elastic-tensor_result.md`:159-163 table; the `A→1` limit `4×10⁻⁵` at :51). So **rigidity
   holds across the entire counted band** (`C₄₄` between `~0.09` and `~0.177` there) — **not "because `A`
   is small"**; the floppy `A→1` wall is never counted. (`C₄₄ → 0` at yield is the `A→1` absolute-scale
   collapse, `electron-bh-isomorphism.md`:38, which sits inside the excluded interior.)

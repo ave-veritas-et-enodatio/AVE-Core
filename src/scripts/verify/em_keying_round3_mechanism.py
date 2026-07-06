@@ -435,8 +435,8 @@ def m3_quiescent_slide():
 # M3 LATTICE-LEVEL — is the E-coupled T2/translational sector rigid or floppy?
 #   (round-3 fix, CLUSTER D finding [5]: a lattice zero-mode could in principle
 #    absorb a held strain; the single-cell M3 does not rule that out. Settle it
-#    from canon: does the K4 lattice carry a floppy zero-mode in the cold small-A
-#    translational (E-coupled) sector?)
+#    from canon: does the K4 lattice carry a floppy zero-mode in the translational
+#    (E-coupled) sector across the counted band (A <= 1/sqrt(2))?)
 # ===========================================================================
 def m3_lattice_zero_mode_from_canon():
     """M3 lattice level. The K4 Bloch dynamical matrix uses the RANK-2 bond tensor
@@ -461,7 +461,7 @@ def m3_lattice_zero_mode_from_canon():
     r_turn) DOWN to ~0.09 (at ell_node), by the turnover construction -- the A->1 floppy zone lies
     WHOLLY inside the EXCLUDED interior (r < r_turn). Across that ENTIRE counted band C_44 is STRICTLY
     positive and O(0.1): C_44 = 0.17661 at A=0, 0.09213 at A_wall=0.9, 0.02536 at A_wall=0.99479, and
-    -> 4e-5 only as A->1 (research/2026-07-04_saturated-elastic-tensor_result.md:159-163). So rigidity
+    -> 4e-5 only as A->1 (research/2026-07-04_saturated-elastic-tensor_result.md:159-163 table; the A->1 limit 4e-5 at :51). So rigidity
     holds across the WHOLE counted band (C_44 between ~0.09 and ~0.177 there), NOT "because A is small":
     the floppy A->1 wall is never counted.
 
@@ -505,7 +505,7 @@ def m3_lattice_zero_mode_from_canon():
             "k_s=0 (floppy) -- cannot settle the lattice zero-mode question. Refusing to route."
         )
     # the counted-band C_44 facts (BORROWED from the srs-z3 saturated Born-Huang tensor,
-    # research/2026-07-04_saturated-elastic-tensor_result.md:159-163; flagged as a borrow). C_44 is
+    # research/2026-07-04_saturated-elastic-tensor_result.md:159-163 table, A->1 limit at :51; flagged as a borrow). C_44 is
     # STRICTLY positive across the WHOLE counted band A in [0, 0.7071], collapsing to ~4e-5 only as
     # A->1 (the A->1 wall lies inside the EXCLUDED interior r<r_turn, never counted).
     C44_counted_band = {
@@ -561,7 +561,7 @@ def m3_lattice_zero_mode_from_canon():
             "full-BZ eigensolve :40): NO floppy zero-mode absorbs a held translational strain. Rigidity "
             "holds across the ENTIRE counted band A in [0, 0.7071] (C_44 ~0.09..0.177, borrowed from the "
             "srs-z3 saturated Born-Huang tensor, research/2026-07-04_saturated-elastic-tensor_result.md"
-            ":159-163) -- NOT because A is small; the A->1 floppy wall (C_44->4e-5) lies inside the "
+            ":159-163 table, A->1 limit at :51) -- NOT because A is small; the A->1 floppy wall (C_44->4e-5) lies inside the "
             "EXCLUDED interior and is never counted. Modulus-energy bridge: c_T^2>0 <=> C_44>0 <=> a held "
             "strain stores energy and cannot be losslessly absorbed (the k=0 omega->0 modes are pure "
             "translations carrying no strain). The shipped numeric is a CONSISTENCY ENCODING of the canon "
@@ -799,9 +799,10 @@ def main():
         "sector) -- and the only relaxation is dissipative). The M3 lattice-level zero-mode question is SETTLED CLOSED: the K4 "
         "translational (E-coupled) sector carries transverse/shear stiffness k_s, so the "
         "general-force-constant tensor restores all three linear acoustic branches (k4-bloch-dispersion-"
-        "quartic:58) -- there is NO floppy zero-mode to absorb a held strain at the cold small-A "
-        "operating point (floppiness is the k_s=0 pure-central-force pathology, and the near-yield A->1 "
-        "floppiness is absolute-scale collapse, not this regime). The variance/excursion member (H2) is "
+        "quartic:58) -- there is NO floppy zero-mode to absorb a held strain across the FULL counted "
+        "band (A <= 1/sqrt(2) by the turnover construction, C_44 strictly positive there; floppiness is "
+        "the k_s=0 pure-central-force pathology, and the near-yield A->1 collapse lies wholly inside "
+        "the excluded interior). The variance/excursion member (H2) is "
         "NOT forced by the network. RIDER: a spatially-UNIFORM held bias self-cancels on READOUT "
         "(gauge-relative A, INVARIANT-S2) -- the local charge-keyed deficit is real but unreadable "
         "without a gradient; a NON-uniform held field (spatial gradient of A) IS readable and DOES load "
