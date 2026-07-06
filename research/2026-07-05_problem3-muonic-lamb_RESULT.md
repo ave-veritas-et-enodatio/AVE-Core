@@ -1,4 +1,10 @@
-# Problem 3 — muonic-hydrogen 2S–2P shift from the SVE elliptic kernel: RESULT
+# Problem 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel: RESULT
+
+> **Precision label.** The measured `202.3706(23) meV` is the *extracted Lamb shift*
+> `ΔE(2P_1/2 − 2S_1/2)` (Pohl et al./CREMA 2010 measured the 2S_1/2→2P_3/2 transition and extracted the
+> 2P_1/2−2S_1/2 Lamb interval), NOT a raw "2S–2P splitting." The frozen memo's loose "2S–2P splitting"
+> wording is what I route on (immutable); this doc uses the precise extracted-Lamb-shift label
+> `ΔE(2P_1/2 − 2S_1/2)` throughout.
 
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/problem3-muonic-lamb` (stacked on freeze)
 **Gated on FREEZE commit:** `4747630bf35e5e5abdd816ca022e8fcb5ba343ca` (fork memo FROZEN, Grant-ratified
@@ -10,7 +16,8 @@
 ## ROUTED BIN: **[C-EXCLUDED]** — both arms violate the µeV window by 4–7 orders of magnitude.
 
 The static-E sector of the SVE continuum kernel is EXCLUDED as written for muonic hydrogen. Even scoped
-to the lattice pitch `r >> ℓ_node = 386 fm`, the 2S–2P shift exceeds the CREMA window by ~2×10⁴×. Per
+to the lattice pitch `r >> ℓ_node = 386 fm`, the SVE correction to the Lamb shift ΔE(2P_1/2 − 2S_1/2)
+exceeds the CREMA window by ~2×10⁴×. Per
 the frozen memo §3 [C] ledger, the **AC pump–probe birefringence and the µ-sector circulation-keying
 survive** — they are DIFFERENT sectors, untouched by a static-E exclusion.
 
@@ -38,13 +45,34 @@ Inverting `E·√(1−(E/E_c)²)=E_C` on the lower branch gives `E/E_c = x + ½x
 The expected (E/E_snap)²-class tail. Interior structure: LHS `E·√(1−(E/E_c)²)` has maximum `E_c/2` at
 `E=E_c/√2` (D-turnover); above `E_C>E_c/2` no real lower branch — the interior, `r<r_turn=r_ns√2=159.6 fm`.
 
+> **Interior-boundary disclosure (prereg §3 wording superseded by §2's turnover constraint).** The
+> frozen prereg §3 declares the continuum interior variants at the no-solution radius `r_ns=112.9 fm`.
+> The real lower branch of `E·√(1−(E/E_c)²)=E_C` is actually lost at the **D-turnover** `E_C=E_c/2`, i.e.
+> at `r_turn=r_ns·√2=159.6 fm` (exactly §2's constraint) — so `δV(r_ns)` as §3 literally worded it is
+> incomputable (no real field there). The variants are therefore implemented at `r_turn`, the physically
+> correct branch boundary. This is **direction-conservative**: since `r_turn>r_ns`, cutting at `r_turn`
+> includes LESS of the divergent near-nucleus region than a literal-`r_ns` cut would, so the
+> literal-`r_ns` variant would give an EVEN LARGER shift — it only strengthens [C]. No routed magnitude
+> changes direction.
+
 ## The shift table — TWO arms × variants × TWO independent code paths (µeV)
 
 muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830, EXTERNAL input),
 `a_μ=284.75 fm`, `r_ns=112.86 fm`, `r_turn=159.61 fm`, `ℓ_node=386.16 fm`. Window (primary) = 2.3 µeV
-(CREMA 1σ). Full splitting 202.3706 meV = 202371 µeV.
+(CREMA 1σ). Full Lamb shift ΔE(2P_1/2−2S_1/2) = 202.3706 meV = 202371 µeV.
 
-| arm | variant | PATH B (full kernel, µeV) | PATH A (leading tail, µeV) | reconcile | flag |
+> **SIGN CONVENTION (stated once, explicitly).** The tabulated observable is the SVE correction to the
+> **physically MEASURED Lamb shift**, `δ[ΔE] = δ[E(2P_1/2) − E(2S_1/2)]`. The bound particle is the
+> **µ⁻ (charge q = −e)**, so its potential energy is `U(r) = q·V(r) = −e·V(r)` and the energy shift of a
+> level is `δE(nℓ) = −e·⟨nℓ|δV|nℓ⟩`. Because `δV > 0` (the SVE field is enhanced ⟹ the potential is
+> raised ⟹ the µ⁻ is bound MORE deeply), the penetrating 2S is pulled DOWN, so the measured 2P−2S
+> splitting INCREASES — a POSITIVE `δ[ΔE]`, the same direction as the Uehling (vacuum-polarization)
+> correction. The driver internally accumulates `e·⟨2S|δV|2S⟩ − e·⟨2P|δV|2P⟩`, which is algebraically
+> IDENTICAL to `δ[E(2P) − E(2S)]` (the double sign flip cancels); the tabulated magnitudes are therefore
+> already the physical `δ[ΔE]` values in the µ⁻ frame. Magnitudes are convention-independent — the
+> routing is by `|value|` and is sign-independent.
+
+| arm | variant | δ[ΔE]=δ[E(2P)−E(2S)] PATH B (µeV) | PATH A (leading tail, µeV) | reconcile | flag |
 |---|---|---|---|---|---|
 | continuum | C-i (D-cap) | −2.31e7 | 4.04e6 | 1.18 | NA¹ |
 | continuum | C-ii (δV-freeze) | +5.65e6 | 4.04e6 | 0.284 | OK |
@@ -52,13 +80,29 @@ muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830,
 | lattice | L-i (hard ℓ_node) | −4.92e4 | −4.91e4 | 0.0024 | OK |
 | lattice | L-ii (soft (qℓ)²) | +6.17e5 | −4.91e4 | 1.08 | NA² |
 
-**Band summary (|shift|):** continuum [1.5e6, 2.3e7] µeV = **7.5×–114× the entire 202 meV splitting**;
-lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire splitting**.
+(A positive entry = the measured 2P−2S Lamb shift GROWS; a negative entry = it shrinks. The sign varies
+by variant — see the "Sign structure" section — but every |entry| grossly exceeds the window, so the
+routing is sign-independent.)
+
+**Band summary (|δ[ΔE]|):** continuum [1.5e6, 2.3e7] µeV = **7.5×–114× the entire 202 meV Lamb shift**;
+lattice-scoped [4.9e4, 6.2e5] µeV = **0.24×–3× the entire Lamb shift**.
+
+> **Non-perturbatively large (perturbation theory is itself invalid here).** A correction that is many
+> times the full level structure means first-order perturbation theory — the framework used to compute
+> these numbers — has ALREADY broken down; the precise multiples (7.5×, 114×, etc.) are ILLUSTRATIVE of
+> scale, not literal predictions. This does not weaken the verdict — it STRENGTHENS [C]: a correction
+> larger than the entire level structure cannot be hidden by any higher-order rescue (higher orders
+> would have to conspire to cancel a leading term bigger than the thing being corrected). The honest
+> statement is simply "the SVE static-E correction to the muonic-H Lamb shift is non-perturbatively
+> large — orders of magnitude beyond the measured Lamb shift, let alone the µeV window." The routing does
+> not depend on the exact multiple, only on "hugely exceeds the window," which every variant does.
 
 ¹ C-i (D-cap) interior is dominated by full non-tail cap physics: with D capped at D_max=ε₀E_c/2 inside
-r_ns, the reference Coulomb field `E_C=k/r²` diverges, so `E_cap−E_C→−∞` and δV goes large-negative deep
-inside. The leading 1/r⁵ tail (PATH A) cannot represent this — the A/B gap is EXPECTED, not a failure.
-PATH B is authoritative.
+the D-turnover radius `r_turn=159.6 fm` (the real-branch boundary — see the interior-boundary disclosure
+above; NOT `r_ns=112.9 fm`, where the field would already be complex), the reference Coulomb field
+`E_C=k/r²` continues to diverge as `r→0`, so `E_cap−E_C→−∞` and δV goes large-negative deep inside. The
+leading 1/r⁵ tail (PATH A) cannot represent this — the A/B gap is EXPECTED, not a failure. PATH B is
+authoritative.
 ² L-ii (soft form) multiplies the FULL kernel by `1/(1+(ℓ_node/r)²)` extending below r_turn; PATH A's
 hard-ℓ_node bound is only a proxy. A/B gap expected; PATH B authoritative.
 
@@ -68,19 +112,27 @@ ReconcileGate **positive control** (pure 1/r⁵, known coefficient) fires at rel
 LIVE, not a tautology. The two code paths share no code (A = exponential-integral closed forms; B =
 transcendental root-find of the full kernel + adaptive quadrature).
 
-## Sign of the lattice-scoped shift (real physics, not a bug)
+## Sign structure of δ[ΔE] (real physics, not a bug) — in the µ⁻ energy frame
 
-L-i is NEGATIVE (−4.9e4 µeV) because scoping the cutoff OUT to ℓ_node=386 fm ≈ 1.36 a_μ removes the
-entire near-nucleus region where 2S penetration dominates. In the remaining outer region (r>386 fm) the
-2P density exceeds the 2S density (2S has its node at r=2a and dips), so ⟨2P|δV|2P⟩ > ⟨2S|δV|2S⟩ and the
-differential flips sign. The MAGNITUDE is what routes; it is still ~2×10⁴× the window.
+For the near-nucleus-dominated variants (continuum C-ii/C-iii, where the 2S penetration of the enhanced
+field controls) `δ[ΔE] > 0`: the µ⁻ 2S is pulled DOWN by the deeper binding, so the measured 2P−2S Lamb
+shift GROWS — the same direction as the Uehling correction. This is the expected sign.
+
+The lattice hard-cutoff **L-i is δ[ΔE] < 0** (−4.9e4 µeV): scoping the cutoff OUT to ℓ_node=386 fm ≈
+1.36 a_μ removes the entire near-nucleus region where 2S penetration dominates. In the remaining outer
+region (r>386 fm) the 2P density exceeds the 2S density (2S has its node at r=2a and dips), so the 2P
+level is shifted more than 2S and the measured 2P−2S splitting SHRINKS — the differential flips sign
+relative to the penetration-dominated variants. This is genuine physics of where the cutoff sits, not a
+bug. The MAGNITUDE is what routes; it is still ~2×10⁴× the window. (The variant-to-variant sign
+variation is itself a signature that no single sign can be leaned on — only the magnitude, which is
+non-perturbatively large in every variant.)
 
 ## Routing per the FROZEN bins (verbatim, §3)
 
 - **[A-CONSISTENT]** requires the continuum arm to clear "even without any regime scoping" — it does
-  NOT (band 7.5×–114× the full splitting). **[A] excluded.**
+  NOT (band 7.5×–114× the full Lamb shift). **[A] excluded.**
 - **[B-AVE]** requires continuum-violates AND lattice-scoped-clears — the continuum violates, but the
-  lattice-scoped arm ALSO violates (band 0.24×–3× the full splitting, smallest variant ~2×10⁴× the
+  lattice-scoped arm ALSO violates (band 0.24×–3× the full Lamb shift, smallest variant ~2×10⁴× the
   2.3 µeV window). **[B] excluded.**
 - **[C-EXCLUDED]** — both arms violate. **ROUTED [C].**
 
@@ -95,6 +147,16 @@ differential flips sign. The MAGNITUDE is what routes; it is still ~2×10⁴× t
   (ratio 0.78). The lattice-scoped arm scoped AT the exact ℓ_node still violates by ~2×10⁴×. The
   consonance does NOT rescue the window — if anything it SHARPENS [C]: the cutoff scale is right and it
   still fails, so the failure is not a wrong-cutoff artifact. Reported as a flag, not a finding.
+- **The computed [B]-defeat cutoff scale (routing language — the memo stays immutable).** To make the
+  hard-cutoff lattice-scoped shift clear the 2.3 µeV window, the cutoff must move OUT to
+  **r_cut ≈ 9·ℓ_node ≈ 3.5 pm** (computed by bisection on the leading-tail hard-cutoff shift: at
+  8·ℓ_node=3.09 pm the shift is 0.91 µeV, just under; the exact crossing is 9.05·ℓ_node=3.49 pm). That
+  is a factor ~**12× larger than the memo's ~300 fm (≈0.78·ℓ_node) floor estimate** — so the memo's
+  data-derived floor, even taken at face value, is ~12× too small to protect the muonic-H window. This
+  **refutes the ~300 fm floor estimate as the protective scale** (recorded as the COMPUTED supersession;
+  the frozen memo is not edited). A cutoff at ~3.5 pm is far above any lattice/substrate scale and would
+  be an independent free parameter — precisely the [C] failure mode ("the cutoff cannot be placed at
+  ℓ_node without an independent free parameter", frozen memo §3 [C]).
 
 ## SECONDARY — U91+ 1s (continuum arm INCOMPUTABLE, reported result)
 
@@ -121,11 +183,11 @@ number is bookable.
 
 - Consistency-vs-emergence: this is a **falsification/consistency-class** result — the SVE kernel
   (whose E_c is CODATA-derived through α, m_e per the Letter honesty ledger (iii)) is compared to a
-  measured splitting; no emergence claimed. The verdict is [C-EXCLUDED] for the static-E extrapolation.
+  measured Lamb shift; no emergence claimed. The verdict is [C-EXCLUDED] for the static-E extrapolation.
 - Honest closure (Rule 11): pre-registered predictions were routed against the FROZEN bins with no
   post-hoc criterion drops. The continuum arm decisively violates; the lattice-scoped arm ALSO violates;
   a single mechanism (the 1/r⁵ near-nucleus enhancement surviving even the ℓ_node cutoff) explains both.
   Branch closed [C].
 - Two independent code paths + live ReconcileGate (positive control fires); no self-verifying gate;
-  gates the CONSUMED observable (the 2S−2P shift).
+  gates the CONSUMED observable (the SVE correction δ[ΔE(2P_1/2 − 2S_1/2)]).
 - Canonical constants only; muon mass declared as external CODATA input.

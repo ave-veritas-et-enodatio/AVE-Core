@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""PROBLEM 3 — muonic-hydrogen 2S-2P shift from the SVE elliptic kernel.
+"""PROBLEM 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel.
 
-Computes delta(2S-2P) = <2S|deltaV|2S> - <2P|deltaV|2P> for the SVE-saturated
+Computes d[Delta E] = d[E(2P_1/2)-E(2S_1/2)] (the SVE correction to the physically
+MEASURED muonic-H Lamb shift) for the SVE-saturated
 Coulomb potential, over TWO arms x declared interior/scoping variants, via TWO
 INDEPENDENT CODE PATHS (tautology guard), routed against the FROZEN fork-memo bins.
 
@@ -13,7 +14,13 @@ Physics (prereg section 2):
   Gauss-forced D(r)=e/(4 pi r^2) => Coulomb field E_C(r)=D/eps0=k/r^2, k=e/(4 pi eps0).
   Constitutive: E*sqrt(1-(E/E_c)^2)=E_C(r).  True field E(r)=lower real branch.
   deltaV(r)=int_r^inf (E-E_C) dr'.  Leading tail: deltaV=k^3/(10 E_c^2 r^5).
-  Shift = <2S|e deltaV|2S> - <2P|e deltaV|2P>, hydrogen-like wavefns at muonic reduced mass.
+
+SIGN CONVENTION (see RESULT doc "SIGN CONVENTION" box): the bound particle is the mu- (q=-e), so the
+  level energy shift is dE(nl)=q<nl|dV|nl>=-e<nl|dV|nl>. The quantity accumulated below,
+  e*<2S|dV|2S> - e*<2P|dV|2P>, equals dE(2P)-dE(2S) = d[E(2P)-E(2S)] = the SVE correction to the
+  physically MEASURED Lamb shift Delta E(2P_1/2 - 2S_1/2) (the double sign flip cancels). Positive =
+  the measured 2P-2S splitting grows (Uehling direction). Magnitudes are convention-independent; the
+  routing is by |value| and is sign-independent.
 
 EXTERNAL INPUT (declared): muon mass via CODATA 2018 ratio m_mu/m_e = 206.7682830
   (same value used at src/scripts/vol_1_foundations/phi_winding_stability_kam_firstpass.py:150),
@@ -45,8 +52,11 @@ A_MU = A0 * (M_E / MU_RED)  # muonic Bohr radius (Z=1)
 R_NS = np.sqrt(e_charge / (4.0 * np.pi * EPSILON_0 * E_C))  # Z=1 no-solution radius
 ELL = L_NODE  # lattice pitch
 
-# measured splitting + windows (prereg section 5)
-SPLIT_meV = 202.3706  # CREMA 2S_1/2 - 2P_3/2, meV
+# measured Lamb shift + windows (prereg section 5)
+# 202.3706(23) meV is the EXTRACTED Lamb shift Delta E(2P_1/2 - 2S_1/2) (Pohl et al./CREMA 2010
+# measured the 2S_1/2->2P_3/2 transition and extracted the 2P_1/2-2S_1/2 Lamb interval); NOT a raw
+# "2S-2P splitting" (the frozen memo's loose wording, which we route on but do not re-label as).
+LAMB_meV = 202.3706  # Delta E(2P_1/2 - 2S_1/2), meV, Pohl/CREMA 2010
 SIGMA_meV = 0.0023  # 1 sigma = 2.3 ueV  (PRIMARY window edge)
 WINDOW_ueV_primary = SIGMA_meV * 1e3  # 2.3 ueV
 WINDOW_ueV_loose = 10.0  # secondary edge
@@ -86,6 +96,7 @@ def E_field_full(E_C_local):
         x = E_C_local[idx]
         if not ok[idx]:
             continue
+
         # lower branch: E in [E_C_local, E_c/sqrt(2)]; f(E)=E sqrt(1-(E/E_c)^2)-x, monotone up to turnover
         def f(E, _x=x):
             return E * np.sqrt(max(1.0 - (E / E_C) ** 2, 0.0)) - _x
@@ -245,7 +256,7 @@ def main():
     print(f"ell_node = {ELL*1e15:.2f} fm   E_c = {E_C:.4e} V/m")
     print(f"norm check: int|R_2s|^2 r^2 dr = {_norm(rho_2s):.5f} ; 2p = {_norm(rho_2p):.5f} (target 1)")
     print(f"WINDOW primary (1sigma) = {WINDOW_ueV_primary} ueV ; loose = {WINDOW_ueV_loose} ueV")
-    print(f"measured splitting = {SPLIT_meV} meV")
+    print(f"measured Lamb shift Delta E(2P_1/2-2S_1/2) = {LAMB_meV} meV")
     print()
 
     # ---------- ReconcileGate positive control (proves the gate can FIRE) ----------
@@ -335,9 +346,34 @@ def main():
             routed = "[C-EXCLUDED] (both violate)"
         print(f"  ROUTED: {routed}")
     print()
-    print(f"context: full splitting = {SPLIT_meV} meV = {SPLIT_meV*1e3:.1f} ueV ; the shifts vs that:")
-    print(f"  continuum |shift|/splitting = [{cont_lo/(SPLIT_meV*1e3):.2e}, {cont_hi/(SPLIT_meV*1e3):.2e}]")
-    print(f"  lattice   |shift|/splitting = [{latt_lo/(SPLIT_meV*1e3):.2e}, {latt_hi/(SPLIT_meV*1e3):.2e}]")
+    print(f"context: full Lamb shift = {LAMB_meV} meV = {LAMB_meV*1e3:.1f} ueV ; the corrections vs that:")
+    print(f"  continuum |d[dE]|/LambShift = [{cont_lo/(LAMB_meV*1e3):.2e}, {cont_hi/(LAMB_meV*1e3):.2e}]")
+    print(f"  lattice   |d[dE]|/LambShift = [{latt_lo/(LAMB_meV*1e3):.2e}, {latt_hi/(LAMB_meV*1e3):.2e}]")
+
+    print()
+    r_defeat = b_defeat_cutoff()
+    print("=== [B]-defeat cutoff scale (hard-cutoff shift == 2.3 ueV window) ===")
+    print(f"  r_cut = {r_defeat/L_NODE:.2f} * ell_node = {r_defeat*1e12:.3f} pm")
+    print(
+        f"  vs memo ~300 fm floor (={300e-15/L_NODE:.2f} ell_node): actual clearing scale ~{r_defeat/300e-15:.0f}x larger"
+    )
+    print("  -> REFUTES the ~300 fm floor as the protective scale (routing language; memo immutable).")
+
+
+def shift_hardcut_ueV(r_cut):
+    """|leading-tail hard-cutoff shift| in ueV as a function of the cutoff radius r_cut.
+    Used for the [B]-defeat scale (the r_cut at which the lattice-scoped shift clears the window)."""
+    a = A_MU
+    coeff = K**3 / (10.0 * E_C**2)
+    uc = r_cut / a
+    e2s = e_charge * coeff / (2.0 * a**5) * (_upper_negpow(3, uc) - _upper_negpow(2, uc) + 0.25 * _upper_negpow(1, uc))
+    e2p = e_charge * coeff / (24.0 * a**5) * special.exp1(uc)
+    return (e2s - e2p) / e_charge * 1e6
+
+
+def b_defeat_cutoff():
+    """Cutoff radius at which |hard-cutoff lattice-scoped shift| == the 2.3 ueV window."""
+    return optimize.brentq(lambda rc: abs(shift_hardcut_ueV(rc)) - WINDOW_ueV_primary, 5 * L_NODE, 40 * L_NODE)
 
 
 if __name__ == "__main__":

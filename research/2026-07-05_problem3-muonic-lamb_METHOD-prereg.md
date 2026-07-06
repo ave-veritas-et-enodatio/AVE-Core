@@ -4,6 +4,31 @@
 **Class:** METHOD pre-registration (frozen BEFORE any Problem-3 shift number is computed).
 **Gates on:** the FROZEN electrostatic-sector fork memo.
 
+> ## Post-freeze notes (append-only caveats on the frozen body below)
+> **N1 — sign convention.** The §7 falsifier clause "*If the
+> shift is NEGATIVE (it should be positive — field enhanced), my sign/inversion-branch is wrong*" is
+> written in the positive-test-charge (δV) convention, which is the WRONG frame for the observable. The
+> bound particle is the **µ⁻ (q = −e)**: the energy shift is `δE(nℓ) = −e·⟨nℓ|δV|nℓ⟩`, so `δV>0` (field
+> enhanced) pulls levels DOWN, not up. The physical falsifier is on the level-energy sign in the µ⁻
+> frame, NOT on ⟨δV⟩. Also the sign of `δ[ΔE]` is variant-dependent (penetration-dominated variants give
+> `δ[ΔE]>0`, the Uehling direction; the ℓ_node-cutoff variant gives `δ[ΔE]<0` because the 2P outer
+> region dominates) — so NO single sign is a clean falsifier; the routing is by MAGNITUDE, which is
+> non-perturbatively large in every variant regardless of sign. The correct signed observable and the
+> convention are stated in the RESULT doc's "SIGN CONVENTION" box and "Sign structure of δ[ΔE]" section.
+> This note does not change any magnitude or the routed bin ([C-EXCLUDED]).
+>
+> **N2 — interior-variant boundary r_ns → r_turn.** §3 declares the continuum
+> interior variants (C-i/C-ii/C-iii) at the no-solution radius `r_ns = 112.9 fm`. The code implements
+> them at the **D-turnover radius `r_turn = r_ns·√2 = 159.6 fm`**. This is FORCED, not a drift of
+> convenience: §2 of this prereg already states the constraint — the real lower branch of
+> `E·√(1−(E/E_c)²)=E_C` is lost at the D-turnover `E_C = E_c/2` (at `r_turn`), NOT at `E_C = E_c` (at
+> `r_ns`). δV(r_ns) as §3 literally worded it is incomputable (no real field there). The turnover
+> boundary is the physically correct one and is **direction-conservative**: `r_turn > r_ns`, so cutting
+> the integral at `r_turn` includes LESS of the divergent near-nucleus region than a literal-`r_ns` cut
+> would — the literal-`r_ns` variant would give an EVEN LARGER shift, only strengthening [C]. §3's
+> `r_ns` wording is superseded by §2's turnover constraint; the boundary used is `r_turn = r_ns√2`.
+> No magnitude that routes changes direction; the routed bin stays [C-EXCLUDED].
+
 > ## FREEZE-GATE RECORD (the ordering proof)
 > **Fork-memo FREEZE commit (Grant-ratified 2026-07-05):**
 > `4747630bf35e5e5abdd816ca022e8fcb5ba343ca`
