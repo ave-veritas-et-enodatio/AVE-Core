@@ -9,12 +9,86 @@
 - `src/scripts/verify/em_saturation_keying_constraints.py` — the six frozen falsifiers (reuses #539).
 **Tests:** `src/tests/test_em_saturation_keying_functional.py` (15 fast-core gating + 1 engine_sim).
 
-## ROUTED BIN: **[FUNCTIONAL-DERIVED]** on structure + all six constraints — with a FLAGGED **[PARTIAL]** on the coefficient normalization only.
+## ROUTED BIN: **[CONSTRAINT-KILLED]** — the boxed LOCAL-Poynting functional FAILS constraint 1 on the physical atom.
 
-Both pieces of Grant's candidate DERIVE from the substrate; the substrate forces the transport
+> **VERDICT RE-BINNED after the orchestrator review of PR #542 (2026-07-05).** The original
+> `[FUNCTIONAL-DERIVED]` verdict below the fold is SUPERSEDED and does NOT stand. Two CRITICAL findings
+> — both reproduced by this arc's OWN pipeline — force the honest negative. Git carries the original
+> body; the corrected verdict is stated here at the top. This is Rule 11 honest closure: the
+> pre-registered functional failed decisively on the physical atom, a single mechanism (local-vs-net
+> transport) explains it, the branch closes, and the real product is the forward pointer (round 2).
+
+**Why [CONSTRAINT-KILLED] (the frozen bin: "the derived functional violates a constraint"):**
+
+- **CRITICAL-1 — the muonic PASS was an artifact of the `H=0` fiat.** The real muonic atom is NOT
+  transport-dead: the proton magnetic moment (+ the 2P orbital moment) creates a PERMANENT static
+  `E×H` circulation (hidden-momentum class) — divergence-free (zero net closed-surface flux) but
+  LOCALLY nonzero. The boxed functional keys on **LOCAL pointwise `E×H`** ("power flux through a cell
+  face") and CANNOT distinguish divergence-free circulation from net transport. Evaluated on the
+  PHYSICAL atomic `H(r)` through the #539 bracket-integral machinery, the boxed functional engages at
+  **1278× the 2.3 µeV CREMA window** (−2939 µeV at `r_cut=0.5a_μ`); even deleting everything inside
+  `2a_μ` leaves **3× the window** (+6.85 µeV). The functional FAILS its own headline constraint.
+- **CRITICAL-2 — the aliasing mechanism is refuted by this arc's own piece (a).** The
+  secular-averaging computation shows a DC 2nd-order quantity SURVIVES clock-averaging (static
+  `<E²>_secular = 1.0` at ω=0). So "boosted-static aliases to ω_C and averages out" contradicts the
+  math it rests on; and the coded functional gives `T=5.4×10⁻²⁰ ≠ 0` for the boosted config the prose
+  declared blind. **Boost-consistency is OPEN**, not closed structurally.
+
+**What is retracted (MAJORS):**
+- **"the substrate FORCES T-POYNT" → "T-POYNT is CONSTRAINT-SELECTED."** T-BEAT was eliminated BY
+  Table-I survival — i.e. routed toward the anchored numbers (the visible-target the knife exists for).
+  This is a constraint-selection, not a substrate derivation.
+- **NORM-YIELD's "Table I unchanged" is a TAUTOLOGY** of the normalization definition (NORM-YIELD is
+  defined as the flux reaching 1 at `E=E_c`). The "substrate-consistent" crowning is stripped; the norm
+  fork is FULLY OPEN. (Moot for the verdict — the physical-atom overshoot is 10³×, far beyond 4π.)
+- Dead contradictory `S_E_transport()` (the REJECTED frequency-suppressed T-BEAT form under a
+  "DERIVED" label) removed; hardcoded PVLAS/BMV zeros replaced with a computed `S_B(A_I)` evaluation;
+  the muonic `T==0` short-circuit removed (constraint 1 now evaluates the physical H and FAILS).
+
+## THE FORWARD POINTER — the arc's real product (a NEW derivation, round 2, NOT a patch)
+
+The review's own analysis names the surviving candidate: **NET transport** (closed-SURFACE flux —
+zero for the atom's divergence-free circulation, nonzero for a propagating wave), **anchored in the
+LATTICE REST FRAME**. Net-flux keying dissolves BOTH criticals: (i) the atom's hidden-momentum
+circulation is divergence-free, so its closed-surface flux is zero → the atom is blind for the RIGHT
+reason (net, not local); (ii) lattice-frame anchoring dissolves the boost contradiction the aliasing
+story failed to close — the functional is frame-anchored by the theory's DECLARED preferred frame, so
+a boosted observer sees transformed observables, not a re-keyed vacuum. **Round-2 requirements
+(pre-registered here for the next arc):**
+1. DERIVE net-vs-local from the network dynamics (not SELECT it against Table I).
+2. The physical-H atom test is the STANDING falsifier (already landed:
+   `test_muonic_physical_H_CONSTRAINT_KILLED`).
+3. Recompute the pump engagement under net-flux keying (does a propagating wave still engage?).
+4. Carry the coefficient-normalization fork OPEN (no tautological crowning).
+5. No constraint-selected eliminations (the knife stays on the visible targets).
+
+## CORRECTED CONSTRAINT STATUS (authoritative — supersedes the ~~PASS~~ table below the fold)
+
+| # | constraint | corrected result | verdict |
+|---|---|---|---|
+| 1 | **MUONIC-H** (physical H(r)) | boxed LOCAL-Poynting on the physical proton-dipole H(r): −2939 µeV @ r_cut=0.5a_μ = **1278× the 2.3 µeV window**; +6.85 µeV @ r_cut=2a_μ = 3× | **FAIL → [CONSTRAINT-KILLED]** |
+| 2 | THE PUMP | NORM-YIELD `𝒯=A²` (tautological match, fork OPEN); NORM-CLOCK ×(1/4π)² | engages, but on the KILLED local form |
+| 3/4 | PVLAS / BMV | S_B(A_I) **computed** (A_I=3e-27/1e-25 via Faraday) → δn_μ≈0 | consistent (dual, computed) |
+| 5 | DELLIGHT | −¼A² under NORM-YIELD (tautological, fork open) | consistent, on the KILLED local form |
+| 6 | **BOOST** | aliasing REFUTED (piece-(a) DC survives; coded T≠0 on boosted config) | **OPEN** (not closed) |
+
+The load-bearing verdict is constraint 1: **the boxed LOCAL-Poynting functional is [CONSTRAINT-KILLED]**.
+Constraints 2/5 "engage" only for the local form that is already killed; 3/4 are the computed dual; 6 is
+open. The forward pointer (net-flux, lattice-frame) is the round-2 arc.
+
+---
+
+## ORIGINAL VERDICT (SUPERSEDED — preserved below the fold; git is the trail)
+
+> The following was the original `[FUNCTIONAL-DERIVED] + [PARTIAL]` verdict. It is SUPERSEDED by the
+> re-bin above. Preserved verbatim for the record.
+
+### ~~ROUTED BIN: [FUNCTIONAL-DERIVED] on structure + all six constraints — with a FLAGGED [PARTIAL] on the coefficient normalization only.~~ (SUPERSEDED)
+
+~~Both pieces of Grant's candidate DERIVE from the substrate; the substrate forces the transport
 invariant Grant named (Poynting, T-POYNT); all six frozen constraints PASS as-derived; the Table-I
 consequence is quantified (unchanged under the substrate-consistent normalization); the S_B dual is
-explicit and demonstrated to be the same transport/secular structure; boost is closed structurally.
+explicit and demonstrated to be the same transport/secular structure; boost is closed structurally.~~
 The ONE piece the substrate does not fully force is the **coefficient normalization** linking the
 transport engagement to `(E/E_c)²` — two natural normalizations give `1` (Table I unchanged) or
 `1/(4π)` (Table I × 1/(4π)²). Per the frozen bins this coefficient-underdetermination is the
@@ -136,6 +210,10 @@ it); it is NOT resolved here by fiat** (substrate-adjudicates-forks).
 ---
 
 ## THE SIX FROZEN CONSTRAINTS (evaluated as-derived; bands)
+
+> ⚠️ **SUPERSEDED (this table's PASS column is WRONG — see the CORRECTED CONSTRAINT STATUS table above
+> the fold).** Constraint 1's "PASS" was the `H=0` artifact; the physical atom FAILS (1278× window).
+> Constraint 6's "PASS (closed structurally)" is retracted to OPEN. Preserved verbatim for the record.
 
 | # | constraint | derived S_E/S_B result | verdict |
 |---|---|---|---|

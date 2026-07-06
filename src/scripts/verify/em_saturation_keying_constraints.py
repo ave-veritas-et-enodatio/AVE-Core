@@ -33,6 +33,7 @@ from ave.core.constants import (
     EPSILON_0,
     HBAR,
     L_NODE,
+    M_PROTON,
     MU_0,
     OMEGA_C,
     XI_TOPO,
@@ -103,7 +104,7 @@ def transport_engagement_T(E_field, H_field, coeff=TRANSPORT_COEFF_YIELD):
 # through a cell face") and CANNOT distinguish divergence-free circulation from
 # net transport. So H != 0 in the physical atom -> the functional engages and
 # FAILS. The H=0 fiat of the original constraint 1 was an ARTIFACT.
-MU_N = e_charge * HBAR / (2.0 * 1.67262192369e-27)  # nuclear magneton (m_p CODATA 2018)
+MU_N = e_charge * HBAR / (2.0 * M_PROTON)  # nuclear magneton (m_p from constants.py)
 MU_P = 2.7928473446 * MU_N  # proton magnetic moment (CODATA 2018, EXTERNAL)
 
 
