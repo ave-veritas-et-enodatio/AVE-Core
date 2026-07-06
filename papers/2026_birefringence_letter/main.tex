@@ -225,8 +225,10 @@ an $O(1)$ tree-level differential coefficient} where QED has only a
 loop-suppressed one --- and this is what the experiment tests.
 \emph{(iv) One open honesty item.} The QED denominator $\alpha/(15\pi)$ is a
 literature coefficient whose normalization we anchor explicitly (Sec.~\ref{sec:prediction});
-a different but still $\alpha$-rooted convention shifts the numerical ratio, not
-the order of magnitude.
+a different but still $\alpha$-rooted convention --- including the choice of
+peak-field versus cycle-averaged normalization for the two legs --- shifts the
+numerical ratio by an $O(1)$ (factor-of-two-class) amount, not its order of
+magnitude, and leaves every falsifier verdict of Sec.~\ref{sec:falsify} intact.
 
 \emph{The elliptic form is not a free choice.} The kernel
 $S=\sqrt{1-(E/\Ec)^2}$ is the unique response of a lossless oscillator whose
@@ -243,6 +245,19 @@ the confinement, not a fitted parameter. And it is testable in its own right:
 different kernel exponents predict different ratios of the anisotropic (par$-$perp)
 to the common-mode index shift, so measuring both channels fixes $p$ --- a
 second-order discriminator beyond the leading coefficient of Sec.~\ref{sec:prediction}.
+
+\emph{Family context.} A saturating-field electrodynamics is not a new idea: Born
+and Infeld introduced one ninety years ago~\cite{BornInfeld1934}, engineering a
+square-root Lagrangian $\mathcal L\propto\sqrt{1+F/b^2}$ with a limiting field $b$
+so that the field of a point charge --- and the electron self-energy --- stays
+finite. The present kernel $S=\sqrt{1-(E/\Ec)^2}$ belongs to the same
+saturating-field family but is a distinct branch of it: the sign under the root is
+reversed, so the response \emph{softens} toward a hard ceiling $\Ec$ rather than
+stiffening, and (Sec.~\ref{sec:signature}) the magnetic sector is not symmetric
+with the electric one. We situate the model here only to place its lineage; the
+behaviour of the elliptic branch in the static electrostatic sector, and any
+comparison of self-energy properties across branches, is outside the scope of this
+Letter, whose registered claim is the pump--probe birefringence coefficient.
 
 \subsection{The magnetic sector: static-flux transparency}
 
@@ -317,9 +332,15 @@ so the quasi-static coefficient is safe. \emph{Common-mode
 channel.} Beyond the birefringence, the model predicts an isotropic index shift
 $\delta n_{\mathrm{iso}}=\sqrt{S}-1\simeq-\tfrac14 A^2$, common to both probe
 eigenmodes and hence rejected by a polarimeter. It is in principle accessible to
-pump--probe interferometry (e.g.\ a DeLLight-class measurement); at
-$\SI{e21}{\watt\per\centi\meter\squared}$ it is $\sim\!\num{1.5e-7}$ over the focus,
-below existing interferometric bounds, and we do not register a prediction for it here.
+pump--probe interferometry: the DeLLight experiment~\cite{Robertson2021DeLLight}
+is a Sagnac-interferometer measurement of exactly this common-mode vacuum index
+change, projecting sensitivity to the QED-level induced index (a refraction angle
+$\sim\!\SI{0.13}{\pico\radian}$, reached at $5\sigma$ in $\sim\!1$ month with a
+signal-amplification extinction factor $\mathcal F=\num{0.4e-5}$). The present
+model's isotropic shift at $\SI{e21}{\watt\per\centi\meter\squared}$ is
+$\sim\!\num{1.5e-7}$ over the focus. We do not register a prediction for the
+common-mode channel here; the falsifier of this Letter is the polarimetric
+differential, not the interferometric common mode.
 
 % ============================================================================
 \section{The prediction}
@@ -342,13 +363,26 @@ is~\cite{HeisenbergEuler1936,Karbstein2015,Karbstein2021}
   \label{eq:dnqed}
 \end{equation}
 %
-which we anchor to two external arbiters. First, the magnetic-route differential
+the coefficient $\alpha/(15\pi)$ being the head-on ($\vartheta_{\mathrm{coll}}=\pi$),
+optimal-polarization value for the counter-propagating pump--probe geometry of the
+BIREF@HIBEF conventional scenario~\cite{Karbstein2015,BirefHibefLoI2025}, in which
+the polarization-flip signal is maximized (it scales as
+$(1-\cos\vartheta_{\mathrm{coll}})^4$). We anchor it to two external arbiters.
+First, the magnetic-route differential
 $\delta n = 3A_e B^2$ with the measured vacuum magnetic-birefringence constant
 $A_e = \SI{1.32e-24}{\tesla^{-2}}$~\cite{Ejlli2020,BattestiRizzo2013}: at the
 $E\leftrightarrow cB$ duality point the leading $(E^2-B^2)^2$ invariant fixes the
-static-field coefficient at $3A_eB_{\mathrm{crit}}^2=\alpha/(30\pi)$, and a
-propagating plane-wave pump (both invariants active) doubles it to
-Eq.~\eqref{eq:dnqed}. Second, the same coefficient reproduces the focus-integrated
+static-field (DC) coefficient at $3A_eB_{\mathrm{crit}}^2=\alpha/(30\pi)$. The
+step from this static endpoint to the headline coefficient
+Eq.~\eqref{eq:dnqed} is a net factor of two, and it is the product of two
+physically distinct factors: a factor of four from the head-on collision geometry
+(the birefringence of a probe crossing a strong pump lives in the pump--probe
+cross terms of the field invariants, not in the single on-shell plane wave, for
+which both Euler--Heisenberg invariants vanish), taking $\alpha/(30\pi)\to
+2\alpha/(15\pi)$; and a factor of one-half from the temporal $\langle\cos^2\rangle$
+carrier average of the pump, taking $2\alpha/(15\pi)\to\alpha/(15\pi)$. The
+static endpoint carries no carrier; the headline is cycle-averaged, so the net
+factor is not a pure geometry factor. Second, the same coefficient reproduces the focus-integrated
 signal estimate of the BIREF@HIBEF proposal~\cite{BirefHibefLoI2025} at its stated
 parameters. Both Eq.~\eqref{eq:dnbir} and Eq.~\eqref{eq:dnqed} are $E^2$-leading:
 an $E^2$ slope alone does \emph{not} discriminate the two. The discriminator is
@@ -368,7 +402,19 @@ of the probe intensity into the crossed polarimeter channel. This bounded form
 reduces to the perturbative $(\Delta\varphi/2)^2$ when $\Delta\varphi\ll1$. We
 compute both the model and the QED co-prediction through this \emph{identical}
 chain, changing only $\dnbir$, so the comparison is like-for-like and free of a
-strawman baseline.
+strawman baseline. \emph{Field convention.} The field $E$ entering
+Eqs.~\eqref{eq:dnbir} and~\eqref{eq:dnqed} throughout, and in
+Table~\ref{tab:scenarios}, is the peak carrier amplitude
+$E=\sqrt{2I/(c\varepsilon_0)}$ of the optical pump at intensity $I$; both legs are
+evaluated at this same peak field through the identical chain. Two distinct
+statements about this choice must be kept apart. Merely \emph{re-parametrizing}
+the field --- e.g.\ substituting the cycle-averaged $\langle E^2\rangle=E^2/2$ into
+the same two formulas --- rescales both legs' absolute retardance by a common
+factor and leaves the ratio of Sec.~\ref{sec:prediction} untouched. That is not
+the same as placing both legs' \emph{coefficients} on a single temporal footing
+(instantaneous vs.\ cycle-averaged), which does move the numerical ratio by an
+$O(1)$ factor; this is the convention item ledgered in Sec.~\ref{sec:model} item
+(iv), and it changes no order of magnitude and no falsifier verdict.
 
 \subsection{The field-independent ratio}
 
@@ -558,14 +604,21 @@ gives a self-focusing critical power $\sim\!\num{6.5e3}\,\mathrm{PW}$, far above
 existing laser, so no vacuum self-focusing is expected; the circulating fields of
 gravitational-wave interferometers produce a retardance $\sim\!\num{e-11}$ rad, far
 below their sensitivity; and, as shown in Sec.~\ref{sec:model}, laboratory
-static-field experiments are unaffected by the preferred-frame boost. The model is
-thus not already excluded by any published precision-optics bound~\cite{Fouche2016}.
+static-field experiments are unaffected by the preferred-frame boost. The
+interferometric route that would probe the common-mode index --- the DeLLight
+experiment~\cite{Robertson2021DeLLight}, projecting sensitivity to the QED-level
+index change --- has not yet reported a pump-on measurement in this regime, so it
+too leaves the model unconstrained at present. The model is thus not already
+excluded by any published precision-optics bound~\cite{Fouche2016,Robertson2021DeLLight}.
 
 \paragraph*{Pre-registration.}
 The predictions of Table~\ref{tab:scenarios} are fixed before any BIREF@HIBEF
-pump-on collision data exist. Their priority is anchored to the timestamp of this
-manuscript's public archival record; no entry is revised after pump-on data become
-available, and any revised prediction would carry its own later timestamp.
+pump-on collision data exist. Their priority is anchored by an OpenTimestamps
+proof: the SHA-256 hash of the frozen prediction is committed to the Bitcoin
+blockchain, so the hash (and hence the existence of a prediction fixed at that
+block time) is public while the manuscript content remains private until
+disclosure. No entry is revised after pump-on data become available, and any
+revised prediction would carry its own later timestamp.
 
 \begin{figure}[t]
   \centering
