@@ -234,3 +234,95 @@ The §9 muonic/CREMA/#539/Table-I/PVLAS evaluations are computed here ONLY, down
 ---
 **FROZEN.** Any change below this line after the first result commit is an ERRATA BANNER ONLY (the body is
 a record). The freeze act is this commit; the derivation fires on it.
+
+---
+
+## ERRATA (appended 2026-07-06, post-adversarial-review fix round; body above is the frozen record)
+
+These banners record deviations found by the adversarial review of PR #547. The FROZEN body above is
+unchanged; the corrected physics + citations live in the RESULT + drivers. Nothing above this line was
+edited. The routed bin `[DERIVED: CHARGE-KEYED]` stands (its physics substance was live-verified by the
+reviewers); the corrections are to citation integrity, sector direction, and computation honesty.
+
+### ERRATA-1 — WRONG M1/M2 TOPOLOGY ANCHOR (Cluster A, MAJOR finding 0)
+
+- **What the prereg cited (§0.1, the M1/M2 topology gate):** *"`per-dof-vacuum-node-circuit.md`:30-34
+  (`C_i=ε₀ℓ` is the **node capacitance to baseline** = SHUNT; `L_i=μ₀ℓ` the bond inductor)"*.
+- **What that leaf actually says:** `per-dof-vacuum-node-circuit.md`:25-40 is the per-DOF **multiplier**
+  definition `L_i = λ^L_i μ₀ℓ`, `C_i = λ^C_i ε₀ℓ`; its "baseline" is the **cold multiplier λ=1**, NOT a
+  ground node. It contains **zero** occurrences of "shunt", "series", or "bond inductor" (grep-verified at
+  branch tip). The SHUNT/series/bond-inductor topology is NOT stated there.
+- **The correct canonical anchors (grep-verified verbatim at branch tip):**
+  - `graded-network-response.md`:50 — *"series $L$ per bond, shunt $C$ per node"*.
+  - `graded-network-response.md`:53 Resultbox — *"LC-ladder dispersion (lossless KCL/KVL, series-$L$
+    bond, shunt-$C$ node)"*.
+  - `z0-derivation.md`:133-136 — *"$C_{cell}=ε₀ℓ_{node}$ **is** the bond segment's own shunt capacitance
+    — there is **no separate node admittance to add on top** … the repeated series-$L$ / shunt-$C$ unit"*.
+- **Fix landed in:** RESULT M1 & M2 rows + M1 derivation-chain narrative; driver
+  `em_keying_round3_mechanism.py` M1/M2 docstrings + basis strings. The `per-dof-vacuum-node-circuit.md`
+  cite is retained ONLY for its true content (one `(L_i,C_i)` reactive pair per translation DOF — the
+  no-spectator-mode point for M2), not for the topology.
+
+### ERRATA-2 — M3 USED THE A1 (V/V_snap) TANGENT FORMULA IN A T2-SCOPED ROUND (Cluster B, MAJOR finding 1)
+
+- **What the prereg / first RESULT used:** M3's tangent `C_ss = C₀/S³` (leading `+3/2·A₀²`), quoted from
+  `device-circuit-models.md`:60.
+- **The problem:** `device-circuit-models.md`:60 scopes that `C_ss=C₀/S³` to the **A1 dilatation-MASS
+  varactor** (verbatim: *"this A1 varactor keys on $V_{\mathrm{snap}}$, so $A\equiv V/V_{\mathrm{snap}}$;
+  $A=1$ is $V_{\mathrm{snap}}\approx511$ kV, NOT $V_{\mathrm{yield}}$"*) — the A1 sector, which the prereg
+  §0 itself declared **OUT OF SCOPE**. The Grant-ratified sector split (`manuscript/ave-kb/CLAUDE.md`:73)
+  assigns `C_eff=C₀/S` (↑) to longitudinal-A1 and `ε_eff=ε₀·S` (↓, `C_diel∝S`) to transverse-T2 — the
+  sector this PR is about.
+- **The correction:** M3 re-derived in the **T2 direction**: tangent of `C_diel=C₀·S(A_V)` → leading
+  `C₀(1 − ½A₀²)`. The **sign FLIPS** (T2 is DOWN vs A1 UP), magnitude order is the same, and **the kill
+  SURVIVES** — the tangent still shifts under bias, which is all M3 needs.
+- **Fix landed in:** RESULT M3 row + knife-check; driver `m3_quiescent_slide` (T2 form, A1 form recorded
+  as out-of-scope contrast); test `test_m3_T2_tangent_changes_under_bias_sign_flipped`.
+- **UNRESOLVED corpus tension surfaced (flag-don't-fix, for Grant):** `node-up-small-large-signal.md`:104
+  / :360 label `C_eff=C₀/S(A_V)`, `A_V=V/V_yield` as the **"ε-grade VARACTOR"**, while
+  `manuscript/ave-kb/CLAUDE.md`:73 assigns `C₀/S` to A1 and gives T2 the `ε_eff=ε₀S` / `C_diel∝S` form.
+  Surfaced verbatim in the RESULT flag block for Grant's adjudication; NOT resolved on this branch.
+
+### ERRATA-3 — EXACTNESS IS LEADING-ORDER (Cluster D findings 8/12/22)
+
+- **What the first RESULT claimed:** the boxed keying `S_ε=√(1−⟨A_V²⟩)` and "EXACTLY the mean-square".
+- **The correction:** the equality `⟨1−S⟩ = ½⟨A_V²⟩` holds at **LEADING (2nd) order** only; a Jensen gap
+  opens at `O(A⁴)` (the sqrt kernel is concave). Both objects keep the DC baseline, so the H1-vs-H2
+  routing is unchanged, but the *exact* mean-square identity is 2nd-order. The order qualifier is added
+  in the box and everywhere exactness is claimed. Fix landed in RESULT keying-statement box + prose +
+  driver `derived_local_key`.
+
+### ERRATA-4 — PHANTOM COMPUTATIONS REPLACED WITH CAN-FAIL COMPUTATIONS (Cluster C, MAJORs 2/3/4/7)
+
+The first-draft driver presented hand-assigned verdicts as computations (unused M1 symbols; M2's
+`u_varactor ≡ u_field` self-verifying control; slow-ramp `diff(...)×0`). Replaced with computations that
+CAN FAIL, each with a ReconcileGate proven can-fire on a synthetic-discrepancy input:
+- **M1** — both cell topologies built as actual time-domain models: the canonical series-L/shunt-C unit
+  passes a held DC to the varactor (`V_node→V₀`), the series-C-blocked counterfactual blocks it
+  (`V_node→0`); gate reconciles the canonical settled node voltage against the LC-ladder DC relation.
+- **M2** — held-field energy by two INDEPENDENT routes (charge-path element sum vs constitutive Legendre
+  co-energy), reconciled to zero residual; positive control fires on a broken constitutive.
+- **Slow-ramp** — an actual time-domain integration of the τ_relax ODE at 4 ramp rates (50× span);
+  post-settle deficit is nonzero, equal across rates, and equals the held-DC value (gate-reconciled).
+- The M0 "no premature small-A expansion" comment was corrected to match the code (finding 21). The
+  second engine_sim standing falsifier (a fixed span-decades identity that could not fail on physics) is
+  replaced by one keyed to the M1 two-topology DC-response (finding 25).
+
+### ERRATA-5 — PREREG-FIDELITY RESIDUE (finding 26)
+
+- **Commit granularity:** §8 prescribed "skeleton-first then one section per commit". The first result
+  landed the drivers + RESULT in a coarser commit grouping than one-section-per-commit. Recorded; the
+  physics + freeze-ordering (freeze `942c950b` before any result) are unaffected. The fix round below is
+  committed in a few logical commits.
+- **"Derived tolerances":** §8 / §5 called for ReconcileGate tolerances to be DERIVED, not chosen. The
+  first-draft gate used a chosen `rtol=1e-6, atol=1e-9`; the fix-round gates use tolerances scaled to the
+  numeric method (integrator step error / float epsilon) but these are still ENGINEERING choices, honestly
+  tagged as such rather than derived from a canonical bound. Flagged here as a not-fully-honored frozen
+  qualifier; the gates' role is can-fire liveness (proven), for which the exact tolerance is not
+  load-bearing to the routing.
+
+### ERRATA-6 — FIREWALL LEAKAGE FIXED (finding 9)
+
+The first RESULT placed the `1.52×10⁶ µeV` muon shift and the #539 reference in the blind KNIFE-CHECKS
+and DISCIPLINE sections, ABOVE the §9 firewall header. Moved below the §9 header (null-verdict-liveness
+now recorded inside §9); no muon/#539 comparison quantity appears before the firewall.
