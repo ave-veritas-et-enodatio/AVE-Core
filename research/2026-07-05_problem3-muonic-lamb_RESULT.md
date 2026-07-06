@@ -1,3 +1,20 @@
+🔴 **CORRECTION (2026-07-05, orchestrator review of PR #539, Rule 12 — supersede-preserve).** This
+RESULT doc was first MERGED to `main` (PR #539, at pre-correction commit `e9d61b34`) with a
+**test-charge sign convention** (δV/⟨δV⟩ tabulated in the positive-test-charge frame, mislabeled
+"δ(2S−2P)"), a **stale r_ns interior-boundary footnote**, no **non-perturbative-validity** statement,
+and the value `202.3706(23) meV` loosely called "the 2S–2P splitting." **Between the #539 merge and this
+correction's merge, `main` carried that pre-correction labeling.** This pass corrects all of it (review
+findings 1–6): the observable is relabeled to the µ⁻ frame `δ[ΔE]=δ[E(2P_1/2)−E(2S_1/2)]` (the SVE
+correction to the measured Lamb shift — see the SIGN CONVENTION box below); footnote 1 corrected to the
+D-turnover boundary `r_turn`; a non-perturbative-validity note added; the precision label fixed to the
+*extracted* Lamb shift `ΔE(2P_1/2−2S_1/2)`; the [B]-defeat cutoff scale (~9·ℓ_node) computed and the
+memo's ~300 fm floor refuted; the tail-coefficient test made independently-derived. **NO NUMBER, NO
+MAGNITUDE, AND NO ROUTED BIN CHANGED** — the routed bin is [C-EXCLUDED] before and after; the corrections
+are labeling/disclosure only (the sign flip and the observable relabel cancel algebraically). Body below
+carries the corrected content.
+
+---
+
 # Problem 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel: RESULT
 
 > **Precision label (orchestrator finding 6).** The measured `202.3706(23) meV` is the *extracted Lamb
