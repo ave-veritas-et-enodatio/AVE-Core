@@ -1,9 +1,9 @@
 """Tests for EM keying ROUND 3 — the ε-side DC-mechanism derivation.
 
-Routed bin: [DERIVED: CHARGE-KEYED] (uniform-bias gauge rider). The ε-grade
-(transverse-T2 permittivity) nonlinearity keys on the MEAN-SQUARE of the
-instantaneous amplitude (DC-included), NOT the time-variance. M0/M1/M2/M3 all
-confirm no lossless DC-block exists.
+Routed bin: [DERIVED: CHARGE-KEYED] (single-cell + lattice-rigid; with a UNIFORM-bias
+gauge-observability RIDER). The ε-grade (transverse-T2 permittivity) nonlinearity keys
+on the MEAN-SQUARE of the instantaneous amplitude (DC-included), NOT the time-variance.
+M0/M1/M2/M3 all confirm no lossless DC-block exists.
 
 Fast-core gating tests (structural, sympy/numpy) + one STANDING FALSIFIER
 (marked engine_sim) that catches regression of the CHARGE-KEYED verdict via the
@@ -123,37 +123,71 @@ def test_m2_two_route_ledger_closes_no_spectator_mode():
 # ---------------------------------------------------------------------------
 # M3 — T2-sector tangent CHANGES under held bias (sign-flipped from A1); kill survives.
 # ---------------------------------------------------------------------------
-def test_m3_T2_tangent_changes_under_bias_sign_flipped():
-    """SECTOR-CORRECTED (round-3 CLUSTER B): the round-3 sector is transverse-T2 permittivity
-    (CLAUDE.md:73, eps_eff=eps0*S -> C_diel=C0*S). The T2 tangent C_ss=C0*S(A0) CHANGES under
-    bias, leading 1 - (1/2)A0^2 -- SIGN FLIPPED from the OUT-OF-SCOPE A1 varactor's +3/2 A0^2
-    (device-circuit-models:60, keyed on V/V_snap). The kill SURVIVES: the tangent still shifts."""
+def test_m3_kill_is_convention_robust_keep_both():
+    """KEEP-BOTH CONVENTION FORK (round-3 fix-2, CLUSTER B / M3). The corpus's only explicit
+    chord/tangent convention (device-circuit-models:60, A1 sector) admits BOTH a chord C0*S and a
+    dQ/dV tangent C0*(S-A0^2/S) when applied to the T2 constitutive Q=C0*S*V. The M3 kill is
+    CONVENTION-ROBUST: EVERY in-scope candidate object shifts DOWN nonzero under held bias; neither
+    coefficient is crowned. The A1 +/S^3 form (+3/2, UP) is the OUT-OF-SCOPE V/V_snap sector, excluded.
+    Both leading coefficients are asserted with sympy; -1/2 is NOT crowned as 'the' answer."""
     m3 = m3_quiescent_slide()
     assert m3["tangent_preserved_under_bias"] is False
     assert m3["m3_delivers_h2_losslessly"] is False
-    # T2 tangent C_ss/C0 = S = sqrt(1-A0^2), leading 1 - 1/2 A0^2 (SIGN DOWN, changes under bias).
+    assert m3["all_candidate_objects_shift_down_nonzero"] is True
+
+    # CHORD / constitutive object: C0*S(A0), leading 1 - (1/2)A0^2  (leading coeff -1/2).
     A0 = sp.symbols("A0", positive=True)
     S = sp.sqrt(1 - A0**2)
-    C_ss_T2 = S
-    lead = sp.series(C_ss_T2, A0, 0, 3).removeO()
-    assert sp.simplify(lead - (1 - sp.Rational(1, 2) * A0**2)) == 0   # T2 leading is NEGATIVE
-    assert sp.simplify(C_ss_T2 - 1) != 0                              # changes under bias
-    # the driver's T2 string forms match (NOT the A1 1/S^3 form)
-    assert m3["C_ss_T2_tangent_ratio"] == "sqrt(1 - A0**2)"
+    chord_lead = sp.series(S, A0, 0, 3).removeO()
+    assert sp.simplify(chord_lead - (1 - sp.Rational(1, 2) * A0**2)) == 0   # -1/2 (DOWN)
+    assert sp.simplify(S - 1) != 0                                          # chord shifts under bias
+
+    # dQ/dV TANGENT of Q=C0*S(v)*V: dQ/dV = C0*(S - v^2/S) = C0*(1-2v^2)/sqrt(1-v^2), leading 1-(3/2)v^2.
+    v = sp.symbols("v", positive=True)
+    Sv = sp.sqrt(1 - v**2)
+    dQdV = sp.simplify(sp.diff(Sv * v, v))
+    assert sp.simplify(dQdV - (Sv - v**2 / Sv)) == 0                        # = S - A^2/S
+    tangent_lead = sp.series(dQdV, v, 0, 3).removeO()
+    assert sp.simplify(tangent_lead - (1 - sp.Rational(3, 2) * v**2)) == 0  # -3/2 (DOWN)
+
+    # CONVENTION-ROBUSTNESS assertion (not crowning either): both leading coeffs < 0, and the
+    # integral-chord too; the A1 +/S^3 form (+3/2, UP) is excluded from the in-scope set.
+    assert sp.Rational(-1, 2) < 0 and sp.Rational(-3, 2) < 0                # both shift DOWN
+    assert m3["C_chord_leading_coeff"] == "-1/2"
+    assert m3["dQdV_tangent_leading_coeff"] == "-3/2"
+    assert m3["integral_chord_leading_coeff"] == "-1/6"                     # DOWN too
+    assert m3["dQdV_equals_S_minus_A2_over_S"] is True
+    # the A1 out-of-scope form is +3/2 (SIGN UP) and is recorded as excluded, NOT used for routing
     assert m3["C_ss_A1_form_out_of_scope"] in ("(1 - A0**2)**(-3/2)", "1/(1 - A0**2)**(3/2)")
+    a1_lead = sp.series(1 / S**3, A0, 0, 3).removeO()
+    assert sp.simplify(a1_lead - (1 + sp.Rational(3, 2) * A0**2)) == 0      # +3/2 (UP, EXCLUDED)
+    # the fork is flagged, not crowned
+    assert "KEEP-BOTH" in m3["convention_fork_note"]
     assert "transverse-T2" in m3["sector"]
 
 
-def test_m3_lattice_zero_mode_settled_rigid():
-    """CLUSTER D finding [5]: the lattice-level zero-mode question. The K4 translational (E-coupled)
-    sector carries transverse/shear stiffness k_s > 0, so all three linear acoustic branches are
-    present (k4-bloch:58) -- NO floppy zero-mode to absorb a held strain at cold small-A. COMPUTED:
-    the transverse-acoustic branch speed is nonzero for k_s>0 and zero for the k_s=0 pathology."""
+def test_m3_lattice_zero_mode_settled_rigid_full_band():
+    """CLUSTER D finding [5] + round-3 fix-2 ITEM 1 (FULL-RANGE): the lattice-level zero-mode question.
+    The K4 translational (E-coupled) sector carries transverse/shear stiffness k_s > 0, so all three
+    linear acoustic branches are present (k4-bloch:58) -- NO floppy zero-mode. Rigidity holds across
+    the ENTIRE counted band A in [0, 0.7071] (C_44 strictly positive, ~0.09..0.177), NOT because A is
+    small; the A->1 floppy wall (C_44->4e-5) lies inside the EXCLUDED interior. COMPUTED: the
+    transverse-acoustic branch speed is nonzero for k_s>0 and zero for the k_s=0 pathology (a
+    CONSISTENCY ENCODING of the canon facts, not an independent verification)."""
     ml = m3_lattice_zero_mode_from_canon()
-    assert ml["E_coupled_translational_sector_rigid_at_cold_smallA"] is True
+    assert ml["E_coupled_translational_sector_rigid_across_counted_band"] is True
+    assert ml["c44_strictly_positive_across_counted_band"] is True
     assert ml["floppiness_is_ks0_pathology_only"] is True
     assert ml["lattice_zero_mode_absorbs_held_strain"] is False
     assert ml["m3_kill_extends_to_lattice"] is True
+    # FULL-RANGE: C_44 > 0 across the whole counted band (all tabulated values strictly positive),
+    # and the counted band is bounded at A <= 1/sqrt(2) = 0.7071 by the turnover construction.
+    assert all(v > 0 for v in ml["C44_across_counted_band"].values())
+    assert abs(ml["counted_band_A_max"] - 2.0 ** -0.5) < 1e-12
+    # honesty tag: the shipped numeric is a consistency encoding, not an independent verification
+    assert ml["numeric_is_consistency_encoding_not_verification"] is True
+    # the borrow is flagged as a borrow (srs-z3 tensor quantifying a K4 qualitative structure)
+    assert "BORROW" in ml["cross_lattice_borrow_flag"]
     # the rigid (k_s>0) branch speed genuinely exceeds the floppy (k_s=0) branch speed
     assert ml["cT2_with_shear_ks_gt_0"] > ml["cT2_pure_central_force_ks_0"]
 
@@ -261,3 +295,34 @@ def test_m1_two_topology_dc_response_STANDING_FALSIFIER():
     out = json.loads(buf.getvalue())
     assert out["slow_ramp_settle_out"]["deficit_persists_nonzero"] is True
     assert out["slow_ramp_settle_out"]["deficit_rate_independent"] is True
+
+
+@pytest.mark.engine_sim
+def test_C_iii_band_split_dominant_subpitch_band_STANDING_PIN():
+    """FIREWALLED §9 band-split pin (round-3 fix-2, ITEM 2). The COMPUTED per-band breakdown of the
+    C-iii overshoot: ~+103% comes from the SUB-PITCH band [r_turn, ell_node] = [159.6, 386.2] fm
+    (INSIDE one node pitch), and the whole SUPER-pitch remainder nets only ~-3.2%. This pins where the
+    magnitude lives (correcting the sample-point-only table that skipped the dominant band) and both
+    honest consequences: (i) the verdict does NOT ride on the sub-pitch band (super-pitch alone is
+    ~2e4x the CREMA window -> pitch-cutoff rescue excluded); (ii) the MAGNITUDE is sub-pitch = the
+    open [B-AVE] arm's territory. Consumes the #539 machinery by import (below the firewall)."""
+    from em_keying_round3_comparison import band_split_C_iii  # noqa: E402
+
+    bs = band_split_C_iii()
+    # bands sum to 100% of the total (the split is exhaustive / conserving)
+    assert abs(sum(b["fraction_of_total"] for b in bs["bands"]) - 1.0) < 1e-3
+    # dominant SUB-PITCH band [r_turn, ell_node] carries ~+103% of the shift (>> 1.0, and > super-pitch)
+    dom = bs["dominant_subpitch_band_fraction"]
+    assert 1.00 < dom < 1.06, f"dominant sub-pitch band fraction {dom} off the pinned ~+103%"
+    # the dominant band is the [r_turn, ell_node] one (labelled SUB-PITCH)
+    assert "SUB-PITCH" in bs["bands"][0]["band"]
+    assert bs["bands"][0]["fraction_of_total"] == dom
+    # SUPER-pitch remainder nets a small NEGATIVE fraction (~-3.2%), opposite sign to the dominant band
+    sp_net = bs["superpitch_net_fraction"]
+    assert -0.05 < sp_net < -0.02, f"super-pitch net fraction {sp_net} off the pinned ~-3.2%"
+    # consequence (i): super-pitch remainder ALONE grossly exceeds the CREMA window (pitch-cutoff dead)
+    from problem3_muonic_lamb_shift import WINDOW_ueV_primary  # noqa: E402
+    assert bs["superpitch_net_magnitude_ueV"] / WINDOW_ueV_primary > 1e3
+    # the 1-2-pitch band [2 a_mu, 5 a_mu] nets a small NEGATIVE (~-1.3%), NOT the dominant load
+    one_to_two_pitch = bs["bands"][2]["fraction_of_total"]
+    assert -0.02 < one_to_two_pitch < 0.0

@@ -326,3 +326,80 @@ CAN FAIL, each with a ReconcileGate proven can-fire on a synthetic-discrepancy i
 The first RESULT placed the `1.52×10⁶ µeV` muon shift and the #539 reference in the blind KNIFE-CHECKS
 and DISCIPLINE sections, ABOVE the §9 firewall header. Moved below the §9 header (null-verdict-liveness
 now recorded inside §9); no muon/#539 comparison quantity appears before the firewall.
+
+## ERRATA (appended 2026-07-06, SECOND fix round, post-re-verify; body above still unchanged)
+
+The re-verify of the first fix round returned FAIL on two of three re-checks. The routed bin
+`[DERIVED: CHARGE-KEYED]` survives; the corrections below are honest re-scoping + a flagged convention
+fork. Nothing above the FROZEN line was edited.
+
+### ERRATA-7 — M3 ½-vs-³⁄₂ FORK CONVERTED TO A FLAGGED KEEP-BOTH (Cluster B / M3, MAJOR)
+
+- **What the FIRST fix round did:** it saw the ½-vs-³⁄₂ coefficient fork and OVERRODE it unflagged,
+  crowning `C_ss = C₀·S(A₀)`, leading `1−½A₀²`, as "the T2 tangent." The driver docstring's own
+  garbled line — *"leading -3/2 ... no: leading -(1/2)A0^2 for C0*S; the differential-of-C shift is
+  -(3/2)A0^2"* — is documentary evidence the fork was seen and silently resolved.
+- **The problem (sympy-verified this round):** the shipped `C₀·S(A₀)` is the **CHORD** wearing the
+  small-signal label. Under the corpus's ONLY explicit chord/tangent convention
+  (`device-circuit-models.md`:60: *"the large-signal chord/secant varactor $C_{eff}=C_0/S$ vs the
+  small-signal differential $C_{ss}=dQ/dV=C_0/S^3$"*), the T2 constitutive `Q=C₀·S(A_V)·V` gives
+  `dQ/dV = C₀(S−A²/S)` → leading `1−(3/2)A₀²`; `C₀·S` itself (`1−½A₀²`) is the chord. The corpus is
+  genuinely forked (`manuscript/ave-kb/CLAUDE.md`:75 calls BOTH `ε₀S` (T2) and `C₀/S` (A1 at :73)
+  "small-signal" in one sentence, contradicting the device leaf's `C₀/S³`).
+- **The correction (Rule 12 / KEEP-BOTH discriminator pattern):** this round converts the unflagged
+  override into a **flagged KEEP-BOTH**. BOTH coefficients are computed with sympy and presented, and
+  NEITHER is crowned: chord/constitutive `C₀·S` → `−½A₀²`; `dQ/dV` tangent → `−(3/2)A₀²` (integral-chord
+  `1−A₀²/6` too). The M3 kill is stated **CONVENTION-ROBUST** — every candidate object shifts DOWN
+  nonzero under held bias, the only relaxation is dissipative, so M3 is dead in all conventions. The
+  three-way convention tangle ((a) node-up:104/:360, (b) `manuscript/ave-kb/CLAUDE.md`:73/:75,
+  (c) device-circuit-models:60)
+  is surfaced verbatim and **merged into ONE Grant-adjudication item** in the RESULT flag block.
+- **Fix landed in:** RESULT M3 row + M2/M3 reconcile + knife-check + derived-keying box + the MERGED
+  Grant-adjudication flag; driver `m3_quiescent_slide` (garbled docstring DELETED; both objects computed
+  with sympy and emitted; the mislabeled "CHORD/secant differential slope" wording removed); test
+  `test_m3_kill_is_convention_robust_keep_both` (asserts convention-robustness: both leading coeffs
+  negative and nonzero, the A1 `+/S³` form excluded; does NOT crown `−½`).
+
+### ERRATA-8 — LATTICE-RIGIDITY LEG RE-SCOPED FROM SMALL-A CARVE TO FULL COUNTED BAND (Cluster D / M3-lattice, MAJOR)
+
+- **What the FIRST fix round claimed:** the M3-lattice rigidity kill was scoped to "the cold small-A
+  operating point (`A_V ≪ 1`)."
+- **The problem:** the load-bearing band of the muon comparison runs `A = 0.7071` (at `r_turn = 159.6 fm`)
+  down to `~0.09` (at `ℓ_node = 386.2 fm`) — NOT `A ≪ 1`. The small-A carve did not cover the band it
+  needed to.
+- **The correction:** restated as a **full-range argument** — `C₄₄(A)` is STRICTLY positive for ALL
+  `A < 1` (`0.17661` at `A=0`, `0.09213` at `A_wall=0.9`, `0.02536` at `A_wall=0.99479`, `→4×10⁻⁵` only as
+  `A→1`; `research/2026-07-04_saturated-elastic-tensor_result.md`:159-163), the counted band is bounded at
+  `A ≤ 1/√2` by the turnover construction, and the `A→1` floppy zone lies wholly inside the EXCLUDED
+  interior (`r < r_turn`). So rigidity holds across the **entire counted band** (`C₄₄` between `~0.09` and
+  `~0.177`), not "because A is small." Added: the modulus-energy bridge (`c_T²>0 ⟺ C₄₄>0 ⟺` a held strain
+  stores energy and cannot be losslessly absorbed; the `k=0` `ω→0` modes are pure translations carrying no
+  strain); the full-BZ eigensolve driver `k4_bloch_dispersion.py` (`k4-bloch-dispersion-quartic.md`:40)
+  cited as the no-zero-mode basis for the sub-pitch gradient strains; the cross-lattice borrow FLAGGED
+  (the `C₄₄` numbers are the srs-z3 saturated Born–Huang tensor, `electron-bh-isomorphism.md`:38's own
+  label, borrowed to quantify a K4 qualitative structure — both nets carry `k_s>0`); and "Verified
+  numerically" corrected to "consistency encoding of the canon facts" to match the driver docstring's own
+  honesty.
+- **Fix landed in:** RESULT M3-lattice paragraph (full rewrite); driver `m3_lattice_zero_mode_from_canon`
+  (docstring + return dict carry the full-range facts, borrow flag, modulus-energy bridge,
+  consistency-encoding tag); test `test_m3_lattice_zero_mode_settled_rigid_full_band`.
+
+### ERRATA-9 — §9 COMPARISON NARRATIVE CORRECTED: THE LOAD LIVES SUB-PITCH (finding [18], MAJOR)
+
+- **What the FIRST fix round claimed:** the "`~1–2` node pitches" region "carries the readable load and
+  drives the overshoot."
+- **The problem (shipped integral, band-split):** `~103%` of the C-iii overshoot comes from INSIDE one
+  node pitch (`[159.6, 386.2] fm`); the `1–2`-pitch region nets `~−1.3%`, the whole super-pitch remainder
+  `~−3.2%`. The sample-point-only table skipped the dominant `160–386 fm` band entirely.
+- **The correction:** SHIP the band-split as a computed artifact (`band_split_C_iii` +
+  printed table + `test_C_iii_band_split_dominant_subpitch_band_STANDING_PIN`), correct the narrative, and
+  state both consequences honestly: (i) the verdict does NOT ride on the sub-pitch band (super-pitch alone
+  `~4.9×10⁴ µeV ≈ 2×10⁴×` the CREMA window — pitch-cutoff rescue already excluded); (ii) the overshoot
+  MAGNITUDE is dominated by a continuum-below-pitch band = the open **[B-AVE] lattice-scale
+  regime-boundary arm's** territory (cross-referenced as the standing open item). The rider's
+  gradient-readability paragraph is re-scoped accordingly (Op14 readability applies `≳1` pitch; the
+  dominant band is a lattice-scale [B-AVE] question); the interior-exclusion and the `A ≤ 0.7071` bound
+  stand.
+- **Fix landed in:** RESULT §9 (band-split table + two consequences + [B-AVE] cross-ref); driver
+  `em_keying_round3_comparison.py` (`band_split_C_iii` + printed table + output block); test file
+  (band-split pin).

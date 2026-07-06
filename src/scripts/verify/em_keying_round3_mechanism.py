@@ -244,7 +244,7 @@ def m2_mode_energy_ledger():
     saturating kernel (on a linear spectator mode). WHERE does the held field-energy live?
 
     The canonical cell has ONE (L,C) pair per translation DOF (per-dof-vacuum-node-circuit:30-34,
-    'one (L_i,C_i) per DOF'); the shunt varactor C_eff = C0/S(A_V) is the saturating capacitance
+    one (L_i,C_i) reactive pair per translation DOF); the shunt varactor C_eff = C0/S(A_V) is the saturating capacitance
     (eps_eff = eps0 S(A_V)). We compute the held-field energy stored on that varactor by TWO
     INDEPENDENT routes and reconcile them; if they close with NO residual, there is no spare
     (spectator) linear capacitance to park 1/2 eps0 E^2 on -> the H2 ledger cannot close.
@@ -319,67 +319,114 @@ def m2_mode_energy_ledger():
 # ===========================================================================
 def m3_quiescent_slide():
     """M3. Does the node equilibrium slide under held bias along a soft/zero-restoring direction
-    so the TANGENT (small-signal differential) capacitance a probe sees is UNCHANGED?
+    so the small-signal capacitance a probe sees is UNCHANGED?
 
-    SECTOR CORRECTION (round-3 fix, CLUSTER B): the ROUND-3 sector is the TRANSVERSE-T2 permittivity
-    channel. The Grant-ratified sector split (manuscript/ave-kb/CLAUDE.md:73) assigns:
-        - transverse-T2 permittivity:  eps_eff = eps0 * S(A_V)  -> C_diel = C0 * S(A_V)  (rolls DOWN)
-        - longitudinal-A1 bond compliance: C_eff = C0 / S       (rolls UP; keyed on V/V_snap)
-    The A1 form C_ss = C0/S^3 at device-circuit-models:60 is scoped there to the A1 varactor
-    (A ≡ V/V_snap, 'A=1 is V_snap ≈ 511 kV, NOT V_yield') — the OUT-OF-SCOPE sector. So M3 must be
-    derived in the T2 direction using the bench-netlist C_diel = C0 * S(A_V) form.
+    SECTOR (round-3 fix, CLUSTER B): the round-3 sector is the TRANSVERSE-T2 permittivity channel.
+    The Grant-ratified sector split (manuscript/ave-kb/CLAUDE.md:73) assigns
+    eps_eff = eps0 * S(A_V) -> the bench-netlist cell capacitance C_diel = C0 * S(A_V) (rolls DOWN),
+    a DISTINCT object from the longitudinal-A1 bond compliance C_eff = C0/S (rolls UP; keyed on
+    V/V_snap). The A1 differential form C_ss = C0/S^3 at device-circuit-models:60 is scoped there to
+    the A1 varactor (A == V/V_snap, "A=1 is V_snap ~ 511 kV, NOT V_yield") -- the OUT-OF-SCOPE sector.
 
-    T2 tangent (small-signal differential) capacitance at operating point A0 for C_diel = C0 * S(A):
-        Q(V) = integral_0^V C_diel dv ;  C_ss(A0) = dQ/dV|_{A0} = C_diel(A0) = C0 * S(A0).
-    At A0=0 (cold): C_ss = C0. Under a held bias A0>0: C_ss = C0 * S(A0) < C0 -- it CHANGES
-    (leading C0 * (1 - (1/2) A0^2); the SIGN is DOWN, opposite the A1 +3/2 A0^2, magnitude order same).
+    KEEP-BOTH CONVENTION FORK (round-3 fix-2, CLUSTER B / M3): the corpus carries only ONE explicit
+    chord/tangent convention (device-circuit-models:60: "the large-signal chord/secant varactor
+    C_eff=C0/S vs the small-signal differential C_ss=dQ/dV=C0/S^3"), stated for the A1 sector. Applying
+    the SAME chord-vs-tangent distinction to the T2 constitutive Q = C0*S(A_V)*V yields TWO distinct
+    candidate objects, and it is a genuine convention question which one is "the small-signal C". We
+    therefore compute BOTH with sympy and emit BOTH -- we do NOT crown either:
+      - CHORD / constitutive:  C0*S(A0) itself           -> series 1 - (1/2)A0^2   (leading -1/2)
+      - dQ/dV tangent of Q=C0*S*V:  C0*(S - A0^2/S)       -> series 1 - (3/2)A0^2   (leading -3/2)
+    (For completeness the integral-chord (1/A0) int_0^A0 S dv -> 1 - A0^2/6 also shifts DOWN.) EVERY
+    candidate object shifts DOWN, nonzero, under a held bias: the M3 kill is CONVENTION-ROBUST. The A1
+    C0/S^3 form (+3/2 A0^2, sign UP) is the OUT-OF-SCOPE V/V_snap sector, recorded only for contrast.
 
-    (For completeness the CHORD/secant differential slope of the T2 charge Q(A)=integral C0 S also
-    shifts: d^2Q/dV^2 != 0 under bias. Either T2 differential shows the same thing: the tangent a
-    probe sees is MODULATED under a held bias. What M3 needs is only THAT it shifts — it does.)
+    For M3 to deliver H2 (probe sees no change), the quiescent point would have to slide LOSSLESSLY
+    back to A=0 effective strain. No elastic zero-restoring soft mode exists: S(A) is a monotone
+    function of the instantaneous phase-plane radius. The ONLY relaxation is the tau_relax first-order
+    ODE (tau-relax:20) whose hysteresis loop DISSIPATES energy (tau-relax:24) -- a LOSSY forget,
+    Ax3-forbidden.
 
-    For M3 to give H2 (probe sees no change), the quiescent point would have to slide LOSSLESSLY back
-    to A=0 effective strain. No elastic zero-restoring soft mode exists: S(A) is a monotone function
-    of the instantaneous phase-plane radius. The ONLY relaxation is the tau_relax first-order ODE
-    (tau-relax:20) whose hysteresis loop DISSIPATES energy (tau-relax:24) -- a LOSSY forget, Ax3-forbidden.
-
-    => M3 FAILS (losslessly). A held bias genuinely shifts the T2 tangent (C_ss = C0*S(A0), leading
-       -3/2 ... no: leading -(1/2)A0^2 for C0*S; the differential-of-C shift is -(3/2)A0^2 -- either way
-       the tangent SHIFTS under bias). The kill SURVIVES the sector correction: the tangent still moves.
-
-    We verify the T2 tangent and the differential shift symbolically.
+    => M3 FAILS losslessly under EVERY convention: both the chord C0*S (leading -1/2 A0^2) and the
+       dQ/dV tangent C0*(S - A0^2/S) (leading -3/2 A0^2) shift DOWN nonzero under held bias, and the
+       only relaxation is dissipative. The kill does not ride on the coefficient's value.
     """
     A0 = sp.symbols("A0", positive=True)
     S = sp.sqrt(1 - A0**2)
-    # T2 permittivity direction (CLAUDE.md:73): eps_eff = eps0 S -> C_diel = C0 S.
+    # T2 permittivity direction (manuscript/ave-kb/CLAUDE.md:73): eps_eff = eps0 S -> constitutive C_diel = C0 S.
     C_diel_ratio = S                         # transverse-T2 dielectric cell capacitance (rolls DOWN)
-    C_ss_T2_ratio = S                        # small-signal tangent for a LINEAR-in-V charge with C(A)=C0 S
-    # the differential (bias-dependence of the small-signal capacitance) — how much the probe's
-    # measured C moves per unit bias^2. For C_diel = C0 S the leading bias shift is -(1/2)A0^2;
-    # the CURVATURE of the C(A) response (the sign-flipped analogue of the A1 +3/2) is:
-    C_ss_leading = sp.series(C_ss_T2_ratio, A0, 0, 3).removeO()  # 1 - 1/2 A0^2 + ...
-    # the sign-flipped tangent-of-C shift vs the A1 varactor: A1 was C0/S^3 -> +3/2 A0^2;
-    # T2 is C0*S -> the leading correction is -(1/2)A0^2 (SIGN FLIPS). Record the A1 form for contrast.
+
+    # (i) CHORD / constitutive object: C0*S(A0) itself (the large-signal chord/secant, in the
+    #     device-circuit-models:60 nomenclature). Leading series 1 - (1/2)A0^2.
+    C_chord_ratio = S
+    C_chord_leading = sp.series(C_chord_ratio, A0, 0, 3).removeO()      # 1 - A0^2/2
+    C_chord_leading_coeff = C_chord_leading.coeff(A0, 2)               # -1/2
+
+    # (ii) dQ/dV TANGENT of the T2 constitutive Q = C0*S(A_V)*V. Work dimensionless in v = A_V = V/Vy:
+    #      Q/(C0*Vy) = S(v)*v ; dQ/dV = (1/Vy) dQ/dv = C0 * d/dv[ S(v) v ] = C0*(S - v^2/S).
+    v = sp.symbols("v", positive=True)
+    Sv = sp.sqrt(1 - v**2)
+    dQdV_ratio = sp.simplify(sp.diff(Sv * v, v))                        # (1 - 2v^2)/sqrt(1-v^2) = S - v^2/S
+    dQdV_leading = sp.series(dQdV_ratio, v, 0, 3).removeO()             # 1 - 3v^2/2
+    dQdV_leading_coeff = dQdV_leading.coeff(v, 2)                       # -3/2
+    dQdV_equals_S_minus_A2_over_S = bool(sp.simplify(dQdV_ratio - (Sv - v**2 / Sv)) == 0)
+
+    # (iii) integral-chord (1/A0) int_0^A0 S dv -> 1 - A0^2/6 (also DOWN); recorded for robustness.
+    integral_chord_ratio = sp.simplify(sp.integrate(Sv, (v, 0, A0)) / A0)
+    integral_chord_leading = sp.series(integral_chord_ratio, A0, 0, 3).removeO()  # 1 - A0^2/6
+    integral_chord_leading_coeff = integral_chord_leading.coeff(A0, 2)            # -1/6
+
+    # The OUT-OF-SCOPE A1 differential form (device-circuit-models:60, V/V_snap): C0/S^3, leading +3/2.
     C_ss_A1_ratio_out_of_scope = 1 / S**3    # device-circuit-models:60 A1 form (V/V_snap), OUT OF SCOPE
-    tangent_shifts_under_bias = sp.simplify(C_ss_T2_ratio - 1) != 0
+
+    # CONVENTION-ROBUSTNESS: every in-scope T2 candidate object shifts DOWN (leading coeff < 0) and
+    # nonzero under a held bias; the A1 +/S^3 form (leading +3/2, UP) is excluded (out of scope).
+    all_candidates_shift_down_nonzero = (
+        C_chord_leading_coeff < 0
+        and dQdV_leading_coeff < 0
+        and integral_chord_leading_coeff < 0
+    )
+    chord_shifts_under_bias = bool(sp.simplify(C_chord_ratio - 1) != 0)
+    tangent_shifts_under_bias = bool(sp.simplify(dQdV_ratio - 1) != 0)
     return {
-        "sector": "transverse-T2 permittivity (CLAUDE.md:73): eps_eff=eps0*S -> C_diel=C0*S (rolls DOWN)",
+        "sector": "transverse-T2 permittivity (manuscript/ave-kb/CLAUDE.md:73): eps_eff=eps0*S -> C_diel=C0*S (rolls DOWN)",
         "C_diel_T2_ratio": str(C_diel_ratio),               # S
-        "C_ss_T2_tangent_ratio": str(C_ss_T2_ratio),        # S
-        "C_ss_T2_leading_shift": str(C_ss_leading),         # 1 - A0^2/2  (SIGN FLIPPED vs A1 +3/2)
+        # KEEP-BOTH: both convention objects emitted, neither crowned.
+        "C_chord_constitutive_ratio": str(C_chord_ratio),           # S (chord/secant C0*S)
+        "C_chord_leading": str(C_chord_leading),                    # 1 - A0^2/2
+        "C_chord_leading_coeff": str(C_chord_leading_coeff),        # -1/2
+        "dQdV_tangent_ratio": str(dQdV_ratio),                      # (1 - 2v^2)/sqrt(1-v^2) = S - A^2/S
+        "dQdV_tangent_leading": str(dQdV_leading),                  # 1 - 3v^2/2
+        "dQdV_tangent_leading_coeff": str(dQdV_leading_coeff),      # -3/2
+        "dQdV_equals_S_minus_A2_over_S": dQdV_equals_S_minus_A2_over_S,
+        "integral_chord_ratio": str(integral_chord_ratio),         # (robustness) 1 - A0^2/6 leading
+        "integral_chord_leading_coeff": str(integral_chord_leading_coeff),  # -1/6
         "C_ss_A1_form_out_of_scope": str(C_ss_A1_ratio_out_of_scope),  # 1/S^3, A1/V_snap — NOT this sector
-        "sign_vs_A1": "T2 leading is NEGATIVE (-1/2 A0^2); A1 was POSITIVE (+3/2 A0^2). Magnitude order same.",
+        "A1_form_leading_coeff_out_of_scope": "+3/2 (SIGN UP; V/V_snap sector, excluded)",
+        "convention_fork_note": (
+            "KEEP-BOTH convention fork (M3): the corpus's only explicit chord/tangent convention "
+            "(device-circuit-models:60, A1 sector) admits BOTH a chord C0*S (leading -1/2 A0^2) and a "
+            "dQ/dV tangent C0*(S - A0^2/S) (leading -3/2 A0^2) when applied to the T2 constitutive "
+            "Q=C0*S*V. Neither is crowned here; the fork is FLAGGED for Grant (merged with CLUSTER-B). "
+            "The kill is convention-robust: both shift DOWN nonzero, and so does the integral-chord "
+            "(1 - A0^2/6)."
+        ),
+        "all_candidate_objects_shift_down_nonzero": bool(all_candidates_shift_down_nonzero),
+        "chord_shifts_under_bias": chord_shifts_under_bias,
+        "tangent_shifts_under_bias": tangent_shifts_under_bias,
         "tangent_preserved_under_bias": False,
         "only_relaxation_is_dissipative": True,   # tau_relax hysteresis dissipates (tau-relax:24)
         "m3_delivers_h2_losslessly": False,
         "verdict": (
-            "M3 FAILS losslessly (T2 sector, sign-corrected). The transverse-T2 tangent capacitance "
-            "under a held bias A0 is C_ss = C0*S(A0) (CLAUDE.md:73, eps_eff=eps0*S -> C_diel=C0*S), "
-            "leading 1 - (1/2)A0^2 -- it CHANGES under held bias (SIGN DOWN, opposite the A1 varactor's "
-            "+3/2 A0^2; the A1 C0/S^3 form at device-circuit-models:60 is the V/V_snap sector, OUT OF "
-            "SCOPE here). No lossless soft mode slides A0 -> 0 while V is held; the only relaxation is "
-            "the tau_relax hysteresis, which DISSIPATES (tau-relax:24), Ax3-forbidden. The kill SURVIVES "
-            "the sector correction: the tangent still shifts under bias -- that is all M3 needs."
+            "M3 FAILS losslessly, CONVENTION-ROBUST (T2 sector). Under the corpus's only explicit "
+            "chord/tangent convention (device-circuit-models:60) both candidate objects for the T2 "
+            "constitutive Q=C0*S(A_V)*V shift DOWN nonzero under a held bias: the CHORD/constitutive "
+            "C0*S(A0) leads 1 - (1/2)A0^2, and the dQ/dV TANGENT C0*(S - A0^2/S) leads 1 - (3/2)A0^2 "
+            "(the integral-chord 1 - A0^2/6 too). Neither coefficient is crowned -- the fork is FLAGGED "
+            "for Grant (merged CLUSTER-B). The A1 C0/S^3 form (+3/2 A0^2, sign UP) is the OUT-OF-SCOPE "
+            "V/V_snap sector. No lossless soft mode slides A0 -> 0 while V is held; the only relaxation "
+            "is the tau_relax hysteresis, which DISSIPATES (tau-relax:24), Ax3-forbidden. The kill does "
+            "NOT ride on the coefficient value: every candidate object moves the small-signal C under "
+            "bias, and the only relaxation is dissipative."
         ),
     }
 
@@ -401,18 +448,40 @@ def m3_lattice_zero_mode_from_canon():
     translational (E-coupled) sector -- all three acoustic branches are linear (omega ~ c|k|, no
     zero-frequency floppy branch at generic k).
 
-    Near-yield floppiness (electron-bh-isomorphism:38: C_44 collapses 0.177 -> 4e-5 as A->1) is an
-    ABSOLUTE-SCALE collapse at the yield wall (A->1) -- NOT the cold small-A operating point of this
-    round (A_V << 1). At cold small-A the shear stiffness is O(1) (loaded-cold C_44 = 0.177).
+    MODULUS-ENERGY BRIDGE (round-3 fix-2, ITEM 1a -- spelled explicitly). c_T^2 > 0  <=>  shear
+    modulus C_44 > 0  <=>  a held uniform shear strain STORES energy (U = 1/2 C_44 gamma^2 per volume)
+    and cannot be losslessly absorbed. The only omega->0 modes at EXACTLY k=0 are pure RIGID-BODY
+    TRANSLATIONS (carrying no strain, storing no energy) -- they cannot absorb a held strain either.
+    For the mid-zone (sub-pitch) gradient strains 0 < |k| < pi/a the no-zero-mode basis is the leaf's
+    OWN full-BZ eigensolve driver (k4_bloch_dispersion.py, per k4-bloch-dispersion-quartic:40): all
+    three acoustic branches are linear (omega ~ c|k|), so there is no soft internal mode at finite k.
+
+    FULL-RANGE C_44 ARGUMENT (round-3 fix-2, ITEM 1 -- replaces the earlier small-A carve). The muon
+    comparison's counted (non-interior-excluded) band runs A = 1/sqrt(2) = 0.7071 (at the turnover
+    r_turn) DOWN to ~0.09 (at ell_node), by the turnover construction -- the A->1 floppy zone lies
+    WHOLLY inside the EXCLUDED interior (r < r_turn). Across that ENTIRE counted band C_44 is STRICTLY
+    positive and O(0.1): C_44 = 0.17661 at A=0, 0.09213 at A_wall=0.9, 0.02536 at A_wall=0.99479, and
+    -> 4e-5 only as A->1 (research/2026-07-04_saturated-elastic-tensor_result.md:159-163). So rigidity
+    holds across the WHOLE counted band (C_44 between ~0.09 and ~0.177 there), NOT "because A is small":
+    the floppy A->1 wall is never counted.
+
+    CROSS-LATTICE BORROW (round-3 fix-2, ITEM 1c -- FLAGGED as a borrow, not a derivation). The C_44
+    numbers are the ratified chiral srs-z3 net's saturated Born-Huang tensor
+    (electron-bh-isomorphism:38's own label: "saturated Born-Huang elastic tensor of the ratified
+    chiral srs-z3 net"), quantifying a K4-leaf QUALITATIVE structure (the k_s>0 rigidity of k4-bloch:58).
+    They plausibly transfer because BOTH nets carry a nonzero transverse/shear stiffness k_s > 0 (the
+    shear channel is nonzero in both), so both are rigid in the translational sector; but this is a
+    BORROW of a magnitude from a sibling lattice, not a K4-native derivation of C_44.
 
     Therefore a lattice-level zero-mode that could losslessly absorb a held translational strain does
-    NOT exist at this round's operating point: the sector is rigid (k_s > 0), so the single-cell M3
-    kill EXTENDS to the lattice. This SETTLES the finding-[5] open leg CLOSED (rigid), with citations.
+    NOT exist across the counted band: the sector is rigid (k_s > 0), so the single-cell M3 kill
+    EXTENDS to the lattice. This SETTLES the finding-[5] open leg CLOSED (rigid), with citations.
 
-    We encode the two canonical facts as a small numeric check on the rank-2 bond Bloch matrix: with
-    k_s > 0 the transverse-acoustic branch speed is nonzero (rigid); with k_s = 0 it collapses to
-    zero (floppy). This is a can-FAIL check -- had k_s=0 also given a rigid branch, the canon quote
-    would be contradicted.
+    CONSISTENCY ENCODING (round-3 fix-2, ITEM 1d -- honest framing, matches this docstring). The shipped
+    numeric below is a CONSISTENCY ENCODING of the two canonical facts (k_s>0 rigid; k_s=0 floppy) in a
+    1-D toy transverse-acoustic dispersion -- NOT an independent numerical verification of the K4 tensor.
+    It is a can-FAIL encoding: had the k_s=0 branch NOT collapsed while k_s>0 did, the canon quote would
+    be contradicted. The load-bearing facts are the canon quotes + the borrowed C_44 table.
     """
     import numpy as _np
 
@@ -435,29 +504,70 @@ def m3_lattice_zero_mode_from_canon():
             "M3-LATTICE DEAD: the transverse-acoustic branch does not distinguish k_s>0 (rigid) from "
             "k_s=0 (floppy) -- cannot settle the lattice zero-mode question. Refusing to route."
         )
+    # the counted-band C_44 facts (BORROWED from the srs-z3 saturated Born-Huang tensor,
+    # research/2026-07-04_saturated-elastic-tensor_result.md:159-163; flagged as a borrow). C_44 is
+    # STRICTLY positive across the WHOLE counted band A in [0, 0.7071], collapsing to ~4e-5 only as
+    # A->1 (the A->1 wall lies inside the EXCLUDED interior r<r_turn, never counted).
+    C44_counted_band = {
+        "A=0 (loaded-cold)": 0.17661,
+        "A_wall=0.9": 0.09213,
+        "A_wall=0.99479 (nu=2/7 crossing)": 0.02536,
+        "A->1 (yield wall, EXCLUDED interior)": 4.0e-5,
+    }
+    counted_band_A_max = 1.0 / _np.sqrt(2.0)   # 0.7071, turnover construction bound
+    c44_positive_across_counted_band = all(v > 0 for v in C44_counted_band.values())
     return {
         "canon_basis": (
             "k4-bloch-dispersion-quartic:47-58 (rank-2 bond tensor, axial k_a + transverse/shear k_s); "
             ":58 verbatim 'A pure central-force model (k_s=0) would carry soft transverse-acoustic "
             "branches; the general-force-constant tensor restores all three linear acoustic branches'; "
-            "electron-bh-isomorphism:38 (near-yield A->1 floppiness is ABSOLUTE-scale C_44 collapse, "
-            "loaded-cold C_44=0.177, NOT the cold small-A regime)"
+            ":40 (the full-BZ eigensolve driver k4_bloch_dispersion.py -- the no-zero-mode basis for the "
+            "mid-zone sub-pitch gradient strains); electron-bh-isomorphism:38 (the near-yield A->1 "
+            "floppiness is ABSOLUTE-scale C_44 collapse, NOT the counted band)"
+        ),
+        "modulus_energy_bridge": (
+            "c_T^2 > 0 <=> shear modulus C_44 > 0 <=> a held uniform shear strain STORES energy "
+            "(U=1/2 C_44 gamma^2) and cannot be losslessly absorbed. The omega->0 modes at EXACTLY k=0 "
+            "are pure rigid-body TRANSLATIONS carrying no strain -- they absorb no held strain either."
+        ),
+        "full_range_argument": (
+            "Rigidity holds across the ENTIRE counted band A in [0, 1/sqrt(2)=0.7071] (bounded by the "
+            "turnover construction), NOT because A is small: C_44 is between ~0.09 and ~0.177 there. The "
+            "A->1 floppy zone (C_44 -> 4e-5) lies WHOLLY inside the EXCLUDED interior r < r_turn and is "
+            "never counted."
+        ),
+        "counted_band_A_max": float(counted_band_A_max),
+        "C44_across_counted_band": C44_counted_band,
+        "c44_strictly_positive_across_counted_band": bool(c44_positive_across_counted_band),
+        "cross_lattice_borrow_flag": (
+            "BORROW (not a K4-native derivation): the C_44 magnitudes are the ratified chiral srs-z3 "
+            "net's saturated Born-Huang tensor (electron-bh-isomorphism:38 own label), quantifying a "
+            "K4-leaf QUALITATIVE k_s>0 structure (k4-bloch:58). Plausible transfer because BOTH nets "
+            "carry a nonzero transverse/shear stiffness k_s>0 (rigid in the translational sector); "
+            "tagged as a borrow of a sibling-lattice magnitude, not a K4-native C_44 derivation."
         ),
         "cT2_with_shear_ks_gt_0": float(cT2_rigid),
         "cT2_pure_central_force_ks_0": float(cT2_floppy),
-        "E_coupled_translational_sector_rigid_at_cold_smallA": bool(sector_rigid),
+        "numeric_is_consistency_encoding_not_verification": True,  # ITEM 1d honesty (matches docstring)
+        "E_coupled_translational_sector_rigid_across_counted_band": bool(
+            sector_rigid and c44_positive_across_counted_band
+        ),
         "floppiness_is_ks0_pathology_only": bool(floppy_only_when_ks_zero),
         "lattice_zero_mode_absorbs_held_strain": False,
         "m3_kill_extends_to_lattice": True,
         "verdict": (
-            "SETTLED CLOSED (rigid). The K4 translational (E-coupled) sector carries transverse/shear "
-            "stiffness k_s > 0, so the general-force-constant tensor restores all three linear acoustic "
-            "branches (k4-bloch:58): there is NO floppy zero-mode to losslessly absorb a held "
-            "translational strain at the cold small-A operating point. Floppiness is the k_s=0 "
-            "pure-central-force pathology (canon quote), and the near-yield A->1 floppiness is "
-            "absolute-scale collapse (electron-bh-isomorphism:38), not this regime. The single-cell M3 "
-            "kill EXTENDS to the lattice -- the finding-[5] open leg is closed rigid, with citations. "
-            "(The excursion-keyed alternative would have needed a floppy lattice zero-mode; there is none.)"
+            "SETTLED CLOSED (rigid, FULL COUNTED BAND). The K4 translational (E-coupled) sector carries "
+            "transverse/shear stiffness k_s > 0, so all three acoustic branches are linear (k4-bloch:58, "
+            "full-BZ eigensolve :40): NO floppy zero-mode absorbs a held translational strain. Rigidity "
+            "holds across the ENTIRE counted band A in [0, 0.7071] (C_44 ~0.09..0.177, borrowed from the "
+            "srs-z3 saturated Born-Huang tensor, research/2026-07-04_saturated-elastic-tensor_result.md"
+            ":159-163) -- NOT because A is small; the A->1 floppy wall (C_44->4e-5) lies inside the "
+            "EXCLUDED interior and is never counted. Modulus-energy bridge: c_T^2>0 <=> C_44>0 <=> a held "
+            "strain stores energy and cannot be losslessly absorbed (the k=0 omega->0 modes are pure "
+            "translations carrying no strain). The shipped numeric is a CONSISTENCY ENCODING of the canon "
+            "facts, not an independent verification. The single-cell M3 kill EXTENDS to the lattice -- "
+            "finding-[5] open leg closed rigid, with citations. (The excursion-keyed alternative would "
+            "have needed a floppy lattice zero-mode; there is none.)"
         ),
     }
 
@@ -670,7 +780,10 @@ def main():
     # -----------------------------------------------------------------------
     # THE ROUTED BIN (structural derivation only; blindness rule honored).
     # -----------------------------------------------------------------------
-    out["routed_bin"] = "[DERIVED: CHARGE-KEYED] (with a UNIFORM-bias gauge-observability rider)"
+    out["routed_bin"] = (
+        "[DERIVED: CHARGE-KEYED] (single-cell + lattice-rigid; with a UNIFORM-bias "
+        "gauge-observability RIDER)"
+    )
     out["derived_keying_statement"] = (
         "The eps-grade (transverse-T2 permittivity) nonlinearity keys on the MEAN-SQUARE of the "
         "instantaneous field amplitude at the cell: kernel deficit = (1/2)<A_V^2> = "
@@ -679,9 +792,11 @@ def main():
         "both objects keep the DC baseline so H1-vs-H2 is unchanged. A held DC bias produces a real, "
         "persistent local eps-shift 1-S(E/E_yield); M0/M1/M2/M3 all confirm no lossless DC-block exists "
         "(A axiom-defined on the static-capable amplitude; the eps element is SHUNT not series; the held "
-        "energy sits IN the kernel-bearing element; the T2 tangent capacitance C_ss=C0*S(A0) CHANGES "
-        "under bias -- leading -(1/2)A0^2, sign-flipped from the OUT-OF-SCOPE A1 +3/2 -- and the only "
-        "relaxation is dissipative). The M3 lattice-level zero-mode question is SETTLED CLOSED: the K4 "
+        "energy sits IN the kernel-bearing element; the T2 small-signal capacitance CHANGES under bias "
+        "under EVERY convention -- CONVENTION-ROBUST KEEP-BOTH: the chord/constitutive C0*S(A0) leads "
+        "1-(1/2)A0^2 and the dQ/dV tangent C0*(S-A0^2/S) leads 1-(3/2)A0^2 (both shift DOWN nonzero; "
+        "neither crowned, fork FLAGGED for Grant; the A1 C0/S^3 +3/2 form is the OUT-OF-SCOPE V/V_snap "
+        "sector) -- and the only relaxation is dissipative). The M3 lattice-level zero-mode question is SETTLED CLOSED: the K4 "
         "translational (E-coupled) sector carries transverse/shear stiffness k_s, so the "
         "general-force-constant tensor restores all three linear acoustic branches (k4-bloch-dispersion-"
         "quartic:58) -- there is NO floppy zero-mode to absorb a held strain at the cold small-A "
@@ -691,7 +806,7 @@ def main():
         "(gauge-relative A, INVARIANT-S2) -- the local charge-keyed deficit is real but unreadable "
         "without a gradient; a NON-uniform held field (spatial gradient of A) IS readable and DOES load "
         "(the discriminating readout is the Op14 Meissner-asymmetric impedance mirror Z_eff=Z0*sqrt("
-        "S_mu/S_eps), Gamma != 0, CLAUDE.md:73/operators.md:54)."
+        "S_mu/S_eps), Gamma != 0, manuscript/ave-kb/CLAUDE.md:73/operators.md:54)."
     )
 
     import os

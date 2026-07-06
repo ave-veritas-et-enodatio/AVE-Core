@@ -12,10 +12,10 @@
 - `src/scripts/verify/em_keying_round3_comparison.py` — the FIREWALLED §9 comparison (muon vs the
   derived key), permitted to touch #539 ONLY here; consumes the #539 machinery by import.
 **Tests:** `src/tests/test_em_keying_round3_eps_dc_mechanism.py` (9 fast-core gating asserting COMPUTED
-outputs + 2 engine_sim standing falsifiers; the second falsifier is keyed to the M1 two-topology
-DC-response, replacing a prior fixed identity — 11 total).
+outputs + 3 engine_sim standing falsifiers/pins: the M1 two-topology DC-response, the §9 muon-overshoot
+falsifier, and the §9 C-iii band-split pin (fix-round-2) — 12 total).
 
-## ROUTED BIN: **[DERIVED: CHARGE-KEYED]** (single-cell + lattice-rigid; with a UNIFORM-bias gauge-observability RIDER)
+## ROUTED BIN: **[DERIVED: CHARGE-KEYED] (single-cell + lattice-rigid; with a UNIFORM-bias gauge-observability RIDER)**
 
 > The ε-grade (transverse-T2 permittivity channel) nonlinearity keys on the **MEAN-SQUARE** of the
 > instantaneous field amplitude at the cell — **DC-INCLUDED** (H1/CHARGE-KEYED), **at leading (2nd)
@@ -96,27 +96,59 @@ keeps it.** This is exactly the object round-2 named at its crux (`⟨A_V²⟩/2
 | **M0** NULL | Is `A` axiom-defined on a static-capable variable ⟹ H1 forced? | **YES → H1.** The ε-kernel argument is `A_V=V/V_yield=|E|/E_yield`, a static-capable amplitude; the leading (2nd-order) mean deficit is `½·mean-square` (DC-included); a held DC alone gives deficit `a_0²/2>0`. H2 would need an **axiom-level reinterpretation**, flagged — not a network trick. | `node-up`:104-106,:117-118; `axiom-register` Axiom-4:186 (verbatim *"local strain $A$ (normalized to the bandwidth limit $A_{yield}$)"*), :188 (forced L2 invariant on the dynamical phase-plane radius) |
 | **M1** TOPOLOGY | Series-C DC-block on the ε path? | **NO — FALSIFIED by topology (COMPUTED, two-topology).** The canonical **series-L-bond / shunt-C-node** unit passes the held DC to the varactor node (`V_node→V₀`, integrated); a **series-C-blocked** counterfactual relaxes it to zero (`V_node→0`) — they genuinely differ, so there is no ε-side DC-block. The **only SERIES** reactance is the bond inductor `L_cell` (a DC short) — where the B-side Lenz DC-block lives. Gate reconciles the canonical settled node voltage against the LC-ladder DC relation. | `graded-network-response.md`:50 (*"series $L$ per bond, shunt $C$ per node"*); :53 Resultbox (*"LC-ladder dispersion (lossless KCL/KVL, series-$L$ bond, shunt-$C$ node)"*); `z0-derivation.md`:133-136 (*"$C_{cell}=ε₀ℓ_{node}$ **is** the bond segment's own shunt capacitance … the repeated series-$L$ / shunt-$C$ unit"*); `relativistic-inductor.md`:30 ("Why SPICE Cannot Exceed $c$") |
 | **M2** MODE/LEDGER | Static energy on a linear spectator mode outside the kernel? | **NO — H2 ledger cannot close (COMPUTED, two-route).** The held-field energy on the saturating shunt varactor, computed by **two independent routes** (charge-path element-energy sum vs constitutive Legendre co-energy), reconciles with **zero residual** — fully accounted IN the kernel-bearing ε element; one `(L,C)` pair per translation DOF, **no** linear spectator capacitance to park it on. Gate proven can-fire on a broken constitutive. | `per-dof-vacuum-node-circuit.md`:30-34 (per-DOF reactive pair, one `(L_i,C_i)` per translation DOF); `graded-network-response.md`:50/:53; `z0-derivation.md`:133-136 (single-ontology shunt-C, no separate node admittance) |
-| **M3** SLIDE | Lossless quiescent slide preserving tangent stiffness? | **NO — FAILS losslessly (T2 sector, sign-corrected).** In the **transverse-T2 permittivity** direction the tangent capacitance under bias is `C_ss=C₀·S(A₀)` (leading `1 − ½A₀²`, **sign DOWN**) — it **CHANGES** under held bias; no lossless soft mode slides `A₀→0` while V is held; the only relaxation (`τ_relax` hysteresis) **dissipates** (Ax3-forbidden). The A1 `C₀/S³` (`+3/2 A₀²`) is the OUT-OF-SCOPE `V/V_snap` varactor. | `manuscript/ave-kb/CLAUDE.md`:73 (T2 direction: `ε_eff=ε₀S`, `C_diel∝S`); `tau-relax`:24. *(A1 `C_ss=C₀/S³` at `device-circuit-models.md`:60 is the `V/V_snap` sector — cross-sector borrow REMOVED; ERRATA §.)* |
+| **M3** SLIDE | Lossless quiescent slide preserving small-signal stiffness? | **NO — FAILS losslessly, CONVENTION-ROBUST (T2 sector; KEEP-BOTH).** Applying the corpus's only explicit chord/tangent convention (`device-circuit-models.md`:60) to the T2 constitutive `Q=C₀·S(A_V)·V` gives TWO candidate objects, BOTH shifting DOWN nonzero under held bias: the **chord/constitutive** `C₀·S(A₀)` → leading `1 − ½A₀²`, and the **dQ/dV tangent** `C₀·(S − A₀²/S)` → leading `1 − (3/2)A₀²` (the integral-chord `1 − A₀²/6` too). Neither is crowned — the fork is FLAGGED for Grant (merged CLUSTER-B). No lossless soft mode slides `A₀→0` while V is held; the only relaxation (`τ_relax` hysteresis) **dissipates** (Ax3-forbidden). The A1 `C₀/S³` (`+3/2 A₀²`, sign UP) is the OUT-OF-SCOPE `V/V_snap` varactor. | `manuscript/ave-kb/CLAUDE.md`:73 (T2 direction: `ε_eff=ε₀S`, `C_diel∝S`); `device-circuit-models.md`:60 (the sole chord/tangent convention, A1-scoped); `tau-relax`:24. |
 
 **M2 and M3 are the same mechanism in two coordinates** (the fire order anticipated this): both ask
 whether the held field-energy can be made invisible to the kernel. M2 asks it as *energy bookkeeping*
-(is there a spectator mode? — no, two-route ledger closes with zero residual), M3 asks it as *tangent
-stiffness* (does a probe see a change? — yes: T2 `C_ss=C₀·S(A₀)`, leading `1−½A₀²`). Both say the held
-field is genuinely IN the saturating element. Reconciled.
+(is there a spectator mode? — no, two-route ledger closes with zero residual), M3 asks it as *small-signal
+stiffness* (does a probe see a change? — yes, under EVERY convention: the T2 chord `C₀·S(A₀)` leads
+`1−½A₀²` and the dQ/dV tangent `C₀·(S−A₀²/S)` leads `1−(3/2)A₀²`). Both say the held field is genuinely IN
+the saturating element. Reconciled.
 
-**M3 at LATTICE level (finding [5] — settled CLOSED, rigid).** The single-cell M3 leaves open whether
-a lattice zero-mode could losslessly absorb a held strain. Canon settles it cleanly: the K4 Bloch
-dynamical matrix uses the RANK-2 bond tensor with axial `k_a` **and** transverse/shear `k_s`, and
-`k4-bloch-dispersion-quartic.md`:58 states verbatim *"A pure central-force model ($k_s=0$) would carry
-soft transverse-acoustic branches; the general-force-constant tensor restores all three linear acoustic
-branches."* So a floppy (zero-frequency) transverse mode is the `k_s=0` **pure-central-force pathology**;
-the canonical substrate carries `k_s>0` and is **rigid** in the translational (E-coupled) sector at the
-cold small-A operating point (loaded-cold `C₄₄=0.177`, `electron-bh-isomorphism.md`:38). The near-yield
-`A→1` floppiness (`C₄₄→4×10⁻⁵`, ibid.) is an **absolute-scale** collapse at the yield wall, NOT this
-round's cold small-A regime. Verified numerically (driver `m3_lattice_zero_mode_from_canon`): the
-transverse-acoustic branch speed is nonzero for `k_s>0` (rigid) and collapses to zero only for the
-`k_s=0` pathology. **The single-cell M3 kill EXTENDS to the lattice.** This is the one place the
-excursion-keyed alternative could have lived — it needed a floppy lattice zero-mode; there is none.
+**M3 at LATTICE level (finding [5] — settled CLOSED, rigid across the WHOLE counted band).** The
+single-cell M3 leaves open whether a lattice zero-mode could losslessly absorb a held strain. Canon
+settles it cleanly, and the settlement holds across the *entire load-bearing band of the muon
+comparison* — not just at a cold small-A point.
+
+- **No zero-mode from the dispersion.** The K4 Bloch dynamical matrix uses the RANK-2 bond tensor with
+  axial `k_a` **and** transverse/shear `k_s`, and `k4-bloch-dispersion-quartic.md`:58 states verbatim
+  *"A pure central-force model ($k_s=0$) would carry soft transverse-acoustic branches; the
+  general-force-constant tensor restores all three linear acoustic branches."* So a floppy
+  (zero-frequency) transverse mode is the `k_s=0` **pure-central-force pathology**; the canonical
+  substrate carries `k_s>0`. For the **mid-zone (sub-pitch) gradient strains** `0<|k|<π/a` the
+  no-zero-mode basis is the leaf's **own full-BZ eigensolve driver** (`k4_bloch_dispersion.py`, per
+  `k4-bloch-dispersion-quartic.md`:40): all three acoustic branches are linear (`ω∼c|k|`), so there is
+  no soft internal mode at finite `k`.
+- **Modulus-energy bridge (spelled out).** `c_T² > 0 ⟺` shear modulus `C₄₄ > 0 ⟺` a held uniform shear
+  strain **stores energy** (`U = ½C₄₄γ²` per volume) and **cannot be losslessly absorbed**. The only
+  `ω→0` modes at *exactly* `k=0` are pure rigid-body **translations** — they carry no strain and store
+  no energy, so they cannot absorb a held strain either.
+- **Rigidity across the FULL counted band (replaces the small-A carve).** The load-bearing band of the
+  muon comparison runs `A = 1/√2 = 0.7071` (at the turnover `r_turn = 159.6 fm`) DOWN to `~0.09` (at
+  `ℓ_node = 386.2 fm`); the counted (non-interior-excluded) region is bounded at `A ≤ 1/√2` **by the
+  turnover construction**, and the `A→1` floppy zone lies **wholly inside the excluded interior**
+  (`r < r_turn`). Across that entire counted band `C₄₄` is **strictly positive and O(0.1)**:
+  `C₄₄ = 0.17661` at `A=0`, `0.09213` at `A_wall=0.9`, `0.02536` at `A_wall=0.99479`, and `→4×10⁻⁵`
+  **only as `A→1`** (`research/2026-07-04_saturated-elastic-tensor_result.md`:159-163). So **rigidity
+  holds across the entire counted band** (`C₄₄` between `~0.09` and `~0.177` there) — **not "because `A`
+  is small"**; the floppy `A→1` wall is never counted. (`C₄₄ → 0` at yield is the `A→1` absolute-scale
+  collapse, `electron-bh-isomorphism.md`:38, which sits inside the excluded interior.)
+- **Cross-lattice borrow (FLAGGED as a borrow, not a derivation).** The `C₄₄` numbers are the ratified
+  **chiral srs-z3 net's saturated Born–Huang tensor** (`electron-bh-isomorphism.md`:38's own label:
+  *"saturated Born-Huang elastic tensor of the ratified chiral srs-z3 net"*), here **borrowed** to put a
+  magnitude on a **K4-leaf qualitative structure** (the `k_s>0` rigidity of `k4-bloch:58`). It plausibly
+  transfers because **both nets carry a nonzero transverse/shear stiffness `k_s>0`** (the shear channel
+  is nonzero in both), so both are rigid in the translational sector — but this is a **borrow of a
+  sibling-lattice magnitude, not a K4-native `C₄₄` derivation**.
+- **Consistency encoding (honest framing).** The shipped check (driver `m3_lattice_zero_mode_from_canon`)
+  is a **consistency encoding of the two canon facts** (`k_s>0` rigid; `k_s=0` floppy) in a 1-D toy
+  transverse-acoustic dispersion — **not an independent numerical verification** of the K4 tensor (the
+  driver docstring says so). It is can-FAIL (had the `k_s=0` branch not collapsed while `k_s>0` did, the
+  canon quote would be contradicted); the load-bearing facts are the canon quotes + the borrowed `C₄₄`
+  table.
+
+**The single-cell M3 kill EXTENDS to the lattice, across the full counted band.** This is the one place
+the excursion-keyed alternative could have lived — it needed a floppy lattice zero-mode; there is none.
 
 ## THE DERIVATION CHAIN (blind; sympy; ReconcileGate can-fire proven)
 
@@ -183,15 +215,21 @@ the canonical INVARIANT-S2 (the PHASE-ONLY north-star mechanized), not a new mec
 
 ## KNIFE CHECKS (armed)
 
-- **½/¼ derived-only:** the `½` in `½⟨A_V²⟩` is the leading-order coefficient of `1−√(1−A²)=A²/2` (sympy
-  `mean_leading`), declared-derived; the `a_1²/2 = Var(cos)·a_1²` factor is the cosine variance identity,
-  declared. No new `½`/`¼` asserted. The `½` in the T2 `C_ss=C₀·S` leading (`1−½A₀²`, `M3`) is the sympy
-  expansion of `S=√(1−A₀²)`, traced (the A1 `+3/2` from `1/S³` is the OUT-OF-SCOPE `V/V_snap` sector,
-  not used in this round's routing).
+- **½/¼/³⁄₂ derived-only:** the `½` in `½⟨A_V²⟩` is the leading-order coefficient of `1−√(1−A²)=A²/2`
+  (sympy `mean_leading`), declared-derived; the `a_1²/2 = Var(cos)·a_1²` factor is the cosine variance
+  identity, declared. No new coefficient asserted. The M3 coefficients are BOTH sympy-traced expansions
+  of `S=√(1−A₀²)`: the chord `C₀·S` gives `1−½A₀²` and the dQ/dV tangent `C₀·(S−A₀²/S)` gives
+  `1−(3/2)A₀²` (integral-chord `1−A₀²/6`). Neither is crowned — the M3 kill is convention-robust (all
+  shift DOWN nonzero). The A1 `+3/2` from `1/S³` is the OUT-OF-SCOPE `V/V_snap` sector, not used in this
+  round's routing.
 - **ω_C/9-class thresholds:** the derivation reproduces NO `9·ℓ_node` defeat-scale (a §9-comparison
   object); the charge-keyed verdict needs no cutoff — it just loads.
-- **2/7, 9.7734, √8:** none appear in any ε-coefficient (the T2 coefficients are `½`, `¼` from the
-  sqrt-kernel expansion; sector-guard clean).
+- **2/7, 9.7734, √8:** none appear in any ε-coefficient (the T2 coefficients are `½`, `¼`, `3⁄2`, `1⁄6`
+  from the sqrt-kernel expansion; sector-guard clean). *(Note: `2/7` and `9.7733` DO appear in the
+  borrowed `C₄₄` table — they are the ρ_eff-crossing / ν_Hill of the srs-z3 tensor
+  `research/2026-07-04_saturated-elastic-tensor_result.md`:163, imported as a mechanical-Q-point
+  MAGNITUDE for the lattice-rigidity borrow, NOT smuggled into any ε-coefficient. The ε-side routing
+  uses none of them.)*
 - **`a_0=0.3` spot-check disclosure (blindness honesty).** `held_dc_local_deficit_at_a0_0p3 = 0.046` in
   the driver is an ILLUSTRATIVE spot-check of the DC-only deficit formula `1−S(0.3)`, chosen to match
   round-2's crux number for continuity — NOT a tuning to any experimental value. The routing does not
@@ -231,20 +269,37 @@ the canonical INVARIANT-S2 (the PHASE-ONLY north-star mechanized), not a new mec
   INVARIANT-S2). This is NOT a contradiction with the local charge-keyed ledger (the cell IS loaded); it
   is the uniform-vs-gradient observability split. The discriminating readout that makes this falsifiable
   (not metaphysics) is named in the RIDER box below.
-- **CLUSTER-B CAPACITANCE-TENSION (flag-don't-fix — surfaced for Grant, NOT resolved here):** the corpus
-  carries a live symbol-sharing tension in the `C_eff=C₀/S` assignment. `node-up-small-large-signal.md`:104
-  (Resultbox) and :360 (status table) label **`C_eff(V)=C₀/S(A_V)`, `A_V=V/V_yield`** as the
-  **"ε-grade: VARACTOR, keyed on VOLTAGE"** — verbatim :104: *"$C_{eff}(V) = \frac{C_0}{S(A_V)}, \quad
-  A_V = \frac{V}{V_{yield}}$ … $\varepsilon$-grade: VARACTOR, keyed on VOLTAGE"*. But `manuscript/ave-kb/CLAUDE.md`:73
-  (Grant-ratified sector split, 2026-06-15) assigns **`C_eff=C₀/S` (↑) to the longitudinal-A1 bond
-  compliance** and **`ε_eff=ε₀·S` (↓, `C_diel∝S`) to the transverse-T2 permittivity** — verbatim :73:
-  *"$C_{eff}=C_0/S$ (↑) is the **longitudinal-A1 bond compliance** … a DISTINCT object from the
-  **transverse-T2 permittivity** $\varepsilon_{eff}=\varepsilon_0 S$ (↓; the LCR-measured cell capacitance
-  $C_{diel}=\varepsilon_{eff}A/d\propto S$ …)"*. So node-up calls `C₀/S(A_V=V/V_yield)` the ε-grade
-  varactor, while CLAUDE.md reserves `C₀/S` for A1 and gives T2 the `C_diel∝S` form. This round derived M3
-  in the **CLAUDE.md T2 direction** (`C_diel=C₀·S`), which is why the M3 sign flipped from the round-3
-  prereg's A1-borrowed `C₀/S³`. **Surfaced for Grant's adjudication; not resolved here** (per lane
-  discipline — this is a corpus-consistency call, not an engine bug).
+- **⚑ ONE MERGED GRANT-ADJUDICATION ITEM — the three-way varactor-convention tangle (flag-don't-fix;
+  surfaced for Grant, NOT resolved here).** Two flags that were separate (the CLUSTER-B capacitance-tension
+  AND the M3 chord-vs-tangent coefficient fork) are the **same underlying corpus tangle** and are merged
+  here into one adjudication item. The corpus carries a **three-way** tension around `C₀/S(A_V)` and around
+  what "small-signal C" means; all three legs quoted verbatim (re-grepped at branch tip):
+  - **(a) node-up:104 / :360 — labels `C₀/S(A_V)` the ε-grade varactor.** :104 verbatim:
+    *"$C_{eff}(V) = \frac{C_0}{S(A_V)}, \quad A_V = \frac{V}{V_{yield}}$ … $\varepsilon$-grade: VARACTOR,
+    keyed on VOLTAGE"*; :360 status row: *"$C_{eff}=C_0/S(A_V)$, varactor keyed on $V$ | **DERIVED** |
+    Axiom 4 dielectric specialization (`manuscript/ave-kb/CLAUDE.md`:73)"*.
+  - **(b) `manuscript/ave-kb/CLAUDE.md`:73 / :75 — assigns `C₀/S` to A1, `ε₀S` to T2, and calls BOTH
+    "small-signal" in one sentence.** :73 verbatim: *"$C_{eff}=C_0/S$ (↑) is the **longitudinal-A1 bond compliance** … a DISTINCT
+    object from the **transverse-T2 permittivity** $\varepsilon_{eff}=\varepsilon_0 S$ (↓; the LCR-measured
+    cell capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$ …)"*; :75 verbatim: *"**Small-signal**
+    transverse propagation through a region at operating point $A_0$ sees modulated effective parameters
+    $\varepsilon_{eff} = \varepsilon_0 S(A_0)$, $\mu_{eff} = \mu_0 S(A_0)$, $C_{eff} = C_0/S(A_0)$"* — so
+    :75 calls **both** `ε₀S` (T2) and `C₀/S` (assigned to A1 at :73) "small-signal" in one breath.
+  - **(c) device-circuit-models:60 — defines chord `C₀/S` vs small-signal `C₀/S³` for A1.** Verbatim (A1
+    sector, `A≡V/V_snap`): *"the large-signal chord/secant varactor $C_{\mathrm{eff}}=C_0/S$ vs the
+    small-signal differential $C_{\mathrm{ss}}=\mathrm{d}Q/\mathrm{d}V=C_0/S^3$"* — which **contradicts**
+    :75's "small-signal $C_{eff}=C_0/S$" (that is the chord, not the differential, under (c)'s convention).
+  - **The M3 coefficient consequence (KEEP-BOTH, neither crowned).** Under (c) — the corpus's ONLY explicit
+    chord/tangent convention — the T2 constitutive `Q=C₀·S(A_V)·V` gives `dQ/dV = C₀(S−A²/S)` → leading
+    `1−(3/2)A₀²` (**tangent**, sympy-verified), while `C₀·S` itself → leading `1−½A₀²` (**chord**). The
+    shipped round-3 "`C_ss=C₀·S(A₀)`, leading `1−½A₀²`" is the **chord wearing the small-signal label**.
+    Both objects (and the integral-chord `1−A₀²/6`) shift **DOWN nonzero** under held bias, so **M3 is
+    convention-robust** — the kill holds in every convention; the only relaxation that would relax the bias
+    is dissipative; **M3 is dead in all conventions.** We present BOTH coefficients and **crown neither**;
+    the convention choice (which object is "the small-signal C") is a corpus-consistency call for Grant.
+  - **Surfaced for Grant's adjudication; not resolved here** (per lane discipline — this is a
+    corpus-consistency call across (a)/(b)/(c), not an engine bug). See ERRATA-7 (this round converts the
+    previously-unflagged ½-vs-³⁄₂ override into a flagged KEEP-BOTH).
 - **substrate-adjudicates-forks:** the member fork (mean-square vs variance) is closed BY the network
   (M0/M1/M2/M3 + the lattice-level rigidity check), not by fiat or by Table-I survival.
 - **verify-before-cite:** every constant live-imported from `ave.core.constants` at worktree HEAD; Route C
@@ -253,10 +308,10 @@ the canonical INVARIANT-S2 (the PHASE-ONLY north-star mechanized), not a new mec
 - Two independent code paths (sympy analytic + numpy time-domain) + four ReconcileGates (M1 two-topology,
   M2 two-route, slow-ramp, frequency-independence — all can-fire proven; tolerances are engineering
   choices scaled to the numeric method, honestly tagged per prereg ERRATA-5, NOT canonically derived) + a
-  live counterfactual; `make verify` green; **9 fast-core + 2 engine_sim tests = 11 total** (up from 8+2:
-  the fast-core grew by the M1 two-topology, M2 two-route, M3 lattice-rigidity, and slow-ramp COMPUTED
-  gates; the second engine_sim falsifier is now keyed to the M1 two-topology DC-response, replacing a
-  prior fixed identity).
+  live counterfactual; `make verify` green; **9 fast-core + 3 engine_sim tests = 12 total** (the M3
+  fast-core test now asserts CONVENTION-ROBUSTNESS (KEEP-BOTH) rather than crowning `−½`; the third
+  engine_sim is the §9 C-iii band-split pin (fix-round-2); the engine_sim falsifiers remain keyed to the
+  M1 two-topology DC-response and the §9 muon overshoot, replacing prior fixed identities).
 
 ---
 
@@ -279,12 +334,42 @@ the canonical INVARIANT-S2 (the PHASE-ONLY north-star mechanized), not a new mec
     `∇A` is not lattice-meaningful there, and no sub-node "gradient" claim is made. Handled honestly: the
     interior is excluded, not counted as readable gradient.
   - at `r = 2 a_µ = 569 fm` (`1.48 ℓ_node`): `L_grad = 285 fm = 0.74 ℓ_node`; at `r = 5 a_µ`: `L_grad =
-    712 fm = 1.84 ℓ_node`. **Outside the interior the gradient scale reaches ~1–2 node pitches**, where
-    `∇A` IS lattice-resolvable and the field is genuinely non-uniform (multi-cell). This is the region
-    that carries the readable load and drives the overshoot.
-  So the muon's non-uniformity is REAL but only in the interior-excluded-outward region; the amplitude
-  "~2 decades" figure is replaced by the gradient-scale statement, and the inner point inside one node
-  pitch is flagged and handled by interior exclusion (consistent with #539's most-forgiving arm).
+    712 fm = 1.84 ℓ_node`. Outside the interior the gradient scale reaches `~1–2 node pitches`, where
+    `∇A` IS lattice-resolvable and the field is genuinely non-uniform (multi-cell).
+  So the muon's non-uniformity is REAL; the amplitude "~2 decades" figure is replaced by the
+  gradient-scale statement, and the inner point inside one node pitch is flagged and handled by interior
+  exclusion (consistent with #539's most-forgiving arm).
+
+- **WHERE THE LOAD ACTUALLY LIVES — the band-split (finding [18], CORRECTED; a COMPUTED artifact).** The
+  earlier sample-point table implied the `~1–2 node pitch` region "carries the readable load and drives
+  the overshoot." **The shipped integral says otherwise.** Splitting the C-iii (interior-excluded) shift
+  by `r`-band (driver `band_split_C_iii` in `em_keying_round3_comparison.py`, using the module's own
+  `ρ_2s`/`ρ_2p` and `dV`, printed + pinned by `test_C_iii_band_split_dominant_subpitch_band_STANDING_PIN`):
+
+  | `r`-band (fm) | region | shift (µeV) | fraction of C-iii shift |
+  |---|---|---|---|
+  | `[159.6, 386.2]` | **SUB-PITCH** (`r_turn → ℓ_node`, inside one node pitch) | `+1.568×10⁶` | **+103.2%** |
+  | `[386.2, 569.5]` | `~1` node pitch (`ℓ_node → 2a_µ`) | `−2.99×10⁴` | `−1.97%` |
+  | `[569.5, 1423.7]` | `~1–2` node pitches (`2a_µ → 5a_µ`) | `−1.94×10⁴` | `−1.28%` |
+  | `[1423.7, 17085]` | far tail (`5a_µ → 60a_µ`) | `+1.70×10²` | `+0.01%` |
+  | **total** (C-iii) | | `+1.519×10⁶` | `100%` |
+
+  So **`~103%` of the overshoot magnitude comes from INSIDE one node pitch** (`L_grad = r/2 ≈ 0.21–0.5
+  ℓ_node` there); the `1–2`-pitch region nets `~−1.3%`, and the whole super-pitch remainder nets `~−3.2%`.
+  Two consequences, stated honestly (neither over-read):
+  - **(i) The VERDICT does not ride on the sub-pitch band.** The super-pitch remainder ALONE nets
+    `~|−3.2%| × 1.519×10⁶ ≈ 4.9×10⁴ µeV ≈ 2×10⁴×` the `2.3 µeV` CREMA window — **a pitch-cutoff rescue is
+    already excluded** (consistent with the #539 pitch-cutoff robustness already in canon). `[C-EXCLUDED]`
+    stands on the super-pitch band alone.
+  - **(ii) The overshoot MAGNITUDE is dominated by a continuum-below-pitch band.** `~103%` of the
+    magnitude rides on the `[159.6, 386.2] fm` band, where the continuum gradient scale is **below the
+    lattice pitch** — exactly the open **[B-AVE] lattice-scale regime-boundary arm's** territory. This
+    **sharpens (quantifies)** how much of the overshoot magnitude depends on continuum-below-pitch
+    integration; **the [B-AVE] arm is the standing open item** on whether that sub-pitch continuum integral
+    is the right lattice-scale accounting. *(The Op14 impedance-mirror readability story applies where
+    gradients are lattice-resolvable, `≳1` pitch; in the dominant band readability is a lattice-scale
+    question belonging to the [B-AVE] arm.)* The interior-exclusion (`142 fm < r_turn = 159.6 fm`) and the
+    `A ≤ 0.7071` turnover bound stand.
 - **The uniform-bias gauge rider does NOT rescue the muon.** Gauge cancellation (`INVARIANT-S2`) applies
   ONLY to a spatially-uniform held bias; the muon's `∇A` (gradient scale ~1–2 `ℓ_node` outside the
   interior) is readable — the Op14 Meissner-asymmetric impedance step `Γ≠0` is present. So the rider
