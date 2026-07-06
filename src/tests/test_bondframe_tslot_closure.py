@@ -309,3 +309,47 @@ def test_reconcile_gate_refuses_vacuous_band():
     """A gate with an infinite tolerance is refused at registration (#531 no-vacuous-band)."""
     with pytest.raises(ValueError):
         ReconcileGate(label="vacuous", claimed=1.0, independent=1.0, rtol=float("inf"))
+
+
+# ── UPSTREAM REGRESSION GUARD (PR #535 review): RingChain nonlinear tension scales with k_a ──
+def test_nonlinear_tension_scales_with_ka_regression_guard():
+    """REGRESSION GUARD (PR #535 review): the nonlinear (kernel) tension MUST scale with
+    k_a. Before the fix it returned _phi_prime(A) with k0=1 BAKED IN, ignoring k_a on the
+    nonlinear (default) path — a silent k_a-inert branch a static read could not catch (it
+    only surfaced at integrator time when a k_long/k_shear sonic sweep gave bit-identical
+    dynamics across k_a). k_a IS the A=0 axial tangent stiffness (derived: dT/dA|_0 = k0 for
+    Phi'(A) = k0*(A*sqrt(1-A^2)+asin A)/2), so the nonlinear tension is k_a*_phi_prime(A)."""
+    from scripts.vol_1_foundations.ring_bondframe_probe import RingChain
+
+    A = np.array([0.1])
+    r05 = RingChain(10, k_a=0.5)
+    r40 = RingChain(10, k_a=4.0)
+    # the nonlinear tension now scales linearly in k_a (was IDENTICAL before the fix)
+    assert float(r40.tension(A)[0]) == pytest.approx(8.0 * float(r05.tension(A)[0]), rel=1e-12)
+    # dT/dA at A=0 equals k_a (the axial tangent stiffness = k_a semantics)
+    for ka in (0.5, 1.0, 4.0):
+        r = RingChain(10, k_a=ka)
+        eps = 1e-6
+        dTdA = (float(r.tension(np.array([eps]))[0]) - float(r.tension(np.array([-eps]))[0])) / (2 * eps)
+        assert dTdA == pytest.approx(ka, rel=1e-4)
+
+
+def test_ka_fix_blast_radius_cleared_at_ka1():
+    """BLAST-RADIUS CLEARANCE (PR #535 review): every merged consumer (#533/#534 and this
+    module's drivers) runs the nonlinear branch at k_a=1, where the pre-fix baked k0=1 is
+    coincidentally correct. So the fix is a NO-OP at k_a=1 — no merged result changes.
+
+    The k_a=1 bit-identity below IS the blast-radius clearance logic: `tension` is the ONLY
+    site the fix touched (plus `energy`, which integrates it), so if the nonlinear tension is
+    unchanged at k_a=1, every downstream k_a=1 result is unchanged by construction. The
+    three-host table itself is guarded by the existing #533/#534 suite tests on this same
+    branch: `test_three_host_table_constraint_dependent` (runs `three_host_table()` and
+    asserts ring COLD + free SOFT 0.992563) and `test_free_host_softness_is_bulk_N_independent`
+    (already engine_sim, opt-in) — no need to re-run the (memory-heavy, free-chain-to-
+    equilibrium) table here in the default xdist lane, where it OOM-crashes the worker."""
+    from scripts.vol_1_foundations.ring_bondframe_probe import RingChain, _phi_prime
+
+    A = np.linspace(-0.3, 0.3, 13)
+    r = RingChain(10, k_a=1.0)
+    # at k_a=1 the fixed nonlinear tension is bit-identical to the pre-fix _phi_prime(A)
+    assert np.allclose(r.tension(A), _phi_prime(A), rtol=0, atol=0)

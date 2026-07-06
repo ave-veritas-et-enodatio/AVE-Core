@@ -64,7 +64,16 @@ class RingChain:
         self.linear_axial = bool(linear_axial)
 
     def tension(self, A):
-        return self.k_a * A if self.linear_axial else _phi_prime(A)
+        # k_a is the axial tangent stiffness at A=0 (derived: dT/dA|_0 = k0 for
+        # Phi'(A) = k0*(A*sqrt(1-A^2)+asin A)/2, so k_a IS k0). The nonlinear kernel
+        # tension must therefore scale with k_a as k_a*_phi_prime(A) (equivalently
+        # k0 -> k_a), preserving the saturation SHAPE sqrt(1-A^2). Before this fix the
+        # nonlinear path returned _phi_prime(A) with k0=1 BAKED IN, ignoring k_a — so
+        # k_a scaled only the linear-axial branch. This was k_a-inert for the nonlinear
+        # (default) path. BLAST-RADIUS: all merged consumers (#533/#534 and this module's
+        # own drivers) run the nonlinear branch at k_a=1, where the baked k0=1 is
+        # coincidentally correct, so no merged result changes (verified: PR #535 review).
+        return self.k_a * A if self.linear_axial else self.k_a * _phi_prime(A)
 
     def bond_lengths(self, u, y):
         du = np.roll(u, -1) - u
@@ -93,11 +102,13 @@ class RingChain:
         return Fy
 
     def energy(self, u, y):
-        """H_pot = Sum_bond [ Phi(A_bond) + 1/2 k_s (dy)^2 ] — saturation-consistent
-        axial potential + linear shear proxy. Conservation diagnostic for relaxation."""
+        """H_pot = Sum_bond [ k_a*Phi(A_bond) + 1/2 k_s (dy)^2 ] — saturation-consistent
+        axial potential + linear shear proxy. Conservation diagnostic for relaxation.
+        The nonlinear axial potential scales with k_a (k0->k_a, the same k_a-scaling as
+        `tension`; see the tension() note) — consistent with the force it integrates."""
         L, _, dy = self.bond_lengths(u, y)
         A = L - ELL
-        axial = float(np.sum(_phi_potential(A))) if not self.linear_axial \
+        axial = self.k_a * float(np.sum(_phi_potential(A))) if not self.linear_axial \
             else float(0.5 * self.k_a * np.sum(A**2))
         shear = 0.5 * self.k_s * float(np.sum(dy**2))
         return axial + shear
