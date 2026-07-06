@@ -124,9 +124,14 @@ def _prestress_phi_of_k(kv, pos, bonds, k_axial, k_shear, T_per_bond):
         Phi_bond = Phi''*(d^d^)  +  (k_shear + T/l)*(I - d^d^)
     where Phi'' = k_axial is the axial (swapped-spring softened) stiffness and (T/l) is the
     ADDED transverse string-tension term (T = this bond's own axial-channel tension Phi'(A_axial)).
-    The pre-stress term is ADDITIVE to the transverse block; it is NOT an overall scale, so it
-    can break the #521 degree-1 homogeneity. T_per_bond is a dict {bond_index: T} or a scalar T
-    applied to every bond (the uniform-loading convention, #518).
+    The pre-stress term is ADDITIVE to the transverse block. Although it is not an overall scale,
+    it does NOT break the #521 degree-1 homogeneity: the VS4 gate proves bit-exact (<=8e-16) that
+    extract_prestress_Cij(k_a, k_s, T) == extract_cubic_Cij(k_a, k_s + T/l), so the tensor never
+    leaves the cold family (it is the cold tensor at the shifted shear spring k_s -> k_s + T/l).
+    The earlier "so it can break the degree-1 homogeneity" framing was RETRACTED by #526 s2 / the
+    VS4 gate (research/2026-07-04_prestress-tensor_result.md); the code is unchanged, only this
+    comment is corrected. T_per_bond is a dict {bond_index: T} or a scalar T applied to every bond
+    (the uniform-loading convention, #518).
     """
     n = len(pos)
     D = np.zeros((3 * n, 3 * n), dtype=complex)

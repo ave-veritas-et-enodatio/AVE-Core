@@ -146,6 +146,8 @@ make test      # Runs 800+ unit tests
 make pdf       # Compiles all 8 manuscript volumes (0–VI + IX)
 ```
 
+> **Gate scope (local vs CI).** The local physics **pre-commit hook gates `make verify` only**; **CI (`.github/workflows/verify.yml`) gates `make verify` *and* `make test`** (the `-m "not engine_sim"` keeper suite, xdist-parallelized). So a test-only failure — e.g. a sympy-version-sensitive symbolic-backbone gate — can pass the local commit and surface only in CI. Run `make test` locally before pushing symbolic/numeric work, and keep `uv.lock` pinned (sympy is locked) so resolved dependency versions match CI.
+
 ### Navigating This Repository
 
 This repository spans 300+ source files, an 8-volume manuscript, and a full Knowledge Base. Two navigation tools are provided:

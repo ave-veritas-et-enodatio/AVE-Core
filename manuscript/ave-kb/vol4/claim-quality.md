@@ -514,6 +514,36 @@ Axiom 3 (Minimum Reflection Principle, boundary form: minimise $|\Gamma|^2$ at e
 
 ---
 
+## SVE static-E kernel EXCLUDED at atomic scales ([C-EXCLUDED], muonic-H Lamb)
+<!-- id: clm-sve3xc -->
+
+The SVE continuum constitutive law $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$ ($E_c\approx1.13\times10^{17}$ V/m), validated only in the deep-cold weak-field dynamic AC pump–probe sector (clm-pp3qwf), is **EXCLUDED as a UNIVERSAL claim down to atomic static-DC scales**. Exposed via muonic hydrogen (Grant-ratified fork memo FROZEN 2026-07-05; Problem 3 merged #538/#539): the near-nucleus field-enhancement tail $\delta V(r)=k^3/(10\,E_c^2 r^5)$ (sympy-verified, $\delta V/V_C=\tfrac1{10}A^2(r)$) drives a Lamb-shift correction $\Delta E(2P_{1/2}-2S_{1/2})$ that violates the CREMA 2.3 µeV window by 4–7 orders of magnitude on BOTH arms — continuum $[1.5\times10^6,\,2.3\times10^7]$ µeV (7.5×–114× the full 202.37 meV Lamb shift), lattice-scoped to $r\gg\ell_{node}$ still $[4.9\times10^4,\,6.2\times10^5]$ µeV ($\sim2\times10^4\times$ the window at the smallest variant). **[C-EXCLUDED] / falsification-consistency class** — excludes the static-E extrapolation, NOT any surviving prediction.
+
+- _Specific Claims_
+  - **Both arms violate by 4–7 OOM; sign-independent routing.** The continuum static-E extrapolation and the lattice-scoped ($r\gg\ell_{node}=386$ fm) arm BOTH exceed the µeV window; the variant-to-variant sign varies (2S-penetration-dominated variants positive, the far-cutoff L-i negative) so only the magnitude routes — non-perturbatively large in every variant.
+  - **Non-perturbatively large ⟹ no higher-order rescue.** A correction many times the full level structure means first-order perturbation theory has already broken down; a leading term larger than the thing corrected cannot be hidden by higher orders. Strengthens [C].
+  - **The ~300 fm protective floor is REFUTED (computed).** To clear the 2.3 µeV window the hard cutoff must sit at $r_{cut}\approx9\cdot\ell_{node}\approx3.5$ pm — $\sim12\times$ the fork memo's data-derived $\sim300$ fm ($\approx0.78\,\ell_{node}$) floor. A ~3.5 pm cutoff is far above any lattice/substrate scale ⟹ an independent free parameter ⟹ the [C] failure mode.
+  - **U91+ (Z=92) 1s is INCOMPUTABLE for the continuum arm.** The 1s Bohr radius (575 fm) sits inside the no-solution radius ($r_{ns}=1082.6$ fm); 72.5% of the 1s density and 90% inside $r_{turn}$ sit where $A^2=12.6>1$ and the elliptic kernel has NO real solution. The continuum static-E law has no solution at all at high Z.
+- _Specific Non-Claims and Caveats_
+  - **DOES NOT touch the surviving sectors (KEEP-BOTH).** The pump–probe AC birefringence (clm-pp3qwf; deep-cold, weak-field $A^2\sim6\times10^{-7}$, dynamic, optical/X-ray) and the µ-sector circulation-keying (clm-pvlas1; keyed on $\partial_t B$, not static flux) are DIFFERENT sectors, untouched by a static-E exclusion. The exclusion is on the continuum static-E *extrapolation* only.
+  - **The µ⁻ sign convention is stated once** (bound µ⁻, $q=-e$, $\delta V>0$ ⟹ deeper binding ⟹ measured 2P−2S grows, same direction as Uehling); magnitudes are convention-independent and route by $|\text{value}|$.
+  - **The exclusion is SETTLED; the RESCUE is not.** The [B-AVE] rescue/scoping arm (a lattice-scale regime boundary with cutoff-dependent scalar $(q\ell_{node})^2$ / anisotropic $(q\ell_{node})^4$ coefficients, computation-adjudicated) is **PENDING-DERIVATION** — named, not landed. The derivation decides the rescue, not the exclusion.
+  - **DISTINCT from the QED-fluctuation Lamb object** (Q-G20a, clm-3i66gp — electronic H Bethe-log self-energy, $+1057.85$ MHz). This is the SVE constitutive static-E correction; do not conflate.
+
+> **Leaf references:** [vacuum-birefringence-e4](./falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md).
+
+### Quality
+- confidence: 0.85
+- depends-on:
+  - clm-pp3qwf (the SVE kernel whose static-E extrapolation this exclusion bounds)
+  - Axiom 4 (the saturation kernel $S=\sqrt{1-(A/A_{yield})^2}$ specialized to $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.85, 0.80)]
+- rationale: A [C-EXCLUDED] falsification-consistency verdict, pre-registered against FROZEN bins (Grant-ratified fork memo) with no post-hoc criterion drops (Rule 11 honest closure). Two independent code paths (exponential-integral closed forms vs transcendental root-find + adaptive quadrature) + a live ReconcileGate whose positive control fires at rel $2.8\times10^{-15}$. Both arms violate the window by 4–7 OOM; a single mechanism (the $1/r^5$ near-nucleus enhancement surviving even the $\ell_{node}$ cutoff) explains both. The verdict is robust (smallest $|$shift$|$ is $\sim2\times10^4\times$ the window — not edge-poised) and sign-independent. The SVE $E_c$ is CODATA-derived through $\alpha$, $m_e$ (Letter honesty ledger), so this is falsification/consistency-class, NOT emergence. Solidity 0.80 [= min(own 0.85, clm-pp3qwf 0.80)] — capped at the dependency clm-pp3qwf (0.80); the [B-AVE] rescue-openness is why own-derivation is held at 0.85 rather than higher (the exclusion is settled canon, but the [B-AVE] lattice-scoping RESCUE is an open derivation that could re-scope — not overturn — the boundary).
+- strengthen-by:
+  - Derive the [B-AVE] arm: whether a lattice-scale regime boundary (scalar $(q\ell_{node})^2$ / anisotropic $(q\ell_{node})^4$ per clm-k4d4ph, computation-adjudicated) protects the atomic windows and turns the exposure into a forward over-determined-by-one-scale prediction. This decides the rescue, not the exclusion.
+
+---
+
 ## K4 Bloch Dispersion — the $(q\,\ell_{node})^4$ Photon-Anisotropy FORM
 <!-- id: clm-k4d4ph -->
 

@@ -124,6 +124,64 @@ Provenance: [`research/2026-07-04_saturated-elastic-tensor_result.md`](../../../
   the weak-C no-zone-edge $(q\ell)^4$ dispersion theorem (gate `wejkhvnfb`, OPEN) — this leaf derives
   the isotropy/MATCH pinning, not the zone-edge decoupling.
 
+## §7 — The co-moving pilot-field companion + the K<0 evanescent-bound OPEN question (#534/#535/#536)
+
+The §3 K<0 lossless-reactive photon point (the $\rho_{bond}=1$ match) has a live open question and a set
+of settled facts from the co-moving-companion arc, landed here because §3's K<0 photon-point is exactly
+the locus they turn on. **Home justification:** the pilot-field arc probes the longitudinal-sector
+response at the srs photon point ($\rho_{bond}=1$, K<0) vs a real-K propagating chain — the §3 locus.
+
+**The settled result (2-DOF Cauchy ring; [RETARDATION-LIMITED / LEAKY]).** Grant's *pilot-field companion*
+— a launched localized transverse wavetrain carrying a co-moving 2nd-order **longitudinal contraction
+well** $du\approx-\langle dy^2\rangle/2$ under its envelope (the longitudinal sector's back-EMF response to
+the transverse drive) — is REAL on a real-K propagating chain, BUT it is **BUILT, not instantaneous**: its
+depth, co-motion fidelity, and lag are all set by the single speed ratio $c_{long}/v_g$ (a measured
+monotone law). So **the #534 fixed/free constraint trichotomy demotes to a DYNAMICAL closure-PLUS-RETARDATION
+bookkeeping** (the #535 build-time law), NOT pure closure-scale bookkeeping.
+
+- **(a) The #534 dissolved fork REFINES (cosmology-facing; flag for Grant, NOT resolved).** #534 found the
+  bond-frame T-slot content is host-constraint-set (ring/pinned COLD vs free SOFT by $\langle dy^2\rangle/2$)
+  and dissolved to "which global constraint does the cosmological lattice impose?" #535 refines it: the
+  trichotomy demotes to closure-plus-retardation, so the cosmology question gains a companion — **at what
+  $c_{long}/v_g$ does the cosmological longitudinal sector operate (subsonic-bound vs supersonic-lagging)?**
+  Context only (Grant to draw the connection): the vol3 gravity=bulk-strain frame, whether/how radiation
+  gravitates in the bulk-strain sector. Free-tension hosts contract under radiation by
+  $\langle dy^2\rangle/2$; fixed-contour hosts absorb it into constraint force. **Flag for Grant; not landed
+  as a result.**
+- **(b) The srs K<0 EVANESCENT-BOUND companion — OPEN (srs-lane).** The settled arc ran a **real-K,
+  propagating** longitudinal chain, which imposes the $c_{long}/v_g$ retardation. The **srs photon point is
+  K<0 lossless-reactive** (§3 above) — a character a real-K chain CANNOT host. On the real srs photon point
+  the physical companion may be **EVANESCENT-BOUND**: a reactive, non-propagating longitudinal well keyed to
+  the moving envelope, which could track it WITHOUT the propagation build-time (recovering Grant's
+  instantaneous co-moving pilot picture). Whether the K<0 reactive longitudinal sector realizes this is the
+  OPEN question — out of scope for the 2-DOF Cauchy chain. **Flag for the srs-tensor lane.**
+- **(c) The compensating stretch is a causally-reached near-field WAKE, not global dilution.** The positive-$du$
+  region that compensates the contraction lives in a causally-reached near-field wake adjacent to the envelope
+  (mean $\approx+1.7\times10^{-3}$; far-node stiffness ratio $\approx1.009$), NOT the causally-UNREACHED
+  antipode (whose $\sim10^{-19}$ was a trivial zero: at the sampled frame $c_{long}t$ had reached only
+  $\sim105$ nodes, the antipode $\sim1024$). Whether it eventually spreads GLOBALLY (true closure-scale
+  dilution) needs longer runs / the analytic ledger — stated as needed, not shown.
+- **(d) The ~12–14% envelope form-factor residual — OPEN (recorded, not closed).** The $\rho=4$ well
+  SATURATES at $\sim112\%$ of the traveling-wave phase-average prediction $-\langle dy^2\rangle/2$ (40p=113.6%,
+  56p=112.4%, 72p=110.7%), a $\sim12\%$ EXCESS. Named CANDIDATE (NOT closure): a **peak-vs-phase-average
+  envelope form factor** — the metric reads the deepest point at the envelope PEAK where the local
+  $\langle dy^2\rangle$ exceeds the plane-wave average. Deriving the envelope-peak local $\langle dy^2\rangle$
+  is the forward path; until then the residual is booked OPEN (it does not affect the bin — the routing is
+  lag/leak, not depth-hits-100%).
+- **(e) The k_a-inertness bug is FIXED upstream; blast radius CLEARED (#536).** The imported
+  `RingChain.tension` nonlinear (kernel) path returned $\Phi'(A)$ with $k_0=1$ baked in, ignoring `self.k_a`
+  (a Rule-10 integrator-time bug: a sonic sweep produced bit-identical dynamics across $k_a$). Fixed with a
+  DERIVED scaling ($k_a$ IS $k_0$, the $A=0$ axial tangent stiffness: sympy $dT/dA|_0=k_0$, so nonlinear
+  tension $=k_a\cdot\Phi'(A)$, preserving the $\sqrt{1-A^2}$ shape) + a regression guard. **Blast radius
+  CLEARED:** every merged consumer (#533/#534 and the module's own drivers) runs the nonlinear branch at
+  $k_a=1$, where the baked $k_0=1$ was coincidentally correct — so no merged computation is affected.
+
+**Class:** CONSISTENCY / geometric-kinematic. No VALUE derived (the $\tfrac12$ in $du\approx-dy^2/2$ is the
+sympy-derived convexity coefficient; the $\rho=1$ sonic coincidence is EXPECTED at the photon point, not a
+discovery; 2/7, 9.7734 stay GR-imported). Provenance: `research/2026-07-05_pilot-field-comoving-companion_result.md`
+(#535); `research/2026-07-05_bondframe-tslot-closure_result.md` (#534, the three-host table + dissolved fork);
+the #536 k_a-inertness fix (`fix/ring-bondframe-ka-inert-nonlinear-tension`).
+
 ---
 
 > **Quality, depends-on, and solidity for `clm-mfb2ax` live in the volume claim register**
