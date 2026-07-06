@@ -424,13 +424,14 @@ def main():
         "(spatial gradient of A) IS readable and DOES load."
     )
 
-    with open("_output/em_keying_round3_mechanism.json", "w") as f:
+    import os
+
+    outdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_output")
+    os.makedirs(outdir, exist_ok=True)
+    with open(os.path.join(outdir, "em_keying_round3_mechanism.json"), "w") as f:
         json.dump(out, f, indent=2)
     print(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":
-    import os
-
-    os.makedirs("_output", exist_ok=True)
     main()
