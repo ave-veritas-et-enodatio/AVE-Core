@@ -140,6 +140,16 @@ non-perturbatively large in every variant.)
   (ratio 0.78). The lattice-scoped arm scoped AT the exact ℓ_node still violates by ~2×10⁴×. The
   consonance does NOT rescue the window — if anything it SHARPENS [C]: the cutoff scale is right and it
   still fails, so the failure is not a wrong-cutoff artifact. Reported as a flag, not a finding.
+- **The computed [B]-defeat cutoff scale (routing language — the memo stays immutable).** To make the
+  hard-cutoff lattice-scoped shift clear the 2.3 µeV window, the cutoff must move OUT to
+  **r_cut ≈ 9·ℓ_node ≈ 3.5 pm** (computed by bisection on the leading-tail hard-cutoff shift: at
+  8·ℓ_node=3.09 pm the shift is 0.91 µeV, just under; the exact crossing is 9.05·ℓ_node=3.49 pm). That
+  is a factor ~**12× larger than the memo's ~300 fm (≈0.78·ℓ_node) floor estimate** — so the memo's
+  data-derived floor, even taken at face value, is ~12× too small to protect the muonic-H window. This
+  **refutes the ~300 fm floor estimate as the protective scale** (recorded as the COMPUTED supersession;
+  the frozen memo is not edited). A cutoff at ~3.5 pm is far above any lattice/substrate scale and would
+  be an independent free parameter — precisely the [C] failure mode ("the cutoff cannot be placed at
+  ℓ_node without an independent free parameter", frozen memo §3 [C]).
 
 ## SECONDARY — U91+ 1s (continuum arm INCOMPUTABLE, reported result)
 

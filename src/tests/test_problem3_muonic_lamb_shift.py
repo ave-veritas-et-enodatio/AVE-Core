@@ -106,6 +106,28 @@ def test_smallest_variant_grossly_violates_window():
     assert abs(shift_ueV) == pytest.approx(4.9e4, rel=0.1)
 
 
+def test_b_defeat_cutoff_refutes_the_300fm_floor():
+    """The hard cutoff must move to ~9 ell_node (~3.5 pm) to clear the window -> ~12x the
+    memo's ~300 fm floor estimate. Refutes the floor as the protective scale (routing)."""
+    from scipy import optimize
+
+    a = A_MU
+    coeff = K**3 / (10.0 * E_C**2)
+
+    def upn(n, x):
+        return x ** (1 - n) * special.expn(n, x)
+
+    def shift_ueV(r_cut):
+        uc = r_cut / a
+        e2s = e_charge * coeff / (2.0 * a**5) * (upn(3, uc) - upn(2, uc) + 0.25 * upn(1, uc))
+        e2p = e_charge * coeff / (24.0 * a**5) * special.exp1(uc)
+        return (e2s - e2p) / e_charge * 1e6
+
+    r_defeat = optimize.brentq(lambda rc: abs(shift_ueV(rc)) - WINDOW_ueV, 5 * L_NODE, 40 * L_NODE)
+    assert r_defeat / L_NODE == pytest.approx(9.05, rel=0.05)  # ~9 ell_node
+    assert r_defeat / 300e-15 > 10  # >10x the memo's ~300 fm floor
+
+
 def test_u91_continuum_arm_is_incomputable():
     """U91+ secondary: the 1s orbit sits inside the no-solution radius -> continuum
     kernel incomputable over the bulk of the density (reportable result, not failure)."""
