@@ -419,3 +419,59 @@ Both sentences re-worded to the **candidate-agnostic** form: *"…has itself bee
 scoping mechanism remains under derivation."* The honest state is **mechanism-open**. This changes no
 number, no falsifier verdict, no anchored value; it is a physical-picture-accuracy wording fix only.
 `make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs); `make verify` GREEN.
+
+**SCOPING-SENTENCE REFRESH (2026-07-06, post rounds 2/3 merged — one commit) — "remains under derivation"
+retired; open question re-scoped to the lattice-scale regime boundary.** When the FIX NOTE above was
+written, the honest state of the dynamical scoping was *mechanism-open* ("remains under derivation"). Two
+dynamical scoping routes have since been tested and **excluded by derivation**, and the open question has
+narrowed from "the mechanism" to a sector/scale **class** — so both "remains under derivation" clauses are
+now stale and are retired.
+- **What the two merged rounds derived (each read verbatim this session):**
+  - **Round 2 [KILLED at STEP 0]** (merged **PR #546**; `research/2026-07-05_em-keying-round2-worked-cell_RESULT.md`):
+    the net-flux (closed-surface) candidate the FIX NOTE already flagged DEAD is confirmed dead by sympy at
+    STEP 0 — `∮_∂V S·dA = ∫∇·(E×H) = −∫∂_t u`, and `⟨∂_t u⟩_cycle = 0` for every steady state including the
+    pump (Poynting degeneracy), so a net-flux key cannot distinguish the pump from the held atom.
+  - **Round 3 [DERIVED: CHARGE-KEYED]** (merged **PR #547**; `research/2026-07-06_em-keying-round3-eps-dc-mechanism_RESULT.md`,
+    claim routing bin, prereg FROZEN `..._prereg_FROZEN.md`): the ε-response is derived to key on the
+    **mean-square** of the instantaneous amplitude at leading (2nd) order — `⟨1−S_ε⟩ = ½⟨A_V²⟩`, DC baseline
+    retained — so a held field is a **real operating-point bias and loads**. The excursion/variance member
+    (H2) is **DERIVED-AGAINST**: M0/M1/M2/M3 + a lattice-level zero-mode/rigidity check all fail to deliver a
+    lossless DC-block (K4 shear stiffness `k_s>0`, no floppy zero-mode across the full counted band).
+  - **Robust-to-pitch-cutoff (the [B-AVE] band-split, `em_keying_round3_comparison.py::band_split_C_iii`, pinned
+    by `test_C_iii_band_split_dominant_subpitch_band_STANDING_PIN`):** ~**103.2%** of the muonic overshoot
+    magnitude comes from the sub-pitch band `[159.6, 386.2] fm` (below one node pitch), yet the **super-pitch
+    remainder alone** nets `~4.9×10⁴ µeV ≈ 2×10⁴×` the 2.3 µeV CREMA window — so `[C-EXCLUDED]` **stands on the
+    super-pitch band alone**; a lattice-pitch cutoff does not rescue the static sector. What is genuinely open
+    is confined to the lattice-scale regime boundary (the **[B-AVE] arm**: whether the sub-pitch continuum
+    integral is the right lattice-scale accounting).
+- **The edit (surgical — two clauses, `main.tex`):**
+  - **Honesty-ledger item (v) (§II.B "What is open"):** the "a first candidate scoping (local power-transport
+    keying) has been tested and excluded, and the scoping mechanism remains under derivation" clause →
+    candidate-agnostic + class-named: the dynamical scoping routes proposed have **each been tested and
+    excluded by derivation**; the static-sector response is **derived charge-keyed** (a held field is a real
+    operating-point bias, so it loads); what remains open is **confined to the lattice-scale regime boundary**,
+    and the exclusion is **robust to it** (a lattice-pitch cutoff alone does not rescue the static sector).
+  - **Sector-scope paragraph (§II.B):** the "One candidate scoping mechanism — a response keyed on the local
+    power transport (E×H) … — has itself been tested and excluded, because a physical atom's bound magnetic
+    moment sources a static, divergence-free E×H circulation …; the scoping mechanism remains under derivation"
+    passage → the same candidate-agnostic + lattice-scale-class form. The named E×H (power-transport) candidate
+    is REMOVED per the standing wording rule (must not name a killed candidate).
+- **Standing wording rule honored (FIX NOTE above, verbatim):** the Letter names **no** killed candidate and
+  **no** currently-live candidate; the **lattice-scale regime boundary is a sector/scale CLASS, not a
+  candidate**, so naming the class is permitted and needs no edit as the [B-AVE] derivation iterates. §V and
+  honesty-ledger item (v) checked for consistency with the new wording (two-method: grep
+  `scoping|regime boundary|lattice-scale|charge-keyed|operating-point|under derivation` + §II/§V read); §V's
+  magnetic-route/static-B and preferred-frame-boost sentences are a disjoint sector, **still true, left
+  unchanged**. STANDALONE discipline preserved: no new `\cite` (the scope paragraph still cites only
+  `Antognini2013` + internal `\eqref`/`\ref`); no private-repo cite.
+- **Anchored invariants grep-confirmed UNCHANGED:** `P_flip` triplet `5.39/4.28/9.28e-3`; kill criterion
+  `P_flip < 1e-8` at `≥1e18 W/cm²`; ratio `3.75π/α²`; pump `A²≃5.9e-7` (and `6e-7`/`5.90e-7`). No number, no
+  falsifier verdict, no anchored value moves; src/ + JSON UNTOUCHED (no driver read or edited in the Letter dir).
+- **Discipline:** *Rule 11 honest closure* — the two dynamical routes are recorded excluded-by-derivation with
+  no post-hoc criterion drops; *substitution-not-retraction* — round-2's open member is RESOLVED by the round-3
+  derivation (its own prereg + verification chain), not refilled; *flag-don't-fix* — the leaf `node-up:217`
+  (*"loads ε and shifts n"*) is CONFIRMED by the charge-keyed derivation, surfaced to the auditor lane, not
+  silently overwritten. `make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs resolve;
+  only the pre-existing appendix overfull box remains — the scope-paragraph edits introduced none);
+  `make verify` GREEN. Fresh branch `analysis/letter-scoping-sentence-refresh` off merged HEAD `b0615b5e`
+  (contains #547). Grant's five standing decisions UNTOUCHED.
