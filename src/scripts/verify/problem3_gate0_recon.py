@@ -22,11 +22,11 @@ import numpy as np
 
 from ave.core.constants import (
     E_YIELD,
-    L_NODE,
     EPSILON_0,
-    e_charge,
-    V_YIELD,
+    L_NODE,
     V_SNAP,
+    V_YIELD,
+    e_charge,
 )
 
 E_C = E_YIELD  # the memo's saturation field E_c
