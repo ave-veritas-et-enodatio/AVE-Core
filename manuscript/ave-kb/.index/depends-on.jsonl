@@ -202,6 +202,9 @@
 {"source": "clm-cfd5yf", "target": "clm-07kd5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cfd5yf", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cfd5yf", "target": "clm-x19btt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-chgky3", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A/A_{yield}", "fraction": null}
+{"source": "clm-chgky3", "target": "clm-sve3xc", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-chgky3", "target": "clm-vca7r1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cltls0", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-cltls0", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "TVS-Zener impedance-rupture mechanism", "fraction": null}
 {"source": "clm-cltls0", "target": "clm-kezk9z", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
