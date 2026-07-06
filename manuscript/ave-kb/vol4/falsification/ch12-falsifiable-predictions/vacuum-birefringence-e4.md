@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-pp3qwf]
+claims: [clm-pp3qwf, clm-sve3xc]
 -->
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
@@ -23,6 +23,7 @@ claims: [clm-pp3qwf]
 > (`delta_n_qed_electric_pvlas`, `coefficient_ratio_differential_pvlas`).
 
 ## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
+<!-- claim-quality: clm-pp3qwf (this section is the canonical statement of the E-route field-induced birefringence COEFFICIENT discriminator — the matched par−perp differential δn≈−½A² vs QED's differenced Euler-Heisenberg) -->
 
 > **Route scope (E-route only; DERIVED via the node-up dual).** This birefringence prediction is
 > the **static-E (E-route)** prediction: it requires biasing the **$V$-keyed varactor**
@@ -105,3 +106,26 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 ![The HIBEF moment: the birefringence discriminator at HIBEF's demonstrated ReLaX pump (single-pass, X-ray dark-field polarimeter, no Fabry-Perot). Left: the E²-leading SVE |δn|(E) at the demonstrated-pump point A²=5.92e-7. Centre: the probe polarization walk-off — SVE Δφ=0.148 rad (NJP 9835 eV) vs QED Δφ=3.3e-7 rad. Right: the single-pass flip probability P=sin²(Δφ/2) — SVE P≈5.4e-3 sits ~7 OOM above the required (1.4e-10) and demonstrated (2.4e-10) polarimeter floors; QED P≈2.8e-14 sits ~4 OOM below.](../../../../vol_4_engineering/figures/hibef_moment_panels.png)
 
 *Figure — the falsifier-floor logic of the 🔴 header (line 19–20) rendered at the facility point. The plotted numbers are engine-exact driver outputs at their stated observables (Δφ, P=sin²(Δφ/2), δn). This render does NOT restate the matched-differential COEFFICIENT ratio; the `7.5/α³≈1.93e7` δn-ratio in this leaf's body carries the open QED-normalization correction of the 🔴 header (→ `7.5π/α²≈4.42e5`), tracked there and unresolved by this figure. Amplitude of the displayed pump stripe exaggerated ×3e5 for visibility (labelled). CONSISTENCY-class: FORM=SVE chord, magnitude ratio=α-echo (symmetric-standard). Driver: `src/scripts/viz/hibef_moment_scene.py` (`scripts.vol_9_device.birefringence_gap1_hibef_feasibility` + `ave.bench.delta_n_ave_differential_exact` + `graded_vacuum_network.saturation_kernel`); provenance ledger `viz/README.md` Visual 2.*
+
+---
+
+## Scope boundary: the SVE static-E kernel is EXCLUDED down to atomic scales ([C-EXCLUDED], Problem 3)
+<!-- claim-quality: clm-sve3xc (this section is the canonical statement of the static-E atomic-sector exclusion of the SVE continuum kernel; the pump-probe birefringence prediction above survives as a DIFFERENT sector) -->
+
+The birefringence prediction above lives in the **deep-cold, weak-field, dynamic AC pump–probe** sector ($A^2\sim6\times10^{-7}$, $\partial_t\neq0$, read at optical/X-ray). A separate arc (Grant-ratified fork memo FROZEN 2026-07-05; Problem 3, `research/2026-07-05_problem3-muonic-lamb_RESULT.md`, merged #538/#539) exposed the SAME continuum constitutive law $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$ in the **atomic static-DC** sector — where atomic Coulomb fields are NOT weak against $E_c\approx1.13\times10^{17}$ V/m and are measured to sub-µeV precision. The verdict is **[C-EXCLUDED]**: the continuum static-E extrapolation is falsified as a universal claim down to atomic scales.
+
+**What the arc established (canonical):**
+- **The analytic tail (sympy-verified):** inverting $E\sqrt{1-(E/E_c)^2}=E_{Coulomb}$ on the lower branch gives the potential shift tail $\delta V(r)=k^3/(10\,E_c^2 r^5)\Leftrightarrow\delta V/V_C=\tfrac1{10}A^2(r)$, $A^2(r)=(E_C(r)/E_c)^2$ — the expected $(E/E_c)^2$-class near-nucleus enhancement.
+- **Both arms violate the muonic-H window by 4–7 orders of magnitude.** The continuum arm's SVE correction to the muonic-H Lamb shift $\Delta E(2P_{1/2}-2S_{1/2})$ is $[1.5\times10^6,\,2.3\times10^7]$ µeV = **7.5×–114× the entire 202.37 meV Lamb shift**; the lattice-scoped arm (kernel cut to $r\gg\ell_{node}=386$ fm) is $[4.9\times10^4,\,6.2\times10^5]$ µeV = **0.24×–3× the full Lamb shift** — smallest variant still $\sim2\times10^4\times$ the 2.3 µeV CREMA window. Routing is sign-independent (magnitudes route; the variant-to-variant sign varies).
+- **Non-perturbatively large.** A correction many times the full level structure means first-order perturbation theory has already broken down; the exact multiples are illustrative of scale. This STRENGTHENS the exclusion — a leading term larger than the thing corrected cannot be hidden by a higher-order rescue.
+- **The ~300 fm protective-scale is refuted.** The fork memo's data-derived $\sim300$ fm ($\approx0.78\,\ell_{node}$) floor is $\sim12\times$ too small: making the hard-cutoff lattice-scoped shift clear the 2.3 µeV window requires the cutoff at $r_{cut}\approx9\cdot\ell_{node}\approx3.5$ pm (bisection on the leading-tail hard-cutoff shift). A cutoff at ~3.5 pm is far above any lattice/substrate scale and would be an independent free parameter — precisely the [C] failure mode.
+- **U91+ is INCOMPUTABLE.** At Z=92 the 1s Bohr radius (575 fm) sits inside the no-solution radius ($r_{ns}=1082.6$ fm); 72.5% of the 1s density and 90% inside $r_{turn}$ sit where the continuum elliptic kernel has NO real solution ($A^2=12.6>1$). The continuum static-E law does not merely violate windows at high Z — it has no solution at all.
+- **µ⁻ sign convention (stated once):** the bound particle is the µ⁻ ($q=-e$); because $\delta V>0$ (SVE field enhanced ⟹ deeper binding), the penetrating 2S is pulled down and the measured 2P−2S splitting INCREASES — a positive $\delta[\Delta E]$, same direction as Uehling. Magnitudes are convention-independent; routing is by $|\text{value}|$.
+
+**What DIES:** the continuum static-E constitutive law $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$ as a UNIVERSAL claim down to atomic scales. It cannot be the vacuum's response to arbitrary static fields at atomic scales.
+
+**What SURVIVES (separate sectors, KEEP-BOTH):** (i) the **pump–probe AC birefringence** of this leaf — a deep-cold, weak-field, *dynamic* ε-varactor response read at optical/X-ray, NOT the atomic static-DC sector; its $\sim5\times10^{-3}$ HIBEF flip-prob falsifier is untouched. (ii) The **µ-sector circulation-keying** (`clm-pvlas1`, keyed on $\partial_t B$, not static flux; see [`pvlas-static-b-verdict.md`](../ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). A [C] verdict excludes the continuum static-E *extrapolation*, NOT the registered birefringence prediction and NOT the magnetic-sector side-prediction.
+
+> **Object-distinction guard (paired with Q-G20a).** This is the **SVE constitutive static-E** Lamb correction (a saturating-permittivity effect). It is a DIFFERENT object from the **QED vacuum-fluctuation** Bethe-log Lamb mechanism at [`../../../vol2/quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md) (electronic H, $+1057.85$ MHz). The [C-EXCLUDED] verdict here does not touch that leaf's self-energy match; do not conflate the two Lamb objects.
+
+**PENDING-DERIVATION (named, NOT landed):** the [B-AVE] rescue/scoping arm of the fork memo — whether a lattice-scale regime boundary with cutoff-dependent effective coefficients (scalar $(q\ell_{node})^2$ / anisotropic $(q\ell_{node})^4$, computation-adjudicated) can protect the windows and turn the exposure into a forward prediction — is an OPEN derivation, not a landed result. The **exclusion is SETTLED regardless** (both arms violate as written); the derivation decides the RESCUE, not the exclusion. Provenance: `research/2026-07-05_electrostatic-sector-fork-memo_FROZEN.md` (FROZEN, Grant-ratified); `research/2026-07-05_problem3-muonic-lamb_RESULT.md` ([C-EXCLUDED]).
