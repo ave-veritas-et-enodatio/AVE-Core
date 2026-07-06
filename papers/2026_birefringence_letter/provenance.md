@@ -427,7 +427,7 @@ dynamical scoping routes have since been tested and **excluded by derivation**, 
 narrowed from "the mechanism" to a sector/scale **class** — so both "remains under derivation" clauses are
 now stale and are retired.
 - **What the two merged rounds derived (each read verbatim this session):**
-  - **Round 2 [KILLED at STEP 0]** (merged **PR #546**; `research/2026-07-05_em-keying-round2-worked-cell_RESULT.md`):
+  - **Round 2 (net-flux candidate KILLED at STEP 0; the round's own routed bin is [SELECTED-NOT-DERIVED], resolved by round 3)** (merged **PR #546**; `research/2026-07-05_em-keying-round2-worked-cell_RESULT.md`):
     the net-flux (closed-surface) candidate the FIX NOTE already flagged DEAD is confirmed dead by sympy at
     STEP 0 — `∮_∂V S·dA = ∫∇·(E×H) = −∫∂_t u`, and `⟨∂_t u⟩_cycle = 0` for every steady state including the
     pump (Poynting degeneracy), so a net-flux key cannot distinguish the pump from the held atom.
@@ -472,6 +472,7 @@ now stale and are retired.
   derivation (its own prereg + verification chain), not refilled; *flag-don't-fix* — the leaf `node-up:217`
   (*"loads ε and shifts n"*) is CONFIRMED by the charge-keyed derivation, surfaced to the auditor lane, not
   silently overwritten. `make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs resolve;
-  only the pre-existing appendix overfull box remains — the scope-paragraph edits introduced none);
+  only the three pre-existing overfull boxes remain — the Table I alignment ~8.9pt plus two appendix
+  displays ~21.9pt/~6.6pt — the scope-paragraph edits introduced none);
   `make verify` GREEN. Fresh branch `analysis/letter-scoping-sentence-refresh` off merged HEAD `b0615b5e`
   (contains #547). Grant's five standing decisions UNTOUCHED.
