@@ -52,8 +52,11 @@ A_MU = A0 * (M_E / MU_RED)  # muonic Bohr radius (Z=1)
 R_NS = np.sqrt(e_charge / (4.0 * np.pi * EPSILON_0 * E_C))  # Z=1 no-solution radius
 ELL = L_NODE  # lattice pitch
 
-# measured splitting + windows (prereg section 5)
-SPLIT_meV = 202.3706  # CREMA 2S_1/2 - 2P_3/2, meV
+# measured Lamb shift + windows (prereg section 5)
+# 202.3706(23) meV is the EXTRACTED Lamb shift Delta E(2P_1/2 - 2S_1/2) (Pohl et al./CREMA 2010
+# measured the 2S_1/2->2P_3/2 transition and extracted the 2P_1/2-2S_1/2 Lamb interval); NOT a raw
+# "2S-2P splitting" (the frozen memo's loose wording, which we route on but do not re-label as).
+LAMB_meV = 202.3706  # Delta E(2P_1/2 - 2S_1/2), meV, Pohl/CREMA 2010
 SIGMA_meV = 0.0023  # 1 sigma = 2.3 ueV  (PRIMARY window edge)
 WINDOW_ueV_primary = SIGMA_meV * 1e3  # 2.3 ueV
 WINDOW_ueV_loose = 10.0  # secondary edge
@@ -253,7 +256,7 @@ def main():
     print(f"ell_node = {ELL*1e15:.2f} fm   E_c = {E_C:.4e} V/m")
     print(f"norm check: int|R_2s|^2 r^2 dr = {_norm(rho_2s):.5f} ; 2p = {_norm(rho_2p):.5f} (target 1)")
     print(f"WINDOW primary (1sigma) = {WINDOW_ueV_primary} ueV ; loose = {WINDOW_ueV_loose} ueV")
-    print(f"measured splitting = {SPLIT_meV} meV")
+    print(f"measured Lamb shift Delta E(2P_1/2-2S_1/2) = {LAMB_meV} meV")
     print()
 
     # ---------- ReconcileGate positive control (proves the gate can FIRE) ----------
@@ -343,9 +346,9 @@ def main():
             routed = "[C-EXCLUDED] (both violate)"
         print(f"  ROUTED: {routed}")
     print()
-    print(f"context: full splitting = {SPLIT_meV} meV = {SPLIT_meV*1e3:.1f} ueV ; the shifts vs that:")
-    print(f"  continuum |shift|/splitting = [{cont_lo/(SPLIT_meV*1e3):.2e}, {cont_hi/(SPLIT_meV*1e3):.2e}]")
-    print(f"  lattice   |shift|/splitting = [{latt_lo/(SPLIT_meV*1e3):.2e}, {latt_hi/(SPLIT_meV*1e3):.2e}]")
+    print(f"context: full Lamb shift = {LAMB_meV} meV = {LAMB_meV*1e3:.1f} ueV ; the corrections vs that:")
+    print(f"  continuum |d[dE]|/LambShift = [{cont_lo/(LAMB_meV*1e3):.2e}, {cont_hi/(LAMB_meV*1e3):.2e}]")
+    print(f"  lattice   |d[dE]|/LambShift = [{latt_lo/(LAMB_meV*1e3):.2e}, {latt_hi/(LAMB_meV*1e3):.2e}]")
 
     print()
     r_defeat = b_defeat_cutoff()
