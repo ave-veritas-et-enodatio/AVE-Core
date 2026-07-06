@@ -31,7 +31,7 @@ falsifier, and the §9 C-iii band-split pin (fix-round-2) — 12 total).
 > **RIDER (CANON-CONSISTENT, NOT DERIVED-HERE — a real refinement, not a rescue):** a spatially-**UNIFORM**
 > held DC bias self-cancels on READOUT — the A-state is **gauge-relative** (`manuscript/ave-kb/CLAUDE.md`
 > INVARIANT-S2:75, VERBATIM *"only spatial gradients of A across the substrate are physically observable, not absolute
-> per-node values"*), so a uniform offset is unobservable (= the PHASE-ONLY north-star, `claim-quality.md`
+> per-node values"*), so a uniform offset is unobservable (= the PHASE-ONLY north-star, `manuscript/ave-kb/common/claim-quality.md`
 > :1318 VERBATIM *"All measurement is AC — a uniform DC bias is gauge-relative and self-cancels (= relativity …)."*).
 > This is a **re-statement of the canonical INVARIANT-S2 applied to the asymmetric ε-only load**, NOT a
 > fresh derivation on this branch. It is not a stretch: `manuscript/ave-kb/CLAUDE.md`:75 already scopes the static-E-only
@@ -399,7 +399,7 @@ CHARGE-KEYED CONFIRMS it):
    Lenz-dual DC-block **does not exist**. Recommend: DROP the round-2 "R2′ candidate" from the auditor
    queue as [DERIVED-AGAINST]; the legacy amplitude-keyed R2 is the derived answer.
 2. **The reconciliation of R2 with #539** is the **uniform-vs-non-uniform** distinction, not a keying
-   change: a spatially-UNIFORM held DC E is gauge-hidden (INVARIANT-S2 / `claim-quality.md`:1318, the
+   change: a spatially-UNIFORM held DC E is gauge-hidden (INVARIANT-S2 / `manuscript/ave-kb/common/claim-quality.md`:1318, the
    PHASE-ONLY north-star — VERBATIM *"Every AVE-distinct observable is an AC reading of a DC gradient or
    topology — differential BY PRINCIPLE, not by experimental limitation (the PHASE-ONLY north-star,
    mechanized)."*); a NON-uniform held field (atomic Coulomb, a bench fringe) is readable and loads. This
