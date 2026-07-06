@@ -182,47 +182,31 @@ def poynting_coefficient_honesty():
     }
 
 
-def boost_tensor_check():
-    """T-POYNT closes the boost STRUCTURALLY; T-BEAT and <E^2> do not.
+def boost_check_OPEN():
+    """BOOST-CONSISTENCY OPEN (CRITICAL-2). The 'structural closure' claim is RETRACTED.
 
-    The Letter's soft spot (main.tex:305-307): S keys on |E|^2, NOT a Lorentz
-    invariant -> the prediction is frame-dependent, patched by numerical smallness
-    of the boosted A^2. A transport key E x H is the T^{0i} component of the
-    stress-energy tensor -- a genuine tensor flux. Under a boost, a held static
-    field (T^{0i}=0 in its rest frame) maps to a boosted (E',B') whose Poynting is
-    O(v/c) -- but it is the boost of a STOCK, not a transported wave: in the
-    zero-sequence (Park 0-axis) decomposition the static field is pure
-    zero-sequence (no rotating d/q content). We verify the algebra: for a boost v
-    perpendicular to a static E, the motional B'=gamma (v/c^2) E, and the Poynting
-    E' x B' is O(v/c) of the field energy -- a real but frame-artifact flux. The
-    KEY discriminator: this boosted Poynting oscillates at NO frequency (it is a
-    DC drift), so in the node clock frame it is STILL zero-sequence (aliased to
-    omega_C), and averages out. A genuine wave carries d/q rotating content that
-    survives. This is the structural boost closure T-BEAT/|E|^2 cannot supply.
-
-    Returns the boosted motional-field Poynting for the Letter's 2.5 T / 370 km/s
-    case, in E^2 units, to confirm it lands at the Letter's A^2~7e-23 level.
+    The prior claim was that a boosted static field's Poynting 'is a DC drift, aliased
+    to omega_C, averages out' -- so the boost is closed structurally. This is REFUTED
+    by two of my own results:
+      (i) piece (a) shows a DC 2nd-order quantity SURVIVES clock-averaging (static
+          <E^2>_secular = 1.0 at omega=0). A boosted static field is omega=0 in the lab,
+          so its 2nd-order content does NOT average out -- the aliasing claim contradicts
+          the secular-averaging math it rests on.
+      (ii) the boosted config carries a real static H (the magnet's B), so the LOCAL
+          E x H is nonzero -- the coded functional engages on the config called 'blind'.
+    Returns the boosted motional field magnitude only, as an INPUT to the OPEN question,
+    NOT a closure. The round-2 pointer: a NET-flux functional anchored in the LATTICE
+    REST FRAME is frame-anchored by the theory's declared preferred frame -- a boosted
+    observer sees transformed observables, not a re-keyed vacuum. That resolution belongs
+    to a NEW derivation, not this one.
     """
     v = 370e3  # m/s, CMB boost
     B = 2.5  # T, PVLAS-scale static magnet
     E_mot = v * B  # motional E ~ v B (Letter main.tex:312)
     A2 = (E_mot / E_C) ** 2
-    dn = 0.25 * A2  # isotropic-index-class shift
-    return {"E_motional": E_mot, "A2_boost": A2, "dn_boost": dn,
-            "v_over_c_sq": (v / C_0) ** 2}
-
-
-def S_E_transport(E_amp: float, omega: float) -> float:
-    """The DERIVED effective S_E functional in transport form.
-
-    S_E = sqrt(1 - T),  T = (omega/omega_C)^2 * (E_amp/E_c)^2 * (1/2)  [co-moving wave,
-    cycle-averaged].  The (omega/omega_C)^2 gate is the transport factor: it is 0
-    for static (omega=0 -> DC-blind), and it recovers the Letter's magnitude ONLY
-    when omega ~ omega_C (fully engaged). For the pump omega/omega_C=3e-6 the
-    engagement is suppressed by (3e-6)^2 relative to the Letter's naive (E/E_c)^2.
-    """
-    T = (omega / OMEGA_C) ** 2 * (E_amp / E_C) ** 2 * 0.5
-    return float(np.sqrt(max(0.0, 1.0 - T)))
+    return {"E_motional": E_mot, "A2_boost": A2, "v_over_c_sq": (v / C_0) ** 2,
+            "verdict": "OPEN", "note": "aliasing refuted; boost-consistency OPEN "
+            "(requires lattice-frame anchoring, round-2 forward pointer)."}
 
 
 def main():
@@ -273,24 +257,25 @@ def main():
     print("     The CHORD is frequency-INDEPENDENCE: pump engages fully (Table I survives),")
     print("     unlike T-BEAT's (omega/wC)^2 pump suppression.")
 
-    print("\n--- boost tensor check (structural closure) ---")
-    Bz = boost_tensor_check()
+    print("\n--- boost check: OPEN (aliasing REFUTED, CRITICAL-2) ---")
+    Bz = boost_check_OPEN()
     print(f"  motional E (2.5T, 370km/s) = {Bz['E_motional']:.3e} V/m  A^2={Bz['A2_boost']:.3e}")
-    print(f"  dn_boost = {Bz['dn_boost']:.3e}  ; (v/c)^2 = {Bz['v_over_c_sq']:.3e}")
-    print("  >> boosted motional Poynting is a DC drift (zero-sequence, aliased to wC,")
-    print("     averages out); a genuine wave carries d/q rotating content that survives.")
+    print(f"  VERDICT: {Bz['verdict']} -- {Bz['note']}")
+    print("  >> the aliasing story ('DC drift averages out') is REFUTED by piece-(a)"
+          " DC survival + the coded functional's T!=0 on the boosted config.")
 
-    # FORK verdict: which invariant does the substrate force?
+    # FORK verdict: T-POYNT is CONSTRAINT-SELECTED (MAJOR-a), NOT substrate-forced.
     print("\n" + "=" * 74)
-    print("FORK VERDICT (T-POYNT vs T-BEAT vs T-CIRC):")
-    print("  - T-POYNT: freq-INDEPENDENT transport E x H = E^2/Z0; pump engages FULLY")
-    print("    (Table I preserved); it is the power the LC node exchanges (PATH A);")
-    print("    it is the T^{0i} tensor flux -> closes boost. SUBSTRATE-FORCED PRIMARY.")
-    print("  - T-BEAT: = T-POYNT x (omega/wC)^2 for a co-moving wave -> pump suppressed")
-    print("    by 9e-12 -> would COLLAPSE Table I. Distinct only for standing waves.")
-    print("  - T-CIRC: oint E.dl for a curl-free static field = 0 (blind); for a wave")
-    print("    the E-circulation is the dual of oint H.dl (Route C) -> same transport")
-    print("    class as Poynting. Consistent, subsumed by T-POYNT for propagating fields.")
+    print("FORK VERDICT (T-POYNT vs T-BEAT vs T-CIRC) — CONSTRAINT-SELECTED, not forced:")
+    print("  - T-POYNT was SELECTED by Table-I survival: T-BEAT was eliminated BECAUSE")
+    print("    it collapses the pump (routed toward the anchored numbers -- the visible-")
+    print("    target the knife exists for). This is a CONSTRAINT-SELECTION, not a")
+    print("    substrate derivation. Deriving net-vs-local from the network dynamics")
+    print("    (not selecting it against Table I) is the round-2 requirement.")
+    print("  - T-BEAT: = T-POYNT x (omega/wC)^2 for a co-moving wave -> pump suppressed.")
+    print("  - the LOCAL-Poynting form (this PR's boxed functional) is CONSTRAINT-KILLED")
+    print("    on the physical atom (constraint 1); the surviving candidate is NET")
+    print("    transport (closed-surface flux), lattice-frame-anchored -- ROUND 2.")
     return A, S
 
 

@@ -310,19 +310,43 @@ def constraint_5_dellight():
 
 # ==================================================== CONSTRAINT 6: BOOST
 def constraint_6_boost():
-    """Static E <-> static B zero-sequence (both blind); transport <-> transport."""
+    """BOOST-CONSISTENCY OPEN (CRITICAL-2 retraction). The aliasing story is REFUTED.
+
+    The prereg/original result claimed the boosted-static configuration 'aliases to
+    omega_C and averages out' (zero-sequence, blind). TWO of my OWN results refute it:
+
+    (i) piece (a) shows a DC 2nd-order quantity SURVIVES clock-averaging: the static
+        <E^2> secular content is 1.0 (NONZERO at omega=0). A boosted static field is
+        also omega=0 (DC) in the lab frame, so by my own piece-(a) math its 2nd-order
+        content does NOT average out. The 'aliases to omega_C' claim contradicts the
+        secular-averaging result it rests on.
+    (ii) the CODED functional gives T != 0 for the boosted config: a static B boosted
+        gives a motional E, and the co-existing static B is a real H field, so the
+        LOCAL E x H = motional_E x H_static is NONZERO. The functional the prose calls
+        'blind' engages.
+
+    So boost-consistency is NOT closed structurally. It is OPEN, and it requires the
+    lattice-frame anchoring question resolved (the round-2 forward pointer: a NET-flux
+    functional anchored in the LATTICE REST FRAME is frame-anchored by the theory's
+    declared preferred frame -- a boosted observer sees transformed observables, not a
+    re-keyed vacuum). This constraint is reported OPEN, not PASS.
+    """
     v = 370e3
-    # static B boosted -> motional E; static E boosted -> motional B. Both are
-    # DC drifts (zero-sequence), aliased to wC, average out.
-    B, E = 2.5, 1.13e17  # PVLAS B ; near-yield static E (hypothetical)
+    B = 2.5  # PVLAS-scale static magnet
     E_from_B = v * B  # motional E from boosting static B
-    B_from_E = v * E / C_0**2  # motional B from boosting static E
+    H_static = B / MU_0  # the co-existing static B is a real H field
+    # the LOCAL Poynting the CODED functional sees for the boosted config:
+    T_boosted = float(transport_engagement_T(E_from_B, H_static, TRANSPORT_COEFF_YIELD))
+    # piece-(a) static DC survival (the contradiction with the aliasing claim):
+    static_E2_secular = 1.0  # from em_saturation_keying_secular (omega=0 -> <E^2>=1)
     return {
         "motional_E_from_static_B": E_from_B,
-        "motional_B_from_static_E": B_from_E,
         "A2_from_boosted_B": (E_from_B / E_C) ** 2,
-        "note": "both motional fields are DC (zero-sequence) -> blind; only genuine "
-                "d/q wave transport survives the node-clock average.",
+        "T_boosted_local_poynting": T_boosted,  # NONZERO -> prose 'blind' is FALSE
+        "static_E2_secular_survives": static_E2_secular,  # NONZERO -> aliasing refuted
+        "verdict": "OPEN",  # NOT closed; the aliasing mechanism is refuted
+        "note": "aliasing REFUTED by piece-(a) DC survival + coded T!=0; boost-"
+                "consistency OPEN, requires lattice-frame anchoring (round-2 pointer).",
     }
 
 
@@ -370,12 +394,15 @@ def main():
     print(f"    dn_iso Letter={c5['dn_iso_letter']:.3e}  transport(NORM-YIELD)={c5['dn_iso_yield']:.3e}"
           f"  (= -1/4 A^2, unchanged)")
 
-    print("\n[6] BOOST")
+    print("\n[6] BOOST — OPEN (aliasing REFUTED, CRITICAL-2)")
     c6 = constraint_6_boost()
     print(f"    motional E from static B = {c6['motional_E_from_static_B']:.3e} V/m"
           f"  A^2={c6['A2_from_boosted_B']:.3e}")
-    print(f"    motional B from static E = {c6['motional_B_from_static_E']:.3e} T")
-    print(f"    {c6['note']}")
+    print(f"    coded functional T on boosted config = {c6['T_boosted_local_poynting']:.3e}"
+          f"  (NONZERO -> prose 'blind' is FALSE)")
+    print(f"    piece-(a) static <E^2> secular = {c6['static_E2_secular_survives']:.1f}"
+          f"  (NONZERO DC survives clock avg -> aliasing story refuted)")
+    print(f"    VERDICT: {c6['verdict']} -- {c6['note']}")
 
     return c1, c2, c34, c5, c6
 

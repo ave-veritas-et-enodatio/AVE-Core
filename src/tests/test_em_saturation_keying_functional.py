@@ -158,12 +158,16 @@ def test_constraint_dellight_common_mode_unchanged():
     assert c["dn_iso_yield"] == pytest.approx(c["dn_iso_letter"], rel=1e-12)
 
 
-def test_constraint_boost_zero_sequence_matches_letter():
-    """Boost: motional E (2.5T, 370km/s) A^2 = 6.7e-23 -> matches the Letter's
-    ~7e-23. The boosted static field is a DC drift (zero-sequence), aliased to
-    wC, averages out -> boost closed structurally by the transport tensor flux."""
+def test_constraint_boost_is_OPEN_aliasing_refuted():
+    """CRITICAL-2: boost-consistency is OPEN, the aliasing story is REFUTED. The
+    coded functional gives T != 0 for the boosted config (a real static H co-exists
+    with the motional E), and piece-(a) shows a DC 2nd-order quantity SURVIVES clock-
+    averaging -- both contradict the 'aliases to wC, averages out' claim. The boost
+    is NOT closed structurally; it requires lattice-frame anchoring (round 2)."""
     c = K.constraint_6_boost()
-    assert c["A2_from_boosted_B"] == pytest.approx(6.7e-23, rel=5e-2)
+    assert c["verdict"] == "OPEN"  # NOT closed
+    assert c["T_boosted_local_poynting"] > 0.0  # coded functional engages (prose was wrong)
+    assert c["static_E2_secular_survives"] > 0.0  # DC survives clock avg (aliasing refuted)
 
 
 def test_i_max_route_c_dual_scale():
