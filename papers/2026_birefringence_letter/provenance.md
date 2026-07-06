@@ -196,8 +196,9 @@ All refs verified via Crossref DOI lookup / arXiv abstract this session:
 ## 8. Letter-v2 (Phase-0 co-author review round, 2026-07-05)
 
 Keith's independent reproduction + Phase-0 review. Five exposition/citation items landed; the fork
-memo (`research/2026-07-05_electrostatic-sector-fork-memo_DRAFT.md`) is a SEPARATE freeze-class doc
-(Grant-ratify, held before Problem 3). **No anchored v1 number moved this round.**
+memo (`research/2026-07-05_electrostatic-sector-fork-memo_FROZEN.md`; DRAFT at the time of §8, FROZEN
+in the Arm-2 round per §9) is a SEPARATE freeze-class doc (Grant-ratify, held before Problem 3). **No
+anchored v1 number moved this round.**
 
 **ANCHORED v1 (SHA f34e755998a9, OTS proof on v1 — `claim-prereg-ots/claims_by_hash.md`), preserved
 verbatim:** `P_flip = 5.39e-3 / 4.28e-3 / 9.28e-3` (9835/8766/12914 eV, demonstrated pump
@@ -254,3 +255,57 @@ constant by construction, so a one-leg edit that halves it is provably wrong. Bo
 the invariant gate that caught it live in the field-convention note **§4a** (`research/2026-07-05_field-convention-carrier-average_note.md`).
 Fresh branch `analysis/letter-v2-phase0` off merged HEAD 3188b052. Grant's five standing decisions
 (headline form, SVE name, author, venue, floors) UNTOUCHED.
+
+## 9. Letter-v2 ARM-2 re-freeze — consistent-footing ratio (2026-07-05, Grant-ratified)
+
+**Grant ruling (2026-07-05, verbatim):** *"ARM 2 ratified — the Letter's headline ratio re-freezes on
+the consistent footing, WITH the Arm-3 one-sentence decomposition retained where it reads naturally."*
+
+The Phase-0 round (§8) flagged a MIXED FOOTING in the anchored ratio for `[GRANT-ADJUDICATE]`. Grant
+picked **Arm 2**: state the discriminating ratio on a SINGLE consistent footing. This is a documented
+**v2** of an OTS-anchored document; the v1 value is preserved verbatim below.
+
+**ANCHORED v1 (SHA f34e755998a9, OTS proof — the Bitcoin timestamp covers the v1 CONTENT; this v2 does
+NOT re-stamp), preserved verbatim:** discriminating ratio `7.5 pi/alpha^2 ~ 4.42e5` (MIXED footing:
+instantaneous SVE kernel `1/2` over cycle-averaged QED `alpha/15pi`); `P_flip = 5.39/4.28/9.28e-3`;
+QED co-prediction `~2.76/2.19/4.75e-14`; Table I model/QED `~1.95e11`. **The OTS anchor is on v1.** This
+v2 supersedes the QUOTED ratio only; v1's anchored record stands unaltered.
+
+**v2 (Arm-2, this round):**
+- **The single footing, stated explicitly:** both printed coefficients are the INSTANTANEOUS
+  (peak-field) response. The SVE kernel `-1/2(E/E_c)^2` is instantaneous (Appendix A, algebraic in
+  `|E|^2` at the pump); it is paired with the INSTANTANEOUS one-loop coefficient `2 alpha/15pi` (the
+  headline `alpha/15pi` of Eq.7 is its `<cos^2>=1/2` cycle average). This is the both-peak-instantaneous
+  footing — the ONLY one that holds the SVE model P_flip headline FIXED while making the ratio
+  consistent.
+- **Discriminating ratio: `3.75 pi/alpha^2 ~ 2.2e5`** (= `15pi/(4 alpha^2)`; exactly HALF v1's
+  `7.5 pi/alpha^2`, the difference being the `<cos^2>=1/2` carrier average). Sites swept (two-method):
+  abstract, §II.B honesty-item (iv), Eq.9 + surrounding text, §III conclusion, Table I caption. The two
+  intentional v1-history mentions (item (iv) "mixed footing doubles to 7.5pi", Eq.9 "a prior draft
+  quoted 7.5pi") are RETAINED as the convention history.
+- **The x4-geometry x 1/2-carrier decomposition RETAINED** (Grant: "Arm-3 one-sentence decomposition
+  retained where it reads naturally"): §III.A carries it (`alpha/30pi -> 2alpha/15pi` head-on geometry
+  x4, `-> alpha/15pi` carrier x1/2); item (iv) cross-references it.
+- **Table I (v2):** the model P_flip column is UNCHANGED (5.39/4.28/9.28e-3; the SVE headline is the
+  footing-invariant quantity). The QED column moves to its INSTANTANEOUS normalization
+  `2 alpha/15pi` (`1.10e-13 / 8.76e-14 / 1.90e-13` demonstrated; `1.10e-11` / `1.10e-09` design), and
+  the model/QED column to `~4.89e10` = `(3.75pi/alpha^2)^2` — internally consistent with Eq.9. This
+  move is FORCED by consistency: keeping the QED column at v1 while re-freezing the ratio would make
+  Table I self-contradict Eq.9.
+- **FOOTING-INVARIANT quantities verified UNCHANGED:** SVE model P_flip (5.39/4.28/9.28e-3); kill
+  criterion (`P_flip < 1e-8`); floor margin (~2.25e7 vs the 2.4e-10 floor); OOM separation (~11,
+  log10(4.89e10)=10.7). The kill-criterion NARRATION "~e6 above the QED level" -> "~e5" (the QED
+  baseline moved to its instantaneous value; the kill LINE `1e-8` is unchanged).
+
+**Fork memo FROZEN (Grant-ratified 2026-07-05):**
+`research/2026-07-05_electrostatic-sector-fork-memo_DRAFT.md` -> `..._FROZEN.md` (git mv; corpus
+prereg-freeze convention). Grant ratification recorded verbatim + dated at the memo top; the three
+outcome bins + Keith-arm rejection are IMMUTABLE (errata-banner-only). This freeze GATES Problem 3;
+the freeze commit lands BEFORE the Arm-2 edits in this PR (commit-time ordering is the proof).
+
+**Build/verify (Arm-2):** `make paper` clean (8 pages — the DeLLight reference now wraps ~3 lines onto
+p8; the Arm-2 footing exposition + Table-caption + item-(iv) growth is load-bearing and Grant-ratified,
+so 8pp is accepted over cutting ratified physics; no large overfull boxes introduced — only the
+pre-existing appendix one at main.tex:~711 remains). `make verify` GREEN. src/ + JSON UNCHANGED
+(byte-identical to v1). Fresh branch `analysis/letter-v2-arm2` off merged HEAD a6c8f844 (contains #537).
+Grant's five standing decisions UNTOUCHED.
