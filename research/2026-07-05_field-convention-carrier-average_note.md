@@ -76,10 +76,23 @@ full derivation and do NOT edit any anchored number.
 **The SVE leg is peak-INSTANTANEOUS; the QED leg is cycle-AVERAGED. The anchored ratio pairs them.**
 
 - The SVE differential `delta_n_bir = -1/2 (E/E_c)^2` is the raw Axiom-4 kernel response — an
-  INSTANTANEOUS local response to the field (corpus derivation quotes it "vs peak field",
-  `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md:77,228`; no carrier average
-  baked in). Its instantaneous coefficient on `(E/E_crit)^2` is `1/(2 alpha)` (via the substrate
-  identity `(E_crit/E_c)^2 = 1/alpha`).
+  ALGEBRAIC, LOCAL, INSTANTANEOUS function of the field-magnitude invariant, with no time-average
+  operator anywhere in its derivation. This is established by the Letter's OWN constitutive law
+  (Appendix A, `papers/2026_birefringence_letter/main.tex`):
+  - `main.tex:672` (Eq. A1): `D_i = varepsilon_0 S(u) E_i`, `S(u) = sqrt(1 - u/E_c^2)`, with
+    `main.tex:668` defining `u = |E|^2` the "field-magnitude invariant". The response `D(E)` is an
+    algebraic function of the instantaneous field at a point; no `<...>` average.
+  - `main.tex:146`: `S` is "a function of the lab-focus-frame field magnitude `|E|`" — the
+    INSTANTANEOUS lab-frame field, evaluated at the pump (`main.tex:678`, "evaluated at the pump";
+    `main.tex:701`, "with `u_0 = |E_0|^2 = E^2`"). The eigen-indices (`main.tex:715-716`) and
+    `delta_n_bir = n_par - n_perp = -1/2 A^2` (`main.tex:732`) follow by differentiating this algebraic
+    law at `E = E_0` — the peak amplitude (§0). No carrier average is applied at any step.
+  So the SVE coefficient is peak-INSTANTANEOUS: `delta_n_bir = -1/2 (E_0/E_c)^2` evaluated at the peak
+  field. Its instantaneous coefficient on `(E/E_crit)^2` is `1/(2 alpha)` (via the substrate identity
+  `(E_crit/E_c)^2 = 1/alpha`). (The earlier draft cited
+  `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md:77,228`; those lines are about
+  pump-pulse-energy/finesse trade-offs, NOT the footing — they do NOT establish peak-instantaneous.
+  The Letter's own Appendix-A constitutive law, quoted above, is the load-bearing establishment.)
 - The QED `alpha/15pi` is the cycle-AVERAGED coefficient (§2). Its INSTANTANEOUS coefficient is
   `2 alpha/15pi` (double, because `<cos^2> = 1/2`).
 
