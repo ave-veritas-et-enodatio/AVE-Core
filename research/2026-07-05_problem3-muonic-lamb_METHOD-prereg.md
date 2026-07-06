@@ -16,6 +16,18 @@
 > non-perturbatively large in every variant regardless of sign. The correct signed observable and the
 > convention are stated in the RESULT doc's "SIGN CONVENTION" box and "Sign structure of δ[ΔE]" section.
 > This erratum does not change any magnitude or the routed bin ([C-EXCLUDED]).
+>
+> **E2 — interior-variant boundary r_ns → r_turn (orchestrator finding 2).** §3 declares the continuum
+> interior variants (C-i/C-ii/C-iii) at the no-solution radius `r_ns = 112.9 fm`. The code implements
+> them at the **D-turnover radius `r_turn = r_ns·√2 = 159.6 fm`**. This is FORCED, not a drift of
+> convenience: §2 of this prereg already states the constraint — the real lower branch of
+> `E·√(1−(E/E_c)²)=E_C` is lost at the D-turnover `E_C = E_c/2` (at `r_turn`), NOT at `E_C = E_c` (at
+> `r_ns`). δV(r_ns) as §3 literally worded it is incomputable (no real field there). The turnover
+> boundary is the physically correct one and is **direction-conservative**: `r_turn > r_ns`, so cutting
+> the integral at `r_turn` includes LESS of the divergent near-nucleus region than a literal-`r_ns` cut
+> would — the literal-`r_ns` variant would give an EVEN LARGER shift, only strengthening [C]. §3's
+> `r_ns` wording is superseded by §2's turnover constraint; the boundary used is `r_turn = r_ns√2`.
+> No magnitude that routes changes direction; the routed bin stays [C-EXCLUDED].
 
 > ## FREEZE-GATE RECORD (the ordering proof)
 > **Fork-memo FREEZE commit (Grant-ratified 2026-07-05):**
