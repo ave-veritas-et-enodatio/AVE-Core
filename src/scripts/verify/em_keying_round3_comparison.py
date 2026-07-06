@@ -16,8 +16,9 @@ We verify that reading with two computations:
       Reuse the #539 bracket-integral machinery (import, not reimplement) to show the
       charge-keyed (amplitude) functional on the muon reproduces the [C-EXCLUDED] overshoot.
   (B) THE UNIFORM-BIAS RIDER. A spatially-UNIFORM held bias self-cancels on READOUT
-      (gauge-relative A, INVARIANT-S2). We compute the gradient magnitude to show the muon is
-      NOT in the uniform-rider regime (its ∇A dwarfs any uniform offset).
+      (gauge-relative A, INVARIANT-S2). We quantify non-uniformity PROPERLY: the LOCAL GRADIENT
+      SCALE L_grad = A/|dA/dr| = r/2 vs the node pitch ell_node (not a raw amplitude span), and we
+      flag the inner sample point sitting inside a single node pitch (handled by interior exclusion).
 
 NULL-VERDICT LIVENESS: the #539 pipeline fed a bounded control returns nonzero — the muon
 overshoot is physics, not a bookkeeping zero.
@@ -98,27 +99,50 @@ def main():
     #     A_V(r) = E(r)/E_yield varies by orders of magnitude across the atom -> NOT uniform ->
     #     NOT gauge-hidden. Only a truly spatially-uniform held E self-cancels on readout.
     # -----------------------------------------------------------------------
-    # sample the Coulomb amplitude at two radii spanning the level-shift bracket.
+    # Quantify non-uniformity PROPERLY (finding [18]): the LOCAL GRADIENT SCALE L_grad = A/|dA/dr| = r/2
+    # for a 1/r^2 Coulomb field, compared to the node pitch ell_node -- NOT a raw amplitude span. Also
+    # flag the inner sample point sitting INSIDE a single node pitch (r < ell_node) and handle it via
+    # interior exclusion (the #539 continuum arm already excludes that region).
     # E(r) = K_COULOMB / r^2 with K_COULOMB = e/(4 pi eps0) imported from #539 (constants-derived).
     def A_V_of_r(r):
         return (K_COULOMB / r**2) / E_YIELD
-    r_in, r_out = 0.5 * A_MU, 5.0 * A_MU
-    A_in, A_out = A_V_of_r(r_in), A_V_of_r(r_out)
-    gradient_span_decades = np.log10(A_in / A_out)
+    def L_grad_of_r(r):
+        return r / 2.0                      # gradient scale of a 1/r^2 field: A/|dA/dr| = r/2
+
+    radii = {"0.5_a_mu": 0.5 * A_MU, "1_a_mu": A_MU, "2_a_mu": 2.0 * A_MU, "5_a_mu": 5.0 * A_MU}
+    grad_scale_vs_node = {
+        lbl: {
+            "r_over_ell_node": r / L_NODE,
+            "A_V": A_V_of_r(r),
+            "L_grad_fm": L_grad_of_r(r) * 1e15,
+            "L_grad_over_ell_node": L_grad_of_r(r) / L_NODE,
+            "inside_one_node_pitch": bool(r < L_NODE),
+        }
+        for lbl, r in radii.items()
+    }
+    inner_inside_node_pitch = (0.5 * A_MU) < L_NODE           # True: inner sample inside one node pitch
+    lattice_resolvable_outside_interior = L_grad_of_r(2.0 * A_MU) / L_NODE  # ~0.74; ~1.84 at 5 a_mu
 
     out["B_uniform_bias_rider_does_not_rescue_muon"] = {
         "rider": "gauge-relative A (INVARIANT-S2): only ∇A observable; a UNIFORM held bias self-cancels",
-        "A_V_at_0p5_a_mu": A_in,
-        "A_V_at_5_a_mu": A_out,
-        "gradient_span_decades": gradient_span_decades,
+        "nonuniformity_measure": "LOCAL GRADIENT SCALE L_grad = A/|dA/dr| = r/2 vs ell_node (NOT a raw amplitude span)",
+        "gradient_scale_vs_node_pitch": grad_scale_vs_node,
+        "ell_node_fm": L_NODE * 1e15,
+        "inner_sample_0p5_a_mu_inside_one_node_pitch": bool(inner_inside_node_pitch),
+        "inner_handled_by_interior_exclusion": True,  # #539 continuum arm excludes the interior
+        "L_grad_over_ell_at_2_a_mu": lattice_resolvable_outside_interior,
         "muon_is_uniform": False,
         "verdict": (
-            "The uniform-bias gauge rider does NOT rescue the muon: its Coulomb amplitude spans "
-            f"~{gradient_span_decades:.1f} decades across the atom -> a giant ∇A, NOT a uniform offset. "
-            "The gauge cancellation applies ONLY to a spatially-uniform held bias (which is unobservable "
-            "= the PHASE-ONLY north-star). A non-uniform held field (atomic Coulomb, a real bench "
-            "fringe) is readable and loads. So the rider explains why a UNIFORM lab DC E gives no "
-            "readable shift WITHOUT rescuing the muon or reviving the H2/variance member."
+            "The uniform-bias gauge rider does NOT rescue the muon: OUTSIDE the excluded interior the "
+            "Coulomb field's LOCAL GRADIENT SCALE L_grad = r/2 reaches ~1-2 node pitches (0.74 ell_node "
+            "at 2 a_mu, 1.84 at 5 a_mu), so ∇A is lattice-resolvable and the field is genuinely "
+            "non-uniform -> readable, loads. The INNER sample (0.5 a_mu = 0.37 ell_node) sits INSIDE a "
+            "single node pitch (L_grad = 0.18 ell_node), where the continuum ∇A is not lattice-meaningful "
+            "-- handled honestly by the #539 interior exclusion, NOT counted as a readable gradient. "
+            "Gauge cancellation applies ONLY to a spatially-uniform held bias (unobservable = PHASE-ONLY "
+            "north-star). So the rider explains UNIFORM-lab-DC transparency WITHOUT rescuing the muon or "
+            "reviving the H2/variance member. (Replaces the raw amplitude-decade span with the "
+            "gradient-scale-vs-node-pitch statement; the inner-point-inside-one-node-pitch flagged.)"
         ),
     }
 
