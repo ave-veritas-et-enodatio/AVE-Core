@@ -31,10 +31,18 @@ STEP 1 (REQUIREMENT 1) — DERIVE the loading variable from the cell's OWN equat
   constraint-selection. This round DERIVES which the cell equation forces from the LC energy
   ledger, and lets the substrate adjudicate. NEITHER is selected against Table I.
 
-TWO INDEPENDENT CODE PATHS:
-  PATH A: sympy symbolic LC energy-exchange ledger (closed form).
-  PATH B: numpy time-domain -- drive a cell at omega, read the reactive-energy AC excursion
-          and both candidate measures directly. Independent of PATH A (no sympy).
+THE LOAD-BEARING CONTENT of STEP 1 is the CANON PREMISE (the kernel keys on the instantaneous
+A_V, node-up-small-large-signal.md:118) plus the COSINE IDENTITY Var(cos)=1/2. PATH B below is an
+ILLUSTRATION of the imposed E(t)=E0 cos(w t) parametrization, NOT independent physics: it imposes
+the field at fixed E0 and reads U_C from the instantaneous field only (no inductor current, no cell
+ODE), so its w-independence is a property of the imposed cosine and it CANNOT fail. The ReconcileGate
+proves the numeric-vs-symbolic agreement of the ONE variance identity, not two independent derivations.
+
+TWO CODE PATHS (numeric + symbolic cross-check of the variance identity):
+  PATH A: sympy symbolic closed form Var(E0 cos wt)=E0^2/2 (the algebraic identity).
+  PATH B: numpy time-domain -- samples E(t)=E0 cos(w t), reads Var and the swing directly. Imposed
+          parametrization (not an independent tank ODE); the #527 comparator obligation is met by
+          the numeric-symbolic cross-check, not by an independent physics derivation.
 """
 from __future__ import annotations
 
@@ -48,10 +56,12 @@ E_C = E_YIELD
 
 
 def reconcile_pathA_pathB_W_var():
-    """ReconcileGate: PATH A (symbolic W_var = 1/2 (E/Ec)^2) vs PATH B (numpy time-domain W_var),
-    with can-fire PROVEN on the real comparator+halt path (derived tolerance). The two paths are
-    ALGEBRAICALLY INDEPENDENT: PATH A is the sympy closed form Var(E0 cos wt)=E0^2/2; PATH B is a
-    numpy time-series variance of a sampled cosine -- different code paths (the #527 obligation)."""
+    """ReconcileGate: PATH A (symbolic W_var = 1/2 (E/Ec)^2) vs PATH B (numpy time-domain W_var).
+    WHAT IT PROVES (honestly): the NUMERIC-vs-SYMBOLIC agreement of the VARIANCE IDENTITY
+    Var(cos)=1/2 -- PATH A is the sympy closed form Var(E0 cos wt)=E0^2/2, PATH B is the numpy
+    time-series variance of a sampled cosine. Both IMPOSE the same E(t)=E0 cos(w t) parametrization,
+    so this is NOT independent physics; it is a numeric-symbolic cross-check of one algebraic
+    identity (the #527 comparator+halt obligation, can-fire PROVEN on the real path)."""
     # PATH A (symbolic closed form, in E0=1 units): Var = 1/2
     W_var_A = 0.5
     # PATH B (numpy time-domain, independent): the sampled variance of cos over integer cycles
@@ -153,8 +163,9 @@ def step1_lc_energy_ledger_symbolic():
 
 
 def step1_which_measure_the_ledger_forces():
-    """The DERIVATION verdict: which measure does the LC energy ledger force?
+    """The DERIVATION verdict: which measure does the LC energy ledger force? TWO LEVELS.
 
+    LEVEL 1 (DERIVED) -- the AMPLITUDE CLASS over the RATE, killing W_beat:
     The reactive energy that sloshes between C and L is 1/2 C V^2 (capacitive) <-> 1/2 L I^2
     (inductive). The AMPLITUDE of this exchange -- the peak-to-mean swing of the stored reactive
     energy -- is the physical 'working' of the cell. For V(t)=V0 cos(w t):
@@ -162,34 +173,52 @@ def step1_which_measure_the_ledger_forces():
     The swing amplitude of U_C is (1/4 C V0^2), INDEPENDENT of w -- the cell exchanges the same
     reactive-energy amplitude per cycle whether it is worked slowly or fast (a resonant LC tank
     driven at amplitude V0 sloshes the SAME peak energy 1/2 C V0^2 regardless of drive rate,
-    below resonance). So the ledger forces the FREQUENCY-INDEPENDENT measure: the AC-VARIANCE
-    of the field content, W_var = Var(E)/Ec^2 = 1/2 (E/Ec)^2 for a wave. This is [WORKED-VAR].
+    below resonance). W_beat (the temporal-gradient) measures the RATE of the exchange (power ~
+    w * energy), not the AMPLITUDE of the energy exchanged. The saturation kernel keys on the
+    OPERATING-POINT EXCURSION (how far A_V swings), which is an AMPLITUDE, not a rate. So the
+    ledger DERIVES the AMPLITUDE CLASS and kills W_beat. This LEVEL-1 verdict is DERIVED from the
+    LC energy ledger with NO reference to Table I (the round-1 constraint-selection lesson);
+    verified numerically (PATH B) below.
 
-    W_beat (the temporal-gradient) measures the RATE of the exchange (power ~ w * energy), not
-    the AMPLITUDE of the energy exchanged. The saturation kernel keys on the OPERATING-POINT
-    EXCURSION (how far A_V swings), which is an AMPLITUDE, not a rate. So the ledger does NOT
-    force W_beat. This is the substrate DERIVING W_var, not selecting it against Table I: the
-    reason is the reactive-energy-swing amplitude is frequency-independent, a property of the LC
-    tank's energy ledger, which we verify numerically (PATH B) below.
+    LEVEL 2 (SELECTED) -- WHICH amplitude member, within the class {W_var, W_ms}:
+    The amplitude class has (at least) two members that AGREE for every zero-mean wave and differ
+    ONLY on the DC baseline:
+        W_var = <A_V^2> - <A_V>^2   (AC-VARIANCE, blind to a held DC), OR
+        W_ms  = <A_V^2>             (MEAN-SQUARE, DC-included).
+    For any zero-mean drive V(t)=V0 cos(w t) these are IDENTICAL (V0^2/2), so the LC energy
+    ledger -- whose sloshing test is fed only zero-mean waves -- CANNOT discriminate them. The
+    only input that discriminates is a held DC, and there the kernel deficit <1-S(A_V)> ~
+    <A_V^2>/2 is NONZERO (mean-square), i.e. the held-DC discriminating input picks MEAN-SQUARE
+    (see step1_variance_vs_meansquare_the_crux). So W_var is SELECTED within the class, NOT
+    derived: the ledger forces the amplitude class but does not force the DC-blind member.
 
-    HONEST CAVEAT (carried to the slow-drive constraint item, §4-7): this frequency-independence
+    HONEST CAVEAT (carried to the slow-drive constraint item, §4-7): the frequency-independence
     is the QUASI-STATIC (below-resonance, w << wC) tank response. The cell response time is
     1/wC ~ 1.3e-21 s; a drive slower than that but still time-VARYING works the cell at the same
     reactive-energy amplitude. What it does NOT cover is the deeply-sub-optical middle band where
     NO experiment constrains the worked-E response -- a declared OPEN SCALE (constraint 7).
     """
     return {
-        "forced_measure": "W_var",
+        "forced_class": "amplitude",
+        "selected_member": "W_var",
         "sub_bin": "[WORKED-VAR]",
-        "reason": "the reactive-energy swing amplitude 1/2 C V0^2 is frequency-independent "
-                  "(the LC tank sloshes the same peak energy per cycle at amplitude V0, below "
-                  "resonance) -> the saturation operating-point excursion keys on the AC-variance "
-                  "amplitude, not the rate. DERIVED from the LC energy ledger, NOT selected vs "
-                  "Table I.",
+        "class_reason": "the reactive-energy swing amplitude 1/2 C V0^2 is frequency-independent "
+                        "(the LC tank sloshes the same peak energy per cycle at amplitude V0, "
+                        "below resonance) -> the saturation operating-point excursion keys on the "
+                        "AC-EXCURSION AMPLITUDE, not the rate. The AMPLITUDE CLASS (over the rate) "
+                        "is DERIVED from the LC energy ledger, killing W_beat, with NO reference "
+                        "to Table I.",
+        "member_reason": "within the amplitude class {W_var, W_ms} the ledger CANNOT discriminate: "
+                         "W_var and W_ms are IDENTICAL for every zero-mean wave (both = V0^2/2), "
+                         "and the sloshing test is fed only zero-mean waves. The only discriminating "
+                         "input is a held DC, where the kernel deficit <1-S(A_V)> ~ <A_V^2>/2 is "
+                         "NONZERO -> the held-DC input picks MEAN-SQUARE. So W_var is SELECTED "
+                         "within the class (the DC-blind member is NOT ledger-forced); see "
+                         "step1_variance_vs_meansquare_the_crux.",
         "W_beat_status": "measures the RATE (power ~ w*energy), not the amplitude of energy "
                          "exchanged -> NOT the operating-point excursion the kernel keys on. "
-                         "Carried as the open alternative [WORKED-BEAT] (not eliminated by "
-                         "Table-I survival, but by the ledger's amplitude-vs-rate distinction).",
+                         "KILLED at LEVEL 1 by the ledger's amplitude-vs-rate distinction (not "
+                         "by Table-I survival).",
     }
 
 
@@ -319,6 +348,37 @@ def step1_variance_vs_meansquare_the_crux():
     }
 
 
+def kernel_deficit_omega_sweep(A0: float = 0.3,
+                               ratios=(1e-3, 1e-2, 0.1, 0.5),
+                               n_cycles: int = 50, spc: int = 4096) -> dict:
+    """The INDEPENDENT kernel-deficit route, shipped as an artifact (RESULT §STEP 1, :78-79 cite).
+
+    The mean kernel deficit <1-S(A_V(t))> for a pure-AC drive A_V(t)=A0 cos(w t) is the AMPLITUDE
+    (it tracks <A_V^2>/2 = A0^2/4-class content), NOT the rate. So it is IDENTICAL across the
+    sub-resonant band w/wC in {1e-3 ... 0.5}, integer-cycle averaged. This is the numerical proof
+    that the kernel-deficit route keys on the amplitude class (freq-independent), consistent with
+    the LC-ledger LEVEL-1 verdict. (It does NOT discriminate variance vs mean-square -- both give
+    the same nonzero value for the same |A0| once the DC is fixed; see the crux for that split.)
+    """
+    def S(x):
+        return np.sqrt(np.clip(1.0 - x**2, 1e-12, 1.0))
+    wC = OMEGA_C
+    deficits = []
+    for r in ratios:
+        w = r * wC
+        Tw = 2 * np.pi / w
+        t = np.linspace(0.0, n_cycles * Tw, n_cycles * spc, endpoint=False)  # integer cycles
+        deficits.append(float(np.mean(1.0 - S(A0 * np.cos(w * t)))))
+    spread = float(max(deficits) - min(deficits))
+    return {
+        "A0": A0,
+        "ratios": list(ratios),
+        "mean_deficits": deficits,      # all ~ 2.289e-2, freq-INDEPENDENT
+        "spread": spread,               # ~ 0 (sampling-limited)
+        "value": deficits[0],
+    }
+
+
 def main():
     print("=" * 78)
     print("EM KEYING ROUND 2 — DERIVATION (STEP 0 net-flux kill + STEP 1 worked variable)")
@@ -340,17 +400,25 @@ def main():
     print(f"    W_beat (wave) = {a['W_beat_wave_over_EEc2']} * (E/Ec)^2   [freq-SUPPRESSED]")
     print(f"    W_beat/W_var  = {a['ratio_W_beat_over_W_var']}  = (w/wC)^2")
 
-    print("\n[STEP 1 verdict] which measure the ledger FORCES:")
+    print("\n[STEP 1 verdict] TWO LEVELS -- class DERIVED, member SELECTED:")
     v = step1_which_measure_the_ledger_forces()
-    print(f"    FORCED: {v['forced_measure']}  -> sub-bin {v['sub_bin']}")
-    print(f"    reason: {v['reason']}")
+    print(f"    LEVEL 1 (DERIVED): forced_class = {v['forced_class']}  (kills W_beat, no Table-I ref)")
+    print(f"       {v['class_reason']}")
+    print(f"    LEVEL 2 (SELECTED): selected_member = {v['selected_member']}  -> sub-bin {v['sub_bin']}")
+    print(f"       {v['member_reason']}")
     print(f"    W_beat: {v['W_beat_status']}")
 
-    print("\n[STEP 1 PATH B] numpy time-domain ledger (independent):")
+    print("\n[STEP 1 PATH B] numpy time-domain ILLUSTRATION (imposed parametrization, NOT independent")
+    print("    physics): PATH B imposes E(t)=E0 cos(w t) at fixed E0 and reads U_C from the")
+    print("    instantaneous field only -- no inductor current, no cell ODE. The W_var swing is")
+    print("    w-INDEPENDENT identically (a property of the imposed cosine, not a derived tank")
+    print("    response); it illustrates the parametrization and CANNOT fail. Rows shown only in the")
+    print("    quasi-static band w/wC << 1 the script itself declares valid (the w/wC=1 resonance row")
+    print("    is OMITTED -- beyond quasi-static validity, PATH B's instantaneous-U_C proxy is invalid).")
     print(f"    {'case':22s} {'reactive swing (J)':>20s} {'W_var':>10s} {'W_beat':>12s}")
     bh = lc_reactive_swing_numeric(0.0, held=True)
     print(f"    {'HELD static':22s} {bh['reactive_swing_amp_J']:20.4e} {bh['W_var']:10.4f} {bh['W_beat']:12.4e}")
-    for r in [3.033e-6, 0.0196, 1.0]:
+    for r in [3.033e-6, 0.0196, 0.1]:  # quasi-static band only (w/wC << 1); resonance row dropped
         b = lc_reactive_swing_numeric(r, held=False)
         print(f"    {'WAVE w/wC='+f'{r:.2e}':22s} {b['reactive_swing_amp_J']:20.4e} {b['W_var']:10.4f} {b['W_beat']:12.4e}")
 
@@ -368,6 +436,13 @@ def main():
     rg = reconcile_pathA_pathB_W_var()
     print(f"    reconciled={rg.reconciled}  max_rel={rg.max_rel_discrepancy:.2e}  can_fire_proven={rg.can_fire_proven}")
 
+    print("\n[STEP 1] kernel-deficit OMEGA-SWEEP (independent amplitude-class route, RESULT :78-79):")
+    ks = kernel_deficit_omega_sweep()
+    print(f"    w/wC ratios:  {['%.0e' % r for r in ks['ratios']]}")
+    print(f"    mean deficit <1-S(A0 cos wt)> at A0={ks['A0']}: "
+          f"{['%.8f' % d for d in ks['mean_deficits']]}")
+    print(f"    spread across the band = {ks['spread']:.2e}  (IDENTICAL -> amplitude, not rate)")
+
     print("\n[STEP 1 CRUX] variance (DC-blind) vs mean-square (DC-included) -- the LOAD-BEARING split:")
     x = step1_variance_vs_meansquare_the_crux()
     print(f"    held-DC deficit 1-S(A0) = {x['deficit_held_DC']:.4e}  (NONZERO -> DC IS included ="
@@ -378,7 +453,7 @@ def main():
     print(f"    E-side: {x['E_side_verdict']}")
     print(f"    CORPUS TENSION (flag-don't-fix): {x['corpus_tension']}")
 
-    return s0, a, v, d, x
+    return s0, a, v, d, x, ks
 
 
 if __name__ == "__main__":

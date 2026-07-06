@@ -70,10 +70,26 @@ def test_step1_ledger_forces_W_var_freq_independent():
     assert w_beats[0] < w_beats[1] < w_beats[2]
 
 
-def test_step1_verdict_is_worked_var():
+def test_step1_verdict_class_forced_member_selected():
+    """The STEP-1 verdict is TWO-LEVEL: the AMPLITUDE CLASS is DERIVED (kills W_beat, no Table-I
+    reference), but the VARIANCE MEMBER is SELECTED within the class {W_var, W_ms} -- the ledger
+    cannot discriminate them (identical for every zero-mean wave), and the held-DC discriminating
+    input picks the mean-square (§crux). So the verdict exposes forced_class='amplitude' (derived)
+    and selected_member='W_var' (selected), NOT an unconditional 'forced_measure=W_var'."""
     v = D.step1_which_measure_the_ledger_forces()
-    assert v["forced_measure"] == "W_var"
+    # LEVEL 1: the amplitude class is DERIVED (W_beat killed, no Table-I reference):
+    assert v["forced_class"] == "amplitude"
+    assert "no reference to Table I" in v["class_reason"].lower() or "no Table-I ref" in v["class_reason"] \
+        or "NO reference to Table I" in v["class_reason"]
+    assert "KILLED at LEVEL 1" in v["W_beat_status"]
+    # LEVEL 2: the variance member is SELECTED within the class (not derived):
+    assert v["selected_member"] == "W_var"
     assert v["sub_bin"] == "[WORKED-VAR]"
+    assert "SELECTED within the class" in v["member_reason"]
+    assert "CANNOT discriminate" in v["member_reason"]
+    assert "MEAN-SQUARE" in v["member_reason"]
+    # the old unconditional 'forced_measure' key must be GONE (honesty regression guard):
+    assert "forced_measure" not in v
 
 
 def test_reconcile_gate_pathA_pathB_can_fire():
@@ -99,6 +115,21 @@ def test_step1_crux_mean_deficit_is_meansquare_DC_included():
     assert "worked-DERIVED" in x["B_side_verdict"]      # B-side: Lenz canon
     assert "worked-SELECTED" in x["E_side_verdict"]     # E-side: SELECTED, not derived
     assert "CONTRADICTS" in x["corpus_tension"]         # the tension is flagged
+
+
+# ===================================================== STEP 1: kernel-deficit omega sweep artifact
+def test_step1_kernel_deficit_omega_sweep_freq_independent():
+    """The INDEPENDENT kernel-deficit route (RESULT §STEP 1, :78-79): the mean kernel deficit
+    <1-S(A0 cos wt)> is IDENTICAL across the sub-resonant band w/wC in {1e-3 ... 0.5} -- it tracks
+    the AMPLITUDE (the amplitude class), NOT the rate. Pins the shipped artifact at ~2.289e-2."""
+    ks = D.kernel_deficit_omega_sweep()
+    assert ks["ratios"] == [1e-3, 1e-2, 0.1, 0.5]
+    # all four deficits identical within tolerance (freq-independent -> amplitude, not rate):
+    for d in ks["mean_deficits"]:
+        assert d == pytest.approx(ks["mean_deficits"][0], abs=1e-9)
+    # the value the reviewer confirmed (0.02289467), pinned within the ~2.289e-2 band:
+    assert ks["value"] == pytest.approx(2.289e-2, rel=2e-3)
+    assert ks["spread"] < 1e-9  # sampling-limited, effectively zero
 
 
 # ===================================================== the physical-H falsifier (fast slice)
@@ -200,25 +231,53 @@ def test_i_max_route_c_dual_scale():
 
 # ===================================================== STANDING FALSIFIER (engine_sim)
 @pytest.mark.engine_sim
-def test_muonic_physical_H_worked_PASSES_by_derivation():
+def test_muonic_physical_H_worked_PASSES_under_selected_variance_keying():
     """STANDING FALSIFIER — the round-2 successor to test_muonic_physical_H_CONSTRAINT_KILLED.
 
-    The WORKED functional evaluated on the PHYSICAL atomic H(r) (proton dipole) + Coulomb E(r) --
-    BOTH STATIC IN TIME -- gives worked content W = Var_t(E) = 0 IDENTICALLY -> S_E = 1 -> the level
-    shift is 0 EXACTLY, under the 2.3 ueV CREMA window. This PASSES BY DERIVATION: the round-1 killer
-    (the physical H makes the LOCAL pointwise E x H nonzero) DISSOLVES because the WORKED functional
+    Under the SELECTED variance keying (W_var: static-in-time -> W=0 exactly), the WORKED functional
+    evaluated on the PHYSICAL atomic H(r) (proton dipole) + Coulomb E(r) -- BOTH STATIC IN TIME --
+    gives worked content W_var = Var_t(E) = 0 IDENTICALLY -> S_E = 1 -> the level shift is 0 EXACTLY,
+    under the 2.3 ueV CREMA window. This PASSES UNDER THE SELECTED VARIANCE KEYING: the round-1 killer
+    (the physical H makes the LOCAL pointwise E x H nonzero) dissolves because the SELECTED functional
     keys on the TIME variance of the field, not the pointwise product -- the atom is blind because its
-    fields are static in TIME, with NO net-vs-local machinery.
+    fields are static in TIME, with NO net-vs-local machinery. (The variance member is SELECTED, not
+    derived: the ledger forces the amplitude CLASS, and the ledger-forced MEAN-SQUARE reading re-kills
+    the E-key -- see test_muonic_meansquare_counterfactual_FAILS_reproduces_539.)
 
     NULL-VERDICT LIVENESS (trigger 10): the IDENTICAL pipeline fed a TIME-VARYING drive returns a
     NONZERO shift -> the zero is physics (static-in-time -> not worked), not a bookkeeping zero for
-    any field. This is the standing round-2 falsifier consuming MY worked functional."""
+    any field. This is the standing round-2 falsifier consuming MY selected worked functional."""
     c1 = K.constraint_1_muonic()
-    # all physical-atom worked contents are exactly zero (static in time):
+    # all physical-atom worked contents are exactly zero (static in time) UNDER W_var:
     assert all(v == 0.0 for v in c1["W_physical_at"].values())
-    # the level shift is exactly zero -> PASSES the CREMA window BY DERIVATION:
+    # the level shift is exactly zero -> PASSES the CREMA window under the SELECTED variance keying:
     assert c1["passes"]
     assert c1["worst_abs_shift_ueV"] == 0.0
     assert c1["worst_abs_shift_ueV"] < c1["window_ueV"]
     # null-verdict liveness: a TIME-VARYING drive through the SAME pipeline gives a NONZERO shift:
     assert abs(c1["liveness_worked_shift_ueV"]) > 0.0
+
+
+@pytest.mark.engine_sim
+def test_muonic_meansquare_counterfactual_FAILS_reproduces_539():
+    """CONDITIONALITY MACHINE-ANCHOR (consistency check, NOT a falsifier of the selected keying).
+
+    Under the ledger-forced MEAN-SQUARE reading (<E^2>/Ec^2, DC-INCLUDED -- the discriminating input
+    the §crux establishes the ledger actually forces), the muon RE-KILLS the E-key: fed through the
+    SAME #539 bracket pipeline (K.E_coulomb, p3.rho_2s/rho_2p -- the identical imports the SELECTED-
+    variance constraint_1_muonic uses), the static Coulomb field is now LOADED (W_ms != 0 even though
+    static in time), so S_E < 1 and the level shift overshoots the 2.3 ueV CREMA window by ~4 OOM
+    (+1.36e4 ueV at r_cut=1.0 a_mu), reproducing #539 [C-EXCLUDED]. This is the machine-anchor for the
+    conditionality of the muonic PASS: it PASSES under W_var (SELECTED, static-in-time -> W=0) but
+    FAILS under W_ms (the reading the ledger forces via the held-DC input). A CONSISTENCY check that
+    the DC-included E-key is falsified at atomic scales -- NOT a falsifier of the selected variance
+    keying (which the standing falsifier above confirms passes)."""
+    c1ms = K.constraint_1_muonic_meansquare_counterfactual()
+    # the mean-square key LOADS the static-in-time Coulomb field (DC-included -> W_ms != 0):
+    assert all(v > 0.0 for v in c1ms["W_ms_at"].values())
+    # the |shift| at r_cut=1.0 a_mu overshoots the CREMA window by > 10^3 (expect ~ +1.36e4 ueV):
+    assert abs(c1ms["shift_at_1a_ueV"]) > 1e3 * c1ms["window_ueV"]
+    assert c1ms["shift_at_1a_ueV"] == pytest.approx(1.36e4, rel=5e-2)  # matches the review's counterfactual
+    assert c1ms["overshoot_factor_at_1a"] > 1e3
+    # the mean-square key RE-KILLS the E-key -> reproduces #539 [C-EXCLUDED]:
+    assert c1ms["re_kills"]

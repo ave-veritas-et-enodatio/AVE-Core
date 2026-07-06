@@ -6,7 +6,8 @@
 **Drivers (two independent files, sympy + numpy, ReconcileGate, live positive controls):**
 - `src/scripts/verify/em_keying_round2_derivation.py` — STEP 0 (net-flux kill) + STEP 1 (worked variable).
 - `src/scripts/verify/em_keying_round2_constraints.py` — the seven frozen falsifiers (reuses #539).
-**Tests:** `src/tests/test_em_keying_round2_worked_cell.py` (16 fast-core gating + 1 engine_sim standing falsifier).
+**Tests:** `src/tests/test_em_keying_round2_worked_cell.py` (17 fast-core gating + 2 engine_sim: the standing
+selected-variance falsifier + the mean-square counterfactual consistency anchor).
 
 ## ROUTED BIN: **[SELECTED-NOT-DERIVED]** (sector-split) — the WORKED functional PASSES every falsifier and dissolves the round-1 killer, but the cell equation does NOT fully FORCE the E-side keying over the corpus R2 canon.
 
@@ -43,45 +44,61 @@
   functional is lattice-frame-anchored by the theory's declared preferred frame; a boosted observer sees
   transformed observables, the vacuum response does not re-key.
 
-## THE DERIVED FUNCTIONAL (explicit form)
+## THE FUNCTIONAL (amplitude-CLASS DERIVED; variance MEMBER SELECTED)
 
 $$
 \boxed{\; S_E[E(\cdot)] \;=\; \sqrt{1 - c_{\mathcal W}\,\mathcal W}, \qquad
-\mathcal W \;=\; \mathcal W_{\rm var} \;=\; \frac{\operatorname{Var}_t\big(E\big)}{E_c^2}
+\underbrace{\mathcal W}_{\text{amplitude class: DERIVED}} \;=\;
+\underbrace{\mathcal W_{\rm var} \;=\; \frac{\operatorname{Var}_t\big(E\big)}{E_c^2}}_{\text{variance member: SELECTED}}
 \;=\; \tfrac12\Big(\tfrac{E_0}{E_c}\Big)^2 \ \text{(for a wave)}, \quad 0 \ \text{(static in time)} \;}
 $$
+
+The AMPLITUDE CLASS (over the rate — kills `𝒲_beat`) is **DERIVED** from the LC ledger with NO Table-I
+reference (§STEP 1). Within the class `{𝒲_var, 𝒲_ms}` the ledger CANNOT discriminate (identical for
+every zero-mean wave); the variance member `𝒲_var` is **SELECTED**, not derived — the only
+discriminating input is a held DC, where the kernel deficit tracks the MEAN-SQUARE (§crux, :104-107).
 
 - The keying variable is the TIME-VARIANCE of the field at the cell. STATIC-IN-TIME (bare Coulomb,
   hidden-momentum circulation, boosted uniform static) → `𝒲=0` → BLIND. Cyclically WORKED (pump, standing
   wave) → `𝒲=½(E/E_c)²` → engaged.
-- **Sub-bin fork (frozen, decided by STEP 1):** `[WORKED-VAR]` (AC-variance, frequency-INDEPENDENT — the
-  ledger-forced measure) vs `[WORKED-BEAT]` (temporal-gradient `⟨(∂_tE)²⟩/ω_C²`, frequency-SUPPRESSED by
-  `(ω/ω_C)²`). STEP 1 forces `[WORKED-VAR]` by the frequency-independence of the reactive-energy swing
-  amplitude — NOT by Table-I survival (the round-1 constraint-selection lesson).
+- **Sub-bin fork (frozen, decided by STEP 1 at CLASS level only):** `[WORKED-VAR]` (AC-variance,
+  frequency-INDEPENDENT) vs `[WORKED-BEAT]` (temporal-gradient `⟨(∂_tE)²⟩/ω_C²`, frequency-SUPPRESSED by
+  `(ω/ω_C)²`). STEP 1 DERIVES the AMPLITUDE CLASS (kills `[WORKED-BEAT]`) by the frequency-independence
+  of the reactive-energy swing amplitude — NOT by Table-I survival (the round-1 constraint-selection
+  lesson). Within the amplitude class, `[WORKED-VAR]` is SELECTED (not derived): the ledger cannot
+  discriminate `𝒲_var` from the mean-square `𝒲_ms`; the held-DC input picks mean-square (§crux).
 - `c_𝒲` rides the norm fork (§ FORK, carried OPEN): `c_𝒲=1` (NORM-YIELD) or `1/(4π)` (NORM-CLOCK).
 - **S_B dual (Route C, consumed by import):** `S_B=√(1−A_I²)`, `A_I=|∮H·dℓ|_norm/I_max`,
   `I_max=124.384 A`. The B-side is ALREADY worked-consistent (Lenz: static B not worked).
 
-## THE DERIVATION CHAIN (every step sympy, two independent code paths, ReconcileGate can-fire proven)
+## THE DERIVATION CHAIN (STEP 0 sympy; STEP 1 = canon premise + cosine identity; ReconcileGate can-fire proven)
 
 **STEP 0 — net-flux degenerate.** `∮_∂V S·dA = ∫∇·(E×H) = −∫∂_t u`; for `E=E₀cos(ωt)` at a cell,
 `⟨∂_t u⟩_cycle = 0` (sympy). Net flux zero for the steady pump too → briefed candidate killed.
 
-**STEP 1 (REQUIREMENT 1) — DERIVE the loading variable from the cell's OWN equations.** The LC cell's
-reactive energy sloshes between C (`½CV²`) and L (`½LI²`); the AMPLITUDE of the swing (the "energy
-sloshing per cycle" Grant named) is `¼CV₀²` for `V(t)=V₀cos(ωt)`, **frequency-INDEPENDENT** below
-resonance. Verified two independent ways:
-- PATH A (sympy): `Var(E₀cos ωt) = E₀²/2` (freq-independent); `⟨(∂_tE)²⟩/ω_C² = (ω/ω_C)²·E₀²/2`
-  (freq-suppressed); `𝒲_beat = (ω/ω_C)²·𝒲_var`.
-- PATH B (numpy time-domain): the reactive-energy swing amplitude is IDENTICAL (`1.27×10⁻⁴⁹ J`) across
-  `ω/ω_C ∈ {3e-6, 0.02, 0.1}` while `𝒲_beat` scales as `(ω/ω_C)²`.
-- Independent kernel-deficit route: the mean kernel deficit `⟨1−S(A_V(t))⟩` is IDENTICAL across
-  `ω/ω_C ∈ {1e-3 … 0.5}` (tracks `⟨A_V²⟩/2`, amplitude, NOT `(ω/ω_C)²`, rate).
-- **ReconcileGate:** PATH A (symbolic `𝒲_var=½`) vs PATH B (numpy time-domain), `max_rel=0`,
-  `can_fire_proven=True` (the halt plumbing live-fire proven on the real comparator path).
+**STEP 1 (REQUIREMENT 1) — the loading variable.** The load-bearing content of STEP 1 is the CANON
+PREMISE (the kernel keys on the instantaneous `A_V` at the cell; `node-up`:118) PLUS the cosine identity
+`Var(E₀cos ωt)=E₀²/2`. From these the AMPLITUDE-CLASS excursion (`¼CV₀²` swing for `V(t)=V₀cos(ωt)`) is
+**frequency-INDEPENDENT** below resonance, so the amplitude class is forced over the rate `𝒲_beat`
+(freq-suppressed). Evidence:
+- PATH A (sympy, the algebraic identity): `Var(E₀cos ωt) = E₀²/2` (freq-independent); `⟨(∂_tE)²⟩/ω_C² =
+  (ω/ω_C)²·E₀²/2` (freq-suppressed); `𝒲_beat = (ω/ω_C)²·𝒲_var`.
+- PATH B (numpy time-domain — an ILLUSTRATION of the imposed parametrization, NOT independent physics):
+  PATH B imposes `E(t)=E₀cos(ωt)` at fixed `E₀` and reads `U_C` from the instantaneous field only (no
+  inductor current, no cell ODE), so its ω-independence is a property of the imposed cosine and it CANNOT
+  fail. Rows reported only in the quasi-static band `ω/ω_C ≪ 1` the driver declares valid (the `ω/ω_C=1`
+  resonance row is DROPPED — beyond quasi-static validity the instantaneous-`U_C` proxy is invalid).
+- Independent kernel-deficit route (SHIPPED ARTIFACT, `kernel_deficit_omega_sweep`): the mean kernel
+  deficit `⟨1−S(A_V(t))⟩` is IDENTICAL (`0.02289467`, spread `~1e-17`) across `ω/ω_C ∈ {1e-3, 1e-2, 0.1,
+  0.5}` (tracks `⟨A_V²⟩/2`, amplitude, NOT `(ω/ω_C)²`, rate).
+- **ReconcileGate:** proves the NUMERIC-vs-SYMBOLIC agreement of the ONE variance identity `Var(cos)=½`
+  (PATH A symbolic `𝒲_var=½` vs PATH B numpy), `max_rel=0`, `can_fire_proven=True` — a numeric-symbolic
+  cross-check of the identity, NOT an independent-physics reconciliation.
 
-**→ The ledger forces the AC-EXCURSION AMPLITUDE (`𝒲_var`), not the rate (`𝒲_beat`). DERIVED, not
-selected against Table I.**
+**→ LEVEL 1 (DERIVED): the ledger forces the AC-EXCURSION AMPLITUDE CLASS, not the rate (`𝒲_beat`
+killed) — DERIVED, with NO reference to Table I. LEVEL 2 (SELECTED): within the amplitude class
+`{𝒲_var, 𝒲_ms}` the ledger CANNOT discriminate (identical for every zero-mean wave); the variance
+member `𝒲_var` is SELECTED — the held-DC discriminating input picks the mean-square (§crux).**
 
 **STEP 1 CRUX (the load-bearing split, flag-don't-fix).** "AC-excursion amplitude" has two readings that
 differ by the DC baseline: the VARIANCE `⟨A_V²⟩−⟨A_V⟩²` (blind to held DC) or the MEAN-SQUARE `⟨A_V²⟩`
@@ -105,8 +122,8 @@ displacement-current DC-blindness for the varactor). So:
 
 | # | constraint | bound + provenance | derived WORKED result | verdict |
 |---|---|---|---|---|
-| 1 | **MUONIC-H** (physical H(r)) | `<2.3 µeV` CREMA (Pohl 2010) | atom fields STATIC IN TIME → `𝒲=0` → `δ[ΔE]=0` EXACTLY; liveness (time-varying drive) = `+6.87e3 µeV` | **PASS by derivation** (round-1 killer dissolves) |
-| 2 | **THE PUMP / Table I** | Letter `−½A²`, `A²=5.9e-7` | `[WORKED-VAR]`: `−½A²` (×1, Table I UNCHANGED, NORM-YIELD tautology); `[WORKED-BEAT]`: `×(ω/ω_C)²=9.2e-12` (~10¹¹ below, Table I COLLAPSES) | VAR engages / BEAT collapses; fork resolved to VAR by STEP 1 |
+| 1 | **MUONIC-H** (physical H(r)) | `<2.3 µeV` CREMA (Pohl 2010) | atom fields STATIC IN TIME → `𝒲_var=0` → `δ[ΔE]=0` EXACTLY; liveness (time-varying drive) = `+6.87e3 µeV` | **PASS under the SELECTED variance keying** (`𝒲_var`: static-in-time → `𝒲=0` exactly). Under the ledger-forced MEAN-SQUARE reading (§crux, :104-107) the muon RE-KILLS the E-key at ~4 OOM: `+1.36e4 µeV` @ `r_cut=1.0·a_µ` (`−2.25e6` @ 0.5a, `+1.93e4` @ 2a) vs the 2.3 µeV CREMA window — reproducing #539 [C-EXCLUDED] |
+| 2 | **THE PUMP / Table I** | Letter `−½A²`, `A²=5.9e-7` | `[WORKED-VAR]`: `−½A²` (×1, Table I UNCHANGED, NORM-YIELD tautology); `[WORKED-BEAT]`: `×(ω/ω_C)²=9.2e-12` (~10¹¹ below, Table I COLLAPSES) | class resolved (amplitude over rate) by STEP 1 → BEAT collapses; VAR **selected** within class. The ×1 pump row (VAR/NORM-YIELD) therefore inherits E-side **[SELECTED]** status — as the headline verdict already carries |
 | 3 | **PVLAS** (2.5 T ~Hz) | `δn≲5e-23` (Ejlli 2020) | S_B computed `A_I=3.1e-27` → `δn_µ≈0` | consistent (Route C dual) |
 | 4 | **BMV** (ms pulse) | `δn≲5e-22` (Cadène) | S_B computed `A_I=1.2e-25` → `δn_µ≈0` | consistent |
 | 5 | **DELLIGHT** (Sagnac) | Letter `−¼A²` | `[WORKED-VAR/NORM-YIELD]` = `−¼A²` (tautological, fork open) | consistent |
@@ -139,8 +156,11 @@ POSTULATE for the E-sector. Ledger both costs:
   **admissible Keith-Outcome-B structure** — the Letter already postulates its kernel; one more scoping
   postulate (the keying variable) is within the standalone-Letter's declared postulate budget. The Letter's
   pump-probe is a PROPAGATING wave (worked), so Table I is unchanged under `[WORKED-VAR/NORM-YIELD]`, and
-  the muonic-H falsifier PASSES by derivation. For the Letter, the worked postulate is a clean, admissible
-  scoping choice that resolves the round-1 contradiction.
+  the muonic-H falsifier PASSES under the Letter's postulated variance kernel (the SELECTED `𝒲_var`
+  member; static-in-time → `𝒲=0`). NOTE this PASS is CONDITIONAL on the variance member: under the
+  ledger-forced mean-square reading (§crux, :104-107) the muon re-kills the E-key at ~4 OOM (reproducing
+  #539); the variance member is SELECTED, not derived. For the Letter, POSTULATING the variance kernel
+  is a clean, admissible scoping choice that resolves the round-1 contradiction.
 - **(ii) For the AVE CORPUS**: it is an **imported keying awaiting derivation**. The corpus R2 canon says
   the ε-varactor loads on the held DC amplitude (node-up:118,:217); the worked postulate CONTRADICTS this.
   The cost is a NEW ε-side DC-blindness mechanism (a Lenz-dual for displacement current) that must be
@@ -211,8 +231,11 @@ Diffed each frozen declaration against the code as shipped:
   mechanism consumes — NOT a proxy. Static-in-time → `𝒲=0`; time-varying → `𝒲>0` (test-asserted).
 - **verify-before-cite:** every constant live-derived vs `ave.core.constants` @ worktree HEAD `fc6a2379`;
   muon mass + proton moment declared external CODATA; #539 machinery + Route C reused by import.
-- Two independent code paths per piece + ReconcileGate (can-fire proven on real paths, derived tolerance) +
-  live positive controls; `make verify` green; 16 fast-core + 1 engine_sim standing falsifier all pass.
+- Numeric + symbolic code paths per piece + ReconcileGate (can-fire proven on real paths, derived
+  tolerance — it proves the numeric-vs-symbolic agreement of the variance identity, NOT independent
+  physics; PATH B imposes the parametrization and cannot fail) + live positive controls; `make verify`
+  green; 17 fast-core + 2 engine_sim (selected-variance standing falsifier + mean-square counterfactual
+  consistency anchor) all pass.
 
 ## CORPUS-STATE UPDATE (surfaced to the auditor lane — NOT landed here)
 
@@ -220,10 +243,14 @@ The auditor lane lands these; I surface the empirical finding:
 1. **`node-up-small-large-signal.md`:118,:217 / `pvlas-static-b-verdict.md`** — the R2 statement "a static
    E is a real operating-point bias for the V-keyed varactor — it loads ε" is in TENSION with (a) #539
    [C-EXCLUDED] (the DC-included E-key overshoots CREMA 4-7 OOM at atomic scales) and (b) the worked
-   candidate (which needs the DC EXCLUDED). **KEEP-BOTH candidate:** the worked-keyed R2′ (E-varactor keys
+   candidate (which needs the DC EXCLUDED). **This is a GENUINE EM-sector conflict, NOT a homonym**
+   (adversarial-review adjudication): `node-up`:117-118 pins the statement to the ε-grade / transverse-T2
+   permittivity channel — the SAME channel the worked E-key would re-key — so the DC-included vs DC-blind
+   readings collide in one sector. **KEEP-BOTH candidate:** the worked-keyed R2′ (E-varactor keys
    on the AC/worked content, blind to held DC E) is admissible for the Letter but needs a NEW ε-side
    Lenz-dual DC-blindness mechanism before it is corpus-canon. Do NOT redefine-in-place; add R2′ alongside
-   the legacy amplitude-keyed R2 with the missing-mechanism flag.
+   the legacy amplitude-keyed R2 with the missing-mechanism flag. **(Grant adjudicates the resolution;
+   surfaced here, NOT resolved — flag-don't-fix.)**
 2. **The missing ε-side Lenz-dual (round-3 question)** — the µ-inductor's `∂_tB` Lenz DC-blindness
    (node-up:364, canon-exact) has NO ε-side dual in the corpus. Whether a displacement-current DC-blindness
    for the varactor can be DERIVED is the load-bearing round-3 question. Surfaced for Grant / the auditor.
