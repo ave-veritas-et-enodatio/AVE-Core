@@ -1,7 +1,7 @@
 # Applied Vacuum Engineering (AVE)
 
-![Build Status](https://img.shields.io/badge/verification-373/373_PURE-brightgreen)
-![Tests](https://img.shields.io/badge/tests-800%2B_passed-blue)
+![Build Status](https://img.shields.io/badge/verification-1146/1146_PURE-brightgreen)
+![Tests](https://img.shields.io/badge/tests-passing-blue)
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
 ![Predictions](https://img.shields.io/badge/predictions-47_derived-orange)
 
@@ -125,7 +125,7 @@ papers/               # Standalone, corpus-independent papers
   2026_birefringence_letter/      # Pre-registered vacuum-birefringence prediction (BIREF@HIBEF)
 
 src/scripts/          # Simulation scripts organized by volume
-src/tests/            # 800+ passing tests
+src/tests/            # Unit + acceptance test suite
 ```
 
 ---
@@ -143,9 +143,10 @@ make setup
 
 ### Verification (The Kernel Check)
 ```bash
-make verify    # Runs physics protocols + 373-file anti-cheat scan (AST-level check for scipy.constants imports and CODATA-value literal magic numbers — narrow scope, not a full parameter audit; see docs/framing_and_presentation.md §C2)
-make test      # Runs 800+ unit tests
+make verify    # Runs physics protocols + anti-cheat scan over the whole src tree (AST-level check for scipy.constants imports and CODATA-value literal magic numbers — narrow scope, not a full parameter audit; see docs/framing_and_presentation.md §C2)
+make test      # Runs the unit-test suite
 make pdf       # Compiles all 8 manuscript volumes (0–VI + IX)
+make paper     # Rebuilds the standalone birefringence Letter PDF (papers/2026_birefringence_letter/; NOT part of 'all', built on demand)
 ```
 
 > **Gate scope (local vs CI).** The local physics **pre-commit hook gates `make verify` only**; **CI (`.github/workflows/verify.yml`) gates `make verify` *and* `make test`** (the `-m "not engine_sim"` keeper suite, xdist-parallelized). So a test-only failure — e.g. a sympy-version-sensitive symbolic-backbone gate — can pass the local commit and surface only in CI. Run `make test` locally before pushing symbolic/numeric work, and keep `uv.lock` pinned (sympy is locked) so resolved dependency versions match CI.
