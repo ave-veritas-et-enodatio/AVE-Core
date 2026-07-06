@@ -1,14 +1,24 @@
-# Electrostatic-sector fork memo — the atomic static-field exposure of the SVE elliptic kernel [DRAFT]
+# Electrostatic-sector fork memo — the atomic static-field exposure of the SVE elliptic kernel [FROZEN]
 
-**Date:** 2026-07-05 · **Lane:** implementer (DRAFT for Grant freeze) · **Branch:** `analysis/letter-v2-phase0`
-**Status:** **[GRANT-RATIFY]** — this memo is a FREEZE-CLASS document. Keith's discipline requires it
-be FROZEN by Grant's ratification **BEFORE Problem 3 (the muonic-hydrogen 2S–2P shift) is computed.**
+> ## 🔒 FROZEN — Grant ratification (2026-07-05), recorded verbatim
+> **Grant ruling (2026-07-05, verbatim):** *"The fork memo is FROZEN — Grant's ratification is the
+> freeze act; Problem 3 fires on it."*
+>
+> This memo is FROZEN as of this commit. The three pre-registered outcome bins ([A-CONSISTENT] /
+> [B-AVE] / [C-EXCLUDED]) and the rejection of Keith's "radiative-not-static" arm are now **IMMUTABLE**:
+> any later change is an **ERRATA BANNER ONLY** (append-only; the frozen body below is a record, NOT
+> edited). **This freeze GATES Problem 3** — the muonic-hydrogen 2S–2P adjudicator (§1 Problem 3, §3
+> [A]/[B]/[C], §4) fires on this freeze. The commit-time ordering (this freeze committed before any
+> Arm-2 edit in the same PR) is the proof that Problem 3 was gated, not run, at freeze time.
+
+**Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/letter-v2-arm2`
+**Status:** **FROZEN (Grant-ratified 2026-07-05).** Was `[GRANT-RATIFY]` DRAFT; the ratification above is
+the freeze act. The frozen body is a RECORD; changes are errata-banner-only.
 **The freeze gates Problem 3 — the muonic-hydrogen ADJUDICATOR — only.** Problems 1–2 (the
 no-solution radius and the Z-table of Coulomb fields) are pure kinematic reconnaissance; they are
 DISCLOSED as already-run inputs to this memo (the tables in §1, verified this session) — they are what
 MAKES the fork real and are stated up front so the pre-registration is honest about what is known.
-Problem 3, the µeV-scale muonic-H comparison that adjudicates [A] vs [B] vs [C], is what does not fire
-until Grant freezes the pre-registered outcomes below.
+Problem 3, the µeV-scale muonic-H comparison that adjudicates [A] vs [B] vs [C], fires on this freeze.
 **Class:** PRE-REGISTRATION of a fork the substrate adjudicates. No claim minted; no number retracted.
 
 > This memo states an exposure and PRE-REGISTERS three outcomes so the Problem-3 computation cannot be
