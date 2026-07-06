@@ -52,17 +52,45 @@ def test_muonic_reduced_mass_and_bohr_radius():
     assert A_MU * 1e15 == pytest.approx(284.75, abs=0.5)
 
 
-def test_analytic_tail_coefficient_is_one_tenth():
-    """deltaV/V_C = (1/10) A^2(r): at r=r_turn (E_C=E_c/2) the tail ratio = 1/40.
+def test_analytic_tail_coefficient_derived_independently():
+    """The 1/10 tail coefficient is DERIVED (not restated) two independent ways, both
+    disjoint from the closed-form deltaV=k^3/(10 E_c^2 r^5) used in the driver:
 
-    (sympy-derived in the prereg; here the numeric identity check.)
+      (A) from the constitutive law directly: root-find the true field E(r') from
+          E*sqrt(1-(E/E_c)^2)=E_C(r'), integrate (E-E_C) inward from a large radius r0
+          where the field is weak, and check the result equals C*k^3/(E_c^2 r0^5) with
+          C recovered = 1/10 (the coefficient falls out of the numeric integral).
+      (B) from the branch-inversion series coefficient: the leading field enhancement is
+          (E-E_C)=(1/2)E_C^3/E_c^2, and int_r^inf (1/2)(k/r'^2)^3/E_c^2 dr' = k^3/(10 E_c^2 r^5)
+          -> the 1/10 = (1/2)*(1/5) where 1/5 is int_r^inf r'^-6 dr' * r^5. Both the 1/2
+          (series) and the 1/5 (integral) are recomputed here, not assumed.
     """
-    r_turn = R_NS * np.sqrt(2.0)
-    E_C_at = K / r_turn**2  # = E_c/2 by construction
-    assert E_C_at / E_C == pytest.approx(0.5, rel=1e-6)
-    dV_tail = K**3 / (10.0 * E_C**2 * r_turn**5)  # leading tail [V]
-    V_coul = K / r_turn  # Coulomb potential [V]
-    assert dV_tail / V_coul == pytest.approx((1.0 / 10.0) * (E_C_at / E_C) ** 2, rel=1e-9)
+    from scipy import optimize
+
+    r0 = 30.0 * R_NS  # weak-field radius (A^2 ~ (r_ns/r0)^4 ~ 1e-6): tail regime
+
+    # --- (A) constitutive-law root-find + inward integral, coefficient recovered ---
+    def E_true(rp):
+        EC = K / rp**2
+        if EC > E_C / 2:
+            return np.nan
+        return optimize.brentq(lambda E: E * np.sqrt(max(1 - (E / E_C) ** 2, 0.0)) - EC, EC, E_C / np.sqrt(2))
+
+    dV_num, _ = integrate.quad(lambda rp: E_true(rp) - K / rp**2, r0, 400 * R_NS, limit=400)
+    C_recovered = dV_num * E_C**2 * r0**5 / K**3
+    assert C_recovered == pytest.approx(0.1, rel=1e-3)  # 1/10 falls out of the physics
+
+    # --- (B) recompute the two factors that make 1/10 = (1/2)*(1/5) ---
+    # series factor 1/2: solve u*sqrt(1-u^2)=x for small x, leading correction u=x+(1/2)x^3
+    # (x=1e-3 balances higher-order +7/8 x^2 drift ~9e-7 against float cancellation in u-x)
+    x = 1e-3
+    u = optimize.brentq(lambda uu: uu * np.sqrt(1 - uu**2) - x, x, 1 / np.sqrt(2), xtol=1e-16, rtol=1e-15)
+    series_half = (u - x) / x**3  # -> 1/2
+    assert series_half == pytest.approx(0.5, rel=1e-3)
+    # integral factor 1/5: int_r^inf r'^-6 dr' * r^5 = 1/5
+    integ_fifth = integrate.quad(lambda rp: rp**-6, 1.0, np.inf)[0]  # = 1/5 at r=1
+    assert integ_fifth == pytest.approx(0.2, rel=1e-9)
+    assert series_half * integ_fifth == pytest.approx(0.1, rel=1e-3)  # (1/2)*(1/5)=1/10, independent
 
 
 def test_reconcile_positive_control_fires():
