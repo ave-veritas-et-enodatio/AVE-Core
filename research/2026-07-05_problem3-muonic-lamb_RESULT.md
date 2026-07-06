@@ -1,26 +1,9 @@
-🔴 **CORRECTION (2026-07-05, orchestrator review of PR #539, Rule 12 — supersede-preserve).** This
-RESULT doc was first MERGED to `main` (PR #539, at pre-correction commit `e9d61b34`) with a
-**test-charge sign convention** (δV/⟨δV⟩ tabulated in the positive-test-charge frame, mislabeled
-"δ(2S−2P)"), a **stale r_ns interior-boundary footnote**, no **non-perturbative-validity** statement,
-and the value `202.3706(23) meV` loosely called "the 2S–2P splitting." **Between the #539 merge and this
-correction's merge, `main` carried that pre-correction labeling.** This pass corrects all of it (review
-findings 1–6): the observable is relabeled to the µ⁻ frame `δ[ΔE]=δ[E(2P_1/2)−E(2S_1/2)]` (the SVE
-correction to the measured Lamb shift — see the SIGN CONVENTION box below); footnote 1 corrected to the
-D-turnover boundary `r_turn`; a non-perturbative-validity note added; the precision label fixed to the
-*extracted* Lamb shift `ΔE(2P_1/2−2S_1/2)`; the [B]-defeat cutoff scale (~9·ℓ_node) computed and the
-memo's ~300 fm floor refuted; the tail-coefficient test made independently-derived. **NO NUMBER, NO
-MAGNITUDE, AND NO ROUTED BIN CHANGED** — the routed bin is [C-EXCLUDED] before and after; the corrections
-are labeling/disclosure only (the sign flip and the observable relabel cancel algebraically). Body below
-carries the corrected content.
-
----
-
 # Problem 3 — muonic-hydrogen Lamb-shift correction from the SVE elliptic kernel: RESULT
 
-> **Precision label (orchestrator finding 6).** The measured `202.3706(23) meV` is the *extracted Lamb
-> shift* `ΔE(2P_1/2 − 2S_1/2)` (Pohl et al./CREMA 2010 measured the 2S_1/2→2P_3/2 transition and
-> extracted the 2P_1/2−2S_1/2 Lamb interval), NOT a raw "2S–2P splitting." The frozen memo's loose "2S–2P
-> splitting" wording is what I route on (immutable); this doc uses the precise extracted-Lamb-shift label
+> **Precision label.** The measured `202.3706(23) meV` is the *extracted Lamb shift*
+> `ΔE(2P_1/2 − 2S_1/2)` (Pohl et al./CREMA 2010 measured the 2S_1/2→2P_3/2 transition and extracted the
+> 2P_1/2−2S_1/2 Lamb interval), NOT a raw "2S–2P splitting." The frozen memo's loose "2S–2P splitting"
+> wording is what I route on (immutable); this doc uses the precise extracted-Lamb-shift label
 > `ΔE(2P_1/2 − 2S_1/2)` throughout.
 
 **Date:** 2026-07-05 · **Lane:** implementer · **Branch:** `analysis/problem3-muonic-lamb` (stacked on freeze)
@@ -69,8 +52,8 @@ The expected (E/E_snap)²-class tail. Interior structure: LHS `E·√(1−(E/E_c
 > incomputable (no real field there). The variants are therefore implemented at `r_turn`, the physically
 > correct branch boundary. This is **direction-conservative**: since `r_turn>r_ns`, cutting at `r_turn`
 > includes LESS of the divergent near-nucleus region than a literal-`r_ns` cut would, so the
-> literal-`r_ns` variant would give an EVEN LARGER shift — it only strengthens [C]. Recorded as prereg
-> erratum E2 (Rule 12, append-only); no routed magnitude changes direction.
+> literal-`r_ns` variant would give an EVEN LARGER shift — it only strengthens [C]. No routed magnitude
+> changes direction.
 
 ## The shift table — TWO arms × variants × TWO independent code paths (µeV)
 
@@ -86,8 +69,8 @@ muonic reduced mass `μ_red=185.84 m_e` (CODATA 2018 ratio m_μ/m_e=206.7682830,
 > splitting INCREASES — a POSITIVE `δ[ΔE]`, the same direction as the Uehling (vacuum-polarization)
 > correction. The driver internally accumulates `e·⟨2S|δV|2S⟩ − e·⟨2P|δV|2P⟩`, which is algebraically
 > IDENTICAL to `δ[E(2P) − E(2S)]` (the double sign flip cancels); the tabulated magnitudes are therefore
-> already the physical `δ[ΔE]` values in the µ⁻ frame. Magnitudes are convention-independent; this note
-> fixes the label and the direction narrative (the prior draft labeled the column "2S−2P" — inverted).
+> already the physical `δ[ΔE]` values in the µ⁻ frame. Magnitudes are convention-independent — the
+> routing is by `|value|` and is sign-independent.
 
 | arm | variant | δ[ΔE]=δ[E(2P)−E(2S)] PATH B (µeV) | PATH A (leading tail, µeV) | reconcile | flag |
 |---|---|---|---|---|---|

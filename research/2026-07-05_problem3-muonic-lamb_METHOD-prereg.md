@@ -4,8 +4,8 @@
 **Class:** METHOD pre-registration (frozen BEFORE any Problem-3 shift number is computed).
 **Gates on:** the FROZEN electrostatic-sector fork memo.
 
-> ## 🔴 ERRATUM (2026-07-05, post-freeze, Rule 12 — append-only; frozen body preserved below)
-> **E1 — sign convention (orchestrator review PR #539, finding 1).** The §7 falsifier clause "*If the
+> ## Post-freeze notes (append-only caveats on the frozen body below)
+> **N1 — sign convention.** The §7 falsifier clause "*If the
 > shift is NEGATIVE (it should be positive — field enhanced), my sign/inversion-branch is wrong*" is
 > written in the positive-test-charge (δV) convention, which is the WRONG frame for the observable. The
 > bound particle is the **µ⁻ (q = −e)**: the energy shift is `δE(nℓ) = −e·⟨nℓ|δV|nℓ⟩`, so `δV>0` (field
@@ -15,9 +15,9 @@
 > region dominates) — so NO single sign is a clean falsifier; the routing is by MAGNITUDE, which is
 > non-perturbatively large in every variant regardless of sign. The correct signed observable and the
 > convention are stated in the RESULT doc's "SIGN CONVENTION" box and "Sign structure of δ[ΔE]" section.
-> This erratum does not change any magnitude or the routed bin ([C-EXCLUDED]).
+> This note does not change any magnitude or the routed bin ([C-EXCLUDED]).
 >
-> **E2 — interior-variant boundary r_ns → r_turn (orchestrator finding 2).** §3 declares the continuum
+> **N2 — interior-variant boundary r_ns → r_turn.** §3 declares the continuum
 > interior variants (C-i/C-ii/C-iii) at the no-solution radius `r_ns = 112.9 fm`. The code implements
 > them at the **D-turnover radius `r_turn = r_ns·√2 = 159.6 fm`**. This is FORCED, not a drift of
 > convenience: §2 of this prereg already states the constraint — the real lower branch of
