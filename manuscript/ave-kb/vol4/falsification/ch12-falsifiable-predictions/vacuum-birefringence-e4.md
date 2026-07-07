@@ -47,7 +47,22 @@ claims: [clm-pp3qwf, clm-sve3xc]
 > (electrostatic-sector scope round). The Letter's own §II.B honesty-item (iv) carries both footings
 > with the $7.5\pi/\alpha^2$ mixed value ledgered as convention history.
 
-## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
+> 🔵 **OPTION-B BODY CONSOLIDATION (2026-07-07; Grant-fired).** The body below is now consolidated to the
+> current $15\pi/(4\alpha^2)=3.75\pi/\alpha^2\approx2.2\times10^5$ headline of the FOOTING RE-FREEZE note above
+> (Option B — superseding the PR #545 Option-A "body-under-chain" state). The QED co-coefficient in the body
+> derivation is re-normalized from the AVE-side differenced $(3/45)\alpha^2$ estimate (which understated it by
+> $1/(2\pi\alpha)\approx21.8$, per the 🔴 note) to the PVLAS-anchored **instantaneous** one-loop $2\alpha/(15\pi)$
+> — its $\langle\cos^2\rangle=\tfrac12$ carrier average is the propagating $\alpha/(15\pi)$. The v1
+> $7.5/\alpha^3\approx1.93\times10^7$ and v2 $7.5\pi/\alpha^2\approx4.42\times10^5$ values remain **KEEP-BOTH**
+> convention history in the 🔴/🔵 notes above (verbatim; the OpenTimestamps anchor
+> `claim-prereg-ots/claims_by_hash.md` carries the v2 $7.5\pi/\alpha^2$ — byte-identical, not re-stamped). The
+> single-arm $4.14\times10^6$ is retained as v1-footing traceability (no corrected single-arm value is derived —
+> the differential is the falsifier headline). **Display-footing consolidation only** — no order of magnitude
+> and **no falsifier verdict** moves (footing-invariant: SVE $P_{flip}\sim5\times10^{-3}$ and the kill criterion
+> $P_{flip}<10^{-8}$ unchanged). Provenance: the FOOTING RE-FREEZE note above; the register `clm-pp3qwf`
+> Option-B note; the flagship Letter `papers/2026_birefringence_letter/provenance.md` §9 (Arm-2 re-freeze) + §10.
+
+## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^5\times$ QED at the matched differential observable)
 <!-- claim-quality: clm-pp3qwf (this section is the canonical statement of the E-route field-induced birefringence COEFFICIENT discriminator — the matched par−perp differential δn≈−½A² vs QED's differenced Euler-Heisenberg) -->
 
 > **Route scope (E-route only; DERIVED via the node-up dual).** This birefringence prediction is
@@ -62,7 +77,9 @@ claims: [clm-pp3qwf, clm-sve3xc]
 > **bold no-static-B side-prediction**) is canonical at
 > [`pvlas-static-b-verdict.md`](../ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
 > **Side-prediction:** AVE predicts NO static-B vacuum birefringence at any field strength; the
-> matched differential E-route ratio is $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$.
+> matched differential E-route ratio is $\delta n_{AVE}/\delta n_{QED}=3.75\pi/\alpha^2\approx2.2\times10^5$
+> (v3 consistent instantaneous footing; the v1 $7.5/\alpha^3\approx1.93\times10^7$ is convention history — see the
+> FOOTING RE-FREEZE / OPTION-B notes above).
 
 A core distinction between standard Quantum Electrodynamics (QED) and the Applied Vacuum Engineering (AVE) framework is the *magnitude* of vacuum optical nonlinearity under extreme fields — not its leading power. **Both predict an $E^2$-leading index shift; the discriminator is the COEFFICIENT.**
 
@@ -75,15 +92,17 @@ $$\boxed{\;\delta n_{bir} = n_\parallel - n_\perp \approx -\tfrac12 A^2\;}\qquad
 
 This is **negative**, **$E^2$-leading**, and **exactly $2\times$ the scalar single-arm (isotropic) shift** $\delta n_{iso}=\sqrt{S}-1\approx-\tfrac14 A^2$ — which is the **common-mode** quantity the polarimeter is blind to (see below). The AVE coefficient is O(1) against an un-suppressed yield field $E_{yield}=V_{yield}/\ell_{node}\approx 1.13\times10^{17}$ V/m.
 
-Standard QED (Euler-Heisenberg) must be differenced the **same** way: its birefringence rides the **difference** coefficient $3/45$ (the parallel $7/45$ and perpendicular $4/45$ eigen-indices differenced — the standard Euler-Heisenberg result), not the single $7/45$. So the matched, like-for-like, field-independent ratio is
+Standard QED (Euler-Heisenberg) must be differenced the **same** way and normalized on the **same instantaneous footing**: the one-loop birefringence coefficient anchored to the PVLAS $A_e$ magnetic leg (via the $E\leftrightarrow cB$ duality) and the BIREF@HIBEF LoI is $2\alpha/(15\pi)$ **instantaneous** (its $\langle\cos^2\rangle=\tfrac12$ carrier average is the propagating $\alpha/(15\pi)$; the static-duality form is $\alpha/(30\pi)$) — NOT the AVE-side differenced $3/45$ estimate, which understated it by $1/(2\pi\alpha)\approx21.8$ (the 🔴 note above). So the matched, like-for-like, field-independent ratio on the consistent instantaneous footing is
 
-$$\frac{\delta n_{AVE}}{\delta n_{QED}} = \frac{1/2}{(3/45)\,\alpha^2}\left(\frac{E_{crit}}{E_{yield}}\right)^2 = \frac{45/6}{\alpha^3} = \frac{7.5}{\alpha^3}\quad\left(\text{using }E_{crit}=\alpha^{-1/2}E_{yield},\ \text{so }(E_{crit}/E_{yield})^2=\tfrac1\alpha\right) \approx 1.93\times10^7.$$
+$$\frac{\delta n_{AVE}}{\delta n_{QED}} = \frac{1/2}{(2\alpha/15\pi)}\left(\frac{E_{crit}}{E_{yield}}\right)^2 = \frac{15\pi}{4\alpha^2} = \frac{3.75\pi}{\alpha^2}\quad\left(\text{using }E_{crit}=\alpha^{-1/2}E_{yield},\ \text{so }(E_{crit}/E_{yield})^2=\tfrac1\alpha\right) \approx 2.2\times10^5.$$
 
-> **The common-mode (isotropic) shift the polarimeter is blind to.** The historical single quantity, $\delta n_{iso}=\sqrt{S}-1=(1-A^2)^{1/4}-1\approx-\tfrac14 A^2-\tfrac{3}{32}A^4+\cdots$, is the **isotropic index shift** — the *common-mode* permittivity softening shared by both eigenmodes. A birefringence instrument rejects it; it is **not** the birefringence. (Comparing this AVE single-arm $-\tfrac14 A^2$ against QED's *parallel single-mode* $7/45$ gives the **single-arm/isotropic-vs-parallel** ratio $1/(4\cdot\tfrac{7}{45}\,\alpha^3)\approx4.14\times10^6$ — a comparison of MISMATCHED observables, retained here only for traceability, **not** the falsifier headline.)
+*(v3, consistent instantaneous footing. Convention history — see the 🔴/🔵/OPTION-B notes above: v1 $=7.5/\alpha^3\approx1.93\times10^7$ paired the instantaneous SVE kernel against the AVE-side differenced $(3/45)\alpha^2$; v2 $=7.5\pi/\alpha^2\approx4.42\times10^5$ QED-normalized but mixed-footing (instantaneous SVE over cycle-averaged $\alpha/15\pi$); v3 is exactly half v2, the $\langle\cos^2\rangle=\tfrac12$ carrier average removed.)*
+
+> **The common-mode (isotropic) shift the polarimeter is blind to.** The historical single quantity, $\delta n_{iso}=\sqrt{S}-1=(1-A^2)^{1/4}-1\approx-\tfrac14 A^2-\tfrac{3}{32}A^4+\cdots$, is the **isotropic index shift** — the *common-mode* permittivity softening shared by both eigenmodes. A birefringence instrument rejects it; it is **not** the birefringence. (Comparing this AVE single-arm $-\tfrac14 A^2$ against QED's *parallel single-mode* $7/45$ gives the **single-arm/isotropic-vs-parallel** ratio $1/(4\cdot\tfrac{7}{45}\,\alpha^3)\approx4.14\times10^6$ **on the v1 footing** — a comparison of MISMATCHED observables carried as convention-history traceability, **not** the falsifier headline, and NOT re-frozen to the instantaneous footing here since the differential is the headline; the QED single-mode carries the same $1/(2\pi\alpha)$ normalization caveat as the 🔴 note.)
 
 > **Provenance note.** The earlier formulation "$\Delta n_{eff} = 1 - \sqrt{1 - (E/E_{yield})^2}$, leading $E^4$ term" was a $\sqrt{\varepsilon}$ conflation: the quantity $1-S = +A^2/2 + A^4/8$ is the **permittivity saturation DEPTH** (itself $E^2$-leading, NOT $E^4$-leading), whereas the refractive-index observable is $n=\sqrt{S}$, giving $\delta n_{iso} = \sqrt{S}-1 \approx -A^2/4$. The corrected discriminator is the coefficient, not the exponent; the corrected *observable* is the par$-$perp **differential** $-\tfrac12 A^2$, not the isotropic single-arm.
 
-> **Chord vs echo (honest split, symmetric standard).** The AVE-distinct **CHORD** is that the vacuum *saturates at all* — a tree-level O(1) birefringence-bearing structure the QED vacuum lacks (QED's birefringence is an $\alpha^2$-loop effect). The **MAGNITUDE** $1.93\times10^7=7.5/\alpha^3$ is an **$\alpha$-echo** at the value level: AVE does not derive $\alpha$, so the number rides $\alpha^{-3}$. Symmetric standard: QED's $a_{EH}\alpha^2$ is *equally* $\alpha$-rooted — QED does not derive $\alpha$ either. The chord is the existence/form; the magnitude is an echo. Do not headline the magnitude as a chord.
+> **Chord vs echo (honest split, symmetric standard).** The AVE-distinct **CHORD** is that the vacuum *saturates at all* — a tree-level O(1) birefringence-bearing structure the QED vacuum lacks (QED's birefringence is an $\alpha^2$-loop effect). The **MAGNITUDE** $2.2\times10^5=3.75\pi/\alpha^2$ (v3; the v1 $1.93\times10^7=7.5/\alpha^3$ is convention history) is an **$\alpha$-echo** at the value level: AVE does not derive $\alpha$, so the number rides $\alpha^{-2}$. Symmetric standard: QED's $a_{EH}\alpha^2$ is *equally* $\alpha$-rooted — QED does not derive $\alpha$ either. The chord is the existence/form; the magnitude is an echo. Do not headline the magnitude as a chord.
 
 ### The Falsification Protocol
 
@@ -95,7 +114,7 @@ To test this, an ultra-high-Q optical fiber ring resonator (or high-finesse Fabr
 
 [Figure: vacuum_birefringence_differential.png — see manuscript/vol_4_engineering/chapters/]
 
-A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read out by an ellipsometer, measures the **par$-$perp differential** $\delta n_{bir}\approx-\tfrac12 A^2$ as accumulated ellipticity $\psi$ (the birefringence readout is a polarization-**phase** difference, accumulated as ellipticity $\psi$ — a dissipationless retardance, not absorption). At the **matched differential observable**, AVE sits a field-independent $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$ above QED's differenced Euler-Heisenberg ($3/45$) birefringence, present at **all** fields. A **QED-sized differential coefficient** ($\delta n_{bir}\sim(3/45)\alpha^2(E/E_{crit})^2$) falsifies AVE; an AVE-sized coefficient falsifies QED at this observable. (An $E^2$ slope does **not** falsify AVE — QED is also $E^2$-leading. The discriminator is the coefficient, not the exponent.)
+A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read out by an ellipsometer, measures the **par$-$perp differential** $\delta n_{bir}\approx-\tfrac12 A^2$ as accumulated ellipticity $\psi$ (the birefringence readout is a polarization-**phase** difference, accumulated as ellipticity $\psi$ — a dissipationless retardance, not absorption). At the **matched differential observable**, AVE sits a field-independent $\delta n_{AVE}/\delta n_{QED}=3.75\pi/\alpha^2\approx2.2\times10^5$ (v3 consistent instantaneous footing; v1 $7.5/\alpha^3\approx1.93\times10^7$ is convention history) above QED's instantaneous Euler-Heisenberg ($2\alpha/15\pi$) birefringence, present at **all** fields. A **QED-sized differential coefficient** ($\delta n_{bir}\sim(2\alpha/15\pi)(E/E_{crit})^2$) falsifies AVE; an AVE-sized coefficient falsifies QED at this observable. (An $E^2$ slope does **not** falsify AVE — QED is also $E^2$-leading. The discriminator is the coefficient, not the exponent.)
 
 > **OQ-1 strengthen-by — CLOSED (field→cavity-phase coupling DERIVED; FLAG-A adjudicated).** The
 > field→cavity-phase coupling that maps the index shift to a polarimeter readout is now **DERIVED**
@@ -109,12 +128,13 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 > **FLAG-A PROMOTED (Grant-ratified 2026-07-03: "the matched-differential"; supersedes the 2026-06-21
 > adjudication).** The par$-$perp **differential** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$
 > (DERIVED) is the **canonical falsifier identity** of this leaf and of `clm-pp3qwf`, headlined above at
-> the matched-observable ratio $7.5/\alpha^3\approx1.93\times10^7$ (AVE $-\tfrac12$ vs QED differenced $3/45$).
+> the matched-observable ratio $3.75\pi/\alpha^2\approx2.2\times10^5$ (v3 consistent-footing; v1 $7.5/\alpha^3\approx1.93\times10^7$
+> is convention history; AVE $-\tfrac12$ vs QED instantaneous $2\alpha/15\pi$).
 > The scalar $\delta n_{iso}\approx-\tfrac14 A^2$ is retained **KEEP-BOTH** as the **isotropic (common-mode)
 > index shift** the polarimeter is blind to; paired against the QED parallel single-mode $7/45$ it gives the
-> **single-arm-retardance-probe** ratio $4.14\times10^6$ — the ratio a distinct interferometric single-pass-phase
-> instrument (not the polarimeter/ellipsometer) would read. **Scope:** single-arm-retardance probe $\to4.14\times10^6$;
-> differential ellipsometer/polarimeter $\to1.93\times10^7$. The single-arm is a scoped secondary, NOT the falsifier
+> **single-arm-retardance-probe** ratio $4.14\times10^6$ (v1 footing, convention history — see the OPTION-B note) — the ratio a distinct interferometric single-pass-phase
+> instrument (not the polarimeter/ellipsometer) would read. **Scope:** single-arm-retardance probe $\to4.14\times10^6$ (v1);
+> differential ellipsometer/polarimeter $\to2.2\times10^5$ (v3). The single-arm is a scoped secondary, NOT the falsifier
 > headline. Ruling note: [`research/2026-07-03_birefringence-flagA-promotion_ruling.md`](../../../../../research/2026-07-03_birefringence-flagA-promotion_ruling.md).
 >
 > **Named residuals carried (do NOT over-state "closed"):**
@@ -122,7 +142,7 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 > temporal overlap" approximation (axial overlap integral exact; transverse/config trade study
 > modeled, not uniquely derived).
 > (b) **Polarimetry-floor validate-on-known** still owed against a published cavity. **The COEFFICIENT
-> ($7.5/\alpha^3$) does not depend on either residual** — it is field- and apparatus-independent.
+> ($3.75\pi/\alpha^2$, v3) does not depend on either residual** — it is field- and apparatus-independent.
 
 ---
 
@@ -130,7 +150,7 @@ A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read
 
 ![The HIBEF moment: the birefringence discriminator at HIBEF's demonstrated ReLaX pump (single-pass, X-ray dark-field polarimeter, no Fabry-Perot). Left: the E²-leading SVE |δn|(E) at the demonstrated-pump point A²=5.92e-7. Centre: the probe polarization walk-off — SVE Δφ=0.148 rad (NJP 9835 eV) vs QED Δφ=3.3e-7 rad. Right: the single-pass flip probability P=sin²(Δφ/2) — SVE P≈5.4e-3 sits ~7 OOM above the required (1.4e-10) and demonstrated (2.4e-10) polarimeter floors; QED P≈2.8e-14 sits ~4 OOM below.](../../../../vol_4_engineering/figures/hibef_moment_panels.png)
 
-*Figure — the falsifier-floor logic of the 🔴 header (line 19–20) rendered at the facility point. The plotted numbers are engine-exact driver outputs at their stated observables (Δφ, P=sin²(Δφ/2), δn). This render does NOT restate the matched-differential COEFFICIENT ratio; the `7.5/α³≈1.93e7` δn-ratio in this leaf's body carries the open QED-normalization correction of the 🔴 header (→ `7.5π/α²≈4.42e5`), tracked there and unresolved by this figure. Amplitude of the displayed pump stripe exaggerated ×3e5 for visibility (labelled). CONSISTENCY-class: FORM=SVE chord, magnitude ratio=α-echo (symmetric-standard). Driver: `src/scripts/viz/hibef_moment_scene.py` (`scripts.vol_9_device.birefringence_gap1_hibef_feasibility` + `ave.bench.delta_n_ave_differential_exact` + `graded_vacuum_network.saturation_kernel`); provenance ledger `viz/README.md` Visual 2.*
+*Figure — the falsifier-floor logic of the 🔴 header (line 19–20) rendered at the facility point. The plotted numbers are engine-exact driver outputs at their stated observables (Δφ, P=sin²(Δφ/2), δn). This render does NOT restate the matched-differential COEFFICIENT ratio; the δn-ratio in this leaf's body is now consolidated (Option B, 2026-07-07) to `3.75π/α²≈2.2e5` (v3 consistent instantaneous footing; the v1 `7.5/α³≈1.93e7` and v2 `7.5π/α²≈4.42e5` are convention history in the 🔴/🔵/OPTION-B notes), and is not restated by this figure. Amplitude of the displayed pump stripe exaggerated ×3e5 for visibility (labelled). CONSISTENCY-class: FORM=SVE chord, magnitude ratio=α-echo (symmetric-standard). Driver: `src/scripts/viz/hibef_moment_scene.py` (`scripts.vol_9_device.birefringence_gap1_hibef_feasibility` + `ave.bench.delta_n_ave_differential_exact` + `graded_vacuum_network.saturation_kernel`); provenance ledger `viz/README.md` Visual 2.*
 
 ---
 
