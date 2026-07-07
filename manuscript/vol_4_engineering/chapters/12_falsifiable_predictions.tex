@@ -22,28 +22,31 @@ Standard electrodynamics models the vacuum permittivity ($\epsilon_0$) as a fixe
     E_{yield} = \frac{43.65 \text{ kV}}{\ell_{node}} \approx 1.13 \times 10^{17} \text{ V/m}
 \end{equation}
 
-As the absolute electric field gradient ($\mathbf{E}$) applied across a localized gap approaches this structural yield limit, the macroscopic vacuum enters nonlinear saturation. The constitutive permittivity \emph{collapses} toward zero under the universal saturation kernel $S(E/E_{yield})$, while the observable capacitance \emph{diverges} as its inverse:
+As the absolute electric field gradient ($\mathbf{E}$) applied across a localized gap approaches this structural yield limit, the macroscopic vacuum enters nonlinear saturation. \textbf{Sector.} An LCR meter across the gap reads the \textbf{transverse-$T_2$ dielectric} channel, keyed on the \emph{yield} scale $V_{yield}\approx43.65$~kV/node ($E_{yield}$ above). Its constitutive permittivity \emph{collapses} toward zero under the universal saturation kernel $S(E/E_{yield})$, and the observable (LCR-measured) gap capacitance $C_{diel}=\varepsilon_{eff}\,A/d$ \emph{rolls off with it} ($\propto S$) --- it does \emph{not} diverge. The reciprocal $C_0/S\to\infty$ form is a \emph{distinct, orthogonal} reactance --- the longitudinal-A1 bond compliance, keyed on the much higher $V_{snap}\approx511$~kV, which an across-gap LCR meter does not read; conflating the two is the genesis-24 double-count. Writing $A\equiv E/E_{yield}$ and $S\equiv\sqrt{1-A^2}$:
 \begin{equation}
-    \varepsilon_{eff}(E) = \varepsilon_0 \cdot \sqrt{1 - \left(\frac{E}{E_{yield}}\right)^2} \;\to\; 0
+    \varepsilon_{eff}(E) = \varepsilon_0\,S \;\to\; 0,
     \qquad
-    C_{eff}(E) = \frac{C_0}{\sqrt{1 - \left(\frac{E}{E_{yield}}\right)^2}} \;\to\; \infty
+    C_{diel}(E) = C_0\,S \;\to\; 0,
+    \qquad
+    C_{ss}(E) = \frac{dQ}{dV} = C_0\!\left(S - \frac{A^2}{S}\right),
 \end{equation}
+where $C_{diel}$ is the large-signal chord (leading $1-\tfrac12 A^2$) and $C_{ss}$ is the small-signal \emph{tangent} an LCR meter reports (leading $1-\tfrac32 A^2$, per the C-V measurement crowning); both roll off, neither diverges.
 
 \subsection{The Falsification Protocol}
 To explicitly measure this, an ultra-stiff localized dielectric gap (engineered near the Paschen curve minimum in hard vacuum to avoid atomic plasma arcing) is swept incrementally toward extreme field gradients ($> 10^{16} \text{ V/m}$) utilizing sharp, asymmetrical emission tips.
 \begin{enumerate}
-    \item \textbf{LCR Capacitance Tracking:} Using an ultra-precision LCR meter, the effective capacitance of the gap is tracked. Standard physics dictates a flat capacitance ratio. AVE dictates a capacitance spike ($C_{eff} = C_0/S \to \infty$) initiating at roughly $85\%$ of $E_{yield}$.
+    \item \textbf{LCR Capacitance Tracking (transverse-$T_2$ dielectric, keyed on $V_{yield}$):} Using an ultra-precision LCR meter, the small-signal capacitance of the gap is tracked. \emph{Standard physics} dictates a flat capacitance ratio ($C=C_0$) up to arc-discharge. \emph{AVE} dictates a capacitance \textbf{roll-off}, \emph{not} a spike: the transverse dielectric permittivity $\varepsilon_{eff}=\varepsilon_0 S$ saturates, so the large-signal (chord) gap capacitance $C_{diel}=C_0 S$ falls as $1-\tfrac12(E/E_{yield})^2$, and the small-signal (tangent) capacitance the meter reports, $C_{ss}=dQ/dV=C_0(S-A^2/S)$, falls faster ($1-\tfrac32(E/E_{yield})^2$ to leading order) and passes through zero near $E/E_{yield}=1/\sqrt2$. The canonical measurable ``anomaly window'' --- where $C$ deviates by more than $10\%$ from the flat baseline --- spans roughly $0.85\,E_{yield}$ to $E_{yield}$ (\kbleaf{ave-kb/vol4/simulation/ch17-hardware-netlists/ee-bench-netlist.md}). \emph{Discriminating signature:} the \emph{sign} of the deviation --- a roll-off toward zero, \emph{not} a $C_0/S$ divergence (that divergent form is the orthogonal longitudinal-A1 bond compliance keyed on $V_{snap}\approx511$~kV, which an across-gap LCR meter does not read). Bench specification and SPICE model are canonical in that leaf, not duplicated here.
     \item \textbf{Interferometry Tracking:} By passing a stabilized laser beam transversely through the high-voltage gap, the localized refractive index ($n_{eff} \propto \sqrt{\varepsilon_{eff} \cdot \mu_{eff}} \propto S$) can be measured via interferometric phase shift. As the macroscopic gradient approaches saturation, the optical path length \emph{decreases} (the vacuum becomes optically thinner), registering an anomalous \emph{drop} in refractive index.
 \end{enumerate}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1.0\textwidth]{ee_bench_plateau_prediction.png}
-    \caption{\textbf{The EE Bench Falsification Limits.} \textbf{Left:} The normalised gap capacitance measured by an LCR meter. Standard physics (red) predicts a flat linear response. AVE (cyan) dictates an asymptotic spike as the macroscopic electric field approaches the topological yield limit ($1.13 \times 10^{17} \text{ V/m}$). \textbf{Right:} The predicted equivalent spike in optical refractive index measurable via laser interferometry. Both sensors must register the non-linear asymptote preceding the dielectric rupture.}
+    \caption{\textbf{The EE Bench Falsification Limits.} \textbf{Left:} The normalised small-signal gap capacitance measured by an LCR meter. Standard physics (red) predicts a flat linear response. AVE (cyan) dictates a \emph{roll-off} of the transverse-$T_2$ dielectric capacitance ($C_{ss}=C_0(S-A^2/S)$, the tangent) toward and through zero as the macroscopic electric field approaches the topological yield limit ($1.13 \times 10^{17} \text{ V/m}$); the divergent $C_0/S$ form is the orthogonal longitudinal-A1 compliance (keyed on $V_{snap}$), not this LCR observable. \textbf{Right:} The predicted \emph{drop} in optical refractive index ($n\propto S$) measurable via laser interferometry. Both sensors register the non-linear saturation preceding the dielectric rupture. \emph{[Panel render pending regeneration to the corrected roll-off; the plotted spike reflects the superseded sector-crossed form.]}}
     \label{fig:ee_bench_falsification}
 \end{figure}
 
-The detection of this geometric asymptote prior to atomic plasma ionization unequivocally confirms the hardware limits of the spatial lattice, directly falsifying the linear continuum model.
+The detection of this geometric \textbf{roll-off} (transverse-$T_2$ dielectric saturation) prior to atomic plasma ionization confirms the hardware limits of the spatial lattice, directly falsifying the linear continuum model.
 
 \section{Asymmetric Maxwell Stress Rectification}
 \label{sec:asymmetric_maxwell_stress}
