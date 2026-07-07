@@ -138,21 +138,252 @@ def t2_tangent_over_eps0(v: np.ndarray | float) -> np.ndarray:
         return s - a**2 / s
 
 
-# --- section 3: the C-V datasheet curve (both branches, log-V) --------------
-# (filled in a later commit)
+# =============================================================================
+# section 4: the perp/parallel eigenmode check vs the birefringence Letter
+# =============================================================================
+# Deliverable (c) — the R2 confirmation. Candidate resolution of the
+# chord-vs-tangent fork: a weak probe polarized PARALLEL to a held T2 bias
+# samples the tangent dD/dE; PERPENDICULAR samples the chord eps(A0); the
+# DIFFERENCE is the birefringence. This function proves (sympy) that the
+# Letter's two eigen-indices ARE the tangent and chord of the T2 kernel.
 
 
-# --- section 4: the perp/parallel eigenmode check vs the Letter (sympy) ------
-# (filled in a later commit)
+def eigenmode_check() -> dict:
+    """Sympy proof that Letter n_perp = chord sqrt(S), n_par = tangent sqrt(S-A^2/S).
+
+    Returns a dict of the symbolic results + match booleans. The Letter
+    (papers/2026_birefringence_letter/main.tex, Appendix A) derives its two
+    probe eigen-indices from eps_eff = eps0 * S(E), S = sqrt(1-(E/E_c)^2) — the
+    SAME kernel as the T2 permittivity, with E_c = sqrt(alpha)*E_crit = E_yield
+    (the field image of V_yield). We show:
+
+      n_perp = sqrt(S)          == the T2 CHORD (constitutive eps0*S)   [Eq A5]
+      n_par  = sqrt(S - A^2/S)  == the T2 TANGENT (longitudinal dD/dE)  [Eq A6]
+      dn_bir = n_par - n_perp   == -1/2 A^2  (the observable split)     [Eq A7]
+
+    If both matches hold, the KEEP-BOTH chord/tangent fork is corpus-resolved
+    as the two polarization eigenmodes (both real; the split IS the birefringence).
+    """
+    import sympy as sp
+
+    E, Ec = sp.symbols("E E_c", positive=True)
+    A = E / Ec
+    u = E**2
+    S = sp.sqrt(1 - u / Ec**2)  # the T2 permittivity factor eps_eff/eps0
+
+    # PERP = the chord / constitutive eigenvalue eps0*S  ->  n_perp = sqrt(S)
+    n_perp = sp.sqrt(S)
+
+    # PARALLEL = the tangent dD/dE along the field: the longitudinal eigenvalue
+    # eps0*(S + 2 S' E^2)  ->  n_par = sqrt(S - A^2/S)
+    dummy = sp.Symbol("uu")
+    s_prime = sp.diff(sp.sqrt(1 - dummy / Ec**2), dummy).subs(dummy, u)
+    eps_par_over_eps0 = S + 2 * s_prime * E**2
+    n_par = sp.sqrt(sp.simplify(eps_par_over_eps0))
+
+    # Letter's stated closed forms (main.tex Eq. eigenindices / A-nperp / A-npar)
+    n_perp_letter = (1 - A**2) ** sp.Rational(1, 4)
+    n_par_letter = sp.sqrt((1 - 2 * A**2) / sp.sqrt(1 - A**2))
+
+    match_perp = sp.simplify(n_perp - n_perp_letter) == 0
+    match_par = sp.simplify(n_par - n_par_letter) == 0
+
+    dn_bir = sp.simplify(sp.series(n_par - n_perp, E, 0, 3).removeO())
+    dn_iso = sp.simplify(sp.series(n_perp - 1, E, 0, 3).removeO())
+
+    return {
+        "eps_par_over_eps0_tangent": sp.simplify(eps_par_over_eps0),
+        "n_perp": sp.simplify(n_perp),
+        "n_par": sp.simplify(n_par),
+        "match_perp_is_chord": bool(match_perp),
+        "match_par_is_tangent": bool(match_par),
+        "dn_bir_leading": dn_bir,          # expect -E^2/(2 E_c^2) = -1/2 A^2
+        "dn_iso_leading": dn_iso,          # expect -E^2/(4 E_c^2) = -1/4 A^2
+        "verdict": bool(match_perp) and bool(match_par),
+    }
 
 
-# --- section 5: network composition (K4 z=3 loaded-line ladder) -------------
-# (filled in a later commit)
+# =============================================================================
+# section 3: the C-V datasheet curve (both branches, log-V)
+# =============================================================================
+# Deliverable (b) — the analytic vacuum C-V datasheet, both branches on one
+# log-V figure, house style (white, Okabe-Ito, honest axes+units, legend
+# outside data, no on-figure title). Vol-9-datasheet register.
+
+
+def cv_curve_data(n: int = 2000) -> dict:
+    """Sample both C-V branches over a log-V sweep spanning both features.
+
+    Returns arrays for the figure + the pinned named-bias values the test
+    checks. Sweep runs from 1e-2 * V_yield up to just below V_snap so both the
+    T2 rolloff (at V_yield) and the A1 divergence (approaching V_snap) show.
+    """
+    v = np.logspace(np.log10(1e-2 * V_YIELD), np.log10(0.9995 * V_SNAP), n)
+    return {
+        "V": v,
+        "t2_chord": t2_chord_over_eps0(v),      # eps/eps0 = S(V/V_yield), rolls off
+        "t2_tangent": t2_tangent_over_eps0(v),  # small-signal T2 permittivity
+        "a1_chord": a1_chord_over_c0(v),        # C/C0 = 1/S(V/V_snap), diverges
+        "a1_tangent": a1_tangent_over_c0(v),    # small-signal A1 compliance = 1/S^3
+        "V_yield": V_YIELD,
+        "V_snap": V_SNAP,
+    }
+
+
+def make_cv_figure(out_path):
+    """Render the vacuum C-V datasheet figure (house style). Returns saved paths."""
+    import matplotlib.pyplot as plt
+
+    from ave.viz import style
+
+    style.apply("print")
+    data = cv_curve_data()
+    v_kv = data["V"] / 1e3
+
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+
+    # A1 branch — diverging bond compliance (chord + tangent)
+    ax.plot(v_kv, data["a1_chord"], color=style.COLORS["ave"], ls="-",
+            label=r"A1 chord $C/C_0 = 1/S(V/V_{snap})$")
+    ax.plot(v_kv, data["a1_tangent"], color=style.COLORS["ave"], ls="--",
+            label=r"A1 tangent $C_{ss}/C_0 = 1/S^3$")
+    # T2 branch — rolling-off permittivity (chord only; tangent goes negative)
+    ax.plot(v_kv, data["t2_chord"], color=style.COLORS["comparison"], ls="-",
+            label=r"T2 chord $\varepsilon/\varepsilon_0 = S(V/V_{yield})$")
+
+    # feature markers (guides, gray, honest)
+    ax.axvline(data["V_yield"] / 1e3, color=style.COLORS["muted"], ls=":", lw=1.0)
+    ax.axvline(data["V_snap"] / 1e3, color=style.COLORS["muted"], ls=":", lw=1.0)
+    ax.annotate(r"$V_{yield}\approx43.65$ kV" "\n(T2 rolloff)",
+                xy=(data["V_yield"] / 1e3, 0.15), xytext=(1.0, 0.02),
+                color=style.COLORS["muted"], fontsize=8, ha="left")
+    ax.annotate(r"$V_{snap}\approx511$ kV" "\n(A1 divergence)",
+                xy=(data["V_snap"] / 1e3, 5.0), xytext=(120.0, 6.0),
+                color=style.COLORS["muted"], fontsize=8, ha="left")
+
+    ax.set_xscale("log")
+    ax.set_ylim(0.0, 10.0)
+    ax.set_xlabel(style.axis_label("Bias voltage", "V", "kV"))
+    ax.set_ylabel(r"Normalized reactance $C/C_0,\ \varepsilon/\varepsilon_0$")
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False)
+
+    return style.save(fig, out_path, strict=True)
+
+
+# =============================================================================
+# section 5: network composition (K4 z=3 loaded-line ladder)
+# =============================================================================
+# Deliverable (d) — how the two-branch cell composes across the canonical
+# srs/K4 series-L-bond / shunt-C-node ladder (graded-network-response.md:50,:53;
+# z0-derivation.md:133-136). A biased transmission line with an
+# operating-point-dependent C(V): loaded-line analysis.
+
+
+def loaded_line_dispersion(v_bias: float, q_ell: np.ndarray | float) -> np.ndarray:
+    """Bloch dispersion omega(q) of the K4 z=3 LC ladder at a HELD T2 bias.
+
+    The cold ladder (graded-network-response.md:53) is
+        omega(q) = (2 c0 / ell_node) * |sin(q ell_node / 2)|,
+    the series-L-bond / shunt-C-node sine law. A held T2 bias loads the shunt C
+    through the small-signal (tangent) permittivity eps_ss/eps0 = t2_tangent,
+    which pulls the band edge down by 1/sqrt(eps_ss/eps0). We return the
+    band-edge pull factor omega(bias)/omega(cold), a DIMENSIONLESS ratio (so it
+    is gradient-readable per the uniform-bias gauge rider — see the docstring of
+    network_cv_note()).
+
+    NOTE: c0/ell_node is a common prefactor that cancels in the ratio, so this
+    returns the pull factor, not an absolute frequency (avoids importing a
+    scale that self-cancels on readout anyway).
+    """
+    q_ell = np.asarray(q_ell, dtype=float)
+    sine = np.abs(np.sin(q_ell / 2.0))
+    # shunt-C loaded by the small-signal T2 permittivity: omega ~ 1/sqrt(L C_eff)
+    eps_ss = float(t2_tangent_over_eps0(v_bias))
+    pull = 1.0 / np.sqrt(eps_ss) if eps_ss > 0 else np.nan
+    return pull * sine  # relative to the cold sine law (prefactor cancelled)
+
+
+def network_cv_note() -> dict:
+    """The network-level C-V observability structure (uniform vs gradient bias).
+
+    A uniform bias self-cancels on readout (INVARIANT-S2, gauge-relative A), so
+    a NETWORK C-V sweep must be a DIFFERENTIAL/gradient measurement. The
+    readable observable is the Op14 Meissner-asymmetric impedance mirror at an
+    eps-gradient boundary: Z_eff = Z0 sqrt(S_mu/S_eps), Gamma != 0
+    (CLAUDE.md:75 / operators.md:54). Returns the pull factors at a few biases
+    for the RESULT table + the observability tag.
+    """
+    biases = {"cold": 0.0, "0.5 V_yield": 0.5 * V_YIELD, "0.7 V_yield": 0.7 * V_YIELD}
+    edge = {}
+    for name, vb in biases.items():
+        # band-edge pull at q ell = pi (Brillouin edge)
+        edge[name] = float(loaded_line_dispersion(vb, np.pi))
+    return {
+        "band_edge_pull": edge,
+        "observability": (
+            "uniform bias self-cancels on readout (gauge-relative A, INVARIANT-S2); "
+            "network C-V is DIFFERENTIAL — the readable signal is Gamma != 0 at an "
+            "eps-gradient boundary via the Op14 impedance mirror Z_eff=Z0 sqrt(S_mu/S_eps)"
+        ),
+    }
+
+
+# =============================================================================
+# main
+# =============================================================================
 
 
 def main() -> None:
     """Run all sections and emit the datasheet figure + JSON summary."""
-    raise NotImplementedError  # filled in a later commit
+    import json
+    import os
+
+    out = {}
+
+    # (a)/(b) named-bias C-V pins
+    out["cv_pins"] = {
+        "t2_chord_at_0.5_Vyield": float(t2_chord_over_eps0(0.5 * V_YIELD)),
+        "t2_tangent_at_0.5_Vyield": float(t2_tangent_over_eps0(0.5 * V_YIELD)),
+        "a1_chord_at_0.5_Vsnap": float(a1_chord_over_c0(0.5 * V_SNAP)),
+        "a1_tangent_at_0.5_Vsnap": float(a1_tangent_over_c0(0.5 * V_SNAP)),
+        "a1_tangent_at_sqrt_alpha": float(a1_tangent_over_c0(V_YIELD)),  # electron bias
+        "V_yield_kV": V_YIELD / 1e3,
+        "V_snap_kV": V_SNAP / 1e3,
+        "Vyield_over_Vsnap": V_YIELD / V_SNAP,
+        "sqrt_alpha": float(np.sqrt(ALPHA)),
+    }
+
+    # (c) eigenmode check
+    eig = eigenmode_check()
+    out["eigenmode_check"] = {
+        "match_perp_is_chord": eig["match_perp_is_chord"],
+        "match_par_is_tangent": eig["match_par_is_tangent"],
+        "verdict": eig["verdict"],
+        "dn_bir_leading": str(eig["dn_bir_leading"]),
+        "dn_iso_leading": str(eig["dn_iso_leading"]),
+        "n_perp": str(eig["n_perp"]),
+        "n_par": str(eig["n_par"]),
+    }
+
+    # (d) network composition
+    out["network"] = network_cv_note()
+
+    # (b) figure
+    fig_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..", "..", "..", "manuscript", "vol_9_vacuum_datasheet",
+        "figures", "semiconductor_cv",
+    )
+    fig_dir = os.path.abspath(fig_dir)
+    os.makedirs(fig_dir, exist_ok=True)
+    saved = make_cv_figure(os.path.join(fig_dir, "vacuum_cv_datasheet"))
+    out["figure"] = [str(p) for p in saved]
+
+    outdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_output")
+    os.makedirs(outdir, exist_ok=True)
+    with open(os.path.join(outdir, "semiconductor_cv_dip.json"), "w") as f:
+        json.dump(out, f, indent=2)
+    print(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":
