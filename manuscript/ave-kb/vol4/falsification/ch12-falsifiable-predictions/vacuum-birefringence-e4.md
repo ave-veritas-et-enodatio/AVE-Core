@@ -50,12 +50,19 @@ claims: [clm-pp3qwf, clm-sve3xc]
 > 🔵 **OPTION-B BODY CONSOLIDATION (2026-07-07; Grant-fired).** The body below is now consolidated to the
 > current $15\pi/(4\alpha^2)=3.75\pi/\alpha^2\approx2.2\times10^5$ headline of the FOOTING RE-FREEZE note above
 > (Option B — superseding the PR #545 Option-A "body-under-chain" state). The QED co-coefficient in the body
-> derivation is re-normalized from the AVE-side differenced $(3/45)\alpha^2$ estimate (which understated it by
-> $1/(2\pi\alpha)\approx21.8$, per the 🔴 note) to the PVLAS-anchored **instantaneous** one-loop $2\alpha/(15\pi)$
+> derivation is re-normalized from the AVE-side differenced $(3/45)\alpha^2$ estimate — which understated the
+> **static-duality** coefficient $\alpha/(30\pi)$ by $1/(2\pi\alpha)\approx21.8$ (the 🔴 note computes the
+> factor against that form); against the **instantaneous** target used here, $2\alpha/(15\pi)$, the
+> understatement factor is $2/(\pi\alpha)\approx87.2$ (and $1/(\pi\alpha)\approx43.6$ against the propagating
+> $\alpha/(15\pi)$) — to the PVLAS-anchored **instantaneous** one-loop $2\alpha/(15\pi)$
 > — its $\langle\cos^2\rangle=\tfrac12$ carrier average is the propagating $\alpha/(15\pi)$. The v1
 > $7.5/\alpha^3\approx1.93\times10^7$ and v2 $7.5\pi/\alpha^2\approx4.42\times10^5$ values remain **KEEP-BOTH**
-> convention history in the 🔴/🔵 notes above (verbatim; the OpenTimestamps anchor
-> `claim-prereg-ots/claims_by_hash.md` carries the v2 $7.5\pi/\alpha^2$ — byte-identical, not re-stamped). The
+> convention history in the 🔴/🔵 notes above (verbatim). **Numbering disambiguation:** this note's chain
+> labels are v1 $=7.5/\alpha^3$, v2 $=7.5\pi/\alpha^2$, v3 $=3.75\pi/\alpha^2$; the preserved 🔵 FOOTING
+> RE-FREEZE note above uses the **Letter's** numbering, in which the SAME $7.5\pi/\alpha^2$ object is the
+> Letter's **'v1'** — so this note's **v2** $\equiv$ the Letter's **'v1'**. The OpenTimestamps anchor
+> `claim-prereg-ots/claims_by_hash.md` carries that object — this note's v2 (= the Letter's 'v1')
+> $7.5\pi/\alpha^2$ — byte-identical, not re-stamped. The
 > single-arm $4.14\times10^6$ is retained as v1-footing traceability (no corrected single-arm value is derived —
 > the differential is the falsifier headline). **Display-footing consolidation only** — no order of magnitude
 > and **no falsifier verdict** moves (footing-invariant: SVE $P_{flip}\sim5\times10^{-3}$ and the kill criterion
@@ -92,7 +99,7 @@ $$\boxed{\;\delta n_{bir} = n_\parallel - n_\perp \approx -\tfrac12 A^2\;}\qquad
 
 This is **negative**, **$E^2$-leading**, and **exactly $2\times$ the scalar single-arm (isotropic) shift** $\delta n_{iso}=\sqrt{S}-1\approx-\tfrac14 A^2$ — which is the **common-mode** quantity the polarimeter is blind to (see below). The AVE coefficient is O(1) against an un-suppressed yield field $E_{yield}=V_{yield}/\ell_{node}\approx 1.13\times10^{17}$ V/m.
 
-Standard QED (Euler-Heisenberg) must be differenced the **same** way and normalized on the **same instantaneous footing**: the one-loop birefringence coefficient anchored to the PVLAS $A_e$ magnetic leg (via the $E\leftrightarrow cB$ duality) and the BIREF@HIBEF LoI is $2\alpha/(15\pi)$ **instantaneous** (its $\langle\cos^2\rangle=\tfrac12$ carrier average is the propagating $\alpha/(15\pi)$; the static-duality form is $\alpha/(30\pi)$) — NOT the AVE-side differenced $3/45$ estimate, which understated it by $1/(2\pi\alpha)\approx21.8$ (the 🔴 note above). So the matched, like-for-like, field-independent ratio on the consistent instantaneous footing is
+Standard QED (Euler-Heisenberg) must be differenced the **same** way and normalized on the **same instantaneous footing**: the one-loop birefringence coefficient anchored to the PVLAS $A_e$ magnetic leg (via the $E\leftrightarrow cB$ duality) and the BIREF@HIBEF LoI is $2\alpha/(15\pi)$ **instantaneous** (its $\langle\cos^2\rangle=\tfrac12$ carrier average is the propagating $\alpha/(15\pi)$; the static-duality form is $\alpha/(30\pi)$) — NOT the AVE-side differenced $3/45$ estimate, which understated the **static-duality** coefficient $\alpha/(30\pi)$ by $1/(2\pi\alpha)\approx21.8$ (the 🔴 note computes the factor against that form); against the **instantaneous** $2\alpha/(15\pi)$ used here the understatement factor is $2/(\pi\alpha)\approx87.2$ (and $1/(\pi\alpha)\approx43.6$ against the propagating $\alpha/(15\pi)$). So the matched, like-for-like, field-independent ratio on the consistent instantaneous footing is
 
 $$\frac{\delta n_{AVE}}{\delta n_{QED}} = \frac{1/2}{(2\alpha/15\pi)}\left(\frac{E_{crit}}{E_{yield}}\right)^2 = \frac{15\pi}{4\alpha^2} = \frac{3.75\pi}{\alpha^2}\quad\left(\text{using }E_{crit}=\alpha^{-1/2}E_{yield},\ \text{so }(E_{crit}/E_{yield})^2=\tfrac1\alpha\right) \approx 2.2\times10^5.$$
 
