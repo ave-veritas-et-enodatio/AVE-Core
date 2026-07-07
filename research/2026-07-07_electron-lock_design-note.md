@@ -341,10 +341,6 @@ ratio effect).** Decay is **not** a frequency-ratio phenomenon; it is a
 These two are **different mechanisms in different coordinates** and the note
 keeps them apart on purpose.
 
-## §6 — Balloon → cavity (the confinement correction); decay kept distinct
-
-<!-- section body: commit 4 -->
-
 ## §7 — The test + two can-fail gates
 
 **HYPOTHESIS-class framing — no result is admissible without a DEMONSTRATED
@@ -417,11 +413,3 @@ hypothesis*; §9 flags that its load-bearing assumption is not yet settled.
 what B is designed to TEST and why the walk motivates that design. The FIREWALL
 and the ⟨N⟩ knife bind every derivation B may run; the two can-fail gates (§7)
 bind every verdict B may report. This note lands *design rationale only.*
-
-## §8 — Staged plan (pilot-before-scale)
-
-<!-- section body: commit 5 -->
-
-## §9 — The open gut-check (surfaced to Grant, UNRESOLVED)
-
-<!-- section body: commit 5 -->
