@@ -14,13 +14,14 @@ T2 keyed V_yield (permittivity, rolls off). The two are NEVER cross-wired.
 
 from __future__ import annotations
 
+import math
 import os
 import sys
 
 import numpy as np
 import pytest
 
-from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.core.constants import ALPHA, E_CRIT, E_YIELD, V_SNAP, V_YIELD
 
 # make the verify/ drivers importable (they live in src/scripts/verify),
 # matching the repo convention (cf. test_em_keying_round3_eps_dc_mechanism.py)
@@ -31,6 +32,8 @@ if _VERIFY not in sys.path:
 from semiconductor_cv_dip import (  # noqa: E402
     a1_chord_over_c0,
     a1_tangent_over_c0,
+    a1_tangent_sympy_check,
+    ec_is_eyield_check,
     eigenmode_check,
     kernel_S,
     loaded_line_dispersion,
@@ -102,6 +105,61 @@ def test_t2_chord_leading_coefficient_is_minus_one_half():
     chord = float(t2_chord_over_eps0(v))
     coeff = (chord - 1.0) / (-(a**2))
     assert coeff == pytest.approx(0.5, rel=1e-4)
+
+
+def test_a1_tangent_exponent_is_sympy_derived():
+    # (a) MINOR-6: d/dV[V/S(V/V_snap)] = 1/S^3 is DERIVED (sympy), not asserted.
+    assert a1_tangent_sympy_check() is True
+
+
+# --- (b) table-caption value pins (driver JSON; test-locked) -----------------
+# Every row of the RESULT (b) table is now both driver-JSON-emitted AND
+# value-pinned here, so the caption "(driver JSON; test-locked)" is true.
+
+
+def test_t2_tangent_at_half_vyield_is_one_over_sqrt3():
+    # RESULT (b) row: T2 tangent eps_ss/eps0 at 0.5 V_yield = 1/sqrt(3)
+    assert t2_tangent_over_eps0(0.5 * V_YIELD) == pytest.approx(
+        1.0 / np.sqrt(3), rel=RTOL
+    )
+
+
+def test_a1_chord_at_half_vsnap_is_two_over_sqrt3():
+    # RESULT (b) row: A1 chord C/C0 at 0.5 V_snap = 2/sqrt(3)
+    assert a1_chord_over_c0(0.5 * V_SNAP) == pytest.approx(
+        2.0 / np.sqrt(3), rel=RTOL
+    )
+
+
+def test_a1_tangent_at_half_vsnap_is_two_over_sqrt3_cubed():
+    # RESULT (b) row: A1 tangent C_ss/C0 at 0.5 V_snap = (2/sqrt(3))^3
+    assert a1_tangent_over_c0(0.5 * V_SNAP) == pytest.approx(
+        (2.0 / np.sqrt(3)) ** 3, rel=RTOL
+    )
+
+
+def test_a1_diverging_row_at_099_vsnap():
+    # RESULT (b) row (previously in neither JSON nor test): 0.99 V_snap = 7.089 / 356.2
+    assert a1_chord_over_c0(0.99 * V_SNAP) == pytest.approx(7.089, abs=1e-3)
+    assert a1_tangent_over_c0(0.99 * V_SNAP) == pytest.approx(356.2, abs=0.1)
+
+
+# --- (a)/(c) DEFECT-1: the E_c = sqrt(alpha)*E_crit == E_yield identity -------
+# The RESULT (c) + eigenmode_check identify the Letter's field scale E_c with
+# the field image of V_yield. That identity is now DRIVER-COMPUTED (not merely
+# stamped in the RESULT): it holds to 1 ULP (rel_tol 1e-12), NOT bitwise.
+
+
+def test_ec_equals_eyield_to_one_ulp_not_bitwise():
+    chk = ec_is_eyield_check()
+    # the identity holds to rel_tol 1e-12 ...
+    assert chk["isclose_rel_tol_1e-12"] is True
+    assert chk["rel_diff"] < 1e-12
+    # ... but NOT bitwise (two different constants.py computation paths)
+    assert chk["bitwise_equal"] is False
+    # cross-check the function's own inputs independently
+    assert math.isclose(math.sqrt(ALPHA) * E_CRIT, E_YIELD, rel_tol=1e-12)
+    assert (math.sqrt(ALPHA) * E_CRIT) != E_YIELD  # 1-ULP gap, not exact
 
 
 # --- section 4 / (c): the eigenmode-check verdict ----------------------------

@@ -73,8 +73,12 @@ Constitutive displacement $D(V)\sim\varepsilon_0 S(V/V_{yield})\,V$. Per the rou
 Both ROLL DOWN under held bias. The T2 tangent $S-A_V^2/S$ loses real support past $A_V=1/\sqrt2$
 (where $S^2=A_V^2$) — this is not a bug: it is exactly the birefringence Letter's parallel eigenindex
 $n_\parallel$ going imaginary at $A^2>1/2$ (see (c)). Both coefficients ($\tfrac12$ chord, $\tfrac32$
-tangent) are sympy-traced and test-pinned; neither is crowned as "the answer to the corpus convention
-tangle" — that stays a Grant call (`node-up`:229; see the merged flag in (h)).
+tangent) are sympy-traced and test-pinned, so BOTH objects are reported. Per the C-V measurement
+definition the **tangent** is crowned "*the* small-signal permittivity" (deliverable (a), payload (ii));
+per (c) the chord/tangent pair are the two ⊥/∥ polarization eigenmodes, which **resolves** the
+`node-up`:229 convention tangle (payload (iii)). What remains a **Grant call** is the *act of ratifying*
+that resolution to the KB (the staged note (h) is his corpus-consistency adjudication, A44) — not an
+unresolved physics fork.
 
 **Anti-cross-wire (the discipline this arc enforces):** the A1 divergent form $C_0/S$ is keyed on
 $V_{snap}$; the T2 rolloff form $\varepsilon_0 S$ is keyed on $V_{yield}$. Never $C_0/S$ keyed on
@@ -119,7 +123,10 @@ derivation (`papers/2026_birefringence_letter/main.tex`, Appendix A).
 
 The Letter's kernel `eq:kernel` is $\varepsilon_{eff}(E)=\varepsilon_0\,S(E)$, $S=\sqrt{1-(E/E_c)^2}$ —
 the **same** kernel as the T2 permittivity, with $E_c=\sqrt\alpha\,E_{crit}=E_{yield}=1.130\times10^{17}$
-V/m (the field image of $V_{yield}$; driver-confirmed $E_c\equiv E_{YIELD}$). The probe permittivity
+V/m (the field image of $V_{yield}$; **driver-computed** by `ec_is_eyield_check()`:
+$\sqrt\alpha\,E_{CRIT}=E_{YIELD}$ to **1 ULP** — `math.isclose(rel_tol=1e-12)`, rel-diff
+$1.4\times10^{-16}$; NOT bitwise-`==`, since `E_CRIT` and `E_YIELD` are built from `ave.core.constants`
+through different paths — test `test_ec_equals_eyield_to_one_ulp_not_bitwise`). The probe permittivity
 tensor is $\varepsilon_{ij}=\varepsilon_0 S\,\delta_{ij}+2\varepsilon_0 S'E_{0i}E_{0j}$ (Letter
 Eq. app-tensor). Its two eigenvalues, and their probe indices:
 
@@ -159,9 +166,9 @@ a contradiction — it was two polarization channels. **STAGED ruling text below
 
 The two-branch cell composes across the canonical srs/K4 ladder: **series-$L$ per bond, shunt-$C$ per
 node** (`graded-network-response.md`:50, $z=3$ mutual inductive struts; K4 $z=3$), a periodic chain of
-identical cells with the Bloch/Floquet condition on the cell ABCD ($\cos(q\ell_{eff})=(A+D)/2$,
-`z0-derivation.md`:133-136). The cold dispersion is the sine law $\omega(q)=(2c_0/\ell_{node})
-|\sin(q\ell_{node}/2)|$.
+identical cells (`z0-derivation.md`:132) with the Bloch/Floquet condition on the cell ABCD
+($\cos(q\ell_{eff})=(A+D)/2$, `z0-derivation.md`:138). The cold dispersion is the sine law
+$\omega(q)=(2c_0/\ell_{node})|\sin(q\ell_{node}/2)|$ (`graded-network-response.md`:56).
 
 - **Where each capacitance lives.** The **T2 permittivity** is the **shunt-$C$ per node** (the LCR-cell
   capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$, `CLAUDE.md`:73) — it loads the ladder's shunt
@@ -289,13 +296,19 @@ A1's form. Per `CLAUDE.md`:73 the T2 permittivity ROLLS OFF ($\varepsilon_0 S$, 
 the diverging $C_0/S$ (↑) is A1. Per `def-vyvsn1` (`nonlinear-vacuum-capacitance.md`:18) $V_{yield}$ is
 the T2 self-trap wall and $V_{snap}$ is the A1 compliance bound.
 
-> **⚑ FLAG (surfaced for Grant, NOT resolved here) — this composes into the `node-up`:229 three-way
-> varactor-convention tangle.** This supersession is a **corpus-consistency call**, not an engine bug
-> (per A44 missing-axiom-vs-engine-bug and the lane discipline): `node-up`:229 already carries the (a)/
-> (b)/(c) three-way tension around $C_0/S(A_V)$ and what "small-signal C" means. The staged text below
-> corrects the **sector-keying** cross-wire specifically; the "which object is *the* small-signal C"
-> convention question stays the OPEN `node-up`:229 Grant item. The auditor lands the KB manual — this
-> arc only stages the text.
+> **⚑ FLAG (surfaced for Grant's adjudication; STAGED not landed) — this composes into the `node-up`:229
+> three-way varactor-convention tangle AND carries its proposed resolution.** This supersession is a
+> **corpus-consistency call**, not an engine bug (per A44 missing-axiom-vs-engine-bug and the lane
+> discipline): `node-up`:229 already carries the (a)/(b)/(c) three-way tension around $C_0/S(A_V)$ and what
+> "small-signal C" means. The staged text below carries a **three-part payload** (enumerated in full at the
+> end of the staged note): (i) the **sector-keying** cross-wire fix (A1 form ↔ T2 key), (ii) the
+> **operational crowning** (the tangent is "*the* small-signal C" per the C-V measurement definition), and
+> (iii) the **(c) eigenmode resolution** (chord = $n_\perp$, tangent = $n_\parallel$; the fork is two real
+> polarization channels, the split IS the birefringence). Per (c)'s VERDICT the "which object is *the*
+> small-signal C" question **dissolves at the tensor level**, so ratifying this note **closes** the
+> `node-up`:229 convention tangle via (ii)+(iii) — it does not leave it open. What stays a **Grant call** is
+> the *act of ratifying* (this is his corpus-consistency adjudication, A44), not an unresolved physics fork.
+> The auditor lands the KB manual — this arc only stages the text; no KB edit here.
 
 ### STAGED SUPERSESSION TEXT (verbatim, for Grant to adjudicate then the auditor to land)
 
@@ -318,31 +331,67 @@ the T2 self-trap wall and $V_{snap}$ is the A1 compliance bound.
 >   probe eigenmode $n_\perp=\sqrt S$; tangent $\varepsilon_0(S-A_V^2/S)$ (leading $1-\tfrac32 A_V^2$) = the
 >   parallel eigenmode $n_\parallel$ — the **chord/tangent split IS the birefringence** $\delta n_{bir}=
 >   -\tfrac12 A_V^2$ (corpus-resolved, `analysis/semiconductor-cv-dip` (c); Letter Appendix A).
-> The `node-up`:229 three-way "which is *the* small-signal C" convention question is UNCHANGED by this
-> correction and stays OPEN for Grant; this note fixes only the **sector-keying** (A1 form ↔ T2 key)
-> cross-wire. Provenance: `research/2026-07-07_semiconductor-cv-dip_RESULT.md` (a)/(c)/(h).
+> **Scope of what ratifying this note settles (three-part payload — enumerated so the self-description
+> matches the body above).** Grant is adjudicating all three of:
+> - **(i) sector-keying correction** — the A1 divergent *form* $C_0/S$ (keyed $V_{snap}$) vs the T2 rolloff
+>   *form* $\varepsilon_0 S$ (keyed $V_{yield}$); A1's form was cross-wired onto T2's key at `node-up`:105/:370.
+> - **(ii) operational crowning** — per the C-V measurement discipline (deliverable (a)), the **tangent**
+>   $dQ/dV$ is "*the* small-signal" capacitance/permittivity and the **chord** $Q/V$ is the large-signal
+>   secant, for BOTH sectors (A1 $C_0/S^3$ crowned; T2 $\varepsilon_0(S-A_V^2/S)$ crowned).
+> - **(iii) eigenmode resolution of the chord/tangent fork** — per (c): the T2 chord $\sqrt S$ IS the
+>   perpendicular index $n_\perp$ and the T2 tangent $\sqrt{S-A_V^2/S}$ IS the parallel index $n_\parallel$;
+>   BOTH are real, per-polarization, and their split IS the birefringence $\delta n_{bir}=-\tfrac12 A_V^2$
+>   (sympy-proven, `eigenmode_check()`; vs Letter Appendix A, Eq. A5-A8).
+>
+> **Consequence:** ratifying this note **closes** the `node-up`:229 three-way "which is *the* small-signal C"
+> convention question — via (ii) (the tangent is crowned "the small-signal" by the measurement definition)
+> **and** (iii) (the chord/tangent fork was never a contradiction; the two objects are the ⊥/∥ polarization
+> eigenmodes of one saturable-dielectric tensor, so "which is *the* C" dissolves at the tensor level — both
+> are real, and the observable is their difference). The **sector-keying** cross-wire (i) is the narrow
+> KB-edit target at `node-up`:105/:370; (ii)+(iii) are the accompanying convention closure Grant ratifies in
+> the same act. Provenance: `research/2026-07-07_semiconductor-cv-dip_RESULT.md` (a)/(c)/(h).
 
 ---
 
 ## VERIFY / DISCIPLINE LEDGER
 
-- **Every number from canonical constants** (`ave.core.constants`): $V_{SNAP}$, $V_{YIELD}$, $ALPHA$;
-  $V_{yield}/V_{snap}=\sqrt\alpha$ exactly (driver + test). $E_c=\sqrt\alpha E_{crit}=E_{YIELD}=1.130
-  \times10^{17}$ V/m (driver-confirmed). No hardcoding (prereg F2 clean).
+- **Every number from canonical constants** (`ave.core.constants`): $V_{SNAP}$, $V_{YIELD}$, $ALPHA$,
+  $E_{CRIT}$, $E_{YIELD}$; $V_{yield}/V_{snap}=\sqrt\alpha$ exactly (driver + test). The Letter's field
+  scale $E_c=\sqrt\alpha\,E_{crit}=E_{YIELD}=1.130\times10^{17}$ V/m is **driver-computed** by
+  `ec_is_eyield_check()` and pinned by `test_ec_equals_eyield_to_one_ulp_not_bitwise`: it holds to **1
+  ULP** (`math.isclose(rel_tol=1e-12)`, rel-diff $1.4\times10^{-16}$), **NOT** bitwise-`==` (the two
+  constants take different `constants.py` paths — `E_CRIT=m_e^2c^3/(e\hbar)` vs `E_YIELD=V_{YIELD}/\ell_{node}$).
+  Gate-proof: a $10^{-9}$-relative break in `E_CRIT` flips the `isclose(1e-12)` gate FALSE (see gate ledger).
+  No hardcoding (prereg F2 clean).
 - **ERRATUM (frozen-prereg citation offset, surfaced not silently fixed):** the FROZEN prereg cites
   `nonlinear-vacuum-capacitance.md`:18 for the A1 $C_{eff}\to\infty$-at-$V_{snap}$ line and :20 for the
   `def-vyvsn1` T2-keying ruling. On re-grep at branch tip the A1 divergence line is at **:16** and the
   `def-vyvsn1` ruling at **:18** (the verbatim CONTENT is correct at both; only the line numbers were
   off by a leaf-context offset). The prereg is left frozen (freeze integrity); this RESULT uses the
   corrected :16 / :18. No content claim changes.
-- **Every canon quote verbatim, two methods** (grep + Read at branch tip `cb38c9b9`): `CLAUDE.md`:73,
-  `nonlinear-vacuum-capacitance.md`:16,:18, `node-up`:105,:229,:370, `device-circuit-models.md`:60,
-  round-3 RESULT:292-299, Letter Appendix A, `graded-network-response.md`:50,:53, `z0-derivation.md`:133-136,
-  round-2 prereg:75-78,:119-121. **verify-before-cite FLAG:** `node-up` line drift :105/:370 (this rev) vs
-  brief :104/:360 — revision offset, content identical; both cited.
+- **Every canon quote verbatim, two methods** (grep + Read at branch tip `cb38c9b9`): `CLAUDE.md`:73,:75
+  (the `ave-kb/CLAUDE.md` agent-orientation leaf; content greps exactly), `nonlinear-vacuum-capacitance.md`:16,:18,
+  `node-up`:105,:229,:370, `device-circuit-models.md`:60,:91-105,:143, round-3 RESULT:292-299,
+  Letter Appendix A (Eq. A5-A8), `operators.md`:54, `graded-network-response.md`:50,:56 (the sine-law
+  formula body; :53 is its Resultbox header), `z0-derivation.md`:132 (periodic-chain) & :138 (the Bloch
+  condition $\cos(q\ell)=(A+D)/2$), round-2 prereg:75-78,:119-121. **verify-before-cite FLAGs (re-grepped
+  at final commit):** (i) `node-up` line drift :105/:370 (this rev) vs brief :104/:360 — revision offset,
+  content identical; both cited. (ii) The `z0-derivation.md`:133-136 pin in an earlier RESULT rev was an
+  offset — the Bloch equation is at :138 (fixed above). (iii) The driver's A1-divergence pin was corrected
+  :18 → :16 (:18 is the `def-vyvsn1` ruling).
 - **Gates prove can-fire:** the eigenmode-check tests assert the sympy identity holds AND (implicitly) the
   form would fail if $n_\parallel\ne\sqrt{S-A^2/S}$ (prereg F1 kill wired). The anti-cross-wire tests would
   RED if A1 were keyed $V_{yield}$ or T2 keyed $V_{snap}$ (prereg F3 kill wired).
+- **Gate-proof — the $E_c\equiv E_{YIELD}$ identity (DEFECT-1 repair, break-one-input):** the identity is
+  now driver-COMPUTED (`ec_is_eyield_check()`), not RESULT-stamped. Break-one-input proof (run at fix-time):
+  `HEALTHY isclose(1e-12): True` (test PASSES); perturbing `E_CRIT` by $10^{-9}$ relative gives
+  `BROKEN isclose(1e-12): False` (test would RED — assert fires). The $10^{-12}$ gate is discriminating: it
+  passes the real $1.4\times10^{-16}$ ULP-level identity and fires on a $10^{-9}$ input break. Pinned by
+  `test_ec_equals_eyield_to_one_ulp_not_bitwise`.
+- **Gate-proof — the crowned A1 tangent exponent (MINOR-6, DERIVED not asserted):** `a1_tangent_sympy_check()`
+  proves $\mathrm{d}/\mathrm{d}V[V/S(V/V_{snap})]-1/S^3=0$ symbolically (sympy `simplify`), pinned by
+  `test_a1_tangent_exponent_is_sympy_derived`. The $1/S^3$ exponent in `a1_tangent_over_c0` is thus derived,
+  not hand-typed.
 - **Consistency-vs-emergence:** CONSISTENCY-class throughout (prereg §4 held); $\sqrt\alpha$ ratio = echo;
   no emergence headline (F4 clean). The eigenmode identification is NOT AVE-distinct (generic
   nonlinear-optics eigenmode structure); the static-$\mathbf B$ transparency it touches is already-canon.
