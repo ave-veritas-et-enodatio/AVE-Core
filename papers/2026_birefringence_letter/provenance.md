@@ -556,9 +556,76 @@ number, no falsifier verdict, no anchored value moves; `src/` + JSON UNTOUCHED (
 - **consistency-vs-emergence:** N/A — a wording/physics-accuracy correction to a comparison with prior art; no AVE
   claim class changes.
 
-**Build/verify:** `make paper` clean — **9 pages** (was 8; the two added references push the bibliography onto a 9th
-page — body content did not balloon a page, the spill is the reference list renumbering with `[5]`/`[6]`), zero
+**Build/verify:** `make paper` clean — **9 pages** (was 8). **Page-growth attribution CORRECTED (2026-07-06,
+FIX-round MINOR 2):** the earlier note here read *"the two added references push the bibliography onto a 9th page —
+body content did not balloon a page"* — that is WRONG. The 8→9 transition is driven by **~320 words of BODY
+growth** (measured four ways vs the 8-page base `cb38c9b9`: whole-file source +323, body-source +323,
+`texcount` rendered +318, `detex` rendered +315), which moved the Conclusion onto p8 and Table I onto p7; the two
+added references contribute only two short bibliography lines (<40 words) and are NOT the cause. zero
 undefined refs / zero citation warnings, both new refs resolve in the `.bbl` (Boillat with DOI, Plebański 1970).
 Only the three pre-existing overfull boxes remain (Table I alignment ~8.9pt + two appendix displays ~21.9pt/~6.6pt,
 line numbers reflowed by the page break); the corrections introduced none. `make verify` GREEN. Fresh branch
 `analysis/letter-bi-corrections` off `origin/main` `cb38c9b9`. Grant's five standing decisions UNTOUCHED.
+
+## 12. Referee fix-round — 5 MAJOR + 3 MINOR corrections (2026-07-06, all CONFIRMED)
+
+Precision fix-round on the referee-facing Letter (PR #555). Three DEFECTs (A/B/C) + three MINORs, per-defect commits.
+
+**DEFECT A — F-convention factor-2 (`main.tex:297,:310`).** The Family-context passage displayed `√(1+F/b²)`
+and reconciled to the electric form via *"since F ∝ −2E²"* without ever defining `F`. Under the standard Lorentz
+invariant `F = F_{μν}F^{μν} = 2(B²−E²)`, pure-E gives `F = −2E²` and the identity `√(1+F/b²)=√(1−E²/b²)` is FALSE
+by a factor 2 (root closes at `b/√2`). Fixed by DECLARING the convention inline — `F ≡ B²−E² = ½F_{μν}F^{μν}`
+(Heaviside–Lorentz) — so pure-E gives `F = −E²` and the identity is EXACT. **Sympy-verified this session** (four
+checks): the half-relation, the exact/false branches, the `:297` display consistency, and `D = E/√(1−(E/b)²) = dL/dE`
+(root in denominator, exponent −½). §11 restatement corrected too. **The same wrong parenthetical lives in merged
+KB canon at `manuscript/ave-kb/common/historical-precedents.md:39` (propagated by #551)** — landed on a separate
+micro-branch `analysis/kb-f-convention-fix` (own micro-PR), same convention-declaring fix.
+
+**DEFECT B — unqualified B-I uniqueness ×4 (`main.tex:98,:114,:369,:610-616`).** *"the unique nonlinear
+electrodynamics besides Maxwell with a single effective light cone in any constant background"* is FALSE
+unqualified. **Russo & Townsend, JHEP 01 (2023) 039 (arXiv:2211.10689)** classify ALL zero-birefringence NLEDs:
+Born–Infeld, Plebański, reverse-B-I, extreme-B-I; B-I is unique ONLY among those **with a Maxwell weak-field
+limit**. The Plebański exception is in the very Plebański-1970 notes cited as uniqueness support. Fixed all four
+sites with the qualifier + `RussoTownsend2023` cite (Crossref DOI + arXiv-abstract verified this session);
+Plebański-1970 re-scoped to the exceptional-case landscape it actually supports (one raw cite). Every downstream
+separation survives — none of the other zero-birefringence theories reduces to Maxwell at weak field, stated in-text.
+
+**DEFECT C — B-I-zero leg unlicensed for the propagating pump (`main.tex` signature §).** The three-way
+discriminator's B-I-zero leg read *"zero static-field birefringence on both routes"*, but the pump is a
+PROPAGATING optical field (the Letter stresses at `:373-377` that a propagating field is not static and loads),
+while every B-I-zero justification was scoped to *constant background*. Verified: Russo–Townsend scope the
+single-cone/superluminality statement to *constant electromagnetic backgrounds*; the Letter applies constant-field
+results to the pump (its own AND QED's) via the locally-constant-field (geometric-optics) argument — keV X-ray
+probe (~0.1 nm) ≪ optical pump variation scale (~800 nm). Fixed by writing the B-I-zero leg on the SAME footing:
+single-cone proved for constant backgrounds, carried to the pump under explicit locally-constant-field scoping;
+*"on both routes"* → common index shift with zero **differential** birefringence for the pump. Separation claim
+survives; license now printed.
+
+**MINOR 1 — transparency conflation ×3 (`main.tex:97,:114,:368`).** *"shares the static-B transparency"*
+conflated the model's FULL non-loading (`S_µ=1`, no index change) with B-I's zero-BIREFRINGENCE (both polarizations
+on ONE common cone — common index shift, `Δn=0`). Fixed at all three: exact B-I predicts zero static-B
+*birefringence* via a common index shift (not full non-loading); a `Δn` polarimeter (PVLAS/BMV) is blind to the
+common-shift-vs-non-loading distinction, so the agreement alone does not separate the two on the magnetic route.
+
+**MINOR 2 — §11 page-growth misattribution CORRECTED (see §11 build note above).** The 8→9 transition is
+~320 words of BODY growth (four measurements), not the two references.
+
+**MINOR 3 — venue-length forward-note (FLAG-DON'T-FIX; frozen §5 point 3 UNTOUCHED).** §5 point 3 is a FROZEN
+historical entry recording *"5 pages … comfortably PRD-Letter-length."* That is **no longer true** and, per the
+FLAG-DON'T-FIX rule, the frozen entry is **not edited** and **no content is trimmed.** Dated forward-note:
+
+> **Venue-length forward-note (2026-07-06).** The draft is now **9 pages, ~5,900–6,000 rendered words** (texcount
+> sum 5951; detex 5926; the broader all-text count incl. references/appendix is ~6,800), grown from the 5-page /
+> PRD-Letter-length state recorded in the frozen §5 point 3. This is **well over a PRD-Letter ~4,500-word cap** and
+> over typical Letter page limits. **Venue-length is now an OPEN GRANT DECISION**, not a settled "comfortably
+> Letter-length" fact: options are (a) keep the current length and target a full-article venue (PRD regular
+> article / NJP / equivalent), (b) trim to a Letter/PRL cap, or (c) arXiv-only preprint at current length.
+> **No content trimmed by this fix-round** — flagged for Grant, not fixed.
+
+**Fix-round build/verify:** `make paper` clean — **9 pages**, zero undefined refs / zero citation warnings, all bib
+entries resolve (incl. `RussoTownsend2023` with DOI). Three pre-existing overfull boxes remain; the pre-existing
+*"float is stuck"* LaTeX warning (present at the branch tip `aaf2479c` before this round, under-reported by the
+FIX-2 build note) CLEARED under the MINOR-1 text reflow. `make verify` GREEN. Anchored invariants grep-confirmed
+UNCHANGED across all six fix commits (P_flip triplet + abstract range, kill criterion, `3.75π/α²` ×7, pump `A²`,
+purity floor `2.4e-10`, `δn_µ=0`, `E_c`, OTS `2.2e5`). Branch `analysis/letter-bi-corrections`; DO-NOT-MERGE, no
+self-merge.
