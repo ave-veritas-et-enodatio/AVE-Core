@@ -126,3 +126,23 @@ Implementer lane. The R1 supersession text (h) is STAGED in the RESULT for Grant
 node-up cross-wire is a corpus-consistency call across (a)/(b)/(c) of the `node-up`:229 three-way
 tangle, NOT an engine bug; the auditor lands any KB manual. Flag-don't-fix: surface both file paths +
 verbatim content, do not reframe one to match the other.
+
+---
+
+## ERRATA (append-only; freeze integrity — body above unedited)
+
+This prereg is frozen. Citation-offset corrections surfaced during the PR #556 fix round are recorded
+here as ERRATA-append rather than by editing the frozen table (Rule 11 / freeze integrity). The verbatim
+CONTENT of every anchor is correct; only the line/equation pins drifted.
+
+- **ERRATUM E1 (:68, Letter equation numbering).** The CORPUS-GROUNDING row cites the Letter
+  `main.tex` eigen-indices as **"Eq. (A5-A7)"**. On compiling the appendix (`app:eigen`) the numbered
+  environments run A1..A8: A1 `app-constitutive`, A2 `app-productrule`, A3 `app-tensor`, A4 `app-Sprime`,
+  **A5 `app-nperp`**, **A6 `app-npar`**, A7 `app-expand`, **A8 `app-shifts`** (which carries
+  $\delta n_{bir}=-\tfrac12A^2$ and $\delta n_{iso}=-\tfrac14A^2$). The correct span is therefore
+  **(A5-A8)** — $\delta n_{bir}/\delta n_{iso}$ are in **(A8)**, not (A7). The RESULT and driver use
+  (A5-A8); this row's (A5-A7) is superseded.
+- **ERRATUM E2 (:69, graded-network-response.md pin).** The row cites `graded-network-response.md`:50,:53
+  for "series $L$ per bond, shunt $C$ per node" and the sine law $\omega(q)=(2c_0/\ell_{node})|\sin(\cdot)|$.
+  `:50` (series-L/shunt-C) is correct; the sine-law **formula body** is at **:56** (`:53` is its
+  `[Resultbox]` header line). The RESULT and driver cite `:56` for the formula.

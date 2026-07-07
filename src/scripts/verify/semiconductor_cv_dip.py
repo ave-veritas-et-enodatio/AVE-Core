@@ -11,7 +11,7 @@ The vacuum cell carries TWO orthogonal capacitances (A1 perp T2,
 ``master-equation.md``:20; the Grant-ratified sector split, ``CLAUDE.md``:73):
 
   - A1 longitudinal bond compliance  C_eff = C0 / S(V/V_snap),  DIVERGES at
-    V_snap = m_e c^2 / e ~= 511 kV  (nonlinear-vacuum-capacitance.md:18).
+    V_snap = m_e c^2 / e ~= 511 kV  (nonlinear-vacuum-capacitance.md:16).
     Device reading: turn-on / channel-inversion capacitance (pair production
     IS channel formation).
 
@@ -35,9 +35,11 @@ Run:  PYTHONPATH=src python src/scripts/verify/semiconductor_cv_dip.py
 
 from __future__ import annotations
 
+import math
+
 import numpy as np
 
-from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.core.constants import ALPHA, E_CRIT, E_YIELD, V_SNAP, V_YIELD
 
 # =============================================================================
 # section 1: canonical kernel + the two sector capacitances
@@ -60,7 +62,7 @@ def kernel_S(a: np.ndarray | float) -> np.ndarray:
 def a1_argument(v: np.ndarray | float) -> np.ndarray:
     """A1 longitudinal bond-compliance kernel argument A = V / V_snap.
 
-    A1 keys on V_snap (nonlinear-vacuum-capacitance.md:18) — NEVER V_yield.
+    A1 keys on V_snap (nonlinear-vacuum-capacitance.md:16) — NEVER V_yield.
     """
     return np.asarray(v, dtype=float) / V_SNAP
 
@@ -102,10 +104,24 @@ def a1_tangent_over_c0(v: np.ndarray | float) -> np.ndarray:
 
     device-circuit-models.md:60 verbatim: "the small-signal differential
     C_ss = dQ/dV = C0/S^3". This is THE small-signal compliance (crowned).
-    d/dV [ V / S(V/V_snap) ] = 1/S^3   (sympy-verified in the RESULT).
+    d/dV [ V / S(V/V_snap) ] = 1/S^3   (sympy trace: a1_tangent_sympy_check()).
     """
     s = kernel_S(a1_argument(v))
     return 1.0 / s**3
+
+
+def a1_tangent_sympy_check() -> bool:
+    """Sympy trace: d/dV [ V / S(V/V_snap) ] = 1/S^3, the crowned A1 tangent.
+
+    The constitutive A1 charge is Q(V)/C0 = V / S(V/V_snap). The small-signal
+    (tangent) compliance is dQ/dV; we prove symbolically it equals 1/S^3 (i.e.
+    the exponent in a1_tangent_over_c0 is not asserted, it is derived).
+    """
+    import sympy as sp
+
+    V, Vsnap = sp.symbols("V V_snap", positive=True)
+    S = sp.sqrt(1 - (V / Vsnap) ** 2)
+    return sp.simplify(sp.diff(V / S, V) - 1 / S**3) == 0
 
 
 # ---- T2 transverse permittivity (keyed V_yield) ----
@@ -148,6 +164,30 @@ def t2_tangent_over_eps0(v: np.ndarray | float) -> np.ndarray:
 # Letter's two eigen-indices ARE the tangent and chord of the T2 kernel.
 
 
+def ec_is_eyield_check() -> dict:
+    """Check the Letter's field scale E_c = sqrt(alpha)*E_crit EQUALS E_YIELD.
+
+    The RESULT (c) and the eigenmode_check identify the Letter's kernel field
+    scale E_c with the field image of V_yield. That rests on the numerical
+    identity  sqrt(ALPHA) * E_CRIT == E_YIELD.  This holds to 1 ULP (both are
+    computed from ave.core.constants through DIFFERENT paths — E_CRIT via
+    m_e^2 c^3/(e hbar), E_YIELD via V_YIELD/ell_node — so exact `==` fails on
+    the last bit; the identity is real to rel_tol 1e-12, NOT bitwise).
+
+    Returns the two values, the relative difference, and the isclose verdict.
+    """
+    ec_from_alpha = math.sqrt(ALPHA) * E_CRIT
+    rel_diff = abs(ec_from_alpha - E_YIELD) / E_YIELD
+    verdict = math.isclose(ec_from_alpha, E_YIELD, rel_tol=1e-12)
+    return {
+        "sqrt_alpha_E_crit": float(ec_from_alpha),
+        "E_yield": float(E_YIELD),
+        "rel_diff": float(rel_diff),
+        "isclose_rel_tol_1e-12": bool(verdict),
+        "bitwise_equal": bool(ec_from_alpha == E_YIELD),
+    }
+
+
 def eigenmode_check() -> dict:
     """Sympy proof that Letter n_perp = chord sqrt(S), n_par = tangent sqrt(S-A^2/S).
 
@@ -155,11 +195,12 @@ def eigenmode_check() -> dict:
     (papers/2026_birefringence_letter/main.tex, Appendix A) derives its two
     probe eigen-indices from eps_eff = eps0 * S(E), S = sqrt(1-(E/E_c)^2) — the
     SAME kernel as the T2 permittivity, with E_c = sqrt(alpha)*E_crit = E_yield
-    (the field image of V_yield). We show:
+    (the field image of V_yield; identity checked by ec_is_eyield_check()). We show:
 
       n_perp = sqrt(S)          == the T2 CHORD (constitutive eps0*S)   [Eq A5]
       n_par  = sqrt(S - A^2/S)  == the T2 TANGENT (longitudinal dD/dE)  [Eq A6]
-      dn_bir = n_par - n_perp   == -1/2 A^2  (the observable split)     [Eq A7]
+      (expansion n_perp,n_par leading coefficients                     [Eq A7])
+      dn_bir = n_par - n_perp   == -1/2 A^2  (the observable split)     [Eq A8]
 
     If both matches hold, the KEEP-BOTH chord/tangent fork is corpus-resolved
     as the two polarization eigenmodes (both real; the split IS the birefringence).
@@ -257,9 +298,13 @@ def make_cv_figure(out_path):
     ax.annotate(r"$V_{yield}\approx43.65$ kV" "\n(T2 rolloff)",
                 xy=(data["V_yield"] / 1e3, 0.15), xytext=(1.0, 0.02),
                 color=style.COLORS["muted"], fontsize=8, ha="left")
+    # V_snap label parked in the clear upper-left (all curves ~1 there), with a
+    # thin guide arrow to the divergence so it is not occluded by the A1 tangent.
     ax.annotate(r"$V_{snap}\approx511$ kV" "\n(A1 divergence)",
-                xy=(data["V_snap"] / 1e3, 5.0), xytext=(120.0, 6.0),
-                color=style.COLORS["muted"], fontsize=8, ha="left")
+                xy=(data["V_snap"] / 1e3, 8.0), xytext=(1.5, 8.6),
+                color=style.COLORS["muted"], fontsize=8, ha="left", va="top",
+                arrowprops=dict(arrowstyle="->", color=style.COLORS["muted"],
+                                lw=0.8, shrinkA=2, shrinkB=2))
 
     ax.set_xscale("log")
     ax.set_ylim(0.0, 10.0)
@@ -274,19 +319,22 @@ def make_cv_figure(out_path):
 # section 5: network composition (K4 z=3 loaded-line ladder)
 # =============================================================================
 # Deliverable (d) — how the two-branch cell composes across the canonical
-# srs/K4 series-L-bond / shunt-C-node ladder (graded-network-response.md:50,:53;
-# z0-derivation.md:133-136). A biased transmission line with an
+# srs/K4 series-L-bond / shunt-C-node ladder (graded-network-response.md:50
+# [series-L/shunt-C], :56 [the sine-law formula body; :53 is its Resultbox
+# header]; z0-derivation.md:132 [periodic chain], :138 [the Bloch condition
+# cos(q ell)=(A+D)/2]). A biased transmission line with an
 # operating-point-dependent C(V): loaded-line analysis.
 
 
 def loaded_line_dispersion(v_bias: float, q_ell: np.ndarray | float) -> np.ndarray:
     """Bloch dispersion omega(q) of the K4 z=3 LC ladder at a HELD T2 bias.
 
-    The cold ladder (graded-network-response.md:53) is
+    The cold ladder (graded-network-response.md:56, the sine-law formula body) is
         omega(q) = (2 c0 / ell_node) * |sin(q ell_node / 2)|,
     the series-L-bond / shunt-C-node sine law. A held T2 bias loads the shunt C
     through the small-signal (tangent) permittivity eps_ss/eps0 = t2_tangent,
-    which pulls the band edge down by 1/sqrt(eps_ss/eps0). We return the
+    which (with eps_ss/eps0 < 1) pulls the band edge UP by 1/sqrt(eps_ss/eps0)
+    (the factor is > 1). We return the
     band-edge pull factor omega(bias)/omega(cold), a DIMENSIONLESS ratio (so it
     is gradient-readable per the uniform-bias gauge rider — see the docstring of
     network_cv_note()).
@@ -347,11 +395,19 @@ def main() -> None:
         "a1_chord_at_0.5_Vsnap": float(a1_chord_over_c0(0.5 * V_SNAP)),
         "a1_tangent_at_0.5_Vsnap": float(a1_tangent_over_c0(0.5 * V_SNAP)),
         "a1_tangent_at_sqrt_alpha": float(a1_tangent_over_c0(V_YIELD)),  # electron bias
+        "a1_chord_at_0.99_Vsnap": float(a1_chord_over_c0(0.99 * V_SNAP)),  # diverging
+        "a1_tangent_at_0.99_Vsnap": float(a1_tangent_over_c0(0.99 * V_SNAP)),  # diverging
         "V_yield_kV": V_YIELD / 1e3,
         "V_snap_kV": V_SNAP / 1e3,
         "Vyield_over_Vsnap": V_YIELD / V_SNAP,
         "sqrt_alpha": float(np.sqrt(ALPHA)),
     }
+
+    # (a)/(c) the E_c = sqrt(alpha)*E_crit == E_yield identity (driver-computed)
+    out["ec_is_eyield"] = ec_is_eyield_check()
+
+    # (a) sympy trace of the crowned A1 tangent exponent d/dV[V/S] = 1/S^3
+    out["a1_tangent_sympy_ok"] = a1_tangent_sympy_check()
 
     # (c) eigenmode check
     eig = eigenmode_check()
