@@ -476,3 +476,84 @@ now stale and are retired.
   displays ~21.9pt/~6.6pt — the scope-paragraph edits introduced none);
   `make verify` GREEN. Fresh branch `analysis/letter-scoping-sentence-refresh` off merged HEAD `b0615b5e`
   (contains #547). Grant's five standing decisions UNTOUCHED.
+
+## 11. Two physics-wording corrections — last Letter edit before external contact (2026-07-06, Grant-fired Task #16)
+
+**Grant go (2026-07-06):** two convention/physics-accuracy corrections to the referee-facing Letter, ONE PR
+(`analysis/letter-bi-corrections`), two commits (one logical fix each). No anchored number moved; both are
+physical-picture-accuracy fixes, and FIX 2 STRENGTHENS the E-route discriminator (it makes the pump-on
+measurement a three-way separator). Branch off `origin/main` `cb38c9b9`.
+
+**FIX 1 (commit `4ff9e20c`) — convention-independent response-exponent B-I contrast (§ "Family context", `main.tex`).**
+- **What was wrong:** the sentence displaying `L ∝ √(1+F/b²)` read *"the sign under the root is reversed, so the
+  response softens…"* (stood at `main.tex:294–295`). It is true against the covariant display but reads FALSE the
+  moment a reader substitutes the pure-E form: `√(1+F/b²) = √(1−E²/b²)` for pure E (since `F ∝ −2E²`), so the
+  *interior* sign is a display convention, not a physical difference. This exact trap already fired once when the
+  sentence was lifted into a KB leaf.
+- **What changed:** migrated to the **response-exponent** framing, mirroring the merged KB precedent
+  `manuscript/ave-kb/common/historical-precedents.md:39` (verified verbatim this session). The two theories put the
+  root on **opposite sides of the response**: **B-I stiffens** — `D = E/√(1−(E/b)²)`, root in the *denominator*
+  (exponent `−½`), diverges as `E→b`; **this model softens** — `ε = ε₀√(1−(E/E_c)²)`, root in the *numerator*
+  (exponent `+½`), `ε→0` at the ceiling `E_c`. The covariant display `√(1+F/b²)` is KEPT and explicitly reconciled
+  to the electric form in-text (`√(1+F/b²)=√(1−E²/b²)`), so the contrast lives at response level where it is
+  convention-independent. Letter register (tight, no KB jargon).
+
+**FIX 2 (commit — see PR) — the Born–Infeld static-B birefringence error (four sites + two new refs), `main.tex` + `refs.bib`.**
+- **What was wrong:** the Letter claimed static-B transparency separates the model *"from QED and from
+  Born–Infeld-type electrodynamics, both of which predict a nonzero static-B birefringence"* (`main.tex:351–352`),
+  justified at `:587–589` by *"Born–Infeld-type… likewise predicts symmetric electric and magnetic responses"* (a
+  non-sequitur), with the same wrong echo in the intro at `:96–98` and `:108–110`. **Exact Born–Infeld is the
+  celebrated ZERO-birefringence exception:** the unique nonlinear electrodynamics (besides Maxwell) in which both
+  photon polarizations share one effective light cone in ANY constant background, so exact B-I predicts **zero**
+  static-B birefringence too.
+- **The corrected physics (this STRENGTHENS the Letter, written soberly):** (a) static-B transparency separates the
+  model **and exact B-I** from QED — the existing PVLAS/BMV nulls remain consistent for both; (b) the **E-route is the
+  three-way discriminator** — this model predicts a large tree-level signal (`3.75π/α²` above QED), QED predicts its
+  small one-loop signal, and exact B-I predicts exactly zero, so the pump-on measurement separates all three in one
+  shot; (c) generic Born–Infeld-**TYPE** family members generically DO birefringe (the zero-birefringence property is
+  the **exact 1934 theory's uniqueness**), so family statements and exact-theory statements are kept distinct.
+- **Four sites swept (full `grep Born|Infeld|birefring` across `main.tex`, before + after):**
+  1. `main.tex:~96–98` (intro, count-2 signature) — reworked: exact B-I shares the transparency; the tree-level
+     E-route coefficient is what separates the model from exact B-I.
+  2. `main.tex:~108–110` (intro, "distinct on two counts") — reworked: tree-level `O(1)` coefficient (vs QED's loop
+     **and** vs exact B-I's zero); transparency is vs QED (exact B-I transparent too).
+  3. `main.tex:~351–352` ("most sharply separates") — reworked: separates from QED; exact B-I shares the transparency
+     (uniqueness cite); the E-route coefficient separates the model from exact B-I.
+  4. `main.tex:~587–589` (signature §, the non-sequitur) — reworked: QED birefringes; exact B-I is the
+     zero-birefringence theory (same PVLAS/BMV nulls); generic B-I-**type** members birefringe; the pump-on E-route
+     separates all three (model / QED / exact B-I) at once.
+  - Abstract (`:42–59`) + Conclusion (`:730–746`) checked: they state the *model's* zero static-B prediction and
+    PVLAS/BMV consistency and name no B-I static-B claim — no wrong-claim echo, left untouched.
+- **New refs (verified before adding — `refs.bib`):**
+  - `Boillat1970` — **Crossref-verified in full** (DOI `10.1063/1.1665231`): G. Boillat, *Nonlinear Electrodynamics:
+    Lagrangians and Equations of Motion*, J. Math. Phys. **11**(3), 941–951 (1970). This is the celebrated
+    single-light-cone / zero-birefringence uniqueness result — the load-bearing citation.
+  - `Plebanski1970` — **INSPIRE-HEP-confirmed** (recid 1103928): J. Plebański, *Lectures on Non-Linear
+    Electrodynamics*, 1970. Author + exact title + 1970 date confirmed; **no DOI** and the *"NORDITA, Copenhagen"*
+    imprint is the conventional literature attribution (INSPIRE carries `imprints: None`), rendered as a lecture-notes
+    `@misc` with a `note:` and NOT asserting a database-confirmed publisher/page. **FLAG for Grant:** if a referee
+    wants a fully database-grounded imprint, either keep Boillat as sole primary (it alone establishes the
+    uniqueness) or supply the confirmed NORDITA report identifier — see the verify tier note below.
+
+**Anchored invariants grep-confirmed UNCHANGED (before + after both fixes):** `P_flip` triplet `5.39/4.28/9.28e-3`
+(3 hits); kill criterion `P_flip < 1e-8` at `≥1e18 W/cm²` (1 + 4 hits); ratio `3.75π/α²` (7 hits); pump
+`A²≃5.9e-7`/`6e-7`/`5.90e-7` (4 hits); purity floor `2.4e-10` (5 hits); `δn_μ=0` static-B equation untouched. No
+number, no falsifier verdict, no anchored value moves; `src/` + JSON UNTOUCHED (no driver read or edited).
+
+**Discipline tags.**
+- **verify-before-cite:** the KB response-exponent precedent (`historical-precedents.md:39`) read verbatim this
+  session; both new bib entries verified against an authoritative database BEFORE adding (Boillat = Crossref full;
+  Plebański = INSPIRE author/title/year; the un-confirmable NORDITA imprint flagged, not asserted as verified).
+- **flag-don't-fix:** the Plebański imprint is NOT database-confirmable at the publisher-field level — surfaced as a
+  FLAG for Grant rather than silently rendered as verified.
+- **standalone citation discipline:** the two new refs are external empirical/theory sources (Boillat, Plebański) —
+  permitted in these passages; no private-repo cite, no killed/live scoping candidate named.
+- **consistency-vs-emergence:** N/A — a wording/physics-accuracy correction to a comparison with prior art; no AVE
+  claim class changes.
+
+**Build/verify:** `make paper` clean — **9 pages** (was 8; the two added references push the bibliography onto a 9th
+page — body content did not balloon a page, the spill is the reference list renumbering with `[5]`/`[6]`), zero
+undefined refs / zero citation warnings, both new refs resolve in the `.bbl` (Boillat with DOI, Plebański 1970).
+Only the three pre-existing overfull boxes remain (Table I alignment ~8.9pt + two appendix displays ~21.9pt/~6.6pt,
+line numbers reflowed by the page break); the corrections introduced none. `make verify` GREEN. Fresh branch
+`analysis/letter-bi-corrections` off `origin/main` `cb38c9b9`. Grant's five standing decisions UNTOUCHED.
