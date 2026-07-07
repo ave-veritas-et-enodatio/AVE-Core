@@ -190,7 +190,65 @@ mislabel it the operating answer — the exact tautology B exists to escape.
 
 ## §4 — The A1↔T2 coupling (the transduction mechanism)
 
-<!-- section body: commit 3 -->
+**HYPOTHESIS-class framing — the deepest content of the walk.** How does the
+mass sector (A₁ dilatation) talk to the charge sector (the T₂ Cosserat
+microrotation carrying the winding)? The walk motivates a specific, testable
+answer.
+
+**Linear order: ORTHOGONAL.** A₁ (dilatation) and T₂ (Cosserat shear) are
+*different lattice point-group irreps* — canon: $T_d$ symmetry forces the
+$A_1 \oplus T_2$ decomposition (A0.4). Distinct irreps ⇒ the **linear response
+block-diagonalizes**: at linear order the two sectors do not talk. (This is also
+why the sectors are cleanly "mass = A₁" vs "charge = T₂-winding" — A0.4, and
+mass = A₁ per `#260`, A0.5 grounding lines.)
+
+**The coupling is PURELY NONLINEAR, and its lowest term is forced by symmetry.**
+The symmetry-lowest cross term is
+$$A_1 \cdot |T_2|^2$$
+— dilatation times the **scalar invariant** of the shear. The bare product
+$A_1 \cdot T_2$ is **FORBIDDEN**: $T_2$ is not a scalar (it carries the $T_2$
+irrep), so $A_1 \cdot T_2$ is not a group scalar and cannot enter a scalar
+energy. $|T_2|^2$ *is* the quadratic $T_2$-invariant (a scalar), so
+$A_1 \cdot |T_2|^2$ is the lowest-order scalar cross-invariant that can exist.
+This is a group-theory design *rationale* B must confirm the engine reproduces —
+NOT an asserted result.
+
+**It is PARAMETRIC, not resistive — and Ax3 SELECTS that.** In this term A₁
+**modulates the T₂ tank's L/C** — a *varactor bias tuning the mode*, not a force
+pushing it. The walk motivates this as the physically-correct form because the
+*alternative* — a dissipative A₁→T₂ transduction — would be a **velocity-coupled
+loss term, which Axiom 3 forbids below yield** (the substrate is lossless in the
+reactive regime). So below yield the coupling is *necessarily* reactive /
+parametric; Ax3 is not decoration here, it is the selection rule.
+
+**Consequence: topology robust, count mobile.** A smooth parametric retune
+**cannot cut a winding** — the $(2,3)$ integer is protected (consistent with
+A0.2's saturation-confined-soliton topology). But the same retune **shifts
+$\omega_{(2,3)}$**, so the *sampling count is mobile* (ties directly to §3: count
+tracks amplitude, topology does not). B TESTS exactly this split: winding
+invariant, count moving, under an A₁ bias.
+
+**The SAME term read BACKWARD = the two-way back-reaction (flag-don't-fix).**
+Read $A_1 \cdot |T_2|^2$ the other direction and the time-average of the shear
+sources the dilatation:
+$$\langle |T_2|^2 \rangle \;\longrightarrow\; A_1
+\qquad(\text{EM / charge energy gravitates} \to \text{mass}).$$
+The term is *symmetric* under read-direction — so the mechanism that lets A₁
+retune the tank is the *same* mechanism by which the tank's stored energy sources
+mass. **Status, stated without collapsing the two facts:**
+
+- **symmetry-PRESENT.** The $A_1 \cdot |T_2|^2$ invariant is the same object
+  read backward; nothing forbids the sourcing direction.
+- **engine-UNVERIFIED (for this object).** Canon records the *general*
+  gravity-sector two-way loop as **LANDED** — Stage-3, the REVERSIBLE half, item
+  #86, "the make-or-break the engine-architecture frontier flagged ABSENT"
+  (A0.5) — while the **irreversible / DE-tracks-matter half (Stage-4) is
+  UNBUILT** (A0.5). The **electron-LOCAL instantiation** — *this* object's own
+  confined $\langle|T_2|^2\rangle$ self-consistently sourcing *its own* A₁ mass
+  inside B — is not something the round-2 electron engine has demonstrated. B's
+  **forward** direction (A₁ retunes T₂) is the tractable near-term test; the
+  **backward** sourcing is the symmetry-present / engine-unverified make-or-break
+  and is flagged as such, not assumed.
 
 ## §5 — Ratio-of-change: p = 0 IS gravitational-dilation universality
 
