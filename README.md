@@ -164,6 +164,24 @@ make paper     # Rebuilds the standalone birefringence Letter PDF (papers/2026_b
 
 > **Gate scope (local vs CI).** The local physics **pre-commit hook gates `make verify` only**; **CI (`.github/workflows/verify.yml`) gates `make verify` *and* `make test`** (the `-m "not engine_sim"` keeper suite, xdist-parallelized). So a test-only failure — e.g. a sympy-version-sensitive symbolic-backbone gate — can pass the local commit and surface only in CI. Run `make test` locally before pushing symbolic/numeric work, and keep `uv.lock` pinned (sympy is locked) so resolved dependency versions match CI.
 
+#### Provenance-stamp grammar (research docs)
+
+`make verify` includes a **provenance-stamp gate** (`manuscript/ave-kb/tools/verify-provenance-stamps.py`) enforcing the house rule *a validation stamp must have a matching artifact*. In `research/**/*.md`, any of these "print-vs-compute" stamp tokens — asserting a computation/test in a shipped artifact confirmed a result —
+
+`driver-confirmed` · `test-locked` · `sympy-verified` · `sympy-confirmed` · `engine-confirmed` · `engine-verified` · `FEM-verified`
+
+must carry an **artifact reference on the same line** (or its immediately-adjacent parenthetical). The reference is one of:
+
+| Form | Example | Gate resolves |
+|---|---|---|
+| in-tree file path | `` `pump_probe_predictions.py` `` | file exists (basename or path-suffix) |
+| path with line suffix | `` `scale_invariant.py:107-156` `` | file exists |
+| path + `::symbol` | `` `tensors.py::compute_toroidal_halo_volume` `` | file exists **and** the symbol name appears in it |
+
+Write it as **`stamp (path::symbol)`** — e.g. *"the ½ is exact (sympy-verified, `pump_probe_predictions.py::symbolic_backbone`)."* A stamp inside a ``` fence ``` or an `` `inline code span` `` is treated as example text, not an assertion, and is not checked. `grep-confirmed` is deliberately **not** in the set (it is a corpus-grep finding whose artifact is the corpus, not a single file+symbol).
+
+An unresolvable stamp fails the gate with a precise `doc:line — stamp — what-was-tried` message. Legacy stamps are grandfathered in `manuscript/ave-kb/tools/provenance-stamp-baseline.json` (keyed by a stable hash of `path + stamp + normalized-line`, **not** the line number), so the gate enforces **new/changed** stamps only — but **editing a grandfathered stamped line re-triggers enforcement** for it. The baseline may shrink freely; regenerate it (after clearing legacy debt, never to hide a new failure) with `make refresh-provenance-baseline`.
+
 ### Navigating This Repository
 
 This repository spans 300+ source files, an 8-volume manuscript, and a full Knowledge Base. Two navigation tools are provided:

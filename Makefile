@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps refresh-provenance-baseline framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -67,6 +67,8 @@ help:
 	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
 	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity + manuscript kbleaf tex-cites (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
+	@echo "  make verify-provenance-stamps : Check research/ provenance stamps carry a resolvable artifact reference (baseline-gated)"
+	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make test                 : Run unit tests, bedrock keepers (src/tests + kb tools; engine-sims excluded)"
 	@echo "  make test-engine          : Run slow engine-simulation tests (opt-in; -m engine_sim)"
@@ -94,7 +96,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
@@ -151,6 +153,14 @@ verify-md-links:
 verify-inter-repo-links:
 	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
 	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo error
+
+verify-provenance-stamps:
+	@echo "Checking research/ provenance stamps carry a resolvable artifact reference (baseline-gated)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-provenance-stamps.py
+
+refresh-provenance-baseline:
+	@echo "Regenerating the provenance-stamp grandfather baseline from the live scan (allowed to shrink)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-provenance-stamps.py --update-baseline
 
 framing-audit:
 	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
