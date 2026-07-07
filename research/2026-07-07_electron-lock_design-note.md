@@ -107,15 +107,86 @@ repeatedly in the leaf's Rule-12 banners, `electron-identification.md:13,15,17`)
 
 ## §1 — The question B answers: is the electron a SELECTIVE LOCK?
 
-<!-- section body: commit 2 -->
+**HYPOTHESIS-class framing.** B is designed to ask one question: *do the
+electron's coupled structures phase-lock into ONE self-consistent ratio, or do
+they drift / decay?* The walk motivates TESTING whether the electron is a
+**selective lock** — a configuration the dynamics settle *into* and hold — as
+opposed to a configuration that only *appears* stable because it was imposed.
+
+**What B deliberately does NOT ask.** B is *not* asking "does the substrate BUILD
+the electron" — genesis / buildability from a free precursor is a **separate,
+later question** (and one the keystone energize-LOCK arc already leans-negative
+on). Assuming an *already-formed* object is a deliberate design choice: it
+**isolates self-consistency from buildability**, so a lock-or-drift verdict is
+not confounded by whether the substrate can reach the configuration in the first
+place.
+
+**Why this framing is the fix for the #567 readout tautology.** In #567 the
+winding was *imposed* on the sampler, and the estimator then *read it back*; the
+"lock" was a definition, not an attractor. B's design rationale is that the
+winding must be an **output of the settled dynamics**, so that "the electron
+locks" is a *measured* property of an attractor and not a restatement of the
+seed. §2 makes the three spaces that carry this real.
 
 ## §2 — Three coupled spaces (all real DOFs, none hard-wired)
 
-<!-- section body: commit 2 -->
+**HYPOTHESIS-class framing.** The walk motivates building B on **three coupled
+spaces, each a real degree of freedom the engine must carry independently.** The
+discipline point — the direct fix for the #567 readout tautology — is that
+**none of the three is hard-wired**; the topological content must EMERGE from,
+and be READ OUT of, the settled dynamics.
+
+1. **(a) The $0_1$ unknot RING — real space.** A closed flux-tube loop with a
+   real, *pulsing* circumference. This is a real-space DOF the engine evolves;
+   it is not a fixed scaffold.
+2. **(b) The $(2,3)$ PHASE-winding — Clifford-torus phase space.** In the
+   bond-pair LC tank's $(V_{inc}, V_{ref})$ phasor space, the windings are to be
+   **READ OUT of the settled dynamics, NEVER imposed.** Per A0.3 the winding
+   lives in phase space; the soliton lives in real space — the note keeps these
+   coordinate systems distinct (per phase-space-coordinate discipline).
+3. **(c) The ENVELOPE / breather amplitude — emergent.** The amplitude profile
+   is an output: it may settle **flat** (a steady standing wave) or **breathing**
+   (an amplitude-modulated cycle). Which one it is is a *measurement B makes*,
+   not an input.
+
+**Canon grounding (all HYPOTHESIS-class as USED here, canon as CITED).** The
+round-2 target object is the canonical electron: the $0_1$ unknot in real space
++ the $(2,3)$ Clifford-torus phase-space winding + the confined LC tank held at
+the $\Gamma=-1$ TIR wall + the T₂-only Cosserat-microrotation core (A0.1, A0.2,
+A0.3). The design claim B TESTS is that these three spaces, evolved as real
+coupled DOFs, settle into *one* mutually-consistent configuration — the canon's
+four properties are the *target* of the lock test, not an assumed output.
 
 ## §3 — Lifecycle / phase-dependence of the sampling floor
 
-<!-- section body: commit 2 -->
+**HYPOTHESIS-class framing.** The walk motivates treating the sampling count as
+**phase-dependent over the object's lifecycle**, and the topology as
+phase-invariant:
+
+- **Near formation** the field is close to uniform → the sampling count sits at
+  its **lower bound** (the linear-limit regime where a small integer — the ~7 of
+  #567 — is representationally sufficient).
+- **At full-amplitude, anharmonic operation** the settled soliton is strongly
+  nonlinear → the sampling count is **higher** (finer structure demands more
+  ticks/period to represent without aliasing).
+- **The $(2,3)$ TOPOLOGY is CONSERVED across all phases** — an integer winding
+  cannot change smoothly (A0.2: it is a nonlinear-saturation-confined-soliton
+  topological property, not a linear-mode label). **The sampling COUNT is NOT
+  conserved** — it tracks amplitude / anharmonicity.
+
+**Re-scoping the #567 floor (explicit).** `N_min = 7` was a **linear-limit
+snapshot** — a lower bound sampled where the field is nearly uniform — **NOT the
+operating count of the full-amplitude confined soliton.** Canon is explicit that
+the physical $(2,3)$ is the nonlinear-saturation-confined object, not the linear
+mode (A0.2); the linear-regime band-splitting route was falsified empirically
+(A0.2, outcome C, 2026-05-27). B is the genuinely-*nonlinear* successor.
+
+**Design consequence (empirical-driver discipline).** B must sample at the
+**full-amplitude saturated phase**, at the **energy-density peaks** of the shell
+(top-K $|field|^2$, PML cells excluded), **not** at the near-uniform formation
+phase and **not** at a centroid (the centroid of a shell is the empty middle).
+Sampling the formation phase would merely re-derive the linear floor and
+mislabel it the operating answer — the exact tautology B exists to escape.
 
 ## §4 — The A1↔T2 coupling (the transduction mechanism)
 
