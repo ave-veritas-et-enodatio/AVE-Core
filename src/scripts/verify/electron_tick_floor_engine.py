@@ -1,5 +1,7 @@
 """LEG B (engine) — the electron tick-floor: a conservative (lossless) coupled-cell phase
-lattice hosting a div-N subharmonic (2,3) mode. Three blind measurements + kill-joints.
+lattice hosting a div-N subharmonic (2,3) mode. A representability ILLUSTRATION of Leg A (NOT an
+independent/"blind" dynamical confirmation — see RE-SCOPE below): one representability measurement
+that re-evaluates Leg A's sampling theorem, plus two designed nulls.
 
 Prereg: research/2026-07-07_electron-tick-floor_prereg_FROZEN.md (model FROZEN there).
 
@@ -250,9 +252,11 @@ def _winding_from_ticks(x_ticks: np.ndarray, n_periods: int) -> int:
 # ---------------------------------------------------------------------------
 def measurement_i(cfg: LatticeConfig, n_lo: int = 4, n_hi: int = 16,
                   spots=(20, 30), n_sub: int = 32) -> dict:
-    """Blind N sweep. (i-a) representability: tick-sampled (alpha,beta) == (2,3)?
-    (i-b) lock: mode stays div-N entrained (delta=0, exact tracking). Engine N_min = first
-    N where the winding pair reads (2,3)."""
+    """N sweep (representability illustration; NOT blind -- the (alpha,beta) are hard-wired
+    algebraic in phi, so this re-evaluates Leg A's sampling theorem). (i-a) representability:
+    tick-sampled (alpha,beta) == (2,3)? (i-b) lock: delta=0 is a force-free fixed point (exact
+    tracking, no dynamical content). Engine N_min = first N where the sampled winding pair reads
+    (2,3)."""
     Ns = list(range(n_lo, n_hi + 1)) + list(spots)
     rows = {}
     for N in Ns:
