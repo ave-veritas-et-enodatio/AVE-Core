@@ -36,6 +36,28 @@ result (N_min) is proved INDEPENDENT of all of them (pure representability). Hom
 
 REGIME: cold lattice, lossless-reactive (H conserved), small-signal phase dynamics; discrete-time
 leapfrog declared METHOD; the dt->0 convergence study proves the substep is not the answer's clock.
+
+=============================================================================
+RE-SCOPE (2026-07-07, Grant-ratified after adversarial review; append-only, Rule 11 honest-closure):
+This engine is a REPRESENTABILITY ILLUSTRATION of the Leg-A sampling theorem, NOT an independent
+dynamical confirmation of the floor. The reasons, verified from this source:
+  * The internal angles are HARD-WIRED alpha = K1*phi, beta = K2*phi (see integrate(), the
+    alpha_arr/beta_arr assignment): they are ALGEBRAIC functions of the single mode phase phi with
+    NO independent state and NO update rule. The (2,3) mode therefore has no dynamical channel of
+    its own to destabilize -- it cannot alias or de-cohere by any dynamics; only the tick-SAMPLING
+    of the (already-exact) winding can alias.
+  * _winding_from_ticks() IS the discrete principal-branch modular reduction that Leg A
+    (electron_tick_floor_sampling.principal_winding) computes ANALYTICALLY. Feeding a uniform
+    (delta=0) trajectory through it re-evaluates Leg A's sampling theorem; it does not test it
+    against anything the theorem did not already contain.
+  * The delta=0 trajectory is a FORCE-FREE FIXED POINT (all accelerations identically 0 at the
+    cold initial condition; |dH/H| at machine floor). "locked=True" at delta=0 for ALL N (incl. the
+    sub-floor N=4,5,6) is therefore automatic and carries no stability information.
+So G1 (engine N_min == analytic N_min) is a PLUMBING-CONSISTENCY check (it catches an implementation
+bug), NOT an independent-physics confirmation: swapping the winding pair to (3,5) moves BOTH legs to
+11 in lock-step, because both compute the same 2*k_max+1. The genuinely-dynamical + nonlinear-regime
+floor is deferred to round-2.
+=============================================================================
 """
 from __future__ import annotations
 
@@ -58,7 +80,14 @@ K2_WINDING = 3
 
 # ---------------------------------------------------------------------------
 def principal_angle(dtheta: float) -> float:
-    """Wrap a phase increment into (-pi, pi] -- the discrete estimator's principal branch."""
+    """Wrap a phase increment onto the principal branch. BRANCH-CONVENTION NOTE (re-scope item 9):
+    this formula maps the half-open interval [-pi, pi) -- the exact-Nyquist edge dtheta=+pi maps to
+    -pi (NOT to +pi). Leg A's modular reduction (electron_tick_floor_sampling.principal_winding)
+    instead keeps the representative in (-N/2, N/2], mapping the exact-Nyquist k=N/2 to +N/2. The two
+    conventions therefore disagree at the ONE marginal edge (N=6, k=3 sits exactly at N/2). This is
+    immaterial to the FLOOR, which is set by the STRICT-Nyquist interior (N > 2*k_max => N>=7), never
+    by the N=6 marginal edge (both legs classify N=6 as not-clean regardless of which way +-3 rounds).
+    """
     return (dtheta + math.pi) % (2.0 * math.pi) - math.pi
 
 
@@ -78,7 +107,19 @@ class LatticeConfig:
 
 # ---------------------------------------------------------------------------
 def _accel(theta: np.ndarray, phi: float, N: int, cfg: LatticeConfig):
-    """Accelerations from the conserved Hamiltonian (exact gradients)."""
+    """Accelerations from the conserved Hamiltonian (exact gradients).
+
+    ERRATA vs the FROZEN prereg (append-only, honest; see RESULT ERRATA E3/E4):
+      * E3 -- the CLUSTER back-reaction is (kappa_mode/(P*N)) sin(N phi - theta_i), but the frozen
+        prereg (line 217) wrote (kappa_mode/P) sin(N phi - theta_i). The 1/N is REQUIRED for the
+        pair (this a_theta[cl] term + the a_phi term below) to be a consistent Hamiltonian gradient
+        of ONE potential V = -(kappa_mode/(P*N)) sum cos(theta_i - N phi): d/dphi carries a factor N
+        (chain rule) that cancels the 1/N, giving a_phi = (kappa_mode/P) sum sin(...). The frozen
+        literal pair (both kappa/P) is NOT a gradient of any single V (it is Hamiltonian only if the
+        mode is given inertia N). We kept Ax3-lossless (H exactly conserved) over prereg-literal.
+      * E4 -- the eta(N) = N**(-eta_exponent) dilution dial (LatticeConfig.eta) exists nowhere in the
+        frozen model. It is INERT at the default eta_exponent=0 (eta==1), but it is a model extension
+        (the harmonic-dilution fork knob, see lock_range_dt_convergence)."""
     M = cfg.M
     right = np.roll(theta, -1)
     left = np.roll(theta, 1)
@@ -86,7 +127,7 @@ def _accel(theta: np.ndarray, phi: float, N: int, cfg: LatticeConfig):
     eta_kmode = cfg.eta(N) * cfg.kappa_mode
     cl = np.array(cfg.cluster)
     ref_err = N * phi - theta[cl]                       # (N phi - theta_i)
-    a_theta[cl] += (eta_kmode / (cfg.P * N)) * np.sin(ref_err)
+    a_theta[cl] += (eta_kmode / (cfg.P * N)) * np.sin(ref_err)  # E3: 1/N (Hamiltonian-consistent)
     a_phi = (eta_kmode / cfg.P) * float(np.sum(np.sin(theta[cl] - N * phi)))
     return a_theta, a_phi
 
@@ -139,6 +180,11 @@ def integrate(N: int, delta: float, cfg: LatticeConfig, n_periods: int = 4, n_su
         prev_psi = psi_now
         t_arr[k] = k * dt
         Psi_arr[k] = Psi_unwrap
+        # HARD-WIRED (re-scope): alpha, beta are ALGEBRAIC in the single mode phase phi -- there is
+        # NO independent (alpha, beta) state and NO update rule for them. The (2,3) winding is exact
+        # by construction; the mode has no dynamical channel to destabilize. Only the tick-SAMPLING
+        # below can alias it. (This is why Leg B is a representability illustration, not a dynamical
+        # stability test -- see the module-docstring RE-SCOPE.)
         alpha_arr[k] = K1_WINDING * phi
         beta_arr[k] = K2_WINDING * phi
         H_arr[k] = _energy(theta, Omega, phi, Omega_mode, N, cfg)
@@ -227,10 +273,17 @@ def measurement_i(cfg: LatticeConfig, n_lo: int = 4, n_hi: int = 16,
 # ---------------------------------------------------------------------------
 # MEASUREMENT (ii): [TOWER-EMERGES / TOWER-FAILS] -- strain kill-joint
 # ---------------------------------------------------------------------------
-def _max_locked_delta(N: int, cfg: LatticeConfig, n_sub: int = 24,
+def _max_locked_delta(N: int, cfg: LatticeConfig, n_sub: int = 96,
                       d_hi: float = 10.0, iters: int = 22) -> float:
     """Bisection for the largest |delta| that stays locked at division N (the conservative
-    lock half-range in detuning units)."""
+    lock half-range in detuning units).
+
+    n_sub default is 96 (the CONVERGED resolution, re-scope item 4): the shipped n_sub=24 value was
+    UNCONVERGED (the loaded delta!=0 runs carry a symplectic ~dt^2 truncation that biases the lock
+    edge low at coarse dt). See lock_range_dt_convergence for the 24/48/96/192 study. NOTE the
+    delta!=0 runs here are NOT machine-floor Hamiltonian (|dH/H| ~ 1e-4..1e-3 at the lock edge,
+    falling x4 per n_sub-doubling = dt^2 truncation, bounded/reversible); only the delta=0 family is
+    at machine floor."""
     lo, hi = 0.0, d_hi
     if integrate(N, delta=hi, cfg=cfg, n_sub=n_sub)["locked"]:
         return hi  # still locked at the sweep ceiling
@@ -243,11 +296,17 @@ def _max_locked_delta(N: int, cfg: LatticeConfig, n_sub: int = 24,
     return 0.5 * (lo + hi)
 
 
-def measurement_ii(cfg: LatticeConfig, n_sub: int = 24) -> dict:
+def measurement_ii(cfg: LatticeConfig, n_sub: int = 96) -> dict:
     """(a) GLOBAL uniform dilation (TOWER-EMERGES demo): scale all clocks by s=sqrt(1-A^2);
     the div-N ratio must stay EXACTLY intact and (2,3) survive. (b) LOCK-RANGE vs N: measure
     the conservative lock half-range and compare to the two candidate laws (first-order Adler
-    kappa/N vs conservative pendulum ~2 sqrt(N kappa))."""
+    kappa/N vs conservative pendulum ~2 sqrt(N kappa)).
+
+    RE-SCOPE (item 2): part (a) is a NON-FIREABLE-AS-SHIPPED designed null, NOT a passed strain
+    test. It is a GLOBAL by-hand rescale of every clock by the same s -- it trivially preserves any
+    integer ratio and PASSES even with kappa_mode=0 (the mode fully DECOUPLED). It does NOT run the
+    frozen sub-patch sqrt(S) loading, and it produces NO N_max(A^2) map. It measures no locking or
+    coupling property. n_sub default bumped 24->96 (converged lock-range, item 4)."""
     # (a) global uniform dilation: re-price the whole locked tower's clock
     tower = {}
     for A2 in (0.05, 0.10, 0.20):
@@ -280,11 +339,63 @@ def measurement_ii(cfg: LatticeConfig, n_sub: int = 24) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# E2 LOCK-RANGE dt-CONVERGENCE (re-scope item 4): the pre-committed dt->0 study
+# never covered the LOCK-RANGE quantity. The shipped 3.53/4.88 (n_sub=24) were UNCONVERGED
+# (delta!=0 loaded runs carry a symplectic ~dt^2 truncation biasing the lock edge low).
+# ---------------------------------------------------------------------------
+def sqrt_n_fit(halfrange_by_N: dict) -> dict:
+    """Least-squares power-law exponent of the lock half-range vs N (log-log), plus the max
+    fractional deviation from a pure C*sqrt(N) law. A converged conservative pendulum gives
+    exponent -> 0.5 and small deviation."""
+    Ns = np.array(sorted(int(N) for N in halfrange_by_N), float)
+    y = np.array([halfrange_by_N[str(int(N))] for N in Ns], float)
+    b, a = np.polyfit(np.log(Ns), np.log(y), 1)          # log y = a + b log N
+    C = float(np.mean(y / np.sqrt(Ns)))                   # best C for y = C sqrt(N)
+    max_dev_pct = float(np.max(np.abs(C * np.sqrt(Ns) - y) / y) * 100.0)
+    return {"power_law_exponent": float(b), "sqrt_law_C": C, "max_dev_from_sqrt_pct": max_dev_pct}
+
+
+def lock_range_dt_convergence(cfg: LatticeConfig, endpoints=(7, 16),
+                              subs=(24, 48, 96, 192)) -> dict:
+    """Re-run the lock-range bisection at increasing n_sub for the two endpoint divisions and
+    report the convergence. Confirms the shipped n_sub=24 lock edge was unconverged and that the
+    converged (n_sub>=96) value is the honest one. Cheap subset (2 divisions x 4 n_sub); the full
+    6-division converged table lives in measurement_ii at n_sub=96."""
+    table = {str(N): {str(ns): _max_locked_delta(N, cfg, n_sub=ns) for ns in subs}
+             for N in endpoints}
+    # convergence: |v(finest) - v(prev)| / v(finest) small at each endpoint
+    converged = {}
+    for N in endpoints:
+        vfine = table[str(N)][str(subs[-1])]
+        vprev = table[str(N)][str(subs[-2])]
+        converged[str(N)] = {
+            "converged_value_n_sub_%d" % subs[-1]: vfine,
+            "shipped_value_n_sub_24": table[str(N)][str(subs[0])],
+            "rel_change_last_doubling": abs(vfine - vprev) / (abs(vfine) + 1e-30),
+        }
+    all_conv = all(c["rel_change_last_doubling"] < 0.01 for c in converged.values())
+    return {
+        "endpoints": list(endpoints),
+        "subs": list(subs),
+        "table": table,
+        "converged_summary": converged,
+        "all_converged_below_1pct_last_doubling": all_conv,
+    }
+
+
+# ---------------------------------------------------------------------------
 # MEASUREMENT (iii): [C-INVARIANT / C-VIOLATED] -- Michelson-class internal null
 # ---------------------------------------------------------------------------
 def _signal_speed(cfg: LatticeConfig, with_mode: bool, N: int = 7, n_sub: int = 40) -> float:
     """Perturb one cell's momentum; time the disturbance to reach the antipodal cell; speed =
-    (ring distance) / (arrival time). Mode present or absent (kappa_mode=0)."""
+    (ring distance) / (arrival time). Mode present or absent (kappa_mode=0).
+
+    RE-SCOPE (item 2): this is a NON-FIREABLE-AS-SHIPPED designed null. src = M//2 = 12 and
+    tgt = src + M//4 = 18; the signal path 12..18 NEVER crosses the mode's cluster (cells 0..3). The
+    perturbation reaches tgt before it could interact with the mode, so rel_diff == 0.0 exactly is
+    CAUSAL DISCONNECTION, not a measured invariance of c through the mode. (The c = a*omega_lattice
+    invariance under re-pricing remains ALGEBRAICALLY true regardless -- that part is real; this
+    driver just does not MEASURE it. Deferred to round-2: route the probe THROUGH the cluster.)"""
     cfg_use = cfg if with_mode else LatticeConfig(M=cfg.M, P=cfg.P, kappa_ens=cfg.kappa_ens,
                                                   kappa_mode=0.0, omega_ens=cfg.omega_ens,
                                                   eta_exponent=cfg.eta_exponent, cluster=cfg.cluster)
@@ -384,9 +495,13 @@ def reconcile_gates(engine_N_min, miii: dict, max_H_drift: float) -> dict:
 def run() -> dict:
     cfg = LatticeConfig()
     mi = measurement_i(cfg)
-    mii = measurement_ii(cfg)
+    mii = measurement_ii(cfg)                 # lock-range now at converged n_sub=96
     miii = measurement_iii(cfg)
     dtc = dt_convergence(cfg)
+    lr_dtc = lock_range_dt_convergence(cfg)   # E2: lock-range dt->0 study (item 4)
+    # sqrt(N) fit of the converged (n_sub=96) 6-division lock-range table
+    lr96 = {N: v["conservative_halfrange_delta"] for N, v in mii["lock_range_vs_N"].items()}
+    lr_fit = sqrt_n_fit(lr96)
     max_H_drift = max(v["H_drift"] for v in mi["sweep"].values())
     gates = reconcile_gates(mi["engine_N_min"], miii, max_H_drift)
     return {
@@ -398,8 +513,10 @@ def run() -> dict:
         "measurement_ii_tower_strain": mii,
         "measurement_iii_c_invariance": miii,
         "dt_convergence": dtc,
+        "lock_range_dt_convergence": lr_dtc,
+        "lock_range_sqrt_fit_n_sub_96": lr_fit,
         "reconcile_gates": gates,
-        "max_H_rel_drift": max_H_drift,
+        "max_H_rel_drift": max_H_drift,     # delta=0 family ONLY (machine floor); delta!=0 see lr_dtc
         "engine_N_min": mi["engine_N_min"],
     }
 
@@ -418,7 +535,15 @@ def main() -> None:
     print(f"  (iii) {out['measurement_iii_c_invariance']['verdict']}")
     print(f"  dt-convergence: N_min invariant = {out['dt_convergence']['N_min_invariant']} "
           f"{out['dt_convergence']['N_min_values']}")
-    print(f"  max |dH/H| over sweep = {out['max_H_rel_drift']:.2e} (Ax3-lossless check)")
+    lrc = out["lock_range_dt_convergence"]["converged_summary"]
+    fit = out["lock_range_sqrt_fit_n_sub_96"]
+    print(f"  lock-range dt-convergence (N=7): 24->{lrc['7']['shipped_value_n_sub_24']:.4f} "
+          f"vs converged->{lrc['7']['converged_value_n_sub_192']:.4f}; "
+          f"(N=16): 24->{lrc['16']['shipped_value_n_sub_24']:.4f} "
+          f"vs converged->{lrc['16']['converged_value_n_sub_192']:.4f}")
+    print(f"  sqrt(N) fit @ n_sub=96: exponent={fit['power_law_exponent']:.3f} "
+          f"max_dev={fit['max_dev_from_sqrt_pct']:.3f}%")
+    print(f"  max |dH/H| (delta=0 family) = {out['max_H_rel_drift']:.2e} (Ax3-lossless, ZERO-FORCE only)")
 
 
 if __name__ == "__main__":
