@@ -125,15 +125,16 @@ def prove_reflection_collision_N(k1: int = K1_WINDING, k2: int = K2_WINDING) -> 
     ssum = k1 + k2
     # collision condition: k1 congruent to -k2 mod N  <=>  N divides (k1 + k2)
     divisors = [int(d) for d in sp.divisors(ssum) if int(d) > k2]
-    # verify at N=5 concretely
-    lhs = sp.Mod(k1, 5)
-    rhs = sp.Mod(-k2, 5)
+    # verify at N=5 concretely, in the canonical prereg framing: 3 == -2 (mod 5), i.e.
+    # the larger winding k2 aliases onto the reflection of the smaller: k2 == -k1 (mod N).
+    lhs = sp.Mod(k2, 5)     # 3
+    rhs = sp.Mod(-k1, 5)    # 3
     return {
         "sum_k1_k2": ssum,
         "collision_condition": f"N | (k1+k2) = N | {ssum}",
         "collision_tick_counts_above_k2": divisors,  # [5]
-        "N5_k1_mod": int(lhs),   # 3
-        "N5_negk2_mod": int(rhs),  # 3
+        "N5_k2_mod": int(lhs),      # 3
+        "N5_negk1_mod": int(rhs),   # 3
         "N5_collides": bool(sp.Eq(lhs, rhs)),  # True: 3 == -2 (mod 5)
         "symbol_used": str(N),
     }
