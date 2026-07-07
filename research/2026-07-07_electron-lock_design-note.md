@@ -347,7 +347,76 @@ keeps them apart on purpose.
 
 ## §7 — The test + two can-fail gates
 
-<!-- section body: commit 5 -->
+**HYPOTHESIS-class framing — no result is admissible without a DEMONSTRATED
+fail.** A gate that cannot fire is not a gate. B is designed around **two
+can-fail gates**; a lock verdict is reportable only if both gates were shown
+capable of failing on the same rig.
+
+**(i) NEIGHBOR gate (selectivity).** Seed neighbouring / off-ratio
+configurations — $(2,2)$, $(2,5)$, and at least one deliberately off-ratio seed —
+and require that **at least one does NOT lock.** The $(2,3)$ must be a
+**SELECTIVE attractor**, not merely a **seeded fixed point** that persists
+because it was planted. *Can-fail condition:* if *everything* locks (neighbours
+included), the "lock" carries no information ⇒ route to **[NON-SELECTIVE →
+NO-CONSTRAINT].**
+
+**(ii) N-INVARIANCE gate (the §5 dilation check, made operational).** Apply a
+**uniform** $S$-scaling and require **$N$ invariant** (co-keyed, $p = 0$); apply
+an **asymmetric** load and require **$N$ shifts**. *Can-fail condition:* $N$
+moving under *uniform* $S$ is a consistency failure (dispersive dilation) ⇒ route
+to **[CONSISTENCY-FAIL].** This gate is a *falsifier*, not a fit.
+
+**Result bins (pre-registered; the note asserts NONE of them — B decides).**
+- **[SELECTIVE-LOCK]** — $(2,3)$ selectively locks; report the settled ratio and
+  the blind-derived $\langle N\rangle$ (subject to the §FIREWALL ⟨N⟩ knife: $\langle N\rangle$
+  derived blind, priced against a mass ratio only *afterward*, if at all).
+- **[NO-LOCK]** — $(2,3)$ does not lock; the electron-as-selective-lock
+  hypothesis is falsified.
+- **[NON-SELECTIVE → NO-CONSTRAINT]** — everything locks, including neighbours;
+  the test constrains nothing.
+- **[CONSISTENCY-FAIL]** — $N$ moves under uniform $S$; the engine predicts
+  dispersive gravitational dilation. Falsified per §5.
+
+## §8 — Staged plan (pilot-before-scale)
+
+**HYPOTHESIS-class framing — cheapest can-fail first.**
+
+- **Stage-1 (minimal, kill-cheap).** Model the $(2,3)$ as **two real coupled
+  oscillators** plus the **NEIGHBOR gate** only. Single question: *does $(2,3)$
+  selectively lock AT ALL?* If it does not lock, or locks non-selectively,
+  **kill the branch cheaply** — no need to build the ring/envelope/saturation
+  machinery to learn there is no selective attractor.
+- **Stage-2 (scale-up, gated on Stage-1).** Add the **$0_1$ ring**, the
+  **emergent envelope**, and the **saturation N-INVARIANCE gate** (the full §5
+  dilation-universality check on the full three-space object of §2). Run this
+  **only if Stage-1 passes.**
+
+## §9 — The open gut-check (surfaced to Grant, UNRESOLVED)
+
+**Flag-don't-fix / lane discipline — this is Grant's call, surfaced not
+resolved.** §4's *varactor* framing assumes a **timescale split**: A₁ is a **slow
+bias** and T₂ a **fast small-signal**, so A₁ "tunes" the T₂ tank. The open
+question:
+
+> **Is the A₁-bias / T₂-small-signal hierarchy REAL** (mass slow, charge fast —
+> the varactor framing of §4 holds), **or are the two sectors CO-EQUAL
+> two-mode-resonance oscillators** with **no clean bias/signal split** (in which
+> case §4's varactor picture is the wrong model and B needs a genuine two-mode
+> resonance model)?
+
+This decides the **modelling backbone** of B: parametric-varactor (one slow, one
+fast) vs coupled two-mode resonance (co-equal). It is **UNRESOLVED** and is
+**Grant's framing call** (Grant is the third source of truth for framing-level
+physics; per lane discipline the implementer surfaces it rather than picking).
+The rest of the note is written under §4's varactor framing *as the leading
+hypothesis*; §9 flags that its load-bearing assumption is not yet settled.
+
+---
+
+**Closing register reminder.** Nothing above is a result. Every section states
+what B is designed to TEST and why the walk motivates that design. The FIREWALL
+and the ⟨N⟩ knife bind every derivation B may run; the two can-fail gates (§7)
+bind every verdict B may report. This note lands *design rationale only.*
 
 ## §8 — Staged plan (pilot-before-scale)
 
