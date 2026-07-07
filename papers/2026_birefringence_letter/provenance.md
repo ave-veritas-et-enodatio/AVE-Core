@@ -487,16 +487,21 @@ measurement a three-way separator). Branch off `origin/main` `cb38c9b9`.
 **FIX 1 (commit `4ff9e20c`) — convention-independent response-exponent B-I contrast (§ "Family context", `main.tex`).**
 - **What was wrong:** the sentence displaying `L ∝ √(1+F/b²)` read *"the sign under the root is reversed, so the
   response softens…"* (stood at `main.tex:294–295`). It is true against the covariant display but reads FALSE the
-  moment a reader substitutes the pure-E form: `√(1+F/b²) = √(1−E²/b²)` for pure E (since `F ∝ −2E²`), so the
-  *interior* sign is a display convention, not a physical difference. This exact trap already fired once when the
+  moment a reader substitutes the pure-E form: with `F ≡ B²−E²` a pure-E field gives `F = −E²`, so
+  `√(1+F/b²) = √(1−E²/b²)` holds exactly, and the *interior* sign is a display convention, not a physical
+  difference. (Sympy-checked this session under the declared Heaviside–Lorentz convention `F ≡ B²−E² =
+  ½F_{μν}F^{μν}`; note the identity is FALSE by a factor 2 under the *unhalved* `F = F_{μν}F^{μν} = 2(B²−E²)`,
+  where pure-E gives `F = −2E²` and the root closes at `b/√2` — the convention MUST be declared, which the
+  Letter now does inline at `main.tex` §"Family context".) This exact trap already fired once when the
   sentence was lifted into a KB leaf.
 - **What changed:** migrated to the **response-exponent** framing, mirroring the merged KB precedent
   `manuscript/ave-kb/common/historical-precedents.md:39` (verified verbatim this session). The two theories put the
   root on **opposite sides of the response**: **B-I stiffens** — `D = E/√(1−(E/b)²)`, root in the *denominator*
   (exponent `−½`), diverges as `E→b`; **this model softens** — `ε = ε₀√(1−(E/E_c)²)`, root in the *numerator*
-  (exponent `+½`), `ε→0` at the ceiling `E_c`. The covariant display `√(1+F/b²)` is KEPT and explicitly reconciled
-  to the electric form in-text (`√(1+F/b²)=√(1−E²/b²)`), so the contrast lives at response level where it is
-  convention-independent. Letter register (tight, no KB jargon).
+  (exponent `+½`), `ε→0` at the ceiling `E_c`. The covariant display `√(1+F/b²)` is KEPT, the convention is now
+  DECLARED inline (`F ≡ B²−E² = ½F_{μν}F^{μν}`, Heaviside–Lorentz), and it is explicitly reconciled to the electric
+  form in-text (with `F = −E²` for pure E, `√(1+F/b²)=√(1−E²/b²)` exactly), so the contrast lives at response level
+  where it is convention-independent. Letter register (tight, no KB jargon).
 
 **FIX 2 (commit — see PR) — the Born–Infeld static-B birefringence error (four sites + two new refs), `main.tex` + `refs.bib`.**
 - **What was wrong:** the Letter claimed static-B transparency separates the model *"from QED and from
