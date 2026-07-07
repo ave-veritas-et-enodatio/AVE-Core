@@ -3,7 +3,8 @@
 ![Build Status](https://img.shields.io/badge/verification-1156/1156_PURE-brightgreen)
 ![Tests](https://img.shields.io/badge/tests-passing-blue)
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
-![Predictions](https://img.shields.io/badge/predictions-47_derived-orange)
+![Forward falsifier](https://img.shields.io/badge/forward_falsifier-1_armed_(kill--criterion_pre--committed)-orange)
+![Consistency checks](https://img.shields.io/badge/consistency--class_checks-45_passed-blue)
 
 > *Treating the vacuum not as a geometric abstraction, but as a discrete **chiral K4 Cosserat LC network** (the Laves / srs net, space group $I4_132$): a physical transmission-line substrate whose engineering properties fix the dimensionless **forms** of the fundamental constants, while a small marked set of dimensionful **values** are calibration inputs the substrate is fed. That FORM-derived / VALUE-imported split is the framework's organizing principle.*
 
@@ -25,7 +26,7 @@
 
 ## Overview
 
-Applied Vacuum Engineering is a physics framework that derives 47 predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms** (these span definitional identities, axiom-manifestations, consistency-checks, and genuinely-derived values — see the [Master Prediction Table](#master-prediction-table) classification note; "47" is not "47 empirically verified"). The fine-structure constant α splits cleanly along the framework's FORM-vs-VALUE seam. The **form** $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice) is **forced** by the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton — this is a genuine chord: the closed-form expression and its scale (~1/137) fall out of the Compton-resonance trapping condition, not from fitting. But the **value** matching the CODATA $137.035999$ (after a CMB-induced thermal strain coefficient) is a **calibration echo** the substrate does not independently select: it rests on one substrate-geometric identification per route (R·r=¼ Golden-Torus; or z₀←1.187←p_c=8πα rigidity-percolation), and the α-value is a *standing echo* — closed-negative on every **named** route (dynamical-selection, kinematic-unit-bridge, rigidity-percolation), with the **flip-condition live** (R·r=¼ forced without α-circularity would flip it back to a chord — the standing live test for *this* is the energy-relaxed CRN run, not 𝒥_cosmic) and the **route-space not provably exhausted** (a not-yet-named route could lift it). This is a Class B substrate-mechanism manifestation, not a first-principles "derivation" of α and not a zero-parameter closure for α (see [Vol 1, Ch. 8 §"Class B caveat (honest-α relabel)"](manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md)).
+Applied Vacuum Engineering is a physics framework that derives 47 predictions—from the W/Z boson masses to galactic rotation curves—from exactly **4 axioms** (these span definitional identities, axiom-manifestations, consistency-checks, and genuinely-derived values — see the [Master Prediction Table](#master-prediction-table) classification note; "47" is not "47 empirically verified", and the electron g−2 entry is a **postdiction demoted from forward-falsifier**, row 3, not a headline forward result). The fine-structure constant α splits cleanly along the framework's FORM-vs-VALUE seam. The **form** $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice) is **forced** by the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton — this is a genuine chord: the closed-form expression and its scale (~1/137) fall out of the Compton-resonance trapping condition, not from fitting. But the **value** matching the CODATA $137.035999$ (after a CMB-induced thermal strain coefficient) is a **calibration echo** the substrate does not independently select: it rests on one substrate-geometric identification per route (R·r=¼ Golden-Torus; or z₀←1.187←p_c=8πα rigidity-percolation), and the α-value is a *standing echo* — closed-negative on every **named** route (dynamical-selection, kinematic-unit-bridge, rigidity-percolation), with the **flip-condition live** (R·r=¼ forced without α-circularity would flip it back to a chord — the standing live test for *this* is the energy-relaxed CRN run, not 𝒥_cosmic) and the **route-space not provably exhausted** (a not-yet-named route could lift it). This is a Class B substrate-mechanism manifestation, not a first-principles "derivation" of α and not a zero-parameter closure for α (see [Vol 1, Ch. 8 §"Class B caveat (honest-α relabel)"](manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md)).
 
 The central thesis: the vacuum is a physical substrate governed by finite inductive (μ₀) and capacitive (ε₀) densities. By treating Z₀ = √(μ₀/ε₀) ≈ 377 Ω as a real engineering impedance, every phenomenon from particle confinement to protein folding becomes a circuit problem.
 
@@ -52,7 +53,7 @@ Canonical home: [`manuscript/ave-kb/common/form-deriving-value-importing.md`](ma
 | # | Axiom | Statement |
 |---|-------|-----------|
 | 1 | **Impedance** | The vacuum is an LC resonant network with Z₀ = √(μ₀/ε₀) |
-| 2 | **Topo-Kinematic Isomorphism** | Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; α falls out as the Q-factor of the minimum-crossing soliton ([Ch. 8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
+| 2 | **Topo-Kinematic Isomorphism** | Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; the *form* of α (the Q-factor decomposition of the minimum-crossing soliton) is forced, but the *value* is a calibration identity, not a derivation (FORM=chord / VALUE=ECHO — the α-value rests on `R·r=¼`; cite `Q_TANK = 1/ALPHA`-class items as identity, not derivation — see the [organizing principle](#the-organizing-principle-form-deriving--value-importing)) ([Ch. 8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
 | 3 | **Gravity** | G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²) |
 | 4 | **Saturation** | S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes |
 
@@ -62,7 +63,7 @@ Canonical home: [`manuscript/ave-kb/common/form-deriving-value-importing.md`](ma
 
 | Category | Examples | Max Error |
 |----------|----------|-----------|
-| **Particle Physics** | Proton mass (bare topology +0.74%; −0.002% with one contained thermal residual δ_th=1/(14π²)), W/Z boson (0.57%), g−2 (0.15%) | 2.4% |
+| **Particle Physics** | Proton mass (bare topology +0.74%; −0.002% with one contained thermal residual δ_th=1/(14π²)), W/Z boson (0.57%), g−2 (0.15%, *postdiction — demoted from forward-falsifier*) | 2.4% |
 | **Quark Masses** | All 6 quarks from torus knot topology | 2.4% |
 | **Mixing Matrices** | Full CKM + PMNS matrices from ν_vac = 2/7 | 4.1% |
 | **Cosmology** | H₀ (2.9%), baryon asymmetry (0.38%), MOND a₀ | 11.8% |
