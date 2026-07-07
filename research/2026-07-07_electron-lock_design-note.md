@@ -195,12 +195,24 @@ mass sector (A₁ dilatation) talk to the charge sector (the T₂ Cosserat
 microrotation carrying the winding)? The walk motivates a specific, testable
 answer.
 
-**Linear order: ORTHOGONAL.** A₁ (dilatation) and T₂ (Cosserat shear) are
-*different lattice point-group irreps* — canon: $T_d$ symmetry forces the
-$A_1 \oplus T_2$ decomposition (A0.4). Distinct irreps ⇒ the **linear response
-block-diagonalizes**: at linear order the two sectors do not talk. (This is also
-why the sectors are cleanly "mass = A₁" vs "charge = T₂-winding" — A0.4, and
-mass = A₁ per `#260`, A0.5 grounding lines.)
+**Linear order, at ZONE CENTER: ORTHOGONAL.** A₁ (dilatation) and T₂ (Cosserat
+shear) are *different lattice point-group irreps* — canon: $T_d$ symmetry forces
+the $A_1 \oplus T_2$ decomposition (A0.4). Distinct irreps ⇒ **for the homogeneous
+($k = 0$) linear response the response block-diagonalizes**: at zone center, at
+linear order, the two sectors do not talk. (This is also why the sectors are
+cleanly "mass = A₁" vs "charge = T₂-winding" — A0.4, and mass = A₁ per `#260`,
+A0.5 grounding lines.)
+
+**Scope of the block-diagonalization (finite-$k$ caveat — precise only at $k=0$).**
+The orthogonality above holds **at zone center ($k = 0$ / homogeneous response)
+only.** $T_d$ is **non-centrosymmetric**, so at *finite* $k$ a Lifshitz-type
+gradient cross-term $A_1 \cdot (\nabla \cdot T_2)$ is symmetry-allowed and the
+sectors *can* couple at linear order in a gradient. That finite-$k$ Lifshitz
+coupling **exists but is OUT OF SCOPE** for the homogeneous coupling B tests:
+B's varactor claim (§4, below) is an **adiabatic / homogeneous ($k = 0$) bias**,
+exactly the regime where the block-diagonalization holds — so **the claim is
+unaffected**; only the blanket "linear response block-diagonalizes" phrasing
+over-reached, and it is now scoped to $k = 0$.
 
 **The coupling is PURELY NONLINEAR, and its lowest term is forced by symmetry.**
 The symmetry-lowest cross term is
@@ -250,7 +262,7 @@ mass. **Status, stated without collapsing the two facts:**
   **backward** sourcing is the symmetry-present / engine-unverified make-or-break
   and is flagged as such, not assumed.
 
-## §5 — Ratio-of-change: p = 0 IS gravitational-dilation universality
+## §5 — Ratio-of-change: N-invariance is a NECESSARY CONSEQUENCE of gravitational-dilation universality
 
 **HYPOTHESIS-class framing — the payoff of the walk.** Write the settled
 sampling count's response to a uniform substrate compression $S$ as
@@ -259,44 +271,77 @@ $$N \;\propto\; S^{\,p},
 $p$ is the *difference of the two sectors' saturation exponents*. The walk's
 payoff is that $p$ is **not free** — it is pinned by an observation.
 
-**The key identity.**
-> **"$N$ invariant under uniform compression"** $\;\equiv\;$ **"gravitational
-> time dilation is universal."**
+**The key implication (ONE-DIRECTIONAL — not an equivalence).**
+> **"gravitational time dilation is universal"** $\;\Longrightarrow\;$ **"$N$ is
+> invariant under uniform compression."**
+> The converse does **NOT** hold: one invariant ratio does not imply *all* ratios
+> are fixed. So $N$-invariance is a **necessary consequence / consistency
+> requirement** of universal dilation — **not** a proof or reproduction of it.
 
 Universal dilation means: a clock lowered into a potential well slows by **one
 common factor across all of its frequencies** (redshift is achromatic — no
 dispersion). If every frequency redshifts by the same factor, **every frequency
 RATIO is fixed** under a change of potential. $N$ is such a ratio (ticks of the
-sampling clock per mode period). Therefore **$p = 0$ is OBSERVED, not assumed** —
-it is read off the sky (achromatic gravitational redshift), not chosen to make B
-work. *(Consistency-class use: B must be CONSISTENT with universal dilation; no
-value is fit.)*
+sampling clock per mode period), so universality **forces** $p = 0$. This is the
+**forward direction only** (universality $\Rightarrow$ $N$-invariant); it does
+**not** run backward — $N$-invariance alone (one ratio fixed) would **not**
+establish that *every* ratio is fixed, i.e. would not prove universality.
+Therefore **$p = 0$ is a consistency requirement REQUIRED of B by an observed
+fact** (achromatic gravitational redshift) — not a value fit to make B work, and
+not something B's passing the gate would *prove*. *(Consistency-class use: B must
+be CONSISTENT with universal dilation; no value is fit.)*
 
-**$p = 0$ FORCES co-keying.** $p = 0$ requires the two saturation exponents to
-be *equal* — i.e. the **sampling clock and the $(2,3)$ mode must ride the SAME
-$S$-channel** (be *co-keyed*). If they rode *different* channels with different
-saturation exponents, $p \neq 0$ and dilation would be dispersive.
+**$p = 0$ forces EQUAL saturation exponents — and, given the channels differ,
+co-keying.** Strictly, $p = 0$ forces the two **saturation exponents to be
+equal**. The step from *equal exponents* to *same channel* rests on a
+**load-bearing premise**: the canon channels **scale differently** — shear
+$\propto S^{+1/2}$ vs EM $\propto S^{-1}$ — so **distinct channels carry distinct
+saturation exponents.** *Given* that premise, equal exponents can be realised
+only by putting the **sampling clock and the $(2,3)$ mode on the SAME $S$-channel**
+(co-keyed). Make the premise explicit: it is precisely
+*distinct-channels-⇒-distinct-exponents* that converts "equal exponents" into
+"same channel" — were two channels to happen to share an exponent, equal-exponent
+would *not* force co-keying. If the clock and mode rode *different* channels (hence
+different exponents), $p \neq 0$ and dilation would be dispersive.
 
 **Why cross-keying would visibly break dilation.** The canon channels do *not*
 scale alike. The impedance branches are anchored:
 `Z_eff = Z0·√S → 0 ⟹ Γ → −1` (the μ/shear "mass-cage SHORT") versus the
 `ε`-load `Z_eff = Z0/√S → ∞ ⟹ Γ = +1` (the "OPEN anti-trap")
 (`research/2026-06-20_mass-sector-characterization_synthesis.md:110–116`). The
-corresponding *channel-speed* scalings the walk invokes — **shear $\propto\sqrt S$
-vs EM $\propto 1/S$** — are a **walk-premise carrying a known open ambiguity**
-(the $\sqrt S$-vs-$S^{1/4}$ shear-speed flag from the ground-up engine arc; B
-must settle the exponent, not assume it). *Given* those scalings, cross-keying
-(clock on one channel, mode on the other) yields an exponent difference of order
-one — the walk's estimate is $p \approx 3/2$ (design-input, not asserted) — which
-would **visibly break dilation universality.**
+corresponding *channel-speed* scalings — **shear $\propto S^{+1/2}$ (i.e.
+$c_{shear} = c_0\sqrt S$) vs EM $\propto S^{-1}$ (i.e. $c_{EM} = c_0/S$)** — are
+**SETTLED, not an open ambiguity.** The shear-speed exponent is canonically
+$\sqrt S$ (`manuscript/ave-kb/CLAUDE.md:80`, `c_{shear}(A_0) = c_0\sqrt{S(A_0)}`,
+canonical at `clm-8nkvwy:113`); the apparent "$\sqrt S$-vs-$S^{1/4}$" ambiguity
+was an **already-corrected code defect** — an $S^{1/4}$ exponent attached to a
+**refractive-index / Op14 diagnostic, NOT the shear speed**
+(`src/ave/core/crystal_engine.py:431–432`: "The legacy magnitude was S^{1/4} (an
+exponent defect — half the physical power). Corrected to ½ here") — **resolved
+by Grant's F1 ruling** (`research/2026-06-30_electron-portmap-derivation_result.md:550`:
+"**(R2) The `S^{0.25}`-vs-`S^{0.5}` exponent — RESOLVED = `S^{0.5}` canonical
+(Grant F1, this session).**"). The genuinely-open item is a *different* thing:
+the **near-yield SATURATED $\sqrt S$-shear validation** (the saturated $G$-modulus
+dynamics), which is the **unbuilt Stage-4 primitive**
+(`research/2026-06-23_engine-stage1-transverse-modes_result.md:196`: "The full
+near-yield √S-shear validation (the saturated G-modulus dynamics) is Stage 4").
+So B inherits the *exponent* as settled ($\sqrt S$); what remains open for B to
+establish dynamically is the **saturated near-yield behaviour**, not the sign of
+the power. *Given* those settled scalings, cross-keying (clock on one channel,
+mode on the other) yields an exponent difference of order one — the walk's
+estimate is $p \approx 3/2$ (design-input, not asserted) — which would **visibly
+break dilation universality.**
 
 **The sky constrains the internal channel architecture.** This is the deep
 turn: an astronomical fact (achromatic redshift) constrains B's *internal* wiring
-(the clock and the mode must share a channel). **B's uniform-$N$ gate is
-literally a test that the engine reproduces universal dilation.** A measured
-$p \neq 0$ under uniform $S$-scaling is a **FALSIFICATION** (the engine predicts
-dispersive gravitational redshift, which is not observed) — **not a knob to
-tune.**
+(the clock and the mode must share a channel). **B's uniform-$N$ gate is a
+FALSIFIER, not a proof.** A measured $p \neq 0$ under uniform $S$-scaling is
+**inconsistent with universal dilation** (the engine would predict dispersive
+gravitational redshift, which is not observed) and **falsifies** the co-keyed
+design — **not a knob to tune.** A *passing* uniform-$N$ result does **not**
+reproduce or prove universality (the backward direction fails — one invariant
+ratio is not all of them); it shows only that B is **consistent with** universal
+dilation on this one ratio.
 
 ## §6 — Balloon → cavity (the confinement correction); decay kept distinct
 
@@ -362,6 +407,33 @@ an **asymmetric** load and require **$N$ shifts**. *Can-fail condition:* $N$
 moving under *uniform* $S$ is a consistency failure (dispersive dilation) ⇒ route
 to **[CONSISTENCY-FAIL].** This gate is a *falsifier*, not a fit.
 
+**Two design-critical PRECONDITIONS on the N-invariance gate (OPEN — B must
+satisfy both; this note does NOT resolve them).**
+
+- **(P1) $\omega_{clock}$ IDENTITY — pin what the sampling clock physically IS.**
+  The whole $p = (\text{clock exp}) - (\text{mode exp})$ framework presumes the
+  sampling clock is a **physical substrate mode riding an $S$-channel with its own
+  saturation exponent.** If $\omega_{clock}$ is instead the **integrator tick-rate**
+  (a numerical cadence with *no* $S$-exponent), then the uniform-$N$ gate tests
+  the **integrator, not the physics** — $p = 0$ becomes an artifact of the
+  time-step, not a statement about dilation. **B must PIN $\omega_{clock}$ as a
+  real $S$-keyed substrate mode BEFORE the uniform-$N$ gate is meaningful.** This
+  is the **same fork** as the §9 gut-check (is there a physical bias/signal split
+  at all?); it is surfaced here, not resolved.
+
+- **(P2) EMERGENT-CO-KEYING GUARD — co-keying must be READ OUT, never HARD-WIRED
+  (the #567-tautology preemption).** If B **hard-wires** co-keying — building the
+  clock and the $(2,3)$ mode as harmonics of the *same tank by construction* —
+  then $N$-invariance under uniform $S$ is **DEFINITIONAL** and the gate **cannot
+  fire**, re-importing the exact #567 readout tautology this note exists to escape.
+  Two hard design constraints follow: **(1)** the **clock and the $(2,3)$ mode
+  must be INDEPENDENT evolved DOFs** whose channel-keying is **read out of the
+  settled dynamics, not planted**; and **(2)** B must **DEMONSTRATE the uniform-$S$
+  gate CAN fail** — seed a deliberately *cross-keyed* configuration and show $N$
+  **moves** under uniform $S$ — **before any uniform-$S$ PASS is informative.**
+  This is the **can-fire discipline** of §7 applied to the physics of §5: a gate
+  that is definitionally satisfied is not a gate.
+
 **Result bins (pre-registered; the note asserts NONE of them — B decides).**
 - **[SELECTIVE-LOCK]** — $(2,3)$ selectively locks; report the settled ratio and
   the blind-derived $\langle N\rangle$ (subject to the §FIREWALL ⟨N⟩ knife: $\langle N\rangle$
@@ -405,7 +477,12 @@ fast) vs coupled two-mode resonance (co-equal). It is **UNRESOLVED** and is
 **Grant's framing call** (Grant is the third source of truth for framing-level
 physics; per lane discipline the implementer surfaces it rather than picking).
 The rest of the note is written under §4's varactor framing *as the leading
-hypothesis*; §9 flags that its load-bearing assumption is not yet settled.
+hypothesis*; §9 flags that its load-bearing assumption is not yet settled. A
+closely-related **operational** form of this same fork — that $\omega_{clock}$
+must be a *physical* $S$-keyed substrate mode (not the integrator tick-rate) for
+the §5 / §7 uniform-$N$ gate to mean anything — is folded into §7 as precondition
+**(P1)**; §9 and (P1) are the same open question viewed from the framing side and
+the gate side respectively.
 
 ---
 
