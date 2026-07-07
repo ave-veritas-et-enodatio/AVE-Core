@@ -301,8 +301,9 @@ If you use this framework in your research, please cite:
 ```bibtex
 @software{lindblom2026ave,
   author = {Lindblom, Grant},
-  title = {Applied Vacuum Engineering: A Parameter-Free Physics Framework},
+  title = {Applied Vacuum Engineering: A Falsifiable Impedance Model of the Vacuum},
   year = {2026},
+  version = {v0.6},
   url = {https://github.com/ave-veritas-et-enodatio/AVE-Core}
 }
 ```
