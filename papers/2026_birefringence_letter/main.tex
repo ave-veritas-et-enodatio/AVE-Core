@@ -93,9 +93,20 @@ neutral to any wider interpretation. We call it saturable vacuum
 electrodynamics (SVE). The model makes a numerically definite, pre-committed
 prediction that differs from QED by a fixed, field-independent factor, and it
 carries a distinctive signature --- electric-field-active but
-static-magnetic-field-transparent --- that separates it from both QED and the
-Born--Infeld class of nonlinear electrodynamics~\cite{BornInfeld1934}, in which
-electric and magnetic responses are symmetric.
+static-magnetic-field-transparent --- that separates it sharply from QED, which
+predicts a nonzero static-magnetic-field birefringence. Exact Born--Infeld
+likewise predicts zero static-magnetic-field \emph{birefringence} --- though for a
+distinct reason: among the zero-birefringence nonlinear electrodynamics --- a
+family fully classified by Russo and
+Townsend~\cite{RussoTownsend2023} (Born--Infeld, Plebański, reverse and extreme
+Born--Infeld; the exceptional-case landscape sketched already
+in~\cite{Plebanski1970}) --- exact B-I is the unique member \emph{with a Maxwell
+weak-field limit}~\cite{BornInfeld1934,Boillat1970}, and it propagates both
+polarizations on a single \emph{common} effective light cone (a common index shift
+with $\Delta n=0$, not the full non-loading of the present model). A birefringence
+polarimeter measures $\Delta n$, so it cannot distinguish the two on the magnetic
+route; what then separates the model from exact B-I is its large tree-level
+electric-route coefficient, not the magnetic null.
 
 The experimental landscape frames the test. Vacuum birefringence has been sought
 for decades on the magnetic route --- most extensively by the PVLAS
@@ -105,9 +116,13 @@ the present electric-route model. The QED signal for the XFEL pump--probe geomet
 has been developed in detail~\cite{Karbstein2015,Karbstein2021}, and the required
 high-purity X-ray polarimetry has been demonstrated with the pump
 off~\cite{Marx2013,Karbstein2021}. The present model is distinct from these
-alternatives on two counts: it predicts a \emph{tree-level} coefficient (versus
-QED's loop), and it is static-magnetic-transparent (versus both QED and
-Born--Infeld). It is also distinct from a pseudoscalar (axion-like)
+alternatives on two counts: it predicts a \emph{tree-level}, $O(1)$ electric-route
+coefficient (versus QED's one-loop signal and versus exact Born--Infeld's
+\emph{zero}), and it predicts zero static-magnetic-field birefringence (versus
+QED; exact B-I predicts a zero magnetic $\Delta n$ too --- there via a common index
+shift, here via full non-loading --- so a $\Delta n$ polarimeter cannot separate
+the model from exact B-I on the magnetic route, and the electric-route coefficient,
+not the magnetic null, is what does). It is also distinct from a pseudoscalar (axion-like)
 signal~\cite{Fouche2016}: the model produces pure retardance with no parity-odd
 polarization rotation on the electric route, whereas an axion coupling would rotate
 the plane of polarization; the two are separable by the analyzer geometry.
@@ -288,12 +303,23 @@ second-order discriminator beyond the leading coefficient of Sec.~\ref{sec:predi
 
 \emph{Family context.} A saturating-field electrodynamics is not a new idea: Born
 and Infeld introduced one ninety years ago~\cite{BornInfeld1934}, engineering a
-square-root Lagrangian $\mathcal L\propto\sqrt{1+F/b^2}$ with a limiting field $b$
-so that the field of a point charge --- and the electron self-energy --- stays
-finite. The present kernel $S=\sqrt{1-(E/\Ec)^2}$ belongs to the same
-saturating-field family but is a distinct branch of it: the sign under the root is
-reversed, so the response \emph{softens} toward a hard ceiling $\Ec$ rather than
-stiffening, and (Sec.~\ref{sec:signature}) the magnetic sector is not symmetric
+square-root Lagrangian $\mathcal L\propto\sqrt{1+F/b^2}$ --- with $F\equiv B^2-E^2$
+(the Lorentz scalar, $=\tfrac12 F_{\mu\nu}F^{\mu\nu}$ in Heaviside--Lorentz units)
+and a limiting field $b$ --- so that the field of a point charge --- and the
+electron self-energy --- stays finite. The present kernel $S=\sqrt{1-(E/\Ec)^2}$ belongs to the same
+saturating-field family but is a distinct branch of it, and the cleanest way to
+state the difference is at the level of the response, not the Lagrangian: the two
+theories put the root on \emph{opposite sides} of the electric response. In
+Born--Infeld the response \emph{stiffens} --- the displacement carries the root in
+its denominator, $D=E/\sqrt{1-(E/b)^2}$ (exponent $-\tfrac12$), so $D$ diverges as
+$E\to b$; here the permittivity \emph{softens} --- $\varepsilon=\varepsilon_0
+\sqrt{1-(E/\Ec)^2}$ carries the root in the numerator (exponent $+\tfrac12$), so
+$\varepsilon\to0$ at the ceiling $\Ec$. This response-exponent contrast is
+convention-independent, whereas comparing the sign of the invariant under the root
+is not: with $F\equiv B^2-E^2$ a pure electric field gives $F=-E^2$, so the
+covariant and electric forms coincide exactly ($\sqrt{1+F/b^2}=\sqrt{1-E^2/b^2}$),
+and an interior-sign comparison is a display convention rather than a physical
+distinction. And (Sec.~\ref{sec:signature}) the magnetic sector is not symmetric
 with the electric one. We situate the model here only to place its lineage; any
 comparison of self-energy properties across branches is outside the scope of this
 Letter, whose registered claim is the pump--probe birefringence coefficient.
@@ -348,9 +374,22 @@ magnetic-route birefringence is
 %
 This is a hard, parameter-free side-prediction: the model forbids
 static-magnetic-field vacuum birefringence at any field strength. It is the
-feature that most sharply separates the model from QED and from Born--Infeld-type
-electrodynamics, both of which predict a nonzero static-$\mathbf B$
-birefringence. A propagating field --- such as the ReLaX optical pump, for which
+feature that most sharply separates the model from QED, which predicts a nonzero
+static-$\mathbf B$ birefringence; exact Born--Infeld likewise predicts zero
+static-$\mathbf B$ \emph{birefringence}, since it is the unique nonlinear
+electrodynamics \emph{with a Maxwell weak-field limit} (besides Maxwell) whose two
+photon polarizations propagate on a single \emph{common} effective light cone in
+any constant background~\cite{Boillat1970,BornInfeld1934} --- a common index shift
+for both polarizations ($\Delta n=0$), not the full non-loading ($S_\mu=1$, no
+index change of any kind) that Eq.~\eqref{eq:staticB} states for this model. (The
+zero-birefringence family is larger --- Russo and Townsend classify it in
+full~\cite{RussoTownsend2023} --- but the other members lack a weak-field Maxwell
+limit, so exact B-I is the sole physically relevant zero-$\Delta n$ comparison
+here.) A $\Delta n$ polarimeter (PVLAS/BMV) is blind to the common-shift-vs-non-loading
+distinction, so the zero-birefringence agreement alone does not separate the model
+from \emph{exact} B-I --- the electric-route
+coefficient (Sec.~\ref{sec:prediction}) does. A propagating field --- such as the
+ReLaX optical pump, for which
 $\mathbf E$ and $\mathbf B$ co-move with $B=E/c$ and $\partial\mathbf
 B/\partial t\ne0$ --- \emph{does} load the response; the electric-route result
 of Eq.~\eqref{eq:dnbir} already captures the full birefringence of such a wave.
@@ -581,12 +620,38 @@ is unchanged, and the model margin above the polarimeter floor only improves.
 % ============================================================================
 
 The model's identifying signature is that it is \emph{electric-route active but
-static-magnetic-route transparent} [Eq.~\eqref{eq:staticB}]. This distinguishes
-it from both of the standard alternatives. QED predicts a nonzero
-static-$\mathbf B$ vacuum birefringence, and the entire PVLAS/BMV program was
-built to detect exactly that; Born--Infeld-type nonlinear
-electrodynamics~\cite{BornInfeld1934} likewise predicts symmetric electric and
-magnetic responses. The present model predicts none in a static magnetic field.
+static-magnetic-route transparent} [Eq.~\eqref{eq:staticB}]. Static-$\mathbf B$
+transparency separates it cleanly from QED, which predicts a nonzero
+static-$\mathbf B$ vacuum birefringence that the entire PVLAS/BMV program was
+built to detect. It does \emph{not}, by itself, separate the model from
+\emph{exact} Born--Infeld: exact B-I is the celebrated zero-birefringence
+theory --- among the nonlinear electrodynamics with a single effective light cone
+in any constant background~\cite{Boillat1970}, the unique one \emph{with a Maxwell
+weak-field limit}~\cite{BornInfeld1934} --- so it too predicts zero
+static-$\mathbf B$ birefringence, and the two remain consistent with the same
+PVLAS/BMV nulls. (The zero-birefringence family is not a singleton: Russo and
+Townsend classify all of its members~\cite{RussoTownsend2023} --- Born--Infeld,
+Plebański, and the reverse and extreme Born--Infeld cases, the latter three all
+lacking a Maxwell weak-field limit --- while generic Born--Infeld-\emph{type} family members
+outside that zero-birefringence set do birefringe in a static $\mathbf B$. The
+weak-field-Maxwell qualifier is what singles out the 1934 theory here; every
+downstream separation below survives it, since none of the other
+zero-birefringence theories reduces to Maxwell at weak field.) What separates the present model from exact B-I
+is not the magnetic null but the electric route: the model carries a tree-level,
+$O(1)$ birefringence coefficient there [Sec.~\ref{sec:prediction}], whereas exact
+B-I stays birefringence-free on the electric route as well. The single-cone
+property is proved for constant
+backgrounds~\cite{Boillat1970,RussoTownsend2023}; it applies to the ReLaX pump
+under the same locally-constant-field (geometric-optics) approximation that
+licenses the constant-field QED coefficient of Eq.~\eqref{eq:dnqed} --- the
+X-ray probe wavelength ($\sim\SI{0.1}{\nano\meter}$) is far shorter than the
+optical pump's spatial variation scale ($\sim\SI{800}{\nano\meter}$ carrier), so
+the pump is locally constant over a probe wavelength and both routes fall inside
+the constant-background result. On that footing exact B-I predicts a common index
+shift with \emph{zero} differential birefringence for the pump, and the pump-on
+electric-route measurement therefore separates all three at once --- the model's
+large tree-level signal, QED's small one-loop signal, and exact B-I's exact
+zero.
 
 A consequence is that the existing magnetic-route nulls are consistent with this
 model \emph{by construction}, not by smallness of a coefficient. The PVLAS

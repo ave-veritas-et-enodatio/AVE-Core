@@ -476,3 +476,156 @@ now stale and are retired.
   displays ~21.9pt/~6.6pt — the scope-paragraph edits introduced none);
   `make verify` GREEN. Fresh branch `analysis/letter-scoping-sentence-refresh` off merged HEAD `b0615b5e`
   (contains #547). Grant's five standing decisions UNTOUCHED.
+
+## 11. Two physics-wording corrections — last Letter edit before external contact (2026-07-06, Grant-fired Task #16)
+
+**Grant go (2026-07-06):** two convention/physics-accuracy corrections to the referee-facing Letter, ONE PR
+(`analysis/letter-bi-corrections`), two commits (one logical fix each). No anchored number moved; both are
+physical-picture-accuracy fixes, and FIX 2 STRENGTHENS the E-route discriminator (it makes the pump-on
+measurement a three-way separator). Branch off `origin/main` `cb38c9b9`.
+
+**FIX 1 (commit `4ff9e20c`) — convention-independent response-exponent B-I contrast (§ "Family context", `main.tex`).**
+- **What was wrong:** the sentence displaying `L ∝ √(1+F/b²)` read *"the sign under the root is reversed, so the
+  response softens…"* (stood at `main.tex:294–295`). It is true against the covariant display but reads FALSE the
+  moment a reader substitutes the pure-E form: with `F ≡ B²−E²` a pure-E field gives `F = −E²`, so
+  `√(1+F/b²) = √(1−E²/b²)` holds exactly, and the *interior* sign is a display convention, not a physical
+  difference. (Sympy-checked this session under the declared Heaviside–Lorentz convention `F ≡ B²−E² =
+  ½F_{μν}F^{μν}`; note the identity is FALSE by a factor 2 under the *unhalved* `F = F_{μν}F^{μν} = 2(B²−E²)`,
+  where pure-E gives `F = −2E²` and the root closes at `b/√2` — the convention MUST be declared, which the
+  Letter now does inline at `main.tex` §"Family context".) This exact trap already fired once when the
+  sentence was lifted into a KB leaf.
+- **What changed:** migrated to the **response-exponent** framing, mirroring the merged KB precedent
+  `manuscript/ave-kb/common/historical-precedents.md:39` (verified verbatim this session). The two theories put the
+  root on **opposite sides of the response**: **B-I stiffens** — `D = E/√(1−(E/b)²)`, root in the *denominator*
+  (exponent `−½`), diverges as `E→b`; **this model softens** — `ε = ε₀√(1−(E/E_c)²)`, root in the *numerator*
+  (exponent `+½`), `ε→0` at the ceiling `E_c`. The covariant display `√(1+F/b²)` is KEPT, the convention is now
+  DECLARED inline (`F ≡ B²−E² = ½F_{μν}F^{μν}`, Heaviside–Lorentz), and it is explicitly reconciled to the electric
+  form in-text (with `F = −E²` for pure E, `√(1+F/b²)=√(1−E²/b²)` exactly), so the contrast lives at response level
+  where it is convention-independent. Letter register (tight, no KB jargon).
+
+**FIX 2 (commit — see PR) — the Born–Infeld static-B birefringence error (four sites + two new refs), `main.tex` + `refs.bib`.**
+- **What was wrong:** the Letter claimed static-B transparency separates the model *"from QED and from
+  Born–Infeld-type electrodynamics, both of which predict a nonzero static-B birefringence"* (`main.tex:351–352`),
+  justified at `:587–589` by *"Born–Infeld-type… likewise predicts symmetric electric and magnetic responses"* (a
+  non-sequitur), with the same wrong echo in the intro at `:96–98` and `:108–110`. **Exact Born–Infeld is the
+  celebrated ZERO-birefringence exception:** the unique nonlinear electrodynamics (besides Maxwell) in which both
+  photon polarizations share one effective light cone in ANY constant background, so exact B-I predicts **zero**
+  static-B birefringence too.
+- **The corrected physics (this STRENGTHENS the Letter, written soberly):** (a) static-B transparency separates the
+  model **and exact B-I** from QED — the existing PVLAS/BMV nulls remain consistent for both; (b) the **E-route is the
+  three-way discriminator** — this model predicts a large tree-level signal (`3.75π/α²` above QED), QED predicts its
+  small one-loop signal, and exact B-I predicts exactly zero, so the pump-on measurement separates all three in one
+  shot; (c) generic Born–Infeld-**TYPE** family members generically DO birefringe (the zero-birefringence property is
+  the **exact 1934 theory's uniqueness**), so family statements and exact-theory statements are kept distinct.
+- **Four sites swept (full `grep Born|Infeld|birefring` across `main.tex`, before + after):**
+  1. `main.tex:~96–98` (intro, count-2 signature) — reworked: exact B-I shares the transparency; the tree-level
+     E-route coefficient is what separates the model from exact B-I.
+  2. `main.tex:~108–110` (intro, "distinct on two counts") — reworked: tree-level `O(1)` coefficient (vs QED's loop
+     **and** vs exact B-I's zero); transparency is vs QED (exact B-I transparent too).
+  3. `main.tex:~351–352` ("most sharply separates") — reworked: separates from QED; exact B-I shares the transparency
+     (uniqueness cite); the E-route coefficient separates the model from exact B-I.
+  4. `main.tex:~587–589` (signature §, the non-sequitur) — reworked: QED birefringes; exact B-I is the
+     zero-birefringence theory (same PVLAS/BMV nulls); generic B-I-**type** members birefringe; the pump-on E-route
+     separates all three (model / QED / exact B-I) at once.
+  - Abstract (`:42–59`) + Conclusion (`:730–746`) checked: they state the *model's* zero static-B prediction and
+    PVLAS/BMV consistency and name no B-I static-B claim — no wrong-claim echo, left untouched.
+- **New refs (verified before adding — `refs.bib`):**
+  - `Boillat1970` — **Crossref-verified in full** (DOI `10.1063/1.1665231`): G. Boillat, *Nonlinear Electrodynamics:
+    Lagrangians and Equations of Motion*, J. Math. Phys. **11**(3), 941–951 (1970). This is the celebrated
+    single-light-cone / zero-birefringence uniqueness result — the load-bearing citation.
+  - `Plebanski1970` — **INSPIRE-HEP-confirmed** (recid 1103928): J. Plebański, *Lectures on Non-Linear
+    Electrodynamics*, 1970. Author + exact title + 1970 date confirmed; **no DOI** and the *"NORDITA, Copenhagen"*
+    imprint is the conventional literature attribution (INSPIRE carries `imprints: None`), rendered as a lecture-notes
+    `@misc` with a `note:` and NOT asserting a database-confirmed publisher/page. **FLAG for Grant:** if a referee
+    wants a fully database-grounded imprint, either keep Boillat as sole primary (it alone establishes the
+    uniqueness) or supply the confirmed NORDITA report identifier — see the verify tier note below.
+
+**Anchored invariants grep-confirmed UNCHANGED (before + after both fixes):** `P_flip` triplet `5.39/4.28/9.28e-3`
+(3 hits); kill criterion `P_flip < 1e-8` at `≥1e18 W/cm²` (1 + 4 hits); ratio `3.75π/α²` (7 hits); pump
+`A²≃5.9e-7`/`6e-7`/`5.90e-7` (4 hits); purity floor `2.4e-10` (5 hits); `δn_μ=0` static-B equation untouched. No
+number, no falsifier verdict, no anchored value moves; `src/` + JSON UNTOUCHED (no driver read or edited).
+
+**Discipline tags.**
+- **verify-before-cite:** the KB response-exponent precedent (`historical-precedents.md:39`) read verbatim this
+  session; both new bib entries verified against an authoritative database BEFORE adding (Boillat = Crossref full;
+  Plebański = INSPIRE author/title/year; the un-confirmable NORDITA imprint flagged, not asserted as verified).
+- **flag-don't-fix:** the Plebański imprint is NOT database-confirmable at the publisher-field level — surfaced as a
+  FLAG for Grant rather than silently rendered as verified.
+- **standalone citation discipline:** the two new refs are external empirical/theory sources (Boillat, Plebański) —
+  permitted in these passages; no private-repo cite, no killed/live scoping candidate named.
+- **consistency-vs-emergence:** N/A — a wording/physics-accuracy correction to a comparison with prior art; no AVE
+  claim class changes.
+
+**Build/verify:** `make paper` clean — **9 pages** (was 8). **Page-growth attribution CORRECTED (2026-07-06,
+FIX-round MINOR 2):** the earlier note here read *"the two added references push the bibliography onto a 9th page —
+body content did not balloon a page"* — that is WRONG. The 8→9 transition is driven by **~320 words of BODY
+growth** (measured four ways vs the 8-page base `cb38c9b9`: whole-file source +323, body-source +323,
+`texcount` rendered +318, `detex` rendered +315), which moved the Conclusion onto p8 and Table I onto p7; the two
+added references contribute only two short bibliography lines (<40 words) and are NOT the cause. zero
+undefined refs / zero citation warnings, both new refs resolve in the `.bbl` (Boillat with DOI, Plebański 1970).
+Only the three pre-existing overfull boxes remain (Table I alignment ~8.9pt + two appendix displays ~21.9pt/~6.6pt,
+line numbers reflowed by the page break); the corrections introduced none. `make verify` GREEN. Fresh branch
+`analysis/letter-bi-corrections` off `origin/main` `cb38c9b9`. Grant's five standing decisions UNTOUCHED.
+
+## 12. Referee fix-round — 5 MAJOR + 3 MINOR corrections (2026-07-06, all CONFIRMED)
+
+Precision fix-round on the referee-facing Letter (PR #555). Three DEFECTs (A/B/C) + three MINORs, per-defect commits.
+
+**DEFECT A — F-convention factor-2 (`main.tex:297,:310`).** The Family-context passage displayed `√(1+F/b²)`
+and reconciled to the electric form via *"since F ∝ −2E²"* without ever defining `F`. Under the standard Lorentz
+invariant `F = F_{μν}F^{μν} = 2(B²−E²)`, pure-E gives `F = −2E²` and the identity `√(1+F/b²)=√(1−E²/b²)` is FALSE
+by a factor 2 (root closes at `b/√2`). Fixed by DECLARING the convention inline — `F ≡ B²−E² = ½F_{μν}F^{μν}`
+(Heaviside–Lorentz) — so pure-E gives `F = −E²` and the identity is EXACT. **Sympy-verified this session** (four
+checks): the half-relation, the exact/false branches, the `:297` display consistency, and `D = E/√(1−(E/b)²) = dL/dE`
+(root in denominator, exponent −½). §11 restatement corrected too. **The same wrong parenthetical lives in merged
+KB canon at `manuscript/ave-kb/common/historical-precedents.md:39` (propagated by #551)** — landed on a separate
+micro-branch `analysis/kb-f-convention-fix` (own micro-PR), same convention-declaring fix.
+
+**DEFECT B — unqualified B-I uniqueness ×4 (`main.tex:98,:114,:369,:610-616`).** *"the unique nonlinear
+electrodynamics besides Maxwell with a single effective light cone in any constant background"* is FALSE
+unqualified. **Russo & Townsend, JHEP 01 (2023) 039 (arXiv:2211.10689)** classify ALL zero-birefringence NLEDs:
+Born–Infeld, Plebański, reverse-B-I, extreme-B-I; B-I is unique ONLY among those **with a Maxwell weak-field
+limit**. The Plebański exception is in the very Plebański-1970 notes cited as uniqueness support. Fixed all four
+sites with the qualifier + `RussoTownsend2023` cite (Crossref DOI + arXiv-abstract verified this session);
+Plebański-1970 re-scoped to the exceptional-case landscape it actually supports (one raw cite). Every downstream
+separation survives — none of the other zero-birefringence theories reduces to Maxwell at weak field, stated in-text.
+
+**DEFECT C — B-I-zero leg unlicensed for the propagating pump (`main.tex` signature §).** The three-way
+discriminator's B-I-zero leg read *"zero static-field birefringence on both routes"*, but the pump is a
+PROPAGATING optical field (the Letter stresses at `:373-377` that a propagating field is not static and loads),
+while every B-I-zero justification was scoped to *constant background*. Verified: Russo–Townsend scope the
+single-cone/superluminality statement to *constant electromagnetic backgrounds*; the Letter applies constant-field
+results to the pump (its own AND QED's) via the locally-constant-field (geometric-optics) argument — keV X-ray
+probe (~0.1 nm) ≪ optical pump variation scale (~800 nm). Fixed by writing the B-I-zero leg on the SAME footing:
+single-cone proved for constant backgrounds, carried to the pump under explicit locally-constant-field scoping;
+*"on both routes"* → common index shift with zero **differential** birefringence for the pump. Separation claim
+survives; license now printed.
+
+**MINOR 1 — transparency conflation ×3 (`main.tex:97,:114,:368`).** *"shares the static-B transparency"*
+conflated the model's FULL non-loading (`S_µ=1`, no index change) with B-I's zero-BIREFRINGENCE (both polarizations
+on ONE common cone — common index shift, `Δn=0`). Fixed at all three: exact B-I predicts zero static-B
+*birefringence* via a common index shift (not full non-loading); a `Δn` polarimeter (PVLAS/BMV) is blind to the
+common-shift-vs-non-loading distinction, so the agreement alone does not separate the two on the magnetic route.
+
+**MINOR 2 — §11 page-growth misattribution CORRECTED (see §11 build note above).** The 8→9 transition is
+~320 words of BODY growth (four measurements), not the two references.
+
+**MINOR 3 — venue-length forward-note (FLAG-DON'T-FIX; frozen §5 point 3 UNTOUCHED).** §5 point 3 is a FROZEN
+historical entry recording *"5 pages … comfortably PRD-Letter-length."* That is **no longer true** and, per the
+FLAG-DON'T-FIX rule, the frozen entry is **not edited** and **no content is trimmed.** Dated forward-note:
+
+> **Venue-length forward-note (2026-07-06).** The draft is now **9 pages, ~5,900–6,000 rendered words** (texcount
+> sum 5951; detex 5926; the broader all-text count incl. references/appendix is ~6,800), grown from the 5-page /
+> PRD-Letter-length state recorded in the frozen §5 point 3. This is **well over a PRD-Letter ~4,500-word cap** and
+> over typical Letter page limits. **Venue-length is now an OPEN GRANT DECISION**, not a settled "comfortably
+> Letter-length" fact: options are (a) keep the current length and target a full-article venue (PRD regular
+> article / NJP / equivalent), (b) trim to a Letter/PRL cap, or (c) arXiv-only preprint at current length.
+> **No content trimmed by this fix-round** — flagged for Grant, not fixed.
+
+**Fix-round build/verify:** `make paper` clean — **9 pages**, zero undefined refs / zero citation warnings, all bib
+entries resolve (incl. `RussoTownsend2023` with DOI). Three pre-existing overfull boxes remain; the pre-existing
+*"float is stuck"* LaTeX warning (present at the branch tip `aaf2479c` before this round, under-reported by the
+FIX-2 build note) CLEARED under the MINOR-1 text reflow. `make verify` GREEN. Anchored invariants grep-confirmed
+UNCHANGED across all six fix commits (P_flip triplet + abstract range, kill criterion, `3.75π/α²` ×7, pump `A²`,
+purity floor `2.4e-10`, `δn_µ=0`, `E_c`, OTS `2.2e5`). Branch `analysis/letter-bi-corrections`; DO-NOT-MERGE, no
+self-merge.
