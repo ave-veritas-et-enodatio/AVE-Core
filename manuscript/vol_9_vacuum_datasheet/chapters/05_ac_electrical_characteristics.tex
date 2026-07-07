@@ -240,6 +240,270 @@ Parameter basin & bias$\times$drive region of attraction (structural) & (folds i
 
 \textbf{Scope and classification.} The CVR sweep is a \textbf{consolidation / consistency} re-expression of already-derived canon (the LC tank, $\alpha=1/Q$, the A1-dilatation $\Gamma=-1$ wall); it introduces no new substrate primitive. The one AVE-distinct corollary is $|\Gamma|^2=1-\alpha$ (the radiative leak made geometric) and the parity-odd chiral $S$; the $Q=1/\alpha$ Bode peak and the LC$\to E=mc^2$ recovery are consistency re-expressions. The $\mu_{eff}\to0$ versus $C_{eff}\to\infty$ description corresponds to the two gauge sides of one wall (M\"obius $Z\leftrightarrow1/Z$, $|\Gamma|=1$, $Z\to0$ inside $\leftrightarrow Z\to\infty$ outside; \kbleaf{trampoline-framework.md}:641), not a physical branch; the physical axis is the orthogonal mass-dilatation and charge-winding sectors (\kbleaf{vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:20). The chiral-coupling magnitude is provisional; documented in the charge-winding cross-reference. The compression-extreme wall here is one end of the lattice extreme-map (\S the phase-diagram chapter; \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md}).
 
+\section{C--V Characteristics}
+\label{sec:vol9_cv_characteristics}
+
+The capacitance--voltage (C--V) characteristic is the datasheet form a varactor
+is specified in: capacitance as a function of a held DC bias, pinned by the
+\emph{measurement} (large-signal secant vs small-signal tangent) rather than by a
+formula alone. The substrate carries \textbf{two} such characteristics on
+\textbf{two orthogonal reactance sectors} keyed on \textbf{two different critical
+voltages} --- the vacuum's $(V_{th}:V_{BD,ox})$ pair. This section states both,
+crowns the small-signal tangent as ``the'' C--V capacitance/permittivity per the
+measurement definition, and ties each pinned value to the test-locked driver.
+This is a \textsc{consistency}-class re-expression of the Axiom~4 varactor canon
+(\S\ref{sec:vol9_operating_point}, \S\ref{sec:vol9_cvr_sweep}) in
+device-C--V-profiling vocabulary; the reading is the Grant-ratified
+channel-inversion framing (\kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md},
+(a)/(b)), not a new derivation. Every number below is imported from
+\kbleaf{src/ave/core/constants.py} and pinned by
+\kbleaf{src/tests/test\_semiconductor\_cv\_dip.py}; the $\sqrt{\alpha}$ ratio
+$V_{yield}/V_{snap}$ is an $\alpha$-echo (Class-C).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{vacuum_cv_datasheet.pdf}
+\caption{The vacuum C--V datasheet curve: both branches on one log-$V$ axis,
+computed analytically from \kbleaf{src/ave/core/constants.py} (no observable
+target hardcoded). The \textbf{transverse-$T_2$ permittivity}
+$\varepsilon_{eff}/\varepsilon_0 = S(V/V_{yield})$ (vermillion) \emph{rolls off}
+to zero at the Cosserat self-trap wall $V_{yield}\approx\qty{43.65}{\kilo\volt}$
+(the reverse-biased depletion-varactor / oxide-breakdown analogue). The
+\textbf{longitudinal-A1 bond compliance} $C_{eff}/C_0 = 1/S(V/V_{snap})$ (solid
+blue, large-signal chord) and its small-signal tangent $C_{ss}/C_0 = 1/S^3$
+(dashed blue) both \emph{diverge} toward the pair-production wall
+$V_{snap}\approx\qty{511}{\kilo\volt}$ (the turn-on / channel-inversion
+threshold). The two device features are separated by
+$1/\sqrt{\alpha}\approx11.7$ in voltage. Axes: capacitance/permittivity ratio
+(dimensionless) vs bias (V, log). Computed by
+\kbleaf{src/scripts/verify/semiconductor\_cv\_dip.py::make\_cv\_figure};
+figure committed (\#556/\#558), not regenerated here.}
+\label{fig:vol9_vacuum_cv_datasheet}
+\end{figure}
+
+\subsection{Critical-Voltage Pair --- the vacuum's $(V_{th}:V_{BD,ox})$}
+\label{subsec:vol9_cv_critical_voltage_pair}
+
+The two C--V features sit at two critical voltages of different sector physics ---
+the substrate's analogue of a MOSFET carrying a turn-on threshold $V_{th}$ and an
+oxide-breakdown voltage $V_{BD,ox}$ in one device. These are the already-tabulated
+absolute-maximum ratings (Ch.~\ref{ch:vol9_absolute_maximum_ratings}
+\S\ref{sec:vol9_absmax_table}, rows \texttt{V\_SNAP} / \texttt{V\_YIELD}); they are
+cross-referenced here for the C--V reading, not re-derived.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}p{0.19\linewidth} p{0.12\linewidth} p{0.28\linewidth} X@{}}
+\toprule
+\textbf{Critical voltage} & \textbf{Value} & \textbf{Sector / mechanism} & \textbf{Device reading} \\
+\midrule
+$V_{snap} = m_e c^2/e$ & $\qty{511.0}{\kilo\volt}$ & A1 longitudinal bond compliance ($C_{eff}\to\infty$) & \textbf{turn-on / channel inversion} ($V_{th}$): pair production \emph{is} channel formation \\
+$V_{yield} = \sqrt{\alpha}\,V_{snap}$ & $\qty{43.65}{\kilo\volt}$ & $T_2$ transverse dielectric ($\varepsilon_{eff}\to0$) & \textbf{oxide breakdown} ($V_{BD,ox}$): Cosserat self-trap / depletion rolloff \\
+\midrule
+$V_{yield}/V_{snap}$ & $\sqrt{\alpha}$, $0.0854245$ & --- (exact; \kbleaf{src/ave/core/constants.py}) & $\alpha$-echo (Class-C); driver-confirmed exact \\
+\bottomrule
+\end{tabularx}
+\caption{The vacuum's critical-voltage pair for the C--V reading: A1 turn-on
+($V_{snap}$) and $T_2$ dielectric yield ($V_{yield}$), the two features of one
+device. The ratio is exactly $\sqrt{\alpha}$
+(\kbleaf{src/tests/test\_semiconductor\_cv\_dip.py::test\_vyield\_over\_vsnap\_is\_sqrt\_alpha\_exactly}).
+\textbf{Anti-cross-wire:} the divergent $C_0/S$ form is A1's, keyed on
+$V_{snap}$; the rolloff $\varepsilon_0 S$ form is $T_2$'s, keyed on $V_{yield}$ ---
+never the reverse (the node-up cross-wire; \S\ref{subsec:vol9_cv_node_up_flag}).}
+\label{tab:vol9_cv_critical_voltage_pair}
+\end{table}
+
+\subsection{Operational Definitions --- chord (secant) vs tangent (crowned)}
+\label{subsec:vol9_cv_operational_definitions}
+
+Device C--V profiling never pins a nonlinear capacitance by a formula alone; it
+pins it by the measurement --- the large-signal \textbf{chord/secant} $C = Q/V$ vs
+the small-signal \textbf{tangent} $C_{ss} = \mathrm{d}Q/\mathrm{d}V$ at the held
+bias. The C--V \emph{definition} crowns the tangent as ``the'' small-signal
+capacitance. Both sectors carry the pair; we state both and crown the tangent,
+keeping the chord named as the large-signal secant
+(\kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md}, (a);
+\kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md}, the
+metric-varactor $C_0/S$ vs $C_0/S^3$ split rendered at
+Ch.~\ref{ch:vol9_pin_port_configuration}~\S\ref{subsec:vol9_electron_selfbiased_multiport}).
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.10\linewidth} p{0.15\linewidth} p{0.24\linewidth} p{0.20\linewidth} p{0.19\linewidth}@{}}
+\toprule
+\textbf{Sector} & \textbf{Object} & \textbf{Form} & \textbf{Small-field leading} & \textbf{Role} \\
+\midrule
+A1 ($V_{snap}$) & chord (secant) & $C_{chord}/C_0 = 1/S(V/V_{snap})$ & $1 + \tfrac12(V/V_{snap})^2$ & constitutive compliance $Q/V$ \\
+A1 ($V_{snap}$) & \textbf{tangent (crowned)} & $C_{ss}/C_0 = \mathrm{d}Q/\mathrm{d}V = 1/S^3(V/V_{snap})$ & $1 + \tfrac32(V/V_{snap})^2$ & \textbf{the small-signal compliance} \\
+$T_2$ ($V_{yield}$) & chord (secant) & $\varepsilon_{chord}/\varepsilon_0 = S(V/V_{yield})$ & $1 - \tfrac12(V/V_{yield})^2$ & constitutive permittivity $\varepsilon_0 S$ \\
+$T_2$ ($V_{yield}$) & \textbf{tangent (crowned)} & $\varepsilon_{ss}/\varepsilon_0 = \mathrm{d}D/\mathrm{d}V = S - A_V^2/S$ & $1 - \tfrac32(V/V_{yield})^2$ & \textbf{the small-signal permittivity} \\
+\bottomrule
+\end{tabular}
+\caption{C--V operational definitions per sector. The A1 compliance
+\emph{diverges} toward $V_{snap}$ (the tangent faster, $1/S^3$); the $T_2$
+permittivity \emph{rolls off} toward $V_{yield}$. The tangent exponent $1/S^3$ is
+sympy-derived, not asserted
+(\kbleaf{src/scripts/verify/semiconductor\_cv\_dip.py::a1\_tangent\_sympy\_check};
+\kbleaf{src/tests/test\_semiconductor\_cv\_dip.py::test\_a1\_tangent\_exponent\_is\_sympy\_derived}).
+$A_V \equiv V/V_{yield}$ on the $T_2$ axis, $A \equiv V/V_{snap}$ on the A1 axis;
+the two are never cross-keyed (five distinct ``$A^2$'' senses, homonym discipline
+in \kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md}).}
+\label{tab:vol9_cv_operational_definitions}
+\end{table}
+
+\noindent\textbf{A1-chord leading-coefficient discrepancy (carried, not reset).}
+This table gives the A1 large-signal chord $C_0/S$ the small-field leading term
+$1 + \tfrac12(V/V_{snap})^2$ --- what the driver
+\kbleaf{src/scripts/verify/semiconductor\_cv\_dip.py::a1\_chord\_over\_c0}
+computes ($C_0/S$ Taylor-expands to $1 + \tfrac12 A^2$). The printed RESULT~(a)
+table
+(\kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md}) lists the A1
+\emph{chord} row's small-field expansion as $1 + \tfrac12(V/V_{snap})^2$ but the
+A1 \emph{tangent} row (the $1/S^3$ form) as $1 + \tfrac32(V/V_{snap})^2$; the two
+must not be conflated. This section states the driver-computed values. Any
+residual prose that swaps the two A1 coefficients is FLAGGED for the queued Vol-9
+sweep (\S\ref{subsec:vol9_cv_node_up_flag}), not reset here.
+
+\medskip\noindent\textbf{Pinned bias-point values (driver JSON; test-locked).} Each row is
+emitted by the deterministic driver and value-pinned by the named test
+(\kbleaf{src/tests/test\_semiconductor\_cv\_dip.py}), so the caption ``driver JSON;
+test-locked'' is literally true:
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.15\linewidth} p{0.22\linewidth} p{0.14\linewidth} p{0.37\linewidth}@{}}
+\toprule
+\textbf{Bias point} & \textbf{Quantity} & \textbf{Value} & \textbf{Test pin (\texttt{::node})} \\
+\midrule
+$0.5\,V_{yield}$ & $T_2$ chord $\varepsilon/\varepsilon_0$ & $0.86603$ ($\sqrt3/2$) & \texttt{\seqsplit{test\_t2\_rolls\_off\_toward\_vyield\_not\_vsnap}} \\
+$0.5\,V_{yield}$ & $T_2$ tangent $\varepsilon_{ss}/\varepsilon_0$ & $0.57735$ ($1/\sqrt3$) & \texttt{\seqsplit{test\_t2\_tangent\_at\_half\_vyield\_is\_one\_over\_sqrt3}} \\
+$V_{yield}$ & $T_2$ chord $\varepsilon/\varepsilon_0$ & $0.0$ (rolloff complete) & \texttt{\seqsplit{test\_t2\_rolls\_off\_toward\_vyield\_not\_vsnap}} \\
+$0.5\,V_{snap}$ & A1 chord $C/C_0$ & $1.15470$ ($2/\sqrt3$) & \texttt{\seqsplit{test\_a1\_chord\_at\_half\_vsnap\_is\_two\_over\_sqrt3}} \\
+$0.5\,V_{snap}$ & A1 tangent $C_{ss}/C_0$ & $1.53960$ ($(2/\sqrt3)^3$) & \texttt{\seqsplit{test\_a1\_tangent\_at\_half\_vsnap\_is\_two\_over\_sqrt3\_cubed}} \\
+$V_{yield}$ (A1 axis, $A=\sqrt\alpha$) & A1 tangent $C_{ss}/C_0$ & $1.01105$ ($\approx1.011$) & \texttt{\seqsplit{test\_a1\_tangent\_at\_electron\_sqrt\_alpha\_bias\_matches\_corpus}} \\
+$0.99\,V_{snap}$ & A1 chord / tangent $C/C_0$ & $7.089$ / $356.2$ & \texttt{\seqsplit{test\_a1\_diverging\_row\_at\_099\_vsnap}} \\
+\bottomrule
+\end{tabular}
+\caption{Pinned C--V bias-point values. Every row is
+\kbleaf{src/ave/core/constants.py}-derived (no hardcoding) and value-locked by the
+named test node in \kbleaf{src/tests/test\_semiconductor\_cv\_dip.py}. The A1
+tangent at the electron's $A=\sqrt\alpha$ bias ($1.011\,C_0$) is why the mass
+channel sits barely perturbed inside the $T_2$ cage --- the $S\to0$ runaway never
+fires (\S\ref{subsec:vol9_electron_selfbiased_multiport}).}
+\label{tab:vol9_cv_pinned_bias_points}
+\end{table}
+
+\subsection{Eigenmode Note --- the C--V split \emph{is} the birefringence}
+\label{subsec:vol9_cv_eigenmode_note}
+
+The chord/tangent pair is not a bookkeeping choice: it is the two polarization
+eigenmodes of the same saturable-dielectric tensor. A weak probe polarized
+\textbf{perpendicular} to a held bias measures the $T_2$ \textbf{chord}
+$n_\perp = \sqrt{S} = (1-A^2)^{1/4}$; a probe polarized \textbf{parallel} measures
+the $T_2$ \textbf{tangent} $n_\parallel = \sqrt{S - A^2/S}$. Their split \emph{is}
+the birefringence observable
+\begin{equation}
+\delta n_{bir} = n_\parallel - n_\perp \;\to\; -\tfrac12 A_V^2, \qquad
+\delta n_{iso} = n_\perp - 1 \;\to\; -\tfrac14 A_V^2,
+\label{eq:vol9_cv_birefringence}
+\end{equation}
+proven symbolically against the birefringence Letter's Appendix~A
+(\kbleaf{src/scripts/verify/semiconductor\_cv\_dip.py::eigenmode\_check};
+pinned by \kbleaf{src/tests/test\_semiconductor\_cv\_dip.py::test\_eigenmode\_check\_verdict\_true}
+and \kbleaf{src/tests/test\_semiconductor\_cv\_dip.py::test\_eigenmode\_birefringence\_leading\_is\_minus\_half\_a\_squared}).
+The tangent's loss of real support past $A_V = 1/\sqrt2$ is exactly $n_\parallel$
+going imaginary at $A_V^2 > 1/2$ --- the same physics, consistently. The
+perpendicular-reads-chord, parallel-reads-tangent identification \emph{resolves}
+the chord-vs-tangent convention question: the two are different polarization
+channels of one tensor, and the observable is their difference. This
+$\delta n_{bir} = -\tfrac12 A_V^2$ is the same differential the vacuum-birefringence
+kill-switch measures (Ch.~\ref{ch:vol9_falsification_tests}
+\S\ref{subsec:vol9_schwinger_terrestrial_null}, the birefringence companion; the
+E-route falsifier in Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}).
+\emph{Scope:} that a uniaxial saturable dielectric has a chord ($\perp$) and a
+tangent ($\parallel$) eigenmode is generic nonlinear-optics structure, not
+AVE-distinct; the AVE-distinct content it touches (the elliptic $p=2$ energy-norm
+kernel, the exact static-$\mathbf B$ transparency) is already canon and unchanged.
+
+\subsection{Split C--V --- separating $T_2$ polarization from A1 compliance}
+\label{subsec:vol9_cv_split}
+
+The device technique \textbf{split C--V} separates channel charge from bulk charge
+by terminal selection ($C_{gc}$ gate-to-channel reads inversion charge; $C_{gb}$
+gate-to-body reads depletion/bulk charge). The vacuum-cell map is the
+anti-cross-wire \emph{measurement} discipline: a weak \textbf{transverse-EM} probe
+on the shunt admittance ($Z_{EM} \equiv Z_0$) reads the $T_2$ permittivity tangent
+$\varepsilon_{ss}$ (keyed $V_{yield}$), while a weak \textbf{longitudinal-bulk}
+probe on the series-bond compliance ($Z_{bulk}$) reads the A1 tangent $C_0/S^3$
+(keyed $V_{snap}$). Because $Z_{EM}$ (transverse, $\Omega$) and $Z_{bulk}$
+(longitudinal, mechanical $\rho c$) live in different impedance domains
+(Ch.~\ref{ch:vol9_pin_port_configuration}~\S\ref{sec:vol9_node_2domain_nport}),
+the two terminal pairs cannot cross-couple: a transverse-EM readout can never pick
+up the A1 compliance and a longitudinal-bulk readout can never pick up the $T_2$
+permittivity. That domain separation \emph{is} the anti-cross-wire guarantee ---
+the engine's built-in defense against the genesis-24 double-count
+(\kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md}, (e)).
+
+\subsection{Characteristic Not Specified --- A1 frequency dispersion near $V_{snap}$}
+\label{subsec:vol9_cv_not_specified}
+
+\begin{warningbox}[Characteristic not specified: A1 turn-on frequency dispersion]
+In a MOS capacitor the inversion branch of the C--V curve is
+frequency-dependent (slow probe follows the minority-carrier generation rate,
+fast probe stays at the depletion floor). \textbf{Whether the vacuum's A1 turn-on
+branch near $V_{snap}$ carries an analogous bias-dependent pair-generation rate
+$\omega_{gen}(V)$ --- so that a slow probe sees the diverging turn-on
+($C_{ss}^{A1}\to C_0/S^3$) while a fast probe sees only the frozen sub-threshold
+compliance --- is not specified.} It is a properly-posed open question, not an
+asserted result: below threshold Axiom~3-lossless forbids the dissipative carrier
+machinery, so any true dispersion step would imply a rate-limited generation
+channel (a threshold-sector phenomenon). The deciding computation is named ---
+a reactance-pair time-domain sweep near $V_{snap}$ recording both the C-state
+($V_{inc}/\omega$) and the L-state ($\Phi_{link}/\dot\omega$) over the window,
+swept in drive-rate from adiabatic to sudden --- and is tied to the open
+slow-drive band of the round-2 prereg
+(\kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md}, (f)). A snapshot at
+one phase is consistent with both a static turn-on and an oscillator caught at
+peak; only the reactance-pair sweep distinguishes them. No answer is asserted.
+\end{warningbox}
+
+\subsection{FLAG --- node-up cross-wire (staged, not landed) and AC-varactor keying}
+\label{subsec:vol9_cv_node_up_flag}
+
+Two cross-wire flags are carried here for the queued Vol-9 sweep, surfaced not
+fixed (flag-don't-fix; the sector-keying resolution is a corpus-consistency call
+for Grant, A44, and the auditor lands any KB manual --- not this section):
+
+\begin{itemize}
+    \item \textbf{node-up leaf (staged supersession, NOT landed on main).} The
+    node-up leaf
+    \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md}
+    at :105/:370 writes the divergent $C_0/S$ form but keys it on the $T_2$ key
+    $A_V = V/V_{yield}$, labelling an A1-shaped divergence as the
+    ``$\varepsilon$-grade varactor'' --- A1's \emph{form} on $T_2$'s \emph{key}
+    (the cross-wire this section's anti-cross-wire discipline repairs). The :229
+    ``three-way varactor-convention tangle'' is still marked FLAGGED-OPEN on main.
+    The supersession text is \textbf{staged in}
+    \kbleaf{research/2026-07-07\_semiconductor-cv-dip\_RESULT.md} (h) and was NOT
+    written to the KB (PR~\#558 landed the driver/RESULT provenance stamps; it did
+    not edit the node-up leaf). Cite the RESULT~(h) + PR~\#558 for the staged
+    ruling until Grant ratifies and the auditor lands it.
+    \item \textbf{this chapter's AC-varactor row.} The AC small-signal table
+    (\S\ref{sec:vol9_operating_point}, Tab.~\ref{tab:vol9_ac_small_signal};
+    also \S\ref{subsec:vol9_cvr_dc}, Tab.~\ref{tab:vol9_ac_spec}) writes the
+    varactor $C_{eff}(A_0) = C_0/S(A_0)$ keyed on the \emph{generic} saturation
+    amplitude $A_0$, without the explicit A1-vs-$T_2$ sector split this section
+    enforces (the diverging $C_0/S$ is A1 keyed $V_{snap}$; the rolloff
+    $\varepsilon_0 S$ is $T_2$ keyed $V_{yield}$). The AC table is not wrong for
+    its cold-lattice generic-$A_0$ scope, but a reader could cross-wire it against
+    the C--V sector reading. FLAGGED for the queued Vol-9 sweep to reconcile the
+    AC-varactor keying with the sector-split established here and in
+    Ch.~\ref{ch:vol9_pin_port_configuration}~\S\ref{sec:vol9_device_circuit_models}.
+\end{itemize}
+
 \section{Dispersion}
 \label{sec:vol9_dispersion}
 
