@@ -252,7 +252,94 @@ mass. **Status, stated without collapsing the two facts:**
 
 ## §5 — Ratio-of-change: p = 0 IS gravitational-dilation universality
 
-<!-- section body: commit 4 -->
+**HYPOTHESIS-class framing — the payoff of the walk.** Write the settled
+sampling count's response to a uniform substrate compression $S$ as
+$$N \;\propto\; S^{\,p},
+\qquad p = (\text{clock sector's saturation exponent}) - (\text{$(2,3)$ mode's saturation exponent}).$$
+$p$ is the *difference of the two sectors' saturation exponents*. The walk's
+payoff is that $p$ is **not free** — it is pinned by an observation.
+
+**The key identity.**
+> **"$N$ invariant under uniform compression"** $\;\equiv\;$ **"gravitational
+> time dilation is universal."**
+
+Universal dilation means: a clock lowered into a potential well slows by **one
+common factor across all of its frequencies** (redshift is achromatic — no
+dispersion). If every frequency redshifts by the same factor, **every frequency
+RATIO is fixed** under a change of potential. $N$ is such a ratio (ticks of the
+sampling clock per mode period). Therefore **$p = 0$ is OBSERVED, not assumed** —
+it is read off the sky (achromatic gravitational redshift), not chosen to make B
+work. *(Consistency-class use: B must be CONSISTENT with universal dilation; no
+value is fit.)*
+
+**$p = 0$ FORCES co-keying.** $p = 0$ requires the two saturation exponents to
+be *equal* — i.e. the **sampling clock and the $(2,3)$ mode must ride the SAME
+$S$-channel** (be *co-keyed*). If they rode *different* channels with different
+saturation exponents, $p \neq 0$ and dilation would be dispersive.
+
+**Why cross-keying would visibly break dilation.** The canon channels do *not*
+scale alike. The impedance branches are anchored:
+`Z_eff = Z0·√S → 0 ⟹ Γ → −1` (the μ/shear "mass-cage SHORT") versus the
+`ε`-load `Z_eff = Z0/√S → ∞ ⟹ Γ = +1` (the "OPEN anti-trap")
+(`research/2026-06-20_mass-sector-characterization_synthesis.md:110–116`). The
+corresponding *channel-speed* scalings the walk invokes — **shear $\propto\sqrt S$
+vs EM $\propto 1/S$** — are a **walk-premise carrying a known open ambiguity**
+(the $\sqrt S$-vs-$S^{1/4}$ shear-speed flag from the ground-up engine arc; B
+must settle the exponent, not assume it). *Given* those scalings, cross-keying
+(clock on one channel, mode on the other) yields an exponent difference of order
+one — the walk's estimate is $p \approx 3/2$ (design-input, not asserted) — which
+would **visibly break dilation universality.**
+
+**The sky constrains the internal channel architecture.** This is the deep
+turn: an astronomical fact (achromatic redshift) constrains B's *internal* wiring
+(the clock and the mode must share a channel). **B's uniform-$N$ gate is
+literally a test that the engine reproduces universal dilation.** A measured
+$p \neq 0$ under uniform $S$-scaling is a **FALSIFICATION** (the engine predicts
+dispersive gravitational redshift, which is not observed) — **not a knob to
+tune.**
+
+## §6 — Balloon → cavity (the confinement correction); decay kept distinct
+
+**HYPOTHESIS-class framing — a continuum-mechanics correction the walk makes.**
+
+**Uniform compression loads A₁ ONLY.** Correct continuum mechanics: a hydrostatic
+pressure is a **pure dilatation with zero shear.** So a uniform $S$-scaling loads
+*only* the A₁ (dilatation) sector — it does not, at leading order, drive T₂. This
+is why §5's "uniform compression" is an A₁-only probe.
+
+**A₁ is the MASS, not the surface tension.** The confining "tension" of the
+electron is **not** a bulk elastic tension in A₁ — it is the **T₂ $\Gamma=-1$ TIR
+wall** (a boundary condition), with mass = A₁ (A0.1 property 3/4; mass = A₁ per
+`#260`, A0.5 grounding lines). Keeping this straight is the whole correction.
+
+**Balloon (collapse-prone) vs cavity (stable).**
+- A **balloon** is held by an *elastic tension that SOFTENS under compression* —
+  the compliance divergence $C_0/S$ **is** a softening, so compression begets
+  more compression: a **positive-feedback runaway → COLLAPSE.** A balloon
+  electron would be unstable.
+- The electron is instead a **resonant CAVITY.** The **TIR mode-number is
+  dilation-INVARIANT** — a protected integer (consistent with §3/§4: the winding
+  is topological, count-mobility is separate). The balloon is the *collapse-prone
+  precursor*; the **$\Gamma=-1$ wall is what makes the object stable.**
+
+**DECAY is a DISTINCT effect (homonym discipline — do NOT conflate with the
+ratio effect).** Decay is **not** a frequency-ratio phenomenon; it is a
+**boundary** phenomenon:
+> An **asymmetric** load breaks the impedance match. When **$\varepsilon$ scales
+> without $\mu$**, the channel impedance shifts off the matched short: the μ/shear
+> branch sits at `Z=Z0·√S→0 ⟹ Γ→−1` (wall closed) while the ε-only branch runs
+> to `Z=Z0/√S→∞ ⟹ Γ→+1` (open)
+> (`research/2026-06-20_mass-sector-characterization_synthesis.md:110–116`). So
+> $\Gamma$ **deviates from $-1$ → the TIR wall LEAKS.**
+
+**The clean summary.**
+- **Uniform** load → co-keyed → **$p = 0$** → ratio protected (§5). *(ratio
+  effect)*
+- **Asymmetric** load → $\Gamma \neq -1$ → **wall leaks → decay**. *(boundary
+  effect — e.g. a heavier lepton "breathes harder" and cracks its own wall.)*
+
+These two are **different mechanisms in different coordinates** and the note
+keeps them apart on purpose.
 
 ## §6 — Balloon → cavity (the confinement correction); decay kept distinct
 
