@@ -1,0 +1,96 @@
+* AVE ELECTRON EQUIVALENT CIRCUIT — DESIGN ARTIFACT / HYPOTHESIS-CLASS
+* ====================================================================
+* DO-NOT-MERGE model definition for the round-2b ("B") electron-lock test.
+* This is the FROZEN model B WILL simulate, NOT a validated electron model
+* and NOT a result. It formalizes the topology walked in
+*   research/2026-07-07_electron-lock_design-note.md  (PR #568)
+* into a netlist, in the Vol 9 device-datasheet register.
+*
+* See research/2026-07-07_electron-equivalent-circuit.md for the schematic,
+* component table, physical-mapping table, and the parametric-coupling fork.
+*
+* Reference base cell: ave_vacuum_cell.lib (AVE_VACUUM_CELL universal cell).
+*
+* ngspice-46 IDIOMS (inherited from ave_vacuum_cell.lib, empirical-driver Rule 10):
+*   - nonlinear cap  -> charge element  C... Q={expr}   (NOT B...Q=)
+*   - nonlinear ind  -> flux element     L... Flux={expr} (NOT idt())
+*   - min(...,0.9999) clamps the kernel argument below 1 for sqrt stability.
+* Idioms parse + DC-converge (probed 2026-07-07 before commit).
+*
+* CONSTANTS (defaults from ave.core.constants; a driver SHOULD substitute the
+*   live values rather than trust these literals — FLAG per ave_vacuum_cell.lib
+*   FLAG-1 value-drift warning; these are the same canonical numbers):
+*     V_SNAP  = 510998.95 V     (m_e c^2 / e)          A1 metric-varactor knee
+*     V_YIELD = 43651.85 V      (sqrt(alpha)*V_SNAP)   T2 yield wall
+*     I_MAX   = 124.384 A       (xi_topo * c)          inductor current ceiling
+*   L0/C0 default to the SCALED tank values (1nH/1pF) for parse/DC-converge; a
+*   driver passes L0=L_CELL, C0=C_CELL for the physical run.
+* ====================================================================
+
+.INCLUDE ave_vacuum_cell.lib
+
+* -----------------------------------------------------------------
+* AVE_ELECTRON_EQUIVALENT — the frozen round-2b electron-lock model
+* -----------------------------------------------------------------
+* PORTS:
+*   ND  = d-axis "2" tank node  (Cosserat inductive quadrature; the winding
+*         that rings/forms)
+*   NQ  = q-axis "3" tank node  (V-sector capacitive quadrature; the EMPTY one,
+*         the fill target)
+*   A1B = A1 mass-bias node     (the DC operating point = the mass; a driver
+*         pins this at V_A1 = sqrt(alpha)*V_SNAP = V_YIELD ~ 43.65 kV, the
+*         sub-saturated static confinement bias)
+*
+* SECTOR DISCIPLINE (A1 perp T2; keys NEVER crossed — def-vyvsn1, 2026-07-03):
+*   A1 metric varactor : DIVERGENT C0/S, keyed V_SNAP   (mass sector)
+*   T2 dielectric cap  : COLLAPSE  C0*S, keyed V_YIELD  (charge sector + wall)
+*
+* HOMONYM GUARD: the winding-"2" (n_d=2, topological d-axis winding) is NOT the
+*   2x-per-cycle L<->C reactive energy exchange present in every tank. Distinct
+*   objects; see the research doc S6.
+*
+* FIREWALL: element VALUES are datasheet constants (legitimate); the (2,3)
+*   SELECTION and <N> the eventual run must produce are firewalled emergence-
+*   class outputs (topological/scale-invariant, never tuned to m_e; alpha and
+*   Q=1/alpha excluded). This subckt DEFINES the model; it does not select.
+* -----------------------------------------------------------------
+
+.subckt AVE_ELECTRON_EQUIVALENT ND NQ A1B
++ params: L0=1n C0=1p V_SNAP=510998.95 V_YLD=43651.85 I_YMAX=124.384
++         KM0=0.3n W_OPEN=1e12 W_MIN=1e-3
+
+* -- A1 MASS SECTOR: metric varactor, DIVERGENT C0/S, keyed V_SNAP --
+* Q = C0*V/S(V/V_SNAP): C_eff -> inf as V -> V_SNAP (the mass channel).
+* Biased externally at node A1B by the driver (the DC operating point = mass).
+* This is the LONGITUDINAL-A1 bond compliance, NOT the T2 permittivity.
+C_A1 A1B 0 Q = {C0 * V(A1B) / sqrt(1 - min((V(A1B)/V_SNAP)**2, 0.9999))}
+R_A1 A1B 0 1G
+
+* -- d-AXIS "2" TANK (Cosserat inductive; the winding that rings) --
+* Saturating inductor with the PARAMETRIC MUTUAL flux term M(V_A1)*i(L_Q):
+*   Flux_d = L0*I_d/S(I_d) + M(V_A1)*I_q ,  M(V_A1) = KM0 * V(A1B)/V_SNAP
+* The A1 mass bias V(A1B) sets the d<->q energy-trade strength (chosen fork (a),
+* nonlinear mutual inductance; genuinely reactive, Ax3-clean; research doc S4).
+L_D ND 0 Flux = {L0*i(L_D)/sqrt(1-min((i(L_D)/I_YMAX)**2,0.9999)) + (KM0*V(A1B)/V_SNAP)*i(L_Q)}
+C_D ND 0 {C0}
+
+* -- q-AXIS "3" TANK (V-sector capacitive; the EMPTY quadrature, fill target) --
+* T2 dielectric COLLAPSE cap C0*S keyed V_YLD (the transverse permittivity that
+* rolls off) + saturating inductor carrying the reciprocal mutual flux term.
+C_Q NQ 0 Q = {C0 * sqrt(1 - min((V(NQ)/V_YLD)**2,0.9999)) * V(NQ)}
+L_Q NQ 0 Flux = {L0*i(L_Q)/sqrt(1-min((i(L_Q)/I_YMAX)**2,0.9999)) + (KM0*V(A1B)/V_SNAP)*i(L_D)}
+
+* -- Gamma=-1 CONFINEMENT WALL on the q-tank --
+* Z = Z0*sqrt(S(V/V_YLD)) -> 0 as S -> 0 at V_YLD  =>  Gamma -> -1 (the SHORT,
+* corrected sign; NOT the eps-load Gamma -> +1 OPEN). Reflective termination:
+* R_WALL = W_OPEN*S + W_MIN -> W_MIN (short) at yield, W_OPEN (open) cold.
+* FLAG (research doc S5): a resistive short is DISSIPATIVE; the lossless reactive
+* short (Z->0 via a diverging reactance) is the Ax3-faithful 2b-sim refinement.
+R_WALL NQ 0 R = {W_OPEN * sqrt(1 - min((V(NQ)/V_YLD)**2,0.9999)) + W_MIN}
+
+.ends AVE_ELECTRON_EQUIVALENT
+
+
+* =====================================================
+* END OF AVE ELECTRON EQUIVALENT CIRCUIT LIBRARY (DESIGN ARTIFACT)
+* =====================================================
