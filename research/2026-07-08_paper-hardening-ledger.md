@@ -227,11 +227,17 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
     (cosmological, ~field-free); AVE is NONLINEAR (needs a pump); intergalactic space has no strong pump ⇒ no AVE
     cosmological linear rotation ⇒ coincidence spurious. UNLESS ambient astrophysical B (magnetar/galactic) pumps the
     nonlinearity — the OWED pump-inventory decides.
-  - **REMAINING OWED (2):** (1) PUMP INVENTORY — does AVE nonlinearity fire on ambient astrophysical B? If yes,
-    magnetar/GRB baselines become de-facto pumped → real astrophysical bounds + the CMB coincidence becomes live. This
-    is the last safety check. (2) LETTER RE-SCOPE — Part 1 flagged the Letter carries a now-WRONG linear-bound sentence
-    (main.tex:412 "preferred-frame photon-sector modification" bounded by linear tests) + a static-B O(β²) estimate;
-    both need re-scoping to "nonlinear, unbounded-by-linear-tests." (Auditor/integration lands.)
+  - **★ Part 3 PUMP INVENTORY (#581) = [PUMP-SAFE] — flagship CERTIFIED.** No astrophysical environment pumps the AVE
+    nonlinear birefringence observably. FORK-1 static-B transparency HOLDS at magnetar field (COMPUTED curl: static
+    A_I=0; live positive-control circulation A_I=4.94 ⇒ informative null; counterfactual magnitude-keying A²≈2.8e3 =
+    kill, circulation-keying saves it). Static-E screened/off-path. Every clean-geometry radiation pump BELOW the lab
+    pump (GRB 2.3e-8 < 6e-7); strongest (magnetar flare A²=0.24) COLLINEAR-dead ((1−cosθ)⁴→0). IXPE-consistent (AVE adds
+    0 to static-B magnetar birefringence, no overshoot). **CMB coincidence SPURIOUS** (cmb_path_pumps=false; cosmological
+    baselines field-free). **The sidereal LV chord survives all 3 parts (bounds/sector/pump); unconstrained by existing
+    observation.**
+  - **REMAINING OWED (1, for integration):** LETTER RE-SCOPE — Part 1 flagged the Letter carries a now-WRONG linear-bound
+    sentence (main.tex:412 "preferred-frame photon-sector modification" bounded by linear tests) + a static-B O(β²)
+    estimate; both re-scope to "nonlinear, unbounded-by-linear-tests, [SIDEREAL-REAL] at 4.9e-3." Folds into the v3 integration.
   - **BONUS LEAD (Grant's longitudinal intuition has a home — just not here):** a genuinely A1/longitudinal-sourced LV
     lives in the **CLOCK / gravitational-time-dilation channel** (Op14 ω_local=ω·(1−A²)^¼), NOT birefringence — a
     distinct, separate future prediction if Grant wants to pursue it.
