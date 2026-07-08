@@ -206,11 +206,36 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
   A1/longitudinal sector. So the LV is sourced in the A1 COMPRESSION response (longitudinal), read out through
   transverse birefringence; standard LV tests probe transverse PROPAGATION coefficients, not the compression
   response ⇒ blind. Confirm this sector picture before the SME test.
-- **★ MAKE-OR-BREAK OWED — sector-resolved SME/LV check:** verify (a) the sidereal LV is sourced in the
-  longitudinal/A1 scalar sector (not the transverse photon sector), and (b) that this sector lies OUTSIDE existing
-  SME photon-sector bounds. If confirmed → flagship is SAFE and the chord is doubly-distinctive (a longitudinal-sector
-  LV QED cannot have AND standard LV tests cannot see). If it maps to a constrained transverse coefficient → the
-  flagship (welded to the sidereal) is in trouble. THIS is the gate.
+- **MAKE-OR-BREAK — Part 2 (external LV-bounds retrieval, workflow wf_fdeca596) LANDED; Part 1 (sector-trace,
+  wt-lvsector) pending.**
+  - **★ Part 2 verdict: PARTIAL / conditionally-unconstrained — STRUCTURALLY INVISIBLE, gated on an orthogonality
+    proof.** Grant's structural insight CONFIRMED by the literature: the AVE LV sits in a (sector × regime × phasing)
+    cell no bounded coefficient occupies — THREE independent walls: (i) SECTOR — the minimal SME is gauge-invariant
+    so only 2 transverse modes are physical; a physical longitudinal/scalar photon requires BREAKING U(1), explicitly
+    OUTSIDE the Kostelecký-Russell data tables, "one additional physical DOF with no established bounds" (arXiv:2311.12357);
+    (ii) REGIME — every bounded SME coefficient is quadratic-in-F (linear propagation); the nonlinear/strong-field
+    regime is theory-only, ZERO experimental bound (arXiv:2401.01358), and the base nonlinear effect is itself
+    undetected (PVLAS upper limit ~7× above QED); (iii) PHASING — sidereal machinery decomposes only linear transverse
+    k_F; no CMB-dipole-boost-phased nonlinear analysis exists. So the standard framework has NO coefficient for it —
+    "unconstrained because un-parametrized," the strongest form.
+  - **★ BUT the refined gate (why PARTIAL not clean):** "birefringence" is OPERATIONALLY a TRANSVERSE observable. The
+    unconstrained verdict rests ENTIRELY on the longitudinal/A1 excitation being CLEANLY ORTHOGONAL to the transverse
+    polarization a polarimeter reads — ASSERTED (sector-ownership) but NOT yet PROVEN. The transverse bounds are
+    13–30 OOM tighter than 4.9e-3 (GRB birefringence η<5.8e-16; cavity ~1e-19), so ANY transverse projection at
+    O(4.9e-3) FALSIFIES TODAY. **Primary escape = the REGIME wall (nonlinear/pump-induced: GRB/CMB photons propagate
+    ~field-free, no pump → linear bounds don't apply); the SECTOR wall is the second protection.**
+  - **★ LIVE FLAG — CMB coincidence:** the AVE sidereal amplitude 4β ≈ 4.94e-3 is the SAME ORDER as the DETECTED
+    Planck/Minami-Komatsu isotropic cosmic birefringence β ≈ 0.30° ≈ 5.2e-3 rad. Different observables (fractional
+    flip-prob modulation vs cosmological rotation angle) so may be spurious — but if the AVE effect projects onto the
+    isotropic-rotation observable at all, it sits ON a ~2.4–4σ detection (over-rotation risk, OR a stunning prediction).
+    Must be explained, not dismissed.
+  - **★ REFINED MAKE-OR-BREAK (owed, Part 3):** an ORTHOGONALITY/PROJECTION proof — compute the projection of the AVE
+    longitudinal/A1-scalar excitation onto (a) the two transverse Stokes modes (GRB/CMB polarimetry), (b) the isotropic
+    κ̃_tr transverse-speed observable, (c) the CMB isotropic-rotation observable; PLUS a pump inventory (does AVE
+    nonlinearity activate on ambient astrophysical B — magnetar/galactic — closing the "no-pump" escape). Nonzero
+    projection at O(4.9e-3) → FALSIFIED. Clean orthogonality + no-ambient-pump → flagship SAFE, doubly-distinctive chord.
+  - **Where:** Part 2 = workflow wf_fdeca596 (research/ result pending write); tightest relevant bounds all TRANSVERSE
+    LINEAR (GRB 10⁻³²–10⁻³⁷, CMB k_AF ~10⁻⁴¹ GeV, cavity κ̃ ~10⁻¹⁷). Part 1 sector-trace + Part 3 orthogonality still owed.
 - **Where:** PR #579 (`analysis/p6-frame-boost`) frame; PR #574 (`analysis/p6-sidereal-boost`) order; result docs
   `research/2026-07-08_p6-frame-boost-dependence_result.md`, `..._p6-sidereal-boost-order_result.md`. make verify green.
 - **INTEGRATION:** re-state the sidereal falsifier as [SIDEREAL-REAL] 4.9e-3, fix the frame self-contradiction,
