@@ -5,6 +5,39 @@ does not carry (pure-physics rule: the paper cites no private repo, no framework
 volumes, no program history). Every quantitative claim in `main.tex` maps here to
 its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 
+> 🛠️ **REVISION-5 (2026-07-08, v3 paper-hardening integration): the hardening epic folded in.** Manuscript
+> stamped **version 3**. Six ledger rows integrated (all pure-physics; no external
+> attribution). Ledger: `research/2026-07-08_paper-hardening-ledger.md`.
+> 1. **P4 (propagation commitment):** the disclaimer-vs-loading contradiction is resolved to one honest
+>    statement — a held static field loads continuously from zero but only as a **weak-field effective
+>    response cut off at the lattice pitch `ℓ_node`**, NOT a universal continuum law; strong-field
+>    extrapolation excluded (muonic-H `[C-EXCLUDED]`, unchanged), and in ordinary matter unobservably
+>    small (copper decrement `δ_AVE ≈ 4×10⁻⁸ ≪` measured `2.4×10⁻⁵`, OUR WS-cell compute). The
+>    forward-voltage threshold routed FREE and was **dropped**. Absorbs the deferred H3 engine-vocab
+>    (`charge-keyed`/`operating-point bias`) into self-contained language (grep of both in `main.tex` = 0).
+> 2. **P5 (magnetic functional):** the explicit parameter-free `S_B=√(1−A_I²)`, `μ_eff=μ₀/√(1−A_I²)`,
+>    `A_I=|∮H·dℓ|/I_max` is lifted into the paper as Eq (6), with the static-B endpoint (now Eq (7)) and
+>    the near-zone `A_I ∝ (kr)²` PVLAS/BMV consistency **computed**. The radiative-far-field unification is
+>    **REFUTED** and NOT asserted; the E/B sector keying is grounded in the **Maxwell source asymmetry**
+>    (`∇·E=ρ` has charges, `∇·B=0` has no monopole).
+> 3. **H1 (postulate count):** "single constitutive postulate" → **two constitutive statements** (kernel +
+>    sector keying), the keying following from `∇·B=0`. **SUPERSEDES the "single postulate" framing of the
+>    earlier revisions.**
+> 4. **P6 (sidereal signature):** corrected to **first order in β** — dominant first-harmonic `P_flip`
+>    amplitude `4β ≈ 4.9×10⁻³` (one sidereal day, CMB-dipole-phased, `~8%` annual sideband). **SUPERSEDES
+>    the REVISION-3 registered `(v/c)² = 1.523×10⁻⁶`**, which is re-attributed to the subdominant SECOND
+>    harmonic. Frame contradiction resolved toward the CMB/substrate rest frame. LV framing stated as
+>    *unconstrained by existing data + testable* (NOT confirmed), with two structural reasons: (i) the effect
+>    is NONLINEAR so the minimal-SME linear `k_F`/`k_AF` bounds do not reach it, (ii) `[PUMP-SAFE]` — no
+>    astrophysical environment pumps it.
+> 5. **H4 (Table I pulse-integrated):** peak-field convention retained; a caption sentence adds OUR computed
+>    pulse-integrated expectation = peak × fluence-weighted envelope form factor `3^(−3/2) ≈ 0.19` ⇒
+>    `1.0×10⁻³ / 8.2×10⁻⁴ / 1.8×10⁻³`. Driver `src/scripts/vol_9_device/h4_pulse_integrated_expectation.py`
+>    (constants imported canonically; exact `⟨sin²⟩` cross-check `<0.2%`). OUR compute, no external estimate adopted.
+> Build: latexmk clean, **10 pp**, zero undefined refs/citations, 3 overfull boxes (all pre-existing:
+> the wide table + two appendix equations). `sve_vacuum_birefringence_letter.pdf` rebuilt + committed.
+> make verify GREEN.
+
 > 📐 **REVISION-4 (2026-07-04, exposition armor): Appendix A "Derivation of the eigen-indices" + §II pointer.**
 > No numbers move — this makes the tensor derivation EXPLICIT so the experimentalist audience does not read the
 > stated-not-shown tensor as phenomenological insertion.
