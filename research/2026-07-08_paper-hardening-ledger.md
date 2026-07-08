@@ -24,7 +24,7 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
 | **P4** | Propagation commitment (disclaimer vs charge-keyed) | **NEEDS-RULING** | fork located; our answer = YES loads; copper number owed |
 | **P5** | Magnetic functional S_B + radiative-keying unification | **NEEDS-RULING** | Eq (6) static-only; full S_B in corpus not paper |
-| **P6** | Sidereal boost order (β vs β²) | **OWED-PHYSICS** | registered 1.5e-6; re-derive |
+| **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
 | **H1** | Postulate count (1 → honest 2–3) | **OWED-PROSE** | "single" at L6/L42/L799 |
 | **H2** | Drop "theorem of the confinement" | **OWED-PROSE** | L298–299 |
 | **H3** | Engine-vocabulary leak | **OWED-PROSE** | 4 term families, lines listed |
@@ -112,18 +112,30 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
 (compare held-E, held-B, radiation through the same functional). **Where.** Eq (6)
 `main.tex:370–373`; provenance `:91`; round-3 result doc.
 
-## P6 — Sidereal boost order: registered (v/c)² vs radiation first-order β — OWED-PHYSICS
+## P6 — Sidereal boost order — ORDER RESOLVED (first-order β); NEW frame-fork surfaced (PR #574)
 
-**State.** The third registered falsifier (sidereal/directional modulation) is registered
-at **second** order, (v/c)² = 1.5e-6 (from (370e3/c)² = 1.523e-6), `main.tex:420–432`,
-`provenance.md:40–43`.
-**Concern.** A radiation field boosts at **first** order in β via the Doppler factor
-D = γ(1+β cosθ), not (v/c)²; if the response frame is the CMB frame, the flip probability
-(∝ field⁴) carries sidereal sidebands at order β (~1e-3) — three orders larger, i.e. far
-more accessible.
-**Owed.** Re-derive the boost order explicitly (decide whether the pump amplitude obeys the
-radiation Doppler transform or the static motional-field transform), and if first-order,
-correct the registered number from 1.5e-6 to the β-scale value before it propagates.
+**Conclusion (boost order).** The birefringence signal is carried by the **pump — a radiation
+field** — whose amplitude transforms by the Doppler factor D(θ) = γ(1+β cosθ), which has a
+nonzero **linear-in-β** term. So the modulation is **first order in β, not (v/c)²**. sympy
+β-expansion: radiation D = 1 + β cosθ + … (O(β)); static motional field γ = 1 + ½β² (O(β²)).
+The registered (v/c)² = 1.523e-6 is exactly β² — it captured the **subdominant second harmonic**
+(5β² ≈ 7.6e-6) and **missed the dominant first harmonic**. Propagation: δn_bir ∝ D² (mod 2β),
+P_flip ∝ D⁴ (mod 4β).
+**Corrected numbers (driver compute, β = 1.234e-3, best case c₁→1):** P_flip first-harmonic
+amplitude **4.94e-3** (≈3.5 OOM above the registered 1.5e-6); δn_bir first-harmonic 2.47e-3;
+second harmonic 7.6e-6. **Signature:** fundamental sidereal period 86164.1 s phased to the CMB
+dipole; 2×sidereal subdominant; ~8% annual sideband from Earth's orbital velocity.
+**★ NEW FORK surfaced (NEEDS-GRANT-RULING) — the response frame.** The whole result is
+frame-conditional and the paper contradicts itself: `main.tex:420–421` says the response frame
+is the **CMB rest frame** (→ signal ≈ 4.9e-3), while `main.tex:404–406` says the prediction is
+in the **lab frame** of the optical focus (→ sidereal signal **exactly zero**). This
+re-derivation fixes the ORDER given the CMB-frame premise; the frame choice itself is a physics
+ruling. (Joins P4/P5 in the fork queue.)
+**Where.** PR #574 (`analysis/p6-sidereal-boost`); prereg + result
+`research/2026-07-08_p6-sidereal-boost-order_{prereg,result}.md`; driver
+`src/scripts/vol_9_device/p6_sidereal_boost_order.py`. `make verify` green.
+**Owed-next.** Grant rules the frame (CMB vs lab); if CMB, correct the registered number to
+4.9e-3 (first harmonic) with the honest premise stated, and note β² is the second-harmonic order.
 
 ## H1 — Postulate count: stated ONE, body uses more — OWED-PROSE
 
