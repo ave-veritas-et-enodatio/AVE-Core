@@ -1,0 +1,26 @@
+* AVE ELECTRON EQUIVALENT CIRCUIT — DESIGN ARTIFACT / HYPOTHESIS-CLASS
+* ====================================================================
+* DO-NOT-MERGE model definition for the round-2b ("B") electron-lock test.
+* This is the FROZEN model B WILL simulate, NOT a validated electron model
+* and NOT a result. It formalizes the topology walked in
+*   research/2026-07-07_electron-lock_design-note.md  (PR #568)
+* into a netlist, in the Vol 9 device-datasheet register.
+*
+* SKELETON — subckt body filled incrementally (see the research doc
+*   research/2026-07-07_electron-equivalent-circuit.md for the schematic +
+*   component table + physical-mapping table + the parametric-coupling fork).
+*
+* Reference base cell: ave_vacuum_cell.lib (AVE_VACUUM_CELL universal cell).
+* ====================================================================
+
+.INCLUDE ave_vacuum_cell.lib
+
+* -----------------------------------------------------------------
+* AVE_ELECTRON_EQUIVALENT — two coupled saturating tanks + A1 mass
+*   varactor + parametric mutual coupling + Gamma=-1 confinement wall
+* -----------------------------------------------------------------
+* SUBCKT BODY: filled in the next commit.
+
+* =====================================================
+* END OF AVE ELECTRON EQUIVALENT CIRCUIT LIBRARY (DESIGN ARTIFACT)
+* =====================================================
