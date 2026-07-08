@@ -23,9 +23,9 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **A0** | Muonic-H static-sector exclusion | **DONE** | `[C-EXCLUDED]` clm-sve3xc @0.80; printed retraction |
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
 | **P4** | Propagation commitment (disclaimer vs charge-keyed) | **TESTED → NEEDS-RULING** | V_f FREE; copper CONSISTENT (4e-8≪2.4e-5); muonic STANDS; reconcile via UV cutoff (#576) |
-| **P5** | Magnetic functional S_B + radiative-keying unification | **NEEDS-RULING** | Eq (6) static-only; full S_B in corpus not paper |
+| **P5** | Magnetic functional S_B + radiative-keying | **TESTED — REFUTED; S_B delivered** | far-field key REFUTED; S_B written (PVLAS/BMV computed); keys grounded in source-asymmetry (#577) |
 | **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
-| **H1** | Postulate count (1 → honest 2–3) | **OWED-PROSE** | "single" at L6/L42/L799 |
+| **H1** | Postulate count (1 → honest 2) | **INFORMED BY P5** | honest = kernel + sector-keying (grounded in Maxwell source-asymmetry); framing call |
 | **H2** | Drop "theorem of the confinement" | **OWED-PROSE** | L298–299 |
 | **H3** | Engine-vocabulary leak | **OWED-PROSE** | 4 term families, lines listed |
 | **H4** | Table I peak vs pulse-integrated | **PARTIAL** | peak convention stated; integrated value owed |
@@ -127,7 +127,33 @@ dispersion fences Delbrück / γ-attenuation above the 511 keV response scale.
 **Where.** `main.tex:330–331`; `research/2026-07-06_em-keying-round3-eps-dc-mechanism_RESULT.md`;
 `provenance.md:434–453` (#547). **All numbers to be OUR compute, not any external estimate.**
 
-## P5 — Magnetic-sector functional Eq (6): static endpoint vs full S_B(circulation) — NEEDS-RULING
+## P5 — Magnetic-sector functional Eq (6): S_B delivered; radiative-key REFUTED — RESOLVED (PR #577)
+
+**RESULT (2026-07-08, PR #577).**
+- **★ Radiative-far-field keying REFUTED.** Loading is DECORRELATED from far-field character. Decisive
+  non-tautological evidence: the standing-wave CONTROL (near-zone, radiated power F ≈ 1.17e-18 ≈ 0, zero NET
+  flux) LOADS both ε and µ channels; and static-E (F=0, near-zone) loads ε. Three of four configs load, two
+  with F=0 → F and loading decorrelated. Each channel keys on its LOCAL phase-space coordinate — ε on
+  A_V = |E|/E_yield (potential), µ on A_I = |∮H·dℓ|/I_max (circulation/rate) — NOT on radiative character.
+  The three ontology configs (E loads, B transparent, radiation active) still reproduce, just not unified by
+  far-field. Gates green: firewall clean, scale-invariance holds, informative_null (static-B µ-null emerges
+  from ∮H·dℓ=0, >299-decade gap), standing control CAN load.
+- **✅ S_B DELIVERED (the owed equation, paper-ready, parameter-free):** S_B = √(1−A_I²),
+  µ_eff = µ₀/√(1−A_I²), A_I = |∮_∂node H·dℓ|/I_max, I_max = e·c/ℓ_node ≈ 124.4 A. Static-B limit:
+  ∂ₜB=0 ⟹ ∮H·dℓ=0 ⟹ A_I=0 ⟹ δn_µ=0 (reduces to Letter Eq (6) exactly; the µ-null EMERGES from ∇×H).
+  Near-zone: A_I ∝ (kr)² (loglog slope 2.000) ⟹ δn_µ→0 as kr→0 — **PVLAS/BMV consistency is COMPUTED, not
+  asserted.** Magnitude is an α-echo (rides I_max); the (kr)² scaling + the δn_µ→0 limit are α-clean. S_B is
+  an INDEPENDENT sector postulate (rate-keyed µ); far-field is a *consequence* of S_B's rate-keying, not its cause.
+- **THE TRUE GROUNDING (surfaced):** the E-vs-B asymmetry reduces to the **Maxwell source asymmetry** —
+  ∇·E=ρ has real charge sources (static E is a genuine operating-point bias for the potential-keyed capacitor),
+  ∇·B=0 has no monopole (static B supplies no bias to the rate-keyed inductor). "Charges exist, monopoles don't"
+  is the real single fact — a statement about SOURCES, not far-field character. Better grounding than the
+  refuted far-field one; feeds H1.
+- **Where:** PR #577 (`analysis/p5-radiative-keying`); `research/2026-07-08_p5-radiative-far-field-keying_{prereg_FROZEN,RESULT}.md`; driver `src/scripts/verify/p5_radiative_far_field_keying.py`. make verify green, 12/12.
+- **INTEGRATION:** put S_B in the paper (Eq (6) region) as the explicit functional with its static-B + near-zone
+  limits; do NOT claim far-field unification. Queued for the serial paper-integration branch.
+
+### Original fork framing (retained for context) — NEEDS-RULING
 
 **State.** The magnetic prediction is registered only as the strictly-static endpoint
 δn_μ = 0 (static B, exactly) [Eq (6), `main.tex:370–373`], asserted parameter-free — but
@@ -172,7 +198,18 @@ ruling. (Joins P4/P5 in the fork queue.)
 **Owed-next.** Grant rules the frame (CMB vs lab); if CMB, correct the registered number to
 4.9e-3 (first harmonic) with the honest premise stated, and note β² is the second-harmonic order.
 
-## H1 — Postulate count: stated ONE, body uses more — OWED-PROSE
+## H1 — Postulate count: stated ONE, honest count TWO — INFORMED BY P5
+
+**P5-informed (2026-07-08):** the radiative-scoping unification is REFUTED (P5/#577), so the two sector keys
+do NOT collapse to one. Honest count = **TWO constitutive statements**: (1) the Ax-4 saturation kernel
+S=√(1−A²); (2) the sector keying (ε on potential |E|, µ on circulation/rate) — which itself **follows from the
+Maxwell source asymmetry** (∇·E=ρ vs ∇·B=0), so it is grounded, not free. Recommended abstract/conclusion
+edit: state two constitutive statements, and note the sector keying follows from the source asymmetry
+(honest, and stronger than the current "single postulate"). **Framing call for Grant:** count it as "2
+postulates" or "2 with the keying grounded in ∇·B=0"? Owed-prose edit follows the ruling.
+**Where:** abstract L42, conclusion L799, file comment L6, body L362.
+
+### Original framing — OWED-PROSE
 
 **Conclusion.** "Single constitutive postulate" (abstract L42, conclusion L799, file
 comment L6) is an undercount: the body adds the magnetic circulation-keying statement
