@@ -22,21 +22,25 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 |----|------|--------|-----------------|
 | **A0** | Muonic-H static-sector exclusion | **DONE** | `[C-EXCLUDED]` clm-sve3xc @0.80; printed retraction |
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
-| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **NEEDS-RULING** | fork located; our answer = YES loads; copper number owed |
-| **P5** | Magnetic functional S_B + radiative-keying unification | **NEEDS-RULING** | Eq (6) static-only; full S_B in corpus not paper |
-| **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
-| **H1** | Postulate count (1 → honest 2–3) | **OWED-PROSE** | "single" at L6/L42/L799 |
+| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **DONE (v3)** | held fields load (continuously from zero) as a weak-field response cut off at `ℓ_node`, NOT a universal continuum law; muonic `[C-EXCLUDED]` + copper `δ_AVE≈4e-8 ≪ 2.4e-5`; V_f=FREE dropped; `main.tex:289,346,369` (Letter v3) |
+| **P5** | Magnetic functional S_B + radiative-keying unification | **DONE (v3)** | S_B `=√(1−A_I²)`, `μ_eff=μ₀/√(1−A_I²)` lifted into paper as Eq (6) w/ static + `(kr)²` limits; radiative-far-field unification **REFUTED**, grounding = Maxwell source asymmetry `∇·B=0`; `main.tex:399,448` (Letter v3) |
+| **P6** | Sidereal boost order (β vs β²) + frame + LV | **DONE (v3)** | re-stated `[SIDEREAL-REAL]`: first-order β `4β≈4.9e-3` first harmonic (was subdominant 2nd harmonic `(v/c)²=1.5e-6`); frame → CMB/substrate rest; LV framing = unconstrained+testable, two structural reasons (nonlinear + pump-safe); `main.tex:460–515` (Letter v3) |
+| **H1** | Postulate count (1 → honest 2) | **DONE (v3)** | "single constitutive postulate" → **two constitutive statements** (kernel + sector keying, grounded in `∇·B=0`); `main.tex:7,45,927` (Letter v3) |
 | **H2** | Drop "theorem of the confinement" | **DONE** | softened → "consequence of the confinement hypothesis", `main.tex:299–300` (#578) |
-| **H3** | Engine-vocabulary leak | **PARTIAL** | lattice-\* + deep-cold made self-contained, `main.tex:282,330` (#578); charge-keyed / operating-point-bias **DEFERRED to P4** |
-| **H4** | Table I peak vs pulse-integrated | **PARTIAL** | peak convention stated; integrated value owed |
+| **H3** | Engine-vocabulary leak | **DONE (v3)** | lattice-\* + deep-cold self-contained (#578); charge-keyed / operating-point-bias now folded into self-contained weak-field-response language in the P4 rewrite, `main.tex:289,346` (Letter v3) — grep of both terms in `main.tex` = 0 |
+| **H4** | Table I peak vs pulse-integrated | **DONE (v3)** | pulse-integrated expectation added to caption: peak × fluence-weighted envelope form factor `3^(−3/2)≈0.19` ⇒ `1.0e-3 / 8.2e-4 / 1.8e-3`; OUR compute, driver `src/scripts/vol_9_device/h4_pulse_integrated_expectation.py` (exact ⟨sin²⟩ cross-check <0.2%); `main.tex:680` caption (Letter v3) |
 | **H5** | Record-floor wording (2.4e-10 vs 8e-11) | **DONE** | abstract relabelled "conservative (demonstrated)" floor, `main.tex:53–54` (#578) |
 | **D1** | Engine-independent route to N=7 | **PARTIAL (≈met)** | analytic Nyquist route already registered |
 | **E1** | Overlap certificate (null branch) | **DONE** | independent-overlap-witness paragraph, `sec:falsify` `main.tex:696–710` (#578) |
 | **E2** | Bright-branch confirmation plan | **DONE** | attenuator + fingerprint-battery paragraph, `sec:falsify` `main.tex:712–731` (#578) |
 
-Autonomous (no ruling): P6, D1, H2, H3, H5, E1, E2, and the P4 copper number.
-Grant-gated: **P4** (does a held static E load?), **P5** (is the key radiative
-far-field character?). H1's exact count depends on the P5 ruling.
+**All rows now integrated into the Letter (v3).** The two formerly Grant-gated
+forks are ruled and landed: **P4** — a held static field *does* load, but only as a
+weak-field effective response cut off at `ℓ_node` (not a universal continuum law);
+**P5** — the radiative-far-field unification is **REFUTED**, and the E/B sector keys
+are grounded in the Maxwell source asymmetry (`∇·B=0`), which also settles **H1** at
+**two** constitutive statements. Only D1's optional round-2 (nonlinear-regime N=7)
+remains open, and it is not cited in the Letter.
 
 ---
 
@@ -73,7 +77,19 @@ model / QED / exact-B-I at once.
 FIX 1–6 (commits 4ff9e20c / aaf2479c / d6b300ca / 0fe8c3df / 8e74c9df / 9d4af5cf) +
 RT-miscount fix 1f7f7480; DEFECT A/B/C round = #555, provenance §12 `:572–596`.
 
-## P4 — Propagation commitment: static-field disclaimer vs charge-keyed loading — NEEDS-RULING
+## P4 — Propagation commitment: static-field disclaimer vs charge-keyed loading — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** The two contradictory sentences are rewritten to one honest
+statement: a held static field *does* load (continuously from zero, same mean-square
+dependence), but only as a **weak-field effective response cut off at the lattice
+pitch `ℓ_node`**, NOT a universal continuum constitutive law; the strong-field
+extrapolation is excluded (muonic `[C-EXCLUDED]`, unchanged), and in ordinary matter
+the loading is unobservably small (copper decrement `δ_AVE≈4e-8 ≪` measured `2.4e-5`,
+OUR WS-cell compute per `research/2026-07-08_p4-forward-voltage-threshold_RESULT.md`).
+The forward-voltage threshold `V_f` routed **FREE** and is **dropped** (not reintroduced).
+This rewrite also absorbs the deferred H3 vocab (`charge-keyed`, `operating-point bias`)
+into self-contained language. `main.tex:289` (item v), `:346` (sector scope), `:369`
+(copper). Source: P4 RESULT §9 (branch `analysis/p4-forward-voltage`).
 
 **The contradiction (both in the Letter).** (a) DISCLAIMER `main.tex:330–331` — we do
 NOT assert the kernel as a universal static-field constitutive law. (b) CHARGE-KEYED
@@ -92,7 +108,18 @@ dispersion fences Delbrück / γ-attenuation above the 511 keV response scale.
 **Where.** `main.tex:330–331`; `research/2026-07-06_em-keying-round3-eps-dc-mechanism_RESULT.md`;
 `provenance.md:434–453` (#547). **All numbers to be OUR compute, not any external estimate.**
 
-## P5 — Magnetic-sector functional Eq (6): static endpoint vs full S_B(circulation) — NEEDS-RULING
+## P5 — Magnetic-sector functional Eq (6): static endpoint vs full S_B(circulation) — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** The explicit parameter-free functional is lifted into the Letter's
+magnetic-sector subsection as Eq (6): `S_B=√(1−A_I²)`, `μ_eff=μ₀/√(1−A_I²)`,
+`A_I=|∮H·dℓ|/I_max`, with its two limits stated — **(a)** static B ⇒ `∮H·dℓ=0 ⇒ A_I=0
+⇒ δn_μ=0` (recovers the endpoint, now Eq (7)), and **(b)** near-zone `A_I ∝ (kr)²` ⇒
+PVLAS/BMV consistency **COMPUTED**, not asserted. The radiative-far-field unification
+was **REFUTED** (`research/2026-07-08_p5-radiative-far-field-keying_RESULT.md`,
+`[RADIATIVE-KEY-REFUTED]`), so it is **NOT asserted**; the E/B sector keying is grounded
+in the **Maxwell source asymmetry** (`∇·E=ρ` has charge sources, `∇·B=0` has no monopole)
+— the true grounding, `main.tex:448`. S_B eq at `main.tex:399`. Note: the new S_B took
+Eq (6); the static-B endpoint renumbered to Eq (7) (all refs are `\eqref`, auto-updated).
 
 **State.** The magnetic prediction is registered only as the strictly-static endpoint
 δn_μ = 0 (static B, exactly) [Eq (6), `main.tex:370–373`], asserted parameter-free — but
@@ -112,7 +139,22 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
 (compare held-E, held-B, radiation through the same functional). **Where.** Eq (6)
 `main.tex:370–373`; provenance `:91`; round-3 result doc.
 
-## P6 — Sidereal boost order — ORDER RESOLVED (first-order β); NEW frame-fork surfaced (PR #574)
+## P6 — Sidereal boost order + frame + LV classification — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** The sidereal signature is re-stated as `[SIDEREAL-REAL]` in the Letter:
+(i) **order corrected** to first-order β — dominant **first-harmonic** `P_flip` amplitude
+`4β≈4.9e-3` at one sidereal day, phased to the CMB dipole, with `~8%` annual sideband; the
+old `(v/c)²≈1.5e-6` is re-attributed to the **subdominant second harmonic**. (ii) **frame
+contradiction resolved** toward the CMB / substrate rest frame (the vacuum is a real medium,
+responds in its own rest frame = cosmic frame; `main.tex:404`-lab-frame vs `:420`-CMB tension
+closed). (iii) **LV framing** written exactly: *"unconstrained by existing data + testable,"*
+NOT "confirmed," carrying the **two structural reasons** — (1) NONLINEAR (field-dependent),
+so the minimal-SME linear `k_F`/`k_AF` bounds carry no coefficient for it, and (2) no
+astrophysical pump fires it (`[PUMP-SAFE]`: static ambient B transparent by circulation-keying;
+radiation channels below the lab pump or geometrically suppressed). The stale static-B O(β²)
+motional estimate is re-scoped (kept only as the weak-static-field figure). `main.tex:460–515`.
+Sources: `_p6-sidereal-boost-order_result.md`, `_p6-frame-boost-dependence_result.md`,
+`_p6-lv-sector-classification_result.md`, `pump-inventory-astrophysical_RESULT.md`.
 
 **Conclusion (boost order).** The birefringence signal is carried by the **pump — a radiation
 field** — whose amplitude transforms by the Doppler factor D(θ) = γ(1+β cosθ), which has a
@@ -137,7 +179,15 @@ ruling. (Joins P4/P5 in the fork queue.)
 **Owed-next.** Grant rules the frame (CMB vs lab); if CMB, correct the registered number to
 4.9e-3 (first harmonic) with the honest premise stated, and note β² is the second-harmonic order.
 
-## H1 — Postulate count: stated ONE, body uses more — OWED-PROSE
+## H1 — Postulate count: stated ONE → honest TWO — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** "Single constitutive postulate" → **two constitutive statements** at
+all three sites (file-comment `main.tex:7`, abstract `:45`, conclusion `:927`): the
+saturation kernel, and the sector keying — with the sector keying noted to **follow from
+the Maxwell source asymmetry (`∇·B=0`)**. Honest and stronger than "single." The P5 ruling
+fixed the count at **two** (the radiative-scoping is not a third postulate; it is refuted as
+a unifier and replaced by the source-asymmetry grounding). The intro's "one constitutive
+hypothesis for the dielectric response" (`:94`) is harmonized to name the magnetic companion.
 
 **Conclusion.** "Single constitutive postulate" (abstract L42, conclusion L799, file
 comment L6) is an undercount: the body adds the magnetic circulation-keying statement
@@ -158,7 +208,13 @@ hypothesis" at `main.tex:299–300`. The p=2 derivation and the two-channel p-di
 sentence (now `main.tex:300–303`) are preserved unchanged; only the one overclaiming word
 moved. Letter compiles clean (latexmk exit 0, 9 pages).
 
-## H3 — Engine-vocabulary leak into the standalone Letter — PARTIAL (#578)
+## H3 — Engine-vocabulary leak into the standalone Letter — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** The two P4-deferred term families (`charge-keyed`, `operating-point
+bias`) are now folded into self-contained weak-field-response language by the P4 rewrite
+(`main.tex:289,346` — see P4 row). Grep of both terms in `main.tex` = **0**. Combined with
+the two families closed in #578 (`lattice-*` → `ℓ_node`, `deep-cold` → `quiescent`), the
+Letter is now free of the flagged engine-vocabulary families.
 
 **Conclusion.** Four framework-internal term families appear undefined in the Letter:
 "lattice pitch / lattice-scale" (was L282–284, L343, L353–355), "deep-cold" (was L329),
@@ -179,7 +235,20 @@ collide with the P4 rewrite. They fold into the P4 integration, not this PR.
 **Owed (residue).** The two P4-owned term families, closed when P4 lands. Also update the
 stale `provenance.md:L24` grep-clean claim (owned alongside the P4 rewrite).
 
-## H4 — Table I peak-field vs pulse-integrated — PARTIAL
+## H4 — Table I peak-field vs pulse-integrated — DONE (integrated, Letter v3)
+
+**RESOLVED (v3).** The pulse-integrated expectation is COMPUTED and added to the Table I
+caption. Method (auditable, not adopted from any external estimate): `P_flip ∝ I²` in the
+small-angle regime, so the pulse-integrated value is the peak scaled by the fluence-weighted
+envelope form factor `⟨I²⟩/I_peak² = 3^(−3/2) ≈ 0.19245` (matched co-focused 3D Gaussian:
+temporal + 2D transverse focal; width-independent Gaussian-moment ratio). Result per demonstrated
+row: `1.0e-3 / 8.2e-4 / 1.8e-3` (9835/8766/12914 eV) — still `~10⁶–10⁷` above the demonstrated
+purity floor. Peak values reproduce Table I exactly (`5.39e-3/4.28e-3/9.28e-3`); an exact
+fluence-weighted `⟨sin²(Δφ/2)⟩` quadrature cross-checks the form-factor method to `<0.2%`.
+Driver (constants imported canonically via the GAP-1 chain, no hardcoding):
+`src/scripts/vol_9_device/h4_pulse_integrated_expectation.py`; artifact
+`src/scripts/vol_9_device/_output/h4_pulse_integrated_expectation.json`. Caption at
+`main.tex:680`. OUR compute; no external estimate is adopted.
 
 **Conclusion.** Table I is on the peak-field convention (peak carrier amplitude
 E = 8.68e13 V/m; A² = 5.90e-7; peak-field P_flip = 5.39e-3 / 4.28e-3 / 9.28e-3 at
@@ -257,7 +326,9 @@ consistent with Table I; physics self-contained; compiles clean.
    D1 write-up. Fire without waiting on rulings.
 3. **Grant-gated forks** — P4 (held-E-loads yes/no) · P5 (radiative-keying ontology). Walk
    P5 before any engine dispatch.
-4. **Paper v3 integration** — fold every resolved row into the manuscript; flip the postulate
-   count honest (after P5); add the E1/E2 protocol paragraphs.
+4. **Paper v3 integration** — **DONE.** Every resolved row folded into `main.tex`
+   (P4/H3 · P5 · H1 · P6 · H4); postulate count flipped honest (two, grounded in `∇·B=0`);
+   E1/E2 protocol paragraphs landed at v2 (#578). Letter stamped **v3**,
+   compiles clean (10 pp, zero undefined refs), committed PDF rebuilt.
 
 Each row is updated in the PR that closes it.
