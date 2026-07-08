@@ -57,7 +57,7 @@ its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 >   verify GREEN. Grep-clean of lattice/framework terms. Fresh branch off merged HEAD d357bec9.
 >   Grant's five standing decisions UNTOUCHED.
 
-> ⚙️ **REVISION-3 (2026-07-03, reinforcement round): three external-reviewer-driven additions.** Each converts
+> ⚙️ **REVISION-3 (2026-07-03, reinforcement round): three hardening additions.** Each converts
 > an objection into a theorem or a prediction. Public-safe (no lattice/framework terms; grep-clean).
 > 1. **Kernel uniqueness (§II.B):** the `√(1−(E/E_c)²)` form is the UNIQUE lossless-oscillator response under a
 >    hard-bound + energy-conservation constraint (`E²+E_c²S²=E_c²`, Pythagorean complement); an Lᵖ invariant
@@ -78,15 +78,15 @@ its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 > rebuilt + committed (standing pattern). make verify GREEN. Fresh branch `analysis/letter-reinforcement` off
 > merged HEAD 81180f15. Grant's five standing decisions (headline form, SVE name, author, venue, floors) UNTOUCHED.
 
-> ⚠️ **REVISION-2 (2026-07-03, post-referee): QED-normalization correction landed.** The two-lane hostile
-> referee pass (PR #498) found the QED electric leg `(3/45)α²` understated by `1/(2πα) ≈ 21.8` vs the repo's own
+> ⚠️ **REVISION-2 (2026-07-03, post-adversarial-review): QED-normalization correction landed.** The two-lane hostile
+> adversarial-review pass (PR #498) found the QED electric leg `(3/45)α²` understated by `1/(2πα) ≈ 21.8` vs the repo's own
 > PVLAS-anchored magnetic leg. **Independently re-derived and CONFIRMED** (analytic + numeric): the corrected
 > ratio is `7.5π/α² ≈ 4.42×10⁵` (propagating/LoI-matched headline; `15π/α² ≈ 8.85×10⁵` static). The AVE leg is
 > UNAFFECTED; falsifier logic survives (AVE ~7 OOM above floor, corrected QED ~4 OOM below). The numbers in the
 > tables below marked "(REV-2)" are the corrected values now in the paper. Full reconciliation:
 > `research/2026-07-03_birefringence-qed-normalization-correction.md`. Code harness:
 > `src/ave/bench/birefringence.py::delta_n_qed_electric_pvlas / coefficient_ratio_differential_pvlas`.
-> **Surfaced-beyond-referee (flag-don't-fix): a static-vs-propagating factor of 2** — the referee anchored to the
+> **Surfaced-beyond-review (flag-don't-fix): a static-vs-propagating factor of 2** — the adversarial pass anchored to the
 > static value `15π/α²`; the propagating (LoI-matched, HIBEF-pump-correct, conservative) value `7.5π/α²` is the
 > paper's headline. Both stated in the paper.
 
@@ -600,7 +600,7 @@ Only the three pre-existing overfull boxes remain (Table I alignment ~8.9pt + tw
 line numbers reflowed by the page break); the corrections introduced none. `make verify` GREEN. Fresh branch
 `analysis/letter-bi-corrections` off `origin/main` `cb38c9b9`. Grant's five standing decisions UNTOUCHED.
 
-## 12. Referee fix-round — 5 MAJOR + 3 MINOR corrections (2026-07-06, all CONFIRMED)
+## 12. Adversarial-review fix-round — 5 MAJOR + 3 MINOR corrections (2026-07-06, all CONFIRMED)
 
 Precision fix-round on the referee-facing Letter (PR #555). Three DEFECTs (A/B/C) + three MINORs, per-defect commits.
 
