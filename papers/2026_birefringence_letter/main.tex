@@ -2,8 +2,10 @@
 % Saturable Vacuum Electrodynamics: A Tree-Level Vacuum Birefringence
 % Prediction for BIREF@HIBEF
 %
+% Document version: v3 (paper-hardening integration: P4/P5/H1/P6/H4).
 % Standalone, self-contained, pre-registered prediction Letter.
-% Every quantitative claim traces to a single constitutive postulate (Sec. II).
+% Every quantitative claim traces to two constitutive statements (Sec. II): the
+% saturation kernel, and the source-keyed sector asymmetry (Maxwell div-B = 0).
 % Working model name flagged for author decision (see PR).
 % Build:  pdflatex main && bibtex main && pdflatex main && pdflatex main
 % ============================================================================
@@ -34,15 +36,20 @@ prediction for a pump--probe X-ray polarimeter}
 \email{grant6t@gmail.com}
 \affiliation{Independent researcher}
 
-\date{\today}
+% Pure manuscript version line (document-versioning only).
+\date{\today\textrm{~---~ manuscript version 3}}
 
 \begin{abstract}
 We register, before any pump-on data exists, a falsifiable prediction for the
 combined optical-pump / X-ray-probe polarimeter geometry of the BIREF@HIBEF
-proposal. The prediction follows from a single constitutive postulate: the
+proposal. The prediction follows from two constitutive statements: that the
 vacuum permittivity saturates as $\varepsilon_{\mathrm{eff}}=\varepsilon_0\,
 S(E)$ with the elliptic kernel $S=\sqrt{1-(E/\Ec)^2}$ and one field scale
-$\Ec\simeq\SI{1.13e17}{\volt\per\meter}$. Under a linearly polarized pump this
+$\Ec\simeq\SI{1.13e17}{\volt\per\meter}$, and that the response keys on the
+field's sources --- electric-field magnitude but magnetic \emph{circulation} ---
+a sector asymmetry that itself follows from the Maxwell source structure
+($\nabla\cdot\mathbf B=0$ admits no magnetic monopole to bias the response). Under
+a linearly polarized pump this
 yields a \emph{tree-level}, $E^2$-leading birefringence $\dnbir=n_\parallel-
 n_\perp\simeq-\tfrac12(E/\Ec)^2$ whose differential coefficient exceeds the
 one-loop QED (Euler--Heisenberg) prediction by the field-independent factor
@@ -88,8 +95,10 @@ This Letter registers a competing, tree-level prediction for the \emph{same}
 observable in the \emph{same} apparatus. It rests on one constitutive
 hypothesis for the vacuum's dielectric response --- that the permittivity
 \emph{saturates} with field strength through a specific elliptic kernel ---
-which we treat here as a self-contained model of nonlinear electrodynamics,
-neutral to any wider interpretation. We call it saturable vacuum
+together with a companion statement keying the magnetic sector on circulation
+rather than static flux (Sec.~\ref{sec:model}); we treat the pair here as a
+self-contained model of nonlinear electrodynamics, neutral to any wider
+interpretation. We call it saturable vacuum
 electrodynamics (SVE). The model makes a numerically definite, pre-committed
 prediction that differs from QED by a fixed, field-independent factor, and it
 carries a distinctive signature --- electric-field-active but
@@ -277,9 +286,14 @@ Eq.~\eqref{eq:staticB} is disjoint again. Neither is touched by the exclusion.
 sector. That the law is radiative-sector is here a postulate; the dynamical
 scoping routes proposed for it --- keys that would distinguish a propagating from
 a held field by its dynamical content --- have themselves each been tested
-and excluded, and the static-sector response is instead derived to
-be charge-keyed: a held field is a real operating-point bias, so it loads. What
-remains open is confined to a short-distance regime boundary $\ell_{\mathrm{node}}$
+and excluded. A held static field does load the permittivity, continuously from
+zero --- it enters through the same mean-square field dependence as a propagating
+one --- but only as a \emph{weak-field effective response} cut off at the
+short-distance scale $\ell_{\mathrm{node}}$, not as a universal continuum
+constitutive law extrapolable to strong, near-nucleus atomic fields: the
+strong-field extrapolation is excluded (muonic hydrogen, below), while in ordinary
+matter the loading is unobservably small (copper, below). What
+remains open is confined to that short-distance regime boundary $\ell_{\mathrm{node}}$
 --- the length scale below which the continuum form of the constitutive law is not
 guaranteed to be the correct accounting --- and the static exclusion is robust to
 it: a short-distance cutoff at $\ell_{\mathrm{node}}$ alone does not rescue the static
@@ -326,11 +340,16 @@ comparison of self-energy properties across branches is outside the scope of thi
 Letter, whose registered claim is the pump--probe birefringence coefficient.
 
 \paragraph*{Sector scope, stated explicitly.} We assert the constitutive law of
-Eq.~\eqref{eq:kernel} for the \emph{radiative} (pump--probe) sector only: a
-quiescent (unbiased, unexcited-vacuum), weak-field ($A^2\simeq\num{6e-7}$),
-time-varying dielectric response read at optical/X-ray frequencies. We do \emph{not} assert it as a universal
-static-field constitutive law extending to strong, near-nucleus atomic fields.
-This boundary was not assumed but tested. Before any external submission, we
+Eq.~\eqref{eq:kernel} first for the \emph{radiative} (pump--probe) sector that
+carries the registered prediction: a quiescent (unbiased, unexcited-vacuum),
+weak-field ($A^2\simeq\num{6e-7}$), time-varying dielectric response read at
+optical/X-ray frequencies. A held \emph{static} field loads the permittivity as
+well, continuously from zero through the same mean-square field dependence --- but
+only as a \emph{weak-field effective response} cut off at the short-distance
+lattice pitch $\ell_{\mathrm{node}}$ (the reduced-Compton scale), not as a
+universal continuum static-field constitutive law extending to strong,
+near-nucleus atomic fields. That continuum extrapolation was not assumed away but
+tested. Before any external submission, we
 pre-registered a fork with a committed-in-advance outcome and computed the
 elliptic kernel's contribution, as a continuum static constitutive law, to the
 muonic-hydrogen Lamb shift. An atomic Coulomb field is not weak against $\Ec$
@@ -345,12 +364,20 @@ no short-distance cutoff placed at a physically motivated scale (in particular a
 $\ell_{\mathrm{node}}$) rescues it. The continuum static-field extension of Eq.~\eqref{eq:kernel} is
 therefore \emph{excluded}; the registered radiative-sector prediction of this
 Letter is a separate sector, untouched by that exclusion (honesty ledger,
-Sec.~\ref{sec:model}). The radiative scoping is at present a \emph{postulate}: it
+Sec.~\ref{sec:model}). Between those regimes lies ordinary matter, where the same
+static loading is present but unobservably small: volume-averaged over the lattice
+with the short-distance cutoff, the X-ray refractive decrement the law adds to an
+$\sim\!\SI{8}{\kilo\electronvolt}$ probe in copper is
+$\delta_{\mathrm{AVE}}\simeq\num{4e-8}$, roughly three orders of magnitude below
+the measured copper decrement ($\delta\simeq\num{2.4e-5}$) and safely beneath its
+known accuracy --- so the static loading is consistent with laboratory X-ray
+optics. The radiative scoping is at present a \emph{postulate}: it
 states \emph{that} the law is radiative-sector, not yet \emph{why}. The dynamical
 scoping routes proposed for it --- keys that would separate a propagating from a
-held field by its dynamical content --- have each been tested and excluded;
-the static-field response is instead derived to be charge-keyed, so
-that a held field is a real operating-point bias and does load. The open scoping
+held field by its dynamical content --- have each been tested and excluded; a held
+static field does instead load the permittivity, continuously from zero, but as a
+weak-field effective response valid above the lattice pitch $\ell_{\mathrm{node}}$
+rather than as a universal continuum law. The open scoping
 question is thereby confined to the short-distance regime boundary
 $\ell_{\mathrm{node}}$ --- whether the continuum form of the law is the correct
 accounting below $\ell_{\mathrm{node}}$ --- and the static-sector exclusion is robust
@@ -362,19 +389,40 @@ distinct sector again and is unaffected by any of this.
 \subsection{The magnetic sector: static-flux transparency}
 
 The constitutive postulate is completed by a statement about the magnetic
-response, which is \emph{not} symmetric with the electric one. In this model the
-magnetic response of the vacuum keys on the \emph{circulation} of the field ---
-the time-varying, curl-carrying part --- rather than on static flux. A purely
-static magnetic field ($\partial\mathbf B/\partial t=0$) does not load the
-magnetic response: the corresponding saturation factor stays at unity and the
-magnetic-route birefringence is
+response, which is \emph{not} symmetric with the electric one. The magnetic
+saturation factor keys on the field's \emph{circulation} --- the displacement
+current threading a node, $\oint\mathbf H\cdot d\boldsymbol\ell=\varepsilon_0\,
+\partial_t\!\int\mathbf E\cdot d\mathbf A$ --- rather than on static flux, through
+the same elliptic kernel applied to a circulation amplitude $A_I$:
+%
+\begin{equation}
+  S_B=\sqrt{1-A_I^{\,2}},\quad
+  \mu_{\mathrm{eff}}=\frac{\mu_0}{\sqrt{1-A_I^{\,2}}},\quad
+  A_I=\frac{\bigl|\oint\mathbf H\cdot d\boldsymbol\ell\bigr|}{I_{\max}},
+  \label{eq:SB}
+\end{equation}
+%
+with $I_{\max}$ the single magnetic-sector current scale (the dual of the electric
+scale $\Ec$, fixed by the same calibration and carrying no new parameter). This
+functional has two limits that fix the magnetic phenomenology outright.
+\emph{(a) Static field --- the exact endpoint.} A purely static magnetic field
+($\partial\mathbf B/\partial t=0$) carries no circulation, so
+$\oint\mathbf H\cdot d\boldsymbol\ell=0\Rightarrow A_I=0\Rightarrow S_B=1\Rightarrow
+\mu_{\mathrm{eff}}=\mu_0$, and the magnetic-route birefringence is
 %
 \begin{equation}
   \delta n_\mu=0\qquad(\text{static }\mathbf B,\ \text{exactly}).
   \label{eq:staticB}
 \end{equation}
 %
-This is a hard, parameter-free side-prediction: the model forbids
+\emph{(b) Near zone --- computed PVLAS/BMV consistency.} For an oscillating
+magnetic source the vacuum circulation is a double time-derivative of the
+quasistatic potential, so $A_I\propto(kr)^2$ in the near zone; a laboratory magnet
+modulated at $\si{\hertz}$ (PVLAS) or pulsed on the $\si{\milli\second}$ scale
+(BMV) sits at $kr\to0$ on the optical-probe timescale, giving $A_I\to0$,
+$S_B\to1$, and $\delta n_\mu\to0$. The existing PVLAS/BMV nulls are therefore the
+\emph{computed} magnetic-sector prediction of Eq.~\eqref{eq:SB}, not an asserted
+side-condition. This is a hard, parameter-free side-prediction: the model forbids
 static-magnetic-field vacuum birefringence at any field strength. It is the
 feature that most sharply separates the model from QED, which predicts a nonzero
 static-$\mathbf B$ birefringence; exact Born--Infeld likewise predicts zero
@@ -396,42 +444,75 @@ $\mathbf E$ and $\mathbf B$ co-move with $B=E/c$ and $\partial\mathbf
 B/\partial t\ne0$ --- \emph{does} load the response; the electric-route result
 of Eq.~\eqref{eq:dnbir} already captures the full birefringence of such a wave.
 The consequences of Eq.~\eqref{eq:staticB} for existing null experiments are
-taken up in Sec.~\ref{sec:signature}. Physically, the asymmetry follows from the
-response keying on the field's circulation ($\partial_t$, curl) rather than on
-static flux: a static $\mathbf B$ carries no circulation to load, whereas the
-electric route and any propagating wave do.
+taken up in Sec.~\ref{sec:signature}. Physically, the electric/magnetic asymmetry
+traces to the \emph{Maxwell source asymmetry}: $\nabla\cdot\mathbf E=\rho/
+\varepsilon_0$ has genuine charge sources, so a held electric field is a real
+static bias the permittivity loads on, whereas $\nabla\cdot\mathbf B=0$ has no
+magnetic monopole, so a static magnetic field supplies no bias and the
+permeability loads only on circulation ($\partial_t$, curl). The two sector keys
+--- electric-field magnitude and magnetic circulation --- are thus grounded in the
+single structural fact that charges exist and magnetic monopoles do not; they are
+\emph{not} a consequence of the field's radiative or far-field character (a
+propagating wave loads because it carries both an $\mathbf E$ magnitude and a
+circulation, not because it is radiation).
 
 \subsection{Frame, dispersion, and the common-mode channel}
 
 Three points of self-consistency. \emph{Frame.} Because $S$ depends on the single
-quantity $|E|^2$, which is not a Lorentz invariant, the prediction is stated in
-the lab frame of the optical focus, where the pump field magnitude is defined.
-The relevant question is whether motion of the apparatus through any preferred
-frame reintroduces a spurious signal. For a laboratory static field of $\SI{2.5}{\tesla}$
-(a PVLAS-scale magnet) and a boost of $\SI{370}{\kilo\meter\per\second}$ (the
-Solar System's motion relative to the CMB), the motional electric field is
-$E\sim vB\simeq\SI{9e5}{\volt\per\meter}$, giving $A^2\sim\num{7e-23}$ and
-$\delta n\sim\num{3e-23}$. In the language of the Standard-Model Extension, the
-model belongs to the class of preferred-frame photon-sector modifications whose
-coefficients are experimentally bounded~\cite{KosteleckyRussell2011}; the estimate
-above shows that all current photon-sector Lorentz-invariance bounds are satisfied
-with orders of magnitude to spare, so the frame dependence is operationally
-negligible and the static-$\mathbf B$ transparency of Eq.~\eqref{eq:staticB} is not
-resurrected by the boost.
+quantity $|E|^2$, which is not a Lorentz invariant, the physical question is which
+frame the saturating medium \emph{responds} in. The pump field magnitude is
+\emph{specified} in the lab frame of the optical focus, where the laser defines
+it; but a real saturable dielectric keys on the field magnitude in its own rest
+frame, and the vacuum of this model is a material medium at rest in the substrate
+frame, which we identify with the cosmic (CMB) rest frame. A weak \emph{static}
+laboratory field is nearly unaffected by the apparatus's
+$\SI{370}{\kilo\meter\per\second}$ motion through that frame: a $\SI{2.5}{\tesla}$
+PVLAS-scale magnet induces only a motional field
+$E\sim vB\simeq\SI{9e5}{\volt\per\meter}$, an $O(\beta^2)$ effect giving
+$A^2\sim\num{7e-23}$ and $\delta n\sim\num{3e-23}$, far below any current bound,
+and the static-$\mathbf B$ transparency of Eq.~\eqref{eq:staticB} is not
+resurrected by it. The pump, however, is not static: it is a propagating radiation
+field, whose amplitude transforms between the lab and substrate frames by the
+plane-wave Doppler factor $D(\theta)=\gamma(1+\beta\cos\theta)$ --- carrying a term
+\emph{first} order in $\beta=v/c$. The apparatus's motion through the substrate
+frame therefore does modulate the pump-driven signal, at first order, as a positive
+and testable prediction rather than a negligible correction --- developed next.
 
-\emph{A sidereal signature.} If the model's response frame coincides with the CMB
-rest frame, the preferred-frame dependence is not merely a null constraint but a
-positive prediction. As the Earth rotates and orbits, the projection of the
-$\SI{370}{\kilo\meter\per\second}$ boost onto the pump--probe geometry varies,
-modulating the birefringence coefficient at the fractional level
-$(v/c)^2\simeq\num{1.5e-6}$ with sidereal and annual periods. Operationally, a
-pump-on flip probability measured across many sidereal days would carry
-$\sim\!\num{1.5e-6}$ fractional sidebands at the sidereal frequency (and its
-harmonics), phased to the known CMB dipole direction. This is a pre-registered
-\emph{third} falsifiable signature of the model --- alongside the tree-level
-coefficient (Sec.~\ref{sec:prediction}) and the static-$\mathbf B$ transparency
-(Sec.~\ref{sec:signature}) --- accessible as a second-generation measurement once
-the leading signal is established.
+\emph{A sidereal signature.} Because the medium responds in the substrate (CMB)
+rest frame while the pump amplitude is fixed in the lab, the projection of the
+$\SI{370}{\kilo\meter\per\second}$ boost onto the pump--probe geometry varies as
+the Earth rotates and orbits, modulating the signal at \emph{first} order in
+$\beta=v/c\simeq\num{1.23e-3}$. The pump is a radiation field, so its amplitude
+Doppler-shifts as $D(\theta)=\gamma(1+\beta\cos\theta)$; the flip probability
+scales as $\Pflip\propto D^4$, giving a dominant \emph{first-harmonic} modulation
+of fractional amplitude $4\beta\simeq\num{4.9e-3}$ at the sidereal period (one
+sidereal day, $\SI{86164}{\second}$), phased to the known CMB dipole direction,
+with an $\sim\!8\%$ annual sideband from the Earth's orbital velocity. (An earlier
+registration quoted the fractional level as $(v/c)^2\simeq\num{1.5e-6}$; that is
+the \emph{second} harmonic --- the $O(\beta^2)$ term of the same expansion ---
+which the first-harmonic $4\beta$ signal dominates by $\sim\!3$ orders of
+magnitude. The first-harmonic-dominant structure is itself a discriminator: a
+static-field response would carry only the $O(\beta^2)$ second harmonic.) This is
+a pre-registered \emph{third} falsifiable signature of the model, alongside the
+tree-level coefficient (Sec.~\ref{sec:prediction}) and the static-$\mathbf B$
+transparency (Sec.~\ref{sec:signature}), accessible as a second-generation
+measurement once the leading signal is established.
+
+This sidereal modulation is a genuine Lorentz-violating signature: a covariant
+theory (QED) predicts exactly zero. It is not excluded by existing
+Lorentz-violation bounds for two independent structural reasons. First, it is a
+\emph{nonlinear} (field-dependent) response, whereas the standard photon-sector
+bounds --- the minimal Standard-Model-Extension coefficients $k_F$ and
+$k_{AF}$~\cite{KosteleckyRussell2011} --- constrain only \emph{linear},
+field-independent modifications of free propagation, so there is no coefficient in
+that framework for a pump-induced effect. Second, no astrophysical environment
+pumps it: strong ambient magnetic fields are static and hence transparent (the
+magnetic sector keys on circulation, not flux, Eq.~\eqref{eq:staticB}), and the
+astrophysical radiation channels are either below the laboratory pump amplitude or
+geometrically suppressed. The effect is therefore unconstrained by existing
+observation while remaining directly testable in the counter-propagating
+pump--probe configuration of this proposal.
+
 \emph{Dispersion.} We treat the coefficient as frequency-independent (a DC-Kerr
 response), so the same $\Ec$ governs both the $\SI{1.55}{\electronvolt}$ pump and
 the $\sim\SI{10}{\kilo\electronvolt}$ probe. This is justified by scale
@@ -594,7 +675,17 @@ is unchanged, and the model margin above the polarimeter floor only improves.
   $\SI{e23}{\watt\per\centi\meter\squared}$ row (retardance
   $\Delta\varphi=\SI{14.7}{\radian}$, many-wrap) is a named validity limit of
   the single-pass mapping and is \emph{not} part of the registered prediction
-  (Sec.~\ref{sec:falsify}).}
+  (Sec.~\ref{sec:falsify}). The tabulated $\Pflip$ is the peak-field
+  (envelope-maximum) value; a pump--probe shot integrates the flip probability
+  over the pump's Gaussian temporal and transverse focal envelope, and because
+  $\Pflip\propto I^2$ in the small-angle regime the pulse-integrated expectation
+  is the peak scaled by the fluence-weighted envelope form factor
+  $\langle I^2\rangle/I_{\mathrm{peak}}^2=3^{-3/2}\simeq0.19$ (matched co-focused
+  Gaussian), giving $\Pflip^{\mathrm{int}}\simeq\num{1.0e-3}$, $\num{8.2e-4}$, and
+  $\num{1.8e-3}$ for the three demonstrated-pump rows --- still
+  $\sim\!10^6\text{--}10^7$ above the demonstrated purity floor. (An exact
+  fluence-weighted $\langle\sin^2\rangle$ reproduces these to $<0.2\%$, the
+  small-angle regime being deep.)}
   \label{tab:scenarios}
   \begin{ruledtabular}
   \begin{tabular}{lccccccc}
@@ -833,10 +924,13 @@ revised prediction would carry its own later timestamp.
 \section{Conclusion}
 % ============================================================================
 
-A single constitutive postulate --- a vacuum permittivity that saturates through
-the elliptic kernel of Eq.~\eqref{eq:kernel}, with one calibrated field scale
---- yields a definite, pre-registered, tree-level birefringence prediction for
-the pump--probe X-ray polarimeter geometry of BIREF@HIBEF. The prediction
+Two constitutive statements --- a vacuum permittivity that saturates through the
+elliptic kernel of Eq.~\eqref{eq:kernel}, with one calibrated field scale, and a
+response that keys on the field's sources (electric-field magnitude, magnetic
+circulation), the sector asymmetry following from the Maxwell source structure
+$\nabla\cdot\mathbf B=0$ --- yield a definite, pre-registered, tree-level
+birefringence prediction for the pump--probe X-ray polarimeter geometry of
+BIREF@HIBEF. The prediction
 exceeds the QED co-prediction by the field-independent factor $3.75\pi/\alpha^2$
 (both coefficients on a single instantaneous footing; Sec.~\ref{sec:prediction}),
 sits $\sim\!10^7$ above the demonstrated polarimeter floor at already-demonstrated
