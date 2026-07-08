@@ -24,7 +24,7 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
 | **P4** | Propagation commitment (disclaimer vs charge-keyed) | **TESTED → NEEDS-RULING** | V_f FREE; copper CONSISTENT (4e-8≪2.4e-5); muonic STANDS; reconcile via UV cutoff (#576) |
 | **P5** | Magnetic functional S_B + radiative-keying | **TESTED — REFUTED; S_B delivered** | far-field key REFUTED; S_B written (PVLAS/BMV computed); keys grounded in source-asymmetry (#577) |
-| **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
+| **P6** | Sidereal boost order + frame | **RESOLVED → [SIDEREAL-REAL] (BULK)** | non-covariant \|E\|-keying ⇒ CMB-frame; KEEP+restate 4.9e-3 +LV caveat (#574/#579); \|E\|-fundamental = Grant fork |
 | **H1** | Postulate count (1 → honest 2) | **RULED** | "two, keying grounded in ∇·B=0" (Grant); prose folds into integration |
 | **H2** | Drop "theorem of the confinement" | **OWED-PROSE** | L298–299 |
 | **H3** | Engine-vocabulary leak | **OWED-PROSE** | 4 term families, lines listed |
@@ -173,7 +173,37 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
 (compare held-E, held-B, radiation through the same functional). **Where.** Eq (6)
 `main.tex:370–373`; provenance `:91`; round-3 result doc.
 
-## P6 — Sidereal boost order — ORDER RESOLVED (first-order β); NEW frame-fork surfaced (PR #574)
+## P6 — Sidereal boost order + FRAME — RESOLVED → [SIDEREAL-REAL] (BULK) (PR #574 order + #579 frame)
+
+**FRAME RESULT (2026-07-08, PR #579) — the three-corner test; orchestrator prior (LOCAL-null) was WRONG.**
+- **★ VERDICT [SIDEREAL-REAL] — BULK corner.** The response references the substrate/CMB rest frame; the
+  sidereal signal is **REAL at O(β), P_flip ≈ 4.9e-3 (= 4β, one sidereal day, CMB-dipole-phased)**, NOT null.
+- **The load-bearing determinant:** the kernel argument A = |E|/E_yield is a **frame-dependent MAGNITUDE, NOT
+  a Lorentz invariant.** Proven by an anti-test: a radiation pump is a NULL field (F = B²−E² = 0 for a plane wave, |E|=c|B|),
+  so an invariant-keyed kernel gives A=0 ⇒ ZERO pump birefringence — contradicting the Letter's central
+  prediction. **The pump signal existing AT ALL requires non-covariance.** The vacuum, being a real medium at
+  rest in the substrate frame (≈CMB), keys on the substrate-frame |E| ⇒ the lab's 370 km/s motion Doppler-shifts
+  it ⇒ sidereal. (Like a real dielectric responding in its own rest frame.)
+- **Corners cleanly separated (harness not rigged, all 3 reachable):** lab/invariant → flat (LOCAL, 0);
+  substrate → order-1 in β, +4.95e-3 (BULK); lattice → order-1 but ∝(qℓ_node)⁴ ~1e-24 (LATTICE, unobservable).
+  The (qℓ)⁴ cubic-symmetry channel does NOT apply (it protects linear-dispersion anisotropy, not the nonlinear
+  pump Doppler).
+- **Recommendation: KEEP the third falsifier, re-state as [SIDEREAL-REAL].** Correct 1.5e-6 → 4.9e-3 (first
+  harmonic; β² was the subdominant 2nd harmonic); resolve the main.tex:404(lab)-vs-420(CMB) self-contradiction
+  toward CMB; **add the strong-LV caveat** — a 4.9e-3 nonlinear-sector CMB-phased modulation is NOT bounded by
+  existing LINEAR cavity LV limits, but owes an SME nonlinear-sector check.
+- **★ THE DEEPER FORK (Grant, load-bearing ontology):** is |E|²-keying **FUNDAMENTAL** (→ BULK, nonlinear-sector
+  Lorentz violation, sidereal REAL — the Letter's current commitment, and REQUIRED for the pump signal) or a
+  weak-field **APPROXIMATION** to a covariant pump-probe-invariant response (→ LOCAL, collapses to the ~1e-24
+  lattice residual, sidereal null)? This is the single load-bearing assumption; the anti-test says fundamental.
+  CHORD NOTE: a CMB-phased sidereal birefringence is AVE-DISTINCT (covariant QED predicts exactly 0) → chord-worthy
+  forward prediction, with a real LV exposure attached.
+- **Where:** PR #579 (`analysis/p6-frame-boost`) frame; PR #574 (`analysis/p6-sidereal-boost`) order; result docs
+  `research/2026-07-08_p6-frame-boost-dependence_result.md`, `..._p6-sidereal-boost-order_result.md`. make verify green.
+- **INTEGRATION:** re-state the sidereal falsifier as [SIDEREAL-REAL] 4.9e-3, fix the frame self-contradiction,
+  add the LV caveat — pending Grant's ruling on the |E|-fundamental fork.
+
+### Order result (retained) — first-order β
 
 **Conclusion (boost order).** The birefringence signal is carried by the **pump — a radiation
 field** — whose amplitude transforms by the Doppler factor D(θ) = γ(1+β cosθ), which has a
