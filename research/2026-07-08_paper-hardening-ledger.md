@@ -22,7 +22,7 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 |----|------|--------|-----------------|
 | **A0** | Muonic-H static-sector exclusion | **DONE** | `[C-EXCLUDED]` clm-sve3xc @0.80; printed retraction |
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
-| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **NEEDS-RULING** | fork located; our answer = YES loads; copper number owed |
+| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **TESTED → NEEDS-RULING** | V_f FREE; copper CONSISTENT (4e-8≪2.4e-5); muonic STANDS; reconcile via UV cutoff (#576) |
 | **P5** | Magnetic functional S_B + radiative-keying unification | **NEEDS-RULING** | Eq (6) static-only; full S_B in corpus not paper |
 | **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
 | **H1** | Postulate count (1 → honest 2–3) | **OWED-PROSE** | "single" at L6/L42/L799 |
@@ -73,7 +73,35 @@ model / QED / exact-B-I at once.
 FIX 1–6 (commits 4ff9e20c / aaf2479c / d6b300ca / 0fe8c3df / 8e74c9df / 9d4af5cf) +
 RT-miscount fix 1f7f7480; DEFECT A/B/C round = #555, provenance §12 `:572–596`.
 
-## P4 — Propagation commitment: static-field disclaimer vs charge-keyed loading — NEEDS-RULING
+## P4 — Propagation commitment: static-field disclaimer vs charge-keyed loading — TESTED → NEEDS-RULING (PR #576)
+
+**RESULT (2026-07-08, PR #576) — forward-voltage circuit tested; the substrate ruled.**
+- **The X-ray exposure is CLEARED.** Copper decrement (OUR compute, Z=29 FCC, WS volume-average,
+  interior-excluded): ⟨A²⟩ = 1.68e-7 → **δ_AVE = ¼⟨A²⟩ = 4.2e-8 ≪ δ_Cu ≈ 2.4e-5** (3 OOM below, under
+  the ~1% band) → **CONSISTENT** (hides under the measured decrement; corroborates the ~1e-7 estimate
+  independently). **Delbrück / γ-attenuation FENCED** by dispersion (they live above the 2ℏω_C = 1.022 MeV
+  band edge, in the V_snap real-carrier sector, not the reactive T2 line).
+- **★ V_f is FREE, not forced** — the forward-voltage dead zone is a tuned parameter (echo/fit), because
+  (S1) the Ax-4 kernel S=√(1−A²) loads continuously ∝½A² from A=0 with NO dead zone — round-3
+  `[DERIVED: CHARGE-KEYED]` IS the V_f=0 member, so any V_f>0 is a NEW free postulate that CONTRADICTS
+  round-3; and the lattice dispersion is gapless-acoustic (no phonon gap to seed a threshold). No candidate
+  scale routes [FORCED] (the ones that rescue muonic zero all loading incl. copper + radiative).
+- **(S2) directional mismatch:** the forward-voltage suppresses WEAK field (low-field floor); the cutoff
+  muonic actually needs is the OPPOSITE end — a SHORT-distance / STRONG-field UV cutoff at ℓ_node. The
+  genuine FORCED cutoff is the UV/spatial one (ℓ_node = ħ/mc, canonical); the *voltage-threshold framing*
+  of it is what's free.
+- **Muonic [C-EXCLUDED] STANDS** — a dead zone removes only the weak far tail; the overshoot is dominated
+  by the sub-pitch band, which survives. (Rescue would need A_f≥½, which also zeroes copper + radiative.)
+- **RECONCILIATION (no free parameter):** all three statements coexist via the forced UV cutoff + honest
+  scoping — charge-keyed loads (round-3, from A=0) but as a **weak-field effective response cut off at
+  ℓ_node, NOT a universal continuum law**; the disclaimer scopes it; muonic excludes the (unclaimed)
+  continuum extrapolation to strong atomic fields; copper is unobservably small.
+- **AWAITING GRANT RULING:** (a) reconcile via the UV-cutoff scoping and DROP the forward-voltage from the
+  paper (orchestrator lean — forced, clean, no fit); or (b) keep forward-voltage as a POSITED free postulate
+  tagged as fitted. Proposed sentence rewrites (both options) are in the RESULT doc.
+- **Where:** PR #576 (`analysis/p4-forward-voltage`); `research/2026-07-08_p4-forward-voltage-threshold_{prereg_FROZEN,RESULT}.md`; driver `src/scripts/vol_9_device/p4_forward_voltage_threshold.py`; DIAC-varactor figure `manuscript/vol_9_vacuum_datasheet/figures/forward_voltage/`. make verify green, 9 tests.
+
+### Original fork framing (retained for context) — NEEDS-RULING
 
 **The contradiction (both in the Letter).** (a) DISCLAIMER `main.tex:330–331` — we do
 NOT assert the kernel as a universal static-field constitutive law. (b) CHARGE-KEYED
