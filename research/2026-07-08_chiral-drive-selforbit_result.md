@@ -23,6 +23,27 @@ knob** (the canonical chiral flux θ_χ=2π·ν_vac has ν_vac=2/7 = GR-imported
 **NOT forced** — this is a **MECHANISM** result, **NOT** an m_e derivation. The chord potential lives
 in the mechanism + the DC-mismatch observable, **not** the value.
 
+## DISPOSITION — PARKED (2026-07-08)
+
+Parked as a documented, **not-killed** mechanism candidate — the picture survived first
+minimal contact. The **make-or-break is UNTESTED here**: whether the chiral circulation
+*sources the A1 dilatation* (i.e. whether it **is** rest mass, versus merely a persistent
+current) cannot be posed on this minimal single-grade ring, which carries no dilatation DOF.
+Arm 5's A1-sourcing null is therefore **harness-limited, not a physics negative**. That
+question requires a **two-sector engine** (bulk-V dilatation ⊗ shear-ω circulation) and is the
+**gated next step for a future arc**, not a tangent to run now.
+
+**Symmetric-standard note.** As a rest-mass *mechanism* (internal-circulation / zitterbewegung
+class), this is peer-or-ahead of the Standard Model's fitted Yukawa, which supplies a mass
+*value* with no mechanism at all — value is an echo on both sides. This result also reproduces
+the prior node-circulator "imposed-at-magnitude" finding
+(`research/2026-06-20_node-circulator-coupling.md`).
+
+**Gated next (future arc):** A1-sourcing on the two-sector engine — does chiral-driven
+ω-circulation source a V/A1 dilatation? A localized dilatation → the mechanism *is* mass and the
+arc opens; a clean A1-null there → the circulation is a persistent current, not mass, and the
+picture closes.
+
 ## Per-arm results (verbatim from `results/chiral_drive_selforbit_results.json`, N=64, 6000 steps)
 
 | Arm | Observable | Number | Bin |
