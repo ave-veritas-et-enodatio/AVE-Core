@@ -96,9 +96,16 @@ RT-miscount fix 1f7f7480; DEFECT A/B/C round = #555, provenance §12 `:572–596
   scoping — charge-keyed loads (round-3, from A=0) but as a **weak-field effective response cut off at
   ℓ_node, NOT a universal continuum law**; the disclaimer scopes it; muonic excludes the (unclaimed)
   continuum extrapolation to strong atomic fields; copper is unobservably small.
-- **AWAITING GRANT RULING:** (a) reconcile via the UV-cutoff scoping and DROP the forward-voltage from the
-  paper (orchestrator lean — forced, clean, no fit); or (b) keep forward-voltage as a POSITED free postulate
-  tagged as fitted. Proposed sentence rewrites (both options) are in the RESULT doc.
+- **RULED (a) — Grant 2026-07-08:** reconcile via the UV-cutoff scoping; **DROP the forward-voltage** from the
+  paper (forced, clean, no fit; forward-voltage was FREE + contradicted round-3). The two contradictory
+  Letter sentences (`main.tex:330-331` disclaimer + §II.B charge-keyed) get rewritten to: "charge-keyed loads
+  continuously from zero but as a **weak-field effective response cut off at ℓ_node (lattice pitch = reduced
+  Compton scale), NOT a universal continuum law**; extrapolation to strong atomic fields is excluded (muonic);
+  unobservably small in ordinary matter (copper)." This rewrite ALSO absorbs the deferred H3 vocab
+  (`charge-keyed`/`operating-point bias`) with self-contained language.
+- **INTEGRATION STATUS:** the sentence rewrite is QUEUED for the serial paper-integration branch (folded in
+  right after prose-batch-1 lands — serialized because both edit the single Letter file; parallel main.tex
+  edits would conflict). Orchestrator does the rewrite + brings the sentences to Grant for review.
 - **Where:** PR #576 (`analysis/p4-forward-voltage`); `research/2026-07-08_p4-forward-voltage-threshold_{prereg_FROZEN,RESULT}.md`; driver `src/scripts/vol_9_device/p4_forward_voltage_threshold.py`; DIAC-varactor figure `manuscript/vol_9_vacuum_datasheet/figures/forward_voltage/`. make verify green, 9 tests.
 
 ### Original fork framing (retained for context) — NEEDS-RULING
