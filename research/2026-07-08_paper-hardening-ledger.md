@@ -26,13 +26,13 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **P5** | Magnetic functional S_B + radiative-keying unification | **NEEDS-RULING** | Eq (6) static-only; full S_B in corpus not paper |
 | **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
 | **H1** | Postulate count (1 → honest 2–3) | **OWED-PROSE** | "single" at L6/L42/L799 |
-| **H2** | Drop "theorem of the confinement" | **OWED-PROSE** | L298–299 |
-| **H3** | Engine-vocabulary leak | **OWED-PROSE** | 4 term families, lines listed |
+| **H2** | Drop "theorem of the confinement" | **DONE** | softened → "consequence of the confinement hypothesis", `main.tex:299–300` (#578) |
+| **H3** | Engine-vocabulary leak | **PARTIAL** | lattice-\* + deep-cold made self-contained, `main.tex:282,330` (#578); charge-keyed / operating-point-bias **DEFERRED to P4** |
 | **H4** | Table I peak vs pulse-integrated | **PARTIAL** | peak convention stated; integrated value owed |
-| **H5** | Record-floor wording (2.4e-10 vs 8e-11) | **OWED-PROSE** | abstract L53–54 |
+| **H5** | Record-floor wording (2.4e-10 vs 8e-11) | **DONE** | abstract relabelled "conservative (demonstrated)" floor, `main.tex:53–54` (#578) |
 | **D1** | Engine-independent route to N=7 | **PARTIAL (≈met)** | analytic Nyquist route already registered |
-| **E1** | Overlap certificate (null branch) | **OWED-PROSE** | confirmed absent |
-| **E2** | Bright-branch confirmation plan | **OWED-PROSE** | confirmed absent |
+| **E1** | Overlap certificate (null branch) | **DONE** | independent-overlap-witness paragraph, `sec:falsify` `main.tex:696–710` (#578) |
+| **E2** | Bright-branch confirmation plan | **DONE** | attenuator + fingerprint-battery paragraph, `sec:falsify` `main.tex:712–731` (#578) |
 
 Autonomous (no ruling): P6, D1, H2, H3, H5, E1, E2, and the P4 copper number.
 Grant-gated: **P4** (does a held static E load?), **P5** (is the key radiative
@@ -147,22 +147,37 @@ radiative-scoping is a third postulate or a derived consequence).
 **Owed.** Edit abstract + conclusion to the honest count (or explicitly demote the extra
 statements to scoping). **Where.** `main.tex:L42, L799, L6, L362`.
 
-## H2 — "Theorem of the confinement" overclaims — OWED-PROSE
+## H2 — "Theorem of the confinement" overclaims — DONE (#578)
 
 **Conclusion.** "The exponent is therefore a theorem of the confinement, not a fitted
-parameter" (`main.tex:298–299`) overclaims — the derivation is explicitly conditional on
+parameter" (was `main.tex:298–299`) overclaims — the derivation is explicitly conditional on
 the confinement/energy-conservation premise (L290–298), so p=2 is a *consequence* of the
-hypothesis. The two-channel p-discriminator sentence (L299–302) is the keeper.
-**Owed.** Replace "a theorem of the confinement" → "a consequence of the confinement
-hypothesis"; keep the p-discriminator sentence unchanged.
+hypothesis. The two-channel p-discriminator sentence is the keeper.
+**Done (#578).** Replaced "a theorem of the confinement" → "a consequence of the confinement
+hypothesis" at `main.tex:299–300`. The p=2 derivation and the two-channel p-discriminator
+sentence (now `main.tex:300–303`) are preserved unchanged; only the one overclaiming word
+moved. Letter compiles clean (latexmk exit 0, 9 pages).
 
-## H3 — Engine-vocabulary leak into the standalone Letter — OWED-PROSE
+## H3 — Engine-vocabulary leak into the standalone Letter — PARTIAL (#578)
 
 **Conclusion.** Four framework-internal term families appear undefined in the Letter:
-"lattice pitch / lattice-scale" (L282–284, L343, L353–355), "deep-cold" (L329),
+"lattice pitch / lattice-scale" (was L282–284, L343, L353–355), "deep-cold" (was L329),
 "operating-point bias" (L281, L352), "charge-keyed" (L281, L351). The provenance note
 that claims the Letter is grep-clean of engine vocabulary (`provenance.md:L24`) is stale.
-**Owed.** Define or replace all four with self-contained language; re-grep to confirm.
+**Done, two families (#578).** The two clearly-independent families are now self-contained:
+- "lattice pitch / lattice-scale / lattice-pitch" → a short-distance length scale
+  `\ell_{\mathrm{node}}`, **defined once at first use** ("the length scale below which the
+  continuum form of the constitutive law is not guaranteed to be the correct accounting",
+  `main.tex:282`) and reused at `main.tex:285, 344–345, 354–357`. Grep of "lattice" in
+  `main.tex` now returns 0.
+- "deep-cold" → "quiescent (unbiased, unexcited-vacuum)", defined inline at first use
+  (`main.tex:330`). Grep of "deep-cold" now returns 0.
+**DEFERRED to P4.** "charge-keyed" (`main.tex:281, 352`) and "operating-point bias"
+(`main.tex:281, 353`) are **left exactly as-is** — those sentences are being rewritten by
+the separate P4 propagation-commitment workstream; folding a vocab fix in here would
+collide with the P4 rewrite. They fold into the P4 integration, not this PR.
+**Owed (residue).** The two P4-owned term families, closed when P4 lands. Also update the
+stale `provenance.md:L24` grep-clean claim (owned alongside the P4 rewrite).
 
 ## H4 — Table I peak-field vs pulse-integrated — PARTIAL
 
@@ -175,14 +190,16 @@ alongside the peak column or add a caption sentence that peak-field is the envel
 (so no experimentalist chases a spurious factor). **Our numbers are the compute basis** — no
 external estimate adopted.
 
-## H5 — Record-floor wording — OWED-PROSE
+## H5 — Record-floor wording — DONE (#578)
 
 **Conclusion.** Abstract (`main.tex:53–54`) labels 2.4e-10 the "record X-ray-polarimeter
 purity floor"; the body (L695–698) and figure caption (L785–787) correctly give the record
 as 8e-11 (Karbstein2021) with 2.4e-10 the conservative single-measurement demonstrated floor
 (Marx2013).
-**Owed.** Reword the abstract: 2.4e-10 = "conservative/demonstrated floor"; reserve "record"
-for 8e-11 (or drop "record" from the abstract phrase).
+**Done (#578).** Abstract reworded to "the conservative (demonstrated) X-ray-polarimeter
+purity floor (2.4e-10)" (`main.tex:53–54`) — "record" dropped from the abstract floor phrase,
+now matching the body and figure caption (both unchanged; already correct). The abstract's
+other floor reference ("above the demonstrated purity floor", L59–61) was already consistent.
 
 ## D1 — Engine-independent route to N=7 — PARTIAL (≈met)
 
@@ -199,27 +216,37 @@ linear-regime lower bound to the physical (2,3)-soliton floor. And: if N=7 is ci
 paper, cite it as the analytic Nyquist bound, not an engine result. (No "derived=N7" prose is
 currently in either paper — clean.)
 
-## E1 — Overlap certificate for the null branch — OWED-PROSE
+## E1 — Overlap certificate for the null branch — DONE (#578)
 
-**Conclusion.** CONFIRMED ABSENT. The kill criterion (`sec:falsify`, `main.tex:674–720`)
+**Conclusion.** CONFIRMED ABSENT. The kill criterion (`sec:falsify`, was `main.tex:674–720`)
 commits a 5σ pump-on null (P_flip < 1e-8 at ≥1e18 W/cm²) and a third-party extraction
-procedure, but has NO independent overlap-witness requirement. A null without a witness of
+procedure, but had NO independent overlap-witness requirement. A null without a witness of
 demonstrated pump-probe overlap at the stated intensity is an *absence*, not a kill — the
 mirror of the false-victory failure (a false-execution/timing-miss null).
-**Owed.** Insert a paragraph requiring an independent overlap witness (interleaved shots on a
-gas puff / wire producing pump-driven signal) bracketing the data runs, as a precondition for
-scoring a null as a kill.
+**Done (#578).** Inserted a "\paragraph*{Overlap certificate (precondition for a null)}"
+into `sec:falsify` (`main.tex:696–710`), immediately after the kill-criterion paragraph. It
+requires, as a precondition for scoring any null as a kill, an independent overlap witness:
+interleaved shots on a known pump-only target (gas puff / thin wire at the interaction point)
+producing a pump-driven signal (plasma emission, ionization yield, pump-induced scattering)
+that brackets the polarimetric data runs in time at the same nominal intensity
+(≥1e18 W/cm²) and focal geometry. Absent it, a sub-1e-8 result is logged as an unwitnessed
+null and does not close the electric-sector hypothesis. Physics self-contained; compiles clean.
 
-## E2 — Bright-branch confirmation plan — OWED-PROSE
+## E2 — Bright-branch confirmation plan — DONE (#578)
 
-**Conclusion.** CONFIRMED ABSENT. The section registers only the null branch plus a bare
+**Conclusion.** CONFIRMED ABSENT. The section registered only the null branch plus a bare
 "a value at the 1e-3 level confirms the model" (`main.tex:719`); no calibrated-attenuator plan
 and none of the three positive fingerprints. Registering *how a positive is believed* is the
 same discipline as registering how a null kills.
-**Owed.** Insert a bright-branch paragraph: a true ~1e-3 signal saturates an unattenuated
-crossed channel, so run first well-overlapped shots through a calibrated attenuator; confirm
-via the fingerprint battery — Δt peak at femtosecond width, sin²(2ψ) four-lobe polarization
-dependence, I² intensity scaling. Predicted confirm level P_flip = 4.28e-3–9.28e-3.
+**Done (#578).** Inserted a "\paragraph*{Bright branch: how a positive is confirmed}" into
+`sec:falsify` (`main.tex:712–731`), after the E1 overlap-certificate paragraph. A true signal
+at the predicted P_flip ≃ 4e-3–9e-3 (Table I) saturates an unattenuated crossed channel, so
+the first well-overlapped shots run through a calibrated attenuator (calibrated on the
+pump-off direct beam so the recovered P_flip stays traceable). A positive is confirmed by the
+fingerprint battery: (i) a Δt scan peaking at the femtosecond pump-pulse width, (ii) a
+sin²(2ψ) four-lobe dependence on the pump-vs-analyzer angle, (iii) I² intensity scaling
+(δn_bir ∝ E² [eq:dnbir] through P_flip ∝ δn_bir² [eq:flip], so P_flip ∝ I²). Numbers
+consistent with Table I; physics self-contained; compiles clean.
 
 ---
 
