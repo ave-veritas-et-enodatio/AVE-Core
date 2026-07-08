@@ -25,7 +25,7 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **P4** | Propagation commitment (disclaimer vs charge-keyed) | **TESTED → NEEDS-RULING** | V_f FREE; copper CONSISTENT (4e-8≪2.4e-5); muonic STANDS; reconcile via UV cutoff (#576) |
 | **P5** | Magnetic functional S_B + radiative-keying | **TESTED — REFUTED; S_B delivered** | far-field key REFUTED; S_B written (PVLAS/BMV computed); keys grounded in source-asymmetry (#577) |
 | **P6** | Sidereal boost order (β vs β²) | **ORDER RESOLVED → NEW FRAME-FORK** | first-order β (CMB frame) ⇒ ~4.9e-3; but frame CMB-vs-lab unresolved in paper (#574) |
-| **H1** | Postulate count (1 → honest 2) | **INFORMED BY P5** | honest = kernel + sector-keying (grounded in Maxwell source-asymmetry); framing call |
+| **H1** | Postulate count (1 → honest 2) | **RULED** | "two, keying grounded in ∇·B=0" (Grant); prose folds into integration |
 | **H2** | Drop "theorem of the confinement" | **OWED-PROSE** | L298–299 |
 | **H3** | Engine-vocabulary leak | **OWED-PROSE** | 4 term families, lines listed |
 | **H4** | Table I peak vs pulse-integrated | **PARTIAL** | peak convention stated; integrated value owed |
@@ -205,8 +205,10 @@ do NOT collapse to one. Honest count = **TWO constitutive statements**: (1) the 
 S=√(1−A²); (2) the sector keying (ε on potential |E|, µ on circulation/rate) — which itself **follows from the
 Maxwell source asymmetry** (∇·E=ρ vs ∇·B=0), so it is grounded, not free. Recommended abstract/conclusion
 edit: state two constitutive statements, and note the sector keying follows from the source asymmetry
-(honest, and stronger than the current "single postulate"). **Framing call for Grant:** count it as "2
-postulates" or "2 with the keying grounded in ∇·B=0"? Owed-prose edit follows the ruling.
+(honest, and stronger than the current "single postulate"). **RULED (Grant 2026-07-08): "two, keying
+grounded in ∇·B=0"** — abstract/conclusion state two constitutive statements (the saturation kernel +
+the sector keying), with the sector keying following from the Maxwell source asymmetry (∇·E=ρ has charge
+sources; ∇·B=0 has no monopole). Prose edit folds into the serial integration.
 **Where:** abstract L42, conclusion L799, file comment L6, body L362.
 
 ### Original framing — OWED-PROSE
