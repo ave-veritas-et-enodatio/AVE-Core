@@ -192,12 +192,25 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
   harmonic; β² was the subdominant 2nd harmonic); resolve the main.tex:404(lab)-vs-420(CMB) self-contradiction
   toward CMB; **add the strong-LV caveat** — a 4.9e-3 nonlinear-sector CMB-phased modulation is NOT bounded by
   existing LINEAR cavity LV limits, but owes an SME nonlinear-sector check.
-- **★ THE DEEPER FORK (Grant, load-bearing ontology):** is |E|²-keying **FUNDAMENTAL** (→ BULK, nonlinear-sector
-  Lorentz violation, sidereal REAL — the Letter's current commitment, and REQUIRED for the pump signal) or a
-  weak-field **APPROXIMATION** to a covariant pump-probe-invariant response (→ LOCAL, collapses to the ~1e-24
-  lattice residual, sidereal null)? This is the single load-bearing assumption; the anti-test says fundamental.
-  CHORD NOTE: a CMB-phased sidereal birefringence is AVE-DISTINCT (covariant QED predicts exactly 0) → chord-worthy
-  forward prediction, with a real LV exposure attached.
+- **★ RULED (Grant 2026-07-08): OWN THE LORENTZ VIOLATION — it is AVE-native and the distinct testable chord.**
+  |E|²-keying is FUNDAMENTAL (not a weak-field approximation). The nonlinear-sector LV is a real forward prediction;
+  a CMB-phased sidereal birefringence is AVE-DISTINCT (covariant QED predicts exactly 0).
+- **★ GRANT MECHANISM (why it has evaded detection):** the LV is tied to the **longitudinal / A1 scalar** — the
+  Heaviside-excised scalar sector that modern physics (QED/SM) does NOT accept (transverse-only photon). Existing
+  LV experiments + the SME photon sector probe the TRANSVERSE sector, so they are structurally BLIND to a violation
+  living in the longitudinal/A1 sector. This RESOLVES the exposure: existing (transverse) LV bounds do not constrain
+  it. See [[feedback_no_qed_longitudinal_scalar_is_real]], [[project_electron_two_threes_vortex_ring]] (A1=dilatation
+  scalar), [[feedback_sector_ownership_a1_t2_crosswiring]].
+- **RECONCILIATION TO CONFIRM (orchestrator-proposed, pending Grant):** P6-frame found the ε-sector keys on the
+  TRANSVERSE |E| magnitude — but the non-covariant RESPONSE it drives (saturation = compression toward yield) is the
+  A1/longitudinal sector. So the LV is sourced in the A1 COMPRESSION response (longitudinal), read out through
+  transverse birefringence; standard LV tests probe transverse PROPAGATION coefficients, not the compression
+  response ⇒ blind. Confirm this sector picture before the SME test.
+- **★ MAKE-OR-BREAK OWED — sector-resolved SME/LV check:** verify (a) the sidereal LV is sourced in the
+  longitudinal/A1 scalar sector (not the transverse photon sector), and (b) that this sector lies OUTSIDE existing
+  SME photon-sector bounds. If confirmed → flagship is SAFE and the chord is doubly-distinctive (a longitudinal-sector
+  LV QED cannot have AND standard LV tests cannot see). If it maps to a constrained transverse coefficient → the
+  flagship (welded to the sidereal) is in trouble. THIS is the gate.
 - **Where:** PR #579 (`analysis/p6-frame-boost`) frame; PR #574 (`analysis/p6-sidereal-boost`) order; result docs
   `research/2026-07-08_p6-frame-boost-dependence_result.md`, `..._p6-sidereal-boost-order_result.md`. make verify green.
 - **INTEGRATION:** re-state the sidereal falsifier as [SIDEREAL-REAL] 4.9e-3, fix the frame self-contradiction,
