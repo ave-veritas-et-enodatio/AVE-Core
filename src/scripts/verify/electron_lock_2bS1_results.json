@@ -1,0 +1,208 @@
+{
+  "thresholds": {
+    "FILL": 0.05,
+    "SUSTAIN": 0.01
+  },
+  "arms": {
+    "mutual_M": {
+      "bin": "FILLS-BUT-DECAYS",
+      "main": {
+        "mode": "mutual_M",
+        "ratio": 1.5,
+        "fill_max": 0.06845220433222764,
+        "fill_mean": 0.029308497862068728,
+        "fill_min": 8.515171169053708e-09,
+        "h_drift": 3.049789133035584e-06,
+        "lock_drift": 19.154330823517284,
+        "w_d": 237.4810411480758,
+        "w_q": 357.6829106626051,
+        "div_corr": 0.5392611063164127,
+        "t_fill_frac": 0.43,
+        "ruptured": false
+      },
+      "golden": {
+        "mode": "mutual_M",
+        "ratio": 1.618033988749895,
+        "fill_max": 0.05609201979579751,
+        "fill_mean": 0.0236334903276567,
+        "fill_min": 2.1865106773064612e-08,
+        "h_drift": 2.2027157869387437e-06,
+        "lock_drift": 171.45854594412504,
+        "w_d": 237.58641120484296,
+        "w_q": 384.84874164431375,
+        "div_corr": 0.5130310964590478,
+        "t_fill_frac": 0.4635254915624211,
+        "ruptured": false
+      },
+      "q_cap_reconcile": {
+        "test": "reconcile_gate",
+        "label": "q_cap_energy[mutual_M,r=1.500]",
+        "reconciled": true,
+        "max_abs_discrepancy": 9.405766998593634e-10,
+        "max_rel_discrepancy": 7.49606307451311e-09,
+        "rtol": 0.001,
+        "atol": 1e-09,
+        "n_elements": 13,
+        "can_fire_proven": true,
+        "passed": true
+      }
+    },
+    "co_equal": {
+      "bin": "FILLS-BUT-DECAYS",
+      "main": {
+        "mode": "co_equal",
+        "ratio": 1.5,
+        "fill_max": 0.1090226880503058,
+        "fill_mean": 0.046970571835633045,
+        "fill_min": 2.0171762933781926e-08,
+        "h_drift": 3.238858745990037e-06,
+        "lock_drift": 39.82206063771491,
+        "w_d": 235.9574297015364,
+        "w_q": 356.2596899007612,
+        "div_corr": 0.5397172092238376,
+        "t_fill_frac": 0.24333333333333332,
+        "ruptured": false
+      },
+      "golden": {
+        "mode": "co_equal",
+        "ratio": 1.618033988749895,
+        "fill_max": 0.08865916874592322,
+        "fill_mean": 0.037622923607838796,
+        "fill_min": 1.180115881411046e-07,
+        "h_drift": 2.397387362869531e-06,
+        "lock_drift": 182.78276263571388,
+        "w_d": 236.20870685524284,
+        "w_q": 381.4144551458518,
+        "div_corr": 0.5158804802302069,
+        "t_fill_frac": 0.23485291572496,
+        "ruptured": false
+      },
+      "q_cap_reconcile": {
+        "test": "reconcile_gate",
+        "label": "q_cap_energy[co_equal,r=1.500]",
+        "reconciled": true,
+        "max_abs_discrepancy": 9.405766998593634e-10,
+        "max_rel_discrepancy": 7.49606307451311e-09,
+        "rtol": 0.001,
+        "atol": 1e-09,
+        "n_elements": 13,
+        "can_fire_proven": true,
+        "passed": true
+      }
+    },
+    "coupling_varactor": {
+      "bin": "FILLS-BUT-DECAYS",
+      "main": {
+        "mode": "coupling_varactor",
+        "ratio": 1.5,
+        "fill_max": 0.13238625729495007,
+        "fill_mean": 0.05960329861653043,
+        "fill_min": 0.006136069644282736,
+        "h_drift": 5.070228420456569e-06,
+        "lock_drift": 782.3237834279175,
+        "w_d": 248.5747041944187,
+        "w_q": 248.32000165893513,
+        "div_corr": 0.848528130657567,
+        "t_fill_frac": 0.13333333333333333,
+        "ruptured": false
+      },
+      "golden": {
+        "mode": "coupling_varactor",
+        "ratio": 1.618033988749895,
+        "fill_max": 0.09379468018392347,
+        "fill_mean": 0.041082756076540536,
+        "fill_min": 0.00016317534234388511,
+        "h_drift": 3.417081818397714e-06,
+        "lock_drift": 776.8601370096815,
+        "w_d": 247.55951599526244,
+        "w_q": 247.49424487455565,
+        "div_corr": 0.8689837629638953,
+        "t_fill_frac": 0.13905764746872631,
+        "ruptured": false
+      },
+      "q_cap_reconcile": {
+        "test": "reconcile_gate",
+        "label": "q_cap_energy[coupling_varactor,r=1.500]",
+        "reconciled": true,
+        "max_abs_discrepancy": 9.405766998593634e-10,
+        "max_rel_discrepancy": 7.49606307451311e-09,
+        "rtol": 0.001,
+        "atol": 1e-09,
+        "n_elements": 13,
+        "can_fire_proven": true,
+        "passed": true
+      }
+    }
+  },
+  "controls": {
+    "uncoupled_doesnt_fill": {
+      "bin": "DOESN'T-FILL",
+      "fill_max": 0.0
+    },
+    "scale_invariance": {
+      "mutual_M": {
+        "v_yield_hat": "FILLS-BUT-DECAYS",
+        "v_yield_hat_x2": "FILLS-BUT-DECAYS",
+        "invariant": true
+      },
+      "co_equal": {
+        "v_yield_hat": "FILLS-BUT-DECAYS",
+        "v_yield_hat_x2": "FILLS-BUT-DECAYS",
+        "invariant": true
+      }
+    },
+    "robustness": {
+      "mutual_M": {
+        "kappa_x0.7": "DOESN'T-FILL",
+        "kappa_x1.4": "FILLS-BUT-DECAYS",
+        "seed_0.2": "FILLS-BUT-DECAYS",
+        "seed_0.4": "FILLS-BUT-DECAYS"
+      },
+      "co_equal": {
+        "kappa_x0.7": "FILLS-BUT-DECAYS",
+        "kappa_x1.4": "FILLS-BUT-DECAYS",
+        "seed_0.2": "FILLS-BUT-DECAYS",
+        "seed_0.4": "FILLS-BUT-DECAYS"
+      }
+    },
+    "tautology_can_fire": {
+      "c_frac_0.3": {
+        "bin": "FILLS-BUT-DECAYS",
+        "div_corr": 0.848528130657567,
+        "fill_max": 0.13238625729495007
+      },
+      "c_frac_2.0": {
+        "bin": "TAUTOLOGY",
+        "div_corr": 0.9108394822649928,
+        "fill_max": 0.4056781482155256
+      },
+      "c_frac_6.0": {
+        "bin": "TAUTOLOGY",
+        "div_corr": 0.9571765834270887,
+        "fill_max": 0.493563365023623
+      }
+    },
+    "fills_and_sustains_reachable": true
+  },
+  "firewall": {
+    "clean": true,
+    "hits": [],
+    "outcome_funcs": [
+      "_derivs",
+      "_energies",
+      "_e_couple",
+      "run_arm",
+      "classify",
+      "S"
+    ]
+  },
+  "adjudication": {
+    "bins": {
+      "mutual_M": "FILLS-BUT-DECAYS",
+      "co_equal": "FILLS-BUT-DECAYS",
+      "coupling_varactor": "FILLS-BUT-DECAYS"
+    },
+    "verdict": "REACTIVE-PUMP CANDIDATE DEAD \u2014 the '3' needs a NON-reactive mechanism"
+  },
+  "figure": "electron_lock_2bS1_fill.png"
+}
