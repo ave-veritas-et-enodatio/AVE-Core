@@ -206,8 +206,41 @@ Lift route-C S_B into the paper as an explicit equation; (c) engine-test far-fie
   A1/longitudinal sector. So the LV is sourced in the A1 COMPRESSION response (longitudinal), read out through
   transverse birefringence; standard LV tests probe transverse PROPAGATION coefficients, not the compression
   response ⇒ blind. Confirm this sector picture before the SME test.
+- **★★ MAKE-OR-BREAK COMBINED VERDICT (Part 1 #580 + Part 2 wf_fdeca596): FLAGSHIP SURVIVES via NONLINEARITY;
+  Grant's "longitudinal→invisible" mechanism REFUTED, but his frame-source intuition CONFIRMED. Both halves CONVERGE.**
+  - **Part 1 sector-trace (#580) = SPLIT.** RESPONSE CHANNEL = **transverse-T2** (birefringence rides ε_eff=ε₀·S = the
+    transverse-T2 permittivity, canon `substrate-native-terminology.md:65` "longitudinal-A1 compliance C₀/S ↑ ≠
+    transverse-T2 permittivity ε₀S ↓; split don't collapse") — so Grant's "the non-covariant RESPONSE is the A1
+    compression" is **REFUTED** (it's the two-"3"s double-count; the A1-longitudinal re-engages only at full saturation
+    A→1=the electron, not weak-field birefringence A²≈6e-7). FRAME ANCHOR = **A1** (E_YIELD=√α·E_CRIT ∝ m_e c² = the A1
+    dilatation rest-mass; a massless T2 photon is null/covariant alone) — so Grant's deep intuition "the LV traces to the
+    A1-massive substrate" is **CONFIRMED for the frame**. Net: **transverse-T2 response, A1-mass frame anchor** (A1⊥T2,
+    don't cross-wire).
+  - **The real escape = NONLINEARITY, not longitudinal-invisibility (both halves agree).** c_bir(E)=−½(E/E_yield)² is
+    FIELD-DEPENDENT ⇒ nonlinear; minimal-SME k_F/k_AF are field-INDEPENDENT (linear). So existing linear transverse
+    bounds (GRB/CMB/cavity) DO NOT reach it — but the reason is LINEAR-vs-NONLINEAR, NOT sector-invisibility. It IS a
+    transverse-photon-sector object, **in-principle bounded by a DEDICATED nonlinear/higher-dimension photon-sector LV
+    experiment.** So: flagship SAFE from CURRENT bounds, and the sidereal LV is a **real, TESTABLE, AVE-distinct chord**
+    (testable > "invisible"). The Part-2 orthogonality worry is RESOLVED: the effect IS transverse (projects onto the
+    observable), but nonlinearity — not orthogonality — is what shields it.
+  - **CMB coincidence (4.9e-3 ≈ 5.2e-3 rad) — likely SPURIOUS pending pump inventory:** CMB birefringence is LINEAR
+    (cosmological, ~field-free); AVE is NONLINEAR (needs a pump); intergalactic space has no strong pump ⇒ no AVE
+    cosmological linear rotation ⇒ coincidence spurious. UNLESS ambient astrophysical B (magnetar/galactic) pumps the
+    nonlinearity — the OWED pump-inventory decides.
+  - **REMAINING OWED (2):** (1) PUMP INVENTORY — does AVE nonlinearity fire on ambient astrophysical B? If yes,
+    magnetar/GRB baselines become de-facto pumped → real astrophysical bounds + the CMB coincidence becomes live. This
+    is the last safety check. (2) LETTER RE-SCOPE — Part 1 flagged the Letter carries a now-WRONG linear-bound sentence
+    (main.tex:412 "preferred-frame photon-sector modification" bounded by linear tests) + a static-B O(β²) estimate;
+    both need re-scoping to "nonlinear, unbounded-by-linear-tests." (Auditor/integration lands.)
+  - **BONUS LEAD (Grant's longitudinal intuition has a home — just not here):** a genuinely A1/longitudinal-sourced LV
+    lives in the **CLOCK / gravitational-time-dilation channel** (Op14 ω_local=ω·(1−A²)^¼), NOT birefringence — a
+    distinct, separate future prediction if Grant wants to pursue it.
+  - **Where:** Part 1 = PR #580 (`analysis/lv-sector-trace`), result `research/2026-07-08_p6-lv-sector-classification_result.md`;
+    Part 2 = workflow wf_fdeca596. (Superseding note: the earlier "structurally-invisible" Part-2 framing is CORRECTED by
+    Part 1 — the effect is transverse+nonlinear, not longitudinal; the shield is nonlinearity.)
+
 - **MAKE-OR-BREAK — Part 2 (external LV-bounds retrieval, workflow wf_fdeca596) LANDED; Part 1 (sector-trace,
-  wt-lvsector) pending.**
+  wt-lvsector) LANDED (#580, SPLIT — see combined verdict above).**
   - **★ Part 2 verdict: PARTIAL / conditionally-unconstrained — STRUCTURALLY INVISIBLE, gated on an orthogonality
     proof.** Grant's structural insight CONFIRMED by the literature: the AVE LV sits in a (sector × regime × phasing)
     cell no bounded coefficient occupies — THREE independent walls: (i) SECTOR — the minimal SME is gauge-invariant
