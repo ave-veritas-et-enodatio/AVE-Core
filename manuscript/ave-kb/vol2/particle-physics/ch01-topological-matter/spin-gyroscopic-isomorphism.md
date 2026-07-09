@@ -1,5 +1,4 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
 
 <!-- kb-frontmatter
 kind: leaf
@@ -13,7 +12,7 @@ claims: [clm-salw2h]
 
 ## The Isomorphism
 
-Quantum mechanical spin — historically treated as an intrinsically non-classical, abstract Hilbert space rotation — is shown to be **mathematically identical** to classical macroscopic gyroscopic precession.  The two systems share the same ODE, the same trajectory on the Bloch/unit sphere, and the same time-domain evolution to machine precision.
+Quantum mechanical spin — historically treated as an intrinsically non-classical, abstract Hilbert space rotation — is shown to be **mathematically identical** to classical gyroscopic precession.  The two systems share the same ODE, the same trajectory on the Bloch/unit sphere, and the same time-domain evolution to machine precision.  *This gyroscope-ODE $\leftrightarrow$ Bloch-sphere equivalence is standard mathematics — **peer-with-SM**, not an AVE-distinct chord (see the guard under AVE Interpretation).*
 
 ## Classical Gyroscope
 
@@ -43,7 +42,9 @@ The deviation is at numerical integration tolerance — the two models are **mat
 
 ## AVE Interpretation
 
-In the AVE framework, this isomorphism is expected: "quantum spin" is a macroscopic topological gyroscopic mode of the $0_1$ unknot soliton.  The Pauli matrices are the 2D projection of 3D Lenz's law cross-product dynamics.  There is no quantum-classical boundary for angular momentum — the same deterministic mechanics operates at all scales.
+In the AVE framework, this isomorphism is expected: "quantum spin" is a $\sim\ell_{node}$-scale topological gyroscopic mode of the $0_1$ unknot soliton (the extended core is $\sim\ell_{node} \approx 3.86\times10^{-13}$ m — subatomic, **not** macroscopic).  The Pauli matrices are the 2D projection of 3D Lenz's law cross-product dynamics.  There is no quantum-classical boundary for angular momentum — the same deterministic precession mechanics operates at all scales.
+
+> **Selection-import + symmetric-standard guard (clm-salw2h, [SPIN-HALF-POSITED]).** The gyroscope-ODE $\leftrightarrow$ Bloch-sphere $SU(2)$ equivalence is *standard mathematics* — a mechanical gyroscope and a spin-½ in a field obey the same precession ODE, so the $\sim 10^{-8}$ agreement is a consistency check reproducing standard single-particle QM, **PEER-WITH-SM, not an AVE-distinct chord**. What AVE contributes is the *mechanism* (the precessing rotor is the Cosserat microrotational DOF of the extended $\sim\ell_{node}$-scale $0_1$ unknot — subatomic, not macroscopic), and only the double-cover **STRUCTURE** ($2T \subset SU(2)$) is substrate-native. The fermionic spin-½ **SELECTION** over integer spin is a disclosed action-level **import** ($\pi_1 = \mathbb{Z}_2$ admits both statistics, forces neither). Split canonical at clm-salw2h / clm-rkisb8.
 
 ## Key Results
 
@@ -52,7 +53,7 @@ In the AVE framework, this isomorphism is expected: "quantum spin" is a macrosco
 | Classical ODE | $d\mathbf{L}/dt = \gamma\,\mathbf{L} \times \mathbf{B}$ |
 | Quantum ODE | $id|\psi\rangle/dt = -\frac{1}{2}\gamma\,\boldsymbol{\sigma}\cdot\mathbf{B}\,|\psi\rangle$ |
 | Maximum deviation | $\sim 10^{-8}$ (machine precision) |
-| Physical interpretation | Spin is macroscopic gyroscopic precession of the topological unknot defect |
+| Physical interpretation | Spin is $\sim\ell_{node}$-scale gyroscopic precession of the extended $0_1$ unknot defect — *mechanism*-AVE; gyro$\equiv$Bloch equivalence peer-with-SM; spin-½ SELECTION imported (clm-salw2h) |
 
 *Cross-references*:
 - `src/scripts/vol_2_subatomic/simulate_gyroscopic_spin.py`
