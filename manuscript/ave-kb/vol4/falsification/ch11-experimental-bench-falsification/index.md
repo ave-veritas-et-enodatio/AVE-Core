@@ -62,7 +62,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Achromatic Lens Test](achromatic-lens-test.md) | Protocol 9: metamaterial impedance lens; $\Gamma = 0$ across all angles |
 | [Boundary Trapping Test](boundary-trapping-test.md) | Protocol 10: asteroid belt and Oort Cloud as impedance termination shocks |
 | [Vacuum Impedance Mirror](vacuum-impedance-mirror.md) | Induced $Z_{local} \to \infty$ via asymmetric saturation; APD back-scatter detection; full $\Gamma(V)$ derivation |
-| [PVLAS Static-B Verdict](pvlas-static-b-verdict.md) | Static-B null is CONSISTENT with AVE (not a falsification); $\mu$ = ideal relativistic inductor (circulation-keyed) → $\delta n_\mu=0$ exactly under static B; bold side-prediction = no static-B birefringence; E-route ($7.5\pi/\alpha^2\approx4.42\times10^5$, propagating; QED-normalization correction 2026-07-03) is the real test |
+| [PVLAS Static-B Verdict](pvlas-static-b-verdict.md) | Static-B null is CONSISTENT with AVE (not a falsification); $\mu$ = ideal relativistic inductor (circulation-keyed) → $\delta n_\mu=0$ exactly under static B; bold side-prediction = no static-B birefringence; E-route ($3.75\pi/\alpha^2\approx2.2\times10^5$, v3 single instantaneous footing, OPTION-B 2026-07-07; the mixed footing over cycle-averaged $\alpha/15\pi$ doubles it to $7.5\pi/\alpha^2\approx4.42\times10^5$, convention history) is the real test |
 | [Sagnac-Parallax](sagnac-parallax.md) | Protocol 11: 24-hour galactic wind vectoring via static Sagnac loop |
 | [GEO-Synchronous Impedance](geo-synchronous-impedance.md) | Protocol 12: vertical laser TOF anomaly mapping Earth's LC saturation envelope |
 

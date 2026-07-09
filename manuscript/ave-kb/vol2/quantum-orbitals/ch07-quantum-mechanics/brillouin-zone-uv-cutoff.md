@@ -10,7 +10,10 @@ claims: [clm-1wmyx3]
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > The E-route birefringence "$7.5/\alpha^3$ α-echo" referenced below carries an understated QED denominator.
-> **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$** (propagating, the headline). The UV-cutoff mode-count
+> **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze 2026-07-07):
+> $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave the propagating/mixed-footing
+> $7.5\pi/\alpha^2\approx4.42\times10^5$, exactly double via the $\langle\cos^2\rangle=\tfrac12$ carrier average; no
+> order of magnitude or falsifier verdict changes). The UV-cutoff mode-count
 > finiteness and the static-B null are UNAFFECTED. Canonical:
 > [`../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.

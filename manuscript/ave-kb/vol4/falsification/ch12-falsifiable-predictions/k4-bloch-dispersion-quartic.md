@@ -24,9 +24,11 @@ reconciliation kept ([`binary-kill-switches.md`](binary-kill-switches.md):17, ga
 > **MAGNITUDE** (the coefficient $\kappa_\gamma=1/24$, the physical birefringence $\delta\approx 2.2\times10^{-22}$
 > at optical $q\ell_{node}$) is an **ECHO** — it is a lattice-geometry number sitting $\sim$2–3 OOM below current
 > LIV / vacuum-birefringence bounds, so this dispersion test is **NOT near-term bankable**. The bankable
-> QED-discriminator stays the **E-route birefringence COEFFICIENT** (🔴 CORRECTED 2026-07-03:
-> $7.5\pi/\alpha^2\approx4.42\times10^5\times$ QED; was $7.5/\alpha^3\approx1.93\times10^7$ before the
-> QED-normalization fix — see `vacuum-birefringence-e4.md` banner;
+> QED-discriminator stays the **E-route birefringence COEFFICIENT** (v3 headline, single instantaneous footing,
+> OPTION-B re-freeze 2026-07-07: $3.75\pi/\alpha^2\approx2.2\times10^5\times$ QED; the 2026-07-03 QED-normalization
+> step gave the propagating/mixed-footing $7.5\pi/\alpha^2\approx4.42\times10^5$, exactly double via the
+> $\langle\cos^2\rangle=\tfrac12$ carrier average — convention history; and the v1 $7.5/\alpha^3\approx1.93\times10^7$
+> predated the QED-normalization fix — see `vacuum-birefringence-e4.md` banner;
 > [clm-pp3qwf](../../claim-quality.md), [`vacuum-birefringence-e4.md`](vacuum-birefringence-e4.md)).
 > The **temporal cutoff value** $\omega_C=c_0/\ell_{node}$ ($\hbar\omega_C=m_ec^2=511$ keV) is likewise an
 > **ECHO** — peer-with-QED, both import $m_e$ — and is a **DISTINCT mechanism** from this spatial quartic

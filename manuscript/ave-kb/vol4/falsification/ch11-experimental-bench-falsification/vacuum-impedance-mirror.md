@@ -16,8 +16,11 @@ path-stable: "referenced from vol3 as sec:induced_vacuum_impedance_mirror"
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > Every "$7.5/\alpha^3\approx1.93\times10^7$" (differential) and "$4.14\times10^6$" (single-arm) ratio below
 > carries an understated QED denominator ($(3/45)\alpha^2$ is too small by $1/(2\pi\alpha)\approx21.8$ vs the
-> PVLAS-anchored magnetic leg). **Corrected matched-differential ratio: $7.5\pi/\alpha^2\approx4.42\times10^5$**
-> (propagating, LoI-matched — the headline) or $15\pi/\alpha^2\approx8.85\times10^5$ (static-E duality). The AVE
+> PVLAS-anchored magnetic leg). **Corrected matched-differential ratio (v3 headline, single instantaneous footing —
+> OPTION-B re-freeze 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave
+> the propagating/mixed-footing $7.5\pi/\alpha^2\approx4.42\times10^5$, exactly double via the
+> $\langle\cos^2\rangle=\tfrac12$ carrier average; $15\pi/\alpha^2\approx8.85\times10^5$ static-E duality; no order of
+> magnitude or falsifier verdict changes). The AVE
 > leg $-\tfrac12 A^2$ and the falsifier LOGIC are UNAFFECTED. Canonical:
 > [`../ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.
