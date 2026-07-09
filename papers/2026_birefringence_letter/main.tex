@@ -502,13 +502,11 @@ frame the saturating medium \emph{responds} in. The pump field magnitude is
 it; but a real saturable dielectric keys on the field magnitude in its own rest
 frame, and the vacuum of this model is a material medium at rest in the substrate
 frame, which we identify with the cosmic (CMB) rest frame. A weak \emph{static}
-laboratory field is nearly unaffected by the apparatus's
-$\SI{370}{\kilo\meter\per\second}$ motion through that frame: a $\SI{2.5}{\tesla}$
-PVLAS-scale magnet induces only a motional field
-$E\sim vB\simeq\SI{9e5}{\volt\per\meter}$, an $O(\beta^2)$ effect giving
-$A^2\sim\num{7e-23}$ and $\delta n\sim\num{3e-23}$, far below any current bound,
-and the static-$\mathbf B$ transparency of Eq.~\eqref{eq:staticB} is not
-resurrected by it. The pump, however, is not static: it is a propagating radiation
+laboratory field lies outside the model's scope (Sec.~\ref{sec:model}, sector
+scope), so the apparatus's $\SI{370}{\kilo\meter\per\second}$ motion through that
+frame modulates \emph{nothing} from it --- the motional field a moving magnet
+induces is itself quasi-static and equally out of scope, an \emph{identical} zero
+rather than a small correction. The pump, however, is not static: it is a propagating radiation
 field, whose amplitude transforms between the lab and substrate frames by the
 plane-wave Doppler factor $D(\theta)=\gamma(1+\beta\cos\theta)$ --- carrying a term
 \emph{first} order in $\beta=v/c$. The apparatus's motion through the substrate
@@ -519,17 +517,20 @@ and testable prediction rather than a negligible correction --- developed next.
 rest frame while the pump amplitude is fixed in the lab, the projection of the
 $\SI{370}{\kilo\meter\per\second}$ boost onto the pump--probe geometry varies as
 the Earth rotates and orbits, modulating the signal at \emph{first} order in
-$\beta=v/c\simeq\num{1.23e-3}$. The pump is a radiation field, so its amplitude
-Doppler-shifts as $D(\theta)=\gamma(1+\beta\cos\theta)$; the flip probability
-scales as $\Pflip\propto D^4$, giving a dominant \emph{first-harmonic} modulation
-of fractional amplitude $4\beta\simeq\num{4.9e-3}$ at the sidereal period (one
+$\beta=v/c\simeq\num{1.23e-3}$. The pump is a radiation field, so its amplitude Doppler-shifts as
+$D(\theta)=\gamma(1+\beta\cos\theta)$; the flip probability scales as
+$\Pflip\propto D^4$. The signature is a pure \emph{amplitude} modulation of
+$\Pflip$ --- its magnitude, not its polarization character or the analyzer
+geometry, rises and falls over the sidereal day --- and it is amplitude-dominated
+by the \emph{first} harmonic: expanding $D^4$, the linear-in-$\beta$ term sets a
+fractional amplitude $4\beta\simeq\num{4.9e-3}$ at the sidereal period (one
 sidereal day, $\SI{86164}{\second}$), phased to the known CMB dipole direction,
-with an $\sim\!8\%$ annual sideband from the Earth's orbital velocity. (An earlier
-registration quoted the fractional level as $(v/c)^2\simeq\num{1.5e-6}$; that is
-the \emph{second} harmonic --- the $O(\beta^2)$ term of the same expansion ---
-which the first-harmonic $4\beta$ signal dominates by $\sim\!3$ orders of
-magnitude. The first-harmonic-dominant structure is itself a discriminator: a
-static-field response would carry only the $O(\beta^2)$ second harmonic.) This is
+with an $\sim\!8\%$ annual sideband from the Earth's orbital velocity, whereas the
+$O(\beta^2)$ second harmonic ($5\beta^2\simeq\num{7.6e-6}$) is smaller by
+$\sim\!3$ orders. (An earlier registration quoted only that second harmonic, as
+$(v/c)^2\simeq\num{1.5e-6}$, and missed the dominant first harmonic; the
+first-harmonic-dominant structure is itself a discriminator, since a static-field
+response would carry \emph{only} the $O(\beta^2)$ second harmonic.) This is
 a pre-registered \emph{third} falsifiable signature of the model, alongside the
 tree-level coefficient (Sec.~\ref{sec:prediction}) and the static-$\mathbf B$
 transparency (Sec.~\ref{sec:signature}), accessible as a second-generation
@@ -545,10 +546,19 @@ field-independent modifications of free propagation, so there is no coefficient 
 that framework for a pump-induced effect. Second, no astrophysical environment
 pumps it: strong ambient magnetic fields are static and hence transparent (the
 magnetic sector keys on circulation, not flux, Eq.~\eqref{eq:staticB}), and the
-astrophysical radiation channels are either below the laboratory pump amplitude or
-geometrically suppressed. The effect is therefore unconstrained by existing
-observation while remaining directly testable in the counter-propagating
-pump--probe configuration of this proposal.
+astrophysical radiation channels that could in principle pump it are either below
+the laboratory pump amplitude or geometrically suppressed. The geometric
+suppression is decisive and worth spelling out: the birefringence lives in the
+pump--probe cross terms and scales as $(1-\cos\vartheta_{\mathrm{coll}})^4$ with
+the collision angle (Sec.~\ref{sec:prediction}), so it is maximal only for a
+\emph{head-on} (counter-propagating) pump and probe --- the geometry this proposal
+engineers deliberately --- and vanishes for co-propagation. Astrophysical
+radiation reaching a probe photon overwhelmingly co-propagates with it
+($\vartheta_{\mathrm{coll}}\to0$), where that factor drives the response toward
+zero by many orders, and even a rare counter-propagating astrophysical source
+would still have to match the focused laboratory pump amplitude to compete. The
+effect is therefore unconstrained by existing observation while remaining directly
+testable in the counter-propagating pump--probe configuration of this proposal.
 
 \emph{Dispersion.} We treat the coefficient as frequency-independent (a DC-Kerr
 response), so the same $\Ec$ governs both the $\SI{1.55}{\electronvolt}$ pump and
