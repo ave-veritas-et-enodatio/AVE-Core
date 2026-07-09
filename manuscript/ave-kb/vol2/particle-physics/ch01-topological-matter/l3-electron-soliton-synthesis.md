@@ -44,6 +44,18 @@ What the engine measures as "the particle" is the **time-averaged envelope** of 
 
 **Mathematical correspondence**: the "lemniscate with $q$ half-twists" plumber visualization corresponds to the $(2, q)$ torus knot at the $c = q$ crossing-count level. The lemniscate-with-twists construction, properly closed as a 2-strand braid, gives the $(2, q)$ torus knot family (trefoil $3_1$ for $q=3$, cinquefoil $5_1$ for $q=5$, etc.). The plumber visualization captures the substrate-physical content; the tabulated-knot identification carries the formal topology.
 
+> **Real-space ⊥ phase-space disambiguation (INVARIANT-N1 cross-ref, 2026-07-09).** The
+> "$(2,q)$ torus knot / trefoil $3_1$" naming above is the **phase-space winding portrait** on the
+> bond-pair LC tank's Clifford torus (the $(V_{\text{inc}}, V_{\text{ref}})$ d–q plane), **NOT a
+> real-space knot**. The electron's **real-space body** is the $0_1$ **unknot** — a single closed
+> flux-tube at minimum ropelength $2\pi$. The two are orthogonal and must not be conflated: the
+> winding is a texture of the order-parameter *phase*, carried by a real-space object that is itself
+> unknotted (the same A1-dilatation-mass ⊥ Cosserat-$(2,3)$-winding orthogonality at
+> [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20,
+> the two-"3"s disambiguation). → [`electron-unknot.md`](electron-unknot.md) (real-space $0_1$);
+> [`electron-identification.md`](electron-identification.md) §1 (properties 1 + 2);
+> [CLAUDE.md INVARIANT-N1](../../../CLAUDE.md).
+
 **Historical precedent**: this lemniscate-with-twists picture has direct lineage to Lord Kelvin's 1867 "On Vortex Atoms" hypothesis and Helmholtz's 1858 vortex theorems; modern revival via Faddeev–Niemi 1997 knotted solitons.
 
 > ↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — the consolidated Kelvin → Tait → Faddeev–Niemi → AVE lineage, including why the ideal-fluid vortex-atom failed (~1900) and how the saturation crystal supplies the confinement + length scale it lacked.
@@ -53,6 +65,23 @@ What the engine measures as "the particle" is the **time-averaged envelope** of 
 **The "2" in $(2, q)$ is the lemniscate's two lobes**, enforced by bipartite K4: every oscillation alternates A ↔ B sublattices. This is universal across the $(2, q)$ family — every stable particle has the lemniscate lobe structure because the lattice is bipartite. **"$q$" varies by particle** as the half-twist count.
 
 The substrate-fundamental description per Grant 2026-04-28: bipartite K4 cycle count IS the factor of 2; SU(2) is the same content in representation-theoretic language. They are **not independent factors that compound** — a future reader should not interpret bipartite-cycle (2) × SU(2)-cover (2) = 4. Both descriptions stay in the corpus as equivalent representations of the single substrate factor.
+
+> **Three distinct "2"s — do not conflate (disambiguation cross-ref, 2026-07-09).** Three different
+> objects share the glyph "2" in this chapter and must be kept apart:
+> 1. **the real-space bipartite lobe-count** — the "2" read in this section (the lemniscate's two
+>    lobes from bipartite K4, a real-space A↔B alternation);
+> 2. **the SU(2) → SO(3) double-cover** — the spin-½ $2\pi/4\pi$ doubling (representation-theoretic);
+>    **the same substrate factor as (1)** per Grant 2026-04-28 (§4), NOT an independent multiplier;
+> 3. **the phase-space toroidal winding number** — the "2" in the *canonical* "$(2,q)$ torus-knot"
+>    label, which per [CLAUDE.md INVARIANT-N1](../../../CLAUDE.md) is a **phase-space winding
+>    portrait** on the Clifford torus (d–q plane) — a **DIFFERENT object**, living in phase space,
+>    not real space.
+>
+> So (1)≡(2) is the single lobe/cover factor; (3) is orthogonal to both. This leaf reads the
+> "$(2,q)$" glyph in sense (1) (real-space lobes); the identity-card convention reads "$(2,q)$" in
+> sense (3) (phase-space winding). Neither is wrong, but they are **not the same "2"** — see the
+> real-space ⊥ phase-space note in §1. `flag-don't-fix`: the shared glyph is a reading hazard
+> surfaced here, not silently unified.
 
 ## §3 — Rest-energy Virial sum (structural, not predicted)
 
@@ -153,6 +182,18 @@ The Meissner-asymmetric mechanism connects Layer 1 substrate chirality to the el
 
 Standard form: the electron's magnetic moment $\mu_B = e \hbar / (2 m_e)$ is the macroscopic observable of which sector dominates the asymmetric saturation. **AVE-native form**: $\mu_B$ emerges as the asymmetry magnitude in $(S_\mu, S_\varepsilon)$ at saturation onset, with sign set by K4 chirality.
 
+> 🔴 **Rule-12 mechanism-vs-value banner (2026-07-09, g=2 propagation).** The Meissner-asymmetric
+> mechanism here is the **AVE-native constitutive picture** of *which sector saturates first* → the
+> magnetic-moment sign — a genuine "what generates $\mu$" mechanism (**mechanism = AVE**). It does
+> **NOT** derive the *value* $g = 2$ (the $\mu/S$ ratio in $q/2m$ units), nor the *magnitude* of
+> $\mu_B$: the leading $g = 2$ is the imported **Dirac value** (POSITED / consistency, PEER-with-Dirac),
+> and $\mu_B = e\hbar/2m_e$ rides the imported $e$ and $m_e$. **Decisive falsifier:** the proton
+> ($g_p\approx5.586$) and neutron ($g_n\approx-3.826$) are *also* spin-½ with the same double-cover yet
+> $g\neq2$, so no double-cover / sector-asymmetry ratio can *select* $g=2$. **Mechanism-AVE /
+> value-POSITED** — this banner does not promote §6.2 to a value derivation. See
+> [`substrate-perspective-electron.md`](substrate-perspective-electron.md):11 (Rule-12 banner) and
+> [`electron-identification.md`](electron-identification.md) §2.
+
 ### §6.3 AVE-HOPF birefringence prediction
 
 Under the Meissner-asymmetric form, LH vs RH circularly polarized light sees different effective impedances → different wave speeds → birefringence. Predicted notch for a $(2, 3)$ chiral antenna (electron):
@@ -164,6 +205,18 @@ Direct empirical anchor connecting Layer 2 chirality coupling to a macroscopic m
 ## §7 — Substrate-native Pauli exclusion (PROVISIONAL)
 
 > **⚠ PROVISIONAL pending corpus pressure-test (He 1s², Li 1s²2s¹, Cooper pair).** The framing below is the substrate-native Pauli hypothesis; canonicalization requires verifying it matches observed atomic shell capacities.
+>
+> **↗ #315 scope note (2026-07-09).** The spin-statistics **EXCHANGE** connection (antisymmetry under
+> particle exchange = the Finkelstein–Rubinstein two-loop braid holonomy $-I$, reflection-free /
+> A4-only, $\cong$ the single-particle $2\pi$ rotation) is now separately **DERIVED at
+> representability + topological-derivation grade, PEER-ahead of the SM axiom** (generic-FR, not an
+> AVE-distinct chord — a non-A4 control also reaches $-I$;
+> [`research/2026-06-20_fr-braid-spin-statistics_result.md`](../../../../../research/2026-06-20_fr-braid-spin-statistics_result.md),
+> PR #315). That result establishes the exchange *sign* — it explicitly does **NOT** establish the
+> dynamical **SELECTION** of the antisymmetric sector, which is the open interior item. The per-node
+> $A^2\leq1$ **EXCLUSION** mechanism below is exactly such a *selection/forcing* proposal, so it
+> stays **PROVISIONAL / open**: #315 derives the *exchange*, not the *exclusion*. No promotion of §7
+> from the #315 pass.
 
 Each saturated K4 node has a hard $A^2 \leq 1$ budget. The lemniscate-with-twist's central crossing requires $A^2 \to 1$ at that node. **Working hypothesis: at most ONE bound state per saturated node-pair.** Pauli exclusion is then literal at the substrate level: a second lemniscate centered at the same node-pair would require $A^2 = 2$, violating the saturation budget.
 

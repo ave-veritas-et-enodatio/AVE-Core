@@ -25,6 +25,16 @@ corpus meta-finding that AVE forces FORMS and imports VALUES
 > - **BINDING-STRUCTURE (this leaf, Class-C consistency).** The hollow-vortex open/close balance is a
 >   *self-consistent structural description* of the same object, banked Class-C — with three honesty
 >   caveats (§3) that an independent verify made load-bearing. It is a SOFT positive, not a discriminator.
+> - **IDENTITY vs ENVELOPE (D3 coexist, 2026-07-09).** The cavity this leaf describes is a **near-core
+>   yield-ENVELOPE** description — the ~$\ell_{\text{node}}$ region where the medium's saturation
+>   response lives (cavitation-bubble sense: *where the medium gave up*, not the inside of the
+>   propeller). It answers *"how does the medium respond near the core?"*. It does **NOT** store the
+>   electron's identity: charge sign and the winding integers are **topological boundary data**
+>   (Burgers/Frank-analog INPUTs to the surrounding elasticity), not a spatial map read out of the
+>   cavity interior. Two questions, two radii — the ENVELOPE (this leaf, Class-C) and the IDENTITY
+>   (boundary data, [electron-identification.md](electron-identification.md)) COEXIST without
+>   contradiction; neither demotes the other, and describing the envelope's constitution never
+>   promotes this leaf to a chord (§3.3).
 
 ## §1 — What the electron IS (the Class-C FORM, genuine + earned)
 
