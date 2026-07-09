@@ -22,7 +22,7 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 |----|------|--------|-----------------|
 | **A0** | Muonic-H static-sector exclusion | **DONE** | `[C-EXCLUDED]` clm-sve3xc @0.80; printed retraction |
 | **A0b** | Born–Infeld = zero-birefringence; E-route discriminator | **DONE** | corrected across all sites (FIX 1–6, #555) |
-| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **DONE (v3)** | held fields load (continuously from zero) as a weak-field response cut off at `ℓ_node`, NOT a universal continuum law; muonic `[C-EXCLUDED]` + copper `δ_AVE≈4e-8 ≪ 2.4e-5`; V_f=FREE dropped; `main.tex:289,346,369` (Letter v3) |
+| **P4** | Propagation commitment (disclaimer vs charge-keyed) | **SUPERSEDED by R3-A** | v3 recorded **Branch-YES** (held fields load continuously from zero, weak-field response cut off at `ℓ_node`). Round-3 ruling **supersedes to Branch-no**: static fields sit **OUTSIDE the model**; loads-continuously falsified (X-ray transport; fenced-scale escape killed by K4-TLM band-edge derivation). Muonic `[C-EXCLUDED]` survives as a **domain-restriction demonstration**; copper survives as a **moot** bound. See R3-A/R3-B. |
 | **P5** | Magnetic functional S_B + radiative-keying unification | **DONE (v3)** | S_B `=√(1−A_I²)`, `μ_eff=μ₀/√(1−A_I²)` lifted into paper as Eq (6) w/ static + `(kr)²` limits; radiative-far-field unification **REFUTED**, grounding = Maxwell source asymmetry `∇·B=0`; `main.tex:399,448` (Letter v3) |
 | **P6** | Sidereal boost order (β vs β²) + frame + LV | **DONE (v3)** | re-stated `[SIDEREAL-REAL]`: first-order β `4β≈4.9e-3` first harmonic (was subdominant 2nd harmonic `(v/c)²=1.5e-6`); frame → CMB/substrate rest; LV framing = unconstrained+testable, two structural reasons (nonlinear + pump-safe); `main.tex:460–515` (Letter v3) |
 | **H1** | Postulate count (1 → honest 2) | **DONE (v3)** | "single constitutive postulate" → **two constitutive statements** (kernel + sector keying, grounded in `∇·B=0`); `main.tex:7,45,927` (Letter v3) |
@@ -34,13 +34,15 @@ an edit owed · `NEEDS-RULING` = a physics fork awaiting Grant's ontology call.
 | **E1** | Overlap certificate (null branch) | **DONE** | independent-overlap-witness paragraph, `sec:falsify` `main.tex:696–710` (#578) |
 | **E2** | Bright-branch confirmation plan | **DONE** | attenuator + fingerprint-battery paragraph, `sec:falsify` `main.tex:712–731` (#578) |
 
-**All rows now integrated into the Letter (v3).** The two formerly Grant-gated
-forks are ruled and landed: **P4** — a held static field *does* load, but only as a
-weak-field effective response cut off at `ℓ_node` (not a universal continuum law);
-**P5** — the radiative-far-field unification is **REFUTED**, and the E/B sector keys
-are grounded in the Maxwell source asymmetry (`∇·B=0`), which also settles **H1** at
-**two** constitutive statements. Only D1's optional round-2 (nonlinear-regime N=7)
-remains open, and it is not cited in the Letter.
+**All rows integrated into the Letter (v3), then P4 revised at round-3.** **P5** —
+the radiative-far-field unification is **REFUTED**, and the E/B sector keys are
+grounded in the Maxwell source asymmetry (`∇·B=0`), which also settles **H1** at
+**two** constitutive statements. **P4 is superseded to Branch-no** (see R3 section
+below): the v3 "held static field *does* load, continuously from zero, cut off at
+`ℓ_node`" commitment is retracted — static fields sit **outside the model's scope**,
+the muonic-H test is re-cast as a **domain-restriction demonstration**, and the
+radiative scoping is named an **open postulate**. Only D1's optional round-2
+(nonlinear-regime N=7) remains open, and it is not cited in the Letter.
 
 ---
 
@@ -319,7 +321,7 @@ consistent with Table I; physics self-contained; compiles clean.
 
 ---
 
-## Round-3 review integration (co-author feedback, 2026-07-08) — IN PROGRESS
+## Round-3 review integration (co-author feedback, 2026-07-08) — DONE (staged, DO-NOT-MERGE)
 
 **Nature.** Round-3 punch list against the Letter (v3). The load-bearing physics
 ruling: **Problem 8 resolves to Branch-no.** The v3 "a held static field *does*
@@ -335,19 +337,19 @@ falsifier (Table I pump–probe coefficient, the kill criterion) is untouched.
 
 **Status board (round-3).**
 
-| ID | Item | Status | Where it stands |
+| ID | Item | Status | Where it stands (`papers/2026_birefringence_letter/main.tex`) |
 |----|------|--------|-----------------|
-| **R3-A** | Branch-no surgery (Problem 8): static fields outside model; remove loads-continuously | OPEN | ledger item (v), sector scope, II.D motional, copper |
-| **R3-B** | Copper cutoff prose fix (`r_c(Cu)=√29·160 fm≈861 fm`, not `ℓ_node`) | OPEN | sector scope copper bound |
-| **R3-C1** | Print `I_max = ε₀c·E_c·ℓ_node = E_c·ℓ_node/Z₀ ≈ 116 A` (2π loop ≈ 730 A) | OPEN | magnetic sector `I_max` def |
-| **R3-C2** | State which side of the `μ_eff` root the model uses (denominator branch) | OPEN | magnetic sector, Eq (5) |
-| **R3-C3** | Pump magnetic self-consistency: `A_I=A(kℓ_node)`, `A_I²/A²≈1e-11` (Outcome A) | OPEN | magnetic sector propagating-field assertion |
-| **R3-P9** | Anomalous high-Z X-ray refractive decrements — DIES UNBORN under Branch-no; considered-and-dropped, NOT registered | DROPPED | (this row only; nothing added to paper) |
-| **R3-D3** | One-line `ℓ_node`/"node" definition at first use (load-bearing in Eq) | OPEN | first `ℓ_node` use |
-| **R3-D4** | Soften intro "neutral to any wider interpretation" to match II.D declared medium | OPEN | intro |
-| **R3-D5** | Sidereal `4β` amplitude-dominance explicit + grow astro dismissal to 2 sentences | OPEN | II.D sidereal |
-| **R3-D6** | Overlap certificate: add two-beam observable (probe through pump plasma vs delay) | OPEN | `sec:falsify` overlap certificate |
-| **R3-D7** | Table I carrier average `⟨cos²⟩=½` → extra ¼ on P → measured expectation ~2–5e-4 | OPEN | Table I caption |
+| **R3-A** | Branch-no surgery (Problem 8): static fields outside model; remove loads-continuously | **DONE** | item (v) `:285` (outside-scope) `:288` (domain-restriction); sector scope `:366`; II.D motional `:505` (identical zero); bounds `:953` |
+| **R3-B** | Copper cutoff prose fix (`r_c(Cu)=√29·160 fm≈861 fm`, not `ℓ_node`) | **DONE** | `:382` `r_c(Cu)=√Z×160 fm≈861 fm`; `δ_AVE≈4.2e-8` (was mis-named `ℓ_node`=386 fm); kept as MOOT bound |
+| **R3-C1** | Print `I_max = ε₀c·E_c·ℓ_node = E_c·ℓ_node/Z₀ ≈ 116 A` (2π loop ≈ 730 A) | **DONE** | `:421` `I_max≈116 A` (2π loop ≈730 A; O(1) immaterial) |
+| **R3-C2** | State which side of the `μ_eff` root the model uses (denominator branch) | **DONE** | `:427` `μ_eff=μ₀/S_B≥μ₀` (denominator/stiffening branch; branch-indep at static endpoint) |
+| **R3-C3** | Pump magnetic self-consistency: `A_I=A(kℓ_node)`, `A_I²/A²≈1e-11` (Outcome A) | **DONE** | `:475` `A_I=A(kℓ_node)`, `kℓ_node≈3.0e-6`, `A_I²/A²≈9e-12` → Table I stands (Outcome A) |
+| **R3-P9** | Anomalous high-Z X-ray refractive decrements — DIES UNBORN under Branch-no; considered-and-dropped, NOT registered | **DROPPED** | this row only; nothing added to paper (registering it would contradict Branch-no) |
+| **R3-D3** | One-line `ℓ_node`/"node" definition at first use (load-bearing in Eq) | **DONE** | `:367` `ℓ_node≡ħ/(m_ec)≈3.86e-13 m` (reduced Compton; node scale) |
+| **R3-D4** | Soften intro "neutral to any wider interpretation" to match II.D declared medium | **DONE** | `:103` intro now declares a material medium at rest in CMB frame (premise the sidereal falsifier needs) |
+| **R3-D5** | Sidereal `4β` amplitude-dominance explicit + grow astro dismissal to 2 sentences | **DONE** | `:524` pure amplitude modulation, first-harmonic `4β≈4.9e-3` dominant; `:556` co-propagation `(1−cosθ)⁴` suppression, 2 sentences |
+| **R3-D6** | Overlap certificate: add two-beam observable (probe through pump plasma vs delay) | **DONE** | `:861` probe transmission/deflection through pump plasma vs `Δt`; kill now needs BOTH certificates |
+| **R3-D7** | Table I carrier average `⟨cos²⟩=½` → extra ¼ on P → measured expectation ~2–5e-4 | **DONE** | caption `:737` `P_flip^meas ≈ 2.6/2.1/4.5 ×10⁻⁴`; tabulated column = instantaneous peak (item iv); ratio unchanged |
 
 **Recomputed numbers (this session, verified `python3`):**
 - **C1:** `I_max = E_c·ℓ_node/Z₀ = 1.13e17 · 3.8616e-13 / 376.73 = 115.8 A ≈ 116 A`;
@@ -359,6 +361,17 @@ falsifier (Table I pump–probe coefficient, the kill criterion) is untouched.
 - **D7:** peak `5.39/4.28/9.28 ×10⁻³` × envelope `3^(−3/2)=0.1925` × carrier `¼`
   = `2.6e-4 / 2.1e-4 / 4.5e-4` (~2–5e-4); vs floor `2.4e-10` = `1.1e6 / 8.6e5 / 1.9e6` (~6 orders above).
 - **ℓ_node** `= ħ/(m_e c) = 3.8616e-13 m = 386.2 fm` (reduced Compton wavelength).
+
+**Build + commits.** Branch `analysis/letter-round3-updates` (worktree `wt-round3`),
+all commits tagged `[REVIEW: pending-orchestrator]`, **DO-NOT-MERGE**. Letter
+compiles clean via `latexmk` (exit 0, **11 pp**, zero undefined refs / citations
+with aux present); tracked PDF `sve_vacuum_birefringence_letter.pdf` rebuilt via
+`make paper`; `make verify` green. Paper edits, one section per commit: intro (D4)
+· item (v) Branch-no · sector-scope Branch-no + copper + `ℓ_node` def ·
+magnetic C1/C2/C3 · frame/sidereal (A4/D5) · falsify (D6 + bounds) · Table I (D7).
+**Flag for orchestrator:** R3-A **reverses** the P4 v3 Branch-YES resolution
+(held-E-loads); this is the co-author's decided Branch-no ruling applied, not a
+silent change — P4 row marked `SUPERSEDED by R3-A` above.
 
 ## Phase plan
 
