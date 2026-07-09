@@ -355,7 +355,7 @@ falsifier (Table I pump–probe coefficient, the kill criterion) is untouched.
 | **R3-P9** | Anomalous high-Z X-ray refractive decrements — DIES UNBORN under Branch-no; considered-and-dropped, NOT registered | **DROPPED** | this row only; nothing added to paper (registering it would contradict Branch-no) |
 | **R3-D3** | One-line `ℓ_node`/"node" definition at first use (load-bearing in Eq) | **DONE** | `:367` `ℓ_node≡ħ/(m_ec)≈3.86e-13 m` (reduced Compton; node scale) |
 | **R3-D4** | Soften intro "neutral to any wider interpretation" to match II.D declared medium | **DONE** | `:103` intro now declares a material medium at rest in CMB frame (premise the sidereal falsifier needs) |
-| **R3-D5** | Sidereal `4β` amplitude-dominance explicit + grow astro dismissal to 2 sentences | **DONE** | `:524` pure amplitude modulation, first-harmonic `4β≈4.9e-3` dominant; `:556` co-propagation `(1−cosθ)⁴` suppression, 2 sentences |
+| **R3-D5** | Sidereal `4β` amplitude-only → probe-side O(β) transforms bounded + grow astro dismissal to 2 sentences | **DONE → refined (PR #591)** | `:556` co-propagation `(1−cosθ)⁴` suppression, 2 sentences (original pass). Sidereal para **corrected in #591**: `4β` is the pump-amplitude term *alone*; probe-side transforms (probe-freq Doppler via `Δφ∝ω_probe`, aberration of `ϑ_coll` via `(1−cosϑ)⁴`, path-length) are **same-order O(β)**, not subdominant — `4β` registered as order-of-magnitude scale not exact coefficient; first-harmonic *presence*-discriminator preserved & shown robust. (The original "pure amplitude / amplitude-dominated" framing was not honestly available and was replaced.) |
 | **R3-D6** | Overlap certificate: add two-beam observable (probe through pump plasma vs delay) | **DONE** | `:861` probe transmission/deflection through pump plasma vs `Δt`; kill now needs BOTH certificates |
 | **R3-D7** | Table I carrier average `⟨cos²⟩=½` → extra ¼ on P → measured expectation ~2–5e-4 | **DONE** | caption `:737` `P_flip^meas ≈ 2.6/2.1/4.5 ×10⁻⁴`; tabulated column = instantaneous peak (item iv); ratio unchanged |
 
@@ -369,6 +369,34 @@ falsifier (Table I pump–probe coefficient, the kill criterion) is untouched.
 - **D7:** peak `5.39/4.28/9.28 ×10⁻³` × envelope `3^(−3/2)=0.1925` × carrier `¼`
   = `2.6e-4 / 2.1e-4 / 4.5e-4` (~2–5e-4); vs floor `2.4e-10` = `1.1e6 / 8.6e5 / 1.9e6` (~6 orders above).
 - **ℓ_node** `= ħ/(m_e c) = 3.8616e-13 m = 386.2 fm` (reduced Compton wavelength).
+
+**Transport comparators — exact NIST XCOM (task #26, review Data-flag closure).**
+The round-3 Data flag marked the Problem-8 attenuation comparators as
+±20%-from-memory, owed exact NIST XCOM before external use. Verified this session
+(NIST XrayMassCoef `ElemTab/z26`, `z82`; total μ/ρ with coherent scattering):
+
+| element | E | μ/ρ NIST (cm²/g) | reviewer (memory) | σ = (μ/ρ)·A/N_A |
+|---|---|---|---|---|
+| Pb (A=207.2) | 100 keV | 5.549 | ~5.46 ✓ | — |
+| Pb | 150 keV | 2.014 | ~2.0 ✓ | **0.69 kb** |
+| Pb | 200 keV | 0.9985 | 0.999 ✓ | — |
+| Pb | 500 keV | 0.1614 | 0.161 ✓ | — |
+| Fe (A=55.85) | 500 keV | 0.08414 | 0.084 ✓ | **7.80 b** |
+
+- **μ/ρ values confirmed** accurate to ~2% (well inside the flagged ±20%). **No
+  Letter-body number changes**: `main.tex` carries no μ/ρ table — its only
+  attenuation datum is the copper decrement, verified next.
+- **Copper decrement** `δ(Cu,8 keV)=2.4e-5` (`main.tex:392`) **confirmed exact**:
+  CXRO `f₁(Cu,8 keV)≈26.4` (below the 8.98 keV K-edge) ⇒
+  `δ=(r_e λ²/2π)·n_a·f₁ = 2.42e-5`. Unchanged.
+- **CORRECTION — reviewer verification-ledger Entry 3 (untracked `~/Downloads`
+  file), to relay to K.M.:** the Fe total cross-section at 500 keV is **σ=7.80 b**,
+  not the Entry-3 "77 b" — a 10× barn-conversion slip (`μ/ρ=0.08414` is itself
+  correct). The Fe **shell-only** kill margin is therefore
+  `σ_shell/σ = 1.7 kb / 7.8 b ≈ 220×`, not `22×`. **Verdict unchanged** (Branch-no
+  static extension excluded; margin ~10× *larger*, consistent with the "up to 200×"
+  quoted elsewhere in Entry 3). Pb margin unchanged: `1.5 kb / 0.69 kb ≈ 2.2×`.
+  The ledger working, as the reviewer invited.
 
 **Build + commits.** Branch `analysis/letter-round3-updates` (worktree `wt-round3`),
 all commits tagged `[REVIEW: pending-orchestrator]`, **DO-NOT-MERGE**. Letter
