@@ -2,6 +2,14 @@
 % Saturable Vacuum Electrodynamics: A Tree-Level Vacuum Birefringence
 % Prediction for BIREF@HIBEF
 %
+% Document version: v5 (adds the heavy-ion light-by-light + frequency-domain paragraph. Basis: EFT validity-domain scoping,
+%   adversarially adjudicated 2026-07-09. An earlier draft argued a coherent-forward vs wide-angle-incoherent decoupling —
+%   REFUTED by cross-check (the same local chi3 feeds both channels; wide-angle sigma enhanced by the square ~5e10, and a
+%   contact-NED reading is excluded by ATLAS/E-M-Y by ~11+ orders). The honest resolution: the kernel is a low-frequency EFT
+%   with response scale w0 = m_e c^2; collider kinematics (~1e4 w0) are outside its domain (as EH is never extrapolated to
+%   GeV); above w0 the four-photon physics is the shared electron-pair box; the constitutive-channel closure above w0 is a
+%   NAMED OPEN ITEM (UV completion), not asserted. In-band the enhancement IS predicted and un-bounded: Bernard 2000 optical
+%   (~7 orders margin), SACLA X-ray Inada/Yamaji (~12 orders margin) — a fourth testable consequence.
 % Document version: v4 (round-3 integration: Branch-no static-sector; P7 Outcome-A confirmations; shown X-ray exclusion; 7 stitches).
 %   v4 rev: closes round-3 sweep item 5 (sidereal) — probe-side O(beta) transforms (probe-freq Doppler, aberration, path length)
 %   named as same-order; 4beta registered as order-of-magnitude scale (leading pump term), not exact coefficient; first-harmonic
@@ -42,7 +50,7 @@ prediction for a pump--probe X-ray polarimeter}
 \affiliation{Independent researcher}
 
 % Pure manuscript version line (document-versioning only).
-\date{\today\textrm{~---~ manuscript version 4}}
+\date{\today\textrm{~---~ manuscript version 5}}
 
 \begin{abstract}
 We register, before any pump-on data exists, a falsifiable prediction for the
@@ -1019,6 +1027,51 @@ experiment~\cite{Robertson2021DeLLight}, projecting sensitivity to the QED-level
 index change --- has not yet reported a pump-on measurement in this regime, so it
 too leaves the model unconstrained at present. The model is thus not already
 excluded by any published precision-optics bound~\cite{Fouche2016,Robertson2021DeLLight}.
+
+\paragraph*{Heavy-ion light-by-light scattering, and the model's frequency domain.}
+One four-photon measurement \emph{has} been completed: the ATLAS and CMS
+observations of elastic $\gamma\gamma\to\gamma\gamma$ scattering in ultraperipheral
+Pb--Pb collisions~\cite{ATLAS2019LbL,CMS2019LbL}, at
+$\sqrt{s}\gtrsim\SI{6}{\giga\electronvolt}$, consistent with the Standard Model.
+Because the QED birefringence and the light-by-light amplitude descend from the
+\emph{same} four-photon sector, a tree-level enhancement of one invites immediate
+scrutiny of the other, and we state the resolution with the same bookkeeping honesty
+as the static sector. The constitutive law of Eq.~\eqref{eq:kernel} is a
+\emph{low-frequency effective description} of the vacuum's dielectric response: its
+response scale is $\omega_0=m_ec^2/\hbar$ (the dispersion budget above), and its
+saturable enhancement is defined only for fields and probes well below that scale
+--- the band containing every registered prediction of this Letter
+($\SI{1.55}{\electronvolt}$ pump, $\SIrange{9}{13}{\kilo\electronvolt}$ probe). It
+is \emph{not} a Lorentz-invariant contact nonlinear electrodynamics defined at
+arbitrary energy, and extrapolating it to collider kinematics
+($\sqrt{s}\simeq10^4\,\hbar\omega_0$) is precisely the extrapolation never licensed
+for Euler--Heisenberg itself: the collider data are compared to the full
+electron-box amplitude, not to the low-frequency contact vertex, because every
+low-frequency four-photon description fails at the electron scale. Collider bounds
+on \emph{contact} nonlinear electrodynamics --- e.g.\ the light-by-light bound on
+the Born--Infeld scale, $\Lambda\gtrsim\SI{100}{\giga\electronvolt}$%
+~\cite{EllisMavromatosYou2017} --- therefore constrain theories \emph{defined} at
+those energies; were the present kernel wrongly promoted to one, it would be
+excluded by many orders of magnitude. The model's collider consistency thus rests
+on its effective-theory domain, and we say so plainly. Above $\omega_0$ the
+four-photon physics is carried by the electron-pair sector --- the same box
+diagrams as QED, which the model shares --- so the SM-consistent collider result is
+that shared physics; what closes the \emph{constitutive} channel above $\omega_0$
+(a hard mode cutoff rather than a power-law tail) is an ultraviolet-completion
+statement this Letter does not supply, and we name it as an open item rather than
+assert it. In-band, by contrast, the enhancement is a genuine prediction: the model
+implies a photon--photon (four-wave-mixing) cross section
+$\sim(3.75\pi/\alpha^2)^2\simeq\num{5e10}$ times QED's wherever $\omega\ll\omega_0$,
+and the two completed in-band searches leave it unconstrained --- the stimulated
+optical-scattering search (upper limit $\sim\!10^{18}\times\sigma_{\mathrm{QED}}$
+at $\SI{0.8}{\electronvolt}$~\cite{Bernard2000}, $\sim\!7$ orders of magnitude above
+the enhanced prediction) and the SACLA X-ray searches (limit
+$\SI{1.7e-24}{\meter\squared}$ at $\omega_{\mathrm{cms}}=\SI{6.5}{\kilo\electronvolt}$
+against $\sigma_{\mathrm{QED}}=\SI{2.5e-47}{\meter\squared}$%
+~\cite{Inada2014,Yamaji2016}, $\sim\!12$ orders above it). An enhanced in-band
+photon--photon cross section is accordingly a fourth testable consequence of the
+kernel, and the registered polarimetric falsifier remains the decisive in-band
+test.
 
 \paragraph*{Pre-registration.}
 The predictions of Table~\ref{tab:scenarios} are fixed before any BIREF@HIBEF
