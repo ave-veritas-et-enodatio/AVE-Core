@@ -8,7 +8,12 @@ its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 > 🛠️ **REVISION-5 (2026-07-08, v3 paper-hardening integration): the hardening epic folded in.** Manuscript
 > stamped **version 3**. Six ledger rows integrated (all pure-physics; no external
 > attribution). Ledger: `research/2026-07-08_paper-hardening-ledger.md`.
-> 1. **P4 (propagation commitment):** the disclaimer-vs-loading contradiction is resolved to one honest
+> 1. **P4 (propagation commitment):** 🔴 **SUPERSEDED by Letter round-3 (Branch-no):** static fields lie
+>    **OUTSIDE the model's scope**; muonic-H = **domain-restriction demonstration**; copper = **MOOT bound**
+>    (`δ≈4.2e-8` at `r_c(Cu)≈861 fm`, **not** `ℓ_node`); the loads-continuously framing below is **retracted**.
+>    The charge-keyed *derivation* survives as substrate physics — Branch-no reverses the Letter's *ownership*
+>    of the static sector, not the local-cell loading derivation. (Original v3 body preserved:)
+>    the disclaimer-vs-loading contradiction is resolved to one honest
 >    statement — a held static field loads continuously from zero but only as a **weak-field effective
 >    response cut off at the lattice pitch `ℓ_node`**, NOT a universal continuum law; strong-field
 >    extrapolation excluded (muonic-H `[C-EXCLUDED]`, unchanged), and in ordinary matter unobservably
@@ -454,7 +459,18 @@ number, no falsifier verdict, no anchored value; it is a physical-picture-accura
 `make paper` clean (8pp, zero undefined refs/citation warnings, 16 refs); `make verify` GREEN.
 
 **SCOPING-SENTENCE REFRESH (2026-07-06, post rounds 2/3 merged — one commit) — "remains under derivation"
-retired; open question re-scoped to the lattice-scale regime boundary.** When the FIX NOTE above was
+retired; open question re-scoped to the lattice-scale regime boundary.**
+
+> 🔴 **SUPERSEDED by Letter round-3 (Branch-no) — the LETTER no longer owns the static sector.** The
+> charge-keyed **DERIVATION** below survives as substrate physics (a held field is a real operating-point
+> bias and loads — unchanged local-cell physics); Branch-no reverses the Letter's **OWNERSHIP** of the
+> static sector, not the derivation. Under round-3: static fields lie **OUTSIDE the model's scope**, and
+> muonic-H is a **domain-restriction demonstration**, not a loading claim. The item-map and the "a held
+> field loads / open question confined to the lattice-scale regime boundary" framing below are superseded
+> by **R3-A/R3-B** (see the Round-3 section of `research/2026-07-08_paper-hardening-ledger.md`). Body
+> preserved beneath.
+
+When the FIX NOTE above was
 written, the honest state of the dynamical scoping was *mechanism-open* ("remains under derivation"). Two
 dynamical scoping routes have since been tested and **excluded by derivation**, and the open question has
 narrowed from "the mechanism" to a sector/scale **class** — so both "remains under derivation" clauses are
