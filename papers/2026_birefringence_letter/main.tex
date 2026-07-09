@@ -842,10 +842,21 @@ overlap witness: interleaved shots on a known target that responds to the pump a
 --- a gas puff or a thin wire at the interaction point --- producing a pump-driven
 signal (plasma emission, ionization yield, or pump-induced scattering) that brackets
 the polarimetric data runs in time and is recorded at the same nominal intensity and
-focal geometry. This witness certifies pump--probe spatiotemporal overlap at the
+focal geometry. This witness certifies that the pump reached the interaction point at the
 stated $\gtrsim\SI{e18}{\watt\per\centi\meter\squared}$ independently of the
-crossed-channel measurement. Absent it, a sub-$\num{e-8}$ crossed-channel result is
-logged as an unwitnessed null and does not close the electric-sector hypothesis.
+crossed-channel measurement --- but, keyed on the pump alone, it does not fix the
+femtosecond \emph{relative} timing between pump and probe that the birefringence
+signal also requires. We therefore add a two-beam timing certificate: the probe's
+own transmission (or small-angle deflection) through the pump-driven plasma,
+recorded against the pump--probe delay $\Delta t$. When the pulses coincide the
+probe traverses the transient free-electron plasma the pump has just created and
+is measurably attenuated and refracted; the effect appears only inside the overlap
+window and vanishes outside it, so its peak position and width certify the
+relative arrival time to the femtosecond scale --- a genuinely two-beam observable,
+unlike the pump-only witness. Only with both certificates present --- pump-at-target
+and pump--probe timing --- does a sub-$\num{e-8}$ crossed-channel result count as a
+kill; absent either, it is logged as an unwitnessed null and does not close the
+electric-sector hypothesis.
 
 \paragraph*{Bright branch: how a positive is confirmed.}
 Registering how a positive is believed is the same discipline as registering how a
@@ -926,12 +937,12 @@ gives a self-focusing critical power $\sim\!\num{6.5e3}\,\mathrm{PW}$, far above
 existing laser, so no vacuum self-focusing is expected (a propagating-field, and
 hence radiative-sector, bound); the circulating fields of
 gravitational-wave interferometers produce a retardance $\sim\!\num{e-11}$ rad, far
-below their sensitivity (again a propagating-field bound); and, as shown in
-Sec.~\ref{sec:model}, \emph{weak} laboratory static fields are unaffected by the
-preferred-frame boost (the motional field they induce is $A^2\sim\num{7e-23}$).
-This last is a bound on weak macroscopic static fields only; it is \emph{not} a
-claim that the constitutive law extends into the strong, near-nucleus atomic
-static sector, which is separately excluded (Sec.~\ref{sec:model}, sector scope).
+below their sensitivity (again a propagating-field bound); and static laboratory
+fields --- weak or strong --- lie outside the model's scope altogether
+(Sec.~\ref{sec:model}, sector scope), so no static-field measurement, and no
+preferred-frame boost acting on one, either constrains the model or is predicted
+by it. Both bounds above are propagating-field (radiative-sector) bounds, the only
+sector the model claims.
 The
 interferometric route that would probe the common-mode index --- the DeLLight
 experiment~\cite{Robertson2021DeLLight}, projecting sensitivity to the QED-level
