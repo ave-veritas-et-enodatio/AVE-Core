@@ -3,6 +3,9 @@
 % Prediction for BIREF@HIBEF
 %
 % Document version: v4 (round-3 integration: Branch-no static-sector; P7 Outcome-A confirmations; shown X-ray exclusion; 7 stitches).
+%   v4 rev: closes round-3 sweep item 5 (sidereal) — probe-side O(beta) transforms (probe-freq Doppler, aberration, path length)
+%   named as same-order; 4beta registered as order-of-magnitude scale (leading pump term), not exact coefficient; first-harmonic
+%   presence-discriminator preserved and shown robust to the coefficient uncertainty.
 % Standalone, self-contained, pre-registered prediction Letter.
 % Every quantitative claim traces to two constitutive statements (Sec. II): the
 % saturation kernel, and the source-keyed sector asymmetry (Maxwell div-B = 0).
@@ -560,19 +563,32 @@ rest frame while the pump amplitude is fixed in the lab, the projection of the
 $\SI{370}{\kilo\meter\per\second}$ boost onto the pump--probe geometry varies as
 the Earth rotates and orbits, modulating the signal at \emph{first} order in
 $\beta=v/c\simeq\num{1.23e-3}$. The pump is a radiation field, so its amplitude Doppler-shifts as
-$D(\theta)=\gamma(1+\beta\cos\theta)$; the flip probability scales as
-$\Pflip\propto D^4$. The signature is a pure \emph{amplitude} modulation of
-$\Pflip$ --- its magnitude, not its polarization character or the analyzer
-geometry, rises and falls over the sidereal day --- and it is amplitude-dominated
-by the \emph{first} harmonic: expanding $D^4$, the linear-in-$\beta$ term sets a
+$D(\theta)=\gamma(1+\beta\cos\theta)$, and to leading order the flip probability
+scales as $\Pflip\propto D^4$; expanding $D^4$, the linear-in-$\beta$ term sets a
 fractional amplitude $4\beta\simeq\num{4.9e-3}$ at the sidereal period (one
 sidereal day, $\SI{86164}{\second}$), phased to the known CMB dipole direction,
-with an $\sim\!8\%$ annual sideband from the Earth's orbital velocity, whereas the
-$O(\beta^2)$ second harmonic ($5\beta^2\simeq\num{7.6e-6}$) is smaller by
-$\sim\!3$ orders. (An earlier registration quoted only that second harmonic, as
-$(v/c)^2\simeq\num{1.5e-6}$, and missed the dominant first harmonic; the
-first-harmonic-dominant structure is itself a discriminator, since a static-field
-response would carry \emph{only} the $O(\beta^2)$ second harmonic.) This is
+with an $\sim\!8\%$ annual sideband from the Earth's orbital velocity. This
+$4\beta$ is the pump-amplitude contribution \emph{alone}: the same boost
+transforms the \emph{probe}-side kinematics at the same first order in $\beta$ ---
+the probe-frequency Doppler shift, which enters the retardance through
+$\Delta\varphi\propto\omega_{\mathrm{probe}}$; the aberration of the collision
+angle $\vartheta_{\mathrm{coll}}$, which enters through the
+$(1-\cos\vartheta_{\mathrm{coll}})^4$ geometry factor; and the $O(\beta)$ change
+in the interaction path length --- each multiplying the coefficient by a
+geometry-dependent $O(1)$ factor. The pump amplitude is the single largest term
+but does not dominate the others by an order, so we register $4\beta$ as the
+\emph{order-of-magnitude} scale of the modulation rather than an exact
+coefficient; computing the full $O(\beta)$ coefficient requires the probe-side
+transforms and is deferred to the second-generation measurement in which this
+signature is accessed. The effect is a pure \emph{amplitude} modulation --- it
+rides the signal magnitude, not the polarization character or the analyzer
+geometry --- and its \emph{first}-harmonic (sidereal-period) character is itself a
+discriminator, robust to that coefficient uncertainty: the $O(\beta^2)$ second
+harmonic ($5\beta^2\simeq\num{7.6e-6}$) is smaller by $\sim\!3$ orders, so a
+static-field response, which would carry \emph{only} the $O(\beta^2)$ second
+harmonic, is separated by the mere \emph{presence} of the first harmonic whatever
+its precise amplitude. (An earlier registration quoted only that second harmonic,
+as $(v/c)^2\simeq\num{1.5e-6}$, and missed the dominant first harmonic.) This is
 a pre-registered \emph{third} falsifiable signature of the model, alongside the
 tree-level coefficient (Sec.~\ref{sec:prediction}) and the static-$\mathbf B$
 transparency (Sec.~\ref{sec:signature}), accessible as a second-generation
