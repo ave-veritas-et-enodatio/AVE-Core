@@ -319,6 +319,47 @@ consistent with Table I; physics self-contained; compiles clean.
 
 ---
 
+## Round-3 review integration (co-author feedback, 2026-07-08) — IN PROGRESS
+
+**Nature.** Round-3 punch list against the Letter (v3). The load-bearing physics
+ruling: **Problem 8 resolves to Branch-no.** The v3 "a held static field *does*
+load the permittivity, continuously from zero (weak-field response cut off at
+`ℓ_node`)" commitment (P4 row above, Branch-YES) is **superseded**: static fields
+sit **outside the model's scope**. The "loads-continuously-from-zero" branch is
+falsified by X-ray transport, and the fenced-scale escape (lowering the response
+scale to 30–80 keV) was killed on physics — a full K4-TLM network derivation of
+the loading response shows it reaches the band edge at ~MeV, gapless, with no
+sub-band fence, so there is no scale at which static loading can be quietly
+parked. Branch-no is a **simplification, not a wound**: the registered radiative
+falsifier (Table I pump–probe coefficient, the kill criterion) is untouched.
+
+**Status board (round-3).**
+
+| ID | Item | Status | Where it stands |
+|----|------|--------|-----------------|
+| **R3-A** | Branch-no surgery (Problem 8): static fields outside model; remove loads-continuously | OPEN | ledger item (v), sector scope, II.D motional, copper |
+| **R3-B** | Copper cutoff prose fix (`r_c(Cu)=√29·160 fm≈861 fm`, not `ℓ_node`) | OPEN | sector scope copper bound |
+| **R3-C1** | Print `I_max = ε₀c·E_c·ℓ_node = E_c·ℓ_node/Z₀ ≈ 116 A` (2π loop ≈ 730 A) | OPEN | magnetic sector `I_max` def |
+| **R3-C2** | State which side of the `μ_eff` root the model uses (denominator branch) | OPEN | magnetic sector, Eq (5) |
+| **R3-C3** | Pump magnetic self-consistency: `A_I=A(kℓ_node)`, `A_I²/A²≈1e-11` (Outcome A) | OPEN | magnetic sector propagating-field assertion |
+| **R3-P9** | Anomalous high-Z X-ray refractive decrements — DIES UNBORN under Branch-no; considered-and-dropped, NOT registered | DROPPED | (this row only; nothing added to paper) |
+| **R3-D3** | One-line `ℓ_node`/"node" definition at first use (load-bearing in Eq) | OPEN | first `ℓ_node` use |
+| **R3-D4** | Soften intro "neutral to any wider interpretation" to match II.D declared medium | OPEN | intro |
+| **R3-D5** | Sidereal `4β` amplitude-dominance explicit + grow astro dismissal to 2 sentences | OPEN | II.D sidereal |
+| **R3-D6** | Overlap certificate: add two-beam observable (probe through pump plasma vs delay) | OPEN | `sec:falsify` overlap certificate |
+| **R3-D7** | Table I carrier average `⟨cos²⟩=½` → extra ¼ on P → measured expectation ~2–5e-4 | OPEN | Table I caption |
+
+**Recomputed numbers (this session, verified `python3`):**
+- **C1:** `I_max = E_c·ℓ_node/Z₀ = 1.13e17 · 3.8616e-13 / 376.73 = 115.8 A ≈ 116 A`;
+  `= ε₀c·E_c·ℓ_node` (identical, since `ε₀c = 1/Z₀`); 2π-loop convention `= 727.8 A ≈ 730 A`. O(1) loop ambiguity immaterial.
+- **C3:** pump 1.55 eV → `λ=800 nm`, `k=7.854e6 m⁻¹`; `k·ℓ_node = 3.03e-6`;
+  `A_I²/A² = (k·ℓ_node)² = 9.2e-12 ≈ 1e-11` → magnetic contribution ~11 orders below the electric birefringence ⇒ Table I (electric-route) stands, **Outcome A confirmed**.
+- **B:** `r_c(Cu) = √29·160 fm = 861.6 fm` (was mis-named `ℓ_node = 386.2 fm`);
+  integrating from `r_c(Cu)` gives `δ_AVE ≈ 4.2e-8`, matching the stated `~4e-8` to 5%.
+- **D7:** peak `5.39/4.28/9.28 ×10⁻³` × envelope `3^(−3/2)=0.1925` × carrier `¼`
+  = `2.6e-4 / 2.1e-4 / 4.5e-4` (~2–5e-4); vs floor `2.4e-10` = `1.1e6 / 8.6e5 / 1.9e6` (~6 orders above).
+- **ℓ_node** `= ħ/(m_e c) = 3.8616e-13 m = 386.2 fm` (reduced Compton wavelength).
+
 ## Phase plan
 
 1. **Ledger** (this doc) — committed.
