@@ -81,6 +81,14 @@ RT-miscount fix 1f7f7480; DEFECT A/B/C round = #555, provenance §12 `:572–596
 
 ## P4 — Propagation commitment: static-field disclaimer vs charge-keyed loading — DONE (integrated, Letter v3)
 
+> 🔴 **SUPERSEDED by Letter round-3 (Branch-no) — this detailed entry is stale; the summary ROW above
+> already reads `SUPERSEDED by R3-A`, but this narrative was not brought into line until now.** The
+> round-3 ruling resolves the fork to **Branch-no**: static fields lie **OUTSIDE the model's scope**;
+> the "loads-continuously" / **Branch YES** framing throughout this entry is **retracted**. The
+> charge-keyed *derivation* survives as substrate physics, but the Letter no longer **owns** the static
+> sector (muonic-H = **domain-restriction demonstration**; copper = **MOOT bound**). See the Round-3
+> section of this ledger + provenance R3-A/R3-B. Body preserved beneath (v3 record).
+
 **RESOLVED (v3).** The two contradictory sentences are rewritten to one honest
 statement: a held static field *does* load (continuously from zero, same mean-square
 dependence), but only as a **weak-field effective response cut off at the lattice
@@ -99,11 +107,11 @@ scoping (appears twice, §II.B) — a held field is a real operating-point bias,
 loads. These read as two different theories.
 **Our current answer (round-3 `[DERIVED: CHARGE-KEYED]`, merged #547).** YES — a probe
 crossing a strong *non-uniform* static field experiences the loaded permittivity
-(ε keys on mean-square, DC included). We are on Branch YES.
+(ε keys on mean-square, DC included). ~~We are on Branch YES.~~ 🔴 **STRUCK — round-3 resolved Branch-no** (static outside model scope; charge-keyed derivation survives, Letter ownership of the static sector reversed).
 **The fork.** Confirm YES/NO explicitly and pre-register it. If YES, we owe an
 X-ray-through-ordinary-matter constraint (see owed). If NO, the charge-keyed sentence
 comes out and muonic-H restates as a domain-restriction demonstration (prose surgery).
-**Owed (Branch YES).** (1) Compute the AVE refractive-decrement contribution for an
+**MOOT, fork resolved NO** (was "Owed (Branch YES)"). 🔴 Under Branch-no these deliverables are moot as *owed* items — static is outside scope; the copper decrement was nonetheless computed (`δ_AVE≈4.2e-8`, R3-B) and retained only as a MOOT ordinary-matter bound. Original owed-list preserved: (1) Compute the AVE refractive-decrement contribution for an
 ~8 keV photon in copper: volume-average ½A²(r) over the lattice with a reduced-Compton
 cutoff, vs the measured Cu decrement (δ ~ 2.4e-5, known ~1%). (2) State whether
 dispersion fences Delbrück / γ-attenuation above the 511 keV response scale.
