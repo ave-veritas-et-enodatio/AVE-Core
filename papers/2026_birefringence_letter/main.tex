@@ -417,8 +417,22 @@ the same elliptic kernel applied to a circulation amplitude $A_I$:
 \end{equation}
 %
 with $I_{\max}$ the single magnetic-sector current scale (the dual of the electric
-scale $\Ec$, fixed by the same calibration and carrying no new parameter). This
-functional has two limits that fix the magnetic phenomenology outright.
+scale $\Ec$, fixed by the same calibration and carrying no new parameter): the
+circulation one node can carry, $I_{\max}=\varepsilon_0 c\,\Ec\,\ell_{\mathrm{node}}
+=\Ec\,\ell_{\mathrm{node}}/Z_0\simeq\SI{116}{\ampere}$ (with
+$Z_0=\SI{376.73}{\ohm}$ the vacuum wave impedance and $\varepsilon_0 c=1/Z_0$; a
+$2\pi$ closed-loop convention gives $\simeq\SI{730}{\ampere}$ instead --- an
+$O(1)$ loop-geometry ambiguity immaterial to everything below). The model takes
+the magnetic response on the branch with the root in the \emph{denominator},
+$\mu_{\mathrm{eff}}=\mu_0/S_B\ge\mu_0$ [Eq.~\eqref{eq:SB}] --- the permeability
+\emph{stiffens} with circulation, the electromagnetic dual of the \emph{softening}
+electric permittivity $\varepsilon_{\mathrm{eff}}=\varepsilon_0\sqrt{1-A^2}$ ---
+and not the opposite-sign $\mu_{\mathrm{eff}}=\mu_0 S_B$. At the static endpoint
+($A_I=0$) the two branches coincide at $\mu_0$, so the static-$\mathbf B$
+transparency of Eq.~\eqref{eq:staticB} is branch-independent; only the near-zone
+loading distinguishes them, and there the dual denominator branch is the one that
+pairs with the softening electric kernel. This functional has two limits that fix
+the magnetic phenomenology outright.
 \emph{(a) Static field --- the exact endpoint.} A purely static magnetic field
 ($\partial\mathbf B/\partial t=0$) carries no circulation, so
 $\oint\mathbf H\cdot d\boldsymbol\ell=0\Rightarrow A_I=0\Rightarrow S_B=1\Rightarrow
@@ -455,8 +469,17 @@ from \emph{exact} B-I --- the electric-route
 coefficient (Sec.~\ref{sec:prediction}) does. A propagating field --- such as the
 ReLaX optical pump, for which
 $\mathbf E$ and $\mathbf B$ co-move with $B=E/c$ and $\partial\mathbf
-B/\partial t\ne0$ --- \emph{does} load the response; the electric-route result
-of Eq.~\eqref{eq:dnbir} already captures the full birefringence of such a wave.
+B/\partial t\ne0$ --- \emph{does} load the response. Its magnetic contribution is
+nonetheless a negligible correction: the circulation the wave threads through one
+node is set by its own $\partial_t\mathbf E$, giving a circulation amplitude
+$A_I=A\,(k\ell_{\mathrm{node}})$ with $k$ the pump wavenumber, so at the
+$\SI{1.55}{\electronvolt}$ ($\lambda\simeq\SI{800}{\nano\meter}$) carrier
+$k\ell_{\mathrm{node}}\simeq\num{3.0e-6}$ and the magnetic loading is suppressed
+relative to the electric by $A_I^2/A^2=(k\ell_{\mathrm{node}})^2\simeq\num{9e-12}$
+--- about eleven orders of magnitude below the electric birefringence. The
+electric-route result of Eq.~\eqref{eq:dnbir} therefore already captures the full
+birefringence of such a wave to $\sim\!1$ part in $10^{11}$, and the registered
+prediction of Table~\ref{tab:scenarios} stands on the electric sector alone.
 The consequences of Eq.~\eqref{eq:staticB} for existing null experiments are
 taken up in Sec.~\ref{sec:signature}. Physically, the electric/magnetic asymmetry
 traces to the \emph{Maxwell source asymmetry}: $\nabla\cdot\mathbf E=\rho/
