@@ -378,7 +378,12 @@ N_ALPHA: float = ALPHA  # ≈ 1/137.036 (soliton-lattice coupling)
 # crystal is materially anisotropic (Zener 1.23). So 2/7 is NOT lattice-forced/geometry-
 # derived — it is the GR-imported K=2G value. (Stage-2 chiral-coupling question OPEN,
 # analysis/srs-chiral-micropolar.) See research/2026-07-04_srs-elastic-tensor_result.md.
-N_NU: float = 2.0 / 7.0  # Poisson ratio (Axiom 2; value = GR-imported K=2G, see note above)
+# ANISOTROPY LABEL (PR#506): this 2/7 is ν_Hill — the ISOTROPIC Voigt-Reuss-Hill AVERAGE
+# scalar at K=2G. The real srs-z3 carrier is materially ANISOTROPIC (Zener A≈1.23 at
+# ρ*≈9.7734), so 2/7 is an AVERAGING CHOICE over an anisotropic tensor, NOT a per-direction
+# lattice output. (KEEP-BOTH: the diamond-z4-instrument/direct-reading A≈1.755, #586, is a
+# different lattice+convention and does NOT supersede this canonical srs-Hill value.)
+N_NU: float = 2.0 / 7.0  # ν_Hill (Poisson ratio, Axiom 2; isotropic V-R-H avg at GR-imported K=2G; see note above)
 N_P_C: float = 8.0 * pi * ALPHA  # Critical packing fraction (Axiom 3)
 
 # --- Derived atomic constants in native units ---
@@ -597,14 +602,17 @@ P_RIGIDITY: float = 6.0 / Z_COORDINATION  # ≈ 0.117
 # tensor is a one-param family; see N_NU note above and NU_VAC below).
 ISOTROPIC_PROJECTION: float = 1.0 / 7.0
 
-# Poisson ratio of the vacuum  ν_vac = 2/7
+# Poisson ratio of the vacuum  ν_vac = 2/7  (= ν_Hill)
 # PROVENANCE (2026-07-04, srs elastic-tensor fallout PR#506; value UNCHANGED): ν=2/7 ⟺
 # K=2G is an algebraic identity that HOLDS; but K=2G is GR-IMPORTED (PR#261, re-confirmed
 # at z=3 by PR#506 — srs Cauchy tensor is a one-parameter family, ν=2/7 only at externally-
 # supplied ρ*≈9.77, Zener 1.23 anisotropic). So this value is the GR-imported K=2G value,
 # NOT an independent crystalline/amorphous-network determination. Stage-2 chiral-coupling
 # question OPEN (analysis/srs-chiral-micropolar). research/2026-07-04_srs-elastic-tensor_result.md.
-NU_VAC: float = 2.0 / 7.0
+# ANISOTROPY LABEL (PR#506): 2/7 is ν_Hill — the ISOTROPIC Voigt-Reuss-Hill AVERAGE scalar
+# at K=2G; the srs-z3 lattice is materially anisotropic (Zener A≈1.23 at ρ*≈9.7734), so it is
+# an AVERAGING CHOICE over an anisotropic tensor, NOT a per-direction lattice output.
+NU_VAC: float = 2.0 / 7.0  # ν_Hill (isotropic Voigt-Reuss-Hill average at K=2G)
 
 # Strong coupling constant  α_s = α^(3/7)
 # EM coupling α operates on the full 7-mode compliance manifold.
@@ -752,6 +760,13 @@ G_VAC: float = RHO_BULK * C_0**2
 # (not EMT-forced; PR#261), and the crystalline srs Cauchy tensor is a one-parameter family
 # (PR#506), so neither the amorphous EMT nor the z=3 crystal forces K=2G. Re-attribute to
 # GR-imported K=2G. research/2026-07-04_srs-elastic-tensor_result.md.
+#
+# MODE DISTINCTION (KEEP-BOTH; no value change). V_LONG below is the BULK-SOUND speed
+#   v_bulk = √(K/ρ) = √(2G/ρ) = √2·c  — the A1-scalar/dilatational port-mode (clm-uu1qbo,
+#   cosserat-mass-gap.md); it DROPS the 4G/3 shear term. It is NOT the solid P-wave:
+#   the full compressional (P) wave is  c_L = √((K + 4G/3)/ρ) = √(10/3)·c ≈ 1.83c
+#   (canonical Vol 2 Ch 7 / app-f derived-numerology.md). The two are distinct physical
+#   longitudinal modes, both retained; V_LONG stays the √2·c A1-scalar bulk value.
 V_LONG: float = np.sqrt(2.0 * G_VAC / RHO_BULK)
 
 # Kinematic mutual inductance  ν_vac_kin = α · c · ℓ_node
@@ -1112,7 +1127,8 @@ D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)  # ≈ 2.379 fm
 # The DEUTERON BINDING ENERGY is the eigenvalue energy scaled by α:
 #   B_deuteron = ℏω₁ × α  (electromagnetic coupling of the cavity mode)
 
-# NU_VAC already defined at line 514 — use that single definition
+# NU_VAC already defined above (the `NU_VAC: float = 2.0 / 7.0` assignment, ~line 615) —
+# use that single definition
 
 # Inter-nucleon eigenvalue distance [fm]
 D_NN_EIGENVALUE: float = pi * D_PROTON * 7.0 / 9.0  # ≈ 2.056 fm
