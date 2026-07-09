@@ -19,7 +19,7 @@ A-024 operationalization: the canonical AVE electron seeder injects a **Cosserat
 | Topology | $0_1$ unknot (real-space) carrying Beltrami standing wave |
 | Three-layer structure | Layer 1 real-space curve + Layer 2 SU(2) bundle + Layer 3 phase-space $(2, 3)$ winding |
 | Validation | **9 unit tests PASS**: topology preserves, three-layer canonical, Bounding Limit 1 |
-| Sub-cell geometry | Entire electron fits inside ONE K4 cell at canonical scale (per substrate-observability rule) |
+| Sub-cell geometry | Entire electron **envelope** fits inside ONE K4 cell at canonical scale — the medium's near-field yield-envelope (D3), NOT an interior that stores identity (identity = topological boundary data); per substrate-observability rule |
 | Canonical engine | Cosserat seeder works on both K4-TLM and Master Equation FDTD; v14 PASS with breathing-soliton interpretation |
 
 ## §1 — The seeder protocol
@@ -39,7 +39,7 @@ def initialize_electron_unknot_sector(
     The electron's entire geometry fits inside ONE K4 cell at canonical scale.
     """
     # Layer 1: Beltrami hedgehog real-space curve (0_1 unknot)
-    # Layer 2: SU(2) bundle structure (spin-1/2 double cover)
+    # Layer 2: SU(2) bundle structure (spin-1/2 double-cover STRUCTURE; fermion SELECTION imported, PEER-WITH-SM)
     # Layer 3: (2,3) phase-space winding on Clifford torus (V_inc, V_ref)
     ...
 ```
@@ -53,18 +53,20 @@ Per L3 doc 101 §9, the canonical electron has THREE distinct topological layers
 | Layer | Geometric object | Physical content |
 |---|---|---|
 | **Layer 1** | $0_1$ unknot in real space | Real-space closed flux-tube curve at horn-torus radius $R = r = \ell_{\text{node}}/(2\pi)$; carries Beltrami standing wave per [Electron Unknot](electron-unknot.md) |
-| **Layer 2** | SU(2) bundle | Spin-½ via SU(2) → SO(3) double cover; substrate-native via $K_4 \to A_4 \to 2T \subset SU(2)$ + Finkelstein–Misner mechanism per [Spin-Half Paradox](../../appendices/app-b-paradoxes/spin-half-paradox.md) |
+| **Layer 2** | SU(2) bundle | Spin-½ **double-cover STRUCTURE** via SU(2) → SO(3), substrate-native through $K_4 \to A_4 \to 2T \subset SU(2)$ + Finkelstein–Misner; the fermionic **SELECTION** (½ over integer) is imported ($\pi_1=\mathbb{Z}_2$ admits both, PEER-WITH-SM, [SPIN-HALF-POSITED]) per [Spin-Half Paradox](../../appendices/app-b-paradoxes/spin-half-paradox.md) |
 | **Layer 3** | $(2, 3)$ phase-space winding | Clifford-torus winding in $(V_{\text{inc}}, V_{\text{ref}})$ phasor space at the bond-pair LC tank; 2 windings d-axis, 3 windings q-axis per [Torus Knot Uniqueness](torus-knot-uniqueness.md) |
 
-The seeder injects ALL THREE simultaneously. Each layer is non-redundant: Layer 1 supplies the real-space carrier; Layer 2 supplies spin-½; Layer 3 supplies $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor.
+The seeder injects ALL THREE simultaneously. Each layer is non-redundant: Layer 1 supplies the real-space carrier; Layer 2 supplies the spin-½ double-cover structure (fermionic selection imported); Layer 3 supplies the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor — **cited as an identity/ECHO (Class-B), not an autonomous derivation**: the value is a calibration match ($Q_{\text{TANK}} = 1/\alpha$ is an identity, not a forward value-derivation), consistent with Test 8 below ("PASS (after fitting; not autonomous)") and clm-8c3yhs's echo status.
 
 ## §3 — Bounding Limit 1 (sub-cell geometry)
 
-Per doc 101 §10 + Bounding Limit 1: **the entire electron geometry fits inside ONE K4 cell** at canonical scale.
+Per doc 101 §10 + Bounding Limit 1: **the entire electron envelope fits inside ONE K4 cell** at canonical scale.
 
 $$R_{\text{loop}} = r_{\text{tube}} = \frac{\ell_{\text{node}}}{2\pi} \approx 0.159 \cdot \ell_{\text{node}}$$
 
-The electron is a **sub-cell phase-space soliton**: not a multi-cell extended structure. This is the key insight that resolves doc 92's Nyquist-wall paradox: the corpus electron doesn't need lattice resolution at $k = 6.36 / \ell_{\text{node}}$ (which is sub-Nyquist) because that wavelength lives INSIDE the bounded interior, not propagating through the lattice. The substrate-observability rule says only boundary-integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are externally measurable.
+The electron is a **sub-cell phase-space soliton**: not a multi-cell extended structure. This is the key insight that resolves doc 92's Nyquist-wall paradox: the corpus electron doesn't need lattice resolution at $k = 6.36 / \ell_{\text{node}}$ (which is sub-Nyquist) because that wavelength lives within the near-field **envelope** region, not propagating through the lattice. The substrate-observability rule says only boundary-integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are externally measurable.
+
+> **Two questions, two radii — envelope vs identity (D3 coexist, not identity-storage).** "Fits inside one cell" describes the **envelope**: the ~$\ell_{\text{node}}$ near-field region is the medium's real **yield-envelope** — the response region where the saturated/slowed tube-core values and the $\Gamma\to-1$ mismatch wall live (cavitation-bubble sense: where the medium gave up, not the inside of a propeller). It is a statement about *the medium's response radius*, NOT that spatial structure is mapped INTO the core to store the particle's identity. **Identity** is a different question at a different radius: the core is a topological singularity whose charge sign / windings are **boundary data** (Burgers/Frank-analog INPUTS to the surrounding elasticity); reading the sub-cell containment as an interior that *stores* the identity is a category error. Two questions, two radii, no contradiction.
 
 See [Boundary Observables](../../../common/boundary-observables-m-q-j.md) for the substrate-observability rule canonical statement.
 
