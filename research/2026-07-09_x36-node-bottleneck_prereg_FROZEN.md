@@ -14,6 +14,19 @@ own node architecture. ω_C = c₀/ℓ_node is an **IDENTITY** (`OMEGA_C`; ℏω
 calibration R = √2 is a Class-B manifestation of the two velocity conventions (√eig vs arccos); ρ* is GR-imported
 (ν=2/7). **No CODATA on any verdict path; this is an exact-spectrum computation, not an empirical vote.**
 
+> **⚠ PROCESS CAVEAT (2026-07-09, post PR #613 adversarial review — annotation only, content below UNCHANGED,
+> KEEP-BOTH).** This prereg, the driver, the result doc + JSON, and the verdict all landed in a **single commit**
+> (`c2136718`); the "frozen expectations" in §4 and §5 match the run's results to 5 digits. There is no pre-run
+> commit of this prereg preceding the driver output, so **the freeze cannot be claimed as pre-registered** (MINOR-12).
+> The §4/§5 "frozen expectations" are therefore demoted to **post-hoc analytic cross-checks**: they are correct
+> closed-form values, but they did not function as a pre-commitment that constrained the run. Two further items the
+> review confirmed, which the reader should carry while reading below: (i) §2a's claim that the mass-in-mass topology
+> is **forced** is FALSE — §2a itself and §3 list an equally passive/lossless/KCL-consistent **parallel-LC band-pass**
+> shunt (line 85) that does NOT pin (→ Branch L); the topology is the P-vs-L *selector*, a choice (CRITICAL-1). (ii)
+> The §4 "predicts … pinned at the node rate ~1 ω_C = m_e c²" is **calibration-in, calibration-out** (ω_C is the
+> definitional `OMEGA_C` anchor), NOT an emergence-class prediction (CRITICAL-2). See the result doc's correction
+> banner for the full restated verdict. **The prereg text is preserved verbatim below; nothing is rewritten.**
+
 ---
 
 ## 0. substrate-native-check (walked BEFORE any numerical code, per Operating Principle 1)

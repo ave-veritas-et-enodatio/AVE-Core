@@ -1,12 +1,24 @@
-# DERIVATION — X36: why the shared node LC tank PINS every channel at the node rate (and why it is TIGHTER than the walk)
+# DERIVATION — X36: the series-anti-resonant node-shunt FORM, and why the ceiling = the installed anchor (a characterization, not a first-principles pin)
 
 **Date:** 2026-07-09 · **Branch:** `analysis/x36-node-bottleneck` · Companion to the
 [prereg](2026-07-09_x36-node-bottleneck_prereg_FROZEN.md) and [result](2026-07-09_x36-node-bottleneck_result.md).
 
-This note derives the node-tank dispersion law from the junction physics (NOT tuned) and shows algebraically WHY the
-channel-shared shunt tank pins the ceiling at the node resonance ω_C for every channel — the D-I discriminator's
-Branch P. Every step is verified numerically by the driver
-([`x36_node_bottleneck.py`](../src/scripts/vol_1_foundations/x36_node_bottleneck.py), gates G1–G6).
+> **⚠ DEMOTION (2026-07-09, post PR #613 adversarial review, 17/17 CONFIRMED).** This note was written to derive
+> "WHY the node tank PINS at ω_C from first principles". That framing is **withdrawn**. What is actually derived is
+> the reciprocal **FORM** `1/ω² = 1/Λ + 1/ω_C²` **conditional on a series anti-resonant (mass-in-mass) topology**
+> — the standard locally-resonant-metamaterial anti-resonance law. It is **NOT forced** by shunt KCL + losslessness:
+> the prereg itself (`prereg_FROZEN.md:85`) lists an equally passive/lossless/KCL-consistent **parallel-LC
+> band-pass** shunt that does the opposite (transparent at ω_C → Branch L). The topology choice, the η=1 partition,
+> and the anchor frequency are **un-derived modelling inputs**, and the ceiling equals **whatever anchor is
+> installed** (result §2 placement probe). Read this note as a characterization of the chosen model; the demoted
+> sentences are marked inline. Superseded verdict sentences are preserved in the result doc's correction banner
+> (KEEP-BOTH).
+
+This note gives the node-tank dispersion law **for the series-anti-resonant topology** and shows algebraically that,
+**given that topology, η=1, and an anchor at ω_C**, the ceiling sits at ω_C for every channel. Every step is verified
+numerically by the driver
+([`x36_node_bottleneck.py`](../src/scripts/vol_1_foundations/x36_node_bottleneck.py), gates G1–G6; note G2/G6 are
+self-comparisons repaired in COMMIT 2).
 
 ---
 
@@ -27,9 +39,12 @@ the **frequency-dependent effective dynamical mass** the bonds see:
 
     m_eff(ω) = (1−η)·m  +  η·m·ω_C² / (ω_C² − ω²).                                              (1)
 
-The √(shunt) normalization and the mass-in-mass topology are **forced** by shunt KCL + losslessness — they are not a
-convenient choice (same logic as the X33 coin's forced √Y symmetrization, applied now to the node reactance instead
-of the bond scatter). The coupled dispersion is, per D-eigenvalue λ_b(k) (the isotropic tank commutes with D, so
+~~The √(shunt) normalization and the mass-in-mass topology are **forced** by shunt KCL + losslessness~~ **[DEMOTED,
+CRITICAL-1] — the mass-in-mass (series anti-resonant) topology is a modelling CHOICE, not forced.** Shunt KCL +
+losslessness are satisfied *equally* by a **parallel-LC band-pass** shunt (`prereg_FROZEN.md:85`), which is
+transparent at ω_C and does NOT pin (→ Branch L). The series-notch form below is therefore local to that choice; it
+is the P-vs-L selector, not a consequence. Given the series-notch topology, the coupled dispersion is, per
+D-eigenvalue λ_b(k) (the isotropic tank commutes with D, so
 D's eigenvectors are unchanged — verified by the G4 band count and the literal augmented (u,q) eigensolve):
 
     eig(D(k)) = ω² · m_eff(ω).                                                                  (2)
@@ -83,30 +98,34 @@ For 0 < η < 1, (1)+(2) give a quadratic per λ_b: `(1−η) x² − (ω_C² + �
 At η → 1 the gap top → ∞ (no upper branch, single pinned manifold — Branch P); at η → 0 the gap closes and the
 single band lifts (Branch L / bare continuum). **η is the physical fork parameter** (M-family interpolating P↔L).
 
-## 6. Why the node tank does NOT reproduce the walk — and the #604 tension (prereg §6, surface to Grant)
+## 6. The node-tank ceiling vs the walk — the tension REDUCES to the un-derived anchor (prereg §6, surface to Grant)
 
-Both the node tank and the X33 bond-tick walk **PIN**, but by DIFFERENT mechanisms and at DIFFERENT ceilings:
+At anchor ω_C the node-tank ceiling and the bond-tick walk ceiling differ by π√3:
 
 | clock | mechanism | ceiling | in MeV |
 |---|---|---|---|
-| **node tank** (X36) | node LC resonance ω_C = c₀/ℓ_node | **~1 ω_C** (= m_e c²) | **0.511** |
-| **bond tick** (X33 walk) | one bond per tick, Nyquist π·ω_link | **π√3 ω_C** | **2.781** |
+| **node tank** (X36, anchored at ω_C) | series notch at the INSTALLED anchor | ~1 ω_C | 0.511 (= the anchor identity, calib-in/calib-out) |
+| **bond tick** (X33 walk) | one bond per tick, Nyquist π·ω_link | π√3 ω_C | 2.781 |
 
-The laws differ (rational (3) vs ω_link·arccos), so even the band **shape** differs — the node tank is **NOT** the
-walk. And the node tank is **TIGHTER by π√3** (the node resonance sits a factor π√3 below the per-bond Nyquist,
-because ω_C = c₀/ℓ_node while ω_link = √3 ω_C and the tick adds another π). **Flag (Grant adjudication, do not
-silently reconcile):** IF the node tank is a series bottleneck at ω_C, the vector band tops at the **node rate m_e
-c²**, BELOW and in **TENSION** with #604's time-stepped bond-tick top π√3 ω_C = 2.78 MeV — because the #604
-scatter+connect engine uses a **memoryless node** (a frequency-independent Householder coin, no LC tank) and thus
-OMITS the tank, over-reading the ceiling by π√3. Which clock binds — node-tank (tighter, ~1 ω_C) or bond-tick (#604,
-π√3 ω_C) — is the plumber question of prereg §1, surfaced to Grant.
+The laws differ (rational (3) vs ω_link·arccos), so the band **shape** differs. But ~~the node tank is TIGHTER by
+π√3 … the vector band tops at the node rate m_e c², in TENSION with #604~~ **[DEMOTED, CRITICAL-2]** — the ceiling is
+NOT a derived rate: the placement probe (result §2) shows a tank anchored at **π√3·ω_C reproduces the walk's ceiling
+(5.428 ≈ 5.441)**. So the "which clock binds" question is the **un-derived choice of anchor/topology**, not a physical
+contradiction between the #604 memoryless-node engine and X36. The two engines install **different node models**;
+their ceilings are not directly comparable. Surfaced to Grant as the 3-axis question (result §6), **not** a
+cross-engine conflict. ℏω_C ≡ m_e c² is a calibration identity (`OMEGA_C`), so a ceiling landing at ω_C is
+calibration-in, calibration-out — not an emergence-class prediction.
 
-## 7. Consequence: the D-I discriminator resolves to Branch P
+## 7. Consequence: the D-I discriminator is NOT resolved — the fork is SHARPENED (demoted from "Branch P")
 
-The channel-shared node tank **derives effective synchrony** from Axiom-1's node resonance with **NO tick
-postulate**: the continuous (Hamiltonian, tickless) network WITH explicit node tanks pins the coupled ceiling at the
-node rate for every channel (Λ_b → ∞ ⇒ ω → ω_C ∀ b). Axiom-1's continuous LC language and the walk map's operational
-success are reconciled — **the bond-tick walk is the discrete-tick shadow of the continuous node-tank bottleneck**;
-both pin, and the node tank is the binding (tighter) clock. The X33 in-engine-undecidable fork **collapses under the
-Axiom-1 η=1 node**, replaced by a sharper, corpus-anchorable question: does the node tank resonate at the base node
-rate ω_C (Branch P at m_e c², §6 tension with #604) or the bond-tick rate π√3 ω_C (reproduces the walk)?
+~~The channel-shared node tank derives effective synchrony … the bond-tick walk is the discrete-tick shadow of the
+continuous node-tank bottleneck … the X33 in-engine-undecidable fork collapses under the Axiom-1 η=1 node.~~
+**[DEMOTED, MAJOR-4 / MAJOR-14/15].** The "discrete-tick shadow" narrative is **contradicted by the branch's own**
+`reproduces_walk = False` (ratio 0.182 at anchor ω_C) — the node tank does not reproduce the walk unless it is
+*installed* at π√3·ω_C. And the fork does **not collapse**: X36 shows the continuous engine returns whatever node
+model is installed (topology × η × anchor), so — **contra MAJOR-14/15** — it does **not** decide the fork and Axiom 1
+does **not** fix the three load-bearing choices (channel-shared single scalar shunt, tank-freq = ω_C, η = 1). X33's
+in-engine-undecidable ruling **STANDS and is REINFORCED**. The genuine output is the **3-axis question** (result §6):
+node-shunt topology (series-notch vs parallel-band-pass) × η partition × anchor frequency — **PENDING-GRANT-WALK.**
+What survives as derived content is the anti-resonance **FORM** `1/ω² = 1/Λ + 1/ω_C²` conditional on the series
+topology (a standard locally-resonant-metamaterial law), the placement probe, and the η-singularity map.
