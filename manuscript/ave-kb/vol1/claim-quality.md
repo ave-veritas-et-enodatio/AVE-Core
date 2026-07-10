@@ -1824,3 +1824,63 @@ The chiral srs vacuum net ($I4_132$, $z=3$, 4-site BCC primitive cell) has a **f
   - Grant's single-scale-vs-stiffness-lifted ruling would collapse the vector band-top BRACKET to a single value (5.441 or ~17 $\omega_C$) and fix the fork-A tone floor + pair-channel coexistence window
   - A substrate-native arccos generalization for the 3-DOF Op5 node (a per-branch $\omega_{\text{link}}$ that handles $c_P\neq c_S$ + the anisotropic self-block) would replace the vector bracket with a derived top
   - Surveying the T2 Cosserat-microrotation (rotational) sector would replace the shear-branch light-like PROXY with the true photon branch
+
+---
+
+## The Vertex Reflection Floor — the srs $z=3$ vertex is a lossless reciprocal 3-port $\Rightarrow |S_{11}|\ge 1/3$
+<!-- id: clm-v3port -->
+
+The chiral srs vacuum-net vertex (coordination $z=3$) is a **symmetric lossless reciprocal 3-port**. A wave down one bond sees the other two in parallel ($Z_0/2$), so the bare junction reflects $\Gamma = S_{11} = (2-z)/z = -1/3$ ($|\Gamma|^2 = 1/9$) — a **pure counting fact** (one bond feeding two), **immune to any symmetric transformation**. The reflection floor $|S_{11}|\ge 1/3$ is the classic **matched-lossless-reciprocal-3-port theorem** (Pozar §7.1 class — *a lossless, reciprocal, matched 3-port is impossible; for the symmetric $C_3$ case $|\Gamma|\ge 1/3$*), **ATTRIBUTED as known microwave-network theory, CONFIRMED (provably) at the srs vertex** — a strengthening of a known bound, not a new derivation. **CONSISTENCY / characterization class.** All reflection is **reactive back-scatter / redistribution** (Axiom 3 — lossless; never a "loss").
+
+- _Specific Claims_
+  - **Bare-junction counting reflection:** $\Gamma = (2-z)/z$; $\Gamma|_{z=3} = -1/3$, $|\Gamma|^2 = 1/9$. Recovered analytically (`bare_junction_s11(3) = -0.3333…`) AND through the loaded S₁₁ path as $f\to0$ to `0.0e+00` rel error (X38 gate G-B).
+  - **The floor is a perfect square:** $|S_{11}(\theta;f)|^2 - \tfrac19 = 8t^2(s_C s_L^2 t^2 + s_C - 3s_L)^2/[\cdots]$, $t=f\theta$ (sympy) $\Rightarrow |S_{11}|\ge 1/3$ for **all** $\theta,f$ and all $s_L,s_C>0$, equality at $\theta\to0$ and on the half-wave-invisible locus. The Op6 reflectionless target ($\lambda_{\min}\to0$) is **UNREACHABLE by any bore of the lossless reciprocal class**.
+  - **L-match: network fact, refuted at the vertex.** The ideal 2-element L-match ($Q=\sqrt{Z_{hi}/Z_{lo}-1}=\sqrt{2-1}=1$) nulls $|S_{11}|\to0$ for the correct step-orientation (confirmed as a network fact); the substrate's step-DOWN parasitic orientation + $C_{3v}$ (no privileged one-arm shunt) **refute** the dip below $1/3$ at the physical vertex.
+- _Specific Non-Claims and Caveats_
+  - **The sole escape = non-reciprocity (scoped open fork — PENDING-GRANT, no claim asserted).** Matched lossless $C_3$ 3-ports **do** exist non-reciprocally: the ideal circulator $S=[[0,0,1],[1,0,0],[0,1,0]]$ is unitary, $C_3$-symmetric, $S_{11}=0$. The reciprocal-class evanescent-stub escape is **theorem-dead** (any lossless+reciprocal+$C_3$ network of any internal complexity obeys the theorem; X37 C8 / PR #620). srs chirality (right-handed $I4_132$, Axiom 1) is **P-breaking**, but a circulator **additionally** needs a **T-breaking** bias (candidate $u_0^{*}/\Omega_{\text{freeze}}$). Whether the vacuum supplies one is a PENDING-GRANT walk question — asserted nowhere (flag-don't-fix).
+  - **CONSISTENCY, not emergence:** $\Gamma=-1/3$ is a dimensionless counting fact (the S₁₁ module imports no physical scale — $\mu_0/\varepsilon_0/\ell_{\text{node}}$ cancel); $|S_{11}|\ge1/3$ is attributed known theory (Pozar), confirmed. No $\alpha$ / `Q_TANK` / CODATA on any verdict path.
+  - **Scope:** lossless reciprocal class, scalar/compression channel; vector/torsion scoped out. The X37 finite-extent junction *magnitude* (branch iii) is extent-dominated / sector-ownership-gated — a separate, unclosed question (`clm-bore2x` broadband axis + the X37 result doc).
+
+> **Leaf references:** [srs-vertex-scattering](./operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md).
+
+### Quality
+- confidence: 0.83
+- depends-on:
+  - Axiom 1 (Substrate Topology — the chiral srs net $I4_132$, $z=3$ coordination that fixes the counting reflection $\Gamma=(2-z)/z$ and makes the vertex a $C_3$-symmetric 3-port)
+  - Axiom 3 (Minimum Reflection Principle — the $|\Gamma|^2$ object the theorem floors; the srs vertex minimizes reflection but cannot reach 0 in the reciprocal class)
+- solidity: 0.83 (ok to build on, see caveats) [= min(0.83, 1.00)]
+- rationale: The core is a **provable theorem** — the counting reflection $\Gamma=(2-z)/z=-1/3$ is airtight (transmission-line algebra on the $z=3$ coordination), and $|S_{11}|\ge1/3$ is the classic Pozar-class matched-lossless-reciprocal-3-port bound confirmed at the srs vertex via an exact perfect-square identity (`obj1@touch − 1/9 = −4.2e-17` machine zero). Attributed as known theory, so no emergence credit is taken; the strengthening is its provability at the srs geometry. Held at 0.83 (not higher) because the physical **ontology** — whether the vacuum vertex is a genuine reciprocal $1/9$ back-scatterer or a T-broken circulator-like matched junction — is a PENDING-GRANT fork (the sole escape class, non-reciprocity, is named not asserted), and the result is scoped to the leading-order lumped reciprocal class in the scalar channel. depends-on is Axioms 1+3 (framework, 1.0), so solidity = confidence.
+- strengthen-by:
+  - A Grant ruling on the T-breaking bias ($u_0^{*}/\Omega_{\text{freeze}}$ present at the vertex, or not) would resolve the reciprocal-back-scatterer-vs-circulator ontology fork and either close the escape or open a non-reciprocal matched-vertex arc
+  - A vector/torsion (Cosserat 3-DOF port) scatter extension would test whether the $|S_{11}|\ge1/3$ floor is channel-specific or a coordination-universal $z=3$ bound
+
+---
+
+## The Two-Axis Bore Verdict — Op6 uniquely selects the point junction on the broadband axis; the single-frequency objective is degenerate on a half-wave-invisible bore family
+<!-- id: clm-bore2x -->
+
+Applying Universal Operator #6 ($\lambda_{\min}(S^\dagger S)\to0$, `clm-gdd70j`) at the srs vertex **as a candidate selector** (per canon's honest-scope note, the S₁₁ landscape is FLAT in $R\!\cdot\!r$ — Op6 did NOT select the trefoil $R\!\cdot\!r=1/4$), the bore-extent question is **TWO-AXIS**: the **band-integrated comparator uniquely selects $f^{*}=0$ (the point junction)** at every swept $(s_L,s_C)\in[0.3,3]^2$ (branch ii), while the **frozen-primary single-frequency objective is EXACTLY DEGENERATE** $\{0,\ f_{\text{touch}}=\sqrt2/\pi\approx0.450\}$ (branch iv) — a **half-wave-invisible bore family**. **Demonstrated (entailed by the model class), not adjudicated.** Derived FORM within the disclosed **leading-order lumped reciprocal** model class.
+
+- _Specific Claims_
+  - **Broadband axis (load-bearing):** $\langle|S_{11}|^2\rangle$ over the connected band uniquely selects $f^{*}=0$ at **every** cell $(s_L,s_C)\in[0.3,3]^2$ — the half-wave trick is single-tone and washes out, so the broadband vertex prefers **no bore**. The X37 walk ceiling $\pi\sqrt3\,\omega_C=5.4414\,\omega_C$ ($g(0)$) is thus the broadband-selected ceiling.
+  - **Single-frequency axis:** $|S_{11}(\pi;f)|^2$ touches the $1/9$ floor EXACTLY at $f_{\text{touch}}=\sqrt{3s_L-s_C}/(\pi\sqrt{s_C s_L})$ ($=\sqrt2/\pi$ at $s=1$; `obj1@touch − 1/9 = −4.2e-17`) — a genuine second global minimum (the perfect-square identity, `clm-v3port`), where the section is half-wave at the probe tone and thus impedance-transparent there. The primary objective therefore fires **branch (iv)** (degenerate), not a unique point-junction selection.
+  - **The selected $f^{*}$ is derived-geometric:** a pure number (no physical scale imported; the module's $\mu_0/\varepsilon_0/\ell_{\text{node}}$ cancel). The X37 finite-extent floor is $g(0.5)=3.7304\,\omega_C$ at $s=1$ (extent swing 31.4% of $\pi\sqrt3$).
+- _Specific Non-Claims and Caveats_
+  - **Demonstrated, NOT adjudicated:** "the substrate decides / adjudicates" is avoided — this is entailment within the disclosed model class. The circuit FORM (positive shunt accumulator + series throat) is a **disclosed modeling choice** (X37 C1); passivity gives the low-pass / floored-reflection class, but $s_L,s_C$ are not derived from vertex geometry.
+  - **Branch (i) UNADJUDICATED on the $(2,3)$ locus (PENDING-GRANT):** at cell $(s_L,s_C)=(2,3)$, $f_{\text{touch}}=1/(2\pi)$ EXACTLY, inside $f_{\text{crit}}\approx0.184$ — an exact obj-1 co-minimum ON the tube-radius (branch-i) mark. A formula locus, neither asserted nor dismissed.
+  - **CONSISTENCY (MIXED class):** the SCALE $\omega_C=c/\ell_{\text{node}}$ is a dimensional-forced identity (reporting unit only); no emergent-scale headline (the broadband branch is $f^{*}=0$). No $\alpha$ / `Q_TANK` / CODATA on any verdict path.
+  - Scoped to the scalar/compression channel; vector/torsion scoped out.
+
+> **Leaf references:** [srs-vertex-scattering](./operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md).
+
+### Quality
+- confidence: 0.72
+- depends-on:
+  - clm-v3port — The Vertex Reflection Floor [the perfect-square $|S_{11}|\ge1/3$ identity whose broadband non-degeneracy makes the comparator uniquely select the point junction and whose single-frequency touch is the half-wave-invisible degeneracy]
+  - clm-gdd70j — Universal Operators ($\lambda_{\min}(S^\dagger S)\to0$, Op6) [the selection operator applied at the vertex as a candidate selector]
+  - Axiom 3 (Minimum Reflection Principle — the objective the bore selection extremizes)
+- solidity: 0.72 (ok to build on, see caveats) [= min(0.72, 0.80)]
+- rationale: The two-axis structure is exactly demonstrated on the disclosed model class — the broadband comparator's unique $f^{*}=0$ is swept-robust across $[0.3,3]^2$, and the single-frequency degeneracy is an EXACT perfect-square touch (machine zero), not a resolution artifact (the first-shipped grid-argmin "$f^{*}=0$ for obj-1" was corrected in PR #619 review). Held at 0.72 (below the floor claim it rests on) because it is entailment within a **disclosed** leading-order lumped reciprocal circuit FORM (not a from-geometry derivation of $s_L,s_C$), "demonstrated not adjudicated", and branch (i) stays PENDING-GRANT on the $(2,3)$ locus. Solidity is dep-gated by `clm-gdd70j` (Op6, 0.80).
+- strengthen-by:
+  - A Grant ruling on the bare-bond transverse extent $f$ (tube radius $\approx0.159$ / core-tube thickness $\approx1$ / neither) would adjudicate branch (i) on the $(2,3)$ locus and either fix or dissolve the bore
+  - A fuller (still reciprocal) vertex model would test whether the broadband point-junction selection survives beyond the leading-order lumped class (any reciprocal extension is theorem-bound to the same $1/3$ floor; only non-reciprocity escapes)
