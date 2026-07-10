@@ -1,0 +1,167 @@
+{
+  "class": "CONSISTENCY / characterization",
+  "prereg": "research/2026-07-09_x33-clock-architecture_prereg_FROZEN.md",
+  "omega_link_over_omega_C": 1.732050807568877,
+  "MeV_per_omega_C": 0.5109989499961641,
+  "rho_set": [
+    1.0,
+    9.77337,
+    100.0,
+    1000.0
+  ],
+  "srs_ceilings_vs_rho": {
+    "1": {
+      "lambda_tilde_max": 2.0000000000000004,
+      "walk_top_omega_C": 5.441398092702652,
+      "lump_lambda_max": 6.000000000000001,
+      "continuous_top_sqrt_units": 2.4494897427831783
+    },
+    "9.77337": {
+      "lambda_tilde_max": 2.000000000000001,
+      "walk_top_omega_C": 5.441398092702652,
+      "lump_lambda_max": 31.188255344159323,
+      "continuous_top_sqrt_units": 5.584644603209709
+    },
+    "100": {
+      "lambda_tilde_max": 2.000000000000001,
+      "walk_top_omega_C": 5.441398092702652,
+      "lump_lambda_max": 301.8367058016613,
+      "continuous_top_sqrt_units": 17.373448299104624
+    },
+    "1000": {
+      "lambda_tilde_max": 2.000000000000002,
+      "walk_top_omega_C": 5.441398092702652,
+      "lump_lambda_max": 3001.833671223626,
+      "continuous_top_sqrt_units": 54.78899224500872
+    }
+  },
+  "verdict_metrics": {
+    "walk_top_omega_C_per_rho": [
+      5.441398092702652,
+      5.441398092702652,
+      5.441398092702652,
+      5.441398092702652
+    ],
+    "walk_deviation_from_pi_sqrt3": 0.0,
+    "pin_reference_pi_sqrt3_omega_C": 5.441398092702652,
+    "continuous_top_per_rho": [
+      2.4494897427831783,
+      5.584644603209709,
+      17.373448299104624,
+      54.78899224500872
+    ],
+    "continuous_lift_ratio_1000_over_1": 22.367512420262656
+  },
+  "BRANCH": "S_walk_PINS",
+  "gates": {
+    "G1_scalar_limit": {
+      "srs_walk_top_omega_C": 5.441398092702652,
+      "srs_target_pi_sqrt3": 5.441398092702653,
+      "srs_velocity_factor": 0.5773502034166373,
+      "target_1_over_sqrt3": 0.5773502691896258,
+      "zz_walk_top_theta": 3.1415926237874707,
+      "zz_target_pi": 3.141592653589793,
+      "pass": true
+    },
+    "G2_walk_is_scatter_connect": {
+      "unitarity_err": 4.04121180963557e-14,
+      "arccos_match_err": 1.192379528447418e-13,
+      "literal_walk_max_phase_over_pi": {
+        "1": 1.0,
+        "9.77337": 1.0,
+        "100": 1.0,
+        "1000": 1.0
+      },
+      "pass": true
+    },
+    "G3_lowk_agreement": {
+      "walk_over_cont_ratio_mean": 0.7138800490605338,
+      "spread": 9.191239538452634e-07,
+      "n_samples": 9,
+      "pass": true
+    },
+    "G4_continuous_lifts": {
+      "continuous_lift_ratio": 22.367512420262656,
+      "pass": true
+    },
+    "G5_bipartite_pin_locus": {
+      "lambda_tilde_max_per_rho": [
+        2.0000000000000004,
+        2.000000000000001,
+        2.000000000000001,
+        2.000000000000002
+      ],
+      "max_dev_from_2": 2.220446049250313e-15,
+      "pass": true
+    },
+    "G6_coin_eigenvalue_locus": {
+      "coin_eigs_per_rho": {
+        "1": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "9.77337": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "100": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "1000": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "pass": true,
+      "note": "+1 (D-fold), -1 ((z-1)D-fold) for ALL rho* -> stiffness is locked out of the eigenvalues"
+    }
+  },
+  "all_gates_pass": true,
+  "discriminating_observable_longitudinal_only_window": {
+    "definition": "frequency band where only the longitudinal (k_a-dominated) branch propagates",
+    "under_continuous_lifted_MeV": [
+      2.7805,
+      8.6927
+    ],
+    "under_walk_pinned_MeV": "ABSENT (all branches end at pi*omega_link = 2.7805 MeV)",
+    "note": "EXISTS under continuous/lifted, ABSENT under walk/pinned. This is the in-engine-UNDECIDABLE fork's empirical discriminator (Branch S)."
+  },
+  "zz_1d_two_channel": {
+    "theta_deg": 35.0,
+    "iso_walk_top_theta": 3.1415926237874707,
+    "iso_cont_top": 2.0,
+    "rho_walk_top_theta": 3.141592653589793,
+    "rho_cont_top": 5.248626346931,
+    "walk_pins_note": "walk theta ceiling = pi for BOTH rho* (pinned); continuous top lifts"
+  },
+  "Op5_clock_type": "PINNING clock (synchronous discrete-time unitary walk). The Op5 scatter+connect engine reports the pinned ceiling pi*omega_link = pi*sqrt3*omega_C for ANY rho* and CANNOT see the stiffness lift; the lifted reading requires a continuous-time (omega=sqrt eig D) solver. The bracket [5.441, 17.011] omega_C is an ARCHITECTURE fork, in-engine-undecidable \u2014 resolved only by Grant/corpus anchor (Branch S)."
+}
