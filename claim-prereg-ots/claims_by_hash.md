@@ -1,5 +1,7 @@
 # Pre-Registered Predictions By SHA
 
+> **House-format note (2026-07-10, orchestrator-accepted).** From the V6 entry (`e3071e70`) onward, each prediction cites the **content SHA-256** of its frozen artifact file(s) inline, in addition to the git commit SHA — this ties the byte-unchanged claim directly to the OTS timestamp. **Future stampers: include the artifact SHA-256(s).** (Each `.ots` receipt still verifies against the index snapshot *as of its own commit*, per `stamp-claim.sh`; this note is documentation, not an entry edit — the append-only discipline for entries is unchanged.)
+
 ## 0597f0c627ac7b6959e2887b527cee80b86ad4e8
  - LIGO BH shear echo ~4ms
 
