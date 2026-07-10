@@ -174,6 +174,30 @@ Two DISTINCT band tops must not be conflated:
 edge.** The first version's blanket "above-band" language over 2.1–3.0 is corrected: those points
 verify 1D-chain evanescence (valid), but only ω ≳ 3.5 ω_C is unambiguously above the 3D band.
 
+> **🔴 CURRENT-STATUS CAVEAT (2026-07-09, post-#604 srs band survey — body above PRESERVED; git is the trail).**
+> The **≈ 3.3–3.5 ω_C** "true 3D srs band top" estimate in this §5 is **SUPERSEDED** by the full Bloch/Ybus
+> survey ([`2026-07-09_srs-band-survey_result.md`](2026-07-09_srs-band-survey_result.md), PR #604): the true
+> **scalar-channel** srs band top is **π√3 = 5.441 ω_C = 2.781 MeV** (H point, μ=−3), not 3.3–3.5. The
+> **3.3–3.5 value is the Γ-optical fold √3·arccos(−1/3) = 3.309 ω_C**, a *local* zone value, **not** the global
+> maximum. (The "√6 raised by 1/√3" reasoning above used the *lumped* √λ_max model, which fails the 1/√3
+> acoustic-velocity gate — see #604 §4.)
+>
+> **Operational-threshold INVERSION.** The §3/§5 reading that "only ω ≳ 3.5 ω_C is unambiguously above the 3D
+> band" is **INVERTED**: with the true scalar top at 5.441 ω_C, the **3.5 – 5.441 ω_C window is IN-band**, not
+> above it. This run's drive points **{2.1, 2.5, 3.0} ω_C were all in-band** (below the scalar top). Further,
+> the §3 evanescence table's ω=4 and ω=5 "above true 3D srs band? = yes" marks **flip to in-band** (both < 5.441);
+> only **ω=6 (> 5.441 ω_C) remains above the scalar band**. The 1D-chain evanescence check (§3) stays valid on
+> its OWN 1D edge (2.0 ω_C); only the *3D-band* labelling of the ω=4–6 rows is corrected.
+>
+> **Label correction.** The "[001]-zone-edge" reading of the 3.3–3.5 value (traced to the settle-result's [001]
+> `band_top_omega = 1.9105 rad/step`) **corrects to the Γ-optical arccos(−1/3) fold**: the settle's scan path was
+> a Γ-image and its **symmetric extractor could not excite the staggered π-mode** (the true μ=−3 top at H). The
+> settle therefore measured a Γ-optical fold, not a [001] zone-edge cutoff. See #604 §4.
+>
+> **Verdict UNAFFECTED.** This is a band-top *labelling* correction only. The **NULL-mobility-banked** verdict
+> stands (the mobility null was independently re-confirmed by the corrected kicks, §2); the two-tone FORK-A
+> protocol is now scalar-provisionally floored at 5.441 ω_C (vector top DEFERRED — #604 review item 5).
+
 ---
 
 ## 6. Force-law honesty (finding #5)

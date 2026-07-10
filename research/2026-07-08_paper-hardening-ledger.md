@@ -411,6 +411,18 @@ Regeneration path = repair + two-tone difference-frequency protocol (the first
 true substrate four-photon form-factor measurement) + 3D srs band survey; fork
 ruling tracked in `_orchestration/2026-07-09_orchestration-board.md` §4.
 
+**srs band-top supersession follow-on (2026-07-09, post-#604 survey — row above
+preserved; git is the trail).** The "~3.3–3.5 ω_C true srs band top" cited in the
+row above (from the review's three quick methods) is **superseded** by the full
+Bloch/Ybus survey (`research/2026-07-09_srs-band-survey_result.md`, PR #604): the
+true **scalar-channel** srs band top is **π√3 = 5.441 ω_C = 2.781 MeV** (H point).
+Consequence for the row above: "half the fit window in-band" **understated** it —
+with the top at 5.441, the run's primary drive points {2.1, 2.5, 3.0} ω_C (and 4,
+5) were **entirely in-band**; only ω=6 exceeds the scalar top. Verdict (BLOCKED /
+NULL) **unchanged** — the mobility null was independently re-confirmed. The vector
+(T2) band top is DEFERRED; the FORK-A two-tone tone floor is **scalar-provisional**
+(#604 review item 5), not yet vector-safe.
+
 **Build + commits.** Branch `analysis/letter-round3-updates` (worktree `wt-round3`),
 all commits tagged `[REVIEW: pending-orchestrator]`, **DO-NOT-MERGE**. Letter
 compiles clean via `latexmk` (exit 0, **11 pp**, zero undefined refs / citations
