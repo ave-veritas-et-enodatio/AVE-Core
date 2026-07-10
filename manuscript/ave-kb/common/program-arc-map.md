@@ -301,22 +301,82 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 
 ## §4 — Epistemic State Transitions
 
-*(filled below)*
+The theory's phase changes, in causal order. Each is a *before → after* shift in what the framework believes about itself, not a single result. The canonical home for the whole family is [`form-deriving-value-importing.md`](form-deriving-value-importing.md) (`clm-acdc07`); this list is the temporal index into it.
+
+1. **Keystone → echo** (2026-06-02). *Before:* α⁻¹ = 4π³+π²+π is a zero-parameter *derivation* (a chord). *After:* it is a **Class-B ECHO** — the scale is forced, the exact value is a calibration identity (R·r = 1/4, not independently selected). → ARC-06.
+
+2. **FORM-derives / VALUE-imports** (2026-06-16). *Before:* AVE "derives everything from three scales." *After:* AVE **forces the dimensionless FORMS** (chords) and **imports the dimensionful VALUES** (echoes) of {m_e, α, G}; the organizing principle of the whole corpus. → ARC-11.
+
+3. **Interior = peer, not chord** (2026-06-20 → 2026-07-09). *Before:* the electron's interior structure might carry an AVE-distinct chord. *After:* mass sector ECHO-final, carrier sector closed-at-peer, electron-def closed-as-import — the framework is **uniformly peer-with-SM on interior structure**. Companion leaf: [`the-abandoned-interior.md`](the-abandoned-interior.md). → ARC-14, ARC-13, ARC-27.
+
+4. **Chord → forward predictions** (2026-06 onward). *Before:* the discriminating chord is somewhere inside the derivation. *After:* the AVE-distinct chord lives **only in the forward predictions** (FORM-existence divergences + non-2/7-rooted forced ratios + the Lorentz-violating sidereal signature). This is *why* the testing pivot followed. → ARC-11 successor, ARC-17.
+
+5. **The testing pivot** (2026-06-23). *Before:* progress = more interior derivation / rigor-polishing. *After:* progress = **infrastructure-first testing** where the chord lives (bench + beam). The 2026-07-09 board step-back audit flags that the pivot is declared but the cRIO bench (the one in-hand hardware discriminator) is still untouched. → ARC-15.
+
+6. **The AC/DC epistemological carve** (2026-07-03). *Before:* all substrate statements are on equal footing. *After:* **AC = shared ground** (agreed with SM/QED), **DC = contested**; a real test must live in the **DC→AC coupling**, not in either alone. Refines the phase-only epistemology. → `clm-acdc07`; `audit/2026-07-03_acdc-carve-canonization`.
+
+7. **Instrument-honesty era (prereg-commit-first)** (2026-07-04 → 2026-07-10). *Before:* predictions are argued, then tested. *After:* predictions are **pre-registered tamper-evidently before the test** (OTS, Bitcoin-anchored), and every prereg carries its picture-predicted numbers as first-class frozen criteria (ratified 2026-07-10). → ARC-21; §7 (P5).
 
 ---
 
 ## §5 — Standing Negatives Index
 
-*(filled below)*
+The arc-level anti-repetition table. **This index does not replace [`genesis-chord-falsification-ledger.md`](genesis-chord-falsification-ledger.md)** — that leaf is the diagnosed, branch-recoverable ledger of the genesis/chord/motion-stability negatives, with the load-bearing `ave-discrimination-check` tags (GENUINE-FALSIFICATION vs WRONG-CARRIER/REGIME vs INCONCLUSIVE). This table is the *arc-map view*: one row per falsified mechanism, its kill receipt, and the arc that closed it, so a session opening a new arc greps here first. For the *why-it-failed* diagnostic, follow the pointer into the ledger.
+
+> **Discrimination-check reminder (per `ave-discrimination-check`):** a null where the effect *cannot exist* in the tested regime/carrier is an **artifact, not a falsification** — it must not be canonized as a kill. Rows below tagged WRONG-REGIME carry a specified re-test and are NOT closed physics.
+
+| # | Falsified mechanism / route | Verdict class | Kill receipt | Arc |
+|---|---|---|---|---|
+| N1 | Electron genesis from a free precursor (energize-lock / interior-field self-assembly) | NEGATIVE (leans-falsified; interior-field route scoped as category-error) | `audit/2026-06-16_keystone-energize-lock-substrate-pump`; `genesis-chord-falsification-ledger.md` | ARC-08 |
+| N2 | The **longitudinal weld** (a derived fermion-sign weld) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3); `research/2026-07-08_electron-halfflux-selection_result.md` | ARC-27 |
+| N3 | The **√α fence** (forced-interior scale fence) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3) | ARC-27 |
+| N4 | The **NDC genesis seat** (negative-differential-capacitance genesis correspondence) | GENUINE-FALSIFICATION (a real reactive instability at V_yield/√2 ≈ 30.9 kV, but genesis no-correspondence) | `v0.8` release; PR #599 | ARC-27 |
+| N5 | **Forced sector ratios** (interior ratios forced by the substrate) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3) | ARC-27 |
+| N6 | **Forced disclination spectrum** (a forced interior spectrum) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3) | ARC-27 |
+| N7 | **Bulk-cage** electron localization | NEGATIVE (Mode-III, energy-certified) → localization is boundary/topological | PR #403, PR #404 | ARC-12 |
+| N8 | **Drive-tracking vertex** (the χ³ four-photon *kernel*, interface-scoped) | fork-record verdict (i) DRIVE-TRACKING; **kernel interface-scoped, bulk vertex OPEN** | PR #610 (OPEN) | ARC-25 |
+| N9 | **Tethered-pivot** anchored-(2,3) mode-locking (BC-quantization, two-axis) | KEEP-BOTH: frozen-detector PARTIAL + control-subtracted TRACK (does NOT mode-lock; #260 selector null) | PR #612 (MERGED) | ARC-32 |
+| N10 | **X36 node-shunt ceiling** as an independent Branch-P | install-tautology (ceiling = installed node resonance); Branch P only iff series-anti-resonant at η=1 — **PR OPEN, verdict conditional** | PR #613 (OPEN) | ARC-28 |
+| N11 | The continuum **static-E constitutive law** ε_eff = ε₀√(1−(E/E_c)²) at atomic scale | EXCLUDED [C-EXCLUDED] (falsification/consistency-class) | `v0.6` release; `clm-sve3xc`; PRs #538/#539/#540 | ARC-19 |
+| N12 | **Dark-wake** cross-scale thrust (Phases 1–5) | WRONG-REGIME artifact (Outcome-C) — re-test = bulk near-yield compression | `audit/2026-05-31_ft-darkwake-crossscale`; `audit/2026-05-31_dark-wake-vocab-scrub`; `dark-back-reaction-taxonomy.md` | E4 |
+| N13 | **Protein impedance-folding** (impedance carries the fold) | NEGATIVE (all EE-reflection channels dead) — **cross-repo (AVE-Protein lane); Core walk-back STAGED, B4 row may be STALE** `[PARTIAL-RECEIPT]` | `research/2026-06-07_vol0-kb-reconciliation-ledger.md` (referenced); AVE-Protein lane | (cross-repo) |
+| N14 | **Breather-gap** (A1-breather genesis gapping) | `[RECEIPT-PENDING]` — named in the orchestrator skeleton; no dedicated tag/PR/research doc at HEAD `ba662d57` (may correspond to a `genesis-chord-falsification-ledger.md` held-BC entry — verify before citing) | `[RECEIPT-PENDING]` | ARC-08 (candidate) |
+
+Additional genesis/chord negatives (omega-wave WRONG-CARRIER, Q0-blocked INCONCLUSIVE, held-BC DISQUALIFY, Casimir/cold-fusion/Hopf-Sagnac walk-backs) live in `genesis-chord-falsification-ledger.md` and the `audit/2026-06-03_*` / `audit/2026-05-31_ft-*` tags; not duplicated here.
 
 ---
 
 ## §6 — Standing Open Forks
 
-*(filled below)*
+Every live fork with its *assigned resolution route*. A session picking up a fork checks this table first (Rule 16 — do not mint a parallel plan). Where a route has been dispatched but not yet landed, the status says so; a fork is not "resolved" until its home leaf says so.
+
+| # | Open fork (question) | Assigned resolution route | Status / receipt |
+|---|---|---|---|
+| OF1 | **Clock / topology architecture** — synchronous-universal-tick vs per-channel-continuous | X37 junction-parasitic (layout-parasitic) extraction | X33 = BRANCH S (PR #611); X36 SHARPENED the fork (PR #613, OPEN); **X37 dispatched, `[RECEIPT-PENDING]`** (no PR/tag/doc at HEAD) |
+| OF2 | **The bulk four-photon vertex** — is the χ³ drive-tracking verdict a bulk property or an interface artifact? | 3D clamp-free srs run (board "fork B", 3D srs nonlinear) | PR #610 kernel is **interface-scoped, bulk vertex OPEN**; fork B cheapest, gates all above-band claims |
+| OF3 | **The DE-tracks-matter chord (F6)** — does dark energy track matter (the ΛCDM-distinct payoff)? | Build the F6 / irreversible chord on the two-way back-reaction engine | The two-way back-reaction capability (engine item **#86**) is **LANDED** (`clm-w5ez6i`, PRs #433–#435; all gates green); only the REVERSIBLE half is built — the **F6 chord is UNBUILT**. **Flag:** engine item "#86" is an internal capability-tracker number, NOT GitHub PR #86 (a double-slit viz) |
+| OF4 | **Band-top scale** — vector/Cosserat band top single-scale (≈5.44 ω_C) vs stiffness-lifted (≈17.0 ω_C) | The per-channel local-c LC-clock walk (orchestrator lean = stiffness-lifted) | PR #607 BRACKET [5.44, 17.0] ω_C; does NOT gate fork A (tone floor safe under both endpoints) |
+| OF5 | **UV completion of the Letter kernel** — the high-E completion above the FPB corner (the object the ATLAS comparison needs) | The two-tone χ³ form factor (fork A) + the FPB-corner walked framing | FRAMING only (PR #595, FRAMING-not-derivation); feeds the closure-above-ω₀ open item (`clm-gg4wmx`, Letter v5) |
+| OF6 | **η / anchor** — the ξ Machian-boundary anchor is back-solved from CODATA G (circular); can G be forced form-first? | The G-flip-test (Chain B′: form-first ⇒ lift G `mixed → real`) | G = MIXED (echo until the flip closes); `interlock-register.md`, `form-deriving-value-importing.md`, `omega-freeze-cosmic-grain-cascade.md`. The exploratory grip=loss=η=1/Q cosmic-rotation thread is a separate, un-promoted lens |
+| OF7 | **Core-envelope constitution** — the abandoned-interior Thread C, scoped as an envelope question (not identity) | Grant-gated; precursor-vs-end-state sub-fork (`clm-uatcql`, flagged OPEN by design) | Parked/standing per the 2026-07-09 board §5 |
+| OF8 | **LEP compositeness exposure** (severity HIGH) — does the Γ=−1 wall screen a hard high-q² probe of an extended electron (Λ≳10 TeV)? | EFT-scoping / defect-sector-ownership (same family as the ATLAS defense) | Pre-existing, Grant-question; 2026-07-09 board §5 item 8; candidate next picture-walk |
+| OF9 | **D-II / D-III / D-IV batch** | (as assigned in the datasheet-cleanup / divergence program) | **`[RECEIPT-PENDING]`** — the roman-numeral "D-II/III/IV" labels could not be located at HEAD; `divergence-test-substrate-map.md` uses letter-number IDs (e.g. `D5-HTS-MEISSNER`). Verify the label scheme before citing |
 
 ---
 
 ## §7 — Methods Evolution
 
-*(filled below)*
+One compact section on the machinery. The canonical extraction is PR #603 / `_orchestration/2026-07-09_breakthrough-patterns-methods-note.md` (patterns **P1–P8**); this section is the temporal index into it, not a re-derivation.
+
+- **Multi-lane adversarial machinery (the immune system).** Redundant fact/fork lanes + adversarial review + worktree isolation. The stated failure mode is the *shared seductive-narrative blind spot* a single lane cannot see; the countermeasure is redundancy tuned to REFUTE (P4). Built in E4 (ARC-05), load-bearing through E8 — the month's real catches (the sidereal-harmonic error, the rolloff error, the x29 no-op actuator + ramp artifact that passed CI *and* prereg) were all cross-lane, not in-lane.
+
+- **The miss-ledger (an instrument, not a lament).** The orchestrator's hopeful-interior-mechanism record is **0-for-6/7** (P4c) — and that track record is itself cited as evidence when weighing the next pretty mechanism. This is *why* §5 (standing negatives) is a first-class navigational surface: the program's measured edge is honest fences + identity compressions + the bench/beam, NOT interior mechanism-hunting.
+
+- **`evidence-void ≠ conclusion-wrong` (harness M4).** Adversarial verdicts now carry a defect class distinguishing a broken instrument from a wrong conclusion (x29: kick broken, pinning real → repair-and-bank, not discard). Receipt: PR #605.
+
+- **Prereg-commit-first (ratified 2026-07-10).** Two coupled rules: (1) no load-bearing ontology ships without the physical-picture walk, and the walk input must be a *circuit*, not a formalism (P2); (2) every prereg carries an **"analytic expectations"** section — the walked picture's predicted observables, with numbers, as first-class frozen criteria (P5). The one x29 leg that survived review (skin depth, matched <1%) was the one the picture predicted in advance. Corollary: pre-declare which discreteness effects are physics vs integrator when the engine lattice IS the physical lattice.
+
+- **The forbidden-knob discriminator + fork-record-both (P7).** Name the fork → pre-state the signature each branch CANNOT fake → run the cheapest separator → bank either way. Cycle time collapsed from weeks (genesis arcs) to hours (x29 fail→review→repair→banked-null). Combined with Grant's standing fork-record ruling (a fork-record PR merges with the fork still open and a resolution arc assigned).
+
+- **The loop (the meta-pattern).** Velocity came from tightening one loop: **walk → identity compression → prereg with predicted numbers → adversarial run → honest bank either way → register into canon → next walk.** The loop period is the program's effective speed; each pattern above hardens one segment. This map is the *register-into-canon* segment operating at arc granularity.
+
