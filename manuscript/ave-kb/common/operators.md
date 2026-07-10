@@ -79,6 +79,78 @@ The Op1 Universal Impedance formula $Z = \sqrt{\mu/\varepsilon}$ restated below 
 
 ---
 
+## §3.5 — Operator type-axis annotations (X35 typing pass, 2026-07-10)
+
+**CLASS: registry hygiene + candidate-generation, NOT physics claims.** This compact Op#-keyed table (same
+convention as §3) annotates each operator on four latent type-axes exposed by the 2026-07-09 arcs, plus the
+standing SECTOR column. It mints no proposition: every typing reads a §2 formula, cross-references a
+walked-framing note **cited as framing (not canon)**, or is flagged AMBIGUOUS for Grant. Full table + THE GAP
+TABLE + the AMBIGUOUS list: [`research/2026-07-10_operator-typing-pass_result.md`](../../../research/2026-07-10_operator-typing-pass_result.md).
+
+**Axis definitions + provenance (all FRAMING until their own gates):**
+- **RATING TYPE** — *swing* (amplitude-keyed, output-swing rating $S(A)=\sqrt{1-A^2}$, cap $E\le E_c$) vs *slew*
+  (rate-keyed, slew rating keyed on $A_I=\dot E/(E_c\omega_0)$, cap $\dot E\le E_c\omega_0$) vs *neither*. Per the
+  slew identity, FPB-corner note (**PR #595 UNMERGED — framing**), pointer at [`lattice-model-register.md:86-93`](lattice-model-register.md).
+- **AXIS OF ACTION** — *amp* / *freq* / *topo*, per the K4-graph (topology; amplitude- AND frequency-blind) vs
+  srs-embedding (frequency/scales) 2×2 in [`lattice-model-register.md`](lattice-model-register.md) crossed with
+  the amplitude kernel; x29 category-error lesson (do not conflate amplitude- with frequency-axis).
+- **BC/DYN + settled-sector** — BC-implementing operators tagged with which fast sector's time-averaged settled
+  state they encode, per the fast-sector-settling note (settling frame **#606, FRAMING**; the annotation is a
+  cross-reference, not a canonization).
+- **CLOCK** — Op5 (scatter+connect) only: synchronous-universal-tick vs per-channel-continuous, marked
+  **PENDING-X33** (parallel discriminator; not resolved here).
+
+| Op | SECTOR | RATING | AXIS | BC/DYN (settled-sector, FRAMING) | CLOCK |
+|---|---|---|---|---|---|
+| Op1 | cross (embedding value) | neither | — (impedance invariant) | dyn | — |
+| Op2 | sector-agnostic kernel | **swing** | amp | dyn (its $S\to0$ WRITES the $\Gamma{=}{-}1$ BC) | — |
+| Op3 | boundary | neither | amp (Z-ratio) | **BC** (T2 wall = settled fast-T2 self-interference) | — |
+| Op4 | cross | **swing** | amp (+topo) | dyn | — |
+| Op5 | cross (network) | neither | — (network) | dyn | **PENDING-X33** |
+| Op6 | cross | neither | freq | dyn | — |
+| Op7 | cross | neither | freq | dyn | — |
+| Op8 | cross | neither | amp ($R_g$) | **BC** (A1 packing — *thin, candidate*) | — |
+| Op9 | cross | neither | amp (overlap) | **BC** ($\Gamma{=}{-}1$ — *thin, candidate*) | — |
+| Op10 | **T2** ((2,3) winding) | neither | **topo** ($c{=}3$ count) | dyn | — |
+| Op11 | T2/B | neither | — (differential) | dyn | — |
+| Op12 | A1/E | neither | — (differential) | dyn | — |
+| Op13 | cross | neither | freq | dyn | — |
+| Op14 | A1-bulk → V/EM | **swing** | amp | **BC-adj** (settled $S(A)$ = graded-index BC) | — |
+| Op15 | A1 (strain) | **swing** | amp | dyn | — |
+| Op16 | **T2/shear** | **swing** | freq (amp-KEYED, freq-ACTING) | **BC** (cutoff; A1-settled $S$ sets fast-wave clock) | — |
+| Op17 | boundary | neither | amp (power) | **BC** (transmission across settled $\Gamma$) | — |
+| Op18 | cross | neither | freq | dyn | — |
+| Op19 | A1 (dilatation) | swing (small-signal) | amp→freq (index) | **BC** (settled A1 strain = index) | — |
+| Op20 | cross | neither | freq | dyn | — |
+| Op21 | **T2/V** (tank) | neither | **topo** (mode count) | **BC** ($Q{=}\ell$ at $\Gamma{=}{-}1$ TIR wall) | — |
+| Op22 | sector-agnostic | **swing** | amp | dyn | — |
+
+**Headline GAP (candidate, not claim):** every rating-bearing operator is **swing**; there is **no slew-typed
+operator** in Op1–Op22. The slew-rate kernel $L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}$ ([`relativistic-inductor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md),
+`clm-p5cf3t`) is canonical but un-numbered and un-catalogued — the μ-side dual of Op2. See the GAP TABLE (G1-G8)
+and AMBIGUOUS list (A1 swing/slew-vs-ε/μ orthogonality **— RESOLVED, see the ratified 2×2 below**; A2
+amp-keyed-vs-freq-acting; A4 $L(I)$-vs-$S_B$; A5 Op8/Op9 settled-sector) in the result doc — the rest go to
+Grant, not silently resolved.
+
+**★ RATIFIED 2×2 rating convention (Grant 2026-07-10 — RESOLVES A1).** The rating axes are **ORTHOGONAL**, not a
+1:1 map. **Axis 1** = which ELEMENT the kernel modulates (ε/C vs μ/L). **Axis 2** = which VARIABLE it keys on: the
+element's own state amplitude (**SWING**) vs its rate/conjugate (**SLEW**). In the tank the mapping is exact —
+slew-of-C keys on $I=C\dot V$, slew-of-L keys on $V=L\dot I$. **The FPB note's "slew = μ" 1:1 identification is
+CORRECTED: the canonical μ-kernel is slew-KEYED; the axes are orthogonal.** Current canonical population (THE
+load-bearing table — diagonal canonical, off-diagonal are population questions, not operators until measured):
+
+| | **SWING** (keyed on the element's own state amplitude) | **SLEW** (keyed on the element's rate/conjugate) |
+|---|---|---|
+| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **UNDER MEASUREMENT** — fork A gate-2 (the two-tone run, branch `analysis/x31a-twotone-formfactor`) is the direct probe of whether this cell is populated. |
+| **μ / L** | **swing-μ** (L keyed on $I$/B amplitude; bench analog = ferrite-core saturation): **PREDICTED EMPTY for the vacuum** — this cell's emptiness IS the registered **static-B-transparency falsifier** (PVLAS/BMV consistency = its standing test; frozen-flux mechanism: static flux is conserved per-loop, not stored against a saturable core). Cross-ref [the Letter §"static-flux transparency"](../../../papers/2026_birefringence_letter/main.tex) + [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md) (`clm-pvlas1`). | **slew-μ** (L keyed on $V$ = flux-rate / circulation $A_I=\dot E/(E_c\omega_0)$): $S_B(A_I)=\sqrt{1-A_I^2}$ — **CANONICAL** (the FPB slew rating, $I_{max}\simeq116$ A). Particle-tier costume: the relativistic inductor $L_{eff}=$ γ-factor (relativistic mass) — pending A4. |
+
+The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ); the **off-diagonal** cells are population
+QUESTIONS (swing-μ predicted-empty = the static-B falsifier; slew-ε under fork-A measurement). **G1's mint
+decision updates:** the ruling implies a **slew FAMILY** — the slew-μ kernel earns an Op number (the μ-side dual
+of Op2/Op14); the off-diagonal cells remain population questions, not operators until measured.
+
+---
+
 ## §4 — Scale-invariance argument (summary)
 <!-- claim-quality: clm-6mvtsf -->
 
