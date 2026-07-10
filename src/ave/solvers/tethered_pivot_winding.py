@@ -587,15 +587,21 @@ def run_tethered_pivot(cfg: TetheredPivotConfig | None = None) -> dict:
                         np.array(sweep["rho_free"]))
     out["signature_1_mode_locking"] = {"sweep": sweep, "detector": det}
 
-    # 3. SIGNATURE 2 — hysteresis (control-subtracted: the free clamp-OFF ramp has its
-    #    OWN short-block read-noise width; only the EXCESS over that baseline is an
-    #    anchor-induced loop, per §6's mandated control).
+    # 3. SIGNATURE 2 — hysteresis, reported on BOTH AXES (KEEP-BOTH, mirroring Sig-1):
+    #    FROZEN absolute (anchored ramp width > 0.10) vs POST-HOC amended (EXCESS over the
+    #    clamp-OFF control). The frozen absolute reading is CONFOUNDED the SAME way as
+    #    Sig-1's absolute staircase: the free clamp-OFF ramp already has its OWN short-block
+    #    read-noise width (0.678 ≈ the anchored 0.682), so only the EXCESS (0.004) is an
+    #    anchor-induced loop. Neither reading is load-bearing on the overall frozen verdict
+    #    (that is PARTIAL from Sig-1 alone — see the binning below).
     hys = hysteresis_ramp(cfg, branch="capacitive")
     hys_off = hysteresis_ramp(cfg, branch="off")
     excess_width = float(hys["hysteresis_width"] - hys_off["hysteresis_width"])
     hys["free_control_width"] = hys_off["hysteresis_width"]
     hys["excess_width"] = excess_width
-    hys["hysteresis_seen"] = bool(excess_width > 0.10)   # override: EXCESS over control
+    # FROZEN absolute axis (confounded); AMENDED excess axis (the discriminator).
+    hys["hysteresis_seen_frozen"] = bool(hys["hysteresis_width"] > 0.10)
+    hys["hysteresis_seen"] = bool(excess_width > 0.10)   # amended: EXCESS over control
     out["signature_2_hysteresis"] = hys
 
     # 4. SIGNATURE 3 — termination flip (#260 selector)
@@ -665,8 +671,14 @@ if __name__ == "__main__":
         print(f"  POST-HOC amended (EXCESS):  excess_staircase={d['excess_staircase']:.4f} "
               f"excess_jumps={d['excess_jumps']} track_R2={d['track_R2']:.4f} "
               f"-> {d['amended_verdict']}")
-        print(f"hysteresis width: {res['signature_2_hysteresis']['hysteresis_width']:.4f} "
-              f"(excess {res['signature_2_hysteresis']['excess_width']:.4f})")
+        h2 = res["signature_2_hysteresis"]
+        print("SIGNATURE-2 HYSTERESIS — TWO AXES (KEEP-BOTH):")
+        print(f"  FROZEN absolute: width={h2['hysteresis_width']:.4f} "
+              f"(free-control {h2['free_control_width']:.4f}; >0.10 'seen' BUT CONFOUNDED, "
+              f"same saturation artifact as Sig-1) -> seen_frozen={h2['hysteresis_seen_frozen']}")
+        print(f"  POST-HOC amended (EXCESS): excess_width={h2['excess_width']:.4f} "
+              f"-> seen={h2['hysteresis_seen']}  (not load-bearing: frozen verdict is PARTIAL "
+              f"from Sig-1 alone)")
         print(f"termination flip: n_flipped={res['signature_3_termination_flip']['n_flipped']}"
               f"/{res['signature_3_termination_flip']['n_resolved']}")
     print("=" * 78)

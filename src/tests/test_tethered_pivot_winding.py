@@ -160,6 +160,11 @@ def test_full_verdict_two_axis_frozen_partial_amended_track():
     assert det["staircase_fraction"] < 0.5       # fails frozen LOCK bar (>=0.5)
     assert det["track_R2"] >= 0.9
     assert det["excess_staircase"] < 0.2
-    # signature 2: no EXCESS hysteresis over the free control; signature 3: no flip
-    assert not res["signature_2_hysteresis"]["hysteresis_seen"]
+    # signature 2 — TWO AXES (mirrors Sig-1): the FROZEN absolute width is above the 0.10
+    # 'seen' threshold but CONFOUNDED by the same saturation artifact (free-control width
+    # ≈ anchored); the AMENDED excess axis reads not-seen. Neither is load-bearing on the
+    # frozen verdict (PARTIAL from Sig-1 alone).
+    assert res["signature_2_hysteresis"]["hysteresis_seen_frozen"] is True   # frozen absolute (confounded)
+    assert not res["signature_2_hysteresis"]["hysteresis_seen"]              # amended excess (discriminator)
+    # signature 3: no cap↔mag flip
     assert not res["signature_3_termination_flip"]["flip_seen"]

@@ -103,14 +103,28 @@ confound. It does not rescue the pivot picture.
 
 ## 2. WHAT THIS RETRACTS — AND WHAT IT DOES NOT (Rule 12 substitution-not-retraction)
 
-**Retracts (per Rule 12 — preserve body, demote scope):** the W5 tethered-pivot proposal
-(`research/2026-07-09_fast-sector-settling-boundary-conditions_walked-framing.md:159`, W5-iii) that
-**boundary-condition quantization** — the anchored poloidal loop — would make the (2,3) integers **discrete,
-knobless BC mode indices**, so that #417's ratio-tracks-detuning kill "structurally cannot fire." It fires:
-the anchored ρ tracks the detuning knob just as the free orbit does. The proposed protection mechanism does
-NOT obtain in the conservative-coupling engine (nor under a lossy-Dirichlet variant of the wall). This is the
-pre-reg §8 **TRACK** branch: *"the anchored ratio still follows the knob → the pivot picture dies, banked next
-to #417."*
+**Retracts (per Rule 12 — preserve body, demote scope) — at PREREG STRENGTH, not as a fired TRACK branch:**
+the W5 tethered-pivot proposal (`research/2026-07-09_fast-sector-settling-boundary-conditions_walked-framing.md:159`,
+W5-iii) that **boundary-condition quantization** — the anchored poloidal loop — would make the (2,3) integers
+**discrete, knobless BC mode indices**, so that #417's ratio-tracks-detuning kill "structurally cannot fire."
+
+W5-iii is a walked **PROPOSAL**; withdrawing a proposal requires only that it be **UNSUPPORTED at pre-reg
+strength**, not that a hard negative fired. That threshold is met, and the two-axis read (§4.1) is stated
+honestly:
+- **Frozen prereg-§6 verdict: PARTIAL.** Signature-1's absolute `staircase_fraction` (0.4286) is confounded
+  by the free-control saturation artifact it shares with the anchored run (free_staircase 0.4286 == anchored),
+  so the preregistered detector does NOT return a clean TRACK — it is unresolved.
+- **The frozen-clean TRACKING leg cuts against the proposal on its own:** `track_R2 = 0.9799` — the anchored ρ
+  follows the carrier detuning knob just as the free orbit does (this observation is frozen-clean, independent
+  of the staircase confound). The proposal's whole claim is the *forbidden-knob* logic — a BC-quantized mode
+  index cannot track a continuous knob; a track_R2 of 0.98 is directly adverse to it.
+- **Amended control-subtracted axis: TRACK** (excess_staircase 0.0714) — leaning negative.
+
+So W5-iii is withdrawn as **UNSUPPORTED-AT-PREREG-STRENGTH, amended axis leaning negative** — NOT as the
+pre-reg §8 clean **TRACK** branch firing (that branch requires the frozen detector to read TRACK, which it does
+not). The proposed protection mechanism is not demonstrated in the conservative-coupling engine (nor under the
+lossy-Dirichlet variant of the wall); it is banked next to #417 pending a stronger read. Factual, frozen-clean:
+**the anchored ρ tracks the detuning knob just as the free orbit does.**
 
 **Does NOT retract (independently grounded):**
 - **charge = Link(∂Ω, F) ∈ ℤ** — the STATIC real-space field-line linking integer
@@ -140,14 +154,23 @@ pre-reg with its own verification chain, not a refill here (see §4.2).
 | **Sig 1 — POST-HOC amended (excess)** excess_staircase | **0.0714** | anchor-induced plateaus (baseline-subtr.) |
 | Sig 1 excess_jumps | **0** | **→ amended axis: TRACK** |
 | Sig 1 max\|anchored−free\| over sweep | 0.058 | — |
-| **Sig 2** anchored hysteresis width | 0.682 | — |
-| Sig 2 free-control (clamp-off) width | 0.678 | — |
-| Sig 2 **excess** width | **0.004** | **not seen** (read-noise, shared) |
+| **Sig 2 — FROZEN absolute** anchored hysteresis width | **0.682** | >0.10 'seen' BUT CONFOUNDED (same artifact as Sig-1) |
+| Sig 2 free-control (clamp-off) width | 0.678 | ≈ anchored → the shared saturation confound |
+| **Sig 2 — POST-HOC amended (excess)** width | **0.004** | **not seen** → amended axis (read-noise, shared) |
 | **Sig 3** termination flips (cap vs mag) | **0 / 4** | **no flip** (clean #260 null) |
 | dead-actuator var-ratio (cap / mag) | 0.000 / 0.000 | live actuator ✓ |
 | energy off drift / on max-gain | 9.1e-10 / 0.0 | conserved; non-pumping ✓ |
 | clamp removed-norm fraction | 0.138 | (lossy-Dirichlet, honest) |
 | validate: planted locked / tracking | LOCK / TRACK | detector CAN see locking ✓ |
+
+**Two-axis note on Signature 2 (mirrors Signature 1).** The frozen ABSOLUTE hysteresis width (0.682) is above
+the 0.10 'seen' threshold, so a naive frozen read would flag it — but it is confounded by the SAME
+saturation artifact as Sig-1's absolute staircase: the clamp-OFF free control already carries width 0.678, so
+the anchor's EXCESS is only 0.004 (not seen). This does NOT change the headline: the overall **frozen verdict
+is PARTIAL from Signature-1 alone** — the binning takes the LOCK branch only if Sig-1 reads LOCK and the TRACK
+branch only if Sig-1 reads TRACK; with Sig-1 frozen = PARTIAL it falls through to PARTIAL regardless of how
+Sig-2/Sig-3 are read. Sig-2 and Sig-3 are reported on both axes for symmetry, but they are not load-bearing on
+the frozen verdict.
 
 **Rational-point ρ (anchored / free / carrier):** 1:1 → 0.895 / 0.949 / 1.000 · 2:3 → 0.895 / 0.650 / 0.667 ·
 3:2 → 1.546 / 1.532 / 1.500 · 1:2 → 0.809 / 0.478 / 0.500. The FREE control reproduces #417's tracking
