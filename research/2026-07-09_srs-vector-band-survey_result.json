@@ -1,0 +1,748 @@
+{
+  "class": "CONSISTENCY / characterization",
+  "z_degree": 3,
+  "omega_link_over_omega_C": 1.732050807568877,
+  "scalar_band_top_omega_C": 5.441398092702652,
+  "rho_star": {
+    "value": 9.773372659505519,
+    "nu_Hill_at_rho_star": 0.2857142804515563,
+    "target_N_NU": 0.2857142857142857,
+    "KG_Hill": 1.999999942694725,
+    "Zener_A": 1.2293214252992566,
+    "provenance": "DERIVED by bisection to nu_Hill=N_NU (imported symbol) on the VALIDATED 8-site Born-Huang pipeline (srs_elastic_tensor.py, PR#506). NOT hard-coded. \u03bd=2/7/K=2G is GR-imported (PR#261)."
+  },
+  "gates": {
+    "G1_band_count_12": true,
+    "G2_scalar_reduction": {
+      "max_abs_err": 2.6645352591003757e-15,
+      "scalar_limit_top": 5.441398092702652,
+      "pass": true
+    },
+    "G3_primitive_consistency": {
+      "nu_Hill_4site": 0.28571425594232885,
+      "KG_Hill_4site": 1.9999996758165144,
+      "Zener_A_4site": 1.2293212872397992,
+      "pass": true
+    },
+    "G4_isotropic_P_over_S": {
+      "cP2_over_cS2": 3.333333009149847,
+      "target_10_3": 3.3333333333333335,
+      "pass": true
+    },
+    "G5_enantiomorph_identity": {
+      "max_abs_diff": 1.8853336669621967e-08,
+      "threshold": 1e-06,
+      "threshold_provenance": "srs_elastic_tensor.py:425 (same lattice, same Born rank-2 model, same mirror); prereg 1e-9 was scalar-inherited, too tight for the 12\u00d712 vector solve",
+      "pass": true
+    },
+    "G6_rho_star_imported": {
+      "rho_star": 9.773372659505519,
+      "pass": true
+    },
+    "ALL_PASS": true
+  },
+  "per_branch_velocities": {
+    "per_direction": {
+      "100": {
+        "rho_c2_ascending_S_S_P": [
+          0.3517947343238023,
+          0.3517947343238026,
+          1.0293409129187467
+        ],
+        "cP_over_cS": 1.7105467578284923,
+        "cP2_over_cS2": 2.925970210717567
+      },
+      "110": {
+        "rho_c2_ascending_S_S_P": [
+          0.28616993524998063,
+          0.35179473426138247,
+          1.094965756526952
+        ],
+        "cP_over_cS": 1.8527505569133589,
+        "cP2_over_cS2": 3.4326846261427617
+      },
+      "111": {
+        "rho_c2_ascending_S_S_P": [
+          0.30804473508947533,
+          0.3080447350894755,
+          1.1168405562000894
+        ],
+        "cP_over_cS": 1.9040953518855677,
+        "cP2_over_cS2": 3.625579109072224
+      }
+    },
+    "isotropic_Hill": {
+      "K_bulk": 0.6477810843831852,
+      "G_Hill": 0.32389059469158354,
+      "cP2_over_cS2": 3.333333009149847,
+      "cP_over_cS": 1.8257417695692475,
+      "target_10_over_3": 3.3333333333333335,
+      "note": "c_P\u00b2/c_S\u00b2 = (K+4G/3)/G = 10/3 at K=2G \u21d2 c_P = \u221a(10/3)\u00b7c_S. The SOLID P-wave (includes 4G/3 shear stiffening), NOT the \u221a2\u00b7c A1 bulk-sound (which DROPS shear \u2014 a scalar-sector port)."
+    },
+    "sqrt_factor_routing": {
+      "sqrt3_network_coordination": {
+        "value": 1.732050807568877,
+        "role": "c_link \u2192 c\u2080 (D=3 isotropic projection over z=3). UNIVERSAL across ALL branches (overall scale). NOT longitudinal.",
+        "longitudinal": false
+      },
+      "sqrt_10_3_P_wave_longitudinal": {
+        "value": 1.8257418583505538,
+        "role": "c_P/c_S in the isotropic K=2G limit \u2014 THE longitudinal acoustic branch factor (full compressional, +4G/3 shear).",
+        "longitudinal": true
+      },
+      "sqrt2_A1_bulk_sound": {
+        "value": 1.4142135623730951,
+        "canonical_symbol": "V_LONG = \u221a(2G/\u03c1) = \u221a2\u00b7c",
+        "role": "A1-scalar dilatational PORT mode (drops 4G/3 shear). A DIFFERENT sector \u2014 NOT a translational Bloch branch.",
+        "longitudinal": false
+      },
+      "unity_shear_light_proxy": {
+        "value": 1.0,
+        "role": "S/transverse branch = c_S = c\u2080 = light-like PROXY (true photon = T2 Cosserat microrotation, a NAMED follow-on).",
+        "longitudinal": false
+      }
+    }
+  },
+  "vector_band_top": {
+    "normalized_arccos_omega_C": 5.441398003295685,
+    "normalized_arccos_owning": {
+      "hs_point": "H",
+      "note": "PINNED at \u03c0\u221a3 (\u03bb\u0303_max=2.0000\u22482, srs bipartite). The symmetric normalization divides out stiffness \u21d2 the top is \u03c1-INDEPENDENT. This is the 'does-not-cleanly-generalize' tell \u2014 it is the LOWER bracket, not the physical top."
+    },
+    "lumped_calibrated_omega_C": 12.405962695646437,
+    "lumped_raw_sqrt_eig_ks1_units": 5.584645316263442,
+    "lumped_owning": {
+      "k_top_2pi": [
+        1.0,
+        0.6666666666666666,
+        0.6666666666666666
+      ],
+      "nearest_hs": "H",
+      "nearest_hs_dist": 2.9619219587722445,
+      "note": "longitudinal (k_a-dominated, band 11) zone mode. Preserves stiffness but uses the \u03c9=\u221aeig map REJECTED for scalar velocity. The RAW \u221aeig (k_s=1 units) is anchored to \u03c9_C via the k_a=k_s scalar match \u21d2 lumped_calibrated = \u03c0\u221a3\u00b7\u221a(\u03bbmax(D@\u03c1*)/6)."
+    },
+    "p_wave_scaled_omega_C": 9.9345882657961,
+    "raw_link_omega_C": 17.01111299830867,
+    "bracket_omega_C": [
+      5.441398003295685,
+      17.01111299830867
+    ],
+    "interior_computed_estimates_omega_C": {
+      "p_wave_scaled": 9.9345882657961,
+      "lumped_calibrated": 12.405962695646437
+    },
+    "MeV_bracket": [
+      2.780548666195319,
+      8.69266088040183
+    ],
+    "resolution": "The arccos map does NOT cleanly generalize (3 acoustic branches, 2 distinct speeds, anisotropic self-block \u21d2 no single \u03c9_link). Substrate-native normalized-arccos PINS the top at scalar \u03c0\u221a3=5.441 (\u03c1-independent \u2014 the normalization divides out stiffness); the lumped lattice (scalar-anchored) computes 12.406; per-channel link speed lifts to \u03c0\u221a3\u00b7\u221a\u03c1*=17.011. TRUE top is BRACKETED [5.441, 17.011] \u03c9_C, with interior computed estimates \u03c0\u221a3\u00b7\u221a(10/3)=9.935 (review) and lumped-calibrated 12.406."
+  },
+  "consumers": {
+    "a_forkA_tone_placement": {
+      "scalar_top_omega_C": 5.441398092702652,
+      "review_worst_case_omega_C": 9.9345882657961,
+      "true_vector_top_bracket_omega_C": [
+        5.441398003295685,
+        17.01111299830867
+      ],
+      "conservative_floor_omega_C": 17.01111299830867,
+      "recommended_omega_a_omega_C": 18.511,
+      "recommended_omega_b_omega_C": 17.511,
+      "difference_omega_C": 1.0,
+      "note": "\u03b3\u03b3 carrier is a T2/vector-sector excitation; tones must clear the TRUE vector top. Conservative (stiffness-lifted, prereg \u00a74) floor = raw-link \u221a\u03c1* bound = 17.01 \u03c9_C. If Grant rules the top is single-scale (normalized-arccos), the floor drops to the scalar 5.44. The scalar-provisional 5.94/6.94 floor is BELOW even the P-wave-scaled 9.93 \u2014 it is NOT vector-safe."
+    },
+    "e_gap_breather": {
+      "arccos_any_full_gap": false,
+      "lumped_any_full_gap": false,
+      "flag": "k_a\u226bk_s split: report per map. A full internal stop-band RESTORES the gap-pinned carrier candidate the scalar no-gap result had killed \u2014 first-class either way."
+    },
+    "d_light_like_branch": {
+      "branch": "transverse / shear (S)",
+      "velocity_factor_vs_c_link": 0.5773502691896258,
+      "caveat": "S-branch = c\u2080 = c_link/\u221a3 is the LIGHT-LIKE PROXY only. True photon = T2 Cosserat MICROROTATION (rotational sector), a NAMED FOLLOW-ON not surveyed at this Cauchy-translational level. Do NOT claim S = photon."
+    }
+  },
+  "survey_valid": true,
+  "per_enantiomorph": {
+    "right": {
+      "band_count_12_everywhere": true,
+      "lambda_tilde_max": 1.9999999999999987,
+      "D_max_eig": 31.188263308463203,
+      "arccos": {
+        "band_top_omega_C": 5.441398003295685,
+        "band_top_MeV": 2.780548666195319,
+        "k_top_hs": "H",
+        "k_top_dist": 0.0,
+        "k_top_2pi": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "envelopes": {
+          "lo": [
+            0.0,
+            0.0,
+            3.650024149988857e-08,
+            1.654656919906525,
+            2.132084252889601,
+            2.132084252889604,
+            2.6458077925141814,
+            2.7702479331639287,
+            2.770247933163929,
+            3.3093138398130506,
+            4.570527775752039,
+            4.570527775752043
+          ],
+          "hi": [
+            0.8708703169506017,
+            0.8708703169506035,
+            2.1320842528896002,
+            2.6711501595387235,
+            2.6711501595387244,
+            2.7955903001884725,
+            3.3093138398130457,
+            3.3093138398130457,
+            3.7867411727961233,
+            5.441397966262107,
+            5.441397996132091,
+            5.441398003295685
+          ]
+        },
+        "gap_inventory": [
+          {
+            "between": [
+              0,
+              1
+            ],
+            "gap_omega_C": -0.8708703169506017,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              1,
+              2
+            ],
+            "gap_omega_C": -0.870870280450362,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              2,
+              3
+            ],
+            "gap_omega_C": -0.47742733298307516,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              3,
+              4
+            ],
+            "gap_omega_C": -0.5390659066491224,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              4,
+              5
+            ],
+            "gap_omega_C": -0.5390659066491206,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              5,
+              6
+            ],
+            "gap_omega_C": -0.14978250767429113,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              6,
+              7
+            ],
+            "gap_omega_C": -0.539065906649117,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              7,
+              8
+            ],
+            "gap_omega_C": -0.5390659066491166,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              8,
+              9
+            ],
+            "gap_omega_C": -0.4774273329830727,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              9,
+              10
+            ],
+            "gap_omega_C": -0.8708701905100682,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              10,
+              11
+            ],
+            "gap_omega_C": -0.8708702203800476,
+            "full_stop_band": false,
+            "window_omega_C": null
+          }
+        ],
+        "any_full_gap": false
+      },
+      "lumped": {
+        "band_top_omega_C": 5.584645316263442,
+        "k_top_hs": "H",
+        "k_top_dist": 2.9619219587722445,
+        "k_top_2pi": [
+          1.0,
+          0.6666666666666666,
+          0.6666666666666666
+        ],
+        "envelopes": {
+          "lo": [
+            2.4587761557440533e-08,
+            4.827444636119626e-08,
+            6.192464498519527e-08,
+            1.5171101716444508,
+            1.743057144962961,
+            1.7430571449629633,
+            2.0000000000000013,
+            2.919562840332816,
+            3.282281624039218,
+            4.641847188244249,
+            5.506370672095781,
+            5.506370672095781
+          ],
+          "hi": [
+            1.4142135623730947,
+            1.4142135623730951,
+            1.5604750068568891,
+            1.9999999999999996,
+            1.9999999999999996,
+            2.067166340740577,
+            3.2822816240392165,
+            4.641847188244247,
+            4.945341172897057,
+            5.5780612938000855,
+            5.578061293800086,
+            5.584645316263442
+          ]
+        },
+        "gap_inventory": [
+          {
+            "between": [
+              0,
+              1
+            ],
+            "gap_omega_C": -1.4142135140986483,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              1,
+              2
+            ],
+            "gap_omega_C": -1.4142135004484502,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              2,
+              3
+            ],
+            "gap_omega_C": -0.04336483521243828,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              3,
+              4
+            ],
+            "gap_omega_C": -0.2569428550370385,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              4,
+              5
+            ],
+            "gap_omega_C": -0.2569428550370363,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              5,
+              6
+            ],
+            "gap_omega_C": -0.06716634074057559,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              6,
+              7
+            ],
+            "gap_omega_C": -0.3627187837064003,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              7,
+              8
+            ],
+            "gap_omega_C": -1.3595655642050293,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              8,
+              9
+            ],
+            "gap_omega_C": -0.30349398465280775,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              9,
+              10
+            ],
+            "gap_omega_C": -0.07169062170430429,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              10,
+              11
+            ],
+            "gap_omega_C": -0.07169062170430518,
+            "full_stop_band": false,
+            "window_omega_C": null
+          }
+        ],
+        "any_full_gap": false
+      }
+    },
+    "left": {
+      "band_count_12_everywhere": true,
+      "lambda_tilde_max": 1.9999999999999984,
+      "D_max_eig": 31.188263308463192,
+      "arccos": {
+        "band_top_omega_C": 5.441397996132091,
+        "band_top_MeV": 2.78054866253473,
+        "k_top_hs": "H",
+        "k_top_dist": 0.0,
+        "k_top_2pi": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "envelopes": {
+          "lo": [
+            0.0,
+            0.0,
+            3.650024149988857e-08,
+            1.6546569199065237,
+            2.132084252889602,
+            2.1320842528896033,
+            2.6458077925141814,
+            2.7702479331639283,
+            2.770247933163929,
+            3.3093138398130506,
+            4.570527775752039,
+            4.570527775752043
+          ],
+          "hi": [
+            0.8708703169506017,
+            0.8708703169506017,
+            2.1320842528896002,
+            2.6711501595387235,
+            2.6711501595387244,
+            2.7955903001884725,
+            3.3093138398130457,
+            3.3093138398130457,
+            3.7867411727961247,
+            5.441397971645047,
+            5.441397977278754,
+            5.441397996132091
+          ]
+        },
+        "gap_inventory": [
+          {
+            "between": [
+              0,
+              1
+            ],
+            "gap_omega_C": -0.8708703169506017,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              1,
+              2
+            ],
+            "gap_omega_C": -0.8708702804503602,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              2,
+              3
+            ],
+            "gap_omega_C": -0.4774273329830765,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              3,
+              4
+            ],
+            "gap_omega_C": -0.5390659066491215,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              4,
+              5
+            ],
+            "gap_omega_C": -0.539065906649121,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              5,
+              6
+            ],
+            "gap_omega_C": -0.14978250767429113,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              6,
+              7
+            ],
+            "gap_omega_C": -0.5390659066491175,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              7,
+              8
+            ],
+            "gap_omega_C": -0.5390659066491166,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              8,
+              9
+            ],
+            "gap_omega_C": -0.47742733298307405,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              9,
+              10
+            ],
+            "gap_omega_C": -0.8708701958930085,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              10,
+              11
+            ],
+            "gap_omega_C": -0.8708702015267109,
+            "full_stop_band": false,
+            "window_omega_C": null
+          }
+        ],
+        "any_full_gap": false
+      },
+      "lumped": {
+        "band_top_omega_C": 5.584645316263441,
+        "k_top_hs": "H",
+        "k_top_dist": 2.9619219587722445,
+        "k_top_2pi": [
+          1.0,
+          0.6666666666666666,
+          0.6666666666666666
+        ],
+        "envelopes": {
+          "lo": [
+            2.4587761557440533e-08,
+            4.827444636119626e-08,
+            6.192464498519527e-08,
+            1.517110171644451,
+            1.7430571449629613,
+            1.7430571449629626,
+            2.0000000000000013,
+            2.919562840332816,
+            3.282281624039217,
+            4.641847188244249,
+            5.506370672095781,
+            5.506370672095781
+          ],
+          "hi": [
+            1.4142135623730938,
+            1.414213562373094,
+            1.5604750068568893,
+            1.9999999999999996,
+            1.9999999999999996,
+            2.0671663407405765,
+            3.2822816240392156,
+            4.641847188244247,
+            4.945341172897057,
+            5.578061293800086,
+            5.578061293800086,
+            5.584645316263441
+          ]
+        },
+        "gap_inventory": [
+          {
+            "between": [
+              0,
+              1
+            ],
+            "gap_omega_C": -1.4142135140986474,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              1,
+              2
+            ],
+            "gap_omega_C": -1.414213500448449,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              2,
+              3
+            ],
+            "gap_omega_C": -0.04336483521243828,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              3,
+              4
+            ],
+            "gap_omega_C": -0.2569428550370383,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              4,
+              5
+            ],
+            "gap_omega_C": -0.25694285503703695,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              5,
+              6
+            ],
+            "gap_omega_C": -0.06716634074057515,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              6,
+              7
+            ],
+            "gap_omega_C": -0.36271878370639943,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              7,
+              8
+            ],
+            "gap_omega_C": -1.3595655642050302,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              8,
+              9
+            ],
+            "gap_omega_C": -0.30349398465280775,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              9,
+              10
+            ],
+            "gap_omega_C": -0.07169062170430518,
+            "full_stop_band": false,
+            "window_omega_C": null
+          },
+          {
+            "between": [
+              10,
+              11
+            ],
+            "gap_omega_C": -0.07169062170430518,
+            "full_stop_band": false,
+            "window_omega_C": null
+          }
+        ],
+        "any_full_gap": false
+      }
+    }
+  }
+}
