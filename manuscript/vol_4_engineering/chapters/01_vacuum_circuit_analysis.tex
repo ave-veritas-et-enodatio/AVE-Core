@@ -246,6 +246,8 @@ To verify consistency with the weak-field limit, the Taylor expansion about $V =
 \end{equation}
 At low voltages ($V \ll V_{yield}$), the leading correction is quadratic---identical to the Euler-Heisenberg effective Lagrangian of QED. The classical linear vacuum ($C_{eff} = C_0$) is recovered to arbitrary precision. Table~\ref{tab:varactor_values} evaluates the capacitance divergence at representative drive levels.
 
+\medskip\noindent\textbf{The parity theorem --- the sub-yield difference tone is forbidden by inversion symmetry.} Because the varactor kernel is \emph{even} in the drive (Eq.~\ref{eq:varactor_taylor} carries only even powers of $V$), the restoring force is \emph{odd}, $F(r) = r + \tfrac12 r^3 + \cdots$: the reversible sub-yield vacuum is a pure-$\chi^3$, inversion-symmetric varactor. Under $V \to -V$ the equation of motion is odd, so a two-tone spectral line at $m\,\omega_{\text{lo}} + n\,\omega_{\text{hi}}$ exists \emph{iff} $m+n$ is odd. The literal difference tone $\omega_{\text{hi}} - \omega_{\text{lo}}$ is therefore \textbf{forbidden} below yield --- by inversion symmetry, not merely suppressed (measured $\sim\!3.4\times10^{-11}$ below the four-wave-mixing product) --- and the difference channel becomes an \emph{inversion-symmetry meter}: a planted even ($\chi^2$) term lights the forbidden tone monotonically, power $\propto\beta^2$ (fitted exponent $2.000$, $R^2 = 0.99999999$). The allowed four-wave-mixing beat ($2\omega_{\text{lo}} - \omega_{\text{hi}}$) scales as $A^6$ (clean-regime exponent $6.02$, $R^2 = 0.999999$; the steeper global $6.16$, $R^2 = 0.9997$, is $\chi^5$ stiffening at large amplitude --- the two $R^2$ values pair with \emph{different} exponents and must not be fused). This parity structure is a FORM-level consequence of the Axiom-4 kernel (no value imported); the canonical statement, its generative in-driver verification, and the \texttt{interface\_scoped\_\_BULK\_OPEN} scope of the \emph{frequency} vertex (the bulk four-photon vertex was \emph{not} probed --- the beat collapses $\approx$17.1 orders at bulk separation, tracking the frozen skin-suppression model) are at \kbleaf{ave-kb/common/universal-saturation-kernel-catalog.md} (\texttt{clm-invmtr}, \texttt{clm-a6chi3}; two-tone four-photon form factor, PR~\#610).
+
 \begin{table}[H]
 \centering
 \caption{Effective vacuum capacitance vs.\ drive level. The divergence accelerates sharply above 90\% of $V_{yield}$.}
@@ -721,6 +723,8 @@ When driven by a dual-tone signal $V(t) = V_1 \cos(\omega_1 t) + V_2 \cos(\omega
 \end{resultbox}
 
 These IM3 tones fall \textit{close} to the original drive frequencies (unlike harmonic products at $2f$, $3f$ which fall far out of band), making them the most experimentally accessible non-linear signature.
+
+\medskip\noindent\emph{Parity cross-ref (\texttt{clm-invmtr}, body preserved).} The 2nd-order products at $\omega_1 \pm \omega_2$ named above live in the \textbf{capacitance envelope} $C(t)$ (even in $V$), which is \emph{not} the radiated line: sub-yield, the difference tone $\omega_1 - \omega_2$ is inversion-symmetry-\textbf{forbidden} in the radiated observable (the odd-force parity theorem introduced with the metric varactor above; \kbleaf{ave-kb/common/universal-saturation-kernel-catalog.md}, \texttt{clm-invmtr}). The IM3 line $2f_1 - f_2$ ($m+n$ odd) is parity-\textbf{allowed} and unaffected.
 
 \subsection{Predicted IM3 Amplitude}
 

@@ -876,6 +876,63 @@ The A-034 catalog enumerates 26 canonical cross-scale instances of the saturatio
   - Resolve the scoped Session 4/5 rows (11-a, 14-a) or move them to a clearly-separated pending appendix
 ---
 
+## The Parity Theorem — Sub-Yield Difference Tone Forbidden by Inversion Symmetry (Difference Channel = Inversion-Symmetry Meter)
+<!-- id: clm-invmtr -->
+
+The reversible sub-yield vacuum is a pure-$\chi^3$, inversion-symmetric varactor: the even Axiom-4 kernel $U(r) = 1 - \sqrt{1 - r^2}$ gives an odd restoring force $F(r) = r + \tfrac12 r^3 + \cdots$, so a two-tone spectral line at $m\,\omega_{\text{lo}} + n\,\omega_{\text{hi}}$ exists iff $m+n$ is odd. The literal difference tone $\omega_{\text{hi}} - \omega_{\text{lo}}$ is FORBIDDEN sub-yield by inversion symmetry (forbidden, not suppressed), making the difference channel an inversion-symmetry meter with a measured response law.
+
+- _Specific Claims_
+  - FORM-derived, no value import: an even saturation kernel $\Rightarrow$ odd restoring force $\Rightarrow$ pure $\chi^3$ response $\Rightarrow$ a combination tone at $m\,\omega_{\text{lo}} + n\,\omega_{\text{hi}}$ is allowed iff $m+n$ is odd. The difference tone ($m+n = 0$) and DC / rectification are forbidden below yield.
+  - Measured (1D mechanism substrate) at the reference pair $(2.6, 4.2)\,\omega_C$: $P_{\text{diff}}/P_{\text{FWM}} \approx 3.4\times10^{-11}$ (at the numerical floor), while the allowed four-wave-mixing product $2\omega_{\text{lo}} - \omega_{\text{hi}}$ ($m+n=1$) carries the beat.
+  - Generatively verified in-driver: planting an even ($\chi^2$) term $F(r) \to F(r) + \beta\,r^2$ lights the forbidden difference tone monotonically, power $\propto \beta^2$ (fitted exponent 2.000, $R^2 = 0.99999999$); the allowed FWM sideband stays $\beta$-blind. $\beta = 0$ is the physical reversible vacuum ($P_{\text{diff}} = 1.17\times10^{-16}$ at floor vs FWM $3.46\times10^{-6}$).
+  - The difference channel is therefore an inversion-symmetry meter (the vacuum as a biased-varactor difference-tone mixer, conversion $\propto$ bias): a nonzero reading flags an even-order (rectifying) leak. The bias-calibration route via $C_{ss} = C_0/S^3$ (an A1-longitudinal compliance tangent, clm-vca7r1) requires an explicit A1↔T2 ownership bridge before it can calibrate this T2-transverse observable — whether the frozen bias $u_0^*$ enters the transverse channel through the A1 tangent, a T2-native tangent, or a cross-sector coupling is PENDING-GRANT (the first question of the D-II calibration batch; sector-ownership discipline forbids the cross-wire without the bridge).
+- _Specific Non-Claims and Caveats_
+  - MANIFESTATION (Class B), not emergence: a direct consequence of the odd Axiom-4 kernel; no CODATA / SI value is imported.
+  - Sub-yield / reactive (lossless, Axiom 3) only: $\beta > 0$ is a planted diagnostic, not a physical vacuum kernel; even-order rectification (pair production) is out of scope (runs stay $\max r \le 0.55$).
+  - Interface-scoped: 1D mechanism substrate, drive-clamp geometry. The separate *frequency form factor* claim (whether the $\chi^3$ vertex is frequency-blind above band) is WITHDRAWN — the bulk vertex was NOT probed (the bulk beat collapses $\approx 17.1$ orders toward skin suppression at sep $\ge 3$; see the leaf's SCOPE VERDICT). The super-band coupling fork stays OPEN; the assigned resolution arc is a 3D clamp-free run.
+  - Adversarially reviewed: PR #610 BLOCKED (drive-interface artifact) $\to$ repaired (banked what survives, voided the artifact) $\to$ CLEARED. No Letter / clm-gg4wmx edit is licensed by this run.
+
+> **Leaf references:** [universal-saturation-kernel-catalog](./universal-saturation-kernel-catalog.md).
+
+### Quality
+- confidence: 0.80
+- depends-on:
+  - clm-sysqaf — Universal Operator Catalog / Axiom 4 kernel form [supplies the even kernel $S(A) = \sqrt{1 - A^2}$ whose parity forces the odd restoring force]
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.80)]
+- rationale: The core move — even kernel $\Rightarrow$ odd force $\Rightarrow$ pure-$\chi^3$ $\Rightarrow$ combination tones only at odd $m+n$ — is a rigorous parity theorem of the postulated Axiom-4 kernel (FORM-derived, no value import), and the forbidden-ness is not asserted but generatively demonstrated in-driver (planted $\chi^2$ lights the tone $\propto \beta^2$ at exponent 2.000, $R^2$ = eight nines). Held at 0.80 (not higher) because the demonstration is on the 1D mechanism substrate and the meter's operating envelope (sub-yield, reactive) bounds its scope; the interface-vs-bulk frequency question it is often quoted alongside is explicitly WITHDRAWN and carried as a caveat, not folded into this claim.
+- strengthen-by:
+  - Reproduce the parity-forbidden null and the $\propto \beta^2$ meter law on the 3D clamp-free substrate (the assigned resolution arc), confirming the theorem is geometry-independent as the FORM derivation implies
+  - Bound the meter's sensitivity floor (the smallest even-order leak $\beta$ resolvable above the $3.4\times10^{-11}$ difference/FWM floor) as a bench specification
+---
+
+## The A⁶ Amplitude Law — χ³ Four-Wave-Mixing Fingerprint of the Odd Kernel
+<!-- id: clm-a6chi3 -->
+
+The four-wave-mixing beat power of the reversible sub-yield vacuum scales as $A^6$ (field $\propto A^3$, power $\propto A^6$) — the direct fingerprint of the cubic ($\tfrac12 r^3$) term of the odd Axiom-4 kernel restoring force.
+
+- _Specific Claims_
+  - Clean-regime exponent 6.02 (max bond $r < 0.15$, 3 points, $R^2 = 0.999999$) — the $\chi^3$ figure of merit, measured where higher-order ($\chi^5$) terms are negligible.
+  - Global exponent 6.16 (all 5 points, $R^2 = 0.9997$) — steeper than 6 because the $\chi^5$ ($\tfrac38 r^5$) term stiffens the slope at the two largest-amplitude points ($r = 0.27, 0.55$).
+  - Casting-independent: an $r/\sqrt{S}$ casting reproduces the amplitude shape with prefactor $\tfrac14$ the $r/S$ run (the $\tfrac12{:}\tfrac14$ vertex-coefficient ratio squared).
+- _Specific Non-Claims and Caveats_
+  - MANIFESTATION (Class B): a consequence of the odd ($\chi^3$) Axiom-4 kernel; no value imported.
+  - The two $R^2$ values pair with different exponents and must NEVER be fused: 6.02 $\leftrightarrow$ $R^2 = 0.999999$ (clean regime); 6.16 $\leftrightarrow$ $R^2 = 0.9997$ (global). (An earlier draft conflated them; the review corrected it.)
+  - Every measured point is $\ge 10$ orders above the kernel-off floor ($5.1\times10^{-23}$); the floor is a characterization control, not a limit the data reaches (dynamic range $2.7\times10^7$, corrected from a first-draft $2.6\times10^5$).
+  - Interface-scoped 1D mechanism substrate; the bulk frequency vertex is the separate WITHDRAWN claim (clm-invmtr SCOPE VERDICT).
+
+> **Leaf references:** [universal-saturation-kernel-catalog](./universal-saturation-kernel-catalog.md).
+
+### Quality
+- confidence: 0.78
+- depends-on:
+  - clm-invmtr — Parity Theorem [establishes the pure-$\chi^3$ (odd-kernel) structure whose cubic term this amplitude law scales]
+- solidity: 0.78 (ok to build on, see caveats) [= min(0.78, 0.80)]
+- rationale: The $A^6$ power law is the textbook $\chi^3$ four-wave-mixing signature (field $\propto A^3$), and here it is measured cleanly (clean-regime exponent 6.02, $R^2$ = six nines) with a mechanistic account of the $\chi^5$ stiffening at large amplitude (the 6.16 global slope) and a casting-independent cross-check. Held at 0.78 (below the parity theorem it depends on) because it is an amplitude-scaling measurement on the 1D substrate rather than a theorem, and its figure of merit rests on a 3-point clean-regime fit.
+- strengthen-by:
+  - Extend the clean-regime ($r < 0.15$) fit to more points to tighten the 6.02 exponent beyond the current 3-point basis
+  - Reproduce the $A^6$ scaling and the $\chi^5$-stiffening crossover on the 3D clamp-free substrate
+---
+
 ## A-034 Symmetry Classification — SYM / ASYM-N / ASYM-E
 <!-- id: clm-hvvvop -->
 

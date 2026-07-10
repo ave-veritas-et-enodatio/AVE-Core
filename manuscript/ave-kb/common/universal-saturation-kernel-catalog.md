@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-gz7ryg, clm-dxdsvt, clm-hvvvop, clm-5fu303, clm-l4o7hv]
+claims: [clm-gz7ryg, clm-dxdsvt, clm-hvvvop, clm-5fu303, clm-l4o7hv, clm-invmtr, clm-a6chi3]
 path-stable: "referenced from vol1, vol3, vol4, vol5 + backmatter Ch 7 as canonical A-034 cross-scale catalog"
 -->
 
@@ -166,7 +166,7 @@ load-bearing table — diagonal canonical, off-diagonal are population questions
 
 | | **SWING** (keyed on the element's own state amplitude) | **SLEW** (keyed on the element's rate/conjugate) |
 |---|---|---|
-| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor; all 26 rows above are swing-ε or swing-μ). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **UNDER MEASUREMENT** — fork A gate-2 (the two-tone run, branch `analysis/x31a-twotone-formfactor`) is the direct probe of whether this cell is populated. |
+| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor; all 26 rows above are swing-ε or swing-μ). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **MEASURED — INTERFACE-SCOPED; BULK VERTEX OPEN** (fork A two-tone run, PR #610, branch `analysis/x31a-twotone-formfactor`). The run banked the ★ **parity theorem** (§ *The parity theorem* below, `clm-invmtr`) and the **A⁶ χ³ law** (`clm-a6chi3`). The **co-located interface** reading was the artifact (flat by construction, $q_{raw}=2.93$); at bulk separation (sep≥3) the beat **collapses 17.1 orders tracking the physical skin suppression** (vindicating the frozen $O_{skin}$ bulk model), so the *frequency* vertex was NOT probed — the slew-ε **population question stays OPEN** pending the 3D clamp-free run. |
 | **μ / L** | **swing-μ** (L keyed on $I$/B amplitude; bench analog = ferrite-core saturation): **PREDICTED EMPTY for the vacuum** — this cell's emptiness IS the registered **static-B-transparency falsifier** (PVLAS/BMV consistency = its standing test; frozen-flux mechanism: static flux is conserved per-loop, not stored against a saturable core). Cross-ref [the Letter §"static-flux transparency"](../../../papers/2026_birefringence_letter/main.tex) + [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md) (`clm-pvlas1`). | **slew-μ** (L keyed on $V$ = flux-rate / circulation $A_I=\dot E/(E_c\omega_0)$): $S_B(A_I)=\sqrt{1-A_I^2}$ — **CANONICAL** (the FPB slew rating, $I_{max}\simeq116$ A). Particle-tier costume: the relativistic inductor $L_{eff}=$ γ-factor (relativistic mass) — pending A4. |
 
 The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ). The **ASYM-N(μ) BCS row** above is
@@ -174,6 +174,78 @@ The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ). The **ASY
 which is NOT empty in condensed matter; the swing-μ **vacuum** cell is the one predicted empty (the static-B
 falsifier). All 26 catalog rows populate the **SWING** column (ε or μ); the **SLEW** column is the un-built
 catalog (G2), its one canonical vacuum instance being slew-μ ($L_{eff}(I)$, `clm-p5cf3t`).
+
+## ★ The parity theorem — the sub-yield difference tone is FORBIDDEN by inversion symmetry
+<!-- claim-quality: clm-invmtr -->
+
+> **Sector header** — MODE: driven two-tone small-signal, **sub-yield** ($\max r \le 0.55$), **reactive /
+> lossless** (Axiom 3 — no dissipation; forbidden ≠ suppressed). REGIME: below yield ($A < 1$, Regime I–II).
+> SECTOR: **T2-transverse EM drive** on the sector-agnostic Axiom-4 kernel; **interface-scoped** (1D mechanism
+> substrate, drive-clamp geometry). Provenance:
+> [`research/2026-07-09_twotone-formfactor_result.md`](../../../research/2026-07-09_twotone-formfactor_result.md)
+> (two-tone four-photon form factor, task #31-A / PR #610; adversarially reviewed: BLOCKED → repaired → CLEARED).
+
+**The theorem (FORM-derived — no value import).** The Axiom-4 kernel enters the varactor potential as
+$U(r) = 1 - \sqrt{1 - r^2}$, which is **even** in the drive $r$. An even potential gives an **odd** restoring
+force $F(r) = r + \tfrac12 r^3 + \tfrac38 r^5 + \cdots$ — the reversible sub-yield vacuum is a **pure-$\chi^3$,
+inversion-symmetric varactor**. Under $r \to -r$ the whole equation of motion (including the reactive terms) is
+odd, so the steady response is an **odd functional of the drive**: a two-tone spectral line at
+$m\,\omega_{\text{lo}} + n\,\omega_{\text{hi}}$ exists **iff $m+n$ is ODD**.
+
+| product | $(m,n)$ | $m+n$ | status | measured @ $(2.6, 4.2)\,\omega_C$ |
+|---|---|---|---|---|
+| $\omega_{\text{hi}} - \omega_{\text{lo}}$ (difference) | $(-1,+1)$ | 0 | **FORBIDDEN** (by symmetry, *not* suppressed) | $P_{\text{diff}}/P_{\text{FWM}} \approx 3.4\times10^{-11}$ (at floor) |
+| DC / rectification | $(0,0)$ | 0 | **FORBIDDEN** | at floor |
+| $2\omega_{\text{lo}} - \omega_{\text{hi}}$ (four-wave mixing) | $(+2,-1)$ | 1 | **ALLOWED** | the measured beat |
+
+The literal difference tone is **structurally forbidden** below yield — *forbidden by inversion symmetry, not
+merely suppressed*. This makes the difference channel an **inversion-symmetry METER** with a measured response law.
+
+**Generative verification (in-driver — the null is a *witness*, not a coincidence).** The forbidden-ness is a
+*consequence of kernel inversion symmetry*, proven by generatively breaking it: plant an even ($\chi^2$) term
+$F(r) \to F(r) + \beta\, r^2$ (a DC-biased / rectifying varactor) and sweep $\beta$. At $\beta = 0$ (the physical
+reversible vacuum) the difference tone sits at floor ($1.17\times10^{-16}$ vs the allowed FWM $3.46\times10^{-6}$);
+for $\beta > 0$ the forbidden tone rises **monotonically, power $\propto \beta^2$** (fitted exponent **2.000**,
+$R^2 = 0.99999999$) while the allowed odd-order FWM sideband stays $\beta$-blind. A nonzero difference-channel
+reading therefore flags an even-order (rectifying) leak — the vacuum as a **biased-varactor difference-tone mixer**,
+conversion $\propto$ bias. **A1↔T2 ownership bridge — PENDING-GRANT (flag-don't-fix).** The meter's
+bias-calibration route via $C_{ss} = C_0/S^3$ is *not* yet sector-closed: the cited $C_{ss}$
+([`node-up-small-large-signal.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md),
+`clm-vca7r1`) is the **A1-longitudinal** compliance tangent, whereas this meter reads a **T2-transverse** observable
+(the drive is T2 — see the sector header) — so calibrating the transverse channel through the A1 tangent requires an
+explicit **A1↔T2 ownership bridge** first. Whether the frozen bias $u_0^*$ enters the transverse channel through the
+A1 tangent, a T2-native tangent, or a cross-sector coupling is **PENDING-GRANT** (the first question of the D-II
+calibration batch — sector-ownership discipline forbids the cross-wire without the bridge). The EE-tracker mixer row
+is at [`translation-circuit.md` §4.5(b)](translation-tables/translation-circuit.md).
+
+### The A⁶ amplitude law — the χ³-channel fingerprint
+<!-- claim-quality: clm-a6chi3 -->
+
+The four-wave-mixing beat power scales as $A^6$ (field $\propto A^3$, power $\propto A^6$) — the direct
+fingerprint of the cubic ($\tfrac12 r^3$) term. **Clean-regime exponent 6.02** ($\max$ bond $r < 0.15$,
+$R^2 = 0.999999$) is the χ³ figure of merit; the **global exponent 6.16** ($R^2 = 0.9997$) is steeper because the
+χ⁵ ($\tfrac38 r^5$) term stiffens the slope at the two largest-amplitude points ($r = 0.27, 0.55$). **The two
+$R^2$ values pair with different exponents and must never be fused: 6.02 ↔ $R^2 = 0.999999$ (clean regime);
+6.16 ↔ $R^2 = 0.9997$ (global).** Casting-independent (an r/√S cross-check reproduces the shape with prefactor ¼).
+
+### SCOPE VERDICT — `interface_scoped__BULK_OPEN` (the frequency vertex was NOT probed)
+
+The parity theorem and the A⁶ law above are **MANIFESTATION (Class B)** — geometry-independent consequences of
+the odd Axiom-4 kernel. The *frequency form factor* (whether the χ³ four-photon vertex is frequency-blind above
+the band) is a **separate, WITHDRAWN** reading: the 1D driver co-located both tones at one hard-clamped drive node,
+recovering a flat vertex **by construction — a drive interface, not the bulk**. The review's bulk-geometry
+discriminator (two independently-sourced tones at separation $\text{sep} \ge 3$, so the mixing region is interior
+where both tones are evanescent) collapses the beat by **$1.385\times10^{17} \approx 17.1$ orders**
+($3.46\times10^{-6} \to 2.50\times10^{-23}$, the numerical floor). The bulk falloff exponent $q_{\text{raw}} = 16.15$
+($R^2 = 0.98$) tracks the frozen skin-suppression prediction $O_{\text{skin}}^2$ (falloff exponent **16.54**) almost
+exactly, versus the near-flat interface exponent $q_{\text{raw}} = 2.93$ — **the frozen $O_{\text{skin}}$ was the
+correct bulk model.** Two-part picture: the kernel is frequency-blind *wherever fields exist*, but above-band
+fields are *skin-rare in the bulk*, so the bulk four-photon vertex was **NOT probed** and the super-band coupling
+fork stays **OPEN**. The assigned resolution arc is a **3D clamp-free run** (two independently-sourced evanescent
+packets crossing in the interior; all normalization axes pre-registered with defined responses for rising/negative
+exponents; $O_{\text{skin}}$ carried as the pre-registered bulk prediction; ramp-independence on every measurement).
+**No ATLAS-facing / Letter sentence is licensed by this run** (Letter v5 / `clm-gg4wmx`: zero edits). Cross-ref the
+RATING-TYPE 2×2 slew-ε cell above + [`operators.md` §3.5](operators.md).
 
 ## What this catalog establishes
 

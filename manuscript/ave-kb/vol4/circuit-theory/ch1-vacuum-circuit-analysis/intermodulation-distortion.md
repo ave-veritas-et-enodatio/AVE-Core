@@ -37,6 +37,8 @@ $$
 
 When driven by a dual-tone signal $V(t) = V_1 \cos(\omega_1 t) + V_2 \cos(\omega_2 t)$, the squared term generates 2nd-order products at $\omega_1 \pm \omega_2$, and the quartic term generates the critical **3rd-order intermodulation** (IM3) products:
 
+> **Parity cross-ref (2026-07-10, `clm-invmtr` — body preserved).** The 2nd-order products at $\omega_1 \pm \omega_2$ above live in the **capacitance envelope** $C(t)$ (even in $V$), which is *not* the radiated line: sub-yield, the difference tone $\omega_1 - \omega_2$ is inversion-symmetry-**FORBIDDEN** in the radiated observable (the odd-force parity theorem, [`universal-saturation-kernel-catalog.md` § The parity theorem](../../../common/universal-saturation-kernel-catalog.md)). The IM3 line $2f_1 - f_2$ ($m+n$ odd) is parity-**ALLOWED** and unaffected — the IM3 apparatus below stands.
+
 > **[Resultbox]** *3rd-Order Intermodulation Products*
 >
 > $$
