@@ -565,16 +565,26 @@ def _make_figure(basis, bonds, rho_star, out, out_dir):
         ax.plot(kd, bands[:, b], color=c, lw=1.1, alpha=0.9 if b < 3 else 0.7)
     ax.plot(kd, bands[:, 11], color=style.COLORS["comparison"], lw=1.6)
     top_a = out["vector_band_top"]["normalized_arccos_omega_C"]
+    top_lumped = out["vector_band_top"]["lumped_calibrated_omega_C"]
+    top_link = out["vector_band_top"]["raw_link_omega_C"]
+    # ── lower bracket: the ρ-independent normalized-arccos pin (computed bands reach only here) ──
     ax.axhline(top_a, color=style.COLORS["data"], ls="--", lw=0.9)
     ax.axhline(float(SCALAR_BAND_TOP), color=style.COLORS["accent"], ls=":", lw=0.9)
-    ax.annotate(f"normalized-arccos top  π√3 = {top_a:.3f} " + r"$\omega_C$",
+    ax.annotate(f"normalized-arccos (LOWER bracket)  π√3 = {top_a:.2f} " + r"$\omega_C$",
                 (kd[len(kd) // 2], top_a), ha="center", va="bottom", fontsize=7)
+    # ── upper-bracket overlays: the stiffness-lifted band-top estimates (12.41 / 17.01 ω_C) ──
+    ax.axhline(top_lumped, color=style.COLORS["muted"], ls="-.", lw=1.0)
+    ax.axhline(top_link, color=style.COLORS["data"], ls="--", lw=1.2)
+    ax.annotate(f"lumped-calibrated  {top_lumped:.2f} " + r"$\omega_C$",
+                (kd[len(kd) // 2], top_lumped), ha="center", va="bottom", fontsize=7)
+    ax.annotate(r"raw-link (UPPER bracket)  $\pi\sqrt{3}\sqrt{\rho^*}$ = " + f"{top_link:.2f} " + r"$\omega_C$",
+                (kd[len(kd) // 2], top_link), ha="center", va="bottom", fontsize=7)
     ax.set_xticks(ticks)
     ax.set_xticklabels([r"$\Gamma$" if x == "Gamma" else x for x in labels])
     for t in ticks:
         ax.axvline(t, color=style.COLORS["muted"], lw=0.4, alpha=0.4)
     ax.set_xlim(kd[0], kd[-1])
-    ax.set_ylim(0, top_a * 1.08)
+    ax.set_ylim(0, top_link * 1.08)  # extend to the raw-link upper bracket so both endpoints are depicted
     ax.set_xlabel("BCC Brillouin-zone path")
     ax.set_ylabel(style.axis_label("frequency", r"\omega", r"$\omega_C$"))
     paths = style.save(fig, out_dir / "srs_vector_band_survey")
