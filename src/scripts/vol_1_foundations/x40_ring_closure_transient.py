@@ -371,3 +371,104 @@ def neumann_second_axis(ring: Ring) -> dict[str, float]:
         "ell": ell,
         "N": float(N),
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reporting — gate metrics, the figure, and the JSON results dump.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def gate_metrics(tr: Transient) -> dict[str, float]:
+    """Compute the G-A / G-B / G-C headline metrics from a transient."""
+    lam_dev = float(np.max(np.abs(tr.Lambda - tr.Lambda0) / abs(tr.Lambda0)))
+    ledger_dev = float(np.max(np.abs(tr.E_ring + tr.E_rad - tr.E0) / tr.E0))
+    i_final = tr.currents_final
+    return {
+        "G_A_lambda_max_rel_dev": lam_dev,
+        "G_B_plateau_max_abs_dev": float(np.max(np.abs(i_final - 1.0 / tr.N))),
+        "G_B_i_dc_mean": float(i_final.mean()),
+        "G_C_ledger_max_rel_dev": ledger_dev,
+        "f_E_trapped": float(tr.E_ring[-1] / tr.E0),
+        "f_rad": float(tr.E_rad[-1] / tr.E0),
+        "target_f_E": 1.0 / tr.N,
+    }
+
+
+def make_figure(tr: Transient, out_path) -> None:
+    """WHITE house-style figure: the closure transient + energy ledger.
+
+    Top    Lambda(t)/Lambda0 (conserved flat) and the per-bond current spread
+           [min,max] with the frozen 1/N plateau line.
+    Bottom the lossless energy ledger E_ring, E_rad, and their sum (units of E0).
+    """
+    import matplotlib.pyplot as plt
+
+    from ave.viz.style import COLORS, apply, axis_label
+
+    apply("print")
+    fig, (ax0, ax1) = plt.subplots(2, 1, figsize=(7.0, 6.4), sharex=True)
+
+    inv_n = 1.0 / tr.N
+    ax0.fill_between(tr.t, tr.i_min, tr.i_max, color=COLORS["accent"], alpha=0.30,
+                     label="per-bond current spread [min, max]")
+    ax0.plot(tr.t, tr.Lambda / tr.Lambda0, color=COLORS["ave"], lw=1.8, ls="-",
+             label=r"$\Lambda(t)/\Lambda_0$ (trapped flux, conserved)")
+    ax0.axhline(inv_n, color=COLORS["muted"], lw=1.2, ls="--",
+                label=rf"frozen plateau $1/N = {inv_n:.2f}$")
+    ax0.axhline(1.0, color=COLORS["muted"], lw=0.8, ls=":", alpha=0.7)
+    ax0.set_ylabel(axis_label("Normalized", r"\Lambda/\Lambda_0,\ i", ""))
+    ax0.set_ylim(-0.15, 1.15)
+    ax0.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=8)
+
+    ax1.plot(tr.t, tr.E_ring / tr.E0, color=COLORS["ave"], lw=1.8, ls="-",
+             label=r"$E_\mathrm{ring}$ (reactive, trapped)")
+    ax1.plot(tr.t, tr.E_rad / tr.E0, color=COLORS["comparison"], lw=1.8, ls="--",
+             label=r"$E_\mathrm{rad}$ (radiated to bath)")
+    ax1.plot(tr.t, (tr.E_ring + tr.E_rad) / tr.E0, color=COLORS["data"], lw=1.0, ls=":",
+             label=r"$E_\mathrm{ring}+E_\mathrm{rad}$ (lossless ledger)")
+    ax1.axhline(inv_n, color=COLORS["muted"], lw=1.0, ls="--", alpha=0.7)
+    ax1.axhline(1.0 - inv_n, color=COLORS["muted"], lw=1.0, ls="--", alpha=0.7)
+    ax1.set_ylabel(axis_label("Energy", "E/E_0", ""))
+    ax1.set_xlabel(axis_label("Time", "t", r"$\tau$"))
+    ax1.set_ylim(-0.05, 1.05)
+    ax1.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=8)
+
+    fig.savefig(out_path, facecolor=fig.get_facecolor(), bbox_inches="tight", dpi=150)
+    plt.close(fig)
+
+
+def main() -> dict:
+    """Run the full x40 lane: transient + gates + E4 + figure + JSON dump."""
+    import json
+    from pathlib import Path
+
+    here = Path(__file__).resolve().parent
+    out_dir = here / "_output"
+    out_dir.mkdir(exist_ok=True)
+    fig_path = here / "x40_ring_closure_transient.png"  # tracked (cited render)
+
+    ring = derive_ring()
+    tr = simulate(ring.N, n_ticks=300)
+    gm = gate_metrics(tr)
+    e4 = neumann_second_axis(ring)
+    ge = scan_for_dimensional_constants(str(Path(__file__).resolve()))
+
+    results = {
+        "N_derived": ring.N,
+        "ring_nodes": list(ring.nodes),
+        "gates": gm,
+        "G_D_N": ring.N,
+        "G_E_self_scan_violations": ge,
+        "E4_second_axis": e4,
+        "headline_f_E_TLM": gm["target_f_E"],
+    }
+    make_figure(tr, fig_path)
+    with open(out_dir / "x40_ring_closure_transient_results.json", "w", encoding="utf-8") as fh:
+        json.dump(results, fh, indent=2)
+    return results
+
+
+if __name__ == "__main__":
+    import json as _json
+
+    print(_json.dumps(main(), indent=2))
