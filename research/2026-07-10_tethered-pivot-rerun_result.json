@@ -1,0 +1,356 @@
+{
+  "test_id": "x34b",
+  "frozen_prereg": "research/2026-07-10_tethered-pivot-rerun_prereg.md",
+  "frozen_primary_axis": "control-subtracted excess (solver key amended_verdict)",
+  "reproduction_leg": {
+    "config": "x34 #612 default (N=20, 500 steps, 15-pt step-0.05 grid)",
+    "metrics": {
+      "excess_staircase": 0.07142857142857142,
+      "excess_jumps": 0,
+      "track_R2": 0.9798699671498561,
+      "staircase_fraction": 0.42857142857142855,
+      "free_staircase_fraction": 0.42857142857142855,
+      "frozen_verdict": "PARTIAL",
+      "amended_verdict": "TRACK"
+    },
+    "comparison_to_612": {
+      "excess_staircase": {
+        "x34b": 0.07142857142857142,
+        "x34_#612": 0.0714,
+        "abs_diff": 2.8571428571419477e-05
+      },
+      "excess_jumps": {
+        "x34b": 0.0,
+        "x34_#612": 0.0,
+        "abs_diff": 0.0
+      },
+      "track_R2": {
+        "x34b": 0.9798699671498561,
+        "x34_#612": 0.9799,
+        "abs_diff": 3.003285014391288e-05
+      },
+      "staircase_fraction": {
+        "x34b": 0.42857142857142855,
+        "x34_#612": 0.4286,
+        "abs_diff": 2.8571428571433355e-05
+      },
+      "free_staircase_fraction": {
+        "x34b": 0.42857142857142855,
+        "x34_#612": 0.4286,
+        "abs_diff": 2.8571428571433355e-05
+      }
+    },
+    "reproduces_612": true,
+    "hysteresis_excess_seen": false,
+    "termination_flip_seen": false,
+    "rational_points": {
+      "1:1": {
+        "rho_anchored": 0.8945008931130345,
+        "rho_free": 0.9492676557148364,
+        "carrier_ratio": 1.0
+      },
+      "2:3": {
+        "rho_anchored": 0.8951857743697138,
+        "rho_free": 0.6504236804585016,
+        "carrier_ratio": 0.6666666666666666
+      },
+      "3:2": {
+        "rho_anchored": 1.546293901982175,
+        "rho_free": 1.5316809603777715,
+        "carrier_ratio": 1.5
+      },
+      "1:2": {
+        "rho_anchored": 0.8087282760926701,
+        "rho_free": 0.47783333615320733,
+        "carrier_ratio": 0.5
+      }
+    }
+  },
+  "gates": {
+    "validate_on_known": {
+      "planted_locked_verdict": "LOCK",
+      "planted_locked_metrics": {
+        "staircase_fraction": 0.7857142857142857,
+        "free_staircase_fraction": 0.14285714285714285,
+        "excess_staircase": 0.6428571428571429,
+        "excess_jumps": 3,
+        "jump_count": 3,
+        "track_R2": 0.686685862087405,
+        "max_abs_dev": 0.30000000000000004,
+        "frozen_verdict": "LOCK",
+        "amended_verdict": "LOCK",
+        "verdict": "LOCK"
+      },
+      "planted_tracking_verdict": "TRACK",
+      "planted_tracking_metrics": {
+        "staircase_fraction": 0.14285714285714285,
+        "free_staircase_fraction": 0.14285714285714285,
+        "excess_staircase": 0.0,
+        "excess_jumps": 0,
+        "jump_count": 0,
+        "track_R2": 1.0,
+        "max_abs_dev": 0.0,
+        "frozen_verdict": "TRACK",
+        "amended_verdict": "TRACK",
+        "verdict": "TRACK"
+      },
+      "saturation_zone": {
+        "frozen_verdict": "LOCK",
+        "amended_verdict": "PARTIAL",
+        "staircase_fraction": 0.5,
+        "jump_count": 2,
+        "excess_staircase": 0.0,
+        "excess_jumps": 2,
+        "lock_suppressed_by_excess": true
+      },
+      "ok": true
+    },
+    "dead_actuator": {
+      "capacitive": {
+        "branch": "capacitive",
+        "pinned_quadrature": "Re(b_\u03c9) / V-node",
+        "var_clamped": 0.0,
+        "var_unclamped": 0.28168668166366523,
+        "var_ratio": 0.0,
+        "actuator_live": true
+      },
+      "magnetic": {
+        "branch": "magnetic",
+        "pinned_quadrature": "Im(b_\u03c9) / I-node",
+        "var_clamped": 0.0,
+        "var_unclamped": 0.11684379821208052,
+        "var_ratio": 0.0,
+        "actuator_live": true
+      }
+    },
+    "energy_ledger": {
+      "off_conserved": true,
+      "off_max_rel_drift": 9.102332764724182e-10,
+      "on_non_pumping": true,
+      "on_max_rel_energy_gain": 0.0,
+      "on_removed_norm_frac": 0.13777537437065795
+    }
+  },
+  "fresh_leg": {
+    "config": "fresh 29-pt refined grid (step 0.025), branch=capacitive; N=20, 500 steps",
+    "sweep": {
+      "os": [
+        0.7,
+        0.725,
+        0.75,
+        0.775,
+        0.8,
+        0.825,
+        0.85,
+        0.875,
+        0.9,
+        0.925,
+        0.95,
+        0.975,
+        1.0,
+        1.025,
+        1.05,
+        1.075,
+        1.1,
+        1.125,
+        1.15,
+        1.175,
+        1.2,
+        1.225,
+        1.25,
+        1.275,
+        1.3,
+        1.325,
+        1.35,
+        1.375,
+        1.4
+      ],
+      "rho_anchored": [
+        1.622385253716513,
+        1.554393819058374,
+        1.510772152746957,
+        1.472645475862815,
+        1.4333517707862582,
+        1.3934165709232529,
+        1.3512817683395675,
+        1.2991967629472356,
+        1.2380906398379712,
+        1.1743735360816818,
+        1.1511269681386571,
+        1.135243498339493,
+        0.8945008931130345,
+        0.9249169012086231,
+        0.9179358782697026,
+        0.9052311202181188,
+        0.9715883608720305,
+        0.9955316415438753,
+        1.0019341958092713,
+        0.9999692244536892,
+        0.9925147821155839,
+        0.9851074306072289,
+        0.9862465362744243,
+        0.9927669634414246,
+        0.9953710634631047,
+        0.9946208852075894,
+        0.9926447688951524,
+        0.9913303949894702,
+        0.991747764358865
+      ],
+      "rho_free": [
+        1.5727538555660274,
+        1.5179913029179266,
+        1.4808881201908641,
+        1.447911425856803,
+        1.4220873436095176,
+        1.389460418219828,
+        1.3511761770830155,
+        1.2970277050942658,
+        1.2355425850198507,
+        1.1754528533180033,
+        1.1527534348308577,
+        1.1314911323485413,
+        0.9492676557148364,
+        0.9451501202526656,
+        0.929439697117435,
+        0.9212614319247009,
+        0.9683146464715447,
+        0.9904870500923454,
+        0.9973708999742374,
+        0.9961210682621944,
+        0.991750053991838,
+        0.9859444417952801,
+        0.9874062831112138,
+        0.936131788287226,
+        0.9376935921309599,
+        0.9365299725491342,
+        0.9361528681051665,
+        0.9378311317097896,
+        0.942001401676356
+      ],
+      "rational_points": {
+        "1:1": {
+          "rho_anchored": 0.8945008931130345,
+          "rho_free": 0.9492676557148364,
+          "carrier_ratio": 1.0
+        },
+        "2:3": {
+          "rho_anchored": 0.8951857743697138,
+          "rho_free": 0.6504236804585016,
+          "carrier_ratio": 0.6666666666666666
+        },
+        "3:2": {
+          "rho_anchored": 1.546293901982175,
+          "rho_free": 1.5316809603777715,
+          "carrier_ratio": 1.5
+        },
+        "1:2": {
+          "rho_anchored": 0.8087282760926701,
+          "rho_free": 0.47783333615320733,
+          "carrier_ratio": 0.5
+        }
+      }
+    },
+    "restricted": {
+      "i_sat": 23,
+      "n_points": 29,
+      "onset_omega_s": 1.275,
+      "saturated": true,
+      "nonsat_window_omega_s": [
+        0.7,
+        0.725,
+        0.75,
+        0.775,
+        0.8,
+        0.825,
+        0.85,
+        0.875,
+        0.9,
+        0.925,
+        0.95,
+        0.975,
+        1.0,
+        1.025,
+        1.05,
+        1.075,
+        1.1,
+        1.125,
+        1.15,
+        1.175,
+        1.2,
+        1.225,
+        1.25,
+        1.275
+      ],
+      "nonsat_n_points": 24,
+      "banked_verdict": "TRACK",
+      "banked_excess_staircase": 0.043478260869565216,
+      "banked_excess_jumps": 0,
+      "banked_track_R2": 0.9900541298671783,
+      "full_sweep_excess_verdict": "TRACK",
+      "full_sweep_excess_staircase": 0.03571428571428571,
+      "full_sweep_track_R2": 0.9798777412339904,
+      "full_sweep_absolute_verdict": "LOCK",
+      "full_sweep_absolute_staircase": 0.5714285714285714,
+      "full_sweep_free_staircase": 0.6071428571428571,
+      "restricted_detector": {
+        "staircase_fraction": 0.4782608695652174,
+        "free_staircase_fraction": 0.5217391304347826,
+        "excess_staircase": 0.043478260869565216,
+        "excess_jumps": 0,
+        "jump_count": 1,
+        "track_R2": 0.9900541298671783,
+        "max_abs_dev": 0.05663517515419858,
+        "frozen_verdict": "PARTIAL",
+        "amended_verdict": "TRACK",
+        "verdict": "TRACK"
+      },
+      "full_detector": {
+        "staircase_fraction": 0.5714285714285714,
+        "free_staircase_fraction": 0.6071428571428571,
+        "excess_staircase": 0.03571428571428571,
+        "excess_jumps": 0,
+        "jump_count": 1,
+        "track_R2": 0.9798777412339904,
+        "max_abs_dev": 0.05809091265845523,
+        "frozen_verdict": "LOCK",
+        "amended_verdict": "TRACK",
+        "verdict": "TRACK"
+      }
+    }
+  },
+  "planted_violation_proofs": {
+    "detector_separation": {
+      "planted_staircase_verdict": "LOCK",
+      "planted_line_verdict": "TRACK",
+      "shared_flat_absolute_verdict": "LOCK",
+      "shared_flat_excess_verdict": "TRACK",
+      "shared_flat_excess_staircase": 0.0,
+      "catches_violation": true
+    },
+    "saturation_disclosure": {
+      "absolute_verdict": "LOCK",
+      "excess_verdict": "PARTIAL",
+      "excess_staircase": 0.0,
+      "lock_suppressed_by_excess": true,
+      "catches_violation": true
+    },
+    "dead_actuator": {
+      "off_var_ratio": 1.0,
+      "off_actuator_live": false,
+      "catches_violation": true
+    },
+    "energy_non_pumping": {
+      "planted_max_rel_gain": 0.0009999999999998899,
+      "non_pumping_flag": false,
+      "catches_violation": true
+    },
+    "all_gates_catch_violations": true
+  },
+  "verdict": "TRACK",
+  "reason": "FROZEN excess axis (a priori), banked on the NON-SATURATED window (\u03c9_s \u2264 1.275, 24 pts): excess_staircase=0.0435 (<0.2 \u21d2 TRACK / \u22650.4 \u21d2 LOCK), track_R\u00b2=0.9901. Full-sweep excess axis=TRACK (excess_staircase=0.0357). Saturation-zone disclosure \u2014 complementary ABSOLUTE axis (confounded): LOCK (staircase=0.5714 == free 0.6071); the excess axis is LOCK-suppressing there (disclosed a priori, prereg \u00a72b). Reproduces #612: True. Supporting nulls: no excess hysteresis (True), no cap\u2194mag flip (True).",
+  "preconditions": {
+    "gates_ok": true,
+    "proofs_ok": true,
+    "reproduces_612": true
+  }
+}
