@@ -182,8 +182,6 @@ Twelve forks, chronological. Format per fork: window · the question · the bran
 
 **Reading the table:** AVE takes the road not taken at *every* registered fork — that is what makes it one program rather than twelve opinions. Four forks were taken on EXPERIMENT (F3, F6, F8-adjacent, F11): at those nodes the killers must be met by name (§5). The rest were PARSIMONY / FASHION / NOTATION: legitimately re-openable, burden of proof fully on the re-opener (§7).
 
-<!-- FORK-TABLE -->
-
 ---
 
 ## §3 — The fit/clash ledger (the AC/DC carve, grounded historically)
@@ -555,16 +553,46 @@ The consolidated open-threats list. §4's per-thread tables carry the full certi
 
 ## §6 — The excision ledger
 
-<!-- EXCISION -->
+Structure that mainstream formalism dropped for convenience — PARSIMONY, FASHION, or NOTATION, never by experiment — and where AVE re-instates it. **Re-instatement carries the full burden of proof: that a structure was excised without trial does not make it real; it makes it testable.**
+
+| Excised structure | Excised by / when | WHY-class | AVE re-instatement (receipt) | The burden |
+|---|---|---|---|---|
+| The longitudinal scalar grade (the quaternion product's compressional slot) | Heaviside–Gibbs vectorization, 1880s–90s | NOTATION | The V-sector / A1 grade, confined below saturation (def-9a4f07; `master-equation.md:18`) | Myth-guard binding: in standard EM the excised slot was gauge — AVE *adds* a medium DOF and owes its independent demonstration (K3, K4) |
+| Potentials as the primary dynamical object (the electrotonic state) | the same demolition | NOTATION | The V↔Φ_link conjugate pair; integer charge from phase holonomy (`form-deriving-value-importing.md:82`) | Half-discharged by the mainstream itself (AB 1959; fluxoid 1961); the integer→flux VALUE conversion stays imported — the α-echo (F5) |
+| The mechanical substrate (the medium itself) | post-MM/1905 abandonment | PARSIMONY + FASHION | Axiom 1: the chiral Laves K4 Cosserat crystal (`axiom-definitions.md:16`) | The whole registry — K1 and K2 bind permanently, at every order, forever |
+| The medium's rotational grade (couple stress; asymmetric stress) | Stokes 1862 realizability ruling | PARSIMONY (materials-ignorance, since removed) | Micropolarity as the axiom; the implosion no-go as the argument FOR it (`implosion-paradox.md:10-16`) | Instantiation contained, not answered — Axiom 1 postulated; γ_c VALUE imported (F1) |
+| The network reading of field equations | 1950s filing of Kron as analog-computing trickery | FASHION | K4-TLM as ontology, stated in-corpus as "the framework's own bet" (`cem-methods-survey.md:109`) | Hertz's razor (K12): machinery-specific forward predictions, or the razor cuts |
+| The rest frame | 1905 | PARSIMONY | Declared, not hidden: K4 ≡ CMB frame; "the CMB dipole IS the detection" (`preferred-frame-and-emergent-lorentz.md:36`) | Exact self-cancellation sector-by-sector = the open weak-C debt (K1); the sidereal falsifier must survive its Part-2 sweep (K2) |
+| The electron's interior (the constitutive question) | renormalization + point-particle definition, 1947–49 | EXPERIMENT-ADJACENT + FASHION (a definition move, not a refutation) | Extended ℓ_node-scale soliton; boundary observables M, Q, J only (`substrate-perspective-electron.md:133-143`) | K6 (precision gate) and K8 (binding/Poincaré stress) both live |
+| The vacuum's equilibrium zero (the medium's self-tuned ground state) | QFT formalism default (ZPE summation) | PARSIMONY (formalism-default) | Operating point as the reference zero; strain-only observability (F10) | Forward-testable strain observables must land; the magnitude story already took one closed-negative (FT-1) |
 
 ---
 
 ## §7 — The romance guard (mandatory)
 
-<!-- ROMANCE -->
+**This leaf is not vindication and must not be cited as evidence for AVE.**
+
+1. **A fork RE-OPENED is not a fork WON.** Re-opening is a license to test, not a verdict. The license is real where the WHY-class is PARSIMONY / FASHION / NOTATION — and it buys exactly one thing: the right to put the road-not-taken on a bench. Nothing in this map moves any claim's solidity.
+
+2. **Dead programs died of real causes.** Kelvin's starved on two decades without a number. MacCullagh's could not couple to matter. The EM-mass program could not pay its binding, 4/3, and runaway debts. Born–Infeld was displaced by a competitor that computed. Pilot-wave lost its constituency AND still owes contextuality and N-particle structure. Reading §2 as "physics took twelve wrong turns" is the romance failure mode; the licensed reading is "twelve places where a discriminating test can live."
+
+3. **The standing killers, plainly** (full register in §5):
+   - **Michelson–Morley + modern isotropy bounds** (K1, K2). The evasion is the self-cancellation structure — which is itself load-bearing and OPEN: weak-C exactness is a prediction, not a theorem. If exactness fails at any accessible order, the Lorentzian branch dies for AVE exactly as it would have died in 1905.
+   - **Bell / contextuality for any HV completion** (K10). AVE lives only on the nonlocal branch Bell left standing, and Kochen–Specker contextuality is UNDERIVED in the corpus.
+   - **Spectroscopic precision where AVE is peer-not-better** (K6). Hydrogen at consistency-class, g−2 at +4.0%, the static sector self-excluded at muonic hydrogen. "AVE does NOT match QED's precision" is corpus text, not opposition text.
+   - **Collider data where the Letter is EFT-scoped** (K15, K16). The 1934-calibrated ancestor is already excluded as a contact NLED; the SVE kernel survives on declared frequency-domain scoping and carries a named in-band four-wave exposure as a standing falsifier.
+
+4. **WHY-classes are historiographic, not physical.** A FASHION classification licenses re-asking a question; it does not weaken a single technical constraint. Every constraint in §5 binds on its own terms regardless of the sociology that first enforced it.
+
+5. **The map's only legitimate uses are the five of §1** — navigation, WHY-classification, prior-art check, threat awareness, citation honesty. Never rhetoric.
 
 ---
 
 ## §8 — Maintenance
 
-<!-- MAINTENANCE -->
+- **Owner:** orchestration sessions. Changes land by reviewed PR; no drive-by edits.
+- **Update triggers:** (i) a fork's live confrontation resolves either way (e.g., the Part-2 LV bounds sweep, the BIREF@HIBEF campaign, weak-C closure, back-reaction stage-4); (ii) a killer's status changes (DEAD ↔ STANDING — e.g., a published bound reaching the 4.9×10⁻³ sidereal amplitude would flip K2's second half); (iii) a new fork or thread is identified; (iv) a cited corpus receipt is walked back — this leaf then updates in the same propagation pass, per the walk-back discipline.
+- **Status changes are appended as dated notes** on the affected fork/capsule (current-status caveat style); fork records are not rewritten in place. The consolidated tables (§2 fork table, §5 register) are re-synced in the same commit.
+- **[CITE-PENDING] discipline:** items clear only on verification (primary source, or two-method corpus check); never silently promote a pending citation to asserted.
+- **Branch-scoped receipts** (the x36/x37 class in F12/T14) must be re-pointed to canonical paths when their branches merge, or re-flagged if the branches die.
+- **Sibling leaf:** the program-arc-map (AVE's INTERNAL history — its own walk-backs, retirements, and arcs) if/when it lands. This leaf stays external-history only; the two must not be merged.
