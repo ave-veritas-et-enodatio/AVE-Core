@@ -135,7 +135,7 @@ This is **Option D** (topological boundary condition) made concrete, NOT Option 
 - **KB cross-cutting:**
   - [Photon Identification](../../../vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md) — photon → electron formation via TIR confinement; pair-production §5.2 cross-ref
   - [Theorem 3.1 Q-factor](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — $Q = 1/\alpha$ signature of TIR-confined electron
-  - [Chirality and Antimatter](chirality-and-antimatter.md) — annihilation mechanism (reverse process)
+  - [Chirality and Antimatter](chirality-and-antimatter.md) — annihilation mechanism (reverse process); its **Handedness Register (D4)** records this leaf's "$e^-$ = LH Beltrami" (:27/:79) as the **canonical charge-sign** (Grant 2026-07-09, R1 — the helicity sign is canonical; the "RH unknot" reading is the conjugate writhe, Călugăreanu $\mathrm{Lk} = \mathrm{Tw} + \mathrm{Wr}$).
   - [L3 Electron-Soliton Closure Synthesis](l3-electron-soliton-synthesis.md) — broader framework context
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — pair production as atomic-EM-scale row of the 26-instance catalog
 - **Canonical scripts:**
