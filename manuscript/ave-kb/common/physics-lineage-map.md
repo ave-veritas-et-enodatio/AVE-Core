@@ -509,7 +509,47 @@ Fourteen researched threads. Each: capsule · kill certificate (killer / status 
 
 ## §5 — The kill-certificate register
 
-<!-- KILL-TABLE -->
+The consolidated open-threats list. §4's per-thread tables carry the full certificates; this register deduplicates them by KILLER (many killers bind several programs), keeps every STANDING entry, and compresses the DEAD and FASHION classes. **Rule of use:** anything STANDING here constrains AVE *today* — a killer does not care that the program wearing it is new.
+
+### Killers still standing (the open-threats register)
+
+| # | Standing killer | Killed / binds | AVE posture (evasion or LIVE THREAT) |
+|---|---|---|---|
+| K1 | MM + Kennedy–Thorndike + Ives–Stilwell (Robertson/Mansouri–Sexl closure: only EXACT compensation survives) | every mechanical aether (T1, T2, T4); binds F4/T13 | Null = the PREDICTION under wave-constituted matter + substrate monism; exactness NOT a closed theorem — weak-C OPEN (`the-abandoned-interior.md:145-147`; `preferred-frame-and-emergent-lorentz.md:70,108`) |
+| K2 | Modern isotropy/LV bounds (10⁻¹⁸–10⁻²⁰ per SME operator) | any lattice/medium with sub-quartic anisotropy | Quartic suppression (qℓ_node)⁴ ≈ 2.2×10⁻²², 2–3 OOM of margin, CONDITIONAL on weak-C; and the Letter's own 4.9×10⁻³ nonlinear-sector sidereal signal has its Part-2 bounds sweep NOT yet run (F4, T13) |
+| K3 | No propagating longitudinal EM wave (Hertz; photon-mass/Coulomb bounds) | the compressional-aether channel | Sector assignment: NO longitudinal photon claimed; A1 confined. Residue: any sub-saturation A1→EM coupling walks back into these bounds (F2, T3) |
+| K4 | "The excised scalar was gauge, not physics" | every restore-the-scalar program | Myth-guard concedes it for standard EM; AVE ADDS a medium DOF — which must be demonstrated independently (genesis program, gated) (T3) |
+| K5 | Medium-structure stability (no scale, no minimum; reconnection unties knots) | Kelvin's vortex atom | Met in FORM (ℓ_node + Γ=−1 wall + phase-space relocation of the knot); UNDISCHARGED in demonstration — the (2,3) never self-assembled; the wall's yield anchor inherits the K=2G import (F3, T4) |
+| K6 | The precision gate (sharp spectra; g−2 to ~10⁻¹²; muonic-H) | vortex atoms; extended-electron programs | PEER level only: E_n sub-ppm as consistency; g−2 parameter-free at +4.0%; static sector [C-EXCLUDED] by documented retreat. This killer still has live ammunition (F3, T5, T6) |
+| K7 | Point-like partons (SLAC 1968–69; Bjorken scaling) | the smooth-lump soliton reading | No structure-function computation exists in the corpus; the sharpest unclosed inherited killer (T11) |
+| K8 | Binding / Poincaré stress (what holds the charge together?) | the EM-mass program | The lock problem is open at HYPOTHESIS-class; if the K=2G import never becomes a derivation, AVE's stabilizer is a modern Poincaré stress — the corpus's own words (T5) |
+| K9 | Fermionic quantization not forced (FR's π₁ = ℤ₂ ADMITS, never forces) | Skyrme-as-fundamental | Canonized as AVE's own ceiling: [SPIN-HALF-POSITED]; the only exit named = a DERIVED ℤ₂/WZ/Hopf action term, "not yet in hand" (T11) |
+| K10 | Bell (kills local HV) + Kochen–Specker (kills noncontextual HV) | every local/noncontextual completion | Nonlocal branch conceded; CHSH = QM exactly (consistency, not discriminator); KS contextuality UNDERIVED — the program falls to KS if its assignments prove noncontextual (F7, T12) |
+| K11 | Configuration space (3N-dim wave vs a real field in 3-space) | de Broglie/Bohm 3-space realism | 2-particle carried on a real 3-space thread; general-N NOT derived; GHZ/multi-party open (T12) |
+| K12 | Hertz's razor (an exact isomorphism is ontologically silent) | Maxwell's vortex machinery; Kron's program | Conceded in-corpus as "AVE's own bet"; cuts until a machinery-specific forward discriminator fires (F12, T2, T8) |
+| K13 | Kinematics-without-dynamics (analog gravity's founding disclaimer) | every analog-gravity ontology reading | Attacked head-on: stage-3 back-reaction partial (1/r survives back-reaction ON; scoped NOT-replaces-GR); irreversible-depletion primitive DEFERRED; strong field open (F6, T14) |
+| K14 | A linear lossless network cannot bind matter | literal-TLM vacuum ontology | Conceded and split: the A-027 two-engine architecture; the inter-engine boundary mode-matching is open (F12, T10) |
+| K15 | Heisenberg–Euler: a derived-coefficient competitor in the same observable sector | Born–Infeld (by displacement) | Met by design: the three-way tree-level / one-loop / exact-B-I-zero discriminator at BIREF@HIBEF; a QED-sized pump–probe coefficient kills the radiative kernel (F8, T6) |
+| K16 | In-band four-photon exposure (~5×10¹⁰× QED four-wave cross-section) | (SVE-specific, new) | Named in the Letter as a standing fourth falsifier, currently unconstrained — an exposure, not a safe harbor (T6) |
+| K17 | The BCS demotion (constitutive law → "effective theory" the day microscopics land) | London/GL as fundamental theory | AVE sits at the London/GL stage by its own ledger; Q_tank = 1/α cited as identity, not derivation; no BCS moment claimed (F9, T9) |
+| K18 | Sterility/starvation (no numbers → the field moves on) | Kelvin's program (its actual death) | The one killer with no structural evasion: produce forward numbers or die Kelvin's death. The testing pivot is the mitigation (T4) |
+| K19 | Lattice-structure bounds untested (Hughes–Drever / birefringence / GRB / SME structure tests) | any committed physical pitch | Corpus-acknowledged open exposure; K4-TLM validation pinned internal-consistency-only (T10) |
+| K20 | GR's strong-field / dynamical sector | every graded-medium gravity | No medium competitor fielded yet; first-order phenomenology inherited by identity = the minimum toll, not a win (F6, T13) |
+
+### Dead killers (retired by modern tools — kept because their deaths are load-bearing)
+
+| Killer | Killed | How it died | Where AVE stands on the grave |
+|---|---|---|---|
+| Stokes 1862 realizability ("no such medium can exist") | MacCullagh | Cosserat 1909 → Eringen 1966 → chiral metamaterials 2017 | The recorded cause of death of F1's road-not-taken is itself dead — the single strongest re-opening license in the registry (T1, T7) |
+| Cauchy implosion (λ = −μ ⇒ K = −μ/3) | transverse-only elastic solids | Micropolarity decouples K from transverse propagation | Inverted into the corpus's own argument FOR the Cosserat grade (T1) |
+| The 4/3 problem | the EM-mass program | Covariance bookkeeping (Fermi 1922; Rohrlich 1960; Schwinger 1983) | Structurally moot: mass and charge live on orthogonal sectors (T5) |
+| Abraham–Lorentz runaways / pre-acceleration | point self-force | Artifact of the point limit (extended-charge dynamics well-behaved) | Extended soliton; honest gap: no derived radiation-reaction ledger yet (T5) |
+| von Neumann's no-HV proof | pilot-wave (sociologically) | Never valid (Hermann 1935, ignored; Bell 1966) | Carried as the verify-don't-trust cautionary tale (T12) |
+| Quaternion usability | Maxwell's formalism | Geometric algebra made grade-keeping free | Biquaternion used where it earns its keep; verdict "echo, not chord" (T3) |
+| Pauli's Solvay objection | de Broglie 1927 | Bohm 1952 (apparatus inside the wave equation) | Answered natively: detector = resistive load INSIDE the substrate (T12) |
+| Compute famine / the pre-computer scale wall | Kron; early FDTD/TLM | Moore's law | The engines run; tool-maturity is the one fully-banked asset in this registry (T8, T10) |
+
+**The FASHION class, in one line:** the post-1905 medium taboo, the positivist consensus, the precision-incumbent sociology, the outsider-engineer pattern, and authority friction are all real and all non-technical — they cannot be evaded structurally, only out-survived on receipts (§7).
 
 ---
 
