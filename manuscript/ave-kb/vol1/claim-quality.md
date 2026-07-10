@@ -668,7 +668,7 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 <!-- id: clm-9gh0a1 -->
 
 - _Specific Claims_
-  - A classical Cauchy elastic solid satisfying MacCullagh's transverse-wave condition ($\lambda = -\mu$) yields $K = -\mu/3 < 0$ — runaway implosion.
+  - A classical Cauchy elastic solid satisfying the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ yields $K = -4\mu/3 < 0$ — runaway implosion.
   - This forces the substrate to be a **Chiral LC (Micropolar) Continuum** with independent rotational degrees of freedom, decoupling transverse-wave propagation from the bulk modulus and permitting $K > 0$ alongside pure transverse gauge-boson propagation.
 - _Specific Non-Claims and Caveats_
   - This is a **structural / no-go argument**: it rules out a Cauchy substrate, motivating the micropolar Chiral LC continuum. It does not derive the chiral SRS lattice geometry (that comes from the K4 packing / EMT closure separately).
@@ -681,7 +681,7 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 - depends-on:
   - Axiom 1 (Substrate Topology — the no-go argument forces the chiral micropolar/Cosserat substrate of the K4 vacuum)
 - solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
-- rationale: A clean structural / no-go argument grounded in standard continuum mechanics: a classical Cauchy elastic solid satisfying MacCullagh's transverse-wave condition ($\lambda = -\mu$) requires $K = -\mu/3 < 0$, which is unphysical. The claim-quality entry correctly bounds this as a no-go argument that *rules out* a Cauchy substrate — it does not claim to uniquely identify the AVE substrate as micropolar (the chiral SRS specifics come from K4 packing / EMT, separately disclosed). No entry-level scored dependencies — pure classical continuum mechanics + Axiom 1's transverse-wave constraint.
+- rationale: A clean structural / no-go argument grounded in standard continuum mechanics: a classical Cauchy elastic solid satisfying the transverse-only (zero-longitudinal) condition $\lambda + 2\mu = 0$ requires $K = -4\mu/3 < 0$, which is unphysical. The claim-quality entry correctly bounds this as a no-go argument that *rules out* a Cauchy substrate — it does not claim to uniquely identify the AVE substrate as micropolar (the chiral SRS specifics come from K4 packing / EMT, separately disclosed). No entry-level scored dependencies — pure classical continuum mechanics + Axiom 1's transverse-wave constraint. (2026-07-10 value-amendment: condition corrected from the misattributed "MacCullagh $\lambda = -\mu$ ⇒ $K = -\mu/3$" — that condition gives $c_L = c_T \neq 0$ and deletes nothing; qualitative no-go unaffected. See the leaf's correction note.)
 - strengthen-by:
   - none — the no-go argument is correctly self-bounded; further pin-down of "the substrate must be chiral SRS specifically" lives in EMT (`clm-9s9apq`) and Vacuum Bulk Mass Density (`clm-crbl60`) entries
 
