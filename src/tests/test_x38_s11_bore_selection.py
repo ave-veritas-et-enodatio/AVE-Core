@@ -108,59 +108,107 @@ def test_small_theta_expansion_matches_exact():
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# The argmin -> branch (ii); s-sweep robustness
+# TWO-AXIS verdict (R1): obj-1 EXACTLY degenerate; obj-2 uniquely f*=0
 # ═════════════════════════════════════════════════════════════════════════════
-def test_all_three_objectives_select_point_junction():
-    """f* = 0 (point junction) under obj-1 (Op6), obj-2 (band-int), obj-3 (single-freq)."""
-    for name in js.OBJECTIVES:
-        assert js.argmin_bore(name).f_star == pytest.approx(0.0, abs=1e-9)
+def test_obj1_touches_one_ninth_exactly_at_half_wave_invisible_extent():
+    """R1: |S11(pi;f)|^2 - 1/9 = 8 t^2 (s_C s_L^2 t^2 + s_C - 3 s_L)^2 / [...] (perfect
+    square) => obj-1 touches 1/9 EXACTLY (machine zero) at f_touch = sqrt(3 s_L - s_C)/
+    (pi sqrt(s_C) s_L). At s=1, f_touch = sqrt(2)/pi."""
+    f_touch = js.half_wave_invisible_touch(np.pi, 1.0, 1.0)
+    assert f_touch == pytest.approx(np.sqrt(2.0) / np.pi, rel=1e-12)
+    assert js.objective_op6(f_touch) - 1.0 / 9.0 == pytest.approx(0.0, abs=1e-12)  # machine zero
 
 
-def test_objective_spread_is_robust_branch_ii():
-    """At s=1 the three objectives agree exactly (spread 0) -> robust -> branch (ii)."""
-    sp = js.objective_spread()
-    assert sp["spread"] < x38.G_C_ROBUST_SPREAD
-    assert sp["f_stars"]["obj1_op6"] == pytest.approx(0.0, abs=1e-9)
+def test_obj1_is_exactly_degenerate_obj2_is_not():
+    """R1 two-axis: obj-1 (single-freq at pi) is EXACTLY degenerate {0, f_touch} at s=1
+    (f_touch in domain); obj-2 (band-integrated) has NO half-wave touch -> not degenerate."""
+    assert js.objective_is_degenerate("obj1_op6", 1.0, 1.0)["degenerate"] is True
+    assert js.objective_is_degenerate("obj2_band_integrated", 1.0, 1.0)["degenerate"] is False
 
 
-def test_primary_op6_f_star_is_zero_across_s_grid():
-    """The PRIMARY objective (obj-1 Op6) gives f*=0 for EVERY (s_L,s_C) in [0.3,3]^2;
-    any nonzero worst-case f* (comparator obj-2 float-tie on its flat plateau) stays
-    below the robust threshold (X37 R5 shape-factor honesty)."""
+def test_obj3_touch_out_of_domain_at_s_equal_1():
+    """R1: obj-3 (single-freq at pi/2) touch is at 2*f_touch = sqrt(2)*2/pi ~ 0.900,
+    OUTSIDE [0,0.5] at s=1 -> obj-3 is not degenerate WITHIN the frozen domain there."""
+    f_touch3 = js.half_wave_invisible_touch(np.pi / 2, 1.0, 1.0)
+    assert f_touch3 == pytest.approx(2.0 * np.sqrt(2.0) / np.pi, rel=1e-12)
+    assert f_touch3 > js.F_WIGNER_SEITZ
+    assert js.objective_is_degenerate("obj3_single_freq", 1.0, 1.0)["degenerate"] is False
+
+
+def test_band_integrated_uniquely_selects_point_junction():
+    """R1 banked result: obj-2 (band-integrated, D4-fixed integration from theta=0)
+    uniquely selects f*=0 — the ONLY objective that does so robustly."""
+    assert js.argmin_bore("obj2_band_integrated").f_star == pytest.approx(0.0, abs=1e-9)
+    assert js.objective_spread()["band_integrated_unique_f0"] is True
+
+
+def test_two_axis_branch_verdict():
+    """R1: frozen-primary (obj-1 degenerate) -> branch (iv); band-integrated (obj-2) ->
+    branch (ii). KEEP BOTH."""
+    verdict = x38.gate_C()["two_axis_verdict"]
+    assert verdict["frozen_primary_branch"] == "iv"
+    assert verdict["band_integrated_branch"] == "ii"
+    assert verdict["primary_degenerate"] is True
+
+
+def test_d4_obj2_no_integration_cutoff_systematic():
+    """R8/D4: with the integration lower bound at theta=0 (not 1e-6), obj-2 has NO
+    interior point below its f=0 value at the strong-accumulator cell (the old ~6e-10
+    theta_top-cutoff systematic is gone)."""
+    fs = np.linspace(0.0, 0.5, 501)
+    j = np.array([js.objective_band_integrated(f, 1.0, 3.0) for f in fs])
+    assert not np.any(j[1:] < j[0] - 1e-12)  # no interior value below the f=0 floor
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# s-sweep + the branch-(i) PENDING-GRANT locus (R2)
+# ═════════════════════════════════════════════════════════════════════════════
+def test_s_sweep_band_integrated_unique_and_branch_i_locus():
+    """R2: obj-2 uniquely f*=0 at EVERY (s_L,s_C) cell; cell (2,3) puts the obj-1
+    co-minimum f_touch = 1/(2pi) EXACTLY inside f_crit -> a branch-(i) PENDING-GRANT locus."""
     sweep = x38.s_sweep()
-    for row in sweep["rows"]:
-        assert row["f_star_op6"] == pytest.approx(0.0, abs=1e-9)
-    assert sweep["worst_f_star"] < x38.G_C_ROBUST_SPREAD  # <0.02 -> still robust
-    assert sweep["max_spread"] < x38.G_C_ROBUST_SPREAD
+    assert sweep["band_integrated_uniquely_f0_all_cells"] is True
+    loci = sweep["branch_i_pending_grant_loci"]
+    assert any(abs(x["s_L"] - 2.0) < 1e-9 and abs(x["s_C"] - 3.0) < 1e-9 for x in loci)
+    assert js.half_wave_invisible_touch(np.pi, 2.0, 3.0) == pytest.approx(1.0 / (2 * np.pi), rel=1e-12)
 
 
-def test_obj1_near_degenerate_interior_dip_does_not_beat_f0():
-    """HONEST disclosure (visible in the figure): obj-1 has a near-degenerate interior
-    local minimum (~f=0.45) that comes within ~1e-7 of the f=0 floor but does NOT beat
-    it, and sits BEYOND f_crit (self-invalidated regime) -> not a physical competitor;
-    f*=0 stands."""
-    nd = x38.near_degeneracy_disclosure()
-    assert nd["interior_beats_f0"] is False
-    assert nd["interior_minus_floor"] > 0.0
-    assert nd["best_interior_beyond_f_crit"] is True  # the dip is at f > f_crit
+def test_cell_2_3_touch_inside_f_crit():
+    """R2: at cell (2,3) the degenerate touch 1/(2pi)=0.159 is INSIDE f_crit=0.184."""
+    assert js.half_wave_invisible_touch(np.pi, 2.0, 3.0) < x38.F_CRIT
 
 
-def test_f_star_below_f_crit_does_not_self_invalidate():
-    """f*=0 < f_crit~0.184 -> the lumped abstraction is self-consistent at its minimum."""
-    assert js.argmin_bore("obj1_op6").f_star < x38.F_CRIT
+# ═════════════════════════════════════════════════════════════════════════════
+# The non-reciprocal escape (R3/R4) + reciprocity scoping
+# ═════════════════════════════════════════════════════════════════════════════
+def test_ideal_circulator_is_matched_lossless_c3_nonreciprocal():
+    """R3/R4: matched lossless C3-symmetric 3-ports EXIST — but ONLY non-reciprocally.
+    The ideal circulator is unitary (lossless), C3-symmetric (cyclic), NON-reciprocal
+    (S != S^T), S11 = 0 (matched). The witness that the 1/3 floor is a RECIPROCITY
+    result, so the evanescent-stub (lossless+reciprocal) escape is DEAD (R4)."""
+    S = js.ideal_circulator_s_matrix()
+    assert np.allclose(S.conj().T @ S, np.eye(3))  # unitary/lossless
+    assert abs(S[0, 0]) == pytest.approx(0.0)  # matched
+    assert not np.allclose(S, S.T)  # non-reciprocal
+    P = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]], dtype=complex)  # C3 cyclic
+    assert np.allclose(P @ S @ np.linalg.inv(P), S)  # C3-symmetric
 
 
-def test_f_star_matches_neither_soliton_mark():
-    """f*=0 matches NEITHER 1/(2pi) nor 1 -> branch (i) identity candidate does NOT fire."""
-    f_star = js.argmin_bore("obj1_op6").f_star
-    assert abs(f_star - x38.TUBE_RADIUS_MARK) >= 0.02
-    assert abs(f_star - x38.CORE_THICKNESS_MARK) >= 0.02
+def test_reciprocal_vertex_floor_is_one_third():
+    """R5: the classic matched-lossless-RECIPROCAL 3-port theorem — |S11| >= 1/3 for the
+    symmetric vertex, confirmed at every f, s (provable via the deepest-notch = 1/9)."""
+    for f in (0.05, 0.2, 0.5):
+        for s_L, s_C in ((1, 1), (0.3, 3), (3, 0.3)):
+            assert js.deepest_notch(f, s_L, s_C) == pytest.approx(1.0 / 9.0, abs=1e-6)
 
 
-def test_g_scalar_ceiling_recovers_pi_sqrt3_via_loaded_path():
-    """The loaded connected-band top (ported X37 loaded-mu form) recovers pi*sqrt3 as
-    f->0 — the X37/#604 ceiling, through the loaded path (cross-check of the parasitics)."""
+def test_g_scalar_ceiling_recovers_pi_sqrt3_via_canonical_routine():
+    """R10: the pi*sqrt3 ceiling recovers as f->0 through the CANONICAL X37 routine
+    jp.g_scalar (imported, #616 merged), NOT a re-implementation."""
+    from ave.core import junction_parasitics as jp
+
     assert x38._g_scalar_loaded(1e-5) == pytest.approx(np.pi * np.sqrt(3.0), rel=1e-4)
+    assert x38._g_scalar_loaded(0.2) == pytest.approx(jp.g_scalar(0.2), rel=1e-12)  # same routine
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -173,7 +221,7 @@ def test_gate_A_extraction_module_imports_no_scale():
     assert result["name_hits"] == []
     assert result["import_hits"] == []
     assert result["literal_hits"] == []
-    assert x38.gate_A()["pass"] is True
+    assert x38.gate_A()["pass"]
 
 
 def test_gate_A_planted_symbol_and_literal_both_fire():
@@ -184,37 +232,49 @@ def test_gate_A_planted_symbol_and_literal_both_fire():
     assert sym["name_hits"] and sym["import_hits"]
     lit = x38.scan_forbidden_inputs(f"def e(f):\n    return {OMEGA_C!r} * f\n")
     assert lit["literal_hits"]
-    assert x38.gate_A_planted()["pass"] is True
+    assert x38.gate_A_planted()["pass"]
 
 
-def test_gate_B_recovers_both_baselines_through_loaded_path():
-    """G-B: loaded path recovers bare |S11|=1/3 AND the pi*sqrt3 ceiling (both within tol)."""
+def test_gate_B_memoryless_and_f_sensitive_legs():
+    """G-B (R8): memoryless legs recover bare |S11|=1/3 AND pi*sqrt3; the f-SENSITIVE
+    active legs confirm the parasitics actually bite (a disabled path would not move)."""
     gB = x38.gate_B()
     assert gB["bare_rel_error"] < x38.G_B_TOL
     assert gB["ceiling_rel_error"] < x38.G_B_TOL
+    assert gB["bare_leg_f_sensitive"] is True  # |S11(pi,0.2)| rises above 1/3
+    assert gB["ceiling_leg_f_sensitive"] is True  # g(0.2) drops below pi*sqrt3
     assert gB["pass"]
 
 
-def test_gate_B_planted_offset_fires():
-    """G-D: a +1% offset on both loaded recoveries FAILS the tolerance (gate fires)."""
-    assert x38.gate_B_planted()["pass"]
+def test_gate_B_planted_offset_and_sabotage_fire():
+    """G-D (R8): (a) a +1% offset fails the reference tolerance; (b) a PARASITICS-
+    DISABLED sabotage (memoryless values for all f) FAILS the f-sensitive active legs —
+    the sabotage the old f->0-only gate passed spuriously."""
+    gp = x38.gate_B_planted()
+    assert gp["offset_gate_fires"] is True
+    assert gp["sabotage_bare_leg_f_sensitive"] is False  # disabled -> no movement
+    assert gp["sabotage_ceiling_leg_f_sensitive"] is False
+    assert gp["sabotage_gate_fires"] is True
+    assert gp["pass"]
 
 
-def test_gate_C_reports_branch_and_spread():
-    """G-C: the three objectives + spread + frozen branch assignment; branch (ii) at s=1."""
+def test_gate_C_reports_two_axis_verdict():
+    """G-C (R1): two-axis — frozen-primary (obj-1 degenerate) branch (iv); band-
+    integrated (obj-2) branch (ii)."""
     gC = x38.gate_C()
-    assert gC["branch_fired"] == "ii"
-    assert gC["spread"] < x38.G_C_ROBUST_SPREAD
+    assert gC["two_axis_verdict"]["frozen_primary_branch"] == "iv"
+    assert gC["two_axis_verdict"]["band_integrated_branch"] == "ii"
+    assert gC["primary_degenerate"] is True
 
 
-def test_gate_C_planted_divergent_objective_fires_scatter_detector():
-    """G-D: a DIVERGENT bogus objective (maximise reflection -> f!=0) pushes the spread
-    across the scatter threshold; the 3 real objectives (control) do NOT. Proves the
-    branch-(iv) detector can fire."""
+def test_gate_C_planted_degeneracy_and_scatter_detectors_fire():
+    """G-D (R1): (a) the exact-degeneracy detector fires (obj-1 touches 1/9 at f_touch,
+    obj-2 does not); (b) a divergent bogus objective fires the scatter detector; the 3
+    real objectives (control) do not."""
     gp = x38.gate_C_planted()
-    assert gp["control_flagged_scatter"] is False  # real objectives agree
-    assert gp["planted_flagged_scatter"] is True  # divergent plant flagged
-    assert gp["pass"] is True
+    assert gp["degeneracy_detector_fires"] is True
+    assert gp["scatter_detector_fires"] is True
+    assert gp["pass"]
 
 
 def test_all_gates_pass_end_to_end():

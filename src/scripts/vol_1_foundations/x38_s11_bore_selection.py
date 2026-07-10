@@ -28,6 +28,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.core import junction_parasitics as jp  # CANONICAL X37 loaded dispersion (#616 merged; R10)
 from ave.core import junction_scattering as js
 
 # REPORTING + DETECTOR scale imports (this driver is the DETECTOR, not the S₁₁
@@ -65,11 +66,11 @@ _OUT.mkdir(exist_ok=True)
 
 # ═════════════════════════════════════════════════════════════════════════════
 # G-A — anti-install gate (AST scan of the S₁₁ extraction path).
-# PROVENANCE: scan_forbidden_inputs + _FORBIDDEN_MAGNITUDES are PORTED from the
-# X37 driver src/scripts/vol_1_foundations/x37_junction_parasitics.py (origin
-# branch analysis/x37-junction-parasitics, commit 1186c891 — review R8). X37 is
-# NOT merged to main, so it cannot be imported here; this is a CITED port, not a
-# silent fork-copy. Extended: the scanned module is ave.core.junction_scattering.
+# PROVENANCE: scan_forbidden_inputs + _FORBIDDEN_MAGNITUDES follow the X37 driver's
+# AST scan (x37_junction_parasitics.py, #616 merged, review R8). Extended: the
+# scanned module is ave.core.junction_scattering. (The scanner logic is small +
+# self-contained; kept inline in the driver rather than imported from a sibling
+# script under src/scripts, which is not a package.)
 # ═════════════════════════════════════════════════════════════════════════════
 _FORBIDDEN = {"OMEGA_C", "M_E", "L_CELL", "C_CELL"}
 _EXTRACTION_MODULE = Path(js.__file__)
@@ -161,121 +162,183 @@ def gate_A_planted() -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# G-B — independent-reference recovery through the LOADED path (no early return).
-# (i) bare-junction |S11| = 1/3 recovered by the loaded s11 at small nonzero f;
-# (ii) the pi*sqrt3 ceiling recovered by the loaded connected-band top (the X37
-# loaded-mu form, ported into junction_scattering with derivation §1 citation;
-# X37 is unmerged so it cannot be imported — DISCLOSED deviation from the prereg's
-# "via the X37 module" wording). g = sqrt(3) * theta_top ; f->0 -> pi*sqrt3.
+# G-B — independent-reference recovery, now with an F-SENSITIVE leg (R8, PR #619).
+# The pi*sqrt3 ceiling uses the CANONICAL X37 routine jp.g_scalar (R10 import), NOT
+# a re-implementation. TWO legs each:
+#   memoryless: bare |S11(f->0)| = 1/3 ; ceiling g(f->0) = pi*sqrt3 (references);
+#   ACTIVE:     the parasitics MUST bite — |S11(pi, f=0.2)| > 1/3 + margin AND
+#               g(f=0.2) < pi*sqrt3 - margin. A parasitics-DISABLED path returns the
+#               memoryless values for ALL f and so FAILS the active legs (the R8
+#               sabotage: the old gate probed only f->0, which is f-insensitive by
+#               the deepest-notch result, so a disabled path passed spuriously).
 # ═════════════════════════════════════════════════════════════════════════════
+G_B_ACTIVE_F = 0.2  # extent where the parasitics visibly bite (f-sensitive leg)
+G_B_ACTIVE_MARGIN = 1e-2  # the active legs must move by at least this
+
+
 def _g_scalar_loaded(f: float, s_L: float = 1.0, s_C: float = 1.0) -> float:
-    """omega_top/omega_C = sqrt(3)*theta_top(f) — the X37 loaded-dispersion ceiling,
-    through junction_scattering.connected_band_top_theta (the ported X37 loaded-mu
-    form). sqrt(3) is the geometric network factor (reporting)."""
-    return float(np.sqrt(3.0) * js.connected_band_top_theta(f, s_L, s_C))
+    """omega_top/omega_C = the CANONICAL X37 loaded-dispersion ceiling jp.g_scalar
+    (#616 merged; R10 — imported, not re-implemented). f->0 -> pi*sqrt3."""
+    return float(jp.g_scalar(f, s_L, s_C))
 
 
 def gate_B() -> dict:
-    # (i) bare-junction reflection through the loaded S11 at small nonzero f
-    s11_probe = abs(js.s11_junction(1e-6, G_B_PROBE_F))  # loaded path, no early return
-    rel_bare = abs(s11_probe - REF_BARE_S11_MAG) / REF_BARE_S11_MAG
-    # (ii) pi*sqrt3 ceiling through the loaded connected-band top at small f
-    g_probe = _g_scalar_loaded(G_B_PROBE_F)
-    rel_ceiling = abs(g_probe - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
+    # memoryless references
+    s11_mem = abs(js.s11_junction(1e-6, G_B_PROBE_F))  # loaded path, no early return
+    rel_bare = abs(s11_mem - REF_BARE_S11_MAG) / REF_BARE_S11_MAG
+    g_mem = _g_scalar_loaded(G_B_PROBE_F)
+    rel_ceiling = abs(g_mem - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
+    # ACTIVE (f-sensitive) legs: the parasitics must move both observables
+    s11_active = abs(js.s11_junction(np.pi, G_B_ACTIVE_F))  # |S11| at band-top mode, f=0.2
+    g_active = _g_scalar_loaded(G_B_ACTIVE_F)
+    bare_moves = (s11_active - REF_BARE_S11_MAG) > G_B_ACTIVE_MARGIN  # reflection RISES
+    ceiling_moves = (REF_604_BAND_TOP_OVER_OMEGA_C - g_active) > G_B_ACTIVE_MARGIN  # ceiling DROPS
+    mem_ok = rel_bare < G_B_TOL and rel_ceiling < G_B_TOL
     return {
-        "gate": "G-B independent-reference recovery (loaded path)",
+        "gate": "G-B independent-reference recovery (memoryless + f-sensitive legs)",
         "bare_ref_S11_mag": REF_BARE_S11_MAG,
-        "bare_loaded_probe_S11_mag": s11_probe,
+        "bare_memoryless_probe_S11_mag": s11_mem,
         "bare_rel_error": rel_bare,
         "ceiling_ref_source": REF_604_DOC,
         "ceiling_ref_over_omega_C": REF_604_BAND_TOP_OVER_OMEGA_C,
-        "ceiling_loaded_probe_over_omega_C": g_probe,
+        "ceiling_memoryless_probe_over_omega_C": g_mem,
         "ceiling_rel_error": rel_ceiling,
+        "active_f": G_B_ACTIVE_F,
+        "active_S11_at_band_top": s11_active,
+        "active_ceiling_over_omega_C": g_active,
+        "bare_leg_f_sensitive": bool(bare_moves),
+        "ceiling_leg_f_sensitive": bool(ceiling_moves),
         "tol": G_B_TOL,
-        "x37_module_available": Path(js.__file__).with_name("junction_parasitics.py").exists(),
-        "note": (
-            "X37 junction_parasitics is UNMERGED on main; the pi*sqrt3 recovery uses the X37 "
-            "loaded-mu form ported into junction_scattering.connected_band_top_theta (cited, "
-            "derivation §1) — disclosed deviation from the prereg 'via the X37 module' wording."
-        ),
-        "pass": bool(rel_bare < G_B_TOL and rel_ceiling < G_B_TOL),
+        "note": "pi*sqrt3 ceiling via CANONICAL jp.g_scalar (#616 merged; R10). Active legs "
+        "(R8) fail if the parasitics are disabled (sabotage caught).",
+        "pass": bool(mem_ok and bare_moves and ceiling_moves),
     }
 
 
 def gate_B_planted() -> dict:
-    """Planted-violation proof: a +1% offset on EACH loaded recovery must FAIL."""
+    """Planted-violation proofs (R8): (a) a +1% offset on the memoryless recoveries
+    FAILS the reference tolerance; (b) a PARASITICS-DISABLED sabotage (a loaded path
+    that ignores f -> returns the memoryless values for ALL f) FAILS the f-sensitive
+    active legs (the old f->0-only gate passed this sabotage spuriously)."""
+    # (a) offset plant
     bare_off = abs(js.s11_junction(1e-6, G_B_PROBE_F)) * 1.01
     ceil_off = _g_scalar_loaded(G_B_PROBE_F) * 1.01
     rel_bare = abs(bare_off - REF_BARE_S11_MAG) / REF_BARE_S11_MAG
     rel_ceil = abs(ceil_off - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
-    fired = rel_bare >= G_B_TOL and rel_ceil >= G_B_TOL
+    offset_fires = rel_bare >= G_B_TOL and rel_ceil >= G_B_TOL
+    # (b) parasitics-disabled sabotage: memoryless values regardless of f
+    sab_s11 = REF_BARE_S11_MAG  # disabled parasitics -> |S11|=1/3 for all f
+    sab_g = REF_604_BAND_TOP_OVER_OMEGA_C  # disabled parasitics -> pi*sqrt3 for all f
+    sab_bare_moves = (sab_s11 - REF_BARE_S11_MAG) > G_B_ACTIVE_MARGIN
+    sab_ceiling_moves = (REF_604_BAND_TOP_OVER_OMEGA_C - sab_g) > G_B_ACTIVE_MARGIN
+    sabotage_fires = (not sab_bare_moves) and (not sab_ceiling_moves)  # active legs FAIL
     return {
-        "planted": "G-B: +1% offset on both loaded recoveries",
-        "bare_rel_error": rel_bare,
-        "ceiling_rel_error": rel_ceil,
-        "gate_fired": bool(fired),
-        "pass": bool(fired),
+        "planted": "G-B: (a) +1% offset on memoryless; (b) parasitics-disabled sabotage",
+        "offset_bare_rel_error": rel_bare,
+        "offset_ceiling_rel_error": rel_ceil,
+        "offset_gate_fires": bool(offset_fires),
+        "sabotage_bare_leg_f_sensitive": bool(sab_bare_moves),
+        "sabotage_ceiling_leg_f_sensitive": bool(sab_ceiling_moves),
+        "sabotage_gate_fires": bool(sabotage_fires),
+        "gate_fired": bool(offset_fires and sabotage_fires),
+        "pass": bool(offset_fires and sabotage_fires),
     }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# G-C — objective-robustness (the branch-iv detector) + frozen branch assignment.
+# G-C — objective-robustness + TWO-AXIS branch assignment (R1/R2, PR #619 review).
+# The frozen single-frequency PRIMARY (obj-1 at pi) is EXACTLY DEGENERATE whenever
+# its half-wave-invisible touch f_touch(pi) lies in (0,0.5] — co-equal minima
+# {0, f_touch} => under the frozen rule's degenerate clause it fires BRANCH (iv).
+# The band-integrated comparator (obj-2) has no such touch => uniquely f*=0 =>
+# BRANCH (ii) on the broadband axis. KEEP BOTH. And (R2) if f_touch == 1/(2pi)
+# INSIDE f_crit, the co-minimum sits ON the branch-(i) soliton mark in the
+# self-consistent regime => branch (i) UNADJUDICATED PENDING-GRANT (not "no fire").
 # ═════════════════════════════════════════════════════════════════════════════
-def _classify_branch(f_stars: dict, spread: float) -> str:
-    """Frozen branch rule (prereg §6). f* under the PRIMARY objective (obj1_op6)."""
-    f_primary = f_stars["obj1_op6"]
-    if spread >= G_C_SCATTER_SPREAD:
-        return "iv"  # objective-dependent scatter -> honest null
-    # robust (spread < scatter threshold): read the primary f*
-    if abs(f_primary - TUBE_RADIUS_MARK) < 0.02 and spread < G_C_ROBUST_SPREAD:
-        return "i"  # matched bore == unknot tube radius -> identity candidate
-    if f_primary == 0.0 and spread < G_C_ROBUST_SPREAD:
-        return "ii"  # point junction -> closure (c)
-    if f_primary > 0.02 and abs(f_primary - TUBE_RADIUS_MARK) >= 0.02 and spread < G_C_ROBUST_SPREAD:
-        return "iii"  # a new derived interior scale
-    return "indeterminate"
+def classify_two_axis(sp: dict, s_L: float, s_C: float) -> dict:
+    """TWO-AXIS verdict. Returns the frozen-PRIMARY branch (obj-1) and the
+    BAND-INTEGRATED branch (obj-2), plus the branch-(i) PENDING-GRANT flag."""
+    primary_degen = sp["degeneracy"]["obj1_op6"]
+    f_touch = primary_degen["f_touch"]
+    # frozen-primary axis (obj-1, single-freq at pi)
+    if sp["spread"] >= G_C_SCATTER_SPREAD:
+        primary_branch = "iv"  # objective scatter
+    elif primary_degen["degenerate"]:
+        primary_branch = "iv"  # EXACT degeneracy {0, f_touch} -> frozen degenerate clause
+    elif sp["f_stars"]["obj1_op6"] == 0.0:
+        primary_branch = "ii"
+    else:
+        primary_branch = "indeterminate"
+    # band-integrated axis (obj-2, broadband -> no half-wave trick)
+    band_branch = "ii" if sp["band_integrated_unique_f0"] else "indeterminate"
+    # branch-(i) PENDING-GRANT: a degenerate touch ON the tube-radius mark, inside f_crit
+    on_mark = bool(primary_degen["degenerate"] and abs(f_touch - TUBE_RADIUS_MARK) < 1e-6)
+    inside_fcrit = bool(np.isfinite(f_touch) and f_touch < F_CRIT)
+    branch_i_pending_grant = bool(on_mark and inside_fcrit)
+    return {
+        "frozen_primary_branch": primary_branch,
+        "band_integrated_branch": band_branch,
+        "primary_degenerate": bool(primary_degen["degenerate"]),
+        "primary_f_touch": f_touch,
+        "branch_i_pending_grant_on_locus": branch_i_pending_grant,
+        "banked": "f*=0 uniquely selected by the band-integrated comparator (obj-2); the "
+        "single-frequency objectives are exactly degenerate along {0, f_touch} (half-wave-"
+        "invisible bore family). Frozen-primary outcome = branch (iv); obj-2 axis = branch (ii).",
+    }
 
 
 def gate_C(s_L: float = 1.0, s_C: float = 1.0) -> dict:
     sp = js.objective_spread(s_L, s_C)
-    branch = _classify_branch(sp["f_stars"], sp["spread"])
+    verdict = classify_two_axis(sp, s_L, s_C)
     return {
-        "gate": "G-C objective-robustness (branch-iv detector)",
+        "gate": "G-C objective-robustness (two-axis; branch-iv/degeneracy detector)",
         "s_L": s_L,
         "s_C": s_C,
         "f_stars": sp["f_stars"],
         "spread": sp["spread"],
+        "primary_degenerate": sp["primary_degenerate"],
+        "primary_f_touch": sp["degeneracy"]["obj1_op6"]["f_touch"],
+        "band_integrated_unique_f0": sp["band_integrated_unique_f0"],
         "robust_threshold": G_C_ROBUST_SPREAD,
         "scatter_threshold": G_C_SCATTER_SPREAD,
-        "branch_fired": branch,
-        "pass": True,  # G-C reports; the spread + branch are first-class results
+        "two_axis_verdict": verdict,
+        "pass": True,  # G-C reports; the two-axis verdict is a first-class result
     }
 
 
 def gate_C_planted() -> dict:
-    """Planted-violation proof of the branch-iv (spread) detector: a DIVERGENT bogus
-    objective (one that MAXIMISES reflection -> selects f=0.5, the opposite extreme)
-    must push the spread across the scatter threshold; the 3 real objectives (control)
-    must NOT. Proves the detector can fire."""
-    real = js.objective_spread()  # control: 3 real objectives
+    """Planted-violation proofs of the two detectors (R1 + branch-iv):
+    (a) the DEGENERACY detector: obj-1's half-wave-invisible touch at f_touch(pi)
+        must be EXACTLY co-minimal with f=0 (|S11(pi;f_touch)|^2 - 1/9 == machine 0),
+        and the band-integrated obj-2 must NOT touch (unique) — proves the two-axis
+        detector discriminates.
+    (b) the SCATTER (branch-iv) detector: a divergent bogus objective (maximise
+        reflection -> f!=0) pushes the spread across the scatter threshold; the 3
+        real objectives (control) do not."""
+    # (a) degeneracy discrimination
+    f_touch = js.half_wave_invisible_touch(np.pi, 1.0, 1.0)
+    touch_is_exact = abs(js.objective_op6(f_touch) - 1.0 / 9.0) < 1e-12
+    obj2_not_degenerate = not js.objective_is_degenerate("obj2_band_integrated")["degenerate"]
+    degen_detector_fires = bool(touch_is_exact and obj2_not_degenerate)
+    # (b) scatter discrimination
+    real = js.objective_spread()
     real_flagged = real["spread"] >= G_C_SCATTER_SPREAD
-    # divergent plant: argmax |S11(pi)|^2 over f (bogus "maximise reflection" objective)
     fs = np.linspace(js.F_POINT_JUNCTION, js.F_WIGNER_SEITZ, 501)
     j_bad = np.array([js.objective_op6(f) for f in fs])
-    f_bad = float(fs[int(np.argmax(j_bad))])  # selects a large f (opposite of the real min)
-    planted_stars = dict(real["f_stars"])
-    planted_stars["obj_bogus_maximise"] = f_bad
-    planted_spread = max(planted_stars.values()) - min(planted_stars.values())
-    planted_flagged = planted_spread >= G_C_SCATTER_SPREAD
+    f_bad = float(fs[int(np.argmax(j_bad))])  # bogus "maximise reflection" -> large f
+    planted_spread = max(list(real["f_stars"].values()) + [f_bad]) - min(list(real["f_stars"].values()) + [f_bad])
+    scatter_detector_fires = (not real_flagged) and (planted_spread >= G_C_SCATTER_SPREAD)
     return {
-        "planted": "G-C: divergent bogus objective (maximise reflection -> f!=0)",
+        "planted": "G-C: (a) exact-degeneracy discrimination; (b) divergent-objective scatter",
+        "degeneracy_f_touch": f_touch,
+        "obj1_at_touch_minus_1_9": js.objective_op6(f_touch) - 1.0 / 9.0,
+        "degeneracy_detector_fires": degen_detector_fires,
         "control_real_spread": real["spread"],
-        "control_flagged_scatter": real_flagged,
         "planted_f_bogus": f_bad,
         "planted_spread": planted_spread,
-        "planted_flagged_scatter": planted_flagged,
-        "gate_fired": (not real_flagged) and planted_flagged,
-        "pass": (not real_flagged) and planted_flagged,
+        "scatter_detector_fires": bool(scatter_detector_fires),
+        "gate_fired": bool(degen_detector_fires and scatter_detector_fires),
+        "pass": bool(degen_detector_fires and scatter_detector_fires),
     }
 
 
@@ -283,43 +346,66 @@ def gate_C_planted() -> dict:
 # s-sweep (X37 R5 lesson) + landscape + figure
 # ═════════════════════════════════════════════════════════════════════════════
 def s_sweep(s_grid=(0.3, 0.5, 1.0, 2.0, 3.0)) -> dict:
-    """f* under the PRIMARY objective (obj1_op6) over s_L,s_C in [0.3,3]^2, and the
-    per-cell objective spread. Reports whether f*=0 is robust to the shape factors."""
+    """f* + EXACT obj-1 degeneracy over s_L,s_C in [0.3,3]^2 (X37 R5 lesson). For each
+    cell records the half-wave-invisible touch f_touch(pi), whether it is in-domain
+    (obj-1 degenerate there), and (R2) whether it lands ON the tube-radius mark
+    1/(2pi) INSIDE f_crit -> a branch-(i) PENDING-GRANT locus. The band-integrated
+    obj-2 uniquely selects f*=0 at every cell (the load-bearing broadband axis)."""
     rows = []
-    worst_fstar = 0.0
-    max_spread = 0.0
+    band_unique_all = True
+    branch_i_loci = []
     for sL in s_grid:
         for sC in s_grid:
             sp = js.objective_spread(sL, sC)
-            f1 = sp["f_stars"]["obj1_op6"]
-            rows.append({"s_L": sL, "s_C": sC, "f_star_op6": f1, "spread": sp["spread"]})
-            worst_fstar = max(worst_fstar, max(sp["f_stars"].values()))
-            max_spread = max(max_spread, sp["spread"])
-    return {"grid": list(s_grid), "rows": rows, "worst_f_star": worst_fstar, "max_spread": max_spread}
-
-
-def near_degeneracy_disclosure(s_L: float = 1.0, s_C: float = 1.0, n: int = 2001) -> dict:
-    """HONEST disclosure (visible in the figure): obj-1 |S11(pi;f)|^2 has a NEAR-
-    degenerate interior local minimum (the vertex self-resonance brings |S11(pi)|
-    back toward 1/3). Records how close the best INTERIOR (f>0) point comes to the
-    f=0 floor, and whether it beats f=0 (it must NOT), and whether it sits beyond
-    f_crit (where the lumped abstraction self-invalidates -> not a physical competitor).
-
-    Searches f in [0.1, 0.5] (AWAY from the trivial f->0+ continuation) so it captures
-    the SECOND, physically interesting local minimum (the vertex self-resonance dip)."""
-    fs = np.linspace(0.1, js.F_WIGNER_SEITZ, n)
-    j = np.array([js.objective_op6(f, s_L, s_C) for f in fs])
-    j0 = js.objective_op6(0.0, s_L, s_C)
-    i = int(np.argmin(j))
+            ft = sp["degeneracy"]["obj1_op6"]["f_touch"]
+            degen = sp["degeneracy"]["obj1_op6"]["degenerate"]
+            on_mark_inside = bool(np.isfinite(ft) and abs(ft - TUBE_RADIUS_MARK) < 1e-6 and ft < F_CRIT)
+            rows.append(
+                {
+                    "s_L": sL,
+                    "s_C": sC,
+                    "f_star_obj2": sp["f_stars"]["obj2_band_integrated"],
+                    "obj1_f_touch": None if not np.isfinite(ft) else float(ft),
+                    "obj1_degenerate": bool(degen),
+                    "branch_i_pending_grant_on_locus": on_mark_inside,
+                }
+            )
+            band_unique_all = band_unique_all and sp["band_integrated_unique_f0"]
+            if on_mark_inside:
+                branch_i_loci.append({"s_L": sL, "s_C": sC, "f_touch": float(ft)})
     return {
-        "f0_floor": float(j0),
-        "best_interior_f": float(fs[i]),
-        "best_interior_value": float(j[i]),
-        "interior_minus_floor": float(j[i] - j0),
-        "interior_beats_f0": bool(j[i] < j0 - 1e-12),
-        "best_interior_beyond_f_crit": bool(fs[i] > F_CRIT),
-        "note": "obj-1 has a near-degenerate interior dip; it does NOT beat f=0 and sits "
-        "at f>f_crit (self-invalidated regime) -> not a physical competitor; f*=0 stands.",
+        "grid": list(s_grid),
+        "rows": rows,
+        "band_integrated_uniquely_f0_all_cells": bool(band_unique_all),
+        "branch_i_pending_grant_loci": branch_i_loci,
+        "note": "obj-2 uniquely selects f*=0 at every cell; obj-1 is degenerate wherever "
+        "f_touch(pi) in (0,0.5]. Cell (s_L,s_C)=(2,3) puts f_touch = 1/(2pi) EXACTLY inside "
+        "f_crit -> an obj-1 co-minimum ON the branch-(i) soliton mark: UNADJUDICATED PENDING-GRANT.",
+    }
+
+
+def exact_degeneracy_disclosure(s_L: float = 1.0, s_C: float = 1.0) -> dict:
+    """R1 CORRECTION of the old 'near-degeneracy' framing. obj-1 |S11(pi;f)|^2 touches
+    the f=0 floor (1/9) EXACTLY (machine zero, NOT +2.7e-8 as first shipped) at the
+    half-wave-invisible extent f_touch(pi) — the junction section is half-wave at the
+    band-top tone and thus impedance-transparent there. So obj-1 has co-equal global
+    minima {0, f_touch}: it is EXACTLY DEGENERATE (the earlier grid argmin landed on 0
+    only by resolution luck). f_touch is a single-tone trick; obj-2 (band-integrated)
+    is unaffected -> uniquely f*=0."""
+    f_touch = js.half_wave_invisible_touch(np.pi, s_L, s_C)
+    if not np.isfinite(f_touch):
+        return {"f_touch": None, "in_domain": False, "note": "no real touch (s_C >= 3 s_L)"}
+    obj_at_touch = js.objective_op6(f_touch, s_L, s_C)
+    return {
+        "f_touch": float(f_touch),
+        "f0_floor": 1.0 / 9.0,
+        "obj1_at_touch": float(obj_at_touch),
+        "obj1_at_touch_minus_floor": float(obj_at_touch - 1.0 / 9.0),  # machine zero
+        "in_domain": bool(js.F_POINT_JUNCTION < f_touch <= js.F_WIGNER_SEITZ),
+        "beyond_f_crit": bool(f_touch > F_CRIT),
+        "on_tube_radius_mark": bool(abs(f_touch - TUBE_RADIUS_MARK) < 1e-6),
+        "note": "obj-1 EXACTLY degenerate along {0, f_touch} (half-wave-invisible bore); "
+        "obj-2 broadband breaks the degeneracy -> f*=0 on the broadband axis.",
     }
 
 
@@ -393,7 +479,16 @@ def make_figure(curves: dict, s_L: float, s_C: float) -> Path:
         label=r"deepest notch $\min_\theta|S_{11}|^2$",
     )
     axR.axhline(1.0 / 9.0, color="0.4", lw=1.0, ls=":", label=r"bare floor $1/9$")
-    axR.axvline(0.0, color=style.COLORS["ave"], lw=1.2, alpha=0.5, label=r"$f^\ast=0$ (all objectives)")
+    axR.axvline(0.0, color=style.COLORS["ave"], lw=1.2, alpha=0.5, label=r"obj-2 $f^\ast{=}0$ (broadband)")
+    f_touch = js.half_wave_invisible_touch(np.pi, s_L, s_C)
+    if np.isfinite(f_touch) and f_touch <= 0.5:
+        axR.axvline(
+            f_touch,
+            color=style.COLORS["ave"],
+            lw=1.2,
+            ls="--",
+            label=rf"obj-1 co-min $f_{{touch}}{{=}}\sqrt{{2}}/\pi\approx{f_touch:.3f}$ (degenerate)",
+        )
     axR.axvline(F_CRIT, color="0.6", lw=1.0, ls="-.", label=rf"$f_{{crit}}\approx{F_CRIT:.3f}$")
     axR.axvline(
         TUBE_RADIUS_MARK, color="0.75", lw=1.0, ls=":", label=rf"tube-radius mark $1/2\pi\approx{TUBE_RADIUS_MARK:.3f}$"
@@ -420,12 +515,13 @@ def main() -> None:
     gC, gC_p = gate_C(s_L, s_C), gate_C_planted()
     sweep = s_sweep()
     curves = objective_curves(s_L, s_C)
-    near_deg = near_degeneracy_disclosure(s_L, s_C)
+    exact_deg = exact_degeneracy_disclosure(s_L, s_C)
     fig_path = make_figure(curves, s_L, s_C)
 
-    branch = gC["branch_fired"]
-    f_star = gC["f_stars"]["obj1_op6"]
-    self_invalidates = f_star > F_CRIT
+    verdict = gC["two_axis_verdict"]
+    primary_branch = verdict["frozen_primary_branch"]
+    band_branch = verdict["band_integrated_branch"]
+    circ = js.ideal_circulator_s_matrix()
 
     result = {
         "task": "X38 S11-minimization bore selection (scalar/compression, Phase 1)",
@@ -435,7 +531,19 @@ def main() -> None:
             "leaf": "manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/eigenvalue-target.md",
             "claim": "clm-gdd70j",
             "code_path": "ave.core.universal_operators.universal_eigenvalue_target",
-            "trefoil_application": "constants.py:191-206 (S11 min -> R.r=1/4 golden torus)",
+            "op6_scope_note_R6": "Op6 applied HERE as a CANDIDATE selector. Per canon's OWN honest-scope "
+            "note (constants.py, HONEST SCOPE 2026-06-14) the S11 landscape is FLAT in R.r and "
+            "'S11 minimization does NOT select R.r=1/4' -> Op6 did NOT select the trefoil geometry. "
+            "(The 'same operator that selected the trefoil' premise entered via the orchestrator brief.)",
+        },
+        "two_axis_verdict_R1": {
+            "banked": verdict["banked"],
+            "frozen_primary_branch": primary_branch,
+            "band_integrated_branch": band_branch,
+            "primary_degenerate": verdict["primary_degenerate"],
+            "primary_f_touch_at_pi": verdict["primary_f_touch"],
+            "note": "obj-1 (primary, single-freq at pi) EXACTLY degenerate {0, f_touch=sqrt2/pi}; "
+            "obj-2 (band-integrated) uniquely f*=0. 'demonstrated' not 'adjudicated' (R7; #613 MAJOR-11).",
         },
         "bare_junction": {
             "S11_analytic": js.bare_junction_s11(3),
@@ -445,37 +553,56 @@ def main() -> None:
         "l_match": {
             "Q_for_2to1": float(np.sqrt(2.0 - 1.0)),
             "ideal_null_reachable": True,
-            "physical_vertex_dips_below_1_3": bool(min(curves["deepest_notch"][1:]) < REF_BARE_S11_MAG**2 - 1e-9),
-            "verdict": "L-match Q=1 CONFIRMED as a network fact; REFUTED at the vertex "
-            "(accumulator on low-Z node side + C3v forbids a privileged one-arm shunt "
-            "-> wrong orientation, cannot raise Z0/2 to Z0)",
+            "physical_vertex_dips_below_1_3": bool(min(curves["deepest_notch"]) < REF_BARE_S11_MAG**2 - 1e-9),
+            "verdict": "L-match Q=1 CONFIRMED as a network fact; REFUTED at the LOSSLESS RECIPROCAL "
+            "vertex (accumulator on low-Z node + C3v forbids a one-arm shunt -> wrong orientation)",
         },
-        "op6_target": {
+        "op6_target_and_theorem": {
             "deepest_notch_all_f": {f"f={f:.2f}": js.deepest_notch(f) for f in (0.0, 0.1, 0.3, 0.5)},
-            "reflectionless_target_reachable": False,
-            "note": "min|S11|^2 = 1/9 for ALL f (the theta->0 floor) => lambda_min->0 UNREACHABLE; "
-            "the srs vertex is an intrinsic 1/9-power branch-backscatterer (z=3 structural)",
+            "reflectionless_target_reachable_reciprocal": False,
+            "classification_R5": "the classic matched-lossless-reciprocal-3-port theorem (Pozar §7.1 "
+            "class; |S11|>=1/3 symmetric corollary), CONFIRMED at the vertex — provable, not numerical",
+            "vocabulary_R9": "reactive BACK-SCATTER / redistribution (Ax3 lossless: no dissipation), NOT a 'loss'",
+            "reciprocity_scope_R3": "holds for the LOSSLESS RECIPROCAL class only",
+        },
+        "non_reciprocal_escape_R3_R4": {
+            "circulator_S": circ.real.tolist(),
+            "circulator_unitary": bool(np.allclose(circ.conj().T @ circ, np.eye(3))),
+            "circulator_S11": float(abs(circ[0, 0])),
+            "circulator_reciprocal": bool(np.allclose(circ, circ.T)),
+            "escape_class": "matched lossless C3-symmetric 3-ports EXIST but ONLY non-reciprocally "
+            "(circulator witness). ANY lossless+reciprocal+C3 network (incl. the evanescent-stub / "
+            "finite-volume resonant branch named earlier) obeys the 1/3 theorem -> that escape is DEAD "
+            "(R4); the ONLY escape class is non-reciprocity.",
+            "chirality_and_T_breaking": "the lattice is chiral at Axiom-1 (right-handed I4_1 32, "
+            "axiom-definitions.md:16) -> parity broken; but circulation needs a TIME-REVERSAL-breaking "
+            "bias (candidate: frozen-bias sector u0*/Omega_freeze) -> PENDING-GRANT, asserted nowhere.",
+            "x37_c2_flag": "X37's MERGED Correction-Log C2 names the same now-dead evanescent-stub "
+            "escape -> correction-PR candidate (surfaced for the orchestrator; NOT edited here).",
         },
         "f_star": {
-            "obj1_op6_primary": gC["f_stars"]["obj1_op6"],
+            "obj1_op6_primary_gridargmin": gC["f_stars"]["obj1_op6"],
             "obj2_band_integrated": gC["f_stars"]["obj2_band_integrated"],
             "obj3_single_freq": gC["f_stars"]["obj3_single_freq"],
             "spread": gC["spread"],
+            "note": "obj-1 grid-argmin=0 is resolution luck (co-min at f_touch missed by the grid); "
+            "the EXACT statement is the two-axis verdict above.",
         },
-        "branch_fired": branch,
         "self_consistency": {
             "f_crit": F_CRIT,
-            "f_star_gt_f_crit": bool(self_invalidates),
-            "note": "f*=0 < f_crit -> lumped abstraction self-consistent at its minimum (does NOT self-invalidate)",
+            "note": "the band-integrated f*=0 < f_crit (self-consistent). The obj-1 co-minimum f_touch "
+            "sits at f>f_crit at s=1 (self-invalidated regime) but INSIDE f_crit at cell (2,3).",
         },
         "comparison_marks": {
             "tube_radius_1_over_2pi": TUBE_RADIUS_MARK,
             "core_thickness": CORE_THICKNESS_MARK,
-            "f_star_matches_tube_radius": bool(abs(f_star - TUBE_RADIUS_MARK) < 0.02),
-            "note": "f*=0 matches NEITHER soliton mark -> branch (i) identity candidate does NOT fire",
+            "branch_i_status_R2": "UNADJUDICATED PENDING-GRANT on the degenerate locus: at cell "
+            "(s_L,s_C)=(2,3), f_touch = 1/(2pi) EXACTLY, INSIDE f_crit -> an obj-1 co-minimum ON the "
+            "tube-radius mark in the self-consistent regime. A formula locus (s-cell-dependent), NOT "
+            "asserted as branch (i); flagged for Grant.",
         },
+        "exact_degeneracy_disclosure_R1": exact_deg,
         "s_sweep": sweep,
-        "near_degeneracy_disclosure": near_deg,
         "gates": {"G-A": gA, "G-A_planted": gA_p, "G-B": gB, "G-B_planted": gB_p, "G-C": gC, "G-C_planted": gC_p},
         "objective_curves": curves,
         "reporting_unit": {
@@ -490,37 +617,38 @@ def main() -> None:
 
     # ── ledger to stdout ──
     print("=" * 78)
-    print("X38 — S11-minimization bore selection (scalar/compression, Phase 1)")
+    print("X38 — S11-minimization bore selection (scalar/compression, Phase 1) [PR #619 REPAIR]")
     print("=" * 78)
-    print("  objective (canon)     : Op6 lambda_min(S†S)->0  [eigenvalue-target.md clm-gdd70j]")
+    print("  objective (canon)     : Op6 lambda_min(S†S)->0 [candidate selector; NOT the trefoil selector, R6]")
     print(f"  bare junction z=3     : S11 = {js.bare_junction_s11(3):+.4f}  (|S11|=1/3; memoryless NOT matched)")
+    print(f"  L-match Q (2:1)       : {np.sqrt(1.0):.3f}  -> ideal null reachable; REFUTED at lossless-recip vertex")
+    print("  1/3 floor (R5)        : classic matched-lossless-RECIPROCAL-3-port theorem (Pozar §7.1), confirmed")
     print(
-        f"  L-match Q (2:1)       : {np.sqrt(1.0):.3f}  -> ideal null reachable; REFUTED at vertex (orientation + C3v)"
-    )
-    print("  Op6 reflectionless    : UNREACHABLE (min|S11|^2 = 1/9 for ALL f -> z=3 intrinsic backscatter)")
-    print(f"  f* obj-1 Op6 (primary): {gC['f_stars']['obj1_op6']:.4f}")
-    print(f"  f* obj-2 band-int     : {gC['f_stars']['obj2_band_integrated']:.4f}")
-    print(f"  f* obj-3 single-freq  : {gC['f_stars']['obj3_single_freq']:.4f}")
-    print(
-        f"  objective spread      : {gC['spread']:.4f}  (robust < {G_C_ROBUST_SPREAD}; scatter >= {G_C_SCATTER_SPREAD})"
-    )
-    print(f"  BRANCH FIRED          : ({branch})   [f*=0 => point junction; walk ceiling pi*sqrt3 exact]")
-    print(f"  f* vs f_crit          : f*=0 < f_crit={F_CRIT:.3f} -> self-consistent (does NOT self-invalidate)")
-    print(f"  vs soliton marks      : f*=0 != 1/2pi={TUBE_RADIUS_MARK:.3f}, != 1 -> branch (i) does NOT fire")
-    print("-" * 78)
-    print(
-        f"  s-sweep [0.3,3]^2     : worst-case f*={sweep['worst_f_star']:.3f}, "
-        f"max spread={sweep['max_spread']:.4f} (f*=0 robust to s)"
-    )
-    print(
-        f"  obj-1 near-degeneracy : interior dip f={near_deg['best_interior_f']:.3f} "
-        f"is {near_deg['interior_minus_floor']:+.2e} vs f=0 floor (beats f=0: "
-        f"{near_deg['interior_beats_f0']}; beyond f_crit: {near_deg['best_interior_beyond_f_crit']})"
+        f"  non-recip escape (R3) : circulator S11={float(abs(circ[0, 0])):.0f} "
+        f"(unitary, C3, NON-recip) -> T-break PENDING-GRANT"
     )
     print("-" * 78)
+    print("  TWO-AXIS VERDICT (R1):")
     print(
-        f"  G-B recovery (loaded) : bare|S11|={gB['bare_loaded_probe_S11_mag']:.6f} (rel {gB['bare_rel_error']:.1e}), "
-        f"ceiling={gB['ceiling_loaded_probe_over_omega_C']:.6f} (rel {gB['ceiling_rel_error']:.1e})"
+        f"    obj-1 (primary, pi)  : EXACTLY degenerate {{0, f_touch={exact_deg['f_touch']:.4f}}} "
+        f"(obj1@touch-1/9={exact_deg['obj1_at_touch_minus_floor']:+.1e}) -> frozen BRANCH ({primary_branch})"
+    )
+    print(f"    obj-3 (pi/2)         : f_touch={js.half_wave_invisible_touch(np.pi / 2):.3f} OUT of [0,0.5] at s=1")
+    print(
+        f"    obj-2 (band-integ.)  : uniquely f*={gC['f_stars']['obj2_band_integrated']:.3f} -> BRANCH ({band_branch})"
+    )
+    print("    BANKED               : f*=0 selected ONLY on the broadband axis; single-freq objectives degenerate")
+    print("-" * 78)
+    print(
+        f"  s-sweep [0.3,3]^2     : obj-2 uniquely f*=0 all cells = {sweep['band_integrated_uniquely_f0_all_cells']}; "
+        f"branch-(i) PENDING-GRANT loci: {[(r['s_L'], r['s_C']) for r in sweep['branch_i_pending_grant_loci']]}"
+    )
+    print("-" * 78)
+    print(
+        f"  G-B (R8)              : mem bare|S11|={gB['bare_memoryless_probe_S11_mag']:.4f} "
+        f"rel {gB['bare_rel_error']:.0e}, ceiling={gB['ceiling_memoryless_probe_over_omega_C']:.4f} "
+        f"rel {gB['ceiling_rel_error']:.0e}; "
+        f"f-sensitive legs bare={gB['bare_leg_f_sensitive']}/ceiling={gB['ceiling_leg_f_sensitive']}"
     )
     print("-" * 78)
     for g in (gA, gA_p, gB, gB_p, gC, gC_p):
