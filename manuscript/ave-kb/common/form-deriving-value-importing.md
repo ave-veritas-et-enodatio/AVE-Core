@@ -10,8 +10,11 @@ path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella un
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > The birefringence-tooth "$7.5/\alpha^3\approx1.93\times10^7$" quoted below (as an example of an $\alpha$-echo
-> magnitude) carries an understated QED denominator. **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$**
-> (propagating, the headline). The FORM-vs-VALUE point is UNAFFECTED — indeed sharpened: the magnitude was and
+> magnitude) carries an understated QED denominator. **Corrected (v3 headline, single instantaneous footing —
+> OPTION-B re-freeze 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step
+> gave the propagating/mixed-footing $7.5\pi/\alpha^2\approx4.42\times10^5$, exactly double via the
+> $\langle\cos^2\rangle=\tfrac12$ carrier average; no order of magnitude or falsifier verdict changes).
+> The FORM-vs-VALUE point is UNAFFECTED — indeed sharpened: the magnitude was and
 > remains an $\alpha$-echo, only its numerical value moves. Canonical:
 > [`../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.

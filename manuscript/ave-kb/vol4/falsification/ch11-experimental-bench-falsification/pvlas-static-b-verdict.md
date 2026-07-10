@@ -7,8 +7,11 @@ claims: [clm-pvlas1, clm-bdualb]
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > The E-route ratio "$7.5/\alpha^3\approx1.93\times10^7$" quoted below carries an understated QED denominator
-> ($(3/45)\alpha^2$ too small by $1/(2\pi\alpha)\approx21.8$). **Corrected: $7.5\pi/\alpha^2\approx4.42\times10^5$**
-> (propagating, the headline; $15\pi/\alpha^2\approx8.85\times10^5$ static-E). The static-B null verdict and the
+> ($(3/45)\alpha^2$ too small by $1/(2\pi\alpha)\approx21.8$). **Corrected (v3 headline, single instantaneous footing —
+> OPTION-B re-freeze 2026-07-07): $3.75\pi/\alpha^2\approx2.2\times10^5$** (the 2026-07-03 QED-normalization step gave
+> the propagating/mixed-footing $7.5\pi/\alpha^2\approx4.42\times10^5$, exactly double via the
+> $\langle\cos^2\rangle=\tfrac12$ carrier average; $15\pi/\alpha^2\approx8.85\times10^5$ static-E; no order of
+> magnitude or falsifier verdict changes). The static-B null verdict and the
 > AVE leg are UNAFFECTED. Canonical:
 > [`../ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.

@@ -398,6 +398,19 @@ The round-3 Data flag marked the Problem-8 attenuation comparators as
   quoted elsewhere in Entry 3). Pb margin unchanged: `1.5 kb / 0.69 kb ≈ 2.2×`.
   The ledger working, as the reviewer invited.
 
+**Letter v5 open-item status row (2026-07-09, post-adversarial-review).** The v5
+"constitutive-channel closure above ω₀" NAMED OPEN ITEM had its first engine probe
+(1D super-band carrier fork test, PR #598): the probe's evidence was found
+NON-FUNCTIONAL under adversarial review (mobility kick a no-op; coupling exponent a
+ramp-transient artifact; half the fit window in-band per the true srs band top
+~3.3–3.5 ω_C) — verdict BLOCKED, honest adjudication NULL (evanescent-only; the
+mobility null itself independently re-confirmed by corrected kicks). **Letter v5
+and clm-gg4wmx require NO edits** (their open-item language pre-registered exactly
+this situation); ATLAS-tension status = epistemic only, STATUS QUO ANTE.
+Regeneration path = repair + two-tone difference-frequency protocol (the first
+true substrate four-photon form-factor measurement) + 3D srs band survey; fork
+ruling tracked in `_orchestration/2026-07-09_orchestration-board.md` §4.
+
 **Build + commits.** Branch `analysis/letter-round3-updates` (worktree `wt-round3`),
 all commits tagged `[REVIEW: pending-orchestrator]`, **DO-NOT-MERGE**. Letter
 compiles clean via `latexmk` (exit 0, **11 pp**, zero undefined refs / citations

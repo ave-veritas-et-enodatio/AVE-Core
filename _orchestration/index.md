@@ -5,6 +5,10 @@
 
 > **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
+## 2026-07-09 Session board — γγ/ATLAS arc + electron-def canonization + v0.8 (AUTHORITATIVE for current state)
+
+Full board: [`2026-07-09_orchestration-board.md`](2026-07-09_orchestration-board.md) — findings register (Letter v5 · clean-field CONFIRMED · FPB framing · OTS chain V1→V4⚓→V5 · v0.8), PR board (#597/#599/#600 ready; #598 BLOCKED; #590 supersede-on-#599), pending Grant decisions (e⁻ handedness sign · verbatim-twin policy · x29 fork A/B/C/D), the x29 BLOCKED verdict (ATLAS status = STATUS QUO ANTE, epistemic only), consolidated open questions (incl. the pre-existing LEP-compositeness exposure — same collider family as the ATLAS defense), and the step-back audit (priority: submission mechanics → cRIO bench resume → forks B+A → merge queue; STOP further corpus polishing).
+
 ## 2026-07-03 Verdict-exposure re-adjudication — D1 RATIFIED (srs-z3 production carrier)
 
 The 2026-07-03 engine verdict-exposure sweep was canonized ([`research/2026-07-03_engine-verdict-exposure-sweep_result.md`](../research/2026-07-03_engine-verdict-exposure-sweep_result.md)); dated ⚠ EVIDENTIARY-EXPOSURE caveats landed on the 2 HIGH + 4 MEDIUM verdicts (status-demotion, NOT retraction; 25 LOW untouched). `clm-sjjvhf` demoted 0.65→0.60. mass = A1 (PR#260) untouched throughout. **D1 is now ADJUDICATED (Grant 2026-07-03): srs-z3 is the production carrier** — the two rows below record the ratification + the landed re-adjudication rung-1:
