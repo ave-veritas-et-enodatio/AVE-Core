@@ -15,6 +15,8 @@
 >
 > ---
 
+> **🔴 S₁₁-selection pointer (2026-07-10, Op6-scope audit).** Beyond the general retirement above: the specific sections of this handoff that assert **"Golden Torus geometry IS the S₁₁-minimum of the trefoil"** (§3.5, the quoted block at line 128; §5.5, the Op6 row at line 256) are **superseded by the 2026-06-14 keystone α-verdict** — the S₁₁ landscape is FLAT in R·r and S₁₁ minimization does NOT select R·r=1/4 (both named lift-routes closed 2026-06-04). Governing canon: `src/ave/core/constants.py:212-228` (see also `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:11`). Op6 is eigenmode-finding for a GIVEN network, never geometry-selection. Body preserved per Rule 12.
+
 # Workstream Handoff — ABCD-Matrix Eigensolver for Q-G47 Interpretation G Closure
 
 **Date drafted**: 2026-05-18 night

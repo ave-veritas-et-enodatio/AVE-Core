@@ -14,6 +14,18 @@ Solving → R = φ/2, r = (φ-1)/2 (Golden Torus; φ = golden ratio).
 This script computationally verifies both constraints emerge from physical
 minimization principles, not by fiat.
 
+⚠ HONEST SCOPE (2026-07-10, Op6-scope audit — read WITH the paragraph above).
+The premise that S₁₁-minimization *converges to* / *selects* R·r=1/4 (the Golden
+Torus) is CLOSED-NEGATIVE. The S₁₁ landscape was found FLAT in R·r (doc-34 + 4
+dynamic engine tests) and both named lift-routes closed 2026-06-04; S₁₁ minimization
+does NOT select R·r=1/4. Constraint (2) R·r=1/4 is an IMPOSED algebraic pinning (a
+substrate-canonical NAMED identification), NOT a value the minimization independently
+produces — so the "not by fiat" claim above is CORRECTED for constraint (2).
+Governing canon: src/ave/core/constants.py:212-228;
+manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:11. This script REMAINS a
+CONSISTENCY check (the Golden Torus is a stationary point of / consistent with the
+S₁₁ action), NOT a selection demonstration. Original docstring preserved per Rule 12.
+
 ─── Verification strategy ────────────────────────────────────────────────
 Constraint (1) is a hard geometric constraint: on a discrete grid with tube
 diameter d = 1, two non-touching strands require center-to-center distance

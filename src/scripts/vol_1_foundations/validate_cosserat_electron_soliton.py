@@ -9,6 +9,15 @@ Dual-run protocol per research/_archive/L3_electron_soliton/09_ §4:
 Both runs should converge to the same (R, r) ratio if the Lagrangian
 dynamically selects the Golden Torus.
 
+⚠ HONEST SCOPE (2026-07-10, Op6-scope audit). The conditional above — "if the
+Lagrangian dynamically selects the Golden Torus" — is the CLOSED route: the
+dynamical-selection route was closed FLAT by the 2026-06-02 engine tests (the S₁₁
+landscape is flat in R·r; neither dual-run initialization is pulled to a distinct
+R·r optimum), and both named lift-routes closed 2026-06-04. Governing canon:
+src/ave/core/constants.py:212-228. This validation stands as a consistency /
+stationary-point check, NOT a dynamical-selection demonstration. Premise preserved
+per Rule 12.
+
 Validation targets (dimensionless ratios; see note on absolute Q below):
   R / r -> phi^2 ≈ 2.618     (Golden Torus uniqueness)
   (R - r) / d -> 1/2          (Ch 8 self-avoidance at crossings)
