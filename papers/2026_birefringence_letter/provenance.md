@@ -678,3 +678,156 @@ FIX-2 build note) CLEARED under the MINOR-1 text reflow. `make verify` GREEN. An
 UNCHANGED across all six fix commits (P_flip triplet + abstract range, kill criterion, `3.75π/α²` ×7, pump `A²`,
 purity floor `2.4e-10`, `δn_µ=0`, `E_c`, OTS `2.2e5`). Branch `analysis/letter-bi-corrections`; DO-NOT-MERGE, no
 self-merge.
+
+## 13. Round-4 co-author review integration (2026-07-10, K.M.) — the last limb, six footing alignments, three polishes
+
+Round-4 review (`Grant-Exp1-review-round4.md`, written against v4; v5 added the LbL/EFT paragraph via merged
+PR #594 and touched none of these sites). Branch `letter/v6-round4` off `origin/main` `93e928ac`. Manuscript
+stamped **version 6**. **No anchored v1 number moved; the frozen Table-I prediction is byte-unchanged; the kill
+criterion's numeric threshold (`P_flip < 1e-8`) does not move.** v6 carries its own later OTS timestamp (stamped
+post-merge, separately).
+
+### 13.A The last limb — II.C grounding recast Branch-no (review item 1)
+
+The II.C grounding sentence read *"∇·E = ρ/ε₀ has genuine charge sources, so a held electric field is a real static
+bias the permittivity loads on."* That is a **Branch-yes sentence in a Branch-no paper**: it asserts exactly the
+static-field loading that Sector scope disclaims and that II.D zeroes — the **third generation** of this seam class
+(cf. §10 FIX NOTE, §10 SCOPING-SENTENCE REFRESH). Recast to K.M.'s proposed form (near-verbatim): the ∇·B=0
+monopole half is **kept** (no monopole to bias the magnetic sector on magnitude, so it can key only on
+circulation); the electric half is **deferred** to the open Sec. II scoping question (*"on which this Letter
+registers no claim"*).
+
+- **FLAGGED (flag-don't-fix, auditor to adjudicate):** the follow-on sentence *"The two sector keys — electric-field
+  magnitude and magnetic circulation — are thus grounded in the single structural fact that charges exist and
+  magnetic monopoles do not"* would, if left verbatim, **contradict the recast in the very next sentence** (it
+  re-asserts the charge-grounded electric-magnitude key, i.e. the disclaimed held-E loading). K.M.'s review targeted
+  "that one sentence" and did not flag the follow-on. Leaving a fresh contradiction in a paper whose whole point is
+  to close this seam is not "genuinely better," so the follow-on was **narrowed to the magnetic key alone**
+  (*"The magnetic key is thus grounded in the structural fact that magnetic monopoles do not exist; it is not a
+  consequence of the field's radiative or far-field character (a propagating magnetic field loads only through the
+  circulation it carries…)"*). This is a one-clause narrowing beyond K.M.'s literal "one sentence"; surfaced here for
+  Grant/auditor review rather than silently absorbed.
+- **Abstract + conclusion confirmed surviving unedited** for the limb: both ground the asymmetry in `∇·B=0` (the
+  magnetic half only), name no held-E static-loading claim.
+
+### 13.B Measured-footing alignment — six sites, one root cause (review item 2)
+
+The Table-I caption defines the **measured** (envelope + carrier-averaged) expectation
+`P_meas ≃ 2.6/2.1/4.5 × 10⁻⁴` (`main.tex` caption, ×0.19 fluence-envelope ×¼ carrier), but six sites elsewhere
+quoted the **peak-field kernel** footing (`P ≃ 4–9 × 10⁻³`) untagged. All six aligned; peak values retained WITH a
+tag where they read naturally.
+
+| Site | Was (peak footing) | Now |
+|---|---|---|
+| (a) abstract "seven orders above floor" | `~10⁷` untagged | tagged peak-field kernel; `~10⁶` measured |
+| (b) abstract "sits ~10⁷ above floor" | `~10⁷` untagged | tagged peak; `~10⁶` measured |
+| (c) §V kill margins | `~e6` below model / `~e5` above QED | `~2e4` below **measured** expectation / `~2e6` above **QED measured** level (margins swap); peak retained WITH tag |
+| (d) §V "Conversely" | `4–9e-3`, "seven orders above floor" | peak kernel `4–9e-3` + **measured** `2–5e-4`; `~10⁷` and `~10⁶` respectively |
+| (e) §V "commissioning suffices" | `~2e7` / `~10⁷` effect | `~2e7` peak / `~e6` measured; "`~10⁶` effect (measured footing)" |
+| (f) §V third-party adjudication | "a value at the **`1e-3`** level confirms" | K.M.'s "a value at the **few × 10⁻⁴** level, after the enumerated envelope, carrier, and throughput corrections, confirms" |
+
+- **(f) is the load-bearing one:** the frozen protocol instructed a stranger to confirm at the `1e-3` level; a stranger
+  extracting a **true** measured signal of `2.6e-4` and following the instruction as written would score a correct
+  model as **failing its own confirmation criterion**. Corrected per K.M. The 5σ `<1e-8` kill line is UNCHANGED.
+- **7th site (consistency tag, flagged):** the Conclusion carried the identical *"sits ~10⁷ above the demonstrated
+  polarimeter floor"* phrase as abstract (b). K.M. enumerated six (abstract ×2 + §V ×4) and did not list the
+  Conclusion; leaving it untagged while the abstract is tagged is a fresh internal inconsistency, so it was tagged to
+  match (`peak-field kernel; ~10⁶ measured`). Surfaced here, not silently expanded.
+- **NOT touched (flagged for completeness):** `main.tex` §II.D "negligible against the `~10⁷` discrimination margin"
+  (dispersion bound) is peak-footing too but **not** among K.M.'s six; the `<0.1%` dispersive correction is negligible
+  against `~10⁶` measured just as against `~10⁷` peak (the argument is footing-robust), so it was left unedited to
+  respect the six-site enumeration. Logged for the auditor.
+
+### 13.C Sidereal second-harmonic — independent D⁴ derivation, double-sign-off (review item 3a)
+
+The Letter printed the second harmonic as `5β²` with exact-coefficient confidence while the first harmonic (`4β`) is
+properly hedged as an order-of-magnitude scale. K.M.'s naive D⁴ expansion gives `3β²`. **Independently re-derived
+from scratch this session (sympy, `scratchpad/second_validation.py`'s companion check):**
+
+`D(θ) = γ(1+β cosθ)`, `P_flip ∝ D⁴`, expand to `O(β²)` with `γ⁴ = (1−β²)⁻² = 1 + 2β² + O(β⁴)`:
+
+```
+D⁴ = γ⁴ (1 + β cosθ)⁴ = 1 + 4β cosθ + 6β² cos²θ + 2β² + O(β³)
+   = 1 + 4β cosθ + 5β² + 3β² cos2θ + O(β³)        [cos²θ = (1+cos2θ)/2]
+```
+
+Harmonic decomposition (sympy-confirmed): **DC (θ-independent) = 1 + 5β²; first-harmonic (cosθ) amplitude = 4β;
+second-harmonic (cos2θ) amplitude = 3β².**
+
+- **VERDICT (double-sign-off): K.M. is correct.** The genuine **second-harmonic (cos2θ) modulation amplitude is
+  `3β²`**, not `5β²`. Our printed `5β²` is the **θ-independent DC `O(β²)` offset** (2β² from γ-dilation + 3β² from the
+  ⟨cos²⟩ split = 5β²), which is **not** a sidereal modulation amplitude at all — it does not vary as the Earth
+  rotates. Labeling it "the second harmonic" was the error. Numerically both are "several × 10⁻⁶"
+  (`3β² ≃ 4.5e-6`, `5β² ≃ 7.6e-6`; `β = 1.23e-3`).
+- **Action (per K.M.):** rather than adjudicate `3β²` vs `5β²` in print, **hedge both harmonics symmetrically** —
+  second harmonic printed as *"of order β², several × 10⁻⁶"*, matching the honesty of the `4β` first-harmonic
+  treatment. The presence-of-first-harmonic discriminator (a static response carries only the O(β²) content) is
+  unaffected: it holds whatever the exact β² coefficient.
+
+### 13.D The Branch decision — internal record; frequency-fence DECLINED, not excluded (review item 4)
+
+Per K.M. item 4, the internal ledger records the **Branch decision itself**. The Letter runs **Branch-no**: static
+fields lie **outside the model's scope** (an open postulate), rather than **Branch-yes** (static fields inside,
+loading continuously). The in-paper *"tested and excluded"* catalogue — the **E×H local-power-transport** key
+(§10, KILLED by the atom's bound moment), the **net-flux closed-surface** key (§10 FIX NOTE / §10 round-2,
+Poynting-degeneracy `dU/dt=0`), and the **excursion/variance** member H2 (§10 round-3, no lossless DC-block, K4
+`k_s>0`) — is accurate **for what it lists**: those are dynamical scoping *mechanisms* excluded **by derivation**.
+
+- **The frequency-fence alternative is DECLINED, NOT EXCLUDED.** A distinct route — a hard **AC/DC frequency fence**
+  in the constitutive law that would keep the static sector *inside* the model but fenced off from the radiative
+  sector by a frequency boundary — was **not routed against a falsifying test**. Branch-no set it aside **by
+  choice**: scoping static *out* entirely is the more honest posture than positing a frequency boundary the model
+  cannot yet derive. It is **a road closed by choice, reopenable by evidence** — if a mechanism later forces a
+  frequency fence, the static sector can be reopened on that route without contradicting anything the Letter's
+  excluded-catalogue lists. This preserves the distinction K.M. asked for: the paper's *"tested and excluded"* set is
+  complete and true; the fence is a separate, undeclined-by-test road held open in the internal record only.
+- Cross-refs: AC/DC epistemology carve (memory pointer); §8–§10 electrostatic-sector fork arc; frozen fork memo
+  `research/2026-07-05_electrostatic-sector-fork-memo_FROZEN.md`.
+
+### 13.E Second validation — double-sign-off recompute (review item 5)
+
+K.M.'s house rule is double sign-off on all calculations. Independent recompute **from scratch**, by a different
+method where possible, of the printed transport / I_max / Kerr numbers. **Constants imported canonically from
+`ave.core.constants`** (never hard-coded): `E_YIELD` (= E_c), `L_NODE` (= ℓ_node), `Z_0`, `EPSILON_0`, `C_0`,
+`HBAR_C_MEV_FM`. Script: `scratchpad/second_validation.py` (session artifact). `r_c(Z) = √Z × 160 fm` uses the
+model's charge-scale base; `x = k r_c` with the angular wavenumber `k = E/(ħc)`; `I_max` cross-checked by the
+independent algebra `ε₀c·E_c·ℓ_node` vs `E_c·ℓ_node/Z_0`; `P_crit` via the standard `3.77 λ²/(8π n₂)` Gaussian
+self-focusing formula at λ=800 nm.
+
+| Quantity | Printed | Recomputed | Method | Verdict |
+|---|---|---|---|---|
+| r_c Fe/Au/Pb/U (fm) | 816/1422/1449/1535 | 815.8/1422.1/1448.9/1534.7 | √Z×160 fm | **PASS** |
+| E_res Fe/Au/Pb/U (keV) | 242/139/136/129 | 241.9/138.8/136.2/128.6 | ħc/r_c, ħc=`HBAR_C_MEV_FM`×1e3 | **PASS** |
+| x Pb @150 keV | 1.10 | 1.101 | k r_c, k=E/(ħc) | **PASS** |
+| x Fe @500 keV | 2.07 | 2.067 | k r_c | **PASS** |
+| x Cu @8 keV | 0.03 | 0.0349 | k r_c | **PASS** (display) |
+| I_max | ≈116 A | 115.87 A (methods A≡B identical) | ε₀c·E_c·ℓ_node = E_c·ℓ_node/Z_0 | **PASS** |
+| I_max 2π-loop | ≈730 A | 728.0 A | 2π × I_max | **PASS** |
+| Kerr n₂ | ≈1.5e-32 m²/W | 1.474e-32 | 1/(2c ε₀ E_c²) | **PASS** |
+| P_crit | ~6.5e3 PW | 6513 PW | 3.77 λ²/(8π n₂), λ=800 nm | **PASS** |
+
+- **Cu x = 0.03 (display) note:** recompute gives `0.0349`, which rounds to the printed `0.03` at 1 sig fig; the
+  paper's OWN internal cross-check `x⁴ ≈ 1.5e-6` corroborates `x ≈ 0.035` (`0.0349⁴ = 1.484e-6`), so the printed
+  `0.03` is a 1-sig-fig display of `0.035`, **not** a mismatch. Recorded PASS; no paper edit.
+- **n₂ = 1.474e-32 vs printed 1.5e-32:** 2-sig-fig rounding (1.7% rel); PASS.
+- **No mismatch found** — every printed number reproduces on the independent recompute. Per flag-don't-fix, any
+  mismatch would have been surfaced here (not fixed in the paper without Grant's call); none arose.
+
+### 13.F Build / verify / discipline
+
+- **Commits (incremental, one logical group each):** (1) the last limb + version bumps; (2) six footing alignments +
+  conclusion tag; (3) three polishes + PDF rebuild; (4) this ledger + second validation.
+- **`make paper`:** clean, **12 pages** (v5 LbL paragraph + round-4 body additions), zero undefined refs / zero
+  citation warnings; the three overfull hboxes (21.9/8.9/6.6 pt) are the pre-existing Table-I + appendix ones — the
+  round-4 edits introduced none. **`make verify`:** GREEN (ξ-namespace advisory pre-existing, non-gating).
+- **Anchored invariants grep-confirmed UNCHANGED:** `P_flip` triplet `5.39/4.28/9.28e-3`; kill line `P_flip < 1e-8`
+  at `≥1e18 W/cm²`; ratio `3.75π/α²`; pump `A² ≃ 5.9e-7`; purity floor `2.4e-10`; `δn_µ=0` static-B; `E_c`. `src/` +
+  JSON UNTOUCHED (no driver read or edited; the second-validation script lives in `scratchpad/`, not `src/`).
+- **Discipline tags.** *flag-don't-fix* — the II.C follow-on-sentence narrowing (beyond K.M.'s literal "one
+  sentence"), the 7th (Conclusion) footing tag, and the untouched II.D `~10⁷` dispersion-margin are all surfaced here
+  for the auditor, not silently absorbed. *honest closure (Rule 11)* — the frequency-fence is recorded DECLINED (a
+  choice), distinct from the derivation-excluded mechanisms, so the paper's "tested and excluded" set stays true.
+  *verify-before-cite* — every second-validation number live-recomputed from canonical constants this session; the
+  D⁴ harmonic decomposition sympy-confirmed. *consistency-vs-emergence* — CONSISTENCY-class unchanged (E_c
+  CODATA-rooted via α, m_e; no emergence claimed). *substitution-not-retraction* — the `5β²` label is corrected to a
+  symmetric hedge with its own derivation (13.C), not refilled with a new unverified coefficient.
