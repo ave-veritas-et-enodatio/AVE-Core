@@ -26,7 +26,7 @@ path-stable: "the canonical srs z=3 vertex scattering result — bare Γ=(2−z)
 > scoped out (§5).
 >
 > Provenance (drivers + result docs, merged; verify-before-cite every number against them): the vertex 3-port
-> floor + two-axis bore verdict `research/2026-07-10_x38-s11-bore-selection_RESULT.md` (repaired two-axis
+> floor + two-axis bore verdict `research/2026-07-10_x38-s11-bore-selection_result.md` (repaired two-axis
 > state authoritative) + the junction-parasitic extraction `research/2026-07-10_x37-junction-parasitics_result.md`
 > (repaired, incl. C8) + the #620 correction (the reciprocal-class evanescent-stub escape is theorem-dead).
 > Modules: [`src/ave/core/junction_scattering.py`](../../../../../src/ave/core/junction_scattering.py) (S₁₁) +
@@ -123,10 +123,15 @@ equivalent). The verdict is **TWO-AXIS**:
 | **frozen-primary single-frequency** $|S_{11}(\pi;f)|^2$ | **EXACTLY degenerate** $\{0,\ f_{\text{touch}}=\sqrt2/\pi\approx0.450\}$ (`obj1@touch − 1/9 = −4.2e-17`, machine zero) | **(iv)** |
 
 - **The half-wave-invisible bore family.** The single-frequency degeneracy is the finite extent
-  $f_{\text{touch}}=\sqrt{3s_L-s_C}/(\pi\sqrt{s_C s_L})$ at which the junction section is **half-wave at the
+  $f_{\text{touch}}=\sqrt{3s_L-s_C}/(\pi\,s_L\sqrt{s_C})$ at which the junction section is **half-wave at the
   probe tone** and thus impedance-transparent **there** — a genuine second global minimum touching the $1/9$
   floor (a perfect-square identity, §2), **not** a near-miss. The trick is **single-tone only**: broadband
-  matching washes it out, so the band-integrated comparator still prefers **no bore**.
+  matching washes it out, so the band-integrated comparator still prefers **no bore**. (**Transcription note:**
+  the source doc's ASCII rendering `√(3s_L−s_C)/(π√s_C·s_L)` is ambiguous in the denominator grouping; the
+  **governing form** is the canonical module `junction_scattering.py:192` / the exact locus
+  $t^2=(3s_L-s_C)/(s_C s_L^2)$ at $t=f\theta,\ \theta=\pi$, i.e. $s_L$ sits **outside** the root:
+  $f_{\text{touch}}=\sqrt{3s_L-s_C}/(\pi\,s_L\sqrt{s_C})$. Checks: $(1,1)\to\sqrt2/\pi=0.45016$;
+  $(s_L,s_C)=(2,3)\to 1/(2\pi)=0.15915$ — the value this leaf's §4 branch-(i) locus asserts.)
 - **The broadband-selected ceiling.** On the broadband axis the operator wants the point junction, so the X37
   walk ceiling $\pi\sqrt3\,\omega_C = 5.4414\,\omega_C$ ($g(0)$) is the **broadband-selected** ceiling; the
   X37 finite-extent floor drops to $g(0.5)=3.7304\,\omega_C$ at $s=1$ (extent swing 31.4% of $\pi\sqrt3$,
