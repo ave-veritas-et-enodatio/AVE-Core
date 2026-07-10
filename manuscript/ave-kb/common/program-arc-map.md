@@ -42,7 +42,7 @@ The program's coarse phases. Each era's *character* is one line; the release/tag
 | **E5 — the interior gauntlet** | ~2026-06-13 → 2026-06-29 | Sector-ownership canon; genesis energize-lock negative; K=2G = GR-imported; FORM/VALUE meta-finding named; mass sector closed ECHO-final; carrier sector closed-at-peer. Verdict: NO AVE-distinct chord *inside*. | PRs #220, #260–#264, #311, #313–#315, #433–#435 |
 | **E6 — the testing pivot** | ~2026-06-22 → 2026-06-24 | Grant pivots to infrastructure-first testing; bench-model spine; birefringence flagship survives PVLAS via circulation-keyed μ (Route C); cleave-01 + impedance-probe primitives scoped. | PR #384; `audit/2026-06-22_*` handoffs; `audit/2026-07-03_birefringence-*` |
 | **E7 — the Letter era** | ~2026-07-03 → 2026-07-09 | SVE Letter v1→v5 through 3 adversarial rounds; muonic-H self-kill → static-sector scoping; single-footing 3.75π/α²; NIST XCOM verify; OTS pre-reg chain Bitcoin-anchored; γγ/ATLAS → EFT-domain scoping. | `v0.6` / `v0.7` / `v0.8`; PRs #582–#600 |
-| **E8 — the machine-fork nights** | 2026-07-09 / 2026-07-10 | srs band structure closed-form; the PARITY THEOREM; clock / tethered-pivot / node-shunt forks; operator-typing pass; breakthrough-patterns methods note. Three pretty mechanisms killed by pre-registered discriminators in one week. | PRs #603–#613 |
+| **E8 — the machine-fork nights** | 2026-07-09 / 2026-07-10 | srs band structure closed-form; the PARITY THEOREM; clock / tethered-pivot / node-shunt forks; the **X36→X37→X38 vertex arc** (install-tautology → reactive-low-pass extraction → Op6 point-junction selection); **X41** radiative-scoping-why (UNDERDETERMINED, frozen tie); operator-typing pass; the two navigational maps (arc + lineage); the corrections wave (Cauchy algebra, S₁₁ honesty-lag); breakthrough-patterns methods note (P1–P12). Pretty mechanisms killed / underdetermined-fenced by pre-registered discriminators; Letter v6 round-4. | PRs #603–#627 |
 
 ---
 
@@ -182,12 +182,12 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 
 ### E7 — the Letter era
 
-**ARC-17 · the SVE vacuum-birefringence Letter (v1→v5).** Window: 2026-07-03 → 2026-07-09.
+**ARC-17 · the SVE vacuum-birefringence Letter (v1→v6).** Window: 2026-07-03 → 2026-07-10.
 - *Q:* is vacuum birefringence a submission-ready, falsifiable AVE-distinct chord?
-- *Method:* three adversarial review rounds; sector functionals S_B written parameter-free and *computed* not asserted.
-- *Verdict:* **hardened / submission-ready** — the flagship forward prediction is a Lorentz-violating sidereal signature (a covariant theory predicts exactly zero); it survived a three-part falsification gauntlet and is unconstrained-yet-testable.
-- *Receipts:* `v0.7` (Letter v3, three-author: G. Lindblom, K. Mertens, B. Herrera); `v0.8` (v4, Bitcoin-anchored); PRs #582, #587, #591, #594.
-- *Successor:* the OTS chain (ARC-21); the γγ/ATLAS confrontation (ARC-22).
+- *Method:* four adversarial/co-author review rounds; sector functionals S_B written parameter-free and *computed* not asserted.
+- *Verdict:* **hardened / submission-ready** — the flagship forward prediction is a Lorentz-violating sidereal signature (a covariant theory predicts exactly zero); it survived a three-part falsification gauntlet and is unconstrained-yet-testable. **v6 (round-4, #625):** the last limb recast Branch-no; six measured-footing alignments; K.M.'s harmonic catch confirmed (the genuine cos2θ amplitude is **3β²**; the printed 5β² is the θ-independent DC O(β²) offset, mislabeled — both re-hedged to order β²); a **second validation, all-PASS**, via an independent **raw-CODATA route** (base quantities typed directly, not through `constants.py`'s derived chain); the frozen Table-I prediction is **byte-unchanged**.
+- *Receipts:* `v0.7` (Letter v3, three-author: G. Lindblom, K. Mertens, B. Herrera); `v0.8` (v4, Bitcoin-anchored); PRs #582, #587, #591, #594, **#625 (v6)**.
+- *Successor:* the OTS chain (ARC-21); the γγ/ATLAS confrontation (ARC-22); X41 (ARC-34, the radiative-scoping "why").
 
 **ARC-19 · the muonic-hydrogen self-kill → static-sector scoping (the acquired boundary).** Window: 2026-07-05/06.
 - *Q (prove-or-disprove):* does the continuum static-E constitutive law ε_eff = ε₀√(1−(E/E_c)²) survive the best-measured static-field system in physics?
@@ -235,13 +235,13 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 - *Receipts:* PRs #604, #607, #609; `research/2026-07-09_srs-band-survey_result.md`; `research/2026-07-09_srs-vector-band-survey_result.md`.
 - *Successor:* fork A (two-tone, ARC-25); fork B (3D nonlinear).
 
-**ARC-25 · the PARITY THEOREM (x31-A two-tone; fork A).** Window: 2026-07-09/10. **STATUS: PR #610 OPEN (pending-orchestrator).**
+**ARC-25 · the PARITY THEOREM (x31-A two-tone; fork A).** Window: 2026-07-09/10. **STATUS: PR #610 MERGED 2026-07-10; canonically propagated via PR #624 (`clm-invmtr` 0.80, `clm-a6chi3` 0.78).**
 - *Q (fork A):* what is the substrate's four-photon (χ³) coupling law above the band edge — the object the ATLAS comparison actually needs?
 - *Method:* the two-tone difference-frequency four-photon form-factor measurement on the 1D mechanism substrate, with the parity theorem pre-registered and frozen.
 - *Verdict:* **PARITY THEOREM (confirmed)** — the reversible even kernel `U = 1−√(1−r²)` ⇒ `F = r + ½r³` odd ⇒ a two-tone line at `m·ω_lo + n·ω_hi` exists only when `m+n` is ODD ⇒ the literal difference `ω_hi−ω_lo` is **structurally forbidden below yield** (measured 10⁻¹¹× below the FWM product); the four-photon channel is `2ω_lo−ω_hi`, with the **A⁶ amplitude law confirmed (exponent 6.16, predict 6)**. Branch verdict = **(i) DRIVE-TRACKING (fork-record, no preferred outcome)**: the χ³ vertex is frequency-blind above the band → the ATLAS-tension-is-real reading holds *on the 1D mechanism substrate*. The kernel result is **interface-scoped**; the bulk vertex is OPEN.
 - *Closed:* the "single-tone can measure the vertex" error (ARC-23).
 - *Opened:* the 3D clamp-free bulk four-photon vertex (§6); the participation-normalization KEEP-BOTH adjudication.
-- *Receipts:* PR #610 (OPEN).
+- *Receipts:* PR #610 (MERGED); PR #624 (canonical propagation, task #35 Tier-1; `universal-saturation-kernel-catalog.md`).
 - *Note (flag-don't-fix):* the orchestrator skeleton described this as "an inversion-symmetry meter with measured **β²** response" — the receipted signature is the **A⁶ (sixth-power)** amplitude law + odd-parity FWM, not a β² response. Recorded per the leaf's file-wins rule.
 - *Successor:* fork B (3D srs nonlinear); the substrate four-photon form factor (open).
 
@@ -260,28 +260,30 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 - *Receipts:* PR #611; `research/2026-07-09_x33-clock-architecture_result.md`.
 - *Successor:* X36 sharpens it (ARC-28); the clock/topology resolution route is assigned to X37 (ARC-29).
 
-**ARC-32 · X34 tethered-pivot (the #260 selector probe).** Window: 2026-07-10. **STATUS: PR #612 MERGED 2026-07-10.**
+**ARC-32 · X34 tethered-pivot (the #260 selector probe) + the X34b bank.** Window: 2026-07-10. **STATUS: PR #612 MERGED; the X34b re-run PR #626 MERGED 2026-07-10.**
 - *Q:* does an anchored (2,3) mode-lock — reusing the #260 wall-selector null?
-- *Method:* the tethered-pivot two-axis test (frozen-detector prereg axis + control-subtracted post-hoc axis).
-- *Verdict:* **KEEP-BOTH** — frozen-detector **PARTIAL** (the prereg outcome) + control-subtracted **TRACK** (anchored (2,3) does NOT mode-lock; #260 selector null); the W5-iii retraction re-scoped to two-axis strength.
-- *Receipts:* PR #612 (MERGED; commits `d1713b09` → `f8668cf5` KEEP-BOTH restatement → `26fdd158`).
-- *Note (flag-don't-fix):* the skeleton marked #612 "repaired-pending-merge" — it is now **MERGED** (2026-07-10, merge `6ec6222b`). Status advanced past the skeleton.
-- *Successor:* the tethered-pivot BC-quantization standing negative (§5).
+- *Method:* the tethered-pivot two-axis test (frozen-detector prereg axis + control-subtracted post-hoc axis); then the **X34b re-run** the #612 review prescribed — the control-subtracted (excess) detector **frozen a priori as THE primary rule**, its saturation-zone blindness disclosed up front, the sweep designed so the bank does not rest on the blind zone.
+- *Verdict:* **BANKED NEGATIVE (TRACK, single a-priori-frozen excess axis).** #612 gave the KEEP-BOTH two-axis outcome (frozen-absolute PARTIAL + post-hoc excess TRACK); **X34b (#626) converted it to a single frozen-axis bank** — excess_staircase 0.0435 / track_R² 0.9901 on the non-saturated window → anchored (2,3) does **NOT** mode-lock (banks negative next to #417). Flag: the absolute axis is **grid-fragile** (spurious LOCK@29pt from refinement alone); the excess axis is grid-stable — concrete evidence the excess axis is the right detector to freeze.
+- *Closed:* the anchored-(2,3) mode-lock reading (BC-quantization). *Ledger:* the hopeful-mechanism miss-ledger advances **0-for-6 → 0-for-7**.
+- *Receipts:* PR #612 (MERGED; merge `6ec6222b`); PR #626 (MERGED; prereg `6dbf6b26` pushed before any driver; result `3088e429`); `research/2026-07-10_tethered-pivot-rerun_{prereg,result}.md`.
+- *Successor:* the tethered-pivot BC-quantization standing negative (§5, N9 — now BANKED).
 
-**ARC-28 · X36 node-shunt characterization.** Window: 2026-07-10. **STATUS: PR #613 OPEN (pending-orchestrator).**
+**ARC-28 · X36 node-shunt characterization.** Window: 2026-07-10. **STATUS: PR #613 MERGED 2026-07-10.**
 - *Q:* is there a Branch-P (node-shunt) ceiling distinct from the installed node resonance?
 - *Method:* node-shunt characterization at η=1.
-- *Verdict (as of PR #613, OPEN):* the **ceiling = the installed node resonance** — the engine-cannot-adjudicate-its-own-primitives law (an install-tautology); **Branch P iff a series-anti-resonant topology at η=1**; the X33 clock fork is **SHARPENED, not collapsed**.
-- *Receipts:* PR #613 (OPEN).
-- *Note (flag-don't-fix):* the skeleton framed this as "BLOCKED as install-tautology"; the install-tautology *spirit* is right, but the PR verdict is more conditional (Branch P is topology-gated; X33 sharpened not collapsed) and the PR is OPEN, not a flat BLOCK. Recorded as-is.
-- *Successor:* X37 (ARC-29).
+- *Verdict:* the **ceiling = the installed node resonance** — the engine-cannot-adjudicate-its-own-primitives law (an install-tautology); **Branch P iff a series-anti-resonant topology at η=1**; the X33 clock fork is **SHARPENED, not collapsed**.
+- *Closed:* the node-shunt-ceiling-as-independent reading (install-tautology). *Opened:* the D-I resolution route (extract, don't install) → X37.
+- *Receipts:* PR #613 (MERGED 2026-07-10).
+- *Note (flag-don't-fix):* the install-tautology *spirit* is the verdict, but the PR verdict is conditional (Branch P is topology-gated; X33 sharpened not collapsed), not a flat BLOCK.
+- *Successor:* X37 (ARC-29) — the extraction that surfaced the underdetermination.
 
-**ARC-29 · X37 junction-parasitic extraction (the layout-parasitic reframe).** Window: dispatched 2026-07-09/10. **STATUS: `[RECEIPT-PENDING]` — dispatched, no corpus receipt at this session's HEAD.**
-- *Q:* the assigned resolution route for the clock/topology fork (X33/X36) via a junction-parasitic (layout-parasitic) extraction.
-- *Method:* junction-parasitic extraction (per the orchestrator skeleton).
-- *Verdict:* **running / dispatched** — no PR, audit tag, or research doc for X37 exists at HEAD `ba662d57`. Grep of `_orchestration/`, `research/`, and the KB returns no X37 machine-fork item.
-- *Receipts:* `[RECEIPT-PENDING]` — orchestrator skeleton only.
-- *Successor:* TBD (to be registered when the run lands).
+**ARC-29 · X37 junction-parasitic extraction (the D-I layout-parasitic route).** Window: 2026-07-10. **STATUS: PR #616 MERGED 2026-07-10 (+ C2 escape correction #620 MERGED).**
+- *Q:* the assigned resolution route for the clock/topology fork (X33/X36) — EXTRACT the srs vertex equivalent circuit from bond geometry (install nothing).
+- *Method:* TL-discontinuity / mode-matching extraction of the scalar/compression-channel vertex; freeze-by-push (prereg `167f28ce` pushed before any driver, gh-api-audited); G-A anti-install AST gate.
+- *Verdict:* **REACTIVE LOW-PASS** — a shunt accumulator C_j + a series throat L_j, both pin the ceiling DOWN (no lift); **BRANCH (iii)** — the FORM `ω_vertex = g·c/ℓ_node` derives but the MAGNITUDE is **extent-dominated** (g swings 31.4% over f∈[0,0.5]) and is **not closable at the TL abstraction** because canon fixes no transverse bond scale. Class = MIXED (g value derived-geometric; scale ω_C = c/ℓ_node identity-forced). **C2 escape correction (#620):** the matched-lossless-reciprocal-3-port theorem binds the ENTIRE lossless reciprocal C₃ vertex class — no reciprocal model can present a matched bypass; the **sole surviving escape is non-reciprocity** (a circulator, requiring a T-breaking bias — PENDING-GRANT).
+- *Closed:* any vertex-lift / reciprocal matched-bypass reading. *Opened:* the bond-bore fork {closures (a)/(b)/(c)} (→ X38); the circulator / T-breaking walk (§6, task #37).
+- *Receipts:* PR #616 (MERGED; commits `167f28ce` prereg → `36fcbea7` result); PR #620 (MERGED; C8 KEEP-BOTH log); `research/2026-07-10_x37-junction-parasitics_{prereg_FROZEN,derivation,result}.md`.
+- *Successor:* X38 (ARC-33) — the Op6 selection that dissolves the bond-bore fork.
 
 **ARC-27 · electron-definition canonization.** Window: 2026-07-09/10.
 - *Q:* consolidate the electron's interior verdict into one canonical definition (5-lane reconciliation).
@@ -293,9 +295,34 @@ The heart of the map. Each arc: the **question as opened** (prove-or-disprove fr
 **ARC-31 · breakthrough-patterns methods note (P1–P8).** Window: 2026-07-09/10.
 - *Q:* what patterns produced the month's breakthroughs (methods knowledge, no physics claims)?
 - *Method:* extraction from the 2026-06-09 → 2026-07-09 arcs.
-- *Verdict:* **methods knowledge banked** — P1–P8 + "the loop" (walk → identity compression → prereg-with-predicted-numbers → adversarial run → honest bank → register → next walk).
-- *Receipts:* PR #603; `_orchestration/2026-07-09_breakthrough-patterns-methods-note.md`.
+- *Verdict:* **methods knowledge banked** — P1–P8 + "the loop" (walk → identity compression → prereg-with-predicted-numbers → adversarial run → honest bank → register → next walk). **Extended 2026-07-10:** P9 (freeze-by-push), P10 (entailed-branch check), P11 (sabotage test) via PR #622; P12 (frozen bins enforce, flags don't) via the 2026-07-10 methods addendum.
+- *Receipts:* PR #603 (P1–P8); PR #622 (P9–P11); `_orchestration/2026-07-09_breakthrough-patterns-methods-note.md` (P12 addendum, 2026-07-10).
 - *Successor:* §7 (Methods Evolution).
+
+**ARC-33 · X38 S₁₁-min bore selection (the Op6-selector at the vertex).** Window: 2026-07-10. **STATUS: PR #619 MERGED 2026-07-10.**
+- *Q:* does the substrate SELECT the bond's junction extent f (route d for the X37 bond-bore fork)?
+- *Method:* apply canon's OWN geometry-selection operator — Universal Operator #6 (`λ_min(S†S)→0`, `clm-gdd70j`, the operator that selected the trefoil `R·r=1/4`) — at the srs vertex, importing no scale; freeze-by-push (prereg `cc386be1` pushed before any driver).
+- *Verdict:* **BRANCH (ii) — the POINT JUNCTION.** All three frozen objectives pick **f\*=0** (obj-1 the Op6 primary exactly f\*=0; obj-2/obj-3 single-tone a degenerate float-tie f\*=0.010 on a flat plateau) → the X37 bond-bore fork is **dissolved**, closure (c): `π√3 ω_C` is the Op6-selected ceiling, exact. **branch (i) does NOT fire** (f\*=0 ∉ {1/2π, 1}) — the resonant-locus branch is unadjudicated on the 1/(2π) locus. **New structural fact:** the z=3 star is an intrinsic **1/9-power branch back-scatterer** (Γ=−1/3, no bore removes it; a z=2 through-junction matches perfectly).
+- *Closed:* the "substrate selects a bore" reading; the X37 bond-bore fork. *Opened (Grant ontology Q, surfaced not landed):* is the 1/9 per-vertex reflection a real network loss or an idealization a distributed merge smooths out?
+- *Receipts:* PR #619 (MERGED; prereg `cc386be1` → module `46366dbe` → driver `4e0afe44`); 22 X38 tests pass; `research/2026-07-10_x38-*`.
+- *Successor:* the vertex-ontology question (§6); the circulator escape (ARC-29 / #620).
+
+**ARC-34 · X41 radiative-scoping "why" (the "not-yet-why" arc; fork-record).** Window: 2026-07-10. **STATUS: PR #627 MERGED 2026-07-10.**
+- *Q:* the SVE Letter states THAT the constitutive law is radiative-sector, not yet WHY — which key (K1/K2/K3) forces it?
+- *Method:* challenge-canonical-negative inventory of the round-3 ε-DC exclusions verbatim; three keys tested against the merged #547 config-fact; prereg froze the branch set; five-lens adversarial review.
+- *Verdict:* **UNDERDETERMINED — [K1 ∧ K2, frozen tie].** K3 = **DEAD ON ARRIVAL** (= the round-3 exclusion family). **#547 config-fact confirmed** (the muon loads the full \|E\| into the V_yield / T2 key, no Helmholtz split — [DERIVED: CHARGE-KEYED]). K1 (transverse projection) and K2 (impedance/mode-basis) both survive, both must overturn #547, both reproduce both anchors, and **split only on the transverse-reactive near-zone** (K1 loads / K2 nulls — an unbuilt probe). The #627 review (12 findings) **demoted K1** from "DERIVED-EXACT / strongest" to **"axiom-level reinterpretation, PENDING-GRANT"** (repair `89f3991b`): K1's "drive-direction corollary" was an unlicensed bidirectional extension of #624's READOUT-scoped guarantee; the claimed `:73`+#624-vs-`:75` contradiction was WITHDRAWN (canon is internally consistent) and the fork **re-framed K1-vs-STANDING-CANON** (a new axiom-level ruling, not a contradiction-resolution); a fabricated "verbatim" #547 quote was replaced with genuine text; the **frozen honest tie was restored** (K1 ranking removed).
+- *Closed:* K3 as a radiative key; the K1-is-strongest reading. *Opened:* the K1-vs-canon axiom ruling (§6); the CVR held-DC-E bench as empirical adjudicator; the transverse-reactive near-zone probe.
+- *Receipts:* PR #627 (MERGED; prereg `0180f85a` FROZEN pushed before derivation; result `6e1e2804`; repair `89f3991b`); merged #547 (2026-07-06, the config-fact).
+- *Note (flag-don't-fix / discipline):* Rule 11 (routed UNDERDETERMINED, no `[DERIVED-WHY]` headline); Rule 12 (no #547 retraction, no fourth key); P12 (frozen bins enforce, flags don't — the ranking leaked past the prereg's own seduction flag, caught by review).
+- *Successor:* the K1-vs-canon fork (§6, OF10); the CVR bench spec (fresh-session slate).
+
+**ARC-35 · the navigational maps + the corrections wave.** Window: 2026-07-10.
+- *Q:* stand up the temporal/causal and history-of-physics navigation layers; reconcile the honesty-lags and algebra defects surfaced en route.
+- *Method:* two new no-claim meta-leaves + a KEEP-BOTH / Rule-12 corrections sweep.
+- *Verdict:* **built / reconciled** — (i) the **program-arc-map** (this leaf, #614) + the **physics-lineage-map** (#617, 12-fork registry + 14 capsules + 20-entry standing-killers register), with the Kelvin-1888 labile-aether node amendment (#623); (ii) the **implosion-paradox algebra correction** (#618: λ=−2μ ⇒ K=**−4μ/3**, not −μ/3; MacCullagh re-attributed as escape-prototype; no-go strengthened; solidity 0.85 unchanged); (iii) the **S₁₁-selection honesty-lag sweep** (#621: 5 derivative sites reconciled to the 2026-06-14 closed-negative — S₁₁-min does NOT select R·r=1/4, the landscape is FLAT in R·r — via Rule-12/KEEP-BOTH, all value-numbers unchanged); (iv) the Kron-1944 citation confirm (#615).
+- *Closed:* the vol1 implosion-algebra internal inconsistency; the S₁₁-selection reading at 5 sites. *Opened:* the W1 uniform-far-field question (§6; whether the "uniform Z₀ far-field bath" framing escapes doc-34's exterior-Γ²=0 flatness, PENDING-GRANT).
+- *Receipts:* PRs #614, #615, #617, #618, #621, #623.
+- *Successor:* maintained at era boundaries per §1's contract.
 
 ---
 
@@ -334,9 +361,10 @@ The arc-level anti-repetition table. **This index does not replace [`genesis-cho
 | N5 | **Forced sector ratios** (interior ratios forced by the substrate) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3) | ARC-27 |
 | N6 | **Forced disclination spectrum** (a forced interior spectrum) | GENUINE-FALSIFICATION | `v0.8` release; PR #599; PR #603 (P3) | ARC-27 |
 | N7 | **Bulk-cage** electron localization | NEGATIVE (Mode-III, energy-certified) → localization is boundary/topological | PR #403, PR #404 | ARC-12 |
-| N8 | **Drive-tracking vertex** (the χ³ four-photon *kernel*, interface-scoped) | fork-record verdict (i) DRIVE-TRACKING; **kernel interface-scoped, bulk vertex OPEN** | PR #610 (OPEN) | ARC-25 |
-| N9 | **Tethered-pivot** anchored-(2,3) mode-locking (BC-quantization, two-axis) | KEEP-BOTH: frozen-detector PARTIAL + control-subtracted TRACK (does NOT mode-lock; #260 selector null) | PR #612 (MERGED) | ARC-32 |
-| N10 | **X36 node-shunt ceiling** as an independent Branch-P | install-tautology (ceiling = installed node resonance); Branch P only iff series-anti-resonant at η=1 — **PR OPEN, verdict conditional** | PR #613 (OPEN) | ARC-28 |
+| N8 | **Drive-tracking vertex** (the χ³ four-photon *kernel*, interface-scoped) | fork-record verdict (i) DRIVE-TRACKING; **kernel interface-scoped, bulk vertex OPEN** | PR #610 (MERGED); PR #624 (canonical) | ARC-25 |
+| N9 | **Tethered-pivot** anchored-(2,3) mode-locking (BC-quantization) | **BANKED NEGATIVE (TRACK, single a-priori-frozen excess axis)** — anchored (2,3) does NOT mode-lock (#260 selector null; banks next to #417); the #612 KEEP-BOTH two-axis outcome converted to a frozen-axis bank; miss-ledger → **0-for-7** | PR #612 (MERGED) + **PR #626 (MERGED, the X34b frozen-axis re-run)** | ARC-32 |
+| N10 | **X36 node-shunt ceiling** as an independent Branch-P | install-tautology (ceiling = installed node resonance); Branch P only iff series-anti-resonant at η=1 — verdict conditional | PR #613 (MERGED) | ARC-28 |
+| N15 | **X41 K3** — the far-field / dynamical-content radiative key | **DEAD ON ARRIVAL** — = the round-3b far-field exclusion family ([RADIATIVE-KEY-REFUTED]); not a new route (Rule 11: cite the kill, don't re-walk) | PR #627 (MERGED); `research/2026-07-08_p5-radiative-far-field-keying_RESULT.md` | ARC-34 |
 | N11 | The continuum **static-E constitutive law** ε_eff = ε₀√(1−(E/E_c)²) at atomic scale | EXCLUDED [C-EXCLUDED] (falsification/consistency-class) | `v0.6` release; `clm-sve3xc`; PRs #538/#539/#540 | ARC-19 |
 | N12 | **Dark-wake** cross-scale thrust (Phases 1–5) | WRONG-REGIME artifact (Outcome-C) — re-test = bulk near-yield compression | `audit/2026-05-31_ft-darkwake-crossscale`; `audit/2026-05-31_dark-wake-vocab-scrub`; `dark-back-reaction-taxonomy.md` | E4 |
 | N13 | **Protein impedance-folding** (impedance carries the fold) | NEGATIVE (all EE-reflection channels dead) — **cross-repo (AVE-Protein lane); Core walk-back STAGED, B4 row may be STALE** `[PARTIAL-RECEIPT]` | `research/2026-06-07_vol0-kb-reconciliation-ledger.md` (referenced); AVE-Protein lane | (cross-repo) |
@@ -352,7 +380,7 @@ Every live fork with its *assigned resolution route*. A session picking up a for
 
 | # | Open fork (question) | Assigned resolution route | Status / receipt |
 |---|---|---|---|
-| OF1 | **Clock / topology architecture** — synchronous-universal-tick vs per-channel-continuous | X37 junction-parasitic (layout-parasitic) extraction | X33 = BRANCH S (PR #611); X36 SHARPENED the fork (PR #613, OPEN); **X37 dispatched, `[RECEIPT-PENDING]`** (no PR/tag/doc at HEAD) |
+| OF1 | **Clock / topology architecture** — synchronous-universal-tick vs per-channel-continuous | X37 junction-parasitic extraction → X38 Op6 vertex selection | X33 = BRANCH S (#611); X36 SHARPENED (#613, MERGED); **X37 landed** (#616, MERGED) = REACTIVE LOW-PASS, branch (iii) extent-dominated, not closable at TL abstraction; **X38 landed** (#619, MERGED) = **Op6 selects the POINT JUNCTION (f\*=0)** → the vertex parasitic → 0, memoryless `π√3 ω_C` exact (the two-clock closes in-engine). The extent-conditional part is resolved; the residual synchronous-vs-per-channel question rides the vertex-ontology Q (§ below, OF11-adjacent) |
 | OF2 | **The bulk four-photon vertex** — is the χ³ drive-tracking verdict a bulk property or an interface artifact? | 3D clamp-free srs run (board "fork B", 3D srs nonlinear) | PR #610 kernel is **interface-scoped, bulk vertex OPEN**; fork B cheapest, gates all above-band claims |
 | OF3 | **The DE-tracks-matter chord (F6)** — does dark energy track matter (the ΛCDM-distinct payoff)? | Build the F6 / irreversible chord on the two-way back-reaction engine | The two-way back-reaction capability (engine item **#86**) is **LANDED** (`clm-w5ez6i`, PRs #433–#435; all gates green); only the REVERSIBLE half is built — the **F6 chord is UNBUILT**. **Flag:** engine item "#86" is an internal capability-tracker number, NOT GitHub PR #86 (a double-slit viz) |
 | OF4 | **Band-top scale** — vector/Cosserat band top single-scale (≈5.44 ω_C) vs stiffness-lifted (≈17.0 ω_C) | The per-channel local-c LC-clock walk (orchestrator lean = stiffness-lifted) | PR #607 BRACKET [5.44, 17.0] ω_C; does NOT gate fork A (tone floor safe under both endpoints) |
@@ -361,6 +389,9 @@ Every live fork with its *assigned resolution route*. A session picking up a for
 | OF7 | **Core-envelope constitution** — the abandoned-interior Thread C, scoped as an envelope question (not identity) | Grant-gated; precursor-vs-end-state sub-fork (`clm-uatcql`, flagged OPEN by design) | Parked/standing per the 2026-07-09 board §5 |
 | OF8 | **LEP compositeness exposure** (severity HIGH) — does the Γ=−1 wall screen a hard high-q² probe of an extended electron (Λ≳10 TeV)? | EFT-scoping / defect-sector-ownership (same family as the ATLAS defense) | Pre-existing, Grant-question; 2026-07-09 board §5 item 8; candidate next picture-walk |
 | OF9 | **D-II / D-III / D-IV batch** | (as assigned in the datasheet-cleanup / divergence program) | **`[RECEIPT-PENDING]`** — the roman-numeral "D-II/III/IV" labels could not be located at HEAD; `divergence-test-substrate-map.md` uses letter-number IDs (e.g. `D5-HTS-MEISSNER`). Verify the label scheme before citing |
+| OF10 | **K1-vs-standing-canon** (X41) — does the Ax-4 T2 saturation key on `\|E_T\|` (K1), or does a held bias LOAD the shunt-C (standing canon, K2-adjacent)? | A **new axiom-level Grant ruling** (not a contradiction-resolution) + the **CVR held-DC-E bench** (the empirical adjudicator, K1 vs K2 on the transverse-reactive near-zone) | **UNDERDETERMINED — frozen tie** (PR #627, MERGED); K1 = axiom-level reinterpretation PENDING-GRANT; K3 DEAD (N15); the near-zone split is an unbuilt probe. CVR bench spec = fresh-session slate item |
+| OF11 | **Circulator / T-breaking** — the sole surviving vertex-match escape is a non-reciprocal circulator; does the vacuum supply a T-breaking bias? | The circulator / T-breaking picture-walk with Grant (P2: walk input is a circuit), then a fork-record | Opened by the #620 C2 correction (reciprocal C₃ vertex cannot match; N-R is the only escape). Axiom-1's srs chirality is parity-breaking but a circulator needs a *T*-breaking bias additionally — **PENDING-GRANT**; assigned to task #37 (X39 fork-record-both) |
+| OF12 | **Branch-(i) locus + W1 far-field** — (a) X38 landed at f\*=0 (branch ii); is the branch-(i) resonant locus at **f = 1/(2π)** a live alternative or Op6-flat-floor-excluded? (b) does the "uniform Z₀ far-field bath" framing escape doc-34's exterior-Γ²=0 flatness? | (a) direct Op6 evaluation on the 1/(2π) locus; (b) Grant ruling on the W1 walk (#621 site 2) | Both **PENDING-GRANT** — (a) f\*=0 ∉ {1/2π, 1} so branch (i) neither fires nor is directly tested (#619); (b) flagged not silently resolved (#621) |
 
 ---
 
