@@ -45,8 +45,10 @@ next to #417. α-free / Q=137 EMPTY / mass=A1 (#260) UNTOUCHED / (2,3) SELECTION
 > (drift 9.1×10⁻¹⁰), ON monotone non-pumping (removed-norm 13.8%); detector separates a planted
 > staircase (LOCK) from a planted line (TRACK); the saturation-zone plant is seen by the
 > absolute axis (LOCK) but suppressed by the frozen excess axis (the disclosed asymmetry);
-> `branch="off"` is caught as a dead actuator; a planted energy pump is caught. Supporting
-> nulls fire clean: **no excess hysteresis, no cap↔mag termination flip.**
+> `branch="off"` is caught as a dead actuator; a planted energy pump routed through the SHIPPED
+> `energy_ledger` gate is caught (R3); and a genuine lock planted on the REAL free control fires
+> **LOCK through the banked pipeline** (R2 — so the observed TRACK is a real negative, not a blind
+> miss). Supporting nulls fire clean: **no excess hysteresis, no cap↔mag termination flip.**
 
 ---
 
@@ -98,10 +100,12 @@ two-axis picture, reproduced.
 | Read | Value | Note |
 |---|---|---|
 | saturation onset ω_s (free control) | **1.275** (i_sat = 23) | terminal flat plateau of ρ_free |
-| non-saturated window | **24 / 29 pts** (ω_s ≤ 1.275) | where the excess axis CAN see a lock |
+| non-saturated window | **24 / 29 pts** (ω_s ≤ 1.275) | the banked window (see §6.1 for its blindness) |
+| in-window free-control staircase-blindness | **12 / 23 intervals** (free_staircase 0.5217) | max in-window excess_staircase = 11/23 = 0.478 vs 0.4 bar (§6.1) |
+| in-window LOCK fireability (genuine-lock plant on REAL ρ_free) | **LOCK** (excess_staircase 0.435, 3 excess jumps) | banked-pipeline proof — a real lock WOULD fire (§6.1, R2) |
 | **BANKED excess_staircase** (non-sat window) | **0.0435** | < 0.2 ⇒ TRACK |
-| **BANKED track_R²** (non-sat window) | **0.9901** | ≥ 0.9 ⇒ TRACK |
-| BANKED excess_jumps | 0 | — |
+| **BANKED track_R²** (non-sat window) | **0.9901** | ≥ 0.9, blindness-independent ⇒ TRACK |
+| BANKED excess_jumps | 0 | jumps channel live 22/23 in-window (§6.1) |
 | full-sweep excess verdict (companion) | **TRACK** | excess_staircase 0.0357 |
 | control (clamp-off) 2:3 / 3:2 / 1:2 | 0.650 / 1.532 / 0.478 | reproduces #417 ✓ |
 | anchored 2:3 / 3:2 / 1:2 | 0.895 / 1.546 / 0.809 | weak lossy pull at 2:3, 1:2 (§4, as #612) |
@@ -116,7 +120,7 @@ two-axis picture, reproduced.
 | energy ON non-pumping / removed-norm | non-pumping / 0.138 (lossy-Dirichlet) |
 | Signature-2 excess hysteresis | not seen (clean null) |
 | Signature-3 cap↔mag termination flip | 0/4 (clean #260 null) |
-| planted-violation proofs (all 4 gates) | all catch their planted violation |
+| planted-violation proofs (detector / saturation / dead-actuator / SHIPPED-energy-pump / banked-pipeline-LOCK) | all catch / all fire |
 
 ---
 
@@ -189,29 +193,58 @@ standing-mode-index read (distinct from the temporal global-phase traversal test
 
 ## 6. HONEST FLAGS / CAVEATS
 
-1. **Saturation-zone blindness is disclosed and designed around, not discovered post-hoc.** The
-   frozen excess axis is LOCK-suppressing where the free control saturates (a plateau coinciding
-   with a flat free control has excess → 0; the planted-lock-in-saturation gate certifies this,
-   `lock_suppressed_by_excess = True`). The bank is therefore scoped a priori to the non-saturated
-   window (24 of 29 pts). A genuine lock that appeared ONLY in the top-5 saturated points (ω_s ≥
-   1.30) would be invisible to this detector — but there is no physical reason to expect a
-   BC-quantized lock to switch on only at the highest ω_s while the broad tracking zone shows
-   clean carrier-tracking with the detector fully able to see a lock. The negative is bankable in
-   the zone where it is measured.
-2. **Lossy-Dirichlet wall (not strictly conservative).** The clamp removes 13.8% of the norm
+### 6.1 Saturation-zone blindness — QUANTIFIED in-window, and the LOCK channels that stay live
+
+The frozen excess axis is LOCK-suppressing where the free control is flat (a plateau coinciding
+with a flat free control has excess → 0; the planted-lock-in-saturation gate certifies this,
+`lock_suppressed_by_excess = True`). This flatness is **not confined to the top-5 saturated points**:
+within the banked 24-point window the free control sits in a broad quasi-plateau (ρ_free ≈ 0.92–1.0
+from ω_s ≈ 0.925 to 1.25), so **12 of the 23 in-window intervals are staircase-blind**
+(|Δρ_free| < 0.03; **restricted free_staircase_fraction = 0.5217**). The **maximum achievable
+in-window excess_staircase is therefore 11/23 = 0.478** — above the frozen LOCK bar (0.4) but with
+only ≈0.08 headroom, NOT the wide visibility an unqualified "the detector can see a lock" implies.
+
+**The TRACK verdict nonetheless stands, on the two LOCK channels that ARE robust in-window:**
+- **The excess_jumps channel is live on 22 of 23 in-window intervals** — every interval where the
+  free control does not itself jump, INCLUDING all 12 staircase-blind ones (a flat free control does
+  not suppress an anchored jump; it *enables* the excess-jump detection). A genuine BC-quantized
+  lock's defining discrete plateau-to-plateau jumps would fire excess_jumps ≥ 1 there. This is not
+  hypothetical: the **banked-pipeline LOCK-fireability proof** (`banked_pipeline_lock_proof`, R2)
+  plants the canonical genuine lock as the anchored curve on the REAL free control and the banked
+  pipeline bins **LOCK** (excess_staircase 0.4348 ≥ 0.4, **3 excess jumps**) — so a real lock in the
+  window would have fired. The observed excess_jumps = 0.
+- **track_R² = 0.9901 is blindness-independent** (a correlation of ρ_anchored vs ρ_free, not a
+  flat-tolerance count) and directly adverse to a knobless mode index.
+
+The staircase-blindness affects only the plateau-coincidence sub-channel — not the jumps sub-channel
+nor the correlation. A real lock could have fired and did not; the negative is bankable in the zone
+where it is measured.
+
+> **CORRECTION NOTE — 2026-07-10 (#626 adversarial-review restatement, KEEP-BOTH).** An earlier
+> version of this caveat stated the broad tracking zone "shows clean carrier-tracking **with the
+> detector fully able to see a lock**." That phrasing is **SUPERSEDED as quantitatively loose**:
+> 12/23 in-window intervals are staircase-blind, so the staircase sub-channel has only ≈0.08 headroom
+> (max in-window excess_staircase 0.478 vs the 0.4 bar), not full visibility. The superseded phrase is
+> preserved here (quoted, not erased) per KEEP-BOTH; the accurate statement is the two-channel
+> argument above (excess_jumps live 22/23 including all 12 blind intervals, track_R² blindness-
+> independent, banked-pipeline LOCK plant fires). The verdict is unchanged: **TRACK banked.**
+
+### 6.2 Further scope caveats
+
+1. **Lossy-Dirichlet wall (not strictly conservative).** The clamp removes 13.8% of the norm
    (monotone, never pumping). The ideal Γ=−1 wall is reflectionless; this is its lossy stand-in.
    The result stands for both readings: any weak locking-toward-1:1 pull is a lossy-wall artifact
    a reflectionless wall would REDUCE — so a conservative wall would not produce MORE locking than
    the lossy one that produced none.
-3. **Temporal traversal read (not a spatial mode-index read).** The pivot claim is a phase-space
+2. **Temporal traversal read (not a spatial mode-index read).** The pivot claim is a phase-space
    traversal rotation number (θ = 2φ + 3ψ); this reads exactly that (the #417 global-phase
    coordinate; A46-faithful). A spatial standing-mode-index count is a different coordinate,
    untested here — a candidate successor, not a rescue.
-4. **Host-stencil caveat (inherited from #417/#612).** Native diamond `TETRA_OFFSETS` stencil
+3. **Host-stencil caveat (inherited from #417/#612).** Native diamond `TETRA_OFFSETS` stencil
    (achiral z=4); chiral-(2,3) template on an achiral host. The discriminator (does ρ track or
    lock under detuning) is carrier/BC-based and stencil-chirality-independent, as in #417. No
    parity conclusion drawn (sector fence).
-5. **Sector fence (mandatory).** The texture/spin weld stays DEAD (#585). No spin/parity
+4. **Sector fence (mandatory).** The texture/spin weld stays DEAD (#585). No spin/parity
    conclusion — only mode-existence (no mode-lock) and the quadrature-selector (μ-sign) null. The
    3/2 q-odd structure is TEXTURE, not spin.
 

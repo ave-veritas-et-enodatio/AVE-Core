@@ -41,12 +41,15 @@ import numpy as np
 
 # REUSE (Rule 14): the merged x34 solver VERBATIM. No fork-copy, no new engine/physics.
 from ave.solvers.tethered_pivot_winding import (
+    ClampedTrace,
     TetheredPivotConfig,
-    detuning_sweep,
     dead_actuator_gate,
+    detuning_sweep,
+    energy_ledger,
     lock_detector,
     run_tethered_pivot,
     validate_lock_detector,
+    _planted_locked,
 )
 
 # α-leak guard (import-time). The observable is a pure arg() ratio — α-free.
@@ -69,6 +72,21 @@ REPRO_MARKS = {
     "staircase_fraction": 0.4286,
     "free_staircase_fraction": 0.4286,
 }
+
+
+# The MEASURED fresh-sweep free control ρ_free(ω_s) — the deterministic clamp-off output at
+# the frozen config on FRESH_SWEEP_OS (committed research/2026-07-10_tethered-pivot-rerun_result.json,
+# fresh_leg.sweep.rho_free; regenerable via `python -m ave.solvers.tethered_pivot_x34b`). Frozen
+# here as a reference so the banked-pipeline LOCK-fireability proof (R2 / #626 review) can plant a
+# genuine lock on the REAL free control's in-window quasi-plateau blindness (12/23 intervals
+# staircase-blind, restricted free_staircase_fraction 0.5217) WITHOUT a 4-min live sweep — closing
+# the gap that the §2a plant used an idealized never-flat free control.
+MEASURED_FRESH_RHO_FREE: tuple[float, ...] = (
+    1.572754, 1.517991, 1.480888, 1.447911, 1.422087, 1.389460, 1.351176, 1.297028,
+    1.235543, 1.175453, 1.152753, 1.131491, 0.949268, 0.945150, 0.929440, 0.921261,
+    0.968315, 0.990487, 0.997371, 0.996121, 0.991750, 0.985944, 0.987406, 0.936132,
+    0.937694, 0.936530, 0.936153, 0.937831, 0.942001,
+)
 
 
 def fresh_config() -> TetheredPivotConfig:
@@ -167,6 +185,57 @@ def restricted_verdict(os: np.ndarray, rho_anch: np.ndarray, rho_free: np.ndarra
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# LOCK-FIREABILITY through the BANKED pipeline (R2 / #626 review) — plant a GENUINE
+# lock on the REAL free control and confirm the frozen excess axis still fires LOCK
+# ═════════════════════════════════════════════════════════════════════════════
+def banked_pipeline_lock_proof(free_ref: tuple[float, ...] | None = None) -> dict:
+    """Plant a GENUINE staircase LOCK (the canonical `_planted_locked`) as the ANCHORED
+    curve on top of the REAL fresh-sweep free control (MEASURED_FRESH_RHO_FREE, with its
+    in-window quasi-plateau blindness) and push it through the ACTUAL restricted_verdict
+    pipeline (saturation_onset → non-saturated window slice → lock_detector). A genuine
+    BC-quantized lock MUST still bin LOCK despite the 12/23 in-window staircase-blind
+    intervals — its defining discrete jumps fire the excess_jumps channel (live wherever the
+    free control does not itself jump), and its plateaus over the ~11 non-flat-free intervals
+    clear excess_staircase ≥ 0.4. Closes the fireability gap that the §2a plant left open
+    (that plant used an idealized never-flat free control)."""
+    os = np.array(FRESH_SWEEP_OS, float)
+    rf = np.array(MEASURED_FRESH_RHO_FREE if free_ref is None else free_ref, float)
+    ra = _planted_locked(os)                           # genuine LOCK planted as the anchor
+    r = restricted_verdict(os, ra, rf)
+    return {
+        "planted_anchored": "genuine staircase LOCK (_planted_locked)",
+        "free_control": "MEASURED fresh-sweep ρ_free (real in-window blindness, 12/23 flat)",
+        "banked_verdict": r["banked_verdict"],
+        "banked_excess_staircase": r["banked_excess_staircase"],
+        "banked_excess_jumps": r["banked_excess_jumps"],
+        "nonsat_n_points": r["nonsat_n_points"],
+        "fires_lock": bool(r["banked_verdict"] == "LOCK"),
+    }
+
+
+def _energy_gate_catches_pump(cfg: TetheredPivotConfig) -> dict:
+    """Exercise the SHIPPED `energy_ledger` gate (not an inline copy of its criterion) on a
+    PLANTED pump: patch the solver's trace so the clamp-ON leg has a monotone-growing energy
+    and the clamp-OFF leg conserves, then run the real energy_ledger and confirm it reports
+    on_non_pumping == False. (R3 / #626 review — the gate's own field access + threshold are
+    what must catch the pump.)"""
+    from unittest.mock import patch
+    n = 10
+    z = np.zeros(n + 1)
+    tr_off = ClampedTrace(t=z, phi_tor=z, psi_pol=z, e_total=np.ones(n + 1),
+                          removed_cum=z, var_re_anchor=z, var_im_anchor=z)
+    tr_on = ClampedTrace(t=z, phi_tor=z, psi_pol=z,
+                         e_total=np.linspace(1.0, 1.001, n + 1),   # +0.1% ⇒ a pump
+                         removed_cum=z, var_re_anchor=z, var_im_anchor=z)
+
+    def _fake_trace(_cfg, *, omega_b, omega_s, branch, n_steps=None):
+        return tr_off if branch == "off" else tr_on
+
+    with patch("ave.solvers.tethered_pivot_winding.trace_orbit_clamped", _fake_trace):
+        return energy_ledger(cfg, branch="capacitive", n_steps=n)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # PLANTED-VIOLATION PROOFS (prereg §8) — every gate is shown to CATCH a violation
 # ═════════════════════════════════════════════════════════════════════════════
 def planted_violation_proofs(cfg: TetheredPivotConfig | None = None) -> dict:
@@ -220,22 +289,31 @@ def planted_violation_proofs(cfg: TetheredPivotConfig | None = None) -> dict:
         "catches_violation": bool(dead_off["actuator_live"] is False),
     }
 
-    # --- energy: a planted monotone-growing E trace must FAIL non-pumping ----
-    e0 = 1.0
-    pumping = e0 * (1.0 + np.linspace(0.0, 1e-3, 50))    # grows 0.1% — a pump
-    max_gain = float((np.max(pumping) - e0) / abs(e0))
-    non_pumping = bool(max_gain <= 1e-9)                 # the gate's exact criterion
+    # --- energy: a planted pump routed through the SHIPPED energy_ledger gate (R3) -----
+    eng_planted = _energy_gate_catches_pump(cfg)
     proofs["energy_non_pumping"] = {
-        "planted_max_rel_gain": max_gain,
-        "non_pumping_flag": non_pumping,                 # must be False (a pump)
-        "catches_violation": bool(non_pumping is False),
+        "shipped_gate": "energy_ledger",                 # the real gate, not an inline copy
+        "planted_on_max_rel_gain": eng_planted["on_max_rel_energy_gain"],
+        "on_non_pumping_flag": eng_planted["on_non_pumping"],   # must be False (a pump)
+        "off_conserved_flag": eng_planted["off_conserved"],     # sanity: off leg conserves
+        "catches_violation": bool(eng_planted["on_non_pumping"] is False),
+    }
+
+    # --- LOCK-fireability through the banked pipeline on the REAL free control (R2) ----
+    lock_fire = banked_pipeline_lock_proof()
+    proofs["banked_pipeline_lock_fires"] = {
+        **lock_fire,
+        # "catches" here = the pipeline DOES fire LOCK on a genuine lock (proves the
+        # negative would not be a blind miss): a TRACK verdict is a real negative.
+        "catches_violation": bool(lock_fire["fires_lock"]),
     }
 
     proofs["all_gates_catch_violations"] = bool(
         proofs["detector_separation"]["catches_violation"]
         and proofs["saturation_disclosure"]["catches_violation"]
         and proofs["dead_actuator"]["catches_violation"]
-        and proofs["energy_non_pumping"]["catches_violation"])
+        and proofs["energy_non_pumping"]["catches_violation"]
+        and proofs["banked_pipeline_lock_fires"]["catches_violation"])
     return proofs
 
 
@@ -318,6 +396,10 @@ def run_x34b() -> dict:
                   f"(gates_ok={gates_ok}, proofs_ok={proofs_ok}, repro_ok={repro_ok})")
     else:
         verdict = banked
+        _abs_s = restricted["full_sweep_absolute_staircase"]
+        _free_s = restricted["full_sweep_free_staircase"]
+        _rel = ("free even flatter" if _free_s > _abs_s
+                else "anchored flatter" if _abs_s > _free_s else "exactly equal")
         reason = (
             f"FROZEN excess axis (a priori), banked on the NON-SATURATED window "
             f"(ω_s ≤ {restricted['onset_omega_s']}, {restricted['nonsat_n_points']} pts): "
@@ -327,9 +409,9 @@ def run_x34b() -> dict:
             f"(excess_staircase={restricted['full_sweep_excess_staircase']:.4f}). "
             f"Saturation-zone disclosure — complementary ABSOLUTE axis (confounded): "
             f"{restricted['full_sweep_absolute_verdict']} "
-            f"(staircase={restricted['full_sweep_absolute_staircase']:.4f} == "
-            f"free {restricted['full_sweep_free_staircase']:.4f}); the excess axis is "
-            f"LOCK-suppressing there (disclosed a priori, prereg §2b). Reproduces #612: "
+            f"(staircase={_abs_s:.4f} vs free {_free_s:.4f}, both confounded-flat — "
+            f"{_rel}); the excess axis is LOCK-suppressing there (disclosed a priori, "
+            f"prereg §2b). Reproduces #612: "
             f"{repro_ok}. Supporting nulls: no excess hysteresis "
             f"({not out['reproduction_leg']['hysteresis_excess_seen']}), no cap↔mag flip "
             f"({not out['reproduction_leg']['termination_flip_seen']}).")
@@ -476,8 +558,8 @@ if __name__ == "__main__":
     print(f"  full-sweep excess verdict (companion): {r['full_sweep_excess_verdict']} "
           f"(excess_staircase={r['full_sweep_excess_staircase']:.4f})")
     print(f"  saturation-zone ABSOLUTE disclosure: {r['full_sweep_absolute_verdict']} "
-          f"(staircase={r['full_sweep_absolute_staircase']:.4f} == "
-          f"free {r['full_sweep_free_staircase']:.4f})")
+          f"(staircase={r['full_sweep_absolute_staircase']:.4f} vs "
+          f"free {r['full_sweep_free_staircase']:.4f}, both confounded-flat)")
     print("-" * 82)
     p = res["planted_violation_proofs"]
     print(f"PLANTED-VIOLATION PROOFS: all_gates_catch_violations="

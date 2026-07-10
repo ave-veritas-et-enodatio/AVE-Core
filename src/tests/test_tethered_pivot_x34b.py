@@ -23,7 +23,10 @@ import pytest
 from ave.solvers.tethered_pivot_winding import TetheredPivotConfig, detuning_sweep
 from ave.solvers.tethered_pivot_x34b import (
     FRESH_SWEEP_OS,
+    MEASURED_FRESH_RHO_FREE,
     REPRO_MARKS,
+    _energy_gate_catches_pump,
+    banked_pipeline_lock_proof,
     fresh_config,
     planted_violation_proofs,
     restricted_verdict,
@@ -115,14 +118,31 @@ def test_plant_in_saturation_absolute_sees_excess_blind():
 # ─────────────────────────────────────────────────────────────────────────────
 # PLANTED-VIOLATION PROOFS (prereg §8) — pure-criteria portions on the default gate.
 # ─────────────────────────────────────────────────────────────────────────────
-def test_energy_planted_pump_is_caught():
-    """The energy non-pumping criterion (max_t E ≤ E0·(1+1e-9)) FLAGS a planted
-    monotone-growing energy trace (catches a pump)."""
-    e0 = 1.0
-    pumping = e0 * (1.0 + np.linspace(0.0, 1e-3, 50))
-    max_gain = (np.max(pumping) - e0) / abs(e0)
-    assert max_gain > 1e-9                       # it IS a pump
-    assert not (max_gain <= 1e-9)                # the gate criterion flags it
+def test_energy_planted_pump_caught_by_shipped_gate():
+    """R3 (#626 review): the planted energy-pump proof exercises the SHIPPED `energy_ledger`
+    gate (not an inline copy of its criterion). A monotone-growing clamp-ON energy trace,
+    routed through the real energy_ledger via a patched solver trace, is flagged
+    on_non_pumping == False, while the conserving clamp-OFF leg reads off_conserved == True."""
+    eng = _energy_gate_catches_pump(TetheredPivotConfig(N=16, pml_thickness=3, a1_radius=4.5))
+    assert eng["on_non_pumping"] is False           # the shipped gate CATCHES the pump
+    assert eng["on_max_rel_energy_gain"] > 1e-9
+    assert eng["off_conserved"] is True
+
+
+def test_banked_pipeline_fires_lock_on_real_free_control():
+    """R2 (#626 review): plant a GENUINE staircase lock as the anchored curve on the REAL
+    fresh-sweep free control (with its 12/23 in-window staircase-blind intervals) and push it
+    through the ACTUAL restricted_verdict pipeline (saturation_onset → window slice →
+    lock_detector). The frozen excess axis MUST still bin LOCK — closing the fireability gap
+    that the §2a plant (idealized never-flat free control) left open. Proves the observed
+    TRACK is a real negative, not a blind miss in the banked window."""
+    assert len(MEASURED_FRESH_RHO_FREE) == len(FRESH_SWEEP_OS) == 29
+    proof = banked_pipeline_lock_proof()
+    assert proof["fires_lock"] is True
+    assert proof["banked_verdict"] == "LOCK"
+    assert proof["banked_excess_staircase"] >= 0.4    # clears the LOCK bar despite blindness
+    assert proof["banked_excess_jumps"] >= 1          # the jumps channel fires in-window
+    assert proof["nonsat_n_points"] == 24
 
 
 def test_detector_and_saturation_disclosure_pure():
@@ -147,11 +167,16 @@ def test_detector_and_saturation_disclosure_pure():
 # ─────────────────────────────────────────────────────────────────────────────
 @pytest.mark.engine_sim
 def test_planted_violation_proofs_all_catch_live():
-    """All four frozen gates CATCH a planted violation, including the live dead-actuator
-    (branch='off' vs itself ⇒ actuator_live False)."""
+    """All frozen gates CATCH a planted violation end-to-end, including the live dead-actuator
+    (branch='off' vs itself ⇒ actuator_live False), the SHIPPED energy_ledger pump proof (R3),
+    and the banked-pipeline LOCK-fireability proof on the real free control (R2)."""
     proofs = planted_violation_proofs(TetheredPivotConfig(N=16, pml_thickness=3, a1_radius=4.5))
     assert proofs["dead_actuator"]["catches_violation"] is True
     assert proofs["dead_actuator"]["off_actuator_live"] is False
+    assert proofs["energy_non_pumping"]["shipped_gate"] == "energy_ledger"
+    assert proofs["energy_non_pumping"]["on_non_pumping_flag"] is False
+    assert proofs["banked_pipeline_lock_fires"]["fires_lock"] is True
+    assert proofs["banked_pipeline_lock_fires"]["banked_verdict"] == "LOCK"
     assert proofs["all_gates_catch_violations"] is True
 
 

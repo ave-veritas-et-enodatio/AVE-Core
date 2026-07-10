@@ -340,14 +340,26 @@
       "catches_violation": true
     },
     "energy_non_pumping": {
-      "planted_max_rel_gain": 0.0009999999999998899,
-      "non_pumping_flag": false,
+      "shipped_gate": "energy_ledger",
+      "planted_on_max_rel_gain": 0.0009999999999998899,
+      "on_non_pumping_flag": false,
+      "off_conserved_flag": true,
+      "catches_violation": true
+    },
+    "banked_pipeline_lock_fires": {
+      "planted_anchored": "genuine staircase LOCK (_planted_locked)",
+      "free_control": "MEASURED fresh-sweep \u03c1_free (real in-window blindness, 12/23 flat)",
+      "banked_verdict": "LOCK",
+      "banked_excess_staircase": 0.43478260869565216,
+      "banked_excess_jumps": 3,
+      "nonsat_n_points": 24,
+      "fires_lock": true,
       "catches_violation": true
     },
     "all_gates_catch_violations": true
   },
   "verdict": "TRACK",
-  "reason": "FROZEN excess axis (a priori), banked on the NON-SATURATED window (\u03c9_s \u2264 1.275, 24 pts): excess_staircase=0.0435 (<0.2 \u21d2 TRACK / \u22650.4 \u21d2 LOCK), track_R\u00b2=0.9901. Full-sweep excess axis=TRACK (excess_staircase=0.0357). Saturation-zone disclosure \u2014 complementary ABSOLUTE axis (confounded): LOCK (staircase=0.5714 == free 0.6071); the excess axis is LOCK-suppressing there (disclosed a priori, prereg \u00a72b). Reproduces #612: True. Supporting nulls: no excess hysteresis (True), no cap\u2194mag flip (True).",
+  "reason": "FROZEN excess axis (a priori), banked on the NON-SATURATED window (\u03c9_s \u2264 1.275, 24 pts): excess_staircase=0.0435 (<0.2 \u21d2 TRACK / \u22650.4 \u21d2 LOCK), track_R\u00b2=0.9901. Full-sweep excess axis=TRACK (excess_staircase=0.0357). Saturation-zone disclosure \u2014 complementary ABSOLUTE axis (confounded): LOCK (staircase=0.5714 vs free 0.6071, both confounded-flat \u2014 free even flatter); the excess axis is LOCK-suppressing there (disclosed a priori, prereg \u00a72b). Reproduces #612: True. Supporting nulls: no excess hysteresis (True), no cap\u2194mag flip (True).",
   "preconditions": {
     "gates_ok": true,
     "proofs_ok": true,
