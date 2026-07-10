@@ -1,0 +1,229 @@
+{
+  "class": "CONSISTENCY / characterization",
+  "z_degree": 3,
+  "omega_link_over_omega_C": 1.732050807568877,
+  "canonical_symbols": {
+    "OMEGA_C_rad_s": 7.76344071105011e+20,
+    "L_NODE_m": 3.8615926772428334e-13,
+    "C_0_m_s": 299792458.0,
+    "ANALYTIC_NETWORK_FACTOR": 0.5773502691896258,
+    "MeV_per_omega_C": 0.5109989499961641
+  },
+  "per_enantiomorph": {
+    "right": {
+      "gate_i_velocity_factor": {
+        "per_dir": [
+          0.5773502162363912,
+          0.5773502354660195,
+          0.5773502931549005,
+          0.5773502931549005,
+          0.5773502931549005
+        ],
+        "mean": 0.5773502662334223,
+        "spread": 1.332267669009177e-07,
+        "target_1_over_sqrt3": 0.5773502691896258,
+        "abs_err": 2.956203504211885e-09
+      },
+      "gate_i_pass": true,
+      "gate_ii_lambda_max_bloch": 6.0,
+      "gate_ii_lambda_max_direct": 6.0000000000000036,
+      "gate_ii_mean_degree": 3.0,
+      "gate_ii_pass": true,
+      "gate_iii_band_count": 4,
+      "gate_iii_pass": true,
+      "band_envelopes_omega_C": {
+        "low": [
+          0.0,
+          1.6546569199065249,
+          2.1320842528896033,
+          3.3093138398130493
+        ],
+        "high": [
+          2.1320842528896033,
+          3.3093138398130493,
+          3.7867411727961278,
+          5.441398092702652
+        ]
+      },
+      "band_top": {
+        "omega_C": 5.441398092702652,
+        "MeV": 2.780548711882185,
+        "k_raw_cartesian_2pi": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hs_point": "H",
+        "dist_to_hs": 0.0,
+        "hs_point_canonical_2pi": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "closed_form": "pi/ANALYTIC_NETWORK_FACTOR = pi*sqrt3"
+      },
+      "gap_inventory": [
+        {
+          "between": [
+            0,
+            1
+          ],
+          "gap_omega_C": -0.4774273329830785,
+          "full_stop_band": false,
+          "window_omega_C": null
+        },
+        {
+          "between": [
+            1,
+            2
+          ],
+          "gap_omega_C": -1.177229586923446,
+          "full_stop_band": false,
+          "window_omega_C": null
+        },
+        {
+          "between": [
+            2,
+            3
+          ],
+          "gap_omega_C": -0.4774273329830785,
+          "full_stop_band": false,
+          "window_omega_C": null
+        }
+      ],
+      "any_full_gap": false,
+      "gamma_structure": {
+        "acoustic_omega_C": 0.0,
+        "optical_omega_C": [
+          3.309314
+        ],
+        "optical_degeneracy": 3,
+        "optical_value": 3.309314
+      }
+    },
+    "left": {
+      "gate_i_velocity_factor": {
+        "per_dir": [
+          0.5773502162363912,
+          0.5773502354660195,
+          0.5773502739252742,
+          0.5773503123845263,
+          0.5773502354660195
+        ],
+        "mean": 0.5773502546956462,
+        "spread": 1.6653345926200645e-07,
+        "target_1_over_sqrt3": 0.5773502691896258,
+        "abs_err": 1.449397968311672e-08
+      },
+      "gate_i_pass": true,
+      "gate_ii_lambda_max_bloch": 6.0,
+      "gate_ii_lambda_max_direct": 6.000000000000006,
+      "gate_ii_mean_degree": 3.0,
+      "gate_ii_pass": true,
+      "gate_iii_band_count": 4,
+      "gate_iii_pass": true,
+      "band_envelopes_omega_C": {
+        "low": [
+          0.0,
+          1.6546569199065249,
+          2.1320842528896033,
+          3.3093138398130493
+        ],
+        "high": [
+          2.1320842528896025,
+          3.3093138398130493,
+          3.7867411727961278,
+          5.441398092702652
+        ]
+      },
+      "band_top": {
+        "omega_C": 5.441398092702652,
+        "MeV": 2.780548711882185,
+        "k_raw_cartesian_2pi": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hs_point": "H",
+        "dist_to_hs": 0.0,
+        "hs_point_canonical_2pi": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "closed_form": "pi/ANALYTIC_NETWORK_FACTOR = pi*sqrt3"
+      },
+      "gap_inventory": [
+        {
+          "between": [
+            0,
+            1
+          ],
+          "gap_omega_C": -0.4774273329830776,
+          "full_stop_band": false,
+          "window_omega_C": null
+        },
+        {
+          "between": [
+            1,
+            2
+          ],
+          "gap_omega_C": -1.177229586923446,
+          "full_stop_band": false,
+          "window_omega_C": null
+        },
+        {
+          "between": [
+            2,
+            3
+          ],
+          "gap_omega_C": -0.4774273329830785,
+          "full_stop_band": false,
+          "window_omega_C": null
+        }
+      ],
+      "any_full_gap": false,
+      "gamma_structure": {
+        "acoustic_omega_C": 0.0,
+        "optical_omega_C": [
+          3.309314
+        ],
+        "optical_degeneracy": 3,
+        "optical_value": 3.309314
+      }
+    }
+  },
+  "enantiomorph_spectra_identical": true,
+  "vector_channel_stretch": {
+    "attempted": true,
+    "model": "12x12 lumped mass-spring (\u03c9=\u221aeig); RANK-2 bond tensor k_a=k_s",
+    "band_count": [
+      12
+    ],
+    "acoustic_speed_proxy_spread": 4.902765601678382e-08,
+    "scope_note": "STRETCH/SECONDARY. The transmission-line arccos map that the SCALAR channel required for the canonical 1/\u221a3 (prereg \u00a74) is NOT applied to this elastic matrix. Band COUNT (12) + acoustic isotropy only; the vector band-TOP normalisation needs its own gate \u2014 deferred."
+  },
+  "consumers": {
+    "a_forkA_tone_placement": {
+      "true_band_top_omega_C": 5.441398092702652,
+      "requirement": "both drive tones ABOVE the true srs band top; difference in-band",
+      "recommended_omega_a_omega_C": 6.941,
+      "recommended_omega_b_omega_C": 5.941,
+      "difference_omega_C": 1.0,
+      "note": "difference 1.0 \u03c9_C sits in-band (< band top). OLD superband used tones above 2\u00b7\u03c9_C (1D-chain LUMPED top) \u2014 that is ~2.7\u00d7 TOO LOW for the real 3D srs net; tones must clear 5.441 \u03c9_C."
+    },
+    "b_fpb_corner_marker1": {
+      "band_edge_MeV": 2.7805,
+      "pair_threshold_2omegaC_MeV": 1.022,
+      "ordering": "pair_threshold (1.022 MeV) < band_top (2.781 MeV)",
+      "ac_to_dc_opens_while_smooth_modes_propagate": true,
+      "note": "pair-production / AC\u2192DC channel (2\u03c9_C = 1.022 MeV) opens BELOW the band top (2.781 MeV); propagating scalar lattice modes coexist with the pair channel in the 1.022\u20132.781 MeV window."
+    },
+    "c_gap_breather": {
+      "any_full_gap": false,
+      "flag": "NO full stop-band: the scalar srs manifold is connected 0\u21925.441 \u03c9_C, so gap-localized (gap-breather) carrier candidates are UNAVAILABLE in srs."
+    }
+  },
+  "all_gates_pass": true,
+  "survey_valid": true
+}
