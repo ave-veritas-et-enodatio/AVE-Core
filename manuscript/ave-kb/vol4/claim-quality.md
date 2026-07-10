@@ -571,6 +571,35 @@ The SVE continuum constitutive law $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_
 
 ---
 
+## Vacuum photon–photon (four-wave / χ³) channel — the kernel's FOURTH testable consequence
+<!-- id: clm-gg4wmx -->
+
+The same saturable-$\varepsilon$ kernel $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$ ($E_c=\sqrt\alpha\,E_{crit}\approx1.13\times10^{17}$ V/m) that carries the forward birefringence coefficient (clm-pp3qwf) also carries an **in-band four-wave-mixing** ($\chi^{(3)}$) amplitude — the forward ($\delta n\propto$ amplitude) and scattering ($\sigma\propto$ amplitude$^2$) limits of one four-photon response. **In-band ($\omega\ll\omega_0=m_ec^2/\hbar$)** the enhancement over the QED (Euler–Heisenberg) box is $3.75\pi/\alpha^2\approx2.2\times10^5$ in **amplitude** and $(3.75\pi/\alpha^2)^2\approx5\times10^{10}$ in **cross section**. Registered as the flagship Letter's **FOURTH testable consequence** (v5, LbL / frequency-domain paragraph; frozen under the OpenTimestamps anchor of prereg SHA `9988dc39bd22`).
+
+- _Specific Claims_
+  - **In-band FWM cross-section enhancement $\sim5\times10^{10}\times\sigma_{\mathrm{QED}}$ for $\omega\ll\omega_0$** — a direct consequence of the same $\chi^{(3)}$ as clm-pp3qwf (cross section is the square of the field-independent amplitude ratio $3.75\pi/\alpha^2$).
+  - **Two completed in-band searches leave it unconstrained (VERIFIED margins):** Bernard 2000 (EPJ D **10**,141; stimulated optical FWM at LULI, $\sim0.8$ eV) bounds $\sim10^{18}\times\sigma_{\mathrm{QED}}$ — $\sim7$ orders above the enhanced prediction; SACLA X-ray (Inada 2014 PLB **732**,356 limit $1.7\times10^{-24}$ m$^2$ at $\omega_{\mathrm{cms}}=6.5$ keV vs $\sigma_{\mathrm{QED}}=2.5\times10^{-47}$ m$^2$, Yamaji 2016 PLB **763**,454) — $\sim12$ orders above. Both are external-literature re-analyses (clm-cite, NOT exp-nodes per INVARIANT-S9).
+  - **DeLLight is the matched-regime standing watch** (propagating pump, crossed geometry, vacuum FWM/$\delta n$): because the coefficient is $2.2\times10^5\times$ QED, an early vacuum run adjudicates SVE long before QED sensitivity — re-scan on each data release.
+- _Specific Non-Claims and Caveats_
+  - **The kernel is a LOW-FREQUENCY EFT below $\omega_0=m_ec^2/\hbar$; collider kinematics are OUT of domain.** ATLAS/CMS $\gamma\gamma\to\gamma\gamma$ at $\sqrt s\simeq10^4\hbar\omega_0$ (SM-consistent) probes the four-photon amplitude at the electron scale, where every low-frequency four-photon description is compared to the full electron box — the shared electron-pair physics QED and AVE both carry. **A contact-NED promotion is DISCLAIMED:** were the kernel wrongly promoted to a Lorentz-invariant contact NED, the LbL bound on Born–Infeld ($\Lambda\gtrsim100$ GeV, Ellis–Mavromatos–You 2017) would exclude it by $\sim11$ orders ($\chi^{(3)}$ method) / $\sim22$ orders (contact-BI, $\Lambda_{\mathrm{SVE}}\approx0.27$ MeV). **The collider consistency rests on EFT scoping — NOT "AVE survives ATLAS by derivation."**
+  - **NAMED OPEN ITEM (task #29): the constitutive-channel closure above $\omega_0$** (hard lattice-band-edge cutoff vs power-law tail — the srs Brillouin-zone/Nyquist argument) is an ultraviolet-completion statement NOT supplied here. The candidate mechanism (the FPB-corner branch fork: aliased-Bloch power-law $\Rightarrow$ BOUNDED vs mobile discrete breather exponential $\Rightarrow$ EVADES) is an **OPEN FORK** framed in PR #595 (UNMERGED framing, not canon). Adjudication is the substrate's.
+  - **MAGNITUDES are $\alpha$-echoes** ($\alpha^{-2}$/$\alpha^{-4}$-riding); the CHORD is the tree-level O(1) $\chi^{(3)}$ existence QED lacks. Symmetric standard: QED's $\sigma\propto\alpha^4$ is equally $\alpha$-rooted. **Consistency/manifestation-class at value level, NOT emergence** ($E_c$ CODATA-derived through $\alpha$, $m_e$). The MeV-window $\gamma\gamma$ gap (a modern petawatt Bernard-type run) is FLAGGED as a candidate, NOT registered.
+
+> **Leaf references:** [vacuum-photon-photon-channel](./falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md).
+
+### Quality
+- confidence: 0.78
+- depends-on:
+  - clm-pp3qwf (the same saturable-$\varepsilon$ $\chi^{(3)}$; the FWM cross-section ratio is the square of this claim's amplitude ratio $3.75\pi/\alpha^2$)
+  - Axiom 4 (the saturation kernel $S=\sqrt{1-(A/A_{yield})^2}$ specialized to $\varepsilon_{eff}=\varepsilon_0\sqrt{1-(E/E_c)^2}$)
+- solidity: 0.78 (ok to build on, see caveats) [= min(0.78, 0.80)]
+- rationale: The in-band FWM cross-section enhancement is a direct low-effort consequence of the same $\chi^{(3)}$ carrying clm-pp3qwf (cross section $=$ amplitude$^2$), and the two completed in-band right-observable searches (Bernard, SACLA) have VERIFIED margins ($\sim7$ and $\sim12$ OOM above the enhanced prediction) — the strongest clean-field class. Own-derivation held at 0.78 because the saturable-$\varepsilon$-forward-response $\to$ FWM-cross-section mapping is model-dependent (carried as such, not asserted), and the constitutive-channel closure above $\omega_0$ is a NAMED OPEN ITEM (task #29; the FPB mechanism is an unmerged framing fork, PR #595). That open item is SCOPED OUT of the in-band claim — it does not lower the in-band prediction, which lives entirely below $\omega_0$. Solidity 0.78 [= min(own 0.78, clm-pp3qwf 0.80)] — capped by the shared-kernel dependency. Magnitudes are $\alpha$-echoes (consistency/manifestation-class, NOT emergence — symmetric standard with QED); the CHORD is the tree-level $\chi^{(3)}$ existence.
+- strengthen-by:
+  - Close the NAMED OPEN ITEM (task #29): the UV-completion of the constitutive channel above $\omega_0$ — nonlinear-TLM four-wave phase-matching of Bloch modes at/above the srs zone edge; if it returns an exponential (breather) coupling the channel EVADES ATLAS and the Letter's scope-statement upgrades to derived consistency, if power-law the ATLAS tension is REAL. Framing: PR #595.
+  - Re-scan DeLLight on each vacuum-pump data release (the matched-regime near-term discriminator and likeliest future bound).
+
+---
+
 ## K4 Bloch Dispersion — the $(q\,\ell_{node})^4$ Photon-Anisotropy FORM
 <!-- id: clm-k4d4ph -->
 
