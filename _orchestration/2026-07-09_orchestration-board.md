@@ -41,6 +41,9 @@
 
 **From x29 (§4):** the fork ruling A/B/C/D.
 
+**From x31-B2 (vector band survey, #607):**
+- **Vector band-top scale — single-scale vs stiffness-lifted.** single-scale (normalized-arccos: π√3 = 5.441 ω_C) vs stiffness-lifted (π√3·√ρ* ≈ 17.01 ω_C) vector band top. Sets the **fork-A floor narrative + the FPB vector edge** (the propagating/pair coexistence window: [1.022, 2.781] MeV vs [1.022, up to 8.693] MeV). **Does NOT gate fork A** — the conservative 18.51/17.51 ω_C tone floor is safe under BOTH bracket endpoints. **Orchestrator lean = stiffness-lifted** (both the lumped and the delay-line pictures lift the top; per-channel LC clock per the local-c walk).
+
 **Program-level:** submission decision for the Letter (venue/route/coauthor coordination — the Letter is submission-ready; only author-side mechanics remain); relay of the Fe 7.80 b correction to K.M.
 
 ## 4. x29: run BLOCKED — verdict, and the fork menu
@@ -49,7 +52,7 @@ Adversarial review (5 lenses, findings re-run-confirmed; full detail = PR #598 c
 - **G4 mobility kick = no-op as coded** (`sin(πn)`≡0) — the committed PN-pinning evidence is VOID; the reviewer's corrected kicks independently re-establish pinning (0.006–0.025c @ 4% energy injection) → **the mobility null is robust, the evidence must be regenerated**.
 - **p=8.29 coupling law = turn-on-transient artifact** (collapses ~15×/ramp-doubling; window-sensitive; frozen G3 gate silently dropped).
 - **Structural:** single-tone drive cannot measure the γγ 2→2 vertex (odd χ³ → odd harmonics, all above band). The right object = **two-tone difference-frequency protocol** (ω_a, ω_b above band; ω_a−ω_b in-band; A⁶ scaling) — never run. In EE terms: the vacuum as a mixer; drive two above-band tones, listen for the in-band beat through the varactor.
-- **1D band top wrong:** true srs band top ≈3.3–3.5 ω_C (three methods incl. the repo's own srs Laplacian λ_max=6.000) → half the fit window was in-band. [Revises FPB-corner marker #1: band edge ≈1.7–1.8 MeV; still ~MeV.]
+- **1D band top wrong:** true srs band top ≈3.3–3.5 ω_C (three methods incl. the repo's own srs Laplacian λ_max=6.000) → half the fit window was in-band. [Revises FPB-corner marker #1: the 3D scalar band edge = **2.781 MeV** (5.441 ω_C, #604); the **VECTOR/T2-carrier edge is a BRACKET [2.781, 8.693] MeV** (#607) pending the band-top-scale ruling (§3); still ~MeV-scale.]
 - Secondary: `F=r/S` mislabeled canonical (canonical e-load `F=r/√S`); G2 tolerance silently relaxed; two TL;DR misquotes.
 - **Honest adjudication under the frozen rule: NULL** (evanescent-only steady state; skin depth matches analytic lattice-gap <1% — that part is solid physics).
 - **★ ATLAS status = STATUS QUO ANTE.** The tension is **epistemic** (closure-by-derivation not achieved), NOT an established collider problem — even a genuine p≈8 tail is ~1e-33 at ATLAS kinematics. Letter v5 + clm-gg4wmx need **zero edits** (their open-item language pre-registered exactly this).
