@@ -157,6 +157,7 @@
 {"claim_id": "clm-bh9p6s", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-bjceop", "leaf_path": "common/q-g47-substrate-scale-cosserat-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bnd5rq", "leaf_path": "vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-bore2x", "leaf_path": "vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bqtasn", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-br3bcv", "leaf_path": "vol5/molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-c54kdd", "leaf_path": "vol4/simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -641,6 +642,7 @@
 {"claim_id": "clm-uu6dl5", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-uu6dl5", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/vacuum-heat-capacity.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-v2sg8z", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-v3port", "leaf_path": "vol1/operators-and-regimes/ch6-universal-operators/srs-vertex-scattering.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-v6ti0v", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-vca7r1", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-viawy9", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md", "leaf_kind": "leaf", "tier2_marked": true}
