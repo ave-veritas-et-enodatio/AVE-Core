@@ -22,7 +22,7 @@ path-stable: "the canonical lattice model-register leaf — the K4-graph/srs-emb
 | Quantity / signature | **K4 graph** (abstract connectivity) | **srs embedding** (realized geometry) |
 |---|---|---|
 | What it is | the Sunada-K4 connectivity — *which node bonds which*, no lengths, no frame | the physical chiral srs net at pitch $\ell_{node}$, $z=3$, right-handed $I4_132$ ([`axiom-definitions.md:16`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md)) |
-| Owns | **KCL/KVL** (cycle / cut-set space); the $A_4\!\leftrightarrow\!2T$ double-cover holonomy (spin-½ representability, `vol1/claim-quality.md:1011`); **winding classes**, charge $=$ Link $\in\mathbb{Z}$ (the integer **FORM**, Axiom-2 TKI); disclination classification | $\ell_{node}$ and **all scales**: $\omega_0=m_ec^2/\hbar$, the Brillouin zone / band edge, the dispersion $\omega(k)$; the network-velocity factor $1/\sqrt3=c(k\!\to\!0)/c_{link}$ ([`boundary-observables-m-q-j.md:95`](boundary-observables-m-q-j.md)); $Z_0=\sqrt{\mu_0/\varepsilon_0}$; $\nu_{\mathrm{Hill}}=2/7$ ([`vacuum-poisson-ratio.md:18`](../vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md)); chirality-as-handedness; **THE REST FRAME** |
+| Owns | **KCL/KVL** (cycle / cut-set space); the $A_4\!\leftrightarrow\!2T$ double-cover holonomy (spin-½ representability, `vol1/claim-quality.md:1011`); **winding classes**, charge $=$ Link $\in\mathbb{Z}$ (the integer **FORM**, Axiom-2 TKI); disclination classification | $\ell_{node}$ and **all scales**: $\omega_0=m_ec^2/\hbar$, the Brillouin zone / band edge (surveyed: scalar top $\pi\sqrt3=5.441\,\omega_C$, vector top BRACKET $[5.441,17.011]\,\omega_C$, [`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md)), the dispersion $\omega(k)$; the network-velocity factor $1/\sqrt3=c(k\!\to\!0)/c_{link}$ ([`boundary-observables-m-q-j.md:95`](boundary-observables-m-q-j.md)); $Z_0=\sqrt{\mu_0/\varepsilon_0}$; $\nu_{\mathrm{Hill}}=2/7$ ([`vacuum-poisson-ratio.md:18`](../vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md)); chirality-as-handedness; **THE REST FRAME** |
 | Sensitivity | **frequency-blind AND amplitude-blind** (pure topology) | carries every dimensionful scale (frequency- and geometry-sensitive) |
 
 **The rest frame is a geometry-column fact.** The abstract K4 graph has **no frame** — connectivity is
@@ -78,10 +78,19 @@ The weakly-nonlinear small-signal model the Letter uses is bounded on **two inde
 
 1. **Amplitude fence (Axis B):** $A\ll1$. Above it the linear-about-quiescent Taylor truncation fails and the
    full $\sqrt{1-A^2}$ saturation (up to $A\to1$, rupture) takes over.
-2. **Frequency fence (Axis A, embedding column):** $\omega\ll\omega_0=m_ec^2/\hbar$, i.e. below the band edge.
-   Above it the constitutive (smooth-medium) description hands off to the defect / electron-pair sector — the
-   NAMED OPEN ITEM of
+2. **Frequency fence (Axis A, embedding column):** the small-signal constitutive (smooth-medium) description is
+   valid for $\omega\ll\omega_0=m_ec^2/\hbar=\omega_C$; the pair channel opens at $2\omega_C=1.022$ MeV, where
+   the smooth-medium description hands off to the defect / electron-pair sector — the NAMED OPEN ITEM of
    [`vacuum-photon-photon-channel.md`](../vol4/falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md).
+   **The lattice's own propagating band — now surveyed
+   ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md),
+   clm-bnd5rq) — extends well ABOVE $\omega_0$:** the **scalar** band top is $\pi\sqrt3=5.441\,\omega_C=2.781$
+   MeV at $H$ (closed form, arccos TL map); the **vector** (T2 / γγ-carrier) band top is a **BRACKET**
+   $[5.441,17.011]\,\omega_C=[2.781,8.693]$ MeV (single-scale vs stiffness-lifted PENDING Grant); **NO internal
+   gap** in either channel. So the EFT frequency-fence ($\omega_0$) is the *conservative* bound (the constitutive
+   description fails at the $2\omega_C$ pair handoff, well before the propagating manifold ends at the band top);
+   $\omega_0$ and the lattice band edge are **distinct scales** and must not be conflated (the earlier
+   "$\omega_0$ = band edge" shorthand is superseded — the surveyed band edge is $\ge\pi\sqrt3\,\omega_C$).
 
 > **Slew-identity pointer (FRAMING, not canon).** The two fences can be read as the two ratings of one
 > amplifier: an *output-swing* rating (the $\varepsilon$-kernel $S(A)=\sqrt{1-A^2}$, cap $E\le E_c$) and a
@@ -96,5 +105,6 @@ The weakly-nonlinear small-signal model the Letter uses is bounded on **two inde
 
 - [`form-deriving-value-importing.md`](form-deriving-value-importing.md) — the FORM-derives / VALUE-imports organizing principle (this register is its lattice-column restatement).
 - [`vocabulary-register.md`](vocabulary-register.md) — the per-term `def-` adjudications (e.g. `node` = spatial-Brillouin cell); this register routes, it does not re-adjudicate terms.
+- [`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md) (clm-bnd5rq) — the canonical srs vacuum-net band-structure survey the frequency-fence entry above cites (scalar / vector band tops, gap inventory, the arccos-TL-map model adjudication).
 - [`vacuum-birefringence-e4.md`](../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md) and [`vacuum-photon-photon-channel.md`](../vol4/falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md) — the small-signal-about-quiescent applications this register scopes.
 - [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) — the A1 $\perp$ T2 sector orthogonality underlying Axis B's $\varepsilon$/$\mu$ grades.

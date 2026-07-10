@@ -198,7 +198,7 @@ As the mode amplitude $V \to V_{snap}$, the capacitance diverges $C_{eff} \to \i
     U_{max}(\omega) = \frac{1}{2} C \, V_{snap}^2 \cdot \frac{\omega}{\omega_{max}} = \hbar\omega
     \label{eq:mode_quantization}
 \end{equation}
-where $\omega_{max} = 2c/\ell$ is the Brillouin zone cutoff. The factor $\omega/\omega_{max}$ arises because lower-frequency standing waves span more cells, each contributing $V_{snap}$ to the total stored energy. \textbf{Energy quantisation $E = n\hbar\omega$ is not an axiom; it emerges from the saturation ceiling of the LC lattice.}
+where $\omega_{max} = 2c/\ell$ is the (1D-lumped) Brillouin zone cutoff --- the nearest-neighbour band edge used here as the heuristic ceiling. \emph{(The substrate-native 3D srs global band top is higher --- scalar $\pi\sqrt3 = 5.441\,\omega_C$ via the transmission-line arccos map, vector top in the bracket $[5.441, 17.011]\,\omega_C$, no internal gap either channel; canonical: \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md}, \texttt{clm-bnd5rq}. The energy-quantisation heuristic below uses the lumped edge and is unchanged by the value.)} The factor $\omega/\omega_{max}$ arises because lower-frequency standing waves span more cells, each contributing $V_{snap}$ to the total stored energy. \textbf{Energy quantisation $E = n\hbar\omega$ is not an axiom; it emerges from the saturation ceiling of the LC lattice.}
 
 \paragraph{Step 2: Integer excitations.}
 Because the mode cannot hold a fractional quantum of energy (the saturation ceiling enforces a standing-wave node at $V_{snap}$, creating discrete allowed amplitudes), the thermal partition function is a geometric series over integer excitations $n = 0, 1, 2, \ldots$:

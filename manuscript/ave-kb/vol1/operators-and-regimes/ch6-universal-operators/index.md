@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-9kd2t3, clm-gdd70j, clm-j550uh, clm-k6quve, clm-nxc9gy]
+subtree-claims: [clm-9kd2t3, clm-bnd5rq, clm-gdd70j, clm-j550uh, clm-k6quve, clm-nxc9gy]
 subtree-experiments: []
 -->
 
@@ -36,3 +36,4 @@ Eight universal operators govern physics at all spatial scales without domain-sp
 | [Packing Reflection](./packing-reflection.md) | Equilibrium packing fraction, $R_{g,target}$, $\Gamma_{pack}$ |
 | [Lattice Impedance Decomposition](./lattice-impedance-decomposition.md) | Canonical six-fold decomposition $Z_0$ / $Z_{\text{cell}}$ / $Z_{\text{eff}}(r)$ / $\eta_{\text{vac}}$ / $Z_{\text{mech}}$ / $Z_{\text{EH}}$; lattice-native units ($V_{\text{YIELD}} = 1$) |
 | [K4 4-Port Irrep Decomposition ($A_1 \oplus T_2$)](./k4-port-irrep-decomposition.md) | Under $T_d$ the 4-port space is $A_1 \oplus T_2$; the K4-TLM scattering matrix has eigenvalues $\{+1, -1, -1, -1\}$; $A_1$ dissipates, $T_2$ survives as the photon |
+| [srs Band Structure](./srs-band-structure.md) | The srs vacuum-net linear band structure: scalar 4-band top $\pi\sqrt3\,\omega_C$ at $H$, vector 12-band top BRACKET $[5.441, 17.011]\,\omega_C$, NO internal gap either channel; the transmission-line arccos map is substrate-native (graph-Laplacian $\omega=\sqrt\lambda$ fails the $1/\sqrt3$ gate) |

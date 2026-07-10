@@ -165,6 +165,9 @@
 {"claim_id": "clm-bh9p6s", "item_idx": 1, "text": "Predict the He-4 binding energy from the topology instead of taking 28.3 MeV as input.", "mentioned_ids": []}
 {"claim_id": "clm-bjceop", "item_idx": 0, "text": "Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs", "mentioned_ids": []}
 {"claim_id": "clm-bjceop", "item_idx": 1, "text": "Show the self-consistency that \"forces\" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)", "mentioned_ids": []}
+{"claim_id": "clm-bnd5rq", "item_idx": 0, "text": "Grant's single-scale-vs-stiffness-lifted ruling would collapse the vector band-top BRACKET to a single value (5.441 or ~17 $\\omega_C$) and fix the fork-A tone floor + pair-channel coexistence window", "mentioned_ids": []}
+{"claim_id": "clm-bnd5rq", "item_idx": 1, "text": "A substrate-native arccos generalization for the 3-DOF Op5 node (a per-branch $\\omega_{\\text{link}}$ that handles $c_P\\neq c_S$ + the anisotropic self-block) would replace the vector bracket with a derived top", "mentioned_ids": []}
+{"claim_id": "clm-bnd5rq", "item_idx": 2, "text": "Surveying the T2 Cosserat-microrotation (rotational) sector would replace the shear-branch light-like PROXY with the true photon branch", "mentioned_ids": []}
 {"claim_id": "clm-bqtasn", "item_idx": 0, "text": "Compute $\\Pi(q^2)$ from the cubic vertex with the BZ cutoff and show it equals QED's $-(\\alpha/3\\pi)q^2\\ln(q^2/m_e^2)$ explicitly.", "mentioned_ids": []}
 {"claim_id": "clm-bqtasn", "item_idx": 1, "text": "Quantify the $\\alpha$-suppressed AVE-distinct chiral piece so the sub-Compton discriminator is testable.", "mentioned_ids": []}
 {"claim_id": "clm-br3bcv", "item_idx": 0, "text": "Propagate the clm-yyhczl bond-length residuals through the geometry to bound the end-to-end error on 3.80 Å.", "mentioned_ids": ["clm-yyhczl"]}

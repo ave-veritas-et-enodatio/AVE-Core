@@ -175,6 +175,7 @@
 {"source": "clm-bh9p6s", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "7\\xi m_ec^2", "fraction": null}
 {"source": "clm-bh9p6s", "target": "clm-mnb3lt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-bjceop", "target": "clm-qwmnhn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the K4-symmetry orbit factor that forces the ratio", "fraction": null}
+{"source": "clm-bnd5rq", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — the chiral srs net $I4_132$, $z=3$, whose $4\\times4$ scalar and $12\\times12$ vector Bloch dispersion is what this survey diagonalizes", "fraction": null}
 {"source": "clm-bqtasn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "1", "fraction": null}
 {"source": "clm-bqtasn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "Brillouin-zone geometric cutoff at $\\pi/\\ell_{node}$", "fraction": null}
 {"source": "clm-bqtasn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "V", "fraction": null}
