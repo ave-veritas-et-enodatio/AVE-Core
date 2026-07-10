@@ -831,3 +831,43 @@ self-focusing formula at λ=800 nm.
   D⁴ harmonic decomposition sympy-confirmed. *consistency-vs-emergence* — CONSISTENCY-class unchanged (E_c
   CODATA-rooted via α, m_e; no emergence claimed). *substitution-not-retraction* — the `5β²` label is corrected to a
   symmetric hedge with its own derivation (13.C), not refilled with a new unverified coefficient.
+
+### 13.G Post-round-4 audit of the v5 diff — two fixes to the LbL/frequency-domain paragraph (2026-07-10, Grant go)
+
+The "Heavy-ion light-by-light scattering, and the model's frequency domain" paragraph (§V) was **born in v5** (merged
+PR #594, the EFT validity-domain scoping) — **after** K.M.'s round-4 read, so it is the one paragraph he has never
+reviewed. A post-round-4 audit of the v5 diff, applied through the same lenses as the round-4 pass, surfaced two
+items; Grant approved both. **Same branch (`letter/v6-round4`, PR #625), one commit. No anchored number moved; the
+frozen Table-I prediction is byte-unchanged.**
+
+- **FIX A — the seam-class cousin (register-no-claim recast; same class as round-4's II.C limb, item 13.A).** The
+  above-band sentence claimed the model **owns/shares** collider-scale four-photon physics — the same
+  Branch-yes-in-a-Branch-no move as the II.C limb, one band up. **Superseded sentence, quoted verbatim:**
+  > *"Above ω₀ the four-photon physics is carried by the electron-pair sector --- the same box diagrams as QED,
+  > **which the model shares** --- so the SM-consistent collider result is that shared physics; what closes the
+  > constitutive channel above ω₀ (a hard mode cutoff rather than a power-law tail) is an ultraviolet-completion
+  > statement this Letter does not supply, and we name it as an open item rather than assert it."*
+
+  **Recast (assertive first half replaced; the UV-completion tail kept verbatim):**
+  > *"Above ω₀, four-photon physics in any theory containing electrons proceeds through the electron-pair box; the
+  > SM-consistent collider result constrains that sector, about which this Letter adds nothing --- what closes the
+  > constitutive channel above ω₀ (a hard mode cutoff rather than a power-law tail) is an ultraviolet-completion
+  > statement this Letter does not supply, and we name it as an open item rather than assert it."*
+
+  The offending clauses (*"which the model shares"*, *"is that shared physics"*) — the only assertive above-band
+  ownership phrasing in the paragraph — are gone. **Paragraph re-grepped end-to-end for other assertive above-band
+  phrasing:** the remaining above-band mentions all **disclaim** ownership (*"extrapolating it to collider kinematics
+  … is precisely the extrapolation never licensed for Euler--Heisenberg itself"*; *"were the present kernel wrongly
+  promoted to one, it would be excluded by many orders"*; *"the model's collider consistency thus rests on its
+  effective-theory domain"*). The model now claims **no** above-band ownership anywhere in the paragraph.
+
+- **FIX B — footing hygiene (round-4 discipline applied to the new paragraph; cf. items 13.B, §II item (iv)).** The
+  in-band FWM enhancement sentence quoted *"~(3.75π/α²)² ≈ 5×10¹⁰ times QED's"* on a bare footing. Appended the same
+  tag that landed across the round-4 pass: *"(single instantaneous footing, Sec. II item (iv); the carrier-average
+  convention shifts this by an O(1) factor, changing no margin)"*. The 7-order (Bernard optical) and 12-order (SACLA
+  X-ray) margin statements are **unchanged** — an O(1) footing shift moves neither margin's order.
+
+- **Build/verify:** `make paper` clean, `make verify` GREEN, PDF rebuilt. Anchored invariants grep-confirmed
+  UNCHANGED. `src/` + JSON UNTOUCHED. Commit message: *"letter(v6): v5-paragraph fixes — register-no-claim recast of
+  the above-band sentence + FWM footing tag (post-round-4 audit)."* A PR comment flags both additions so the in-flight
+  review sees them.
