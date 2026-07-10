@@ -166,7 +166,7 @@ load-bearing table — diagonal canonical, off-diagonal are population questions
 
 | | **SWING** (keyed on the element's own state amplitude) | **SLEW** (keyed on the element's rate/conjugate) |
 |---|---|---|
-| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor; all 26 rows above are swing-ε or swing-μ). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **MEASURED — INTERFACE-SCOPED; BULK VERTEX OPEN** (fork A two-tone run, PR #610, branch `analysis/x31a-twotone-formfactor`). The run banked the ★ **parity theorem** (§ *The parity theorem* below, `clm-invmtr`) and the **A⁶ χ³ law** (`clm-a6chi3`), but the *frequency* vertex above band collapsed to floor at bulk separation (a drive-interface artifact; 17.1-order collapse) — the slew-ε **population question stays OPEN** pending the 3D clamp-free run. |
+| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor; all 26 rows above are swing-ε or swing-μ). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **MEASURED — INTERFACE-SCOPED; BULK VERTEX OPEN** (fork A two-tone run, PR #610, branch `analysis/x31a-twotone-formfactor`). The run banked the ★ **parity theorem** (§ *The parity theorem* below, `clm-invmtr`) and the **A⁶ χ³ law** (`clm-a6chi3`). The **co-located interface** reading was the artifact (flat by construction, $q_{raw}=2.93$); at bulk separation (sep≥3) the beat **collapses 17.1 orders tracking the physical skin suppression** (vindicating the frozen $O_{skin}$ bulk model), so the *frequency* vertex was NOT probed — the slew-ε **population question stays OPEN** pending the 3D clamp-free run. |
 | **μ / L** | **swing-μ** (L keyed on $I$/B amplitude; bench analog = ferrite-core saturation): **PREDICTED EMPTY for the vacuum** — this cell's emptiness IS the registered **static-B-transparency falsifier** (PVLAS/BMV consistency = its standing test; frozen-flux mechanism: static flux is conserved per-loop, not stored against a saturable core). Cross-ref [the Letter §"static-flux transparency"](../../../papers/2026_birefringence_letter/main.tex) + [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md) (`clm-pvlas1`). | **slew-μ** (L keyed on $V$ = flux-rate / circulation $A_I=\dot E/(E_c\omega_0)$): $S_B(A_I)=\sqrt{1-A_I^2}$ — **CANONICAL** (the FPB slew rating, $I_{max}\simeq116$ A). Particle-tier costume: the relativistic inductor $L_{eff}=$ γ-factor (relativistic mass) — pending A4. |
 
 The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ). The **ASYM-N(μ) BCS row** above is
@@ -208,10 +208,15 @@ reversible vacuum) the difference tone sits at floor ($1.17\times10^{-16}$ vs th
 for $\beta > 0$ the forbidden tone rises **monotonically, power $\propto \beta^2$** (fitted exponent **2.000**,
 $R^2 = 0.99999999$) while the allowed odd-order FWM sideband stays $\beta$-blind. A nonzero difference-channel
 reading therefore flags an even-order (rectifying) leak — the vacuum as a **biased-varactor difference-tone mixer**,
-conversion $\propto$ bias. The meter's DC small-signal bias calibration rides on the tangent capacitance
-$C_{ss} = C_0/S^3$ ([`node-up-small-large-signal.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md),
-`clm-vca7r1`); the EE-tracker mixer row is at
-[`translation-circuit.md` §4.5(b)](translation-tables/translation-circuit.md).
+conversion $\propto$ bias. **A1↔T2 ownership bridge — PENDING-GRANT (flag-don't-fix).** The meter's
+bias-calibration route via $C_{ss} = C_0/S^3$ is *not* yet sector-closed: the cited $C_{ss}$
+([`node-up-small-large-signal.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md),
+`clm-vca7r1`) is the **A1-longitudinal** compliance tangent, whereas this meter reads a **T2-transverse** observable
+(the drive is T2 — see the sector header) — so calibrating the transverse channel through the A1 tangent requires an
+explicit **A1↔T2 ownership bridge** first. Whether the frozen bias $u_0^*$ enters the transverse channel through the
+A1 tangent, a T2-native tangent, or a cross-sector coupling is **PENDING-GRANT** (the first question of the D-II
+calibration batch — sector-ownership discipline forbids the cross-wire without the bridge). The EE-tracker mixer row
+is at [`translation-circuit.md` §4.5(b)](translation-tables/translation-circuit.md).
 
 ### The A⁶ amplitude law — the χ³-channel fingerprint
 <!-- claim-quality: clm-a6chi3 -->
