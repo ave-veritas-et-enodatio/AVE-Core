@@ -26,7 +26,7 @@ The vacuum cannot be a classical Cauchy solid (implosion paradox); it must be a 
 
 | Document | Contents |
 |---|---|
-| [Implosion Paradox](./implosion-paradox.md) | Why the vacuum must be micropolar: MacCullagh's condition yields negative bulk modulus |
+| [Implosion Paradox](./implosion-paradox.md) | Why the vacuum must be micropolar: the transverse-only (zero-longitudinal) Cauchy condition yields negative bulk modulus |
 | [Constitutive Moduli](./constitutive-moduli.md) | Mapping $\mu_0$, $\epsilon_0$ to mechanical moduli via topo-kinematic isomorphism |
 | [Topo-Kinematic Isomorphism](./topo-kinematic-isomorphism.md) | 7-row dimensional mapping table: Voltage to Force, Current to Velocity, etc. |
 | [Dielectric Rupture](./dielectric-rupture.md) | Voronoi cell volume, packing fraction $p_c = 8\pi\alpha$ as QED↔EMT consistency identity (α's value a Class B named identification in Ch.8, not a first-principles derivation) <!-- 🔴 Rule-12 2026-06-15 alpha: prior "alpha's value derived in Ch.8" superseded per Ch.8 keystone. --> |
