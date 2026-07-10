@@ -67,7 +67,9 @@
       0.5109563980739561
     ]
   },
-  "BRANCH": "P_NODE_PINS",
+  "BRANCH_under_frozen_model": "P_NODE_PINS",
+  "verdict_class": "CONDITIONAL_CHARACTERIZATION",
+  "verdict_note": "Branch P_NODE_PINS holds IFF ALL THREE un-derived choices are made together: (1) series anti-resonant (mass-in-mass) node topology, (2) eta=1, (3) tank anchored at omega_C. prereg_FROZEN.md:85 lists an equally passive/lossless/KCL-consistent parallel-LC band-pass shunt -> Branch L; any eta<1 -> full-spectrum ceiling lifts ~= bare continuum (see eta_singularity); the tank anchored at any omega_r pins the ceiling at omega_r (see placement_sweep). The engine returns whatever the node model installs; it does not derive the ceiling. X33's in-engine-undecidable ruling STANDS + is REINFORCED. This is a characterization of the chosen model, not an emergence claim.",
   "eta_family_srs": {
     "0.25": {
       "lower_branch_top_omega_C": 0.9979779015897701,
@@ -106,27 +108,90 @@
       "stop_band_is_D_independent": true
     }
   },
+  "placement_sweep": {
+    "Lam_stiff_rho1000": 6003.666773274687,
+    "anchors_x_omega_C": {
+      "0.5": {
+        "tank_anchor_omega_r_over_omega_C": 0.5,
+        "coupled_ceiling_omega_C": 0.49998959002048315
+      },
+      "1": {
+        "tank_anchor_omega_r_over_omega_C": 1.0,
+        "coupled_ceiling_omega_C": 0.9999167279654717
+      },
+      "pi_sqrt3": {
+        "tank_anchor_omega_r_over_omega_C": 5.441398092702652,
+        "coupled_ceiling_omega_C": 5.428029608761638
+      },
+      "10": {
+        "tank_anchor_omega_r_over_omega_C": 10.0,
+        "coupled_ceiling_omega_C": 9.917743723879504
+      }
+    },
+    "note": "The coupled ceiling = the INSTALLED tank anchor omega_r (CRITICAL-1). A tank at pi*sqrt3*omega_C reproduces the walk's ceiling (~5.428). The '~1 omega_C pin' is not derived; it is where the tank is placed. This is the P-vs-anchor tautology."
+  },
+  "eta_singularity": {
+    "per_eta": {
+      "1": {
+        "full_spectrum_ceiling_lift_1000_over_1": 1.040746331246462,
+        "lower_branch_top_omega_C": 0.9999167279654717,
+        "upper_branch_top_omega_C": null
+      },
+      "0.999": {
+        "full_spectrum_ceiling_lift_1000_over_1": 21.492561730032644,
+        "lower_branch_top_omega_C": 0.9999168113004011,
+        "upper_branch_top_omega_C": 2450.4419547177713
+      },
+      "0.99": {
+        "full_spectrum_ceiling_lift_1000_over_1": 21.499422225520952,
+        "lower_branch_top_omega_C": 0.9999175604450147,
+        "upper_branch_top_omega_C": 774.8972044680123
+      },
+      "0.9": {
+        "full_spectrum_ceiling_lift_1000_over_1": 21.568887397043255,
+        "lower_branch_top_omega_C": 0.9999250529858651,
+        "upper_branch_top_omega_C": 245.0421757221301
+      },
+      "0.75": {
+        "full_spectrum_ceiling_lift_1000_over_1": 21.68829096970847,
+        "lower_branch_top_omega_C": 0.9999375414239349,
+        "upper_branch_top_omega_C": 154.97634405938217
+      },
+      "0.5": {
+        "full_spectrum_ceiling_lift_1000_over_1": 21.89830006187623,
+        "lower_branch_top_omega_C": 0.9999583579148644,
+        "upper_branch_top_omega_C": 109.58254254137294
+      }
+    },
+    "bare_continuum_lift_1000_over_1": 22.367512420262656,
+    "P_is_singular_at_eta_1": true,
+    "note": "Branch P (full-spectrum pinning) exists ONLY at exactly eta=1. At eta=0.999 the full-spectrum ceiling already lifts ~21.5x, indistinguishable from the bare continuum's 22.37x: a lifting upper polariton branch reappears for ANY eta<1. The eta=1 pin is a knife-edge, not a robust regime."
+  },
   "convergence_to_walk": {
-    "node_tank_ceiling_omega_C": 0.9879844211032345,
+    "node_tank_ceiling_omega_C_at_anchor_omega_C": 0.9879844211032345,
     "walk_ceiling_omega_C": 5.441398092702652,
-    "ratio_node_tank_over_walk": 0.1815681198602617,
-    "reproduces_walk": false,
-    "note": "Both PIN, by DIFFERENT mechanisms (node resonance vs bond tick). The node tank binds at ~1 omega_C = m_e c^2; the walk at pi*sqrt3 = 5.441 omega_C = 2.781 MeV. The node tank is TIGHTER by pi*sqrt3. It does NOT reproduce the walk's arccos band (rational vs arccos law). Convergence would require omega_C(tank)=pi*sqrt3 \u2014 the plumber question surfaced to Grant."
+    "ratio_node_tank_over_walk_at_anchor_omega_C": 0.1815681198602617,
+    "reproduces_walk_at_anchor_omega_C": false,
+    "note": "At anchor omega_C the node-tank ceiling (~1 omega_C) and the walk (pi*sqrt3 omega_C) differ by pi*sqrt3, so reproduces_walk=False. But the placement_sweep shows a tank anchored at pi*sqrt3*omega_C DOES reproduce the walk's ceiling (5.428~=5.441): the band SHAPE differs (rational vs arccos) but the CEILING = the un-derived anchor. The 'two-clock tension' with #604 REDUCES to the anchor/topology choice, NOT a physical cross-engine contradiction. The two engines install different node models."
   },
   "longitudinal_only_window": {
     "under_bare_continuum_MeV": [
       2.7805,
       39.5939
     ],
-    "under_node_tank_MeV": "CLOSED (all channels pinned at ~0.5049 MeV \u2014 Branch P)",
+    "under_node_tank_MeV": "CLOSES only on the eta=1 knife-edge (~0.5049 MeV = the anchor identity); for ANY eta<1 the upper polariton branch re-opens it",
     "under_walk_MeV": "CLOSED (all channels pinned at pi*sqrt3 = 2.7805 MeV)",
-    "note": "Branch P closes the longitudinal-only window (X33 deliverable) via the node bottleneck."
+    "note": "CONDITIONAL: the window closes only under the full 3-choice Branch-P model. Upper edge 8.69 MeV inherits #607's bracket (PENDING-GRANT), not re-established by X36."
   },
   "gates": {
     "G1_lowk_unchanged": {
+      "frozen_clause_part1_walk_over_cont_ratio": 1.4142134953364378,
+      "frozen_clause_part1_dev_from_sqrt2": 6.703665733631681e-08,
+      "frozen_clause_part1_pass": true,
       "tank_over_bare_lowk_ratio_mean": 0.9999999970561873,
       "max_dev_from_1": 5.691694227039079e-09,
       "R_used": 0.7138800490605338,
+      "post_freeze_note": "SHIPPED gate checked ONLY tank/bare=1 (part 2), NOT the frozen walk/cont=sqrt(2) clause (part 1). This is a POST-FREEZE CHANGE: both parts are now asserted; the original was NOT the frozen clause.",
       "pass": true
     },
     "G2_tank_removed_control": {
@@ -136,14 +201,24 @@
         24.56976504512364,
         77.48333222877477
       ],
-      "bare_top_omega_C": [
-        3.4641014509321506,
-        7.8978797645169765,
-        24.56976504512364,
-        77.48333222877477
+      "x36_bare_top_elastic": [
+        2.4494897427831783,
+        5.584644603209709,
+        17.373448299104624,
+        54.78899224500872
       ],
-      "max_rel_err_vs_bare": 0.0,
-      "lift_ratio_1000_over_1": 22.367512420262656,
+      "x33_reference_path": "research/2026-07-09_x33-clock-architecture_result.json",
+      "x33_ref_top_elastic": [
+        2.4494897427831783,
+        5.584644603209709,
+        17.373448299104624,
+        54.78899224500872
+      ],
+      "x33_ref_lift_ratio_1000_over_1": 22.367512420262656,
+      "x36_vs_x33_top_max_rel_err": 0.0,
+      "x36_lift_ratio_1000_over_1": 22.367512420262656,
+      "lift_vs_x33_ref_rel_err": 0.0,
+      "note": "Cross-ARTIFACT check vs the merged #611 X33 JSON (a separate run's stored number), NOT the tank function compared to its own input (the shipped MAJOR-10 self-comparison). Agreement is bit-level because X33 and X36 share the same deterministic srs vector_bloch_D scan (Rule 14 reuse); the check's value is catching pipeline/grid DRIFT against the merged artifact \u2014 it is nonzero if X36 alters the continuum computation.",
       "pass": true
     },
     "G3_scalar_walk_reproduces_604": {
@@ -173,29 +248,54 @@
             1.0,
             1.1547005383792517
           ],
-          "measured_upper_bottom": 1.1547005385235891,
-          "edge_err": 1.443374308962575e-10,
-          "D_independence_err": 0.0
+          "lambda_sweep_span": [
+            1e-09,
+            1000000000.0
+          ],
+          "measured_lower_top_stiff": 1.0,
+          "measured_upper_bottom_soft": 1.154700538379396,
+          "modes_inside_open_gap_over_sweep": 0,
+          "edge_err": 1.4432899320127035e-13
         },
         "0.5": {
           "pred_stop_band": [
             1.0,
             1.414213562373095
           ],
-          "measured_upper_bottom": 1.4142135627266486,
-          "edge_err": 3.5355363081635005e-10,
-          "D_independence_err": 0.0
+          "lambda_sweep_span": [
+            1e-09,
+            1000000000.0
+          ],
+          "measured_lower_top_stiff": 1.0,
+          "measured_upper_bottom_soft": 1.4142135623734486,
+          "modes_inside_open_gap_over_sweep": 0,
+          "edge_err": 3.5371705564557487e-13
         },
         "0.75": {
           "pred_stop_band": [
             1.0,
             2.0
           ],
-          "measured_upper_bottom": 2.00000000075,
-          "edge_err": 7.500000620552782e-10,
-          "D_independence_err": 0.0
+          "lambda_sweep_span": [
+            1e-09,
+            1000000000.0
+          ],
+          "measured_lower_top_stiff": 1.0,
+          "measured_upper_bottom_soft": 2.00000000000075,
+          "modes_inside_open_gap_over_sweep": 0,
+          "edge_err": 7.500666754367558e-13
         }
       },
+      "planted_violation": {
+        "eta": 0.5,
+        "gap": [
+          1.0,
+          1.414213562373095
+        ],
+        "planted_mode_omega_C": 1.189207115002721,
+        "detected_inside_gap": true
+      },
+      "gate_can_fail": true,
       "pass": true
     }
   },
@@ -209,5 +309,5 @@
     "rho_tank_top": 0.99400432770082,
     "rho_walk_top": 5.441398092702652
   },
-  "D_I_verdict": "Branch P_NODE_PINS. The channel-shared node LC tank (Axiom 1) presents the bonds an effective dynamical mass diverging at omega_C; the reciprocal bottleneck law 1/omega^2 = 1/Lambda + 1/omega_C^2 pins EVERY channel at the node rate ~1 omega_C = m_e c^2, lift ratio 1.041x (vs the bare continuum's 22.37x). Effective synchrony is DERIVED from Axiom-1's node resonance with NO tick postulate. The node tank is a TIGHTER clock than the bond-tick walk (pi*sqrt3 omega_C) \u2014 flagged tension with #604."
+  "D_I_verdict": "CONDITIONAL CHARACTERIZATION (demoted from 'Branch P_NODE_PINS, derived from first principles' per PR #613 review, 17/17 confirmed). Under the frozen 3-choice model (series notch + eta=1 + anchor=omega_C) the reciprocal FORM 1/omega^2 = 1/Lambda + 1/omega_C^2 (a standard locally-resonant-metamaterial anti-resonance) caps every channel at the INSTALLED anchor, lift 1.041x vs the bare continuum's 22.37x. But: (a) the topology is a CHOICE not forced (prereg:85 parallel-LC band-pass -> Branch L); (b) the pin is singular at exactly eta=1 (any eta<1 lifts ~= bare continuum); (c) the ceiling = the installed anchor (placement probe). No emergence claim (omega_C = m_e c^2 is a calibration identity). X33's in-engine-undecidable ruling STANDS + is REINFORCED; the fork is SHARPENED to a 3-axis PENDING-GRANT-WALK question, NOT collapsed."
 }
