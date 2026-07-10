@@ -603,7 +603,8 @@ signature is accessed. The effect is a pure \emph{amplitude} modulation --- it
 rides the signal magnitude, not the polarization character or the analyzer
 geometry --- and its \emph{first}-harmonic (sidereal-period) character is itself a
 discriminator, robust to that coefficient uncertainty: the $O(\beta^2)$ second
-harmonic ($5\beta^2\simeq\num{7.6e-6}$) is smaller by $\sim\!3$ orders, so a
+harmonic (of order $\beta^2$, several $\times\,10^{-6}$) is smaller by $\sim\!3$
+orders, so a
 static-field response, which would carry \emph{only} the $O(\beta^2)$ second
 harmonic, is separated by the mere \emph{presence} of the first harmonic whatever
 its precise amplitude. (An earlier registration quoted only that second harmonic,
@@ -810,10 +811,11 @@ is unchanged, and the model margin above the polarimeter floor only improves.
   $\sim\!10^6\text{--}10^7$ above the demonstrated purity floor. (An exact
   fluence-weighted $\langle\sin^2\rangle$ reproduces these to $<0.2\%$, the
   small-angle regime being deep.) Beyond the slow envelope, a probe crossing the
-  $\sim\!\SI{10}{\micro\meter}$ interaction region traverses $\sim\!10$ optical
-  carrier cycles and so accumulates retardance from the carrier-\emph{averaged}
-  response rather than the crest field ($\langle\cos^2\rangle=\tfrac12$ in
-  $\dnbir\propto E^2$); folding this in scales $\Pflip$ by a further factor
+  $\sim\!\SI{10}{\micro\meter}$ interaction region counter-propagates against the
+  pump and so sweeps its carrier at the sum frequency, traversing
+  $2z/\lambda\simeq25$ optical carrier cycles, and so accumulates retardance from
+  the carrier-\emph{averaged} response rather than the crest field
+  ($\langle\cos^2\rangle=\tfrac12$ in $\dnbir\propto E^2$); folding this in scales $\Pflip$ by a further factor
   $\tfrac14$ ($\Pflip\propto\dnbir^2$), giving a \emph{measured} expectation ---
   envelope and carrier averaging together --- of $\Pflip^{\mathrm{meas}}\simeq
   \num{2.6e-4}$, $\num{2.1e-4}$, and $\num{4.5e-4}$ for the three demonstrated-pump
@@ -1149,6 +1151,10 @@ commissioning-grade data at an already-operating facility.
 
 The eigen-indices of Eq.~\eqref{eq:eigenindices} follow from the constitutive law
 Eq.~\eqref{eq:kernel} by direct differentiation; we display every step. The
+derivation uses the electric permittivity alone: at the optical pump the magnetic
+sector loads by only $A_I^2/A^2=(k\ell_{\mathrm{node}})^2\simeq\num{9e-12}$
+(Sec.~\ref{sec:model}), so $\mu_{\mathrm{eff}}=\mu_0$ to $\sim\!1$ part in
+$10^{11}$ and the probe eigen-indices are fixed by $\varepsilon$ alone. The
 scalar law relates displacement and field through the field-magnitude invariant
 $u\equiv|E|^2$,
 %
