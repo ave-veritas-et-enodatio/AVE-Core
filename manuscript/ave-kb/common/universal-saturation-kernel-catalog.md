@@ -131,6 +131,32 @@ Where the catalog has paired/companion rows at the SAME scale (e.g., a SYM row t
 
 **Lookup convention**: when proposing a new row, check this table first to see if a paired/companion row already exists. If the proposed row is the companion of an existing row, label its row explicitly with the companion link.
 
+### RATING-TYPE axis (swing / slew) — X35 annotation (2026-07-10)
+<!-- registry hygiene + candidate-generation, NOT a physics claim -->
+
+Per the X35 operator-typing pass ([`research/2026-07-10_operator-typing-pass_result.md`](../../../research/2026-07-10_operator-typing-pass_result.md)),
+a third orthogonal axis is annotated on this catalog (alongside the spatial Regime I-IV, power-domain θ, and
+temporal $\delta_{\text{AVE}}$ axes): the **RATING TYPE**, *swing* vs *slew*, from the slew identity in the
+FPB-corner walked-framing note (**PR #595 UNMERGED — FRAMING, not canon**; pointer at
+[`lattice-model-register.md:86-93`](lattice-model-register.md)). The two ratings of one amplifier: an
+*output-swing* rating (amplitude-keyed, $S(A)=\sqrt{1-A^2}$, cap $E\le E_c$) and a *slew-rate* rating
+(rate-keyed, $S_B$ on $A_I=\dot E/(E_c\omega_0)$, cap $\dot E\le E_c\omega_0$).
+
+- **All 26 catalog instances are SWING-typed.** Every row keys the kernel on an *amplitude* ratio $A/A_c$
+  (dielectric $V/V_{snap}$, BCS $T/T_c$, strain/yield, MOND $g_N/a_0$, $2GM/c^2r$, …). **Zero** rows key on a
+  *rate* $\dot A$.
+- **The slew-rating dual kernel is un-catalogued (GAP G2).** Its canonical form is the relativistic inductor
+  $L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}$ ([`relativistic-inductor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md),
+  `clm-p5cf3t`) — "the varactor equation with $V\to I$ … projections of the single Axiom-4 kernel onto the
+  electric and magnetic sectors." The one likely slew instance ("relativistic mass") currently hides among the
+  swing rows; the slew-instance catalog is otherwise empty — the collapse-sweep's first candidate-generation target.
+- **RATING is orthogonal to the ε/μ SECTOR axis above — AMBIGUOUS-for-Grant, flag-don't-fix (A1).** The FPB note
+  identifies swing = ε-kernel and slew = μ-kernel (a 1:1 map), but this catalog's own **ASYM-N(μ) BCS row**
+  ($B_c(T)=B_{c0}\sqrt{1-(T/T_c)^2}$) is amplitude-keyed = **swing** *in the μ-sector*, and the engine gives
+  $S_\mu$, $S_\varepsilon$ the same swing form (`cosserat_field_3d.py:612-613`). So swing/slew appears orthogonal
+  to ε/μ (a 2×2: swing-ε, swing-μ, slew-ε, slew-μ), contradicting the FPB 1:1 identification. **Not resolved
+  here** — logged as AMBIGUOUS A1 for Grant's ruling (it gates whether G1 numbers one slew-operator or a pair).
+
 ## What this catalog establishes
 
 **Pre-A-034:** each row was treated as a separate framework result — Vol 3 Ch 13 (Geophysics) had geomagnetic reversal; Vol 3 Ch 14 (Orbital Mechanics) had solar flares; Vol 3 Ch 15 (BH Orbital Resonance) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as inaccessible.
