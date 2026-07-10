@@ -120,6 +120,14 @@ K_B: float = 1.380649e-23  # Boltzmann conversion constant [J/K] (exact, 2019 SI
 N_A: float = 6.02214076e23  # Avogadro constant [mol⁻¹] (exact, 2019 SI)
 M_U: float = 1.66053906660e-27  # Atomic mass unit (Dalton) [kg]
 M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
+# M_MUON: experimental anchor (CODATA 2018), added by the x42 atomic-eigencavity
+# lane (research/2026-07-10_x42-atomic-eigencavity_*). Used ONLY to scale the
+# de Broglie probe dispersion for the muonic-hydrogen phase-closure spectrum
+# (a_mu = a_0·(m_e/m_r,mu), reduced mass m_r,mu = m_mu·m_p/(m_mu+m_p)); it is a
+# probe mass, NOT a substrate calibration input (the three imported inputs remain
+# {m_e, alpha, G}, see :126-150). [doc/analysis lane addition; engine lane owns
+# constants.py — coordinate on merge per :228.]
+M_MUON: float = 1.883531627e-28  # Muon mass [kg] (CODATA 2018 experimental anchor)
 M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
 # =============================================================================
