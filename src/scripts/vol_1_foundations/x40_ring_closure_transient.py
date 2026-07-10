@@ -264,3 +264,110 @@ def scan_for_dimensional_constants(source_path: str) -> list[str]:
         elif isinstance(node, ast.Attribute) and node.attr in FORBIDDEN_CONSTANTS:
             violations.append(f"line {node.lineno}: attribute access '.{node.attr}'")
     return violations
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# E4 — the Neumann-mutual SECOND AXIS (KEEP-BOTH; the genuinely open number).
+#
+# L_loop^(geom) = N*L_self + sum_{j!=k} M_jk, with the SELF footing fixed at the
+# canonical TLM per-bond mu0*l (substrate-native) — NOT the divergent filament
+# self-inductance. M_jk = (mu0/4pi) oint_j oint_k (dl_j . dl_k)/|r_j - r_k| over
+# the ACTUAL skew ring, consistent signed orientation. Reported as a SEPARATE
+# characterization axis (mixed footing declared); the headline stays the TLM 1/10.
+#
+# Method: reduce the double Neumann integral to a 1-D outer integral of the exact
+# inner segment potential. Adjacent bonds share a vertex => integrable log
+# endpoint singularity, flagged to the quadrature.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def _segment_potential(r: np.ndarray, c: np.ndarray, bhat: np.ndarray, length: float) -> float:
+    """G_k(r) = integral_0^length dt / |r - (c + t*bhat)|  (exact closed form).
+
+    = asinh((L - t0)/h) - asinh(-t0/h), t0 = (r-c).bhat, h = perp distance.
+    Uses the equivalent log-ratio form; +inf only at a point ON the segment
+    (the shared vertex) where the outer integral's log singularity is integrable.
+    """
+    w = r - c
+    t0 = float(w @ bhat)
+    perp2 = float(w @ w) - t0 * t0
+    h2 = max(perp2, 0.0)
+    a = length - t0
+    b = -t0
+    num = a + np.sqrt(a * a + h2)
+    den = b + np.sqrt(b * b + h2)
+    if den <= 0.0 or num <= 0.0:  # exactly on the segment line at/through the vertex
+        den = max(den, 1e-300)
+        num = max(num, 1e-300)
+    return float(np.log(num) - np.log(den))
+
+
+def mutual_inductance(seg_j: np.ndarray, seg_k: np.ndarray) -> float:
+    """Neumann mutual inductance M_jk (mu0 = 1) between two oriented straight bonds.
+
+    seg = (2,3) endpoints [P_start, P_end]; the current direction is P_start->P_end
+    (the signed ring orientation). Adjacent bonds sharing a vertex are handled by
+    flagging the singular abscissa to the adaptive quadrature.
+    """
+    from scipy.integrate import quad
+
+    a0, a1 = seg_j[0], seg_j[1]
+    c0, c1 = seg_k[0], seg_k[1]
+    da = a1 - a0
+    dc = c1 - c0
+    L1 = float(np.linalg.norm(da))
+    L2 = float(np.linalg.norm(dc))
+    ahat = da / L1
+    chat = dc / L2
+    dot = float(ahat @ chat)  # sign of the mutual rides on the orientation dot
+
+    # singular abscissae: s where r1(s) coincides with a shared vertex of seg_k
+    sing = []
+    for vtx in (c0, c1):
+        s = float((vtx - a0) @ ahat)
+        if -1e-9 <= s <= L1 + 1e-9 and np.linalg.norm(a0 + s * ahat - vtx) < 1e-9:
+            sing.append(min(max(s, 0.0), L1))
+
+    def integrand(s: float) -> float:
+        return _segment_potential(a0 + s * ahat, c0, chat, L2)
+
+    val, _ = quad(integrand, 0.0, L1, points=sing or None, limit=200)
+    return (1.0 / (4.0 * np.pi)) * dot * val
+
+
+def neumann_second_axis(ring: Ring) -> dict[str, float]:
+    """Compute the geometric second axis over the actual skew ring.
+
+    Returns Sigma m_jk (ordered-pair sum), f_E^(geom), and the split of Sigma
+    into adjacent (shared-vertex) vs non-adjacent contributions. Footing: self =
+    mu0*l (TLM), mutuals = Neumann. m_jk = M_jk/(mu0*l); l = mean bond length.
+    """
+    P = ring.coords
+    N = ring.N
+    segs = [np.array([P[k], P[(k + 1) % N]]) for k in range(N)]
+    ell = float(np.mean([np.linalg.norm(s[1] - s[0]) for s in segs]))
+
+    sum_m = 0.0
+    sum_adj = 0.0
+    sum_nonadj = 0.0
+    for j in range(N):
+        for k in range(N):
+            if j == k:
+                continue
+            M = mutual_inductance(segs[j], segs[k])
+            m = M / ell  # normalize by mu0*l (mu0 = 1)
+            sum_m += m
+            if k in ((j + 1) % N, (j - 1) % N):
+                sum_adj += m
+            else:
+                sum_nonadj += m
+    f_E_geom = 1.0 / (N + sum_m)
+    return {
+        "sum_m_jk": sum_m,
+        "sum_m_adjacent": sum_adj,
+        "sum_m_nonadjacent": sum_nonadj,
+        "f_E_geom": f_E_geom,
+        "L_loop_geom_over_mu0l": N + sum_m,
+        "ell": ell,
+        "N": float(N),
+    }
