@@ -27,9 +27,11 @@ import numpy as np
 
 from ave.core import junction_parasitics as jp
 
-# REPORTING-ONLY scale imports (never touch the extraction path; used for MeV labels
-# and the pi*sqrt3 reference. omega_C = c/ell_node is the dimensional-forced unit.)
-from ave.core.constants import HBAR, OMEGA_C, e_charge
+# REPORTING + DETECTOR scale imports (this driver is the DETECTOR, not the extraction
+# path — G-A scans ave.core.junction_parasitics, never this file). Used for MeV labels,
+# the pi*sqrt3 reference, and the forbidden-MAGNITUDE list (review R8). Imported by
+# SYMBOL — no hard-coded constant values (the anti-cheat DAG scan forbids magic numbers).
+from ave.core.constants import C_CELL, HBAR, L_CELL, M_E, OMEGA_C, e_charge
 from ave.viz import style
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -44,7 +46,6 @@ REF_604_DOC = "research/2026-07-09_srs-band-survey_result.md:18"
 MEV_PER_OMEGA_C = HBAR * OMEGA_C / e_charge / 1e6  # ~0.511 MeV/omega_C (m_e c^2 IDENTITY)
 
 # Frozen tolerances / thresholds (prereg §6 — no post-hoc relaxation)
-G_B_TOL = 1e-3  # |g(f=0) - pi*sqrt3| / pi*sqrt3
 BRANCH_I_TOL = 0.02  # |g(f*) - pi*sqrt3| / pi*sqrt3
 BRANCH_I_SWING = 0.05  # |g(0)-g(0.5)| / pi*sqrt3
 BRANCH_III_SWING = 0.10  # extent-dominated threshold
@@ -56,6 +57,20 @@ _OUT.mkdir(exist_ok=True)
 
 _FORBIDDEN = {"OMEGA_C", "M_E", "L_CELL", "C_CELL"}
 _EXTRACTION_MODULE = Path(jp.__file__)
+
+# Forbidden-scale MAGNITUDES, taken by SYMBOL from constants (NO hard-coded values —
+# the anti-cheat DAG scan forbids magic numbers, and this keeps the detector exact).
+# The symbol scan is blind to a hard-coded numeric LITERAL of, e.g., omega_C's value
+# (review R8), so the detector also flags any numeric literal in the extraction path
+# matching one of these to 0.1%. NOTE the residual limitation, disclosed in gate_A():
+# a value reached by ARITHMETIC on allowed literals is not literal-caught — the
+# structural guarantee is the no-scale-import invariant, not literal-hunting.
+_FORBIDDEN_MAGNITUDES = {
+    "OMEGA_C": OMEGA_C,
+    "M_E": M_E,
+    "L_CELL": L_CELL,
+    "C_CELL": C_CELL,
+}
 
 
 def _json_default(o):
@@ -78,13 +93,16 @@ def scan_forbidden_inputs(source: str) -> dict:
     """AST-scan `source` for forbidden physical-scale inputs in the CODE (not in
     docstrings/comments — AST excludes those). Returns the offenders found.
 
-    Forbidden: any Name/Attribute id in {OMEGA_C, M_E, L_CELL, C_CELL}, and any
-    `from ave.core.constants import ...` (the extraction path must import no scale).
+    Forbidden: any Name/Attribute id in {OMEGA_C, M_E, L_CELL, C_CELL}; any
+    `from ave.core.constants import ...` (the extraction path must import no scale);
+    and any numeric LITERAL matching a forbidden magnitude to 0.1% (review R8, the
+    symbol scan is blind to a hard-coded value). AST excludes docstrings/comments.
     This is the machine-checkable #613 anti-install lesson.
     """
     tree = ast.parse(source)
     name_hits: list[str] = []
     import_hits: list[str] = []
+    literal_hits: list[str] = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Name) and node.id in _FORBIDDEN:
             name_hits.append(node.id)
@@ -92,72 +110,107 @@ def scan_forbidden_inputs(source: str) -> dict:
             name_hits.append(node.attr)
         elif isinstance(node, ast.ImportFrom) and node.module == "ave.core.constants":
             import_hits.append("ave.core.constants:" + ",".join(a.name for a in node.names))
-    return {"name_hits": sorted(set(name_hits)), "import_hits": sorted(set(import_hits))}
+        elif (
+            isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and not isinstance(node.value, bool)
+        ):
+            v = abs(float(node.value))
+            if v > 0.0:
+                for nm, mag in _FORBIDDEN_MAGNITUDES.items():
+                    if abs(v - mag) / mag < 1e-3:
+                        literal_hits.append(f"{nm}~{node.value}")
+    return {
+        "name_hits": sorted(set(name_hits)),
+        "import_hits": sorted(set(import_hits)),
+        "literal_hits": sorted(set(literal_hits)),
+    }
 
 
 def gate_A() -> dict:
     hits = scan_forbidden_inputs(_EXTRACTION_MODULE.read_text())
-    clean = not hits["name_hits"] and not hits["import_hits"]
+    clean = not hits["name_hits"] and not hits["import_hits"] and not hits["literal_hits"]
     return {
         "gate": "G-A anti-install",
         "module_scanned": str(_EXTRACTION_MODULE.relative_to(_HERE.parents[3])),
         "forbidden_set": sorted(_FORBIDDEN),
         "name_hits": hits["name_hits"],
         "import_hits": hits["import_hits"],
+        "literal_hits": hits["literal_hits"],
+        "limitation_disclosed": (
+            "symbol + import + numeric-literal scan (review R8). NOT caught: a value "
+            "reached by ARITHMETIC on allowed literals. The structural guarantee is "
+            "the no-scale-import invariant + the dimensionless-cancellation proof "
+            "(derivation §5), not literal-hunting."
+        ),
         "pass": clean,
     }
 
 
 def gate_A_planted() -> dict:
-    """Planted-violation proof: an extraction snippet that DOES reference OMEGA_C
-    in a function body must be flagged by the same scanner (proves G-A can fire)."""
-    bad = (
+    """Planted-violation proof: (1) an extraction snippet that references OMEGA_C by
+    symbol AND (2) one that hard-codes omega_C's numeric VALUE (review R8) must both
+    be flagged by the same scanner (proves G-A can fire on symbol AND literal)."""
+    bad_symbol = (
         "from ave.core.constants import OMEGA_C\n"
         "def bad_extract(f):\n"
-        "    L_j = 1.0\n"
-        "    C_j = 1.0\n"
         "    return OMEGA_C  # installed scale — the #613 error\n"
     )
-    hits = scan_forbidden_inputs(bad)
-    fired = bool(hits["name_hits"]) and bool(hits["import_hits"])
+    # build the plant from the imported symbol (no magic number in this file)
+    bad_literal = f"def bad_extract(f):\n    return 1.0 / {OMEGA_C!r}  # hard-coded omega_C value\n"
+    h1 = scan_forbidden_inputs(bad_symbol)
+    h2 = scan_forbidden_inputs(bad_literal)
+    fired_symbol = bool(h1["name_hits"]) and bool(h1["import_hits"])
+    fired_literal = bool(h2["literal_hits"])
     return {
-        "planted": "G-A: OMEGA_C referenced in extraction body",
-        "name_hits": hits["name_hits"],
-        "import_hits": hits["import_hits"],
-        "gate_fired": fired,
-        "pass": fired,  # the gate MUST fire on the plant
+        "planted": "G-A: OMEGA_C by symbol AND by numeric literal",
+        "symbol_hits": h1["name_hits"] + h1["import_hits"],
+        "literal_hits": h2["literal_hits"],
+        "gate_fired": fired_symbol and fired_literal,
+        "pass": fired_symbol and fired_literal,  # both plants MUST fire
     }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # G-B — independent-reference recovery (vs FROZEN #604)
+# Review R3: the OLD G-B read g_scalar(0.0), which hits the memoryless early-return
+# (theta=pi) — the loaded dispersion solver was NEVER exercised, so the gate was
+# effectively unfireable (float roundoff of pi*sqrt3 computed two ways). The gate
+# now DRIVES the loaded solver at a small NONZERO f (the full coarse+fine crossing
+# scan runs) and asserts it CONVERGES to the FROZEN #604 top pi*sqrt3.
 # ═════════════════════════════════════════════════════════════════════════════
+G_B_PROBE_F = 1e-5  # small but nonzero: exercises the loaded solver, no early return
+G_B_CONVERGE_TOL = 1e-4  # loaded solver must converge to pi*sqrt3 within this
+
+
 def gate_B() -> dict:
-    g0 = jp.g_scalar(0.0)  # loaded solver's own f->0 limit
-    rel = abs(g0 - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
+    g_probe = jp.g_scalar(G_B_PROBE_F)  # LOADED solver at small f (no early return)
+    rel = abs(g_probe - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
+    # separately record the exact memoryless identity (the f=0 closed form)
+    g0_identity = jp.g_scalar(0.0)
     return {
         "gate": "G-B independent-reference recovery",
         "reference_source": REF_604_DOC,
         "reference_value_over_omega_C": REF_604_BAND_TOP_OVER_OMEGA_C,
-        "loaded_solver_f0_over_omega_C": g0,
+        "loaded_solver_probe_f": G_B_PROBE_F,
+        "loaded_solver_probe_over_omega_C": g_probe,
+        "memoryless_identity_f0_over_omega_C": g0_identity,
         "rel_error": rel,
-        "tol": G_B_TOL,
-        "pass": rel < G_B_TOL,
+        "tol": G_B_CONVERGE_TOL,
+        "pass": rel < G_B_CONVERGE_TOL,
     }
 
 
 def gate_B_planted() -> dict:
-    """Planted-violation proof: a perturbed f->0 limit (offset baseline) must FAIL
-    the reference-recovery tolerance (proves G-B can fire)."""
-    perturbed = jp.g_scalar(0.0) * 1.01  # 1% off the memoryless value
+    """Planted-violation proof: a perturbed loaded-solver output (offset) must FAIL
+    the reference-convergence tolerance (proves G-B can fire)."""
+    perturbed = jp.g_scalar(G_B_PROBE_F) * 1.01  # 1% off the loaded value
     rel = abs(perturbed - REF_604_BAND_TOP_OVER_OMEGA_C) / REF_604_BAND_TOP_OVER_OMEGA_C
     return {
-        "planted": "G-B: f->0 limit offset by +1%",
+        "planted": "G-B: loaded-solver output offset by +1%",
         "perturbed_over_omega_C": perturbed,
         "rel_error": rel,
-        "tol": G_B_TOL,
-        "gate_fired": rel >= G_B_TOL,
-        "pass": rel >= G_B_TOL,  # the gate MUST fail (fire) on the plant
+        "tol": G_B_CONVERGE_TOL,
+        "gate_fired": rel >= G_B_CONVERGE_TOL,
+        "pass": rel >= G_B_CONVERGE_TOL,  # the gate MUST fail (fire) on the plant
     }
 
 
@@ -306,6 +359,52 @@ def make_figure(sweep: dict, s_L: float, s_C: float) -> Path:
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# First-class disclosures demanded by the adversarial review (R2 / R4 / R5)
+# ═════════════════════════════════════════════════════════════════════════════
+def shape_factor_bracket(f: float = 0.5, s_grid=(0.3, 0.5, 1.0, 2.0, 3.0)) -> dict:
+    """R5: the ceiling at f=0.5 is DOUBLY conditional (f<=0.5 AND s=1). Sweep
+    s_L,s_C over [0.3,3]^2 and report the bracket floor/ceiling of g(0.5)."""
+    vals = [jp.g_scalar(f, sL, sC) for sL in s_grid for sC in s_grid]
+    return {"f": f, "s_grid": list(s_grid), "g_min": float(min(vals)), "g_max": float(max(vals))}
+
+
+def reciprocity_identity(s_grid=None) -> dict:
+    """R4: at s_L=s_C=1 the combined ceiling EQUALS the pure-throat ceiling EXACTLY
+    (the shunt accumulator has ZERO effect on every reported g(f)). Report the max
+    deviation over the extent sweep to make the identity explicit."""
+    fs = jp.vertex_extent_sweep(26)
+    dev = max(abs(jp.g_scalar(f, 1.0, 1.0) - jp.g_scalar(f, 1.0, 0.0)) for f in fs)
+    return {"max_abs_combined_minus_pure_throat": float(dev), "identity": bool(dev < 1e-9)}
+
+
+def one_d_cross_check() -> dict:
+    """R2: ship the 1D two-node closed-form cross-check the prereg §3.4 promised.
+    g_1d in omega_C units (no sqrt(3) network factor); f=0 -> pi."""
+    return {
+        "note": "1D (z=2) loaded line, closed-form cos(k a) transfer-matrix trace",
+        "g_1d_f0": jp.band_top_1d(0.0),
+        "g_1d_f0.2_combined": jp.band_top_1d(0.2, 1.0, 1.0),
+        "g_1d_f0.2_pure_shunt": jp.band_top_1d(0.2, 0.0, 1.0),
+        "g_1d_f0.5_combined": jp.band_top_1d(0.5, 1.0, 1.0),
+        "memoryless_pi": float(np.pi),
+    }
+
+
+def lift_detector_selftest() -> dict:
+    """R3: prove the topology detector CAN report a lift — a non-passive
+    (negative-reactance) loading lifts the ceiling above memoryless and is reported
+    as a bypass (the old [0,pi]-clipped detector could only ever say 'transparent')."""
+    passive = jp.band_ceiling_diagnosis(0.2, 1.0, 1.0)["status"]
+    lift = jp.band_ceiling_diagnosis(0.2, -1.0, -1.0)["status"]
+    return {
+        "passive_positive_status": passive,
+        "planted_negative_status": lift,
+        "lift_is_reachable": bool(lift == "lift"),
+        "pass": bool(passive == "low-pass" and lift == "lift"),
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # main
 # ═════════════════════════════════════════════════════════════════════════════
 def main() -> None:
@@ -314,6 +413,10 @@ def main() -> None:
     gA, gA_p = gate_A(), gate_A_planted()
     gB, gB_p = gate_B(), gate_B_planted()
     gC, gC_p = gate_C(s_L, s_C), gate_C_planted()
+    bracket = shape_factor_bracket()
+    reciprocity = reciprocity_identity()
+    one_d = one_d_cross_check()
+    lift_selftest = lift_detector_selftest()
 
     sweep = run_sweep(s_L, s_C)
     fig_path = make_figure(sweep, s_L, s_C)
@@ -352,6 +455,12 @@ def main() -> None:
         },
         "branch_fired": branch,
         "gates": {"G-A": gA, "G-A_planted": gA_p, "G-B": gB, "G-B_planted": gB_p, "G-C": gC, "G-C_planted": gC_p},
+        "disclosures": {
+            "R5_shape_factor_bracket": bracket,
+            "R4_reciprocity_identity": reciprocity,
+            "R2_one_d_cross_check": one_d,
+            "R3_lift_detector_selftest": lift_selftest,
+        },
         "sweep": sweep,
         "figure": str(fig_path.relative_to(_HERE.parents[3])),
     }
@@ -372,10 +481,28 @@ def main() -> None:
         f"  vertex circuit @f*={F_STAR}: L_j={vc.L_j_over_Lprime_ell:.3f} mu_0 ell, "
         f"C_j={vc.C_j_over_Cprime_ell:.3f} eps_0 ell, omega_vertex={vc.omega_vertex_over_omega_C:.3f} omega_C"
     )
-    print(f"  g_scalar(f=0)         : {jp.g_scalar(0.0,s_L,s_C):.6f} omega_C  (must = #604)")
-    print(f"  g_scalar(f*=0.5)      : {jp.g_scalar(F_STAR,s_L,s_C):.6f} omega_C")
+    print(f"  g_scalar(f=0)         : {jp.g_scalar(0.0,s_L,s_C):.6f} omega_C  (memoryless identity)")
+    print(f"  g_scalar(f*=0.5)      : {jp.g_scalar(F_STAR,s_L,s_C):.6f} omega_C  (s=1)")
     print(f"  extent swing [0,0.5]  : {gC['swing_over_pi_sqrt3']*100:.1f}% of pi*sqrt3")
     print(f"  BRANCH FIRED          : ({branch})")
+    print("-" * 78)
+    print("  DISCLOSURES (adversarial review):")
+    print(
+        f"   R5 bracket g(0.5), s in [0.3,3]^2 : [{bracket['g_min']:.3f}, {bracket['g_max']:.3f}] omega_C "
+        f"(DOUBLY conditional: f<=0.5 AND s=1)"
+    )
+    print(
+        f"   R4 reciprocity: max|combined - pure-throat| = {reciprocity['max_abs_combined_minus_pure_throat']:.2e} "
+        f"(shunt has ZERO effect at s=1: {reciprocity['identity']})"
+    )
+    print(
+        f"   R2 1D cross-check g_1d(f=0)={one_d['g_1d_f0']:.4f} (=pi), "
+        f"combined f=0.2 -> {one_d['g_1d_f0.2_combined']:.4f}, f=0.5 -> {one_d['g_1d_f0.5_combined']:.4f}"
+    )
+    print(
+        f"   R3 lift-detector self-test: passive={lift_selftest['passive_positive_status']}, "
+        f"planted-neg={lift_selftest['planted_negative_status']} (lift reachable: {lift_selftest['lift_is_reachable']})"
+    )
     print("-" * 78)
     for g in (gA, gA_p, gB, gB_p, gC, gC_p):
         label = g.get("gate", g.get("planted"))
@@ -385,6 +512,7 @@ def main() -> None:
     print(f"  FIG   : {fig_path}")
 
     assert all(g["pass"] for g in (gA, gA_p, gB, gB_p, gC, gC_p)), "a gate failed"
+    assert lift_selftest["pass"], "lift-detector self-test failed (R3)"
 
 
 if __name__ == "__main__":

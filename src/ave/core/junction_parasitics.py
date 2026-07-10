@@ -139,22 +139,83 @@ def loaded_mu_of_theta(theta, f: float, s_L: float = 1.0, s_C: float = 1.0):
     return 3.0 * A_dress - p * B_dress
 
 
-def connected_band_top_theta(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 200000) -> float:
-    """Connected-band ceiling: the FIRST theta>0 (scanning up from the acoustic
-    point theta=0, mu=+3) at which the descending mu(theta) reaches the adjacency
-    floor mu=-3. The parasitic drives mu below -3 just under pi, OPENING a
-    zone-edge stop-band, so the connected manifold tops out below the memoryless
-    pi. f=0 recovers theta_top=pi exactly (memoryless). Pure geometry.
+# Scan the bond electrical length PAST the memoryless zone edge (pi) so that a
+# LIFT (ceiling ABOVE the memoryless top) is VISIBLE, not clipped. (Adversarial
+# review R3: a [0, pi] scan structurally cannot report a lift.) A low-pass ceiling
+# still lands at its first crossing < pi; a lift/bypass lands > pi.
+THETA_MAX_SCAN = 1.5 * np.pi
+
+
+def band_ceiling_diagnosis(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 200000) -> dict:
+    """Diagnose the connected-band ceiling with an HONEST, lift-visible detector.
+
+    Scans mu(theta) from the acoustic point (theta=0, mu=+3) up to THETA_MAX_SCAN
+    (> pi) for the FIRST crossing of the adjacency floor mu=-3 (the connected-band
+    ceiling). Returns a status that CAN report a lift:
+      'memoryless'          f=0 (theta_top=pi exactly);
+      'low-pass'            first crossing < pi   (ceiling pinned DOWN);
+      'transparent'         first crossing == pi  (to tol);
+      'lift'                first crossing > pi    (ceiling LIFTED above memoryless);
+      'no-crossing'         no crossing <= THETA_MAX_SCAN (mu never reaches the
+                            floor -> lift candidate; ceiling at/above the scan cap);
+      'unresolved-thin-dip' mu dips below the floor but the crossing could not be
+                            resolved even after local refinement (small-f razor dip).
+    Pure geometry. This replaces the old [0, pi]-clipped scan (review R3).
     """
     if f == 0.0:
-        return float(np.pi)  # memoryless: mu = 3 cos t = -3 -> t = pi
-    ts = np.linspace(1e-5, np.pi, n_scan)
-    g = loaded_mu_of_theta(ts, f, s_L, s_C) - MU_FLOOR  # zero at mu = -3
-    sign_change = np.where(np.sign(g[:-1]) != np.sign(g[1:]))[0]
-    if len(sign_change) == 0:
-        return float(np.pi)
-    i = int(sign_change[0])  # FIRST crossing = connected-band ceiling
-    return float(brentq(lambda t: loaded_mu_of_theta(t, f, s_L, s_C) - MU_FLOOR, ts[i], ts[i + 1]))
+        return {"theta_top": float(np.pi), "status": "memoryless"}
+
+    def _mu_floor(t):
+        return loaded_mu_of_theta(t, f, s_L, s_C) - MU_FLOOR  # zero at mu = -3
+
+    def _first_crossing(t_arr):
+        vals = _mu_floor(t_arr)
+        sc = np.where(np.sign(vals[:-1]) != np.sign(vals[1:]))[0]
+        if len(sc) == 0:
+            return None
+        i = int(sc[0])
+        return float(brentq(_mu_floor, t_arr[i], t_arr[i + 1]))
+
+    # Pass 1: coarse scan PAST pi (lift-visible). Catches well-resolved dips
+    # (low-pass, first crossing < pi) AND lifts (first crossing > pi).
+    ts = np.linspace(1e-5, THETA_MAX_SCAN, n_scan)
+    theta = _first_crossing(ts)
+
+    # Pass 2 (resolution guard, review R3): a small-f zone-edge dip is both THIN
+    # (width ~ kappa*f*pi) and SHALLOW (depth ~ f^2), so it can fall entirely
+    # between coarse grid points -> gmin stays > 0 and the naive guard never fires,
+    # silently mis-reading a negligible low-pass drop as a lift. So ALWAYS re-scan
+    # the neighbourhood of the memoryless zone edge theta=pi at high density before
+    # concluding "no crossing". (The physical dip for a passive loading sits just
+    # below pi, since mu(pi) = -3 + s_L s_C f^2 pi^2 >= -3.)
+    if theta is None:
+        edge = np.linspace(np.pi - 0.2, np.pi + 1e-6, 300000)
+        theta = _first_crossing(edge)
+
+    if theta is None:
+        # Genuinely no crossing anywhere up to the scan cap. Distinguish a tangent
+        # touch (mu grazes the floor at pi -> transparent/memoryless-to-tol) from a
+        # true lift (mu stays clear of the floor -> ceiling at/above the cap).
+        gmin = float(np.min(_mu_floor(ts)))
+        if abs(_mu_floor(np.pi)) < 1e-9 or gmin < 1e-9:
+            return {"theta_top": float(np.pi), "status": "transparent"}
+        return {"theta_top": float(THETA_MAX_SCAN), "status": "no-crossing", "min_floor_margin": gmin}
+
+    tol = 1e-6
+    if theta < np.pi - tol:
+        status = "low-pass"
+    elif theta > np.pi + tol:
+        status = "lift"
+    else:
+        status = "transparent"
+    return {"theta_top": theta, "status": status}
+
+
+def connected_band_top_theta(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 200000) -> float:
+    """Connected-band ceiling theta_top (the FIRST mu=-3 crossing from the acoustic
+    branch). Thin wrapper over band_ceiling_diagnosis (lift-visible). Pure geometry.
+    """
+    return band_ceiling_diagnosis(f, s_L, s_C, n_scan)["theta_top"]
 
 
 def g_scalar(f: float, s_L: float = 1.0, s_C: float = 1.0) -> float:
@@ -182,17 +243,62 @@ def g_scalar_linear(f: float, s_L: float = 1.0, s_C: float = 1.0) -> float:
 
 
 def topology_class(f: float, s_L: float = 1.0, s_C: float = 1.0) -> str:
-    """Read the topology class off the sign of the ceiling shift vs memoryless.
+    """Read the topology class off the lift-visible ceiling diagnosis (review R3).
 
-    LOW-PASS (pins ceiling DOWN) if the loaded ceiling < memoryless; BYPASS
-    (lifts) if >; TRANSPARENT if equal to tolerance. Both accumulator and throat
-    are reactive energy stores => LOW-PASS is the derivation-level expectation.
+    Reports LOW-PASS / TRANSPARENT / LIFT (parallel-bypass) / unresolved. A LIFT
+    is now REACHABLE (the detector scans past pi): e.g. a NEGATIVE-reactance
+    (non-passive) loading lifts the ceiling and is reported as a bypass. For the
+    passive positive-element class (s_L, s_C > 0) every stored-energy channel
+    LOWERS the ceiling, so LOW-PASS is what the passive class gives.
+
+    IMPORTANT SCOPE (review R1): this is the topology class of the leading-order
+    POSITIVE two-element lumped equivalent; a fuller vertex model (evanescent-mode
+    stub / finite junction volume = a resonant shunt branch) is NOT excluded and
+    could present a bypass. The "no lift" statement holds only within this class.
     """
-    memoryless = OMEGA_LINK_OVER_OMEGA_C * np.pi
-    loaded = g_scalar(f, s_L, s_C)
-    rel = (loaded - memoryless) / memoryless
-    if abs(rel) < 1e-9:
-        return "transparent-at-top (parasitic -> 0)"
-    if rel < 0.0:
-        return "reactive-low-pass (accumulator+throat pin the ceiling DOWN; zone-edge gap opens)"
-    return "parallel-bypass (ceiling LIFTS)"
+    status = band_ceiling_diagnosis(f, s_L, s_C)["status"]
+    if status in ("memoryless", "transparent"):
+        return "transparent-at-top (parasitic -> 0 or exactly memoryless)"
+    if status == "low-pass":
+        return (
+            "reactive-low-pass (positive-element class: stored-energy channels "
+            "pin the ceiling DOWN; zone-edge gap opens)"
+        )
+    if status in ("lift", "no-crossing"):
+        return "parallel-bypass (ceiling LIFTS above memoryless)"
+    return "unresolved (thin zone-edge dip — refine the scan)"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1D two-node loaded line — the exactly-solvable closed-form cross-check the
+# prereg §3.4 promised (adversarial review R2). z=2 monatomic chain, one node per
+# cell (series X/2 both bond ends + shunt jB at the node), Bloch via the transfer-
+# matrix trace. CLOSED FORM:
+#     cos(k a) = (1 - p x / 2) cos(theta) - ((x + p)/2) sin(theta),
+#     x = s_L f theta,  p = s_C f theta.
+# f=0 -> cos(k a) = cos(theta) -> memoryless 1D top at theta=pi (g_1d = pi omega_C;
+# NO sqrt(3) network factor for the 1D chain). Same junction physics as the srs,
+# so it validates the srs numerics on a hand-checkable model. Pure geometry.
+# ─────────────────────────────────────────────────────────────────────────────
+def loaded_cos_ka_1d(theta, f: float, s_L: float = 1.0, s_C: float = 1.0):
+    """Closed-form Bloch cos(k a) of the 1D loaded line (transfer-matrix trace/2)."""
+    t = np.asarray(theta, dtype=float)
+    x = s_L * f * t
+    p = s_C * f * t
+    return (1.0 - 0.5 * p * x) * np.cos(t) - 0.5 * (x + p) * np.sin(t)
+
+
+def band_top_1d(f: float, s_L: float = 1.0, s_C: float = 1.0, n_scan: int = 200000) -> float:
+    """1D connected-band top theta_top: FIRST theta where the closed-form cos(k a)
+    crosses -1 (the acoustic-branch zone edge). f=0 -> pi. g_1d = theta_top (omega_C
+    units). The exactly-solvable cross-check for the srs first-crossing logic.
+    """
+    if f == 0.0:
+        return float(np.pi)
+    ts = np.linspace(1e-5, THETA_MAX_SCAN, n_scan)
+    h = loaded_cos_ka_1d(ts, f, s_L, s_C) + 1.0  # zero at cos(k a) = -1
+    sc = np.where(np.sign(h[:-1]) != np.sign(h[1:]))[0]
+    if len(sc) == 0:
+        return float(THETA_MAX_SCAN)  # no zone edge <= scan cap -> lift candidate
+    i = int(sc[0])
+    return float(brentq(lambda t: loaded_cos_ka_1d(t, f, s_L, s_C) + 1.0, ts[i], ts[i + 1]))

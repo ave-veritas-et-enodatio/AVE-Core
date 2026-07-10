@@ -33,18 +33,30 @@ PI_SQRT3 = np.pi * np.sqrt(3.0)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_gate_A_extraction_module_imports_no_scale():
     """The extraction path (ave.core.junction_parasitics) must reference NONE of
-    {OMEGA_C, M_E, L_CELL, C_CELL} and must not import ave.core.constants."""
+    {OMEGA_C, M_E, L_CELL, C_CELL}, import no ave.core.constants, and carry no
+    forbidden numeric literal (review R8)."""
     result = x37.gate_A()
     assert result["pass"], result
     assert result["name_hits"] == []
     assert result["import_hits"] == []
+    assert result["literal_hits"] == []
 
 
 def test_gate_A_planted_violation_fires():
-    """Planting OMEGA_C into an extraction body MUST be flagged (gate can fire)."""
+    """Planting OMEGA_C by SYMBOL and by NUMERIC LITERAL must both be flagged
+    (review R8: the symbol scan alone is blind to a hard-coded value)."""
     result = x37.gate_A_planted()
     assert result["gate_fired"], result
-    assert "OMEGA_C" in result["name_hits"]
+    assert result["literal_hits"]  # the numeric-literal plant fired
+
+
+def test_gate_A_numeric_literal_scan_fires():
+    """A hard-coded omega_C magnitude in an extraction body must be flagged (R8).
+    Built from the imported symbol so this test carries no magic number."""
+    from ave.core.constants import OMEGA_C
+
+    hits = x37.scan_forbidden_inputs(f"def e(f):\n    return {OMEGA_C!r} * f\n")
+    assert any("OMEGA_C" in h for h in hits["literal_hits"])
 
 
 def test_gate_A_scanner_ignores_docstrings():
@@ -54,24 +66,30 @@ def test_gate_A_scanner_ignores_docstrings():
     hits = x37.scan_forbidden_inputs(src)
     assert hits["name_hits"] == []
     assert hits["import_hits"] == []
+    assert hits["literal_hits"] == []
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# G-B — independent-reference recovery vs FROZEN #604
+# G-B — independent-reference recovery vs FROZEN #604 (review R3: exercise the
+# LOADED solver at small nonzero f, not the memoryless early-return)
 # ─────────────────────────────────────────────────────────────────────────────
-def test_gate_B_recovers_604_memoryless_top():
-    """f->0 must recover the #604 top pi*sqrt3 within 1e-3."""
+def test_gate_B_loaded_solver_converges_to_604():
+    """The LOADED dispersion solver at small nonzero f must converge to the #604
+    top pi*sqrt3 within the stated tolerance — the solver is genuinely exercised
+    (band_ceiling_diagnosis runs the coarse+fine crossing scan, no early return)."""
     result = x37.gate_B()
     assert result["pass"], result
-    assert result["rel_error"] < x37.G_B_TOL
-    assert np.isclose(jp.g_scalar(0.0), PI_SQRT3, rtol=0, atol=1e-9)
+    assert result["loaded_solver_probe_f"] > 0.0  # NOT the f=0 early return
+    assert result["rel_error"] < result["tol"]
+    # the memoryless identity is still exact, recorded separately
+    assert np.isclose(result["memoryless_identity_f0_over_omega_C"], PI_SQRT3, rtol=0, atol=1e-9)
 
 
 def test_gate_B_planted_violation_fires():
-    """A +1% offset f->0 limit MUST fail the recovery tolerance (gate can fire)."""
+    """A +1% offset loaded-solver output MUST fail the convergence tolerance."""
     result = x37.gate_B_planted()
     assert result["gate_fired"], result
-    assert result["rel_error"] >= x37.G_B_TOL
+    assert result["rel_error"] >= result["tol"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -135,19 +153,75 @@ def test_single_channel_anchor_matches_exact():
         assert np.isclose(jp.g_scalar(f, 1.0, 0.0), jp.g_scalar_linear(f, 1.0, 0.0), rtol=5e-3)  # pure series
 
 
-def test_combined_channel_is_non_additive():
-    """Driver-time finding (§4a): the combined connected-band ceiling is NOT the
-    sum of the two channel drops — it tracks the STRONGER (series) channel, because
-    the re-entrant zone-edge gap (s_C>0) absorbs the shunt contribution above the
-    first mu=-3 crossing. The naive additive anchor over-predicts the drop."""
+def test_shunt_has_exactly_zero_effect_at_s_equal_1():
+    """Review R4 (reciprocity identity): at s_L=s_C=1 the combined ceiling EQUALS
+    the pure-throat ceiling EXACTLY on every g(f) — the shunt accumulator has ZERO
+    effect. This is stronger than 'tracks the stronger channel'."""
+    fs = np.linspace(0.02, 0.5, 13)
+    for f in fs:
+        assert np.isclose(jp.g_scalar(f, 1.0, 1.0), jp.g_scalar(f, 1.0, 0.0), rtol=0, atol=1e-9)
+
+
+def test_additive_anchor_over_predicts_combined_drop():
+    """The naive sum-of-drops anchor badly over-predicts the combined drop
+    (the shunt drop is not added — R4)."""
     f = 0.2
-    g_shunt = jp.g_scalar(f, 0.0, 1.0)
-    g_series = jp.g_scalar(f, 1.0, 0.0)
-    g_both = jp.g_scalar(f, 1.0, 1.0)
-    # combined tracks the stronger (series, larger drop) channel, not their sum
-    assert np.isclose(g_both, g_series, rtol=1e-3)
+    g_shunt, g_series, g_both = jp.g_scalar(f, 0.0, 1.0), jp.g_scalar(f, 1.0, 0.0), jp.g_scalar(f, 1.0, 1.0)
     additive = PI_SQRT3 - ((PI_SQRT3 - g_shunt) + (PI_SQRT3 - g_series))
-    assert g_both > additive + 0.1  # the sum-of-drops badly over-predicts
+    assert g_both > additive + 0.1
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Review R3 — the detector CAN report a lift (instrument no longer blind)
+# ─────────────────────────────────────────────────────────────────────────────
+def test_lift_is_reachable_for_nonpassive_loading():
+    """A NEGATIVE-reactance (non-passive) loading lifts the ceiling above memoryless
+    and MUST be reported as a lift/bypass — the old [0,pi]-clipped detector could
+    only ever say 'transparent'."""
+    passive = jp.band_ceiling_diagnosis(0.2, 1.0, 1.0)
+    lift = jp.band_ceiling_diagnosis(0.2, -1.0, -1.0)
+    assert passive["status"] == "low-pass"
+    assert lift["status"] == "lift"
+    assert jp.g_scalar(0.2, -1.0, -1.0) > PI_SQRT3
+    assert "bypass" in jp.topology_class(0.2, -1.0, -1.0)
+
+
+def test_resolution_guard_small_f_not_false_lift():
+    """Review R3: a razor-thin, ultra-shallow small-f zone-edge dip must resolve to
+    a (negligible) low-pass drop, NEVER a silent 'no-crossing/lift'."""
+    for f in (1e-3, 1e-4, 1e-5):
+        d = jp.band_ceiling_diagnosis(f, 1.0, 1.0)
+        assert d["status"] in ("low-pass", "transparent"), (f, d)
+        assert jp.g_scalar(f, 1.0, 1.0) <= PI_SQRT3 + 1e-9
+        assert jp.g_scalar(f, 1.0, 1.0) > PI_SQRT3 - 0.1  # tiny drop, near memoryless
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Review R2 — the 1D two-node closed-form cross-check (prereg §3.4 promise)
+# ─────────────────────────────────────────────────────────────────────────────
+def test_1d_closed_form_memoryless_top():
+    """1D loaded line f=0 recovers the memoryless 1D top theta=pi (g_1d = pi, no
+    sqrt(3) network factor)."""
+    assert np.isclose(jp.band_top_1d(0.0), np.pi, rtol=0, atol=1e-9)
+
+
+def test_1d_closed_form_lowers_and_cross_checks_srs():
+    """The 1D closed-form cross-check shows the SAME qualitative physics as the srs
+    numerics: both channels lower the top; combined tracks the stronger channel."""
+    assert jp.band_top_1d(0.2, 1.0, 1.0) < np.pi  # loading lowers the 1D top
+    assert jp.band_top_1d(0.2, 0.0, 1.0) < np.pi  # pure shunt lowers
+    assert jp.band_top_1d(0.2, 1.0, 0.0) < np.pi  # pure series lowers
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Review R5 — the ceiling floor is DOUBLY conditional (f<=0.5 AND s=1)
+# ─────────────────────────────────────────────────────────────────────────────
+def test_shape_factor_bracket_is_doubly_conditional():
+    """Over s in [0.3,3]^2 the g(0.5) bracket floor drops well below the s=1 value
+    (3.73) — the reported number is conditional on BOTH f<=0.5 AND s=1."""
+    b = x37.shape_factor_bracket()
+    assert b["g_min"] < 2.5  # floor reaches ~2.1
+    assert b["g_min"] < jp.g_scalar(0.5, 1.0, 1.0)  # below the s=1 value
 
 
 @pytest.mark.parametrize("f", [0.0, 0.1, 0.25, 0.5])
