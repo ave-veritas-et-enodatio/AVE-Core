@@ -733,10 +733,16 @@ tag where they read naturally.
   polarimeter floor"* phrase as abstract (b). K.M. enumerated six (abstract ×2 + §V ×4) and did not list the
   Conclusion; leaving it untagged while the abstract is tagged is a fresh internal inconsistency, so it was tagged to
   match (`peak-field kernel; ~10⁶ measured`). Surfaced here, not silently expanded.
-- **NOT touched (flagged for completeness):** `main.tex` §II.D "negligible against the `~10⁷` discrimination margin"
-  (dispersion bound) is peak-footing too but **not** among K.M.'s six; the `<0.1%` dispersive correction is negligible
-  against `~10⁶` measured just as against `~10⁷` peak (the argument is footing-robust), so it was left unedited to
-  respect the six-site enumeration. Logged for the auditor.
+- **Residual/completeness inventory of peak-footing `~10⁷` mentions:**
+  - `main.tex` §II.D "negligible against the `~10⁷` discrimination margin" (dispersion bound) is peak-footing too but
+    **not** among K.M.'s six; the `<0.1%` dispersive correction is negligible against `~10⁶` measured just as against
+    `~10⁷` peak (the argument is footing-robust), so it was left unedited to respect the six-site enumeration.
+  - **§V "Systematics and reanalysis" "the `~10⁷` margin between the model prediction and the floor"** — the **fifth**
+    §V peak-footing site, missed by K.M.'s six, the round-4 seventh (Conclusion) tag, and this 13.B inventory's first
+    pass. Flagged by the #625 adversarial review as within-paragraph mixed footing (two sentences from the corrected
+    few×10⁻⁴ instruction). **NOW TAGGED** (2026-07-10, 13.G commit) in the established style: `~10⁷ (peak-field
+    kernel; ~10⁶ measured) margin`. The robustness claim survives on both footings (the `O(1)`–`O(10)` corrections
+    approach neither), so no other wording changed.
 
 ### 13.C Sidereal second-harmonic — independent D⁴ derivation, double-sign-off (review item 3a)
 
@@ -790,9 +796,37 @@ K.M.'s house rule is double sign-off on all calculations. Independent recompute 
 method where possible, of the printed transport / I_max / Kerr numbers. **Constants imported canonically from
 `ave.core.constants`** (never hard-coded): `E_YIELD` (= E_c), `L_NODE` (= ℓ_node), `Z_0`, `EPSILON_0`, `C_0`,
 `HBAR_C_MEV_FM`. Script: `scratchpad/second_validation.py` (session artifact). `r_c(Z) = √Z × 160 fm` uses the
-model's charge-scale base; `x = k r_c` with the angular wavenumber `k = E/(ħc)`; `I_max` cross-checked by the
-independent algebra `ε₀c·E_c·ℓ_node` vs `E_c·ℓ_node/Z_0`; `P_crit` via the standard `3.77 λ²/(8π n₂)` Gaussian
-self-focusing formula at λ=800 nm.
+model's charge-scale base; `x = k r_c` with the angular wavenumber `k = E/(ħc)`; `P_crit` via the standard
+`3.77 λ²/(8π n₂)` Gaussian self-focusing formula at λ=800 nm.
+
+**I_max — genuine second method (review finding 2, 2026-07-10).** The original ledger called
+`ε₀c·E_c·ℓ_node` vs `E_c·ℓ_node/Z_0` "independent algebra." **It is not independent** — with `Z_0 = 1/(ε₀c)` the
+two expressions are the *same* formula, so the check is an **algebraic-identity consistency, not an independent
+method**; it cannot fire on the formula. Honest upgrade: recompute `I_max` from a **genuinely independent second
+route** — raw CODATA SI base quantities typed in directly (**not** imported from `constants.py`'s derived chain),
+rebuilding `E_crit`, `E_c`, `ℓ_node`, `Z_0` from scratch:
+
+```
+# raw CODATA base quantities, typed directly (independent of constants.py):
+mu0   = 1.25663706212e-6   # vacuum permeability [N/A^2]   (CODATA 2018)
+m_e   = 9.1093837015e-31   # electron mass [kg]
+e     = 1.602176634e-19    # elementary charge [C]
+hbar  = 1.054571817e-34    # reduced Planck [J s]
+c     = 299792458.0        # speed of light [m/s]
+alpha = 7.2973525693e-3    # fine-structure constant
+# rebuilt from scratch:
+E_crit = m_e**2 * c**3 / (e*hbar)   =  1.323285e18  V/m
+E_c    = sqrt(alpha) * E_crit       =  1.130411e17  V/m
+l_node = hbar/(m_e*c)               =  3.861593e-13 m
+Z_0    = mu0*c                      =  376.730314   Ohm
+I_max  = E_c*l_node/Z_0             =  115.8703 A
+I_max (2*pi loop) = 2*pi*I_max      =  728.0345 A
+```
+
+This route shares **no** intermediate with the canonical `E_YIELD`/`L_NODE`/`Z_0` chain, so agreement is a real
+cross-check. It lands at **115.870 A / 728.03 A**, matching both the canonical-chain value and the review's own
+independent recompute (115.870 A / 728.03 A). The old `ε₀c·E_c·ℓ_node` = `E_c·ℓ_node/Z_0` equality is retained
+below **relabeled** as an algebraic-identity consistency, not an independent method.
 
 | Quantity | Printed | Recomputed | Method | Verdict |
 |---|---|---|---|---|
@@ -801,8 +835,8 @@ self-focusing formula at λ=800 nm.
 | x Pb @150 keV | 1.10 | 1.101 | k r_c, k=E/(ħc) | **PASS** |
 | x Fe @500 keV | 2.07 | 2.067 | k r_c | **PASS** |
 | x Cu @8 keV | 0.03 | 0.0349 | k r_c | **PASS** (display) |
-| I_max | ≈116 A | 115.87 A (methods A≡B identical) | ε₀c·E_c·ℓ_node = E_c·ℓ_node/Z_0 | **PASS** |
-| I_max 2π-loop | ≈730 A | 728.0 A | 2π × I_max | **PASS** |
+| I_max | ≈116 A | 115.870 A (both) | canonical chain **vs raw-CODATA recompute** (independent) | **PASS** |
+| I_max 2π-loop | ≈730 A | 728.03 A | 2π × I_max | **PASS** |
 | Kerr n₂ | ≈1.5e-32 m²/W | 1.474e-32 | 1/(2c ε₀ E_c²) | **PASS** |
 | P_crit | ~6.5e3 PW | 6513 PW | 3.77 λ²/(8π n₂), λ=800 nm | **PASS** |
 
@@ -871,3 +905,26 @@ frozen Table-I prediction is byte-unchanged.**
   UNCHANGED. `src/` + JSON UNTOUCHED. Commit message: *"letter(v6): v5-paragraph fixes — register-no-claim recast of
   the above-band sentence + FWM footing tag (post-round-4 audit)."* A PR comment flags both additions so the in-flight
   review sees them.
+
+### 13.H #625 adversarial review — 2 MINOR findings addressed (2026-07-10)
+
+The #625 review returned 2 findings, both MINOR, 0 refuted, else clean. Both addressed in one commit.
+
+- **Finding 1 — the fifth §V peak-footing site (footing hygiene).** `main.tex` §V "Systematics and reanalysis":
+  *"none approaches the ~10⁷ margin between the model prediction and the floor"* was untagged peak-footing sitting two
+  sentences from the corrected few×10⁻⁴ instruction (within-paragraph mixed footing). This site was missed by K.M.'s
+  six, the round-4 seventh (Conclusion) tag, AND 13.B's first-pass inventory. **Tagged** in the established style:
+  `~10⁷ (peak-field kernel; ~10⁶ measured) margin`. Robustness survives on both footings (`O(1)`–`O(10)` corrections
+  approach neither), so no other wording changed. Added to the 13.B residual/completeness inventory.
+- **Finding 2 — the I_max "independent" cross-check was an identity (honest upgrade, not word-deletion).** 13.E called
+  `ε₀c·E_c·ℓ_node` vs `E_c·ℓ_node/Z_0` "independent algebra," but with `Z_0 = 1/(ε₀c)` they are the *same* formula —
+  an algebraic identity that cannot fire. Rather than delete the word, a **genuinely independent second route** was
+  added: `I_max` recomputed from **raw CODATA SI base quantities typed in directly** (μ₀, m_e, e, ħ, c, α — not
+  imported from `constants.py`'s derived chain), rebuilding `E_crit = m_e²c³/(eħ)`, `E_c = √α·E_crit`,
+  `ℓ_node = ħ/(m_ec)`, `Z_0 = μ₀c`, `I_max = E_c·ℓ_node/Z_0`. Result **115.870 A / 728.03 A** (2π loop), sharing no
+  intermediate with the canonical chain and matching both it and the review's own recompute. The 13.E table row now
+  reads *"canonical chain vs raw-CODATA recompute (independent)"*; the identity equality is retained **relabeled**
+  *"algebraic-identity consistency, not an independent method."* Full arithmetic block with digits is in 13.E.
+- **Build/verify:** `make paper` clean (Finding 1 changed the tex), `make verify` GREEN, PDF rebuilt. Anchored
+  invariants + frozen Table-I byte-unchanged. `src/` + JSON UNTOUCHED. Commit: *"letter(v6): review polish — fifth §V
+  footing tag + genuine second-method I_max validation."*
