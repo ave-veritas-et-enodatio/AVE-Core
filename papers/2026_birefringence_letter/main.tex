@@ -2,6 +2,18 @@
 % Saturable Vacuum Electrodynamics: A Tree-Level Vacuum Birefringence
 % Prediction for BIREF@HIBEF
 %
+% Document version: v6 (round-4 co-author review integration): (1) the last limb — the II.C grounding
+%   paragraph is recast Branch-no (the ∇·B=0 monopole argument is kept; the "held electric field is a real
+%   static bias the permittivity loads on" assertion is replaced by an explicit deferral to the open Sec. II
+%   scoping question); (2) six measured-footing alignments (abstract ×2 + Sec. V ×4) to the Table-I caption's
+%   envelope+carrier-averaged P_meas ~2.6/2.1/4.5e-4 (peak-footing values retained WITH a tag; the third-party
+%   adjudication threshold corrected 1e-3 -> few×1e-4 after enumerated corrections); (3) three polishes —
+%   sidereal 2nd harmonic hedged symmetrically ("of order β², several × 1e-6"; the printed 5β² is the DC O(β²)
+%   offset, the genuine cos2θ amplitude is 3β², double-sign-off in provenance §13), carrier-cycle count 10 -> 25
+%   (2z/λ counter-propagating sum-frequency sweep), Appendix-A µ_eff=µ₀-to-1-part-in-1e11 licensing clause;
+%   (4) internal-ledger branch-decision entry (frequency-fence DECLINED, not excluded); (5) second-validation
+%   double-sign-off of r_c/E_res/x/I_max/n2/P_crit (all PASS; constants imported canonically). The frozen
+%   prediction table is byte-unchanged; v6 carries its own later OTS timestamp (stamped post-merge, separately).
 % Document version: v5 (adds the heavy-ion light-by-light + frequency-domain paragraph. Basis: EFT validity-domain scoping,
 %   adversarially adjudicated 2026-07-09. An earlier draft argued a coherent-forward vs wide-angle-incoherent decoupling —
 %   REFUTED by cross-check (the same local chi3 feeds both channels; wide-angle sigma enhanced by the square ~5e10, and a
@@ -50,7 +62,7 @@ prediction for a pump--probe X-ray polarimeter}
 \affiliation{Independent researcher}
 
 % Pure manuscript version line (document-versioning only).
-\date{\today\textrm{~---~ manuscript version 5}}
+\date{\today\textrm{~---~ manuscript version 6}}
 
 \begin{abstract}
 We register, before any pump-on data exists, a falsifiable prediction for the
@@ -69,9 +81,10 @@ one-loop QED (Euler--Heisenberg) prediction by the field-independent factor
 $\dnsat/\delta n_{\mathrm{QED}}=3.75\pi/\alpha^2\simeq
 \num{2.2e5}$ (both coefficients on a single instantaneous footing). At the demonstrated ReLaX pump intensity
 ($\SI{e21}{\watt\per\centi\meter\squared}$) the model predicts a
-polarization-flip probability $\Pflip\simeq\numrange{4e-3}{9e-3}$, roughly
-seven orders of magnitude above the conservative (demonstrated) X-ray-polarimeter
-purity floor ($\num{2.4e-10}$). The model's magnetic response keys on circulation rather
+polarization-flip probability $\Pflip\simeq\numrange{4e-3}{9e-3}$ (peak-field
+kernel), roughly seven orders of magnitude above the conservative (demonstrated)
+X-ray-polarimeter purity floor ($\num{2.4e-10}$; $\sim\!10^6$ on the envelope- and
+carrier-averaged measured footing, Table~\ref{tab:scenarios}). The model's magnetic response keys on circulation rather
 than static flux, so it predicts \emph{zero} static-magnetic-field
 birefringence; existing PVLAS/BMV magnetic nulls are therefore consistent by
 construction, and the E-route configuration is the decisive one. We state the
@@ -79,8 +92,8 @@ kill criterion explicitly: a pump-on polarimetric null (at $5\sigma$) at or
 below the QED co-prediction, above the demonstrated purity floor and at
 $\gtrsim\SI{e18}{\watt\per\centi\meter\squared}$, falsifies the model's
 electric sector. Because the signal sits $\sim\!10^7$ above the demonstrated
-floor at already-demonstrated parameters, even commissioning-grade data
-adjudicates it. We report the coefficient honestly: the kernel \emph{form} and
+floor (peak-field kernel; $\sim\!10^6$ on the measured footing) at
+already-demonstrated parameters, even commissioning-grade data adjudicates it. We report the coefficient honestly: the kernel \emph{form} and
 the resulting coefficient \emph{structure} are the model's content, whereas the
 absolute scale $\Ec$ is calibrated from the same measured constants
 ($\alpha$, $m_e$) that fix the QED prediction.
@@ -534,17 +547,15 @@ electric-route result of Eq.~\eqref{eq:dnbir} therefore already captures the ful
 birefringence of such a wave to $\sim\!1$ part in $10^{11}$, and the registered
 prediction of Table~\ref{tab:scenarios} stands on the electric sector alone.
 The consequences of Eq.~\eqref{eq:staticB} for existing null experiments are
-taken up in Sec.~\ref{sec:signature}. Physically, the electric/magnetic asymmetry
-traces to the \emph{Maxwell source asymmetry}: $\nabla\cdot\mathbf E=\rho/
-\varepsilon_0$ has genuine charge sources, so a held electric field is a real
-static bias the permittivity loads on, whereas $\nabla\cdot\mathbf B=0$ has no
-magnetic monopole, so a static magnetic field supplies no bias and the
-permeability loads only on circulation ($\partial_t$, curl). The two sector keys
---- electric-field magnitude and magnetic circulation --- are thus grounded in the
-single structural fact that charges exist and magnetic monopoles do not; they are
-\emph{not} a consequence of the field's radiative or far-field character (a
-propagating wave loads because it carries both an $\mathbf E$ magnitude and a
-circulation, not because it is radiation).
+taken up in Sec.~\ref{sec:signature}. Physically, the asymmetry traces to the
+\emph{Maxwell source structure}: $\nabla\cdot\mathbf B=0$ admits no monopole to
+bias the magnetic sector on magnitude even in principle, so that sector can key
+only on circulation; whether a held electric field biases the electric sector is
+precisely the open scoping question of Sec.~\ref{sec:model}, on which this Letter
+registers no claim. The magnetic key is thus grounded in the structural fact that
+magnetic monopoles do not exist; it is \emph{not} a consequence of the field's
+radiative or far-field character (a propagating magnetic field loads only through
+the circulation it carries, not because it is radiation).
 
 \subsection{Frame, dispersion, and the common-mode channel}
 
@@ -592,7 +603,8 @@ signature is accessed. The effect is a pure \emph{amplitude} modulation --- it
 rides the signal magnitude, not the polarization character or the analyzer
 geometry --- and its \emph{first}-harmonic (sidereal-period) character is itself a
 discriminator, robust to that coefficient uncertainty: the $O(\beta^2)$ second
-harmonic ($5\beta^2\simeq\num{7.6e-6}$) is smaller by $\sim\!3$ orders, so a
+harmonic (of order $\beta^2$, several $\times\,10^{-6}$) is smaller by $\sim\!3$
+orders, so a
 static-field response, which would carry \emph{only} the $O(\beta^2)$ second
 harmonic, is separated by the mere \emph{presence} of the first harmonic whatever
 its precise amplitude. (An earlier registration quoted only that second harmonic,
@@ -799,10 +811,11 @@ is unchanged, and the model margin above the polarimeter floor only improves.
   $\sim\!10^6\text{--}10^7$ above the demonstrated purity floor. (An exact
   fluence-weighted $\langle\sin^2\rangle$ reproduces these to $<0.2\%$, the
   small-angle regime being deep.) Beyond the slow envelope, a probe crossing the
-  $\sim\!\SI{10}{\micro\meter}$ interaction region traverses $\sim\!10$ optical
-  carrier cycles and so accumulates retardance from the carrier-\emph{averaged}
-  response rather than the crest field ($\langle\cos^2\rangle=\tfrac12$ in
-  $\dnbir\propto E^2$); folding this in scales $\Pflip$ by a further factor
+  $\sim\!\SI{10}{\micro\meter}$ interaction region counter-propagates against the
+  pump and so sweeps its carrier at the sum frequency, traversing
+  $2z/\lambda\simeq25$ optical carrier cycles, and so accumulates retardance from
+  the carrier-\emph{averaged} response rather than the crest field
+  ($\langle\cos^2\rangle=\tfrac12$ in $\dnbir\propto E^2$); folding this in scales $\Pflip$ by a further factor
   $\tfrac14$ ($\Pflip\propto\dnbir^2$), giving a \emph{measured} expectation ---
   envelope and carrier averaging together --- of $\Pflip^{\mathrm{meas}}\simeq
   \num{2.6e-4}$, $\num{2.1e-4}$, and $\num{4.5e-4}$ for the three demonstrated-pump
@@ -900,13 +913,16 @@ A pump-on polarimetric run at
 $\gtrsim\SI{e18}{\watt\per\centi\meter\squared}$, with a polarimeter operating
 at or below the demonstrated purity floor, that measures a polarization-flip
 probability consistent with zero (or with the QED co-prediction) at $5\sigma$ ---
-i.e.\ an upper limit $\Pflip<\num{e-8}$, still $\sim\!\num{e6}$ below the model's
-prediction and $\sim\!\num{e5}$ above the QED level --- falsifies the electric
+i.e.\ an upper limit $\Pflip<\num{e-8}$, still $\sim\!\num{2e4}$ below the model's
+measured expectation and $\sim\!\num{2e6}$ above the QED measured level
+(Table~\ref{tab:scenarios} caption; $\sim\!\num{e6}$ and $\sim\!\num{e5}$
+respectively on the peak-field kernel footing) --- falsifies the electric
 sector of this model. This is a QED-sized differential coefficient where the model
 demands an $O(1)$ one, and we record it as a clean falsification: the model's
 electric-route hypothesis is closed, with no rescue. Conversely, a measured flip
-probability of the predicted size ($\numrange{4e-3}{9e-3}$ at the demonstrated
-pump, some seven orders of magnitude above the floor) is inconsistent with QED at
+probability of the predicted size (peak-field kernel $\numrange{4e-3}{9e-3}$,
+measured expectation $\numrange{2e-4}{5e-4}$ at the demonstrated pump, respectively
+$\sim\!10^7$ and $\sim\!10^6$ above the floor) is inconsistent with QED at
 this observable.
 
 \paragraph*{Overlap certificate (precondition for a null).}
@@ -961,10 +977,12 @@ single-measurement demonstrated floor of $\num{2.4e-10}$ was reached
 earlier~\cite{Marx2013}; both were measured with the pump off. Taking the
 conservative $\num{2.4e-10}$ floor, at the demonstrated ReLaX intensity the model
 predicts $\Pflip\simeq\numrange{4e-3}{9e-3}$ (Table~\ref{tab:scenarios}), a factor
-$\sim\!\num{2e7}$ above it. The prediction is thus not a precision measurement at
-the edge of feasibility: it is a $\sim\!10^7$ effect at already-demonstrated
-parameters, so even a commissioning-grade pump-on polarimetric measurement
-adjudicates it. Figure~\ref{fig:exposure} places the prediction, the QED
+$\sim\!\num{2e7}$ above it on the peak-field kernel and $\sim\!\num{e6}$ on the
+envelope- and carrier-averaged measured footing (Table~\ref{tab:scenarios}
+caption). The prediction is thus not a precision measurement at
+the edge of feasibility: it is a $\sim\!10^6$ effect (measured footing) at
+already-demonstrated parameters, so even a commissioning-grade pump-on
+polarimetric measurement adjudicates it. Figure~\ref{fig:exposure} places the prediction, the QED
 co-prediction, the record floor, and the demonstrated pump on the exposure plane.
 
 \paragraph*{Systematics and reanalysis.}
@@ -975,12 +993,13 @@ analyzer acceptance bandwidth, and beam-overlap and timing jitter, together with
 pump-induced backgrounds (plasma emission, scattered pump light) that could mimic
 or mask a signal in the crossed channel~\cite{BirefHibefLoI2025,Karbstein2021}.
 Each of these is an $O(1)$--$O(10)$ correction; none approaches the $\sim\!10^7$
-margin between the model prediction and the floor, so the kill test is robust to
-the full instrumental budget. Operationally, a third party can adjudicate this
+(peak-field kernel; $\sim\!10^6$ measured) margin between the model prediction and
+the floor, so the kill test is robust to the full instrumental budget. Operationally, a third party can adjudicate this
 prediction from a published pump-on run by extracting the crossed-channel fraction
 $N_\perp/N$, correcting it for the enumerated throughput and background factors,
 and comparing the result and its error bar against the frozen entries of
-Table~\ref{tab:scenarios}: a value at the $\num{e-3}$ level confirms the model, a
+Table~\ref{tab:scenarios}: a value at the few\,$\times\,10^{-4}$ level, after the
+enumerated envelope, carrier, and throughput corrections, confirms the model, a
 $5\sigma$ upper limit below $\num{e-8}$ falsifies it.
 
 \paragraph*{This is a forward prediction.}
@@ -1053,15 +1072,17 @@ the Born--Infeld scale, $\Lambda\gtrsim\SI{100}{\giga\electronvolt}$%
 ~\cite{EllisMavromatosYou2017} --- therefore constrain theories \emph{defined} at
 those energies; were the present kernel wrongly promoted to one, it would be
 excluded by many orders of magnitude. The model's collider consistency thus rests
-on its effective-theory domain, and we say so plainly. Above $\omega_0$ the
-four-photon physics is carried by the electron-pair sector --- the same box
-diagrams as QED, which the model shares --- so the SM-consistent collider result is
-that shared physics; what closes the \emph{constitutive} channel above $\omega_0$
+on its effective-theory domain, and we say so plainly. Above $\omega_0$, four-photon
+physics in any theory containing electrons proceeds through the electron-pair box;
+the SM-consistent collider result constrains that sector, about which this Letter
+adds nothing --- what closes the \emph{constitutive} channel above $\omega_0$
 (a hard mode cutoff rather than a power-law tail) is an ultraviolet-completion
 statement this Letter does not supply, and we name it as an open item rather than
 assert it. In-band, by contrast, the enhancement is a genuine prediction: the model
 implies a photon--photon (four-wave-mixing) cross section
-$\sim(3.75\pi/\alpha^2)^2\simeq\num{5e10}$ times QED's wherever $\omega\ll\omega_0$,
+$\sim(3.75\pi/\alpha^2)^2\simeq\num{5e10}$ times QED's (single instantaneous
+footing, Sec.~\ref{sec:model} item (iv); the carrier-average convention shifts
+this by an $O(1)$ factor, changing no margin) wherever $\omega\ll\omega_0$,
 and the two completed in-band searches leave it unconstrained --- the stimulated
 optical-scattering search (upper limit $\sim\!10^{18}\times\sigma_{\mathrm{QED}}$
 at $\SI{0.8}{\electronvolt}$~\cite{Bernard2000}, $\sim\!7$ orders of magnitude above
@@ -1114,7 +1135,8 @@ birefringence prediction for the pump--probe X-ray polarimeter geometry of
 BIREF@HIBEF. The prediction
 exceeds the QED co-prediction by the field-independent factor $3.75\pi/\alpha^2$
 (both coefficients on a single instantaneous footing; Sec.~\ref{sec:prediction}),
-sits $\sim\!10^7$ above the demonstrated polarimeter floor at already-demonstrated
+sits $\sim\!10^7$ above the demonstrated polarimeter floor (peak-field kernel;
+$\sim\!10^6$ measured) at already-demonstrated
 pump parameters, and carries a hard side-prediction --- no static-magnetic-field
 vacuum birefringence --- that renders the existing PVLAS/BMV nulls consistent by
 construction and singles out the electric-route XFEL geometry as decisive. We
@@ -1131,6 +1153,10 @@ commissioning-grade data at an already-operating facility.
 
 The eigen-indices of Eq.~\eqref{eq:eigenindices} follow from the constitutive law
 Eq.~\eqref{eq:kernel} by direct differentiation; we display every step. The
+derivation uses the electric permittivity alone: at the optical pump the magnetic
+sector loads by only $A_I^2/A^2=(k\ell_{\mathrm{node}})^2\simeq\num{9e-12}$
+(Sec.~\ref{sec:model}), so $\mu_{\mathrm{eff}}=\mu_0$ to $\sim\!1$ part in
+$10^{11}$ and the probe eigen-indices are fixed by $\varepsilon$ alone. The
 scalar law relates displacement and field through the field-magnitude invariant
 $u\equiv|E|^2$,
 %
