@@ -192,6 +192,7 @@
   - Does NOT claim derivation of the higher-order QED corrections ($\alpha^2$, $\alpha^3$, $\alpha^4$, $\alpha^5$ terms) that bring $a_e$ to its current 12-digit precision. The AVE result is the leading-order Schwinger value only.
   - Does NOT claim the muon $g-2$ anomaly (BNL/Fermilab discrepancy at $\sim 4\sigma$) is resolved by this derivation. The muon $a_\mu$ is not addressed in this leaf.
   - The decomposition $a_e = (1/\pi^2)\times(\pi\alpha/2)$ uses the unknot diameter $2R = \ell/\pi$ (Axiom 1); this is the same geometry that fixes the electron mass, not an independent input.
+  - **α-echo tag (value-level):** $a_e = \alpha/(2\pi)$ **rides $\alpha$**. The FORM (leading-order Schwinger via the Axiom-4 saturation operator + unknot ropelength + lattice pitch) is structurally derived, but the numerical VALUE inherits the AVE α-value's **standing-echo** status (α is a named geometric identification, closed-negative on all named lift-routes; see vol1 `clm-5xon03`) — so the $a_e$ value is an α-echo, not an independent value-derivation. **Symmetric-standard:** this is **PEER-WITH-Schwinger** — SM/QED's $a_e = \alpha/2\pi$ equally rides on the measured $\alpha$ and is not penalized for it; the honest-peer point is only that the AVE leading-order *value* is not an AVE-distinct chord, not that it is weaker than the SM's.
 
 > **Leaf references:** [higgs-mass](./particle-physics/ch06-electroweak-higgs/higgs-mass.md).
 
@@ -1149,12 +1150,13 @@ AVE-native canonical identification of the electron as a self-trapped photon —
 - _Specific Claims_
   - The electron is the same K4-substrate wave as the photon, above the saturation threshold (not an ontologically distinct particle).
   - Electron real-space topology is the $0_1$ unknot; the $(2,3)$ "trefoil" is the phase-space Clifford-torus winding, not a real-space knot.
-  - 8/8 topological-dynamical properties are axiom-derived; **5/8 observables are axiom-derived** (corrected 2026-06-21 from 6/8 — the leading $g = 2$ is POSITED, not derived; see the Rule-12 scope-note in the Caveats).
+  - 8/8 topological-dynamical properties are axiom-derived; **5/8 observables are axiom-derived** (corrected 2026-06-21 from 6/8 — the leading $g = 2$ is POSITED, not derived; see the Rule-12 scope-note in the Caveats). **Per-observable import-tag guard (KEEP-WITH-GUARDS — do not quote the 5/8 tally without these adjacent tags):** charge = quantization DERIVED (Link $\in \mathbb{Z}$) / value imported; spin = STRUCTURE derived / SELECTION imported ([SPIN-HALF-POSITED], #584/#585, `clm-rkisb8` vol1); $m_e$ = finite by $\ell_{node}$ cutoff / value calibration-anchored; leading $g = 2$ = mechanism-AVE / value POSITED (peer-with-Dirac); $a_e = g{-}2$ = α-echo (rides $\alpha$; peer-with-Schwinger, `clm-stgx1i`). Forms derived / values-and-selections imported at every level; the imports are STRUCTURAL (topological boundary data), not a gap.
 - _Specific Non-Claims and Caveats_
   - $m_e$ is honestly scoped as a calibration anchor, not an axiom-derived value.
   - g-2 closure is partial, pending K4-Cosserat numerical confirmation.
   - 🔴 **Rule-12 scope-note (2026-06-21, workflow wwpskpweb):** distinguish two separate items the prior wording conflated. (i) The **leading $g = 2$** value is **POSITED** (the imported Dirac value), NOT axiom-derived — the $2\pi$/$4\pi$ double-cover forces **spin-½** — STRUCTURE only; the SELECTION is posited/import ($\pi_1 = \mathbb{Z}_2$ admits both), PEER-WITH-SM ([SPIN-HALF-POSITED], clm-rkisb8) — not the $\mu/S$ ratio (proton $g_p \approx 5.586$ / neutron $g_n \approx -3.826$ are also spin-½ with the same double-cover yet $g \neq 2$). (ii) The separate **anomalous** part $a_e = g{-}2$ Petermann coefficient is the partial-closure / $n_q$-additivity item (Q-G27 thread). The "6/8 observables axiom-derived" tally above counted the leading $g = 2$ as derived; the corrected tally is **5/8 axiom-derived** (spin-½ stays derived; leading $g = 2$ → posited) per [`electron-identification.md`](./particle-physics/ch01-topological-matter/electron-identification.md) §2 honest-scoping summary.
   - Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).
+  - **Transverse-precursor framing = disclosed precursor picture; precursor-vs-end-state sub-fork stays OPEN (do not silently resolve).** This entry's "self-trapped photon / same K4 transverse-Cosserat-microrotation wave above yield" identification (heading + Specific Claim 1) is the **transverse trapped-standing-wave** picture. Per the `clm-i4p11y` COEXIST flag (vol1, 2026-06-10 Grant adjudication), that trapped transverse standing wave is the **photon precursor**, while a separate genesis-arc line finds the electron **end-state** = the **longitudinal bulk** mode; Grant ruled these **COEXIST** (two phases — build the end-state separately), NOT a contradiction. **The task-27 D3 ruling (core/far-field COEXIST-with-justification) did NOT resolve this precursor-vs-end-state sub-fork** — it stays OPEN (the graft-v3/v4 end-state build is Outcome LOCK-FAIL to date). Read the transverse-wave identification here as the disclosed precursor picture, not as a closed end-state claim. See vol1 `clm-i4p11y`.
 
 > **Leaf references:** [electron-identification](./particle-physics/ch01-topological-matter/electron-identification.md).
 
@@ -1346,8 +1348,8 @@ The substrate-perspective operational view of the canonical electron: what each 
 Derivation of why the electron's phase-space topology is specifically $(2,3)$. $(2,3)$ is uniquely the smallest non-trivial coprime torus knot, with the lowest crossing number ($c = 3$) of any non-trivial knot; coprimality is required for a connected single-component knot, and both windings $\geq 2$ for non-trivial winding in both directions. As the lightest stable lepton with non-trivial topology, the electron must be $(2,3)$.
 
 - _Specific Claims_
-  - $(2,3)$ is the unique smallest non-trivial coprime torus knot (gcd=1, both windings $\geq 2$, lowest crossing $c=3$).
-  - The electron is forced to $(2,3)$ as the lightest stable non-trivial lepton.
+  - $(2,3)$ is the unique smallest non-trivial coprime torus knot (gcd=1, both windings $\geq 2$, lowest crossing $c=3$) — a **derived** knot-theory result (STRUCTURE).
+  - The electron's $(2,3)$ assignment is **selection-imported (PEER-WITH-SM)**: the coprime-minimality *structure* above is derived, but selecting $(2,3)$ *for the electron* rests on the imported physical identification "lightest stable non-trivial lepton $\Rightarrow$ simplest non-trivial knot" — the substrate does not independently force it. (STRUCTURE derived / SELECTION imported, the same split as spin-½ [SPIN-HALF-POSITED]; the four candidate routes to lifting the selection to derived are surveyed below.)
 - _Specific Non-Claims and Caveats_
   - $(2,3)$ is the phase-space Clifford-torus winding; the electron's real-space topology is the $0_1$ unknot (per Vol 1 Ch 8).
 
@@ -1363,6 +1365,14 @@ Derivation of why the electron's phase-space topology is specifically $(2,3)$. $
 - strengthen-by:
   - Derive (not assert) that "lightest stable lepton = simplest non-trivial knot" follows from a Faddeev-Skyrme energy ordering on K4.
   - Establish that the lepton ladder is the Cosserat-torsion ladder (fixed $(2,3)$) from dynamics, closing the FI-13 framing rather than asserting it.
+
+> **Paths-to-derived survey (D5, 2026-07-09) — how the $(2,3)$ SELECTION could lift from imported to derived.** The coprime-minimality *structure* is a derived knot-theory result; only the *selection* of $(2,3)$ for the electron is imported. This is a **survey of candidate routes, not a derivation** — each with current status and what would close it:
+> 1. **Energetic minimality** — *status: OPEN (route defined, tool missing).* Closes if a substrate mass/energy functional over the $(p,q)$ torus-knot family (e.g. a Faddeev–Skyrme energy on K4) provably minimizes at $(2,3)$ among stable candidates. Needs that functional built and its ordering computed — this is the first strengthen-by item above.
+> 2. **Stability / decay selection** — *status: OPEN.* Closes if a decay/stability analysis shows competing windings are unstable or forbidden, leaving $(2,3)$ as the unique stable lightest entry. No such analysis exists yet.
+> 3. **Topological exclusion** — *status: PARTIAL (structure-side only).* Genuine exclusions DO exist: odd-$q$ is required (single-component knot), and non-coprime windings such as $(2,4)$/$(2,6)$ are excluded (not single-component knots). These narrow the family to the $(2,q_{\mathrm{odd}})$ ladder but do **not** by themselves select $q=3$ over $q=5,7,\dots$ — the "lightest $\Rightarrow$ smallest" step stays imported.
+> 4. **Genesis dynamics** — *status: OPEN; genesis arcs closed-negative to date.* Closes if a genesis/formation simulation dynamically settles a free precursor into the $(2,3)$ winding. AVE genesis arcs to date are closed-negative (the engine does not self-form the winding; the seeder PLANTS it — cf `clm-gfdplp`). Open pending a genesis mechanism that is not closed-negative.
+>
+> Until one of these closes, the $(2,3)$ SELECTION stays **imported (PEER-WITH-SM)** while the STRUCTURE (smallest coprime torus knot) remains derived.
 
 ---
 

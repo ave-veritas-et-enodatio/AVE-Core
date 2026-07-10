@@ -138,6 +138,48 @@ flux DOF, Link-labeled) is forced; the VALUE of the quantum is imported. This is
 FORM-derived / VALUE-imported meta-pattern landing on charge-flux (the table row
 above is the one-line home; the pinning ledger is the derivation).
 
+## The electron — a further named instance (2026-07-09, KEEP-BOTH additive)
+
+*(Added additively; does NOT redefine the α / G / K=2G / E_yield / m_e / charge-flux
+verdicts in the per-constant table above. The canonical electron home is
+[`../vol2/particle-physics/ch01-topological-matter/electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md)
+§2 — its three-way FORM/VALUE accounting is the electron instance; this is the
+reciprocal one-line home in the umbrella leaf. The electron is a **composite
+particle, not a calibration constant**, so it rides here as an instance-section
+mini-table rather than as a row of the per-constant table above.)*
+
+The composite electron is the **fourth+ named instance** of the FORM-deriving /
+VALUE-importing meta-finding — the same split the table records for α, G, K=2G,
+E_yield, m_e, and charge-flux, now landing on a whole particle. Per observable:
+
+| Electron observable | FORM (derived) | VALUE / SELECTION (imported) |
+|---|---|---|
+| **charge (quantization)** | integer-ness — `Q = Link(∂Ω, F) ∈ ℤ`, Ax2 TKI winding of the $0_1$ unknot | the *value* $e$ — routes through `ξ_topo ≡ e/ℓ_node`, rides the α-echo (coverage-matrix `VALUE=DEFINITIONAL`) |
+| **spin-½** | the $2T ⊂ SU(2)$ double-cover **STRUCTURE** (K4-native) | the fermionic **SELECTION** over the bosonic branch — $π_1 = ℤ_2$ ADMITS both, forces neither; PEER-WITH-SM (`clm-rkisb8`, [SPIN-HALF-POSITED]) |
+| **spin-statistics** | the exchange = antisymmetric **connection** ($σ = -I$, FR two-loop braid, #315) — DERIVED at **PEER-ahead** | generic-FR (the non-A4 control also reaches $-I$) → NOT an AVE-distinct chord; the dynamical selection of the antisymmetric sector (exclusion enforcement) stays OPEN |
+| **$(2,3)$ winding** | the coprime-minimal winding STRUCTURE on the $(p,q)$ ladder | the $(2,3)$ **SELECTION** — imported / PEER (`clm-8c3yhs`; paths-to-derived survey open) |
+| **$m_e$ / $ℓ_node$** | (n/a — the calibration anchor) | **DEFINITIONAL** — `ℓ_node ≡ ℏ/(m_e c)`, an input by construction |
+| **$g = 2$** | the mechanism (Meissner-asymmetric μ generator) is AVE-native | the leading *value* 2 is imported / peer-with-Dirac; $g-2$ rides the α-echo |
+
+**Imports are structural, not a gap.** Every imported cell above is **topological
+boundary data** — the Burgers/Frank-analog of dislocation/disclination elasticity. In
+continuum elasticity a dislocation's **Burgers vector** and a disclination's **Frank
+vector** are **INPUTS** to the theory — boundary data specifying *which* defect you are
+solving around — not defects *in* the theory; the elasticity then forces everything
+else. Identically here: the electron's charge sign, its winding selection, and its mass
+scale are **boundary-data INPUTS** to the substrate elasticity, and the substrate then
+forces the FORMS around them. So "VALUE imported" is a **structural specification**, not
+a derivation gap — exactly the reading the per-constant table above carries for the
+calibration constants.
+
+> **Honest-peer guard (inherited from the umbrella ethos — §"The testing consequence" / §"Why the pattern holds").** This electron
+> row is a finite, mechanistic, **PEER** re-representation of the same particle the
+> Standard Model describes — **not an interior chord**. Every FORM cell is the shared AC
+> structure (peer-with-SM by construction; §"The AC/DC carve" below); the AVE-**distinct**
+> content lives **only in the forward predictions** (the E-route birefringence coefficient
+> `clm-pp3qwf`, the χ = 1.2α HOPF birefringence). **No cell in this table may be read as an
+> interior AVE-distinct claim.**
+
 ## The AC/DC carve — the MECHANISM of FORM/VALUE
 
 *(Grant-ratified 2026-07-03; evidence = the entire 2026-07 arc ledger. Added

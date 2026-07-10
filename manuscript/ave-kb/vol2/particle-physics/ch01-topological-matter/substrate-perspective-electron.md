@@ -21,7 +21,7 @@ The substrate-perspective operational view of the canonical electron: NOT field-
 | Macroscopic emergence | Charge $e$, mass $m_e$, spin $\hbar/2$, $g = 2$, Compton $\ell_{\text{node}}$, gravitational coupling — all readings of joint substrate state |
 | Self-organized fixed point | Saturation IS where field is; field IS where saturation traps it. Axiom 3 (Minimum Reflection) stabilizes the joint configuration |
 | Topological conservation | Unknot $c = 0$ topology is invariant; charge conservation = $[Q] \equiv [L]$ (Axiom 2); electron can't decay to vacuum without topological barrier |
-| Magnetic moment via SU(2) bundle | SO(3) $\omega$-field period $2\pi$ vs spinor observable period $4\pi$ → **spin-½** (forced). The leading $g = 2$ *value* is POSITED (Dirac), not derived from the ratio — see Rule-12 banner. |
+| Magnetic moment via SU(2) bundle | SO(3) $\omega$-field period $2\pi$ vs spinor observable period $4\pi$ → forces the spin-½ **STRUCTURE** (structure = chord; the fermionic SELECTION is posited/import, PEER-WITH-SM; clm-rkisb8) — **NOT** "spin-½ forced" (the #588 miss: the double-cover forces the *structure*, not the fermionic *selection*). The leading $g = 2$ *value* is POSITED (Dirac), not derived from the ratio — see Rule-12 banner. |
 | Long-range gravitational coupling | Op14 saturation kernel propagates outward via $1/r^2$ → refractive index gradient → gravitational lensing analog at electron scale |
 
 ## §1 — What each lattice node has (substrate observables, per Axiom 1)
@@ -90,6 +90,18 @@ The canonical electron is a $0_1$ unknot (real-space curve) carrying a Beltrami 
 
 **The tube core is a region of trapped, saturated, slowed substrate.**
 
+> **D3 two-question note (identity vs envelope, 2026-07-09).** The saturated/slowed tube-core
+> values in this table describe the **medium's yield-ENVELOPE** — the ~$\ell_{\text{node}}$ near-field
+> region where saturation engages and the $\Gamma\to-1$ mismatch wall lives (cavitation-bubble
+> sense: *where the medium gave up*, not the inside of the propeller). They answer *"how does the
+> medium respond near the core?"*. They do **NOT** store the electron's identity: charge sign and
+> the winding integers are **topological boundary data** (Burgers/Frank-analog INPUTs to the
+> surrounding elasticity), not a spatial pattern read out of the tube interior. Mapping structure
+> INTO the core to *hold* identity is a category error. Two questions, two radii — the ENVELOPE
+> (this table, the medium's response) and the IDENTITY (boundary data) are **both kept** and do not
+> contradict. Cross-ref the hollow-vortex $R^*\approx1.6\,\ell_{\text{node}}$ cavity as the same
+> envelope described geometrically ([hollow-vortex-binding.md](hollow-vortex-binding.md)).
+
 ### At the loop's surface (Regime II boundary)
 
 | Observable | State |
@@ -120,7 +132,22 @@ But **not perfectly** — there's a long-range effect ($1/r^2$ via Op14 coupling
 
 For the canonical electron unknot at horn torus ($R_{\text{loop}} = r_{\text{tube}}$), there's **no "interior"** — the loop tube IS the structure. Inside the tube, the field is saturated; outside, it's vacuum. The loop is self-contained.
 
-For OTHER structures (e.g., trefoil torus knot for proton $5_1 / 5_2$), there might be a meaningful interior with separate Regime III plasma physics. But for the canonical electron unknot, no interior exists.
+**Why there is no interior to probe — topological, not merely geometric (D3, 2026-07-09).** The
+horn-torus $R = r$ collapse is the *geometric* reading of "no interior". The deeper, D3-load-bearing
+reading is *topological*: the electron's identity — charge sign, winding integers — is **boundary
+data** (Burgers/Frank-analog INPUTs to the surrounding elasticity), NOT a spatial pattern stored
+somewhere inside a core. So even where the medium *does* carry a near-core yield-ENVELOPE (the
+saturated tube-core values in §2; the hollow-vortex $R^*\approx1.6\,\ell_{\text{node}}$ cavity,
+[hollow-vortex-binding.md](hollow-vortex-binding.md)), that envelope describes the medium's
+**response region**, not an interior map that holds the particle's identity. "No interior" therefore
+means *no interior to read identity out of* — a category statement, not merely "the tube is thin".
+The two questions — IDENTITY (boundary data) ⊥ ENVELOPE (the medium's saturated response) — sit at
+different radii and are both kept.
+
+For OTHER structures (e.g., trefoil torus knot for proton $5_1 / 5_2$), there might be a meaningful
+interior-ENVELOPE with separate Regime III plasma physics. But for the canonical electron unknot no
+such interior-envelope exists — and in neither case does the interior *store* the identity, which is
+boundary data either way.
 
 ## §3 — How the substrate "reacts" (dynamics)
 

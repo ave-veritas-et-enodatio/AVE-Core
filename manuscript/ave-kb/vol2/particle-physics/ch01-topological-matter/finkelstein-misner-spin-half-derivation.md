@@ -6,10 +6,12 @@ claims: [clm-salw2h]
 path-stable: "referenced from spin-half-paradox + k4-rotation-group + ch8-alpha-golden-torus regime (c) + spin-gyroscopic-isomorphism as canonical FM-on-K4 explicit derivation host; depends-on from clm-unk0bd (Phase 2 sub-item 3, 2026-05-25) + clm-zuf7g1 (Phase 1 clm-zuf7g1-strengthen workstream, 2026-05-26 — supplies the spin-1/2 Möbius half-angle coupling for the Bell-correlation derivation)"
 -->
 
-# Finkelstein-Misner Spin-½ Derivation on the K4 Substrate
+# Finkelstein-Misner Spin-½ Double-Cover STRUCTURE Derivation on the K4 Substrate
 <!-- claim-quality: clm-salw2h -->
 
-This leaf carries the **explicit derivation** of electron spin-½ from K4-substrate physics via the Finkelstein-Misner (FM) kink mechanism on the extended $0_1$ unknot defect. It is the detail-derivation host for `clm-salw2h` (the spin-½-as-macroscopic-gyroscopic-precession claim canonically hosted in [spin-half-paradox.md](../../appendices/app-b-paradoxes/spin-half-paradox.md) + [spin-gyroscopic-isomorphism.md](spin-gyroscopic-isomorphism.md)), spelling out the K4-native mechanism beyond the brief paragraph in spin-half-paradox.md.
+This leaf carries the **explicit derivation of the double-cover STRUCTURE** underlying electron spin-½ from K4-substrate physics via the Finkelstein-Misner (FM) kink mechanism on the extended $0_1$ unknot defect. It is the detail-derivation host for `clm-salw2h` (the spin-½-as-macroscopic-gyroscopic-precession claim canonically hosted in [spin-half-paradox.md](../../appendices/app-b-paradoxes/spin-half-paradox.md) + [spin-gyroscopic-isomorphism.md](spin-gyroscopic-isomorphism.md)), spelling out the K4-native mechanism beyond the brief paragraph in spin-half-paradox.md.
+
+> **Scope — STRUCTURE derived, SELECTION imported ([SPIN-HALF-POSITED], #584/#585).** What is derived here is the double-cover **STRUCTURE**: the extended $0_1$ unknot embedded in the $SO(3)$ substrate admits the $2T \subset SU(2)$ 2-to-1 cover ($2\pi \to -I$, $4\pi \to +I$). The fermionic **SELECTION** — the ½ (spinor) branch over the integer (tensor) branch — is a **disclosed action-level import**: $\pi_1$ of the $SO(3)$-Cosserat configuration space is $\mathbb{Z}_2$ and $\mathrm{Hom}(\mathbb{Z}_2, U(1))$ has two elements, so the substrate **admits both statistics and forces neither**; the corpus supplies the fermion via the half-angle lift $U = \exp(i\,\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$ by hand. **PEER-WITH-SM** (SM also posits spin-½). Structure/selection split canonical at [clm-rkisb8](../../../vol1/claim-quality.md) + clm-salw2h. The title's "spin-½" therefore names the STRUCTURE this leaf earns, not a substrate-forced selection.
 
 **Resolves**: clm-0ktpcn strengthen-by item 2 ("Spell out the Finkelstein–Misner spin-1/2 derivation from the $K_4 \to A_4 \to 2T \subset SU(2)$ chain explicitly in the leaves").
 
@@ -60,7 +62,7 @@ The mechanism above is *physical*; the chain that connects it to the standard $S
 3. **Exact sequence**: $1 \to \mathbb{Z}_2 \to 2T \to A_4 \to 1$. The $\mathbb{Z}_2$ quotient is the $4\pi$ double-cover: each $A_4$ element has two preimages in $2T$ differing by the central element $-I \in SU(2)$
 4. **The double-cover lift**: a $2\pi$ rotation in $SO(3)$ lifts to $-I$ in $SU(2)$ (sign flip); only $4\pi$ lifts to $+I$
 
-For spin-½ to be K4-derived (not imported from QM), physical fields on the K4 lattice must transform under $2T$ rather than $T$. The Finkelstein-Misner mechanism on the extended $0_1$ unknot defect (per §2 above) is what realizes this: the *extended* nature of the defect is what picks up the $2T$ double-cover rather than the trivial $T$ action.
+For the double-cover **STRUCTURE** to be K4-native (not imported from QM), physical fields on the K4 lattice must be *representable* under $2T$ rather than $T$. The Finkelstein-Misner mechanism on the extended $0_1$ unknot defect (per §2 above) is what realizes this: the *extended* nature of the defect is what picks up the $2T$ double-cover rather than the trivial $T$ action. This establishes **representability** (the substrate *can* host the $2T$ action — matching the representability scope of the numerical gate in this leaf's preamble), not dynamics-selection. Crucially, the $\mathbb{Z}_2$ noncontractible loop of this $2T$ structure ($\pi_1 = \mathbb{Z}_2$) **admits both** the spin-½ (fermion) and integer-spin (boson) branch — $\mathrm{Hom}(\mathbb{Z}_2, U(1))$ has two elements — and **forces neither**; the fermionic selection is the disclosed imported half-angle lift (per [clm-rkisb8](../../../vol1/claim-quality.md), [SPIN-HALF-POSITED], PEER-WITH-SM), NOT something the $K_4 \to A_4 \to 2T$ chain selects on its own.
 
 ## §4 The gyroscopic-isomorphism numerical anchor
 
@@ -101,6 +103,7 @@ This decomposition follows the doc-23 §4 pattern and is recommended as a corpus
 1. The Finkelstein-Misner topological theorem itself (Finkelstein & Misner, 1959 — classical differential topology of extended defects in $SO(3)$ manifolds)
 2. Lie group $SU(2)$ language for describing the dynamics (group theory)
 3. Pauli matrix algebra as a calculational tool (linear algebra)
+4. The fermionic **SELECTION** — the ½ (spinor) branch over the integer branch. $\pi_1 = \mathbb{Z}_2$ admits both statistics and forces neither ($\mathrm{Hom}(\mathbb{Z}_2, U(1))$ has two elements); the ½ is inserted by the action-level half-angle lift $U = \exp(i\,\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$, a disclosed import (the Finkelstein–Rubinstein / Wess–Zumino sign the soliton literature also imports). This is the **selection**, distinct from the double-cover **structure** in the K4-NATIVE list above; PEER-WITH-SM ([SPIN-HALF-POSITED], #584/#585; [clm-rkisb8](../../../vol1/claim-quality.md), clm-salw2h).
 
 **The distinction**: AVE uses standard math (Lie groups, topology, linear algebra) to DESCRIBE the K4-native physics. The PHYSICS (extended-unknot gyroscopic precession with $4\pi$ double-cover) is K4-native; the MATH LANGUAGE ($SU(2)$, Pauli matrices, $2T$ group structure) is imported but applies to genuinely K4-native dynamics. Analogous to using calculus to describe Newton's laws — calculus is imported math, but $F = ma$ is genuine physics.
 
@@ -122,7 +125,7 @@ A natural concern: if the K4 substrate's Cosserat micro-rotational DOF is the su
 
 Per [spin-half-paradox.md:12](../../appendices/app-b-paradoxes/spin-half-paradox.md) verbatim:
 
-> "If the electron were modeled as a microscopic point-defect (a missing node), the framework would indeed fail. However, the AVE framework defines the electron as an extended, macroscopic $0_1$ Unknot (a closed, continuous topological flux tube loop). **In topological mathematics, an extended knotted line defect embedded in an $SO(3)$ manifold exhibits $SU(2)$ spinor behaviour through the generation of a Finkelstein-Misner Kink**. The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry."
+> "If the electron were modeled as a microscopic point-defect (a missing node), the framework would indeed fail. However, the AVE framework defines the electron as an extended (~$\ell_{node}$-scale core) $0_1$ Unknot (a closed, continuous topological flux tube loop). **In topological mathematics, an extended knotted line defect embedded in an $SO(3)$ manifold exhibits $SU(2)$ spinor behaviour through the generation of a Finkelstein-Misner Kink**. The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry."
 
 And §2.1 above (FM mechanism, verbatim): *"extended objects connected to their environment have a 2-to-1 cover of the $SO(3)$ rotation group. $2\pi$ gives a topologically distinct state; $4\pi$ returns to the original. Standard differential topology, no quantum mechanics required."*
 

@@ -90,7 +90,7 @@ In the AVE topological-soliton framework:
 - Lighter particle = simpler topology = lower-energy stable bound state
 - The electron = **simplest non-trivial topological knot supporting charge + spin-½ + non-trivial linking**
 
-**The simplest non-trivial torus knot is $(2, 3)$.** Therefore the electron MUST be $(2, 3)$ — it's the only assignment consistent with "electron = lightest non-trivial stable lepton."
+**The simplest non-trivial torus knot is $(2, 3)$** — this is the derived *structure* (the smallest coprime pair with both windings $\geq 2$, from basic knot theory). Assigning it to the electron follows from the identification "electron = lightest non-trivial stable lepton": the winding **STRUCTURE is derived**, but the **SELECTION** (that the electron occupies the *smallest* such knot rather than another $(p,q)$) is an **imported identification**, not substrate-forced — **PEER** (clm-8c3yhs; the honest split is §8 below, and a paths-to-derived survey is tracked at clm-8c3yhs).
 
 This matches:
 - Vol 1 Ch 8 explicit derivation of $\alpha^{-1}$ at Golden Torus geometry using $(2, 3)$ phase-space winding
@@ -104,7 +104,7 @@ This matches:
 | Lepton | Topology | Mass mechanism | Mass |
 |---|---|---|---|
 | Electron | $(2, 3)$ trefoil + 0 Cosserat torsion quanta | base Faddeev-Skyrme on (2,3) | $\sim 0.511$ MeV (measured) |
-| Muon | $(2, 3)$ trefoil + 1 Cosserat torsion quantum | $m_\mu = m_e/(\alpha\sqrt{3/7}) \approx 107$ MeV (1.24% off PDG) | $\sim 105.66$ MeV |
+| Muon | $(2, 3)$ trefoil + 1 Cosserat torsion quantum | $m_\mu = m_e/(\alpha\sqrt{3/7}) \approx 107$ MeV (1.24% off PDG) — *echo/import: the mass VALUE defers to its source leaf [lepton-spectrum](../ch06-electroweak-higgs/lepton-spectrum.md) (Vol 2 Ch 6); the ~1.24% residual is a fit-echo, not a chord* | $\sim 105.66$ MeV |
 | Tau | $(2, 3)$ trefoil + N_torsion=? Cosserat quanta | analogous extension; details in Vol 2 Ch 6 | $\sim 1.777$ GeV |
 
 The exact mass-from-Cosserat-torsion derivation is in Vol 2 Ch 6 (lepton-spectrum.md). **The point**: $(2, 3)$ is the SIMPLEST non-trivial torus knot, hence the electron's identity is forced if we accept "electron = lightest stable lepton." Higher-mass leptons stay at (2,3) topology — they don't climb the (p,q) torus-knot ladder; they climb the Cosserat-torsion excitation ladder.
@@ -122,7 +122,7 @@ The exact mass-from-Cosserat-torsion derivation is in Vol 2 Ch 6 (lepton-spectru
 1. **$(2, 3)$ is uniquely the smallest non-trivial coprime torus knot** ($\gcd = 1$, both $\geq 2$, smallest sum $p + q = 5$)
 2. **It has the lowest crossing number $c = 3$** of any non-trivial knot
 3. **It's the unique trefoil topology** (trefoil is THE simplest knot in all of knot theory — first entry in Rolfsen's knot tables as $3_1$)
-4. **The electron MUST be $(2, 3)$** (in phase space, per the Vol 1 Ch 8 canonical clarification) if we accept it's the lightest stable lepton with non-trivial topology
+4. **The electron is assigned $(2, 3)$** (in phase space, per the Vol 1 Ch 8 canonical clarification) if we accept it's the lightest stable lepton with non-trivial topology — the $(2,3)$ winding **structure is derived**; the **selection** (electron = the smallest such knot) is the imported identification (clm-8c3yhs, PEER), not substrate-forced
 
 This is a **DERIVATION from basic knot-theoretic facts** plus the identification "electron = lightest stable non-trivial topological soliton." The knot theory is standard math; the identification is the AVE physical assertion.
 

@@ -81,6 +81,21 @@ So the honest standing is: **120 years separate Poincaré's postulated stress fr
 
 ## Thread C — the definition epistemology
 
+> **↗ Core/far-field reframe (D3 coexist, 2026-07-09 — the modern lens on this thread).** Read the
+> constitutive question *"what is the electron made of?"* through the current core/far-field split, and
+> it becomes a question about the **ENVELOPE's constitution** — what the ~$\ell_{\text{node}}$ saturated
+> near-field region (the condensed transverse-wave phase; the hollow-vortex $R^*\approx1.6\,\ell_{\text{node}}$
+> yield-cavity, [`hollow-vortex-binding.md`](../vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md))
+> is *made of* and *how it condenses* — **NOT** a question about storing the particle's identity inside
+> an interior map. The electron's identity (charge sign, winding integers) is **topological boundary
+> data** (Burgers/Frank-analog INPUTs to the surrounding elasticity), not a spatial pattern read out of
+> a core. So Thread C's obligation ledger below is an obligation ledger *for the envelope's constitution*
+> (does the medium condense at the right threshold, heal in free space, nucleate in pairs, …); and the
+> companion "no interior to probe" statement (→ [`substrate-perspective-electron.md`](../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md)
+> §2) is the identity-side half: *no interior to read identity out of*. **Two questions, two radii, both
+> kept** — the envelope has a constitution; the identity is boundary data; neither demotes the other.
+> This reframe changes no class-tag below and creates no interior-chord claim.
+
 This thread is about **what kind of thing a definition is**, and it is where the steelman is sharpest, because the behavioral definition is *better* than the constitutive one on every axis except the one that matters here.
 
 **The behavioral definition (the standard one).** The electron is *"a quantized excitation of the electron field,"* with mass, charge, and spin **measured** and inserted as parameters at a point. This definition is extraordinarily successful (Thread D). But note its epistemic shape: it makes **no claim about what the electron is made of**, so there is **no constitutive prediction that could come out wrong.** It cannot fail *as a statement of constitution* because it never makes one. That is not a flaw in its predictive use — it is a flaw only if you wanted an answer to *"what is it?"*. **Unfalsifiable-about-constitution is a weakness wearing the costume of rigor:** the silence reads as cleanliness, but a definition that forbids no constitutive outcome also explains no constitutive fact.
