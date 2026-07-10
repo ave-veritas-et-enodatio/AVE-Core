@@ -70,18 +70,29 @@ The manifold is connected 0 → 5.441 ω_C. The spectrum is symmetric in λ abou
 
 ## 3. The three consumers
 
-- **(a) FORK A tone placement.** The two-tone difference-frequency drive tones must sit **ABOVE 5.441 ω_C**
-  (the true 3D srs band top), with ω_a − ω_b in-band. **Recommended: ω_a ≈ 6.94 ω_C, ω_b ≈ 5.94 ω_C**
-  (both clear 5.441; difference 1.0 ω_C is well in-band). ⚠ The old superband run placed tones above
-  **2 ω_C** (the 1D-chain *lumped* band top) — that is **≈2.7× too low** for the real 3D srs net. Any FORK-A
+- **(a) FORK A tone placement (SCALAR-PROVISIONAL).** The two-tone difference-frequency drive tones must sit
+  **ABOVE 5.441 ω_C** (the **scalar-channel** srs band top), with ω_a − ω_b in-band. **Recommended: ω_a ≈ 6.94 ω_C,
+  ω_b ≈ 5.94 ω_C** (both clear 5.441; difference 1.0 ω_C is well in-band). ⚠ The old superband run placed tones
+  above **2 ω_C** (the 1D-chain *lumped* band top) — that is **≈2.7× too low** for the real 3D srs net. Any FORK-A
   two-tone protocol on the actual scatter+connect engine must clear 5.441 ω_C, not 2 ω_C.
+  **⚠ SCALAR-PROVISIONAL (review item 5):** the γγ carrier is a **T2 / vector-sector** excitation, not the
+  scalar channel surveyed here. 5.441 ω_C is the **scalar-channel** band top; the **12-band vector (Cosserat)
+  band top is DEFERRED** (§5) and may exceed the 5.94 ω_C floor. Final tone placement **gates on the
+  vector-channel survey** — or, absent it, on a worst-case channel-speed-scaled margin: if the longitudinal link
+  speed scales the band, the vector top could reach ~**π√3·√(10/3) ≈ 9.9 ω_C**. Treat 5.94 / 6.94 as the
+  **scalar-provisional** recommendation, not the final vector-safe placement.
 - **(b) FPB-corner marker #1 revision.** Band edge = **2.781 MeV**. Pair threshold 2ω_C = **1.022 MeV**.
   **Measured ordering: 2ω_C (1.022 MeV) < band-top (2.781 MeV).** ⇒ the AC→DC / pair-production channel opens
   **BELOW** the band top: propagating scalar lattice modes **coexist** with the pair channel in the
   **1.022 – 2.781 MeV** window. (Smooth modes do NOT stop where pair conversion begins.)
-- **(c) gap-breather flag.** **NO full gap exists** ⇒ gap-localized (gap-breather) carrier candidates are
-  **UNAVAILABLE** in the scalar srs channel. First-class negative for the mobile-carrier search: srs cannot
-  host a gap-pinned-vs-mobile discriminator because it has no gap.
+- **(c) gap-breather flag (scoped: GAP-PINNED only).** **NO full INTERNAL gap exists** ⇒ **gap-PINNED**
+  (gap-localized / intrinsic-gap-breather) carrier candidates are **UNAVAILABLE** in the scalar srs channel:
+  srs cannot host a gap-pinned-vs-mobile discriminator *of that class* because it has no internal gap.
+  **⚠ SCOPING (review item 4):** this negative kills **GAP-PINNED modes ONLY**. The **ABOVE-BAND
+  mobile-breather** branch — a discrete breather riding **above** the band top (freq **> 5.441 ω_C**, in the
+  semi-infinite gap above the connected 0 → 5.441 ω_C manifold) — is **NOT falsified** by no-internal-gap and
+  **remains the live carrier-fork branch**. The carrier-fork gate MUST NOT read the no-internal-gap result as
+  killing the above-band mobile breather.
 
 ---
 
