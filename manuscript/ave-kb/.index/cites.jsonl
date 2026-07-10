@@ -155,6 +155,7 @@
 {"claim_id": "clm-bdualb", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bh9p6s", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-bjceop", "leaf_path": "common/q-g47-substrate-scale-cosserat-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-bnd5rq", "leaf_path": "vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-bqtasn", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-br3bcv", "leaf_path": "vol5/molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-c54kdd", "leaf_path": "vol4/simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md", "leaf_kind": "leaf", "tier2_marked": false}

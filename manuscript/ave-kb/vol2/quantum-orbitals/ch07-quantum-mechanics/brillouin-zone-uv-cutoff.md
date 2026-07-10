@@ -109,6 +109,7 @@ The loop integral is bounded by the **spatial** $k_{\max}=\pi/\ell_{\text{node}}
 
 ## Cross-references
 
+- [`../../../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md`](../../../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md) (clm-bnd5rq) — the canonical srs **temporal $\omega(k)$ band-structure** survey (scalar top $\pi\sqrt3=5.441\,\omega_C$ at $H$, vector top BRACKET $[5.441,17.011]\,\omega_C$, NO internal gap either channel; arccos TL map substrate-native). This leaf's SPATIAL loop bound $k_{\max}=\pi/\ell_{\text{node}}$ is the k-space companion to that leaf's ω-space band top — the same $\pi$ zone-shape factor, distinct measures (§3 distinct-cutoff discipline).
 - [`q-g20a-lamb-shift-structural-closure.md`](q-g20a-lamb-shift-structural-closure.md) (clm-3i66gp) — the self-energy / "UV divergence naturally absent" claim this driver confirms; carries the corrected cutoff $1/\ell_{\text{node}}=m_e c$ and the $1.75\times$ matched-log ratio.
 - [`../../appendices/app-e-dcve/dcve-specification.md`](../../appendices/app-e-dcve/dcve-specification.md) — App-E, the exact discrete-Hilbert commutator $[x,p]=i\hbar\sqrt{1-(\ell p/\hbar)^2}$ that FORM-derives the band-limit.
 - [`../../particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md`](../../particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md) — the companion "UV saturation at $q\to\pi/\ell_{\text{node}}$, no Landau pole" closure.
