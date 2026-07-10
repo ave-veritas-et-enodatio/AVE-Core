@@ -128,8 +128,26 @@ TABLE + the AMBIGUOUS list: [`research/2026-07-10_operator-typing-pass_result.md
 **Headline GAP (candidate, not claim):** every rating-bearing operator is **swing**; there is **no slew-typed
 operator** in Op1–Op22. The slew-rate kernel $L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}$ ([`relativistic-inductor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md),
 `clm-p5cf3t`) is canonical but un-numbered and un-catalogued — the μ-side dual of Op2. See the GAP TABLE (G1-G8)
-and AMBIGUOUS list (A1 swing/slew-vs-ε/μ orthogonality; A2 amp-keyed-vs-freq-acting; A4 $L(I)$-vs-$S_B$; A5
-Op8/Op9 settled-sector) in the result doc — those go to Grant, not silently resolved.
+and AMBIGUOUS list (A1 swing/slew-vs-ε/μ orthogonality **— RESOLVED, see the ratified 2×2 below**; A2
+amp-keyed-vs-freq-acting; A4 $L(I)$-vs-$S_B$; A5 Op8/Op9 settled-sector) in the result doc — the rest go to
+Grant, not silently resolved.
+
+**★ RATIFIED 2×2 rating convention (Grant 2026-07-10 — RESOLVES A1).** The rating axes are **ORTHOGONAL**, not a
+1:1 map. **Axis 1** = which ELEMENT the kernel modulates (ε/C vs μ/L). **Axis 2** = which VARIABLE it keys on: the
+element's own state amplitude (**SWING**) vs its rate/conjugate (**SLEW**). In the tank the mapping is exact —
+slew-of-C keys on $I=C\dot V$, slew-of-L keys on $V=L\dot I$. **The FPB note's "slew = μ" 1:1 identification is
+CORRECTED: the canonical μ-kernel is slew-KEYED; the axes are orthogonal.** Current canonical population (THE
+load-bearing table — diagonal canonical, off-diagonal are population questions, not operators until measured):
+
+| | **SWING** (keyed on the element's own state amplitude) | **SLEW** (keyed on the element's rate/conjugate) |
+|---|---|---|
+| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **UNDER MEASUREMENT** — fork A gate-2 (the two-tone run, branch `analysis/x31a-twotone-formfactor`) is the direct probe of whether this cell is populated. |
+| **μ / L** | **swing-μ** (L keyed on $I$/B amplitude; bench analog = ferrite-core saturation): **PREDICTED EMPTY for the vacuum** — this cell's emptiness IS the registered **static-B-transparency falsifier** (PVLAS/BMV consistency = its standing test; frozen-flux mechanism: static flux is conserved per-loop, not stored against a saturable core). Cross-ref [the Letter §"static-flux transparency"](../../../papers/2026_birefringence_letter/main.tex) + [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md) (`clm-pvlas1`). | **slew-μ** (L keyed on $V$ = flux-rate / circulation $A_I=\dot E/(E_c\omega_0)$): $S_B(A_I)=\sqrt{1-A_I^2}$ — **CANONICAL** (the FPB slew rating, $I_{max}\simeq116$ A). Particle-tier costume: the relativistic inductor $L_{eff}=$ γ-factor (relativistic mass) — pending A4. |
+
+The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ); the **off-diagonal** cells are population
+QUESTIONS (swing-μ predicted-empty = the static-B falsifier; slew-ε under fork-A measurement). **G1's mint
+decision updates:** the ruling implies a **slew FAMILY** — the slew-μ kernel earns an Op number (the μ-side dual
+of Op2/Op14); the off-diagonal cells remain population questions, not operators until measured.
 
 ---
 

@@ -154,8 +154,26 @@ FPB-corner walked-framing note (**PR #595 UNMERGED — FRAMING, not canon**; poi
   identifies swing = ε-kernel and slew = μ-kernel (a 1:1 map), but this catalog's own **ASYM-N(μ) BCS row**
   ($B_c(T)=B_{c0}\sqrt{1-(T/T_c)^2}$) is amplitude-keyed = **swing** *in the μ-sector*, and the engine gives
   $S_\mu$, $S_\varepsilon$ the same swing form (`cosserat_field_3d.py:612-613`). So swing/slew appears orthogonal
-  to ε/μ (a 2×2: swing-ε, swing-μ, slew-ε, slew-μ), contradicting the FPB 1:1 identification. **Not resolved
-  here** — logged as AMBIGUOUS A1 for Grant's ruling (it gates whether G1 numbers one slew-operator or a pair).
+  to ε/μ (a 2×2: swing-ε, swing-μ, slew-ε, slew-μ), contradicting the FPB 1:1 identification. **RESOLVED by
+  Grant 2026-07-10 — the 2×2 is ratified (orthogonal); see the population table below.**
+
+**★ RATIFIED 2×2 rating convention (Grant 2026-07-10 — RESOLVES A1).** The rating axes are **ORTHOGONAL**, not a
+1:1 map. **Axis 1** = which ELEMENT the kernel modulates (ε/C vs μ/L). **Axis 2** = which VARIABLE it keys on: the
+element's own state amplitude (**SWING**) vs its rate/conjugate (**SLEW**). In the tank the mapping is exact —
+slew-of-C keys on $I=C\dot V$, slew-of-L keys on $V=L\dot I$. **The FPB note's "slew = μ" 1:1 identification is
+CORRECTED: the canonical μ-kernel is slew-KEYED; the axes are orthogonal.** Current canonical population (THE
+load-bearing table — diagonal canonical, off-diagonal are population questions, not catalog rows until measured):
+
+| | **SWING** (keyed on the element's own state amplitude) | **SLEW** (keyed on the element's rate/conjugate) |
+|---|---|---|
+| **ε / C** | **swing-ε** (C keyed on $V$): $S(A)=\sqrt{1-A^2}$ — **CANONICAL** (Op2/Op14 family; the Letter's kernel; bench analog = varactor; all 26 rows above are swing-ε or swing-μ). Particle-tier endpoint: Schwinger / pair production at $V_{SNAP}$. | **slew-ε** (C keyed on $I$ = charge-rate; bench analog = dielectric relaxation / finite polarization rate): **UNDER MEASUREMENT** — fork A gate-2 (the two-tone run, branch `analysis/x31a-twotone-formfactor`) is the direct probe of whether this cell is populated. |
+| **μ / L** | **swing-μ** (L keyed on $I$/B amplitude; bench analog = ferrite-core saturation): **PREDICTED EMPTY for the vacuum** — this cell's emptiness IS the registered **static-B-transparency falsifier** (PVLAS/BMV consistency = its standing test; frozen-flux mechanism: static flux is conserved per-loop, not stored against a saturable core). Cross-ref [the Letter §"static-flux transparency"](../../../papers/2026_birefringence_letter/main.tex) + [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md) (`clm-pvlas1`). | **slew-μ** (L keyed on $V$ = flux-rate / circulation $A_I=\dot E/(E_c\omega_0)$): $S_B(A_I)=\sqrt{1-A_I^2}$ — **CANONICAL** (the FPB slew rating, $I_{max}\simeq116$ A). Particle-tier costume: the relativistic inductor $L_{eff}=$ γ-factor (relativistic mass) — pending A4. |
+
+The two **CANONICAL** cells are the **diagonal** (swing-ε + slew-μ). The **ASYM-N(μ) BCS row** above is
+**swing-μ** (amplitude-keyed $T/T_c$ in the μ-sector) — a bench/condensed-matter instance of the swing-μ cell,
+which is NOT empty in condensed matter; the swing-μ **vacuum** cell is the one predicted empty (the static-B
+falsifier). All 26 catalog rows populate the **SWING** column (ε or μ); the **SLEW** column is the un-built
+catalog (G2), its one canonical vacuum instance being slew-μ ($L_{eff}(I)$, `clm-p5cf3t`).
 
 ## What this catalog establishes
 
