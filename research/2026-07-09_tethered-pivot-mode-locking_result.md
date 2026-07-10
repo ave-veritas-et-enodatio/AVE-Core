@@ -1,4 +1,4 @@
-# Tethered-pivot mode-locking — RESULT: a WALL-ANCHORED (2,3) traversal does NOT mode-lock; the anchored rotation number STILL TRACKS the carrier, exactly as #417's free orbit did
+# Tethered-pivot mode-locking — RESULT: frozen prereg-§6 detector → **PARTIAL** (the preregistered outcome) · under a post-hoc control-subtracted axis → **TRACK** (no anchor-INDUCED mode-locking; banked next to #417)
 
 **Status:** **RESULT (committed).** Frozen-pre-reg run per `research/2026-07-09_tethered-pivot-mode-locking_prereg.md`.
 **Date:** 2026-07-09 · **Test id:** x34.
@@ -14,20 +14,35 @@ the hysteresis ramp + the termination-flip comparison.
 
 ## 0. HEADLINE
 
-> **VERDICT: TRACK.** Adding the ONE new ingredient — a Γ=−1 wall that pins ONE quadrature of the winding
-> host `b_ω` on the equatorial (z≈0) axis-anchored node-plane (gut-check a) — does **NOT** convert #417's
-> carrier-tracking into mode-locking. Over the frozen detuning sweep (ω_b=1, ω_s∈[0.7,1.4]), the anchored
-> rotation number ρ(ω_s) follows the FREE (clamp-off) ρ(ω_s) at **track_R2 = 0.980** (max deviation 0.058),
-> with **excess_staircase = 0.071** (the anchor adds essentially NO plateaus the free control lacks — the
-> free control's own staircase_fraction is **0.429**, identical to the anchored 0.429). **No excess
-> hysteresis** (anchored ramp width 0.682 vs free-control ramp width 0.678 — excess 0.004, i.e. the width is
-> short-block ramp read-noise present clamp-OFF too). **No termination flip** (the #260 selector probe:
-> capacitive vs magnetic clamp give identical ρ to ~4 sig figs, 0/4 orientation inversions). **The
-> wall-anchored (2,3) traversal STILL follows the knob.** The pivot picture — that boundary-condition
-> quantization would make the (2,3) integers discrete, knobless mode indices — tests **NEGATIVE**, banked
+> **VERDICT: PARTIAL (frozen prereg-§6 detector) / TRACK (post-hoc control-subtracted axis).** Reported on
+> TWO AXES per the KEEP-BOTH discriminator pattern (adversarial-review restatement 2026-07-09 — see §4.1).
+>
+> **Axis 1 — FROZEN prereg-§6 detector (THE PREREGISTERED OUTCOME): PARTIAL.** The prereg §6 froze an
+> ABSOLUTE detector: `LOCK ⇔ staircase_fraction ≥ 0.5 AND jump_count ≥ 1`; `TRACK ⇔ track_R2 ≥ 0.9 AND
+> staircase_fraction < 0.2`. On the frozen config (N=20, 500 steps) with the corrected slope-rate read, the
+> anchored sweep gives **staircase_fraction = 0.4286, jump_count = 1, track_R2 = 0.9799** → this fails BOTH
+> the LOCK bar (0.4286 < 0.5) AND the TRACK bar (0.4286 ≥ 0.2), so the frozen detector bins **PARTIAL**
+> (Signature-1 unresolved). **This is the outcome that was preregistered, and it is the headline of record.**
+>
+> **Axis 2 — POST-HOC amended control-subtracted detector (added AFTER the freeze, labeled amended-post-hoc):
+> TRACK.** The FREE (clamp-off) control's OWN absolute `staircase_fraction` is **0.4286 — identical to the
+> anchored 0.4286** (the coupled tank's ρ(ω_s) saturates near 1.0 at high ω_s, a sweep artifact common to
+> anchored AND free). That confound MOTIVATES subtracting the control (`excess_staircase` = plateaus the
+> anchor adds that the free control lacks), but it does **NOT** retroactively make control-subtraction the
+> frozen rule. Under this amended axis: **excess_staircase = 0.0714** (< 0.2) with **track_R2 = 0.9799** (≥ 0.9)
+> → the anchor adds essentially no plateaus the free control lacks; the read is **TRACK**. **No excess
+> hysteresis** (anchored ramp width 0.682 vs free-control 0.678 — excess 0.004, short-block read-noise present
+> clamp-OFF too). **No termination flip** (capacitive vs magnetic clamp give identical ρ to ~4 sig figs,
+> 0/4 orientation inversions). Under the amended axis the pivot picture — that boundary-condition
+> quantization would make the (2,3) integers discrete, knobless mode indices — reads **NEGATIVE**, banked
 > next to the #417 free-orbit negative.
+>
+> **Honest one-line summary:** the change that carries the negative is the amended control-subtracted axis;
+> the frozen preregistered detector on its own returns an *unresolved* PARTIAL. Neither the slope-read fix
+> alone nor the excess detector alone reaches TRACK on the frozen absolute metric — only the (slope read ×
+> excess detector) combination does. This is disclosed, not buried.
 
-**The test is CLEAN; the answer is NO.** Every supporting gate holds:
+**Every supporting gate holds; the disagreement is confined to Signature-1's detector definition:**
 - **Dead-actuator gate PASS (both branches):** the pinned quadrature's variance over the anchor plane
   COLLAPSES — capacitive Re-var 0.282→0.000 (ratio 0.0), magnetic Im-var 0.117→0.000 (ratio 0.0). The clamp
   demonstrably constrains (it is not a dead actuator); the OTHER quadrature is left free (I-antinode /
@@ -36,18 +51,31 @@ the hysteresis ramp + the termination-flip comparison.
   unitary standard); clamp ON is **monotone NON-PUMPING** (max relative energy gain **0.0** — the projection
   only ever REMOVES norm), removing 13.8% of the norm over the window. **A lock under an energy-REMOVING wall
   could not be a pumped illusion; there is no lock regardless.**
-- **Validate-on-known PASS:** the control-subtracted lock-detector reads a planted STAIRCASE as LOCK
-  (excess_staircase 0.64, 3 excess jumps) and a planted LINEAR as TRACK — it CAN see locking where locking is
-  planted; it does not here.
+- **Validate-on-known PASS (tracking zone) — with a disclosed SATURATION-ZONE blind spot:** the amended
+  control-subtracted detector reads a planted STAIRCASE as LOCK (excess_staircase 0.64, 3 excess jumps) and a
+  planted LINEAR as TRACK **in the tracking zone**. BUT a genuine lock plateau planted in the free-control
+  SATURATION zone reads **LOCK on the frozen absolute axis** yet **PARTIAL on the amended excess axis**
+  (excess_staircase 0.0 — the plateaus coincide with the flat free control and are subtracted out;
+  `validate_lock_detector` → `saturation_zone.lock_suppressed_by_excess = True`). So the amended axis is
+  **LOCK-SUPPRESSING in the saturation zone** — it is biased TOWARD the TRACK/negative read there. Neutrality
+  is certified only in the tracking zone (§4.1). This is the symmetric-scrutiny caveat, stated explicitly.
 - **F4 two-method read** honored with the #417 caveat (the two endpoint estimators share a wrapped-increment
   and are window-noise-sensitive; the load-bearing discriminator is the DETUNING RESPONSE of ρ, read by the
   window-noise-immune slope estimator — see §4.1).
 
-**All three frozen signatures fail to fire. The pivot picture is falsified.**
+**Signatures 2 (no excess hysteresis) and 3 (no termination flip) fire NULL cleanly. Signature 1 is the one
+under two-axis dispute: PARTIAL under the frozen preregistered detector, TRACK under the amended axis. The
+pivot picture is therefore NOT clean-falsified by the preregistered detector alone — it is unresolved (PARTIAL)
+under the frozen rule and negative (TRACK) only under the post-hoc control-subtracted axis.**
 
 ---
 
-## 1. THE MECHANISM (named — single-mechanism honest closure, Rule 11)
+## 1. THE MECHANISM (named — single-mechanism explanation of the TRACK-direction read)
+
+**Scope of this closure (two-axis, per §4.1):** the mechanism below explains the *direction* of the negative
+read — why ρ tracks the carrier. It underwrites the **amended-axis TRACK**. Under the **frozen preregistered
+detector** Signature-1 is **PARTIAL (unresolved)**, so this is not a clean-falsification closure under the
+preregistered rule; it is the physical account of the TRACK-direction seen under the control-subtracted axis.
 
 The two Clifford-torus angles are the **GLOBAL PHASES** of the two coupled LC sectors (φ = arg Σ a_A1, ψ =
 arg Σ b_ω). #417 established that under the unitary evolution these global phases precess at their carrier
@@ -105,10 +133,13 @@ pre-reg with its own verification chain, not a refill here (see §4.2).
 
 | Read | Value | Signature verdict |
 |---|---|---|
-| **Sig 1** track_R2 (anchored ρ vs free ρ) | **0.980** | — |
+| **Sig 1 — FROZEN prereg-§6 (absolute)** staircase_fraction | **0.4286** | fails LOCK (≥0.5) AND TRACK (<0.2) |
+| Sig 1 free_staircase_fraction (shared baseline) | 0.4286 | == anchored → the confound |
+| Sig 1 jump_count (absolute) | 1 | — |
+| Sig 1 track_R2 (anchored ρ vs free ρ) | **0.9799** | **→ frozen axis: PARTIAL** |
+| **Sig 1 — POST-HOC amended (excess)** excess_staircase | **0.0714** | anchor-induced plateaus (baseline-subtr.) |
+| Sig 1 excess_jumps | **0** | **→ amended axis: TRACK** |
 | Sig 1 max\|anchored−free\| over sweep | 0.058 | — |
-| Sig 1 excess_staircase (anchor-induced plateaus) | **0.071** | (free_staircase 0.429 — shared) |
-| Sig 1 excess_jumps | **0** | **TRACK** |
 | **Sig 2** anchored hysteresis width | 0.682 | — |
 | Sig 2 free-control (clamp-off) width | 0.678 | — |
 | Sig 2 **excess** width | **0.004** | **not seen** (read-noise, shared) |
@@ -127,32 +158,54 @@ lossy pull at 2:3/1:2 (§1).
 
 ## 4. HONEST FLAGS / CAVEATS
 
-### 4.1 Instrument correction (surfaced, not silently fixed — flag-don't-fix)
+### 4.1 The two post-freeze changes — TWO-AXIS accounting (KEEP-BOTH; restated 2026-07-09)
 
 The FROZEN driver's FIRST run (N=20, 300 steps, endpoint-turns ρ, control-BLIND detector) returned **PARTIAL**.
-Diagnosis found BOTH partial-pushing features were **instrument artifacts / control-baseline leakage**, not
-physics:
-1. **Endpoint-turns ρ is window-noise-sensitive:** Δφ over a window jumps when the window fails to contain an
-   integer number of the sloshing-modulated periods (the #417 quasi-periodic-window caveat) — the FREE control
-   itself jumped (ρ_free 1.25→1.30: 1.12→0.82), which a smooth tracker cannot. **Fix:** the window-noise-immune
-   **slope estimator** (least-squares winding RATE) — the standard robust rotation-number read, and exactly what
-   the pre-reg §4 "DETUNING RESPONSE of ρ" load-bearing discriminator requires. It leaves the free control
-   smooth.
-2. **The control-blind detector conflated the shared baseline with an anchor effect:** the coupled tank's ρ(ω_s)
-   SATURATES near 1.0 at high ω_s, so the FREE control's OWN absolute staircase_fraction is 0.429 (identical to
-   the anchored 0.429) and its OWN ramp hysteresis width is 0.678 (≈ the anchored 0.682). The pre-reg §6
-   mandated the clamp-OFF control as the comparison baseline; the frozen detector's ABSOLUTE-threshold clauses
-   failed to subtract it. **Fix:** the **control-subtracted** discriminator (anchor-INDUCED excess over the free
-   control: excess_staircase, excess hysteresis) — the physically-correct "does the anchor change anything"
-   read.
+Two changes were then made post-freeze. They are of **different kinds**, and the restatement below keeps them
+separate (KEEP-BOTH discriminator pattern: when an audit finds an inconsistency in a pre-reg axis, add a NEW
+axis alongside the frozen one — never redefine-in-place):
 
-Both fixes are **instrument corrections applied transparently**, NOT criteria-drops: the DECISION thresholds
-(track_R2≥0.9; excess_staircase<0.2 for TRACK; excess≥0.4 + excess_jumps≥1 for LOCK) and the branch definitions
-are unchanged; the validate-on-known still separates a planted staircase (LOCK) from a planted line (TRACK)
-under the corrected detector. The corrected read moves the machine bin from an **artifact-contaminated PARTIAL**
-to a **clean TRACK** — an ambiguous bin resolved to a clean NEGATIVE (the direction that KILLS the hypothesis),
-not a negative rescued into a positive. The raw first-run PARTIAL and the airtight free-control comparison
-(anchored 0.429/0.682 vs free 0.429/0.678) are recorded here for auditor review.
+**Change 1 — slope-rate read (a legitimate INSTRUMENT repair, kept).** Endpoint-turns ρ is
+window-noise-sensitive: Δφ over a window jumps when the window fails to contain an integer number of the
+sloshing-modulated periods (the #417 quasi-periodic-window caveat) — the FREE control itself jumped
+(ρ_free 1.25→1.30: 1.12→0.82), which a smooth tracker cannot. **Fix:** the window-noise-immune **slope
+estimator** (least-squares winding RATE) — the standard robust rotation-number read, exactly what the pre-reg
+§4 "DETUNING RESPONSE of ρ" discriminator requires. This is a genuine instrument repair of the ρ *reader*; it
+does not change any DECISION threshold. It is retained on BOTH axes below.
+
+**Change 2 — control-subtraction (a NEW POST-HOC DETECTOR AXIS, amended-post-hoc — NOT the frozen rule).**
+Observation: the coupled tank's ρ(ω_s) SATURATES near 1.0 at high ω_s, so the FREE (clamp-off) control's OWN
+absolute `staircase_fraction` is **0.4286 — identical to the anchored 0.4286** (and its ramp hysteresis width
+0.678 ≈ the anchored 0.682). The absolute metric is therefore confounded by a sweep-saturation artifact common
+to anchored AND free. That confound **MOTIVATES** subtracting the control (`excess_staircase` = plateaus the
+anchor adds that the free control lacks). **But subtracting the control changes the DETECTOR DEFINITION and
+LOWERS the LOCK bar** (frozen: `staircase_fraction ≥ 0.5`; amended: `excess_staircase ≥ 0.4`), so it is **not**
+an instrument correction and does **not** retroactively become the frozen rule. It is a post-hoc amended axis,
+reported alongside the frozen one.
+
+**The two-axis outcome (both computed on the frozen config, corrected slope read):**
+
+| Axis | Rule | Metrics | Verdict |
+|---|---|---|---|
+| **FROZEN prereg-§6 (preregistered)** | LOCK ⇔ staircase≥0.5 ∧ jumps≥1; TRACK ⇔ track_R2≥0.9 ∧ staircase<0.2 | staircase **0.4286**, jump_count 1, track_R2 **0.9799**, free_staircase **0.4286** | **PARTIAL** |
+| **POST-HOC amended (control-subtracted)** | LOCK ⇔ excess_staircase≥0.4 ∧ excess_jumps≥1; TRACK ⇔ track_R2≥0.9 ∧ excess_staircase<0.2 | excess_staircase **0.0714**, excess_jumps 0, track_R2 0.9799 | **TRACK** |
+
+**Neither post-freeze change ALONE reaches TRACK on the frozen absolute metric.** The slope-read fix alone
+(frozen absolute detector) still returns PARTIAL (staircase 0.4286); the excess detector is what flips the
+Signature-1 read to TRACK. Only the *combination* (slope read × excess detector) yields TRACK. This is stated so
+the amended axis is not mistaken for the preregistered outcome.
+
+> **CORRECTION NOTE — 2026-07-09 (adversarial-review restatement, KEEP-BOTH).** An earlier version of this
+> section asserted that the two changes were *"instrument corrections applied transparently, NOT criteria-drops:
+> the DECISION thresholds ... and the branch definitions are unchanged ... The corrected read moves the machine
+> bin from an artifact-contaminated PARTIAL to a clean TRACK."* **That claim is SUPERSEDED and was WRONG.** The
+> committed detector substituted control-subtracted `excess_staircase` for the frozen absolute `staircase_fraction`
+> and lowered the LOCK bar from ≥0.5 to ≥0.4 — that IS a change to the DECISION criteria, not a criteria-preserving
+> instrument correction. Against the frozen prereg §6, the preregistered detector returns **PARTIAL**, not TRACK;
+> the TRACK read exists only under the post-hoc amended axis. The superseded sentence is preserved here (quoted,
+> not erased) per KEEP-BOTH; the current headline (§0) is the two-axis form `PARTIAL (frozen) / TRACK (amended)`.
+> The raw first-run PARTIAL and the free-control comparison (anchored 0.4286/0.682 vs free 0.4286/0.678) remain
+> on record for auditor review.
 
 ### 4.2 Scope / coordinate caveats
 

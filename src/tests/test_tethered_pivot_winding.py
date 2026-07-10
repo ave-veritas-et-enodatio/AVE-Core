@@ -5,11 +5,14 @@ off the PR-blocking gate per #414). The cheap lock-detector / validate-on-known 
 run on the default gate (they are fast and load-bearing — the detector MUST separate a
 planted staircase from a planted line before any engine read is trusted).
 
-VERDICT (committed): TRACK. A wall-anchored (2,3) traversal does NOT mode-lock: the
-anchored phase-space rotation number ρ STILL follows the carrier detuning knob (as
-#417's free orbit did), with no plateaus, no hysteresis, and no cap↔mag termination
-flip. The clamp is a live, dissipative-not-pumping actuator (dead-actuator + energy
-gates pass) — i.e. the test is clean; the pivot picture dies, banked next to #417.
+VERDICT (two-axis, KEEP-BOTH per adversarial-review restatement 2026-07-09):
+PARTIAL (frozen prereg-§6 detector) / TRACK (post-hoc control-subtracted axis). On the
+frozen config the anchored sweep gives staircase_fraction 0.4286 (== free 0.4286),
+jump_count 1, track_R2 0.9799 — which fails BOTH the frozen LOCK bar (≥0.5) and TRACK
+bar (<0.2), so the PREREGISTERED detector returns PARTIAL. Only the post-hoc
+control-subtracted axis (excess_staircase 0.0714) reads TRACK. Signatures 2 (no excess
+hysteresis) and 3 (no cap↔mag flip) fire NULL cleanly; the clamp is a live,
+dissipative-not-pumping actuator (dead-actuator + energy gates pass).
 """
 
 from __future__ import annotations
@@ -42,6 +45,20 @@ def test_lock_detector_separates_staircase_from_line():
     assert out["ok"]
 
 
+def test_excess_axis_is_lock_suppressing_in_saturation_zone():
+    """NEUTRALITY-SCOPE gate (KEEP-BOTH, adversarial-review restatement): a GENUINE lock
+    planted in the free-control SATURATION zone reads LOCK on the FROZEN prereg-§6
+    absolute axis but PARTIAL (NOT LOCK) on the POST-HOC control-subtracted excess axis
+    (excess→0 — the plateaus coincide with the flat free control). This certifies the
+    excess axis is LOCK-SUPPRESSING there, i.e. biased toward the TRACK/negative read;
+    the amended-axis neutrality claim is scoped to the tracking zone only."""
+    sz = validate_lock_detector()["saturation_zone"]
+    assert sz["frozen_verdict"] == "LOCK", sz          # frozen absolute SEES the lock
+    assert sz["amended_verdict"] != "LOCK", sz         # excess axis does NOT
+    assert sz["excess_staircase"] == 0.0, sz           # plateaus subtracted out
+    assert sz["lock_suppressed_by_excess"] is True, sz
+
+
 def test_lock_detector_control_subtracts_shared_flatness():
     """The detector is CONTROL-SUBTRACTED: a plateau the FREE control ALSO has is NOT
     an anchor effect. A staircase-vs-line reads LOCK (excess plateaus); an
@@ -54,14 +71,19 @@ def test_lock_detector_control_subtracts_shared_flatness():
     d_stair = lock_detector(os, staircase, line)      # anchored=staircase vs free=line
     assert d_stair["excess_jumps"] >= 1
     assert d_stair["excess_staircase"] >= 0.4
-    assert d_stair["verdict"] == "LOCK"
-    # a FLAT anchored curve whose FREE control is EQUALLY flat ⇒ TRACK (excess≈0),
-    # even though the ABSOLUTE staircase_fraction is high — the shared-flatness case.
+    assert d_stair["amended_verdict"] == "LOCK"        # excess (amended) axis
+    assert d_stair["verdict"] == "LOCK"                # alias of the amended axis
+    # a FLAT anchored curve whose FREE control is EQUALLY flat ⇒ the AMENDED axis reads
+    # TRACK (excess≈0), even though the ABSOLUTE staircase_fraction is high enough that
+    # the FROZEN axis reads LOCK — the exact axis-divergence the KEEP-BOTH restatement
+    # exposes (the shared-flatness / saturation case).
     flat_shared = np.where(os < 1.0, 1.2, 1.0)
     d_flat = lock_detector(os, flat_shared, flat_shared.copy())
     assert d_flat["staircase_fraction"] >= 0.4          # absolute flatness IS high
+    assert d_flat["frozen_verdict"] == "LOCK"           # frozen absolute axis bins LOCK
     assert d_flat["excess_staircase"] < 0.2             # but none of it is anchor-induced
-    assert d_flat["verdict"] == "TRACK"
+    assert d_flat["amended_verdict"] == "TRACK"         # amended axis subtracts it out
+    assert d_flat["verdict"] == "TRACK"                 # alias of the amended axis
 
 
 def test_anchor_mask_has_field_support():
@@ -107,24 +129,35 @@ def test_energy_ledger_off_conserves_on_non_pumping():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# THE VERDICT — the committed TRACK (engine_sim: full driver).
+# THE VERDICT — two-axis (KEEP-BOTH): frozen PARTIAL / amended TRACK (engine_sim).
 # ─────────────────────────────────────────────────────────────────────────────
 @pytest.mark.engine_sim
-def test_full_verdict_is_track():
-    """The committed verdict: TRACK. Every supporting gate holds (lock-detector
-    validated, dead-actuator live both branches, energy conserved/non-pumping) — the
-    test is CLEAN — and the answer is NO: the anchored rotation number still follows
-    the carrier knob, no plateaus, no hysteresis, no cap↔mag flip. The pivot picture
-    dies, banked next to #417."""
+def test_full_verdict_two_axis_frozen_partial_amended_track():
+    """The committed verdict is TWO-AXIS (adversarial-review restatement): the FROZEN
+    prereg-§6 detector returns PARTIAL (Signature-1 staircase_fraction 0.4286 fails both
+    the LOCK bar ≥0.5 and the TRACK bar <0.2), and only the POST-HOC control-subtracted
+    axis returns TRACK (excess_staircase 0.0714). Every supporting gate holds
+    (lock-detector validated, dead-actuator live both branches, energy
+    conserved/non-pumping); Signatures 2 (no excess hysteresis) and 3 (no cap↔mag flip)
+    fire NULL cleanly."""
     res = run_tethered_pivot(TetheredPivotConfig())
-    assert res["verdict"] == "TRACK", f"verdict {res['verdict']}: {res['reason']}"
+    # two-axis top-level verdicts
+    assert res["frozen_verdict"] == "PARTIAL", f"{res['frozen_verdict']}: {res['reason']}"
+    assert res["amended_verdict"] == "TRACK", f"{res['amended_verdict']}: {res['reason']}"
+    assert "PARTIAL (frozen prereg-6 detector)" in res["verdict"], res["verdict"]
+    assert "TRACK (post-hoc control-subtracted axis)" in res["verdict"], res["verdict"]
     assert res["validate_on_known"]["ok"]
+    # the disclosed saturation-zone LOCK-suppression of the amended axis
+    assert res["validate_on_known"]["saturation_zone"]["lock_suppressed_by_excess"] is True
     assert res["dead_actuator"]["capacitive"]["actuator_live"]
     assert res["dead_actuator"]["magnetic"]["actuator_live"]
     assert res["energy_ledger"]["on_non_pumping"]
-    # signature 1 TRACK: anchored ρ follows free ρ (high R²), NO anchor-induced plateaus
+    # signature 1: FROZEN absolute axis PARTIAL; AMENDED excess axis TRACK
     det = res["signature_1_mode_locking"]["detector"]
-    assert det["verdict"] == "TRACK"
+    assert det["frozen_verdict"] == "PARTIAL"
+    assert det["amended_verdict"] == "TRACK"
+    assert det["staircase_fraction"] >= 0.2      # fails frozen TRACK bar (<0.2)
+    assert det["staircase_fraction"] < 0.5       # fails frozen LOCK bar (>=0.5)
     assert det["track_R2"] >= 0.9
     assert det["excess_staircase"] < 0.2
     # signature 2: no EXCESS hysteresis over the free control; signature 3: no flip

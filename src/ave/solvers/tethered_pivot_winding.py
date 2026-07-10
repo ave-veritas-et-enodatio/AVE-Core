@@ -265,22 +265,35 @@ def detuning_sweep(cfg: TetheredPivotConfig, *, branch: str) -> dict:
 
 def lock_detector(os: np.ndarray, rho_anchored: np.ndarray, rho_free: np.ndarray,
                   *, flat_tol: float = 0.03, jump_tol: float = 0.15) -> dict:
-    """Distinguish LOCK (anchor-INDUCED plateaus + discrete jumps) from TRACK
-    (ρ_anchored ≈ ρ_free — the anchor changes nothing).
+    """Distinguish LOCK (rational plateaus + discrete jumps) from TRACK
+    (ρ_anchored ≈ ρ_free), reported on TWO AXES per the KEEP-BOTH discriminator
+    pattern (adversarial-review restatement 2026-07-09).
 
-    CONTROL-SUBTRACTED discriminator (pre-reg §4 'the DETUNING RESPONSE of ρ' +
-    §6 the clamp-OFF control as the mandated baseline): the coupled tank's ρ(ω_s)
-    already SATURATES near 1.0 at high ω_s, so the FREE control ITSELF has a large
-    absolute staircase_fraction. Thresholding the anchored curve's ABSOLUTE flatness
-    conflates that shared baseline with an anchor effect. The physical question — does
-    the ANCHOR change the response — is answered by the EXCESS of anchored over free:
+    AXIS 1 — FROZEN prereg-§6 ABSOLUTE detector (THE PREREGISTERED outcome, preserved
+    verbatim, never redefined-in-place):
+      staircase_fraction = fraction of adjacent sweep intervals with |Δρ|<flat_tol;
+      jump_count         = intervals with |Δρ|>jump_tol; track_R2 = R² of ρ_anchored
+                           vs ρ_free.
+      LOCK ⇔ staircase_fraction≥0.5 AND jump_count≥1.
+      TRACK ⇔ track_R2≥0.9 AND staircase_fraction<0.2.  (else PARTIAL — §6 verbatim.)
+
+    AXIS 2 — POST-HOC amended CONTROL-SUBTRACTED detector (added AFTER the freeze; NOT
+    the frozen rule — a NEW axis reported ALONGSIDE the frozen one). Motivation: the
+    coupled tank's ρ(ω_s) SATURATES near 1.0 at high ω_s, so the FREE control ITSELF has
+    a large absolute staircase_fraction (== the anchored one on the frozen config, both
+    0.4286). That common sweep-saturation artifact confounds the absolute metric, which
+    MOTIVATES subtracting the control but does NOT retroactively make it the frozen rule.
       excess_staircase = fraction of intervals where anchored is flat AND free is NOT
                          (anchor-INDUCED plateaus, baseline-subtracted);
-      track_R2         = R² of ρ_anchored vs ρ_free (1 ⇒ the anchor changes nothing).
-    LOCK ⇔ excess_staircase≥0.4 AND excess_jumps≥1 (anchor adds plateaus/jumps the
-    free control lacks). TRACK ⇔ track_R2≥0.9 AND excess_staircase<0.2 (anchored
-    follows free; no anchor-induced plateaus). The ABSOLUTE metrics are also reported
-    (transparency — they are what a control-BLIND detector would have binned)."""
+      excess_jumps     = jumps in anchored that the free control lacks.
+      LOCK ⇔ excess_staircase≥0.4 AND excess_jumps≥1.
+      TRACK ⇔ track_R2≥0.9 AND excess_staircase<0.2.
+
+    NEUTRALITY SCOPE of Axis 2 (see validate_lock_detector): the excess axis is
+    certified neutral ONLY in the TRACKING zone. Where the free control SATURATES it is
+    BLIND to a genuine lock (a plateau coinciding with a flat free control has excess 0),
+    i.e. it is LOCK-SUPPRESSING there and therefore BIASED toward the TRACK/negative
+    read. Both verdicts are returned; `frozen_verdict` is the preregistered outcome."""
     os = np.asarray(os, float)
     ra = np.asarray(rho_anchored, float)
     rf = np.asarray(rho_free, float)
@@ -300,14 +313,25 @@ def lock_detector(os: np.ndarray, rho_anchored: np.ndarray, rho_free: np.ndarray
     ss_tot = float(np.sum((ra - ra.mean()) ** 2)) + 1e-30
     track_R2 = 1.0 - ss_res / ss_tot
     max_abs_dev = float(np.max(np.abs(ra - rf)))
-    is_lock = bool(excess_staircase >= 0.4 and excess_jumps >= 1)
-    is_track = bool(track_R2 >= 0.9 and excess_staircase < 0.2)
-    verdict = "LOCK" if is_lock else ("TRACK" if is_track else "PARTIAL")
+    # AXIS 1 — FROZEN prereg-§6 ABSOLUTE detector (THE preregistered outcome).
+    frozen_is_lock = bool(staircase_fraction >= 0.5 and jump_count >= 1)
+    frozen_is_track = bool(track_R2 >= 0.9 and staircase_fraction < 0.2)
+    frozen_verdict = ("LOCK" if frozen_is_lock
+                      else ("TRACK" if frozen_is_track else "PARTIAL"))
+    # AXIS 2 — POST-HOC amended control-subtracted detector (added after the freeze).
+    amended_is_lock = bool(excess_staircase >= 0.4 and excess_jumps >= 1)
+    amended_is_track = bool(track_R2 >= 0.9 and excess_staircase < 0.2)
+    amended_verdict = ("LOCK" if amended_is_lock
+                       else ("TRACK" if amended_is_track else "PARTIAL"))
     return {"staircase_fraction": staircase_fraction,
             "free_staircase_fraction": free_staircase_fraction,
             "excess_staircase": excess_staircase, "excess_jumps": excess_jumps,
             "jump_count": jump_count, "track_R2": track_R2,
-            "max_abs_dev": max_abs_dev, "verdict": verdict}
+            "max_abs_dev": max_abs_dev,
+            "frozen_verdict": frozen_verdict, "amended_verdict": amended_verdict,
+            # `verdict` kept as an alias of the amended axis for existing consumers;
+            # the PREREGISTERED outcome is `frozen_verdict` (KEEP-BOTH, do not conflate).
+            "verdict": amended_verdict}
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -460,20 +484,64 @@ def _planted_tracking(os: np.ndarray) -> np.ndarray:
     return 1.0 / os
 
 
+def _planted_saturating_free(os: np.ndarray) -> np.ndarray:
+    """A synthetic FREE control that TRACKS on the low-ω_s half then SATURATES flat on
+    the high-ω_s half — the shape the REAL coupled-tank free control has (ρ_free→~1.0 at
+    high ω_s; the frozen run's free_staircase_fraction is 0.4286 for exactly this reason).
+    This is the zone where the control-subtracted EXCESS axis loses the ability to see a
+    lock (a plateau coinciding with a flat free control has excess 0)."""
+    return np.where(os < 1.0, 1.0 / os, 1.0)
+
+
+def _planted_lock_in_saturation(os: np.ndarray) -> np.ndarray:
+    """A GENUINE lock — rational plateaus + a discrete jump — placed ENTIRELY in the
+    high-ω_s SATURATION zone (where _planted_saturating_free is flat). The FROZEN
+    prereg-§6 ABSOLUTE detector must SEE this as LOCK; the POST-HOC control-subtracted
+    EXCESS detector will NOT (excess→0), demonstrating the excess axis is LOCK-suppressing
+    in the saturation zone (the review's MINOR finding, made a live validate-on-known
+    gate rather than a prose caveat)."""
+    return np.where(os < 1.0, 1.0 / os, np.where(os < 1.2, 0.90, 0.60))
+
+
 def validate_lock_detector() -> dict:
-    """The lock-detector must read a planted STAIRCASE as LOCK and a planted LINEAR
-    as TRACK; else it is broken → HALT (frozen §7)."""
+    """The lock-detector must read a planted STAIRCASE as LOCK and a planted LINEAR as
+    TRACK; else it is broken → HALT (frozen §7).
+
+    PLUS a NEUTRALITY-SCOPE gate (added per the adversarial-review restatement): a
+    GENUINE lock planted in the free-control SATURATION zone reads LOCK on the FROZEN
+    prereg-§6 absolute axis but PARTIAL (NOT LOCK) on the POST-HOC control-subtracted
+    excess axis. This CERTIFIES that the excess axis's neutrality holds ONLY in the
+    tracking zone, and that it is LOCK-SUPPRESSING (hence BIASED toward the TRACK/negative
+    read) in the saturation zone — the asymmetry is disclosed, not buried."""
     os = np.array([0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10,
                    1.15, 1.20, 1.25, 1.30, 1.35, 1.40])
     locked = _planted_locked(os)
     tracking = _planted_tracking(os)
     d_lock = lock_detector(os, locked, tracking)      # rho_free = tracking (contrast)
     d_track = lock_detector(os, tracking, tracking)   # anchored == free ⇒ TRACK
+    # neutrality-scope: a genuine lock coinciding with a SATURATED free control
+    free_sat = _planted_saturating_free(os)
+    lock_sat = _planted_lock_in_saturation(os)
+    d_sat = lock_detector(os, lock_sat, free_sat)
     return {
         "planted_locked_verdict": d_lock["verdict"],
         "planted_locked_metrics": d_lock,
         "planted_tracking_verdict": d_track["verdict"],
         "planted_tracking_metrics": d_track,
+        "saturation_zone": {
+            "frozen_verdict": d_sat["frozen_verdict"],
+            "amended_verdict": d_sat["amended_verdict"],
+            "staircase_fraction": d_sat["staircase_fraction"],
+            "jump_count": d_sat["jump_count"],
+            "excess_staircase": d_sat["excess_staircase"],
+            "excess_jumps": d_sat["excess_jumps"],
+            # the certification of the review's MINOR finding: excess metric is blind to
+            # a genuine lock that coincides with the free-control saturation.
+            "lock_suppressed_by_excess": bool(
+                d_sat["frozen_verdict"] == "LOCK"
+                and d_sat["amended_verdict"] != "LOCK"),
+        },
+        # `ok` = the TRACKING-zone separation certification (both axes separate here).
         "ok": bool(d_lock["verdict"] == "LOCK" and d_track["verdict"] == "TRACK"),
     }
 
@@ -534,32 +602,48 @@ def run_tethered_pivot(cfg: TetheredPivotConfig | None = None) -> dict:
     flip = termination_flip(cfg)
     out["signature_3_termination_flip"] = flip
 
-    # BIN (pre-reg §8) — no preferred outcome. Signatures are anchor-INDUCED
-    # (control-subtracted): a feature the free clamp-OFF orbit already has is NOT the
-    # anchor's doing.
-    s1 = det["verdict"]                       # LOCK / TRACK / PARTIAL (excess-based)
+    # BIN (pre-reg §8) under BOTH AXES (KEEP-BOTH per the adversarial-review restatement,
+    # 2026-07-09). The FROZEN prereg-§6 absolute detector is THE preregistered outcome;
+    # the control-subtracted EXCESS detector is a POST-HOC amended axis reported ALONGSIDE
+    # it (never redefined-in-place). Signatures 2/3 are control-subtracted (a feature the
+    # free clamp-OFF orbit already has is not the anchor's doing) and are shared by both
+    # axes; the axes differ only on Signature-1's LOCK/TRACK detector.
+    s1_frozen = det["frozen_verdict"]         # PREREGISTERED (absolute staircase, §6)
+    s1_amended = det["amended_verdict"]       # post-hoc (control-subtracted excess)
     s2 = hys["hysteresis_seen"]               # bool (excess over free control)
     s3 = flip["flip_seen"]                    # bool
-    if s1 == "LOCK" and s2 and s3:
-        verdict = "LOCK"
-        reason = ("all 3 signatures: ρ holds rational plateaus + discrete jumps, "
-                  "hysteresis at the jumps, cap↔mag orientation flip → the (2,3) gains "
-                  "a DERIVED protection mechanism (BC quantization); SELECTION stays IMPORTED")
-    elif s1 == "TRACK" and (not s2) and (not s3):
-        verdict = "TRACK"
-        reason = ("the anchored ρ STILL follows the knob (track_R2="
-                  f"{det['track_R2']:.3f}, excess_staircase={det['excess_staircase']:.3f} vs "
-                  f"free_staircase={det['free_staircase_fraction']:.3f} — the anchor adds NO "
-                  f"plateaus the free control lacks), no excess hysteresis, no termination "
-                  "flip → the pivot picture DIES, banked next to #417; the carrier-set "
-                  "global-phase mechanism is ROBUST to anchoring")
-    else:
-        verdict = "PARTIAL"
-        reason = (f"per-signature: mode-locking={s1}, hysteresis={s2}, termination_flip={s3} "
-                  "— report each; name what held and what did not")
-    out["verdict"] = verdict
-    out["reason"] = reason
-    out["signature_summary"] = {"mode_locking": s1, "hysteresis": bool(s2), "termination_flip": bool(s3)}
+
+    def _bin(s1: str) -> str:
+        if s1 == "LOCK" and s2 and s3:
+            return "LOCK"
+        if s1 == "TRACK" and (not s2) and (not s3):
+            return "TRACK"
+        return "PARTIAL"
+
+    frozen_verdict = _bin(s1_frozen)
+    amended_verdict = _bin(s1_amended)
+    out["frozen_verdict"] = frozen_verdict
+    out["amended_verdict"] = amended_verdict
+    out["verdict"] = (f"{frozen_verdict} (frozen prereg-6 detector) / "
+                      f"{amended_verdict} (post-hoc control-subtracted axis)")
+    out["reason"] = (
+        f"FROZEN prereg-§6 absolute detector → {frozen_verdict} (THE preregistered "
+        f"outcome): Signature-1 staircase_fraction={det['staircase_fraction']:.4f} "
+        f"(== free_staircase_fraction {det['free_staircase_fraction']:.4f}) fails BOTH the "
+        f"LOCK bar (≥0.5) AND the TRACK bar (<0.2); track_R2={det['track_R2']:.3f}. "
+        f"— POST-HOC amended axis (control-subtracted) → {amended_verdict}: "
+        f"excess_staircase={det['excess_staircase']:.4f}<0.2 with track_R2≥0.9 ⇒ the "
+        f"anchor adds NO plateaus the free control lacks; no excess hysteresis; no "
+        f"termination flip. The absolute metric is confounded by a sweep-saturation "
+        f"artifact common to anchored AND free (both {det['staircase_fraction']:.4f}); "
+        f"that MOTIVATES control-subtraction but does NOT retroactively make it the frozen "
+        f"rule. Under the amended axis the pivot picture reads negative (banked next to "
+        f"#417); under the frozen detector the read is unresolved (PARTIAL)."
+    )
+    out["signature_summary"] = {
+        "mode_locking_frozen": s1_frozen, "mode_locking_amended": s1_amended,
+        "hysteresis": bool(s2), "termination_flip": bool(s3),
+    }
     return out
 
 
@@ -573,10 +657,34 @@ if __name__ == "__main__":
     print(json.dumps(res.get("signature_summary", {}), indent=2))
     if "signature_1_mode_locking" in res:
         d = res["signature_1_mode_locking"]["detector"]
-        print(f"signature-1 detector: {d}")
-        print(f"hysteresis width: {res['signature_2_hysteresis']['hysteresis_width']:.4f}")
+        print("-" * 78)
+        print("SIGNATURE-1 DETECTOR — TWO AXES (KEEP-BOTH):")
+        print(f"  FROZEN prereg-6 (ABSOLUTE): staircase_fraction={d['staircase_fraction']:.4f} "
+              f"free_staircase={d['free_staircase_fraction']:.4f} jump_count={d['jump_count']} "
+              f"track_R2={d['track_R2']:.4f} -> {d['frozen_verdict']}")
+        print(f"  POST-HOC amended (EXCESS):  excess_staircase={d['excess_staircase']:.4f} "
+              f"excess_jumps={d['excess_jumps']} track_R2={d['track_R2']:.4f} "
+              f"-> {d['amended_verdict']}")
+        print(f"hysteresis width: {res['signature_2_hysteresis']['hysteresis_width']:.4f} "
+              f"(excess {res['signature_2_hysteresis']['excess_width']:.4f})")
         print(f"termination flip: n_flipped={res['signature_3_termination_flip']['n_flipped']}"
               f"/{res['signature_3_termination_flip']['n_resolved']}")
-    print("-" * 78)
+    print("=" * 78)
+    print("TWO-AXIS VERDICT (KEEP-BOTH):")
+    print(f"  frozen_verdict  (PREREGISTERED prereg-6) : {res.get('frozen_verdict')}")
+    print(f"  amended_verdict (post-hoc control-subtr.): {res.get('amended_verdict')}")
     print(f"VERDICT: {res['verdict']}")
     print(f"REASON : {res['reason']}")
+    vlk = res.get("validate_on_known", {})
+    if "saturation_zone" in vlk:
+        sz = vlk["saturation_zone"]
+        print("-" * 78)
+        print("DETECTOR-NEUTRALITY SCOPE (validate-on-known):")
+        print(f"  tracking zone   : amended detector separates LOCK/TRACK "
+              f"(planted staircase -> {vlk['planted_locked_verdict']}, "
+              f"planted line -> {vlk['planted_tracking_verdict']})")
+        print(f"  saturation zone : a PLANTED genuine lock coinciding with free saturation "
+              f"reads FROZEN -> {sz['frozen_verdict']} but AMENDED -> {sz['amended_verdict']} "
+              f"(excess_staircase={sz['excess_staircase']:.3f}); "
+              f"lock_suppressed_by_excess={sz['lock_suppressed_by_excess']} "
+              f"-> the excess axis is LOCK-SUPPRESSING there (biased toward TRACK/negative).")
