@@ -7,8 +7,10 @@ no-claim: "Vol-9 Class-C CONSISTENCY characterization datasheet — the vacuum-n
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > Every "7.5/α³ ≈ 1.93×10⁷" bankable-δn-ratio below carries an understated QED denominator ((3/45)α² is too
-> small by 1/(2πα) ≈ 21.8 vs the PVLAS-anchored magnetic leg). **Corrected: 7.5π/α² ≈ 4.42×10⁵** (propagating,
-> the headline; 15π/α² ≈ 8.85×10⁵ static-E). The χ⁽³⁾ kernel coefficients, the α-ECHO grade, and the E-vs-B
+> small by 1/(2πα) ≈ 21.8 vs the PVLAS-anchored magnetic leg). **Corrected (v3 headline, single instantaneous
+> footing — OPTION-B re-freeze 2026-07-07): 3.75π/α² ≈ 2.2×10⁵** (the 2026-07-03 QED-normalization step gave the
+> propagating/mixed-footing 7.5π/α² ≈ 4.42×10⁵, exactly double via the ⟨cos²⟩=½ carrier average; 15π/α² ≈ 8.85×10⁵
+> static-E; no order of magnitude or falsifier verdict changes). The χ⁽³⁾ kernel coefficients, the α-ECHO grade, and the E-vs-B
 > keying chord-candidate are UNAFFECTED. Canonical:
 > [`../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
 > reconciliation `research/2026-07-03_birefringence-qed-normalization-correction.md`.

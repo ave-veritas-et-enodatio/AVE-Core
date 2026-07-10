@@ -7,7 +7,10 @@ no-claim: "Vol-9 Class-C CONSISTENCY re-expression — the per-DOF node-constitu
 
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
 > The birefringence coefficient ratio "7.5/α³ ≈ 1.93×10⁷" referenced below carries an understated QED
-> denominator. **Corrected: 7.5π/α² ≈ 4.42×10⁵** (propagating, the headline). The node-constitutive structure
+> denominator. **Corrected (v3 headline, single instantaneous footing — OPTION-B re-freeze 2026-07-07):
+> 3.75π/α² ≈ 2.2×10⁵** (the 2026-07-03 QED-normalization step gave the propagating/mixed-footing 7.5π/α² ≈ 4.42×10⁵,
+> exactly double via the ⟨cos²⟩=½ carrier average; no order of magnitude or falsifier verdict changes).
+> The node-constitutive structure
 > (per-DOF (Lᵢ,Cᵢ), the deviatoric-strain split, the (qℓ)⁴ anisotropy) is UNAFFECTED — only the field-E²-index
 > AVE/QED magnitude ratio changes. Canonical:
 > [`../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
