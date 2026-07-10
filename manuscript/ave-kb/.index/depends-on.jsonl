@@ -140,6 +140,7 @@
 {"source": "clm-a034pf", "target": "clm-dxdsvt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-a034pf", "target": "clm-gz7ryg", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-a3rby3", "target": "INVARIANT-N4", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "CLAUDE.md — $S_{11}$ dual-use notation declaration", "fraction": null}
+{"source": "clm-a6chi3", "target": "clm-invmtr", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "establishes the pure-$\\chi^3$ (odd-kernel) structure whose cubic term this amplitude law scales", "fraction": null}
 {"source": "clm-a71inj", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-a71inj", "target": "clm-ce8dg1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-a7cbqq", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "J_cosmic as cosmic-scale boundary winding inherited at genesis", "fraction": null}
@@ -350,6 +351,7 @@
 {"source": "clm-i9l284", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — fixes $\\ell_{node}$", "fraction": null}
 {"source": "clm-i9l284", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Topo-Kinematic Isomorphism — $[Q]\\equiv[L]$, defines $\\xi_{topo}=e/\\ell_{node}$", "fraction": null}
 {"source": "clm-ibfyda", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.63, "strength": null, "context": "α appears at multiple layers; α-bottleneck cascades through chain", "fraction": null}
+{"source": "clm-invmtr", "target": "clm-sysqaf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the even kernel $S(A) = \\sqrt{1 - A^2}$ whose parity forces the odd restoring force", "fraction": null}
 {"source": "clm-io8hft", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-io8hft", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-io8hft", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}

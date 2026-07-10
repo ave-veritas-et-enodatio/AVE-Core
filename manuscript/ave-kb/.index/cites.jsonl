@@ -132,6 +132,7 @@
 {"claim_id": "clm-a034pf", "leaf_path": "vol5/protein-folding-engine/levinthal-mechanical-resolution.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-a3rby3", "leaf_path": "vol5/molecular-foundations/biophysics-intro/chignolin-validation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-a3rby3", "leaf_path": "vol5/molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-a6chi3", "leaf_path": "common/universal-saturation-kernel-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-a71inj", "leaf_path": "vol3/cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-a7cbqq", "leaf_path": "common/omega-freeze-cosmic-grain-cascade.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-a95yx1", "leaf_path": "vol6/period-1/hydrogen/orbital-knot-topology.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -317,6 +318,7 @@
 {"claim_id": "clm-i9l284", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ibfyda", "leaf_path": "common/full-derivation-chain.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ibfyda", "leaf_path": "common/mathematical-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-invmtr", "leaf_path": "common/universal-saturation-kernel-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-io8hft", "leaf_path": "common/appendix-vca-symbols.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-iouqn9", "leaf_path": "common/q-g47-substrate-scale-cosserat-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ir8h78", "leaf_path": "vol3/cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md", "leaf_kind": "leaf", "tier2_marked": true}
