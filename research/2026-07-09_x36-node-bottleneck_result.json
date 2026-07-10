@@ -1,0 +1,213 @@
+{
+  "class": "CONSISTENCY / characterization",
+  "prereg": "research/2026-07-09_x36-node-bottleneck_prereg_FROZEN.md",
+  "omega_C_tank": 1.0,
+  "eta_canonical": 1.0,
+  "walk_ceiling_pi_sqrt3_omega_C": 5.441398092702652,
+  "R_iso_elastic_to_omega_C": 1.4142134953364378,
+  "R_iso_branch_spread": 2.37974899683149e-07,
+  "R_iso_note": "anchored at rho*=1 (isotropic), = sqrt(2) (sqrt-eig<->arccos velocity convention); FIXED across rho* (a unit conversion at k_s=m=1).",
+  "MeV_per_omega_C": 0.5109989499961641,
+  "rho_set": [
+    1.0,
+    9.77337,
+    100.0,
+    1000.0
+  ],
+  "srs_ceilings_vs_rho": {
+    "1": {
+      "bare_continuum_top_elastic": 2.4494897427831783,
+      "R_iso_elastic_to_omega_C": 1.4142134953364378,
+      "bare_continuum_top_omega_C": 3.4641014509321506,
+      "node_tank_eta1_top_omega_C": 0.9607689193272579,
+      "walk_top_omega_C": 5.441398092702652
+    },
+    "9.77337": {
+      "bare_continuum_top_elastic": 5.584644603209709,
+      "R_iso_elastic_to_omega_C": 1.4142134953364378,
+      "bare_continuum_top_omega_C": 7.8978797645169765,
+      "node_tank_eta1_top_omega_C": 0.9920792720077387,
+      "walk_top_omega_C": 5.441398092702652
+    },
+    "100": {
+      "bare_continuum_top_elastic": 17.373448299104624,
+      "R_iso_elastic_to_omega_C": 1.4142134953364378,
+      "bare_continuum_top_omega_C": 24.56976504512364,
+      "node_tank_eta1_top_omega_C": 0.9991727651124697,
+      "walk_top_omega_C": 5.441398092702652
+    },
+    "1000": {
+      "bare_continuum_top_elastic": 54.78899224500872,
+      "R_iso_elastic_to_omega_C": 1.4142134953364378,
+      "bare_continuum_top_omega_C": 77.48333222877477,
+      "node_tank_eta1_top_omega_C": 0.9999167279654717,
+      "walk_top_omega_C": 5.441398092702652
+    }
+  },
+  "verdict_metrics": {
+    "node_tank_top_omega_C_per_rho": [
+      0.9607689193272579,
+      0.9920792720077387,
+      0.9991727651124697,
+      0.9999167279654717
+    ],
+    "node_tank_lift_ratio_1000_over_1": 1.040746331246462,
+    "bare_continuum_top_omega_C_per_rho": [
+      3.4641014509321506,
+      7.8978797645169765,
+      24.56976504512364,
+      77.48333222877477
+    ],
+    "bare_continuum_lift_ratio_1000_over_1": 22.367512420262656,
+    "walk_ceiling_omega_C": 5.441398092702652,
+    "node_tank_top_MeV_per_rho": [
+      0.49095190896517815,
+      0.5069514663089134,
+      0.5105762338372359,
+      0.5109563980739561
+    ]
+  },
+  "BRANCH": "P_NODE_PINS",
+  "eta_family_srs": {
+    "0.25": {
+      "lower_branch_top_omega_C": 0.9979779015897701,
+      "upper_branch_top_omega_C": 9.138164283612662,
+      "node_stop_band_omega_C": [
+        1.0,
+        1.1547005383792517
+      ],
+      "stop_band_is_D_independent": true
+    },
+    "0.5": {
+      "lower_branch_top_omega_C": 0.9959842751248703,
+      "upper_branch_top_omega_C": 11.214322310030038,
+      "node_stop_band_omega_C": [
+        1.0,
+        1.414213562373095
+      ],
+      "stop_band_is_D_independent": true
+    },
+    "0.75": {
+      "lower_branch_top_omega_C": 0.994018320611508,
+      "upper_branch_top_omega_C": 15.890813279293027,
+      "node_stop_band_omega_C": [
+        1.0,
+        2.0
+      ],
+      "stop_band_is_D_independent": true
+    },
+    "1": {
+      "lower_branch_top_omega_C": 0.9920792720077387,
+      "upper_branch_top_omega_C": null,
+      "node_stop_band_omega_C": [
+        1.0,
+        null
+      ],
+      "stop_band_is_D_independent": true
+    }
+  },
+  "convergence_to_walk": {
+    "node_tank_ceiling_omega_C": 0.9879844211032345,
+    "walk_ceiling_omega_C": 5.441398092702652,
+    "ratio_node_tank_over_walk": 0.1815681198602617,
+    "reproduces_walk": false,
+    "note": "Both PIN, by DIFFERENT mechanisms (node resonance vs bond tick). The node tank binds at ~1 omega_C = m_e c^2; the walk at pi*sqrt3 = 5.441 omega_C = 2.781 MeV. The node tank is TIGHTER by pi*sqrt3. It does NOT reproduce the walk's arccos band (rational vs arccos law). Convergence would require omega_C(tank)=pi*sqrt3 \u2014 the plumber question surfaced to Grant."
+  },
+  "longitudinal_only_window": {
+    "under_bare_continuum_MeV": [
+      2.7805,
+      39.5939
+    ],
+    "under_node_tank_MeV": "CLOSED (all channels pinned at ~0.5049 MeV \u2014 Branch P)",
+    "under_walk_MeV": "CLOSED (all channels pinned at pi*sqrt3 = 2.7805 MeV)",
+    "note": "Branch P closes the longitudinal-only window (X33 deliverable) via the node bottleneck."
+  },
+  "gates": {
+    "G1_lowk_unchanged": {
+      "tank_over_bare_lowk_ratio_mean": 0.9999999970561873,
+      "max_dev_from_1": 5.691694227039079e-09,
+      "R_used": 0.7138800490605338,
+      "pass": true
+    },
+    "G2_tank_removed_control": {
+      "tank_removed_top_omega_C": [
+        3.4641014509321506,
+        7.8978797645169765,
+        24.56976504512364,
+        77.48333222877477
+      ],
+      "bare_top_omega_C": [
+        3.4641014509321506,
+        7.8978797645169765,
+        24.56976504512364,
+        77.48333222877477
+      ],
+      "max_rel_err_vs_bare": 0.0,
+      "lift_ratio_1000_over_1": 22.367512420262656,
+      "pass": true
+    },
+    "G3_scalar_walk_reproduces_604": {
+      "walk_scalar_top_omega_C": 5.441398092702652,
+      "target_pi_sqrt3": 5.441398092702652,
+      "node_tank_scalar_top_omega_C": 0.9607689193272579,
+      "tension_with_604": "node-tank pins at 0.9608 omega_C = 0.4910 MeV (node rate) vs #604 walk 5.4414 omega_C = 2.7805 MeV (bond tick) \u2014 node tank is TIGHTER; #604's memoryless-node engine omits the tank.",
+      "pass": true
+    },
+    "G4_band_count": {
+      "n_dof": 12,
+      "n_branches_eta1": 12,
+      "n_branches_eta0p5": 24,
+      "augmented_cross_check_max_err": 1.1102230246251565e-15,
+      "pass": true
+    },
+    "G5_enantiomorph_parity": {
+      "right_top_omega_C": 0.9920792720077387,
+      "left_top_omega_C": 0.9920792720077387,
+      "abs_diff": 0.0,
+      "pass": true
+    },
+    "G6_gap_structure": {
+      "per_eta": {
+        "0.25": {
+          "pred_stop_band": [
+            1.0,
+            1.1547005383792517
+          ],
+          "measured_upper_bottom": 1.1547005385235891,
+          "edge_err": 1.443374308962575e-10,
+          "D_independence_err": 0.0
+        },
+        "0.5": {
+          "pred_stop_band": [
+            1.0,
+            1.414213562373095
+          ],
+          "measured_upper_bottom": 1.4142135627266486,
+          "edge_err": 3.5355363081635005e-10,
+          "D_independence_err": 0.0
+        },
+        "0.75": {
+          "pred_stop_band": [
+            1.0,
+            2.0
+          ],
+          "measured_upper_bottom": 2.00000000075,
+          "edge_err": 7.500000620552782e-10,
+          "D_independence_err": 0.0
+        }
+      },
+      "pass": true
+    }
+  },
+  "all_gates_pass": true,
+  "zz_1d_two_channel": {
+    "R1d_calibration": 1.7320508054528332,
+    "iso_bare_top": 3.4641016109056664,
+    "iso_tank_top": 0.9607689227402327,
+    "iso_walk_top": 5.441398041083516,
+    "rho_bare_top": 9.0908874917228,
+    "rho_tank_top": 0.99400432770082,
+    "rho_walk_top": 5.441398092702652
+  },
+  "D_I_verdict": "Branch P_NODE_PINS. The channel-shared node LC tank (Axiom 1) presents the bonds an effective dynamical mass diverging at omega_C; the reciprocal bottleneck law 1/omega^2 = 1/Lambda + 1/omega_C^2 pins EVERY channel at the node rate ~1 omega_C = m_e c^2, lift ratio 1.041x (vs the bare continuum's 22.37x). Effective synchrony is DERIVED from Axiom-1's node resonance with NO tick postulate. The node tank is a TIGHTER clock than the bond-tick walk (pi*sqrt3 omega_C) \u2014 flagged tension with #604."
+}
