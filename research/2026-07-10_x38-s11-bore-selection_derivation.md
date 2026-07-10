@@ -106,30 +106,32 @@ z_in = ½ + j b + O(θ²),   b = [ (3/2) s_L − (1/4) s_C ] · f · θ,
 S₁₁  = (z_in − 1)/(z_in + 1),
 |S₁₁|² = (¼ + b²) / (9/4 + b²).
 ```
-`d|S₁₁|²/d(b²) = 2/(9/4 + b²)² > 0` — **`|S₁₁|²` is monotone increasing in `b²`, minimized at `b = 0`** (i.e. `θ = 0` or `f = 0`), where `|S₁₁|² = ¼/(9/4) = 1/9`. For any `f > 0` the reactance `b` is nonzero across the band, so `|S₁₁| > 1/3` everywhere except the trivial `θ→0` point. (The leading coefficient `(3/2)s_L − (1/4)s_C` vanishes only on the measure-zero curve `s_C = 6 s_L`; even there higher-order terms keep `|S₁₁| ≥ 1/3`.) *This expansion matches the exact `S₁₁` to 6 digits at `θ = 10⁻³` across the `s`-grid.*
+`d|S₁₁|²/d(b²) = 2/(9/4 + b²)² > 0` — **`|S₁₁|²` is monotone increasing in `b²`, minimized at `b = 0`** (i.e. `θ = 0` or `f = 0`), where `|S₁₁|² = ¼/(9/4) = 1/9`. *This expansion matches the exact `S₁₁` to 6 digits at `θ = 10⁻³` across the `s`-grid.*
 
-### 5c. The argmin (all three objectives → f* = 0) — branch (ii)
+> **⚠ DATED CORRECTION (2026-07-10, PR #619 review R1 — the load-bearing one).** *Superseded (this §5b + §5c):* "for any `f > 0` … `|S₁₁| > 1/3` **everywhere except the trivial `θ→0` point`**" and §5c "with equality **only at `θ→0`**". **This is symbolically FALSE.** The small-θ expansion is valid ONLY near `θ→0`; the GLOBAL statement misses a second exact touch. Sympy on the full `S₁₁` (perfect-square numerator): `|S₁₁(θ;f)|² − 1/9 = 8 t²(s_C s_L² t² + s_C − 3 s_L)² / [...]`, `t = fθ`. So `|S₁₁| = 1/3` EXACTLY also at the **half-wave-invisible** extent `f_touch(θ) = √(3s_L−s_C)/(√s_C·s_L·θ)` (`s_C < 3s_L`) — where the junction section is half-wave at the probe tone θ and is impedance-transparent there. At `θ=π`, `f_touch = √2/π ≈ 0.450` for `s=1` (machine-zero `−4.2e-17`). The correct global statement: **`|S₁₁| ≥ 1/3` with equality at `θ=0` AND on the half-wave-invisible locus.**
 
-Because `|S₁₁(θ; f)| ≥ |S₁₁(θ; 0)| = 1/3` with equality only at `θ→0`:
-- **obj-1** `J₁(f) = |S₁₁(π; f)|²`: `= 1/9` at `f=0`, `> 1/9` for all `f>0` ⇒ **argmin at f = 0**.
-- **obj-2** band-integrated: `= 1/9` at `f=0` (flat `1/3` over the band), `> 1/9` for `f>0` ⇒ **argmin at f = 0**.
-- **obj-3** `|S₁₁(π/2; f)|²`: same ⇒ **argmin at f = 0**.
+### 5c. The argmin — TWO-AXIS (RESTATED per R1)
 
-**All three objectives select `f* = 0` for every `(s_L, s_C) ∈ [0.3, 3]²` (driver s-sweep; spread = 0 everywhere).** This is **branch (ii)**: the matched junction is the point junction; the walk ceiling `π√3` is exact (X37 `g(0)`); the bore stays a non-object at this abstraction.
+The single-frequency objectives inherit the half-wave-invisible touch; the band-integrated one does not:
+- **obj-1** `J₁(f) = |S₁₁(π; f)|²`: `= 1/9` at `f=0` AND at `f_touch(π)` (both EXACT global minima) ⇒ **EXACTLY DEGENERATE `{0, f_touch}`** ⇒ under the FROZEN branch rule's degenerate clause, the PRIMARY objective fires **branch (iv)**. (The grid-argmin returning `0` is resolution luck.)
+- **obj-3** `J₃(f) = |S₁₁(π/2; f)|²`: co-degenerate at `2·f_touch` (= `0.900` at s=1, OUTSIDE `[0,0.5]` — so within the frozen domain at s=1 obj-3 happens to select `f=0`, but shares the degeneracy structure and its touch enters `[0,0.5]` at other s).
+- **obj-2** band-integrated: the half-wave trick is single-tone; averaging over the band gives `⟨|S₁₁|²⟩ > 1/9` for every `f>0` (equality only at the `f=0` boundary). ⇒ **obj-2 UNIQUELY selects `f* = 0`** — the ONLY objective that does.
 
-**The Op6 target is UNREACHABLE (the honest core).** The deepest notch any bore presents is `min_θ |S₁₁|² = 1/9` (the `θ→0` floor, shared by ALL f) — the reflectionless target `λ_min → 0` is never reached. The srs vertex is an **intrinsic `1/9`-power back-scatterer** — a structural feature of `z = 3` (a `z = 2` through-junction would match perfectly, `S₁₁ = 0`). Op6 cannot zero the vertex reflection; it can only pick the LEAST-reflecting realizable bore, which is `f = 0`.
+**BANKED (two-axis):** `f* = 0` is uniquely selected **only on the broadband (obj-2) axis** (branch ii there); the frozen-primary single-frequency objectives are exactly degenerate (branch iv). This is **demonstrated (entailed by the model class), not adjudicated**. The physical reading is the **half-wave-invisible bore family**: a junction section that is half-wave at the probe tone is transparent AT that tone, so single-frequency matching is degenerate; broadband matching cannot use the trick.
 
-### 5d. Self-consistency + comparison marks (frozen reporting)
+**The 1/3 floor = the classic three-port theorem (R5), scoped to the LOSSLESS RECIPROCAL class (R3).** `min_θ |S₁₁|² = 1/9` for ALL `f` is the classic matched-lossless-reciprocal-3-port theorem (Pozar §7.1 class; `|S₁₁| ≥ 1/3` symmetric corollary), confirmed at the vertex — an intrinsic `z=3` **reactive back-scatter / redistribution** (no dissipation; `z=2` matches perfectly). **NON-RECIPROCAL escape (R4):** matched lossless C₃ 3-ports exist (circulator: unitary, `S₁₁=0`, non-reciprocal); ANY lossless+reciprocal+C₃ network (incl. the evanescent-stub model) obeys the theorem, so that escape is DEAD — the ONLY escape is non-reciprocity, needing a T-breaking bias (candidate `u₀*/Ω_freeze`): PENDING-GRANT.
 
-- `f* = 0 < f_crit ≈ 0.184` (X37): the lumped quasi-static abstraction is self-consistent at its own minimum — **the answer does NOT self-invalidate.**
-- Soliton comparison marks (NOT inputs): `1/(2π) ≈ 0.159` (tube radius, constants.py:76), `1` (core-tube thickness, constants.py:189). `f* = 0` matches NEITHER ⇒ branch (i) (identity candidate at `1/(2π)`) does NOT fire; the bore is not the winding-is-the-wire radius. The X37-repaired unasserted observation `1/(2π) ≈ f_crit` (where `ω_vertex ≈ π√3`) is noted but not load-bearing for this negative.
+### 5d. Self-consistency + comparison marks (RESTATED per R2)
+
+- The band-integrated `f* = 0 < f_crit ≈ 0.184` (self-consistent). The obj-1 co-minimum `f_touch` sits at `f > f_crit` at `s=1` (self-invalidated regime) but **INSIDE `f_crit` at cell `(2,3)`**.
+- Soliton comparison marks (NOT inputs): `1/(2π) ≈ 0.159` (tube radius, constants.py:76), `1` (core-tube thickness). *Superseded:* "branch (i) does NOT fire". **Correction (R2):** at cell `(s_L,s_C)=(2,3)`, `f_touch(π) = 1/(2π)` EXACTLY, INSIDE `f_crit` — an exact obj-1 co-minimum ON the tube-radius (branch-i) mark in the self-consistent regime. A formula locus (s-cell-dependent), **NOT asserted as branch (i)** and **NOT dismissed** — **branch (i) UNADJUDICATED PENDING-GRANT**.
 
 ---
 
-## 6. Which branch this points to (the driver decides by the frozen rule)
+## 6. Which branch this points to (RESTATED per R1/R7)
 
-The physics points to **branch (ii)** (f* = 0, robust across objectives and s). The FROZEN rule (prereg §6) is applied by the driver on the COMPUTED f* and objective-spread, not pre-ordained here. The exact `S₁₁` algebra (§3), the Op6 pull (§4), the L-match refutation (§5a), and the monotone-reflection expansion (§5b) stand regardless of branch.
+**TWO-AXIS, demonstrated (entailed by the model class), not adjudicated (R7):** the frozen-primary single-frequency Op6 objective is exactly degenerate ⇒ **branch (iv)**; the band-integrated comparator uniquely selects `f*=0` ⇒ **branch (ii)** on the broadband axis. The exact `S₁₁` algebra (§3), the Op6 pull as a CANDIDATE selector (§4; per canon it did not select the trefoil), the L-match refutation (§5a), and the perfect-square identity (§5b) stand.
 
-**What would flip it:** a mechanism outside the leading-order positive-element lumped class (X37 C2 — an evanescent-mode stub / finite-volume resonant shunt branch presenting a NEGATIVE-reactance or resonant bypass) could, in principle, present a matching notch; that is the named model-fidelity follow-on, not modeled here. Within this class the refutation is exact.
+**The ONLY thing that flips the reciprocal-class result is non-reciprocity (R4):** a T-breaking bias (frozen-bias sector `u₀*/Ω_freeze`, PENDING-GRANT) opening a circulator-like matched lossless vertex. The evanescent-stub / finite-volume resonant branch is NOT such a mechanism (it stays lossless+reciprocal+C₃) — that escape is DEAD.
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
