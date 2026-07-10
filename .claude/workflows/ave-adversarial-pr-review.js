@@ -61,6 +61,15 @@ const VERDICT = {
   properties: {
     verdict: { enum: ['CONFIRMED', 'DOWNGRADED', 'REFUTED'] },
     corrected_severity: { enum: ['CRITICAL', 'MAJOR', 'MINOR', 'NONE'] },
+    // For any finding that HOLDS (CONFIRMED/DOWNGRADED = blocking), classify the defect so the
+    // author knows whether to repair-and-bank or discard. EVIDENCE-VOID: the EVIDENCE for the
+    // claim is broken/absent (a no-op actuator, a vacuous gate, an unfireable control) but the
+    // underlying conclusion may be independently true -> REPAIR the evidence, BANK the conclusion.
+    // CONCLUSION-WRONG: the conclusion itself is refuted -> DISCARD. NA for REFUTED findings.
+    // Receipt: x29/PR #598 — the kick was a no-op (evidence void) but the pinning conclusion was
+    // independently real, so it was repaired-and-banked, not discarded. A void of evidence is not
+    // a wrong conclusion.
+    defect_class: { enum: ['EVIDENCE-VOID', 'CONCLUSION-WRONG', 'NA'], description: 'repair-and-bank (EVIDENCE-VOID) vs discard (CONCLUSION-WRONG) vs NA (REFUTED)' },
     reasoning: { type: 'string', description: 'verbatim evidence for the verdict' },
   },
 }
@@ -84,7 +93,7 @@ const results = await pipeline(
     const verified = await parallel(fs.map(f => () =>
       agent(
         COMMON +
-        'ADVERSARIAL VERIFY. Try to REFUTE the finding below by reading the actual branch state, cited canon, and (if needed) running the code in a throwaway worktree. Quote verbatim evidence. Not reproducible => REFUTED; real but overstated => DOWNGRADED with corrected_severity; holds => CONFIRMED. Also apply the consensus-bias check: if the finding holds AVE to a standard the SM/textbook side would not be held to, say so. FINDING: ' +
+        'ADVERSARIAL VERIFY. Try to REFUTE the finding below by reading the actual branch state, cited canon, and (if needed) running the code in a throwaway worktree. Quote verbatim evidence. Not reproducible => REFUTED; real but overstated => DOWNGRADED with corrected_severity; holds => CONFIRMED. For any finding that HOLDS (CONFIRMED or DOWNGRADED), set defect_class: EVIDENCE-VOID (the evidence for the claim is broken/absent — a no-op actuator, a vacuous gate, an unfireable control — but the underlying conclusion may be independently true; prescribe REPAIR-AND-BANK) vs CONCLUSION-WRONG (the conclusion itself is refuted; prescribe DISCARD). A void of evidence is NOT a wrong conclusion — do not discard a real result because its demonstration was broken (x29/PR #598: no-op kick, but the pinning was independently real -> repaired and banked). Also apply the consensus-bias check: if the finding holds AVE to a standard the SM/textbook side would not be held to, say so. FINDING: ' +
         JSON.stringify(f),
         { label: 'verify:' + l.key, phase: 'Verify', schema: VERDICT, agentType: 'ave-auditor', effort: 'high' }
       ).then(v => ({ ...f, lens: l.key, verdict: v }))
