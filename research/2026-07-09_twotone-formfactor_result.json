@@ -768,36 +768,216 @@
       0.0018960840870054065
     ]
   },
+  "sep_discriminator": {
+    "pair": [
+      2.6,
+      4.2
+    ],
+    "force_law": "r_over_S",
+    "collapse_at_ref_pair": {
+      "sep0": {
+        "P_beat": 3.463208104492845e-06,
+        "P_beat_max_reader": 3.463208104492845e-06,
+        "max_bond_r": 0.3434
+      },
+      "sep3": {
+        "P_beat": 2.499723721230534e-23,
+        "P_beat_max_reader": 4.9824301119923254e-23,
+        "max_bond_r": 0.1841
+      },
+      "sep6": {
+        "P_beat": 2.499723721230534e-23,
+        "P_beat_max_reader": 4.9824301119923254e-23,
+        "max_bond_r": 0.1836
+      },
+      "collapse_ratio_sep0_over_sep3": 1.385436348456948e+17,
+      "collapse_orders": 17.141586577646997,
+      "separation_saturated": true
+    },
+    "form_factor_sweeps": {
+      "sep0": {
+        "rows": [
+          {
+            "wbar": 2.8,
+            "w_lo": 2.2,
+            "w_hi": 3.4,
+            "P_beat": 7.2298214970317216e-06,
+            "O_skin2": 0.000321835515156294,
+            "max_bond_r": 0.3795
+          },
+          {
+            "wbar": 3.1,
+            "w_lo": 2.4,
+            "w_hi": 3.8,
+            "P_beat": 4.546149856728749e-06,
+            "O_skin2": 4.5052443478711295e-05,
+            "max_bond_r": 0.3567
+          },
+          {
+            "wbar": 3.4,
+            "w_lo": 2.6,
+            "w_hi": 4.2,
+            "P_beat": 3.463208104492845e-06,
+            "O_skin2": 9.704703783826073e-06,
+            "max_bond_r": 0.3434
+          },
+          {
+            "wbar": 3.7,
+            "w_lo": 2.8,
+            "w_hi": 4.6,
+            "P_beat": 2.8832706993448615e-06,
+            "O_skin2": 2.6623617933147133e-06,
+            "max_bond_r": 0.3346
+          },
+          {
+            "wbar": 4.0,
+            "w_lo": 3.0,
+            "w_hi": 5.0,
+            "P_beat": 2.4945332077577378e-06,
+            "O_skin2": 8.597827044723505e-07,
+            "max_bond_r": 0.3065
+          }
+        ],
+        "q_raw": 2.9307166922881978,
+        "r2": 0.9647105595738033
+      },
+      "sep3": {
+        "rows": [
+          {
+            "wbar": 2.8,
+            "w_lo": 2.2,
+            "w_hi": 3.4,
+            "P_beat": 1.0985562806623001e-21,
+            "O_skin2": 0.000321835515156294,
+            "max_bond_r": 0.214
+          },
+          {
+            "wbar": 3.1,
+            "w_lo": 2.4,
+            "w_hi": 3.8,
+            "P_beat": 1.0801887632772916e-22,
+            "O_skin2": 4.5052443478711295e-05,
+            "max_bond_r": 0.1948
+          },
+          {
+            "wbar": 3.4,
+            "w_lo": 2.6,
+            "w_hi": 4.2,
+            "P_beat": 2.499723721230534e-23,
+            "O_skin2": 9.704703783826073e-06,
+            "max_bond_r": 0.1841
+          },
+          {
+            "wbar": 3.7,
+            "w_lo": 2.8,
+            "w_hi": 4.6,
+            "P_beat": 8.09080256520873e-24,
+            "O_skin2": 2.6623617933147133e-06,
+            "max_bond_r": 0.1773
+          },
+          {
+            "wbar": 4.0,
+            "w_lo": 3.0,
+            "w_hi": 5.0,
+            "P_beat": 3.1929246238446295e-24,
+            "O_skin2": 8.597827044723505e-07,
+            "max_bond_r": 0.1725
+          }
+        ],
+        "q_raw": 16.145379615165766,
+        "r2": 0.981413609818174
+      }
+    },
+    "sep_baseline_nodes": 3,
+    "q_raw_colocated_sep0": 2.9307166922881978,
+    "q_raw_bulk_sep3": 16.145379615165766,
+    "bulk_prediction_Oskin2_exponent": 16.538482220315235,
+    "bulk_q_tracks_Oskin2": true,
+    "kernel_off_floor_P": 5.1266862369470855e-23
+  },
+  "parity_generative": {
+    "pair": [
+      2.6,
+      4.2
+    ],
+    "diff_tone_omega": 1.6,
+    "force_law": "r_over_S",
+    "rows": [
+      {
+        "beta": 0.0,
+        "P_diff_tone": 1.1741300698268937e-16,
+        "P_fwm_allowed": 3.463208104492845e-06,
+        "max_bond_r": 0.3434
+      },
+      {
+        "beta": 0.03,
+        "P_diff_tone": 5.615092095584346e-07,
+        "P_fwm_allowed": 3.467993434078771e-06,
+        "max_bond_r": 0.344
+      },
+      {
+        "beta": 0.06,
+        "P_diff_tone": 2.2460356441252117e-06,
+        "P_fwm_allowed": 3.4825239339448415e-06,
+        "max_bond_r": 0.3446
+      },
+      {
+        "beta": 0.12,
+        "P_diff_tone": 8.983668919556373e-06,
+        "P_fwm_allowed": 3.5435706935490215e-06,
+        "max_bond_r": 0.3458
+      },
+      {
+        "beta": 0.24,
+        "P_diff_tone": 3.5926081588559735e-05,
+        "P_fwm_allowed": 3.834858687281024e-06,
+        "max_bond_r": 0.3482
+      }
+    ],
+    "beta0_diff_over_fwm": 3.390296033044293e-11,
+    "diff_tone_monotonic_in_beta": true,
+    "diff_tone_beta_power_exponent": 1.9998658224170889,
+    "diff_tone_beta_r2": 0.9999999984241305
+  },
   "verdict": {
     "gate_a_pass": true,
     "gate_b_pass": true,
     "gate_c_pass": true,
     "gate_e_pass": true,
-    "form_factor_q_PRIMARY_analytic_drivebond": 0.30229889213309924,
-    "form_factor_q_corroborating_measured_drivebond": -0.9473619799468105,
-    "measured_drivebond_corroborates_branch_i": true,
-    "form_factor_r2_drivebond_analytic": 0.9609034911208957,
-    "form_factor_r2_drivebond_meas": 0.14552022296862277,
-    "form_factor_q_FROZEN_Oskin": -13.60776552802704,
-    "form_factor_r2_FROZEN_Oskin": 0.9990505583380973,
-    "FROZEN_Oskin_overcorrects": true,
-    "raw_form_factor_q": 2.9307166922882057,
-    "raw_form_factor_r2": 0.9647105595738037,
-    "raw_tracks_Oskin2_slope": 0.17858492348533783,
-    "birth_at_drive_bond": true,
-    "amplitude_exponent_measured": 6.156114163526119,
-    "amplitude_exponent_predicted": 6.0,
-    "amplitude_fit_r2": 0.9996958722800309,
+    "amplitude_exponent_clean_regime": 6.01842146955724,
+    "amplitude_r2_clean_regime": 0.9999988678915696,
+    "amplitude_clean_n_points": 3,
+    "amplitude_clean_max_bond_r_cut": 0.15,
+    "amplitude_exponent_global": 6.156114163526119,
+    "amplitude_r2_global": 0.9996958722800309,
     "amplitude_points_above_floor": 5,
+    "amplitude_dynamic_range": 27353002.007956553,
+    "amplitude_min_over_kernel_off_floor": 56702781195.8804,
+    "kernel_off_floor_P": 5.1266862369470855e-23,
     "parity_null_holds": true,
-    "max_beat_snr": 6729988.7717963,
+    "parity_diff_tone_forbidden_beta0_ratio": 3.390296033044293e-11,
+    "parity_generative_monotonic_in_beta": true,
+    "parity_generative_beta_power_exponent": 1.9998658224170889,
+    "sep_baseline_nodes": 3,
+    "bulk_collapse_orders_sep0_to_sep3": 17.141586577646997,
+    "bulk_collapse_ratio": 1.385436348456948e+17,
+    "bulk_separation_saturated": true,
+    "q_raw_colocated_INTERFACE": 2.9307166922881978,
+    "q_raw_bulk_sep3": 16.145379615165766,
+    "bulk_prediction_Oskin2_exponent": 16.538482220315235,
+    "bulk_q_tracks_Oskin2_skin_suppression": true,
+    "INTERFACE_q_analytic_drivebond": 0.30229889213309924,
+    "INTERFACE_q_measured_drivebond_UNINFORMATIVE": -0.9473619799468105,
+    "measured_drivebond_uninformative_r2_signflip": true,
+    "INTERFACE_r2_drivebond_analytic": 0.9609034911208957,
+    "INTERFACE_r2_drivebond_meas": 0.14552022296862277,
+    "FROZEN_Oskin_interface_diagnostic_q": -13.60776552802704,
+    "FROZEN_Oskin_interface_r2": 0.9990505583380973,
+    "raw_form_factor_q_INTERFACE": 2.9307166922882057,
+    "raw_form_factor_r2_INTERFACE": 0.9647105595738037,
+    "raw_tracks_Oskin2_slope_INTERFACE": 0.17858492348533783,
     "n_fit_pairs": 5,
-    "FROZEN_thresholds": {
-      "Q_FLAT": 1.0,
-      "Q_STEEP": 4.0,
-      "FLOOR_SNR": 10.0
-    },
-    "BRANCH": "i_DRIVE_TRACKING",
-    "BRANCH_VERDICT": "(i) DRIVE-TRACKING \u2014 drive-bond-participation-corrected beat power ~flat (q=0.30): the four-photon vertex is frequency-blind above band; the \u03c7\u00b3 enhancement survives; ATLAS tension real (1D mechanism substrate). [branch read from the KEEP-BOTH drive-bond participation O_bond, NOT the frozen O_skin: the run found mixing is drive-bond-localized (birth_depth\u22641, raw barely tracks O_skin\u00b2) so O_skin over-corrects (q_frozen=-13.6, unphysical). Flagged for orchestrator/Grant adjudication of the participation normalization.]"
+    "BRANCH": "interface_scoped__BULK_OPEN",
+    "BRANCH_VERDICT": "(ii)/hard-closure EXCLUDED at the drive interface; (i)-vs-(iii) normalization-dependent (q in [0.30 analytic-bond, 2.93 raw]); frozen O_skin rule mis-specified for this geometry (q=-13.6 = the interface-artifact diagnostic); bulk-geometry discriminator (sep>=3) shows ~16-order collapse toward skin suppression \u2014 THE BULK VERTEX WAS NOT PROBED; the super-band coupling fork remains OPEN."
   }
 }
