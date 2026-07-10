@@ -69,6 +69,8 @@ Independent markers, one scale (all m_e-built):
 
 **Reading:** the handoff from the constitutive (smooth-medium) description to the defect sector is not a drawn fence — it is the **full-power-bandwidth corner of the vacuum**, cornered six ways at once. This over-determination is convergent (six derivations, one scale), not the ½/¼ coincidence-tell kind — but it remains framing until #29 runs.
 
+> **🔴 CURRENT-STATUS CAVEAT (2026-07-09, post-#604 srs band survey — body above preserved; git is the trail).** **Marker 1** (spatial Nyquist band edge) is now surveyed: kℓ_node → π gives the **scalar-channel srs band edge = π√3 = 5.441 ω_C = 2.781 MeV** ([`2026-07-09_srs-band-survey_result.md`](2026-07-09_srs-band-survey_result.md), PR #604), not the "~1–2 MeV" placeholder in marker 1. With marker 1 pinned at 5.441 ω_C and the lower markers (pair threshold 2ω₀ = 2 ω_C; feedback crossover ~ω₀; self-field E_c crossing at ~0.5–4 ω₀) near 1–2 ω_C, the **six markers span ~1 → 5.44 ω_C (factor ~5.4)**. The **"one corner / cornered six ways" reading survives at ORDER OF MAGNITUDE** — all six are m_e-built and within a factor ~5 — **but it is a CROSSOVER REGION (~half-decade band), not a coincident point**: spread-honesty per the standing register (consistent with this note's own §7 O(1)-slop flags). No marker is retracted; the corner is re-read as a band, not a point. (Scalar channel only; the vector/T2 band top is deferred — #604 review item 5.)
+
 ## 7. Honesty flags
 
 - **ξ=1 vs A_I=1 differ:** the standard strong-field parameter traces E/E_S = ω/ω₀ (rising); the slew hyperbola traces E/E_c = ω₀/ω (falling). Which boundary the substrate enforces is checkable, not assumable. They cross at ω ≈ α^(1/4)ω₀.
