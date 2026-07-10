@@ -243,3 +243,42 @@ NOT be headlined as an AVE-distinct emergence result.
 
 **PREREG STATUS: FROZEN — 2026-07-09.** Driver + result are separate commits. The branch
 verdict is whatever the frozen gates return; both branches recorded regardless.
+
+---
+
+## APPENDIX A — Post-review re-adjudication (KEEP-BOTH; appended 2026-07-09, frozen body above unchanged)
+
+The frozen body (§1–§8) is preserved verbatim. This appendix records the re-adjudication forced by
+the adversarial review of the FIRST result (commit `ecd65547`), whose committed evidence was found
+**non-functional** on re-run. Per KEEP-BOTH, the frozen adjudication (§5) is **not rewritten**; this
+appendix appends the corrected reading.
+
+**Why the frozen §5 rule cannot stand as literally written.** Two of its inputs were evidence-voids:
+
+- **G3 (coupling-law fit) is structurally unmeasurable by this driver.** The frozen §5 assumed a
+  single-tone drive of the saturable kernel could resolve the super-band → in-band coupling law
+  (power vs exponential). It cannot: an odd (χ³) kernel driven at one tone emits only odd harmonics,
+  all above the band; the in-band 2→2 vertex is a **two-tone difference-frequency** process
+  (ω_a, ω_b above band; ω_a−ω_b in-band; A⁶ scaling) that was never driven. The E_far signal the
+  first result fit was a raised-cosine **ramp turn-on transient** (collapses ~15×/ramp-doubling, no
+  floor), not a channel. **G3 is therefore DROPPED**, and the two-tone protocol is designated
+  **FORK A** (a future arc, not attempted in the repair).
+- **G4 (mobility) was run with a no-op kick.** The first driver's kick `sin(π·n)` ≡ 0 at integer
+  nodes, so the "kicked" runs were the un-kicked run relabeled. The repair implements a real
+  translation-mode kick (+ cos-staggered cross-check) with an energy-injection diagnostic.
+
+**Corrected decision rule (used by the repaired driver's `_adjudicate`):**
+
+- **NULL-mobility-banked** iff: the kick injects nonzero energy (no-op repaired) AND G5 holds AND no
+  kick produces near-luminal sustained translation (peak v > 0.5 c) AND G2 holds. → *no mobile
+  super-band carrier; evanescent-only; PN-pinned; coupling-law UNMEASURED (FORK A); closure-above-ω₀
+  OPEN.* **[this is the landed verdict]**
+- **MOBILE (re-open)** iff a corrected kick produces near-luminal sustained translation.
+- **INVALID** iff the kick injects zero energy (no-op not repaired); **INDETERMINATE** iff G5 fails.
+
+**What did NOT change:** G1 (band), G2 (evanescence, tol restored to the frozen 15 %), and G5
+(dt/energy) are evaluated exactly as frozen. The BRANCH-A / BRANCH-B decision structure of §5 is
+**not** invoked, because its discriminating input (the coupling law) is unmeasured. The honest
+outcome is the **third answer the frozen §5 already lists** — the null — narrowed to *mobility*: the
+smooth sector carries **no mobile carrier** above the edge; whether it carries a power-law-suppressed
+2→2 leak is a separate, unmeasured (FORK A) question. Result: `2026-07-09_superband-carrier-fork_result.md`.

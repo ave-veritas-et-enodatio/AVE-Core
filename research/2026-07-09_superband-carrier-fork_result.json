@@ -10,10 +10,16 @@
   },
   "O1_band": {
     "omega_top_over_omega_C": 2.0,
+    "omega_top_1d_chain": 2.0,
+    "srs_laplacian_lambda_max": 6.0,
+    "srs_band_top_over_omega_C_approx": [
+      3.3,
+      3.5
+    ],
     "low_k_phase_velocity_c": 0.9992711294901139,
     "v_group_at_edge": 6.123233995736766e-17,
     "gapless": true,
-    "note": "acoustic \u03c9=2|sin(k/2)|; band top 2 \u03c9_C; edge v_g=0; k=0 gapless"
+    "note": "1D-chain \u03c9=2|sin(k/2)|: top 2 \u03c9_C, edge v_g=0, k=0 gapless. TRUE 3D srs top \u22483.3\u20133.5 \u03c9_C (srs Laplacian \u03bb_max=6.000) \u2014 see finding #4."
   },
   "O2_O3_runs": [
     {
@@ -530,276 +536,237 @@
     }
   ],
   "runs_index": [],
-  "O3_coupling_fits": {
-    "A=0.02": {
-      "power_p": 11.437325880059147,
-      "power_R2": 0.8152260485842977,
-      "exp_gamma": 2.876322698457383,
-      "exp_R2": 0.7135573957580402,
-      "n_points": 6
-    },
-    "A=0.1": {
-      "power_p": 11.4710256063349,
-      "power_R2": 0.8155857750333938,
-      "exp_gamma": 2.8850003545180516,
-      "exp_R2": 0.7139725641435406,
-      "n_points": 6
-    },
-    "A=0.2": {
-      "power_p": 11.612115887120778,
-      "power_R2": 0.8138334564180953,
-      "exp_gamma": 2.9195757743872415,
-      "exp_R2": 0.7119950220990567,
-      "n_points": 6
-    },
-    "A=0.3": {
-      "power_p": 12.063289973726913,
-      "power_R2": 0.8049919035264986,
-      "exp_gamma": 3.028621723068475,
-      "exp_R2": 0.7022224041251283,
-      "n_points": 6
-    }
-  },
-  "O3_nonlinear_excess": [
-    {
-      "omega_over_C": 2.1,
-      "A_drive": 0.1,
-      "E_far": 5.7854407684819225e-05,
-      "linear_pred": 5.540684401253168e-05,
-      "nl_excess": 2.447563672287542e-06,
-      "nl_frac": 0.042305569622654235
-    },
-    {
-      "omega_over_C": 2.1,
-      "A_drive": 0.2,
-      "E_far": 0.0002899001787792796,
-      "linear_pred": 0.00022162737605012673,
-      "nl_excess": 6.827280272915284e-05,
-      "nl_frac": 0.23550452095834512
-    },
-    {
-      "omega_over_C": 2.1,
-      "A_drive": 0.3,
-      "E_far": 0.001315997004097657,
-      "linear_pred": 0.0004986615961127852,
-      "nl_excess": 0.0008173354079848719,
-      "nl_frac": 0.6210769518774827
-    },
-    {
-      "omega_over_C": 2.5,
-      "A_drive": 0.1,
-      "E_far": 3.793541901474422e-08,
-      "linear_pred": 3.685840853389684e-08,
-      "nl_excess": 1.0770104808473827e-09,
-      "nl_frac": 0.028390630941199962
-    },
-    {
-      "omega_over_C": 2.5,
-      "A_drive": 0.2,
-      "E_far": 1.6801611108861266e-07,
-      "linear_pred": 1.4743363413558736e-07,
-      "nl_excess": 2.05824769530253e-08,
-      "nl_frac": 0.1225029958119313
-    },
-    {
-      "omega_over_C": 2.5,
-      "A_drive": 0.3,
-      "E_far": 4.714674544045312e-07,
-      "linear_pred": 3.317256768050716e-07,
-      "nl_excess": 1.397417775994596e-07,
-      "nl_frac": 0.2963975059019823
-    },
-    {
-      "omega_over_C": 3.0,
-      "A_drive": 0.1,
-      "E_far": 3.186408041971324e-09,
-      "linear_pred": 3.1222319024628067e-09,
-      "nl_excess": 6.417613950851725e-11,
-      "nl_frac": 0.020140590490354656
-    },
-    {
-      "omega_over_C": 3.0,
-      "A_drive": 0.2,
-      "E_far": 1.366208537318917e-08,
-      "linear_pred": 1.2488927609851227e-08,
-      "nl_excess": 1.173157763337943e-09,
-      "nl_frac": 0.08586959686551061
-    },
-    {
-      "omega_over_C": 3.0,
-      "A_drive": 0.3,
-      "E_far": 3.5242611251639365e-08,
-      "linear_pred": 2.810008712216526e-08,
-      "nl_excess": 7.142524129474105e-09,
-      "nl_frac": 0.20266727906383097
-    },
-    {
-      "omega_over_C": 4.0,
-      "A_drive": 0.1,
-      "E_far": 3.233983885280166e-10,
-      "linear_pred": 3.1902881489862527e-10,
-      "nl_excess": 4.369573629391323e-12,
-      "nl_frac": 0.013511426724418508
-    },
-    {
-      "omega_over_C": 4.0,
-      "A_drive": 0.2,
-      "E_far": 1.3614658033153047e-09,
-      "linear_pred": 1.276115259594501e-09,
-      "nl_excess": 8.535054372080361e-11,
-      "nl_frac": 0.06269018546992994
-    },
-    {
-      "omega_over_C": 4.0,
-      "A_drive": 0.3,
-      "E_far": 3.3750987970728474e-09,
-      "linear_pred": 2.8712593340876275e-09,
-      "nl_excess": 5.038394629852198e-10,
-      "nl_frac": 0.14928139686523823
-    },
-    {
-      "omega_over_C": 5.0,
-      "A_drive": 0.1,
-      "E_far": 1.0838681107166933e-10,
-      "linear_pred": 1.0742958191235229e-10,
-      "nl_excess": 9.5722915931704e-13,
-      "nl_frac": 0.008831601832847402
-    },
-    {
-      "omega_over_C": 5.0,
-      "A_drive": 0.2,
-      "E_far": 4.533716756132895e-10,
-      "linear_pred": 4.2971832764940917e-10,
-      "nl_excess": 2.3653347963880342e-11,
-      "nl_frac": 0.05217209022130407
-    },
-    {
-      "omega_over_C": 5.0,
-      "A_drive": 0.3,
-      "E_far": 1.1090634861229304e-09,
-      "linear_pred": 9.668662372111707e-10,
-      "nl_excess": 1.4219724891175967e-10,
-      "nl_frac": 0.1282138044313888
-    },
-    {
-      "omega_over_C": 6.0,
-      "A_drive": 0.1,
-      "E_far": 5.4459657976916887e-11,
-      "linear_pred": 5.421811137386467e-11,
-      "nl_excess": 2.4154660305221727e-13,
-      "nl_frac": 0.004435330885746629
-    },
-    {
-      "omega_over_C": 6.0,
-      "A_drive": 0.2,
-      "E_far": 2.2699535198574054e-10,
-      "linear_pred": 2.1687244549545868e-10,
-      "nl_excess": 1.0122906490281863e-11,
-      "nl_frac": 0.04459521484350819
-    },
-    {
-      "omega_over_C": 6.0,
-      "A_drive": 0.3,
-      "E_far": 5.51367211887339e-10,
-      "linear_pred": 4.87963002364782e-10,
-      "nl_excess": 6.340420952255698e-11,
-      "nl_frac": 0.1149945229886328
-    }
-  ],
-  "O3_linear_coupling_fit": {
-    "power_p": 11.437325880059147,
-    "power_R2": 0.8152260485842977,
-    "exp_gamma": 2.876322698457383,
-    "exp_R2": 0.7135573957580402,
-    "n_points": 6
-  },
-  "O3_linear_coupling_fit_cleanwindow": {
-    "window_omega_over_C": [
-      2.5,
-      3.0,
-      4.0,
-      5.0
-    ],
-    "power_p": 8.287667605620761,
-    "power_R2": 0.9628248275903512,
-    "exp_gamma": 2.2414926341672765,
-    "exp_R2": 0.9208816855814679,
-    "n_points": 4
+  "O3_coupling_law": {
+    "status": "UNMEASURED",
+    "reason": "single-tone structurally cannot measure the 2\u21922 vertex (finding #3); E_far was a ramp turn-on transient, not a channel (finding #2). Two-tone difference-frequency protocol = FORK A, queued, not run.",
+    "far_flux_used_only_as": "G2 evanescent-only witness (far-flux\u22480), NOT a coupling law"
   },
   "O4_breather_static": [
     {
       "amp": 0.05,
       "kick": 0.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.0,
+      "inj_frac": 0.0,
       "max_bond_r": 0.099,
       "dE_over_E": -3.5452479833859942e-06,
       "com0": 500.5,
       "com1": 500.3,
       "com_drift": -0.2,
-      "speed_c": -0.0006,
-      "peak_node": 484,
-      "loc_width": 59
+      "com_speed_c": -0.0006,
+      "peak0": 500,
+      "peak1": 484,
+      "peak_drift": -16,
+      "peak_speed_c": -0.0457,
+      "loc_width": 59,
+      "core_frac": 0.39
     },
     {
       "amp": 0.15,
       "kick": 0.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.0,
+      "inj_frac": 0.0,
       "max_bond_r": 0.3502,
       "dE_over_E": -7.823049830983047e-06,
       "com0": 500.5,
       "com1": 500.1,
       "com_drift": -0.4,
-      "speed_c": -0.0012,
-      "peak_node": 500,
-      "loc_width": 9
+      "com_speed_c": -0.0012,
+      "peak0": 500,
+      "peak1": 500,
+      "peak_drift": 0,
+      "peak_speed_c": 0.0,
+      "loc_width": 9,
+      "core_frac": 0.988
     },
     {
       "amp": 0.25,
       "kick": 0.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.0,
+      "inj_frac": 0.0,
       "max_bond_r": 0.8132,
       "dE_over_E": -4.037093001030508e-06,
       "com0": 500.5,
       "com1": 500.4,
       "com_drift": -0.1,
-      "speed_c": -0.0004,
-      "peak_node": 500,
-      "loc_width": 3
+      "com_speed_c": -0.0004,
+      "peak0": 500,
+      "peak1": 500,
+      "peak_drift": 0,
+      "peak_speed_c": 0.0,
+      "loc_width": 3,
+      "core_frac": 0.988
     }
   ],
   "O4_breather_kicked": [
     {
       "amp": 0.25,
-      "kick": 0.2,
-      "max_bond_r": 0.8132,
-      "dE_over_E": -4.037092967612917e-06,
-      "com0": 500.5,
-      "com1": 500.4,
-      "com_drift": -0.1,
-      "speed_c": -0.0004,
-      "peak_node": 500,
-      "loc_width": 3
-    },
-    {
-      "amp": 0.25,
       "kick": 0.5,
-      "max_bond_r": 0.8132,
-      "dE_over_E": -4.037093038097145e-06,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.0013574005775513628,
+      "inj_frac": 0.0012,
+      "max_bond_r": 0.8607,
+      "dE_over_E": -7.718995785611876e-06,
       "com0": 500.5,
-      "com1": 500.4,
-      "com_drift": -0.1,
-      "speed_c": -0.0004,
-      "peak_node": 500,
-      "loc_width": 3
+      "com1": 514.4,
+      "com_drift": 13.9,
+      "com_speed_c": 0.0399,
+      "peak0": 500,
+      "peak1": 520,
+      "peak_drift": 20,
+      "peak_speed_c": 0.0571,
+      "loc_width": 3,
+      "core_frac": 0.823
     },
     {
       "amp": 0.25,
       "kick": 1.0,
-      "max_bond_r": 0.8132,
-      "dE_over_E": -4.037093035600429e-06,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.005429602310205451,
+      "inj_frac": 0.0047,
+      "max_bond_r": 0.8914,
+      "dE_over_E": -6.0174896095209535e-06,
       "com0": 500.5,
-      "com1": 500.4,
-      "com_drift": -0.1,
-      "speed_c": -0.0004,
-      "peak_node": 500,
-      "loc_width": 3
+      "com1": 510.5,
+      "com_drift": 10.0,
+      "com_speed_c": 0.0287,
+      "peak0": 500,
+      "peak1": 513,
+      "peak_drift": 13,
+      "peak_speed_c": 0.0371,
+      "loc_width": 5,
+      "core_frac": 0.917
+    },
+    {
+      "amp": 0.25,
+      "kick": 2.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.021718409240821804,
+      "inj_frac": 0.0188,
+      "max_bond_r": 0.9123,
+      "dE_over_E": -7.359011083820924e-06,
+      "com0": 500.5,
+      "com1": 494.3,
+      "com_drift": -6.2,
+      "com_speed_c": -0.0176,
+      "peak0": 500,
+      "peak1": 514,
+      "peak_drift": 14,
+      "peak_speed_c": 0.04,
+      "loc_width": 18,
+      "core_frac": 0.191
+    },
+    {
+      "amp": 0.25,
+      "kick": 3.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_S",
+      "ke_injected": 0.04886642079184906,
+      "inj_frac": 0.0423,
+      "max_bond_r": 0.894,
+      "dE_over_E": -5.363966341764875e-06,
+      "com0": 500.5,
+      "com1": 488.7,
+      "com_drift": -11.8,
+      "com_speed_c": -0.0338,
+      "peak0": 500,
+      "peak1": 478,
+      "peak_drift": -22,
+      "peak_speed_c": -0.0629,
+      "loc_width": 3,
+      "core_frac": 0.777
+    }
+  ],
+  "O4_breather_kicked_cos_stagger": [
+    {
+      "amp": 0.25,
+      "kick": 1.0,
+      "kick_mode": "cos_stagger",
+      "force_law": "r_over_S",
+      "ke_injected": 0.005429602310205451,
+      "inj_frac": 0.0047,
+      "max_bond_r": 0.8914,
+      "dE_over_E": -6.01748960971211e-06,
+      "com0": 500.5,
+      "com1": 489.9,
+      "com_drift": -10.6,
+      "com_speed_c": -0.0303,
+      "peak0": 500,
+      "peak1": 487,
+      "peak_drift": -13,
+      "peak_speed_c": -0.0371,
+      "loc_width": 5,
+      "core_frac": 0.906
+    },
+    {
+      "amp": 0.25,
+      "kick": 3.0,
+      "kick_mode": "cos_stagger",
+      "force_law": "r_over_S",
+      "ke_injected": 0.04886642079184906,
+      "inj_frac": 0.0423,
+      "max_bond_r": 0.894,
+      "dE_over_E": -5.363966341949142e-06,
+      "com0": 500.5,
+      "com1": 511.8,
+      "com_drift": 11.3,
+      "com_speed_c": 0.0324,
+      "peak0": 500,
+      "peak1": 522,
+      "peak_drift": 22,
+      "peak_speed_c": 0.0629,
+      "loc_width": 3,
+      "core_frac": 0.777
+    }
+  ],
+  "O4_breather_kicked_eload_r_over_sqrtS": [
+    {
+      "amp": 0.25,
+      "kick": 1.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_sqrtS",
+      "ke_injected": 0.005429602310205451,
+      "inj_frac": 0.0048,
+      "max_bond_r": 0.7668,
+      "dE_over_E": -7.329620020306033e-06,
+      "com0": 500.5,
+      "com1": 503.5,
+      "com_drift": 3.0,
+      "com_speed_c": 0.0087,
+      "peak0": 500,
+      "peak1": 503,
+      "peak_drift": 3,
+      "peak_speed_c": 0.0086,
+      "loc_width": 5,
+      "core_frac": 0.946
+    },
+    {
+      "amp": 0.25,
+      "kick": 3.0,
+      "kick_mode": "gradient",
+      "force_law": "r_over_sqrtS",
+      "ke_injected": 0.04886642079184906,
+      "inj_frac": 0.0433,
+      "max_bond_r": 0.7967,
+      "dE_over_E": -5.1990441088374945e-06,
+      "com0": 500.5,
+      "com1": 510.2,
+      "com_drift": 9.7,
+      "com_speed_c": 0.0278,
+      "peak0": 500,
+      "peak1": 511,
+      "peak_drift": 11,
+      "peak_speed_c": 0.0314,
+      "loc_width": 7,
+      "core_frac": 0.941
     }
   ],
   "O4_pn_barrier": {
@@ -892,19 +859,16 @@
   "energy_conservation_max_abs_dE_over_E": 7.823049830983047e-06,
   "verdict": {
     "G1_band_validated": true,
-    "G2_linear_evanescence_physical": true,
+    "G2_evanescent_only": true,
     "G2_linear_far_flux_max": 0.0034178103886241804,
-    "G3_coupling_law": "power",
-    "G3_fit": {
-      "power_p": 12.063289973726913,
-      "power_R2": 0.8049919035264986,
-      "exp_gamma": 3.028621723068475,
-      "exp_R2": 0.7022224041251283,
-      "n_points": 6
-    },
+    "G2_skin_tol_used": 0.15,
+    "G3_coupling_law": "DROPPED (structurally unmeasurable by single-tone; FORK A)",
     "G4_breather_mobile": false,
+    "G4_max_peak_speed_c": 0.0629,
+    "G4_max_com_speed_c": 0.0399,
+    "G4_kick_energy_injection_max_frac": 0.0433,
     "G4_pn_barrier_rel": -1.5387948402595372e-06,
     "G5_dt_converged_energy_conserved": true,
-    "BRANCH_VERDICT": "BRANCH A (aliased-Bloch power-law residual; no mobile carrier; ATLAS tension REAL)"
+    "BRANCH_VERDICT": "NULL-mobility-banked (no mobile super-band carrier in 1D: evanescent-only steady state; kernel self-localizes but PN-pins under verified kicks). Coupling-law/form-factor UNMEASURED (single-tone cannot measure the 2\u21922 vertex; two-tone = FORK A, queued). Closure-above-\u03c9\u2080 remains OPEN."
   }
 }
