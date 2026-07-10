@@ -126,6 +126,8 @@ not). The proposed protection mechanism is not demonstrated in the conservative-
 lossy-Dirichlet variant of the wall); it is banked next to #417 pending a stronger read. Factual, frozen-clean:
 **the anchored ρ tracks the detuning knob just as the free orbit does.**
 
+> **🔴 Rule-12 banked-negative upgrade (2026-07-10) — the two-axis dispute is CLOSED; W5-iii is now a BANKED NEGATIVE.** The withdrawal above at "UNSUPPORTED-AT-PREREG-STRENGTH, amended axis leaning negative" is upgraded (KEEP-BOTH — body above preserved verbatim). The x34b re-run (PR #626, merged 2026-07-10; prereg [`2026-07-10_tethered-pivot-rerun_prereg.md`](2026-07-10_tethered-pivot-rerun_prereg.md)) froze the control-subtracted excess detector **A PRIORI as THE primary rule on a single axis** (roles inverted vs #612; the #612 two-axis output preserved intact, not redefined-in-place) and returned **TRACK** on the non-saturated window (ω_s ≤ 1.275, 24 pts): `excess_staircase`=0.0435, `track_R²`=0.9901, `excess_jumps`=0. Lock-fireability proven in-window (the planted-LOCK positive control fired LOCK). The "pending a stronger read" clause above is now discharged — the stronger read exists and it BANKS the negative. W5-iii is the **7th** entry on the orchestrator miss-ledger (0-for-6 → 0-for-7; `ave-discrimination-check` v1.8). Sector fence unchanged (charge=Link(∂Ω,F)∈ℤ, mass=A1 #260, the (2,3) Clifford-torus embedding — all still untouched, per the "Does NOT retract" list below).
+
 **Does NOT retract (independently grounded):**
 - **charge = Link(∂Ω, F) ∈ ℤ** — the STATIC real-space field-line linking integer
   (`charge_quantization.py`, `charge_quantization_gate` → PASS). A separate coordinate (real-space ω
@@ -229,6 +231,8 @@ the amended axis is not mistaken for the preregistered outcome.
 > not erased) per KEEP-BOTH; the current headline (§0) is the two-axis form `PARTIAL (frozen) / TRACK (amended)`.
 > The raw first-run PARTIAL and the free-control comparison (anchored 0.4286/0.682 vs free 0.4286/0.678) remain
 > on record for auditor review.
+
+> **🔴 Rule-12 banked-negative upgrade (2026-07-10) — the TWO-AXIS DISPUTE is CLOSED on a single a-priori-frozen axis.** The two-axis accounting above (`PARTIAL` frozen / `TRACK` amended) is preserved verbatim (KEEP-BOTH). The x34b re-run (PR #626, merged 2026-07-10; prereg [`2026-07-10_tethered-pivot-rerun_prereg.md`](2026-07-10_tethered-pivot-rerun_prereg.md)) resolves the frozen-vs-amended dispute by **re-freezing**: the control-subtracted excess detector was pre-registered A PRIORI as THE primary rule, so the "post-hoc amended axis" objection no longer applies to it — it is now the frozen rule, banked on the non-saturated window (ω_s ≤ 1.275, 24 pts): **TRACK — `excess_staircase` 0.0435, `track_R²` 0.9901, `excess_jumps` 0.** Lock-fireability proven in-window (planted-LOCK positive control fired LOCK: staircase 0.7857, excess 0.6429, 3 jumps). Reproduces #612 (`excess_staircase` 0.0714 on the #612 config). The #612 two-axis table above stays on record; the BANKED verdict is single-axis **TRACK**, and W5-iii moves to the miss-ledger (0-for-6 → 0-for-7; `ave-discrimination-check` v1.8).
 
 ### 4.2 Scope / coordinate caveats
 
