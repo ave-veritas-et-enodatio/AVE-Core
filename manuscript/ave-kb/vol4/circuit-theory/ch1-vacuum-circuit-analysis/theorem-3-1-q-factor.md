@@ -8,7 +8,7 @@ path-stable: "referenced from vol1/ch8-alpha-golden-torus + common/boundary-obse
 
 # Theorem 3.1' — Electron Q-Factor from LC Tank at TIR Boundary
 
-The electron's fine-structure constant $\alpha^{-1} \approx 137.036$ is the **dimensionless Q-factor of its LC tank at the topological-defect Total-Internal-Reflection boundary**, and decomposes into three orthogonal reactance contributions matching the $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ boundary-observability structure. Two independent derivation paths (LC-tank Vol 4 Ch 1 + multipole Vol 1 Ch 8) produce identical numerical results to within $\delta_{\text{strain}} = 2.225 \times 10^{-6}$ (the CMB thermal running). Supersedes the Neumann-integral framing (doc 14), which was empirically falsified — classical Neumann integral for $(2, 3)$ at Golden Torus does not reproduce $\pi^2$ or $137$.
+The electron's fine-structure constant $\alpha^{-1} \approx 137.036$ is the **dimensionless Q-factor of its LC tank at the topological-defect Total-Internal-Reflection boundary**, and decomposes into three orthogonal reactance contributions matching the $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ boundary-observability structure. Two independent derivation paths (LC-tank Vol 4 Ch 1 + multipole Vol 1 Ch 8) produce identical numerical results to within $\delta_{\text{strain}} = 2.22 \times 10^{-6}$ (the CMB thermal running). Supersedes the Neumann-integral framing (doc 14), which was empirically falsified — classical Neumann integral for $(2, 3)$ at Golden Torus does not reproduce $\pi^2$ or $137$.
 
 ## Key Result
 
@@ -89,7 +89,7 @@ At resonance, only a fraction $1/Q = \alpha \approx 0.0073$ of the stored energy
 Numerical verification (`src/scripts/vol_1_foundations/electron_tank_q_factor.py`):
 - Method 1 (LC-tank, using CODATA $\alpha$): gives $\alpha^{-1} = 137.035999...$ (warm)
 - Method 2 (multipole, Ch 8 cold limit): gives $\alpha^{-1} = 137.036304$ (cold)
-- Difference: $\Delta = 2.225 \times 10^{-6}$ — **exactly $\delta_{\text{strain}}$**, the CMB thermal running predicted by Vol 1 Ch 8
+- Difference: $\Delta = 2.22 \times 10^{-6}$ — **exactly $\delta_{\text{strain}}$**, the CMB thermal running predicted by Vol 1 Ch 8
 
 The agreement to thermal-running precision validates that **both paths compute the same underlying tank Q-factor at the same geometric configuration**; the residual is real physics (CMB thermal correction at $T_{\text{CMB}} = 2.725$ K), not a methodology gap.
 
@@ -117,7 +117,7 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
 | Doc 14 — Classical Neumann mutual-inductance integral for $(2, 3)$ at Golden Torus | **FALSIFIED** (numerical test does not reproduce $\pi^2$ or $137$) |
 | Doc 17 (this) — Q-factor at TIR boundary, two independent paths | **CONFIRMED** (machine-precision agreement to $\delta_{\text{strain}}$) |
 
-> **Scope of "CONFIRMED" and of §"two paths agree" (2026-06-14, keystone $\alpha$-verdict).** "CONFIRMED" here means the **two paths agree** at the cold-lattice asymptote — a *consistency check* between Path A and Path B — and the §"two paths agree" reading of the $2.225\times10^{-6}$ residual as "real physics, not a methodology gap" holds **in sign/direction only**. It does **NOT** mean the *value* $4\pi^3+\pi^2+\pi$ is a first-principles derivation of 137. The residual $\delta_{\text{strain}}$ is a **definitional back-substitution** ($\delta_{\text{strain}} \equiv 1 - \text{CODATA}/\alpha_{\text{cold}}$; see the "HONEST SCOPE" note at `DELTA_STRAIN` in `src/ave/core/constants.py`), whose magnitude derivation **closed NEGATIVE** (Q-DELTA-MAP-1-quant, $\sim$31 OOM undershoot); the closure is **Class-B named identification** ([`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md)), not a "derivation." Table rows + framing preserved per Rule 12.
+> **Scope of "CONFIRMED" and of §"two paths agree" (2026-06-14, keystone $\alpha$-verdict).** "CONFIRMED" here means the **two paths agree** at the cold-lattice asymptote — a *consistency check* between Path A and Path B — and the §"two paths agree" reading of the $2.22\times10^{-6}$ residual as "real physics, not a methodology gap" holds **in sign/direction only**. It does **NOT** mean the *value* $4\pi^3+\pi^2+\pi$ is a first-principles derivation of 137. The residual $\delta_{\text{strain}}$ is a **definitional back-substitution** ($\delta_{\text{strain}} \equiv 1 - \text{CODATA}/\alpha_{\text{cold}}$; see the "HONEST SCOPE" note at `DELTA_STRAIN` in `src/ave/core/constants.py`), whose magnitude derivation **closed NEGATIVE** (Q-DELTA-MAP-1-quant, $\sim$31 OOM undershoot); the closure is **Class-B named identification** ([`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md)), not a "derivation." Table rows + framing preserved per Rule 12.
 
 ## Cross-references
 

@@ -176,7 +176,9 @@ ALPHA: float = 7.2973525693e-3  # Fine-structure constant (dimensionless)
 #     α⁻¹_ideal = 4π³ + π² + π ≈ 137.0363038  (cold-lattice, T → 0)
 #
 # The observed value is below the cold asymptote by a CMB-induced thermal strain
-# δ_strain ≈ 2.225 × 10⁻⁶.  The ALPHA above is retained as the canonical numerical
+# δ_strain ≈ 2.2234 × 10⁻⁶ [CODATA-2018 α pin; 2.2228 × 10⁻⁶ vs CODATA-2022; DELTA_STRAIN
+# below computes the authoritative full double — prose elsewhere quotes ≈ 2.22 × 10⁻⁶ per
+# the precision house rule].  The ALPHA above is retained as the canonical numerical
 # value for downstream calculations (matches CODATA); ALPHA_COLD_INV is provided
 # separately as the derivation's cold output, and DELTA_STRAIN is the thermal
 # correction.  See manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
@@ -260,7 +262,7 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 #
 #     δ_strain = 1 − α_cold / α_obs           # 🔴 Rule-12 2026-06-25: was "1 − α_obs/α_cold"
 #              = 1 − 137.035999 / 137.036304   # (the symbolic form had the ratio inverted →
-#              ≈ 2.225 × 10⁻⁶                   #  a literal sign error: 1 − α_obs/α_cold = −2.22e-6.
+#              ≈ 2.22 × 10⁻⁶                    #  a literal sign error: 1 − α_obs/α_cold = −2.22e-6.
 #                                               #  The code (line ~266) + this numeric line are the
 #                                               #  correct +2.223e-6 form: 1 − α_cold/α_obs, i.e.
 #                                               #  1 − (1/ALPHA)/ALPHA_COLD_INV. DELTA_STRAIN value
@@ -272,7 +274,7 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 # running, but its quantitative magnitude (Q-DELTA-MAP-1-quant) was CLOSED NEGATIVE by
 # FT-1 (2026-05-31): the E-mode Bose-Einstein occupation undershoots by ~31 OOM. The
 # genuine thermal α-drift the mechanism predicts is ~10⁻³⁸ — unobservable; only the
-# direction (α⁻¹ drops in hot environments) holds, in sign. The 2.225e-6 above is the
+# direction (α⁻¹ drops in hot environments) holds, in sign. The 2.22e-6 above is the
 # named-identification residual of the Class-B golden-torus α (both lift-routes —
 # selection + bijection — closed 2026-06-04), not a falsifiable ~ppm prediction.
 #
