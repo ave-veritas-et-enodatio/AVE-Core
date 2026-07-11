@@ -123,13 +123,24 @@ against the closed form. `Ry = α²m_e c²/2` is emergent from `r_sat = a₀ = �
 
 ## DELIVERABLE 3 — THE MUONIC CASE = SAME NETWORK, HEAVIER PROBE SCALE
 
-**What changes: ONLY the probe's mass/Compton scale (the dispersion scale). The network is unchanged.**
-The muonic atom is the identical graded Coulomb network; the only substitution is the probe mass in
-the de Broglie dispersion, `m_e → m_r,μ` (reduced mass, since `m_μ` is not negligible against `m_p`:
-`m_r,μ = m_μ m_p/(m_μ + m_p)`). In the driver this is literally a single argument change
-(`muonic_spectrum` calls `phase_closure_spectrum(m_probe=M_R_MU)`); the Op5 cascade, the boundary
-conditions, and the dress exponent are identical. The lattice rupture scale in the Ax-4 kernel stays
-`m_e c²` (a lattice property, not the probe's).
+**What changes at the physics level: ONLY the probe's mass/Compton scale (the dispersion scale). The
+LINEAR Coulomb network is the same object.** The muonic atom is the identical graded Coulomb network;
+the only physical substitution is the probe mass in the de Broglie dispersion, `m_e → m_r,μ` (reduced
+mass, since `m_μ` is not negligible against `m_p`: `m_r,μ = m_μ m_p/(m_μ + m_p)`). The Op5 cascade, the
+boundary conditions, and the dress exponent are identical, and the lattice rupture scale in the Ax-4
+kernel stays `m_e c²` (a lattice property, not the probe's).
+
+**In the driver call, honestly, this is TWO argument changes, not one** (prose-vs-code fidelity — do
+not overstate): `muonic_spectrum` calls `phase_closure_spectrum(m_probe=M_R_MU, saturate=False)`, i.e.
+(1) the probe mass `m_e → m_r,μ`, AND (2) it drops the near-nucleus saturation (`saturate=True→False`),
+selecting the linear network explicitly. The second flag is **load-bearing** — with the default
+`saturate=True` the muonic run engages the near-nucleus break and does NOT reproduce the Rydberg ladder
+(a dense spurious root cluster, no `1/n²`; see the justification immediately below). It is not a hidden
+knob: it makes the LINEAR-network claim above literal at the muonic scale, and it is justified as physics
+(the X41 near-nucleus frozen-tie regime, deliberately excluded) in the next paragraph. Hydrogen does not
+need the flip because its deep-linear operating point (`A ≈ 5.3×10⁻⁵`) makes `saturate=True ≈` the linear
+network already (`S(A)≈1`); the muon, at `A ≈ 0.12`, does not, so the linear network must be selected
+explicitly. Same LINEAR network for both; the code just has to say so out loud for the muon.
 
 **Reproduced scaling (frozen marks M3):** `a_μ = a₀·(m_e/m_r,μ)`, `E_n(μH) = E_n(H)·(m_r,μ/m_r,H)`.
 Driver (cold-lattice LINEAR network, `saturate=False`):
