@@ -185,7 +185,7 @@ bit-identical. This is the load-bearing frame-independent anchor.
 > with the dynamical cold-cage $Q_{ringdown}\approx30.8$ — **both** in the $[20,45]$
 > radiative-$Q$ band — but they are **$\sim2.7\%$ apart and are NOT identical**. A
 > pinned corpus anti-coincidence test guards that distinction:
-> `test_graded_vacuum_network_isolation.py`:119-124
+> `test_graded_vacuum_network_isolation.py`:141-146
 > (`test_anti_coincidence_Q_is_not_Z_radiation`, `assert abs(Q - 29.98) > 1.0`) —
 > a silent $Q==Z_{RADIATION}$ would be a hard-coded-constant-masquerading-as-dynamics
 > bug. The static scatter matrix does **not** produce a decay time, so it does not
