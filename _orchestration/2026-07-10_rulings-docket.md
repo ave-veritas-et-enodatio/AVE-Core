@@ -228,3 +228,9 @@ are records of Grant's rulings, not new assertions. Cross-refs verify-before-cit
 (u₀* homonym flag); the X40 result `research/2026-07-10_x40-ring-closure-transient_result.md` (both cut/cycle
 nonzero within the model). Every cross-ref verify-before-cite'd; this continuation records queue-state, not
 adjudicated physics.*
+
+---
+
+## Continuation — 2026-07-11 (X43 ringdown-port GO)
+
+**X43 ringdown-port arc: GO (Grant 2026-07-11)** — brief at `_orchestration/2026-07-11_x43-ringdown-port-handoff.md`; frozen bins ω⁵/ω³/ω¹/no-law; A0 dimensional-`L` pre-gate severable; the program's first forward-form derivation attempt of the testing pivot.
