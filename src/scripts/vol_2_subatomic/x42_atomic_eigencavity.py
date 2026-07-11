@@ -7,8 +7,15 @@ research/2026-07-10_impedance-register-walks_framing.md):
 
   * The nucleus's Coulomb well is the electron's own OFF-LINE, source-slaved
     reactive dress (bin 3 of walk (a): |Γ|=1 at ω→0, radiates nothing). Seen by
-    the electron's de Broglie dispersion it is a GRADED impedance / mismatch
-    profile Z(r) — the graded-impedance walls of a cavity, not a potential floor.
+    the electron's de Broglie dispersion it is a GRADED INDEX / dispersion
+    profile n(r,ξ) — the DEFECT'S dispersion, the graded walls of a cavity, not a
+    potential floor. NAMED-QUANTITY GUARD: this is NOT a medium impedance — the
+    lattice keeps Z_0 = 377 Ω everywhere in Regime I; conflating the de Broglie
+    index with a medium impedance is the named-quantity error flagged at
+    vol2/claim-quality.md:344. Where this file/RESULT writes the frozen-prereg
+    label "Z(r)" it denotes THIS graded index/dispersion profile n(r,ξ) (the
+    graded line the ABCD cascade integrates), never a spatially-varying medium
+    impedance.
   * The orbital = the electron's matter-wave trapped between its own reflections.
   * Quantization = round-trip phase closure ∮k·dl = 2πn on the graded line.
   * The spectrum = an Op6 problem: B_total(E) = 0 on the ABCD cascade
@@ -72,27 +79,66 @@ M_R_MU = M_MUON * M_PROTON / (M_MUON + M_PROTON)  # muonic-H reduced mass
 
 
 # ---------------------------------------------------------------------------
-# Deliverable 1 — the port-language graded impedance / mismatch profile Z(r)
+# Deliverable 1 — the port-language graded INDEX / dispersion profile n(r,ξ)
+# ("Z(r)" in the frozen prereg/RESULT ≡ this index profile, NOT a medium impedance)
 # ---------------------------------------------------------------------------
 
 
 def de_broglie_refractive_index(r, xi, Z_eff=1.0):
-    """The graded mismatch profile n(r,ξ) the Coulomb dress casts.
+    """The graded index / dispersion profile n(r,ξ) the Coulomb dress casts.
 
     Canon (de-broglie-n.md, clm-oltvwy): the atom is a spherical radial
     transmission line; the source-slaved Coulomb dress, seen by the probe's de
     Broglie dispersion, is the graded index
 
-        n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ ),   ξ = E/Ry.
+        n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ ),   ξ = |E|/Ry.
 
-    Near the nucleus n→∞ (fast defect, low impedance, short circuit); at the
-    classical turning point n=0 (defect stops, high impedance, open circuit).
-    Standing waves between these boundaries are the orbitals. This is the
-    off-line dress rendered as an impedance/mismatch profile — the PORT-LANGUAGE
-    statement of the cavity walls. Op6 finds the modes of THIS given profile.
+    This is the DEFECT'S dispersion — NOT the medium impedance. The lattice keeps
+    Z_0 = 377 Ω everywhere in Regime I; conflating the de Broglie index with a
+    medium impedance is the named-quantity error at vol2/claim-quality.md:344.
+
+    ENTAILED-FORM CHECK (this function is NOT dead code): for l=0 the executed
+    ABCD cascade's local radial wavenumber is EXACTLY this index over a₀,
+        k²(r)·a₀² == n(r,ξ)²   element-wise
+    (dress_section builds every section from `local_wavenumber_sq`, and
+    `test_de_broglie_index_is_cascade_local_wavenumber` machine-checks the
+    equality across the integration grid). So the imported de Broglie FORM is an
+    explicit entailment of the executed route, not port-language prose.
+
+    Near the nucleus n→∞ (fast defect, short de Broglie wavelength); at the
+    classical turning point n=0 (defect stops). Standing waves between these
+    boundaries are the orbitals — the PORT-LANGUAGE statement of the cavity
+    walls. Op6 finds the modes of THIS given profile.
     """
     arg = 2.0 * Z_eff * A_0 / r - xi
     return np.sqrt(np.maximum(arg, 0.0))
+
+
+def local_wavenumber_sq(r_mid, E_J, Z, l, m_probe=M_E, dress_exp=1, saturate=True):
+    """Local radial wavenumber² k²(r) = −K2 the ABCD cascade actually integrates.
+
+        k²(r) = (2 m_probe/ℏ²)·(|V_dress(r)| + E) / S(A)  −  l²/r²
+
+    the de Broglie dispersion on the graded dress. dress_section builds every
+    section from −K2 = this quantity, so this IS the executed route's dispersion.
+    For l=0 and the LINEAR network (saturate=False) it equals the imported de
+    Broglie index squared over a₀²:  k²(r)·a₀² == de_broglie_refractive_index²
+    (machine-checked). Returns >0 in the classically-allowed (propagating) region,
+    <0 in the classically-forbidden (evanescent) region.
+    """
+    ang_react = float(l) ** 2 / r_mid**2
+    # |V_dress| at r_mid  (dress_exp=1 -> Coulomb -Zαℏc/r)
+    V_mag = Z * ALPHA * HBAR * C_0 / r_mid * (A_0 / r_mid) ** (dress_exp - 1)
+    cap_bias = 2.0 * m_probe * V_mag / (HBAR**2)  # = -2 m_probe V / ℏ²
+    ind_phase = 2.0 * m_probe * E_J / HBAR**2  # E_J < 0 for bound states
+    if saturate:
+        # Ax-4 saturation keyed on the LATTICE rest energy m_e c²
+        strain_amp = V_mag / (M_E * C_0**2)
+        S_r = max(universal_saturation(strain_amp, 1.0), 1e-10)
+    else:
+        S_r = 1.0  # cold-lattice linear network
+    k2_coeff = (cap_bias + ind_phase) / S_r
+    return k2_coeff - ang_react  # = −K2
 
 
 # ---------------------------------------------------------------------------
@@ -128,21 +174,9 @@ def dress_section(r1, r2, E_J, Z, l, m_probe=M_E, dress_exp=1, saturate=True):
     r_mid = 0.5 * (r1 + r2)
     dr = r2 - r1
 
-    ang_react = float(l) ** 2 / r_mid**2
-    # |V_dress| at r_mid  (dress_exp=1 -> Coulomb -Zαℏc/r)
-    V_mag = Z * ALPHA * HBAR * C_0 / r_mid * (A_0 / r_mid) ** (dress_exp - 1)
-    cap_bias = 2.0 * m_probe * V_mag / (HBAR**2)  # = -2 m_probe V / ℏ²
-    ind_phase = 2.0 * m_probe * E_J / HBAR**2  # E_J < 0 for bound states
-
-    if saturate:
-        # Ax-4 saturation keyed on the LATTICE rest energy m_e c²
-        strain_amp = V_mag / (M_E * C_0**2)
-        S_r = max(universal_saturation(strain_amp, 1.0), 1e-10)
-    else:
-        S_r = 1.0  # cold-lattice linear network
-
-    k2_coeff = (cap_bias + ind_phase) / S_r
-    K2 = ang_react - k2_coeff
+    # −K2 = the local de Broglie wavenumber² the cascade integrates (SAME code
+    # path the entailed-form check reads; for l=0/linear this == de Broglie index²/a₀²).
+    K2 = -local_wavenumber_sq(r_mid, E_J, Z, l, m_probe, dress_exp, saturate)
 
     if K2 > 0:  # classically forbidden / evanescent
         g = np.sqrt(K2)

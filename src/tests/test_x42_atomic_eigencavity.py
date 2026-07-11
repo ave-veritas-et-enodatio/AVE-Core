@@ -54,6 +54,28 @@ def test_dress_section_reuses_canonical_op5_exactly():
                 assert np.allclose(got, ref, rtol=1e-12, atol=1e-14), (E_eV, r1, r2, l)
 
 
+def test_de_broglie_index_is_cascade_local_wavenumber():
+    """D1 entailed-form check — wires in `de_broglie_refractive_index` (was dead
+    code): the imported de Broglie index IS the executed cascade's local radial
+    wavenumber. For l=0 / linear network, k²(r)·a₀² == n(r,ξ)² element-wise
+    across the integration grid. Makes the imported-FORM entailment explicit and
+    machine-checked (review live-trace ratio 1.0000000000000004). n(r,ξ) is the
+    DEFECT'S dispersion, NOT a medium impedance (vol2/claim-quality.md:344)."""
+    from ave.core.constants import e_charge
+
+    Z = 1
+    E_eV = RY_EV  # ground-state binding, ξ = |E|/Ry = 1
+    E_J = -E_eV * e_charge
+    xi = abs(E_eV) / RY_EV
+    r_turn = 2.0 * Z * A_0 / xi  # n(r,ξ)=0 classical turning point
+    # classically-allowed region, kept below the turning point so n² ≥ ξ > 0
+    r = np.geomspace(1e-4 * A_0, 0.5 * r_turn, 500)
+    n_sq = x42.de_broglie_refractive_index(r, xi, Z_eff=Z) ** 2
+    k2_a0_sq = x42.local_wavenumber_sq(r, E_J, Z, l=0, saturate=False) * A_0**2
+    assert np.allclose(k2_a0_sq, n_sq, rtol=1e-11, atol=0.0)
+    assert np.max(np.abs(k2_a0_sq / n_sq - 1.0)) < 1e-11
+
+
 def test_muonic_analytic_marks_match_frozen():
     """M3 frozen marks: a_μ ≈ 284.748 fm, E_1(μH) ≈ -2.528493 keV."""
     mm = x42.muonic_marks()

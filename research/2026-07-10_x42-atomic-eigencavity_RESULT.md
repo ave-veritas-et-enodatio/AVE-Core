@@ -39,7 +39,9 @@
 
 The atom read in the impedance-carve register reproduces the canonical hydrogen consistency ceiling
 through a **phase-closure / ABCD route** (NOT `E = Z²Ry/n²` fiat): the off-line Coulomb dress → a
-graded impedance profile `Z(r)` → round-trip phase closure `2πn` → the Op6 spectrum `B_total(E)=0`.
+graded **index / dispersion** profile `n(r,ξ)` (the frozen-prereg `Z(r)` label — the DEFECT'S
+dispersion, NOT a medium impedance; `Z₀=377 Ω` everywhere in Regime I, `vol2/claim-quality.md:344`) →
+round-trip phase closure `2πn` → the Op6 spectrum `B_total(E)=0`.
 The driver reproduces `E_n = Ry/n²` (branch (i), −0.000% to n=7), `a₀` as the eigenmode scale, the
 muonic reduced-mass marks (E₁(μH)=−2.52849 keV, −0.0002%), and Z²-scaling — all as
 **consistency-class** results with **NO new primitive**. The two-register guard (mode-count vs winding
@@ -54,8 +56,9 @@ and flags follow — filled section-by-section per incremental-write discipline.
 in the four-bin taxonomy of walk (a) (`research/2026-07-10_impedance-register-walks_framing.md:19`),
 **bin 3: the off-line, source-slaved reactive-static dress** — `|Γ|=1` at ω→0, radiates nothing (no
 `Re(Z)`). It is not a potential floor; it is the electron's own reactive-static register acting as the
-graded-impedance WALLS of a cavity (walk (c), `:53`). The derivation IMPORTS the Coulomb dress form
-exactly as canon does (see the flag on the 1/r tail below) and casts it in the impedance register:
+graded-**dispersion** WALLS of a cavity (walk (c), `:53`). The derivation IMPORTS the Coulomb dress
+form exactly as canon does (see the flag on the 1/r tail below) and casts it in the port-language
+impedance-carve register (the graded object being the de Broglie INDEX, not a medium impedance):
 
 1. **The dress as a graded index.** Canon already has the atom as a **spherical radial transmission
    line** (`de-broglie-n.md`, `clm-oltvwy`): the nucleus projects the Coulomb field into all `4π`
@@ -63,12 +66,24 @@ exactly as canon does (see the flag on the 1/r tail below) and casts it in the i
    10⁻⁴` keeps the whole atom linear — Ax-4 check). The dress is seen by the probe's **de Broglie
    dispersion** as the energy-dependent graded index
 
-   > `n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ )`,  `ξ = E/Ry`
+   > `n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ )`,  `ξ = |E|/Ry`
 
-   (`de-broglie-n.md` resultbox; `driver.de_broglie_refractive_index`). Near the nucleus `n→∞` (fast
-   defect, low impedance, short circuit); at the classical turning point `n=0` (defect stops, high
-   impedance, open circuit). This is the off-line dress rendered as an impedance / **mismatch** profile
-   `Z(r)` — the graded walls, not a floor.
+   (`de-broglie-n.md` resultbox; `driver.de_broglie_refractive_index`, wired into the executed route by
+   `test_de_broglie_index_is_cascade_local_wavenumber`, which machine-checks `k²(r)·a₀² == n(r,ξ)²`
+   element-wise across the integration grid — so the imported FORM is an explicit entailment of the
+   cascade, not dead port-language). Near the nucleus `n→∞` (short de Broglie wavelength); at the
+   classical turning point `n=0` (defect stops). This is the off-line dress rendered as a **dispersion /
+   index** profile `n(r,ξ)` — the graded walls, not a floor.
+
+   **Register discipline (named-quantity guard — `vol2/claim-quality.md:344`, verbatim):** *"The de
+   Broglie refractive index `n_dB(r,ξ) = √(2 Z_eff(r) a₀/r − ξ)` is the **defect's dispersion**, not
+   the medium impedance. The lattice has `Z_0 = 377 Ω` everywhere in Regime I; conflating these is
+   named-quantity error."* Accordingly `n(r,ξ)` here is the DEFECT'S dispersion; where this doc uses the
+   frozen-prereg label **`Z(r)`** it denotes THIS graded index/dispersion profile (the graded line the
+   ABCD cascade integrates), NEVER a spatially-varying medium impedance. The superseded pre-repair
+   rendering (*"the off-line dress rendered as an impedance / mismatch profile `Z(r)`"*, with "low
+   impedance, short circuit" / "high impedance, open circuit") is logged verbatim in the repair log
+   (KEEP-BOTH).
 2. **Reflections make the cavity.** Where `E > V(r)` the acoustic impedance is real → propagating; where
    `E < V(r)` it is purely imaginary → total reflection (`de-broglie-standing-wave.md`:54). The orbital
    is "the precise radius where this trapped bulk-modulus acoustic wave achieves a lossless resonant
