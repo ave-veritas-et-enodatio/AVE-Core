@@ -316,6 +316,25 @@ parse it):
 
 ---
 
+## u₀* (frozen-formation operating-point symbol)
+<!-- id: def-u0star -->
+
+- **term:** $u_0^*$ (the substrate frozen-formation operating-point symbol; also written $u_0^\ast$)
+- **adjudicated-meaning:** *(no single locked sense — the glyph carries TWO senses that sit on opposite sides of the SYM/ASYM fence, plus a rider homonym FLAG. This def-node is the **deflation** of the §b "triple-convergence": it stops the parity-meter / matched-vertex / nucleation threads cross-authenticating merely because they wear the same symbol.)*
+- **axis:** notation (glyph overload — two SYM/ASYM senses + a T-even/T-odd homonym flag)
+- **dimension/type:** dimensionless (operating-point ratio, $\approx 0.187$)
+- **status:** ambiguous
+- **canonical-home:** *(no single home — Sense A at `vol1/ch8-alpha-golden-torus.md:206`; Sense B at `common/universal-saturation-kernel-catalog.md:216` + `common/claim-quality.md:888`)*
+- **clm-cross-links:** clm-48g5qf (op14 over-bracing $u_0^*$ = static-E component), clm-invmtr (parity-meter frozen-bias / transverse-channel question)
+- **open-ambiguity-flag:** YES — two senses on opposite sides of the SYM/ASYM fence:
+  - **Sense A — the substrate magic-angle SYM operating point** $u_0^*\approx0.187$, the point where $K(u_0^*)=2G(u_0^*)$ and $\nu=2/7$ (SYM-class per `research/2026-07-09_fast-sector-settling-boundary-conditions_walked-framing.md:155`). Its value is **asserted / back-fit** to CODATA α and G (2026-06-14 walk-back), not forward-derived; the lock $K=2G$, $\nu=2/7$ is firm but GR-imported. Home: `vol1/ch8-alpha-golden-torus.md:206` (there written "operating point"; the SYM-class label is the cross-corpus sourcing). [SYM operating-point sense]
+  - **Sense B — the frozen even-order DC bias the parity meter reads** (`universal-saturation-kernel-catalog.md:216`; the leaf phrases it as an inversion-symmetry / even-order bias — "T-breaking" in the framing prose). **PENDING-GRANT:** whether this frozen bias $u_0^*$ enters the transverse channel is an open D-II calibration-bridge question (`common/claim-quality.md:888`, "whether the frozen bias $u_0^*$ enters the transverse channel … PENDING-GRANT", clm-invmtr). [T-breaking / parity-meter sense]
+  - **In-corpus tension:** `vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md:91` calls the over-bracing $u_0^*$ at the K4 magic-angle "the static-E-field component," while `manuscript/ave-kb/CLAUDE.md:75` classes a static-E-only drive **ASYMMETRIC** — so the same $u_0^*$ is read SYM-class (Sense A) *and* identified with a static-E over-brace that CLAUDE.md classes ASYM-N(ε). Whether A and B are one physical object is exactly the A1↔T2 D-II calibration bridge (PENDING-GRANT); until it runs, treat as two. $u_0^*$ is otherwise UN-registered (`rg 'u₀|u_0\*|u_0\^' vocabulary-register.md` → 0 relevant; the only prior `u_0`-substring hits are `\mu_0`).
+  - ★ **RIDER — the X40 HOMONYM FLAG (P6-class; a FLAG, NOT a split — Grant ruling 2026-07-11).** Beyond the SYM-vs-bias axis above, $u_0^*$ may cover **two orthogonal fossils** on an *independent* axis — the graph-theoretic Helmholtz split (cut-space ⊥ cycle-space, T-even ⊥ T-odd; orthogonal complements, cannot mix — `research/2026-07-10_rb-fossil-walk_framing.md` §3): a **strain-$u_0^*$** (cut-space, **T-even**, read by the statics windows α / G / Lamb) vs a **flux-$u_0^*$** (cycle-space, **T-odd**, readable ONLY by non-reciprocal observables). X40 returned **BOTH** components nonzero **WITHIN the ratified matched-bath model** (trapped cycle-fraction 1/10 = T-odd loop current; radiated 9/10 = T-even bond strain; the cut-space fate is itself model-dependent — KEEP-BOTH — `research/2026-07-10_x40-ring-closure-transient_result.md:328-354`). Because both projections are nonzero **only within the model** (the split is owed only if the finite cycle-fraction is model-independent), **Grant DEFERRED the register split** (rulings-docket 2026-07-11 item 8: WAIT). So this is recorded as a **FLAG on this def-node, NOT a split**: do **not** mint two $u_0^*$ def-nodes; the strain/flux distinction rides here until the model-conditionality is settled.
+- **verification:** VERIFIED at HEAD — Sense A magic-angle operating point at `ch8-alpha-golden-torus.md:206` (value back-fit per the 2026-06-14 walk-back), SYM-class label at `fast-sector-settling-boundary-conditions_walked-framing.md:155`; Sense B frozen-bias at `universal-saturation-kernel-catalog.md:216` + the transverse-channel PENDING-GRANT at `common/claim-quality.md:888`; the SYM-vs-ASYM tension at `op14-cosmic-horizon-profile.md:91` vs `CLAUDE.md:75`; the X40 both-components-nonzero-within-model at `x40-ring-closure-transient_result.md:328-354`; the rb-fossil homonym flag at `rb-fossil-walk_framing.md` §3. Status ambiguous — two SYM/ASYM senses + the deferred cut/cycle homonym flag; deflates (does NOT upgrade) the §b triple-convergence.
+
+---
+
 ## κ_share *(proposed)*
 <!-- id: def-24e6e6 -->
 
