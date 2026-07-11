@@ -278,7 +278,7 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 # named-identification residual of the Class-B golden-torus α (both lift-routes —
 # selection + bijection — closed 2026-06-04), not a falsifiable ~ppm prediction.
 #
-DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.225e-6
+DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.2234e-6 (CODATA-2018 α pin; see :179 digit-carrier)
 
 # Cross-check: α × (1 − δ_strain)⁻¹ should recover ALPHA_COLD_INV to CODATA precision
 # (This is definitional given the way DELTA_STRAIN is computed, but ensures future

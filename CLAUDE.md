@@ -20,7 +20,7 @@ Before doing anything substantive, read these in order:
 
 | Path | Purpose |
 |---|---|
-| `src/ave/` | Engine code (K4Lattice3D, Cosserat field, solvers, observers, integrators) |
+| `src/ave/` | Engine code — the regime-organized platform tree (`regime_1_linear` … `regime_4_rupture`) over the certified cores in `core/` / `solvers/` / `topological/` / `gravity/` / `qed/` (Master-Equation FDTD, crystal_engine, chiral-srs lattice v9, VacuumEngine3D, cavitation_flow, …; canonical inventory = `manuscript/ave-kb/common/engine-capability-map.md` §2), unified by the regime-dispatch facade `src/ave/facade/unified_engine.py` (the SINGLE-GRID bet; Rule-14 anti-rebuild — reuses the certified backends, reimplements no stencil/stepper/kernel) |
 | `src/scripts/vol_<N>_<name>/` | Per-volume driver scripts (numerical experiments + forward-prediction drivers) |
 | `src/tests/` | Pytest suite (canonical-constants checks, predictions matrix, regression gates) |
 | `manuscript/vol_<N>_<name>/` | LaTeX volumes (1 foundations / 2 quantum / 3 macroscopic / 4 engineering / 5 biology / 6 cosmology / 7 atomic / 8 etc.) |

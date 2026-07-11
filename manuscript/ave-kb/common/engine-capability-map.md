@@ -124,7 +124,8 @@ Big-bang assembly is rejected: a single all-DOF engine that fails gives an ambig
 
 - **Loop, boost, node-creation are absent from *every* engine.** These are not engine-choice gaps; they are unbuilt physics. The loop (R10 remanence) is the deepest: the kernel is anhysteretic, and every "retention" so far is imposed (§3.3).
 - **The cage magnitude is not yet demonstrated to reach $\Gamma=-1$.** graft-v2's `Γ_min=−0.849` is the deepest **static-seed** read on **non-binding clips** — it sits *exactly on the clip floor* in all 10 sweep cells (corr 1.0000, residual 0.0000); the deepest *dynamical* wall at the standard `A_cap=0.999` is **−0.37** (also clip-bound), exponent-corrected to ~**−0.65** (`research/2026-06-09_crystal-graft-v2_result.md:32`). **What survives: the wall SIGN (short, Γ<0) + the monotone-with-depth trend. The magnitude is apparatus/exponent-dependent, and −1 is NOT demonstrated.**
-- **Exponent defect (flagged, physics-review item).** `master_equation_fdtd.py:148-151` sets `c_eff²=c0²/S`, so the physical refractive index is `n=c0/c_eff=S^0.5`, but `refractive_index()` returns `S^0.25` (`:169`; in-code defect flag at `:165-168`). Downstream `Γ=(n−1)/(n+1)` magnitudes *understate* the wall depth (they do not flip its sign). Comment-only flag in the engine per flag-don't-fix; the fix is a Grant/auditor physics-review item.
+- **Exponent defect — RESOLVED (Grant F1 ruling, 2026-07-07).** `master_equation_fdtd.py:148-151` sets `c_eff²=c0²/S`, so the physical refractive index is `n=c0/c_eff=S^0.5`; the code now RETURNS this — `n_em_index()` at `:184-188` returns `S^0.5` with the in-code correction note at `:172-183`, mirrored in `crystal_engine.py:431-432`. Resolved by Grant's F1 ruling (`research/2026-07-07_electron-lock_design-note.md:316-319`; canonical `S^0.5` per `research/2026-06-30_electron-portmap-derivation_result.md:550`). The legacy `S^0.25` (old `:169` anchor, drifted) is retired; downstream `Γ=(n−1)/(n+1)` magnitudes no longer understate the wall depth from this defect.
+- **`n_eff` symbol OVERLOADED (√S EM vs 1/√S gravitational) — LIVE (KB-owner decision).** The genuinely-open item, NOT the exponent defect: the code flags that `n_eff` means √S EM-transverse (`vacuum-birefringence-e4.md:108-110`, the `δn_iso=√S−1` content) vs 1/√S gravitational (`substrate-perspective-electron.md:60`, the `n_eff=1/√S` row) and declines to silently reconcile it (`master_equation_fdtd.py:178-180`, `crystal_engine.py:433-435`). ⚠ The SOURCE comments at `master_equation_fdtd.py:178-179` carry STALE anchors (`:12` / `:58`) — flag-only; engine module untouched in this PR. flag-don't-fix: a KB-owner symbol decision — no symbol picked here.
 
 ---
 
@@ -314,6 +315,24 @@ verified at their merge PRs):
 weak-C demotion of `clm-k4d4ph` / `clm-yr6tu4` is UNCHANGED by this program (the raw eigensolve
 band-edge anisotropy is O(k²) on BOTH carriers; gate `wejkhvnfb` OPEN). The two varactor
 ADJUDICATION-PENDING questions in the SPICE lane remain OPEN (Grant-gated).
+
+### §8b.7 — 2026-07-10/11 vertex + eigencavity instrument refresh (ADDITIVE)
+
+The vertex arc (x33–x38) and the x40/x42 landings added new **instruments** (INSTRUMENT /
+INFRASTRUCTURE class — no physics chord/echo/emergence minted; `mass = A1` untouched). Held to
+the §2 no-claim bar (every row grounded against a file:line + prereg + merge-PR anchor):
+
+| Instrument | Role | Class / boundary | Anchor (prereg + PR) |
+|:--|:--|:--|:--|
+| `core/junction_scattering.py` | **X38** srs vertex S₁₁ EXTRACTION + canonical Op6 bore selection (route d): does the substrate SELECT the junction extent `f` by minimizing junction reflection? | INSTRUMENT; **anti-install boundary (G-A gate)** — consumes ONLY geometry (`:10-13`, `μ₀/ε₀/ℓ` cancel, no OMEGA_C/M_E install) | `research/2026-07-10_x38-s11-bore-selection_prereg_FROZEN.md`; #619 (honesty-lag fix #621) |
+| `core/junction_parasitics.py` | **X37** srs vertex junction-parasitic EXTRACTION — the vertex equivalent circuit DERIVED from bond geometry (120° bonds + srs twist), NOT installed | INSTRUMENT; **anti-install boundary (G-A gate)** — geometry-only (`:10-16`; the `1/√(L_jC_j)=ω_C` #613 install is the exact error X37 exists to avoid) | `research/2026-07-10_x37-junction-parasitics_prereg_FROZEN.md`; #616 (fix #620) |
+| `solvers/tethered_pivot_x34b.py` | **x34b** control-subtracted excess detector, frozen a-priori — a THIN driver over the merged x34 solver (Rule-14, no fork-copy); returned TRACK → BANKED NEGATIVE | INSTRUMENT; frozen-a-priori control-subtraction | `research/2026-07-10_tethered-pivot-rerun_prereg.md`; #626 |
+| `topological/srs_dec.py` (**addition** to the §8b.1 row) | **x40** srs-girth witness: `enumerate_girth_faces()` (`:140`) enumerates the girth-10 rings as the 2-cells (`SRS_GIRTH=10`, `:127-157`) — the witness behind R-B's `trapped = 1/girth` theorem (N=10 → 1/10) | INFRASTRUCTURE; born-on-srs (extends the existing GREEN §8b.1 row) | #632 (correction #638) |
+| `src/scripts/vol_2_subatomic/x42_atomic_eigencavity.py` (**not** a `src/ave/` module — a Vol-2 script driver) | **x42** atomic eigencavity — hydrogen as an eigencavity; test `src/tests/test_x42_atomic_eigencavity.py` | INSTRUMENT (research/script driver) | #634 (repairs #639) |
+
+**Status-stamp re-confirm:** §2 / §8b.1 cells unchanged by this refresh (KEEP-BOTH — the additive
+rows do not flip any existing status). The X36 install-tautology (§below / `research/2026-07-09_x36-node-bottleneck_result.md`)
+and the X38 bore-fork disposition remain PENDING-GRANT.
 
 ---
 

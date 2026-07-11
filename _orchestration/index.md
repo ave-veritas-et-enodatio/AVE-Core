@@ -3,9 +3,66 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11)**: The **2026-07-10/11 Session board** immediately below is now the **newest / authoritative-for-current-state** section. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
 
-## 2026-07-09 Session board — γγ/ATLAS arc + electron-def canonization + v0.8 (AUTHORITATIVE for current state)
+## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
+
+**Newest section (2026-07-11, engine-refresh batch).** This block is authoritative-for-current-state; the 2026-07-09 board below is retained verbatim as the arc record (KEEP-BOTH). Verify-before-cite at HEAD — the merge ledger below is git/gh-confirmed at HEAD `f7e8409a`.
+
+**Boards + docket = the record (no separate epic docs).** Two session boards carry the day-by-day PR/finding state and are ratified here as the sufficient record for the **#608–#648** arc — the **srs band-survey (PR #609) included, no separate epic tracker** (boards-as-record):
+- [`2026-07-09_orchestration-board.md`](2026-07-09_orchestration-board.md) — γγ/ATLAS arc + electron-def canonization + v0.8.
+- [`2026-07-10_orchestration-board.md`](2026-07-10_orchestration-board.md) — vertex arc + X41 fork + Letter v6 + corrections wave.
+- [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) — core-session rulings + working model; now carries **four 2026-07-11 continuations** (astro sweep §A, X43 ringdown-port, day-3 four-lane close, walk-back queue incl. the ch14 `Q_μ` flag).
+
+**Vertex arc (x33–x38) — tethered-pivot + junction extraction.**
+- `src/ave/solvers/tethered_pivot_winding.py` — x34 tethered-pivot (anchored (2,3) mode-locking vs tracking; #260 selector probe) → TRACK (#612).
+- `src/ave/solvers/tethered_pivot_x34b.py` — x34b control-subtracted excess detector, frozen a-priori; a THIN driver over the merged x34 solver (Rule-14, no fork-copy) → BANKED NEGATIVE (#626).
+- `src/ave/core/junction_parasitics.py` — **X37** srs vertex junction-parasitic extraction (vertex equivalent circuit DERIVED from bond geometry, not installed; anti-install boundary) (#616 / fix #620).
+- `src/ave/core/junction_scattering.py` — **X38** srs vertex S₁₁ extraction + canonical Op6 bore selection (route d; anti-install boundary) (#619 / honesty-lag fix #621).
+- x33 clock-architecture discriminator → BRANCH S (#611); x36 node-shunt characterization → ceiling = installed node resonance (#613).
+
+**x40 / x42 / x43.**
+- **x40** ring-closure transient / cut-cycle split → the derivable 10-ring closure (#632 / correction #638); the srs-girth witness added to `src/ave/topological/srs_dec.py` (`enumerate_girth_faces`, the girth-10 rings = the 2-cells; `trapped = 1/girth`).
+- **x42** atomic eigencavity (hydrogen as an eigencavity) — driver `src/scripts/vol_2_subatomic/x42_atomic_eigencavity.py`, test `src/tests/test_x42_atomic_eigencavity.py` (#634 / repairs #639). (Not a `src/ave/` module — a Vol-2 script driver.)
+- **x43** ringdown-port Γ(ω) → clean NEGATIVE (the picture dies, not Sargent ω⁵; A0 tide-branch dead) (#647); result `research/2026-07-11_x43-ringdown-port_result.md`.
+
+**Collapse / astro / C13b lanes (2026-07-11 satellites).**
+- Collapse registry + batch — [`2026-07-11_collapse-batch-handoff.md`](2026-07-11_collapse-batch-handoff.md); registry #631 / #637, batch #646.
+- Astro adjudicator sweep (D2) — [`2026-07-11_astro-adjudicator-sweep-handoff.md`](2026-07-11_astro-adjudicator-sweep-handoff.md); #643.
+- C13b bullet-cluster γ run — [`2026-07-11_c13b-bullet-cluster-run-handoff.md`](2026-07-11_c13b-bullet-cluster-run-handoff.md); MISS (source-fork-conditional) banked #645.
+
+**#608–#648 merge ledger (git/gh-confirmed at HEAD `f7e8409a` — all 41 MERGED).**
+
+| PR | Item | PR | Item |
+|---|---|---|---|
+| #608 | x35 universal-operator typing pass | #629 | 2026-07-10 board + impedance-register framing |
+| #609 | srs band-structure canon + EE-tracker (task #32) | #630 | vertex-scattering canon (reciprocal 3-port) |
+| #610 | x31-A two-tone + PARITY THEOREM | #631 | collapse-target registry (task #33) |
+| #611 | x33 clock-architecture — BRANCH S | #632 | x40 10-ring closure transient |
+| #612 | x34 tethered-pivot — TRACK | #633 | R-B fossil walk + rulings docket |
+| #613 | x36 node-shunt characterization | #634 | x42 atomic eigencavity |
+| #614 | program-arc-map | #635 | board: x40 (task #38) resolution |
+| #615 | vol4 Kron-1944 citation | #636 | task #33 DONE + registry fold |
+| #616 | X37 junction-parasitic extraction | #637 | collapse-registry post-review correction |
+| #617 | physics-lineage-map | #638 | x40 post-review repairs |
+| #618 | implosion-paradox algebra fix | #639 | x42 review repairs (6 findings) |
+| #619 | X38 S₁₁-min bore selection | #640 | 2026-07-11 close — 2nd review wave |
+| #620 | fix(x37) reciprocal-class theorem-bound | #641 | keying-register walk + astro-sweep handoff |
+| #621 | S₁₁-selection honesty-lag (5 sites) | #642 | collapse-batch + C13b briefs + docket |
+| #622 | methods P9–P11 (freeze-by-push, sabotage) | #643 | astro adjudicator sweep (D2) |
+| #623 | lineage: Kelvin-1888 labile-aether (task #36) | #644 | X43 ringdown-port handoff brief |
+| #624 | parity theorem + two-tone scope | #645 | C13b bullet-cluster γ run — MISS |
+| #625 | Letter v6 round-4 | #646 | collapse-batch fire-ready targets |
+| #626 | x34b tethered-pivot re-run — banked neg | #647 | X43 ringdown-port Γ(ω) — clean negative |
+| #627 | x41 radiative-scoping why — UNDERDETERMINED | #648 | 2026-07-11 day-3 close (four lanes) |
+| #628 | followup W5-iii banked-negative upgrade | | |
+
+**PENDING-GRANT rows (still awaiting Grant).**
+- **X36** — install-tautology: the engine returns whatever node model is installed; it *cannot adjudicate the fork by itself* (`research/2026-07-09_x36-node-bottleneck_result.md`).
+- **X38** — bond-bore fork (route d): the two-axis bore verdict; the Op6-scope closed-negative reconciliation landed (#621), but the fork disposition itself is PENDING-GRANT.
+- **X41** — radiative-scoping "why": [UNDERDETERMINED K1 vs K2] frozen tie (#627), PENDING-GRANT.
+
+## 2026-07-09 Session board — γγ/ATLAS arc + electron-def canonization + v0.8 (superseded-for-current-state by the 2026-07-10/11 block above; retained verbatim as the arc record)
 
 Full board: [`2026-07-09_orchestration-board.md`](2026-07-09_orchestration-board.md) — findings register (Letter v5 · clean-field CONFIRMED · FPB framing · OTS chain V1→V4⚓→V5 · v0.8), PR board (#597/#599/#600 ready; #598 BLOCKED; #590 supersede-on-#599), pending Grant decisions (e⁻ handedness sign · verbatim-twin policy · x29 fork A/B/C/D), the x29 BLOCKED verdict (ATLAS status = STATUS QUO ANTE, epistemic only), consolidated open questions (incl. the pre-existing LEP-compositeness exposure — same collider family as the ATLAS defense), and the step-back audit (priority: submission mechanics → cRIO bench resume → forks B+A → merge queue; STOP further corpus polishing).
 
@@ -246,6 +303,13 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 > - C' F1 scalar-restoration win PRs to main standalone (honestly framed, NOT "A1 grade restored"): YES / NO
 > Date: ___
 > ```
+>
+> **Ratification-status note (2026-07-11, engine-refresh batch).** The `Date: ___` above is
+> **intentionally left BLANK — NOT backfilled.** The verbal Grant sign-off on this block is **still
+> OWED.** Recorded honestly: downstream work has **proceeded as-if-YES** (the `crystal_engine` /
+> `master_equation_fdtd` cage-test platform + the `ave-loop-gap-harness-discipline` amendment were
+> built and merged on that premise), but a real sign-off is required to close the block. Do not read
+> "proceeded as-if-YES" as ratified.
 
 **PR:** `analysis/2026-06-13-engine-capability-map` (capability-map leaf + figure + this tracker entry). Auditor reviews cells vs the anchor table; **Grant merges**. Two anchor corrections made during the verify-before-cite pass: (1) graft-v2 `Γ_min=−0.849` is an apparatus-floor artifact → cited SIGN-only, −1 not demonstrated; (2) #215 PR title ("REMANENT-LOOP") is stale — merged content is the IMPOSED-LATCH retraction (`575ed12d`).
 

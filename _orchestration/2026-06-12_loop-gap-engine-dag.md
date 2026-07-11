@@ -1,6 +1,6 @@
 # LOOP GAP — engine capability DAG
 
-**Status:** LIVE — canonical capability manifest for K4⊗Cosserat electron closure  
+**Status:** LIVE — **loop-gap-platform manifest** for K4⊗Cosserat electron closure (the loop-gap harness capability graph; its Platform-rule table names only CoupledK4Cosserat / VacuumEngine3D + frozen srs). The **whole-engine** manifest is [`manuscript/ave-kb/common/engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md) — the N-engine home. (Two homes with the same "capability manifest" label was a drift generator; this re-scope disambiguates: DAG = loop-gap platform, map = whole engine.)  
 **Physics order:** [`manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`](../manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md) §2  
 **Harness:** `src/ave/core/loop_gap_harness.py` + `src/scripts/vol_1_foundations/loop_gap_harness_genesis.py`  
 **Epic log:** [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md)
