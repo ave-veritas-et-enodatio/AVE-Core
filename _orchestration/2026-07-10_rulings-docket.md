@@ -288,3 +288,74 @@ The stub's five suggested rows (`T4`, `T3`, `G-WHEN`, `G-Ġ`, `CH-c`) fold in ve
 ---
 
 *Cross-refs (verify-before-cite'd this session): the astro-sweep result + frozen map + folded stub; `research/2026-07-11_collapse-batch_result.md`; `research/2026-07-11_x43-ringdown-port_result.md` + `research/2026-07-11_x43-A0-tide-dimensional-L_result.md`; the C13b handoff `_orchestration/2026-07-11_c13b-bullet-cluster-run-handoff.md` (run result lands on #645 merge); the board Continuation 3 (four-lane day). KB cites: `vol1/claim-quality.md:479-480`, `dm-mechanism-unification.md:52-64/:154`, `derived-mond-acceleration-scale.md:15`, `ch14-leaky-cavity-particle-decay/theory.md:46,49,53`. Every cross-ref grep/Read-confirmed; this continuation records queue-state, not adjudicated physics.*
+
+---
+
+## Continuation — 2026-07-11 (A7 adjudicator + EP-CMRR instrument frame + gut-check status)
+
+Three rows from the 2026-07-11 core-planning close, staged with the engine-refresh
+handoff PR (`_orchestration/2026-07-11_engine-refresh-handoff.md`). **KEEP-BOTH:**
+the four 2026-07-11 continuations above + the original docket and status boards are
+**not edited**; this continuation is append-only. Nothing here canonizes; substrate
+claims are records of Grant's rulings + the queue-state, not new assertions. The T4
+two-branch state (internal-`g_N` vs total-field, tide sub-branch retired) is carried
+forward from the four-lane continuation §B (verify-before-cite'd there).
+
+- **A7 (NEW adjudicator row, Grant GO 2026-07-11 "both depending on strain").**
+  Solar-system SEP / Nordtvedt vs **BOTH surviving T4 branches** (internal-only
+  `g_N` AND total-local-field) — each branch's predicted SEP-violation computed
+  **AT THE LOCAL OPERATING STRAIN** (dormancy-honest: the solar system sits
+  ~1e8×`a₀`, deep-Newtonian, the Axiom-4 kernel ~dormant — the C13b core-dormancy
+  lesson; the leading observable is therefore the **external-galactic-field-induced
+  quadrupole class**, not an internal-source residual). Compared against
+  **LLR-Nordtvedt (~1e-4 SEP-CMRR)** + planetary-ephemerides bounds. **Kill-tests
+  both directions:** a branch predicting an above-bound residual **DIES**; both
+  clearing = **honest no-discrimination** (record it, do not manufacture a
+  chord). Mixed retrieval + derivation lane; **queued for the next sweep round.**
+  Adjudicator: Grant (fold with **R-A** / **T4** per the shared `S(A)`-keying axis).
+
+- **EP-CMRR instrument frame (Grant GO a+b).** The equivalence principle recast
+  as coupling-level common-mode rejection. Two landings ride the engine-refresh
+  PR: the **register row → engine-refresh U6** (`translation-circuit.md` §4:
+  EP ↔ coupling-level CMRR; WEP-CMRR ~1e-15 Eötvös/MICROSCOPE, SEP-CMRR ~1e-4
+  LLR-Nordtvedt; DISTINGUISHED from the ε-sector gauge rider = readout-level
+  CMRR, `vol4/claim-quality.md:1856`); the **engine acceptance test →
+  engine-refresh U5** (the differential-pair certify-and-expose test on the
+  Master-Equation medium). **Framing = instrument language with named
+  kill-tests, 10th convergence-flagged, NOT a physics claim** (it certifies the
+  instrument + exposes the installed keying's EP-status per the X36
+  install-tautology; it does not adjudicate T4). Adjudicator: Grant.
+
+- **Gut-check status.**
+  - **(a) junction** — Grant's small/large-signal reframe **confirmed the canon
+    mapping is exact**: the SPICE `.OP → .AC` axis maps to **M1 / M3** (the
+    DC-operating-point DC-short series-L = #547-M1; the AC small-signal tangent-`C`
+    at the operating point = #547-M3; cross-ref the Grant-input-round item 1
+    above). **Formal ruling still OPEN; the lean is recorded** (canon mapping
+    exact, K1/K2 remain MODIFIED-CIRCUIT proposals not readings of the canon cell).
+  - **(b) infinite-CMRR gravity — REFRAMED.** The "infinite by identity" holds at
+    the **WEP level** (gravitational charge ≡ inertial mass = composition
+    independence; nothing to mismatch). But **both surviving T4 branches require a
+    FINITE SEP-CMRR** — a *measurable* self-energy / Nordtvedt violation (the two
+    are not in tension: WEP-composition-CMRR infinite ∧ SEP-self-energy-CMRR
+    finite). The open question is therefore **whether A7's strain-honest
+    residuals clear the LLR-Nordtvedt + ephemerides bounds.** Formal ruling OPEN.
+
+### Docket status board — A7 + EP-CMRR + gut-check state (KEEP-BOTH; tables above unedited)
+
+| Ruling | What | Status (2026-07-11) | Adjudicator |
+|---|---|---|---|
+| **A7** | solar-system SEP/Nordtvedt vs BOTH T4 branches, at local operating strain | **NEW · queued for next sweep** — dormancy-honest (~1e8×a₀, quadrupole-class leading obs); kill-tests both directions; both-clear = honest no-discrimination | Grant (fold with R-A/T4) |
+| **EP-CMRR frame** | EP ↔ coupling-level CMRR (register row U6 + acceptance test U5) | **GO (a+b)** — instrument language + named kill-tests, 10th convergence-flagged, NOT a physics claim | Grant |
+| **Gut-check (a) junction** | small/large-signal canon mapping | **LEAN RECORDED** — .OP→.AC = M1/M3 exact; formal ruling OPEN | Grant |
+| **Gut-check (b) infinite-CMRR gravity** | WEP-infinite vs SEP-finite | **REFRAMED** — WEP-CMRR ∞ by identity, SEP-CMRR finite/measurable; clears-bounds question = A7 | Grant |
+
+---
+
+*Cross-refs (verify-before-cite'd this session): the engine-refresh handoff
+`_orchestration/2026-07-11_engine-refresh-handoff.md` (U5 test / U6 register row);
+the four-lane continuation §B (T4 two-branch state, tide sub-branch retired) + §A
+(T4 keying row); the Grant-input-round item 1 (junction small/large-signal walk);
+the X36 install-tautology `research/2026-07-09_x36-node-bottleneck_result.md:54,89,215`;
+the gauge-rider site `manuscript/ave-kb/vol4/claim-quality.md:1856`. This
+continuation records queue-state, not adjudicated physics; nothing here canonizes.*
