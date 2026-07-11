@@ -4,7 +4,7 @@
 **Prereg (frozen + amended):** `research/2026-07-10_x40-ring-closure-transient_prereg_FROZEN.md`.
 **Brief:** `_orchestration/2026-07-10_x40-ring-closure-brief.md` (+ §Addendum).
 **Driver:** `src/scripts/vol_1_foundations/x40_ring_closure_transient.py`.
-**Tests:** `src/tests/test_x40_ring_closure.py` (20 keepers, all pass).
+**Tests:** `src/tests/test_x40_ring_closure.py` (23 keepers, all pass; +3 from the adversarial-review repairs — S5, S2b, independent-BFS-girth).
 **Figure:** `src/scripts/vol_1_foundations/x40_ring_closure_transient.png`.
 
 ---
@@ -54,6 +54,38 @@ demonstration + one computed characterization**, NOT an emergence test.
 | Amendment E5 | appended dated post-freeze (original frozen file untouched) | pushed BEFORE any cut/cycle/G-F/S4 code existed | freeze-by-push honored for the new content |
 
 No forced scientific deviations. The headline theorem was reproduced live-fire.
+
+---
+
+## ADVERSARIAL-REVIEW REPAIR LOG (post-PR, 4 lenses / 3 CONFIRMED MINOR findings)
+
+All three findings were MINOR and EVIDENCE-VOID — the conclusions BANK
+(1/10, Σm_jk = 0.6448522896, and cut/cycle 9:1 were independently reproduced by
+the review). The repairs strengthen gates / fix a comment + a locator; they do
+NOT move any number (re-verified byte-identical after each repair). Hodge lens
+and freeze-integrity came back CLEAN.
+
+- **F1 (G-D was unfireable on its named failure mode).** `enumerate_girth_faces`
+  pre-filters to length SRS_GIRTH, so the old guards gated N against the literal
+  that produced it and could not fire on a girth<10 net still containing 10-cycles
+  (an L=2 srs net has TRUE girth 8 by BFS, yet the enumeration returns 192 spurious
+  length-10 cycles). **Repair:** added an INDEPENDENT `_bfs_girth` + `assert_srs_girth`
+  (three-way BFS girth == enumeration length == SRS_GIRTH); softened the section
+  comment + `derive_ring` docstring; new sabotage **S5** fires G-D on the L=2 net
+  (BFS girth 8 ≠ 10). Commit `7a2aa648`. Number unchanged (L=3 genuinely girth-10).
+- **F2 (G-E ImportFrom keyed on module path only, not the imported name).** Slip:
+  `from ave.core.chiral_lattice import OMEGA_C as w` scanned CLEAN. **Repair:** the
+  ImportFrom branch now flags any forbidden constant NAME from ANY module (aliased
+  or not); new planted artifact + sabotage **S2b** fires G-E; honest SCOPE note
+  added (the gate guards constant IMPORTS/uses, not every runtime scale injection —
+  that residual is covered by construction: Z₀=τ=ℓ=1 + integer topology). Commit
+  `321f4a0b`. Real driver still self-scans clean; no physics touched.
+- **F3 (locator drift — NOT a fabricated quote).** CITATION ERRATUM: the frozen
+  prereg's LOAD-BEARING PREMISE cites `MIN_SRS_L` at `src/ave/topological/srs_dec.py:138`;
+  the correct locator is **`:137`**. The quoted text `MIN_SRS_L: int = 3` is
+  verbatim-correct; only the line pointer is off by one; no scientific dependency.
+  The frozen prereg body is left BYTE-IDENTICAL (freeze integrity) — this erratum
+  is logged here per the do-not-rewrite-history rule.
 
 ---
 
@@ -134,9 +166,25 @@ S4   G-F completeness = 9.0000e-02   (>> 1e-12  => projections don't sum to |i|^
 S4   G-F projsum      = 9.0000e-02   (>> 1e-12  => P_cut + P_cyc != I)
 ```
 
-All four sabotage cases fire their target gate; each gate is therefore a real
-gate. The S3/S4 discriminators (G-C-only / all-three-G-F-legs) confirm the gates
-are targeted, not blanket.
+**S5 — spurious-net girth (L=2 srs, true girth 8) → G-D FIRES (added by F1 repair):**
+```
+S5   enumerate_girth_faces lengths = [10]   (pre-filtered, silent — the defect)
+S5   independent BFS girth         = 8      (the true girth)
+S5   assert_srs_girth FIRES: independent BFS girth 8 != enumeration length 10
+     (spurious PBC-folded rings; G-D FAIL)
+```
+
+**S2b — aliased forbidden-name import from a non-constants module → G-E FIRES (added by F2 repair):**
+```
+S2b  ['line 18: from ave.core.chiral_lattice import OMEGA_C as w
+       (forbidden constant name, any module)']
+     (real driver self-scan remains []  => the tightened gate stays clean on the physics)
+```
+
+All six sabotage cases (S1–S5, S2b) fire their target gate; each gate is
+therefore a real gate. The S3 / S4 / S5 discriminators (G-C-only /
+all-three-G-F-legs / BFS-girth-only) confirm the gates are targeted, not blanket.
+S5 and S2b close the P11 gaps the adversarial review found for G-D and G-E.
 
 ---
 
