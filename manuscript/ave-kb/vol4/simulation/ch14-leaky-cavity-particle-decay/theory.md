@@ -8,7 +8,8 @@ claims: [clm-c54kdd]
 > 🔴 **HONESTY HEADER (2026-07-11 — X43 Q-consistency flag; Rule 12: body preserved, status caveat added).**
 > The RC-discharge model below treats the muon as being in **continuous above-yield breakdown**
 > ($R_{eff}$ drops $1\,\text{G}\Omega\to50\,\Omega$, half-life from a standard RC time constant —
-> see §"The SPICE Equivalent" below, `:46,49,53`). **X43 flags this as quantitatively wrong on the
+> see §"The SPICE Equivalent: An RLC Avalanche" below, the $R_{eff}$ / half-life lines `:70,73,77`
+> [drift-robust: cite by section name; line anchors shift under edits]). **X43 flags this as quantitatively wrong on the
 > lifetime as written:** a continuous $50\,\Omega$ breakdown gives $Q\sim1$, whereas the observed
 > muon lifetime is $Q_\mu\approx3.5\times10^{17}$ cycles — **~17.5 OOM** longer than a bare
 > breakdown allows (`research/2026-07-11_x43-ringdown-port_result.md:80`). The high $Q$ **forces** a
