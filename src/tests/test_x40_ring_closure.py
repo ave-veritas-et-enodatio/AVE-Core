@@ -36,6 +36,7 @@ TOL_HODGE = 1e-12  # G-F
 
 _DRIVER = "src/scripts/vol_1_foundations/x40_ring_closure_transient.py"
 _S2_PLANT = "src/scripts/vol_1_foundations/_x40_s2_antiinstall_planted.py"
+_S2B_PLANT = "src/scripts/vol_1_foundations/_x40_s2b_antiinstall_aliased_planted.py"
 
 
 @pytest.fixture(scope="module")
@@ -213,6 +214,16 @@ def test_s2_planted_import_fires_g_e():
     """S2: a variant importing OMEGA_C -> G-E fires; the real driver stays clean."""
     plant = scan_for_dimensional_constants(_S2_PLANT)
     assert plant, "G-E did NOT fire on the planted anti-install variant"
+    assert any("OMEGA_C" in v for v in plant)
+    assert scan_for_dimensional_constants(_DRIVER) == [], "the real driver must remain clean"
+
+
+def test_s2b_aliased_forbidden_name_fires_g_e():
+    """S2b: a forbidden constant NAME imported ALIASED from a NON-constants module
+    (the slip the review found) must now FIRE G-E — a forbidden name is forbidden
+    wherever it is re-exported from. The real driver stays clean."""
+    plant = scan_for_dimensional_constants(_S2B_PLANT)
+    assert plant, "G-E did NOT fire on an aliased forbidden-name import (F2 slip)"
     assert any("OMEGA_C" in v for v in plant)
     assert scan_for_dimensional_constants(_DRIVER) == [], "the real driver must remain clean"
 

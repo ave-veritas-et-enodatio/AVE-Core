@@ -281,10 +281,19 @@ def simulate(
 # ─────────────────────────────────────────────────────────────────────────────
 # Gate G-E — the ANTI-INSTALL scanner (machine-checked, AST-based).
 #
-# Any import from `ave.core.constants`, or any use of a forbidden dimensional
-# constant name, is an automatic FAIL. AST-based (Name / Import / Attribute
-# nodes only) so a mention inside a docstring or comment does NOT trip it — only
-# a live code reference does.
+# Any import from `ave.core.constants`, any import of a forbidden dimensional
+# constant NAME from ANY module (aliased or not), or any use of a forbidden name,
+# is an automatic FAIL. AST-based (Name / Import / ImportFrom / Attribute nodes
+# only) so a mention inside a docstring or comment does NOT trip it — only a live
+# code reference does.
+#
+# SCOPE (honest limitation): this gate guards against dimensional-constant IMPORTS
+# by name/module and direct name/attribute uses. It does NOT (and statically
+# CANNOT — undecidable) catch every conceivable runtime scale injection, e.g. a
+# scale returned by an arbitrarily-named helper. That residual is covered NOT by
+# this scanner but by CONSTRUCTION: the headline is manifestly scale-free
+# (Z0 = tau = ell = 1 dimensionless units + integer ring topology), so no
+# dimensional scale can enter the split even if one were smuggled in.
 # ─────────────────────────────────────────────────────────────────────────────
 
 FORBIDDEN_CONSTANTS: frozenset[str] = frozenset({
@@ -298,17 +307,29 @@ def scan_for_dimensional_constants(source_path: str) -> list[str]:
     """Return a list of anti-install violations found in `source_path` (empty = clean).
 
     Flags: (1) any `import ave.core.constants` / `from ave.core.constants import`;
-    (2) any Name node whose id is a forbidden dimensional constant; (3) any
-    attribute access `<constants>.<FORBIDDEN>`. Docstrings/comments are Constant
-    (str) nodes and are NOT scanned.
+    (2) any forbidden dimensional-constant NAME imported from ANY module (aliased
+    or not — a forbidden name is forbidden wherever it is re-exported from);
+    (3) any Name node whose id is a forbidden constant; (4) any attribute access
+    `<x>.<FORBIDDEN>`. Docstrings/comments are Constant (str) nodes and are NOT
+    scanned. See the SCOPE note above for the static-analysis limitation.
     """
     with open(source_path, encoding="utf-8") as fh:
         tree = ast.parse(fh.read(), filename=source_path)
     violations: list[str] = []
     for node in ast.walk(tree):
-        if isinstance(node, ast.ImportFrom) and (node.module or "").startswith(_CONSTANTS_MODULE):
-            names = ", ".join(a.name for a in node.names)
-            violations.append(f"line {node.lineno}: from {node.module} import {names}")
+        if isinstance(node, ast.ImportFrom):
+            mod = node.module or ""
+            if mod.startswith(_CONSTANTS_MODULE):
+                names = ", ".join(a.name for a in node.names)
+                violations.append(f"line {node.lineno}: from {mod} import {names}")
+            else:  # a forbidden NAME re-exported from any other module
+                for a in node.names:
+                    if a.name in FORBIDDEN_CONSTANTS:
+                        asn = f" as {a.asname}" if a.asname else ""
+                        violations.append(
+                            f"line {node.lineno}: from {mod} import {a.name}{asn} "
+                            f"(forbidden constant name, any module)"
+                        )
         elif isinstance(node, ast.Import):
             for a in node.names:
                 if a.name.startswith(_CONSTANTS_MODULE):
