@@ -147,4 +147,21 @@ Not "does AVE explain dark matter" but "which dark-matter datum constrains which
 
 - **(e) ★ FLAGGED, SEDUCTION-MARKED (the 9th convergence of the 2026-07-10/11 arc — NOT walked).** X40's write mechanism deposits **trapped T-odd flux at every growth-front nucleation** (`research/2026-07-10_rb-fossil-walk_framing.md`); frozen energy gravitates — *is any dark content the fossil register?* **First kill-test is trivial and likely fatal:** an order-of-magnitude energy-density estimate, plus the fact that the **cosmological-constant closure already books the vacuum baseline at equilibrium** as the latent-heat density of ongoing crystallization (`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:62`) — so the fossil is likely *inside* that baseline, not extra. Named here **only so it is not re-discovered as fresh;** explicitly NOT walked, seduction-flagged (see §8 ledger).
 
-<!-- FILL:S8 -->
+## §8 — SEDUCTION ACCOUNTING + OPEN ITEMS
+
+**The arc's convergence count.** This walk adds convergences **7 (tide-EFE, §4)**, **8 (G-attractor, §5)**, and **9 (fossil-DM, §7e)** to the 2026-07-10/11 arc. Per the standing ledger, a convergence this pretty is exactly the shape to distrust: the program's hopeful-mechanism miss-ledger stands at **0-for-7** on interior mechanisms (`research/2026-07-10_impedance-register-walks_framing.md:7`). **A rhyme is a rhyme until something pays to kill it and fails.** Accordingly, every branch above carries a **named, fireable kill-test** (the §4 dimensional-`L` gate; the §5 flatness-`Ġ` derivation debt + the A3 `a₀(z)` test; the §7e OOM + CC-baseline estimate), and the seductive one-liners ("Ax4 → EFE, another win"; "the ∞ subscript proves attractor-G"; "fossil flux IS dark matter") are flagged, not asserted.
+
+**★ GRANT'S TWO GUT-CHECKS — RECORDED OPEN (the walk rules NOTHING on these):**
+
+1. **The Kerr-cell question (ε side).** *Is the vacuum node's uniform-`E` preload real — like every biased dielectric detuning under held DC — or is there a substrate reason it differs?* This is **the only door left for K1/K2**: if the node behaves like a real dielectric, canon (P1) stands and the frozen tie leans canon; if there is a substrate-native reason the vacuum node splits its shunt admittance `A1 ⊥ T2` (so a held longitudinal `E` biases only A1, not the T2 permittivity), K1 lives. OPEN — Grant's physical intuition is the resolution mechanism, backed by the CVR bench.
+2. **The free-fall question (gravity side).** *A uniform pull strains nothing; only the tide does.* Is the gravitational reading therefore tide-keyed (the §4 third branch), and does the equivalence-principle argument really forbid uniform-`g` keying at the node? OPEN.
+
+**What the walk records:** a **LEAN — canon on ε, tide on gravity — and NOTHING ruled.** The lean exists to be shot at.
+
+**Adjudication routes (none is fiat; the substrate/data decide):**
+
+- **the astro-adjudicator sweep (D2)** — `_orchestration/2026-07-11_astro-adjudicator-sweep-handoff.md` — six existing-data kill-tests against the branch maps above;
+- **the CVR held-DC-E bench (#40)** — the empirical vote on the ε-side tie, now carrying **the two-configuration requirement this walk adds**: a **uniform-gap null control** (held DC, `∇E ≈ 0` — does the node detune at all?) *and* a **gradient geometry with a transverse probe** (does the load track `|E|`, `|E_T|`, or the gradient?). The two configs separate P1 / P2 / P3 directly. (Docket "HELD HANDOFFS" `#40`, `_orchestration/2026-07-10_rulings-docket.md`.)
+- **the discrete-lattice muonic solve** — the node-level `A1 ⊥ T2` admittance question of §3a, decided on the actual lattice rather than by topology argument.
+
+**Nothing in this note is canon.** It is the verbatim-faithful record of the 2026-07-11 core-session walk, quarantined as framing, with a lean, two open gut-checks, and named adjudicators — handed to the sweep and the bench.
