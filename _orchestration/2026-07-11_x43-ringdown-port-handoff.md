@@ -132,3 +132,36 @@ In the SM, `m⁵ = coupling² × THREE-BODY FINAL-STATE PHASE SPACE` — **two o
 - **The miss-ledger caveat.** This ringdown convergence is flagged in the framing note as the **6th convergence-shaped move** of the register arc; the program's hopeful-interior-mechanism miss-ledger stands at **0-for-7** (`research/2026-07-10_impedance-register-walks_framing.md:7`). A convergence this pretty is exactly the shape the ledger warns about — **a rhyme until the port calculation pays to kill it and fails.** Expected-value outcome is a clean negative; take it if it comes (Rule 11 honest closure).
 - **pure-corpus; self-isolate in a worktree; branch `analysis/x43-ringdown-port`; incremental commits.**
 - **PR DO-NOT-MERGE `[REVIEW: pending-orchestrator]`.** Adversarial review via `.claude/workflows/ave-adversarial-pr-review.js` before CLEARED — lenses: **derivation-fidelity** (incl. the two named traps) + **anti-install / prereg-discipline** (the exponent EMERGES, every step auditable; no Sargent/SM-phase-space value anywhere in the chain; the freeze preceded the derivation). **Only Grant merges.** Trailer: `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
+
+---
+
+## ★ APPENDIX A0 — the tide-branch dimensional-`L` check (SEVERABLE PRE-GATE, run FIRST or hand elsewhere)
+
+**Severable and cheap (~hours).** This is a self-contained pre-gate that shares no physics with the ringdown derivation — it can be **run first, run in parallel, or handed to a different satellite entirely.** It exists because the astro sweep's **A2 tide-branch lane** (`_orchestration/2026-07-11_astro-adjudicator-sweep-handoff.md`, adjudicator A2) is only worth running if the tide branch is dimensionally viable at all.
+
+**SECTOR / REGIME.** Gravity sector (Machian / MOND acceleration scale), cosmological-horizon regime. This is a **dimensional-consistency check on a kernel argument**, not a substrate dynamics run — no lattice code.
+
+**The problem (from `research/2026-07-11_keying-register-walk_framing.md:85`, §4, verify).** The T4 **tide branch** keys the saturation kernel on the external **tide** `∇g_ext`, not on external acceleration `g_ext`. But `g/a₀` is dimensionless, whereas a tide-keyed argument needs `A_tide = (∇g · L)/a₀`, which requires a **length `L` FORCED by the canon chain, not chosen by taste.** The corpus states this as the branch's own first kill-test: *"If no `L` falls out of the Machian/horizon structure, the tide branch dies at birth."* **Kill-on-failure is the expected-value outcome — say so up front.**
+
+**Task — enumerate the candidate lengths and, for each, check whether the canon Machian/MOND chain FORCES it.** The forcing authority is the `a₀` derivation `a₀ = c·H_∞/2π` (`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md:15`) and the Machian/horizon structure behind it (the §5 G-provenance fork, `research/2026-07-11_keying-register-walk_framing.md:89-103`).
+
+| Candidate `L` | Source in the canon chain | Prior expectation |
+|---|---|---|
+| **`R_H`** — present Hubble horizon | §5(a) LIVE G reads the *current* horizon `R_H(t)` (`research/2026-07-11_keying-register-walk_framing.md:97`) | live-keyed; LLR-tension noted in §5(a) |
+| **`R_∞ = c/H_∞`** — de Sitter asymptote | §5(c) ATTRACTOR G reads the *asymptotic* horizon; the `∞` subscript in `a₀ = c·H_∞/2π` already half-chooses this (`research/2026-07-11_keying-register-walk_framing.md:101`) | strongest candidate — already appears in `a₀` |
+| **the bound system's own size** | IF the kernel's locality structure FORCES a local length (the check must establish this, not assume it) | unforced unless locality demands it |
+| **`ℓ_node`** — lattice pitch | the substrate primitive length | expected DEAD by ~40 orders (astronomical `∇g·ℓ_node/a₀` is negligible) |
+| **any other canon-chain length** | the satellite must sweep for others (e.g. formation-era horizon per §5(b) fossil) | open |
+
+**The forcing criterion (state it in the mini-prereg before checking):** an `L` is *forced* iff the canon Machian/MOND derivation **selects it uniquely** — i.e. the same structure that fixes `a₀ = c·H_∞/2π` also fixes which length enters the tide argument, with no free choice. An `L` that merely *has the right dimensions* is NOT forced; taste is disqualified.
+
+**Outcomes:**
+- **No forced `L` → the tide branch DIES.** Report to the docket; the astro sweep's **A2 branch map simplifies to the two-branch form** (standard-EFE vs internal-only; the tide row drops out of A1/A2). This is the expected-value outcome.
+- **One forced `L` → write the tide-kernel FORM** `A_tide = (∇g · L)/a₀` with the forced `L` substituted, and **hand it to the sweep's A2 lane as a sharpened signature** (a specific `∇g`-dependence to test against wide-binary vs Crater-II data).
+- **More than one forced `L` → surface the ambiguity** (do not pick); that is itself a finding about the canon chain's under-determination.
+
+**Own mini-prereg (freeze-by-push).** Before the check runs, commit AND push a mini-prereg carrying (i) the candidate-`L` list above (verbatim-or-extended), and (ii) the forcing criterion. Git ordering = freeze proof, same as the main arc. The check then runs against the frozen list; a candidate added *after* seeing that it forces the answer is a freeze violation.
+
+---
+
+*Standing caveat: everything above is a BRIEF pointing at work that is OWED, not done. The ringdown port calculation is underived (`research/2026-07-11_ringdown-nyquist-pi-register_framing.md:36`, debt #1); the framing note it rests on is explicitly FRAMING-not-canon; the two flagged tensions are unresolved by design (flag-don't-fix). Nothing here upgrades any observable, mints any def-node, or is cited as evidence FOR AVE — the gate (the derivation + its anti-install audit) is the thing. The satellite recommends; Grant rules; nothing is canonized in-lane. Every corpus pointer above was verify-before-cite'd (LaTeX-aware greps) at brief-authoring time; re-verify before relying.*
