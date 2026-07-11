@@ -39,7 +39,28 @@ The frozen form target is **`Γ ∝ ω⁵`, or the picture dies honestly.** No A
 
 ## §2 THE ANISOTROPIC NYQUIST EDGE — the licensing question for loaded-continuum descriptions
 
-_(section content lands next commit)_
+Walked in the Grant-directed eigencavity satellite; captured here for the core record.
+
+**SECTOR / REGIME / PHASE-STATE.** This is a **geometric / licensing question about DESCRIPTIONS**, NOT a new observable. It asks: *when is a continuum (effective-medium) description of the loaded lattice licensed, and when does the discrete Nyquist edge forbid it?* No number moves on the answer; the point is which calculations are allowed to be believed.
+
+**(a) Liquid/solid = two phase-characters of ONE crystal.** The "liquid vs solid" language is the **continuum vs discrete** phase-character of the *same* srs crystal, keyed on `λ_probe/ℓ_node` — the phonon↔sound analogy (long-wavelength probes see a continuum "sound" medium; short-wavelength probes see the discrete lattice). Two registers coexist and both are true:
+- the **Brillouin / Nyquist edge is genuinely barrier-like for spatial content** — sub-2-cell structure is **evanescent, `|Γ|→1`** (the lattice cannot represent it, so it reflects);
+- the **effective-medium change is a crossover** — a smooth handover, not a wall.
+Barrier (for spatial content) and crossover (for the medium description) are **different registers**, not a contradiction.
+
+**(b) The muonic system STRADDLES the line.** `a_μ = 284.75 fm = 0.737 ℓ_node` — the orbit is **sub-cell**. Naively that says "continuum description dead." But the barrier bites **directionally**:
+- **Azimuthal** — the `n=1` closure wavelength is the circumference `= 2π(0.737) ≈ 4.6 cells`, which is **ABOVE Nyquist**, so the azimuthal **ladder mechanism is licensed**;
+- **Radial** — the well is order-a-cell across and is treated as a **graded continuum** cascaded through thousands of sub-cell sections (the `saturate=False` driver discretizes a `geomspace` scan over a graded well), which is **sub-Nyquist** → the **radial-continuum grading is the fiction**.
+
+This **converges with the #634 review finding that the radial port-language (`Z(r)`) path was dead code** (`research/2026-07-10_x42-atomic-eigencavity_RESULT.md:55-84`, the port-language derivation path; the review found it non-load-bearing) — **two independent knives on the same joint**: the geometry says the radial continuum is sub-Nyquist fiction, and the code audit says the radial `Z(r)` path never fired.
+
+**(c) ★THE LICENSING CAVEAT — corrects the core session's own earlier relay (logged honestly).** X42's `saturate=True` muonic discriminator **integrates to `r_min ≈ 10⁻⁴·a_μ`** — four orders below the pitch (PR #639; RESULT cross-check `V/V_yield ~ Zα² ≈ 10⁻⁴`, `:66`). So the non-Rydberg "wreckage" (the dense spurious root cluster, `research/2026-07-10_x42-atomic-eigencavity_RESULT.md:158`) is produced **where the continuum kernel has NO license**. The consequence, stated against the earlier relay:
+- the muonic spectrum **votes against an UNLICENSED CALCULATION, not cleanly against loading physics** — the earlier reading (that the muonic wreckage was a spectral vote for transparency / against loading) over-claimed;
+- canon's **static-sector scope-out fence gains footing** (the fence that says the static loading question is out of scope for this discriminator);
+- the **licensed R-A discriminators** are therefore (1) the **CVR bench** (macroscopic, in-continuum — where the continuum kernel *is* licensed) and (2) a **DISCRETE-LATTICE muonic eigencavity solve** (a named candidate arc, **NOT dispatched** — gated on Grant's two open answers: *which two liquids*, and *barrier-vs-crossover*);
+- the repair lane (**PR #639**) showed the **spurious-cluster numbers are window-dependent** — ~17 roots with a spurious more-bound ground ~3.6 keV under the widened window, vs the review's earlier ~14–15 / ~2.58 keV under the old narrow window — **unphysical under either, but quote-with-window** (the exact count is not a physical number).
+
+**(d) Cross-ref — the crystalline-vs-continuum seam.** The two signatures a discrete 386-fm-pitch chiral medium threatens that the Lorentz velocity-theorem does NOT protect — **preferred-axis anisotropy** and **energy-dependent dispersion** — are exactly the seam this walk lives on (`manuscript/ave-kb/common/the-abandoned-interior.md:183`; the leaf also pins `ℓ_node ≈ 386 fm`, the reduced Compton identity that makes `a_μ/ℓ_node = 0.737`).
 
 ## §3 THE π-REGISTER AUDIT — is `4π³+π²+π` using π in one consistent register?
 
