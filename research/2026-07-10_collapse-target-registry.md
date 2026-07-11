@@ -16,9 +16,11 @@ validated patterns from the breakthrough methods note
 
 **Method.** Seven read-only sweep lanes (KB common registers; vol1+2; vol3+6; vol4+9; vol5+claim-registers;
 recent `research/`; a dedicated P8-by-object lane), each in the pinned worktree at `origin/main 7fedf5c3`, each
-required to (a) name the **shared bench mechanism** — not a resemblance — for every candidate, (b) verify every
-load-bearing receipt with **two independent grep methods** (LaTeX-aware, per `feedback_grep_completeness`), (c)
-pre-name a **kill-test**, (d) estimate cost, and (e) run a seduction self-check against the **0-for-7 hopeful-
+required to (a) name the **shared bench mechanism** — not a resemblance — for every **P1/P8** candidate (a clean **P6
+SPLIT** legitimately has *no* shared mechanism: two unrelated objects sharing one word is exactly its polarity), (b)
+verify every load-bearing receipt with **two independent grep methods** (LaTeX-aware, per `feedback_grep_completeness`),
+(c) pre-name a **kill-test** — fireable for P1/P8; for a *pure-terminology* P6 the kill-test may legitimately be n/a
+(the sole such case is T16, flagged in situ), (d) estimate cost, and (e) run a seduction self-check against the **0-for-7 hopeful-
 interior-mechanism ledger** ([`program-arc-map.md:404`](../manuscript/ave-kb/common/program-arc-map.md)). The
 orchestrator then deduplicated across lanes, re-verified the headline + the two concrete numeric/arithmetic
 catches personally, and applied a **romance-knife pre-filter**: any candidate whose "collapse" is a rhyme rather
@@ -41,7 +43,7 @@ propagation · **L** = new derivation arc or engine work.
 |---|---|---|---|---|---|
 | **T1** | Quantization homonym — a TRIAD (mode-count ⊥ winding ⊥ Nyquist-sampling) | P6 | SPLIT + def-node | S | **fire-ready** (mint staged by the corpus itself) |
 | **T2** | The "empty slew catalog" is un-cross-linked, not empty: hysteresis §1 IS the rate-keyed family | P1 | MERGE / cross-link | M | fire-ready; "slew" *label* A4-gated |
-| **T3** | Γ = −1 homonym — lossless CONFINEMENT vs dissipative RUPTURE (a NEW axis; KEEP-BOTH with cq:1612) | P6 | SPLIT + ownership table | M | needs Grant loss-character ruling |
+| **T3** | Γ = −1 homonym — lossless CONFINEMENT vs dissipative RUPTURE (a NEW axis; KEEP-BOTH with cq:1612) | P6 | SPLIT + ownership table (branch (ii)); language-retraction (branch (i)) | M | needs Grant loss-character ruling |
 | **T4** | MOND `a₀` namesake carries the External-Field Effect — absent from the whole KB | P8 | forward-prediction opener | M | needs Grant keying decision (internal vs total field) |
 | **T5** | The `θ` power-factor axis and the EM loss-tangent `tan δ` are one phasor (`tan δ = cot θ`) — kills the "all-orthogonal" over-claim; the `δ_AVE` duty axis stays distinct | P1 | de-orthogonalize (θ↔tan δ only) | S | fire-ready (narrowed) |
 | **T6** | boundary-observable `M`: mass→inductance `L` collides with the ratified `X_L` = spin ruling | P6 | SPLIT / sector disambiguation | S–M | flag-don't-fix (latent contradiction) |
@@ -143,12 +145,13 @@ a sub-yield reading is a wrong-regime null.
   [`2026-07-10_operator-typing-pass_result.md:157`](2026-07-10_operator-typing-pass_result.md) "the slew catalog is
   *empty*" (G2). *(Orchestrator re-verified: the catalog author already knows the relativistic inductor is the slew
   instance — so the accurate finding is narrower than "empty is false"; see below.)*
-- **`substrate-hysteresis-index.md §1` has already assembled a FIVE-member rate-keyed family on the same object.**
+- **`substrate-hysteresis-index.md §1` has already assembled a SIX-member rate-keyed family on the same object.**
   `manuscript/ave-kb/common/substrate-hysteresis-index.md:47` "any time the dynamics are governed by a **rate**
   ($d\omega/dt$, $dI/dt$) rather than an instantaneous amplitude"; `:53` `$L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}\to\infty$
   at $I_{max}$ — … physically **collapses the slew rate** $dI/dt\to0$ … the magnetic-sector projection of the same
   Axiom-4 kernel" (`clm-p5cf3t`). Members: relativistic inductor (`clm-p5cf3t`), dark-wake BEMF (`clm-exjfai`),
-  Newtonian-inertia-as-Lenz (`clm-jwyy6l`), Op14 local-clock (`clm-1eg13f`), geodynamo (`clm-wd5rs0`).
+  Newtonian-inertia-as-Lenz (`clm-jwyy6l`), Op14 local-clock (`clm-1eg13f`), Op14 cross-sector-trading reactance-pair
+  (`clm-p2tp9i`), geodynamo (`clm-wd5rs0`).
 - **The two registers do not cross-link *as the slew catalog*.** `grep -rniE "hysteresis|lenz|bemf|memristiv"` in the
   kernel catalog and `operators.md` → **zero hits** (orchestrator-verified). `clm-p5cf3t` IS co-cited by both registers
   and the hysteresis index — the *claim* is shared, but neither the kernel-catalog RATING-TYPE block nor the X35 G2
@@ -225,7 +228,10 @@ the SPICE muon leaky-cavity) from importing lossless-reflection reasoning into a
 undifferentiated usage; the substrate-hysteresis Level-1/Level-2 boundary already predicts (ii).
 
 **Cost:** **M** — def-node/ownership table (S) + KEEP-BOTH regime tags across ~5 falsification leaves that currently write
-bare "Γ=−1 impedance rupture." **Confidence:** high the glyph is undifferentiated across loss-opposite objects; medium on
+bare "Γ=−1 impedance rupture." **The booked action is branch-contingent (per the kill-test): SPLIT + ownership table under
+branch (ii) (dissipative — the glyph really is mislabeled), but a LANGUAGE RETRACTION (of the muon/0-mN "energy escapes /
+no reaction" wording) under branch (i) (lossless-reflective — the glyph is one object, only the prose is wrong).**
+**Confidence:** high the glyph is undifferentiated across loss-opposite objects; medium on
 which kill-test branch fires (Grant's ruling). **Seduction check:** the pull is "declare it a physics error"; resisted per
 flag-don't-fix — surface the homonym + the loss-character tension with receipts, do not assert the benches are wrong. The
 pre-existing `cq:1612` flag (different axis, same glyph) de-risks this as a real corpus concern.
@@ -497,7 +503,10 @@ output could be the sector-gate *kill*. A rhyme until something pays to kill it 
 **Objects (all glyph "Q", all electron-scale, distinct values):** loaded/radiative `Q=1/α=137.036` (α-baked ECHO,
 `theorem-3-1-q-factor.md:15,147`) · intrinsic/stability `Q→∞` (`:147`) · α-free cold-cage ring-down `Q_ringdown≈30.8`
 (`vacuum-varactor-scatter-operator.md:185`; `vol9/claim-quality.md:507`) · structural radiative-Q floor `Z_RADIATION≈29.98`
-(kept "band-consistent, NOT identical," guarded by pinned anti-coincidence test `test_graded_vacuum_network_isolation.py:119`)
+(kept "band-consistent, NOT identical," guarded by pinned anti-coincidence test
+`test_graded_vacuum_network_isolation.py:141-146` — `test_anti_coincidence_Q_is_not_Z_radiation`; the stale `:119` was
+inherited from canon's own cite at `vacuum-varactor-scatter-operator.md:188` (`:119-124`, likewise stale — flag for the
+next KB hygiene pass, not fixed here))
 · per-mode count `Q=ℓ` (`op21-multi-mode-mode-counting.md:10`). No `def-Q` exists (`grep '^## '` on `vocabulary-register.md`
 → 0). Adjacent risk: `parametric-coupling-kernel.md:239` reuses `Q_atomic=α⁻¹≈137` as an input while `:213` uses
 `Q_apparatus~10³–10⁹`; the α-echo status of the former does not travel with the symbol.
@@ -564,8 +573,10 @@ REQUIRES / nucleation WRITES one `u₀*`) draws part of its prettiness from all 
 symbol the corpus already overloads across a T-symmetric SYM operating point and a T-breaking bias. Whether those are one
 physical object is exactly the A1↔T2 D-II calibration bridge (PENDING-GRANT), which §b itself names as kill-test #1. **What
 it clarifies:** a `u₀*` def-node (Sense A = SYM magic-angle ≈0.187, back-fit; Sense B = the parity-meter frozen bias, PENDING
-the bridge) stops the two senses cross-authenticating. `u₀*` is currently un-registered (`rg 'u_0' vocabulary-register.md` →
-0). **Kill-test:** the D-II bridge showing the frozen bias enters the T2 channel *and* equals the magic-angle value would
+the bridge) stops the two senses cross-authenticating. `u₀*` is currently un-registered (`rg -n 'u₀|u_0\*|u_0\^'
+vocabulary-register.md` → **0 relevant hits**; the only `u_0` substring matches are at `:423,:681`, both inside
+`\mu_0`/`\mu_{eff}` EM-constitutive text — not `u₀*` entries — so the earlier bare `rg 'u_0' → 0` was a false receipt).
+**Kill-test:** the D-II bridge showing the frozen bias enters the T2 channel *and* equals the magic-angle value would
 collapse B→A; until run, treat as two. **Cost:** **S.** **Confidence:** high the glyph is overloaded. **Seduction check:** this
 IS the deflationary lens the 0-for-7 ledger demands — do not upgrade the §b convergence (see RHYME tier R5).
 
@@ -669,7 +680,10 @@ meter registers a signal"; (3) impedance/content-domain bin ("which **register**
 **Collision:** senses 1 and 3 co-occur in one doc — titled "impedance-**register** walks" (sense 3) while citing
 `vocabulary-register` (sense 1) throughout. **Shared mechanism:** none — a clean SPLIT (a ledger-index and an impedance-content-
 bin are unrelated objects sharing a word). **Clarifies:** a register-of-registers note so "off-line register" is never parsed
-as a tracked index. **Kill-test:** n/a (terminological). **Cost:** **S.** **Confidence:** high it is a homonym; **moderate value**
+as a tracked index. **Kill-test:** n/a (terminological — this is a *pure-terminology* P6 clean SPLIT with no fireable
+kill-test). **T16 is the sole ranked target without a fireable kill-test; that is precisely why the romance-knife's "18 of
+19 name a genuine shared mechanism or honestly-flagged fork" count is 18, not 19 — T16 is the named exception, not an
+arithmetic slip.** **Cost:** **S.** **Confidence:** high it is a homonym; **moderate value**
 — most uses are self-disambiguating `X-register` compounds. **Seduction check:** low; hygiene, flagged because the mission asked
 for the count. **Lane provenance:** research C5.
 
