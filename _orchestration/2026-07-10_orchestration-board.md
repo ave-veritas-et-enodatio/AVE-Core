@@ -4,6 +4,20 @@
 
 ---
 
+## Continuation — 2026-07-11: x40 (task #38) landed
+
+| Finding | Durable home |
+|---|---|
+| **x40 ring-closure transient (task #38)** — the derivable stick/slip split. At a growth-front nucleation, a closing bond traps **1/10** of the donated circulation and radiates 9/10 (substrate-native TLM, N=10 girth, DERIVED via BFS-witnessed enumeration); flux linkage Λ banks **whole** (exact conservation theorem, independent of stub outflow). **Hodge split:** the trapped 1/10 is the **T-odd cycle-space loop current** (the field-cooled gyrotropic-fossil candidate; Ω_parent as a Barnett-type field); the complementary 9/10 is **T-even cut-space bond strain** — the cut-space fate is model-dependent (radiates in the matched-bath reading / freezes as strain in the strain-holding-lattice reading, **KEEP-BOTH**). Geometric 2nd axis (mixed footing, off-headline): **Σm_jk = 0.6448522896**. Ring-plane ensemble **isotropic** (orientation tensor ⅓·I; \|Σn̂\|/N = 0.047) → **BOUNDS** a coherent CMB-swirl, does not predict one. Branch (iii) fired = consistency demo + one computed characterization, **NOT emergence**. The gyrotropic-fossil reading is a **FRAMING candidate, NOT canonized** (KB propagation is a gated follow-on). Feeds the **D-IV capture** (owes I_parent) + the **CMB-swirl amplitude bound**. | merged **#632** (merge `d73f9a8c`) → `research/2026-07-10_x40-ring-closure-transient_{prereg_FROZEN,result}.md`; driver `src/scripts/vol_1_foundations/x40_ring_closure_transient.py`; tag `audit/2026-07-10_x40-ring-closure-transient` @ `aba70a30` |
+
+**Review + CI.** 4-lens adversarial review (live-fire · Hodge · anti-install · prereg-vs-shipped), **3 findings all MINOR / EVIDENCE-VOID**, all repaired + orchestrator-spot-checked: G-D made fireable via an independent BFS girth (fires on an L=2 girth-8 net), G-E name-keyed (catches an aliased forbidden-constant import), prereg locator erratum (`srs_dec.py:138`→`:137`). Hodge + freeze-integrity lenses CLEAN. Freeze-by-push (P9) held for both the E1–E4 prereg and the E5 cut/cycle amendment (git-audited). CI first went red on a **sabotage-fixture** dangling import (S2b imported `OMEGA_C` from a module that doesn't re-export it) — fixed by re-pointing to `L_NODE`, a genuine forbidden re-export (`aba70a30`); required gate `make verify + make test` green. Trail recorded on the PR (orchestrator verification + CI-resolution comments), not only in chat.
+
+**Gated follow-on:** if the gyrotropic-fossil framing graduates past candidate → a KB canonical-propagation pass (deliberately undone this session per the do-not-canonize scope).
+
+**Orchestrator miss-ledger #10 (2026-07-11).** Ran only the touched test file (`pytest test_x40_ring_closure.py`, 23 green) rather than the full `make test` before calling the repair verified — so the S2b dangling import reached CI red instead of being caught locally. Lesson banked: verify against the gate CI actually runs (full `make test`), not the touched file alone.
+
+---
+
 ## 1. Findings register (what was established today, and where it durably lives)
 
 | Finding | Durable home |
@@ -82,7 +96,7 @@ The SVE Letter states THAT the constitutive law is radiative-sector, not yet WHY
 | **#33** | next collapse-target sweep item (post-vertex-arc) | opens after the vertex arc's Grant rulings land |
 | **#34** | the D-IV nucleation-capture spec (the "writes-a-bias" thread) | **sector-bridge first** — resolve A1↔T2 sector ownership before the capture spec, so the meter and the source are in matched coordinates (A46 phase-space discipline) |
 | **#37** | the circulator / T-breaking walk (the vertex non-reciprocity escape) | Grant picture-walk before any prereg (P2 — walk input is a circuit, not a formalism) |
-| **#38** | the ring-quantization transient (a kill-test for the u₀\* triple-convergence) | discriminating test, cheap |
+| **#38** | ~~the ring-quantization transient (a kill-test for the u₀\* triple-convergence)~~ | **DONE 2026-07-11 → merged #632** (see Continuation §): trapped 1/10 = T-odd cycle-space; rhyme SHARPENED not killed (isotropic ensemble bounds the swirl); gyro-fossil framing candidate, not canonized |
 | **bench-spec follow-on** | the CVR held-DC-E bench specification (the K1/K2 empirical adjudicator) | Requirements-derived + trade-study-open per the bench-doc pattern |
 
 ## 7. Orchestrator miss-ledger — this session (#5–#9)
