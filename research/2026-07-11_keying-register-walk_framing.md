@@ -37,7 +37,31 @@ Each principle is a one-line answer to "what does the drive have to *do* to the 
 
 **The tell to watch for:** P1 and P3 give *opposite* answers on a uniform held field (P1: loads — it is stored stress; P3: transparent — it is gauge-removable). P2 sits with P3 on the ε side (statics off-line) but has no equivalence-principle content, so it says nothing special about gravity. The two cuts in §3 are exactly the experiments that separate P1 from P3.
 
-<!-- FILL:S3 -->
+## §3 — THE TWO CUTS (the walk's load-bearing physical facts)
+
+### (a) THE KERR-CELL FACT — cuts FOR canon on the ε side
+
+**SECTOR / REGIME / PHASE-STATE.** ε / T2-transverse (the birefringence-bearing permittivity), cold sub-yield reactive.
+
+Real dielectrics **detune under a uniform held field**. Kerr cells, Pockels cells, every bench varactor: bias with a static, spatially-uniform **E** and the permittivity shifts. The reason is physical, not conventional — **a uniform E is locally observable.** Polarization *is* an internal relative displacement: the charge degree of freedom is pushed against the frame. Substrate-native, that handle is **Axiom-1's translational DOF pushed against the network** — a real deformation at **zero gradient**. There is nothing to gauge away: the medium deforms because the field displaces charge against a restoring lattice, and the deformation is present even when `∇E = 0`.
+
+This **cuts FOR canon (P1)** on the ε side and against the flow/texture family: if the vacuum node's ε element behaves like every real dielectric, a held DC `|E|` loads it, exactly as the #547 config-fact computed. K1's (and K2's) surviving burden is to **deny that handle** — to show the vacuum node splits its shunt admittance into an A1-longitudinal branch (biased by held `V`) and a T2-transverse branch (not), a node-level `A1 ⊥ T2` admittance split **no canon topology carries.** That burden is stated as an open cost on K1's ledger at `research/2026-07-10_x41-radiative-scoping-why_RESULT.md:171-183` (the R5 repair: "**K1 MUST ALSO OVERCOME #547-M1** … M1's COMPUTED topology by which a held field reaches the ε element; absent that node-level `A1⊥T2` admittance split, M1 stands and the held field reaches the T2 element").
+
+### (b) THE FREE-FALL FACT — cuts for TEXTURE on the gravity side
+
+**SECTOR / REGIME / PHASE-STATE.** gravity-bulk (Axiom-4 saturation of the galactic `η_eff`), weak-field embedded.
+
+A uniform **g** is locally observable by **nothing.** Gravitational charge ≡ inertial mass — the **equivalence principle IS the statement that gravity has no local internal handle.** Drop a lattice in a uniform `g` and the whole lattice accelerates as one; no element is displaced against its neighbor, no bond strains. Only the **tide** (`∇g`) strains a free lattice, because only the tide is the part of `g` that a local free-falling frame cannot remove. This is **unique to gravity.** EM has *no* equivalence principle: charge ≠ mass, so a uniform **E** accelerates different charges differently and **has a local handle** (which is exactly the Kerr-cell fact of (a)). The two cuts point in opposite directions *because the sectors differ physically*, not because the principle changes.
+
+### (c) THE RESOLUTION SHAPE (recorded as the walk's LEAN, not a ruling)
+
+One principle fits both cuts: **"the kernel keys on the locally observable stress the drive delivers to the node."** Its per-sector answers differ because the *drives* differ:
+
+- **ε → statics LOAD** (canon, P1). A held `|E|` is a locally observable displacement of charge against the frame; the readability rider stays intact — a *uniform potential shift* reflects nothing (needs a contrast to be observable), but a uniform *field* does deliver an observable stress. Load.
+- **gravity → TIDE-KEYED.** A uniform `g` delivers no locally observable stress (equivalence principle); only `∇g` does. Tide-keyed.
+- **μ → Route C consistent.** A static **B** at `ω = 0` delivers no drive current (`∮E·dl = 0`); no observable stress; transparent — matching the banked consistency leg.
+
+This is the walk's **LEAN — canon on ε, tide on gravity — not a ruling.** It is recorded precisely so the adjudicators (§8) can try to kill it. The tide-keyed gravity answer is a *new* T4 branch, developed in §4 under KEEP-BOTH.
 
 <!-- FILL:S4 -->
 
