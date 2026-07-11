@@ -141,3 +141,9 @@ The registry (`research/2026-07-10_collapse-target-registry.md`) ranks 19 target
 **RHYME tier — do NOT fire without the kill-test passing (0-for-7 ledger):** R1 Manley–Rowe, R2 Q-linewidth (gated on the T9 complex-Poynting Re/Im split), R3 AC-Josephson f=2eV/h, R4 Kolmogorov mis-shelf, R5 the §b `u₀*` triple-convergence *as a convergence*. **T9** (complex Poynting as the off-line register's formal home) is ranked in-tier but self-labeled seduction-adjacent — its first output could be the sector-gate *kill*.
 
 **Anti-target caution (must NOT fire):** band-curvature effective mass `m*=ℏ²(d²E/dk²)⁻¹` — minting it validates the A1⊥T2 cross-wire the corpus already deleted; the undeployed remainder is sector-neutral wave-packet dispersion, NOT "effective mass."
+
+---
+
+## Continuation 2 — 2026-07-11: second review wave + correction set
+
+_(sections land in subsequent commits: review-wave table · correction set · workflow note · #636 reconciliation · δ_strain hygiene rider · proposed precision house rule)_

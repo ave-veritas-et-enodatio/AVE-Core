@@ -80,3 +80,9 @@ The Letter submission decision — **Grant + Keith + Benn, weekend.** Task **#41
 ---
 
 *Cross-refs: the R-B framing note (`research/2026-07-10_rb-fossil-walk_framing.md`); the orchestration board (`_orchestration/2026-07-10_orchestration-board.md`, session-close findings + PR register + fresh-session slate); the impedance-register framings note (`research/2026-07-10_impedance-register-walks_framing.md`, the K1/K2 off-line-register walk). Discipline: verify-before-cite run on every PR# / claim-id / file cite above; pure-corpus; nothing here canonizes — the docket records queue-state, not adjudicated physics.*
+
+---
+
+## Continuation — 2026-07-11 (post-X40/X42/registry)
+
+_(rows land in the next commit: R-B decider-reported · R-A walked/hold-the-tie · new registry rows · fire-ready collapse batch unblocked · unchanged rows · status-board KEEP-BOTH)_
