@@ -212,7 +212,9 @@ def _phase_closure_residual(E_eV, Z, n_ref, l, m_probe, dress_exp, r_min, r_max,
     return (dpsi_o + kappa * psi_o) / max(abs(dpsi_o), abs(kappa * psi_o), 1e-30)
 
 
-def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_exp=1, N_sec=6000, saturate=True):
+def phase_closure_spectrum(
+    Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_exp=1, N_sec=6000, saturate=True, hi_factor=1.5
+):
     """Phase-closure eigenvalues on the graded Coulomb dress (E_n ∝ 1/n²).
 
     Scans the B_total(E)=0 residual across the bound-state energy window in a
@@ -229,11 +231,17 @@ def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_
     a_scale = A_0 * (M_E / m_probe) / Z  # ground-state orbit scale for this probe
     r_min = 1e-4 * a_scale
     r_max = 8.0 * (n_max + 1) ** 2 * a_scale
-    # PHYSICAL ground-state bound: a pure Coulomb well has NO state more bound
-    # than E = Z²·ry_scale (n=1). Scanning past it is scanning for states that
-    # cannot exist and only surfaces numerical artifacts — cap the window there.
     e_ground = ry_scale * Z**2
-    e_hi = e_ground * 1.03
+    # BRANCH-(ii) RECORDING WINDOW. The scan reaches `hi_factor·e_ground` in the
+    # MORE-BOUND direction so a ground-state closure-constant offset RY_EV·c₀/n²
+    # (prereg branch (ii)) with c₀ up to `hi_factor` is RECORDABLE, not pre-excluded.
+    # The physical bound is c₀=1 — a pure Coulomb well has NO state more bound than
+    # n=1 — so hi_factor=1.5 is a RECORDING RECEIPT: the driver confirms no root
+    # appears above e_ground, i.e. branch (i) holds even with the more-bound channel
+    # open. (Review finding #4: the earlier hi_factor=1.03 window was RY-keyed and
+    # could not have recorded a >3% more-bound offset; widening is one-directional
+    # and strictly more permissive — G-MARK stays fireable, sabotage receipts prove it.)
+    e_hi = e_ground * hi_factor
     e_lo = e_ground / (n_max + 2) ** 2 * 0.6
     grid = np.geomspace(e_lo, e_hi, 3000)
 
@@ -245,7 +253,7 @@ def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_
     for i in range(len(grid) - 1):
         if fv[i] * fv[i + 1] < 0 and abs(fv[i]) < 5 and abs(fv[i + 1]) < 5:
             root = brentq(f, grid[i], grid[i + 1], xtol=1e-9)
-            if root <= e_ground * 1.03:  # discard any unphysical deeper-than-ground artifact
+            if root <= e_hi:  # keep everything in the (widened) recording window
                 roots.append(root)
     return sorted(roots, reverse=True)
 

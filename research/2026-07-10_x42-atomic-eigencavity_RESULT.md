@@ -277,6 +277,24 @@ A gate that cannot fire is a checklist; each of G-MARK / G-FORM / G-INT was show
 defect (`test_sabotage_wrong_exponent_dress_fires_gate`, `test_gate_mark_fires_on_detuned_closure_integer`,
 `test_gate_form_fires_on_non_rydberg_form`, `test_gate_mark_fires_on_empty_spectrum`).
 
+**⚑ Recording-window disclosure + receipt (branch (ii), review finding #4).** The energy scan for
+branch (ii) was ORIGINALLY one-directionally narrowed by an RY-keyed window: `e_hi = e_ground·1.03`,
+capped at the `n=1` ground-state energy `e_ground = Z²·ry_scale`. That window could still record an
+excited-ladder offset and any *less-bound* branch-(ii) offset, and G-MARK stayed fireable (the sabotage
+receipts above prove it), but it could NOT have recorded a *more-bound* ground-state offset `RY_EV·c₀/n²`
+with `c₀ > 1.03`. At repair time the window was WIDENED to `e_hi = e_ground·1.5` (default `hi_factor=1.5`)
+so any more-bound offset up to `c₀ = 1.5` is now recordable. Re-run RECEIPT (branch (i) confirmed with
+the more-bound channel open — no additional roots appear above `e_ground`):
+
+| run | ground state | Ry mark | # roots | deeper-than-ground roots |
+|---|---|---|---|---|
+| H (Z=1) | 13.60566 eV | 13.60569 eV | 7 | **none** |
+| muonic (m_r,μ) | 2528.49 eV | 2528.49 eV | 6 | **none** |
+| He⁺ (Z=2) | 54.37649 eV | 54.42277 eV | 5 | **none** |
+
+The widening is strictly more permissive; branch (i) holds (`c₀ = 1`), and G-MARK remains fireable.
+The superseded `hi_factor=1.03` window is logged in the repair log (KEEP-BOTH).
+
 ## CLASSIFICATION (consistency-vs-emergence + explicit new-primitive scan)
 
 **Class: RE-DERIVATION / CONSISTENCY DEMONSTRATION.** Canon already recovers `E_n` and `a₀` as
