@@ -7,8 +7,15 @@ research/2026-07-10_impedance-register-walks_framing.md):
 
   * The nucleus's Coulomb well is the electron's own OFF-LINE, source-slaved
     reactive dress (bin 3 of walk (a): |Γ|=1 at ω→0, radiates nothing). Seen by
-    the electron's de Broglie dispersion it is a GRADED impedance / mismatch
-    profile Z(r) — the graded-impedance walls of a cavity, not a potential floor.
+    the electron's de Broglie dispersion it is a GRADED INDEX / dispersion
+    profile n(r,ξ) — the DEFECT'S dispersion, the graded walls of a cavity, not a
+    potential floor. NAMED-QUANTITY GUARD: this is NOT a medium impedance — the
+    lattice keeps Z_0 = 377 Ω everywhere in Regime I; conflating the de Broglie
+    index with a medium impedance is the named-quantity error flagged at
+    vol2/claim-quality.md:344. Where this file/RESULT writes the frozen-prereg
+    label "Z(r)" it denotes THIS graded index/dispersion profile n(r,ξ) (the
+    graded line the ABCD cascade integrates), never a spatially-varying medium
+    impedance.
   * The orbital = the electron's matter-wave trapped between its own reflections.
   * Quantization = round-trip phase closure ∮k·dl = 2πn on the graded line.
   * The spectrum = an Op6 problem: B_total(E) = 0 on the ABCD cascade
@@ -72,27 +79,66 @@ M_R_MU = M_MUON * M_PROTON / (M_MUON + M_PROTON)  # muonic-H reduced mass
 
 
 # ---------------------------------------------------------------------------
-# Deliverable 1 — the port-language graded impedance / mismatch profile Z(r)
+# Deliverable 1 — the port-language graded INDEX / dispersion profile n(r,ξ)
+# ("Z(r)" in the frozen prereg/RESULT ≡ this index profile, NOT a medium impedance)
 # ---------------------------------------------------------------------------
 
 
 def de_broglie_refractive_index(r, xi, Z_eff=1.0):
-    """The graded mismatch profile n(r,ξ) the Coulomb dress casts.
+    """The graded index / dispersion profile n(r,ξ) the Coulomb dress casts.
 
     Canon (de-broglie-n.md, clm-oltvwy): the atom is a spherical radial
     transmission line; the source-slaved Coulomb dress, seen by the probe's de
     Broglie dispersion, is the graded index
 
-        n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ ),   ξ = E/Ry.
+        n(r, ξ) = √( 2·Z_eff(r)·a₀ / r  −  ξ ),   ξ = |E|/Ry.
 
-    Near the nucleus n→∞ (fast defect, low impedance, short circuit); at the
-    classical turning point n=0 (defect stops, high impedance, open circuit).
-    Standing waves between these boundaries are the orbitals. This is the
-    off-line dress rendered as an impedance/mismatch profile — the PORT-LANGUAGE
-    statement of the cavity walls. Op6 finds the modes of THIS given profile.
+    This is the DEFECT'S dispersion — NOT the medium impedance. The lattice keeps
+    Z_0 = 377 Ω everywhere in Regime I; conflating the de Broglie index with a
+    medium impedance is the named-quantity error at vol2/claim-quality.md:344.
+
+    ENTAILED-FORM CHECK (this function is NOT dead code): for l=0 the executed
+    ABCD cascade's local radial wavenumber is EXACTLY this index over a₀,
+        k²(r)·a₀² == n(r,ξ)²   element-wise
+    (dress_section builds every section from `local_wavenumber_sq`, and
+    `test_de_broglie_index_is_cascade_local_wavenumber` machine-checks the
+    equality across the integration grid). So the imported de Broglie FORM is an
+    explicit entailment of the executed route, not port-language prose.
+
+    Near the nucleus n→∞ (fast defect, short de Broglie wavelength); at the
+    classical turning point n=0 (defect stops). Standing waves between these
+    boundaries are the orbitals — the PORT-LANGUAGE statement of the cavity
+    walls. Op6 finds the modes of THIS given profile.
     """
     arg = 2.0 * Z_eff * A_0 / r - xi
     return np.sqrt(np.maximum(arg, 0.0))
+
+
+def local_wavenumber_sq(r_mid, E_J, Z, l, m_probe=M_E, dress_exp=1, saturate=True):
+    """Local radial wavenumber² k²(r) = −K2 the ABCD cascade actually integrates.
+
+        k²(r) = (2 m_probe/ℏ²)·(|V_dress(r)| + E) / S(A)  −  l²/r²
+
+    the de Broglie dispersion on the graded dress. dress_section builds every
+    section from −K2 = this quantity, so this IS the executed route's dispersion.
+    For l=0 and the LINEAR network (saturate=False) it equals the imported de
+    Broglie index squared over a₀²:  k²(r)·a₀² == de_broglie_refractive_index²
+    (machine-checked). Returns >0 in the classically-allowed (propagating) region,
+    <0 in the classically-forbidden (evanescent) region.
+    """
+    ang_react = float(l) ** 2 / r_mid**2
+    # |V_dress| at r_mid  (dress_exp=1 -> Coulomb -Zαℏc/r)
+    V_mag = Z * ALPHA * HBAR * C_0 / r_mid * (A_0 / r_mid) ** (dress_exp - 1)
+    cap_bias = 2.0 * m_probe * V_mag / (HBAR**2)  # = -2 m_probe V / ℏ²
+    ind_phase = 2.0 * m_probe * E_J / HBAR**2  # E_J < 0 for bound states
+    if saturate:
+        # Ax-4 saturation keyed on the LATTICE rest energy m_e c²
+        strain_amp = V_mag / (M_E * C_0**2)
+        S_r = max(universal_saturation(strain_amp, 1.0), 1e-10)
+    else:
+        S_r = 1.0  # cold-lattice linear network
+    k2_coeff = (cap_bias + ind_phase) / S_r
+    return k2_coeff - ang_react  # = −K2
 
 
 # ---------------------------------------------------------------------------
@@ -128,21 +174,9 @@ def dress_section(r1, r2, E_J, Z, l, m_probe=M_E, dress_exp=1, saturate=True):
     r_mid = 0.5 * (r1 + r2)
     dr = r2 - r1
 
-    ang_react = float(l) ** 2 / r_mid**2
-    # |V_dress| at r_mid  (dress_exp=1 -> Coulomb -Zαℏc/r)
-    V_mag = Z * ALPHA * HBAR * C_0 / r_mid * (A_0 / r_mid) ** (dress_exp - 1)
-    cap_bias = 2.0 * m_probe * V_mag / (HBAR**2)  # = -2 m_probe V / ℏ²
-    ind_phase = 2.0 * m_probe * E_J / HBAR**2  # E_J < 0 for bound states
-
-    if saturate:
-        # Ax-4 saturation keyed on the LATTICE rest energy m_e c²
-        strain_amp = V_mag / (M_E * C_0**2)
-        S_r = max(universal_saturation(strain_amp, 1.0), 1e-10)
-    else:
-        S_r = 1.0  # cold-lattice linear network
-
-    k2_coeff = (cap_bias + ind_phase) / S_r
-    K2 = ang_react - k2_coeff
+    # −K2 = the local de Broglie wavenumber² the cascade integrates (SAME code
+    # path the entailed-form check reads; for l=0/linear this == de Broglie index²/a₀²).
+    K2 = -local_wavenumber_sq(r_mid, E_J, Z, l, m_probe, dress_exp, saturate)
 
     if K2 > 0:  # classically forbidden / evanescent
         g = np.sqrt(K2)
@@ -178,7 +212,9 @@ def _phase_closure_residual(E_eV, Z, n_ref, l, m_probe, dress_exp, r_min, r_max,
     return (dpsi_o + kappa * psi_o) / max(abs(dpsi_o), abs(kappa * psi_o), 1e-30)
 
 
-def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_exp=1, N_sec=6000, saturate=True):
+def phase_closure_spectrum(
+    Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_exp=1, N_sec=6000, saturate=True, hi_factor=1.5
+):
     """Phase-closure eigenvalues on the graded Coulomb dress (E_n ∝ 1/n²).
 
     Scans the B_total(E)=0 residual across the bound-state energy window in a
@@ -195,11 +231,17 @@ def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_
     a_scale = A_0 * (M_E / m_probe) / Z  # ground-state orbit scale for this probe
     r_min = 1e-4 * a_scale
     r_max = 8.0 * (n_max + 1) ** 2 * a_scale
-    # PHYSICAL ground-state bound: a pure Coulomb well has NO state more bound
-    # than E = Z²·ry_scale (n=1). Scanning past it is scanning for states that
-    # cannot exist and only surfaces numerical artifacts — cap the window there.
     e_ground = ry_scale * Z**2
-    e_hi = e_ground * 1.03
+    # BRANCH-(ii) RECORDING WINDOW. The scan reaches `hi_factor·e_ground` in the
+    # MORE-BOUND direction so a ground-state closure-constant offset RY_EV·c₀/n²
+    # (prereg branch (ii)) with c₀ up to `hi_factor` is RECORDABLE, not pre-excluded.
+    # The physical bound is c₀=1 — a pure Coulomb well has NO state more bound than
+    # n=1 — so hi_factor=1.5 is a RECORDING RECEIPT: the driver confirms no root
+    # appears above e_ground, i.e. branch (i) holds even with the more-bound channel
+    # open. (Review finding #4: the earlier hi_factor=1.03 window was RY-keyed and
+    # could not have recorded a >3% more-bound offset; widening is one-directional
+    # and strictly more permissive — G-MARK stays fireable, sabotage receipts prove it.)
+    e_hi = e_ground * hi_factor
     e_lo = e_ground / (n_max + 2) ** 2 * 0.6
     grid = np.geomspace(e_lo, e_hi, 3000)
 
@@ -211,7 +253,7 @@ def phase_closure_spectrum(Z=1, l=0, m_probe=M_E, ry_scale=None, n_max=4, dress_
     for i in range(len(grid) - 1):
         if fv[i] * fv[i + 1] < 0 and abs(fv[i]) < 5 and abs(fv[i + 1]) < 5:
             root = brentq(f, grid[i], grid[i + 1], xtol=1e-9)
-            if root <= e_ground * 1.03:  # discard any unphysical deeper-than-ground artifact
+            if root <= e_hi:  # keep everything in the (widened) recording window
                 roots.append(root)
     return sorted(roots, reverse=True)
 
@@ -225,6 +267,63 @@ def muonic_spectrum(n_max=3, N_sec=6000):
     regime, deliberately excluded from the spectrum reproduction (brief §3).
     """
     return phase_closure_spectrum(Z=1, l=0, m_probe=M_R_MU, n_max=n_max, N_sec=N_sec, saturate=False)
+
+
+def _trapz(y, x):
+    """Trapezoidal integral (numpy-version-agnostic; avoids trapz/trapezoid churn)."""
+    return float(np.sum(0.5 * (y[1:] + y[:-1]) * (x[1:] - x[:-1])))
+
+
+def ground_state_mean_radius(Z=1, l=0, m_probe=M_E, n_max=4, N_sec=6000, saturate=True):
+    """M2 eigenmode-scale EXTRACTION — ⟨r⟩ of the ground-state radial eigenfunction.
+
+    The frozen prereg (:115) promised "closure scale from driver | eigenmode-scale
+    extraction". This integrates the ground-state reduced radial eigenfunction
+    u(r)=r·R(r) at the Brent-refined ground-state eigenvalue and returns
+    ⟨r⟩ = ∫ r|u|² dr / ∫ |u|² dr. For the 1s state ⟨r⟩ = 1.5·a_scale
+    (a_scale = A_0·(m_e/m_probe)/Z), the textbook shape factor — a genuine
+    measurement of the eigenmode SHAPE scale from the ODE eigenfunction, NOT a
+    restatement of the box unit (r_max = 8(n_max+1)²·a_scale ≈ 133×⟨r⟩, so the
+    box extent does not force ⟨r⟩; the wavefunction peaks at a₀ on its own).
+
+    INTEGRATION DIRECTION IS LOAD-BEARING: forward shooting is unusable — the
+    exponentially growing branch swamps the tail (|u| ~ 1e62 at r_max). We
+    integrate INWARD from the decaying boundary u ∝ e^{-κr} at r_max (the stable
+    branch), which selects the physical decaying mode; at the refined eigenvalue
+    the inward solution is also regular at r→0 (u→0), so ⟨r⟩ is clean.
+    """
+    eigs = phase_closure_spectrum(Z=Z, l=l, m_probe=m_probe, n_max=n_max, N_sec=N_sec, saturate=saturate)
+    if not eigs:
+        raise ValueError("no ground-state eigenvalue found")
+    E1 = max(eigs)  # ground state = most bound (largest |E|); spectrum sorted descending
+    E_J = -abs(E1) * e_charge
+    kappa = np.sqrt(2.0 * m_probe * abs(E_J)) / HBAR
+    a_scale = A_0 * (M_E / m_probe) / Z
+    r_min = 1e-4 * a_scale
+    r_max = 8.0 * (n_max + 1) ** 2 * a_scale
+    edges = np.geomspace(r_min, r_max, N_sec + 1)
+    # decaying BC at r_max: u ∝ e^{-κr}, u′ = -κu (normalize u(r_max)=1)
+    state = np.array([1.0, -kappa])
+    r_rec = [edges[-1]]
+    u_rec = [1.0]
+    for i in range(N_sec - 1, -1, -1):
+        Msec = dress_section(edges[i], edges[i + 1], E_J, Z, l, m_probe, 1, saturate)
+        # inward step: invert the lossless ABCD section (det = 1)
+        M_inv = np.array([[Msec[1, 1], -Msec[0, 1]], [-Msec[1, 0], Msec[0, 0]]])
+        state = M_inv @ state
+        r_rec.append(edges[i])
+        u_rec.append(state[0])
+    r = np.array(r_rec[::-1])
+    u = np.array(u_rec[::-1])
+    w = np.abs(u) ** 2
+    mean_r = _trapz(r * w, r) / _trapz(w, r)
+    return {
+        "E1_eV": E1,
+        "mean_r_m": mean_r,
+        "a_scale_m": a_scale,
+        "mean_r_over_a_scale": mean_r / a_scale,  # == 1.5 for the 1s shape factor
+        "inner_regularity": abs(u[0]) / np.max(np.abs(u)),  # small ⇒ u→0 at r_min (regular)
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -361,6 +460,11 @@ def _report():  # pragma: no cover — human-readable driver run
         tgt = RY_EV / round(nstar) ** 2
         print(f"   E={E:.4f} eV  n*={nstar:.4f}  Ry/n²={tgt:.4f}  err={(E - tgt) / tgt * 100:+.3f}%")
     print("   gates:", "MARK", gate_mark(eigs)[0], "| FORM", gate_form(eigs)[0], "| INT", gate_int(eigs)[0])
+
+    print("\n[M2] eigenmode-scale extraction — ⟨r⟩ of the ground-state eigenfunction:")
+    m2 = ground_state_mean_radius(Z=1, l=0, N_sec=4000)
+    print(f"   ⟨r⟩/a_scale = {m2['mean_r_over_a_scale']:.6f}  (1s shape factor = 1.5;"
+          f" rel err {abs(m2['mean_r_over_a_scale'] - 1.5) / 1.5 * 100:+.4f}%)")
 
     print("\n[Deliverable 3] muonic-H — same network, probe m_e→m_r,μ:")
     mm = muonic_marks()
