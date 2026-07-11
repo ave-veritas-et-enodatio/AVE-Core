@@ -221,10 +221,107 @@ transparent. **This lane does NOT resolve the fork** and does NOT turn the muoni
 spectral-correction claim. Adjudicators (per X41 §5/§7): **Grant** (K1's axiom-level ruling) + the
 **CVR held-DC-E bench** + the **unbuilt transverse-reactive near-zone probe**. Surfaced, not decreed.
 
-## MARK OUTCOMES (M1–M4) *(pending)*
+## MARK OUTCOMES (M1–M4)
 
-## CLASSIFICATION (consistency-vs-emergence + new-primitive scan) *(pending)*
+All marks land in prereg **branch (i)** (closure reproduces the marks within stated tolerance). No
+branch-(ii) closure-constant offset; no branch-(iii) failure. Adjudication criteria are the frozen
+prereg tolerances — none dropped, none added.
 
-## FLAGS SURFACED (flag-don't-fix) *(pending)*
+| Mark | Frozen expectation | Driver outcome | Branch |
+|---|---|---|---|
+| **M1** `E_n ∝ 1/n²`, `E₁=−RY_EV` | `E_n·n²=13.605693 eV` const | −0.000% for n=1..7; `n*`=integers exact | (i) ✅ |
+| **M2** `a₀ = A_0`, `a₀=ℓ_node/α` | `5.291772106×10⁻¹¹ m` | identity exact (`L_NODE/ALPHA==A_0`, rel<1e-12); eigenmode scale reproduced | (i) ✅ |
+| **M3** muonic `a_μ`, `E_n(μH)` | `a_μ=284.748 fm`, `E₁=−2.528493 keV` | `E₁=−2.52849 keV` (−0.0002%); `a_μ=284.748 fm` | (i) ✅ |
+| **M4** Z²-scaling (bare ion) | `E₁(Z=2)=4·RY_EV=54.4228 eV` | `54.4228 eV` (−3×10⁻⁵%) | (i) ✅ |
 
-## DISCIPLINE *(pending)*
+**Sabotage outcomes (P11) — every gate FIRED on its plant and PASSED on the real profile:**
+
+| Gate | real 1/r Coulomb | plant (a) 1/r² dress | plant (b) detuned `Ry/(n+0.4)²` |
+|---|---|---|---|
+| G-MARK | PASS | **FIRED** (no Rydberg ladder: 0–1 stray root, misses marks) | **FIRED** (real n* are integers, not n+0.4) |
+| G-FORM | PASS | **FIRED** | — |
+| G-INT | PASS | — | **FIRED** |
+
+A gate that cannot fire is a checklist; each of G-MARK / G-FORM / G-INT was shown to fire on a planted
+defect (`test_sabotage_wrong_exponent_dress_fires_gate`, `test_gate_mark_fires_on_detuned_closure_integer`,
+`test_gate_form_fires_on_non_rydberg_form`, `test_gate_mark_fires_on_empty_spectrum`).
+
+## CLASSIFICATION (consistency-vs-emergence + explicit new-primitive scan)
+
+**Class: RE-DERIVATION / CONSISTENCY DEMONSTRATION.** Canon already recovers `E_n` and `a₀` as
+consistency checks (`clm-oltvwy`, `de-broglie-standing-wave.md`; `Z²`-scaling `de-broglie-n.md`) — the
+**canonical ceiling**. x42's added content is the **port-language derivation path** (off-line dress →
+graded `Z(r)` → reflections → `2πn` closure → Op6 `B_total=0`). No result is promoted past the ceiling.
+
+**Explicit derivation-path trace for every "AVE reproduces X" sentence:**
+- `E_n ∝ 1/n²` → phase closure `∮k·dl=2πn` on the graded `Z(r)` → Op6 `B_total(E)=0`
+  (`clm-gdd70j`, `radial-eigenvalue-solver.md` §E2d-ii). NOT via `E=Z²Ry/n²` (that is the flagged Bohr
+  contamination, `vol2/claim-quality.md:342`).
+- `a₀` → eigenmode SCALE of the given profile; identity `a₀=ℓ_node/α` (`de-broglie-standing-wave.md`
+  examplebox; `vol2/claim-quality.md:336`). NOT Op6-selected.
+- muonic marks → reduced-mass scaling `E_n ∝ m_r` on the SAME linear network.
+- `Z²`-scaling → `ξ₀=Z²` (`de-broglie-n.md`).
+
+**NEW-PRIMITIVE SCAN (explicit, per brief §5) — result: NONE.** Every quantity used is pre-existing:
+`ALPHA, A_0, RY_EV, M_E, M_PROTON` (all imported CODATA/calibration; `M_MUON` is a CODATA experimental
+probe-mass anchor added this session, NOT a new substrate primitive — the three imported inputs remain
+`{m_e, α, G}`, `constants.py:126-150`); the operators `Op5/Op6` and `_abcd_section` are canonical; the
+`Z(r)` form is imported (see flag on the 1/r tail). The two-register guard is a FORMALIZATION of walk
+(c), not a new claim; no `def-`/`clm-`/`ilk-` node is minted. **No emergence headline.** The marks ride
+CODATA-derived `RY_EV, A_0, M_E, M_PROTON, M_MUON` → **CONSISTENCY-class magnitudes**, not chords.
+
+## FLAGS SURFACED (flag-don't-fix; Grant/auditor adjudicate — this lane resolves none)
+
+1. **⚑ The muonic ground-state orbit is sub-lattice-cell.** `a_μ = 284.7 fm < ℓ_node = 386.2 fm`
+   (`a_μ/ℓ_node = 0.7374`). The AVE lattice pitch is the electron reduced Compton wavelength
+   (`de-broglie-standing-wave.md:155`: "`l_node ≈ 3.862×10⁻¹³ m` (the reduced Compton wavelength) is the
+   lattice spatial cutoff"). So the muonic-H ground state orbits INSIDE one lattice cell. The
+   reduced-mass SPECTRUM scaling (M3) holds as arithmetic consistency (a property of the linear
+   dispersion scale), but the continuum "spherical radial transmission line" `Z(r)` picture
+   (Deliverable 1) is formally **sub-Nyquist** below `ℓ_node`. Surfaced, not resolved — the substrate
+   may have real structure here that the continuum `Z(r)` misses.
+2. **⚑ Two distinct yield references at the muonic scale.** The brief §3 named check uses the DIELECTRIC
+   yield: `A_dielectric = E_Coulomb(a_μ)/E_yield = 5057 eV / 43651.85 eV = 0.116` (`E_yield = e·V_YIELD`,
+   `V_YIELD = 43.65 kV`, `INVARIANT-C1`). The Ax-4 kernel argument the ODE saturation ACTUALLY uses is
+   the RUPTURE reference: `A_rupture = V_Coulomb(a_μ)/(m_e c²) = 5057 eV / 511 keV = 0.0099`. These
+   differ by ~12× because `V_YIELD·e (43.65 keV) ≠ m_e c² (511 keV)` — a real two-convention split
+   (`vol4/claim-quality.md:1475`: `A_geom = ℓ_node/r` vs `A_field = E·ℓ_node/V_yield`). Both numbers are
+   reported; which convention is load-bearing for "does the muonic near-nucleus field bias the lattice"
+   is not adjudicated here (it rides the K1/K2 fork, Deliverable 5).
+3. **⚑ The 1/r Coulomb tail is asserted-not-derived (cited, not derived).** x42 IMPORTS the Coulomb
+   dress form exactly as canon does. WHY the topological strain is `ℓ_node/r` (∝1/r) rather than
+   `α·ℓ_node/r` from first principles is an OPEN multi-week item (`vol4/claim-quality.md:1473-1482`,
+   `clm-4r4jiy`, solidity 0.70: "Partial closure only: WHY topological strain equals `ℓ_node/r` rather
+   than `α·ℓ_node/r` from first principles is an open multi-week analytical item"). x42 makes **no claim
+   to derive the tail**; the phase-closure result is downstream of the imported form.
+   > *(Note: the brief cited this as `vol4/claim-quality.md:1311`; the verified location at branch tip
+   > is `:1473-1482`. Line-number drift only — content confirmed, no contradiction.)*
+
+## DISCIPLINE
+
+- **Freeze-by-push:** prereg commit `0e5047e4` pushed to origin at `2026-07-10T16:46:14-07:00`, BEFORE
+  the M_MUON commit and all code commits (git ordering audited; see PR body).
+- **Substrate-native-first / MODE header:** the atom is framed in the impedance-carve register
+  (off-line dress, graded `Z(r)`, phase closure) before any Schrödinger word; the Helmholtz–Schrödinger
+  ISOMORPHISM is cited as canon's bridge (`de-broglie-standing-wave.md`), not adopted as the primary
+  ontology. No new solver written → `substrate-native-check` not triggered (thin driver over the
+  canonical Op5/Op6 primitives).
+- **Op6 scope (binding):** Op6 finds the modes of the GIVEN `Z(r)`; it selects neither a₀ nor the 1/r
+  geometry (`constants.py:212-228`, `electron-identification.md:77`). No scope breach.
+- **Consistency-vs-emergence:** re-derivation/consistency class; explicit new-primitive scan = NONE;
+  no emergence headline; no promotion past the canonical ceiling.
+- **Rule 11 honest closure:** all marks land branch (i); no criterion dropped; the muonic near-nucleus
+  saturation break was read as physics (the X41 frozen-tie regime) and flagged, not debugged toward a
+  rescue.
+- **Rule 12:** no retraction, no slot-refill; `M_MUON` is an additive CODATA anchor, not a new
+  hypothesis.
+- **phase-space-coordinate-check (A46):** the spectrum comparison is in matched `ξ = E/Ry` coordinates
+  (the driver and the marks both live in Rydberg-scaled energy; `n* = √(Ry/E)`), not a real-space
+  vs phase-space mismatch.
+- **Flag-don't-fix:** three flags surfaced verbatim (§Flags); none resolved in-lane.
+- **verify-before-cite:** all cites re-grepped at branch tip this session (`clm-gdd70j`, `clm-oltvwy`,
+  `clm-4r4jiy` @ `:1473-1482` [brief's `:1311` was stale], `CLAUDE.md:75`,
+  `de-broglie-standing-wave.md:155`, `vol2/claim-quality.md:336/337/342`, X41 verdict `:37`,
+  `electron-identification.md:77`, `constants.py:212-228`). No stitched quotes.
+- **No KB/canon edits from this lane** — `research/` + `src/` only; the ONE exception is the additive
+  `M_MUON` constant (flagged in the PR body; engine lane owns `constants.py`).
