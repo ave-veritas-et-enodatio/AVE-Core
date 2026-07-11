@@ -153,3 +153,108 @@ The kill-test value for the u₀* triple-convergence rhyme is CONDITIONAL: this 
 | Σ_{j≠k} m_jk computed | Report the number + f_E^(geom); this is a NEW characterization (branch iii), never merged into the headline. |
 
 **FROZEN.** Any deviation below this line in the shipped work is logged verbatim in the result doc's prereg-vs-shipped diff.
+
+---
+
+# AMENDMENT (post-freeze, received 2026-07-10) — E5: the cut/cycle Hodge split
+
+**Honesty note (do-not-rewrite-history).** The original prereg above was FROZEN
+and pushed to origin (commit `8c8ea66b`) before any driver code existed. This
+addendum arrived AFTER that push (Grant's core planning walk, 2026-07-10). It is
+appended as a dated AMENDMENT — the frozen body above is untouched. This
+amendment is itself pushed BEFORE any cut/cycle / G-F / S4 code exists in any
+commit (the freeze-by-push discipline applies to the NEW content). The verbatim
+addendum text is in `_orchestration/2026-07-10_x40-ring-closure-brief.md`
+§Addendum. This does NOT change E1/E2/E3 — the 1/10 headline STANDS; it REFINES
+it by naming which orthogonal sector the 1/10 lives in.
+
+## E5 — the cut/cycle (T-even / T-odd) orthogonal decomposition
+
+The srs edge space E decomposes ORTHOGONALLY (discrete Hodge on ∂₁ = the
+node×edge incidence, `ave.topological.srs_dec.boundary_1` machinery reused):
+
+    E = cut-space ⊕ cycle-space
+    cut-space   = im(∂₁ᵀ) = grad(node potentials)      → T-EVEN bond-strain sector
+                  dim = #nodes − #components
+    cycle-space = ker(∂₁)  = divergence-free circulations → T-ODD loop-current sector
+                  dim = b₁ = #edges − #nodes + #comp
+
+Project the injected current i(0) = I_parent·δ(closing edge) (a unit 1-cochain):
+
+    P_cyc = I − ∂₁ᵀ(∂₁∂₁ᵀ)⁺∂₁,   P_cut = ∂₁ᵀ(∂₁∂₁ᵀ)⁺∂₁
+    cycle-fraction = |P_cyc i(0)|²/|i(0)|²   (T-odd, trapped)
+    cut-fraction   = |P_cut i(0)|²/|i(0)|²   (T-even)
+
+**Effective-resistance identity (why it is 1/10).** |P_cut δ_e|² = b_eᵀ L⁺ b_e =
+R_eff(endpoints of e), the effective resistance across the closing edge (L = ∂₁∂₁ᵀ
+the graph Laplacian). For an edge completing an OTHERWISE-TREE-LOCAL 10-ring, the
+endpoints are joined by edge e (R=1) in parallel with the 9-edge ring path (R=9):
+R_eff = 9/10. Hence:
+
+    ┌────────────────────────────────────────────────────────────────┐
+    │  cut-fraction (T-even) = 9/10,  cycle-fraction (T-odd) = 1/10   │
+    │  cycle-fraction EQUALS the E2 energy split — the divergence-free │
+    │  loop current is exactly the part that satisfies KCL with ZERO   │
+    │  stub current, so it CANNOT drain the matched stubs → trapped.   │
+    └────────────────────────────────────────────────────────────────┘
+
+**FOOTING / SCOPE (mandatory).** The unambiguous 1/10 is the RING-SUBGRAPH
+(tree-local nucleation-front) projection — the ring is the FIRST cycle completed
+locally, the rest of the settled front is tree-local. On the FULLY-connected srs
+L=3 net the same edge has R_eff < 9/10 (extra parallel paths) so the cycle
+fraction is LARGER; this is reported KEEP-BOTH as a secondary characterization,
+never as the headline. The tree-local qualifier is LOAD-BEARING and is stated.
+
+## THE HONEST FORK (KEEP-BOTH, no preferred outcome) — fate of the 9/10 cut-space part
+
+- **Matched-bath reading** (the TL abstraction of E1–E3): the cut-space part has
+  node divergence → drives current into the matched stubs → RADIATES. The frozen
+  fossil is then PURELY T-odd loop current (cut-fraction of the TRAPPED deposit
+  → 0, cycle-fraction → 1). The dynamical residue of the bounce sim (trapped
+  1/10) EQUALS the cycle-space projection (1/10) — the divergence-free part is
+  exactly what the matched stubs cannot drain. This is the model-specific CHECK.
+- **Strain-holding-lattice reading** (u₀* over-bracing IS a frozen T-even
+  node-potential/strain field): the stubs are NOT matched for the strain sector,
+  so the cut-space part FREEZES as static bond strain. The total frozen deposit
+  then splits cut:cycle = 9:1.
+
+The GRAPH-PROJECTION split (P_cut, P_cyc of i(0)) is geometry-only and
+UNAMBIGUOUS — it is the PRIMARY deliverable. Which reading governs the cut-space
+FATE is a model fork surfaced here, not adjudicated.
+
+## SIGN vs ORIENTATION (deliverable e, sign leg)
+
+Pull the signed ring geometry (Newell normal n̂ of each PBC-unwrapped ring). The
+trapped ring-flux sign is keyed to (n̂ · Ω̂_parent); rings normal-aligned with
+Ω_parent trap one circulation sign, anti-aligned the other. REPORT (no preferred
+outcome): the ring-normal ensemble orientation tensor Q = ⟨n̂ n̂ᵀ⟩ (sign-free) and
+the signed mean Σn̂/N_rings — whether the srs ring ensemble carries an orientation
+BIAS (a preferred plane axis → net gyrotropic magnetization possible) or is
+BALANCED (isotropic Q ≈ ⅓I, Σn̂ ≈ 0 → net zero, but per-ring sign still keyed).
+Both outcomes are bankable. **Ω_parent enters ONLY as an orientation reference
+axis (a UNIT VECTOR); it is NOT a scale and does NOT violate the anti-install
+gate G-E — asserted here.**
+
+## NEW GATE — G-F (Hodge orthogonality + completeness, machine-checkable)
+
+    ⟨P_cut i, P_cyc i⟩/|i|² < 1e-12
+    | |P_cut i|² + |P_cyc i|² − |i|² | < 1e-12
+    max| (P_cut + P_cyc) − I | < 1e-12 on the edge space
+
+## NEW SABOTAGE — S4
+
+Perturb the projector so cut and cycle OVERLAP (a non-orthogonal / oblique basis)
+⇒ G-F must FIRE (⟨P_cut i, P_cyc i⟩ ≠ 0 and/or completeness broken).
+
+## DELIVERABLE (e)
+
+The cut/cycle (T-even / T-odd) split of the trapped fraction as two numbers with
+the graph-projection footing stated; the T-odd cycle fraction (1/10) called out
+as the load-bearing gyrotropic-fossil candidate; the sign-vs-orientation ensemble
+result; and the two model readings for the cut-space fate (KEEP-BOTH, no
+preferred outcome). Consistency-vs-emergence: the graph projection is a
+geometry/counting FACT (CONSISTENCY); the fossil-magnetization interpretation is
+a FRAMING candidate (FLAG, do not canonize).
+
+**AMENDMENT FROZEN.** Deviations below this line are logged in the result doc's
+prereg-vs-shipped diff.
