@@ -46,14 +46,18 @@ demonstration + one computed characterization**, NOT an emergence test.
 
 | Item | Prereg | Shipped | Note |
 |------|--------|---------|------|
-| Model / gates / tolerances | E1–E5, G-A..G-F, S1–S4 as frozen | implemented exactly | no deviation |
+| Model / gates / tolerances (frozen set) + POST-REVIEW STRENGTHENING | E1–E5, G-A..G-F, S1–S4 as frozen | frozen set implemented exactly; then STRENGTHENED after review — F1 added an INDEPENDENT BFS-girth witness to G-D (+ sabotage S5); F2 name-keyed the G-E ImportFrom scan (+ sabotage S2b) | STRENGTHENING (gate fireability), NOT a physics deviation — see the ADVERSARIAL-REVIEW REPAIR LOG (F1/F2) and ORCHESTRATOR-REVIEW REPAIRS below; every headline number re-verified byte-identical, nothing moves |
+| E3 "(gated in sabotage)" clause (frozen prereg:71) | "The −1/3 scattering coefficient is FROZEN as the mechanism (gated in sabotage)" | INTRA-PREREG OVER-CLAIM logged: NO shipped sabotage perturbs the node scatter S=(2/3)J−I (driver:185 hardcodes `v=(2/3)(p_left_in+m)`; S1 plants series resistance, S3 drops a ledger term — neither touches the coefficient). The −1/3 is only INDIRECTLY gated: S1/S3 fire on any energy-NON-conserving scatter, but a wrong-but-LOSSLESS coefficient would SLIP. The value is structurally FORCED — equal-Z₀ z=3 port S=(2/n)J−I, Pozar-class reciprocal 3-port floor (frozen prereg:35) — not established by a direct sabotage. | HONESTY LOG (frozen file left byte-identical). Optional S6 (a unitary-but-WRONG 3-port to make the direct gate fireable) evaluated and DECLINED as not-genuinely-cheap — see ORCHESTRATOR-REVIEW REPAIRS below. No number moves. |
 | G-B plateau | mean (=Λ/N) AND flatness max\|i_k−0.1\| | both reported | as frozen |
 | Figure location | "one figure minimum" | tracked at `src/scripts/vol_1_foundations/x40_ring_closure_transient.png` (repo policy: cited renders live in the tracked scripts dir, not the gitignored `_output/`) | location choice, disclosed |
 | Figure content | Λ(t)+I_mesh transient + plateau + ledger | plotted the per-bond current SPREAD [min,max] (richer than a single trace) + Λ(t)/Λ₀ + plateau line; energy ledger as the second panel | faithful-plus, disclosed |
 | E4 method | 1-D reduction of the Neumann double integral; Gauss cross-check <1e-9 | implemented; non-adjacent agreement 0.0e0 | no deviation |
 | Amendment E5 | appended dated post-freeze (original frozen file untouched) | pushed BEFORE any cut/cycle/G-F/S4 code existed | freeze-by-push honored for the new content |
 
-No forced scientific deviations. The headline theorem was reproduced live-fire.
+No forced SCIENTIFIC deviations to any headline number; the headline theorem was
+reproduced live-fire. The two rows above the G-B row are post-review bookkeeping/
+honesty deltas — a gate-fireability STRENGTHENING (F1/F2) and one logged E3
+intra-prereg over-claim — and neither moves a number (all re-verified byte-identical).
 
 ---
 
