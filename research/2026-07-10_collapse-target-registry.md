@@ -43,7 +43,7 @@ propagation · **L** = new derivation arc or engine work.
 | **T2** | The "empty slew catalog" is un-cross-linked, not empty: hysteresis §1 IS the rate-keyed family | P1 | MERGE / cross-link | M | fire-ready; "slew" *label* A4-gated |
 | **T3** | Γ = −1 homonym — lossless CONFINEMENT vs dissipative RUPTURE (a NEW axis; KEEP-BOTH with cq:1612) | P6 | SPLIT + ownership table | M | needs Grant loss-character ruling |
 | **T4** | MOND `a₀` namesake carries the External-Field Effect — absent from the whole KB | P8 | forward-prediction opener | M | needs Grant keying decision (internal vs total field) |
-| **T5** | `δ_AVE` loss-tangent axis and `θ` power-factor axis are one dissipation phasor (`tan δ = cot θ`) | P1 | MERGE / de-orthogonalize | S | fire-ready |
+| **T5** | The `θ` power-factor axis and the EM loss-tangent `tan δ` are one phasor (`tan δ = cot θ`) — kills the "all-orthogonal" over-claim; the `δ_AVE` duty axis stays distinct | P1 | de-orthogonalize (θ↔tan δ only) | S | fire-ready (narrowed) |
 | **T6** | boundary-observable `M`: mass→inductance `L` collides with the ratified `X_L` = spin ruling | P6 | SPLIT / sector disambiguation | S–M | flag-don't-fix (latent contradiction) |
 | **T7** | "Cauchy relation" mislabel on `K=2G` — the genuine Cauchy relation forces `ν=1/4`, not `2/7` | P8/P6 | SPLIT / name-correction | S | fire-ready; reinforces a standing negative |
 | **T8** | Four-bin content taxonomy is 3/4 a relabel of `lattice-model-register` Axis-A | P1 | MERGE-into-register (deflation) | M | fire-ready for 3 bins; bin-3 gated on X41 |
@@ -294,27 +294,33 @@ dissipation; regime = at/across saturation only (sub-yield is lossless, `θ=90°
   current at the LC tank"; `:331` "**All three axes are orthogonal classifiers.**" Yet `:42-44` map `δ_AVE` 1:1 to `θ`
   (Lossless↔θ=90°, Lossy↔θ→0°) — a functional dependence, not independence.
 
-**Candidate collapse — the shared mechanism:** the loss angle `δ` and the power-factor angle `θ` are **complementary
-angles of the same LC-tank impedance phasor** `Z = R + jX`: `tan δ = R/X = cot θ`. The object the leaf calls "loss tangent"
-IS the `θ`-phasor read the other way; `δ_AVE = t_sat/t_period` is the **time-integrated** duty-at-saturation. So `θ` and
-`δ_AVE` are the *instantaneous* and *time-averaged* readings of the **same per-cycle dissipation** (the loop area `∮ S dr`,
-`substrate-hysteresis-index.md:25`) — not two orthogonal axes but one saturation-depth axis (`r`, genuinely orthogonal)
-plus **one** dissipation axis with three readings (instantaneous `θ`, frequency `tan δ`, time-integrated `δ_AVE`).
+**Candidate collapse — the shared mechanism (two claims, one fireable, one gated).** The *fireable* claim is a genuine
+phasor identity: the **EM loss tangent** `tan δ = σ/(ωε)` (`:32`, a per-cycle dissipative/reactive-current ratio, a real
+impedance-phasor quantity) and the **power-factor angle** `θ` are complementary angles of the same LC-tank phasor
+`Z = R + jX` — `tan δ = R/X = cot θ`. So the leaf's power-domain `θ` axis and its EM-`tan δ` reading are **not orthogonal**;
+that single de-orthogonalization is the shared mechanism and it kills the `:331` "all three axes are orthogonal" over-claim.
+**The gated (NOT fireable) claim:** `δ_AVE = t_sat/t_period` is a **duty-at-saturation ratio**, NOT `tan δ` — a system can
+spend a *small* duty fraction at *high* instantaneous loss, so "`δ_AVE` = the time-average of the `θ`-dissipation" is **not**
+an identity. That θ↔`δ_AVE` tie is exactly the **taxonomic-not-derivational analogue the leaf itself flags at `:310`**
+("does NOT yet derive their numerical values from `S(A)`"), not a phasor identity — it must not be written into canon as one.
+This is the 0-for-7 shape guarded against (a real identity `tan δ = cot θ` must not be *stretched* onto the `δ_AVE` duty
+ratio); the fireable residue is the `θ`↔`tan δ` de-orthogonalization only.
 
-**What it clarifies:** removes the "three fully-orthogonal classifiers" over-claim (`:331`); a reader currently believes
-power-domain `θ` and temporal `δ_AVE` carry independent information — they do not (`δ_AVE` is a functional of the `θ(t)`
-trajectory). The leaf is already honest that the *cross-field* tan-δ unification is "TAXONOMIC, not derivational" (`:310`);
-this is the internal companion catch.
+**What it clarifies:** removes the "three fully-orthogonal classifiers" over-claim (`:331`) on its real leg — the power-domain
+`θ` axis and the EM-`tan δ` reading are the same phasor read two ways, so a reader must not treat them as carrying independent
+information. The `δ_AVE` (temporal duty) axis stays a **distinct** axis (the `:310` taxonomic bridge, not collapsed into `θ`).
 
 **Kill-test:** exhibit two systems with the **same** `δ_AVE` but genuinely non-degenerate `θ`-trajectories that put them
 in **different classifier bins** — i.e. a `θ`-signature `δ_AVE` cannot see. If the Cyclic-vs-Lossy bin can differ at fixed
 `δ_AVE`, orthogonality survives. (Expected to fail: the leaf's own `:42-44` table shows the bins co-move.)
 
-**Cost:** **S** — one-leaf annotation (correct `:331`; add the `tan δ = cot θ` identity tying the `θ`-axis to `δ_AVE` as
-instantaneous/integrated readings). **Confidence:** high on the phasor identity and the internal tension; medium on
-"merge" vs "annotate as non-independent." **Seduction check:** pure trig/circuit identity, low risk. Caveat: the `θ`
-definition's home leaf is `orbital-friction-paradox.md` (out of the common lane's scope) — the implementer should grep-
-confirm the `θ`-owner leaf before landing.
+**Cost:** **S** — one-leaf annotation: correct `:331` by adding the `tan δ = cot θ` identity tying the `θ`-axis to the EM
+`tan δ` reading (the fireable de-orthogonalization); **do NOT** write "`tan δ = cot θ` ties `θ` to `δ_AVE`" (that stretches
+the identity onto the `δ_AVE` duty ratio — keep `δ_AVE`↔`θ` as the `:310` taxonomic bridge). **Confidence:** high on the
+`tan δ = cot θ` phasor identity and the `:331` de-orthogonalization; the θ↔`δ_AVE` merge is explicitly *not* asserted.
+**Seduction check:** the trap here is exactly the one the review caught — a genuine trig identity worn by a rhyme; the
+fireable claim is narrowed to the `θ`↔`tan δ` leg only. Caveat: the `θ` definition's home leaf is `orbital-friction-paradox.md`
+(out of the common lane's scope) — the implementer should grep-confirm the `θ`-owner leaf before landing.
 
 **Lane provenance:** KB-common C2.
 
@@ -675,9 +681,14 @@ PENDING-GRANT fork; not resolved here.**
 magnitude is separately pending … still awaits the chiral-crystal EM engine"; #620 C2, `program-arc-map.md:283` "sole surviving
 escape is non-reciprocity … requiring a T-breaking bias — PENDING-GRANT"). The **ferrite-circulator namesake** gets its
 non-reciprocity from the **Polder permeability tensor** — a DC magnetic bias → Larmor precession → off-diagonal imaginary
-`κ(ω)=ωωₘ/(ω₀²−ω²)`; `S_ij≠S_ji` follows from `κ≠0`, the bias is the T-breaker. **Undeployed** (two methods): `rg -iE
-"polder|gyromagnetic|off-diagonal (mu|permeab)"` → 0; `rg -i larmor` → all hits are the *classical spin-flywheel* reading,
-none a gyrotropic-μ mechanism.
+`κ(ω)=ωωₘ/(ω₀²−ω²)`; `S_ij≠S_ji` follows from `κ≠0`, the bias is the T-breaker. **The gyrotropic-μ *mechanism* is undeployed**
+— absence receipts (two patterns, corrected per the #631 review): `grep -rin "polder" manuscript/ave-kb` → **0**;
+`grep -rinE "off-diagonal (mu|permeab)" manuscript/ave-kb` → **0**. The terms `gyromagnetic` / `larmor` DO return hits
+(~9 corpus-wide), but every one is the **classical g=2 gyromagnetic-*ratio* / spin-flywheel reading** (e.g.
+`electron-identification.md:92` "$g = 2$ (gyromagnetic ratio, leading value)", `substrate-perspective-electron.md:237`,
+`larmor-derivation.md:12`), **none a Polder gyrotropic-μ-tensor mechanism** — so the *mechanism* is genuinely absent while the
+*ratio* is deployed. (The earlier draft mis-placed `gyromagnetic` inside the "→ 0" disjunction; `polder` and
+`off-diagonal (mu|permeab)` are the true zero-hit terms.)
 
 **Clarifies:** closes the named open gap `clm-gvn4r1` (compute the chiral-circulator non-reciprocity magnitude) — the ferrite
 namesake tells you *what a T-breaking bias physically is* and *what magnitude it yields*, and the corpus owns the two halves
@@ -845,3 +856,16 @@ correction), the T11 `I_max` 124.4-vs-116 numeric mismatch, the T7 "Cauchy relat
 `cq:1612`-is-a-different-axis KEEP-BOTH check before landing. Cross-repo items (T13 N13 negative) are explicitly marked
 unverifiable from this checkout (the receipt lives in the AVE-Protein lane) — the sweep asserts the *unreconciled conflict at
 7fedf5c3*, not the verdict. This registry executes nothing; the core planning session adjudicates which targets fire.
+
+**Adversarial review (PR #631, two lenses — receipt-verification + romance-knife — each with per-finding adversarial
+verify).** All priority headline receipts (T1, T2, T3, T4, T7, T11) verified verbatim at correct lines; **no fabricated
+quotes, no paraphrase-in-quotes, no wrong-line-that-changes-meaning, no ranking flips.** The romance-knife confirmed 18 of 19
+fire-ready/gated targets name a genuine shared bench mechanism or an honestly-flagged fork, and that the entire RHYME-tier
+pre-filter (R1–R5) and the band-curvature anti-target caution hold (none wrongly demoted or promoted). **Two MINOR
+EVIDENCE-VOID findings repaired** (conclusions survived; only the demonstration was imprecise): (1) **T17** — the absence
+pattern mis-placed `gyromagnetic` in the "→ 0" disjunction (that term returns ~9 hits, all the classical g=2 gyromagnetic-
+*ratio* reading); corrected so the true zero-hit terms are `polder` and `off-diagonal (mu|permeab)`, with the ratio-hits
+moved to the spin-flywheel caveat that already accounts for them — the "Polder *mechanism* undeployed" conclusion is unchanged.
+(2) **T5** — the fireable claim was narrowed to the `θ`↔EM-`tan δ` de-orthogonalization (`tan δ = cot θ`, a real phasor
+identity that kills the `:331` all-orthogonal over-claim); the `θ`↔`δ_AVE` tie is corrected to the taxonomic-not-derivational
+analogue the leaf flags at `:310` (`δ_AVE` is a duty ratio, not `tan δ`), NOT written into canon as a phasor identity.
