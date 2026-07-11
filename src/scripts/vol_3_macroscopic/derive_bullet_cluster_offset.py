@@ -103,7 +103,8 @@ GRID_N = 441  # ~5 kpc pixels
 # ==========================================================================
 # LATTICE-DERIVED HALO PROFILES  (radial projected surface density of ONE halo)
 # ==========================================================================
-def eta_eff_surface_density(R_kpc: np.ndarray, mass_msun: float, r_core_kpc: float) -> np.ndarray:
+def eta_eff_surface_density(R_kpc: np.ndarray, mass_msun: float, r_core_kpc: float,
+                            saturate: bool = True) -> np.ndarray:
     r"""
     Projected effective LENSING surface density Sigma_eff(R) of one AVE ponderomotive halo:
     a cored baryonic source enhanced by the Axiom-4 eta_eff saturation kernel, projected
@@ -114,13 +115,21 @@ def eta_eff_surface_density(R_kpc: np.ndarray, mass_msun: float, r_core_kpc: flo
       M_eff(r)       = g_eff r^2 / G                          (effective lensing mass)
       rho_eff(r)     = (1/4 pi r^2) dM_eff/dr
       Sigma_eff(R)   = 2 int_R^inf rho_eff(r) r/sqrt(r^2-R^2) dr   (Abel projection)
+
+    IMPORTANT (kernel-dormancy, per adversarial review 2026-07-11): across the whole
+    peak-assignment region (R < ~230 kpc) the cluster-core Newtonian field has g_N >> a0
+    (high-acceleration regime), so the eta_eff kernel returns g_eff/g_N = 1.000 -- it is
+    DORMANT and only engages at R >~ 600 kpc outskirts (leaf bullet-cluster.md:28: "cluster-
+    scale strains are far below saturation"). The peak LOCATION is therefore set by linear
+    superposition of ~Newtonian baryon mass, independent of the saturation kernel and radial
+    law. `saturate=False` reproduces this as an explicit Newtonian null (see main()).
     """
     M = mass_msun * M_SUN
     r_c = r_core_kpc * KPC
     r = np.logspace(np.log10(0.03 * r_c), np.log10(80.0 * max(r_c, 200.0 * KPC)), 4000)
     M_enc = M * r**3 / (r**2 + r_c**2) ** 1.5
     g_N = G * M_enc / r**2
-    g_eff = ave_saturation_acceleration(g_N, a0=A0_LATTICE)
+    g_eff = ave_saturation_acceleration(g_N, a0=A0_LATTICE) if saturate else g_N
     M_eff = g_eff * r**2 / G
     rho_eff = np.clip(np.gradient(M_eff, r) / (4.0 * np.pi * r**2), 0.0, None)
 
@@ -262,6 +271,34 @@ def main() -> None:
         pk = "SWALLOWED" if rb["offset_peak_kpc"] is None else f"{rb['offset_peak_kpc']:6.1f}"
         print(f"  {ratio:7.1f}  |  {pk:>13s}  {rb['offset_centroid_kpc']:15.1f} |")
     print("  (ratio 0.8 = stripped-core census; 5-7 = cluster-wide gas-dominant [Clowe abstract])")
+    print()
+
+    # ---- kernel-dormancy probe + Newtonian null (per adversarial review 2026-07-11) ----
+    # The eta_eff kernel is DORMANT where the peak is set: g_N >> a0 in the cluster core, so
+    # g_eff/g_N = 1.000 until the far outskirts. Hence the MISS is a linear-superposition-of-
+    # baryons result, INDEPENDENT of the saturation kernel and radial law.
+    print("--- kernel dormancy: g_eff/g_N for a 1e14 Msun source (rc=80 kpc) ---")
+    Msrc = 1e14 * M_SUN
+    rc = 80.0 * KPC
+    for R in (10.0, 50.0, 150.0, 230.0, 600.0, 1000.0):
+        r = R * KPC
+        M_enc = Msrc * r**3 / (r**2 + rc**2) ** 1.5   # Plummer enclosed mass
+        gN = G * M_enc / r**2
+        ratio = float(ave_saturation_acceleration(gN, a0=A0_LATTICE)) / gN
+        tag = "DORMANT" if ratio < 1.01 else "engaged"
+        print(f"   R={R:6.0f} kpc: g_N/a0={gN/A0_LATTICE:9.2f}  g_eff/g_N={ratio:6.3f}  ({tag})")
+    print("--- Newtonian null (saturation DISABLED, g_eff=g_N): verdict must be identical ---")
+
+    def _newt(R, m, rc):
+        return eta_eff_surface_density(R, m, rc, saturate=False)
+
+    for hyp in ("H_baryon", "H_star"):
+        n = predicted(sources_for(hyp), _newt)
+        e = results[("eta_eff", hyp)]
+        print(f"   {hyp:9s}: Newtonian peak-offset={n['offset_peak_kpc']:.1f} kpc  "
+              f"vs eta_eff {e['offset_peak_kpc']:.1f} kpc  -> "
+              f"{'IDENTICAL' if abs((n['offset_peak_kpc'] or -1)-(e['offset_peak_kpc'] or -1))<10 else 'DIFFERS'} "
+              f"(kernel-independent)")
     print()
 
     _sabotage(results)
