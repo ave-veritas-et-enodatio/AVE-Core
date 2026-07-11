@@ -74,12 +74,16 @@ and freeze-integrity came back CLEAN.
   comment + `derive_ring` docstring; new sabotage **S5** fires G-D on the L=2 net
   (BFS girth 8 ≠ 10). Commit `7a2aa648`. Number unchanged (L=3 genuinely girth-10).
 - **F2 (G-E ImportFrom keyed on module path only, not the imported name).** Slip:
-  `from ave.core.chiral_lattice import OMEGA_C as w` scanned CLEAN. **Repair:** the
+  `from ave.core.chiral_lattice import <forbidden> as w` scanned CLEAN. **Repair:** the
   ImportFrom branch now flags any forbidden constant NAME from ANY module (aliased
-  or not); new planted artifact + sabotage **S2b** fires G-E; honest SCOPE note
-  added (the gate guards constant IMPORTS/uses, not every runtime scale injection —
-  that residual is covered by construction: Z₀=τ=ℓ=1 + integer topology). Commit
-  `321f4a0b`. Real driver still self-scans clean; no physics touched.
+  or not); new planted artifact + sabotage **S2b** (`from ave.core.chiral_lattice
+  import L_NODE as w` — a GENUINE forbidden re-export at chiral_lattice.py:41 that
+  RESOLVES) fires G-E; honest SCOPE note added (the gate guards constant IMPORTS/uses,
+  not every runtime scale injection — that residual is covered by construction:
+  Z₀=τ=ℓ=1 + integer topology). Commits `321f4a0b` + the CI-hardening follow-up
+  (the first draft aliased a non-resolving OMEGA_C, which the repo's separate
+  import-resolution smoke gate correctly rejected; switched to L_NODE, which both
+  resolves and is name-flagged). Real driver still self-scans clean; no physics touched.
 - **F3 (locator drift — NOT a fabricated quote).** CITATION ERRATUM: the frozen
   prereg's LOAD-BEARING PREMISE cites `MIN_SRS_L` at `src/ave/topological/srs_dec.py:138`;
   the correct locator is **`:137`**. The quoted text `MIN_SRS_L: int = 3` is
@@ -174,12 +178,18 @@ S5   assert_srs_girth FIRES: independent BFS girth 8 != enumeration length 10
      (spurious PBC-folded rings; G-D FAIL)
 ```
 
-**S2b — aliased forbidden-name import from a non-constants module → G-E FIRES (added by F2 repair):**
+**S2b — aliased forbidden-name import from a non-constants module → G-E FIRES (added by F2 repair; CI-hardened):**
 ```
-S2b  ['line 18: from ave.core.chiral_lattice import OMEGA_C as w
+S2b  ['line 20: from ave.core.chiral_lattice import L_NODE as w
        (forbidden constant name, any module)']
      (real driver self-scan remains []  => the tightened gate stays clean on the physics)
 ```
+L_NODE is a GENUINE forbidden re-export from a non-constants module
+(chiral_lattice.py:41 does `from ave.core.constants import ... L_NODE ...`), so the
+planted import RESOLVES — it passes the repo's static import-resolution smoke gate
+(`test_scripts_import_smoke.py`) — while the name-keyed G-E scanner still flags the
+forbidden NAME. That is the faithful form of the aliased-re-export slip (the earlier
+draft used a non-resolving OMEGA_C, which the import-smoke gate correctly rejected).
 
 All six sabotage cases (S1–S5, S2b) fire their target gate; each gate is
 therefore a real gate. The S3 / S4 / S5 discriminators (G-C-only /

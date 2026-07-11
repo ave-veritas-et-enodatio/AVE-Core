@@ -224,7 +224,7 @@ def test_s2b_aliased_forbidden_name_fires_g_e():
     wherever it is re-exported from. The real driver stays clean."""
     plant = scan_for_dimensional_constants(_S2B_PLANT)
     assert plant, "G-E did NOT fire on an aliased forbidden-name import (F2 slip)"
-    assert any("OMEGA_C" in v for v in plant)
+    assert any("L_NODE" in v for v in plant)
     assert scan_for_dimensional_constants(_DRIVER) == [], "the real driver must remain clean"
 
 
