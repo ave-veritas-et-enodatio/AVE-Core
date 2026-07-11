@@ -181,3 +181,29 @@ The task #33-close PR **#636** folded the registry into the board with the line:
 > "…7-lane sweep, **2-lens adversarial review (2 MINOR EVIDENCE-VOID findings repaired)**. The registry is the INPUT to the core planning session's 'which fire' decision…" (§6 slate, `#33` row)
 
 That line describes only the **satellite's own pre-PR review** (2 findings). It is **not edited** (KEEP-BOTH). The orchestrator's **8-finding review + #637** completes that trail: the two counts are two different review passes on the same registry (satellite pre-PR = 2; orchestrator post-merge = 8), and both stand.
+
+### 5. NEW hygiene rider — δ_strain prose-value drift (queued to the fire-ready collapse batch)
+
+**The drift.** Prose across the corpus quotes `δ_strain ≈ 2.225 × 10⁻⁶`, but the **computed** `DELTA_STRAIN` at `src/ave/core/constants.py:279` (the definition line; `1 − (1/ALPHA)/ALPHA_COLD_INV`) evaluates to **2.2234 × 10⁻⁶** against the **CODATA-2018** α pin, and **2.2228 × 10⁻⁶** against CODATA-2022. The prose "2.225" carries **precision the number does not have** (its 4th significant figure is wrong at the 2018 pin, and the digit shifts with the CODATA vintage).
+
+**Prose sites (verified this session; `rg -n "2\.225"`):**
+- `src/ave/core/constants.py:178-179` (the prose sentence; the number is at `:179` — note the board task said `:178`, off by one; the sentence opens at `:178`). The same file also carries `:263` and `:275` prose "2.225".
+- `manuscript/ave-kb/common/foundational-machinery-register.md:307` — *"two independent paths (LC-tank + multipole) agree to δ_strain=2.225×10⁻⁶"* (asserts agreement to a precision the number lacks).
+- `manuscript/ave-kb/common/mathematical-closure.md:107` (the δ_strain status bullet) and `:165` (the gap-table row).
+- `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:30`.
+- `manuscript/ave-kb/common/divergence-test-substrate-map.md:699`.
+- **Others the corpus grep finds (not in the task's named list):** `docs/framing_and_presentation.md:117`; `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:207`; the canonical leaf `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:90` (cited by `research/2026-07-10_collapse-target-registry.md:623`); several Vol-9 datasheet `.tex` sites (`06/09/10/13/14/19` chapters); and multiple `research/` prereg/result docs.
+
+**Rider action (deferred — NO edits to those files in THIS PR; rider only):** reconcile prose to the computed value at full supported precision, **OR** demote all prose sites to **"≈2.22 × 10⁻⁶"** with `constants.py` carrying the significant digits. Either way, the string "2.225" stops asserting a false 4th figure. Queued behind #637 to the fire-ready collapse batch (see the docket Continuation, δ_strain precision rider).
+
+### 6. PROPOSED precision house rule (status: PROPOSED-IN-CHAT 2026-07-11, PENDING-GRANT ratification)
+
+Surfaced in the same chat as the δ_strain rider; **not ratified** — recorded here for Grant's call. The five clauses:
+
+- **(a)** internal numerics = **full double from `constants.py`**, never retyped by hand;
+- **(b)** measured values quoted at **full CODATA digits + (uncertainty) + vintage** (e.g. `137.035999084(21)` [CODATA 2018]);
+- **(c)** exact expressions **labeled EXACT**, evaluated to the comparator's uncertainty **+ 2 guard digits**;
+- **(d)** every comparison stated as **Δ ± propagated σ** — the word **"matches" without a σ is banned**;
+- **(e)** residuals quoted **only to experiment-supported digits, with sign**.
+
+**Motivating case (the keystone):** `4π³ + π² + π = 137.036303776` (**EXACT**) vs `α⁻¹ = 137.035999084(21)` [**CODATA 2018** pin] → **Δ = 3.047 × 10⁻⁴ ≈ 14,500σ** (14,509σ at 21e-9). The disagreement is **invisible below 4 decimals** and only becomes a 14,500σ gap when both sides are carried to full precision — which is precisely what a "matches within δ_strain" phrasing hides. (This bears on nothing at the value level: the α keystone is a Class-B calibration identity, cited as identity-not-derivation; the house rule is a *reporting-hygiene* proposal, not a physics claim.)
