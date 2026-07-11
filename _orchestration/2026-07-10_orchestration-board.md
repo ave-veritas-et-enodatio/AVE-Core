@@ -141,3 +141,69 @@ The registry (`research/2026-07-10_collapse-target-registry.md`) ranks 19 target
 **RHYME tier — do NOT fire without the kill-test passing (0-for-7 ledger):** R1 Manley–Rowe, R2 Q-linewidth (gated on the T9 complex-Poynting Re/Im split), R3 AC-Josephson f=2eV/h, R4 Kolmogorov mis-shelf, R5 the §b `u₀*` triple-convergence *as a convergence*. **T9** (complex Poynting as the off-line register's formal home) is ranked in-tier but self-labeled seduction-adjacent — its first output could be the sector-gate *kill*.
 
 **Anti-target caution (must NOT fire):** band-curvature effective mass `m*=ℏ²(d²E/dk²)⁻¹` — minting it validates the A1⊥T2 cross-wire the corpus already deleted; the undeployed remainder is sector-neutral wave-packet dispersion, NOT "effective mass."
+
+---
+
+## Continuation 2 — 2026-07-11: second review wave + correction set
+
+Second review wave over the three Grant-launched satellite PRs of the day (#631 collapse registry, #632 X40, #634 X42), plus the correction-PR set that absorbed a bulk-merge-during-review race. Every PR#, tag, and file cite below was git/gh-confirmed this session (verify-before-cite); nothing here canonizes.
+
+### 1. Review wave — three orchestrator adversarial reviews
+
+| PR reviewed | Lenses | Findings | Load-bearing content |
+|---|---|---|---|
+| **#631** collapse-target registry | 2 | **8 confirmed** (1 MAJOR + 7 MINOR) | **MAJOR** — the anti-target caution grounded "m* actively rejected as an SM crutch" on a KB cite that in fact grants the object **peer-with-SM** status: an **authority-order inversion** (the caution over-read its own source). The genuinely-rejection-grade quote lives in the **superseded vol-4 tex register**, not the cited leaf. **7 MINOR** = receipt hygiene, incl. a **vacuous no-`-E` grep** (a completeness claim that a shell-escaped pattern silently could not have found) and a **mixed-a₀ arithmetic slip** (two `a₀` conventions crossed in one line). Corrected in **#637**. |
+| **#632** X40 ring-closure | 3 | **4 MINOR** | deviation-ledger **"no deviation" row contradicted by its own repair log**; **stale PR body**; the E3 **"(gated in sabotage)" intra-prereg over-claim**; the **"BALANCED (net ~0)"** leg measured the **DFS sign convention**, not a physical net swirl → **DEMOTED** (`research/2026-07-10_x40-ring-closure-transient_result.md:200,206`). The **sign-free Q-tensor plane-isotropy** stays load-bearing (`:196` cycle-fraction / isotropy tensor — bounds branch (ii), does not measure a swirl). Corrected in **#638**. |
+| **#634** X42 eigencavity | 2 | **6 confirmed** | **M2 eigenmode-scale extraction was code-void** (the ✅ rode only the algebraic identity `ℓ_node/α == A_0`, no length extracted — `research/2026-07-10_x42-atomic-eigencavity_RESULT.md:398`); the **muonic branch (i)** rides **post-freeze `saturate=False`** (a two-argument-honesty flag: the discriminator's regime toggle was set after freeze); **D1 port-language was dead code** + a **`Z(r)` named-quantity hazard** (`:78-84`, the `vol2/claim-quality.md:344` named-quantity guard); the **RY-keyed search window narrowed the branch-(ii) recording channel** (`e_hi = e_ground·1.03` could not record a >3% more-bound offset — `:401`); **freeze-by-push = artifact-level only** (the pilot had pre-landed the numbers); **stale constants self-cites**. Corrected in **#639**. |
+
+**Totals: 18 confirmed, 0 refuted, ALL EVIDENCE-VOID, ZERO conclusion flips.** Every headline number was independently reproduced during review — X40: **1/10** via a dimensionful scipy-ODE cross-realization + the girth generalization **N=7→1/7, N=13→1/13** (`research/2026-07-10_x40-ring-closure-transient_result.md:104`); X42: all marks + the sabotage receipts. No verdict moved; the findings are receipt/hygiene/scope, not physics reversals.
+
+### 2. Correction set — the pre-fix-merge pattern applied ×3
+
+**#631/#632/#634 were bulk-merged BEFORE their post-review repairs landed** (the `[DO-NOT-MERGE]` labels notwithstanding — see the workflow note). The established **pre-fix-merge correction-PR pattern** absorbed the race three times:
+
+- **#637** — collapse-registry receipt repairs (**MERGED**). Fixes the MAJOR authority-order inversion + the 7 MINOR receipt items.
+- **#638** — X40 repairs (**MERGED**). Includes the **BALANCED demotion** (DFS-sign-convention artifact struck from the swirl claim), the **E3 honesty ledger row**, and an **S6 declined-with-reason** entry.
+- **#639** — X42 repairs (**MERGED**) — carries **TWO UPGRADES**, not just fixes:
+  1. **M2 now GENUINELY MEASURED.** The ground-state `⟨r⟩/a_scale = 1.5` (the 1s shape factor; extracted 1.500001, **0.0000%** deviation vs the **frozen 0.5% tolerance**) is now extracted from the numerical eigenfunction by inward integration — a box-independent property (`r_max ≈ 133×⟨r⟩`), not a restatement of the identity (`research/2026-07-10_x42-atomic-eigencavity_RESULT.md:125,264,398`).
+  2. **Branch-(ii) window widened to 1.5×** (`hi_factor=1.5`), with a **no-more-bound-roots receipt** for H (7 roots) / muonic (6) / He⁺ (5) — none deeper (`:401`).
+
+**Audit tags (all verified on origin via `git ls-remote --tags`):** `audit/2026-07-10_rb-fossil-walk-docket`, `audit/2026-07-11_x40-board-update`, `audit/2026-07-11_board-task33-close`, `audit/2026-07-11_collapse-registry-correction`, `audit/2026-07-11_x40-correction`, `audit/2026-07-11_x42-correction`.
+
+### 3. Workflow note — the bulk-merge-during-review race (process, not blame)
+
+The **bulk-merge-during-review race** is now a **named hazard**: a satellite's `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` PR can be swept into a bulk merge before the orchestrator's review + repairs land. Read the board's **merge column** and its **in-review column** as **distinct states** — a merged SHA is not a reviewed SHA. When a race happens, **corrections follow automatically** via the pre-fix-merge correction-PR pattern (#637/#638/#639 are the receipts). No blame is assigned; the process absorbed it and the record is complete.
+
+### 4. Reconciliation with #636 (KEEP-BOTH)
+
+The task #33-close PR **#636** folded the registry into the board with the line:
+
+> "…7-lane sweep, **2-lens adversarial review (2 MINOR EVIDENCE-VOID findings repaired)**. The registry is the INPUT to the core planning session's 'which fire' decision…" (§6 slate, `#33` row)
+
+That line describes only the **satellite's own pre-PR review** (2 findings). It is **not edited** (KEEP-BOTH). The orchestrator's **8-finding review + #637** completes that trail: the two counts are two different review passes on the same registry (satellite pre-PR = 2; orchestrator post-merge = 8), and both stand.
+
+### 5. NEW hygiene rider — δ_strain prose-value drift (queued to the fire-ready collapse batch)
+
+**The drift.** Prose across the corpus quotes `δ_strain ≈ 2.225 × 10⁻⁶`, but the **computed** `DELTA_STRAIN` at `src/ave/core/constants.py:279` (the definition line; `1 − (1/ALPHA)/ALPHA_COLD_INV`) evaluates to **2.2234 × 10⁻⁶** against the **CODATA-2018** α pin, and **2.2228 × 10⁻⁶** against CODATA-2022. The prose "2.225" carries **precision the number does not have** (its 4th significant figure is wrong at the 2018 pin, and the digit shifts with the CODATA vintage).
+
+**Prose sites (verified this session; `rg -n "2\.225"`):**
+- `src/ave/core/constants.py:178-179` (the prose sentence; the number is at `:179` — note the board task said `:178`, off by one; the sentence opens at `:178`). The same file also carries `:263` and `:275` prose "2.225".
+- `manuscript/ave-kb/common/foundational-machinery-register.md:307` — *"two independent paths (LC-tank + multipole) agree to δ_strain=2.225×10⁻⁶"* (asserts agreement to a precision the number lacks).
+- `manuscript/ave-kb/common/mathematical-closure.md:107` (the δ_strain status bullet) and `:165` (the gap-table row).
+- `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:30`.
+- `manuscript/ave-kb/common/divergence-test-substrate-map.md:699`.
+- **Others the corpus grep finds (not in the task's named list):** `docs/framing_and_presentation.md:117`; `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:207`; the canonical leaf `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:90` (cited by `research/2026-07-10_collapse-target-registry.md:623`); several Vol-9 datasheet `.tex` sites (`06/09/10/13/14/19` chapters); and multiple `research/` prereg/result docs.
+
+**Rider action (deferred — NO edits to those files in THIS PR; rider only):** reconcile prose to the computed value at full supported precision, **OR** demote all prose sites to **"≈2.22 × 10⁻⁶"** with `constants.py` carrying the significant digits. Either way, the string "2.225" stops asserting a false 4th figure. Queued behind #637 to the fire-ready collapse batch (see the docket Continuation, δ_strain precision rider).
+
+### 6. PROPOSED precision house rule (status: PROPOSED-IN-CHAT 2026-07-11, PENDING-GRANT ratification)
+
+Surfaced in the same chat as the δ_strain rider; **not ratified** — recorded here for Grant's call. The five clauses:
+
+- **(a)** internal numerics = **full double from `constants.py`**, never retyped by hand;
+- **(b)** measured values quoted at **full CODATA digits + (uncertainty) + vintage** (e.g. `137.035999084(21)` [CODATA 2018]);
+- **(c)** exact expressions **labeled EXACT**, evaluated to the comparator's uncertainty **+ 2 guard digits**;
+- **(d)** every comparison stated as **Δ ± propagated σ** — the word **"matches" without a σ is banned**;
+- **(e)** residuals quoted **only to experiment-supported digits, with sign**.
+
+**Motivating case (the keystone):** `4π³ + π² + π = 137.036303776` (**EXACT**) vs `α⁻¹ = 137.035999084(21)` [**CODATA 2018** pin] → **Δ = 3.047 × 10⁻⁴ ≈ 14,500σ** (14,509σ at 21e-9). The disagreement is **invisible below 4 decimals** and only becomes a 14,500σ gap when both sides are carried to full precision — which is precisely what a "matches within δ_strain" phrasing hides. (This bears on nothing at the value level: the α keystone is a Class-B calibration identity, cited as identity-not-derivation; the house rule is a *reporting-hygiene* proposal, not a physics claim.)
