@@ -73,13 +73,22 @@ The SVE Letter states THAT the constitutive law is radiative-sector, not yet WHY
 - **K1-vs-standing-canon axiom ruling** — does the T2 saturation key on `\|E_T\|` (K1), against the standing canon in which a held bias LOADS the shunt-C (`CLAUDE.md`:75 + #624:179-188)? A **new axiom-level decision**, not a contradiction-resolution. **The CVR held-DC-E bench is the empirical judge.**
 - **Circulator / T-breaking walk** — the sole surviving vertex-match escape (#620) is a non-reciprocal circulator; does the vacuum supply a T-breaking bias? Assigned to **task #37** (see slate).
 - **Branch-(i) locus** — X38 landed at f\*=0 (branch ii); the branch-(i) resonant locus at **f = 1/(2π)** was not directly adjudicated. Is it a live alternative or excluded by the Op6 flat-floor?
-- **W1 uniform-far-field question** — from the Op6-scope / S₁₁ honesty-lag audit (#621 site 2): does the "match into the uniform Z₀ far-field bath" framing escape doc-34's exterior-Γ²=0 flatness, or is it the closed exterior match renamed? Flagged PENDING-GRANT, not silently resolved.
+- **W1 uniform-far-field question** — from the Op6-scope / S₁₁ honesty-lag audit (#621 site 2): does the "match into the uniform Z₀ far-field bath" framing escape doc-34's exterior-Γ²=0 flatness, or is it the closed exterior match renamed? Flagged PENDING-GRANT, not silently resolved. *(The collapse-target registry §"anti-target caution" logged 4+ additional sites carrying the identical "external bath coupled ONLY through boundary-impedance-mismatch" object — reported, not resolved; this is the W1 register-mint call.)*
+
+**New adjudications surfaced by the collapse-target registry (task #33, merged #631) — flag-don't-fix, Grant's to rule:**
+
+- **T3 — Γ=−1 loss-character.** When the vacuum is driven *past* V_yield in a fast transient (ZENER-04 / TORSION-05 / muon leaky-cavity), is the node a **lossless short** (Γ=−1, full 180° reaction) or a **blown fuse** (|Γ|<1, dissipative)? The benches write "Γ=−1" but describe the fuse; a possible sign/loss error in the thrust + decay predictions rides on it. A NEW axis alongside the already-flagged `cq:1612` Γ_spinor/Γ_EM homonym (KEEP-BOTH).
+- **T4 — MOND external-field-effect keying (forward-prediction opener).** Does the galactic `η_eff` Axiom-4 saturation amplitude `A` key on the **internal source's** `g_N` only (→ AVE predicts **NO EFE**) or the **total local** field (→ EFE ~ standard MOND)? `g_ext ≈ 1.8 a₀` at the solar neighborhood makes this a live, currently-tested discriminator (Crater II, wide binaries) — the one registry target that opens a NEW forward prediction rather than cleaning up.
+- **T6 — mass→inductance sector contradiction.** `boundary-observables-m-q-j.md:19` (`clm-ze4clw`) projects MASS→inductance `L`, colliding with the 2026-06-20 ratified ruling `X_L = spin flywheel, rest mass = A1 dilatation` (`dual-reactance:221` + `def-portmp`). Is the M-row "inductance" the TKI translation-image (a dictionary entry, no conflict) or a genuine A1↔T2 cross-wire? The registry surfaces the conflict; does not pick the winner.
+- **T13 — N13 protein-folding scope.** Is the AVE-Protein impedance-folding NEGATIVE a **full** falsification of the vol5 `|S₁₁|²`-folding mechanism, or does it kill only a narrower channel? `program-arc-map` N13 says "all EE-reflection channels dead" while the vol5 subtree + divergence-map B4 assert it live, none carrying a Rule-12 header. One sentence decides whether vol5/B4 get walk-back headers or N13 gets demoted to its `[PARTIAL-RECEIPT]` status. (Cross-repo; receipt lives in the AVE-Protein lane.)
+- **T15 — S₁₁ INVARIANT-N4 (touches a solidity-1.00 invariant).** N4 declares `S₁₁` a homonym (reflection coefficient vs "folding objective function"); the substrate suggests ONE reflection object with the vol5 "objective" being the derived `min|S₁₁(ω₀)|²`. Needs Grant + the out-of-repo `eq:s11_energy` before any edit, because it contradicts a canonical invariant.
+- **T17 / circulator (folds into the existing "Circulator / T-breaking walk" above).** The registry's P8 lane inventoried the **ferrite / Polder gyrotropic-μ-tensor** as the undeployed non-reciprocity *mechanism* (`polder`=0, `off-diagonal (mu|permeab)`=0 corpus-wide; the Larmor/g=2 hits are all the spin-flywheel *ratio*). INVENTORY-ONLY — the mechanism-transfer question **is** the PENDING-GRANT T-breaking-bias fork (task #37).
 
 ## 6. The fresh-session slate
 
 | Task | What | Note |
 |---|---|---|
-| **#33** | next collapse-target sweep item (post-vertex-arc) | opens after the vertex arc's Grant rulings land |
+| **#33** | ~~collapse-target sweep (X35 main body)~~ **DONE — MERGED #631** (merge `9c795272`, tag `audit/2026-07-10_collapse-target-registry`) | Ranked registry `research/2026-07-10_collapse-target-registry.md` — 19 targets + RHYME tier + anti-target cautions; 7-lane sweep, 2-lens adversarial review (2 MINOR EVIDENCE-VOID findings repaired). **The registry is the INPUT to the core planning session's "which fire" decision** — it executes no collapse. See §9. |
 | **#34** | the D-IV nucleation-capture spec (the "writes-a-bias" thread) | **sector-bridge first** — resolve A1↔T2 sector ownership before the capture spec, so the meter and the source are in matched coordinates (A46 phase-space discipline) |
 | **#37** | the circulator / T-breaking walk (the vertex non-reciprocity escape) | Grant picture-walk before any prereg (P2 — walk input is a circuit, not a formalism) |
 | **#38** | the ring-quantization transient (a kill-test for the u₀\* triple-convergence) | discriminating test, cheap |
@@ -98,3 +107,23 @@ The relay/reading miss-ledger (distinct from the 0-for-7 hopeful-interior-mechan
 ## 8. Review posture (this session)
 
 **5 adversarial review cycles** ran over the day's implementer output (the #624/#625/#626/#627 wrappers + the vertex-arc gates), **61 confirmed findings** in aggregate, **2 fabricated-quote-class catches** — the load-bearing one verified here is the x41 **R3** fabricated "verbatim" #547 quote (replaced with genuine `:272-273/:300` text, its supporting role for the muon re-attribution withdrawn). The gates carried planted-violation proofs throughout (P11 sabotage test): X38's G-B fired exactly because the disabled parasitic path fell back to π, the reference constant. The freeze-by-push ordering (P9) was git-checkable on X37 (#616, prereg `167f28ce` pushed 26 min before code, survived a gh-api timestamp audit) and X38 (#619).
+
+## 9. Collapse-target registry — the fire-decision slate (task #33, merged #631)
+
+The registry (`research/2026-07-10_collapse-target-registry.md`) ranks 19 targets + a RHYME tier + anti-target cautions. It executes **no** collapse; the core planning session decides which fire. Triage for that decision:
+
+**Fire-ready CLEAN (shared mechanism verified, low seduction, no Grant ruling needed) — a collapse session can execute these:**
+- **T1** quantization homonym → a **TRIAD** def-node (mode-count ⊥ winding ⊥ Nyquist-sampling); S-cost, mint already staged by the corpus. *The strongest single mint.*
+- **T2** slew↔hysteresis-§1 cross-link (the "un-catalogued" rate-keyed family); M-cost, KEEP-BOTH, the "slew" *label* A4-gated.
+- **T5** `θ`↔EM-`tan δ` de-orthogonalization (`tan δ = cot θ`, kills the `:331` all-orthogonal over-claim); S-cost — the `θ`↔`δ_AVE` tie stays the `:310` taxonomic bridge, NOT a phasor identity (narrowed by the #631 review).
+- **T7** "Cauchy relation" mislabel on K=2G (the genuine Cauchy relation forces `ν=1/4`, not `2/7`); S-cost, reinforces the standing GR-import negative.
+- **T8** four-bin taxonomy → 3rd axis on `lattice-model-register` (3/4 already Axis-A; bin-3 gated on X41); M-cost deflation.
+- **T10** `Q`-glyph ownership row (≥4 electron-scale objects); S-cost janitorial.
+- **T12** `u₀*` def-node (SYM operating-point vs T-breaking bias) — the fireable DEFLATION of the §b triple-convergence; S-cost.
+- **T14** "strain" `δ_strain`↔`ε₁₁` register row; **T16** "register" hygiene note; **T19** vol5 conjugate-impedance table reconcile — all S-cost, low value.
+
+**Grant-gated (need a ruling first) — see §5:** T3 (Γ loss-character), T4 (MOND EFE keying — forward-prediction opener), T6 (mass→inductance sector), T13 (N13 scope, cross-repo), T15 (S₁₁ invariant-touch), T17 (circulator/Polder = task #37).
+
+**RHYME tier — do NOT fire without the kill-test passing (0-for-7 ledger):** R1 Manley–Rowe, R2 Q-linewidth (gated on the T9 complex-Poynting Re/Im split), R3 AC-Josephson f=2eV/h, R4 Kolmogorov mis-shelf, R5 the §b `u₀*` triple-convergence *as a convergence*. **T9** (complex Poynting as the off-line register's formal home) is ranked in-tier but self-labeled seduction-adjacent — its first output could be the sector-gate *kill*.
+
+**Anti-target caution (must NOT fire):** band-curvature effective mass `m*=ℏ²(d²E/dk²)⁻¹` — minting it validates the A1⊥T2 cross-wire the corpus already deleted; the undeployed remainder is sector-neutral wave-packet dispersion, NOT "effective mass."
