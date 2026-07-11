@@ -316,6 +316,24 @@ weak-C demotion of `clm-k4d4ph` / `clm-yr6tu4` is UNCHANGED by this program (the
 band-edge anisotropy is O(k²) on BOTH carriers; gate `wejkhvnfb` OPEN). The two varactor
 ADJUDICATION-PENDING questions in the SPICE lane remain OPEN (Grant-gated).
 
+### §8b.7 — 2026-07-10/11 vertex + eigencavity instrument refresh (ADDITIVE)
+
+The vertex arc (x33–x38) and the x40/x42 landings added new **instruments** (INSTRUMENT /
+INFRASTRUCTURE class — no physics chord/echo/emergence minted; `mass = A1` untouched). Held to
+the §2 no-claim bar (every row grounded against a file:line + prereg + merge-PR anchor):
+
+| Instrument | Role | Class / boundary | Anchor (prereg + PR) |
+|:--|:--|:--|:--|
+| `core/junction_scattering.py` | **X38** srs vertex S₁₁ EXTRACTION + canonical Op6 bore selection (route d): does the substrate SELECT the junction extent `f` by minimizing junction reflection? | INSTRUMENT; **anti-install boundary (G-A gate)** — consumes ONLY geometry (`:10-13`, `μ₀/ε₀/ℓ` cancel, no OMEGA_C/M_E install) | `research/2026-07-10_x38-s11-bore-selection_prereg_FROZEN.md`; #619 (honesty-lag fix #621) |
+| `core/junction_parasitics.py` | **X37** srs vertex junction-parasitic EXTRACTION — the vertex equivalent circuit DERIVED from bond geometry (120° bonds + srs twist), NOT installed | INSTRUMENT; **anti-install boundary (G-A gate)** — geometry-only (`:10-16`; the `1/√(L_jC_j)=ω_C` #613 install is the exact error X37 exists to avoid) | `research/2026-07-10_x37-junction-parasitics_prereg_FROZEN.md`; #616 (fix #620) |
+| `solvers/tethered_pivot_x34b.py` | **x34b** control-subtracted excess detector, frozen a-priori — a THIN driver over the merged x34 solver (Rule-14, no fork-copy); returned TRACK → BANKED NEGATIVE | INSTRUMENT; frozen-a-priori control-subtraction | `research/2026-07-10_tethered-pivot-rerun_prereg.md`; #626 |
+| `topological/srs_dec.py` (**addition** to the §8b.1 row) | **x40** srs-girth witness: `enumerate_girth_faces()` (`:140`) enumerates the girth-10 rings as the 2-cells (`SRS_GIRTH=10`, `:127-157`) — the witness behind R-B's `trapped = 1/girth` theorem (N=10 → 1/10) | INFRASTRUCTURE; born-on-srs (extends the existing GREEN §8b.1 row) | #632 (correction #638) |
+| `src/scripts/vol_2_subatomic/x42_atomic_eigencavity.py` (**not** a `src/ave/` module — a Vol-2 script driver) | **x42** atomic eigencavity — hydrogen as an eigencavity; test `src/tests/test_x42_atomic_eigencavity.py` | INSTRUMENT (research/script driver) | #634 (repairs #639) |
+
+**Status-stamp re-confirm:** §2 / §8b.1 cells unchanged by this refresh (KEEP-BOTH — the additive
+rows do not flip any existing status). The X36 install-tautology (§below / `research/2026-07-09_x36-node-bottleneck_result.md`)
+and the X38 bore-fork disposition remain PENDING-GRANT.
+
 ---
 
 ## §8 — Figure-artifact hygiene policy (2026-07-04, D4 — going-forward)
