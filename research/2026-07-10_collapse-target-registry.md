@@ -792,9 +792,15 @@ shared *mechanism* is unproven; the miss-ledger (`program-arc-map.md:404`) stand
 
 **Band-curvature effective mass `m* = ℏ²(d²E/dk²)⁻¹` (srs band canon, #609).** The Brillouin/band-structure namesake carries
 group velocity (`dE/dk`, **deployed and tested** — `cosserat-mass-gap.md:95`, "gapped group velocity, 34% error") and effective
-mass from band curvature (`d²E/dk²`). The curvature `m*` is **not merely undeployed — it is actively rejected as an SM crutch**:
-`vol6/period-3/silicon/topological-area.md:17` calls `m*` an "arbitrary variable"; the doping-engine figure renders "Effective
-Mass (m*)" struck-through. **Mass is exclusively A1-dilatation** (`constants.py:72`; `master-equation.md:20`). Minting "effective
+mass from band curvature (`d²E/dk²`). The curvature `m*` is undeployed **and rejected in the vol-4 engineering register**:
+`manuscript/vol_4_engineering/chapters/19_silicon_design_engine.tex:52` lists it among "arbitrary variables like effective mass
+($m^*$) and thermal mobilities ($\mu$)", and the doping-engine figure strikes it through
+(`manuscript/vol_4_engineering/figures/doping_engine_map.svg:102`, `text-decoration="line-through"` on "Effective Mass (m*)").
+That rejection lives in the **superseded vol-4 engineering register**, however; the **KB — the truth-source — treats `m*` as
+peer-with-SM** (`vol6/period-3/silicon/topological-area.md:17` parameterizes $V_{bi}$ "by effective mass ($m^*$) and mobility
+($\mu$)"; `:18` grants it "peer with standard semiconductor physics rather than a distinct empirical prediction … does not
+supersede the thermal treatment"), and that softer KB reading governs. **Mass is exclusively A1-dilatation** (`constants.py:72`;
+`master-equation.md:20`). Minting "effective
 mass from band curvature" would cross-wire T2/embedding curvature into A1 mass — the exact A1⊥T2 violation the corpus has already
 deleted. **The undeployed remainder is `d²E/dk²` as sector-neutral wave-packet dispersion/spreading, NOT as "effective mass."**
 Flagged so an implementer does not read the P8 archaeology as license to mint a deleted cross-wire.
