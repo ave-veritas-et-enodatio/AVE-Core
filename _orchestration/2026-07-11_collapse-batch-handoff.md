@@ -220,10 +220,15 @@ register entry stating the **five clauses**, with the ratification date, cross-r
 - **(d)** every comparison stated as Δ ± propagated σ — the word "matches" without a σ is banned;
 - **(e)** residuals quoted only to experiment-supported digits, with sign.
 
-**Cite-verification note (flag for the orchestrator, do not block on it):** the D1 spec parenthetically said
-"landed via #640", but the orchestration board's PR record ends at **#639**; #640 does not yet exist at freeze.
-Per rulings-docket item 15 the landing vehicle is **this batch's own PR**, not a pre-existing #640 — land it
-here as ratified and let the batch PR be the receipt; do not cite a #640 that has not been cut.
+**Cite-verification note (git-confirmed this session — the two PRs do different jobs):** **#640** (merge
+`43e5c636`, commit `f44939dc` "docs(board): Continuation-2 part 2 — delta_strain hygiene rider + proposed
+precision house rule") landed the precision house rule into the board's Continuation-2 §6 **as PROPOSED /
+PENDING-GRANT** — that is what "landed via #640" in the D1 spec refers to (the *proposal*, not the
+ratification). The board's own PR *table* stops at #639, which is why the proposal is easy to mis-read as
+un-landed; git shows #640 (and #641) merged after that table was written. **This batch lands the
+RATIFICATION** — per rulings-docket item 15 the ratification vehicle is **this batch's own PR** (not #640,
+which only carried the proposal). Cross-ref the board §6 PROPOSED origin and note the PROPOSED→RATIFIED
+transition dates to Grant 2026-07-11.
 
 ---
 
