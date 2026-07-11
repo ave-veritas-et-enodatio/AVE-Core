@@ -32,15 +32,15 @@ A **tide-keyed** argument is structurally different. A tide `∇g` has units `s�
 
 | Length | value (m) | forcing | scale | source |
 |---|---|---|---|---|
-| `ℓ_node ≡ ℏ/(m_e c)` | `3.862×10⁻¹³` | **canon-forced** (the primitive) | microscopic | `constants.py:290` |
-| `ℓ_c = √6·ℓ_node` (Cosserat coupling) | `9.46×10⁻¹³` | derived (×ℓ_node) | microscopic | `constants.py:335` |
-| Bohr `a₀ = ℓ_node/α` | `5.29×10⁻¹¹` | derived (×ℓ_node) | atomic | `constants.py:345` |
+| `ℓ_node ≡ ℏ/(m_e c)` | `3.862×10⁻¹³` | **canon-forced** (the primitive) | microscopic | `constants.py:291` |
+| `ℓ_c = √6·ℓ_node` (Cosserat coupling) | `9.46×10⁻¹³` | derived (×ℓ_node) | microscopic | `constants.py:336` |
+| Bohr `a₀ = ℓ_node/α` | `5.29×10⁻¹¹` | derived (×ℓ_node) | atomic | `constants.py:346` |
 | weak `l_c = √(γ_c/G_vac)` | `~10⁻¹⁸` | derived (Cosserat moduli) | subnuclear | `gauge-boson-masses.md:39` |
 | proton/nuclear (`4ℓ_node·m_e/m_p`, …) | `10⁻¹⁵`–`10⁻¹⁶` | derived | subnuclear | `constants.py:1113,1117,1142` |
-| **`R_H ≡ c/H_∞`** (de-Sitter horizon) | `1.335×10²⁶` | **canon-forced** (sets `a₀`) | cosmic | `constants.py:752` |
+| **`R_H ≡ c/H_∞`** (de-Sitter horizon) | `1.335×10²⁶` | **canon-forced** (sets `a₀`) | cosmic | `constants.py:753` |
 | **`L_gal` (what the tide needs)** | **`~10²⁰` (needed)** | **ABSENT from canon** | galactic | `universal-saturation-kernel-catalog.md:52` (`L_gal = "TBD"`) |
 
-**The canon forces `ℓ_node` (microscopic) and `R_H` (cosmic) and nothing between.** The span from Bohr `a₀` (`5.3×10⁻¹¹ m`) to `R_H` (`1.3×10²⁶ m`) is **~39 orders of magnitude — which fully CONTAINS the galactic kpc scale — and canon defines NO forced length in it.** A grep for kpc/parsec/`10¹⁹`–`10²¹` across `constants.py` + the entire `ave-kb` returns only (a) per-galaxy *observational* `R_d`/`M_disk` in SPARC-fit tables, (b) the bullet-cluster `~150 kpc` offset the KB itself flags matched-by-construction / "do not build on" (`clm-527k22`), and (c) the `L_gal = "TBD"` placeholder — **none a forced constant.**
+**The canon forces `ℓ_node` (microscopic) and `R_H` (cosmic) and nothing between.** The two forced-pole gap `ℓ_node → R_H` is **~39 orders of magnitude** (`log₁₀(1.335×10²⁶ / 3.862×10⁻¹³) = 38.5`); even measuring from the *derived* Bohr pole `a₀` (`5.3×10⁻¹¹ m`) to `R_H` the span is **~36.4 OOM** — either way it **fully CONTAINS the galactic kpc scale, and canon defines NO forced length in it.** A grep for kpc/parsec/`10¹⁹`–`10²¹` across `constants.py` + the entire `ave-kb` returns only (a) per-galaxy *observational* `R_d`/`M_disk` in SPARC-fit tables, (b) the bullet-cluster `~150 kpc` offset the KB itself flags matched-by-construction / "do not build on" (`clm-527k22`), and (c) the `L_gal = "TBD"` placeholder — **none a forced constant.**
 
 ---
 
@@ -77,4 +77,4 @@ This appendix is a read-only audit finding. The corresponding **docket entry and
 
 ## PROVENANCE
 
-Two-front adversarial probe (workflow `x43-A0-tide-dimensional-L`, run `wf_774719ce-8d4`): an exhaustive canon-length enumeration (`ave-corpus-grep`, `galactic_scale_forced_length_exists = false`) + an adversarial *save-the-branch* refute-pass (`ave-auditor`, `branch_survives = false`), both read-only against `origin/main`, every value grep/Read-verified. Constants: `H_∞ = 28π·m_e³·c·G/(ℏ²α²)` (`constants.py:749`), `R_H/ℓ_node ≈ 3.456×10³⁸`, `ξ_M ≈ 8.155×10⁴³`.
+Two-front adversarial probe (workflow `x43-A0-tide-dimensional-L`, run `wf_774719ce-8d4`): an exhaustive canon-length enumeration (`ave-corpus-grep`, `galactic_scale_forced_length_exists = false`) + an adversarial *save-the-branch* refute-pass (`ave-auditor`, `branch_survives = false`), both read-only against `origin/main`, every value grep/Read-verified. Constants: `H_∞ = 28π·m_e³·c·G/(ℏ²α²)` (`constants.py:750`), `R_H/ℓ_node ≈ 3.456×10³⁸`, `ξ_M ≈ 8.155×10⁴³`.
