@@ -15,8 +15,11 @@ from scripts.vol_1_foundations.x40_ring_closure_transient import (
     Ring,
     derive_ring,
     gate_metrics,
+    hodge_split_fullnet,
+    hodge_split_injected_current,
     mutual_inductance,
     neumann_second_axis,
+    ring_orientation_ensemble,
     scan_for_dimensional_constants,
     simulate,
 )
@@ -25,6 +28,7 @@ from scripts.vol_1_foundations.x40_ring_closure_transient import (
 TOL_LAMBDA = 1e-12  # G-A
 TOL_PLATEAU = 1e-6  # G-B
 TOL_LEDGER = 1e-12  # G-C
+TOL_HODGE = 1e-12  # G-F
 
 _DRIVER = "src/scripts/vol_1_foundations/x40_ring_closure_transient.py"
 _S2_PLANT = "src/scripts/vol_1_foundations/_x40_s2_antiinstall_planted.py"
@@ -185,3 +189,64 @@ def test_s2_planted_import_fires_g_e():
     assert plant, "G-E did NOT fire on the planted anti-install variant"
     assert any("OMEGA_C" in v for v in plant)
     assert scan_for_dimensional_constants(_DRIVER) == [], "the real driver must remain clean"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# E5 (amendment) — the cut/cycle Hodge split + G-F gate + S4 sabotage.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def test_e5_cut_cycle_split_is_nine_to_one(ring):
+    """The T-even cut / T-odd cycle split of i(0) on the tree-local ring = 9/10 : 1/10."""
+    s = hodge_split_injected_current(ring)
+    assert s["cut_fraction_T_even"] == pytest.approx(0.9, abs=1e-9)
+    assert s["cycle_fraction_T_odd"] == pytest.approx(0.1, abs=1e-9)
+    assert s["b1_cycle_dim"] == 1.0  # a single completed ring => b1 = 1
+
+
+def test_e5_cycle_fraction_equals_energy_split(ring, transient):
+    """The load-bearing coincidence: the T-odd cycle projection = the E2 energy split.
+
+    The divergence-free loop current is exactly the part the matched stubs cannot
+    drain — so the bounce sim's trapped fraction EQUALS the cycle-space projection.
+    """
+    cyc = hodge_split_injected_current(ring)["cycle_fraction_T_odd"]
+    f_E = transient.E_ring[-1] / transient.E0
+    assert cyc == pytest.approx(f_E, abs=1e-9)
+
+
+def test_g_f_hodge_orthogonality_completeness(ring):
+    """G-F: cut _|_ cycle, |P_cut i|^2 + |P_cyc i|^2 = |i|^2, and P_cut + P_cyc = I."""
+    s = hodge_split_injected_current(ring)
+    assert abs(s["G_F_ortho"]) < TOL_HODGE, "cut and cycle not orthogonal"
+    assert s["G_F_completeness"] < TOL_HODGE, "projections do not sum to |i|^2"
+    assert s["G_F_projsum_max"] < TOL_HODGE, "P_cut + P_cyc != I on the edge space"
+
+
+def test_s4_nonorthogonal_projector_fires_g_f(ring):
+    """S4: a planted non-orthogonal (oblique) projector -> G-F fires on all three legs."""
+    s = hodge_split_injected_current(ring, perturb=0.1)
+    assert abs(s["G_F_ortho"]) > TOL_HODGE, "G-F ortho did NOT fire under a skewed projector"
+    assert s["G_F_completeness"] > TOL_HODGE, "G-F completeness did NOT fire"
+    assert s["G_F_projsum_max"] > TOL_HODGE, "G-F projector-sum did NOT fire"
+
+
+def test_e5_fullnet_qualifier_is_load_bearing():
+    """The tree-local qualifier matters: on the full srs net the cycle fraction != 1/10."""
+    f = hodge_split_fullnet()
+    assert f["cycle_fraction_T_odd_fullnet"] > 0.1 + 1e-3, "full-net cycle fraction must exceed 1/10"
+    assert f["b1_fullnet"] == pytest.approx(109.0)
+
+
+def test_e5_orientation_ensemble_is_isotropic_balanced():
+    """Omega enters as a unit axis only (no scale). The srs ring planes are isotropic/balanced."""
+    o = ring_orientation_ensemble()
+    eig = np.array(o["Q_eigenvalues"])
+    # sign-free orientation tensor is trace-1; isotropic => all eigenvalues ~ 1/3
+    assert np.allclose(eig, 1.0 / 3.0, atol=1e-6), f"ring planes not isotropic: {eig}"
+    assert o["signed_mean_normal_magnitude"] < 0.1, "ensemble not balanced (net normal too large)"
+
+
+def test_e5_orientation_axis_is_not_a_scale():
+    """Anti-install: the orientation deliverable introduces NO dimensional constant."""
+    assert scan_for_dimensional_constants(_DRIVER) == []
