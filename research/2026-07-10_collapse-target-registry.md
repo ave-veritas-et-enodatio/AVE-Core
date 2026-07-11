@@ -248,21 +248,26 @@ is the **μ-sector inductive drag `η_eff`** (NOT A1 mass, NOT ε-sector DE); re
 - **The "MOND / a₀" namesake carries the External-Field Effect (EFE)** — the sharp MOND-vs-particle-DM discriminator —
   **absent from the entire KB.** Absence receipts (two methods): `grep -rwil "external field effect" manuscript/ave-kb`
   → **0 files** (the token "EFE" that appears elsewhere means Einstein Field Equation — itself a mild homonym); `grep
-  -rwin "poisson|\nabla|field equation"` across `vol3/cosmology/ch05-dark-sector/` → **empty** (no modified-Poisson field
-  PDE anywhere; only the algebraic `g_eff(g_N)`).
+  -rwinE "poisson|nabla|field equation"` across `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/` → **0** (and `rg -in
+  'poisson|\nabla|field equation'` on the same dir → **0**). Both commands actually fire: the `-E` alternation returns 41
+  hits on a control `acceleration|mond` in that dir, so the zero is a real absence — **not** the literal-pipe vacuity of the
+  earlier un-`-E`'d form, which matched the whole string `poisson|\nabla|…` verbatim and returned 0 against *any* corpus.
+  No modified-Poisson field PDE anywhere; only the algebraic `g_eff(g_N)`.
 
 **Candidate collapse (substrate-walk, not a menu):** standard MOND's EFE states that the interpolation keys on the **total
 local field** (internal + external), so a system in an external field `g_ext ≳ a₀` is driven toward the Newtonian branch
-even when its internal `g_int ≪ a₀`. The AVE mechanism is **Axiom-4 saturation of the local lattice's `η_eff`**, and the
-kernel `S(A)=√(1−A²)` saturates on the **total local strain amplitude** — an external field is *also* local field. So
-**Ax4-keyed-on-total-local-field structurally implies an external-field pre-saturation of `η_eff`** — i.e. the EFE, sitting
-un-named inside the `a₀` object. *(This is the un-cashed structure; the internal-vs-total keying is the unadjudicated
-hinge — flag-don't-fix, Grant's call.)*
+even when its internal `g_int ≪ a₀`. The AVE mechanism is **Axiom-4 saturation of the local lattice's `η_eff`**. **IF the
+kernel `S(A)=√(1−A²)` keys on the total local amplitude** (internal + external strain — the unadjudicated hinge, since an
+external field is *also* local field), **THEN an external-field pre-saturation of `η_eff` follows structurally** — i.e. the
+EFE, sitting un-named inside the `a₀` object. *(This is the un-cashed structure; the internal-vs-total keying is the
+unadjudicated hinge — flag-don't-fix, Grant's call.)*
 
 **What it unlocks:** a live, currently-tested AVE-distinct forward prediction the corpus states nowhere — whether AVE-MOND
 is modified-*inertia* (internal `g_N` only → **no EFE**) or substrate-saturation (total local field → **EFE present**).
 Auditor arithmetic: `a₀ = cH_∞/2π ≈ 1.07×10⁻¹⁰ m/s²`; the Galactic external field at the solar neighborhood is
-`g_ext ≈ 2.1×10⁻¹⁰ ≈ 1.8 a₀` — *order-a₀*, so the EFE is an order-1 effect on real embedded dwarfs. Kill-test regime is
+`g_ext ≈ 2.1×10⁻¹⁰` — **≈ 2.0 a₀ against the AVE-derived a₀ = 1.07×10⁻¹⁰** (`2.1/1.07 = 1.96`), or **≈ 1.8 against the
+empirical a₀ = 1.2×10⁻¹⁰** (`2.1/1.2 = 1.75`) — *order-a₀* either way, so the EFE is an order-1 effect on real embedded
+dwarfs. Kill-test regime is
 populated (Crater II dispersion; wide-binary tests, Chae 2023 / Pittordis–Sutherland).
 
 **Kill-test:** derive whether the Ax4 saturation amplitude `A` for the galactic `η_eff` keys on the **internal source's**
