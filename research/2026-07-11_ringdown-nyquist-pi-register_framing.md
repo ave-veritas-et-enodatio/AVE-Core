@@ -64,7 +64,31 @@ This **converges with the #634 review finding that the radial port-language (`Z(
 
 ## §3 THE π-REGISTER AUDIT — is `4π³+π²+π` using π in one consistent register?
 
-_(section content lands next commit)_
+Grant's question: *"are we using π wrong in `4π³+π²+π`?"*
+
+**SECTOR / REGIME / PHASE-STATE.** This is a **form-level audit of a Class-B ECHO**. **NO banked number moves regardless of the outcome**: the α keystone is a **calibration identity**, cited as **identity-not-derivation**; its scale is forced, its exact value rests on `R·r = 1/4` which the substrate does not independently select, and all A/B/C/D flip-routes closed negative. This audit can only touch the *form's* honesty, never the number.
+
+**(a) The three terms currently draw on THREE quantization registers.**
+- **`π = Λ_line = π·d`** — a **diameter-referenced circumference** (the substrate Ampère 1-cycle around the tube cross-section at Nyquist-quantized diameter `d = 1 ℓ_node`), leaning on the **NYQUIST sense** (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md:130,169`; `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:94`; receipts re-confirmed in the #631 registry review, T1 triad);
+- **`π²`** — the **weakest-dressed term**: `Λ_surf = 4π²(R·r) = π²`, a phasor 2-area, but **not a natural single-geometry measure** on its own;
+- **`4π³ = (2π)²·π`** — has a seductive **two-full-turns-times-one-half-turn** phase-space reading, but that is **UNMINTED numerology until a mode count forces it**.
+
+So the three coefficients `{4,1,1}` are each assigned by a **different per-term convention choice**, not read off one geometry in one register.
+
+**(b) The lattice's native closures are 2π-quantized.** X42's azimuthal standing-wave condition is `∮k·dl = 2πn` on the `2πR` ring (`research/2026-07-10_x42-atomic-eigencavity_RESULT.md:100`). Against a **2π-native** lattice, **every bare `π` owes a named half-turn/diameter reason**. The τ-rewrite makes this explicit and no cleaner: with `τ = 2π`, `4π³ + π² + π = τ³/2 + τ²/4 + τ/2` — the ½/¼/½ prefactors are just the per-term register choices wearing tau clothes. **The expression is mixed-register.**
+
+**(c) The coincidence-tell at FORM level.** Mixed-register **+ per-term convention choice** is precisely the **½/¼ over-determination coincidence-tell** — the same shape flagged elsewhere in the program (a result that only lands because each term was free to pick its own convention). Here it lives at the **FORM** level (the coefficient assignment), not the value level.
+
+**(d) The adjudicator.** The thing that would settle it: an **Op21-class mode count on the actual srs lattice** that produces the `{4,1,1}` integer coefficients in **ONE consistent register with no per-term choice**. **T1's quantization-triad def-node mint** (mode-count ⊥ winding ⊥ Nyquist-sampling; board §9 fire-ready) is the **first step** — it forces each keystone row to **declare its sense**, which is the precondition for detecting a register mismatch at all.
+
+**(e) The precision facts (from the house-rule discussion).**
+- formula `= 137.036303776` (**EXACT**);
+- `α⁻¹ = 137.035999084(21)` [**CODATA-2018** pin] (`137.035999177(21)` [CODATA-2022]);
+- **`Δ ≈ 3.047×10⁻⁴ ≈ 14,500σ`** (14,509σ at 21e-9) — the gap is invisible below 4 decimals;
+- `δ_strain` = the **definitional residual** `= 2.2234(2)×10⁻⁶` @2018 pin (2.2228×10⁻⁶ @2022); the **magnitude route CLOSED NEGATIVE** (FT-1, −31 OOM — `research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`), the **sign is substrate-set**;
+- the **integer coefficients `{4,1,1}` carry ZERO precision burden** — the entire numerical burden lives in the residual's **4th–9th decimals**.
+
+**STATUS LINE.** This walk **extends the echo verdict's reach to the FORM** as the default posture: absent an Op21 single-register mode count, `4π³+π²+π` is a mixed-register form with per-term convention freedom, consistent with its already-adjudicated echo status. This is a **recorded audit posture, NOT a new ruling** — no verdict, no def-node, no number moves; the gate (T1 + the Op21 count) is the thing.
 
 ---
 
