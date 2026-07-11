@@ -21,27 +21,70 @@ from __future__ import annotations
 import numpy as np
 
 
-def body_force_step(eng, f: np.ndarray) -> None:
+def body_force_step(eng, f: np.ndarray, apply_damping: bool = False) -> None:
     """One leapfrog step of the CERTIFIED medium WITH a body-force source `f`.
 
     Reuses `eng.c_eff_squared` (certified kernel) and `eng._laplacian` (certified
-    7-point stencil) verbatim; adds `dt²·f` (the body-force source). PML damping
-    is intentionally not applied — the smooth drives launch no wave (see module
-    docstring). The engine module itself is NOT modified.
+    7-point stencil) verbatim; adds `dt²·f` (the body-force source).
+
+    `apply_damping` (R5 amendment, 2026-07-11): the certified `step()` applies a
+    final `V_new *= self.damping` (the PML line). The frozen-prereg body-force
+    driver OMITTED it (the smooth drives launch no wave to absorb — see module
+    docstring). `apply_damping=True` REINSTATES the certified PML line verbatim, so
+    a damping-inclusive CONTROL leg can confirm the verdicts are unchanged
+    (disclosed as a post-freeze deviation in the result-doc amendment). The engine
+    module itself is NOT modified.
     """
     c_eff_sq = eng.c_eff_squared(eng.V)
     lap = eng._laplacian(eng.V)
     v_new = 2.0 * eng.V - eng.V_prev + (eng.dt**2) * (c_eff_sq * lap + f)
+    if apply_damping:
+        v_new *= eng.damping  # the certified step()'s PML line, verbatim
     eng.V_prev = eng.V.copy()
     eng.V = v_new
     eng.time += eng.dt
     eng.step_count += 1
 
 
-def evolve_body_force(eng, f: np.ndarray, n_steps: int) -> None:
+def evolve_body_force(eng, f: np.ndarray, n_steps: int, apply_damping: bool = False) -> None:
     """Evolve the certified medium under a fixed body force `f` for `n_steps`."""
     for _ in range(n_steps):
-        body_force_step(eng, f)
+        body_force_step(eng, f, apply_damping=apply_damping)
+
+
+def probe_step(eng, c_eff_sq_value: float, apply_damping: bool = True) -> None:
+    """One wave-equation step at a CONSTANT `c_eff²` (R6 teeth).
+
+    The uniform stiffness planted into the evolution: for the |g|-keyed sabotage,
+    `c_eff_sq_value = c0²/S(A_sab)` (the DRIVE-magnitude modulates the stiffness);
+    for the strain-keyed clean reference, `c_eff_sq_value = c0²` (a common-mode
+    drive does not load a strain-keyed kernel). Reuses the certified `_laplacian`;
+    `apply_damping=True` reinstates the certified PML line.
+    """
+    lap = eng._laplacian(eng.V)
+    v_new = 2.0 * eng.V - eng.V_prev + (eng.dt**2) * (float(c_eff_sq_value) * lap)
+    if apply_damping:
+        v_new *= eng.damping
+    eng.V_prev = eng.V.copy()
+    eng.V = v_new
+    eng.time += eng.dt
+    eng.step_count += 1
+
+
+def evolve_probe(eng, c_eff_sq_value: float, n_steps: int, apply_damping: bool = True) -> None:
+    """Evolve a seeded probe under a CONSTANT planted stiffness for `n_steps`."""
+    for _ in range(n_steps):
+        probe_step(eng, c_eff_sq_value, apply_damping=apply_damping)
+
+
+def field_l2_divergence(eng_a, eng_b, margin_cells: int = 4) -> float:
+    """Relative L2 divergence of two evolved probe fields on the PML-excluded deep
+    interior — the EVOLVED observable the P11 detector fires on (R6 teeth)."""
+    sl = _interior_slice(eng_a, margin_cells)
+    va = eng_a.V[sl]
+    vb = eng_b.V[sl]
+    denom = float(np.sqrt(np.sum(vb * vb)))
+    return float(np.sqrt(np.sum((va - vb) ** 2)) / denom) if denom > 0.0 else 0.0
 
 
 def uniform_body_force(eng, f0: float) -> np.ndarray:

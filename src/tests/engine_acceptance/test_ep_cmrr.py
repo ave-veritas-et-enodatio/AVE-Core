@@ -52,9 +52,20 @@ _F0 = 0.02  # uniform common-mode amplitude; keeps V_center < 0.5·V_yield
 _TARGET_STRAIN_B = 0.2  # LEG-B tidal-strain target (γ set analytically to hit it)
 _SABOTAGE_A = 0.3  # planted |g|-keyed strain under the uniform drive
 
+# ── R6-teeth probe parameters (post-freeze amendment; see result-doc amendment) ──
+_PROBE_STEPS = 150  # probe propagation length for the evolved-observable detector
+_PROBE_SIGMA = 2.0
+_PROBE_AMP = 0.05  # small — the probe itself does not load any kernel
+
 
 def _fresh_medium() -> MasterEquationFDTD:
     return MasterEquationFDTD(N=_N)
+
+
+def _seed_probe(eng: MasterEquationFDTD) -> MasterEquationFDTD:
+    """Seed an identical Gaussian probe at the box centre (R6 teeth)."""
+    eng.inject_gaussian((_N // 2, _N // 2, _N // 2), _PROBE_SIGMA, _PROBE_AMP)
+    return eng
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -128,36 +139,105 @@ def test_ep_cmrr_leg_b_differential_loads():
 # P11 — sabotage: key the kernel on |g| (force magnitude) → LEG-A must FIRE
 # ─────────────────────────────────────────────────────────────────────────────
 def test_ep_cmrr_p11_sabotage_gmag_keying_fires_leg_a():
-    """P11 [SABOTAGE / TEETH] — a deliberately |g|-keyed kernel FIRES LEG-A.
+    """P11 [SABOTAGE / TEETH] — a deliberately |g|-keyed kernel FIRES LEG-A on an
+    EVOLVED observable.
 
     Plant a common-mode-sensitive coupling: key the kernel on the drive magnitude
     |f| instead of the strain (f_yield = |f0|/0.3 → A_sab ≈ 0.3 under the uniform
     drive). |f| ≡ |f0| everywhere under the common-mode drive, so the sabotaged
-    kernel LOADS and LEG-A fires. This is the falsifiable teeth: the instrument
-    must detect a planted WEP-violating keying. The banked MOND local-|g| keying
-    is this same |g|-keyed exposure.
+    kernel LOADS. The banked MOND local-|g| keying is this same |g|-keyed exposure.
 
-    PRE-REGISTERED BINS (frozen):
-      * PASS (instrument certified): min S_sab < 0.99 (LEG-A FIRES — loading
-              detected under the common-mode drive).
-      * FAIL : min S_sab >= 0.99 (the instrument failed to detect the WEP
-               violation — it cannot tell WEP-exact from WEP-violating).
+    R6 TEETH (post-freeze amendment; result-doc amendment §R6): plant the
+    magnitude-keyed coupling INTO the evolution — under the common-mode drive the
+    |g|-keyed kernel modulates the stiffness to c_eff²=c0²/S(A_sab) EVERYWHERE,
+    whereas a strain-keyed kernel a common-mode drive leaves untouched stays at
+    c_eff²=c0². A probe pulse propagates faster through the |g|-loaded medium; the
+    detector fires on the EVOLVED field divergence, with a clean-vs-clean run as
+    the (exactly-zero) negative control. The earlier arithmetic-only assert had no
+    teeth (the evolve was dead code for it); this fixes that.
+
+    PRE-REGISTERED (frozen) BIN — kept, not loosened:
+      * min S_sab < 0.99 (the |g|-keyed kernel loads under common-mode; the
+        formula-level keying check).
+    R6 TEETH BINS (post-freeze):
+      * FIRES  : evolved L2 field divergence (|g|-loaded vs strain-keyed) > 1e-2.
+      * NEG-CTRL: clean-vs-clean divergence < 1e-9 (determinism — the detector does
+        NOT fire when nothing is planted).
     """
+    # (i) frozen formula-level keying check — kept
     eng = _fresh_medium()
     f = EP.uniform_body_force(eng, _F0)
     EP.evolve_body_force(eng, f, _N_STEPS)
     f_yield = abs(_F0) / _SABOTAGE_A
-    s_sab = EP.magnitude_keyed_S(eng, f, f_yield)
+    s_min = float(EP.magnitude_keyed_S(eng, f, f_yield).min())
 
-    s_min = float(s_sab.min())
-    print("\n--- P11 sabotage (|g|-keyed kernel; LEG-A must FIRE) ---")
-    print(f"  planted A_sab            : {_SABOTAGE_A:.3f}")
-    print(f"  min S_sab under uniform  : {s_min:.4f}  (LEG-A FIRES if < 0.99)")
+    # (ii) R6 evolved teeth — the |g|-keying planted into the stepping
+    s_kernel = float(np.sqrt(1.0 - _SABOTAGE_A**2))  # S(A_sab) at the planted A_sab
+    ceff_sq_sab = 1.0 / s_kernel  # c0²=1 → loaded stiffness (|g|-keyed under common-mode)
+    ceff_sq_clean = 1.0  # strain-keyed under common-mode: unloaded
+    e_clean = _seed_probe(_fresh_medium())
+    e_sab = _seed_probe(_fresh_medium())
+    e_ctrl = _seed_probe(_fresh_medium())
+    EP.evolve_probe(e_clean, ceff_sq_clean, _PROBE_STEPS)
+    EP.evolve_probe(e_sab, ceff_sq_sab, _PROBE_STEPS)
+    EP.evolve_probe(e_ctrl, ceff_sq_clean, _PROBE_STEPS)
+    fire = EP.field_l2_divergence(e_sab, e_clean)
+    null = EP.field_l2_divergence(e_ctrl, e_clean)
 
-    assert s_min < 0.99, (
-        f"FAIL: |g|-keyed kernel did NOT fire LEG-A under common-mode — S_sab={s_min:.4f} "
-        "(the instrument cannot detect a WEP-violating keying)"
+    print("\n--- P11 sabotage (|g|-keyed kernel; LEG-A must FIRE — evolved teeth) ---")
+    print(f"  planted A_sab                : {_SABOTAGE_A:.3f}")
+    print(f"  (frozen) min S_sab           : {s_min:.4f}  (loads if < 0.99)")
+    print(f"  loaded c_eff² (|g|-keyed)    : {ceff_sq_sab:.4f}  vs clean {ceff_sq_clean:.4f}")
+    print(f"  EVOLVED L2 divergence (fire) : {fire:.4f}  (FIRES if > 1e-2)")
+    print(f"  negative control (clean|clean): {null:.2e}  (< 1e-9)")
+
+    assert s_min < 0.99, f"FAIL: |g|-keyed kernel did not load under common-mode — S_sab={s_min:.4f}"
+    assert fire > 1e-2, (
+        f"FAIL: |g|-keyed evolution did NOT diverge from the strain-keyed run — "
+        f"L2={fire:.3e} (the detector has no evolved teeth)"
     )
+    assert null < 1e-9, f"FAIL: negative control fired — clean-vs-clean L2={null:.2e} (non-deterministic)"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# R5 CONTROL — damping-inclusive stepper; verdicts must be unchanged
+# ─────────────────────────────────────────────────────────────────────────────
+def test_ep_cmrr_r5_damping_inclusive_control():
+    """R5 CONTROL [post-freeze amendment; result-doc amendment §R5] — the frozen
+    body-force driver OMITTED the certified step()'s PML damping line (the smooth
+    drives launch no wave to absorb — the omission was disclosed only post-freeze).
+    This control re-runs LEG-A / LEG-B through the SAME stepper WITH the certified
+    `V *= self.damping` line REINSTATED and confirms the certification VERDICTS are
+    unchanged.
+
+    Note: with damping ON, the LEG-A A_strain metric picks up a small PML-seeded
+    boundary residual (the PML shrinks V near the edge → a spurious gradient that
+    diffuses toward the read window) — which is EXACTLY why the frozen driver
+    omitted damping. The verdict-level invariant `min S` is robust to it.
+
+    ASSERT (verdict-level, must match the no-damping legs):
+      * LEG-A (damped): min S_strain > 0.999 (strain-keyed kernel does NOT load
+        under common-mode — WEP-exact verdict unchanged).
+      * LEG-B (damped): min S_strain < 0.999 (loads on the tide — verdict unchanged).
+    """
+    eng_a = _fresh_medium()
+    EP.evolve_body_force(eng_a, EP.uniform_body_force(eng_a, _F0), _N_STEPS, apply_damping=True)
+    a_a = EP.differential_strain_field(eng_a)
+    s_a_min = float(EP.strain_keyed_S(eng_a, a_a).min())
+
+    eng_b = _fresh_medium()
+    t = _N_STEPS * eng_b.dt
+    gamma = (2.0 * _TARGET_STRAIN_B * eng_b.V_yield) / (t**2)
+    EP.evolve_body_force(eng_b, EP.gradient_body_force(eng_b, gamma, axis=0), _N_STEPS, apply_damping=True)
+    a_b = EP.differential_strain_field(eng_b)
+    s_b_min = float(EP.strain_keyed_S(eng_b, a_b).min())
+
+    print("\n--- R5 damping-inclusive CONTROL (certified PML line reinstated) ---")
+    print(f"  LEG-A (damped): A_strain residual {float(a_a.max()):.2e}  min S {s_a_min:.6f}  (verdict > 0.999)")
+    print(f"  LEG-B (damped): A_strain(med) {float(np.median(a_b)):.4f}  min S {s_b_min:.4f}  (verdict < 0.999)")
+
+    assert s_a_min > 0.999, f"FAIL: damping CHANGED the LEG-A verdict — min S {s_a_min:.6f} (kernel loaded)"
+    assert s_b_min < 0.999, f"FAIL: damping CHANGED the LEG-B verdict — min S {s_b_min:.4f} (kernel did not load)"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -193,7 +273,10 @@ def test_ep_cmrr_certification_summary_cmrr_infinite():
     s_sab = EP.magnitude_keyed_S(eng_a, fa, f_yield)
 
     a_a_max = float(a_a.max())
-    cmrr = float(np.median(a_b)) / max(a_a_max, 1e-12)
+    a_b_med = float(np.median(a_b))
+    # Frozen-bin CMRR carries a 1e-12 divide-floor GUARD; the LEG-A residual is
+    # EXACTLY 0, so any displayed ratio is floor-limited, NOT a measurement (R7).
+    cmrr_floor_limited = a_b_med / max(a_a_max, 1e-12)
     s_a_min = float(s_a.min())
     s_sab_min = float(s_sab.min())
     runtime = time.time() - t0
@@ -201,10 +284,14 @@ def test_ep_cmrr_certification_summary_cmrr_infinite():
     print("\n--- EP-CMRR certification summary ---")
     print(f"  strain-keyed LEG-A min S : {s_a_min:.6f}  (WEP-exact: > 0.999)")
     print(f"  |g|-keyed   LEG-A min S  : {s_sab_min:.4f}  (WEP-violating: fires < 0.99)")
-    print(f"  CMRR (B/A)               : {cmrr:.3e}  (PASS > 1e3)")
+    print(f"  LEG-A residual A_strain  : {a_a_max:.1e}  (exactly 0)")
+    print(f"  CMRR                     : ∞ by construction (residual exactly 0; "
+          f"the {cmrr_floor_limited:.0e} a 1e-12-floor artifact, NOT a measurement)")
     print(f"  4-leg driver runtime     : {runtime:.2f}s")
 
-    assert cmrr > 1e3, f"FAIL: CMRR not large — {cmrr:.3e}"
+    assert a_a_max < 1e-12, f"FAIL: LEG-A residual not ~0 — {a_a_max:.3e} (CMRR not ∞)"
+    assert a_b_med > 1e-3, f"FAIL: LEG-B differential too small — {a_b_med:.3e}"
+    assert cmrr_floor_limited > 1e3, "FAIL: frozen CMRR bin (floor-limited) not satisfied"
     assert s_a_min > 0.999, f"FAIL: strain-keyed LEG-A loaded — S={s_a_min:.6f}"
     assert s_sab_min < 0.99, f"FAIL: |g|-keyed arm did not fire — S={s_sab_min:.4f}"
 
