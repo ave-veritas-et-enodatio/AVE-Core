@@ -16,9 +16,11 @@ validated patterns from the breakthrough methods note
 
 **Method.** Seven read-only sweep lanes (KB common registers; vol1+2; vol3+6; vol4+9; vol5+claim-registers;
 recent `research/`; a dedicated P8-by-object lane), each in the pinned worktree at `origin/main 7fedf5c3`, each
-required to (a) name the **shared bench mechanism** — not a resemblance — for every candidate, (b) verify every
-load-bearing receipt with **two independent grep methods** (LaTeX-aware, per `feedback_grep_completeness`), (c)
-pre-name a **kill-test**, (d) estimate cost, and (e) run a seduction self-check against the **0-for-7 hopeful-
+required to (a) name the **shared bench mechanism** — not a resemblance — for every **P1/P8** candidate (a clean **P6
+SPLIT** legitimately has *no* shared mechanism: two unrelated objects sharing one word is exactly its polarity), (b)
+verify every load-bearing receipt with **two independent grep methods** (LaTeX-aware, per `feedback_grep_completeness`),
+(c) pre-name a **kill-test** — fireable for P1/P8; for a *pure-terminology* P6 the kill-test may legitimately be n/a
+(the sole such case is T16, flagged in situ), (d) estimate cost, and (e) run a seduction self-check against the **0-for-7 hopeful-
 interior-mechanism ledger** ([`program-arc-map.md:404`](../manuscript/ave-kb/common/program-arc-map.md)). The
 orchestrator then deduplicated across lanes, re-verified the headline + the two concrete numeric/arithmetic
 catches personally, and applied a **romance-knife pre-filter**: any candidate whose "collapse" is a rhyme rather
@@ -41,7 +43,7 @@ propagation · **L** = new derivation arc or engine work.
 |---|---|---|---|---|---|
 | **T1** | Quantization homonym — a TRIAD (mode-count ⊥ winding ⊥ Nyquist-sampling) | P6 | SPLIT + def-node | S | **fire-ready** (mint staged by the corpus itself) |
 | **T2** | The "empty slew catalog" is un-cross-linked, not empty: hysteresis §1 IS the rate-keyed family | P1 | MERGE / cross-link | M | fire-ready; "slew" *label* A4-gated |
-| **T3** | Γ = −1 homonym — lossless CONFINEMENT vs dissipative RUPTURE (a NEW axis; KEEP-BOTH with cq:1612) | P6 | SPLIT + ownership table | M | needs Grant loss-character ruling |
+| **T3** | Γ = −1 homonym — lossless CONFINEMENT vs dissipative RUPTURE (a NEW axis; KEEP-BOTH with cq:1612) | P6 | SPLIT + ownership table (branch (ii)); language-retraction (branch (i)) | M | needs Grant loss-character ruling |
 | **T4** | MOND `a₀` namesake carries the External-Field Effect — absent from the whole KB | P8 | forward-prediction opener | M | needs Grant keying decision (internal vs total field) |
 | **T5** | The `θ` power-factor axis and the EM loss-tangent `tan δ` are one phasor (`tan δ = cot θ`) — kills the "all-orthogonal" over-claim; the `δ_AVE` duty axis stays distinct | P1 | de-orthogonalize (θ↔tan δ only) | S | fire-ready (narrowed) |
 | **T6** | boundary-observable `M`: mass→inductance `L` collides with the ratified `X_L` = spin ruling | P6 | SPLIT / sector disambiguation | S–M | flag-don't-fix (latent contradiction) |
@@ -143,12 +145,13 @@ a sub-yield reading is a wrong-regime null.
   [`2026-07-10_operator-typing-pass_result.md:157`](2026-07-10_operator-typing-pass_result.md) "the slew catalog is
   *empty*" (G2). *(Orchestrator re-verified: the catalog author already knows the relativistic inductor is the slew
   instance — so the accurate finding is narrower than "empty is false"; see below.)*
-- **`substrate-hysteresis-index.md §1` has already assembled a FIVE-member rate-keyed family on the same object.**
+- **`substrate-hysteresis-index.md §1` has already assembled a SIX-member rate-keyed family on the same object.**
   `manuscript/ave-kb/common/substrate-hysteresis-index.md:47` "any time the dynamics are governed by a **rate**
   ($d\omega/dt$, $dI/dt$) rather than an instantaneous amplitude"; `:53` `$L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}\to\infty$
   at $I_{max}$ — … physically **collapses the slew rate** $dI/dt\to0$ … the magnetic-sector projection of the same
   Axiom-4 kernel" (`clm-p5cf3t`). Members: relativistic inductor (`clm-p5cf3t`), dark-wake BEMF (`clm-exjfai`),
-  Newtonian-inertia-as-Lenz (`clm-jwyy6l`), Op14 local-clock (`clm-1eg13f`), geodynamo (`clm-wd5rs0`).
+  Newtonian-inertia-as-Lenz (`clm-jwyy6l`), Op14 local-clock (`clm-1eg13f`), Op14 cross-sector-trading reactance-pair
+  (`clm-p2tp9i`), geodynamo (`clm-wd5rs0`).
 - **The two registers do not cross-link *as the slew catalog*.** `grep -rniE "hysteresis|lenz|bemf|memristiv"` in the
   kernel catalog and `operators.md` → **zero hits** (orchestrator-verified). `clm-p5cf3t` IS co-cited by both registers
   and the hysteresis index — the *claim* is shared, but neither the kernel-catalog RATING-TYPE block nor the X35 G2
@@ -225,7 +228,10 @@ the SPICE muon leaky-cavity) from importing lossless-reflection reasoning into a
 undifferentiated usage; the substrate-hysteresis Level-1/Level-2 boundary already predicts (ii).
 
 **Cost:** **M** — def-node/ownership table (S) + KEEP-BOTH regime tags across ~5 falsification leaves that currently write
-bare "Γ=−1 impedance rupture." **Confidence:** high the glyph is undifferentiated across loss-opposite objects; medium on
+bare "Γ=−1 impedance rupture." **The booked action is branch-contingent (per the kill-test): SPLIT + ownership table under
+branch (ii) (dissipative — the glyph really is mislabeled), but a LANGUAGE RETRACTION (of the muon/0-mN "energy escapes /
+no reaction" wording) under branch (i) (lossless-reflective — the glyph is one object, only the prose is wrong).**
+**Confidence:** high the glyph is undifferentiated across loss-opposite objects; medium on
 which kill-test branch fires (Grant's ruling). **Seduction check:** the pull is "declare it a physics error"; resisted per
 flag-don't-fix — surface the homonym + the loss-character tension with receipts, do not assert the benches are wrong. The
 pre-existing `cq:1612` flag (different axis, same glyph) de-risks this as a real corpus concern.
@@ -248,21 +254,26 @@ is the **μ-sector inductive drag `η_eff`** (NOT A1 mass, NOT ε-sector DE); re
 - **The "MOND / a₀" namesake carries the External-Field Effect (EFE)** — the sharp MOND-vs-particle-DM discriminator —
   **absent from the entire KB.** Absence receipts (two methods): `grep -rwil "external field effect" manuscript/ave-kb`
   → **0 files** (the token "EFE" that appears elsewhere means Einstein Field Equation — itself a mild homonym); `grep
-  -rwin "poisson|\nabla|field equation"` across `vol3/cosmology/ch05-dark-sector/` → **empty** (no modified-Poisson field
-  PDE anywhere; only the algebraic `g_eff(g_N)`).
+  -rwinE "poisson|nabla|field equation"` across `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/` → **0** (and `rg -in
+  'poisson|\nabla|field equation'` on the same dir → **0**). Both commands actually fire: the `-E` alternation returns 41
+  hits on a control `acceleration|mond` in that dir, so the zero is a real absence — **not** the literal-pipe vacuity of the
+  earlier un-`-E`'d form, which matched the whole string `poisson|\nabla|…` verbatim and returned 0 against *any* corpus.
+  No modified-Poisson field PDE anywhere; only the algebraic `g_eff(g_N)`.
 
 **Candidate collapse (substrate-walk, not a menu):** standard MOND's EFE states that the interpolation keys on the **total
 local field** (internal + external), so a system in an external field `g_ext ≳ a₀` is driven toward the Newtonian branch
-even when its internal `g_int ≪ a₀`. The AVE mechanism is **Axiom-4 saturation of the local lattice's `η_eff`**, and the
-kernel `S(A)=√(1−A²)` saturates on the **total local strain amplitude** — an external field is *also* local field. So
-**Ax4-keyed-on-total-local-field structurally implies an external-field pre-saturation of `η_eff`** — i.e. the EFE, sitting
-un-named inside the `a₀` object. *(This is the un-cashed structure; the internal-vs-total keying is the unadjudicated
-hinge — flag-don't-fix, Grant's call.)*
+even when its internal `g_int ≪ a₀`. The AVE mechanism is **Axiom-4 saturation of the local lattice's `η_eff`**. **IF the
+kernel `S(A)=√(1−A²)` keys on the total local amplitude** (internal + external strain — the unadjudicated hinge, since an
+external field is *also* local field), **THEN an external-field pre-saturation of `η_eff` follows structurally** — i.e. the
+EFE, sitting un-named inside the `a₀` object. *(This is the un-cashed structure; the internal-vs-total keying is the
+unadjudicated hinge — flag-don't-fix, Grant's call.)*
 
 **What it unlocks:** a live, currently-tested AVE-distinct forward prediction the corpus states nowhere — whether AVE-MOND
 is modified-*inertia* (internal `g_N` only → **no EFE**) or substrate-saturation (total local field → **EFE present**).
 Auditor arithmetic: `a₀ = cH_∞/2π ≈ 1.07×10⁻¹⁰ m/s²`; the Galactic external field at the solar neighborhood is
-`g_ext ≈ 2.1×10⁻¹⁰ ≈ 1.8 a₀` — *order-a₀*, so the EFE is an order-1 effect on real embedded dwarfs. Kill-test regime is
+`g_ext ≈ 2.1×10⁻¹⁰` — **≈ 2.0 a₀ against the AVE-derived a₀ = 1.07×10⁻¹⁰** (`2.1/1.07 = 1.96`), or **≈ 1.8 against the
+empirical a₀ = 1.2×10⁻¹⁰** (`2.1/1.2 = 1.75`) — *order-a₀* either way, so the EFE is an order-1 effect on real embedded
+dwarfs. Kill-test regime is
 populated (Crater II dispersion; wide-binary tests, Chae 2023 / Pittordis–Sutherland).
 
 **Kill-test:** derive whether the Ax4 saturation amplitude `A` for the galactic `η_eff` keys on the **internal source's**
@@ -492,7 +503,10 @@ output could be the sector-gate *kill*. A rhyme until something pays to kill it 
 **Objects (all glyph "Q", all electron-scale, distinct values):** loaded/radiative `Q=1/α=137.036` (α-baked ECHO,
 `theorem-3-1-q-factor.md:15,147`) · intrinsic/stability `Q→∞` (`:147`) · α-free cold-cage ring-down `Q_ringdown≈30.8`
 (`vacuum-varactor-scatter-operator.md:185`; `vol9/claim-quality.md:507`) · structural radiative-Q floor `Z_RADIATION≈29.98`
-(kept "band-consistent, NOT identical," guarded by pinned anti-coincidence test `test_graded_vacuum_network_isolation.py:119`)
+(kept "band-consistent, NOT identical," guarded by pinned anti-coincidence test
+`test_graded_vacuum_network_isolation.py:141-146` — `test_anti_coincidence_Q_is_not_Z_radiation`; the stale `:119` was
+inherited from canon's own cite at `vacuum-varactor-scatter-operator.md:188` (`:119-124`, likewise stale — flag for the
+next KB hygiene pass, not fixed here))
 · per-mode count `Q=ℓ` (`op21-multi-mode-mode-counting.md:10`). No `def-Q` exists (`grep '^## '` on `vocabulary-register.md`
 → 0). Adjacent risk: `parametric-coupling-kernel.md:239` reuses `Q_atomic=α⁻¹≈137` as an input while `:213` uses
 `Q_apparatus~10³–10⁹`; the α-echo status of the former does not travel with the symbol.
@@ -559,8 +573,10 @@ REQUIRES / nucleation WRITES one `u₀*`) draws part of its prettiness from all 
 symbol the corpus already overloads across a T-symmetric SYM operating point and a T-breaking bias. Whether those are one
 physical object is exactly the A1↔T2 D-II calibration bridge (PENDING-GRANT), which §b itself names as kill-test #1. **What
 it clarifies:** a `u₀*` def-node (Sense A = SYM magic-angle ≈0.187, back-fit; Sense B = the parity-meter frozen bias, PENDING
-the bridge) stops the two senses cross-authenticating. `u₀*` is currently un-registered (`rg 'u_0' vocabulary-register.md` →
-0). **Kill-test:** the D-II bridge showing the frozen bias enters the T2 channel *and* equals the magic-angle value would
+the bridge) stops the two senses cross-authenticating. `u₀*` is currently un-registered (`rg -n 'u₀|u_0\*|u_0\^'
+vocabulary-register.md` → **0 relevant hits**; the only `u_0` substring matches are at `:423,:681`, both inside
+`\mu_0`/`\mu_{eff}` EM-constitutive text — not `u₀*` entries — so the earlier bare `rg 'u_0' → 0` was a false receipt).
+**Kill-test:** the D-II bridge showing the frozen bias enters the T2 channel *and* equals the magic-angle value would
 collapse B→A; until run, treat as two. **Cost:** **S.** **Confidence:** high the glyph is overloaded. **Seduction check:** this
 IS the deflationary lens the 0-for-7 ledger demands — do not upgrade the §b convergence (see RHYME tier R5).
 
@@ -664,7 +680,10 @@ meter registers a signal"; (3) impedance/content-domain bin ("which **register**
 **Collision:** senses 1 and 3 co-occur in one doc — titled "impedance-**register** walks" (sense 3) while citing
 `vocabulary-register` (sense 1) throughout. **Shared mechanism:** none — a clean SPLIT (a ledger-index and an impedance-content-
 bin are unrelated objects sharing a word). **Clarifies:** a register-of-registers note so "off-line register" is never parsed
-as a tracked index. **Kill-test:** n/a (terminological). **Cost:** **S.** **Confidence:** high it is a homonym; **moderate value**
+as a tracked index. **Kill-test:** n/a (terminological — this is a *pure-terminology* P6 clean SPLIT with no fireable
+kill-test). **T16 is the sole ranked target without a fireable kill-test; that is precisely why the romance-knife's "18 of
+19 name a genuine shared mechanism or honestly-flagged fork" count is 18, not 19 — T16 is the named exception, not an
+arithmetic slip.** **Cost:** **S.** **Confidence:** high it is a homonym; **moderate value**
 — most uses are self-disambiguating `X-register` compounds. **Seduction check:** low; hygiene, flagged because the mission asked
 for the count. **Lane provenance:** research C5.
 
@@ -792,9 +811,15 @@ shared *mechanism* is unproven; the miss-ledger (`program-arc-map.md:404`) stand
 
 **Band-curvature effective mass `m* = ℏ²(d²E/dk²)⁻¹` (srs band canon, #609).** The Brillouin/band-structure namesake carries
 group velocity (`dE/dk`, **deployed and tested** — `cosserat-mass-gap.md:95`, "gapped group velocity, 34% error") and effective
-mass from band curvature (`d²E/dk²`). The curvature `m*` is **not merely undeployed — it is actively rejected as an SM crutch**:
-`vol6/period-3/silicon/topological-area.md:17` calls `m*` an "arbitrary variable"; the doping-engine figure renders "Effective
-Mass (m*)" struck-through. **Mass is exclusively A1-dilatation** (`constants.py:72`; `master-equation.md:20`). Minting "effective
+mass from band curvature (`d²E/dk²`). The curvature `m*` is undeployed **and rejected in the vol-4 engineering register**:
+`manuscript/vol_4_engineering/chapters/19_silicon_design_engine.tex:52` lists it among "arbitrary variables like effective mass
+($m^*$) and thermal mobilities ($\mu$)", and the doping-engine figure strikes it through
+(`manuscript/vol_4_engineering/figures/doping_engine_map.svg:102`, `text-decoration="line-through"` on "Effective Mass (m*)").
+That rejection lives in the **superseded vol-4 engineering register**, however; the **KB — the truth-source — treats `m*` as
+peer-with-SM** (`vol6/period-3/silicon/topological-area.md:17` parameterizes $V_{bi}$ "by effective mass ($m^*$) and mobility
+($\mu$)"; `:18` grants it "peer with standard semiconductor physics rather than a distinct empirical prediction … does not
+supersede the thermal treatment"), and that softer KB reading governs. **Mass is exclusively A1-dilatation** (`constants.py:72`;
+`master-equation.md:20`). Minting "effective
 mass from band curvature" would cross-wire T2/embedding curvature into A1 mass — the exact A1⊥T2 violation the corpus has already
 deleted. **The undeployed remainder is `d²E/dk²` as sector-neutral wave-packet dispersion/spreading, NOT as "effective mass."**
 Flagged so an implementer does not read the P8 archaeology as license to mint a deleted cross-wire.
@@ -869,3 +894,31 @@ moved to the spin-flywheel caveat that already accounts for them — the "Polder
 (2) **T5** — the fireable claim was narrowed to the `θ`↔EM-`tan δ` de-orthogonalization (`tan δ = cot θ`, a real phasor
 identity that kills the `:331` all-orthogonal over-claim); the `θ`↔`δ_AVE` tie is corrected to the taxonomic-not-derivational
 analogue the leaf flags at `:310` (`δ_AVE` is a duty ratio, not `tan δ`), NOT written into canon as a phasor identity.
+
+---
+
+## Post-review repairs (2026-07-10, orchestrator-dispatched)
+
+All 8 second-pass adversarial-review findings were **EVIDENCE-VOID** class: broken or imprecise receipts wrapped around
+independently-true conclusions. Every conclusion survived; only the demonstration was repaired (receipt re-sourced, or command
+made fireable). Each replacement receipt below was **run and verified in the pinned worktree before it was written into the
+body** — the whole point of the repair pass is receipts that actually fire.
+
+| # | Finding | Severity | Fix |
+|---|---------|----------|-----|
+| 1 | Anti-target caution mis-cited `topological-area.md:17` as calling `m*` an "arbitrary variable" and an SM-crutch rejection; the KB leaf is NEUTRAL (`:17`) and grants `m*` **peer** status (`:18`). | **MAJOR** | Re-sourced the rejection receipt to the *superseded vol-4 engineering register* (`19_silicon_design_engine.tex:52` + `doping_engine_map.svg:102` `line-through`); demoted the strength claim — the KB is the truth-source and its peer-with-SM reading governs. Operative core (never mint band-curvature `m*` as A1 mass; `d²E/dk²` stays sector-neutral dispersion; A1⊥T2 at `master-equation.md:20`) unchanged. |
+| 2 | T4 absence receipt `grep -rwin "poisson\|\nabla\|field equation"` lacked `-E` → literal pipes → matches nothing against ANY corpus (vacuous). | MINOR | Replaced with `grep -rwinE …` + `rg -in …` cross-check, both verified to fire (control `acceleration\|mond` → 41 hits; the true absence-terms → 0). |
+| 3 | T12 `rg 'u_0' vocabulary-register.md → 0` was false (2 hits at `:423,:681`, both `\mu_0` substring matches). | MINOR | Restated with `rg 'u₀\|u_0\*\|u_0\^'` → 0 relevant; named the two `\mu_0` substrings explicitly. |
+| 4 | T4 "≈ 1.8 a₀" keyed to the empirical a₀=1.2×10⁻¹⁰ while the same sentence quoted the AVE-derived a₀=1.07×10⁻¹⁰. | MINOR | Tagged both denominators (≈ 2.0 a₀ AVE-derived / ≈ 1.8 a₀ empirical) with explicit ratios. |
+| 5 | T4 mechanism asserted the unadjudicated Ax4 total-local keying in the indicative. | MINOR | Rewritten subjunctive (IF Ax4 keys on total-local amplitude, THEN external-field pre-saturation follows); parenthetical + kill-test kept. |
+| 6 | T3 tier row + Cost line booked "SPLIT + ownership table" unconditionally; kill-test branch (i) (lossless-reflective) makes it a LANGUAGE RETRACTION instead. | MINOR | Annotated both the tier-row Resolution cell and the Cost line with the branch-(i)/branch-(ii) split. |
+| 7 | T16 shipped "Shared mechanism: none" + "Kill-test: n/a" while the method required both for every candidate. | MINOR | Scoped method requirements (a)/(c) to P1/P8 (a clean P6 SPLIT legitimately has no shared mechanism — that is its polarity); flagged T16 as the sole ranked target with no fireable kill-test, explaining the 18-of-19 count by name not arithmetic. |
+| 8 | (a) T2 said "FIVE-member" hysteresis §1 (it has SIX rows — omitted `op14-cross-sector-trading` / `clm-p2tp9i`); (b) T10 cited the anti-coincidence test at `:119` (now `:141-146`). | MINOR (2 nits) | (a) corrected to SIX-member, added `clm-p2tp9i`; (b) corrected to `test_graded_vacuum_network_isolation.py:141-146` (`test_anti_coincidence_Q_is_not_Z_radiation`), flagged canon's own stale `:119-124` cite at `vacuum-varactor-scatter-operator.md:188` for the next KB hygiene pass. |
+
+**KEEP-BOTH — superseded MAJOR wording (finding #1, preserved for the audit trail; the body was corrected in place):**
+
+> The curvature `m*` is **not merely undeployed — it is actively rejected as an SM crutch**: `vol6/period-3/silicon/topological-area.md:17` calls `m*` an "arbitrary variable"; the doping-engine figure renders "Effective Mass (m*)" struck-through.
+
+Retained here (not in the body) because the branch is unmerged: in-place body correction **plus** logged supersession is the
+right pattern (per the KEEP-BOTH discriminator convention), so the old wording stays visible even though the corrected body no
+longer carries it.
