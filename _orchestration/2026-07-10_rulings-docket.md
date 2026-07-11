@@ -136,3 +136,95 @@ The registry's fire-ready CLEAN tier is now unblocked (the #637 registry-receipt
 | **T6** | mass→inductance sector contradiction | **NEW · Grant-gated** | Grant |
 | **T13** | N13 protein-folding scope (cross-repo) | **NEW · Grant-gated** (receipt in AVE-Protein lane) | Grant |
 | **T15** | S₁₁ INVARIANT-N4 touch | **NEW · Grant-gated** (needs out-of-repo `eq:s11_energy`) | Grant |
+
+---
+
+## Continuation — 2026-07-11 (Grant input round, 16 items)
+
+Sixteen items Grant surfaced in the 2026-07-11 input round, recorded as short rows (RULED / WALK-CONTINUES /
+PARKED / GO). **KEEP-BOTH:** the two continuations above (post-X40/X42/registry + the original docket) are
+**not edited**; this section carries only the new input round. Nothing here canonizes; substrate claims below
+are records of Grant's rulings, not new assertions. Cross-refs verify-before-cite'd this session.
+
+1. **R-A Kerr-cell gut-check — WALK-CONTINUES.** Grant asked for the DC/AC circuit analysis; delivered in-chat.
+   **SECTOR:** the canon cell is a lumped LC tank with ONE scalar `V`. Analysis: DC bias reaches the shunt node
+   through the DC-short series-L (#547-M1, computed); AC small-signal reads the tangent `C` at the operating
+   point (#547-M3). Because the lumped cell has a single scalar `V`, **K1's polarization split** and **K2's
+   `R_rad` relocation** are **not expressible in the canon cell** — they are **MODIFIED-CIRCUIT proposals**, not
+   readings of the canon circuit. Circuit analysis of the canon circuit = **loads**; the K1/K2 tie persists only
+   as a dispute about **which circuit the vacuum IS**. Grant response pending.
+2. **Free-fall gut-check — WALK-CONTINUES.** Restated in-chat (elevator form). Grant response pending.
+3. **Discrete-solve framing — RULED.** Grant: **drop the media-taxonomy framing**; work the **BOUNDARY
+   CONDITIONS at the interfaces directly** (continuum↔discrete crossover, soliton surface). The discrete muonic
+   arc is to be framed **BC-first**.
+4. **R-C — RULED-TO-TEST.** Grant reframe: is the (2,3) `1/(2π)` degenerate locus **REMEMBER** (stored/frozen
+   preference persisting when de-energized) or **RELAX** (dynamic equilibrium under drive)? Discriminator = a
+   **vertex transient** with desaturation / back-EMF observables (kick the vertex, de-energize, watch whether
+   the locus preference persists). **Arc candidate, not yet dispatched.** (Refines R-C above, which stays
+   PENDING on the degenerate locus.)
+5. **R-D / W1 — CANDIDATE RESOLUTION (Grant-walked, pending verification).** The "match into the uniform `Z₀`
+   far-field bath" **IS** the boundary condition that every point of the soliton surface sees uniform 377 Ω;
+   the E-strain dress = the soliton's projected shape onto that uniform background. Under this reading the
+   "match" language and doc-34's exterior flatness (`Γ²=0`) are the **SAME statement**, not a renamed closed
+   match. **Owed:** a verification pass against doc-34's exact wording, then a register relabel. **NOT yet
+   closed** (R-D above stays PENDING until the doc-34 wording pass lands).
+6. **T3 — RULED-IN-SHAPE.** Grant's question "are electrons and nodes the same?" answers the homonym: **NO**.
+   The **electron-cage `Γ=−1`** (stable sub-yield lossless TIR confinement of a bound mode) and the
+   **past-yield node-rupture** boundary are **DIFFERENT objects in different regimes** and must not share the
+   glyph. Resolution = **KEEP-BOTH SPLIT** (confinement-`Γ=−1` stays lossless; the rupture boundary is
+   **fuse-class**, consistent with the ringdown-absorption lean). Final wording + the thrust/decay bench relabels
+   **await the sweep's A4 verdict**.
+7. **T6 — RULED.** Follow the most robust claim: the Grant-ratified **A1-dilatation mass ownership governs**;
+   the M-row demotes to **TKI translation-image**. Executed in the collapse batch (D1,
+   `_orchestration/2026-07-11_collapse-batch-handoff.md`).
+8. **u₀* split — RULED.** **WAIT on the split** (model-conditional trigger — X40 returned both cut/cycle
+   components nonzero only within the matched-bath model). The homonym **FLAG rides the T12 def-node mint** (D1
+   rider, flag-not-split).
+9. **T13 protein scope — PARKED.** Grant: "worry later."
+10. **T15 S₁₁ invariant — NOT OPENED.** Tidiness alone does not justify touching a solidity-1.00 invariant;
+    parked behind T13.
+11. **Astro sweep — GO.** Brief in canon: `_orchestration/2026-07-11_astro-adjudicator-sweep-handoff.md`. Grant
+    launches, his model / effort.
+12. **Collapse batch — GO.** Brief = D1 of this PR: `_orchestration/2026-07-11_collapse-batch-handoff.md`.
+13. **#40 CVR bench walk — WAITS (Grant-confirmed).** The two-config requirement stays recorded; walk **after
+    the keying adjudicators report**.
+14. **C13b — GO.** Run the frozen prereg; brief = D2 of this PR:
+    `_orchestration/2026-07-11_c13b-bullet-cluster-run-handoff.md`. (Run-time flag: the prereg's α/β/γ
+    adjudication gate is stale — Grant already adjudicated (γ), `dm-mechanism-unification.md:54`; the brief
+    surfaces this for confirmation.)
+15. **Precision house rule — ★RATIFIED (Grant 2026-07-11).** Landed via the **D1 batch** (the five clauses (a)–(e);
+    board Continuation-2 §6 `_orchestration/2026-07-10_orchestration-board.md:199-209` is the PROPOSED origin).
+    The δ_strain prose reconcile rides the same batch.
+16. **D-V — HELD for the weekend (Grant).** Letter **v6 confirmed in good state** (round-4 closed, #625; second
+    validation all-PASS; OTS chain intact); task **#41 (comment-strip) stays gated** on the submission call.
+
+### Docket status board — Grant-input-round state (KEEP-BOTH; tables above unedited)
+
+| Item | What | Status (2026-07-11 input round) | Owner / next |
+|---|---|---|---|
+| R-A Kerr-cell | DC/AC canon-cell circuit analysis | **WALK-CONTINUES** — K1/K2 = MODIFIED-CIRCUIT proposals, canon cell has one scalar V | Grant response pending |
+| Free-fall | elevator-form gut-check | **WALK-CONTINUES** | Grant response pending |
+| Discrete-solve | framing | **RULED** — drop media-taxonomy, BC-first | implementer (BC-first arc) |
+| R-C | (2,3) 1/(2π) locus | **RULED-TO-TEST** — REMEMBER vs RELAX, vertex-transient discriminator | arc candidate, undispatched |
+| R-D / W1 | uniform-Z₀ far-field match | **CANDIDATE RESOLUTION** — same statement as doc-34 Γ²=0; not yet closed | doc-34 wording pass owed |
+| T3 | electron-cage vs node-rupture Γ=−1 | **RULED-IN-SHAPE** — KEEP-BOTH SPLIT (lossless vs fuse-class) | final wording awaits A4 verdict |
+| T6 | mass→inductance M-row | **RULED** — A1 ownership; M-row = TKI image | executed in D1 batch |
+| u₀* split | cut/cycle homonym | **RULED** — WAIT (model-conditional); flag rides T12 | D1 rider (flag-not-split) |
+| T13 | protein scope | **PARKED** — worry later | — |
+| T15 | S₁₁ invariant | **NOT OPENED** — parked behind T13 | — |
+| Astro sweep | adjudicator sweep | **GO** | Grant launches |
+| Collapse batch | fire-ready subset | **GO** — D1 brief | Grant launches |
+| #40 CVR bench | held-DC-E bench walk | **WAITS** — after keying adjudicators | Grant-confirmed |
+| C13b | bullet-cluster run | **GO** — D2 brief (γ-adjudication stale-gate flagged) | Grant launches |
+| Precision house rule | reporting hygiene | **★RATIFIED** — landed via D1 | done via batch |
+| D-V | Letter submission | **HELD (weekend)** — v6 good; #41 gated | Grant + Keith + Benn |
+
+---
+
+*Cross-refs: D1 collapse batch `_orchestration/2026-07-11_collapse-batch-handoff.md`; D2 C13b run
+`_orchestration/2026-07-11_c13b-bullet-cluster-run-handoff.md`; the astro sweep
+`_orchestration/2026-07-11_astro-adjudicator-sweep-handoff.md`; the orchestration board Continuation-2 §6
+(precision house rule PROPOSED origin); the R-B framing note `research/2026-07-10_rb-fossil-walk_framing.md` §3
+(u₀* homonym flag); the X40 result `research/2026-07-10_x40-ring-closure-transient_result.md` (both cut/cycle
+nonzero within the model). Every cross-ref verify-before-cite'd; this continuation records queue-state, not
+adjudicated physics.*
