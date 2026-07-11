@@ -24,6 +24,8 @@ Protein solver domain translation. Every row maps one biological concept through
 | Steric clash | Pauli exclusion ($r < r_\text{steric}$) | Axiom 4: saturation wall | `dc_analysis()` |
 | Protein compaction | Standing wave pattern | Axiom 4: $\eta_\text{eq} = P_C(1-\nu)$ | `ac_analysis()` |
 
+> **Reconciliation note (collapse-batch T19, drift-grade).** The "Conjugate impedance match" label above (`:20`, Hydrophobic core) and "Reactive LC resonance" (`:21`, Salt bridge) attach to *different* residue pairs than `vol5/common/translation-protein.md:28` (which labels the **salt bridge** the conjugate-impedance match). The solver ground truth `common/solver-toolchain.md:477` uses **one** term — Conjugate Matching, $Y_{shunt}\propto \operatorname{Re}(Z_iZ_j^*)/d_{ij}^2$ — for **BOTH** salt bridges AND hydrophobic pairs. **FLAG, not asserted (kill-test caveat):** whether the salt bridge is genuinely a *distinct* $+jX/-jX$ LC-resonance term or the same conjugate-matching term depends on the production `dc_analysis()` internals, which are **NOT visible from this checkout** (the solver lives out-of-repo). The solver-toolchain lump-row is itself physically odd — two hydrophobics should have *similar*, not opposite, reactances — so that grouping may be loose. Resolve against the live `dc_analysis()` before hardening either label.
+
 *Solver Methods:*
 
 | **Biology** | **EE / RF** | **AVE Axiom** | **Script Reference** |

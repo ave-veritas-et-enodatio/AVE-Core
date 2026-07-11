@@ -31,4 +31,6 @@ Protein folding terminology: structural biology $\leftrightarrow$ transmission l
 | $\alpha$-helix | Helical slow-wave structure | Right-handed coiled delay line |
 | $\beta$-sheet | Coupled stripline array | Antiparallel microstrip pair |
 
+> **Reconciliation note (collapse-batch T19, drift-grade).** The "Conjugate impedance match" label on the **salt bridge** (`:28` above) is attached to a *different* residue pair by `vol5/common/translation-protein-solver.md:20-21` (there the **hydrophobic core** is the conjugate-impedance match and the salt bridge is "Reactive LC resonance"). The solver ground truth `common/solver-toolchain.md:477` uses **one** Conjugate-Matching term, $Y_{shunt}\propto \operatorname{Re}(Z_iZ_j^*)/d_{ij}^2$, for **both** salt bridges and hydrophobic pairs. **FLAG, not asserted** — the two-terms-vs-one question depends on the live `dc_analysis()` internals, which are not visible from this checkout.
+
 ---
