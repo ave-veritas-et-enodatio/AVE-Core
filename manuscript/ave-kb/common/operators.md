@@ -90,7 +90,7 @@ TABLE + the AMBIGUOUS list: [`research/2026-07-10_operator-typing-pass_result.md
 **Axis definitions + provenance (all FRAMING until their own gates):**
 - **RATING TYPE** — *swing* (amplitude-keyed, output-swing rating $S(A)=\sqrt{1-A^2}$, cap $E\le E_c$) vs *slew*
   (rate-keyed, slew rating keyed on $A_I=\dot E/(E_c\omega_0)$, cap $\dot E\le E_c\omega_0$) vs *neither*. Per the
-  slew identity, FPB-corner note (**PR #595 UNMERGED — framing**), pointer at [`lattice-model-register.md:86-93`](lattice-model-register.md).
+  slew identity, FPB-corner note (**PR #595 UNMERGED — framing**), pointer at [`lattice-model-register.md:86-93`](lattice-model-register.md). The rate-keyed FAMILY of this slew rating is assembled at `common/substrate-hysteresis-index.md` §1 (SIX members; collapse-batch T2 cross-link) — the "slew" label there stays A4-contingent per the ratified 2×2 below.
 - **AXIS OF ACTION** — *amp* / *freq* / *topo*, per the K4-graph (topology; amplitude- AND frequency-blind) vs
   srs-embedding (frequency/scales) 2×2 in [`lattice-model-register.md`](lattice-model-register.md) crossed with
   the amplitude kernel; x29 category-error lesson (do not conflate amplitude- with frequency-axis).

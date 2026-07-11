@@ -156,6 +156,8 @@ $g_N/a_0$, $2GM/c^2r$, …). **Zero** instances key on a *rate* $\dot A$. The sl
 $L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}$ (relativistic inductor, `clm-p5cf3t`) — has no row. This is G2: the swing
 catalog is complete-looking (26 rows, 21 OOM); the slew catalog is *empty*.
 
+> **Reconciliation (collapse-batch T2, 2026-07-11 — KEEP-BOTH; does NOT alter the G2 finding above).** "Empty" is the honest RATING-TYPE-block state, but the rate-keyed FAMILY is **already assembled** at `manuscript/ave-kb/common/substrate-hysteresis-index.md` §1 — a SIX-member index (relativistic inductor `clm-p5cf3t`, dark-wake BEMF `clm-exjfai`, Newtonian-inertia-as-Lenz `clm-jwyy6l`, Op14 local-clock `clm-1eg13f`, Op14 cross-sector-trading `clm-p2tp9i`, geodynamo `clm-wd5rs0`); the two registers were simply not cross-linked *as the slew catalog*. The "slew" LABEL stays A4-contingent (the amplitude-vs-rate keying of `L_eff(I)` is the OPEN A4).
+
 Crucially, the swing/slew RATING axis is **orthogonal to the existing ε/μ SECTOR axis** of the catalog (see A1):
 the ASYM-N(μ) BCS row is swing-in-μ, and code gives S_mu/S_eps the same swing form. The kernel-catalog KB edit
 therefore records the RATING axis as orthogonal (not a re-labelling of ε/μ). **The FPB 1:1 identification is now
