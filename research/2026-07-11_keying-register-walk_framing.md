@@ -63,7 +63,28 @@ One principle fits both cuts: **"the kernel keys on the locally observable stres
 
 This is the walk's **LEAN — canon on ε, tide on gravity — not a ruling.** It is recorded precisely so the adjudicators (§8) can try to kill it. The tide-keyed gravity answer is a *new* T4 branch, developed in §4 under KEEP-BOTH.
 
-<!-- FILL:S4 -->
+## §4 — THE T4 THIRD BRANCH (KEEP-BOTH): EFE ∝ external TIDE, not external acceleration
+
+**SECTOR / REGIME / PHASE-STATE.** gravity-bulk (Axiom-4 `η_eff` saturation), weak-field embedded-dwarf regime.
+
+**This is a NEW axis alongside the frozen T4 internal-vs-total pair — nothing redefined.** The registry T4 fork is binary: `A` keys on **internal `g_N`** (external-field-blind → no EFE) *or* **total local field** (internal + external → EFE ~ standard MOND). The §3 free-fall cut opens a **third** branch, kept alongside the other two: `A` keys on the **external TIDE `∇g_ext`**, not on external acceleration `g_ext`. Per KEEP-BOTH, all three ride together until a measurement chooses.
+
+**Why it is SEP-flavored.** Standard MOND as *modified gravity* has an EFE precisely because it violates the strong equivalence principle — the internal dynamics of a system respond to a uniform external `g`. A real saturable lattice **naturally refuses uniform-field keying** (the free-fall cut): a uniform external `g` is gauge-removable at the node, so it *cannot* enter the kernel. What survives is the tide. So the tide branch is the lattice-native way to get an EFE-like phenomenology **without** a SEP violation of the "uniform field alters internal physics" kind — the internal physics responds only to the non-removable part.
+
+**Observational signature (the axes separate in data):**
+
+| System class | external `g_ext` | external tide `∇g_ext` | standard-MOND EFE | tide branch | internal-only |
+|---|---|---|---|---|---|
+| Wide binaries (solar nbhd) | strong (`≈ 1.8–2.0 a₀`) | negligible | suppression | **NO suppression** | no suppression |
+| Crater-II-class satellites | modest | strong (MW tide) | suppression | **suppression allowed** | no suppression |
+
+The `g_ext ≈ 1.8–2.0 a₀` figure at the solar neighborhood is order-`a₀` either way: `research/2026-07-10_collapse-target-registry.md` T4 auditor arithmetic (`g_ext ≈ 2.1×10⁻¹⁰ = 1.96 a₀` against the AVE-derived `a₀ = 1.07×10⁻¹⁰`, `= 1.75 a₀` against empirical `1.2×10⁻¹⁰`). Standard-MOND EFE suppresses **both** rows; the tide branch and standard MOND **diverge on the wide binaries** (strong `g_ext`, negligible tide).
+
+**KILL-TESTS NAMED (each fireable; a branch with no way to die is decorative):**
+
+1. **★ THE DIMENSIONAL-`L` PROBLEM (may kill the branch at birth).** `g/a₀` is dimensionless; a tide-keyed argument needs `(∇g · L)/a₀`, which requires a **forced length `L`.** The canon chain forces no such `L`. If no `L` falls out of the Machian/horizon structure, the tide branch **dies at birth** — there is no dimensionally-consistent tide argument to key on. Horizon-class candidates for `L` (e.g. the Hubble/de-Sitter length that already sets `a₀ = cH_∞/2π`, `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md:15`) are to be **checked against the Machian structure, not picked by taste.** This kill-test is the branch's own first gate.
+2. **THE WIDE-BINARY / CRATER-II LITERATURE STATE (contested).** The discriminating data is disputed — the Chae-vs-Banik-class wide-binary dispute. This goes to the **external-retrieval pipeline, NOT to memory**; the sweep (D2) freezes a branch-signature map before reading any retrieval output, and the dispute state is reported as **contested, never a picked winner.**
+3. **PRIOR-ART NODE (novelty honesty).** Milgrom's *modified-inertia* MOND variants carry a weakened/altered EFE. The tide branch **may be that class in lattice clothes** — a lineage-map amendment candidate, flagged not landed, so the novelty claim stays honest.
 
 <!-- FILL:S5 -->
 
