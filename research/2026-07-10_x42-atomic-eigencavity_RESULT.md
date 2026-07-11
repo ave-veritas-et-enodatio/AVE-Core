@@ -348,8 +348,16 @@ CODATA-derived `RY_EV, A_0, M_E, M_PROTON, M_MUON` → **CONSISTENCY-class magni
 
 ## DISCIPLINE
 
-- **Freeze-by-push:** prereg commit `0e5047e4` pushed to origin at `2026-07-10T16:46:14-07:00`, BEFORE
-  the M_MUON commit and all code commits (git ordering audited; see PR body).
+- **Freeze-by-push (timestamps corrected, review finding #5):** prereg commit `0e5047e4` was
+  *committer-dated* `2026-07-10T16:46:14-07:00` (this is the COMMIT timestamp, not the push time); the
+  remote branch `CreateEvent` on `origin` was `2026-07-10T23:46:33Z` (`16:46:33 PDT`), 19 s later — the
+  actual moment the prereg landed on the remote. Both precede the M_MUON commit (`16:47`) and the first
+  code push (`17:06`) by a wide margin; ordering unaffected (git audit table in the PR body). The
+  earlier single `16:46:14` label conflated commit-authored with remote-created and is corrected here.
+  **The freeze ordered ARTIFACTS, not knowledge** — the pilot had already landed branch (i) numbers
+  pre-freeze (disclosed at prereg `:120-121`, "the pilot run this session already lands at −0.000% for
+  n=1..6"), consistent with the P10 declaration that branch (i) was ENTAILED; freeze-by-push here
+  certifies PROVENANCE (the marks were computed and committed before the driver existed), not RISK.
 - **Substrate-native-first / MODE header:** the atom is framed in the impedance-carve register
   (off-line dress, graded `Z(r)`, phase closure) before any Schrödinger word; the Helmholtz–Schrödinger
   ISOMORPHISM is cited as canon's bridge (`de-broglie-standing-wave.md`), not adopted as the primary
