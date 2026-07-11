@@ -57,6 +57,28 @@ Orthogonal to Axis A, the Axiom-4 constitutive kernel $S(A)=\sqrt{1-A^2}$ has tw
 It is NOT the full saturating regime (that is $A\to1$, $V_{yield}$, rupture). The $\varepsilon$ / $\mu$ grades
 are orthogonal reactances (A1 $\perp$ T2, [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)).
 
+## Axis C — the kernel-coupling axis (collapse-batch T8; the four-bin impedance-content taxonomy, deflated)
+
+A third orthogonal reading: how each object **couples to the Axiom-4 saturation kernel**. The 2026-07-10
+four-bin impedance-content taxonomy (`research/2026-07-10_impedance-register-walks_framing.md:15-20`,
+FRAMING/seduction-flagged) is **3/4 already the Axis-A columns above** — a *deflation* (the pretty 4-fold
+symmetry is mostly old), NOT a fifth standing register. The one genuinely-new bin is X41-gated, so it is
+**logged here, NOT resolved** (add-an-axis, KEEP-BOTH with the framing note; not redefine-in-place).
+
+| Kernel-coupling | Bin (framing note) | Already an Axis-A column? |
+|---|---|---|
+| **loads** | Traveling (on-line / TL) | YES — the srs-embedding column ($\omega(k)$, dispersion) |
+| **loads-at-full-amplitude** | Standing (Op6 eigencavity, `clm-gdd70j`) | YES — the srs-embedding column (Op6 cavity trap) |
+| **blind** (frequency- AND amplitude-blind) | Winding (graph / counting) | YES — the K4-graph column (charge $=$ Link $\in\mathbb{Z}$, the integer FORM) |
+| **transparent** (off-line / no net real power) | Reactive-static (off-line / DC boundary-value) | ⚠ **NO column — GATED, do not resolve** |
+
+**Bin 3 is the open gate, not a new register.** Whether the reactive-static / off-line bin is a distinct
+object or just the embedding column's DC limit is **exactly the X41 K1-vs-K2 fork**
+(`research/2026-07-10_impedance-register-walks_framing.md:19,24`; PENDING-GRANT, merged #627) — "loads vs
+transparent" is $\mathrm{Re}(\oint \mathbf S\cdot d\mathbf A)\neq0$ vs $=0$. Do **NOT** pre-resolve "really
+four bins or three-plus-a-fork"; that is the corpus's own open gate. Bins 1/2/4 land as this third
+(kernel-coupling) axis; bin 3 stays a logged gate.
+
 ## The IR/UV refinement — Axis A crossed against wavelength
 
 Axis A has a wavelength-dependent reading — the **FORM/VALUE law in lattice clothes**:
