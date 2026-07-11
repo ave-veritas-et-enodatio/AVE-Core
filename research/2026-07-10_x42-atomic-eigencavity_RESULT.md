@@ -5,7 +5,7 @@
 (freeze commit `0e5047e4`, PUSHED before this doc + all code — git ordering = freeze proof).
 **Brief (binding):** `_orchestration/2026-07-10_x42-atomic-eigencavity-brief.md`
 **Driver:** `src/scripts/vol_2_subatomic/x42_atomic_eigencavity.py` · **Tests:**
-`src/tests/test_x42_atomic_eigencavity.py` (13 pass).
+`src/tests/test_x42_atomic_eigencavity.py` (15 pass: 10 fast + 5 engine_sim).
 
 ---
 
@@ -382,3 +382,27 @@ CODATA-derived `RY_EV, A_0, M_E, M_PROTON, M_MUON` → **CONSISTENCY-class magni
   `electron-identification.md:77`, `constants.py:212-228`). No stitched quotes.
 - **No KB/canon edits from this lane** — `research/` + `src/` only; the ONE exception is the additive
   `M_MUON` constant (flagged in the PR body; engine lane owns `constants.py`).
+
+## Orchestrator-review repair log (2026-07-10/11, 6 findings, all MINOR EVIDENCE-VOID)
+
+The orchestrator's adversarial review confirmed 6 findings. **All MINOR / EVIDENCE-VOID — no
+conclusion flips.** Marks, sabotage receipts, freeze ordering, quote fidelity, and the two-register
+firewall were all independently reproduced; the repairs bank precision (implement a code-void sub-mark,
+wire dead code, correct labels, widen a recording channel) without changing any branch verdict. Every
+mark still lands prereg **branch (i)**. Superseded wording is preserved verbatim below (KEEP-BOTH); the
+FROZEN prereg was NOT edited.
+
+| # | finding (MINOR/EVIDENCE-VOID) | fix | superseded wording (KEEP-BOTH) |
+|---|---|---|---|
+| **1** | M2 "eigenmode-scale extraction" (prereg `:115`) had no implementing code — the ✅ rode only the algebraic identity `ℓ_node/α == A_0` | **Implemented** (took the optional leg): `ground_state_mean_radius` extracts `⟨r⟩ = 1.5·a_scale` from the inward-integrated ground-state eigenfunction (0.0000%, frozen 0.5% tol) — M2 now GENUINELY MEASURED. **Deviation logged:** the frozen sub-mark shipped WITHOUT code in the original arc; the extraction was added at repair time (post-review), not separately measured in the original ship | *"`a₀ = A_0` falls out as the eigenmode scale (M2)"* (D2) — a restatement, no length extracted; M2 row previously read *"eigenmode scale reproduced"* |
+| **2** | PR-body Deliverable-3 carried the pre-repair muonic overstatement | PR body fixed to the two-argument honest state (`m_probe=M_R_MU` AND `saturate=False`), riding the X41 [K1∧K2] frozen tie, disclosed load-bearing. (RESULT D3 was already honest at `:133-143`) | PR body: *"Muonic case = same network, heavier probe — only `m_e→m_r,μ`"* |
+| **3** | D1 port-language was prose-only + a named-quantity hazard (`de_broglie_refractive_index` dead code; `Z(r)` undefined; "impedance/mismatch" collides with `vol2/claim-quality.md:344`) | (a) wired the function into the executed route via `local_wavenumber_sq` + `test_de_broglie_index_is_cascade_local_wavenumber` (`k²·a₀² == n(r,ξ)²` element-wise); (b) corrected register to "dispersion/index profile" with the verbatim `:344` guard; defined `Z(r)` explicitly as the graded index/dispersion profile (never a medium impedance) | *"the off-line dress rendered as an impedance / mismatch profile `Z(r)`"*, with *"low impedance, short circuit"* / *"high impedance, open circuit"* (D1) |
+| **4** | Search window keyed to the target (`e_hi = e_ground·1.03`) could not record a >3% more-bound branch-(ii) offset | **Widened** (optional leg) to `hi_factor=1.5`; re-run RECEIPT shows no additional more-bound roots (H 7 / muonic 6 / He⁺ 5, none deeper); disclosure + receipt table added near the marks; G-MARK stays fireable | window `e_hi = e_ground * 1.03` and discard filter `if root <= e_ground * 1.03` |
+| **5** | Freeze label used the COMMIT timestamp as if it were the push time | corrected: committer-dated `16:46:14-07:00` vs remote `CreateEvent 23:46:33Z` (19 s later); both precede M_MUON (16:47) + first code push (17:06); added the "ordered ARTIFACTS not knowledge — pilot landed branch (i) pre-freeze" epistemic note | *"pushed to origin at `2026-07-10T16:46:14-07:00`"* |
+| **6** | `constants.py` M_MUON comment self-cited main's PRE-insertion lines (`:126-150`, `:228`) | replaced with HEADER TEXT (robust to drift): the "THREE IMPORTED CALIBRATION INPUTS {m_e, α, G}" block + the α HONEST-SCOPE "coordinate on merge" note; constants suites re-run (124 passed) | *"see :126-150"* … *"coordinate on merge per :228."* |
+
+**Optional legs taken:** #1 (genuine ⟨r⟩ extraction) and #4 (window widening) — both cheap and clean;
+each converted a disclosure into a machine-checked receipt. **Tests after repair:** x42 fast lane 10
+pass (was 9; +`test_de_broglie_index_is_cascade_local_wavenumber`), engine_sim lane 5 pass (was 4;
++`test_m2_eigenmode_scale_extracted_from_eigenfunction`) = **15 total** (was 13); constants suites
+124 pass. No adjudication criterion dropped; no ❌→✅ conversion.
