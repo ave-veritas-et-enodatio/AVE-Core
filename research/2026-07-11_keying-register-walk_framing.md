@@ -104,7 +104,30 @@ Grant's question ("big G when the node formed?") splits the FORM into the **same
 
 **Prior-art node:** Dirac's large-numbers hypothesis and Brans-Dicke theory died on **exactly these `Ġ` bounds** — a lineage-map amendment candidate (flagged, not landed), keeping the novelty claim honest.
 
-<!-- FILL:S6 -->
+## §6 — RINGDOWNS = BOUNDARY-IMPEDANCE SPECTROSCOPY
+
+**SECTOR / REGIME / PHASE-STATE.** cross-scale `Γ = −1` TIR/saturation boundary; the ring-down is the boundary read at its natural mode. Companion: the ring-down / Nyquist-π register note (`research/2026-07-11_ringdown-nyquist-pi-register_framing.md` — landing via #640).
+
+**The Q-ladder (order-of-magnitude; one substrate must span it).** A ring-down `Q` is a boundary-impedance measurement — how lossily the boundary reflects the confined mode. The walk's ladder, spanning ~17 decades:
+
+| Object | `Q` | Source |
+|---|---|---|
+| electron (intrinsic) | `→ ∞` (stable) | `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md:147` (intrinsic lossless; **NB — this is NOT the `α⁻¹≈137` loaded/radiative Q; homonym guarded**) |
+| muon | `~3.5×10¹⁷` | walk estimate (lifetime × Compton freq); order-of-magnitude only |
+| excited atom | `~10⁷` | walk estimate; order-of-magnitude only |
+| black-hole QNM | `~ few` (matched) | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md:15` (`Q = ℓ` at the `Γ=−1` saturation/TIR boundary; Op21 cross-scale fire) |
+
+**★ T3 HAS AN ASTROPHYSICAL ADJUDICATOR.** A black hole **is the substrate's rupture boundary at astrophysical scale.** T3's open fork (registry T3, "needs Grant loss-character ruling") is the `Γ = −1` homonym: **branch (i)** a lossless-reflective confinement short vs **branch (ii)** a dissipative rupture (`research/2026-07-10_collapse-target-registry.md` T3, kill-test at that section: "(i) lossless-reflective … the *same* Γ=−1 object as the electron cage; or (ii) dissipative — then `|Γ|<1`"). These branches make **opposite astrophysical predictions:**
+
+- **branch (i) — lossless short** → a `Γ=−1` boundary reflects the post-ring-down field → **detectable ECHOES** + sub-unity absorption.
+- **branch (ii) — dissipative fuse/matched** → **no echoes**, horizon-grade absorption.
+
+Echo searches are **contested-but-mostly-null**, and ring-down shows **horizon-grade absorption** → **the data lean branch (ii), the fuse/matched boundary.** This is **regime-legal:** above-yield dissipation at the rupture boundary does **not** violate Axiom-3's *sub-yield* losslessness — the regime carve is explicit, `manuscript/ave-kb/vol4/claim-quality.md:1168` ("linear below rupture, **dissipative at and above rupture**"). A black hole sits at/above rupture, so a dissipative horizon and a lossless cold vacuum are the same law read in two regimes, not a contradiction. (The full astrophysical adjudication is A4 in the sweep, D2.)
+
+**Two more existing-data books (external bounds — routed, not asserted here):**
+
+- **GW170817 one-`c`.** `c_gw = c_light` to `~10⁻¹⁵` reads, in AVE, as **the shear and EM channels riding ONE substrate `c`** — which kills channel-split propagation modifications. The `10⁻¹⁵` figure is an **EXTERNAL bound the corpus already flags as requiring verification** (`research/2026-06-11_chiral-vacuum-reactor-framing.md:393`, "GW170817 … a bound on dispersive/dissipative loss in the shear/bulk channels relative to EM — [external-bound: requires verification]"). Formal booking → A5.
+- **Inspiral-merger-ringdown (IMR) consistency** bounds a field-strength-dependent G at the **few-% level in the strongest fields** — an external bound routed to A4/A6, not asserted here.
 
 <!-- FILL:S7 -->
 
