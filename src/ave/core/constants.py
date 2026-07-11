@@ -125,8 +125,9 @@ M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
 # de Broglie probe dispersion for the muonic-hydrogen phase-closure spectrum
 # (a_mu = a_0·(m_e/m_r,mu), reduced mass m_r,mu = m_mu·m_p/(m_mu+m_p)); it is a
 # probe mass, NOT a substrate calibration input (the three imported inputs remain
-# {m_e, alpha, G}, see :126-150). [doc/analysis lane addition; engine lane owns
-# constants.py — coordinate on merge per :228.]
+# {m_e, alpha, G}, see the "THREE IMPORTED CALIBRATION INPUTS {m_e, α, G}" block
+# below). [doc/analysis lane addition; engine lane owns constants.py — coordinate
+# on merge per the α HONEST-SCOPE "coordinate on merge" note further below.]
 M_MUON: float = 1.883531627e-28  # Muon mass [kg] (CODATA 2018 experimental anchor)
 M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
