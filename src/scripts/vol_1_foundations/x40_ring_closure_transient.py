@@ -374,6 +374,133 @@ def neumann_second_axis(ring: Ring) -> dict[str, float]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# E5 — the cut/cycle (T-even / T-odd) Hodge split of the injected current
+# (post-freeze amendment). The srs edge space E = cut-space (im d1^T, gradient,
+# T-even bond strain) (+) cycle-space (ker d1, divergence-free circulation, T-odd
+# loop current). Project i(0) = delta(closing edge); |P_cut d_e|^2 = R_eff(e).
+# For an otherwise-tree-local 10-ring, R_eff = 9/10 => cut:cycle = 9:1, and the
+# T-odd cycle fraction = 1/10 EQUALS the E2 energy split (the divergence-free part
+# is exactly what the matched stubs cannot drain). Gate G-F checks the split is a
+# genuine orthogonal decomposition; `perturb` plants the S4 non-orthogonal basis.
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def _ring_incidence(N: int) -> np.ndarray:
+    """Node x edge incidence d1 of the oriented N-cycle (edge k: node k -> k+1).
+
+    The ring-restriction of the srs boundary_1 (reused machinery); a clean cyclic
+    incidence is the tree-local nucleation-front subgraph the injected bond closes.
+    """
+    B = np.zeros((N, N))
+    for k in range(N):
+        B[k, k] = -1.0  # tail
+        B[(k + 1) % N, k] = +1.0  # head
+    return B
+
+
+def hodge_split_injected_current(ring: Ring, closing_edge: int = 0, perturb: float = 0.0) -> dict[str, float]:
+    """Cut/cycle projection of i(0) on the tree-local nucleation ring (PRIMARY, E5).
+
+    `perturb` > 0 skews the cycle projector by +perturb*P_cut (SABOTAGE S4): the
+    two subspaces then overlap and G-F FIRES. Lossless/clean physics: perturb=0.
+    """
+    N = ring.N
+    B = _ring_incidence(N)
+    lap = B @ B.T
+    P_cut = B.T @ np.linalg.pinv(lap) @ B
+    P_cyc = np.eye(N) - P_cut
+    if perturb > 0.0:
+        P_cyc = P_cyc + perturb * P_cut  # oblique / non-orthogonal (planted S4 fault)
+
+    i0 = np.zeros(N)
+    i0[closing_edge] = 1.0
+    norm2 = float(i0 @ i0)
+    cut = float((P_cut @ i0) @ i0)
+    cyc = float((P_cyc @ i0) @ i0)
+    gf_ortho = float((P_cut @ i0) @ (P_cyc @ i0)) / norm2
+    gf_complete = abs(cut + cyc - norm2) / norm2
+    gf_projsum = float(np.max(np.abs((P_cut + P_cyc) - np.eye(N))))
+    return {
+        "cut_fraction_T_even": cut / norm2,
+        "cycle_fraction_T_odd": cyc / norm2,
+        "b1_cycle_dim": float(round(float(np.trace(P_cyc)))),
+        "G_F_ortho": gf_ortho,
+        "G_F_completeness": gf_complete,
+        "G_F_projsum_max": gf_projsum,
+    }
+
+
+def hodge_split_fullnet(L: int = MIN_SRS_L, enantiomorph: str = "right") -> dict[str, float]:
+    """Cut/cycle of the SAME single edge on the FULL srs net (SECONDARY, KEEP-BOTH).
+
+    Reuses srs_dec.boundary_1. Extra parallel paths lower R_eff below 9/10, so the
+    cycle fraction is LARGER than the tree-local 1/10 — the qualifier is load-bearing.
+    """
+    from ave.topological.srs_dec import boundary_1
+
+    net = build_srs_net(L=L, enantiomorph=enantiomorph)
+    faces = enumerate_girth_faces(net)
+    ring = faces[0]
+    D1, edges = boundary_1(net)
+    D1 = D1.toarray()
+    edge_index = {tuple(sorted(e)): idx for idx, e in enumerate(edges)}
+    ei = edge_index[tuple(sorted((ring[0], ring[1])))]
+    ne = D1.shape[1]
+    lap = D1 @ D1.T
+    b = D1[:, ei]
+    cut = float(b @ np.linalg.pinv(lap) @ b)
+    return {
+        "cut_fraction_T_even_fullnet": cut,
+        "cycle_fraction_T_odd_fullnet": 1.0 - cut,
+        "b1_fullnet": float(ne - net.n_nodes + 1),
+        "n_edges_fullnet": float(ne),
+    }
+
+
+def _newell_normal(P: np.ndarray) -> np.ndarray:
+    """Newell area-weighted unit normal of a (possibly non-planar) polygon ring."""
+    n = np.zeros(3)
+    m = len(P)
+    for k in range(m):
+        a, b = P[k], P[(k + 1) % m]
+        n[0] += (a[1] - b[1]) * (a[2] + b[2])
+        n[1] += (a[2] - b[2]) * (a[0] + b[0])
+        n[2] += (a[0] - b[0]) * (a[1] + b[1])
+    return n / np.linalg.norm(n)
+
+
+def ring_orientation_ensemble(L: int = MIN_SRS_L, enantiomorph: str = "right") -> dict:
+    """Sign-vs-orientation deliverable: ring-normal ensemble bias vs balance (E5, sign leg).
+
+    Omega_parent enters ONLY as unit reference axes (NOT a scale) — anti-install safe.
+    Returns the sign-free orientation tensor Q = <n n^T> eigenvalues, the signed mean
+    |sum n|/N (0 => balanced), and mean/signed |n . Omega| for reference axes.
+    """
+    net = build_srs_net(L=L, enantiomorph=enantiomorph)
+    faces = enumerate_girth_faces(net)
+    normals = np.array([_newell_normal(ring_coords(net, f)) for f in faces])
+    Q = (normals[:, :, None] * normals[:, None, :]).mean(axis=0)
+    eig = np.linalg.eigvalsh(Q)
+    signed_mean_norm = float(np.linalg.norm(normals.mean(axis=0)))
+    axes = {
+        "[001]": np.array([0.0, 0.0, 1.0]),
+        "[111]": np.array([1.0, 1.0, 1.0]) / np.sqrt(3.0),
+        "[110]": np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0),
+    }
+    projections = {
+        name: {"mean_abs": float(np.mean(np.abs(normals @ ax))),
+               "signed_mean": float(np.mean(normals @ ax))}
+        for name, ax in axes.items()
+    }
+    return {
+        "n_rings": int(len(faces)),
+        "Q_eigenvalues": [float(x) for x in eig],
+        "signed_mean_normal_magnitude": signed_mean_norm,
+        "omega_projections": projections,
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Reporting — gate metrics, the figure, and the JSON results dump.
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -451,6 +578,9 @@ def main() -> dict:
     tr = simulate(ring.N, n_ticks=300)
     gm = gate_metrics(tr)
     e4 = neumann_second_axis(ring)
+    e5 = hodge_split_injected_current(ring)
+    e5_full = hodge_split_fullnet()
+    orient = ring_orientation_ensemble()
     ge = scan_for_dimensional_constants(str(Path(__file__).resolve()))
 
     results = {
@@ -460,7 +590,11 @@ def main() -> dict:
         "G_D_N": ring.N,
         "G_E_self_scan_violations": ge,
         "E4_second_axis": e4,
+        "E5_cut_cycle_split": e5,
+        "E5_cut_cycle_fullnet": e5_full,
+        "E5_orientation_ensemble": orient,
         "headline_f_E_TLM": gm["target_f_E"],
+        "dynamical_residue_equals_cycle_projection": abs(gm["f_E_trapped"] - e5["cycle_fraction_T_odd"]),
     }
     make_figure(tr, fig_path)
     with open(out_dir / "x40_ring_closure_transient_results.json", "w", encoding="utf-8") as fh:
