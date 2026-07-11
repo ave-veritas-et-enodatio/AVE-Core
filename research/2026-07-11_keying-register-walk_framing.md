@@ -86,7 +86,23 @@ The `g_ext ≈ 1.8–2.0 a₀` figure at the solar neighborhood is order-`a₀` 
 2. **THE WIDE-BINARY / CRATER-II LITERATURE STATE (contested).** The discriminating data is disputed — the Chae-vs-Banik-class wide-binary dispute. This goes to the **external-retrieval pipeline, NOT to memory**; the sweep (D2) freezes a branch-signature map before reading any retrieval output, and the dispute state is reported as **contested, never a picked winner.**
 3. **PRIOR-ART NODE (novelty honesty).** Milgrom's *modified-inertia* MOND variants carry a weakened/altered EFE. The tide branch **may be that class in lattice clothes** — a lineage-map amendment candidate, flagged not landed, so the novelty claim stays honest.
 
-<!-- FILL:S5 -->
+## §5 — THE G-PROVENANCE FORK (Grant: "big G when node formed?")
+
+**SECTOR / REGIME / PHASE-STATE.** gravity-bulk / cosmological boundary; the Machian termination register, cold formation-era read.
+
+**Canon: G = MIXED.** Gravity's FORM is derived (the Achromatic-Lens: SYM-class `ε·μ` co-scaling → `Z_local ≡ Z₀` → `Γ = 0`; the `/7` PPN couplings), the Machian boundary-impedance termination `G = ℏc/(7 ξ m_e²)`; but G's **VALUE is imported** — one of the three calibration inputs `{m_e, α, G}`, `ξ` back-solved from CODATA G (circular, not forward). Cites: `manuscript/ave-kb/common/interlock-register.md:163` (the MIXED ruling + `G = ℏc/(7ξ m_e²)`), `:253` ("G — Newton's constant (MIXED, ilk-gravmb)").
+
+Grant's question ("big G when the node formed?") splits the FORM into the **same fossil-vs-live register fork as `u₀*`** (the R-B homonym flag: strain-`u₀*` vs flux-`u₀*`). Three branches, KEEP-BOTH:
+
+- **(a) LIVE — G tracks `R_H(t)`.** A live Machian G reads the *current* horizon. **The naive version is killed ~500× by LLR:** `|Ġ/G| ≲ 1.5×10⁻¹³/yr` vs a naive-live rate `~ H₀ ≈ 7×10⁻¹¹/yr` (`7×10⁻¹¹ / 1.5×10⁻¹³ ≈ 470×`). **BUT** the flatness identity makes `c²R_H/M` epoch-invariant — a live Machian G may be **naturally constant** through the matter and Λ eras even while formally "live." **★ NAMED DERIVATION DEBT:** does the canon Machian termination form **self-cancel to `Ġ = 0` under flatness**, or does it leave an **era-transition residual** sitting right at the LLR bound (a falsifiable number)? This derivation is *owed*, not done — it is explicitly a THEORY item, out of scope for the astro sweep (D2).
+
+- **(b) FOSSIL — formation-era boundary read, frozen per-node.** Each node freezes the horizon it saw at formation; formation-era G is enormous (a short line → large termination). The Sciama coincidence holding *today* is **non-discriminating** — flatness makes it hold at *every* epoch, so "it holds now" is no evidence for fossil-freezing. **The killing argument is NO STORAGE MEDIUM:** a fossil needs a register to live in. X40's precedent shows what a real fossil register looks like — strain into **cut space**, trapped flux into **cycle space** (`research/2026-07-10_rb-fossil-walk_framing.md:36-37`). **Nothing in the G chain touches any such register** — there is no cut-space or cycle-space projection that stores a per-node formation-era G. Absent a storage medium, the fossil branch has nowhere to keep the frozen value. (Leans dead, but kept for the sweep.)
+
+- **(c) ATTRACTOR — keyed to the de Sitter asymptote.** G reads the **asymptotic** horizon, not the current or formation one; constant by construction. **Canon may have half-chosen this already:** `a₀ = c·H_∞/2π` carries the **∞ subscript** — the *asymptotic* Hubble parameter, not `H₀` or `H(z_form)` (`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md:15`, "`H_∞` is the asymptotic Hubble parameter"). If the same `H_∞` terminates G, G is attractor-keyed and the LLR bound is satisfied trivially.
+
+**★ THE WHEN AXIS ((a)-vs-(c) is testable).** A **live-keyed `a₀` runs with `H(z)`** — high-`z` rotation curves would show a *larger* MOND scale (`H` was `~2–3×` today's at `z ~ 1–2`). An **attractor-keyed `a₀` is redshift-constant.** This is adjudicator A3 in the sweep (D2).
+
+**Prior-art node:** Dirac's large-numbers hypothesis and Brans-Dicke theory died on **exactly these `Ġ` bounds** — a lineage-map amendment candidate (flagged, not landed), keeping the novelty claim honest.
 
 <!-- FILL:S6 -->
 
