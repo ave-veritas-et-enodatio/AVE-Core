@@ -146,4 +146,38 @@ The registry (`research/2026-07-10_collapse-target-registry.md`) ranks 19 target
 
 ## Continuation 2 — 2026-07-11: second review wave + correction set
 
-_(sections land in subsequent commits: review-wave table · correction set · workflow note · #636 reconciliation · δ_strain hygiene rider · proposed precision house rule)_
+Second review wave over the three Grant-launched satellite PRs of the day (#631 collapse registry, #632 X40, #634 X42), plus the correction-PR set that absorbed a bulk-merge-during-review race. Every PR#, tag, and file cite below was git/gh-confirmed this session (verify-before-cite); nothing here canonizes.
+
+### 1. Review wave — three orchestrator adversarial reviews
+
+| PR reviewed | Lenses | Findings | Load-bearing content |
+|---|---|---|---|
+| **#631** collapse-target registry | 2 | **8 confirmed** (1 MAJOR + 7 MINOR) | **MAJOR** — the anti-target caution grounded "m* actively rejected as an SM crutch" on a KB cite that in fact grants the object **peer-with-SM** status: an **authority-order inversion** (the caution over-read its own source). The genuinely-rejection-grade quote lives in the **superseded vol-4 tex register**, not the cited leaf. **7 MINOR** = receipt hygiene, incl. a **vacuous no-`-E` grep** (a completeness claim that a shell-escaped pattern silently could not have found) and a **mixed-a₀ arithmetic slip** (two `a₀` conventions crossed in one line). Corrected in **#637**. |
+| **#632** X40 ring-closure | 3 | **4 MINOR** | deviation-ledger **"no deviation" row contradicted by its own repair log**; **stale PR body**; the E3 **"(gated in sabotage)" intra-prereg over-claim**; the **"BALANCED (net ~0)"** leg measured the **DFS sign convention**, not a physical net swirl → **DEMOTED** (`research/2026-07-10_x40-ring-closure-transient_result.md:200,206`). The **sign-free Q-tensor plane-isotropy** stays load-bearing (`:196` cycle-fraction / isotropy tensor — bounds branch (ii), does not measure a swirl). Corrected in **#638**. |
+| **#634** X42 eigencavity | 2 | **6 confirmed** | **M2 eigenmode-scale extraction was code-void** (the ✅ rode only the algebraic identity `ℓ_node/α == A_0`, no length extracted — `research/2026-07-10_x42-atomic-eigencavity_RESULT.md:398`); the **muonic branch (i)** rides **post-freeze `saturate=False`** (a two-argument-honesty flag: the discriminator's regime toggle was set after freeze); **D1 port-language was dead code** + a **`Z(r)` named-quantity hazard** (`:78-84`, the `vol2/claim-quality.md:344` named-quantity guard); the **RY-keyed search window narrowed the branch-(ii) recording channel** (`e_hi = e_ground·1.03` could not record a >3% more-bound offset — `:401`); **freeze-by-push = artifact-level only** (the pilot had pre-landed the numbers); **stale constants self-cites**. Corrected in **#639**. |
+
+**Totals: 18 confirmed, 0 refuted, ALL EVIDENCE-VOID, ZERO conclusion flips.** Every headline number was independently reproduced during review — X40: **1/10** via a dimensionful scipy-ODE cross-realization + the girth generalization **N=7→1/7, N=13→1/13** (`research/2026-07-10_x40-ring-closure-transient_result.md:104`); X42: all marks + the sabotage receipts. No verdict moved; the findings are receipt/hygiene/scope, not physics reversals.
+
+### 2. Correction set — the pre-fix-merge pattern applied ×3
+
+**#631/#632/#634 were bulk-merged BEFORE their post-review repairs landed** (the `[DO-NOT-MERGE]` labels notwithstanding — see the workflow note). The established **pre-fix-merge correction-PR pattern** absorbed the race three times:
+
+- **#637** — collapse-registry receipt repairs (**MERGED**). Fixes the MAJOR authority-order inversion + the 7 MINOR receipt items.
+- **#638** — X40 repairs (**MERGED**). Includes the **BALANCED demotion** (DFS-sign-convention artifact struck from the swirl claim), the **E3 honesty ledger row**, and an **S6 declined-with-reason** entry.
+- **#639** — X42 repairs (**MERGED**) — carries **TWO UPGRADES**, not just fixes:
+  1. **M2 now GENUINELY MEASURED.** The ground-state `⟨r⟩/a_scale = 1.5` (the 1s shape factor; extracted 1.500001, **0.0000%** deviation vs the **frozen 0.5% tolerance**) is now extracted from the numerical eigenfunction by inward integration — a box-independent property (`r_max ≈ 133×⟨r⟩`), not a restatement of the identity (`research/2026-07-10_x42-atomic-eigencavity_RESULT.md:125,264,398`).
+  2. **Branch-(ii) window widened to 1.5×** (`hi_factor=1.5`), with a **no-more-bound-roots receipt** for H (7 roots) / muonic (6) / He⁺ (5) — none deeper (`:401`).
+
+**Audit tags (all verified on origin via `git ls-remote --tags`):** `audit/2026-07-10_rb-fossil-walk-docket`, `audit/2026-07-11_x40-board-update`, `audit/2026-07-11_board-task33-close`, `audit/2026-07-11_collapse-registry-correction`, `audit/2026-07-11_x40-correction`, `audit/2026-07-11_x42-correction`.
+
+### 3. Workflow note — the bulk-merge-during-review race (process, not blame)
+
+The **bulk-merge-during-review race** is now a **named hazard**: a satellite's `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` PR can be swept into a bulk merge before the orchestrator's review + repairs land. Read the board's **merge column** and its **in-review column** as **distinct states** — a merged SHA is not a reviewed SHA. When a race happens, **corrections follow automatically** via the pre-fix-merge correction-PR pattern (#637/#638/#639 are the receipts). No blame is assigned; the process absorbed it and the record is complete.
+
+### 4. Reconciliation with #636 (KEEP-BOTH)
+
+The task #33-close PR **#636** folded the registry into the board with the line:
+
+> "…7-lane sweep, **2-lens adversarial review (2 MINOR EVIDENCE-VOID findings repaired)**. The registry is the INPUT to the core planning session's 'which fire' decision…" (§6 slate, `#33` row)
+
+That line describes only the **satellite's own pre-PR review** (2 findings). It is **not edited** (KEEP-BOTH). The orchestrator's **8-finding review + #637** completes that trail: the two counts are two different review passes on the same registry (satellite pre-PR = 2; orchestrator post-merge = 8), and both stand.
