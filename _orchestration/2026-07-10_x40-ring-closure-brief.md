@@ -90,3 +90,35 @@ Within the frozen TL model, f_E = 1/10 is a THEOREM (E1/E2) — the live-fire DE
 8. **Pure corpus.** No KB edits (canonical propagation is a gated follow-on). FLAG-DON'T-FIX: anything found contradicting canon (e.g., a canon site asserting a different smallest-ring count) → verbatim evidence in the result doc's FLAGS section, no silent fix.
 9. **Commits:** incremental (skeleton-first, one section per commit — no single large writes). Trailer on every commit: `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
 10. **PR:** title exactly `[DO-NOT-MERGE][REVIEW: pending-orchestrator] x40: 10-ring closure transient — the derivable stick/slip split`; body = summary + gate receipts + the P10 statement + the follow-on list; `gh pr create --base main`. Do NOT merge. Report back: split number(s), Σm_jk, branch fired, PR number, any FLAGS.
+
+---
+
+## Addendum (received 2026-07-10, from Grant's core planning walk — post-original-freeze)
+
+**Provenance note:** this addendum arrived AFTER the original brief + FROZEN prereg
+were pushed to origin. It is folded in as a tracked, dated prereg AMENDMENT (the
+original frozen file is NOT rewritten — git is the trail). Verbatim:
+
+> ADDENDUM to the x40 brief (from Grant's core planning walk, 2026-07-10). This is LOAD-BEARING and MUST go into the FROZEN prereg — fold it in BEFORE the freeze-by-push. If you have not yet pushed the prereg: incorporate it into the prereg as originally frozen. If you HAVE already pushed: add it as a tracked prereg AMENDMENT commit (honest, dated, "addendum received post-freeze") and push before any driver code — do NOT silently rewrite the frozen file's history. Also append the verbatim addendum text to the brief file (_orchestration/2026-07-10_x40-ring-closure-brief.md) as a new "## Addendum" section and commit it.
+>
+> VERBATIM INTENT: Report the trapped fraction SPLIT into its two orthogonal graph components — the cut-space part (bond strain/twist deposit, T-even) and the cycle-space part (trapped ring circulation, T-odd = the loop current i_DC). The two are orthogonal complements of the edge space and cannot mix. The T-odd cycle fraction is the load-bearing number (candidate "field-cooled" gyrotropic fossil — Ω_parent as a Barnett-type effective field, trapped ring flux as the magnetization analog). Also report the trapped flux's SIGN dependence on ring-normal orientation relative to the parent spin axis (orientation-keyed pattern candidate). NO PREFERRED OUTCOME: cycle-fraction ≈ 0 (pure-strain fossil, T-even, no circulator) is as bankable as cycle-fraction finite.
+>
+> CONCRETE RECIPE (this is discrete Hodge on the srs edge graph — your srs_dec.py ALREADY has the machinery; REUSE it, do not reinvent):
+> 1. The edge space E decomposes ORTHOGONALLY: E = cut-space ⊕ cycle-space.
+>    - cut-space = im(∂₁ᵀ) = grad(node potentials) = gradient/potential-difference flows = the T-EVEN bond-strain sector (dim = #nodes − #components).
+>    - cycle-space = ker(∂₁) = divergence-free circulations = the T-ODD loop-current sector (dim = first Betti number = #edges − #nodes + #comp).
+>    - ∂₁ is your boundary_1(). These are exact orthogonal complements — machine-checkable (cut ⊥ cycle to <1e-12; projections sum to identity).
+> 2. Take the injected current i(0) = I_parent · δ(closing bond) as a 1-cochain (unit indicator on the closing edge). Project it:
+>    - cycle-space projection P_cyc·i(0) → its squared-norm fraction = the T-ODD trapped-circulation fraction. For a single edge completing an otherwise-tree-local 10-ring this comes out ≈ 1/10 — i.e. it should EQUAL the E2 energy split. That coincidence is the whole point: the divergence-free loop current is exactly the part that satisfies KCL with zero stub current and therefore CANNOT drain out the matched stubs → it is the trapped fraction, and it is T-odd.
+>    - cut-space projection P_cut·i(0) → squared-norm fraction ≈ 9/10 = the T-EVEN part. i(0) on a single bond has +I/−I node divergence, so it is MOSTLY cut-space.
+> 3. THE HONEST FORK (surface it, KEEP-BOTH, no preferred outcome): what happens to the 9/10 cut-space part is MODEL-DEPENDENT and you must state both readings explicitly:
+>    - Matched-bath reading (your TL abstraction): the cut-space part has node divergence → drives current into the matched stubs → RADIATES. Then the frozen fossil is PURELY T-odd loop current (cut-fraction of the TRAPPED deposit → 0, cycle-fraction → 1).
+>    - Strain-holding-lattice reading (the settled lattice holds static strain — this is literally what u₀* over-bracing IS, a frozen T-even node-potential/strain field): the stubs are NOT matched for the strain sector, so the cut-space part FREEZES as static bond strain. Then the total frozen deposit splits cut:cycle = 9:1.
+>    The GRAPH-PROJECTION split (P_cut, P_cyc of the injected current) is geometry-only and UNAMBIGUOUS — make that the PRIMARY deliverable. The dynamical residue after the bounce evolution (what your matched-stub sim actually leaves behind) is the model-specific check — verify it equals the cycle-space projection (the divergence-free part is exactly what the matched stubs can't drain).
+> 4. SIGN vs ORIENTATION deliverable: pull the actual signed ring geometry (you already pull ring node coords for E4). Compute the trapped ring flux sign as a function of (ring-normal · Ω̂_parent). Rings normal-aligned with Ω_parent trap one sign of circulation, anti-aligned the other. Report whether the srs ring ENSEMBLE has an orientation bias (net magnetization) or is balanced (net zero, but per-ring sign still keyed) — this is the orientation-keyed pattern that feeds the CMB-swirl amplitude bound. Ω_parent enters ONLY as an orientation reference axis (a unit vector) — it is NOT a scale, so it does NOT violate the anti-install gate; assert that in the prereg.
+>
+> NEW GATE (add to G-suite, machine-checkable): G-F — orthogonality + completeness of the Hodge split: ⟨P_cut i, P_cyc i⟩/|i|² < 1e-12 AND |P_cut i|² + |P_cyc i|² = |i|² to 1e-12 AND (P_cut + P_cyc) = I on the edge space. Sabotage S4: perturb the projector so cut and cycle overlap (e.g. use a non-orthogonal basis) ⇒ G-F must FIRE.
+>
+> DELIVERABLE (e), ADD: the cut/cycle (T-even/T-odd) split of the trapped fraction as two numbers with the graph-projection footing stated; the T-odd cycle fraction called out as the load-bearing gyrotropic-fossil candidate; the sign-vs-orientation result; and the two model readings for the cut-space part's fate, KEEP-BOTH, no preferred outcome. Classify per consistency-vs-emergence: the graph projection is a geometry/counting fact (consistency); the fossil-magnetization interpretation is a FRAMING candidate (flag, do not canonize).
+>
+> This does NOT change E1/E2/E3 — the 1/10 headline stands; this REFINES it by naming which orthogonal sector the 1/10 lives in (cycle-space, T-odd) and what the complementary 9/10 is (cut-space, T-even). Everything else in the brief holds. Report the cut/cycle numbers explicitly in your final message.
