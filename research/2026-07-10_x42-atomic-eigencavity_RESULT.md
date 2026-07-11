@@ -119,9 +119,14 @@ inner BC = regular Coulomb solution at `r→0` and outer BC = `ψ′ + κψ = 0`
 | 6 | 0.3779 | 0.3779 | −0.000% |
 | 7 | 0.2777 | 0.2777 | −0.000% |
 
-`n* = √(Ry/E_n) = 1,2,3,4,5,6,7` to 4 decimals. `E_n·n² = Ry` constant (the 1/n² FORM). `a₀ = A_0`
-falls out as the eigenmode scale (M2), and the canon identity `a₀ = ℓ_node/α` holds exactly
-(`L_NODE/ALPHA == A_0`, `test_m2_a0_identity_exact`).
+`n* = √(Ry/E_n) = 1,2,3,4,5,6,7` to 4 decimals. `E_n·n² = Ry` constant (the 1/n² FORM). The
+canon identity `a₀ = ℓ_node/α` holds exactly (`L_NODE/ALPHA == A_0`, `test_m2_a0_identity_exact`).
+The eigenmode SCALE is genuinely extracted from the eigenfunction (M2, repair-time): the
+inward-integrated ground-state eigenfunction has `⟨r⟩ = 1.5·a_scale` (the 1s shape factor;
+`a_scale = A_0·(m_e/m_probe)/Z = A_0` for hydrogen), rel err `0.0000%` vs the frozen 0.5% tolerance
+(`ground_state_mean_radius`, `test_m2_eigenmode_scale_extracted_from_eigenfunction`). This measures the
+eigenmode SHAPE scale from the ODE eigenfunction — the box unit `a_scale` is imported (box sizing), but
+`⟨r⟩ = 1.5·a_scale` is a property of the eigenfunction the box does NOT force (`r_max ≈ 133×⟨r⟩`).
 
 **Turning-point / Maslov phase (prereg branch (i), as pre-stated).** The ODE/ABCD `B_total=0`
 formulation captures the turning-point (Maslov) phase EXACTLY through the boundary conditions — no
@@ -256,7 +261,7 @@ prereg tolerances — none dropped, none added.
 | Mark | Frozen expectation | Driver outcome | Branch |
 |---|---|---|---|
 | **M1** `E_n ∝ 1/n²`, `E₁=−RY_EV` | `E_n·n²=13.605693 eV` const | −0.000% for n=1..7; `n*`=integers exact | (i) ✅ |
-| **M2** `a₀ = A_0`, `a₀=ℓ_node/α` | `5.291772106×10⁻¹¹ m` | identity exact (`L_NODE/ALPHA==A_0`, rel<1e-12); eigenmode scale reproduced | (i) ✅ |
+| **M2** `a₀ = A_0`, `a₀=ℓ_node/α`; eigenmode-scale extraction | `5.291772106×10⁻¹¹ m`; ⟨r⟩=1.5·a_scale | identity exact (`L_NODE/ALPHA==A_0`, rel<1e-12); ⟨r⟩ from ground-state eigenfunction = 1.5·a_scale (0.0000%, frozen 0.5% tol) — genuinely measured (repair-time) | (i) ✅ |
 | **M3** muonic `a_μ`, `E_n(μH)` | `a_μ=284.748 fm`, `E₁=−2.528493 keV` | `E₁=−2.52849 keV` (−0.0002%); `a_μ=284.748 fm` | (i) ✅ |
 | **M4** Z²-scaling (bare ion) | `E₁(Z=2)=4·RY_EV=54.4228 eV` | `54.4228 eV` (−3×10⁻⁵%) | (i) ✅ |
 

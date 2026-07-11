@@ -261,6 +261,63 @@ def muonic_spectrum(n_max=3, N_sec=6000):
     return phase_closure_spectrum(Z=1, l=0, m_probe=M_R_MU, n_max=n_max, N_sec=N_sec, saturate=False)
 
 
+def _trapz(y, x):
+    """Trapezoidal integral (numpy-version-agnostic; avoids trapz/trapezoid churn)."""
+    return float(np.sum(0.5 * (y[1:] + y[:-1]) * (x[1:] - x[:-1])))
+
+
+def ground_state_mean_radius(Z=1, l=0, m_probe=M_E, n_max=4, N_sec=6000, saturate=True):
+    """M2 eigenmode-scale EXTRACTION — ⟨r⟩ of the ground-state radial eigenfunction.
+
+    The frozen prereg (:115) promised "closure scale from driver | eigenmode-scale
+    extraction". This integrates the ground-state reduced radial eigenfunction
+    u(r)=r·R(r) at the Brent-refined ground-state eigenvalue and returns
+    ⟨r⟩ = ∫ r|u|² dr / ∫ |u|² dr. For the 1s state ⟨r⟩ = 1.5·a_scale
+    (a_scale = A_0·(m_e/m_probe)/Z), the textbook shape factor — a genuine
+    measurement of the eigenmode SHAPE scale from the ODE eigenfunction, NOT a
+    restatement of the box unit (r_max = 8(n_max+1)²·a_scale ≈ 133×⟨r⟩, so the
+    box extent does not force ⟨r⟩; the wavefunction peaks at a₀ on its own).
+
+    INTEGRATION DIRECTION IS LOAD-BEARING: forward shooting is unusable — the
+    exponentially growing branch swamps the tail (|u| ~ 1e62 at r_max). We
+    integrate INWARD from the decaying boundary u ∝ e^{-κr} at r_max (the stable
+    branch), which selects the physical decaying mode; at the refined eigenvalue
+    the inward solution is also regular at r→0 (u→0), so ⟨r⟩ is clean.
+    """
+    eigs = phase_closure_spectrum(Z=Z, l=l, m_probe=m_probe, n_max=n_max, N_sec=N_sec, saturate=saturate)
+    if not eigs:
+        raise ValueError("no ground-state eigenvalue found")
+    E1 = max(eigs)  # ground state = most bound (largest |E|); spectrum sorted descending
+    E_J = -abs(E1) * e_charge
+    kappa = np.sqrt(2.0 * m_probe * abs(E_J)) / HBAR
+    a_scale = A_0 * (M_E / m_probe) / Z
+    r_min = 1e-4 * a_scale
+    r_max = 8.0 * (n_max + 1) ** 2 * a_scale
+    edges = np.geomspace(r_min, r_max, N_sec + 1)
+    # decaying BC at r_max: u ∝ e^{-κr}, u′ = -κu (normalize u(r_max)=1)
+    state = np.array([1.0, -kappa])
+    r_rec = [edges[-1]]
+    u_rec = [1.0]
+    for i in range(N_sec - 1, -1, -1):
+        Msec = dress_section(edges[i], edges[i + 1], E_J, Z, l, m_probe, 1, saturate)
+        # inward step: invert the lossless ABCD section (det = 1)
+        M_inv = np.array([[Msec[1, 1], -Msec[0, 1]], [-Msec[1, 0], Msec[0, 0]]])
+        state = M_inv @ state
+        r_rec.append(edges[i])
+        u_rec.append(state[0])
+    r = np.array(r_rec[::-1])
+    u = np.array(u_rec[::-1])
+    w = np.abs(u) ** 2
+    mean_r = _trapz(r * w, r) / _trapz(w, r)
+    return {
+        "E1_eV": E1,
+        "mean_r_m": mean_r,
+        "a_scale_m": a_scale,
+        "mean_r_over_a_scale": mean_r / a_scale,  # == 1.5 for the 1s shape factor
+        "inner_regularity": abs(u[0]) / np.max(np.abs(u)),  # small ⇒ u→0 at r_min (regular)
+    }
+
+
 # ---------------------------------------------------------------------------
 # Analytic frozen marks (M1-M4) and the muonic operating-point check (brief §3)
 # ---------------------------------------------------------------------------
@@ -395,6 +452,11 @@ def _report():  # pragma: no cover — human-readable driver run
         tgt = RY_EV / round(nstar) ** 2
         print(f"   E={E:.4f} eV  n*={nstar:.4f}  Ry/n²={tgt:.4f}  err={(E - tgt) / tgt * 100:+.3f}%")
     print("   gates:", "MARK", gate_mark(eigs)[0], "| FORM", gate_form(eigs)[0], "| INT", gate_int(eigs)[0])
+
+    print("\n[M2] eigenmode-scale extraction — ⟨r⟩ of the ground-state eigenfunction:")
+    m2 = ground_state_mean_radius(Z=1, l=0, N_sec=4000)
+    print(f"   ⟨r⟩/a_scale = {m2['mean_r_over_a_scale']:.6f}  (1s shape factor = 1.5;"
+          f" rel err {abs(m2['mean_r_over_a_scale'] - 1.5) / 1.5 * 100:+.4f}%)")
 
     print("\n[Deliverable 3] muonic-H — same network, probe m_e→m_r,μ:")
     mm = muonic_marks()

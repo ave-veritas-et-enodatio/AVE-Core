@@ -151,6 +151,22 @@ def test_hydrogen_phase_closure_reproduces_1_over_n2():
 
 
 @pytest.mark.engine_sim
+def test_m2_eigenmode_scale_extracted_from_eigenfunction():
+    """M2 frozen sub-mark (prereg :115 'closure scale from driver | eigenmode-
+    scale extraction'), implemented at repair time: ⟨r⟩ of the inward-integrated
+    ground-state eigenfunction == 1.5·a_scale within the frozen 0.5% tolerance —
+    a genuine measurement of the eigenmode SHAPE scale from the ODE eigenfunction
+    (not the box unit restated: r_max ≈ 133×⟨r⟩)."""
+    res = x42.ground_state_mean_radius(Z=1, l=0, N_sec=4000)
+    # ⟨r⟩ = 1.5·a_scale for the 1s state (textbook shape factor); frozen 0.5% tol
+    assert abs(res["mean_r_over_a_scale"] - 1.5) / 1.5 < 5e-3
+    # ground-state eigenvalue lands on the M1 mark (self-consistency)
+    assert abs(res["E1_eV"] - RY_EV) / RY_EV < 5e-3
+    # eigenfunction is regular at r_min (physical decaying mode, not the growing branch)
+    assert res["inner_regularity"] < 1e-2
+
+
+@pytest.mark.engine_sim
 def test_muonic_spectrum_same_network_heavier_probe():
     """M3 via driver: swap probe m_e→m_r,μ, reproduce reduced-mass-scaled marks."""
     eigs = x42.muonic_spectrum(n_max=3, N_sec=4000)
