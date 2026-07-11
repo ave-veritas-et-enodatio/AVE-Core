@@ -47,11 +47,68 @@ from dataclasses import dataclass
 import numpy as np
 
 from ave.core.chiral_lattice import build_srs_net, ring_coords
-from ave.topological.srs_dec import MIN_SRS_L, enumerate_girth_faces
+from ave.topological.srs_dec import MIN_SRS_L, SRS_GIRTH, enumerate_girth_faces
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Ring topology — N is DERIVED from the srs net, never hardcoded (gate G-D).
+# Ring topology — N is ASSERTED against an INDEPENDENT BFS girth AND the canonical
+# SRS_GIRTH (gate G-D). NOTE: enumerate_girth_faces pre-filters to length
+# SRS_GIRTH, so it alone CANNOT witness a smaller true girth (e.g. an L=2 supercell
+# whose PBC-folded true girth is 8 still yields spurious length-10 cycles). The BFS
+# shortest-cycle is the genuine independent check that makes G-D fireable.
 # ─────────────────────────────────────────────────────────────────────────────
+
+
+def _bfs_girth(neighbors: list) -> int:
+    """Girth (shortest-cycle length) by BFS from every node — an INDEPENDENT check.
+
+    Not pre-filtered to any target length: this is the honest witness that the net
+    genuinely has girth SRS_GIRTH. (enumerate_girth_faces only ever returns
+    length-SRS_GIRTH cycles, so it cannot itself detect a smaller true girth.)
+    """
+    from collections import deque
+
+    n = len(neighbors)
+    best = 1 << 30
+    for s in range(n):
+        dist = [-1] * n
+        par = [-1] * n
+        dist[s] = 0
+        dq = deque([s])
+        while dq:
+            u = dq.popleft()
+            for v in neighbors[u]:
+                if dist[v] == -1:
+                    dist[v] = dist[u] + 1
+                    par[v] = u
+                    dq.append(v)
+                elif par[u] != v:
+                    c = dist[u] + dist[v] + 1
+                    if c < best:
+                        best = c
+    return int(best)
+
+
+def assert_srs_girth(net, faces: list | None = None) -> int:
+    """Three-way G-D assertion: BFS girth == enumeration length == SRS_GIRTH.
+
+    Returns N (== SRS_GIRTH) or raises (G-D FAIL). Fireable: an L=2 net (true BFS
+    girth 8) FAILS here even though enumerate_girth_faces returns spurious
+    length-10 cycles — the independent BFS girth is what catches it.
+    """
+    if faces is None:
+        faces = enumerate_girth_faces(net)
+    if not faces:
+        raise RuntimeError("enumerate_girth_faces returned no cycles — cannot verify girth")
+    enum_len = sorted({len(f) for f in faces})
+    if enum_len != [SRS_GIRTH]:
+        raise RuntimeError(f"enumeration lengths {enum_len} != [{SRS_GIRTH}] (G-D FAIL)")
+    g_bfs = _bfs_girth(net.neighbors)
+    if g_bfs != SRS_GIRTH:
+        raise RuntimeError(
+            f"independent BFS girth {g_bfs} != enumeration length {SRS_GIRTH} "
+            f"(spurious PBC-folded rings; G-D FAIL)"
+        )
+    return SRS_GIRTH
 
 
 @dataclass(frozen=True)
@@ -64,23 +121,20 @@ class Ring:
 
 
 def derive_ring(L: int = MIN_SRS_L, enantiomorph: str = "right") -> Ring:
-    """Build an L>=3 srs net, enumerate its girth cycles, return one ring.
+    """Build an L>=3 srs net, verify its girth independently, return one ring.
 
-    N is TAKEN from the enumerated minimal-cycle length — asserted == 10 (G-D).
-    An L=2 supercell folds girth-10 rings into spurious 8-rings; MIN_SRS_L=3.
+    N is asserted against an INDEPENDENT BFS shortest-cycle girth AND the canonical
+    SRS_GIRTH (not merely read off enumerate_girth_faces, which pre-filters to
+    SRS_GIRTH and so cannot witness a smaller true girth). An L=2 supercell has true
+    girth 8 (PBC-folded) yet enumerate_girth_faces returns spurious length-10 cycles
+    — the BFS check in `assert_srs_girth` is what catches that (G-D). The L-guard
+    below is a SEPARATE, earlier protection.
     """
     if L < MIN_SRS_L:
         raise ValueError(f"L={L} < MIN_SRS_L={MIN_SRS_L}: PBC folds girth-10 into spurious 8-rings")
     net = build_srs_net(L=L, enantiomorph=enantiomorph)
     faces = enumerate_girth_faces(net)
-    if not faces:
-        raise RuntimeError("enumerate_girth_faces returned no cycles — cannot derive N")
-    lengths = sorted({len(f) for f in faces})
-    N = lengths[0]  # minimal cycle length = girth
-    if lengths != [N]:
-        raise RuntimeError(f"non-uniform cycle lengths {lengths}; expected all == girth")
-    if N != 10:
-        raise RuntimeError(f"derived girth N={N} != 10 — contradicts srs (10,3)-a canon (G-D FAIL)")
+    N = assert_srs_girth(net, faces=faces)  # three-way G-D (BFS girth == enum len == SRS_GIRTH)
     ring_nodes = faces[0]
     coords = ring_coords(net, ring_nodes)
     return Ring(nodes=tuple(ring_nodes), coords=coords, N=N)

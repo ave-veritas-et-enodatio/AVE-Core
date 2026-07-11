@@ -11,8 +11,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+from ave.core.chiral_lattice import build_srs_net
+from ave.topological.srs_dec import enumerate_girth_faces
 from scripts.vol_1_foundations.x40_ring_closure_transient import (
     Ring,
+    _bfs_girth,
+    assert_srs_girth,
     derive_ring,
     gate_metrics,
     hodge_split_fullnet,
@@ -50,15 +54,37 @@ def transient(ring: Ring):
 
 
 def test_g_d_ring_count_derived(ring: Ring):
-    assert ring.N == 10, "srs girth must be 10 (10,3)-a); N is derived, not hardcoded"
+    assert ring.N == 10, "srs girth must be 10 (10,3)-a); N is verified, not hardcoded"
     assert len(ring.nodes) == 10
     assert ring.coords.shape == (10, 3)
+
+
+def test_g_d_independent_bfs_girth_agrees():
+    """The genuine G-D witness: an INDEPENDENT BFS girth of the L=3 net == 10."""
+    net = build_srs_net(L=3)
+    assert _bfs_girth(net.neighbors) == 10
+    assert assert_srs_girth(net) == 10
 
 
 def test_g_d_rejects_subcritical_supercell():
     """L=2 folds girth-10 into spurious 8-rings; derive_ring must refuse it."""
     with pytest.raises(ValueError, match="MIN_SRS_L"):
         derive_ring(L=2)
+
+
+def test_s5_bfs_girth_fires_g_d_on_spurious_net():
+    """S5: an L=2 net has TRUE girth 8, but enumerate_girth_faces returns spurious
+    length-10 cycles (the pre-filter defect). The independent BFS-girth G-D check
+    must FIRE — this is the sabotage that closes the P11 gap for G-D."""
+    net = build_srs_net(L=2)
+    faces = enumerate_girth_faces(net)
+    # the enumeration is silent — it is pre-filtered to length 10 (the defect)
+    assert sorted({len(f) for f in faces}) == [10]
+    # the independent BFS witness sees the true girth 8 ...
+    assert _bfs_girth(net.neighbors) == 8
+    # ... so the genuine three-way G-D assertion FIRES
+    with pytest.raises(RuntimeError, match="BFS girth 8"):
+        assert_srs_girth(net, faces=faces)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
