@@ -1,5 +1,7 @@
 # Docket-continuation STUB — astro-adjudicator sweep (for the core session to fold in)
 
+> **SUPERSEDED-BY (2026-07-11): folded into `_orchestration/2026-07-10_rulings-docket.md` → "Continuation — 2026-07-11 (four-lane returns + cross-lane reconciliations)", §A.** The five suggested rows below were assigned canonical ids and landed there; the T4 tide sub-branch and the WHEN posture were further reconciled against the X43 lane in that section's §B. Body preserved below per KEEP-BOTH (this stub is the frozen data-side snapshot the docket §B records the ordering of).
+
 **This is a stub, not a docket edit.** The satellite does not touch `_orchestration/2026-07-10_rulings-docket.md`; the **core session lands these rows**. Source: `research/2026-07-11_astro-adjudicator-sweep_result.md` (+ freeze `research/2026-07-11_astro-adjudicator-sweep_branch-signature-map_FROZEN.md`). Every row is `PENDING-GRANT` — the satellite recommends, Grant rules.
 
 ## Rows to fold into the docket status board
