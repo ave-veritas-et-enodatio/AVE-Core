@@ -153,9 +153,73 @@ reproduced with the cold-lattice cascade; the saturating near-nucleus region is 
 saturated cascade produced spurious deeper-than-ground roots — read as physics (sub-yield break), not
 debugged toward a rescue.
 
-## DELIVERABLE 4 — THE TWO-REGISTER GUARD *(pending)*
+## DELIVERABLE 4 — THE TWO-REGISTER GUARD, STATED FORMALLY
 
-## DELIVERABLE 5 — THE K1/K2 CAVEAT *(pending)*
+**The quantization homonym: two integer families that share the word "quantized" and must never be
+cross-wired** (formalization of walk (c), `:55-64`; NOT a new claim).
+
+| | **Mode-count integers** | **Winding integers** |
+|---|---|---|
+| examples | n, l, m (atomic levels) | charge, the (2,3) winding |
+| register | **embedding** (the cavity) | **graph** (the connectivity) |
+| what fixes them | round-trip phase closure `2πn` on `Z(r)` | topological invariant on the bond-pair graph |
+| stability | **cavity-deformable** — bend the walls and they move | **topologically protected** — no smooth deformation changes them |
+| owner | the Op6 eigencavity (this document) | Cosserat (2,3) winding, `def-3638f2` (untouched here) |
+
+**Formal statement.** Let `𝒩 = {n, l, m}` be the mode-count integers — the eigenmode labels of the
+GIVEN graded cavity `Z(r)` (Deliverable 2), fixed by phase closure `∮k·dl = 2πn`. Let `𝒲 = {Q, (2,3)}`
+be the winding integers — topological invariants on the substrate connectivity graph (Axiom 2 TKI,
+`[Q]≡[L]`). These are **different objects with different failure modes**:
+
+> **"Ionization kills the mode, not the knot."** Ionizing the atom removes the electron's standing mode
+> — `𝒩` is destroyed (`n, l, m` gone, the cavity is emptied) — while the electron's charge and its
+> `(2,3)` winding `𝒲` are **untouched** (the freed electron is the same `0₁`-unknot soliton carrying
+> the same charge). A deformation of the cavity walls (a different `Z(r)`, e.g. a field) moves `𝒩`
+> continuously; NO smooth deformation changes `𝒲`.
+
+That the two families have **different failure modes** is the operational proof that they are different
+objects: `𝒩` is a continuous-spectrum property of an embedding cavity; `𝒲` is a discrete invariant of a
+graph. This is why "quantized" is a homonym across the two, and why the mode-count `n` in this document
+never touches the charge/winding sector (A1 ⊥ T2; charge = Cosserat winding, `INVARIANT-N1` knot
+disambiguation).
+
+**def-node NOT minted (flagged-not-minted).** Walk (c) `:68` flags the **quantization-homonym def-node
+pair** (mode-count-integer ↔ winding-integer) as a vocabulary-register CANDIDATE for a future
+terminology pass, alongside the existing homonym entries (the three "3"s, the two ℤ₂'s, the (2,q)
+glyph). It is **surfaced here as a candidate, NOT minted** — no `def-` id is created from this lane
+(KB canonization is a gated follow-on; INVARIANT-S12 def-nodes are register-hosted in
+`common/vocabulary-register.md`, which this lane does not edit). The auditor lane lands any def-node.
+
+## DELIVERABLE 5 — THE K1/K2 CAVEAT, STATED CONDITIONALLY (NOT RESOLVED)
+
+The well's kernel-transparency — **does the held longitudinal Coulomb dress bias the Ax-4 kernel, or is
+it kernel-transparent?** — is GOVERNED by the X41 fork. Verdict class, quoted **verbatim** from
+`research/2026-07-10_x41-radiative-scoping-why_RESULT.md:37`:
+
+> **"[UNDERDETERMINED — K1 ∧ K2, with the transverse-reactive near-zone as the named discriminator]"**
+
+**What this means for x42, conditionally.** The bin-3 off-line dress is "THE K2 CANDIDATE — tagged
+*contingent on X41's open fork*" (walk (a), `:19`). Both keys predict the held static Coulomb
+**transparent-to-T2**, each on its own **unpaid** premise:
+- **K1 [projection]:** a held static Coulomb is purely longitudinal (`E_T ≡ 0`, a Helmholtz identity),
+  so it biases only the A1 compliance, not the T2 permittivity — **IF** the (PENDING-GRANT) premise
+  holds that T2 keys on `|E_T|` (X41 §3.1).
+- **K2 [impedance/mode-basis]:** `ω=0` → no `R_rad` → the dress never meets the kernel → transparent —
+  **IF** the Ax-4 kernel is relocated reactance→`R_rad` (X41 §3.2).
+
+**The standing canonical reading disagrees with both keys' transparency for the held field:**
+`manuscript/ave-kb/CLAUDE.md:75` — *"A **static-E-only drive is ASYMMETRIC**: a static field has no
+`∂B/∂t` to load the `μ` / microrotational (Cosserat-B) sector, so it loads the `ε` / capacitive sector
+only (`S_ε < 1`, `S_μ = 1`)"* — i.e. a held static E **LOADS** `S_ε`. The x42 spectrum reproduction
+does not depend on this: it treats the well as pure GIVEN geometry in the deep-linear hydrogen regime
+(`S≈1`), where loaded-vs-transparent is a `~10⁻⁴` distinction below the marks' tolerance.
+
+**Where it bites: the muonic operating point.** At `A_§3 = E_Coulomb(a_μ)/E_yield ≈ 0.116` (O(0.1), NOT
+deep-linear), whether the near-nucleus field ADDITIONALLY biases the lattice is exactly this frozen
+tie. Standing canon (+ #547) → it loads → a computable ε-shift (the #547-class overshoot); K1/K2 →
+transparent. **This lane does NOT resolve the fork** and does NOT turn the muonic operating point into a
+spectral-correction claim. Adjudicators (per X41 §5/§7): **Grant** (K1's axiom-level ruling) + the
+**CVR held-DC-E bench** + the **unbuilt transverse-reactive near-zone probe**. Surfaced, not decreed.
 
 ## MARK OUTCOMES (M1–M4) *(pending)*
 
