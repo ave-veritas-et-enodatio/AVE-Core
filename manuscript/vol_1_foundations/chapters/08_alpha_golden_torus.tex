@@ -204,7 +204,7 @@ We natively define the Vacuum Strain Coefficient ($\delta_{strain}$) as this exa
 
 \begin{resultbox}{Vacuum Strain Coefficient}
 \begin{equation}
-    \delta_{strain} = 1 - \frac{\alpha^{-1}_{\text{exp}}}{\alpha^{-1}_{\text{ideal}}} = 1 - \frac{137.035999}{137.036304} \approx \mathbf{2.225 \times 10^{-6}}
+    \delta_{strain} = 1 - \frac{\alpha^{-1}_{\text{exp}}}{\alpha^{-1}_{\text{ideal}}} = 1 - \frac{137.035999}{137.036304} \approx \mathbf{2.22 \times 10^{-6}}
     \label{eq:delta_strain}
 \end{equation}
 \end{resultbox}
@@ -212,7 +212,7 @@ We natively define the Vacuum Strain Coefficient ($\delta_{strain}$) as this exa
 \noindent\textbf{Status disclosure (current edition; predicted/fitted split).}
 \begin{itemize}
     \item \emph{Predicted (axiom-derived):} the cold-lattice asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$; the existence of a positive thermal running of $\alpha^{-1}$ below this asymptote at any $T > 0$; the sign and the falsifiable claim that $\alpha^{-1}$ decreases further in regions of higher local thermal energy (collider cores, early universe).
-    \item \emph{Fitted (one scalar at $T_{\text{CMB}}$):} the numerical magnitude $\delta_{strain} \approx 2.225\times 10^{-6}$, computed by back-subtraction from CODATA: $\delta_{strain} \equiv 1 - \alpha^{-1}_{\text{CODATA}}/\alpha^{-1}_{\text{ideal}}$, definitional given the engine's \texttt{DELTA\_STRAIN = 1 - (1/ALPHA)/ALPHA\_COLD\_INV} (\texttt{src/ave/core/constants.py}). The attribution to spatial-metric thermal expansion at $T_{\text{CMB}} = 2.725\,$K is a physical narrative consistent with the predicted sign; it is not yet a derivation of the magnitude from $T_{\text{CMB}}$ + a lattice elastic modulus.
+    \item \emph{Fitted (one scalar at $T_{\text{CMB}}$):} the numerical magnitude $\delta_{strain} \approx 2.22\times 10^{-6}$, computed by back-subtraction from CODATA: $\delta_{strain} \equiv 1 - \alpha^{-1}_{\text{CODATA}}/\alpha^{-1}_{\text{ideal}}$, definitional given the engine's \texttt{DELTA\_STRAIN = 1 - (1/ALPHA)/ALPHA\_COLD\_INV} (\texttt{src/ave/core/constants.py}). The attribution to spatial-metric thermal expansion at $T_{\text{CMB}} = 2.725\,$K is a physical narrative consistent with the predicted sign; it is not yet a derivation of the magnitude from $T_{\text{CMB}}$ + a lattice elastic modulus.
     \item \emph{Tested:} that \textbf{one} thermal scalar suffices to bridge the cold-lattice asymptote to the CODATA value. Multiple-temperature measurements of $\alpha$ (collider cores, primordial nucleosynthesis $\alpha$, ultracold cavity experiments) test the same one-scalar structural claim at different $T$.
 \end{itemize}
 This is the same disclosure pattern as Vol~6 (one fitted scalar per nucleus, with predicted topology + parameter count): structure predicted, magnitude fitted, falsifiable across the relevant variable. To upgrade $\delta_{strain}$ from a one-scalar fit to a true zero-parameter prediction, the chain needs to compute the lattice's effective thermal expansion coefficient from first principles --- the bulk modulus $G_{vac}$ (Ch.~\ref{ch:electrodynamics}) and the equipartition energy at $T_{\text{CMB}}$ --- and verify that the predicted $\delta_{strain}$ matches the back-subtracted value within tolerance. That magnitude-derivation does not currently appear in the corpus.

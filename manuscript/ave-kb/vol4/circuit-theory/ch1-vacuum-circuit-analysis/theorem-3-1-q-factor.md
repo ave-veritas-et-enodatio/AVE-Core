@@ -8,7 +8,7 @@ path-stable: "referenced from vol1/ch8-alpha-golden-torus + common/boundary-obse
 
 # Theorem 3.1' — Electron Q-Factor from LC Tank at TIR Boundary
 
-The electron's fine-structure constant $\alpha^{-1} \approx 137.036$ is the **dimensionless Q-factor of its LC tank at the topological-defect Total-Internal-Reflection boundary**, and decomposes into three orthogonal reactance contributions matching the $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ boundary-observability structure. Two independent derivation paths (LC-tank Vol 4 Ch 1 + multipole Vol 1 Ch 8) produce identical numerical results to within $\delta_{\text{strain}} = 2.225 \times 10^{-6}$ (the CMB thermal running). Supersedes the Neumann-integral framing (doc 14), which was empirically falsified — classical Neumann integral for $(2, 3)$ at Golden Torus does not reproduce $\pi^2$ or $137$.
+The electron's fine-structure constant $\alpha^{-1} \approx 137.036$ is the **dimensionless Q-factor of its LC tank at the topological-defect Total-Internal-Reflection boundary**, and decomposes into three orthogonal reactance contributions matching the $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ boundary-observability structure. Two independent derivation paths (LC-tank Vol 4 Ch 1 + multipole Vol 1 Ch 8) produce identical numerical results to within $\delta_{\text{strain}} = 2.22 \times 10^{-6}$ (the CMB thermal running). Supersedes the Neumann-integral framing (doc 14), which was empirically falsified — classical Neumann integral for $(2, 3)$ at Golden Torus does not reproduce $\pi^2$ or $137$.
 
 ## Key Result
 
@@ -89,7 +89,7 @@ At resonance, only a fraction $1/Q = \alpha \approx 0.0073$ of the stored energy
 Numerical verification (`src/scripts/vol_1_foundations/electron_tank_q_factor.py`):
 - Method 1 (LC-tank, using CODATA $\alpha$): gives $\alpha^{-1} = 137.035999...$ (warm)
 - Method 2 (multipole, Ch 8 cold limit): gives $\alpha^{-1} = 137.036304$ (cold)
-- Difference: $\Delta = 2.225 \times 10^{-6}$ — **exactly $\delta_{\text{strain}}$**, the CMB thermal running predicted by Vol 1 Ch 8
+- Difference: $\Delta = 2.22 \times 10^{-6}$ — **exactly $\delta_{\text{strain}}$**, the CMB thermal running predicted by Vol 1 Ch 8
 
 The agreement to thermal-running precision validates that **both paths compute the same underlying tank Q-factor at the same geometric configuration**; the residual is real physics (CMB thermal correction at $T_{\text{CMB}} = 2.725$ K), not a methodology gap.
 
@@ -117,7 +117,7 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
 | Doc 14 — Classical Neumann mutual-inductance integral for $(2, 3)$ at Golden Torus | **FALSIFIED** (numerical test does not reproduce $\pi^2$ or $137$) |
 | Doc 17 (this) — Q-factor at TIR boundary, two independent paths | **CONFIRMED** (machine-precision agreement to $\delta_{\text{strain}}$) |
 
-> **Scope of "CONFIRMED" and of §"two paths agree" (2026-06-14, keystone $\alpha$-verdict).** "CONFIRMED" here means the **two paths agree** at the cold-lattice asymptote — a *consistency check* between Path A and Path B — and the §"two paths agree" reading of the $2.225\times10^{-6}$ residual as "real physics, not a methodology gap" holds **in sign/direction only**. It does **NOT** mean the *value* $4\pi^3+\pi^2+\pi$ is a first-principles derivation of 137. The residual $\delta_{\text{strain}}$ is a **definitional back-substitution** ($\delta_{\text{strain}} \equiv 1 - \text{CODATA}/\alpha_{\text{cold}}$; see the "HONEST SCOPE" note at `DELTA_STRAIN` in `src/ave/core/constants.py`), whose magnitude derivation **closed NEGATIVE** (Q-DELTA-MAP-1-quant, $\sim$31 OOM undershoot); the closure is **Class-B named identification** ([`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md)), not a "derivation." Table rows + framing preserved per Rule 12.
+> **Scope of "CONFIRMED" and of §"two paths agree" (2026-06-14, keystone $\alpha$-verdict).** "CONFIRMED" here means the **two paths agree** at the cold-lattice asymptote — a *consistency check* between Path A and Path B — and the §"two paths agree" reading of the $2.22\times10^{-6}$ residual as "real physics, not a methodology gap" holds **in sign/direction only**. It does **NOT** mean the *value* $4\pi^3+\pi^2+\pi$ is a first-principles derivation of 137. The residual $\delta_{\text{strain}}$ is a **definitional back-substitution** ($\delta_{\text{strain}} \equiv 1 - \text{CODATA}/\alpha_{\text{cold}}$; see the "HONEST SCOPE" note at `DELTA_STRAIN` in `src/ave/core/constants.py`), whose magnitude derivation **closed NEGATIVE** (Q-DELTA-MAP-1-quant, $\sim$31 OOM undershoot); the closure is **Class-B named identification** ([`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md)), not a "derivation." Table rows + framing preserved per Rule 12.
 
 ## Cross-references
 
@@ -154,3 +154,17 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
 | **INTERACTION / coupling** | LOADED/radiative $Q=1/\alpha$ = the intrinsic vacuum$\leftrightarrow$EM **coupling coefficient** | $|\Gamma_{\mathrm{EM}}|^2=1-\alpha$ per bounce |
 
 **NUANCE (do NOT misread $1/\alpha$ as a lifetime):** even *loaded*, the electron does **NOT** decay. $1/\alpha$ is a **COUPLING** (the per-cycle reactive dressing / self-energy — Sommerfeld's "coupling strength"), **not** an inverse lifetime: the energy that "leaks" $\alpha$-per-cycle through the matched port is reactively re-absorbed (self-dressing), not radiated away (the mode is virial-balanced and bound, §"Field components" of [resonant-lc-solitons.md](resonant-lc-solitons.md)). So the loaded-$Q$ reframe is fully consistent with §1 persistence ($Q_{\text{intrinsic}}\to\infty$, [resonant-lc-solitons.md](resonant-lc-solitons.md) §persistence-Resultbox) AND with the empirically stable electron. **This retracts NOTHING:** $\alpha$ stays an **echo** at the value level (the §"Value-scoped status" verdict and the two-bakes note above are untouched); the eigensolver merely re-attributes WHICH $Q$ the number $137$ is — loaded, not intrinsic. **Derivability of the loaded $Q$ value itself remains OPEN** (the α-free cold-cage gives $\approx30.8$, not $137$; the re-posed loaded-$Q$ test is adjudicated CIRCULAR — see [electron-bound-resonator-coverage.md](../../../vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md) §registry, gate B.1). This is a **REFRAME**, not a derivation.
+
+## Q-glyph ownership (collapse-batch T10 — which "$Q$" a downstream cite means)
+
+The glyph "$Q$" carries **≥4 electron-scale objects at distinct values** ($137.036 \neq 30.8 \neq \infty \neq 29.98$) — all readings of the *same electron LC tank's* quality factor at different ports/conditions, **not** interchangeable numbers. No central `def-Q` exists; this row is the ownership map (an annotation, not a vocabulary-register mint):
+
+| "$Q$" object | Value | What it is | Home |
+|---|---|---|---|
+| **loaded / radiative $Q$** | $1/\alpha = 137.036$ | the vacuum↔EM coupling coefficient — an α-baked **ECHO** at the value level | this leaf `:15` / `:145-147` (`parametric-coupling-kernel.md:239` reuses `Q_atomic=α⁻¹≈137` as an input — the α-echo status does NOT travel with the symbol) |
+| **intrinsic / stability $Q$** | $\to\infty$ | lossless confinement, EM-port CLOSED ⇒ Hermitian | this leaf `:147` |
+| **cold-cage ring-down $Q_{ringdown}$** | $\approx 30.8$ | the α-FREE dynamical ring-down (NOT 137) | `vacuum-varactor-scatter-operator.md:185`; `vol9/claim-quality.md:507` |
+| **structural radiative-$Q$ floor $Z_{RADIATION}$** | $\approx 29.98$ | the $4\pi$ radiation-resistance floor — **band-consistent, NOT identical** with 30.8 (~2.7% apart) | `vacuum-varactor-scatter-operator.md:183-192`; guarded by the pinned anti-coincidence test `test_graded_vacuum_network_isolation.py:141-146` (`test_anti_coincidence_Q_is_not_Z_radiation`) |
+| **per-mode count $Q=\ell$** | integer | the Op21 mode-counting identity | `op21-multi-mode-mode-counting.md:10` |
+
+Adjacent watch: `parametric-coupling-kernel.md:213` uses $Q_{apparatus}\sim10^3$–$10^9$ (a bench $Q$ — a different object again). The T3.4b banked NEGATIVE (30.8 ≠ 137, α never baked; loaded-$Q$ derivability adjudicated CIRCULAR/OPEN, `:156` above) says these are genuinely distinct today; a single derivation collapsing $\{137, 30.8, \infty, 29.98\}$ to one object under stated conditions would warrant only a footnote, but the corpus does not have that today.

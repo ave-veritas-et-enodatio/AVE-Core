@@ -24,7 +24,7 @@ The AVE framework models the physical vacuum as a discrete chiral LC resonant ne
 | Vacuum Packing Fraction | $p_c = V_{node}/\ell_{node}^3 = 8\pi\alpha \approx 0.1834$ |
 | Inverse Fine-Structure Constant | $\alpha^{-1} = 8\pi / p_c$ |
 | Cold-Lattice $\alpha$ (Ch.8, Golden Torus) | $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ |
-| CMB-Strain $\alpha$ Correction | $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$; $\alpha^{-1}_{\text{obs}} = 137.035999$ (CODATA match) |
+| CMB-Strain $\alpha$ Correction | $\delta_{\text{strain}} \approx 2.22 \times 10^{-6}$; $\alpha^{-1}_{\text{obs}} = 137.035999$ (CODATA match) |
 | Impedance Dimensional Isomorphism | $1\,\Omega = \xi_{topo}^{-2}\,\text{kg/s}$ |
 | Dielectric Snap Limit | $V_{snap} = m_e c^2 / e \approx 511.0$ kV |
 | Unifying AVE Master Equation | $\nabla^2 V - \mu_0 \varepsilon_0 \sqrt{1 - (V/V_{yield})^2}\;\partial^2 V/\partial t^2 = 0$ |

@@ -294,6 +294,20 @@ Resultbox is the most common environment. Vol 5 uses only resultbox. Vol 8 uses 
 
 ---
 
+## Numerical Reporting Precision (house rule — RATIFIED 2026-07-11)
+
+Ratified by Grant 2026-07-11 (rulings-docket item 15); PROPOSED origin at the orchestration board Continuation-2 §6 (`_orchestration/2026-07-10_orchestration-board.md:199-209`). This is a **reporting-hygiene** rule — it changes **no physics and no value**; it governs how numbers are *quoted*, so that a real disagreement can never hide below the last printed digit. Five clauses:
+
+- **(a)** internal numerics = **full double from `constants.py`**, never retyped by hand;
+- **(b)** measured values quoted at **full CODATA digits + (uncertainty) + vintage** (e.g. `137.035999084(21)` [CODATA 2018]);
+- **(c)** exact expressions **labelled EXACT**, evaluated to the comparator's uncertainty **+ 2 guard digits**;
+- **(d)** every comparison stated as **Δ ± propagated σ** — the word **"matches" without a σ is banned**;
+- **(e)** residuals quoted **only to experiment-supported digits, with sign**.
+
+**Motivating case (the α keystone).** `4π³ + π² + π = 137.036303776` (**EXACT**) vs `α⁻¹ = 137.035999084(21)` [**CODATA 2018** pin] → **Δ = 3.047 × 10⁻⁴ ≈ 14,500σ**. The disagreement is invisible below 4 decimals and only becomes a 14,500σ gap when both sides are carried to full precision — precisely what a "matches within δ_strain" phrasing hides. This bears on **nothing** at the value level: the α keystone is a **Class-B calibration identity, cited as identity-not-derivation** (`vol1/ch8-alpha-golden-torus.md`); the house rule is reporting hygiene, not a physics claim. (The companion δ_strain prose reconcile — demoting the false-precision "2.225×10⁻⁶" prose to the vintage-robust "≈2.22×10⁻⁶", with `constants.py` carrying the digits — rides the same collapse batch.)
+
+---
+
 ## Cross-Volume Reference Format
 
 References appear at the bottom of index and leaf documents where the source text explicitly references another section.

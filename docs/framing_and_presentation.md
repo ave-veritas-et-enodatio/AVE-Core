@@ -114,7 +114,7 @@ All three coefficients are forced by the Golden Torus geometry $R = \varphi/2, r
 
 Constraint #3 is the **S₁₁ minimization** already used by the protein folding engine (Universal Operator #6, $\lambda_{\min}(S^\dagger S) \to 0$) — applied here to the trefoil ground state. Combined, they force a unique $(R, r)$, hence a unique $\alpha$.
 
-**The 0.00022% residual** against CODATA $\alpha_{\text{exp}}^{-1} = 137.035999$ is **also derived** — it's the Vacuum Strain Coefficient $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ from CMB-induced (T = 2.7 K) thermal expansion of the spatial metric. The cold-vacuum $137.036304$ is the T→0 asymptote; the measured value is the CMB-bathed physical universe. This yields a falsifiable prediction: α runs with local thermal energy (decreases in high-T regions).
+**The 0.00022% residual** against CODATA $\alpha_{\text{exp}}^{-1} = 137.035999$ is **also derived** — it's the Vacuum Strain Coefficient $\delta_{\text{strain}} \approx 2.22 \times 10^{-6}$ from CMB-induced (T = 2.7 K) thermal expansion of the spatial metric. The cold-vacuum $137.036304$ is the T→0 asymptote; the measured value is the CMB-bathed physical universe. This yields a falsifiable prediction: α runs with local thermal energy (decreases in high-T regions).
 
 **Corrected public framing:**
 

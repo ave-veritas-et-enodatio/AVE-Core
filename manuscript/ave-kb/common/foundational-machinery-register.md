@@ -304,7 +304,7 @@ All fields READ from records.
 <!-- view of claim node: clm-rtdmsn -->
 
 - **clm-id:** `clm-rtdmsn` ([`vol4/claim-quality.md:1352`](../vol4/claim-quality.md)) — a **brief-named seed**.
-- **title:** "Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary" — $\alpha^{-1}=Q_{tank}=Q_{vol}+Q_{surf}+Q_{line}=4\pi^3+\pi^2+\pi=137.036$; two independent paths (LC-tank + multipole) agree to $\delta_{strain}=2.225\times10^{-6}$.
+- **title:** "Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary" — $\alpha^{-1}=Q_{tank}=Q_{vol}+Q_{surf}+Q_{line}=4\pi^3+\pi^2+\pi=137.036$; two independent paths (LC-tank + multipole) agree to $\delta_{strain}=2.22\times10^{-6}$.
 - **status:** **DERIVED (in FORM) / VALUE-ECHO.** DERIVED: the Q-factor decomposition is a theorem of Ax 1/2/3 (`depends-on` = `axiom-1, axiom-2, axiom-3`). **But VALUE-scoped:** the entry itself carries a 🔴 (2026-06-15 keystone α-verdict) — this is the Q-factor *reframe* of α⁻¹, a **Class-B named geometric identification** whose *scale* (~1/137) is forced but whose *exact value* rests on R·r=¼, which the substrate does not independently select (both lift-routes closed). Cross-ref the `interlock-register.md` `ilk-rr14gt` echo tag.
 - **axiom-provenance:** `axiom-1, axiom-2, axiom-3` (direct, READ).
 - **solidity:** 0.85, `ok-to-build` (READ) — the **highest-solidity machinery member**; two-path-agreeing closed derivation (form). (Solidity is on the FORM; it does not certify the value as forced — that is the orthogonal echo axis.)
