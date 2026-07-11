@@ -894,3 +894,31 @@ moved to the spin-flywheel caveat that already accounts for them — the "Polder
 (2) **T5** — the fireable claim was narrowed to the `θ`↔EM-`tan δ` de-orthogonalization (`tan δ = cot θ`, a real phasor
 identity that kills the `:331` all-orthogonal over-claim); the `θ`↔`δ_AVE` tie is corrected to the taxonomic-not-derivational
 analogue the leaf flags at `:310` (`δ_AVE` is a duty ratio, not `tan δ`), NOT written into canon as a phasor identity.
+
+---
+
+## Post-review repairs (2026-07-10, orchestrator-dispatched)
+
+All 8 second-pass adversarial-review findings were **EVIDENCE-VOID** class: broken or imprecise receipts wrapped around
+independently-true conclusions. Every conclusion survived; only the demonstration was repaired (receipt re-sourced, or command
+made fireable). Each replacement receipt below was **run and verified in the pinned worktree before it was written into the
+body** — the whole point of the repair pass is receipts that actually fire.
+
+| # | Finding | Severity | Fix |
+|---|---------|----------|-----|
+| 1 | Anti-target caution mis-cited `topological-area.md:17` as calling `m*` an "arbitrary variable" and an SM-crutch rejection; the KB leaf is NEUTRAL (`:17`) and grants `m*` **peer** status (`:18`). | **MAJOR** | Re-sourced the rejection receipt to the *superseded vol-4 engineering register* (`19_silicon_design_engine.tex:52` + `doping_engine_map.svg:102` `line-through`); demoted the strength claim — the KB is the truth-source and its peer-with-SM reading governs. Operative core (never mint band-curvature `m*` as A1 mass; `d²E/dk²` stays sector-neutral dispersion; A1⊥T2 at `master-equation.md:20`) unchanged. |
+| 2 | T4 absence receipt `grep -rwin "poisson\|\nabla\|field equation"` lacked `-E` → literal pipes → matches nothing against ANY corpus (vacuous). | MINOR | Replaced with `grep -rwinE …` + `rg -in …` cross-check, both verified to fire (control `acceleration\|mond` → 41 hits; the true absence-terms → 0). |
+| 3 | T12 `rg 'u_0' vocabulary-register.md → 0` was false (2 hits at `:423,:681`, both `\mu_0` substring matches). | MINOR | Restated with `rg 'u₀\|u_0\*\|u_0\^'` → 0 relevant; named the two `\mu_0` substrings explicitly. |
+| 4 | T4 "≈ 1.8 a₀" keyed to the empirical a₀=1.2×10⁻¹⁰ while the same sentence quoted the AVE-derived a₀=1.07×10⁻¹⁰. | MINOR | Tagged both denominators (≈ 2.0 a₀ AVE-derived / ≈ 1.8 a₀ empirical) with explicit ratios. |
+| 5 | T4 mechanism asserted the unadjudicated Ax4 total-local keying in the indicative. | MINOR | Rewritten subjunctive (IF Ax4 keys on total-local amplitude, THEN external-field pre-saturation follows); parenthetical + kill-test kept. |
+| 6 | T3 tier row + Cost line booked "SPLIT + ownership table" unconditionally; kill-test branch (i) (lossless-reflective) makes it a LANGUAGE RETRACTION instead. | MINOR | Annotated both the tier-row Resolution cell and the Cost line with the branch-(i)/branch-(ii) split. |
+| 7 | T16 shipped "Shared mechanism: none" + "Kill-test: n/a" while the method required both for every candidate. | MINOR | Scoped method requirements (a)/(c) to P1/P8 (a clean P6 SPLIT legitimately has no shared mechanism — that is its polarity); flagged T16 as the sole ranked target with no fireable kill-test, explaining the 18-of-19 count by name not arithmetic. |
+| 8 | (a) T2 said "FIVE-member" hysteresis §1 (it has SIX rows — omitted `op14-cross-sector-trading` / `clm-p2tp9i`); (b) T10 cited the anti-coincidence test at `:119` (now `:141-146`). | MINOR (2 nits) | (a) corrected to SIX-member, added `clm-p2tp9i`; (b) corrected to `test_graded_vacuum_network_isolation.py:141-146` (`test_anti_coincidence_Q_is_not_Z_radiation`), flagged canon's own stale `:119-124` cite at `vacuum-varactor-scatter-operator.md:188` for the next KB hygiene pass. |
+
+**KEEP-BOTH — superseded MAJOR wording (finding #1, preserved for the audit trail; the body was corrected in place):**
+
+> The curvature `m*` is **not merely undeployed — it is actively rejected as an SM crutch**: `vol6/period-3/silicon/topological-area.md:17` calls `m*` an "arbitrary variable"; the doping-engine figure renders "Effective Mass (m*)" struck-through.
+
+Retained here (not in the body) because the branch is unmerged: in-place body correction **plus** logged supersession is the
+right pattern (per the KEEP-BOTH discriminator convention), so the old wording stays visible even though the corrected body no
+longer carries it.
