@@ -207,3 +207,54 @@ Surfaced in the same chat as the δ_strain rider; **not ratified** — recorded 
 - **(e)** residuals quoted **only to experiment-supported digits, with sign**.
 
 **Motivating case (the keystone):** `4π³ + π² + π = 137.036303776` (**EXACT**) vs `α⁻¹ = 137.035999084(21)` [**CODATA 2018** pin] → **Δ = 3.047 × 10⁻⁴ ≈ 14,500σ** (14,509σ at 21e-9). The disagreement is **invisible below 4 decimals** and only becomes a 14,500σ gap when both sides are carried to full precision — which is precisely what a "matches within δ_strain" phrasing hides. (This bears on nothing at the value level: the α keystone is a Class-B calibration identity, cited as identity-not-derivation; the house rule is a *reporting-hygiene* proposal, not a physics claim.)
+
+---
+
+## Continuation 3 — 2026-07-11: the four-lane day
+
+**Purpose:** session-close record of the day's four Grant-launched satellite lanes (all from `_orchestration/` handoff briefs; each ran its own in-lane adversarial review to CLEARED before presentation). **KEEP-BOTH:** the two continuations above + the original board are **not edited**; this continuation carries the new state. Every PR#, tag, SHA, and file cite below was git/gh/grep-confirmed this session (verify-before-cite); one brief cite corrected (§3, the `constants.py` follow-up). Three lanes MERGED (**#643 / #646 / #647**, HEAD `600db255`); **C13b (#645) OPEN** at write time (CI note §2).
+
+### 1. The four lanes
+
+#### #643 — astro-adjudicator sweep · MERGED (tag `audit/2026-07-11_astro-adjudicator-sweep`)
+
+Six-adjudicator external-literature sweep against the frozen branch-signature map. **Freeze-by-push held:** the map was pushed **pre-retrieval** (`8bbb0ef1`, `freeze(astro-sweep): branch-signature map … pre-retrieval`); all **10 load-bearing citations independently re-fetched real** by the retrieval-fidelity review lens (a hallucinated reference would be review-CRITICAL). Verdicts (`research/2026-07-11_astro-adjudicator-sweep_result.md`):
+
+| Adj | Axis | Verdict | Load-bearing |
+|---|---|---|---|
+| **A1** | T4 EFE keying | **NO CALL (contested)** | Chae 2020/2021 EFE **8–11σ** golden (`arXiv:2009.11525`) vs Sargent-2025 confounding; strain symmetric on ΛCDM (`:41,:47,:54`) |
+| **A2** | wide binaries | **NO CALL (contested)** | Chae 2023/2024 ~**10σ** vs Banik 2024 **19σ** — same Gaia DR3 data, opposite conclusions (`:76,:81,:87`) |
+| **A3** | WHEN axis | **LEANS LIVE** | Ciocan et al. 2026 (`arXiv:2604.22613`) `a₀(z≈1)=2.38±0.1×10⁻¹⁰` **RISING**; ratio ≈1.98 vs live-pred `H(z=1)/H₀≈1.76`; single-group/unreplicated → attractor = **demotion-candidate, NOT retired** (`:108,:120,:121`) |
+| **A4** | T3 horizon | **NO CALL** | echo dispute method-driven; branch-(ii) GR-degenerate → **no AVE-distinct chord at the horizon** |
+| **A5** | one-`c` | **BOOKED (+7×10⁻¹⁶)** | GW170817 (`arXiv:1710.05834`) `(c_gw−c)/c ∈ [−3×10⁻¹⁵, +7×10⁻¹⁶]` (`:170,:180`) |
+| **A6** | naive-live G | **DEMOTED 190–7600×** | LLR/pulsar/BBN; fork OPEN (flatness-live / attractor / fossil) (`:208,:213`) |
+
+In-lane review: **zero findings.**
+
+#### #646 — collapse batch · MERGED (tag `audit/2026-07-11_collapse-batch`)
+
+14 units (`research/2026-07-11_collapse-batch_result.md`). Two new `def-` nodes MINTED — `def-quant3` (T1 quantization triad, `:15`) and `def-u0star` (T12 SYM operating-point vs T-breaking bias, `:22`); the **u₀\* X40 cut/cycle homonym rides `def-u0star` as a FLAG, not a split** (`:55`). T2/T5/T6/T7/T8-ungated/T10/T14/T16/T19 annotations landed. **T6 M-row → TKI-image demotion** (Grant ruling: A1-dilatation mass ownership governs; flag-scan returned **0 forbidden X_L cross-wires**, `:18,:45`). **Precision house rule RATIFIED** in `CONVENTIONS.md` (five clauses, `:26`). **δ_strain rider** demoted false-precision "2.225×10⁻⁶" → "≈2.22×10⁻⁶" across **69 sites / 36 files**; `constants.py:179` is the authoritative digit-carrier (`2.2234×10⁻⁶ [CODATA-2018]` / `2.2228×10⁻⁶ [CODATA-2022]`, `:27,:69`). In-lane review: **0 confirmed.**
+
+**Follow-ups (next hygiene pass):** (1) the `DELTA_STRAIN` computed-def trailing comment `# ≈ 2.225e-6` — one of three residual "2.225" strings intentionally left (`:71`). ★ **Cite correction:** the brief + the batch result doc (`:27`) both place this at `constants.py:279`; verify-before-cite this session finds the trailing comment at **`constants.py:281`** (line 279 now reads *"selection + bijection — closed 2026-06-04"*; the `DELTA_STRAIN` def-line drifted ~2 lines from the same batch's precision-house-rule prose additions above it). (2) annotation-vs-def-node literal read CONFIRMED as intended.
+
+#### #647 — X43 ringdown-port · MERGED (tag `audit/2026-07-11_x43-ringdown-port`)
+
+The program's **first forward-form derivation attempt** = a **CLEAN NEGATIVE** (`research/2026-07-11_x43-ringdown-port_result.md`). The honest chain gives an electric-dipole `Γ ∝ ω³` (one Cosserat torsion quantum shed → `ΔJ = Δc = 1 → ℓ = 1`, **derived not asserted**, `:33`), voided further to **no-law at the physical muon energy** (`ω_μ = 206.77 ω_C` sits ~12× above the drain band top `≤ 17.011 ω_C` → `ρ_drain = 0`; the surviving leak is evanescent, wrong-sign (heavier → slower), non-universal, `:48`). **NEITHER bin is Sargent `ω⁵`** → the ringdown-port picture DIES (`:18,:22`). The blind independent-derivation panel (4 frames, target bins hidden) landed the observationally-wrong `ω³` rather than reaching for the `ℓ = 2` that reproduces observation — the **anti-install tell** (`:93`). **A0: TIDE BRANCH DEAD AT BIRTH** — no canon-forced galactic length; `L = R_H` (the only forced macroscopic length) misses phenomenology by **~5 OOM** (`research/2026-07-11_x43-A0-tide-dimensional-L_result.md:53,:59,:73`). **Miss-ledger candidate → 0-for-8** (Grant-gated, `:87`).
+
+#### #645 — C13b bullet-cluster γ · OPEN at write time (CI note §2)
+
+**VERDICT = MISS, source-fork-conditional; a banked REAL negative.** Under the mechanism's own derived source (`η_eff` keys on `M_* + M_gas` per its SPARC-validated definition) the predicted lensing peak sits **ON THE GAS** (5 kpc peak / 70 kpc centroid) vs observed 150–194 kpc → **Δ = −145 kpc (−4.8σ)**. The stars-only HIT (196 kpc) rests on an **UNDERIVED source** the corpus's own ledger grades **0.40 "matched-by-construction"** (`manuscript/ave-kb/vol1/claim-quality.md:479-480` — verified: `:479` solidity 0.40 *"do not build on, rework needed"*; `:480` *"the ~150 kpc offset is matched-by-construction … rather than predicted"*). The MISS is **KERNEL-INDEPENDENT** (`η_eff` dormant in the core, `g_eff/g_N = 1.000`, engages only `R ≳ 600 kpc`; the Newtonian-null is identical). Clowe+2006's 8σ statement forecloses the force-law-alteration class. In-lane review: **5 findings, all MINOR EVIDENCE-VOID, repaired.** Miss-ledger candidate → **0-for-9** (Grant-gated; classification call his). **PENDING-GRANT:** Q1 (star-vs-gas source fork — why would neutral stars source a halo neutral gas doesn't?) + Q2 (re-scope `dm-mechanism-unification.md` "qualitatively CONFIRMED"). *(Run-output figures — 5/70/196 kpc, −4.8σ, `R ≳ 600 kpc` — reported by the #645 return; the result doc lands on merge, not yet in-repo at HEAD `600db255`.)*
+
+### 2. CI / infra note
+
+#645's only red check = the **opt-in engine suite canceled at its 2h job ceiling at 97% all-green** (X43's PR hit the identical cancel → pass-on-rerun); the **required gate went green in 14m**; rerun dispatched. The engine suite has **outgrown the 2h budget** — fix pending Grant's pick (**timeout bump vs shard**).
+
+### 3. Process register
+
+- **(a) Workflow named-path args-drop bug.** All four lanes independently hit it; each recovered via the **scriptPath-wrapper pattern**. Future handoff briefs embed the explicit wrapper instruction.
+- **(b) The "48 commits ahead" local-main scare** was a **rev-list direction misread** (actual: 0 ahead / 53 behind, now synced) — the rev-list direction trap claims another instance (cf. miss-ledger #6, `:116`).
+- **(c) Freeze-by-push held in all four lanes** without exception; **two lanes caught orchestrator-brief errors** in their verification passes (a leakage-inductance mis-cite; the 103× naive-band-edge figure).
+
+---
+
+*Cross-refs (verify-before-cite'd this session): `research/2026-07-11_astro-adjudicator-sweep_result.md` + the frozen map `research/2026-07-11_astro-adjudicator-sweep_branch-signature-map_FROZEN.md`; `research/2026-07-11_collapse-batch_result.md`; `research/2026-07-11_x43-ringdown-port_result.md` + `research/2026-07-11_x43-A0-tide-dimensional-L_result.md`; the four handoff briefs `_orchestration/2026-07-11_{astro-adjudicator-sweep,collapse-batch,x43-ringdown-port,c13b-bullet-cluster-run}-handoff.md`. Docket companion: the rulings-docket Continuation (four-lane returns + cross-lane reconciliations). Three audit tags + freeze SHA `8bbb0ef1` confirmed on origin via `git ls-remote --tags`. Nothing here canonizes; this continuation records session-state, not adjudicated physics.*
