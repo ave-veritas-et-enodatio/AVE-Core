@@ -5,6 +5,30 @@ kind: leaf
 claims: [clm-c54kdd]
 -->
 
+> 🔴 **HONESTY HEADER (2026-07-11 — X43 Q-consistency flag; Rule 12: body preserved, status caveat added).**
+> The RC-discharge model below treats the muon as being in **continuous above-yield breakdown**
+> ($R_{eff}$ drops $1\,\text{G}\Omega\to50\,\Omega$, half-life from a standard RC time constant —
+> see §"The SPICE Equivalent" below, `:46,49,53`). **X43 flags this as quantitatively wrong on the
+> lifetime as written:** a continuous $50\,\Omega$ breakdown gives $Q\sim1$, whereas the observed
+> muon lifetime is $Q_\mu\approx3.5\times10^{17}$ cycles — **~17.5 OOM** longer than a bare
+> breakdown allows (`research/2026-07-11_x43-ringdown-port_result.md:80`). The high $Q$ **forces** a
+> nearly-closed-port reading; the "continuous rupture → RC-discharge" *rate form* here does not
+> reproduce the muon lifetime.
+>
+> **NOT resolved here (Grant-gated).** A reconciliation is *available* — the breakdown is the **rare
+> terminal jump**, and its **low duty cycle** IS the nearly-closed high-$Q$ port — but per Rule 12 /
+> substitution-not-retraction this header does **NOT** substitute that physics: the low-duty-cycle
+> reconciliation stays **OPEN for Grant**. The mechanism NAME ($\Gamma=-1$ leaky-cavity) is not in
+> question; the continuous-RC **rate form** is.
+>
+> **Two $\Gamma=-1$ shatter siblings share this model** (the same Q-consistency flag applies; flagged,
+> not edited, here): `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md`
+> (`clm-rd9cjm` — "shatters its own $\Gamma=-1$ topological mirror … the mechanical origin of heavy
+> particle lifetimes") and
+> `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md:127`
+> (`clm-5s5b0d` — "the LC network physically shatters ($\Gamma=-1$) … the exact mechanism that causes
+> heavy particles (like the Muon) to decay").
+
 ## The Breakdown Voltage of the Vacuum
 
 As derived in Book 4 (Applied Engineering), the continuous macroscopic vacuum possesses an absolute structural yielding point. When the localized inductive tension or capacitive strain exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65\,\text{kV}$, the localized LC nodes physically saturate.

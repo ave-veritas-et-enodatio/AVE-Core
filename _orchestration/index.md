@@ -303,6 +303,13 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 > - C' F1 scalar-restoration win PRs to main standalone (honestly framed, NOT "A1 grade restored"): YES / NO
 > Date: ___
 > ```
+>
+> **Ratification-status note (2026-07-11, engine-refresh batch).** The `Date: ___` above is
+> **intentionally left BLANK — NOT backfilled.** The verbal Grant sign-off on this block is **still
+> OWED.** Recorded honestly: downstream work has **proceeded as-if-YES** (the `crystal_engine` /
+> `master_equation_fdtd` cage-test platform + the `ave-loop-gap-harness-discipline` amendment were
+> built and merged on that premise), but a real sign-off is required to close the block. Do not read
+> "proceeded as-if-YES" as ratified.
 
 **PR:** `analysis/2026-06-13-engine-capability-map` (capability-map leaf + figure + this tracker entry). Auditor reviews cells vs the anchor table; **Grant merges**. Two anchor corrections made during the verify-before-cite pass: (1) graft-v2 `Γ_min=−0.849` is an apparatus-floor artifact → cited SIGN-only, −1 not demonstrated; (2) #215 PR title ("REMANENT-LOOP") is stale — merged content is the IMPOSED-LATCH retraction (`575ed12d`).
 
