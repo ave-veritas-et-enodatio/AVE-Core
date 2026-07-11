@@ -351,8 +351,9 @@ CODATA-derived `RY_EV, A_0, M_E, M_PROTON, M_MUON` → **CONSISTENCY-class magni
 - **Freeze-by-push (timestamps corrected, review finding #5):** prereg commit `0e5047e4` was
   *committer-dated* `2026-07-10T16:46:14-07:00` (this is the COMMIT timestamp, not the push time); the
   remote branch `CreateEvent` on `origin` was `2026-07-10T23:46:33Z` (`16:46:33 PDT`), 19 s later — the
-  actual moment the prereg landed on the remote. Both precede the M_MUON commit (`16:47`) and the first
-  code push (`17:06`) by a wide margin; ordering unaffected (git audit table in the PR body). The
+  actual moment the prereg landed on the remote. Both precede the M_MUON commit (committer-dated
+  `16:47`) and the first code commit (committer-dated `17:06`, ~20 min after the prereg landed remotely)
+  by a wide margin; ordering unaffected (git audit table in the PR body). The
   earlier single `16:46:14` label conflated commit-authored with remote-created and is corrected here.
   **The freeze ordered ARTIFACTS, not knowledge** — the pilot had already landed branch (i) numbers
   pre-freeze (disclosed at prereg `:120-121`, "the pilot run this session already lands at −0.000% for
