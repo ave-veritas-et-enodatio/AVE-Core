@@ -100,8 +100,39 @@ Each block is a **frozen branch-signature map** — the satellite pushes it verb
 
 **Retrieval anchors to verify:** LLR `Ġ/G` limits (Hofmann/Müller-class); pulsar-timing `Ġ` bounds; BBN `Ġ` constraints.
 
-<!-- FILL:DELIVERABLES -->
+## DELIVERABLES
 
-<!-- FILL:REVIEW -->
+1. **One result doc** `research/<date>_astro-adjudicator-sweep_result.md`, structured **per adjudicator**:
+   - the **frozen branch map** (copied from the pushed freeze — verbatim, so a reviewer can diff freeze-vs-result);
+   - a **retrieval summary** with **real, checkable citations** (author/year/journal or arXiv id; every identifier must resolve — see the review lenses);
+   - an **adjudication** with **contested-status honesty** (which branch the data favor, which disputes prevent a call, symmetric-standard check against the ΛCDM/standard-MOND alternative);
+   - a **docket/registry-row recommendation marked `PENDING-GRANT`** (never a ruling).
+2. **Lineage-map amendment CANDIDATES — flagged, NOT landed:** Milgrom **modified-inertia** MOND (the tide branch's possible lineage, D1 §4); **Brans-Dicke / Dirac large-numbers** (the live-G branch's lineage, D1 §5). Flag for the lineage map; do not edit it.
+3. **A docket-continuation stub** — the rows this sweep feeds (R-A-adjacent T4; the §5 WHEN axis; T3), formatted for the core session to fold into `_orchestration/2026-07-10_rulings-docket.md` (the **core session lands it**, not the satellite).
 
-<!-- FILL:STANDING -->
+**NON-TARGETS (binding):** **zero** KB / canon / Letter / manuscript edits; **zero** claim mints; **zero** fork resolutions. The satellite produces a research result doc + flags + a stub. Every verdict is `PENDING-GRANT`.
+
+## REVIEW BEFORE CLEARED
+
+Adversarial review via the **M4 wrapper pattern** (`.claude/workflows/ave-adversarial-pr-review.js` — the standard AVE N-lens adversarial PR review: domain lenses → per-finding refute-pass). Required lenses:
+
+- **retrieval-fidelity** — **every external citation traceable and real; spot-check identifiers** (author/year against the claimed journal/arXiv id). **A hallucinated reference is CRITICAL** — the whole sweep's value is real citations, so an invented one poisons the result.
+- **branch-honesty** — **no adjudicator upgraded past what contested data supports.** Apply the **consensus-bias symmetric standard:** before flagging an AVE branch as data-strained, check the SM / ΛCDM / standard-MOND alternative against the *same* data — if the standard picture gets a pass on an equally-awkward datum, the AVE branch is not uniquely strained. Also enforce the freeze: any branch signature **loosened** between the pushed freeze and the result is a CRITICAL finding.
+- **corpus-cite verification** — every `research/` / KB file:line in the result grep-confirmed this turn (verify-before-cite); no quote-marks on unverified text.
+
+Empty findings + a solid clean_report is a good outcome. Only after review clears does the satellite present the result to Grant as CLEARED (the PR title stays `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` until Grant rules).
+
+## STANDING STACK (binding, embedded so the brief stands alone)
+
+- **pure-AVE-corpus** — every tracked file / commit / branch is pure physics; no external-context references.
+- **only-Grant-merges** — the satellite pushes a branch + opens a PR; it does NOT self-merge. Grant rules and merges.
+- **DO-NOT-MERGE + [REVIEW: pending-orchestrator] titles** — every PR from this satellite carries the `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` title prefix until Grant clears it.
+- **freeze-by-push analog** (above) — the branch-signature map is committed AND pushed before any retrieval output is read; git ordering is the freeze proof.
+- **P10 fireability** — every adjudicator has at least one outcome that demotes at least one branch, or it is reworked/dropped.
+- **KEEP-BOTH** — the T4 third branch (tide) rides alongside the frozen internal / total pair; the G fork keeps live / fossil / attractor together. No branch is redefined-in-place; new axes are added alongside.
+- **sector headers** — every substrate claim carries a SECTOR / REGIME / PHASE-STATE line.
+- **verify-before-cite** — every corpus file:line grep-confirmed the turn it is written; retrieval claims land TENTATIVE.
+- **incremental commits** — skeleton first, then one section per commit (large single writes hit socket timeouts).
+- **self-isolate in a worktree** — do all git-mutating work in a throwaway detached worktree under the session scratchpad, never the main checkout.
+- **commit trailer** — `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
+- **gates before push** — `make verify`, `make verify-md-links`, `make verify-provenance-stamps`; backtick-pointer cite style; avoid provenance-stamp tokens (`driver-confirmed` / `test-locked` / `sympy-verified` / `sympy-confirmed` / `engine-confirmed` / `engine-verified` / `FEM-verified`) outside code fences in `research/`.
