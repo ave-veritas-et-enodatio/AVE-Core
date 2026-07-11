@@ -275,13 +275,21 @@ def test_e5_fullnet_qualifier_is_load_bearing():
     assert f["b1_fullnet"] == pytest.approx(109.0)
 
 
-def test_e5_orientation_ensemble_is_isotropic_balanced():
-    """Omega enters as a unit axis only (no scale). The srs ring planes are isotropic/balanced."""
+def test_e5_orientation_ensemble_is_isotropic():
+    """Omega enters as a unit axis only (no scale). The srs ring planes are ISOTROPIC.
+
+    Only the SIGN-FREE Q = <n n^T> is load-bearing (eigenvalues all 1/3 => no
+    preferred plane axis). The signed-mean |sum n|/N leg is DELIBERATELY NOT
+    asserted: the per-ring Newell-normal SIGN comes solely from the DFS tuple order
+    of enumerate_girth_faces (a convention), is IDENTICAL under full ring reversal,
+    and sits dead-center in a random-sign null (percentile ~0.45; null 95th pct
+    0.0909 < 0.1). Asserting that convention value stays at its noise floor is
+    near-vacuous (any sign labeling passes <0.1) — orchestrator-review Repair 3.
+    """
     o = ring_orientation_ensemble()
     eig = np.array(o["Q_eigenvalues"])
     # sign-free orientation tensor is trace-1; isotropic => all eigenvalues ~ 1/3
     assert np.allclose(eig, 1.0 / 3.0, atol=1e-6), f"ring planes not isotropic: {eig}"
-    assert o["signed_mean_normal_magnitude"] < 0.1, "ensemble not balanced (net normal too large)"
 
 
 def test_e5_orientation_axis_is_not_a_scale():

@@ -97,6 +97,63 @@ and freeze-integrity came back CLEAN.
 
 ---
 
+## ORCHESTRATOR-REVIEW REPAIRS (post-PR, 4 findings — all MINOR, EVIDENCE-VOID)
+
+The orchestrator's adversarial review (after the satellite session's own F1/F2/F3
+log above) confirmed the headline numbers INDEPENDENTLY — including a dimensionful
+scipy-ODE cross-realization giving 1/10, and N=7→1/7, N=13→1/13; freeze-by-push
+verified at server-timestamp level; the Hodge/theorem lens came back clean. The
+four new findings are bookkeeping / honesty repairs; NO number moves. Landed here
+(the frozen prereg is untouched), in the tests, and in the PR body.
+
+- **Repair 1 — deviation-ledger reconciliation.** The prereg-vs-shipped ledger's
+  "Model/gates/tolerances = no deviation" row contradicted the F1/F2 STRENGTHENING
+  20 lines below (independent BFS girth + S5; name-keyed G-E ImportFrom + S2b).
+  Fixed: that row now logs the strengthening; the "every deviation" ledger is
+  self-consistent. (Ledger, this doc.)
+- **Repair 2 — E3 "(gated in sabotage)" intra-prereg over-claim logged.** Frozen
+  prereg:71 says the −1/3 scatter coefficient is "gated in sabotage," but NO shipped
+  sabotage perturbs S=(2/3)J−I (driver:185; S1 = series R, S3 = dropped ledger
+  term). The −1/3 is only INDIRECTLY gated (S1/S3 fire on any energy-non-conserving
+  scatter; a wrong-but-LOSSLESS coefficient would slip). The value is structurally
+  FORCED by the equal-Z₀ z=3 port S=(2/n)J−I (Pozar-class reciprocal 3-port floor,
+  prereg:35). Logged as a ledger row; frozen file byte-identical.
+  - *Optional S6 evaluated and DECLINED (not-genuinely-cheap).* The task offered an
+    OPTIONAL S6 — plant a UNITARY-but-WRONG 3-port to make the −1/3 DIRECTLY
+    fireable (the f_E=1/N comparator should then fire while G-A/G-C stay clean). The
+    cheap candidates do NOT isolate the coefficient: the sign-variant scatter
+    S′ = I − (2/3)J = −[(2/3)J − I] is just a GLOBAL wave-amplitude sign relabeling,
+    so every energy (a square) and f_E are byte-identical to the canonical run — it
+    reproduces 1/10 and demonstrates nothing. A genuine wrong-but-lossless 3-port
+    (a circulator / port-space rotation) requires per-port re-plumbing of the
+    vectorized synchronous step and careful re-validation — beyond the "<30 min,
+    genuinely cheap" bar. Declined; the ledger row (Repair 2) fully discharges the
+    finding without it.
+- **Repair 3 — the "BALANCED (net ~ 0)" leg DEMOTED to convention-dependent.** The
+  signed-mean leg measures the DFS enumeration convention, not physics (see the E5
+  CORRECTION NOTE and the corrected deliverable (e)). Reproduced receipt (worktree,
+  L=3 srs, 324 rings):
+
+  ```
+  as-enumerated  |Σn̂|/N          = 0.046603916267103   (Q eigenvalues all 0.333333)
+  full-reversal  |Σn̂|/N          = 0.046603916267103   (Δ = 2.1e-17 — IDENTICAL)
+  max|Q − Q_reversed|            = 2.1e-18              (sign-free to machine precision)
+  random-sign null (2000 draws)  mean = 0.0513, 5–95% = [0.0205, 0.0909]
+  noise floor 1/√324             = 0.0556
+  as-enumerated percentile in null = 0.446             (dead-center)
+  null 95th pct = 0.0909 < 0.1   => the old test_..._balanced <0.1 assert is NEAR-VACUOUS
+  ```
+
+  The sign-free Q-tensor isotropy leg (eigenvalues 1/3; max|Q−Q_reversed|=2.1e-18)
+  SURVIVES and stays load-bearing. Test fixed: the ensemble test now asserts ONLY
+  the Q-eigenvalue isotropy (renamed `..._is_isotropic`); the near-vacuous
+  signed-mean `<0.1` assertion was removed with a comment naming the convention
+  artifact.
+- **Repair 4 — PR body refreshed** to the post-repair state (23 keepers; sabotage
+  S1–S5 + S2b; F1/F2/F3 + these 4 repairs; BALANCED language struck from FLAG 2).
+
+---
+
 ## GATE RECEIPTS (clean run, verbatim)
 
 ```
@@ -143,6 +200,24 @@ ORIENTATION ENSEMBLE (324 rings; Omega = unit reference axis only, no scale):
   |sum n|/N_rings = 0.046604                                   -> BALANCED (net ~ 0)
   mean|n.[001]|=0.4714 (signed +0.0306);  |n.[111]|=0.4082 (+0.0353);  |n.[110]|=0.5000 (+0.0216)
 ```
+
+**CORRECTION NOTE (orchestrator review — the signed-mean leg is CONVENTION-DEPENDENT).**
+KEEP-BOTH: the superseded reading in the block above — `|sum n|/N_rings = 0.046604
+-> BALANCED (net ~ 0)` — is DEMOTED to CONVENTION-DEPENDENT / DECORATIVE. Each
+ring's Newell-normal SIGN comes SOLELY from the cyclic tuple order returned by
+`enumerate_girth_faces` (a DFS enumeration convention), NOT from physics: reversing
+EVERY ring tuple leaves |Σn̂|/N = 0.046604 IDENTICAL (Δ = 2.1e-17), and a random
+per-ring-sign null (2000 draws) has mean 0.051, 5–95% [0.021, 0.091], noise floor
+1/√324 = 0.0556 — the as-enumerated 0.0466 sits at percentile ~0.45, dead-center in
+the null. The per-axis signed_mean values (+0.0306 / +0.0353 / +0.0216) are
+likewise convention artifacts; only the sign-free `mean_abs` is meaningful. What
+SURVIVES and stays LOAD-BEARING is the SIGN-FREE Q tensor: eigenvalues all 1/3
+(max|Q − Q_reversed| ~ 2e-18) → ISOTROPIC ring planes, which BOUNDS rather than
+supports a coherent large-scale swirl. The PHYSICAL balanced-vs-biased question —
+ring normals keyed to the TRAPPED-CURRENT CIRCULATION SENSE per formation event
+(NOT to the DFS tuple order) — is UNMEASURED here; it lands with the
+front-roughness / ring-completion-statistics follow-on (task #34 / the D-IV capture
+spec). Reproduced null-distribution receipt: see ORCHESTRATOR-REVIEW REPAIRS below.
 
 ---
 
@@ -259,13 +334,18 @@ matched-stub bath abstraction.
   current is exactly the part that satisfies KCL with zero stub current and so
   CANNOT drain the matched stubs (verified: the bounce sim's trapped fraction =
   the cycle projection to 5.6e-17).
-- **Sign-vs-orientation result:** the srs ring-normal ensemble is ISOTROPIC
-  (orientation tensor Q eigenvalues all 1/3 to ~2e-16) and BALANCED (|Σn̂|/N =
-  0.047 ≈ 0). Per-ring circulation sign is keyed to (n̂·Ω̂_parent), but the ring
-  PLANES carry NO preferred axis → a fixed-sense injection gives NET-ZERO ensemble
-  magnetization; a field-cooled per-ring-aligned sense would give a finite but
-  DIRECTIONALLY-ISOTROPIC magnitude (no coherent large-scale swirl axis from
-  ring-plane anisotropy). Reported with NO preferred outcome.
+- **Sign-vs-orientation result (CORRECTED — orchestrator review):** the LOAD-BEARING,
+  SIGN-FREE leg is the orientation tensor Q = ⟨n̂n̂ᵀ⟩ — eigenvalues all 1/3 to ~2e-16
+  (max|Q − Q_reversed| ~ 2e-18) → ISOTROPIC ring planes, which BOUNDS rather than
+  supports a coherent large-scale swirl (no preferred plane axis). The signed-mean
+  leg (|Σn̂|/N = 0.047, FORMERLY read as "BALANCED (net ~ 0)") is DEMOTED to
+  CONVENTION-DEPENDENT / DECORATIVE: the per-ring normal SIGN is fixed by the DFS
+  tuple order of `enumerate_girth_faces`, is IDENTICAL under full ring reversal, and
+  sits dead-center in a random-sign null (percentile ~0.45) — it measures the
+  ENUMERATION CONVENTION, not physics. The PHYSICAL balanced-vs-biased question —
+  normals keyed to the TRAPPED-CURRENT CIRCULATION SENSE per formation event — is
+  UNMEASURED here and lands with the front-roughness / ring-completion-statistics
+  follow-on (task #34 / D-IV capture spec). Reported with NO preferred outcome.
 - **KEEP-BOTH fork for the cut-space (9/10) fate:** (i) matched-bath reading — the
   T-even part radiates, the frozen fossil is PURELY T-odd (trapped cut→0, cycle→1);
   (ii) strain-holding-lattice reading — u₀* over-bracing IS a frozen T-even
@@ -293,9 +373,11 @@ matched-stub bath abstraction.
    a Barnett-type effective field, trapped ring flux as a magnetization analog) is
    a FRAMING candidate surfaced by the amendment, NOT established by this lane.
    This lane proves the WRITE mechanism is coherent and the cut/cycle split is a
-   geometry FACT; it does NOT prove any cosmological fossil is real. The ensemble
-   is orientation-BALANCED (isotropic ring planes), which BOUNDS rather than
-   supports a coherent large-scale swirl — surfaced for Grant/auditor adjudication.
+   geometry FACT; it does NOT prove any cosmological fossil is real. The sign-free
+   ring-plane orientation tensor Q is ISOTROPIC (eigenvalues all 1/3), which BOUNDS
+   rather than supports a coherent large-scale swirl — surfaced for Grant/auditor
+   adjudication. (The signed-mean "balanced" reading is CONVENTION-DEPENDENT and has
+   been demoted — see the E5 CORRECTION NOTE.)
 
 3. **Mixed-footing on the E4 geometric axis (disclosed, not a contradiction).**
    f_E^(geom) mixes a TLM self-term (μ₀ℓ) with Neumann mutual terms; it is a
