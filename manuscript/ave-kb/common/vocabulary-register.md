@@ -62,6 +62,8 @@ parse it):
 
 ---
 
+> **Note — the word "register" is itself overloaded (collapse-batch T16, hygiene).** This file is a **tracked-index register** (sense 1: the `def-` ledger — one of the vocabulary- / axiom- / interlock- / model- / claim-quality registers, the spine node-types). That is **distinct** from three other corpus senses: (2) the **verb** "to register / pre-register / a meter registers a signal"; (3) an **impedance / content-domain bin** — "graph register", "off-line register", "which register a mode lives in" (`research/2026-07-10_impedance-register-walks_framing.md:13,20`), an *object classification*, NOT a ledger; (4) the **linguistic / communication register** (the "ee register" vs "qft register" framing). Senses 1 and 3 co-occur in the impedance-register-walks framing note (it is a sense-3 "register walk" that cites this sense-1 `vocabulary-register` throughout). A ledger-index and an impedance-content-bin are unrelated objects sharing a word: read `X-register` compounds by context, and never parse an "off-line register" (sense 3) as a tracked index (sense 1). (Pure terminology — no fireable kill-test.)
+
 ## substrate (vacuum medium noun)
 <!-- id: def-91c4e8 -->
 
