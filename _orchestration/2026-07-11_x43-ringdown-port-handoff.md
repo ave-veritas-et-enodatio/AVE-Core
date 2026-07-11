@@ -55,3 +55,80 @@ From `research/2026-07-11_ringdown-nyquist-pi-register_framing.md:21-25` (verify
 - `Q_τ = ω_τ·τ_τ ≈ 7.8×10¹¹`
 
 These are absurdly high Q. A **bare** above-band mismatch at order-unity coupling would dump its energy in `~1/ω ≈ 10⁻²³ s` — 40+ orders of magnitude faster than the muon lives. So the drain **cannot** be a bare mismatch; it **must be a nearly-closed port** (a tiny coupling leaking a huge stored energy very slowly). The corpus already carries the matching named component: the weak sector is a below-cutoff evanescent channel keyed on `γ_c`, whose EE-translation IS the transformer leakage inductance. A nearly-closed port = large leakage inductance = below-cutoff evanescent tail — a **named-component convergence, not a new invention**. (Convergence ≠ derivation: see the miss-ledger caveat in the discipline stack.)
+
+---
+
+## ★ FROZEN BINS (freeze-by-push — P9)
+
+**Freeze-by-push is BINDING.** The pre-reg carrying these bins is **its own commit, PUSHED before ANY derivation content or code exists.** Git ordering IS the freeze proof (the push must precede the first line of derivation). This is P9, validated 4× this program. A bin loosened or a comparator relaxed after seeing a derivation result is a freeze violation and a review-CRITICAL finding.
+
+| Result of the derivation | Bin | Classification |
+|---|---|---|
+| **`ω⁵`** | **banks the ringdown form (Sargent-matching)** | **FORM-derivation; forward-prediction class IFF** the anti-install audit shows **no Sargent-adjacent input anywhere in the chain** — the exponent must EMERGE from mode/multipole counting, every step auditable. If any Sargent/SM-phase-space value was inserted, it drops to consistency-class (installed answer). |
+| **`ω³`** | **dipole-class port** | The bullet/overtone picture AS STATED **dies**; banked negative (miss-ledger candidate). |
+| **`ω¹` or other integer** | **bare-mismatch class** | Picture **dies**; banked negative. |
+| **no well-defined power law** | **wrong model** | The leakage-port circuit is the wrong model; **HALT and surface, do not force** a power law onto a non-power-law result. |
+
+**★ P10 — the bins must be GENUINELY FIREABLE (binding).** Nothing in the setup may *install* `ω⁵`. State in the pre-reg, per bin, **what derivation outcome fires it** — i.e. which specific mode-count / multipole-order result lands in each bin. If the setup can only ever produce `ω⁵` (because a Sargent-shaped input is baked in), the bins are decorative and the freeze is void. The `ω³`/`ω¹`/no-law bins must be **reachable by an honest derivation** — if they are not, say why in the pre-reg before freezing.
+
+**What fires each bin (seed — the satellite states the final version in the pre-reg):**
+- `ω⁵` fires iff the port's multipole order is **quadrupole-class** AND the drain-mode count contributes the remaining powers by an **honest count of srs drain modes at ω** (NOT by importing three-body phase space).
+- `ω³` fires iff the port is **dipole-class** (the lowest radiating multipole the lattice symmetry allows).
+- `ω¹`/other-integer fires iff the coupling is a **bare above-band mismatch** with no evanescent-port suppression structure.
+- no-law fires iff `Γ` is not a clean power of `ω` over the muon→tau range (e.g. a crossover, a log, or a band-structure-resonant feature dominates).
+
+---
+
+## FROZEN COMPARATORS + BOUNDARY ANCHORS
+
+**Sargent empirical check (the form target the mechanism must reproduce, or the picture dies honestly).**
+- `(m_τ/m_μ)⁵ = 16.817⁵ ≈ 1.345×10⁶`
+- measured `Γ(τ→μνν)/Γ(μ→eνν) = (τ_μ/τ_τ)·BR(τ→μνν) ≈ 7.57×10⁶ × 0.174 ≈ 1.32×10⁶`
+- **agreement ~2%.** The exponent is the discriminator (from `research/2026-07-11_ringdown-nyquist-pi-register_framing.md:27-32`).
+
+**★ BOUNDARY ANCHORS the model MUST respect (a model that violates either is dead on arrival):**
+1. **Electron stability (in-band → lossless).** The electron sits **in-band** at `ω_C = c/ℓ_node` — below **every** band top (naive `2 ω_C`, canonical scalar `5.44 ω_C`, canonical vector `17.011 ω_C`). The model must give `Γ(in-band) = 0` or the port **exponentially closed**. **A model predicting electron decay is dead on arrival.** (`research/2026-07-11_ringdown-nyquist-pi-register_framing.md:19` — the electron is the lossless in-band configuration.)
+2. **Absolute-scale sanity marks:** `Q_μ = ω_μ·τ_μ ≈ 3.5×10¹⁷`, `Q_τ ≈ 7.8×10¹¹`. **Form-first honesty:** hitting the *exponent* is the target; the *absolute* Q may legitimately require the imported coupling (the `G_F`-analog). **Tag which is which** — an exponent that emerges is a FORM result; an absolute Q that only lands after the imported coupling is a VALUE-import, not a chord.
+
+---
+
+## ★ BAND-STRUCTURE TENSION (load-bearing — resolve before the drain-mode count)
+
+The framing note reasons with a **naive 1D band edge** `ω_max = 2c/ℓ_node = 2 ω_C` (`research/2026-07-11_ringdown-nyquist-pi-register_framing.md:17`; corroborated as a 1D estimate at `manuscript/ave-kb/common/translation-tables/translation-circuit.md:146`, `ω_max = 2c/ℓ_node`). The **canonical srs band structure** is richer: **scalar 4-band top `π√3 ω_C ≈ 5.44 ω_C`**, **vector 12-band top bracket `[5.441, 17.011] ω_C`**, NO internal gap in either channel (`manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md`).
+
+**Consequences the satellite must carry:**
+- The "**103× above band edge**" figure (`206.77 / 2`) is a **naive-edge artifact**. Against the canonical band tops the muon is `206.77 / 17.011 ≈ 12×` (vector) to `206.77 / 5.44 ≈ 38×` (scalar) above. **The above-band premise SURVIVES** (muon is above the top under every reading) — but the number is band-model-dependent, so **do not headline "103×"** in the result.
+- The **electron-stability anchor SURVIVES** (electron at `ω_C` is in-band under every reading).
+- **★ The drain-mode count (trap 1) MUST use the canonical multi-band srs DOS**, not a naive 1D `ω²` free-space DOS. Whether the drain sees the **scalar** channel (top `5.44 ω_C`) or the **vector** channel (top up to `17.011 ω_C`) is **load-bearing for the exponent** — the drain is the parity-gated V-sector, so the satellite must count modes in the *correct channel's* band, using the canonical survey (`research/2026-07-09_srs-vector-band-survey_result.md`), not a continuum stand-in.
+
+---
+
+## DERIVATION-SHAPE GUIDANCE (suggested, NOT binding — the satellite owns the route)
+
+`Γ` per cycle = (leak rate through the port) / (stored energy). The **port coupling** = evanescent overlap of the above-band mode with the leakage channel × the **drain channel's mode count at ω**. The two multiplicands are where the exponent is born — and where it can be installed. **The two named traps below are the load-bearing part of this brief; the review lens checks them explicitly.**
+
+### ★ TRAP 1 — do NOT import the SM three-body phase-space result
+
+In the SM, `m⁵ = coupling² × THREE-BODY FINAL-STATE PHASE SPACE` — **two of the five powers come from counting final states.** The lattice derivation must **count drain modes honestly** and must **NOT import the SM phase-space result.** Importing `ρ(E) ∝ E⁵` (or any Sargent-shaped final-state factor) is **installing the answer** — it demotes the result out of the forward-prediction class regardless of the number it produces. The honest count is a **mode count on the canonical srs drain band** (see the band-structure tension): how many parity-gated V-sector drain modes are available at `ω`, counted from the srs DOS, not from a continuum three-body integral.
+
+### ★ TRAP 2 — the multipole order must be DERIVED, not asserted
+
+`ω³` is the **dipole-radiation class**; `ω⁵` is the **quadrupole class.** If the lattice symmetry (the srs `I4₁32` chirality / the parity gating of the ν channel) **FORCES** the port's multipole order — e.g. if a chiral, parity-selecting port forbids the dipole term and the quadrupole is the leading survivor — **that forcing is the load-bearing step and must be DERIVED, not asserted.** "The port is quadrupole because we need `ω⁵`" is a disqualifying install. The chain must run: *lattice symmetry of the parity-gated port → lowest allowed radiating multipole → exponent.* If the symmetry allows the dipole, the honest answer is `ω³` and the picture dies (that is bin `ω³` firing, and it is a clean negative — take it).
+
+**Where the powers come from (the honest bookkeeping the pre-reg must show):** state, before deriving, how many powers of `ω` you expect from (a) the evanescent overlap / port transmission, (b) the multipole order of the port, and (c) the drain-mode count — and confirm none of the three is a Sargent/SM-phase-space value in disguise. `5 = ?_overlap + ?_multipole + ?_drain-count`, each summand independently derived and auditable.
+
+---
+
+## DISCIPLINE STACK (embed in the pre-reg and the result)
+
+- **Freeze-by-push (P9).** The bins-pre-reg is its own commit, pushed before any derivation content or code. Git ordering = freeze proof.
+- **P10 — genuinely fireable bins.** Nothing installs `ω⁵`; the pre-reg states per bin what derivation outcome fires it (above). A bin no honest outcome can reach is decorative — rework or drop before freeze.
+- **P11 — sabotage where any code appears.** Any driver/solver must prove its gates FIRE by disabling the physics: null the port coupling → `Γ → 0`; null the drain-mode channel → no leak. A gate that passes with the physics disabled is a checklist, not a gate. (A "null" measured in a regime where the drain cannot exist is an ARTIFACT, not a falsification — regime discipline.)
+- **Substrate-native-first + sector header.** The sector header above is mandatory before any standard-physics word; declare sector (parity-gated V-sector drain, not transverse EM) and regime (above-band evanescent, sub-yield) at the top of every derivation section.
+- **Consistency-vs-emergence classification declared in the result.** Tag the exponent: **emergence-class** iff it EMERGED from mode/multipole counting with no Sargent/CODATA input; **consistency-class** if any target value was substituted in. The absolute Q, if it needs the imported `G_F`-analog, is a VALUE-import (identity/manifestation), not emergence.
+- **ave-canonical-source for constants.** `m_e`, `m_μ`, `m_τ`, `ℓ_node`, `ω_C`, `γ_c`, `G_vac` come from the canonical chain / `ave.core.constants` — never hand-typed CODATA. (Cite the canonical leaf per constant.)
+- **pre-test-physics-check — ALREADY GRANT-WALKED.** The plumber ontology is settled: the "too fast" is **spectral, NOT translational** — the object sheds its rest-configuration through a nearly-closed port until it reaches the first **in-band** configuration (recorded `research/2026-07-11_ringdown-nyquist-pi-register_framing.md:15-19`, the "too fast" HOMONYM and the spectral-relaxation reading). No new plumber question is owed before design; if the derivation surfaces one, surface it to Grant before freezing.
+- **flag-don't-fix.** The two tensions above (Zener-shatter vs nearly-closed-port; naive `2ω_C` vs canonical band tops) are surfaced, NOT resolved. Reconcile them with Grant/corpus in-lane; do not silently pick a side to make the number work.
+- **The miss-ledger caveat.** This ringdown convergence is flagged in the framing note as the **6th convergence-shaped move** of the register arc; the program's hopeful-interior-mechanism miss-ledger stands at **0-for-7** (`research/2026-07-10_impedance-register-walks_framing.md:7`). A convergence this pretty is exactly the shape the ledger warns about — **a rhyme until the port calculation pays to kill it and fails.** Expected-value outcome is a clean negative; take it if it comes (Rule 11 honest closure).
+- **pure-corpus; self-isolate in a worktree; branch `analysis/x43-ringdown-port`; incremental commits.**
+- **PR DO-NOT-MERGE `[REVIEW: pending-orchestrator]`.** Adversarial review via `.claude/workflows/ave-adversarial-pr-review.js` before CLEARED — lenses: **derivation-fidelity** (incl. the two named traps) + **anti-install / prereg-discipline** (the exponent EMERGES, every step auditable; no Sargent/SM-phase-space value anywhere in the chain; the freeze preceded the derivation). **Only Grant merges.** Trailer: `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
