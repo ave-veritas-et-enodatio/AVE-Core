@@ -241,6 +241,25 @@ parse it):
 
 ---
 
+## quantization / "quantized" (integer eigenvalue-label — a TRIAD)
+<!-- id: def-quant3 -->
+
+- **term:** quantization / "quantized" / an integer "quantum number" $n$ (the corpus's self-named biggest historical confusion source)
+- **adjudicated-meaning:** *(no single locked sense — the overload IS the content: the word "quantized"/"$n$" carries a **TRIAD** of three physically-distinct integer eigenvalue-labels **of the same bound electron**, read by three different machineries. The operational discriminator is that each has a **distinct invariance group / failure mode** — the corpus's own "different failure modes ⇒ different objects" criterion, not a resemblance.)*
+- **axis:** notation (cross-file word overload — three integer-eigenvalue senses on three distinct substrate axes)
+- **dimension/type:** integer / dimensionless (all three); three distinct invariance groups
+- **status:** ambiguous
+- **canonical-home:** *(no single home — three senses canonical in three leaves; see open-ambiguity-flag)*
+- **clm-cross-links:** clm-oltvwy (mode-count / de Broglie standing wave), clm-hvb7q3 (winding / hollow-vortex binding), clm-0ktpcn (Nyquist floor / Golden-Torus α keystone)
+- **open-ambiguity-flag:** YES — three distinct integer-label senses:
+  - (1) **Mode-count integers** — the cavity-deformable **embedding** register (the atomic $n, l, m$; a phase-closure / standing-wave count). Home: `vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` (clm-oltvwy). **Failure mode: ionization destroys them** ("ionization kills the mode, not the knot"). ★ **Smoking-gun overload:** this leaf writes the mode-counts *as* "winding" — `de-broglie-standing-wave.md:223` is a table whose 3rd column header is literally "**Winding #**" filled with the QM mode numbers $l, n_r$ (:224-226), and `:236` calls the electron a "current ring soliton … with **winding number** $n$" where $n = n_r + l + 1$ (:231) is a **mode count**, not a topological winding. [embedding / mode-count axis]
+  - (2) **Winding integers** — the topologically-protected **graph** register (charge, the $(2,3)$, $\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$; def-3638f2). Home: `vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:96` ("the winding integer $n$ (the $(2,3)$: $w_{\text{tor}}=2$, $|\text{Link}|=1$)"; clm-hvb7q3). **Failure mode: invariant under any smooth deformation** (survives ionization). [phase-carrier / winding axis]
+  - (3) **Nyquist / lattice-sampling quantization** — the substrate resolution floor keyed on $\ell_{node}$ ($=c/\omega_0$). Home: `vol1/ch8-alpha-golden-torus.md:94` ("Ax 1 Nyquist quantizes the minimum substrate-lattice-resolvable tube diameter at $d = 1\,\ell_{node}$"); **load-bearing in the α keystone** as the forced $\Lambda_{\text{line}} = \pi\cdot d = \pi$ step (`op21-multi-mode-mode-counting.md:130`; clm-0ktpcn). **Failure mode: moves iff $\ell_{node}$ changes** — invariant under BOTH cavity-wall deformation and smooth deformation, a **third** distinct invariance group. [lattice-sampling axis]
+  - **The clarity risk:** sense (1) is cavity-deformable, sense (2) is topology-protected, sense (3) is a Class-B sampling floor. Reading "current ring soliton with winding number $n$" (:236) as topologically protected (it is (1), cavity-deformable), or reading the α-keystone's Nyquist-quantized $d=1$ as a protected FORM (it is (3), a sampling floor), mis-rates the object — the second would mis-rate the keystone's solidity. Cross-link: def-3638f2 (winding STATIC/=Link/reactive), def-kn0t01 (phase-space winding portrait ≠ real-space knot).
+- **verification:** VERIFIED at HEAD — the mode-count-labelled-"winding" overload at `de-broglie-standing-wave.md:223` (literal "Winding #" column header over QM mode numbers) + `:181` ("mode number $n$") + `:236` ("current ring soliton … winding number $n$"); the topological winding at `hollow-vortex-binding.md:96`; the Nyquist floor at `ch8-alpha-golden-torus.md:94` + `op21-multi-mode-mode-counting.md:130`. The three invariance groups (ionization / smooth-deformation / $\ell_{node}$-change) are the discriminator. The mode↔winding boundary is independently killed-and-banked (#417 carrier-ratio detuning + #626 tethered-pivot: the dynamical mode tracks the knob, the $(2,3)$ winding does not). Status ambiguous — three integer senses of one bound electron, no single locked sense.
+
+---
+
 ## electron/proton knot disambiguation
 <!-- id: def-kn0t01 -->
 

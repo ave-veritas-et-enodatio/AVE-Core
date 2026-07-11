@@ -237,6 +237,8 @@ $$
 > $R_n = n^2 a_0 / Z$, $v_n = Z\alpha c / n$, $\omega_n = Z^2 \alpha^2 m_e c^2 / (\hbar n^3)$, $E_{0,n} = Z^2 R_y / n^2$.
 > No wavefunctions. No Schrödinger equation. All from Axioms 1, 2, 4 and the standing wave topology.
 
+> **Terminology note (mode-count vs topological winding).** The "Winding #" column above ($l$, $n_r$) and the "winding number $n$" ($=n_r+l+1$) in the resultbox are the **de Broglie standing-wave MODE-COUNT** — sense (1) of the quantization triad def-quant3, a **cavity-deformable** embedding count that *ionization destroys*. This is **NOT** the topologically-protected $(2,3)$ **winding** (charge $=\mathrm{Link}(\partial\Omega,F)\in\mathbb{Z}$, def-3638f2), which survives ionization, nor the Nyquist $\ell_{node}$-sampling floor (sense 3). The "Winding #" column header is preserved as the historical exemplar of this overload (see def-quant3).
+
 ## Step 2: Lattice Strain Between Shells (Axiom 4)
 
 When two or more electrons occupy different shells ($R_a < R_b$), there is a region of vacuum lattice between them. The nuclear DC strain at the Bohr radius is $A_{\text{nuc}}(a_0) = Z \times 2.8 \times 10^{-10}$ — deep Regime I. The AC strain from inner-shell oscillation is $A_{\text{AC}} \approx 0.007$ at the outer shell. $Z_0 = 377\;\Omega$ is exactly invariant under symmetric saturation (Axiom 4).
