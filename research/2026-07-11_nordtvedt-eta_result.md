@@ -22,16 +22,23 @@ two-way back-reaction solver (`src/ave/gravity/backreaction.py`, #86) over a fam
 of IDENTICAL rest energy but VARYING binding fraction. The gravitating mass `m_g` is
 read FIELD-side (the Gauss flux `Σ_interior(L @ ε₁₁)` of the solved strain through
 the source-enclosing interior); the inertial mass `m_i` is the total-energy ledger
-`M_matter + U_bind` (a DIFFERENT route). **Verdict: bin (i) — η = +8.3×10⁻⁵ across
-f ∈ [0.024, 0.060], well inside the |η| < 1×10⁻³ certification tolerance — the
-far-field gravitating charge tracks the total-energy ledger: ONE LEDGER.** The
-result is CERTIFICATION-class: η=0 is ENTAILED by the solver's single-`T₀₀^total`
-Gauss construction (§6). The value is converting A7's Nordtvedt leg from a retrieval
-ASSUMPTION into an engine-CERTIFIED prediction. The detector has teeth (a planted
-two-ledger coupling ε=0.10 fires η=0.0999; the ε=0 negative control is null), and a
-**flag is surfaced** (the solver's binding-deficit register `M_eff=M−U` disagrees
-with its far-field flux `M+U` at O(2f) — a source-ADD vs ledger-SUBTRACT convention
-gap; flag-don't-fix, Rule-14, NOT resolved).
+`M_matter + U_bind` (a DIFFERENT route). **Verdict: bin (i) — the frozen |η| < 1×10⁻³
+bin PASSES at every resolution (N=24: +8.3×10⁻⁵; N=32: −6.5×10⁻⁴; N=40: −4.7×10⁻⁴,
+§4a), but the BANKING BASIS is the ANALYTIC ENTAILMENT (§6), NOT the numeric leg.**
+η=0 is ENTAILED by the solver's single-`T₀₀^total` Gauss construction: the far-field
+gravitating charge IS the total-energy ledger by identity. The numeric instrument is
+**RESOLUTION-LIMITED** — its own systematic floor (~5–6.5×10⁻⁴ at N=32/40) sits AT the
+imported-observational LLR bound |η| ≲ 4.4×10⁻⁴, so the numeric leg ALONE cannot
+certify the LLR-Nordtvedt null; it is CONSISTENT with the entailment (N=40 |η| < N=32
+⇒ slow convergence toward 0, claimed no further). CERTIFICATION-class; the value is
+converting A7's Nordtvedt leg from a retrieval ASSUMPTION into an engine-CERTIFIED
+prediction. Detector teeth: the mixed-register leg fires on genuine **SOLVER-FED**
+data (η=2.28), and a P11 **SYNTHETIC** ledger-injection separately recovers a planted
+slope (ε=0.10 → 0.0999; ε=0 null). A **flag is surfaced and UPGRADED** (§5): the mixed
+pairing is the engine's OWN-LABELED pairing — its far field (M+U) disagrees with its
+OWN designated ADM mass `M_eff` (M−U, `backreaction.py:33`) at O(2f); #86 never
+reconciled the two, so this is a **LATENT #86 DEFECT EXPOSURE** (flag-don't-fix,
+Rule-14; the fix is a NAMED future arc).
 
 ---
 
@@ -58,8 +65,9 @@ comparison / an η-equivalent is computed and stated.)
   `L = Div·diag(tile(D,3))·Grad` use the SAME native diamond-K4 Grad/Div
   (`_build_native_grad_div`) the solver assembles (`gw_propagation.py:698-701`). NO
   Cartesian gradient — the load-bearing K4 checkpoint. (The field-side flux matches
-  the source integral to the relaxation residual ~1e-8, confirming Gauss on the
-  native operator.)
+  the source integral to a per-radius RELATIVE residual **~1×10⁻⁶** — measured
+  6.7×10⁻⁷ .. 4.4×10⁻⁶, review R5 [the earlier "~1e-8" was the absolute residual,
+  mislabeled] — confirming Gauss on the native operator.)
 - **Cosserat sector ownership.** register-2 is the **radial/bulk ε₁₁ channel
   (A1-dilatation)** — the gravitational well's own strain energy. NOT cross-wired to
   shear/EM. Mass = A1-dilatation (PR#260/#311, untouched).
@@ -94,54 +102,120 @@ ledger. The two registers are measured by **different routes**:
 | 2.20 | 0.0310 | 4.12448 | 4.12816 | −8.90×10⁻⁴ | 0.101 | ✓ |
 | 2.60 | 0.0240 | 4.09468 | 4.09851 | −9.34×10⁻⁴ | 0.079 | ✓ |
 
-- **CERTIFICATION η = +8.28×10⁻⁵** (slope of `(m_g/m_i − 1)` vs f), **< the frozen
-  |η| < 1×10⁻³**. The (m_g−m_i)/m_i column is a near-CONSTANT −9×10⁻⁴ offset (the
-  boundary-truncation of the field-side interior flux — the outermost Gaussian tail
-  sits in the 1-cell Dirichlet layer excluded from the flux sum); because it is
-  constant it **cancels in the slope** ⇒ η ≈ 0.
+- **CERTIFICATION η(N=24) = +8.28×10⁻⁵** (slope of `(m_g/m_i − 1)` vs f), **< the
+  frozen |η| < 1×10⁻³**. But this N=24 slope is **statistically UNRESOLVED** — its OLS
+  standard error is **8.9×10⁻⁴** (≫ |η|), i.e. consistent with zero AND with the
+  larger-N values (§4a). The per-member offsets in the `(m_g−m_i)/m_i` column are
+  truncation-shaped (near −9×10⁻⁴, the outermost Gaussian tail sits in the 1-cell
+  Dirichlet layer excluded from the flux sum) but the SLOPE is NOT — the earlier
+  "constant offset cancels in the slope ⇒ η≈0" reading was an **N=24 accident**
+  (review R1), corrected in §4a.
 - **Monopole plateau: PASS** — the enclosed flux is radius-independent over the outer
   two enclosing radii (rel change < 0.05) ⇒ a genuine far-field monopole.
 - **Field-side Gauss identity: PASS** — `Σ_{r≤R}(L@ε) == Σ_{r≤R}T₀₀^total` per radius
-  to < 1×10⁻⁴ (the native-K4 divergence theorem holds on the converged field).
-- **All converged, weak field** (max A ≤ 0.19, safely contractive).
+  to < 1×10⁻⁴ (measured 6.7×10⁻⁷ .. 4.4×10⁻⁶; the native-K4 divergence theorem holds
+  on the converged field).
+- **All converged, weak field** (max A = 0.194 < 0.2 — the frozen REGIME bound,
+  restored per review R4; safely contractive).
 
-**VERDICT: PASS (bin i).** The far-field gravitating charge tracks the total-energy
-ledger across the binding-fraction family ⇒ register-2 (strain-field) energy carries
-the SAME one ledger ⇒ **AVE certifies the LLR-Nordtvedt null.** (`|η| < 10⁻³` is far
-below the imported-observational `|η| ≲ 4.4×10⁻⁴` LLR bound — but per §6 that
-comparison is not the point; the null is ENTAILED, not a fitted margin.)
+**VERDICT: PASS (bin i) at every N (all three |η| < the frozen 1×10⁻³) — but the
+BANKING BASIS is the ANALYTIC ENTAILMENT (§6), NOT the numeric leg** (review R1/R2).
+The certification tolerance 1×10⁻³ does **NOT** undercut the imported-observational
+LLR bound `|η| ≲ 4.4×10⁻⁴` — it sits **ABOVE** it (review R2: 1×10⁻³ > 4.4×10⁻⁴), and
+the numeric instrument's own resolution floor (~5–6.5×10⁻⁴ at N=32/40, §4a) sits AT
+the LLR-bound scale, so the numeric leg ALONE cannot certify the LLR-Nordtvedt null.
+What certifies it is the single-`T₀₀^total` Gauss **ENTAILMENT** (§6): the far-field
+gravitating charge IS the total-energy ledger by construction, so register-2 energy
+carries the SAME one ledger by identity, independent of the numeric floor. The
+numeric legs are CONSISTENT with that entailment (N=40 |η| < N=32 ⇒ slow convergence
+toward 0; claimed no further).
 
-## 5 · P11 (detector teeth) + the mixed-register FLAG
+### 4a · η-vs-N convergence receipt (review R1)
 
-**P11 — planted two-ledger coupling: PASS.** Weighting the field-energy's
-contribution to the GRAVITATING register only by (1+ε) (`m_g_planted = m_g + ε·U`,
-helper-level, m_i held fixed) is a genuine Nordtvedt coupling (register-2 energy
-gravitates ε-more than it weighs):
+Same physical family (fixed rest energy, `SIGMAS`) at N ∈ {24, 32, 40}; η via the
+frozen ref-normalized estimator, with the OLS slope standard error:
+
+| N | f-range | η | slope std-err | max A | fit |
+|---|---|---|---|---|---|
+| 24 | [0.0240, 0.0602] | +8.28×10⁻⁵ | 8.87×10⁻⁴ | 0.194 | **UNRESOLVED** (se ≫ \|η\|) |
+| 32 | [0.0269, 0.0630] | −6.50×10⁻⁴ | 4.13×10⁻⁵ | 0.200 | clean (sign-flipped; **> LLR 4.4×10⁻⁴**) |
+| 40 | [0.0287, 0.0647] | −4.74×10⁻⁴ | 4.35×10⁻⁵ | 0.203 | clean (\|η\| < N=32; still ≳ LLR) |
+
+- **N=24 is noise** (se 8.9×10⁻⁴ ≫ |η| 8.3×10⁻⁵) — consistent with 0 AND with the
+  larger-N values; the frozen bin passes but the slope is not resolved.
+- **N=32/40 are clean fits** (se ~4×10⁻⁵) and NEGATIVE at the ~5–6.5×10⁻⁴ scale — the
+  instrument's **resolution-limited systematic floor** (finite-box + finite-source),
+  which sits AT/ABOVE the imported LLR bound 4.4×10⁻⁴. So the numeric instrument
+  cannot, alone, certify the LLR null.
+- **N=40 magnitude (4.74×10⁻⁴) < N=32 (6.50×10⁻⁴)** ⇒ **consistent-with-slow-
+  convergence-to-0** (the expected one-ledger limit); claimed no further than
+  "consistent-with".
+- The N=32/40 points sit at the frozen REGIME edge (max A ≈ 0.200–0.203, the same
+  physical family is marginally deeper at higher resolution); the SHIPPED gate runs at
+  **N=24** (max A 0.194 < 0.2, inside the frozen sub-yield bound).
+
+**Banking basis: the analytic entailment (§6), not the numeric leg.** The frozen
+`_ETA_TOL = 1×10⁻³` is therefore **RESOLUTION-LIMITED** (margin ~1.5–2× over the
+~5–6.5×10⁻⁴ floor), NOT the "boundary-truncation-limited, 10× margin" the frozen
+prereg table stated — corrected here (deviation-ledger §9, R1b).
+
+## 5 · P11 (SYNTHETIC teeth) + the mixed-register FLAG (LATENT #86 DEFECT)
+
+**P11 — SYNTHETIC ledger-level injection-recovery: PASS.** This is POST-SOLVE LEDGER
+ARITHMETIC (disclosed + frozen — not smuggled, NOT a re-solve; review R3): weight the
+field-energy's contribution to the GRAVITATING register only by (1+ε)
+(`m_g_planted = m_g + ε·U`, helper-level, m_i held fixed). It validates the
+**DETECTOR'S injection-recovery arithmetic** — a synthetic ledger-level two-ledger
+injection ⇒ η = ε — NOT a solver-fed physical coupling:
 
 | arm | η | verdict |
 |---|---|---|
 | negative control (ε=0) | +8.28×10⁻⁵ | null (< 10⁻³) ✓ |
-| planted (ε=0.10) | **+0.09994** | FIRES ≈ ε (|Δ| = 6×10⁻⁵ < PLANT_TOL 0.02) ✓ |
+| injected (ε=0.10) | **+0.09994** | RECOVERS ≈ ε (|Δ| = 6×10⁻⁵ < PLANT_TOL 0.02) ✓ |
 
-The detector recovers the planted slope and stays null when nothing is planted ⇒ the
-η=0 certification is **risked-in-principle**, not a blind zero.
+The GENUINE **SOLVER-FED** detector proof is the mixed-register leg below (η=2.2792,
+read from the CONVERGED field itself) — that is what makes the LEG-1 null a real null,
+not a blind zero.
 
-**FLAG (flag-don't-fix; Rule-14 — NOT resolved, engine NOT touched).** Pairing the
-far-field flux (M+U, field energy ADDS to the gravitating source) against the
-binding-deficit register `M_eff = M−U` (Grant-RULED SUBTRACT 2026-06-29,
-`…grqed-stage3-backreaction_result.md:343`) yields **η_mixed = +2.28**. This is **NOT
-a physical two-ledger violation** — the one-ledger η=0 holds for EITHER
-self-consistent register choice; η≠0 arises ONLY from MIXING the two. It is the
-solver's internal **source-side ADD vs ledger-side SUBTRACT** convention gap (the two
-mass registers differ at O(2f)). **Surfaced for Grant / the auditor:** whether the
-far-field source should carry `+u_field` or `−u_field` to be consistent with the
-`M_eff` deficit is a KB/Grant physics question this test EXPOSES but does not
-adjudicate (the exposure doubles as a second teeth check — the detector produces
-η≠0 from a genuine register difference, so the LEG-1 null is a REAL null). The naive
-exterior a+b/r K-fit (diagnostic only, NOT a gate) reads K = [0.332, 0.323, 0.305,
-0.277] — it carries the documented #86 finite-source window systematic (a diffuse
-blob's tail contaminates the fixed exterior window and under-reads b), which is WHY
-the artifact-free Gauss flux, not the K-fit, is the certification instrument.
+**FLAG — a LATENT #86 DEFECT EXPOSURE (flag-don't-fix; Rule-14 — engine NOT touched;
+the fix is a NAMED future arc).** Pairing the far-field flux (M+U) against the
+binding-deficit `M_eff = M−U` yields **η_mixed = +2.2792**. This is **NOT a free
+convention choice** (review R6): the "mixed" pairing is **the engine's OWN-LABELED
+PHYSICAL pairing** — `backreaction.py:33` designates `M_eff` as the **inertial/ADM
+mass**, while the far field provably reads M+U (the `+u_field` source ADD,
+`backreaction.py:303-304`). So **the as-built engine's far field disagrees with its
+OWN designated ADM mass at O(2f)**, and η_mixed=2.28 IS the engine's current
+far-field-vs-inertial-mass statement. #86's own at-risk checks **never reconciled the
+two** (all ratio/shape, sign-agnostic —
+`test_grqed_stage3_backreaction.py::test_binding_deficit_subtracts_not_adds` asserts
+only the `M_eff` DEFINITION; `…grqed-stage3-backreaction_result.md:339` admits the
+sign-agnosticism); **this arc is the FIRST reconciliation and it FAILS at O(2f)** ⇒ a
+LATENT #86 DEFECT, surfaced for Grant/auditor.
+
+It does **NOT falsify the one-ledger PRINCIPLE** — but the earlier "η=0 holds for
+EITHER self-consistent register choice" was **arithmetic relabeling** (review R7):
+η=0 is measured **two-route on the ADD side only** (LEG-1: field-flux vs energy
+ledger); the SUBTRACT/`M_eff` side has **NO independent field-side route today** (the
+flux is pinned to M+U by the +u_field source), so "both = deficit ledger" would
+substitute the ledger for the flux, not measure it.
+
+**The three-way resolution (review R8; candidate readings, PENDING Grant).** Not the
+"+u_field vs −u_field" binary: **(a) keep ADD** (far field = M+U; contradicts the
+designated ADM mass); **(b) bare −u_field** (makes the Picard self-energy source
+sign-indefinite — likely unstable); **(c) ★ the ruling-implied reading** of Grant's
+own 2026-06-29 text ("the positive strain energy is not a separate ledger to ADD — it
+is already accounted in the down-regulated frequency"): source = **REDSHIFT/KOMAR-
+weighted `T₀₀^matter`** (matter's local clock `ω√S` down-regulates in the well; the
+strain energy stays positive but is NOT separately added — no double-count) → the far
+field then reads the DEFICIT mass, reconciling with `M_eff`. Frame (c) as the
+candidate reading of Grant's own ruling, **PENDING his ratification**; the engine
+implementation + the #86 gate re-runs + this η re-run = a **NAMED FOLLOW-ON ARC, NOT
+this PR** (Rule-14).
+
+The naive exterior a+b/r K-fit (diagnostic only, NOT a gate) reads K = [0.332, 0.323,
+0.305, 0.277] — it carries the documented #86 finite-source window systematic (a
+diffuse blob's tail contaminates the fixed exterior window and under-reads b), which
+is WHY the artifact-free Gauss flux, not the K-fit, is the certification instrument.
 
 ## 6 · P10 honesty — η=0 is ENTAILED (certify-and-expose)
 
@@ -158,10 +232,14 @@ VISIBLE — it does not adjudicate whether one-ledger is physically correct.
 **Why it is still a genuine (risked-in-principle) certification:** (1) the two
 registers are computed by DIFFERENT routes (a field-operator flux vs an
 energy-functional ledger) — their agreement is a real cross-check, not a re-quote;
-(2) the P11 plant FIRES on a genuine two-ledger coupling (η=ε); (3) the
-construction-dependence (bin iii) genuinely manifests as the mixed-register gap
-(η=2.28), surfaced as the flag. **VALUE:** A7's Nordtvedt leg becomes an
-engine-certified prediction rather than an imported assumption.
+(2) the mixed-register leg fires the detector on **genuine SOLVER-FED data**
+(η=2.28, from the converged field's own register difference), and the P11 SYNTHETIC
+injection-recovery separately validates the detector arithmetic (η=ε); (3) the
+construction-dependence (bin iii) genuinely manifests as that mixed-register gap,
+surfaced as the flag (a LATENT #86 DEFECT, §5). **VALUE:** A7's Nordtvedt leg becomes
+an engine-certified prediction rather than an imported assumption. **Honest caveat
+(R1):** the certification rests on the ENTAILMENT, not the numeric slope — the numeric
+instrument is resolution-limited at the LLR-bound scale (§4a).
 
 ## 7 · A7 consequence (ordering) + U6 tension flag
 
@@ -185,26 +263,52 @@ ledger (η=0 mismatch within it)." Surfaced, not resolved.
 ## 8 · Honest flags + runtime + gates
 
 1. **η=0 is ENTAILED, not a free measurement** (§6) — CERTIFICATION-class, stated
-   verbatim; no chord minted.
+   verbatim; no chord minted. **Banking basis = the entailment, NOT the numeric leg**
+   (§4a): the numeric instrument is resolution-limited at the LLR-bound scale.
 2. **The frozen `eta_slope` is ref-normalized** (ref = smallest-f member), so it
    recovers a planted slope up to an O(η·f₀) normalization (exact, documented in the
-   gating detector unit-test); immaterial to every verdict (η_cert≈0; ε=0.10 → 0.0999
-   within PLANT_TOL).
-3. **Mixed-register gap** (§5) — surfaced, flag-don't-fix, engine untouched (Rule-14).
-4. **U6 tension** (§7) — surfaced for the auditor, KEEP-BOTH, not edited.
-5. **Scope:** register-2 (strain-field) only; sub-yield weak field (max A ≤ 0.19,
-   provably contractive per #86 §8). NOT the near-yield/BH regime.
+   gating detector unit-test); immaterial to every verdict.
+3. **Numeric η is resolution-limited** (§4a, review R1) — clean N=32/40 slopes are
+   NEGATIVE at ~5–6.5×10⁻⁴ (at/above the LLR bound); the frozen |η|<10⁻³ bin passes at
+   every N but the numeric leg cannot alone certify the LLR null.
+4. **Mixed-register gap = a LATENT #86 DEFECT** (§5, review R6) — the engine's far
+   field disagrees with its OWN designated ADM mass at O(2f); surfaced, flag-don't-fix,
+   engine untouched (Rule-14); the fix is a NAMED follow-on arc (three-way, §5).
+5. **U6 tension** (§7) — surfaced for the auditor, KEEP-BOTH, not edited.
+6. **Scope:** register-2 (strain-field) only; sub-yield weak field (shipped N=24 max
+   A = 0.194 < 0.2, provably contractive per #86 §8). NOT the near-yield/BH regime.
 
 **Runtime:** the shared family solve (4 converged two-way solves, N=24) = ~10 s; the
-P11 plant + mixed-register flag REUSE it (no extra solve). Same cost+role tier as the
-#86 at-risk checks ⇒ the 3 heavy legs register in the `engine_sim` partition
-(`conftest.py`); the fast pure-arithmetic detector unit-test STAYS gating.
+P11 injection + mixed-register flag REUSE it (no extra solve). Same cost+role tier as
+the #86 at-risk checks ⇒ the 3 heavy legs register in the `engine_sim` partition
+(`conftest.py`); the fast pure-arithmetic detector unit-test STAYS gating. (The §4a
+N=32/40 convergence receipt was measured out-of-band — not shipped as a gate.)
 
 **Gates:** the 4 Nordtvedt tests GREEN; the engine_acceptance gating-lane suite (91
 tests) GREEN; `make verify` PASS. `mass = A1` (PR#260/#311) untouched; α-CLEAN.
+
+## 9 · Deviation ledger (post-freeze; frozen prereg byte-untouched)
+
+The FROZEN prereg (`…_prereg_FROZEN.md`) is NOT edited. These are dated post-freeze
+deviations / corrections, disclosed per the adversarial-review repair round:
+
+| date | ref | deviation / correction | verdict impact |
+|---|---|---|---|
+| 2026-07-11 | R1b | `_ETA_TOL=1e-3` provenance: frozen table said "boundary-truncation-limited, 10× margin" → **RESOLUTION-LIMITED** (~5–6.5×10⁻⁴ floor at N=32/40; margin ~1.5–2×). Banking basis = analytic entailment. | none (bin passes at every N); framing corrected |
+| 2026-07-11 | R2 | §4 headline "\|η\|<10⁻³ far below LLR 4.4×10⁻⁴" was **numerically inverted** (10⁻³ > 4.4×10⁻⁴) → corrected: the tolerance does NOT undercut the LLR bound; the null rests on the entailment. | none; claim corrected |
+| 2026-07-11 | R3 | P11 relabeled **SYNTHETIC ledger-level injection-recovery** (post-solve arithmetic); solver-fed teeth credited to the mixed-register leg. | none; wording |
+| 2026-07-11 | R4 | `max_A` gate **0.3 → 0.2** (RESTORED to the frozen REGIME bound; family actual 0.194). No silent loosening. | gate tightened (still PASS) |
+| 2026-07-11 | R5 | §2 residual "~1e-8" (absolute, mislabeled) → **~1×10⁻⁶** relative (measured 6.7×10⁻⁷ .. 4.4×10⁻⁶). | none; number corrected |
+| 2026-07-11 | R5 | `_FLUX_IDENTITY_TOL=1e-4` **post-freeze materialization** (absent from the frozen parameter table) — disclosed; measured residual ≪ tol. | none; new disclosed constant |
+| 2026-07-11 | R6 | mixed-register flag **upgraded** to a LATENT #86 DEFECT EXPOSURE (engine's own-labeled ADM mass vs far field; first reconciliation, FAILS at O(2f)). | none; characterization strengthened |
+| 2026-07-11 | R7 | "η=0 holds for EITHER register choice" corrected — measured two-route on the ADD side ONLY; deficit side has no field-side route. | none; claim corrected |
+| 2026-07-11 | R8 | "+u_field vs −u_field" binary → **three-way** {keep-ADD · bare −u_field · ★Komar/redshift-weighted T₀₀}; engine impl = NAMED follow-on arc. | none; Grant question re-posed |
+| 2026-07-11 | R1a | ADDED the η-vs-N convergence receipt (§4a; N=24/32/40 + slope std-errs). | none; new receipt |
 
 ---
 
 **Branch:** `analysis/nordtvedt-eta` · **next:** Grant merges via reviewed PR (NOT
 merged here). Deliverables: this result + the FROZEN prereg + the acceptance
-test/helper + the docket ONE-EP-carve record.
+test/helper + the docket ONE-EP-carve record. **Named follow-on arc** (out of scope,
+Rule-14): the Komar/redshift-weighted-source engine repair + #86 gate re-runs + η
+re-run to reconcile the far field with the designated ADM mass `M_eff`.
