@@ -12,7 +12,7 @@
 - Plan: [`2026-07-12_remanence-r10-charter.md`](2026-07-12_remanence-r10-charter.md)
 - Charter (picture · circuit · map · analysis): [`../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md`](../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md)
 - Frozen prereg: [`../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md`](../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md) — freeze-by-push first
-- Branch: `analysis/remanence-r10-charter` · **HOLD — no driver in freeze commit**. Hold #652 / #655 / #656–#661.
+- Branch: `analysis/remanence-r10-charter` · PR **#662** · **HOLD — no driver yet**. Hold #652 / #655 / #656–#661.
 
 ## 2026-07-12 — ★RULED G-PERSIST + X-LEDGER (AVE-native register)
 
