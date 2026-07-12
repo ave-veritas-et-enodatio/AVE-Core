@@ -3,7 +3,15 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 universe-stub A2** pointer immediately below is the newest instrumentation gate (projected \(\Omega_{\rm freeze}\) IC on A1 face). A1 remains HOLD #656. The **2026-07-12 genesis node-birth fork** remains the electron-genesis scoping gate. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 universe-return A3** pointer immediately below is the newest instrumentation gate (exterior→local on A1 face). A2 remains HOLD #657. The **2026-07-12 genesis node-birth fork** remains the electron-genesis scoping gate. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — A3 universe return (exterior → local)
+
+**Not-built focus (Grant):** controlled exterior return packet on the A1 port shell after leave-taking — bidirectional stub without outer mesh. Gated on A2 bin (i).
+
+- Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
+- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze-by-push first
+- Branch: `analysis/universe-return-a3` (off A2 tip). **HOLD — no merge until Grant**. Hold #652 / #655 / #656 / #657.
 
 ## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
 
