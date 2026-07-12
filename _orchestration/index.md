@@ -12,7 +12,7 @@
 - Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
 - Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze `cfd2e690`
 - Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** · **HOLD — no merge until Grant**
-- Branch: `analysis/universe-return-a3` (off A2 tip). Hold #652 / #655 / #656 / #657.
+- Branch: `analysis/universe-return-a3` · PR **#658** (off A2 tip). Hold #652 / #655 / #656 / #657.
 
 ## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
 

@@ -16,7 +16,7 @@ live Machian integral, no fourth engine.
 |---|---|---|
 | 0 — Freeze prereg by push | DONE | `cfd2e690` |
 | 1 — Driver + tests + result | DONE | bin (i) |
-| 2 — HOLD PR | IN PROGRESS | No merge |
+| 2 — HOLD PR | DONE | [#658](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/658) — **do not merge** |
 
 ## Links
 
