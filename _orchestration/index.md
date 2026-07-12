@@ -3,7 +3,18 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 mass-sector×A1** pointer immediately below continues A1 wire-ins after L5. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **★RULED G-PERSIST + X-LEDGER** (AVE-native) immediately below. Medium-continuation kit remains HOLD. Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — ★RULED G-PERSIST + X-LEDGER (AVE-native register)
+
+**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning).
+
+- Ruling leaf: [`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)
+- Briefing (ruled): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
+- Docket rows: [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) (G-PERSIST, X-LEDGER)
+- **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}`
+- **X-LEDGER:** bank #652 (iii); two mass functionals named open; no silent √S retune
+- Branch: `analysis/ave-native-rulings-g3-x1` · **HOLD PR — no merge until Grant**
 
 ## 2026-07-12 — Mass-sector two-body × A1 port
 
