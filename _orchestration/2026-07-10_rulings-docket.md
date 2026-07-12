@@ -359,3 +359,67 @@ the four-lane continuation §B (T4 two-branch state, tide sub-branch retired) + 
 the X36 install-tautology `research/2026-07-09_x36-node-bottleneck_result.md:54,89,215`;
 the gauge-rider site `manuscript/ave-kb/vol4/claim-quality.md:1856`. This
 continuation records queue-state, not adjudicated physics; nothing here canonizes.*
+
+---
+
+## Continuation — 2026-07-11 (THE ONE-EP CARVE + engine-derived η)
+
+**THE ONE-EP CARVE (Grant-walked 2026-07-11, supersedes the two-principle WEP/SEP
+presentation — KEEP-BOTH, the U6 register row stands as-is with a possible post-η
+refinement as a gated follow-on):** the equivalence principle is ONE identity (one
+energy ledger: gravitates = resists), probed per-REGISTER — knot-localized energy
+(WEP: vary composition; infinite by identity) vs strain-field-distributed energy
+(Nordtvedt: vary the field fraction f; η now ENGINE-DERIVABLE via the landed
+backreaction solver — this arc) — plus the REGIME DIAL (ambient-strain operating
+point: "environment-dependence" is bias-point physics of a nonlinear medium, NOT
+principle-breaking — a lattice never promised local-position-invariance, it promised
+one ledger). RAIL (binding): the reframe changes zero bounds — LLR/ephemerides bind
+regardless of vocabulary; and η=0 is itself a RISKED prediction (η≠0 would be a real
+two-ledger finding). CONSEQUENCE: A7's freeze waits on the η result; if η=0, A7 = the
+EFE-quadrupole channel alone. Seduction note: the reframe ships with its own risked
+test (this arc), 11th-convergence-flagged.
+
+- **η RESULT (engine-derived, this arc — `analysis/nordtvedt-eta`).** The Nordtvedt
+  register (register-2, strain-field self-energy) certified **η = +8.3×10⁻⁵**
+  (< 1×10⁻³) across f ∈ [0.024, 0.060], driving the landed #86 backreaction solver
+  as-is (Rule-14). **CERTIFICATION-class** — η=0 is ENTAILED by the single-`T₀₀^total`
+  Gauss construction (P10 / X36 install-tautology); the value is converting **A7's
+  Nordtvedt leg from a retrieval ASSUMPTION into an engine-CERTIFIED prediction.** The
+  detector has teeth (planted ε=0.10 → η=0.0999; ε=0 negative control null).
+  Result doc `research/2026-07-11_nordtvedt-eta_result.md`; frozen prereg
+  `research/2026-07-11_nordtvedt-eta_prereg_FROZEN.md`; test
+  `src/tests/engine_acceptance/test_nordtvedt_eta.py`.
+- **A7 ordering (per the CARVE consequence).** With η certified null, **A7's
+  Nordtvedt leg = a derived-null consistency channel** and A7 reduces to the
+  ephemerides / EFE-quadrupole channel alone; **A7's branch-signature freeze should
+  POSTDATE this η result.**
+- **FLAG (flag-don't-fix; surfaced, Grant/auditor to adjudicate).** (1) The solver's
+  binding-deficit register `M_eff = M − U_bind` (Grant-RULED SUBTRACT 2026-06-29)
+  does NOT equal its far-field source integral (M + U_bind); they differ at O(2f)
+  (source-side ADD vs ledger-side SUBTRACT). Whether the far-field source should carry
+  `+u_field` or `−u_field` to be `M_eff`-consistent is a KB/Grant physics question the
+  test EXPOSES, not resolves (engine untouched). (2) The U6 register row
+  (`translation-circuit.md:148`) "nonzero mismatch / both T4 branches REQUIRE a finite
+  value" wording is in tension with the certified η=0 one-ledger prediction — **U6
+  stands as-is (KEEP-BOTH), post-η refinement gated; the auditor lands any U6 edit.**
+
+### Docket status board — ONE-EP carve + η (KEEP-BOTH; tables above unedited)
+
+| Ruling | What | Status (2026-07-11) | Adjudicator |
+|---|---|---|---|
+| **ONE-EP carve** | one identity, two registers (knot/WEP · strain-field/Nordtvedt) + regime dial | **WALKED (Grant 2026-07-11)** — supersedes two-principle WEP/SEP; KEEP-BOTH U6; 11th-convergence-flagged | Grant |
+| **η (Nordtvedt register)** | engine-derived η via #86 backreaction solver | **CERTIFIED η≈0** (`analysis/nordtvedt-eta`) — certification-class; retrieval-assumption → engine-certified | Grant (accept via PR) |
+| **A7 ordering** | Nordtvedt leg vs EFE-quadrupole channel | **η=0 ⇒ A7 = EFE-quadrupole alone**; A7 branch-signature freeze POSTDATES η | Grant (fold with R-A/T4) |
+| **M_eff-vs-far-field gap** | source-ADD vs ledger-SUBTRACT (O(2f)) | **NEW FLAG · flag-don't-fix** — engine untouched; +u_field vs −u_field consistency = Grant physics call | Grant |
+
+---
+
+*Cross-refs (verify-before-cite'd this session): the frozen prereg + result doc +
+test named above; the landed backreaction solver
+`src/ave/gravity/backreaction.py` + `research/2026-06-29_grqed-stage3-backreaction_result.md:343`
+(the SUBTRACT ruling); the X36 install-tautology
+`research/2026-07-09_x36-node-bottleneck_result.md:54,89,215`; the U6 register row
+`manuscript/ave-kb/common/translation-tables/translation-circuit.md:148`; the A7 row
+(this docket, 2026-07-11 continuation §A7). This continuation records queue-state +
+one engine-derived result; the η certification is banked via the result doc, and A7 /
+U6 adjudication remains Grant's.*
