@@ -430,6 +430,8 @@ test (this arc), 11th-convergence-flagged.
 | **η (Nordtvedt register)** | engine-derived η via #86 backreaction solver | **CERTIFIED η≈0 by ENTAILMENT** (`analysis/nordtvedt-eta`) — certification-class; numeric leg RESOLUTION-LIMITED (N=32/40 ~5–6.5×10⁻⁴, at LLR scale); banking = entailment | Grant (accept via PR) |
 | **A7 ordering** | Nordtvedt leg vs EFE-quadrupole channel | **η=0 ⇒ A7 = EFE-quadrupole alone**; A7 branch-signature freeze POSTDATES η | Grant (fold with R-A/T4) |
 | **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **★RULED (c) — Grant 2026-07-12** (Komar/redshift-weighted T₀₀ source; three-way KEEP-BOTH); follow-on arc **X44 NAMED + AUTHORIZED** (engine mod, own prereg, η_mixed→0 genuinely fireable + η_mixed-vs-N gate; fires after #651 merges) | Grant (RULED) |
+| **X-LEDGER (X44 outcome)** | √S-weighted flux mass vs \(U_{\rm bind}\) ledger | **★RULED X-LEDGER — Grant 2026-07-12** — bank #652 bin (iii) UNRECONCILED; two substrate mass functionals named open; no silent √S retune; merge only as banked negative ([`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)) | Grant (RULED) |
+| **G-PERSIST (genesis D1–D4)** | Fixed-N lasting localization vs node birth | **★RULED G-PERSIST — Grant 2026-07-12** — bank #655 bin (ii) A-WEAKENED; remanence (R10-class) before node-mint; KEEP-BOTH; no `genesis_v{N}` ([same ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)) | Grant (RULED) |
 
 ---
 
@@ -441,4 +443,4 @@ test named above; the landed backreaction solver
 `manuscript/ave-kb/common/translation-tables/translation-circuit.md:148`; the A7 row
 (this docket, 2026-07-11 continuation §A7). This continuation records queue-state +
 one engine-derived result; the η certification is banked via the result doc, and A7 /
-U6 adjudication remains Grant's.*
+U6 adjudication remains Grant's. **Addendum 2026-07-12:** G-PERSIST + X-LEDGER ruled in AVE-native register (remanence-before-mint; bank mass-ledger unreconciliation).*
