@@ -10,8 +10,9 @@
 **Not-built focus (Grant):** controlled exterior return packet on the A1 port shell after leave-taking — bidirectional stub without outer mesh. Gated on A2 bin (i).
 
 - Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
-- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze-by-push first
-- Branch: `analysis/universe-return-a3` (off A2 tip). **HOLD — no merge until Grant**. Hold #652 / #655 / #656 / #657.
+- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze `cfd2e690`
+- Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-return-a3` (off A2 tip). Hold #652 / #655 / #656 / #657.
 
 ## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
 
