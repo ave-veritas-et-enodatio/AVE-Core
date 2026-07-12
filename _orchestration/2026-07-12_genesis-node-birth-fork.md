@@ -1,0 +1,113 @@
+# Genesis planning — node-birth fork (A vs B)
+
+**Status:** PHASE-0 KEEP-BOTH AUTHORIZED · discriminator prereg next  
+**Branch:** `analysis/genesis-node-birth-fork`  
+**Base:** `analysis/engine-categorization-guards` (#653 tip `4094be33`) — rebase onto `main` after #653 merges.  
+**Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No engine edit in this phase.**  
+**Discipline:** `ave-loop-gap-harness-discipline` v1.1 — advance ranks / freeze forks, do not open srs v18+ or a fourth engine without Grant + firewall justification.
+
+**Phase-0 ruling (plan ratification 2026-07-12):** **KEEP-BOTH** — design fireable discriminators (D1–D4) before ruling (A) or (B) or building graph-growth. Do not assert (B); do not bank fixed-mesh runs as “genesis” without a claim-class tag.
+
+---
+
+## 0 · One-paragraph framing
+
+Grant's contention: **dynamic transduction of mechanical stress on the K4 lattice that genesises the electron feels tied to new-node genesis and a dynamically changing universe lattice.** That contention splits what the LOOP GAP ranks have treated as one problem ("form + keep an electron on the medium") into two:
+
+| Fork | Claim | Engine implication |
+|---|---|---|
+| **(A) Reconfiguration** | Electron = topological / saturation pattern on a **fixed** graph (N constant). Node birth is cosmological-only. | Continue ranks 1–4 on existing platforms; node-creation stays cosmology-front. |
+| **(B) Node birth** | Electron genesis **requires** N→N+1 (or bond birth / site mint) at Compton scale; cosmology is the integrated history of that process. | Fixed-mesh "electron forms" runs answer the **wrong question**; need a graph-growth primitive (new capability — Grant + firewall required). |
+
+Capability map already lists **node-creation** as an empty column on every engine (`engine-capability-map.md` §1, §5–§6). This plan does **not** assume (B) is true — it freezes the fork so the next work cannot silently answer (A) while claiming genesis.
+
+---
+
+## 1 · What is already banked (do not re-litigate)
+
+- **mass = A1** (#260 / #311) — untouched.
+- **Bulk self-trap on native stencil** — Mode-III DISPERSE / Cartesian artifact (2026-06-24); surviving localizer leans **Γ=−1 boundary / cavity**, not autonomous bulk stress-well.
+- **LOOP GAP ranks 1–4** on VacuumEngine3D harness — platform rule stands; srs v9–v17 frozen.
+- **R10 remanence** — anhysteretic `S(A)` cannot keep; imposed latch ≠ chord. **Rider (default):** treat as **independent constitutive gap** under (A); under (B) *hypothesis-only* that retention is a micro-proxy of lasting DOF mint — not engine law until discriminators run.
+- **#86 back-reaction** — reversible self-gravitation landed; **F6 / irreversible depletion / a(t) evolver** still UNBUILT (cosmology Stage-4).
+- **Categorization guards (#653)** — ledger / claim-class / slot refusal — available on this branch for tagging any future gate as CERTIFICATION vs FIREABLE.
+
+---
+
+## 2 · How (A)/(B) sits relative to LOOP GAP ranks
+
+```mermaid
+flowchart TD
+  fork["KEEP-BOTH Phase-0"]
+  A["A: fixed-N reconfiguration"]
+  B["B: N to N+1 node birth"]
+  ranks["LOOP GAP ranks 1-4 existing harness"]
+  r10["R10 remanence still open under A"]
+  cosm["Cosmology node birth H_inf latent heat G"]
+  graph["NEW graph-growth primitive Grant+firewall"]
+  disc["Discriminator battery D1-D4 BEFORE any new engine"]
+
+  fork --> disc
+  disc --> A
+  disc --> B
+  A --> ranks
+  ranks --> r10
+  A --> cosm
+  B --> graph
+  B -.->|"hypothesis: micro-proxy of same DOF"| r10
+```
+
+**Hypothesis to test (not assert):** under (B), **R10 retention** may be the soft micro-form of node birth (keeping a lasting DOF), not a separate ferrite latch on a frozen mesh. Under (A), R10 stays constitutive-loop-only and node birth stays cosmological.
+
+---
+
+## 3 · Work phases
+
+### Phase 0 — Fork freeze (THIS DOC) · DONE (KEEP-BOTH)
+
+| bin | meaning |
+|---|---|
+| **(A)-ruled** | Electron genesis work proceeds on fixed-N engines; node-creation stays cosmology + Stage-4 F6 track |
+| **(B)-ruled** | Fixed-mesh genesis batteries are reclassified as **pattern/cage probes only**; true genesis gated on a graph-growth charter |
+| **KEEP-BOTH** | **AUTHORIZED** — discriminator suite (D1–D4) can kill (A) or (B) before any fourth engine |
+
+### Phase 1 — Discriminator prereg · IN PROGRESS
+
+Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md` (freeze-by-push; own commit before any driver).
+
+| ID | Discriminator | Fireable content |
+|---|---|---|
+| **D1** | DOF conservation | Existing cage/genesis runs: invariant node/bond count ⇒ class-(A)-capable only; tag `ClaimClass` — never bank as genesis under (B) |
+| **D2** | Fixed-N persistence | A1 stress → Γ=−1 cavity + winding surviving drive-off on fixed N ⇒ supports (A) for *pattern*; R10 still open |
+| **D3** | Necessity of (B) | Analytic/corpus: saturable Cosserat + ℓ_node can confine without cardinality change; Kelvin gap ≠ entail (B) |
+| **D4** | Cosmology OOM fence | If (B), Compton mint rate must not contradict `H_∞` / packing / latent-heat by absurd OOMs |
+
+Use `#653` pairing discipline: Gauss-style install identities ≠ genesis.
+
+### Phase 2 — Drivers (BLOCKED until prereg freeze is on origin)
+
+Discriminator suite implementor PR only after freeze-by-push verifies on origin. Still **no** `genesis_v{N}` / srs v18+ / fourth engine.
+
+### Phase 3 — Engine path (BLOCKED until D1–D4 adjudicate)
+
+- **Forbidden until (A) or (B) ruled from discriminators:** new `chiral_lattice_v18+`, new `genesis_v{N}`, silent "node birth" flags inside VacuumEngine3D.
+- **Allowed under (A):** rank advancement + R10 honest attempts on existing platforms.
+- **Allowed under (B) after discriminator:** one Grant-signed graph-growth spike with ablation battery (create-node OFF must null).
+
+---
+
+## 4 · Out of scope (this planning arc)
+
+- Merging / retuning **#652 X44** (bin iii; separate escalation).
+- U6 / A7 / α Class-B ceiling.
+- Claiming electron mass = energy cost of one node mint.
+- Equating Schwinger pair production on a fixed grid with node birth.
+
+---
+
+## 5 · Merge / rebase notes
+
+1. **Merge #653** when CI greens (categorization).  
+2. Rebase this branch onto `main`.  
+3. **Hold #652** until Grant picks X44 §7 escalation.  
+4. Planning PR = orchestration + index pointer + frozen prereg — **no engine**. Drivers = later PR.

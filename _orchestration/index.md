@@ -3,7 +3,15 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11)**: The **2026-07-10/11 Session board** immediately below is now the **newest / authoritative-for-current-state** section. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 genesis node-birth fork** pointer immediately below is the newest live architecture gate for electron-genesis scoping. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — Genesis node-birth fork (KEEP-BOTH; discriminator-first)
+
+**Live architecture gate (electron genesis scoping).** Grant contention: mechanical-stress electron genesis may require **new-node birth** / a changing lattice, not only a fixed-N pattern. Phase-0 **KEEP-BOTH** authorized — discriminators D1–D4 before ruling (A) fixed-N vs (B) N→N+1, and before any graph-growth engine.
+
+- Fork plan: [`2026-07-12_genesis-node-birth-fork.md`](2026-07-12_genesis-node-birth-fork.md)
+- Frozen prereg: [`../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md`](../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md)
+- Branch: `analysis/genesis-node-birth-fork` (based on #653 categorization). **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine in this arc.
 
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
