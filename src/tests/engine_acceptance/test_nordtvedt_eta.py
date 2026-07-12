@@ -60,7 +60,13 @@ import time
 import numpy as np
 import pytest
 
+from ave.core.categorization import ClaimClass, PairingKind
+
 from . import _nordtvedt as NV
+
+# Import-time pairing wiring (ENTAILED certification vs FIREABLE mixed register).
+assert NV.CERTIFICATION_PAIRING.claim_class is ClaimClass.CERTIFICATION_ENTAILED
+assert NV.MIXED_REGISTER_PAIRING.kind is PairingKind.FIREABLE
 
 # ── frozen parameters (from the prereg; NOT tuned to output) ──────────────────
 _N = 24

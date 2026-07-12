@@ -97,6 +97,8 @@ setup:
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
 verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps
+	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
+	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."

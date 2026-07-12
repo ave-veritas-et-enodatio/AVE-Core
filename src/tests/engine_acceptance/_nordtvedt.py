@@ -30,6 +30,12 @@ from __future__ import annotations
 import numpy as np
 import scipy.sparse as sparse
 
+from ave.core.categorization import (
+    LedgerKind,
+    PairingKind,
+    classify_ledger_pairing,
+    require_ledger_pairing,
+)
 from ave.gravity.backreaction import (
     _fit_inverse_power_model,
     field_energy_density,
@@ -38,6 +44,24 @@ from ave.gravity.backreaction import (
 )
 from ave.gravity.gw_propagation import _build_native_grad_div
 from ave.solvers.graded_vacuum_network import stiffness_profile
+
+
+# Live #651 certification pairing (flux vs M+U) — ENTAILED under ADD Picard source.
+CERTIFICATION_PAIRING = classify_ledger_pairing(
+    LedgerKind.FAR_FIELD_FLUX, LedgerKind.TOTAL_ENERGY_ADD
+)
+# Mixed-register exposure (flux vs M_eff) — FIREABLE reconciliation, not certification.
+MIXED_REGISTER_PAIRING = classify_ledger_pairing(
+    LedgerKind.FAR_FIELD_FLUX, LedgerKind.ADM_DEFICIT
+)
+assert CERTIFICATION_PAIRING.kind is PairingKind.ENTAILED
+assert MIXED_REGISTER_PAIRING.kind is PairingKind.FIREABLE
+# Touch the enforcer so import-time wiring stays live under refactors.
+require_ledger_pairing(
+    LedgerKind.FAR_FIELD_FLUX,
+    LedgerKind.TOTAL_ENERGY_ADD,
+    expect=PairingKind.ENTAILED,
+)
 
 
 def build_grad_div(N: int):
