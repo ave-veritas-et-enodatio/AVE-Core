@@ -137,17 +137,18 @@ def family() -> list[dict]:
 # LEG-1 — X44 CERTIFICATION: far-field Gauss flux tracks M_eff (ruled Komar source)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_leg1_certification_one_ledger(family):
-    """LEG-1 [X44 CERTIFICATION] — under ruled Komar source, m_g (field-side Gauss
-    flux of T00^src = T00·√S) tracks M_eff = M−U_bind across the f-family ⇒ η_mixed ≈ 0.
+    """LEG-1 [X44 MEASUREMENT] — under ruled Komar source, measure η_mixed =
+    slope of (m_g/M_eff − 1) vs f across the family.
 
-    Supersedes the #651 ADD-side live gate (flux vs M+U), which remains a KEEP-BOTH
-    diagnostic of the retired convention (see mixed-register legacy test).
+    Frozen bins (X44 prereg):
+      * (i) RECONCILED: |η_mixed| < _ETA_TOL + plateau + Gauss + weak + Δ_clock MATCH
+      * (ii) RECONCILED-PARTIAL: |η_mixed| < _ETA_TOL but Δ_clock mismatch ≥ 30%
+      * (iii) UNRECONCILED: |η_mixed| ≥ _ETA_TOL
+      * (iv) INSTABILITY: non-convergence / non-contractive
 
-    PRE-REGISTERED BINS (X44 frozen):
-      * (i) RECONCILED: |η_mixed| < _ETA_TOL + plateau + Gauss identity + converged
-        + max A < 0.2 + Δ_clock↔U_bind MATCH (<30%).
-      * (ii) RECONCILED-PARTIAL: |η_mixed| < _ETA_TOL but Δ_clock mismatch ≥ 30%.
-      * (iii) UNRECONCILED: |η_mixed| ≥ _ETA_TOL.
+    This gate RECORDS the frozen bin. It does NOT retune √S. Structural
+    prerequisites (Gauss identity, monopole plateau, convergence, weak regime)
+    still hard-fail if broken — those are install integrity, not reconciliation.
     """
     f = np.array([r["f"] for r in family])
     m_g = np.array([r["m_g"] for r in family])
@@ -169,43 +170,49 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
     weak_ok = all(r["max_A"] < 0.2 for r in family)
     assert all(r["source_mode"] == "komar" for r in family)
 
-    # Fireable Δ_clock ↔ U_bind identity (different functionals).
     rel_clock = np.abs(dclock - U) / np.maximum(U, 1e-30)
     clock_match = bool(np.all(rel_clock < 0.30))
 
-    print("\n--- LEG-1 X44 certification (Komar: flux vs M_eff) ---")
+    if abs(eta) < _ETA_TOL and clock_match:
+        bin_id = "i_RECONCILED"
+    elif abs(eta) < _ETA_TOL:
+        bin_id = "ii_RECONCILED_PARTIAL"
+    else:
+        bin_id = "iii_UNRECONCILED"
+
+    print("\n--- LEG-1 X44 measurement (Komar: flux vs M_eff) ---")
     print(f"  f range (E_grav/E_total)  : [{f.min():.4f}, {f.max():.4f}]")
     for r, rc in zip(family, rel_clock):
         print(
             f"  σ={r['sigma']:.2f} f={r['f']:.4f}  m_g={r['m_g']:.5f}  "
             f"M_eff={r['M_eff']:.5f}  rel={(r['m_g'] - r['M_eff']) / r['M_eff']:+.2e}  "
-            f"Δclk/U={rc:.3f}  maxA={r['max_A']:.3f}"
+            f"Δclk/U_rel={rc:.3f}  maxA={r['max_A']:.3f}"
         )
-    print(f"  η_mixed (flux/M_eff)      : {eta:+.3e}   (PASS |η| < {_ETA_TOL})")
+    print(f"  η_mixed (flux/M_eff)      : {eta:+.3e}   (reconcile tol |η| < {_ETA_TOL})")
     print(f"  Δ_clock↔U_bind MATCH(<30%): {clock_match}  max_rel={rel_clock.max():.3f}")
+    print(f"  FROZEN BIN                : {bin_id}")
 
-    assert converged_ok, "FAIL: a family member did not converge"
-    assert weak_ok, "FAIL: a member left the weak/contractive regime (max A ≥ 0.2)"
+    assert converged_ok, "FAIL [bin iv]: a family member did not converge"
+    assert weak_ok, "FAIL [bin iv]: a member left the weak/contractive regime (max A ≥ 0.2)"
     assert identity_ok, "FAIL: field-side flux ≠ ∫T₀₀^src (Gauss broken on native K4)"
     assert plateau_ok, "FAIL: enclosed flux is not a radius-independent monopole"
-    assert abs(eta) < _ETA_TOL, (
-        f"FAIL [bin iii UNRECONCILED]: |η_mixed|={abs(eta):.3e} ≥ {_ETA_TOL}"
+    # Bin (iii) is a VALID frozen outcome — assert the measurement is O(1), not
+    # accidentally near zero after a silent retune. |η| must stay ≥ reconcile tol.
+    assert abs(eta) >= _ETA_TOL, (
+        f"UNEXPECTED: |η_mixed|={abs(eta):.3e} < {_ETA_TOL} — if reconciliation "
+        f"now lands, re-bin to (i)/(ii) and update the result doc; do not leave "
+        f"this assert as a false UNRECONCILED keeper"
     )
-    # Soft assert for bin i vs ii — surface via print; hard-fail only if we want
-    # MATCH. Frozen bin (ii) is still a PASS of η_mixed; record clock_match.
-    if not clock_match:
-        print("  -> bin (ii) RECONCILED-PARTIAL: η_mixed ok but Δ_clock↔U_bind mismatch")
-    else:
-        print("  -> bin (i) RECONCILED: η_mixed ok AND Δ_clock↔U_bind MATCH")
+    assert bin_id == "iii_UNRECONCILED"
+    assert not clock_match, "Δ_clock↔U_bind unexpectedly MATCH under current √S form"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# P11 — planted two-ledger coupling FIRES; negative control is null (detector teeth)
-# ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_p11_planted_two_ledger_teeth(family):
     """P11 [TEETH — SYNTHETIC injection-recovery] on the live X44 ratio m_g/M_eff.
 
     Plant ε into the gravitating register: m_g_planted = m_g + ε·U, hold M_eff fixed.
+    Detector recovers the INCREMENT Δη ≈ ε even when the baseline η_mixed is O(1)
+    (bin iii) — teeth are relative, not absolute-null.
     """
     f = np.array([r["f"] for r in family])
     m_g = np.array([r["m_g"] for r in family])
@@ -214,15 +221,16 @@ def test_nordtvedt_p11_planted_two_ledger_teeth(family):
 
     eta_null = NV.eta_slope(f, (m_g + 0.0 * U) / M_eff)
     eta_plant = NV.eta_slope(f, (m_g + _EPS_PLANT * U) / M_eff)
+    delta = eta_plant - eta_null
 
     print("\n--- P11 SYNTHETIC ledger-level injection-recovery (detector arithmetic) ---")
-    print(f"  negative control (ε=0)  η : {eta_null:+.3e}   (null < {_ETA_TOL})")
-    print(f"  injected (ε={_EPS_PLANT})   η : {eta_plant:+.5f}   (RECOVERS ≈ {_EPS_PLANT})")
+    print(f"  baseline (ε=0)          η : {eta_null:+.3e}")
+    print(f"  injected (ε={_EPS_PLANT})   η : {eta_plant:+.5f}")
+    print(f"  recovered Δη              : {delta:+.5f}   (target ≈ {_EPS_PLANT})")
 
-    assert abs(eta_null) < _ETA_TOL, f"FAIL: negative control fired — η={eta_null:.3e}"
-    assert abs(eta_plant - _EPS_PLANT) < _PLANT_TOL, (
-        f"FAIL: detector did not recover the planted ε — η_planted={eta_plant:.5f} "
-        f"vs ε={_EPS_PLANT}"
+    assert abs(delta - _EPS_PLANT) < _PLANT_TOL, (
+        f"FAIL: detector did not recover the planted ε as Δη — "
+        f"Δη={delta:.5f} vs ε={_EPS_PLANT}"
     )
 
 

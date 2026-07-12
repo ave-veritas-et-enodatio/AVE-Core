@@ -225,16 +225,26 @@ class TestAtRiskCheck3Raytrace:
 
 
 class TestAtRiskCheck4Nonlinearity:
-    """AT-RISK 4: two masses — the nonlinearity ENGAGES (combined ≠ linear sum)."""
+    """AT-RISK 4: two masses — nonlinearity engagement (mode-aware under X44)."""
 
     def test_two_mass_nonlinearity_engages(self) -> None:
-        r = check4_two_mass_superposition_engages_nonlinearity()
-        assert r["converged_on"] and r["converged_off"]
-        # turning the back-reaction ON multiplies the superposition residual.
-        assert r["engage_ratio"] >= 1.5, (
-            f"back-reaction did not multiply nonlinearity (ratio={r['engage_ratio']:.2f})"
+        # Ruled Komar: g_self is ledger-only; isolate √S feedback vs bare matter.
+        r_k = check4_two_mass_superposition_engages_nonlinearity(source_mode="komar")
+        assert r_k["converged_on"] and r_k["converged_off"]
+        assert r_k["control"] == "komar_vs_matter"
+        assert r_k["engage_ratio"] >= 1.5, (
+            f"komar-vs-matter did not multiply nonlinearity "
+            f"(ratio={r_k['engage_ratio']:.2f})"
         )
-        assert r["passed"], r["verdict"]
+        assert r_k["passed"], r_k["verdict"]
+        # Legacy ADD KEEP-BOTH: the historical g_self-ON multiplication still fires.
+        r_a = check4_two_mass_superposition_engages_nonlinearity(source_mode="add_field")
+        assert r_a["converged_on"] and r_a["converged_off"]
+        assert r_a["engage_ratio"] >= 1.5, (
+            f"legacy add_field did not multiply nonlinearity "
+            f"(ratio={r_a['engage_ratio']:.2f})"
+        )
+        assert r_a["passed"], r_a["verdict"]
 
 
 class TestBoundednessEnergyGate:

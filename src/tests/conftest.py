@@ -114,7 +114,7 @@ _ENGINE_SIM_TESTS = {
     # `make test-engine`. Prereg: research/2026-07-11_nordtvedt-eta_prereg_FROZEN.md.
     "test_nordtvedt_eta.py::test_nordtvedt_leg1_certification_one_ledger",
     "test_nordtvedt_eta.py::test_nordtvedt_p11_planted_two_ledger_teeth",
-    "test_nordtvedt_eta.py::test_nordtvedt_mixed_register_flag_add_vs_subtract",
+    "test_nordtvedt_eta.py::test_nordtvedt_legacy_add_mixed_register_still_exposes_gap",
     # Cleave registry-pump Chern (2026-07-02, Grant (b) dual-reading): the srs
     # (k_z, theta) torus Chern + gap-scan over BOTH readings x BOTH enantiomorphs
     # (run_all / srs_registry_chern; several 48x48 Fukui-Hatsugai integrations +

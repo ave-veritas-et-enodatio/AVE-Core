@@ -429,7 +429,8 @@ test (this arc), 11th-convergence-flagged.
 | **ONE-EP carve** | one identity, two registers (knot/WEP · strain-field/Nordtvedt) + regime dial | **WALKED (Grant 2026-07-11)** — supersedes two-principle WEP/SEP; KEEP-BOTH U6; 11th-convergence-flagged | Grant |
 | **η (Nordtvedt register)** | engine-derived η via #86 backreaction solver | **CERTIFIED η≈0 by ENTAILMENT** (`analysis/nordtvedt-eta`) — certification-class; numeric leg RESOLUTION-LIMITED (N=32/40 ~5–6.5×10⁻⁴, at LLR scale); banking = entailment | Grant (accept via PR) |
 | **A7 ordering** | Nordtvedt leg vs EFE-quadrupole channel | **η=0 ⇒ A7 = EFE-quadrupole alone**; A7 branch-signature freeze POSTDATES η | Grant (fold with R-A/T4) |
-| **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **★RULED (c) — Grant 2026-07-12** (Komar/redshift-weighted T₀₀ source; three-way KEEP-BOTH); follow-on arc **X44 NAMED + AUTHORIZED** (engine mod, own prereg, η_mixed→0 genuinely fireable + η_mixed-vs-N gate; fires after #651 merges) | Grant (RULED) |
+| **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **★RULED (c) — Grant 2026-07-12** (Komar/redshift-weighted T₀₀ source; three-way KEEP-BOTH); follow-on arc **X44** implemented on `analysis/x44-komar-source` — **frozen bin (iii) UNRECONCILED** (η_mixed≈+1.05 at N=24/32/40; Δ_clock≪U_bind; no √S retune). Komar installed as default; ADD KEEP-BOTH. Escalation options in `research/2026-07-12_x44-komar-source_result.md` §7 | Grant (RULED; adjudicate bin-iii escalation) |
+| **X44 Komar-source** | install √S Picard weight; reconcile flux↔M_eff | **FIRED 2026-07-12 — bin (iii) UNRECONCILED** (`analysis/x44-komar-source`; prereg `b9f88823` → result doc). Gauss≡∫T√S holds; η_mixed O(1) stable vs N; clock↔bind MATCH fails (~93–97%). DO-NOT-MERGE PR pending orchestrator review | Grant / orchestrator |
 
 ---
 

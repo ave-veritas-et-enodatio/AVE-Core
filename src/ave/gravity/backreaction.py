@@ -265,14 +265,20 @@ def build_picard_source(
 
     * ``source_mode="komar"`` (default, X44): ``T₀₀^src = T₀₀^matter · √S(A)``.
     * ``source_mode="add_field"`` (legacy KEEP-BOTH): ``T₀₀^src = T₀₀^matter + u_field``.
+    * ``source_mode="matter"`` (diagnostic control): ``T₀₀^src = T₀₀^matter`` — no
+      √S weight and no u_field; isolates whether Komar weighting engages nonlinearity.
     """
     u_field = field_energy_density(eps11, Grad, kappa=g_self)
     if source_mode == "komar":
         T00_src = T00_matter * komar_weight(eps11, S_min=S_min)
     elif source_mode == "add_field":
         T00_src = T00_matter + u_field
+    elif source_mode == "matter":
+        T00_src = np.asarray(T00_matter, dtype=float).copy()
     else:
-        raise ValueError(f"unknown source_mode={source_mode!r}; expected 'komar' or 'add_field'")
+        raise ValueError(
+            f"unknown source_mode={source_mode!r}; expected 'komar', 'add_field', or 'matter'"
+        )
     return T00_src, u_field
 
 
@@ -326,7 +332,8 @@ def solve_backreaction(
         outer_mix: outer under-relaxation (1.0 = pure Picard).
         inner_picard, inner_mix: the inner Stage-1 relaxation controls.
         return_fields: include the converged ε₁₁ / sources / radius grid.
-        source_mode: ``"komar"`` (default, X44) or ``"add_field"`` (legacy).
+        source_mode: ``"komar"`` (default, X44), ``"add_field"`` (legacy), or
+            ``"matter"`` (diagnostic bare-source control).
 
     Returns:
         dict: eps11, T00_matter, T00_total (=T00^src), u_field, M_matter, U_bind, M_eff,
@@ -334,7 +341,7 @@ def solve_backreaction(
     """
     from ave.gravity.gw_propagation import _build_native_grad_div, relax_finite_core_strain
 
-    if source_mode not in ("komar", "add_field"):
+    if source_mode not in ("komar", "add_field", "matter"):
         raise ValueError(f"unknown source_mode={source_mode!r}")
 
     c = N // 2
@@ -800,6 +807,7 @@ def check4_two_mass_superposition_engages_nonlinearity(
     g_self: float = 1.0,
     min_engage_ratio: float = 1.5,
     min_nonlinearity: float = 0.005,
+    source_mode: str = "komar",
 ) -> dict:
     r"""
     AT-RISK CHECK 4 — TWO-MASS SUPERPOSITION (does the nonlinearity ENGAGE?).
@@ -810,23 +818,20 @@ def check4_two_mass_superposition_engages_nonlinearity(
 
         Δ_nl = ‖ε_AB − (ε_A + ε_B)‖ / ‖ε_AB‖ .
 
-    If the loop is genuinely nonlinear/self-consistent, the combined field is NOT the
-    linear sum (each mass's field re-sources the other's) ⇒ Δ_nl > 0. We ISOLATE the
-    BACK-REACTION nonlinearity by comparing against the g_self=0 control (where the
-    only nonlinearity is the saturating modulus D(A), ≈ linear in the weak regime).
+    **Discriminator depends on ``source_mode`` (X44):**
 
-    The DISCRIMINATOR is the RELATIVE ENGAGEMENT: turning the back-reaction ON must
-    MULTIPLY the superposition residual (nl_on ≥ min_engage_ratio·nl_off), the direct
-    evidence the self-gravitation re-sources and the loop is not secretly linear.
-    (Amplitude sweep, result doc §7: nl_on/nl_off grows from 2.4× at amp=0.10 — the
-    moderate, safely-contractive default, max A≈0.49, contraction≈0.06 — and the raw
-    back-reaction nonlinearity Δ_nl grows monotonically with field strength. The
-    absolute nl is small in the weak regime by construction; the RATIO is the signal.)
+    * ``source_mode="add_field"`` (legacy KEEP-BOTH): compare ``g_self`` ON vs OFF.
+      Turning the ADD self-energy source ON must MULTIPLY the residual
+      (``engage_ratio ≥ min_engage_ratio``). Under ADD, ``g_self`` enters the Picard
+      source; this is the historical #86 gate.
+    * ``source_mode="komar"`` (ruled default): ``g_self`` is ledger-only (does NOT
+      enter ``T₀₀^src``), so the g_self ON/OFF discriminator is VACUOUS. Engagement
+      of the √S feedback is isolated by comparing ``komar`` vs ``matter`` (bare
+      ``T₀₀^matter``, no weight). The ratio measures whether clock-weighting
+      re-sources the two-mass field beyond D(A) saturation alone.
 
-    PASS: nl_on ≥ min_engage_ratio·nl_off (decisive engagement) AND nl_on ≥
-    min_nonlinearity (above lattice noise) AND both solves converged. A FAIL
-    (nl_on ≈ nl_off, no multiplication) means the "two-way" loop is secretly linear ⇒
-    the self-consistency is fake.
+    PASS: ``engage_ratio ≥ min_engage_ratio`` AND ``nl_on ≥ min_nonlinearity`` AND
+    both solves converged.
     """
     c = N // 2
     half = separation / 2.0
@@ -836,23 +841,43 @@ def check4_two_mass_superposition_engages_nonlinearity(
     TB = gaussian_blob(N, sigma=sigma, amplitude=amplitude, center=cB)
     TAB = TA + TB
 
-    def _nl(g):
-        rA = solve_backreaction(N=N, T00_matter=TA, g_self=g, return_fields=True)
-        rB = solve_backreaction(N=N, T00_matter=TB, g_self=g, return_fields=True)
-        rAB = solve_backreaction(N=N, T00_matter=TAB, g_self=g, return_fields=True)
+    def _nl(*, g: float, mode: str):
+        rA = solve_backreaction(
+            N=N, T00_matter=TA, g_self=g, return_fields=True, source_mode=mode
+        )
+        rB = solve_backreaction(
+            N=N, T00_matter=TB, g_self=g, return_fields=True, source_mode=mode
+        )
+        rAB = solve_backreaction(
+            N=N, T00_matter=TAB, g_self=g, return_fields=True, source_mode=mode
+        )
         epsA, epsB, epsAB = rA["eps11"], rB["eps11"], rAB["eps11"]
         resid = float(np.linalg.norm(epsAB - (epsA + epsB)))
         denom = float(np.linalg.norm(epsAB))
         return resid / max(denom, 1e-30), rAB["converged"]
 
-    nl_on, conv_on = _nl(g_self)
-    nl_off, conv_off = _nl(0.0)
+    if source_mode == "komar":
+        # √S feedback ON vs bare matter (g_self irrelevant to Picard under komar).
+        nl_on, conv_on = _nl(g=g_self, mode="komar")
+        nl_off, conv_off = _nl(g=g_self, mode="matter")
+        control = "komar_vs_matter"
+    elif source_mode == "add_field":
+        nl_on, conv_on = _nl(g=g_self, mode="add_field")
+        nl_off, conv_off = _nl(g=0.0, mode="add_field")
+        control = "g_self_on_vs_off"
+    else:
+        raise ValueError(
+            f"check4 source_mode={source_mode!r}; expected 'komar' or 'add_field'"
+        )
+
     delta_nl = nl_on - nl_off
     engage_ratio = nl_on / max(nl_off, 1e-30)
     engaged = bool(engage_ratio >= min_engage_ratio)
     above_floor = bool(nl_on >= min_nonlinearity)
     passed = bool(engaged and above_floor and conv_on and conv_off)
     return {
+        "source_mode": source_mode,
+        "control": control,
         "nonlinearity_on": nl_on,
         "nonlinearity_off": nl_off,
         "backreaction_nonlinearity": delta_nl,
@@ -863,13 +888,11 @@ def check4_two_mass_superposition_engages_nonlinearity(
         "converged_off": conv_off,
         "passed": passed,
         "verdict": (
-            f"PASS — back-reaction MULTIPLIES the superposition residual "
-            f"{engage_ratio:.2f}× (on={nl_on:.4f}, off={nl_off:.4f}, Δ={delta_nl:.4f}); "
-            f"the loop is genuinely nonlinear (combined field ≠ linear sum — the "
-            f"self-gravitation re-sources each mass through the other)"
+            f"PASS — {control} MULTIPLIES the superposition residual "
+            f"{engage_ratio:.2f}× (on={nl_on:.4f}, off={nl_off:.4f}, Δ={delta_nl:.4f})"
             if passed
-            else f"FAIL — engage ratio {engage_ratio:.2f}× (on={nl_on:.4f}, off={nl_off:.4f}); "
-            f"turning g_self on did not multiply nonlinearity ⇒ the loop is secretly linear"
+            else f"FAIL — engage ratio {engage_ratio:.2f}× via {control} "
+            f"(on={nl_on:.4f}, off={nl_off:.4f}); nonlinearity did not multiply"
         ),
     }
 
