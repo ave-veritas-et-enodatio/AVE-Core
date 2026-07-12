@@ -115,6 +115,9 @@ def _solve_family() -> list[dict]:
                 "r2": r2,
                 "converged": bool(res["converged"]),
                 "max_A": float(res["max_A"]),
+                "Delta_clock": float(res["Delta_clock"]),
+                "source_mode": res["source_mode"],
+                "T00_src_sum": float(res["T00_total"].sum()),
             }
         )
     return rows
@@ -131,28 +134,28 @@ def family() -> list[dict]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# LEG-1 — CERTIFICATION: the far-field gravitating charge = the total-energy ledger
+# LEG-1 — X44 CERTIFICATION: far-field Gauss flux tracks M_eff (ruled Komar source)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_leg1_certification_one_ledger(family):
-    """LEG-1 [CERTIFICATION / bin i] — one ledger: m_g (field-side Gauss flux)
-    tracks m_i (total-energy ledger) across the f-family ⇒ η ≈ 0.
+    """LEG-1 [X44 CERTIFICATION] — under ruled Komar source, m_g (field-side Gauss
+    flux of T00^src = T00·√S) tracks M_eff = M−U_bind across the f-family ⇒ η_mixed ≈ 0.
 
-    PRE-REGISTERED BINS (frozen):
-      * PASS (bin i): |η| < _ETA_TOL AND the enclosed flux is a monopole (relative
-        change over the outer two radii < _FLUX_PLATEAU_TOL) AND the flux equals
-        ∫T₀₀^total (field-side Gauss on native K4; per-radius rel diff <
-        _FLUX_IDENTITY_TOL) AND every member converged (weak field, max A < 0.2 —
-        the frozen-prereg REGIME bound, restored per review R4; actual max ≈ 0.194).
-      * bin ii: _ETA_TOL ≤ |η| clean-linear ⇒ a REAL two-ledger finding (then face
-        |η| ≲ _LLR_BOUND, imported-observational).
-      * bin iii: no clean linear η ⇒ construction-dependent (surface, don't force).
+    Supersedes the #651 ADD-side live gate (flux vs M+U), which remains a KEEP-BOTH
+    diagnostic of the retired convention (see mixed-register legacy test).
+
+    PRE-REGISTERED BINS (X44 frozen):
+      * (i) RECONCILED: |η_mixed| < _ETA_TOL + plateau + Gauss identity + converged
+        + max A < 0.2 + Δ_clock↔U_bind MATCH (<30%).
+      * (ii) RECONCILED-PARTIAL: |η_mixed| < _ETA_TOL but Δ_clock mismatch ≥ 30%.
+      * (iii) UNRECONCILED: |η_mixed| ≥ _ETA_TOL.
     """
     f = np.array([r["f"] for r in family])
     m_g = np.array([r["m_g"] for r in family])
-    m_i = np.array([r["m_i"] for r in family])
-    eta = NV.eta_slope(f, m_g / m_i)
+    M_eff = np.array([r["M_eff"] for r in family])
+    U = np.array([r["U"] for r in family])
+    dclock = np.array([r["Delta_clock"] for r in family])
+    eta = NV.eta_slope(f, m_g / M_eff)
 
-    # monopole plateau + field-side Gauss identity (flux == source per radius)
     plateau_ok = True
     identity_ok = True
     for r in family:
@@ -163,57 +166,54 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
         plateau_ok = plateau_ok and (rel_plateau < _FLUX_PLATEAU_TOL)
         identity_ok = identity_ok and (rel_ident < _FLUX_IDENTITY_TOL)
     converged_ok = all(r["converged"] for r in family)
-    weak_ok = all(r["max_A"] < 0.2 for r in family)  # frozen REGIME bound (review R4)
+    weak_ok = all(r["max_A"] < 0.2 for r in family)
+    assert all(r["source_mode"] == "komar" for r in family)
 
-    print("\n--- LEG-1 certification (one ledger; strain-field register-2) ---")
+    # Fireable Δ_clock ↔ U_bind identity (different functionals).
+    rel_clock = np.abs(dclock - U) / np.maximum(U, 1e-30)
+    clock_match = bool(np.all(rel_clock < 0.30))
+
+    print("\n--- LEG-1 X44 certification (Komar: flux vs M_eff) ---")
     print(f"  f range (E_grav/E_total)  : [{f.min():.4f}, {f.max():.4f}]")
-    for r in family:
+    for r, rc in zip(family, rel_clock):
         print(
-            f"  σ={r['sigma']:.2f} f={r['f']:.4f}  m_g(flux)={r['m_g']:.5f}  "
-            f"m_i(M+U)={r['m_i']:.5f}  rel={(r['m_g'] - r['m_i']) / r['m_i']:+.2e}  "
-            f"maxA={r['max_A']:.3f} conv={r['converged']}"
+            f"  σ={r['sigma']:.2f} f={r['f']:.4f}  m_g={r['m_g']:.5f}  "
+            f"M_eff={r['M_eff']:.5f}  rel={(r['m_g'] - r['M_eff']) / r['M_eff']:+.2e}  "
+            f"Δclk/U={rc:.3f}  maxA={r['max_A']:.3f}"
         )
-    print(f"  CERTIFICATION η           : {eta:+.3e}   (PASS |η| < {_ETA_TOL})")
-    print(f"  monopole plateau ok       : {plateau_ok}   flux==source ok: {identity_ok}")
+    print(f"  η_mixed (flux/M_eff)      : {eta:+.3e}   (PASS |η| < {_ETA_TOL})")
+    print(f"  Δ_clock↔U_bind MATCH(<30%): {clock_match}  max_rel={rel_clock.max():.3f}")
 
     assert converged_ok, "FAIL: a family member did not converge"
     assert weak_ok, "FAIL: a member left the weak/contractive regime (max A ≥ 0.2)"
-    assert identity_ok, "FAIL: field-side flux ≠ ∫T₀₀^total (Gauss broken on native K4)"
+    assert identity_ok, "FAIL: field-side flux ≠ ∫T₀₀^src (Gauss broken on native K4)"
     assert plateau_ok, "FAIL: enclosed flux is not a radius-independent monopole"
     assert abs(eta) < _ETA_TOL, (
-        f"FAIL [bin ii/iii]: |η|={abs(eta):.3e} ≥ {_ETA_TOL} — the far-field "
-        f"gravitating charge does NOT track the total-energy ledger (two-ledger)"
+        f"FAIL [bin iii UNRECONCILED]: |η_mixed|={abs(eta):.3e} ≥ {_ETA_TOL}"
     )
+    # Soft assert for bin i vs ii — surface via print; hard-fail only if we want
+    # MATCH. Frozen bin (ii) is still a PASS of η_mixed; record clock_match.
+    if not clock_match:
+        print("  -> bin (ii) RECONCILED-PARTIAL: η_mixed ok but Δ_clock↔U_bind mismatch")
+    else:
+        print("  -> bin (i) RECONCILED: η_mixed ok AND Δ_clock↔U_bind MATCH")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # P11 — planted two-ledger coupling FIRES; negative control is null (detector teeth)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_p11_planted_two_ledger_teeth(family):
-    """P11 [TEETH — SYNTHETIC injection-recovery] — a ledger-level ε-injection makes
-    the η-detector recover the planted slope.
+    """P11 [TEETH — SYNTHETIC injection-recovery] on the live X44 ratio m_g/M_eff.
 
-    This is POST-SOLVE LEDGER ARITHMETIC (disclosed + frozen — not smuggled, NOT a
-    re-solve): plant (helper-level; NOT an engine edit) an ε-over-weighting of the
-    field energy's contribution to the GRAVITATING register only,
-    `m_g_planted = m_g + ε·U_bind` (i.e. M + (1+ε)U), holding m_i = M+U fixed. It
-    validates the DETECTOR'S injection-recovery arithmetic (a synthetic ledger-level
-    two-ledger coupling ⇒ η = ε), NOT a solver-fed physical coupling. The GENUINE
-    SOLVER-FED detector proof is the mixed-register leg below (η=2.2792, read from the
-    converged field's own M_eff-vs-far-field disagreement).
-
-    PRE-REGISTERED BINS (frozen):
-      * PASS: |η_planted − _EPS_PLANT| < _PLANT_TOL (detector recovers the planted
-        slope) AND the ε=0 negative control gives |η| < _ETA_TOL (no spurious fire).
-      * FAIL: planted ε not recovered (blind) OR negative control fires.
+    Plant ε into the gravitating register: m_g_planted = m_g + ε·U, hold M_eff fixed.
     """
     f = np.array([r["f"] for r in family])
     m_g = np.array([r["m_g"] for r in family])
-    m_i = np.array([r["m_i"] for r in family])
+    M_eff = np.array([r["M_eff"] for r in family])
     U = np.array([r["U"] for r in family])
 
-    eta_null = NV.eta_slope(f, (m_g + 0.0 * U) / m_i)
-    eta_plant = NV.eta_slope(f, (m_g + _EPS_PLANT * U) / m_i)
+    eta_null = NV.eta_slope(f, (m_g + 0.0 * U) / M_eff)
+    eta_plant = NV.eta_slope(f, (m_g + _EPS_PLANT * U) / M_eff)
 
     print("\n--- P11 SYNTHETIC ledger-level injection-recovery (detector arithmetic) ---")
     print(f"  negative control (ε=0)  η : {eta_null:+.3e}   (null < {_ETA_TOL})")
@@ -222,62 +222,40 @@ def test_nordtvedt_p11_planted_two_ledger_teeth(family):
     assert abs(eta_null) < _ETA_TOL, f"FAIL: negative control fired — η={eta_null:.3e}"
     assert abs(eta_plant - _EPS_PLANT) < _PLANT_TOL, (
         f"FAIL: detector did not recover the planted ε — η_planted={eta_plant:.5f} "
-        f"vs ε={_EPS_PLANT} (the η-detector has no teeth)"
+        f"vs ε={_EPS_PLANT}"
     )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# FLAG — mixed-register exposure (far-field M+U vs binding-deficit M_eff=M−U)
+# KEEP-BOTH — legacy ADD mixed-register exposure still fires under source_mode=add_field
 # ─────────────────────────────────────────────────────────────────────────────
-def test_nordtvedt_mixed_register_flag_add_vs_subtract(family):
-    """FLAG [flag-don't-fix — LATENT #86 DEFECT EXPOSURE; also the SOLVER-FED teeth]
-    — pairing the far-field flux (M+U) against the binding-deficit M_eff (M−U) yields
-    η=2.2792.
+def test_nordtvedt_legacy_add_mixed_register_still_exposes_gap():
+    """KEEP-BOTH diagnostic: under legacy add_field, η_mixed (flux vs M_eff) ≫ 1.
 
-    NOT a free convention choice: the "mixed" pairing is THE ENGINE'S OWN-LABELED
-    PHYSICAL PAIRING. `backreaction.py:33` designates M_eff as the inertial/ADM mass,
-    while the far field provably reads M+U (the +u_field source ADD,
-    `backreaction.py:303-304`). So the as-built engine's far field disagrees with its
-    OWN designated ADM mass at O(2f), and η_mixed=2.28 IS the engine's current
-    far-field-vs-inertial-mass statement. #86's own at-risk checks never reconciled the
-    two (all ratio/shape, sign-agnostic —
-    `test_grqed_stage3_backreaction.py::test_binding_deficit_subtracts_not_adds`
-    asserts only the M_eff DEFINITION; `…grqed-stage3-backreaction_result.md:339`
-    admits it); this arc is the FIRST reconciliation and it FAILS at O(2f) ⇒ a LATENT
-    #86 DEFECT, surfaced for Grant/auditor.
-
-    It ALSO is the SOLVER-FED teeth (the detector produces η≠0 from the CONVERGED
-    field's own register difference — not synthetic injection ⇒ the LEG-1 null is a
-    REAL null, not a dead detector). This does NOT falsify the one-ledger PRINCIPLE:
-    η=0 is measured TWO-ROUTE on the ADD side only (LEG-1); the SUBTRACT/M_eff side has
-    NO independent field-side route today (the flux is pinned to M+U by the +u_field
-    source), so "both = deficit ledger" would be arithmetic relabeling, not a
-    measurement. The exposure is that the as-built engine implements the principle
-    INCONSISTENTLY on the deficit side (three-way resolution in the module docstring).
-    Per Rule-14 the engine is NOT touched; the fix is a named follow-on arc.
-
-    PRE-REGISTERED BIN (frozen): η_mixed > _MIXED_ETA_MIN. The self-consistent LEG-1
-    pairing (η≈0) is asserted separately; this test does NOT redefine the physical η.
+    Confirms the #651 latent defect is still reproducible when the retired
+    convention is selected — not a live gate of the ruled Komar default.
     """
-    f = np.array([r["f"] for r in family])
-    m_g = np.array([r["m_g"] for r in family])
-    m_i = np.array([r["m_i"] for r in family])
-    M_eff = np.array([r["M_eff"] for r in family])
-
-    eta_self = NV.eta_slope(f, m_g / m_i)          # self-consistent ledger (≈0)
-    eta_mixed = NV.eta_slope(f, m_g / M_eff)        # mixed register (flag)
-
-    print("\n--- FLAG: mixed-register exposure (flag-don't-fix; Rule-14) ---")
-    print(f"  self-consistent  m_g(flux)/m_i(M+U)   η : {eta_self:+.3e}  (one ledger)")
-    print(f"  MIXED            m_g(flux)/M_eff(M−U)  η : {eta_mixed:+.4f}  (> {_MIXED_ETA_MIN})")
-    print(f"  naive K-fit far-field (diagnostic)      : K={[round(r['K'],4) for r in family]}")
-    print("  -> LATENT #86 DEFECT: far field (M+U) vs the engine's OWN designated ADM")
-    print("     mass M_eff (M−U) disagree at O(2f); FLAGGED for Grant/auditor; NOT resolved")
-
-    assert abs(eta_self) < _ETA_TOL, f"FAIL: self-consistent pairing is not null — η={eta_self:.3e}"
+    Grad, Div = NV.build_grad_div(_N)
+    mask = NV.interior_mask(_N)
+    f_list, mg_list, meff_list = [], [], []
+    for sg in _SIGMAS:
+        T00 = NV.normalized_blob(_N, sg, _M_TARGET)
+        res = NV.solve_config(
+            _N, T00, g_self=_G_SELF, s_min=_S_MIN, source_mode="add_field"
+        )
+        eps = res["eps11"]
+        L = NV.stiffness_operator(_N, eps, Grad, Div, s_min=_S_MIN)
+        led = NV.energy_ledger(T00, eps, Grad, g_self=_G_SELF)
+        m_g = NV.gravitating_charge_flux(eps, L, mask)
+        U = led["U_bind"]
+        f_list.append(U / (led["M_matter"] + U))
+        mg_list.append(m_g)
+        meff_list.append(led["M_eff"])
+    f = np.array(f_list)
+    eta_mixed = NV.eta_slope(f, np.array(mg_list) / np.array(meff_list))
+    print(f"\n--- KEEP-BOTH legacy add_field η_mixed : {eta_mixed:+.4f} ---")
     assert eta_mixed > _MIXED_ETA_MIN, (
-        f"FAIL: mixed-register η={eta_mixed:.4f} ≤ {_MIXED_ETA_MIN} — the detector "
-        f"did not expose the far-field-vs-M_eff gap (dead detector?)"
+        f"FAIL: legacy ADD no longer exposes the gap — η_mixed={eta_mixed:.4f}"
     )
 
 

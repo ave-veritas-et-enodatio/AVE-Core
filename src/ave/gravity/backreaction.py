@@ -6,20 +6,30 @@ Stage-1 (``gw_propagation.relax_finite_core_strain``) solved the ONE-WAY forward
 problem: a fixed matter source ``T₀₀^matter`` drives the strain field ε₁₁ through
 the saturating-modulus elliptic operator on the native diamond-K4 stencil.
 
-Stage-3 closes the loop. The gravitational field SOURCES ITSELF: the field's own
-energy density ``T₀₀^field(ε₁₁)`` adds to the matter source, and the combined
-source re-drives the field. We iterate to a self-consistent FIXED POINT:
+Stage-3 closes the loop. The gravitational field and the matter source reach a
+self-consistent FIXED POINT under the saturating Stage-1 operator:
 
-    T₀₀^total(r) = T₀₀^matter(r) + T₀₀^field(ε₁₁(r))
-    −∇·[ (c⁴/7G)·D(A)·∇ε₁₁ ] = T₀₀^total ,   D = 1/S(A)         (Stage-1 operator)
-    recompute T₀₀^field from the new ε₁₁,  repeat to convergence.
+    −∇·[ (c⁴/7G)·D(A)·∇ε₁₁ ] = T₀₀^src ,   D = 1/S(A)
+
+**Default source (X44 / Grant RULED (c) 2026-07-12 — Komar / redshift weight):**
+
+    A = clip(|ε₁₁|, 0, 1),   S(A) = (1−A²)^{1/2},
+    T₀₀^src = T₀₀^matter · √S(A)     # local clock ω√S; NO separately-added u_field
+
+The positive strain energy density ``u_field = ½g|∇ε₁₁|²`` remains a DIAGNOSTIC
+(binding-energy integrand) but is NOT added into the Picard source — it is already
+accounted in the down-regulated frequency (Grant 2026-06-29 SUBTRACT ruling;
+no double-count). Legacy ``source_mode="add_field"`` retains the pre-X44
+``T₀₀^src = T₀₀^matter + u_field`` convention for KEEP-BOTH / A/B comparison.
 
 ``M_eff·c²`` then EMERGES from the converged field — WITH the BINDING-DEFICIT
-subtraction (a gravitational well DEFICITS its own ADM mass; you do NOT add the
-self-energy — that double-counts):
+subtraction (a gravitational well DEFICITS its own ADM mass):
 
     M_eff c² = ∫ ρ_matter c² dV − (1/c²) ∫ u_bind dV ,
     u_bind = ½ (c⁴/7G) |∇ε₁₁|²              (the field's binding-energy density).
+
+Under the ruled Komar source the far-field Gauss flux is expected to reconcile
+with ``M_eff`` (X44 fireable gate); under legacy ADD it reads ``M+U`` instead.
 
 ────────────────────────────────────────────────────────────────────────────────
 SUBSTRATE-NATIVE FRAMING (walked BEFORE this code — see the result doc §2):
@@ -128,12 +138,10 @@ def binding_energy_density(eps11: np.ndarray, Grad: np.ndarray, *, kappa: float 
         u_{bind}(\mathbf r) = \tfrac{1}{2}\,\kappa\,|\nabla\varepsilon_{11}|^2
 
     Identical functional form to :func:`field_energy_density` — the field's stored
-    elastic strain energy IS the binding energy. The two are named separately
-    because they enter the ledger with OPPOSITE roles:
-      * as a SOURCE (T₀₀^field) it ADDS to the matter source in the loop;
-      * as a DEFICIT it is SUBTRACTED from the matter rest-mass to give M_eff
-        (a gravitational well binds → mass defect; you do NOT add the self-energy
-        to M_eff, that double-counts — spec / result doc §0).
+    elastic strain energy IS the binding energy. Under the ruled Komar source
+    (``source_mode="komar"``, X44) it enters the ledger ONLY as a DEFICIT
+    (``M_eff = M − U_bind``); it is NOT added into the Picard source. Legacy
+    ``source_mode="add_field"`` still ADDS it as ``T₀₀^field`` (pre-X44 KEEP-BOTH).
 
     Args:
         eps11: (N,N,N) strain field ε₁₁.
@@ -223,6 +231,51 @@ def gaussian_blob(
     return amplitude * np.exp(-r2 / (2.0 * sigma**2))
 
 
+def komar_weight(eps11: np.ndarray, *, S_min: float = 1e-3) -> np.ndarray:
+    r"""
+    Redshift / Komar weight √S(A) on the local clock (Grant RULED (c), X44).
+
+    .. math::
+        A = \mathrm{clip}(|\varepsilon_{11}|,0,1),\quad
+        S(A)=(1-A^2)^{1/2},\quad
+        w=\sqrt{S(A)}
+
+    ``ω_local = ω√S`` (2026-06-29 SUBTRACT ruling): matter in the well weighs less.
+    Reuses Op14 via :func:`ave.solvers.graded_vacuum_network.saturation_kernel`
+    (exponent=0.5) — NO new kernel.
+    """
+    from ave.solvers.graded_vacuum_network import saturation_kernel
+
+    A = np.clip(np.abs(eps11), 0.0, 1.0)
+    S = saturation_kernel(A, exponent=0.5, S_min=S_min)
+    return np.sqrt(S)
+
+
+def build_picard_source(
+    T00_matter: np.ndarray,
+    eps11: np.ndarray,
+    Grad: np.ndarray,
+    *,
+    g_self: float = 1.0,
+    S_min: float = 1e-3,
+    source_mode: str = "komar",
+) -> tuple[np.ndarray, np.ndarray]:
+    r"""
+    Assemble the Picard source ``T₀₀^src`` and the diagnostic ``u_field``.
+
+    * ``source_mode="komar"`` (default, X44): ``T₀₀^src = T₀₀^matter · √S(A)``.
+    * ``source_mode="add_field"`` (legacy KEEP-BOTH): ``T₀₀^src = T₀₀^matter + u_field``.
+    """
+    u_field = field_energy_density(eps11, Grad, kappa=g_self)
+    if source_mode == "komar":
+        T00_src = T00_matter * komar_weight(eps11, S_min=S_min)
+    elif source_mode == "add_field":
+        T00_src = T00_matter + u_field
+    else:
+        raise ValueError(f"unknown source_mode={source_mode!r}; expected 'komar' or 'add_field'")
+    return T00_src, u_field
+
+
 def solve_backreaction(
     N: int = 24,
     *,
@@ -237,50 +290,52 @@ def solve_backreaction(
     inner_picard: int = 200,
     inner_mix: float = 0.3,
     return_fields: bool = True,
+    source_mode: str = "komar",
 ) -> dict:
     r"""
     Solve the TWO-WAY back-reaction to a self-consistent fixed point.
 
-    Outer loop (the NEW Stage-3 self-gravitation):
-        1. T₀₀^total = T₀₀^matter + g_self·u_field(ε₁₁)   (field sources itself)
-        2. solve the Stage-1 saturating-modulus elliptic eqn with T₀₀^total
+    Outer loop:
+        1. build ``T₀₀^src`` via :func:`build_picard_source` (default Komar √S weight)
+        2. solve the Stage-1 saturating-modulus elliptic eqn with ``T₀₀^src``
            (``relax_finite_core_strain`` via the ``T00_override`` hook — SAME
            native K4 stencil, SAME ONE kernel, SAME bulk-stiffens sign-lock)
-        3. recompute u_field from the new ε₁₁; repeat until ‖Δε₁₁‖∞ < outer_tol.
+        3. recompute weight / u_field from the new ε₁₁; repeat until ‖Δε₁₁‖∞ < outer_tol.
 
-    BOUNDEDNESS (first-principles, NOT asserted): the field source g_self·u_field is
-    sign-POSITIVE → self-reinforcing → runaway risk. The Picard map is contractive
-    when the field-source feedback per outer step is < 1; the empirical contraction
-    factor ρ = ‖Δε₁₁‖ₙ / ‖Δε₁₁‖ₙ₋₁ is measured and returned. The caller stays in the
-    WEAK/MODERATE regime (small amplitude·g_self) where ρ < 1 (proved by the measured
-    factor); divergence ⇒ the loop reports ``converged=False`` and the factor ≥ 1
-    (honest non-closure, NOT papered over).
+    Default ``source_mode="komar"`` (X44 / Grant RULED (c) 2026-07-12):
+    ``T₀₀^src = T₀₀^matter · √S(A)`` — no separately-added ``u_field``. Legacy
+    ``source_mode="add_field"`` retains ``T₀₀^src = T₀₀^matter + u_field``.
 
-    ENERGY-HONESTY: the field "Hamiltonian" H = ∫u_field dV is tracked every outer
-    step (``H_history``); |dH/H| over the last decade of the converged tail is
-    reported. NO damping/clamping is applied to buy H — outer_mix defaults to 1.0
-    (pure Picard); any under-relaxation is recorded.
+    BOUNDEDNESS: under legacy add_field the field source is sign-POSITIVE
+    (self-reinforcing). Under ruled komar, √S ≤ 1 *reduces* the matter source in
+    the well — contractivity is expected to improve. The empirical contraction
+    factor ρ is measured either way; divergence ⇒ ``converged=False``.
+
+    ENERGY-HONESTY: H = ∫u_field dV is tracked every outer step (diagnostic; under
+    komar it is NOT the Picard source). NO damping buys H — outer_mix defaults to 1.0.
 
     Args:
         N: cube edge.
         sigma, amplitude: matter-blob width/peak (when ``T00_matter`` is None).
-        g_self: self-coupling strength on the field source (the back-reaction knob;
-            g_self=0 recovers the Stage-1 one-way solve EXACTLY).
+        g_self: self-coupling / modulus prefactor on the field-energy DIAGNOSTIC
+            (and on legacy add_field source). g_self=0 + add_field recovers Stage-1.
         S_min: kernel floor (swept by the clip-independence at-risk Check-2).
-        T00_matter: explicit matter source (overrides the Gaussian; used by the
-            two-mass superposition Check-4).
+        T00_matter: explicit matter source (overrides the Gaussian).
         max_outer: max outer self-consistency iterations.
         outer_tol: convergence tol on ‖Δε₁₁‖∞ between outer iterations.
-        outer_mix: outer under-relaxation (1.0 = pure Picard; <1 damps — recorded).
+        outer_mix: outer under-relaxation (1.0 = pure Picard).
         inner_picard, inner_mix: the inner Stage-1 relaxation controls.
         return_fields: include the converged ε₁₁ / sources / radius grid.
+        source_mode: ``"komar"`` (default, X44) or ``"add_field"`` (legacy).
 
     Returns:
-        dict: eps11, T00_matter, T00_total, u_field, M_matter, U_bind, M_eff,
-        converged, n_outer, contraction_factor, delta_history, H_history,
-        dH_over_H, max_A, rr (radius grid).
+        dict: eps11, T00_matter, T00_total (=T00^src), u_field, M_matter, U_bind, M_eff,
+        source_mode, Delta_clock, converged, n_outer, contraction_factor, …
     """
     from ave.gravity.gw_propagation import _build_native_grad_div, relax_finite_core_strain
+
+    if source_mode not in ("komar", "add_field"):
+        raise ValueError(f"unknown source_mode={source_mode!r}")
 
     c = N // 2
     i, j, k = np.indices((N, N, N))
@@ -300,8 +355,9 @@ def solve_backreaction(
     n_outer = 0
     for it in range(max_outer):
         n_outer = it + 1
-        u_field = field_energy_density(eps, Grad, kappa=g_self)
-        T00_total = T00_matter + u_field
+        T00_total, u_field = build_picard_source(
+            T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode
+        )
         res = relax_finite_core_strain(
             N=N,
             S_min=S_min,
@@ -348,15 +404,20 @@ def solve_backreaction(
         dH_over_H = float("nan")
         dH_over_H_tail = float("nan")
 
-    u_field = field_energy_density(eps, Grad, kappa=g_self)
-    T00_total = T00_matter + u_field
+    T00_total, u_field = build_picard_source(
+        T00_matter, eps, Grad, g_self=g_self, S_min=S_min, source_mode=source_mode
+    )
     massinfo = effective_mass(T00_matter, eps, Grad, g_self=g_self)
+    # Fireable X44 identity: clock deficit vs strain binding (different functionals).
+    Delta_clock = float((T00_matter * (1.0 - komar_weight(eps, S_min=S_min))).sum())
 
     out = {
         "M_matter": massinfo["M_matter"],
         "U_bind": massinfo["U_bind"],
         "M_eff": massinfo["M_eff"],
         "binding_fraction": massinfo["binding_fraction"],
+        "source_mode": source_mode,
+        "Delta_clock": Delta_clock,
         "converged": converged,
         "n_outer": n_outer,
         "contraction_factor": contraction_factor,

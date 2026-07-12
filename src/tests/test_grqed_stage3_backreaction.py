@@ -143,10 +143,25 @@ class TestFieldEnergyAndBindingDeficit:
 
 class TestTwoWayLoopStructure:
     def test_g_self_zero_recovers_one_way(self) -> None:
-        """g_self=0 ⇒ no field source ⇒ U_bind=0, M_eff=M_matter (the Stage-1 limit)."""
-        res = solve_backreaction(N=16, amplitude=0.03, g_self=0.0, max_outer=4)
+        """g_self=0 + legacy add_field ⇒ no field source ⇒ Stage-1 limit.
+
+        Under default komar, √S feedback is still two-way even at g_self=0
+        (weight depends on ε); exact Stage-1 recovery is add_field + g_self=0.
+        """
+        res = solve_backreaction(
+            N=16, amplitude=0.03, g_self=0.0, max_outer=4, source_mode="add_field"
+        )
         assert res["U_bind"] == pytest.approx(0.0, abs=1e-12)
         assert res["M_eff"] == pytest.approx(res["M_matter"], rel=1e-12)
+        assert res["source_mode"] == "add_field"
+
+    def test_komar_default_source_mode(self) -> None:
+        """X44: default Picard source is Komar √S (no +u_field)."""
+        res = solve_backreaction(N=16, amplitude=0.05, g_self=1.0, max_outer=40)
+        assert res["source_mode"] == "komar"
+        assert res["converged"]
+        assert float(res["T00_total"].sum()) <= res["M_matter"] + 1e-9
+        assert res["Delta_clock"] >= 0.0
 
     def test_loop_converges_and_binds_in_weak_regime(self) -> None:
         """Weak two-way loop converges, contracts (ρ<1), and binds (U_bind>0)."""
