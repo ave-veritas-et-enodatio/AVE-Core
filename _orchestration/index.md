@@ -3,7 +3,16 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **★RULED G-PERSIST + X-LEDGER** (AVE-native) immediately below. Medium-continuation kit remains HOLD. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **Remanence R10 fixed-\(N\) charter** immediately below (G-PERSIST next step). ★RULED G-PERSIST + X-LEDGER remain. Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — Remanence R10 fixed-\(N\) discriminator (charter + freeze)
+
+**Focus (Grant):** charter constitutive remanence on fixed \(N\) — full physical + circuit walk, map, analysis; freeze discriminator before driver. Node-mint stays closed.
+
+- Plan: [`2026-07-12_remanence-r10-charter.md`](2026-07-12_remanence-r10-charter.md)
+- Charter (picture · circuit · map · analysis): [`../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md`](../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md)
+- Frozen prereg: [`../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md`](../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md) — freeze-by-push first
+- Branch: `analysis/remanence-r10-charter` · **HOLD — no driver in freeze commit**. Hold #652 / #655 / #656–#661.
 
 ## 2026-07-12 — ★RULED G-PERSIST + X-LEDGER (AVE-native register)
 
