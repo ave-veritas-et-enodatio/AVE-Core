@@ -10,8 +10,9 @@
 **Live architecture gate (electron genesis scoping).** Grant contention: mechanical-stress electron genesis may require **new-node birth** / a changing lattice, not only a fixed-N pattern. Phase-0 **KEEP-BOTH** authorized — discriminators D1–D4 before ruling (A) fixed-N vs (B) N→N+1, and before any graph-growth engine.
 
 - Fork plan: [`2026-07-12_genesis-node-birth-fork.md`](2026-07-12_genesis-node-birth-fork.md)
-- Frozen prereg: [`../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md`](../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md)
-- Branch: `analysis/genesis-node-birth-fork` (based on #653 categorization). **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine in this arc.
+- Frozen prereg: [`../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md`](../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md) (#654)
+- Result: [`../research/2026-07-12_genesis-node-birth-discriminator_result.md`](../research/2026-07-12_genesis-node-birth-discriminator_result.md) — **bin (ii) A-WEAKENED** (D1 PASS / D2 FAIL / D3 not-entailed / D4 SKIPPED)
+- Drivers branch: `analysis/genesis-node-birth-d14`. **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine; bin (ii) does not auto-select (B).
 
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 

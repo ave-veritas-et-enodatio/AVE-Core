@@ -1,12 +1,13 @@
 # Genesis planning — node-birth fork (A vs B)
 
-**Status:** PHASE-0 KEEP-BOTH AUTHORIZED · discriminator prereg next  
-**Branch:** `analysis/genesis-node-birth-fork`  
-**Base:** `analysis/engine-categorization-guards` (#653 tip `4094be33`) — rebase onto `main` after #653 merges.  
-**Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No engine edit in this phase.**  
+**Status:** PHASE-2 DRIVERS LANDED · frozen bin **(ii) A-WEAKENED**  
+**Branch (drivers):** `analysis/genesis-node-birth-d14` · **Prereg:** merged via #654 on `main`  
+**Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No graph-growth engine.**  
 **Discipline:** `ave-loop-gap-harness-discipline` v1.1 — advance ranks / freeze forks, do not open srs v18+ or a fourth engine without Grant + firewall justification.
 
 **Phase-0 ruling (plan ratification 2026-07-12):** **KEEP-BOTH** — design fireable discriminators (D1–D4) before ruling (A) or (B) or building graph-growth. Do not assert (B); do not bank fixed-mesh runs as “genesis” without a claim-class tag.
+
+**Phase-2 adjudication (2026-07-12):** D1 PASS + D2 FAIL + D3 not-entailed + D4 SKIPPED → **bin (ii) A-WEAKENED**. Result: `research/2026-07-12_genesis-node-birth-discriminator_result.md`. Does **not** rule (B).
 
 ---
 
@@ -71,9 +72,9 @@ flowchart TD
 | **(B)-ruled** | Fixed-mesh genesis batteries are reclassified as **pattern/cage probes only**; true genesis gated on a graph-growth charter |
 | **KEEP-BOTH** | **AUTHORIZED** — discriminator suite (D1–D4) can kill (A) or (B) before any fourth engine |
 
-### Phase 1 — Discriminator prereg · IN PROGRESS
+### Phase 1 — Discriminator prereg · DONE (#654)
 
-Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md` (freeze-by-push; own commit before any driver).
+Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md` (freeze-by-push before drivers).
 
 | ID | Discriminator | Fireable content |
 |---|---|---|
@@ -84,15 +85,24 @@ Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZ
 
 Use `#653` pairing discipline: Gauss-style install identities ≠ genesis.
 
-### Phase 2 — Drivers (BLOCKED until prereg freeze is on origin)
+### Phase 2 — Drivers · DONE (bin ii A-WEAKENED)
 
-Discriminator suite implementor PR only after freeze-by-push verifies on origin. Still **no** `genesis_v{N}` / srs v18+ / fourth engine.
+Driver + tests + result on `analysis/genesis-node-birth-d14`. Still **no** `genesis_v{N}` / srs v18+ / fourth engine.
 
-### Phase 3 — Engine path (BLOCKED until D1–D4 adjudicate)
+| ID | outcome |
+|---|---|
+| D1 | PASS (3 paths; certification_entailed) |
+| D2 | FAIL (`E_persist≈0.82`, `φ_persist=0`, `rank4_pass=false`) |
+| D3 | PASS not-entailed |
+| D4 | SKIPPED-WITH-REASON |
+| **bin** | **(ii) A-WEAKENED** |
 
-- **Forbidden until (A) or (B) ruled from discriminators:** new `chiral_lattice_v18+`, new `genesis_v{N}`, silent "node birth" flags inside VacuumEngine3D.
-- **Allowed under (A):** rank advancement + R10 honest attempts on existing platforms.
-- **Allowed under (B) after discriminator:** one Grant-signed graph-growth spike with ablation battery (create-node OFF must null).
+### Phase 3 — Engine path (BLOCKED until Grant rules A/B or deepens D2)
+
+- **Forbidden until (A) or (B) ruled:** new `chiral_lattice_v18+`, new `genesis_v{N}`, silent "node birth" flags inside VacuumEngine3D.
+- **Allowed under (A):** rank advancement + R10 honest attempts on existing platforms; optional deeper D2 cavity battery.
+- **Allowed under (B) after explicit Grant ruling:** one Grant-signed graph-growth spike with ablation battery (create-node OFF must null).
+- **bin (ii) does not authorize graph-growth by itself.**
 
 ---
 

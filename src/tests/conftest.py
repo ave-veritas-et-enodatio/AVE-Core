@@ -130,6 +130,9 @@ _ENGINE_SIM_TESTS = {
     # the same file STAY gating (sub-second). Coverage via `make test-engine`.
     "test_cleave_registry_pump_chern_nband.py::test_gverdict_null_confirmed_final",
     "test_cleave_registry_pump_chern_nband.py::test_srs_all_configs_gapped_converged",
+    # Genesis node-birth D2: loop_gap_harness P11 drive-off smoke (~20s).
+    # Fast D1/D3/bin keepers in the same file STAY gating. Coverage via make test-engine.
+    "test_genesis_node_birth_discriminator.py::test_d2_persistence_harness_smoke",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
