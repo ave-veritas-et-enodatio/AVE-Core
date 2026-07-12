@@ -14,7 +14,7 @@
 - Docket rows: [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) (G-PERSIST, X-LEDGER)
 - **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}`
 - **X-LEDGER:** bank #652 (iii); two mass functionals named open; no silent √S retune
-- Branch: `analysis/ave-native-rulings-g3-x1` · **HOLD PR — no merge until Grant**
+- Branch: `analysis/ave-native-rulings-g3-x1` · PR **#661** · **HOLD — no merge until Grant**
 
 ## 2026-07-12 — Mass-sector two-body × A1 port
 
