@@ -31,14 +31,25 @@ It is still risked-in-principle: the two registers are computed by DIFFERENT rou
 (field-operator flux vs energy-functional ledger), and the P11 plant proves the
 detector FIRES on a genuine two-ledger coupling (η=ε).
 
-flag-don't-fix (surfaced, NOT resolved; Rule-14 no engine edit): the solver's
-binding-deficit register `M_eff = M − U_bind` (Grant-RULED SUBTRACT 2026-06-29,
-`…grqed-stage3-backreaction_result.md:343`) does NOT equal its far-field source
-integral (M + U_bind); they differ at O(2f). A Nordtvedt pairing of the far-field
-flux against M_eff reads η≈2.3 — the solver's source-side ADD vs ledger-side
-SUBTRACT convention gap, NOT a physical two-ledger violation. Whether the far-field
-source should carry +u_field or −u_field to match M_eff is a KB/Grant physics
-question this test EXPOSES but does not adjudicate.
+flag-don't-fix — a LATENT #86 DEFECT EXPOSURE (surfaced, NOT resolved; Rule-14 no
+engine edit; the engine repair is a SEPARATE named future arc). The binding-deficit
+`M_eff = M − U_bind` is the engine's OWN-DESIGNATED inertial/ADM mass
+(`backreaction.py:33`), yet its far field provably reads M + U_bind (the +u_field
+source ADD, `backreaction.py:303-304`). So the as-built engine's far field disagrees
+with its own designated ADM mass at O(2f), and the mixed-register η=2.2792 IS the
+engine's current far-field-vs-inertial-mass statement — NOT a free convention choice.
+#86's own at-risk checks never reconciled the two (all ratio/shape, sign-agnostic —
+`test_grqed_stage3_backreaction.py::test_binding_deficit_subtracts_not_adds` asserts
+only the M_eff DEFINITION; `…grqed-stage3-backreaction_result.md:339` admits the
+sign-agnosticism); this arc is the FIRST reconciliation and it FAILS at O(2f). The
+candidate resolution (PENDING Grant, reading his own 2026-06-29 ruling text "the
+positive strain energy is not a separate ledger to ADD — it is already accounted in
+the down-regulated frequency"): source = REDSHIFT/KOMAR-weighted T₀₀^matter (no
+separately-added u_field; the local clock ω√S down-regulates in the well; no
+double-count) → the far field then reads the deficit mass, reconciling with M_eff.
+The three-way {keep-ADD · bare −u_field (Picard source sign-indefinite, likely
+unstable) · ★Komar-weighted} + the #86 gate re-runs + this η re-run = a NAMED
+FOLLOW-ON ARC, not this PR.
 """
 
 from __future__ import annotations
@@ -57,8 +68,10 @@ _SIGMAS = (1.4, 1.8, 2.2, 2.6)
 _G_SELF = 1.0
 _S_MIN = 1e-3
 _RADII = (6, 7, 8, 9)          # enclosing radii for the monopole-plateau read (N=24)
-_ETA_TOL = 1e-3                 # certification null (probe |η_cert|≈8e-5; 10× margin)
-_EPS_PLANT = 0.10              # P11 planted two-ledger coupling
+_ETA_TOL = 1e-3                 # certification null; RESOLUTION-LIMITED floor (review R1:
+                               # |η| systematic ~5-6.5e-4 at N=32/40; margin ~1.5-2×),
+                               # NOT truncation-limited. Banking basis = analytic entailment.
+_EPS_PLANT = 0.10             # P11 SYNTHETIC ledger-level injection (not a solver-fed coupling)
 _PLANT_TOL = 0.02             # |η_planted − ε| (probe recovered to ~6e-4)
 _FLUX_PLATEAU_TOL = 0.05      # monopole radius-independence (outer two radii)
 _FLUX_IDENTITY_TOL = 1e-4     # field-side Gauss: flux(R) == source(R)
@@ -127,7 +140,8 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
       * PASS (bin i): |η| < _ETA_TOL AND the enclosed flux is a monopole (relative
         change over the outer two radii < _FLUX_PLATEAU_TOL) AND the flux equals
         ∫T₀₀^total (field-side Gauss on native K4; per-radius rel diff <
-        _FLUX_IDENTITY_TOL) AND every member converged (weak field, max A < 0.3).
+        _FLUX_IDENTITY_TOL) AND every member converged (weak field, max A < 0.2 —
+        the frozen-prereg REGIME bound, restored per review R4; actual max ≈ 0.194).
       * bin ii: _ETA_TOL ≤ |η| clean-linear ⇒ a REAL two-ledger finding (then face
         |η| ≲ _LLR_BOUND, imported-observational).
       * bin iii: no clean linear η ⇒ construction-dependent (surface, don't force).
@@ -148,7 +162,7 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
         plateau_ok = plateau_ok and (rel_plateau < _FLUX_PLATEAU_TOL)
         identity_ok = identity_ok and (rel_ident < _FLUX_IDENTITY_TOL)
     converged_ok = all(r["converged"] for r in family)
-    weak_ok = all(r["max_A"] < 0.3 for r in family)
+    weak_ok = all(r["max_A"] < 0.2 for r in family)  # frozen REGIME bound (review R4)
 
     print("\n--- LEG-1 certification (one ledger; strain-field register-2) ---")
     print(f"  f range (E_grav/E_total)  : [{f.min():.4f}, {f.max():.4f}]")
@@ -162,7 +176,7 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
     print(f"  monopole plateau ok       : {plateau_ok}   flux==source ok: {identity_ok}")
 
     assert converged_ok, "FAIL: a family member did not converge"
-    assert weak_ok, "FAIL: a member left the weak/contractive regime (max A ≥ 0.3)"
+    assert weak_ok, "FAIL: a member left the weak/contractive regime (max A ≥ 0.2)"
     assert identity_ok, "FAIL: field-side flux ≠ ∫T₀₀^total (Gauss broken on native K4)"
     assert plateau_ok, "FAIL: enclosed flux is not a radius-independent monopole"
     assert abs(eta) < _ETA_TOL, (
@@ -175,13 +189,17 @@ def test_nordtvedt_leg1_certification_one_ledger(family):
 # P11 — planted two-ledger coupling FIRES; negative control is null (detector teeth)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_p11_planted_two_ledger_teeth(family):
-    """P11 [TEETH] — a genuine two-ledger coupling makes the η-detector FIRE.
+    """P11 [TEETH — SYNTHETIC injection-recovery] — a ledger-level ε-injection makes
+    the η-detector recover the planted slope.
 
-    Plant (helper-level; NOT an engine edit) an ε-over-weighting of the field
-    energy's contribution to the GRAVITATING register only:
-    `m_g_planted = m_g + ε·U_bind` (i.e. M + (1+ε)U), holding m_i = M+U fixed. This
-    is register-2 energy gravitating ε-more than it weighs — a real Nordtvedt
-    coupling ⇒ η = ε.
+    This is POST-SOLVE LEDGER ARITHMETIC (disclosed + frozen — not smuggled, NOT a
+    re-solve): plant (helper-level; NOT an engine edit) an ε-over-weighting of the
+    field energy's contribution to the GRAVITATING register only,
+    `m_g_planted = m_g + ε·U_bind` (i.e. M + (1+ε)U), holding m_i = M+U fixed. It
+    validates the DETECTOR'S injection-recovery arithmetic (a synthetic ledger-level
+    two-ledger coupling ⇒ η = ε), NOT a solver-fed physical coupling. The GENUINE
+    SOLVER-FED detector proof is the mixed-register leg below (η=2.2792, read from the
+    converged field's own M_eff-vs-far-field disagreement).
 
     PRE-REGISTERED BINS (frozen):
       * PASS: |η_planted − _EPS_PLANT| < _PLANT_TOL (detector recovers the planted
@@ -196,9 +214,9 @@ def test_nordtvedt_p11_planted_two_ledger_teeth(family):
     eta_null = NV.eta_slope(f, (m_g + 0.0 * U) / m_i)
     eta_plant = NV.eta_slope(f, (m_g + _EPS_PLANT * U) / m_i)
 
-    print("\n--- P11 planted two-ledger coupling (detector teeth) ---")
+    print("\n--- P11 SYNTHETIC ledger-level injection-recovery (detector arithmetic) ---")
     print(f"  negative control (ε=0)  η : {eta_null:+.3e}   (null < {_ETA_TOL})")
-    print(f"  planted (ε={_EPS_PLANT})    η : {eta_plant:+.5f}   (FIRES ≈ {_EPS_PLANT})")
+    print(f"  injected (ε={_EPS_PLANT})   η : {eta_plant:+.5f}   (RECOVERS ≈ {_EPS_PLANT})")
 
     assert abs(eta_null) < _ETA_TOL, f"FAIL: negative control fired — η={eta_null:.3e}"
     assert abs(eta_plant - _EPS_PLANT) < _PLANT_TOL, (
@@ -211,19 +229,34 @@ def test_nordtvedt_p11_planted_two_ledger_teeth(family):
 # FLAG — mixed-register exposure (far-field M+U vs binding-deficit M_eff=M−U)
 # ─────────────────────────────────────────────────────────────────────────────
 def test_nordtvedt_mixed_register_flag_add_vs_subtract(family):
-    """FLAG [flag-don't-fix; detector teeth on a real register difference] — pairing
-    the far-field flux (M+U) against the binding-deficit M_eff (M−U) yields η≈2.3.
+    """FLAG [flag-don't-fix — LATENT #86 DEFECT EXPOSURE; also the SOLVER-FED teeth]
+    — pairing the far-field flux (M+U) against the binding-deficit M_eff (M−U) yields
+    η=2.2792.
 
-    This is NOT a physical two-ledger violation: it is the solver's internal
-    source-side ADD vs ledger-side SUBTRACT convention gap (the two mass registers
-    differ at O(2f); the SUBTRACT is Grant-RULED 2026-06-29). It serves as a second
-    teeth check (the detector produces η≠0 from a genuine register difference ⇒ the
-    LEG-1 null is a REAL null, not a dead detector) AND surfaces the gap for Grant /
-    the auditor. Per Rule-14 the engine is NOT touched and the gap is NOT resolved.
+    NOT a free convention choice: the "mixed" pairing is THE ENGINE'S OWN-LABELED
+    PHYSICAL PAIRING. `backreaction.py:33` designates M_eff as the inertial/ADM mass,
+    while the far field provably reads M+U (the +u_field source ADD,
+    `backreaction.py:303-304`). So the as-built engine's far field disagrees with its
+    OWN designated ADM mass at O(2f), and η_mixed=2.28 IS the engine's current
+    far-field-vs-inertial-mass statement. #86's own at-risk checks never reconciled the
+    two (all ratio/shape, sign-agnostic —
+    `test_grqed_stage3_backreaction.py::test_binding_deficit_subtracts_not_adds`
+    asserts only the M_eff DEFINITION; `…grqed-stage3-backreaction_result.md:339`
+    admits it); this arc is the FIRST reconciliation and it FAILS at O(2f) ⇒ a LATENT
+    #86 DEFECT, surfaced for Grant/auditor.
 
-    PRE-REGISTERED BIN (frozen): η_mixed > _MIXED_ETA_MIN (the gap is present and
-    the detector is live). The self-consistent LEG-1 pairing (η≈0) is asserted
-    separately above; this test does NOT redefine the physical η.
+    It ALSO is the SOLVER-FED teeth (the detector produces η≠0 from the CONVERGED
+    field's own register difference — not synthetic injection ⇒ the LEG-1 null is a
+    REAL null, not a dead detector). This does NOT falsify the one-ledger PRINCIPLE:
+    η=0 is measured TWO-ROUTE on the ADD side only (LEG-1); the SUBTRACT/M_eff side has
+    NO independent field-side route today (the flux is pinned to M+U by the +u_field
+    source), so "both = deficit ledger" would be arithmetic relabeling, not a
+    measurement. The exposure is that the as-built engine implements the principle
+    INCONSISTENTLY on the deficit side (three-way resolution in the module docstring).
+    Per Rule-14 the engine is NOT touched; the fix is a named follow-on arc.
+
+    PRE-REGISTERED BIN (frozen): η_mixed > _MIXED_ETA_MIN. The self-consistent LEG-1
+    pairing (η≈0) is asserted separately; this test does NOT redefine the physical η.
     """
     f = np.array([r["f"] for r in family])
     m_g = np.array([r["m_g"] for r in family])
@@ -237,7 +270,8 @@ def test_nordtvedt_mixed_register_flag_add_vs_subtract(family):
     print(f"  self-consistent  m_g(flux)/m_i(M+U)   η : {eta_self:+.3e}  (one ledger)")
     print(f"  MIXED            m_g(flux)/M_eff(M−U)  η : {eta_mixed:+.4f}  (> {_MIXED_ETA_MIN})")
     print(f"  naive K-fit far-field (diagnostic)      : K={[round(r['K'],4) for r in family]}")
-    print("  -> FLAGGED for Grant/auditor: source-ADD vs ledger-SUBTRACT gap; NOT resolved")
+    print("  -> LATENT #86 DEFECT: far field (M+U) vs the engine's OWN designated ADM")
+    print("     mass M_eff (M−U) disagree at O(2f); FLAGGED for Grant/auditor; NOT resolved")
 
     assert abs(eta_self) < _ETA_TOL, f"FAIL: self-consistent pairing is not null — η={eta_self:.3e}"
     assert eta_mixed > _MIXED_ETA_MIN, (
