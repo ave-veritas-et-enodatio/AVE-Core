@@ -42,14 +42,15 @@ engine's current far-field-vs-inertial-mass statement — NOT a free convention 
 `test_grqed_stage3_backreaction.py::test_binding_deficit_subtracts_not_adds` asserts
 only the M_eff DEFINITION; `…grqed-stage3-backreaction_result.md:339` admits the
 sign-agnosticism); this arc is the FIRST reconciliation and it FAILS at O(2f). The
-candidate resolution (PENDING Grant, reading his own 2026-06-29 ruling text "the
+resolution (★RULED (c) — Grant 2026-07-12, reading his own 2026-06-29 ruling text "the
 positive strain energy is not a separate ledger to ADD — it is already accounted in
 the down-regulated frequency"): source = REDSHIFT/KOMAR-weighted T₀₀^matter (no
 separately-added u_field; the local clock ω√S down-regulates in the well; no
 double-count) → the far field then reads the deficit mass, reconciling with M_eff.
 The three-way {keep-ADD · bare −u_field (Picard source sign-indefinite, likely
-unstable) · ★Komar-weighted} + the #86 gate re-runs + this η re-run = a NAMED
-FOLLOW-ON ARC, not this PR.
+unstable) · ★RULED Komar-weighted} stays recorded (KEEP-BOTH); implementing the ruled
+weighting + the #86 gate re-runs + this η re-run = the NAMED + AUTHORIZED follow-on arc
+X44, which fires AFTER #651 merges — not this PR (Rule-14).
 """
 
 from __future__ import annotations

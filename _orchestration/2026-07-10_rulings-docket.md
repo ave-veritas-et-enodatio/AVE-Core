@@ -406,12 +406,18 @@ test (this arc), 11th-convergence-flagged.
   so the as-built engine's far field disagrees with its OWN designated ADM mass at
   O(2f), and η_mixed=2.28 IS that statement. #86 never reconciled the two (sign-agnostic
   ratio/shape checks; result doc :339) — this arc is the FIRST reconciliation and it
-  FAILS. NOT a free convention choice. Candidate resolution (PENDING Grant), reading his
-  own 2026-06-29 ruling ("positive strain energy … already accounted in the
-  down-regulated frequency"): a THREE-WAY — {keep-ADD · bare −u_field (Picard source
-  sign-indefinite) · ★REDSHIFT/KOMAR-weighted `T₀₀^matter` → far field reads the deficit
-  mass, reconciling with `M_eff`}. Engine impl + #86 gate re-runs + η re-run = a NAMED
-  FOLLOW-ON ARC, NOT this PR (Rule-14). (2) The U6 register row
+  FAILS. NOT a free convention choice. Resolution **★RULED (c) — Grant 2026-07-12**,
+  reading his own 2026-06-29 ruling ("positive strain energy … already accounted in the
+  down-regulated frequency"): a THREE-WAY (KEEP-BOTH, all recorded) — {keep-ADD · bare
+  −u_field (Picard source sign-indefinite) · **★RULED REDSHIFT/KOMAR-weighted
+  `T₀₀^matter`** → far field reads the deficit mass, reconciling with `M_eff`}.
+  **Follow-on engine arc NAMED + AUTHORIZED: X44 Komar-source reconciliation** —
+  implement the ruled weighting in `backreaction.py`, re-run the #86 gate suite +
+  GR-recovery checks + the η family + the mixed-register reconciliation (**η_mixed → 0
+  expected but GENUINELY FIREABLE**: whether the ruled clock-weighting deficit equals
+  `U_bind` at leading order is a real derivation risk, not bookkeeping) + an
+  η_mixed-vs-N convergence gate (the R1 lesson); engine modification, own prereg, fires
+  **AFTER #651 merges** (Rule-14 — NOT this PR). (2) The U6 register row
   (`translation-circuit.md:148`) "nonzero mismatch / both T4 branches REQUIRE a finite
   value" wording is in tension with the certified η=0 one-ledger prediction — **U6
   stands as-is (KEEP-BOTH), post-η refinement gated; the auditor lands any U6 edit.**
@@ -423,7 +429,7 @@ test (this arc), 11th-convergence-flagged.
 | **ONE-EP carve** | one identity, two registers (knot/WEP · strain-field/Nordtvedt) + regime dial | **WALKED (Grant 2026-07-11)** — supersedes two-principle WEP/SEP; KEEP-BOTH U6; 11th-convergence-flagged | Grant |
 | **η (Nordtvedt register)** | engine-derived η via #86 backreaction solver | **CERTIFIED η≈0 by ENTAILMENT** (`analysis/nordtvedt-eta`) — certification-class; numeric leg RESOLUTION-LIMITED (N=32/40 ~5–6.5×10⁻⁴, at LLR scale); banking = entailment | Grant (accept via PR) |
 | **A7 ordering** | Nordtvedt leg vs EFE-quadrupole channel | **η=0 ⇒ A7 = EFE-quadrupole alone**; A7 branch-signature freeze POSTDATES η | Grant (fold with R-A/T4) |
-| **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **NEW FLAG · flag-don't-fix** — engine untouched; three-way {ADD · −u_field · ★Komar-weighted}; named follow-on arc | Grant |
+| **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **★RULED (c) — Grant 2026-07-12** (Komar/redshift-weighted T₀₀ source; three-way KEEP-BOTH); follow-on arc **X44 NAMED + AUTHORIZED** (engine mod, own prereg, η_mixed→0 genuinely fireable + η_mixed-vs-N gate; fires after #651 merges) | Grant (RULED) |
 
 ---
 

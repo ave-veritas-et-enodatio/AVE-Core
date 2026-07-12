@@ -199,18 +199,19 @@ ledger); the SUBTRACT/`M_eff` side has **NO independent field-side route today**
 flux is pinned to M+U by the +u_field source), so "both = deficit ledger" would
 substitute the ledger for the flux, not measure it.
 
-**The three-way resolution (review R8; candidate readings, PENDING Grant).** Not the
-"+u_field vs −u_field" binary: **(a) keep ADD** (far field = M+U; contradicts the
-designated ADM mass); **(b) bare −u_field** (makes the Picard self-energy source
-sign-indefinite — likely unstable); **(c) ★ the ruling-implied reading** of Grant's
-own 2026-06-29 text ("the positive strain energy is not a separate ledger to ADD — it
-is already accounted in the down-regulated frequency"): source = **REDSHIFT/KOMAR-
-weighted `T₀₀^matter`** (matter's local clock `ω√S` down-regulates in the well; the
-strain energy stays positive but is NOT separately added — no double-count) → the far
-field then reads the DEFICIT mass, reconciling with `M_eff`. Frame (c) as the
-candidate reading of Grant's own ruling, **PENDING his ratification**; the engine
-implementation + the #86 gate re-runs + this η re-run = a **NAMED FOLLOW-ON ARC, NOT
-this PR** (Rule-14).
+**The three-way resolution (review R8; ★RULED (c) — Grant 2026-07-12; KEEP-BOTH — all
+three recorded).** Not the "+u_field vs −u_field" binary: **(a) keep ADD** (far field
+= M+U; contradicts the designated ADM mass); **(b) bare −u_field** (makes the Picard
+self-energy source sign-indefinite — likely unstable); **(c) ★ RULED — the
+ruling-implied reading** of Grant's own 2026-06-29 text ("the positive strain energy is
+not a separate ledger to ADD — it is already accounted in the down-regulated
+frequency"): source = **REDSHIFT/KOMAR-weighted `T₀₀^matter`** (matter's local clock
+`ω√S` down-regulates in the well; the strain energy stays positive but is NOT
+separately added — no double-count) → the far field then reads the DEFICIT mass,
+reconciling with `M_eff`. **Grant RATIFIED (c) on 2026-07-12**; (a)/(b) stay recorded
+(KEEP-BOTH). The engine implementation of the ruled weighting + the #86 gate re-runs +
+this η re-run = the **NAMED + AUTHORIZED follow-on arc X44** (docket), which fires
+AFTER #651 merges — **NOT this PR** (Rule-14).
 
 The naive exterior a+b/r K-fit (diagnostic only, NOT a gate) reads K = [0.332, 0.323,
 0.305, 0.277] — it carries the documented #86 finite-source window systematic (a
@@ -273,7 +274,8 @@ ledger (η=0 mismatch within it)." Surfaced, not resolved.
    every N but the numeric leg cannot alone certify the LLR null.
 4. **Mixed-register gap = a LATENT #86 DEFECT** (§5, review R6) — the engine's far
    field disagrees with its OWN designated ADM mass at O(2f); surfaced, flag-don't-fix,
-   engine untouched (Rule-14); the fix is a NAMED follow-on arc (three-way, §5).
+   engine untouched (Rule-14); the fix is the NAMED + AUTHORIZED follow-on arc **X44**
+   (Grant **RULED (c)** Komar-weighted source, 2026-07-12; three-way, §5).
 5. **U6 tension** (§7) — surfaced for the auditor, KEEP-BOTH, not edited.
 6. **Scope:** register-2 (strain-field) only; sub-yield weak field (shipped N=24 max
    A = 0.194 < 0.2, provably contractive per #86 §8). NOT the near-yield/BH regime.
@@ -304,11 +306,16 @@ deviations / corrections, disclosed per the adversarial-review repair round:
 | 2026-07-11 | R7 | "η=0 holds for EITHER register choice" corrected — measured two-route on the ADD side ONLY; deficit side has no field-side route. | none; claim corrected |
 | 2026-07-11 | R8 | "+u_field vs −u_field" binary → **three-way** {keep-ADD · bare −u_field · ★Komar/redshift-weighted T₀₀}; engine impl = NAMED follow-on arc. | none; Grant question re-posed |
 | 2026-07-11 | R1a | ADDED the η-vs-N convergence receipt (§4a; N=24/32/40 + slope std-errs). | none; new receipt |
+| 2026-07-12 | R8/X44 | **Grant RATIFIED option (c)** — Komar/redshift-weighted `T₀₀^matter` source (no-double-count reading of the 2026-06-29 SUBTRACT ruling). Three-way KEEP-BOTH recorded; status "PENDING" → "★RULED (c)". Follow-on arc **X44** NAMED + AUTHORIZED (fires after #651 merges). | none; ratification recorded |
 
 ---
 
 **Branch:** `analysis/nordtvedt-eta` · **next:** Grant merges via reviewed PR (NOT
 merged here). Deliverables: this result + the FROZEN prereg + the acceptance
-test/helper + the docket ONE-EP-carve record. **Named follow-on arc** (out of scope,
-Rule-14): the Komar/redshift-weighted-source engine repair + #86 gate re-runs + η
-re-run to reconcile the far field with the designated ADM mass `M_eff`.
+test/helper + the docket ONE-EP-carve record. **Named + AUTHORIZED follow-on arc
+X44** (out of scope, Rule-14; Grant **RULED (c)** 2026-07-12; fires after #651
+merges): implement the ruled Komar/redshift-weighted-source in `backreaction.py` +
+re-run the #86 gate suite + GR-recovery + the η family + the mixed-register
+reconciliation (η_mixed → 0 expected but GENUINELY FIREABLE — whether the ruled
+clock-weighting deficit equals `U_bind` at leading order is a real derivation risk) +
+an η_mixed-vs-N convergence gate (the R1 lesson); own prereg.
