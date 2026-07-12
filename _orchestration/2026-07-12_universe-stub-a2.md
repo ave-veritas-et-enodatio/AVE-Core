@@ -1,6 +1,6 @@
 # A2 — Universe stub (projected \(\Omega_{\rm freeze}\))
 
-**Status.** FREEZE-FIRST in progress → implementor on `analysis/universe-stub-a2`.
+**Status.** Driver landed — **bin (i) STUB-PASSIVE-BIASED**. HOLD / do-not-merge.
 **Gate.** A1 bin (i) FACE-PASSIVE-MATCHED (HOLD #656). Grant: proceed to A2.
 **Merge policy.** HOLD / do-not-merge until Grant.
 
@@ -14,12 +14,13 @@ integral, no outer mesh, no fourth engine.
 
 | Phase | Status | Notes |
 |---|---|---|
-| 0 — Freeze prereg by push | IN PROGRESS | `research/2026-07-12_universe-stub-a2_prereg_FROZEN.md` |
-| 1 — Driver + tests + result | PENDING | After freeze push only |
-| 2 — HOLD PR | PENDING | No merge |
+| 0 — Freeze prereg by push | DONE | `257c3141` |
+| 1 — Driver + tests + result | DONE | bin (i) |
+| 2 — HOLD PR | IN PROGRESS | No merge |
 
 ## Links
 
 - Prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md)
+- Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md)
 - Parent A1: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
 - Branch: `analysis/universe-stub-a2` (off A1 tip)

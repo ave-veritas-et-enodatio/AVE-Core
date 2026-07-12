@@ -10,8 +10,9 @@
 **Not-built focus (Grant):** thin projected cosmic IC bias on the A1 radiating face — not live Machian integral, not outer mesh. Gated on A1 bin (i).
 
 - Plan: [`2026-07-12_universe-stub-a2.md`](2026-07-12_universe-stub-a2.md)
-- Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze-by-push first
-- Branch: `analysis/universe-stub-a2` (off A1 tip). **HOLD — no merge until Grant**. Hold #652 / #655 / #656.
+- Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze `257c3141`
+- Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **bin (i) STUB-PASSIVE-BIASED** · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-stub-a2` (off A1 tip). Hold #652 / #655 / #656.
 
 ## 2026-07-12 — A1 radiating face (universe port for local models)
 
