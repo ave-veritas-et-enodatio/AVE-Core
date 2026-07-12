@@ -1,13 +1,13 @@
 # Mass-sector × A1 port wire-in
 
-**Status.** FREEZE-FIRST → `analysis/mass-sector-a1-port`.
-**Gate.** Grant: (2) next physics use after L5×A1; then (3) genesis/X44.
+**Status.** Driver landed — **bin (iii) FORCE-PORT-FAIL** at \(d_0=7\). HOLD.
+**Gate.** Grant: (2) next physics use after L5×A1.
 **Merge policy.** HOLD / do-not-merge.
 
 ## Phase log
 
 | Phase | Status | Notes |
 |---|---|---|
-| 0 — Freeze | IN PROGRESS | `research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md` |
-| 1 — Driver + result | PENDING | |
-| 2 — HOLD PR | PENDING | |
+| 0 — Freeze | DONE | `b0c0153b` |
+| 1 — Driver + result | DONE | primary (iii); flag d0=11 |
+| 2 — HOLD PR | IN PROGRESS | |

@@ -10,8 +10,10 @@
 **Focus (Grant):** deconvolve PML radiation-floor workaround on two-body force readout.
 
 - Plan: [`2026-07-12_mass-sector-a1-port.md`](2026-07-12_mass-sector-a1-port.md)
-- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze-by-push first
-- Branch: `analysis/mass-sector-a1-port`. **HOLD**. Hold #652 / #655 / #656–#659.
+- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze `b0c0153b`
+- Result: [`../research/2026-07-12_mass-sector-a1-port_result.md`](../research/2026-07-12_mass-sector-a1-port_result.md) — **bin (iii) FORCE-PORT-FAIL** · **HOLD**
+- Adjudication briefing (step 3): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
+- Branch: `analysis/mass-sector-a1-port`. Hold #652 / #655 / #656–#659.
 
 ## 2026-07-12 — L5 Q/leakage × A1 port wire-in
 
