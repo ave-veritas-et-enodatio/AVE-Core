@@ -3,7 +3,15 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 L5×A1 port wire-in** pointer immediately below applies the A1–A3 stack to a real Q/leak driver. A3 remains HOLD #658. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 mass-sector×A1** pointer immediately below continues A1 wire-ins after L5. Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — Mass-sector two-body × A1 port
+
+**Focus (Grant):** deconvolve PML radiation-floor workaround on two-body force readout.
+
+- Plan: [`2026-07-12_mass-sector-a1-port.md`](2026-07-12_mass-sector-a1-port.md)
+- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze-by-push first
+- Branch: `analysis/mass-sector-a1-port`. **HOLD**. Hold #652 / #655 / #656–#659.
 
 ## 2026-07-12 — L5 Q/leakage × A1 port wire-in
 
