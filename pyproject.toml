@@ -59,4 +59,6 @@ testpaths = ["src/tests"]
 # Selection is by test cost/role ONLY — never by capability-matrix grade (§7 invariant).
 markers = [
     "engine_sim: slow/research-tier engine-simulation test (tier-1 wiring or tier-2 driver); opt-in via `make test-engine`",
+    "claim_class(name): A47 consistency-vs-emergence / certification class tag (ave.core.categorization.ClaimClass)",
+    "ledger_pairing(kind): entailed vs fireable gravity-ledger pairing (ave.core.categorization.PairingKind)",
 ]

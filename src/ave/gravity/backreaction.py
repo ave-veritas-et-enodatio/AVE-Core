@@ -68,6 +68,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from ave.core.categorization import backreaction_ledger_tags
 from ave.core.constants import C_0, G
 
 # ════════════════════════════════════════════════════════════════════════════════
@@ -365,6 +366,8 @@ def solve_backreaction(
         "dH_over_H": dH_over_H,
         "dH_over_H_tail": dH_over_H_tail,
         "max_A": float(eps.max()),
+        # Ledger taxonomy (#651 / X44): Gauss≡Picard is entailed; flux vs M_eff is fireable.
+        "ledger_tags": backreaction_ledger_tags(source_convention="add_field"),
     }
     if return_fields:
         out.update(
