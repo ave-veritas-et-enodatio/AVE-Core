@@ -3,7 +3,15 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 universe-return A3** pointer immediately below is the newest instrumentation gate (exterior→local on A1 face). A2 remains HOLD #657. The **2026-07-12 genesis node-birth fork** remains the electron-genesis scoping gate. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 L5×A1 port wire-in** pointer immediately below applies the A1–A3 stack to a real Q/leak driver. A3 remains HOLD #658. Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — L5 Q/leakage × A1 port wire-in
+
+**Focus (Grant):** after HOLD review, wire A1 into `unified_l5_q_leakage` — deconvolve sponge pad from passive leave-taking.
+
+- Plan: [`2026-07-12_l5-a1-port-wire.md`](2026-07-12_l5-a1-port-wire.md)
+- Frozen prereg: [`../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md`](../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md) — freeze-by-push first
+- Branch: `analysis/l5-a1-port-wire` (off A3 tip). **HOLD — no merge**. Hold #652 / #655 / #656 / #657 / #658.
 
 ## 2026-07-12 — A3 universe return (exterior → local)
 
