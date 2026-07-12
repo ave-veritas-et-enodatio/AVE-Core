@@ -106,6 +106,15 @@ _ENGINE_SIM_TESTS = {
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck3Raytrace::test_raytrace_recovers_4GM",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck4Nonlinearity::test_two_mass_nonlinearity_engages",
     "test_grqed_stage3_backreaction.py::TestBoundednessEnergyGate::test_contractive_and_energy_stationary",
+    # Nordtvedt-η acceptance (strain-field register): drives solve_backreaction #86
+    # over a 4-member fixed-rest-energy / varying-binding-fraction family (one shared
+    # module-scoped solve, ~11s; the P11 plant + mixed-register flag REUSE it). Same
+    # cost+role tier as the #86 at-risk checks above. The FAST pure-arithmetic
+    # detector unit-test (no solve) in the same file STAYS gating. Coverage via
+    # `make test-engine`. Prereg: research/2026-07-11_nordtvedt-eta_prereg_FROZEN.md.
+    "test_nordtvedt_eta.py::test_nordtvedt_leg1_certification_one_ledger",
+    "test_nordtvedt_eta.py::test_nordtvedt_p11_planted_two_ledger_teeth",
+    "test_nordtvedt_eta.py::test_nordtvedt_mixed_register_flag_add_vs_subtract",
     # Cleave registry-pump Chern (2026-07-02, Grant (b) dual-reading): the srs
     # (k_z, theta) torus Chern + gap-scan over BOTH readings x BOTH enantiomorphs
     # (run_all / srs_registry_chern; several 48x48 Fukui-Hatsugai integrations +
