@@ -1,0 +1,25 @@
+# A2 — Universe stub (projected \(\Omega_{\rm freeze}\))
+
+**Status.** FREEZE-FIRST in progress → implementor on `analysis/universe-stub-a2`.
+**Gate.** A1 bin (i) FACE-PASSIVE-MATCHED (HOLD #656). Grant: proceed to A2.
+**Merge policy.** HOLD / do-not-merge until Grant.
+
+## Charter
+
+Thin Rule-14 stub: A1 `NativeCageIMEX` radiating face + projected cosmic IC
+bias (\(\theta_\star=\sqrt{\alpha}\), frozen \(\hat{\Omega}=+1\)). No live Machian
+integral, no outer mesh, no fourth engine.
+
+## Phase log
+
+| Phase | Status | Notes |
+|---|---|---|
+| 0 — Freeze prereg by push | IN PROGRESS | `research/2026-07-12_universe-stub-a2_prereg_FROZEN.md` |
+| 1 — Driver + tests + result | PENDING | After freeze push only |
+| 2 — HOLD PR | PENDING | No merge |
+
+## Links
+
+- Prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md)
+- Parent A1: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
+- Branch: `analysis/universe-stub-a2` (off A1 tip)
