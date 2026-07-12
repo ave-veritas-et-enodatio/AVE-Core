@@ -12,7 +12,7 @@
 - Plan: [`2026-07-12_universe-stub-a2.md`](2026-07-12_universe-stub-a2.md)
 - Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze `257c3141`
 - Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **bin (i) STUB-PASSIVE-BIASED** · **HOLD — no merge until Grant**
-- Branch: `analysis/universe-stub-a2` (off A1 tip). Hold #652 / #655 / #656.
+- Branch: `analysis/universe-stub-a2` · PR **#657** (off A1 tip). Hold #652 / #655 / #656.
 
 ## 2026-07-12 — A1 radiating face (universe port for local models)
 
