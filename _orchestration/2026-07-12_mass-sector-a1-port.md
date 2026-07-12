@@ -10,4 +10,4 @@
 |---|---|---|
 | 0 — Freeze | DONE | `b0c0153b` |
 | 1 — Driver + result | DONE | primary (iii); flag d0=11 |
-| 2 — HOLD PR | IN PROGRESS | |
+| 2 — HOLD PR | DONE | [#660](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/660) — **do not merge** |
