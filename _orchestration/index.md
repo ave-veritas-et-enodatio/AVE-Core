@@ -11,7 +11,8 @@
 
 - Plan: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
 - Frozen prereg: [`../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md`](../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md)
-- Branch: `analysis/radiating-face-a1`. No fourth engine. Hold #652. Orthogonal to genesis fork / #655.
+- Result: [`../research/2026-07-12_radiating-face-a1_result.md`](../research/2026-07-12_radiating-face-a1_result.md) — **bin (i) FACE-PASSIVE-MATCHED** · **HOLD — no merge until Grant**
+- Branch: `analysis/radiating-face-a1` (#656). No fourth engine. Hold #652. Orthogonal to genesis #655.
 
 ## 2026-07-12 — Genesis node-birth fork (KEEP-BOTH; discriminator-first)
 

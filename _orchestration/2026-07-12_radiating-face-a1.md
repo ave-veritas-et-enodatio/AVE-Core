@@ -1,8 +1,9 @@
 # A1 — Radiating face (universe port)
 
-**Status:** PHASE-0 PREREG FROZEN (push-first) · drivers BLOCKED until freeze on origin  
+**Status:** PHASE-1 DRIVERS LANDED · frozen bin **(i) FACE-PASSIVE-MATCHED** · **HOLD — do not merge until Grant**  
 **Branch:** `analysis/radiating-face-a1`  
-**Prereg:** `research/2026-07-12_radiating-face-a1_prereg_FROZEN.md`  
+**Prereg:** `research/2026-07-12_radiating-face-a1_prereg_FROZEN.md` (`318ae0dc`)  
+**Result:** `research/2026-07-12_radiating-face-a1_result.md`  
 **Class:** boundary instrumentation. **No chord. No fourth engine. No node-mint.**
 
 **Authorization (2026-07-12):** Grant — focus not-built stack on local→universe
@@ -22,15 +23,15 @@ passivity package on Rule-14 carriers before A2 (universe stub projections).
 
 | Phase | Status | Note |
 |---|---|---|
-| 0 — FROZEN prereg | **THIS** | bins (i)–(v); \(\mathcal{R}<10^{-2}\); passivity + sabotage |
-| 1 — Driver | BLOCKED | closed-box → open-port pulse → GX5-class passivity |
-| 2 — A2 stub | GATED on (i) | slow Machian / \(\Omega_{\rm freeze}\) projection only |
+| 0 — FROZEN prereg | DONE | bins (i)–(v); \(\mathcal{R}<10^{-2}\); passivity + sabotage |
+| 1 — Driver | **DONE · bin (i)** | NativeCageIMEX; `radiating_face_a1.py` + tests |
+| 2 — A2 stub | GATED on Grant | slow Machian / \(\Omega_{\rm freeze}\) projection only |
 
 ## Explicit non-goals
 
-R10, boost, node-creation, melt EOS, #652 X44, equating PML with cosmic \(\Gamma=-1\).
+R10, boost, node-creation, melt EOS, #652 X44, equating PML with cosmic \(\Gamma=-1\), **merging without Grant**.
 
 ## Related
 
-- Capability map empties (loop/boost/node) remain **orthogonal** — do not reorder DAG to “fix radiation.”
-- Genesis bin (ii) A-WEAKENED (#655) unchanged by A1.
+- Capability map empties (loop/boost/node) remain **orthogonal**.
+- Genesis #655 remains HOLD / separate.
