@@ -12,7 +12,7 @@
 - Plan: [`2026-07-12_l5-a1-port-wire.md`](2026-07-12_l5-a1-port-wire.md)
 - Frozen prereg: [`../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md`](../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md) — freeze `9cf436dc`
 - Result: [`../research/2026-07-12_l5-a1-port-wire_result.md`](../research/2026-07-12_l5-a1-port-wire_result.md) — **bin (i) PORT-DECONVOLVED** · **HOLD**
-- Branch: `analysis/l5-a1-port-wire` (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
+- Branch: `analysis/l5-a1-port-wire` · PR **#659** (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
 
 ## 2026-07-12 — A3 universe return (exterior → local)
 
