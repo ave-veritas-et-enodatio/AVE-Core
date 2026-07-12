@@ -14,8 +14,8 @@ lag + zero-drive P11; map = LOOP GAP rank-4 under G-PERSIST (node-mint closed).
 
 | Phase | Status | Notes |
 |---|---|---|
-| 0 — Charter walk + freeze prereg | IN PROGRESS | CHARTER + FROZEN prereg |
-| 1 — Driver (harness rank-4 + ablations) | PENDING | After freeze push only |
+| 0 — Charter walk + freeze prereg | DONE | freeze `ce34f9d5`; charter `74004e37` |
+| 1 — Driver (harness rank-4 + ablations) | PENDING | After Grant OK on charter |
 | 2 — Result + HOLD PR | PENDING | |
 
 ## Links
