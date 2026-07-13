@@ -4,6 +4,13 @@
 **Stance:** HOLD / do-not-merge until Grant rules. This is adjudication
 **briefing**, not a merge and not a new engine.
 
+> **Post-adversarial-review repair (2026-07-12).** R10: the two "Recommendation"
+> lines are relabeled as **non-binding orchestration-lane opinion** (the #655/#652
+> result docs are neutral). R11: option X3's "exploratory" mischaracterization is
+> corrected — the Komar default is **Grant-RULED (c)** (#652 result doc §7); X1/X2/X3
+> are briefing-minted (not the #652 doc's five options); the faithful-(c) path is
+> **X44b**. Source result docs untouched.
+
 ---
 
 ## Genesis D1–D4 — PR #655 — bin (ii) A-WEAKENED
@@ -44,8 +51,12 @@ load-bearing leaf that *derives* Compton-scale N→N+1 as necessary.
 | **G2 — Soft-select (B) explore** | (A) weakened enough to charter a **firewalled** N→N+1 probe | Only with explicit firewall + no fourth-engine sprawl; D4 OOM fence comes back |
 | **G3 — Hold for R10 first** | Insist remanence loop is prior in build-order (capability map) | Genesis (B) stays closed until R10 has a real DOF |
 
-**Recommendation:** **G3 or G1**, not G2, until remanence is faced — matches
-engine-capability build-order (loop before node-creation) and D3’s “not entailed.”
+> **Orchestration-lane OPINION (non-binding; the source result docs are neutral).**
+> The #655 result doc records the discriminator outcomes (D1 PASS / D2 FAIL / D3
+> not-entailed / D4 skipped) without recommending a ruling; the following is this
+> orchestration lane's read, not a corpus verdict, and does not bind Grant:
+> **G3 or G1**, not G2, until remanence is faced — matches engine-capability
+> build-order (loop before node-creation) and D3's "not entailed." (R10)
 
 ### Merge
 
@@ -93,10 +104,29 @@ different wattmeters agree if they integrate different branches.
 |---|---|---|
 | **X1 — Bank unreconciliation** | √S Komar as default source stays; gap is named Class-C open | Doc-only: `#86` gap = functional mismatch; no further retune without new ruling |
 | **X2 — Homogenize ledger** | New prereg: redefine \(M_{\rm eff}\) or \(U_{\rm bind}\) to match Δ_clock class | Freeze-first; KEEP-BOTH with legacy ADD |
-| **X3 — Revert default to ADD** | Komar was exploratory; ADD remains production | Mode flag stays; default flip |
+| **X3 — Revert default to ADD** | Would **REQUIRE un-ruling the standing RULED (c)** — not a light option. The Komar default is **Grant-RULED**, not exploratory: the #652 result doc §7 states "**Komar is installed as default** per RULED (c) … the ruling was about the source *form*". | Default flip needs a **new Grant ruling** to un-rule (c) |
 
-**Recommendation:** **X1** (bank the negative) or **X2** if Grant wants a
-ledger-unification prereg — **not** silent √S→S retune (already forbidden).
+> **X3 provenance (R11).** X1/X2/X3 are **briefing-minted** labels — they are
+> **not** the #652 result doc's escalation options. The #652 result doc §7 lists
+> five options (1 ADM-label redefine; 2 split registers; 3 charter a new ruled
+> weight; 4 fence M_eff; **5 ★X44b — the FAITHFUL test of RULED (c), recommended**).
+> X3 in particular has no counterpart there and contradicts the standing ruling.
+>
+> **#652-review update (2026-07-12).** The faithful-(c) path is **X44b** — a
+> linear-in-ε clock weight (the engine's own redshift register `n = 1 + (2/7)ε`,
+> `backreaction.py:647-651`, NOT the EM operating-point `√S`) + a stress/pressure
+> register `T_{ij}` (`+3∫p` Tolman term, new capability) + a FORCE-BALANCED
+> (virialized) test family. Per the #652 result doc §7 option 5, reconcile is
+> **structurally reachable** there, so a miss would be a real falsification of (c),
+> not a regime artifact. (Cite the #652 PR repair log once it lands; the X44b path
+> is already recorded in `research/2026-07-12_x44-komar-source_result.md` §7.)
+
+> **Orchestration-lane OPINION (non-binding; the source result docs are neutral).**
+> The #652 result doc banks bin (iii) UNRECONCILED and lists the options above
+> without recommending one; the following is this orchestration lane's read, not a
+> corpus verdict, and does not bind Grant: **X1** (bank the negative) or **X2** if
+> Grant wants a ledger-unification prereg (**X44b** is the completion path per the
+> #652 doc) — **not** a silent √S→S retune (already forbidden). (R10)
 
 ### Merge
 
