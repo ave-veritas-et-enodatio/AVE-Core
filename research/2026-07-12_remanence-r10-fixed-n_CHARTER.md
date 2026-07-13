@@ -1,11 +1,25 @@
 # Remanence R10 on fixed \(N\) — CHARTER (physical picture · circuit · map · analysis)
 
 **Date:** 2026-07-12  
-**Authorization:** ★RULED G-PERSIST (`_orchestration/2026-07-12_ave-native-rulings_g-persist_x-ledger.md`) — constitutive remanence **before** node-mint; KEEP-BOTH; no `genesis_v{N}`.  
-**Frozen discriminator prereg:** [`2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md`](2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md)  
+**Authorization:** ★PROPOSED-RULED G-PERSIST (`_orchestration/2026-07-12_ave-native-rulings_g-persist_x-ledger.md`) — constitutive remanence **before** node-mint; KEEP-BOTH; no `genesis_v{N}`; *pending Grant confirmation of #661* (repair R9 — see the authorization note below).  
+**Frozen discriminator prereg:** [`2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md`](2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md) — repairs R7/R8 land as a **dated amendment appended below the frozen body** (see prereg).  
 **Register:** AVE substrate + EE (impedance, saturation, dilatation, loop). **Not** SM ferromagnetism-as-ontology, **not** QED pair production, **not** “create a particle.”
 
 **Class:** Architecture / constitutive-DOF discriminator — FIREABLE instrumentation toward LOOP GAP closure. Refuse EMERGENCE-as-mass until P11 lands with ablations.
+
+> **Authorization note (repair R9 — authorization honesty).** This charter freezes against the
+> **★PROPOSED-RULED** G-PERSIST text (**pending Grant confirmation of #661**). If Grant amends
+> G-PERSIST at confirmation, the prereg **re-freezes by dated amendment rather than silent
+> inheritance**. **KEEP-BOTH** — the superseded line read *"Authorization: ★RULED G-PERSIST"*.
+>
+> **★RE-ADJUDICATION DEPENDENCY (2026-07-12 #655 adversarial review).** G-PERSIST's banked
+> bin (ii) A-WEAKENED is under re-adjudication: at banked fidelity **2 of 3 landed harness seed
+> modes PASS** the frozen D2 floors (pair, graded_a0) vs the frozen prereg's own **≥1-path**
+> criterion, and the φ-detector was structurally dead on the declared photon_lock. **This
+> charter's motivation survives EITHER bin outcome** — R10 constitutive remanence is a
+> **standing gap independent of #655's D2** (the anhysteretic-kernel zero-loop-area fact is
+> corpus-standing regardless). What is contingent on the #655 battery re-run is only the
+> G-PERSIST *authorization label*, not the R10 question this charter addresses.
 
 ---
 
@@ -58,6 +72,39 @@ Node birth (\(N\to N+1\)) might eventually matter, but D3 found no leaf that **d
 | µ-sector R2 ferrite bench | EE consistency anchor for B–H language — **parallel**, not identical to bulk-TIR electron channel |
 
 This discriminator is **bulk / harness rank-4** tagged. R2 bench remains optional parallel µ-anchor (not required for PASS).
+
+---
+
+## Ax3 reconciliation (mandatory carve)
+
+*(repair R6 — adversarial-review MAJOR. This carve governs the whole discriminator: it fixes which regime a legitimate remanence may be written/read in, and adds the re-imported-loss fool-mode. Cites verify-before-cite'd verbatim.)*
+
+### (i) The Ax3 constraint + the corpus classification of the \(S\)-loop
+
+Sub-yield, the substrate is **lossless / reactive** (Axiom 3). Verbatim, `manuscript/ave-kb/common/substrate-native-terminology.md:25`:
+
+> "…the **bound, sub-yield, interior mode**: there the substrate is **lossless / reactive** (Ax 3)…"
+
+The corpus classifies the **enclosed \(S\)-loop** as the **Level-2 DISSIPATIVE channel at/above yield** (dynamic-crossing, *not* a sub-yield reactive envelope). Verbatim, `manuscript/ave-kb/common/substrate-hysteresis-index.md:25`:
+
+> "**Dynamic-crossing hysteresis (Level 2, memristive).** … the finite relaxation makes \(S(t)\) lag … so over a cycle \(S(t)\) **encloses a hysteresis loop** \(\oint S\, dr\) = **dissipated energy per cycle**. The substrate is therefore **memristive (path-dependent)** …"
+
+The **plastic/STZ sub-yield dissipation route is RETIRED** (the amorphous-retirement ruling: the "plastic/STZ" dissipation sense FAILs Ax3 and stays retired). So the enclosed loop is not free to live sub-yield: sub-yield it must be lossless.
+
+### (ii) Scope of the remanence candidate
+
+Therefore the remanence candidate is scoped to **EITHER**:
+
+- **(a) the Level-2 at/above-yield channel** — regime-honest: remanence is **written only during yield crossings** (where \(\oint S\,dr\neq 0\) is licensed dissipation) and **read back sub-yield** (where the medium is again lossless/reactive). The retained order parameter, not the crossing loss, is what must survive drive-off; **OR**
+- **(b) a lossless-latch construction** — a **reversible, non-dissipative state change** (a bistable / hysteresis-free latched configuration storing an order parameter with **zero per-cycle dissipation**).
+
+The charter **cannot presently name a concrete lossless-latch mechanism on the carrier**. Absent one, **scope (a) is the only open route**, and any scope-(b) PASS must first exhibit its reversible, zero-dissipation mechanism before it may count.
+
+### (iii) ★NEW FOOL-MODE — the re-imported Ax3 leak
+
+A **bin-(i) PASS achieved via a SUB-YIELD dissipative loop** = the retired Ax3 leak **re-imported**. It must be classed **IMPOSED-LEAK**, not REMANENCE-CANDIDATE — a fifth fool-mode alongside the four in §1.2 and the prereg's IMPOSED-LATCH bin (iii).
+
+**Detector — energy-ledger audit.** For a legitimate PASS, the **per-cycle dissipation in the sub-yield window must be zero within the ledger tolerance**. Nonzero sub-yield per-cycle dissipation ⇒ the "remanence" is riding an unphysical sub-yield loss channel ⇒ **bin IMPOSED-LEAK** (distinct from IMPOSED-LATCH, which is a hand-clamped ratchet; IMPOSED-LEAK is a smuggled sub-yield \(R\)). This detector composes with the memristive-OFF ablation: emergent Level-2-(a) remanence dies under memristive-OFF **and** shows zero sub-yield dissipation; an IMPOSED-LEAK shows nonzero sub-yield dissipation regardless.
 
 ---
 
@@ -217,7 +264,7 @@ Genuine discriminating legs: **zero-drive long quiet**, **memristive-OFF kill**,
 
 | Step | Artifact | Status |
 |---|---|---|
-| 0 | G-PERSIST ruling | ★RULED (#661 HOLD) |
+| 0 | G-PERSIST ruling | ★PROPOSED-RULED (#661 HOLD — pending Grant confirmation; bin (ii) under #655 re-adjudication) — repair R9 |
 | 1 | This CHARTER | This file |
 | 2 | FROZEN prereg (bins) | Sibling file — freeze-by-push **before any driver** |
 | 3 | Driver on `loop_gap_harness` rank 4 | **Not in this commit** |
