@@ -50,6 +50,16 @@
 - Result: [`../research/2026-07-12_l5-a1-port-wire_result.md`](../research/2026-07-12_l5-a1-port-wire_result.md) — **bin (i) PORT-DECONVOLVED** (AND-of-proxies adjudicator; R9) · **HOLD**
 - Branch: `analysis/l5-a1-port-wire` · PR **#659** (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
 
+## 2026-07-12 — Mass-sector two-body × A1 port
+
+**Focus (Grant):** deconvolve PML radiation-floor workaround on two-body force readout. This entry is additive-only.
+
+- Plan: [`2026-07-12_mass-sector-a1-port.md`](2026-07-12_mass-sector-a1-port.md)
+- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze `b0c0153b`
+- Result: [`../research/2026-07-12_mass-sector-a1-port_result.md`](../research/2026-07-12_mass-sector-a1-port_result.md) — **bin (iii) FORCE-PORT-FAIL** · **HOLD**
+- Adjudication briefing (step 3): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md) — orchestration-lane opinion labeled non-binding (R10); X3 reworded (R11)
+- Branch: `analysis/mass-sector-a1-port` · PR **#660**. Hold #652 / #655 / #656–#659.
+
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
 **Newest section (2026-07-11, engine-refresh batch).** This block is authoritative-for-current-state; the 2026-07-09 board below is retained verbatim as the arc record (KEEP-BOTH). Verify-before-cite at HEAD — the merge ledger below is git/gh-confirmed at HEAD `f7e8409a`.
