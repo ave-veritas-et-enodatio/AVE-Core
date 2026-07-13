@@ -143,10 +143,25 @@ class TestFieldEnergyAndBindingDeficit:
 
 class TestTwoWayLoopStructure:
     def test_g_self_zero_recovers_one_way(self) -> None:
-        """g_self=0 ⇒ no field source ⇒ U_bind=0, M_eff=M_matter (the Stage-1 limit)."""
-        res = solve_backreaction(N=16, amplitude=0.03, g_self=0.0, max_outer=4)
+        """g_self=0 + legacy add_field ⇒ no field source ⇒ Stage-1 limit.
+
+        Under default komar, √S feedback is still two-way even at g_self=0
+        (weight depends on ε); exact Stage-1 recovery is add_field + g_self=0.
+        """
+        res = solve_backreaction(
+            N=16, amplitude=0.03, g_self=0.0, max_outer=4, source_mode="add_field"
+        )
         assert res["U_bind"] == pytest.approx(0.0, abs=1e-12)
         assert res["M_eff"] == pytest.approx(res["M_matter"], rel=1e-12)
+        assert res["source_mode"] == "add_field"
+
+    def test_komar_default_source_mode(self) -> None:
+        """X44: default Picard source is Komar √S (no +u_field)."""
+        res = solve_backreaction(N=16, amplitude=0.05, g_self=1.0, max_outer=40)
+        assert res["source_mode"] == "komar"
+        assert res["converged"]
+        assert float(res["T00_total"].sum()) <= res["M_matter"] + 1e-9
+        assert res["Delta_clock"] >= 0.0
 
     def test_loop_converges_and_binds_in_weak_regime(self) -> None:
         """Weak two-way loop converges, contracts (ρ<1), and binds (U_bind>0)."""
@@ -171,6 +186,51 @@ class TestRecoverGR:
         assert g["passed"], g["verdict"]
         assert g["binding_fraction"] < 0.10
         assert g["exterior_is_inverse_r"]
+        # X44 gate-repair: shape_deviation must be a REAL number, not the vacuous
+        # komar-vs-komar 0.0. The Komar two-way recovers Stage-1 in the weak field,
+        # so it is small — but strictly nonzero (the √S ≈ 1 − A²/4 weight bites).
+        assert g["shape_deviation"] > 0.0, (
+            "shape_deviation is exactly 0 — the OFF leg is not a distinct Stage-1 "
+            "reference (the vacuous komar-vs-komar compare has regressed)"
+        )
+        assert g["shape_deviation"] < 0.10
+
+    def test_recover_gr_gate_can_fire_perturb_receipt(self) -> None:
+        """PERTURB RECEIPT (X44 R3) — the shape-deviation compare has TEETH.
+
+        The repaired recover-GR gate pins ON=komar(g=1) two-way vs OFF=add_field(g=0)
+        Stage-1 one-way. Prove the compare responds to a GENUINE source difference:
+        pairing the ADD self-energy two-way (add_field, g=1) against the same Stage-1
+        reference must give a ≫-larger, strictly nonzero deviation. And confirm the
+        old vacuous pairing (komar-vs-komar) is EXACTLY 0 — the bug the repair closes.
+        """
+        N, sigma, amp = 24, 2.0, 0.02
+        stage1 = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=0.0, return_fields=True, source_mode="add_field"
+        )
+        komar = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=1.0, return_fields=True, source_mode="komar"
+        )
+        add = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=1.0, return_fields=True, source_mode="add_field"
+        )
+        e1 = stage1["eps11"]
+
+        def dev(e: np.ndarray) -> float:
+            return float(np.linalg.norm(e - e1) / max(np.linalg.norm(e1), 1e-30))
+
+        dev_repaired = dev(komar["eps11"])   # ON=komar vs Stage-1 (the shipped gate)
+        dev_perturb = dev(add["eps11"])       # ADD self-energy vs Stage-1 (genuine diff)
+        dev_vacuous = dev(e1)                 # Stage-1 vs itself (== old komar-vs-komar)
+
+        assert dev_vacuous == 0.0, "self-compare must be exactly 0"
+        assert dev_repaired > 0.0, "repaired gate must measure a nonzero recovery"
+        # the ADD self-energy source moves the metric ≫ the small √S weight does —
+        # the compare has real teeth (an order of magnitude of headroom).
+        assert dev_perturb > 10.0 * dev_repaired, (
+            f"perturb pairing did not fire: add-vs-stage1={dev_perturb:.2e} is not "
+            f">10x the komar-vs-stage1 recovery={dev_repaired:.2e}"
+        )
 
 
 class TestAtRiskCheck1InverseR:
@@ -210,16 +270,26 @@ class TestAtRiskCheck3Raytrace:
 
 
 class TestAtRiskCheck4Nonlinearity:
-    """AT-RISK 4: two masses — the nonlinearity ENGAGES (combined ≠ linear sum)."""
+    """AT-RISK 4: two masses — nonlinearity engagement (mode-aware under X44)."""
 
     def test_two_mass_nonlinearity_engages(self) -> None:
-        r = check4_two_mass_superposition_engages_nonlinearity()
-        assert r["converged_on"] and r["converged_off"]
-        # turning the back-reaction ON multiplies the superposition residual.
-        assert r["engage_ratio"] >= 1.5, (
-            f"back-reaction did not multiply nonlinearity (ratio={r['engage_ratio']:.2f})"
+        # Ruled Komar: g_self is ledger-only; isolate √S feedback vs bare matter.
+        r_k = check4_two_mass_superposition_engages_nonlinearity(source_mode="komar")
+        assert r_k["converged_on"] and r_k["converged_off"]
+        assert r_k["control"] == "komar_vs_matter"
+        assert r_k["engage_ratio"] >= 1.5, (
+            f"komar-vs-matter did not multiply nonlinearity "
+            f"(ratio={r_k['engage_ratio']:.2f})"
         )
-        assert r["passed"], r["verdict"]
+        assert r_k["passed"], r_k["verdict"]
+        # Legacy ADD KEEP-BOTH: the historical g_self-ON multiplication still fires.
+        r_a = check4_two_mass_superposition_engages_nonlinearity(source_mode="add_field")
+        assert r_a["converged_on"] and r_a["converged_off"]
+        assert r_a["engage_ratio"] >= 1.5, (
+            f"legacy add_field did not multiply nonlinearity "
+            f"(ratio={r_a['engage_ratio']:.2f})"
+        )
+        assert r_a["passed"], r_a["verdict"]
 
 
 class TestBoundednessEnergyGate:

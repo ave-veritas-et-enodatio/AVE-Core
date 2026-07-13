@@ -93,11 +93,23 @@ def interior_mask(N: int) -> np.ndarray:
     return m
 
 
-def solve_config(N: int, T00_matter: np.ndarray, *, g_self: float, s_min: float) -> dict:
+def solve_config(
+    N: int,
+    T00_matter: np.ndarray,
+    *,
+    g_self: float,
+    s_min: float,
+    source_mode: str = "komar",
+) -> dict:
     """Run the landed two-way back-reaction solve for one configuration (verbatim
-    public entry point)."""
+    public entry point). Default source_mode is the X44 ruled Komar weight."""
     return solve_backreaction(
-        N=N, T00_matter=T00_matter, g_self=g_self, S_min=s_min, return_fields=True
+        N=N,
+        T00_matter=T00_matter,
+        g_self=g_self,
+        S_min=s_min,
+        return_fields=True,
+        source_mode=source_mode,
     )
 
 
