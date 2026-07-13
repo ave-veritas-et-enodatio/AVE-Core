@@ -1,6 +1,6 @@
 # Genesis planning — node-birth fork (A vs B)
 
-**Status:** PHASE-2 DRIVERS LANDED · **REBINNED → per-fidelity SPLIT: smoke (i) A-SUPPORTED (2/3), production (ii) A-WEAKENED (0/3); ruling-grade DEFERRED to Grant**  
+**Status:** PHASE-2 DRIVERS LANDED · **REBINNED → per-fidelity SPLIT: smoke (i) A-SUPPORTED (2/3), production (ii) A-WEAKENED (0/3); production FAIL is boundary-confounded (artifact-leaning, decision-pt b); ruling-grade DEFERRED to Grant, needs N≥14/closed-box**  
 **Branch (drivers):** `analysis/genesis-node-birth-d14` · **Prereg:** merged via #654 on `main`  
 **Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No graph-growth engine.**  
 **Discipline:** `ave-loop-gap-harness-discipline` v1.1 — advance ranks / freeze forks, do not open srs v18+ or a fourth engine without Grant + firewall justification.
@@ -26,6 +26,14 @@ frozen bins name no fidelity authority and ruling the fork is not the implemente
 lane's call. `make verify` PASS. Result (per-fidelity + KEEP-BOTH quote of the old
 (ii) text): `research/2026-07-12_genesis-node-birth-discriminator_result.md`. Still
 does **not** rule (A) or (B); R10 still open.
+
+**Boundary-vs-physics discriminator (decision-point (b), 2026-07-12):** domain-size
+sweep (pair, production, PML fixed at 3) shows `E_persist` recovers **monotonically**
+0.6929→0.7984→0.8449 as N goes 10→12→14 (interior 4³→6³→8³). The production
+E-collapse is **substantially PML boundary leakage, not bulk dissipation**
+(ARTIFACT-LEANING). Both N=10 bins are boundary-confounded (interior only 4³ cells);
+a clean adjudication needs **N≥14 / closed-box** before banking either bin. This
+strengthens the DEFER: neither N=10 fidelity is a clean read.
 
 ---
 

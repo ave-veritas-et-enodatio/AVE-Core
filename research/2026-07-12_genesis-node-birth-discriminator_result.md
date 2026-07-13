@@ -49,11 +49,17 @@ every seed mode (`pair` 0.8639→0.6929, `graded_a0` 0.8544→0.6764,
 `photon_lock` 0.8198→0.7750). This matches the 2026-06 prior-art direction
 (`E_persist` 0.60→0.47, `research/2026-06-12_loop-gap-harness-phase2_result.md`).
 Per Rule 11 the headline is the **per-fidelity table**, not a single bin. The
-production read is the more physically faithful one and **vindicates the original
-(ii) A-WEAKENED direction** — but now on the properly broadened battery, so bin (ii)
-is no longer a battery-of-one. **Which fidelity Grant banks as the fork verdict is
-DEFERRED to Grant** (the frozen bins name no fidelity authority; ruling the fork is
-not the implementer lane's call). Neither reading rules fork (A) or (B).
+production read at first looks like it **vindicates the original (ii) A-WEAKENED
+direction** on the broadened battery — **but a boundary-vs-physics discriminator
+(decision-point (b), below) shows the production E-collapse is substantially a
+domain-leakage artifact**: a domain-size sweep recovers `E_persist` monotonically
+(0.6929→0.7984→0.8449 as N goes 10→12→14, PML fixed at 3), so at N=10 the interior
+is only 4³ cells inside the absorbing shell and the "decay" is boundary absorption,
+not bulk dissipation (ARTIFACT-LEANING). So **both** the smoke (i) and the production
+(ii) reads at N=10 are boundary-confounded. **Which bin Grant banks is DEFERRED to
+Grant** (frozen bins name no fidelity authority; ruling the fork is not the
+implementer lane's call), and a clean adjudication needs N≥14 / closed-box first.
+Neither reading rules fork (A) or (B).
 
 ### KEEP-BOTH — original (superseded) verdict, preserved verbatim
 
@@ -163,6 +169,52 @@ by concurrent `make verify`; the physics is identical, E=0.6929 either way — t
 390 s was wall-clock contention, not a different result.) Because all three came in
 under budget, no production leg is owed.
 
+### Boundary-vs-physics discriminator (decision-point (b), 2026-07-12)
+
+Is the production `E_persist` collapse **genuine bulk dissipation** or **domain
+leakage** into the fixed absorbing boundary? On a lossless-reactive interior (Ax3)
+the only dissipation channel is the `pml=3` absorbing shell (`total_H` sums the
+whole domain, so PML damping removes energy from H over the quiet window). The
+`φ_persist`-alive / `E_persist`-collapse pattern is the classic boundary-absorption
+signature. **Discriminator chosen:** domain-size sweep (option 2 — the harness
+exposes `N` directly; no engine edit). PML is fixed at 3 cells, so the interior
+`(N−6)³` grows while the boundary shell stays constant — boundary leakage must
+shrink with N; genuine bulk decay would be ~N-flat. (Option 1 closed-box / `pml=0`
+and option 3 interior-vs-shell energy split both need per-cell energy density not
+exposed by the public API → engine edit; not run.)
+
+Pair seed, production fidelity, banked config otherwise unchanged
+(`n_drive=18`, `n_quiet=52` at every N):
+
+| N | interior `(N−6)³` | `E_persist` (floor 0.85) | `φ_persist` | runtime |
+|---:|---:|---:|---:|---:|
+| 10 | 64 | 0.6929 | 0.8734 | 183.0 s |
+| 12 | 216 | **0.7984** | 0.9087 | 467.8 s |
+| 14 | 512 | **0.8449** | 0.7266 | 597.7 s |
+
+**Reading — ARTIFACT-LEANING (strong), no over-claim.** `E_persist` recovers
+**monotonically** with domain size (0.6929 → 0.7984 → 0.8449), climbing back toward
+the smoke value (0.8639) / the 0.85 floor as the boundary fraction shrinks. That is
+the domain-leakage signature: the production E-collapse is **substantially PML
+boundary absorption, not bulk dissipation**. Per regime/phase-state discipline, a
+FAIL driven by an absorbing boundary at a domain so small the interior is only 4³
+cells (inside a 3-cell PML shell) is **artifact-class** — the "decay" is where the
+energy *leaked*, not where it *dissipated*. By the coordinator's own criterion
+(E recovers toward smoke ⇒ leakage), the production **bin (ii) is evidence-weakened
+toward void**: at N=14 the pair `E_persist`=0.8449 essentially recovers to the smoke
+value, so the N=10 production E-FAIL is a small-domain boundary artifact.
+
+**Caveats (honest).** (1) Only the `pair` seed was swept (budget); `photon_lock`
+(φ dead) and `graded_a0` not swept. (2) `φ_persist` is non-monotonic
+(0.87→0.91→0.73) — at N=14 the sub-floor is now **φ-limited**, not E-limited, so
+the *E*-channel artifact is demonstrated but a *clean PASS* at N=14 is not (φ dips).
+(3) Budget: the sweep ran ~18 min (N=12 468 s + N=14 598 s), over the ~15-min
+target — flagged; the third point was kept because it lands `E_persist` at the floor
+and makes the trend dispositive. (4) This does not by itself prove the localization
+persists — it shows the production **bin (ii) E-FAIL is boundary-confounded**, so a
+proper adjudication needs N≥14 (or a closed-box variant) before either fidelity's
+bin is banked.
+
 ### φ-channel honesty (R5)
 
 The shipped `photon_lock` FAIL reported `φ_persist=0`. That zero was **structurally
@@ -252,11 +304,13 @@ conflict to surface, not to resolve silently.
 ## Next (orchestration)
 
 Grant: keep KEEP-BOTH; neither fidelity by itself escalates to graph-growth. The
-ruling-grade banking decision is yours — the per-fidelity table shows the
-persistence result is **grid/window-dependent**: coarse smoke says (i), the more
-faithful production says (ii). Decision points: (a) bank **production (ii)** as the
-authoritative read (localization does not survive the longer drive-off ⇒ (A)-as-
-pattern weakened, R10 remains the open constitutive gap), or (b) hold the split
-open and probe whether the production E-decay is genuine dissipation vs a
-window-length / boundary-loss artifact before banking. Either way: no (B) ruling,
-no fourth engine, R10 still open, `#661` G-PERSIST must postdate this.
+ruling-grade banking decision is yours. Decision-point (b) has now been **probed**
+(boundary-vs-physics discriminator, above): the production E-decay is
+**ARTIFACT-LEANING** — a domain-size sweep recovers `E_persist` 0.69→0.80→0.84 as
+N grows 10→12→14 (PML fixed), so the N=10 production FAIL is substantially boundary
+leakage, not bulk dissipation. Implication: **do not bank either N=10 bin as the
+fork verdict** — both are boundary-confounded at a 4³-cell interior. Recommended
+path before any banking: re-run the persistence battery at **N≥14** (or a closed-box
+`pml=0` variant, which needs a small harness passthrough) so the interior is not
+PML-dominated; then adjudicate. Either way: no (B) ruling, no fourth engine, R10
+still open, `#661` G-PERSIST must postdate this.
