@@ -42,7 +42,7 @@ The two speeds are **not interchangeable** (INVARIANT-S2 Pitfall #5): $c_{EM}=c_
 
 ## §4 — Load-line and the electron operating point
 
-The static compression that holds the cage sets the DC bias. The rest energy maps to the snap scale, $m_e c^2 = e\,V_{snap}$, $V_{snap}\approx511$ kV (`constants.py:400`); the saturation/yield onset is $V_{yield}=\sqrt{\alpha}\,V_{snap}\approx43.65$ kV (`constants.py:409`, INVARIANT-C1). The electron's reflective wall ($|\Gamma|^2=1-\alpha$, [cvr-reflection-smith.md](cvr-reflection-smith.md)) sits at a residual $A_\star$ where $\sqrt{S_\star}\approx\alpha/4$ — i.e. essentially at saturation ($A_\star\to1$) with a tiny non-zero residual impedance that IS the radiative leak. A load-line (source-impedance line through the device C-V curve) intersects the characteristic at the operating point; this is the illustrative EE construction of where on the varactor curve the cage rides.
+The static compression that holds the cage sets the DC bias. The rest energy maps to the snap scale, $m_e c^2 = e\,V_{snap}$, $V_{snap}\approx511$ kV (`constants.py:496`); the saturation/yield onset is $V_{yield}=\sqrt{\alpha}\,V_{snap}\approx43.65$ kV (`constants.py:505`, INVARIANT-C1). The electron's reflective wall ($|\Gamma|^2=1-\alpha$, [cvr-reflection-smith.md](cvr-reflection-smith.md)) sits at a residual $A_\star$ where $\sqrt{S_\star}\approx\alpha/4$ — i.e. essentially at saturation ($A_\star\to1$) with a tiny non-zero residual impedance that IS the radiative leak. A load-line (source-impedance line through the device C-V curve) intersects the characteristic at the operating point; this is the illustrative EE construction of where on the varactor curve the cage rides.
 
 ## §5 — Computed figure
 
@@ -60,7 +60,7 @@ Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/c
 
 - **Owning constitutive law:** [nonlinear-vacuum-capacitance.md](nonlinear-vacuum-capacitance.md) (the vacuum varactor); INVARIANT-S2 (Axiom 4 kernel); [op14-local-clock-modulation.md](op14-local-clock-modulation.md) (operating-point detuning).
 - **Companion sweep views:** [Transfer Function $H(s)$](cvr-transfer-function.md) · [Reflection / Smith](cvr-reflection-smith.md) · [Phasor / Reactance](cvr-phasor-reactance.md) · [Stability / Eigenmode](cvr-stability-eigenmode.md).
-- **Constants:** `src/ave/core/constants.py` (`V_SNAP`:400, `V_YIELD`:409, `Z_0`:98).
+- **Constants:** `src/ave/core/constants.py` (`V_SNAP`:496, `V_YIELD`:505, `Z_0`:113).
 - **Canonical script:** `src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py` (+ `cvr_model.py`).
 
 ---
