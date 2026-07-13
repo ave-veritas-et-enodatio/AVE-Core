@@ -1,7 +1,18 @@
-# ★RULED (AVE-native register) — Genesis persistence + saturation-weighted mass ledger
+# ★PROPOSED-RULED (AVE-native register) — Genesis persistence + saturation-weighted mass ledger
 
 **Date:** 2026-07-12 · **Grant:** rule in the substrate / EE register (not SM/GR nouns as meaning).
 **Branch:** `analysis/ave-native-rulings-g3-x1` · **HOLD until merged via PR** (rulings record; no engine code).
+
+> **Stamp status (2026-07-12 repair R3 — audit-trail protection).** The **G-PERSIST** and
+> **X-LEDGER** stamps in this document are **★PROPOSED-RULED (text pending Grant confirmation —
+> stamps become effective on his merge of #661)**. Grant's name attaches only to text he has
+> confirmed. **KEEP-BOTH** — the superseded stamp read verbatim: *"★RULED — Grant 2026-07-12"*.
+> (The separate **★RULED (c)** Picard-source-FORM ratification is a *prior* Grant ruling and is
+> **not** demoted here — see the (c)-relationship clause in the X-LEDGER block below.)
+>
+> **Merge-resolution note (repair R2 — #652/#661 docket collision).** On the #652/#661 docket
+> conflict: **keep #652's updated (c)-row text + #661's X-LEDGER row; drop the duplicate
+> "X44 Komar-source" row.**
 
 **Register discipline.** Impedance, saturation \(S(A)\), dilatation mass, constitutive
 loop, medium continuation. Not: SM pair production, QED lifetimes, GR-as-primitive
@@ -9,13 +20,24 @@ Komar theorem, CMB-as-SM-cosmology.
 
 ---
 
-## ★RULED G-PERSIST — lasting localization on the medium (from #655 bin ii)
+## ★PROPOSED-RULED G-PERSIST — lasting localization on the medium (from #655 bin ii)
 
 **Banked fact:** Fixed-\(N\) persistence **fails** on the declared harness battery
-(D2: energy/amplitude persistence floors miss; rank-4 fail). Fixed pattern is
-**insufficient** for a lasting localized structure on that battery.
+(D2: energy/amplitude persistence floors miss; rank-4 fail) — **specifically, on the
+N=10, fast=True SMOKE config, the weakest evidence class; D2 deepening (non-fast /
+cavity \(\Gamma=-1\) paths) is owed before any (B) ruling, per the #655 result's own
+Next line** (repair R5). Fixed pattern is **insufficient** for a lasting localized
+structure on that battery.
 
-**★RULED:**
+> **★FOUNDATION UNDER RE-ADJUDICATION (2026-07-12 review):** the banked bin (ii) is
+> contested by the frozen prereg's own ≥1-path criterion (2/3 landed seed modes pass at
+> banked fidelity); G-PERSIST confirmation MUST postdate the #655 battery re-run — if the
+> bin re-adjudicates to (i) A-SUPPORTED, G-PERSIST as drafted is moot and the
+> remanence-before-node-mint build-order directive loses its banked-fact basis (the R10
+> remanence question itself stays open on independent grounds — the anhysteretic-kernel
+> zero-loop-area fact is corpus-standing regardless).
+
+**★PROPOSED-RULED:**
 
 1. **KEEP-BOTH** continues between  
    - **(A)** lasting structure on **fixed medium DOF**, and  
@@ -24,6 +46,10 @@ Komar theorem, CMB-as-SM-cosmology.
 
 2. **Build-order (capability map):** the missing piece to face **next** is
    **constitutive remanence** — a real hysteretic / loop DOF on the medium
+   **(subject to the Ax3 carve: sub-yield the substrate is lossless/reactive — the
+   remanence DOF must be either a LOSSLESS-LATCH construction or live in the Level-2
+   at/above-yield memristive channel; the retired plastic/STZ sub-yield dissipation
+   route stays retired — see the #662 charter's Ax3 section)** (repair R4)
    (R10 class: retention must be *emergent*, not an imposed latch) — **before**
    any node-creation probe.
 
@@ -47,7 +73,7 @@ ruling**, never as authorization to grow the lattice.
 
 ---
 
-## ★RULED X-LEDGER — saturation-weighted flux vs binding functional (#652 bin iii)
+## ★PROPOSED-RULED X-LEDGER — saturation-weighted flux vs binding functional (#652 bin iii)
 
 **Banked fact:** Weighting the Picard stress source by \(\sqrt{S(A)}\) (saturation
 / local-clock factor on the medium) leaves
@@ -55,7 +81,13 @@ ruling**, never as authorization to grow the lattice.
 \(\Delta_{\rm clock}\leftrightarrow U_{\rm bind}\) **MATCH fails**. Installing
 \(\sqrt{S}\) does **not** make two mass *labels* agree.
 
-**★RULED:**
+**(c)-relationship clause (repair R1).** The **★RULED (c)** ratification of the Picard
+source **FORM** stands (`komar` remains the default source mode); what is banked negative
+here is the reconciliation **EXPECTATION** attached to (c) as tested by this **DENSITY-ONLY
+\(\sqrt{S}\)** implementation (see #652's escalation options — the stress/virial half of the
+Komar integrand is unimplemented).
+
+**★PROPOSED-RULED:**
 
 1. **Bank UNRECONCILED (iii).** Named Class-C open — not a resolution-noise miss,
    not a silent exponent retune (\(\sqrt{S}\to S\), \(1/S\) forbidden without a
@@ -108,5 +140,5 @@ Not a new rule; restates what the bins mean without SM/GR leakage:
 
 | Ruling | Status | Adjudicator |
 |---|---|---|
-| **G-PERSIST** | ★RULED 2026-07-12 — remanence before node-mint; KEEP-BOTH; bank #655 (ii) | Grant |
-| **X-LEDGER** | ★RULED 2026-07-12 — bank #652 (iii); two mass functionals named open | Grant |
+| **G-PERSIST** | ★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge) — remanence before node-mint; KEEP-BOTH; bank #655 (ii) | Grant |
+| **X-LEDGER** | ★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge) — bank #652 (iii); two mass functionals named open | Grant |
