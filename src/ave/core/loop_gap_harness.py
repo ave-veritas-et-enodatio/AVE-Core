@@ -62,6 +62,7 @@ class LoopGapResult:
     label: str
     rank_target: int
     seed_mode: str
+    pml: int
     a_lock: float
     n_drive_mult: float
     n_drive: int
@@ -206,6 +207,7 @@ def run_loop_gap_probe(
     rank_target: int = 4,
     seed_mode: SeedMode = "photon_lock",
     N: int = 14,
+    pml: int | None = None,
     amp: float | None = None,
     a_lock: float = A_LOCK_DEFAULT,
     n_drive_mult: float = 1.0,
@@ -226,6 +228,15 @@ def run_loop_gap_probe(
         memristive_on = rank_target >= 4
 
     cfg_kw = dict(N=N, bulk_density_on=bulk_density_on)
+    # Boundary knob (authorized boundary-condition change; no retune). Default
+    # None preserves the base pml=3 absorbing shell — unset ⇒ byte-identical to
+    # the banked #655 D2. pml=0 ⇒ all-ones PML mask ⇒ fully reflecting closed
+    # box (build_pml_damping / k4_tlm / cosserat_field_3d all no-op at pml<=0);
+    # only the PML *absorber* is removed — the memristive + Γ=−1 wall dynamics
+    # are untouched. Detector (snapshot_op14) measures over _interior_mask, which
+    # is PML-excluded (pml>0) or full-grid (pml=0).
+    if pml is not None:
+        cfg_kw["pml"] = int(pml)
     if not impedance_on:
         cfg_kw["use_impedance_boundary"] = False
     if not converter_on:
@@ -357,6 +368,7 @@ def run_loop_gap_probe(
         label=label,
         rank_target=rank_target,
         seed_mode=seed_mode,
+        pml=int(engine.config.pml),
         a_lock=a_lock,
         n_drive_mult=n_drive_mult,
         n_drive=n_drive,
@@ -659,6 +671,7 @@ def _to_dict(r: LoopGapResult) -> dict:
         "label": r.label,
         "rank_target": r.rank_target,
         "seed_mode": r.seed_mode,
+        "pml": r.pml,
         "a_lock": r.a_lock,
         "n_drive_mult": r.n_drive_mult,
         "n_drive": r.n_drive,
