@@ -1,8 +1,10 @@
-# Adjudication briefing — Genesis #655 + X44 #652
+# Adjudication — Genesis #655 + X44 #652 — ★PROPOSED-RULED (AVE-native)
 
-**Date:** 2026-07-12 · **After:** A1–A3 stack + L5/mass-sector wire-ins.
-**Stance:** HOLD / do-not-merge until Grant rules. This is adjudication
-**briefing**, not a merge and not a new engine.
+**Date:** 2026-07-12 · **Status:** ★PROPOSED-RULED (text pending Grant confirmation — stamps
+become effective on his merge of #661) — see
+[`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md).
+**KEEP-BOTH** (repair R3) — the superseded title/status read: *"★RULED (AVE-native)"* / *"Status: ★RULED"*.
+**Register:** substrate / EE (impedance, saturation, dilatation, remanence). Not SM/GR-as-meaning.
 
 > **Post-adversarial-review repair (2026-07-12).** R10: the two "Recommendation"
 > lines are relabeled as **non-binding orchestration-lane opinion** (the #655/#652
@@ -13,12 +15,13 @@
 
 ---
 
-## Genesis D1–D4 — PR #655 — bin (ii) A-WEAKENED
+## Genesis D1–D4 — PR #655 — bin (ii) A-WEAKENED → ★PROPOSED-RULED G-PERSIST
 
-### What was asked
+**Banked:** Fixed-\(N\) persistence fails on the declared battery (D2).
 
-Grant contention: electron genesis may need **new-node birth** (N→N+1), not only
-a fixed-N pattern. Phase-0 KEEP-BOTH; fire D1–D4 before choosing (A) vs (B).
+**★PROPOSED-RULED:** KEEP-BOTH (A)/(B) continues; **constitutive remanence (R10-class loop DOF)
+before any node-mint**; no `genesis_v{N}` / graph-growth / soft-select (B); D4 stays
+skipped. Lasting localization = medium memory question first.
 
 ### What landed
 
@@ -65,13 +68,14 @@ Do **not** merge #655 as “authorization to grow the lattice.” Merge only as
 
 ---
 
-## X44 Komar source — PR #652 — bin (iii) UNRECONCILED
+## X44 — PR #652 — bin (iii) UNRECONCILED → ★PROPOSED-RULED X-LEDGER
 
-### What was asked
+**Banked:** \(\sqrt{S}\)-weighted stress source does not reconcile flux mass with
+\(U_{\rm bind}\) ledger (\(\eta\sim+1.05\) stable in \(N\)).
 
-Grant RULED (c): Picard source \(T_{00}^{\rm src}=T_{00}^{\rm matter}\sqrt{S(A)}\)
-(Komar / redshift weight) should reconcile far-field Gauss flux with ADM
-\(M_{\rm eff}=M-U_{\rm bind}\).
+**★PROPOSED-RULED:** Bank the unreconciliation; name **two substrate mass functionals**
+(saturation-weighted flux vs binding ledger); no silent \(\sqrt{S}\) retune; no
+GR-Komar claim; optional later freeze-first ledger-homogenization only.
 
 ### What landed
 
@@ -135,14 +139,7 @@ record** if Grant wants the Komar default + negative on `main`.
 
 ---
 
-## How this sits relative to the A1–A3 effort
+## Relative to the medium-continuation kit
 
-| Effort | Relation |
-|---|---|
-| A1–A3 BC kit | Orthogonal — universe port for local solids |
-| L5×A1 | Soft-seed pad deconvolution — **worked** |
-| Mass-sector×A1 | Hard Mode-I close-pair — **port fail** at primary |
-| Genesis #655 | Localization persistence / node-mint fork — **not** solved by BC kit |
-| X44 #652 | Gravity ADM/flux ledger — **not** solved by BC kit |
-
-The BC stack does not adjudicate genesis or Komar. Those need the rulings above.
+A1–A3 / L5 / mass-sector wire-ins do **not** decide G-PERSIST or X-LEDGER. Those
+are separate substrate questions; now ruled as above.

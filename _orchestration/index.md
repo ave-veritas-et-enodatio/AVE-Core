@@ -3,7 +3,27 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: The **2026-07-12 genesis node-birth fork** pointer immediately below is the newest live architecture gate for electron-genesis scoping. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **Remanence R10 fixed-\(N\) charter** immediately below (G-PERSIST next step; **★PROPOSED-RULED G-PERSIST + X-LEDGER** remain, text pending Grant's #661 merge — medium-continuation kit HOLD). The **2026-07-12 genesis node-birth fork** pointer further below is the newest live architecture gate for electron-genesis scoping. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
+
+## 2026-07-12 — Remanence R10 fixed-\(N\) discriminator (charter + freeze)
+
+**Focus (Grant):** charter constitutive remanence on fixed \(N\) — full physical + circuit walk, map, analysis; freeze discriminator before driver. Node-mint stays closed.
+
+- Plan: [`2026-07-12_remanence-r10-charter.md`](2026-07-12_remanence-r10-charter.md)
+- Charter (picture · circuit · map · analysis): [`../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md`](../research/2026-07-12_remanence-r10-fixed-n_CHARTER.md)
+- Frozen prereg: [`../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md`](../research/2026-07-12_remanence-r10-fixed-n_prereg_FROZEN.md) — freeze-by-push first
+- Branch: `analysis/remanence-r10-charter` · PR **#662** · **HOLD — no driver yet**. Hold #652 / #655 / #656–#661.
+
+## 2026-07-12 — ★PROPOSED-RULED G-PERSIST + X-LEDGER (AVE-native register)
+
+**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning). **★PROPOSED-RULED — text pending Grant confirmation; stamps become effective on his merge of #661** (repair R3; KEEP-BOTH — superseded header read "★RULED G-PERSIST + X-LEDGER").
+
+- Ruling leaf: [`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)
+- Briefing (proposed-ruled): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
+- Docket rows: [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) (G-PERSIST, X-LEDGER)
+- **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}` (foundation UNDER #655 re-adjudication — 2/3 landed seed modes pass; confirmation postdates the #655 battery re-run)
+- **X-LEDGER:** bank #652 (iii); two mass functionals named open; no silent √S retune
+- Branch: `analysis/ave-native-rulings-g3-x1` · PR **#661** · **HOLD — no merge until Grant**
 
 ## 2026-07-12 — Genesis node-birth fork (KEEP-BOTH; discriminator-first)
 
