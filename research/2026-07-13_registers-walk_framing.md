@@ -135,7 +135,29 @@ This reframes §4's mechanisms A and B: they are not two competing depletion pri
 
 ## §6 THE SYM-GRAVITY WALK (2026-07-12, chat-record landing here)
 
-<!-- STUB §6 -->
+*This section lands a 2026-07-12 chat-record walk in the durable trail. FRAMING NOT DERIVATION; the quarantine header governs.*
+
+**The picture.** Gravity is **even (A1) mechanical strain coupling to transverse waves through SYMMETRIC saturation** — both elastic moduli grade *together*. Then the index `n = √(εμ)` grades while the impedance `Z = √(μ/ε)` stays matched at `377 Ω` everywhere ⇒ **refraction without reflection.** The canonical ray-trace is the derived transverse-shear index `n_⊥ = 1 + (2/7)χ_vol`, which recovers `4GM/bc²` (the observed 1.75″); the `ν = 2/7 ⟺ K = 2G` algebraic identity is at `src/ave/core/constants.py:385`, and the deflection derivation + the `z = (n_temporal − 1)/2` factor-2 bridge are at `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md:26,28`.
+
+**The SECTOR CARVE.**
+
+- **Gravity = SYM loading** — both moduli graded, impedance matched, `Γ = 0`, **EP-clean**. This is the coupling-CMRR face: a common-mode grade the differential instrument rejects (the EP / CMRR acceptance framing, `research/2026-07-11_ep-cmrr-acceptance-test_prereg_FROZEN.md`).
+- **EM statics = ASYM loading** — `S_ε` only (permittivity softens alone), so `Z` changes and `Γ ≠ 0` is **readable**.
+
+> ⚠ **Cite correction (verify-before-cite).** The walk pointed this carve at `CLAUDE.md:75`; that line did **not** verify — `CLAUDE.md:75` is the repo's *Pure-AVE-corpus rule* text, not the SYM/ASYM physics carve. So the carve is recorded here as **chat-record framing**, anchored on the `ν = 2/7` both-moduli grade (`constants.py:385`) and the common-mode-blindness of the differential birefringence observable (`manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md:108` — "the common-mode (isotropic) shift the polarimeter is blind to"), **pending a canonical carve leaf.**
+
+**The REGIME LADDER.**
+
+- **Weak field = LINEAR in even strain.** `S(A)` is second-order in the amplitude, so a first-order weak-field effect is linear in the even strain — which is **exactly why X44's `√S` clock failed** to match at leading order (`Δ_clock/U_bind ~ 0.03–0.07`, relative mismatch 93–97%; `research/2026-07-12_x44-komar-source_result.md:17,25-26`).
+- **Deep-MOND / near-yield = where "symmetric saturation" IS the coupling** — the `η_eff` sector, where the second-order `S(A)` structure stops being negligible.
+
+**Open ends (named, not closed):**
+
+- the **`n_eff` overload** — the per-sector sign / power chain is unpinned (the KB `n_eff` symbol reconciled to two quantities; `_orchestration/2026-07-11_engine-refresh-handoff.md:135-138`). This is **X44b's chain.**
+- **T4 keying** — the transverse-sector keying, open.
+- **`K = 2G` + perihelion imports** — `K = 2G` is GR-imported (`src/ave/core/constants.py:781,769-773`), and the perihelion coefficient is hand-set; both ride into this sector as imports, not derivations.
+
+**★ FORWARD STATEMENT — the SYM exposure.** The symmetric carve predicts **ZERO gravitational reflection** and **ZERO lensing birefringence**: light bends but never *partially reflects* off a gravitational well, and lensing is **polarization-blind**. This is consistent with all current data. **Kill-shape:** any confirmed **polarization-dependence** or **reflection component** in gravitational lensing kills the symmetric carve outright. This is the standing empirical exposure of the SYM-gravity picture.
 
 ## §7 SEDUCTION ACCOUNTING
 
