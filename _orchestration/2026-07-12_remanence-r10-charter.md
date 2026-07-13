@@ -1,7 +1,7 @@
 # Remanence R10 fixed-\(N\) discriminator
 
 **Status.** CHARTER + FREEZE — no driver yet.  
-**Gate.** ★RULED G-PERSIST (#661).  
+**Gate.** ★PROPOSED-RULED G-PERSIST (#661) — pending Grant confirmation; G-PERSIST's banked bin (ii) is under #655 re-adjudication (repair R9). The R10 remanence question this charter addresses is a **standing gap independent of #655's D2** — motivation survives either bin outcome. KEEP-BOTH: superseded line read "★RULED G-PERSIST (#661)".  
 **Merge policy.** HOLD / do-not-merge.
 
 ## Charter intent
@@ -15,7 +15,8 @@ lag + zero-drive P11; map = LOOP GAP rank-4 under G-PERSIST (node-mint closed).
 | Phase | Status | Notes |
 |---|---|---|
 | 0 — Charter walk + freeze prereg | DONE | freeze `ce34f9d5`; charter `74004e37` |
-| 1 — Driver (harness rank-4 + ablations) | PENDING | After Grant OK on charter |
+| 0b — Adversarial-review repair (R6–R9) | DONE | charter §Ax3 reconciliation (R6) + authorization honesty (R9); frozen-prereg dated amendment (R7 fireable ablations / R8 pin N=10); frozen body byte-untouched |
+| 1 — Driver (harness rank-4 + ablations) | PENDING | After Grant OK on charter; **R7 route (i)**: build harness-level `latch_clamp` (P11 receipt) before firing |
 | 2 — Result + HOLD PR | PENDING | |
 
 ## Links
