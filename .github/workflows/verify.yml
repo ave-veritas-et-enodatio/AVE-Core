@@ -51,7 +51,7 @@ jobs:
     # main itself (only ~55-65% complete at cancel), so the opt-in job never went
     # green. It is NON-required, so the extra latency blocks nothing. Serial-by-design
     # for OOM-safety; the per-test --timeout (Makefile) bounds any true hang.
-    timeout-minutes: 120
+    timeout-minutes: 200
     env:
       MPLBACKEND: Agg
     steps:
