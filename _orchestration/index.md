@@ -14,6 +14,15 @@
 - Result: [`../research/2026-07-12_genesis-node-birth-discriminator_result.md`](../research/2026-07-12_genesis-node-birth-discriminator_result.md) — **bin (ii) A-WEAKENED** (D1 PASS / D2 FAIL / D3 not-entailed / D4 SKIPPED)
 - Drivers branch: `analysis/genesis-node-birth-d14`. **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine; bin (ii) does not auto-select (B).
 
+## 2026-07-12 — A1 radiating face (universe port for local models)
+
+**Not-built focus (Grant):** matched radiating face so a local solid run radiates strain into a universe port without PML-as-physics. Machian / \(\Omega_{\rm freeze}\) live stub = **A2** (gated on A1).
+
+- Plan: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
+- Frozen prereg: [`../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md`](../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md)
+- Result: [`../research/2026-07-12_radiating-face-a1_result.md`](../research/2026-07-12_radiating-face-a1_result.md) — **bin (i) FACE-PASSIVE-MATCHED** (frozen lossless-limit closed-box leg) · **HOLD — no merge until Grant**
+- Branch: `analysis/radiating-face-a1` (#656). No fourth engine. Hold #652. Orthogonal to genesis #655 — **#655's per-discriminator record is authoritative for the genesis bullet above** (this entry is additive-only).
+
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
 **Newest section (2026-07-11, engine-refresh batch).** This block is authoritative-for-current-state; the 2026-07-09 board below is retained verbatim as the arc record (KEEP-BOTH). Verify-before-cite at HEAD — the merge ledger below is git/gh-confirmed at HEAD `f7e8409a`.
