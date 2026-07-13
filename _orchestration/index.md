@@ -41,6 +41,15 @@
 - Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** (shell-only pure mask; null-differenced) · **HOLD — no merge until Grant**
 - Branch: `analysis/universe-return-a3` · PR **#658** (off A2 tip). Hold #652 / #655 / #656 / #657.
 
+## 2026-07-12 — L5 Q/leakage × A1 port wire-in
+
+**Focus (Grant):** after HOLD review, wire A1 into `unified_l5_q_leakage` — deconvolve sponge pad from passive leave-taking. This entry is additive-only.
+
+- Plan: [`2026-07-12_l5-a1-port-wire.md`](2026-07-12_l5-a1-port-wire.md)
+- Frozen prereg: [`../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md`](../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md) — freeze `9cf436dc`
+- Result: [`../research/2026-07-12_l5-a1-port-wire_result.md`](../research/2026-07-12_l5-a1-port-wire_result.md) — **bin (i) PORT-DECONVOLVED** (AND-of-proxies adjudicator; R9) · **HOLD**
+- Branch: `analysis/l5-a1-port-wire` · PR **#659** (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
+
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
 **Newest section (2026-07-11, engine-refresh batch).** This block is authoritative-for-current-state; the 2026-07-09 board below is retained verbatim as the arc record (KEEP-BOTH). Verify-before-cite at HEAD — the merge ledger below is git/gh-confirmed at HEAD `f7e8409a`.
