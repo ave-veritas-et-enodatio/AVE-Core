@@ -170,9 +170,14 @@ relabel at the atom rung**, explicitly not a falsification of AVE.
 
 ## WHAT THIS DOES TO THE CORPUS (routed, not decreed)
 
-- **Discharges the R2 rhyme** (`collapse-target-registry.md:783-788`, candidate-gen): the
-  "dissipative-Q relations do not transfer to a reactive tank; only the tiny `R_rad` port gives a
-  real linewidth — vocabulary-not-mechanism trap" framing-flag is now a **computed** verdict.
+- **Instantiates the R2 rhyme's principle at the atom rung** (`collapse-target-registry.md:783-788`,
+  candidate-gen): the "dissipative-Q relations do not transfer to a reactive tank; only the tiny
+  `R_rad` port gives a real linewidth — vocabulary-not-mechanism trap" framing-flag is here given a
+  **computed** instance. *(Scope note, post-review finding #2: R2 proper is an **electron-tank
+  forward observable** (`Δω/ω=α`, ~137-cycle ring-down) explicitly **GATED ON T9** (the
+  complex-Poynting Re/Im split); T1 computes the **atom** wall-Q, a different object, and runs no
+  Re/Im split — so T1 does not **close** R2, which stays open/T9-gated. It corroborates R2's
+  mechanism at a second rung.)*
 - **The Q-ladder atom rung** (`keying-register-walk_framing.md:117`, FRAMING walk-estimate `~10⁷`)
   is **DEMONSTRATED endpoint-degenerate on the wall channel**; the `~10⁷` is the transverse
   radiative α-echo, not a wall loss-Q. **Recommendation (framing follow-on, auditor lane — NOT this
@@ -214,3 +219,24 @@ relabel at the atom rung**, explicitly not a falsification of AVE.
   "impedance/mismatch" cite is the superseded pre-repair rendering (flagged, not propagated).
 - **No KB/canon edits from this lane** — `research/` + `src/` only. The Q-ladder relabel is *routed*
   to the auditor lane, not applied here.
+
+## Adversarial-review repair log (2026-07-13; 5 lenses, 3 findings, all MINOR/EVIDENCE-VOID)
+
+The mandated `ave-adversarial-pr-review` (5 lenses → per-finding adversarial verify) confirmed **3
+findings, all MINOR / all EVIDENCE-VOID (repair-and-bank) — no verdict flips.** The **load-bearing
+false-kill lens could NOT refute the kill**: *"the BIN (ii) NO-DISTINCT-VALUE verdict is a
+TRUE-KILL, not a false-kill"* — all four wall-leakage refutation channels (tunneling escape, shape
+resonance, `ℓ>0` centrifugal, autoionization) tested and closed. The α-cleanliness lens proved Leg A
+α-free two independent ways; the corpus-fidelity lens grep-confirmed every citation verbatim (no
+stitched/fabricated quote; the `RESULT.md:84`-superseded flag is accurate); the AC/DC classification
+was verified correct.
+
+| # | finding (MINOR / EVIDENCE-VOID) | fix |
+|---|---|---|
+| **1** | The frozen bins don't tile the line — bin (i)=`[1e5,1e9]`, bin (ii)=`{≥1e12, ≤1e3, degenerate}` leave `(1e3,1e5)` and `(1e9,1e12)` UNDECLARED; `adjudicate()` silently routed a finite gap-value to `"(ii) degenerate"`. | **Code repaired** (`adjudicate()`): finite gap-values now route to an explicit `(iii/AMBIGUOUS) UNDECLARED-BAND — REWORK` (Outcome C), not mislabeled degenerate; `test_undeclared_gap_routes_to_ambiguous_not_degenerate` added. The FROZEN prereg is **unedited** (Rule 11) — this aligns the code to it and discloses the gap. **Shipped verdict unaffected:** actual `Q_wall=inf` → prereg-degenerate → clean bin (ii). |
+| **2** | RESULT said "Discharges the R2 rhyme"; R2 is an **electron-tank** forward observable **gated on T9**, a different object — T1 does not close it. | RESULT reworded to "**instantiates** R2's principle at the atom rung", with a scope note that R2 proper stays open/T9-gated. PR body reworded to match. |
+| **3** | The FROZEN prereg's *counterfactual* Outcome-B / falsifier calls a hypothetical bin-(i) pass "a chord", contradicting its own `clm-acdc07` classification (`Q_wall` is pure-AC → "never a chord"). | **Erratum (frozen prereg unedited, Rule 11):** a bin-(i) pass would be a **distinct STRUCTURAL cutoff** (a genuine filter section) — which, per the AC/DC carve (`claim-quality.md:1369` clause iii, "AC … consistency, never a chord"), is a **framing-content / consistency result, NOT a chord** (chords live DC-side / in DC→AC coupling). The counterfactual did not occur (the run landed Outcome A / bin (ii)), so the verdict is unaffected. The driver's `adjudicate()` bin-(i) verdict string now carries the corrected "NOT a chord" wording. |
+
+All fixes are repair-and-bank on the *evidence/precision*; the **conclusion (bin (ii) kill, α-echo
+radiative rung) is untouched and independently reconfirmed** by the false-kill and α-cleanliness
+lenses. Tests after repair: **13 pass** (was 12; +`test_undeclared_gap_routes_to_ambiguous`).

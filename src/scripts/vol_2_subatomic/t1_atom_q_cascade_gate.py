@@ -235,20 +235,39 @@ def radiative_diagnostic_Q():
 # Adjudication against the frozen bins
 # ---------------------------------------------------------------------------
 def adjudicate(Q_wall: float, Q_control: float) -> dict:
-    """Apply the frozen bins to Leg A (with Leg B as the fireability witness)."""
+    """Apply the frozen bins to Leg A (with Leg B as the fireability witness).
+
+    Post-review repair (2026-07-13, finding #1, EVIDENCE-VOID): the frozen bins do NOT tile the
+    line -- bin (i)=[1e5,1e9], bin (ii)={>=1e12, <=1e3, or degenerate(0/inf/artifact)} leave the
+    gaps (1e3,1e5) and (1e9,1e12) UNDECLARED. A finite Q_wall there is neither an endpoint nor a
+    declared distinct value nor degenerate, so it is routed to an explicit AMBIGUOUS / REWORK band
+    (Outcome C), NOT silently mislabeled "(ii) degenerate". The frozen prereg is unedited; this
+    aligns the code to it and discloses the gap. The SHIPPED verdict is unaffected (Q_wall is inf,
+    which the prereg lists as degenerate -> bin (ii)).
+    """
     control_fires_i = BIN_I_LO <= Q_control <= BIN_I_HI  # instrument CAN report a finite in-window Q
-    if BIN_I_LO <= Q_wall <= BIN_I_HI:
-        bin_ = "(i) DISTINCT-Q-DERIVED"
-        verdict = "cascade has content at the atom rung (chord) -- Q_wall is finite, alpha-free, in-window"
-    elif Q_wall >= BIN_II_HI or Q_wall == float("inf") or Q_wall <= BIN_II_LO:
+    if not math.isfinite(Q_wall):  # inf (intrinsic endpoint) or nan (artifact) -- prereg: degenerate
         bin_ = "(ii) NO-DISTINCT-VALUE"
         verdict = ("KILL-SHAPE FIRES: Q_wall collapses onto a ladder ENDPOINT "
                    "(intrinsic Q->inf) -- the cascade-filter framing is a vocabulary echo on "
                    "this rung. Honest verb: DEMONSTRATED (a sub-threshold bound state has no open "
                    "channel -> lossless wall -> Q->inf is entailed by the physics the gate names).")
-    else:
-        bin_ = "(ii) NO-DISTINCT-VALUE (degenerate)"
-        verdict = "KILL-SHAPE FIRES: Q_wall is degenerate / not a distinct intermediate value."
+    elif BIN_I_LO <= Q_wall <= BIN_I_HI:
+        bin_ = "(i) DISTINCT-Q-DERIVED"
+        verdict = ("cascade has DISTINCT STRUCTURAL content at the atom rung (a genuine filter "
+                   "cutoff) -- Q_wall is finite, alpha-free, in-window. [Per clm-acdc07 this is a "
+                   "consistency/framing-content result, NOT a chord -- the loss-Q is a pure-AC "
+                   "quantity; chords live DC-side.]")
+    elif Q_wall >= BIN_II_HI or Q_wall <= BIN_II_LO:  # includes Q_wall==0 (degenerate-low)
+        bin_ = "(ii) NO-DISTINCT-VALUE"
+        verdict = ("KILL-SHAPE FIRES: Q_wall collapses onto a ladder ENDPOINT "
+                   "(>=1e12 intrinsic, or <=1e3 loaded/cold-cage) -- vocabulary echo on this rung.")
+    else:  # (1e3,1e5) or (1e9,1e12): finite, NOT an endpoint, NOT declared by the frozen bins
+        bin_ = "(iii/AMBIGUOUS) UNDECLARED-BAND -- REWORK"
+        verdict = ("Finite Q_wall in a gap the frozen bins do not tile ((1e3,1e5) or (1e9,1e12)): "
+                   "not an endpoint, not degenerate, not a declared distinct value -- the gate "
+                   "cannot cleanly classify it. Outcome C (rework the bins), NOT a kill and NOT a "
+                   "distinct-value pass. [Not reached by the shipped run: actual Q_wall is inf.]")
     return {"bin": bin_, "verdict": verdict, "instrument_fireable": control_fires_i}
 
 

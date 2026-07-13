@@ -107,6 +107,19 @@ def test_adjudicator_reaches_bin_i_on_synthetic_in_window_value():
     assert "(ii)" in adjudicate(1e2, 1e6)["bin"]  # low-endpoint collapse also fires (ii)
 
 
+def test_undeclared_gap_routes_to_ambiguous_not_degenerate():
+    """Post-review finding #1: the frozen bins do not tile the line. A finite Q_wall in the gaps
+    (1e3,1e5) or (1e9,1e12) is NOT an endpoint and NOT degenerate -- it must route to the explicit
+    AMBIGUOUS/REWORK band, not be mislabeled '(ii) degenerate'. The shipped inf still bins to (ii)."""
+    for gap_val in (5e4, 1e10, 9.9e11):
+        b = adjudicate(gap_val, 1e6)["bin"]
+        assert "AMBIGUOUS" in b and "(ii)" not in b, f"{gap_val} -> {b}"
+    # the actual shipped Q_wall is inf -> clean (ii), unaffected by the gap repair
+    assert "(ii)" in adjudicate(float("inf"), 1e6)["bin"]
+    # a degenerate 0 still fires (ii) (<= BIN_II_LO), not AMBIGUOUS
+    assert "(ii)" in adjudicate(0.0, 1e6)["bin"]
+
+
 # --------------------------------------------------------------------------------------------
 # LEG C -- the observed ~1e7 rung is the alpha-echo, and it must NOT flip the verdict
 # --------------------------------------------------------------------------------------------
