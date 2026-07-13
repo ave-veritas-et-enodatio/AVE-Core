@@ -5,6 +5,15 @@
 
 > **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **Remanence R10 fixed-\(N\) charter** immediately below (G-PERSIST next step; **★PROPOSED-RULED G-PERSIST + X-LEDGER** remain, text pending Grant's #661 merge — medium-continuation kit HOLD). The **2026-07-12 genesis node-birth fork** pointer further below is the newest live architecture gate for electron-genesis scoping. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
 
+## 2026-07-13 — Satellite briefs (genesis N≥14 · T1 atom-Q · srs k-sweep · F6 tier-1)
+
+**Focus (Grant):** four Grant-launched satellite handoffs staged 2026-07-13; each is freeze-by-push, DO-NOT-MERGE (Grant merges). Same PR flips **X-LEDGER** ★PROPOSED-RULED → **★RULED** (Grant confirmed 2026-07-13; #661 merged) — [ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md) + [docket](2026-07-10_rulings-docket.md). **G-PERSIST stays ★PROPOSED-RULED**, gated on the genesis battery below.
+
+- Genesis N≥14 persistence battery (the G-PERSIST gate): [`2026-07-13_genesis-npersist-battery-handoff.md`](2026-07-13_genesis-npersist-battery-handoff.md) — re-run #655 at N≥14 / closed-box, 3 seed modes × 2 fidelities; the boundary-clean read on which G-PERSIST confirmation waits.
+- T1 atom-Q cascade gate: [`2026-07-13_t1-atom-q-cascade-gate-handoff.md`](2026-07-13_t1-atom-q-cascade-gate-handoff.md) — derive the atom's loss-Q from the graded Coulomb-dress mismatch walls (x42 machinery); the discriminating gate on the cascade-filter framing.
+- srs vertex k-sweep backscatter (carrier-wave frame): [`2026-07-13_srs-vertex-ksweep-handoff.md`](2026-07-13_srs-vertex-ksweep-handoff.md) — adjudicate the per-vertex Γ=−1/3 ontology fork; KERNEL OFF.
+- F6 depletion tier-1 charter (two-reservoir ODE ledger): [`2026-07-13_f6-depletion-tier1-charter-handoff.md`](2026-07-13_f6-depletion-tier1-charter-handoff.md) — charter the DE-tracks-matter existence+FORM ledger; charter first, driver after review.
+
 ## 2026-07-12 — Remanence R10 fixed-\(N\) discriminator (charter + freeze)
 
 **Focus (Grant):** charter constitutive remanence on fixed \(N\) — full physical + circuit walk, map, analysis; freeze discriminator before driver. Node-mint stays closed.
