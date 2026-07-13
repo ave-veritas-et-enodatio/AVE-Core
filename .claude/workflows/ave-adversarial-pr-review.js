@@ -33,6 +33,7 @@ STANDING DISCIPLINE (every lens):
 - verify-before-cite: every quote grep-confirmed THIS turn; no quote-marks on unverified text; findings carry branch file:line + VERBATIM evidence.
 - Prereg-vs-code diff: every frozen declaration (tolerances, observables, boundaries, controls) checked against the implementation as shipped; silent deviations are findings even when forced.
 - Gates must be able to fire: any control/reconcile that consumes its own defining identity, uses a vacuous tolerance, or gates a proxy instead of the consumed observable is a finding.
+- Identity-audit (standing): for every PASS criterion in the PR, check it is not a conservation / calibration / co-monotone identity in disguise (a detector that cannot fail on physical inputs is a checklist, not a gate); for every proposed test, check it BREAKS AN IDENTITY rather than measures a magnitude. Physics grounding + worked receipts: manuscript/ave-kb/common/identity-break-test-design.md.
 - Claim grades are ground truth: alpha=echo, K=2G=GR-imported, nu=2/7 VALUE imported, FORM-derived only; any sentence upgradeable to a value derivation is CRITICAL. The A1-vs-T2 homonym guard is binding.
 - Knife: 1/2 and 1/4 factors derived-only; visible targets may be compared against, never tuned toward; a constraint satisfied suspiciously exactly is a finding.
 Report ONLY substantive findings, max 5 per lens, ranked most-severe first. Checks that PASS go in clean_report with specifics (commands run, values reproduced). Empty findings + a solid clean_report is a good outcome.
