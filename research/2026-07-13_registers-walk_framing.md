@@ -87,7 +87,35 @@ The **envelope is the equilibrium interface** between them — TKI made local. A
 
 ## §4 Q3 / Q4 — THE FULL PICTURE (as delivered for Grant's ruling)
 
-<!-- STUB §4 -->
+The depletion primitive, laid out as a **4-element transfer map**:
+
+| element | what it is |
+|---|---|
+| **source** | `ρ_latent` — the **static sector's held store** (the latent heat banked at genesis freeze) |
+| **destination** | the **T2 bath** — the huge mode-count reservoir |
+| **transducer / locus** | **MASS / the envelope** — the §3 interface, the only ε↔T2 machinery |
+| **the door** | the **off-line ↔ on-line boundary** — where the transfer is gated |
+
+**★ bias ≠ release — two independent questions.** R-A asks whether a held static field **biases** the saturation kernel (the K1-vs-canon fork, docket R-A; the muon loads the full `|E|` into the `V_yield` / T2 key, `research/2026-07-10_x41-radiative-scoping-why_RESULT.md:154`). F6 asks whether stored energy **releases** into T2. A bias is not a release; conflating them is the trap.
+
+**Three candidate release mechanisms (as delivered):**
+
+- **(A) Continuous entropic drainage.** Rotation-coupling into the mode-count arrow (§2b); irreversibility from reservoir mode-count, **rate unforced.** The arrow-of-time class.
+- **(B) Frontier clicks — X40 writ cosmological.** Discrete ring-completion mints (§2b) at the crystallization frontier. ★The corpus rate `Γ = 3H·ρ_latent` is exactly the **frontier-minting reading** — "∝ crystallization-FRONTIER-rate `3Hρ_latent`, reading-ii by construction" (`manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md:84-87`), with the `3` reading as dimensions. This is the route that **converts the FORCED-form / ASSERTED-rate `Γ`** (`…:121-136`) into a *derived* rate class.
+- **(C) Envelope ports.** The transducers (§3) are the ONLY ε↔T2 machinery ⇒ ★**DE-TRACKS-MATTER becomes a port-LOCATION signature** (dark energy drains where matter's envelopes are). ★**Hard constraint:** the port must **NOT drain its own transducer** — the electron is stable / lossless (the terminal pole, §5), so whatever F6 is, it cannot bleed the electron's own store.
+
+**Q4 — the two-tier build (pending Grant's go).**
+
+1. **A global two-reservoir ODE ledger.** There is **no `a(t)` evolver today** — `solve_backreaction` is static-elliptic (`manuscript/ave-kb/common/engine-capability-map.md:155`). The first build is the missing global state object: a two-bucket (ε-store, T2) first-law ODE.
+2. **Then ONE X40-class click demo** — a single ring-completion-class mint booked into the ledger, to show one-way-at-an-event coexists with exact conservation.
+
+**Gates and scope (CC-HONEST):**
+
+- **`ρ_latent` parameterization is the Grant-gated go.** `clm-s4n33u` solidity 0.45, build_status "use as input only, don't build deeper" (`manuscript/ave-kb/.index/claims.jsonl`); the numeric value is SYMBOLIC-ONLY / ABSENT (`…/dark-energy-latent-heat-definition.md:121-136`), and F6 hard-blocks on it (gate 5, `…:152-158`).
+- **Scope is existence + form of DE-tracks-matter ONLY.** The naive `ρ_latent` overshoots `ρ_Λ` by ~120 OOM (`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:8,58`) — so the value is not the deliverable; the *mechanism-existence* is.
+- **Book both legs.** Every mint leaves an X40-style **cycle-space deposit** (the trapped `f_E = 1/10`; `research/2026-07-10_x40-ring-closure-transient_result.md:18-20`). The ledger must book the trapped fraction as well as the radiated one — depletion is a *partition*, not a one-sided drain.
+
+**★ FLAGGED — the R-A / F6 ONE-DOOR unification (11th convergence).** The candidate: **statics are stable BECAUSE release requires a topological event** — the same door that gates F6's release (B/C) is why R-A's held field does not bleed the static store. One door, two faces. Named **kill-shapes** (this stays a flag until it survives them): (i) it must leave the R-A *bias* question untouched (bias ≠ release, above); (ii) it must reproduce the **muon fence** (the muon loads `|E|` into T2 but does not decay by it); (iii) it must survive **electron-no-drain** (constraint C). This is a convergence *candidate*, not a ruling — recorded for Grant, owed its kill-tests.
 
 ## §5 ★★ GRANT'S CASCADE-FILTER ONTOLOGY (his Q3 answer, verbatim-faithful)
 
