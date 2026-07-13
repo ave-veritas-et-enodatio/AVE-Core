@@ -32,6 +32,15 @@
 - Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **frozen bin (ii) STUB-WEAK; post-freeze live-pump axis TRIPS (KEEP-BOTH)** · **HOLD — no merge until Grant**
 - Branch: `analysis/universe-stub-a2` · PR **#657** (off A1 tip). Hold #652 / #655 / #656.
 
+## 2026-07-12 — A3 universe return (exterior → local)
+
+**Not-built focus (Grant):** controlled exterior return packet on the A1 port shell after leave-taking — bidirectional stub without outer mesh. Gated on A2 (bin (ii) STUB-WEAK: face stays green with bias ON — the stub does not break the face). This entry is additive-only.
+
+- Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
+- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze `cfd2e690`
+- Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** (shell-only pure mask; null-differenced) · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-return-a3` · PR **#658** (off A2 tip). Hold #652 / #655 / #656 / #657.
+
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
 **Newest section (2026-07-11, engine-refresh batch).** This block is authoritative-for-current-state; the 2026-07-09 board below is retained verbatim as the arc record (KEEP-BOTH). Verify-before-cite at HEAD — the merge ledger below is git/gh-confirmed at HEAD `f7e8409a`.
