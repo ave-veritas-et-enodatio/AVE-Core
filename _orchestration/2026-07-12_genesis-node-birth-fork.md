@@ -1,12 +1,39 @@
 # Genesis planning — node-birth fork (A vs B)
 
-**Status:** PHASE-0 KEEP-BOTH AUTHORIZED · discriminator prereg next  
-**Branch:** `analysis/genesis-node-birth-fork`  
-**Base:** `analysis/engine-categorization-guards` (#653 tip `4094be33`) — rebase onto `main` after #653 merges.  
-**Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No engine edit in this phase.**  
+**Status:** PHASE-2 DRIVERS LANDED · **REBINNED → per-fidelity SPLIT: smoke (i) A-SUPPORTED (2/3), production (ii) A-WEAKENED (0/3); production FAIL is boundary-confounded (artifact-leaning, decision-pt b); ruling-grade DEFERRED to Grant, needs N≥14/closed-box**  
+**Branch (drivers):** `analysis/genesis-node-birth-d14` · **Prereg:** merged via #654 on `main`  
+**Class:** architecture / fork freeze. **No chord. No new `genesis_v{N}`. No graph-growth engine.**  
 **Discipline:** `ave-loop-gap-harness-discipline` v1.1 — advance ranks / freeze forks, do not open srs v18+ or a fourth engine without Grant + firewall justification.
 
 **Phase-0 ruling (plan ratification 2026-07-12):** **KEEP-BOTH** — design fireable discriminators (D1–D4) before ruling (A) or (B) or building graph-growth. Do not assert (B); do not bank fixed-mesh runs as “genesis” without a claim-class tag.
+
+**Phase-2 adjudication (2026-07-12, SUPERSEDED):** D1 PASS + D2 FAIL (single `photon_lock`/`fast=True` leg) + D3 not-entailed + D4 SKIPPED → bin (ii) A-WEAKENED.
+
+**Phase-2 RE-adjudication (2026-07-12, adversarial-review repair R1–R8):** the D2
+battery was a **battery-of-one** on the seed mode most expected to fail. Broadened
+to all three landed seed modes at the banked config, run at BOTH fidelities ⇒
+**per-fidelity SPLIT**:
+- **SMOKE** (`n_quiet=12`): **2/3 persist** (`pair` E=0.8639/φ=7.7295, `graded_a0`
+  E=0.8544/φ=1.9636; `photon_lock` FAILs — φ-channel dead) ⇒ **bin (i) A-SUPPORTED**.
+- **PRODUCTION** (`n_quiet=52`): **0/3 persist** — every mode's E falls below the
+  0.85 floor (`pair`→0.6929, `graded_a0`→0.6764, `photon_lock`→0.7750) ⇒ **bin (ii)
+  A-WEAKENED**. Smoke PASS is a short-drive-off-window artifact; production is the
+  more faithful read and **vindicates the original (ii) direction** on the broadened
+  battery.
+
+Ruling-grade banking (which fidelity is authoritative) **DEFERRED to Grant** — the
+frozen bins name no fidelity authority and ruling the fork is not the implementer
+lane's call. `make verify` PASS. Result (per-fidelity + KEEP-BOTH quote of the old
+(ii) text): `research/2026-07-12_genesis-node-birth-discriminator_result.md`. Still
+does **not** rule (A) or (B); R10 still open.
+
+**Boundary-vs-physics discriminator (decision-point (b), 2026-07-12):** domain-size
+sweep (pair, production, PML fixed at 3) shows `E_persist` recovers **monotonically**
+0.6929→0.7984→0.8449 as N goes 10→12→14 (interior 4³→6³→8³). The production
+E-collapse is **substantially PML boundary leakage, not bulk dissipation**
+(ARTIFACT-LEANING). Both N=10 bins are boundary-confounded (interior only 4³ cells);
+a clean adjudication needs **N≥14 / closed-box** before banking either bin. This
+strengthens the DEFER: neither N=10 fidelity is a clean read.
 
 ---
 
@@ -71,9 +98,9 @@ flowchart TD
 | **(B)-ruled** | Fixed-mesh genesis batteries are reclassified as **pattern/cage probes only**; true genesis gated on a graph-growth charter |
 | **KEEP-BOTH** | **AUTHORIZED** — discriminator suite (D1–D4) can kill (A) or (B) before any fourth engine |
 
-### Phase 1 — Discriminator prereg · IN PROGRESS
+### Phase 1 — Discriminator prereg · DONE (#654)
 
-Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md` (freeze-by-push; own commit before any driver).
+Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md` (freeze-by-push before drivers).
 
 | ID | Discriminator | Fireable content |
 |---|---|---|
@@ -84,15 +111,28 @@ Frozen prereg: `research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZ
 
 Use `#653` pairing discipline: Gauss-style install identities ≠ genesis.
 
-### Phase 2 — Drivers (BLOCKED until prereg freeze is on origin)
+### Phase 2 — Drivers · DONE · REBINNED (per-fidelity split; ruling-grade deferred)
 
-Discriminator suite implementor PR only after freeze-by-push verifies on origin. Still **no** `genesis_v{N}` / srs v18+ / fourth engine.
+Driver + tests + result on `analysis/genesis-node-birth-d14`. Still **no** `genesis_v{N}` / srs v18+ / fourth engine.
 
-### Phase 3 — Engine path (BLOCKED until D1–D4 adjudicate)
+| ID | outcome (post-repair R1–R8) |
+|---|---|
+| D1 | PASS (2 measured crystal/ME + 1 structural harness; certification_entailed; R3) |
+| D2 | **SMOKE 2/3 persist** (`pair`, `graded_a0` PASS; `photon_lock` FAIL — φ dead, R5) ⇒ (i). **PRODUCTION 0/3 persist** (all E below floor) ⇒ (ii). Window-dependent (R1) |
+| D3 | PASS not-entailed |
+| D4 | SKIPPED-WITH-REASON |
+| **bin** | **per-fidelity SPLIT: smoke (i) A-SUPPORTED, production (ii) A-WEAKENED**; ruling-grade DEFERRED to Grant. Original **(ii)** vindicated at production (KEEP-BOTH quote in result doc) |
 
-- **Forbidden until (A) or (B) ruled from discriminators:** new `chiral_lattice_v18+`, new `genesis_v{N}`, silent "node birth" flags inside VacuumEngine3D.
-- **Allowed under (A):** rank advancement + R10 honest attempts on existing platforms.
-- **Allowed under (B) after discriminator:** one Grant-signed graph-growth spike with ablation battery (create-node OFF must null).
+**Adjudicator halt (R2):** `adjudicate_bin` now returns OUT-OF-BIN
+`D1_CARDINALITY_VIOLATION_HALT` for any `d1_ok=False` (a fork-(B) cardinality
+mutation halts for Grant, no longer mis-binned as A-WEAKENED).
+
+### Phase 3 — Engine path (BLOCKED until Grant rules A/B or deepens D2)
+
+- **Forbidden until (A) or (B) ruled:** new `chiral_lattice_v18+`, new `genesis_v{N}`, silent "node birth" flags inside VacuumEngine3D.
+- **Allowed under (A):** rank advancement + R10 honest attempts on existing platforms; optional deeper D2 cavity battery.
+- **Allowed under (B) after explicit Grant ruling:** one Grant-signed graph-growth spike with ablation battery (create-node OFF must null).
+- **bin (ii) does not authorize graph-growth by itself.**
 
 ---
 
