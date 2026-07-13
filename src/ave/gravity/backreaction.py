@@ -919,9 +919,31 @@ def recover_gr_weak_field(N: int = 24, *, sigma: float = 2.0, amplitude: float =
     Check-2; the GR-value map r_s=2G·M_eff/c² IMPORTS G (honest framing §7).
 
     PASS: field agreement ≤ 10% AND binding fraction < 10% (genuinely weak field).
+
+    X44 GATE-REPAIR (2026-07-12; test-semantics, NOT a physics change) — the two
+    legs must run DIFFERENT sources or the shape-deviation compare is vacuous. After
+    the X44 default flip to ``source_mode="komar"``, ``g_self`` NO LONGER enters the
+    Picard source (Komar weight depends only on ε₁₁; g_self is ledger-only). An
+    un-pinned OFF leg therefore runs komar too, so both legs solve the IDENTICAL
+    elliptic and ``shape_deviation ≡ 0.0`` EXACTLY (komar-vs-komar — the gate could
+    not fire). Pinned here:
+      * ON  = ``source_mode="komar"`` g_self=1.0 — the shipped DEFAULT two-way field.
+      * OFF = ``source_mode="add_field"`` g_self=0.0 — the TRUE Stage-1 one-way
+        reference (``T₀₀^src = T₀₀^matter`` bare; equivalently ``source_mode="matter"``).
+    ``shape_deviation`` is now a real weak-field recovery measure: how far the Komar
+    two-way field sits from the Stage-1 one-way core (small because √S ≈ 1 − A²/4 at
+    max A ≪ 1). Perturb-receipt: pairing the ADD self-energy two-way (add_field,
+    g_self=1.0) against the SAME Stage-1 reference gives a ≫-larger nonzero deviation,
+    proving the compare responds to genuine source differences (see the recover-GR
+    test's perturb assertion). Consumed by gates only (no engine caller) — Rule-14
+    honest: an engine-file line touched, but the change is test-semantics.
     """
-    r_on = solve_backreaction(N=N, sigma=sigma, amplitude=amplitude, g_self=1.0, return_fields=True)
-    r_off = solve_backreaction(N=N, sigma=sigma, amplitude=amplitude, g_self=0.0, return_fields=True)
+    r_on = solve_backreaction(
+        N=N, sigma=sigma, amplitude=amplitude, g_self=1.0, return_fields=True, source_mode="komar"
+    )
+    r_off = solve_backreaction(
+        N=N, sigma=sigma, amplitude=amplitude, g_self=0.0, return_fields=True, source_mode="add_field"
+    )
     e_on = r_on["eps11"]
     e_off = r_off["eps11"]
     shape_dev = float(np.linalg.norm(e_on - e_off) / max(np.linalg.norm(e_off), 1e-30))

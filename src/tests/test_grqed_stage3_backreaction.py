@@ -186,6 +186,51 @@ class TestRecoverGR:
         assert g["passed"], g["verdict"]
         assert g["binding_fraction"] < 0.10
         assert g["exterior_is_inverse_r"]
+        # X44 gate-repair: shape_deviation must be a REAL number, not the vacuous
+        # komar-vs-komar 0.0. The Komar two-way recovers Stage-1 in the weak field,
+        # so it is small — but strictly nonzero (the √S ≈ 1 − A²/4 weight bites).
+        assert g["shape_deviation"] > 0.0, (
+            "shape_deviation is exactly 0 — the OFF leg is not a distinct Stage-1 "
+            "reference (the vacuous komar-vs-komar compare has regressed)"
+        )
+        assert g["shape_deviation"] < 0.10
+
+    def test_recover_gr_gate_can_fire_perturb_receipt(self) -> None:
+        """PERTURB RECEIPT (X44 R3) — the shape-deviation compare has TEETH.
+
+        The repaired recover-GR gate pins ON=komar(g=1) two-way vs OFF=add_field(g=0)
+        Stage-1 one-way. Prove the compare responds to a GENUINE source difference:
+        pairing the ADD self-energy two-way (add_field, g=1) against the same Stage-1
+        reference must give a ≫-larger, strictly nonzero deviation. And confirm the
+        old vacuous pairing (komar-vs-komar) is EXACTLY 0 — the bug the repair closes.
+        """
+        N, sigma, amp = 24, 2.0, 0.02
+        stage1 = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=0.0, return_fields=True, source_mode="add_field"
+        )
+        komar = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=1.0, return_fields=True, source_mode="komar"
+        )
+        add = solve_backreaction(
+            N=N, sigma=sigma, amplitude=amp, g_self=1.0, return_fields=True, source_mode="add_field"
+        )
+        e1 = stage1["eps11"]
+
+        def dev(e: np.ndarray) -> float:
+            return float(np.linalg.norm(e - e1) / max(np.linalg.norm(e1), 1e-30))
+
+        dev_repaired = dev(komar["eps11"])   # ON=komar vs Stage-1 (the shipped gate)
+        dev_perturb = dev(add["eps11"])       # ADD self-energy vs Stage-1 (genuine diff)
+        dev_vacuous = dev(e1)                 # Stage-1 vs itself (== old komar-vs-komar)
+
+        assert dev_vacuous == 0.0, "self-compare must be exactly 0"
+        assert dev_repaired > 0.0, "repaired gate must measure a nonzero recovery"
+        # the ADD self-energy source moves the metric ≫ the small √S weight does —
+        # the compare has real teeth (an order of magnitude of headroom).
+        assert dev_perturb > 10.0 * dev_repaired, (
+            f"perturb pairing did not fire: add-vs-stage1={dev_perturb:.2e} is not "
+            f">10x the komar-vs-stage1 recovery={dev_repaired:.2e}"
+        )
 
 
 class TestAtRiskCheck1InverseR:

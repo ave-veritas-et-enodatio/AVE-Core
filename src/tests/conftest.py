@@ -101,6 +101,7 @@ _ENGINE_SIM_TESTS = {
     # single-solve Stage-3 tests (α-clean, field-energy ledger, g_self=0 recovery)
     # in the same file STAY gating (sub-second). Coverage via `make test-engine`.
     "test_grqed_stage3_backreaction.py::TestRecoverGR::test_recover_gr_weak_field",
+    "test_grqed_stage3_backreaction.py::TestRecoverGR::test_recover_gr_gate_can_fire_perturb_receipt",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck1InverseR::test_extended_source_recovers_inverse_r",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck2SminIndependent::test_emergent_mass_is_smin_independent",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck3Raytrace::test_raytrace_recovers_4GM",
