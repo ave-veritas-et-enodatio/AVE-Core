@@ -32,7 +32,7 @@ DELTA_E_REL = 1e-4
 CLAIM = ClaimClass.CONSISTENCY
 CLAIM_RULE10 = ClaimClass.CERTIFICATION_ENTAILED
 
-SourceKind = Literal["shell", "interior", "null"]
+SourceKind = Literal["shell", "shell_face_diag", "interior", "null"]
 
 
 @dataclass(frozen=True)
@@ -72,13 +72,26 @@ def _reception_floor(E_clear: float) -> float:
     return max(DELTA_E_ABS, DELTA_E_REL * max(E_clear, 0.0))
 
 
-def _exterior_port_mask(eng: NativeCageIMEX) -> np.ndarray:
-    """Exterior drive support on this carrier = shell ∪ outermost interior face.
+def _shell_only_mask(eng: NativeCageIMEX) -> np.ndarray:
+    """FROZEN prereg exterior support: `port_shell` ONLY (prereg §Protocol step 2,
+    "Drive is exterior — applied on the shell only").
 
-    Pure `port_shell` sits in the Rule-10-excluded pad; on periodic cage IMEX a
-    shell-only kick mostly stays unreadable / drains without a fireable interior
-    rise. The outermost interior layer is the port *face* the local solid can
-    hear — still exterior-attributed (not a bulk remanence pump).
+    R7 repair (2026-07-12): this is the ENFORCING drive configuration. The
+    original ship drove `shell | interior-face` (see `_shell_face_mask_diagnostic`),
+    i.e. INSIDE the ΔE measurement mask, which inflates reception ~3× and whose
+    docstring justification ("a shell-only kick stays unreadable") is false — the
+    prereg-pure shell-only run still fires (ΔE_int ≈ 1.19 vs null ≈ 1.4e-3).
+    """
+    return (eng.port_shell > 0.05).astype(np.float64)
+
+
+def _shell_face_mask_diagnostic(eng: NativeCageIMEX) -> np.ndarray:
+    """DIAGNOSTIC leg only (R7): shell ∪ outermost interior face.
+
+    Drives on the outermost interior layer as well as the shell — i.e. INSIDE the
+    Rule-10 interior ΔE measurement mask. This inflates reception ~3× and is NOT
+    the frozen configuration; retained for the KEEP-BOTH comparison, not for the
+    enforcing bin.
     """
     N, t = eng.N, eng.pml_thickness
     face = np.zeros((N, N, N), dtype=bool)
@@ -94,8 +107,10 @@ def _exterior_port_mask(eng: NativeCageIMEX) -> np.ndarray:
 
 
 def _drive_mask(eng: NativeCageIMEX, source: SourceKind) -> np.ndarray:
-    if source == "shell":
-        return _exterior_port_mask(eng)
+    if source == "shell":  # FROZEN: shell only (enforcing)
+        return _shell_only_mask(eng)
+    if source == "shell_face_diag":  # diagnostic (shell ∪ interior face)
+        return _shell_face_mask_diagnostic(eng)
     if source == "interior":
         return eng.interior.astype(np.float64)
     return np.zeros_like(eng.V)
@@ -174,7 +189,7 @@ def run_return_phase(
     H_end = float(eng.total_energy())
     delta = E_end - E_clear
     floor = _reception_floor(E_clear)
-    exterior = source == "shell"
+    exterior = source in ("shell", "shell_face_diag")
     return ReturnArmReport(
         source=source,
         source_is_exterior=exterior,
@@ -195,9 +210,22 @@ def run_shell_return_arm(
     n_clear: int = 400,
     n_ret: int = 200,
 ) -> tuple[LeaveTakeReport, ReturnArmReport]:
+    """ENFORCING arm (R7): FROZEN shell-ONLY exterior drive."""
     eng, leave = run_leave_take(N=N, n_clear=n_clear)
     ret = run_return_phase(eng, source="shell", n_ret=n_ret)
     return leave, ret
+
+
+def run_shell_face_diag_arm(
+    *,
+    N: int = 16,
+    n_clear: int = 400,
+    n_ret: int = 200,
+) -> ReturnArmReport:
+    """DIAGNOSTIC arm (R7 KEEP-BOTH): shell ∪ interior-face drive (inflates ~3×;
+    NOT the frozen configuration)."""
+    eng, _ = run_leave_take(N=N, n_clear=n_clear)
+    return run_return_phase(eng, source="shell_face_diag", n_ret=n_ret)
 
 
 def run_null_arm(
@@ -240,8 +268,11 @@ def adjudicate(
         return "iii_RETURN_FAIL"
     if not shell.source_is_exterior:
         return "iii_RETURN_FAIL"
-    if not shell.received:
-        return "ii_RETURN_WEAK"
+    # R8 repair: the NULL-DIFFERENCED reception is the ENFORCING criterion. The
+    # per-arm `shell.received` flag is DIAGNOSTIC only — the no-drive null itself
+    # reads received=True (ΔE ≈ 1.4e-3 mode-switch slosh, ~200× the 1e-6 abs
+    # floor), so the frozen absolute floor is vacuous / does not encode the noise
+    # scale. Signal − null must clear the discrimination floor (prereg §Null arm).
     if (shell.delta_E_int - null.delta_E_int) <= DELTA_E_ABS:
         return "ii_RETURN_WEAK"
     if not sabotage.trips_as_sabotage:
@@ -256,7 +287,10 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
     n_clear = 300 if fast else 500
     n_ret = 120 if fast else 200
 
+    # ENFORCING arm = FROZEN shell-ONLY drive (R7). The shell+face variant is a
+    # labeled diagnostic leg (KEEP-BOTH), NOT fed to the bin.
     leave, shell = run_shell_return_arm(N=N, n_clear=n_clear, n_ret=n_ret)
+    shell_face_diag = run_shell_face_diag_arm(N=N, n_clear=n_clear, n_ret=n_ret)
     null = run_null_arm(N=N, n_clear=n_clear, n_ret=n_ret)
     sabotage = run_interior_sabotage(N=N, n_clear=n_clear, n_ret=n_ret)
     bin_id = adjudicate(leave=leave, shell=shell, null=null, sabotage=sabotage)
@@ -269,14 +303,22 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
         "omega_ret": OMEGA_RET,
         "fast": fast,
         "leave_take": asdict(leave),
-        "shell_return": asdict(shell),
+        "shell_return": asdict(shell),  # FROZEN shell-only (enforcing)
+        "shell_face_diag_return": asdict(shell_face_diag),  # diagnostic (shell∪face)
         "null_return": asdict(null),
-        "delta_vs_null": float(shell.delta_E_int - null.delta_E_int),
+        "delta_vs_null": float(shell.delta_E_int - null.delta_E_int),  # ENFORCING discrimination
+        "null_systematic_note": (
+            "R8: the no-drive null reads received=%r at ΔE_int=%.3e — a mode-switch "
+            "slosh ~%.0f× the 1e-6 abs floor. Per-arm reception is diagnostic; the "
+            "enforcing criterion is signal − null (delta_vs_null)."
+            % (null.received, null.delta_E_int, null.delta_E_int / DELTA_E_ABS)
+        ),
         "sabotage": asdict(sabotage),
         "bin": bin_id,
         "note": (
             "A3 = exterior→local return on A1 face. H rise during return = "
-            "exterior work, not A1 passivity fail. No Machian mesh / emergence."
+            "exterior work, not A1 passivity fail. No Machian mesh / emergence. "
+            "Drive is FROZEN shell-only (R7); shell+face is diagnostic."
         ),
         "refuse_claim_class": ClaimClass.EMERGENCE.value,
         "closed_claim_class": CLAIM_RULE10.value,
