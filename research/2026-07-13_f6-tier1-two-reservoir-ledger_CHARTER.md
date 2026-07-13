@@ -231,12 +231,6 @@ flowchart TB
 
 ---
 
-## 3 · Map (where this sits in the program)
-
-<!-- SECTION-3 -->
-
----
-
 ## 4 · Analysis (what would discriminate; what would fake)
 
 ### 4.1 Fireable content vs entailed content
@@ -338,9 +332,3 @@ All file:line anchors below were **re-verified at this PR's base `d0037d8f`** wi
 - `manuscript/ave-kb/common/substrate-native-terminology.md:62` — plastic/STZ sub-yield dissipation "imports dissipation, which would radiate, contradicting the result" (amorphous-retirement precedent; FAILs Ax3).
 - `src/ave/core/crystal_graft_v4.py:159-167` — trilinear `H=κ̃∫gV[w·∇×ω]` = INDEFINITE Hamiltonian, unbounded below, PUMP/DETONATE. **⚠ LINE-DRIFT FLAG:** the brief cited `:160-166`; the verbatim comment block spans `:159-167` at this HEAD (core detonation lines `:160-162`).
 - `research/2026-06-10_bemf-feedback-smoke_result.md:92-94` (§8) — v5 spec: "SOURCE DEPLETION, not reaction"; bounded, norm-preserving photon→ω helicity transfer = an orthogonal field-space rotation, NOT a trilinear potential.
-
----
-
-## 6 · References (grep-verified anchors — 2026-07-13, at base d0037d8f)
-
-<!-- SECTION-6 -->
