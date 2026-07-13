@@ -163,11 +163,19 @@ def run_sabotage_plant(N: int, mode: str, pml: int = PML_CLOSED) -> dict:
         else 0.0
     )
 
-    plant_false_pass = _persists(plant_E, plant_phi)
+    plant_false_pass = _persists(plant_E, plant_phi)  # prereg criterion: full AND-gate
     free_pass = _persists(free_E, free_phi)
-    # The control is VALID iff the sustained plant lifts E_persist materially above
-    # the free run (the detector responds to external sustenance on evolved output).
-    plant_detects_sustenance = plant_E > free_E + 1e-6
+    # SCOPE HONESTY (adversarial review PR #670, finding #5): the prereg's criterion
+    # for a valid plant is that the full AND-detector FALSELY PASSES. Re-injecting the
+    # seed clobbers the Cosserat state and zeroes phi_link_sq (plant_phi -> 0), so the
+    # AND-gate FAILS on phi ⇒ `plant_false_pass` is False for every plant. What the
+    # plant DOES establish is that the E-CHANNEL is integrator-coupled (plant_E lifts
+    # far above the free run under sustained forcing) — but the E-channel is exactly
+    # the channel that is degenerate in the closed box (E_persist ≡ 1 identity). The
+    # LOAD-BEARING phi-channel is NOT exercised (the plant destroys phi rather than
+    # sustaining it). A proper phi-channel negative control (sustain phi WITHOUT
+    # clobbering the Cosserat state) is a follow-on, alongside the localization axis.
+    e_channel_integrator_coupled = plant_E > free_E + 1e-6
     return {
         "cell": "sabotage_plant",
         "N": N,
@@ -179,16 +187,21 @@ def run_sabotage_plant(N: int, mode: str, pml: int = PML_CLOSED) -> dict:
         "free_pass": free_pass,
         "plant_E_persist": float(plant_E),
         "plant_phi_persist": float(plant_phi),
+        # prereg criterion (full AND-gate false-PASS): False for all (phi clobbered)
         "plant_false_pass": plant_false_pass,
-        "plant_lifts_E_above_free": plant_detects_sustenance,
-        "valid_negative_control": bool(plant_detects_sustenance),
+        # what the plant actually establishes: E-channel integrator coupling only
+        "e_channel_integrator_coupled": e_channel_integrator_coupled,
+        "phi_channel_exercised": False,  # re-injection zeroes phi; not tested here
         "n_drive": n_drive,
         "n_quiet": n_quiet,
         "wall_seconds": round(time.time() - t0, 1),
         "prereg": PREREG,
         "note": (
             "plant re-injects seed each quiet step (external sustenance on the "
-            "evolved field); a valid detector reports a materially higher/false "
+            "evolved field). It CLOBBERS phi (plant_phi->0), so plant_false_pass is "
+            "False under the prereg's full-AND-gate criterion; it establishes only "
+            "E-channel integrator coupling (plant_E >> free_E), NOT the load-bearing "
+            "phi channel. Prior meaning: a valid detector reports a materially higher/false "
             "PASS vs the free run"
         ),
     }
@@ -227,7 +240,7 @@ def cmd_plant(argv: list[str]) -> None:
     print(
         f"[plant] N={N} pml={pml} {mode}: free_E={d['free_E_persist']:.4f} "
         f"plant_E={d['plant_E_persist']:.4f} false_pass={d['plant_false_pass']} "
-        f"valid_control={d['valid_negative_control']} [{d['wall_seconds']}s]",
+        f"E_coupled={d['e_channel_integrator_coupled']} [{d['wall_seconds']}s]",
         flush=True,
     )
 
@@ -321,7 +334,7 @@ def cmd_aggregate() -> None:
     for p in plants:
         print(f"  N={p['N']} pml={p['pml']} {p['mode']}: free_E={p['free_E_persist']:.4f} "
               f"plant_E={p['plant_E_persist']:.4f} false_pass={p['plant_false_pass']} "
-              f"valid_control={p['valid_negative_control']}")
+              f"E_coupled={p.get('e_channel_integrator_coupled', p.get('valid_negative_control'))}")
     print(f"\nsummary -> {OUT_DIR / 'genesis_npersist_battery_summary.json'}")
 
 

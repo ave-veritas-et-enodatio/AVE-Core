@@ -35,8 +35,9 @@ closed box. **(B) node-birth firewalled — reads (A) fixed-\(N\) only.**
    gives φ that *collapses* under the absorber (0.51) and *explodes* under the reflector (10.5).
    The boundary dominates the observable; the detector cannot read *intrinsic* persistence in
    either boundary. Neither boundary is "clean."
-6. **Recommendation — G-PERSIST: lean CONFIRMS (bin (ii) A-WEAKENED holds boundary-clean).**
-   The only boundary-clean signal is the φ-dispersion trend, and it says the fixed-\(N\)
+6. **Recommendation — G-PERSIST: lean CONFIRMS (bin (ii) A-WEAKENED).** Precise footing:
+   *neither boundary is clean* (§5); the only **boundary-insensitive** signal is the cross-N
+   **φ-dispersion trend** under PML, and it supports (ii) — it says the fixed-\(N\)
    pattern does **not** achieve lasting localization; the E-leakage confound is real but does
    **not** rescue persistence. **This flips the handoff's expected outcome** (it expected
    closed-box recovery ⇒ A-SUPPORTED ⇒ G-PERSIST moot). Because the closed-box read is a
@@ -164,28 +165,46 @@ The re-run does **not** deliver the single "boundary-clean" read the handoff sou
   φ ≈ 1; runaway growth is cavity mode-feeding. (Smoke φ ≈ 2.5 over the shorter quiet window
   ⇒ the growth accumulates with quiet time — a cavity signature, not retention.)
 
+**The φ floor is one-sided (adversarial review finding #2 — CONFIRMED).** `φ_persist ≥ 0.80`
+is a **lower bound** — it was designed to detect *retention* (φ ≈ 1). Runaway growth (φ ≈ 10)
+sails through it. So in the closed box **both** detector channels are degenerate false-positives:
+E clears by conservation identity, φ clears by unbounded growth. The closed-box bin (i)
+A-SUPPORTED carries **zero discriminating power**.
+
 **Detector boundary-degeneracy:** the same seed at the same N gives φ = 0.51 (absorber) vs
 10.5 (reflector). The boundary dominates the observable. The frozen E/φ detector **cannot
 read intrinsic persistence** in either boundary — the handoff's "clean adjudication" is not
-achievable with this detector alone.
+achievable with this detector alone. The only boundary-**insensitive** signal in the battery
+is the **cross-N φ-dispersion trend under PML** (worsening as the interior grows).
 
 ---
 
 ## 6 · Adversarial sabotage plant (negative control — prereg §Sabotage plant)
 
 Pre-registered plant: re-inject the seed each quiet step (sustained forcing on the **evolved**
-field), read E_persist off the real integrator. A valid detector must respond.
+field), read E_persist / φ_persist off the real integrator.
 
-| cell | free_E | plant_E | valid control? |
-|---|---|---|---|
-| N=14 closed pair | 1.0000 | 12.51 | ✓ (lifts E ≫ free) |
-| N=14 closed graded_a0 | 1.0000 | 13046.1 | ✓ |
-| N=14 PML pair | 0.9610 | 6.47 | ✓ |
-| N=14 closed photon_lock | 1.0000 | 1.0000 | ✗ (φ-dead degenerate mode) |
+| cell | free_E | plant_E | plant_φ | plant false-PASS (full AND-gate)? |
+|---|---|---|---|---|
+| N=14 closed pair | 1.0000 | 12.51 | 0.0000 | ✗ |
+| N=14 closed graded_a0 | 1.0000 | 13046.1 | 0.0000 | ✗ |
+| N=14 PML pair | 0.9610 | 6.47 | 0.0000 | ✗ |
+| N=14 closed photon_lock | 1.0000 | 1.0000 | 0.0000 | ✗ |
 
-The plant drives E_persist far above the free run (up to 13046× vs 1.0) ⇒ the detector's
-E-channel is exercised on the **integrator output**, not a spreadsheet — a valid negative
-control (discipline (c)). 3/4 valid; `photon_lock` is the known φ-dead degenerate mode.
+**Honest scope (adversarial review PR #670, finding #5 — CONFIRMED).** The plant drives
+`E_persist` far above the free run (up to **13046×** vs 1.0) ⇒ the **E-channel is exercised on
+the integrator output**, not a spreadsheet (discipline (c) satisfied for the E-channel). But
+re-injecting the seed **clobbers the Cosserat state and zeroes φ** (`plant_φ` = 0 in every
+cell), so under the prereg's own criterion — the **full AND-detector falsely PASSes** —
+`plant_false_pass` is **False for all four**; the plant does **not** achieve a false PASS. And
+the E-channel it validates is exactly the channel shown degenerate in §5. **The load-bearing
+φ-channel is never exercised** (the plant destroys φ rather than sustaining it). A proper
+φ-channel negative control (sustain φ *without* clobbering the Cosserat state) is a **follow-on**,
+alongside the localization axis (§8). The φ-dispersion conclusion (§5) therefore rests on the
+**N-monotonic trend + byte-exact reproduction**, not on this plant.
+
+(The earlier "3/4 valid negative control" label used an E-lift proxy, not the prereg's
+false-PASS criterion — corrected here and in the driver.)
 
 ---
 
@@ -200,10 +219,12 @@ disagreement is exactly the closed-box interpretation:
   stays open independently — anhysteretic zero-loop-area fact.)
 - **Reading B (physical / evidence-weighted — recommended):** the closed-box PASS is a
   reflecting-cavity artifact (E≡1.0 identity + φ runaway to 10×), so the RECOVERS is not a
-  real localization recovery. The only boundary-clean signal — φ-dispersion worsening with
-  interior size under PML (0.87→0.51) — says the fixed-\(N\) pattern **does not** stay
-  localized. ⇒ **bin (ii) A-WEAKENED holds boundary-clean ⇒ G-PERSIST CONFIRMS**;
-  remanence-before-node-mint stands on a boundary-clean fact.
+  real localization recovery. The only boundary-**insensitive** signal — φ-dispersion
+  worsening with interior size under PML (0.87→0.51) — says the fixed-\(N\) pattern **does not**
+  stay localized. ⇒ **bin (ii) A-WEAKENED is supported ⇒ G-PERSIST CONFIRMS.** (Footing note:
+  bin (ii) itself is *not* a "boundary-clean bin" — neither boundary is clean, §5; what is
+  boundary-insensitive is the *trend*, and the trend supports (ii). This corrects the frozen
+  prereg's "(ii) holds boundary-clean" phrasing — see the prereg erratum.)
 
 **Recommendation: Reading B (G-PERSIST CONFIRMS).** The φ-dispersion trend is the cleanest
 evidence in the battery — it *worsens* as the boundary influence *shrinks*, which no boundary
@@ -231,6 +252,11 @@ dispersing/sloshing one does not). Per prereg §Detector-substitution rule this 
 axis added alongside** the frozen E/φ (KEEP-BOTH), **never a swap**. This is the recommended
 next driver if Grant wants Reading A vs B settled empirically rather than by intuition.
 
+**Second follow-on — a φ-channel negative control** (adversarial review finding #5): the
+sabotage plant here exercises only the E-channel because seed re-injection clobbers φ (§6). A
+proper control sustains φ *without* destroying the Cosserat state, to test whether the
+load-bearing φ-detector can be fooled by external sustenance.
+
 ---
 
 ## 9 · Provenance
@@ -244,3 +270,22 @@ next driver if Grant wants Reading A vs B settled empirically rather than by int
   `python src/scripts/vol_1_foundations/genesis_npersist_battery.py --all`, or per-cell via
   `--cell N PML MODE FID`; the numbers above are the run of record and are reproducible
   byte-for-byte from the frozen carrier).
+
+---
+
+## 10 · Adversarial review (PR #670 — 5 lenses → per-finding verify)
+
+Ran `ave-adversarial-pr-review` via scriptPath wrapper (handoff discipline (d); never the
+named-args path). **5/5 findings confirmed on verify — 1 MAJOR + 4 MINOR, all EVIDENCE-VOID
+(documentation-integrity; none corrupt the banked conclusion).** All are consequences of the
+closed-box detector degeneracy this RESULT already argues; the **G-PERSIST CONFIRMS
+recommendation (via φ-dispersion) is untouched.** Fixes applied this turn:
+
+| # | sev (verified) | finding | fix |
+|---|---|---|---|
+| 1,3 | MAJOR→MINOR | frozen prereg mechanism-note claimed closed-box E is "**not** a conservation identity" — data refutes it (E≡1.0 mode-independent, incl. structure-dead photon_lock); the boundary-axis E-channel discriminator is vacuous | **prereg erratum** (dated; frozen body byte-untouched) |
+| 2 | MINOR | φ≥0.80 floor is one-sided ⇒ closed-box runaway φ≈10× trivially passes a *retention* floor | §5 one-sided-floor note |
+| 4 | MINOR | "(ii) holds **boundary-clean**" conflicts with "neither boundary is clean" | §1/§7 reworded: the *φ-dispersion trend* is boundary-insensitive and supports (ii) |
+| 5 | **MAJOR** | sabotage plant labeled "valid" via an E-lift proxy, not the prereg's false-PASS criterion; re-injection zeroes φ ⇒ `plant_false_pass`=False for all, and the load-bearing φ-channel is never exercised | §6 rewritten honestly + driver relabeled (`e_channel_integrator_coupled`, `phi_channel_exercised=False`); φ-channel control added as follow-on (§8) |
+
+Full review output: workflow run `wf_8689c70a-98a` (10 agents, 0 errors).

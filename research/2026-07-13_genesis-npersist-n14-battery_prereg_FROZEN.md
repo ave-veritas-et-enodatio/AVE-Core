@@ -179,3 +179,46 @@ a plant that only rescales the printed ratio is **not** a valid check and is rej
 - Retuning thresholds, seed amplitudes, drive/quiet multipliers, or the detector.
 - Claiming electron genesis / mass from a persistence PASS (EMERGENCE-as-electron refused).
 - Re-litigating mass=A1 (#260/#311) or the R10 remanence charter's independent status.
+
+---
+
+## ERRATUM 2026-07-13 (post-result — frozen body above is BYTE-UNTOUCHED)
+
+Dated erratum appended after the run, per the x40 / remanence amendment pattern. The frozen
+prereg body above is left **byte-for-byte unchanged**; these corrections record where the data
+**refuted a frozen expectation** (pre-registration working as designed) and where the frozen
+prose mis-read its own mechanism probe. Raised by the adversarial review of PR #670
+(5/5 findings confirmed on verify). **None affects the RESULT's banked conclusion** — the
+G-PERSIST recommendation rests on the boundary-insensitive φ-dispersion trend, not on any of
+the items below. The RESULT
+(`research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`) **supersedes** the frozen
+expectations here.
+
+1. **The Corpus-sweep mechanism note (frozen, "Mechanism note … `pml=0` … closed-box
+   `E_persist` is a meaningful bulk+wall persistence read, **not** a trivial
+   energy-conservation identity") is REFUTED by the data.** Closed-box `E_persist` ≡ **1.0000**
+   *mode-independently* (pair, graded_a0, **and** the structure-dead photon_lock which
+   localizes nothing) at N=14 and N=16 ⇒ it **is** a conservation identity (a reflecting box
+   retains all energy independent of localization). The frozen 2-step probe (H 5.819→5.821,
+   "conserved") in fact **demonstrated** the identity while the prose denied it — an internal
+   self-contradiction. Consequence: the **boundary-artifact axis's E-channel discriminator is
+   vacuous** (its PASS condition `E≥0.85` cannot fail in the closed box), and the frozen
+   "RECOVERS" row is **non-fireable-against** on the E-channel.
+
+2. **The φ ≥ 0.80 floor is one-sided.** It was written to detect *retention* (φ ≈ 1) but is a
+   *lower bound*, so closed-box runaway growth (φ ≈ 10×) trivially clears it. In the closed
+   box **both** detector channels are degenerate false-positives; the closed-box bin (i)
+   A-SUPPORTED carries **zero discriminating power**.
+
+3. **Outcome-map phrasing "(ii) A-WEAKENED holds boundary-clean" is imprecise.** Neither
+   boundary is clean (absorber under-counts via leakage; reflector over-counts via
+   retention/mode-growth). The boundary-**insensitive** signal is the *cross-N φ-dispersion
+   trend* under PML; read the outcome map as "(ii) is supported by the boundary-insensitive
+   trend," not "(ii) is a boundary-clean bin."
+
+4. **Sabotage-plant scope.** The plant re-injects the seed, which **clobbers φ** (plant_φ → 0),
+   so under the frozen "detector falsely PASSes" criterion `plant_false_pass` is **False for
+   every plant** — the plant does **not** achieve a false PASS. It establishes only that the
+   **E-channel** is integrator-coupled (plant_E ≫ free_E); the load-bearing **φ-channel is not
+   exercised**. A φ-channel negative control (sustain φ without clobbering the Cosserat state)
+   is a follow-on.
