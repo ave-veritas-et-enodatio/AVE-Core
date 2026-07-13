@@ -17,7 +17,7 @@
 
 The CVR (across-gap dielectric C-V) bench is honestly THREE things, and nothing more:
 
-1. **A VALIDATION-LADDER + MATERIAL-ANALOG SHAPE BENCH.** It confirms the universal saturation-kernel SHAPE $S(A)=\sqrt{1-A^2}$ — the tangent roll-off, the $1/\sqrt2$ negative-differential-capacitance (NDC) snap-back, the flat-in-$f$ character — on a *known saturable material varactor* at the calibrated material scale (the cRIO prereg's own verdict, `research/2026-06-10_crio-ceff-saturation-onset_prereg-draft.md:165-170`: "separable in shape only … for a known saturable dielectric first"). It NEVER measures $\ell_{node}$ itself (that is a calibration import, circular by construction) and NEVER reaches the *vacuum's* own kernel at bench fields.
+1. **A VALIDATION-LADDER + MATERIAL-ANALOG SHAPE BENCH.** It confirms the universal saturation-kernel SHAPE $S(A)=\sqrt{1-A^2}$ — the tangent roll-off, the $1/\sqrt2$ negative-differential-capacitance (NDC) snap-back, the flat-in-$f$ character — on a *known saturable material varactor* at the calibrated material scale (the cRIO prereg's own verdict, `research/2026-06-10_crio-ceff-saturation-onset_prereg-draft.md:165-170`: a "validation-ladder + material-analog consistency bench", "separable in shape only"; the "known saturable dielectric first" framing is `research/2026-07-08_sve-vacuum-network-ee-analysis.md:68`). It NEVER measures $\ell_{node}$ itself (that is a calibration import, circular by construction) and NEVER reaches the *vacuum's* own kernel at bench fields.
 
 2. **A ONE-SIDED ANOMALY BOUND (corroborative-null class).** The form axes below classify any *resolved* $E^2$-even residual as fixture-vs-anomaly — CLEAVE-01-corroborative-null style (`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md:40-61,131-151`, `clm-clvchn` NULL-CONFIRMED-FINAL → a positive REOPENS, never confirms). A clean null is the expected result and *bounds* an anomalous coefficient; it does not confirm AVE.
 
@@ -35,7 +35,7 @@ The CVR (across-gap dielectric C-V) bench is honestly THREE things, and nothing 
 
 **AC/DC-carve license (why this qualifies as a discriminating-test class at all).** CVR is the sibling instrument of the banked E-route vacuum birefringence (`clm-pp3qwf`, `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`): identical DC ε-varactor operating point, an LCR AC-capacitance channel instead of the laser-index channel — a DC→AC coupling-class test (`manuscript/ave-kb/common/claim-quality.md:1368` clm-acdc07, selection rule (iv) `:1378`). **Caveat (iii) `:1377`: AC agreement is consistency-only; the distinctive content is the SIGN + the $1/\sqrt2$ NDC snap-back, which the incumbent (QED) does not predict — and both are magnitude-dead at the bench, hence the corroborative-null / anomaly-bound framing above.**
 
-**Discipline classification (per `consistency-vs-emergence`).** The kernel SHAPE the material-analog ladder confirms is CONSISTENCY-class (network-topology + Ax-4 kernel-argument identity; no new dimensionful number minted — mirrors `manuscript/ave-kb/vol4/claim-quality.md:1843` "FORM-level derivation / CONSISTENCY class"). The vacuum $E_{yield}=1.13\times10^{17}$ V/m scale is EMERGENCE-class but is *not measured here* (magnitude-dead). **No requirement below may be read as gating an emergence-class AVE-confirmation.**
+**Discipline classification (per `consistency-vs-emergence`).** The kernel SHAPE the material-analog ladder confirms is CONSISTENCY-class (network-topology + Ax-4 kernel-argument identity; no new dimensionful number minted — mirrors `manuscript/ave-kb/vol4/claim-quality.md:1846` "FORM-level derivation / CONSISTENCY class"). The vacuum $E_{yield}=1.13\times10^{17}$ V/m scale is EMERGENCE-class but is *not measured here* (magnitude-dead). **No requirement below may be read as gating an emergence-class AVE-confirmation.**
 
 ---
 
@@ -119,7 +119,7 @@ So $\delta C/C \approx 4.4\times10^{-10}\,V^2$ — i.e. $\approx4.4\times10^{-4}
 $$
 V_{PI} = \sqrt{\frac{8\,k\,d_0^{3}}{27\,\varepsilon_0 A}} .
 $$
-At $A=1\ \text{cm}^2$, $d_0=100\ \mu\text{m}$, $k=1\times10^{6}$ N/m: $V_{PI} = \sqrt{8(10^{6})(10^{-4})^{3}/[27(8.854\times10^{-12})(10^{-4})]} \approx 1.8\times10^{4}$ V $\approx 18$ kV. At a 10 kV max bias the gap closure is $\delta d/d = \varepsilon_0 A V^2/(2 k d^3) = 4.4\times10^{-10}(10^{8}) = 4.4\%$ — comfortably below the $1/3$ pull-in threshold, keeping the $d^{-3}$ term a clean leading-order object. **Requirement:** $k$ chosen so $V_{max} \lesssim V_{PI}/2$ AND $\delta d/d \lesssim$ few-% at $V_{max}$.
+At $A=1\ \text{cm}^2$, $d_0=100\ \mu\text{m}$, $k=1\times10^{6}$ N/m: $V_{PI} = \sqrt{8(10^{6})(10^{-4})^{3}/[27(8.854\times10^{-12})(10^{-4})]} \approx 1.83\times10^{4}$ V $\approx 18.3$ kV, so $V_{PI}/2 \approx 9.1$ kV. At a **9 kV** max bias (satisfying $V_{max}\lesssim V_{PI}/2$) the gap closure is $\delta d/d = \varepsilon_0 A V^2/(2 k d^3) = 4.4\times10^{-10}(8.1\times10^{7}) = 3.6\%$ — comfortably below the $1/3$ pull-in threshold, keeping the $d^{-3}$ term a clean leading-order object. **Requirement:** $k$ chosen so $V_{max} \lesssim V_{PI}/2$ AND $\delta d/d \lesssim$ few-% at $V_{max}$. (Reaching the §1 illustrative 10 kV at this gap needs a stiffer fixture, $k\gtrsim1.2\times10^{6}$ N/m so $V_{PI}\gtrsim20$ kV and $V_{PI}/2\gtrsim10$ kV — the stiffness spec scales with the target max bias.)
 
 **(3.2) Pull-in characterized BEFORE data runs (the confound→subtraction conversion).** Measure the actual pull-in voltage $V_{PI}$ of the assembled fixture *before* any $C(V)$ data run. $V_{PI}$ pins $k$ (via the formula above, at known $A,d_0$); knowing $k$ turns the electrode $d^{-3}$ term from an unquantified confound into a *computed, subtractable* term (its coefficient $\varepsilon_0 A/(2kd^3)$ is then fully determined). **The snap-in IS the $d^{-3}$ systematic announcing itself** (the plumber's "have you ever measured your fixture's pull-in?"). This is a mandatory pre-run characterization, not an optional check.
 
@@ -145,7 +145,7 @@ $$
 
 - **SIGN** (`CVR-REQ-FIELDVOL`, §4): lattice negative vs electrode-attraction positive; degenerate confounds excluded by Class-I-only.
 - **GAP-POWER** (`CVR-REQ-FIXTURE`, §3.4): lattice $d^{-2}$ vs electrode-attraction $d^{-3}$.
-- **FLATNESS-in-$f$** (this section): the kernel is memoryless/dispersionless to $\omega_C \approx 7.7\times10^{20}$ rad/s (driver-confirmed flat, `manuscript/ave-kb/vol4/claim-quality.md:1846`, $\max_{\rm rel} = 2.0\times10^{-16}$, no $(\omega/\omega_C)^2$ factor), while fixture systematics are $f$-structured (spring-mass resonances kHz–MHz, PZT log-creep over seconds, Debye/dielectric-absorption relaxation) — all inside DC–40 kHz reach.
+- **FLATNESS-in-$f$** (this section): the kernel is memoryless/dispersionless to $\omega_C \approx 7.7\times10^{20}$ rad/s (driver-confirmed flat, `manuscript/ave-kb/vol4/claim-quality.md:1849`, $\max_{\rm rel} = 2.0\times10^{-16}$, no $(\omega/\omega_C)^2$ factor), while fixture systematics are $f$-structured (spring-mass resonances kHz–MHz, PZT log-creep over seconds, Debye/dielectric-absorption relaxation) — all inside DC–40 kHz reach.
 
 The non-fakeable object is the TRIPLE CONJUNCTION {negative-sign ∧ $d^{-2}$ ∧ flat-in-$f$}. Per `CVR-REQ-FRAME`, at bench magnitude this conjunction is ~$10^{-17}$ and unreachable — so the acquisition's job is to *classify any resolved $E^2$-even residual* against this conjunction (fixture-vs-anomaly), not to detect the lattice.
 
@@ -168,7 +168,7 @@ C_{diel} = C_0\,S \approx C_0\left(1-\tfrac12 A^2\right)\ \text{(chord)}, \qquad
 C_{ss} = \frac{dQ}{dV} = C_0\left(S - \frac{A^2}{S}\right) \approx C_0\left(1-\tfrac32 A^2\right)\ \text{(tangent)},
 $$
 with $S \equiv \sqrt{1-A^2}$ and the tangent zero (NDC snap-back) at $A = 1/\sqrt2$.
-2. The transverse-FIELD keying (no per-node conflation), `manuscript/ave-kb/vol4/claim-quality.md:521`: a bench that specifies a FIELD $E$ (not a gap voltage) has $A = E/E_{yield}$ **directly**.
+2. The transverse-FIELD keying (no per-node conflation), `manuscript/ave-kb/vol4/claim-quality.md:524`: a bench that specifies a FIELD $E$ (not a gap voltage) has $A = E/E_{yield}$ **directly**.
 3. The canonical scale, `src/ave/core/constants.py:516`: $E_{yield} = V_{yield}/\ell_{node} \approx 1.13\times10^{17}$ V/m.
 
 **The assembly.** Substitute $A = E/E_{yield}$ into the leading-order forms and read $\delta C/C \equiv C/C_0 - 1$:
@@ -191,6 +191,6 @@ $$
 \left.\frac{d(\delta C/C)}{dE^2}\right|_{\text{chord}} = -3.92\times10^{-35}\ (\text{m/V})^2 .
 $$
 
-**What this is and is not.** The **tangent** slope $-3/(2E_{yield}^2)$ is what an across-gap small-signal LCR meter reports — the meter-reported roll-off, the coefficient the CVR bench's $E^2$-even axis would fit. The **chord** slope $-1/(2E_{yield}^2)$ is the large-signal $C=Q/V$ (three-times shallower). Both are **negative** (the SIGN discriminator, `CVR-REQ-FIELDVOL`) and both are keyed on $E_{yield}$ = the transverse-T2 wall (`V_yield`), NOT the longitudinal $C_0/S$ divergence keyed on $V_{snap}$ (which an across-gap meter does not read — `dielectric-plateau-prediction.md:30`). Per `CVR-REQ-FRAME`, at any bench field these slopes are unmeasurably small ($|\delta C/C|\sim10^{-17}$ at $E\sim10^8$ V/m — §1); the expression is the *shape* the material-analog ladder validates and the *coefficient* against which a resolved anomaly is bounded, not a bench-reachable AVE signal.
+**What this is and is not.** The **tangent** slope $-3/(2E_{yield}^2)$ is what an across-gap small-signal LCR meter reports — the meter-reported roll-off, the coefficient the CVR bench's $E^2$-even axis would fit. The **chord** slope $-1/(2E_{yield}^2)$ is the large-signal $C=Q/V$ (three-times shallower). Both are **negative** (the SIGN discriminator, `CVR-REQ-FIELDVOL`) and both are keyed on $E_{yield}$ = the transverse-T2 wall (`V_yield`), NOT the longitudinal $C_0/S$ divergence keyed on $V_{snap}$ (which an across-gap meter does not read — `dielectric-plateau-prediction.md:30`). Per `CVR-REQ-FRAME`, at any bench field these slopes are unmeasurably small (§1: $|\delta C/C|_{\rm tangent}\approx1.2\times10^{-18}$ at $E\sim10^8$ V/m; the $\sim10^{-17}$ figure in the page-one frame table is the strong-point value at $E\sim10^9$ V/m, $A_0\sim10^{-8}$); the expression is the *shape* the material-analog ladder validates and the *coefficient* against which a resolved anomaly is bounded, not a bench-reachable AVE signal.
 
 ---
