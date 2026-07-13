@@ -14,6 +14,14 @@
 - srs vertex k-sweep backscatter (carrier-wave frame): [`2026-07-13_srs-vertex-ksweep-handoff.md`](2026-07-13_srs-vertex-ksweep-handoff.md) — adjudicate the per-vertex Γ=−1/3 ontology fork; KERNEL OFF.
 - F6 depletion tier-1 charter (two-reservoir ODE ledger): [`2026-07-13_f6-depletion-tier1-charter-handoff.md`](2026-07-13_f6-depletion-tier1-charter-handoff.md) — charter the DE-tracks-matter existence+FORM ledger; charter first, driver after review.
 
+## 2026-07-13 — Identity-break test-design methodology internalized (leaf + review-instrument wiring)
+
+**Focus (Grant):** internalize the 2026-07-13 shape-of-the-mathematics synthesis into the corpus process for reviewing/auditing the engine — "needs to be documented durably." Pure methodology, no new physics claim; receipts (#668/#669/#670/#667 + F6 charter §4.7/§(iv) + X36) re-verified at HEAD.
+
+- Canonical leaf: [`../manuscript/ave-kb/common/identity-break-test-design.md`](../manuscript/ave-kb/common/identity-break-test-design.md) — TWO FIXED POINTS / IDENTITY-DOMINATED INTERIOR / EVEN-KERNEL SECOND-ORDER-ONLY / THREE CLOSED VALUE-GENERATORS → the DESIGN RULE (break an identity, never measure a magnitude) + the VACUOUS-DETECTOR KNIFE. Routing row added to `common/index.md`; companion to `form-deriving-value-importing.md`.
+- Standing review-instrument wiring: the identity-audit knife added as a standing item in the `STANDING DISCIPLINE (every lens)` block of [`../.claude/workflows/ave-adversarial-pr-review.js`](../.claude/workflows/ave-adversarial-pr-review.js) (comment/convention-level, no logic change), alongside the existing "gates must be able to fire" bullet.
+- **Skill-candidate watch (Grant-gated):** `identity-break-test-design` — candidate prereg/review skill trigger; leaf landed; **skill creation HARD-GATED on Grant** (no skill created this lane).
+
 ## 2026-07-12 — Remanence R10 fixed-\(N\) discriminator (charter + freeze)
 
 **Focus (Grant):** charter constitutive remanence on fixed \(N\) — full physical + circuit walk, map, analysis; freeze discriminator before driver. Node-mint stays closed.
