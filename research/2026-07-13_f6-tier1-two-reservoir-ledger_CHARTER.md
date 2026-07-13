@@ -293,7 +293,51 @@ Each of the three Grant-walked hard constraints fires on a **specific computed q
 
 ## 5 · Deliverables and sequencing
 
-<!-- SECTION-5 -->
+| Step | Artifact | Status |
+|---|---|---|
+| 0 | Grant GO (Q4) — ρ_latent parameterization INPUT-ONLY at `clm-s4n33u` (0.45) | 2026-07-13 ✓ |
+| 1 | **This CHARTER** (picture · walked architecture · cascade · constraints · licensed mechanisms · Ax3 carve · scope · bins) | This file — reviewed **before** any driver |
+| 2 | **FROZEN prereg** (frozen bins + tolerances `tol_cons`, `tol_form`, `tol_bias`, `tol_A1`, `tol_μ`) | Sibling file — freeze-by-push **BEFORE any driver**; **NOT in this commit** |
+| 3 | **Tier-1 driver** (the two-reservoir ODE ledger) | **NOT in this commit** — gated on charter + prereg review |
+| 4 | **TIER-2** (one X40-class discrete-click demo) | Separate follow-on — gated on this charter's review |
+
+**Deliverable lock (this PR).** ONE charter doc. **No driver code, no engine edits, no KB-leaf edits.** The frozen prereg (step 2), the tier-1 driver (step 3), and tier-2 (step 4) are all gated on Grant's charter review.
+
+**Rails.**
+- **Freeze-by-push** — the FROZEN prereg's bins + tolerances are frozen by push before any driver exists; sabotage plants act on the **evolved ledger observables** (conservation residual, DE-form observable, the three hard-detector time-series), not on the input.
+- **Adversarial review** via a `scriptPath` wrapper that inlines ARGS and calls `workflow({scriptPath: '.claude/workflows/ave-adversarial-pr-review.js'}, ARGS)` (the named-workflow args path silently drops args).
+- **DO-NOT-MERGE** — only Grant merges. This charter is a discriminator draft, not a result.
+
+---
+
+## 6 · References (grep-verified anchors — 2026-07-13, at base d0037d8f)
+
+All file:line anchors below were **re-verified at this PR's base `d0037d8f`** with LaTeX-aware content greps (not carried on trust from the upstream grounding card, which was verified at a different HEAD). Two anchors drifted or need a scope caveat — flagged inline.
+
+**Charter pattern**
+- `research/2026-07-12_remanence-r10-fixed-n_CHARTER.md` — the #662 charter pattern this doc is modeled on (charter + frozen bins + fireable-vs-entailed + fool-modes + Ax3 carve).
+
+**Home leaf + scope**
+- `manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md:84-86` (Ax3-legal one-way T2 transfer, `dS>0`, "NOT a friction loss, so it is Ax3-COMPLIANT"); `:89-90,99-100` (chirality-ratchet-as-arrow REFUTED, "No future reader should re-introduce" it); `:122,136` (`clm-s4n33u` ρ_latent solidity 0.45, input-only, "don't build deeper"); `:128` (`reading-i dQ/dt∝n_matter` = ABSENT-INVENTED; `photon_deplete=True` detonates); `:139,144,146` (F6 = the one ΛCDM-distinct chord, UNBUILT); `:153-158` (the five make-or-break gates); `:159` (forward observable = DESI/Euclid DE-vs-matter cross-correlation); `:64,65,67` (reservoir roles: ρ_latent fuel / A1 lossless tank paid once / T2 CMB entropic sink); `:113` (consistency-vs-emergence tag).
+- `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:8,58-62` — 10^122 framing; naive mode-count "still gives a too-large naive answer"; DE reframed as latent heat, not zero-point energy (magnitude path rejected).
+
+**Cascade address (★QUARANTINE — Grant-walked ruling-grade input)**
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md:126` (Machian-G = distributed transmission-line input impedance at Hubble-horizon termination; re-confirmed `:335,:410`).
+
+**Engine state (sector header)**
+- `manuscript/ave-kb/common/engine-capability-map.md:155` — "F6 = ABSENT-INVENTED; `solve_backreaction` is static-elliptic, no `a(t)` evolver"; `:152` (F6 = the irreversible DE-tracks-matter sibling of the reversible #86 loop); `:145` (#86 two-way back-reaction PRESENT/LANDED 2026-06-29).
+
+**Licensed mechanisms**
+- `research/2026-07-10_x40-ring-closure-transient_result.md:18-20,161` — X40 discrete minting: `f_E=1/10` trapped, flux linkage Λ banked whole, drift `2.2e-16`, minted at the discrete ring-completion event.
+- `src/ave/core/cross_sector_coupling.py:137-141` — skew-Hermitian 3-port circulator: "one-way circulation needs the 3-port loop, **magnitude imposed**" (PR #321).
+
+**Diode class dead four ways + v4/v5**
+- `research/2026-06-08_rrad-l-rectification_result.md:67-73` — Ax4 kernel even-in-A ⇒ identical 2nd-order momentum for symmetric/asymmetric drive. **⚠ SCOPE FLAG:** the direct RUN null is regime-scoped by the doc's own Rule-12 header (`:14,:18`, sub-yield-linear shear = wrong regime); the regime-independent bulk-channel closure is **dead-by-derivation on UNMERGED branch `5969bda1`** (cite-by-branch, off main).
+- `manuscript/ave-kb/common/substrate-hysteresis-index.md:24-25` (Level-1 reversible/memoryless vs Level-2 memristive `∮S dr` = dissipated energy/cycle); `:96` ("**any** rectification/latching/path-memory requires the Level-2 dynamics, which the smooth √(1−A²) kernel does not implement").
+- `research/2026-07-08_p4-forward-voltage-threshold_RESULT.md:19,26,30-33,52-56` — "V_f is FREE — no canonical scale forces a forward-voltage dead zone"; kernel analytic at origin, dispersion gapless, no FORCED-bin row.
+- `manuscript/ave-kb/common/substrate-native-terminology.md:62` — plastic/STZ sub-yield dissipation "imports dissipation, which would radiate, contradicting the result" (amorphous-retirement precedent; FAILs Ax3).
+- `src/ave/core/crystal_graft_v4.py:159-167` — trilinear `H=κ̃∫gV[w·∇×ω]` = INDEFINITE Hamiltonian, unbounded below, PUMP/DETONATE. **⚠ LINE-DRIFT FLAG:** the brief cited `:160-166`; the verbatim comment block spans `:159-167` at this HEAD (core detonation lines `:160-162`).
+- `research/2026-06-10_bemf-feedback-smoke_result.md:92-94` (§8) — v5 spec: "SOURCE DEPLETION, not reaction"; bounded, norm-preserving photon→ω helicity transfer = an orthogonal field-space rotation, NOT a trilinear potential.
 
 ---
 
