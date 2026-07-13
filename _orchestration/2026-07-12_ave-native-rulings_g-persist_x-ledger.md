@@ -29,13 +29,18 @@ cavity \(\Gamma=-1\) paths) is owed before any (B) ruling, per the #655 result's
 Next line** (repair R5). Fixed pattern is **insufficient** for a lasting localized
 structure on that battery.
 
-> **★FOUNDATION UNDER RE-ADJUDICATION (2026-07-12 review):** the banked bin (ii) is
-> contested by the frozen prereg's own ≥1-path criterion (2/3 landed seed modes pass at
-> banked fidelity); G-PERSIST confirmation MUST postdate the #655 battery re-run — if the
-> bin re-adjudicates to (i) A-SUPPORTED, G-PERSIST as drafted is moot and the
-> remanence-before-node-mint build-order directive loses its banked-fact basis (the R10
-> remanence question itself stays open on independent grounds — the anhysteretic-kernel
-> zero-loop-area fact is corpus-standing regardless).
+> **★FOUNDATION UNDER RE-ADJUDICATION (2026-07-12 review; consistent with main's merged
+> #655 re-adjudication, `_orchestration/2026-07-12_genesis-node-birth-fork.md`):** the D2
+> battery-of-one was broadened to all 3 landed seed modes at both fidelities ⇒ a
+> **per-fidelity SPLIT** — SMOKE (n_quiet=12): **2/3 persist → bin (i) A-SUPPORTED**
+> (`pair`/`graded_a0`; `photon_lock` φ-channel dead); PRODUCTION (n_quiet=52): **0/3 → bin
+> (ii) A-WEAKENED**. Both N=10 bins are **boundary-confounded** (PML leakage, interior 4³;
+> E_persist recovers 0.69→0.80→0.84 as N 10→12→14 — artifact-leaning). Ruling-grade banking
+> is **DEFERRED to Grant**; G-PERSIST confirmation MUST postdate the **#655 battery re-run
+> (N≥14 / closed-box)** — if the fork re-adjudicates to (i) A-SUPPORTED, G-PERSIST as drafted
+> is moot and the remanence-before-node-mint build-order directive loses its banked-fact
+> basis (the R10 remanence question itself stays open on independent grounds — the
+> anhysteretic-kernel zero-loop-area fact is corpus-standing regardless).
 
 **★PROPOSED-RULED:**
 

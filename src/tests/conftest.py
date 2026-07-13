@@ -101,6 +101,7 @@ _ENGINE_SIM_TESTS = {
     # single-solve Stage-3 tests (α-clean, field-energy ledger, g_self=0 recovery)
     # in the same file STAY gating (sub-second). Coverage via `make test-engine`.
     "test_grqed_stage3_backreaction.py::TestRecoverGR::test_recover_gr_weak_field",
+    "test_grqed_stage3_backreaction.py::TestRecoverGR::test_recover_gr_gate_can_fire_perturb_receipt",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck1InverseR::test_extended_source_recovers_inverse_r",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck2SminIndependent::test_emergent_mass_is_smin_independent",
     "test_grqed_stage3_backreaction.py::TestAtRiskCheck3Raytrace::test_raytrace_recovers_4GM",
@@ -114,7 +115,8 @@ _ENGINE_SIM_TESTS = {
     # `make test-engine`. Prereg: research/2026-07-11_nordtvedt-eta_prereg_FROZEN.md.
     "test_nordtvedt_eta.py::test_nordtvedt_leg1_certification_one_ledger",
     "test_nordtvedt_eta.py::test_nordtvedt_p11_planted_two_ledger_teeth",
-    "test_nordtvedt_eta.py::test_nordtvedt_mixed_register_flag_add_vs_subtract",
+    "test_nordtvedt_eta.py::test_nordtvedt_add_side_one_ledger_certification",
+    "test_nordtvedt_eta.py::test_nordtvedt_legacy_add_mixed_register_still_exposes_gap",
     # Cleave registry-pump Chern (2026-07-02, Grant (b) dual-reading): the srs
     # (k_z, theta) torus Chern + gap-scan over BOTH readings x BOTH enantiomorphs
     # (run_all / srs_registry_chern; several 48x48 Fukui-Hatsugai integrations +
@@ -130,6 +132,12 @@ _ENGINE_SIM_TESTS = {
     # the same file STAY gating (sub-second). Coverage via `make test-engine`.
     "test_cleave_registry_pump_chern_nband.py::test_gverdict_null_confirmed_final",
     "test_cleave_registry_pump_chern_nband.py::test_srs_all_configs_gapped_converged",
+    # Genesis node-birth D2: loop_gap_harness P11 drive-off (~160s/leg at the
+    # banked N=10 rank-4 bulk config). The photon_lock leg (FAIL) + the R4 pair
+    # PASS-control plant. Fast D1/D3/bin/battery-logic keepers in the same file
+    # STAY gating. Coverage via make test-engine.
+    "test_genesis_node_birth_discriminator.py::test_d2_persistence_harness_smoke",
+    "test_genesis_node_birth_discriminator.py::test_d2_persistence_plant_pair_seed_fires",
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
 # module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
