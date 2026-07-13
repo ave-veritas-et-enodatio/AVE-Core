@@ -62,7 +62,51 @@ These four elements are recorded as **ruling-grade inputs** (the walked map), no
 | A1 dilatation-mass tank | Owns rest-mass; **NOT** the F6 drainage source (SECTOR⊥). A finished electron is a LOSSLESS tank, paid latent heat ONCE (`dark-energy-latent-heat-definition.md:65`) — it must not appear as a drain in the ledger (see `electron-no-drain` detector, §4.2). |
 | Cosserat-winding (2,3) charge | Owns charge/spin; **NOT** an energy source for the top port. |
 
-This discriminator is **static-sector / top-port** tagged. The A1 and Cosserat sectors appear only as **constraints** (the three hard detectors, §4.2), never as the transfer source.
+This discriminator is **static-sector / top-port** tagged. The A1 and Cosserat sectors appear only as **constraints** (the three hard detectors, §4.2, DEFERRED to tier-2 — see §4.2), never as the transfer source.
+
+### 1.6 Tier-1 ledger specification (state · transfer laws · ablation arms · observable · inputs)
+
+*This section pins the actuator, the observable, and the imported inputs so the driver has **no post-charter freedom** (repairs the primary-discriminator gaps: the OFF-state was defined three inconsistent ways and the comparison observable had no formula). The Ax3 mechanism-class the transfer carries is addressed in the Ax3 carve §(iii)/(vii); the a-priori expectation and the **form-inversion** the signatures below imply are owned in §4.7.*
+
+**State (two scalars).** `ρ_latent(t)` (source store) and `E_T2(t)` (bath). Nothing else — no `a(t)`, no field, and no A1 / muon / bias state (those are DEFERRED to tier-2, §4.2).
+
+**Conservation + transfer.** One-way exchange:
+\[
+\frac{d\rho_{\text{latent}}}{dt} = -\Gamma(t), \qquad \frac{dE_{T2}}{dt} = +\Gamma(t), \qquad \Gamma(t)\ge 0,
+\]
+so `ρ_latent(t) + E_T2(t) = const` (the `tol_cons` ledger). The transfer rate `Γ` is the entire physics content.
+
+**Imported input histories (provenance is first-class).** A no-`a(t)` ledger cannot solve for the cosmic drivers, so it **imports** two time series, and their provenance is part of the battery:
+- `H(t)` — the Hubble rate (canonical `H_∞` scale imported from `src/ave/core/constants.py` semantics; profile declared in the FROZEN prereg).
+- `n_matter(t) ∝ n_B(t)` — the lower-stage B-occupancy (clicked-in matter; engineering-choice profile declared in the FROZEN prereg).
+- **PHYSICAL (correlated) run** — `H(t)` and `n_matter(t)` obey the standard FRW lock (both functions of one scale-factor parameter `a`; matter era `H = 2/3t`, `n_matter ∝ a⁻³`). **The degeneracy lives here.**
+- **DECORRELATED run** — `H(t)` and `n_matter(t)` supplied as INDEPENDENT series that break the `a(t)` lock. **This is the ONLY degeneracy-breaker available at tier-1** — it isolates whether `Γ` responds to `n_matter` (chord) or to expansion (frontier). It is a mandatory arm of the battery, not optional.
+
+**DE-form observable (the formula `tol_form` applies to).** The un-expelled store IS the dark-energy density: `ρ_DE(t) ≡ ρ_latent(t)` (de Sitter asymptote `ρ_latent → ρ_Λ`, `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:66`). Scope is FORM not magnitude (§4.4), so work with the **normalized shape** over a fixed window `[t₀, t₁]`:
+\[
+\hat\rho_{\text{DE}}(t) = \rho_{\text{DE}}(t)\,/\,\rho_{\text{DE}}(t_0).
+\]
+The **form-separation residual** between two arms `A`, `B`:
+\[
+D[A,B] = \big\lVert\, \hat\rho_{\text{DE}}^{A}(t) - \hat\rho_{\text{DE}}^{B}(t) \,\big\rVert_{L^2([t_0,t_1])}\; /\; \sqrt{t_1 - t_0}
+\]
+— a dimensionless RMS shape difference over the window; **`tol_form` is the threshold on `D`.** This single quantity is what every FORM verdict reads; it did not exist in the pre-repair charter.
+
+**Three transfer laws (the actuator).**
+
+| Law | Formula | Reading | `ρ_DE` signature (physical, matter era) |
+|---|---|---|---|
+| **ON (chord)** | `Γ_ON(t) = k · n_B(t) · ρ_latent(t)`, `n_B ∝ n_matter` | reading-i (`dQ/dt ∝ n_matter`) | as `n_B ∝ a⁻³ → 0`, drain shuts off ⇒ `ρ_DE` relaxes to a **residual constant → Λ-like** at late `t` |
+| **ARM-FRONTIER (OFF)** | `Γ_FRONTIER(t) = 3H(t) · ρ_latent(t)` | reading-ii (frontier default) | `dρ/dt = −3Hρ ⇒ ρ_DE ∝ a⁻³` — **tracks matter in exact continuity form** |
+| **ARM-Λ (OFF)** | `Γ_Λ(t) = 0` | bare cosmological constant | `ρ_DE = const` — **Λ** |
+
+**Two named ablation arms — different experiments (do not conflate).**
+- **ARM-Λ** — OFF-state `Γ_Λ = 0`. Observable: `D[ON, Λ]`. Tests **chord-vs-Λ** (is the chord's DE-form distinguishable from a bare cosmological constant?).
+- **ARM-FRONTIER** — OFF-state `Γ_FRONTIER = 3H·ρ_latent` (B-coupling removed, frontier rate retained). Observable: `D[ON, FRONTIER]`. Tests **chord-vs-frontier** (reading-i vs reading-ii).
+
+These are **not** the same ablation: `D[ON, Λ]` and `D[ON, FRONTIER]` can give opposite verdicts (the pre-repair charter conflated them, so a driver could pass one criterion while failing the other).
+
+**★Correction (KEEP-BOTH, Rule-12).** The pre-repair charter defined the OFF-state as *"the drainage rate goes constant ⇒ the DE form must collapse to a constant ⇒ indistinguishable from Λ"* (superseded wording — §2.1 beats 4–5, the §2.2 mermaid, and the §4.1 ablation row). That is mathematically wrong: a constant nonzero rate `Γ₀` gives `dρ/dt = −Γ₀ ⇒ ρ_DE(t) = ρ_DE(t₀) − Γ₀t` — a **LINEAR decay**, which is neither constant nor Λ (a bare Λ drains nothing). The bare-Λ reference is **`Γ_Λ = 0`**, not a constant rate. The superseded wording is preserved in git and quoted here.
 
 ---
 
@@ -125,14 +169,14 @@ Any **continuous trilinear-potential transfer is the v4 detonation.** `src/ave/c
 
 2. **EE mapping:** A charged **DC store** (ρ_latent) feeds a **lossless transmission line** (the interior, at `Z_0`) that is **terminated at the Hubble horizon**. Canon prices that termination as the **Machian-G input impedance** (`translation-circuit.md:126`). **F6 = the claim that `Re(Z)` at that termination is nonzero and one-way** — a *matched termination into a huge cold bath*, not a lossy element in the pipe. The drainage rate is a **controlled source gated by lower-stage matter occupancy** — the slaving is the chord.
 
-3. **Prediction & why the form:** The observable is the **FORM** of the DE component: does `ρ_DE(t)` track `n_matter(t)` (chord, `reading-i` `dQ/dt∝n_matter`, ABSENT-INVENTED `dark-energy-latent-heat-definition.md:128`) or the frontier/expansion geometry (default `reading-ii` `Γ=3H·ρ_latent`, matched-absorption rate, `:121,142`)? **No magnitude** — the naive ρ_latent value is ~120 OOM over ρ_Λ and that path is rejected canon (`cosmological-constant-closure.md:8,58-62`: naive mode-count "still gives a too-large naive answer"; DE reframed as latent heat, not zero-point energy).
+3. **Prediction & why the form:** The observable is the **form-separation residual** `D[A,B]` (§1.6) between the chord arm (reading-i, `dQ/dt∝n_matter`, ABSENT-INVENTED `dark-energy-latent-heat-definition.md:128`) and each OFF arm. The discriminator is **form-SEPARATION between arms, not tracks-matter-vs-constant** — because the frontier default (reading-ii, `Γ=3H·ρ_latent`) already drives `ρ_DE ∝ a⁻³`, i.e. it **tracks matter for free with zero inter-stage coupling** (§1.6 signature table; owned in §4.7). **No magnitude** — the naive ρ_latent value is ~120 OOM over ρ_Λ and that path is rejected canon (`cosmological-constant-closure.md:8,58-62`: naive mode-count "still gives a too-large naive answer"; DE reframed as latent heat, not zero-point energy).
 
 4. **Discriminator:**
-   - *form-shared?* A bare cosmological constant **also** yields a DE component — so the discriminator is the **slaving-OFF ablation** (the drainage rate goes constant ⇒ the DE form must collapse to a constant) **plus** a ledger observable that separates tracking from constant. If the form is degenerate even with slaving ON, that is bin (iii) FORM-DEGENERATE.
+   - *form-shared?* Two OFF arms, two different experiments (§1.6): **ARM-Λ** (`Γ_Λ=0`, `D[ON,Λ]`, chord-vs-Λ) and **ARM-FRONTIER** (`Γ_FRONTIER=3H·ρ_latent`, `D[ON,FRONTIER]`, chord-vs-frontier). The chord fires only if `D[ON,FRONTIER] > tol_form` on the **DECORRELATED** input-history run (the frontier default already matter-tracks on the physical run, so the physical run is expected degenerate — §4.7). If `D` stays below `tol_form` even under decorrelation, that is bin (iii) FORM-DEGENERATE.
    - *already constrained?* The corpus already tags `reading-i` **ABSENT-INVENTED** — this is a **forward existence-of-FORM test**, not a new realized-result claim.
    - *injected?* ρ_latent is **input-only** (`clm-s4n33u`, solidity 0.45); it must **not** be tuned to hit ρ_Λ. The verdict path reads FORM, never magnitude.
 
-5. **Intuition hook:** **It's a matched termination into a huge cold bath, not a resistor burning power in the pipe.** A dump resistor inside the line would be the retired STZ leak (IMPOSED-LEAK); a matched termination transfers the power *out* into the reservoir's mode-count, and the pipe stays lossless (Ax3). And the drainage isn't a **diode** (dead four ways) — it's a **controlled source keyed on how much matter has clicked in**. Take that control away and the bath still absorbs at a constant matched rate — indistinguishable from Λ.
+5. **Intuition hook:** **It's a matched termination into a huge cold bath, not a resistor burning power in the pipe.** A dump resistor inside the line would be the retired STZ leak (IMPOSED-LEAK); a matched termination transfers the power *out* into the reservoir's mode-count, and the pipe stays lossless (Ax3). And the drainage isn't a **diode** (dead four ways) — it's a **controlled source keyed on how much matter has clicked in**. Take that control away and you get one of two *different* references (§1.6): a frozen store (`Γ_Λ=0`, bare Λ) or the frontier drain (`3H·ρ_latent`, which itself dilutes as `a⁻³`) — **not** "a constant matched rate," which would drain the store linearly to zero (the finding-corrected point).
 
 ### 2.2 Circuit schematic (plumber)
 
@@ -162,10 +206,12 @@ flowchart LR
     BOCC -.->|gates the A-rate| ZT
   end
 
-  subgraph ablate ["Ablations / fool-detectors"]
-    OFF["slaving OFF => constant rate"]
+  subgraph ablate ["Ablation arms (§1.6) + fool-detectors"]
+    ARMF["ARM-FRONTIER: Gamma=3H.rho (rho_DE ~ a^-3, tracks matter)"]
+    ARML["ARM-Lambda: Gamma=0 (rho_DE=const, bare Lambda)"]
     LEAK["interior dump-R => IMPOSED-LEAK"]
-    OFF -.->|form must collapse to constant| ZT
+    ARMF -.->|D[ON,FRONTIER]| ZT
+    ARML -.->|D[ON,Lambda]| ZT
     LEAK -.->|non-conserving transfer = retired Ax3 leak| TL
   end
 ```
@@ -238,9 +284,10 @@ flowchart TB
 | Content | Class |
 |---|---|
 | Reservoir conservation (`ρ_latent + E_T2` invariant to machine precision) | Partly **ENTAILED** (ledger construction) — **do not bank as the chord** |
-| The top-port A-rate **slaved to lower-stage B-occupancy** | **FIREABLE** — *this is the chord* |
-| DE-component **FORM** vs a bare cosmological constant in the ledger observable | **FIREABLE** |
-| Ablation: slaving OFF → DE form collapses to constant | **FIREABLE ablation** (isolates the inter-stage coupling from the frontier form) |
+| The top-port A-rate **slaved to lower-stage B-occupancy** (`Γ_ON = k·n_B·ρ_latent`, §1.6) | **FIREABLE** — *this is the chord* |
+| DE-form separation `D[ON, FRONTIER]` on the **decorrelated** input-history run (§1.6) | **FIREABLE** — the only tier-1 chord-carrier (§4.7) |
+| ARM-Λ (`Γ_Λ=0`): `D[ON, Λ]`, chord-vs-bare-constant | **FIREABLE ablation** (distinct experiment from ARM-FRONTIER — §1.6) |
+| ARM-FRONTIER (`Γ_FRONTIER=3H·ρ_latent`): `D[ON, FRONTIER]`, chord-vs-frontier | **FIREABLE ablation** — degenerate on physical inputs, informative only decorrelated (§4.7) |
 | ρ_latent magnitude vs ρ_Λ | **OUT OF SCOPE** — not measured, not fit (§4.4) |
 
 ### 4.2 Hard constraints — three named detectors
@@ -258,7 +305,7 @@ Each of the three Grant-walked hard constraints fires on a **specific computed q
 | **IMPOSED-LEAK** (§iii) | tracking via a continuous sub-yield dissipative transfer | **Ax3-legality / destination audit** — `ρ_latent` loss must equal `E_T2` gain to `tol_cons`; a friction/damping term removes energy without depositing it ⇒ IMPOSED-LEAK, not F6. |
 | **TRILINEAR-PUMP** (v4) | transfer via an indefinite-Hamiltonian pump | **Bounded-norm audit** — total ledger energy must not show an unbounded/monotone runaway excursion (the `H_bel`/`H_photon` detonation signature, `crystal_graft_v4.py:159-167`); the transfer term must be a bounded reservoir-exchange rate, never a product of three co-growing amplitudes. |
 | **MAGNITUDE-TUNE** (10^122 trap) | a "match" to ρ_Λ | **Input-provenance audit** — the `ρ_latent` value in the run must be **byte-identical** to the frozen input (`clm-s4n33u`); any adjustment toward ρ_Λ in the verdict path fires. The 10^122 path is rejected canon (`cosmological-constant-closure.md:8,58-62`). |
-| **SLAVING-DEGENERACY** (→ bin iii) | tracking that is really a time-parametrization artifact | **Slaving-OFF ablation** — `H(t)` and `n_matter(t)` are both monotone in cosmic time, so the pure frontier form `Γ=3H·ρ_latent` (no inter-stage coupling) can *look* like it tracks matter. Set the B-occupancy coupling to zero; if the DE-form observable is **indistinguishable** ON vs OFF within `tol_form`, the apparent chord is degeneracy ⇒ **bin FORM-DEGENERATE**. |
+| **SLAVING-DEGENERACY** (→ bin iii) | "tracking" that is carried by the frontier default with zero inter-stage coupling | **ARM-FRONTIER + decorrelated run** (§1.6) — the frontier default `Γ_FRONTIER=3H·ρ_latent` integrates to `ρ_DE ∝ a⁻³`, the **exact matter-continuity form** (not soft co-monotonicity — §4.7), so on the PHYSICAL (`H`↔`n_matter` locked) run `D[ON, FRONTIER] ≤ tol_form` is **expected**. Fire the chord only if the DECORRELATED run lifts `D[ON, FRONTIER] > tol_form`; if it does not, ⇒ **bin FORM-DEGENERATE**. |
 | **DIODE-RESURRECTION** | one-way-ness via a valve | **Mechanism-class audit** — the transfer term must be one of the three licensed mechanisms (§vi); any `V_f`-like dead-zone threshold, rectifying nonlinearity, or `sign(rate)`-dependent asymmetry fires (dead four ways, §(iv)). |
 
 ### 4.4 Scope lock (CC-honest, binding)
@@ -291,7 +338,7 @@ Each of the three Grant-walked hard constraints fires on a **specific computed q
 |---|---|---|
 | 0 | Grant GO (Q4) — ρ_latent parameterization INPUT-ONLY at `clm-s4n33u` (0.45) | 2026-07-13 ✓ |
 | 1 | **This CHARTER** (picture · walked architecture · cascade · constraints · licensed mechanisms · Ax3 carve · scope · bins) | This file — reviewed **before** any driver |
-| 2 | **FROZEN prereg** (frozen bins + tolerances `tol_cons`, `tol_form`, `tol_bias`, `tol_A1`, `tol_μ`) | Sibling file — freeze-by-push **BEFORE any driver**; **NOT in this commit** |
+| 2 | **FROZEN prereg** — carries, verbatim from §1.6, the **DEFINITIONS** (not only tolerances): the state vector; the three transfer laws `Γ_ON` / `Γ_FRONTIER` / `Γ_Λ`; the two named ablation arms (ARM-Λ, ARM-FRONTIER) and which `D[·,·]` each reads; the DE-form observable `ρ_DE ≡ ρ_latent` + normalized-shape `D[A,B]` formula + window `[t₀,t₁]`; the input-history provenance (PHYSICAL vs mandatory DECORRELATED runs) — **plus** tolerances `tol_cons`, `tol_form` (`tol_bias`, `tol_A1`, `tol_μ` are tier-2, §4.2). | Sibling file — freeze-by-push **BEFORE any driver**; **NOT in this commit** |
 | 3 | **Tier-1 driver** (the two-reservoir ODE ledger) | **NOT in this commit** — gated on charter + prereg review |
 | 4 | **TIER-2** (one X40-class discrete-click demo) | Separate follow-on — gated on this charter's review |
 
