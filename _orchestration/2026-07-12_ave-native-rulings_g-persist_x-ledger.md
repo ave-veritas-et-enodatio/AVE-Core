@@ -13,6 +13,15 @@
 > **Merge-resolution note (repair R2 — #652/#661 docket collision).** On the #652/#661 docket
 > conflict: **keep #652's updated (c)-row text + #661's X-LEDGER row; drop the duplicate
 > "X44 Komar-source" row.**
+>
+> **X-LEDGER supersession (2026-07-13 — Grant confirmation; audit-trail protection).**
+> The **X-LEDGER** stamp in this document is now **★RULED — Grant confirmed 2026-07-13**.
+> The effectiveness condition is met: **#661 is merged**. **KEEP-BOTH** — the superseded
+> X-LEDGER phrasing read verbatim: *"★PROPOSED-RULED (text pending Grant confirmation —
+> stamps become effective on his merge of #661)"*. **This carve is X-LEDGER-specific.**
+> The **G-PERSIST** stamp is **NOT** flipped — it **stays ★PROPOSED-RULED**, docket-gated
+> on the genesis N≥14 / closed-box battery outcome (the #655 re-run); its confirmation
+> postdates that result.
 
 **Register discipline.** Impedance, saturation \(S(A)\), dilatation mass, constitutive
 loop, medium continuation. Not: SM pair production, QED lifetimes, GR-as-primitive
@@ -78,7 +87,7 @@ ruling**, never as authorization to grow the lattice.
 
 ---
 
-## ★PROPOSED-RULED X-LEDGER — saturation-weighted flux vs binding functional (#652 bin iii)
+## ★RULED X-LEDGER (Grant confirmed 2026-07-13) — saturation-weighted flux vs binding functional (#652 bin iii)
 
 **Banked fact:** Weighting the Picard stress source by \(\sqrt{S(A)}\) (saturation
 / local-clock factor on the medium) leaves
@@ -92,7 +101,7 @@ here is the reconciliation **EXPECTATION** attached to (c) as tested by this **D
 \(\sqrt{S}\)** implementation (see #652's escalation options — the stress/virial half of the
 Komar integrand is unimplemented).
 
-**★PROPOSED-RULED:**
+**★RULED (Grant confirmed 2026-07-13):**
 
 1. **Bank UNRECONCILED (iii).** Named Class-C open — not a resolution-noise miss,
    not a silent exponent retune (\(\sqrt{S}\to S\), \(1/S\) forbidden without a
@@ -146,4 +155,4 @@ Not a new rule; restates what the bins mean without SM/GR leakage:
 | Ruling | Status | Adjudicator |
 |---|---|---|
 | **G-PERSIST** | ★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge) — remanence before node-mint; KEEP-BOTH; bank #655 (ii) | Grant |
-| **X-LEDGER** | ★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge) — bank #652 (iii); two mass functionals named open | Grant |
+| **X-LEDGER** | ★RULED — Grant confirmed 2026-07-13 (effective condition met: #661 merged; superseded: "★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge)") — bank #652 (iii); two mass functionals named open | Grant |
