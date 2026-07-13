@@ -24,7 +24,47 @@ The walk is the core session getting the two registers **walk-ready** (materials
 
 ## §2 THE GROUNDING VERDICTS (from the walk card)
 
-<!-- STUB §2 -->
+These are the four lane-verified verdicts the walk stands on. All receipts were lane-verified and the heaviest independently spot-checked; re-verified at this HEAD for the cites quoted here.
+
+### (a) The diode / rectifier class is DEAD for the depletion primitive
+
+Four independent deaths, all standing:
+
+- **The Ax4 kernel provably cannot rectify.** `S(A) = √(1−A²)` is instantaneous, **even in A**, memoryless — identical second-order response to symmetric and asymmetric drive. The one RUN test (rr-radiation-L rectification) is a **NULL** (`research/2026-06-08_rrad-l-rectification_result.md:66-78`).
+- **Any true rectifying loop is Level-2 memristive = dissipative.** "Any rectification / latching / path-memory requires Level-2 dynamics, which the smooth `√(1−A²)` kernel does not implement" (`manuscript/ave-kb/common/substrate-hysteresis-index.md:24-25,96`). So "lossless + rectifier" is a contradiction in the corpus's own loop taxonomy — the same graveyard as the retired STZ / plastic dissipation leaks.
+- **The diode threshold is FREE, not forced.** P4: "V_f is FREE — no canonical scale forces a forward-voltage dead zone"; kernel analytic at origin, dispersion gapless (`research/2026-07-08_p4-forward-voltage-threshold_RESULT.md:19`).
+- **Chirality-ratchet-as-arrow is REFUTED — do not reopen.** "Chirality is a PARITY selector, not the arrow … 'chirality-ratchet as arrow' is REFUTED" — the genesis freeze is mirror-symmetric (`manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md:89-100,127`). An ideal-diode framing risks re-opening this retracted slot.
+
+### (b) What IS licensed — lossless Ax3-legal one-wayness (three instances)
+
+- **Entropic mode-count transfer (arrow-of-time class).** "Energy-conserving one-way TRANSFER into the huge T2 reservoir (dS>0), NOT a friction loss, so it is Ax3-COMPLIANT" (`…/dark-energy-latent-heat-definition.md:84-87`); one-way-street radiation, reconvergence ≈ 0 (`manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/arrow-of-time.md:16`). Irreversibility from **reservoir mode-count**, not nonlinearity.
+- **X40-class discrete topological minting.** Trapped `f_E = 1/10` is the conserved cycle-space mesh current; flux linkage Λ banks WHOLE (drift 2.2e-16), minted ONLY at the discrete ring-completion event (`research/2026-07-10_x40-ring-closure-transient_result.md:18-20,161,306-313`). One-way **at the click**, exactly conserving — but it *partitions* at nucleation, it does not *deplete* a reservoir.
+- **The v5 skew-Hermitian circulator.** An **orthogonal field-space rotation — NOT a trilinear potential**: the 3-port skew-Hermitian circulator conserves and transfers 100%, one-way, "magnitude imposed" (`src/ave/core/cross_sector_coupling.py:137-141`, PR #321).
+
+**v4's death names the boundary.** The continuous trilinear coupling `H = κ̃∫gV[w·∇×ω]` is **linear in each of V, w, ω** ⇒ an **INDEFINITE Hamiltonian, unbounded below** ⇒ the discrete dynamics PUMP / DETONATE (`src/ave/core/crystal_graft_v4.py:158-172`, verbatim). The licensed instances in (b) are exactly the ones that avoid the indefinite trilinear form: an orthogonal rotation (bounded), an event-gated mint (bounded), a reservoir transfer (entropic, not potential-driven).
+
+### (c) Brace corrections — carry these into the T_ij build
+
+- **The brace is a FORCE, not a pressure.** As derived, `B_a = −dU_rot/dr = +L_w²/(m_eff r³)` is energy/length [N], not energy/volume [Pa] (`research/2026-06-30_electron-portmap-derivation_result.md:250-254`; `sign(dF/dr) = sign(3−p)` at `:364-373`). To feed a Komar `+3∫p` integrand it is **one integration short** — the missing object is `T_rr(r)`. `T_rr` is unbuilt.
+- **Research-doc-only — pointer correction.** The `sign(3−p)` brace lives ONLY in `research/2026-06-30_electron-portmap-derivation_result.md`, **NOT** in `clm-hvb7q3`. That leaf (`manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:47-49,57-66`) is a *different* binder: the Laplace hoop `Γ²/R³` vs surface-tension `σ/R` model, no `sign(3−p)` anywhere. Never canonized to a leaf.
+- **The one force-balance sim is INCONCLUSIVE.** The bind-sim did not dynamically realize the brace: `r⁻³` not reproduced, `|L_w|` drifts 16–17% under lossless evolution (`research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`). The `L_w = const` premise the brace rests on is not satisfied.
+- **`clm-jwyy6l` is at solidity 0.30, do-not-build-on** (`manuscript/ave-kb/vol2/claim-quality.md:717`): the Lenz *mechanism* survives, but rest-mass *store* ownership is A1 — inductance-L is a TKI translation-image, not sector ownership.
+
+### (d) The T_ij minimal build — assembly, 2 new items + 1 gate
+
+- **Constitutive contraction CARRYING the asymmetric couple-stress.** `σ_ij = λδ_ij ε_kk + 2με_(ij) + couple-stress(κ)` — all inputs live. It **must carry the antisymmetric `σ^A`** (the couple-stress source that drives microrotation — the chiral/spin channel; `manuscript/ave-kb/common/trampoline-framework.md:47,87,356`). A Cauchy-symmetric-only σ welds the swivels shut — a disabled-DOF stencil bug, not a physics simplification (structural-null stencil lens).
+- **Spatial momentum-flux `T^ij`.** Today only the single scalar `T^0x` exists: `field_momentum_x = −∫(∂_tV)(∂_xV)/c²` (V-sector, x-axis, interior-only; `src/ave/core/annihilation_engine.py:173-181`).
+- **The reconciliation gate.** `div σ` on the **native K4 tetrahedral stencil** must equal the existing autodiff `−∂E/∂u` to machine precision — the only certificate that hand-assembled σ is not a Cartesian-stencil leak. The engine deliberately carries no hand-derived stress today: "the energy gradient is computed by jax.grad — no hand-derived stress tensors" (`src/ave/topological/cosserat_field_3d.py:14`); the load-bearing native operator is `_tetrahedral_gradient` (`:177`).
+- **`τ^far_zx` is observer-only — never engine-carried.** The far-field Maxwell row exists in code only as observer proxies; the one dynamics hook `tau_zx_arm` is **declared-but-unwired** — no stepper consumes it (`src/ave/core/unified_genesis_engine.py:975,993,995`). The walk must not treat `τ^far_zx` as engine-carried.
+
+### (e) ★ ONE BUILD SERVES BOTH — the unbuilt bridge
+
+The general `σ_ij` register (d) manufactures the electron's `T_rr` as a special case. That `T_rr` is precisely the object missing from (c) — and it is the **unbuilt bridge** between the two disconnected virials:
+
+- the **electron LC virial** (`E_elec = E_mag = ½m_e c²`; the two reactive-store halves sum to rest mass; `research/2026-06-30_electron-portmap-derivation_result.md:489-495`), and
+- the **gravity-sector Komar source** (all `Komar` / redshift-weighted `T₀₀` hits are gravity-side; `src/ave/core/categorization.py:155-168`; `research/2026-07-11_nordtvedt-eta_result.md:208,278`).
+
+There are zero electron-side `+3∫p` / Tolman hits today. Brace → `+3∫p` needs `T_rr(r)` first; building Register 1 manufactures it. **One build discharges both registers' shared materialization debt.**
 
 ## §3 ★ GRANT'S TRANSDUCER ONTOLOGY (verbatim-faithful)
 
