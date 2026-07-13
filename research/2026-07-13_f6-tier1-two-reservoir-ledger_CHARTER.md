@@ -119,7 +119,115 @@ Any **continuous trilinear-potential transfer is the v4 detonation.** `src/ave/c
 
 ## 2 · Circuit picture (EE mapping)
 
-<!-- SECTION-2 -->
+### 2.1 Five-beat intuition summary
+
+1. **Substrate:** The crystallization frontier releases latent heat ρ_latent. It must go somewhere; the only Ax3-legal destination is an **entropic transfer into T2's modes** (`dS>0`, conserved, not friction). The interior stays lossless; the arrow lives at the reservoir.
+
+2. **EE mapping:** A charged **DC store** (ρ_latent) feeds a **lossless transmission line** (the interior, at `Z_0`) that is **terminated at the Hubble horizon**. Canon prices that termination as the **Machian-G input impedance** (`translation-circuit.md:126`). **F6 = the claim that `Re(Z)` at that termination is nonzero and one-way** — a *matched termination into a huge cold bath*, not a lossy element in the pipe. The drainage rate is a **controlled source gated by lower-stage matter occupancy** — the slaving is the chord.
+
+3. **Prediction & why the form:** The observable is the **FORM** of the DE component: does `ρ_DE(t)` track `n_matter(t)` (chord, `reading-i` `dQ/dt∝n_matter`, ABSENT-INVENTED `dark-energy-latent-heat-definition.md:128`) or the frontier/expansion geometry (default `reading-ii` `Γ=3H·ρ_latent`, matched-absorption rate, `:121,142`)? **No magnitude** — the naive ρ_latent value is ~120 OOM over ρ_Λ and that path is rejected canon (`cosmological-constant-closure.md:8,58-62`: naive mode-count "still gives a too-large naive answer"; DE reframed as latent heat, not zero-point energy).
+
+4. **Discriminator:**
+   - *form-shared?* A bare cosmological constant **also** yields a DE component — so the discriminator is the **slaving-OFF ablation** (the drainage rate goes constant ⇒ the DE form must collapse to a constant) **plus** a ledger observable that separates tracking from constant. If the form is degenerate even with slaving ON, that is bin (iii) FORM-DEGENERATE.
+   - *already constrained?* The corpus already tags `reading-i` **ABSENT-INVENTED** — this is a **forward existence-of-FORM test**, not a new realized-result claim.
+   - *injected?* ρ_latent is **input-only** (`clm-s4n33u`, solidity 0.45); it must **not** be tuned to hit ρ_Λ. The verdict path reads FORM, never magnitude.
+
+5. **Intuition hook:** **It's a matched termination into a huge cold bath, not a resistor burning power in the pipe.** A dump resistor inside the line would be the retired STZ leak (IMPOSED-LEAK); a matched termination transfers the power *out* into the reservoir's mode-count, and the pipe stays lossless (Ax3). And the drainage isn't a **diode** (dead four ways) — it's a **controlled source keyed on how much matter has clicked in**. Take that control away and the bath still absorbs at a constant matched rate — indistinguishable from Λ.
+
+### 2.2 Circuit schematic (plumber)
+
+```mermaid
+flowchart LR
+  subgraph source ["Static-sector store"]
+    RHO["rho_latent charged DC store<br/>(clm-s4n33u, INPUT-ONLY)"]
+  end
+
+  subgraph line ["Interior — LOSSLESS (Ax3)"]
+    TL["Transmission line at Z_0<br/>reactive, no interior loss"]
+    RHO --> TL
+  end
+
+  subgraph term ["Hubble-horizon termination"]
+    ZT["Machian-G input impedance<br/>F6: Re(Z) nonzero + ONE-WAY"]
+    TL --> ZT
+  end
+
+  subgraph bath ["T2 bath — entropic sink"]
+    T2["huge mode-count reservoir<br/>dS>0, energy CONSERVED into it"]
+    ZT -->|matched absorption 3H.rho_latent| T2
+  end
+
+  subgraph slave ["THE CHORD — inter-stage slaving"]
+    BOCC["lower-stage B-occupancy<br/>(clicked-in matter)"]
+    BOCC -.->|gates the A-rate| ZT
+  end
+
+  subgraph ablate ["Ablations / fool-detectors"]
+    OFF["slaving OFF => constant rate"]
+    LEAK["interior dump-R => IMPOSED-LEAK"]
+    OFF -.->|form must collapse to constant| ZT
+    LEAK -.->|non-conserving transfer = retired Ax3 leak| TL
+  end
+```
+
+### 2.3 What the circuit is *not*
+
+- **Not a lossy interior resistor.** A dump-R inside the line is the retired STZ/plastic sub-yield leak (`substrate-native-terminology.md:62`) → bin IMPOSED-LEAK.
+- **Not a diode / rectifier valve.** Dead four ways (§(iv)); the arrow comes from mode-count or a click, never a valve.
+- **Not a trilinear pump.** `H=κ̃∫gV[w·∇×ω]` detonates (`crystal_graft_v4.py:159-167`); the transfer term is a bounded reservoir-exchange rate, not a product of three growing amplitudes.
+- **Not an `a(t)` Friedmann field solve.** No field, no scale factor — two scalars and a conservation ledger (`engine-capability-map.md:155`: `solve_backreaction` static-elliptic, no `a(t)`).
+- **Not a magnitude match to ρ_Λ.** The 10^122 path is rejected canon (`cosmological-constant-closure.md:8,58-62`).
+
+---
+
+## 3 · Map (where this sits in the program)
+
+```mermaid
+flowchart TB
+  subgraph landed ["LANDED (reversible sibling)"]
+    BR["#86 two-way back-reaction<br/>solve_backreaction, static-elliptic<br/>REVERSIBLE self-gravitation"]
+  end
+
+  subgraph proofs ["Existence proofs the ledger reuses"]
+    X40["X40 ring-closure<br/>one-way at click + Lambda conserved (2.2e-16)"]
+    ARROW["arrow-of-time T2 sink<br/>entropic one-way transfer dS>0"]
+  end
+
+  subgraph graves ["Closed / dead (do not resurrect)"]
+    V4["v4 trilinear = DETONATION"]
+    DIODE["diode/rectifier class<br/>dead 4 ways"]
+    STZ["plastic/STZ sub-yield loss<br/>RETIRED (fails Ax3)"]
+    RATCHET["chirality-ratchet arrow<br/>REFUTED, do-not-reopen"]
+  end
+
+  subgraph this ["THIS CHARTER — F6 tier-1"]
+    T1["two-reservoir ODE ledger<br/>rho_latent <-> T2, slaved rate<br/>EXISTENCE + FORM only"]
+  end
+
+  subgraph next ["Gated follow-ons"]
+    PREREG["FROZEN prereg (bins+tol)<br/>freeze-by-push before driver"]
+    DRIVER["tier-1 driver (ODE ledger)"]
+    T2DEMO["TIER-2: one X40-class<br/>discrete-click demo"]
+  end
+
+  BR -->|F6 = the IRREVERSIBLE sibling| T1
+  X40 -->|licensed mechanism (b)| T1
+  ARROW -->|licensed mechanism (a)| T1
+  V4 -.->|must not smuggle in| T1
+  DIODE -.->|must not resurrect| T1
+  STZ -.->|IMPOSED-LEAK fool-mode| T1
+  RATCHET -.->|risks reopening| T1
+  T1 --> PREREG --> DRIVER --> T2DEMO
+```
+
+| Neighbor | Relation |
+|---|---|
+| **#86 two-way back-reaction** (LANDED 2026-06-29) | The **reversible** self-gravitation loop; F6 is its **irreversible** sibling — the DE-tracks-matter chord (`engine-capability-map.md:152,155`). |
+| **X40 ring-closure minting** | Existence proof that one-way-at-an-event coexists with exact conservation (Λ drift `2.2e-16`) — licensed mechanism (b); the tier-2 demo carrier. |
+| **arrow-of-time T2 sink** | The entropic one-way transfer (`dS>0`) — licensed mechanism (a); the tier-1 default. |
+| **DE lifecycle leaf** (`dark-energy-latent-heat-definition.md`) | Home leaf: `reading-i` (chord, ABSENT-INVENTED) vs `reading-ii` (frontier, default). This charter does **not** edit it (KB-leaf edits gated). |
+| **v4/v5 graft** | Detonation vs bounded spec — the fork the ledger's transfer term must land on the v5 side of. |
+| **TIER-2 (X40 demo)** | Separate follow-on, gated on this charter's review — not in scope here. |
 
 ---
 
