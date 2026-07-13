@@ -41,6 +41,10 @@ class D1Report:
     shape_tend: tuple[int, ...]
     invariant: bool
     claim_class: str
+    # stepped=True → cardinality read AFTER genuine engine evolution (measured
+    # path). stepped=False → config-read only (install-tautology; excluded from
+    # the 'measured paths' count in the result doc). R3 repair (2026-07-12).
+    stepped: bool = True
 
 
 @dataclass(frozen=True)
@@ -55,6 +59,11 @@ class D2Report:
     rank4_pass: bool
     persistence_pass: bool
     claim_class: str
+    # R1 repair (2026-07-12): the D2 battery is now all THREE landed seed modes
+    # at a stated fidelity, not the single photon_lock/fast=True leg the driver
+    # shipped with. Record the leg identity so the per-fidelity table is honest.
+    seed_mode: str = "photon_lock"
+    fast: bool = True
 
 
 @dataclass(frozen=True)
@@ -106,22 +115,36 @@ def d1_master_equation(N: int = 16, n_steps: int = 40) -> D1Report:
     )
 
 
+# The three landed fixed-N seed modes (loop_gap_seeds.SeedMode). The shipped
+# driver banked ONLY photon_lock; R1 broadens the D2 battery to all three at a
+# stated fidelity. bin (i) needs persistence PASS on ≥1 landed path.
+LANDED_SEED_MODES: tuple[str, ...] = ("pair", "photon_lock", "graded_a0")
+
+
 def d2_loop_gap_persistence(
     N: int = 10,
     *,
+    seed_mode: str = "photon_lock",
     bulk_density_on: bool = True,
+    fast: bool = True,
 ) -> D2Report:
-    """D2: P11-style drive-off persistence on fixed-N harness (FIREABLE)."""
+    """D2: P11-style drive-off persistence on fixed-N harness (FIREABLE).
+
+    One battery leg. ``seed_mode`` ∈ ``LANDED_SEED_MODES``; ``fast=True`` is the
+    banked SMOKE fidelity, ``fast=False`` is production. Config (banked, frozen
+    off #654 §Gates 2): N, rank 4, bulk_density_on, front_target=A_YIELD,
+    n_drive_mult=0.5, n_quiet_mult=1.5.
+    """
     r = run_loop_gap_probe(
-        "d2_persistence",
+        f"d2_persistence_{seed_mode}",
         N=N,
         rank_target=4,
-        seed_mode="photon_lock",
+        seed_mode=seed_mode,
         bulk_density_on=bulk_density_on,
         front_target=A_YIELD if bulk_density_on else None,
         n_drive_mult=0.5,
         n_quiet_mult=1.5,
-        fast=True,
+        fast=fast,
     )
     persist = bool(
         r.E_persist_ratio >= P11_E_PERSIST_MIN
@@ -138,7 +161,29 @@ def d2_loop_gap_persistence(
         rank4_pass=bool(r.rank4_pass),
         persistence_pass=persist,
         claim_class=D2_CLAIM_CLASS.value,
+        seed_mode=seed_mode,
+        fast=fast,
     )
+
+
+def d2_battery(
+    N: int = 10,
+    *,
+    fast: bool = True,
+    bulk_density_on: bool = True,
+) -> list[D2Report]:
+    """R1: full D2 battery — ALL THREE landed seed modes at one fidelity."""
+    return [
+        d2_loop_gap_persistence(
+            N=N, seed_mode=m, bulk_density_on=bulk_density_on, fast=fast
+        )
+        for m in LANDED_SEED_MODES
+    ]
+
+
+def d2_battery_persists(reports: list[D2Report]) -> bool:
+    """bin (i) D2 criterion: persistence PASS on ≥1 landed fixed-N path."""
+    return any(r.persistence_pass for r in reports)
 
 
 def d3_necessity_corpus() -> D3Report:
@@ -186,6 +231,9 @@ def d3_necessity_corpus() -> D3Report:
     )
 
 
+D1_VIOLATION_HALT = "D1_CARDINALITY_VIOLATION_HALT"
+
+
 def adjudicate_bin(
     *,
     d1_ok: bool,
@@ -194,7 +242,17 @@ def adjudicate_bin(
     d4_ran: bool = False,
     d4_absurd: bool = False,
 ) -> str:
-    """Frozen bins (i)–(v) from the prereg."""
+    """Frozen bins (i)–(v) from the prereg + one OUT-OF-BIN halt (R2).
+
+    R2 gate-structure repair (2026-07-12): a cardinality mutation (``d1_ok=False``)
+    is the fork-(B) signature — the single most consequential possible firing. The
+    shipped adjudicator fell through to ``ii_A_WEAKENED`` for EVERY ``d1_ok=False``
+    case, mislabelling a real N→N+1 event as an (A)-*weakening*. It is deliberately
+    NOT in the frozen bin table: it HALTS for Grant adjudication rather than being
+    mis-binned. This check is FIRST — a cardinality violation dominates D2/D3.
+    """
+    if not d1_ok:
+        return D1_VIOLATION_HALT
     if not d3_not_entailed:
         return "iii_B_NECESSITY_CLAIM_FAILS"
     if d4_ran and d4_absurd:
@@ -206,15 +264,24 @@ def adjudicate_bin(
     return "ii_A_WEAKENED"
 
 
-def run_suite(*, include_d2: bool = True, N_harness: int = 10) -> dict[str, Any]:
-    """Run D1 (all three paths) + D3; optionally D2 (slow ~20s). D4 skipped."""
+def run_suite(
+    *, include_d2: bool = True, N_harness: int = 10, fast: bool = True
+) -> dict[str, Any]:
+    """Run D1 (2 measured + 1 structural) + D3; optionally the D2 battery.
+
+    R1: when ``include_d2`` is set, run the FULL battery (all three landed seed
+    modes at ``fast`` fidelity) and adjudicate per-fidelity — bin (i) needs
+    persistence PASS on ≥1 landed path. R3: the harness D1 leg is config-read
+    only (``stepped=False``) — structural, excluded from the measured count.
+    """
     d1_reports = [
-        d1_crystal_engine(),
-        d1_master_equation(),
-        # harness D1 without full probe duplication when D2 runs — still need
-        # invariant on config N (entailed, but tagged).
+        d1_crystal_engine(),  # measured: 40 real steps, shape read after
+        d1_master_equation(),  # measured: 40 real steps, shape read after
     ]
-    # Lightweight harness D1: config N only (no second full probe if D2 follows).
+    # R3: harness D1 is a config-read only (no step) — an install-tautology on a
+    # fixed mesh. Kept in the report as STRUCTURAL (stepped=False) so run_suite
+    # stays a fast keeper (stepping rank-4 here would make it engine_sim), but
+    # excluded from the 'measured paths' count in the result doc.
     eng = make_engine(4, N=N_harness)
     d1_harness = D1Report(
         path="loop_gap_harness",
@@ -225,16 +292,17 @@ def run_suite(*, include_d2: bool = True, N_harness: int = 10) -> dict[str, Any]
         shape_tend=(eng.N, eng.N, eng.N),
         invariant=True,
         claim_class=D1_CLAIM_CLASS.value,
+        stepped=False,
     )
     d1_reports.append(d1_harness)
 
     d3 = d3_necessity_corpus()
-    d2: D2Report | None = None
+    d2: list[D2Report] | None = None
     if include_d2:
-        d2 = d2_loop_gap_persistence(N=N_harness)
+        d2 = d2_battery(N=N_harness, fast=fast)
 
     d1_ok = all(r.invariant for r in d1_reports)
-    d2_persist = bool(d2.persistence_pass) if d2 is not None else False
+    d2_persist = d2_battery_persists(d2) if d2 is not None else False
     bin_id = adjudicate_bin(
         d1_ok=d1_ok,
         d2_persist=d2_persist if include_d2 else False,
@@ -247,8 +315,12 @@ def run_suite(*, include_d2: bool = True, N_harness: int = 10) -> dict[str, Any]
 
     return {
         "prereg": PREREG,
+        "fidelity": ("smoke" if fast else "production") if include_d2 else "n/a",
         "d1": [asdict(r) for r in d1_reports],
-        "d2": asdict(d2) if d2 is not None else None,
+        "d1_measured_paths": sum(1 for r in d1_reports if r.stepped),
+        "d1_structural_paths": sum(1 for r in d1_reports if not r.stepped),
+        "d2": [asdict(r) for r in d2] if d2 is not None else None,
+        "d2_any_persist": d2_persist if include_d2 else None,
         "d3": asdict(d3),
         "d4": {
             "status": "SKIPPED_WITH_REASON",
@@ -263,9 +335,24 @@ def run_suite(*, include_d2: bool = True, N_harness: int = 10) -> dict[str, Any]
 
 
 def main() -> int:
+    import argparse
     import json
 
-    out = run_suite(include_d2=True)
+    ap = argparse.ArgumentParser(description="Genesis node-birth D1–D4 discriminator suite.")
+    ap.add_argument("--no-d2", action="store_true", help="D1+D3 only (fast); skip the D2 battery")
+    ap.add_argument(
+        "--production",
+        action="store_true",
+        help="run the D2 battery at production fidelity (fast=False; ~5–15 min/leg)",
+    )
+    ap.add_argument("--N", type=int, default=10, help="harness N (default 10, banked config)")
+    args = ap.parse_args()
+
+    out = run_suite(
+        include_d2=not args.no_d2,
+        N_harness=args.N,
+        fast=not args.production,
+    )
     print(json.dumps(out, indent=2, sort_keys=True))
     return 0
 
