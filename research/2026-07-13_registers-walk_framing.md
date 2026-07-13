@@ -161,4 +161,14 @@ This reframes §4's mechanisms A and B: they are not two competing depletion pri
 
 ## §7 SEDUCTION ACCOUNTING
 
-<!-- STUB §7 -->
+This walk added **three convergence flags** to the 2026-07-10 → 13 arc:
+
+- **Convergence 10 — SYM / EP unification** (§6): gravity as symmetric-saturation matched-impedance loading unifies the equivalence-principle cleanliness with the coupling-CMRR face.
+- **Convergence 11 — the ONE-DOOR R-A / F6 unification** (§4): statics stable *because* release requires a topological event.
+- **Convergence 12 — the cascade filter** (§5): the stability hierarchy as a multi-stage filter whose boundaries the T_ij register draws.
+
+**The discipline check.** Three convergences in four days is exactly the pattern the seduction ledger exists to guard. That ledger stands at **0-for-7** — every prior hopeful-rhyme collapse target that was seduction-flagged has either been killed or is still held un-fired (`research/2026-07-10_collapse-target-registry.md:23,64,317`, the RHYME tier). Against that base rate, **every framing in this note carries either a named kill-shape or a named investigation**: §3 the radiation-EOS theorem-target (owed, not claimed); §4 the one-door kill-shapes (i)/(ii)/(iii); §5 the ordering-variable rail + the `ww0giq5he` investigation; §6 the lensing polarization / reflection kill-shape. No convergence here is asserted as a win.
+
+> ⚠ **Cite discrepancy (flag-don't-fix).** The walk referenced the ledger as "**0-for-8**"; the last citable value in the corpus is **0-for-7** (`collapse-target-registry.md`, 2026-07-10). Either the walk's count is off by one, or an 8th seduction-flagged negative landed after 2026-07-10 that has not yet been booked into the registry. Recorded as-is for Grant / the auditor to reconcile — not silently adopted either way.
+
+**Standing.** The transducer ontology (§3) and the cascade-filter ontology (§5) are **Grant-walked, ruling-grade INPUTS to the X44b and F6 charters** — not canon, not results. They set the *shape* of those charters (the source-side theorem-target for X44b; the which-stage's-door + coupling-class framing for F6); they do not discharge them. Nothing in this note is canonized.
