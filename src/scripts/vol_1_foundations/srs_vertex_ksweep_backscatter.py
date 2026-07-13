@@ -158,7 +158,10 @@ def evolve_R(bundle, k, *, disorder=False, plant=None, width_frac=WIDTH_FRAC):
         sign = np.ones(D)
         sign[rng.random(D) < P_DISORDER] = -1.0
     if plant == "A":
-        keep = (w <= 1e-9).reshape(-1).astype(float)   # zero backward ports (LOSSY)
+        # kill-backward: zero all BACKWARD-moving ports (w<0), keep forward+transverse
+        # (w>=0). Removing that energy is LOSSY ⇒ G1 fires; the surviving field has no
+        # backward energy ⇒ b→0 ⇒ fakes bin (iii) NULL. (Prereg §Sabotage plant A.)
+        keep = (w >= -1e-9).reshape(-1).astype(float)
     if plant == "B":
         inj = 0.02 * (w < -1e-9).reshape(-1).astype(float)  # backward source (ADDS E)
     if plant == "D":
@@ -264,7 +267,10 @@ def classify(m: Metrics) -> tuple[str, dict]:
     elif all(cond_ii.values()):
         verdict = "(ii) REAL-AT-ALL-K"
     elif all(cond_iii.values()):
-        verdict = "(iii) NULL-EVERYWHERE (or INDETERMINATE if meter blind)"
+        # frozen bin-(iii) meter-blind sub-clause: if the disorder control ALSO
+        # reads low, the meter is blind ⇒ INDETERMINATE, not a genuine null.
+        verdict = ("INDETERMINATE (meter blind — disorder control also low)"
+                   if m.R_dis < 0.15 else "(iii) NULL-EVERYWHERE")
     else:
         verdict = "INDETERMINATE / MIXED"
     return verdict, {"cond_i": cond_i, "cond_ii": cond_ii, "cond_iii": cond_iii}

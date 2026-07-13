@@ -19,9 +19,11 @@ near the band edge.** Bin (ii) REAL-AT-ALL-K and bin (iii) NULL-EVERYWHERE are b
 **Class (consistency-vs-emergence): CONSISTENCY / peer-with-SM.** This is the ordinary
 "why a periodic medium is transparent to long-wavelength carriers and reflective at
 band edges" physics, reproduced quantitatively for the specific chiral srs z=3 net —
-**not an AVE-distinct chord.** The deliverable is the *quantitative* band-edge
-characterization (below) that downstream muon-Q work load-bears on, plus a clean
-adjudication of docket **T4**.
+**not an AVE-distinct chord.** The deliverable is the *quantitative R(k) rise toward the
+zone boundary* (below) — **the band edge is not independently located** (the dispersion
+probe reaches only k·ℓ≤0.83; see cross-check §), so "band-edge" throughout labels the
+high-k end of the monotone rise, not a measured v_g→0 — that downstream muon-Q work
+load-bears on, plus a clean adjudication of docket **T4**.
 
 ---
 
@@ -125,6 +127,17 @@ collapses the band-edge rise (`ρ` falls `3.67 → 1.20`) and elevates the long-
 `~3×` (`R_LW 0.062 → 0.194`), i.e. it flattens R(k) toward a k-independent (ii)-like
 floor — exactly the signature G3 tests. **The test cannot be fooled by an evolved-field
 corruption without a gate firing.**
+
+> **Adversarial-review repair (2026-07-13, post-PR #669).** A review lens caught that the
+> plant-A implementation was **inverted** — it zeroed *forward* ports (faking max-backscatter
+> `R=1.0`) instead of *backward* ports, so it did not fake the bin-(iii) NULL its (correct,
+> frozen) prereg description claims. Repaired: plant A now zeros backward-moving ports ⇒
+> `R→0.000` (the bin-(iii) signature) while remaining lossy (`drift≈1.0`) ⇒ G1 still fires.
+> The gate-robustness conclusion was unaffected either way (both directions are lossy), but
+> the demonstration now matches its documented mechanism. Same review confirmed the frozen
+> **bin-(iii) meter-blind sub-clause** (`R_dis<0.15 ⇒ INDETERMINATE`) is now operationalized in
+> `classify()` (it was described-but-unimplemented). Neither touches the bin-(i) selection,
+> which both verifiers reproduced exactly.
 
 ---
 
