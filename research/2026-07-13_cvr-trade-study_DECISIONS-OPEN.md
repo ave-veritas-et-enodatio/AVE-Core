@@ -6,6 +6,8 @@
 
 **Cost is OUT OF SCOPE here** (adjudicated separately); these are feasibility-and-fit tradeoffs, not a BOM roll-up.
 
+> **★ Binding epistemic frame (`CVR-REQ-FRAME` — stated in full in the sibling `research/2026-07-13_cvr-requirements_DERIVED.md`; cited here by ID, cite-don't-duplicate).** Before any trade below: the CVR bench is a **validation-ladder + material-analog shape bench** and a **one-sided anomaly bound (corroborative-null class)** — it is **NOT an AVE-confirming channel**. The magnitude route is dead three ways; at bench magnitude the lattice's own conjunction-passing signal is $\sim10^{-17}$, unreachable. **Any conjunction-passing residual at bench magnitude falsifies AVE *and* QED alike.** Every trade below serves the material-analog ladder + the fixture-vs-anomaly classifier, never an AVE confirmation.
+
 ---
 
 ## Part A — the trades
