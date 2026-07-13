@@ -10,7 +10,17 @@
 
 ## §1 THE PLAN OF RECORD — registers-first
 
-<!-- STUB §1 -->
+**Grant ratified the plan: registers first.** The build order for the engine's open frontier is **walk the two registers (T_ij + the depletion primitive) → X44b (the gravity-source ladder) → F6 (the dark-energy depletion handle).** The rationale is that both registers bottom out in the *same missing shape* — the corpus derives forms and forces but has never materialized the *flux objects* (§2, §7) — so a single materialization build discharges the shared debt before the sector-specific charters (X44b, F6) can fire.
+
+This ordering was set against the **2026-07-11 engine audit** and the **nine-PR engine-refresh wave** (`_orchestration/2026-07-11_engine-refresh-handoff.md`; `research/2026-07-11_engine-refresh-batch_result.md`). The audit's engine-gap ranking, as it bears on this walk:
+
+- **T_ij — the stress-materialization gap** (Register 1, §2d): the engine goes strain → energy → force and skips σ_ij entirely by design (`cosserat_field_3d.py:14`). This is the register the walk builds.
+- **the F6 depletion primitive** — the DC→AC chord object, **HARD-BLOCKED** and a multi-arc build, ranked RANK-3 on the board (`_orchestration/index.md:187`; note #86 two-way back-reaction already LANDED 2026-06-29 and is *not* the make-or-break). Register 2 (§2b) is the autopsy that scopes it.
+- **the n_eff overload** — the KB symbol `n_eff` is silently reconciled to two distinct quantities in the FDTD path; promoted to its own gap line by the audit (`_orchestration/2026-07-11_engine-refresh-handoff.md:135-138`). This is X44b's chain (§6 open ends).
+- **R10 remanence** — the fixed-N localization / remanence-before-node-mint charter (`_orchestration/index.md:8-15`), the branch this worktree forked from; independent of the registers but the surrounding board state.
+- **boundary infrastructure** — PML-cell exclusion, closed-box re-runs, density-peak sampling (the empirical-driver discipline the genesis and register drivers both need).
+
+The walk is the core session getting the two registers **walk-ready** (materials assembled, the two genuinely-new build items named, adjudicators identified) — not executing the drivers, which is a satellite's job.
 
 ## §2 THE GROUNDING VERDICTS (from the walk card)
 
