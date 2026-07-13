@@ -298,9 +298,13 @@ flowchart TB
 | ARM-FRONTIER (`Γ_FRONTIER=3H·ρ_latent`): `D[ON, FRONTIER]`, chord-vs-frontier | **FIREABLE ablation** — degenerate on physical inputs, informative only decorrelated (§4.7) |
 | ρ_latent magnitude vs ρ_Λ | **OUT OF SCOPE** — not measured, not fit (§4.4) |
 
-### 4.2 Hard constraints — three named detectors
+### 4.2 Hard constraints — three named detectors, all ★DEFERRED to tier-2
 
-Each of the three Grant-walked hard constraints fires on a **specific computed quantity** in the ledger. All three are checked **before** the FORM verdict is read.
+> **★DEFERRED-to-tier-2 (finding-corrected).** All three hard-constraint detectors below consume state the **two-scalar tier-1 ledger does not carry**: `bias_invariance` needs an R-A operating-point bias parameter, `electron_store_conservation` needs an A1-tank energy `E_A1(t)`, `muon_channel_separability` needs a muon decay-rate channel — **none exists in the `{ρ_latent, E_T2}` state (§1.6).** They are therefore **DEFERRED to the tier-2 (mode/sector-carrying) gate set** and are **struck from bin (i)'s firing condition** (§4.5). We do **NOT** invent tier-1 proxies: a hand-wired flat `E_A1` with no coupling written to it would be flat by construction, making the gate consume its own construction (it could never fire) — that is a fake gate, not a constraint. The definitions below stand as the **tier-2 specification**, recorded now so tier-2 inherits them verbatim.
+
+**The tier-1 fireable set (say it plainly).** With the three hard detectors deferred, tier-1 fires on exactly: **(1) the conservation / destination equality audit** (`tol_cons`, §(iii)); **(2) the two ablation arms** ARM-Λ and ARM-FRONTIER with the form-separation observable `D[·,·]` run on PHYSICAL **and** DECORRELATED histories (`tol_form`, §1.6/§4.7); **(3) the input-provenance audit** (ρ_latent byte-identical to the frozen input, no magnitude tune). The structural transfer-law checks (TRILINEAR-PUMP bounded-norm, DIODE-RESURRECTION mechanism-class, §4.3) also run at tier-1. Everything else — Ax3-entropic certification (§(iii)) and the three sector-ownership guards below — is tier-2.
+
+**Tier-2 detector specification (deferred; each fires on a specific computed quantity when the sector state exists):**
 
 - **`bias_invariance` detector — (bias ≠ release).** The R-A operating-point **bias must be untouched by the release mechanism**; the drainage cannot move the bias point. **Computed quantity:** the operating-point bias parameter recorded with the release channel **ON vs OFF**; `|Δbias|/bias` must be `≤ tol_bias`. A nonzero shift ⇒ the drainage is riding the bias, not a clean top-port A-channel ⇒ **FAIL**.
 - **`electron_store_conservation` detector — (electron-no-drain).** The port **must not drain its own transducer** (electron stability). **Computed quantity:** the A1-tank energy time-series `E_A1(t)` while top-port drainage is active — it must be flat (`|dE_A1/dt| ≤ tol_A1`, `Q→∞` preserved). A finished electron paid its latent heat ONCE and is a lossless tank (`dark-energy-latent-heat-definition.md:65`); if `E_A1` decays, the ledger is draining the electron ⇒ **FAIL**.
@@ -333,8 +337,8 @@ Each of the three Grant-walked hard constraints fires on a **specific computed q
 ### 4.6 Freeze discipline statement
 
 - **Bins frozen PRE-RUN by push** in the downstream FROZEN prereg — before any driver exists.
-- **No dropped criteria post-hoc.** The three bins + the five §4.3 detectors + the three §4.2 hard detectors are the complete adjudication set; none is dropped to convert a ❌ to a ✅ (Rule 11).
-- **Slaving-OFF ablation is the primary discriminator** for the chord vs bin (iii); it must run in every battery.
+- **No dropped criteria post-hoc.** The complete **tier-1** adjudication set is the three bins + the tier-1 fireable set (§4.2: conservation/destination audit, the two ablation arms on physical+decorrelated histories, input-provenance audit, and the two structural transfer-law audits). None is dropped to convert a ❌ to a ✅ (Rule 11). The three §4.2 hard detectors are **DEFERRED to tier-2** (not dropped — struck from bin (i) because their state does not exist at tier-1, §4.2).
+- **The ARM-FRONTIER + DECORRELATED comparison is the primary discriminator** for the chord vs bin (iii); both ablation arms (ARM-Λ, ARM-FRONTIER) and both history provenances (physical, decorrelated) must run in every battery (§1.6/§4.7).
 - **No debug-toward-rescue.** If the ledger lands in bin (ii) or (iii), that is the discipline working at full strength: record the negative, name the mechanism, close the branch. A sudden bin (i) PASS that appears only after the transfer term is re-shaped is a red flag for a smuggled leak or pump — re-run the §4.3 detectors before banking.
 - **Substitution-not-retraction (Rule 12).** If a later result falsifies a premise of this charter, the charter body is preserved and a dated 🔴 header is added; the slot is not silently refilled.
 
@@ -353,7 +357,7 @@ Each of the three Grant-walked hard constraints fires on a **specific computed q
 **Deliverable lock (this PR).** ONE charter doc. **No driver code, no engine edits, no KB-leaf edits.** The frozen prereg (step 2), the tier-1 driver (step 3), and tier-2 (step 4) are all gated on Grant's charter review.
 
 **Rails.**
-- **Freeze-by-push** — the FROZEN prereg's bins + tolerances are frozen by push before any driver exists; sabotage plants act on the **evolved ledger observables** (conservation residual, DE-form observable, the three hard-detector time-series), not on the input.
+- **Freeze-by-push** — the FROZEN prereg's bins + tolerances are frozen by push before any driver exists; sabotage plants act on the **evolved tier-1 ledger observables** (the `tol_cons` conservation residual and the `D[·,·]` form-separation observable on both history provenances), not on the input. (The three §4.2 sector-detector time-series are tier-2, not part of the tier-1 sabotage surface.)
 - **Adversarial review** via a `scriptPath` wrapper that inlines ARGS and calls `workflow({scriptPath: '.claude/workflows/ave-adversarial-pr-review.js'}, ARGS)` (the named-workflow args path silently drops args).
 - **DO-NOT-MERGE** — only Grant merges. This charter is a discriminator draft, not a result.
 
