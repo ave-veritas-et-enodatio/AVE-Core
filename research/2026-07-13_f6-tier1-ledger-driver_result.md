@@ -220,6 +220,16 @@ charter expected reappears one order of magnitude up. The verdict is therefore s
 threshold within an order of magnitude of the frozen value. This is reported, not used to move the
 frozen verdict (Rule 11 — no post-hoc threshold selection).
 
+**Fine-κ + window robustness (adversarial-review addendum, `review:degeneracy-knife`).** The
+`min_κ` in the table above is over the FROZEN 7-point scan. An independent fine scan (600 log-points,
+`κ ∈ [1e-3, 1e3]`) gives the TRUE **global** min `D[ON,FRONTIER]`: **0.046 (PHYSICAL, κ≈3.3)**, 0.048
+(DECORR_H, κ≈4.1), 0.033 (DECORR_N, κ≈1.4) — all still `> tol_form=1e-2`. **No κ makes the physical
+run degenerate**, so the a-priori falsification is not a coarse-scan artifact. Window sweep
+`τ₁ ∈ {2,3,5,10,20}` gives `min_κ D_physical ∈ [0.024, 0.046]` — **separable throughout** at
+`tol_form=1e-2`. The falsification is robust to κ-refinement and window choice. (Live-fire lens
+`review:live-fire` independently reproduced every shipped `D` with a different solver `scipy.odeint`
++ different quadrature `scipy.integrate.simpson` to max relative Δ = 3.1e-8.)
+
 ---
 
 ## 7 · Quarantine + scope discipline (binding reminders)
