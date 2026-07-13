@@ -239,7 +239,55 @@ flowchart TB
 
 ## 4 · Analysis (what would discriminate; what would fake)
 
-<!-- SECTION-4 -->
+### 4.1 Fireable content vs entailed content
+
+| Content | Class |
+|---|---|
+| Reservoir conservation (`ρ_latent + E_T2` invariant to machine precision) | Partly **ENTAILED** (ledger construction) — **do not bank as the chord** |
+| The top-port A-rate **slaved to lower-stage B-occupancy** | **FIREABLE** — *this is the chord* |
+| DE-component **FORM** vs a bare cosmological constant in the ledger observable | **FIREABLE** |
+| Ablation: slaving OFF → DE form collapses to constant | **FIREABLE ablation** (isolates the inter-stage coupling from the frontier form) |
+| ρ_latent magnitude vs ρ_Λ | **OUT OF SCOPE** — not measured, not fit (§4.4) |
+
+### 4.2 Hard constraints — three named detectors
+
+Each of the three Grant-walked hard constraints fires on a **specific computed quantity** in the ledger. All three are checked **before** the FORM verdict is read.
+
+- **`bias_invariance` detector — (bias ≠ release).** The R-A operating-point **bias must be untouched by the release mechanism**; the drainage cannot move the bias point. **Computed quantity:** the operating-point bias parameter recorded with the release channel **ON vs OFF**; `|Δbias|/bias` must be `≤ tol_bias`. A nonzero shift ⇒ the drainage is riding the bias, not a clean top-port A-channel ⇒ **FAIL**.
+- **`electron_store_conservation` detector — (electron-no-drain).** The port **must not drain its own transducer** (electron stability). **Computed quantity:** the A1-tank energy time-series `E_A1(t)` while top-port drainage is active — it must be flat (`|dE_A1/dt| ≤ tol_A1`, `Q→∞` preserved). A finished electron paid its latent heat ONCE and is a lossless tank (`dark-energy-latent-heat-definition.md:65`); if `E_A1` decays, the ledger is draining the electron ⇒ **FAIL**.
+- **`muon_channel_separability` detector — (muon fence).** The muon **loads T2 but does not decay by that channel**. **Computed quantity:** the muon's booked decay rate with the T2-loading term **ON vs OFF** — it must be invariant (`|Δτ_μ⁻¹| ≤ tol_μ`). If loading the bath changes the muon lifetime in the ledger, the T2-loading channel and the decay channel are cross-wired ⇒ **FAIL**. (T2 loading is separable from the muon's actual decay route.)
+
+### 4.3 Fool-modes — each with a named detector
+
+| Fool-mode | What it fakes | Named detector (computed quantity that fires it) |
+|---|---|---|
+| **IMPOSED-LEAK** (§iii) | tracking via a continuous sub-yield dissipative transfer | **Ax3-legality / destination audit** — `ρ_latent` loss must equal `E_T2` gain to `tol_cons`; a friction/damping term removes energy without depositing it ⇒ IMPOSED-LEAK, not F6. |
+| **TRILINEAR-PUMP** (v4) | transfer via an indefinite-Hamiltonian pump | **Bounded-norm audit** — total ledger energy must not show an unbounded/monotone runaway excursion (the `H_bel`/`H_photon` detonation signature, `crystal_graft_v4.py:159-167`); the transfer term must be a bounded reservoir-exchange rate, never a product of three co-growing amplitudes. |
+| **MAGNITUDE-TUNE** (10^122 trap) | a "match" to ρ_Λ | **Input-provenance audit** — the `ρ_latent` value in the run must be **byte-identical** to the frozen input (`clm-s4n33u`); any adjustment toward ρ_Λ in the verdict path fires. The 10^122 path is rejected canon (`cosmological-constant-closure.md:8,58-62`). |
+| **SLAVING-DEGENERACY** (→ bin iii) | tracking that is really a time-parametrization artifact | **Slaving-OFF ablation** — `H(t)` and `n_matter(t)` are both monotone in cosmic time, so the pure frontier form `Γ=3H·ρ_latent` (no inter-stage coupling) can *look* like it tracks matter. Set the B-occupancy coupling to zero; if the DE-form observable is **indistinguishable** ON vs OFF within `tol_form`, the apparent chord is degeneracy ⇒ **bin FORM-DEGENERATE**. |
+| **DIODE-RESURRECTION** | one-way-ness via a valve | **Mechanism-class audit** — the transfer term must be one of the three licensed mechanisms (§vi); any `V_f`-like dead-zone threshold, rectifying nonlinearity, or `sign(rate)`-dependent asymmetry fires (dead four ways, §(iv)). |
+
+### 4.4 Scope lock (CC-honest, binding)
+
+- **Existence + FORM of DE-tracks-matter ONLY.** Tier-1 asks whether a matter-slaved, Ax3-legal, conservation-respecting drainage produces a DE component whose **form** tracks matter — nothing about its **magnitude**.
+- **NO magnitude matching.** The naive `ρ_latent` value is ~120 OOM over ρ_Λ; the **10^122 trap is rejected canon** (`cosmological-constant-closure.md:8,58-62`). The charter must **not** attempt to match the ρ_latent magnitude to ρ_Λ.
+- **ρ_latent = Grant-GO'd 2026-07-13, INPUT-ONLY.** It enters at `clm-s4n33u`, solidity 0.45, build_status "input-only, don't build deeper" (`dark-energy-latent-heat-definition.md:122,136`). Use it as an input parameter; do **not** deepen the ρ_latent / ΔE_cryst derivation.
+- **Consistency-vs-emergence class = CONSISTENCY (ceiling).** Tier-1's DE-tracks-matter FORM, *if it exists*, is at best a **CONSISTENCY / MANIFESTATION**-class demonstration — the ledger is *constructed* to book the transfer, so a form appearing is not EMERGENCE. Per the home leaf's own tag (`dark-energy-latent-heat-definition.md:113`), the AVE-distinct content is the DEFINITION / MECHANISM; the ρ_Λ value is ECHO / CONSISTENCY. The chord only becomes fireable-real if the slaving coupling `k` + response are **derived from `{ℓ_node, α, G}`** (F6 gate 3, `:156`) — which tier-1 does **NOT** do (ρ_latent is input-only). **Refuse any EMERGENCE headline from tier-1.**
+- **ave-canonical-source discipline.** Any numerical constant the downstream driver references (`H`, `G`, tolerances) **imports from `src/ave/core/constants.py` semantics** or is declared an engineering-choice in the FROZEN prereg — **no hardcoded value is presented as canonical in this charter.** The only physics numbers named here are cited to their canonical source (`ρ_latent` SYMBOLIC-ONLY input; `Γ=3H·ρ_latent` form; `10^122` framing at `cosmological-constant-closure.md:8`).
+
+### 4.5 Frozen bins (tier-1) — freeze PRE-RUN, by push, before any driver
+
+- **(i) LEDGER-CONSISTENT.** The two-reservoir ledger conserves (`ρ_latent + E_T2` invariant to `tol_cons`), the transfer is Ax3-legal (entropic/event-gated, passes the §4.3 IMPOSED-LEAK / TRILINEAR-PUMP / DIODE-RESURRECTION detectors), all three §4.2 hard detectors pass, and the DE component's **form tracks matter distinguishably from a constant** (survives the slaving-OFF ablation) — **the DE-tracks-matter FORM exists.**
+- **(ii) LEDGER-VIOLATES-CONSERVATION.** The ledger fails to conserve (`ρ_latent + E_T2` total drifts beyond `tol_cons`), **or** the only transfer that produces tracking is dissipative — **FAIL** (and if dissipative, it is the §(iii) / §4.3 **IMPOSED-LEAK** fool-mode, not F6).
+- **(iii) FORM-DEGENERATE.** The ledger runs and conserves, but **DE-tracks-matter is indistinguishable from a cosmological constant in the ledger's observable** (the slaving-OFF ablation does not change the DE-form observable within `tol_form`) — the form is degenerate; F6's chord does not resolve at tier-1. **★This is a LEGITIMATE outcome that CLOSES the interior program — a real negative on the FORM question, NOT an instrument gap and NOT a failure to be rescued.** Per Rule 11 honest closure: if the ledger lands here, record the falsification, name the degeneracy mechanism (`H(t)` and `n_matter(t)` co-monotone in cosmic time), and close the tier-1 interior branch — the chord, if it lives anywhere, then lives only in the tier-2 discrete demo or the forward observable (DESI/Euclid DE-vs-matter cross-correlation, `dark-energy-latent-heat-definition.md:159`), not in the interior ledger.
+
+### 4.6 Freeze discipline statement
+
+- **Bins frozen PRE-RUN by push** in the downstream FROZEN prereg — before any driver exists.
+- **No dropped criteria post-hoc.** The three bins + the five §4.3 detectors + the three §4.2 hard detectors are the complete adjudication set; none is dropped to convert a ❌ to a ✅ (Rule 11).
+- **Slaving-OFF ablation is the primary discriminator** for the chord vs bin (iii); it must run in every battery.
+- **No debug-toward-rescue.** If the ledger lands in bin (ii) or (iii), that is the discipline working at full strength: record the negative, name the mechanism, close the branch. A sudden bin (i) PASS that appears only after the transfer term is re-shaped is a red flag for a smuggled leak or pump — re-run the §4.3 detectors before banking.
+- **Substitution-not-retraction (Rule 12).** If a later result falsifies a premise of this charter, the charter body is preserved and a dated 🔴 header is added; the slot is not silently refilled.
 
 ---
 
