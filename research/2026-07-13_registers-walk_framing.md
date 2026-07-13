@@ -68,7 +68,22 @@ There are zero electron-side `+3∫p` / Tolman hits today. Brace → `+3∫p` ne
 
 ## §3 ★ GRANT'S TRANSDUCER ONTOLOGY (verbatim-faithful)
 
-<!-- STUB §3 -->
+> **Grant, verbatim:** "the envelope is the transducer between transverse EM stress and lattice mechanical stress; all mechanical stress derives from, and returns to, the physical lattice."
+
+**Elaboration, as walked.** The **envelope** is the surface where the winding's **cycle-averaged Maxwell stress** balances the **static lattice strain**. *Wording rail (binding):* the cycle-averaging is a **Jensen magnitude** — `⟨S⟩ < S(⟨A⟩)` gives a cycle-averaged deficit `δ = 1 − ⟨S⟩` (`manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md:28,51`) — and its **direction is set by external geometry, not by the kernel.** Never say "the kernel rectifies": the kernel is even-in-A and cannot (§2a). The transducer produces a *magnitude*; geometry orients it.
+
+This makes matter's `T_ij` **two coupled halves at the envelope interface**:
+
+- **wave-side** — the winding's cycle-averaged transverse-EM Maxwell stress, **including the angular flux** (the couple-stress / spin channel), and
+- **lattice-side** — the full Cosserat `σ` (the two constitutive halves: microrotation ω → μ → L, strain → ε → C; `manuscript/ave-kb/common/trampoline-framework.md:356`).
+
+The **envelope is the equilibrium interface** between them — TKI made local. All mechanical stress derives from and returns to the physical lattice; the wave-side is the reactive store, not an independent source.
+
+**Q1 ANSWERED — carry the twist.** The angular handover at the envelope **IS spin**: it lives in the couple-stress channel (the antisymmetric `σ^A`; `trampoline-framework.md:87`). A **symmetric-only `σ` deletes spin from the stress ledger.** So the T_ij register must be the full Cosserat asymmetric object, not a symmetric reduction — the plumber's answer to §2(d)'s "does the register carry the twist."
+
+**Q2 ANSWERED — the brace is the envelope's own ⟨Maxwell stress⟩.** The brace is the **cycle-averaged Maxwell stress of the (2,3) winding evaluated at its own envelope.** The general register build (§2d) manufactures `T_rr` as that special case **AND** is the instrument that retries the inconclusive bind-sim (§2c): the brace is not a separately-postulated force, it is what the transducer reads at equilibrium.
+
+**★ Derivable consequence — a SOURCE-side theorem-target for X44b.** Bound transverse content carries the **radiation equation of state `p = u/3`**. A Komar / Tolman source weights `(ρ + 3p)`, so pure wave content contributes `(ρ + 3·u/3) = ρ + u` — a **factor-2 doubling for the wave part.** This is the *same* factor-2 as the derived light-deflection doubling (`n_⊥ = 1 + (2/7)χ_vol → 4GM/bc²`; the bridge `z = (n_temporal − 1)/2`, a propagating signal picks up 2× the local clock; `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md:26,28`). **This is a theorem-target, not a result** — the claim owed is that the envelope's wave-side `T_rr`, fed through the Komar source, reproduces the deflection doubling from the source side. It slots directly onto X44b's `η ≈ −1 → 0` ladder (the Nordtvedt / Komar-source reconciliation, `research/2026-07-12_x44-komar-source_result.md`; `research/2026-07-11_nordtvedt-eta_result.md:208,278`).
 
 ## §4 Q3 / Q4 — THE FULL PICTURE (as delivered for Grant's ruling)
 
