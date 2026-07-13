@@ -3,55 +3,26 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **★RULED G-PERSIST + X-LEDGER** (AVE-native) immediately below. Medium-continuation kit remains HOLD. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16, re-stamped 2026-07-11; addendum 2026-07-12)**: **★PROPOSED-RULED G-PERSIST + X-LEDGER** (AVE-native; text pending Grant's #661 merge) immediately below — medium-continuation kit remains HOLD. The **2026-07-12 genesis node-birth fork** pointer further below is the newest live architecture gate for electron-genesis scoping. The **2026-07-10/11 Session board** remains authoritative for the #608–#648 arc record. The **2026-06-16 reconciliation** further down remains authoritative for the historical **execution order + active epic** record; it supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). Older sections are historical (KEEP-BOTH). Verify-before-cite v1.4 applies.
 
-## 2026-07-12 — ★RULED G-PERSIST + X-LEDGER (AVE-native register)
+## 2026-07-12 — ★PROPOSED-RULED G-PERSIST + X-LEDGER (AVE-native register)
 
-**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning).
+**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning). **★PROPOSED-RULED — text pending Grant confirmation; stamps become effective on his merge of #661** (repair R3; KEEP-BOTH — superseded header read "★RULED G-PERSIST + X-LEDGER").
 
 - Ruling leaf: [`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)
-- Briefing (ruled): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
+- Briefing (proposed-ruled): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
 - Docket rows: [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) (G-PERSIST, X-LEDGER)
-- **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}`
+- **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}` (foundation UNDER #655 re-adjudication — 2/3 landed seed modes pass; confirmation postdates the #655 battery re-run)
 - **X-LEDGER:** bank #652 (iii); two mass functionals named open; no silent √S retune
 - Branch: `analysis/ave-native-rulings-g3-x1` · PR **#661** · **HOLD — no merge until Grant**
 
-## 2026-07-12 — Mass-sector two-body × A1 port
+## 2026-07-12 — Genesis node-birth fork (KEEP-BOTH; discriminator-first)
 
-**Focus (Grant):** deconvolve PML radiation-floor workaround on two-body force readout.
+**Live architecture gate (electron genesis scoping).** Grant contention: mechanical-stress electron genesis may require **new-node birth** / a changing lattice, not only a fixed-N pattern. Phase-0 **KEEP-BOTH** authorized — discriminators D1–D4 before ruling (A) fixed-N vs (B) N→N+1, and before any graph-growth engine.
 
-- Plan: [`2026-07-12_mass-sector-a1-port.md`](2026-07-12_mass-sector-a1-port.md)
-- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze `b0c0153b`
-- Result: [`../research/2026-07-12_mass-sector-a1-port_result.md`](../research/2026-07-12_mass-sector-a1-port_result.md) — **bin (iii) FORCE-PORT-FAIL** · **HOLD**
-- Adjudication briefing (step 3): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
-- Branch: `analysis/mass-sector-a1-port` · PR **#660**. Hold #652 / #655 / #656–#659.
-
-## 2026-07-12 — L5 Q/leakage × A1 port wire-in
-
-**Focus (Grant):** after HOLD review, wire A1 into `unified_l5_q_leakage` — deconvolve sponge pad from passive leave-taking.
-
-- Plan: [`2026-07-12_l5-a1-port-wire.md`](2026-07-12_l5-a1-port-wire.md)
-- Frozen prereg: [`../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md`](../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md) — freeze `9cf436dc`
-- Result: [`../research/2026-07-12_l5-a1-port-wire_result.md`](../research/2026-07-12_l5-a1-port-wire_result.md) — **bin (i) PORT-DECONVOLVED** · **HOLD**
-- Branch: `analysis/l5-a1-port-wire` · PR **#659** (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
-
-## 2026-07-12 — A3 universe return (exterior → local)
-
-**Not-built focus (Grant):** controlled exterior return packet on the A1 port shell after leave-taking — bidirectional stub without outer mesh. Gated on A2 bin (i).
-
-- Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
-- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze `cfd2e690`
-- Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** · **HOLD — no merge until Grant**
-- Branch: `analysis/universe-return-a3` · PR **#658** (off A2 tip). Hold #652 / #655 / #656 / #657.
-
-## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
-
-**Not-built focus (Grant):** thin projected cosmic IC bias on the A1 radiating face — not live Machian integral, not outer mesh. Gated on A1 bin (i).
-
-- Plan: [`2026-07-12_universe-stub-a2.md`](2026-07-12_universe-stub-a2.md)
-- Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze `257c3141`
-- Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **bin (i) STUB-PASSIVE-BIASED** · **HOLD — no merge until Grant**
-- Branch: `analysis/universe-stub-a2` · PR **#657** (off A1 tip). Hold #652 / #655 / #656.
+- Fork plan: [`2026-07-12_genesis-node-birth-fork.md`](2026-07-12_genesis-node-birth-fork.md)
+- Frozen prereg: [`../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md`](../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md)
+- Branch: `analysis/genesis-node-birth-fork` (based on #653 categorization). **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine in this arc.
 
 ## 2026-07-12 — A1 radiating face (universe port for local models)
 
@@ -59,17 +30,45 @@
 
 - Plan: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
 - Frozen prereg: [`../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md`](../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md)
-- Result: [`../research/2026-07-12_radiating-face-a1_result.md`](../research/2026-07-12_radiating-face-a1_result.md) — **bin (i) FACE-PASSIVE-MATCHED** · **HOLD — no merge until Grant**
-- Branch: `analysis/radiating-face-a1` (#656). No fourth engine. Hold #652. Orthogonal to genesis #655.
+- Result: [`../research/2026-07-12_radiating-face-a1_result.md`](../research/2026-07-12_radiating-face-a1_result.md) — **bin (i) FACE-PASSIVE-MATCHED** (frozen lossless-limit closed-box leg) · **HOLD — no merge until Grant**
+- Branch: `analysis/radiating-face-a1` (#656). No fourth engine. Hold #652. Orthogonal to genesis #655 — **#655's per-discriminator record is authoritative for the genesis bullet above** (this entry is additive-only).
 
-## 2026-07-12 — Genesis node-birth fork (KEEP-BOTH; discriminator-first)
+## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
 
-**Live architecture gate (electron genesis scoping).** Grant contention: mechanical-stress electron genesis may require **new-node birth** / a changing lattice, not only a fixed-N pattern. Phase-0 **KEEP-BOTH** authorized — discriminators D1–D4 before ruling (A) fixed-N vs (B) N→N+1, and before any graph-growth engine.
+**Not-built focus (Grant):** thin projected cosmic IC bias on the A1 radiating face — not live Machian integral, not outer mesh. Gated on A1 bin (i). This entry is additive-only (does not rewrite the genesis / A1 bullets above).
 
-- Fork plan: [`2026-07-12_genesis-node-birth-fork.md`](2026-07-12_genesis-node-birth-fork.md)
-- Frozen prereg: [`../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md`](../research/2026-07-12_genesis-node-birth-discriminator_prereg_FROZEN.md) (#654)
-- Drivers / result: PR **#655** (`analysis/genesis-node-birth-d14`) — bin (ii) A-WEAKENED pending merge
-- **Hold #652** (X44 bin iii). No `genesis_v{N}` / fourth engine; bin (ii) does not auto-select (B).
+- Plan: [`2026-07-12_universe-stub-a2.md`](2026-07-12_universe-stub-a2.md)
+- Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze `257c3141`
+- Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **frozen bin (ii) STUB-WEAK; post-freeze live-pump axis TRIPS (KEEP-BOTH)** · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-stub-a2` · PR **#657** (off A1 tip). Hold #652 / #655 / #656.
+
+## 2026-07-12 — A3 universe return (exterior → local)
+
+**Not-built focus (Grant):** controlled exterior return packet on the A1 port shell after leave-taking — bidirectional stub without outer mesh. Gated on A2 (bin (ii) STUB-WEAK: face stays green with bias ON — the stub does not break the face). This entry is additive-only.
+
+- Plan: [`2026-07-12_universe-return-a3.md`](2026-07-12_universe-return-a3.md)
+- Frozen prereg: [`../research/2026-07-12_universe-return-a3_prereg_FROZEN.md`](../research/2026-07-12_universe-return-a3_prereg_FROZEN.md) — freeze `cfd2e690`
+- Result: [`../research/2026-07-12_universe-return-a3_result.md`](../research/2026-07-12_universe-return-a3_result.md) — **bin (i) RETURN-RECEIVED** (shell-only pure mask; null-differenced) · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-return-a3` · PR **#658** (off A2 tip). Hold #652 / #655 / #656 / #657.
+
+## 2026-07-12 — L5 Q/leakage × A1 port wire-in
+
+**Focus (Grant):** after HOLD review, wire A1 into `unified_l5_q_leakage` — deconvolve sponge pad from passive leave-taking. This entry is additive-only.
+
+- Plan: [`2026-07-12_l5-a1-port-wire.md`](2026-07-12_l5-a1-port-wire.md)
+- Frozen prereg: [`../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md`](../research/2026-07-12_l5-a1-port-wire_prereg_FROZEN.md) — freeze `9cf436dc`
+- Result: [`../research/2026-07-12_l5-a1-port-wire_result.md`](../research/2026-07-12_l5-a1-port-wire_result.md) — **bin (i) PORT-DECONVOLVED** (AND-of-proxies adjudicator; R9) · **HOLD**
+- Branch: `analysis/l5-a1-port-wire` · PR **#659** (off A3 tip). Hold #652 / #655 / #656 / #657 / #658.
+
+## 2026-07-12 — Mass-sector two-body × A1 port
+
+**Focus (Grant):** deconvolve PML radiation-floor workaround on two-body force readout. This entry is additive-only.
+
+- Plan: [`2026-07-12_mass-sector-a1-port.md`](2026-07-12_mass-sector-a1-port.md)
+- Frozen prereg: [`../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md`](../research/2026-07-12_mass-sector-a1-port_prereg_FROZEN.md) — freeze `b0c0153b`
+- Result: [`../research/2026-07-12_mass-sector-a1-port_result.md`](../research/2026-07-12_mass-sector-a1-port_result.md) — **bin (iii) FORCE-PORT-FAIL** · **HOLD**
+- Adjudication briefing (step 3): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md) — orchestration-lane opinion labeled non-binding (R10); X3 reworded (R11)
+- Branch: `analysis/mass-sector-a1-port` · PR **#660**. Hold #652 / #655 / #656–#659.
 
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
