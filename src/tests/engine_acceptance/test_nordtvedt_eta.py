@@ -133,6 +133,49 @@ def family() -> list[dict]:
     return rows
 
 
+def _solve_family_add() -> list[dict]:
+    """Solve the SAME fixed-rest-energy / varying-f family under the LEGACY add_field
+    source (`T₀₀^src = T₀₀^matter + u_field`, the retired pre-X44 convention). ONE
+    shared solve feeds BOTH ADD-side KEEP-BOTH reads: the one-ledger certification
+    (flux vs m_i=M+U, #651 η≈0) AND the mixed-register exposure (flux vs M_eff, η≫1)."""
+    Grad, Div = NV.build_grad_div(_N)
+    mask = NV.interior_mask(_N)
+    rows = []
+    for sg in _SIGMAS:
+        T00 = NV.normalized_blob(_N, sg, _M_TARGET)
+        res = NV.solve_config(_N, T00, g_self=_G_SELF, s_min=_S_MIN, source_mode="add_field")
+        eps = res["eps11"]
+        L = NV.stiffness_operator(_N, eps, Grad, Div, s_min=_S_MIN)
+        led = NV.energy_ledger(T00, eps, Grad, g_self=_G_SELF)
+        m_g = NV.gravitating_charge_flux(eps, L, mask)
+        U = led["U_bind"]
+        rows.append(
+            {
+                "sigma": sg,
+                "M": led["M_matter"],
+                "U": U,
+                "f": U / (led["M_matter"] + U),
+                "m_g": m_g,                 # FIELD-side flux = Σ_interior(L@ε)
+                "m_i": led["m_i"],          # ENERGY ledger  = M + U (== ∫T₀₀^src under ADD)
+                "M_eff": led["M_eff"],      # binding-deficit = M − U (the OTHER register)
+                "converged": bool(res["converged"]),
+                "max_A": float(res["max_A"]),
+                "source_mode": res["source_mode"],
+            }
+        )
+    return rows
+
+
+@pytest.fixture(scope="module")
+def family_add() -> list[dict]:
+    """Module-scoped ADD-side family (legacy KEEP-BOTH convention). Runs ONCE and is
+    shared by the one-ledger certification + the mixed-register exposure tests."""
+    t0 = time.time()
+    rows = _solve_family_add()
+    print(f"\n[nordtvedt] ADD-side family solve ({len(rows)} configs, N={_N}) : {time.time() - t0:.2f}s")
+    return rows
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # LEG-1 — X44 CERTIFICATION: far-field Gauss flux tracks M_eff (ruled Komar source)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -235,32 +278,59 @@ def test_nordtvedt_p11_planted_two_ledger_teeth(family):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# KEEP-BOTH — legacy ADD mixed-register exposure still fires under source_mode=add_field
+# KEEP-BOTH — the ADD-side pair (both read off the SAME family_add solve):
+#   (A) ONE-LEDGER certification  flux vs m_i=M+U → η≈0  (the #651 η≈0 regression)
+#   (B) MIXED-register exposure    flux vs M_eff  → η≫1  (the latent-#86 gap)
 # ─────────────────────────────────────────────────────────────────────────────
-def test_nordtvedt_legacy_add_mixed_register_still_exposes_gap():
+def test_nordtvedt_add_side_one_ledger_certification(family_add):
+    """ADD-side ONE-LEDGER [X44 R4 — the missing frozen diagnostic; #651 regression].
+
+    Prereg gate #2 froze "ADD-side LEG-1 retained as diagnostic / KEEP-BOTH", but no
+    shipped test computed the ADD-side ONE-LEDGER pairing. Under legacy add_field the
+    far-field flux ≡ ∫T₀₀^src = ∫(T₀₀^matter + u_field) = M+U by the discrete Gauss
+    theorem, so the pairing (flux vs m_i=M+U) certifies η≈0 by ENTAILMENT (X36
+    install-tautology) — this is the #651 certification's regression coverage.
+
+    KEEP-BOTH with the mixed-register exposure (B, same family_add solve): the ONE
+    ledger reconciles (η≈0) while the MIXED pairing (flux vs M_eff=M−U) fires η≫1.
+    They are DIFFERENT registers — the whole latent-#86 point that X44 addressed on
+    the Komar (deficit) side.
+    """
+    assert all(r["source_mode"] == "add_field" for r in family_add)
+    assert all(r["converged"] for r in family_add), "an ADD-side member did not converge"
+    assert all(r["max_A"] < 0.2 for r in family_add), "ADD-side member left the weak regime"
+    f = np.array([r["f"] for r in family_add])
+    m_g = np.array([r["m_g"] for r in family_add])
+    m_i = np.array([r["m_i"] for r in family_add])
+    eta_one = NV.eta_slope(f, m_g / m_i)
+
+    print("\n--- ADD-side ONE-LEDGER (flux vs m_i=M+U) [#651 η≈0 regression] ---")
+    for r in family_add:
+        print(
+            f"  σ={r['sigma']:.2f} f={r['f']:.4f}  m_g={r['m_g']:.5f}  "
+            f"m_i(M+U)={r['m_i']:.5f}  rel={(r['m_g'] - r['m_i']) / r['m_i']:+.2e}"
+        )
+    print(f"  η_one_ledger (flux/m_i) : {eta_one:+.3e}   (certification tol |η| < {_ETA_TOL})")
+
+    # #651 certification regression: |η| < _ETA_TOL (RESOLUTION-LIMITED floor per the
+    # R1 receipt; banking basis = X36 analytic entailment, not an N=24 numeric claim).
+    assert abs(eta_one) < _ETA_TOL, (
+        f"REGRESSION: ADD-side one-ledger η_one={eta_one:.3e} exceeded the #651 "
+        f"certification tol {_ETA_TOL} — the single-T₀₀ Gauss entailment broke"
+    )
+
+
+def test_nordtvedt_legacy_add_mixed_register_still_exposes_gap(family_add):
     """KEEP-BOTH diagnostic: under legacy add_field, η_mixed (flux vs M_eff) ≫ 1.
 
     Confirms the #651 latent defect is still reproducible when the retired
-    convention is selected — not a live gate of the ruled Komar default.
+    convention is selected — not a live gate of the ruled Komar default. Reads off
+    the SAME family_add solve as the one-ledger certification above (KEEP-BOTH pair).
     """
-    Grad, Div = NV.build_grad_div(_N)
-    mask = NV.interior_mask(_N)
-    f_list, mg_list, meff_list = [], [], []
-    for sg in _SIGMAS:
-        T00 = NV.normalized_blob(_N, sg, _M_TARGET)
-        res = NV.solve_config(
-            _N, T00, g_self=_G_SELF, s_min=_S_MIN, source_mode="add_field"
-        )
-        eps = res["eps11"]
-        L = NV.stiffness_operator(_N, eps, Grad, Div, s_min=_S_MIN)
-        led = NV.energy_ledger(T00, eps, Grad, g_self=_G_SELF)
-        m_g = NV.gravitating_charge_flux(eps, L, mask)
-        U = led["U_bind"]
-        f_list.append(U / (led["M_matter"] + U))
-        mg_list.append(m_g)
-        meff_list.append(led["M_eff"])
-    f = np.array(f_list)
-    eta_mixed = NV.eta_slope(f, np.array(mg_list) / np.array(meff_list))
+    f = np.array([r["f"] for r in family_add])
+    m_g = np.array([r["m_g"] for r in family_add])
+    m_eff = np.array([r["M_eff"] for r in family_add])
+    eta_mixed = NV.eta_slope(f, m_g / m_eff)
     print(f"\n--- KEEP-BOTH legacy add_field η_mixed : {eta_mixed:+.4f} ---")
     assert eta_mixed > _MIXED_ETA_MIN, (
         f"FAIL: legacy ADD no longer exposes the gap — η_mixed={eta_mixed:.4f}"
