@@ -15,18 +15,20 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | Result | Expression | Source |
 |---|---|---|
 | Macroscopic field limit | $E_{yield} = 43.65\,\text{kV}/\ell_{node} \approx 1.13 \times 10^{17}\,\text{V/m}$ | dielectric-plateau |
-| Capacitance divergence | $C_{eff}(E) = C_0/\sqrt{1-(E/E_{yield})^2} \to \infty$ | dielectric-plateau |
+| Across-gap capacitance roll-off ($T_2$ dielectric) | $C_{diel}(E) = C_0\sqrt{1-(E/E_{yield})^2} \to 0$; tangent $C_{ss}=C_0(S-A^2/S)$ zeros at $E/E_{yield}=1/\sqrt2$ | dielectric-plateau |
 | Active Sagnac Interferometry | Phase shift scales with $\rho_m$, $\mu_r$, altitude, latitude, and ambient $B$-field | active-sagnac-interferometry |
 | Torus knot baryon masses | $(2,17)$: $\sim 2742\,\text{MeV}$; $(2,19)$: $\sim 2983\,\text{MeV}$; $(2,21)$: $\sim 3199\,\text{MeV}$ — testable at CLAS12/PANDA | torus-knot-baryon |
-| Dielectric plateau onset | $C_{eff} \to \infty$ at $E \approx 0.85 \times E_{yield}$ | ee-bench |
+| Dielectric plateau / NDC onset | tangent $C_{ss}$ crosses zero (NDC snap-back) at $E/E_{yield}=1/\sqrt2\approx0.707$; tracking window opens $\gtrsim0.25\,E_{yield}$ | ee-bench |
 | Active Sagnac tolerance | Zerodur cavity, $< 1$ mK thermal, $< 46$ kHz linewidth, sub-pm seismic | active-sagnac-telemetry |
 | Autoresonant PLL | Phase-locked frequency tracking enables vacuum rupture at fractional Schwinger energy | autoresonant |
+
+> **★ Supersession (KEEP-BOTH; roll-off ruling ratified 2026-07-06/07, PR #562/#558).** The two capacitance rows above formerly read a **spike, sign-inverted** vs the ratified across-gap roll-off: *"Capacitance divergence — $C_{eff}(E)=C_0/\sqrt{1-(E/E_{yield})^2}\to\infty$"* and *"Dielectric plateau onset — $C_{eff}\to\infty$ at $E\approx0.85\times E_{yield}$"*, and the detail row said *"capacitance spike"*. An across-gap precision LCR couples to the **transverse-$T_2$ dielectric** (roll-off $C\propto S$, keyed on $V_{yield}\approx43.65$ kV); the $C_0/S\to\infty$ divergence is the **orthogonal longitudinal-$A_1$ bond compliance keyed on $V_{snap}\approx511$ kV**, which the across-gap meter does not read. Corrected to the roll-off + $1/\sqrt2$ tangent NDC per [`dielectric-plateau-prediction.md`](dielectric-plateau-prediction.md):25-38.
 
 ## Derivations and Detail (Detailed Leaves — Benn)
 
 | Document | Contents |
 |---|---|
-| [Dielectric Plateau Prediction](dielectric-plateau-prediction.md) | EE Bench: $E_{yield}$, capacitance spike, interferometric refractive index drop; LCR + laser protocol |
+| [Dielectric Plateau Prediction](dielectric-plateau-prediction.md) | EE Bench: $E_{yield}$, across-gap capacitance roll-off + $1/\sqrt2$ NDC snap-back, interferometric refractive index drop; LCR + laser protocol |
 | Ponder-01 Thrust Prediction (see AVE-PONDER repo) | Asymmetric Maxwell Stress Rectification; 1000:1 geometry; VHF sweep; torsion balance protocol |
 | [Epistemology (Ch.12)](epistemology-ch12.md) | One-Parameter Effective Field Theory; falsifiability by design |
 | [Active Sagnac Impedance Drag](active-sagnac-impedance-drag.md) | Kinematic/electromagnetic entrainment law; density and permeability dependence; tolerances; applied telemetry (slip-velocity, gradient compass, dark wake, chiral torsion) |
