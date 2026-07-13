@@ -16,12 +16,21 @@
 
 ## 2026-07-12 — A1 radiating face (universe port for local models)
 
-**Not-built focus (Grant):** matched radiating face so a local solid run radiates strain into a universe port without PML-as-physics. Machian / \(\Omega_{\rm freeze}\) live stub = **A2** (gated on A1).
+**Not-built focus (Grant):** matched radiating face so a local solid run radiates strain into a universe port without PML-as-physics. Machian / \(\Omega_{\rm freeze}\) projected stub = **A2** (gated on A1; now opened).
 
 - Plan: [`2026-07-12_radiating-face-a1.md`](2026-07-12_radiating-face-a1.md)
 - Frozen prereg: [`../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md`](../research/2026-07-12_radiating-face-a1_prereg_FROZEN.md)
 - Result: [`../research/2026-07-12_radiating-face-a1_result.md`](../research/2026-07-12_radiating-face-a1_result.md) — **bin (i) FACE-PASSIVE-MATCHED** (frozen lossless-limit closed-box leg) · **HOLD — no merge until Grant**
 - Branch: `analysis/radiating-face-a1` (#656). No fourth engine. Hold #652. Orthogonal to genesis #655 — **#655's per-discriminator record is authoritative for the genesis bullet above** (this entry is additive-only).
+
+## 2026-07-12 — A2 universe stub (projected \(\Omega_{\rm freeze}\) IC)
+
+**Not-built focus (Grant):** thin projected cosmic IC bias on the A1 radiating face — not live Machian integral, not outer mesh. Gated on A1 bin (i). This entry is additive-only (does not rewrite the genesis / A1 bullets above).
+
+- Plan: [`2026-07-12_universe-stub-a2.md`](2026-07-12_universe-stub-a2.md)
+- Frozen prereg: [`../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md`](../research/2026-07-12_universe-stub-a2_prereg_FROZEN.md) — freeze `257c3141`
+- Result: [`../research/2026-07-12_universe-stub-a2_result.md`](../research/2026-07-12_universe-stub-a2_result.md) — **frozen bin (ii) STUB-WEAK; post-freeze live-pump axis TRIPS (KEEP-BOTH)** · **HOLD — no merge until Grant**
+- Branch: `analysis/universe-stub-a2` · PR **#657** (off A1 tip). Hold #652 / #655 / #656.
 
 ## 2026-07-10/11 Session board — vertex arc (x33–x38) + collapse/astro/C13b lanes + register walks + X43 (AUTHORITATIVE for current state)
 
