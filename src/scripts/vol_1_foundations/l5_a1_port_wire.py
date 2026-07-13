@@ -159,18 +159,20 @@ def run_a1_port_arm(
 def adjudicate(*, sponge: ArmReport, a1: ArmReport) -> str:
     if not a1.passive:
         return "iii_PORT_FAIL"
-    # Primary Δ on wave-energy R (A1) vs sponge ΣV² R — also require same-proxy
-    # ΣV² comparison so the bin is not pure definition mismatch.
-    dR = abs(sponge.R - a1.R)
-    dR_v2 = abs(sponge.R_sumV2 - a1.R_sumV2)
+    # R9 repair (2026-07-12): implement the AND the comment already specifies.
+    # `dR` compares the sponge ΣV²-based R against the A1 Newmark-H R — a
+    # CROSS-proxy diff that can be non-zero purely from the energy-definition
+    # mismatch. `dR_v2` is the SAME-proxy (both ΣV²) comparison. The bin must
+    # require the same-proxy diff AND at least one other, so a PASS is not a pure
+    # definition mismatch. (Original code used OR, which could pass on `dR` alone.)
+    dR = abs(sponge.R - a1.R)  # cross-proxy (definition-mismatch-sensitive)
+    dR_v2 = abs(sponge.R_sumV2 - a1.R_sumV2)  # same-proxy ΣV² (required)
     dtau = None
     if sponge.tau is not None and a1.tau is not None:
         dtau = abs(sponge.tau - a1.tau)
-    delta_ok = (
-        (dR > DELTA_FLOOR)
-        or (dR_v2 > DELTA_FLOOR)
-        or (dtau is not None and dtau > DELTA_FLOOR)
-    )
+    same_proxy_ok = dR_v2 > DELTA_FLOOR
+    any_other_ok = (dR > DELTA_FLOOR) or (dtau is not None and dtau > DELTA_FLOOR)
+    delta_ok = same_proxy_ok and any_other_ok
     if not delta_ok:
         return "ii_PORT_INDISTINGUISHABLE"
     return "i_PORT_DECONVOLVED"
@@ -197,11 +199,24 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
             if sponge.tau is not None and a1.tau is not None
             else None
         ),
+        "adjudicator_logic": {
+            "rule": "AND(same_proxy_ΣV², any_other)",
+            "same_proxy_ok": bool(abs(sponge.R_sumV2 - a1.R_sumV2) > DELTA_FLOOR),
+            "any_other_ok": bool(
+                (abs(sponge.R - a1.R) > DELTA_FLOOR)
+                or (
+                    sponge.tau is not None
+                    and a1.tau is not None
+                    and abs(sponge.tau - a1.tau) > DELTA_FLOOR
+                )
+            ),
+        },
         "bin": bin_id,
         "note": (
             "Parallel wire-in only. Does not retire 2026-06-07 L5 JSON. "
             "Sponge energy_def=sum_V2; A1 primary R uses Newmark H (A1 honesty). "
-            "delta_R_sumV2 is the same-proxy cross-check. Refuse EMERGENCE."
+            "delta_R_sumV2 is the same-proxy cross-check; adjudicator = "
+            "AND(same-proxy ΣV², any-other) per R9. Refuse EMERGENCE."
         ),
         "refuse_claim_class": ClaimClass.EMERGENCE.value,
     }

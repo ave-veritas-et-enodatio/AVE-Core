@@ -4,8 +4,9 @@
 FROZEN prereg: research/2026-07-12_universe-stub-a2_prereg_FROZEN.md
 (freeze-by-push BEFORE this driver — commit 257c3141 on analysis/universe-stub-a2).
 
-Rule-14: reuse A1 radiating face. Projected IC only (Decision-5 scale θ★=√α as
-frozen literal). No live Machian integral, no outer mesh, no fourth engine.
+Rule-14: reuse A1 radiating face. Projected IC only (Decision-5 scale θ★ — an
+IC-scale ENGINEERING LITERAL near √α, see THETA_STAR; the freeze-time "√α" label
+was erroneous, R5). No live Machian integral, no outer mesh, no fourth engine.
 α-CLEAN on the verdict path: no ALPHA import.
 """
 
@@ -20,10 +21,21 @@ from ave.core.categorization import ClaimClass
 from ave.solvers.native_cage_imex import NativeCageIMEX, NativeCageIMEXConfig
 
 # A1 closed-box reuse (same package dir when launched via tests / __main__).
-from radiating_face_a1 import run_closed_box  # noqa: E402
+# Merge-forward reconciliation (2026-07-12, R1 repair on A1): A1's closed-box
+# control was split into a FROZEN lossless-limit leg (bin-selecting, 1e-6) and an
+# operating-amplitude canary. A2 reuses the FROZEN lossless-limit leg as its
+# closed-box control (prereg: "Closed-box control still PASS" — amplitude
+# unspecified; the tighter frozen criterion still passes cleanly).
+from radiating_face_a1 import run_closed_box_lossless_limit  # noqa: E402
 
 PREREG = "research/2026-07-12_universe-stub-a2_prereg_FROZEN.md"
-# Frozen √α ≈ sqrt(1/137.035999177) — IC scale only; not imported from ALPHA.
+# θ★ = 0.08543648… — an IC-scale ENGINEERING LITERAL near √α (θ★² = 1/136.998);
+# NOT derived from any canonical α. Canonical √ALPHA = 0.08542454
+# (1/137.036), √ALPHA_COLD = 0.08542445 — θ★ is off by 1.4e-4 relative from both.
+# The "√α" label at freeze time was ERRONEOUS (R5, 2026-07-12;
+# substrate-first-for-numbers ⇒ tagged engineering-choice). The VALUE is FROZEN
+# (pinned to 1e-12); only the label is corrected. Not imported from ALPHA
+# (α-CLEAN verdict path preserved).
 THETA_STAR = 0.08543648040856954
 OMEGA_HAT = +1.0
 R_FLOOR = 1e-2
@@ -139,17 +151,65 @@ def run_open_port_arm(
     )
 
 
+def run_sabotage_oneshot_frozen(
+    *,
+    N: int = 16,
+    n_steps: int = 400,
+) -> SabotageReport:
+    """FROZEN-AXIS sabotage (prereg §Sabotage + lines 92-94): wrong-sign oversized
+    θ = 10·θ★ applied **ONCE at t=0** (the frozen content: "applied once at t=0,
+    then free A1 evolution"), then free A1 evolution. TRIP = passivity fail OR
+    R ≥ R_floor; "Silent green sabotage = fail of the stub gate."
+
+    R4 receipt (2026-07-12 post-review): on this carrier a one-shot IC — even
+    10×θ★ wrong-sign — is kinematically identical to the legitimate bias: it
+    NEVER injects (Hmax/H0 = 1.0 at every window) and leave-takes cleanly through
+    the A1 matched port. Measured on the SAME clearing window where the ON arm's
+    R is a legitimate PASS, this FROZEN plant is **SILENT** (trips=False). (At
+    windows too short to clear, BOTH the sabotage and the legitimate ON arm read
+    R ≥ floor — an uncleared-residual window artifact, not injection; cf. R8.)
+    Under the frozen bin table (bin (ii): "sabotage silent"), the FROZEN-AXIS
+    verdict is bin (ii) STUB-WEAK. The live-pump plant below is a POST-FREEZE
+    NEW AXIS that DOES inject.
+    """
+    cfg = NativeCageIMEXConfig(N=N, dx=0.5, pml_thickness=4, port_sigma=0.05)
+    eng = NativeCageIMEX(cfg)
+    eng.seed_sech(amplitude=0.05, radius=2.0)
+    # Applied ONCE at t=0 (frozen), same call-site order as the ON arm.
+    apply_projected_omega_freeze_bias(eng, theta=10.0 * THETA_STAR, omega_sign=-1.0)
+    eng.set_dt_accuracy()
+    H0 = eng.total_energy()
+    Hmax = H0
+    H_end = H0
+    for _ in range(n_steps):
+        eng.step()
+        H_end = eng.total_energy()
+        Hmax = max(Hmax, H_end)
+    R = float(H_end / max(H0, 1e-30))
+    ratio = float(Hmax / max(H0, 1e-30))
+    trips = bool(ratio > 1.0 + EPS_INJ) or bool(R >= R_FLOOR)
+    return SabotageReport(
+        trips=trips,
+        R=R,
+        Hmax_over_H0=ratio,
+        claim_class=CLAIM.value,
+    )
+
+
 def run_sabotage_oversized_bias(
     *,
     N: int = 16,
     n_steps: int = 400,
 ) -> SabotageReport:
-    """Sabotage: wrong-sign oversized θ wired as a *live* pump (re-applied each step).
+    """POST-FREEZE NEW AXIS (KEEP-BOTH; #612/x34 precedent): wrong-sign oversized θ
+    wired as a *live* pump (re-applied each step) rather than a one-shot IC.
 
-    One-shot IC — even 10×θ★ — can still leave-take through the A1 port on a long
-    window (honest: projected IC is not automatically destructive). The dangerous
-    miswiring is treating the cosmic projection as a continuous drive; that must
-    TRIP passivity or the R floor (Discriminator-7: gate must be able to FAIL).
+    Physical argument (R4): the frozen one-shot plant is toothless because a
+    projected cosmic IC leave-takes through the A1 matched port on long windows —
+    projected IC is not automatically destructive. The miswiring that IS dangerous
+    is treating the cosmic projection as a continuous DRIVE; that must TRIP
+    passivity or the R floor. This axis was substituted post-freeze; it does NOT
+    override the FROZEN-AXIS bin (ii) verdict — it is reported alongside it.
     """
     cfg = NativeCageIMEXConfig(N=N, dx=0.5, pml_thickness=4, port_sigma=0.05)
     eng = NativeCageIMEX(cfg)
@@ -202,16 +262,23 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
     n_port = 400 if fast else 800
     n_sab = 200 if fast else 400
 
-    closed = run_closed_box(N=N, n_steps=n_box)
+    closed = run_closed_box_lossless_limit(N=N, n_steps=n_box)
     off = run_open_port_arm(bias=False, N=N, n_steps=n_port)
     on = run_open_port_arm(bias=True, N=N, n_steps=n_port)
-    sabotage = run_sabotage_oversized_bias(N=N, n_steps=n_sab)
+    # R4 KEEP-BOTH: the FROZEN-AXIS bin is selected by the frozen one-shot
+    # sabotage (per the frozen prereg "applied once at t=0"). It is measured on
+    # the SAME clearing window as the ON arm (n_port) so the R comparison is
+    # apples-to-apples — at n_port the ON arm's R is a legitimate PASS. The
+    # live-pump plant is a POST-FREEZE NEW AXIS reported alongside; it injects, so
+    # it trips on any window (n_sab).
+    sabotage_frozen = run_sabotage_oneshot_frozen(N=N, n_steps=n_port)
+    sabotage_livepump = run_sabotage_oversized_bias(N=N, n_steps=n_sab)
     delta = max(abs(on.R - off.R), abs(on.A_asym - off.A_asym))
     bin_id = adjudicate(
         closed_passed=closed.passed,
         on=on,
         off=off,
-        sabotage=sabotage,
+        sabotage=sabotage_frozen,
     )
 
     return {
@@ -225,7 +292,22 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
         "arm_off": asdict(off),
         "arm_on": asdict(on),
         "delta_bias": float(delta),
-        "sabotage": asdict(sabotage),
+        "sabotage_frozen_oneshot": asdict(sabotage_frozen),
+        "sabotage_postfreeze_livepump": asdict(sabotage_livepump),
+        "postfreeze_livepump_axis": {
+            "trips": bool(sabotage_livepump.trips),
+            "note": (
+                "POST-FREEZE NEW AXIS (KEEP-BOTH; #612/x34 precedent): live-pump "
+                "miswiring (bias re-applied each step) trips loud. Does NOT override "
+                "the FROZEN-AXIS bin (ii) verdict below."
+            ),
+        },
+        "frozen_axis_note": (
+            "FROZEN sabotage = one-shot θ=10θ★ wrong-sign at t=0 (prereg 'applied "
+            "once at t=0'); observed SILENT on this carrier (a projected IC "
+            "leave-takes through the A1 matched port). Frozen bin (ii): 'sabotage "
+            "silent' -> STUB-WEAK."
+        ),
         "bin": bin_id,
         "xi_machian_fence": (
             "XI_MACHIAN is a named hierarchy fence only — not bias amplitude, "

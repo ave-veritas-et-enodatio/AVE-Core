@@ -28,11 +28,27 @@ EPS_INJ = 1e-3
 CLAIM_FACE = ClaimClass.CONSISTENCY
 CLAIM_RULE10 = ClaimClass.CERTIFICATION_ENTAILED
 
+# --- Closed-box legs (R1 repair, 2026-07-12 post-review) -------------------
+# The FROZEN prereg (research/2026-07-12_radiating-face-a1_prereg_FROZEN.md,
+# "Closed-box control": |ΔH/H| < 1e-6, "do not invent a looser number") is the
+# BIN-SELECTING lossless-limit criterion. The operating-amplitude run at A=0.02
+# with the landed 1e-3 canary (native_cage_imex.py:561 CANARY_DRIFT) is a
+# labeled DIAGNOSTIC leg only — it does NOT gate the frozen bin. The original
+# ship enforced the canary at operating amplitude, not the frozen lossless
+# criterion; see the dated deviation note in the result doc.
+LOSSLESS_LIMIT_AMPLITUDE = 2e-4  # true A→0 lossless limit (drift ∝ A², measured −5.98e-10 @ N=16)
+LOSSLESS_LIMIT_TOL = 1e-6  # FROZEN prereg closed-box criterion (bin-selecting)
+CANARY_AMPLITUDE = 0.02  # operating amplitude (diagnostic leg)
+CANARY_DRIFT_TOL = 1e-3  # landed native_cage_imex.py:561 CANARY_DRIFT (diagnostic)
+
 
 @dataclass(frozen=True)
 class ClosedBoxReport:
     passed: bool
     rel_drift_end: float
+    amplitude: float
+    tol: float
+    leg: str
     claim_class: str
 
 
@@ -52,8 +68,13 @@ class OpenPortReport:
 
 @dataclass(frozen=True)
 class SabotageReport:
-    trips: bool
-    Hmax_over_H0: float
+    trips: bool  # gate = at least one NAMED plant tripped (R3 repair)
+    primary_multiply_trips: bool  # honest: the legacy sponge-MULTIPLY plant alone
+    primary_ratio: float
+    fallback_injector_trips: bool  # explicit sign-injector plant (only run if primary silent)
+    fallback_ratio: float  # NaN when the fallback was not needed
+    plant_fired: str  # "primary_multiply" | "fallback_injector" | "none"
+    Hmax_over_H0: float  # ratio of the plant that fired (primary if it tripped)
     claim_class: str
 
 
@@ -62,14 +83,45 @@ def _gamma_port(Z_face: np.ndarray, Z_univ: float = 1.0) -> np.ndarray:
     return (Z_univ - Z_face) / (Z_univ + Z_face)
 
 
-def run_closed_box(*, N: int = 16, n_steps: int = 400) -> ClosedBoxReport:
-    """Gate 1 — lossless control (reuse energy_conservation_gate)."""
-    g = energy_conservation_gate(N=N, amplitude=0.02, radius=2.0, n_steps=n_steps)
-    # Prereg: reuse landed canary; also accept |dH/H|<1e-6 if gate tightens later.
-    passed = bool(g["passed"]) and abs(float(g["rel_drift_end"])) < 1e-3
+def run_closed_box_lossless_limit(*, N: int = 16, n_steps: int = 400) -> ClosedBoxReport:
+    """Gate 1 (FROZEN criterion) — true lossless limit A=2e-4, enforce |ΔH/H| < 1e-6.
+
+    This is the BIN-SELECTING closed-box leg per the frozen prereg (Closed-box
+    control: "|ΔH/H| < 1e-6 ... do not invent a looser number"). Drift ∝ A², so
+    the operating-amplitude canary at A=0.02 sits ~6e-6 (above 1e-6) — that run
+    is the diagnostic leg, not the frozen criterion.
+    """
+    g = energy_conservation_gate(
+        N=N, amplitude=LOSSLESS_LIMIT_AMPLITUDE, radius=2.0, n_steps=n_steps
+    )
+    passed = bool(g["passed"]) and abs(float(g["rel_drift_end"])) < LOSSLESS_LIMIT_TOL
     return ClosedBoxReport(
         passed=passed,
         rel_drift_end=float(g["rel_drift_end"]),
+        amplitude=LOSSLESS_LIMIT_AMPLITUDE,
+        tol=LOSSLESS_LIMIT_TOL,
+        leg="lossless_limit_frozen",
+        claim_class=CLAIM_RULE10.value,
+    )
+
+
+def run_closed_box_canary(*, N: int = 16, n_steps: int = 400) -> ClosedBoxReport:
+    """Diagnostic leg — operating amplitude A=0.02 vs landed 1e-3 CANARY_DRIFT.
+
+    Reuses the landed native_cage_imex.py:561 CANARY_DRIFT tolerance at the
+    operating amplitude. Does NOT gate the frozen bin (that is the lossless
+    limit above); recorded so the receipt shows both legs (R1 repair).
+    """
+    g = energy_conservation_gate(
+        N=N, amplitude=CANARY_AMPLITUDE, radius=2.0, n_steps=n_steps
+    )
+    passed = bool(g["passed"]) and abs(float(g["rel_drift_end"])) < CANARY_DRIFT_TOL
+    return ClosedBoxReport(
+        passed=passed,
+        rel_drift_end=float(g["rel_drift_end"]),
+        amplitude=CANARY_AMPLITUDE,
+        tol=CANARY_DRIFT_TOL,
+        leg="operating_canary",
         claim_class=CLAIM_RULE10.value,
     )
 
@@ -145,12 +197,18 @@ def run_sabotage_multiply(*, N: int = 16, n_steps: int = 300) -> SabotageReport:
         eng.V *= damp
         Hmax = max(Hmax, eng.total_energy())
 
-    ratio = float(Hmax / max(H0, 1e-30))
-    # Trip = energy injection detected (H grew), OR if multiply fails to inject
-    # on this carrier, force a known injector so the gate stays live.
-    trips = bool(ratio > 1.0 + EPS_INJ)
-    if not trips:
-        # Explicit injector sabotage (still Discriminator 7: gate must be able to FAIL).
+    primary_ratio = float(Hmax / max(H0, 1e-30))
+    primary_multiply_trips = bool(primary_ratio > 1.0 + EPS_INJ)
+
+    # R3 repair: the fallback is a SEPARATE, NAMED plant. It is only run when the
+    # primary multiply plant does NOT trip on this carrier, and the report records
+    # WHICH plant fired. The primary now reports its own honest trips flag, so a
+    # reader can see when only the fallback caught the sabotage (trips is gated on
+    # "at least one named plant trips", not silently forced by the fallback).
+    fallback_injector_trips = False
+    fallback_ratio = float("nan")
+    if not primary_multiply_trips:
+        # Explicit sign-injector plant (still Discriminator 7: gate must FAIL).
         eng2 = NativeCageIMEX(cfg)
         eng2.em_port_closed = True
         eng2.seed_sech(amplitude=0.08, radius=2.0)
@@ -161,12 +219,29 @@ def run_sabotage_multiply(*, N: int = 16, n_steps: int = 300) -> SabotageReport:
             eng2.step()
             eng2.V += 0.02 * eng2.port_shell * np.sign(eng2.V + 1e-30)
             Hmaxb = max(Hmaxb, eng2.total_energy())
-        ratio = float(Hmaxb / max(H0b, 1e-30))
-        trips = bool(ratio > 1.0 + EPS_INJ)
+        fallback_ratio = float(Hmaxb / max(H0b, 1e-30))
+        fallback_injector_trips = bool(fallback_ratio > 1.0 + EPS_INJ)
+
+    if primary_multiply_trips:
+        plant_fired = "primary_multiply"
+        reported_ratio = primary_ratio
+    elif fallback_injector_trips:
+        plant_fired = "fallback_injector"
+        reported_ratio = fallback_ratio
+    else:
+        plant_fired = "none"
+        reported_ratio = primary_ratio
+
+    trips = bool(primary_multiply_trips or fallback_injector_trips)
 
     return SabotageReport(
         trips=trips,
-        Hmax_over_H0=ratio,
+        primary_multiply_trips=primary_multiply_trips,
+        primary_ratio=primary_ratio,
+        fallback_injector_trips=fallback_injector_trips,
+        fallback_ratio=fallback_ratio,
+        plant_fired=plant_fired,
+        Hmax_over_H0=reported_ratio,
         claim_class=CLAIM_FACE.value,
     )
 
@@ -197,7 +272,9 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
     n_port = 400 if fast else 800
     n_sab = 120 if fast else 300
 
-    closed = run_closed_box(N=N, n_steps=n_box)
+    # FROZEN criterion leg gates the bin; canary leg is a diagnostic receipt.
+    closed = run_closed_box_lossless_limit(N=N, n_steps=n_box)
+    closed_canary = run_closed_box_canary(N=N, n_steps=n_box)
     open_port = run_open_port_pulse(N=N, n_steps=n_port)
     sabotage = run_sabotage_multiply(N=N, n_steps=n_sab)
     bin_id = adjudicate(closed=closed, open_port=open_port, sabotage=sabotage)
@@ -206,7 +283,8 @@ def run_suite(*, fast: bool = True) -> dict[str, Any]:
         "prereg": PREREG,
         "carrier": "NativeCageIMEX",
         "fast": fast,
-        "closed_box": asdict(closed),
+        "closed_box": asdict(closed),  # bin-selecting lossless-limit leg (frozen 1e-6)
+        "closed_box_canary": asdict(closed_canary),  # diagnostic operating-amplitude leg (1e-3)
         "open_port": asdict(open_port),
         "sabotage": asdict(sabotage),
         "bin": bin_id,
