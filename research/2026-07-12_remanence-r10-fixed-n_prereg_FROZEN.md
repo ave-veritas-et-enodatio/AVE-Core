@@ -133,3 +133,37 @@ Flags (non-enforcing): R2 ferrite bench; exact \(N\); seed-mode variants.
 
 Drive the saturable medium, remove the drive, ask whether anything ferrite-like
 remains — and kill the claim if it only remains because you clamped \(S\) by hand.
+
+---
+
+## AMENDMENT 2026-07-12 (dated — frozen body above is BYTE-UNTOUCHED; x40-pattern amendment, legitimate and timely because NO driver exists yet)
+
+**Why this is a legitimate amendment, not a goalpost move.** This follows the **x40 pattern**: the frozen prereg body above is left **byte-for-byte unchanged** and these repairs are appended as a **dated amendment section below it**. The amendment is **legitimate and timely because NO remanence driver / harness-fire code exists yet** — nothing has been measured against these bins, so converting an *unexecutable* gate into a *fireable* one **before any number is generated** strengthens the prereg rather than moving goalposts on a result. Adversarial review (#662) confirmed two MAJOR gaps, resolved here **before the driver fires**: (R7) the frozen ablation table mandates knobs the declared carrier does not expose; (R8) \(N\) is left ambiguous.
+
+### R7 — make the mandated ablations FIREABLE before any driver runs
+
+**Verified defect (grep-confirmed this session).** The frozen §"Ablations (mandatory)" table mandates (a) an **\(\Omega_{\rm freeze}\)-OFF** arm and (b) an explicit **latch clamp \(S=\min(S,S_{\rm latched})\) sabotage** arm. The declared Rule-14 carrier is `VacuumEngine3D` via `loop_gap_harness` rank 4 (`run_loop_gap_probe`, `src/ave/core/loop_gap_harness.py`).
+
+- `run_loop_gap_probe` exposes `impedance_on`, `converter_on`, `memristive_on`, `bulk_density_on`, `bulk_seed`, `a_lock`, `n_drive_mult`, `n_quiet_mult`, `seed_mode`, `N`, `amp`, `front_target`, `fast` — and **NO \(\Omega_{\rm freeze}\) toggle** and **NO latch clamp**.
+- \(\Omega_{\rm freeze}\) (`omega_freeze_ic`) exists **only in the FROZEN srs engine** `src/ave/core/chiral_lattice_v10.py:65,163,181` — a **different engine** the carrier never instantiates.
+- The latch clamp `S = min(S, S_latched)` exists **only in the retracted-#215** `src/ave/solvers/spice_cvr_loop.py:170` (auditor-adjudicated IMPOSED-LATCH, PR #215) — also a different engine.
+
+**No gate may remain frozen-but-unfireable.** Per-arm resolution:
+
+**Arm (a) — \(\Omega_{\rm freeze}\)-OFF → ROUTE (ii): re-scope to an executable IC-control on knobs the carrier HAS.** \(\Omega_{\rm freeze}\) is an initial condition of the frozen srs engine, not the carrier; the carrier **never applies it**, so the arm as written is vacuous (building a toggle for a fool-mode that cannot occur on the carrier is theater, not a detector). The carrier's genuine analogue of the same fool-mode — *persistence baked into the initial data rather than written by driving through yield* — is detected on **existing carrier knobs**: run the **`heal_zero_seed` arm** (`amp=0.0`, `seed_mode="pair"`, already a `loop_gap_battery` arm) and/or a **no-drive control** (`n_drive_mult→0` at the same seed). If \(E_{\rm persist}\) is unchanged whether or not the medium was driven through yield, the "memory" was in the IC, not written by the drive ⇒ **IC-fool, not constitutive** — the identical verdict the \(\Omega_{\rm freeze}\)-OFF arm was meant to render, now on knobs the carrier actually exposes.
+
+**Arm (b) — latch-clamp sabotage → ROUTE (i): BUILD a harness-level latch-clamp option (engine untouched) with its own P11 receipt, BEFORE the driver runs.** The sabotage arm is a **positive control** — it must demonstrate that IF a latch is imposed, a fake PASS results — so the ability to *impose* the latch must exist to run it. Build a **harness-level** `latch_clamp: bool` (+ `s_latched` threshold) option in `loop_gap_harness` (`run_loop_gap_probe` applies `S = min(S, S_latched)` as a **harness-side post-step clamp**; **`VacuumEngine3D` untouched**), added under **test-infra discipline with its own P11 receipt** (a `src/tests/test_loop_gap_harness.py` case asserting the clamp reproduces the #215 IMPOSED-LATCH signature) **before** the remanence driver runs. **Plus** the executable *imposed-latch-vs-emergent* distinguisher on THIS carrier: an imposed latch **(1) survives the existing `memristive_OFF` arm** (the clamp carries state independent of the Level-2 lag) **and (2) fails the R6 energy-ledger audit** (nonzero sub-yield per-cycle dissipation / unlicensed state change), whereas emergent Level-2-(a) remanence **dies under `memristive_OFF`** and shows **zero sub-yield dissipation**. On-carrier distinguisher: `{memristive_OFF survival}` ∧ `{sub-yield dissipation > ledger tol}` ⇒ **IMPOSED-LATCH / IMPOSED-LEAK**, not remanence.
+
+### R8 — pin \(N\)
+
+**Verified ambiguity.** The frozen body leaves \(N\) as "harness default"; the carrier default is `N=14` (`run_loop_gap_probe` signature) while the **#655 D2 same-class smoke ran N=10**.
+
+**Resolution (minimal honest option): PIN \(N=10\).** Reason (one line): pin \(N=10\) so this remanence re-fire is **directly comparable to the #655 D2 banked negative it is motivated by** (same-class smoke). The P11 floors (`P11_E_PERSIST_MIN=0.85`, `P11_A_PERSIST_MIN=0.80`) stay **fixed** — no per-\(N\) retune. Any later \(N\)-sweep inherits a **SAME-FLOORS rule** (floors fixed across the sweep; declare exact \(N\) per run; no floor retune to force bin (i)).
+
+### Amendment bin addition (composes with the frozen bins)
+
+| Bin | Label | Criterion |
+|---|---|---|
+| **(v)** | **IMPOSED-LEAK** | A bin-(i)-shaped PASS whose **sub-yield per-cycle dissipation is nonzero** (energy-ledger audit, charter §Ax3 reconciliation (iii) / repair R6) — the retired Ax3 leak re-imported; **not** REMANENCE-CANDIDATE. Distinct from (iii) IMPOSED-LATCH (a hand-clamped ratchet); (v) is a smuggled sub-yield \(R\). |
+
+Frozen bins (i)–(iv) above are **unchanged**. This amendment only: (a) makes arms (a)/(b) fireable (route ii / route i respectively), (b) pins \(N=10\) with a SAME-FLOORS rule, (c) adds bin (v). The frozen body is byte-untouched.
