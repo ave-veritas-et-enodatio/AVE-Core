@@ -2,6 +2,8 @@
 
 **Date:** 2026-07-13 · **Lane:** CVR dielectric-C-V bench (implementer) · **Status:** DECISION RECORD, not a claim. Every entry ends STATUS:OPEN. SELECTS NOTHING. Cost OUT OF SCOPE.
 
+> **⟶ SUPERSEDED (current status).** This v1 trade study is superseded by **v2**: `research/2026-07-14_cvr-trade-study_v2_DECISIONS-OPEN.md` (broadened option space + tiered qualifier framework + remains-to-target gap table). v1 is **preserved unchanged** for provenance. The **T-D PLATES theory ruling** below carries forward into v2 unchanged. Read v2 for the current option analysis; all decisions remain OPEN in both.
+
 > **THIS IS A DECISION RECORD, NOT A CLAIM.** Following the CLEAVE-01 pattern (`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/cleave-01-trade-study-decision-register.md`): this is an OPEN decision-space record of each CVR make-vs-buy / design-knob as a worked option set — options + physics-relevant differences + dependencies — each ending **STATUS: OPEN — decision pending (Grant + collaborator). SELECT NOTHING.** The derived, frozen boundary conditions are in the sibling `research/2026-07-13_cvr-requirements_DERIVED.md` (the `CVR-REQ-*` datasheet). **Derived = there. Open = here.**
 
 **Cost is OUT OF SCOPE here** (adjudicated separately); these are feasibility-and-fit tradeoffs, not a BOM roll-up.
