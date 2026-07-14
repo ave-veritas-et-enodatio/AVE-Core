@@ -879,26 +879,48 @@ def run_plant_gates(per_rung: bool = True) -> dict:
 # 8. THE 4π-CLOSURE CHECK (frozen §4 bin iv) — tests, does not assume
 # ═════════════════════════════════════════════════════════════════════════════
 def four_pi_closure(a1: np.ndarray, shape: str, R_cells: float, mask: np.ndarray,
-                    n_ang: int = 144) -> dict:
-    """Does the toroidal '2' close at 2π or need 4π (double-cover)? Sample the A1
-    toroidal phasor over TWO traversals [0,4π); a 2π-periodic phasor returns to
-    start at 2π; a genuine spinor half-mode returns only at 4π. For a trivial
-    (no-winding) cold mode this is `unresolved` (guarded — this bin TESTS)."""
+                    n_ang: int = 144, half_tol: float = 0.15) -> dict:
+    """Does the toroidal '2' close at 2π or need 4π (double-cover)?
+
+    IMPLEMENTATION (review-repair A12). A single-valued (2π-periodic) phasor advances
+    an INTEGER number of turns over one [0,2π) traversal; a genuine spinor half-mode
+    is double-valued (returns to MINUS itself at 2π, closing only at 4π) ⇒ a
+    HALF-INTEGER number of turns. The turn count is measured as the slope of the
+    OPEN-loop unwrapped phasor arg vs the loop angle (NOT the force-closed
+    `read_static_winding`, whose loop-closure always rounds to an integer — the reason
+    the old `int % 1 == 0` branch was tautologically dead; the fictional `[0,4π)`
+    two-traversal sample and the unused `d_2pi` are removed). Bins: `2π-closes`
+    (integer) / `4π-closes` (half-integer) / `unresolved` (neither, or noisy/starved).
+    A trivial cold mode reads `2π-closes` (slope≈0) or `unresolved` — never a false
+    `4π-closes`."""
     N = a1.shape[0]
     phi, _ = _angular_coords(N, shape, R_cells)
     ph, amp = _sector_phase_on_loop(a1, phi, mask, n_ang)
-    if amp.max() < 1e-12:
+    amax = float(amp.max())
+    if amax < 1e-12:
         return {"bin": "unresolved", "reason": "amplitude-starved toroidal phasor"}
-    z = ph / (np.abs(ph) + 1e-30)
-    half = n_ang // 2
-    d_2pi = float(np.abs(z[0] - z[half % n_ang]))       # distance after one traversal proxy
-    # winding parity: a 2π closure has even structure; test via the single-loop read.
-    w = read_static_winding(ph, amp)
-    if not w["ok"]:
-        return {"bin": "unresolved", "reason": "toroidal read INCONCLUSIVE (no clean integer)"}
-    return {"bin": "2π-closes" if w["winding_int"] % 1 == 0 else "4π-closes",
-            "toroidal_winding": w["winding_int"],
-            "note": "integer toroidal winding ⇒ 2π-closes; half-integer ⇒ 4π (double-cover)"}
+    alive = amp > 0.05 * amax
+    if float(alive.mean()) < 0.5:
+        return {"bin": "unresolved", "reason": "amplitude-starved (too many empty bins)"}
+    # OPEN-loop continuous unwrap; slope d(arg)/d(loop-angle) = turns over [0,2π).
+    loop_angle = (np.arange(n_ang) + 0.5) * (2.0 * np.pi / n_ang)
+    ang = np.unwrap(np.angle(ph))
+    slope, intercept = np.polyfit(loop_angle, ang, 1)
+    turns = float(slope)                      # winding number (may be half-integer)
+    resid = float(np.std(ang - (slope * loop_angle + intercept)))
+    if resid > 0.6:                           # not a clean linear winding
+        return {"bin": "unresolved", "reason": f"non-linear phasor (resid={resid:.2f})",
+                "turns": round(turns, 4)}
+    frac = abs(turns - round(turns))          # distance to the nearest integer
+    if frac < half_tol:
+        bin_ = "2π-closes"
+    elif abs(frac - 0.5) < half_tol:
+        bin_ = "4π-closes"                    # half-integer ⇒ genuine spinor double-cover
+    else:
+        bin_ = "unresolved"                   # neither integer nor half-integer
+    return {"bin": bin_, "turns": round(turns, 4), "frac_to_integer": round(float(frac), 4),
+            "note": "integer turns ⇒ 2π-closes; half-integer ⇒ 4π (double-cover); "
+                    "open-loop slope fit over [0,2π) (A12)"}
 
 
 # ═════════════════════════════════════════════════════════════════════════════

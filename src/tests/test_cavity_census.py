@@ -96,6 +96,26 @@ def test_g7_per_rung_control_scopes_trust(caplog):
     assert all(not c["control_passes"] for c in floor), floor
 
 
+def test_g8_four_pi_closure_can_positively_resolve_4pi():
+    """A12: the 4π-closure bin is genuinely fireable (was dead code). An integer
+    toroidal winding reads `2π-closes`; a half-integer (spinor double-cover) reads
+    `4π-closes`. Build both directly on the toroidal phasor loop."""
+    import numpy as np
+
+    from ave.solvers.cavity_census import _angular_coords, _radius_field, four_pi_closure
+
+    N, R = 40, 12.0
+    phi, _ = _angular_coords(N, "sphere", R)
+    env = np.exp(-((_radius_field(N) - R) ** 2) / 8.0)
+    mask = env > 0.02 * env.max()
+    # integer winding 1 ⇒ 2π-closes
+    a1_int = (env * np.exp(1j * 1.0 * phi)).astype(np.complex128)
+    assert four_pi_closure(a1_int, "sphere", R, mask)["bin"] == "2π-closes"
+    # half-integer winding 1.5 ⇒ genuine 4π double-cover ⇒ 4π-closes (was UNREACHABLE)
+    a1_half = (env * np.exp(1j * 1.5 * phi)).astype(np.complex128)
+    assert four_pi_closure(a1_half, "sphere", R, mask)["bin"] == "4π-closes"
+
+
 def test_g4_alpha_clean_verdict_path():
     """No α-carrier reaches the module's verdict path (the import-guard triad; the
     sphere-leg ABCD reuses the METHOD of radial_eigenvalue, NOT its α-loaded

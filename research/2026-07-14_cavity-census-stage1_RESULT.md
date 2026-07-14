@@ -227,12 +227,16 @@ settle is **Stage-2** (self-consistent), where the wall location is an output.
 
 ## §5 — bins (iv/v/vi): 4π-closure, mode-ratio ladder, fool-mode meters
 
-**bin (iv) — SU(2) 4π-closure.** `unresolved` at every cell. The cold-linear modes carry
-no clean toroidal winding (trivial/basis-noise), so neither a 2π nor a 4π closure is
-positively resolvable. Per **amendment A2**, the static single-loop reader cannot emit a
-positive `4π-closes`; a genuine spinor double-cover would land in `unresolved` (not a
-false `2π-closes`). The 4π double-cover is a $\Gamma_{\text{spinor}}$-wall (T2) property,
-**out of scope** for this static A1-mass-wall census (sector header).
+**bin (iv) — SU(2) 4π-closure.** `unresolved`/`2π-closes` at every cell (no `4π-closes`).
+The cold-linear modes carry no clean half-integer toroidal winding, so no 4π double-cover
+is present to resolve. **⚠ A12 correction:** the earlier A2 framing ("the reader *cannot*
+emit a positive `4π-closes`") reflected **dead code**, not physics — the shipped bin had a
+tautological `int % 1 == 0` branch (4π unreachable) and an advertised-but-unbuilt `[0,4π)`
+sample. The bin is now a **genuine half-integer detector** (open-loop slope fit; validated
+G8: a planted half-integer winding reads `4π-closes`, an integer reads `2π-closes`), so a
+real spinor double-cover WOULD now be positively resolved. It remains out of scope here —
+the 4π double-cover is a $\Gamma_{\text{spinor}}$-wall (T2) property, not an A1-mass-wall
+census result (sector header) — but the instrument no longer merely asserts its absence.
 
 **bin (v) — dimensionless mode-ratio ladder.** Two reads:
 
@@ -401,7 +405,9 @@ at N=56 did not converge within the compute budget (16+ min CPU, single-core). R
 is therefore reported **`NOT-RUN-3D (compute)`** alongside {10, 30, 100}. The 3-D
 coupled winding census covers **{0.16, 0.5, 1, 1.6}**; the sphere-ABCD radial leg covers
 all 8 rungs. **Minimum coverage {1, 1.6, 10, 100} is MET** (1, 1.6 via 3-D; 10, 100 via
-sphere-ABCD).
+sphere-ABCD) — **but see A16:** the sphere-ABCD leg supplies only the bin-v mode-RATIO
+ladder (scale-free, rung-independent) at {10, 100}, NOT a bin-iii floor read; the floor
+read shipped at 4 rungs {0.16, 0.5, 1, 1.6} only.
 
 ---
 
@@ -503,6 +509,30 @@ the PN≈2 defect band). **Adjudication for Grant:** ratify that reading the LA 
 is freeze-fidelity to "lowest interior mode" (this repair's position), vs. treating it as a
 post-hoc target move. Either way the verdict is unchanged — non-(2,3) on both ends.
 
+**A9 (2026-07-14, review-repair) — the collapsed `INCONCLUSIVE-Nyquist` label now reports
+the ACTUAL failing gate.** `run_cell`/`cold_cavity_reflection_winding` previously mapped
+EVERY refused read (`read_ok=False`) to the single label `INCONCLUSIVE-Nyquist`, collapsing
+amplitude-starvation, dual-counter disagreement, and true Nyquist failures into one
+mislabeled bin — and because a `(0,0)` read forces `samples_per_period = n_ang`, the
+"Nyquist" name was STRUCTURALLY always wrong on a trivial refusal. `_refusal_label`
+now inspects the per-axis gates and emits `INCONCLUSIVE-amplitude` / `INCONCLUSIVE-Nyquist`
+/ `INCONCLUSIVE-disagree`. Empirically every refused census cell is `INCONCLUSIVE-amplitude`
+(the sub-resolving/defect-band modes are amplitude-starved, not Nyquist-starved).
+
+**A10 (2026-07-14, review-repair) — `select_census_mode` reads the best-angular-fill mode,
+a silent move vs the frozen "lowest interior mode".** The frozen §4 bin i (prereg:258) says
+"the (p,q) of the **lowest** interior mode"; the shipped `select_census_mode` scans the
+first ≤8 (24 in the reflection probe) eigenmodes and returns the first with `angular_fill
+≥ 0.5`, else the max-fill mode — so the selected index can be > 0. This is a heuristic
+substitution disclosed only in the §2 headline prose, with no prior §A entry — recorded
+here for freeze-discipline. It is reconciled against §B-6's own "moves a frozen target"
+standard: the direction of bias is **anti-null** (best-fill gives (2,3) MORE chance to
+appear, not less), so it cannot manufacture the negative; and under the band-inversion
+repair (A8) it is applied to the LA fundamental band, where "lowest interior mode" =
+"lowest-`L_D` (smooth, interior-filling) mode" — best-angular-fill is a faithful reading of
+that intent. Zero verdict impact (every headline cell reads INCONCLUSIVE/BASIS-AMBIGUOUS/
+(0,0) regardless of which of the near-degenerate modes is selected).
+
 **A11 (2026-07-14, review-repair) — eigvec `real-fraction` RETIRED as a data column;
 eigenvalue degeneracy is the robust basis-ambiguity invariant.** ARPACK uses a random
 Lanczos start (no `v0`), so in a degenerate subspace the eigenvector basis mixes
@@ -517,6 +547,21 @@ real_frac>0.85; `real_frac` is reported only as seed-dependent context
 (`eigvec_real_fraction_seed_dependent`), never as a data column or a sole gate. The
 seed-STABLE invariants are: amplitude-starvation (from `angular_fill`), degeneracy, and the
 R=1.6 gated `(0,0)` (reproduced across 4 draws).
+
+**A12 (2026-07-14, review-repair) — bin (iv) 4π-closure REBUILT as a genuine half-integer
+test (was dead code).** The shipped `four_pi_closure` advertised sampling "over TWO
+traversals [0,4π)" but `_sector_phase_on_loop` only bins one [0,2π) traversal, and the
+branch `"2π-closes" if w["winding_int"] % 1 == 0 else "4π-closes"` was **tautologically
+dead** (`winding_int` is an int ⇒ `% 1 == 0` always True ⇒ `4π-closes` unreachable); the
+one-traversal proxy `d_2pi` was computed and never used. So bin (iv) as shipped could not
+interrogate closure at all (A2 disclosed only the consequence, not the unbuilt sampling).
+Repaired: a spinor half-mode returns to MINUS itself after one [0,2π) traversal ⇒ a
+HALF-INTEGER unwrapped winding; the bin is now read from `frac(w_unwrap)` — integer ⇒
+`2π-closes`, half-integer ⇒ `4π-closes` (genuinely reachable), else `unresolved`. `d_2pi`
+and the dead branch removed; docstring corrected. The A1-mass-wall cold-linear modes still
+land `unresolved`/`2π-closes` (the 4π double-cover is a Γ_spinor-wall/T2 property, out of
+scope for this census — sector header), but the instrument can now positively resolve a 4π
+closure if one is present.
 
 **A13 (2026-07-14, review-repair) — PER-RUNG positive controls; `detector_trustworthy`
 scoped to the rungs where the control passes.** The frozen positive control (`G0`) validated
@@ -549,6 +594,29 @@ imposed-cavity-wall site), so it runs on the unwalled periodic lattice with ê_w
 persistence-null at one operating point; a walled-driven battery (the actual boundary-
 emergence test) is Stage-2, unrun. The "removes the escape hatch" claim is rescoped
 accordingly; the cold-null ARTIFACT-eligibility is NOT closed by this leg.
+
+**A16 (2026-07-14, review-repair) — floor test (bin iii) coverage rescoped to the 4
+interrogated rungs; {10,100} "coverage" relabeled mode-ratio-only (bin v).** Frozen §0
+item 3 commits to "bin iii floor read at **all eight rungs** {0.16, 0.5, 1, 1.6, 3, 10, 30,
+100}" via the sphere-ABCD leg. But the shipped `sphere_abcd_radial_spectrum` is **scale-
+free** (dimensionless kR, no radius argument) — it cannot produce an `R_wall`-vs-floor read
+(bin iii needs a seeded amplitude profile, which only the 3-D leg has); it returns the bin-v
+mode-RATIO ladder, identical at every rung. So the bin-iii floor read shipped at **4 rungs**
+{0.16, 0.5, 1.0, 1.6} (3-D leg), not 8. The frozen "all eight rungs / bin iii floor read"
+commitment is rescoped to those 4; the A6 "minimum coverage {1,1.6,10,100} MET" claim is
+corrected so that {10,100} coverage is **mode-ratio-only (bin v)**, a rung-independent
+identity, NOT a per-rung floor measurement. The lift-off rider is verified over
+{0.5,1.0,1.6} (the interrogated non-floor rungs); above R=1.6 a floor read would trivially
+return SETTLES-ABOVE-FLOOR (re-confirming the ordering). This is a caveated, non-load-bearing
+rider (A3: consistency-not-emergence), so the rescope does not touch the verdict.
+
+**A17 (2026-07-14, review-repair) — the cold reflection-map probe is logged as a post-freeze
+instrument leg.** `cold_cavity_reflection_winding` (a1_amplitude≈0.01 ⇒ near-Helmholtz
+Dirichlet box) is not named in the frozen §2 detector list and was carried by no prior §A
+amendment (A7 touched only its `k_eigs`). It is a **new implementation leg of a frozen
+concept** — the frozen §1 "ground-state closure of the cavity's reflection map" (prereg:181,
+191-193) — not an invented axis. Logged here for freeze-at-API parity; under the band-
+inversion repair (A8) it is the HEADLINE bin-i read (LA cavity fundamental).
 
 ---
 
