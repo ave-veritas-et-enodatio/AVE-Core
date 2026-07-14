@@ -11,6 +11,28 @@ leaf `_orchestration/2026-07-12_ave-native-rulings_g-persist_x-ledger.md`).
 φ_persist ≥ 0.80). Carrier change = exactly two knobs (`N`, `pml`); `pml=0` = reflecting
 closed box. **(B) node-birth firewalled — reads (A) fixed-\(N\) only.**
 
+> **★ERRATUM — ontology of the `pml=0` boundary (2026-07-13; Grant-ruled with the G-PERSIST
+> ★RULED-CONFIRMS flip).** This document labels the `pml=0` configuration a **"closed /
+> reflecting box"** throughout (this Class block, §TL;DR item 4, §5 "Closed-box (reflecting)",
+> §7 Reading B, §7 crux question — and every derived "reflecting-cavity" phrasing). **That label
+> is wrong.** With `pml_thickness = 0` the engine applies **no absorber and no wall**: the port
+> connect advances the field by `np.roll` wraparound (`src/ave/core/k4_tlm.py:393`), and the
+> geometric bond-severing that would cut the wrapped links runs **only** when `pml_thickness > 0`
+> (`k4_tlm.py:437-440`, whose own comment reads *"If PML is active, the domain is physically cut
+> (not a torus)"*). So the `pml=0` domain is **PERIODIC — a torus** (energy-closed by
+> wraparound), **not a reflecting cavity.** The correct term is **"energy-closed-periodic."**
+> **The physics conclusions are UNCHANGED:** `E_persist ≡ 1.0` is still a conservation identity
+> (a torus conserves total energy identically, independent of localization); `φ_persist → ~10×`
+> is still **wake re-absorption** (the pattern's own wake returns and the projection gauge counts
+> laps); the closed-enclosure PASS is still **artifact-leaning** and carries zero discriminating
+> power; and the G-PERSIST verdict (bin (ii) A-WEAKENED via the boundary-insensitive PML
+> φ-dispersion trend) is **untouched** — it never rested on the enclosure leg. The only change is
+> the mechanism word: **wavefronts return by wrapping (torus), not by reflecting (wall).** The
+> enclosure fork's Reading A ("wake-feeding: the periodic-torus enclosure returns the pattern's
+> own wake") uses this corrected ontology. Per the doc's errata convention this note corrects the
+> label globally; the body text below is preserved byte-unchanged (KEEP-BOTH). The FROZEN prereg
+> is **not** edited by this erratum.
+
 ---
 
 ## TL;DR (brutal-clarity verdict)
