@@ -138,7 +138,7 @@ FRONTIER: conserves (resid 8.9e-16), closed-form dev 5.1e-12, `ρ̂(τ₁)=1.00e
 ## 4 · Audit / gate outcomes (four charter audits — honest PASS + plant TRIP)
 
 Each gate reads the **evolved trajectory**; a sabotage plant (a modified transfer/booking
-law integrated through the same ODE) trips it. All are test-locked in `src/tests/test_f6_tier1_ledger.py` (30 tests, all pass).
+law integrated through the same ODE) trips it. All are test-locked in `src/tests/test_f6_tier1_ledger.py` (30 collected cases — 14 test functions, parametrized — all pass).
 
 | Gate (CHARTER) | Honest law | Sabotage plant | Plant result |
 |---|---|---|---|
