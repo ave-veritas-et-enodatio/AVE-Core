@@ -153,7 +153,16 @@ $r_s=2GM_{\text{eff}}/c^2$ still imports $G$; recover-GR is consistency-class. W
 **separate, still-UNBUILT Stage-4** capability (see
 [`../vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md`](../vol3/cosmology/ch04-generative-cosmology/dark-energy-latent-heat-definition.md)
 §5: F6 = ABSENT-INVENTED; `solve_backreaction` is static-elliptic, no $a(t)$ evolver). Landing #86 is a
-necessary precursor, NOT the chord itself. Canonical detail:
+necessary precursor, NOT the chord itself.
+**Update (F6 tier-1, PR #674, ruled 2026-07-13 — no silent deletion, KEEP-BOTH):** a global
+two-reservoir ODE ledger (`ρ_latent ↔ T2`) **LANDED** — **bin (i) LEDGER-CONSISTENT**, so the
+DE-tracks-matter FORM *exists* as a tier-1 CONSISTENCY-class demonstration (κ free ⇒ not emergence),
+and the charter's a-priori "bin (iii) FORM-DEGENERATE expected on physical histories" was
+**FALSIFIED by the driver** (the chord is separable from FRONTIER on physical runs too — different
+powers of $a$). **The F6 CHORD test is still UNBUILT at tier-1 scope:** tier-1 is the *homogeneous*
+ledger, which is the **wrong instrument** at late epochs (chord converges onto $\Lambda$ past
+$\tau_0\approx300$); the discriminating F6 CHORD test **relocates to the spatial-channel / tier-2**
+(DESI/Euclid DE-vs-matter cross-correlation). Canonical detail:
 [`../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md).
 
 ---
