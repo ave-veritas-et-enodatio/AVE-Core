@@ -132,7 +132,7 @@ adjudicated by this proxy — it stays OPEN.**
 | 2.0 | `+89.093` | `+90.093` |
 
 Monotone-increasing in `d` (bigger displacement → bigger surplus). **Every `d ≥ 0.5` over-predicts the 2×
-band by ≥ 3.5×**; landing IN band would require sub-floor `d ≈ 0.04–0.15 ℓ_node`. The Ax1 transverse-thickness
+band by ≥ 3.4×** (the sweep minimum is `17.455/5.062 = 3.45×` at `d=0.5`); landing IN band would require sub-floor `d ≈ 0.04–0.15 ℓ_node`. The Ax1 transverse-thickness
 floor is a **real-space** length, whereas `d` here (like `r_opt`) lives in the solver's **dimensionless**
 ℓ_node Nyquist-cutoff coordinate; per `neutron-identification.md:54` the mapping of the real-space floor onto
 that dimensionless coordinate is 🔴 **"not established"** (`D_p ≈ 0.841 fm ≈ 460× smaller than ℓ_node = 386
@@ -182,7 +182,8 @@ Zero hard-coded physics numbers in the driver; the forbidden-seed set is derived
 
 3. **Mass-accounting ambiguity (Reading X vs Y).** Inherited from the n–p gate; `proton-neutron-mass-split.md:10`
    attributes the whole surplus to elastic tension with no separate electron-rest-mass accounting. The
-   verdict (bin iii, sign +, δ_th-robust) is robust to both readings; flagged for Grant, not decided.
+   verdict (bin iii, sign canon-forced-positive, δ_th-loading a channel-blind bound-drift residual →
+   C5-OPEN) is robust to both readings; flagged for Grant, not decided.
 
 ---
 
@@ -217,3 +218,28 @@ stand untouched. The +0.74% bare-topology result stands untouched. Route A conve
 "FORK-OPEN, unbuilt" into a built result with an honestly-railed bin-(iii) magnitude deliverable:
 **sign canon-forced-positive (by construction), δ_th-loading measured (but channel-blind → C5 stays OPEN),
 magnitude honestly missed by the coarse 1D proxy.**
+
+---
+
+## Review findings + repairs (2026-07-14)
+
+PR #691 was reviewed by the `ave-adversarial-pr-review` workflow (3 lenses × verify): **12 of 12 findings
+CONFIRMED, 0 refuted**, three lenses independently converging on the same CRITICAL. All were
+`EVIDENCE-VOID` (repair-and-bank: the numbers reproduce exactly; only the *promotion* of those numbers to
+interpretive verdicts was refuted). Repairs landed as per-cluster commits on this branch. The frozen prereg
+body is byte-untouched; the only prereg change is dated AMENDMENT A1. `R3/R7/R10/R12` level-δ_th provenance
+and the `+0.74%` bare-topology result were out of scope and are untouched.
+
+| # | Finding (confirmed severity) | Repair | Commit |
+|---|---|---|---|
+| 1 | **CRITICAL ×3 (converged, live-fire + structural-null + prereg-parity):** the κ²-weighted Skyrme term (the ONLY δ_th-carrying channel) is EXACTLY shift-invariant under the composite rendering and cancels identically in `E_comp − E_bare`; "resolves C5 empirically / δ_th-ROBUST / decided by the substrate" is a measure-cancellation artifact, not a substrate verdict. | Retract the C5-resolution + δ_th-ROBUST + "no fiat" language in RESULT.md; restate honestly (bound-drift residual, **C5-OPEN**); add the channel-excision disclosure to `faddeev_skyrme.py` (~:258-264); disclose the ABLATION-BYPASS gate cannot catch a structurally-floored ablation (`route_a_composite_fs.py` ablation gate); demote the C5 ledger row + bottom-line item-3 to C5-OPEN; bank `+0.042 m_e` as the proxy's δ_th-sensitivity characterization. | `d3e34426` |
+| 2 | **MAJOR ×2 + MINOR (downgraded):** bin (ii) WRONG-SIGN was structurally unfireable from C1 onward (the rendering was selected *because* it gives the positive sign); "SIGN COMPUTED / a stronger mechanism-level confirmation" reads the selection criterion back as a result. | Reword RESULT:43-45 + the Sign verdict subsection to "canon-forced positive / canon-transcription check", consistent-by-construction with (not stronger than) the np-gate's δ_th-free sign bound; correct the "Bin fireable → FIRES" row (bin ii exercised only via synthetic plant, unfireable on admissible `d ≥ 0.5`); drop "the substrate speaks clearly on all three frozen observables"; retain the ":71 positive by construction" statement + C1 CANON-FORCED disclosure. | `9522c7ea` |
+| 3 | **MAJOR + MINOR (downgraded twin):** the "Ax1 floor" `d=1.0` imports the corpus-flagged (`neutron-identification.md:54`) length-vs-dimensionless category error; RESULT:107 converted that not-established premise into a binding foreclosure of bin (i). | Rephrase RESULT:107-108 to disclose the unestablished real-space→solver-unit mapping (mirrors :93); add the :54 caveat to `faddeev_skyrme.py:281-283`; keep the frozen `d=1.0` bin-(iii) verdict. Bottom-line `:175` MAGNITUDE clause corrected in the cluster-1 bottom-line rewrite (`d3e34426`). | `3ebd5a59` |
+| 4 | **MINOR ×3 (converged):** the prereg :5-7 (re-quoted :102-103) TBD-pin quotation is not verbatim — "composite" inserted into the :36 fragment; :36 spliced onto :77 as one unmarked quotation (meaning preserved). | Frozen body byte-untouched; append dated **AMENDMENT A1** giving the two source fragments each verbatim. Scope correction: the spliced string appears ONLY in the prereg (RESULT.md + driver docstring paraphrase without quote marks — no fix needed there, two-method grep). | `008eefe3` |
+| 5 | **MINOR:** RESULT:107 "over-predicts the 2× band by ≥ 3.5×" — the sweep minimum is 3.45× at `d=0.5`. | Correct to "≥ 3.4×" (with the explicit `17.455/5.062 = 3.45×` receipt); :138-form "≫ 3×" already safe, left as-is. Also cleaned a residual "δ_th-robust" label in the FLAG-DON'T-FIX section (item 3). | *this commit* |
+
+**Surviving verified content (banked):** the TBD-pin instrument is BUILT; at the frozen `d=1.0`, warm κ_FS,
+the split is bin (iii) RIGHT-SIGN(-by-construction)-WRONG-MAGNITUDE (~15× over the 2× band, robust across the
+feedback fork and — over the flagged-mapping-admitted d-range — the d choice); the δ_th-loading is
+`+0.042 m_e` as an `r_opt=κ/5` bound-drift characterization (NOT a C5 adjudication). **C5 stays OPEN** pending
+a genuinely-3D composite build that retains the quartic linking channel.
