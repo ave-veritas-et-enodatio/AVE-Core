@@ -69,65 +69,103 @@ G0–G6) is green: 7 fast gates + 1 engine_sim cell test, 8/8 pass.
 ## §2 — bin (i): GROUND-STATE WINDING CLASS (per shape × BC × R)
 
 **Headline read** — the eigenvector two-sector Clifford phasor winding (canonical,
-HEADLINE) of the ground / best-angular-fill interior mode, per shape × BC × R.
+HEADLINE) of the best-angular-fill interior mode (A10), per shape × BC × R. The 3-D
+saturated-core cells below are the **SA (most-bound defect band)** end; the **LA
+cavity-fundamental** companion (KEEP-BOTH, A8) is in the reflection-probe table below
+and in the LA-companion column here.
 
-| R/ℓ_node | sphere · amplitude | sphere · geometric | horn-torus · amplitude | horn-torus · geometric |
-|---|---|---|---|---|
-| **0.16** (floor) | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist |
-| **0.5** | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist |
-| **1.0** | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist |
-| **1.6** | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist | INCONCLUSIVE-Nyquist |
-| **3, 10, 30, 100** | NOT-RUN-3D (compute, A6) | NOT-RUN-3D | NOT-RUN-3D | NOT-RUN-3D |
+| R/ℓ_node | sphere · amplitude | sphere · geometric | horn-torus · amplitude | horn-torus · geometric | LA-fundamental companion (all 4 cols) |
+|---|---|---|---|---|---|
+| **0.16** (floor) | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | BASIS-AMBIGUOUS / INCONCLUSIVE-amplitude |
+| **0.5** | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | BASIS-AMBIGUOUS / INCONCLUSIVE-amplitude |
+| **1.0** | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | **(0,0)** / other-(p,0) (seed-dep.) |
+| **1.6** | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | INCONCLUSIVE-amplitude | **(0,0) all 4 cells** |
+| **3, 10, 30, 100** | NOT-RUN-3D (compute, A6) | NOT-RUN-3D | NOT-RUN-3D | NOT-RUN-3D | NOT-RUN-3D |
 
-**No cell returns an integer closure class.** The canonical read on the frozen
-smallest-algebraic (most-bound) modes is `INCONCLUSIVE-Nyquist` everywhere: those modes
-are tightly-localized defect modes (PN≈2–3 cells, §5-vi) that do not fill the cavity's
-angular loops (`angular_fill` 0.15–0.42), so the sector-phasor read is amplitude-starved
-and the dual-counter/Nyquist gates refuse it. The raw pre-gate `(p,q)` reads are
-inconsistent basis noise (e.g. sphere-amplitude across the ladder: `(6,-3)`, `(8,2)`,
-`(1,-4)`, `(-5,12)`) — **never (2,3)**, and not stable.
+*SA-end labels corrected from the collapsed `INCONCLUSIVE-Nyquist` to the ACTUAL failing
+gate — the SA defect band is refused by the **amplitude** gate, not Nyquist (A9). None of
+the 16 SA cells, and none of the 16 LA companions, returns (2,3). The gated non-`(0,0)` LA
+reads at R=1.0 (`other-(1,0)` etc.) are single-Lanczos-draw integers that wobble across
+seeds (never (2,3), never stable); the R=1.6 `(0,0)` is seed-STABLE (A11).*
 
-**Reflection-map probe (the direct "ground-state closure of the cavity's reflection
-map" read — a *cold* near-Helmholtz Dirichlet box whose low modes are cavity standing
-waves, not saturation-front defects).**
+**No cell returns an integer closure class.** Two spectral ends are now read on the
+same masked H (KEEP-BOTH, amendment **A8** — the band-inversion repair):
 
-| shape | R/ℓ_node | winding class | raw pre-gate (p,q) | eigvec real-fraction |
-|---|---|---|---|---|
-| sphere | **0.16** (floor) | INCONCLUSIVE-Nyquist | (0,0) | 0.843 |
-| horn-torus | **0.16** (floor) | INCONCLUSIVE-Nyquist | (0,0) | 0.900 |
-| sphere | 0.5 | INCONCLUSIVE-Nyquist | (1,−1) | 0.937 |
-| horn-torus | 0.5 | INCONCLUSIVE-Nyquist | (3,5) | 0.836 |
-| sphere | 1.0 | BASIS-AMBIGUOUS (real eigenvector) | (−2,2) | **0.997** |
-| horn-torus | 1.0 | INCONCLUSIVE-Nyquist | — (SA non-conv.) | — |
-| sphere | 1.6 | BASIS-AMBIGUOUS (real eigenvector) | (3,−3) | 0.923 |
-| horn-torus | 1.6 | INCONCLUSIVE-Nyquist | — (SA non-conv.) | — |
+- **SA end (as-shipped, retained).** `INCONCLUSIVE-amplitude` everywhere: the smallest-
+  algebraic modes are tightly-localized defect modes (PN≈2–3 cells, §5-vi) that do not
+  fill the cavity's angular loops (`angular_fill` 0.15–0.42), so the sector-phasor read
+  is amplitude-starved and the frozen gates refuse it. (This label was previously the
+  collapsed `INCONCLUSIVE-Nyquist`; it now reports the ACTUAL failing gate — the read is
+  refused by the **amplitude** gate, not Nyquist.) Raw pre-gate `(p,q)` is inconsistent
+  basis noise — **never (2,3)**, not stable.
+- **⚠ Band inversion (A8).** The as-shipped `which="SA"` was a **build-time CODE choice,
+  NOT a frozen commitment** (verify-before-cite: the frozen prereg names no spectral end;
+  §4 bin i says only "the (p,q) of the lowest interior mode"). Because `H = ω·I − c²·L_D`
+  with `L_D` real **SPD**, an H-eigenvalue `= ω − c²λ`: the band is INVERTED, so SA targets
+  the **largest** `L_D`-eigenvalue = the most-oscillatory grid-scale end — **NOT** the smooth
+  cavity fundamental. The freeze-faithful "lowest interior mode" is the smallest-`L_D`
+  (smooth, interior-filling) mode = the **largest-algebraic (LA)** end of H, now read below.
 
-**The reflection-map standing waves are essentially REAL** (real-fraction 0.84–0.997):
-their arg-winding is a basis/gauge artifact, not a gauge-invariant integer. **Confirming
-tell:** the raw `(p,q)` of the sphere/torus R=1.0 probe *changed* — from `(−1,1)`/`(1,6)`
-to `(−2,2)`/basis-ambiguous — when the ONLY thing altered was the Lanczos `k_eigs`
-(24→14). A genuine topological integer is invariant to the solver's mode count; a basis
-artifact is not. **No probe, at any rung or shape, returns (2,3).** At the **floor rung
-(R=0.16) the ground-state closure is trivial `(0,0)` in both shapes.**
+**Reflection-map probe at the LA cavity FUNDAMENTAL (the freeze-faithful
+"ground-state closure of the cavity's reflection map" — the smooth interior-filling
+standing wave, band-inversion repair A8). Full gate internals; `deg` = eigenvalue
+degeneracy of the selected mode (the robust, seed-independent basis-ambiguity invariant).**
+
+| shape | R/ℓ_node | LA winding class | (p,q)* | angular_fill | deg | gate detail |
+|---|---|---|---|---|---|---|
+| sphere | **0.16** (floor) | INCONCLUSIVE-amplitude | (0,0)* | 0.042 | 3 | amp-starved both axes (8-cell box) |
+| horn-torus | **0.16** (floor) | INCONCLUSIVE-amplitude | (0,0)* | 0.042 | 1 | amp-starved both axes |
+| sphere | 0.5 | INCONCLUSIVE-amplitude | (1,0)* | 0.472 | 2 | amp-starved |
+| horn-torus | 0.5 | INCONCLUSIVE-amplitude | (−1,−1)* | 0.403 | 2 | poloidal amp-starved |
+| sphere | 1.0 | **BASIS-AMBIGUOUS** (real/degenerate) | (1,0)* | 0.500 | 4 | gated; 4-fold degenerate ⇒ arg basis-arbitrary |
+| horn-torus | 1.0 | **BASIS-AMBIGUOUS** (real/degenerate) | (0,1)* | 0.806 | 6 | gated; 6-fold degenerate |
+| sphere | 1.6 | **(0,0)** (gated-conclusive) | (0,0) | 0.917 | 4 | gated; stable (0,0) across 4 seed draws |
+| horn-torus | 1.6 | **(0,0)** (gated-conclusive) | (0,0) | 0.889 | 8 | gated; stable (0,0) across 4 seed draws |
+
+\* `(p,q)` is the raw arg-read of one Lanczos draw and is **seed-dependent** in a degenerate
+subspace (see A11); it is shown for context, **not** as a stable data column. What is
+seed-STABLE is the **class**: amplitude-starvation (deterministic from `angular_fill`),
+degeneracy (deterministic eigenvalue clustering), and the R=1.6 gated `(0,0)` (reproduced
+across 4 independent seed draws, both shapes).
+
+**The LA cavity fundamental never reads (2,3).** Where the read is gated-conclusive it is
+either a stable trivial `(0,0)` (the best-filled fundamentals, R=1.6 both shapes) or
+`BASIS-AMBIGUOUS` (the degenerate R=1.0 modes — arg-winding basis-arbitrary); where the
+box sub-resolves (R≤0.5) it is `INCONCLUSIVE-amplitude`. This is the substrate's answer
+to the emergence suspicion on the **freeze-faithful** spectral end — the interior-filling
+standing wave the frozen §2 promised, now actually interrogated. **No probe, at any rung,
+shape, or spectral end, returns (2,3).** The floor-rung (R=0.16) reflection read is
+`INCONCLUSIVE-amplitude` (an 8-cell box that sub-resolves any `(p,q)`; a genuinely planted
+(2,3) reads the SAME gate-refused `(0,0)` there — the floor cell is detector-blind, see
+amendment A14). It is **not** a gated "trivial (0,0)" result.
 
 **Mechanism (documented, load-bearing; live-fire-verified this session).** The coupled
 A1↔ω Hermitian generator is **exactly Hermitian** (`max|H − H^H| = 0` ⇒ real spectrum,
 lossless) and **dominantly real-symmetric** — the only imaginary content is the coupling
 chirality phase ($|{\rm Im}\,H|/|{\rm Re}\,H| \approx 0.005$, a gaugeable global phase).
-A real-symmetric operator has real eigenvectors whose spatial arg-winding is a
-**basis/gauge artifact, not a gauge-invariant topological integer**. The census null then
-arrives by **two paths, neither yielding (2,3)**:
-- **Reflection-map standing waves (cold, near-Helmholtz):** eigenvectors essentially real
-  (real-fraction 0.84–0.997) ⇒ winding is **basis-ambiguous** noise (the `k_eigs`-
-  dependence of the raw (p,q) is the tell).
-- **Saturated-core cells (SA defect band):** the localized defect modes are only ~40%
-  real, but they occupy PN≈2 cells and do **not** fill the cavity's angular loops ⇒ the
-  sector-phasor read is **amplitude-starved** and gated `INCONCLUSIVE-Nyquist`.
-  Live-fire: an independent from-scratch toroidal read of one cell returns **−3.88 turns
-  (non-integer)**, which the module correctly refuses.
+A real-symmetric operator has real eigenvectors, and a **degenerate** eigenvalue cluster
+has an arbitrary basis; in both cases the spatial arg-winding is a **basis/gauge artifact,
+not a gauge-invariant topological integer**. (The robust, seed-independent tell is the
+**eigenvalue degeneracy** — the R=1.0 fundamentals are 4-to-6-fold degenerate, so their
+raw `(p,q)` wobbles draw-to-draw while the class stays `BASIS-AMBIGUOUS`; the earlier
+`real-fraction` numbers were single Lanczos draws and are retired as a data column, A11.)
+The census null then arrives by **three paths, none yielding (2,3)**:
+- **LA cavity fundamental (freeze-faithful, HEADLINE):** the interior-filling standing wave
+  reads a stable trivial `(0,0)` where best-filled (R=1.6) and `BASIS-AMBIGUOUS` where
+  degenerate (R=1.0). This is the read the frozen §2 actually intended (A8).
+- **SA defect band (as-shipped, retained):** the localized defect modes occupy PN≈2 cells
+  and do **not** fill the cavity's angular loops ⇒ the sector-phasor read is
+  **amplitude-starved** and gated `INCONCLUSIVE-amplitude` (label corrected from the
+  collapsed `INCONCLUSIVE-Nyquist`). Live-fire: an independent from-scratch toroidal read
+  of one cell returns **−3.88 turns (non-integer)**, which the module correctly refuses.
+- **Exactly-Hermitian, real-symmetric-up-to-gauge H:** the operator cannot carry emergent
+  inter-sector phase texture at all (the sector-relative phase has spatial std ~1e-12), so
+  the cold-linear winding is trivial/artifact **by construction** — the reason the driven
+  leg is regime-load-bearing (§B-1).
 
-Both paths were pre-declared in the instrument docstring; the substrate lands in the
-frozen null bins. See the D3-movement map (§7) and the regime caveat (§B-1).
+Both spectral ends were pre-declared in the instrument docstring; the substrate lands in
+the frozen null bins on the **freeze-faithful** LA fundamental as well as the SA band. See
+the D3-movement map (§7) and the regime caveat (§B-1).
 
 ## §3 — bin (ii): GEOMETRY DEPENDENCE (sphere vs horn-torus)
 
@@ -250,11 +288,16 @@ to resolve):
    exist there *by construction*). The driven spot-check (§6) `BREAK` argues the null is
    **not merely a cold artifact** at one operating point, but a full driven/self-consistent
    battery (Stage-2) is where the winding question is fully live.
-2. **Instrument reach.** The frozen "smallest-algebraic (most-bound)" target lands on
-   localized defect modes of an **indefinite** masked H, not cavity standing waves
-   (§B-limitation 6). The reflection-map probe (cold near-Helmholtz standing waves) is the
-   physically-appropriate read and it too returns non-(2,3) basis noise — but this is a
-   **flagged instrument-reach limitation**, not a clean full-strength census.
+2. **Instrument reach — CORRECTED (A8).** The as-shipped `which="SA"` target (a **build-
+   time CODE choice, NOT frozen** — the frozen prereg names no spectral end; verify-before-
+   cite) landed on localized defect modes because the band is **inverted** (`H = ω − c²·L_D`,
+   L_D SPD): SA is the most-oscillatory grid-scale end, not the cavity fundamental. The
+   band-inversion repair now reads the **LA end = the smooth cavity FUNDAMENTAL** = the
+   freeze-faithful "lowest interior mode" (frozen §4 bin i). On that freeze-faithful end the
+   read is still non-(2,3): stable trivial `(0,0)` at the best-filled fundamentals (R=1.6)
+   and `BASIS-AMBIGUOUS` at the degenerate R=1.0 modes. So the wrong-modes limitation is
+   **repaired, not merely flagged** — the frozen observable was interrogated and returned
+   no (2,3). (The SA defect-band read is retained alongside, KEEP-BOTH.)
 3. **The (2,3) SELECTION was never claimed derived here.** Consistent with the frozen
    consistency-vs-emergence tag, the census does **not** convert the (2,3) import→derivation
    (that was the only "strongest support" branch, and it did not fire).
@@ -354,37 +397,99 @@ sphere-ABCD).
    the seeded `ê_w`. It is the plant-gate positive control, **not a genuine emergence
    read** (frozen §0 item 5).
 5. **`R_wall` is seed-tracking (Stage-1), see A3.**
-6. **The masked coupled H is INDEFINITE; the frozen "smallest-algebraic (most-bound)"
-   target lands on defect modes, not cavity standing waves (load-bearing — flagged, not
-   silently fixed).** Empirically the reduced operator's smallest-algebraic band is a set
-   of **negative-eigenvalue, tightly-localized (PN≈2) defect modes** at the D=1/S(A)
-   saturation front, 3-fold degenerate — **not** the positive-frequency cavity standing
-   waves the census intends. Shift-invert σ=0 finds a *different* near-zero cluster, so it
-   is not a valid substitute for the frozen SA target. Consequence: the canonical bin-(i)
-   read is `INCONCLUSIVE-Nyquist` everywhere (the defect modes are amplitude-starved), and
-   the 3-D SA mode-ratio ladder (bin v) is the defect-band, not the physical spectrum. The
-   **cold reflection-map probe** (a1_amplitude≈0 ⇒ near-Helmholtz) is the physically-
-   appropriate standing-wave read and is reported alongside; it returns non-(2,3) basis
-   noise, consistent with the §2 real-eigenvector mechanism. **Recommendation (surfaced,
-   NOT self-adopted):** a physically-faithful census should target the **lowest-positive
-   (cavity-fundamental) mode**, not the smallest-algebraic end of the indefinite H. This
-   would be a **dated amendment / Stage-2 refinement** requiring Grant adjudication (it
-   moves a frozen target — I do not adopt it post-hoc to rescue a read).
+6. **Spectral-end targeting — the as-shipped `which="SA"` was the WRONG END; REPAIRED
+   (A8).** The masked H is `ω·I − c²·L_D` with L_D real **SPD**, so an H-eigenvalue
+   `= ω − c²λ` — the band is **INVERTED**. `which="SA"` (smallest-algebraic H) therefore
+   targets the **largest** `L_D`-eigenvalue = the most-oscillatory grid-scale end; for the
+   saturated core that is the tightly-localized (PN≈2) defect band (3-fold degenerate,
+   amplitude-starved ⇒ `INCONCLUSIVE-amplitude`), and the 3-D SA mode-ratio ladder (bin v)
+   is that defect band, not the physical spectrum. The cavity FUNDAMENTAL (the frozen
+   "lowest interior mode") is the **smallest**-`L_D` (smooth, interior-filling) mode = the
+   **largest-algebraic (LA)** end. **This was never a frozen target:** verify-before-cite
+   (two-method grep) confirms the frozen prereg contains no "smallest-algebraic"/"most-
+   bound"/"which=" anywhere — the SA target was a **build-time code deviation** from the
+   frozen §4-bin-i "lowest interior mode". **Note the earlier §B-6 recommendation to target
+   the "lowest-POSITIVE mode" was ALSO the wrong end** under band inversion (lowest-positive
+   is still on the oscillatory side of the indefinite window, not λ_min). The repair (A8)
+   reads the **LA fundamental** — freeze-FIDELITY to "lowest interior mode", not a target
+   move — with a Nyquist-resolved read and full gate internals. It returns **non-(2,3)**:
+   stable trivial `(0,0)` at the best-filled fundamentals (R=1.6, both shapes) and
+   `BASIS-AMBIGUOUS` at the degenerate R=1.0 modes. The SA defect-band read is kept
+   alongside (KEEP-BOTH). **What remains for Grant** is ratifying the adjudication that
+   reading the LA fundamental is freeze-fidelity (not a post-hoc target move); the SA read
+   was the actual deviation.
 
 ---
 
 ## §A (cont.) — NUMERICAL-SOLVER AMENDMENT
 
-**A7 (2026-07-14) — eigsh `tol=1e-7` + `maxiter=2000` + graceful non-convergence.** The
-frozen §2 names `eigsh` on the smallest-algebraic end but fixes no tolerance. The default
-`tol=0` (machine precision) blew the compute budget at N≳36 on the clustered/degenerate
-spectrum (16+ min CPU, unconverged). `tol=1e-7` returns the **same SA eigenpairs** to a
-precision far tighter than an integer-winding / 4-decimal-ratio read needs, in ~0.1 s.
-`maxiter=2000` bounds pathological cells; on `ArpackNoConvergence` the converged subset is
-used (or the cell records compute-limited) rather than hanging — this is why two
-horn-torus reflection probes read `— (SA non-conv.)`. This is a **numerical-precision
-completion**, not a change of which modes are targeted (SA preserved). Reflection-probe
-`k_eigs` reduced 24→14 for the same clustered-spectrum reason.
+**A7 (2026-07-14) — eigsh `tol=1e-7` + `maxiter=2000` + graceful non-convergence.**
+**⚠ CORRECTION (2026-07-14, this review-repair):** the original A7 stated "the frozen §2
+names `eigsh` on the smallest-algebraic end but fixes no tolerance." That was a **phantom
+freeze citation** (verify-before-cite, two-method grep): the frozen §2 names **no `eigsh`
+and no spectral end at all** — `eigsh` appears in the frozen file only in the §0-anchor
+compute-timing receipt (prereg:121), and the strings "smallest-algebraic"/"most-bound"/
+"which=" appear **nowhere** in the frozen body. The `which="SA"` end was a **build-time
+solver choice**, itself a deviation from frozen §4 bin i ("the lowest interior mode") —
+see A8. The tolerance/maxiter content stands: the default `tol=0` (machine precision) blew
+the compute budget at N≳36 on the clustered/degenerate spectrum (16+ min CPU, unconverged);
+`tol=1e-7` returns the **same eigenpairs** to a precision far tighter than an
+integer-winding / 4-decimal-ratio read needs, in ~0.1 s; `maxiter=2000` bounds pathological
+cells; on `ArpackNoConvergence` the converged subset is used (or the cell records
+compute-limited) rather than hanging. This is a **numerical-precision completion**, not a
+change of which modes are targeted. Reflection-probe `k_eigs` reduced 24→14 for the same
+clustered-spectrum reason.
+
+**A8 (2026-07-14, review-repair) — BAND INVERSION: the census now reads the LA cavity
+FUNDAMENTAL (the freeze-faithful "lowest interior mode"). KEEP-BOTH both spectral ends.**
+The pivotal review adjudication. The masked coupled generator is `H = ω·I − c²·L_D` with
+`L_D` real **SPD** (`coupled_cage_winding.py:_assemble_H`; `native_cage_imex.py:176`
+"SPD"), so an H-eigenvalue `= ω − c²λ` (λ = an `L_D`-eigenvalue ≥ 0) — the band is
+**INVERTED**. Consequences:
+- `which="SA"` (smallest-algebraic H, as-shipped) = **largest** `L_D`-eigenvalue = the
+  **most-oscillatory grid-scale** end. It never interrogated the cavity fundamental — in
+  ANY cell, including the cold reflection probe whose own docstring promised "cavity
+  standing waves that fill the interior."
+- The frozen **§4 bin i "lowest interior mode"** (prereg:258) is the SMOOTH, interior-
+  filling mode = **smallest** `L_D`-eigenvalue = the **largest-algebraic (LA)** end of H.
+- **The SA target was never frozen.** Verify-before-cite (two-method grep): the frozen
+  prereg contains no "smallest-algebraic", "most-bound", or "which=" anywhere; `eigsh`
+  appears only in the §0-anchor timing receipt. `which="SA"` was a **build-time code
+  deviation** from the frozen observable — the phantom "frozen §2" citations at A7,
+  `cavity_census.py` (the `solve_cavity_spectrum` docstring + the `which="SA"` comment),
+  and `cold_cavity_reflection_winding`'s docstring are all corrected in this repair.
+
+**Repair.** `solve_cavity_spectrum(cfg, which=...)` now reads either end; the cold
+reflection probe defaults to **LA** (the freeze-faithful fundamental) and `run_cell`
+reports **both** ends (KEEP-BOTH). **This is FIDELITY to the frozen "lowest interior
+mode", not a target move** — reading the fundamental honors §4 bin i; the SA read was the
+deviation. Live-fire (this repair, LA end, full gate internals in §2):
+- **No cell — no rung, no shape, no BC, no spectral end — reads (2,3).**
+- The best-filled fundamentals (R=1.6, both shapes) read a **stable trivial `(0,0)`**
+  (reproduced across 4 independent Lanczos seed draws).
+- The degenerate R=1.0 fundamentals read `BASIS-AMBIGUOUS` (4-to-8-fold eigenvalue
+  degeneracy ⇒ arg-winding basis-arbitrary; raw `(p,q)` wobbles draw-to-draw).
+- The sub-resolving rungs (R≤0.5, an 8-cell box) read `INCONCLUSIVE-amplitude`.
+
+The SA defect-band read is retained (it is a defensible **bound-state** target that found
+the PN≈2 defect band). **Adjudication for Grant:** ratify that reading the LA fundamental
+is freeze-fidelity to "lowest interior mode" (this repair's position), vs. treating it as a
+post-hoc target move. Either way the verdict is unchanged — non-(2,3) on both ends.
+
+**A11 (2026-07-14, review-repair) — eigvec `real-fraction` RETIRED as a data column;
+eigenvalue degeneracy is the robust basis-ambiguity invariant.** ARPACK uses a random
+Lanczos start (no `v0`), so in a degenerate subspace the eigenvector basis mixes
+arbitrarily: the `real-fraction` of the selected eigenvector varies draw-to-draw (live-fire:
+the same operator returns real-fraction 0.04 / 0.63 / 0.93 / 0.49 across four draws) and is
+even globally-gauge-dependent for a genuinely-real mode. The earlier RESULT table numbers
+(0.84–0.997) were single Lanczos draws presented as a stable property — **retired**. The
+`real_frac > 0.85` guard also **cannot reliably fire in a degenerate subspace** (a complex
+mixture at real_frac 0.70 would pass as a conclusive integer). The instrument now flags
+**BASIS-AMBIGUOUS on eigenvalue-cluster DEGENERACY** (deterministic, seed-independent) OR
+real_frac>0.85; `real_frac` is reported only as seed-dependent context
+(`eigvec_real_fraction_seed_dependent`), never as a data column or a sole gate. The
+seed-STABLE invariants are: amplitude-starvation (from `angular_fill`), degeneracy, and the
+R=1.6 gated `(0,0)` (reproduced across 4 draws).
 
 ---
 

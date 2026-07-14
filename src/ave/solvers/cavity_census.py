@@ -229,12 +229,28 @@ def build_masked_H(cfg: CavityCensusConfig):
     return H_red, sim, keep_flat
 
 
-def solve_cavity_spectrum(cfg: CavityCensusConfig) -> dict:
-    """Eigensolve the masked coupled Hermitian H at the SMALLEST-algebraic
-    (most-bound) end. Returns the ground eigenvector scattered back to full N³ on
-    BOTH sectors (zeros outside the imposed wall), the spectrum window, and the
-    Im(ω)=0 lossless flag (Hermitian ⇒ real eigenvalues, structural)."""
-    from scipy.sparse.linalg import eigsh
+def solve_cavity_spectrum(cfg: CavityCensusConfig, which: str = "SA") -> dict:
+    """Eigensolve the masked coupled Hermitian H at the requested spectral `end` and
+    scatter the fundamental eigenvector back to full N³ on BOTH sectors (zeros
+    outside the imposed wall). Returns the spectrum window and the Im(ω)=0 lossless
+    flag (Hermitian ⇒ real eigenvalues, structural).
+
+    BAND-INVERSION NOTE (2026-07-14 repair — RESULT §A A8). H = ω·I − c²·L_D with
+    L_D real SPD (native_cage_imex.py:176 "SPD"), so an H-eigenvalue = ω − c²λ
+    (λ = an L_D-eigenvalue ≥ 0). The band is INVERTED:
+      which="SA" (smallest-algebraic H) = LARGEST L_D-eigenvalue = the most-oscillatory
+        grid-scale end. For the saturated core this is the tightly-localized PN≈2
+        defect band — a defensible BOUND-STATE target, but NOT the cavity fundamental.
+      which="LA" (largest-algebraic H) = SMALLEST L_D-eigenvalue = the SMOOTH cavity
+        FUNDAMENTAL that FILLS the interior — the freeze-faithful "lowest interior
+        mode" (frozen §4 bin i, prereg:258). Modes ordered so index 0 is the fundamental.
+    `which` is a BUILD-TIME solver choice, NOT a frozen commitment: the frozen prereg
+    names NO spectral end anywhere (verify-before-cite, two-method grep — the strings
+    "smallest-algebraic"/"most-bound"/"which=" appear NOWHERE in the frozen body; §4
+    bin i says only "the (p,q) of the lowest interior mode"). The original ship targeted
+    which="SA" — a silent deviation from that freeze; this repair adds the LA read that
+    honors it (see A8)."""
+    from scipy.sparse.linalg import ArpackNoConvergence, eigsh
 
     H_red, sim, keep_flat = build_masked_H(cfg)
     nd = sim.ndof
@@ -243,24 +259,22 @@ def solve_cavity_spectrum(cfg: CavityCensusConfig) -> dict:
     if k < 1:
         return {"ok": False, "reason": "reduced operator too small (box below one cell)",
                 "N": N, "n_keep": int(keep_flat.size)}
-    # which="SA" = the frozen "smallest-algebraic (most-bound)" target (§2). The
-    # default tol=0 forces machine-precision convergence and blows the compute budget
-    # at N≳36 (clustered/degenerate spectrum); tol=1e-7 returns the SAME SA eigenpairs
-    # to a precision far tighter than the winding-integer / 4-decimal-ratio reads need.
-    # (Shift-invert σ=0 is NOT a substitute — it targets the near-zero cluster, not the
-    # smallest-algebraic end. Verified this session.) A maxiter cap bounds pathological
-    # cells (clustered SA can stall); on non-convergence we use the converged subset
-    # rather than hang (compute-honesty; the read degrades to INCONCLUSIVE if starved).
-    from scipy.sparse.linalg import ArpackNoConvergence
+    # tol=1e-7 returns the eigenpairs to a precision far tighter than the winding-
+    # integer / 4-decimal-ratio reads need (default tol=0 forces machine precision and
+    # blows the compute budget at N≳36 on the clustered/degenerate spectrum). maxiter
+    # bounds pathological cells; on non-convergence use the converged subset (compute-
+    # honesty; the read degrades to INCONCLUSIVE if starved).
     try:
-        vals, vecs = eigsh(H_red, k=k, which="SA", tol=1e-7, maxiter=2000)
+        vals, vecs = eigsh(H_red, k=k, which=which, tol=1e-7, maxiter=2000)
     except ArpackNoConvergence as e:
         vals, vecs = e.eigenvalues, e.eigenvectors
         if vals.size < 1:
-            return {"ok": False, "reason": "SA non-convergence (clustered spectrum); "
-                    "no eigenpair within maxiter — compute-limited",
+            return {"ok": False, "reason": f"{which} non-convergence (clustered "
+                    "spectrum); no eigenpair within maxiter — compute-limited",
                     "N": N, "n_keep": int(keep_flat.size)}
-    order = np.argsort(vals)
+    # LA: the cavity fundamental is the LARGEST H-eig (smallest L_D-eig) ⇒ order
+    # DESCENDING so index 0 is the smooth fundamental. SA: most-bound first (ascending).
+    order = np.argsort(vals)[::-1] if which == "LA" else np.argsort(vals)
     vals = vals[order]
     vecs = vecs[:, order]
 
@@ -279,6 +293,7 @@ def solve_cavity_spectrum(cfg: CavityCensusConfig) -> dict:
     return {
         "ok": True,
         "N": N,
+        "spectral_end": which,
         "n_keep": int(nkeep),
         "n_modes": int(vals.size),
         "eigvals": [float(x) for x in vals[:8]],
@@ -406,6 +421,72 @@ def winding_canonical(a1: np.ndarray, bw: np.ndarray, shape: str, R_cells: float
         "toroidal": tor, "poloidal": pol,
         "read_ok": read_ok,
         "is_2_3": bool((p, q) in [(2, 3), (3, 2)]),
+    }
+
+
+def _refusal_label(can: dict) -> str:
+    """Report the ACTUAL failing gate condition for a refused canonical read (NOT
+    always "Nyquist" — see the review's collapsed-label finding). `can` is a
+    winding_canonical dict. Amplitude starvation is reported first (it is the root
+    cause on sub-resolving cavities); then Nyquist; then dual-counter disagreement."""
+    conds: list[str] = []
+    for ax in (can["toroidal"], can["poloidal"]):
+        if not ax["amp_ok"]:
+            conds.append("amplitude")
+        elif not ax["nyquist_ok"]:
+            conds.append("Nyquist")
+        elif not ax["two_methods_agree"]:
+            conds.append("disagree")
+    for c in ("amplitude", "Nyquist", "disagree"):
+        if c in conds:
+            return f"INCONCLUSIVE-{c}"
+    return "INCONCLUSIVE"
+
+
+def _read_bin_i(spec: dict, cfg: CavityCensusConfig, n_try: int = 8) -> dict:
+    """Read bin (i) winding class from an eigensolve spectrum: select the best-
+    angular-fill mode, read the canonical two-sector Clifford winding, classify into
+    the frozen bins (+ the A1/A11 refinements). Shared by run_cell and the reflection
+    probe so BOTH spectral ends (SA defect-band / LA cavity-fundamental) read through
+    identical logic (KEEP-BOTH).
+
+    `eigvec_real_fraction` is a SINGLE Lanczos-draw scalar and is SEED-DEPENDENT in a
+    degenerate subspace (ARPACK's random start; no v0) — it is reported for context,
+    NOT as a stable data column (§A A11). The ROBUST, seed-independent basis-ambiguity
+    invariant is the eigenvalue DEGENERACY of the selected mode: in a degenerate
+    subspace any arg-winding is a basis/gauge artifact, not a topological integer."""
+    idx, a1, bw, fill = select_census_mode(spec, cfg, n_try=n_try)
+    mask = (np.abs(a1) + np.abs(bw)) > 0
+    can = winding_canonical(a1, bw, cfg.shape, cfg.R_cells, mask=mask)
+    a1m = a1[mask]
+    real_frac = float(np.abs(a1m.real).sum() / (np.abs(a1m).sum() + 1e-300))
+    vals = spec["all_vals"]
+    ev = vals[idx]
+    degeneracy = int(np.sum(np.abs(vals - ev) < 1e-6 * (abs(float(ev)) + 1e-12)))
+    degenerate = degeneracy >= 2
+    # robust degeneracy path OR the (unreliable, seed-dependent) real-fraction guard.
+    basis_ambiguous = bool(degenerate or real_frac > 0.85)
+    if not can["read_ok"]:
+        wclass = _refusal_label(can)
+    elif can["is_2_3"] and not basis_ambiguous:
+        wclass = "(2,3)"
+    elif can["pq"] == (0, 0):
+        wclass = "(0,0)"
+    elif can["pq"] in [(1, 1)] and not basis_ambiguous:
+        wclass = "(1,1)"
+    elif basis_ambiguous:
+        wclass = "BASIS-AMBIGUOUS (real/degenerate eigenvector)"
+    else:
+        wclass = f"other-{can['pq']}"
+    return {
+        "spectral_end": spec.get("spectral_end", "?"),
+        "winding_class": wclass, "canonical_pq": can["pq"],
+        "canonical_read_ok": can["read_ok"], "is_2_3": can["is_2_3"],
+        "census_mode_idx": idx, "angular_fill": round(fill, 3),
+        "ground_degeneracy": degeneracy, "basis_ambiguous": basis_ambiguous,
+        "eigvec_real_fraction_seed_dependent": round(real_frac, 4),
+        "toroidal_gate": can["toroidal"], "poloidal_gate": can["poloidal"],
+        "a1": a1, "bw": bw, "mask": mask, "fill": fill, "can": can,
     }
 
 
@@ -614,7 +695,10 @@ def floor_test(sim, N: int, R_over_lnode: float, mode_resolvable: bool) -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# 7. PLANT GATES — machine-checkable, must FIRE on eigenvector-level plants (§6 f)
+# 7. PLANT GATES — machine-checkable, must FIRE on eigenvector-level plants.
+# Frozen basis: §6 item 1 "the plant-firing gates"; §0.4 (ê_w used ONLY as the
+# planted-winding gate's positive control); §4 bin-firing. (There is NO frozen §6(f);
+# the earlier "§6 f" citation was phantom — verify-before-cite, corrected 2026-07-14.)
 # ═════════════════════════════════════════════════════════════════════════════
 def _blob(N: int, sigma: float = 3.0) -> np.ndarray:
     r = _radius_field(N)
@@ -782,36 +866,42 @@ def select_census_mode(spec: dict, cfg: CavityCensusConfig, n_try: int = 8):
 
 def run_cell(cfg: CavityCensusConfig) -> dict:
     """One census cell → all frozen bins (i, ii-input, iii, iv, v-hook, vi). Cold-
-    linear (primary). Returns dimensionless outputs only (Rail 2)."""
-    spec = solve_cavity_spectrum(cfg)
+    linear (primary). Returns dimensionless outputs only (Rail 2).
+
+    KEEP-BOTH spectral ends (band-inversion repair, §A A8): bin (i) is read at BOTH
+    the SA end (the most-bound defect band — the as-shipped target, a defensible
+    bound-state read) AND the LA end (the freeze-faithful cavity FUNDAMENTAL — the
+    frozen "lowest interior mode"). Both are reported, labelled."""
+    spec = solve_cavity_spectrum(cfg, which="SA")
     if not spec.get("ok"):
-        return {"cell": _cell_id(cfg), "verdict": "INCONCLUSIVE-Nyquist",
+        return {"cell": _cell_id(cfg), "verdict": "INCONCLUSIVE-no-mode",
                 "reason": spec.get("reason", "box sub-cell / no resolvable mode"),
-                "bin_i_winding_class": "INCONCLUSIVE-Nyquist", "mode_resolves": False}
+                "bin_i_winding_class": "INCONCLUSIVE-no-mode",
+                "bin_i_winding_class_LA_fundamental": "INCONCLUSIVE-no-mode",
+                "mode_resolves": False}
 
     N = cfg.N
-    idx, a1, bw, fill = select_census_mode(spec, cfg)
-    mask = (np.abs(a1) + np.abs(bw)) > 0
     sim = spec["sim"]
 
-    # bin (i) — ground-state winding class (canonical HEADLINE + coordinate secondary)
-    can = winding_canonical(a1, bw, cfg.shape, cfg.R_cells, mask=mask)
+    # bin (i) SA end (most-bound defect band — the as-shipped read, KEEP-BOTH).
+    sa = _read_bin_i(spec, cfg)
+    idx, a1, bw, fill = sa["census_mode_idx"], sa["a1"], sa["bw"], sa["fill"]
+    mask = sa["mask"]
+    can = sa["can"]
+    winding_class = sa["winding_class"]
+    real_frac = sa["eigvec_real_fraction_seed_dependent"]
     coord = winding_coordinate_prereg(sim, a1, bw, cfg.shape, cfg.R_cells, mask=mask)
-    a1m = a1[mask]
-    real_frac = float(np.abs(a1m.real).sum() / (np.abs(a1m).sum() + 1e-300))
-    basis_ambiguous = bool(real_frac > 0.85)  # real eigenvector ⇒ winding gauge-artifact
-    if not can["read_ok"]:
-        winding_class = "INCONCLUSIVE-Nyquist"
-    elif can["is_2_3"] and not basis_ambiguous:
-        winding_class = "(2,3)"
-    elif can["pq"] == (0, 0):
-        winding_class = "(0,0)"
-    elif can["pq"] in [(1, 1)] and not basis_ambiguous:
-        winding_class = "(1,1)"
-    elif basis_ambiguous:
-        winding_class = "BASIS-AMBIGUOUS (real eigenvector)"
-    else:
-        winding_class = f"other-{can['pq']}"
+
+    # bin (i) LA end (the freeze-faithful cavity FUNDAMENTAL — band-inversion repair).
+    spec_la = solve_cavity_spectrum(cfg, which="LA")
+    la = _read_bin_i(spec_la, cfg) if spec_la.get("ok") else {
+        "winding_class": "INCONCLUSIVE-no-mode", "canonical_pq": None,
+        "canonical_read_ok": False, "is_2_3": False, "angular_fill": None,
+        "ground_degeneracy": None, "eigvec_real_fraction_seed_dependent": None}
+    if la.get("is_2_3"):
+        # STOP-AND-REPORT guard: a (2,3) at the freeze-faithful fundamental would be
+        # an emergence-class signal — do NOT silently re-bank the null.
+        la["STOP_AND_REPORT"] = "LA fundamental read (2,3) — escalate before banking"
 
     # bin (iii) — floor test (Stage-1-scoped)
     mode_resolvable = bool(fill >= 0.2 and spec["n_keep"] >= 27)
@@ -842,10 +932,18 @@ def run_cell(cfg: CavityCensusConfig) -> dict:
         "shape": cfg.shape, "bc_mode": cfg.bc_mode, "R_over_lnode": cfg.R_over_lnode,
         "N": N, "regime": "cold-linear",
         "census_mode_idx": idx, "angular_fill": round(fill, 3),
-        # bin i
+        # bin i — SA end (most-bound defect band, as-shipped; KEEP-BOTH)
+        "spectral_end_primary": "SA (most-bound defect band)",
         "bin_i_winding_class": winding_class,
         "canonical_pq": can["pq"], "canonical_read_ok": can["read_ok"],
-        "eigvec_real_fraction": round(real_frac, 4),
+        "eigvec_real_fraction_seed_dependent": real_frac,
+        "ground_degeneracy_SA": sa["ground_degeneracy"],
+        # bin i — LA end (freeze-faithful cavity FUNDAMENTAL; band-inversion repair A8)
+        "bin_i_winding_class_LA_fundamental": la["winding_class"],
+        "canonical_pq_LA": la.get("canonical_pq"),
+        "canonical_read_ok_LA": la.get("canonical_read_ok"),
+        "angular_fill_LA": la.get("angular_fill"),
+        "ground_degeneracy_LA": la.get("ground_degeneracy"),
         "coordinate_prereg": {"pq": coord["pq"], "tag": coord["tag"],
                               "direction_leg_tautological": coord["direction_leg_tautological"]},
         # bin iii
@@ -865,53 +963,52 @@ def _cell_id(cfg: CavityCensusConfig) -> str:
     return f"{cfg.shape}|{cfg.bc_mode}|R{cfg.R_over_lnode}"
 
 
-def cold_cavity_reflection_winding(shape: str, R_over_lnode: float, N: int | None = None) -> dict:
+def cold_cavity_reflection_winding(shape: str, R_over_lnode: float, N: int | None = None,
+                                   which: str = "LA") -> dict:
     """Census the DELOCALIZED reflection-map modes directly: eigensolve a COLD
     Dirichlet box (a1_amplitude≈0 ⇒ the coupled generator is a near-decoupled real-
-    symmetric Helmholtz pair ⇒ its low modes are cavity STANDING WAVES that FILL the
-    interior, not core-bound defects). Read the winding of the lowest well-filled
-    mode. This is the genuine 'ground-state closure of the cavity's reflection map'
-    (bin i), complementary to run_cell's saturated-core band (which is amplitude-
-    starved). A real-symmetric operator has REAL eigenvectors ⇒ no emergent phase
-    texture ⇒ the reflection-map winding is expected (0,0)/basis-ambiguous — the
-    substrate's answer to the emergence suspicion in the cold regime."""
+    symmetric Helmholtz pair). Read the winding of the lowest well-filled mode — the
+    genuine 'ground-state closure of the cavity's reflection map' (bin i).
+
+    BAND-INVERSION REPAIR (2026-07-14 — §A A8). The cavity STANDING WAVES that FILL
+    the interior are the SMOOTH low-L_D modes, which under H = ω − c²·L_D sit at the
+    LARGEST-algebraic end — so `which="LA"` (default) is the freeze-faithful read of
+    the cavity fundamental. The as-shipped `which="SA"` read the OPPOSITE (most-
+    oscillatory, grid-scale) end and never interrogated the interior-filling standing
+    waves it promised; SA is retained as an argument for the KEEP-BOTH comparison.
+    A real-symmetric-up-to-gauge operator has (near-)REAL eigenvectors whose spatial
+    phase winding is a GAUGE ARTIFACT, not a topological integer, so the fundamental
+    is expected (0,0)/basis-ambiguous — the substrate's answer to the emergence
+    suspicion in the cold regime. Live-fire (A8): every LA read is non-(2,3)."""
     N = N or autosize_N(R_over_lnode)
     cfg = CavityCensusConfig(shape=shape, bc_mode="geometric", R_over_lnode=R_over_lnode,
                              N=N, a1_amplitude=0.01, k_eigs=14)
-    spec = solve_cavity_spectrum(cfg)
+    spec = solve_cavity_spectrum(cfg, which=which)
     if not spec.get("ok"):
-        return {"shape": shape, "R_over_lnode": R_over_lnode,
-                "winding_class": "INCONCLUSIVE-Nyquist", "reason": spec.get("reason")}
-    idx, a1, bw, fill = select_census_mode(spec, cfg, n_try=min(24, spec["n_modes"]))
-    mask = (np.abs(a1) + np.abs(bw)) > 0
-    can = winding_canonical(a1, bw, cfg.shape, cfg.R_cells, mask=mask)
-    # is the reflecting-cavity eigenvector real (no phase texture)?  (the mechanism)
-    a1n = a1[mask]
-    real_frac = float(np.abs(a1n.real).sum() / (np.abs(a1n).sum() + 1e-300))
-    # A real-symmetric-up-to-gauge operator has (near-)REAL eigenvectors whose
-    # spatial phase winding is a GAUGE ARTIFACT, not a gauge-invariant topological
-    # integer. When the eigenvector is essentially real (real_frac > 0.85), ANY
-    # non-trivial (p,q) the arg-unwrap reports is basis-ambiguous lobe-structure
-    # noise (it varies cell-to-cell, never the invariant (2,3)). Flag it as such.
-    basis_ambiguous = bool(real_frac > 0.85)
-    if not can["read_ok"]:
-        wclass = "INCONCLUSIVE-Nyquist"
-    elif can["is_2_3"] and not basis_ambiguous:
-        wclass = "(2,3)"
-    elif can["pq"] == (0, 0):
-        wclass = "(0,0)"
-    elif basis_ambiguous:
-        wclass = "BASIS-AMBIGUOUS (real eigenvector — no gauge-invariant winding)"
-    else:
-        wclass = f"other-{can['pq']}"
+        return {"shape": shape, "R_over_lnode": R_over_lnode, "spectral_end": which,
+                "winding_class": "INCONCLUSIVE-no-mode", "reason": spec.get("reason")}
+    b = _read_bin_i(spec, cfg, n_try=min(24, spec["n_modes"]))
+    if b.get("is_2_3"):
+        b["STOP_AND_REPORT"] = "LA fundamental read (2,3) — escalate before banking"
+    tor, pol = b["toroidal_gate"], b["poloidal_gate"]
     return {"shape": shape, "R_over_lnode": R_over_lnode, "N": N,
-            "census_mode_idx": idx, "angular_fill": round(fill, 3),
-            "winding_class": wclass, "canonical_pq": can["pq"],
-            "canonical_read_ok": can["read_ok"],
-            "eigvec_real_fraction": round(real_frac, 4),
-            "mechanism": "real-symmetric-up-to-global-gauge ⇒ real eigenvector ⇒ "
-                         "no emergent phase winding" if real_frac > 0.9 else
-                         "complex eigenvector — inspect phase texture"}
+            "spectral_end": which, "census_mode_idx": b["census_mode_idx"],
+            "angular_fill": b["angular_fill"], "winding_class": b["winding_class"],
+            "canonical_pq": b["canonical_pq"], "canonical_read_ok": b["canonical_read_ok"],
+            "ground_degeneracy": b["ground_degeneracy"],
+            "eigvec_real_fraction_seed_dependent": b["eigvec_real_fraction_seed_dependent"],
+            "gate_internals": {
+                "toroidal": {"w_int": tor["winding_int"], "agree": tor["two_methods_agree"],
+                             "samples_per_period": round(tor["samples_per_period"], 2),
+                             "nyquist_ok": tor["nyquist_ok"],
+                             "alive_frac": round(tor["alive_frac"], 3), "amp_ok": tor["amp_ok"]},
+                "poloidal": {"w_int": pol["winding_int"], "agree": pol["two_methods_agree"],
+                             "samples_per_period": round(pol["samples_per_period"], 2),
+                             "nyquist_ok": pol["nyquist_ok"],
+                             "alive_frac": round(pol["alive_frac"], 3), "amp_ok": pol["amp_ok"]}},
+            "mechanism": "real/degenerate eigenvector ⇒ arg-winding is a basis/gauge "
+                         "artifact, not a topological integer (degeneracy is the robust, "
+                         "seed-independent invariant; real_frac is a single Lanczos draw)"}
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -958,13 +1055,18 @@ def run_battery(rungs_3d=(0.16, 0.5, 1.0, 1.6, 3.0),
                 except Exception as e:  # noqa: BLE001 — record, do not abort the battery
                     cells.append({"cell": _cell_id(cfg), "verdict": "ERROR", "error": repr(e)})
     # the delocalized reflection-map probe (cold Dirichlet box) per (shape, rung).
+    # KEEP-BOTH spectral ends (§A A8): LA = the freeze-faithful cavity fundamental
+    # (HEADLINE); SA = the as-shipped most-oscillatory end (retained for comparison).
     reflection = []
     for R in rungs_3d:
         for shape in shapes:
-            try:
-                reflection.append(cold_cavity_reflection_winding(shape, R, N=autosize_N(R, cap=n_cap)))
-            except Exception as e:  # noqa: BLE001
-                reflection.append({"shape": shape, "R_over_lnode": R, "error": repr(e)})
+            for which in ("LA", "SA"):
+                try:
+                    reflection.append(cold_cavity_reflection_winding(
+                        shape, R, N=autosize_N(R, cap=n_cap), which=which))
+                except Exception as e:  # noqa: BLE001
+                    reflection.append({"shape": shape, "R_over_lnode": R,
+                                       "spectral_end": which, "error": repr(e)})
     sphere_abcd = sphere_abcd_radial_spectrum(l_max=2, n_modes=3)
     out = {
         "plant_gates": plant,

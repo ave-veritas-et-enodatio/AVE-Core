@@ -3,7 +3,9 @@
 FROZEN PRE-REG: research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md
 RESULT DOC    : research/2026-07-14_cavity-census-stage1_RESULT.md
 
-These are the machine-checkable gates the frozen §6 (f) requires: a planted
+These are the machine-checkable plant-firing gates the frozen prereg requires
+(§6 item 1 "the plant-firing gates"; §0.4 ê_w-as-positive-control; §4 bin-firing —
+NOT a "§6 (f)", which is phantom, corrected 2026-07-14): a planted
 geometric-only winding, a Nyquist-starved read, and a sector-crosswired detector —
 each must TRIP its gate; and a genuinely-planted two-sector (2,3) must be READ
 (the positive control / validate-on-known). The plants are eigenvector-level, not
@@ -115,7 +117,15 @@ def test_g6_cell_runs_dimensionless_and_lossless():
                                     R_over_lnode=1.0, N=autosize_N(1.0)))
     assert c["lossless"] and c["omega_im"] == 0.0
     assert c["alpha_clean"]
-    # the winding class is one of the frozen bins (i)
-    assert c["bin_i_winding_class"].split()[0] in {
-        "(0,0)", "(1,1)", "(2,3)", "INCONCLUSIVE-Nyquist", "BASIS-AMBIGUOUS"} \
-        or c["bin_i_winding_class"].startswith("other-")
+    # the winding class is one of the frozen bins (i) or an A1/A11 refinement. The
+    # INCONCLUSIVE-* family reports the ACTUAL failing gate (amplitude/Nyquist/
+    # disagree), not the collapsed always-"Nyquist" label (label-collapse repair).
+    frozen_and_refined = {"(0,0)", "(1,1)", "(2,3)", "BASIS-AMBIGUOUS"}
+    for key in ("bin_i_winding_class", "bin_i_winding_class_LA_fundamental"):
+        wc = c[key]
+        head = wc.split()[0]
+        assert (head in frozen_and_refined or head.startswith("INCONCLUSIVE")
+                or head.startswith("other-")), (key, wc)
+    # KEEP-BOTH: both spectral ends are reported (SA defect band + LA fundamental).
+    assert c["spectral_end_primary"].startswith("SA")
+    assert "canonical_pq_LA" in c
