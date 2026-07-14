@@ -118,7 +118,7 @@ Per the n_q-additive derivation chain, the saliency scales linearly across the $
 
 | Particle | $(p, q)$ | $n_q$ | $\delta_{\text{predicted}}$ | Measurement |
 |---|---|---|---|---|
-| Electron | $(2, 3)$ | $3$ | $-3\alpha/2 = -0.01095$ | ✓ 50 ppm match to PDG |
+| Electron | $(2, 3)$ | $3$ | $-3\alpha/2 = -0.01095$ | 50 ppm match to PDG — **postulate-conditional** (rides n_q-additivity, RESOLVED-NEGATIVE 2026-05-31 per §"What still needs derivation"; NOT an unconditional forward match — the parameter-free forward result is the Stage-1 +4.0%) |
 | ~~Muon (q-winding mode)~~ **alternative hypothesis only** | $(2, 5)$ | $5$ | $-5\alpha/2 = -0.01824$ | **NOT canonical** — per FI-13 resolution, muon's Fermilab observable governed by Q-G27 Cosserat torsion: $\delta_\mu = -0.01171$. The (2,5) muon framing was a "what-if n_q-additivity governed a 5-winding lepton" scenario; structurally inconsistent with single-loop lepton topology (mesons-as-medium and baryons-as-Borromean leave no slot for "(2,5) single-loop lepton" in the AVE taxonomy). |
 | Δ baryon (theoretical) | $(2, 7)$ | $7$ | $-7\alpha/2 = -0.02554$ | **Reframe per FI-13**: Δ baryons are Borromean 3-loop (N=3) with per-loop (2,7) winding. The "n_q=7" refers to per-loop winding, NOT a single-loop (2,7) lepton-style particle. Mass via baryon-ladder formula $m(c=7)/m_e$ from `torus-knot-ladder-baryons.md`, not via $\delta = -7\alpha/2$. |
 
