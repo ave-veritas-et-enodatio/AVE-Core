@@ -866,6 +866,37 @@ CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 
 # ---- Thermal softening of κ_FS ----
 #
+# 🔴 PROVENANCE (Rule-12; Grant-approved 2026-07-14) — the VALUE is
+# CALIBRATION-NOT-PREDICTION.  As a matter of git record, the chronology of
+# this number is residual-first / fitted-after (recoverable in the
+# Applied-Vacuum-Engineering archive repo):
+#
+#   • Introduced as δ_th = 1/(28π) at archive commit deba5edb (2026-02-25),
+#     whose own comment named the ~2% residual it was chosen to close.
+#   • Recalibrated to 1/(14π²) at archive commit 879aa801 (2026-03-03) when
+#     the solver changed: the m_p/m_e error moved 1842.39 (0.34%) →
+#     1836.12 (0.002%).  The residual-driver comment line was DELETED in that
+#     same commit — i.e. the form was fitted after the value was pinned to the
+#     residual, and the paper-trail for that pinning was removed at
+#     recalibration.
+#
+# CLASSIFICATION: the FORM below (δ_th = ν_vac/κ_cold × 2/π) is preserved
+# byte-exact and stands on its own prose; the VALUE is a calibration, not a
+# prediction.
+#
+# α-ADJACENCY IS COINCIDENCE (on the record): 1/(14π²) = 0.0072372 vs
+# α = 0.0072974 is −0.82%, but this construction CANCELS α — it is built from
+# 2/7, 8π and π/2 only, with no α anywhere in it.  The proximity is
+# unmotivated, not a derivation of α.
+#
+# NUMERIC FIX (KEEP-BOTH): the decimal printed in the DERIVATION and inline
+# comments below read "≈ 0.007214" (imprecise); corrected to ≈ 0.0072372
+# = 1/(14π²).  Both are recorded here for the audit trail; the code literal
+# is unchanged (comment-only edit).
+#
+# FULL AUDIT: research/2026-07-13_mp-me-mass-ratio-audit.md (on main via
+# PR #677; verified present at this HEAD).
+#
 # Physical origin:
 #   The proton is a localized thermal hotspot inside the LC network.
 #   Its core temperature ~ m_p c² / k_B ≈ 10^13 K.  RMS thermal noise
@@ -878,7 +909,7 @@ CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 #
 # DERIVATION (updated):
 #   δ_th = ν_vac / (κ_cold × π/2) = (2/7) / (8π × π/2)
-#        = (2/7) / (4π²) = 1/(14π²) ≈ 0.007214
+#        = (2/7) / (4π²) = 1/(14π²) ≈ 0.0072372
 #
 #   The π/2 divisor is the mean/peak ratio of the sinusoidal thermal
 #   noise: the RMS averaging acts on the mean gradient ⟨|dφ/dr|⟩ = (2/π)
@@ -890,7 +921,7 @@ CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 # lattice gradient saturation that is now handled by the solver directly.
 
 # Thermal softening fraction (residual after gradient saturation)
-DELTA_THERMAL: float = 1.0 / (14.0 * pi**2)  # = 1/(14π²) ≈ 0.007214
+DELTA_THERMAL: float = 1.0 / (14.0 * pi**2)  # = 1/(14π²) ≈ 0.0072372
 
 # Effective (thermally corrected) Faddeev-Skyrme coupling
 KAPPA_FS: float = KAPPA_FS_COLD * (1.0 - DELTA_THERMAL)
