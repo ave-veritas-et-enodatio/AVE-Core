@@ -191,6 +191,13 @@ fraction. The **global** participation ratio correctly reports **no** concentrat
   stencil failure, in the opposite direction. The `photon_lock` false positive here is **not**
   the clip artifact (peak at center, clipped ≡ periodic); it is genuine peak-sharpening the CF
   leaf cannot distinguish alone.
+- **Two-statistic-conjunction rule (adopted; review finding #4):** the operative CONCENTRATING
+  rule for meter reuse is the **conjunction PR falls AND CF rises** (torus-native CF), **not**
+  the frozen CF-OR-PR disjunction and **not** any φ-conjunct. φ is deliberately **excluded** from
+  the verdict logic — the ~10.5× inflation is the lap-counting gauge artifact
+  (`Phi_link` monotone accumulation, `k4_tlm.py:400`) and is quarantined (finding #4); it is
+  carried as human-verified corroboration only. The endpoint-only `rel_trend` is additionally
+  guarded by the least-squares slope (finding #5) against non-monotone series.
 
 ---
 
@@ -253,7 +260,7 @@ live-fire equivalent was executed this turn as the three standard lenses:
 |---|---|---|
 | **Live-fire / re-derivation** | mirror-loop E/φ vs `run_loop_gap_probe`; independent naive recompute of PR/CF | parity 0.00e+00; PR/CF match to |Δ|≤1.1e-13 (KNIFE A) |
 | **Meter-genuineness knife** | is the concentration meter derivable from φ/E alone? | **NO** — on the torus E≡1.0 (identity) yet PR moves ~4× over 8 quiet steps (KNIFE B); the scalar cannot encode the spatial move |
-| **Discipline / prereg-parity** | every frozen declaration vs shipped code | clean — energy=k4+cos, φ=ΣΦ_link², PML-excluded mask, raw PR, density-peak core r∈{1.5,2,2.5}, 0.5/1.5 schedule, memristive, √ALPHA distributed quiet-only pump, a∧b criteria all grep-confirmed |
+| **Discipline / prereg-parity** | every frozen declaration vs shipped code | **corrected** (the original "clean" was overstated — review findings #4/#5) — matches on energy=k4+cos, φ=ΣΦ_link², PML-excluded mask, raw PR, density-peak core r∈{1.5,2,2.5}, 0.5/1.5 schedule, memristive, √ALPHA distributed quiet-only pump. **Disclosed deviations** (EVIDENCE-VOID, verdict-robust, reconciled by dated prereg amendments): (i) the LOOP-FILLING classifier omits the frozen **φ≫1 conjunct** — *intentional gauge quarantine*, φ carried as human-verified corroboration (finding #4). |
 
 **Self-surfaced finding (not a defect, a caveat):** the CF-alone leaf false-positives on the
 torus `photon_lock` control (§4) — recorded, criterion not retuned. No other findings; the
@@ -300,6 +307,7 @@ they do **not** soften the data. Commit SHAs are listed in the PR body. Finding�
 | 1 | MAJOR | CF core-ball used non-periodic Euclidean distance on the `pml=0` periodic torus; seam-adjacent peak clipped the ball, inflating the banked torus CF-fall ~2× toward LOOP-FILLING | driver `_meter_snapshot` now uses **minimum-image** distance on `pml=0` (Euclidean on the PML box); §2 table re-banked (pair −0.274→**−0.158**, graded_a0 −0.203→**−0.101**), stencil caveat + fork-cell peak coords added (§2), meter-reuse note added (§4). Verdict-robust: PR (center-free) rises `+0.410/+0.397`; both cells stay LOOP-FILLING. `graded_a0` CF now sits at the θ floor — LOOP-FILLING rests on PR. |
 | 2 | MAJOR ×2 | "un-foolable by sustenance" overgeneralizes: only the frozen **distributed** pump was tested, for which the meter leg (b) is near-vacuous (identity-audit hit) | headline (TL;DR item 4 + §5 + §5 header) retitled "un-foolable by **DISTRIBUTED** sustenance"; untested **core-localized** adversary stated (§5), `photon_lock` peak-sharpening false-positive cited as the plausible fooling route; **required follow-on** (core-localized adversarial-pump plant + two-statistic conjunction test) registered in §7 — **not run** in this repair. Fork verdict + G-PERSIST ★RULED untouched. |
 | 3 | MAJOR | energy-meter density is **potential-only** — omits the Cosserat KINETIC register (~44% of H on the fork cells); the frozen prereg (line 85) sells `E_dens` as the "spatial parallel of `E_persist`", but `E_persist` is a kinetic-inclusive H-ratio | **ESCALATED — STOP+report, NOT re-banked** (see the ESCALATED subsection below). Implemented the composed (min-image + kinetic) meter and re-ran the full production battery: **fork cells stay LOOP-FILLING** (disperse *harder* on CF, −0.420/−0.409) so the verdict is robust — **but four non-fork cells' bins MOVE** (torus `photon_lock` CONCENTRATING*→LOOP-FILLING; all three PML cells LOOP-FILLING→INCONCLUSIVE). Per the cluster-3 STOP rule, the kinetic term is **not committed to the driver** and the composed numbers are **not banked** into §2; surfaced for orchestrator/Grant adjudication (register choice = framing-level). |
+| 4 | MINOR ×3 | shipped LOOP-FILLING classifier drops the frozen **φ≫1 conjunct** (quarantine-stronger); RESULT §6 self-review overclaimed prereg-parity "clean" | φ **not** re-added to the classifier (would re-import the quarantined gauge artifact); dated **prereg amendment (finding #4)** reconciles the frozen bin as *superseded-by-quarantine* (2-conjunct PR∧CF + φ≫1 human-verified corroboration, byte-exact vs #670: φ=10.5197/10.4218); RESULT §6 "clean" cell corrected to disclose the intentional omission; §4 adopts the **two-statistic-conjunction** rule for future CONCENTRATING claims. Verdict-robust (fork cells meet the full conjunction where scored). |
 
 ### Finding #3 — ESCALATED (kinetic register moves corroboration/control bins; STOP + report)
 

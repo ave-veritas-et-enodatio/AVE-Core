@@ -240,3 +240,34 @@ Corroboration leg: the same plant on the **torus** N=14 `pair` cell. Budget = sm
    concentration table + bin + φ-plant outcome; **state, don't rule**).
 5. Adversarial PR review (scriptPath wrapper) + PR
    `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`.
+
+---
+
+## Amendments (dated — appended below the frozen body per freeze discipline)
+
+> The frozen body above (lines 1–242) is **byte-untouched**. The dated amendments below record
+> corrections surfaced by the independent adversarial review (2026-07-14; **15/15** confirmed,
+> **0 refuted**, all **EVIDENCE-VOID**). **None alters the fork verdict** (LOOP-FILLING ⇒
+> Reading A) or G-PERSIST ★RULED; they reconcile frozen-vs-shipped parity and citation provenance.
+> Citations below were re-verified two-method on 2026-07-14.
+
+### 2026-07-14 · Amendment (review finding #4) — LOOP-FILLING bin: φ-conjunct superseded by gauge quarantine
+
+The frozen **LOOP-FILLING** criterion (lines 169–173) reads as a **three**-conjunct rule:
+`PR_energy` not falling **AND** `CF_energy(r=2)` not rising **— while `φ_persist` inflates
+(≫ 1, the banked ~10×)**. The shipped classifier (`_classify_cell`) implements only the
+**two**-conjunct PR∧CF signature and does **not** gate on `φ_persist`.
+
+**This omission is intentional and quarantine-STRONGER, not a weakening.** The ~10.5× φ
+inflation is the **lap-counting gauge artifact** — `Phi_link` accumulates **monotonically**
+(`k4_tlm.py:400`: `self.Phi_link[self.mask_A, port] += V_avg[self.mask_A] * self.dt`, never
+reset during the run). Gating the fork verdict on that quantity would inject the **quarantined
+gauge artifact** into the bin, violating the standing gauge-artifact quarantine.
+
+**Correction:** the frozen bin's φ conjunct is **superseded** — the operative classifier is the
+**2-conjunct PR∧CF** signature, with **φ ≫ 1 retained as human-verified corroboration**
+(byte-exact vs banked #670: torus `pair` φ=10.5197, `graded_a0` φ=10.4218 — both ≫ 1, so the
+full frozen conjunction **is** satisfied where it is scored; it is simply **not machine-gated**).
+Per the review, **φ is NOT added back to the classifier** (that would re-import the artifact).
+Future **CONCENTRATING** claims adopt the **two-statistic conjunction** rule (PR falls **AND**
+CF rises, on the torus-native CF) — see RESULT §4 meter-reuse note.
