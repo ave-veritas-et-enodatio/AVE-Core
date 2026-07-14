@@ -132,9 +132,14 @@ adjudicated by this proxy — it stays OPEN.**
 | 2.0 | `+89.093` | `+90.093` |
 
 Monotone-increasing in `d` (bigger displacement → bigger surplus). **Every `d ≥ 0.5` over-predicts the 2×
-band by ≥ 3.5×**; landing IN band would require `d ≈ 0.08–0.16 ℓ_node`, **below the Ax1 thickness floor** —
-i.e. no canon-admissible `d` reaches bin (i). This is reported to show the miss is robust to the `d` choice,
-NOT to select a `d`.
+band by ≥ 3.5×**; landing IN band would require sub-floor `d ≈ 0.04–0.15 ℓ_node`. The Ax1 transverse-thickness
+floor is a **real-space** length, whereas `d` here (like `r_opt`) lives in the solver's **dimensionless**
+ℓ_node Nyquist-cutoff coordinate; per `neutron-identification.md:54` the mapping of the real-space floor onto
+that dimensionless coordinate is 🔴 **"not established"** (`D_p ≈ 0.841 fm ≈ 460× smaller than ℓ_node = 386
+fm`), so **whether a canon-admissible `d` reaches bin (i) is NOT canon-determined** — at the frozen candidate
+`d=1.0` (solver units) the proxy over-predicts ~15×, but bin (i) is not foreclosed. The miss is robust to `d`
+**only over the range the flagged Ax1-floor mapping admits**, NOT a selection of `d` (mirrors the C3 ledger's
+own `:54`-flag disclosure above).
 
 ---
 

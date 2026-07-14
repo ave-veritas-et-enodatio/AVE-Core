@@ -297,8 +297,18 @@ class TopologicalHamiltonian1D:
 
         Args:
             threading_displacement: d — the outward displacement of the cage's
-                winding shell by the threaded 0₁ tube. d ≥ 1 ℓ_node by Axiom 1
-                (no flux tube below transverse thickness 1 ℓ_node).
+                winding shell by the threaded 0₁ tube. The frozen primary d=1.0
+                is set from the Ax1 transverse-thickness floor (no flux tube
+                below transverse thickness 1 ℓ_node).
+                ⚠ CAVEAT (neutron-identification.md:54, 2026-07-14 review): Ax1's
+                floor is a REAL-SPACE length, whereas d here — like r_opt (see the
+                2026-06-08 dimensional-provenance relabel in this module's header)
+                — is in the solver's DIMENSIONLESS ℓ_node Nyquist-cutoff
+                coordinate. The corpus flags the real-space→solver-unit mapping as
+                "not established" (D_p ≈ 0.841 fm ≈ 460× smaller than ℓ_node ≈ 386
+                fm), so d=1.0 in solver units is a DISCLOSED modelling pin, NOT a
+                canon-derived displacement — the admissible-d range (hence whether
+                bin (i) is reachable) is not canon-determined.
             crossing_number: (2,q) crossing number; default 5 (proton cinquefoil,
                 unchanged — the composite cage is still a proton).
 
