@@ -90,3 +90,58 @@ Today **only the single scalar `T^0x` exists**: `field_momentum_x` returns `P_x 
 - **Why this is the exemplar (per the identity-break leaf's vacuous-detector knife, `identity-break-test-design.md`):** the gate is **not** a conservation identity — it reconciles two **independently computed** objects (a hand-assembled constitutive `σ` vs the autodiff force) that agree ONLY if the stencil is substrate-native. A Cartesian-stencil `σ` will **fail** the gate on any configuration with non-trivial `σ^A`; that failure is the certificate. **No PASS may be booked off a tautology** (e.g. differentiating the same `E` twice).
 
 > **★ Flag F1 (grounding-card refinement, flag-don't-fix).** Grounding-card receipt R5 wrote `T^0x = −∫(∂_tV)(∂_xV)/c²`. The **live code divides by `c_eff²(V)`** (the Op14-saturated local speed, `c_eff_squared(self.V)`), **not** the constant `c²`. This is load-bearing: at the envelope where `S(A)→0`, `c_eff²` departs sharply from `c²`, so the momentum flux must weight by the **local clock**, not the bare vacuum speed (local-clock-modulation discipline). The `T^ij` build inherits this weighting; a `c²`-weighted flux would misread the envelope. Recorded as a receipt refinement, not a card failure.
+
+## §3 · THE FOUR CONSUMERS (each with its acceptance test)
+
+The ONE build (§2) is pulled by four arcs. Each freezes its **own** prereg at its **own** arc; this charter names the consumer, its regime/sector, its acceptance test, and (in §4) its frozen-bin candidates + fool-modes. **The build lands first; the consumers fire staggered** (§5).
+
+### (a) X44b — the faithful Komar test
+
+**Regime/sector:** A1 dilatation / gravity; static, **force-balanced (virialized)** family; **linear-ε clock** (cold-linear). Consistency-class (certification of the latent `#86` M_eff-vs-far-field gap).
+
+**What it is.** X44 (`research/2026-07-12_x44-komar-source_result.md`) tested a **density-only `√S` weight** and banked **frozen bin (iii) UNRECONCILED** (`η_mixed = +1.05`, O(1), resolution-stable). Its §5b/§7 named *why*, and named the completion path (escalation option 5 = **X44b**). The three ingredients it found absent/mismatched, now supplied by the T_ij register:
+
+1. **A linear-in-ε clock weight** — the engine's OWN gravitational redshift register `n = 1 + (2/7)ε` (`backreaction.py:647-651`), **NOT** the EM operating-point quadratic `√S` (the #652 wrong-register lesson: `√S` is the EM-transverse register, `n_eff`-overload; `research/2026-07-12_x44-komar-source_result.md:126-138`).
+2. **The `+3∫p` Tolman/stress term** — supplied by the new register's `T_rr` (consumer (d)) and full `σ_ij`. Structurally absent before: `gaussian_blob` is a bare prescribed scalar `T₀₀` with no `T_{ij}` companion (`:151-155`).
+3. **A force-balanced (virialized) test family** — a self-consistent hydrostatic source, NOT the prescribed `gaussian_blob` (which is not force-balanced).
+
+**★ SOURCE-side theorem-target (Grant-walked, framing §3).** Bound transverse content carries the **radiation equation of state `p = u/3`**. A Komar/Tolman source weights `(ρ + 3p)`, so pure wave content contributes `(ρ + 3·u/3) = ρ + u` — a **factor-2 doubling for the wave part**. This is the *same* factor-2 as the derived light-deflection doubling: light couples to the transverse Cosserat-shear index `n_⊥ = 1 + (2/7)χ_vol → 4GM/bc²` (the observed 1.75″), bridged by `z = (n_temporal − 1)/2` — a propagating signal picks up 2× the local clock (`temporal-spatial-lattice-decomposition.md:26,28`, re-verified; note the W1 walk-back: deflection is the (2/7) transverse index, **not** `n_spatial`, which would give 18GM/bc²). **This is a THEOREM-TARGET, not a result** — the claim owed is that the envelope's wave-side `T_rr`, fed through the Komar source, reproduces the deflection doubling *from the source side*. FORM-class (a factor-2, not a magnitude).
+
+**Acceptance test.** On a **virialized** family (residual force per node < the gate tol of §2.3), compute `η_mixed = slope(m_g/M_eff − 1 vs f)` under the linear-ε clock, **with and without** the `+3∫p` term:
+- **without `+3∫p`:** the ladder predicts `η ≈ −1` (the linear-clock overshoot: `∫ρφ = 2W = −2U`, `:140-145`).
+- **with `+3∫p` (`= +U` by the static virial):** the ledger closes to `M − U` ⇒ **`|η| < 1e-3`** (RECONCILE).
+Unlike X44, **reconcile is STRUCTURALLY REACHABLE**, so a miss is a **real falsification of RULED (c)** — not a regime artifact (`:198-215`, §4b). PASS = the ladder rung `η ≈ −1 → 0` is traversed *by adding the computed stress term*, not by tuning.
+
+### (b) THE ENVELOPE-EIGENMODE GATE (Grant's balance≡yield conjecture)
+
+**Regime/sector:** A1 + T2 at the electron's envelope; cold-linear eigenmode + Op14-saturated wall; **RADIUS-DISCRIMINATING**. **Discovery-class either way.**
+
+**What it is.** Read `σ_ij` on **both sides of the electron's envelope** and locate two surfaces independently: the **stress-balance locus** (where the register's `σ_ij` is opposite-but-equal across the envelope) and the **strain-yield locus** (the `A_yield` / `S(A)→0` level-set). Grant's conjecture (framing continuation (a.4), ★QUARANTINE): *yield derives from opposite-but-equal stresses balancing across the envelope, and that balance-locus ≡ the `A_yield` level-set* — i.e. **they coincide.**
+
+> **★ Flag F3 (flag-don't-fix — a live contradiction the gate adjudicates).** Grant's balance≡yield conjecture (**they coincide**) contradicts the **corpus's accepted radius numbers**, which put the two surfaces **~10× apart**:
+> - **balance locus** = the hollow-vortex binding equilibrium `R* = Γ/√σ ≈ 1.6 ℓ_node` (electron/reduced-Compton scale; `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49`);
+> - **yield floor** = the Wall-A ropelength floor `ℓ_node/(2π) ≈ 0.159 ℓ_node` (the `S(A)→0`/`A_yield` ground-state surface; `_orchestration/2026-07-10_rulings-docket.md:522-538`, `606`).
+> - ratio `1.6 / 0.159 ≈ 10.06`.
+>
+> Both file paths recorded verbatim; **not silently reconciled** (Grant adjudicates). Rider: the `1.6` is itself **DIMENSIONALLY-FORCED / soft** — "a consistency check, not a discriminating test" (`hollow-vortex-binding.md:133`) — so a "two walls" verdict rests on a soft number, and a "coincide" verdict means one of the two accepted numbers is wrong.
+
+**Acceptance test (RADIUS-DISCRIMINATING; the gate must let "two walls" win).** Report `R_balance` (σ_ij opposite-equal crossing) and `R_yield` (the `A²=2α` / `S→0` level-set) as **independent** dimensionless radii in `ℓ_node` units, with the §2.3 grid-resolution uncertainty. Bins: **COINCIDE** (`|R_balance − R_yield| < 2·Δgrid` ⇒ balance≡yield **confirmed**, and one of `{1.6, 0.159}` is thereby wrong — a discovery) / **TWO-WALLS** (`R_balance ≈ 1.6`, `R_yield ≈ 0.159`, ~10× apart ⇒ only the gap-closing model is rejected; balance and yield are distinct surfaces) / **INCONCLUSIVE**. **The gate must be built so TWO-WALLS is winnable** — it must NOT force coincidence. *Discovery either way.*
+
+### (c) CENSUS STAGE-2 — the self-consistency audit
+
+**Regime/sector:** A1 imposed wall + T2 interior mode; the settled-radius eigenmode. Consistency-class; **the ONLY outcome class that re-opens D3 is a Stage-2 balance failure** (`research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md`, §5 D3-movement map).
+
+**What it is.** The cavity-census Stage-1 (FROZEN prereg, branch `analysis/cavity-census-stage1`) imposes a `Γ=−1` TIR wall and reads **existence-given-boundary** (which winding class is the ground-state closure). **Stage 2 (task #45) rides THIS register:** at the census-settled radius `R_wall`, compare the **mode-stress** (`σ_ij` of the interior eigenmode the census found) against the **lattice-stress** (the `σ_ij` the imposed wall applies) — the self-consistency the static-wall Stage-1 explicitly does NOT test (Stage-1 Fence 2: "self-consistency is Stage 2").
+
+**Acceptance test.** At `R_wall`, does the mode's own `σ_ij` reach the **yield stress** `σ_yield` at the wall (the ENVELOPE leg: the near-field IS a real yield envelope, not an arbitrary Dirichlet clamp)?
+- **`σ_mode(R_wall) = σ_yield` within tol** ⇒ **SELF-CONSISTENT / ENVELOPE leg supported** (the wall the census imposed is the wall the mode would itself raise).
+- **mismatch requiring interior structure the singularity forbids** ⇒ **RE-OPENS D3** (the one outcome class that genuinely does).
+The read is at the **energy-density peak of the shell** (density-peak sampling, not centroid — a shell's centroid is empty), with PML-cell exclusion before any top-K extraction (Rule-10 corollary).
+
+### (d) The electron T_rr — the brace's missing integration
+
+**Regime/sector:** T2/Cosserat winding at its own envelope; cold-static; consistency-class (with an INCONCLUSIVE caveat carried).
+
+**What it is.** The electron brace as derived is a **FORCE, not a pressure**: `B_a = −dU_rot/dr = +L_w²/(m_eff r³)` is energy/length [N], not energy/volume [Pa] (`research/2026-06-30_electron-portmap-derivation_result.md:250-254`; `sign(dF/dr) = sign(3−p)` at `:364-373`). Q2 ruling (★QUARANTINE): the brace **= ⟨Maxwell stress⟩ of the (2,3) winding evaluated at its own envelope**; the general `σ_ij` build manufactures `T_rr` as that special case. **Carry the caveats:** the one force-balance sim was **INCONCLUSIVE** (`r⁻³` not reproduced, `|L_w|` drifts 16–17% under lossless evolution; `research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`); `clm-jwyy6l` "#90 mass IS inductance" is at **solidity 0.30, do-not-build-on** (`manuscript/ave-kb/vol2/claim-quality.md:717`) — rest-mass store is A1, not inductance.
+
+**Acceptance test.** From the register's `T_rr(r)` (read off the eigenmode's OWN stress, **never** the seeded template `ê_w`), reproduce the derived brace: (i) the `r⁻³` scaling of `∫ T_rr dA`, and (ii) feed `+3∫p_electron = +U` (the electron virial `E_elec = E_mag = ½m_e c²`, `research/2026-06-30_electron-portmap-derivation_result.md:489-495`) into consumer (a). **Reactance-pair discipline (Rule-10):** track `L_w` over the recording window; if `L_w` drifts (as in the inconclusive bind-sim), the `r⁻³` read is **INCONCLUSIVE, not a PASS** — the `L_w = const` premise the brace rests on must be satisfied for the read to count. Do NOT build on `clm-jwyy6l 0.30`.
