@@ -32,6 +32,14 @@ path-stable: "the canonical FORM-vs-VALUE organizing-frame leaf; the umbrella un
 > epistemological MECHANISM underneath the FORM/VALUE split; every *per-constant*
 > verdict below remains grounded in its own existing canonical leaf / the interlock
 > register, unchanged.
+>
+> **Review-instrument companion (reciprocal link).** This leaf states the FORM/VALUE
+> *principle*; its review-instrument companion
+> [`identity-break-test-design.md`](identity-break-test-design.md) turns that principle
+> into a **test-design + review discipline** (identity-break tests; the FORM = chord /
+> VALUE = echo review lens). That leaf declares the companionship at its frontmatter +
+> §intro (`identity-break-test-design.md`:6,16-17); this pointer completes the reciprocal
+> link (added 2026-07-13).
 
 ## The principle (one line)
 
