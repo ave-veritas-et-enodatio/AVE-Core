@@ -89,7 +89,9 @@ FRONTIER: conserves (resid 8.9e-16), closed-form dev 5.1e-12, `ρ̂(τ₁)=1.00e
 | 5.0 | **8.7742e-02** (min) | 9.5642e-01 | 1.0e-15 | ✓ | 5.3e-11 | 1.111e-02 |
 | 10.0 | 1.4491e-01 | 9.8839e-01 | 8.9e-16 | ✓ | 7.6e-12 | 1.234e-04 |
 
-**min_κ D[ON,FRONTIER] = 0.0877 (κ=5) — > tol_form=0.01.** min_κ D[ON,Λ] = 0.0737 (κ=0.1).
+**min_κ D[ON,FRONTIER] = 0.0877 (κ=5) — > tol_form=0.01.** min_κ D[ON,Λ] = 0.0737 (κ=0.1) —
+**scan-edge value (argmin at the smallest frozen grid point); the infimum over κ is 0** (κ→0 collapses
+ON onto Λ identically). See the NON-FROZEN Λ-degeneracy boundary map, §6.1, for the quantified limits.
 
 ### 3.2 DECORR_H_FROZEN (H frozen const, n_matter falls)
 
@@ -136,13 +138,13 @@ FRONTIER: conserves (resid 8.9e-16), closed-form dev 5.1e-12, `ρ̂(τ₁)=1.00e
 ## 4 · Audit / gate outcomes (four charter audits — honest PASS + plant TRIP)
 
 Each gate reads the **evolved trajectory**; a sabotage plant (a modified transfer/booking
-law integrated through the same ODE) trips it. All are test-locked in `src/tests/test_f6_tier1_ledger.py` (28 tests, all pass).
+law integrated through the same ODE) trips it. All are test-locked in `src/tests/test_f6_tier1_ledger.py` (30 tests, all pass).
 
 | Gate (CHARTER) | Honest law | Sabotage plant | Plant result |
 |---|---|---|---|
 | **IMPOSED-LEAK** — conservation booking (§iii) | resid ~1e-15 ≤ tol_cons ✓ | `plant_imposed_leak(η=0.5)` (bath gains ½ of source loss) | resid ≫ tol_cons → **trips** (bin ii) |
 | **TRILINEAR-PUMP** — bounded-norm (§v) | ρ̂ monotone↓, total bounded ✓ | `plant_trilinear_pump(c=10)` (+c·ρ̂·Ê fed to both) | total norm runs away, `success=False` → **trips** |
-| **MAGNITUDE-TUNE** — input-provenance (§4.3/§4.4) | D invariant under input rescale (spread **8.1e-13**) ✓ | `plant_magnitude_tune_score` (un-normalized ρ_DE(τ₁) vs fake ρ_Λ) | score changes under rescale → **trips** |
+| **MAGNITUDE-TUNE** — input-provenance (§4.3/§4.4) | clause (b) **both** `D[ON,FRONTIER]` **and** `D[ON,Λ]` invariant under input rescale (spreads ≤ 8.1e-13); clause (a) `gate_input_provenance` asserts `ρ_latent(t₀)==RHO_LATENT_INPUT` exactly ✓ | `plant_magnitude_tune_score` (un-normalized ρ_DE(τ₁) vs fake ρ_Λ) **and** a clause-(a) tuned-input run | score changes under rescale / tuned input `≠ RHO_LATENT_INPUT` → **both trip** |
 | **DIODE-RESURRECTION** — mechanism-class (§iv) | reconstructed `g_eff` = declared `κ·n̂_B`, `rel_dev ≤ 1e-3` ✓ | `plant_diode_deadzone(ρ_f=0.5)` (drain freezes below ρ_f) | `g_eff` jumps, `rel_dev=0.42` → **trips** |
 
 The IMPOSED-LEAK **reach limit** (CHARTER §iii) is recorded, not fixed: an honestly-booked
@@ -229,6 +231,55 @@ run degenerate**, so the a-priori falsification is not a coarse-scan artifact. W
 `tol_form=1e-2`. The falsification is robust to κ-refinement and window choice. (Live-fire lens
 `review:live-fire` independently reproduced every shipped `D` with a different solver `scipy.odeint`
 + different quadrature `scipy.integrate.simpson` to max relative Δ = 3.1e-8.)
+
+### 6.1 · Λ-degeneracy boundary — the two-limits map (NON-FROZEN, 2026-07-13; independent-review R1)
+
+**Beyond-frozen-window transparency — no verdict change.** The frozen bins consume `D[ON,FRONTIER]`
+on the frozen window `[1,10]` only; nothing below moves the §1 verdict. This map quantifies *how
+Λ-like the chord is* — the exact quantity the §5.4 adjudication (genuine tier-1 form-existence vs
+wrong-instrument) turns on — so the reader need not derive it. All numbers reproduced by
+`src/scripts/vol_3_macroscopic/f6_tier1_two_reservoir_ledger.py::lambda_boundary_map` (banked in the
+NON-FROZEN key of the results JSON; test-locked in `src/tests/test_f6_tier1_ledger.py::test_lambda_boundary_map_two_limits`).
+**The two-limits map arms Grant's §5.4 call; it does not make it.**
+
+**(a) Weak-κ limit — the chord collapses onto Λ.** The shipped `min_κ D[ON,Λ]=0.0737` is a **frozen-scan
+edge** (argmin at the smallest grid κ=0.1); the true **infimum over κ is 0** (κ→0 shuts the drain off and
+ON ≡ Λ). On the frozen PHYSICAL window, **`D[ON,Λ] ≤ tol_form=1e-2` for all κ ≤ 0.013** (floor
+`D[ON,Λ]=7.67e-4` at κ=1e-3). So at weak slaving the chord IS a bare cosmological constant in this observable.
+
+**(b) Late-window limit — the chord converges onto Λ (window-START sweep, PHYSICAL, κ_fid=2).** The chord's
+separability-from-Λ is anchored to the **drain-turn-on transient**; slide the window to later decades and it
+decays:
+
+| window | D[ON,Λ] | D[ON,FRONTIER] |
+|---|---|---|
+| [1, 10] | 0.7653 | 0.1498 |
+| [3, 30] | 0.3954 | 0.5205 |
+| [10, 100] | 0.1416 | 0.7737 |
+| [30, 300] | 0.0498 | 0.8653 |
+| [100, 1000] | 0.0152 | 0.8997 |
+| [300, 3000] | **0.0051** (≤ tol_form) | 0.9098 |
+| [1000, 10000] | 0.0015 | 0.9133 |
+
+`D[ON,Λ]` crosses `tol_form=1e-2` at window start `τ₀ ≈ 300`: **in any late decade window the chord IS Λ**
+in the homogeneous observable (the CHARTER §1.6 "residual constant → Λ-like at late t", made quantitative),
+while `D[ON,FRONTIER]` rises toward ~0.91.
+
+**(c) Genuine-form-existence limit — at the frontier-best-mimic κ the chord is FAR from Λ (frozen window).**
+Stated with equal prominence:
+
+| History | κ_best (min D[ON,FRONTIER]) | D[ON,FRONTIER] | **D[ON,Λ]** |
+|---|---|---|---|
+| PHYSICAL | 3.28 | 0.0456 | **0.8952** |
+| DECORR_H_FROZEN | 4.13 | 0.0482 | **0.9342** |
+| DECORR_N_FROZEN | 1.37 | 0.0327 | **0.9370** |
+
+**Reading (for §5.4, not adjudicated here):** the chord occupies an intermediate band — it is Λ in the
+weak-κ (a) and late-window (b) limits, and clearly non-Λ (D[ON,Λ] ≈ 0.90–0.94) at the frontier-best-mimic
+κ on the frozen turn-on window (c). Whether the frozen `[1,10]`/κ-scan instrument samples the (c) regime as
+a genuine tier-1 form-existence result, or whether (a)+(b) mean the homogeneous ledger is the wrong
+instrument (chord's real home = DESI/Euclid **spatial** cross-correlation), is the framing call handed to
+Grant/auditor. Implementer surfaces the map; does not decide.
 
 ---
 

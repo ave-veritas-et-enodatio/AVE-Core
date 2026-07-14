@@ -131,7 +131,11 @@ def drain_rate(arm: str, tau, history_fn, kappa: float) -> np.ndarray:
 # conservation is a genuine integrator check (not booked by construction).
 # `booking` / `extra` are sabotage hooks acting on the EVOLVED trajectory.
 # --------------------------------------------------------------------------
-def evolve(arm, history_fn, kappa=0.0, rho0=RHO_LATENT_INPUT, booking=None, extra=None):
+def evolve(arm, history_fn, kappa=0.0, rho0=RHO_LATENT_INPUT, booking=None, extra=None,
+           tau0=TAU_0, tau1=TAU_1, ngrid=N_GRID):
+    # tau0/tau1/ngrid default to the FROZEN window/grid; every frozen-battery call
+    # uses the defaults (behavior byte-identical). The optional args serve ONLY the
+    # NON-FROZEN transparency map (lambda_boundary_map), never a frozen verdict.
     def rhs(tau, y):
         rho, e = y
         g = float(drain_rate(arm, tau, history_fn, kappa))
@@ -144,16 +148,16 @@ def evolve(arm, history_fn, kappa=0.0, rho0=RHO_LATENT_INPUT, booking=None, extr
         return (drho, de)
 
     sol = solve_ivp(
-        rhs, (TAU_0, TAU_1), (rho0, 0.0),
+        rhs, (tau0, tau1), (rho0, 0.0),
         method="RK45", rtol=RTOL, atol=ATOL, dense_output=True,
     )
-    tau_grid = np.linspace(TAU_0, TAU_1, N_GRID)
+    tau_grid = np.linspace(tau0, tau1, ngrid)
     try:
         y = sol.sol(tau_grid)
         rho, e = np.asarray(y[0], float), np.asarray(y[1], float)
     except Exception:
-        rho = np.full(N_GRID, np.inf)
-        e = np.full(N_GRID, np.inf)
+        rho = np.full(ngrid, np.inf)
+        e = np.full(ngrid, np.inf)
     ok = bool(sol.success) and np.all(np.isfinite(rho)) and np.all(np.isfinite(e))
     return tau_grid, rho, e, ok
 
@@ -235,16 +239,36 @@ def gate_mechanism_class(arm, history_fn, kappa, tau, rho) -> dict:
     return {"ok": (rel_dev <= 1e-3), "rel_dev": rel_dev, "max_jump": max_jump}
 
 
+def gate_input_provenance(rho0_used, expected: float = RHO_LATENT_INPUT) -> dict:
+    """MAGNITUDE-TUNE clause (a) (prereg §9.3): the rho_latent(t0) actually used in a
+    verdict run must be byte-identical to the frozen RHO_LATENT_INPUT. Fires on ANY
+    tune toward a fabricated rho_Lambda. This gate consumes the run's real initial
+    value, not a default argument, so it CAN fire."""
+    ok = (float(rho0_used) == float(expected))
+    return {"ok": bool(ok), "rho0_used": float(rho0_used), "expected": float(expected)}
+
+
 def gate_magnitude_invariance(arm, history_fn, kappa, scales=(1.0, 7.3, 1.0e6)) -> dict:
-    """MAGNITUDE-TUNE: every D must be invariant under an arbitrary rescale of the
-    input store (no-magnitude guarantee). D compared against the FRONTIER arm."""
-    ds = []
+    """MAGNITUDE-TUNE clause (b) (prereg §9.3): EVERY D[.,.] must be invariant under an
+    arbitrary rescale of the input store (no-magnitude guarantee). Asserts invariance of
+    BOTH D[ON,FRONTIER] AND D[ON,LAMBDA] (not just the frontier pair). Also reports the
+    clause-(a) input equality on each run (the run used exactly its requested input)."""
+    d_frontier, d_lambda = [], []
+    inputs_exact = True
     for s in scales:
-        tau, rho, _e, _ok = evolve(arm, history_fn, kappa, rho0=RHO_LATENT_INPUT * s)
-        _t, rf, _ef, _okf = evolve("FRONTIER", history_fn, 0.0, rho0=RHO_LATENT_INPUT * s)
-        ds.append(d_form(rho_hat(rho), rho_hat(rf), tau))
-    spread = float(max(ds) - min(ds))
-    return {"ok": (spread <= 1e-12), "spread": spread, "D_values": ds}
+        rho0 = RHO_LATENT_INPUT * s
+        tau, rho, _e, _ok = evolve(arm, history_fn, kappa, rho0=rho0)
+        _t, rf, _ef, _okf = evolve("FRONTIER", history_fn, 0.0, rho0=rho0)
+        _t, rl, _el, _okl = evolve("LAMBDA", history_fn, 0.0, rho0=rho0)
+        d_frontier.append(d_form(rho_hat(rho), rho_hat(rf), tau))
+        d_lambda.append(d_form(rho_hat(rho), rho_hat(rl), tau))
+        inputs_exact = inputs_exact and (float(rho[0]) == float(rho0))
+    spread_f = float(max(d_frontier) - min(d_frontier))
+    spread_l = float(max(d_lambda) - min(d_lambda))
+    return {"ok": (spread_f <= 1e-12 and spread_l <= 1e-12 and inputs_exact),
+            "spread_frontier": spread_f, "spread_lambda": spread_l,
+            "inputs_exact": bool(inputs_exact),
+            "D_frontier": d_frontier, "D_lambda": d_lambda}
 
 
 # --------------------------------------------------------------------------
@@ -328,6 +352,64 @@ def run_battery(kappa_scan=KAPPA_SCAN) -> dict:
     return out
 
 
+def lambda_boundary_map(kappa_fid: float = KAPPA_FID) -> dict:
+    """NON-FROZEN transparency map (beyond the frozen window) — the chord's
+    Lambda-degeneracy boundary, to ARM the RESULT §5.4 adjudication. It does NOT
+    touch any frozen verdict (the frozen bins consume D[ON,FRONTIER] on the frozen
+    window only). Three limits:
+
+    (a) weak-kappa limit: as kappa->0 the ON drain shuts off and ON collapses onto
+        LAMBDA identically, so inf_kappa D[ON,LAMBDA] = 0 (the shipped 'min_kappa'
+        was a frozen-scan edge, not the infimum). Reports the kappa threshold below
+        which D[ON,LAMBDA] <= tol_form on the frozen PHYSICAL window.
+    (b) late-window limit: at fixed kappa_fid, sweeping the window START to later
+        decades, D[ON,LAMBDA] falls (the drain-turn-on transient leaves the window)
+        while D[ON,FRONTIER] rises -> in any late decade window the chord IS Lambda
+        in this homogeneous observable.
+    (c) genuine-form-existence limit: at the frontier-best-mimic kappa (turn-on
+        window) the chord is FAR from Lambda (large D[ON,LAMBDA])."""
+    out: dict = {}
+    H = history_physical
+
+    # (a) weak-kappa Lambda collapse on the frozen PHYSICAL window
+    _t, rL, _e, _ = evolve("LAMBDA", H, 0.0)
+    rhL = rho_hat(rL)
+    ks = np.logspace(-3, 0, 400)
+    d_ol = np.array([d_form(rho_hat(evolve("ON", H, k)[1]), rhL, _t) for k in ks])
+    below = ks[d_ol <= TOL_FORM]
+    out["a_weak_kappa"] = {
+        "D_ON_LAMBDA_floor": float(d_ol.min()), "kmin_scanned": float(ks[0]),
+        "kappa_threshold_le_tol_form": float(below.max()) if below.size else None,
+        "note": "inf over kappa is 0 (kappa->0 => ON == LAMBDA identically)",
+    }
+
+    # (b) window-START sweep (decade windows), kappa_fid, PHYSICAL
+    sweep = []
+    for t0, t1 in [(1, 10), (3, 30), (10, 100), (30, 300), (100, 1000), (300, 3000), (1000, 10000)]:
+        tau, rl, _el, _ = evolve("LAMBDA", H, 0.0, tau0=t0, tau1=t1)
+        _t2, rf, _ef, _ = evolve("FRONTIER", H, 0.0, tau0=t0, tau1=t1)
+        _t3, ron, _eo, _ = evolve("ON", H, kappa_fid, tau0=t0, tau1=t1)
+        sweep.append({"window": [t0, t1],
+                      "D_ON_LAMBDA": d_form(rho_hat(ron), rho_hat(rl), tau),
+                      "D_ON_FRONTIER": d_form(rho_hat(ron), rho_hat(rf), tau)})
+    out["b_window_start_sweep"] = sweep
+
+    # (c) frontier-best-mimic kappa per history -> D[ON,LAMBDA] (frozen window)
+    best = {}
+    fine = np.logspace(-3, 3, 600)
+    for name, hfn in HISTORIES.items():
+        tau, rf, _ef, _ = evolve("FRONTIER", hfn, 0.0)
+        rhf = rho_hat(rf)
+        dof = np.array([d_form(rho_hat(evolve("ON", hfn, k)[1]), rhf, tau) for k in fine])
+        kbest = float(fine[int(np.argmin(dof))])
+        _t4, rl, _el, _ = evolve("LAMBDA", hfn, 0.0)
+        _t5, ron, _eo, _ = evolve("ON", hfn, kbest)
+        best[name] = {"kappa_best": kbest, "D_ON_FRONTIER": float(dof.min()),
+                      "D_ON_LAMBDA": d_form(rho_hat(ron), rho_hat(rl), _t5)}
+    out["c_frontier_best_mimic"] = best
+    return out
+
+
 def _ladder(d: float) -> dict:
     return {f"<= {t:g}": bool(d <= t) for t in THRESHOLD_LADDER}
 
@@ -359,9 +441,25 @@ def main() -> None:
               f"(argmin kappa={h['argmin_kappa']})  "
               f"ladder(min)={_ladder(h['min_D_ON_FRONTIER'])}\n")
 
+    # NON-FROZEN Lambda-degeneracy boundary map (arms RESULT §5.4; no verdict change).
+    lbm = lambda_boundary_map()
+    res["lambda_boundary_map_NONFROZEN"] = lbm
+    print("--- NON-FROZEN Lambda-degeneracy boundary map (transparency; arms §5.4) ---")
+    a = lbm["a_weak_kappa"]
+    print(f"  (a) weak-kappa: D[ON,LAMBDA] floor={a['D_ON_LAMBDA_floor']:.3e} @kmin={a['kmin_scanned']:g}; "
+          f"D[ON,LAMBDA]<=tol_form for kappa<= {a['kappa_threshold_le_tol_form']:.4f}; inf=0 (kappa->0)")
+    print("  (b) window-START sweep PHYSICAL kappa_fid (D[ON,LAMBDA] falls, D[ON,FRONTIER] rises):")
+    for s in lbm["b_window_start_sweep"]:
+        print(f"      window {str(s['window']):>14}: D[ON,LAMBDA]={s['D_ON_LAMBDA']:.4f}  "
+              f"D[ON,FRONTIER]={s['D_ON_FRONTIER']:.4f}")
+    print("  (c) frontier-best-mimic kappa: chord is FAR from LAMBDA:")
+    for name, c in lbm["c_frontier_best_mimic"].items():
+        print(f"      {name:>16} kbest={c['kappa_best']:.3g}  "
+              f"D[ON,FRONTIER]={c['D_ON_FRONTIER']:.4f}  D[ON,LAMBDA]={c['D_ON_LAMBDA']:.4f}")
+
     out_path = Path(__file__).with_name("f6_tier1_two_reservoir_ledger_results.json")
     out_path.write_text(json.dumps(res, indent=2))
-    print(f"[written] {out_path}")
+    print(f"\n[written] {out_path}")
 
 
 if __name__ == "__main__":

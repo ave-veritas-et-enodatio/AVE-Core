@@ -219,5 +219,88 @@
     "H_INFINITY": 2.246561628172611e-18,
     "T_REF_seconds": 4.451246684977059e+17,
     "H_at_t0": 1.497707752115074e-18
+  },
+  "lambda_boundary_map_NONFROZEN": {
+    "a_weak_kappa": {
+      "D_ON_LAMBDA_floor": 0.0007667054097364412,
+      "kmin_scanned": 0.001,
+      "kappa_threshold_le_tol_form": 0.012965281629896682,
+      "note": "inf over kappa is 0 (kappa->0 => ON == LAMBDA identically)"
+    },
+    "b_window_start_sweep": [
+      {
+        "window": [
+          1,
+          10
+        ],
+        "D_ON_LAMBDA": 0.7652892326427354,
+        "D_ON_FRONTIER": 0.14984020221312913
+      },
+      {
+        "window": [
+          3,
+          30
+        ],
+        "D_ON_LAMBDA": 0.3954022116423019,
+        "D_ON_FRONTIER": 0.5204558277519277
+      },
+      {
+        "window": [
+          10,
+          100
+        ],
+        "D_ON_LAMBDA": 0.14161707863650516,
+        "D_ON_FRONTIER": 0.7737373684248989
+      },
+      {
+        "window": [
+          30,
+          300
+        ],
+        "D_ON_LAMBDA": 0.04977637403457286,
+        "D_ON_FRONTIER": 0.8652784053683813
+      },
+      {
+        "window": [
+          100,
+          1000
+        ],
+        "D_ON_LAMBDA": 0.015216519823749098,
+        "D_ON_FRONTIER": 0.8997158222568029
+      },
+      {
+        "window": [
+          300,
+          3000
+        ],
+        "D_ON_LAMBDA": 0.005099635995216058,
+        "D_ON_FRONTIER": 0.9097960281567158
+      },
+      {
+        "window": [
+          1000,
+          10000
+        ],
+        "D_ON_LAMBDA": 0.0015327888332454483,
+        "D_ON_FRONTIER": 0.9133498592305037
+      }
+    ],
+    "c_frontier_best_mimic": {
+      "PHYSICAL": {
+        "kappa_best": 3.279893682192834,
+        "D_ON_FRONTIER": 0.045607418657874786,
+        "D_ON_LAMBDA": 0.8952147112580142
+      },
+      "DECORR_H_FROZEN": {
+        "kappa_best": 4.1307290716596805,
+        "D_ON_FRONTIER": 0.048161516063503704,
+        "D_ON_LAMBDA": 0.9342436696480528
+      },
+      "DECORR_N_FROZEN": {
+        "kappa_best": 1.3652914660858753,
+        "D_ON_FRONTIER": 0.03266607631680759,
+        "D_ON_LAMBDA": 0.9369774246240137
+      }
+    }
   }
 }

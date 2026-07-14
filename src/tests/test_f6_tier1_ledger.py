@@ -25,15 +25,18 @@ from scripts.vol_3_macroscopic.f6_tier1_two_reservoir_ledger import (
     KAPPA_SCAN,
     RHO_LATENT_INPUT,
     TOL_CONS,
+    TOL_FORM,
     closed_form,
     d_form,
     drain_rate,
     evolve,
     gate_bounded_norm,
     gate_conservation,
+    gate_input_provenance,
     gate_magnitude_invariance,
     gate_mechanism_class,
     history_physical,
+    lambda_boundary_map,
     plant_diode_deadzone,
     plant_imposed_leak,
     plant_magnitude_tune_score,
@@ -113,11 +116,28 @@ def test_trilinear_pump_plant_trips_bounded_norm():
 # --------------------------------------------------------------------------
 @pytest.mark.parametrize("hname", list(HISTORIES))
 def test_magnitude_invariance_honest_passes(hname):
-    """Every D is invariant to machine precision under an arbitrary rescale of the
-    input store -- the no-magnitude guarantee."""
+    """Clause (b), WIDENED: BOTH D[ON,FRONTIER] AND D[ON,LAMBDA] are invariant to
+    machine precision under an arbitrary rescale of the input store, and each run
+    used its requested input exactly (clause a, per-run) -- the no-magnitude guarantee."""
     res = gate_magnitude_invariance("ON", HISTORIES[hname], KAPPA_FID)
     assert res["ok"]
-    assert res["spread"] <= 1e-12
+    assert res["spread_frontier"] <= 1e-12
+    assert res["spread_lambda"] <= 1e-12  # D[ON,LAMBDA] invariance now directly asserted
+    assert res["inputs_exact"]
+
+
+def test_input_provenance_clause_a_can_fire():
+    """Clause (a) as a REAL gate (not consumed by a default argument): the verdict
+    run's rho_latent(t0) must be byte-identical to RHO_LATENT_INPUT. The nominal run
+    passes; a run whose input was tuned toward a fabricated rho_Lambda FAILS."""
+    # honest nominal run: the trajectory's initial value IS the frozen input
+    _t, rho, _e, _ = evolve("ON", history_physical, KAPPA_FID)
+    assert gate_input_provenance(rho[0])["ok"]
+    assert gate_input_provenance(rho[0], expected=RHO_LATENT_INPUT)["ok"]
+    # planted tune toward a fake rho_Lambda (10^122-style) -> gate FIRES
+    tuned0 = RHO_LATENT_INPUT * 1.23e-52  # a "match" to some fabricated rho_Lambda
+    _t, rho_t, _e, _ = evolve("ON", history_physical, KAPPA_FID, rho0=tuned0)
+    assert not gate_input_provenance(rho_t[0])["ok"]
 
 
 def test_d_form_is_scale_invariant():
@@ -191,3 +211,29 @@ def test_drain_rate_nonnegative_and_no_sign_branch():
         for arm in ARMS:
             g = drain_rate(arm, tau, hfn, KAPPA_FID)
             assert np.all(np.asarray(g) >= -1e-15)
+
+
+# --------------------------------------------------------------------------
+# NON-FROZEN Lambda-degeneracy boundary map (arms RESULT §5.4; no verdict change).
+# --------------------------------------------------------------------------
+def test_lambda_boundary_map_two_limits():
+    """The two-limits map: (a) weak-kappa and (b) late-window limits are Lambda-
+    degenerate; (c) the frontier-best-mimic kappa is FAR from Lambda. Locks the
+    banked RESULT §6 addendum numbers so they cannot silently drift."""
+    m = lambda_boundary_map()
+    # (a) weak-kappa: crosses tol_form near kappa~0.013 (infimum is 0)
+    thr = m["a_weak_kappa"]["kappa_threshold_le_tol_form"]
+    assert 0.005 < thr < 0.02
+    assert m["a_weak_kappa"]["D_ON_LAMBDA_floor"] < TOL_FORM
+    # (b) window-START sweep: D[ON,LAMBDA] strictly falls, D[ON,FRONTIER] strictly rises
+    sweep = m["b_window_start_sweep"]
+    dol = [s["D_ON_LAMBDA"] for s in sweep]
+    dof = [s["D_ON_FRONTIER"] for s in sweep]
+    assert all(dol[i] > dol[i + 1] for i in range(len(dol) - 1))
+    assert all(dof[i] < dof[i + 1] for i in range(len(dof) - 1))
+    assert dol[0] > TOL_FORM  # turn-on window [1,10]: separable from Lambda
+    assert dol[-1] < TOL_FORM  # late window: chord IS Lambda in this observable
+    # (c) frontier-best-mimic kappa: chord far from Lambda on every history
+    for name, c in m["c_frontier_best_mimic"].items():
+        assert c["D_ON_FRONTIER"] < TOL_FORM * 10  # best mimic ~0.03-0.05
+        assert c["D_ON_LAMBDA"] > 0.8  # but NOT Lambda-like at that kappa
