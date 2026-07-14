@@ -80,6 +80,22 @@ def test_g3b_all_plants_trip_detector_trustworthy():
     assert g["detector_trustworthy"], g
 
 
+def test_g7_per_rung_control_scopes_trust(caplog):
+    """A13: the per-rung positive control validates only where a planted (2,3) reads
+    back. The detector is BLIND at the floor rung (0.16) and conclusively MISREADS at
+    0.5, so detector_trustworthy_rungs must exclude them and include the resolving
+    rungs {1.0, 1.6}."""
+    from ave.solvers.cavity_census import positive_control_battery
+
+    b = positive_control_battery()
+    tr = set(b["trustworthy_rungs"])
+    assert 0.16 not in tr and 0.5 not in tr, ("sub-resolving rungs must NOT be trusted", tr)
+    assert {1.0, 1.6} <= tr, ("resolving rungs must be trusted", tr)
+    # the floor control reads a gate-refused (0,0) on a genuine (2,3) — detector-blind.
+    floor = [c for c in b["per_rung"] if c["R_over_lnode"] == 0.16]
+    assert all(not c["control_passes"] for c in floor), floor
+
+
 def test_g4_alpha_clean_verdict_path():
     """No α-carrier reaches the module's verdict path (the import-guard triad; the
     sphere-leg ABCD reuses the METHOD of radial_eigenvalue, NOT its α-loaded

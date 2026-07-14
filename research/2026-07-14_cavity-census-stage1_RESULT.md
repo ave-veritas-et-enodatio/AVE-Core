@@ -61,8 +61,27 @@ planted (2,3) **and** all three eigenvector-level plant gates trip. Result:
 | **G2 Nyquist-starved** | genuine winding 14 sampled at 10 bins (2.5 samples/period < 10) | Nyquist gate fired ⇒ **INCONCLUSIVE** — **TRIPPED** |
 | **G3 sector-crosswired** | A1 fed into BOTH loops (the genesis-24 double-count fool-mode) | correct **(2,3)** ≠ crosswired **(2,0)** — **TRIPPED** |
 
-**`detector_trustworthy = TRUE`.** The pytest gate suite (`test_cavity_census.py`,
-G0–G6) is green: 7 fast gates + 1 engine_sim cell test, 8/8 pass.
+**`detector_trustworthy = TRUE`** (global flag, single comfortable geometry). The pytest
+gate suite (`test_cavity_census.py`, G0–G6) is green: 7 fast gates + 1 engine_sim cell
+test, 8/8 pass.
+
+**⚠ PER-RUNG SCOPE (A13 — the global flag is NOT a battery-wide license).** A per-rung
+positive control (a genuine planted (2,3) restricted to the actual kept region at each
+rung's geometry) shows the detector validates **only at rungs {1.0, 1.6}**:
+
+| rung | sphere control | horn-torus control | trustworthy? |
+|---|---|---|---|
+| **0.16** | reads (0,0), read_ok=**False** (8-cell box) | reads (0,0), read_ok=**False** | **NO — detector-blind** |
+| **0.5** | reads (0,0), read_ok=**True** | reads (0,2), read_ok=**True** | **NO — conclusively MISREADS a planted (2,3)** |
+| **1.0** | reads **(2,3)**, ok | reads **(2,3)**, ok | **YES** |
+| **1.6** | reads **(2,3)**, ok | reads **(2,3)**, ok | **YES** |
+
+At rungs 0.16/0.5 the detector returns a confident false-negative on a KNOWN (2,3) with
+every frozen gate passing (toroidal amplitude starvation on the sub-resolving box; the
+dual counters share the corrupted input). `detector_trustworthy` is therefore scoped to
+`detector_trustworthy_rungs = {1.0, 1.6}` — exactly the rungs carrying the verdict's
+gated LA-fundamental reads (§2). Rungs 0.16/0.5 carry **no** trustable winding information
+in either direction (INSTRUMENT-INCONCLUSIVE).
 
 ---
 
@@ -259,11 +278,19 @@ evolver, 300 steps), the (2,3) does **not** live as a conserved closed time-orbi
 winding read is **(−1,−1)**, not (2,3). Verbatim: *"the (2,3) does NOT live as a
 conserved closed time-orbit in the conservative coupling (failing: is_2_3); the negative
 DEEPENS (real-space AND phase-space null). Retract-not-refill: does NOT walk back
-charge=Link(∂Ω,F)."* This **removes the cold-linear regime-artifact escape hatch** for
-the winding question at this operating point: the (2,3) fails to emerge in the driven
-leg too. **Scope-honest:** this is a **single-operating-point spot-check** (the historical
-#417 negative re-confirmed at census scale), not a full driven battery — a complete
-driven/self-consistent sweep is Stage-2.
+charge=Link(∂Ω,F)."*
+
+**⚠ SCOPE CORRECTION (A15).** The earlier claim that this "removes the cold-linear
+regime-artifact escape hatch" is **rescoped**: this driven leg has **NO imposed cavity
+wall** (it routes `PhaseSpaceWindingConfig → run_phase_space_winding`, bypassing
+`build_masked_H`, the only site applying the Γ=−1 Dirichlet cavity) and runs on the
+unwalled periodic lattice with the winding DOF frozen in ê_w and `ω_b=ω_s=1.0`, so the
+read `(−1,−1)` is the **common LC carrier ratio by config**, not an emergent (2,3). It
+therefore **re-confirms the #417 PERSISTENCE-null on the unwalled seeded orbit at one
+operating point**; it does **NOT** interrogate boundary-**emergence** (whether an imposed
+wall induces the winding — the census's registered question). A walled-driven battery is
+**Stage-2 (unrun)**. The cold-null's ARTIFACT-eligibility is therefore **not** closed by
+this leg — see §B-1.
 
 ---
 
@@ -490,6 +517,38 @@ real_frac>0.85; `real_frac` is reported only as seed-dependent context
 (`eigvec_real_fraction_seed_dependent`), never as a data column or a sole gate. The
 seed-STABLE invariants are: amplitude-starvation (from `angular_fill`), degeneracy, and the
 R=1.6 gated `(0,0)` (reproduced across 4 draws).
+
+**A13 (2026-07-14, review-repair) — PER-RUNG positive controls; `detector_trustworthy`
+scoped to the rungs where the control passes.** The frozen positive control (`G0`) validated
+one comfortable geometry (`R_cells=12` ≈ rung 1.5). Live-fire per-rung (plant a genuine
+(2,3) restricted to the actual kept region): the detector reads `(2,3)` cleanly at rungs
+{1.0, 1.6} but is **detector-blind at 0.16** (reads (0,0), read_ok=False on the 8-cell box)
+and **conclusively MISREADS at 0.5** (reads (0,0)/(0,2) with read_ok=**True** — every frozen
+gate passes on the wrong integer, because the dual counters share the amplitude-starved
+input). `positive_control_battery` now emits `detector_trustworthy_rungs = {1.0, 1.6}`; the
+winding cells at 0.16/0.5 are **INSTRUMENT-INCONCLUSIVE** regardless of what they read. The
+verdict's gated LA-fundamental evidence lives at exactly the validated rungs.
+
+**A14 (2026-07-14, review-repair) — floor-cell detector-blindness; NO engine-representable
+positive control exists in the cold-linear leg.** At the R=0.16 battery geometry a genuinely
+planted (2,3) reads the SAME gate-refused `(0,0)` the earlier RESULT quoted as "trivial
+(0,0)" — the floor cell has **zero discriminating power** (an 8–32-cell interior sub-resolves
+any (p,q)). More broadly, the ONLY (2,3)-reading input demonstrated anywhere is a SYNTHETIC
+analytic field; the canonical seeded electron reads a CONCLUSIVE `(0,0)` through the pipeline
+(the detector fences off ê_w — the tautology the census forbids — and the real-symmetric-
+up-to-gauge H carries no emergent inter-sector phase). So **no engine-representable positive
+control can exist in the cold-linear leg**: the leg is INSTRUMENT-INCONCLUSIVE for a
+(2,3)-vs-(0,0) by construction — which is exactly why Stage-2 driven is load-bearing. The
+verdict "NO (2,3) emergence" stands as an honestly-scoped **cold-linear-leg** result.
+
+**A15 (2026-07-14, review-repair) — driven-ping is UNWALLED and reads the common LC carrier;
+it re-confirms #417, it does not test boundary-emergence.** See §6. The driven leg routes
+`PhaseSpaceWindingConfig → run_phase_space_winding`, bypassing `build_masked_H` (the only
+imposed-cavity-wall site), so it runs on the unwalled periodic lattice with ê_w frozen and
+`ω_b=ω_s=1.0` ⇒ the read `(−1,−1)` is the config carrier ratio. It re-confirms the #417
+persistence-null at one operating point; a walled-driven battery (the actual boundary-
+emergence test) is Stage-2, unrun. The "removes the escape hatch" claim is rescoped
+accordingly; the cold-null ARTIFACT-eligibility is NOT closed by this leg.
 
 ---
 

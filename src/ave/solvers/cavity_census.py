@@ -699,6 +699,16 @@ def floor_test(sim, N: int, R_over_lnode: float, mode_resolvable: bool) -> dict:
 # Frozen basis: §6 item 1 "the plant-firing gates"; §0.4 (ê_w used ONLY as the
 # planted-winding gate's positive control); §4 bin-firing. (There is NO frozen §6(f);
 # the earlier "§6 f" citation was phantom — verify-before-cite, corrected 2026-07-14.)
+#
+# SCOPE NOTE (A14): the positive controls below plant a SYNTHETIC analytic eigenvector
+# (blob·e^{ipφ}, blob·e^{iqψ}). They validate the DETECTOR (arg-winding extraction),
+# NOT the full pipeline on a physical engine state — and NO engine-representable state
+# can read (2,3) through this pipeline in the cold-linear leg: the canonical seeded
+# electron reads a CONCLUSIVE (0,0) here (the detector deliberately fences off ê_w, the
+# tautology the census forbids), and the exactly-Hermitian real-symmetric-up-to-gauge H
+# cannot carry emergent inter-sector phase texture. So the cold-linear leg is
+# INSTRUMENT-INCONCLUSIVE for a positive (0,0)-vs-(2,3) by construction; this is exactly
+# why Stage-2 driven is load-bearing for the emergence question.
 # ═════════════════════════════════════════════════════════════════════════════
 def _blob(N: int, sigma: float = 3.0) -> np.ndarray:
     r = _radius_field(N)
@@ -728,6 +738,49 @@ def gate_positive_control(N: int = 40, shape: str = "horn_torus", R_cells: float
     return {"gate": "positive_control", "planted": (p, q), "read": w["pq"],
             "read_ok": w["read_ok"], "reads_planted": reads_pq,
             "ok": bool(reads_pq and w["read_ok"])}
+
+
+def gate_positive_control_at_rung(shape: str, R_over_lnode: float, p: int = 2, q: int = 3,
+                                  N: int | None = None) -> dict:
+    """PER-RUNG positive control (review-repair A13). Plants a genuine two-sector (p,q)
+    restricted to the ACTUAL cavity kept-region at this rung's geometry (shape_mask ∩
+    PML-excluded — the same region the census reads), then reads it back. The census
+    detector is only trustworthy at a rung where THIS control passes. The review found
+    the detector conclusively MISREADS a planted (2,3) at rungs ≤ 0.5 (returns (0,0)/
+    (0,2) with every frozen gate passing — toroidal amplitude starvation on the sub-
+    resolving box), so a single comfortable-geometry control (the default gate_positive_
+    control at R_cells=12) is NOT a battery-wide license."""
+    N = N or autosize_N(R_over_lnode)
+    R_cells = R_over_lnode * ELL_NODE_CELLS
+    a1, bw = _planted_two_sector_field(N, shape, R_cells, p, q)
+    keep3d = _pml_excluded(N, 3) & shape_mask(shape, N, R_cells)
+    mask = keep3d & ((np.abs(a1) + np.abs(bw)) > 0)
+    w = winding_canonical(a1, bw, shape, R_cells, mask=mask)
+    reads_pq = bool(w["pq"] in [(p, q), (q, p)])
+    return {"shape": shape, "R_over_lnode": R_over_lnode, "N": N,
+            "planted": (p, q), "read": w["pq"], "read_ok": w["read_ok"],
+            "reads_planted": reads_pq, "n_keep": int(mask.sum()),
+            "control_passes": bool(reads_pq and w["read_ok"])}
+
+
+def positive_control_battery(rungs=R_LADDER[:4], shapes=("sphere", "horn_torus"),
+                             n_cap: int = 60) -> dict:
+    """Run the per-rung positive control across the battery geometries and return the
+    list of rungs at which the control PASSES (both shapes). `detector_trustworthy`
+    must be scoped to these rungs (A13); a null at a rung where the control FAILS
+    carries no trustable winding information in either direction."""
+    per = []
+    trustworthy = []
+    for R in rungs:
+        oks = []
+        for shape in shapes:
+            c = gate_positive_control_at_rung(shape, R, N=autosize_N(R, cap=n_cap))
+            per.append(c)
+            oks.append(c["control_passes"])
+        if all(oks):
+            trustworthy.append(R)
+    return {"per_rung": per, "trustworthy_rungs": trustworthy,
+            "rungs_tested": list(rungs)}
 
 
 def gate_planted_geometric_only(N: int = 40, shape: str = "horn_torus",
@@ -798,17 +851,28 @@ def gate_sector_crosswired(N: int = 40, shape: str = "horn_torus", R_cells: floa
             "crosswired_pq": crosswired_pq, "tripped": tripped}
 
 
-def run_plant_gates() -> dict:
-    """All plant gates + the positive control. The census verdict is UNTRUSTED
-    unless the positive control passes AND all three plant gates trip."""
+def run_plant_gates(per_rung: bool = True) -> dict:
+    """All plant gates + the positive control(s). The census verdict is UNTRUSTED
+    unless the positive control passes AND all three plant gates trip.
+
+    detector_trustworthy is a GLOBAL flag (single comfortable geometry). It is NOT a
+    battery-wide license: the review showed the detector conclusively misreads a
+    planted (2,3) at the sub-resolving rungs. `detector_trustworthy_rungs` (from the
+    per-rung control battery, A13) is the geometry-scoped trust set — the ONLY rungs
+    at which a winding read carries trustable information in either direction."""
     pos = gate_positive_control()
     g1 = gate_planted_geometric_only()
     g2 = gate_nyquist_starved()
     g3 = gate_sector_crosswired()
     all_trip = bool(g1["tripped"] and g2["tripped"] and g3["tripped"])
-    return {"positive_control": pos, "planted_geometric_only": g1,
-            "nyquist_starved": g2, "sector_crosswired": g3,
-            "detector_trustworthy": bool(pos["ok"] and all_trip)}
+    out = {"positive_control": pos, "planted_geometric_only": g1,
+           "nyquist_starved": g2, "sector_crosswired": g3,
+           "detector_trustworthy": bool(pos["ok"] and all_trip)}
+    if per_rung:
+        pcb = positive_control_battery()
+        out["positive_control_battery"] = pcb
+        out["detector_trustworthy_rungs"] = pcb["trustworthy_rungs"]
+    return out
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -1015,11 +1079,18 @@ def cold_cavity_reflection_winding(shape: str, R_over_lnode: float, N: int | Non
 # 10. DRIVEN-PING SPOT-CHECK (secondary regime) — reuse phase_space_winding
 # ═════════════════════════════════════════════════════════════════════════════
 def driven_ping_spotcheck(N: int = 24, R_cells: float = 8.0, n_steps: int = 300) -> dict:
-    """The driven (secondary) regime spot-check: does the (2,3) emerge as a
-    conserved closed time-orbit under the conservative evolver at census scale? This
-    reuses the canonical-locus orbit test (phase_space_winding); a BREAK here (reads
-    the LC carrier ratio, not (2,3)) confirms the cold-linear null is regime-robust,
-    not a cold artifact (the historical #417 negative, re-confirmed at census scale)."""
+    """The driven (secondary) regime spot-check on the SEEDED conservative orbit.
+
+    SCOPE (review-repair A15). This leg has **NO imposed cavity wall** — it routes
+    PhaseSpaceWindingConfig → run_phase_space_winding, which does NOT go through
+    build_masked_H (the only site that applies the imposed Γ=−1 Dirichlet cavity),
+    so it runs on the unwalled periodic lattice at a1_amplitude=0.60 (the #417 front
+    point), not the census a1_amplitude=0.999. The winding-carrying ω-direction DOF
+    is frozen in ê_w (rigid_template) and ω_b=ω_s=1.0 (config), so the read (−1,−1)
+    is the COMMON LC CARRIER ratio, not an emergent (2,3). This therefore
+    RE-CONFIRMS the #417 PERSISTENCE-null on the unwalled seeded orbit at ONE
+    operating point; it does NOT interrogate boundary-EMERGENCE (whether an imposed
+    wall induces the winding). A walled-driven battery is Stage-2 (unrun)."""
     from ave.solvers.phase_space_winding import (
         PhaseSpaceWindingConfig,
         run_phase_space_winding,
@@ -1029,7 +1100,9 @@ def driven_ping_spotcheck(N: int = 24, R_cells: float = 8.0, n_steps: int = 300)
     res = run_phase_space_winding(cfg)
     return {"verdict": res["verdict"], "reason": res.get("reason", ""),
             "winding_pq": res.get("stage_b", {}).get("winding_pq", "n/a"),
-            "regime": "driven-ping (conservative orbit)"}
+            "regime": "driven-ping (UNWALLED seeded conservative orbit; common LC carrier)",
+            "scope": "re-confirms #417 persistence-null at one operating point; NO imposed "
+                     "cavity wall ⇒ does NOT test boundary-emergence (walled-driven = Stage-2)"}
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -1071,6 +1144,10 @@ def run_battery(rungs_3d=(0.16, 0.5, 1.0, 1.6, 3.0),
     out = {
         "plant_gates": plant,
         "detector_trustworthy": plant["detector_trustworthy"],
+        # A13: winding reads carry trustable information ONLY at these rungs (the
+        # per-rung positive control passes). Rungs 0.16/0.5 are detector-blind /
+        # conclusively-misreading — their winding cells are INSTRUMENT-INCONCLUSIVE.
+        "detector_trustworthy_rungs": plant.get("detector_trustworthy_rungs", []),
         "cells": cells,
         "reflection_map_probe": reflection,
         "sphere_abcd_radial": sphere_abcd,
