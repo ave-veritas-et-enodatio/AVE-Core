@@ -715,7 +715,13 @@ The substrate hosts $\Gamma = -1$ boundaries at every scale where the local satu
 
 🔴 *[node-count column added 2026-07-13 (KEEP-BOTH — the $\ell \sim \ldots$ meters column is preserved unedited): the new "Node count $\ell/\ell_{\text{node}}$" column tabulates the dimensionless scale ratio. Electron $\approx 1$ (by construction) and cosmic $\approx 3.455\times10^{38}$ ($=R_H/\ell_{\text{node}}$) are identities/calibration; nucleus $\approx 2.6\times10^{-3}$ is the sub-node ratio. The atom $1/\alpha \approx 137$ carries **Q-G43 OPEN** (the boundary-identification is open, not the ratio), and solar/BH are **Q-G44 OPEN** / TAG-missing. **Open rows are NOT presented as settled.**]*
 
-**Same mechanism at every row.** Same $K = 2G$ Cauchy isotropy. Same $S(A) = \sqrt{1 - A^2}$ kernel. Same Machian impedance integration machinery. The boundary size and the soliton population change; the substrate physics does not.
+🔴 *[boundary-register tag 2026-07-14 — the six rows conflate FOUR boundary registers under one $\Gamma=-1$ heading; KEEP-BOTH, table unchanged. "Same mechanism" holds for the $\mathcal{M},\mathcal{Q},\mathcal{J}$ observability rule, NOT for what SETS each boundary (the register-discipline "conflation map"):*
+- *__AMPLITUDE LEVEL-SET__ — Electron / Nucleus / Atom: the boundary is where the saturation amplitude hits threshold ($S(A)\to0$, $\Gamma\to-1$). Nucleus confinement is additionally topological ($6_2^3$ linkage); the atom's $\Gamma=-1$ skin is **Q-G43 OPEN**.*
+- *__BALANCE LOCUS / PRESSURE-BALANCE__ — Solar: heliopause ram-balance + Oort $r=\sqrt{GM_\odot/a_0}$ (force/pressure balance sets the scale), **Q-G44 OPEN** (solar boundary not yet identified).*
+- *__COORDINATE RADIUS__ — Black hole / Cosmic: $R_S = R_H = 2GM/c^2$ (a metric locus, not a lattice-amplitude threshold).*
+*So the electron TIR wall (amplitude level-set) and the Schwarzschild/cosmic horizon (coordinate radius) are the same observability object on different boundary registers — do not read "same $\Gamma=-1$ surface" as "same boundary-setting mechanism." Mirrors [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md) §"Same mechanism at all scales".]*
+
+**Same mechanism at every row.** Same $K = 2G$ Cauchy isotropy. Same $S(A) = \sqrt{1 - A^2}$ kernel. Same Machian impedance integration machinery. The boundary size and the soliton population change; **the observability rule** does not — but the boundary-setting register does (see the tag above).
 
 **The multi-scale Machian network** — six concentric scales (electron / nucleus / atom / solar / black hole / cosmic) with each row's boundary identity, internal solitons, and local impedance integral. Atom and Solar rows are marked Q-G43 / Q-G44 OPEN per framework adjudication.
 

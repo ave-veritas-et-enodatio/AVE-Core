@@ -383,6 +383,21 @@ parse it):
 
 ---
 
+## envelope
+<!-- id: def-envl0p -->
+
+- **term:** envelope
+- **adjudicated-meaning:** *(TWO genuine registers under one token — real-space shell vs phasor-gain condition; the A46 phase-space-vs-real-space clarity risk).* **Sense A — real-space SHELL** [spatial-Brillouin]: the physical 3D saturation-boundary shell of a soliton, size set by $\ell_{node}$ (the "boundary envelope" / "body envelope"; = the r_env length, def-088f0d). **Sense B — phasor-GAIN condition** [phase-carrier]: an amplitude/phase condition, NOT a spatial region — the modulation envelope of a `carrier × envelope` decomposition, and the reversible sub-yield $\sqrt{1-A^2}$ saturation-gain envelope. A gain/modulation envelope (Sense B) is a locus in amplitude/phase space; do NOT read it as a real-space shell (Sense A).
+- **axis:** other (spans spatial-Brillouin [A] and phase-carrier [B])
+- **dimension/type:** length (L) [Sense A] vs dimensionless amplitude-gain / envelope function [Sense B]
+- **status:** ambiguous
+- **canonical-home:** Sense A — [`trampoline-framework.md`](trampoline-framework.md):685 ("boundary envelope … size set by $\ell_{node}$") + r_env (def-088f0d); Sense B — [`substrate-hysteresis-index.md`](substrate-hysteresis-index.md):24,136 (reversible sub-yield $\sqrt{1-A^2}$ envelope).
+- **clm-cross-links:** *(none verified-specific yet; cross-node: def-088f0d (r_env, Sense-A length), def-a9eef5 (carrier — the "carrier × envelope" partner), def-69f472 (phase-space))*
+- **open-ambiguity-flag:** YES — the two registers above. **Conflicting sites (conflation-map):** *Sense A (real-space shell)* — `trampoline-framework.md:685` (boundary envelope, $\ell_{node}$-set); `manuscript/vol_2_quantum/chapters/02_baryon_sector.tex:40` ("multi-node body envelope"); `src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py:77` ("real-space envelope"). *Sense B (phasor-gain)* — `vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md:56,59` ("Gaussian envelope × sinusoidal carrier"); `substrate-hysteresis-index.md:24,27,136` ("reversible reactive envelope", "the smooth $\sqrt{1-A^2}$ envelope"). The board B4 tension (`trampoline:685` "envelope size set by $\ell_{node}$" vs the nucleus 1 fm = 386× below $\ell_{node}$) is a **Sense-A** reading; it does not touch Sense B.
+- **verification:** VERIFIED 2026-07-14 — both senses live in the corpus at the cited sites (two-method grep). Register-hygiene def-node; adds/retires no `clm-`. Cross-links to the six-scale boundary-register tag (`boundary-observables-m-q-j.md` §"Same mechanism at all scales", where the electron "boundary envelope" is the amplitude-level-set shell).
+
+---
+
 <!-- PROPOSED CANDIDATE — awaiting Grant ratification; NOT yet canonical. Insert this block ABOVE the `## SubstrateExcitation *(proposed)*` heading (the anchor line). status:proposed, GATED on auditor + Grant. Verified 0 prior corpus hits for the surface form 'TKI-transformer' (the only existing 'transformer' object is the SOLITON STRUCTURE of translation-circuit.md §9.2 — see open-ambiguity, do NOT overload). -->
 
 ## TKI-transformer *(proposed)*
