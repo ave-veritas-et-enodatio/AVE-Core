@@ -804,3 +804,24 @@ the census freeze `analysis/cavity-census-stage1` @ `1c362d1d`; the 2026-07-13 r
 360,375,382`, `program-arc-map.md:404`, `research/2026-07-10_collapse-target-registry.md:23,64,317`,
 the four `.tex` bridge files. This continuation records queue-state, not adjudicated physics; nothing
 here canonizes.*
+
+---
+
+## Continuation — 2026-07-14 (batch outcomes-and-actions board)
+
+The 2026-07-14 eight-lane batch (**#686–#693**) has fully **SETTLED** — five MERGED
+(#686/#687/#688/#690/#691), three OPEN + fully-repaired + `[DO-NOT-MERGE][REVIEW:
+pending-orchestrator]` awaiting Grant items (#689/#692/#693); nothing mid-flight. The closing
+**outcomes-and-actions board** lands at
+[`_orchestration/2026-07-14_batch-outcomes-and-actions.md`](2026-07-14_batch-outcomes-and-actions.md):
+§1 the batch ledger (per-PR verdict + review count + repair range), §2 the **8-item Grant
+decision queue** (F6 Komar-clock register BLOCKS the X44b freeze; #689 meter-register +
+enclosure-fork; #692 LA freeze-fidelity → closes the D3 stress-test loop; #693 intervening-cells
+→ gates q-g20f; #691 canonization default-NO; F5 knee-vs-wall at gate-(b) freeze; envelope-LENGTH
+mint still gated on §45 A-vs-B), §3 queued-not-fired follow-on, §4 register-honest meta-lessons.
+**KEEP-BOTH:** every prior continuation + status board above is **byte-unedited**; this row is
+append-only and points at the board. Baseline `origin/main` `25b3b911` (#691 merge); every
+PR#/SHA/verdict/file:line on the board was gh/git-verified this session (verify-before-cite,
+two-method where load-bearing — one brief-number flag surfaced: the "~50/5" finding tally
+undercounts, verified 61 confirmed across the 5 wrapper reviews). Records queue-state, not
+adjudicated physics; nothing here canonizes.*
