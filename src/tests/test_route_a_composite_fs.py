@@ -154,7 +154,10 @@ def test_ablation_rejects_mismatched_d() -> None:
 
 def test_ablation_loading_is_computed_and_small() -> None:
     """The delta_th-loading is the DIFFERENCE of two distinct-kappa splits; it is finite and (empirically)
-    far smaller than the split itself (the split is delta_th-robust). No magic number asserted."""
+    far smaller than the split itself. NOTE (2026-07-14 review): the small loading does NOT establish a
+    fork-adjudicating 'delta_th-robust' verdict -- the delta_th-carrying kappa^2-Skyrme channel is shift-
+    invariant and cancels identically in E_comp - E_bare, so the residual is the r_opt=kappa/5 bound drift;
+    C5 stays OPEN (the ablation is channel-blind). No magic number asserted."""
     warm = split_at("warm", float(constants.KAPPA_FS), D_PRIMARY)
     cold = split_at("cold", float(constants.KAPPA_FS_COLD), D_PRIMARY)
     abl = ablation_loading(warm, cold)

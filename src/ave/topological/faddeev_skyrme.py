@@ -259,6 +259,24 @@ class TopologicalHamiltonian1D:
         # In the held-core region [0, d], φ = π so sin²(φ) = 0 and the Skyrme
         # term vanishes there (the tube's fully-wound core carries no gradient
         # tension) — the surplus comes entirely from the displaced winding shell.
+        #
+        # ⚠ CHANNEL-EXCISION DISCLOSURE (2026-07-14 adversarial review): the
+        # `density` below multiplies skyrme_term by the spherical 4πr² measure,
+        # which cancels its 1/r² EXACTLY, leaving 4π·κ²·0.5·sin²(φ)·dφ_eff² — a
+        # function of φ and dφ/dr with NO explicit r. Under the rigid outward
+        # shift φ(r)=φ_bare(r−d) this κ²-weighted term is therefore SHIFT-
+        # INVARIANT and cancels IDENTICALLY in E_comp − E_bare (it does NOT merely
+        # "vanish on [0, d]" — the WHOLE channel drops out of the difference;
+        # live-fire: Skyrme d-surplus ≈ −7e-7, κ-coupled fraction ≈ −2.8e-8; the
+        # entire threading surplus lives in the κ-FREE kinetic_term above). Since
+        # δ_th enters ONLY through κ (KAPPA_FS = KAPPA_FS_COLD·(1−δ_th)) and κ
+        # appears at just two sites — this quartic coefficient and the
+        # r_opt_max=κ/5 bound in solve_composite_trace — the ablation's δ_th-
+        # loading of the SPLIT is confined to the r_opt-bound residual; the
+        # FS-route (quartic) loading channel is structurally absent from the
+        # difference. => C5 is NOT adjudicable in this 1D shift proxy; the ablation
+        # is CHANNEL-BLIND. A faithful C5 test needs a 3D composite build that
+        # retains the quartic linking channel.
         skyrme_term = 0.5 * (np.sin(phi1) ** 2) / (r**2 + EPS_NUMERICAL)
 
         density = 4 * np.pi * (r**2) * (kinetic_term + (self.kappa**2) * skyrme_term * dphi_dr_eff**2)

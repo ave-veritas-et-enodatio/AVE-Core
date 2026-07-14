@@ -12,12 +12,16 @@ term added to the FS energy integral). **Driver:** `src/scripts/vol_2_subatomic/
 FS instrument, built value-blind per the TBD-pin, **COMPUTES a positive split** (`Δm > 0`, neutron heavier,
 matching observation), but the magnitude **over-predicts the 2× band by ~15×** (`+38.12 m_e` Reading Y /
 `+39.12 m_e` Reading X at the Ax1-floor `d=1.0`, warm κ_FS; target `+2.531 m_e`). **★ The δ_th ablation
-resolves the C5 FORK empirically: the split's δ_th-loading is `+0.042 m_e` — ~0.11% of the split — the split
-is δ_th-ROBUST** (the δ_th softening largely cancels in the composite-minus-bare difference).
+does NOT resolve C5 in this instrument:** the 1D shift proxy has no δ_th channel into the threading surplus
+except the confinement bound, so the split's δ_th-loading is `+0.042 m_e` (~0.11% of the split), **linear in
+δ_th** — a `r_opt=κ/5` bound-drift residual, NOT a substrate adjudication. **C5 stays OPEN** pending an
+instrument that retains the quartic linking channel (the genuinely 3D composite build). The `+0.042 m_e` is
+banked as the proxy's δ_th-sensitivity characterization. [See the "Review findings + repairs (2026-07-14)"
+section for the channel-excision proof.]
 
 ---
 
-## INTERPRETATION-DISCIPLINE (read BEFORE the verdict — frozen in the prereg)
+## INTERPRETATION-DISCIPLINE (read BEFORE the verdict — items 1-2 frozen in the prereg; items 3-4 CORRECTED per the 2026-07-14 review, see the repairs section at the end)
 
 1. **The SIGN and the δ_th-LOADING are the load-bearing observables; the absolute magnitude is the LEAST
    robust.** The 1D radial FS functional is a coarse spherically-symmetric proxy for the composite's true
@@ -29,16 +33,27 @@ is δ_th-ROBUST** (the δ_th softening largely cancels in the composite-minus-ba
    → `1849.70 (+0.7377%)`) stands independently of both δ_th and the neutron construction. Route A touches
    only the split. Nothing about the bare-topology result is affected.
 
-3. **★ The δ_th statement is the ABLATION, not the warm split.** The split's δ_th-loading `Δm(warm) −
-   Δm(cold) = +0.042 m_e` (both readings) is **~0.11% of the split**. **Empirical C5-FORK resolution:** even
-   though the mechanism runs through the δ_th-carrying FS solver (`κ_FS = 8π(1−δ_th)`), the δ_th shift
-   **cancels almost entirely** in the *difference* `E_comp − E_bare` — `I_bare` and `I_comp` both soften by
-   nearly the same amount. So the split is **δ_th-robust**, leaning toward the `:54` linear-elastic-route
-   side of the FORK (δ_th-light), NOT the `:77` FS-route-δ_th-carrying side — **decided by the substrate,
-   not by fiat.** Consequence for the coincidence hypothesis: the split is a **poor δ_th discriminator** (it
-   has almost no δ_th leverage), so the bin-(iii) magnitude miss is a **structural/instrument fact, not a
-   δ_th fact.** The audit-card provenance findings (R3/R7/R10/R12 on the *level* δ_th) stand exactly where
-   the audit left them — the split neither strengthens nor weakens them.
+3. **★ The δ_th ABLATION is CHANNEL-BLIND — it does NOT resolve C5 (RETRACTED per the 2026-07-14 review).**
+   The split's δ_th-loading `Δm(warm) − Δm(cold) = +0.042 m_e` (both readings, ~0.11% of the split) is real
+   and reproduced — but its near-vanishing is a **structural identity of the 1D shift rendering, not a
+   substrate verdict.** δ_th enters the composite functional ONLY through `κ_FS` (`κ_FS = 8π(1−δ_th)`,
+   `constants.py:927`), and `self.kappa` appears at exactly two solver sites: the κ²-weighted Skyrme
+   (quartic) term (`faddeev_skyrme.py:264`) and the `r_opt_max = κ/5` confinement bound (`:292`). Under the
+   spherical `4πr²` measure the Skyrme term's `1/r²` cancels **exactly**, leaving a function of `φ` and
+   `dφ/dr` with no explicit `r` — so it is **shift-invariant** under the rigid shift `φ(r)→φ_bare(r−d)` and
+   cancels **identically** in `E_comp − E_bare` (live-fire decomposition at the shipped minimizer: kinetic
+   d-surplus `+24.1387` (κ-FREE), Skyrme d-surplus `−7e-7`, κ-coupled fraction `−2.8e-8`; bare and composite
+   minimizations corner-pinned at the SAME argmin `[4.99017, 1.0]`). δ_th's ONLY surviving path into the
+   split is the `r_opt_max = κ/5` **bound drift** (perturbation probe: `δ_th×3 → loading ×3.04`,
+   `δ_th×10 → ×10.6` — linear-and-tiny through the bound). So **the 1D shift proxy has no δ_th channel into
+   the threading surplus except the confinement bound; loading through that residual is `+0.042 m_e`, linear
+   in δ_th — a bound-drift floor, NOT the FS-route (`:77`) loading the δ_th-carrying side of C5 needs.**
+   **C5 stays OPEN** pending an instrument that retains the quartic linking channel (the genuinely 3D
+   composite build); the `+0.042 m_e` is banked as the proxy's δ_th-sensitivity characterization, NOT as a
+   fork resolution. Consequence: the split is a **poor δ_th discriminator by construction** (the loading
+   channel is excised), so the bin-(iii) magnitude miss is a **structural/instrument fact, not a δ_th fact.**
+   The audit-card provenance findings (R3/R7/R10/R12 on the *level* δ_th) stand exactly where the audit left
+   them — the split neither strengthens nor weakens them.
 
 4. **The sign is now COMPUTED, not just structurally argued.** The n–p gate forced the sign by a
    δ_th-free positivity argument (rest mass ≥ 0 + Ax1 strain ≥ 0) and the β-decay-downhill floor. Route A
@@ -72,15 +87,20 @@ weights the displaced winding shell more, so the elastic-expansion surplus is po
 the canon-forced rendering. **This matches observation** (the neutron IS heavier) and is a mechanism-level
 confirmation of the n–p gate's δ_th-free sign sub-finding.
 
-### δ_th-loading (the C5 resolution): **`+0.042 m_e` (≈ 0.022 MeV, ≈ 0.11% of the split).** The split is δ_th-ROBUST.
+### δ_th-loading (C5 stays OPEN — the ablation is channel-blind): **`+0.042 m_e` (≈ 0.022 MeV, ≈ 0.11% of the split)** — a bound-drift residual, not a fork resolution.
 
 | observable | Reading X | Reading Y | no-feedback |
 |---|---|---|---|
 | `Δm(warm) − Δm(cold)` | `+0.04218 m_e` | `+0.04218 m_e` | `+0.02671` (raw ΔI) |
 
 (The `+1.000 m_e` threaded-electron rest mass is κ-independent, so it cancels in the difference — X and Y
-loadings are identical.) **This is the resurrected δ_th second shot, fired:** the split rides δ_th at the
-~0.1% level; the difference measurement de-sensitizes δ_th (both `I_bare` and `I_comp` soften together).
+loadings are identical.) **This is the resurrected δ_th second shot, fired — but into a CHANNEL-BLIND
+instrument:** the κ²-weighted Skyrme term (the ONLY δ_th-carrying channel, since δ_th enters only via κ) is
+shift-invariant under the rendering and cancels **identically** in `E_comp − E_bare`, so the `+0.042 m_e` is
+the residual `r_opt = κ/5` bound drift, not a genuine FS-route loading. It is a mischaracterization to say
+the difference "de-sensitizes δ_th" by physical near-cancellation — the δ_th-carrying term is *structurally
+absent* from the surplus by an exact measure-cancellation identity of the 1D shift ansatz. **C5 is NOT
+adjudicated by this proxy — it stays OPEN.**
 
 ---
 
@@ -92,7 +112,7 @@ loadings are identical.) **This is the resurrected δ_th second shot, fired:** t
 | **C2** | threading-lock coupling term | Folded into the boundary displacement — NO separate constant. | ENGINEERING-CHOICE (minimal, non-mint); `:25` names a single "elastic-expansion tension" mechanism. |
 | **C3** | cage stiffness + displacement `d` | Stiffness = the FS functional's own tension (no new constant); `d = 1.0 ℓ_node` (Ax1 floor). | `d=1.0` from **Ax1** (`:25`); `:54` FLAGS the ℓ_node-expansion premise "not established" → disclosed `d`-sweep `{0.5,1,1.5,2}`, `d=1.0` frozen primary (NOT tuned). |
 | **C4** | mass-accounting X vs Y | Reported BOTH; both land bin (iii). | Disclosed FORK (`proton-neutron-mass-split.md:10`); not a tuning choice. |
-| **C5** | δ_th softening of composite | **RESOLVED EMPIRICALLY by the ablation:** loading `+0.042 m_e` → δ_th-robust (leans linear-elastic-route). | Substrate adjudicated the FORK; no fiat. |
+| **C5** | δ_th softening of composite | **C5-OPEN — NOT adjudicable in this instrument.** Loading `+0.042 m_e` is the `r_opt=κ/5` bound-drift residual; the δ_th-carrying κ²-Skyrme channel is shift-invariant and cancels identically in `E_comp − E_bare`. | The ablation is CHANNEL-BLIND (the `:77` FS-route loading is structurally excised by the 1D shift measure); C5 stays OPEN pending a 3D composite build that retains the quartic linking channel. |
 
 ### `d`-sweep (disclosed robustness ONLY — never a selection mechanism)
 
@@ -171,10 +191,14 @@ designed to announce, and that canonization (which would flip the detector) awai
 The corpus's own TBD-pin, built value-blind, **fires the discriminator the audit card wanted** — and the
 substrate speaks clearly on all three frozen observables: (1) **SIGN** — computed positive, matching
 observation, a mechanism-level confirmation of the n–p gate's δ_th-free sign; (2) **MAGNITUDE** — bin (iii),
-`+38 m_e` (≈ 15× the target), the 1D-radial proxy over-predicts the elastic tension (an instrument-coarseness
-fact, robust to the `d` choice and to the feedback fork); (3) **δ_th-LOADING** — `+0.042 m_e` (~0.11% of the
-split), the split is δ_th-ROBUST, **empirically resolving the C5 FORK toward the linear-elastic (δ_th-light)
-route.** The δ_th-loading being tiny means the split is a *poor δ_th discriminator*, so the magnitude miss
-is NOT a δ_th verdict; the level-δ_th provenance findings (R3/R7/R10/R12) stand untouched. The +0.74%
-bare-topology result stands untouched. Route A converts the n–p gate's bin-(iv) "FORK-OPEN, unbuilt" into a
-built, fired result: **sign ✓, δ_th-loading measured, magnitude honestly missed by the coarse 1D proxy.**
+`+38 m_e` (≈ 15× the target) at the frozen `d=1.0`, the 1D-radial proxy over-predicts the elastic tension
+(an instrument-coarseness fact, robust to the feedback fork; robust to `d` only over the range the
+`:54`-flagged Ax1-floor mapping admits — sub-floor `d` is NOT canon-excluded, so bin (i) is not foreclosed);
+(3) **δ_th-LOADING** — `+0.042 m_e` (~0.11% of the split) is a `r_opt=κ/5` bound-drift residual, NOT a fork
+resolution: the δ_th-carrying κ²-Skyrme channel is shift-invariant and cancels identically in the
+difference, so **C5 stays OPEN** (the ablation is CHANNEL-BLIND). The loading being tiny is preordained by
+the ansatz, so the magnitude miss is NOT a δ_th verdict; the level-δ_th provenance findings (R3/R7/R10/R12)
+stand untouched. The +0.74% bare-topology result stands untouched. Route A converts the n–p gate's bin-(iv)
+"FORK-OPEN, unbuilt" into a built result with an honestly-railed bin-(iii) magnitude deliverable:
+**sign canon-forced-positive (by construction), δ_th-loading measured (but channel-blind → C5 stays OPEN),
+magnitude honestly missed by the coarse 1D proxy.**

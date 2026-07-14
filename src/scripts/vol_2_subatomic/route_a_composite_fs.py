@@ -218,6 +218,16 @@ def ablation_loading(split_warm: Split, split_cold: Split) -> Ablation:
 
     ABLATION-BYPASS gate (hard rail 5): a single-kappa "ablation" (warm==cold, or a mislabeled pair) is
     rejected -- the ablation's whole content is the DIFFERENCE of two DISTINCT kappa runs.
+
+    !! GATE-SCOPE DISCLOSURE (2026-07-14 adversarial review): this gate only checks that warm != cold kappa
+    (two DISTINCT runs at the same d). It CANNOT catch a STRUCTURALLY-FLOORED ablation -- one where the
+    delta_th-carrying channel is analytically excised from the measured quantity. In this 1D shift-outward
+    rendering the kappa^2-weighted Skyrme (quartic) term is shift-invariant and cancels IDENTICALLY in
+    E_comp - E_bare (see faddeev_skyrme.py _composite_energy_density_integrand: the 4*pi*r^2 measure cancels
+    the 1/r^2), so the loading is confined to the r_opt=kappa/5 bound-drift residual REGARDLESS of delta_th's
+    value. A near-zero loading is therefore PREORDAINED by the ansatz algebra, not measured -- this gate
+    firing does NOT certify that C5 was adjudicated. C5 stays OPEN pending a 3D composite build that retains
+    the quartic linking channel.
     """
     if split_warm is None or split_cold is None:
         raise ValueError("ABLATION-BYPASS: both warm AND cold splits are required.")
