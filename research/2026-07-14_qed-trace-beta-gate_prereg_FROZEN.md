@@ -332,3 +332,87 @@ prereg-parity lens, both **verdict-preserving** and reconciled here (frozen body
    `F(r)/F_Coulomb(r)`, which is `F·r²/K` up to the sign of `K` and delivers the frozen intent
    (bare → exactly 1, verified flat to `1e-10`). No verdict impact; the RESULT §2 documents the actual
    observable (`F/F_Coulomb`), so there was no silent deviation in the reported result.
+
+---
+
+## AMENDMENT A2 (2026-07-14, post-independent-review — PR #685, 6 confirmed findings)
+
+The orchestrator's independent adversarial review (6 findings confirmed, 0 refuted; the physics
+live-fire fully reproduced — verdict numbers, register flip, autopsy all solid) found **three further
+frozen-vs-shipped deviations that AMENDMENT A1 did not bank** (A1's "two deviations" completeness claim
+was off-by-three). All three are verdict-preserving and banked here (frozen body above untouched). KEEP-BOTH
+throughout; no rescue language.
+
+### A2.1 (was MAJOR) — G-null: frozen criterion silently replaced AND the FROZEN criterion FIRES on the shipped control
+
+**Frozen §6 wording (verbatim):** G-null "Fires when: fit exponent `|p| > 1e-6` OR `M_log` selected on
+the linear control ⇒ instrument artifact". **Shipped code** (`qed_trace_beta_gate.py`
+`kernel_off_control`) originally gated on an amplitude criterion instead (`max_dev_tr < 1e-6 and
+max_dev_re < 1e-12`), with the fit-based clauses computed but never gating.
+
+**The frozen G-null FIRES on the shipped run** (live-fire, this session): on the kernel-OFF flat control
+the fitter selects `M_log` decisively (`dBIC = +198`), and `|p| = 0.3 > 1e-6` — BOTH frozen disjuncts
+evaluate to FIRE ("instrument artifact"). This is a **frozen-design defect**, two parts, quoted for the record:
+- **(i) model-selection on pure numerical noise is meaningless.** The kernel-OFF departure is a constant
+  `+1.07e-10` offset (the `O(h²)` central-difference bias of `F/F_Coulomb`), which `M_log` absorbs via
+  its free intercept while `M_pow` (intercept fixed at 1) cannot — so `M_log` "wins" on noise that has no
+  physical shape. A fitter MUST select something; selecting on a flat control is not a physics signal.
+- **(ii) the `|p| > 1e-6` disjunct is unimplementable.** `P_GRID = np.linspace(0.3, 8.0, 155)` ⇒ the
+  fitted `p` is ALWAYS `≥ 0.3 > 1e-6`, so this clause is vacuously true on ANY input.
+
+**KEEP-BOTH two-axis rebin (the #612 tethered-pivot precedent: frozen-detector axis + post-hoc axis):**
+- **FROZEN AXIS:** G-null **FIRES** under the frozen wording ⇒ under the frozen instrument the run
+  self-flags "instrument-artifact" on its own control. This is a **prereg-design defect**, not a physics
+  result — recorded as such.
+- **AMENDED AXIS (post-hoc, disclosed, physically-justified):** the amplitude criterion `max_dev < 1e-6`
+  (the correct null: the kernel-OFF force ratio is flat to `1e-10`), under which all gates pass and the
+  verdict stands. The shipped code now reports BOTH axes explicitly.
+
+**Headline verdict (two-axis, verbatim):** *"bin `WRONG-FORM` under the amended gate-set
+(post-hoc-disclosed); under the frozen gate-set the G-null design defect fires on its own control."* No
+rescue: the frozen-axis firing is not explained away, it is documented as a design defect and the
+amended axis is disclosed as post-hoc. RESULT "all four machine gates fire correctly" is corrected to
+"fire correctly under the amended criteria; the frozen G-null is design-defective and fires on its own
+control."
+
+### A2.2 (was MAJOR→MINOR) — frozen WRONG-SIGN bin was unreachable; precedence chosen post-freeze
+
+The shipped `classify()` had **no code path emitting `WRONG-SIGN`** — the `M_pow` branch returns
+`WRONG-FORM` with the sign as a suffix string, and a genuine log with the wrong sign (`M_log` selected,
+α weakens) fell through to the terminal `else` → `INCONCLUSIVE-RANGE`. But frozen §4 froze `WRONG-SIGN`
+as a distinct bin ("any running with α WEAKENING at short distance ON THE TRANSFER READING … Worse than
+wrong-form"), whose "any running" signature the power-law-weakening case also satisfies. **On the actual
+data BOTH signatures fire** (power-law AND weakening) and the `WRONG-FORM > WRONG-SIGN` **precedence was
+chosen post-freeze** (RESULT: "folded into the WRONG-FORM headline because the departure is a power law,
+not a genuine (log) running"). Banked: (a) `classify()` is corrected so the `WRONG-SIGN` bin is now
+**reachable** (the `M_log`-with-wrong-sign path); (b) the precedence choice + rationale is disclosed, and
+the co-firing of the transfer WRONG-SIGN signature is reported within the WRONG-FORM bin
+(`WRONG_SIGN_cofires_on_transfer=True`). No misbinning occurred (the data is decisively `M_pow`), but a
+frozen bin the binning code could never emit is the bin-level analog of an unfireable gate.
+
+### A2.3 (was MINOR) — G-plant-log plant deviates from the frozen (self-contradictory) formula
+
+**Frozen §6 (verbatim):** the plant is "a synthetic QED-form log `Δ(1/α) = (1/3π)ln(r_ref/r)` … DETECTED
+as log with the right sign". **Shipped** `gate_plant_log` plants in **α-space** with coefficient
+**`α/3π`** (not `1/α`-space with `1/3π`). The **frozen formula is sign-self-contradictory**: in `1/α`-space,
+`+(1/3π)ln(r_ref/r)` makes `1/α` GROW at small `r` = α WEAKENING = the WRONG QED sign, contradicting the
+same row's "right sign" requirement (and the prereg's own LOG-EMERGES rows quote the QED coefficient as
+`−α/3π`). The shipped plant implements the evident intent (a known QED-sign log for the fitter
+self-test) and passes decisively (`dBIC +2637`, sign detected). Zero verdict impact (the gate is a fitter
+capability check). Resolution banked; the code docstring names the frozen-formula defect.
+
+### A2.4 (reproducibility) — `--fe-seps` documented; default aligned
+
+RESULT §5's field-engine table used `--fe-seps 6 8 10 12 14` (5 separations), but the shipped default was
+`[6,8,10,12]` (4). The default is aligned to `[6,8,10,12,14]` and the exact invocation is recorded in the
+driver docstring, so bare `--with-field-engine` reproduces §5.
+
+### Residual open route (physics-material, from finding 0 / R3) — NOT closed by this gate
+
+The WRONG-FORM verdict is proven for the **pointwise algebraic compositions** of the kernel probed here
+(the pairwise dress, the `F/F_Coulomb` two-body force, the A44 skin-suppression). It is **NOT** a closed
+CLASS statement: logarithms routinely emerge from **scale-integration** of analytic integrands (QED's own
+vacuum-polarization `ln(q)` integrates algebraic integrands; a line-superposition of `1/r` gives `ln r`).
+**The many-body scale-integrated medium-response route — the lattice's screening SUM between two probes —
+is UNPROBED, NOT CLOSED.** This boundary must be carried in the RESULT mechanism paragraph and in the
+q-g20f scoped-import re-tag wording before the auditor propagates it to canon.

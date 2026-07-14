@@ -35,7 +35,10 @@ short-distance endpoint); SECTOR graded-Coulomb dress around a Cosserat (2,q)
 micro-rotation winding = the charge screening cloud.  No new engine.
 
 Run:  PYTHONPATH=src python src/scripts/vol_2_subatomic/qed_trace_beta_gate.py
-      (add --with-field-engine for the sub-decade Cosserat anchor; heavier)
+Exact RESULT §5 field-engine invocation (reproduces the table verbatim):
+      PYTHONPATH=src python src/scripts/vol_2_subatomic/qed_trace_beta_gate.py \
+          --with-field-engine --fe-seps 6 8 10 12 14
+      (the --fe-seps default is now [6,8,10,12,14] so bare --with-field-engine reproduces it)
 """
 from __future__ import annotations
 
@@ -218,17 +221,41 @@ def analytic_sweep() -> dict:
 
 
 def kernel_off_control() -> dict:
-    """G-null: bare Coulomb must show NO running (alpha_eff == 1, flat)."""
+    """G-null TWO-AXIS (KEEP-BOTH, #612 pattern; prereg AMENDMENT A2).
+
+    FROZEN AXIS (prereg §6 wording, verbatim): "fit exponent |p|>1e-6 OR M_log
+    selected on the linear control => instrument artifact". This axis is
+    DESIGN-DEFECTIVE and FIRES on the shipped run — two frozen-design defects:
+      (1) model-selection on a pure ~1e-10 numerical-noise control is MEANINGLESS:
+          a fitter must select SOMETHING, and on the flat control (no physical
+          shape) M_log wins by absorbing the constant O(h^2) central-difference
+          bias in its free intercept while M_pow's intercept is fixed at 1;
+      (2) the |p|>1e-6 disjunct is UNIMPLEMENTABLE: P_GRID starts at 0.3, so it is
+          vacuously true on ANY input.
+    AMENDED AXIS (post-hoc, disclosed, physically-justified): the amplitude
+    criterion max_dev<1e-6 — the correct null (the kernel-OFF force ratio is flat
+    to 1e-10), under which the gate PASSES and the verdict stands. Both reported;
+    the headline uses the amended axis with the frozen-axis firing disclosed (no
+    rescue language, per #612)."""
     r = np.geomspace(R_LO, R_HI, N_SCALE)
     tr = transfer_alpha(r, kernel_on=False)
     re = reactive_alpha(r, kernel_on=False)
     max_dev_tr = float(np.max(np.abs(tr - 1.0)))
     max_dev_re = float(np.max(np.abs(re - 1.0)))
     fit = fit_log_vs_power(r, tr)
-    no_running = max_dev_tr < 1e-6 and max_dev_re < 1e-12
+    frozen_fires = (fit["M_pow"]["p_exponent"] > 1e-6) or (fit["selected"] == "M_log")
+    amended_pass = max_dev_tr < 1e-6 and max_dev_re < 1e-12
     return {"max_transfer_departure": max_dev_tr, "max_reactive_departure": max_dev_re,
-            "no_running": bool(no_running), "fit_selected_on_flat": fit["selected"],
-            "G_null_pass": bool(no_running)}
+            "fit_selected_on_flat": fit["selected"], "flat_control_dBIC": fit["dBIC_pow_minus_log"],
+            "G_null_FROZEN_axis_fires_instrument_artifact": bool(frozen_fires),
+            "G_null_FROZEN_axis_design_defects": [
+                "model-selection on ~1e-10 numerical noise is meaningless (M_log absorbs the "
+                "constant O(h^2) central-difference bias via its free intercept)",
+                "|p|>1e-6 disjunct unimplementable: P_GRID starts at 0.3 => vacuously true on any input"],
+            "G_null_AMENDED_axis_amplitude_pass": bool(amended_pass),
+            "G_null_pass": bool(amended_pass),  # headline = amended axis (frozen-axis firing disclosed)
+            "two_axis_note": "FROZEN axis FIRES (design-defective); AMENDED amplitude axis PASSES; "
+                             "KEEP-BOTH per #612; verdict stands on the amended axis, no rescue."}
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -236,7 +263,15 @@ def kernel_off_control() -> dict:
 # ═════════════════════════════════════════════════════════════════════════════
 def gate_plant_log(r: np.ndarray) -> dict:
     """Inject a genuine QED-form log (alpha grows at short distance) and confirm the
-    fitter DETECTS it as log with the right sign."""
+    fitter DETECTS it as log with the right sign.
+
+    NOTE (prereg AMENDMENT A2, R4): this plant deviates from the frozen §6 wording
+    'Δ(1/α) = (1/3π)ln(r_ref/r)' — it is planted in ALPHA-space with coeff α/3π, not
+    1/α-space with 1/3π. The frozen-literal formula is SIGN-SELF-CONTRADICTORY: in
+    1/α-space, +(1/3π)ln(r_ref/r) makes 1/α GROW at small r = α WEAKENING = the WRONG
+    QED sign, contradicting the same row's 'right sign' requirement (and the prereg's
+    own LOG-EMERGES rows quote the QED coefficient as −α/3π). The shipped plant
+    implements the evident intent (a known QED-sign log for the fitter self-test)."""
     # alpha = 1 + (alpha_fs/3pi)*ln(r_ref/r) with r_ref=R_HI -> alpha>1 at small r
     coeff = ALPHA / (3.0 * np.pi)
     alpha_synth = 1.0 + coeff * np.log(R_HI / r)
@@ -330,16 +365,25 @@ def field_engine_anchor(seps, N=40, n_steps=36, pml=4, sigma=3.0, amp=0.05) -> d
 def classify(analytic, gnull, sep_2dec) -> dict:
     ft = analytic["fit_transfer"]
     fr = analytic["fit_reactive"]
+    # r_lo = shortest distance in the window; alpha<1 there = coupling WEAKENS = the
+    # frozen WRONG-SIGN signature ("alpha weakening at short distance ON THE TRANSFER READING").
+    transfer_weakens = ft["departure_at_r_lo"] < 0
     # INCONCLUSIVE-RANGE pre-empts if 2 decades cannot separate log from power
     if sep_2dec["INCONCLUSIVE_RANGE_fires"]:
         bin_name = "INCONCLUSIVE-RANGE"
     elif ft["selected"] == "M_log" and ft["alpha_grows_at_short_distance"]:
         bin_name = "LOG-EMERGES"  # (coefficient -> -alpha/3pi check is downstream)
+    elif ft["selected"] == "M_log" and not ft["alpha_grows_at_short_distance"]:
+        # genuine log with the WRONG sign — the frozen "Worse than wrong-form" bin,
+        # now REACHABLE (was structurally unreachable pre-A2; see prereg AMENDMENT A2).
+        bin_name = "WRONG-SIGN"
     elif ft["selected"] == "M_pow":
-        # power law: WRONG-FORM. Sub-note the transfer sign (weakens at short dist).
-        weakens = ft["departure_at_r_lo"] < 0  # r_lo = short distance; alpha<1 = weakens
+        # power law => WRONG-FORM. On this data WRONG-SIGN ALSO fires (transfer weakens
+        # at short distance); the WRONG-FORM > WRONG-SIGN precedence was chosen post-freeze
+        # (disclosed AMENDMENT A2): a power law is not a genuine (log) running, so 'form' is
+        # the primary category answer and the co-firing sign is reported as a sub-note.
         bin_name = "WRONG-FORM"
-        bin_name += " (transfer sign also WRONG: alpha weakens at short distance)" if weakens else ""
+        bin_name += " (transfer sign also WRONG: alpha weakens at short distance)" if transfer_weakens else ""
     elif abs(ft["departure_at_r_lo"]) < 1e-6:
         bin_name = "NULL-FLAT"
     else:
@@ -349,10 +393,17 @@ def classify(analytic, gnull, sep_2dec) -> dict:
         "read_on": "TRANSFER register (primary)",
         "transfer_selected": ft["selected"], "transfer_power_exponent": ft["M_pow"]["p_exponent"],
         "transfer_sign_grows_short": ft["alpha_grows_at_short_distance"],
+        "WRONG_SIGN_cofires_on_transfer": bool(transfer_weakens),
+        "bin_precedence_note": "WRONG-FORM > WRONG-SIGN precedence chosen post-freeze (AMENDMENT A2); "
+                               "the frozen WRONG-SIGN bin is now made reachable for the "
+                               "log-with-wrong-sign case; on this data both signatures fire and "
+                               "WRONG-FORM is the headline (form is the primary category answer).",
         "reactive_selected": fr["selected"], "reactive_power_exponent": fr["M_pow"]["p_exponent"],
         "reactive_sign_grows_short": fr["alpha_grows_at_short_distance"],
         "register_flip_observed": bool(ft["alpha_grows_at_short_distance"] !=
                                        fr["alpha_grows_at_short_distance"]),
+        "G_null_FROZEN_axis_fires": gnull.get("G_null_FROZEN_axis_fires_instrument_artifact"),
+        "G_null_AMENDED_axis_pass": gnull.get("G_null_AMENDED_axis_amplitude_pass"),
         "G_null_pass": gnull["G_null_pass"],
     }
 
@@ -362,7 +413,7 @@ def main() -> dict:
     ap = argparse.ArgumentParser(description="QED-TRACE beta-function gate.")
     ap.add_argument("--with-field-engine", action="store_true",
                     help="run the sub-decade Cosserat seeded-winding anchor (heavier)")
-    ap.add_argument("--fe-seps", type=float, nargs="+", default=[6.0, 8.0, 10.0, 12.0])
+    ap.add_argument("--fe-seps", type=float, nargs="+", default=[6.0, 8.0, 10.0, 12.0, 14.0])
     ap.add_argument("--fe-N", type=int, default=40)
     ap.add_argument("--fe-steps", type=int, default=36)
     args = ap.parse_args()
@@ -419,7 +470,10 @@ def main() -> dict:
     print(f"  reactive: selected={verdict['reactive_selected']} p={verdict['reactive_power_exponent']:.3f} "
           f"grows_short={verdict['reactive_sign_grows_short']}")
     print(f"  register_flip_observed={verdict['register_flip_observed']}")
-    print(f"  autopsy register={autopsy['register_verdict']}  G_null_pass={gnull['G_null_pass']}")
+    print(f"  WRONG_SIGN co-fires on transfer={verdict['WRONG_SIGN_cofires_on_transfer']}")
+    print(f"  autopsy register={autopsy['register_verdict']}")
+    print(f"  G-null TWO-AXIS: FROZEN axis fires (defect)={gnull['G_null_FROZEN_axis_fires_instrument_artifact']} "
+          f"| AMENDED amplitude axis pass={gnull['G_null_AMENDED_axis_amplitude_pass']}")
     print(f"  scale decades (analytic)={analytic['scale_decades_covered']:.2f}")
     print(f"  separability @2dec: {'PASS' if not gates['G_separability_2dec']['INCONCLUSIVE_RANGE_fires'] else 'INCONCLUSIVE'}")
     print("=" * 72)
@@ -471,8 +525,8 @@ def _figure(analytic, gnull, verdict):
     ax[1].legend(fontsize=7, loc="best")
     fig.suptitle("QED-TRACE beta gate: transfer weakens (wrong sign) / reactive grows — "
                  "both POWER LAW, no log", fontsize=10, y=1.02)
-    txt = (f"VERDICT: {verdict['verdict_bin']}\nG-null (kernel-OFF flat): "
-           f"{'PASS' if gnull['G_null_pass'] else 'FAIL'}")
+    txt = (f"VERDICT: {verdict['verdict_bin']}\nG-null (amended amplitude): "
+           f"{'PASS' if gnull['G_null_pass'] else 'FAIL'}; frozen axis fires (design defect, A2)")
     ax[1].text(0.02, 0.02, txt, transform=ax[1].transAxes, fontsize=7.5, va="bottom",
                bbox=dict(boxstyle="round", fc="white", ec="#999999", alpha=0.9))
 

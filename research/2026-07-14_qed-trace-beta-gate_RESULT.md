@@ -13,8 +13,17 @@
 The kernel-ON (Axiom-4 saturation) lattice produces a **power-law** scale dependence in the effective
 coupling — **no logarithm** — and on the QED-faithful transfer reading the departure has the **wrong
 sign** (coupling WEAKENS at short distance). This is the **a-priori-expected, corpus-improving**
-outcome (prereg §1): an analytic-in-`r²` saturation kernel cannot emit `ln(q)` by any finite
-manipulation. All four machine gates fire correctly.
+outcome (prereg §1): an analytic-in-`r²` saturation kernel cannot emit `ln(q)` **by any finite
+manipulation of these pairwise scale-objects** (the many-body scale-integrated route is unprobed, not
+closed — §7).
+
+**Two-axis verdict (KEEP-BOTH, #612 pattern; prereg AMENDMENT A2).** The independent review found the
+frozen G-null gate is design-defective. Verbatim: *bin `WRONG-FORM` under the amended gate-set
+(post-hoc-disclosed); under the frozen gate-set the G-null design defect fires on its own control.* Three
+of the four machine gates fire correctly under their frozen wording; the fourth (G-null) fires correctly
+**under the amended amplitude criterion**, while the **frozen G-null criterion is design-defective and
+fires on its own kernel-OFF control** (see §4). No rescue — the frozen-axis firing is documented as a
+design defect, the amended axis as post-hoc.
 
 **The load-bearing new finding (register flip).** The SAME kernel reads **opposite signs in the two
 registers**: the TRANSFER (through-coupling / force) reading weakens at short distance (power `p≈4.25`),
@@ -112,7 +121,7 @@ resolved near-wall points, so the floor does not affect `p≈4.25` or the verdic
 |---|---|---|
 | LOG-EMERGES | ✗ | transfer fit selects `M_pow` (`ΔBIC=−473`), not `M_log` |
 | **WRONG-FORM** | **✓ (SELECTED)** | transfer register is power-law `p≈4.25`; reactive is power-law `p≈2.10`; A44 control is power-law skin-suppression |
-| WRONG-SIGN | ✓ (sub-note) | on the transfer reading α WEAKENS at short distance (`α_eff<1`) — fires against the asserted `q-g20f` sign; folded into the WRONG-FORM headline because the departure is a power law, not a genuine (log) running |
+| WRONG-SIGN | ✓ (co-fires; reported as sub-note) | on the transfer reading α WEAKENS at short distance (`α_eff<1`) — fires against the asserted `q-g20f` sign; `WRONG_SIGN_cofires_on_transfer=True`. Folded into the WRONG-FORM headline via a **post-freeze precedence choice** (WRONG-FORM > WRONG-SIGN: a power law is not a genuine log running, so form is the primary category answer). The frozen bin structure did not anticipate both firing simultaneously; the bin was structurally unreachable in the shipped classifier and is now made reachable for the log-with-wrong-sign case (prereg AMENDMENT A2.2). |
 | NULL-FLAT | ✗ | departure is non-negligible near the wall (kernel is not inert) |
 | INCONCLUSIVE-RANGE | ✗ | separability gate PASSES at 2 decades (see §4) |
 
@@ -128,11 +137,12 @@ probed neutrally / via seeded windings*. The **sourced-probe question stays clos
 
 ---
 
-## 4. Machine gates (all fire correctly)
+## 4. Machine gates (fire correctly under the amended criteria; the frozen G-null is design-defective and fires on its own control)
 
 | Gate | Test | Result |
 |---|---|---|
-| **G-null (kernel-OFF)** | bare Coulomb shows NO running | ✓ max transfer departure `1.1e-10`, reactive `0` (flat) |
+| **G-null (kernel-OFF)** — AMENDED axis | bare Coulomb amplitude-flat | ✓ max transfer departure `1.1e-10`, reactive `0` (flat) |
+| **G-null (kernel-OFF)** — FROZEN axis | frozen §6: `\|p\|>1e-6` OR `M_log` selected on control | ✗ **FIRES (design defect)** — on the flat control the fitter selects `M_log` (`dBIC +198`, absorbing the constant `1.07e-10` `O(h²)` central-difference offset in its free intercept) and `\|p\|=0.3>1e-6` (vacuously true; `P_GRID` floor is 0.3). Model-selection on `1e-10` numerical noise is meaningless. Two-axis KEEP-BOTH per #612; verdict stands on the amended axis (prereg AMENDMENT A2.1). |
 | **G-plant-log** | inject QED-form log `(α/3π)ln(r_ref/r)` → detected as log, right sign | ✓ `M_log`, `ΔBIC=+2637`, grows-at-short-distance detected |
 | **G-plant-pow** | inject small-exponent power `p=0.3` → detected as power, NOT mis-fit as log | ✓ `M_pow`, `ΔBIC=−3012`, recovered `p=0.300` (consensus-bias: fitter does not privilege the log) |
 | **G-separability** | at ≥2 decades, both plants decisively classified (`|ΔBIC|>10`) | ✓ PASS at **2 decades** AND 3 decades ⇒ INCONCLUSIVE-RANGE does not fire |
@@ -153,6 +163,11 @@ does not depend on the window. The shipped window change is documented in prereg
 ## 5. PRIMARY (b) empirical anchor — Cosserat seeded winding pair (disclosed)
 
 Ran `charge_sector_two_winding.run_pair` (kernel ON) at separations `d0 ∈ {6,8,10,12,14}`, `N=40`.
+**Exact reproducing invocation** (the `--fe-seps` default is aligned to these 5 separations, so bare
+`--with-field-engine` reproduces this table):
+```
+PYTHONPATH=src python src/scripts/vol_2_subatomic/qed_trace_beta_gate.py --with-field-engine --fe-seps 6 8 10 12 14
+```
 **All disclosed limitations manifested exactly as receipted (prereg §2):**
 
 - **Sub-decade reach:** 0.37 decades (box-limited) — cannot extend the coverage; the ≥2-decade result
@@ -183,13 +198,30 @@ agrees with the primary verdict.
 
 ## 7. Honest framing of the negative (Rule 11)
 
-A single mechanism explains the whole result: **the Axiom-4 saturation kernel is analytic in `r²`**, so
-its every derived scale-object (the pairwise dress `Z/Z₀ = 1/(1−(d_sat/r)²)^{1/4}`, the force ratio, the
-A44 skin-suppression) is **algebraic** — a power law — and **cannot** be a `ln(q)`. QED computes its log
-from a quantized-fluctuation postulate the classical substrate does not carry. This is an **ontology
-difference, not a demerit**: the gate converts the KB's "AVE reproduces QED running" from an unexamined
-assertion into a **scoped import**, exactly the honesty-lag the register (solidity 0.60, "don't build
-deeper") already demanded. **Branch closed** — no rescue attempted; no post-hoc criterion drop.
+A single mechanism explains the whole result **for the pointwise scale-objects probed here**: the
+Axiom-4 saturation kernel is **analytic in `r²`**, so each of the **three computed pairwise objects** —
+the pairwise dress `Z/Z₀ = 1/(1−(d_sat/r)²)^{1/4}`, the `F/F_Coulomb` two-body force ratio, and the A44
+skin-suppression — is a **finite algebraic composition** (the `A=1` branch point is algebraic order-4,
+`(1−u)^{−1/4}`, fractional powers only, no log term) and **cannot be a `ln(q)` by any finite
+manipulation**. Verified across windows down to `r/d_sat=1.02` (still decisively `M_pow`, `ΔBIC≈−125`).
+
+**Scope boundary (finding 0 / R3, load-bearing — this is NOT a class statement).** As a *universal
+class* claim, "an analytic-in-`r²` kernel cannot emit `ln(q)`" is **false**: logarithms routinely emerge
+from analytic kernels via **scale-integration** — QED's own vacuum-polarization `ln(q)` integrates
+purely algebraic integrands; a line-superposition of the analytic `1/r` kernel gives `ln r`. The sharper
+missing ingredient is therefore **not "quantization" per se** but **scale-integration over a
+self-consistent screening hierarchy** — an operation a classical polarizable medium could also possess.
+**The gate computed the two-body saturation-dressed force (form-factor class); it never computed the
+lattice's many-body screening SUM between the two probes. That many-body scale-integrated
+medium-response route is UNPROBED, NOT CLOSED.** The WRONG-FORM bin stands for the probed pointwise
+regime; the category-mismatch generalization carries exactly this stated boundary.
+
+This is an **ontology difference for the probed regime, not a demerit**: the gate converts the KB's "AVE
+reproduces QED running" from an unexamined assertion into a **scoped import**, exactly the honesty-lag
+the register (solidity 0.60, "don't build deeper") already demanded. **Branch closed for the pointwise
+two-body route** — no rescue attempted; no post-hoc criterion drop. **The q-g20f scoped-import re-tag
+wording (routed to the auditor) must inherit the "many-body scale-integrated route unprobed, not closed"
+boundary** before canon propagation.
 
 **Micropolar probe (c) resolution (canon check, prereg §2):** the rotational/micropolar sector is
 quantized (winding `Q=Link(∂Ω,F)∈ℤ`, `clm-ze4clw`; discrete 2T order-24 via `K₄→A₄→2T⊂SU(2)`; charge =
@@ -202,7 +234,10 @@ option (c) collapses into option (b), the seeded winding. Recorded, not run as a
 
 1. **Routed to auditor:** the scoped-import re-tag of the "Identical (RT-equivalence)" rows
    (`q-g20f-vacuum-polarization.md:28,32,47`) from argued-match to scoped-import. Implementer does not
-   land the KB/manuscript entry.
+   land the KB/manuscript entry. **The re-tag wording MUST inherit the §7 boundary:** WRONG-FORM is
+   proven for the two-body pointwise pairwise objects (incl. the near-wall); **the many-body
+   scale-integrated medium-response (screening SUM between probes) is UNPROBED, NOT CLOSED** — the re-tag
+   must not read as closing the log route in general.
 2. **Register-discipline finding is generalizable:** any AVE "running/screening" claim read off a
    reactive (stored-energy/impedance) observable inherits the sign-by-register ambiguity. The transfer
    register is the QED-faithful one; the reactive register reads the opposite sign on this kernel.
