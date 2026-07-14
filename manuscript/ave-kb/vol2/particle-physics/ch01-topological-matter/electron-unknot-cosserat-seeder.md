@@ -22,6 +22,22 @@ A-024 operationalization: the canonical AVE electron seeder injects a **Cosserat
 | Sub-cell geometry | Entire electron **envelope** fits inside ONE K4 cell at canonical scale — the medium's near-field yield-envelope (D3), NOT an interior that stores identity (identity = topological boundary data); per substrate-observability rule |
 | Canonical engine | Cosserat seeder works on both K4-TLM and Master Equation FDTD; v14 PASS with breathing-soliton interpretation |
 
+> **Floor clarification — the ropelength radius is the geometric FLOOR, not the wall (THE WALL-A
+> RULING, Grant 2026-07-14).** The `(Bounding Limit 1 saturation)` parenthetical on the "Horn-torus
+> radii" row reads: the ropelength radius $R_{\text{loop}} = r_{\text{tube}} = \ell_{\text{node}}/(2\pi)$
+> (one-pitch closure $2\pi R = \ell_{\text{node}}$, horn-torus $R = r$) is **NOT the wall's
+> definition** — it is the lattice's **hard geometric MINIMUM for closing a winding** (the discrete
+> loop-closure bound). **The geometry is the BOUND; the ground state SATURATES the bound** because it
+> is maximally tight. The **mechanism** of the $\Gamma=-1$ wall is separately the local $S(A)\to0$
+> amplitude discontinuity (the amplitude rail — [`substrate-perspective-electron.md`](substrate-perspective-electron.md)
+> §2 loop-surface annotation); for the electron **ground state** the $S\to0$ locus and this ropelength
+> floor **coincide** (location $=\max$(dynamical $S\to0$ locus, geometric floor)). **Location-derivation
+> debt (open):** whether the self-consistent $A(r)$ profile actually clips *at* the floor is the
+> **census / stage-2 target** (not yet derived here). ★**Excited-state rider:** any non-ground-state
+> cavity should **LIFT OFF the floor** — dynamically located above the ropelength minimum; the
+> cavity-census R-ladder is the instrument. See the docket
+> (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation).
+
 ## §1 — The seeder protocol
 
 The seeder injects a stable canonical electron at center of an active K4 cell:
