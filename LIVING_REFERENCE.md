@@ -271,11 +271,13 @@ future_work/          # Speculative roadmap
 
 > **Classification note.** Rows below mix four kinds of claim — (i) **identities** where 0.00% is definitionally true (Z₀ = √(μ₀/ε₀) is how Z₀ is defined), (ii) **axiom manifestations** where the prediction IS one of the four axioms expressed at a new scale (BCS B_c(T) = Axiom 4 at thermal scaling), (iii) **consistency checks** where the framework reproduces a standard result via an alternative mechanism (solar deflection reproducing GR), and (iv) **derived predictions** where the framework outputs a novel numerical value (W/Z masses). A `0.00%` or `Exact` column entry means different things across these categories; see [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) §A1 and §A2.
 
+> **Status sync (2026-07-14, KEEP-BOTH).** Rows 1 (α⁻¹) and 3 (g-2 anomaly) were aligned DOWN to the honest status carried in `README.md:219,221` — the α⁻¹ **FORM=chord / VALUE=ECHO** tag and the g-2 **postdiction** demotion (from forward-falsifier, per the 2026-06-03 revamp board). The prior bare ✅ marks in this table under-stated the epistemic status; the README's tagged form is the source of truth and this table now mirrors it. (KEEP-BOTH — the prior ✅ marks are preserved in git history; this is a status alignment, not a value change.)
+
 | # | Prediction | Δ% | Status |
 |---|-----------|-----|--------|
-| 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 (Ch.8) |
+| 1 | α⁻¹ from Golden Torus S₁₁-min | FORM=chord / VALUE=echo (0.001% cold / 0.000% CMB-corrected) | ✅ FORM=chord (4π³+π²+π=137.036304 forced) / VALUE=ECHO (calibration; Class B, closed-negative on all named routes) (Ch.8) |
 | 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
-| 3 | g-2 anomaly | 0.15% | ✅ |
+| 3 | g-2 anomaly | 0.15% | ⚠ postdiction — demoted from forward-falsifier (2026-06-03 revamp board) |
 | 4 | sin²θ_W | 0.35% | ✅ |
 | 5 | M_W | 0.57% | ✅ |
 | 6 | M_Z | 0.62% | ✅ |

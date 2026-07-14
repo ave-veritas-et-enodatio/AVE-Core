@@ -49,6 +49,8 @@ The factor $a_e = \alpha/(2\pi)$ is canonically derived in AVE via Axiom 4 satur
 
 This is **canonical Axiom 4 physics + geometric projection**, NOT "Op2+Op4" (which is the orbital crossing potential per [`../../../vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md:721`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md), different physics).
 
+> **[FORM=candidate / VALUE=echo — QED-TRACE echo-tag, 2026-07-14]** "Canonically derived" tags the **FORM** (the mechanism), not the VALUE. α is a retained input, so $a_e = \alpha/(2\pi)$ reproduces Schwinger the moment α is imported — the **VALUE is echo**, not an AVE-distinct number. Peer-with-Dirac by construction: the g−2 self-orbit prereg pre-commits *"Do NOT headline … as an emergence-class distinct-value chord"* (`research/2026-07-08_electron-g2-selforbit_prereg.md:89`); same α-keystone $(V/V_{snap})^2 = 4\pi\alpha$ that was echo-scoped for $\alpha^{-1}$. The **earnable content is the FORM** (the $1/\pi^2 \times \pi\alpha/2$ on-site mechanism), not the value-match.
+
 ## §3 — DAMA quantum derivation
 
 The substrate quantum energy at the α-slew:
