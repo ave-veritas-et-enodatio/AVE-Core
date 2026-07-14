@@ -804,3 +804,59 @@ the census freeze `analysis/cavity-census-stage1` @ `1c362d1d`; the 2026-07-13 r
 360,375,382`, `program-arc-map.md:404`, `research/2026-07-10_collapse-target-registry.md:23,64,317`,
 the four `.tex` bridge files. This continuation records queue-state, not adjudicated physics; nothing
 here canonizes.*
+
+---
+
+## Continuation — 2026-07-14 (late): five in-chat rulings, walk-level context
+
+Five rulings Grant made **in-chat** during the late 2026-07-14 session (after the eight-lane
+batch board, PR #694). This continuation is **documentation-only**: for each ruling it records
+(1) the ruling verbatim-faithful, (2) the physical walk that grounded it, (3) the consequence it
+**registers**, and (4) the authoritative in-repo site it resolves. **Nothing here is executed.**
+Every downstream consequence — KB edits, re-tag propagation, docket row-moves, the meter build,
+prereg freezes, auditor items — is **REGISTERED-NOT-EXECUTED** and **HELD** pending Grant's
+adjudication of the remaining opens and a full possibility-map review (see *Held state* below).
+Nothing here canonizes. **DO-NOT-MERGE**; only the orchestrator/Grant merges.
+
+**Cite-provenance (verify-before-cite, two-method, this session).** Every `file:line` below was
+verified by two independent methods (line-range read + content grep). Base = `origin/main`
+`25b3b911` (the #691 merge). **Three result docs, one frozen prereg, and the batch board are NOT
+on `origin/main`** — they live on their in-flight **DO-NOT-MERGE** PR branches:
+`analysis/gpersist-localization-observable` (#689 @ `71b451ba`),
+`analysis/cavity-census-stage1` (#692 @ `1dd9485a`),
+`analysis/qed-trace-screening-sum` (#693 @ `4d3355b0`),
+`docs/2026-07-14-batch-outcomes` (#694 @ `c2df2c31`). Each branch's local tip equals its `origin/`
+tip and the cited lines verify against those tips. Ruling 1's sites (the T_ij–X44b charter, the X44
+result, `backreaction.py`) ARE on `origin/main` (charter merged via #688). Cites are given as
+backtick `path:line` spans (not Markdown links) precisely because the in-flight files do not
+resolve on this branch.
+
+### Ruling 1 — F6 Komar-clock register: √S (slope-1) IS the clock — CONFIRMED
+
+<!-- fill:R1 -->
+
+### Ruling 2 — #689 meter register: KEEP-BOTH, GATED on the circuit-ontology mapping
+
+<!-- fill:R2 -->
+
+### Ruling 3 — #689 enclosure fork: READING A (wake-feeding) — CONFIRMED
+
+<!-- fill:R3 -->
+
+### Ruling 4 — #692 LA freeze-fidelity: RATIFIED
+
+<!-- fill:R4 -->
+
+### Ruling 5 — #693 "intervening cells" = THE RUN reading — RATIFIED
+
+<!-- fill:R5 -->
+
+### Held state — Grant's standing directive + held executables
+
+<!-- fill:held -->
+
+*Append-only continuation (2026-07-14 late) — all prior docket content byte-untouched. Cites
+verified two-method at base `origin/main` `25b3b911`; in-flight files verified against their
+PR-branch tips (#689 / #692 / #693 / #694, local == origin). DO-NOT-MERGE; only the
+orchestrator/Grant merges. Nothing here canonizes; every consequence is HELD pending Grant's
+possibility-map review.*
