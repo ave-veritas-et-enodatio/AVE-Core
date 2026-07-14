@@ -1,6 +1,6 @@
 % cosmic_hierarchy_ladder.tex — Cosmic-to-lattice scale ladder R_H -> ell_node (Vol 9 Ch.12)
 % Pure TikZ (no pgfplots): a labelled log-scale ladder from the cosmic Gamma=-1 horizon
-% down to the K4 node pitch, ~10^39 lumped substrate cells along the distributed TL.
+% down to the K4 node pitch, ~10^39 (approx 3.456e38) lumped substrate cells along the distributed TL.
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
@@ -16,8 +16,8 @@
     \node[lbl] at (3.9, 0) {$R_H \equiv c/H_\infty$};
 
     % Middle: the hierarchy count
-    \node[rung, fill=orange!10] (cells) at (0,-2.6) {$\sim 10^{39}$ lumped substrate cells\\($\approx 3.455{\times}10^{38}$; cosmic-scale distributed TL)};
-    \node[lbl, text width=3.8cm] at (4.2, -2.6) {$R_H/\ell_{node} \sim 10^{39}$ ($\approx 3.455{\times}10^{38}$)\\Machian-hierarchy precursor\\($\alpha/\alpha_G \sim 10^{42}$, gravity-weakness ratio)};
+    \node[rung, fill=orange!10] (cells) at (0,-2.6) {$\sim 10^{39}$ lumped substrate cells\\($\approx 3.456{\times}10^{38}$; cosmic-scale distributed TL)};
+    \node[lbl, text width=3.8cm] at (4.2, -2.6) {$R_H/\ell_{node} \sim 10^{39}$ ($\approx 3.456{\times}10^{38}$)\\Machian-hierarchy precursor\\($\alpha/\alpha_G \sim 10^{42}$, gravity-weakness ratio)};
 
     % Bottom: lattice node
     \node[rung, fill=green!10] (ln) at (0,-5.0) {K4 node pitch $\ell_{node} \approx \num{3.86e-13}$~m\\$\ell_{node} \equiv \hbar/(m_e c)$ (Ax~1 calibration)};
@@ -27,6 +27,6 @@
     \draw[arr] (rh.south) -- (cells.north);
     \draw[arr] (cells.south) -- (ln.north);
 \end{tikzpicture}
-\caption{Cosmic-to-lattice scale ladder (Vol.~9 Ch.~12 \S\ref{sec:vol9_cosmo_hierarchy}). The substrate spans $R_H/\ell_{node} \sim 10^{39}$ lumped cells from the cosmic $\Gamma = -1$ horizon down to the K4 node pitch; the same hierarchy is the upper-vs-lower limit of the Machian impedance integral that sets Newton's $G$ (the gravity-weakness ratio $\alpha/\alpha_G \sim 10^{42}$ follows geometrically). Canonical at \kbleaf{translation-circuit.md} (\texttt{clm-eemap1}); \kbleaf{trampoline-framework.md} \S5.5.}
+\caption{Cosmic-to-lattice scale ladder (Vol.~9 Ch.~12 \S\ref{sec:vol9_cosmo_hierarchy}). The substrate spans $R_H/\ell_{node} \sim 10^{39}$ ($\approx 3.456\times10^{38}$) lumped cells from the cosmic $\Gamma = -1$ horizon down to the K4 node pitch; the same hierarchy is the upper-vs-lower limit of the Machian impedance integral that sets Newton's $G$ (the gravity-weakness ratio $\alpha/\alpha_G \sim 10^{42}$ follows geometrically). Canonical at \kbleaf{translation-circuit.md} (\texttt{clm-eemap1}); \kbleaf{trampoline-framework.md} \S5.5.}
 \label{fig:vol9_cosmic_hierarchy_ladder}
 \end{figure}
