@@ -622,3 +622,185 @@ envelope⊥identity split. This continuation records queue-state + Grant's Wall-
 canonizes beyond the ruling stamp. Verbatim note: Grant's in-chat acceptance ("accept!") is the
 verbatim on record; the fluxoid-collimation hypothesis is recorded as his 2026-07-14 walked
 reading (paraphrase faithful to the walk, no fabricated verbatim).*
+
+---
+
+## Continuation — 2026-07-14 EOD (register rail + g−2 fork reframe + census + auditor batch)
+
+Day-2 docket items that lived only in chat, staged after the day's landings (**#677** hygiene
+batch A1–A9, **#682** Wall-A propagation, **#683** Wall-A review-repairs, **#685** QED-TRACE beta
+gate — all MERGED; HEAD `240d59d8`). **KEEP-BOTH / append-only:** every continuation above + the
+original docket and status boards are **not edited**; this section carries only the new day-2 state.
+Nothing here canonizes; substrate claims are records of walks + queue-state, not new assertions. Every
+PR#/SHA/file cite below was git/gh/grep/Read-confirmed at HEAD `240d59d8` this session
+(verify-before-cite).
+
+### Q4 g−2 PLUMBING FORK — **REFRAMED** (core-session walk, PENDING-GRANT nod)
+
+The Q4 fork (charter verbatim `research/2026-07-14_qed-trace-charter.md:92`: *"does the anomaly leak
+out the **radiative port**, or is it an **on-site dielectric detuning** — same number, two different
+pipes — i.e. should a port charter **supersede** `simulate_g2.py`'s on-site chain or **stand alongside
+it as a declared-degenerate second view**?"*) is **reframed by the #685 register result**. The two
+"pipes" are the **two registers** the beta gate demonstrated flip signs on:
+- the **on-site Axiom-4 dielectric detuning** (`simulate_g2.py` chain: `a_e = α/(2π)` via `πα/2 ×
+  1/π²`, materialized as `G_MINUS_2_TREE`, `src/scripts/vol_2_subatomic/simulate_g2.py:9-14,52,116`
+  + `src/ave/topological/cosserat.py:641-655`) = the **REACTIVE** face (stored-energy / impedance
+  dress);
+- the **radiative-port leak** (loaded `Q = α⁻¹`, one power of α per cycle out the `Z_EM` port; charter
+  §3, `:84`) = the **TRANSFER** face (through-coupling).
+
+Same kernel, opposite-face — exactly the #685 `register_flip_observed = True`
+(`research/2026-07-14_qed-trace-beta-gate_RESULT.md:106`; §2 both-registers table `:90-106`). **The
+supersede-vs-alongside fork dissolves into DEGENERATE-UNTIL-A-BREAK** — the two views are the same
+mechanism read on two registers, so neither supersedes the other absent an observable that separates
+them. **The named break observable = an ENVIRONMENT-MODIFIED PORT (cavity-shift class):** a transfer
+register that leaks through a real radiative port is modifiable by the electromagnetic environment
+(real g−2 experiments already carry cavity-shift systematics), whereas a purely on-site reactive
+detuning is not — so a cavity-dependent `a_e` shift is the discriminator that breaks the degeneracy.
+**Class (consistency-vs-emergence): the VALUE `α/(2π)` is ECHO by construction (α imported — charter
+row 5, `:36`); only the FORM/PORT mechanism is a walkable candidate** — no emergence headline. **Status:
+PENDING-GRANT nod; any port prereg is gated on it** (charter go/no-go `:88`, CONDITIONAL-GO / HELD on
+Q4).
+
+### THE REGISTER RAIL — **STANDING** (from #685, cross-cutting)
+
+A standing register-discipline finding, surfaced by #685 (RESULT flag 2, `:241-244`): **any
+running / screening / coupling claim read off a REACTIVE observable** (stored-energy, impedance,
+`√(L/C)` ratio) **inherits sign-by-register ambiguity vs the TRANSFER register** (through-coupling /
+force / scattering amplitude). On the one kernel #685 probed, the SAME Op14 saturation dress reads
+**opposite signs by register** (transfer weakens at short distance, `p≈4.25`; reactive grows,
+`p≈2.10` — RESULT `:100-106`). **The TRANSFER register is the QED-faithful one** (RESULT §1 autopsy:
+`simulate_running_alpha.py` is REACTIVE-CLASS, its wrong sign a register+mapping artifact, `:56-81`).
+Demonstrated `register_flip = True` (`research/2026-07-14_qed-trace-beta-gate_RESULT.md:106`).
+**Candidate for the identity-break leaf's knife list — auditor call** (implementer surfaces; the
+auditor decides whether it lands as a knife on `identity-break-test-design.md`).
+
+### THE RESIDUAL LOG ROUTE — **REGISTERED OPEN, NOT SPENT**
+
+The one classical route to `ln(q)` the beta gate did **not** probe: the **many-body scale-integrated
+screening SUM between two seeded windings** (not the two-body pointwise pairwise objects #685
+computed). Per #685's own scope boundary (RESULT §7, `:208-217`, load-bearing / finding 0): *"The gate
+computed the two-body saturation-dressed force (form-factor class); it never computed the lattice's
+many-body screening SUM between the two probes. That many-body scale-integrated medium-response route
+is UNPROBED, NOT CLOSED."* Logarithms **do** emerge from analytic kernels via scale-integration
+(QED's own vac-pol `ln(q)` integrates algebraic integrands; a line-superposition of `1/r` gives
+`ln r`) — so the WRONG-FORM verdict is scoped to the probed pointwise regime, **not** a universal-class
+kill. **The `q-g20f` scoped-import re-tag (auditor lane, queued below) MUST inherit this boundary**
+(RESULT §7 `:222-224`, flag 1 `:235-240`): the re-tag must not read as closing the log route in
+general.
+
+### CENSUS STAGE-1 STATE
+
+- **Prereg FROZEN + PUSHED.** `research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md` frozen at
+  commit `1c362d1d` (*"freeze(cavity-census): stage-1 imposed-cavity mode-census prereg FROZEN"*) on
+  branch `analysis/cavity-census-stage1` (remote ref = `1c362d1d`, freeze-by-push held through a
+  process crash — the branch tip is the freeze commit). All frozen declarations stand. *(At main HEAD
+  `240d59d8` only the DRAFT `..._prereg_DRAFT.md` exists; the FROZEN version lives on the census
+  branch.)*
+- **Instrument build IN-PROGRESS.** Two untracked files in the execution worktree —
+  `src/ave/solvers/cavity_census.py` + `src/tests/test_cavity_census.py` (execution-lane report;
+  confirmed **not tracked** on the frozen branch `1c362d1d`, consistent with in-progress/untracked).
+- **Execution lane USER-STOPPED.** RELAUNCH = Grant's word. Nothing here re-opens the frozen prereg.
+- Cross-ref the standing Decision-5 gate (2026-07-13 reconciliation board `:176-185`): the three
+  chat-only census questions (which-skin / cold-vs-driven / which-dials) are still session-only
+  (ledger C4) and should be written into the census walk card before any STAGE-2 freeze.
+
+### AUDITOR-BATCH QUEUE (consolidated, from the day's flags) — **each verified at HEAD**
+
+Implementer surfaces; the auditor lands. **Verify-before-cite state per item** (dropped items carry a
+receipt):
+
+1. **`q-g20f` re-tag — OPEN (queued).** The "Identical (RT-equivalence)" argued-not-computed rows are
+   **live and unedited at HEAD**: `q-g20f-vacuum-polarization.md:28` (*"Identical (RT-equivalence)"*),
+   `:29` (*"Identical functional form"*), `:30` (*"Identical at observable scales"*) — path
+   `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/`; solidity 0.60 per the RESULT.
+   Routed to auditor (RESULT flag 1). **The re-tag wording MUST inherit the §7 many-body-scale-
+   integrated-route-unprobed-not-closed boundary** (the Residual Log Route row above).
+2. **Hygiene batch 2 — mixed state:**
+   - **Six-scale ladder register tags — OPEN.** #677 A9 landed the node-count column KEEP-BOTH with
+     *"open rows not settled"* (`trampoline-framework.md:707-716`); the §5 E⊗T₂ table still carries the
+     un-split label at `:282` (*"Nucleus ((2, 5) Borromean cinquefoil …)"*), and the ladder rows beyond
+     nucleus are not register-tagged. Remaining phase-space/real-space register-disambiguation debt.
+   - **Envelope def-node — OPEN (Grant-gated).** The envelope-length def-node is PROPOSED / gated at
+     `vocabulary-register.md:360` (envelope-length = r_opt Meaning B) + `:375,:382` (body-envelope vs
+     charge-core node) — *"GATED on Grant review AND on the unresolved §45 A-vs-B canonical FORK …
+     NOT SOLID."* Not minted.
+   - **`r_e` strike — OPEN (verify: NOT landed via #682).** #682's 9-file set did **not** touch
+     `trampoline-framework.md`, where the electron-envelope mislabel lives at `:687` (*"envelope ~
+     ℓ_node/(2π) horn-torus tube radius (classical electron radius scale)"*). The parenthetical is a
+     mislabel — `ℓ_node/(2π) ≈ 61 fm` (reduced-Compton/2π tube radius) is **not** the classical
+     electron radius `r_e ≈ 2.8 fm`. Stays queued. *(Flag content session-sourced; site identified by
+     grep.)*
+   - **Magnetopause register/sign fix — OPEN.** Candidate homes: the boundary-observables ladder row
+     `boundary-observables-m-q-j.md:50` (*"Planetary magnetopause | Magnetosphere boundary | …"*) and
+     the vol3 ch06 solar-system leaves (`planetary-magnetopause-standoff.md`, `vol3/claim-quality.md:
+     313-333`). No landing receipt at HEAD; part of the ladder register-tag sweep. *(Flag content
+     session-sourced; auditor scopes the exact register/sign correction.)*
+   - **~~Nucleus-cell relabel — DROPPED (LANDED via #677 A2/A3).~~** Receipt: the (2,5)-phase-winding
+     vs `6₂³`-real-body register split landed on the nucleus row in **both** ladders —
+     `boundary-observables-m-q-j.md` (commit `22948644`, register-split note + row edit) and the
+     `trampoline-framework.md:708` six-scale table + `:717` KEEP-BOTH note (commit `463dc3e1`). Both
+     grep-confirmed live at HEAD. **Do not re-queue.**
+   - **~~`r_e` strike question resolved as NOT-landed~~** *(kept above, not dropped — the #682 check
+     returned NOT-landed).*
+3. **op14 stale-0.95 auditor call — OPEN (#683 flag).** #683 R1 (`5c31fbd2`) reworded the note to
+   **provenance-unclear** but **left the `0.95` in place pending the auditor call**:
+   `op14-local-clock-modulation.md:22` still reads *"ω_local ≈ 0.95"* and `:46` states *"The 0.95 is
+   left in place pending"*; nearest reconstruction is **0.94** (`√(1−0.1208)=0.9377`, `:39`), exact
+   `0.95` traces only to `_archive/L5/axiom_derivation_status.md:195` (`:41`). Also flagged: `:112`
+   uses *"A² ≈ 0.95"* (a second candidate slip vs `A²≈2α`). Auditor decides strike-vs-recompute-vs-
+   keep-flagged.
+4. **Collapse-target-registry `0-for-7 → 0-for-9` propagation — OPEN.** The canonical home
+   `program-arc-map.md:404` already reads **0-for-9** (booked via #675). The downstream research
+   registry `research/2026-07-10_collapse-target-registry.md` still reads **0-for-7** at the 3 sites
+   the docket flagged (`:23,:64,:317`, per this docket's 2026-07-11 continuation `:492`). ⚠
+   **Grep-completeness flag (2-method cross-check):** at HEAD the same file carries **4 further**
+   `0-for-7` occurrences (`:581,:769,:772,:802`) — these read as ledger-**name** references (*"the
+   0-for-7 ledger / shape"*) rather than the booked-value; the auditor should decide whether the
+   propagation is the 3 named sites or the full 7, so "(3 sites)" is not silently adopted as complete.
+5. **Manuscript-side `~10^39` `.tex` sites — OPEN (KB-first lockstep debt from #677).** The KB leaves
+   were normalized (`~10^39` annotated with the precise `R_H/ℓ_node = α²/(28πα_G) ≈ 3.455×10^38`, #677
+   A6); the `.tex` sites are the matching manuscript-side debt, **DEFERRED** per #677 and still carrying
+   bare `~10^39` at HEAD: `vol_1_foundations/chapters/01_fundamental_axioms.tex:34,237`,
+   `vol_2_subatomic/chapters/10_open_problems.tex:261`,
+   `vol_3_macroscopic/chapters/04_generative_cosmology.tex:53`,
+   `vol_9_vacuum_datasheet/chapters/12_cosmological_characteristics.tex:7,16,24,27,52`. ⚠
+   **Grep-completeness flag:** `12_cosmological_characteristics.tex` carries **additional** `~10^39`
+   occurrences beyond the #677-enumerated set (`:116,:192,:204`) — the enumerated "5 sites" undercounts
+   the full sweep; auditor scopes.
+
+### Docket status board — 2026-07-14 EOD continuation (KEEP-BOTH; tables above unedited)
+
+| Ruling / item | What | Status (2026-07-14 EOD) | Adjudicator |
+|---|---|---|---|
+| **Q4 g−2 plumbing fork** | radiative-port vs on-site-detuning: supersede vs alongside | **REFRAMED — DEGENERATE-UNTIL-A-BREAK** (two registers of one kernel, #685 register_flip); break = environment-modified port (cavity-shift class); VALUE=echo, FORM-only | Grant (PENDING nod; port prereg gated) |
+| **The register rail** | reactive-observable running claims inherit sign-by-register | **STANDING (from #685)** — transfer register = QED-faithful; `register_flip=True`; knife-list candidate | auditor (identity-break knife-list call) |
+| **Residual log route** | many-body scale-integrated screening SUM → `ln(q)` | **REGISTERED OPEN, NOT SPENT** — the one classical log route #685 did not probe; `q-g20f` re-tag inherits the boundary | (open route; re-tag inherits) |
+| **Census stage-1** | imposed-cavity mode-census | **PREREG FROZEN+PUSHED (`1c362d1d`)** · instrument IN-PROGRESS (untracked) · execution USER-STOPPED | Grant (relaunch = his word) |
+| **`q-g20f` re-tag** | "Identical (RT-equivalence)" → scoped-import | **QUEUED (OPEN)** — argued-match rows live `:28-30`; inherits §7 boundary | auditor |
+| **Six-scale register tags** | ladder rows beyond nucleus | **QUEUED (OPEN)** — §5 table `:282` un-split | auditor |
+| **Envelope def-node** | envelope-length canonical mint | **QUEUED (OPEN, Grant-gated)** — PROPOSED, gated on §45 A-vs-B fork | Grant / auditor |
+| **`r_e` strike** | trampoline `:687` "classical electron radius scale" mislabel | **QUEUED (OPEN)** — verified NOT landed via #682 (trampoline untouched) | auditor |
+| **Magnetopause register/sign** | ladder / vol3 ch06 magnetopause | **QUEUED (OPEN)** — candidate homes named; auditor scopes | auditor |
+| **Nucleus-cell relabel** | (2,5)-phase vs `6₂³`-real split | **DROPPED — LANDED #677 (`22948644` + `463dc3e1`)** | — (done) |
+| **op14 stale-0.95** | provenance-unclear `0.95` left in place | **QUEUED (OPEN, #683 flag)** — strike-vs-recompute call | auditor |
+| **Collapse-registry 0-for-9** | downstream propagation | **QUEUED (OPEN)** — registry `:23,64,317` still 0-for-7 (⚠ +4 name-refs `:581,769,772,802`) | auditor |
+| **`.tex` `~10^39` sites** | manuscript-side value normalization | **QUEUED (OPEN)** — KB-first lockstep debt (#677); 4 files bare `~10^39` (⚠ enumerated 5 undercounts) | auditor |
+
+---
+
+*Cross-refs (verify-before-cite'd at HEAD `240d59d8` this session): the #685 result
+`research/2026-07-14_qed-trace-beta-gate_RESULT.md` (`:106` register_flip, `:90-106` both-registers
+table, `:56-81` autopsy, `:208-224` §7 scope boundary, `:235-244` flags); the QED-TRACE charter
+`research/2026-07-14_qed-trace-charter.md` (`:92` Q4 verbatim, `:36` row 5 echo-scoping, `:84-100`
+§3 port reading, `:162` engine constant); the g−2 driver + engine constant
+`src/scripts/vol_2_subatomic/simulate_g2.py:9-14,52,116` + `src/ave/topological/cosserat.py:641-655`;
+the census freeze `analysis/cavity-census-stage1` @ `1c362d1d`; the 2026-07-13 reconciliation board
+`_orchestration/2026-07-13_eod-reconciliation-board.md` (A6/A7/B4 ledger, Decision-5 census, the
+`.tex` deferral); merged landings #677 (`cd2040d3`), #682 (`db06ba82`), #683 (`9ce726b1`), #685
+(`240d59d8`), #675 (0-for-9 booking). KB/manuscript cites re-verified live at HEAD:
+`q-g20f-vacuum-polarization.md:28-30`, `op14-local-clock-modulation.md:22,46,112`,
+`trampoline-framework.md:282,687,708`, `boundary-observables-m-q-j.md:50`, `vocabulary-register.md:
+360,375,382`, `program-arc-map.md:404`, `research/2026-07-10_collapse-target-registry.md:23,64,317`,
+the four `.tex` bridge files. This continuation records queue-state, not adjudicated physics; nothing
+here canonizes.*
