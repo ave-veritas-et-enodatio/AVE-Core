@@ -55,10 +55,16 @@ section for the channel-excision proof.]
    The audit-card provenance findings (R3/R7/R10/R12 on the *level* δ_th) stand exactly where the audit left
    them — the split neither strengthens nor weakens them.
 
-4. **The sign is now COMPUTED, not just structurally argued.** The n–p gate forced the sign by a
-   δ_th-free positivity argument (rest mass ≥ 0 + Ax1 strain ≥ 0) and the β-decay-downhill floor. Route A
-   **directly computes** `E_comp − E_bare > 0` — a stronger, mechanism-level confirmation of the same sign,
-   consistent with (and independent of) the β-decay bound `Δm > 1.000 m_e`.
+4. **The sign is CANON-FORCED POSITIVE by the C1 rendering selection — a canon-transcription check, NOT a
+   stronger confirmation (CORRECTED per the 2026-07-14 review).** The C1 walk selected the shift-outward
+   rendering *because* it is the only one of the three candidates that gives the `:25` positive surplus (the
+   other two were ruled out for the wrong sign), so `E_comp − E_bare > 0` for all `d > 0` is guaranteed by
+   the `4πr²` measure — the frozen bin (ii) WRONG-SIGN was structurally **unfireable** on any admissible
+   physical output from C1 onward. Route A's positive split is therefore **consistent-by-construction with**
+   (NOT independent of, and NOT a stronger mechanism-level confirmation of) the n–p gate's genuinely δ_th-free
+   sign bound (rest mass ≥ 0 + Ax1 strain ≥ 0 + the β-decay-downhill floor `Δm > 1.000 m_e`). The direction
+   (outward) and sign (surplus) are corpus-stated at `:25`; the only genuinely computed content is the
+   MAGNITUDE (which missed by ~15×).
 
 ---
 
@@ -80,12 +86,14 @@ Primary split at the frozen `d = 1.0 ℓ_node` (Ax1 transverse-thickness floor),
   cold — the composite capability reduces to the bare proton at zero displacement (the new capability adds
   nothing spurious to the bare path; `test_constants_literals` unchanged).
 
-### Sign: **COMPUTED POSITIVE (Δm > 0, neutron heavier).** δ_th-free at leading order (see ablation).
+### Sign: **CANON-FORCED POSITIVE (Δm > 0, neutron heavier) — positive by construction, NOT an independent computation.**
 
 The shift-outward rendering computes `E_comp(d) > E_bare` for all `d > 0` — the spherical `4πr²` measure
 weights the displaced winding shell more, so the elastic-expansion surplus is positive by construction of
-the canon-forced rendering. **This matches observation** (the neutron IS heavier) and is a mechanism-level
-confirmation of the n–p gate's δ_th-free sign sub-finding.
+the canon-forced rendering. **This matches observation** (the neutron IS heavier) and is
+**consistent-by-construction with** (NOT a stronger confirmation of) the n–p gate's δ_th-free sign
+sub-finding. Bin (ii) WRONG-SIGN was unfireable on admissible `d ≥ 0.5` (all give `Δm > 0` by the
+canon-forced C1 sign); it is exercised only via a synthetic plant (`classify_bin(-1.0)`).
 
 ### δ_th-loading (C5 stays OPEN — the ablation is channel-blind): **`+0.042 m_e` (≈ 0.022 MeV, ≈ 0.11% of the split)** — a bound-drift residual, not a fork resolution.
 
@@ -142,7 +150,7 @@ NOT to select a `d`.
 | No seed (4) | a component whose VALUE = the answer (1.293 / 2.531 / 939.565 / proton ratio) rejected even with canonical provenance | FIRES (5/5) |
 | Ablation-bypass (5) | a single-κ "ablation" (warm==cold), a mislabeled pair, or a mismatched-`d` pair is rejected | FIRES (3/3) |
 | d-refit (4) | tuning the primary `d` away from the Ax1-floor `1.0` trips the primary-d guard | FIRES |
-| Bin fireable | in-band → (i); wrong-sign → (ii); out-of-band → (iii); non-computable → (iv) (`test_bin_flip_plants`) | FIRES |
+| Bin fireable | in-band → (i); wrong-sign → (ii); out-of-band → (iii); non-computable → (iv) (`test_bin_flip_plants`) | FIRES on **synthetic plants only**. ⚠ bin (ii) WRONG-SIGN is UNFIREABLE on admissible physical output (every `d ≥ 0.5` gives `Δm > 0` by the canon-forced C1 sign); the classifier exercises it via `classify_bin(-1.0)`, a hand-planted negative — so this row is classifier mechanics, not instrument-fireability of bin (ii). |
 | EFT hygiene | `verify_universe.py`: driver + solver + test PASS, "MATHEMATICALLY PURE" (1250 files) | PASS |
 
 Zero hard-coded physics numbers in the driver; the forbidden-seed set is derived from module CODATA anchors
@@ -188,9 +196,11 @@ designed to announce, and that canonization (which would flip the detector) awai
 
 ## BOTTOM LINE
 
-The corpus's own TBD-pin, built value-blind, **fires the discriminator the audit card wanted** — and the
-substrate speaks clearly on all three frozen observables: (1) **SIGN** — computed positive, matching
-observation, a mechanism-level confirmation of the n–p gate's δ_th-free sign; (2) **MAGNITUDE** — bin (iii),
+The corpus's own TBD-pin, built value-blind, **fires the discriminator the audit card wanted** — and what
+stands is a bin (iii) RIGHT-SIGN(-by-construction)-WRONG-MAGNITUDE deliverable across the three frozen
+observables (NOT a clean three-observable substrate verdict): (1) **SIGN** — canon-forced positive by the
+C1 rendering selection, matching observation, **consistent-by-construction with** (not a stronger
+confirmation of) the n–p gate's δ_th-free sign; (2) **MAGNITUDE** — bin (iii),
 `+38 m_e` (≈ 15× the target) at the frozen `d=1.0`, the 1D-radial proxy over-predicts the elastic tension
 (an instrument-coarseness fact, robust to the feedback fork; robust to `d` only over the range the
 `:54`-flagged Ax1-floor mapping admits — sub-floor `d` is NOT canon-excluded, so bin (i) is not foreclosed);

@@ -181,7 +181,11 @@ def test_d_refit_plant_is_caught(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 # ---------------------------------------------------------------------------
-# SIGN -- COMPUTED positive (stronger than the np-gate structural argument)
+# SIGN -- canon-forced positive by the C1 rendering selection (a canon-transcription
+# check, NOT a stronger confirmation of the np-gate's delta_th-free sign bound).
+# NOTE (2026-07-14 review): this assertion is positive-by-construction -- the C1
+# rendering was SELECTED because it gives the +surplus, so bin (ii) WRONG-SIGN is
+# unfireable on admissible d>=0.5. Kept as a canon-transcription check, not a gate.
 # ---------------------------------------------------------------------------
 def test_sign_is_computed_positive() -> None:
     sp = primary_split("warm", float(constants.KAPPA_FS))
