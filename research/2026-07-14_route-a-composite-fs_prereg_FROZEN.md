@@ -319,3 +319,43 @@ emergence-attempt, magnitude = consistency; the ablation is the δ_th statement 
 source** (constants consumed live, diffed against HEAD), **flag-don't-fix** (the feedback fork + the C4
 mass-accounting fork surfaced, not resolved). NOT-fired: engine/loop-gap skills (no engine-fire);
 Checkpoint-8 emergence-hosting (this is a static eigenvalue, not an autonomous-hosting test).
+
+
+---
+
+## AMENDMENT A1 — 2026-07-14 — verbatim-quote correction (post-freeze; frozen body byte-untouched)
+
+Per the freeze rule (Rule 11 / Rule 12), amendments are appended below the frozen body; **no byte of the
+frozen pre-registration above this line is edited.** This amendment records a disclosed misquote surfaced by
+the PR #691 adversarial review (three lenses converged, MINOR).
+
+**Finding.** The TBD-pin quotation at prereg **:5-7** (re-quoted at **:102-103**) is NOT verbatim. Inside the
+quote marks: (a) the word **"composite"** was inserted into the `:36` fragment — it is not on `:36`; it
+appears only on `:77` (and `:13`); and (b) the run *"Same shape as proton mass eigenvalue derivation but
+with the additional threaded-electron constraint adding to the FS energy integral"* is an **unmarked splice**
+of `:36`'s sentence-head (*"Same shape … but with"*) onto `:77`'s tail (*"the additional … FS energy
+integral"*) — it exists verbatim on neither line, and the ellipsis marks only the earlier :36→:77 gap, not
+these two edits. Meaning is preserved (both lines name the same FS-composite TBD-pin route), so the build
+mandate is unaffected; only the quotation is malformed.
+
+**Scope note (verify-before-cite, two-method grep, 2026-07-14).** The spliced string appears ONLY in this
+prereg. `RESULT.md` and the driver docstring (`route_a_composite_fs.py`) paraphrase the TBD-pin *without*
+quote marks (e.g. "the threaded-`0₁` term added to the FS energy integral"), so no verbatim-quote defect
+exists there — the review's "(and driver docstring)" aside is not borne out by grep, and no fix is needed in
+those files.
+
+**Correction — the source fragments, each verbatim (`neutron-identification.md`, base `240d59d8`):**
+
+- **`:36`** — *"**TBD-pin: derive 1.293 MeV from FS solver applied to threaded $0_1$-in-$6_2^3$ topology.**
+  Same shape as proton mass eigenvalue derivation but with threaded-electron constraint."* (no word
+  "composite"; the second sentence ends at "constraint.")
+- **`:77`** — *"the quantitative derivation via Faddeev-Skyrme solver applied to the $6_2^3 \cup 0_1$
+  composite topology is NOT in the corpus. Derivation pattern would parallel `self-consistent-mass-oscillator.md`
+  for the proton but with the additional threaded-electron constraint adding to the FS energy integral."*
+- **`:54`** (already quoted verbatim at prereg :7 and :99-101) — *"compute the FS energy of the
+  $6_2^3 \cup 0_1$ composite minus the FS energy of the bare $6_2^3$, in units of $m_e c^2$."*
+
+The word "composite" and the `$6_2^3 \cup 0_1$ composite topology` phrasing are correctly sourced from `:77`
+(and `:13` "composite structure"), NOT `:36`. The build mandate — parallel the proton FS eigenvalue
+derivation, adding the threaded-electron constraint to the FS energy integral, and compute composite-minus-
+bare in units of $m_e c^2$ — is unchanged and corpus-authorized by `:36`/`:54`/`:77` read together.
