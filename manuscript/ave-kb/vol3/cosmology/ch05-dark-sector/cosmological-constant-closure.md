@@ -97,7 +97,7 @@ The corpus's latent-heat framework predicts $w_{\text{vac}} \approx -1.0001$ (sl
 
 **Structural closure** at WKB/Friedmann level. The route is:
 
-1. AVE writes $H_\infty$ in terms of $m_e$, $\alpha$, $G$ (corpus, closed, `predictions.yaml` entry P23 at 0.7% off TRGB). Classification: **Class E operating-point projection** at $u_0^* \approx 0.187$ — joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge per [`omega-freeze-cosmic-grain-cascade.md:13-16`](../../../common/omega-freeze-cosmic-grain-cascade.md), not an independent single-observable prediction.
+1. AVE writes $H_\infty$ in terms of $m_e$, $\alpha$, $G$ (corpus, closed, `predictions.yaml` entry P23 at 0.7% off TRGB). Classification: **Class E operating-point projection** at $u_0^* \approx 0.187$ — joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ (precisely $\approx 3.455\times10^{38}$) topological bridge per [`omega-freeze-cosmic-grain-cascade.md:11`](../../../common/omega-freeze-cosmic-grain-cascade.md), not an independent single-observable prediction.
 2. Friedmann/de Sitter standard GR gives $\Lambda = 3H^2/c^2$ (no AVE-distinct content — standard GR, accepted by AVE)
 3. $\Lambda$ value follows directly (also Class E — same operating-point projection scaled by $3/c^2$)
 
