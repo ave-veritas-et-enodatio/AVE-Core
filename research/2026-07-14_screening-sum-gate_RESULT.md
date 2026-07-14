@@ -11,7 +11,8 @@
 
 ## TL;DR
 
-**Verdict — bin `WRONG-FORM` (category closure COMPLETE), read on the frozen TRANSFER register.**
+**Verdict — bin `WRONG-FORM` (the STATIC local-constitutive electric-dipole screening-sum route is closed
+WRONG-FORM — scoped, §2/§5), read on the frozen TRANSFER register.**
 The self-consistent many-body screening SUM — the intervening lattice cells between two seeded windings,
 each polarizing in the TOTAL field including every other cell's induced polarization (the
 Clausius-Mossotti / self-consistent-screening ladder), kernel-ON — produces a **decisive POWER LAW**
@@ -54,7 +55,8 @@ shipped as `genuineness_decomposition`, §3) re-adjudicates that under the froze
 **Class (consistency-vs-emergence): CONSISTENCY / ECHO.** The per-cell Op14 saturation grade is
 charge-agnostic (same kernel as the beta gate). The earnable content is the FORM/SIGN **category answer
 of the SUM**, not a value. No emergence claim is headlined — and the FORM is not a log, so no FORM-chord
-is earned either. **A clean, corpus-completing negative (Rule 11).**
+is earned either. **A clean, scoped, corpus-improving negative (Rule 11)** — scoped to the static
+local-constitutive electric-dipole route (§5).
 
 ---
 
@@ -164,11 +166,16 @@ corrected reading primary; the "intervening cells" interpretive step FLAGGED for
 no-log verdict is UNAFFECTED and in fact STRENGTHENED** — a spectator medium has nothing to accumulate per
 decade, so no log can form.
 
-**Consequence (frozen, prereg §4).** Category closure COMPLETE: the many-body scale-integrated route
-ALSO fails to emit `ln(R)`. The beta gate's §7 "many-body screening SUM … UNPROBED, NOT CLOSED" boundary
-is now **CLOSED (WRONG-FORM)**. The q-g20f "Identical (RT-equivalence)" scoped-import re-tag can now DROP
-the "unprobed, not closed" caveat and read as a full scoped import. **The re-tag is routed to the
-auditor** (implementer lane does not land the KB/manuscript entry).
+**Consequence (frozen, prereg §4) — SCOPED (2026-07-14 review).** The beta gate's §7 "many-body screening
+SUM … UNPROBED, NOT CLOSED" boundary — the one specific route it named — is now **CLOSED (WRONG-FORM)**:
+dropping THAT named caveat is legitimate. But the closure is scoped to **the STATIC, self-consistent,
+LOCAL-CONSTITUTIVE ELECTRIC-DIPOLE screening-sum route**. NOT probed (enumerated, open): (a)
+dynamical/retarded (frequency-dependent) response — the solve is strictly static; and (b) the
+circulation-keyed **inductive (μ-grade) channel** with circulating probes (only the capacitive ε-channel
+dipole response was summed here). So the q-g20f "Identical (RT-equivalence)" re-tag may drop the beta
+gate's named caveat but must read as a **SCOPED import over the static electric-dipole route**, NOT a
+full/complete category import (see §5 and §6 flag 1). **The re-tag is routed to the auditor** (implementer
+lane does not land the KB/manuscript entry).
 
 **Scope of the null (frozen concession).** Scoped to *the classical + kernel-ON lattice, self-consistent
 polarizable-cell screening between seeded windings, perturbative window*. It does not re-open or re-close
@@ -315,13 +322,18 @@ Independently, the per-decade log-slope of the departure collapses **~33×** bet
 −0.0005`), where a genuine log requires it constant (§2). The `p≈0.60` is a whole-window compromise fit over
 a composite (steep near-field falloff + an R-independent floor, §2), not a medium shell-integral exponent.
 
-**This CLOSES the last open route** the beta gate named. The two gates together answer the QED-TRACE
-program's only chord-class question completely: neither the two-body pairwise dress (beta gate,
-WRONG-FORM, `p≈4.25`) nor the many-body self-consistent screening SUM (this gate, WRONG-FORM, `p≈0.60`)
-emits `ln(q)`. QED's `ln` requires scale-integration over a NONLOCAL / scale-invariant polarization
-kernel; the AVE saturation medium's response, being local-per-cell and analytic, does not supply the
-scale-invariant density that would make the shell integral logarithmic. **Branch closed** — no rescue
-attempted, no post-hoc criterion drop.
+**This CLOSES the beta gate's named open route — SCOPED (2026-07-14 review).** The narrow claim is exact:
+the beta gate's §7 named exactly one open route (the many-body screening SUM between the probes) and this
+gate probed exactly that route — neither the two-body pairwise dress (beta gate, WRONG-FORM, `p≈4.25`) nor
+the STATIC self-consistent electric-dipole screening SUM (this gate, WRONG-FORM) emits `ln(q)`. But the
+closure is scoped to **the STATIC, self-consistent, LOCAL-CONSTITUTIVE ELECTRIC-DIPOLE screening-sum
+route**; it does NOT probe (enumerated, open): (a) dynamical/retarded frequency-dependent response (the
+solve is strictly static — a classical dispersive kernel emits `ln` on the frequency axis trivially), and
+(b) the circulation-keyed **inductive (μ-grade) channel** with circulating probes (only the capacitive
+ε-channel was summed). QED's `ln` requires scale-integration over a NONLOCAL / scale-invariant polarization
+kernel; the demonstration here is that the static, local-per-cell **electric** response does not supply it —
+with the residual classical routes above enumerated and OPEN. **Branch closed for the probed route** — no
+rescue attempted, no post-hoc criterion drop.
 
 **The one honest upgrade over the beta gate (surfaced, not headlined; channel-attributed 2026-07-14).** The
 transfer SIGN is RIGHT (QED anti-screening; `α_eff>1` growing at short distance), where the beta gate's
@@ -342,12 +354,15 @@ discriminating finding about the dressed pair, but **not a chord**: the FORM is 
 
 ## 6. Flags (flag-don't-fix — for auditor adjudication)
 
-1. **Routed to auditor — q-g20f scoped-import re-tag can now DROP the "unprobed" caveat.** The beta
-   gate's RESULT §7 required the q-g20f re-tag wording to inherit the "many-body scale-integrated route
-   unprobed, NOT closed" boundary. **That boundary is now CLOSED (WRONG-FORM).** The re-tag can read as a
-   full scoped import: AVE reproduces QED running as a scoped import, with BOTH the pairwise (`p≈4.25`)
-   and many-body-self-consistent (`p≈0.60`) routes shown to give power laws, not `ln`. Implementer does
-   NOT land the KB/manuscript entry.
+1. **Routed to auditor — q-g20f re-tag drops the beta gate's named caveat but stays SCOPED (do NOT read as
+   a full import).** The beta gate's RESULT §7 required the q-g20f wording to inherit the "many-body
+   scale-integrated route unprobed, NOT closed" boundary. **That specific named route is now CLOSED
+   (WRONG-FORM)**, so the re-tag may drop THAT caveat — but the closure is scoped to the STATIC,
+   self-consistent, local-constitutive ELECTRIC-DIPOLE screening-sum route. The re-tag MUST bind that scope:
+   NOT probed = dynamical/retarded response, and the circulation-keyed inductive (μ-grade) channel with
+   circulating probes. It must NOT read as a full/complete category import. And per prereg **A1.7** the
+   naked `p≈0.60` is HELD OUT of the re-tag until a floor-augmented refit resolves it. Implementer does NOT
+   land the KB/manuscript entry.
 2. **The many-body sum fixes the SIGN but not the FORM — a discriminating finding (surfaced).** The
    transfer register grows at short distance (QED direction) here, vs weakens in the beta gate. Any AVE
    "screening/running" claim should note that the many-body self-consistent ladder is qualitatively more
