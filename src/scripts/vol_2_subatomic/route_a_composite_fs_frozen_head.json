@@ -1,0 +1,11 @@
+{
+  "_provenance": "constants.py @ origin/main 240d59d8 (Route A prereg-frozen HEAD); independent no-refit anchor. Values identical to np_mass_split_gate_frozen_head.json @ 9bfc50ef (the proton chain did not move between these bases).",
+  "I_SCALAR_1D": 1161.9870305252678,
+  "V_TOROIDAL_HALO": 2.0,
+  "ALPHA": 0.0072973525693,
+  "KAPPA_FS_COLD": 25.132741228718345,
+  "DELTA_THERMAL": 0.007237227403024128,
+  "KAPPA_FS": 24.95084986518475,
+  "P_C": 0.18340247377893987,
+  "PROTON_ELECTRON_RATIO": 1836.1170402290593
+}

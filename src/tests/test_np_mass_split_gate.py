@@ -212,6 +212,23 @@ def test_magnitude_leg_emits_only_guarded_components(monkeypatch: pytest.MonkeyP
 # R6c -- corpus-state DETECTOR: bin (iv) flips if a derived neutron mass appears
 # ---------------------------------------------------------------------------
 def test_detector_clean_on_current_corpus() -> None:
+    """The corpus-state detector is clean (no derived neutron-mass symbol in ave.core.constants).
+
+    DATED COORDINATION NOTE (2026-07-14) — the event this detector was DESIGNED to announce has now
+    occurred: ROUTE A (research/2026-07-14_route-a-composite-fs_RESULT.md;
+    src/scripts/vol_2_subatomic/route_a_composite_fs.py) built the composite Faddeev-Skyrme neutron
+    instrument the RESULT-doc charter named (2026-07-13_np-mass-split-gate_RESULT.md:100) and FIRED the
+    discriminator: bin (iii) RIGHT-SIGN-WRONG-MAGNITUDE (computed sign +, magnitude ~15x over, delta_th-
+    loading +0.042 m_e -> split is delta_th-robust, C5 FORK resolved toward the linear-elastic route).
+
+    Route A is a STANDALONE driver (DO-NOT-MERGE, value-blind) and DELIBERATELY does NOT canonize a
+    NEUTRON_ELECTRON_RATIO / M_N_MEV_AVE into ave.core.constants -- canonization is a corpus-state change
+    that awaits Grant's adjudication of the Route A result. So this detector stays clean BY DESIGN, and
+    the n-p gate's bin-(iv) frozen adjudication remains internally valid (it is scoped to the FROZEN CHAIN
+    ONLY, which by construction does NOT build the composite FS). WHEN Grant rules to canonize Route A's
+    derived neutron mass, add the symbol -> this detector flips -> magnitude_computability_leg re-runs the
+    adjudication (the intended mechanism). Until then, clean is correct.
+    """
     assert corpus_has_derived_neutron_mass(constants) is False
 
 
