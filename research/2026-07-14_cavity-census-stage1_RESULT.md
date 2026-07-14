@@ -12,6 +12,35 @@
 
 ---
 
+## Review findings + repairs (2026-07-14)
+
+An independent adversarial review (3 lenses, 18 agents) confirmed **14 of 15** findings
+(1 refuted). The **verdict NO (2,3) EMERGENCE survives** — the LA cavity fundamental (the
+freeze-faithful "lowest interior mode", never read before) also returns non-(2,3). The
+evidence base is rescoped to what the instrument actually measured. Finding → repair-commit:
+
+| # | Finding (severity after review) | Repair | Commit |
+|---|---|---|---|
+| 1–2 | **Band inversion** — SA read the wrong spectral end; cavity fundamental never interrogated; phantom "frozen §2 smallest-algebraic" citation (MAJOR×2) | Read the **LA fundamental** (freeze-fidelity, A8); correct phantom §2 citations (code + A7); KEEP-BOTH ends | `c74aff23` |
+| — | (m) eigvec real-fraction = single-Lanczos-draw noise (MINOR) | Retired as a data column; degeneracy is the robust invariant (A11) | `c74aff23` |
+| — | (e) `INCONCLUSIVE-Nyquist` collapses 3 failure modes (MINOR) | `_refusal_label` reports the actual failing gate (A9) | `c74aff23` |
+| — | (f) phantom "frozen §6 (f)" plant-gate citation (MINOR) | Corrected to §6 item 1 / §0.4 / §4 | `c74aff23` |
+| g | Floor cell detector-blind; G0 validates one geometry; misreads planted (2,3) at rung 0.5 (MAJOR/MINOR) | Per-rung positive controls; `detector_trustworthy_rungs={1.0,1.6}` (A13) | `d8f3dccd` |
+| h | No engine-representable positive control in cold-linear leg (MINOR) | Scope-note: cold-linear leg INSTRUMENT-INCONCLUSIVE by construction (A14); title qualifier | `d8f3dccd` |
+| i | Driven-ping unwalled, reads common LC carrier (MAJOR) | Rescoped to #417 re-confirmation; walled-driven = Stage-2 (A15) | `d8f3dccd` |
+| j | `select_census_mode` best-fill = silent frozen-observable move (MINOR) | Dated amendment reconciling vs §B-6 (A10) | `9dc9dee1` |
+| k | Frozen "all 8 rungs" floor read shipped at 4 (MINOR) | Coverage rescoped; {10,100}=mode-ratio-only (A16) | `9dc9dee1` |
+| l | Bin (iv) 4π = dead code (`int%1==0`); unbuilt sampling (MINOR) | Rebuilt as genuine half-integer detector (A12, test G8) | `9dc9dee1` |
+| n | Cold reflection-probe = unlogged post-freeze leg (MINOR) | Logged as new impl of a frozen concept (A17) | `9dc9dee1` |
+| d | Floor "(0,0) both shapes" headline = gate-refused read (MAJOR) | Rescoped to gate-refused/detector-blind (§2 in `c74aff23`; §7 + PR body in the cluster3-5 commit) | `c74aff23` + cluster3-5 |
+| — | **Refuted (1):** — | (no repair) | — |
+
+**Frozen prereg body BYTE-UNTOUCHED across all repairs** (git-verified); every prereg-level
+item lands as a dated §A amendment (A8–A17) or an A7 correction. The **D3 framing is
+unchanged**: RULED-COEXIST stress-test, COEXIST stands, SELECTION stays imported.
+
+---
+
 ## Sector header (mandatory — carried from the frozen prereg)
 
 - **SECTOR** — the imposed census wall terminates the **A1 dilatation-mass channel**
@@ -303,9 +332,17 @@ this leg — see §B-1.
 Per the frozen D3-movement map, the census outcome is stated — **not adjudicated**
 (adjudication is the auditor lane + Grant, not this implementer RESULT):
 
-**Outcome class realized:** *"some (p,q) ≠ (2,3), or **no integer closure class**."* The
-census returns **no integer closure class** in any cell, shape, BC mode, or rung probed;
-the driven spot-check reads (−1,−1). Per the frozen map, this outcome →
+**Outcome class realized:** *"some (p,q) ≠ (2,3), or **no integer closure class**."*
+**Honest evidence-base scope (review-repair):** there is **no conclusive winding read in
+any preregistered cell** — every 3-D battery cell is `INCONCLUSIVE-amplitude` and every
+gated reflection read is `(0,0)`/`BASIS-AMBIGUOUS`; **raw reads never show (2,3)** at any
+rung, shape, BC mode, or spectral end (SA defect band OR the freeze-faithful LA cavity
+fundamental, A8); the floor-rung read is `(0,0)` **raw / gate-refused (amplitude-starved,
+detector-blind — a planted (2,3) reads the same (0,0) there, A13/A14)**, not a gated trivial
+result; and the exactly-Hermitian, real-symmetric-up-to-gauge mechanism explains the cold
+null by construction. The driven spot-check reads (−1,−1) (the common LC carrier on the
+UNWALLED orbit, A15 — re-confirms #417, does not test boundary-emergence). Per the frozen
+map, this "no integer closure class" outcome →
 
 > **"The emergence suspicion fails; (2,3) SELECTION stays imported; COEXIST stands
 > unchanged. NOT a falsification of the electron."**
