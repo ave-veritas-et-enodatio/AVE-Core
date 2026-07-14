@@ -33,8 +33,13 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 > *"At saturation onset ($A^2 \approx \sqrt{2\alpha}$)"* — comparing an $A^2$ quantity against the
 > **amplitude** threshold $\sqrt{2\alpha}$, a coordinate mismatch (A46). Corrected to $2\alpha$.
 > **FLAG (flag-don't-fix — surfaced, not silently recomputed):** the quoted $\omega_{\text{local}}
-> \approx 0.95\,\omega_{\text{global}}$ was derived under the *superseded* reading (an amplitude
-> $A^2 = \sqrt{2\alpha} \approx 0.121$ **and** the pre-split $(1-A^2)^{1/2}$ exponent). Under the
+> \approx 0.95\,\omega_{\text{global}}$ is **provenance-unclear** (not cleanly reproduced by the
+> reading it sat next to). The nearest reconstruction under the *superseded* reading — the amplitude
+> value $\sqrt{2\alpha} \approx 0.121$ fed into the $A^2$-slot of the pre-split $(1-A^2)^{1/2}$
+> exponent — gives $\sqrt{1-0.121} = 0.9377 \approx \mathbf{0.94}$, **not** $0.95$ (corroborated by
+> `research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md:797`, which reads
+> $0.94$); the exact $0.95$ traces **only** to
+> `research/_archive/L5/axiom_derivation_status.md:195`, a second, separate ~1% drift. Under the
 > corrected $A^2 = 2\alpha \approx 0.0146$ threshold with the ratified shear exponent $(1-A^2)^{1/4}$,
 > the onset value is $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx
 > 0.996\,\omega_{\text{global}}$ — i.e. the local clock is barely modulated at the deficit knee (as

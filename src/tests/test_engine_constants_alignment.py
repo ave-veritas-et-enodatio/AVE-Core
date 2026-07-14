@@ -335,13 +335,22 @@ class TestSaturationKernel:
         assert abs(self.saturation_factor(0.5) - expected) < 1e-15
 
     def test_cusp_threshold_sqrt_2_alpha(self):
-        """Saturation cusp at A² = √(2α) ≈ 0.121 per Vol 4 Ch 1 regime II/III boundary."""
-        cusp_a_sq = np.sqrt(2.0 * ALPHA)
+        """Saturation cusp at A² = 2α ≈ 0.0146 (amplitude A = √(2α) ≈ 0.1208) per Vol 4 Ch 1
+        regime I/II boundary.
+
+        Coordinate corrected 2026-07-14 (Wall-A ruling): the cusp / regime-I boundary is the
+        A²-threshold 2α, NOT the amplitude √(2α). `saturation_factor` takes A² (see
+        `test_mid_range_a_squared_half`), so the cusp is evaluated at A² = 2α. The prior form
+        fed the amplitude value √(2α) ≈ 0.1208 into the A²-slot — the A46 coordinate slip — which
+        evaluated S at the wrong point (0.937 instead of the cusp's 0.993). Authority:
+        `src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2.0 * ALPHA`, i.e. A²_yield = 2α).
+        """
+        cusp_a_sq = 2.0 * ALPHA  # A² = 2α ≈ 0.0146 (amplitude A = √(2α) ≈ 0.1208)
         # S at cusp
         S_cusp = self.saturation_factor(cusp_a_sq)
         # The cusp itself is a regime boundary, not a singularity
         assert 0 < S_cusp < 1.0
-        assert 0.93 < S_cusp < 0.95  # √(1 - 0.121) ≈ 0.937
+        assert 0.99 < S_cusp < 1.0  # √(1 − 2α) ≈ 0.9927
 
     def test_scale_invariance_module(self):
         """`saturation_factor` from ave.axioms matches reference formula.
