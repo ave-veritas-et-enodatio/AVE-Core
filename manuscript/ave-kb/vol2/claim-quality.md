@@ -1473,6 +1473,7 @@ The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all o
 - _Specific Non-Claims and Caveats_
   - Differences appear only at sub-Compton scales (pair-production physics) and ultra-high energies.
   - The AVE-distinct chiral piece is $\alpha$-suppressed (relevant only for precision polarimetry).
+  - **SCOPED IMPORT, not a computed match (2026-07-14, #685).** The RT-equivalence "match to QED" is re-tagged from argued-match to scoped consistency-import. The QED-TRACE beta-gate ([`research/2026-07-14_qed-trace-beta-gate_RESULT.md`](../../../research/2026-07-14_qed-trace-beta-gate_RESULT.md) §7) proved the two-body pointwise route **WRONG-FORM** (power law, not `ln(q)`; wrong sign on the transfer register). **Boundary (per §7):** the beta gate proved WRONG-FORM for the two-body pointwise route; **the many-body scale-integrated medium-response route is UNPROBED, NOT CLOSED** (not pre-judged). The re-tag does **not** close the log route in general.
 
 > **Leaf references:** [q-g20f-vacuum-polarization](./particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md).
 
@@ -1483,7 +1484,7 @@ The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all o
   - INVARIANT-S2 / Axiom 3 (local relativistic action; same low-energy U(1) gauge content as QED)
   - INVARIANT-S2 / Axiom 4 (saturation-kernel inverse $K(V)$ giving the cubic vertex)
 - solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
-- rationale: The match-to-QED is argued structurally via Renormalization-Theorem equivalence: AVE is a local relativistic field theory with the same low-energy U(1) content, so its loop predictions must agree with QED after renormalization — a sound consistency-check argument. The cubic vertex + BZ-cutoff mechanism is sketched and the $\Pi(q^2)$ match is argued (not independently computed here); the Landau-pole removal via the geometric cutoff is a clean structural consequence. Disclosed consistency check, match argued rather than computed.
+- rationale: The match-to-QED is argued structurally via Renormalization-Theorem equivalence: AVE is a local relativistic field theory with the same low-energy U(1) content, so its loop predictions must agree with QED after renormalization — a sound consistency-check argument. The cubic vertex + BZ-cutoff mechanism is sketched and the $\Pi(q^2)$ match is argued (not independently computed here); the Landau-pole removal via the geometric cutoff is a clean structural consequence. Disclosed consistency check, match argued rather than computed. **Re-tagged SCOPED IMPORT (2026-07-14, #685):** the QED-TRACE beta-gate computed the two-body pairwise route and found it WRONG-FORM (power law, not `ln(q)`; wrong sign on the transfer register) — so the argued match is now an explicit scoped import, with the boundary that the many-body scale-integrated medium-response route is UNPROBED, NOT CLOSED (not pre-judged). Solidity unchanged (0.60, input-only) — the gate confirms the register's own "don't build deeper" bound.
 - strengthen-by:
   - Compute $\Pi(q^2)$ from the cubic vertex with the BZ cutoff and show it equals QED's $-(\alpha/3\pi)q^2\ln(q^2/m_e^2)$ explicitly.
   - Quantify the $\alpha$-suppressed AVE-distinct chiral piece so the sub-Compton discriminator is testable.

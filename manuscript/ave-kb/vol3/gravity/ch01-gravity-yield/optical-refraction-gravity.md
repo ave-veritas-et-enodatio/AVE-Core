@@ -107,7 +107,7 @@ By evaluating this derived geometric ratio using the empirical CODATA constants 
 > **[Resultbox]** *Dimensionless Scale of the Universe*
 >
 > $$
-> \frac{R_H}{\ell_{node}} = \frac{\alpha^2}{28\pi\alpha_G} \approx \frac{5.325 \times 10^{-5}}{1.541 \times 10^{-43}} \approx \mathbf{3.455 \times 10^{38}}
+> \frac{R_H}{\ell_{node}} = \frac{\alpha^2}{28\pi\alpha_G} \approx \frac{5.325 \times 10^{-5}}{1.541 \times 10^{-43}} \approx \mathbf{3.456 \times 10^{38}}
 > $$
 
 To find the physical size of the macroscopic universe ($R_H$) predicted by the framework, multiplying by the topological spatial pitch ($\ell_{node} \approx 3.8616 \times 10^{-13}$ m):
@@ -115,7 +115,7 @@ To find the physical size of the macroscopic universe ($R_H$) predicted by the f
 > **[Resultbox]** *Physical Causal Horizon*
 >
 > $$
-> R_H = (3.455 \times 10^{38}) \times (3.8616 \times 10^{-13}\text{ m}) \approx \mathbf{1.334 \times 10^{26}\text{ meters}}
+> R_H = (3.456 \times 10^{38}) \times (3.8616 \times 10^{-13}\text{ m}) \approx \mathbf{1.334 \times 10^{26}\text{ meters}}
 > $$
 
 $1.334 \times 10^{26}$ meters evaluates to an asymptotic horizon scale of 14.1 billion light-years. Because the asymptotic Hubble time ($t_H$) is defined by the time required for light to traverse this causal horizon ($t_H = R_H/c$), the framework derives the **Asymptotic Hubble Time of the Universe as 14.1 billion years** (corresponding to an expansion rate of $H_\infty \approx 69.32$ km/s/Mpc). This lies between the modern Hubble Tension bounds, and sits slightly above the chronologically integrated age of 13.8 billion years due to early matter-dominated deceleration. The geometric integration of the 3D discrete Chiral LC lattice derives the macroscopic scale and age bounds of the observable universe from the mass-gap of the electron, the fine-structure limit, *and* the gravitational coupling $\alpha_G = Gm_e^2/\hbar c$ (which enters the $R_H/\ell_{node}$ chain above): zero free parameters *beyond the three interlocked inputs* $\{m_e, \alpha, G\}$. **(Scope-corrected 2026-06-14: $G$ was previously omitted from this "parameter-free" headline; the $R_H$ chain routes through $\alpha_G$, so $G$ is a third, interlocked input — not an absent one.)**

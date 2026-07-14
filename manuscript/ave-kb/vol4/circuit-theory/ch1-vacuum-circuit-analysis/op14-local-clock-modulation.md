@@ -19,7 +19,7 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 | Op14 local-clock modulation | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4} = \omega_{\text{global}}\sqrt{S}$ (shear matter-clock) |
 | Local time dilation | $\tau_{\text{local}}(r) = \tau_{\text{unstrained}} / (1 - A^2(r))^{1/4}$ — saturation slows local clock |
 | At low saturation | $\omega_{\text{local}} \approx \omega_{\text{global}}$ (Regime I, linear vacuum) |
-| At saturation onset ($A^2 \approx 2\alpha$, the deficit knee) | $\omega_{\text{local}} \approx 0.95 \cdot \omega_{\text{global}}$ (Regime II) — see the coordinate note below (the $0.95$ predates the corrected coordinate + shear exponent; flagged) |
+| At saturation onset ($A^2 \approx 2\alpha$, the deficit knee) | $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx 0.996 \cdot \omega_{\text{global}}$ (Regime II) — **recomputed 2026-07-14** under the corrected $A^2=2\alpha$ coordinate + ratified $\tfrac14$-shear exponent; supersedes the provenance-unclear ~~$0.95$~~ (adjudication in the coordinate note below) |
 | At rupture boundary ($A^2 \to 1$) | $\omega_{\text{local}} \to 0$ — local clock freezes; $\Gamma = -1$ TIR wall forms |
 | Cross-volume parallel | Vol 3 Ch 3 gravitational $\tau_{\text{local}} = n(r) \cdot \tau_{\text{unstrained}}$ with $n(r) = 1/\sqrt{S}$ |
 | Mechanism class | Reactive (no dissipation); energy redistributed in time, NOT lost |
@@ -43,11 +43,19 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 > corrected $A^2 = 2\alpha \approx 0.0146$ threshold with the ratified shear exponent $(1-A^2)^{1/4}$,
 > the onset value is $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx
 > 0.996\,\omega_{\text{global}}$ — i.e. the local clock is barely modulated at the deficit knee (as
-> the ruling's $\Gamma \approx -0.002$ there implies). The $0.95$ is left in place pending the
-> auditor's decision on whether "saturation onset" here means the deficit knee ($A^2 = 2\alpha$) or a
-> deeper onset; it is NOT the $\Gamma=-1$ wall (which is the $S(A)\to0$ rail, $A^2\to1$, next row).
-> Per THE WALL-A RULING (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) the
-> $A^2 = 2\alpha$ contour is the **deficit knee**, not the wall.
+> the ruling's $\Gamma \approx -0.002$ there implies); it is NOT the $\Gamma=-1$ wall (which is the
+> $S(A)\to0$ rail, $A^2\to1$, next row).
+>
+> **ADJUDICATED 2026-07-14 (#683 auditor call — REPLACE, KEEP-BOTH).** Per THE WALL-A RULING
+> (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) the $A^2 = 2\alpha$ contour
+> IS the **deficit knee**, not the wall — so the row's "saturation onset" is resolved to the deficit
+> knee, and the ambiguity that held the stale value open is discharged. The row value is **replaced**
+> with the recomputed $\omega_{\text{local}} \approx 0.996\,\omega_{\text{global}}$; arithmetic:
+> $(1-2\alpha)^{1/4} = (1-0.0146)^{1/4} = 0.9963$. The provenance-unclear $0.95$ (which traced only to
+> a ~1% drift at `research/_archive/L5/axiom_derivation_status.md:195`, never cleanly reproduced) is
+> **superseded** — byte-verbatim: ~~"$\omega_{\text{local}} \approx 0.95\,\omega_{\text{global}}$"~~.
+> (Distinct from the electron-shell $A^2 \approx 0.95$ amplitude at §4, which is a different quantity —
+> the shell's saturation *amplitude*, not $\omega_{\text{local}}$ — and is untouched.)
 
 ## §1 — The substrate-native mechanism for time dilation
 
@@ -94,7 +102,7 @@ Per A-010 clarification 2026-04-27: Op14 saturation modulates local clock rate *
 |---|---|---|---|
 | **Uniform slowing** (Op14 reactive) | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4}$ uniformly across all modes (shear matter-clock) | Phase advances slower; amplitude preserved | Conserved (reactive) |
 | **Uniform damping** (dissipative) | $A(t) = A_0 e^{-\gamma t}$ | All modes decay exponentially | Dissipated (irreversible) |
-| **Spatially-varying slowing** (Op14 + seed) | $\omega_{\text{local}}(r)$ varies across seed spatial extent: $\omega_{\text{local}}(\text{core}) \approx 0.22 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{shell}) \approx 0.84 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{exterior}) \approx \omega_{\text{global}}$ | Mode-specific phase shifts; can produce mode mixing, frequency aliasing in eigsolves | Conserved (reactive), but mode decomposition matters |
+| **Spatially-varying slowing** (Op14 + seed) | $\omega_{\text{local}}(r)$ varies across seed spatial extent: $\omega_{\text{local}}(\text{core}) \approx 0.22 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{shell}) \approx 0.84 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{exterior}) \approx \omega_{\text{global}}$ *(0.22 / 0.84 = superseded $(1-A^2)^{1/2}$ half-exponent artifacts — see the §4 KEEP-BOTH follow-on note)* | Mode-specific phase shifts; can produce mode mixing, frequency aliasing in eigsolves | Conserved (reactive), but mode decomposition matters |
 
 **Conflating these produces methodology errors** in bound-state-finding work. An eigsolve at uniform global $\sigma$ assumes uniform $\omega_{\text{global}}$, but a seeded soliton has spatially-varying $A^2(r)$ → spatially-varying $\omega_{\text{local}}(r)$. Mode III adjudication at a single $\sigma$ conflates "no localized mode at $\omega = \sigma$" with "no global mode because local saturation modulates $\omega_{\text{local}}$ across the seed's spatial extent."
 
@@ -110,6 +118,8 @@ At full saturation $A^2 \to 1$ at the soliton core:
 **The local clock freezes at the soliton core.** This is the substrate-perspective view of why the electron's interior is causally disconnected from external observers — interior eigenmodes "see" a stopped clock, while external observers measure boundary-integrated quantities ($\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$). This connects directly to the [boundary-observables substrate-observability rule](../../../common/boundary-observables-m-q-j.md).
 
 For the electron's Cosserat shell at $A^2 \approx 0.95$ (saturation onset per A26 amplitude): local clock is $\omega_{\text{local}} \approx 0.22 \cdot \omega_{\text{global}}$ at core, $\sim 0.84 \cdot \omega_{\text{global}}$ at shell, $\omega_{\text{global}}$ at exterior. This spatial structure is **the soliton's internal time profile**.
+
+> **KEEP-BOTH follow-on note (2026-07-14 — NOT a PR #690-attributable defect; a pre-existing A-010 leaf inconsistency surfaced by the #690 review, finding 7).** The companion $\omega_{\text{local}}$ values here and in the §3 "Spatially-varying slowing" row — **core $\approx 0.22\,\omega_{\text{global}}$, shell $\approx 0.84\,\omega_{\text{global}}$** — are **superseded half-exponent artifacts**. They were computed under the retired single-speed $(1-A^2)^{1/2}$ model ($0.22 = (1-0.95)^{1/2} = 0.2236$ at core $A^2=0.95$; $0.84 = (1-0.294)^{1/2} = 0.840$ at shell $A^2\approx0.294$), **not** under this leaf's ratified SHEAR exponent $(1-A^2)^{1/4}$ (which at the same $A^2$ gives core $(1-0.95)^{1/4} \approx 0.47$, shell $(1-0.294)^{1/4} \approx 0.92$). They are **KEPT, not silently replaced**: the shell $A^2\approx0.294$ is only back-inferable from the old $0.84$ value, so the quarter-exponent numbers do NOT follow purely mechanically from an independently-stated register value. This is consistent with the deficit-knee adjudication above — the ratified $A^2=2\alpha$ onset gives $\omega_{\text{local}} \approx 0.996\,\omega_{\text{global}}$ (the "saturation onset" Key-Results row + coordinate note). **Follow-on (auditor-lane KB fix):** re-derive core/shell $A^2$ from the seed profile and re-apply $(1-A^2)^{1/4}$, or restate 0.22/0.84 as illustrative-only.
 
 ## §5 — Implications for engine work
 

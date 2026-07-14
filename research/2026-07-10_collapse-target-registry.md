@@ -1,6 +1,14 @@
 # Collapse-Target Registry — corpus-wide sweep (task #33, X35 main body)
 
 **Date:** 2026-07-10 · **Branch:** `analysis/collapse-target-registry` · **PR:** [DO-NOT-MERGE][REVIEW: pending-orchestrator]
+
+> **Ledger status update (2026-07-14).** The "0-for-7 hopeful-interior-mechanism ledger" cited throughout this
+> 2026-07-10 sweep doc was **booked to 0-for-9** by the 2026-07-13 D3 "classify and book" ruling (increment 8 = X43
+> ringdown-port, frozen-form miss; increment 9 = C13b Bullet-Cluster, forward-prediction miss) — canonical at
+> [`program-arc-map.md:404`](../manuscript/ave-kb/common/program-arc-map.md). The inline "0-for-7" figures below are
+> the sweep-date snapshot; each is pointed forward to the current **0-for-9** value (KEEP-BOTH). The RHYME-tier
+> seduction-guard logic is unchanged — the ledger only grew, so a convergence this pretty is *more* to be distrusted.
+
 **CLASS: candidate-generation registry. NOT physics claims, NOT executed collapses.** This doc is the ranked
 output of the corpus-wide collapse-target sweep that follows the X35 operator-typing opener
 ([`2026-07-10_operator-typing-pass_result.md`](2026-07-10_operator-typing-pass_result.md)). It hunts three
@@ -21,7 +29,7 @@ SPLIT** legitimately has *no* shared mechanism: two unrelated objects sharing on
 verify every load-bearing receipt with **two independent grep methods** (LaTeX-aware, per `feedback_grep_completeness`),
 (c) pre-name a **kill-test** — fireable for P1/P8; for a *pure-terminology* P6 the kill-test may legitimately be n/a
 (the sole such case is T16, flagged in situ), (d) estimate cost, and (e) run a seduction self-check against the **0-for-7 hopeful-
-interior-mechanism ledger** ([`program-arc-map.md:404`](../manuscript/ave-kb/common/program-arc-map.md)). The
+interior-mechanism ledger** (the sweep-date value; **now booked 0-for-9** per the 2026-07-13 D3 ruling, [`program-arc-map.md:404`](../manuscript/ave-kb/common/program-arc-map.md)). The
 orchestrator then deduplicated across lanes, re-verified the headline + the two concrete numeric/arithmetic
 catches personally, and applied a **romance-knife pre-filter**: any candidate whose "collapse" is a rhyme rather
 than a shared mechanism is demoted to the RHYME tier with its kill-test, not ranked among the fire-ready targets.
@@ -61,7 +69,7 @@ propagation · **L** = new derivation arc or engine work.
 | **T18** | Kron's Schrödinger-network + rotating-machine branch — only the Maxwell-1944 branch is deployed | P8 | prior-art home | M–L | gated (linear-vs-saturating scope cap) |
 | **T19** | Conjugate-impedance-match term fragmented across two vol5 translation tables | P6 | drift reconcile | S | fire-ready (low value) |
 
-**RHYME tier (seduction-flagged — do NOT fire without the kill-test passing; cited against the 0-for-7 ledger):**
+**RHYME tier (seduction-flagged — do NOT fire without the kill-test passing; cited against the 0-for-7 ledger — now 0-for-9, `program-arc-map.md:404`):**
 R1 Manley–Rowe power-partition · R2 `Q`-namesake radiative linewidth (gated on T9) · R3 AC-Josephson `f=2eV/h`
 DC→AC discriminator · R4 Kolmogorov row "slew-mis-shelf" · R5 the §b `u₀*` triple-convergence *as a convergence* · R6 the multi-stage cascade-filter ontology (🔴 KILLED 2026-07-13, PR #668) · R7 PFC / power-factor ordering (🔴 KILLED with R6).
 
@@ -314,7 +322,7 @@ that single de-orthogonalization is the shared mechanism and it kills the `:331`
 spend a *small* duty fraction at *high* instantaneous loss, so "`δ_AVE` = the time-average of the `θ`-dissipation" is **not**
 an identity. That θ↔`δ_AVE` tie is exactly the **taxonomic-not-derivational analogue the leaf itself flags at `:310`**
 ("does NOT yet derive their numerical values from `S(A)`"), not a phasor identity — it must not be written into canon as one.
-This is the 0-for-7 shape guarded against (a real identity `tan δ = cot θ` must not be *stretched* onto the `δ_AVE` duty
+This is the 0-for-7 (now 0-for-9, `program-arc-map.md:404`) shape guarded against (a real identity `tan δ = cot θ` must not be *stretched* onto the `δ_AVE` duty
 ratio); the fireable residue is the `θ`↔`tan δ` de-orthogonalization only.
 
 **What it clarifies:** removes the "three fully-orthogonal classifiers" over-claim (`:331`) on its real leg — the power-domain
@@ -578,7 +586,7 @@ vocabulary-register.md` → **0 relevant hits**; the only `u_0` substring matche
 `\mu_0`/`\mu_{eff}` EM-constitutive text — not `u₀*` entries — so the earlier bare `rg 'u_0' → 0` was a false receipt).
 **Kill-test:** the D-II bridge showing the frozen bias enters the T2 channel *and* equals the magic-angle value would
 collapse B→A; until run, treat as two. **Cost:** **S.** **Confidence:** high the glyph is overloaded. **Seduction check:** this
-IS the deflationary lens the 0-for-7 ledger demands — do not upgrade the §b convergence (see RHYME tier R5).
+IS the deflationary lens the 0-for-7 ledger (now 0-for-9, `program-arc-map.md:404`) demands — do not upgrade the §b convergence (see RHYME tier R5).
 
 **Lane provenance:** research C3.
 
@@ -766,10 +774,10 @@ into a deep identity; drift-grade, ranked last. **Lane provenance:** vol5 F3.
 
 ---
 
-## RHYME tier — seduction-flagged; do NOT fire without the kill-test passing (0-for-7 ledger)
+## RHYME tier — seduction-flagged; do NOT fire without the kill-test passing (0-for-7 ledger; now 0-for-9)
 
 These are recorded so the core planning session sees them and does not re-discover them as "new." Each is a resemblance whose
-shared *mechanism* is unproven; the miss-ledger (`program-arc-map.md:404`) stands at **0-for-7** on exactly this shape.
+shared *mechanism* is unproven; the miss-ledger (`program-arc-map.md:404`) stands at ~~**0-for-7**~~ **0-for-9** (booked 2026-07-13, D3 ruling) on exactly this shape.
 
 - **R1 — Manley–Rowe power-partition (P8).** The lossless-reactance photon-number-flux sum rules are named as a *description*
   only (`translation-circuit.md:252` "Gate (a) PASSED as descriptions") but not cashed as a *constraint* on the two-tone FWM
@@ -800,7 +808,7 @@ shared *mechanism* is unproven; the miss-ledger (`program-arc-map.md:404`) stand
   on `∂u/∂x` (slew) or `k/k_node` (swing)? **Cost S to flag `⚠ slew-candidate, PENDING`; L to confirm.**
 - **R5 — the §b `u₀*` triple-convergence AS A CONVERGENCE (framing).** Three threads (parity-meter READS / matched-vertex REQUIRES
   / nucleation WRITES one `u₀*`) is **corpus-labeled a rhyme** (`impedance-register-walks_framing.md:30`, SEDUCTION-FLAGGED, 0-for-7
-  cited). Recorded here ONLY as the pre-flagged rhyme with its pre-named kill-tests (D-II calibration, X39 fork-record task #37,
+  cited — that ledger now stands 0-for-9, `program-arc-map.md:404`). Recorded here ONLY as the pre-flagged rhyme with its pre-named kill-tests (D-II calibration, X39 fork-record task #37,
   ring-quantization transient task #38). **Do NOT upgrade.** The *fireable* residue of this thread is T12 (the `u₀*` glyph
   deflation) — a def-node that stops the three threads cross-authenticating, which is the opposite move to upgrading the
   convergence.

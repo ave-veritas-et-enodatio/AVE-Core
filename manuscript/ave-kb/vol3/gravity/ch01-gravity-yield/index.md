@@ -20,7 +20,7 @@ Derives macroscopic gravity from the Effective Medium Theory of the substrate LC
 | Machian Hierarchy Coupling | $\xi = 4\pi\left(\frac{R_{H}}{\ell_{node}}\right)\alpha^{-2}$ |
 | Asymptotic Hubble Constant | $H_{\infty} = \frac{28\pi m_{e}^{3}cG}{\hbar^{2}\alpha^{2}}$ |
 | Gravitational Coupling Constant | $G = \frac{\hbar c}{7\xi m_{e}^{2}}$ ; $\alpha_G = \frac{1}{7\xi}$ |
-| Scale of the Universe | $\frac{R_{H}}{\ell_{node}} = \frac{\alpha^{2}}{28\pi\alpha_{G}} \approx 3.455 \times 10^{38}$ |
+| Scale of the Universe | $\frac{R_{H}}{\ell_{node}} = \frac{\alpha^{2}}{28\pi\alpha_{G}} \approx 3.456 \times 10^{38}$ |
 | Planck Mass | $m_{P} = m_{e}\sqrt{7\xi}$ |
 | Physical Causal Horizon | $R_H \approx 1.334 \times 10^{26}$ m (14.1 Gly) |
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV |
