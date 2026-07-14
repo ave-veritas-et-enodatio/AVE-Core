@@ -204,3 +204,134 @@ class TopologicalHamiltonian1D:
 
         # Return the minimized dimensionless energy scalar
         return result.fun
+
+    # -------------------------------------------------------------------------
+    # ROUTE A — the composite 6₂³ ∪ 0₁ neutron: the one new capability the
+    # corpus TBD-pin names (neutron-identification.md:36/:77/:54). The threaded
+    # 0₁ unknot's tube (transverse thickness ≥ 1 ℓ_node by Ax1) occupies the
+    # cage's central void and displaces the winding shell OUTWARD by d, which is
+    # "the additional threaded-electron constraint adding to the FS energy
+    # integral" (:77). Cage phase is held at π on [0, d] (the fully-wound core
+    # now occupied by the threaded tube), then winds down over (d, ∞) with the
+    # SAME functional and the SAME c=5 confinement (the proton stays a proton).
+    # The spherical 4πr² measure weights the displaced shell more → the FS
+    # energy RISES → the elastic-expansion mass surplus (:25). This is the ONLY
+    # rendering of the three physical candidates (inner-exclusion, r_opt-stretch,
+    # shift-outward) that produces the canon-required POSITIVE surplus; the other
+    # two give the wrong sign and are ruled out BY the corpus. Rendering is
+    # CANON-FORCED, not invented (see the frozen prereg's substrate-native walk).
+    #
+    # This is a NON-INTRUSIVE addition: solve_scalar_trace (the bare proton path)
+    # is untouched, and solve_composite_trace(d=0) reduces EXACTLY to it (a
+    # built-in consistency check the driver asserts). [dimensional-provenance:
+    # d is in the solver's dimensionless ℓ_node Nyquist-cutoff unit, NOT a
+    # real-space length — same convention as r_opt.]
+    # -------------------------------------------------------------------------
+    def _composite_energy_density_integrand(
+        self, r: float, r_opt: float, n: float, d: float
+    ) -> float:
+        """Faddeev-Skyrme energy density for the threaded-composite cage.
+
+        Identical to `_energy_density_integrand` except the cage winding shell is
+        displaced outward by the threaded-tube radius `d`: φ(r) = π on [0, d]
+        (core occupied by the 0₁ tube), φ(r) = π/(1 + ((r−d)/r_opt)ⁿ) on (d, ∞).
+        Axiom 4 gradient saturation is applied identically (same Nyquist yield).
+        """
+
+        def phi_of(rr: float) -> float:
+            if rr <= d:
+                return np.pi
+            return np.pi / (1.0 + ((rr - d) / r_opt) ** n)
+
+        dr = 1e-6
+        phi1 = phi_of(r)
+        phi2 = phi_of(r + dr)
+        dphi_dr = (phi2 - phi1) / dr
+
+        # Axiom 4: gradient saturation at the lattice Nyquist limit (unchanged).
+        gradient_yield = np.pi  # π / ℓ_node = π / 1 in natural units
+        from ave.core.universal_operators import universal_saturation
+
+        S = universal_saturation(dphi_dr, gradient_yield)
+        dphi_dr_eff = dphi_dr * S
+
+        kinetic_term = 0.5 * (dphi_dr_eff**2)
+        # In the held-core region [0, d], φ = π so sin²(φ) = 0 and the Skyrme
+        # term vanishes there (the tube's fully-wound core carries no gradient
+        # tension) — the surplus comes entirely from the displaced winding shell.
+        #
+        # ⚠ CHANNEL-EXCISION DISCLOSURE (2026-07-14 adversarial review): the
+        # `density` below multiplies skyrme_term by the spherical 4πr² measure,
+        # which cancels its 1/r² EXACTLY, leaving 4π·κ²·0.5·sin²(φ)·dφ_eff² — a
+        # function of φ and dφ/dr with NO explicit r. Under the rigid outward
+        # shift φ(r)=φ_bare(r−d) this κ²-weighted term is therefore SHIFT-
+        # INVARIANT and cancels IDENTICALLY in E_comp − E_bare (it does NOT merely
+        # "vanish on [0, d]" — the WHOLE channel drops out of the difference;
+        # live-fire: Skyrme d-surplus ≈ −7e-7, κ-coupled fraction ≈ −2.8e-8; the
+        # entire threading surplus lives in the κ-FREE kinetic_term above). Since
+        # δ_th enters ONLY through κ (KAPPA_FS = KAPPA_FS_COLD·(1−δ_th)) and κ
+        # appears at just two sites — this quartic coefficient and the
+        # r_opt_max=κ/5 bound in solve_composite_trace — the ablation's δ_th-
+        # loading of the SPLIT is confined to the r_opt-bound residual; the
+        # FS-route (quartic) loading channel is structurally absent from the
+        # difference. => C5 is NOT adjudicable in this 1D shift proxy; the ablation
+        # is CHANNEL-BLIND. A faithful C5 test needs a 3D composite build that
+        # retains the quartic linking channel.
+        skyrme_term = 0.5 * (np.sin(phi1) ** 2) / (r**2 + EPS_NUMERICAL)
+
+        density = 4 * np.pi * (r**2) * (kinetic_term + (self.kappa**2) * skyrme_term * dphi_dr_eff**2)
+        return density
+
+    def solve_composite_trace(
+        self,
+        threading_displacement: float,
+        crossing_number: int = CROSSING_NUMBER_CINQUEFOIL,
+    ) -> float:
+        """Composite 6₂³ ∪ 0₁ FS scalar trace: the bare-cage minimization with the
+        threaded-electron constraint (winding shell displaced outward by
+        `threading_displacement` = d, in ℓ_node cutoff units).
+
+        Same energy functional, same crossing-number confinement (c=5, the proton
+        stays a proton). `solve_composite_trace(0.0)` reduces EXACTLY to
+        `solve_scalar_trace()` (the d=0 consistency check).
+
+        Args:
+            threading_displacement: d — the outward displacement of the cage's
+                winding shell by the threaded 0₁ tube. The frozen primary d=1.0
+                is set from the Ax1 transverse-thickness floor (no flux tube
+                below transverse thickness 1 ℓ_node).
+                ⚠ CAVEAT (neutron-identification.md:54, 2026-07-14 review): Ax1's
+                floor is a REAL-SPACE length, whereas d here — like r_opt (see the
+                2026-06-08 dimensional-provenance relabel in this module's header)
+                — is in the solver's DIMENSIONLESS ℓ_node Nyquist-cutoff
+                coordinate. The corpus flags the real-space→solver-unit mapping as
+                "not established" (D_p ≈ 0.841 fm ≈ 460× smaller than ℓ_node ≈ 386
+                fm), so d=1.0 in solver units is a DISCLOSED modelling pin, NOT a
+                canon-derived displacement — the admissible-d range (hence whether
+                bin (i) is reachable) is not canon-determined.
+            crossing_number: (2,q) crossing number; default 5 (proton cinquefoil,
+                unchanged — the composite cage is still a proton).
+
+        Returns:
+            float: the minimized composite FS energy I_comp(d) in dimensionless
+                mass units (same units as `solve_scalar_trace`).
+        """
+        d = threading_displacement
+        r_opt_max = self.kappa / crossing_number
+
+        def objective(params):
+            r_opt, n = params
+            # Integrate out to 10·r_opt PAST the displaced core wall at d.
+            integral, _ = quad(
+                self._composite_energy_density_integrand,
+                0.0,
+                10.0 * r_opt + d,
+                args=(r_opt, n, d),
+                limit=100,
+            )
+            return integral
+
+        initial_guess = [1.0, 2.0]
+        bounds = [(0.1, r_opt_max), (1.0, 4.0)]
+        result = minimize(objective, initial_guess, bounds=bounds, method="L-BFGS-B")
+        return result.fun
