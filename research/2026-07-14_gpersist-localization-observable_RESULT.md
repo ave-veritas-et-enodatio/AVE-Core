@@ -82,6 +82,14 @@ The mirror loop reproduces `run_loop_gap_probe`'s `E_persist`/`φ_persist` **exa
 | cell | ref (run_loop_gap_probe) | mirror loop | relΔ | banked #670 |
 |---|---|---|---|---|
 | N=14 torus pair, smoke | E=0.999993 / φ=2.511658 | E=0.999993 / φ=2.511658 | 0.00e+00 | φ 2.5117 ✓ |
+| N=14 torus pair, **prod** | E=0.999996 / φ=10.519699 | E=0.999996 / φ=10.519699 | **0.00e+00** | φ 10.5197 ✓ |
+
+The frozen parity protocol requires cell S1 (torus pair, smoke) **and one production cell** at
+≤1e-6 relative (prereg §Live-fire parity gate). Both legs are now documented at the frozen
+tolerance (review finding #6b — the production leg had been documented only as a 4-decimal
+banked-value match). Production parity JSON (`--parity 14 0 pair prod`):
+`ref_E = mirror_E = 0.9999960995736088`, `ref_phi = mirror_phi = 10.51969852461048`,
+`rel_dE = rel_dphi = 0.0`, `parity_pass = true` — byte-identical trajectory, meter non-perturbing.
 
 Every production cell independently reproduces banked #670 to four decimals (§2 table). ⇒ the
 per-step localization meter is measured **on the identical field trajectory** as the banked
@@ -316,6 +324,8 @@ they do **not** soften the data. Commit SHAs are listed in the PR body. Finding�
 | 3 | MAJOR | energy-meter density is **potential-only** — omits the Cosserat KINETIC register (~44% of H on the fork cells); the frozen prereg (line 85) sells `E_dens` as the "spatial parallel of `E_persist`", but `E_persist` is a kinetic-inclusive H-ratio | **ESCALATED — STOP+report, NOT re-banked** (see the ESCALATED subsection below). Implemented the composed (min-image + kinetic) meter and re-ran the full production battery: **fork cells stay LOOP-FILLING** (disperse *harder* on CF, −0.420/−0.409) so the verdict is robust — **but four non-fork cells' bins MOVE** (torus `photon_lock` CONCENTRATING*→LOOP-FILLING; all three PML cells LOOP-FILLING→INCONCLUSIVE). Per the cluster-3 STOP rule, the kinetic term is **not committed to the driver** and the composed numbers are **not banked** into §2; surfaced for orchestrator/Grant adjudication (register choice = framing-level). |
 | 4 | MINOR ×3 | shipped LOOP-FILLING classifier drops the frozen **φ≫1 conjunct** (quarantine-stronger); RESULT §6 self-review overclaimed prereg-parity "clean" | φ **not** re-added to the classifier (would re-import the quarantined gauge artifact); dated **prereg amendment (finding #4)** reconciles the frozen bin as *superseded-by-quarantine* (2-conjunct PR∧CF + φ≫1 human-verified corroboration, byte-exact vs #670: φ=10.5197/10.4218); RESULT §6 "clean" cell corrected to disclose the intentional omission; §4 adopts the **two-statistic-conjunction** rule for future CONCENTRATING claims. Verdict-robust (fork cells meet the full conjunction where scored). |
 | 5 | MINOR ×3 | aggregate gate implemented only **1 of 3** frozen MIXED triggers; the frozen least-squares-slope non-monotone guard was never built; prereg 174-176 vs 180-183 internally contradictory | driver: `cmd_aggregate` now machine-evaluates **all 3** MIXED routes (pair-vs-graded, energy-vs-Φ_link, torus-concentrates-vs-PML-twin) and `_trend` now returns `slope_norm`; all three MIXED routes **moot on this data** (Φ_link agrees LOOP-FILLING PR +0.996/+0.963, no torus concentration) so **FORK BIN = LOOP-FILLING unchanged**; dated **prereg amendment (finding #5)** reconciles the 174-176-vs-180-183 contradiction; RESULT §4 surfaces the min/max non-monotone read; §6 row corrected. |
+| 6a | MINOR | frozen prereg STEP-0 splices "+ the participation ratio" into a quote cited as `spec verbatim` from parent RESULT §8, where it does not occur | verified two-method (`grep -c` = 0, `git grep` = 0 hits on the parent file); dated **prereg amendment (finding #6a)** re-attributes the participation-ratio spec to `_orchestration/2026-07-10_rulings-docket.md:435` (also :477/:502). Meter stays fully authorized; citation-only. |
+| 6b | MINOR | frozen parity protocol promised smoke S1 **and** one production cell at ≤1e-6; RESULT documented only the smoke leg at tolerance | RESULT §1 now includes the **production** parity row + JSON (`--parity 14 0 pair prod`: ref==mirror E=0.9999961, φ=10.5196985, relΔE=relΔφ=**0.0**, PASS) — both frozen legs documented at ≤1e-6. |
 
 ### Finding #3 — ESCALATED (kinetic register moves corroboration/control bins; STOP + report)
 

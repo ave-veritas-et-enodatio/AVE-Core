@@ -295,3 +295,20 @@ guard)"; it was **not** implemented. `_trend` now returns `slope_norm` alongside
 shipped min/max, completing the frozen declaration. (The endpoint-only `rel_trend` can hide
 strongly non-monotone series — e.g. under the finding-#3 composed meter the PML `pair` PR swings
 min 71.7 → max 99.1 yet returns near-flat at the endpoints.)
+
+### 2026-07-14 · Amendment (review finding #6a) — participation-ratio provenance re-attribution
+
+The STEP-0 §Corpus sweep row citing `research/2026-07-13_genesis-npersist-n14-battery_RESULT.md:268-280`
+(§8) labels as **`spec verbatim`** the string "… **+ the participation ratio**". That trailing
+clause does **NOT** occur in the cited parent RESULT §8 — verified **two-method** 2026-07-14:
+`grep -c "participation"` = **0** and `git grep` = **0 hits** on that file. Parent §8 specs only
+"the fraction of interior energy / Φ_link² inside a central core". The participation-ratio spec is
+genuinely authorized, but its provenance is the **rulings docket**,
+`_orchestration/2026-07-10_rulings-docket.md:435` (also `:477`, `:502`): "spatial-concentration /
+**participation-ratio** localization observable".
+
+**Correction:** read the frozen `spec verbatim` quote as covering **only** the pre-"…"
+core-fraction clause (genuinely verbatim from §8; the `…` elides the parenthetical); the
+"+ the participation ratio" tail is **re-attributed** to `docket:435` — which the prereg's very
+next §Corpus-sweep row already cites separately. The participation-ratio meter stays **fully
+authorized**; only the citation provenance is corrected. **No verdict impact.**
