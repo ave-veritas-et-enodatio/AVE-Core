@@ -308,3 +308,27 @@ models get the same free-parameter budget (2 each: {c, r_ref-offset} vs {a, p}).
 
 *Frozen 2026-07-14. Result + autopsy + PR follow in a subsequent commit. Amendments (if any) appended
 below this line with date + rationale; frozen body bytes above are untouched.*
+
+---
+
+## AMENDMENT A1 (2026-07-14, post-run — self-adversarial repair, PR #685)
+
+Two shipped-code-vs-frozen-declaration deviations, both surfaced by the implementer's self-adversarial
+prereg-parity lens, both **verdict-preserving** and reconciled here (frozen body above untouched):
+
+1. **Fit window `[1.02, 1000]` → `[3, 3000]`.** §5 leg-1 / §2(b) froze the analytic sweep at
+   `r/d_sat ∈ [1.02, 1000]`; the shipped driver uses `[3, 3000]` (the perturbative window, the QED-running
+   analog). **Rationale:** the near-wall region `r/d_sat ∈ [1.02, ~3]` is the *non-perturbative Pauli
+   wall*, where the transfer force FLIPS SIGN (`α_transfer(1.02) ≈ −7.4`, a near-singularity) — including
+   it corrupts the fitted power exponent (grid-ceiling `p=8` instead of the analytically-correct `p≈4`
+   from `Γ²∝(d_sat/r)⁴`). **Robustness receipt (live-fire, this session):** the VERDICT is
+   window-independent — `WRONG-FORM` + register-flip + transfer-wrong-sign hold on ALL of
+   `[1.02,1000]` (transfer dBIC −125), `[1.1,1000]` (−207), `[1.5,1000]` (−334), `[3,3000]` (−473); only
+   the exponent value shifts. The category answer (power law, not log) does not depend on the window.
+
+2. **Transfer definition `F·r²/K` → `F/F_Coulomb`.** §3(a) froze `α_eff^transfer ≡ F·r²/K` with the
+   stated intent "bare Coulomb ⇒ `α_eff ≡ 1`". The literal formula is sign-convention-ambiguous (yields
+   ∓1 depending on the force-sign convention); the shipped driver computes the sign-robust RATIO
+   `F(r)/F_Coulomb(r)`, which is `F·r²/K` up to the sign of `K` and delivers the frozen intent
+   (bare → exactly 1, verified flat to `1e-10`). No verdict impact; the RESULT §2 documents the actual
+   observable (`F/F_Coulomb`), so there was no silent deviation in the reported result.

@@ -140,6 +140,14 @@ probed neutrally / via seeded windings*. The **sourced-probe question stays clos
 The fitter is proven able to (a) find a real log, (b) reject a spurious log on a hard `p=0.3` power law,
 and (c) separate the two at the achieved range. The WRONG-FORM verdict is therefore not a range artifact.
 
+**Window robustness (self-adversarial live-fire, prereg AMENDMENT A1).** The verdict is
+**window-independent**: `WRONG-FORM` + register-flip + transfer-wrong-sign hold on the frozen
+`[1.02,1000]` (transfer `ΔBIC=−125`), `[1.1,1000]` (`−207`), `[1.5,1000]` (`−334`), and shipped
+`[3,3000]` (`−473`) windows. Only the fitted exponent shifts — the shipped perturbative window gives the
+analytically-correct `p≈4`; the frozen wall-inclusive window gives a grid-ceiling `p=8` corrupted by the
+non-perturbative Pauli-wall sign-flip (`α_transfer(1.02)≈−7.4`). The category answer (power law, not log)
+does not depend on the window. The shipped window change is documented in prereg AMENDMENT A1.
+
 ---
 
 ## 5. PRIMARY (b) empirical anchor — Cosserat seeded winding pair (disclosed)
