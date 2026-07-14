@@ -315,7 +315,13 @@ Independent adversarial review (`ave-adversarial-pr-review`, 3 lenses × 18 agen
 machinery around a conclusion that is independently true). The **LOOP-FILLING ⇒ Reading A**
 fork verdict **survives every finding** (carried by the stencil-clean, center-free PR statistic
 and the byte-exact #670 φ-trend); the repairs **harden the meter and honesty-scope the claims**,
-they do **not** soften the data. Commit SHAs are listed in the PR body. Finding→fix map:
+they do **not** soften the data.
+
+**Finding→commit map** (branch `analysis/gpersist-localization-observable`): #1 → `44afb78b`
+(torus-native CF stencil) · #2 → `31b85424` (scope to DISTRIBUTED sustenance) · **#3 →
+`9c588bbe` ESCALATED** (kinetic register moves bins — STOP+report, not banked) · #4 → `bbd57a69`
+(φ-conjunct quarantine) · #5 → `abaad0a6` (3 MIXED routes + slope guard) · #6a/#6b → `f558d258`
+(quote-attribution + production parity). Finding→fix map:
 
 | # | severity | finding | repair |
 |---|---|---|---|
