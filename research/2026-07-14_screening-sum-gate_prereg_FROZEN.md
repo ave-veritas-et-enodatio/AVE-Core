@@ -298,3 +298,50 @@ banked as AMENDMENTS A2.1/A2.3 are pre-corrected here.
 
 *Frozen 2026-07-14. Result + PR follow in subsequent commits. Amendments (if any) appended below this
 line with date + rationale; frozen body bytes above are untouched.*
+
+---
+
+## AMENDMENT A1 (2026-07-14, post-run — three verdict-preserving integrator-time refinements)
+
+Three shipped-code-vs-frozen deviations, all surfaced at integrator time (Rule 10 — bugs manifest only
+when the solver runs), all **verdict-preserving** (the `WRONG-FORM` / decisive-power verdict holds — and
+SHARPENS — under each; none biases the fit toward or away from the log), all reconciled here (frozen body
+above untouched). The frozen ADJUDICATION CRITERIA (§4 bins, §6 gates + ΔBIC statistic, the two
+genuineness knives, the transfer-register primary) are UNCHANGED.
+
+**A1.1 — Interaction-force self-subtraction (the frozen transfer definition was ill-posed).** §3(a) froze
+`α_eff^transfer ≡ F_z(R)/F_z,bare(R)` with `F_z(R)` = "the axial force on probe-1 including the field of
+ALL induced dipoles", intent "kernel-OFF ⇒ α_eff ≡ 1 (flat)". The RAW `F_z` is **dominated by an
+unphysical self-force**: probe-1's own (nominally isotropic) screening cloud does not perfectly
+angularly cancel, leaving an `R`-independent residual that, divided by the tiny bare force `1/R²`, BLOWS
+UP far-field (`α_eff ≈ −1.3e4` at `R=3000`). The shipped driver isolates the genuine interaction force
+by SUBTRACTING probe-1's isolated self-cloud force: `F_transfer = F_dip(both probes) − F_dip(probe-1
+alone, q=(1,0))`, which delivers the frozen intent exactly (`→1` far-field, kernel-OFF `≡1` flat to
+machine ε). This is the direct analog of the beta gate's own A1 repair (`F·r²/K → F/F_Coulomb` to deliver
+"bare → 1"). The genuineness knives VALIDATE the observable is physical, not a subtraction artifact:
+bridge-removal changes it 51% (medium-mediated) and Born-vs-converged changes it 9.4% (self-consistency
+active).
+
+**A1.2 — Antipodal-symmetric angular sampling.** §5 froze "Fibonacci-sphere directions (n_ang=24)"; the
+shipped `_fib_sphere` uses **antipodal-symmetric** Fibonacci (12 points + their 12 antipodes). Antipodal
+symmetry makes each probe's ISOTROPIC self-cloud exert exactly zero net axial force (each radial dipole's
+contribution cancelled by its antipode's), so the interaction-force extraction (A1.1) is not contaminated
+by an angular-discretization self-force. Verdict-neutral (does not bias log-vs-power); with raw
+non-antipodal Fibonacci the verdict already leaned power/grows-short, antipodal sharpens it.
+
+**A1.3 — Orientation-averaging (`N_ORIENT=8`, seeded).** Not in the frozen spec; added to suppress the
+DETERMINISTIC angular-discretization noise (a fixed ~0.005 ripple + a reproducible artifact dip at
+`R≈416` that appears identically at all tolerances — confirmed NOT iterative: tightening SCF `tol` from
+`1e-8`→`1e-12` changes the curve by 0). Each scale point is averaged over 8 random SO(3) rotations of the
+mesh pattern (reproducible seed `20260714`). This is isotropic noise reduction — it cannot bias
+log-vs-power. Single-orientation the transfer already selected/leaned `M_pow` grows-short (`dBIC≈−6.7`
+inconclusive at 8 pts → decisive `M_pow dBIC=−24.7` averaged at 16 pts); the averaging sharpens
+inconclusive→decisive POWER, never toward log.
+
+**A1.4 — Added robustness legs (disclosed, not gating).** A 3-decade window-robustness leg (`R/d_sat ∈
+[30, 30000]`, decisive `M_pow dBIC=−21.0`) and the `α0` form-robustness sweep (§5, frozen) confirm the
+verdict is window- and `α0`-independent (never `M_log` at any `α0 ∈ {0.01,0.03,0.1,0.2}`).
+
+**Net:** every deviation makes the observable well-posed / cleaner without touching the frozen bins,
+gates, or genuineness criteria. The verdict is `WRONG-FORM`, decisively (`dBIC=−24.7` at 2 decades,
+`−21.0` at 3 decades), genuinely many-body (both knives pass).
