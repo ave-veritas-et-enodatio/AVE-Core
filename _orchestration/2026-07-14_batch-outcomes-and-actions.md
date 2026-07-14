@@ -154,8 +154,66 @@ each (or none). Cites point at where each is already booked.
 
 ## §4 — META-LESSONS (register-honest)
 
-<!-- SECTION-STUB -->
+1. **The structural-null stencil lens was the highest-yield knife of the day — 4 kills.** Every
+   one of the four found a **disabled-flag / wrong-coordinate artifact masquerading as physics**:
+   #691's δ_th ablation is **channel-blind** (the quartic linking channel is structurally
+   excised by the 1D shift measure); #692 read the **wrong spectral end** (SA, band-inverted)
+   AND had a **detector-blind floor** (a planted (2,3) reads the same refused `(0,0)`); #689's CF
+   statistic was a **seam-clip artifact** on the periodic torus (fixed by minimum-image);
+   #693's Knife-B was **near-cloud slicing** (the "many-body" signal was each probe's own
+   dress, not the medium). The lens is the §3 item-8 standing-discipline candidate.
+2. **Fabricated-quote / phantom-citation under a verify-claim surfaced ×2 — two-method grep
+   every stamp.** (a) #690 finding #2: a **fabricated quote + false VERIFIED stamp** on
+   `manuscript/vol_2_quantum/chapters/02_baryon_sector.tex:40` ("multi-node body envelope" —
+   the directory does not exist; 0 corpus hits; struck in `0e7d4e11`). (b) #692: a **phantom
+   citation** — `"frozen §2 smallest-algebraic (most-bound)"` appears **nowhere** in the frozen
+   body (the frozen §4 bin-i says only "the lowest interior mode"), caught by two-method grep
+   and corrected. A **third, pre-existing twin** of the (a) fabrication survives at
+   `vocabulary-register.md:173` (routed to the auditor queue — §3 item-6). Lesson: a VERIFIED
+   stamp / frozen-body citation is not self-certifying — re-grep it two-method.
+3. **Chat-relay ≠ repo receipt** — the `q-g20f` "screening-sum gate registered open, sibling
+   lane" case. #690 finding #6: that parenthetical was **unreceipted coordinator-chat** (absent
+   from #685 §7 and from the repo), stripped at 3 KB sites + `claims.jsonl` (`e309b61a`). A
+   claim's home is the repo, not the relay; the KB carries only §7-supported boundaries.
+4. **Session-limit resume worked** (process note; no repo receipt — harness mechanics). The
+   batch spanned a session-limit boundary and resumed cleanly via transcripts +
+   `resumeFromRunId`; no lane lost its freeze-by-push ordering or its finding→commit map across
+   the resume.
+5. **Every confirmed finding was EVIDENCE-VOID repair-and-bank; 0 verdicts flipped — the
+   pipeline is functioning.** Across the batch's adversarial reviews, **no verdict flipped**:
+   the numbers reproduced exactly and only the *promotion* of numbers to interpretive verdicts
+   was ever refuted (#691's C5 retraction is the exemplar). That zero-flip rate is itself
+   evidence the **freeze-by-push + wrapper-review** pipeline is working as designed. ⚠ See the
+   §1 tally flag: the verified confirmed count across the 5 wrapper reviews is **61** (not the
+   brief's "~50"); "0 verdicts flipped" verifies exactly.
 
 ---
 
-<!-- FOOTER-STUB: cross-refs + lane attribution -->
+## Cross-references + lane attribution
+
+**The eight lanes (SHAs re-verified this session):**
+- MERGED: **#686** `3b05771a` · **#687** `b05e6372` · **#688** `fd7f257c` · **#690** `a58ef1b6`
+  · **#691** `25b3b911` (= `origin/main` HEAD).
+- OPEN (`[DO-NOT-MERGE][REVIEW: pending-orchestrator]`, fully repaired): **#689**
+  `analysis/gpersist-localization-observable` @ `71b451ba` · **#692**
+  `analysis/cavity-census-stage1` @ `1dd9485a` · **#693** `analysis/qed-trace-screening-sum`
+  @ `4d3355b0`.
+
+**Companion tracking docs:** the day-2 docket continuation
+`_orchestration/2026-07-10_rulings-docket.md` ("Continuation — 2026-07-14 EOD", #686) — this
+board adds a short append-only continuation row there pointing here; and the prior-day
+`_orchestration/2026-07-13_eod-reconciliation-board.md` (whose "stale on arrival" amendment is
+the standing meta-lesson this board is structured to avoid — all eight lanes are settled).
+
+**Source docs (per PR):** `research/2026-07-14_tij-x44b_CHARTER.md` (#688) ·
+`research/2026-07-14_cvr-trade-study_v2_DECISIONS-OPEN.md` (#687) ·
+`research/2026-07-14_route-a-composite-fs_{prereg_FROZEN,RESULT}.md` (#691) · the #690
+auditor-batch diff (KB/manuscript) · and on their branches the #689/#692/#693 `_prereg_FROZEN`
++ `_RESULT` docs.
+
+**Lane attribution:** this board is authored in **implementer lane** (orchestration record).
+It **surfaces** empirical outcomes + the Grant decision queue; it does **NOT** land any
+manual / KB / manuscript entry — the **auditor lane** lands those (§3 item-6 batch), and
+**Grant adjudicates** the §2 queue. Per flag-don't-fix, brief-vs-repo mismatches are surfaced
+inline (the ~50/5 tally undercount, §1) rather than silently reconciled. Pure-corpus; nothing
+here canonizes; records queue-state, not adjudicated physics.
