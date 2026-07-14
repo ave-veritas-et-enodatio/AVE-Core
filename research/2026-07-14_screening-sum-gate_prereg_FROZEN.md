@@ -345,3 +345,57 @@ verdict is window- and `α0`-independent (never `M_log` at any `α0 ∈ {0.01,0.
 **Net:** every deviation makes the observable well-posed / cleaner without touching the frozen bins,
 gates, or genuineness criteria. The verdict is `WRONG-FORM`, decisively (`dBIC=−24.7` at 2 decades,
 `−21.0` at 3 decades), genuinely many-body (both knives pass).
+
+---
+
+## AMENDMENT A2 (2026-07-14, post-adversarial-review — bank 10 confirmed findings; A1.x series continued)
+
+Ten findings from the PR #693 adversarial review were confirmed (1 refuted). All are **EVIDENCE-VOID /
+repair-and-bank**: the `WRONG-FORM` (no-log) verdict survives independently and is arguably STRENGTHENED
+(a spectator intervening medium has nothing to accumulate per decade). The frozen ADJUDICATION CRITERIA
+(§4 bins, §6 gates + ΔBIC statistic, the two genuineness knives, the transfer-register primary) are
+UNCHANGED; the frozen body above is byte-untouched; these are dated amendments. **A2 SUPERSEDES the A1
+"genuinely many-body (both knives pass)" characterization:** the corrected same-mesh decomposition
+re-adjudicates the object to **RELABELED-PAIRWISE-class** (RESULT §3) — the interpretive step (reading
+"intervening cells" as the true mid-bridge medium) is FLAGGED for Grant ratification, KEEP-BOTH recorded.
+
+**A1.5 — Dedup radius implemented as a single global `0.25·median(spac)`, not the frozen per-cell
+`0.25·(v_cell)^{1/3}`.** The frozen §5 spec (line 183) specifies a PER-CELL dedup radius
+`min_sep = 0.25·(v_cell)^{1/3}`; the shipped `build_cells` calls `scipy cKDTree.query_pairs`, whose API
+takes a SCALAR radius, so it uses one global `0.25·median(spac)`. FORCED by the scalar-radius API. The
+global median under-dedups coarse outer cells and over-dedups fine inner ones relative to the per-cell
+spec; **verdict-neutral** (it does not affect the power-vs-log FORM, which is robust across
+`α0 ∈ {0.01,0.03,0.1,0.2}`, windows `[30,3000]`/`[30,30000]`, and 8 orientations). Disclosed here; the
+RESULT parity paragraph's blanket "No silent deviation" is softened to name this as A1.5.
+
+**A1.6 — Channel attribution of the A1.1 total-force observable (the verdict-carrying signal is the
+near-cloud saturation cross-term, not mediated screening).** The A1.1 self-subtraction
+`F(both)−F(probe-1 alone)` is the complete interaction force. The review's linear source-decomposition
+shows the MEDIATED-ONLY channel (probe-2-sourced dipoles acting on probe-1 at the frozen converged medium)
+is flat at ~1.001–1.002 across the window (~0–10% of the departure), while the nonlinear self-cloud
+**saturation cross-term** carries ~90%+ of the power FORM AND the QED sign. The shipped definition is a
+**legitimate EFT-style total-interaction-force lumping** (NOT a non-unique repair — no defensible
+alternative yields a decisive CONTRARY/log bin; the finding downgraded CRITICAL→MAJOR on this point), but
+the mechanism/sign attribution must name the near-cloud cross-term, not medium mediation. **Verdict-
+preserving** (WRONG-FORM/no-log holds); consistent with the §3 pairwise-dress re-adjudication.
+
+**A1.7 — Floor-augmented fit family is the routed follow-on; the naked `p≈0.60` is HELD OUT of the q-g20f
+re-tag until resolved.** The frozen fit family (`M_pow` with the far-field intercept FIXED at the derived
+bare value 1) has NO floor term and cannot represent the R-independent plateau (`dep ≈ 0.006`) in the
+outer decade; the whole-window `p≈0.60` is a compromise over a composite (steep near-field falloff +
+pairwise-class floor). A 3-parameter family `1 + a·(R_ref/R)^p + c` fits the composite better
+(`floor≈0.0051, p≈0.87, SSE 7.1e-5` vs pure-power `1.2e-4`). This does NOT change the frozen bins or the
+WRONG-FORM/no-log verdict, which rests on the **33× per-decade log-slope collapse** (`c₁ ≈ −0.0161 →
+−0.0005`), not on `p`. The floor-augmented refit is registered here as the routed follow-on fit family;
+**until it runs, the naked `p≈0.60` must NOT be cited as a physical exponent in the q-g20f re-tag.**
+
+**A1.8 — Frozen non-convergence exclusion clause now ACTUATED (was a no-op).** The frozen §5:200-201 clause
+"a scale point that fails to converge is FLAGGED and excluded from the fit" was only FLAGGED in the shipped
+driver (the fit consumed all points); the misleading "(excluded)" print asserted an action never taken. The
+driver now masks the primary fits on per-point SCF convergence. All 16 points converge on the frozen grid,
+so the mask is all-True and the verdict is unchanged — but the frozen safeguard now executes as written
+(closes the #612-class silent-substitution vector). Verdict-preserving.
+
+**Net (A2):** every finding is a demonstration/attribution/bookkeeping repair; none reverses the
+`WRONG-FORM` / no-log bin, which is independently supported and STRENGTHENED by the spectator-medium and
+slope-collapse arguments. See the RESULT's "Review findings + repairs (2026-07-14)" map for finding→commit.
