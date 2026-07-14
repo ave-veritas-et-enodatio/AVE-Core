@@ -183,6 +183,15 @@ The five identity-break levers, each with a live receipt:
 1. **Decorrelate imported histories** — break a co-monotone lock so the response reveals *which*
    input it tracks (F6 §4.7 decorrelated arm: the only tier-1 chord-carrier;
    [`../../../research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md`](../../../research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md)).
+   **Update (F6 tier-1 executed, PR #674, ruled 2026-07-13 — KEEP-BOTH).** The lever's
+   identity-break example **stands** — the decorrelation arms isolated *which* input `Γ` responds to
+   (matter-occupancy `n_B`), i.e. decorrelated histories **did break the degeneracy** the lever is
+   built to break. What is **superseded** is "*the only* tier-1 chord-carrier": the driver found the
+   chord separable from the frontier default on **physical** histories too (different powers of `a`),
+   and Grant's §5.4 ruling (2026-07-13, BOTH) closed the homogeneous ledger as the **wrong instrument**
+   at late epochs (chord → Λ past `τ₀≈300`). The F6 CHORD therefore **relocates to the spatial
+   cross-correlation channel** (DESI/Euclid); the decorrelation *design principle* stays a live
+   identity-break lever regardless (`research/2026-07-13_f6-tier1-ledger-driver_result.md`).
 2. **Sweep a geometric power** — fit an exponent, not a level (CVR `d⁻²` vs electrode `d⁻³`,
    `Δs = 1` at `σ_s ≤ 0.1`; #667).
 3. **Cross a band edge** — move from the homogenized interior identity to the resolving edge

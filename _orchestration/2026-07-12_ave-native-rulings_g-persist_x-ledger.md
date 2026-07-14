@@ -22,6 +22,42 @@
 > The **G-PERSIST** stamp is **NOT** flipped — it **stays ★PROPOSED-RULED**, docket-gated
 > on the genesis N≥14 / closed-box battery outcome (the #655 re-run); its confirmation
 > postdates that result.
+>
+> **G-PERSIST supersession (2026-07-13 — Grant in-chat confirmation; audit-trail protection).**
+> The **G-PERSIST** stamp is now **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed
+> 2026-07-13, in-chat).** **KEEP-BOTH** — the superseded G-PERSIST stamp read verbatim:
+> *"★PROPOSED-RULED G-PERSIST (text pending Grant confirmation — stamps become effective on his
+> merge of #661)"*, and the superseded carve immediately above read verbatim: *"The **G-PERSIST**
+> stamp is **NOT** flipped — it **stays ★PROPOSED-RULED**, docket-gated on the genesis N≥14 /
+> closed-box battery outcome (the #655 re-run); its confirmation postdates that result."*
+>
+> **Evidentiary basis (why CONFIRMS, not moot).** The genesis N≥14 battery landed (#670,
+> `research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`). The **only boundary-insensitive**
+> signal — the cross-\(N\) **φ-dispersion trend under PML** — collapses monotonically
+> **0.87 → 0.73 → 0.51** as \(N\) grows (10→14→16, `pair`): persistence fails *worse* where the
+> boundary matters *less*, the opposite of a boundary artifact ⇒ the fixed-\(N\) pattern does
+> **not** achieve lasting localization ⇒ **bin (ii) A-WEAKENED**. The E-recovery
+> (0.69→0.84→0.87) confirmed the old N=10 E-collapse was **absorber leakage** (PML), not physics;
+> it does **not** rescue persistence. This **flipped the handoff's expected outcome** (it expected
+> enclosure-recovery ⇒ A-SUPPORTED ⇒ G-PERSIST moot).
+>
+> **Trigger-vs-gate resolution (operative fact).** Two earlier phrasings are superseded — the R3
+> "stamps become effective on his merge of #661" clause (block at the top of this doc) and the
+> "confirmation postdates the #655 re-run" gate (immediately above). **Operative fact:** the flip
+> happened by **Grant's in-chat confirmation on 2026-07-13**, after the #670 battery returned the
+> boundary-clean φ-trend — superseding the merge-trigger phrasing (exactly as the X-LEDGER flip
+> above superseded its own #661 merge-trigger). The remanence-before-node-mint build-order
+> directive's banked-fact basis is therefore **CONFIRMED**, not moot.
+>
+> **The enclosure fork (KEEP-BOTH-OPEN).** The `pml=0` closed-**enclosure** PASS is genuinely
+> ambiguous. Grant **LEANED Reading A 2026-07-13** — *wake-feeding:* the periodic-torus enclosure
+> returns the pattern's own wake and the projection gauge counts laps (φ→~10× is cavity/lap
+> mode-feeding, not retention). **Reading B** (genesis-under-confinement: genuine self-tightening)
+> stays **OPEN**. Discriminator = a **spatial-concentration / participation-ratio localization
+> observable** (KEEP-BOTH new axis, follow-on driver queued — RESULT §8). **The flip does NOT
+> depend on this fork** — the PML φ-trend carries it on its own. *(Ontology note: the `pml=0`
+> enclosure is **energy-closed-periodic** — a torus, `np.roll` wraparound, `k4_tlm.py:393` — not
+> a reflecting box; see the RESULT torus erratum. "Wake returns by wrapping," not by reflection.)*
 
 **Register discipline.** Impedance, saturation \(S(A)\), dilatation mass, constitutive
 loop, medium continuation. Not: SM pair production, QED lifetimes, GR-as-primitive
@@ -29,7 +65,10 @@ Komar theorem, CMB-as-SM-cosmology.
 
 ---
 
-## ★PROPOSED-RULED G-PERSIST — lasting localization on the medium (from #655 bin ii)
+## ★RULED — CONFIRMS G-PERSIST (Grant confirmed 2026-07-13) — lasting localization on the medium (from #655 bin ii)
+
+<!-- KEEP-BOTH: superseded section header read "## ★PROPOSED-RULED G-PERSIST — lasting localization on the medium (from #655 bin ii)" -->
+
 
 **Banked fact:** Fixed-\(N\) persistence **fails** on the declared harness battery
 (D2: energy/amplitude persistence floors miss; rank-4 fail) — **specifically, on the
@@ -51,7 +90,7 @@ structure on that battery.
 > basis (the R10 remanence question itself stays open on independent grounds — the
 > anhysteretic-kernel zero-loop-area fact is corpus-standing regardless).
 
-**★PROPOSED-RULED:**
+**★RULED — CONFIRMS (Grant confirmed 2026-07-13):** *(KEEP-BOTH — superseded label read "**★PROPOSED-RULED:**")*
 
 1. **KEEP-BOTH** continues between  
    - **(A)** lasting structure on **fixed medium DOF**, and  
@@ -154,5 +193,5 @@ Not a new rule; restates what the bins mean without SM/GR leakage:
 
 | Ruling | Status | Adjudicator |
 |---|---|---|
-| **G-PERSIST** | ★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge) — remanence before node-mint; KEEP-BOTH; bank #655 (ii) | Grant |
+| **G-PERSIST** | **★RULED — CONFIRMS (Grant confirmed 2026-07-13, in-chat)** bin (ii) A-WEAKENED via the #670 boundary-insensitive φ-dispersion trend (KEEP-BOTH superseded: "★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge)") — remanence before node-mint; enclosure fork KEEP-BOTH-OPEN (Reading A wake-feeding LEANED); bank #655 (ii) | Grant |
 | **X-LEDGER** | ★RULED — Grant confirmed 2026-07-13 (effective condition met: #661 merged; superseded: "★PROPOSED-RULED 2026-07-12 (effective on Grant's #661 merge)") — bank #652 (iii); two mass functionals named open | Grant |

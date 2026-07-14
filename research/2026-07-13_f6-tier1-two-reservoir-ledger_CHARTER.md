@@ -9,6 +9,32 @@
 
 **Register:** AVE substrate + EE (two-reservoir exchange, entropic sink, matched-termination absorption, Ax3-lossless interior). **Not** ΛCDM DE-as-fundamental-Λ, **not** QED zero-point energy, **not** a friction/dissipation loss.
 
+> **★CORRECTION NOTE (2026-07-13 — post-driver; body NOT rewritten, KEEP-BOTH).** The tier-1 driver
+> executed (PR #674, `research/2026-07-13_f6-tier1-ledger-driver_result.md`) and **falsified this
+> charter's a-priori expectation.** Two things are now on record:
+>
+> - **The §4.3/§4.7 "bin (iii) FORM-DEGENERATE expected on physical histories" posture was
+>   internally inconsistent with this charter's own §1.6/§4.7 form table** (confirmed by the #674
+>   review + driver). The signature table (§4.7) already had ON `∝ a⁻³`-shutoff-plateau (Λ-like)
+>   vs FRONTIER `∝ a⁻³` (matter-tracking) as **different powers of $a$** — on the FRW lock
+>   `n_matter ∝ a⁻³` and `H ∝ a^(−3/2)`, so **no constant $\kappa$** collapses ON onto FRONTIER,
+>   and the physical run is therefore **not degenerate**. The bin-(iii)-expected posture
+>   contradicted the very table it was written beside.
+> - **The a-priori was FALSIFIED by the driver.** Superseded expectation, quoted verbatim from
+>   §4.7: *"on **physical** input histories, **bin (iii) FORM-DEGENERATE is the EXPECTED tier-1
+>   outcome**"* and *"**Bin (i) can fire ONLY through the DECORRELATED-history arm**"*. Empirically
+>   the chord was **separable on PHYSICAL too** (`min_κ D[ON,FRONTIER] = 0.088 ≫ tol_form = 0.01`;
+>   decorrelation did not cross a threshold) → **bin (i) LEDGER-CONSISTENT** by the frozen §4.5 bins.
+>
+> **§5.4 adjudicated BOTH by Grant (2026-07-13, in-chat):** (i) **FORM-EXISTENCE BANKED** — the
+> occupancy-slaved chord is a real, distinct dynamical form (`D[ON,Λ] ≈ 0.895` at frontier-best-mimic;
+> CONSISTENCY-class, κ free ⇒ no emergence); AND (ii) **WRONG-INSTRUMENT CLOSURE BANKED** — the
+> chord is homogeneously invisible at late epochs (converges onto Λ past window-start τ₀≈300), so
+> its discriminating home is the **spatial** cross-correlation channel, not this homogeneous ledger.
+> The frozen bins were **not** dropped or retuned (Rule 11); the a-priori falsification was surfaced
+> with verbatim charter content, not debugged away (flag-don't-fix). This note corrects the posture;
+> the charter body below is preserved byte-unchanged.
+
 ---
 
 ## 0 · One-paragraph charter

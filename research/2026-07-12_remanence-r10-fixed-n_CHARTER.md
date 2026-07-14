@@ -12,6 +12,16 @@
 > G-PERSIST at confirmation, the prereg **re-freezes by dated amendment rather than silent
 > inheritance**. **KEEP-BOTH** — the superseded line read *"Authorization: ★RULED G-PERSIST"*.
 >
+> **Authorization CONFIRMED (2026-07-13 — Grant in-chat).** G-PERSIST is now **★RULED — CONFIRMS
+> bin (ii) A-WEAKENED**: the #670 genesis N≥14 battery returned the **boundary-insensitive
+> φ-dispersion trend** (φ collapses 0.87→0.73→0.51 as N grows under PML = boundary-clean
+> non-persistence; E-recovery confirmed the old N=10 collapse was absorber leakage —
+> `research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`). Grant did **not** amend the ruling
+> at confirmation, so this charter's freeze needs **no re-freeze**. **This charter's motivating
+> directive — remanence-before-node-mint — now has its banked-fact basis CONFIRMED, not moot.**
+> (The enclosure fork stays KEEP-BOTH-OPEN with Reading A wake-feeding leaned; it does not bear on
+> this charter, which is independently motivated by the anhysteretic-kernel zero-loop-area fact.)
+>
 > **★RE-ADJUDICATION DEPENDENCY (2026-07-12 #655 adversarial review).** G-PERSIST's banked
 > bin (ii) A-WEAKENED is under re-adjudication: at banked fidelity **2 of 3 landed harness seed
 > modes PASS** the frozen D2 floors (pair, graded_a0) vs the frozen prereg's own **≥1-path**

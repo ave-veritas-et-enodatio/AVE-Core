@@ -125,7 +125,7 @@ emergence.
 | Arrow = geometric entropic-spreading into T2 CMB modes (§3) | **ASSERTED** | [arrow-of-time.md:16](../../condensed-matter/ch11-thermodynamics/arrow-of-time.md); Ax3-legal, but imported cross-chapter (§6 flag 2). |
 | Interior lossless null-flow (electron = finished lossless A1 tank, $\partial_t\rho_n=0$) | POSTULATED-NULL | Ax3 + $\partial_t\rho_n=0$ grounded; defended by negative-search, NOT positive proof; `crystal_graft_v4.py:225` a live counterexample (§3 WATCH). |
 | μ-chirality-ratchet as arrow-setter (§3) | **ABSENT-INVENTED** | mirror-symmetric freeze ([trampoline-framework.md:105](../../../common/trampoline-framework.md)); grep zero. |
-| reading-i $dQ/dt\propto n_{\text{matter}}$ (F6 depletion, §5) | **ABSENT-INVENTED** | new physics AVE does not possess; one attempt `photon_deplete=True` DETONATES. |
+| reading-i $dQ/dt\propto n_{\text{matter}}$ (F6 depletion, §5) | **ABSENT-INVENTED** *(status unchanged at corpus-physics level)* | new physics AVE does not possess; one attempt `photon_deplete=True` DETONATES. **Update (F6 tier-1, PR #674, ruled 2026-07-13):** a global two-reservoir ODE ledger executed the occupancy-slaved transfer and landed **bin (i) LEDGER-CONSISTENT** — the DE-tracks-matter FORM *exists* as a distinct dynamical form (see §5 for the ruling). **CONSISTENCY-class, NOT emergence** — the coupling $\kappa$ is a **free input**, not derived from $\{\ell_{\text{node}},\alpha,G\}$; the FORM, not any number, is what fires. **No claim upgraded here** — the homogeneous ledger is the wrong instrument at late epochs (the chord converges onto $\Lambda$ past window-start $\tau_0\approx300$), so the row stays ABSENT-INVENTED as *realized corpus physics*. |
 | Era-ordering + scale-factor laws $a\sim t^{0.5}/t^{0.667}$ | **ABSENT / IMPORTED** | negative-search; era ORDER imported by assumption. |
 | Total state vector + global conservation law | **ABSENT** | only LOCAL first-law + $\partial_t\rho_n=0$ anywhere in Vol-3 cosmology. |
 | $a(t)$ Friedmann time-evolver | **ABSENT** | `solve_backreaction` is static-elliptic; de Sitter fate ASSERTED analytically, never simulated. |
@@ -161,6 +161,35 @@ reconstructed DE density field correlate with the galaxy/$n_{\text{matter}}$ fie
 or with the crystallization-frontier/expansion geometry?) — NOT inside the
 lifecycle mechanics. **Cite reading-ii / frontier-only as the canonical default;
 do NOT headline F6 as corpus physics.**
+
+> **§5 update — F6 tier-1 executed (PR #674; §5.4 ruled BOTH, Grant 2026-07-13).** The tier-1
+> two-reservoir ODE ledger driver ran (`research/2026-07-13_f6-tier1-ledger-driver_result.md`;
+> charter `research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md`). Grant adjudicated the
+> §5.4 disposition-fork **BOTH** (in-chat 2026-07-13); **both readings are banked, no claim upgraded:**
+>
+> 1. **FORM-EXISTENCE BANKED (bin (i), tier-1 CONSISTENCY-class).** The occupancy-slaved chord
+>    (`Γ_ON = k·n_B·ρ_latent`) is a **real, distinct dynamical form** in the ledger — separable
+>    both from the FRONTIER default and from $\Lambda$ **during the drain-active era**
+>    (`D[ON,Λ] ≈ 0.895` at the frontier-best-mimic $\kappa$, PHYSICAL frozen window). This is a
+>    genuine tier-1 result. **No emergence:** the coupling $\kappa$ is a **free input**, not
+>    derived from $\{\ell_{\text{node}},\alpha,G\}$ — the FORM exists, the number is imported.
+> 2. **WRONG-INSTRUMENT CLOSURE BANKED.** The attribution is **homogeneously invisible at late
+>    observation epochs** — the chord converges onto $\Lambda$ past window-start $\tau_0\approx300$
+>    (the two-limits map, driver §6.1, quantifies it), so any late homogeneous average reads
+>    $\Lambda$. The chord's **discriminating home is the SPATIAL cross-correlation channel**
+>    (DESI/Euclid DE-vs-$n_{\text{matter}}$, §5/:159–161 class), **not** the homogeneous interior ledger.
+>
+> **Transition-era / w(z) refinement (Grant walked input, 2026-07-13 — ruling-grade, quarantine-tagged
+> "effectively off now, but not really").** The CHORD tap (matter-occupancy) is **effectively closed
+> at late times** (matter dilution) — which is *exactly why* homogeneous averages read $\Lambda$. But
+> the FRONTIER mechanism (expansion-boundary node-genesis drawing on $\rho_{\text{latent}}$ at $3H$,
+> reading-ii) **continues as long as expansion does**, asymptotically at the de Sitter rate $H_\infty$
+> — and in that limit its throughput *also* decays toward $\Lambda$-like. The surviving observational
+> discriminant is therefore the **matter→DE TRANSITION ERA** (where the taps were closing — the
+> **$w(z)$-evolution window** of the survey channel), reinforcing the spatial/survey-channel home.
+> **Rail (do not conflate):** cosmic-frontier node-genesis (new CELLS) ≠ soliton genesis (patterns) —
+> the #670 G-PERSIST negative is about *pattern* persistence and does **not** touch the frontier
+> node-genesis mechanism.
 
 ## §6 — Two open flags (surfaced, not resolved)
 
