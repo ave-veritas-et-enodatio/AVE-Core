@@ -6,7 +6,10 @@ mid-flight — so this board is **not stale-on-arrival** (the standing meta-less
 2026-07-13 reconciliation board's own "stale on arrival" amendment).
 **Baseline:** written against `origin/main` HEAD `25b3b9116e9b80572ec2ac4e90f3852ffcec430c`
 (the #691 merge). Five lanes MERGED (#686/#687/#688/#690/#691); three OPEN, fully repaired,
-`[DO-NOT-MERGE][REVIEW: pending-orchestrator]`, awaiting Grant items (#689/#692/#693).
+`[DO-NOT-MERGE]`, awaiting Grant items (#689/#692/#693). ⚠ **Review-tag nuance** (brief said
+all three `[REVIEW: pending-orchestrator]`): #689/#693 title-tag `[REVIEW: pending-orchestrator]`;
+**#692 title-tag is `[REVIEW: repaired]`** (its body reads `[REVIEW: repaired — pending-orchestrator]`)
+— substantively all three await the orchestrator/Grant.
 **This PR:** `docs/2026-07-14-batch-outcomes` lands this board + a short append-only
 continuation row on `_orchestration/2026-07-10_rulings-docket.md` pointing here. No corpus
 physics touched; records queue-state, not adjudicated physics; nothing here canonizes.
@@ -194,10 +197,11 @@ each (or none). Cites point at where each is already booked.
 **The eight lanes (SHAs re-verified this session):**
 - MERGED: **#686** `3b05771a` · **#687** `b05e6372` · **#688** `fd7f257c` · **#690** `a58ef1b6`
   · **#691** `25b3b911` (= `origin/main` HEAD).
-- OPEN (`[DO-NOT-MERGE][REVIEW: pending-orchestrator]`, fully repaired): **#689**
-  `analysis/gpersist-localization-observable` @ `71b451ba` · **#692**
-  `analysis/cavity-census-stage1` @ `1dd9485a` · **#693** `analysis/qed-trace-screening-sum`
-  @ `4d3355b0`.
+- OPEN (`[DO-NOT-MERGE]`, fully repaired): **#689**
+  `analysis/gpersist-localization-observable` @ `71b451ba` (title-tag `[REVIEW:
+  pending-orchestrator]`) · **#692** `analysis/cavity-census-stage1` @ `1dd9485a` (title-tag
+  `[REVIEW: repaired]`; body `repaired — pending-orchestrator`) · **#693**
+  `analysis/qed-trace-screening-sum` @ `4d3355b0` (title-tag `[REVIEW: pending-orchestrator]`).
 
 **Companion tracking docs:** the day-2 docket continuation
 `_orchestration/2026-07-10_rulings-docket.md` ("Continuation — 2026-07-14 EOD", #686) — this
