@@ -93,7 +93,62 @@ branch refs; merged-lane sites are quoted from `origin/main`.
 
 ## §3 — QUEUED FOLLOW-ON WORK (registered, NOT fired — per Grant's no-new-lanes directive)
 
-<!-- SECTION-STUB -->
+All items below are **registered** in-repo; **none is dispatched**. Grant's word launches
+each (or none). Cites point at where each is already booked.
+
+1. **T_ij / σ_ij register build (gate-first).** The #688 charter is the gate; the build + the
+   four per-consumer preregs land in a follow-on arc **after the charter's review**
+   (`research/2026-07-14_tij-x44b_CHARTER.md:4`). **ONE build unblocks four arcs:**
+   (a) X44b faithful Komar, (b) the ENVELOPE-EIGENMODE gate, (c) census **Stage-2**, and
+   (d) electron `T_rr` (charter `:28`, §3 consumers). Registers-first plan of record RATIFIED
+   (docket `:457`).
+2. **Census Stage-2 (driven / walled)** — now the **load-bearing (2,3) test**. The cold-linear
+   leg is **INSTRUMENT-INCONCLUSIVE by construction**: no engine-representable positive
+   control can read (2,3) there (the seeded electron reads conclusive `(0,0)`), which is *why*
+   Stage-2 driven is load-bearing (`research/2026-07-14_cavity-census-stage1_RESULT.md:311-313`,
+   branch `analysis/cavity-census-stage1`). Rides the T_ij register as consumer (c).
+3. **3D composite Faddeev-Skyrme build** — the **only C5-capable instrument**. The 1D radial
+   proxy structurally excises the δ_th-carrying quartic linking channel (measure-cancellation);
+   a faithful magnitude AND a faithful C5 test need a genuinely 3D composite FS solve — a
+   separate, larger build (`research/2026-07-14_route-a-composite-fs_RESULT.md:51,250`, on main).
+4. **Core-localized adversarial pump plant** (#689 follow-on) — registered **REQUIRED but NOT
+   run**: the shipped φ-plant is spatially-DISTRIBUTED, so the un-foolable claim is scoped to
+   distributed sustenance; a core-localized pump is the remaining negative control
+   (`research/2026-07-14_gpersist-localization-observable_RESULT.md` repair cluster #2, commit
+   `31b85424`, branch `analysis/gpersist-localization-observable`).
+5. **Floor-augmented fit family for #693 (amendment A1.7)** — the naked whole-window `p≈0.60`
+   is **HELD OUT of canon** pending a floor-augmented refit; the DECISIVE content is the slope
+   collapse, not the global exponent (`research/2026-07-14_screening-sum-gate_prereg_FROZEN.md`
+   AMENDMENT A2 / A1.7; RESULT `:359`, branch `analysis/qed-trace-screening-sum`).
+6. **Auditor batch 3** (implementer surfaces; the auditor lands the manual/KB entries):
+   - **q-g20f caveat-retire** — may drop the beta gate's one named "unprobed" caveat but stays
+     **SCOPED** (static electric-dipole route only) and must NOT read as a full/complete
+     import; **GATED on #693's Grant ratification** (§2 item 5) + the enumerated closure
+     scoping bound into it (`research/2026-07-14_screening-sum-gate_RESULT.md:375-377`).
+   - **X44 §7-option-5 + §5b(i) clock-register relabels** — the origin of the F6 mislabel +
+     the substantive cross-source contradiction, flagged for the auditor queue, NOT edited in
+     #688 (`research/2026-07-14_tij-x44b_CHARTER.md:270-272`).
+   - **`vocabulary-register.md:173` pre-existing fabricated path** — the same fabricated
+     `manuscript/vol_2_quantum/chapters/02_baryon_sector.tex:40` reference exists at
+     `vocabulary-register.md:173` (pre-existing on main, not in #690's diff; routed to the
+     auditor queue — #690 Flag 5).
+   - **`r_e` strike at `trampoline-framework.md:687`** — still **OPEN / NOT landed** (verified
+     NOT touched by #682); the "classical electron radius scale" parenthetical on the
+     `ℓ_node/(2π) ≈ 61 fm` tube radius is a mislabel (`r_e ≈ 2.8 fm`) — #690 Flag 2.
+   - **#691 RESULT `:177` attribution nit** — the 1D-radial-proxy / corpus-TBD-pin attribution
+     note (`research/2026-07-14_route-a-composite-fs_RESULT.md:174-180`, on main).
+   - **Docket-row moves post-rulings** — the D3 / q-g20f / envelope docket rows move only after
+     the corresponding §2 rulings land (auditor executes the writes).
+7. **CVR selection session (Grant + collaborator)** + its **3 receipt-debts**: the ~1e11 V/m
+   field-evaporation ceiling pin; the fixture-*k* measurement; the blocking-element `C(V)`
+   characterization (`research/2026-07-14_cvr-trade-study_v2_DECISIONS-OPEN.md` Part 3, on main).
+   SELECT NOTHING until Grant + collaborator convene.
+8. **Candidate process change — promote the structural-null stencil lens into the review
+   workflow's STANDING DISCIPLINE block.** The lens was the **highest-yield knife of the day
+   — 4 same-day kills**: #691 channel-blind δ_th ablation, #692 wrong spectral end +
+   detector-blind floor, #689 seam-clipped CF, #693 near-cloud slicing. Candidate for
+   `ave-adversarial-pr-review` / review-workflow standing discipline; **surfaced, not adopted**
+   (process change is Grant's / the auditor's to ratify).
 
 ---
 
