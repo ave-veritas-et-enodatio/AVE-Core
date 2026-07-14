@@ -299,6 +299,64 @@ they do **not** soften the data. Commit SHAs are listed in the PR body. Finding�
 |---|---|---|---|
 | 1 | MAJOR | CF core-ball used non-periodic Euclidean distance on the `pml=0` periodic torus; seam-adjacent peak clipped the ball, inflating the banked torus CF-fall ~2× toward LOOP-FILLING | driver `_meter_snapshot` now uses **minimum-image** distance on `pml=0` (Euclidean on the PML box); §2 table re-banked (pair −0.274→**−0.158**, graded_a0 −0.203→**−0.101**), stencil caveat + fork-cell peak coords added (§2), meter-reuse note added (§4). Verdict-robust: PR (center-free) rises `+0.410/+0.397`; both cells stay LOOP-FILLING. `graded_a0` CF now sits at the θ floor — LOOP-FILLING rests on PR. |
 | 2 | MAJOR ×2 | "un-foolable by sustenance" overgeneralizes: only the frozen **distributed** pump was tested, for which the meter leg (b) is near-vacuous (identity-audit hit) | headline (TL;DR item 4 + §5 + §5 header) retitled "un-foolable by **DISTRIBUTED** sustenance"; untested **core-localized** adversary stated (§5), `photon_lock` peak-sharpening false-positive cited as the plausible fooling route; **required follow-on** (core-localized adversarial-pump plant + two-statistic conjunction test) registered in §7 — **not run** in this repair. Fork verdict + G-PERSIST ★RULED untouched. |
+| 3 | MAJOR | energy-meter density is **potential-only** — omits the Cosserat KINETIC register (~44% of H on the fork cells); the frozen prereg (line 85) sells `E_dens` as the "spatial parallel of `E_persist`", but `E_persist` is a kinetic-inclusive H-ratio | **ESCALATED — STOP+report, NOT re-banked** (see the ESCALATED subsection below). Implemented the composed (min-image + kinetic) meter and re-ran the full production battery: **fork cells stay LOOP-FILLING** (disperse *harder* on CF, −0.420/−0.409) so the verdict is robust — **but four non-fork cells' bins MOVE** (torus `photon_lock` CONCENTRATING*→LOOP-FILLING; all three PML cells LOOP-FILLING→INCONCLUSIVE). Per the cluster-3 STOP rule, the kinetic term is **not committed to the driver** and the composed numbers are **not banked** into §2; surfaced for orchestrator/Grant adjudication (register choice = framing-level). |
+
+### Finding #3 — ESCALATED (kinetic register moves corroboration/control bins; STOP + report)
+
+Review finding #3 (MAJOR): the meter density `e_dens = k4.get_energy_density() +
+cos.energy_density()` is **potential-only** — `cos.energy_density()` is the Cosserat strain +
+curvature density (`cosserat_field_3d.py:1427`), while the engine Hamiltonian
+(`k4_cosserat_coupling.py:946`) also carries `cosserat_kinetic_energy()` →
+`cos.kinetic_energy()` = ½ρ|u̇|² + ½I_ω|ω̇|² (`cosserat_field_3d.py:1789`), **~44 % of H** on the
+fork cells. The frozen prereg (line 85) calls `E_dens` "the spatial parallel of the frozen
+`E_persist` channel" — but `E_persist` is a **kinetic-inclusive** H-ratio, so the shipped meter
+is measuring a different register than the scalar it claims to parallel.
+
+**What was done (Rule-10 empirical check):** the per-site kinetic density (½ρ Σ_c u̇² + ½I_ω Σ_c ω̇²,
+`mask_alive` applied — verified to sum to `cos.kinetic_energy()` at rel-diff 0.00e+00) was added
+to `e_dens`, composed with the finding-#1 minimum-image ball, and the **full production battery
+was re-run**. Composed vs shipped (potential-only + min-image) signatures:
+
+| cell | shipped (potential-only) | composed (+ kinetic) | bin move |
+|---|---|---|---|
+| torus pair prod | PR +0.410 / CF −0.158 → **LOOP-FILLING** | PR +0.376 / CF −0.420 → **LOOP-FILLING** | none (verdict cell) |
+| torus graded_a0 prod | PR +0.397 / CF −0.101 → **LOOP-FILLING** | PR +0.354 / CF −0.409 → **LOOP-FILLING** | none (verdict cell) |
+| torus photon_lock prod | PR −0.072 / CF +0.417 → CONCENTRATING\* | PR +1.426 / CF −0.471 → LOOP-FILLING | **CONCENTRATING\*→LOOP-FILLING** |
+| PML pair prod | PR +0.084 / CF −0.364 → LOOP-FILLING | PR −0.010 / CF +0.061 → INCONCLUSIVE | **LOOP-FILLING→INCONCLUSIVE** |
+| PML graded_a0 prod | PR +0.102 / CF −0.316 → LOOP-FILLING | PR +0.006 / CF −0.083 → INCONCLUSIVE | **LOOP-FILLING→INCONCLUSIVE** |
+| PML photon_lock prod | PR +0.219 / CF −0.269 → LOOP-FILLING | PR −0.002 / CF +0.025 → INCONCLUSIVE | **LOOP-FILLING→INCONCLUSIVE** |
+| torus pair/graded_a0 smoke | LOOP-FILLING | LOOP-FILLING (PR +11.8/+11.5, CF −0.867/−0.864) | none |
+
+Aggregate **FORK BIN = LOOP-FILLING** (torus `pair`+`graded_a0` prod) is **unchanged**; both
+φ-plants remain **UN-FOOLABLE_CONFIRMED**.
+
+**Why this is ESCALATED, not banked.** The cluster-3 repair carried an explicit stop rule: *if
+the composed re-run moves any cell's bin, STOP and report to the orchestrator instead of
+re-banking.* It moved **four** non-fork bins. The **headline fork verdict (LOOP-FILLING ⇒
+Reading A) is robust** under both registers (and the composed CF-fall is *sharper*, matching the
+review's kinetic-only smoke counterfactual), and **G-PERSIST ★RULED is untouched**. But two
+supporting structures are **register-dependent**, which is a framing-level call:
+
+1. **Boundary-insensitivity corroboration (TL;DR item 2, §3) weakens under the full register.**
+   Under the composed meter the PML twins read **INCONCLUSIVE** (endpoint trends collapse below
+   θ=0.10; e.g. PML pair PR swings min 71.7→max 99.1 but returns near-flat, a strongly
+   non-monotone series the endpoint `rel_trend` hides — cf. the finding-#5 slope guard). So
+   "the PML twins read the SAME sign" holds on the potential-only meter but **not** on the
+   full-register meter — a candidate boundary-artifact in the Cosserat **kinetic** register the
+   PML absorbs. This does not touch the *torus* fork verdict, but it does change the corroboration
+   story.
+2. **The §4 `photon_lock` CF-alone false positive is a potential-only artifact.** Under the full
+   register `photon_lock` reads **LOOP-FILLING** (the photon mode's energy is dominantly kinetic;
+   once included, the field is correctly seen as delocalized). The disclosed CF-alone
+   false-positive **vanishes** — i.e. the §4 caveat is specific to the incomplete register.
+
+**Disposition (flag-don't-fix).** The kinetic term is **not committed** to the driver and the
+composed numbers are **not banked** into §2 (the banked meter remains the shipped potential-only +
+min-image meter). The register choice (potential-only-as-shipped vs full-kinetic-inclusive) and
+the boundary-insensitivity restatement are surfaced for **orchestrator / Grant** adjudication. The
+exact code change is a one-block addition to `_meter_snapshot` (per-site kinetic density added to
+`e_dens`); the composed battery log is preserved in the run scratch. **Fork verdict and
+G-PERSIST ★RULED stand regardless of the register call.**
 
 ---
 
