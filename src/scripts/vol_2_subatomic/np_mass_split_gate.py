@@ -46,10 +46,20 @@ Legs:
 
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from ave.core import constants
+
+# Independent frozen HEAD reference (constants.py @ 9bfc50ef), stored as a NON-.py sidecar so it
+# (a) is exempt from the EFT magic-number gate (which scans *.py only) yet (b) is an operative,
+# not self-snapshot, no-refit anchor in the driver's live path: once committed it does NOT track a
+# future source-level refit of constants.py, so run_gate()'s own audit trips on drift of ANY
+# consumed constant -- including KAPPA_FS_COLD and DELTA_THERMAL (the audit's focal constant),
+# which the old self-snapshot default could not catch.
+_FROZEN_HEAD_PATH = Path(__file__).with_name("np_mass_split_gate_frozen_head.json")
 
 # The names the frozen chain consumes (hard rail 2). Values are pulled LIVE -- no literals here.
 CONSUMED_CONSTANTS: tuple[str, ...] = (
@@ -69,8 +79,24 @@ def _me_c2_mev(source: object = constants) -> float:
     return float(source.M_E) * float(source.C_0) ** 2 / float(source.e_charge) * 1e-6
 
 
+def frozen_head_reference() -> dict[str, float]:
+    """The INDEPENDENT frozen HEAD literal table (the operative no-refit anchor, hard rail 2).
+
+    Loaded from the committed JSON sidecar -- a fixed copy of constants.py @ 9bfc50ef that does
+    NOT move when the live module is refit, so diffing the live module against it catches a
+    source-level refit of ANY consumed constant (incl. KAPPA_FS_COLD / DELTA_THERMAL).
+    """
+    raw = json.loads(_FROZEN_HEAD_PATH.read_text())
+    return {k: float(v) for k, v in raw.items() if not k.startswith("_")}
+
+
 def reference_from_constants(source: object = constants) -> dict[str, float]:
-    """A snapshot of the consumed constants from the live module (the default no-refit reference)."""
+    """A snapshot of the consumed constants from the live module (a WEAK reference; kept for tests).
+
+    NOTE: this is self-referential on the live path (live == live), so it is NOT used as the
+    run_gate() default anymore -- frozen_head_reference() is. Retained so a caller can explicitly
+    request a snapshot comparison.
+    """
     return {name: float(getattr(source, name)) for name in CONSUMED_CONSTANTS}
 
 
@@ -105,12 +131,13 @@ def no_refit_audit(source: object = constants, reference: dict[str, float] | Non
     """Diff a source's consumed constants against a reference and reproduce the proton ratio.
 
     `source` defaults to the live `ave.core.constants` module; a test may pass a stand-in with a
-    mutated attribute (a refit plant) to prove the audit trips. `reference` defaults to a snapshot
-    of the live module; the exempt regression test passes the frozen HEAD literals so a DELTA_THERMAL
-    refit (upstream of the reproduction path) is also caught.
+    mutated attribute (a refit plant) to prove the audit trips. `reference` defaults to the
+    INDEPENDENT frozen HEAD table (JSON sidecar) -- so a source-level refit of ANY consumed
+    constant, including KAPPA_FS_COLD / DELTA_THERMAL (which do not feed the reproduction identity),
+    is caught on the driver's own live path, per prereg hard rail 2.
     """
     if reference is None:
-        reference = reference_from_constants()
+        reference = frozen_head_reference()
 
     mismatches: list[tuple[str, float, float]] = []
     for name in CONSUMED_CONSTANTS:
@@ -124,6 +151,17 @@ def no_refit_audit(source: object = constants, reference: dict[str, float] | Non
     p_c_live = float(getattr(source, "P_C"))
     if not math.isclose(p_c_live, 8.0 * math.pi * alpha_live, rel_tol=RTOL, abs_tol=0.0):
         mismatches.append(("P_C", 8.0 * math.pi * alpha_live, p_c_live))
+
+    # KAPPA_FS consistency: the delta_th-softened coupling that the FS solver consumes must equal
+    # KAPPA_FS_COLD*(1-DELTA_THERMAL) AND the frozen HEAD value (catches a source-level DELTA_THERMAL
+    # or KAPPA_FS_COLD refit -- the audit's focal constant, vacuous under the old self-snapshot).
+    kfs_cold = float(getattr(source, "KAPPA_FS_COLD"))
+    dth = float(getattr(source, "DELTA_THERMAL"))
+    kfs_live = float(getattr(source, "KAPPA_FS"))
+    if not math.isclose(kfs_live, kfs_cold * (1.0 - dth), rel_tol=RTOL, abs_tol=0.0):
+        mismatches.append(("KAPPA_FS(consistency)", kfs_cold * (1.0 - dth), kfs_live))
+    if "KAPPA_FS" in reference and not math.isclose(kfs_live, reference["KAPPA_FS"], rel_tol=RTOL, abs_tol=0.0):
+        mismatches.append(("KAPPA_FS", reference["KAPPA_FS"], kfs_live))
 
     # Reproduce the proton eigenvalue live from the audited pieces (constants.py:955-956).
     i_scalar = float(getattr(source, "I_SCALAR_1D"))
@@ -161,23 +199,44 @@ class SignResult:
     threaded_electron_rest_mass_me: float  # >= 0
     elastic_strain_sign: str  # ">= 0" by Ax1 (ring is stretched, not relaxed)
     sign_delta_m: str  # "+" (neutron heavier), forced
+    conditionality: str  # the exhaustiveness qualifier (C2 coupling-term caveat)
+    beta_decay_lower_bound_me: float  # the STRONGER, C2-immune bound: Delta m > this
+    beta_decay_bound_basis: str  # the canonical mechanism grounding the stronger bound
 
 
 def sign_leg() -> SignResult:
-    """Both named neutron contributions are positive-definite -> sign(Delta m) = + .
+    """The sign is forced positive -- two justifications, the second STRONGER and C2-immune.
 
-    n = bare proton + threaded 0_1 electron (rest mass = +1.000 m_e, the electron IS the m_e unit)
-                    + Ax1-forced Borromean expansion (elastic strain energy >= 0: Ax1 forbids the
-                    flux tube shrinking below l_node, so the ring is STRETCHED, strain energy >= 0).
-    Sum of two non-negative additions to the bare-proton energy -> Delta m > 0 (neutron heavier),
-    structurally FORCED, with NO delta_th and NO new assumption. Robust to the mass-accounting
-    ambiguity (Reading X vs Y): under both, every contribution is >= 0.
+    (1) POSITIVITY of the two CANONICAL named terms: n = bare proton + threaded 0_1 electron
+        (rest mass = +1.000 m_e, the electron IS the m_e unit) + Ax1-forced Borromean expansion
+        (elastic strain energy >= 0: Ax1 forbids the flux tube shrinking below l_node, so the ring
+        is STRETCHED, strain energy >= 0). Sum of two non-negative additions -> Delta m > 0.
+        CONDITIONALITY (review R2): this rides on the two NAMED terms being exhaustive; the driver's
+        own C2 (threading-lock / boundary coupling energy) is enumerated missing with UNDETERMINED
+        sign, and composite binding CAN reduce mass in this leaf family (He-4 is 28.3 MeV bound
+        below its constituents, proton-neutron-mass-split.md:28). So (1) forces Delta m > 0 only if
+        the C2 coupling term is not large-and-negative. Hence "no assumption BEYOND the two named
+        terms", not "NO new assumption" flatly.
+    (2) BETA-DECAY-DOWNHILL energetics (canonical, C2-immune, STRONGER): neutron-identification.md:26
+        property 4 makes free-neutron beta-decay spontaneous (n -> p + e + nu-bar; the tensioned
+        electron slips its lock and is ejected). A spontaneous decay is exothermic, so
+        m_n c^2 > (m_p + m_e) c^2 + KE + E_nu-bar >= (m_p + m_e) c^2, i.e. Delta m > 1.000 m_e.
+        This is a GLOBAL energetics bound on the final-state rest masses -- it subsumes any C2
+        coupling term and does NOT read the measured 1.293 MeV (it uses only the canonical fact
+        that decay occurs, property 4, not its Q-value). delta_th-free and alpha-free (sign_leg
+        consumes zero module constants).
     """
     m_e_threaded = 1.0  # the 0_1 unknot's rest mass, in m_e units (definitional, canonical)
     return SignResult(
         threaded_electron_rest_mass_me=m_e_threaded,
         elastic_strain_sign=">= 0 (Ax1: ring stretched, not relaxed)",
         sign_delta_m="+",
+        conditionality="forced by the two CANONICAL terms; conditional on C2 (coupling energy, "
+        "sign undetermined) not being large-and-negative -- see the stronger beta-decay bound",
+        beta_decay_lower_bound_me=1.000,
+        beta_decay_bound_basis="free-neutron beta-decay is spontaneous (neutron-identification.md:26 "
+        "property 4) => exothermic => m_n > m_p + m_e => Delta m > 1.000 m_e; C2-immune, uses "
+        "decay-occurs not the measured Q-value",
     )
 
 
@@ -205,14 +264,43 @@ MISSING_CHOICES: list[str] = [
     "C4 -- the mass-accounting convention: is the threaded electron's rest mass additively "
     "counted (Reading X) or absorbed into the surplus (Reading Y)? proton-neutron-mass-split.md:10 "
     "leaves this open (attributes the WHOLE surplus to elastic tension, no separate m_e term).",
-    "C5 -- whether delta_th (or a threaded analog) softens the composite's coupling: the neutron "
-    "construction never invokes a kappa_FS softening for the split; adopting one would be a new "
-    "assumption, not a canonical carry-over.",
+    "C5 -- whether delta_th softens the composite's coupling is UNDETERMINED (review R1, 2026-07-14): "
+    "the corpus's OWN named completion route -- neutron-identification.md:36/:77 TBD-pin, "
+    "'Same shape as proton mass eigenvalue derivation ... adding to the FS energy integral' -- "
+    "instructs a proton-shaped FS derivation, and that solver consumes the delta_th-softened "
+    "KAPPA_FS = 8pi(1-delta_th) (constants.py:896). So kappa_FS carry-over is arguably the CANONICAL "
+    "DEFAULT, not a new assumption. FORK: the linear-elastic-stiffness bound route "
+    "(neutron-identification.md:54) may instead be delta_th-free. Unresolved until C1-C3 are built. "
+    "[KEEP-BOTH -- superseded framing: 'the neutron construction never invokes a kappa_FS softening; "
+    "adopting one would be a new assumption, not a canonical carry-over' (2026-07-13 pre-review).]",
 ]
 
 
-def magnitude_computability_leg() -> MagnitudeResult:
-    """Enumerate the frozen-chain quantities that map to a split component.
+def corpus_has_derived_neutron_mass(source: object = constants) -> bool:
+    """DETECTOR (review R6c): does the module now carry a DERIVED neutron mass (not a CODATA anchor)?
+
+    The bin-(iv) 'no computable split' claim is a global-negative established by corpus reading at
+    prereg time (it cannot be proven by a runtime scan). But the ONE mechanically-checkable
+    corpus-state signal IS scannable: today M_N_MEV_TARGET is a bare CODATA literal
+    (constants.py:1107) and there is no derived neutron-mass symbol. If a future commit adds one
+    (M_N_MEV_AVE / NEUTRON_ELECTRON_RATIO / a derived M_N), the split may have become computable and
+    the adjudication MUST be re-run -- so this detector flips the leg off the hard-coded (iv).
+    """
+    derived_symbols = ("M_N_MEV_AVE", "NEUTRON_ELECTRON_RATIO", "M_N_ELECTRON_RATIO", "N_ELECTRON_RATIO")
+    return any(hasattr(source, s) for s in derived_symbols)
+
+
+def magnitude_computability_leg(source: object = constants) -> MagnitudeResult:
+    """Adjudicate whether the frozen chain yields a computable split magnitude.
+
+    ADJUDICATION CONSTANT (review R6c): `computable=False` is NOT a runtime numeric detector output
+    -- it is a prereg-time corpus-completeness adjudication (a global-negative 'no composite-FS
+    neutron derivation exists in the corpus') codified as a literal, with receipts
+    neutron-identification.md:25,36,77 + constants.py:1104 + the odd-c-only BARYON_LADDER {5,7,9,11,13}
+    (the neutron is 'NOT a (2,q) family entry', neutron-identification.md:23). The ONE
+    mechanically-checkable corpus-state signal is wired as a live DETECTOR: `corpus_has_derived_
+    neutron_mass()` -- if a derived neutron mass ever appears in the module, this leg raises so the
+    adjudication is re-run (it is not a frozen verdict that cannot fire).
 
     Frozen chain fixes m_p (the bulk mass that CANCELS in the difference) and the electron rest
     mass (+1.000 m_e). The neutron surplus over the BARE proton has two named parts
@@ -222,11 +310,21 @@ def magnitude_computability_leg() -> MagnitudeResult:
 
     The target split +2.531 m_e = (a)+1.000 + (b)+1.531. Component (b) -- the DOMINANT part, and
     the WHOLE surplus under Reading Y -- has no literal, no code path, no solver output anywhere in
-    the corpus (M_N is a CODATA anchor: constants.py:1104 'no framework derivation has yet been
-    adopted for the neutron mass'). Computing it requires >=1 of the MISSING_CHOICES -> STOP.
+    the corpus. Computing it requires >=1 of the MISSING_CHOICES -> STOP.
     """
+    if corpus_has_derived_neutron_mass(source):
+        raise RuntimeError(
+            "CORPUS-STATE CHANGE: a derived neutron-mass symbol now exists in ave.core.constants; "
+            "the bin-(iv) 'no computable split' adjudication is STALE and must be re-run "
+            "(the split may now be computable -- re-adjudicate against the new derivation)."
+        )
+    # Every emitted split component is routed through the mint + seed guards (review R3/R6b): the
+    # guards are now LIVE on the actual output, not plant-only. A future computed_split_me MUST use
+    # the same gateway (_guarded_component) or it cannot enter the result.
     fixed = {
-        "threaded_electron_rest_mass (Reading X)": 1.000,  # +1.000 m_e, frozen-chain-fixed
+        "threaded_electron_rest_mass (Reading X)": _guarded_component(
+            "threaded_electron_rest_mass", 1.000, provenance="electron_rest_mass_0_1_unknot"
+        ),  # +1.000 m_e, frozen-chain-fixed
     }
     underived = [
         "elastic_expansion_tension -- mechanism named (Ax1 stretch), MAGNITUDE not derived; "
@@ -242,6 +340,19 @@ def magnitude_computability_leg() -> MagnitudeResult:
         computed_split_me=None,
         missing_choices=list(MISSING_CHOICES),
     )
+
+
+def _guarded_component(name: str, value: float, provenance: str) -> float:
+    """The single gateway every emitted split component passes: mint guard THEN seed guard.
+
+    Wires assert_no_seed + provenance_guarded_magnitude into the LIVE path (review R3/R6b) so the
+    hard rails are structural, not convention: a component from non-canonical provenance is rejected
+    (mint), and a component whose VALUE equals the answer (proton ratio / 1.293 / 2.531 / 939.565)
+    is rejected (seed). Any future magnitude path MUST route through here.
+    """
+    provenance_guarded_magnitude(name, value, provenance)
+    assert_no_seed(value, label=name)
+    return value
 
 
 def provenance_guarded_magnitude(component: str, value: float, provenance: str) -> float:
@@ -280,11 +391,14 @@ def classify_bin(mag: MagnitudeResult, target: float | None = None) -> tuple[str
         )
     dm = mag.computed_split_me
     if dm < 0:
+        # Prereg bin (ii) consequence, FROZEN VERBATIM (review R7: full text restored, incl. the
+        # epic-40 corroboration sentence dropped in the pre-review driver).
         return (
             "ii",
             "WRONG-SIGN: the ppm precision of the m_p/m_e chain is confirmed a proton-specific "
             "coincidence -- a delta_th tuned to land the proton on CODATA has no reason to produce "
-            "the correct sign of a difference measurement, and it did not.",
+            "the correct sign of a difference measurement, and it did not. This corroborates the "
+            "epic-40 Delta(1232) +2.35% miss ('proton-specific tightness = COINCIDENCE').",
         )
     if lo <= dm <= hi:
         return ("i", "STRUCTURE-SIGNAL: correct sign AND within 2x -- tuning hypothesis harder to hold.")
@@ -318,6 +432,9 @@ def run_gate() -> dict:
         "no_refit_ok": refit.ok,
         "proton_ratio": refit.proton_ratio_reproduced,
         "sign_delta_m": sign.sign_delta_m,
+        "sign_conditionality": sign.conditionality,
+        "beta_decay_lower_bound_me": sign.beta_decay_lower_bound_me,
+        "beta_decay_bound_basis": sign.beta_decay_bound_basis,
         "computable": mag.computable,
         "computed_split_me": mag.computed_split_me,
         "fixed_components_me": mag.fixed_components_me,
@@ -339,9 +456,10 @@ def main() -> None:
     print(f"  frozen chain reproduced OK: {r['no_refit_ok']}")
     print(f"  PROTON_ELECTRON_RATIO (live-reproduced): {r['proton_ratio']!r}")
     print("\n[LEG B] sign sub-finding (delta_th-free, alpha-free)")
-    print("  threaded electron rest mass: +1.000 m_e (>= 0)")
-    print("  elastic strain energy:       >= 0 (Ax1: ring stretched, not relaxed)")
-    print(f"  => sign(Delta m) = {r['sign_delta_m']}  (neutron heavier -- structurally FORCED)")
+    print("  (1) two CANONICAL positive-definite terms: rest mass +1.000 m_e (>= 0) + Ax1 strain (>= 0)")
+    print(f"      => sign(Delta m) = {r['sign_delta_m']}  (conditional on C2 coupling not large-negative)")
+    print(f"  (2) STRONGER, C2-immune: beta-decay downhill => Delta m > {r['beta_decay_lower_bound_me']:.3f} m_e")
+    print(f"      basis: {r['beta_decay_bound_basis']}")
     print("\n[LEG C] magnitude computability")
     print(f"  frozen-chain-fixed components (m_e): {r['fixed_components_me']}")
     for u in r["underived_components"]:
@@ -358,9 +476,11 @@ def main() -> None:
     print("\n[INTERPRETATION-CARE] a bin-(iv) is an instrument gap, NOT a falsification: it does")
     print("  NOT falsify the +0.74% bare-topology result (stands independently of delta_th), and")
     print("  does NOT confirm the proton-specific-coincidence hypothesis. The sign (+) IS forced,")
-    print("  delta_th-free. NOTE: the canonical neutron is a composite additive mechanism, NOT a")
-    print("  (2,q) delta_th-modulated eigenvalue -- so the difference measurement does not actually")
-    print("  load delta_th (the split's dominant term is elastic strain, not a kappa_FS softening).")
+    print("  delta_th-free. NOTE (review R1): delta_th-loading of the split is C5-UNDETERMINED, not")
+    print("  'never' -- the corpus's own TBD-pin (neutron-identification.md:36/:77) instructs a")
+    print("  proton-shaped FS derivation that DOES consume delta_th-softened kappa_FS, so Route A")
+    print("  (that TBD-pin, built value-blind) IS the delta_th second shot against the CANONICAL")
+    print("  neutron; a competing linear-elastic route (:54) may be delta_th-free -- FORK-OPEN.")
 
 
 if __name__ == "__main__":
