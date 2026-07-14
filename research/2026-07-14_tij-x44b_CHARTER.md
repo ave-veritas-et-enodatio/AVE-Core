@@ -1,0 +1,276 @@
+# T_ij stress-register + X44b — the ONE-BUILD-SERVES-FOUR CHARTER
+
+**Date:** 2026-07-14
+**Class:** charter (draft the discriminator BEFORE any solver / driver) — the F6-charter pattern (`research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md`; the #662 remanence-charter model: charter doc + frozen-bin candidates + fireable-vs-entailed + fool-modes + Ax3/reconciliation carve). **Charter first; PR DO-NOT-MERGE; the build + the four preregs land in a follow-on arc after this charter's review.** No solver code and no driver in this PR.
+**Grant GO:** 2026-07-14 — the registers-first plan of record is **RATIFIED** (Grant 2026-07-13, `_orchestration/2026-07-10_rulings-docket.md:457`): build order **registers (T_ij + depletion) → X44b → F6**; one materialization build discharges the shared flux-object debt before the sector charters fire.
+**Frozen prereg(s):** downstream sibling files (one per consumer) — **not created in this commit**; freeze-by-push BEFORE each consumer's driver, gated on this charter's review and on the build landing.
+**Companion inputs (read first):** the registers-walk framing note (`research/2026-07-13_registers-walk_framing.md` §1–§3 + continuation); the X44 Komar-source result §7 (`research/2026-07-12_x44-komar-source_result.md:186-215`, the escalation options — option 5 = X44b); the Wall-A ruling (`_orchestration/2026-07-10_rulings-docket.md:511-624`); the cavity-census Stage-1 FROZEN prereg (`research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md`, on branch `analysis/cavity-census-stage1`; Stage-2 is this register's consumer (c)).
+
+---
+
+## Sector header (mandatory)
+
+- **SECTOR** — the T_ij register is a **two-sector object**: the **A1 dilatation-mass channel** (bulk/shear elastic stress, `constants.py:766` `G_VAC = RHO_BULK·C²`) **and** the **T2 / Cosserat micro-rotation channel** (the couple-stress `σ^A` that drives node rotation — the charge/helicity/spin DOF, `micropolar_bloch.py:72,88-90`; `cosserat_field_3d.py:28`). **A1 ⊥ T2**: the register carries both and **never cross-wires** them ("A confines/holds B" is forbidden). The wave-side (transverse-EM Maxwell stress) is the **reactive store at the envelope interface**, not an independent source (§3 transducer ontology).
+- **MODE** — Stage-1 use is **cold, static, bound-resonator** stress: the materialized flux object the engine has never written, not a driven mode (`research/2026-07-13_registers-walk_framing.md:7`). Consumer (a) X44b adds a **static, force-balanced (virialized)** family; consumer (b)/(c) read at an **eigenmode boundary**; the driven leg is secondary and per-consumer.
+- **REGIME** — **cold-linear elastic + Op14-saturated envelope**. The constitutive moduli are the linear-response Lamé/couple-stress constants; the envelope is where the linear-response identity breaks (`S(A)→0`, the yield surface). A linear-only read of an intrinsically-saturated envelope is **ARTIFACT-eligible, not a negative** (regime-discipline; the census Plumber-Q3 fence).
+- **PHASE-STATE** — cold medium for the elastic register; driven-toward-self-stiffened only where a consumer's prereg declares it. **Local-clock modulation is live at the envelope**: the momentum flux weights by `c_eff²(V)` (the saturated local speed), **not** the bare `c²` (see §2.3, Flag F2).
+- **Instrument** — the build **extends `cosserat_field_3d`** (materialize `σ_ij` from its existing `ε_ij`/`κ_ij` fields) + a `T^ij` spatial momentum-flux (generalize the scalar `T^0x` at `annihilation_engine.py:173-181`). **No new engine class** — the reconciliation gate (§2.3) is the certificate that this is assembly, not a fourth solver.
+- **consistency-vs-emergence** — the register itself is **manifestation-class** (it materializes a flux the moduli already imply). The four consumers split: X44b (a) and the electron T_rr (d) are **consistency-class** (do the engine's own registers close a known ledger); the ENVELOPE-EIGENMODE gate (b) is **discovery-class either way** (§3b); the census Stage-2 (c) can reach **emergence-class** only through the (2,3)-selection import→derivation door its own prereg fences off.
+
+**Register:** AVE substrate + EE (Cosserat/micropolar elasticity, couple-stress, Maxwell stress at a matched interface, native K4 tetrahedral divergence). **Not** a Cauchy-symmetric continuum (that welds the swivels shut — Q1), **not** a QED stress tensor, **not** a Cartesian-stencil `∇·σ` (that is the disabled-DOF stencil bug the gate exists to catch).
+
+> **★QUARANTINE — Grant-walked RULING-GRADE INPUTS, not canon.** Three walk inputs set the *shape* of this charter and are quarantine-tagged wherever they appear: (i) the **transducer ontology** (§3 of the framing note — the envelope is the transducer between transverse-EM stress and lattice mechanical stress); (ii) **Q1/Q2 rulings** (carry the twist; the brace = ⟨Maxwell stress⟩ of the (2,3) winding at its own envelope, `_orchestration/2026-07-10_rulings-docket.md:458-459`); (iii) **Grant's balance≡yield conjecture** (the continuation (a.4) — yield derives from opposite-but-equal stresses balancing across the envelope, and that balance-locus ≡ the `A_yield` level-set). These are **walk-record**, not results; each consumer's frozen prereg carries the bins that discharge them. **Nothing in this charter canonizes.**
+
+---
+
+## §0 · One-paragraph charter
+
+The engine goes **strain → energy → force and skips `σ_ij` entirely by design** (`cosserat_field_3d.py:14`: "The energy gradient is computed by jax.grad — no hand-derived stress tensors"). Four independent arcs are each blocked on the same missing object — a materialized **stress / momentum-flux register**: **(a)** X44b cannot run the faithful Komar test without a `+3∫p` Tolman stress term (`research/2026-07-12_x44-komar-source_result.md:147-155`); **(b)** the ENVELOPE-EIGENMODE gate cannot compare `σ_ij` across the electron's envelope; **(c)** the cavity-census Stage-2 self-consistency audit cannot compare mode-stress to lattice-stress at the settled radius; **(d)** the electron brace is a **force not a pressure** and needs `T_rr(r)` (`research/2026-06-30_electron-portmap-derivation_result.md:250-254`). This charter specifies **ONE build** — the constitutive contraction `σ_ij = λδ_ij ε_kk + 2με_(ij) + couple-stress(κ)` **carrying the asymmetric `σ^A`**, plus the spatial momentum flux `T^ij`, plus **the reconciliation gate** (`∇·σ` via the native K4 tetrahedral **adjoint** divergence `adjoint_tetrahedral_divergence` ≡ the existing autodiff `−∂E/∂u` to machine precision) — that serves all four consumers, each of which freezes its own prereg at its own arc. The gate is the reconcile-don't-declare exemplar: it is the only certificate that the hand-assembled `σ` is native-substrate physics and not a Cartesian-stencil leak.
+
+## §1 · Physical picture (substrate)
+
+### 1.1 What the medium already carries (implicitly)
+
+All moduli are live and provenance-tagged; the register **assembles**, it does not add physics:
+
+| quantity | value / source | FORM/VALUE tag |
+|---|---|---|
+| shear modulus `G_VAC` | `RHO_BULK·C²` (`constants.py:766`) | VALUE (import basis `{ρ_bulk, c}`) |
+| string tension `G_STRING` | `T_EM/ℓ` (`constants.py:762`) | VALUE-import |
+| bulk / `V_LONG` from `K=2G` | `constants.py:781`, `:769-773` | **VALUE — GR-IMPORTED (PR#261); do NOT upgrade to "derived"** |
+| Machian bulk modulus `κ_grav` | `c⁴/7G` (`backreaction.py:84`) | VALUE-import (gravity sector) |
+| couple-stress `γ` / `κ_rot` | `micropolar_bloch.py:72,88-90`; `cosserat_field_3d.py:28` | VALUE-import |
+| Cosserat balance laws (as comments) | `micropolar_bloch.py:33-35`; `trampoline-framework.md:47,87,356` | FORM (the σ_ij ≠ σ_ji structure) |
+| the two rank-2 fields that exist | `ε_ij` and `κ_ij` (`cosserat_field_3d.py:175-191`) | — |
+
+**The gap.** The only rank-2 fields materialized today are `ε_ij` and `κ_ij`; **no live object** is named `σ_ij / T_ij / stress_tensor / momentum_flux / force_density` (two-method absence check, grounding-card R4/R5). This is a **materialization gap, not a physics gap** — FAIL-by-design.
+
+### 1.2 The transducer ontology (★QUARANTINE — Grant-walked, sets the register's shape)
+
+> **Grant, verbatim (framing note §3):** "the envelope is the transducer between transverse EM stress and lattice mechanical stress; all mechanical stress derives from, and returns to, the physical lattice."
+
+Matter's `T_ij` is **two coupled halves at the envelope interface**: the **wave-side** (the winding's cycle-averaged transverse-EM Maxwell stress, *including the angular flux* — the couple-stress / spin channel) and the **lattice-side** (the full Cosserat `σ`). The envelope is the equilibrium interface; the wave-side is the reactive store, not an independent source. **Wording rail (binding):** the cycle-averaging is a **Jensen magnitude** (`⟨S⟩ < S(⟨A⟩)`, `chiral-thrust-derivation.md:28,51`) whose **direction is set by external geometry, not the kernel** — the kernel is even-in-A and cannot rectify (`research/2026-06-08_rrad-l-rectification_result.md:66-78`). **Never write "the kernel rectifies."**
+
+### 1.3 One build serves four — the unbuilt bridge
+
+The corpus has **two unconnected virials** and **zero electron-side `+3∫p`/Tolman hits** (grounding-card Convergence-1; `categorization.py:155-168`). The bridge is exactly the missing stress: the general `σ_ij` register manufactures the electron's `T_rr` as a special case, and `T_rr` is the object every consumer needs. **One build discharges the shared materialization debt** (`research/2026-07-13_registers-walk_framing.md:60-67`, §2(e)).
+
+## §2 · THE BUILD SPEC
+
+**Scope:** this section specifies the ONE build. It is written as a spec for the follow-on arc; **no code lands in this PR.**
+
+### 2.1 The constitutive contraction — carrying the asymmetric σ^A
+
+Materialize the stress from the live moduli and the existing strain/curvature fields:
+
+```
+σ_ij = λ δ_ij ε_kk  +  2μ ε_(ij)  +  couple-stress term in κ_ij
+```
+
+- **λ, μ** — the vacuum Lamé pair from the live moduli: `μ = G_VAC = ρ_bulk c²` (shear), `K = 2G` (bulk), `λ = K − (2/3)μ`. **All VALUE-imported; `K=2G` carries the GR-IMPORTED tag (PR#261) — no upgrade to "derived."**
+- **ε_(ij)** — the symmetric strain; **but the strain itself is already Cosserat**: `ε_ij = ∂_j u_i − ε_ijk ω_k` (`cosserat_field_3d.py` `_compute_strain`, :175-191), so the micro-rotation `ω` is already wired into `ε`.
+- **★ THE ASYMMETRIC PART IS MANDATORY (Q1 ruling — carry the twist).** The antisymmetric `σ^A_ij = (σ_ij − σ_ji)/2` is **the source of couple stress — the moment per unit area that drives microrotation** (`trampoline-framework.md:87`, verbatim). A Cauchy-symmetric-only `σ` **deletes spin from the stress ledger** (`research/2026-07-13_registers-walk_framing.md:82`). The couple-stress term is built on `κ_ij = ∂_j ω_i` with the modulus `γ`/`κ_rot` (`micropolar_bloch.py:72,88-90`). **A symmetric reduction is NOT acceptable** — it is a disabled-DOF stencil bug, not a simplification (structural-null stencil lens).
+- **FORM/VALUE:** the *structure* (`σ_ij ≠ σ_ji`, the two-modulus split) is FORM-derived from the Cosserat axioms; the *moduli values* are VALUE-imported.
+- **★ SATURATED CONSTITUTIVE TANGENT (mandatory where the consumers read — §2.1↔§2.3 consistency, binding).** The linear form above is the **sub-yield limit** (`S_eps_sq → 1`). The **live** energy is the Op14-saturated `_energy_density_saturated` (`cosserat_field_3d.py:712`, default `use_saturation=True` at `:862`): `W = (W_cauchy·G + W_micropolar·G_c)·S_eps_sq + W_kappa·γ·S_kappa_sq + W_op10·k_op10 + W_refl·k_refl + W_hopf·k_hopf`. Consumers (b)/(c)/(d) read `σ_ij` **at the `S(A)→0` envelope**, where the constitutive stress is **NOT** the linear form — it is the **saturated tangent `σ_ij = ∂E_sat/∂ε_ij`**, carrying the `S_eps_sq`/`S_kappa_sq` kernel-derivative terms **plus** the Op10 / reflection (`1/S²` regulator) / Hopf legs. **§2.3 consistency (binding):** the `σ` the reconciliation gate reconciles against `−∂E/∂u` MUST be this saturated tangent wherever `S_eps_sq < 1`; a linear `σ` reconciles to `1e-10` **only** in the sub-yield region. Module history is the receipt — a prior *hand-derived* stress "disagreed with FD on the saturation path" (`cosserat_field_3d.py:14-17`) — so the tangent must be taken from `E_sat` (jax-grad exact), not hand-assembled from the linear moduli. **Regime carve:** a consumer may instead confine its read to the **sub-yield** region and use the linear `σ` — but then any envelope-side read is regime-invalid and bins **`ARTIFACT`** (§4.2/§4.3), never a physics verdict (the `§0`/`:15` regime-discipline: a linear-only read of a saturated envelope is ARTIFACT-eligible).
+
+### 2.2 The spatial momentum flux T^ij
+
+Today **only the single scalar `T^0x` exists**: `field_momentum_x` returns `P_x = −∫ (∂_tV)(∂_xV)/c_eff²(V) dV` (interior-only, V-sector, x-axis; `annihilation_engine.py:173-181` — re-verified verbatim this session). The build generalizes this to the **full rank-2 spatial momentum flux** `T^ij` (all i,j; the wave-side Maxwell stress *including the angular/couple-stress flux* per §1.2), so momentum transport is a tensor, not a single scalar witness.
+
+### 2.3 ★ THE RECONCILIATION GATE — the reconcile-don't-declare exemplar
+
+**`∇·σ` on the NATIVE K4 tetrahedral stencil MUST equal the existing autodiff `−∂E/∂u` to machine precision.**
+
+- The engine deliberately carries **no** hand-derived stress today (`cosserat_field_3d.py:14`); force is `a_u = −∂E/∂u / ρ` via `jax.grad` (`:2004-2020`). The strain stencil is `_tetrahedral_gradient` (defined `cosserat_field_3d.py:148`, load-bearing call in `_compute_strain` `:177`); its **discrete adjoint** `adjoint_tetrahedral_divergence` (`:161`, verified this session: docstring "Discrete adjoint of _tetrahedral_gradient … Kept for external callers") is the native K4 divergence — the exact integration-by-parts partner of the forward gradient — and is the operator the reconciliation gate requires (below).
+- **The gate:** assemble `σ_ij` from §2.1 **independently** of the energy autodiff, take its divergence with the **discrete adjoint** `adjoint_tetrahedral_divergence` (`cosserat_field_3d.py:161`) — **NOT** the forward `_tetrahedral_gradient`, and **NOT** a Cartesian `np.gradient` — and require, per node and per sector (A1 and T2/ω):
+
+  ```
+  ‖ ∇·σ |_K4  −  (−∂E/∂u) ‖ / ‖∂E/∂u‖  <  1e-10   (machine precision)
+  ```
+
+- **Why the discrete ADJOINT, not the forward stencil (machine-precision closure).** By the discrete chain rule `−∂E/∂u = (adjoint of the strain stencil)·σ`, so `∇·σ` reconciles to `−∂E/∂u` at `1e-10` **only** with `adjoint_tetrahedral_divergence`. Contracting the **forward** `_tetrahedral_gradient` instead differs from the adjoint by a symmetric second-difference whose **third-moment coefficient `Σ p^j p^k p^l` is non-zero on the non-centrosymmetric `TETRA_OFFSETS`** — an `O(h²)` relative discrepancy (`~10⁻²` at `N=40`, field-dependent), 6+ orders above the tol. Truncation error is NOT the issue (the analytic adjoint is exact against FD) — **adjointness** is. A forward-stencil divergence therefore fails the gate exactly as a Cartesian leak does; only the adjoint reaches `1e-10`.
+- **Why this is the exemplar (per the identity-break leaf's vacuous-detector knife, `identity-break-test-design.md`):** the gate is **not** a conservation identity — it reconciles two **independently computed** objects (a hand-assembled constitutive `σ` vs the autodiff force) that agree ONLY if the stencil is substrate-native. A Cartesian-stencil **or** forward-tetrahedral (non-adjoint) `σ`-divergence will **fail** the gate on any configuration with non-trivial `σ^A`; that failure is the certificate. **No PASS may be booked off a tautology** (e.g. differentiating the same `E` twice).
+
+> **★ Flag F1 (grounding-card refinement, flag-don't-fix).** Grounding-card receipt R5 wrote `T^0x = −∫(∂_tV)(∂_xV)/c²`. The **live code divides by `c_eff²(V)`** (the Op14-saturated local speed, `c_eff_squared(self.V)`), **not** the constant `c²`. This is load-bearing: at the envelope where `S(A)→0`, `c_eff²` departs sharply from `c²`, so the momentum flux must weight by the **local clock**, not the bare vacuum speed (local-clock-modulation discipline). The `T^ij` build inherits this weighting; a `c²`-weighted flux would misread the envelope. Recorded as a receipt refinement, not a card failure.
+
+## §3 · THE FOUR CONSUMERS (each with its acceptance test)
+
+The ONE build (§2) is pulled by four arcs. Each freezes its **own** prereg at its **own** arc; this charter names the consumer, its regime/sector, its acceptance test, and (in §4) its frozen-bin candidates + fool-modes. **The build lands first; the consumers fire staggered** (§5).
+
+### (a) X44b — the faithful Komar test
+
+**Regime/sector:** A1 dilatation / gravity; static, **force-balanced (virialized)** family; **local-clock weight** in the correct temporal register (slope-1 `√g₀₀ = √S` vs slope-2 — named at prereg-freeze, Flag F6). Consistency-class (certification of the latent `#86` M_eff-vs-far-field gap).
+
+**What it is.** X44 (`research/2026-07-12_x44-komar-source_result.md`) tested a **density-only `√S` weight** and banked **frozen bin (iii) UNRECONCILED** (`η_mixed = +1.05`, O(1), resolution-stable). Its §5b/§7 named *why*, and named the completion path (escalation option 5 = **X44b**). The three ingredients it found absent/mismatched, now supplied by the T_ij register:
+
+1. **A local-clock weight in the correct temporal register.** The genuine **local clock rate / gravitational redshift** is the **slope-1** quantity `√g₀₀ = √S ≈ 1 − GM/rc²` — the engine's Komar/redshift weight `komar_weight` (`backreaction.py:235-252`, `return np.sqrt(S)`; docstring "Redshift / Komar weight √S(A) on the local clock (Grant RULED (c), X44)"). It must **NOT** be confused with the **slope-2 bulk/coordinate-time propagation index** `n = 1 + (2/7)ε₁₁` (`ray_trace_deflection`, `backreaction.py:642-651`) — that is the photon-**deflection** optical metric (Op19, recovers `4GM/bc²`), **not** a clock. The two are bridged by `z = (n_temporal − 1)/2` (a propagating signal picks up 2× the local clock; **W2 walk-back**, `temporal-spatial-lattice-decomposition.md:26,28`). **★ The X44b prereg MUST name WHICH temporal register is the clock (slope-1 `√g₀₀` vs slope-2 `n`) BEFORE freezing** — the `η ≈ −1 → 0` ladder and the `|η| < 1e-3` PASS turn on exactly this factor-2 (**Flag F6**). *(This supersedes the inherited X44 §7-option-5 wording, which labeled the slope-2 `n=1+(2/7)ε` register "the gravitational redshift register" and cited the ray-tracer at `:647-651`; it is also in substantive tension with X44 §5b(i), which calls `√S` the EM/wrong register — recorded in Flag F6, not resolved here.)*
+2. **The `+3∫p` Tolman/stress term** — supplied by the new register's `T_rr` (consumer (d)) and full `σ_ij`. Structurally absent before: `gaussian_blob` is a bare prescribed scalar `T₀₀` with no `T_{ij}` companion (`:151-155`).
+3. **A force-balanced (virialized) test family** — a self-consistent hydrostatic source, NOT the prescribed `gaussian_blob` (which is not force-balanced).
+
+**★ SOURCE-side theorem-target (Grant-walked, framing §3).** Bound transverse content carries the **radiation equation of state `p = u/3`**. A Komar/Tolman source weights `(ρ + 3p)`, so pure wave content contributes `(ρ + 3·u/3) = ρ + u` — a **factor-2 doubling for the wave part**. This is the *same* factor-2 as the derived light-deflection doubling: light couples to the transverse Cosserat-shear index `n_⊥ = 1 + (2/7)χ_vol → 4GM/bc²` (the observed 1.75″), bridged by `z = (n_temporal − 1)/2` — a propagating signal picks up 2× the local clock (`temporal-spatial-lattice-decomposition.md:26,28`, re-verified; note the W1 walk-back: deflection is the (2/7) transverse index, **not** `n_spatial`, which would give 18GM/bc²). **This is a THEOREM-TARGET, not a result** — the claim owed is that the envelope's wave-side `T_rr`, fed through the Komar source, reproduces the deflection doubling *from the source side*. FORM-class (a factor-2, not a magnitude).
+
+**Acceptance test.** On a **virialized** family — `‖net force per node‖` normalized by a characteristic force scale (e.g. `max_node ‖∂E/∂u‖` ÷ the family's own force scale) below a **virialization tolerance derived from the family's residual-force floor**, computed **independently of the §2.3 reconciliation ratio** (the §2.3 ratio is a stencil-nativeness certificate whose denominator `‖∂E/∂u‖ → 0` on a force-balanced family — ill-conditioned `0/0`, and its machine `1e-10` tol is unreachable by a relaxed hydrostatic family) — compute `η_mixed = slope(m_g/M_eff − 1 vs f)` under the frozen clock register (§3a ingredient-1; slope-1 `√g₀₀` vs slope-2, pinned at prereg-freeze — Flag F6), **with and without** the `+3∫p` term:
+- **without `+3∫p`:** the ladder predicts `η ≈ −1` (the clock overshoot: `∫ρφ = 2W = −2U`, `:140-145`).
+- **with `+3∫p` (`= +U` by the static virial):** the ledger closes to `M − U` ⇒ **`|η| < 1e-3`** (RECONCILE). *(The `1e-3` PASS tol is **derived from the η≈0 discretization floor at prereg-freeze**, or tagged **declared-arbitrary** — X44's own resolution scan drifted η by `~2e-3` at η≈+1.05, so the floor question is live; the prereg must pin it.)*
+Unlike X44, **reconcile is STRUCTURALLY REACHABLE**, so a miss is a **real falsification of RULED (c)** — not a regime artifact (`:198-215`, §4b). PASS = the ladder rung `η ≈ −1 → 0` is traversed *by adding the computed stress term*, not by tuning.
+
+### (b) THE ENVELOPE-EIGENMODE GATE (Grant's balance≡yield conjecture)
+
+**Regime/sector:** A1 + T2 at the electron's envelope; cold-linear eigenmode + Op14-saturated wall; **RADIUS-DISCRIMINATING**. **Discovery-class either way.**
+
+**What it is.** Read `σ_ij` on **both sides of the electron's envelope** and locate two surfaces independently: the **stress-balance locus** (where the register's `σ_ij` is opposite-but-equal across the envelope) and the **strain-yield locus** — the **ROLE-2** `S(A)→0` / `Γ=−1` wall (located at `max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)` per the Wall-A ruling, `_orchestration/2026-07-10_rulings-docket.md:533-538`), **not** the `A²=2α` deficit knee (ROLE-3 — see the ROLE-3 restatement below and Flag F5). Grant's conjecture (framing continuation (a.4), ★QUARANTINE): *yield derives from opposite-but-equal stresses balancing across the envelope, and that balance-locus ≡ the `A_yield` level-set* — i.e. **they coincide** (but note the conjecture's `A_yield`-wording is itself in tension with Grant's same-day ROLE-2/ROLE-3 split — **Flag F5**; the charter pre-resolves nothing).
+
+> **★ Flag F3 (flag-don't-fix — a live contradiction the gate adjudicates).** Grant's balance≡yield conjecture (**they coincide**) contradicts the **corpus's accepted radius numbers**, which put the two surfaces **~10× apart**:
+> - **balance locus** = the hollow-vortex binding equilibrium `R* = Γ/√σ ≈ 1.6 ℓ_node` (electron/reduced-Compton scale; `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49`);
+> - **yield floor** = the Wall-A ropelength floor `ℓ_node/(2π) ≈ 0.159 ℓ_node` (the **ROLE-1 geometric floor**, which for the ground state coincides with the **ROLE-2** `S(A)→0` / `Γ=−1` wall; `_orchestration/2026-07-10_rulings-docket.md:522-538`, `606`). This floor is the yield **wall** (ROLE-2), **not** the `A²=2α` deficit knee (ROLE-3, `S≈0.993`, `Γ≈−0.002`) — see Flag F5.
+> - ratio `1.6 / 0.159 ≈ 10.06`.
+>
+> Both file paths recorded verbatim; **not silently reconciled** (Grant adjudicates). Rider: the `1.6` is itself **DIMENSIONALLY-FORCED / soft** — "a consistency check, not a discriminating test" (`hollow-vortex-binding.md:133`) — so a "two walls" verdict rests on a soft number, and a "coincide" verdict means one of the two accepted numbers is wrong.
+
+> **★ ROLE-3 restatement (Wall-A ruling, `_orchestration/2026-07-10_rulings-docket.md:540-544`, `608`; Grant-accepted "accept!" 2026-07-14).** The `A²=2α` (`A_yield = √(2α)`) contour is **THE DEFICIT KNEE** (the `ΔS = α` regime-I boundary), **NOT** the TIR wall: the engine kernel `s = √(1−a2c)` (`src/ave/core/chiral_lattice_v10.py:56`) gives `S(A²=2α) ≈ 0.993`, `Γ ≈ −0.002` (docket auditor arithmetic). The yield **wall** is the **ROLE-2** local `S(A)→0` / `Γ=−1` discontinuity, whose location is `max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)` (for the ground state it saturates the floor — ROLE-1≡ROLE-2). **`R_yield` in this gate is the ROLE-2 wall, never the ROLE-3 `A²=2α` knee.** The `A_YIELD_SQ = 2·ALPHA` symbol (`chiral_lattice_v10.py:29-30`) is the knee's coordinate authority — the outer contour, a DIFFERENT radial surface from the wall.
+
+**Acceptance test (RADIUS-DISCRIMINATING; the gate must let "two walls" win).** Report `R_balance` (σ_ij opposite-equal crossing) and `R_yield` (the **ROLE-2** `S(A)→0` / `Γ=−1` wall — `max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)`; **NOT** the `A²=2α` deficit knee) as **independent** dimensionless radii in `ℓ_node` units, with the §2.3 grid-resolution uncertainty. Bins: **COINCIDE** (`|R_balance − R_yield| < 2·Δgrid`, both surfaces located ⇒ balance≡yield **confirmed**, and one of `{1.6, 0.159}` is thereby wrong — a discovery) / **TWO-WALLS** (`|R_balance − R_yield| > 2·Δgrid` with **both surfaces located** ⇒ distinct surfaces, gap-closing model rejected; corpus-number agreement is a separate consistency tag) / **NEITHER-SETTLES** (a surface cannot be robustly located within `Δgrid`) / **INCONCLUSIVE** (run failed/aborted). **The gate must be built so TWO-WALLS is winnable** — it must NOT force coincidence. *Discovery either way.* (Full computable bin defs: §4.2.)
+
+### (c) CENSUS STAGE-2 — the self-consistency audit
+
+**Regime/sector:** A1 imposed wall + T2 interior mode; the settled-radius eigenmode. Consistency-class; **the ONLY outcome class that re-opens D3 is a Stage-2 `REQUIRES-INTERIOR` over-stress** (`σ_mode > σ_yield`, the mode needs interior structure the imposed wall cannot host) — **not** a mere `WALL-ARBITRARY` under-stress; this **refines** the frozen Stage-1 §5 D3-movement map's non-coincidence class (see the §4.3 D3-movement disambiguation; `research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md`, §5 D3-movement map).
+
+**What it is.** The cavity-census Stage-1 (FROZEN prereg, branch `analysis/cavity-census-stage1`) imposes a `Γ=−1` TIR wall and reads **existence-given-boundary** (which winding class is the ground-state closure). **Stage 2 (task #45) rides THIS register:** at the census-settled radius `R_wall`, compare the **mode-stress** (`σ_ij` of the interior eigenmode the census found) against the **lattice-stress** (the `σ_ij` the imposed wall applies) — the self-consistency the static-wall Stage-1 explicitly does NOT test (Stage-1 Fence 2: "self-consistency is Stage 2").
+
+**Acceptance test.** At `R_wall`, does the mode's own `σ_ij` reach the **yield stress** `σ_yield` at the wall (the ENVELOPE leg: the near-field IS a real yield envelope, not an arbitrary Dirichlet clamp)?
+- **`σ_mode(R_wall) = σ_yield` within tol** ⇒ **SELF-CONSISTENT / ENVELOPE leg supported** (the wall the census imposed is the wall the mode would itself raise).
+- **mismatch requiring interior structure the singularity forbids** ⇒ **RE-OPENS D3** (the one outcome class that genuinely does).
+The read is at the **energy-density peak of the shell** (density-peak sampling, not centroid — a shell's centroid is empty), with PML-cell exclusion before any top-K extraction (Rule-10 corollary).
+
+### (d) The electron T_rr — the brace's missing integration
+
+**Regime/sector:** T2/Cosserat winding at its own envelope; cold-static; consistency-class (with an INCONCLUSIVE caveat carried).
+
+**What it is.** The electron brace as derived is a **FORCE, not a pressure**: `B_a = −dU_rot/dr = +L_w²/(m_eff r³)` is energy/length [N], not energy/volume [Pa] (`research/2026-06-30_electron-portmap-derivation_result.md:250-254`; `sign(dF/dr) = sign(3−p)` at `:364-373`). Q2 ruling (★QUARANTINE): the brace **= ⟨Maxwell stress⟩ of the (2,3) winding evaluated at its own envelope**; the general `σ_ij` build manufactures `T_rr` as that special case. **Carry the caveats:** the one force-balance sim was **INCONCLUSIVE** (`r⁻³` not reproduced, `|L_w|` drifts 16–17% under lossless evolution; `research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`); `clm-jwyy6l` "#90 mass IS inductance" is at **solidity 0.30, do-not-build-on** (`manuscript/ave-kb/vol2/claim-quality.md:717`) — rest-mass store is A1, not inductance.
+
+**Acceptance test.** From the register's `T_rr(r)` (read off the eigenmode's OWN stress, **never** the seeded template `ê_w`), reproduce the derived brace: (i) the `r⁻³` scaling of `∫ T_rr dA`, and (ii) feed `+3∫p_electron = +U` (the electron virial `E_elec = E_mag = ½m_e c²`, `research/2026-06-30_electron-portmap-derivation_result.md:489-495`) into consumer (a). **Reactance-pair discipline (Rule-10):** track `L_w` over the recording window; if `L_w` drifts (as in the inconclusive bind-sim), the `r⁻³` read is **INCONCLUSIVE, not a PASS** — the `L_w = const` premise the brace rests on must be satisfied for the read to count. Do NOT build on `clm-jwyy6l 0.30`.
+
+## §4 · FROZEN-BIN CANDIDATES + FOOL-MODES (per consumer)
+
+**Candidates only.** These bins are **proposed here and frozen at each arc's own prereg** (freeze-by-push before that consumer's driver). Every bin set is **exhaustive + mutually exclusive with an INCONCLUSIVE/null landing** so "no closure" and "artifact" can win. **Vacuous-detector knife (binding, per `identity-break-test-design.md` §5):** *no PASS criterion may be a conservation identity.* Each fool-mode below names its detector.
+
+### §4.0 The register build itself — the reconciliation gate
+
+**Bin candidates:** `RECONCILE` (`‖∇·σ|_K4 − (−∂E/∂u)‖/‖∂E/∂u‖ < 1e-10`, per node, per sector, `∇·σ` via the discrete adjoint `adjoint_tetrahedral_divergence`) / `CARTESIAN-LEAK` (a non-native `∇·σ` — a Cartesian `np.gradient` **or** the non-adjoint forward `_tetrahedral_gradient` — **fails on a config with non-trivial `σ^A`**; both are `O(h²)` above tol) / `SECTOR-SPLIT` (A1 reconciles, T2/ω does not, or vice-versa) / `INCONCLUSIVE`.
+
+- **Fool-mode — the tautology PASS.** If `∇·σ` is computed by differentiating the same energy the autodiff force uses, the gate is an identity and passes vacuously. **Detector:** `σ_ij` must be assembled from the **constitutive relation** (§2.1, moduli × strain) with **no reference to `E`**; then differentiated by the discrete adjoint `adjoint_tetrahedral_divergence` (`:161`). Positive controls: **both** a Cartesian `∇·σ` (via `np.gradient`) **and** the non-adjoint forward `_tetrahedral_gradient` divergence, on a `σ^A ≠ 0` config, **must FAIL** (`CARTESIAN-LEAK`) — an unfireable gate that cannot fail is itself the fool-mode.
+- **Fool-mode — the symmetric-config false-green.** A curl-free, `σ^A = 0` test config lets a Cartesian stencil pass. **Detector:** the gate battery **must include an asymmetric (`σ^A ≠ 0`) config** as a first-class member; a green from symmetric configs only is disclosed as `NOT-YET-FIRED-ON-σ^A`.
+
+### §4.1 Consumer (a) X44b
+
+**Bin candidates:** `RECONCILE` (`|η_mixed| < 1e-3` with the computed `+3∫p`; the `1e-3` tol derived-from-floor or declared-arbitrary at freeze — §3a) / `LINEAR-OVERSHOOT` (`η ≈ −1` without the stress term — the expected ladder rung) / `NO-CLOSE` (`+3∫p` added and `|η|` still O(1) ⇒ **real falsification of RULED (c)**) / `NOT-VIRIALIZED` (the family failed the **‖net-force-per-node‖** precondition — normalized by a characteristic force scale, tol from the family's residual-force floor, computed independently of the §2.3 ratio) / `INCONCLUSIVE`.
+
+- **Fool-mode — the g_self retune.** Tuning `g_self` so `U_bind ≈ Δ_clock` manufactures `η→0` (explicitly forbidden by X44's prereg; `research/2026-07-12_x44-komar-source_result.md:118-119`). **Detector:** the `+3∫p` term must be **computed from the register's `T_rr`** at the virialized radius, entering as a measured integrand — **not** a free parameter; the prereg records `g_self` frozen before the run.
+- **Fool-mode — the install-tautology flux.** `Gauss flux ≡ ∫T₀₀^src` holds by construction (`:26`); reading reconciliation off it is vacuous (a conservation identity — the knife). **Detector:** the fireable quantity is `m_g/M_eff − 1`, comparing **two independently-labelled masses** (far-field flux vs the strain-energy ADM `M − U_bind`), never flux-vs-its-own-source.
+- **Fool-mode — the un-virialized family.** A prescribed `gaussian_blob` is not force-balanced, so `+3∫p ≠ +U` and the Tolman closure does not apply. **Detector:** the per-node **net force** residual — `‖∂E/∂u‖` normalized by a characteristic force scale, **NOT** the §2.3 reconciliation ratio (a stencil-nativeness certificate, ill-conditioned `0/0` on a force-balanced family since its denominator `‖∂E/∂u‖ → 0`) — must be below the **virialization tolerance** (from the family's residual-force floor, **not** the `1e-10` machine tol) at every member of the family before the η read is admitted; else bin `NOT-VIRIALIZED`.
+
+### §4.2 Consumer (b) ENVELOPE-EIGENMODE gate
+
+**Bin candidates:** `COINCIDE` (`|R_balance − R_yield| < 2·Δgrid`, both surfaces located ⇒ balance≡yield, one accepted number wrong = discovery) / `TWO-WALLS` (`|R_balance − R_yield| > 2·Δgrid` with **both surfaces located** ⇒ distinct surfaces, gap-closing model rejected; the corpus-number agreement `R_balance≈1.6` / `R_yield≈0.159` / ratio≈10 is a **separate consistency tag**, NOT the bin trigger) / `NEITHER-SETTLES` (at least one of `R_balance`, `R_yield` cannot be robustly located within `Δgrid` — the gate does not resolve; distinct from INCONCLUSIVE) / `ARTIFACT` (a linear-only `σ` read at the `S(A)→0` envelope where the saturated tangent is required, §2.1 — regime-invalid, not a physics verdict) / `INCONCLUSIVE` (run failed/aborted).
+
+- **Fool-mode — the same-field tautology.** If `R_balance` and `R_yield` are both read off the **same `A` field** (e.g. balance defined as "where `σ` from `A` is opposite-equal" AND yield defined as "where `A = A_yield`"), COINCIDE is forced by construction. **Detector:** `R_balance` is the **`σ_ij`-opposite-equal crossing** (a stress read); `R_yield` is the **ROLE-2** `S(A)→0` / `Γ=−1` wall — the local-clock discontinuity at `max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)` (Wall-A ROLE-2, `_orchestration/2026-07-10_rulings-docket.md:533-538`), **not** the `A²=2α` deficit knee (ROLE-3, `S≈0.993`, `Γ≈−0.002`, `chiral_lattice_v10.py:56`; the knee is the `A_YIELD_SQ = 2·ALPHA` contour at `:29-30` — a DIFFERENT, outer surface). The two must be **computed from independent operators** (a stress crossing vs an amplitude/clock `S→0` discontinuity); a gate that reads both off one contour is disclosed as `VACUOUS-COINCIDE`.
+- **Fool-mode — the soft-number false-TWO-WALLS.** The `1.6` is dimensionally-forced/soft (Flag F3). A TWO-WALLS verdict that merely reproduces the imported `1.6` and `0.159` proves nothing. **Detector:** `R_balance` must be **derived from the register's own `σ_ij`** at the eigenmode, not seeded to `1.6`; if it lands at `1.6` it is a **consistency** hit (peer, the number was imported), tagged as such, not a discovery.
+
+### §4.3 Consumer (c) census Stage-2
+
+**Bin candidates** (two-sided in `σ_mode(R_wall) − σ_yield`; `tol_σ` stated at prereg-freeze from the σ-read discretization floor): `SELF-CONSISTENT` (`|σ_mode(R_wall) − σ_yield| < tol_σ` ⇒ the wall the census imposed is the wall the mode would itself raise — ENVELOPE leg supported) / `WALL-ARBITRARY` (`σ_mode(R_wall) < σ_yield − tol_σ` — mode **under**-stresses the wall ⇒ the imposed wall is a clamp, not a yield envelope; **does NOT re-open D3** — see the D3-movement disambiguation below) / `REQUIRES-INTERIOR` (**computable trigger:** `σ_mode(R_wall) > σ_yield + tol_σ` — the mode **over**-stresses the wall, so satisfying `σ ≤ σ_yield` everywhere would require interior radial structure the `Γ=−1` singularity forbids ⇒ **the one class that re-opens D3**) / `ARTIFACT` (a linear-only `σ` read at the `S(A)→0` envelope where the saturated tangent is required, §2.1 — regime-invalid, not a physics verdict) / `INCONCLUSIVE`.
+
+> **★ D3-movement disambiguation (deliberate refinement — for the Stage-2 prereg to record; KEEP-BOTH).** The FROZEN Stage-1 prereg's D3-movement map (`research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md:321-322`, branch `analysis/cavity-census-stage1`, commit `1c362d1d`) puts the whole non-coincidence disjunction — "no coincidence / mode requires interior structure the singularity forbids" — in the single re-opening class. This charter **refines** that binary: `WALL-ARBITRARY` (mode UNDER-stresses the wall — a loose clamp, the mode is self-consistent) does **NOT** re-open D3; only `REQUIRES-INTERIOR` (mode OVER-stresses, `σ_mode > σ_yield`, needing interior structure the singularity forbids) does. This is a **deliberate departure** from the frozen Stage-1 sketch, surfaced here per prereg-vs-implementation discipline; **the Stage-2 prereg must record it as a refinement** (KEEP-BOTH), not silently adopt it.
+
+- **Fool-mode — Newton's-third-law tautology.** A Dirichlet mask's reaction stress balances the contained mode **by construction** — "does the wall balance the mode" is an identity (the knife). **Detector:** the test is NOT "does the wall react to the mode" but "does the mode's own `σ_ij` **reach `σ_yield`** at `R_wall`" — i.e. is the imposed wall located where the medium would itself yield. `σ_yield` is computed independently — the constitutive stress evaluated at the **ROLE-2** `S(A)→0` / `Γ=−1` wall (`_orchestration/2026-07-10_rulings-docket.md:533-538`), **not** at the `A²=2α` deficit knee (ROLE-3; see Flag F5) — never set equal to the reaction by fiat.
+- **Fool-mode — the PML / centroid artifact.** Top-K stress extractions in PML cells return frozen-absorbing artifact; centroid sampling of a shell reads the empty middle. **Detector:** PML-cell exclusion (`pml ≤ {i,j,k} ≤ N−pml−1`) before `argpartition`; density-peak (top-K `|σ|²`) sampling on the shell (Rule-10 corollaries).
+
+### §4.4 Consumer (d) electron T_rr
+
+**Bin candidates:** `BRACE-REPRODUCED` (`∫T_rr dA ∝ r⁻³`, `L_w` stable over the window) / `WRONG-POWER` (a stable read but not `r⁻³` ⇒ the derived brace form is not what the register produces) / `L_w-DRIFT` (`L_w` drifts as in the bind-sim ⇒ **INCONCLUSIVE, not a negative** — the premise is unmet) / `INCONCLUSIVE`.
+
+- **Fool-mode — the seed tautology.** Reading `T_rr` off the seeded template `ê_w` returns the planted `(2,3)` by construction (the same tautology the census forbids). **Detector:** `T_rr` is read off the **eigenmode's own two-sector stress**, never the seed; the seed is admissible only as a planted-winding positive control.
+- **Fool-mode — the snapshot-at-peak ambiguity.** A single-phase `T_rr` snapshot is consistent with both a static store and an oscillator caught at peak. **Detector:** reactance-pair tracking — record both C-state (`V_inc`/ω) and L-state (`Φ_link`/ω̇) across the recording window (Rule-10); a drifting `L_w` lands `L_w-DRIFT`, not a PASS.
+
+## §5 · Execution plan, scope lock, and the quarantine ledger
+
+### 5.1 Sequencing — build → freeze per-consumer preregs → staggered runs
+
+1. **The build (follow-on arc, own PR).** Extend `cosserat_field_3d` with the constitutive `σ_ij` (§2.1, carrying `σ^A`) and generalize `T^0x → T^ij` (§2.2). **Land the §2.3 reconciliation gate FIRST and green** — `∇·σ` via `adjoint_tetrahedral_divergence`, including the `σ^A ≠ 0` config and the positive controls that must fail (a Cartesian `np.gradient` divergence AND the non-adjoint forward `_tetrahedral_gradient` divergence) — the gate is the go/no-go for the whole register. Rule-10: run the gate battery early, imperfect drivers included; PML-exclusion + density-peak sampling wired from the start.
+2. **Freeze the four preregs (freeze-by-push, one per consumer).** Each consumer's prereg promotes its §4 bin candidates to commitments and freezes BEFORE its driver, in git history. **Order:** (d) electron `T_rr` and (a) X44b are the tightest coupling (d feeds a's `+3∫p`), so freeze/run them as a pair first; (c) census Stage-2 is gated on the census Stage-1 result landing; (b) the envelope-eigenmode gate is independent and can freeze in parallel.
+3. **Staggered runs.** X44b's virialized family and the electron `T_rr` share the same static-balance machinery — run together. The envelope-eigenmode gate and census Stage-2 share the eigenmode/`σ_yield` machinery — run together. Each RESULT doc bins per its §4; honest closure (Rule 11) on decisive failure; substitution-not-retraction (Rule 12) if a hypothesis falsifies.
+
+### 5.2 Scope lock (CC-honest, binding)
+
+- **This PR is CHARTER-ONLY.** No `σ_ij`/`T^ij` code, no gate code, no driver. The build and the four preregs land in the follow-on arc after this charter's review.
+- **The register is manifestation-class assembly**, not new physics: all moduli VALUE-imported, `K=2G` stays GR-IMPORTED (no upgrade). The register's *output claims* are the consumers' — each gets its own adjudication class (§Sector-header, consistency-vs-emergence).
+- **The theorem-target (X44b §3a) and the balance≡yield conjecture (b) are FORM-class targets** (a factor-2, a radius-coincidence) — never magnitude-class. Per the identity-break leaf, all discrimination here is FORM (a doubling, a coincidence, a power-law), consistent with the even-in-A kernel.
+- **Lane discipline.** Implementer lane drafts the register + the empirical bins; the auditor lane lands any manual/KB entry; Grant adjudicates the Flag-F3 balance≡yield contradiction and any framing-level ruling. This charter surfaces; it does not resolve.
+
+### 5.3 The quarantine ledger (walked inputs — ★ NOT canon)
+
+| Walked input | Where used | Status |
+|---|---|---|
+| **Transducer ontology** (envelope = transducer; T_ij = two coupled halves) | §1.2, §3(a) theorem-target | Grant-walked (framing §3); ruling-grade INPUT, not canon |
+| **Q1 — carry the twist** (full Cosserat `σ^A`, no symmetric reduction) | §2.1 (mandatory `σ^A`) | ★RULED-IN-WALK (docket:458); build commitment |
+| **Q2 — brace = ⟨Maxwell stress⟩ at its own envelope** | §3(d) | ★RULED-IN-WALK (docket:459); consumer (d) target |
+| **balance≡yield conjecture** (balance-locus ≡ `A_yield` level-set) | §3(b), Flag F3 | Grant-walked (continuation a.4); **contradicts corpus numbers — gate adjudicates** |
+| **Radiation-EOS `p=u/3` ⇒ Tolman doubling** | §3(a) | Grant-walked theorem-TARGET (framing §3); owed, not claimed |
+| **Cascade-filter ontology** | *not used* | ★RATIFIED-KILLED at the atom rung (docket:475; do not import) |
+
+### 5.4 What this charter deliberately does NOT do
+
+- It does **not** draft an Ax-5 candidate — the diagnosis is a materialization gap, not a missing axiom (A44).
+- It does **not** resolve Flag F3 — Grant adjudicates the balance≡yield vs 1.6/0.159 contradiction.
+- It does **not** re-open the cascade filter (RATIFIED-KILLED), the diode/rectifier class (four deaths), or the D3 COEXIST ruling (canonized; census is a stress-test, not a re-opening).
+- It does **not** refill the twice-falsified self-formation slot (A47 v11b) — the register reads existence-given-structure, not genesis.
+
+## §6 · References (grep-verified anchors — 2026-07-14, worktree at `origin/main` 240d59d8)
+
+*All Read/grep-confirmed this session in the charter worktree (origin/main), not the stale local main checkout (`c12f2bdb`). The Wall-A ruling docket text was authored against `c12f2bdb` per its own note but is present verbatim in `origin/main`.*
+
+- **The materialization gap / native stencil** — `src/ave/topological/cosserat_field_3d.py:14` ("no hand-derived stress tensors"), `:148` (`def _tetrahedral_gradient`), `:175-191` (`_compute_strain`, `ε_ij`/`κ_ij`), `:2004-2020` (`a_u = −∂E/∂u`).
+- **The scalar `T^0x`** — `src/ave/core/annihilation_engine.py:173-181` (`field_momentum_x = −∫(∂_tV)(∂_xV)/c_eff²(V)`, interior-only; the `c_eff²` weighting is Flag F1).
+- **Moduli** — `src/ave/core/constants.py:762,766,781,769-773` (G_STRING, G_VAC, V_LONG, K=2G GR-IMPORTED); `src/ave/gravity/backreaction.py:84` (`κ_grav = c⁴/7G`), `:235-252` (`komar_weight` = the slope-1 redshift/Komar clock `√S`, RULED (c)), `:642-651` (`ray_trace_deflection` = the slope-2 photon-deflection optical metric `n = 1 + (2/7)ε`, **NOT** a clock — Flag F6); `src/ave/core/micropolar_bloch.py:33-35,72,88-90` (Cosserat balance laws, couple-stress).
+- **Asymmetric `σ^A`** — `manuscript/ave-kb/common/trampoline-framework.md:87` ("The antisymmetric part σ^A_ij = (σ_ij − σ_ji)/2 is the source of couple stress … drives microrotation").
+- **X44 Komar result** — `research/2026-07-12_x44-komar-source_result.md:126-155` (wrong-register `√S`, the `+3∫p` Tolman term, structurally absent), `:198-215` (escalation option 5 = X44b, the expectation ladder).
+- **Tolman/deflection doubling** — `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md:26,28` (`z = (n_temporal−1)/2`; W1 walk-back: deflection is the (2/7) transverse index → 4GM, not `n_spatial`).
+- **Envelope numbers (Flag F3)** — `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49` (`R* ≈ 1.6 ℓ_node`), `:133` (dimensionally-forced/soft); `_orchestration/2026-07-10_rulings-docket.md:522-538,606` (Wall-A floor `ℓ_node/(2π) ≈ 0.159`); `src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2·ALPHA`).
+- **Brace** — `research/2026-06-30_electron-portmap-derivation_result.md:250-254,364-373,489-495`; the INCONCLUSIVE bind-sim `research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`; `clm-jwyy6l` 0.30 `manuscript/ave-kb/vol2/claim-quality.md:717`.
+- **Census Stage-2 dependency** — `research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md` (branch `analysis/cavity-census-stage1`, freeze commit `1c362d1d`), §5 D3-movement map (Stage-2 = task #45).
+- **Virial machinery (extension pattern)** — `src/scripts/vol_1_foundations/prestress_elastic_tensor.py:840-847` (Σ T·l Clausius per-bond virial, K4-scoped).
+- **Discipline leaves** — `manuscript/ave-kb/common/identity-break-test-design.md` (the vacuous-detector knife); the plan-of-record + Q1/Q2 rows `_orchestration/2026-07-10_rulings-docket.md:457-464`; the balance≡yield continuation `research/2026-07-13_registers-walk_framing.md`.
+
+## §7 · Flags surfaced (flag-don't-fix — for Grant / the auditor lane)
+
+1. **★ Flag F3 — the balance≡yield contradiction (Grant adjudicates).** Grant's balance≡yield conjecture ("both coincide", `research/2026-07-13_registers-walk_framing.md` continuation a.4) contradicts the corpus's accepted radii: **balance locus `R* ≈ 1.6 ℓ_node`** (`hollow-vortex-binding.md:49`) vs **yield floor `ℓ_node/(2π) ≈ 0.159 ℓ_node`** (`docket:522-538`), ratio `≈ 10.06`. The ENVELOPE-EIGENMODE gate (consumer b) is the adjudicator and is designed radius-discriminating so **TWO-WALLS is winnable**. Not silently reconciled. Rider: the `1.6` is dimensionally-forced/soft (`hollow-vortex-binding.md:133`).
+2. **Flag F1 — grounding-card R5 receipt refinement.** The card wrote `T^0x = −∫(∂_tV)(∂_xV)/c²`; the live code weights by **`c_eff²(V)`** (the Op14-saturated local speed), not the constant `c²`. Load-bearing at the envelope; folded into the §2.2 build spec. A refinement, not a card failure.
+3. **Flag F4 — Wall-A docket HEAD label.** The Wall-A ruling continuation states its cites were "confirmed at HEAD `c12f2bdb`" — the **stale local main checkout**, not `origin/main` (240d59d8). The load-bearing content (the floor `0.159`, the three-role structure) is nonetheless present verbatim in `origin/main` and re-verified this session. No content failure; the HEAD label is stale.
+4. **No other grounding-card receipt failed re-verification.** The heavy receipts (R4 `cosserat_field_3d.py:14`, R5 `annihilation_engine.py:173-181`, R8 `trampoline-framework.md:87`, R16 `prestress_elastic_tensor.py:840-847`) all confirm verbatim in `origin/main` (only the R5 `c²`→`c_eff²` refinement of Flag F1).
+5. **★ Flag F5 — TWO GRANT INPUTS IN TENSION on the yield surface (KEEP-BOTH; gate (b) adjudicates).** Grant's balance≡yield conjecture (framing continuation a.4, `research/2026-07-13_registers-walk_framing.md:191`, `:211`) is worded *balance-locus ≡ the `A_yield` level-set* — it names the `A_yield = √(2α)` contour as the yield surface. But Grant's **same-day** Wall-A ruling (`_orchestration/2026-07-10_rulings-docket.md:540-544`, `608`; "accept!" 2026-07-14) **re-tagged that very contour the DEFICIT KNEE** (ROLE-3: `A²=2α`, `S≈0.993`, `Γ≈−0.002`, "never the TIR wall") and put the yield **wall** at the **ROLE-2** `S(A)→0` / `Γ=−1` discontinuity (`location = max(dynamical S→0 locus, geometric floor ℓ_node/2π ≈ 0.159)`). So the conjecture's *`A_yield`-wording* (balance ≡ the knee) is in tension with the ruling's knee-vs-wall split. **KEEP-BOTH:** both Grant inputs are recorded verbatim; this charter **pre-resolves nothing**. R_yield is defined here as the **ROLE-2 wall** (not the `A_yield` knee), so consumer (b)'s gate measures the surface the ruling names; whether Grant's conjecture meant the knee or the wall is his to adjudicate at the gate-(b) freeze. (Distinct from Flag F3, which records the balance-vs-yield *radius* contradiction `1.6` vs `0.159`; F5 records the ROLE-2-vs-ROLE-3 *surface-role* contradiction between the two Grant inputs.)
+6. **★ Flag F6 — X44b CLOCK REGISTER MISLABEL (relabeled here; upstream + cross-source tension surfaced for the auditor queue).** Charter ingredient-1 (§3a) originally labeled `n = 1 + (2/7)ε` (`backreaction.py:647-651`) "the engine's OWN gravitational redshift register." **Both parts wrong:** (a) `backreaction.py:642-651` is `ray_trace_deflection` — the photon-**deflection** optical metric (Op19), not a clock; (b) the charter's own cited receipt, the **W2 walk-back** (`temporal-spatial-lattice-decomposition.md:26,28`), relabeled `n_temporal = 1+(2/7)ε₁₁` the **slope-2 bulk/coordinate-time propagation** index and named the genuine local clock/redshift the **slope-1** `√g₀₀ = √S`. The live engine agrees: `komar_weight` (`backreaction.py:235-252`) returns `√S`, docstring "Redshift / Komar weight √S(A) on the local clock (Grant RULED (c), X44)". **Relabeled** in §3a and §6 to the slope-1 `√g₀₀ = √S` register, with the X44b prereg required to name the clock (slope-1 vs slope-2, a factor-2) before freezing. **★ Upstream (surface, do NOT edit here):** the mislabel was inherited **verbatim from X44 §7 option 5** (`research/2026-07-12_x44-komar-source_result.md:200-202`) — flag it there for the auditor queue. **★ Cross-source contradiction (surface, do NOT resolve):** X44 §5b(i) (`:126-138`) makes a *substantive* claim that `√S` is the **EM operating-point / wrong register** and that the gravitational clock is the **linear** `n=1+(2/7)ε` — which **directly contradicts** the W2 walk-back + the RULED (c) live `komar_weight` (both say `√S` IS the slope-1 clock/redshift). This is a real cross-source contradiction (`X44 §5b(i)` vs `W2` + `RULED (c)`), not a mere label; the X44b prereg **must resolve which register is the Komar clock** before freezing. Flagged, not resolved (flag-don't-fix).
+
+### Review findings + repairs (2026-07-14)
+
+Independent adversarial review of PR #688 (3 lenses, **10/10 findings confirmed** — all **EVIDENCE-VOID / repair-and-bank**, none discarding the design). Repairs landed **in-place** (charter is pre-freeze; bins are declared candidates, frozen later at each consumer's own prereg). Finding → repair commit:
+
+| # | Finding (severity) | Repair | Commit |
+|---|---|---|---|
+| 1 | `R_yield` welds `A²=2α` to the `S(A)→0` wall, contradicting Wall-A ROLE-3 (MAJOR) | restate ROLE-3 §3b/§4.2; `R_yield` = ROLE-2 `S→0` wall; TWO-WALLS `0.159` reconciled | `44723fc8` |
+| 8 | yield-surface welds ROLE-3 knee to ROLE-2 wall (MAJOR) | same + §7 Flag **F5** KEEP-BOTH (balance≡yield wording vs ROLE-2/3 split) | `44723fc8` |
+| 2 | clock ingredient labeled "redshift register" — W2 removed that label (MINOR) | relabel §3a to slope-1 `√g₀₀=√S` (`komar_weight`); §7 Flag **F6** | `c706b72a` |
+| 3 | cited `backreaction.py:647-651` is the deflection ray-tracer; factor-2 vs `1e-3` tol (CRITICAL) | cite `:235-252` `komar_weight`; prereg must name the clock register before freeze | `c706b72a` |
+| 9 | ingredient-1 labels the slope-2 propagation index the "redshift register" (MINOR) | slope-1/slope-2 disambiguation via `z=(n_temporal−1)/2`; §6 register-map fix | `c706b72a` |
+| 4 | §2.3 names the FORWARD stencil; machine-precision needs the discrete ADJOINT (MAJOR) | name `adjoint_tetrahedral_divergence` (`:161`) as the `∇·σ` operator; keep `1e-10` | `a0fd60cd` |
+| 5 | LINEAR `σ` vs Op14-SATURATED read location (MAJOR) | §2.1 saturated tangent `∂E_sat/∂ε`; §2.1↔§2.3 binding; ARTIFACT bins | `a0fd60cd` + `275f78ad` |
+| 6 | virialization precondition conflates §2.3 residual with force balance; NO-CLOSE unfireable (MAJOR) | `‖net force/node‖` tol from residual-force floor, independent of §2.3; η tol derived/declared | `275f78ad` |
+| 7 | TWO-WALLS keyed to imported radii; REQUIRES-INTERIOR no computable trigger (MAJOR) | TWO-WALLS structural; NEITHER-SETTLES defined; REQUIRES-INTERIOR `σ_mode>σ_yield`; WALL-ARBITRARY two-sided | `275f78ad` |
+| 10 | charter silently narrows the frozen Stage-1 D3-movement class (MINOR) | explicit D3-movement disambiguation note (§3c/§4.3), routed for the Stage-2 prereg | `275f78ad` |
+
+**Two items surfaced for the auditor queue (flag-don't-fix — NOT edited in this PR, see Flag F6):**
+- **X44 §7 option 5** (`research/2026-07-12_x44-komar-source_result.md:200-202`) is the *origin* of the clock-register mislabel; the "gravitational redshift register" wording for the slope-2 `n=1+(2/7)ε` should be relabelled there.
+- **X44 §5b(i)** (`:126-138`) vs the **W2 walk-back** + **RULED (c)** live `komar_weight` is a *substantive* cross-source contradiction on whether `√S` is the EM/wrong register or the slope-1 Komar clock; the X44b prereg must resolve which register is the clock **before** freezing.
+
+---
+
+*CHARTER — no code, no driver. Charter first; the build + the four preregs land in a follow-on arc after review. DO-NOT-MERGE; only the orchestrator/Grant merges. Nothing here canonizes.*
