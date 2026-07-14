@@ -19,6 +19,21 @@ claims: [clm-bqtasn]
 
 The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all observable scales via a **Renormalization Theorem equivalence** (RT-equivalence): AVE's saturation kernel + lattice cutoff and QED's UV-renormalized polynomial expansion produce structurally identical results at $q \ll 1/\ell_{\text{node}}$. Differences appear only at sub-Compton scales where pair-production physics takes over, and at ultra-high energies where AVE removes QED's Landau pole structurally.
 
+> 🔴 **SCOPED-IMPORT RE-TAG (2026-07-14; #685 QED-TRACE beta-gate verdict — body below preserved per KEEP-BOTH, git is the trail).**
+> The "**Identical** (RT-equivalence)" Status cells in the table below (the $\Pi(q^2)$, running-$\alpha$, and Uehling
+> rows) and the prose assertions "*no way to distinguish AVE from QED … structural inevitability*" and "*AVE's loop
+> predictions must agree with QED's … by the RT theorem*" are **re-tagged from argued-match to SCOPED IMPORT**. The
+> QED-TRACE beta-function gate ([`research/2026-07-14_qed-trace-beta-gate_RESULT.md`](../../../../../research/2026-07-14_qed-trace-beta-gate_RESULT.md) §7 scope boundary; PR #685) computed the two-body
+> saturation-dressed force and found it **WRONG-FORM** for QED running (a clean power law, not a `ln(q)`; wrong sign on
+> the transfer register). **Mandatory boundary (inherited verbatim from §7):** *the beta gate (PR #685) proved
+> WRONG-FORM for the two-body pointwise route; **the many-body scale-integrated medium-response route is UNPROBED, NOT
+> CLOSED** (a screening-sum gate is registered open — running in a sibling lane; its outcome is not pre-judged here).*
+> Logarithms routinely emerge from analytic kernels via scale-integration (QED's own vacuum-polarization `ln(q)`
+> integrates algebraic integrands), so the analyticity kill is proven **only** for the pointwise/pairwise objects — it
+> does **not** close the log route in general. The rows survive as a **consistency-scaffold appeal** (solidity 0.60,
+> "use as input only, don't build deeper"), not as a computed match. Register-class: CONSISTENCY / ECHO (the saturation
+> dress is charge-agnostic). Companion re-tag: [`../../claim-quality.md`](../../claim-quality.md) (clm-bqtasn) rationale block.
+
 ## The structural match
 
 At currently-accessible scales ($q \ll 1/\ell_{\text{node}} = m_e c/\hbar$):
@@ -62,7 +77,7 @@ AVE's chiral Laves K4 Cosserat substrate (Axiom 1) introduces an additional **ch
 
 ## Status
 
-**Phase 2g closed.** AVE-QED equivalence at observable scales established via RT-equivalence. The substantive AVE-distinct content is at the lattice cutoff (where pair-production physics dominates anyway) and at ultra-high energies (where the Landau-pole inconsistency is removed). No tree-level prediction-power conflict with QED at current precision.
+**Phase 2g closed — as a SCOPED IMPORT (re-tagged 2026-07-14, #685; see the header note).** AVE-QED equivalence at observable scales is a scoped consistency-import via RT-equivalence, **not** a computed match: the beta-gate proved the two-body pointwise route WRONG-FORM, and the many-body scale-integrated screening-sum route is UNPROBED, NOT CLOSED. The substantive AVE-distinct content is at the lattice cutoff (where pair-production physics dominates anyway) and at ultra-high energies (where the Landau-pole inconsistency is removed). No tree-level prediction-power conflict with QED at current precision.
 
 **Open Phase 2g sub-issues** (not blocking closure):
 - Exact higher-order vertex contributions (Phase 2h if needed)
