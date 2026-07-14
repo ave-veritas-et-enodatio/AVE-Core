@@ -145,3 +145,43 @@ The read is at the **energy-density peak of the shell** (density-peak sampling, 
 **What it is.** The electron brace as derived is a **FORCE, not a pressure**: `B_a = −dU_rot/dr = +L_w²/(m_eff r³)` is energy/length [N], not energy/volume [Pa] (`research/2026-06-30_electron-portmap-derivation_result.md:250-254`; `sign(dF/dr) = sign(3−p)` at `:364-373`). Q2 ruling (★QUARANTINE): the brace **= ⟨Maxwell stress⟩ of the (2,3) winding evaluated at its own envelope**; the general `σ_ij` build manufactures `T_rr` as that special case. **Carry the caveats:** the one force-balance sim was **INCONCLUSIVE** (`r⁻³` not reproduced, `|L_w|` drifts 16–17% under lossless evolution; `research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`); `clm-jwyy6l` "#90 mass IS inductance" is at **solidity 0.30, do-not-build-on** (`manuscript/ave-kb/vol2/claim-quality.md:717`) — rest-mass store is A1, not inductance.
 
 **Acceptance test.** From the register's `T_rr(r)` (read off the eigenmode's OWN stress, **never** the seeded template `ê_w`), reproduce the derived brace: (i) the `r⁻³` scaling of `∫ T_rr dA`, and (ii) feed `+3∫p_electron = +U` (the electron virial `E_elec = E_mag = ½m_e c²`, `research/2026-06-30_electron-portmap-derivation_result.md:489-495`) into consumer (a). **Reactance-pair discipline (Rule-10):** track `L_w` over the recording window; if `L_w` drifts (as in the inconclusive bind-sim), the `r⁻³` read is **INCONCLUSIVE, not a PASS** — the `L_w = const` premise the brace rests on must be satisfied for the read to count. Do NOT build on `clm-jwyy6l 0.30`.
+
+## §4 · FROZEN-BIN CANDIDATES + FOOL-MODES (per consumer)
+
+**Candidates only.** These bins are **proposed here and frozen at each arc's own prereg** (freeze-by-push before that consumer's driver). Every bin set is **exhaustive + mutually exclusive with an INCONCLUSIVE/null landing** so "no closure" and "artifact" can win. **Vacuous-detector knife (binding, per `identity-break-test-design.md` §5):** *no PASS criterion may be a conservation identity.* Each fool-mode below names its detector.
+
+### §4.0 The register build itself — the reconciliation gate
+
+**Bin candidates:** `RECONCILE` (`‖∇·σ|_K4 − (−∂E/∂u)‖/‖∂E/∂u‖ < 1e-10`, per node, per sector) / `CARTESIAN-LEAK` (passes on symmetric configs, **fails on a config with non-trivial `σ^A`**) / `SECTOR-SPLIT` (A1 reconciles, T2/ω does not, or vice-versa) / `INCONCLUSIVE`.
+
+- **Fool-mode — the tautology PASS.** If `∇·σ` is computed by differentiating the same energy the autodiff force uses, the gate is an identity and passes vacuously. **Detector:** `σ_ij` must be assembled from the **constitutive relation** (§2.1, moduli × strain) with **no reference to `E`**; then differentiated by `_tetrahedral_gradient`. Positive control: a deliberately Cartesian `∇·σ` (via `np.gradient`) on a `σ^A ≠ 0` config **must FAIL** (`CARTESIAN-LEAK`) — an unfireable gate that cannot fail is itself the fool-mode.
+- **Fool-mode — the symmetric-config false-green.** A curl-free, `σ^A = 0` test config lets a Cartesian stencil pass. **Detector:** the gate battery **must include an asymmetric (`σ^A ≠ 0`) config** as a first-class member; a green from symmetric configs only is disclosed as `NOT-YET-FIRED-ON-σ^A`.
+
+### §4.1 Consumer (a) X44b
+
+**Bin candidates:** `RECONCILE` (`|η_mixed| < 1e-3` with the computed `+3∫p`) / `LINEAR-OVERSHOOT` (`η ≈ −1` without the stress term — the expected ladder rung) / `NO-CLOSE` (`+3∫p` added and `|η|` still O(1) ⇒ **real falsification of RULED (c)**) / `NOT-VIRIALIZED` (the family failed the force-balance precondition) / `INCONCLUSIVE`.
+
+- **Fool-mode — the g_self retune.** Tuning `g_self` so `U_bind ≈ Δ_clock` manufactures `η→0` (explicitly forbidden by X44's prereg; `research/2026-07-12_x44-komar-source_result.md:118-119`). **Detector:** the `+3∫p` term must be **computed from the register's `T_rr`** at the virialized radius, entering as a measured integrand — **not** a free parameter; the prereg records `g_self` frozen before the run.
+- **Fool-mode — the install-tautology flux.** `Gauss flux ≡ ∫T₀₀^src` holds by construction (`:26`); reading reconciliation off it is vacuous (a conservation identity — the knife). **Detector:** the fireable quantity is `m_g/M_eff − 1`, comparing **two independently-labelled masses** (far-field flux vs the strain-energy ADM `M − U_bind`), never flux-vs-its-own-source.
+- **Fool-mode — the un-virialized family.** A prescribed `gaussian_blob` is not force-balanced, so `+3∫p ≠ +U` and the Tolman closure does not apply. **Detector:** the per-node force residual (the §2.3 gate output) must be `< tol` at every member of the family before the η read is admitted; else bin `NOT-VIRIALIZED`.
+
+### §4.2 Consumer (b) ENVELOPE-EIGENMODE gate
+
+**Bin candidates:** `COINCIDE` (`|R_balance − R_yield| < 2·Δgrid` ⇒ balance≡yield, one accepted number wrong = discovery) / `TWO-WALLS` (`R_balance ≈ 1.6`, `R_yield ≈ 0.159`, ratio ≈ 10 ⇒ gap-closing model rejected) / `NEITHER-SETTLES` / `INCONCLUSIVE`.
+
+- **Fool-mode — the same-field tautology.** If `R_balance` and `R_yield` are both read off the **same `A` field** (e.g. balance defined as "where `σ` from `A` is opposite-equal" AND yield defined as "where `A = A_yield`"), COINCIDE is forced by construction. **Detector:** `R_balance` is the **`σ_ij`-opposite-equal crossing** (a stress read, independent of the `A_yield` threshold); `R_yield` is the **`A²=2α` / `S→0` level-set** (`chiral_lattice_v10.py:29-30`, `A_YIELD_SQ = 2·ALPHA`). The two must be **computed from independent operators**; a gate that reads both off one contour is disclosed as `VACUOUS-COINCIDE`.
+- **Fool-mode — the soft-number false-TWO-WALLS.** The `1.6` is dimensionally-forced/soft (Flag F3). A TWO-WALLS verdict that merely reproduces the imported `1.6` and `0.159` proves nothing. **Detector:** `R_balance` must be **derived from the register's own `σ_ij`** at the eigenmode, not seeded to `1.6`; if it lands at `1.6` it is a **consistency** hit (peer, the number was imported), tagged as such, not a discovery.
+
+### §4.3 Consumer (c) census Stage-2
+
+**Bin candidates:** `SELF-CONSISTENT` (`σ_mode(R_wall) = σ_yield` within tol ⇒ ENVELOPE leg supported) / `WALL-ARBITRARY` (mode-stress at `R_wall` is well below `σ_yield` ⇒ the imposed wall is a clamp, not a yield envelope) / `REQUIRES-INTERIOR` (the mode needs interior structure the singularity forbids ⇒ **the one class that re-opens D3**) / `INCONCLUSIVE`.
+
+- **Fool-mode — Newton's-third-law tautology.** A Dirichlet mask's reaction stress balances the contained mode **by construction** — "does the wall balance the mode" is an identity (the knife). **Detector:** the test is NOT "does the wall react to the mode" but "does the mode's own `σ_ij` **reach `σ_yield`** at `R_wall`" — i.e. is the imposed wall located where the medium would itself yield. `σ_yield` is computed independently (from the moduli + `A_yield`), never set equal to the reaction by fiat.
+- **Fool-mode — the PML / centroid artifact.** Top-K stress extractions in PML cells return frozen-absorbing artifact; centroid sampling of a shell reads the empty middle. **Detector:** PML-cell exclusion (`pml ≤ {i,j,k} ≤ N−pml−1`) before `argpartition`; density-peak (top-K `|σ|²`) sampling on the shell (Rule-10 corollaries).
+
+### §4.4 Consumer (d) electron T_rr
+
+**Bin candidates:** `BRACE-REPRODUCED` (`∫T_rr dA ∝ r⁻³`, `L_w` stable over the window) / `WRONG-POWER` (a stable read but not `r⁻³` ⇒ the derived brace form is not what the register produces) / `L_w-DRIFT` (`L_w` drifts as in the bind-sim ⇒ **INCONCLUSIVE, not a negative** — the premise is unmet) / `INCONCLUSIVE`.
+
+- **Fool-mode — the seed tautology.** Reading `T_rr` off the seeded template `ê_w` returns the planted `(2,3)` by construction (the same tautology the census forbids). **Detector:** `T_rr` is read off the **eigenmode's own two-sector stress**, never the seed; the seed is admissible only as a planted-winding positive control.
+- **Fool-mode — the snapshot-at-peak ambiguity.** A single-phase `T_rr` snapshot is consistent with both a static store and an oscillator caught at peak. **Detector:** reactance-pair tracking — record both C-state (`V_inc`/ω) and L-state (`Φ_link`/ω̇) across the recording window (Rule-10); a drifting `L_w` lands `L_w-DRIFT`, not a PASS.
