@@ -7,7 +7,7 @@
 
 ## 2026-07-13 — Satellite briefs (genesis N≥14 · T1 atom-Q · srs k-sweep · F6 tier-1)
 
-**Focus (Grant):** four Grant-launched satellite handoffs staged 2026-07-13; each is freeze-by-push, DO-NOT-MERGE (Grant merges). Same PR flips **X-LEDGER** ★PROPOSED-RULED → **★RULED** (Grant confirmed 2026-07-13; #661 merged) — [ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md) + [docket](2026-07-10_rulings-docket.md). **G-PERSIST stays ★PROPOSED-RULED**, gated on the genesis battery below.
+**Focus (Grant):** four Grant-launched satellite handoffs staged 2026-07-13; each is freeze-by-push, DO-NOT-MERGE (Grant merges). Same PR flips **X-LEDGER** ★PROPOSED-RULED → **★RULED** (Grant confirmed 2026-07-13; #661 merged) — [ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md) + [docket](2026-07-10_rulings-docket.md). *(Update 2026-07-13: **G-PERSIST** is now also **★RULED — CONFIRMS bin (ii) A-WEAKENED** — the #670 genesis N≥14 battery returned the boundary-insensitive φ-dispersion trend and Grant confirmed in-chat; the enclosure fork is KEEP-BOTH-OPEN with Reading A wake-feeding leaned. Superseded: "G-PERSIST stays ★PROPOSED-RULED, gated on the genesis battery below.")*
 
 - Genesis N≥14 persistence battery (the G-PERSIST gate): [`2026-07-13_genesis-npersist-battery-handoff.md`](2026-07-13_genesis-npersist-battery-handoff.md) — re-run #655 at N≥14 / closed-box, 3 seed modes × 2 fidelities; the boundary-clean read on which G-PERSIST confirmation waits.
 - T1 atom-Q cascade gate: [`2026-07-13_t1-atom-q-cascade-gate-handoff.md`](2026-07-13_t1-atom-q-cascade-gate-handoff.md) — derive the atom's loss-Q from the graded Coulomb-dress mismatch walls (x42 machinery); the discriminating gate on the cascade-filter framing.
@@ -33,12 +33,12 @@
 
 ## 2026-07-12 — ★PROPOSED-RULED G-PERSIST + X-LEDGER (AVE-native register)
 
-**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning). **★PROPOSED-RULED — text pending Grant confirmation; stamps become effective on his merge of #661** (repair R3; KEEP-BOTH — superseded header read "★RULED G-PERSIST + X-LEDGER").
+**Grant:** rule genesis + mass-ledger outcomes in substrate/EE language (not SM/GR-as-meaning). **★RULED (both) — Grant confirmed 2026-07-13, in-chat:** X-LEDGER bin (iii) UNRECONCILED (#661 merged) + G-PERSIST bin (ii) A-WEAKENED CONFIRMS (via the #670 φ-dispersion trend). *(KEEP-BOTH — superseded header read "★PROPOSED-RULED — text pending Grant confirmation; stamps become effective on his merge of #661" (repair R3), which itself superseded "★RULED G-PERSIST + X-LEDGER".)*
 
 - Ruling leaf: [`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)
 - Briefing (proposed-ruled): [`2026-07-12_genesis-x44-adjudication-briefing.md`](2026-07-12_genesis-x44-adjudication-briefing.md)
 - Docket rows: [`2026-07-10_rulings-docket.md`](2026-07-10_rulings-docket.md) (G-PERSIST, X-LEDGER)
-- **G-PERSIST:** bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}` (foundation UNDER #655 re-adjudication — 2/3 landed seed modes pass; confirmation postdates the #655 battery re-run)
+- **G-PERSIST:** **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant 2026-07-13)**; bank #655 (ii); remanence before node-mint; KEEP-BOTH; no `genesis_v{N}`. The "confirmation postdates the #655 battery re-run" gate is **met** — the #670 N≥14 re-run returned the boundary-insensitive φ-dispersion trend (φ 0.87→0.73→0.51 as N grows, PML); enclosure fork KEEP-BOTH-OPEN (Reading A wake-feeding leaned). *(Superseded: "foundation UNDER #655 re-adjudication — 2/3 landed seed modes pass; confirmation postdates the #655 battery re-run".)*
 - **X-LEDGER:** bank #652 (iii); two mass functionals named open; no silent √S retune
 - Branch: `analysis/ave-native-rulings-g3-x1` · PR **#661** · **HOLD — no merge until Grant**
 
