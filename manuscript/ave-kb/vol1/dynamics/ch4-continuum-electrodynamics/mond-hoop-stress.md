@@ -54,6 +54,8 @@ $$v_{substrate} = \frac{\alpha c}{2\pi} \approx 348.2\,\text{km/s}$$
 
 via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../../src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)):
 
+> **[FORM=candidate / VALUE=echo — QED-TRACE echo-tag, 2026-07-14]** "Canonical" tags the **FORM** (the mechanism), not the VALUE. α is a retained input, so $a_e = \alpha/(2\pi)$ reproduces Schwinger the moment α is imported — the **VALUE is echo**, not an AVE-distinct number (peer-with-Dirac by construction; the g−2 self-orbit prereg pre-commits *"Do NOT headline … as an emergence-class distinct-value chord"*, `research/2026-07-08_electron-g2-selforbit_prereg.md:89`; same α-keystone $(V/V_{snap})^2 = 4\pi\alpha$ echo-scoped for $\alpha^{-1}$). The **earnable content is the FORM**, not the value-match.
+
 **Independent scale-instances** (2):
 
 | Scale | Formula | Small-parameter $\epsilon$ | Output |

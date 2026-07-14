@@ -13,6 +13,16 @@ The derivation:
 4. Spin-orbit angular projection: 1/π²
 5. a_e = (1/π²)(πα/2) = α/(2π)
 
+[FORM=candidate / VALUE=echo — QED-TRACE echo-tag, 2026-07-14]
+This script derives the FORM (the on-site 1/π² × πα/2 mechanism), NOT an
+AVE-distinct VALUE. α is a retained input, so a_e = α/(2π) reproduces
+Schwinger's result the moment α is imported — the VALUE is an ECHO,
+peer-with-Dirac by construction (the g-2 self-orbit prereg pre-commits
+"Do NOT headline ... as an emergence-class distinct-value chord",
+research/2026-07-08_electron-g2-selforbit_prereg.md:89; this rides the same
+(V_peak/V_snap)^2 = 4πα keystone identity that was echo-scoped for α⁻¹).
+The earnable content is the FORM, not the value-match.
+
 Usage:
     python src/scripts/vol_2_subatomic/simulate_g2.py
 """

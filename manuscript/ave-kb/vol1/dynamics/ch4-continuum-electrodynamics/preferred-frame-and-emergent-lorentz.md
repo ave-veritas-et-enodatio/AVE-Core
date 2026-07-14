@@ -130,6 +130,8 @@ $$\nu_{slew} = a_e \cdot \omega_{Compton} = \frac{\alpha}{2\pi} \cdot \frac{c}{\
 
 where $a_e = \alpha/(2\pi)$ is the Schwinger anomalous magnetic moment — canonically derived in AVE via Axiom 4 saturation-kernel back-reaction on the LC tank + $1/\pi^2$ spin-orbit geometric projection (see [`src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)). Equivalently $\nu_{slew} = \alpha\,\nu_{Compton}$ (fine-structure suppression of the *ordinary* Compton clock) — identical since $\omega = 2\pi\nu$ — which is the form carried downstream by [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) and the DAMA derivation.
 
+> **[FORM=candidate / VALUE=echo — QED-TRACE echo-tag, 2026-07-14]** "Canonically derived" tags the **FORM** (the mechanism), not the VALUE. α is a retained input, so $a_e = \alpha/(2\pi)$ reproduces Schwinger the moment α is imported — the **VALUE is echo**, not an AVE-distinct number. Peer-with-Dirac by construction: the g−2 self-orbit prereg pre-commits *"Do NOT headline … as an emergence-class distinct-value chord"* (`research/2026-07-08_electron-g2-selforbit_prereg.md:89`); same α-keystone $(V/V_{snap})^2 = 4\pi\alpha$ that was echo-scoped for $\alpha^{-1}$. The **earnable content is the FORM** (the $1/\pi^2 \times \pi\alpha/2$ on-site mechanism), not the value-match.
+
 The velocity at which an observer's substrate-encounter rate matches the electron's α-slew is:
 
 $$v_{substrate} = \nu_{slew} \cdot \ell_{node} = \frac{\alpha c}{2\pi} = 348.18\,\text{km/s}$$
