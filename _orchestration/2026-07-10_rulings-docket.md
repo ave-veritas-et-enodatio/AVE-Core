@@ -578,6 +578,27 @@ mirror; loaded `Q = α⁻¹` ↔ the port (candidate address, **unproven**).
   0.117s" coincidence note). *(`full-electron-transverse-selftrap:182` already reads `0.121` —
   no fix, flagged.)*
 
+> **RESIDUAL A²-vs-√(2α) SLIP SWEEP (durable pointer; adversarial-review R2, 2026-07-14).** A
+> repo-wide sweep found **FIVE** further sites carrying the same `A²`-vs-amplitude-`√(2α)` slip
+> outside the D2/D6 scope; all verified at HEAD `39c1914f`. Disposition:
+> - **Three FROZEN `_archive` docs — pointer-only, deliberately UNEDITED** (Rule-12 frozen-snapshot):
+>   `research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md:797`
+>   ("`A² ≈ √(2α) ≈ 0.121` … ω_local ≈ 0.94" — also the **0.94 corroborator** for the op14 R1 flag);
+>   `research/_archive/L5/axiom_derivation_status.md:195`
+>   ("At saturation onset (`A² ≈ √(2α)`): ω_local ≈ 0.95" — the **sole source of the exact 0.95**,
+>   a second drift); `research/_archive/L3_electron_soliton/S_GATES_OPEN.md:194`
+>   ("`A²_c = √(2α) ≈ 0.121`").
+> - **Two live CODE sites — FIXED this repair** (they are live instruments, not frozen):
+>   `src/tests/test_engine_constants_alignment.py:338` was **LOAD-BEARING** — it fed the amplitude
+>   value `√(2α) ≈ 0.1208` into the `A²`-slot of `saturation_factor` (which takes `A²`), asserting
+>   the cusp `S ≈ 0.937` when the actual cusp `A² = 2α` gives `S ≈ 0.993`; corrected to
+>   `cusp_a_sq = 2.0*ALPHA` with the assertion `0.99 < S < 1.0` (test re-run green).
+>   `src/scripts/vol_1_foundations/r10_v8_foundation_audit_t3b_amplitude_scan.py:60` (+ the `:215`
+>   twin) were **comment-only, NOT load-bearing** (executed gate = `A ≤ 0.003`; `A_sq = A*A`);
+>   both comments corrected to amplitude-convention `A = √(2α) ≈ 0.1208` / `A² = 2α ≈ 0.0146`
+>   (also clearing the `0.117` drift). The review's independent sweep named the count as **5, not
+>   the 2 an earlier summary implied** — recorded here so no future reader's inventory is short.
+
 ### Docket status board — Wall-A ruling (KEEP-BOTH; tables above unedited)
 
 | Ruling | What | Status (2026-07-14) | Adjudicator |

@@ -57,7 +57,8 @@ and H2 cases.
 INDEPENDENT MODES (H1) declared if BOTH:
   (a) log-log slope of FFT(f=3.0) vs A at drive ω=1.5 is < 1.5 across
       the linear-amplitude range (A ≤ 0.003; below saturation onset
-      A² ≈ √(2α) = 0.117), AND
+      amplitude A = √(2α) ≈ 0.1208, i.e. A² = 2α ≈ 0.0146 — coord/value
+      corrected 2026-07-14, Wall-A hygiene; was "A² ≈ √(2α) = 0.117"), AND
   (b) FFT(f=3.0) at A=1e-4 is within 1 order of magnitude of FFT(f=4.5)
       and FFT(f=2.5) baseline noise — i.e., not a sharp peak.
 
@@ -212,7 +213,9 @@ def main():
             lock_amp = lockin(v_traj, dt, omega_drive)
             fft_at, noise = fft_power_at(v_traj, dt, fft_targets[omega_drive])
 
-            # A² for saturation-onset check (A²_yield ≈ √(2α) = 0.117 in V_SNAP units)
+            # A² for saturation-onset check (A²_yield = 2α ≈ 0.0146 in V_SNAP units;
+            # amplitude A_yield = √(2α) ≈ 0.1208 — coord/value corrected 2026-07-14,
+            # Wall-A hygiene; was "A²_yield ≈ √(2α) = 0.117")
             A_sq = A * A
 
             row = {
