@@ -233,3 +233,28 @@ lockstep) — enumerated in the A-ledger, deferred to a manuscript pass.
 **Lane attribution:** all reconciliation lanes operated read-only in auditor lane; this
 PR (implementer lane) executes only the gate-free A/C-item writes above. Every B-item and
 all nine decision points remain Grant-gated / auditor-specced and are untouched here.
+
+---
+
+## 🟠 AMENDMENT 2026-07-14 — decision surface updated (board body above preserved per KEEP-BOTH)
+
+The board body's header "DECISION POINTS — all PENDING-GRANT (none actioned by this PR)"
+(:125) was **stale on arrival**: five decision points were ruled by sibling-branch events
+around the board's own landing time (board committed 2026-07-13 19:07; the board's PR
+#677 and the ruling PR #675 have since **both merged to main**). This amendment is the
+truth-surface; all facts re-verified this session (git SHAs + PR states). This amendment
+lands via a **correction PR** off current `origin/main` (`9983f48e`), since #677 is merged.
+
+| Decision | Board body status | **Actual status (2026-07-14)** |
+|---|---|---|
+| **1. G-PERSIST** | "flip explicitly PENDING-GRANT" | **★RULED — CONFIRMS bin (ii) A-WEAKENED** (Grant in-chat 2026-07-13; commit `b9b24eb5` "★PROPOSED-RULED → ★RULED"). Propagation on `docs/gpersist-f6-rulings-propagation` = **PR #678** (OPEN, + B1 torus erratum). Genuinely-pending residue: the enclosure/closed-box fork **discriminator run** and the Wall-A definition |
+| **2. F6 §5.4** | question posed, PENDING-GRANT | **RULED BOTH** — form-existence BANKED + wrong-instrument (spatial-cross-correlation home) closure BANKED (Grant 2026-07-13; commit `bae88565`; PR #678) |
+| **3. n-p mass split** | "Nothing dispatched or frozen (two-method zero)" | **FROZEN + RUN** — prereg `b498d89a` (18:42) + driver/result `80a76d96` (18:54) on `derivation/np-mass-split-gate` = **PR #676** (OPEN) → **bin (iv) CHAIN-INSUFFICIENT, sign (+) forced**. The #676 review's **ROUTE-A** resurrection (composite FS per the TBD-pin; δ_th-loading UNDETERMINED, not "never loads") is noted — see the m_p/m_e audit card 2026-07-14 addendum. ⚠ **The board body's "two-method zero" was a BRANCH-SCOPED false-negative**: the reconciliation greps ran against `origin/main` HEAD `9bfc50ef` while the np-gate lane lived on the sibling branch `derivation/np-mass-split-gate` — the grep-completeness failure class the board's own RECEIPTS section warns about |
+| **7. srs-1/9 / T4** | soft nod owed (ARC-33 arc-map:306 stale) | **NOD GIVEN / CLOSED** — ARC-33 vertex-ontology fork ADJUDICATED (CONSISTENCY) via **PR #675** (MERGED, commit `0f20ece6`) |
+| **9. X43+C13b miss-ledger** | Grant-gated, unbooked; A7 booked 0-for-7 | **CLASSIFY-AND-BOOK RULED** — booked **0-for-9** (X43 = #8 frozen-form, C13b = #9 forward-prediction) via **PR #675** (MERGED, commit `dc0fe949`); program-arc-map.md:404 now reads `~~0-for-6/7~~ 0-for-9`. **This supersedes A7's 0-for-7 booking** (A7's 0-for-7 was reconciled to 0-for-9 during the #675/#677 merge; no regression) |
+
+**Decisions still genuinely PENDING-GRANT:** 4 (m_p/m_e CI-gate tighten-vs-hold fork),
+5 (cavity-census prereg + the three chat-only census questions, ledger C4), 6 (D-V Letter
+submission), 8 (CVR T-A/T-B/T-C trade select). **Newly-surfaced pending residues:** the
+D1 enclosure-fork discriminator run + Wall-A definition; the δ_th-provenance leaf-side
+header (audit-card follow-on) + the Route-A go (D3). Board body byte-preserved above.
