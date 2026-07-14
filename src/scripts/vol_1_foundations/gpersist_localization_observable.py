@@ -148,12 +148,26 @@ def _trend(series: list[dict], sector: str, stat: str) -> dict:
     vals = [s[sector][stat] for s in series]
     start, end = vals[0], vals[-1]
     rel = (end - start) / abs(start) if abs(start) > 1e-30 else 0.0
+    # REPAIR (2026-07-14, review finding #5): the frozen §Trend summary (prereg
+    # line 113) declares "the least-squares slope normalized by window mean
+    # (non-monotone guard)" — declared but never shipped. Add it. The endpoint-only
+    # rel_trend hides strongly non-monotone series (e.g. a value that swings wide but
+    # returns near its start); slope_norm + min/max are the non-monotone guard.
+    n = len(vals)
+    if n >= 2:
+        xs = np.arange(n, dtype=float)
+        slope = float(np.polyfit(xs, np.asarray(vals, dtype=float), 1)[0])
+        wmean = float(np.mean(vals))
+        slope_norm = slope / wmean if abs(wmean) > 1e-30 else 0.0
+    else:
+        slope_norm = 0.0
     return {
         "start": round(start, 6),
         "end": round(end, 6),
         "rel_trend": round(rel, 6),
         "min": round(min(vals), 6),
         "max": round(max(vals), 6),
+        "slope_norm": round(slope_norm, 6),
     }
 
 
@@ -248,27 +262,39 @@ def run_instrumented(
     }
 
 
-def _classify_cell(res: dict) -> dict:
-    """Per-cell CONCENTRATING / LOOP-FILLING signature on the energy (A1) meter."""
-    e = res["trend"]["energy"]
-    pr_rel = e["PR"]["rel_trend"]
-    cf_rel = e[f"CF_peak_{PRIMARY_R}"]["rel_trend"]
+def _sector_signature(trend_sector: dict) -> str:
+    """CONCENTRATING / LOOP-FILLING / MIXED / INCONCLUSIVE from ONE sector's PR/CF
+    trend (the frozen bin leaves). Shared by the energy classifier and the aggregate
+    gate's Φ_link cross-check (review finding #5 — all three MIXED routes)."""
+    pr_rel = trend_sector["PR"]["rel_trend"]
+    cf_rel = trend_sector[f"CF_peak_{PRIMARY_R}"]["rel_trend"]
     concentrating = (pr_rel <= -THETA) or (cf_rel >= THETA)
     loop_filling = (pr_rel >= -THETA) and (cf_rel <= THETA)
     resolvable = (abs(pr_rel) >= THETA) or (abs(cf_rel) >= THETA)
     if not resolvable:
-        sig = "INCONCLUSIVE"
-    elif concentrating and not loop_filling:
-        sig = "CONCENTRATING"
-    elif loop_filling and not concentrating:
-        sig = "LOOP-FILLING"
-    else:
-        sig = "MIXED"
+        return "INCONCLUSIVE"
+    if concentrating and not loop_filling:
+        return "CONCENTRATING"
+    if loop_filling and not concentrating:
+        return "LOOP-FILLING"
+    return "MIXED"
+
+
+def _classify_cell(res: dict) -> dict:
+    """Per-cell CONCENTRATING / LOOP-FILLING signature on the energy (A1) meter.
+
+    NOTE (review finding #4): φ_persist is carried as reported context ONLY, never
+    gated — the ~10.5× φ inflation is the quarantined lap-counting gauge artifact
+    (k4_tlm.py:400). The frozen bin's φ≫1 conjunct is human-verified corroboration
+    (dated prereg amendment), NOT machine-enforced (re-adding it re-imports the
+    artifact into the fork verdict).
+    """
+    e = res["trend"]["energy"]
     return {
-        "PR_energy_rel_trend": pr_rel,
-        "CF_energy_rel_trend": cf_rel,
+        "PR_energy_rel_trend": e["PR"]["rel_trend"],
+        "CF_energy_rel_trend": e[f"CF_peak_{PRIMARY_R}"]["rel_trend"],
         "phi_persist": round(res["phi_persist"], 4),
-        "signature": sig,
+        "signature": _sector_signature(e),
     }
 
 
@@ -405,16 +431,50 @@ def cmd_aggregate() -> None:
         and c["seed_mode"] in ("pair", "graded_a0")
         and c["fidelity"] == "production"
     ]
+    pml_twin = {
+        c["seed_mode"]: c
+        for c in cells
+        if c["pml"] != 0
+        and c["seed_mode"] in ("pair", "graded_a0")
+        and c["fidelity"] == "production"
+    }
     sigs = {c["seed_mode"]: c["classification"]["signature"] for c in torus}
     uniq = set(sigs.values())
+
+    # REPAIR (2026-07-14, review finding #5): the frozen §FROZEN BINS (prereg
+    # 174-176) declares THREE bin-determining MIXED triggers, but the shipped gate
+    # evaluated only trigger (1). The prereg's own 174-176-vs-180-183 contradiction
+    # (Φ_link listed as a MIXED trigger AND as "reported, not bin-determining") is
+    # reconciled by the dated amendment: all three are bin-determining. Evaluate them:
+    #   (1) pair vs graded_a0 energy signatures disagree;
+    #   (2) energy meter and Φ_link meter disagree within a torus cell;
+    #   (3) a torus cell CONCENTRATES while its PML twin does not.
+    phi_sigs = {c["seed_mode"]: _sector_signature(c["trend"]["phi_link"]) for c in torus}
+    twin_sigs = {m: t["classification"]["signature"] for m, t in pml_twin.items()}
+    mixed_reasons: list[str] = []
+    if len(uniq) > 1:
+        mixed_reasons.append(f"pair_vs_graded_disagree:{sigs}")
+    for c in torus:
+        m = c["seed_mode"]
+        e_sig = c["classification"]["signature"]
+        p_sig = phi_sigs[m]
+        if e_sig != p_sig and "INCONCLUSIVE" not in (e_sig, p_sig):
+            mixed_reasons.append(f"energy_vs_philink_disagree[{m}]:E={e_sig}/phi={p_sig}")
+    for c in torus:
+        m = c["seed_mode"]
+        if c["classification"]["signature"] == "CONCENTRATING" and twin_sigs.get(m) != "CONCENTRATING":
+            mixed_reasons.append(
+                f"torus_concentrates_pml_twin_does_not[{m}]:twin={twin_sigs.get(m, 'NO-TWIN')}"
+            )
+
     if not sigs:
         fork_bin = "NO-DATA"
-    elif len(uniq) == 1 and "MIXED" not in uniq and "INCONCLUSIVE" not in uniq:
-        fork_bin = uniq.pop()
     elif uniq == {"INCONCLUSIVE"}:
         fork_bin = "INCONCLUSIVE"
-    else:
+    elif mixed_reasons or "MIXED" in uniq or "INCONCLUSIVE" in uniq:
         fork_bin = "MIXED"
+    else:
+        fork_bin = uniq.pop()
 
     summary = {
         "battery": "gpersist_localization_observable",
@@ -422,6 +482,14 @@ def cmd_aggregate() -> None:
         "theta": THETA,
         "primary_core_radius": PRIMARY_R,
         "torus_signatures": sigs,
+        "torus_phi_link_signatures": phi_sigs,
+        "pml_twin_signatures": twin_sigs,
+        "mixed_triggers_evaluated": [
+            "pair_vs_graded",
+            "energy_vs_philink",
+            "torus_concentrates_vs_pml_twin",
+        ],
+        "mixed_reasons": mixed_reasons,
         "fork_bin": fork_bin,
         "cells": [
             {
@@ -457,7 +525,9 @@ def cmd_aggregate() -> None:
             f"CF {cf['start']:.3f}->{cf['end']:.3f} ({cf['rel_trend']:+.3f}) "
             f"=> {c['classification']['signature']}"
         )
-    print(f"\ntorus signatures: {sigs}")
+    print(f"\ntorus energy signatures: {sigs}")
+    print(f"torus Φ_link signatures: {phi_sigs}  | PML twin signatures: {twin_sigs}")
+    print(f"MIXED triggers (all 3) reasons: {mixed_reasons or 'none — all clean'}")
     print(f"FORK BIN (torus pair+graded_a0): {fork_bin}")
     print("\n=== φ-channel plants ===")
     for p in plants:

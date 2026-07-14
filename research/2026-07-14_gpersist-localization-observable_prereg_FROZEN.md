@@ -271,3 +271,27 @@ full frozen conjunction **is** satisfied where it is scored; it is simply **not 
 Per the review, **φ is NOT added back to the classifier** (that would re-import the artifact).
 Future **CONCENTRATING** claims adopt the **two-statistic conjunction** rule (PR falls **AND**
 CF rises, on the torus-native CF) — see RESULT §4 meter-reuse note.
+
+### 2026-07-14 · Amendment (review finding #5) — MIXED-trigger reconciliation + slope guard shipped
+
+Two frozen-vs-shipped gaps in the aggregate gate and the trend summary:
+
+**(i) MIXED triggers — internal contradiction reconciled.** The frozen §FROZEN BINS (lines
+174–176) lists **three** bin-determining MIXED triggers — `pair`/`graded_a0` disagree, **OR** the
+energy meter and the Φ_link meter disagree within a cell, **OR** a torus cell concentrates while
+its PML twin does not — while §Corroboration (lines 180–183) labels the Φ_link meter and PML twin
+"reported, **not** bin-determining". This is an **internal contradiction** in the frozen body, and
+the shipped `cmd_aggregate` implemented only trigger (1). **Reconciliation:** all **three** MIXED
+routes are **bin-determining** and are now machine-evaluated in `cmd_aggregate`; the Φ_link-meter
+and PML-twin *agreement* remains corroboration, but their *disagreement* (resp. a
+torus-concentrates-while-twin-does-not condition) fires MIXED. All three are **moot on this run** —
+the Φ_link meter agrees in sign with the energy meter on both fork cells (PR +0.996/+0.963,
+CF −0.753/−0.731 = LOOP-FILLING) and no torus fork cell concentrates — so the banked
+**LOOP-FILLING** bin is **unchanged**; the completeness is a robustness fix for meter reuse.
+
+**(ii) Non-monotone slope guard — declared but unshipped, now shipped.** The frozen §Trend
+summary (line 113) declares "the least-squares slope normalized by window mean (non-monotone
+guard)"; it was **not** implemented. `_trend` now returns `slope_norm` alongside the already-
+shipped min/max, completing the frozen declaration. (The endpoint-only `rel_trend` can hide
+strongly non-monotone series — e.g. under the finding-#3 composed meter the PML `pair` PR swings
+min 71.7 → max 99.1 yet returns near-flat at the endpoints.)
