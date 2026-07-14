@@ -185,3 +185,63 @@ The read is at the **energy-density peak of the shell** (density-peak sampling, 
 
 - **Fool-mode — the seed tautology.** Reading `T_rr` off the seeded template `ê_w` returns the planted `(2,3)` by construction (the same tautology the census forbids). **Detector:** `T_rr` is read off the **eigenmode's own two-sector stress**, never the seed; the seed is admissible only as a planted-winding positive control.
 - **Fool-mode — the snapshot-at-peak ambiguity.** A single-phase `T_rr` snapshot is consistent with both a static store and an oscillator caught at peak. **Detector:** reactance-pair tracking — record both C-state (`V_inc`/ω) and L-state (`Φ_link`/ω̇) across the recording window (Rule-10); a drifting `L_w` lands `L_w-DRIFT`, not a PASS.
+
+## §5 · Execution plan, scope lock, and the quarantine ledger
+
+### 5.1 Sequencing — build → freeze per-consumer preregs → staggered runs
+
+1. **The build (follow-on arc, own PR).** Extend `cosserat_field_3d` with the constitutive `σ_ij` (§2.1, carrying `σ^A`) and generalize `T^0x → T^ij` (§2.2). **Land the §2.3 reconciliation gate FIRST and green** (including the `σ^A ≠ 0` config and the Cartesian positive-control that must fail) — the gate is the go/no-go for the whole register. Rule-10: run the gate battery early, imperfect drivers included; PML-exclusion + density-peak sampling wired from the start.
+2. **Freeze the four preregs (freeze-by-push, one per consumer).** Each consumer's prereg promotes its §4 bin candidates to commitments and freezes BEFORE its driver, in git history. **Order:** (d) electron `T_rr` and (a) X44b are the tightest coupling (d feeds a's `+3∫p`), so freeze/run them as a pair first; (c) census Stage-2 is gated on the census Stage-1 result landing; (b) the envelope-eigenmode gate is independent and can freeze in parallel.
+3. **Staggered runs.** X44b's virialized family and the electron `T_rr` share the same static-balance machinery — run together. The envelope-eigenmode gate and census Stage-2 share the eigenmode/`σ_yield` machinery — run together. Each RESULT doc bins per its §4; honest closure (Rule 11) on decisive failure; substitution-not-retraction (Rule 12) if a hypothesis falsifies.
+
+### 5.2 Scope lock (CC-honest, binding)
+
+- **This PR is CHARTER-ONLY.** No `σ_ij`/`T^ij` code, no gate code, no driver. The build and the four preregs land in the follow-on arc after this charter's review.
+- **The register is manifestation-class assembly**, not new physics: all moduli VALUE-imported, `K=2G` stays GR-IMPORTED (no upgrade). The register's *output claims* are the consumers' — each gets its own adjudication class (§Sector-header, consistency-vs-emergence).
+- **The theorem-target (X44b §3a) and the balance≡yield conjecture (b) are FORM-class targets** (a factor-2, a radius-coincidence) — never magnitude-class. Per the identity-break leaf, all discrimination here is FORM (a doubling, a coincidence, a power-law), consistent with the even-in-A kernel.
+- **Lane discipline.** Implementer lane drafts the register + the empirical bins; the auditor lane lands any manual/KB entry; Grant adjudicates the Flag-F3 balance≡yield contradiction and any framing-level ruling. This charter surfaces; it does not resolve.
+
+### 5.3 The quarantine ledger (walked inputs — ★ NOT canon)
+
+| Walked input | Where used | Status |
+|---|---|---|
+| **Transducer ontology** (envelope = transducer; T_ij = two coupled halves) | §1.2, §3(a) theorem-target | Grant-walked (framing §3); ruling-grade INPUT, not canon |
+| **Q1 — carry the twist** (full Cosserat `σ^A`, no symmetric reduction) | §2.1 (mandatory `σ^A`) | ★RULED-IN-WALK (docket:458); build commitment |
+| **Q2 — brace = ⟨Maxwell stress⟩ at its own envelope** | §3(d) | ★RULED-IN-WALK (docket:459); consumer (d) target |
+| **balance≡yield conjecture** (balance-locus ≡ `A_yield` level-set) | §3(b), Flag F3 | Grant-walked (continuation a.4); **contradicts corpus numbers — gate adjudicates** |
+| **Radiation-EOS `p=u/3` ⇒ Tolman doubling** | §3(a) | Grant-walked theorem-TARGET (framing §3); owed, not claimed |
+| **Cascade-filter ontology** | *not used* | ★RATIFIED-KILLED at the atom rung (docket:475; do not import) |
+
+### 5.4 What this charter deliberately does NOT do
+
+- It does **not** draft an Ax-5 candidate — the diagnosis is a materialization gap, not a missing axiom (A44).
+- It does **not** resolve Flag F3 — Grant adjudicates the balance≡yield vs 1.6/0.159 contradiction.
+- It does **not** re-open the cascade filter (RATIFIED-KILLED), the diode/rectifier class (four deaths), or the D3 COEXIST ruling (canonized; census is a stress-test, not a re-opening).
+- It does **not** refill the twice-falsified self-formation slot (A47 v11b) — the register reads existence-given-structure, not genesis.
+
+## §6 · References (grep-verified anchors — 2026-07-14, worktree at `origin/main` 240d59d8)
+
+*All Read/grep-confirmed this session in the charter worktree (origin/main), not the stale local main checkout (`c12f2bdb`). The Wall-A ruling docket text was authored against `c12f2bdb` per its own note but is present verbatim in `origin/main`.*
+
+- **The materialization gap / native stencil** — `src/ave/topological/cosserat_field_3d.py:14` ("no hand-derived stress tensors"), `:148` (`def _tetrahedral_gradient`), `:175-191` (`_compute_strain`, `ε_ij`/`κ_ij`), `:2004-2020` (`a_u = −∂E/∂u`).
+- **The scalar `T^0x`** — `src/ave/core/annihilation_engine.py:173-181` (`field_momentum_x = −∫(∂_tV)(∂_xV)/c_eff²(V)`, interior-only; the `c_eff²` weighting is Flag F1).
+- **Moduli** — `src/ave/core/constants.py:762,766,781,769-773` (G_STRING, G_VAC, V_LONG, K=2G GR-IMPORTED); `src/ave/gravity/backreaction.py:84` (`κ_grav = c⁴/7G`), `:647-651` (linear-ε clock `n = 1 + (2/7)ε`); `src/ave/core/micropolar_bloch.py:33-35,72,88-90` (Cosserat balance laws, couple-stress).
+- **Asymmetric `σ^A`** — `manuscript/ave-kb/common/trampoline-framework.md:87` ("The antisymmetric part σ^A_ij = (σ_ij − σ_ji)/2 is the source of couple stress … drives microrotation").
+- **X44 Komar result** — `research/2026-07-12_x44-komar-source_result.md:126-155` (wrong-register `√S`, the `+3∫p` Tolman term, structurally absent), `:198-215` (escalation option 5 = X44b, the expectation ladder).
+- **Tolman/deflection doubling** — `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md:26,28` (`z = (n_temporal−1)/2`; W1 walk-back: deflection is the (2/7) transverse index → 4GM, not `n_spatial`).
+- **Envelope numbers (Flag F3)** — `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49` (`R* ≈ 1.6 ℓ_node`), `:133` (dimensionally-forced/soft); `_orchestration/2026-07-10_rulings-docket.md:522-538,606` (Wall-A floor `ℓ_node/(2π) ≈ 0.159`); `src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2·ALPHA`).
+- **Brace** — `research/2026-06-30_electron-portmap-derivation_result.md:250-254,364-373,489-495`; the INCONCLUSIVE bind-sim `research/2026-06-30_electron-bind-sim_result.md:17,110-121,147`; `clm-jwyy6l` 0.30 `manuscript/ave-kb/vol2/claim-quality.md:717`.
+- **Census Stage-2 dependency** — `research/2026-07-14_cavity-census-stage1_prereg_FROZEN.md` (branch `analysis/cavity-census-stage1`, freeze commit `1c362d1d`), §5 D3-movement map (Stage-2 = task #45).
+- **Virial machinery (extension pattern)** — `src/scripts/vol_1_foundations/prestress_elastic_tensor.py:840-847` (Σ T·l Clausius per-bond virial, K4-scoped).
+- **Discipline leaves** — `manuscript/ave-kb/common/identity-break-test-design.md` (the vacuous-detector knife); the plan-of-record + Q1/Q2 rows `_orchestration/2026-07-10_rulings-docket.md:457-464`; the balance≡yield continuation `research/2026-07-13_registers-walk_framing.md`.
+
+## §7 · Flags surfaced (flag-don't-fix — for Grant / the auditor lane)
+
+1. **★ Flag F3 — the balance≡yield contradiction (Grant adjudicates).** Grant's balance≡yield conjecture ("both coincide", `research/2026-07-13_registers-walk_framing.md` continuation a.4) contradicts the corpus's accepted radii: **balance locus `R* ≈ 1.6 ℓ_node`** (`hollow-vortex-binding.md:49`) vs **yield floor `ℓ_node/(2π) ≈ 0.159 ℓ_node`** (`docket:522-538`), ratio `≈ 10.06`. The ENVELOPE-EIGENMODE gate (consumer b) is the adjudicator and is designed radius-discriminating so **TWO-WALLS is winnable**. Not silently reconciled. Rider: the `1.6` is dimensionally-forced/soft (`hollow-vortex-binding.md:133`).
+2. **Flag F1 — grounding-card R5 receipt refinement.** The card wrote `T^0x = −∫(∂_tV)(∂_xV)/c²`; the live code weights by **`c_eff²(V)`** (the Op14-saturated local speed), not the constant `c²`. Load-bearing at the envelope; folded into the §2.2 build spec. A refinement, not a card failure.
+3. **Flag F4 — Wall-A docket HEAD label.** The Wall-A ruling continuation states its cites were "confirmed at HEAD `c12f2bdb`" — the **stale local main checkout**, not `origin/main` (240d59d8). The load-bearing content (the floor `0.159`, the three-role structure) is nonetheless present verbatim in `origin/main` and re-verified this session. No content failure; the HEAD label is stale.
+4. **No other grounding-card receipt failed re-verification.** The heavy receipts (R4 `cosserat_field_3d.py:14`, R5 `annihilation_engine.py:173-181`, R8 `trampoline-framework.md:87`, R16 `prestress_elastic_tensor.py:840-847`) all confirm verbatim in `origin/main` (only the R5 `c²`→`c_eff²` refinement of Flag F1).
+
+---
+
+*CHARTER — no code, no driver. Charter first; the build + the four preregs land in a follow-on arc after review. DO-NOT-MERGE; only the orchestrator/Grant merges. Nothing here canonizes.*
