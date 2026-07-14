@@ -35,8 +35,10 @@
    sustains φ far above the 0.80 floor (PML pair: free φ=0.084 → plant φ=4.2e6; torus pair:
    free 2.512 → plant 4.1e8) **while the localization meter reads LOOP-FILLING** — the meter
    classifies the sustained φ as externally-fed. The two-meter combination (φ-detector +
-   localization meter) is **un-foolable by sustenance**; it closes the #670 review's missing
-   φ-channel negative control.
+   localization meter) is **un-foolable by DISTRIBUTED sustenance** (repair finding #2 — the
+   only pump tested is the frozen spatially-distributed one, for which the meter leg is
+   near-vacuous; the core-LOCALIZED adversarial pump is the required, untested follow-on); it
+   closes the #670 review's missing φ-channel negative control.
 5. **Independent reproduction of #670 is byte-exact.** Every cell's `E_persist`/`φ_persist`
    from the instrumented **mirror loop** reproduces banked #670 to the digit (torus pair
    φ=10.5197, graded_a0 φ=10.4218; PML pair 0.8449/0.7266; PML graded 0.8446/0.5826; smoke
@@ -192,7 +194,7 @@ fraction. The **global** participation ratio correctly reports **no** concentrat
 
 ---
 
-## 5 · φ-channel plant — UN-FOOLABLE_CONFIRMED (the #670 second follow-on)
+## 5 · φ-channel plant — UN-FOOLABLE_CONFIRMED (**distributed** sustenance; the #670 second follow-on)
 
 The #670 sabotage plant re-injected the *seed*, clobbering φ→0, so it never exercised the
 load-bearing φ-channel (review finding #5). This plant sustains φ **without** clobbering the
@@ -209,10 +211,35 @@ Cosserat `u`/`ω` evolve under the real coupled integrator (never overwritten).
 orders of magnitude above 0.80), but the **localization meter catches it** — it reads
 LOOP-FILLING (energy distributed, PR not falling, CF not rising), classifying the sustained φ
 as **externally-fed**. The frozen criterion (φ sustained AND meter loop-filling ⇒ un-foolable)
-is met on both cells. The two-meter combination is **un-foolable by sustenance**. (The plant φ
-magnitude is a pump artifact — the point is *sustained ≥ floor* while the meter flags
-externally-fed, not the absolute value. Budget = smoke, matching the #670 sabotage-plant
+is met on both cells. The two-meter combination is **un-foolable by DISTRIBUTED sustenance**.
+(The plant φ magnitude is a pump artifact — the point is *sustained ≥ floor* while the meter
+flags externally-fed, not the absolute value. Budget = smoke, matching the #670 sabotage-plant
 control class.)
+
+**Scope of the un-foolable claim (repair finding #2 — MAJOR, identity-audit hit).** The only
+pump exercised is the frozen **spatially-DISTRIBUTED** external K4 pump (prereg §The φ-channel
+plant: `k4.V_inc[interior,:] += √ALPHA` on all four ports at **all** interior sites). For that
+geometry the **meter leg (b)** of the gate is **near-vacuous**: a uniform additive injection
+maximally **delocalizes** the field, forcing PR up and CF down, so `loop_filling=True` is close
+to true-by-construction — the tested geometry is the one **least** able to trip the CONCENTRATING
+(fooling) leg. The free (unpumped) PML run **already** reads LOOP-FILLING (PR +0.084, CF −0.364)
+and the pump pushes the same direction, so `UN-FOOLABLE_CONFIRMED` was close to pre-ordained once
+φ sustained. What the run **genuinely** establishes (and banks): a distributed external pump that
+fools the **scalar** φ floor by 7–8 orders is correctly classified **externally-fed** — closing
+the #670 missing-φ-channel control. What it does **NOT** establish is the general "cannot be
+fooled by sustenance" safety property.
+
+- **Untested adversary (the natural remaining fooling route):** a **core-LOCALIZED** external
+  pump that sustains φ above the 0.80 floor **while sharpening the density peak** — driving the
+  meter toward CONCENTRATING, i.e. the FOOLABLE branch `(a) ∧ ¬(b)` the frozen prereg names as a
+  live outcome class (prereg §The φ-channel plant). This route was **not** run. The branch's own
+  torus `photon_lock` control (§4) already shows the meter's **CF-alone** leaf false-positives to
+  CONCENTRATING under **mere peak-sharpening** (CF 0.097→0.138) — so a peak-sharpening localized
+  pump is a plausible, non-exotic fooler, not a strawman.
+- **REQUIRED FOLLOW-ON (do NOT cite the combo as a general sustenance-proof detector until run):**
+  a **core-localized adversarial-pump plant** — sustain φ ≥ 0.80 with a pump footprint
+  concentrated at the seed core, and test whether the recommended **two-statistic conjunction**
+  hardening (PR falls AND CF rises, torus-native CF) also defeats it. See §7 follow-ons.
 
 ---
 
@@ -245,6 +272,18 @@ reproduction.
 - **GRANT RULES THE FORK.** The docket's Reading A is *leaned*; this data supports closing it.
   The framing call is surfaced, not fiated.
 
+**Required follow-ons (before the named claims are cited beyond this driver):**
+
+1. **Core-localized adversarial-pump plant** (repair finding #2) — the un-foolable claim is
+   scoped to **distributed** sustenance; the general anti-fooling guarantee is **untested**
+   against a **peak-sharpening core-localized** pump (the FOOLABLE branch the frozen prereg
+   names). Run a plant whose pump footprint is concentrated at the seed core, sustaining
+   φ ≥ 0.80, and check whether the **two-statistic conjunction** (PR falls AND CF rises, on the
+   torus-native CF) also defeats it. Until run, do **not** cite the two-meter combo as a general
+   sustenance-proof detector. *(Registered, not run in this repair.)*
+2. **Torus-native CF for any forward CONCENTRATING adjudication** (repair finding #1) — shipped;
+   required before the CF leaf is used to claim concentration on the torus.
+
 ---
 
 ## Review findings + repairs (2026-07-14)
@@ -259,6 +298,7 @@ they do **not** soften the data. Commit SHAs are listed in the PR body. Finding�
 | # | severity | finding | repair |
 |---|---|---|---|
 | 1 | MAJOR | CF core-ball used non-periodic Euclidean distance on the `pml=0` periodic torus; seam-adjacent peak clipped the ball, inflating the banked torus CF-fall ~2× toward LOOP-FILLING | driver `_meter_snapshot` now uses **minimum-image** distance on `pml=0` (Euclidean on the PML box); §2 table re-banked (pair −0.274→**−0.158**, graded_a0 −0.203→**−0.101**), stencil caveat + fork-cell peak coords added (§2), meter-reuse note added (§4). Verdict-robust: PR (center-free) rises `+0.410/+0.397`; both cells stay LOOP-FILLING. `graded_a0` CF now sits at the θ floor — LOOP-FILLING rests on PR. |
+| 2 | MAJOR ×2 | "un-foolable by sustenance" overgeneralizes: only the frozen **distributed** pump was tested, for which the meter leg (b) is near-vacuous (identity-audit hit) | headline (TL;DR item 4 + §5 + §5 header) retitled "un-foolable by **DISTRIBUTED** sustenance"; untested **core-localized** adversary stated (§5), `photon_lock` peak-sharpening false-positive cited as the plausible fooling route; **required follow-on** (core-localized adversarial-pump plant + two-statistic conjunction test) registered in §7 — **not run** in this repair. Fork verdict + G-PERSIST ★RULED untouched. |
 
 ---
 
