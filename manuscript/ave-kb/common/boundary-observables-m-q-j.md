@@ -45,13 +45,13 @@ The same three observables appear at every $\Gamma = -1$ saturation surface in t
 | Scale | Boundary | Internal solitons | Observables |
 |---|---|---|---|
 | Electron ($\ell \sim 10^{-13}$ m) | Horn-torus tube wall (TIR at saturation) | $0_1$ unknot single soliton | $m_e c^2$, $e$, $\hbar/2$ |
-| Nucleus ($\ell \sim 10^{-15}$ m) | Borromean confinement on $(2,5)$ cinquefoil | 3-strand $SU(3)$ Borromean linkage | nucleon mass, electric charge, nuclear spin |
+| Nucleus ($\ell \sim 10^{-15}$ m) | Borromean $6_2^3$ confinement on the $(2,5)$ phase-space winding | 3-strand $SU(3)$ $6_2^3$ Borromean linkage (real-space body) | nucleon mass, electric charge, nuclear spin |
 | Atom ($\ell \sim 10^{-10}$ m) | Outer shell saturation | Nucleus + $Z$ electrons | atomic mass, ionization, total angular momentum |
 | Planetary magnetopause | Magnetosphere boundary | Planet + field-aligned solitons | planet mass, dipole moment, rotation |
 | Black-hole event horizon ($r = 2GM/c^2$) | Schwarzschild horizon | All matter → pre-geodesic plasma | $M$ (ADM mass), $Q$, $J$ (Kerr-Newman) |
 | Cosmic horizon ($R_H \sim 10^{26}$ m) | Parent-BH Schwarzschild radius | All observable matter + dark sector | $\mathcal{M}_{\text{cosmic}}$, $\mathcal{Q}_{\text{cosmic}}$, $\mathcal{J}_{\text{cosmic}}$ (CMB anomalies, LSS rotation, Hubble flow anisotropy) |
 
-**The substrate observes integer/half-integer counts of relational observables; everything else is interior plumbing.** The electron's real-space body listed here is the $0_1$ unknot soliton; its $(2,3)$/trefoil structure is the phase-space (Clifford-torus) winding label, not the real-space body.
+**The substrate observes integer/half-integer counts of relational observables; everything else is interior plumbing.** The electron's real-space body listed here is the $0_1$ unknot soliton; its $(2,3)$/trefoil structure is the phase-space (Clifford-torus) winding label, not the real-space body. 🔴 *[register-split 2026-07-13 — extends the same disambiguation to the nucleus row:* the nucleon **real-space body** is the $6_2^3$ Borromean linkage; the $(2,5)$ cinquefoil is the **phase-space** per-loop polarization winding label, NOT a real-space knot (per [`proton-identification.md`](../vol2/particle-physics/ch02-baryon-sector/proton-identification.md) §1 properties 1–2 and `manuscript/ave-kb/CLAUDE.md:22`, extending INVARIANT-N1). Superseded boundary cell byte-verbatim: ~~"Borromean confinement on $(2,5)$ cinquefoil"~~.*
 
 ## The fine-structure constant as electron-scale $\mathcal{M} + \mathcal{J} + \mathcal{Q}$
 

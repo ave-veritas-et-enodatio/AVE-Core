@@ -761,7 +761,7 @@ flowchart TD
 
 ξ_topo is the **most cross-referenced quantity in AVE** per [`xi-topo-traceability.md`](xi-topo-traceability.md) (51 files across 6 of 8 volumes) — the single bridge between the discrete vacuum lattice and all measurable physics via Axiom 2's Topo-Kinematic Isomorphism ($[Q] \equiv [L]$). Touches **7 of 33 matrix rows** with 3 direct loadings and 4 via downstream Op14 / impedance-conversion chains.
 
-**Namespace warning:** the corpus uses Greek letter ξ in three distinct semantic scopes per the canonical de-collision at [`xi-topo-traceability.md`](xi-topo-traceability.md): $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m (this cascade) vs bare $\xi \approx 10^{44}$ ($8.15\times10^{43}$, Machian impedance integral, gravitational $G$ derivation; its cell-count factor $R_H/\ell_{node}\approx10^{39}$ is *not* itself ξ) vs $\xi_{K1}, \xi_{K2}$ ~ O(1) (substrate Cosserat prefactors, K4-symmetry-forced ratio 12). This diagram covers only $\xi_{topo}$.
+**Namespace warning:** the corpus uses Greek letter ξ in three distinct semantic scopes per the canonical de-collision at [`xi-topo-traceability.md`](xi-topo-traceability.md): $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m (this cascade) vs bare $\xi \approx 10^{44}$ ($8.15\times10^{43}$, Machian impedance integral, gravitational $G$ derivation; its cell-count factor $R_H/\ell_{node}\approx10^{39}$ (precisely $\approx 3.455\times10^{38}$) is *not* itself ξ) vs $\xi_{K1}, \xi_{K2}$ ~ O(1) (substrate Cosserat prefactors, K4-symmetry-forced ratio 12). This diagram covers only $\xi_{topo}$.
 
 ```mermaid
 flowchart TD

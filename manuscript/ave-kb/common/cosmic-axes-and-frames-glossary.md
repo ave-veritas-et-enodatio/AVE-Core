@@ -2,9 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: glossary leaf defining cosmic-direction vocabulary (CMB rest frame, Sun velocity through ℳ_A, substrate-equilibrium velocity floor, Ω̂_freeze, parent-BH spin axis, CMB axis-of-evil, eight Ω̂_freeze projections) and anti-confusion clarifications; results values are referenced from canonical leaves (omega-freeze-cosmic-grain-cascade, mond-hoop-stress, preferred-frame-and-emergent-lorentz), not independently derived here
+no-claim: glossary leaf defining cosmic-direction vocabulary (CMB rest frame, Sun velocity through the substrate, substrate-equilibrium velocity floor, Ω̂_freeze, parent-BH spin axis, CMB axis-of-evil, eight Ω̂_freeze projections) and anti-confusion clarifications; results values are referenced from canonical leaves (omega-freeze-cosmic-grain-cascade, mond-hoop-stress, preferred-frame-and-emergent-lorentz), not independently derived here
 path-stable: "referenced from vol3, vol6 as canonical cosmic-direction definitions"
 -->
+
+<!-- 🔴 Rule-12 2026-07-13 INVARIANT-N1 ℳ_A→prose retirement: the frontmatter no-claim reason previously read "Sun velocity through ℳ_A" (byte-verbatim superseded fragment: "Sun velocity through ℳ_A"); the retired $\mathcal{M}_{A}$ glyph (Amorphous-substrate symbol, retired 2026-06-18 per INVARIANT-N1 — the "A" carried the closed geometry-leak "amorphous") is replaced here by substrate-native prose ("the substrate"), mirroring the vol3 scrub (optical-refraction-gravity.md:23, cauchy-implosion-resolution.md:14). Physics unchanged. -->
 
 # Cosmic Axes and Frames Glossary
 
@@ -113,7 +115,7 @@ Per [`universal-saturation-kernel-catalog.md:99-101`](universal-saturation-kerne
 
 > "A spinning parent BH in its embedding parent lattice imparts bulk strain via frame-dragging (Vol 3 Ch 2 §138 + Vol 3 Ch 3 §178). The strain extends inside the parent BH's event horizon (Kerr interior frame-dragging continues), which IS our universe's pre-crystallization phase per Vol 3 Ch 21. The strain pushes local $A$ toward 1 at the point of maximum concentration (probably along the parent BH's spin axis); at $A = 1$, $S(A) = 0$ and the substrate phase-transitions to K4 lattice. The crystallization front propagates outward at lattice wave speed $c$, sweeping the inherited volume which becomes our observable universe."
 
-What gets locked in at lattice genesis (per [`omega-freeze-cosmic-grain-cascade.md:13-16`](omega-freeze-cosmic-grain-cascade.md)):
+What gets locked in at lattice genesis (per [`omega-freeze-cosmic-grain-cascade.md:11`](omega-freeze-cosmic-grain-cascade.md)):
 
 - Bond over-bracing $u_0^*$ at the magic-angle operating point $K(u_0^*) = 2 G(u_0^*)$
 - Global chirality direction $\hat{\Omega}_{\text{freeze}}$
