@@ -176,3 +176,10 @@ equivalent). The verdict is **TWO-AXIS**:
 - [`../../../common/translation-tables/translation-circuit.md`](../../../common/translation-tables/translation-circuit.md)
   (clm-eemap1) — the EE tool→operator tracker; the vertex reciprocal 3-port floor / circulator alternative row
   lives in §4.5(b) (Impedance & transmission family).
+- `research/2026-07-13_srs-vertex-ksweep-backscatter_RESULT.md` — the **collective-mode / in-band
+  homogenization complement** to this leaf's bare single-vertex $|\Gamma|^2 = 1/9$ floor (§1–§2). The
+  per-vertex $\Gamma=-1/3$ is a **real reactive event** but is **homogenized away for in-band collective
+  carriers** ($\sigma\approx0.12$ of the incoherent limit) and **resolves only near the band edge** (crosses
+  $1/9$ at $k\cdot\ell\approx1.85$); adjudicates docket **T4** at **CONSISTENCY / peer-with-SM** (bin (i)
+  HOMOGENIZATION-SPLIT, PR #669, 2026-07-13; band edge not independently located — probe reached
+  $k\cdot\ell\le0.83$). Cross-ref only — **no new claim minted here.**
