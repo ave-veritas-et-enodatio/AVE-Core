@@ -2,11 +2,17 @@
 
 Prereg : research/2026-06-23_engine-stage2-native-cage_prereg.md (RE-FROZEN).
 Companion explicit stepper : ave/solvers/native_cage_fdtd.py (G1-G8 validated).
+  HISTORICAL NOTE (2026-07-13): the explicit companion `native_cage_fdtd.py` was
+  built and G1-G8-validated on the Stage-2 branch (git commit 050f1088) but was
+  NEVER LANDED to main — it is ABSENT from the repo at HEAD. Every reference to
+  `native_cage_fdtd.py` in this module is a historical / git-provenance pointer
+  (`git show 050f1088:src/ave/solvers/native_cage_fdtd.py`), NOT a live path.
 
 ═══════════════════════════════════════════════════════════════════════════════
 WHY THIS EXISTS (the Rule-10 finding the explicit stepper hit)
 ═══════════════════════════════════════════════════════════════════════════════
-The explicit nonlinear leapfrog (native_cage_fdtd.NativeCageFDTD) goes SECULARLY
+The explicit nonlinear leapfrog (native_cage_fdtd.NativeCageFDTD — historical,
+git 050f1088, absent at HEAD) goes SECULARLY
 UNSTABLE in deep saturation: as the core self-focuses toward A→1, S=(1−A²)^p→0
 so the bulk stiffness D=1/S DIVERGES (c_eff=c0/√S→∞) and ρ(L_native) GROWS during
 the run — the seed-measured explicit CFL dt becomes invalid mid-run and the
@@ -60,7 +66,9 @@ diag(D) re-weight changes each step. The MINUS restoring sign (CORRECTION 1) is
 carried by the +¼dt²c0²L_D on the LHS (PSD L_D ⇒ restoring). NO Cartesian 7-pt.
 
 α-CLEAN: pure (1−A²) kernel; NO ALPHA / Q_TANK / ELECTRON / RHO_BULK; κ̃ out of
-scope (scalar cage). Same guard triad as native_cage_fdtd.py:58-61.
+scope (scalar cage). Same guard triad as native_cage_fdtd.py:58-61 (historical
+companion, git 050f1088, absent at HEAD; the triad is reproduced live below at
+the import-time asserts).
 """
 
 from __future__ import annotations
@@ -77,7 +85,8 @@ from ave.solvers.graded_vacuum_network import (
 from ave.topological.cosserat_field_3d import TETRA_OFFSETS
 
 # ─────────────────────────────────────────────────────────────────────────────
-# α-leak guard triad (import-time, same as native_cage_fdtd.py:58-61).
+# α-leak guard triad (import-time; historically mirrored native_cage_fdtd.py:58-61,
+# git 050f1088 — that companion is absent at HEAD, this live triad stands on its own).
 # ─────────────────────────────────────────────────────────────────────────────
 assert "ALPHA" not in globals(), "alpha-leak: ALPHA must NOT be imported"
 assert "Q_TANK" not in globals(), "alpha-leak: Q_TANK (=1/alpha) must NOT be imported"
@@ -177,7 +186,8 @@ def assemble_L_D(Grad, Div, D: np.ndarray):
 class NativeCageIMEXConfig:
     """Frozen Stage-2 native-cage IMEX run config (α-free; v14 Mode-I defaults).
 
-    Mirrors NativeCageConfig (native_cage_fdtd.py:64-90) so the make-or-break
+    Mirrors NativeCageConfig (native_cage_fdtd.py:64-90 — historical companion,
+    git 050f1088, absent at HEAD) so the make-or-break
     driver uses the IMEX as a drop-in. The ONLY new fields are the implicit-solve
     controls (cg_tol, cg_maxiter) and dt_accuracy_factor — there is NO sign/
     operator/kernel knob beyond the validated explicit config.
@@ -350,7 +360,8 @@ class NativeCageIMEX:
 
     # ── seed + dt (accuracy-set, NOT blow-up-CFL-set) ──
     def seed_sech(self, *, amplitude: float, radius: float):
-        """v14 Mode-I sech seed (byte-identical to native_cage_fdtd.seed_sech /
+        """v14 Mode-I sech seed (byte-identical to native_cage_fdtd.seed_sech —
+        historical companion, git 050f1088, absent at HEAD /
         test_master_equation_v14_mode_i.py:57-64). At-rest (V_prev = V)."""
         N, dx = self.N, self.dx
         center = N // 2

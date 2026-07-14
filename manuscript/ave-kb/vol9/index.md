@@ -42,7 +42,7 @@ Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics
 | 9  | [Mechanical Characteristics](ch9-mechanical-characteristics/index.md) | Vol 3 $G_{vac}$, $K_{vac}$, $\gamma_c$, $\nu_{vac} = 2/7$ |
 | 10 | [Magnetic and Microrotational Characteristics](ch10-magnetic-microrotational-characteristics/index.md) | Cosserat flywheel L; rotation-sector mass-gap; $l_c$ |
 | 11 | [Topological Characteristics](ch11-topological-characteristics/index.md) | $(2,3)$ knot uniqueness; $I4_1 32$ chiral space group |
-| 12 | [Cosmological Characteristics](ch12-cosmological-characteristics/index.md) | $R_H/\ell_{node} \sim 10^{39}$; Machian $G$ (mixed); $u_0^* \approx 0.187$ (value back-fit — see Ch.12 banner) |
+| 12 | [Cosmological Characteristics](ch12-cosmological-characteristics/index.md) | $R_H/\ell_{node} \sim 10^{39}$ (precisely $\approx 3.455\times10^{38}$); Machian $G$ (mixed); $u_0^* \approx 0.187$ (value back-fit — see Ch.12 banner) |
 | 13 | [Application Examples](ch13-application-examples/index.md) | Cross-references to canonical leaves |
 | 14 | [Phase Diagrams](ch14-phase-diagrams/index.md) | four-regimes.md; Vol 3 cosmology |
 | 15 | [Falsification Tests](ch15-falsification-tests/index.md) | Vol 4 Ch 11 experimental programme; kill-switch tests |
