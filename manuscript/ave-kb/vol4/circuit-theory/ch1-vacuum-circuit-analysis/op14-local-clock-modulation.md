@@ -19,12 +19,30 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 | Op14 local-clock modulation | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4} = \omega_{\text{global}}\sqrt{S}$ (shear matter-clock) |
 | Local time dilation | $\tau_{\text{local}}(r) = \tau_{\text{unstrained}} / (1 - A^2(r))^{1/4}$ — saturation slows local clock |
 | At low saturation | $\omega_{\text{local}} \approx \omega_{\text{global}}$ (Regime I, linear vacuum) |
-| At saturation onset ($A^2 \approx \sqrt{2\alpha}$) | $\omega_{\text{local}} \approx 0.95 \cdot \omega_{\text{global}}$ (Regime II) |
+| At saturation onset ($A^2 \approx 2\alpha$, the deficit knee) | $\omega_{\text{local}} \approx 0.95 \cdot \omega_{\text{global}}$ (Regime II) — see the coordinate note below (the $0.95$ predates the corrected coordinate + shear exponent; flagged) |
 | At rupture boundary ($A^2 \to 1$) | $\omega_{\text{local}} \to 0$ — local clock freezes; $\Gamma = -1$ TIR wall forms |
 | Cross-volume parallel | Vol 3 Ch 3 gravitational $\tau_{\text{local}} = n(r) \cdot \tau_{\text{unstrained}}$ with $n(r) = 1/\sqrt{S}$ |
 | Mechanism class | Reactive (no dissipation); energy redistributed in time, NOT lost |
 
 > **Exponent note.** The two rows above carry the corrected SHEAR matter-clock exponent $(1-A^2)^{1/4}$ ($c_{\text{shear}} = c_0(1-A^2)^{1/4}$, `research/2026-06-09_substrate-temporal-values-definition.md:29`), matching the code (`scale_invariant.py:294`). The earlier single-speed $(1-A^2)^{1/2}$ form was off by a factor of 2 and is superseded here.
+
+> **Coordinate note (Wall-A propagation, 2026-07-14 — A²-convention; KEEP-BOTH).** The
+> "saturation onset" row above states the threshold in **$A^2$-coordinates as $A^2 \approx 2\alpha$**.
+> **Authority:** `src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2.0*ALPHA`, i.e.
+> $A^2_{\text{yield}} = 2\alpha$). **Superseded (coordinate slip, corrected 2026-07-14):** the row read
+> *"At saturation onset ($A^2 \approx \sqrt{2\alpha}$)"* — comparing an $A^2$ quantity against the
+> **amplitude** threshold $\sqrt{2\alpha}$, a coordinate mismatch (A46). Corrected to $2\alpha$.
+> **FLAG (flag-don't-fix — surfaced, not silently recomputed):** the quoted $\omega_{\text{local}}
+> \approx 0.95\,\omega_{\text{global}}$ was derived under the *superseded* reading (an amplitude
+> $A^2 = \sqrt{2\alpha} \approx 0.121$ **and** the pre-split $(1-A^2)^{1/2}$ exponent). Under the
+> corrected $A^2 = 2\alpha \approx 0.0146$ threshold with the ratified shear exponent $(1-A^2)^{1/4}$,
+> the onset value is $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx
+> 0.996\,\omega_{\text{global}}$ — i.e. the local clock is barely modulated at the deficit knee (as
+> the ruling's $\Gamma \approx -0.002$ there implies). The $0.95$ is left in place pending the
+> auditor's decision on whether "saturation onset" here means the deficit knee ($A^2 = 2\alpha$) or a
+> deeper onset; it is NOT the $\Gamma=-1$ wall (which is the $S(A)\to0$ rail, $A^2\to1$, next row).
+> Per THE WALL-A RULING (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) the
+> $A^2 = 2\alpha$ contour is the **deficit knee**, not the wall.
 
 ## §1 — The substrate-native mechanism for time dilation
 

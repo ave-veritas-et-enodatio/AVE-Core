@@ -505,3 +505,99 @@ Two in-chat Grant rulings landed 2026-07-13, propagated on `docs/gpersist-f6-rul
 **Grant's walked refinement (ruling-grade walked input, ★QUARANTINE-tagged — "effectively off now, but not really").** The CHORD tap (matter-occupancy) is **effectively closed at late times** (matter dilution) — which is exactly why homogeneous averages read Λ. But the **FRONTIER mechanism** (expansion-boundary node-genesis drawing on `ρ_latent` at `3H` — reading-ii) **continues as long as expansion does**, asymptotically at the de Sitter rate `H∞`; in that limit its throughput also decays toward Λ-like. The surviving observational discriminant is therefore the **matter→DE TRANSITION ERA** (where the taps were closing — the **w(z)-evolution window** of the survey channel), reinforcing the spatial/survey-channel home. **Rail (do not conflate):** cosmic-frontier node-genesis (new CELLS) ≠ soliton genesis (patterns) — the #670 G-PERSIST negative does **not** touch the frontier mechanism.
 
 **Propagation sites (this PR):** G-PERSIST — ruling leaf, this docket (3 rows + this entry), `_orchestration/index.md`, R10 remanence charter, RESULT torus erratum. F6 — `dark-energy-latent-heat-definition.md` (§4.2 :128 row + §5), `engine-capability-map.md` (F6 rows), `_orchestration/index.md` (RANK 3), F6 charter correction note, `identity-break-test-design.md` (lever 1), this entry.
+
+---
+
+## Continuation — 2026-07-14 (THE WALL-A RULING — floor + rail + deficit-knee re-tag)
+
+Grant ruled Wall A (the electron's `Γ=−1` tube-wall surface) in-chat 2026-07-14 (**"accept!"**),
+propagated on `docs/wall-a-ruling-propagation` (DO-NOT-MERGE; only Grant merges). **KEEP-BOTH:**
+every continuation above + the original docket and status boards are **not edited**; this
+continuation is append-only. Nothing here canonizes beyond recording Grant's ruling; the touched
+KB leaves carry Rule-12 preserve-body annotations, not deletions. Every file cite below was
+Read/grep-confirmed at HEAD `c12f2bdb` this session (verify-before-cite).
+
+### THE RULING — Wall A is a THREE-ROLE structure (Grant 2026-07-14)
+
+**(1) GEOMETRY = THE FLOOR.** The ropelength radius `ℓ_node/(2π)` (one-pitch closure `2πR = ℓ_node`,
+horn-torus `R = r`) is **NOT the wall's definition** — it is the lattice's hard geometric MINIMUM
+for closing a winding (the discrete loop-closure bound). The `(Bounding Limit 1 saturation)`
+parenthetical reads: **the geometry is the BOUND; the ground state SATURATES the bound.** Grant's
+discontinuity argument (recorded): the envelope is a zero-width discontinuity (no actions across it —
+the same two-way-opaque termination class as the definability carve); **refined:** zero-width does
+not alone force geometric location (shock fronts move); the ground state sits ON the floor because
+it is **maximally tight**. ★**FALSIFIABLE RIDER (recorded explicitly):** any non-ground-state cavity
+should **LIFT OFF the floor** — dynamically located ABOVE the ropelength minimum; the cavity-census
+R-ladder is the instrument.
+
+**(2) AMPLITUDE = THE MECHANISM + RESPONSE.** The wall **IS** the local `S(A)→0` discontinuity (the
+engine's operative `Γ=−1` definition — amplitude-primary, dynamic); it carries the `M/Q/J`
+observables (substrate-observability rule) and its loading **responds to external
+pressure/saturation** (the envelope-transducer ontology, cross-ref the 2026-07-13 TRANSDUCER row).
+**Location = max(dynamical S→0 locus, geometric floor);** for the electron ground state these
+**coincide** (S→0 sits at the ropelength floor).
+
+**(3) THE √(2α) CONTOUR IS NOT THE WALL — RE-TAGGED THE DEFICIT KNEE.** The contour where the local
+amplitude reaches `A = √(2α)` (`A² = 2α` — the `ΔS = α` deficit condition, the regime-I boundary;
+coordinate authority `src/ave/core/chiral_lattice_v10.py:29-30`, `A_YIELD_SQ = 2.0*ALPHA`) reflects
+`Γ ≈ −0.002` (auditor arithmetic; even at the mislabeled `A² = √(2α)` reading, `Γ ≈ −0.016`) —
+**never the TIR wall.** Its derivation = the deficit condition `ΔS ≈ A²/2 = α` (FORM derived; the
+`α = Class-B` echo). The **FLUXOID-COLLIMATION hypothesis** for this contour (Grant-walked
+2026-07-14 — the reading that the √(2α) contour collimates the winding's fluxoid) is **KILLED by
+receipts** (KEEP-BOTH recorded):
+- **(i) pieces absent** — no `A(r)` profile; harmonic `flux(r)` NOT BUILT; the London
+  minimal-coupling leg = **"the missing leg"** (`research/2026-07-03_lanez-fluxoid-step0_note.md:100`);
+- **(ii) W4's own anatomy** = collimation **DISTRIBUTED, no-wall** (frozen-flux in every lossless cell);
+- **(iii) the D3 envelope⊥identity split** — mapping identity into the envelope = "a category error"
+  (`substrate-perspective-electron.md:93-103`).
+Grant **ACCEPTED the deficit reading** 2026-07-14 (**"accept!"**).
+
+**PLUS the two-BC bookkeeping (walk-level, framing).** Wall A = the **QUANTIZING BC** (the mirror —
+enforces `(p,q)` closure, reads `M/Q/J`); the deficit knee = the **LOADING BC** (the port — the
+coupling/matching interface). No real-space surface "carries" the phase-space winding (the register
+rule). **Two-Qs rider** (walk-level, one leg weakened post-fluxoid-kill): intrinsic `Q→∞` ↔ the
+mirror; loaded `Q = α⁻¹` ↔ the port (candidate address, **unproven**).
+
+### Propagation deliverables (this PR)
+
+- **D2 — coordinate-slip fixes** (A²-convention: `A² = 2α ≈ 0.0146`, authority
+  `chiral_lattice_v10.py:29-30`; KEEP-BOTH superseded quotes):
+  `substrate-perspective-electron.md:85,109`, `op14-local-clock-modulation.md:22`.
+- **D3 — contour re-tag** to "the deficit knee (`ΔS = α`; regime-I boundary)" at
+  `substrate-perspective-electron.md`'s Regime-II-boundary rows (NOT the `Γ=−1` wall, `Γ≈−0.002`;
+  NOT a fluxoid edge). Annotated, not deleted.
+- **D4 — floor clarification** at `electron-unknot-cosserat-seeder.md:18` (Bounding-Limit-1 row) +
+  `breathing-soliton-v14-mode-i.md:101` (`S(A)→0` sentence): geometry = floor/bound; mechanism =
+  amplitude rail; ground-state = floor-saturating; location-derivation debt = the census/stage-2
+  target; excited-state lift-off rider.
+- **D5 — the fluxoid FORM/VALUE instance** (`form-deriving-value-importing.md`): the fourth+ instance
+  **already lives as the charge-flux row** (:90 + §108-147); this PR adds the London-missing-leg
+  detail + the Wall-A fluxoid-collimation-kill cross-ref **additively** (no duplicate row).
+- **D6 — hygiene** `0.117 → 0.1208` (`√(2α) = 0.1208`, not `0.117`): `rectifier-stage1:18`,
+  `full-electron-transverse-selftrap:142`, `field-symbol-registry:318` (the "three unrelated
+  0.117s" coincidence note). *(`full-electron-transverse-selftrap:182` already reads `0.121` —
+  no fix, flagged.)*
+
+### Docket status board — Wall-A ruling (KEEP-BOTH; tables above unedited)
+
+| Ruling | What | Status (2026-07-14) | Adjudicator |
+|---|---|---|---|
+| **Wall-A ROLE-1 (floor)** | ropelength `ℓ_node/(2π)` = geometric BOUND, ground state SATURATES it | **★RULED (Grant 2026-07-14 "accept!")** — floor, not definition; excited states LIFT OFF (census R-ladder = instrument) | Grant (ruled); cavity-census (rider) |
+| **Wall-A ROLE-2 (rail)** | `Γ=−1` wall = local `S(A)→0` discontinuity, carries `M/Q/J`, load-responsive | **★RULED** — amplitude-primary mechanism; location = max(S→0 locus, floor); coincide for ground state | Grant (ruled) |
+| **Wall-A ROLE-3 (deficit knee)** | `A²=2α` `ΔS=α` regime-I contour re-tagged; NOT the wall (`Γ≈−0.002`) | **★RULED** — deficit-knee reading ACCEPTED; **fluxoid-collimation hypothesis KILLED** (3 receipts, KEEP-BOTH) | Grant (ruled) |
+| **Two-BC bookkeeping** | mirror (quantizing BC) vs port (loading BC) | **WALK-LEVEL framing (recorded)** — no real-space surface carries the phase-space winding | Grant (framing) |
+| **Two-Qs rider** | intrinsic `Q→∞` ↔ mirror; loaded `Q=α⁻¹` ↔ port | **WALK-LEVEL, one leg WEAKENED** (post-fluxoid-kill) — port address candidate, **unproven** | Grant (open) |
+
+---
+
+*Cross-refs (Read/grep-confirmed at HEAD `c12f2bdb` this session): coordinate authority
+`src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2.0*ALPHA`); the fluxoid step-0 note
+`research/2026-07-03_lanez-fluxoid-step0_note.md:14,16,100` ([DOORWAY-NO-PINNING]; the FORM/VALUE
+split; the London "missing leg"); the FORM/VALUE umbrella `manuscript/ave-kb/common/form-deriving-value-importing.md:90`
+(charge-flux row, `clm-ze4clw`); the touched leaves `substrate-perspective-electron.md:85,93-103,109`,
+`op14-local-clock-modulation.md:22`, `electron-unknot-cosserat-seeder.md:18`,
+`breathing-soliton-v14-mode-i.md:101`; the D3 COEXIST ruling (2026-07-13 continuation row) for the
+envelope⊥identity split. This continuation records queue-state + Grant's Wall-A ruling; nothing here
+canonizes beyond the ruling stamp. Verbatim note: Grant's in-chat acceptance ("accept!") is the
+verbatim on record; the fluxoid-collimation hypothesis is recorded as his 2026-07-14 walked
+reading (paraphrase faithful to the walk, no fabricated verbatim).*

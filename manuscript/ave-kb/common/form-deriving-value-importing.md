@@ -146,6 +146,23 @@ flux DOF, Link-labeled) is forced; the VALUE of the quantum is imported. This is
 FORM-derived / VALUE-imported meta-pattern landing on charge-flux (the table row
 above is the one-line home; the pinning ledger is the derivation).
 
+> **The London leg = "the missing leg" (Wall-A propagation, 2026-07-14, KEEP-BOTH additive).**
+> Sharpening *which* piece of the integer→VALUE conversion is absent: it is the
+> **phase↔flux (London / minimal-coupling) relation** `∇θ = (2π/Φ₀)(A − …)` — the map from the
+> LC-tank phasor's `∇θ` holonomy to the exterior harmonic **edge-flux** `E`. The lane-Z per-term
+> ledger tags it explicitly **"the missing leg"** (`research/2026-07-03_lanez-fluxoid-step0_note.md:100`,
+> `:14,16`): single-valuedness pins the winding **integer** (`∮∇θ = 2πq`, derived), but with no
+> axiom-native London-analog and no flux-per-holonomy quantum other than the imported `ξ_topo`, the
+> integer never becomes a pinned flux **VALUE**. This is why the charge-flux row is **VALUE-imported**,
+> not merely value-undetermined. **Cross-ref — the same missing leg killed the fluxoid-collimation
+> hypothesis:** THE WALL-A RULING (Grant 2026-07-14, `_orchestration/2026-07-10_rulings-docket.md`)
+> re-tagged the electron's `√(2α)` / `A²=2α` contour the **deficit knee** (not the `Γ=−1` wall) and
+> **killed** the reading that this contour is a *fluxoid-collimation edge* — its **receipt (i)** is
+> exactly this absent London leg (no `A(r)` profile, harmonic `flux(r)` not built). So the
+> charge-flux FORM/VALUE split and the Wall-A deficit-knee re-tag share one root fact: the FORM (the
+> quantized Link-flux DOF) is lattice-forced, but the London coupling that would pin/collimate its
+> flux VALUE is not an axiom-native object.
+
 ## The electron — a further named instance (2026-07-09, KEEP-BOTH additive)
 
 *(Added additively; does NOT redefine the α / G / K=2G / E_yield / m_e / charge-flux

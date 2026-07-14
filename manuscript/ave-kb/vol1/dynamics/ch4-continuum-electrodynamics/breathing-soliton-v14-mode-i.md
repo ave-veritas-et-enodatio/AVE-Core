@@ -100,6 +100,22 @@ The cells within `pml_thickness` of the box edge. A numerical trick: outgoing wa
 
 The horn-torus tube wall at $r \approx \ell_{\text{node}}/(2\pi)$ where $S(A) \to 0$ locally — the physical $\Gamma = -1$ saturation surface where the substrate-observability rule applies. **This is the only physical boundary.** Has $\mathcal{M} = m_e c^2$, $\mathcal{Q} = e$, $\mathcal{J} = \hbar / 2$ as the three integrated invariants externally observable per the [substrate-observability rule](../../../common/boundary-observables-m-q-j.md).
 
+> **Floor + rail (THE WALL-A RULING, Grant 2026-07-14).** Two distinct roles coincide here for the
+> **ground state**: the **mechanism** — the $\Gamma=-1$ wall **IS** the local $S(A)\to0$ amplitude
+> discontinuity (amplitude-primary; it carries the $\mathcal{M}/\mathcal{Q}/\mathcal{J}$ observables
+> and responds to external load) — and the **geometry** — $r = \ell_{\text{node}}/(2\pi)$ is the
+> ropelength **FLOOR** (the lattice's hard geometric minimum for closing a winding; one-pitch closure
+> $2\pi R = \ell_{\text{node}}$), a BOUND the ground state SATURATES by being maximally tight, **NOT**
+> the wall's definition. Location $= \max$(dynamical $S\to0$ locus, geometric floor); for the electron
+> ground state the two **coincide** (which is why this leaf can write $r \approx \ell_{\text{node}}/(2\pi)$
+> AND $S(A)\to0$ at the same surface). **Do NOT read the $\sqrt{2\alpha}$ / $A^2 = 2\alpha$ contour as
+> this wall** — that is the **deficit knee** ($\Delta S = \alpha$, regime-I boundary, $\Gamma \approx
+> -0.002$), a distinct outer contour ([`substrate-perspective-electron.md`](../../../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md)
+> §2). **Location-derivation debt (open):** whether the self-consistent $A(r)$ profile clips at the
+> floor = the census / stage-2 target. ★**Excited-state rider:** non-ground-state cavities LIFT OFF the
+> floor (above the ropelength minimum). Docket: `_orchestration/2026-07-10_rulings-docket.md`
+> (2026-07-14 continuation).
+
 The simulation hosts a localized breathing structure whose physical boundary is the Level-3 envelope; the Level-1 and Level-2 boundaries are computational artifacts and carry no $\mathcal{M}, \mathcal{Q}, \mathcal{J}$.
 
 ## What this empirically establishes

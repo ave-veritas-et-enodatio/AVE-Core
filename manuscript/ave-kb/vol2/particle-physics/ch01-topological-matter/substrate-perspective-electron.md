@@ -61,6 +61,21 @@ $\omega$ is the substrate microrotation per node. The SO(3) → SU(2) double cov
 
 > **What $A$ is (DP-1, 2026-07-02, Grant-ratified).** The Axiom-4 argument $A$ is the **normalized substrate strain** — the deformation of the one Cosserat medium (dilatation, translational strain, or curvature), normalized to yield. It is **per-sector** (each sector against its *own* yield, per the per-yield-normalized combine) and is the reactive-amplitude **envelope** (the cycle time-average / conserved reactive energy of the $(V_{\text{inc}},\Phi_{\text{link}})$-type tank), NOT an instantaneous phase snapshot. "Strain" is generic across static fields, waves, and bound modes because all three are deformations of the same medium — which is *why* the kernel is scale-universal. The $A^2_{\text{local}}=\Sigma V_{\text{inc}}^2/V_{\text{SNAP}}^2$ row above is the C-state projection of this envelope for the K4-V sector.
 
+> **Coordinate convention (Wall-A propagation, 2026-07-14 — A²-convention; KEEP-BOTH).**
+> Throughout this leaf the saturation observable is $A^2$ (per-cell, the §1 table); the Op14
+> deficit-knee / regime-I threshold is therefore stated in **$A^2$-coordinates as $A^2 = 2\alpha
+> \approx 0.0146$** (equivalently $A = \sqrt{2\alpha} \approx 0.1208$ in amplitude-coordinates).
+> **Authority:** `src/ave/core/chiral_lattice_v10.py:29-30` (`A_YIELD_SQ = 2.0*ALPHA`, i.e.
+> $A^2_{\text{yield}} = 2\alpha$). **Superseded (coordinate slip, corrected 2026-07-14):** the
+> tube-core row (§2, "At the loop's tube core") read *"$A^2_\omega$ … close to or above …
+> $\sqrt{2\alpha} \approx 0.121$"* and the loop-surface row (§2, "At the loop's surface") read
+> *"$A^2_{\text{local}}$ | Crosses $\sqrt{2\alpha}$"* — both compared an **$A^2$** quantity against
+> the **amplitude** threshold $\sqrt{2\alpha}$, a coordinate mismatch (A46 phase-space/observable
+> discipline). Corrected to $2\alpha$ (the $A^2$-threshold); the regime-I boundary is the **same
+> contour**, now named in matching coordinates — no physics changes. Per THE WALL-A RULING
+> (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) that contour is the
+> **deficit knee**, NOT the $\Gamma=-1$ wall — see the loop-surface annotation in §2.
+
 ### Coupled K4-Cosserat saturation (full Axiom 4 mixing)
 
 When both K4 $V_{\text{inc}}$ and Cosserat $\omega$ are non-zero, the saturation couples both:
@@ -82,7 +97,7 @@ The canonical electron is a $0_1$ unknot (real-space curve) carrying a Beltrami 
 | Observable | State |
 |---|---|
 | $\|\omega\|^2$ | **Large** — Beltrami standing wave concentrated here per hedgehog envelope |
-| $A^2_\omega$ | **High** — close to or above Op14 saturation threshold $\sqrt{2\alpha} \approx 0.121$ |
+| $A^2_\omega$ | **High** — close to or above the Op14 saturation threshold $2\alpha \approx 0.0146$ (A²-convention, `src/ave/core/chiral_lattice_v10.py:29-30`; see the coordinate-convention note in §1) |
 | $S_{\text{local}}$ | **Small** — saturation engaged |
 | $Z_{\text{eff}}$ | **High** — local impedance $\gg Z_0$ |
 | $c_{\text{eff}}$ | **Small** — wave propagation slow here |
@@ -106,13 +121,31 @@ The canonical electron is a $0_1$ unknot (real-space curve) carrying a Beltrami 
 
 | Observable | State |
 |---|---|
-| $A^2_{\text{local}}$ | Crosses $\sqrt{2\alpha}$ from above to below moving outward |
+| $A^2_{\text{local}}$ | Crosses $2\alpha$ from above to below moving outward (A²-convention; the deficit-knee contour — see the annotation below) |
 | $\lvert\nabla A^2\rvert$ | **Large** (sharp gradient from saturated to vacuum) |
 | $\lvert\nabla Z_{\text{eff}}\rvert$ | Correspondingly large — sharp impedance step |
 | Local $\Gamma^2$ | High per Op3 ($\Gamma \approx \tfrac{1}{2} \nabla \ln Z_{\text{eff}}$) |
 | TIR-wall behavior | Incoming waves from outside (low $Z$) bounce off inside (high $Z$) surface; trapped waves bounce going outward |
 
 **The loop's surface is a self-formed Total Internal Reflection wall** — the field that's there creates the saturation gradient that creates the wall that traps the field. **Self-maintaining circular causation.**
+
+> **Contour re-tag — this is the DEFICIT KNEE, not the $\Gamma=-1$ wall (THE WALL-A RULING,
+> Grant 2026-07-14; annotation, prose above preserved).** The $A^2 = 2\alpha$ ($\Delta S = \alpha$)
+> crossing tabulated in this section is **the deficit knee (the regime-I boundary)**, not the
+> $\Gamma=-1$ TIR wall. **Numbers:** at $A^2 = 2\alpha$ the reflection is $\Gamma \approx -0.002$
+> (auditor arithmetic; even at the mislabeled $A^2 = \sqrt{2\alpha}$ reading, $\Gamma \approx -0.016$)
+> — nowhere near $-1$. Its derivation is the deficit condition $\Delta S \approx A^2/2 = \alpha$
+> (FORM-derived; the $\alpha = $ Class-B echo; coordinate authority
+> `src/ave/core/chiral_lattice_v10.py:29-30`). **The actual $\Gamma=-1$ TIR wall is the local
+> $S(A)\to0$ amplitude discontinuity** (Wall-A role 2 — the amplitude rail, $A^2\to1$), which for the
+> electron **ground state coincides with the geometric ropelength floor** $\ell_{\text{node}}/(2\pi)$
+> (Wall-A role 1 — the loop-closure bound the ground state saturates), a **tighter/inner** locus than
+> this deficit knee. So the "self-formed TIR wall" prose above should be read as **the regime-II
+> saturation gradient at the deficit knee**, distinct from the $\Gamma=-1$ rail. **This contour is
+> also NOT a fluxoid edge:** the fluxoid-collimation reading of the $\sqrt{2\alpha}$ contour was KILLED
+> 2026-07-14 (missing London leg `research/2026-07-03_lanez-fluxoid-step0_note.md:100`; W4's
+> distributed-no-wall anatomy; the D3 envelope⊥identity split, §2 D3 two-question note above). See the
+> docket (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation).
 
 ### Outside the loop (Regime I, vacuum)
 

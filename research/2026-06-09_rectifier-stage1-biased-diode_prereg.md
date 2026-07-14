@@ -15,7 +15,7 @@ Does a single **DC-biased, lossy (leaky-Γ=−1) varactor diode**, AC-pumped in 
 
 ## 2. Mode / regime / phase-state (per `ave-regime-phase-state-check`)
 - **MODE:** bulk (volumetric) + ε-sector. Observable = **directed momentum** (vectorial → regime-gated; must be near-yield bulk, NOT the achromatic transverse/shear sector).
-- **REGIME:** **ASYM-class** (single-sector / biased saturation = the diode), **near-yield** `r₁=√(2α)≈0.117 < A₀ < r₂=√3/2≈0.866`, operating *at* the leaky Γ=−1 boundary.
+- **REGIME:** **ASYM-class** (single-sector / biased saturation = the diode), **near-yield** `r₁=√(2α)≈0.1208 < A₀ < r₂=√3/2≈0.866`, operating *at* the leaky Γ=−1 boundary. *(√(2α)=0.1208 corrected from 0.117, a transcription drift; 2026-07-14 Wall-A hygiene. r₁ is the amplitude threshold A=√(2α); equivalently A²=2α≈0.0146.)*
 - **PHASE-STATE:** DC-biased / loaded (NOT cold-symmetric, NOT reflectionless-gravity).
 
 ## 3. Physical picture (per `ave-asymmetric-grip`)
