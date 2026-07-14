@@ -25,9 +25,9 @@ The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all o
 > predictions must agree with QED's … by the RT theorem*" are **re-tagged from argued-match to SCOPED IMPORT**. The
 > QED-TRACE beta-function gate ([`research/2026-07-14_qed-trace-beta-gate_RESULT.md`](../../../../../research/2026-07-14_qed-trace-beta-gate_RESULT.md) §7 scope boundary; PR #685) computed the two-body
 > saturation-dressed force and found it **WRONG-FORM** for QED running (a clean power law, not a `ln(q)`; wrong sign on
-> the transfer register). **Mandatory boundary (inherited verbatim from §7):** *the beta gate (PR #685) proved
+> the transfer register). **Mandatory boundary (per the §7 scope note — paraphrased; the "UNPROBED, NOT CLOSED" clause is verbatim):** *the beta gate (PR #685) proved
 > WRONG-FORM for the two-body pointwise route; **the many-body scale-integrated medium-response route is UNPROBED, NOT
-> CLOSED** (a screening-sum gate is registered open — running in a sibling lane; its outcome is not pre-judged here).*
+> CLOSED** (not pre-judged here).*
 > Logarithms routinely emerge from analytic kernels via scale-integration (QED's own vacuum-polarization `ln(q)`
 > integrates algebraic integrands), so the analyticity kill is proven **only** for the pointwise/pairwise objects — it
 > does **not** close the log route in general. The rows survive as a **consistency-scaffold appeal** (solidity 0.60,
