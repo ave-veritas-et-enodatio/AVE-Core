@@ -258,11 +258,16 @@ not a stable medium-mediation measurement.
 
 **Prereg parity (self-adversarial frozen-vs-shipped diff).** Every frozen §5 parameter matches the
 shipped constants (K, d_sat, α0=0.03, damp=0.4, tol=1e-8, maxiter=400, n_r=16, n_ang=24, r_max_fac=1.2,
-r_min_fac=1.05, min_sep=0.25, r_soft=0.3, window [30,3000] × 16); `χ_sat=1/√(1−A²)−1`, `E_yield=K/d_sat²`,
-the exact inner linear solve, and the α0-robustness grid all match. The only deviations are the disclosed
-verdict-preserving amendments A1.1 (interaction-force self-subtraction — a REPAIR of an ill-posed frozen
-definition), A1.2 (antipodal sampling, n_ang=24 count preserved), A1.3 (orientation-averaging). No silent
-deviation.
+r_min_fac=1.05, r_soft=0.3, window [30,3000] × 16); `χ_sat=1/√(1−A²)−1`, `E_yield=K/d_sat²`, the exact inner
+linear solve, and the α0-robustness grid all match. The disclosed verdict-preserving deviations are A1.1
+(interaction-force self-subtraction — a REPAIR of an ill-posed frozen definition), A1.2 (antipodal sampling,
+n_ang=24 count preserved), A1.3 (orientation-averaging), and — added by the 2026-07-14 review — **A1.5**
+(dedup radius implemented as a global `0.25·median(spac)` rather than the frozen per-cell
+`0.25·(v_cell)^{1/3}`, forced by scipy's scalar-radius `query_pairs`; verdict-neutral), **A1.6** (channel
+attribution of A1.1), **A1.7** (floor-augmented follow-on fit family), and **A1.8** (the frozen
+non-convergence exclusion clause, previously a no-op, now actuated in the driver). **One further forced
+deviation (A1.5) was surfaced by the review; with it disclosed there is no remaining undisclosed silent
+deviation.**
 
 ---
 
@@ -274,21 +279,31 @@ deviation.
 | **G-plant-log** — SIGN-CORRECT plant (`α/3π`, not the beta gate's sign-contradictory `1/3π`) | inject QED-form log → detect as log, right sign | ✓ `M_log`, `ΔBIC=+883`, grows-short detected |
 | **G-plant-pow** | inject `p=0.3` power → detect as power, NOT log | ✓ `M_pow`, `ΔBIC=−1013`, recovered `p=0.300` (fitter does not over-privilege the log) |
 | **G-separability** | at 2 decades, planted log and `p=0.3` power both decisively classified | ✓ PASS (`INCONCLUSIVE-RANGE` does not fire) |
-| **G-genuineness-A** | Born ≠ converged | ✓ 9.4% change (not a spectator) |
-| **G-genuineness-B** | bridge-removal changes result | ✓ 51% change (medium carries it) |
+| **G-genuineness-A** | Born ≠ converged | ✓ 9.4% change — RE-ADJUDICATED near-cloud-INTERNAL (§3) |
+| **G-genuineness-B** | bridge-removal changes result | ✓ shipped-cylinder 51% BUT = near-dress slicing; corrected mid-bridge ~0.02% ⇒ RELABELED-PAIRWISE (§3, KEEP-BOTH, Grant-flagged) |
 
 The beta gate's two frozen-design defects were **pre-corrected, not repeated** (prereg §6): the G-null
 uses the amplitude criterion (not model-selection on `~1e-10` numerical noise), and the G-plant-log uses
 the sign-correct `α/3π` plant (not the frozen `1/3π` formula that made `1/α` grow = the WRONG QED sign).
 
 **Robustness (self-adversarial live-fire).**
-- **`α0`-independent:** across `α0 ∈ {0.01, 0.03, 0.1, 0.2}` the transfer is NEVER `M_log` (all
-  grows-short, `p ∈ [0.45, 0.65]`; the exponent softens with stronger coupling — moving TOWARD but never
-  reaching the log-degenerate limit). `no_log_at_any_alpha0 = True`.
+- **`α0`-independent:** across `α0 ∈ {0.01, 0.03, 0.1, 0.2}` the transfer is NEVER `M_log` (all grows-short;
+  the exponent softens with stronger coupling — moving TOWARD but never reaching the log-degenerate limit).
+  `no_log_at_any_alpha0 = True`. NOTE (2026-07-14): the per-`α0` fits at the reduced robustness resolution
+  (`n_scale=6`) are INCONCLUSIVE (never decisively `M_pow`) — "never `M_log`" is accurate but weaker than a
+  per-`α0` decisive-power claim; the decisive content is the 33× per-decade slope collapse, not the `p`.
 - **Window-independent:** at 3 decades (`R/d_sat ∈ [30, 30000]`) still decisive `M_pow`, `ΔBIC=−21.0`,
   `p≈0.55`, grows-short.
-- **Tol-independent:** the transfer curve is byte-identical at SCF `tol = 1e-8` vs `1e-12` (the residual
-  scatter is deterministic angular-discretization, killed by the orientation-average, NOT iterative).
+- **Tol-independent — SHIPPED as `tol_invariance_leg`:** the transfer curve is eps-identical at SCF
+  `tol = 1e-8` vs `1e-12` (max dev `1e-10`; residual scatter is deterministic angular-discretization,
+  killed by the orientation-average, NOT iterative).
+- **Resolution-dependence (disclosed, 2026-07-14).** The precise transfer receipts (`p≈0.60`, `a≈0.333`,
+  knife-A 9.4%, knife-B cylinder 51/58%) are **single-resolution** (`n_r=16, n_ang=24`); `orient_std`
+  understates the mesh-systematic uncertainty (a mesh-refinement sweep moves `dep` ~18–45%, beyond the
+  quoted `orient_std`). The QUALITATIVE verdict (`M_pow`, never `M_log`, grows-short, 33× slope collapse) is
+  refinement-robust, but the quoted coefficients are resolution-dependent and must NOT be cited as converged
+  before the q-g20f re-tag (single-resolution; a mesh-convergence leg is the follow-on if a converged
+  coefficient is needed).
 
 ---
 
@@ -372,6 +387,36 @@ discriminating finding about the dressed pair, but **not a chord**: the FORM is 
    The frozen transfer definition was ill-posed (self-force dominated); the self-subtraction (A1.1) is a
    REPAIR delivering the frozen intent (analog of the beta gate's own A1). Disclosed in the prereg
    amendment; the genuineness knives validate the repaired observable is physical.
+
+---
+
+## 7. Review findings + repairs (2026-07-14 adversarial review of PR #693)
+
+Ten findings confirmed (1 refuted), ALL **EVIDENCE-VOID / repair-and-bank**. The `WRONG-FORM` (no-log) bin
+and the QED-sign finding stay BANKED and are STRENGTHENED (a spectator intervening medium has nothing to
+accumulate per decade; the 33× per-decade slope collapse is the decisive no-log evidence). The frozen prereg
+body is byte-untouched (verified vs freeze commit `ee1fc728`); all prereg-level items land as dated
+amendments (A1.5–A1.8). The q-g20f caveat-retire follow-on remains GATED and OUT of this PR (the diff touches
+NO KB/manuscript file). Finding → repair → commit:
+
+| # | Finding (corrected severity) | Repair | Commit(s) |
+|---|---|---|---|
+| 1 | Knife-B "genuinely many-body" is a near-cloud-slicing artifact; RELABELED-PAIRWISE fires under the corrected reading of "intervening cells" (CRITICAL) | `genuineness_decomposition` shipped (near/mid/far); genuineness RE-ADJUDICATED KEEP-BOTH (corrected mid-bridge = PRIMARY = RELABELED-PAIRWISE), Grant-ratification flag; Rule-12 header on §5 shell-integral sentence + corrected no-log mechanism | `721edae1` (driver) · `bdaedac8` (RESULT) |
+| 2 | Quoted transfer receipts are single-resolution / not discretization-converged (MINOR) | §4 resolution-dependence disclosure; `orient_std` understatement noted; held out of q-g20f | `b9adefc9`→`<this>` (RESULT §4) |
+| 3 | `p≈0.60` not window-stable; both sub-windows INCONCLUSIVE; "straight line in log-log" false (MAJOR) | RESULT:100 corrected; §1/§2 reframed "steep near-field + R-independent floor, not-a-log via 33× slope collapse" | `bdaedac8` (RESULT) |
+| 4 | Frozen convergence-exclusion clause unimplemented + misleading "(excluded)" print (MINOR) | convergence mask actuated on primary fits; print reconciled; prereg A1.8 | `721edae1` (driver) · `b46106ab` (A1.8) |
+| 5 | A1.1 verdict-carrying signal is the self-cloud-distortion channel, not mediated screening (MAJOR) | channel attribution: prereg A1.6 + RESULT §5 sign paragraph + TL;DR | `b46106ab` (A1.6) · `bdaedac8` (RESULT) |
+| 6 | Far-field plateau; outer-half refits M_log (+11.9); no floor term in frozen family (MAJOR) | §2 floor note (floor = pairwise-class 1/R²); bin does NOT flip; floor-augmented follow-on registered A1.7; naked p held out | `bdaedac8` (RESULT) · `b46106ab` (A1.7) |
+| 7 | Non-convergence rule half-implemented (flagged-but-retained) (MINOR) | same repair as #4 (mask actuated + print fixed + A1.8) | `721edae1` · `b46106ab` |
+| 8 | Self-adversarial receipts (4369×, 5-d_sat, tol) had no shipped code path (MINOR) | H1 superseded by `genuineness_decomposition`; H2 `dipole_truncation_leg`; tol `tol_invariance_leg` | `721edae1` (driver) · `bdaedac8`/`<this>` (RESULT) |
+| 9 | Dedup radius global-median micro-deviation (MINOR) | disclosed as prereg A1.5; parity paragraph softened | `b46106ab` (A1.5) · `<this>` (RESULT §3) |
+| 10 | Closure-scope overreach ("category closure COMPLETE"/"completely"/"full scoped import") (MAJOR) | scoped to STATIC local-constitutive electric-dipole route; open routes enumerated (dynamical/retarded, inductive μ-channel); q-g20f binding | `b9adefc9` (RESULT) |
+
+**Corrected headline:** the object is a **PAIRWISE-DRESS** (two self-consistently-dressed probes interacting
+through their own near clouds, with a ~9% near-cloud-internal many-body correction); the **intervening
+medium is a spectator** (~0.02% vs ~100% near-dress); and the **no-log verdict holds because there is
+nothing to accumulate** in the medium (mid-scale contributes ~0 per decade). WRONG-FORM survives and
+strengthens; genuineness re-tag is FLAGGED for Grant.
 
 ---
 
