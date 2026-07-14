@@ -129,6 +129,24 @@ The canonical electron is a $0_1$ unknot (real-space curve) carrying a Beltrami 
 
 **The loop's surface is a self-formed Total Internal Reflection wall** — the field that's there creates the saturation gradient that creates the wall that traps the field. **Self-maintaining circular causation.**
 
+> **Contour re-tag — this is the DEFICIT KNEE, not the $\Gamma=-1$ wall (THE WALL-A RULING,
+> Grant 2026-07-14; annotation, prose above preserved).** The $A^2 = 2\alpha$ ($\Delta S = \alpha$)
+> crossing tabulated in this section is **the deficit knee (the regime-I boundary)**, not the
+> $\Gamma=-1$ TIR wall. **Numbers:** at $A^2 = 2\alpha$ the reflection is $\Gamma \approx -0.002$
+> (auditor arithmetic; even at the mislabeled $A^2 = \sqrt{2\alpha}$ reading, $\Gamma \approx -0.016$)
+> — nowhere near $-1$. Its derivation is the deficit condition $\Delta S \approx A^2/2 = \alpha$
+> (FORM-derived; the $\alpha = $ Class-B echo; coordinate authority
+> `src/ave/core/chiral_lattice_v10.py:29-30`). **The actual $\Gamma=-1$ TIR wall is the local
+> $S(A)\to0$ amplitude discontinuity** (Wall-A role 2 — the amplitude rail, $A^2\to1$), which for the
+> electron **ground state coincides with the geometric ropelength floor** $\ell_{\text{node}}/(2\pi)$
+> (Wall-A role 1 — the loop-closure bound the ground state saturates), a **tighter/inner** locus than
+> this deficit knee. So the "self-formed TIR wall" prose above should be read as **the regime-II
+> saturation gradient at the deficit knee**, distinct from the $\Gamma=-1$ rail. **This contour is
+> also NOT a fluxoid edge:** the fluxoid-collimation reading of the $\sqrt{2\alpha}$ contour was KILLED
+> 2026-07-14 (missing London leg `research/2026-07-03_lanez-fluxoid-step0_note.md:100`; W4's
+> distributed-no-wall anatomy; the D3 envelope⊥identity split, §2 D3 two-question note above). See the
+> docket (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation).
+
 ### Outside the loop (Regime I, vacuum)
 
 | Observable | State |
