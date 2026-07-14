@@ -19,7 +19,7 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 | Op14 local-clock modulation | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4} = \omega_{\text{global}}\sqrt{S}$ (shear matter-clock) |
 | Local time dilation | $\tau_{\text{local}}(r) = \tau_{\text{unstrained}} / (1 - A^2(r))^{1/4}$ — saturation slows local clock |
 | At low saturation | $\omega_{\text{local}} \approx \omega_{\text{global}}$ (Regime I, linear vacuum) |
-| At saturation onset ($A^2 \approx 2\alpha$, the deficit knee) | $\omega_{\text{local}} \approx 0.95 \cdot \omega_{\text{global}}$ (Regime II) — see the coordinate note below (the $0.95$ predates the corrected coordinate + shear exponent; flagged) |
+| At saturation onset ($A^2 \approx 2\alpha$, the deficit knee) | $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx 0.996 \cdot \omega_{\text{global}}$ (Regime II) — **recomputed 2026-07-14** under the corrected $A^2=2\alpha$ coordinate + ratified $\tfrac14$-shear exponent; supersedes the provenance-unclear ~~$0.95$~~ (adjudication in the coordinate note below) |
 | At rupture boundary ($A^2 \to 1$) | $\omega_{\text{local}} \to 0$ — local clock freezes; $\Gamma = -1$ TIR wall forms |
 | Cross-volume parallel | Vol 3 Ch 3 gravitational $\tau_{\text{local}} = n(r) \cdot \tau_{\text{unstrained}}$ with $n(r) = 1/\sqrt{S}$ |
 | Mechanism class | Reactive (no dissipation); energy redistributed in time, NOT lost |
@@ -43,11 +43,19 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 > corrected $A^2 = 2\alpha \approx 0.0146$ threshold with the ratified shear exponent $(1-A^2)^{1/4}$,
 > the onset value is $\omega_{\text{local}} \approx (1-2\alpha)^{1/4}\,\omega_{\text{global}} \approx
 > 0.996\,\omega_{\text{global}}$ — i.e. the local clock is barely modulated at the deficit knee (as
-> the ruling's $\Gamma \approx -0.002$ there implies). The $0.95$ is left in place pending the
-> auditor's decision on whether "saturation onset" here means the deficit knee ($A^2 = 2\alpha$) or a
-> deeper onset; it is NOT the $\Gamma=-1$ wall (which is the $S(A)\to0$ rail, $A^2\to1$, next row).
-> Per THE WALL-A RULING (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) the
-> $A^2 = 2\alpha$ contour is the **deficit knee**, not the wall.
+> the ruling's $\Gamma \approx -0.002$ there implies); it is NOT the $\Gamma=-1$ wall (which is the
+> $S(A)\to0$ rail, $A^2\to1$, next row).
+>
+> **ADJUDICATED 2026-07-14 (#683 auditor call — REPLACE, KEEP-BOTH).** Per THE WALL-A RULING
+> (`_orchestration/2026-07-10_rulings-docket.md`, 2026-07-14 continuation) the $A^2 = 2\alpha$ contour
+> IS the **deficit knee**, not the wall — so the row's "saturation onset" is resolved to the deficit
+> knee, and the ambiguity that held the stale value open is discharged. The row value is **replaced**
+> with the recomputed $\omega_{\text{local}} \approx 0.996\,\omega_{\text{global}}$; arithmetic:
+> $(1-2\alpha)^{1/4} = (1-0.0146)^{1/4} = 0.9963$. The provenance-unclear $0.95$ (which traced only to
+> a ~1% drift at `research/_archive/L5/axiom_derivation_status.md:195`, never cleanly reproduced) is
+> **superseded** — byte-verbatim: ~~"$\omega_{\text{local}} \approx 0.95\,\omega_{\text{global}}$"~~.
+> (Distinct from the electron-shell $A^2 \approx 0.95$ amplitude at §4, which is a different quantity —
+> the shell's saturation *amplitude*, not $\omega_{\text{local}}$ — and is untouched.)
 
 ## §1 — The substrate-native mechanism for time dilation
 
