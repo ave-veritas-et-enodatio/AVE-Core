@@ -72,14 +72,34 @@ SECTORS = ("energy", "energy_k4", "phi_link")
 # ---------------------------------------------------------------------------
 # The localization meter (FROZEN definition, prereg §The localization meter)
 # ---------------------------------------------------------------------------
-def _meter_snapshot(coupled) -> dict:
+def _axis_delta(coord, center: int, N: int, periodic: bool):
+    """Per-axis distance from `center`. Minimum-image wrap on the periodic torus
+    (pml=0, np.roll-periodic, k4_tlm.py:393); plain Euclidean on the PML box.
+
+    REPAIR (2026-07-14, review finding #1 — torus-native CF stencil): the frozen
+    "Euclidean ball" is not native to the pml=0 periodic lattice. A density peak
+    near the array seam had part of its r-ball silently clipped, biasing CF low
+    (toward LOOP-FILLING) by construction. Minimum-image `min(|d|, N−|d|)` is the
+    substrate-native distance on the torus; the PML box keeps plain Euclidean.
+    Sign is irrelevant (the caller squares it).
+    """
+    d = coord - center
+    if periodic:
+        ad = np.abs(d)
+        return np.minimum(ad, N - ad)
+    return d
+
+
+def _meter_snapshot(coupled, periodic: bool) -> dict:
     """Per-sector spatial-concentration meter at the current engine state.
 
     A1/energy density = k4.get_energy_density() + cos.energy_density();
     T2/Φ_link density = Σ_port Phi_link²; over the PML-excluded interior mask.
     Never summed across sectors (A1 ⊥ T2). PR = raw participation ratio (effective
     participating sites); CF_r = fraction within radius r of the DENSITY PEAK
-    (peak, not centroid) and of the geometric center.
+    (peak, not centroid) and of the geometric center. `periodic` selects the
+    torus-native (minimum-image) core-ball on the pml=0 lattice vs the plain-
+    Euclidean ball on the PML box (review finding #1).
     """
     mask = np.asarray(coupled._interior_mask(), dtype=bool)
     N = coupled.N
@@ -105,9 +125,15 @@ def _meter_snapshot(coupled) -> dict:
         pk = tuple(int(v) for v in np.unravel_index(int(np.argmax(dm)), d.shape))
         total = s1
         row: dict = {"PR": pr, "PR_frac": (pr / M if M > 0 else 0.0), "peak": list(pk)}
-        rr_pk = np.sqrt((xx - pk[0]) ** 2 + (yy - pk[1]) ** 2 + (zz - pk[2]) ** 2)
+        rr_pk = np.sqrt(
+            _axis_delta(xx, pk[0], N, periodic) ** 2
+            + _axis_delta(yy, pk[1], N, periodic) ** 2
+            + _axis_delta(zz, pk[2], N, periodic) ** 2
+        )
         rr_gm = np.sqrt(
-            (xx - geom[0]) ** 2 + (yy - geom[1]) ** 2 + (zz - geom[2]) ** 2
+            _axis_delta(xx, geom[0], N, periodic) ** 2
+            + _axis_delta(yy, geom[1], N, periodic) ** 2
+            + _axis_delta(zz, geom[2], N, periodic) ** 2
         )
         for r in CORE_RADII:
             cp = mask & (rr_pk <= r)
@@ -181,7 +207,7 @@ def run_instrumented(
         if t <= n_drive:
             obs_driveoff = obs_t
         if t >= n_drive:  # drive-off snapshot + every quiet step
-            m = _meter_snapshot(coupled)
+            m = _meter_snapshot(coupled, periodic=(pml == 0))
             m["t"] = t
             m["phase"] = "drive_off" if t == n_drive else "quiet"
             m["H"] = float(obs_t["H"])

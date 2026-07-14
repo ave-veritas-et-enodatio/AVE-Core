@@ -18,8 +18,9 @@
 1. **FORK BIN = LOOP-FILLING ⇒ Reading A (wake-feeding) CONFIRMED — Grant's a-priori lean
    validated.** On BOTH torus (`pml=0`) fork cells (`pair`, `graded_a0`, production), the
    energy meter reads the pattern **spreading out** — participation ratio **rises**
-   (348.7→491.6 / 353.0→493.2) and core fraction **falls** (0.062→0.045 / 0.061→0.049) —
-   **while φ inflates to ~10.5×**. The energy does **not** self-tighten; the φ growth is the
+   (348.7→491.6 / 353.0→493.2) and core fraction **falls** (0.062→0.052 / 0.061→0.055,
+   torus-native minimum-image ball — repair finding #1; the seam-clipped Euclidean ball had
+   read 0.045/0.049) — **while φ inflates to ~10.5×**. The energy does **not** self-tighten; the φ growth is the
    accumulated-flux "counts laps" gauge effect (`Phi_link` accumulates monotonically,
    `k4_tlm.py:400`), **not** localization. This is Reading A, not Reading B.
 2. **Boundary-insensitive.** The PML twins read the SAME sign (PR rises, CF falls →
@@ -90,12 +91,14 @@ battery; the instrumentation does not perturb the physics.
 
 Trend = relative change from **drive-off** (t = n_drive) to **final quiet step** (t = n_total).
 PR = raw participation ratio (effective participating sites, interior M sites; **no center**).
-CF = fraction within r=2.0 of the **density peak** (PML-excluded interior). Resolution θ=0.10.
+CF = fraction within r=2.0 of the **density peak** (PML-excluded interior; **torus-native
+minimum-image ball** on `pml=0`, plain-Euclidean on the PML box — repair finding #1).
+Resolution θ=0.10.
 
 | N | boundary | fid | mode | E_persist | φ_persist | PR (start→end, rel) | CF (start→end, rel) | signature |
 |---|---|---|---|---|---|---|---|---|
-| 14 | torus | prod | **pair** | 1.0000 | **10.520** | 348.7→491.6 (**+0.410**) | 0.062→0.045 (**−0.274**) | **LOOP-FILLING** |
-| 14 | torus | prod | **graded_a0** | 1.0000 | **10.422** | 353.0→493.2 (**+0.397**) | 0.061→0.049 (**−0.203**) | **LOOP-FILLING** |
+| 14 | torus | prod | **pair** | 1.0000 | **10.520** | 348.7→491.6 (**+0.410**) | 0.062→0.052 (**−0.158**) | **LOOP-FILLING** |
+| 14 | torus | prod | **graded_a0** | 1.0000 | **10.422** | 353.0→493.2 (**+0.397**) | 0.061→0.055 (**−0.101**) | **LOOP-FILLING** |
 | 14 | PML | prod | pair | 0.8449 | 0.7266 | 87.5→94.8 (+0.084) | 0.178→0.113 (−0.364) | LOOP-FILLING |
 | 14 | PML | prod | graded_a0 | 0.8446 | 0.5826 | 88.1→97.1 (+0.102) | 0.182→0.125 (−0.316) | LOOP-FILLING |
 | 14 | torus | prod | photon_lock | 1.0000 | 0.0000 | 270.1→250.7 (−0.072) | 0.097→0.138 (**+0.417**) | CONCENTRATING* |
@@ -111,6 +114,29 @@ core). At **smoke** the dispersal arc is dramatic (the seed is still tight at dr
 CF≈0.43, then spreads to CF≈0.06 during quiet; PR 47→349); at **production** the drive phase
 has already dispersed the pattern by drive-off (CF≈0.06), and it continues to spread. Both
 fidelities, both seeds, both boundaries: the same direction — **dispersal, not tightening.**
+
+**Stencil caveat (repair finding #1 — torus-native CF).** The original banked torus CF values
+(pair **−0.274**, graded_a0 **−0.203**) were computed with a **non-periodic Euclidean** core-ball
+on the `pml=0` **periodic** lattice (`np.roll` wraparound, `k4_tlm.py:393`). The final-step
+energy peak on **both** fork cells sits at the array **seam**, `(6,6,6)→(7,1,1)`, so the
+Euclidean r=2.0 ball was **clipped**, excluding the wrapped part and inflating the CF-fall
+~2× (pair 1.73×, graded_a0 2.00×) — a bias that can **only** lower CF, i.e. only toward the
+LOOP-FILLING verdict (structural-null stencil class). The **minimum-image** distance
+`min(|d|, N−|d|)` per axis is the substrate-native torus metric; the corrected values are
+pair **−0.158**, graded_a0 **−0.101** (banked above). **Fork-cell peak coordinates** (energy,
+drive-off→end): pair `(6,6,6)→(7,1,1)`, graded_a0 `(6,6,6)→(7,1,1)` (both seam-adjacent at
+end); the PML twins peak interior (`(9,7,9)→(7,7,3)`, no seam) so their Euclidean balls are
+unaffected; `photon_lock` peaks at the center `(7,7,7)→(7,7,7)` so clipped ≡ periodic (its
+`+0.417` is genuine peak-sharpening, **not** a clip artifact — §4). The **PR** statistic is
+center-free/mask-only and stencil-clean, and rises strongly on both fork cells (`+0.410 /
++0.397`), so the LOOP-FILLING bin is carried independently of the CF stencil.
+
+**graded_a0 sits at the θ resolution floor.** Its torus-native CF-fall (**−0.101**) is
+essentially **at** the θ=0.10 floor — half of the previously-quoted dispersal magnitude on CF
+was seam-clip artifact. LOOP-FILLING for `graded_a0` therefore rests on the **stencil-clean,
+center-free PR** (rises `+0.397`), with CF-not-rising corroborating at the floor. (`pair`
+retains a resolved CF-fall of −0.158.) **Any future CF-based CONCENTRATING claim on the torus
+must use the torus-native (minimum-image) CF ball** — see the meter-reuse note in §4.
 
 ---
 
@@ -156,6 +182,13 @@ fraction. The **global** participation ratio correctly reports **no** concentrat
   **NOT** retuned post-hoc. The caveat is recorded: a future CONCENTRATING claim should require
   the **conjunction** (PR falls AND CF rises), and the participation ratio is the more robust
   single statistic. Surfaced for the auditor's meter-hardening queue.
+- **Meter-reuse note (repair finding #1):** any future **CF-based CONCENTRATING** claim on the
+  **torus** (`pml=0`) **must** use the torus-native **minimum-image** CF ball (now shipped). A
+  non-periodic Euclidean ball clips seam-adjacent peaks and biases CF **low**, which on a
+  concentration claim would **conservatively mask** a real tightening — the same structural-null
+  stencil failure, in the opposite direction. The `photon_lock` false positive here is **not**
+  the clip artifact (peak at center, clipped ≡ periodic); it is genuine peak-sharpening the CF
+  leaf cannot distinguish alone.
 
 ---
 
@@ -211,6 +244,21 @@ reproduction.
   fixed-\(N\) only.
 - **GRANT RULES THE FORK.** The docket's Reading A is *leaned*; this data supports closing it.
   The framing call is surfaced, not fiated.
+
+---
+
+## Review findings + repairs (2026-07-14)
+
+Independent adversarial review (`ave-adversarial-pr-review`, 3 lenses × 18 agents) confirmed
+**15 of 15** findings, **0 refuted** — all **EVIDENCE-VOID** (broken/absent demonstration
+machinery around a conclusion that is independently true). The **LOOP-FILLING ⇒ Reading A**
+fork verdict **survives every finding** (carried by the stencil-clean, center-free PR statistic
+and the byte-exact #670 φ-trend); the repairs **harden the meter and honesty-scope the claims**,
+they do **not** soften the data. Commit SHAs are listed in the PR body. Finding→fix map:
+
+| # | severity | finding | repair |
+|---|---|---|---|
+| 1 | MAJOR | CF core-ball used non-periodic Euclidean distance on the `pml=0` periodic torus; seam-adjacent peak clipped the ball, inflating the banked torus CF-fall ~2× toward LOOP-FILLING | driver `_meter_snapshot` now uses **minimum-image** distance on `pml=0` (Euclidean on the PML box); §2 table re-banked (pair −0.274→**−0.158**, graded_a0 −0.203→**−0.101**), stencil caveat + fork-cell peak coords added (§2), meter-reuse note added (§4). Verdict-robust: PR (center-free) rises `+0.410/+0.397`; both cells stay LOOP-FILLING. `graded_a0` CF now sits at the θ floor — LOOP-FILLING rests on PR. |
 
 ---
 
