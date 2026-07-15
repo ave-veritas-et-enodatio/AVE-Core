@@ -1201,12 +1201,15 @@ block `manuscript/ave-kb/common/envelope-anatomy.md`. **Supersedes** Ruling 8's 
 
 **What it records (a landing + Rule-12 staleness repair, not a new Grant ruling).** The **#698**
 meter-circuit-ontology addendum (`research/2026-07-14_gpersist-meter-circuit-ontology.md` §5/§7,
-merged) **withdrew** the #689 RESULT TL;DR item 2 **PML-twin boundary-insensitivity corroboration**:
-it holds only on the frozen **potential-only endpoint** meter; on the mandatory full-register
-instrument the PML twins do **not** corroborate (INCONCLUSIVE / CONCENTRATING† under the sponge-guard
-read) — a register/guard-dependent candidate PML kinetic-drain artifact, **not admissible as boundary
-corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`), LOOP-FILLING
-robust under every read (`guard_sensitive=False`).
+merged; phase-robust restatement landed via correction PR #701) **withdrew** the #689 RESULT TL;DR
+item 2 **PML-twin boundary-insensitivity corroboration**: it holds only on the frozen **endpoint**
+read — a single LC-slosh **phase moment**; under the phase-robust **quiet-window mean**,
+time-averaged, **NEITHER register is boundary-insensitive** (both the potential and full registers
+CONCENTRATE on the PML box while reading LOOP-FILLING on the torus). Per §5(2) this is a
+**boundary-DEPENDENT core-holding** signal (the fixed-center core ball absolutely GAINS energy on the
+PML box, +50.6% `pair`), **not** a read-region / kinetic-drain artifact, and **not admissible as
+boundary corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`),
+LOOP-FILLING robust under every read (`guard_sensitive=False`).
 
 **Untouched.** **Ruling 3** (enclosure fork = **Reading A**, wake-feeding) and **G-PERSIST ★RULED**
 stand — they rest on the torus cells and the fork-independent PML **φ-dispersion** trend
@@ -1220,18 +1223,21 @@ corroboration and is **no longer load-bearing**; the RULED verdict stands on the
 (register-robust there — LOOP-FILLING on both the potential and full registers, #698 §4). Rows
 byte-untouched; this entry is the dated annotation.
 
-**⚑ FLAG (flag-don't-fix — surfaced to orchestrator/Grant, NOT resolved here).** The **#698 PR body**
-describes a *stronger* phase-robust withdrawal — *"phase-averaged, NEITHER register is
-boundary-insensitive,"* a quiet-window-mean primary read, and a core-holding **+50%** absolute-energy
-diagnostic — landed via review-repair commits `8167a89c` / `850956b1` / `16231ad7` / `e45949fe`.
-**Those commits are NOT ancestors of `origin/main`** (`9bb760f9`): the merged #698 tree is commits
-`000d9cf4` + `6d9a8b2b` only. The **merged** §5/§7 therefore carries the *earlier* framing
-(**potential** register boundary-clean; **kinetic** register PML-drain-contaminated), **not** the
-phase-robust "NEITHER register" restatement. Both framings agree the corroboration is withdrawn and
-the fork rests on the torus cells; they differ only on whether the *potential* register is
-boundary-insensitive on the PML box. The in-corpus annotations this batch landed are written to the
-**merged** content; whether to merge the repair commits or reconcile the phase-robust restatement is
-left to the orchestrator/Grant.
+**⚑ FLAG (flag-don't-fix — surfaced to orchestrator/Grant; resolution STAGED, not yet on main).** The
+**#698 PR body** describes a *stronger* phase-robust withdrawal — *"phase-averaged, NEITHER register
+is boundary-insensitive,"* a quiet-window-mean primary read, and a core-holding **+50%**
+absolute-energy diagnostic — carried by review-repair commits `8167a89c` / `850956b1` / `16231ad7` /
+`e45949fe`. **Those commits were NOT ancestors of `origin/main`** (`9bb760f9`): #698 merged the
+addendum `000d9cf4` + `6d9a8b2b` only, dropping the four repairs. **Resolution STAGED — correction PR
+#701** (`fix/698-repair-commits-correction`; pre-fix-merge pattern, precedents #679/#683) brings the
+four repair commits onto a branch off `origin/main` (net diff = the four repairs, 3 files +469/−113;
+8/8 tests + `make verify` green). Until #701 merges, `origin/main`'s §5/§7 still carries the *earlier*
+framing (**potential** register boundary-clean; **kinetic** register PML-drain-contaminated); the
+in-corpus annotations this batch landed (RESULT TL;DR/§2/§3/§7 + board `:77` + this Ruling 10) are now
+written to the **phase-robust** framing #701 lands. Both framings agree the corroboration is withdrawn
+and the fork rests on the torus cells; they differ only on whether the *potential* register is
+boundary-insensitive on the PML box (phase-robust: it is **not** — time-averaged, both registers
+CONCENTRATE). Orchestrator/Grant to merge #701 (sequence relative to #700 at their discretion).
 
 **Sites it resolves / annotates:** `research/2026-07-14_gpersist-localization-observable_RESULT.md`
 (TL;DR item 2 Rule-12 note + §2 `:126` / §3 `:157-158` / §7 `:290` pointers; internal Finding #3
@@ -1243,5 +1249,6 @@ annotation); this docket's fork rows `:435`, `:477`, `:502` (dated annotation, a
 byte-untouched (origin/main region, first 122775 bytes, sha256 `64879a3c…`). Cites verified two-method
 at merged base `origin/main` `9bb760f9`. DO-NOT-MERGE; only the orchestrator/Grant merges. Ruling 9 is
 a FORM-level word-sense ruling (no value promoted; gates (a)/(b) unchanged); Ruling 10 is a landing +
-Rule-12 staleness repair carrying one open FLAG (unmerged #698 phase-robust repair commits). Nothing
-here canonizes a value.*
+Rule-12 staleness repair carrying one FLAG now resolution-staged via correction PR #701 (the four
+unmerged #698 phase-robust repair commits, DO-NOT-MERGE pending orchestrator). Nothing here canonizes
+a value.*

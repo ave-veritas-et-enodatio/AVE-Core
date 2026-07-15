@@ -26,14 +26,17 @@
 2. **Boundary-insensitive.** The PML twins read the SAME sign (PR rises, CF falls →
    LOOP-FILLING under `pml=3` too). The dispersal appears under **both** boundaries ⇒ it is a
    boundary-clean property of the pattern, not a torus artifact.
-   > **🔴 CORROBORATION WITHDRAWN (2026-07-15, falsifying-evidence pointer — Rule 12).** This
-   > PML-twin **boundary-insensitivity corroboration is withdrawn**. It holds only on the frozen
-   > **potential-only endpoint** meter; on the mandatory full-register instrument the PML twins do
-   > **not** corroborate — they read INCONCLUSIVE (this doc's **Finding #3 — ESCALATED §1**, below)
-   > / CONCENTRATING† under the sponge-guard read
+   > **🔴 CORROBORATION WITHDRAWN (2026-07-15, falsifying-evidence pointer — Rule 12; phase-robust
+   > restatement landed via correction PR #701).** This PML-twin **boundary-insensitivity
+   > corroboration is withdrawn**. It holds only on the frozen **endpoint** read — a single LC-slosh
+   > **phase moment**; under the phase-robust **quiet-window mean** the corroboration collapses and,
+   > **time-averaged, NEITHER register is boundary-insensitive** — both the potential and full
+   > registers CONCENTRATE on the PML box while reading LOOP-FILLING on the torus (the endpoint
+   > potential-only LOOP-FILLING was a phase minimum, `_nonmonotone_flag`)
    > ([`2026-07-14_gpersist-meter-circuit-ontology.md`](2026-07-14_gpersist-meter-circuit-ontology.md)
-   > §5/§7) — a register/guard-dependent candidate PML kinetic-drain artifact, **not admissible as
-   > boundary corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`),
+   > §5/§7). This is a **boundary-DEPENDENT core-holding** signal (the fixed-center core ball
+   > absolutely GAINS energy on the PML box, +50.6% `pair`), **not** a read-region / kinetic-drain
+   > artifact, and **not admissible as boundary corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`),
    > which read LOOP-FILLING robustly under every read (`guard_sensitive=False`). **RULED Reading A
    > and G-PERSIST ★RULED are untouched** — they rest on the torus cells and the fork-independent
    > PML **φ-dispersion** trend (a different, still-valid boundary-insensitive signal — the #670
@@ -136,9 +139,11 @@ core). At **smoke** the dispersal arc is dramatic (the seed is still tight at dr
 CF≈0.43, then spreads to CF≈0.06 during quiet; PR 47→349); at **production** the drive phase
 has already dispersed the pattern by drive-off (CF≈0.06), and it continues to spread. Both
 fidelities, both seeds, both boundaries: the same direction — **dispersal, not tightening.**
-(**2026-07-15:** the "both boundaries" PML-twin leg is a **potential-only-endpoint** read; its
-role as *boundary corroboration* is **withdrawn** on the full register — see TL;DR item 2 note +
-Finding #3 ESCALATED §1. The **torus** fork verdict is unaffected.)
+(**2026-07-15:** the "both boundaries" PML-twin leg is a frozen-**endpoint** read; its
+role as *boundary corroboration* is **withdrawn** under the phase-robust quiet-window mean —
+time-averaged, NEITHER register is boundary-insensitive (both CONCENTRATE on the PML box) — see
+TL;DR item 2 note + Finding #3 ESCALATED §1 (phase-robust restatement via correction PR #701).
+The **torus** fork verdict is unaffected.)
 
 **Stencil caveat (repair finding #1 — torus-native CF).** The original banked torus CF values
 (pair **−0.274**, graded_a0 **−0.203**) were computed with a **non-periodic Euclidean** core-ball
@@ -171,10 +176,11 @@ must use the torus-native (minimum-image) CF ball** — see the meter-reuse note
 stays distributed (PR does not fall, CF does not rise) while φ inflates — met on **both** fork
 cells, on **both** statistics (PR rises AND CF falls), corroborated by the PML twins
 (boundary-insensitive) and by the smoke arc. *(**2026-07-15:** the PML-twin boundary-insensitivity
-corroboration is **withdrawn** — it holds only on the potential-only endpoint meter; on the full
-register the PML twins do not corroborate. See TL;DR item 2 note + Finding #3 ESCALATED §1 +
+corroboration is **withdrawn** — it holds only on the frozen endpoint read (a phase moment); under
+the phase-robust quiet-window mean, time-averaged, NEITHER register is boundary-insensitive (both
+CONCENTRATE on the PML box). See TL;DR item 2 note + Finding #3 ESCALATED §1 +
 [`2026-07-14_gpersist-meter-circuit-ontology.md`](2026-07-14_gpersist-meter-circuit-ontology.md)
-§5/§7. The torus fork verdict — and the smoke corroboration — stand.)*
+§5/§7 (phase-robust restatement via correction PR #701). The torus fork verdict — and the smoke corroboration — stand.)*
 
 - **⇒ Reading A (wake-feeding) CONFIRMED; the fork closes toward A.** The periodic-torus
   enclosure returns the pattern's own dispersing wake; the projection gauge counts laps
@@ -307,9 +313,10 @@ reproduction.
 
 - **DECIDES (data, not ruling):** the enclosure fork — Reading A (wake-feeding) vs Reading B
   (self-tightening). Data ⇒ **LOOP-FILLING = Reading A**, ~~boundary-insensitive~~, robust.
-  (**2026-07-15:** "boundary-insensitive" here was the PML-twin corroboration, now **withdrawn** on
-  the full register — the verdict rests on the **torus** cells, robust under every read. See TL;DR
-  item 2 note + Finding #3 ESCALATED §1.)
+  (**2026-07-15:** "boundary-insensitive" here was the PML-twin corroboration, now **withdrawn**
+  under the phase-robust quiet-window mean — time-averaged, NEITHER register is boundary-insensitive
+  — the verdict rests on the **torus** cells, robust under every read. See TL;DR item 2 note +
+  Finding #3 ESCALATED §1 (phase-robust restatement via correction PR #701).)
 - **DOES NOT DECIDE:** the G-PERSIST ★RULED verdict (rests on the fork-independent PML
   φ-dispersion trend — untouched). Node-mint (fork B) stays firewalled; this reads (A)
   fixed-\(N\) only.
