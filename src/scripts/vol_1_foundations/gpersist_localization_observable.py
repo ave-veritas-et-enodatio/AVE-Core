@@ -32,8 +32,10 @@ flip rests on the fork-independent PML φ-dispersion trend).
 RULING-2 COMPLETION (2026-07-14, Grant): the frozen #689 meter read the POTENTIAL
 register ONLY (finding #3 ESCALATED — it omitted the Cosserat KINETIC register,
 ~44% of H). Per Ruling 2, the circuit ontology is now completed and fully labelled:
-the A1 energy blob is a two-register LC store (POTENTIAL = node-capacitor charge;
-KINETIC = inductor currents), and the completed FULL-register meter (energy_full)
+the A1 energy blob is a two-register LC store (POTENTIAL = Cosserat elastic +
+total K4 link-pulse energy [ENGINEERING-CHOICE: the whole TLM link-pulse energy is
+assigned to the potential register though a link pulse is 1/2 capacitive +
+1/2 inductive]; KINETIC = Cosserat inductor currents), and the completed FULL-register meter (energy_full)
 is the MANDATORY forward instrument; the frozen potential-only meter (energy_pot)
 stays BANKED for the #689 run (KEEP-BOTH). See the addendum doc + the three
 convention disclosures (register labels / bond-energy attribution / sponge
@@ -89,13 +91,15 @@ PRIMARY_R = 2.0
 # the K4⊗Cosserat lattice (see the addendum for the full mapping + the three
 # convention disclosures verbatim):
 #
-#   POTENTIAL register (capacitor / charge / displacement-storage):
+#   POTENTIAL register (charge / displacement-storage):
 #     E_pot[i] = k4.get_energy_density()[i]  +  cos.energy_density()[i]
 #              = Σ_port(V_inc²+V_ref²)        +  (strain + curvature) potential
-#       k4_tlm.py:528-530 (K4 V-sector node capacitance, per-port summed to the
-#       home node) ; cosserat_field_3d.py:1427 (Cosserat elastic potential, per
-#       node). This is the ONLY register the frozen #689 meter read (potential-
-#       only) — banked, KEEP-BOTH.
+#       k4_tlm.py:528-530 (K4 V-sector total link-pulse energy, per-port summed to
+#       the home node — ENGINEERING-CHOICE: the whole TLM link-pulse energy is
+#       assigned to the potential register though a traveling link pulse is
+#       1/2 capacitive + 1/2 inductive; ~1.4e-3 of H, identical in both instruments)
+#       ; cosserat_field_3d.py:1427 (Cosserat elastic potential, per node). This is
+#       the ONLY register the frozen #689 meter read (potential-only) — banked, KEEP-BOTH.
 #
 #   KINETIC register (inductor / current / velocity-storage):
 #     E_kin[i] = ½ρ Σ_c u̇_c[i]²  +  ½I_ω Σ_c ω̇_c[i]²

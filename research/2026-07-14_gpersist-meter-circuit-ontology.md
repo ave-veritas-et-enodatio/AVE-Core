@@ -51,7 +51,7 @@ own total (kinetic-**inclusive**) Hamiltonian —
 
 | register | circuit role | engine expression | code path | node/bond |
 |---|---|---|---|---|
-| **POTENTIAL** (K4 V-sector) | node capacitor charge — TLM voltage-pulse storage | `Σ_port (V_inc² + V_ref²)` per site | [`k4_tlm.py:528-530`](../src/ave/core/k4_tlm.py) `get_energy_density()` | per-port pulses summed to the **home node** |
+| **POTENTIAL** (K4 V-sector) | total TLM link-pulse energy, assigned to the potential register (**ENGINEERING-CHOICE**: ½ capacitive + ½ inductive — a traveling link pulse carries equal E/B energy; not "node capacitor charge") | `Σ_port (V_inc² + V_ref²)` per site | [`k4_tlm.py:528-530`](../src/ave/core/k4_tlm.py) `get_energy_density()` | per-port pulses summed to the **home node** |
 | **POTENTIAL** (Cosserat elastic) | strain/curvature spring energy — translational displacement + rotational storage | `(strain + curvature)` potential density | [`cosserat_field_3d.py:1427`](../src/ave/topological/cosserat_field_3d.py) `energy_density()` | **node** (u, ω node fields) |
 | **KINETIC** (Cosserat) | inductor currents — velocity + microrotation-rate storage | `½ρ Σ_c u̇_c² + ½I_ω Σ_c ω̇_c²` per site | [`cosserat_field_3d.py:1789-1794`](../src/ave/topological/cosserat_field_3d.py) `kinetic_energy()` | **node** (u̇, ω̇ *velocity fields conjugate to (u, ω)*, [`:913-918`](../src/ave/topological/cosserat_field_3d.py)) |
 | *T2/Φ_link (NOT A1)* | flux linkage / winding — accumulated lap count | `Σ_port Phi_link²` per site | [`k4_tlm.py:400`](../src/ave/core/k4_tlm.py) (monotone accumulation) | per-**bond** (4 ports) summed to home node |
@@ -77,8 +77,13 @@ kinetic row); T2/Φ_link stays orthogonal (A1 ⊥ T2, never summed).
 ## 2 · The three convention disclosures (verbatim — ENGINEERING-CHOICE tags)
 
 > **Disclosure #1 — REGISTER LABELS.** The A1 energy blob is a two-register LC store.
-> The **POTENTIAL** register (node-capacitor charge / displacement storage) =
-> `k4.get_energy_density()` (K4 V-sector, `Σ_port V_inc²+V_ref²`, `k4_tlm.py:528-530`) +
+> The **POTENTIAL** register (displacement / charge storage) =
+> `k4.get_energy_density()` (K4 V-sector total link-pulse energy `Σ_port V_inc²+V_ref²`,
+> `k4_tlm.py:528-530` — **ENGINEERING-CHOICE**: the whole TLM link-pulse energy is assigned to the
+> potential register even though a traveling link pulse is ½ capacitive + ½ inductive in the TLM
+> formalism [`V²=½(V_inc+V_ref)²+½(V_inc−V_ref)²`, and `Phi_link` accumulates from the same pulses,
+> `k4_tlm.py:400`]; K4 energy is ~1.4e-3 of H and is included **identically** in both instruments,
+> so this label choice moves no bin) +
 > `cos.energy_density()` (Cosserat strain+curvature potential, `cosserat_field_3d.py:1427`) —
 > this is the ONLY register the frozen #689 meter read. The **KINETIC** register (inductor
 > currents / velocity storage) = `½ρ|u̇|² + ½I_ω|ω̇|²` (Cosserat velocity u̇=`cos.u_dot` +
@@ -313,9 +318,17 @@ corroboration-level restatement for the auditor's manual/queue (**the auditor la
 - **COMPLETED (forward) instrument — `energy_full` (potential + Cosserat kinetic, sponge-
   excluded):** the **MANDATORY** instrument for **all future meter use**, and **especially for
   any CONCENTRATING claim** — a concentration claim must be scored on the full register (both LC
-  registers), with the two-statistic conjunction (`signature_conj`), the torus-native min-image
-  CF ball, and the `guard_sensitive` honesty flag. Potential-only CONCENTRATING claims are
-  **not** admissible going forward.
+  registers), with the **quiet-window-mean** phase-robust statistic as the PRIMARY read on the PML
+  box (endpoint kept as a disclosed companion; review MAJOR 1), the two-statistic conjunction
+  (`signature_conj`), the torus-native min-image CF ball, and the `guard_sensitive` / `nonmonotone`
+  honesty flags. Potential-only or single-endpoint CONCENTRATING claims are **not** admissible
+  going forward.
+- **Plant scope (binding, from the #689 repair):** the two-meter (φ-plant + localization) combo is
+  **un-foolable by DISTRIBUTED sustenance only.** The core-localized-pump adversary is the
+  **required follow-on** named in the merged #689 RESULT and has **not** run — do **not** cite the
+  combo as a general sustenance-proof detector until it does. The forward `--plant` on the
+  completed instrument still reads `UN-FOOLABLE_CONFIRMED` for the distributed pump (φ sustained
+  AND meter LOOP-FILLING).
 - **KEEP-BOTH, not a swap:** both instruments ship in the driver (`SECTORS` roster); the frozen
   read is preserved for the historical run, the completed read governs the future. This satisfies
   Grant's Ruling 2 unblock condition (map completed + fully labeled ⇒ KEEP-BOTH unblocked).
