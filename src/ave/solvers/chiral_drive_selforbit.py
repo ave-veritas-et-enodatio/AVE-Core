@@ -168,32 +168,42 @@ def _saturation_onsite(psi: np.ndarray, cfg: ChiralDriveConfig) -> np.ndarray:
     clock (real diagonal ⇒ H stays Hermitian). A_y=inf ⇒ ε_n=ω_0 (a global clock
     that drops out of the dynamics: the clean linear discriminator).
 
-    REGISTER TAG (2026-07-14, quarter-power Family-E burn-down, Item 2;
-    research/2026-07-14_quarter-power-map.md §Family-H, open-Q#4). This quantity
-    is `ε_n = ω_0·S` where `S = √(1−A²)` is the Op2/Ax4 saturation kernel applied
-    DIRECTLY as the on-site ENERGY modulation on the tight-binding diagonal — an
-    S^1-power register (cf. varactor stored energy E = Q²/(2C_eff) ∝ S at fixed
-    charge). It is NOT the same object as the op14 FREQUENCY clock, which rides
-    `√S`: the ratified local clock (PR #690) is
+    CLASSIFICATION: TAGGED-OPEN (2026-07-14, quarter-power Family-E burn-down,
+    Item 2; research/2026-07-14_quarter-power-map.md §Family-H, open-Q#4). The
+    implemented form is `ε_n = ω_0·S` where `S = √(1−A²)`, i.e.
+        ε_n = ω_0·S = ω_0·(1−A²)^{1/2}                 (a HALF-power in A²),
+    whereas the ratified op14 local clock (PR #690) rides `√S`:
         ω_local = ω_global·√S = ω_global·(1−A²)^{1/4}  (a QUARTER-power in A²)
-    from `C_eff = C₀/S, ω = 1/√(LC_eff)`, whereas this on-site term is
-        ε_n = ω_0·S = ω_0·(1−A²)^{1/2}                 (a HALF-power in A²).
+    from `C_eff = C₀/S, ω = 1/√(LC_eff)`. Map open-Q#4 is a DEFECT-vs-DELIBERATE
+    binary, and it stays OPEN. The two live readings:
+      (1) DEFECT (the reading op14 canon supports): this is the superseded
+          single-speed clock exponent. op14-local-clock-modulation.md:13 states
+          the `(1−A²)^{1/2}` form "was off by a factor of 2 in the exponent ...
+          superseded" by the ratified `(1−A²)^{1/4}=√S` (:19). Under this reading
+          `ε_n` should be `ω_0·√S`.
+      (2) DELIBERATE different-sector register (a CANDIDATE reading, no corpus
+          anchor): `ε_n` read as an on-site ENERGY modulation (S^1, cf. varactor
+          stored energy E = Q²/(2C_eff) ∝ S) rather than the frequency clock.
+          Caveat: `ε_n` is consumed only as the Hermitian diagonal H[n,n] in
+          build_hamiltonian (a frequency at ħ=1), and the "fixed charge" premise
+          fails because the modulating amplitude in S is |ψ_n| itself — so this
+          reading is weak and is offered only as a candidate, NOT asserted.
 
     ⚑ DISCLOSED TENSION (flag-don't-fix — NOT silently reconciled): the docstring
     and the frozen prereg (research/2026-07-08_chiral-drive-selforbit_prereg.md
-    §line 55/62) both LABEL this "local clock," yet implement the S^1 energy
-    register, not the √S frequency clock. NOT auto-corrected to √S here because:
-    (i) the math is frozen in the prereg; (ii) saturation is active ONLY in the
-    OPTIONAL/secondary Arm-5 proxy (A_yield=1.0), which is NOT part of the frozen
-    verdict (verdict = arms 1-4; see solver §"Verdict"); (iii) a change to √S
-    would perturb the banked Arm-5 NULL (curl PR 0.5476 vs off PR 0.5380,
-    research/2026-07-08_chiral-drive-selforbit_result.md:55). The semantic
-    question — is ε_n the op14 frequency clock (⇒ √S) or a deliberate S^1 on-site
-    energy register? — is routed to Grant/auditor (map open-Q#4)."""
+    §line 55/62) both LABEL this "local clock," yet the code implements the S^1
+    `(1−A²)^{1/2}` form, not the ratified √S clock. NOT auto-corrected to √S here
+    because: (i) the math is frozen in the prereg; (ii) saturation is active ONLY
+    in the OPTIONAL/secondary Arm-5 proxy (A_yield=1.0), which is NOT part of the
+    frozen verdict (verdict = arms 1-4; see solver §"Verdict"); (iii) a change to
+    √S would perturb the banked Arm-5 NULL (curl PR 0.5476 vs off PR 0.5380,
+    research/2026-07-08_chiral-drive-selforbit_result.md:55). The defect-vs-
+    deliberate question is routed to Grant/auditor (map open-Q#4)."""
     if not np.isfinite(cfg.A_yield):
         return np.full(cfg.N, cfg.omega0)
     ratio_sq = np.clip((np.abs(psi) / cfg.A_yield) ** 2, 0.0, 1.0 - 1e-12)
-    # S^1 register (see REGISTER TAG above); √S would be the op14 frequency clock.
+    # (1−A²)^{1/2} = S^1 form (see CLASSIFICATION: TAGGED-OPEN above); op14 canon's
+    # ratified clock is √S = (1−A²)^{1/4} — defect-vs-deliberate OPEN (map Q#4).
     return cfg.omega0 * np.sqrt(1.0 - ratio_sq)
 
 
