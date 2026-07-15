@@ -274,7 +274,45 @@ tag the rate alone cannot discriminate the contour.
 
 ## 5. PHASE-SPACE READING (WALK-LEVEL)
 
-<!-- filled per-commit -->
+> **WALK-LEVEL — Grant-walked 2026-07-14, in-chat.** This section is a framing walk, NOT a
+> corpus-derivation. It rides on two already-canonical phase-space facts and adds a reading of
+> the anatomy; the reading itself is not asserted as derived. Per A46 (phase-space coordinate
+> discipline): the corpus quarter-power claim lives in phase space, so its natural coordinates
+> are the impedance/action plane, not lattice-Cartesian.
+
+**Two canonical anchors this walk rides on:**
+- The lossless bond-LC tank's dynamical phase-plane vector `(V/V_max, Φ/Φ_max)` traces a
+  machine-precision **circle** — the L2 invariant is FORCED for the dynamical `(V_inc, Φ_link)`
+  pair (`axiom-register.md:188`).
+- The `(V_inc, V_ref)` phasor trajectory closes as the `(2,3)` winding on the **Clifford torus**
+  (`08_alpha_golden_torus.tex:28`), the static phase-space embedding the seed carries.
+
+**The walked mapping (framing):**
+- **orbit area = action = `A²`** in yield units (`A² = 2α` at the knee is an enclosed-action
+  contour, not a radius).
+- **impedance = the orbit-ellipse aspect ratio** (`Z/Z₀` is how squeezed the phase-orbit is;
+  a circle is `Z=Z₀`, matched).
+
+**The anatomy in phase space (the radial ladder, re-read):**
+- **far-field** → circular orbits (`A→0`, `Z=Z₀`, `Γ=0`).
+- **KNEE** → the **eccentricity-onset contour** (enclosed action `= 2α`; squeeze `Γ ≈ α/4`) —
+  the first departure from a matched circle.
+- **dress** → a squeeze GRADIENT (the orbit ellipse tightening with depth).
+- **wall** → a **fully-flattened orbit** = a pure standing wave. *(This is what total internal
+  reflection IS in phase space: the orbit collapses to a line, `|Γ|=1`.)*
+
+**The cross-register rule (the punchline of the walk):** half-powers live *within* one register;
+**quarter-powers appear exactly when a quantity crosses the real-space ↔ phase-space boundary.**
+The knee RADIUS `r_knee = (2α)^{−1/4} ℓ_node` is the **real-space shadow of a phase-space action
+contour** `A²=2α`: the `²` of the field-strain composition `A=(d_sat/s)²` is the register-crossing,
+and it is precisely that crossing that turns the half-power (`√(2α)`, staying in one register)
+into the quarter-power (`(2α)^{−1/4}`, crossing registers). This is why the voltage-strain twin
+(`A=d_sat/r`, no register crossing) is a half-power and the field-strain radius is a quarter.
+
+**Registered companion observable (walk-level):** the phase-space twin of gate (b) (the knee-NOTE
+r99 / coupling-correction adjudicator) — **orbit eccentricity vs enclosed action** — measured in
+the impedance plane rather than as a lattice radius. Registered here as a candidate; not yet a
+pre-reg.
 
 ## 6. BIQUATERNION BINDING
 
