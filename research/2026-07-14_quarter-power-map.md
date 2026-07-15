@@ -397,7 +397,52 @@ register (internal consistency); everything in Families C/D.
 
 ## 8. GRANT'S OPEN QUESTIONS (ranked)
 
-<!-- filled per-commit -->
+> **All defect rows are FLAGGED-NOT-FIXED (flag-don't-fix).** This doc surfaces contradictions
+> with verbatim evidence + file paths; it does NOT silently reconcile them. The Family-E hygiene
+> burn-down is a **QUEUED follow-on PR (auditor-lane KB fixes + engine hygiene), not this lane's
+> work.** Each defect site below was re-verified live at `bb58727f`.
+
+1. **Field-strain vs voltage-strain fork** (knee-NOTE `:241`, branch `analysis/knee-contour-check`).
+   Field strain `A=(d_sat/s)²` gives `r_knee = 2.877` (quarter-power); canonical
+   `methodological-contamination.md:48-52` voltage strain `A=d_sat/r` gives `8.278` (half-power).
+   This decides whether member 3 is in the ¼ story AT ALL — the one-contour hypothesis's own
+   kill-test. Walk-the-picture candidate: which strain does the cell at radius `s` actually feel?
+
+2. **Does any observable consume `r_knee`?** (§7.) Without a consumer, adjudicate the ¼ map as
+   identity-class and stop polishing it.
+
+3. **Op14 Z sign / load reconciliation.** `cosserat_field_3d.py:419-423` OPEN flag: the `Z=Z₀/√S`
+   form coexists with the live-wall SHORT `Z=Z₀·√(S_μ/S_ε)` in the SAME file, and with
+   `operators.md:54` (`Z₀/√S`) vs `k4-tlm-lensing-validation.md:22` (`Z₀/S^{1/4}`). Which sign does
+   the knee port present? (Feeds the §ii-b sign/ontology item, PENDING.)
+
+4. **Live half-exponent clock** `chiral_drive_selforbit.py:173` (`ω₀·√(1−A²)`, VERIFIED live) —
+   defect vs deliberate different-sector clock? Same class as the corrected op14 half-exponent.
+   **FLAGGED-NOT-FIXED.**
+
+5. **Family-E residue burn-down** (single hygiene PR, QUEUED): `eq_axiom_4.tex:47` stale flag +
+   stale `refractive_index() returns S^{1/4}` claim (code returns `S**0.5` at `fdtd:188`);
+   `cosserat_field_3d.py:482` **`1/64 → 1/16`** (the live coefficient off the legacy `Z=Z₀/S^{1/4}`
+   chain at `:453`); `boundary_invariants.py:31-32` + `crystal_graft_v2.py:87` docstrings; KB
+   `Z=Z₀/S^{1/4}` leaves (`k4-tlm-lensing-validation.md:22`, `k4-tlm-simulator.md:44`);
+   `cvr_model.py:126` legacy exposure; the figure/regression anchors (`apparatus_floor_wall_run.py:78`,
+   `test_gamma_sign_gate.py:138`). **All FLAGGED-NOT-FIXED.**
+
+6. **A_yield register fork.** `loop_gap_seeds.py:26` (`A_YIELD = √α`, no 2) — same √α register in
+   `regime_map.py:369` — vs `constants.R_I = √(2α)` / `chiral_lattice_v10.py:30`: a `2^{1/4}=1.189`
+   silent address error for any knee-keyed quantity. Which is canonical for genesis seeds?
+   **(Correction from the sweep:** `lense_thirring.py:172` is NOT in the √α register — it is a
+   hardcoded `√(2α)` literal, the R_I register inlined; its hygiene item is "should import
+   `constants.R_I`," a separate concern.)
+
+7. **F5 knee-vs-wall yield-surface tension** (charter; gate-b adjudicates) — constrains what the
+   knee rows may be CALLED.
+
+8. **0.22/0.84 KEEP-BOTH follow-on** (op14 `:122`) — re-derive core/shell `A²` under the ¼
+   exponent (`0.47/0.92`) or demote to illustrative-only. **KEEP-BOTH, FLAGGED-NOT-FIXED.**
+
+9. **Contour-tagging hygiene mandate** — an `A²=α` vs `A²=2α` tag on every 0.9963 (§4
+   near-collision row); one existing mis-use already found (`electron-bind-sim_result.md:59`).
 
 ## Re-verification corrections
 
