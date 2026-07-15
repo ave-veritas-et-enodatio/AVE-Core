@@ -450,19 +450,34 @@ def _reflection_density(
     Chain: local strain amplitude A -> saturation S -> impedance Z_eff -> Gamma.
         A^2 = |eps|^2/eps_yield^2 + |kappa|^2/omega_yield^2
         S = sqrt(1 - A^2)  (clipped to [eps, 1])
-        Z_eff / Z_0 = 1/S^(1/4)   (Op14)
-        grad ln(Z_eff) = -(1/4) grad ln(S) = -(1/(4 S)) grad S
-        Gamma  ~ (1/2) grad ln(Z_eff) = -(1/(8 S)) grad S    (continuum Op3)
-        Gamma^2 = (1/64) |grad S|^2 / S^2
+        Z_eff / Z_0 = 1/S^(1/2) = 1/sqrt(S)   (Op14, canonical register)
+        grad ln(Z_eff) = -(1/2) grad ln(S) = -(1/(2 S)) grad S
+        Gamma  ~ (1/2) grad ln(Z_eff) = -(1/(4 S)) grad S    (continuum Op3)
+        Gamma^2 = (1/16) |grad S|^2 / S^2
 
-    Op3 reflection-power density, with the explicit 1/64 factor from the
+    Op3 reflection-power density, with the explicit 1/16 factor from the
     chain (not bundled into k_refl):
 
-        L_reflection = (1/64) * |grad S|^2 / (S^2 + eps_reg)
+        L_reflection = (1/16) * |grad S|^2 / (S^2 + eps_reg)
 
     Vanishes in vacuum (S -> 1, grad S -> 0). Diverges at yield (S -> 0)
     unless regularized — the Pauli wall structure from the atomic solver
     (universal_pairwise_energy) recast at the field scale.
+
+    REGISTER CORRECTION (2026-07-14, quarter-power Family-E burn-down;
+    research/2026-07-14_quarter-power-map.md sec 2/3): the coefficient was
+    historically 1/64, descending from a LEGACY Z = Z_0/S^(1/4) impedance
+    register (Z^(-1/4) -> Gamma = -(1/8) grad S/S -> Gamma^2 = (1/64)...).
+    The canonical Op14 register is Z = Z_0/sqrt(S) = Z_0 S^(-1/2) (op14 clock
+    forcing; the S^(1/4) branch = (1-A^2)^(1/8) matches NO physical register).
+    Under Z = Z_0/sqrt(S): grad ln Z = -(1/2) grad S/S -> Gamma = -(1/4) grad
+    S/S -> Gamma^2 = (1/16) |grad S|^2/S^2. This now agrees with the two
+    sibling functions in this same file that already carried sqrt(S):
+    _s11_density (:425, Z_eff = 1/sqrt(S)) and _reflection_density_asymmetric
+    (:574-579, Z = Z_0*sqrt(S_mu/S_eps) -> Gamma = (1/4)[...] -> Gamma^2 =
+    (1/16)|...|^2). The 4x rescale is UNIFORM (multiplies every site by 4);
+    it does not alter any qualitative property (vanishes-in-vacuum, positive,
+    grows-near-yield ratio).
     """
     eps = _compute_strain(u, omega, dx)
     kappa = _compute_curvature(omega, dx)
@@ -477,9 +492,13 @@ def _reflection_density(
     grad_S_sq = jnp.sum(grad_S * grad_S, axis=-1)  # (nx,ny,nz)
     # Regularize 1/S^2 to avoid divergence at exact yield (autograd safety).
     eps_reg = 1e-6
-    # 1/64 factor is the explicit Gamma^2 coefficient from the continuum chain
-    # (research/_archive/L3_electron_soliton/12_ §3.4-3.5). Not a fit parameter.
-    reflection = (1.0 / 64.0) * grad_S_sq / (S * S + eps_reg)
+    # 1/16 factor is the explicit Gamma^2 coefficient from the continuum chain
+    # (research/_archive/L3_electron_soliton/12_ §3.4-3.5) under the CANONICAL
+    # Op14 register Z = Z_0/sqrt(S): Gamma = -(1/4) grad S/S => Gamma^2 = (1/16).
+    # Corrected 2026-07-14 from the legacy 1/64 (which rode the superseded
+    # Z = Z_0/S^(1/4) register); see the docstring REGISTER CORRECTION note and
+    # research/2026-07-14_quarter-power-map.md sec 2/3. Not a fit parameter.
+    reflection = (1.0 / 16.0) * grad_S_sq / (S * S + eps_reg)
     return reflection
 
 
