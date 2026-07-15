@@ -235,7 +235,42 @@ exponent, and stays **PENDING Grant**.
 
 ## 4. THE CIRCUIT MAP — radial ladder with the quarter-power identity overlaid
 
-<!-- filled per-commit -->
+**SECTOR:** graded vacuum-impedance network (all three channels). **REGIME:** strain A rises
+inward along the Op4 field composition `A(s) = (d_sat/s)²`. **Ladder: far-field → knee → dress
+→ wall → floor.**
+
+| Rung | Quantity | Value at rung | Projection chain | Corpus site | Status |
+|---|---|---|---|---|---|
+| Far-field (A→0) | everything | `S=1`; Maxwell exact; `Z=Z₀=√(μ₀/ε₀)` | — | `constants.py`; Op2 `universal_operators.py:112` | canonical |
+| **KNEE (`A²=2α`)** | radius (field-strain) | `r_knee = (2α)^{−1/4} ℓ_node = 2.877 ℓ_node ≈ 1.11 pm` | inverse-square field ∘ threshold-√: `s = d_sat·A_yield^{−1/2}` | knee-NOTE `:144,:226` (**branch/PR #696**) | measured, report-only, echo-classified; **fork:** voltage-strain twin = 8.278 (half-power) |
+| KNEE | clock | `ω_local = (1−2α)^{1/4} ω_global = 0.996331` | `C_eff=C₀/S`, `ω=1/√(LC)` | op14 leaf `:22` | **adjudicated** (PR #690) |
+| KNEE | c_shear | `0.996331 c₀` | `G_eff=G₀S`, `c=√(G/ρ)` | `scale_invariant.py:294` | canonical code (register RESOLVED; stale tex flag) |
+| KNEE | Z | `Z₀(1−2α)^{∓1/4} = Z₀(1 ∓ 0.003682)` | `Z=√(L/C)`; sign = load selector | `universal_operators.py:828`; open sign note `cosserat_field_3d.py:422` | canonical magnitude; **sign reconciliation OPEN** |
+| KNEE | Γ magnitude | `≈ −α/4 ≈ −0.001838` (engine: −0.002) | `Γ=(√S−1)/(√S+1)` | rulings-docket `:540` | **ruled** — knee is LOADING BC / port, NOT wall |
+| KNEE | deficit | `ΔS = α` (exactly `α+α²/2`) | contour definition | `chiral_lattice_v10.py:30` | coordinate authority |
+| KNEE | role | r99 outer envelope of the coupling-correction cloud (ratio 1.06) | — | knee-NOTE `:180` | branch-corroborated; F5 knee-vs-wall tension KEEP-BOTH |
+| Dress (`2α < A² ≪ 1`) | pairwise Z(r) | `Z₀/(1−(d_sat/r)²)^{1/4}`, running-α reactive register | Op4 inverse-square ∘ `Z=√(L/C)` | `universal_operators.py:229`; `qed_trace_beta_gate.py:108` (2026-07-14) | canonical; freshest site |
+| Wall (S→0) | Z, Γ | `Z→0` (μ-short) or `→∞` (ε-open); `Γ→∓1`; c_shear→0 (freeze), c_EM→∞ (steepen) | same chains, saturated limit | `crystal_engine.py:483`; `mass-closure-theorem.md:40`; `node_2domain_nport.py:468` | canonical; quantizing BC (mirror) per docket `:555` |
+| Floor (apparatus) | Γ_floor | `(n−1)/(n+1)` at `S_min` clip; −0.2400 legacy vs −0.4539 physical | apparatus clip, not physics | `apparatus_floor_wall_run.py:78` | flagged/qualified — apparatus artifact |
+
+### ★ THE NEAR-COLLISION HAZARD ROW (mandatory annotation on the map)
+
+`√(1−α) = 0.9963446` (CVR `|Γ|`; the `A²=α` coordinate) **vs** `(1−2α)^{1/4} = 0.9963312`
+(knee clock; the `A²=2α` coordinate) — **identical to `1.35e-5`** (both `= 1 − α/2 + O(α²)`;
+diff recomputed this session `= 1.346e-5`). Two different contours through different √-chains
+produce indistinguishable 0.9963s: `cvr-reflection-smith.md:38` (`|Γ| = √(1−α) ≈ 0.99635`) vs
+op14 `:22` (`(1−2α)^{1/4} ≈ 0.9963`).
+
+**One mis-use already found (verified this session):** `electron-bind-sim_result.md:59` records
+`ω_local(r) = ω_global·√(1−A²) = 0.9963 at A=√α`. That is the **half-exponent** clock (`S`, not
+`√S`) evaluated at the **`A²=α`** coordinate — a DIFFERENT (exponent, contour) pair from the
+knee's quarter-exponent at `A²=2α`, yet numerically indistinguishable via the near-collision.
+(In that doc the 0.9963 was not load-bearing — the result was Class-C/inconclusive, `:60,:62` —
+so no downstream claim broke; the hazard is that a load-bearing use could.)
+
+**Mandate proposal (routed to auditor lane):** every `0.9963` in the corpus carries a **contour
+tag** — `A²=α` (CVR `|Γ|`, half-exponent) vs `A²=2α` (knee clock, quarter-exponent). Without the
+tag the rate alone cannot discriminate the contour.
 
 ## 5. PHASE-SPACE READING (WALK-LEVEL)
 
