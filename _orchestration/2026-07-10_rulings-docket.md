@@ -1133,3 +1133,43 @@ its δ_th ablation is **channel-blind**, so C5 is **not adjudicated by the proxy
 the #691 RESULT C5-OPEN + "detector clean by design"
 (`research/2026-07-14_route-a-composite-fs_RESULT.md:110-111`, `:194-199`); `src/ave/core/constants.py:1135,1138`
 (CODATA target + standing "no framework derivation adopted" note; no AVE neutron value).
+
+### Ruling 8 — envelope mint: OPTION C — RULED
+
+**Ruling (Grant verbatim).** *"I like C for that."* — on how to mint the envelope. **OPTION C: mint
+the THREE-SURFACE ANATOMY as FORM; values stay gate-measured.**
+
+**The three-surface anatomy (FORM minted; values gate-measured).**
+- **(i) wall / floor** — the **mirror**; ground state at the ropelength floor `ℓ_node/2π ≈ 0.159
+  ℓ_node`.
+- **(ii) balance shell** — the corpus **soft number `~1.6 ℓ_node`**; status: **conjectured ≡ wall**
+  per Ruling 6, **gate-(b) adjudicated**.
+- **(iii) knee / dress-edge** — the **`ΔS = α` contour**; radius is a **REGISTERED CHECK** (is the
+  #693 `~10-cell` collar edge the knee contour? — running as a Wave-0 sibling lane).
+
+**Word-level sub-choice.** *"envelope" retires* vs *"envelope = the wall"* is **PROPOSED as
+"envelope = the wall"** in the KB lane's mint, **pending Grant confirm at merge**.
+
+**Canon-worthy walk findings — recorded BY POINTER (the KB lane lands the leaves).**
+- the **knee/wall stress–strain mapping**;
+- the **PATH-PARTICIPATION ASYMMETRY** — the EM correction is **endpoint physics** (collar-bound,
+  `s⁻⁶`) while gravity is **ledger physics** (a clock-weighted Komar volume integral): **same kernel
+  and stress register, inverted integration structure** — which is why gravity is **long-range
+  unscreened** and the EM correction **short-range** out of one substrate;
+- the **radial-ladder circuit table** — far-field **linear ladder** / **knee** = varactor-bias onset
+  / **dress** / **wall** = compliance-exhausted `|Γ|=1` / **floor** = minimum closed loop.
+
+**Consequence — FORM MINT LANDED BY THE KB LANE (not here).** This docket records the ruling and
+points at the leaves; the values stay **gate-measured**, not asserted. The mint targets the gated
+envelope def-nodes (`manuscript/ave-kb/common/vocabulary-register.md:367` `r_env` `def-088f0d`,
+`:382` node-Nyquist `def-e0cd83`, `:386` `def-envl0p` GATE), still gated on the **§45 A-vs-B**
+canonical fork (sub-node charge-core vs supra-node body envelope) until Grant's confirm.
+
+**Site it resolves:** batch board decision **#8** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md:82`);
+the envelope def-nodes `manuscript/ave-kb/common/vocabulary-register.md:367,382,386`; the §45 fork +
+docket status-board rows `_orchestration/2026-07-10_rulings-docket.md:724,782`.
+
+*Append-only continuation (2026-07-14 night) — all prior docket content byte-untouched (origin/main
+region, first 95658 bytes, sha256 `8df5b9f5…`). Cites verified two-method at merged base `origin/main`
+`bb58727f`. DO-NOT-MERGE; only the orchestrator/Grant merges. Ruling 6's gate-(b) consequence is
+REGISTERED-NOT-EXECUTED; Ruling 8's FORM mint is landed by the KB lane. Nothing here canonizes.*
