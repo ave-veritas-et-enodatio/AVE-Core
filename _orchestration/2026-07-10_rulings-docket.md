@@ -833,7 +833,44 @@ resolve on this branch.
 
 ### Ruling 1 — F6 Komar-clock register: √S (slope-1) IS the clock — CONFIRMED
 
-<!-- fill:R1 -->
+**Ruling (paraphrase, faithful).** On Flag F6, Grant confirmed that the **slope-1** quantity
+`√g₀₀ = √S` **IS the local clock / Komar-redshift weight**. The engine's live `komar_weight`
+(`src/ave/gravity/backreaction.py:235-252`, `return np.sqrt(S)`, docstring *"Redshift / Komar
+weight √S(A) on the local clock (Grant RULED (c), X44)"*) is on the correct side; the slope-2
+`n = 1 + (2/7)ε₁₁` deflection index (`ray_trace_deflection`) is a **propagation** index, not a
+clock.
+
+**The walk that grounded it (paraphrase).** The **local clock** = how quickly a mass region can
+*compress-and-rebound in place* against the external strain state (the asymptotic reference). The
+**propagation index** = how quickly the stress region *translates to new regions*. Refinement
+Grant accepted: **transport pays both** the slowed local tick **and** the strained hand-off path
+— the **slope-2 composition**; a **local oscillator pays only the first** (the tick). The
+**Komar/Tolman ledger sums per-cell in-place readings** — it never rides a signal across the
+strained region — so it weights by the **slope-1** in-place clock `√S`, not the slope-2
+propagation index. Read from the source side, this is the `z = (n_temporal − 1)/2` bridge: a
+propagating signal picks up 2× the local clock, but the source integral sees the 1× only.
+
+**What it resolves.** The Flag F6 **cross-source contradiction**
+(`research/2026-07-14_tij-x44b_CHARTER.md:251`, `:272`; charter ingredient-1 at `:106`). The
+**prevailing side**: the **W2 walk-back** + Grant's **RULED (c)** + the live `komar_weight` (all:
+`√S` IS the slope-1 clock/redshift). The **falsified side**: **X44 §5b(i)**
+(`research/2026-07-12_x44-komar-source_result.md:126-138`), which called `√S` the "EM
+operating-point / wrong register" and named the **linear** `n = 1 + (2/7)ε` the gravitational
+clock. The charter surfaced this *flag-don't-fix* (`:272`, *"a real cross-source contradiction …
+the X44b prereg must resolve which register is the clock before freezing"*); Grant has now
+adjudicated it: **X44 §5b(i) is the wrong side; √S (slope-1) is the clock.**
+
+**Registered — NOT executed.**
+- The **X44 §5b(i) falsifying-evidence relabel** — mark `:126-138` as the falsified side (auditor
+  queue). NOT fired.
+- The **X44b prereg may now name the clock register** (slope-1 `√g₀₀`, not slope-2 `n`) **at
+  freeze** — the charter required exactly this before freezing (`:106`, *"MUST name WHICH temporal
+  register is the clock … BEFORE freezing"*). **UNBLOCKED by this ruling, but NOT fired** (the
+  prereg is neither written nor frozen here).
+
+**Site it resolves:** `research/2026-07-14_tij-x44b_CHARTER.md:251` (Flag F6), `:272` (auditor-queue
+item), `:106` (ingredient-1); live engine `src/ave/gravity/backreaction.py:235-252`; falsified side
+`research/2026-07-12_x44-komar-source_result.md:126-138` (§5b(i)).
 
 ### Ruling 2 — #689 meter register: KEEP-BOTH, GATED on the circuit-ontology mapping
 
