@@ -1063,3 +1063,19 @@ verified two-method at base `origin/main` `25b3b911`; in-flight files verified a
 PR-branch tips (#689 / #692 / #693 / #694, local == origin). DO-NOT-MERGE; only the
 orchestrator/Grant merges. Nothing here canonizes; every consequence is HELD pending Grant's
 possibility-map review.*
+
+---
+
+## Continuation — 2026-07-14 (night): three further in-chat rulings — F5, canonization, envelope mint
+
+Three further rulings Grant made **in-chat** during the night 2026-07-14 session — after the
+five-rulings continuation above and after the eight-lane batch board (#694). These adjudicate the
+three items the batch board still flagged for Grant: decision-queue **#7 (F5 knee-vs-wall)**, **#6
+(#691 canonization)**, **#8 (envelope-LENGTH mint)** — `_orchestration/2026-07-14_batch-outcomes-and-actions.md:80-82`.
+For each ruling this continuation records (1) the ruling **verbatim** where one exists (marked), (2)
+the physical walk that grounded it (**paraphrase-faithful**, marked), (3) the consequence — with its
+execution-status tagged, and (4) the in-repo site it resolves. **Cites verified two-method**
+(line-range read + content grep) at merged base `origin/main` `bb58727f`; the charter,
+vocabulary-register, and #691 RESULT sites are on `origin/main`. **DO-NOT-MERGE**; only the
+orchestrator/Grant merges. **Nothing here canonizes**; the FORM mint of Ruling 8 is landed by the KB
+lane (this docket records the ruling and points at the leaves).
