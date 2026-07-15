@@ -1173,3 +1173,82 @@ docket status-board rows `_orchestration/2026-07-10_rulings-docket.md:724,782`.
 region, first 95658 bytes, sha256 `8df5b9f5…`). Cites verified two-method at merged base `origin/main`
 `bb58727f`. DO-NOT-MERGE; only the orchestrator/Grant merges. Ruling 6's gate-(b) consequence is
 REGISTERED-NOT-EXECUTED; Ruling 8's FORM mint is landed by the KB lane. Nothing here canonizes.*
+
+## Continuation — 2026-07-15 (post-merge auditor batch 4): envelope=wall CONFIRMED + #698 corroboration-withdrawal landing
+
+### Ruling 9 — envelope word-sense: "envelope = the wall" — CONFIRMED
+
+**Ruling (Grant verbatim).** *"Yes"* — answering the explicit confirm-at-merge question (Ruling 8's
+word-level sub-choice), in-chat 2026-07-15, after merging #697.
+
+**What it settles.** Ruling 8's **word-level sub-choice** — *"envelope" retires* vs *"envelope = the
+wall"*, left **PROPOSED as "envelope = the wall"** pending Grant confirm at merge (this docket
+`:1150-1151`) — is now **CONFIRMED**. The token **"envelope" canonically denotes the wall** — surface
+(i), the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert=1$ mirror. The **balance shell** (ii) and the
+**knee / dress edge** (iii) keep their own names. This is a **FORM-level word-sense ruling only** — it
+promotes **no** numerical value. The value-side gates stay Grant-gated, **unchanged**: **(a)** the
+r_env / node-Nyquist length mint (proposed → SOLID; board decision #8,
+`_orchestration/2026-07-14_batch-outcomes-and-actions.md:82`) and **(b)** the §45
+balance-shell-distinctness / radii (gate-(b), Ruling 6 CONJECTURED ≡ wall).
+
+**Sites it resolves:** the KB markers flipped PROPOSED→CONFIRMED at
+`manuscript/ave-kb/common/vocabulary-register.md:390` (def-anat3s) + `:401` (GATE item c),
+`manuscript/ave-kb/common/claim-quality.md:1414` (clm-3surfa caveat), and the canonical-home status
+block `manuscript/ave-kb/common/envelope-anatomy.md`. **Supersedes** Ruling 8's word-level sub-choice
+(this docket `:1150-1151`, byte-untouched).
+
+### Ruling 10 — #698 meter-ontology: #689 PML-twin boundary-insensitivity corroboration — WITHDRAWN (landing record + Rule-12 repair)
+
+**What it records (a landing + Rule-12 staleness repair, not a new Grant ruling).** The **#698**
+meter-circuit-ontology addendum (`research/2026-07-14_gpersist-meter-circuit-ontology.md` §5/§7,
+merged; phase-robust restatement landed via correction PR #701) **withdrew** the #689 RESULT TL;DR
+item 2 **PML-twin boundary-insensitivity corroboration**: it holds only on the frozen **endpoint**
+read — a single LC-slosh **phase moment**; under the phase-robust **quiet-window mean**,
+time-averaged, **NEITHER register is boundary-insensitive** (both the potential and full registers
+CONCENTRATE on the PML box while reading LOOP-FILLING on the torus). Per §5(2) this is a
+**boundary-DEPENDENT core-holding** signal (the fixed-center core ball absolutely GAINS energy on the
+PML box, +50.6% `pair`), **not** a read-region / kinetic-drain artifact, and **not admissible as
+boundary corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`),
+LOOP-FILLING robust under every read (`guard_sensitive=False`).
+
+**Untouched.** **Ruling 3** (enclosure fork = **Reading A**, wake-feeding) and **G-PERSIST ★RULED**
+stand — they rest on the torus cells and the fork-independent PML **φ-dispersion** trend
+respectively (the #670 T2/Φ_link channel — a *different*, still-valid boundary-insensitive signal,
+never summed into the A1 localization meter).
+
+**Fork-rows dated annotation (Item A of this batch).** The three G-PERSIST fork rows (this docket
+`:435`, `:477`, `:502`) describe the #689 evidence as *"LOOP-FILLING on both statistics, **both
+boundaries**, register-robust."* The **"both boundaries"** (PML-twin) leg leans on the now-**withdrawn**
+corroboration and is **no longer load-bearing**; the RULED verdict stands on the **torus** cells
+(register-robust there — LOOP-FILLING on both the potential and full registers, #698 §4). Rows
+byte-untouched; this entry is the dated annotation.
+
+**⚑ FLAG (flag-don't-fix — surfaced to orchestrator/Grant; resolution STAGED, not yet on main).** The
+**#698 PR body** describes a *stronger* phase-robust withdrawal — *"phase-averaged, NEITHER register
+is boundary-insensitive,"* a quiet-window-mean primary read, and a core-holding **+50%**
+absolute-energy diagnostic — carried by review-repair commits `8167a89c` / `850956b1` / `16231ad7` /
+`e45949fe`. **Those commits were NOT ancestors of `origin/main`** (`9bb760f9`): #698 merged the
+addendum `000d9cf4` + `6d9a8b2b` only, dropping the four repairs. **Resolution STAGED — correction PR
+#701** (`fix/698-repair-commits-correction`; pre-fix-merge pattern, precedents #679/#683) brings the
+four repair commits onto a branch off `origin/main` (net diff = the four repairs, 3 files +469/−113;
+8/8 tests + `make verify` green). Until #701 merges, `origin/main`'s §5/§7 still carries the *earlier*
+framing (**potential** register boundary-clean; **kinetic** register PML-drain-contaminated); the
+in-corpus annotations this batch landed (RESULT TL;DR/§2/§3/§7 + board `:77` + this Ruling 10) are now
+written to the **phase-robust** framing #701 lands. Both framings agree the corroboration is withdrawn
+and the fork rests on the torus cells; they differ only on whether the *potential* register is
+boundary-insensitive on the PML box (phase-robust: it is **not** — time-averaged, both registers
+CONCENTRATE). Orchestrator/Grant to merge #701 (sequence relative to #700 at their discretion).
+
+**Sites it resolves / annotates:** `research/2026-07-14_gpersist-localization-observable_RESULT.md`
+(TL;DR item 2 Rule-12 note + §2 `:126` / §3 `:157-158` / §7 `:290` pointers; internal Finding #3
+ESCALATED §1); `research/2026-07-14_gpersist-meter-circuit-ontology.md` §5/§7;
+`_orchestration/2026-07-14_batch-outcomes-and-actions.md:77` (decision-#3 "both boundaries"
+annotation); this docket's fork rows `:435`, `:477`, `:502` (dated annotation, above).
+
+*Append-only continuation (2026-07-15, post-merge auditor batch 4) — all prior docket content
+byte-untouched (origin/main region, first 122775 bytes, sha256 `64879a3c…`). Cites verified two-method
+at merged base `origin/main` `9bb760f9`. DO-NOT-MERGE; only the orchestrator/Grant merges. Ruling 9 is
+a FORM-level word-sense ruling (no value promoted; gates (a)/(b) unchanged); Ruling 10 is a landing +
+Rule-12 staleness repair carrying one FLAG now resolution-staged via correction PR #701 (the four
+unmerged #698 phase-robust repair commits, DO-NOT-MERGE pending orchestrator). Nothing here canonizes
+a value.*
