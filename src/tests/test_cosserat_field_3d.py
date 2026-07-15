@@ -490,14 +490,23 @@ def test_reflection_density_coefficient_pinned_to_one_sixteenth():
         _tetrahedral_gradient,
     )
 
-    # (a) Derivation-level pin: the exponent chain forces (1/4)^2 = 1/16.
+    # (a) IN-TEST DOCUMENTATION (NOT a gate — self-referential arithmetic).
+    # These are all test-local constants; the two asserts below reduce to
+    # 0.25**2 == 1/16 and cannot fail against the module on any input. They
+    # document the register→coefficient chain so a reader sees WHY the literal in
+    # part (b) is 1/16. `z_exponent = 0.5` is hardcoded here because no shared
+    # Op14-register symbol exists (the module hardcodes the exponent inline at
+    # _s11_density:425 and _reflection_density_asymmetric); if that register is
+    # ever centralized into one constant, import it into BOTH module and this
+    # test to make part (a) a genuine derivation pin (else this 0.5 is a second
+    # uncoordinated copy). The OPERATIVE GATE is part (b).
     z_exponent = 0.5  # Z = Z_0 * S^(-z_exponent), the canonical Op14 register
     gamma_coeff = 0.5 * z_exponent  # Gamma = (1/2) d ln Z  => 1/4
-    gamma_sq_coeff = gamma_coeff**2  # => 1/16
-    assert gamma_sq_coeff == 1.0 / 16.0
-    assert gamma_sq_coeff != 1.0 / 64.0  # explicitly reject the legacy register
+    gamma_sq_coeff = gamma_coeff**2  # => 1/16 (documented target for part (b))
+    assert gamma_sq_coeff == 1.0 / 16.0  # documentation check (arithmetic truth)
+    assert gamma_sq_coeff != 1.0 / 64.0  # documents rejection of the legacy value
 
-    # (b) Implementation pin: _reflection_density returns EXACTLY
+    # (b) OPERATIVE GATE — the literal pin: _reflection_density returns EXACTLY
     #     gamma_sq_coeff * |grad S|^2 / (S^2 + eps_reg), reconstructed via the
     #     module's own internal chain (so a coefficient drift is caught).
     solver = CosseratField3D(20, 20, 20, use_saturation=True)
