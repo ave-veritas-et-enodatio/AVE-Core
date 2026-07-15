@@ -133,3 +133,120 @@ physical instantiations `D_PROTON` / Slater / `L_NODE` map 1:1 onto it, `knee-ch
    (should recover Op4, `p=2`).
 6. **Verdict** = `classify(...)` on the frozen thresholds. If NO-MATCH/PARTIAL: name the object Op4
    equals, and FLAG (do NOT edit — flag-don't-fix) the downstream Op4/Op14 consumers.
+
+---
+
+## 4. Results
+
+**Driver as-run:** window `r/d_sat ∈ [2,300]`, far-field termination `R_far=3000 d_sat`, discretization
+sweep `N ∈ {400,1200,4000,12000}` at per-cell electrical length `θ=0.30`, both `S^{±1/2}` sign variants,
+both strain registers. Output `assets/sim_outputs/op4_ladder_integral_check.{json,png}` (gitignored,
+regenerable). Kernel `universal_saturation` imported unmodified; `Z_0`/`EPS_CLIP` from `ave.core.constants`;
+`make verify` green at HEAD; the test `src/tests/test_op4_ladder_integral_check.py` (6 cases) green.
+
+> **TL;DR (verdict §4.4): `NO-MATCH`.** The FIELD-strain ladder (Ruling-11 register) integrates to a port
+> of exponent **`p = 4.000`** — `Z_in(r) = Z₀(1−(d_sat/r)⁴)^{±¼}` — under **both** sign variants, whereas
+> Op4 is **`p = 2`** — `Z₀(1−(d_sat/r)²)^{−¼}`. The exponents are structurally different (quartic vs
+> quadratic argument), and the mismatch is **sign-independent** (the Op4-direction rise variant is still
+> `p=4`), so `MATCH-UP-TO-SIGN` does not apply. Op4's argument is **NOT** the integrated field ladder.
+> §5 identifies what Op4 *does* equal (the local VOLTAGE-strain dress, `p=2`, reproduced exactly by the
+> voltage-register control ladder). No value minted (CONSISTENCY class).
+
+### 4.1 The exact ladder converges to the local WKB dress (adiabatic invariant, confirmed empirically — Rule 10)
+
+The exact transmission-line cascade `Re(Z_in(r))` converges monotonically to the analytic WKB local
+dress `Z_local(r)` as the discretization refines, in **both** registers — confirming step (3)'s derivation
+that a matched adiabatic taper presents its local characteristic impedance at the port, and that **no
+ladder-integration transforms the per-cell argument**:
+
+| register (@ `r=2 d_sat`) | WKB local `Z_local` | `N=400` resid | `N=1200` | `N=4000` | `N=12000` |
+|---|---:|---:|---:|---:|---:|
+| field-strain rise `S^{−½}` | 382.858 Ω (= 1.01626 `Z₀`) | 9.83e-2 | 1.11e-2 | 1.00e-3 | **1.12e-4** |
+| VOLTAGE control `S^{−½}` (= Op4) | 404.823 Ω (= 1.07457 `Z₀`) | 1.67e-1 | 1.88e-2 | 1.70e-3 | **1.88e-4** |
+
+The field ladder reaches `(1−(d/r)⁴)^{−¼}·Z₀`; the voltage ladder reaches Op4. The recursion is faithful
+to the local dress in each case — the difference between them is entirely in the per-cell strain, not in
+any integration effect.
+
+### 4.2 Recovered argument exponent `p` in `(1−(d_sat/r)^p)^q`
+
+| register / sign | recovered `p` (q pinned) | fit SSE | vs Op4 (`p=2`) |
+|---|---:|---:|---|
+| field-strain rise `S^{−½}` | **4.000** | 3.9e-31 | `p=4 ≠ 2` |
+| field-strain fall `S^{+½}` | **4.000** | 5.8e-31 | `p=4 ≠ 2` |
+| VOLTAGE control (Op4's own register) | **2.000** | 3.4e-31 | `p=2` — recovers Op4 |
+
+### 4.3 Pointwise port table (5 sample radii, `Z_in/Z₀`)
+
+| `r/d_sat` | Op4 (`p=2`, voltage) | field-rise ladder (`p=4`, `S^{−½}`) | field-fall ladder (`p=4`, `S^{+½}`) | voltage-ctrl ladder |
+|---:|---:|---:|---:|---:|
+| 2   | 1.074570 | 1.016263 | 0.983997 | 1.074565 |
+| 5   | 1.010258 | 1.000400 | 0.999600 | 1.010257 |
+| 10  | 1.002516 | 1.000025 | 0.999975 | 1.002516 |
+| 30  | 1.000278 | 1.000000 | 1.000000 | 1.000278 |
+| 300 | 1.000003 | 1.000000 | 1.000000 | 1.000003 |
+
+Max relative deviation of the field dress from Op4: **rise 5.43e-2 @ `r=2`** (near zone), 2.62e-4 in the
+far zone (`r≥30`); **fall 8.43e-2 @ `r=2`**, 2.63e-4 far. The deviation grows monotonically toward the
+wall and vanishes far. The voltage-control ladder reproduces Op4 to `~5e-6` (validating the recursion).
+
+### 4.4 Verdict — `NO-MATCH`
+
+`classify()` → **NO-MATCH**. The field-strain ladder port is `p=4.000` (both signs, fit exact to `1e-31`),
+structurally distinct from Op4's `p=2`. Neither sign variant reaches Op4 — the argument mismatch (quartic
+vs quadratic in `d_sat/r`) is orthogonal to the `S^{±½}` sign, so the finding is decisively NO-MATCH, not
+MATCH-UP-TO-SIGN. This is precisely the NO-MATCH example the class definition anticipated: *"the WKB limit
+gives `Z ∝ (1−(d/r)⁴)^{±1/4}` from the local field-strain, not `(1−(d/r)²)`."*
+
+---
+
+## 5. What object Op4 DOES equal (the honest identification)
+
+**Op4's `Z₀(1−(d_sat/r)²)^{−¼}` is exactly the LOCAL VOLTAGE-strain dress.** With the voltage/displacement
+strain `A_V = d_sat/r` fed *directly* into the canonical kernel, `Z = Z₀·S(A_V)^{−½} = Z₀(1−(d_sat/r)²)^{−¼}`
+— Op4, identically (`test_op4_ladder_integral_check.py::test_op4_dress_is_canonical_kernel_identity`, `rtol=1e-12`).
+The voltage-register **control ladder** integrates to this same form (`p=2.000`, reproduced to `~5e-6`, §4.1/4.3),
+so Op4 **is** a legitimate ladder port — but of the **VOLTAGE/displacement register** (`A ∝ 1/r`), NOT of
+Ruling-11's **FIELD register** (`A_E ∝ 1/r²`). This is self-consistent with Op4's own provenance:
+
+- Op4 docstring `universal_operators.py:160` — *"A(r) = d_sat/r (strain amplitude…)"* — voltage-strain.
+- qed-trace expansion `2026-07-14_qed-trace-beta-gate_RESULT.md:112` — *"`Z/Z₀−1 ≈ ¼(d_sat/r)²` ⇒ reactive `p=2`"*.
+
+The far-field agreement between the two dresses (both `→ Z₀`) is the **trivial** `dress→Z₀` limit every
+dress shares — it is NOT a form match; the distinguishing structure (the argument exponent) differs across
+the entire window.
+
+---
+
+## 6. Implications + downstream flags (flag-don't-fix)
+
+**The register question is NOT ruled by this check.** It establishes the *fact*: the FIELD-strain ladder
+(Ruling-11) and the VOLTAGE-strain dress (Op4/Op14 as-built) are structurally different port objects
+(`p=4` vs `p=2`), and Op4 sits on the voltage side. **Whether Op4's voltage argument is a genuine register
+defect** (the pairwise potential *should* be biased by the field-strain the #693 kernel consumes) **or a
+legitimate register choice** (the pairwise potential is intrinsically a displacement/voltage-strain object)
+is a **Grant/auditor physics adjudication** — this check surfaces it, sharpened from the knee-check
+*amplitude*-level flag (`2026-07-14_knee-contour-check_NOTE.md:66-72`) to the **port-expression** level.
+
+**Downstream consumers of the `p=2` voltage-strain form (FLAGGED — do NOT edit; auditor/Grant adjudicate):**
+
+1. `src/ave/core/universal_operators.py:184` — `S_quarter = (1.0 - ratio_sq) ** 0.25` with
+   `ratio_sq=(d_sat/r)²` (the `p=2` voltage argument); docstring `:229` `Z_eff/Z₀ = 1/(1−(d_sat/r)²)^{1/4}`.
+2. `src/scripts/vol_2_subatomic/qed_trace_beta_gate.py:103,108` — `reactive_alpha`,
+   `Z(r)/Z0 = 1/(1−(d_sat/r)²)^{1/4}`, `p=2` (the reactive register the beta gate reads).
+3. `manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/pairwise-potential.md:20` —
+   `Z(r) = Z₀/(1−(d_sat/r)²)^{1/4}`.
+4. `src/ave/topological/cosserat_field_3d.py:419-423` — the pre-existing Op14 exponent/sign reconciliation
+   flag (`Z0/√S` vs `Z0/S^{1/4}` vs `Z0·√(S_μ/S_ε)`). **This check adds a distinct THIRD axis to that
+   flag:** beyond the *outer* exponent and the *sign*, there is the **strain-register** axis — which strain
+   (field `∝1/r²` vs voltage `∝1/r`) feeds the kernel. The `p=2`-vs-`p=4` argument fork is orthogonal to
+   the outer `√S`-vs-`S^{1/4}` fork and to the `S^{±½}` sign fork.
+
+**The flag is NOT "Op4 is arithmetically wrong."** Op4 is internally consistent as the voltage-strain dress
+and its ladder port reproduces it exactly. The flag is: **Op4/Op14 encode the VOLTAGE register; Ruling-11
+registers the FIELD register; these integrate to different port forms; the register choice for the pairwise
+potential is unadjudicated.**
+
+**Consistency-vs-emergence: CONSISTENCY.** No value minted, no emergence headlined; the earnable content is
+a functional-form (register) characterization of a canonical operator, `K`-independent.
+
