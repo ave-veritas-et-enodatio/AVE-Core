@@ -1457,3 +1457,62 @@ The EM correction (vacuum-polarization / running analog) and gravity ride the **
 - strengthen-by:
   - a forward test that the EM endpoint-integral vs gravity volume-integral structures are the SAME kernel evaluated two ways (e.g. an engine that computes both from one $S(A)$ field and shows the range behaviour follows from the integration domain alone)
   - close the gravity-ledger reconciliation (X44b surviving ingredients (b)+(c): $\sqrt{S}$-clock + stress register ($T_{ij}$) + virialized family — the "linear-clock" ingredient (i) is FALSIFIED per Grant Ruling 1, C1 of this batch) so the Komar volume integral is a computed ledger, not a ruled weight
+---
+
+## Strain-Register Carve — the kernel eats field-strain, not voltage-strain (FORM, Grant Ruling 11)
+<!-- id: clm-strreg -->
+
+The constitutive kernel $S(A)=\sqrt{1-(A/A_{yield})^2}$ consumes **FIELD-strain** — the per-cell drop $E\cdot\ell_{node}$, the gradient register — **NOT** **voltage-strain**, the potential (the accumulated $d_{sat}/r$ over an interaction span). **Ladder theorem:** the potential IS the series sum of the per-cell drops (voltage register $=$ line integral of the field register); cells feel steps, ports/interactions see sums. Minted as **FORM per Grant Ruling 11 (RULED, verbatim "Yes, I agree with where the walk is ending up"; record: the 2026-07-15 register-walk docket continuation)**; canonical home [`strain-registers.md`](./strain-registers.md).
+
+- _Specific Claims_
+  - **FORM (Grant-ruled):** the kernel keys on the per-cell field-strain (three converging grounds: the varactor biases on its own junction span; a physical dielectric saturates against $E$ via $P(E)$; translation invariance forbids a kernel on total displacement $u$, so it keys on $\partial u \leftrightarrow E$).
+  - **Ladder theorem:** $V=\int E\,d\ell=\sum_{\text{cells}}E\cdot\ell_{node}$ — the two registers are one ladder at two scales, not competitors. Both knees are real: the **field knee** $(2\alpha)^{-1/4}=2.877\,\ell_{node}$ (cell/dress, step register, measured as the $r99$ outer edge in PR #696, **ratio 1.06–1.27** — frozen 1.06 / refined 1.27) and the **voltage knee** $(2\alpha)^{-1/2}=8.278\,\ell_{node}$ (interaction/port, ladder register); the second is the square of the first, as a line integral relates to its step.
+  - **Resolves the 1/4-map Q#1 fork:** the driver's field-strain $(d_{sat}/s)^2$ (knee 2.877) and `methodological-contamination.md:48`'s voltage-strain $d_{sat}/r$ (knee 8.278) are each correct in their own register; the `r_knee` value is fork-conditional no more (still α-echo-classified).
+- _Specific Non-Claims and Caveats_
+  - **RULED CONVENTION, NOT A DERIVATION — consistency-class.** Grant ruled which strain the kernel eats; the VALUES ride CODATA-derived imports ($\alpha$, $\ell_{node}=\hbar/m_ec$). This does not derive $\alpha$ or the knee value.
+  - **The Op4/Op14 $(d_{sat}/r)^2$ port expression — the ★REGISTERED CHECK HAS FIRED (PR #704, 2026-07-15): NO-MATCH → RESOLVED-as-register-identity.** The Op4 ladder integral returned NO-MATCH ($p=4$ both signs; WKB ports localize, $Z_{in}\to Z_{local}$), so Op4 is REFUTED as a constitutive-dress integration and RESOLVED as the local voltage-register dress (a legitimate pairwise / interaction-register operator under the ruled carve). The fork closes by register-identity, not integration-match; the Op4 scope label (pairwise-only + 4 consumer sites) is routed to Grant.
+  - **No correction owed at `methodological-contamination.md`** — its pairwise voltage-strain is the interaction/port register used correctly; the knee-NOTE's ⚑ voltage-strain FLAG is resolved (port register), not fixed.
+  - Does NOT overturn the canonical dielectric specialization $A=\Delta\phi/\alpha$ ($\Delta\phi$ = the per-cell phase drop = the field/step register).
+
+> **Leaf references:** [strain-registers](./strain-registers.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - clm-3surfa — the envelope three-surface anatomy (the knee / dress-edge surface (iii) that this ruling gives a step/field register label)
+  - INVARIANT-S2 / Axiom 4 (the saturation kernel $S(A)$ + its operating-point clause: $A$ is the per-node field-strain state)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.55, 0.45)]
+- rationale: FORM-class organizing carve, Grant-ruled at the FORM level (Ruling 11) — that the kernel keys on the per-cell field-strain, with the ladder theorem reconciling the potential as the line integral. Three independent physical grounds (varactor / dielectric $P(E)$ / locality-gauge) converge, and the ladder theorem is clean, so own-confidence 0.55 (matching the sibling FORM mint clm-3surfa). Solidity floors to the knee dependency (min-link). NOT emergence and NOT a derivation: a ruled convention organizes the corpus but does not derive $\alpha$ or the knee value (which stays α-echo-classified per the knee-NOTE). The Op4 ladder-integral check has now fired (PR #704, NO-MATCH → register-identity), closing the field/voltage fork at the FORM level by register-identity (not by integration-match).
+- strengthen-by:
+  - Grant to rule the Op4 scope label (the PR #704 result routes a pairwise-only / interaction-register tag + its 4 consumer sites for adjudication)
+  - execute the criterion-tag sweep (RATIFIED, Ruling 12 / clm-crit2a) so every $\sqrt\alpha$/$\sqrt{2\alpha}$ site carries its register + criterion label
+  - the gate-(b) envelope-eigenmode freeze pre-registers the field knee $(2\alpha)^{-1/4}$ as the dress-edge candidate (pins the step-register knee against surface (iii))
+---
+
+## Two α-Criteria — storage-α vs response-α, the Taylor-½ of the root kernel (FORM, Grant Ruling 12)
+<!-- id: clm-crit2a -->
+
+The two α-thresholds in the corpus are **two criteria on one nonlinear element**: the **STORAGE** criterion "stored fraction $=\alpha$" $\Rightarrow A^2=\alpha$, $A=\sqrt\alpha\approx0.0854$ (the yield family: $V_{YIELD}=\sqrt\alpha\,V_{SNAP}$, $E_{YIELD}$, $h_{yield}=\sqrt\alpha$), and the **RESPONSE** criterion "deficit $\Delta S=\alpha$" $\Rightarrow A^2=2\alpha$, $A=\sqrt{2\alpha}\approx0.1208$ (the knee family: `A_YIELD_SQ`, `R_I`). **The factor of 2 is the Taylor-½ of the root kernel** ($\Delta S = 1-\sqrt{1-A^2}\approx A^2/2$) — unconditional. Minted as **FORM per Grant Ruling 12 (RULED, verbatim "ratify", in-chat 2026-07-15; record: the 2026-07-15 register-walk docket continuation)**; canonical home [`strain-registers.md`](./strain-registers.md).
+
+- _Specific Claims_
+  - **Taylor-½ (clean math, unconditional):** the quarter-arc deficit is $\Delta S \approx A^2/2$, so "deficit $=\alpha$" $\Rightarrow A^2=2\alpha$ while "stored $=\alpha$" $\Rightarrow A^2=\alpha$; the 2 is the $\tfrac12$ of the square-root's expansion, a shape property present with no wave.
+  - **FORM (Grant-ruled):** the two families are two criteria (storage vs response), and the criterion axis is ORTHOGONAL to the register axis (clm-strreg) — a 2×2 the corpus populates in all four cells ($h_{yield}$/$E_{YIELD}$ = step×storage; field knee 2.877 = step×response; $V_{YIELD}$ = ladder×storage; voltage knee 8.278 = ladder×response — the two STORAGE cells carry named `constants.py` constants, the two RESPONSE knees are derived radii).
+  - **Equipartition is the AC bridge, not the source of the 2:** the traveling-wave quadrature-½ (regime-dependent — standing waves slosh; #698 phase findings) makes the deficit equal the per-sector share, but the static dress uses $\sqrt{2\alpha}$ and matches $r99$ with no wave — so the ½ is the kernel's, not the wave's.
+  - **The near-collision is a clock projection:** $\sqrt{1-\alpha}=0.996345$ (storage clock) vs $(1-2\alpha)^{1/4}=0.996331$ (response clock), $\Delta=1.4\times10^{-5}$ — two readings of one kernel one Taylor-order apart.
+- _Specific Non-Claims and Caveats_
+  - **RULED CONVENTION, NOT A DERIVATION.** The Taylor-½ is clean math; the *criterion assignment* (which contour each corpus quantity marks) is the Grant-ruled FORM. Consistency-class organizing carve — does not derive $\alpha$; the numbers ride CODATA $\alpha$.
+  - **The "yield" name of the $\sqrt\alpha$ family is soft (walk-record):** nothing yields at $A=\sqrt\alpha$ (it is the storage-α mark); actual breakdown is the wall at $A=1$. No rename executed (flagged for the vocabulary lane).
+  - The CRITERION-TAG mandate (tag every $\sqrt\alpha$/$\sqrt{2\alpha}$ site storage vs response) is RATIFIED and QUEUED, a bookkeeping discipline — not itself a physics claim.
+
+> **Leaf references:** [strain-registers](./strain-registers.md).
+
+### Quality
+- confidence: 0.60
+- depends-on:
+  - clm-3surfa — the knee contour $A^2=2\alpha$ (the response-criterion mark, engine `chiral_lattice_v10.py:29-30`)
+  - INVARIANT-S2 / Axiom 4 (the root kernel $S(A)=\sqrt{1-A^2}$ whose Taylor-½ IS the factor of 2)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.60, 0.45)]
+- rationale: the Taylor-½ leg is clean unconditional math off the root kernel (raising own-confidence to 0.60, above a pure convention), but the load-bearing content — the criterion ASSIGNMENT (storage vs response) and the equipartition-as-AC-bridge distinction — is a Grant-ruled FORM carve, consistency-class, riding CODATA $\alpha$. Not emergence and not a derivation. Solidity floors to the knee dependency (min-link). The physics grading stays honest even though Grant ratified: a ruled convention organizes the corpus, it does not derive the value.
+- strengthen-by:
+  - execute the RATIFIED criterion-tag sweep (every $\sqrt\alpha$/$\sqrt{2\alpha}$ site tagged storage-α vs response-α, folded into the contour-tag sweep) so the 2×2 is machine-checkable
+  - a driven two-quadrature demo separating the wave's equipartition-½ from the kernel's Taylor-½ (confirming the static dress needs no wave to carry the response-criterion 2)

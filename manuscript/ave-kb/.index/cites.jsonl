@@ -176,6 +176,7 @@
 {"claim_id": "clm-clvchn", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-cmic3e", "leaf_path": "vol2/particle-physics/ch02-baryon-sector/proton-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-crbl60", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-crit2a", "leaf_path": "common/strain-registers.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/ideal-gas-law.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cul4it", "leaf_path": "vol3/applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -589,6 +590,7 @@
 {"claim_id": "clm-sjixaw", "leaf_path": "vol6/appendix/geometric-inevitability/platonic-progression.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-sjjvhf", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-stgx1i", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/higgs-mass.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-strreg", "leaf_path": "common/strain-registers.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-sve3xc", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-sw5oao", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-sxn6eo", "leaf_path": "common/full-derivation-chain.md", "leaf_kind": "leaf", "tier2_marked": true}
