@@ -29,6 +29,18 @@ on a live cell (--parity) — the meter is measured on the SAME trajectory.
 States fork DATA; Grant rules the fork. Does NOT re-open G-PERSIST ★RULED (that
 flip rests on the fork-independent PML φ-dispersion trend).
 
+RULING-2 COMPLETION (2026-07-14, Grant): the frozen #689 meter read the POTENTIAL
+register ONLY (finding #3 ESCALATED — it omitted the Cosserat KINETIC register,
+~44% of H). Per Ruling 2, the circuit ontology is now completed and fully labelled:
+the A1 energy blob is a two-register LC store (POTENTIAL = node-capacitor charge;
+KINETIC = inductor currents), and the completed FULL-register meter (energy_full)
+is the MANDATORY forward instrument; the frozen potential-only meter (energy_pot)
+stays BANKED for the #689 run (KEEP-BOTH). See the addendum doc + the three
+convention disclosures (register labels / bond-energy attribution / sponge
+exclusion) at research/2026-07-14_gpersist-meter-circuit-ontology.md. The fork is
+scored on the TORUS pair+graded_a0 cells (no sponge); both registers read
+LOOP-FILLING there, so the RULED Reading A is UNCHANGED by the completion.
+
 Usage:
   python gpersist_localization_observable.py --parity N PML MODE FID
   python gpersist_localization_observable.py --cell   N PML MODE FID
@@ -60,13 +72,59 @@ from ave.core.loop_gap_harness import (
 from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, apply_seed
 
 PREREG = "research/2026-07-14_gpersist-localization-observable_prereg_FROZEN.md"
+ADDENDUM = "research/2026-07-14_gpersist-meter-circuit-ontology.md"
 OUT_DIR = Path("assets/sim_outputs/gpersist_localization_observable")
 
 LANDED_SEED_MODES = ("pair", "graded_a0", "photon_lock")
 THETA = 0.10  # frozen meter-resolution floor (10% relative change)
 CORE_RADII = (1.5, 2.0, 2.5)
 PRIMARY_R = 2.0
-SECTORS = ("energy", "energy_k4", "phi_link")
+
+# ---------------------------------------------------------------------------
+# CIRCUIT-ONTOLOGY REGISTER MAP + sponge exclusion (Ruling 2, 2026-07-14 — the
+# completion of the #689 escalated finding #3; addendum doc
+# research/2026-07-14_gpersist-meter-circuit-ontology.md).
+#
+# The energy "blob" the enclosure fork asks about is a two-register LC store on
+# the K4⊗Cosserat lattice (see the addendum for the full mapping + the three
+# convention disclosures verbatim):
+#
+#   POTENTIAL register (capacitor / charge / displacement-storage):
+#     E_pot[i] = k4.get_energy_density()[i]  +  cos.energy_density()[i]
+#              = Σ_port(V_inc²+V_ref²)        +  (strain + curvature) potential
+#       k4_tlm.py:528-530 (K4 V-sector node capacitance, per-port summed to the
+#       home node) ; cosserat_field_3d.py:1427 (Cosserat elastic potential, per
+#       node). This is the ONLY register the frozen #689 meter read (potential-
+#       only) — banked, KEEP-BOTH.
+#
+#   KINETIC register (inductor / current / velocity-storage):
+#     E_kin[i] = ½ρ Σ_c u̇_c[i]²  +  ½I_ω Σ_c ω̇_c[i]²
+#       cosserat_field_3d.py:1789-1794 . Velocities u̇ (=cos.u_dot) and micro-
+#       rotation rates ω̇ (=cos.omega_dot) — the inductor-current register in the
+#       mechanical LC analogy (velocity↔current, displacement↔charge). ~44% of H
+#       at the read step on the banked fork cells. OMITTED by the frozen #689
+#       meter; ADDED here (the completion).
+#
+#   FULL-register A1 energy density (the completed forward instrument):
+#     E_full[i] = E_pot[i] + E_kin[i]
+#   (A1 ⊥ T2: the Φ_link/T2 winding channel is NEVER summed into A1 — recorded
+#   separately, unchanged.)
+# ---------------------------------------------------------------------------
+SPONGE_GUARD = 1  # kinetic-transit guard rings excluded on the PML box (sponge
+# exclusion, disclosed ENGINEERING-CHOICE); 0 on the torus (pml=0 = no sponge).
+
+# KEEP-BOTH register roster (BANKED #689 vs COMPLETED forward + diagnostics).
+SECTORS = (
+    "energy_pot",      # BANKED #689 instrument: potential register, interior mask
+    "energy_full",     # COMPLETED forward instrument: full register, sponge-excluded (SPONGE_GUARD)
+    "energy_full_g0",  # diagnostic: full register, NO sponge guard (≡ #689 RESULT-ESCALATED composed)
+    "energy_full_g2",  # diagnostic: full register, 2-ring guard (sponge-guard sensitivity)
+    "energy_kin",      # diagnostic: kinetic register ONLY, sponge-excluded
+    "energy_k4",       # diagnostic: K4 V-sector ONLY, interior mask
+    "phi_link",        # T2 winding sector, interior mask (A1 ⊥ T2, never summed)
+)
+FORWARD_SECTOR = "energy_full"  # the MANDATORY forward instrument (Ruling 2)
+BANKED_SECTOR = "energy_pot"    # the frozen #689 banked instrument (KEEP-BOTH)
 
 
 # ---------------------------------------------------------------------------
@@ -90,57 +148,130 @@ def _axis_delta(coord, center: int, N: int, periodic: bool):
     return d
 
 
-def _meter_snapshot(coupled, periodic: bool) -> dict:
-    """Per-sector spatial-concentration meter at the current engine state.
+def _cosserat_kinetic_density(cos) -> np.ndarray:
+    """Per-NODE Cosserat KINETIC-register energy density: ½ρ|u̇|² + ½I_ω|ω̇|².
 
-    A1/energy density = k4.get_energy_density() + cos.energy_density();
-    T2/Φ_link density = Σ_port Phi_link²; over the PML-excluded interior mask.
-    Never summed across sectors (A1 ⊥ T2). PR = raw participation ratio (effective
-    participating sites); CF_r = fraction within radius r of the DENSITY PEAK
-    (peak, not centroid) and of the geometric center. `periodic` selects the
-    torus-native (minimum-image) core-ball on the pml=0 lattice vs the plain-
-    Euclidean ball on the PML box (review finding #1).
+    CONVENTION DISCLOSURE (bond-energy attribution, ENGINEERING-CHOICE tag):
+    the inductive/kinetic register is attributed with the ENGINE-NATIVE per-node
+    register — NO synthetic bond-to-endpoint (half-to-each-endpoint) split is
+    made. Rationale: the velocity u̇ (=cos.u_dot) and microrotation rate ω̇
+    (=cos.omega_dot) are node-resident vector fields on the Cosserat continuum
+    (cosserat_field_3d.py:910-918, shape (N,N,N,3)), so the kinetic energy is
+    already node-local by construction — unlike the Φ_link/T2 flux, which is a
+    genuine per-bond (4-port) quantity. This per-site density sums EXACTLY to the
+    engine scalar cos.kinetic_energy() (cosserat_field_3d.py:1789-1794) at
+    rel-diff 0.00e+00 (verified — see the addendum's attribution test); the same
+    mask_alive gate the engine applies is used here.
+    """
+    m = np.asarray(cos.mask_alive, dtype=bool)[..., None]
+    u_dot = np.asarray(cos.u_dot, dtype=float) * m
+    w_dot = np.asarray(cos.omega_dot, dtype=float) * m
+    k_u = 0.5 * float(cos.rho) * np.sum(u_dot**2, axis=-1)
+    k_w = 0.5 * float(cos.I_omega) * np.sum(w_dot**2, axis=-1)
+    return k_u + k_w
+
+
+def _read_region(coupled, guard: int) -> np.ndarray:
+    """Boolean read region = PML-excluded interior further eroded by `guard`
+    kinetic-transit rings per face on the PML box.
+
+    CONVENTION DISCLOSURE (sponge exclusion, ENGINEERING-CHOICE tag): the frozen
+    #689 interior mask (_interior_mask, k4_cosserat_coupling.py:469) already
+    excludes the absorbing region where cos_pml_mask<1 (d < pml_thickness,
+    cosserat_field_3d.py:898-905). But the first interior rings ADJACENT to the
+    sponge carry outbound kinetic TRANSIT current (velocity/rotation-rate heading
+    into the absorber) that is NOT "the blob"; on the kinetic-inclusive read this
+    swamps the interior signal (guard=0 → INCONCLUSIVE). This erodes `guard`
+    additional rings per face. On the torus (pml=0) there is NO sponge, so the
+    read region is the whole periodic lattice for every guard (the fork-scored
+    torus cells are untouched by this choice). Shipped forward default:
+    SPONGE_GUARD = 1 (the single transit ring adjacent to the sponge).
     """
     mask = np.asarray(coupled._interior_mask(), dtype=bool)
+    if coupled.pml == 0 or guard <= 0:
+        return mask
+    N = coupled.N
+    p = coupled.pml + guard
+    guarded = np.zeros((N, N, N), dtype=bool)
+    guarded[p : N - p, p : N - p, p : N - p] = True
+    return mask & guarded
+
+
+def _core_stats(d: np.ndarray, mask: np.ndarray, N: int, periodic: bool) -> dict:
+    """PR + density-peak/geom core-fraction of density `d` over boolean `mask`.
+
+    PR = raw participation ratio (effective participating sites); CF_r = fraction
+    within radius r of the DENSITY PEAK (peak, not centroid) and of the geometric
+    center. `periodic` selects the torus-native (minimum-image) core-ball on the
+    pml=0 lattice vs the plain-Euclidean ball on the PML box (#689 finding #1).
+    """
+    ax = np.arange(N)
+    xx, yy, zz = ax[:, None, None], ax[None, :, None], ax[None, None, :]
+    geom = (N // 2, N // 2, N // 2)
+    M = int(mask.sum())
+    dv = d[mask]
+    s1 = float(dv.sum())
+    s2 = float((dv * dv).sum())
+    pr = (s1 * s1) / s2 if s2 > 0 else 0.0
+    dm = np.where(mask, d, -np.inf)
+    pk = tuple(int(v) for v in np.unravel_index(int(np.argmax(dm)), d.shape))
+    row: dict = {"PR": pr, "PR_frac": (pr / M if M > 0 else 0.0), "peak": list(pk), "M": M}
+    rr_pk = np.sqrt(
+        _axis_delta(xx, pk[0], N, periodic) ** 2
+        + _axis_delta(yy, pk[1], N, periodic) ** 2
+        + _axis_delta(zz, pk[2], N, periodic) ** 2
+    )
+    rr_gm = np.sqrt(
+        _axis_delta(xx, geom[0], N, periodic) ** 2
+        + _axis_delta(yy, geom[1], N, periodic) ** 2
+        + _axis_delta(zz, geom[2], N, periodic) ** 2
+    )
+    for r in CORE_RADII:
+        cp = mask & (rr_pk <= r)
+        cg = mask & (rr_gm <= r)
+        row[f"CF_peak_{r}"] = float(d[cp].sum()) / s1 if s1 > 0 else 0.0
+        row[f"CF_geom_{r}"] = float(d[cg].sum()) / s1 if s1 > 0 else 0.0
+    return row
+
+
+def _meter_snapshot(coupled, periodic: bool) -> dict:
+    """Two-REGISTER spatial-concentration meter at the current engine state.
+
+    A1/energy is read in BOTH registers (KEEP-BOTH), never summed with T2/Φ_link:
+      energy_pot     — POTENTIAL register (k4 voltage + Cosserat elastic), the
+                       BANKED #689 instrument, over the interior mask.
+      energy_full    — FULL register (potential + Cosserat KINETIC), the COMPLETED
+                       forward instrument, over the SPONGE_GUARD-excluded region.
+      energy_full_g0 — full register, NO sponge guard (≡ #689 RESULT-ESCALATED).
+      energy_full_g2 — full register, 2-ring guard (sponge-guard sensitivity).
+      energy_kin     — KINETIC register only (diagnostic), sponge-excluded.
+      energy_k4      — K4 V-sector only (diagnostic), interior mask.
+      phi_link       — T2/Φ_link winding sector = Σ_port Phi_link², interior mask.
+    """
     N = coupled.N
     k4 = coupled.k4
     e_k4 = np.asarray(k4.get_energy_density(), dtype=float)
-    e_cos = np.asarray(coupled.cos.energy_density(), dtype=float)
-    e_dens = e_k4 + e_cos
+    e_cos_pot = np.asarray(coupled.cos.energy_density(), dtype=float)
+    e_kin = _cosserat_kinetic_density(coupled.cos)
+    e_pot = e_k4 + e_cos_pot
+    e_full = e_pot + e_kin
     phi_dens = np.sum(np.asarray(k4.Phi_link, dtype=float) ** 2, axis=-1)
 
-    ax = np.arange(N)
-    xx = ax[:, None, None]
-    yy = ax[None, :, None]
-    zz = ax[None, None, :]
-    geom = (N // 2, N // 2, N // 2)
-    M = int(mask.sum())
-    out = {"M": M}
-    for name, d in (("energy", e_dens), ("energy_k4", e_k4), ("phi_link", phi_dens)):
-        dv = d[mask]
-        s1 = float(dv.sum())
-        s2 = float((dv * dv).sum())
-        pr = (s1 * s1) / s2 if s2 > 0 else 0.0
-        dm = np.where(mask, d, -np.inf)
-        pk = tuple(int(v) for v in np.unravel_index(int(np.argmax(dm)), d.shape))
-        total = s1
-        row: dict = {"PR": pr, "PR_frac": (pr / M if M > 0 else 0.0), "peak": list(pk)}
-        rr_pk = np.sqrt(
-            _axis_delta(xx, pk[0], N, periodic) ** 2
-            + _axis_delta(yy, pk[1], N, periodic) ** 2
-            + _axis_delta(zz, pk[2], N, periodic) ** 2
-        )
-        rr_gm = np.sqrt(
-            _axis_delta(xx, geom[0], N, periodic) ** 2
-            + _axis_delta(yy, geom[1], N, periodic) ** 2
-            + _axis_delta(zz, geom[2], N, periodic) ** 2
-        )
-        for r in CORE_RADII:
-            cp = mask & (rr_pk <= r)
-            cg = mask & (rr_gm <= r)
-            row[f"CF_peak_{r}"] = float(d[cp].sum()) / total if total > 0 else 0.0
-            row[f"CF_geom_{r}"] = float(d[cg].sum()) / total if total > 0 else 0.0
-        out[name] = row
+    m_int = _read_region(coupled, 0)
+    m_ship = _read_region(coupled, SPONGE_GUARD)
+    m_g2 = _read_region(coupled, 2)
+    specs = (
+        ("energy_pot", e_pot, m_int),
+        ("energy_full", e_full, m_ship),
+        ("energy_full_g0", e_full, m_int),
+        ("energy_full_g2", e_full, m_g2),
+        ("energy_kin", e_kin, m_ship),
+        ("energy_k4", e_k4, m_int),
+        ("phi_link", phi_dens, m_int),
+    )
+    out = {"M": int(m_int.sum()), "M_sponge": int(m_ship.sum())}
+    for name, d, mask in specs:
+        out[name] = _core_stats(d, mask, N, periodic)
     return out
 
 
@@ -280,21 +411,70 @@ def _sector_signature(trend_sector: dict) -> str:
     return "MIXED"
 
 
-def _classify_cell(res: dict) -> dict:
-    """Per-cell CONCENTRATING / LOOP-FILLING signature on the energy (A1) meter.
+def _conjunction_signature(trend_sector: dict) -> str:
+    """Two-statistic CONJUNCTION rule (#689 RESULT §4 forward hardening): the
+    CONCENTRATING leaf requires PR falls AND CF rises (not the frozen CF-OR-PR
+    disjunction that CF-alone false-positived). Reported alongside the frozen
+    disjunctive `_sector_signature` for the completed forward instrument."""
+    pr_rel = trend_sector["PR"]["rel_trend"]
+    cf_rel = trend_sector[f"CF_peak_{PRIMARY_R}"]["rel_trend"]
+    concentrating = (pr_rel <= -THETA) and (cf_rel >= THETA)
+    loop_filling = (pr_rel >= -THETA) and (cf_rel <= THETA)
+    resolvable = (abs(pr_rel) >= THETA) or (abs(cf_rel) >= THETA)
+    if not resolvable:
+        return "INCONCLUSIVE"
+    if concentrating:
+        return "CONCENTRATING"
+    if loop_filling:
+        return "LOOP-FILLING"
+    return "MIXED"
 
-    NOTE (review finding #4): φ_persist is carried as reported context ONLY, never
-    gated — the ~10.5× φ inflation is the quarantined lap-counting gauge artifact
-    (k4_tlm.py:400). The frozen bin's φ≫1 conjunct is human-verified corroboration
-    (dated prereg amendment), NOT machine-enforced (re-adding it re-imports the
-    artifact into the fork verdict).
+
+def _classify_cell(res: dict) -> dict:
+    """Per-cell signature on BOTH registers (KEEP-BOTH) — the before/after payload.
+
+    signature        = the COMPLETED forward instrument (energy_full: potential +
+                       Cosserat kinetic, sponge-excluded) under the frozen
+                       disjunctive rule — the MANDATORY forward verdict (Ruling 2).
+    signature_banked = the frozen #689 BANKED instrument (energy_pot: potential-
+                       only, interior mask) — same rule, different register.
+    signature_conj   = the forward instrument under the two-statistic conjunction
+                       hardening (#689 RESULT §4).
+    bin_move         = whether the register completion moved this cell's bin.
+    sponge_sensitivity = full-register signature at guard 0 / 2 (the shipped guard
+                       is SPONGE_GUARD; a guard-DEPENDENT bin flags a read-region
+                       (PML-drain) artifact, not a boundary-clean physical signal).
+
+    NOTE (#689 finding #4): φ_persist is carried as reported context ONLY, never
+    gated — the ~10.5× inflation is the quarantined lap-counting gauge artifact
+    (k4_tlm.py:400).
     """
-    e = res["trend"]["energy"]
+    tr = res["trend"]
+    fwd = tr[FORWARD_SECTOR]
+    banked = tr[BANKED_SECTOR]
+    sig_fwd = _sector_signature(fwd)
+    sig_banked = _sector_signature(banked)
+    guard_sigs = {
+        "guard0": _sector_signature(tr["energy_full_g0"]),
+        f"guard{SPONGE_GUARD}": sig_fwd,
+        "guard2": _sector_signature(tr["energy_full_g2"]),
+    }
+    # A guard-DEPENDENT full-register bin is the fingerprint of a read-region
+    # (PML-drain) artifact, NOT a boundary-clean physical signal; on the torus
+    # the guard is a no-op so guard_sensitive is False by construction.
+    guard_sensitive = len(set(guard_sigs.values())) > 1
     return {
-        "PR_energy_rel_trend": e["PR"]["rel_trend"],
-        "CF_energy_rel_trend": e[f"CF_peak_{PRIMARY_R}"]["rel_trend"],
+        "PR_energy_rel_trend": fwd["PR"]["rel_trend"],
+        "CF_energy_rel_trend": fwd[f"CF_peak_{PRIMARY_R}"]["rel_trend"],
         "phi_persist": round(res["phi_persist"], 4),
-        "signature": _sector_signature(e),
+        "signature": sig_fwd,
+        "signature_banked": sig_banked,
+        "signature_conj": _conjunction_signature(fwd),
+        "bin_move": None if sig_fwd == sig_banked else f"{sig_banked}->{sig_fwd}",
+        "PR_banked_rel_trend": banked["PR"]["rel_trend"],
+        "CF_banked_rel_trend": banked[f"CF_peak_{PRIMARY_R}"]["rel_trend"],
+        "sponge_sensitivity": guard_sigs,
+        "guard_sensitive": guard_sensitive,
     }
 
 
@@ -366,11 +546,13 @@ def cmd_cell(argv) -> None:
     res["classification"] = _classify_cell(res)
     _write(_cell_path(N, pml, mode, fast), res)
     c = res["classification"]
+    move = c["bin_move"] or "no-move"
     print(
         f"[cell] N={N} pml={pml} {mode:10s} {fid:5s} "
-        f"E={res['E_persist']:.4f} phi={res['phi_persist']:.4f} "
-        f"PR_trend={c['PR_energy_rel_trend']:+.3f} CF_trend={c['CF_energy_rel_trend']:+.3f} "
-        f"-> {c['signature']} [{res['wall_seconds']}s]",
+        f"E={res['E_persist']:.4f} phi={res['phi_persist']:.4f} | "
+        f"banked(pot-only)={c['signature_banked']} -> full={c['signature']} "
+        f"[PR{c['PR_energy_rel_trend']:+.3f} CF{c['CF_energy_rel_trend']:+.3f}] "
+        f"move={move} guardsens={c['sponge_sensitivity']} [{res['wall_seconds']}s]",
         flush=True,
     )
 
@@ -380,7 +562,8 @@ def cmd_plant(argv) -> None:
     fast = fid == "smoke"
     free = run_instrumented(N, pml, mode, fast, plant=False)
     plant = run_instrumented(N, pml, mode, fast, plant=True)
-    e = plant["trend"]["energy"]
+    # Un-foolable check runs on the COMPLETED forward instrument (energy_full).
+    e = plant["trend"][FORWARD_SECTOR]
     loop_filling = (e["PR"]["rel_trend"] >= -THETA) and (
         e[f"CF_peak_{PRIMARY_R}"]["rel_trend"] <= THETA
     )
@@ -408,7 +591,7 @@ def cmd_plant(argv) -> None:
         "plant_CF_energy_rel_trend": e[f"CF_peak_{PRIMARY_R}"]["rel_trend"],
         "verdict": verdict,
         "free_classification": _classify_cell(free),
-        "plant_trend_energy": plant["trend"]["energy"],
+        "plant_trend_energy": plant["trend"][FORWARD_SECTOR],
         "prereg": PREREG,
     }
     _write(_cell_path(N, pml, mode, fast, plant=True), out)
@@ -438,19 +621,19 @@ def cmd_aggregate() -> None:
         and c["seed_mode"] in ("pair", "graded_a0")
         and c["fidelity"] == "production"
     }
-    sigs = {c["seed_mode"]: c["classification"]["signature"] for c in torus}
+    # KEEP-BOTH: fork bin scored on BOTH registers. forward (energy_full) is the
+    # MANDATORY instrument (Ruling 2); banked (energy_pot) is the frozen #689 read.
+    sigs = {c["seed_mode"]: c["classification"]["signature"] for c in torus}          # forward
+    sigs_banked = {c["seed_mode"]: c["classification"]["signature_banked"] for c in torus}
     uniq = set(sigs.values())
 
-    # REPAIR (2026-07-14, review finding #5): the frozen §FROZEN BINS (prereg
-    # 174-176) declares THREE bin-determining MIXED triggers, but the shipped gate
-    # evaluated only trigger (1). The prereg's own 174-176-vs-180-183 contradiction
-    # (Φ_link listed as a MIXED trigger AND as "reported, not bin-determining") is
-    # reconciled by the dated amendment: all three are bin-determining. Evaluate them:
+    # #689 finding #5: all THREE bin-determining MIXED triggers, machine-evaluated:
     #   (1) pair vs graded_a0 energy signatures disagree;
     #   (2) energy meter and Φ_link meter disagree within a torus cell;
     #   (3) a torus cell CONCENTRATES while its PML twin does not.
     phi_sigs = {c["seed_mode"]: _sector_signature(c["trend"]["phi_link"]) for c in torus}
     twin_sigs = {m: t["classification"]["signature"] for m, t in pml_twin.items()}
+    twin_sigs_banked = {m: t["classification"]["signature_banked"] for m, t in pml_twin.items()}
     mixed_reasons: list[str] = []
     if len(uniq) > 1:
         mixed_reasons.append(f"pair_vs_graded_disagree:{sigs}")
@@ -467,30 +650,47 @@ def cmd_aggregate() -> None:
                 f"torus_concentrates_pml_twin_does_not[{m}]:twin={twin_sigs.get(m, 'NO-TWIN')}"
             )
 
-    if not sigs:
-        fork_bin = "NO-DATA"
-    elif uniq == {"INCONCLUSIVE"}:
-        fork_bin = "INCONCLUSIVE"
-    elif mixed_reasons or "MIXED" in uniq or "INCONCLUSIVE" in uniq:
-        fork_bin = "MIXED"
-    else:
-        fork_bin = uniq.pop()
+    def _bin(sig_map: dict, reasons: list) -> str:
+        u = set(sig_map.values())
+        if not sig_map:
+            return "NO-DATA"
+        if u == {"INCONCLUSIVE"}:
+            return "INCONCLUSIVE"
+        if reasons or "MIXED" in u or "INCONCLUSIVE" in u:
+            return "MIXED"
+        return u.pop()
+
+    fork_bin = _bin(sigs, mixed_reasons)                # forward (mandatory)
+    fork_bin_banked = _bin(sigs_banked, [])             # frozen #689 banked
+    # Boundary-insensitivity now register-explicit: torus vs PML-twin agreement.
+    boundary_insensitive = {
+        "forward": {m: (sigs.get(m) == twin_sigs.get(m)) for m in sigs},
+        "banked": {m: (sigs_banked.get(m) == twin_sigs_banked.get(m)) for m in sigs_banked},
+    }
 
     summary = {
         "battery": "gpersist_localization_observable",
         "prereg": PREREG,
+        "addendum": ADDENDUM,
         "theta": THETA,
         "primary_core_radius": PRIMARY_R,
-        "torus_signatures": sigs,
+        "sponge_guard": SPONGE_GUARD,
+        "forward_instrument": FORWARD_SECTOR,
+        "banked_instrument": BANKED_SECTOR,
+        "torus_signatures_forward": sigs,
+        "torus_signatures_banked": sigs_banked,
         "torus_phi_link_signatures": phi_sigs,
-        "pml_twin_signatures": twin_sigs,
+        "pml_twin_signatures_forward": twin_sigs,
+        "pml_twin_signatures_banked": twin_sigs_banked,
+        "boundary_insensitive": boundary_insensitive,
         "mixed_triggers_evaluated": [
             "pair_vs_graded",
             "energy_vs_philink",
             "torus_concentrates_vs_pml_twin",
         ],
         "mixed_reasons": mixed_reasons,
-        "fork_bin": fork_bin,
+        "fork_bin_forward": fork_bin,
+        "fork_bin_banked": fork_bin_banked,
         "cells": [
             {
                 "N": c["N"],
@@ -499,8 +699,10 @@ def cmd_aggregate() -> None:
                 "fidelity": c["fidelity"],
                 "E_persist": round(c["E_persist"], 4),
                 "phi_persist": round(c["phi_persist"], 4),
-                "PR_energy": c["trend"]["energy"]["PR"],
-                "CF_energy_peak_2p0": c["trend"]["energy"][f"CF_peak_{PRIMARY_R}"],
+                "PR_energy_full": c["trend"][FORWARD_SECTOR]["PR"],
+                "CF_energy_full_peak_2p0": c["trend"][FORWARD_SECTOR][f"CF_peak_{PRIMARY_R}"],
+                "PR_energy_pot": c["trend"][BANKED_SECTOR]["PR"],
+                "CF_energy_pot_peak_2p0": c["trend"][BANKED_SECTOR][f"CF_peak_{PRIMARY_R}"],
                 "PR_phi_link": c["trend"]["phi_link"]["PR"],
                 "classification": c["classification"],
             }
@@ -514,21 +716,25 @@ def cmd_aggregate() -> None:
     }
     _write(OUT_DIR / "gpersist_localization_summary.json", summary)
 
-    print("\n=== per-cell concentration (energy A1 meter) ===")
+    print("\n=== per-cell before/after (banked pot-only -> completed full-register) ===")
     for c in summary["cells"]:
-        pr = c["PR_energy"]
-        cf = c["CF_energy_peak_2p0"]
+        pr = c["PR_energy_full"]
+        cf = c["CF_energy_full_peak_2p0"]
+        cl = c["classification"]
         print(
             f"  N={c['N']} {c['boundary']:6s} {c['fidelity']:10s} {c['seed_mode']:10s} "
             f"E={c['E_persist']:.3f} phi={c['phi_persist']:.3f} | "
-            f"PR {pr['start']:.1f}->{pr['end']:.1f} ({pr['rel_trend']:+.3f}) "
-            f"CF {cf['start']:.3f}->{cf['end']:.3f} ({cf['rel_trend']:+.3f}) "
-            f"=> {c['classification']['signature']}"
+            f"{cl['signature_banked']:14s} -> {cl['signature']:14s} "
+            f"(full PR {pr['rel_trend']:+.3f} CF {cf['rel_trend']:+.3f}) "
+            f"move={cl['bin_move'] or 'no-move'}"
         )
-    print(f"\ntorus energy signatures: {sigs}")
-    print(f"torus Φ_link signatures: {phi_sigs}  | PML twin signatures: {twin_sigs}")
+    print(f"\ntorus forward signatures: {sigs}  | banked: {sigs_banked}")
+    print(f"torus Φ_link signatures: {phi_sigs}")
+    print(f"PML twin forward: {twin_sigs}  | banked: {twin_sigs_banked}")
+    print(f"boundary-insensitive (forward): {boundary_insensitive['forward']}")
     print(f"MIXED triggers (all 3) reasons: {mixed_reasons or 'none — all clean'}")
-    print(f"FORK BIN (torus pair+graded_a0): {fork_bin}")
+    print(f"FORK BIN forward (energy_full, MANDATORY): {fork_bin}")
+    print(f"FORK BIN banked  (energy_pot, #689 frozen): {fork_bin_banked}")
     print("\n=== φ-channel plants ===")
     for p in plants:
         print(
