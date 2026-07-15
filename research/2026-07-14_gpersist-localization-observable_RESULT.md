@@ -26,6 +26,18 @@
 2. **Boundary-insensitive.** The PML twins read the SAME sign (PR rises, CF falls →
    LOOP-FILLING under `pml=3` too). The dispersal appears under **both** boundaries ⇒ it is a
    boundary-clean property of the pattern, not a torus artifact.
+   > **🔴 CORROBORATION WITHDRAWN (2026-07-15, falsifying-evidence pointer — Rule 12).** This
+   > PML-twin **boundary-insensitivity corroboration is withdrawn**. It holds only on the frozen
+   > **potential-only endpoint** meter; on the mandatory full-register instrument the PML twins do
+   > **not** corroborate — they read INCONCLUSIVE (this doc's **Finding #3 — ESCALATED §1**, below)
+   > / CONCENTRATING† under the sponge-guard read
+   > ([`2026-07-14_gpersist-meter-circuit-ontology.md`](2026-07-14_gpersist-meter-circuit-ontology.md)
+   > §5/§7) — a register/guard-dependent candidate PML kinetic-drain artifact, **not admissible as
+   > boundary corroboration**. **The fork rests entirely on the torus cells** (`pair`+`graded_a0`),
+   > which read LOOP-FILLING robustly under every read (`guard_sensitive=False`). **RULED Reading A
+   > and G-PERSIST ★RULED are untouched** — they rest on the torus cells and the fork-independent
+   > PML **φ-dispersion** trend (a different, still-valid boundary-insensitive signal — the #670
+   > T2/Φ_link channel, never summed into this A1 meter), respectively.
 3. **The meter is genuine — provably not derivable from E/φ.** On the torus `E_persist ≡ 1.0`
    (a conservation identity, #670 erratum) yet the participation ratio moves ~4× over 8 quiet
    steps (adversarial KNIFE B). The spatial statistic carries WHERE-information the scalar
@@ -124,6 +136,9 @@ core). At **smoke** the dispersal arc is dramatic (the seed is still tight at dr
 CF≈0.43, then spreads to CF≈0.06 during quiet; PR 47→349); at **production** the drive phase
 has already dispersed the pattern by drive-off (CF≈0.06), and it continues to spread. Both
 fidelities, both seeds, both boundaries: the same direction — **dispersal, not tightening.**
+(**2026-07-15:** the "both boundaries" PML-twin leg is a **potential-only-endpoint** read; its
+role as *boundary corroboration* is **withdrawn** on the full register — see TL;DR item 2 note +
+Finding #3 ESCALATED §1. The **torus** fork verdict is unaffected.)
 
 **Stencil caveat (repair finding #1 — torus-native CF).** The original banked torus CF values
 (pair **−0.274**, graded_a0 **−0.203**) were computed with a **non-periodic Euclidean** core-ball
@@ -155,7 +170,11 @@ must use the torus-native (minimum-image) CF ball** — see the meter-reuse note
 **FORK BIN (torus `pair` + `graded_a0`, production): LOOP-FILLING.** Criterion (frozen): energy
 stays distributed (PR does not fall, CF does not rise) while φ inflates — met on **both** fork
 cells, on **both** statistics (PR rises AND CF falls), corroborated by the PML twins
-(boundary-insensitive) and by the smoke arc.
+(boundary-insensitive) and by the smoke arc. *(**2026-07-15:** the PML-twin boundary-insensitivity
+corroboration is **withdrawn** — it holds only on the potential-only endpoint meter; on the full
+register the PML twins do not corroborate. See TL;DR item 2 note + Finding #3 ESCALATED §1 +
+[`2026-07-14_gpersist-meter-circuit-ontology.md`](2026-07-14_gpersist-meter-circuit-ontology.md)
+§5/§7. The torus fork verdict — and the smoke corroboration — stand.)*
 
 - **⇒ Reading A (wake-feeding) CONFIRMED; the fork closes toward A.** The periodic-torus
   enclosure returns the pattern's own dispersing wake; the projection gauge counts laps
@@ -287,7 +306,10 @@ reproduction.
 ## 7 · What this decides / does not decide
 
 - **DECIDES (data, not ruling):** the enclosure fork — Reading A (wake-feeding) vs Reading B
-  (self-tightening). Data ⇒ **LOOP-FILLING = Reading A**, boundary-insensitive, robust.
+  (self-tightening). Data ⇒ **LOOP-FILLING = Reading A**, ~~boundary-insensitive~~, robust.
+  (**2026-07-15:** "boundary-insensitive" here was the PML-twin corroboration, now **withdrawn** on
+  the full register — the verdict rests on the **torus** cells, robust under every read. See TL;DR
+  item 2 note + Finding #3 ESCALATED §1.)
 - **DOES NOT DECIDE:** the G-PERSIST ★RULED verdict (rests on the fork-independent PML
   φ-dispersion trend — untouched). Node-mint (fork B) stays firewalled; this reads (A)
   fixed-\(N\) only.
