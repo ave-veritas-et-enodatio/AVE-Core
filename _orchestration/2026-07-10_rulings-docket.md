@@ -1079,3 +1079,39 @@ execution-status tagged, and (4) the in-repo site it resolves. **Cites verified 
 vocabulary-register, and #691 RESULT sites are on `origin/main`. **DO-NOT-MERGE**; only the
 orchestrator/Grant merges. **Nothing here canonizes**; the FORM mint of Ruling 8 is landed by the KB
 lane (this docket records the ruling and points at the leaves).
+
+### Ruling 6 — F5: the conjecture meant THE WALL — RESOLVED
+
+**Ruling (Grant verbatim).** *"yes, that's what I meant for F5"* — resolving Flag F5's KEEP-BOTH
+(two same-day Grant inputs in tension on the yield surface). **The conjecture meant the WALL**
+(ROLE-2), not the deficit knee (ROLE-3).
+
+**The knee/wall carve (context walk, paraphrase-faithful).**
+- **Knee** = the **proportional limit** — the **`A²=2α` contour** where the kernel deficit
+  `1−S = 1−√(1−2α) ≈ α` (**ΔS = α**); the **onset-of-load-transfer**, `Γ ≈ −0.002`. (ROLE-3.)
+- **Wall** = the **fully-yielded `S→0` surface** — polarization compliance **exhausted**, the
+  **`|Γ|=1` mirror**; carries **M / Q / J**; ground state **pinned at the ropelength floor
+  `ℓ_node/2π`**. (ROLE-2.)
+
+These match the charter's F5 statement (`research/2026-07-14_tij-x44b_CHARTER.md:250`: knee = ROLE-3
+`A²=2α`, `S≈0.993`, `Γ≈−0.002`, "never the TIR wall"; wall = ROLE-2 `S(A)→0` / `Γ=−1`, floor
+`ℓ_node/2π ≈ 0.159`) and the Wall-A ruling's three ROLE rows
+(`_orchestration/2026-07-10_rulings-docket.md:606-608`; floor `:522`, rail `:533`).
+
+**Grant's walked physical picture (paraphrase-faithful, recorded).** An external **static field** =
+a **DC bias across the dress**. A **uniform** field = **common-mode bias** — the ground state is
+**floor-protected** (incompressibility: you cannot squeeze a closed loop below its ropelength). A
+**gradient** field = **differential bias** → **asymmetric Maxwell stress** → **envelope
+deformation**. **Excited states** (floor-lifted — the census-confirmed rider) are **genuinely
+compressible**.
+
+**Consequence — REGISTERED-NOT-EXECUTED-BEYOND-THIS-WAVE.** Gate-(b) pre-registration:
+`R_balance ≡ R_yield`-**the-WALL** confirms the conjecture — with **F3's `1.6`-vs-`0.159`** (the
+balance-radius vs floor-radius contradiction, charter Flag F3, `research/2026-07-14_tij-x44b_CHARTER.md:123,126`;
+gate-(b) acceptance test `:132`) **riding the same measurement**. The gate-(b) envelope-eigenmode
+freeze is **not written or fired here**; this ruling only fixes which surface it measures.
+
+**Site it resolves:** `research/2026-07-14_tij-x44b_CHARTER.md:250` (Flag F5 KEEP-BOTH → WALL); the
+ROLE-2/ROLE-3/floor split at `:121`, `:125`; the gate-(b) radius-discriminating acceptance test at
+`:132`; the Wall-A ruling `_orchestration/2026-07-10_rulings-docket.md:606-608` (three ROLE rows),
+`:522` (floor), `:533` (rail).
