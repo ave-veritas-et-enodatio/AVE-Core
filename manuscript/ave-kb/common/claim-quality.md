@@ -1396,3 +1396,64 @@ The organizing-principle META-FINDING (Grant-ratified 2026-07-03; evidence = the
   - Land a second independent DC→AC coupling-class forward falsifier beyond `clm-pp3qwf` (the selection rule iv predicts the discriminating tests cluster here; a second instance would move the carve from one-example to a pattern)
   - Convert the DC-side bet from hypothesis to test on ONE of its four medium-state claims (gravity = `S(A)` operating point / DE = real DC offset / charge = topological boundary data / yield = material limit) — the `𝒥_cosmic` three-route operating-point test is the standing candidate (one DC operating point setting EM + gravity + cosmology)
   - Formalize the "all measurement is AC" principle against a concrete uniform-bias null (the retired rotor-Sagnac / static-fiber corroborative-nulls) as a machine-checkable selection filter in `ave-discrimination-check`
+---
+
+## Envelope Three-Surface Anatomy — wall / balance shell / knee (FORM, Grant Ruling 8)
+<!-- id: clm-3surfa -->
+
+A bound soliton's boundary region is **not one radius but three physically-distinct radial surfaces** on the real-space saturation profile $S(A(r))$: (i) the **wall** — the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert = 1$ mirror carrying $\mathcal{M},\mathcal{Q},\mathcal{J}$, with ground-state floor $\ell_{node}/2\pi$; (ii) the **balance shell** — the $\sigma$-opposite-equal (Laplace-vs-circulation) crossing at $R^\ast\approx 1.6\,\ell_{node}$; (iii) the **knee / dress edge** — the $\Delta S = \alpha$ proportional limit at $A^2 = 2\alpha$. Minted as **FORM per Grant Ruling 8 (option C, in-chat 2026-07-14; record PR #695 docket continuation)**; canonical home [`envelope-anatomy.md`](./envelope-anatomy.md).
+
+- _Specific Claims_
+  - **FORM (Grant-ruled):** the boundary is three distinct surfaces with distinct roles (observability wall / force-balance shell / proportional-limit knee), not a single "envelope radius." The §45 "size" A-vs-B fork dissolves: Resolution A ↔ wall/floor, Resolution B ↔ balance-or-knee (distinct supra-node surfaces).
+  - **Knee identity (clean math):** $A^2_{yield} = 2\alpha \Rightarrow S = \sqrt{1-2\alpha}\approx 0.9927$, and $\Delta S = 1-\sqrt{1-2\alpha}\approx\alpha$ (leading order $\sqrt{1-2\alpha}\approx 1-\alpha$; agreement to $\sim\alpha/2$). Engine authority `chiral_lattice_v10.py:29-30,:56`.
+  - **Ground-state floor (ROLE-1 ≡ ROLE-2):** for the ground state the observability wall coincides with the ropelength floor $\ell_{node}/2\pi\approx 61$ fm; excited states lift the wall off the floor.
+- _Specific Non-Claims and Caveats_
+  - **VALUES stay measured / gate-registered — nothing numerical promoted to SOLID (Ruling 8 option C).** The radii ride CODATA-derived $\ell_{node}=\hbar/m_ec$; the balance-shell $\approx 1.6\,\ell_{node}$ is **DIMENSIONALLY FORCED** (consistency check, not discriminating — clm-hvb7q3); the knee radius is a **REGISTERED CHECK** (collar-edge ≡ knee, sibling lane).
+  - **Balance shell CONJECTURED ≡ wall (Grant Ruling 6); gate-(b) adjudicates** whether it is a distinct surface or the fully-yielded wall itself. This claim does NOT assert three distinct radii — it asserts three distinct ROLES; the value-side coincidence structure is gated.
+  - **The wall sign is the ruled-degenerate SIGN/spin selector (#260), NOT a branch.** Mass = A1 settled independently; this claim does not re-derive it.
+  - **"Envelope = the wall" as primary sense is PROPOSED (pending Grant confirm at merge)** — the register mint (r_env/node-Nyquist proposed → SOLID) remains Grant-gated.
+
+> **Leaf references:** [envelope-anatomy](./envelope-anatomy.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - clm-lv3uw1 — the $\Gamma=-1$ magnetic-branch saturation wall (the wall surface + its sign selector, #260)
+  - clm-ze4clw — the three boundary observables $\mathcal{M},\mathcal{Q},\mathcal{J}$ the wall carries
+  - clm-hvb7q3 — the hollow-vortex balance $R^\ast\approx 1.6\,\ell_{node}$ (the balance-shell surface; Class-C consistency, dimensionally forced)
+  - INVARIANT-S2 / Axiom 4 (the saturation kernel $S(A)=\sqrt{1-(A/A_{yield})^2}$ whose knee is $A^2=2\alpha$)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.55, 0.45)]
+- rationale: FORM-class organizing mint, Grant-ruled at the FORM level (Ruling 8 option C) — that the boundary is three distinct surfaces with distinct roles. The wall is well-grounded (observability rule, clm-lv3uw1/clm-ze4clw); the knee's $\Delta S=\alpha$ is clean math off the engine's $A^2_{yield}=2\alpha$; the balance shell is a Class-C consistency description (clm-hvb7q3) whose radius is dimensionally forced. Solidity floors to the balance-shell dependency (min-link) — honest, since the value-side of the anatomy (which surface sits where, whether the balance shell is distinct from the wall) is explicitly gate-(b)-dependent and NOT promoted to SOLID. The FORM is ruled; the numbers ride CODATA imports. Not an emergence claim; consistency / FORM-class.
+- strengthen-by:
+  - gate-(b): adjudicate whether the balance shell is a distinct supra-node surface or coincides with the fully-yielded wall (resolves Grant Ruling 6's conjecture)
+  - the sibling-lane collar-edge ≡ knee registered check: pin the knee radius against the $A^2=2\alpha$ contour
+  - promote r_env / node-Nyquist-size-boundary (vocabulary-register def-088f0d / def-e0cd83) proposed → SOLID once Grant confirms the length-canonical mint
+---
+
+## Path-Participation Asymmetry — EM correction = endpoint, gravity = ledger (F5 walk)
+<!-- id: clm-ppasym -->
+
+The EM correction (vacuum-polarization / running analog) and gravity ride the **same Op14 saturation kernel $S(A)$ on the same stress register**, but with **inverted integration structure**: the EM correction is an **endpoint / boundary integral** (bound to the near-field collar-dress of each charge; the intervening medium is a spectator, so it saturates out and is short-range), while gravity is a **bulk / volume integral** (the $\sqrt{S}$-clock weights the whole enclosed $T_{00}$, so everything accumulates and it is long-range unscreened). Canonical home [`envelope-anatomy.md`](./envelope-anatomy.md).
+
+- _Specific Claims_
+  - **EM = endpoint:** the correction is collar-bound; beyond the near field the transfer register falls steeply as a power law (`p≈4.25`, analytically $\approx 4$), and the intervening medium is RELABELED-PAIRWISE spectator — nothing accumulates per decade, no log forms (#685 / #693).
+  - **Gravity = ledger:** the Komar mass is the $\sqrt{S}$-clock-weighted VOLUME integral of $T_{00}$ (RULED-(c) `komar_weight`, Grant Ruling 1); every cell's clock contributes.
+  - **Same kernel, inverted structure → the range asymmetry:** endpoint-integral ⇒ short-range/saturating (EM); volume-integral ⇒ long-range/unscreened (gravity). One substrate, one kernel, two integration structures.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY / synthesis — NOT emergence, NOT a chord.** This unifies two established sub-results (EM endpoint/spectator #693; gravity Komar/$\sqrt{S}$ ledger, Ruling 1); it is interpretive, not a new derivation. Values ride imports (α, $\ell_{node}$, the $\sqrt{S}$ weight).
+  - **The brief's "s⁻⁶ beyond" was NOT adopted:** the documented near-field falloff is the transfer-register power law `p≈4.25` (analytically $\approx 4$; `qed-trace-beta-gate_RESULT.md:101,:157`), and the screening-sum softens it further with an R-independent floor (#693). No `s⁻⁶` exponent is cited (verify-before-cite: not found in the source docs).
+  - Does NOT claim gravity or the EM correction is *derived* here — only that their integration structures are inverted reads of the one Op14 kernel.
+
+> **Leaf references:** [envelope-anatomy](./envelope-anatomy.md).
+
+### Quality
+- confidence: 0.50
+- depends-on:
+  - clm-bqtasn — the vacuum-polarization scoped import (#693 EM-endpoint / spectator, no-log): the EM = endpoint side
+  - clm-3zz0f6 — Symmetric-Gravity $n\cdot S$ weighting on $\varepsilon_{local}, c_{local}$ (the $\sqrt{S}$ gravity ledger): the gravity = ledger side
+  - clm-3surfa — the three-surface anatomy (the knee/dress edge is the EM endpoint surface; the wall carries the gravitating mass)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- rationale: CONSISTENCY-class synthesis. Both legs are established (the EM endpoint/spectator finding is the #693 screening-sum verdict behind clm-bqtasn; the gravity $\sqrt{S}$ ledger is the RULED-(c) Komar weight, Ruling 1, and the Symmetric-Gravity S-weighting clm-3zz0f6). The claim's content is the *interpretive unification* — same Op14 kernel, same stress register, inverted integration structure (endpoint vs volume) explaining the range asymmetry — not a new derivation. Solidity floors to the weakest dependency (min-link), honest for a synthesis riding gated/consistency-class inputs. The "s⁻⁶" figure from the walk brief was checked and NOT adopted (the sources report a p≈4.25 transfer falloff); flagged in the non-claims.
+- strengthen-by:
+  - a forward test that the EM endpoint-integral vs gravity volume-integral structures are the SAME kernel evaluated two ways (e.g. an engine that computes both from one $S(A)$ field and shows the range behaviour follows from the integration domain alone)
+  - close the gravity-ledger reconciliation (X44b surviving ingredients (b)+(c): $\sqrt{S}$-clock + stress register ($T_{ij}$) + virialized family — the "linear-clock" ingredient (i) is FALSIFIED per Grant Ruling 1, C1 of this batch) so the Komar volume integral is a computed ledger, not a ruled weight

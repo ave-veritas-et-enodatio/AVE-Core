@@ -123,6 +123,23 @@ The historical check4 g_self-ON/OFF discriminator is therefore vacuous under Kom
 Post-review, the mechanism resolves to a four-step closure chain — WHY the
 density-only √S implementation could not reconcile, and what a faithful test needs:
 
+> 🔴 **FALSIFYING-EVIDENCE HEADER — bullet (i) is the FALSIFIED SIDE (2026-07-14; Rule-12 — the bullet body below is PRESERVED VERBATIM, git is the trail).**
+> Grant **Ruling 1 (F6, in-chat 2026-07-14; ruling record: PR #695 docket continuation)** adjudicated the F6 fork in favour of
+> **√S slope-1 IS the Komar / local-clock weight** — the W2 walk-back and the RULED-(c) `komar_weight` **prevail**, and **this
+> bullet (i)'s "wrong strain-register" diagnosis is the falsified side.** Bullet (i) argues the shipped `√S` weight is the *EM*
+> operating-point register and that the *gravitational* clock register is instead the LINEAR `n = 1 + (2/7)ε`. That inverts the
+> canonical clock-vs-propagation split: the **local clock rate / gravitational redshift IS the slope-1 `√S`**
+> (`../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`:28, the **W2 walk-back**:
+> "the genuine local clock rate / gravitational redshift is a slope-1 quantity: √g₀₀ = √S"; :26, W1, fixes `1 + (2/7)ε` as the
+> *transverse deflection / propagation* index), and `n = 1 + (2/7)ε` is the **slope-2 bulk/coordinate-time propagation
+> (Shapiro / deflection) index — NOT the redshift clock**. The live engine agrees: `src/ave/gravity/backreaction.py:235-252`
+> `komar_weight` returns `√S` with docstring *"Redshift / Komar weight √S(A) on the local clock (Grant RULED (c), X44)"*, and the
+> `n = 1 + (2/7)ε` the bullet points at (`backreaction.py:647-651`) is the ray-trace **EMERGENT optical / refractive-index**
+> (Op19, EM-channel deflection), by that function's own docstring. So the reconciliation MISS banked in §4/§7 stands as an
+> empirical result, but its **mechanistic attribution to a "√S register-mismatch" — bullet (i), and the X44b premise in §7·5 that
+> rests on it — is RETRACTED per Ruling 1**: the `√S` weight is the *correct* clock register, not a mismatched one. Body preserved
+> per Rule-12; see the §7 option-5(a) correction note.
+
 - **(i) The shipped weight is in the WRONG strain-register (quadratic, not linear).**
   The shipped `komar_weight = (1−A²)^{1/4} ≈ 1 − A²/4` is **QUADRATIC in strain** —
   it is the **EM kernel operating-point factor** `√S` (Op14, exponent 0.5). This is
@@ -207,6 +224,17 @@ density-only √S implementation could not reconcile, and what a faithful test n
      + virialized stress → `η → 0` (reconcile). Unlike this arc, reconcile is
      **structurally reachable**, so a miss would be a real falsification of (c) — not
      a regime artifact (§4b).
+
+> 🔴 **CORRECTION NOTE — option 5(a)'s label is the upstream mislabel, FALSIFIED (2026-07-14; Grant Ruling 1, F6; body above preserved per Rule-12; ruling record: PR #695 docket continuation).**
+> Option 5(a) proposes "a **linear-in-ε clock weight** — the engine's OWN gravitational redshift register (`n = 1 + (2/7)ε`), NOT
+> the EM operating-point `√S`." Per **Ruling 1**, that attribution is **inverted**: `n = 1 + (2/7)ε` is the **slope-2**
+> bulk/coordinate-time propagation (Shapiro / deflection) index — the ray-trace optical / refractive index (`backreaction.py:647-651`
+> docstring "EMERGENT optical metric"; `../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`:18,24,28) —
+> **NOT** the gravitational redshift register. The redshift / local clock IS the **slope-1 `√S`** (W2 walk-back, :28), which is
+> exactly what the RULED-(c) `komar_weight` (`backreaction.py:235-252`) already installs. So the X44b "linear-clock" expectation
+> ladder rests on a **falsified premise** (`√S` is the *correct* clock register, not a register-mismatch); options 1-4 and the
+> empirical reconciliation MISS are untouched. Only the "`√S` is the wrong register / `n=1+(2/7)ε` is the redshift register"
+> attribution is corrected.
 
 **Framing (R2):** the **(c) READING stands untested** — X44 tested a density-only
 `√S` implementation in a regime that could only fail to reconcile (§4b), and the
