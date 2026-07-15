@@ -13,6 +13,15 @@
 > SEPARATE, later commit. The verdict-class thresholds live in the driver's `classify()`
 > (declared in code before the run). Git history carries the split.
 
+> **TL;DR (verdict §4.3): `PARTIAL`.** Field-strain `s_knee = 2.877 d_sat` vs 90%-correction radius
+> `r90 = 1.257 d_sat` → ratio `2.29` (resolution-stable, `2–5` band). The knee is the same *order* as
+> the collar but a factor `~2.3` OUTSIDE the correction bulk. Richer finding: the knee coincides with
+> the `r99` **outer envelope** of the correction cloud (ratio `1.06`) — a coupling-interface reading
+> consistent with the deficit-knee-as-LOADING-BC ruling; while the correction bulk (`r50`/`r90`) sits at
+> the near-SATURATED wall (`A ≈ 0.63`, `S ≈ 0.77`, `ΔS ≈ 31α`), NOT at the knee's `ΔS = α`. Two flags
+> surfaced: field-vs-voltage strain (voltage-knee `8.28` ≈ review `NEAR_R = 10`), and the Γ sign
+> convention (§5). No VALUE minted this wave (report-only per the ruling).
+
 ---
 
 ## Sector header
@@ -115,4 +124,127 @@ cut; the FLAGGED voltage-strain knee vs `r90`; and the `r50/r99` enclosed radii 
    `Γ = (1−√S)/(1+√S)` (Op14 Meissner-asymmetric static-E load: `ε_eff = ε₀S`, `μ` unloaded ⇒
    `Z_eff = Z₀/√S`; convention stated, reconciled against the ruling's `Γ ≈ −0.002` at the knee).
 
-<!-- RESULTS-BELOW-APPENDED-IN-A-SEPARATE-COMMIT (no-answer-shaping ordering) -->
+---
+
+## 4. Results
+
+**Driver as-run:** `alpha0 = 0.03`, profile at `R = 1000 d_sat`, collar at `R = 30 d_sat`
+(frozen-window minimum → densest near-wall shells), `n_orient = 4`, `n_cut = 40`, frozen mesh
+`n_r = 16` + refined `n_r = 48`. Output `assets/sim_outputs/knee_contour_check.{json,png}` (gitignored,
+regenerable). All physics constants imported (`ALPHA`, `L_NODE`, `R_I`); `make verify` green at HEAD.
+
+### 4.1 The knee (field-strain, PRIMARY)
+
+The measured single-probe `A(s)` tracks the bare field-strain `(d_sat/s)²` to `< 10⁻⁴` (the dipole
+dress is a perturbative correction near the probe), so the knee is crisp:
+
+| quantity | value (d_sat) | value (ℓ_node) | value (SI) |
+|---|---:|---:|---:|
+| **`s_knee` field-strain (PRIMARY)** | **2.877** | **2.877** | **≈ 1.11 pm** |
+| `s_knee` bare closed-form `(2α)^{−1/4}` | 2.877 | — | — |
+| `s_knee` **voltage-strain (⚑ FLAGGED)** | 8.278 | 8.278 | ≈ 3.20 pm |
+
+Discretization sensitivity of `s_knee` (frozen 16 vs refined 32 shells): **`4.5×10⁻⁵`** — negligible
+(the knee is set by the bare `1/s²`, not the mesh). Unit map `1 d_sat = 1 ℓ_node`
+(`methodological-contamination.md:46`), so both columns are numerically identical.
+
+### 4.2 The collar (enclosed coupling-correction), `R = 30 d_sat`, `dep_full = 0.0456`
+
+The coupling correction is **overwhelmingly carried by the near-SATURATED inner shell at the Pauli
+wall** (where `A → 1` and `χ_sat = 1/√(1−A²) − 1` diverges): the innermost shell (`r_mid ≈ 1.17 d_sat`)
+alone carries **91.5%** of the whole transfer departure; the enclosed fraction then rises slowly to `1`.
+Because the correction is a **step function on the shell radii**, `r50`/`r90` are interpolated *within*
+that first near-wall shell (hence their `~1.1–1.26 d_sat` values and the disclosed `~9%` discretization
+sensitivity); the qualitative fact — the bulk is at the wall, not at the knee — is resolution-robust.
+
+| radius | frozen `n_r=16` (d_sat) | refined `n_r=48` (d_sat) | disc. sensitivity |
+|---|---:|---:|---:|
+| `r50` (50% enclosed) | 1.208 | 1.101 | ~9% |
+| **`r90` (90% enclosed) — verdict basis** | **1.257** | **1.144** | **~9%** |
+| `r99` (99% enclosed) | 2.725 | 2.261 | ~17% |
+| review `NEAR_R` cut | 10.0 | 10.0 | (fixed) |
+
+The `s⁻⁶` induced-dipole-density falloff onset is `1.31 d_sat` (frozen) / `3.52` (refined) — the
+crossover from near-wall saturation (`χ` diverges) to the linear `χ ≈ A²/2` regime (density `∝ s⁻⁶`);
+resolution-sensitive but bracketing the same near-wall region, **inside** the knee.
+
+### 4.3 Verdict
+
+**PRIMARY (declared basis: field-strain `s_knee` vs `r90`): `PARTIAL`.**
+`ratio = 2.877 / 1.257 = 2.29` (frozen), `= 2.51` (refined) — both land in the `2–5` PARTIAL band,
+**resolution-stable**. The knee and the 90%-correction radius are the **same order** but **not
+identical**: the knee sits a factor `~2.3` OUTSIDE the radius that carries the bulk of the correction.
+
+Secondary reported comparisons (NOT the declared verdict basis, reported per class rules):
+
+- **Field-knee vs `r99` (the OUTER edge of the correction cloud): near-identity, `ratio 1.06` (frozen)
+  / `1.27` (refined) — MATCH-level, resolution-stable.** The `A = √(2α)` knee coincides with the radius
+  enclosing the LAST 1% of the coupling correction — i.e. it marks the **outer envelope** of the
+  screening cloud, the radius beyond which the medium's coupling contribution has effectively vanished.
+- Field-knee vs `NEAR_R = 10`: `PARTIAL` (ratio 3.48) — the review's `10 d_sat` cut is over-generous
+  (99% is already enclosed by `~2.7 d_sat`).
+- **⚑ voltage-strain knee (8.278) vs `NEAR_R = 10`: `ratio 1.21` — MATCH-level (a SECOND coincidence,
+  flag-don't-fix).** The review's chosen `10 d_sat` near-cloud cut is close to the *voltage*-strain knee.
+  But voltage-knee vs `r90` is `NO-MATCH` (ratio 6.6).
+
+---
+
+## 5. The honest inverse read — what S and Γ the collar edge sits at
+
+At the **declared collar edge `r90 = 1.257 d_sat`** the field-strain amplitude is `A = 0.633`
+(voltage-strain `A_V = 0.796`), so:
+
+- **`S = √(1−A²) = 0.774`** — i.e. `ΔS = 1 − S = 0.226 ≈ 31α`, a **NEAR-SATURATED** amplitude, roughly
+  `5×` the deficit-knee amplitude and `~31×` its `ΔS`. **The collar edge is NOT set by the `√(2α)`
+  knee** — it is set by the near-wall divergence of `χ_sat` (the inner shell at `A → 1`, i.e. approaching
+  the RUPTURE amplitude `R_III = 1`, not the regime-I knee `R_I = √(2α)`).
+- **`Γ = (1−√S)/(1+√S) = +0.064`** (E-sector static-dielectric convention).
+
+For contrast, **at the deficit knee itself** (`A = √(2α)`): `S = 0.99268`, `ΔS = 1 − S = 0.00732 = α`
+(the proportional limit, exactly), and `Γ = +0.00184`.
+
+> **⚑ FLAG — Γ SIGN CONVENTION vs the Wall-A ruling.** The Wall-A ROLE-3 ruling
+> (`rulings-docket:543`) reports **`Γ ≈ −0.002`** at the deficit knee (auditor arithmetic). This check's
+> `Γ = +0.00184` **corroborates the MAGNITUDE** (`α/4 ≈ 0.00183 ≈ |−0.002|`) but carries the **opposite
+> sign**, from the reflection convention: this check uses the static-E asymmetric load
+> `Z_eff = Z₀/√S > Z₀ ⇒ Γ = (Z_eff−Z₀)/(Z_eff+Z₀) > 0` (a *capacitive-dielectric-loaded* boundary
+> reflects with the `Γ>0` sign under this convention). Surfaced for the auditor to reconcile the sign
+> convention with the ruling; the magnitude (`≈ α/4`) agrees.
+
+---
+
+## 6. Implications
+
+**Verdict PARTIAL — the knee is the OUTER envelope of the screening cloud, not its dress-bulk edge.**
+Under the declared basis (field-strain knee vs 90%-correction radius) the two surfaces are the same
+order but a factor `~2.3` apart, resolution-stably. The richer, honest structure the numbers force:
+
+1. **The deficit-knee surface acquires a MEASURED VALUE candidate — but a specific one.** The `A = √(2α)`
+   contour (the FORM the KB lane is minting per the **Wall-A ROLE-3 "deficit knee"** ruling,
+   `rulings-docket:540-568`) coincides with the **`r99` outer edge** of a real, converged
+   self-consistent screening cloud (`ratio 1.06–1.27`, resolution-stable) — i.e. the knee's numeric
+   address is **`s_knee ≈ 2.877 d_sat = 2.877 ℓ_node ≈ 1.11 pm`**, read as the **outer envelope** of the
+   coupling-correction cloud, NOT the `r90` dress-bulk edge and NOT the review's `10 d_sat` cut.
+   **This is a coupling-interface reading**, consistent with the ruling's identification of the deficit
+   knee as the **LOADING BC / port** (the coupling/matching interface, `rulings-docket:556`): the knee
+   bounds where the medium's coupling contribution lives.
+2. **Per the ruling, the VALUE stays gate-measured — this wave reports, the mint does not consume the
+   number.** The KB lane mints the deficit-knee FORM; this check supplies a measured VALUE *candidate*
+   (`2.877 d_sat`, as the `r99` outer envelope). It is NOT landed into the KB and NOT a MATCH-class
+   "the-knee-IS-the-dress-edge" claim (the declared `r90` verdict is PARTIAL). Routed to the auditor.
+3. **This check builds the `A(r)` profile the deficit-knee ruling flagged as "the missing leg."** The
+   ruling recorded that "no `A(r)` profile" was built (`rulings-docket:548`, fluxoid step-0 note:100).
+   This check provides a converged `A(s)` profile **around a unit charge in the #693 screening cloud**
+   (a distinct object from the electron soliton itself, but the first built `A`-vs-radius profile in this
+   thread) and confirms it is the FIELD-strain `(d_sat/s)²` the kernel consumes.
+4. **Two flagged forks are surfaced, not resolved (flag-don't-fix):** (a) the **field-vs-voltage strain**
+   ambiguity — the driver kernel consumes field-strain `(d_sat/s)²` (knee at `2.877`), while the
+   canonical `methodological-contamination.md:48-52` uses voltage-strain `d_sat/r` (knee at `8.278`,
+   which happens to sit at the review's `NEAR_R = 10` cut); (b) the **Γ sign convention** vs the ruling's
+   `Γ ≈ −0.002` (§5, magnitude corroborated). Both are Grant/auditor adjudication items.
+
+**Consistency-vs-emergence tag: CONSISTENCY.** No value is minted, no emergence headlined; the earnable
+content is the geometric characterization (a radius) of the charge-agnostic Op14 screening cloud. The
+`s_knee = 2.877 d_sat` VALUE candidate rides the `α`-echo (it is `(2α)^{−1/4}` in native units) — it is
+a consistency-class measured address, not an independent prediction.
+
