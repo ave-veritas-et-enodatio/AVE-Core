@@ -174,16 +174,18 @@ Zero hard-coded physics numbers in the driver; the forbidden-seed set is derived
 2. **The 1D-radial-proxy limitation (build honesty).** The composite `6₂³ ∪ 0₁` is two LINKED tubes — a
    3D topological relation. The 1D radial hedgehog solver represents a single spherically-symmetric defect;
    the shift-outward `d` is a **proxy** for the true 3D linking energy. The corpus TBD-pin
-   (`neutron-identification.md:36`/`:77`) itself commits to a 1D-solver-shaped computation
+   (`neutron-identification.md:36`/`:54`/`:77`) itself commits to a 1D-solver-shaped computation
    ("same shape as proton … in units of m_e c²"), so this
    is the corpus's own scope — but the ~15× magnitude overshoot is consistent with the proxy being
    geometrically coarse (the spherical measure over-weights the displaced shell vs a true axial threading).
    A faithful magnitude would need a genuinely 3D composite FS solve (a separate, larger build). This is
    surfaced as the honest ceiling on the magnitude claim, NOT a debug-toward-rescue.
-   *(Attribution corrected 2026-07-14, Wave-0 KB batch: the "Same shape as proton mass eigenvalue
-   derivation" phrase is `neutron-identification.md:36` — this parenthetical previously read `:54`,
-   which is off-by-text; two-method verified. `:77` — the FS-solver composite `6₂³ ∪ 0₁` scope — is
-   correct. The `:36`/`:77` pair matches the frozen prereg `:5`.)*
+   *(Attribution corrected 2026-07-14, Wave-0 KB batch: the elided quote spans three source lines —
+   "Same shape as proton mass eigenvalue derivation" is `neutron-identification.md:36`; "in units of
+   m_e c²" is `:54` (the file's sole "in units of" line); the FS-solver composite `6₂³ ∪ 0₁` scope is
+   `:54`/`:77`. Full attribution `:36`/`:54`/`:77`, matching the frozen prereg `:5`, which cites
+   `:36`/`:77` for the TBD-pin route AND `:54` for the "in units of m_e c²" fragment (prereg
+   AMENDMENT A1, :347-356).)*
 
 3. **Mass-accounting ambiguity (Reading X vs Y).** Inherited from the n–p gate; `proton-neutron-mass-split.md:10`
    attributes the whole surplus to elastic tension with no separate electron-rest-mass accounting. The

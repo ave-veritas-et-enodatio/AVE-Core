@@ -372,7 +372,7 @@ parse it):
 <!-- id: def-e0cd83 -->
 
 - **term:** node-Nyquist-size-boundary
-- **adjudicated-meaning:** *(PROPOSED, gated)* the single spatial scale at which a soliton's real-space body crosses the node Nyquist boundary — distinguishing a **supra-node body envelope** from a **sub-node charge-core feature** (the §45 A-vs-B fork). **Within the three-surface anatomy (def-anat3s): this Nyquist boundary is the $\ell_{node}$ scale that SEPARATES the §45 Resolution-A sub-node wall/floor ($\ell_{node}/2\pi$) from the §45 Resolution-B supra-node surfaces (the balance shell $\approx 1.6\,\ell_{node}$, the knee) — the FORM mint shows both sides are real (distinct surfaces), so the Nyquist crossing is the dividing line, not an either/or fork.** (The value-side §45 resolution stays gate-(b).)
+- **adjudicated-meaning:** *(PROPOSED, gated)* the single spatial scale at which a soliton's real-space body crosses the node Nyquist boundary — distinguishing a **supra-node body envelope** from a **sub-node charge-core feature** (the §45 A-vs-B fork). **Within the three-surface anatomy (def-anat3s): this Nyquist boundary is the $\ell_{node}$ scale that SEPARATES the §45 Resolution-A sub-node wall/floor ($\ell_{node}/2\pi$) from the §45 Resolution-B supra-node surfaces (the balance shell $\approx 1.6\,\ell_{node}$, the knee) — the FORM mint names both sides as surfaces (the **knee** is a genuinely distinct supra-node surface; the **balance shell**'s distinctness-from-the-wall is **gate-(b)**, Grant Ruling 6: CONJECTURED $\equiv$ wall), so the Nyquist crossing is the FORM-level dividing line, not an either/or fork.** (The value-side §45 resolution stays gate-(b).)
 - **axis:** spatial-Brillouin
 - **dimension/type:** length (L) $= \ell_{node}$
 - **status:** proposed
