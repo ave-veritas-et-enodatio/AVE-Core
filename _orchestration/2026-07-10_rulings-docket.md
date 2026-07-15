@@ -975,7 +975,48 @@ adjudication), `:488-489` ("what remains for Grant" + the KEEP-BOTH SA read).
 
 ### Ruling 5 — #693 "intervening cells" = THE RUN reading — RATIFIED
 
-<!-- fill:R5 -->
+**Ruling.** Grant ratified that **"intervening cells"** (prereg §4:157) means **the run between the
+collars**, **NOT** the dress-slicing cylinder — so the frozen **RELABELED-PAIRWISE** re-tag
+**FIRES**. (Verbatim term quoted: *"intervening cells"*; the rest below is the repaint that carried
+the ruling.)
+
+**The repaint that resolved Grant's objection.** Grant correctly insisted the medium between two
+solitons **of course participates** — **the springs carry the force**. The resolution is the
+**two-jobs carve**:
+- **JOB ONE — the medium as TRANSMISSION LINE** carrying the **bare 1/R²**. Never in question,
+  never tested; it is the **normalization baseline** (AVE is a **contact theory** — the medium *is*
+  how the force gets across).
+- **JOB TWO — the medium as ACTIVE DIELECTRIC** modifying the coupling: the **departure-from-bare**,
+  `α_eff(R)`. This splits into **path physics** (per-decade accumulation — the QED-log shape) vs
+  **endpoint physics** (each charge's **~10-cell saturated collar**; beyond it the induced
+  polarization falls **~s⁻⁶**).
+
+**Corrected decomposition.** Suppressing the **entire run's** polarization response changes the
+correction by **~0.02%**; the **collars carry ~100%**
+(`research/2026-07-14_screening-sum-gate_RESULT.md:233`). The **run is rigid** ⇒ **nothing
+accumulates per decade** ⇒ the **no-log verdict is mechanistically explained** — it is a named
+mechanism, not a null-of-ignorance.
+
+**Plumber form on record.** Towers–pipes–manifolds: the **pipes carry the pressure** (job one); the
+**correction lives in the two manifolds**, not the run; a **rigid run = no log**.
+
+**What it means for the frozen rule.** The frozen genuineness knife
+(`research/2026-07-14_screening-sum-gate_prereg_FROZEN.md:157`, §4: *"removing the intervening cells
+does not change the result → RELABELED-PAIRWISE"*) is read with "intervening cells" = the **genuine
+mid-bridge medium** (excluding each probe's own near dress). The two do-not-bury FLAGGED-for-Grant
+blocks in the result (`research/2026-07-14_screening-sum-gate_RESULT.md:50-53`, `:237-239`) are the
+crux interpretive step; Grant has now **ratified the mid-bridge reading**.
+
+**Sector fence.** **E-sector static dielectric, transfer register** — this is about **charges, not
+masses.**
+
+**Registered — NOT executed.** The **`q-g20f` re-tag propagation** ("Identical (RT-equivalence)" →
+scoped-import), **with the enumerated scope bound in**, via the auditor — **GATED until Grant's
+full-picture session completes.** NOT fired here.
+
+**Site it resolves:** `research/2026-07-14_screening-sum-gate_RESULT.md:50-53` (the do-not-bury FLAG
++ KEEP-BOTH shipped-cylinder-vs-corrected), `:237-239` (the frozen-rule reading); the frozen rule at
+`research/2026-07-14_screening-sum-gate_prereg_FROZEN.md:157` (§4).
 
 ### Held state — Grant's standing directive + held executables
 
