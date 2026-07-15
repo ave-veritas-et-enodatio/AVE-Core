@@ -32,7 +32,111 @@
 
 ## 1. MASTER TABLE — the nine families
 
-<!-- filled per-commit -->
+~100 raw quarter-power sites collapse to **nine families**. One representative anchor per
+member; duplicates folded. Every anchor below was re-verified two-method (`grep -F` for the
+math literal + line-content confirmation) at `bb58727f`.
+
+### Family A — the three story members (knee-contour evaluations)
+
+| # | Quantity | Expression | Value | Anchor | Class | Status |
+|---|---|---|---|---|---|---|
+| A1 | Local clock at knee | `ω_local = (1−2α)^{1/4} ω_global` | 0.996331 | `op14-local-clock-modulation.md:22,44,54` | rate | **ADJUDICATED** (PR#690/#683 REPLACE; supersedes the provenance-unclear 0.95; the 0.22/0.84 half-exponent artifacts are KEEP-BOTH at :122) |
+| A2 | Shear speed register | `c_shear = c₀√S = c₀(1−A²)^{1/4}` | — | `scale_invariant.py:294`; Op16 `universal_operators.py:1018` | velocity / register-flag | **RESOLVED in code** (Grant F1); **STALE "not settled" flag survives** at `manuscript/common_equations/eq_axiom_4.tex:47` |
+| A3 | Knee radius (field-strain) | `r_knee = (2α)^{−1/4} ℓ_node` | 2.877 ℓ_node ≈ 1.11 pm | `research/2026-07-14_knee-contour-check_NOTE.md:144,180,226` — **BRANCH `analysis/knee-contour-check` (PR #696), NOT on main** (code-span cite, not md-link) | length | measured, resolution-stable, `= r99` outer envelope (ratio 1.06); **echo-classified / report-only** (:248); field-vs-voltage-strain fork OPEN (:241) |
+
+`(1−2α)^{1/4} = 0.9963311827` and `(2α)^{−1/4} = 2.8770749` recomputed this session;
+`2.877 × λ̄_C (0.38616 pm) = 1.111 pm`. The A3 value is NOT landed into the KB and stays
+report-only per the knee-NOTE ruling.
+
+### Family B — kernel √S projections (the ONE-kernel family; all live-canonical)
+
+Every member is `(1−A²)^{±1/4} = S^{±1/2}` at some operating point — same kernel, different
+port. The corpus has ALREADY adjudicated this as ONE kernel: `gw_propagation.py:374-375`
+("`(1 − A²)^{1/4}` … is a DERIVED projection … NOT a second kernel; … never used AS the
+kernel"), `grqed-stage1 result:40,56`, `test_l1_multiwave.py:54` (base-notation identity
+discharge — the two notations AGREE, :56).
+
+| Member | Form | Sign | Anchor (canonical) | Notes |
+|---|---|---|---|---|
+| Node/varactor clock | `Ω_node = ω₀(1−A²)^{1/4}` | + | `vacuum_engine.py:552,806`; origin `research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md`; tests `test_axiom_4_vacuum_varactor.py:59`, `test_phase2_node_resonance.py:103` | `ω = 1/√(LC)`, `C_eff = C₀/S` — the BIRTH site of the quarter power |
+| Komar / clock weight | `w = √S` | + | `gravity/backreaction.py:252` (pins DEC-1 `exponent=0.5`, "NO new kernel" :246) | clock-deficit ledger consumes `1 − √S ≈ A²/4` (`:420`) |
+| c_shear (matter/GW) | `c₀√S` | + | `scale_invariant.py:294`, `gw_propagation.py:294`, `rupture_solver.py:120`, `categorization.py:239`, facade `unified_engine.py:413`, spine `_transverse.py:85` | Schwarzschild identity `(1−A²)^{1/4} ≡ √(1−r_s/r)` (`dark-sector-response-characterization.md:228`; datasheet `05_ac_electrical_characteristics.tex:552`) |
+| c_EM stiffening | `c₀(1−A²)^{−1/4}` | − | `master_equation_fdtd.py:13,166` (`c_eff² = c₀²/S`); `regime_map.py` | opposite-sign branch (bulk/A1-cage); the wave-typing fork |
+| Birefringence n_⊥ | `(1−A²)^{1/4} ≈ 1−¼A²` | + | `src/ave/qed/birefringence.py:66`; `vacuum-birefringence-e4.md:97`; bench `src/ave/bench/birefringence.py:159,179` (`expm1(0.25·log1p(−A²))` guard) | **the flagship falsifier observable IS a quarter-power kernel projection**; symbolically checked (`bench/birefringence.py`) |
+| n_∥ mixed | `√[(1−2A²)/√(1−A²)]` | mixed | `src/ave/qed/__init__.py:19`; `vacuum-birefringence-e4.md:97` | half×quarter product of the SAME kernel |
+| Op4/Op14 impedance dress | `Z = Z₀/(1−(d_sat/r)²)^{1/4}` | − | `universal_operators.py:184,229`; `operators.md:44`; `pairwise-potential.md:20`; `qed_trace_beta_gate.py:108` (running-α reactive register, 2026-07-14) | inverse-square field strain feeding the pinned quarter — the r_knee generator shape |
+| μ-load short / mirror | `Z₀√S → 0, Γ→−1` | + | `crystal_engine.py:483`; `vacuum_varactor_scatter.py:199`; Op14 load flag `universal_operators.py:828` | sign = load-type selector (electric OPEN `/√S` vs magnetic SHORT `·√S`) — H3-degenerate class |
+| ASYM sector split | `Z = Z₀√(S_μ/S_ε)` | ± | `cosserat_field_3d.py:1852`; `graded-network-response.md:165`; `categorization.py:245-249` | SYM ⇒ `Z = Z₀` invariant — the loading-symmetry switch that decides whether Z carries any ¼ at all |
+| Vacuum-impedance-mirror falsifier | `Z₀(1−(V/V_y)²)^{−1/4}` | − | `vacuum-impedance-mirror.md:92` (`clm-5s5b0d`) | bench-facing |
+| Superband force / energy | `F ∝ r/√S`, `U ∝ 1−(1−r²)^{3/4}` | — | `superband_carrier_fork.py:80,110` | ¾ = integral of the ¼ force; kernel-derived |
+| Aperture skewness | `S₀^{1/4}` | + | `parametric-coupling-kernel.md:456` | stacked half-powers of the kernel |
+| Bond propagation | `f_ij = (S_i S_j)^{1/4}` | + | `research/_archive/L3_electron_soliton/111_master_equation_audit_and_engine_gap.md` | geometric mean of two √S |
+| Coefficient-¼ class | `δn ≈ −¼A²`, `δC = ¼C₀(V/V_y)²`, `Γ-gradient ¼`, `pc = −0.25` | — | `parametric-coupling-kernel.md:70`; `p4_forward_voltage_threshold.py:263`; `cosserat_field_3d.py:627` | O(A²) Taylor projections of the same kernel — same contour, coefficient guise |
+
+### Family C — kernel-adjacent, DIFFERENT base (mechanism-isomorphic, contour-foreign)
+
+| Member | Form | Anchor | Note |
+|---|---|---|---|
+| Be cascade correction | `k_eff = k_pair/(1+k_inner)^{1/4}` | `hierarchical-cascade-correction.md:30-31`; `radial_eigenvalue.py:2018` | in-corpus statement that ¼ = √∘√ (normal-mode `(1+k)^{1/2}` then coupling `√`); base is `(1+k)`, NOT the deficit kernel; **already adjudicated a coincidental collision** |
+
+### Family D — non-kernel quarter-powers (imports / dimensional analysis)
+
+| Member | Form | Anchor | Provenance |
+|---|---|---|---|
+| MOND / Tully-Fisher floor | `v_flat = (GM a₀)^{1/4}` | `translation-gravity.md:25` (+ dupes) | √∘(inverse-square) of dimensionful imports; the corpus's FIRST chased ¼ (2026-02-13) |
+| Kolmogorov microscale | `η = (ν³/ε)^{1/4}` | `regime_3_saturated/kolmogorov_cutoff.py:59` | standard turbulence import |
+| Stefan-Boltzmann | `T ∝ (…)^{1/4}` | `Applied-Vacuum-Engineering …/06_02_model.tex:12` — **cross-repo, NOT in this AVE-Core checkout (anchor unverified here)** | historical: FIRST ¼ in the corpus lineage (2026-02-10), T⁴ inversion |
+| Shakura-Sunyaev disk | `(1−√x)^{0.25}` | `simulate_gargantua_acoustic_vortex.py:261` | astrophysics import |
+| Higgs VEV (EXCLUDED) | `(√2 G_F)^{−1/2}` | `constants.py:670` | inner sqrt acts on the constant 2 — NOT a kernel/coupling quarter-power; excluded |
+
+### Family E — legacy `S^{1/4}` = (1−A²)^{1/8} defect (history + live residue)
+
+The genuine bug class: an eighth-power-in-A² matching NEITHER physical register. Corrected in
+the engines (`master_equation_fdtd.py:176,188`; `k4_tlm.py:292` — "prior `S_factor**0.25`
+(`= (1−A²)^{1/8}`) … off by a factor of 2 … corrected to `sqrt(S_factor)`"; `crystal_engine.py:431`).
+**Zero surviving `S**0.25` c_shear/kernel assignments in live `src/ave`.** Surviving residue
+(all FLAGGED-NOT-FIXED):
+
+| Residue | Anchor | Kind |
+|---|---|---|
+| `1/64` reflection coefficient from a legacy `Z = Z₀/S^{1/4}` chain | `cosserat_field_3d.py:453,482` (`reflection = (1.0/64.0)*grad_S_sq/(S*S+eps)`) | **live operative code**; corrected register (`Z=Z₀/√S`) implies `1/16` |
+| "not settled" flag + stale `refractive_index() returns S^{1/4}` claim | `eq_axiom_4.tex:47` | stale vs code (impl returns `S**0.5` at `fdtd:188`) — doubly stale, honesty-lag |
+| Stale docstrings | `boundary_invariants.py:31-32` (impl `:132` is correct `S**-0.5`); `crystal_graft_v2.py:87` `Γ_floor` formula | doc/code mismatch in-file |
+| Legacy-exponent figure/verify scripts | `cvr_model.py:126` (deliberate AS-CODED exposure); `apparatus_floor_wall_run.py:78`; `test_gamma_sign_gate.py:138` | figure/regression anchors, no gates |
+| Live KB `Z = Z₀/S^{1/4}` leaves | `k4-tlm-lensing-validation.md:22`; `k4-tlm-simulator.md:44` | the impedance-law discrepancy that let the bug ride in — un-propagated |
+| DEC-1 sensitivity knob | `graded_vacuum_network.py:295,306` (`exponent ∈ {0.5, 0.25}`, primary 0.5) | deliberate robustness knob, adjudicated robust — but can silently propagate 0.25 |
+
+### Family F — VALUE-¼ lane (NOT an exponent; closed-negative; do not conflate)
+
+`R·r = 1/4` Golden-Torus identity (`08_alpha_golden_torus.tex:69`) — Class-B **standing echo**,
+every named route closed-negative with the flip-condition LIVE (`interlock-register.md:236-248`;
+α-free flip on record `forka-alpha-flip_prereg.md:14`; the ½/¼ over-determination = coincidence-
+magnet tell). **A different object from the quarter-POWER story.** (Synthesis's
+`translation-circuit.md:252` rescue pointer dropped — that file is 16 lines; see corrections.)
+
+### Family G — quarter-ARC (kernel SHAPE, not power)
+
+`S(A)` traces a quarter circle — the "universal quarter-arc kernel" (`axiom-register.md:186`;
+`∫₀¹√(1−A²)dA = π/4`); SHAPE-DERIVED (conditional), L2-norm-forced (:187-188). A different
+"quarter."
+
+### Family H — stale / superseded numerics
+
+The 0.22/0.84 half-exponent artifacts (op14 leaf `:105,:120,:122` KEEP-BOTH; origin
+`research/_archive/L5/axiom_derivation_status.md:204`); the superseded 0.95 (op14 `:120`, carrying
+the A²-vs-√(2α) slip); `electron-bind-sim_result.md:59` uses the superseded `√(1−A²)` clock at
+`A=√α` and lands on 0.9963 only via the near-collision (§4); **`chiral_drive_selforbit.py:173`
+LIVE** clock `ω₀·√(1−A²) = ω₀(1−A²)^{1/2}` — a half-exponent clock in operative code disagreeing
+with the ratified √S.
+
+### Family I — register-fork on the knee amplitude itself
+
+`loop_gap_seeds.py:26` pins `A_YIELD = √α` (no 2) — same √α register in `regime_map.py:369` — vs
+`constants.R_I = √(2α)` / `chiral_lattice_v10.py:30`. A quarter-power projected from the √α
+register differs from `(2α)^{−1/4}` by `2^{1/4} = 1.189` — a silent 19% address error if
+conflated. **Separately:** `lense_thirring.py:172` is a hardcoded `(2·α)^{0.5} = √(2α)` literal
+(the R_I register, inlined instead of importing `constants.R_I`) — a should-import hygiene item,
+NOT a √α-register member (synthesis mis-grouped it; see corrections).
 
 ## 2. THE ONE-CONTOUR TEST
 
