@@ -126,30 +126,59 @@ is a pure **instrument** change on one trajectory.
 `ROW-KEY` — **BANKED** = frozen #689 instrument (`energy_pot`, potential register, interior
 mask; the RESULT §2 table). **FULL** = completed forward instrument (`energy_full` = potential +
 Cosserat kinetic, sponge-excluded at `SPONGE_GUARD=1`). Both use the min-image CF ball on the
-torus (#689 finding #1). Trend = drive-off → final quiet step; θ=0.10.
+torus (#689 finding #1). PR / CF = `rel_trend` (PR) / `CF_peak_2.0` (CF); θ=0.10.
+
+**Two statistics per cell (review MAJOR 1 — the instrument fix).** The core is a driven LC
+tank; it sloshes pot↔kin 2–3× per recorded step, so the single **endpoint** (drive-off → final
+quiet step) is a **phase moment**. Every cell is therefore reported under **both** a phase-robust
+**quiet-window mean** (`rel_qmean`: the last-half quiet window time-averaged vs the drive-off
+start) — the **PRIMARY** read for the PML box — **and** the **endpoint** (`rel_trend`), kept as a
+disclosed companion. The endpoint remains the frozen fork gate on the torus (the fork cells are
+phase-robust — both statistics agree, see below). The `_trend` `slope_norm` non-monotone guard
+(added in the prior review for this mirage class, previously consumed by nothing) is now routed
+through the classifier (`_nonmonotone_flag`) and flags a register whose resolvable endpoint points
+opposite the window drift.
+
+**(A) ENDPOINT `rel_trend` — the frozen fork gate.**
 
 | N | boundary | mode | fid | BANKED (pot-only) PR / CF → sig | FULL (pot+kin) PR / CF → sig | bin move |
 |---|---|---|---|---|---|---|
 | 14 | torus | **pair** | prod | +0.410 / −0.158 → **LOOP-FILLING** | +0.376 / −0.420 → **LOOP-FILLING** | **none (fork cell)** |
 | 14 | torus | **graded_a0** | prod | +0.397 / −0.101 → **LOOP-FILLING** | +0.354 / −0.409 → **LOOP-FILLING** | **none (fork cell)** |
 | 14 | torus | photon_lock | prod | −0.072 / +0.417 → CONCENTRATING\* | +1.426 / −0.471 → LOOP-FILLING | CONCENTRATING\*→LOOP-FILLING |
-| 14 | PML | pair | prod | +0.084 / −0.364 → LOOP-FILLING | −0.067 / +0.679 → CONCENTRATING† | LOOP-FILLING→CONCENTRATING† |
-| 14 | PML | graded_a0 | prod | +0.102 / −0.316 → LOOP-FILLING | −0.038 / +0.594 → CONCENTRATING† | LOOP-FILLING→CONCENTRATING† |
+| 14 | PML | pair | prod | +0.084 / −0.364 → LOOP-FILLING‡ | −0.067 / +0.679 → CONCENTRATING§ | LOOP-FILLING→CONCENTRATING |
+| 14 | PML | graded_a0 | prod | +0.102 / −0.316 → LOOP-FILLING‡ | −0.038 / +0.594 → CONCENTRATING§ | LOOP-FILLING→CONCENTRATING |
 | 14 | PML | photon_lock | prod | +0.219 / −0.269 → LOOP-FILLING | −0.015 / +0.025 → INCONCLUSIVE | LOOP-FILLING→INCONCLUSIVE |
-| 14 | torus | pair | smoke | LOOP-FILLING | LOOP-FILLING | none |
-| 14 | torus | graded_a0 | smoke | LOOP-FILLING | LOOP-FILLING | none |
+| 14 | torus | pair | smoke | +11.781 / −0.867 → LOOP-FILLING | +11.781 / −0.867 → LOOP-FILLING | none |
+| 14 | torus | graded_a0 | smoke | +11.499 / −0.864 → LOOP-FILLING | +11.499 / −0.864 → LOOP-FILLING | none |
+
+**(B) QUIET-WINDOW MEAN `rel_qmean` — the phase-robust PRIMARY read (PML box).**
+
+| N | boundary | mode | fid | BANKED (pot-only) PR / CF → sig | FULL (pot+kin) PR / CF → sig |
+|---|---|---|---|---|---|
+| 14 | torus | **pair** | prod | +0.400 / −0.183 → **LOOP-FILLING** | +0.282 / −0.244 → **LOOP-FILLING** |
+| 14 | torus | **graded_a0** | prod | +0.384 / −0.156 → **LOOP-FILLING** | +0.260 / −0.257 → **LOOP-FILLING** |
+| 14 | torus | photon_lock | prod | −0.119 / +0.670 → CONCENTRATING | +0.449 / +0.023 → LOOP-FILLING |
+| 14 | PML | pair | prod | −0.089 / +0.107 → CONCENTRATING | −0.090 / +0.977 → CONCENTRATING |
+| 14 | PML | graded_a0 | prod | −0.081 / +0.097 → INCONCLUSIVE | −0.080 / +0.896 → CONCENTRATING |
+| 14 | PML | photon_lock | prod | −0.047 / +0.118 → CONCENTRATING | −0.123 / +0.160 → CONCENTRATING |
 
 `*` #689 §4 CF-alone false-positive (structure-dead control) — **dissolves** under the full
 register (photon energy is dominantly kinetic; once included, correctly seen as delocalized).
-`†` **guard-sensitive** (`guard_sensitive=True`, see §5) — read-region artifact, NOT a boundary-
-clean signal. (PML `photon_lock` is `guard_sensitive=False`: INCONCLUSIVE at every guard — the
-structure-dead control has no persistent structure to read, not a drain artifact.)
+`‡` the endpoint LOOP-FILLING on the PML pot register is a **phase moment**: `_nonmonotone_flag`
+fires (`CF_peak_2.0`: endpoint CF −0.364 opposes the upward window drift `slope_norm` +0.003), and
+the phase-robust quiet-mean re-reads CONCENTRATING (pair) / INCONCLUSIVE (graded). See §5/§7.
+`§` the PML full-register CONCENTRATING holds under **both** statistics; it is a **boundary-
+dependent** read (torus vs PML disagree), restated §5/§7 — **not** a fork-cell move and **not** a
+Reading-B revival (the fork is scored on the torus, where both statistics read LOOP-FILLING).
 
-**The fork cells (torus `pair`+`graded_a0`) do NOT move: LOOP-FILLING under both registers.**
-The completion makes them disperse *harder* on CF (−0.158→−0.420, −0.101→−0.409), and the
-center-free PR still rises. **RULED Reading A stands.** The two register-completion *benefits*
-banked here are (i) the structure-dead `photon_lock` CF-alone false-positive dissolves, and
-(ii) both fork cells now clear the two-statistic **conjunction** (`signature_conj`) as well.
+**The fork cells (torus `pair`+`graded_a0`) are PHASE-ROBUST: LOOP-FILLING on both registers under
+BOTH statistics** (endpoint pair FULL +0.376/−0.420, graded +0.354/−0.409; quiet-mean pair FULL
++0.282/−0.244, graded +0.260/−0.257). The completion makes them disperse *harder* on CF, and the
+center-free PR still rises. `fork_bin_forward = fork_bin_banked = LOOP-FILLING` under the wired-in
+triggers. **RULED Reading A stands, phase-robustly.** The two register-completion *benefits* banked
+here are (i) the structure-dead `photon_lock` CF-alone false-positive dissolves on the torus
+endpoint, and (ii) both fork cells clear the two-statistic **conjunction** (`signature_conj`).
 
 ---
 

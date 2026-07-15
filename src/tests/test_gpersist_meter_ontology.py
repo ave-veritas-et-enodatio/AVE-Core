@@ -22,9 +22,14 @@ import numpy as np
 from ave.core.loop_gap_harness import make_engine
 from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, apply_seed
 from scripts.vol_1_foundations.gpersist_localization_observable import (
+    PRIMARY_R,
     SPONGE_GUARD,
+    THETA,
     _cosserat_kinetic_density,
+    _nonmonotone_flag,
     _read_region,
+    _sector_signature,
+    _trend,
 )
 
 
@@ -124,3 +129,55 @@ def test_shipped_guard_default_is_one_ring():
     shipped = _read_region(coupled, SPONGE_GUARD)
     interior = np.asarray(coupled._interior_mask(), dtype=bool)
     assert int(shipped.sum()) < int(interior.sum())
+
+
+# --------------------------------------------------------------------------
+# Phase-robust statistic — quiet-window mean + non-monotone guard (MAJOR 1)
+# --------------------------------------------------------------------------
+def _series(sector: str, stat: str, vals):
+    return [{sector: {stat: v}} for v in vals]
+
+
+def test_quiet_window_mean_inverts_an_endpoint_phase_moment():
+    """A series whose settled window sits ABOVE its start but whose final step
+    dips to a phase minimum: the endpoint rel_trend reads negative while the
+    quiet-window mean rel_qmean reads positive (the review MAJOR 1 mirage)."""
+    # 8 settled reads ~1.4 (above start 1.0), then a final-step slosh dip to 0.7.
+    vals = [1.0, 1.5, 1.3, 1.5, 1.35, 1.5, 1.3, 1.45, 1.4, 0.7]
+    tr = _trend(_series("e", "CF", vals), "e", "CF")
+    assert tr["rel_trend"] < 0.0  # endpoint (0.7 vs 1.0) reads negative
+    assert tr["rel_qmean"] > 0.0  # quiet-window mean sits above start
+    # the last-half window is averaged, not the single final step
+    assert tr["qmean_window"] == max(2, (len(vals) + 1) // 2)
+    assert tr["qmean"] > vals[-1]
+
+
+def test_nonmonotone_flag_fires_when_endpoint_opposes_drift():
+    """The slope_norm guard (previously consumed by nothing) fires when a
+    resolvable endpoint points OPPOSITE the window drift, and stays silent
+    when endpoint and drift agree."""
+    cf = f"CF_peak_{PRIMARY_R}"
+    # CF: endpoint strongly negative (<= -THETA) but the window drifts UP (slope>0)
+    flag_sector = {
+        "PR": {"rel_trend": 0.0, "slope_norm": 0.0},
+        cf: {"rel_trend": -3 * THETA, "slope_norm": +0.05},
+    }
+    assert cf in _nonmonotone_flag(flag_sector)
+    # endpoint and drift agree (both down) -> no flag
+    clean_sector = {
+        "PR": {"rel_trend": 0.0, "slope_norm": 0.0},
+        cf: {"rel_trend": -3 * THETA, "slope_norm": -0.05},
+    }
+    assert _nonmonotone_flag(clean_sector) == []
+
+
+def test_sector_signature_stat_selector():
+    """_sector_signature gates on the requested statistic; endpoint and quiet-
+    window mean can yield different leaves on a phase-moment series."""
+    cf = f"CF_peak_{PRIMARY_R}"
+    sector = {
+        "PR": {"rel_trend": 0.0, "rel_qmean": 0.0},
+        cf: {"rel_trend": -0.42, "rel_qmean": +0.30},
+    }
+    assert _sector_signature(sector, "rel_trend") == "LOOP-FILLING"
+    assert _sector_signature(sector, "rel_qmean") == "CONCENTRATING"
