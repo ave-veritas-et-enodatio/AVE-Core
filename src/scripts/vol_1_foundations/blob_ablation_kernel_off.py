@@ -1,0 +1,467 @@
+#!/usr/bin/env python3
+"""BLOB-ABLATION — core-holding mechanism fork (kernel-OFF + amplitude sweep).
+
+FROZEN NOTE (freeze-by-push BEFORE any battery result): research/2026-07-15_blob-ablation_NOTE.md
+
+Question (Grant-walked, fired in-chat 2026-07-15): is the #698 PML-box
+core-holding datum (fixed 33-site geom-center core ball 0.611 → 0.920, +50.6 %
+phase-averaged, while the interior drains −17.5 % and H falls −12.2 %)
+  (A) LINEAR MODE-SORTING — the sponge sieves the radiative components, leaving
+      the bound core-concentrated fraction (survives S≡1; ~amplitude-invariant), or
+  (B) NONLINEAR SELF-TRAPPING — the live saturation kernel makes the core a
+      slow-wave region (a self-dug index well) that gathers the interior's
+      residual energy once the wake stops stirring (dies with the kernel OFF;
+      hold-fraction grows disproportionately with amplitude).
+
+Rule-14 anti-rebuild: the METER is the corrected #698 instrument
+(`gpersist_localization_observable`) imported verbatim — `_meter_snapshot`,
+`_core_holding`, `_classify_cell`, `_trend`. No re-implemented meter, no new
+engine, no retune. This driver only (i) builds the engine in a kernel VARIANT
+(ON / OFF-mem native toggle / OFF-lin disclosed S≡1 disabled-flag), (ii) scales
+the seed amplitude self-similarly, (iii) tracks max_A²_local for the sub-yield
+guard. The ON / amp 1.0 / no-ablation path is asserted byte-parity vs the #698
+`run_instrumented` (--parity).
+
+Kernel conditions (NOTE §Kernel-OFF; DISCLOSURE):
+  on       — rank-4 production, use_memristive_saturation=True (baseline).
+  off_mem  — native toggle use_memristive_saturation=False; removes ONLY the
+             memristive lag (the stateful "live kernel"); instantaneous S=√(1−A²)
+             index remains.
+  off_lin  — DISCLOSED minimal disabled-flag: pin the saturation index to the
+             unsaturated limit S≡1 by overriding three bound methods on the built
+             instance (z_local≡Z₀ at BOTH the coupling and k4 update sites →
+             matched, Γ=0, linear TLM; ω-clamp shared-front Γ≡0 → Ω₀≡0 → inert
+             wall). Converter / bulk / geometry / seed / sponge byte-identical to
+             baseline. Validated by the torus energy-conservation sanity (run 10).
+
+Usage:
+  python blob_ablation_kernel_off.py --parity  N PML MODE FID
+  python blob_ablation_kernel_off.py --run     N PML MODE KERNEL AMP FID
+  python blob_ablation_kernel_off.py --battery  FID
+  python blob_ablation_kernel_off.py --aggregate
+(run with PYTHONPATH=src so `scripts.vol_1_foundations.*` imports resolve.)
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+import time
+from pathlib import Path
+
+import numpy as np
+
+from ave.core.constants import ALPHA
+from ave.core.genesis_v18_coupled import snapshot_op14, tau_steps_k4
+from ave.core.loop_gap_harness import PHI_BASELINE_FLOOR, make_engine
+from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, apply_seed
+
+# Reuse the corrected #698 meter verbatim (Rule-14). Package import (pytest
+# pythonpath=["src"] / PYTHONPATH=src) with a direct-script fallback.
+try:
+    from scripts.vol_1_foundations.gpersist_localization_observable import (
+        CORE_RADII,
+        PRIMARY_R,
+        SECTORS,
+        _classify_cell,
+        _core_holding,
+        _meter_snapshot,
+        _trend,
+        run_instrumented,
+    )
+except ModuleNotFoundError:  # invoked as a bare script from its own dir
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from vol_1_foundations.gpersist_localization_observable import (  # type: ignore
+        CORE_RADII,
+        PRIMARY_R,
+        SECTORS,
+        _classify_cell,
+        _core_holding,
+        _meter_snapshot,
+        _trend,
+        run_instrumented,
+    )
+
+NOTE = "research/2026-07-15_blob-ablation_NOTE.md"
+OUT_DIR = Path("assets/sim_outputs/blob_ablation_kernel_off")
+
+KERNELS = ("on", "off_mem", "off_lin")
+AMP_MARKS = {"sqrt_alpha": float(np.sqrt(ALPHA)), "sqrt_2alpha": float(np.sqrt(2.0 * ALPHA)), "yield": 1.0}
+A2_YIELD = 1.0  # sub-yield guard: abort + INSTRUMENT-for-that-run if max_A²_local >= 1
+
+# ---------------------------------------------------------------------------
+# Kernel-OFF S≡1 ablation (DISCLOSED minimal disabled-flag; NOTE §Kernel-OFF)
+# ---------------------------------------------------------------------------
+def _ablate_to_linear(coupled) -> None:
+    """Pin the saturation index to the unsaturated limit S≡1 on the built engine.
+
+    Three bound-method overrides on the instance (visible, local, no engine
+    source edit):
+      1. coupled._update_z_local_total     -> z_local ≡ 1 (=Z₀, matched, Γ=0)
+      2. coupled.k4._update_z_local_field  -> z_local ≡ 1 (defeats the in-k4.step
+         V_inc-keyed memristive/instantaneous recompute)
+      3. coupled._freeze_clamp_omega0_shared -> 0 (shared-front Γ≡0 ⇒ Ω₀≡0 ⇒ the
+         moving Γ=−1 ω-wall is inert)
+    Everything else (trilinear converter, linear-elastic Cosserat bulk, geometry,
+    seed, sponge, schedule) is byte-identical to baseline. Single-variable
+    ablation: only the amplitude-dependent saturation index is removed.
+    """
+    N = coupled.N
+
+    def _z_unsat():
+        coupled.k4.z_local_field = np.ones((N, N, N), dtype=float)
+
+    _z_unsat()  # pin the initial state too
+    coupled._update_z_local_total = _z_unsat
+    coupled.k4._update_z_local_field = _z_unsat
+
+    _zeros = np.zeros((N, N, N), dtype=float)
+
+    def _omega0_unsat():
+        coupled.cos._clamp_weight = _zeros.copy()
+        return _zeros.copy()
+
+    coupled._freeze_clamp_omega0_shared = _omega0_unsat
+
+
+def _linear_pin_ok(coupled) -> float:
+    """Max |z_local − 1| over the grid — 0 iff the S≡1 pin holds this step."""
+    return float(np.max(np.abs(np.asarray(coupled.k4.z_local_field, dtype=float) - 1.0)))
+
+
+# ---------------------------------------------------------------------------
+# Instrumented mirror loop with the kernel VARIANT + self-similar amplitude
+# (mirrors #698 run_instrumented; only the build + amp + A²-guard added).
+# ---------------------------------------------------------------------------
+def _build_variant(N: int, pml: int, mode: str, kernel: str, amp_scale: float):
+    assert kernel in KERNELS, kernel
+    memristive = kernel == "on"
+    engine = make_engine(
+        4, N=N, bulk_density_on=True, pml=pml, use_memristive_saturation=memristive
+    )
+    apply_seed(
+        engine,
+        mode,
+        amp=amp_scale * float(np.sqrt(ALPHA)),
+        a_lock=A_LOCK_DEFAULT,
+        front_target=A_YIELD,
+    )
+    engine.apply_bulk_probe_ic(amp=amp_scale * 0.08)
+    engine.freeze_converter_wall()
+    if kernel == "off_lin":
+        _ablate_to_linear(engine._coupled)
+    return engine
+
+
+def run_ablation(
+    N: int, pml: int, mode: str, kernel: str, amp_scale: float, fast: bool
+) -> dict:
+    """One cell: mirror the #670/#698 drive/quiet schedule, record the corrected
+    meter per quiet step, track max_A²_local, enforce the sub-yield guard."""
+    t0 = time.time()
+    engine = _build_variant(N, pml, mode, kernel, amp_scale)
+    coupled = engine._coupled
+
+    tau = tau_steps_k4(coupled, fast=fast)
+    n_drive = max(6 if fast else 10, int(round(0.5 * tau)))
+    n_quiet = max(10 if fast else 20, int(round(1.5 * tau)))
+    n_total = n_drive + n_quiet
+
+    obs0 = snapshot_op14(coupled)
+    obs_driveoff = obs0
+    phi_baseline = max(obs0["phi_link_sq"], PHI_BASELINE_FLOOR)
+    max_a2 = float(coupled.max_A_squared())
+    linear_pin_max = _linear_pin_ok(coupled) if kernel == "off_lin" else 0.0
+    aborted = False
+    series: list[dict] = []
+    for t in range(1, n_total + 1):
+        engine.step()
+        a2 = float(coupled.max_A_squared())
+        max_a2 = max(max_a2, a2)
+        if kernel == "off_lin":
+            linear_pin_max = max(linear_pin_max, _linear_pin_ok(coupled))
+        obs_t = snapshot_op14(coupled)
+        if t == 1:
+            phi_baseline = max(obs_t["phi_link_sq"], PHI_BASELINE_FLOOR)
+        if t <= n_drive:
+            obs_driveoff = obs_t
+        if t >= n_drive:
+            m = _meter_snapshot(coupled, periodic=(pml == 0))
+            m["t"] = t
+            m["phase"] = "drive_off" if t == n_drive else "quiet"
+            m["H"] = float(obs_t["H"])
+            m["phi_link_sq"] = float(obs_t["phi_link_sq"])
+            m["max_A2_local"] = a2
+            series.append(m)
+        if max_a2 >= A2_YIELD:  # sub-yield guard (frozen): abort this run
+            aborted = True
+            break
+    obs_end = obs_t
+
+    H_drive = max(obs_driveoff["H"], 1e-30)
+    E_persist = obs_end["H"] / H_drive
+    phi_drive = max(obs_driveoff["phi_link_sq"], phi_baseline)
+    phi_persist = obs_end["phi_link_sq"] / phi_drive if phi_drive > 0 else 0.0
+
+    trend = {}
+    stats = ["PR", "PR_frac"] + [f"CF_peak_{r}" for r in CORE_RADII] + [
+        f"CF_geom_{r}" for r in CORE_RADII
+    ]
+    for sec in SECTORS:
+        trend[sec] = {stat: _trend(series, sec, stat) for stat in stats}
+
+    res = {
+        "N": N,
+        "pml": pml,
+        "boundary": "torus" if pml == 0 else "PML",
+        "seed_mode": mode,
+        "kernel": kernel,
+        "amp_scale": amp_scale,
+        "fidelity": "smoke" if fast else "production",
+        "n_drive": n_drive,
+        "n_quiet": n_quiet,
+        "E_persist": float(E_persist),
+        "phi_persist": float(phi_persist),
+        "max_A2_local": max_a2,
+        "A2_marks": AMP_MARKS,
+        "sub_yield": bool(max_a2 < A2_YIELD),
+        "aborted_over_yield": bool(aborted),
+        "linear_pin_max_abs": float(linear_pin_max),
+        "M_interior": series[-1]["M"],
+        "trend": trend,
+        "series": series,
+        "wall_seconds": round(time.time() - t0, 1),
+        "note": NOTE,
+    }
+    res["classification"] = _classify_cell(res)
+    res["core_holding"] = _core_holding(res)
+    return res
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+def _cell_path(N, pml, mode, kernel, amp_scale, fast) -> Path:
+    fid = "smoke" if fast else "prod"
+    a = f"{amp_scale:.2f}".replace(".", "p")
+    return OUT_DIR / f"cell_N{N}_pml{pml}_{mode}_{kernel}_amp{a}_{fid}.json"
+
+
+def _write(path: Path, obj: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(obj, indent=2, sort_keys=True))
+
+
+def _fmt_ch(ch: dict) -> str:
+    return (
+        f"core {ch['E_core_full_driveoff']:.3f}->{ch['E_core_full_quietavg']:.3f} "
+        f"({ch['E_core_full_rel']:+.1%}) | rest-int {ch['E_rest_interior_rel']:+.1%} | "
+        f"H {ch['H_rel']:+.1%}"
+    )
+
+
+def cmd_parity(argv) -> None:
+    """ON / amp 1.0 / no-ablation must reproduce #698 run_instrumented byte-for-byte."""
+    N, pml, mode, fid = int(argv[0]), int(argv[1]), argv[2], argv[3]
+    fast = fid == "smoke"
+    ref = run_instrumented(N, pml, mode, fast, plant=False)
+    ref["classification"] = _classify_cell(ref)
+    ref_ch = _core_holding(ref)
+    mine = run_ablation(N, pml, mode, "on", 1.0, fast)
+    my_ch = mine["core_holding"]
+    keys = ["E_core_full_driveoff", "E_core_full_quietavg", "E_core_full_rel",
+            "E_rest_interior_rel", "H_rel"]
+    dmax = max(abs(ref_ch[k] - my_ch[k]) for k in keys)
+    de = abs(mine["E_persist"] - ref["E_persist"]) / max(abs(ref["E_persist"]), 1e-30)
+    ok = dmax <= 1e-9 and de <= 1e-9
+    print(
+        f"[parity] N={N} pml={pml} {mode} {fid}: core-holding maxΔ={dmax:.2e} "
+        f"relΔE_persist={de:.2e} -> {'PASS' if ok else 'FAIL'}\n"
+        f"    ref  : {_fmt_ch(ref_ch)}\n    mine : {_fmt_ch(my_ch)}",
+        flush=True,
+    )
+    _write(OUT_DIR / f"parity_N{N}_pml{pml}_{mode}_{fid}.json",
+           {"ref": ref_ch, "mine": my_ch, "maxDelta": dmax, "relDeltaE": de,
+            "parity_pass": bool(ok), "note": NOTE})
+    if not ok:
+        raise SystemExit("PARITY FAILED — mirror loop drifted from the #698 instrument")
+
+
+def cmd_run(argv) -> None:
+    N, pml, mode, kernel, amp, fid = (
+        int(argv[0]), int(argv[1]), argv[2], argv[3], float(argv[4]), argv[5]
+    )
+    fast = fid == "smoke"
+    res = run_ablation(N, pml, mode, kernel, amp, fast)
+    _write(_cell_path(N, pml, mode, kernel, amp, fast), res)
+    ch = res["core_holding"]
+    c = res["classification"]
+    yflag = "ABORT>=yield" if res["aborted_over_yield"] else ("sub-yield" if res["sub_yield"] else "?")
+    pin = f" pin|z-1|max={res['linear_pin_max_abs']:.1e}" if kernel == "off_lin" else ""
+    print(
+        f"[run] N={N} {res['boundary']:5s} {mode} {kernel:7s} amp={amp:.2f} {fid:5s}: "
+        f"{_fmt_ch(ch)} | banked={c['signature_banked_qmean']}->full={c['signature_qmean']} "
+        f"| maxA2={res['max_A2_local']:.4f} ({yflag}){pin} [{res['wall_seconds']}s]",
+        flush=True,
+    )
+
+
+BATTERY = [
+    # (N, pml, mode, kernel, amp_scale)  — the frozen grid (NOTE §THE BATTERY)
+    (14, 3, "pair", "on", 1.0),       # 1  baseline / datum
+    (14, 3, "pair", "off_mem", 1.0),  # 2  native toggle
+    (14, 3, "pair", "off_lin", 1.0),  # 3  primary discriminator (S≡1)
+    (14, 3, "pair", "on", 0.5),       # 4  sweep-lo
+    (14, 3, "pair", "on", 1.5),       # 6  sweep-hi (5 == run 1)
+    (14, 0, "pair", "on", 1.0),       # 7  torus datum
+    (14, 0, "pair", "on", 0.5),       # 8  torus twin lo
+    (14, 0, "pair", "on", 1.5),       # 9  torus twin hi
+    (14, 0, "pair", "off_lin", 1.0),  # 10 conservation sanity
+    (14, 0, "pair", "off_mem", 1.0),  # 11 off-mem torus cross-check
+]
+
+
+def cmd_battery(argv) -> None:
+    fid = argv[0] if argv else "prod"
+    fast = fid == "smoke"
+    for (N, pml, mode, kernel, amp) in BATTERY:
+        res = run_ablation(N, pml, mode, kernel, amp, fast)
+        _write(_cell_path(N, pml, mode, kernel, amp, fast), res)
+        ch = res["core_holding"]
+        yflag = "ABORT" if res["aborted_over_yield"] else "ok"
+        print(
+            f"[battery] {res['boundary']:5s} {kernel:7s} amp={amp:.2f}: {_fmt_ch(ch)} "
+            f"| maxA2={res['max_A2_local']:.4f}({yflag}) [{res['wall_seconds']}s]",
+            flush=True,
+        )
+
+
+# --- frozen decision rule (NOTE §FROZEN verdict classes) -------------------
+def _superlinear(lo: float, mid: float, hi: float) -> tuple[bool, str]:
+    convex = (hi - mid) > (mid - lo)
+    threshold = lo <= 0.0 < mid
+    monotone = hi >= mid >= lo
+    sig = "SUPERLINEAR" if ((convex and monotone) or threshold) else (
+        "FRACTION-PRESERVING" if max(abs(lo - mid), abs(hi - mid), abs(lo - hi)) <= 0.10
+        else "OTHER"
+    )
+    return (sig == "SUPERLINEAR"), sig
+
+
+def cmd_aggregate() -> None:
+    cells = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("cell_*.json"))]
+    prod = [c for c in cells if c["fidelity"] == "production"]
+
+    def _find(pml, kernel, amp):
+        for c in prod:
+            if c["pml"] == pml and c["kernel"] == kernel and abs(c["amp_scale"] - amp) < 1e-9:
+                return c
+        return None
+
+    base = _find(3, "on", 1.0)
+    off_mem = _find(3, "off_mem", 1.0)
+    off_lin = _find(3, "off_lin", 1.0)
+    swp = {a: _find(3, "on", a) for a in (0.5, 1.0, 1.5)}
+    cons = _find(0, "off_lin", 1.0)  # torus conservation sanity
+
+    verdict = "INCOMPLETE"
+    reasons: list[str] = []
+    split = None
+    sweep_sig = None
+    if base is None:
+        verdict, reasons = "INSTRUMENT", ["baseline (run 1) missing"]
+    else:
+        bch = base["core_holding"]
+        repro = (
+            0.40 <= bch["E_core_full_rel"] <= 0.60
+            and -0.22 <= bch["E_rest_interior_rel"] <= -0.13
+            and -0.16 <= bch["H_rel"] <= -0.08
+            and not base["aborted_over_yield"]
+        )
+        if not repro:
+            verdict = "INSTRUMENT"
+            reasons.append(
+                f"reproduction-gate FAIL: core_rel={bch['E_core_full_rel']:+.3f} "
+                f"int_rel={bch['E_rest_interior_rel']:+.3f} H_rel={bch['H_rel']:+.3f} "
+                f"aborted={base['aborted_over_yield']}"
+            )
+        cons_ok = cons is not None and abs(cons["core_holding"]["H_rel"]) <= 0.02 and not cons["aborted_over_yield"]
+        if cons is None:
+            verdict = "INSTRUMENT"; reasons.append("conservation sanity (run 10) missing")
+        elif not cons_ok:
+            verdict = "INSTRUMENT"
+            reasons.append(f"conservation-gate FAIL: torus OFF-lin |H_rel|={abs(cons['core_holding']['H_rel']):.4f} > 0.02")
+        if verdict != "INSTRUMENT" and off_lin is not None:
+            olch = off_lin["core_holding"]
+            ol = olch["E_core_full_rel"]
+            split = (ol / bch["E_core_full_rel"]) if abs(bch["E_core_full_rel"]) > 1e-12 else None
+            if all(swp[a] is not None for a in (0.5, 1.0, 1.5)):
+                lo, mid, hi = (swp[a]["core_holding"]["E_core_full_rel"] for a in (0.5, 1.0, 1.5))
+                is_super, sweep_sig = _superlinear(lo, mid, hi)
+            else:
+                is_super, sweep_sig = False, "SWEEP-INCOMPLETE"
+            mem_cls = None
+            if off_mem is not None:
+                omr = off_mem["core_holding"]["E_core_full_rel"]
+                mem_cls = "KILL" if omr <= 0.10 else ("PRESERVE" if omr >= 0.40 else "PARTIAL")
+            if ol <= 0.10 and is_super:
+                verdict = "SELF-TRAPPING"
+            elif ol >= 0.40 and sweep_sig == "FRACTION-PRESERVING":
+                verdict = "MODE-SORTING"
+            else:
+                verdict = "MIXED"
+                reasons.append(
+                    f"OFF-lin core_rel={ol:+.3f} (split={split if split is None else round(split,3)}) "
+                    f"sweep={sweep_sig} off_mem={mem_cls}"
+                )
+        elif verdict != "INSTRUMENT":
+            verdict = "INSTRUMENT"; reasons.append("primary discriminator (run 3 off_lin) missing")
+
+    print("\n=== BLOB-ABLATION — kernel-OFF + amplitude sweep ===")
+    print(f"NOTE: {NOTE}")
+    hdr = f"{'boundary':6s} {'kernel':7s} {'amp':>4s} | {'core drive->quiet (rel)':28s} | {'int':>7s} {'H':>7s} | banked->full(qmean) | maxA2"
+    print(hdr)
+    for c in sorted(prod, key=lambda c: (c["pml"], c["kernel"], c["amp_scale"])):
+        ch = c["core_holding"]; cl = c["classification"]
+        print(
+            f"{c['boundary']:6s} {c['kernel']:7s} {c['amp_scale']:>4.1f} | "
+            f"{ch['E_core_full_driveoff']:.3f}->{ch['E_core_full_quietavg']:.3f} "
+            f"({ch['E_core_full_rel']:+.1%})".ljust(38)
+            + f"| {ch['E_rest_interior_rel']:+6.1%} {ch['H_rel']:+6.1%} | "
+            f"{cl['signature_banked_qmean']}->{cl['signature_qmean']} | "
+            f"{c['max_A2_local']:.4f}{'*ABORT' if c['aborted_over_yield'] else ''}"
+        )
+    print(f"\nsplit (OFF-lin plateau ÷ ON plateau) = {split if split is None else round(split, 3)}")
+    print(f"sweep signature = {sweep_sig}")
+    print(f"VERDICT = {verdict}")
+    for r in reasons:
+        print(f"  - {r}")
+    _write(OUT_DIR / "blob_ablation_summary.json",
+           {"verdict": verdict, "reasons": reasons, "split_off_lin_over_on": split,
+            "sweep_signature": sweep_sig, "note": NOTE,
+            "cells": [{k: c[k] for k in ("boundary", "kernel", "amp_scale", "E_persist",
+                                          "max_A2_local", "sub_yield", "aborted_over_yield",
+                                          "linear_pin_max_abs", "core_holding", "classification")}
+                      for c in sorted(prod, key=lambda c: (c["pml"], c["kernel"], c["amp_scale"]))]})
+    print(f"\nsummary -> {OUT_DIR / 'blob_ablation_summary.json'}")
+
+
+def main(argv) -> None:
+    if not argv:
+        print(__doc__)
+        return
+    cmd, rest = argv[0], argv[1:]
+    if cmd == "--parity":
+        cmd_parity(rest)
+    elif cmd == "--run":
+        cmd_run(rest)
+    elif cmd == "--battery":
+        cmd_battery(rest)
+    elif cmd == "--aggregate":
+        cmd_aggregate()
+    else:
+        print(__doc__)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
