@@ -282,3 +282,173 @@ kernel-OFF-twin control is recorded as **REQUIRED** on a MIXED partial-kill
   verdict here does **not** move Reading A (the fork lives on the torus).
 - The #698 **boundary-insensitivity corroboration withdrawal** (Ruling 10) is
   upstream and independent; this NOTE neither relies on it nor disturbs it.
+
+---
+---
+
+# RESULT (post-freeze; 2026-07-15)
+
+**Freeze receipt:** the hypothesis + verdict classes + battery grid above were
+committed at `f5bce3f7` and **pushed to origin at 2026-07-15T05:54:19Z**; every
+battery/parity/sweep run below was computed **after** that push (freeze
+discipline intact). **Driver:**
+`src/scripts/vol_1_foundations/blob_ablation_kernel_off.py`. Runs: production
+`--parity` (datum + byte-parity), `--battery prod` (the 10 frozen cells),
+`--sweep prod` (the disclosed working amplitude sweep — see §Instrument).
+
+## VERDICT = **MODE-SORTING** (clean, both axes; the (B) self-trapping predictions FAIL decisively)
+
+The #698 PML-box core-holding (+50.6 % `pair`) is **(A) LINEAR MODE-SORTING** —
+the sponge sieves the radiative wake and the surviving bound core-concentrated
+fraction holds a **fixed fraction** of energy, **independent of the saturation
+kernel and independent of amplitude**. Both gates pass; both discriminator axes
+agree.
+
+### Gates
+- **Reproduction gate — PASS.** Baseline ON reproduces the datum **exactly**:
+  core `0.611 → 0.920 (+50.6 %)`, rest-interior `−17.5 %`, H `−12.2 %`; and the
+  mirror loop matches the corrected #698 `run_instrumented` **byte-for-byte**
+  (`--parity` core-holding maxΔ = `0.00e+00`, relΔE_persist = `0.00e+00`).
+- **Conservation gate — PASS.** The S≡1 override (`off_lin`) on the torus
+  conserves H to `−0.0 %` (`E_core_full` `0.351 → 0.265`, H `−0.0 %`): the
+  disclosed disabled-flag is a genuine lossless-reactive linearization, not a
+  buggy path.
+
+### Kernel-OFF axis (the frozen grid) — the rise SURVIVES kernel-OFF at split = 1.000
+
+| boundary | kernel | core drive→quiet (full reg) | rest-int | H | banked→full (qmean) |
+|---|---|---|---|---|---|
+| PML(3) | **ON** (baseline/datum) | 0.611 → 0.920 (**+50.6 %**) | −17.5 % | −12.2 % | CONCENTRATING→CONCENTRATING |
+| PML(3) | **OFF-mem** (native toggle) | 0.611 → 0.920 (**+50.6 %**) | −17.5 % | −12.2 % | CONCENTRATING→CONCENTRATING |
+| PML(3) | **OFF-lin** (S≡1, disclosed) | 0.611 → 0.920 (**+50.6 %**) | −17.5 % | −12.2 % | CONCENTRATING→CONCENTRATING |
+| torus(0) | ON | 0.351 → 0.265 (−24.4 %) | +1.6 % | −0.0 % | LOOP-FILLING→LOOP-FILLING |
+| torus(0) | OFF-lin (conservation sanity) | 0.351 → 0.265 (−24.4 %) | +1.6 % | **−0.0 %** | LOOP-FILLING→LOOP-FILLING |
+| torus(0) | OFF-mem | 0.351 → 0.265 (−24.4 %) | +1.6 % | −0.0 % | LOOP-FILLING→LOOP-FILLING |
+
+`split = OFF-lin plateau ÷ ON plateau = 1.000`. Both registers agree
+(potential-only banked and full completed read identically). `OFF_lin = +50.6 %
+≥ +40 %` ⇒ the frozen rule's **MODE-SORTING** leaf. The finer OFF-mem cross-check:
+the memristive-lag removal changes the trajectory only at the ~13th significant
+figure (τ_relax = 1 step ≪ the 52-step quiet window), and the full S≡1
+linearization changes H only at the ~5th figure — the saturation kernel is
+**dynamically inert on this trajectory**.
+
+### Why the kernel is inert (structural-null / stencil-lens check — verified genuine, NOT a disabled-flag)
+
+All four rank-4 kernels are **flag-ON**; the null is a real field-state property
+(measured on the seeded ON engine):
+
+- **V-sector saturation is dormant.** `A²_k4 max = 0` (the pair seed zeros the K4
+  V-ports; the field is Cosserat-dominated, `‖u‖ ≈ 4.2` vs `‖V_inc‖ ≈ 0.024`), so
+  the Op14 impedance short never engages: the z_local that actually gates bond
+  reflection stays `z_local ≡ 1.000` (matched, Γ = 0). `A²_cos max = 0.75` = the
+  R_II seed front (this is what `maxA2 = 0.7500` reports — the seed, not a
+  dynamics signature).
+- **The moving Γ=−1 ω-clamp wall never fires.** The shared-front reflection
+  coefficient is `Γ_shared ∈ [0, 0.022]` — **≥ 0 everywhere** (the pair seed is on
+  the ε-side / antinode); the wall clamps only the μ-side (`relu(−Γ)`), so
+  `Ω₀ ≡ 0` on every site. Removing it (`off_lin`) is therefore a near-no-op.
+
+Because the kernel is dynamically inert, it **cannot** be the trapping agent; the
+only thing that differs between the holding PML box (+50.6 %) and the dispersing
+torus (−24.4 %) is the **sponge**. The core-holding is the sponge removing the
+recirculating wake — linear mode-sorting.
+
+### Amplitude axis (the DISCLOSED working sweep) — FRACTION-PRESERVING (no (B) signature)
+
+The frozen pair-seed amp knob is a **no-op** (§Instrument). The disclosed working
+knob (`field_scale`, post-seed Cosserat scale ⇒ `A²_cos = 0.75·field_scale²`,
+kernel-ON, PML) gives:
+
+| field_scale | A²_cos front | core drive→quiet | hold-rel |
+|---|---|---|---|
+| 0.50 | 0.19 | 0.153 → 0.230 | +50.58 % |
+| 0.75 | 0.42 | 0.344 → 0.518 | +50.57 % |
+| 1.00 | 0.75 | 0.611 → 0.920 | +50.57 % |
+| 1.10 | 0.91 | 0.740 → 1.114 | +50.57 % |
+
+The **absolute** core energy scales `∝ field_scale²` (constant 0.612) — perfectly
+linear — while the **hold-fraction is amplitude-invariant to 4 sig figs**
+(spread = `0.0001`) across a ~5× energy range that pushes the front from mild
+(A²_cos = 0.19, Regime II) toward rupture (A²_cos = 0.91, approaching R_III = 1).
+**No superlinear growth. No low-amplitude dispersal threshold** (0.5× still holds
++50.6 %). The exact invariance over a 5× range is itself a signature of **linear**
+dynamics. Torus twins disperse (−24.4 %) at both endpoints, H conserved. This is
+the frozen (A) FRACTION-PRESERVING signature — **the (B) SUPERLINEAR predictions
+are falsified.**
+
+### Honest closure (Rule 11)
+
+All three pre-registered **(B)** predictions fail decisively and a **single
+mechanism** explains every failure: *the saturation kernel is dynamically inert
+in the Cosserat-dominated loop-gap regime (V-sector dormant + ω-wall on the
+ε-side), so the sponge does the sorting linearly.* (i) kernel-OFF does **not**
+kill the rise (split = 1.000); (ii) the hold is **not** superlinear in amplitude
+(fraction-preserving to 4 sig figs); (iii) there is **no** low-amplitude
+dispersal threshold. Clean negative result for self-trapping **at this config**;
+branch closed toward MODE-SORTING. The decision rule was **not** re-tuned to the
+outcome.
+
+**Scope (honest).** MODE-SORTING is the verdict **for the #698 config** (rank-4
+loop-gap pair seed, N=14, PML=3). The reason is that the kernel is inert **here**;
+a config that genuinely excites the V-sector (so the z_local short engages) or a
+μ-side seed (so the Γ=−1 wall fires) is a **different** regime and is not
+adjudicated by this run. The puddle/breather items are therefore recorded as
+*not-supported-**at-this-config***, not as impossible-in-AVE.
+
+## Consequence routing — MODE-SORTING branch (statuses exact)
+
+- The census Stage-2 kernel-OFF-twin control **demotes to
+  `RECOMMENDED-cheap-control`** (it remains cheap and worth carrying, but it is
+  not a REQUIRED discriminator here — the kernel is inert at this config).
+- The **PUDDLE class** and the **BREATHER-CONNECTION** items record as
+  **`not-supported-at-this-config`** (no engine-level dynamical-binding signature
+  at the #698 config: the core-holding is the sponge, not a self-dug well).
+- **Interpretation beyond the classes is routed to Grant.**
+
+## FLAG-DON'T-FIX — surfaced to Grant (NOT resolved here)
+
+Two engine/config observations **explain** the kernel's inertness and are
+surfaced verbatim for adjudication (they do **not** change the MODE-SORTING
+verdict — the kernel is inert regardless — but they matter for other regimes):
+
+1. **z_local overwrite (update-ordering).** In `CoupledK4Cosserat.step`, the
+   coupling's `_update_z_local_total` computes a Cosserat-informed short
+   (measured `z_local` up to **1.045** on 45 seeded sites), but `k4.step`'s
+   `_update_z_local_field` (`op3_bond_reflection=True`) then **recomputes z_local
+   from V_inc only and overwrites it** — flat `1.000`, because `A²_k4 = 0`. So the
+   **Cosserat → V-sector bond-short channel is defeated by ordering** whenever the
+   V-sector is quiet. Harmless here (V-sector carries ~0 energy); potentially
+   load-bearing in a V-excited regime.
+   [`src/ave/topological/k4_cosserat_coupling.py` `_update_z_local_total` /
+   `src/ave/core/k4_tlm.py` `_update_z_local_field`]
+2. **Γ=−1 ω-wall dormant on the ε-side.** For the pair seed the shared-front
+   `Γ_shared ≥ 0` everywhere (ε-side / antinode), so `relu(−Γ) = 0` and the moving
+   confinement wall (`Ω₀`) is **never engaged**. Whether the loop-gap pair seed
+   *should* present a μ-side (node) front to this wall is a design question.
+   [`src/ave/topological/k4_cosserat_coupling.py` `_freeze_clamp_omega0_shared`]
+
+## §Instrument — the frozen amplitude sweep was a NO-OP (INSTRUMENT-defect, disclosed)
+
+Rule-10 caught this at integrator time: the frozen amplitude knob (pair-seed
+`amp = amp_scale·√α`) is a **no-op** because `pair_seed_cosserat`
+(`src/ave/core/genesis_v18_coupled.py:129-131`) **front-normalizes the Cosserat
+field to a fixed R_II** (`scale_cosserat_to_front target=R_II`) regardless of
+`amp` — so amp 0.5×/1.0×/1.5× produce **byte-identical** cells (battery rows 4–5
+== row 1; and the bulk probe at 0.08 is too small to move 3-decimal core
+numbers). This defect affects **only the frozen amplitude-sweep axis**; the
+kernel-OFF axis (runs 1/2/3/10) is unaffected. Per KEEP-BOTH, the frozen axis is
+reported as INSTRUMENT-defective (the `FRACTION-PRESERVING` it mechanically
+returns is **vacuous**), and a **disclosed working knob** (`field_scale`,
+post-seed Cosserat scale, §Amplitude axis above) supplies the real sweep
+evidence. The frozen decision rule is unchanged; the substitution is disclosed,
+not silent.
+
+## Firewall (reaffirmed) — untouched
+
+- **G-PERSIST ★RULED — UNTOUCHED.** The A1 energy meter used here is `⊥` the
+  T2/Φ_link winding channel the ★RULED flip rests on; a MODE-SORTING verdict on
+  the A1 core-holding cannot reach the ★RULED basis.
+- **Reading-A enclosure fork — UNTOUCHED.** That fork lives on the torus (no
+  sponge); this verdict is about the *mechanism* of the boundary-**dependent**
+  PML signal #698 left SURFACED-NOT-INTERPRETED. Reading A stands.

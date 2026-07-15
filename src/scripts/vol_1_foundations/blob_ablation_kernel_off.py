@@ -133,7 +133,23 @@ def _linear_pin_ok(coupled) -> float:
 # Instrumented mirror loop with the kernel VARIANT + self-similar amplitude
 # (mirrors #698 run_instrumented; only the build + amp + A²-guard added).
 # ---------------------------------------------------------------------------
-def _build_variant(N: int, pml: int, mode: str, kernel: str, amp_scale: float):
+def _build_variant(
+    N: int, pml: int, mode: str, kernel: str, amp_scale: float, field_scale: float = 1.0
+):
+    """Build the rank-4 engine in a kernel VARIANT.
+
+    `amp_scale` is the FROZEN pair-seed amp knob (multiplies the seed `amp`). NB
+    the pair seed front-normalizes to R_II (genesis_v18_coupled.pair_seed_cosserat:
+    scale_cosserat_to_front target=R_II), so `amp_scale` is a NO-OP for pair mode —
+    this is a disclosed INSTRUMENT defect on the frozen sweep axis (Rule-10 caught
+    at integrator time; see the RESULT addendum §Instrument).
+
+    `field_scale` is the DISCLOSED WORKING amplitude knob (supplementary axis, NOT
+    the frozen one): a post-seed multiply of the Cosserat pair field, applied
+    BEFORE the wall freeze so the frozen converter wall matches the scaled field.
+    It genuinely scales the front A²_cos ∝ field_scale² (0.75·field_scale²), so it
+    probes the (B) superlinear-hold signature the frozen knob could not.
+    """
     assert kernel in KERNELS, kernel
     memristive = kernel == "on"
     engine = make_engine(
@@ -146,6 +162,9 @@ def _build_variant(N: int, pml: int, mode: str, kernel: str, amp_scale: float):
         a_lock=A_LOCK_DEFAULT,
         front_target=A_YIELD,
     )
+    if field_scale != 1.0:  # disclosed working amplitude knob (post-seed, pre-freeze)
+        engine._coupled.cos.u *= field_scale
+        engine._coupled.cos.omega *= field_scale
     engine.apply_bulk_probe_ic(amp=amp_scale * 0.08)
     engine.freeze_converter_wall()
     if kernel == "off_lin":
@@ -154,12 +173,13 @@ def _build_variant(N: int, pml: int, mode: str, kernel: str, amp_scale: float):
 
 
 def run_ablation(
-    N: int, pml: int, mode: str, kernel: str, amp_scale: float, fast: bool
+    N: int, pml: int, mode: str, kernel: str, amp_scale: float, fast: bool,
+    field_scale: float = 1.0,
 ) -> dict:
     """One cell: mirror the #670/#698 drive/quiet schedule, record the corrected
     meter per quiet step, track max_A²_local, enforce the sub-yield guard."""
     t0 = time.time()
-    engine = _build_variant(N, pml, mode, kernel, amp_scale)
+    engine = _build_variant(N, pml, mode, kernel, amp_scale, field_scale=field_scale)
     coupled = engine._coupled
 
     tau = tau_steps_k4(coupled, fast=fast)
@@ -217,6 +237,7 @@ def run_ablation(
         "seed_mode": mode,
         "kernel": kernel,
         "amp_scale": amp_scale,
+        "field_scale": field_scale,
         "fidelity": "smoke" if fast else "production",
         "n_drive": n_drive,
         "n_quiet": n_quiet,
@@ -336,6 +357,39 @@ def cmd_battery(argv) -> None:
         )
 
 
+# DISCLOSED working amplitude sweep (supplementary axis; the frozen pair-seed amp
+# knob was a no-op — front-normalized). field_scale post-scales the Cosserat seed
+# ⇒ A²_cos = 0.75·field_scale² (sub-yield for field_scale < 1.155). NOT the frozen
+# knob; reported as a disclosed amendment (KEEP-BOTH). Probes the (B) signature.
+SWEEP_FIELD = (0.50, 0.75, 1.0, 1.10)  # A²_cos ≈ 0.19 / 0.42 / 0.75 / 0.91
+
+
+def _sweep_path(N, pml, kernel, fs, fast) -> Path:
+    fid = "smoke" if fast else "prod"
+    f = f"{fs:.2f}".replace(".", "p")
+    return OUT_DIR / f"sweep_N{N}_pml{pml}_{kernel}_fs{f}_{fid}.json"
+
+
+def cmd_sweep(argv) -> None:
+    """Disclosed working amplitude sweep: kernel-ON PML across field_scale, plus
+    torus twins at the endpoints (wake-stirring contrast). Probes whether the
+    core-hold-fraction grows disproportionately with amplitude (the (B) signature)."""
+    fid = argv[0] if argv else "prod"
+    fast = fid == "smoke"
+    plan = [(14, 3, "on", fs) for fs in SWEEP_FIELD]
+    plan += [(14, 0, "on", fs) for fs in (SWEEP_FIELD[0], SWEEP_FIELD[-1])]
+    for (N, pml, kernel, fs) in plan:
+        res = run_ablation(N, pml, "pair", kernel, 1.0, fast, field_scale=fs)
+        _write(_sweep_path(N, pml, kernel, fs, fast), res)
+        ch = res["core_holding"]
+        yflag = "ABORT" if res["aborted_over_yield"] else "ok"
+        print(
+            f"[sweep] {res['boundary']:5s} {kernel:7s} field_scale={fs:.2f}: {_fmt_ch(ch)} "
+            f"| A2cos_front={res['max_A2_local']:.4f}({yflag}) [{res['wall_seconds']}s]",
+            flush=True,
+        )
+
+
 # --- frozen decision rule (NOTE §FROZEN verdict classes) -------------------
 def _superlinear(lo: float, mid: float, hi: float) -> tuple[bool, str]:
     convex = (hi - mid) > (mid - lo)
@@ -431,14 +485,43 @@ def cmd_aggregate() -> None:
             f"{cl['signature_banked_qmean']}->{cl['signature_qmean']} | "
             f"{c['max_A2_local']:.4f}{'*ABORT' if c['aborted_over_yield'] else ''}"
         )
+    # --- DISCLOSED working amplitude sweep (field_scale; the frozen pair-seed amp
+    # sweep was a no-op — front-normalized). Real (A)-vs-(B) sweep evidence. -----
+    sweeps = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("sweep_*.json"))
+              if json.loads(p.read_text())["fidelity"] == "production"]
+    disc = {}
+    disc_sig = None
+    if sweeps:
+        pml_s = sorted([s for s in sweeps if s["pml"] == 3], key=lambda s: s["field_scale"])
+        print("\n=== DISCLOSED working amplitude sweep (field_scale; kernel-ON) ===")
+        print("     (the FROZEN pair-seed amp sweep was a NO-OP — R_II front-normalized)")
+        for s in sorted(sweeps, key=lambda s: (s["pml"], s["field_scale"])):
+            ch = s["core_holding"]
+            print(f"  {s['boundary']:5s} field_scale={s['field_scale']:.2f} "
+                  f"(A2cos~{0.75 * s['field_scale']**2:.3f}): {_fmt_ch(ch)} "
+                  f"| maxA2={s['max_A2_local']:.4f}{'*ABORT' if s['aborted_over_yield'] else ''}")
+        rels = [s["core_holding"]["E_core_full_rel"] for s in pml_s]
+        disc = {f"fs_{s['field_scale']:.2f}": s["core_holding"]["E_core_full_rel"] for s in pml_s}
+        if len(rels) >= 3:
+            spread = max(rels) - min(rels)
+            convex = (rels[-1] - rels[-2]) > (rels[1] - rels[0])
+            thresh = rels[0] <= 0.0 < rels[-1]
+            disc_sig = "SUPERLINEAR" if (thresh or (convex and rels == sorted(rels))) else (
+                "FRACTION-PRESERVING" if spread <= 0.10 else "AMPLITUDE-DEPENDENT-OTHER")
+            print(f"  core-hold-rel across field_scale = {[round(r, 4) for r in rels]} "
+                  f"(spread={spread:.4f}) -> DISCLOSED sweep signature = {disc_sig}")
+
     print(f"\nsplit (OFF-lin plateau ÷ ON plateau) = {split if split is None else round(split, 3)}")
-    print(f"sweep signature = {sweep_sig}")
-    print(f"VERDICT = {verdict}")
+    print(f"FROZEN sweep signature = {sweep_sig}  [VACUOUS: frozen amp knob is a no-op]")
+    print(f"DISCLOSED sweep signature = {disc_sig}  [the real amplitude probe]")
+    print(f"VERDICT = {verdict}  (from the kernel-OFF axis; the sound axis)")
     for r in reasons:
         print(f"  - {r}")
     _write(OUT_DIR / "blob_ablation_summary.json",
            {"verdict": verdict, "reasons": reasons, "split_off_lin_over_on": split,
-            "sweep_signature": sweep_sig, "note": NOTE,
+            "frozen_sweep_signature_VACUOUS": sweep_sig,
+            "disclosed_sweep_signature": disc_sig, "disclosed_sweep_core_rel": disc,
+            "note": NOTE,
             "cells": [{k: c[k] for k in ("boundary", "kernel", "amp_scale", "E_persist",
                                           "max_A2_local", "sub_yield", "aborted_over_yield",
                                           "linear_pin_max_abs", "core_holding", "classification")}
@@ -457,6 +540,8 @@ def main(argv) -> None:
         cmd_run(rest)
     elif cmd == "--battery":
         cmd_battery(rest)
+    elif cmd == "--sweep":
+        cmd_sweep(rest)
     elif cmd == "--aggregate":
         cmd_aggregate()
     else:
