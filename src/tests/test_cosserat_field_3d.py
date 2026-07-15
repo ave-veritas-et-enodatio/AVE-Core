@@ -466,6 +466,67 @@ def test_reflection_density_grows_near_yield():
     assert float(W_large.sum()) > 2.0 * float(W_small.sum())
 
 
+def test_reflection_density_coefficient_pinned_to_one_sixteenth():
+    """REGRESSION (quarter-power Family-E burn-down, 2026-07-14): pin the
+    Gamma^2 coefficient to 1/16 — the value FORCED by the canonical Op14
+    impedance register Z = Z_0 / sqrt(S) = Z_0 * S^(-1/2).
+
+    Derivation (from the register, reconstructed here so the test fails if the
+    register is silently reverted):
+        Z = Z_0 * S^(-1/2)      =>  grad ln Z   = -(1/2) grad S / S
+        Gamma = (1/2) grad ln Z  =>  Gamma       = -(1/4) grad S / S
+        Gamma^2 = (1/4)^2 * (grad S / S)^2 = (1/16) |grad S|^2 / S^2
+
+    The legacy 1/64 rode the SUPERSEDED Z = Z_0 / S^(1/4) register (which is
+    (1-A^2)^(1/8) — matching no physical register). See the REGISTER
+    CORRECTION note in cosserat_field_3d.py:_reflection_density and
+    research/2026-07-14_quarter-power-map.md sec 2/3.
+    """
+    import jax.numpy as jnp
+
+    from ave.topological.cosserat_field_3d import (
+        _compute_curvature,
+        _compute_strain,
+        _tetrahedral_gradient,
+    )
+
+    # (a) Derivation-level pin: the exponent chain forces (1/4)^2 = 1/16.
+    z_exponent = 0.5  # Z = Z_0 * S^(-z_exponent), the canonical Op14 register
+    gamma_coeff = 0.5 * z_exponent  # Gamma = (1/2) d ln Z  => 1/4
+    gamma_sq_coeff = gamma_coeff**2  # => 1/16
+    assert gamma_sq_coeff == 1.0 / 16.0
+    assert gamma_sq_coeff != 1.0 / 64.0  # explicitly reject the legacy register
+
+    # (b) Implementation pin: _reflection_density returns EXACTLY
+    #     gamma_sq_coeff * |grad S|^2 / (S^2 + eps_reg), reconstructed via the
+    #     module's own internal chain (so a coefficient drift is caught).
+    solver = CosseratField3D(20, 20, 20, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=5.0, r_target=1.8)
+    u, omega, dx = solver.u, solver.omega, solver.dx
+    om_y, eps_y = solver.omega_yield, solver.epsilon_yield
+
+    eps = _compute_strain(jnp.asarray(u), jnp.asarray(omega), dx)
+    kappa = _compute_curvature(jnp.asarray(omega), dx)
+    eps_sq = jnp.sum(eps * eps, axis=(-1, -2))
+    kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
+    a_sq = jnp.clip(eps_sq / (eps_y**2) + kappa_sq / (om_y**2), 0.0, 1.0 - 1e-10)
+    s_field = jnp.sqrt(1.0 - a_sq)
+    grad_s = _tetrahedral_gradient(s_field[..., None])[..., 0, :] / dx
+    grad_s_sq = jnp.sum(grad_s * grad_s, axis=-1)
+    eps_reg = 1e-6
+    expected = gamma_sq_coeff * grad_s_sq / (s_field * s_field + eps_reg)
+
+    got = np.asarray(_reflection_density(jnp.asarray(u), jnp.asarray(omega), dx, om_y, eps_y))
+    np.testing.assert_allclose(got, np.asarray(expected), rtol=1e-6, atol=1e-12)
+
+    # There must be nonzero reflection somewhere on the (2,3) ansatz, else the
+    # coefficient pin above is vacuous.
+    assert got.max() > 0.0
+    # And the legacy 1/64 (= 1/16 / 4) would be a 4x under-count everywhere.
+    legacy = 0.25 * np.asarray(expected)
+    assert not np.allclose(got[got > 0.0], legacy[got > 0.0], rtol=1e-3)
+
+
 def test_reflection_contributes_to_total_energy():
     """Turning k_refl on from 0 to 1 must increase total energy on the
     (2,3) ansatz (which has nonzero strain in the shell region)."""

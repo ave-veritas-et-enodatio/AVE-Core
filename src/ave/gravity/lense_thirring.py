@@ -32,7 +32,7 @@ from typing import Callable
 
 import numpy as np
 
-from ave.core.constants import C_0, HBAR, M_E, G
+from ave.core.constants import C_0, HBAR, M_E, R_I, R_II, R_III, G
 
 # ── Derived gravitomagnetic constants ────────────────────────────────────────
 
@@ -168,13 +168,14 @@ def strain_amplitude(B_gm: float) -> tuple[float, str]:
         regime: Regime classification string
     """
     A_gm = abs(B_gm) / OMEGA_COMPTON  # dimensionless
-    # Regime boundaries from LIVING_REFERENCE Universal Regime Map
-    R_I_BOUNDARY = (2.0 * 7.2973525693e-3) ** 0.5  # sqrt(2 alpha) ~ 0.121
-    if A_gm < R_I_BOUNDARY:
+    # Regime boundaries: canonical R_I/R_II/R_III from constants.py (was inlined
+    # literals — R_I=(2·7.2973525693e-3)**0.5=√(2α)≈0.121, R_II=√3/2, R_III=1.0;
+    # value-identical, corrected 2026-07-14 quarter-power map §Family-I/§8-6).
+    if A_gm < R_I:  # √(2α) ~ 0.121 (Linear → Non-Linear)
         regime = "Regime I (Linear)"
-    elif A_gm < (3.0**0.5 / 2.0):
+    elif A_gm < R_II:  # √3/2 (Non-Linear → Saturated)
         regime = "Regime II (Nonlinear)"
-    elif A_gm < 1.0:
+    elif A_gm < R_III:  # 1.0 (Saturated → Rupture)
         regime = "Regime III (Yield)"
     else:
         regime = "Regime IV (Rupture)"

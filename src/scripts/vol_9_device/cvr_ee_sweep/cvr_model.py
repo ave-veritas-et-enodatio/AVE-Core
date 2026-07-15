@@ -25,10 +25,15 @@ TWO CARRIED FLAGS (flag-don't-fix — see _orchestration/2026-06-13_cvr-ee-sweep
       (C_eff->inf, resonant-lc-solitons.md:29-39, clm-kezk9z). BOTH give the SAME
       Z(A)=Z0*sqrt(S) trajectory, so the computed curves are robust; the flag is a
       prose ATTRIBUTION matter (which constitutive parameter moves), not a curve fork.
-  (2) EXPONENT DEFECT (master_equation_fdtd.py:165): the engine returns n=S^0.25 but
-      the in-code FLAG says physical n=c0/c_eff=S^0.5 (since c_eff^2=c0^2/S). The
-      engine understates wall depth. We expose BOTH (n_engine, n_physical) and the
-      derived Gamma so any figure can show the gap and caption the understatement.
+  (2) LEGACY EXPONENT EXPOSURE (historical; the engine defect is CORRECTED): the
+      engine formerly returned n=S^0.25 (the Family-E (1-A^2)^{1/8} defect). It has
+      SINCE been corrected (sign-lock w35sn2bq3, 2026-06-17): master_equation_fdtd.py
+      now returns n_EM=S^0.5 at :188 (n_em_index), matching physical n=c0/c_eff=S^0.5
+      (since c_eff^2=c0^2/S). n_engine() below keeps the S^0.25 value as a LEGACY
+      comparison so figures can show the historical understatement vs n_physical;
+      it is NOT the current engine output. Pointer master_equation_fdtd.py:165 was
+      stale (that line is now c_eff_squared); corrected 2026-07-14 quarter-power
+      map §Family-E/§8-5.
   (3) S_min / A_cap clip (graft-v2 apparatus floor): magnitudes are bench-capped, not
       physical wall depth — carried via S_MIN / A_CAP and the clip in saturation_kernel().
 """
@@ -118,10 +123,14 @@ def n_physical(A: np.ndarray) -> np.ndarray:
 
 
 def n_engine(A: np.ndarray) -> np.ndarray:
-    """Engine refractive index n = S^0.25  (master_equation_fdtd.py:165, AS-CODED).
+    """LEGACY refractive index n = S^0.25 (the historical Family-E defect).
 
-    Carries the FLAGGED exponent defect: this UNDERSTATES the wall depth relative
-    to n_physical = S^0.5. Exposed so figures show the gap and caption it.
+    NOT the current engine output. The engine was corrected to n_EM = S^0.5
+    (master_equation_fdtd.py:188, sign-lock w35sn2bq3, 2026-06-17). This function
+    is retained AS-CODED to expose the historical understatement of the wall depth
+    relative to n_physical = S^0.5, so figures can caption the correction. Named
+    `n_engine` for back-compat with existing figure callers; it now plots the
+    LEGACY exponent, not the live engine.
     """
     return saturation_kernel(A) ** 0.25
 

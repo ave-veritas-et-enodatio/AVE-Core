@@ -41,7 +41,14 @@ The time-domain simulation proceeds by explicit time-stepping:
 
 The wave propagates perfectly isotropically at $c_0 = dx / (dt \sqrt{2})$.
 
-**Axiom 4 Frame-Dragging (Lense-Thirring):** Instead of importing "fluid acceleration vectors" from aerospace Lattice Boltzmann theories, gravity is generated exclusively via topological saturation. When local amplitude exceeds $V_{snap}$, Op14 non-linearly raises the local node impedance ($Z_{eff} = Z_0 / S^{1/4}$). This builds a static impedance gradient manifold around mass. Photons traversing this metric observe local refractive index variations, curving the trajectory natively (Gravitational Lensing) without ad-hoc vector mathematics.
+**Axiom 4 Frame-Dragging (Lense-Thirring):** Instead of importing "fluid acceleration vectors" from aerospace Lattice Boltzmann theories, gravity is generated exclusively via topological saturation. When local amplitude exceeds $V_{snap}$, Op14 non-linearly raises the local node impedance ($Z_{eff} = Z_0 / \sqrt{S}$). This builds a static impedance gradient manifold around mass. Photons traversing this metric observe local refractive index variations, curving the trajectory natively (Gravitational Lensing) without ad-hoc vector mathematics.
+
+> **Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH).**
+> The node impedance was previously written $Z_{eff} = Z_0 / S^{1/4}$ — the legacy
+> register carrying the Family-E $S^{1/4}=(1-A^2)^{1/8}$ exponent, un-propagated.
+> Corrected to the canonical Op14 register $Z = Z_0/\sqrt{S}$ (`operators.md:54`;
+> `cosserat_field_3d.py:425`, `Z_eff = 1/\sqrt{S}`). Prior form preserved here for
+> provenance.
 
 [Figure: gravity_lensing_proof.png — see manuscript/vol_4_engineering/chapters/]
 

@@ -166,10 +166,34 @@ def seed_localized_real(cfg: ChiralDriveConfig) -> np.ndarray:
 def _saturation_onsite(psi: np.ndarray, cfg: ChiralDriveConfig) -> np.ndarray:
     """ε_n = ω_0·√(1 − (|ψ_n|/A_y)²) — the Op14/Ax4 saturation kernel as a local
     clock (real diagonal ⇒ H stays Hermitian). A_y=inf ⇒ ε_n=ω_0 (a global clock
-    that drops out of the dynamics: the clean linear discriminator)."""
+    that drops out of the dynamics: the clean linear discriminator).
+
+    REGISTER TAG (2026-07-14, quarter-power Family-E burn-down, Item 2;
+    research/2026-07-14_quarter-power-map.md §Family-H, open-Q#4). This quantity
+    is `ε_n = ω_0·S` where `S = √(1−A²)` is the Op2/Ax4 saturation kernel applied
+    DIRECTLY as the on-site ENERGY modulation on the tight-binding diagonal — an
+    S^1-power register (cf. varactor stored energy E = Q²/(2C_eff) ∝ S at fixed
+    charge). It is NOT the same object as the op14 FREQUENCY clock, which rides
+    `√S`: the ratified local clock (PR #690) is
+        ω_local = ω_global·√S = ω_global·(1−A²)^{1/4}  (a QUARTER-power in A²)
+    from `C_eff = C₀/S, ω = 1/√(LC_eff)`, whereas this on-site term is
+        ε_n = ω_0·S = ω_0·(1−A²)^{1/2}                 (a HALF-power in A²).
+
+    ⚑ DISCLOSED TENSION (flag-don't-fix — NOT silently reconciled): the docstring
+    and the frozen prereg (research/2026-07-08_chiral-drive-selforbit_prereg.md
+    §line 55/62) both LABEL this "local clock," yet implement the S^1 energy
+    register, not the √S frequency clock. NOT auto-corrected to √S here because:
+    (i) the math is frozen in the prereg; (ii) saturation is active ONLY in the
+    OPTIONAL/secondary Arm-5 proxy (A_yield=1.0), which is NOT part of the frozen
+    verdict (verdict = arms 1-4; see solver §"Verdict"); (iii) a change to √S
+    would perturb the banked Arm-5 NULL (curl PR 0.5476 vs off PR 0.5380,
+    research/2026-07-08_chiral-drive-selforbit_result.md:55). The semantic
+    question — is ε_n the op14 frequency clock (⇒ √S) or a deliberate S^1 on-site
+    energy register? — is routed to Grant/auditor (map open-Q#4)."""
     if not np.isfinite(cfg.A_yield):
         return np.full(cfg.N, cfg.omega0)
     ratio_sq = np.clip((np.abs(psi) / cfg.A_yield) ** 2, 0.0, 1.0 - 1e-12)
+    # S^1 register (see REGISTER TAG above); √S would be the op14 frequency clock.
     return cfg.omega0 * np.sqrt(1.0 - ratio_sq)
 
 

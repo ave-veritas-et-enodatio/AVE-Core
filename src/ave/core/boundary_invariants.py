@@ -28,9 +28,12 @@ This module provides reference implementations of these observables for scalar V
 fields (e.g., from MasterEquationFDTD). Implementation status:
 
   - 𝓜 (compute_M): RIGOROUS. Volume integral of (n_grav - 1) where n_grav is the
-    gravitational refractive index 1/n_eff (since the engine's n_eff = S^(1/4) ∈ [0,1]
-    is the substrate-native slow-down factor; gravity-style n_grav = S^(-1/4) ∈ [1, ∞)
-    is the equivalent "going up with mass" form).
+    gravitational refractive index 1/n_eff (since the engine's n_eff = S^(1/2) ∈ [0,1]
+    is the substrate-native slow-down factor; gravity-style n_grav = S^(-1/2) ∈ [1, ∞)
+    is the equivalent "going up with mass" form). [½-power register, sign-lock
+    w35sn2bq3 2026-06-17; matches compute_M impl n_grav = S**(-0.5) at :132. Prior
+    docstring said S^(±1/4) — a stale Family-E (1−A²)^(1/8) index; corrected
+    2026-07-14, quarter-power map §Family-E.]
 
   - 𝓠 (compute_Q): FIRST-PASS. Counts local saturation maxima as a proxy for
     soliton count. RIGOROUS implementation requires linking-number topology

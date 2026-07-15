@@ -19,8 +19,20 @@ In a true K4-TLM Diamond lattice, the presence of mass is implemented strictly v
 This builds a static $Z_{local}$ gradient across the network:
 
 $$
-Z_{\text{local}}(r) = \frac{Z_0}{S^{1/4}}
+Z_{\text{local}}(r) = \frac{Z_0}{S^{1/2}} = \frac{Z_0}{\sqrt{S}}
 $$
+
+> **Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH).**
+> Previously stated as $Z_{\text{local}} = Z_0/S^{1/4}$ — the legacy register that
+> let the Family-E $S^{1/4}=(1-A^2)^{1/8}$ exponent ride in, un-propagated.
+> Corrected to the canonical Op14 register $Z = Z_0/\sqrt{S}$ (`operators.md:54`;
+> `cosserat_field_3d.py:425`, `Z_eff = 1/\sqrt{S}`). Prior form preserved here for
+> provenance. ⚑ **Downstream flag (auditor):** with $Z_0/\sqrt{S}$, the
+> $c_{\text{local}} = c_0\sqrt{Z_0/Z_{\text{local}}}$ relation below yields
+> $c_0 S^{1/4}$, which still differs from the canonical shear/lensing slow-down
+> $c_{\text{shear}} = c_0\sqrt{S}$. That $c_{\text{local}}$ derivation relation is
+> a SEPARATE un-propagated item, NOT silently rewritten here (it touches the
+> still-open sign/ontology fork, map §3).
 
 The refractive index operates directly within the explicit 4-port scattering matrices ($S_{ij} = \frac{y_{local}}{2} - \delta_{ij}$), passively slowing the effective wave speed $c_{\text{local}} = c_0 \sqrt{Z_0/Z_{\text{local}}}$.
 

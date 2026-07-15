@@ -23,6 +23,24 @@ SeedMode = Literal["pair", "photon_lock", "graded_a0"]
 
 # genesis-23 energize-lock defaults (reflection_genesis_23_self_assembly.py).
 A_LOCK_DEFAULT = 3.0
+# REGISTER TAG (2026-07-14, quarter-power Family-E burn-down, Item 3;
+# research/2026-07-14_quarter-power-map.md §Family-I, open-Q#1/#6). `A_YIELD = √α`
+# is the VOLTAGE / GW-STRAIN yield register: peak-amplitude landmark A = √α, i.e.
+# A² = α. It is the SAME √α register as V_yield = √α·V_SNAP
+# (reflection_genesis_23_self_assembly.py:70, doc 54_ §4, the varactor voltage-
+# crash) and h_yield = √α (regime_map.py:369, "yield strain of the lattice").
+# It is DELIBERATELY NOT `constants.R_I = √(2α)` (constants.py:525), which is the
+# FIELD-STRAIN deficit-knee register A² = 2α (the "Linear → Non-Linear" boundary;
+# chiral_lattice_v10.py:30 `A_YIELD_SQ = 2α`).
+#   this register:  A_YIELD = √α    ⇒ A² = α   (voltage / GW strain, V_SNAP-norm)
+#   R_I register:   R_I     = √(2α) ⇒ A² = 2α  (field strain, deficit knee)
+# The two differ by √2 in amplitude (2^{1/4}=1.189 in any quarter-power knee
+# projection). ⚑ OPEN FORK (flag-don't-fix — NOT silently unified to R_I): which
+# strain the Cosserat seed-front should target is the field-strain-vs-voltage-
+# strain fork, the map's #1 OPEN question (§2 falsifier 5, §8 open-Q#1),
+# UNRESOLVED and PENDING Grant. Left as √α (voltage-yield) per its consistent
+# corpus use; a change to R_I would move banked loop-gap / G-PERSIST harness seed
+# targets (test_loop_gap_harness_rank1_regime.py, test_gpersist_meter_ontology.py).
 A_YIELD = float(np.sqrt(ALPHA))
 PHOTON_SIGMA_FRAC = 3.0 / 24.0  # scale σ with N
 PHOTON_LAM_FRAC = 6.0 / 24.0

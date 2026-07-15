@@ -84,8 +84,14 @@ class CrystalGraftV2(CrystalEngine):
                          (default R_II=√3/2, the Non-Linear→Saturated front).
             wall_width:  Gaussian half-width of that shell in A-units.
             S_min:       saturation floor (sets the wall hardness ceiling:
-                         Γ_min,floor = (S_min^{1/4}−1)/(S_min^{1/4}+1)). Smaller
-                         ⇒ harder wall, smaller dt. Named engineering knob.
+                         Γ_min,floor = (S_min^{1/2}−1)/(S_min^{1/2}+1), from the
+                         wall index n = √S → 0 ⇒ Γ → −1; consistent with the
+                         ½-power register c_eff = c₀/√S_min at :108). Smaller ⇒
+                         harder wall, smaller dt. Named engineering knob.
+                         [Prior docstring said S_min^{1/4} — a stale Family-E
+                         (1−A²)^{1/8} exponent; corrected 2026-07-14, quarter-
+                         power map §Family-E. Descriptive only — no Γ_floor code
+                         in this file, so no impl change.]
         """
         # the bulk/shear branches come from CrystalEngine; turn OFF its old
         # shear→bulk converter (we use the NEW ω-sector buckle instead).
