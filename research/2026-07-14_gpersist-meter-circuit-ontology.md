@@ -278,10 +278,19 @@ restatement for the auditor's manual/queue (the auditor lands it), **not** a for
 - Driver: [`gpersist_localization_observable.py`](../src/scripts/vol_1_foundations/gpersist_localization_observable.py)
   (`--parity` / `--cell` / `--plant` / `--aggregate`). Same primitives as `run_loop_gap_probe`
   (Rule-14); parity 0.00e+00.
-- Unit tests (the two new meter paths): [`src/tests/test_gpersist_meter_ontology.py`](../src/tests/test_gpersist_meter_ontology.py)
+- Unit tests: [`src/tests/test_gpersist_meter_ontology.py`](../src/tests/test_gpersist_meter_ontology.py)
   — attribution identity (kinetic density → engine scalar, rel-diff 0.00e+00) + sponge-exclusion
-  geometry (torus no-op, PML centered-block erosion); driver-confirmed (`gpersist_localization_observable.py`).
+  geometry (torus no-op, PML centered-block erosion) + the phase-robust statistic (quiet-window
+  mean inverts an endpoint phase moment, `_nonmonotone_flag` fires on endpoint-vs-drift disagreement,
+  `_sector_signature` stat selector); 8 pass, driver-confirmed (`src/scripts/vol_1_foundations/gpersist_localization_observable.py`).
 - Per-cell JSON + summary: `assets/sim_outputs/gpersist_localization_observable/` (**gitignored**;
   regenerate with the driver — deterministic, byte-for-byte from the frozen carrier).
+- Shipped code paths for every §4/§5 number (review MINOR 3): the potential-register guard sweep
+  is emitted by the `energy_pot` / `energy_pot_g1` / `energy_pot_g2` diagnostic sectors (guards
+  0/1/2), and the phase-robust quiet-window mean by `rel_qmean` on every sector — so both the
+  endpoint and the quiet-mean pot-guard series regenerate from the shipped `SECTORS` roster.
+- Gate-faithful KEEP-BOTH banking (review MINOR 6): `fork_bin_banked` now runs the SAME three
+  bin-determining MIXED triggers as `fork_bin_forward` (`_mixed_triggers` on the banked signatures
+  + `twin_sigs_banked`), not an empty reasons list. It still yields **LOOP-FILLING** on this data.
 - Settled verdicts untouched: enclosure fork = **RULED Reading A** (Grant 2026-07-14); G-PERSIST
   **★RULED**. Nothing in this addendum re-opens either.

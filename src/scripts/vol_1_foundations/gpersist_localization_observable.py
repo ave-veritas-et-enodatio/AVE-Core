@@ -115,7 +115,9 @@ SPONGE_GUARD = 1  # kinetic-transit guard rings excluded on the PML box (sponge
 
 # KEEP-BOTH register roster (BANKED #689 vs COMPLETED forward + diagnostics).
 SECTORS = (
-    "energy_pot",      # BANKED #689 instrument: potential register, interior mask
+    "energy_pot",      # BANKED #689 instrument: potential register, interior mask (guard 0)
+    "energy_pot_g1",   # diagnostic: potential register, 1-ring guard (shipped-guard depth)
+    "energy_pot_g2",   # diagnostic: potential register, 2-ring guard
     "energy_full",     # COMPLETED forward instrument: full register, sponge-excluded (SPONGE_GUARD)
     "energy_full_g0",  # diagnostic: full register, NO sponge guard (≡ #689 RESULT-ESCALATED composed)
     "energy_full_g2",  # diagnostic: full register, 2-ring guard (sponge-guard sensitivity)
@@ -262,6 +264,11 @@ def _meter_snapshot(coupled, periodic: bool) -> dict:
     m_g2 = _read_region(coupled, 2)
     specs = (
         ("energy_pot", e_pot, m_int),
+        # POTENTIAL register at the shipped/2-ring guards (review MINOR 3): the §5
+        # decisive pot-guard series (−0.364 / −0.311 / −0.128) now has a shipped
+        # code path — previously only guard 0 (energy_pot) shipped.
+        ("energy_pot_g1", e_pot, m_ship),
+        ("energy_pot_g2", e_pot, m_g2),
         ("energy_full", e_full, m_ship),
         ("energy_full_g0", e_full, m_int),
         ("energy_full_g2", e_full, m_g2),
@@ -748,6 +755,33 @@ def cmd_plant(argv) -> None:
     )
 
 
+def _mixed_triggers(
+    torus: list, sig_map: dict, sig_key: str, phi_sigs: dict, twin_map: dict, tag: str
+) -> list[str]:
+    """The three frozen #689 bin-determining MIXED triggers, evaluated against ONE
+    register's signature map (review MINOR 6 — the banked bin must run the SAME
+    gate as the forward bin, not an empty reasons list). `sig_key` selects the
+    per-cell classification field ("signature" forward / "signature_banked" banked);
+    `twin_map` is the matching PML-twin signature map. `tag` disambiguates reason
+    strings. Returns the list of fired trigger reasons (empty = all-clean)."""
+    reasons: list[str] = []
+    if len(set(sig_map.values())) > 1:  # (1) pair vs graded_a0 disagree
+        reasons.append(f"pair_vs_graded_disagree{tag}:{sig_map}")
+    for c in torus:  # (2) energy meter vs Φ_link meter disagree
+        m = c["seed_mode"]
+        e_sig = c["classification"][sig_key]
+        p_sig = phi_sigs[m]
+        if e_sig != p_sig and "INCONCLUSIVE" not in (e_sig, p_sig):
+            reasons.append(f"energy_vs_philink_disagree{tag}[{m}]:E={e_sig}/phi={p_sig}")
+    for c in torus:  # (3) torus CONCENTRATES while its PML twin does not
+        m = c["seed_mode"]
+        if c["classification"][sig_key] == "CONCENTRATING" and twin_map.get(m) != "CONCENTRATING":
+            reasons.append(
+                f"torus_concentrates_pml_twin_does_not{tag}[{m}]:twin={twin_map.get(m, 'NO-TWIN')}"
+            )
+    return reasons
+
+
 def cmd_aggregate() -> None:
     cells = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("cell_*.json"))]
     plants = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("plant_*.json"))]
@@ -770,30 +804,26 @@ def cmd_aggregate() -> None:
     # MANDATORY instrument (Ruling 2); banked (energy_pot) is the frozen #689 read.
     sigs = {c["seed_mode"]: c["classification"]["signature"] for c in torus}          # forward
     sigs_banked = {c["seed_mode"]: c["classification"]["signature_banked"] for c in torus}
-    uniq = set(sigs.values())
 
     # #689 finding #5: all THREE bin-determining MIXED triggers, machine-evaluated:
     #   (1) pair vs graded_a0 energy signatures disagree;
     #   (2) energy meter and Φ_link meter disagree within a torus cell;
     #   (3) a torus cell CONCENTRATES while its PML twin does not.
+    # phi_link is a T2 winding channel (register-independent — SAME for both A1
+    # registers), so it feeds both the forward and banked evaluations.
     phi_sigs = {c["seed_mode"]: _sector_signature(c["trend"]["phi_link"]) for c in torus}
     twin_sigs = {m: t["classification"]["signature"] for m, t in pml_twin.items()}
     twin_sigs_banked = {m: t["classification"]["signature_banked"] for m, t in pml_twin.items()}
-    mixed_reasons: list[str] = []
-    if len(uniq) > 1:
-        mixed_reasons.append(f"pair_vs_graded_disagree:{sigs}")
-    for c in torus:
-        m = c["seed_mode"]
-        e_sig = c["classification"]["signature"]
-        p_sig = phi_sigs[m]
-        if e_sig != p_sig and "INCONCLUSIVE" not in (e_sig, p_sig):
-            mixed_reasons.append(f"energy_vs_philink_disagree[{m}]:E={e_sig}/phi={p_sig}")
-    for c in torus:
-        m = c["seed_mode"]
-        if c["classification"]["signature"] == "CONCENTRATING" and twin_sigs.get(m) != "CONCENTRATING":
-            mixed_reasons.append(
-                f"torus_concentrates_pml_twin_does_not[{m}]:twin={twin_sigs.get(m, 'NO-TWIN')}"
-            )
+    # REPAIR (review MINOR 6): the banked bin ran `_bin(sigs_banked, [])` — an
+    # EMPTY reasons list — so it was the frozen #689 gate's signature MAP but not
+    # its GATE (none of the three MIXED triggers could fire on the banked register).
+    # Evaluate the same three triggers against the banked (energy_pot) signatures,
+    # using twin_sigs_banked. Still yields LOOP-FILLING on this data (both banked
+    # torus cells agree LOOP-FILLING), but now gate-faithfully.
+    mixed_reasons = _mixed_triggers(torus, sigs, "signature", phi_sigs, twin_sigs, "")
+    mixed_reasons_banked = _mixed_triggers(
+        torus, sigs_banked, "signature_banked", phi_sigs, twin_sigs_banked, "_banked"
+    )
 
     def _bin(sig_map: dict, reasons: list) -> str:
         u = set(sig_map.values())
@@ -806,7 +836,7 @@ def cmd_aggregate() -> None:
         return u.pop()
 
     fork_bin = _bin(sigs, mixed_reasons)                # forward (mandatory)
-    fork_bin_banked = _bin(sigs_banked, [])             # frozen #689 banked
+    fork_bin_banked = _bin(sigs_banked, mixed_reasons_banked)  # frozen #689 banked (gate-faithful)
     # Boundary-insensitivity now register-explicit: torus vs PML-twin agreement.
     boundary_insensitive = {
         "forward": {m: (sigs.get(m) == twin_sigs.get(m)) for m in sigs},
@@ -834,6 +864,7 @@ def cmd_aggregate() -> None:
             "torus_concentrates_vs_pml_twin",
         ],
         "mixed_reasons": mixed_reasons,
+        "mixed_reasons_banked": mixed_reasons_banked,
         "fork_bin_forward": fork_bin,
         "fork_bin_banked": fork_bin_banked,
         "cells": [
@@ -895,9 +926,10 @@ def cmd_aggregate() -> None:
     print(f"torus Φ_link signatures: {phi_sigs}")
     print(f"PML twin forward: {twin_sigs}  | banked: {twin_sigs_banked}")
     print(f"boundary-insensitive (forward): {boundary_insensitive['forward']}")
-    print(f"MIXED triggers (all 3) reasons: {mixed_reasons or 'none — all clean'}")
+    print(f"MIXED triggers forward reasons: {mixed_reasons or 'none — all clean'}")
+    print(f"MIXED triggers banked  reasons: {mixed_reasons_banked or 'none — all clean'}")
     print(f"FORK BIN forward (energy_full, MANDATORY): {fork_bin}")
-    print(f"FORK BIN banked  (energy_pot, #689 frozen): {fork_bin_banked}")
+    print(f"FORK BIN banked  (energy_pot, #689 frozen, gate-faithful): {fork_bin_banked}")
     print("\n=== φ-channel plants ===")
     for p in plants:
         print(
