@@ -1375,6 +1375,10 @@ thermal-ledger consistency note (incoherent energy enters Komar at the same $\sq
 GR does likewise). **OPEN WALK (named, not walked):** the core-holding blob as candidate "phase-organization
 without circulation — coherent but not winding" (see Entry 15).
 
+> **🔴 UPDATE 2026-07-15 — the two-tank REGISTERED CHECK has FIRED (PR #707 `analysis/two-tank-decoherence-check`, `research/2026-07-15_two-tank-decoherence-check_NOTE.md`): verdict `ADDITIVE-ARTIFACT`.** The Op14 kernel ON/OFF mechanism control proved the observed relative-phase diffusion is **additive wave-interference**, not the `bath→A²→S→clock-rate` mechanism (kernel-excess median 0.187 < 0.50, collapsing to −0.001 on bath densification; `D_ON(u)` exponent p=0.38; isolated Op14 phase BOUNDED ~0.10, reversible; controls machine-clean ~7–9×10⁻¹³ rad; mean-shift additive-dominated, kernel-predicted −1.6×10⁻³ an order below the +1.7×10⁻² additive floor). **Consequences:** (1) ★#1 "temperature = phase-diffusion width/rate" **DEMOTES to NOT-DEMONSTRATED-AS-POSED / RE-GATED** — a lossless kernel yields only bounded reversible dephasing, so a genuine diffusion-**rate** thermometer needs **irreversibility** (the F6 channel below); NOT killed, re-gated. (2) ★#2 (entropy) stays PROPOSED (untested by this check). (3) **The Ax3 line "heat = reversible phase-scramble, not loss" is CORROBORATED** — the bounded reversible dephasing IS that statement measured (now axiom-derived + check-corroborated). (4) The leaf's registered "monotone variance-growth" bar was INSUFFICIENT (passed on the artifact) → criterion upgraded to mechanism-gated (kernel ON/OFF excess ≥ 0.50); orchestrator adjudication, Grant-vetoable. Landed in `thermal-phase-registers.md` §1/§2/§4/§6 + `translation-circuit.md` §4 heat row.
+>
+> ★ **THE F6 CONVERGENCE NOTE (prioritization datum for Wave 1+).** The thermal walk **independently rediscovered** that the **unbuilt F6 irreversible $\varepsilon\to T2$ depletion channel** is the missing primitive: it is now required by **BOTH** (a) the **DE-tracks-matter chord gate** (the engine-architecture make-or-break, `engine-capability-map`/F6) **AND** (b) the **lattice thermometer** (a genuine diffusion-rate temperature needs the irreversibility a lossless kernel cannot supply). Two independent load-bearing arcs now point at the same unbuilt primitive — a convergence that should **raise F6's build priority** in the Wave 1+ ordering.
+
 ### ENTRY 15 (WALK-RECORD — Grant verbatim "yes, this makes sense, fire the test"; the discriminating ablation FIRED as a sibling lane): THE CORE-HOLDING BLOB WALK
 
 **The datum.** In the absorbing-box run the fixed core ball **+50.6%** absolute (phase-averaged) while the
@@ -1410,13 +1414,9 @@ walled cavity grows puddles regardless of topology if (B) holds.
 
 - **WALKS REMAINING:** ~~core-holding blob~~ **WALKED (Entry 15)** — the ablation is IN FLIGHT; Re/Im carve; Op14 $Z$
   sign; r_knee consumer.
-- **REGISTERED CHECKS — three now IN FLIGHT (Grant "let's do them" + "fire the test", 2026-07-15):** the **blob
-  ablation** (`analysis/blob-ablation-kernel-off`, kernel-OFF + amplitude sweep) · the **Op4 ladder integral**
-  (Ruling 11 fork VALUE-closure) · the **two-tank decoherence check** (Entry 14 temperature-definition gate). Also
-  registered: the **thermal-ledger note** (consistency-class); the **criterion-tag sweep** — **QUEUED** (moved from
-  gated: Grant ratified Ruling 12's mandate 2026-07-15).
+- **REGISTERED CHECKS (2026-07-15 status):** the **Op4 ladder integral** — **REPORTED** (PR #704, NO-MATCH → Ruling-11 register-identity; scope label routed to Grant) · the **two-tank decoherence check** — **REPORTED** (PR #707, `ADDITIVE-ARTIFACT` → ★#1 temperature-def demoted / RE-GATED on F6; Ax3 line corroborated) · the **blob ablation** (`analysis/blob-ablation-kernel-off`, kernel-OFF + amplitude sweep) — **IN FLIGHT**. Also registered: the **thermal-ledger note** (consistency-class); the **criterion-tag sweep** — **QUEUED** (Grant ratified Ruling 12's mandate 2026-07-15).
 - **WAVE 1 parked:** $T_{ij}$ build gate-first + X44b / gate-(b) / census-S2 / QED-log charters — all fed by
-  Rulings 6/11 (and now the Entry-15 Stage-2 kernel-OFF-control consequence).
+  Rulings 6/11 (and now the Entry-15 Stage-2 kernel-OFF-control consequence). **★ F6 priority-raise datum (Entry 14 convergence note):** the unbuilt F6 irreversible $\varepsilon\to T2$ channel is now required by BOTH the DE-tracks-matter chord gate AND the lattice thermometer (PR #707) — a two-arc convergence on one primitive.
 - **STANDING:** CVR session; 0.22/0.84; half-exponent clock Q4 OPEN.
 
 ### Docket status board — register-walks state (KEEP-BOTH; all tables above unedited)
@@ -1426,7 +1426,7 @@ walled cavity grows puddles regardless of topology if (B) holds.
 | **Ruling 11** | step-register: kernel eats field-strain, not voltage-strain; the ladder theorem | **RULED** (Grant "Yes, I agree with where the walk is ending up") — FORM-level ruled convention; Op4 ladder integral REGISTERED-not-run; `clm-strreg` | Grant (ruled) |
 | **Ruling 12** | two α-criteria (storage-α vs response-α); the Taylor-½; criterion-tag mandate | **RULED** (Grant "ratify" 2026-07-15; upgraded from WALK-DELIVERED) — criterion-tag mandate **RATIFIED**→sweep QUEUED; `clm-crit2a` | Grant (ruled) |
 | **Entry 13** | the saturation anatomy (C/L duality, node exhaustion, ring-of-refusal electron, rectification) | **WALK-RECORD** — framework, landed in `envelope-anatomy.md` + `translation-circuit.md` §4 | (framework; no ruling) |
-| **Entry 14** | thermal/phase-register walk (Q1/Q2/Q3 + 3-register unification) | **WALK-RECORD + 2 PROPOSED-DEFINITIONAL** (temperature = phase-diffusion width; entropy = lost phase info) — gated on the two-tank check | Grant (definitions gated) |
+| **Entry 14** | thermal/phase-register walk (Q1/Q2/Q3 + 3-register unification) | **WALK-RECORD; two-tank check FIRED (PR #707, `ADDITIVE-ARTIFACT`):** ★#1 temperature-def **DEMOTED / RE-GATED on F6**; ★#2 entropy stays PROPOSED; Ax3 line **corroborated**; criterion upgraded to mechanism-gated (Grant-vetoable); F6 convergence-priority datum | Grant (definitions re-gated; criterion + F6-priority to ratify) |
 | **Entry 15** | core-holding blob walk (A linear-sort vs B self-trapping; puddle/soliton carve; breather) | **WALK-RECORD** — Grant "fire the test"; discriminating ablation IN FLIGHT (`analysis/blob-ablation-kernel-off`); breather hypothesis flagged-not-ratified | Grant (ablation adjudicates; breather routed) |
 
 *Append-only continuation (2026-07-15, the register walks) — all prior docket content byte-untouched (origin/main

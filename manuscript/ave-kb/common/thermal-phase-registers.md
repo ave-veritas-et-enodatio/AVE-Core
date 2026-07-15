@@ -9,6 +9,8 @@ no-claim: "WALK-LEVEL / PROPOSED-DEFINITIONAL framing (2026-07-15 thermal/phase-
 
 > **★ STATUS: WALK-LEVEL / PROPOSED-DEFINITIONAL — LOW SOLIDITY, GATED.** This leaf records the 2026-07-15 thermal/phase-register walk (docket Entry 14). The phase-definitions of heat / entropy / temperature below are **PROPOSED-DEFINITIONAL, not solid until measured** — gated on the registered **two-tank decoherence check** (§4). Nothing here is asserted above **consistency-class**; the single axiom-derived line is "heat = decoherence, not dissipation" (from Axiom 3). The mean-vs-variance split rides canonical anchors that already exist. **No numerical value is promoted.**
 >
+> **🔴 UPDATE 2026-07-15 — the two-tank check has FIRED (PR #707, `analysis/two-tank-decoherence-check`): verdict `ADDITIVE-ARTIFACT`.** The ★#1 "temperature = phase-diffusion width/rate" definition **DEMOTES to NOT-DEMONSTRATED-AS-POSED / RE-GATED on the unbuilt F6 irreversible $\varepsilon\to T2$ depletion channel** (§2). ★#2 (entropy) stays PROPOSED (untested by this check). **The one Ax3 line is CORROBORATED** — the bounded reversible dephasing the check measured IS "heat = reversible phase-scramble, not loss" (§1). Details below carry the dated status; the prior PROPOSED text is preserved (Rule-12).
+>
 > **Sector / regime / phase-state declaration.** MODE: an ensemble of bound soliton LC tanks (each a clock) immersed in a traveling radiation bath. REGIME: sub-yield, lossless-reactive (Axiom 3) — the bath scrambles *phase*, not amplitude past the wall. PHASE-STATE: incoherent-propagating (the heat register), distinct from coherent-bound (solitons) and coherent-propagating (radiation). This is the **third phase-register** in the unification table below.
 
 ## §1 — Heat as measured by bound structures = phase-diffusion between soliton clocks
@@ -18,23 +20,28 @@ Heat, as a bound structure feels it, is **phase-diffusion between soliton clocks
 - **MEAN shift = the thermal operating point.** The ensemble-mean clock detuning is the substrate's thermal bias point — canonically the $\delta_{strain}$ / TCC-at-$T_{CMB}$ mechanism (Cosserat-rotation-sector mass-gap thermal-mode-population ASYM; Q-DELTA-MAP-1, `clm-hp7nlm`, [`../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md); catalog row [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4 "$\delta_{strain}$ at $T_{CMB}$"). This is the *operating-point* half — the SIGN-predicted, magnitude-definitional δ_strain residual.
 - **VARIANCE = the heat content proper.** The *spread* of the clock-detuning distribution is the heat content — the Johnson-Nyquist $k_BT$-per-mode strain-noise jittering every tank (`translation-circuit.md` §4 "Vacuum thermal noise floor"; [`translation-tables/translation-stochastics.md`](translation-tables/translation-stochastics.md) FDT = boundary-$Z$ thermalization).
 
-**The one axiom-derived line — heat = decoherence, not dissipation (from Axiom 3, the ONLY axiom-derived statement here):**
+**The one axiom-derived line — heat = decoherence, not dissipation (from Axiom 3, the ONLY axiom-derived statement here; now ALSO check-corroborated, PR #707):**
 
-- **heat = phase disorganization of reactive energy, NOT loss** (Ax3-lossless: the substrate does not destroy energy; it scrambles the phase relationship between clocks; the reactive energy is conserved, redistributed to incoherent modes). *(This bullet — and only this bullet — is the axiom-derived line.)*
+- **heat = phase disorganization of reactive energy, NOT loss** (Ax3-lossless: the substrate does not destroy energy; it scrambles the phase relationship between clocks; the reactive energy is conserved, redistributed to incoherent modes). *(This bullet — and only this bullet — is the axiom-derived line.)* **★ CHECK-CORROBORATED (PR #707):** the two-tank check found the isolated Op14 differential phase is **BOUNDED** (MSD slope ~0.10, Poincaré-recurrent, reversible dephasing forced by Ax3-losslessness, `energy_drift ~10⁻¹³`) — the bounded reversible dephasing measured **IS** this "reversible phase-scramble, not loss" statement. Status: **axiom-derived + check-corroborated.**
 
 **The two PROPOSED-DEFINITIONAL items (walk-level, NOT axiom-derived; gated on the two-tank check, §2/§4):**
 
 - ★ **PROPOSED-DEFINITIONAL #2 — entropy = lost phase information between clocks** (the coherence you can no longer read out, not energy you no longer have). *Not solid until measured.*
 - ★ **PROPOSED-DEFINITIONAL #1 — temperature = the width of the clock-detuning distribution.** *Not solid until measured.*
 
-## §2 — ★ The TWO PROPOSED-DEFINITIONAL items (walk-level, gated)
+## §2 — The two definitional items after the check fired (★#1 RE-GATED, ★#2 still PROPOSED)
 
-Matching the docket Entry 14 ★#1 / ★#2 (both gated on the same registered two-tank decoherence check, §4):
+Matching the docket Entry 14 ★#1 / ★#2. **The two-tank check has FIRED (PR #707, verdict `ADDITIVE-ARTIFACT`); the two items now diverge in status.**
 
-> ★ **#1 — "temperature = clock phase-diffusion width."** PROPOSED-DEFINITIONAL — **not solid until measured.**
-> ★ **#2 — "entropy = lost phase information between clocks."** PROPOSED-DEFINITIONAL — **not solid until measured**, same gate.
+**★ #1 — "temperature = clock phase-diffusion width/rate" — 🔴 DEMOTED to NOT-DEMONSTRATED-AS-POSED / RE-GATED (PR #707, 2026-07-15; prior PROPOSED text preserved below, Rule-12).**
 
-These two are the definitional payload of the walk. They are *consistent* with the FDT anchor (a wider clock-detuning distribution = a hotter bath = more Johnson-Nyquist strain-noise; more lost inter-clock coherence = more entropy) but they are **not derived** — the check that would lift them from walk-level to consistency-confirmed is the two-tank decoherence measurement. (The heat = decoherence line, §1, is the separate one-axiom-derived statement and is NOT part of this PROPOSED pair.)
+> *(Prior status, preserved verbatim, Rule-12):* ★ #1 — "temperature = clock phase-diffusion width." PROPOSED-DEFINITIONAL — not solid until measured; consistent with the FDT anchor (a wider clock-detuning distribution = a hotter bath = more Johnson-Nyquist strain-noise) but not derived.
+
+**Why demoted (the mechanism control killed it, not the naive bar):** the check's built-in Op14 kernel **ON/OFF** control showed the observed relative-phase diffusion is **additive wave-interference**, NOT the proposed `bath → A² → S → clock-rate` mechanism — the pure **linear** lattice (kernel OFF) reproduces the same diffusion. The mechanism attribution (**kernel-excess** $(V_{ON}-V_{OFF})/V_{ON}$) is **median 0.187 < the frozen `EXCESS_MIN` 0.50**, and **collapses to −0.001** when the bath is densified (per-`u` `{+0.02,−0.02,+0.02,−0.42}`) — densifying does not rescue it. The `D_ON(u)` log-log exponent is **p = 0.38** (sub-linear, already off the predicted $D\propto u^1$). The isolated-Op14 readout (spectrally rejecting the additive bath) is **BOUNDED** (MSD slope ~0.10) — reversible dephasing, forced by Ax3-losslessness. **The definition is NOT killed — it is RE-GATED:** a lossless kernel yields only bounded reversible dephasing; a genuine diffusion-**rate** thermometer needs **irreversibility**, which in AVE lives exactly in the **unbuilt F6 irreversible $\varepsilon\to T2$ depletion channel** (§4 flag; docket Entry 14 F6 convergence note). Cite PR #707 `analysis/two-tank-decoherence-check` (`research/2026-07-15_two-tank-decoherence-check_NOTE.md` §4).
+
+**★ #2 — "entropy = lost phase information between clocks" — stays PROPOSED-DEFINITIONAL (UNTESTED by this check; same eventual gate).** Not solid until measured. The two-tank check tested the temperature/diffusion-rate leg only; the entropy definition awaits its own measurement (plausibly the same F6-gated irreversibility, since irreversibly-lost phase information is the entropy).
+
+*(The heat = decoherence line, §1, is the separate one-axiom-derived statement — now check-corroborated — and is NOT part of this PROPOSED/re-gated pair.)*
 
 ## §3 — The three-phase-register unification (walk-record)
 
@@ -54,7 +61,9 @@ These two are the definitional payload of the walk. They are *consistent* with t
 
 ## §4 — Registered checks (gates, not results)
 
-> ★ **REGISTERED — two-tank decoherence check** (the gate for BOTH §2 PROPOSED definitions, ★#1 temperature + ★#2 entropy). **Simulation**, not a physical experiment (INVARIANT-S9): seed two identical soliton tanks + a random traveling bath; measure **relative-phase variance growth vs bath energy density**. A monotone variance-growth-vs-bath-energy relation confirms "temperature = phase-diffusion width" (and, via the coherence lost, "entropy = lost phase information") at consistency-class. **IN FLIGHT** (Grant "let's do them" / "fire the test", 2026-07-15).
+> ★ **REGISTERED — two-tank decoherence check → FIRED 2026-07-15 (PR #707): verdict `ADDITIVE-ARTIFACT`.** **Simulation**, not a physical experiment (INVARIANT-S9): seed two identical soliton tanks + a random traveling bath; measure relative-phase variance growth vs bath energy density, with an Op14 kernel **ON/OFF mechanism control**. Result: the control (bath off) is machine-clean (`ctrl_span ~7–9×10⁻¹³` rad `≪` `CTRL_FLOOR` 1e-3; `energy_drift ~10⁻¹³`); the relative phase DOES diffuse (diffusive-shaped), but the diffusion is **kernel-independent** (kernel-excess median 0.187 `<` 0.50, collapsing to −0.001 on bath densification) ⇒ **additive wave-interference, NOT the Op14 bath→A²→S→clock mechanism**. ★#1 DEMOTED / RE-GATED on F6 (§2); the Ax3 line CORROBORATED (§1). Source: `research/2026-07-15_two-tank-decoherence-check_NOTE.md` §4.
+>
+> ⚑ **CRITERION UPGRADE (orchestrator adjudication, 2026-07-15 — Grant may veto).** The leaf's originally-registered bar — "a monotone variance-growth-vs-bath-energy relation confirms the definition" — is **INSUFFICIENT**: it **passes on the additive artifact** (the naive measurement met the bar; the mechanism control failed it). The criterion is therefore upgraded to **mechanism-gated**: confirmation requires **kernel ON/OFF excess ≥ threshold** (the frozen `EXCESS_MIN` 0.50), not merely diffusive shape. *Reasoning:* the looser variance-growth bar is the **unfireable-gate class** — a gate a spectator/additive artifact satisfies is not a gate. The mechanism-attribution (kernel-excess) is the discriminating observable. *(Adjudication recorded per flag-don't-fix; Grant's to ratify or veto.)*
 >
 > ★ **RECONCILIATION TARGETS owed IF the two definitions canonize (carried so ratification does not silently create manuscript-lockstep debt).** The manuscript already defines these words geometrically/mechanically; on ratification of the phase definitions these sites owe a reconciliation pass (today: **NEAR-SITE, no present contradiction** — the new defs are PROPOSED/no-claim, and deterministic geometric spreading is compatible with lost inter-clock phase information): `vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex`:44,:68,:415,:416 (entropy = irreversible spherical FDTD spreading; temperature = RMS transverse-noise amplitude), `vol_3_macroscopic/chapters/12_ideal_gas_law_and_fluid_pressure.tex`:34 (temperature = RMS displacement-current-noise amplitude), `vol_3_macroscopic/chapters/13_geophysics.tex`:156 (temperature = kinetic energy per node DOF). The RMS-noise framing is arguably the bath-side twin of the clock-detuning width.
 
@@ -66,9 +75,9 @@ The **core-holding blob** is a candidate first sighting of **"phase-organization
 
 ## §6 — Status recap + what is NOT claimed
 
-- **The whole leaf is WALK-LEVEL / consistency-class or below**, except the one Ax3-derived line (heat = decoherence, not dissipation), which rides the existing kernel.
+- **The whole leaf is WALK-LEVEL / consistency-class or below**, except the one Ax3-derived line (heat = decoherence, not dissipation) — now **axiom-derived + check-corroborated** (PR #707: the bounded reversible dephasing measured IS that statement).
 - **No numerical value is promoted**; the mean-shift half rides the definitional δ_strain residual, the variance half rides FDT, both already in canon.
-- The **two PROPOSED definitions (§2, ★#1 temperature + ★#2 entropy)** are gated on the two-tank check (IN FLIGHT); the thermal-ledger note (§4) is consistency-class, GR-degenerate. The manuscript reconciliation-target sites (§4) are carried so a future ratification does not silently create lockstep debt.
+- **Post-check status of the two definitions (§2):** ★#1 "temperature = phase-diffusion width/rate" is **DEMOTED / RE-GATED on the unbuilt F6 irreversible $\varepsilon\to T2$ channel** (PR #707 verdict `ADDITIVE-ARTIFACT` — the diffusion is kernel-independent additive interference; a lossless kernel gives only bounded reversible dephasing). ★#2 "entropy = lost phase information" **stays PROPOSED** (untested by this check, same eventual F6-class gate). The registered criterion is upgraded to mechanism-gated (kernel ON/OFF excess ≥ 0.50; §4, orchestrator adjudication, Grant-vetoable). The thermal-ledger note (§4) is consistency-class, GR-degenerate; the manuscript reconciliation-target sites (§4) are carried so a future ratification does not silently create lockstep debt.
 - **No AVE-distinct chord is claimed** — hot-things-weigh-more is the AVE reading of a standing GR fact, not a new prediction.
 
 ## Cross-references
