@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-3surfa]
+claims: [clm-3surfa, clm-ppasym]
 path-stable: "canonical home for the envelope three-surface anatomy (wall / balance shell / knee-dress edge) minted as FORM per Grant Ruling 8 option C (2026-07-14); referenced from vocabulary-register def-nodes and boundary-observables-m-q-j"
 -->
 
@@ -45,6 +45,45 @@ The long-open **§45 "size" A-vs-B fork** — is the soliton's canonical size a 
 - **Resolution B (supra-node body envelope)** $\leftrightarrow$ the **balance shell or the knee** (surfaces ii/iii) — genuinely distinct **supra-node** surfaces ($\gtrsim \ell_{node}$) sitting outside the wall.
 
 So Resolution A and Resolution B are **different surfaces of one anatomy**, not competing answers to "the size." *(This §45 Resolution-A/B fork is distinct from the `def-envl0p` **Sense-A/B** overload — real-space shell vs phasor-gain — which the anatomy does not touch; the wall is a real-space shell, i.e. `def-envl0p` Sense A, and separately the §45 Resolution A.)* **This is a FORM-level dissolution only: the VALUES (which radius each excited state's wall sits at, whether the balance shell is distinct from the wall) stay gate-(b)-dependent and are NOT promoted to SOLID.** The register `def-` nodes ([`vocabulary-register.md`](vocabulary-register.md): r_env def-088f0d, node-Nyquist-size-boundary def-e0cd83, envelope def-envl0p, and the anatomy def-anat3s) now reference this anatomy; the length-canonical mint (r_env / node-Nyquist proposed → SOLID) remains Grant-gated.
+
+## The F5 walk — the stress-strain reading of the anatomy
+
+> **Regime declaration.** The substrate's Op14 saturation kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ is read here as the **material stress-strain law** of the vacuum (a reactive, lossless constitutive curve up to the wall; the wall is the yield locus). The three surfaces are the three landmarks of that curve.
+
+The anatomy maps one-to-one onto the substrate stress-strain curve:
+
+- **Far field / small $A$ — LINEAR (Hookean) response.** The vacuum is a matched linear LC ladder; the strain tracks the load linearly.
+- **The KNEE ($A^2 = 2\alpha$) — the PROPORTIONAL LIMIT.** Response departs linear at the knee; the strain-cost of reaching it is $\Delta S = 1 - \sqrt{1-2\alpha} \approx \alpha$ (leading order $\sqrt{1-2\alpha}\approx 1-\alpha$). This is the **onset of corrections / particle-to-particle dressing / external load-transfer** (surface iii). Engine authority `chiral_lattice_v10.py:29-30,:56`.
+- **The WALL ($S\to 0$) — FULLY YIELDED.** The material has exhausted its compliance; $\lvert\Gamma\rvert = 1$ (total reflection — no further load transfers across). This is the observability boundary (surface i).
+- **The FLOOR ($\ell_{node}/2\pi$) — the minimum closed loop** (ropelength floor; the ground-state wall location).
+
+**Knee = proportional limit ↔ wall = fully-yielded** is the load-bearing mapping: the knee is where corrections *begin*; the wall is where compliance *ends*.
+
+## ★ Path-participation asymmetry — EM correction = ENDPOINT physics, gravity = LEDGER physics
+
+<!-- claim-quality: clm-ppasym -->
+
+> **Sector header.** Both the **EM correction** (vacuum-polarization / running-coupling analog) and **gravity** ride the **SAME Op14 saturation kernel $S(A)$ on the SAME stress register**. What differs is **how the kernel is integrated along the path** — and that single inversion is why one is short-range and saturating while the other is long-range and unscreened, out of **one** substrate.
+
+- **EM correction = ENDPOINT physics (a boundary integral).** The vacuum-polarization / running correction is bound to the **near-field collar / dress of each charge** (the #685 / #693 pairwise dress). Beyond the collar the through-coupling (transfer register) falls **steeply as a power law** (`p≈4.25`, analytically $\approx p{=}4$; `research/2026-07-14_qed-trace-beta-gate_RESULT.md:101,:157`), and the **INTERVENING medium is a SPECTATOR** — RELABELED-PAIRWISE, nothing accumulates per decade, so **no logarithm forms** (#693 screening-sum gate, Grant Ruling 5; `research/2026-07-14_screening-sum-gate_RESULT.md:169-178`). The correction therefore integrates only at the **endpoints** (the two charges' near-fields); the run is a spectator.
+- **Gravity = LEDGER physics (a volume integral).** The gravitating (Komar) mass is the **$\sqrt{S}$-clock-weighted VOLUME integral** of $T_{00}$ — the RULED-(c) `komar_weight` (`src/ave/gravity/backreaction.py:235-252`, Grant Ruling 1; X44 arc `research/2026-07-12_x44-komar-source_result.md`). **EVERYTHING in the enclosed volume accumulates**: the $\sqrt{S}$ local clock weights the whole $T_{00}$ integral (the S-factor on $\varepsilon_{local}, c_{local}$ under Symmetric Gravity, clm-3zz0f6).
+- **Same kernel, same stress register, INVERTED integration structure.** EM = an **endpoint / boundary** integral (short-range, **saturating out** — the collar dress with a spectator interior); gravity = a **bulk / volume** integral (long-range, **unscreened** — every cell's $\sqrt{S}$ clock contributes). **This is *why* gravity is long-range unscreened and the EM correction is short-range saturating — the same Op14 kernel read as an endpoint integral vs a ledger integral.**
+
+**Class: CONSISTENCY / synthesis — NOT emergence, NOT a chord.** This is an interpretive unification of two established sub-results (the EM endpoint/spectator finding #693 and the gravity Komar/$\sqrt{S}$ ledger, Ruling 1), not a new derivation; values ride the imports (α, $\ell_{node}$, the $\sqrt{S}$ weight). It says *why the two integration structures differ*, given the shared kernel.
+
+## The radial-ladder circuit table
+
+Reading outward-to-inward as a transmission-line ladder (per the EE-mapping; the substrate is a chiral LC network):
+
+| Radial zone (outer → inner) | EE / circuit element | AVE surface |
+|---|---|---|
+| **far field** | linear LC ladder — matched, Hookean ($\Gamma\approx 0$) | (outside the anatomy) |
+| **knee** | **varactor bias-onset** — the C-vs-V curve departs linear at $A^2 = 2\alpha$ (the proportional limit) | (iii) knee / dress edge |
+| **dress** | **biased-varactor ladder section** — the near-field dressing collar (endpoint-bound, spectator interior) | between knee and wall |
+| **wall** | **compliance-exhausted short** — $\lvert\Gamma\rvert = 1$, magnetic-branch $\mu_{eff}\to 0$ (fully yielded) | (i) wall |
+| **floor** | **minimum closed loop** — the ropelength floor $\ell_{node}/2\pi$ | (i) ground-state wall location |
+
+The row-set complement in the canonical EE catalog (uniform external field = common-mode bias; gradient = differential bias; knee = varactor-bias-onset; dress = biased-varactor ladder section) is landed at [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4.
 
 ## Cross-references
 

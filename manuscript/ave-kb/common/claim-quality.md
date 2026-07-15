@@ -1428,3 +1428,32 @@ A bound soliton's boundary region is **not one radius but three physically-disti
   - gate-(b): adjudicate whether the balance shell is a distinct supra-node surface or coincides with the fully-yielded wall (resolves Grant Ruling 6's conjecture)
   - the sibling-lane collar-edge ≡ knee registered check: pin the knee radius against the $A^2=2\alpha$ contour
   - promote r_env / node-Nyquist-size-boundary (vocabulary-register def-088f0d / def-e0cd83) proposed → SOLID once Grant confirms the length-canonical mint
+---
+
+## Path-Participation Asymmetry — EM correction = endpoint, gravity = ledger (F5 walk)
+<!-- id: clm-ppasym -->
+
+The EM correction (vacuum-polarization / running analog) and gravity ride the **same Op14 saturation kernel $S(A)$ on the same stress register**, but with **inverted integration structure**: the EM correction is an **endpoint / boundary integral** (bound to the near-field collar-dress of each charge; the intervening medium is a spectator, so it saturates out and is short-range), while gravity is a **bulk / volume integral** (the $\sqrt{S}$-clock weights the whole enclosed $T_{00}$, so everything accumulates and it is long-range unscreened). Canonical home [`envelope-anatomy.md`](./envelope-anatomy.md).
+
+- _Specific Claims_
+  - **EM = endpoint:** the correction is collar-bound; beyond the near field the transfer register falls steeply as a power law (`p≈4.25`, analytically $\approx 4$), and the intervening medium is RELABELED-PAIRWISE spectator — nothing accumulates per decade, no log forms (#685 / #693).
+  - **Gravity = ledger:** the Komar mass is the $\sqrt{S}$-clock-weighted VOLUME integral of $T_{00}$ (RULED-(c) `komar_weight`, Grant Ruling 1); every cell's clock contributes.
+  - **Same kernel, inverted structure → the range asymmetry:** endpoint-integral ⇒ short-range/saturating (EM); volume-integral ⇒ long-range/unscreened (gravity). One substrate, one kernel, two integration structures.
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY / synthesis — NOT emergence, NOT a chord.** This unifies two established sub-results (EM endpoint/spectator #693; gravity Komar/$\sqrt{S}$ ledger, Ruling 1); it is interpretive, not a new derivation. Values ride imports (α, $\ell_{node}$, the $\sqrt{S}$ weight).
+  - **The brief's "s⁻⁶ beyond" was NOT adopted:** the documented near-field falloff is the transfer-register power law `p≈4.25` (analytically $\approx 4$; `qed-trace-beta-gate_RESULT.md:101,:157`), and the screening-sum softens it further with an R-independent floor (#693). No `s⁻⁶` exponent is cited (verify-before-cite: not found in the source docs).
+  - Does NOT claim gravity or the EM correction is *derived* here — only that their integration structures are inverted reads of the one Op14 kernel.
+
+> **Leaf references:** [envelope-anatomy](./envelope-anatomy.md).
+
+### Quality
+- confidence: 0.50
+- depends-on:
+  - clm-bqtasn — the vacuum-polarization scoped import (#693 EM-endpoint / spectator, no-log): the EM = endpoint side
+  - clm-3zz0f6 — Symmetric-Gravity $n\cdot S$ weighting on $\varepsilon_{local}, c_{local}$ (the $\sqrt{S}$ gravity ledger): the gravity = ledger side
+  - clm-3surfa — the three-surface anatomy (the knee/dress edge is the EM endpoint surface; the wall carries the gravitating mass)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- rationale: CONSISTENCY-class synthesis. Both legs are established (the EM endpoint/spectator finding is the #693 screening-sum verdict behind clm-bqtasn; the gravity $\sqrt{S}$ ledger is the RULED-(c) Komar weight, Ruling 1, and the Symmetric-Gravity S-weighting clm-3zz0f6). The claim's content is the *interpretive unification* — same Op14 kernel, same stress register, inverted integration structure (endpoint vs volume) explaining the range asymmetry — not a new derivation. Solidity floors to the weakest dependency (min-link), honest for a synthesis riding gated/consistency-class inputs. The "s⁻⁶" figure from the walk brief was checked and NOT adopted (the sources report a p≈4.25 transfer falloff); flagged in the non-claims.
+- strengthen-by:
+  - a forward test that the EM endpoint-integral vs gravity volume-integral structures are the SAME kernel evaluated two ways (e.g. an engine that computes both from one $S(A)$ field and shows the range behaviour follows from the integration domain alone)
+  - close the gravity-ledger reconciliation (X44b: linear-clock + virialized stress) so the Komar volume integral is a computed ledger, not a ruled weight
