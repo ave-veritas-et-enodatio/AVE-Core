@@ -1115,3 +1115,21 @@ freeze is **not written or fired here**; this ruling only fixes which surface it
 ROLE-2/ROLE-3/floor split at `:121`, `:125`; the gate-(b) radius-discriminating acceptance test at
 `:132`; the Wall-A ruling `_orchestration/2026-07-10_rulings-docket.md:606-608` (three ROLE rows),
 `:522` (floor), `:533` (rail).
+
+### Ruling 7 — #691 canonization: NO — RULED
+
+**Ruling (Grant verbatim).** *"no, we need to be firm on our claims."* — on whether to canonize a
+`NEUTRON_ELECTRON_RATIO` / `M_N_MEV_AVE` into `ave.core.constants`. **NO.**
+
+**What it settles.** **C5 stays OPEN**; the **#676 n–p-gate detector stays clean** (canonization
+would flip that corpus-state detector by design); **no NEUTRON value enters `constants.py`** — the
+file keeps only the CODATA `M_N_MEV_TARGET` with its standing note that *"no framework derivation has
+yet been adopted for the neutron mass"* (`src/ave/core/constants.py:1135,1138`), i.e. **no
+derived/AVE neutron value**. **Revisit only if** the 3D composite (Faddeev-Skyrme) build lands a
+**magnitude in-band** — the #691 1D-radial proxy is bin (iii) RIGHT-SIGN-WRONG-MAGNITUDE (~15×) and
+its δ_th ablation is **channel-blind**, so C5 is **not adjudicated by the proxy**.
+
+**Site it resolves:** batch board decision **#6** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md:80`);
+the #691 RESULT C5-OPEN + "detector clean by design"
+(`research/2026-07-14_route-a-composite-fs_RESULT.md:110-111`, `:194-199`); `src/ave/core/constants.py:1135,1138`
+(CODATA target + standing "no framework derivation adopted" note; no AVE neutron value).
