@@ -446,4 +446,23 @@ register (internal consistency); everything in Families C/D.
 
 ## Re-verification corrections
 
-<!-- filled per-commit -->
+Session synthesis output is not a repo receipt. Every anchor was re-verified two-method against
+`AVE-Core @ bb58727f`. The load-bearing spine (all of Families A and B, the `gw_propagation.py:374`
+adjudication quote, both near-collision sides, the electron-bind-sim mis-use, the §8 defect sites,
+the §6 biquaternion thread) verified cleanly. The following synthesis anchors did NOT verify as
+stated and were corrected or dropped:
+
+| # | Synthesis claim | Re-verification result | Action |
+|---|---|---|---|
+| 1 | `lense_thirring.py:172` is in the "√α register (no 2)" (Family I) | Actual code: `R_I_BOUNDARY = (2.0 * 7.2973525693e-3) ** 0.5` = **√(2α)** (the R_I register, hardcoded/inlined) — NOT √α | Reclassified in Family I / §8-6 as a "should-import `constants.R_I`" hygiene item, not a register-value conflict |
+| 2 | Schwarzschild-tracking identity at "dark-sector doc `:231`" | Verified content at `research/2026-06-11_dark-sector-response-characterization.md:228` (`c_shear = c0(1−A²)^{1/4} ≡ c0√(1−r_s/r)`); also canonical at datasheet `05_ac_electrical_characteristics.tex:552` | Re-anchored `:231 → :228` (+datasheet cite) in Family B |
+| 3 | `translation-circuit.md:252` (Family F rescue-closed) | File is **16 lines** — `:252` does not exist | Dropped from Family F (primary anchors `08_alpha_golden_torus.tex:69` + `interlock-register.md:236-248` retained) |
+| 4 | `forka-alpha-flip :14,:203` (Family F) | File is **51 lines** — `:203` does not exist; `:14` (the α-free flip condition) verifies | Kept `:14`, dropped `:203` |
+| 5 | The superseded 0.95 "sole source `:195`" (Family H) | op14 leaf is **163 lines** — no `:195` | Dropped the `:195` pointer; cited verified origins op14 `:120` + `axiom_derivation_status.md:204` |
+| 6 | `trampoline-framework.md:432` "says 'slows'… (sign-conflation)" (Family H) | `:432` describes the matter/shear clock slowing (`c_shear=√S`, which correctly slows) — the "sign-conflation" characterization is NOT confirmed | Softened to a review-flag; NOT asserted as a defect (would over-claim; the shear speed legitimately slows) |
+| 7 | Stefan-Boltzmann `06_02_model.tex:12` (Family D historical) | The `Applied-Vacuum-Engineering` repo is **absent from this AVE-Core checkout** — cannot two-method verify | Retained in Family D with an explicit "cross-repo, unverified here" tag |
+
+**Minor pointer notes (content verified, no change of substance):** `bench/birefringence.py:159`
+— the function docstring is at `:159`, the `expm1(0.25·log1p(−A²))` guard at `:179` (both verified);
+`interlock-register.md:236-248` verifies as the routes-closed block (a first grep hit a different
+section `:121-137`, the mechanism definition, but the cited `:236-248` block is correct).
