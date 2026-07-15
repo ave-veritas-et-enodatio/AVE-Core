@@ -1282,12 +1282,12 @@ register $=$ line integral of the field register ($V=\int E\,d\ell=\sum_{\text{c
 **Cells feel steps; ports / interactions see sums.**
 
 **CONSEQUENCES REGISTERED-NOT-EXECUTED.** Both knees are real: the **field knee** $(2\alpha)^{-1/4}=2.877\,\ell_{node}$
-(the cell / dress knee, measured as $r99$ in PR #696, `research/2026-07-14_knee-contour-check_NOTE.md`) and the
+(the cell / dress knee, measured as the $r99$ outer edge in PR #696, **ratio 1.06–1.27** — frozen 1.06 / refined 1.27, resolution-stable, `research/2026-07-14_knee-contour-check_NOTE.md`:180,:224-225) and the
 **voltage knee** $(2\alpha)^{-1/2}=8.278\,\ell_{node}$ (the interaction / port knee; the second is the square of
-the first). Op4/Op14's $(d_{sat}/r)^2$ argument = a **CANDIDATE integrated port expression of a field-biased
+the first). Op4/Op14's $(d_{sat}/r)^2$ argument = a ~~**CANDIDATE integrated port expression of a field-biased
 ladder** — ★ **REGISTERED CHECK (the Op4 ladder integral):** integrate the per-cell field-strain dress radially
 and compare to the closed-form $Z_0(1-(d_{sat}/r)^2)^{-1/4}$ (a **match closes the fork completely**; a
-**mismatch = a real defect in a canonical operator** — flag-don't-fix). The 1/4-map's Q#1 fork
+**mismatch = a real defect in a canonical operator** — flag-don't-fix)~~. **🔴 UPDATE 2026-07-15 (Rule-12; PR #704 `analysis/op4-ladder-integral-check`, MERGED — the ★REGISTERED CHECK has now FIRED; strike-through above preserved, git is the trail):** the Op4 ladder integral **RETURNED NO-MATCH** — the field ladder integrates to $p=4$ under both signs, and (WKB) ports localize ($Z_{in}\to Z_{local}$). So Op4 is **NOT a constitutive-dress integration (candidate → REFUTED-as-integration)** but is **EXACTLY the local voltage-register dress — a legitimate pairwise / interaction-register operator under the ruled carve (RESOLVED-as-register-identity)**. The fork closes by register-identity, not by integration-match. **Routed to Grant:** the Op4 scope question (a pairwise-only / interaction-register label + its 4 consumer sites). The 1/4-map's Q#1 fork
 (`research/2026-07-14_quarter-power-map.md`) **RESOLVES under this ruling** — both registers correct in their own
 register — with the `r_knee` quarter-power retained, **fork-conditional no more** (still α-echo-classified).
 `methodological-contamination.md:48`'s pairwise voltage-strain ($d_{sat}/r_{ij}$) is the **INTERACTION register
@@ -1305,7 +1305,7 @@ $\Delta S=\alpha$" $\Rightarrow A^2=2\alpha$, $A=\sqrt{2\alpha}\approx0.1208$ (t
 numerically equal the per-sector share — **regime-dependent** (standing waves slosh; the #698 phase findings are
 the live demo), so the ½ is the **kernel's**, not the wave's (the static dress using $\sqrt{2\alpha}$ and matching
 $r99$ is the tell). The criteria carve is **ORTHOGONAL to the register carve** (a 2×2: register step/ladder ×
-criterion storage/response; the corpus populates 3 of 4 cells unnamed; $h_{yield}$ = a field-register quantity
+criterion storage/response; the corpus populates all four cells under names that never advertised the axis; $h_{yield}$ = a field-register quantity
 carrying the storage criterion). The **near-collision** ($\sqrt{1-\alpha}=0.996345$ vs $(1-2\alpha)^{1/4}=0.996331$,
 $\Delta=1.4\times10^{-5}$) = the two criteria's clock projections.
 
@@ -1378,8 +1378,10 @@ without circulation — coherent but not winding" (see Entry 15).
 ### ENTRY 15 (WALK-RECORD — Grant verbatim "yes, this makes sense, fire the test"; the discriminating ablation FIRED as a sibling lane): THE CORE-HOLDING BLOB WALK
 
 **The datum.** In the absorbing-box run the fixed core ball **+50.6%** absolute (phase-averaged) while the
-interior drains **−17.5%** and $H$ **−12.2%** through the sponge; the torus twin core decays **−24 to −43%**
-($H$-conserved); φ/winding **dead throughout** — energy flows inward, no circulation.
+interior drains **−17.5%** and $H$ **−12.2%** through the sponge; the torus twin core decays **−24.4% (`pair`) /
+−27.6% (`graded_a0`)** — the banked quiet-avg absolute core-ball decays ($H$-conserved; `research/2026-07-14_gpersist-meter-circuit-ontology.md`:231,:284). The composed-register (kinetic-inclusive
+CF) falls are **larger (~−41 to −47%)** but are **NOT BANKED** — the #689 meter-register call is open, and the
+composed numbers were ESCALATED / held out under the cluster-3 STOP rule (`research/2026-07-14_gpersist-localization-observable_RESULT.md`:359; `_orchestration/2026-07-14_batch-outcomes-and-actions.md`:76). φ/winding **dead throughout** — energy flows inward, no circulation. *(🔴 Rule-12 provenance/irony note, 2026-07-15: the "−24 to −43%" this correction removes carried a −43% upper bound that was itself an **endpoint single-phase-moment read** (≈−42.9%, the #698 review's live-fire endpoint) — the exact endpoint-vs-quiet-window mirage class **Ruling 10** (this docket) and **Entry 14** document; the banked quiet-avg −24.4/−27.6% is the honest datum.)*
 
 **The mechanism fork walked.** **(A) LINEAR MODE-SORTING** — the sponge as a sieve (radiative components leave,
 bound near-field components cannot; predicts a plateau at the bound fraction, does **not** naturally predict an
