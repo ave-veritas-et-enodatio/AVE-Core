@@ -39,6 +39,11 @@
 {"source": "clm-3kzmt9", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.63, "strength": null, "context": "for $\\xi$'s $\\alpha^{-2}$ factor", "fraction": null}
 {"source": "clm-3kzmt9", "target": "clm-5xon03", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.65, "strength": null, "context": "for $\\xi$'s $R_H/H_\\infty$ factor — $H_\\infty$ is a consistency identity conditional on $G$ closure", "fraction": null}
 {"source": "clm-3npynp", "target": "clm-j550uh", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the A1 ⊕ T2 group theory this entry applies", "fraction": null}
+{"source": "clm-3surfa", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-3surfa", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-3surfa", "target": "clm-hvb7q3", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-3surfa", "target": "clm-lv3uw1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-3surfa", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-3zz0f6", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "7\\xi \\cdot m_e^2", "fraction": null}
 {"source": "clm-3zz0f6", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "r", "fraction": null}
 {"source": "clm-3zz0f6", "target": "clm-8nkvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.85, "strength": null, "context": "the cancellation argument depends on the symmetric case", "fraction": null}

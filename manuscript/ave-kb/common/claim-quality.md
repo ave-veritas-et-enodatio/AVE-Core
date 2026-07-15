@@ -1396,3 +1396,35 @@ The organizing-principle META-FINDING (Grant-ratified 2026-07-03; evidence = the
   - Land a second independent DC→AC coupling-class forward falsifier beyond `clm-pp3qwf` (the selection rule iv predicts the discriminating tests cluster here; a second instance would move the carve from one-example to a pattern)
   - Convert the DC-side bet from hypothesis to test on ONE of its four medium-state claims (gravity = `S(A)` operating point / DE = real DC offset / charge = topological boundary data / yield = material limit) — the `𝒥_cosmic` three-route operating-point test is the standing candidate (one DC operating point setting EM + gravity + cosmology)
   - Formalize the "all measurement is AC" principle against a concrete uniform-bias null (the retired rotor-Sagnac / static-fiber corroborative-nulls) as a machine-checkable selection filter in `ave-discrimination-check`
+---
+
+## Envelope Three-Surface Anatomy — wall / balance shell / knee (FORM, Grant Ruling 8)
+<!-- id: clm-3surfa -->
+
+A bound soliton's boundary region is **not one radius but three physically-distinct radial surfaces** on the real-space saturation profile $S(A(r))$: (i) the **wall** — the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert = 1$ mirror carrying $\mathcal{M},\mathcal{Q},\mathcal{J}$, with ground-state floor $\ell_{node}/2\pi$; (ii) the **balance shell** — the $\sigma$-opposite-equal (Laplace-vs-circulation) crossing at $R^\ast\approx 1.6\,\ell_{node}$; (iii) the **knee / dress edge** — the $\Delta S = \alpha$ proportional limit at $A^2 = 2\alpha$. Minted as **FORM per Grant Ruling 8 (option C, in-chat 2026-07-14; record PR #695 docket continuation)**; canonical home [`envelope-anatomy.md`](./envelope-anatomy.md).
+
+- _Specific Claims_
+  - **FORM (Grant-ruled):** the boundary is three distinct surfaces with distinct roles (observability wall / force-balance shell / proportional-limit knee), not a single "envelope radius." The §45 "size" A-vs-B fork dissolves: Sense A ↔ wall/floor, Sense B ↔ balance-or-knee (distinct supra-node surfaces).
+  - **Knee identity (clean math):** $A^2_{yield} = 2\alpha \Rightarrow S = \sqrt{1-2\alpha}\approx 0.9927$, and $\Delta S = 1-\sqrt{1-2\alpha}\approx\alpha$ (leading order $\sqrt{1-2\alpha}\approx 1-\alpha$; agreement to $\sim\alpha/2$). Engine authority `chiral_lattice_v10.py:29-30,:56`.
+  - **Ground-state floor (ROLE-1 ≡ ROLE-2):** for the ground state the observability wall coincides with the ropelength floor $\ell_{node}/2\pi\approx 61$ fm; excited states lift the wall off the floor.
+- _Specific Non-Claims and Caveats_
+  - **VALUES stay measured / gate-registered — nothing numerical promoted to SOLID (Ruling 8 option C).** The radii ride CODATA-derived $\ell_{node}=\hbar/m_ec$; the balance-shell $\approx 1.6\,\ell_{node}$ is **DIMENSIONALLY FORCED** (consistency check, not discriminating — clm-hvb7q3); the knee radius is a **REGISTERED CHECK** (collar-edge ≡ knee, sibling lane).
+  - **Balance shell CONJECTURED ≡ wall (Grant Ruling 6); gate-(b) adjudicates** whether it is a distinct surface or the fully-yielded wall itself. This claim does NOT assert three distinct radii — it asserts three distinct ROLES; the value-side coincidence structure is gated.
+  - **The wall sign is the ruled-degenerate SIGN/spin selector (#260), NOT a branch.** Mass = A1 settled independently; this claim does not re-derive it.
+  - **"Envelope = the wall" as primary sense is PROPOSED (pending Grant confirm at merge)** — the register mint (r_env/node-Nyquist proposed → SOLID) remains Grant-gated.
+
+> **Leaf references:** [envelope-anatomy](./envelope-anatomy.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - clm-lv3uw1 — the $\Gamma=-1$ magnetic-branch saturation wall (the wall surface + its sign selector, #260)
+  - clm-ze4clw — the three boundary observables $\mathcal{M},\mathcal{Q},\mathcal{J}$ the wall carries
+  - clm-hvb7q3 — the hollow-vortex balance $R^\ast\approx 1.6\,\ell_{node}$ (the balance-shell surface; Class-C consistency, dimensionally forced)
+  - INVARIANT-S2 / Axiom 4 (the saturation kernel $S(A)=\sqrt{1-(A/A_{yield})^2}$ whose knee is $A^2=2\alpha$)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.55, 0.45)]
+- rationale: FORM-class organizing mint, Grant-ruled at the FORM level (Ruling 8 option C) — that the boundary is three distinct surfaces with distinct roles. The wall is well-grounded (observability rule, clm-lv3uw1/clm-ze4clw); the knee's $\Delta S=\alpha$ is clean math off the engine's $A^2_{yield}=2\alpha$; the balance shell is a Class-C consistency description (clm-hvb7q3) whose radius is dimensionally forced. Solidity floors to the balance-shell dependency (min-link) — honest, since the value-side of the anatomy (which surface sits where, whether the balance shell is distinct from the wall) is explicitly gate-(b)-dependent and NOT promoted to SOLID. The FORM is ruled; the numbers ride CODATA imports. Not an emergence claim; consistency / FORM-class.
+- strengthen-by:
+  - gate-(b): adjudicate whether the balance shell is a distinct supra-node surface or coincides with the fully-yielded wall (resolves Grant Ruling 6's conjecture)
+  - the sibling-lane collar-edge ≡ knee registered check: pin the knee radius against the $A^2=2\alpha$ contour
+  - promote r_env / node-Nyquist-size-boundary (vocabulary-register def-088f0d / def-e0cd83) proposed → SOLID once Grant confirms the length-canonical mint

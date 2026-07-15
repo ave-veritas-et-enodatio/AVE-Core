@@ -357,12 +357,12 @@ parse it):
 <!-- id: def-088f0d -->
 
 - **term:** r_env
-- **adjudicated-meaning:** *(PROPOSED, gated)* the soliton real-space **ENVELOPE length** (HWHM / tube-radius / saturation-boundary) — the separate name for r_opt **Meaning B**, so the length sense never reuses the dimensionless-ratio glyph.
+- **adjudicated-meaning:** *(PROPOSED, gated)* the soliton real-space **ENVELOPE length** (HWHM / tube-radius / saturation-boundary) — the separate name for r_opt **Meaning B**, so the length sense never reuses the dimensionless-ratio glyph. **Within the three-surface anatomy (def-anat3s, [`envelope-anatomy.md`](envelope-anatomy.md)): r_env is the WALL / ropelength-floor length — surface (i), the §45 Resolution-A sub-node locus ($\ell_{node}/2\pi$ for the ground state).** (The length VALUE stays gate-measured; this node's proposed→SOLID promotion stays Grant-gated, GATE note above.)
 - **axis:** spatial-Brillouin
 - **dimension/type:** length (L)
 - **status:** proposed
-- **canonical-home:** *(none — coinage; the existing fit-param is currently named r_opt / `HORN_R`)*
-- **clm-cross-links:** *(none verified-specific yet)*
+- **canonical-home:** *(none — coinage; the existing fit-param is currently named r_opt / `HORN_R`; FORM home for the surface it names = [`envelope-anatomy.md`](envelope-anatomy.md), clm-3surfa)*
+- **clm-cross-links:** clm-3surfa
 - **open-ambiguity-flag:** no
 - **verification:** VERIFIED **0 prior exact-token `r_env` hits** (the broad pattern catches the unrelated `HORN_R` constant, but the exact token `r_env` is unused). **GATED on Grant review — NOT SOLID.**
 
@@ -372,24 +372,39 @@ parse it):
 <!-- id: def-e0cd83 -->
 
 - **term:** node-Nyquist-size-boundary
-- **adjudicated-meaning:** *(PROPOSED, gated)* the single spatial scale at which a soliton's real-space body crosses the node Nyquist boundary — distinguishing a **supra-node body envelope** from a **sub-node charge-core feature** (the §45 A-vs-B fork).
+- **adjudicated-meaning:** *(PROPOSED, gated)* the single spatial scale at which a soliton's real-space body crosses the node Nyquist boundary — distinguishing a **supra-node body envelope** from a **sub-node charge-core feature** (the §45 A-vs-B fork). **Within the three-surface anatomy (def-anat3s): this Nyquist boundary is the $\ell_{node}$ scale that SEPARATES the §45 Resolution-A sub-node wall/floor ($\ell_{node}/2\pi$) from the §45 Resolution-B supra-node surfaces (the balance shell $\approx 1.6\,\ell_{node}$, the knee) — the FORM mint shows both sides are real (distinct surfaces), so the Nyquist crossing is the dividing line, not an either/or fork.** (The value-side §45 resolution stays gate-(b).)
 - **axis:** spatial-Brillouin
 - **dimension/type:** length (L) $= \ell_{node}$
 - **status:** proposed
-- **canonical-home:** *(none — coinage; §46 node-Nyquist size resolution)*
-- **clm-cross-links:** clm-yc7fgm (the node = spatial-Nyquist boundary claim it builds on)
+- **canonical-home:** *(none — coinage; §46 node-Nyquist size resolution; FORM context = [`envelope-anatomy.md`](envelope-anatomy.md), clm-3surfa)*
+- **clm-cross-links:** clm-yc7fgm (the node = spatial-Nyquist boundary claim it builds on); clm-3surfa (the anatomy whose Resolution-A/B surfaces this boundary separates)
 - **open-ambiguity-flag:** no
 - **verification:** VERIFIED **0 prior corpus hits**. **GATED on Grant review AND on the unresolved §45 A-vs-B canonical FORK** (sub-node charge-core vs supra-node body envelope) — NOT SOLID.
 
 ---
 
-<!-- GATE (docket `_orchestration/2026-07-10_rulings-docket.md`:724,:782 — #686 branch, OPEN): the envelope-LENGTH canonical mint — promoting r_env (def-088f0d) + node-Nyquist-size-boundary (def-e0cd83) proposed→SOLID and RESOLVING the §45 A-vs-B fork (sub-node charge-core vs supra-node body envelope) — stays QUEUED / GRANT-GATED (docket: "QUEUED (OPEN, Grant-gated) … PROPOSED, gated on §45 A-vs-B fork"; "Not minted"). This `def-envl0p` node is the NON-LOCKING register-hygiene ambiguity record ONLY: status:ambiguous per the register legend ("≥2 corpus meanings, no locked sense, canon gated"); it mints NO length, flips NO proposed node to SOLID, and takes NO position on §45. The envelope-length canonical mint + the §45 resolution remain GATED on Grant review. -->
+## envelope (three-surface anatomy)
+<!-- id: def-anat3s -->
+
+- **term:** envelope (three-surface anatomy: wall / balance shell / knee)
+- **adjudicated-meaning:** *(FORM minted per Grant Ruling 8 option C, 2026-07-14 — the FORM is ruled; every numerical value is gate-measured, NOT SOLID)* a bound soliton's boundary region is **THREE physically-distinct radial surfaces** on $S(A(r))$: **(i) the wall** (fully-yielded $S\to0$, $\lvert\Gamma\rvert=1$ mirror; carries $\mathcal{M},\mathcal{Q},\mathcal{J}$; ground-state floor $\ell_{node}/2\pi$; sign = the ruled-degenerate selector #260); **(ii) the balance shell** (the $\sigma$-opposite-equal crossing, $\approx 1.6\,\ell_{node}$; CONJECTURED $\equiv$ wall per Ruling 6); **(iii) the knee / dress edge** (the $\Delta S=\alpha$ proportional limit, $A^2=2\alpha$). **PROPOSED primary sense of "envelope" = the wall** (pending Grant confirm at merge — marked PROPOSED).
+- **axis:** spatial-Brillouin
+- **dimension/type:** length (L) — three distinct radial loci (values gate-measured)
+- **status:** proposed *(FORM ruled — Ruling 8; the numerical values + the length-canonical mint stay Grant-gated, see the GATE note below)*
+- **canonical-home:** [`envelope-anatomy.md`](envelope-anatomy.md) (clm-3surfa)
+- **clm-cross-links:** clm-3surfa
+- **open-ambiguity-flag:** no *(the mint DISSOLVES the §45 A-vs-B fork into named surfaces at the FORM level: Resolution A ↔ wall/floor, Resolution B ↔ balance-or-knee; the value-side stays gate-(b))*
+- **verification:** VERIFIED **0 prior `def-anat3s` / "three-surface anatomy" hits** (two-method). The three surfaces re-grepped THIS session against their anchors: wall/floor `trampoline-framework.md:687` + [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md); balance `../vol2/particle-physics/ch01-topological-matter/hollow-vortex-binding.md:49,:133` (clm-hvb7q3); knee `src/ave/core/chiral_lattice_v10.py:29-30,:56` ($A^2_{yield}=2\alpha$, $s=\sqrt{1-A^2}$). FORM minted per Grant Ruling 8 (option C, in-chat 2026-07-14; record PR #695 docket continuation). **Values NOT SOLID.**
+
+---
+
+<!-- GATE (docket `_orchestration/2026-07-10_rulings-docket.md`:724,:782 — #686 branch): **FORM-LEVEL MINT AUTHORIZED (Grant Ruling 8, option C, 2026-07-14; record PR #695 docket continuation).** The three-surface ANATOMY (wall / balance shell / knee) is now minted as FORM — the anatomy def-node `def-anat3s` + `envelope-anatomy.md` (clm-3surfa) — DISSOLVING the §45 A-vs-B fork into named surfaces (Resolution A ↔ wall/floor sub-node, Resolution B ↔ balance-or-knee supra-node) at the FORM level. STILL GATED (value-side): (a) the envelope-LENGTH canonical mint — promoting r_env (def-088f0d) + node-Nyquist-size-boundary (def-e0cd83) proposed→SOLID — stays QUEUED / GRANT-GATED; (b) the VALUE-side §45 resolution (which radius each surface sits at; whether the balance shell is a distinct surface or coincides with the wall — Ruling 6's conjecture) is **gate-(b)**; (c) "envelope = the wall" as the primary sense is PROPOSED pending Grant confirm at merge. This `def-envl0p` node stays the NON-LOCKING register-hygiene ambiguity record for the envelope TOKEN's Sense-A/B (real-space-shell vs phasor-gain) overload — a DIFFERENT axis from the §45 Resolution-A/B fork; it mints NO length and flips NO proposed node to SOLID. -->
 
 ## envelope
 <!-- id: def-envl0p -->
 
 - **term:** envelope
-- **adjudicated-meaning:** *(TWO genuine registers under one token — real-space shell vs phasor-gain condition; the A46 phase-space-vs-real-space clarity risk).* **Sense A — real-space SHELL** [spatial-Brillouin]: the physical 3D saturation-boundary shell of a soliton — the "boundary envelope" of [`trampoline-framework.md`](trampoline-framework.md):685, the finite-thickness region where $A$ approaches the saturation surface. Its canonical LENGTH is the PROPOSED, Grant-gated **r_env** coinage (def-088f0d, *status:proposed — GATED / NOT SOLID*); this node references r_env **as proposed, not by identity**. **§45 A-vs-B fork — OPEN (this node takes NO position):** whether this real-space feature is a *supra-node body envelope* (Resolution B) or a *sub-node charge-core feature* (Resolution A) is an unresolved Grant-gated canonical fork (def-e0cd83); this node does NOT equate the boundary-envelope shell with the supra-node "body envelope". **Sense B — phasor-GAIN condition** [phase-carrier]: an amplitude/phase condition, NOT a spatial region — the modulation envelope of a `carrier × envelope` decomposition, and the reversible sub-yield $\sqrt{1-A^2}$ saturation-gain envelope. A gain/modulation envelope (Sense B) is a locus in amplitude/phase space; do NOT read it as a real-space shell (Sense A).
+- **adjudicated-meaning:** *(TWO genuine registers under one token — real-space shell vs phasor-gain condition; the A46 phase-space-vs-real-space clarity risk).* **Sense A — real-space SHELL** [spatial-Brillouin]: the physical 3D saturation-boundary shell of a soliton — the "boundary envelope" of [`trampoline-framework.md`](trampoline-framework.md):685, the finite-thickness region where $A$ approaches the saturation surface. Its canonical LENGTH is the PROPOSED, Grant-gated **r_env** coinage (def-088f0d, *status:proposed — GATED / NOT SOLID*); this node references r_env **as proposed, not by identity**. **In the three-surface anatomy (def-anat3s, [`envelope-anatomy.md`](envelope-anatomy.md), FORM-minted per Grant Ruling 8): this Sense-A real-space shell is the WALL / floor surface (i)** — the §45 Resolution-A sub-node locus. (The §45 Resolution-A/B fork is a DIFFERENT axis from this node's Sense-A/B shell-vs-phasor overload; the anatomy dissolves the former at FORM level only, values gate-(b).) **§45 A-vs-B fork — OPEN (this node takes NO position):** whether this real-space feature is a *supra-node body envelope* (Resolution B) or a *sub-node charge-core feature* (Resolution A) is an unresolved Grant-gated canonical fork (def-e0cd83); this node does NOT equate the boundary-envelope shell with the supra-node "body envelope". **Sense B — phasor-GAIN condition** [phase-carrier]: an amplitude/phase condition, NOT a spatial region — the modulation envelope of a `carrier × envelope` decomposition, and the reversible sub-yield $\sqrt{1-A^2}$ saturation-gain envelope. A gain/modulation envelope (Sense B) is a locus in amplitude/phase space; do NOT read it as a real-space shell (Sense A).
 - **axis:** other (spans spatial-Brillouin [A] and phase-carrier [B])
 - **dimension/type:** length (L) [Sense A] vs dimensionless amplitude-gain / envelope function [Sense B]
 - **status:** ambiguous *(non-locking register-hygiene record — the envelope-LENGTH canonical mint + the §45 A-vs-B resolution stay Grant-GATED; see the GATE note above the heading)*
