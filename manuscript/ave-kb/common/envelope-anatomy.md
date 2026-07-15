@@ -80,7 +80,7 @@ Reading outward-to-inward as a transmission-line ladder (per the EE-mapping; the
 | Radial zone (outer → inner) | EE / circuit element | AVE surface |
 |---|---|---|
 | **far field** | linear LC ladder — matched, Hookean ($\Gamma\approx 0$) | (outside the anatomy) |
-| **knee** | **varactor bias-onset** — the C-vs-V curve departs linear at $A^2 = 2\alpha$ (the proportional limit) | (iii) knee / dress edge |
+| **knee** | **varactor bias-onset** — the C-vs-V curve departs linear at $A^2 = 2\alpha$ (the proportional limit); **step / field-strain register** — the field knee is $(2\alpha)^{-1/4} = 2.877\,\ell_{node}$ ([`strain-registers.md`](strain-registers.md) Ruling 11; the port/voltage knee is $(2\alpha)^{-1/2}=8.278\,\ell_{node}$) | (iii) knee / dress edge |
 | **dress** | **biased-varactor ladder section** — the near-field dressing collar (endpoint-bound, spectator interior) | between knee and wall |
 | **wall** | **compliance-exhausted short** — $\lvert\Gamma\rvert = 1$, magnetic-branch $\mu_{eff}\to 0$ (fully yielded) | (i) wall |
 | **floor** | **minimum closed loop** — the ropelength floor $\ell_{node}/2\pi$ | (i) ground-state wall location |

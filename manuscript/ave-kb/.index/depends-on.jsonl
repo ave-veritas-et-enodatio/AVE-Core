@@ -229,6 +229,9 @@
 {"source": "clm-cmic3e", "target": "clm-mnb3lt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-crbl60", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "p_c = 8πα in ρ_bulk and α in ν_kin = αcℓ_node", "fraction": null}
 {"source": "clm-crbl60", "target": "clm-dfaiwj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies L = ξ_topo^-2 m used in m_node", "fraction": null}
+{"source": "clm-crit2a", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-crit2a", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-crit2a", "target": "clm-3surfa", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cul4it", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cwjd8t", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "gravity as macroscopic impedance gradient $\\Delta Z_0$", "fraction": null}
 {"source": "clm-d5jhku", "target": "INVARIANT-C2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$\\xi_{topo}=e/\\ell_{node}$ length$\\leftrightarrow$charge exchange rate", "fraction": null}
@@ -630,6 +633,9 @@
 {"source": "clm-stgx1i", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "unknot ring diameter $2R=\\ell/\\pi$ giving form factor $1/\\pi^2$", "fraction": null}
 {"source": "clm-stgx1i", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "nonlinear capacitive saturation $\\to \\langle\\delta C/C\\rangle=\\pi\\alpha$", "fraction": null}
 {"source": "clm-stgx1i", "target": "clm-h9aqmt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-strreg", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-strreg", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-strreg", "target": "clm-3surfa", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-sve3xc", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A/A_{yield}", "fraction": null}
 {"source": "clm-sve3xc", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-sw5oao", "target": "clm-5xon03", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the one-empirical-input-mass-scale disclosure this leaf restates as a five-face web", "fraction": null}
