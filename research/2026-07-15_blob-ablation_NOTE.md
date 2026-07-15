@@ -452,3 +452,147 @@ not silent.
 - **Reading-A enclosure fork — UNTOUCHED.** That fork lives on the torus (no
   sponge); this verdict is about the *mechanism* of the boundary-**dependent**
   PML signal #698 left SURFACED-NOT-INTERPRETED. Reading A stands.
+
+---
+---
+
+# AMENDMENTS (2026-07-15, post-review — adversarial review of PR #706)
+
+Independent adversarial review of PR #706 (13 agents, 3 lenses — freeze-parity,
+engine-flags, live-fire): **10 confirmed findings, 0 refuted, ALL MINOR** after
+verification. **MODE-SORTING banks** with the scoping corrections below (the two
+MAJOR-tabled findings were both DOWNGRADED to MINOR/EVIDENCE-VOID: the conclusion
+is independently sound, only the demonstration language/gate wiring needed
+repair). Per freeze discipline the frozen body **and** the RESULT section above
+are left **byte-untouched**; each item below is a **dated amendment** that
+supersedes the referenced text. Every review number quoted here was
+**independently reproduced** by the now-shipped `--diag prod` diagnostic
+(`run_inertness_probe` / `run_patched_ordering_diag`) — two-method (this driver's
+per-step probe + the review's live-fire), matching to the quoted digits.
+
+## A1 — Inertness: absolutes → BOUNDED TRANSIENTS (supersedes RESULT §"Why the kernel is inert" + the F2 flag)
+
+The RESULT presents three inertness quantities as trajectory identities; they are
+in fact **t=0 seed-state** values (the shipped run loop scanned only A²_cos). The
+per-step scan over the full 70-step datum trajectory (`--diag prod`, N=14, pml=3,
+pair, on, amp=1.0) corrects them:
+
+| quantity | t=0 seed (as the RESULT states) | over the RUN (corrected, this driver) | review live-fire |
+|---|---|---|---|
+| A²_k4 max | 0 | **5.9e-4** (converter injects V after t=0) | 5.95e-4 |
+| Γ_shared range | [0, +0.022] (≥0) | [**−2.3e-4**, +0.022] (dips negative) | −2.29946e-4 |
+| Ω₀ (ω-wall) max | 0 on every site | **5.6e-2** transient @ t=2 | 5.648e-2 @ t=2 |
+
+**Read every inertness absolute** ("`A²_k4 max = 0`", "`Γ_shared … ≥ 0
+everywhere`", "`Ω₀ ≡ 0 on every site`", "the wall **never fires**") **as:
+"dynamically negligible — bounded transients (A²_k4 ≲ 6e-4, Γ ≳ −2.3e-4, Ω₀ ≲
+5.7e-2); removal changes nothing to 4 sig figs (the OFF/ON split = 1.000 is the
+load-bearing discriminator)".** The transients are 3–4 orders below the front
+(A²_cos = 0.75) and below the meter; `off_lin` (which sets Ω₀ ≡ 0 *exactly*)
+reproduces ON to every reported figure. Verdict unchanged. The **F2 flag** wording
+("relu(−Γ) = 0 … the wall is never engaged") is corrected to the same
+bounded-transient phrasing.
+
+## A2 — F1 flag REWRITTEN (supersedes RESULT §FLAG-DON'T-FIX item 1, verbatim below)
+
+> **F1 (rewritten) — the Cosserat → V-sector bond-short channel is defeated
+> UNCONDITIONALLY under `op3_bond_reflection=True` (every step, every regime), not
+> "whenever the V-sector is quiet".** In `CoupledK4Cosserat.step`,
+> `_update_z_local_total` writes the Cosserat-informed shared front
+> `Z_eff = √(S_μ/S_ε)` to `k4.z_local_field` (step 1); then `k4.step` →
+> `_scatter_all`'s first action — gated ONLY on `op3_bond_reflection` (hardwired
+> `True` in the coupled engine, `k4_cosserat_coupling.py:306`) — **recomputes
+> `z_local` from `V_inc` only** (`z = 1/√S_eq(V)`, memristive-lagged,
+> `k4_tlm.py:272-294`) and **overwrites the coupling's write BEFORE `_connect_all`
+> consumes it** for the bond Γ. The Cosserat A² contribution therefore **never
+> reaches the bond Γ in any regime**. The visible symptom differs by regime:
+> **flat `z ≡ 1.000` when V is quiet** (this config), and the **wrong V-only form
+> `1/√S(V)` — not the intended asymmetric shared front — when V is excited** (the
+> channel does NOT self-heal on V waking). Consequently the "one front, both
+> sectors (CP2)" coupled-impedance **V-side** (`k4_cosserat_coupling.py:897`, "the
+> V-sector short is applied via z_local in (1)") is **structurally dead
+> engine-wide** in every `op3_bond_reflection=True` `CoupledK4Cosserat` instance;
+> the shipped ordering contradicts the `:866` / `:373-375` / `:897` design
+> comments and no corpus/comment supports the V-only recompute as the deliberate
+> master ⇒ **DEFECT-CANDIDATE** (routed to Grant, NOT fixed here).
+>
+> - **Empirically immaterial at this config (measured, not asserted):** the
+>   patched-ordering diagnostic (`--diag prod`; `k4._update_z_local_field` no-op'd
+>   so the coupling short survives — `|z−1|` up to **4.53e-2** in-run, genuinely
+>   live) reproduces the datum to **+0.0000%** (shipped core-rel +0.5057 = patched
+>   +0.5057; core 0.6113 → 0.9205), because the defeated well gates only the
+>   ~0-energy V-sector and the ω-wall computes Γ via `_impedance_gamma_shared`
+>   independently of `k4.z_local_field` (so F1 cannot hide Cosserat-side
+>   confinement).
+> - **★REGISTERED follow-ons (routed to Grant / auditor lane; NOT fired here):**
+>   (i) engine **ordering fix** (consume the coupled shared-front short before the
+>   V-only recompute, or reconcile the two kernels) + regression; (ii) a
+>   **CONSUMER AUDIT** of every **V-active** coupled simulation run under
+>   `op3_bond_reflection=True` — those may have consumed the wrong `z_local` form
+>   (V-only `1/√S(V)` instead of the asymmetric shared front); which banked results
+>   are affected is un-surveyed; (iii) a cheap **re-run of this fork on the
+>   ordering-fixed engine**, gated on Grant's F1 adjudication (expected
+>   verdict-neutral per the diagnostic).
+> - Line-ref correction: the "V-sector short is applied via z_local in (1)"
+>   comment is at `k4_cosserat_coupling.py:897` (the RESULT cited :902).
+
+## A3 — Regime declaration (supersedes the frozen sector-header "seed front A = √α, A² = α" line + the REGIME "cold→moderately-saturated" line)
+
+The frozen header's "Baseline seed front `A = √α` … seed-front `A² = α` — the
+whole excitation sits well below the `A²=1` rupture" is **wrong by ~100× in A²**:
+`pair_seed_cosserat` front-normalizes the Cosserat field to **R_II = √3/2, i.e.
+A²_cos = 0.75** (the nonlinear→saturated knee), regardless of the amp knob
+(`genesis_v18_coupled.py:129-131`; the same stale √α belief that made the frozen
+amp knob a no-op). `√α` is genuinely the V-*register* yield landmark
+(`loop_gap_seeds.py:44`) but the un-scoped "whole excitation" clause
+over-generalizes it onto the Cosserat-dominated excitation. **Operative regime
+(corrected):** the trajectory sits **at the R_II front (A²_cos = 0.75, top of
+Regime II)**, with V-sector zeroed at seed (A²_k4 = 0) and the sweep hi-point at
+A²_cos = 0.91 (approaching R_III = 1); every cell stays sub-yield (abort guard
+live, no cell crossed A²=1). Direction is **conservative** — kernel inertness at a
+0.75 front is *more* surprising and **strengthens** MODE-SORTING. The head test
+docstring echoing "well below A²=1" is fixed in the same commit.
+
+## A4 — Verdict scope + the "cannot be the trapping agent" sentence (supersedes RESULT §Scope + §Kernel-OFF axis)
+
+Read the scope as: **"MODE-SORTING at this configuration (#698 rank-4 loop-gap pair
+seed, N=14, PML=3) AND with the shipped update-ordering (F1) — the kernel is
+dynamically negligible here: bounded transients + the F1-defeated coupled
+bond-short leg, whose restoration changes nothing at this config per the
+patched-ordering diagnostic (+0.0000%)."** Qualification: "a config that genuinely
+excites the V-sector (so the z_local short engages)" is imprecise — on the shipped
+engine **only k4's legacy V-only short can ever reach `_connect_all`**; the
+intended Cosserat-informed coupled short is overwritten in *any* config (A2). The
+coupled-bond-short leg of the kernel-OFF ablation is thus **vacuous** (the channel
+was dead-by-ordering in BOTH ON and OFF baselines) — but MODE-SORTING is
+independently carried by the kernel-OFF split = 1.000, the ω-wall (F1-independent)
+inertness, and the disclosed amplitude axis.
+
+## A5 — Word fix (supersedes RESULT §Instrument "byte-identical cells")
+
+"so amp 0.5×/1.0×/1.5× produce **byte-identical** cells" → **"observationally
+identical at the reported precision"**: the bulk-probe IC channel is live and
+scales with amp_scale (`apply_bulk_probe_ic(amp=amp_scale·0.08)` → 0.04/0.08/0.12),
+so the cells differ at the input level (sub-3-decimal on the core observable); the
+front-normalized Cosserat seed is the no-op, not the whole cell. The frozen-sweep
+vacuousness verdict is unchanged.
+
+## A6 — Machine-gate rewire (code, findings 2/8; no doc supersession)
+
+`cmd_aggregate` previously computed the MODE-SORTING amplitude conjunct from the
+**frozen** amp cells (structurally unfireable — byte-identical ⇒ always
+FRACTION-PRESERVING) while the real `disc_sig` (field_scale) gated nothing. Rewired
+so the amplitude conjunct **consumes `disc_sig`** (the disclosed working sweep),
+emits **`…-PENDING-SWEEP` / SWEEP-INCOMPLETE** when only the vacuous axis exists,
+and keeps the `[VACUOUS … does NOT gate]` label on the frozen axis. Re-run verdict
+is **unchanged: MODE-SORTING** (disc_sig = FRACTION-PRESERVING, spread 0.0001;
+OFF-lin split = 1.000).
+
+## Two-method verification receipts (`--diag prod`, this driver vs the review)
+
+- Inertness: A²_k4_max **5.945e-4** (review 5.95e-4); Γ_shared_min **−2.299e-4**
+  (review −2.29946e-4); Ω₀_max **5.648e-2 @ t=2** (review 5.648e-2 @ t=2).
+- F1 patched-ordering: coupling |z−1| in-run **4.531e-2** (review 4.53e-2); Δcore-rel
+  **+0.0000%** (review +0.0000%). All match to the quoted digits.
+- Verdict / gates after the amendments: `make verify` PASS; 5/5 unit tests PASS;
+  re-run `--aggregate` VERDICT = **MODE-SORTING** (now gated on the real axis).

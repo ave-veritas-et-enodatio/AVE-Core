@@ -11,7 +11,9 @@ mechanisms so a green-main change cannot silently break the discriminator:
   3. the `on` / amp 1.0 / no-ablation path reproduces the corrected #698
      `run_instrumented` core-holding byte-for-byte (Rule-14 anti-drift);
   4. the native toggle `off_mem` genuinely builds with the memristive kernel OFF;
-  5. the sub-yield guard: the frozen seed sits well below A²=1.
+  5. the sub-yield guard: the operative Cosserat seed front is R_II (A²=0.75, the
+     nonlinear→saturated knee — NOT the frozen header's √α; see the NOTE
+     AMENDMENTS), and every cell stays sub-yield (A²_local < 1).
 
 Cost note (repo CI-partition constraint): the three distinct engine runs are
 computed ONCE via session-scoped fixtures and shared across assertions (keeps the

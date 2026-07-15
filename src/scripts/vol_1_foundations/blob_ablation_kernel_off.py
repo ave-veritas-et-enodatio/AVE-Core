@@ -38,6 +38,8 @@ Usage:
   python blob_ablation_kernel_off.py --parity  N PML MODE FID
   python blob_ablation_kernel_off.py --run     N PML MODE KERNEL AMP FID
   python blob_ablation_kernel_off.py --battery  FID
+  python blob_ablation_kernel_off.py --sweep    FID   # disclosed working amp sweep
+  python blob_ablation_kernel_off.py --diag     FID   # inertness probe + F1 patched-ordering
   python blob_ablation_kernel_off.py --aggregate
 (run with PYTHONPATH=src so `scripts.vol_1_foundations.*` imports resolve.)
 """
@@ -55,6 +57,7 @@ from ave.core.constants import ALPHA
 from ave.core.genesis_v18_coupled import snapshot_op14, tau_steps_k4
 from ave.core.loop_gap_harness import PHI_BASELINE_FLOOR, make_engine
 from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, apply_seed
+from ave.topological.k4_cosserat_coupling import _v_squared_per_site
 
 # Reuse the corrected #698 meter verbatim (Rule-14). Package import (pytest
 # pythonpath=["src"] / PYTHONPATH=src) with a direct-script fallback.
@@ -390,6 +393,127 @@ def cmd_sweep(argv) -> None:
         )
 
 
+# ---------------------------------------------------------------------------
+# Inertness probe + F1 patched-ordering diagnostic (regenerable evidence for the
+# post-review amendments; findings 1/4/7). Ships the numbers the "why the kernel
+# is inert" section previously carried as prose-only one-off measurements.
+# ---------------------------------------------------------------------------
+def _a2_k4_max(coupled) -> float:
+    v_sq = _v_squared_per_site(coupled.k4.V_inc)
+    a2 = np.asarray(v_sq, dtype=float) / (coupled.V_SNAP**2)
+    alive = np.asarray(coupled.k4.mask_active, dtype=bool)
+    return float(a2[alive].max()) if alive.any() else 0.0
+
+
+def run_inertness_probe(N: int, pml: int, fast: bool) -> dict:
+    """Per-step trajectory scan of the three saturation-kernel channels on the
+    datum cell (ON, amp 1.0): A²_k4 (V-sector Op14 short), Γ_shared (asymmetric
+    front), Ω₀ (moving Γ=−1 ω-clamp wall). Regenerates the numbers the RESULT
+    §'Why the kernel is inert' reports; the review found they were prose-only."""
+    engine = _build_variant(N, pml, "pair", "on", 1.0)
+    coupled = engine._coupled
+    tau = tau_steps_k4(coupled, fast=fast)
+    n_total = max(6 if fast else 10, int(round(0.5 * tau))) + max(
+        10 if fast else 20, int(round(1.5 * tau))
+    )
+
+    def _probe():
+        g = np.asarray(coupled._impedance_gamma_shared(), dtype=float)
+        w = np.asarray(coupled._freeze_clamp_omega0_shared(), dtype=float)
+        return _a2_k4_max(coupled), float(g.min()), float(g.max()), float(w.max())
+
+    seed = _probe()
+    a2k4_run = seed[0]
+    g_min_run, g_max_run = seed[1], seed[2]
+    w_max_run, w_max_t = seed[3], 0
+    for t in range(1, n_total + 1):
+        engine.step()
+        a2k4, gmn, gmx, wmx = _probe()
+        a2k4_run = max(a2k4_run, a2k4)
+        g_min_run = min(g_min_run, gmn)
+        g_max_run = max(g_max_run, gmx)
+        if wmx > w_max_run:
+            w_max_run, w_max_t = wmx, t
+    return {
+        "cell": f"N{N}_pml{pml}_pair_on_amp1.0",
+        "n_total": n_total,
+        "seed_t0": {"A2_k4": seed[0], "gamma_min": seed[1], "gamma_max": seed[2], "omega0_max": seed[3]},
+        "run": {
+            "A2_k4_max": a2k4_run,
+            "gamma_shared_min": g_min_run,
+            "gamma_shared_max": g_max_run,
+            "omega0_max": w_max_run,
+            "omega0_argmax_t": w_max_t,
+        },
+        "note": NOTE,
+    }
+
+
+def run_patched_ordering_diag(N: int, pml: int, fast: bool) -> dict:
+    """F1 patched-ordering diagnostic: no-op k4's V-only z_local recompute so the
+    coupling's Cosserat-informed z_local (`_update_z_local_total`) SURVIVES into
+    the bond-Γ consumer, then compare core-hold-rel to the shipped-ordering datum.
+    +0.0000% ⇒ restoring the F1-defeated bond-short leg is immaterial at this
+    config (the channel gates the ~0-energy V-sector)."""
+    ref = run_ablation(N, pml, "pair", "on", 1.0, fast)
+    ref_rel = ref["core_holding"]["E_core_full_rel"]
+
+    # patched build: identical to the datum cell, but the k4 V-only recompute is
+    # disabled so the coupling short is not overwritten before _connect_all.
+    engine = _build_variant(N, pml, "pair", "on", 1.0)
+    coupled = engine._coupled
+    coupled.k4._update_z_local_field = lambda: None  # keep the coupling z_local live
+    tau = tau_steps_k4(coupled, fast=fast)
+    n_drive = max(6 if fast else 10, int(round(0.5 * tau)))
+    n_quiet = max(10 if fast else 20, int(round(1.5 * tau)))
+    obs0 = snapshot_op14(coupled)
+    obs_driveoff = obs0
+    z_live_max = 0.0
+    series: list[dict] = []
+    for t in range(1, n_drive + n_quiet + 1):
+        engine.step()
+        z_live_max = max(z_live_max, float(np.max(np.abs(np.asarray(coupled.k4.z_local_field) - 1.0))))
+        obs_t = snapshot_op14(coupled)
+        if t <= n_drive:
+            obs_driveoff = obs_t
+        if t >= n_drive:
+            m = _meter_snapshot(coupled, periodic=(pml == 0))
+            m["t"] = t
+            m["H"] = float(obs_t["H"])
+            m["phi_link_sq"] = float(obs_t["phi_link_sq"])
+            series.append(m)
+    patched = {"series": series}
+    pch = _core_holding(patched)
+    return {
+        "cell": f"N{N}_pml{pml}_pair_on_amp1.0",
+        "shipped_core_rel": ref_rel,
+        "patched_core_rel": pch["E_core_full_rel"],
+        "delta_core_rel": pch["E_core_full_rel"] - ref_rel,
+        "coupling_zlocal_max_abs_dev": z_live_max,
+        "shipped_core": [ref["core_holding"]["E_core_full_driveoff"], ref["core_holding"]["E_core_full_quietavg"]],
+        "patched_core": [pch["E_core_full_driveoff"], pch["E_core_full_quietavg"]],
+        "note": NOTE,
+    }
+
+
+def cmd_diag(argv) -> None:
+    fid = argv[0] if argv else "prod"
+    fast = fid == "smoke"
+    probe = run_inertness_probe(14, 3, fast)
+    diag = run_patched_ordering_diag(14, 3, fast)
+    _write(OUT_DIR / f"inertness_probe_{'smoke' if fast else 'prod'}.json", probe)
+    _write(OUT_DIR / f"patched_ordering_diag_{'smoke' if fast else 'prod'}.json", diag)
+    s, r = probe["seed_t0"], probe["run"]
+    print("=== inertness probe (datum cell, per-step over the full trajectory) ===")
+    print(f"  SEED t=0 : A2_k4={s['A2_k4']:.3e}  gamma=[{s['gamma_min']:+.3e},{s['gamma_max']:+.3e}]  omega0={s['omega0_max']:.3e}")
+    print(f"  RUN      : A2_k4_max={r['A2_k4_max']:.3e}  gamma=[{r['gamma_shared_min']:+.3e},{r['gamma_shared_max']:+.3e}]  "
+          f"omega0_max={r['omega0_max']:.3e} @t={r['omega0_argmax_t']}")
+    print("=== F1 patched-ordering diagnostic (coupling z_local kept live) ===")
+    print(f"  coupling |z-1| max in-run = {diag['coupling_zlocal_max_abs_dev']:.3e} (channel genuinely live)")
+    print(f"  shipped core-rel = {diag['shipped_core_rel']:+.6f}  patched core-rel = {diag['patched_core_rel']:+.6f}  "
+          f"delta = {diag['delta_core_rel']:+.6f} ({diag['delta_core_rel']:+.4%})")
+
+
 # --- frozen decision rule (NOTE §FROZEN verdict classes) -------------------
 def _superlinear(lo: float, mid: float, hi: float) -> tuple[bool, str]:
     convex = (hi - mid) > (mid - lo)
@@ -402,9 +526,34 @@ def _superlinear(lo: float, mid: float, hi: float) -> tuple[bool, str]:
     return (sig == "SUPERLINEAR"), sig
 
 
+def _disc_sweep_signature(sweeps: list) -> tuple[str | None, dict, list]:
+    """Signature of the DISCLOSED working field_scale sweep — the REAL amplitude
+    axis (the frozen amp knob is a no-op / front-normalized). Returns
+    (disc_sig, disc_map, rels). disc_sig is None when the sweep is absent."""
+    pml_s = sorted([s for s in sweeps if s["pml"] == 3], key=lambda s: s["field_scale"])
+    if not pml_s:
+        return None, {}, []
+    rels = [s["core_holding"]["E_core_full_rel"] for s in pml_s]
+    disc_map = {f"fs_{s['field_scale']:.2f}": s["core_holding"]["E_core_full_rel"] for s in pml_s}
+    if len(rels) < 3:
+        return "SWEEP-INCOMPLETE", disc_map, rels
+    spread = max(rels) - min(rels)
+    convex = (rels[-1] - rels[-2]) > (rels[1] - rels[0])
+    thresh = rels[0] <= 0.0 < rels[-1]
+    if thresh or (convex and rels == sorted(rels) and spread > 0.10):
+        sig = "SUPERLINEAR"
+    elif spread <= 0.10:
+        sig = "FRACTION-PRESERVING"
+    else:
+        sig = "AMPLITUDE-DEPENDENT-OTHER"
+    return sig, disc_map, rels
+
+
 def cmd_aggregate() -> None:
     cells = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("cell_*.json"))]
     prod = [c for c in cells if c["fidelity"] == "production"]
+    sweeps = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("sweep_*.json"))
+              if json.loads(p.read_text())["fidelity"] == "production"]
 
     def _find(pml, kernel, amp):
         for c in prod:
@@ -418,10 +567,19 @@ def cmd_aggregate() -> None:
     swp = {a: _find(3, "on", a) for a in (0.5, 1.0, 1.5)}
     cons = _find(0, "off_lin", 1.0)  # torus conservation sanity
 
+    # The REAL amplitude axis (disclosed field_scale sweep). The MODE-SORTING /
+    # SELF-TRAPPING amplitude conjunct GATES ON THIS (review findings 2/8: the
+    # frozen amp cells are a structural no-op and can never fire SUPERLINEAR).
+    disc_sig, disc, disc_rels = _disc_sweep_signature(sweeps)
+    # The frozen amp axis is computed for DISCLOSURE ONLY and does not gate.
+    frozen_sweep_sig = None
+    if all(swp[a] is not None for a in (0.5, 1.0, 1.5)):
+        lo, mid, hi = (swp[a]["core_holding"]["E_core_full_rel"] for a in (0.5, 1.0, 1.5))
+        _, frozen_sweep_sig = _superlinear(lo, mid, hi)
+
     verdict = "INCOMPLETE"
     reasons: list[str] = []
     split = None
-    sweep_sig = None
     if base is None:
         verdict, reasons = "INSTRUMENT", ["baseline (run 1) missing"]
     else:
@@ -449,24 +607,28 @@ def cmd_aggregate() -> None:
             olch = off_lin["core_holding"]
             ol = olch["E_core_full_rel"]
             split = (ol / bch["E_core_full_rel"]) if abs(bch["E_core_full_rel"]) > 1e-12 else None
-            if all(swp[a] is not None for a in (0.5, 1.0, 1.5)):
-                lo, mid, hi = (swp[a]["core_holding"]["E_core_full_rel"] for a in (0.5, 1.0, 1.5))
-                is_super, sweep_sig = _superlinear(lo, mid, hi)
-            else:
-                is_super, sweep_sig = False, "SWEEP-INCOMPLETE"
             mem_cls = None
             if off_mem is not None:
                 omr = off_mem["core_holding"]["E_core_full_rel"]
                 mem_cls = "KILL" if omr <= 0.10 else ("PRESERVE" if omr >= 0.40 else "PARTIAL")
-            if ol <= 0.10 and is_super:
+            if disc_sig is None or disc_sig == "SWEEP-INCOMPLETE":
+                # the working amplitude axis is absent → do NOT let the vacuous
+                # frozen axis silently satisfy the conjunct (findings 2/8).
+                lean = "MODE-SORTING" if ol >= 0.40 else ("SELF-TRAPPING" if ol <= 0.10 else "MIXED")
+                verdict = f"{lean}-PENDING-SWEEP"
+                reasons.append(
+                    "SWEEP-INCOMPLETE: disclosed field_scale sweep absent — amplitude axis "
+                    "un-adjudicated (the frozen amp knob is a no-op; run `--sweep`)"
+                )
+            elif ol <= 0.10 and disc_sig == "SUPERLINEAR":
                 verdict = "SELF-TRAPPING"
-            elif ol >= 0.40 and sweep_sig == "FRACTION-PRESERVING":
+            elif ol >= 0.40 and disc_sig == "FRACTION-PRESERVING":
                 verdict = "MODE-SORTING"
             else:
                 verdict = "MIXED"
                 reasons.append(
                     f"OFF-lin core_rel={ol:+.3f} (split={split if split is None else round(split,3)}) "
-                    f"sweep={sweep_sig} off_mem={mem_cls}"
+                    f"disclosed_sweep={disc_sig} off_mem={mem_cls}"
                 )
         elif verdict != "INSTRUMENT":
             verdict = "INSTRUMENT"; reasons.append("primary discriminator (run 3 off_lin) missing")
@@ -486,41 +648,30 @@ def cmd_aggregate() -> None:
             f"{c['max_A2_local']:.4f}{'*ABORT' if c['aborted_over_yield'] else ''}"
         )
     # --- DISCLOSED working amplitude sweep (field_scale; the frozen pair-seed amp
-    # sweep was a no-op — front-normalized). Real (A)-vs-(B) sweep evidence. -----
-    sweeps = [json.loads(p.read_text()) for p in sorted(OUT_DIR.glob("sweep_*.json"))
-              if json.loads(p.read_text())["fidelity"] == "production"]
-    disc = {}
-    disc_sig = None
+    # sweep was a no-op — front-normalized). Real (A)-vs-(B) sweep evidence; this
+    # is the axis the verdict conjunct gates on above (review findings 2/8). ------
     if sweeps:
-        pml_s = sorted([s for s in sweeps if s["pml"] == 3], key=lambda s: s["field_scale"])
-        print("\n=== DISCLOSED working amplitude sweep (field_scale; kernel-ON) ===")
-        print("     (the FROZEN pair-seed amp sweep was a NO-OP — R_II front-normalized)")
+        print("\n=== DISCLOSED working amplitude sweep (field_scale; kernel-ON) — the GATING axis ===")
+        print("     (the FROZEN pair-seed amp sweep is a NO-OP — R_II front-normalized — and does NOT gate)")
         for s in sorted(sweeps, key=lambda s: (s["pml"], s["field_scale"])):
             ch = s["core_holding"]
             print(f"  {s['boundary']:5s} field_scale={s['field_scale']:.2f} "
                   f"(A2cos~{0.75 * s['field_scale']**2:.3f}): {_fmt_ch(ch)} "
                   f"| maxA2={s['max_A2_local']:.4f}{'*ABORT' if s['aborted_over_yield'] else ''}")
-        rels = [s["core_holding"]["E_core_full_rel"] for s in pml_s]
-        disc = {f"fs_{s['field_scale']:.2f}": s["core_holding"]["E_core_full_rel"] for s in pml_s}
-        if len(rels) >= 3:
-            spread = max(rels) - min(rels)
-            convex = (rels[-1] - rels[-2]) > (rels[1] - rels[0])
-            thresh = rels[0] <= 0.0 < rels[-1]
-            disc_sig = "SUPERLINEAR" if (thresh or (convex and rels == sorted(rels))) else (
-                "FRACTION-PRESERVING" if spread <= 0.10 else "AMPLITUDE-DEPENDENT-OTHER")
-            print(f"  core-hold-rel across field_scale = {[round(r, 4) for r in rels]} "
-                  f"(spread={spread:.4f}) -> DISCLOSED sweep signature = {disc_sig}")
+        if disc_rels:
+            print(f"  core-hold-rel across field_scale = {[round(r, 4) for r in disc_rels]} "
+                  f"(spread={max(disc_rels) - min(disc_rels):.4f}) -> DISCLOSED sweep signature = {disc_sig}")
 
     print(f"\nsplit (OFF-lin plateau ÷ ON plateau) = {split if split is None else round(split, 3)}")
-    print(f"FROZEN sweep signature = {sweep_sig}  [VACUOUS: frozen amp knob is a no-op]")
-    print(f"DISCLOSED sweep signature = {disc_sig}  [the real amplitude probe]")
-    print(f"VERDICT = {verdict}  (from the kernel-OFF axis; the sound axis)")
+    print(f"FROZEN sweep signature = {frozen_sweep_sig}  [VACUOUS: frozen amp knob is a no-op — does NOT gate]")
+    print(f"DISCLOSED sweep signature = {disc_sig}  [the real amplitude probe — GATES the verdict]")
+    print(f"VERDICT = {verdict}  (kernel-OFF split axis + the disclosed-sweep amplitude axis)")
     for r in reasons:
         print(f"  - {r}")
     _write(OUT_DIR / "blob_ablation_summary.json",
            {"verdict": verdict, "reasons": reasons, "split_off_lin_over_on": split,
-            "frozen_sweep_signature_VACUOUS": sweep_sig,
-            "disclosed_sweep_signature": disc_sig, "disclosed_sweep_core_rel": disc,
+            "frozen_sweep_signature_VACUOUS": frozen_sweep_sig,
+            "disclosed_sweep_signature_GATING": disc_sig, "disclosed_sweep_core_rel": disc,
             "note": NOTE,
             "cells": [{k: c[k] for k in ("boundary", "kernel", "amp_scale", "E_persist",
                                           "max_A2_local", "sub_yield", "aborted_over_yield",
@@ -542,6 +693,8 @@ def main(argv) -> None:
         cmd_battery(rest)
     elif cmd == "--sweep":
         cmd_sweep(rest)
+    elif cmd == "--diag":
+        cmd_diag(rest)
     elif cmd == "--aggregate":
         cmd_aggregate()
     else:
