@@ -53,24 +53,63 @@ in the `−∂W/∂ω` force path).
 |---|---|---|---|
 | `research/_archive/L3_electron_soliton/33_phase3b_x3_energy_analysis.md` (:91, :288, :315) | `Λ_refl` energy-budget integral (banked `8.90e5 / 7.68e5 / 6.94e5`), labeled `← (1/64)\|∇S\|²/S²` | **YES** — scales 4× | Verdict is NEGATIVE ("Λ_refl ~250000× too large / dominates / Λ decomposition ≠ α⁻¹"). A 4× increase makes Λ_refl *larger* ⇒ verdict **strengthened, not moved**. |
 | `research/2026-06-23_charge-sector-two-winding_result.md` (:133-135, :258-261) | "Arm A (like) == Arm C (achiral)" force-blind-to-charge equality | **NO** — a uniform rescale of a charge-blind (symmetric) force preserves the equality exactly | Verdict **not moved**. |
-| `research/2026-07-14_qed-trace-beta-gate_RESULT.md` (:178, :339) | `a_init` centroid-drift trajectory (`+0.029, −0.116, −0.167, −0.118, −0.054`) via the reflection-term force | **PARTIAL** — the specific `a_init` values are coefficient-dependent (driver runs default `k_refl=1.0`); the reflection contribution to `−∂W/∂ω` quadruples | Verdict ("non-monotone, R²=0.15 **uninformative**, dispersion-dominated, force-blind-to-charge") is structural to a charge-blind symmetric drive and **not moved**. **AUDITOR FLAG:** if `a_init` is ever promoted from "uninformative," the specific values must be recomputed under the 1/16 coefficient. |
+| `research/2026-07-14_qed-trace-beta-gate_RESULT.md` (:176, :178) | `a_init` centroid-drift trajectory (`+0.029, −0.116, −0.167, −0.118, −0.054`) via the reflection-term force | **PARTIAL** — the specific `a_init` values are coefficient-dependent (driver runs default `k_refl=1.0`); the reflection contribution to `−∂W/∂ω` quadruples | Verdict ("non-monotone, R²=0.15 **uninformative**, dispersion-dominated, force-blind-to-charge") is structural to a charge-blind symmetric drive and **not moved**. **AUDITOR FLAG:** if `a_init` is ever promoted from "uninformative," the specific values must be recomputed under the 1/16 coefficient. |
 | `research/2026-07-08_electron-lock-barrier_result.md` (:94) | — (explicitly `wall_form="omega_front"`, BC-not-bulk) | N/A — does NOT consume the bulk `_reflection_density` | Unaffected. |
 
-## ⚑ FLAG-DON'T-FIX — numerical anomaly for the auditor (unresolved here)
+## ✅ RESOLVED (2026-07-14, PR #702 adversarial review) — banked `33_` was a genuine 1/64 run
 
-The archived `33_phase3b` banked `Λ_refl = 8.90e5` (smallest R/r config) and its
-markdown labels the formula `← (1/64)|∇S|²/S²`. But a genuine **1/64**
-computation on a comparable (2,3) ansatz gives **2.24e5**, whereas the
-**corrected 1/16** computation gives **8.96e5** — i.e. the archived banked value
-matches the *corrected* coefficient to <1%, not the value its own `(1/64)` label
-implies. This suggests the doc's `(1/64)` prose-label may not reflect the
-coefficient actually in the code at that doc's compute-time, OR reflects a
-different S-normalization. This repo's git history cannot order the authorship
-(the `1/64` line and the `33_` doc were both migrated from `analysis/integration`
-on 2026-05-21). **Surfaced, not resolved** — the auditor lane should adjudicate
-whether `33_`'s banked `Λ_refl` was actually computed on a 1/16-equivalent
-coefficient (in which case the `(1/64)` label was the stale one all along, and
-this fix simply re-aligns code to what `33_` already measured).
+**Live-fire at the ACTUAL banked config settles it (superseding the FLAG below).**
+The adversarial review ran the `33_phase3b` pipeline at its checked-in config
+(`src/scripts/vol_1_foundations/phase3b_x3_energy.py`: N=72, R_target=18.0, r=9.0
+[R/r=2.0 seed], `relax_to_ground_state` 500 iter, tol=1e-8, lr=0.01) under both
+coefficients:
+
+- **1/64 reproduces the banked §8.1 row EXACTLY** on every column: Λ_refl=8.9042e5
+  (banked 8.90e5), E_final=9.0902e5 (9.09e5), Λ_Op10=74.45 (74.4), Λ_Hopf=20.22
+  (20.2), ext/total=4.701% (4.7%), A²_shell=15.397 (15.397), R/r_f=2.059 (2.059),
+  c=3, 500 iter no-conv.
+- **1/16 gives Λ_refl=3.8657e6, E_final=3.8843e6** — nothing like the banked row.
+
+**Conclusion: the banked `33_` run was a genuine LEGACY 1/64 computation, and its
+`(1/64)` label is CORRECT — do NOT relabel it "stale."** The stale-prose-label
+hypothesis in the superseded FLAG below is **REFUTED**. Item 1 genuinely
+**QUADRUPLES** Λ_refl on this config (~4.3× on the relaxed trajectory: 8.90e5 →
+3.87e6; not exactly 4× because the reflection density feeds the *minimized* energy
+so the 1/16 trajectory diverges — `cosserat_field_3d.py:727,770`, `k_refl=1.0`).
+The `33_` NEGATIVE verdict (Λ_refl dominates / ≠ α⁻¹) is therefore **strengthened,
+not moved**, exactly as the consumer table above states.
+
+**Root cause of the retracted anomaly:** the superseded FLAG's `2.24e5 / 8.96e5`
+numbers were computed on a DIFFERENT config (24³, R=6, r=2, AT INITIALIZATION),
+not the banked 72³ R=18 r=9 500-iter run. The "<1% match" (8.90e5 vs 8.96e5) was
+a pure cross-config coincidence — ironically the exact near-collision hazard the
+map §4 warns against. A fully-specified ~2-min apples-to-apples run (not git
+archaeology) was the binding discriminator all along.
+
+---
+
+> 🔴 **SUPERSEDED 2026-07-14 (PR #702 adversarial review; live-fire-coefficient +
+> scope-and-consumers lenses). The hypothesis below — that `33_`'s banked Λ_refl
+> was a 1/16-equivalent run and its `(1/64)` label was stale, so the fix
+> "re-aligns code to what `33_` already measured" — is REFUTED by the live-fire
+> resolution above (banked run = genuine 1/64). Text preserved verbatim for the
+> reasoning trail per Rule 12.**
+>
+> ## ⚑ FLAG-DON'T-FIX — numerical anomaly for the auditor (unresolved here)
+>
+> The archived `33_phase3b` banked `Λ_refl = 8.90e5` (smallest R/r config) and its
+> markdown labels the formula `← (1/64)|∇S|²/S²`. But a genuine **1/64**
+> computation on a comparable (2,3) ansatz gives **2.24e5**, whereas the
+> **corrected 1/16** computation gives **8.96e5** — i.e. the archived banked value
+> matches the *corrected* coefficient to <1%, not the value its own `(1/64)` label
+> implies. This suggests the doc's `(1/64)` prose-label may not reflect the
+> coefficient actually in the code at that doc's compute-time, OR reflects a
+> different S-normalization. This repo's git history cannot order the authorship
+> (the `1/64` line and the `33_` doc were both migrated from `analysis/integration`
+> on 2026-05-21). **Surfaced, not resolved** — the auditor lane should adjudicate
+> whether `33_`'s banked `Λ_refl` was actually computed on a 1/16-equivalent
+> coefficient (in which case the `(1/64)` label was the stale one all along, and
+> this fix simply re-aligns code to what `33_` already measured).
 
 ## Regression pin
 
