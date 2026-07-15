@@ -684,7 +684,9 @@ This is the **no-hair theorem applied at every scale**. From outside a BH: $M, Q
 
 A boundary is a 2D surface, but practically it has a finite thickness — the **boundary envelope** is the 3D region where $A$ approaches the saturation surface. The envelope's geometric size is set by $\ell_{\text{node}}$, not by any interior eigenmode wavelength.
 
-For the electron: envelope ~ $\ell_{\text{node}} / (2 \pi)$ horn-torus tube radius (classical electron radius scale). For the BH: envelope ~ Schwarzschild radius. Same geometric concept, different scales.
+For the electron: envelope ~ $\ell_{\text{node}} / (2 \pi) \approx 61$ fm horn-torus tube radius (the **ropelength-floor / horn-torus tube-radius scale**, set by $\ell_{\text{node}}$ per §4.4). For the BH: envelope ~ Schwarzschild radius. Same geometric concept, different scales.
+
+> **🔴 LABEL FIX (2026-07-14, Wave-0 KB batch; KEEP-BOTH — number preserved, descriptor corrected).** The electron-envelope parenthetical formerly read *"(classical electron radius scale)"*. That descriptor was **wrong by ~22×**: $\ell_{\text{node}}/(2\pi) \approx 61$ fm (with $\ell_{\text{node}} = \hbar/m_e c \approx 386$ fm) is the **horn-torus tube-radius / ropelength-floor** scale, whereas the *classical electron radius* is $r_e = \alpha\,\ell_{\text{node}} \approx 2.82$ fm ($\approx \ell_{\text{node}}/137$). The $\ell_{\text{node}}/(2\pi)$ **number is preserved** — it is the correct envelope / tube-radius scale ($\ell_{\text{node}}$-set per §4.4, and the Sense-A "boundary envelope" home cited at [`vocabulary-register.md`](vocabulary-register.md):685) — only the "$r_e$" label is struck.
 
 **Operational consequence:** a substrate-native simulation only needs to resolve the boundary envelope, not interior eigenmode wavelengths. The pre-2026-05-14 simulation effort that tried to resolve interior structure was solving the wrong problem.
 
