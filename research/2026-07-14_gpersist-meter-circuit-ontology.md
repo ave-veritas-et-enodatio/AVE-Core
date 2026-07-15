@@ -182,35 +182,66 @@ endpoint, and (ii) both fork cells clear the two-statistic **conjunction** (`sig
 
 ---
 
-## 5 · Sponge exclusion — the honest result (does exclusion restore the PML read?)
+## 5 · Sponge exclusion — the honest result (phase-robust)
 
-**No — and the "why not" is the finding.** On the PML box the full-register read is
-**read-region-dependent**, the fingerprint of a boundary artifact, not a clean physical signal:
+**No — and the honest "why not" is *stronger* than the register-discriminator the earlier draft
+claimed.** The frozen §5 argument ("the potential register is the boundary-clean one; the
+CONCENTRATING is kinetic-specific") rested entirely on the drive-off → final-step **endpoint**,
+and on the PML box the endpoint is a single LC-slosh **phase moment** (review MAJOR 1). Under the
+phase-robust **quiet-window mean** the discriminator collapses and the honest picture is simpler
+and firmer.
 
-| PML pair, full register | guard 0 (interior mask) | guard 1 (**shipped**) | guard 2 |
+**(1) Time-averaged, NEITHER register is boundary-insensitive on the PML box.** Quiet-window-mean
+`CF_peak_2.0`, frozen disjunctive rule, PML `pair` (guard sweep; `energy_pot` / `energy_pot_g1` /
+`energy_pot_g2` and `energy_full_g0` / `energy_full` / `energy_full_g2`):
+
+| PML pair, quiet-window mean | guard 0 | guard 1 (shipped) | guard 2 |
 |---|---|---|---|
-| PR rel | −0.010 | −0.067 | −0.277 |
-| CF rel | +0.061 | **+0.679** | **+0.801** |
-| signature | INCONCLUSIVE | CONCENTRATING | CONCENTRATING |
+| POTENTIAL (`energy_pot`) peak-CF | +0.107 | +0.528 | +0.914 |
+| POTENTIAL signature | CONCENTRATING | CONCENTRATING | CONCENTRATING |
+| FULL (`energy_full`) peak-CF | +0.329 | +0.977 | +0.892 |
+| FULL signature | CONCENTRATING | CONCENTRATING | CONCENTRATING |
 
-The CONCENTRATING signal **strengthens monotonically with guard width** (0→INCONCLUSIVE,
-1→+0.679, 2→+0.801). A genuine physical concentration is roughly guard-independent; this
-guard-dependence is the signature of the **PML peripheral-drain**: the sponge absorbs the
-outbound (kinetic-dominated) wake, draining the outer interior shells faster than the core, so
-the residual kinetic field *looks* more core-concentrated the deeper you read — with no finite
-guard removing it. Decisive discriminator (`gpersist_localization_observable.py`, guard sweep):
+The endpoint pot series the earlier draft called "boundary-clean LOOP-FILLING" (−0.364 / −0.311 /
+−0.128) actually climbs monotonically toward CONCENTRATING with guard — the **same** direction as
+the full/kinetic series, not the opposite — and its final-step value is a phase minimum
+(`_nonmonotone_flag` fires on `CF_peak_2.0`). Time-averaged it reads CONCENTRATING at every guard.
+So the potential register **CONCENTRATES on the PML box (quiet-mean) while it is LOOP-FILLING on
+the torus**; the full register likewise. **The PML twins provide no register-robust boundary
+corroboration at all** — the "one register stays boundary-clean" claim survives in **neither**
+register. **The fork therefore rests entirely on the torus cells** (both registers LOOP-FILLING
+under both statistics, §4). This is the honest and stronger statement.
 
-- **POTENTIAL register stays LOOP-FILLING at every guard** (CF still falls: −0.364 / −0.311 /
-  −0.128). If guard-erosion were a pure cropping artifact it would flip **both** registers; it
-  does not. The CONCENTRATING signal is **kinetic-register-specific**.
-- **KINETIC register is boundary-sensitive on the absorbing boundary** — swamped by transit at
-  guard 0 (INCONCLUSIVE), drain-biased to CONCENTRATING once the transit ring is excluded.
+The guard-dependence the earlier draft read as a "read-region artifact" tell was itself an
+endpoint phase artifact: under the quiet-window mean the full-register CONCENTRATING is
+guard-**insensitive** (g0/g1/g2 all CONCENTRATING, `guard_sensitive_qmean=False`) — it *meets* the
+"genuine concentration is roughly guard-independent" criterion, not the cropping-artifact one.
 
-So the sponge exclusion does **not** restore the PML twins to a clean LOOP-FILLING read; instead
-it **exposes** that the **potential** register is the boundary-clean instrument (LOOP-FILLING on
-both boundaries) while the **kinetic** register cannot be read boundary-cleanly on the wake-
-absorbing box. The driver flags every guard-dependent full-register bin `guard_sensitive=True`;
-the torus fork cells are `guard_sensitive=False` (guard is a no-op there — boundary-clean).
+**(2) The PML CONCENTRATING is boundary-DEPENDENT physics, not a read-region artifact.** Fixed
+geometric-center **absolute** energies (33-site ball, drive-off → quiet-window average;
+`_core_holding`, review MAJOR 2 — raw sums, immune to the CF/PR region-normalization):
+
+| | PML `pair` | PML `graded_a0` | torus `pair` | torus `graded_a0` |
+|---|---|---|---|---|
+| core-ball E (drive-off → quiet-avg) | 0.611 → 0.920 (**+50.6 %**) | 0.673 → 0.963 (**+43.1 %**) | 0.351 → 0.265 (−24.4 %) | 0.392 → 0.284 (−27.6 %) |
+| rest-of-interior E | 4.355 → 3.594 (−17.5 %) | 4.517 → 3.744 (−17.1 %) | +1.6 % | +1.9 % |
+| near-sponge kinetic shells | −26.6 % | −26.8 % | 0 (no sponge) | 0 |
+| H | −12.2 % | −12.2 % | −0.0 % (conserved) | −0.0 % |
+
+Both knives fail. The **normalization-artifact** hypothesis is refuted — the CF rise is
+numerator-driven (the core ball absolutely GAINS energy), not a shrinking denominator. The
+**pure-drain** ("*looks* concentrated") reading is refuted too — periphery drain is real
+(near-sponge kinetic shells lose ~−27 %) **AND** the central structure absolutely holds/gains
+energy on the absorbing box. The plain reading: **the sponge removes the recirculating wake, and
+the surviving central structure holds/gains absolute energy** while the interior drains and H
+falls; on the same-seed torus the core disperses (−24 %) with H conserved. A **real
+boundary-dependent core-holding signal, visible in both registers once phase-averaged** — not a
+read-region artifact.
+
+**SURFACED-NOT-INTERPRETED.** The numbers are reported and the signal is named a
+*boundary-dependent core-holding* one; what it **means** (Reading-A wake-removal residue? a
+distinct boundary effect?) is routed to Grant, not resolved here. It does **not** move the fork
+(§7) — the fork is scored on the torus, where dispersal is robust under every read.
 
 ---
 
@@ -234,24 +265,42 @@ its provenance record — this addendum neither edits nor retracts it.
 ## 7 · Surfaced for adjudication (flag-don't-fix) — PML boundary corroboration
 
 **Not a fork-cell move; surfaced, not silently resolved.** Under the completed full-register
-meter the **PML twins' boundary-insensitivity corroboration inverts**: the #689 RESULT TL;DR
-item 2 ("the PML twins read the SAME sign → LOOP-FILLING under pml=3 too") holds on the
-**potential-only** meter but **not** on the full-register meter (PML twins → CONCENTRATING† at
-the shipped guard, or INCONCLUSIVE at guard 0). Per §5 this is a **PML-drain read-region
-artifact** in the Cosserat **kinetic** register (guard-dependent; the potential register stays
-boundary-clean LOOP-FILLING), **not** a revival of Reading B:
+meter — read phase-robustly (§5) — the #689 boundary-**insensitivity** corroboration does not
+survive. The #689 RESULT TL;DR item 2 —
 
-- The fork is scored on the **torus** cells (no sponge); they read LOOP-FILLING on **both**
-  registers and are `guard_sensitive=False`. **The RULED Reading A is untouched.**
-- A naive read of "PML twin CONCENTRATES" could *appear* fork-adjacent; it is not — it is
-  boundary-absorption of the outbound kinetic wake, diagnosed by the guard-dependence and by the
-  potential register's boundary-clean LOOP-FILLING. G-PERSIST ★RULED (fork-independent PML
-  φ-trend) is likewise untouched.
+> "The PML twins read the SAME sign (PR rises, CF falls → LOOP-FILLING under `pml=3` too)."
 
-**What changes:** the boundary-**insensitivity** claim is now **register-explicit** — it is the
-**potential** register that is boundary-clean; the full-register PML read is kinetic-drain-
-contaminated and is **not** admissible as boundary corroboration. This is a corroboration-level
-restatement for the auditor's manual/queue (the auditor lands it), **not** a fork verdict change.
+— held on the frozen **potential-only ENDPOINT** read. Under the phase-robust quiet-window mean
+the PML twins read **CONCENTRATING in both registers** (§5), while the torus reads LOOP-FILLING.
+Per §5:
+
+- **Boundary-DEPENDENT physics, not a read-region artifact.** Phase-averaged, the fixed
+  geom-center core ball absolutely **holds/gains** energy on the PML box (+50.6 % `pair`) while the
+  interior drains (−17.5 %) and H falls (−12.2 %); the same-seed torus core disperses (−24.4 %)
+  with H conserved. The sponge removes the recirculating wake; the surviving central structure
+  holds its energy. A real **boundary-dependent core-holding signal** — surfaced; interpretation
+  routed to Grant, **not** resolved here.
+- **NOT register-robust corroboration.** Time-averaged, NEITHER register is boundary-insensitive
+  (potential CONCENTRATING on the PML box vs LOOP-FILLING on the torus; full register likewise).
+  The PML twins provide no register-robust boundary corroboration; **the fork rests entirely on
+  the torus cells.**
+- **NOT a revival of Reading B.** The fork is scored on the **torus** cells (no sponge); they read
+  LOOP-FILLING on **both** registers under **both** statistics and are `guard_sensitive=False`.
+  Dispersal is robust under every read. **The RULED Reading A is untouched.**
+
+**G-PERSIST ★RULED firewall (explicit).** The ★RULED flip rests on the fork-independent PML
+**φ-dispersion trend** — a reading of the **T2/Φ_link winding channel** (`Σ_port Phi_link²`, a
+scalar gauge-accumulation ratio, [`k4_tlm.py:400`](../src/ave/core/k4_tlm.py)), a **different
+meter** from the **A1** region-normalized energy-localization statistic and **never summed** with
+it (A1 ⊥ T2). A boundary-dependent core-holding signal in the A1 energy meter therefore **cannot
+structurally reach** the ★RULED basis: the two channels are measured on separate sectors, so
+contamination of one does not propagate to the other. **G-PERSIST ★RULED is untouched.**
+
+**What changes:** the boundary-**insensitivity** corroboration is **withdrawn** — it does not
+survive the phase test in either register (the honest, stronger statement: the PML twins
+corroborate nothing register-robustly; the fork stands on the torus). This is a
+corroboration-level restatement for the auditor's manual/queue (**the auditor lands it**),
+**not** a fork verdict change.
 
 ---
 
