@@ -1252,3 +1252,185 @@ a FORM-level word-sense ruling (no value promoted; gates (a)/(b) unchanged); Rul
 Rule-12 staleness repair carrying one FLAG now resolution-staged via correction PR #701 (the four
 unmerged #698 phase-robust repair commits, DO-NOT-MERGE pending orchestrator). Nothing here canonizes
 a value.*
+
+---
+
+## Continuation — 2026-07-15: the register walks
+
+Core-session register walks (2026-07-15). **KEEP-BOTH:** all prior docket content above is byte-untouched;
+this continuation is append-only. **Ruling-status precision is the prime rail** — each item below carries its
+exact status (RULED / WALK-RECORD / PROPOSED), and the RULED items are **FORM-level ruled conventions, not
+derivations** (a ruled convention organizes the corpus; it does not derive α or a knee value — values ride
+CODATA imports). This content is now landed **KB-leaf-first**: the register carves live in the new leaf
+[`manuscript/ave-kb/common/strain-registers.md`](../manuscript/ave-kb/common/strain-registers.md) (`clm-strreg`,
+`clm-crit2a`); the saturation anatomy + Q2 in [`envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md);
+the thermal walk in [`thermal-phase-registers.md`](../manuscript/ave-kb/common/thermal-phase-registers.md)
+(WALK-LEVEL, no-claim); the EE rows in `translation-circuit.md` §4. Every cite verified two-method; nothing
+here canonizes a value.
+
+### RULING 11 (RULED — Grant verbatim "Yes, I agree with where the walk is ending up"): THE STEP-REGISTER RULING
+
+The constitutive kernel consumes **FIELD-strain** (the per-cell drop, $E\cdot\ell_{node}$ — the *gradient*
+register), **NOT** **voltage-strain** (the potential, $d_{sat}/r$). Grounds walked: **(a)** a varactor biases
+on the voltage across its own junction = one cell span; **(b)** every physical dielectric saturates against $E$
+($P(E)$), never absolute potential; **(c)** locality / gauge — the mechanical twin of *potential* is total
+displacement $u$; a kernel on $u$ violates lattice translation invariance; **strain is $\partial u$**, and the
+electrical twin of strain is $E$ (not $\phi$).
+
+**THE LADDER THEOREM (the reconciliation).** The potential IS the series sum of the per-cell drops — voltage
+register $=$ line integral of the field register ($V=\int E\,d\ell=\sum_{\text{cells}}E\cdot\ell_{node}$).
+**Cells feel steps; ports / interactions see sums.**
+
+**CONSEQUENCES REGISTERED-NOT-EXECUTED.** Both knees are real: the **field knee** $(2\alpha)^{-1/4}=2.877\,\ell_{node}$
+(the cell / dress knee, measured as $r99$ in PR #696, `research/2026-07-14_knee-contour-check_NOTE.md`) and the
+**voltage knee** $(2\alpha)^{-1/2}=8.278\,\ell_{node}$ (the interaction / port knee; the second is the square of
+the first). Op4/Op14's $(d_{sat}/r)^2$ argument = a **CANDIDATE integrated port expression of a field-biased
+ladder** — ★ **REGISTERED CHECK (the Op4 ladder integral):** integrate the per-cell field-strain dress radially
+and compare to the closed-form $Z_0(1-(d_{sat}/r)^2)^{-1/4}$ (a **match closes the fork completely**; a
+**mismatch = a real defect in a canonical operator** — flag-don't-fix). The 1/4-map's Q#1 fork
+(`research/2026-07-14_quarter-power-map.md`) **RESOLVES under this ruling** — both registers correct in their own
+register — with the `r_knee` quarter-power retained, **fork-conditional no more** (still α-echo-classified).
+`methodological-contamination.md:48`'s pairwise voltage-strain ($d_{sat}/r_{ij}$) is the **INTERACTION register
+used correctly** — no correction owed; the knee-NOTE's ⚑ voltage-strain FLAG is resolved (port register), not
+fixed. **gate-(b) prereg** should pre-register the **field knee** as the dress-edge candidate.
+
+### RULING 12 (RULED — Grant verbatim "ratify", in-chat 2026-07-15; upgraded from the WALK-DELIVERED "factor-of-2 analysis"): THE TWO-CRITERIA RULING
+
+The two α-thresholds are **two criteria on one nonlinear element**: the **STORAGE** criterion "stored fraction
+$=\alpha$" $\Rightarrow A^2=\alpha$, $A=\sqrt\alpha\approx0.0854$ (the entire yield family: $V_{YIELD}=\sqrt\alpha\,V_{SNAP}$,
+$E_{YIELD}=V_{YIELD}/\ell$, $h_{yield}=\sqrt\alpha$, genesis seeds); the **RESPONSE** criterion "deficit
+$\Delta S=\alpha$" $\Rightarrow A^2=2\alpha$, $A=\sqrt{2\alpha}\approx0.1208$ (the knee family: `A_YIELD_SQ`,
+`R_I`). **THE 2 IS THE TAYLOR-½ OF THE ROOT KERNEL** ($\Delta S=1-\sqrt{1-A^2}\approx A^2/2$) — unconditional.
+**Equipartition** (the traveling-wave half-half quadrature split) is the **AC BRIDGE** that makes the deficit
+numerically equal the per-sector share — **regime-dependent** (standing waves slosh; the #698 phase findings are
+the live demo), so the ½ is the **kernel's**, not the wave's (the static dress using $\sqrt{2\alpha}$ and matching
+$r99$ is the tell). The criteria carve is **ORTHOGONAL to the register carve** (a 2×2: register step/ladder ×
+criterion storage/response; the corpus populates 3 of 4 cells unnamed; $h_{yield}$ = a field-register quantity
+carrying the storage criterion). The **near-collision** ($\sqrt{1-\alpha}=0.996345$ vs $(1-2\alpha)^{1/4}=0.996331$,
+$\Delta=1.4\times10^{-5}$) = the two criteria's clock projections.
+
+**RENAME NOTE (gentle, walk-record):** the $\sqrt\alpha$ family's "yield" name is soft — nothing yields there; it
+is the **storage-α mark**; actual breakdown = the wall at $A=1$. (No rename executed; flagged for the vocabulary lane.)
+
+★ **CRITERION-TAG MANDATE — RATIFIED (Grant "ratify", 2026-07-15):** every $\sqrt\alpha$/$\sqrt{2\alpha}$ site is
+tagged **storage-α vs response-α**, folded into the contour-tag sweep (which moves from gated to **QUEUED** in the
+next-steps register). A bookkeeping-discipline mandate, not a physics claim.
+
+*(Grading note per the ratification: solidity reflects ruled-status, but the physics-content grading stays honest —
+a ruled convention is a convention, not a derivation. The KB claims `clm-strreg` / `clm-crit2a` are graded
+FORM-class at solidity 0.45, floored by CODATA-import deps.)*
+
+### ENTRY 13 (WALK-RECORD — framework, not ruling): THE SATURATION ANATOMY
+
+Landed in [`envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md) §"saturation anatomy" +
+`translation-circuit.md` §4. **Bench EE:** a saturated capacitor = polarization exhausted, $C_{diff}\to0$,
+incremental **OPEN** ($\Gamma\to+1$), clips charge, voltage-stiff; a saturated inductor = magnetization exhausted,
+$L_{diff}\to L_{air}$, incremental **SHORT** ($\Gamma\to-1$), clips flux, current-soft (the choke becomes a wire).
+**Shared truth:** a saturated reactive element **leaves the storage business and joins the boundary business**;
+$\lvert\Gamma\rvert\to1$ either way; **ideal saturation dissipates nothing** (lossless refusal — Ax3-compatible;
+connects the amorphous/plastic retirement). **THE VACUUM NODE at $A\to1$, $S\to0$:** (1) its clock stops
+($\omega_0\sqrt{S}\to0$ = the $g_{00}\to0$ signature, Ruling-1 register at its limit); (2) it becomes a mirror
+($\lvert\Gamma\rvert\to1$) — **THE WALL = a closed curve of cells that have left the storage business**; TIR = a
+ring of reactive refusal; phase-space: the orbit that can no longer turn; (3) open-vs-short = the ruled #260
+sign/spin selector; (4) partial saturation = the varactor/mixing regime ($\chi^3$ four-wave; the deficit knee =
+the first blush of refusal; the α-criteria = milestones on one road); (5) **past exhaustion THE VACUUM
+RECTIFIES** — pair production = the vacuum's avalanche breakdown = out-of-band AC winding rectified to DC winding
+(the corpus Miller-avalanche mapping + the FPB-corner walk); $V_{snap}=m_ec^2/e$ = one cell's rest energy = the
+quantum of rupture (WHY the products are particles); (6) nothing dissipates — the frozen ring **HOLDS
+$\mathcal{M}/\mathcal{Q}/\mathcal{J}$** as boundary observables. **THE ELECTRON IN ONE SENTENCE:** a
+self-sustaining winding whose circulation keeps its own boundary ring of cells exactly at storage exhaustion; the
+ropelength floor = the smallest closed ring of refusal the lattice geometry can form; excited states hold bigger
+rings (census-confirmed lift-off).
+
+### ENTRY 14 (WALK-RECORD + 2 PROPOSED-DEFINITIONAL items): THE THERMAL / PHASE-REGISTER WALK
+
+Landed in [`thermal-phase-registers.md`](../manuscript/ave-kb/common/thermal-phase-registers.md) (WALK-LEVEL,
+no-claim). Grant's three questions and the walked answers:
+
+- **(Q1) heat as measured by bound structures = PHASE-DIFFUSION BETWEEN SOLITON CLOCKS**, split: **mean shift =
+  the thermal operating point** (canon: $\delta_{strain}$/TCC at $T_{CMB}$, Q-DELTA-MAP-1) vs **variance = the
+  heat content proper** (driver: Johnson-Nyquist $k_BT$-per-mode strain-noise jittering every tank). Under Ax3:
+  heat = phase disorganization of reactive energy, **NOT loss**; entropy = lost phase information between clocks;
+  temperature = the width of the clock-detuning distribution. ★ **PROPOSED-DEFINITIONAL #1** (walk-level, not
+  solid until measured): **"temperature = clock phase-diffusion width"** — gated on the ★ **REGISTERED two-tank
+  decoherence check** (seed two identical tanks + random traveling bath; measure relative-phase variance growth vs
+  bath energy density). ★ **PROPOSED-DEFINITIONAL #2:** **"entropy = lost phase information between clocks"** —
+  same gate. *(The one axiom-derived line: heat = decoherence, not dissipation, from Ax3.)*
+- **(Q2) envelopes:** GROUND STATE never compresses geometrically (floor-pinned; incompressibility = the
+  stability); the response is **DRESS RE-BIAS** (varactors walk their $C(V)$ curves, strain redistributes);
+  EXCITED states genuinely compress (walls on the dynamical locus, census lift-off). Grant's "or" dissolves — the
+  $E$-field IS the lattice strain read in the electrical grade (TKI; per Ruling 11 the field = the per-cell strain
+  gradient the kernel eats). External Maxwell stress transmits through the dress and lands on the wall as a
+  boundary condition (= the $T_{ij}$ object).
+- **(Q3) the gravity well = the collective sum WITH TWO PRECISIONS:** (a) stored **ENERGY** both registers, not
+  strain alone (kinetic register ~44% of $H$ in the measured driven cells — a strain-only ledger undercounts);
+  (b) clock-weighted at $\sqrt{S}$ (Ruling 1; X44b tests incl. $+3\int p$).
+
+**THE THREE-PHASE-REGISTER UNIFICATION (walk-record):** one substrate energy organized by phase — coherent-bound
+(solitons; measured as wall observables $\mathcal{M}/\mathcal{Q}/\mathcal{J}$) / coherent-propagating (radiation;
+measured as fields/dress) / incoherent-propagating (heat; measured as clock decoherence) — ALL in one
+clock-weighted ledger, which is why hot things weigh more with no extra postulate; gravity = the phase-blind
+interaction; EM correction = dress-bound endpoint physics; heat = the phase-noise floor. ★ **REGISTERED:**
+thermal-ledger consistency note (incoherent energy enters Komar at the same $\sqrt{S}$ weight — consistency-class,
+GR does likewise). **OPEN WALK (named, not walked):** the core-holding blob as candidate "phase-organization
+without circulation — coherent but not winding" (see Entry 15).
+
+### ENTRY 15 (WALK-RECORD — Grant verbatim "yes, this makes sense, fire the test"; the discriminating ablation FIRED as a sibling lane): THE CORE-HOLDING BLOB WALK
+
+**The datum.** In the absorbing-box run the fixed core ball **+50.6%** absolute (phase-averaged) while the
+interior drains **−17.5%** and $H$ **−12.2%** through the sponge; the torus twin core decays **−24 to −43%**
+($H$-conserved); φ/winding **dead throughout** — energy flows inward, no circulation.
+
+**The mechanism fork walked.** **(A) LINEAR MODE-SORTING** — the sponge as a sieve (radiative components leave,
+bound near-field components cannot; predicts a plateau at the bound fraction, does **not** naturally predict an
+absolute RISE). **(B) NONLINEAR SELF-TRAPPING** — the self-dug well (live kernel: elevated core amplitude loads
+its varactors, $C_{eff}$ rises, local wave speed drops ⇒ the core is a **slow-wave lens** gathering interior
+energy; the torus wake re-stirs the trap every lap so dispersion wins there; the box removes the wake so the well
+is unopposed — Kerr self-focusing in the lattice's varactor form). **(C) boundary artifact** (control candidate;
+weakened by the #698 guard / fixed-region tests). **The discriminator:** kernel-OFF ablation + amplitude sweep
+(superlinear holding + a threshold = the (B) signature) — **FIRED**, branch `analysis/blob-ablation-kernel-off`.
+
+**THE PUDDLE / SOLITON CARVE (walk-level).** Two binding classes — **soliton = topological binding** (winding
+holds a ring of cells at refusal; quantized; floor-protected) vs **puddle = dynamical binding** (energy in its own
+index well; unquantized; metastable, evaporates when stirred). The blob = **candidate first clean puddle sighting
+= "phase-organization without circulation."** The **wake-kills-puddles selection observation** (walk-level):
+recirculating radiation stirs dynamical traps apart — a selection-pressure argument for why persistent matter is
+topological. **BREATHER HYPOTHESIS (flagged, routed to Grant, NOT ratified):** a self-trapped non-winding
+kernel-dependent lump = the mobile-discrete-breather class *at rest* — a candidate upgrade for the FPB carrier
+fork (`research/2026-07-09_highE-carrier-fpb-corner_walked-framing.md` branch (ii)) from posited to
+engine-observed.
+
+★ **CENSUS STAGE-2 DESIGN CONSEQUENCE (record as REQUIRED-if-B / RECOMMENDED-if-A, pending the ablation):** the
+Stage-2 prereg carries a **kernel-OFF twin control** + a **puddle-vs-knot discriminant column**, since a driven
+walled cavity grows puddles regardless of topology if (B) holds.
+
+### NEXT-STEPS REGISTER (2026-07-15 update; the held queue)
+
+- **WALKS REMAINING:** ~~core-holding blob~~ **WALKED (Entry 15)** — the ablation is IN FLIGHT; Re/Im carve; Op14 $Z$
+  sign; r_knee consumer.
+- **REGISTERED CHECKS — three now IN FLIGHT (Grant "let's do them" + "fire the test", 2026-07-15):** the **blob
+  ablation** (`analysis/blob-ablation-kernel-off`, kernel-OFF + amplitude sweep) · the **Op4 ladder integral**
+  (Ruling 11 fork VALUE-closure) · the **two-tank decoherence check** (Entry 14 temperature-definition gate). Also
+  registered: the **thermal-ledger note** (consistency-class); the **criterion-tag sweep** — **QUEUED** (moved from
+  gated: Grant ratified Ruling 12's mandate 2026-07-15).
+- **WAVE 1 parked:** $T_{ij}$ build gate-first + X44b / gate-(b) / census-S2 / QED-log charters — all fed by
+  Rulings 6/11 (and now the Entry-15 Stage-2 kernel-OFF-control consequence).
+- **STANDING:** CVR session; 0.22/0.84; half-exponent clock Q4 OPEN.
+
+### Docket status board — register-walks state (KEEP-BOTH; all tables above unedited)
+
+| Ruling / Entry | What | Status (2026-07-15) | Adjudicator |
+|---|---|---|---|
+| **Ruling 11** | step-register: kernel eats field-strain, not voltage-strain; the ladder theorem | **RULED** (Grant "Yes, I agree with where the walk is ending up") — FORM-level ruled convention; Op4 ladder integral REGISTERED-not-run; `clm-strreg` | Grant (ruled) |
+| **Ruling 12** | two α-criteria (storage-α vs response-α); the Taylor-½; criterion-tag mandate | **RULED** (Grant "ratify" 2026-07-15; upgraded from WALK-DELIVERED) — criterion-tag mandate **RATIFIED**→sweep QUEUED; `clm-crit2a` | Grant (ruled) |
+| **Entry 13** | the saturation anatomy (C/L duality, node exhaustion, ring-of-refusal electron, rectification) | **WALK-RECORD** — framework, landed in `envelope-anatomy.md` + `translation-circuit.md` §4 | (framework; no ruling) |
+| **Entry 14** | thermal/phase-register walk (Q1/Q2/Q3 + 3-register unification) | **WALK-RECORD + 2 PROPOSED-DEFINITIONAL** (temperature = phase-diffusion width; entropy = lost phase info) — gated on the two-tank check | Grant (definitions gated) |
+| **Entry 15** | core-holding blob walk (A linear-sort vs B self-trapping; puddle/soliton carve; breather) | **WALK-RECORD** — Grant "fire the test"; discriminating ablation IN FLIGHT (`analysis/blob-ablation-kernel-off`); breather hypothesis flagged-not-ratified | Grant (ablation adjudicates; breather routed) |
+
+*Append-only continuation (2026-07-15, the register walks) — all prior docket content byte-untouched (origin/main
+region, first 129045 bytes, sha256 `f524a695…`). Cites verified two-method at merged base `origin/main`
+`6f203072` (post-#702). Landed KB-leaf-first: `strain-registers.md` (`clm-strreg`/`clm-crit2a`, FORM-class
+solidity 0.45), the `envelope-anatomy.md` saturation-anatomy + Q2 additions, the `thermal-phase-registers.md`
+WALK-LEVEL no-claim leaf, and the `translation-circuit.md` §4 rows. DO-NOT-MERGE; only the orchestrator/Grant
+merges. Ruling-status precision is the prime rail — RULED items are FORM-level ruled conventions, not
+derivations; nothing here canonizes a value.*
