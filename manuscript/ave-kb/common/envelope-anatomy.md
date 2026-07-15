@@ -87,6 +87,39 @@ Reading outward-to-inward as a transmission-line ladder (per the EE-mapping; the
 
 The row-set complement in the canonical EE catalog (uniform external field = common-mode bias; gradient = differential bias; knee = varactor-bias-onset; dress = biased-varactor ladder section) is landed at [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4.
 
+## The saturation anatomy — the node that leaves the storage business (2026-07-15 walk-record)
+
+> **Status: WALK-RECORD (framework, not a ruling).** This section reads the wall (surface i) through bench-EE saturation physics. It is a **framework elaboration of clm-3surfa (the wall) and clm-lv3uw1 (the $\Gamma=-1$ magnetic-branch wall)** — consistency-class, no new numerical value promoted. Record: the 2026-07-15 register-walk docket continuation (Entry 13), `_orchestration/2026-07-10_rulings-docket.md`.
+>
+> **Sector / regime declaration.** A saturated reactive element in the phase-state $A\to1$, $S\to0$ (fully yielded, the wall). The C-vs-L duality below runs on the two Ax-4 branches ($\varepsilon$ / electric vs $\mu$ / magnetic), which are **mutually exclusive** per INVARIANT-S2 and `master-equation.md:78-79`.
+
+**Bench-EE, the two saturated elements (the C/L duality):**
+
+- A **saturated capacitor** = polarization exhausted, $C_{diff}\to0$, incremental **OPEN** ($\Gamma\to+1$): it clips charge, and is **voltage-stiff** (the electric branch, $\varepsilon_{eff}\to0$, $Z\to\infty$).
+- A **saturated inductor** = magnetization exhausted, $L_{diff}\to L_{air}$, incremental **SHORT** ($\Gamma\to-1$): it clips flux, and is **current-soft** — the choke becomes a wire (the magnetic branch, $\mu_{eff}\to0$, $Z\to0$).
+
+**The shared truth:** a saturated reactive element **leaves the storage business and joins the boundary business** — $\lvert\Gamma\rvert\to1$ either way. And **ideal saturation dissipates nothing** — it is a *lossless refusal*, Axiom-3-compatible (this is the reactive-not-plastic reading that connects the amorphous/plastic retirement: refusal is reactive, not a dissipative yield).
+
+**The vacuum node at $A\to1$, $S\to0$ — the exhaustion sequence:**
+
+1. **Its clock stops.** $\omega_0\sqrt{S}\to0$ — the $g_{00}\to0$ signature; the $\sqrt{S}$ local-clock weight (Ruling 1) evaluated at its own limit.
+2. **It becomes a mirror** — $\lvert\Gamma\rvert\to1$. **THE WALL = a closed curve of cells that have left the storage business.** TIR = a **ring of reactive refusal**; in phase-space it is the orbit that can no longer turn.
+3. **Open-vs-short = the ruled #260 SIGN / spin selector** (not an independent branch): a structure saturates its boundary in the register its winding loads (electric-open $\Gamma\to+1$ vs magnetic-short $\Gamma\to-1$; the wall-branch fork H3 = B3 DEGENERATE).
+4. **Partial saturation = the varactor / mixing regime** ($\chi^3$ four-wave; the **deficit knee = the first blush of refusal**; the α-criteria of [`strain-registers.md`](strain-registers.md) are the **milestones on one road** from linear response to full refusal).
+5. **Past exhaustion, the vacuum RECTIFIES.** Pair production = the vacuum's **avalanche breakdown** = out-of-band AC winding rectified to DC winding (the corpus Miller-avalanche mapping, [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) §4 "Schwinger $\to$ Miller avalanche"; the FPB-corner walk `research/2026-07-09_highE-carrier-fpb-corner_walked-framing.md` §5, FRAMING). $V_{snap} = m_ec^2/e \approx 511$ kV = **one cell's rest energy = the quantum of rupture** — which is *why* the products are particles ([`../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md`](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md); $V_{snap}$ per entry-point).
+6. **Nothing dissipates** — the frozen ring **HOLDS $\mathcal{M}/\mathcal{Q}/\mathcal{J}$** as boundary observables of cells pinned at refusal ([`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md)).
+
+**THE ELECTRON IN ONE SENTENCE (walk-record):** a **self-sustaining winding whose circulation keeps its own boundary ring of cells exactly at storage exhaustion**; the **ropelength floor = the smallest closed ring of refusal the lattice geometry can form**; **excited states hold bigger rings** (census-confirmed lift-off — the same "excited states lift the wall off the floor" of clm-3surfa / ROLE-1 $\not\equiv$ ROLE-2 above the ground state).
+
+## Ground-state incompressibility + dress re-bias (Q2 walk-record, 2026-07-15)
+
+> **Status: WALK-RECORD.** The answer to Grant's Q2 (how a bound structure responds to an external field), consistent with **Grant Ruling 6's walked physical picture** (`_orchestration/2026-07-10_rulings-docket.md`: uniform field = common-mode bias, floor-protected; gradient = differential bias → envelope deformation; excited states compressible) and clm-3surfa. No new value.
+
+- The **GROUND STATE never compresses geometrically** — it is **floor-pinned** at the ropelength floor $\ell_{node}/2\pi$; the **incompressibility IS the stability** (you cannot squeeze a closed loop below its ropelength).
+- The response is **DRESS RE-BIAS**: the near-field varactors walk their $C(V)$ curves and the strain redistributes (a common-mode / uniform bias shifts every operating point together but reflects nothing, $\nabla A=0$; a gradient is a differential bias → asymmetric Maxwell stress).
+- **EXCITED states genuinely compress** — their walls sit on the *dynamical* locus, off the floor (census lift-off, ROLE-1 $\not\equiv$ ROLE-2).
+- Grant's "or" (compress *or* re-bias) **dissolves**: the E-field **IS** the lattice strain read in the electrical grade (TKI; per [`strain-registers.md`](strain-registers.md) Ruling 11 the field = the per-cell strain-gradient the kernel eats). External Maxwell stress **transmits through the dress and lands on the wall as a boundary condition** — the $T_{ij}$ object the X44b / registers-first build materializes (`_orchestration/…` registers-walk; `research/2026-07-13_registers-walk_framing.md`).
+
 ## Cross-references
 
 - [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md) — the wall's $\mathcal{M},\mathcal{Q},\mathcal{J}$ observability rule + the six-scale hierarchy; balance-locus register at :61.
