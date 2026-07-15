@@ -15,6 +15,8 @@ path-stable: "canonical home for the envelope three-surface anatomy (wall / bala
 
 **Status: FORM minted per Grant Ruling 8 (option C, in-chat 2026-07-14; ruling record: PR #695 docket continuation).** What is canonical here is the **three-surface FORM** — that a bound soliton's boundary region is not one radius but three physically-distinct radial surfaces with distinct roles. **Every NUMERICAL value below stays measured / gate-registered — nothing numerical is promoted to SOLID by this mint** (the radii ride CODATA-derived $\ell_{node} = \hbar/m_e c$; see the per-surface status tags).
 
+**Word-level ruling — CONFIRMED (Grant in-chat 2026-07-15; ruling record: the post-merge auditor PR + the 2026-07-15 docket continuation).** The token *"envelope"* now **canonically denotes the wall** — surface (i), the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert=1$ mirror. The **balance shell** (ii) and the **knee / dress edge** (iii) keep their own names. (This supersedes the prior "PROPOSED, pending Grant confirm at merge" word-choice status; it is a FORM-level word-sense ruling and promotes **no** numerical value — the value-side gates (a) the r_env / node-Nyquist length mint and (b) the §45 balance-shell-distinctness / radii stay Grant-gated, unchanged. The anatomy retains its umbrella name for the three-surface FORM.)
+
 ## The three surfaces
 
 <!-- claim-quality: clm-3surfa -->

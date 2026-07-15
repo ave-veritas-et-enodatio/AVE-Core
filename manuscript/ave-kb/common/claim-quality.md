@@ -1411,7 +1411,7 @@ A bound soliton's boundary region is **not one radius but three physically-disti
   - **VALUES stay measured / gate-registered — nothing numerical promoted to SOLID (Ruling 8 option C).** The radii ride CODATA-derived $\ell_{node}=\hbar/m_ec$; the balance-shell $\approx 1.6\,\ell_{node}$ is **DIMENSIONALLY FORCED** (consistency check, not discriminating — clm-hvb7q3); the knee radius is a **REGISTERED CHECK** (collar-edge ≡ knee, sibling lane).
   - **Balance shell CONJECTURED ≡ wall (Grant Ruling 6); gate-(b) adjudicates** whether it is a distinct surface or the fully-yielded wall itself. This claim does NOT assert three distinct radii — it asserts three distinct ROLES; the value-side coincidence structure is gated.
   - **The wall sign is the ruled-degenerate SIGN/spin selector (#260), NOT a branch.** Mass = A1 settled independently; this claim does not re-derive it.
-  - **"Envelope = the wall" as primary sense is PROPOSED (pending Grant confirm at merge)** — the register mint (r_env/node-Nyquist proposed → SOLID) remains Grant-gated.
+  - **"Envelope = the wall" as primary sense is CONFIRMED (Grant in-chat 2026-07-15; record: the post-merge auditor PR + the 2026-07-15 docket continuation)** — the balance shell and knee keep their own names. The register **VALUE** mint (r_env/node-Nyquist proposed → SOLID) remains Grant-gated (unchanged).
 
 > **Leaf references:** [envelope-anatomy](./envelope-anatomy.md).
 
