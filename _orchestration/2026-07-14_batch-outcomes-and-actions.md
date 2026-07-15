@@ -166,9 +166,14 @@ each (or none). Cites point at where each is already booked.
    #693's Knife-B was **near-cloud slicing** (the "many-body" signal was each probe's own
    dress, not the medium). The lens is the §3 item-8 standing-discipline candidate.
 2. **Fabricated-quote / phantom-citation under a verify-claim surfaced ×2 — two-method grep
-   every stamp.** (a) #690 finding #2: a **fabricated quote + false VERIFIED stamp** on
-   `manuscript/vol_2_quantum/chapters/02_baryon_sector.tex:40` ("multi-node body envelope" —
-   the directory does not exist; 0 corpus hits; struck in `0e7d4e11`). (b) #692: a **phantom
+   every stamp.** (a) #690 finding #2: a **fabricated quote + false VERIFIED stamp** on the
+   **fabricated non-path** *vol_2_quantum/chapters/02_baryon_sector.tex:40* ("multi-node body
+   envelope") — that directory does **not** exist (real tree: `vol_2_subatomic/`) and the phrase
+   has **0** genuine corpus hits (two-method `grep -F` + `git grep`, re-verified 2026-07-15);
+   **struck, NOT repointed** in `0e7d4e11` (repointing to the real
+   `vol_2_subatomic/chapters/02_baryon_sector.tex:41` "spans multiple fundamental nodes" would
+   re-assert the supra-node reading the §45 A-vs-B fork holds open — same rationale as the
+   def-envl0p / `vocabulary-register.md:174,414` strikes). (b) #692: a **phantom
    citation** — `"frozen §2 smallest-algebraic (most-bound)"` appears **nowhere** in the frozen
    body (the frozen §4 bin-i says only "the lowest interior mode"), caught by two-method grep
    and corrected. A **third, pre-existing twin** of the (a) fabrication survives at
