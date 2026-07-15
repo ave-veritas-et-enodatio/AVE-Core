@@ -140,7 +140,63 @@ NOT a √α-register member (synthesis mis-grouped it; see corrections).
 
 ## 2. THE ONE-CONTOUR TEST
 
-<!-- filled per-commit -->
+**SECTOR:** kernel-projection algebra (Op2 `S` → each wave/impedance register). **REGIME:**
+general operating point (H-weak) vs the deficit-knee contour `A²=2α` (H-strong).
+
+**Hypothesis as posed:** all quarter-power sites are projections of ONE kernel contour
+(`A²=2α` deficit knee) through square-root dispersion relations. **The test splits into two
+claims with different verdicts.**
+
+### H-weak (one KERNEL, many √-projections): **HOLDS** for every Family-B site — corpus-adjudicated
+
+Common algebra: `S(A) = (1−A²)^{1/2}`; every physical register applies exactly one more
+half-power. Each site reduces to `(1−A²)^{±1/4}` with a NAMED one-sqrt chain:
+
+| Site | Projection chain (algebra) | Reduced form | At knee `A²=2α` |
+|---|---|---|---|
+| Clock / Ω_node | `C_eff = C₀/S` (varactor ε-load) ⇒ `ω = 1/√(LC_eff) = ω₀ S^{1/2}` | `(1−A²)^{+1/4}` | `(1−2α)^{1/4} = 0.996331` — **member 1, exact** |
+| c_shear | `G_eff = G₀·S` ⇒ `c = √(G_eff/ρ) = c₀ S^{1/2}` | `(1−A²)^{+1/4}` | 0.996331 (clock RIDES this — same number by construction) |
+| c_EM (stiffening) | `c_eff² = c₀²/S` ⇒ `c₀ S^{−1/2}` | `(1−A²)^{−1/4}` | `(1−2α)^{−1/4} = 1.003682` |
+| Z (single-sector) | `Z = √(L_eff/C_eff)`; one sector loaded ⇒ `Z₀ S^{±1/2}` | `(1−A²)^{∓1/4}` | `1 ∓ 0.003682`; **sign = load selector, not a power question** |
+| Γ at knee | `Γ = (√S−1)/(√S+1)` | `≈ −A²/4` | computed **−0.001838 ≈ −α/4** (`α/4 = 0.001824`; docket's `Γ≈−0.002` ✓) |
+| r_knee | field strain `A(s) = (d_sat/s)²` (inverse-square); invert at `A = A_yield = (2α)^{1/2}`: `s = d_sat·A_yield^{−1/2}` | `(2α)^{−1/4}` | **2.877 ℓ_node — member 3, exact** (`= 1/√(A_yield)`) |
+| n_⊥ / δn / δC / ¼-coefficients | Taylor of the above at small A | `1−¼A²` etc. | O(A²) guise of the same kernel |
+| Aperture `S₀^{1/4}`, bond `(S_iS_j)^{1/4}`, superband ¾ | stacked half-powers / integrals of the above | kernel functions | arbitrary operating point |
+
+Corpus precedent for exactly this reading: `gw_propagation.py:374-375`, `grqed-stage1
+result:40,56` ("DERIVED √S projection, NOT a second kernel"), Grant F1 (`S^{0.25}` is a
+reduced-form via a factor-of-2 projection). Every genuine kernel quarter-power writes as
+`(1−A²)^{p/4}` (or `(2α)^{p/4}` on the knee) with `p ∈ {−1,+1}` and a nameable one-sqrt chain.
+
+**Affirmative evidence (the algebra detects errors):** the ONE deviation ever found — the
+`S^{1/4} = (1−A²)^{1/8}` engine index — matched NO chain and was KILLED as a defect (`k4_tlm.py:292`,
+`master_equation_fdtd.py:176`, `crystal_engine.py:431`). A wrong exponent is detectable because
+the projection algebra is tight enough to reject it.
+
+### H-strong (one CONTOUR — all sites live AT `A²=2α`): **FAILS.** The five falsifiers:
+
+1. **Be cascade `(1+k_inner)^{1/4}`** (`hierarchical-cascade-correction.md:30-31`;
+   `radial_eigenvalue.py:2018`) — √∘√ mechanism, but the base is a coupling stack `(1+k)`, not
+   the deficit kernel; no α; no knee. *Mechanism-shared, contour-foreign.*
+2. **MOND `v_flat = (GM a₀)^{1/4}`** (`translation-gravity.md:25`) — √∘(inverse-square), the SAME
+   composition class as r_knee, but of dimensionful imports with no kernel and no α.
+   *Composition-shared, contour-foreign.*
+3. **Kolmogorov η, Stefan-Boltzmann T, Shakura-Sunyaev** — dimensional/thermal quarter-powers;
+   no kernel content at all.
+4. **Off-contour kernel sites** — birefringence n_⊥, Op4 dress `Z(r)`, aperture `S₀^{1/4}` are
+   kernel projections evaluated at *arbitrary* A, not the knee. They share the kernel, not the
+   contour.
+5. **★ The voltage-strain fork (the sharpest internal falsifier).** Under the canonical
+   `methodological-contamination.md:48-52` voltage strain `A = d_sat/r` (`∝ 1/r`), the knee radius
+   is `d_sat/√(2α) = 8.278 ℓ_node` — a **HALF-power** (recomputed: `1/√(2α) = 8.2776`). The
+   quarter-power radius exists ONLY under the inverse-square FIELD composition `A = (d_sat/s)²`.
+   **Member 3's ¼-membership is therefore conditional on an OPEN fork** (knee-NOTE :241, branch
+   `analysis/knee-contour-check`).
+
+**Honest verdict for the map:** *"Every kernel quarter-power in the corpus is √S of the ONE
+kernel, and the three story members are that projection evaluated at the ONE knee contour
+`A²=2α`"* — with Families C/D fenced out as generic sqrt-composition algebra, and member 3
+fork-conditional.
 
 ## 3. c_shear ADJUDICATION INPUT (present-both, no ruling)
 
