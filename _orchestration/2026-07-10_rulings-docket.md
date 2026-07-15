@@ -432,7 +432,7 @@ test (this arc), 11th-convergence-flagged.
 | **A7 ordering** | Nordtvedt leg vs EFE-quadrupole channel | **η=0 ⇒ A7 = EFE-quadrupole alone**; A7 branch-signature freeze POSTDATES η | Grant (fold with R-A/T4) |
 | **M_eff-vs-far-field gap** | LATENT #86 DEFECT: far field (M+U) vs engine's OWN designated ADM mass M_eff (M−U), O(2f) | **★RULED (c) — Grant 2026-07-12** (Komar/redshift-weighted T₀₀ source; three-way KEEP-BOTH); follow-on arc **X44** implemented on `analysis/x44-komar-source` — **frozen bin (iii) UNRECONCILED** (η_mixed≈+1.05 at N=24/32/40; Δ_clock≪U_bind; no √S retune). Komar installed as default; ADD KEEP-BOTH. Escalation options in `research/2026-07-12_x44-komar-source_result.md` §7 | Grant (RULED; adjudicate bin-iii escalation) |
 | **X-LEDGER (X44 outcome)** | √S-weighted flux mass vs \(U_{\rm bind}\) ledger | **★RULED X-LEDGER — Grant confirmed 2026-07-13** (effective condition met: #661 merged; KEEP-BOTH superseded phrasing: "★PROPOSED-RULED X-LEDGER (text pending Grant confirmation — stamps become effective on his merge of #661)") — bank #652 bin (iii) UNRECONCILED; two substrate mass functionals named open; no silent √S retune; merge only as banked negative ([`2026-07-12_ave-native-rulings_g-persist_x-ledger.md`](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)). *(Merge-resolution 2026-07-12: this X-LEDGER row is the SURVIVOR of the X44-firing event; the duplicate "X44 Komar-source" row that arrived via #652's merge was dropped per the pre-declared #652/#661 docket resolution — one event, one row.)* | Grant (RULED — confirmed 2026-07-13) |
-| **G-PERSIST (genesis D1–D4)** | Fixed-N lasting localization vs node birth | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat)** — bank #655 bin (ii); remanence (R10-class) before node-mint; KEEP-BOTH; no `genesis_v{N}` ([ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)). **Evidentiary basis:** the #670 N≥14 battery's **boundary-insensitive φ-dispersion** — φ collapses **0.87→0.73→0.51** as N grows (10→14→16, `pair`) under PML = boundary-clean non-persistence; the E-recovery (0.69→0.84→0.87) confirmed the old N=10 collapse was **absorber leakage**, not physics (`research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`). **THE ENCLOSURE FORK — KEEP-BOTH-OPEN:** *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED by Grant 2026-07-13**; *Reading B (genesis-under-confinement: genuine self-tightening)* stays **OPEN**; discriminator = the **spatial-concentration / participation-ratio localization observable** (KEEP-BOTH new axis, follow-on driver queued); **the flip does NOT depend on this fork (the PML φ-trend carries it).** KEEP-BOTH — superseded stamp read: *"★PROPOSED-RULED G-PERSIST (text pending Grant confirmation — stamps become effective on his merge of #661)"*; the "confirmation MUST postdate the #655 battery re-run" gate is **met** (the #670 re-run returned the boundary-clean φ-trend). The remanence-before-node-mint build-order directive's banked-fact basis is **CONFIRMED**, not moot. | Grant (★RULED — CONFIRMS) |
+| **G-PERSIST (genesis D1–D4)** | Fixed-N lasting localization vs node birth | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat)** — bank #655 bin (ii); remanence (R10-class) before node-mint; KEEP-BOTH; no `genesis_v{N}` ([ruling leaf](2026-07-12_ave-native-rulings_g-persist_x-ledger.md)). **Evidentiary basis:** the #670 N≥14 battery's **boundary-insensitive φ-dispersion** — φ collapses **0.87→0.73→0.51** as N grows (10→14→16, `pair`) under PML = boundary-clean non-persistence; the E-recovery (0.69→0.84→0.87) confirmed the old N=10 collapse was **absorber leakage**, not physics (`research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`). **THE ENCLOSURE FORK — ~~KEEP-BOTH-OPEN~~ 🔴 RULED READING A (2026-07-14, Grant in-chat):** the fork is **CLOSED toward Reading A (wake-feeding)**; **Reading B retired**. Data-confirmed via the #689 localization observable — **LOOP-FILLING** on **both statistics, both boundaries, register-robust** (`research/2026-07-14_gpersist-localization-observable_RESULT.md:160`; "Reading A CONFIRMED; the fork closes toward A"). **G-PERSIST ★RULED stamp untouched.** *The 2026-07-13 "KEEP-BOTH-OPEN / Reading A LEANED / Reading B OPEN" read that follows is the superseded prior status, preserved verbatim:* *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED by Grant 2026-07-13**; *Reading B (genesis-under-confinement: genuine self-tightening)* stays **OPEN**; discriminator = the **spatial-concentration / participation-ratio localization observable** (KEEP-BOTH new axis, follow-on driver queued); **the flip does NOT depend on this fork (the PML φ-trend carries it).** KEEP-BOTH — superseded stamp read: *"★PROPOSED-RULED G-PERSIST (text pending Grant confirmation — stamps become effective on his merge of #661)"*; the "confirmation MUST postdate the #655 battery re-run" gate is **met** (the #670 re-run returned the boundary-clean φ-trend). The remanence-before-node-mint build-order directive's banked-fact basis is **CONFIRMED**, not moot. | Grant (★RULED — CONFIRMS) |
 
 ---
 
@@ -474,18 +474,18 @@ The registers-walk section above recorded **Q3 REFRAMED** to the cascade-filter 
 |---|---|---|---|
 | **T1-KILL** | atom-rung Q cascade gate | **★ RATIFIED (Grant 2026-07-13) — #668 MERGED.** Pre-registered kill FIRED, **bin (ii) NO-DISTINCT-VALUE**: `Q_wall→∞` α-free (electron intrinsic endpoint) for H(1s)/H(2s)/He⁺/reduced-mass; observed `~10⁷ = Q_rad = 4α⁻³` exact = transverse `Z_EM` radiative port (different sector, α-echo, bin (iii) rider). **TRUE-KILL** per the false-kill probe; positive control fired bin (i). Cascade-filter = "the homogeneous vacuum line relabeled — a vocabulary echo." (`research/2026-07-13_t1-atom-q-cascade-gate_RESULT.md`) | **Grant (★RATIFIED)** |
 | **K-SWEEP** | srs vertex k-sweep backscatter (docket **T4** fork) | **LANDED — #669 MERGED. bin (i) HOMOGENIZATION-SPLIT.** σ=0.123 suppression, ρ=3.14 band-edge rise, disorder 0.500, chirality-blind 2×10⁻¹⁶; the **srs-`1/9` per-vertex ontology fork (T4) adjudicated** = real reactive event, homogenized for in-band collective carriers, resolves near the band edge (long-λ = suppressed *plateau*; **band edge not independently located** — probe reaches k·ℓ≤0.83). CONSISTENCY / peer-with-SM. (`research/2026-07-13_srs-vertex-ksweep-backscatter_RESULT.md`) | landed (peer-class) |
-| **G-PERSIST** | genesis N≥14 persistence battery | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat).** #670 MERGED. E recovers with N (0.69→0.84→0.87 = absorber-leakage confirmed) / φ collapses with N (0.87→0.73→0.51 = boundary-clean non-persistence); the enclosure `pml=0` config = **energy-closed-periodic (a torus, `np.roll` wraparound)** artifact-leaning (E≡1.0 conservation-identity, φ→10× N-stable). **STAMP FLIP DONE** (does not require the fork — the PML φ-trend is boundary-clean on its own). **THE ENCLOSURE FORK — KEEP-BOTH-OPEN:** *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED by Grant 2026-07-13**; *Reading B (genesis-under-confinement)* stays **OPEN**; discriminator = the spatial-concentration / participation-ratio **localization observable** (follow-on driver queued); the φ-channel-plant control is the second follow-on. (`research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`) | **Grant (★RULED — CONFIRMS; fork KEEP-BOTH-OPEN)** |
+| **G-PERSIST** | genesis N≥14 persistence battery | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat).** #670 MERGED. E recovers with N (0.69→0.84→0.87 = absorber-leakage confirmed) / φ collapses with N (0.87→0.73→0.51 = boundary-clean non-persistence); the enclosure `pml=0` config = **energy-closed-periodic (a torus, `np.roll` wraparound)** artifact-leaning (E≡1.0 conservation-identity, φ→10× N-stable). **STAMP FLIP DONE** (does not require the fork — the PML φ-trend is boundary-clean on its own). **THE ENCLOSURE FORK — ~~KEEP-BOTH-OPEN~~ 🔴 RULED READING A (2026-07-14, Grant in-chat):** the fork is **CLOSED toward Reading A (wake-feeding)**; **Reading B retired**. Data-confirmed via the #689 localization observable — **LOOP-FILLING** on **both statistics, both boundaries, register-robust** (`research/2026-07-14_gpersist-localization-observable_RESULT.md:160`; "Reading A CONFIRMED; the fork closes toward A"). **G-PERSIST ★RULED stamp untouched.** *The 2026-07-13 "KEEP-BOTH-OPEN / Reading A LEANED / Reading B OPEN" read that follows is the superseded prior status, preserved verbatim:* *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED by Grant 2026-07-13**; *Reading B (genesis-under-confinement)* stays **OPEN**; discriminator = the spatial-concentration / participation-ratio **localization observable** (follow-on driver queued); the φ-channel-plant control is the second follow-on. (`research/2026-07-13_genesis-npersist-n14-battery_RESULT.md`) | **Grant (★RULED — CONFIRMS; fork KEEP-BOTH-OPEN)** |
 | **Q3 (cascade reframe)** | the depletion-primitive taxonomy | **RESOLVED-BY-KILL.** The cascade reframe is killed at the atom rung ⇒ Q3 **reverts to the 4-element depletion map** (§4) with **F6 tier-1 as the adjudicator.** Charter MERGED #666; **DRIVER IN FLIGHT** (sibling lane `analysis/f6-tier1-ledger-driver`, Grant-GO'd). A/B survive as **F6 ledger bookkeeping**, not cascade coupling-classes. | resolved-by-kill (F6 adjudicates) |
 | **CVR** | dielectric-C-V bench doc set | **DOC SET MERGED #667.** Trades **T-A / T-B / T-C OPEN** (T-D theory-ruled PLATES); the **CVR-DC mis-key fix IN FLIGHT** (`clm-vjv4zf` V_yield divergence keying + stale-OPEN + F1/F2/F3 staleness; sibling lane `docs/cvr-miskey-qladder-relabel-killed-ledger`). (`research/2026-07-13_cvr-trade-study_DECISIONS-OPEN.md`, `…cvr-requirements_DERIVED.md`) | trades open / fix in flight |
 | **Q-ladder relabel** | atom-rung Q-ladder annotation | **GO — IN FLIGHT** (sibling lane, auditor-landed). Annotate the atom rung "radiative `Z_EM` port, α⁻³ echo; the *wall* loss-Q is the intrinsic endpoint `Q→∞`" so no downstream cite reads it as an independent cascade cutoff; BH endpoint stays canon + distinct (`Q=ℓ`). | GO (in flight) |
 | **killed-ledger booking (12+13)** | seduction-ledger bookings | **GO — IN FLIGHT** (sibling lane). Convergence **12** (cascade filter) + **13** (power-factor `S=P+jQ` ordering) → the killed ledger. ~~Seduction ledger stays **0-for-7** booked; X43 / C13b increments pending Grant's miss-ledger gating (the earlier "0-for-8" walk-count counted a pending X43).~~ 🔴 *[RESOLVED — Grant "classify and book" 2026-07-13]* Seduction ledger **BOOKED 0-for-9**: X43 = increment 8 (frozen-form miss), C13b = increment 9 (forward-prediction miss); the earlier "0-for-8" walk-count was the pending X43, now booked as #8. *(This killed-ledger row is a distinct instrument from the miss-ledger — the 12/13 killed-convergence bookings are unaffected.)* | GO (in flight) |
-| **D3 COEXIST ruling (2026-07-09) — census stress-test** | the imposed-cavity mode-census arc REGISTERED (Grant 2026-07-13) as a **STRESS-TEST of the ruled-COEXIST's two legs** with new evidence (**IDENTITY** leg: windings = boundary data; **ENVELOPE** leg: near-field = real yield envelope) — **NOT a re-opening of a closed fork.** D3 was RULED **COEXIST-with-justification 2026-07-09** (`_orchestration/2026-07-09_electron-def-canon-authoring.md:11,21`) and canonized (`electron-identification.md:57-62` + 3 further leaves). Census imposes a `Γ=−1` TIR closed surface of electron scale as a boundary-condition object; **SUSPICION under test** = the (2,3)-phase-winding ⊥ `0₁`-unknot duality is EMERGENT as the closure class of the cavity's reflection map. **The precursor-vs-end-state sub-fork (`clm-uatcql`, `vol2/claim-quality.md:1159`) stays explicitly OPEN — not silently resolved.** | **REGISTERED (Grant 2026-07-13):** two-shape KEEP-BOTH battery (sphere null vs horn-torus canon-lean); STAGE 1 census grounding LANDED (parallel to F6 driver); STAGE 2 self-consistency/balance audit rides the `T_ij` register (task #45); walk-first — nothing frozen yet; the **only outcome class that genuinely re-opens D3 territory** = a STAGE-2 balance failure requiring interior structure the singularity forbids | Grant (census walk card next) |
+| **D3 COEXIST ruling (2026-07-09) — census stress-test** | the imposed-cavity mode-census arc REGISTERED (Grant 2026-07-13) as a **STRESS-TEST of the ruled-COEXIST's two legs** with new evidence (**IDENTITY** leg: windings = boundary data; **ENVELOPE** leg: near-field = real yield envelope) — **NOT a re-opening of a closed fork.** D3 was RULED **COEXIST-with-justification 2026-07-09** (`_orchestration/2026-07-09_electron-def-canon-authoring.md:11,21`) and canonized (`electron-identification.md:57-62` + 3 further leaves). Census imposes a `Γ=−1` TIR closed surface of electron scale as a boundary-condition object; **SUSPICION under test** = the (2,3)-phase-winding ⊥ `0₁`-unknot duality is EMERGENT as the closure class of the cavity's reflection map. **The precursor-vs-end-state sub-fork (`clm-uatcql`, `vol2/claim-quality.md:1159`) stays explicitly OPEN — not silently resolved.** | **REGISTERED (Grant 2026-07-13):** two-shape KEEP-BOTH battery (sphere null vs horn-torus canon-lean); STAGE 1 census grounding LANDED (parallel to F6 driver); STAGE 2 self-consistency/balance audit rides the `T_ij` register (task #45); walk-first — nothing frozen yet; the **only outcome class that genuinely re-opens D3 territory** = a STAGE-2 balance failure requiring interior structure the singularity forbids. 🔴 *[CLOSED — Grant in-chat 2026-07-14, Ruling 4]* **D3 stress-test loop CLOSED: COEXIST stands, stress-tested** (LA freeze-fidelity RATIFIED, Ruling 4 — reading the LA fundamental = freeze-fidelity to "lowest interior mode", not a post-hoc target move); the census stress-tested the ruled-COEXIST's two legs and **did not break them**; the (2,3) **SELECTION is formally a DRIVEN / NONLINEAR question** (the cold-linear Hermitian lattice has **no winding to give** — confirmed both spectral ends). The precursor-vs-end-state sub-fork (`clm-uatcql`) stays **OPEN** — untouched by this closure. (`research/2026-07-14_cavity-census-stage1_RESULT.md:545-547`.) | Grant (census walk card next; D3 stress-test loop CLOSED 2026-07-14) |
 
 **RATIFIED vs PENDING-GRANT (this continuation canonizes nothing):**
 - **★ RATIFIED:** the **T1-KILL / cascade-adjudication** (Grant in-chat, 2026-07-13).
 - ~~**PENDING-GRANT (his word genuinely owed):** the **G-PERSIST closed-box fork** ruling + the two **follow-on candidates** (localization observable, φ-channel plant) + the **docket stamp flip**.~~ 🔴 *[RESOLVED — Grant in-chat 2026-07-13]* **G-PERSIST ★RULED — CONFIRMS bin (ii) A-WEAKENED; docket stamp FLIPPED.** The **enclosure fork** is **KEEP-BOTH-OPEN** with **Reading A (wake-feeding) LEANED**; the two follow-on candidates (spatial-concentration / participation-ratio **localization observable**, and the **φ-channel plant** control) remain **queued** (driver not yet fired). *(Ontology correction folded in: the `pml=0` enclosure is a **torus** — energy-closed-periodic — not a reflecting box; see the RESULT torus erratum.)*
 - **Landed / in-flight (no Grant word owed to book them):** K-SWEEP, CVR doc set, Q-ladder relabel, killed-ledger booking, F6 tier-1 driver, and **Q4 (F6 sink) — GO'd by Grant in-chat 2026-07-13**: the `ρ_latent` parameterization is **unlocked** (input-only, CC-honest scope), the tier-1 **charter MERGED #666**, and the tier-1 **DRIVER is IN FLIGHT** (`analysis/f6-tier1-ledger-driver`) — all merged-or-Grant-GO'd work, tracked here for docket completeness. *(The earlier registers-walk Q4 row above predates the go and is left as historical.)*
-- **Registered (Grant-ruled, walk-first):** the **imposed-cavity mode-census arc** as a **STRESS-TEST of the ruled-COEXIST D3** (2026-07-09, canonized) — **NOT** a re-opening of a closed fork; STAGE 1 census grounding landed, STAGE 2 rides the `T_ij` register; the precursor-vs-end-state sub-fork (`clm-uatcql`) stays OPEN; nothing frozen — the arc's own prereg carries the bins later.
+- **Registered (Grant-ruled, walk-first):** the **imposed-cavity mode-census arc** as a **STRESS-TEST of the ruled-COEXIST D3** (2026-07-09, canonized) — **NOT** a re-opening of a closed fork; STAGE 1 census grounding landed, STAGE 2 rides the `T_ij` register; the precursor-vs-end-state sub-fork (`clm-uatcql`) stays OPEN; nothing frozen — the arc's own prereg carries the bins later. 🔴 *[CLOSED — Grant in-chat 2026-07-14, Ruling 4]* the **D3 stress-test loop is CLOSED: COEXIST stands, stress-tested** (#692 LA freeze-fidelity **RATIFIED**, Ruling 4); the (2,3) **SELECTION is formally a DRIVEN / NONLINEAR question** (cold-linear lattice has no winding to give — non-(2,3) on both spectral ends); the census did **not** break either COEXIST leg. The `clm-uatcql` precursor-vs-end-state sub-fork stays **OPEN** — untouched by this closure.
 
 > **Correction (2026-07-13, dated — KEEP-BOTH audit).** An earlier draft of the D3 row in this continuation mis-framed D3 as an *open / parked* core-ontology fork. **D3 was RULED COEXIST-with-justification on 2026-07-09** (`_orchestration/2026-07-09_electron-def-canon-authoring.md:11,21`) and **canonized at four leaves** (`electron-identification.md:57-62`; `substrate-perspective-electron.md:93-103,135-145`; `the-abandoned-interior.md:84-97`; `hollow-vortex-binding.md:28-37`). The imposed-cavity mode-census arc is a **STRESS-TEST of that ruling's two legs**, not a re-opening; the row above carries the corrected framing. The "SUPERSEDE or COEXIST" verbatim belongs to a *different* fork (`clm-i4p11y` — photon-precursor vs electron-end-state), whose precursor-vs-end-state sub-fork (`clm-uatcql`, `vol2/claim-quality.md:1159`) remains **OPEN**. All cites re-verified at HEAD.
 
@@ -499,7 +499,7 @@ Two in-chat Grant rulings landed 2026-07-13, propagated on `docs/gpersist-f6-rul
 
 | Ruling | What | Status (2026-07-13) | Adjudicator |
 |---|---|---|---|
-| **G-PERSIST** | fixed-\(N\) genesis persistence (bin from #655/#670) | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat).** Evidentiary basis = the #670 N≥14 battery's **boundary-insensitive φ-dispersion** (φ 0.87→0.73→0.51 as N grows under PML = boundary-clean non-persistence; E-recovery 0.69→0.84→0.87 confirmed the old N=10 collapse was absorber leakage). **THE ENCLOSURE FORK — KEEP-BOTH-OPEN:** *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED**; *Reading B (genesis-under-confinement)* OPEN; discriminator = spatial-concentration / participation-ratio **localization observable** (follow-on queued); the flip does **NOT** depend on the fork. **Torus erratum** landed with this ruling: the `pml=0` enclosure is **energy-closed-periodic (a torus, `np.roll`, `k4_tlm.py:393`)**, not a reflecting box; physics conclusions unchanged. | **Grant (★RULED-CONFIRMS)** |
+| **G-PERSIST** | fixed-\(N\) genesis persistence (bin from #655/#670) | **★RULED — CONFIRMS bin (ii) A-WEAKENED (Grant confirmed 2026-07-13, in-chat).** Evidentiary basis = the #670 N≥14 battery's **boundary-insensitive φ-dispersion** (φ 0.87→0.73→0.51 as N grows under PML = boundary-clean non-persistence; E-recovery 0.69→0.84→0.87 confirmed the old N=10 collapse was absorber leakage). **THE ENCLOSURE FORK — ~~KEEP-BOTH-OPEN~~ 🔴 RULED READING A (2026-07-14, Grant in-chat):** the fork is **CLOSED toward Reading A (wake-feeding)**; **Reading B retired**. Data-confirmed via the #689 localization observable — **LOOP-FILLING** on **both statistics, both boundaries, register-robust** (`research/2026-07-14_gpersist-localization-observable_RESULT.md:160`; "Reading A CONFIRMED; the fork closes toward A"). **G-PERSIST ★RULED stamp untouched.** *The 2026-07-13 "KEEP-BOTH-OPEN / Reading A LEANED / Reading B OPEN" read that follows is the superseded prior status, preserved verbatim:* *Reading A (wake-feeding: the periodic-torus enclosure returns the pattern's own wake; the projection gauge counts laps)* **LEANED**; *Reading B (genesis-under-confinement)* OPEN; discriminator = spatial-concentration / participation-ratio **localization observable** (follow-on queued); the flip does **NOT** depend on the fork. **Torus erratum** landed with this ruling: the `pml=0` enclosure is **energy-closed-periodic (a torus, `np.roll`, `k4_tlm.py:393`)**, not a reflecting box; physics conclusions unchanged. | **Grant (★RULED-CONFIRMS)** |
 | **F6 §5.4** | tier-1 two-reservoir ODE ledger (#674) — disposition fork | **★RULED — BOTH (Grant confirmed 2026-07-13, in-chat).** (i) **FORM-EXISTENCE BANKED** — the occupancy-slaved chord is a real, distinct dynamical form (separable from FRONTIER **and** from Λ during the drain-active era; `D[ON,Λ]≈0.895` at frontier-best-mimic); **CONSISTENCY-class, κ free ⇒ no emergence**. (ii) **WRONG-INSTRUMENT CLOSURE BANKED** — the attribution is homogeneously invisible at late epochs (chord → Λ past window-start `τ₀≈300`; the two-limits map quantifies it); the chord's discriminating **home = the SPATIAL cross-correlation channel** (`dark-energy-latent-heat-definition.md:158-161` class). The charter a-priori ("bin (iii) FORM-DEGENERATE expected on physical") was **FALSIFIED by the driver** (Rule 11 — bins not dropped/retuned). | **Grant (★RULED — BOTH)** |
 
 **Grant's walked refinement (ruling-grade walked input, ★QUARANTINE-tagged — "effectively off now, but not really").** The CHORD tap (matter-occupancy) is **effectively closed at late times** (matter dilution) — which is exactly why homogeneous averages read Λ. But the **FRONTIER mechanism** (expansion-boundary node-genesis drawing on `ρ_latent` at `3H` — reading-ii) **continues as long as expansion does**, asymptotically at the de Sitter rate `H∞`; in that limit its throughput also decays toward Λ-like. The surviving observational discriminant is therefore the **matter→DE TRANSITION ERA** (where the taps were closing — the **w(z)-evolution window** of the survey channel), reinforcing the spatial/survey-channel home. **Rail (do not conflate):** cosmic-frontier node-genesis (new CELLS) ≠ soliton genesis (patterns) — the #670 G-PERSIST negative does **not** touch the frontier mechanism.
@@ -825,3 +825,351 @@ PR#/SHA/verdict/file:line on the board was gh/git-verified this session (verify-
 two-method where load-bearing — one brief-number flag surfaced: the "~50/5" finding tally
 undercounts, verified 61 confirmed across the 5 wrapper reviews). Records queue-state, not
 adjudicated physics; nothing here canonizes.*
+
+---
+
+## Continuation — 2026-07-14 (late): five in-chat rulings, walk-level context
+
+Five rulings Grant made **in-chat** during the late 2026-07-14 session (after the eight-lane
+batch board, PR #694). This continuation is **documentation-only**: for each ruling it records
+(1) the ruling verbatim-faithful, (2) the physical walk that grounded it, (3) the consequence it
+**registers**, and (4) the authoritative in-repo site it resolves. **Nothing here is executed.**
+Every downstream consequence — KB edits, re-tag propagation, docket row-moves, the meter build,
+prereg freezes, auditor items — is **REGISTERED-NOT-EXECUTED** and **HELD** pending Grant's
+adjudication of the remaining opens and a full possibility-map review (see *Held state* below).
+Nothing here canonizes. **DO-NOT-MERGE**; only the orchestrator/Grant merges.
+
+**Cite-provenance (verify-before-cite, two-method, this session).** Every `file:line` below was
+verified by two independent methods (line-range read + content grep). Base = `origin/main`
+`25b3b911` (the #691 merge). **Three result docs, one frozen prereg, and the batch board are NOT
+on `origin/main`** — they live on their in-flight **DO-NOT-MERGE** PR branches:
+`analysis/gpersist-localization-observable` (#689 @ `71b451ba`),
+`analysis/cavity-census-stage1` (#692 @ `1dd9485a`),
+`analysis/qed-trace-screening-sum` (#693 @ `4d3355b0`),
+`docs/2026-07-14-batch-outcomes` (#694 @ `c2df2c31`). Each branch's local tip equals its `origin/`
+tip and the cited lines verify against those tips. Ruling 1's sites (the T_ij–X44b charter, the X44
+result, `backreaction.py`) ARE on `origin/main` (charter merged via #688). Cites are given as
+backtick `path:line` spans (not Markdown links) precisely because the in-flight files do not
+resolve on this branch.
+
+### Ruling 1 — F6 Komar-clock register: √S (slope-1) IS the clock — CONFIRMED
+
+**Ruling (paraphrase, faithful).** On Flag F6, Grant confirmed that the **slope-1** quantity
+`√g₀₀ = √S` **IS the local clock / Komar-redshift weight**. The engine's live `komar_weight`
+(`src/ave/gravity/backreaction.py:235-252`, `return np.sqrt(S)`, docstring *"Redshift / Komar
+weight √S(A) on the local clock (Grant RULED (c), X44)"*) is on the correct side; the slope-2
+`n = 1 + (2/7)ε₁₁` deflection index (`ray_trace_deflection`) is a **propagation** index, not a
+clock.
+
+**The walk that grounded it (paraphrase).** The **local clock** = how quickly a mass region can
+*compress-and-rebound in place* against the external strain state (the asymptotic reference). The
+**propagation index** = how quickly the stress region *translates to new regions*. Refinement
+Grant accepted: **transport pays both** the slowed local tick **and** the strained hand-off path
+— the **slope-2 composition**; a **local oscillator pays only the first** (the tick). The
+**Komar/Tolman ledger sums per-cell in-place readings** — it never rides a signal across the
+strained region — so it weights by the **slope-1** in-place clock `√S`, not the slope-2
+propagation index. Read from the source side, this is the `z = (n_temporal − 1)/2` bridge: a
+propagating signal picks up 2× the local clock, but the source integral sees the 1× only.
+
+**What it resolves.** The Flag F6 **cross-source contradiction**
+(`research/2026-07-14_tij-x44b_CHARTER.md:251`, `:272`; charter ingredient-1 at `:106`). The
+**prevailing side**: the **W2 walk-back** + Grant's **RULED (c)** + the live `komar_weight` (all:
+`√S` IS the slope-1 clock/redshift). The **falsified side**: **X44 §5b(i)**
+(`research/2026-07-12_x44-komar-source_result.md:126-138`), which called `√S` the "EM
+operating-point / wrong register" and named the **linear** `n = 1 + (2/7)ε` the gravitational
+clock. The charter surfaced this *flag-don't-fix* (`:272`, *"a real cross-source contradiction …
+the X44b prereg must resolve which register is the clock before freezing"*); Grant has now
+adjudicated it: **X44 §5b(i) is the wrong side; √S (slope-1) is the clock.**
+
+**Registered — NOT executed.**
+- The **X44 §5b(i) falsifying-evidence relabel** — mark `:126-138` as the falsified side (auditor
+  queue). NOT fired.
+- The **X44b prereg may now name the clock register** (slope-1 `√g₀₀`, not slope-2 `n`) **at
+  freeze** — the charter required exactly this before freezing (`:106`, *"MUST name WHICH temporal
+  register is the clock … BEFORE freezing"*). **UNBLOCKED by this ruling, but NOT fired** (the
+  prereg is neither written nor frozen here).
+
+**Site it resolves:** `research/2026-07-14_tij-x44b_CHARTER.md:251` (Flag F6), `:272` (auditor-queue
+item), `:106` (ingredient-1); live engine `src/ave/gravity/backreaction.py:235-252`; falsified side
+`research/2026-07-12_x44-komar-source_result.md:126-138` (§5b(i)).
+
+### Ruling 2 — #689 meter register: KEEP-BOTH, GATED on the circuit-ontology mapping
+
+**Ruling (in-chat verbatim).** Grant: *"let's do the work to complete the mapping for the circuit
+ontology and make sure that accurately [captures] the dynamics we're after and that we fully label
+everything — but if we do that, I'm OK with the KEEP-BOTH path being unblocked."* (The `[captures]`
+bracket is an editorial insertion into the verbatim.) **KEEP-BOTH, GATED on completing the
+circuit-ontology mapping.**
+
+**What triggered it.** The #689 localization meter shipped **potential-only**: `e_dens` omits the
+Cosserat **kinetic** register (~44% of H on the fork cells). The frozen prereg (line 85) sells
+`E_dens` as the "spatial parallel of `E_persist`", but `E_persist` is a **kinetic-inclusive**
+H-ratio — so the meter measures a *different register* than the scalar it claims to parallel.
+Review finding #3 was **ESCALATED — STOP+report, NOT re-banked**
+(`research/2026-07-14_gpersist-localization-observable_RESULT.md:330`; escalation autopsy
+`:336-377`): the composed (min-image + kinetic) re-run kept the **fork verdict robust** (fork
+cells disperse *harder*) but **moved four non-fork bins**, so per the cluster-3 STOP rule the
+kinetic term was not committed and the composed numbers were not banked — register choice is
+framing-level, surfaced to Grant.
+
+**The mapping spec Grant registered (NOT fired).** Per his walk, the circuit-ontology mapping that
+unblocks KEEP-BOTH must:
+1. **Label both registers fully.** Potential = **node-capacitor charge** (strain / displacement);
+   kinetic = **inductor currents** (velocities / rotation rates, **bond-resident**, ~44% of H at
+   read).
+2. **Pin the bond-energy attribution convention** — half-to-each-endpoint, or an alternative,
+   *stated* (bond-resident energy has no a-priori node home).
+3. **Pin sponge-region handling** — the PML termination cells are **likely excluded** from the read
+   region: the resistive ladder holds **transit current that is not "the blob."**
+4. **Check the labeled meter answers the fork's actual question** — localization of the **energy
+   blob**, in **both** registers.
+
+**Resolution shape.** **Bank the frozen potential-only run for this PR**; the kinetic column is a
+**disclosed companion** (not the banked verdict); the **full register is mandatory forward**.
+KEEP-BOTH is unblocked *only after* the mapping above is built and labeled — **the mapping is the
+gate, not this ruling.**
+
+**Registered — NOT executed.** The **meter circuit-ontology mapping build** (items 1–4). NOT fired
+here.
+
+**Site it resolves:** `research/2026-07-14_gpersist-localization-observable_RESULT.md:330`
+(finding-#3 escalation row), `:336-377` (the ESCALATED autopsy / cluster-3 STOP + potential-only-vs-
+composed table).
+
+### Ruling 3 — #689 enclosure fork: READING A (wake-feeding) — CONFIRMED
+
+**Ruling.** Grant **confirmed Reading A (wake-feeding)** as the source of the #689 LOOP-FILLING
+signature; the fork closes toward A. His frame **(in-chat verbatim):** *"the wake is the source of
+self/mutual induction."*
+
+**The walk that grounded it (paraphrase of the precise form recorded).** The ring's **own
+circulating current maintains the flux linkage**: on the lossless torus the traveling wave keeps
+circulating, and **every lap re-threads the measurement loop** — so the projection gauge counts
+laps (φ→10.5×) while the energy **delocalizes**. The meter confirms the energy is in the **ring
+current (spread)**, **not** a self-tightened core; there is no genesis-under-confinement
+self-tightening on this battery for these seeds
+(`research/2026-07-14_gpersist-localization-observable_RESULT.md:160`).
+
+**Scope fences (recorded).**
+- **G-PERSIST ★RULED is untouched.** The stamp flip rests on the **fork-independent PML φ-trend**
+  (boundary-clean φ-dispersion); that is exactly why the fork outcome does not move it — consistent
+  with the RESULT's own carve (`:164-166`) and the standing G-PERSIST docket rows.
+- **Formation-route scope only.** The result concerns the **N=14 genesis-persistence cells**
+  (formation route), **not** the real electron's sustenance. The driver returns discriminator data;
+  it does not fiat the fork — *"Carve — Grant rules the fork"* (`:167-168`).
+
+**Registered — NOT executed.** The **docket enclosure-fork rows move to RULED-READING-A** (via the
+auditor): the three G-PERSIST rows currently carrying *"Reading A … LEANED / KEEP-BOTH-OPEN"* at
+`_orchestration/2026-07-10_rulings-docket.md:435`, `:477`, `:502`. **NOT moved here** — this
+continuation is append-only and does not edit those rows.
+
+**Site it resolves:** `research/2026-07-14_gpersist-localization-observable_RESULT.md:160` (Reading A
+CONFIRMED / fork closes toward A), `:167-168` (the "Grant rules the fork" carve).
+
+### Ruling 4 — #692 LA freeze-fidelity: RATIFIED
+
+**Ruling (in-chat verbatim).** Grant: *"ratify"* — after the implications walk. He ratified that
+reading the **LA (linear-algebra) fundamental** is **freeze-fidelity** to "lowest interior mode"
+(**not** a post-hoc target move); the **SA defect-band read** was the actual deviation, kept
+alongside (KEEP-BOTH). The verdict is unchanged: **non-(2,3) on both spectral ends.**
+
+**Implications recorded (Grant's walk).**
+- **(a) The D3 stress-test loop CLOSES.** COEXIST **stands**; the (2,3) **SELECTION stays
+  imported** — now **tested-not-conceded** (the census stress-tested the ruled-COEXIST's two legs
+  and did not break them).
+- **(b) The scope theorem.** The **cold-linear lattice has no winding to give**: a Hermitian
+  real-symmetric H ⇒ real eigenvectors ⇒ **no basis-invariant winding** — confirmed at **both**
+  spectral ends, with the detector **validated by planted controls**. So selection, **if** it
+  exists, is a **DRIVEN / NONLINEAR** phenomenon.
+- **(c) Burden formally moves to census Stage-2 (driven).** The **cold leg is structurally
+  incapable of hosting a positive control, permanently** — a cold-linear positive control cannot
+  exist, so the question can only be answered in the driven regime.
+- **(d) Untouched:** electron existence, the mass sector, the carrier results, and the Wall-A
+  floor-test confirmation.
+
+**Registered — NOT executed.** The **D3 docket-row move** (record the stress-test loop closed /
+COEXIST tested-not-conceded) via the auditor. NOT moved here.
+
+**Site it resolves:** `research/2026-07-14_cavity-census-stage1_RESULT.md:545-547` (the "ratify LA
+fundamental = freeze-fidelity, not a post-hoc target move; verdict unchanged non-(2,3)"
+adjudication), `:488-489` ("what remains for Grant" + the KEEP-BOTH SA read).
+
+### Ruling 5 — #693 "intervening cells" = THE RUN reading — RATIFIED
+
+**Ruling.** Grant ratified that **"intervening cells"** (prereg §4:157) means **the run between the
+collars**, **NOT** the dress-slicing cylinder — so the frozen **RELABELED-PAIRWISE** re-tag
+**FIRES**. (Verbatim term quoted: *"intervening cells"*; the rest below is the repaint that carried
+the ruling.)
+
+**The repaint that resolved Grant's objection.** Grant correctly insisted the medium between two
+solitons **of course participates** — **the springs carry the force**. The resolution is the
+**two-jobs carve**:
+- **JOB ONE — the medium as TRANSMISSION LINE** carrying the **bare 1/R²**. Never in question,
+  never tested; it is the **normalization baseline** (AVE is a **contact theory** — the medium *is*
+  how the force gets across).
+- **JOB TWO — the medium as ACTIVE DIELECTRIC** modifying the coupling: the **departure-from-bare**,
+  `α_eff(R)`. This splits into **path physics** (per-decade accumulation — the QED-log shape) vs
+  **endpoint physics** (each charge's **~10-cell saturated collar**; beyond it the induced
+  polarization falls **~s⁻⁶**).
+
+**Corrected decomposition.** Suppressing the **entire run's** polarization response changes the
+correction by **~0.02%**; the **collars carry ~100%**
+(`research/2026-07-14_screening-sum-gate_RESULT.md:233`). The **run is rigid** ⇒ **nothing
+accumulates per decade** ⇒ the **no-log verdict is mechanistically explained** — it is a named
+mechanism, not a null-of-ignorance.
+
+**Plumber form on record.** Towers–pipes–manifolds: the **pipes carry the pressure** (job one); the
+**correction lives in the two manifolds**, not the run; a **rigid run = no log**.
+
+**What it means for the frozen rule.** The frozen genuineness knife
+(`research/2026-07-14_screening-sum-gate_prereg_FROZEN.md:157`, §4: *"removing the intervening cells
+does not change the result → RELABELED-PAIRWISE"*) is read with "intervening cells" = the **genuine
+mid-bridge medium** (excluding each probe's own near dress). The two do-not-bury FLAGGED-for-Grant
+blocks in the result (`research/2026-07-14_screening-sum-gate_RESULT.md:50-53`, `:237-239`) are the
+crux interpretive step; Grant has now **ratified the mid-bridge reading**.
+
+**Sector fence.** **E-sector static dielectric, transfer register** — this is about **charges, not
+masses.**
+
+**Registered — NOT executed.** The **`q-g20f` re-tag propagation** ("Identical (RT-equivalence)" →
+scoped-import), **with the enumerated scope bound in**, via the auditor — **GATED until Grant's
+full-picture session completes.** NOT fired here.
+
+**Site it resolves:** `research/2026-07-14_screening-sum-gate_RESULT.md:50-53` (the do-not-bury FLAG
++ KEEP-BOTH shipped-cylinder-vs-corrected), `:237-239` (the frozen-rule reading); the frozen rule at
+`research/2026-07-14_screening-sum-gate_prereg_FROZEN.md:157` (§4).
+
+### Held state — Grant's standing directive + held executables
+
+**Standing directive (verbatim-faithful).** **No further actions.** The remaining opens — **F5
+(knee-vs-wall** on the yield surface), **#691 canonization (default-NO)**, and the **envelope-LENGTH
+mint on §45** — are to be **adjudicated next**. **Then a full possibility-map review BEFORE any
+execution.** Nothing on the held list below fires until that review completes.
+
+| # | Held executable | Owner-lane when released | Gated by |
+|---|---|---|---|
+| 1 | **X44 §5b(i) falsifying-evidence relabel** (`research/2026-07-12_x44-komar-source_result.md:126-138` → mark as falsified side) | auditor | Ruling 1 (may fire once opens clear) |
+| 2 | **Meter circuit-ontology mapping build** (Ruling 2 items 1–4: both registers labeled · bond-attribution pinned · sponge/PML handling pinned · fork-question check) | implementer | Ruling 2 (the mapping *is* the gate) |
+| 3 | **Docket fork/D3 row moves** — G-PERSIST enclosure rows → RULED-READING-A (`_orchestration/2026-07-10_rulings-docket.md:435,:477,:502`); D3 row → stress-test-loop-closed | auditor | Rulings 3 + 4 |
+| 4 | **`q-g20f` re-tag propagation** (scoped-import, enumerated scope bound in) | auditor | Ruling 5 **+ Grant's full-picture session** |
+| 5 | **X44b prereg** (name the clock register — slope-1 `√g₀₀` — at freeze) — UNBLOCKED by Ruling 1, **not fired** | implementer | possibility-map review |
+| 6 | **All board §3 queued work** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md` §3 — QUEUED FOLLOW-ON WORK, registered NOT fired) | mixed | possibility-map review |
+
+All six are **REGISTERED-NOT-EXECUTED**. This continuation records ruling-state and the held queue;
+it **executes none of it** and **canonizes nothing.**
+
+*Append-only continuation (2026-07-14 late) — all prior docket content byte-untouched. Cites
+verified two-method at base `origin/main` `25b3b911`; in-flight files verified against their
+PR-branch tips (#689 / #692 / #693 / #694, local == origin). DO-NOT-MERGE; only the
+orchestrator/Grant merges. Nothing here canonizes; every consequence is HELD pending Grant's
+possibility-map review.*
+
+---
+
+## Continuation — 2026-07-14 (night): three further in-chat rulings — F5, canonization, envelope mint
+
+Three further rulings Grant made **in-chat** during the night 2026-07-14 session — after the
+five-rulings continuation above and after the eight-lane batch board (#694). These adjudicate the
+three items the batch board still flagged for Grant: decision-queue **#7 (F5 knee-vs-wall)**, **#6
+(#691 canonization)**, **#8 (envelope-LENGTH mint)** — `_orchestration/2026-07-14_batch-outcomes-and-actions.md:80-82`.
+For each ruling this continuation records (1) the ruling **verbatim** where one exists (marked), (2)
+the physical walk that grounded it (**paraphrase-faithful**, marked), (3) the consequence — with its
+execution-status tagged, and (4) the in-repo site it resolves. **Cites verified two-method**
+(line-range read + content grep) at merged base `origin/main` `bb58727f`; the charter,
+vocabulary-register, and #691 RESULT sites are on `origin/main`. **DO-NOT-MERGE**; only the
+orchestrator/Grant merges. **Nothing here canonizes**; the FORM mint of Ruling 8 is landed by the KB
+lane (this docket records the ruling and points at the leaves).
+
+### Ruling 6 — F5: the conjecture meant THE WALL — RESOLVED
+
+**Ruling (Grant verbatim).** *"yes, that's what I meant for F5"* — resolving Flag F5's KEEP-BOTH
+(two same-day Grant inputs in tension on the yield surface). **The conjecture meant the WALL**
+(ROLE-2), not the deficit knee (ROLE-3).
+
+**The knee/wall carve (context walk, paraphrase-faithful).**
+- **Knee** = the **proportional limit** — the **`A²=2α` contour** where the kernel deficit
+  `1−S = 1−√(1−2α) ≈ α` (**ΔS = α**); the **onset-of-load-transfer**, `Γ ≈ −0.002`. (ROLE-3.)
+- **Wall** = the **fully-yielded `S→0` surface** — polarization compliance **exhausted**, the
+  **`|Γ|=1` mirror**; carries **M / Q / J**; ground state **pinned at the ropelength floor
+  `ℓ_node/2π`**. (ROLE-2.)
+
+These match the charter's F5 statement (`research/2026-07-14_tij-x44b_CHARTER.md:250`: knee = ROLE-3
+`A²=2α`, `S≈0.993`, `Γ≈−0.002`, "never the TIR wall"; wall = ROLE-2 `S(A)→0` / `Γ=−1`, floor
+`ℓ_node/2π ≈ 0.159`) and the Wall-A ruling's three ROLE rows
+(`_orchestration/2026-07-10_rulings-docket.md:606-608`; floor `:522`, rail `:533`).
+
+**Grant's walked physical picture (paraphrase-faithful, recorded).** An external **static field** =
+a **DC bias across the dress**. A **uniform** field = **common-mode bias** — the ground state is
+**floor-protected** (incompressibility: you cannot squeeze a closed loop below its ropelength). A
+**gradient** field = **differential bias** → **asymmetric Maxwell stress** → **envelope
+deformation**. **Excited states** (floor-lifted — the census-confirmed rider) are **genuinely
+compressible**.
+
+**Consequence — REGISTERED-NOT-EXECUTED-BEYOND-THIS-WAVE.** Gate-(b) pre-registration:
+`R_balance ≡ R_yield`-**the-WALL** confirms the conjecture — with **F3's `1.6`-vs-`0.159`** (the
+balance-radius vs floor-radius contradiction, charter Flag F3, `research/2026-07-14_tij-x44b_CHARTER.md:123,126`;
+gate-(b) acceptance test `:132`) **riding the same measurement**. The gate-(b) envelope-eigenmode
+freeze is **not written or fired here**; this ruling only fixes which surface it measures.
+
+**Site it resolves:** `research/2026-07-14_tij-x44b_CHARTER.md:250` (Flag F5 KEEP-BOTH → WALL); the
+ROLE-2/ROLE-3/floor split at `:121`, `:125`; the gate-(b) radius-discriminating acceptance test at
+`:132`; the Wall-A ruling `_orchestration/2026-07-10_rulings-docket.md:606-608` (three ROLE rows),
+`:522` (floor), `:533` (rail).
+
+### Ruling 7 — #691 canonization: NO — RULED
+
+**Ruling (Grant verbatim).** *"no, we need to be firm on our claims."* — on whether to canonize a
+`NEUTRON_ELECTRON_RATIO` / `M_N_MEV_AVE` into `ave.core.constants`. **NO.**
+
+**What it settles.** **C5 stays OPEN**; the **#676 n–p-gate detector stays clean** (canonization
+would flip that corpus-state detector by design); **no NEUTRON value enters `constants.py`** — the
+file keeps only the CODATA `M_N_MEV_TARGET` with its standing note that *"no framework derivation has
+yet been adopted for the neutron mass"* (`src/ave/core/constants.py:1135,1138`), i.e. **no
+derived/AVE neutron value**. **Revisit only if** the 3D composite (Faddeev-Skyrme) build lands a
+**magnitude in-band** — the #691 1D-radial proxy is bin (iii) RIGHT-SIGN-WRONG-MAGNITUDE (~15×) and
+its δ_th ablation is **channel-blind**, so C5 is **not adjudicated by the proxy**.
+
+**Site it resolves:** batch board decision **#6** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md:80`);
+the #691 RESULT C5-OPEN + "detector clean by design"
+(`research/2026-07-14_route-a-composite-fs_RESULT.md:110-111`, `:194-199`); `src/ave/core/constants.py:1135,1138`
+(CODATA target + standing "no framework derivation adopted" note; no AVE neutron value).
+
+### Ruling 8 — envelope mint: OPTION C — RULED
+
+**Ruling (Grant verbatim).** *"I like C for that."* — on how to mint the envelope. **OPTION C: mint
+the THREE-SURFACE ANATOMY as FORM; values stay gate-measured.**
+
+**The three-surface anatomy (FORM minted; values gate-measured).**
+- **(i) wall / floor** — the **mirror**; ground state at the ropelength floor `ℓ_node/2π ≈ 0.159
+  ℓ_node`.
+- **(ii) balance shell** — the corpus **soft number `~1.6 ℓ_node`**; status: **conjectured ≡ wall**
+  per Ruling 6, **gate-(b) adjudicated**.
+- **(iii) knee / dress-edge** — the **`ΔS = α` contour**; radius is a **REGISTERED CHECK** (is the
+  #693 `~10-cell` collar edge the knee contour? — running as a Wave-0 sibling lane).
+
+**Word-level sub-choice.** *"envelope" retires* vs *"envelope = the wall"* is **PROPOSED as
+"envelope = the wall"** in the KB lane's mint, **pending Grant confirm at merge**.
+
+**Canon-worthy walk findings — recorded BY POINTER (the KB lane lands the leaves).**
+- the **knee/wall stress–strain mapping**;
+- the **PATH-PARTICIPATION ASYMMETRY** — the EM correction is **endpoint physics** (collar-bound,
+  `s⁻⁶`) while gravity is **ledger physics** (a clock-weighted Komar volume integral): **same kernel
+  and stress register, inverted integration structure** — which is why gravity is **long-range
+  unscreened** and the EM correction **short-range** out of one substrate;
+- the **radial-ladder circuit table** — far-field **linear ladder** / **knee** = varactor-bias onset
+  / **dress** / **wall** = compliance-exhausted `|Γ|=1` / **floor** = minimum closed loop.
+
+**Consequence — FORM MINT LANDED BY THE KB LANE (not here).** This docket records the ruling and
+points at the leaves; the values stay **gate-measured**, not asserted. The mint targets the gated
+envelope def-nodes (`manuscript/ave-kb/common/vocabulary-register.md:367` `r_env` `def-088f0d`,
+`:382` node-Nyquist `def-e0cd83`, `:386` `def-envl0p` GATE), still gated on the **§45 A-vs-B**
+canonical fork (sub-node charge-core vs supra-node body envelope) until Grant's confirm.
+
+**Site it resolves:** batch board decision **#8** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md:82`);
+the envelope def-nodes `manuscript/ave-kb/common/vocabulary-register.md:367,382,386`; the §45 fork +
+docket status-board rows `_orchestration/2026-07-10_rulings-docket.md:724,782`.
+
+*Append-only continuation (2026-07-14 night) — all prior docket content byte-untouched (origin/main
+region, first 95658 bytes, sha256 `8df5b9f5…`). Cites verified two-method at merged base `origin/main`
+`bb58727f`. DO-NOT-MERGE; only the orchestrator/Grant merges. Ruling 6's gate-(b) consequence is
+REGISTERED-NOT-EXECUTED; Ruling 8's FORM mint is landed by the KB lane. Nothing here canonizes.*
