@@ -1020,7 +1020,22 @@ full-picture session completes.** NOT fired here.
 
 ### Held state — Grant's standing directive + held executables
 
-<!-- fill:held -->
+**Standing directive (verbatim-faithful).** **No further actions.** The remaining opens — **F5
+(knee-vs-wall** on the yield surface), **#691 canonization (default-NO)**, and the **envelope-LENGTH
+mint on §45** — are to be **adjudicated next**. **Then a full possibility-map review BEFORE any
+execution.** Nothing on the held list below fires until that review completes.
+
+| # | Held executable | Owner-lane when released | Gated by |
+|---|---|---|---|
+| 1 | **X44 §5b(i) falsifying-evidence relabel** (`research/2026-07-12_x44-komar-source_result.md:126-138` → mark as falsified side) | auditor | Ruling 1 (may fire once opens clear) |
+| 2 | **Meter circuit-ontology mapping build** (Ruling 2 items 1–4: both registers labeled · bond-attribution pinned · sponge/PML handling pinned · fork-question check) | implementer | Ruling 2 (the mapping *is* the gate) |
+| 3 | **Docket fork/D3 row moves** — G-PERSIST enclosure rows → RULED-READING-A (`_orchestration/2026-07-10_rulings-docket.md:435,:477,:502`); D3 row → stress-test-loop-closed | auditor | Rulings 3 + 4 |
+| 4 | **`q-g20f` re-tag propagation** (scoped-import, enumerated scope bound in) | auditor | Ruling 5 **+ Grant's full-picture session** |
+| 5 | **X44b prereg** (name the clock register — slope-1 `√g₀₀` — at freeze) — UNBLOCKED by Ruling 1, **not fired** | implementer | possibility-map review |
+| 6 | **All board §3 queued work** (`_orchestration/2026-07-14_batch-outcomes-and-actions.md` §3 — QUEUED FOLLOW-ON WORK, registered NOT fired) | mixed | possibility-map review |
+
+All six are **REGISTERED-NOT-EXECUTED**. This continuation records ruling-state and the held queue;
+it **executes none of it** and **canonizes nothing.**
 
 *Append-only continuation (2026-07-14 late) — all prior docket content byte-untouched. Cites
 verified two-method at base `origin/main` `25b3b911`; in-flight files verified against their
