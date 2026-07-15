@@ -311,7 +311,8 @@ def analyze_run(rec, w0: float):
     shape_iso = msd_loglog_slope(dphi_iso)
     var_iso = float(dphi_iso.var())
     return dict(mean_shift=mean_shift, var_end=var_end, shape=shape, D=D,
-                shape_iso=shape_iso, var_iso=var_iso, dphi_rms=float(dphi.std()))
+                shape_iso=shape_iso, var_iso=var_iso, dphi_rms=float(dphi.std()),
+                msd=msd_curve(dphi).tolist())
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -372,6 +373,56 @@ def run_sweep(*, N=N_LATTICE, n_modes=BATH_MODES, nsteps=N_STEPS,
                 verdict_meaning=VERDICT_MEANING[verdict])
 
 
+def make_figure(res, out_png: Path):
+    """White house-style figure: (A) MSD shape kernel ON vs OFF, (B) D(u) ON vs
+    OFF with the linear-in-u guide, (C) kernel-excess + isolated-Op14 shape vs u."""
+    import matplotlib.pyplot as plt
+
+    from ave.viz.style import apply as apply_style
+    apply_style("print")
+
+    us = np.array(res["us"])
+    per_u = res["per_u"]
+    taus = MSD_TAUS
+    fig, (axA, axB, axC) = plt.subplots(1, 3, figsize=(13, 4.0))
+
+    # (A) MSD(tau), kernel ON vs OFF, at the largest sub-R_I u
+    u_ref = us[min(2, len(us) - 1)]
+    for kk, color, ls in (("on", "#0072B2", "-"), ("off", "#D55E00", "--")):
+        m = np.median([r["msd"] for r in per_u[u_ref][kk]], axis=0)
+        axA.loglog(taus, m, ls, color=color, marker="o", label=f"kernel {kk.upper()}")
+    axA.loglog(taus, m[0] * (taus / taus[0]) ** 1.0, ":", color="0.4", label=r"$\propto\tau$ (diffusive)")
+    axA.set_xlabel(r"lag $\tau$ (steps)"); axA.set_ylabel(r"MSD $\langle\Delta\phi^2\rangle$ (rad$^2$)")
+    axA.set_title(f"(A) differential-phase MSD\n(u_bath={u_ref:.1e})"); axA.legend(fontsize=8)
+
+    # (B) D(u), ON vs OFF
+    D_on = [np.median([r["D"] for r in per_u[u]["on"]]) for u in us]
+    D_off = [np.median([r["D"] for r in per_u[u]["off"]]) for u in us]
+    axB.loglog(us, D_on, "o-", color="#0072B2", label="kernel ON (Op14)")
+    axB.loglog(us, D_off, "s--", color="#D55E00", label="kernel OFF (linear)")
+    axB.loglog(us, D_on[0] * (us / us[0]) ** 1.0, ":", color="0.4", label=r"$\propto u$ (linear)")
+    axB.set_xlabel(r"bath energy density $u_{\rm bath}$"); axB.set_ylabel("D (rad$^2$/step)")
+    axB.set_title("(B) diffusion vs bath energy\n(ON $\\approx$ OFF $\\Rightarrow$ additive)")
+    axB.legend(fontsize=8)
+
+    # (C) kernel-excess fraction + isolated-Op14 shape vs u
+    excess = [(np.median([r["var_end"] for r in per_u[u]["on"]])
+               - np.median([r["var_end"] for r in per_u[u]["off"]]))
+              / (np.median([r["var_end"] for r in per_u[u]["on"]]) + 1e-30) for u in us]
+    shp_iso = [np.median([r["shape_iso"] for r in per_u[u]["on"]]) for u in us]
+    axC.semilogx(us, excess, "o-", color="#009E73", label="kernel-excess frac")
+    axC.axhline(EXCESS_MIN, ls=":", color="0.4", label=f"EXCESS_MIN={EXCESS_MIN}")
+    axC.semilogx(us, shp_iso, "^--", color="#CC79A7", label="isolated-Op14 MSD slope")
+    axC.axhline(BOUNDED_HI, ls="-.", color="0.6", label=f"BOUNDED_HI={BOUNDED_HI}")
+    axC.set_xlabel(r"bath energy density $u_{\rm bath}$"); axC.set_ylabel("fraction / slope")
+    axC.set_title("(C) mechanism attribution\n(excess $<$ 0.5, isolated bounded)")
+    axC.legend(fontsize=8)
+
+    fig.tight_layout()
+    fig.savefig(out_png, dpi=140)
+    plt.close(fig)
+
+
 def _control_span(kon, N, n_modes, nsteps, clk_amp):
     rec = run_once(0.0, 0, kon, N=N, n_modes=n_modes, nsteps=nsteps, clk_amp=clk_amp)
     e = EDGE_TRIM
@@ -416,8 +467,24 @@ def main(argv=None):
                         P_LIN_LO=P_LIN_LO, P_LIN_HI=P_LIN_HI, EXCESS_MIN=EXCESS_MIN),
     )
 
+    # per-u median tables (kept; the two halves of the walk + regime witnesses)
+    per_u_medians = {}
+    for u, byk in res["per_u"].items():
+        entry = {}
+        for kk, recs in byk.items():
+            entry[kk] = dict(
+                D=float(np.median([r["D"] for r in recs])),
+                shape=float(np.median([r["shape"] for r in recs])),
+                shape_iso=float(np.median([r["shape_iso"] for r in recs])),
+                var_end=float(np.median([r["var_end"] for r in recs])),
+                mean_shift=float(np.median([r["mean_shift"] for r in recs])),
+                dphi_rms=float(np.median([r["dphi_rms"] for r in recs])),
+                max_strain=float(np.max([r["max_strain"] for r in recs])),
+            )
+        per_u_medians[str(u)] = entry
     # strip bulky per_u before JSON (keep reduced medians)
     reduced = {k: v for k, v in res.items() if k != "per_u"}
+    reduced["per_u_medians"] = per_u_medians
     reduced["max_strain"] = float(np.max([
         r["max_strain"] for u in res["per_u"] for kk in res["per_u"][u]
         for r in res["per_u"][u][kk]
@@ -428,6 +495,10 @@ def main(argv=None):
     ]))
     out = out_dir / f"two_tank_decoherence_check_{tag}.json"
     out.write_text(json.dumps(reduced, indent=2, default=float))
+    try:
+        make_figure(res, out_dir / f"two_tank_decoherence_check_{tag}.png")
+    except Exception as exc:  # figure is a convenience; never gate the verdict on it
+        print(f"  [figure skipped: {exc}]")
 
     print(f"[{tag}] verdict = {res['verdict']}  ({res['wall_seconds']} s)")
     print(f"  {res['verdict_meaning']}")
