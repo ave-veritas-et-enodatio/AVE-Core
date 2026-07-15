@@ -874,7 +874,46 @@ item), `:106` (ingredient-1); live engine `src/ave/gravity/backreaction.py:235-2
 
 ### Ruling 2 — #689 meter register: KEEP-BOTH, GATED on the circuit-ontology mapping
 
-<!-- fill:R2 -->
+**Ruling (in-chat verbatim).** Grant: *"let's do the work to complete the mapping for the circuit
+ontology and make sure that accurately [captures] the dynamics we're after and that we fully label
+everything — but if we do that, I'm OK with the KEEP-BOTH path being unblocked."* (The `[captures]`
+bracket is an editorial insertion into the verbatim.) **KEEP-BOTH, GATED on completing the
+circuit-ontology mapping.**
+
+**What triggered it.** The #689 localization meter shipped **potential-only**: `e_dens` omits the
+Cosserat **kinetic** register (~44% of H on the fork cells). The frozen prereg (line 85) sells
+`E_dens` as the "spatial parallel of `E_persist`", but `E_persist` is a **kinetic-inclusive**
+H-ratio — so the meter measures a *different register* than the scalar it claims to parallel.
+Review finding #3 was **ESCALATED — STOP+report, NOT re-banked**
+(`research/2026-07-14_gpersist-localization-observable_RESULT.md:330`; escalation autopsy
+`:336-377`): the composed (min-image + kinetic) re-run kept the **fork verdict robust** (fork
+cells disperse *harder*) but **moved four non-fork bins**, so per the cluster-3 STOP rule the
+kinetic term was not committed and the composed numbers were not banked — register choice is
+framing-level, surfaced to Grant.
+
+**The mapping spec Grant registered (NOT fired).** Per his walk, the circuit-ontology mapping that
+unblocks KEEP-BOTH must:
+1. **Label both registers fully.** Potential = **node-capacitor charge** (strain / displacement);
+   kinetic = **inductor currents** (velocities / rotation rates, **bond-resident**, ~44% of H at
+   read).
+2. **Pin the bond-energy attribution convention** — half-to-each-endpoint, or an alternative,
+   *stated* (bond-resident energy has no a-priori node home).
+3. **Pin sponge-region handling** — the PML termination cells are **likely excluded** from the read
+   region: the resistive ladder holds **transit current that is not "the blob."**
+4. **Check the labeled meter answers the fork's actual question** — localization of the **energy
+   blob**, in **both** registers.
+
+**Resolution shape.** **Bank the frozen potential-only run for this PR**; the kinetic column is a
+**disclosed companion** (not the banked verdict); the **full register is mandatory forward**.
+KEEP-BOTH is unblocked *only after* the mapping above is built and labeled — **the mapping is the
+gate, not this ruling.**
+
+**Registered — NOT executed.** The **meter circuit-ontology mapping build** (items 1–4). NOT fired
+here.
+
+**Site it resolves:** `research/2026-07-14_gpersist-localization-observable_RESULT.md:330`
+(finding-#3 escalation row), `:336-377` (the ESCALATED autopsy / cluster-3 STOP + potential-only-vs-
+composed table).
 
 ### Ruling 3 — #689 enclosure fork: READING A (wake-feeding) — CONFIRMED
 
