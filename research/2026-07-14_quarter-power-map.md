@@ -363,7 +363,37 @@ chord credit; it is a re-expression with a corpus home.
 
 ## 7. DISCRIMINATION CHECK (symmetric standard)
 
-<!-- filled per-commit -->
+**The generic fence (NOT distinct).** A quarter-power from composing two square roots is
+textbook algebra — standard physics mints them constantly (Stefan-Boltzmann, Tully-Fisher fits,
+Kolmogorov, disk profiles; all present here as Family-D imports). Likewise **any rate/index of
+the form `1 − α/2 + O(α²)`** (the 0.9963 class): at leading order it is an unlabeled small kernel
+correction, degenerate with `√(1−α)` and with generic `O(α)` shifts — the near-collision (§4)
+proves rates cannot discriminate the contour. **Symmetric standard applied:** the Standard Model
+produces small-α-correction rates everywhere and gets a pass; AVE's 0.9963 rate class earns no
+chord credit either.
+
+**Candidate AVE-distinct content — the α-power bookkeeping of LENGTHS.** SM observables carry
+*integer* powers of α between length rungs (`λ̄_C → a₀ = λ̄_C/α → r_e = α·λ̄_C`); amplitudes carry
+`α^{1/2}` (via `e = √(4πα)`); **no SM observable is an `α^{1/4}` length ratio.** `r_knee/ℓ_node =
+(2α)^{−1/4}` is a physical length at a quarter-power of the coupling above the node/Compton rung
+(1.11 pm, sitting between `λ̄_C` and `a₀`) — a FORM SM does not make. Per the FORM-deriving /
+VALUE-importing meta-finding, the **FORM is the candidate; the VALUE rides the α-echo** (knee-NOTE
+`:248` already classifies it consistency-class, and this doc keeps it report-only).
+
+**What would COUNT as an observable consumer** (the criterion that decides chord-vs-identity):
+- a measurable onset/knee in the running-α reactive register at momentum transfer `q ~ 1/r_knee`
+  (the `qed_trace_beta_gate.py:108` dress is the natural host);
+- a correction-cloud (`r99`) envelope signature in a form-factor;
+- a bench observable whose GAP-dependence pins `2.877 ℓ_node` against the `8.278` voltage-strain
+  twin — which *simultaneously adjudicates the fork* (a Cleave-01-style gap-independence design).
+
+**The honest kill-line:** *if nothing observable consumes `r_knee`, the length member is internal
+bookkeeping and the ¼ story has no chord, only a tidy identity.*
+
+**Explicitly NOT distinct:** the clock 0.996 (rate = small correction); the birefringence `−¼A²`
+coefficient *as a quarter-power claim* (its distinctness case is the E-route coefficient vs
+Euler-Heisenberg — already the flagship lane; the ¼ exponent adds nothing to it); the c_shear
+register (internal consistency); everything in Families C/D.
 
 ## 8. GRANT'S OPEN QUESTIONS (ranked)
 
