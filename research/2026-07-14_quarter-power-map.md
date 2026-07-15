@@ -200,7 +200,38 @@ fork-conditional.
 
 ## 3. c_shear ADJUDICATION INPUT (present-both, no ruling)
 
-<!-- filled per-commit -->
+**SECTOR:** shear / matter-clock (deviatoric G-modulus). **REGIME:** cold→loaded, deficit
+knee at `A²=2α`. Present-both; the exponent question is presented, NOT ruled here.
+
+**What shipped code implements — `c_shear = c₀·√S = c₀·(1−A²)^{1/4}`, uniformly, in every
+live path:**
+- Op16 `universal_operators.py:1018,1022` (`c_base * (1.0 - ratio_sq) ** 0.25`)
+- `scale_invariant.py:294` (canonical docstring + `local_wave_speed` returns `c_base·√S`)
+- `gw_propagation.py:294` (`C_0 * np.sqrt(S)  # c·(1 − ε₁₁²)^(1/4)`)
+- `rupture_solver.py:120` (`C_0 * np.sqrt(S)  # c₀·√S = c₀·(1−r²)^{1/4}`)
+- `categorization.py:239` (`c_shear = float(np.sqrt(S))`)
+- facade `unified_engine.py:413` (`"c_shear_over_c0": np.sqrt(S)`)
+- acceptance spine `_transverse.py:85` (the "CONSTITUTIVE IDENTITY")
+
+The competing `S^{1/4}` (`= (1−A²)^{1/8}`) survives NOWHERE as a live c_shear. It persists only
+as: the DEC-1 sensitivity knob (`graded_vacuum_network.py:295,306`, adjudicated robust), figure/
+regression anchors, two stale docstrings, the live `1/64` coefficient (`cosserat_field_3d.py:482`),
+and the un-flipped `eq_axiom_4.tex:47` flag.
+
+**What the one-contour identity PREDICTS — `c₀√S` — via two independent forcings:**
+- **(a) The clock adjudication is upstream and the clock rides c_shear.** PR #690 ratified
+  `ω_local = (1−2α)^{1/4}` at the knee (op14 leaf `:22`), and `ω_local = ω_global·c_shear/c₀`.
+  If c_shear were `c₀·S^{1/4}`, the knee clock would be `(1−2α)^{1/8} = 0.998164` — contradicting
+  the adjudicated 0.996331. (Both recomputed this session.)
+- **(b) The dispersion chain admits exactly one half-power.** `G_eff = G₀S`, `c = √(G/ρ)` gives
+  one √. An `S^{1/4}` would require a quarter-root dispersion relation that exists nowhere in the
+  circuit vocabulary.
+
+**Net:** shipped register and one-contour prediction **AGREE** (√S). The residual work is
+**hygiene** (Family-E residue), NOT physics — **with one exception:** the *sign/ontology*
+selector (`n = S^{+1/2}` matter/bending vs `S^{−1/2}` binding wall; plan §ii-b; Op14 Z-sign note
+`cosserat_field_3d.py:422`) is a genuinely separate, still-open question, orthogonal to the
+exponent, and stays **PENDING Grant**.
 
 ## 4. THE CIRCUIT MAP — radial ladder with the quarter-power identity overlaid
 
