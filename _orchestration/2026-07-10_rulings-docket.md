@@ -947,7 +947,31 @@ CONFIRMED / fork closes toward A), `:167-168` (the "Grant rules the fork" carve)
 
 ### Ruling 4 — #692 LA freeze-fidelity: RATIFIED
 
-<!-- fill:R4 -->
+**Ruling (in-chat verbatim).** Grant: *"ratify"* — after the implications walk. He ratified that
+reading the **LA (linear-algebra) fundamental** is **freeze-fidelity** to "lowest interior mode"
+(**not** a post-hoc target move); the **SA defect-band read** was the actual deviation, kept
+alongside (KEEP-BOTH). The verdict is unchanged: **non-(2,3) on both spectral ends.**
+
+**Implications recorded (Grant's walk).**
+- **(a) The D3 stress-test loop CLOSES.** COEXIST **stands**; the (2,3) **SELECTION stays
+  imported** — now **tested-not-conceded** (the census stress-tested the ruled-COEXIST's two legs
+  and did not break them).
+- **(b) The scope theorem.** The **cold-linear lattice has no winding to give**: a Hermitian
+  real-symmetric H ⇒ real eigenvectors ⇒ **no basis-invariant winding** — confirmed at **both**
+  spectral ends, with the detector **validated by planted controls**. So selection, **if** it
+  exists, is a **DRIVEN / NONLINEAR** phenomenon.
+- **(c) Burden formally moves to census Stage-2 (driven).** The **cold leg is structurally
+  incapable of hosting a positive control, permanently** — a cold-linear positive control cannot
+  exist, so the question can only be answered in the driven regime.
+- **(d) Untouched:** electron existence, the mass sector, the carrier results, and the Wall-A
+  floor-test confirmation.
+
+**Registered — NOT executed.** The **D3 docket-row move** (record the stress-test loop closed /
+COEXIST tested-not-conceded) via the auditor. NOT moved here.
+
+**Site it resolves:** `research/2026-07-14_cavity-census-stage1_RESULT.md:545-547` (the "ratify LA
+fundamental = freeze-fidelity, not a post-hoc target move; verdict unchanged non-(2,3)"
+adjudication), `:488-489` ("what remains for Grant" + the KEEP-BOTH SA read).
 
 ### Ruling 5 — #693 "intervening cells" = THE RUN reading — RATIFIED
 
