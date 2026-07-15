@@ -316,7 +316,50 @@ pre-reg.
 
 ## 6. BIQUATERNION BINDING
 
-<!-- filled per-commit -->
+> **Corpus-thread verification FIRST (this section's gate).** Grepped AVE-Core (KB + research
+> + src + manuscript) for biquaternion / complex-quaternion / Clifford / SL(2,ℂ) / SU(2) /
+> double-cover content. **A substantial corpus thread EXISTS** (193 "biquaternion", 999
+> "Clifford", 108 "double cover", 409 "double-cover", 24 "SU(2)" hits; a dedicated KB leaf +
+> a verify driver + result docs). So the walked mapping is bound to it honestly — NOT landed
+> as a home-less proposal.
+
+**The corpus thread (canonical anchors):**
+- KB leaf `biquaternion-complex-coupled-network-equations.md` (Class-C consistency synthesis).
+- Result `research/2026-06-06_biquaternion-node-algebra-result.md` (the node-algebra
+  prove-or-disprove, with the G1–G3 genuinely-new gates).
+- `src/scripts/vol_1_foundations/verify_biquaternion_node_algebra.py`.
+
+**The corpus thread's VERDICT (load-bearing — the mapping is real but consistency-class):**
+the biquaternion is a **CONSISTENCY-CLASS re-expression, G1–G3 FAIL** (result `:13-21`):
+- **G1** (does ONE algebra FORCE closure + longitudinal + Möbius to co-occur?) — **FAIL**: they
+  co-occur (`SU(2) ⊂ SL(2,ℂ)`; scalar grade; null cone) but this is standard math over
+  already-canonical, independently-substrate-derived facts; no new primitive.
+- **G2** (does it forward-derive `α⁻¹ = 4π³+π²+π`?) — **FAIL**: the grades give the dimensional
+  skeleton `{3D,2D,1D}`, none of the π-powers.
+- **G3** (does it force a NEW testable longitudinal prediction?) — **FAIL**: re-expresses *why*
+  (Heaviside's deleted scalar), adds no new number/dispersion/coupling.
+
+The leaf `:84` states it outright: unit biquaternions `≅ SL(2,ℂ)`, adjoint action = the Lorentz
+group (textbook — Silberstein 1912/14, Conway, Lanczos); **"AVE adds no new algebra here — the
+biquaternion is coupling-layer notation (G1–G3 FAIL)."**
+
+**Honest bind of the walked rotation/boost split to this thread:**
+
+| Walked register (§5) | Biquaternion object | Corpus anchor | Status |
+|---|---|---|---|
+| **real quaternion part = ROTATION register** | real unit quaternions = `SU(2)` (the `i,j,k` rotation/spin sector); the `4π`-closure of `SU(2)`'s double cover is its instrument; Cosserat winding / the `(2,3)` integers ride this grade | result §3 `:75,:154,:159`; leaf rotation-flavor tag `:73` | structure holds; consistency-class |
+| **imaginary (ι) part = BOOST / SQUEEZE register** | the `ι`-complexification → `SL(2,ℂ)` Lorentz action = the `Γ`/impedance Möbius reflection on the Smith sphere; activates at the `ΔS=α` eccentricity-onset contour (§5), saturates at the wall (`Γ→∓1`) | result §5 `:263,:270,:276`; leaf `:79,:84` | structure holds; consistency-class |
+
+**The one honest divergence to flag (flag-don't-fix).** The corpus leaf's PRIMARY decomposition
+is a DIFFERENT axis-assignment: the scalar slot `w = V_A1 + ι·Q_wind` splits **`Re(w)=V_A1`
+(A1 dilatation / mass "3", leaf `:70`)** vs **`Im(w)=Q_wind` (charge = Link integer / shear "3",
+leaf `:71`)** — a mass-vs-charge split, NOT rotation-vs-boost. The walked rotation/boost split
+corresponds instead to the GROUP structure (`SU(2)` real ↔ `SL(2,ℂ)` complexified), which the
+result doc §3/§5 establishes but which is *orthogonal* to the leaf's port-slot decomposition.
+**Same object, two different reading-axes** — the walked reading shares the biquaternion with the
+corpus thread and matches its §3/§5 group structure, but it is not the leaf's §1 port-slot
+assignment, and it inherits the corpus's consistency-class (G1–G3 FAIL) verdict. It earns no
+chord credit; it is a re-expression with a corpus home.
 
 ## 7. DISCRIMINATION CHECK (symmetric standard)
 
