@@ -917,7 +917,33 @@ composed table).
 
 ### Ruling 3 — #689 enclosure fork: READING A (wake-feeding) — CONFIRMED
 
-<!-- fill:R3 -->
+**Ruling.** Grant **confirmed Reading A (wake-feeding)** as the source of the #689 LOOP-FILLING
+signature; the fork closes toward A. His frame **(in-chat verbatim):** *"the wake is the source of
+self/mutual induction."*
+
+**The walk that grounded it (paraphrase of the precise form recorded).** The ring's **own
+circulating current maintains the flux linkage**: on the lossless torus the traveling wave keeps
+circulating, and **every lap re-threads the measurement loop** — so the projection gauge counts
+laps (φ→10.5×) while the energy **delocalizes**. The meter confirms the energy is in the **ring
+current (spread)**, **not** a self-tightened core; there is no genesis-under-confinement
+self-tightening on this battery for these seeds
+(`research/2026-07-14_gpersist-localization-observable_RESULT.md:160`).
+
+**Scope fences (recorded).**
+- **G-PERSIST ★RULED is untouched.** The stamp flip rests on the **fork-independent PML φ-trend**
+  (boundary-clean φ-dispersion); that is exactly why the fork outcome does not move it — consistent
+  with the RESULT's own carve (`:164-166`) and the standing G-PERSIST docket rows.
+- **Formation-route scope only.** The result concerns the **N=14 genesis-persistence cells**
+  (formation route), **not** the real electron's sustenance. The driver returns discriminator data;
+  it does not fiat the fork — *"Carve — Grant rules the fork"* (`:167-168`).
+
+**Registered — NOT executed.** The **docket enclosure-fork rows move to RULED-READING-A** (via the
+auditor): the three G-PERSIST rows currently carrying *"Reading A … LEANED / KEEP-BOTH-OPEN"* at
+`_orchestration/2026-07-10_rulings-docket.md:435`, `:477`, `:502`. **NOT moved here** — this
+continuation is append-only and does not edit those rows.
+
+**Site it resolves:** `research/2026-07-14_gpersist-localization-observable_RESULT.md:160` (Reading A
+CONFIRMED / fork closes toward A), `:167-168` (the "Grant rules the fork" carve).
 
 ### Ruling 4 — #692 LA freeze-fidelity: RATIFIED
 
