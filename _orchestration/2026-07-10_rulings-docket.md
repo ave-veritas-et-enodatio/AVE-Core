@@ -1481,3 +1481,14 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **ℏ = lattice FD constant?** | **UNBANKED** (Grant: form not derived) | Canonical FDT remains classical Nyquist / ℏ-free (`clm-eaiqj1`). Not a FORM/VALUE 5th-instance workstream. Ratings-map §1 + parent F6 charter demoted. |
 | **Next F6 door = “Re(Z) absorb”?** | **FORBIDDEN as the plan** (Grant: most honest path) | Discriminator charter: `research/2026-07-15_f6-mode-count-door_CHARTER.md` — mode-count irreversibility without sub-yield friction; fool-mode-3 / FRICTION-RENAMED first-class. Ax3 retirement knife preserved. |
 | **#693 + #707** | Keep **separate** | Do not narrate as “one fact, two measurements.” |
+
+---
+
+## Continuation — 2026-07-16: F6 mode-count Arm A fired BIAS-MOVED
+
+| Item | Status |
+|---|---|
+| **Prereg freeze** | `17662232` pushed **before** driver (Step 3.11) — `research/2026-07-16_f6-mode-count-event-gated_prereg_FROZEN.md` |
+| **Arm A fire** | **BIAS-MOVED** — ΔN_occ=64 (mode-count LIVE); ΔS_core≫BIAS_TOL; soft ledger messy. Rule-11: do not retune. |
+| **Sabotage** | `--sabotage-friction` → **FRICTION-RENAMED** (Discriminator 7 pass) |
+| **Thermometer** | remains GATED |

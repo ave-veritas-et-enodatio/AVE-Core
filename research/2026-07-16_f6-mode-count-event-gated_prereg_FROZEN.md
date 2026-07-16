@@ -93,8 +93,19 @@ SEED = 1
 
 ## §5 Result
 
-*(empty until fire — fill after driver exists; Rule 11 honesty)*
+**Fired 2026-07-16** (prereg commit `17662232` pushed before driver; classify frozen).
 
----
+```
+VERDICT = BIAS-MOVED
+  ON  bath≈7.55  field≈0.044  core≈0.040  N_occ=64  events≈27289
+  OFF bath=0     field≈7.68   core≈0.313
+  soft_ledger |ΔE_field − bath| ≈ 3.76
+  ΔS_core ≈ +0.142  (≫ BIAS_TOL=5e-3)
+  ΔN_occ = 64  (mode-count detector LIVE — not FRICTION-RENAMED)
+```
 
-*Prereg only. No driver in the freeze commit. Arm A = hypothesis under the mode-count discriminator.*
+**Sabotage (Discriminator 7):** `--sabotage-friction` (scalar bath, no `b[m]` credit) → **FRICTION-RENAMED** as required.
+
+**Honest closure (Rule 11):** Arm A enlarges occupied bath mode-count and couples into V-phase, but **fails bias≠release** at the same protected-core knife as rung-2 (scatter / soft-ledger mismatch). Event-gating + multi-mode credit did **not** evade the BIAS-MOVED kill-shape. Do **not** retune `OCC_THRESH` / `PACKET` / `CORE_R`. This hypothesis arm is **not** CHANNEL-BOUNDED.
+
+Thermometer re-fire remains **GATED**. Next hypothesis under the same discriminator (if pursued): boundary-radiation arm — still not Re(Z) absorb.
