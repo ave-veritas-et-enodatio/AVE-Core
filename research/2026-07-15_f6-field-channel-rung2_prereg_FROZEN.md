@@ -67,6 +67,6 @@ VERDICT = BIAS-MOVED
   soft_ledger |ΔE_field − bath| ≈ 3.8  (scatter redistributes; not a clean transfer)
 ```
 
-**Honest closure (Rule 11):** the naive in-Hamiltonian scale-down of unprotected `V` **fails bias≠release** (and visibly couples into the protected core via scatter). This implementation class is **not** CHANNEL-BOUNDED as posed. Do **not** retune κ/mask to chase a pass — record the kill-shape and design the next door class (candidate: event-gated / matched-termination Re(Z) absorb with bath credit, not global amplitude scale).
+**Honest closure (Rule 11):** the naive in-Hamiltonian scale-down of unprotected `V` **fails bias≠release** (and visibly couples into the protected core via scatter). This implementation class is **not** CHANNEL-BOUNDED as posed. Do **not** retune κ/mask to chase a pass — record the kill-shape. **Next door:** discriminator charter [`2026-07-15_f6-mode-count-door_CHARTER.md`](2026-07-15_f6-mode-count-door_CHARTER.md) (mode-count irreversibility without sub-yield friction). **Do not** pre-name “matched-termination Re(Z) absorb” as the plan (Grant 2026-07-15).
 
 Thermometer re-fire remains **gated** on a CHANNEL-BOUNDED in-Hamiltonian door.

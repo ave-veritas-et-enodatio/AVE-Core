@@ -3,7 +3,7 @@
 **Date:** 2026-07-15  
 **Status:** **GATED — do not fire.** Requires an in-Hamiltonian F6 door that banks CHANNEL-BOUNDED without BIAS-MOVED / ELECTRON-DRAIN.  
 **Prior:** #707 ADDITIVE-ARTIFACT; F6 rung-1 CHANNEL-BOUNDED (parallel ledger only — does not change clock dynamics); F6 rung-2 **BIAS-MOVED** (scale-down door failed).  
-**Upstream gate:** next F6 door class after rung-2 kill-shape.
+**Upstream gate:** [`2026-07-15_f6-mode-count-door_CHARTER.md`](2026-07-15_f6-mode-count-door_CHARTER.md) — CHANNEL-BOUNDED under the mode-count / no-friction discriminator (not rung-2 scale-down; not a pre-named Re(Z) absorb).
 
 ---
 

@@ -15,7 +15,7 @@
 | GR (continuum/adiabatic limit) | DERIVED projection: clock `√S` (Ruling 1), graded-index network, deflection doubling; Komar self-consistency = X44b (chartered, PR #688) | ✅ docket Rulings 1/11; `backreaction.py` `komar_weight` |
 | ΛCDM (late-time limit) | The F6 drain converges onto Λ past τ₀; AVE-distinct content confined to the transition window w(z) | ✅ F6 tier-1 two-limits map (merged #674 arc) |
 | QED tree level | Lattice-native diagrammatics (MSR/Wyld class): propagator = lattice Green's fn; vertices = kernel Taylor coefficients; Op4 dress = tree; transfer register = QED-faithful (`register_flip` demonstrated); anti-screening sign reproduced | ✅ #685 beta gate + #693 screening gate + the serialization framing (UNRATIFIED — pending Grant, queued) |
-| QED loops | **NOT lattice-native as built**: loops need fluctuations; the reversible engine has none. QED = tree + ℏ-weighted loop calculus ⇒ the AVE question = *is ℏ the lattice's fluctuation-dissipation constant?* (derive-or-import; FORM/VALUE law, candidate 5th instance) | ✅ #693 (spectator medium) + #707 (no diffusion without sink) — one fact, two measurements |
+| QED loops | **NOT lattice-native as built**: #707 — irreversible diffusion needs a sink the reversible engine lacks; #693 — spectator/pairwise medium gives WRONG-FORM for the loop-log. **Two separable results** (do not narrate as one fact). Peer QED = tree + ℏ-weighted loops; *whether ℏ is anything on the lattice* is **UNBANKED** (FORM of “ℏ = FD constant” was **not** derived; canonical AVE FDT is classical Nyquist / ℏ-free — `clm-eaiqj1`). Not a workstream. | ✅ #693 + #707 as separate receipts |
 
 ## §2 — THE RATINGS TABLE (the hardware rows; the strategy = fill the status columns)
 
@@ -29,7 +29,7 @@ Status legend: **MEASURED-STATIC** · **DRIVEN** (dynamically exercised) · **IM
 | R4 | **Clock derating** — `ω = ω₀√S` under load | timing closure vs strain | point-confirmed ✅ (op14 `(1−2α)^{1/4}`, PR #690 hygiene land) — **curve never traced** | BENCH-∅ | sweep the derating curve (cheap; rides R1/R6 drives) |
 | R5 | **Slew limit (FPB corner)** — `A_I = Ė/(E_cω₀)` | max drive rate; six markers span a ~half-decade ~MeV band (not a coincident point; PR #595 + #604 caveat) | **UNRUN** (framed only; PR #595 walk) | BENCH-∅ | FPB slew / crossover-band map — **REVIVED** (board task #34 is D-IV nucleation-capture only; do not cite phantom D-III) |
 | R6 | **Clipping harmonics** — χ³ four-wave mixing | saturation nonlinearity products | derived ✅ (χ³ srs arc); two-tone protocol designed, **parked** (`superband-carrier-fork_result` FORK A) | BENCH-∅ | two-tone mixer + phase-slip capture — **REVIVED** (= the AC ratings section; not a task-#34 D-II/D-IV sublabel — those roman labels are `[RECEIPT-PENDING]` / unlocatable) |
-| R7 | **Thermal / noise floor** — the entropy sink | fluctuation-dissipation; loops; thermometer | **REFUSED** as-built ✅ (#707) · rung-1 **CHANNEL-BOUNDED** ✅ (parallel ledger) · rung-2 **BIAS-MOVED** ✅ (in-Hamiltonian scale-down killed — Rule 11) | BENCH-∅ | next door class (not scale-down); thermometer re-fire **GATED** |
+| R7 | **Thermal / noise floor** — the entropy sink | sink the thermometer/DE need; peer-label FD/Nyquist only after CHANNEL-BOUNDED | **REFUSED** as-built ✅ (#707) · rung-1 **CHANNEL-BOUNDED** ✅ (parallel ledger) · rung-2 **BIAS-MOVED** ✅ (scale-down killed) · next door = **mode-count discriminator** (charter `f6-mode-count-door`; **Re(Z) absorb NOT the plan**) | BENCH-∅ | mode-count door under discriminator; thermometer re-fire **GATED** |
 | R8 | **Geometric floor** — ropelength `ℓ_node/2π` | smallest closed ring of refusal; ground-state incompressibility | **CONFIRMED** ✅ (census floor-pinned + lift-off rider; `envelope-anatomy.md`) | n/a (topological) | closed — no further spend |
 | R9 | **Power-on transient** — the F6 window, w(z) | cosmological transition era; the only Λ-separable regime | chartered ✅ (F6 tier-1 ledger #674); needs a CHANNEL-BOUNDED in-Hamiltonian R7 door | real-machine = DESI/Euclid survey data | rides F6 field channel |
 | R10 | **Overclocking (driven selection)** — census Stage-2 | does drive select (2,3)? the selection-principle gate | chartered ✅; cold leg incapable (#692); kernel-OFF = RECOMMENDED (#706); **F1 ★FIXED** (Grant DEFECT) | BENCH-∅ | census S2 driven — priority 4 (F1 hygiene cleared; R2 input still owed) |
@@ -38,14 +38,14 @@ Status legend: **MEASURED-STATIC** · **DRIVEN** (dynamically exercised) · **IM
 
 ## §3 — Missing spec pages (build, don't probe)
 
-1. **F6 ε→T2 irreversible *field* channel** — Priority 1. Rung-1 parallel ledger ✅; rung-2 scale-down **BIAS-MOVED** (killed). Next: non-scale-down door class.
-2. **The loop ledger** (QED-TRACE charter extension) — charter-only; serialization sentence pending Grant.
+1. **F6 ε→T2 irreversible *field* channel** — Priority 1. Rung-1 parallel ledger ✅; rung-2 scale-down **BIAS-MOVED** (killed). Next: [`../research/2026-07-15_f6-mode-count-door_CHARTER.md`](../research/2026-07-15_f6-mode-count-door_CHARTER.md) — discriminator for mode-count irreversibility **without** sub-yield friction; **forbid** pre-naming Re(Z) absorb.
+2. **The loop ledger** (QED-TRACE charter extension) — charter-only; serialization sentence pending Grant; **not** driven by unbanked ℏ=FD.
 3. **T_ij stress register** — build per repaired #688 charter.
 4. **F1** — ★FIXED; consumer audit landed (`2026-07-15_f1-consumer-audit.md`); top-3 cheap re-runs queued.
 
 ## §4 — Demotions (explicit, so nothing drifts back)
 
-Further echo-classification and consistency polishing (the API is verified); the Re/Im carve (software-language question — parked); standalone r_knee-consumer work (folded into R11's gap design); additional cold-linear census work (scope theorem closed it); walk-level unification prose without a rating attached; **in-Hamiltonian global V scale-down as F6 door** (rung-2 BIAS-MOVED).
+Further echo-classification and consistency polishing (the API is verified); the Re/Im carve (software-language question — parked); standalone r_knee-consumer work (folded into R11's gap design); additional cold-linear census work (scope theorem closed it); walk-level unification prose without a rating attached; **in-Hamiltonian global V scale-down as F6 door** (rung-2 BIAS-MOVED); **ℏ = lattice FD constant as workstream** (FORM not derived; unbanked); **pre-naming matched-termination Re(Z) absorb as the next F6 door** (Ax3 retirement knife — Grant 2026-07-15).
 
 ## §5 — Standing Grant queue (remaining)
 
@@ -53,7 +53,7 @@ Op4 scope ruling (pairwise-only label) · two vetoable adjudications (two-tank c
 
 **Board-clearing packages:**
 - F1 ★FIXED + [`2026-07-15_f1-consumer-audit.md`](2026-07-15_f1-consumer-audit.md)
-- F6 charter + rung-1/rung-2 + [`../research/2026-07-15_thermometer-refire_prereg_GATED.md`](../research/2026-07-15_thermometer-refire_prereg_GATED.md)
+- F6 charter + rung-1/rung-2 + mode-count door charter + [`../research/2026-07-15_thermometer-refire_prereg_GATED.md`](../research/2026-07-15_thermometer-refire_prereg_GATED.md)
 
 ## §6 — Anchor-verification receipt (2026-07-15 sweep)
 

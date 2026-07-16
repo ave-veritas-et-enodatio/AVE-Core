@@ -1471,3 +1471,13 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **F1 consumer audit** | Landed `_orchestration/2026-07-15_f1-consumer-audit.md` — scheduling only; top-3 cheap RE-RUNs queued; no verdict flips |
 | **F6 rung-2** | Prereg frozen + fired: **BIAS-MOVED** (in-Hamiltonian V scale-down kills bias≠release / couples into core). Rule-11: do not retune. Next door class ≠ scale-down |
 | **Thermometer re-fire** | `research/2026-07-15_thermometer-refire_prereg_GATED.md` — gated on a CHANNEL-BOUNDED in-Hamiltonian door |
+
+---
+
+## Continuation — 2026-07-15 (Grant in-chat): ℏ-as-FD unbanked + Re(Z) absorb forbidden as plan
+
+| Item | Ruling | Consequence |
+|---|---|---|
+| **ℏ = lattice FD constant?** | **UNBANKED** (Grant: form not derived) | Canonical FDT remains classical Nyquist / ℏ-free (`clm-eaiqj1`). Not a FORM/VALUE 5th-instance workstream. Ratings-map §1 + parent F6 charter demoted. |
+| **Next F6 door = “Re(Z) absorb”?** | **FORBIDDEN as the plan** (Grant: most honest path) | Discriminator charter: `research/2026-07-15_f6-mode-count-door_CHARTER.md` — mode-count irreversibility without sub-yield friction; fool-mode-3 / FRICTION-RENAMED first-class. Ax3 retirement knife preserved. |
+| **#693 + #707** | Keep **separate** | Do not narrate as “one fact, two measurements.” |
