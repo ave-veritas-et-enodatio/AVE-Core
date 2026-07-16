@@ -1493,3 +1493,18 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **Frontier map charter** | Landed `research/2026-07-16_f6-frontier-map_CHARTER.md` | Full N→N+1 mint = **NO** (`node_creation` absent). Tier-0 Arm B exterior-leave = **gated on Grant GO**. F6 occupancy ≠ frontier (KEEP SEPARATE). |
 | **SM/QED fence** | Reaffirmed | No ZPE/Λ-as-ontology/ℏ-FD/Re(Z) absorb as door. T2 primary; CMB/Kerr peer-check only. |
 | **Thermometer** | remains GATED | Needs CHANNEL-BOUNDED + V-phase coupling the clocks see. |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm B G0 exterior-leave fired BIAS-MOVED
+
+| Item | Status |
+|---|---|
+| **Grant GO** | Tier-0 Arm B under frontier map — GO (in-chat "go") |
+| **Prereg freeze** | `5bda8777` pushed **before** driver (Step 3.11) — `research/2026-07-16_f6-arm-b-exterior-leave_prereg_FROZEN.md` |
+| **Arm B fire** | **BIAS-MOVED** — exterior ΔN_occ=64 (mode-count LIVE); \|ΔS_core\|≫BIAS_TOL; soft ledger messy. Rule-11: do not retune. |
+| **Sabotage** | `--sabotage-friction` → **FRICTION-RENAMED** |
+| **Sponge control** | PML-without-ports → NULL (not CHANNEL-BOUNDED) |
+| **Geometry** | **G0** only — no orthogonal claim |
+| **Thermometer** | remains GATED |
+| **Full frontier mint** | remains NO (`node_creation` absent) |

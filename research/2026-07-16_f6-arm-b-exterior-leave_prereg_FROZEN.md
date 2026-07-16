@@ -102,4 +102,24 @@ SEED = 1
 
 ## §5 Result
 
-*(empty until fire — fill after prereg push + driver; Rule 11)*
+**Fired 2026-07-16** (prereg commit `5bda8777` pushed before driver; classify frozen).
+
+```
+VERDICT = BIAS-MOVED
+  ON  bath≈5.78  field≈1.79  core≈0.200  N_occ=64  events≈27300
+  OFF bath=0     field≈7.68  core≈0.313
+  soft_ledger |ΔE_field − bath| ≈ 3.73
+  ΔS_core ≈ −0.017  (|ΔS| ≫ BIAS_TOL=5e-3)
+  ΔN_occ = 64  (exterior mode-count detector LIVE — not FRICTION-RENAMED)
+  geometry = G0
+```
+
+**Sabotage (Discriminator 7):** `--sabotage-friction` (scalar exterior bath, no `b[m]` credit) → **FRICTION-RENAMED** as required.
+
+**Sponge control:** `--sponge-control` → `SPONGE-CONTROL-OK (NULL)` — PML without exterior ports does **not** CHANNEL-BOUNDED.
+
+**Honest closure (Rule 11):** Arm B G0 face-port exterior leave enlarges exterior occupied mode-count and books exterior energy, but **fails bias≠release** at the protected-core knife (same kill-shape class as rung-2 / Arm A). Soft ledger also messy. Do **not** retune `PACKET` / `CORE_R` / face mask. This hypothesis arm is **not** CHANNEL-BOUNDED.
+
+**What this does not claim:** DE lifecycle, crystallization, F6 occupancy chord, orthogonal (G1) geometry, `ρ_Λ`.
+
+Thermometer re-fire remains **GATED**. Full `node_creation` mint remains **NO** per frontier map.

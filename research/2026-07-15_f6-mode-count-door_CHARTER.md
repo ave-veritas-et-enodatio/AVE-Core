@@ -95,7 +95,7 @@ Decision rule: **(ii)/(iii)/(iv)/(vi) fail closed**; only **(i)** licenses therm
 Arms may be proposed in a sibling prereg **after** this charter reviews. Each arm must state how it intends to enlarge bath mode-count without an interior dump-R. Examples of *admissible proposal language* (not pre-approval):
 
 - Event-gated occupancy door that credits a high-mode-count accumulator when a local criterion fires. *(Arm A fired **BIAS-MOVED** — mode-count LIVE, bias knife kills; Rule 11: do not retune. See PR #711 / `2026-07-16_f6-mode-count-event-gated_prereg_FROZEN.md`.)*
-- Exterior ports / boundary leave into an **exterior** mode ledger (energy leaves; interior stays reactive) — **Arm B candidate** under map charter [`2026-07-16_f6-frontier-map_CHARTER.md`](2026-07-16_f6-frontier-map_CHARTER.md); geometry fork **G0** (do **not** assume orthogonal release). Must not be relabeled as bulk Re(Z) friction. Peer-check phrasing “boundary radiation into a semi-infinite lossless line” is admissible only as translation, never as fire condition.
+- Exterior ports / boundary leave into an **exterior** mode ledger (energy leaves; interior stays reactive) — **Arm B fired BIAS-MOVED** (`2026-07-16_f6-arm-b-exterior-leave_*`; exterior mode-count LIVE; sponge control OK; Rule 11: do not retune). Geometry fork **G0** (do **not** assume orthogonal release). Must not be relabeled as bulk Re(Z) friction.
 - Soft bookkeeping that still couples into V-phase dynamics the thermometer can see (rung-1 did not).
 
 **Forbidden proposal language as the sole design:** “matched-termination Re(Z) absorb,” “resistive termination,” “dump resistor,” “STZ / plastic loss,” “matched stub.”
