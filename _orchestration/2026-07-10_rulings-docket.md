@@ -1481,3 +1481,15 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **ℏ = lattice FD constant?** | **UNBANKED** (Grant: form not derived) | Canonical FDT remains classical Nyquist / ℏ-free (`clm-eaiqj1`). Not a FORM/VALUE 5th-instance workstream. Ratings-map §1 + parent F6 charter demoted. |
 | **Next F6 door = “Re(Z) absorb”?** | **FORBIDDEN as the plan** (Grant: most honest path) | Discriminator charter: `research/2026-07-15_f6-mode-count-door_CHARTER.md` — mode-count irreversibility without sub-yield friction; fool-mode-3 / FRICTION-RENAMED first-class. Ax3 retirement knife preserved. |
 | **#693 + #707** | Keep **separate** | Do not narrate as “one fact, two measurements.” |
+---
+
+## Continuation — 2026-07-16: F6 mode-count Arm A BIAS-MOVED + frontier map charter
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Arm A (event-gated occupancy)** | **BIAS-MOVED** (PR #711 open at fire time; prereg `17662232` before driver) | Mode-count detector LIVE (ΔN_occ=64); bias knife still kills. Rule-11: do not retune. Sabotage → FRICTION-RENAMED. |
+| **Freeze causal arrow** | **★WALKED (Grant 2026-07-16)** | Crystallization **releases** latent heat; drain does **not** drive formation. AM / `Ω_freeze` residue = frozen IC (`u0*`, chirality, `J`) — **not DE**. |
+| **Orthogonal release geometry** | **CONJECTURE** (Grant challenge) | Not a proven derivation. Map forks G0–G3; Tier-0 default **G0**. Do not bake normal-to-surface into pass criteria. |
+| **Frontier map charter** | Landed `research/2026-07-16_f6-frontier-map_CHARTER.md` | Full N→N+1 mint = **NO** (`node_creation` absent). Tier-0 Arm B exterior-leave = **gated on Grant GO**. F6 occupancy ≠ frontier (KEEP SEPARATE). |
+| **SM/QED fence** | Reaffirmed | No ZPE/Λ-as-ontology/ℏ-FD/Re(Z) absorb as door. T2 primary; CMB/Kerr peer-check only. |
+| **Thermometer** | remains GATED | Needs CHANNEL-BOUNDED + V-phase coupling the clocks see. |
