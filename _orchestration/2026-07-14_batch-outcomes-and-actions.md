@@ -226,3 +226,17 @@ manual / KB / manuscript entry — the **auditor lane** lands those (§3 item-6 
 **Grant adjudicates** the §2 queue. Per flag-don't-fix, brief-vs-repo mismatches are surfaced
 inline (the ~50/5 tally undercount, §1) rather than silently reconciled. Pure-corpus; nothing
 here canonizes; records queue-state, not adjudicated physics.
+
+---
+
+## Continuation — 2026-07-15 (anchor-sweep): OPEN-PR status flip
+
+**Trigger:** hardware-ratings-map two-method sweep. The §1 ledger above still labels #689 / #692 / #693 as **OPEN**; all three merged 2026-07-15 (before this board's next session). Prior rows KEEP-BOTH as the day-of-close snapshot; current state:
+
+| PR | Board §1 state | Actual (gh, 2026-07-15) |
+|---|---|---|
+| **#689** | OPEN `71b451ba` | **MERGED** 2026-07-15T00:12:51Z |
+| **#692** | OPEN `1dd9485a` | **MERGED** 2026-07-15T00:13:47Z |
+| **#693** | OPEN `4d3355b0` | **MERGED** 2026-07-15T00:15:14Z |
+
+**Priority ordering** of §3 follow-ons is superseded by `_orchestration/2026-07-15_hardware-ratings-map.md` (PR #708 + anchor-sweep repair). Ledger content (§1–§2 decision sites) still stands; Grant-queue items that were ruled in-chat 2026-07-14/15 live in the docket continuations, not re-listed here.

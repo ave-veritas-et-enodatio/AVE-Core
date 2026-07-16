@@ -130,6 +130,7 @@ class K4Lattice3D:
         use_memristive_saturation=False,
         tau_relax=None,
         V_SNAP=None,
+        external_z_local=False,
     ):
         """
         Args:
@@ -164,6 +165,16 @@ class K4Lattice3D:
                 Flag-5e-A: K4 strain = V_inc / V_SNAP_SI gave ~10⁻⁶ at
                 engine amp=0.9·V_SNAP_native, rendering saturation dormant
                 in engine context. Default preserved for standalone SI usage.
+            external_z_local: If True, `_scatter_all` does **not** overwrite
+                `z_local_field` with the V-only Op14 recompute. Used by
+                `CoupledK4Cosserat`, which writes the Cosserat↔V shared front
+                `√(S_μ/S_ε)` (or legacy total-A² form) before `k4.step()` —
+                F1 DEFECT fix (Grant 2026-07-15): Cosserat load must be able
+                to set bond Γ for V-pulses. Standalone K4 keeps False so
+                op3_bond_reflection still owns z_local from V_inc alone.
+                Memristive / introspection `S_field` still advances from V_inc
+                (CI 2026-07-15: skipping the whole `_update_z_local_field`
+                left S stuck at 1.0 under CoupledK4Cosserat + nonlinear=False).
         """
         self.nx = nx
         self.ny = ny
@@ -173,6 +184,9 @@ class K4Lattice3D:
         self.pml_thickness = pml_thickness
         self.op3_bond_reflection = op3_bond_reflection
         self.use_memristive_saturation = bool(use_memristive_saturation)
+        # F1: when True, CoupledK4Cosserat owns z_local_field (shared front);
+        # _scatter_all must not overwrite with the V-only Op14 recompute.
+        self.external_z_local = bool(external_z_local)
         # Saturation V_SNAP per Flag-5e-A fix. Default module-level for
         # standalone SI mode; CoupledK4Cosserat passes engine's natural-
         # unit value so strain calculation matches engine convention.
@@ -254,6 +268,33 @@ class K4Lattice3D:
         # Per doc 59_ §9: dS/dt = (S_eq(V/V_SNAP) − S)/τ_relax.
         self.S_field = np.ones((nx, ny, nz), dtype=float)
 
+    def _integrate_s_field_from_v(self) -> np.ndarray:
+        """Advance / set S_field from |V_inc| (memristive or instantaneous).
+
+        Returns S_used for the optional V-only z_local write. Does **not**
+        touch `z_local_field` — CoupledK4Cosserat owns that when
+        `external_z_local=True` (F1), but memristive S must still evolve
+        under engine drive (CI 2026-07-15 regression).
+        """
+        v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
+        v_snap = self.V_SNAP  # Flag-5e-A fix: use instance V_SNAP (defaults to module)
+        strain = v_total / v_snap
+        # S_eq = √(1 - A²) per Op2 (Ax4 saturation kernel).
+        S_eq = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0) ** 2))
+
+        if self.use_memristive_saturation:
+            # Memristive Op14 (doc 59_ §9): S(t) lags S_eq with backward Euler
+            # integration of dS/dt = (S_eq − S)/τ_relax.
+            # S_{n+1} = (S_n·τ + dt·S_eq) / (τ + dt). Unconditionally stable.
+            dt = self.dt
+            tau = self.tau_relax
+            self.S_field = (self.S_field * tau + dt * S_eq) / (tau + dt)
+            return self.S_field
+
+        # Legacy instantaneous Op14: S = S_eq at each step.
+        self.S_field = S_eq  # keep state consistent for introspection
+        return S_eq
+
     def _update_z_local_field(self):
         """Compute the local impedance at every active site from the current
         incident voltage magnitude. Needed by op3_bond_reflection to know
@@ -269,24 +310,7 @@ class K4Lattice3D:
           Regime III (stopband):   A > sqrt(3)/2, approaching A=1 (rupture)
         V_YIELD ~ sqrt(alpha) * V_SNAP falls inside Regime II, not at yield.
         """
-        v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
-        v_snap = self.V_SNAP  # Flag-5e-A fix: use instance V_SNAP (defaults to module)
-        strain = v_total / v_snap
-        # S_eq = √(1 - A²) per Op2 (Ax4 saturation kernel).
-        S_eq = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0) ** 2))
-
-        if self.use_memristive_saturation:
-            # Memristive Op14 (doc 59_ §9): S(t) lags S_eq with backward Euler
-            # integration of dS/dt = (S_eq − S)/τ_relax.
-            # S_{n+1} = (S_n·τ + dt·S_eq) / (τ + dt). Unconditionally stable.
-            dt = self.dt
-            tau = self.tau_relax
-            self.S_field = (self.S_field * tau + dt * S_eq) / (tau + dt)
-            S_used = self.S_field
-        else:
-            # Legacy instantaneous Op14: S = S_eq at each step.
-            self.S_field = S_eq  # keep state consistent for introspection
-            S_used = S_eq
+        S_used = self._integrate_s_field_from_v()
 
         # Op14 canonical: Z_eff = Z_0 / sqrt(S), i.e., Z/Z_0 = 1/(1-A^2)^(1/4).
         # Prior code used S_factor**0.25 (= (1-A^2)^(1/8)) which is off by a factor
@@ -298,10 +322,16 @@ class K4Lattice3D:
     def _scatter_all(self):
         """Matrix-vector multiply to scatter incident pulses into reflected pulses."""
         if self.op3_bond_reflection:
-            # Track z_local at every site (not just strained) so that
-            # _connect_all can apply bond-level Op3 reflection. This is
-            # lightweight (one pointwise operation on the full field).
-            self._update_z_local_field()
+            if self.external_z_local:
+                # F1: Cosserat owns z_local_field (shared front already written).
+                # Still advance S_field from V so memristive / introspection
+                # state is not frozen at 1.0 under CoupledK4Cosserat.
+                self._integrate_s_field_from_v()
+            else:
+                # Track z_local at every site (not just strained) so that
+                # _connect_all can apply bond-level Op3 reflection. This is
+                # lightweight (one pointwise operation on the full field).
+                self._update_z_local_field()
         if self.nonlinear:
             # Op14 Impedance Saturation, anchored to V_SNAP per the three-regime
             # convention (the canonical reflection-profile three-regime convention):

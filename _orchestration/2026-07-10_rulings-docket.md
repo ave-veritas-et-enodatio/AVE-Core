@@ -1436,3 +1436,38 @@ solidity 0.45), the `envelope-anatomy.md` saturation-anatomy + Q2 additions, the
 WALK-LEVEL no-claim leaf, and the `translation-circuit.md` §4 rows. DO-NOT-MERGE; only the orchestrator/Grant
 merges. Ruling-status precision is the prime rail — RULED items are FORM-level ruled conventions, not
 derivations; nothing here canonizes a value.*
+
+---
+
+## Continuation — 2026-07-15 (anchor-sweep): Entry 15 + next-steps status flip
+
+**Trigger:** PR #706 MERGED (`816054bf` ancestry; merge `d138818b`, 2026-07-15T13:32:10Z) while the Entry-15 / NEXT-STEPS REGISTER rows above still read "IN FLIGHT". Hardware-ratings-map anchor sweep (companion PR) caught the staleness; this append flips status only — prior prose KEEP-BOTH.
+
+| Row | Prior status (above) | Current status (2026-07-15 sweep) |
+|---|---|---|
+| **Entry 15 ablation** | IN FLIGHT (`analysis/blob-ablation-kernel-off`) | **REPORTED / MERGED** — PR #706; verdict **MODE-SORTING** (`research/2026-07-15_blob-ablation_NOTE.md`); puddle/breather = not-supported-at-this-config; census-S2 kernel-OFF twin → **RECOMMENDED-cheap-control**; **F1 DEFECT-CANDIDATE** surfaced (Grant adjudication + consumer audit queued) |
+| **NEXT-STEPS blob line** | "the ablation is IN FLIGHT" | ~~IN FLIGHT~~ → **REPORTED (#706)** |
+| **REGISTERED CHECKS blob** | IN FLIGHT | **REPORTED (#706, MODE-SORTING)** |
+
+**Not flipped here (still open / Grant-gated):** Op4 scope ruling; two-tank criterion (Grant-vetoable); ~~F1 adjudication~~; breather hypothesis (flagged-not-ratified); Wave-1 parked items; CVR session.
+
+---
+
+## Continuation — 2026-07-15 (Grant in-chat): F1 ★RULED DEFECT + F6 field channel GO
+
+| Item | Ruling | Consequence |
+|---|---|---|
+| **F1** | **★RULED — DEFECT** (Grant: "1. fix it") | Cosserat load must reach bond Γ. Fix: `K4Lattice3D.external_z_local=True` under `CoupledK4Cosserat`; `_scatter_all` skips V-only overwrite. Regression `test_f1_shared_front_ordering.py`. Consumer-audit completion of HIGH V-active banked rows remains registered (not blocking). |
+| **F6 field channel** | **★GO** (Grant: "2. proceed") | Charter accepted. Prereg frozen + first rung fired: **CHANNEL-BOUNDED** (`research/2026-07-15_f6-field-channel_prereg_FROZEN.md` §5) — occupancy-slaved parallel latent→bath ledger on live lattice; in-Hamiltonian ε depletion still queued as deeper rung. |
+
+Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `research/2026-07-15_f6-field-channel_CHARTER.md`.
+
+---
+
+## Continuation — 2026-07-15 (keep-going): F1 consumer audit + F6 rung-2
+
+| Item | Status |
+|---|---|
+| **F1 consumer audit** | Landed `_orchestration/2026-07-15_f1-consumer-audit.md` — scheduling only; top-3 cheap RE-RUNs queued; no verdict flips |
+| **F6 rung-2** | Prereg frozen + fired: **BIAS-MOVED** (in-Hamiltonian V scale-down kills bias≠release / couples into core). Rule-11: do not retune. Next door class ≠ scale-down |
+| **Thermometer re-fire** | `research/2026-07-15_thermometer-refire_prereg_GATED.md` — gated on a CHANNEL-BOUNDED in-Hamiltonian door |
