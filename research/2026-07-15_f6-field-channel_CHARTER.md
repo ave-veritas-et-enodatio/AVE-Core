@@ -6,7 +6,7 @@
 
 **Sector header (mandatory).** MODE: local lattice field dynamics with a one-way transfer into a mode-count sink — **not** a global ODE ledger, **not** an `a(t)` Friedmann evolver. REGIME: sub-yield to moderately saturated; reversible Cosserat/K4 interior preserved. PHASE-STATE: coherent bound / coherent radiating / incoherent bath. SECTOR: A-class continuous drainage into T2 (entropic), **not** A1 dilatation-mass, **not** Cosserat-winding genesis, **not** friction on a soliton's own energy.
 
-**Register:** AVE substrate + EE (matched termination with Re(Z)>0; Johnson–Nyquist bath; fluctuation–dissipation). **Not** ΛCDM Λ-as-ontology, **not** QED zero-point as imported ontology, **not** the detonating `photon_deplete=True` indefinite-Hamiltonian attempt.
+**Register:** AVE substrate + EE peer-check labels only (Nyquist / FDT as translation after CHANNEL-BOUNDED — **not** design targets). **Not** ΛCDM Λ-as-ontology, **not** QED zero-point as imported ontology, **not** the detonating `photon_deplete=True` indefinite-Hamiltonian attempt, **not** pre-named “matched-termination Re(Z) absorb” (Grant 2026-07-15: forbidden as the plan; see `2026-07-15_f6-mode-count-door_CHARTER.md`).
 
 ---
 
@@ -22,7 +22,7 @@ The reversible engine as built is **athermal**: PR #707 showed relative-phase di
 |---|---|---|
 | **DE-tracks-matter chord** | `dark-energy-latent-heat-definition.md` §5; engine-capability-map F6 rows; tier-1 #674 | Form exists in ledger; **field realization UNBUILT**; prior `photon_deplete=True` detonates |
 | **Lattice thermometer** | PR #707 `ADDITIVE-ARTIFACT`; `thermal-phase-registers.md` ★#1 DEMOTED / RE-GATED | Lossless kernel ⇒ only bounded reversible dephasing; diffusion-**rate** needs irreversibility |
-| **QED loops / ℏ** | Ratings-map §1; #693 spectator medium | Loops need fluctuations; candidate: ℏ = lattice FD constant (FORM/VALUE; not asserted here) |
+| **QED loops** | Ratings-map §1; #693 spectator medium | #693 is a *separate* no-log result from #707’s no-sink; ℏ=FD **UNBANKED** (FORM not derived) |
 | **Hardware row R7** | `_orchestration/2026-07-15_hardware-ratings-map.md` | REFUSED as-built → missing spec page = this channel |
 
 Docket Entry 14 convergence note: DE + thermometer independently point at the same unbuilt primitive.
@@ -40,7 +40,7 @@ Four-element map (Grant-walked 2026-07-13; same as tier-1):
 | **Transducer** | mass envelope / off-line↔on-line door (implementation choice = frozen bin, not fiat) |
 | **Door** | one-way transfer; Ax3-compliant (`dS>0` into bath, not friction loss) |
 
-**Hard prior negative:** any continuous transfer that makes the Hamiltonian indefinite (the `photon_deplete=True` detonation) is a **kill** of that implementation class — not a retune. Prefer event-gated / entropic-bookkeeping / matched-termination Re(Z) forms that keep the reactive interior positive-definite.
+**Hard prior negative:** any continuous transfer that makes the Hamiltonian indefinite (the `photon_deplete=True` detonation) is a **kill** of that implementation class — not a retune. Prefer event-gated / entropic-bookkeeping forms that keep the reactive interior positive-definite. **Do not** pre-name “matched-termination Re(Z) absorb” as the plan (Ax3 retirement knife; Grant 2026-07-15 — next discriminator: `2026-07-15_f6-mode-count-door_CHARTER.md`).
 
 ---
 
@@ -56,7 +56,8 @@ Four-element map (Grant-walked 2026-07-13; same as tier-1):
 - Re-running or amending the tier-1 homogeneous ODE ledger (#674 stands).
 - Spatial DESI/Euclid cross-correlation (downstream of a working channel).
 - Deriving κ / magnitude from `{ℓ_node,α,G}` (chord vs echo — gate for later).
-- QED loop summation or ℏ value (charter the FD question only as a **named successor gate**).
+- QED loop summation or ℏ value (ℏ=FD **UNBANKED** — FORM not derived; not a successor workstream of this charter).
+- Pre-naming matched-termination Re(Z) absorb as the next door (Grant-forbidden; see mode-count door charter).
 - F1 ordering fix (orthogonal engine hygiene; ratings-map Priority sequencing keeps F1 before census S2, not before this charter).
 
 ---
@@ -89,9 +90,9 @@ Decision rule: **(ii)/(iii)/(iv) fail closed**; only **(i)** licenses a follow-o
 
 After **(i) CHANNEL-BOUNDED**:
 1. Re-fire two-tank / thermometer with channel ON (mechanism-gated criterion from #707).
-2. Loop-ledger charter (ratings-map §3 item 2) — which diagram classes become fireable.
+2. Loop-ledger charter (ratings-map §3 item 2) — which diagram classes become fireable — **separate** from any ℏ=FD claim (unbanked).
 3. Spatial F6 chord / DESI–Euclid discriminator (engine-capability-map relocation).
-4. Optional: ℏ-as-FD-constant FORM/VALUE gate (candidate 5th instance — Grant nod).
+4. Next in-Hamiltonian door after rung-2 kill: [`2026-07-15_f6-mode-count-door_CHARTER.md`](2026-07-15_f6-mode-count-door_CHARTER.md).
 
 ---
 
