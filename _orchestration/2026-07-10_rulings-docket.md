@@ -1436,3 +1436,17 @@ solidity 0.45), the `envelope-anatomy.md` saturation-anatomy + Q2 additions, the
 WALK-LEVEL no-claim leaf, and the `translation-circuit.md` §4 rows. DO-NOT-MERGE; only the orchestrator/Grant
 merges. Ruling-status precision is the prime rail — RULED items are FORM-level ruled conventions, not
 derivations; nothing here canonizes a value.*
+
+---
+
+## Continuation — 2026-07-15 (anchor-sweep): Entry 15 + next-steps status flip
+
+**Trigger:** PR #706 MERGED (`816054bf` ancestry; merge `d138818b`, 2026-07-15T13:32:10Z) while the Entry-15 / NEXT-STEPS REGISTER rows above still read "IN FLIGHT". Hardware-ratings-map anchor sweep (companion PR) caught the staleness; this append flips status only — prior prose KEEP-BOTH.
+
+| Row | Prior status (above) | Current status (2026-07-15 sweep) |
+|---|---|---|
+| **Entry 15 ablation** | IN FLIGHT (`analysis/blob-ablation-kernel-off`) | **REPORTED / MERGED** — PR #706; verdict **MODE-SORTING** (`research/2026-07-15_blob-ablation_NOTE.md`); puddle/breather = not-supported-at-this-config; census-S2 kernel-OFF twin → **RECOMMENDED-cheap-control**; **F1 DEFECT-CANDIDATE** surfaced (Grant adjudication + consumer audit queued) |
+| **NEXT-STEPS blob line** | "the ablation is IN FLIGHT" | ~~IN FLIGHT~~ → **REPORTED (#706)** |
+| **REGISTERED CHECKS blob** | IN FLIGHT | **REPORTED (#706, MODE-SORTING)** |
+
+**Not flipped here (still open / Grant-gated):** Op4 scope ruling; two-tank criterion (Grant-vetoable); F1 adjudication; breather hypothesis (flagged-not-ratified); Wave-1 parked items; CVR session.
