@@ -1461,3 +1461,13 @@ derivations; nothing here canonizes a value.*
 | **F6 field channel** | **★GO** (Grant: "2. proceed") | Charter accepted. Prereg frozen + first rung fired: **CHANNEL-BOUNDED** (`research/2026-07-15_f6-field-channel_prereg_FROZEN.md` §5) — occupancy-slaved parallel latent→bath ledger on live lattice; in-Hamiltonian ε depletion still queued as deeper rung. |
 
 Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `research/2026-07-15_f6-field-channel_CHARTER.md`.
+
+---
+
+## Continuation — 2026-07-15 (keep-going): F1 consumer audit + F6 rung-2
+
+| Item | Status |
+|---|---|
+| **F1 consumer audit** | Landed `_orchestration/2026-07-15_f1-consumer-audit.md` — scheduling only; top-3 cheap RE-RUNs queued; no verdict flips |
+| **F6 rung-2** | Prereg frozen + fired: **BIAS-MOVED** (in-Hamiltonian V scale-down kills bias≠release / couples into core). Rule-11: do not retune. Next door class ≠ scale-down |
+| **Thermometer re-fire** | `research/2026-07-15_thermometer-refire_prereg_GATED.md` — gated on a CHANNEL-BOUNDED in-Hamiltonian door |

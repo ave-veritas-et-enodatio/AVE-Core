@@ -29,31 +29,31 @@ Status legend: **MEASURED-STATIC** · **DRIVEN** (dynamically exercised) · **IM
 | R4 | **Clock derating** — `ω = ω₀√S` under load | timing closure vs strain | point-confirmed ✅ (op14 `(1−2α)^{1/4}`, PR #690 hygiene land) — **curve never traced** | BENCH-∅ | sweep the derating curve (cheap; rides R1/R6 drives) |
 | R5 | **Slew limit (FPB corner)** — `A_I = Ė/(E_cω₀)` | max drive rate; six markers span a ~half-decade ~MeV band (not a coincident point; PR #595 + #604 caveat) | **UNRUN** (framed only; PR #595 walk) | BENCH-∅ | FPB slew / crossover-band map — **REVIVED** (board task #34 is D-IV nucleation-capture only; do not cite phantom D-III) |
 | R6 | **Clipping harmonics** — χ³ four-wave mixing | saturation nonlinearity products | derived ✅ (χ³ srs arc); two-tone protocol designed, **parked** (`superband-carrier-fork_result` FORK A) | BENCH-∅ | two-tone mixer + phase-slip capture — **REVIVED** (= the AC ratings section; not a task-#34 D-II/D-IV sublabel — those roman labels are `[RECEIPT-PENDING]` / unlocatable) |
-| R7 | **Thermal / noise floor** — the entropy sink | fluctuation-dissipation; loops; thermometer | **REFUSED** as-built ✅ (#707) · **first-rung CHANNEL-BOUNDED** ✅ (parallel latent→bath on live lattice, 2026-07-15) — in-Hamiltonian ε depletion still UNRUN | BENCH-∅ | deeper F6 field-depletion rung; then thermometer re-fire |
+| R7 | **Thermal / noise floor** — the entropy sink | fluctuation-dissipation; loops; thermometer | **REFUSED** as-built ✅ (#707) · rung-1 **CHANNEL-BOUNDED** ✅ (parallel ledger) · rung-2 **BIAS-MOVED** ✅ (in-Hamiltonian scale-down killed — Rule 11) | BENCH-∅ | next door class (not scale-down); thermometer re-fire **GATED** |
 | R8 | **Geometric floor** — ropelength `ℓ_node/2π` | smallest closed ring of refusal; ground-state incompressibility | **CONFIRMED** ✅ (census floor-pinned + lift-off rider; `envelope-anatomy.md`) | n/a (topological) | closed — no further spend |
-| R9 | **Power-on transient** — the F6 window, w(z) | cosmological transition era; the only Λ-separable regime | chartered ✅ (F6 tier-1 ledger #674); needs the R7 *field* channel (tier-1 ODE ≠ the missing irreversibility) | real-machine = DESI/Euclid survey data | rides F6 field channel |
-| R10 | **Overclocking (driven selection)** — census Stage-2 | does drive select (2,3)? the selection-principle gate | chartered ✅; cold leg proven incapable (scope theorem, #692); kernel-OFF control = **RECOMMENDED-cheap** (blob MODE-SORTING, #706); **F1 ordering fix first** | BENCH-∅ | census S2 driven — priority 4 (after F1 adjudication + R2 input) |
+| R9 | **Power-on transient** — the F6 window, w(z) | cosmological transition era; the only Λ-separable regime | chartered ✅ (F6 tier-1 ledger #674); needs a CHANNEL-BOUNDED in-Hamiltonian R7 door | real-machine = DESI/Euclid survey data | rides F6 field channel |
+| R10 | **Overclocking (driven selection)** — census Stage-2 | does drive select (2,3)? the selection-principle gate | chartered ✅; cold leg incapable (#692); kernel-OFF = RECOMMENDED (#706); **F1 ★FIXED** (Grant DEFECT) | BENCH-∅ | census S2 driven — priority 4 (F1 hygiene cleared; R2 input still owed) |
 | R11 | **The real varactor curve** — `C_eff(V)` of the actual vacuum | the first true datasheet row of the machine itself | model-side spec'd ✅ (CVR requirements #667 + trade-study v2 #687) | **BENCH-∅ — nothing measured, ever** | **CVR selection session** (Grant + collaborator) — priority 5, elevated; the only real-machine probe; r_knee consumer + strain-fork empirical test ride the gap-design |
 | R12 | **Gap-independence (Cleave-01)** — the femto-electrometer kill-test | chord = gap-INDEPENDENCE, not the slope echo | spec'd ✅ (cite-don't-duplicate) | BENCH-∅ | queued behind R11's session |
 
 ## §3 — Missing spec pages (build, don't probe)
 
-1. **F6 ε→T2 irreversible *field* channel** — the thermal section. Unlocks R7, R9, the loop ledger (§1), and possibly the log. **Priority 1.** (Distinct from the already-merged F6 tier-1 two-reservoir ODE ledger #674 — that books reservoirs; this is the missing engine irreversibility / fluctuation sink.)
-2. **The loop ledger** (QED-TRACE charter extension): which diagram classes the lattice implements (tree ✅, ladder ✅-spectator, loops = await F6+noise); the ℏ-as-FD-constant question stated as a gate. Charter-only; includes ratifying the serialization sentence (pending Grant nod).
-3. **T_ij stress register** — instrumentation, not a rating: serves gate-(b) (F3/F5/§45 values + knee radius), X44b, census S2, electron T_rr. Build per the repaired #688 charter.
-4. **F1 ordering fix** (defect-candidate, Grant adjudication) + the V-active consumer audit — engine hygiene prerequisite for R10.
+1. **F6 ε→T2 irreversible *field* channel** — Priority 1. Rung-1 parallel ledger ✅; rung-2 scale-down **BIAS-MOVED** (killed). Next: non-scale-down door class.
+2. **The loop ledger** (QED-TRACE charter extension) — charter-only; serialization sentence pending Grant.
+3. **T_ij stress register** — build per repaired #688 charter.
+4. **F1** — ★FIXED; consumer audit landed (`2026-07-15_f1-consumer-audit.md`); top-3 cheap re-runs queued.
 
 ## §4 — Demotions (explicit, so nothing drifts back)
 
-Further echo-classification and consistency polishing (the API is verified); the Re/Im carve (software-language question — parked); standalone r_knee-consumer work (folded into R11's gap design); additional cold-linear census work (scope theorem closed it); walk-level unification prose without a rating attached.
+Further echo-classification and consistency polishing (the API is verified); the Re/Im carve (software-language question — parked); standalone r_knee-consumer work (folded into R11's gap design); additional cold-linear census work (scope theorem closed it); walk-level unification prose without a rating attached; **in-Hamiltonian global V scale-down as F6 door** (rung-2 BIAS-MOVED).
 
-## §5 — Standing Grant queue (unchanged, carried from the docket next-steps register)
+## §5 — Standing Grant queue (remaining)
 
-F1 adjudication + consumer-audit call · Op4 scope ruling (pairwise-only label) · two vetoable adjudications (two-tank criterion; blob scoping) · serialization-sentence ratification · entropy-def stays PROPOSED (gated) · criterion/contour-tag sweep (ratified, queued).
+Op4 scope ruling (pairwise-only label) · two vetoable adjudications (two-tank criterion; blob scoping) · serialization-sentence ratification · entropy-def stays PROPOSED (gated) · criterion/contour-tag sweep (ratified, queued) · F1 top-3 cheap re-runs (consumer audit).
 
-**Board-clearing packages landed this sweep (await Grant word):**
-- F1 package → [`_orchestration/2026-07-15_f1-adjudication-package.md`](2026-07-15_f1-adjudication-package.md)
-- F6 field-channel charter (≠ tier-1 ledger) → [`../research/2026-07-15_f6-field-channel_CHARTER.md`](../research/2026-07-15_f6-field-channel_CHARTER.md)
+**Board-clearing packages:**
+- F1 ★FIXED + [`2026-07-15_f1-consumer-audit.md`](2026-07-15_f1-consumer-audit.md)
+- F6 charter + rung-1/rung-2 + [`../research/2026-07-15_thermometer-refire_prereg_GATED.md`](../research/2026-07-15_thermometer-refire_prereg_GATED.md)
 
 ## §6 — Anchor-verification receipt (2026-07-15 sweep)
 

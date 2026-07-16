@@ -8,6 +8,8 @@ Is the shipped `CoupledK4Cosserat` update ordering a **DEFECT** (fix + regressio
 
 > **★RULED — DEFECT (Grant 2026-07-15, in-chat: "1. fix it").** Cosserat load must be able to set bond Γ for V-pulses. Fix landed: `K4Lattice3D.external_z_local=True` under `CoupledK4Cosserat` so `_scatter_all` does not overwrite the shared front; regression `src/tests/test_f1_shared_front_ordering.py`. Consumer-audit completion (HIGH rows + r7–r10 triage) remains registered follow-on — not blocking the fix.
 
+> **★FIXED (2026-07-15).** Engine fix confirmed landed: `K4Lattice3D.external_z_local=True` set under `CoupledK4Cosserat` (`k4_cosserat_coupling.py:312`); `_scatter_all` no longer overwrites the shared front (`k4_tlm.py:311`); regression green. Consumer-audit triage of the HIGH/LOW rows below (banked numbers that ran under the pre-fix DEFECT) is complete as a scheduling pass — see [`2026-07-15_f1-consumer-audit.md`](2026-07-15_f1-consumer-audit.md). No banked verdict is claimed to have flipped; the audit only schedules RE-RUN / CAVEAT-IN-RESULT / NEEDS-TRIAGE dispositions.
+
 ## Mechanism (re-verified 2026-07-15, two-method)
 
 | Step | What happens | File:line |
