@@ -1,6 +1,6 @@
 # F6 field channel — irreversible ε→T2 / fluctuation sink — CHARTER
 
-**Date:** 2026-07-15 · **Class:** charter (discriminator BEFORE any driver) — remanence-charter pattern. · **Status:** CHARTER ONLY; DO-NOT-MERGE until Grant review; **no driver in this commit**. · **Priority:** hardware-ratings-map R7 / §3 item 1 (Priority 1).
+**Date:** 2026-07-15 · **Class:** charter (discriminator BEFORE any driver) — remanence-charter pattern. · **Status:** ★ **GRANT-GO'd 2026-07-15** (in-chat: "2. proceed") — charter accepted; freeze prereg then driver. · **Priority:** hardware-ratings-map R7 / §3 item 1 (Priority 1).
 
 **What this is NOT.** This is **not** a redo of the F6 **tier-1 two-reservoir ODE ledger** (`research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md`, driver MERGED #674, §5.4 ★RULED BOTH). Tier-1 already banks FORM-EXISTENCE of the occupancy-slaved chord as a *homogeneous bookkeeping* object and WRONG-INSTRUMENT closure for late homogeneous averages. **This charter addresses the still-UNBUILT engine capability:** a BOUNDED, Ax3-legal, norm-preserving **field-level** irreversible ε→T2 channel — the missing fluctuation / entropy sink that (a) the DE chord needs as realized substrate physics and (b) the lattice thermometer needs after PR #707.
 

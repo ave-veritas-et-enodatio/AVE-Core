@@ -130,6 +130,7 @@ class K4Lattice3D:
         use_memristive_saturation=False,
         tau_relax=None,
         V_SNAP=None,
+        external_z_local=False,
     ):
         """
         Args:
@@ -164,6 +165,13 @@ class K4Lattice3D:
                 Flag-5e-A: K4 strain = V_inc / V_SNAP_SI gave ~10⁻⁶ at
                 engine amp=0.9·V_SNAP_native, rendering saturation dormant
                 in engine context. Default preserved for standalone SI usage.
+            external_z_local: If True, `_scatter_all` does **not** overwrite
+                `z_local_field` with the V-only Op14 recompute. Used by
+                `CoupledK4Cosserat`, which writes the Cosserat↔V shared front
+                `√(S_μ/S_ε)` (or legacy total-A² form) before `k4.step()` —
+                F1 DEFECT fix (Grant 2026-07-15): Cosserat load must be able
+                to set bond Γ for V-pulses. Standalone K4 keeps False so
+                op3_bond_reflection still owns z_local from V_inc alone.
         """
         self.nx = nx
         self.ny = ny
@@ -173,6 +181,9 @@ class K4Lattice3D:
         self.pml_thickness = pml_thickness
         self.op3_bond_reflection = op3_bond_reflection
         self.use_memristive_saturation = bool(use_memristive_saturation)
+        # F1: when True, CoupledK4Cosserat owns z_local_field (shared front);
+        # _scatter_all must not overwrite with the V-only Op14 recompute.
+        self.external_z_local = bool(external_z_local)
         # Saturation V_SNAP per Flag-5e-A fix. Default module-level for
         # standalone SI mode; CoupledK4Cosserat passes engine's natural-
         # unit value so strain calculation matches engine convention.
@@ -297,10 +308,12 @@ class K4Lattice3D:
 
     def _scatter_all(self):
         """Matrix-vector multiply to scatter incident pulses into reflected pulses."""
-        if self.op3_bond_reflection:
+        if self.op3_bond_reflection and not self.external_z_local:
             # Track z_local at every site (not just strained) so that
             # _connect_all can apply bond-level Op3 reflection. This is
             # lightweight (one pointwise operation on the full field).
+            # Skipped when external_z_local=True (CoupledK4Cosserat shared
+            # front already written — F1 DEFECT fix, Grant 2026-07-15).
             self._update_z_local_field()
         if self.nonlinear:
             # Op14 Impedance Saturation, anchored to V_SNAP per the three-regime

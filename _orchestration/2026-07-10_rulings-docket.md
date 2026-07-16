@@ -1449,4 +1449,15 @@ derivations; nothing here canonizes a value.*
 | **NEXT-STEPS blob line** | "the ablation is IN FLIGHT" | ~~IN FLIGHT~~ → **REPORTED (#706)** |
 | **REGISTERED CHECKS blob** | IN FLIGHT | **REPORTED (#706, MODE-SORTING)** |
 
-**Not flipped here (still open / Grant-gated):** Op4 scope ruling; two-tank criterion (Grant-vetoable); F1 adjudication; breather hypothesis (flagged-not-ratified); Wave-1 parked items; CVR session.
+**Not flipped here (still open / Grant-gated):** Op4 scope ruling; two-tank criterion (Grant-vetoable); ~~F1 adjudication~~; breather hypothesis (flagged-not-ratified); Wave-1 parked items; CVR session.
+
+---
+
+## Continuation — 2026-07-15 (Grant in-chat): F1 ★RULED DEFECT + F6 field channel GO
+
+| Item | Ruling | Consequence |
+|---|---|---|
+| **F1** | **★RULED — DEFECT** (Grant: "1. fix it") | Cosserat load must reach bond Γ. Fix: `K4Lattice3D.external_z_local=True` under `CoupledK4Cosserat`; `_scatter_all` skips V-only overwrite. Regression `test_f1_shared_front_ordering.py`. Consumer-audit completion of HIGH V-active banked rows remains registered (not blocking). |
+| **F6 field channel** | **★GO** (Grant: "2. proceed") | Charter accepted. Prereg frozen + first rung fired: **CHANNEL-BOUNDED** (`research/2026-07-15_f6-field-channel_prereg_FROZEN.md` §5) — occupancy-slaved parallel latent→bath ledger on live lattice; in-Hamiltonian ε depletion still queued as deeper rung. |
+
+Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `research/2026-07-15_f6-field-channel_CHARTER.md`.

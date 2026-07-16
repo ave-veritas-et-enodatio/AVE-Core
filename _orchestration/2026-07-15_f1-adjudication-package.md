@@ -6,6 +6,8 @@
 
 Is the shipped `CoupledK4Cosserat` update ordering a **DEFECT** (fix + regression + consumer re-check) or a **deliberate V-only master** (reconcile design comments; demote the shared-front claim)?
 
+> **★RULED — DEFECT (Grant 2026-07-15, in-chat: "1. fix it").** Cosserat load must be able to set bond Γ for V-pulses. Fix landed: `K4Lattice3D.external_z_local=True` under `CoupledK4Cosserat` so `_scatter_all` does not overwrite the shared front; regression `src/tests/test_f1_shared_front_ordering.py`. Consumer-audit completion (HIGH rows + r7–r10 triage) remains registered follow-on — not blocking the fix.
+
 ## Mechanism (re-verified 2026-07-15, two-method)
 
 | Step | What happens | File:line |

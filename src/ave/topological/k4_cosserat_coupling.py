@@ -306,6 +306,10 @@ class CoupledK4Cosserat:
             op3_bond_reflection=True,
             use_memristive_saturation=use_memristive_saturation,
             V_SNAP=resolved_V_SNAP,
+            # F1 DEFECT fix (Grant 2026-07-15): Cosserat↔V shared front must
+            # reach bond Γ. Without external_z_local, k4.step()→_scatter_all
+            # overwrote z_local with V-only 1/√S(V) before _connect_all.
+            external_z_local=True,
         )
         # Override k4.dt and k4.c to natural units (c = 1, dx = 1, dt = 1/√2)
         # so both sectors share a unit system. This does NOT change K4's
@@ -862,7 +866,10 @@ class CoupledK4Cosserat:
         """One outer coupled step (advances time by outer_dt = k4.dt).
 
         Order (S5-B unified leapfrog):
-          1. Update K4 z_local_field from total A² (K4 + Cosserat).
+          1. Update K4 z_local_field from total A² (K4 + Cosserat) —
+             the shared front √(S_μ/S_ε) [asymmetric] or 1/√S(A²_total)
+             [legacy]. Survives into bond Γ because k4.external_z_local=True
+             (F1 DEFECT fix, Grant 2026-07-15).
           2. K4 scatter+connect (one step, using updated z_local).
           3. (path-1, optional) Add Lagrangian-derived EMF source to K4
              V_inc and Φ_link from δL_c/δV_sq. Restores reciprocal
@@ -870,10 +877,10 @@ class CoupledK4Cosserat:
           4. Cosserat sub-steps (n_sub Verlet sub-steps; coupling force
              applied each sub-step, V frozen during cycle).
         """
-        # (1) ω → V coupling: z_local ← total A²
+        # (1) ω → V coupling: z_local ← shared / total front (survives step)
         self._update_z_local_total()
 
-        # (2) K4 step
+        # (2) K4 step — bond Γ consumes the shared front (external_z_local)
         self.k4.step()
 
         # (3) Path-1 EMF: -∂L_c/∂V_sq applied to V_inc only.
