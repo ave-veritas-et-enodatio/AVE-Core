@@ -79,3 +79,23 @@ class TestF1SharedFrontSurvives:
         z_v = lat.z_local_field.copy()
         lat.step()
         np.testing.assert_allclose(lat.z_local_field, z_v, rtol=1e-12, atol=1e-12)
+
+    def test_s_field_still_advances_under_external_z_local(self):
+        """CI 2026-07-15: external_z_local must not freeze memristive S_field."""
+        sim = CoupledK4Cosserat(
+            N=8,
+            pml=0,
+            disable_cosserat_lc_force=True,
+            use_memristive_saturation=True,
+        )
+        assert sim.k4.external_z_local is True
+        drive = 0.5 * sim.V_SNAP
+        for _ in range(20):
+            sim.k4.V_inc[2, 2, 2, 0] = drive
+            sim.step()
+        S_driven = float(sim.k4.S_field[2, 2, 2])
+        assert S_driven < 0.98, (
+            f"S_field frozen under external_z_local — still {S_driven:.4f}"
+        )
+        # Shared front ownership preserved (Cosserat write path still used).
+        assert sim.k4.external_z_local is True
