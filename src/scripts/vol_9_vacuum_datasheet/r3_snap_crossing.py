@@ -58,7 +58,17 @@ PERSIST_MIN = 0.5      # non-decay of DC winding across the post window
 CLIP_TOL = 1e-2        # excess odd-harmonic fraction => clipping products present
 STALL_GAP = 0.05       # A-units: A_ceil < 1 - STALL_GAP => STALLS (soft source)
 CONV_TOL = 0.20        # fractional metric change under dt/2 or grid refine
-BLOWUP_FACTOR = 100.0  # max|V| > BLOWUP_FACTOR * commanded => NUMERICAL
+ENERGY_DRIFT_TOL = 5e-2  # FROZEN NUMERICAL trigger (prereg §2 line 61): fractional
+                         # source-off energy drift > this => NUMERICAL. This is the
+                         # frozen conservation-window bar; a stable-labeled cell must
+                         # survive it. See _frozen_bar_readjudication() below.
+# ── post-charter instruments (NOT frozen; disclosed in the result deviations note) ──
+BLOWUP_FACTOR = 100.0  # POST-CHARTER: max|V| > BLOWUP_FACTOR*commanded => hard abort.
+                       # A coarse NaN-precursor guard, minted after the freeze; the
+                       # frozen NUMERICAL trigger is ENERGY_DRIFT_TOL, not this.
+STABLE_EXPLORATION_CUT = 0.5  # POST-CHARTER exploratory cut used by _probe().stable
+                              # (e_growth < 0.5). NOT the frozen bar (5e-2); retained
+                              # only as EXPLORATION for the dt-scaling narrative.
 
 # ── frozen drive parameters (prereg §3) ───────────────────────────────────────
 N_BASE = 48
@@ -388,6 +398,11 @@ def _verdict_one(shape, pm, sm, converged, any_blowup) -> dict:
     # CLIPS-ONLY: clipping harmonics present, no latched DC winding
     clip_excess = (pm["clip_ratio"] - sm["clip_ratio"]) if (
         np.isfinite(pm["clip_ratio"]) and np.isfinite(sm["clip_ratio"])) else float("nan")
+    # DISCLOSURE (post-review 2026-07-17, R-9): `or shape == "B"` WAIVES the frozen
+    # clip-harmonic evidence requirement for Shape B — _clip_ratio() returns NaN for
+    # a DC push (no fundamental), so the harmonic test is undefined there. This is a
+    # reachability workaround: NO Shape-B verdict may be read as clip-harmonic-
+    # corroborated. (Moot here: Shape B falls to MIXED, not CLIPS-ONLY — see result §1.)
     clips = (crossed and pm["R_rect"] < RECT_FRAC and (
         (np.isfinite(clip_excess) and clip_excess > CLIP_TOL) or shape == "B"))
     if clips:
@@ -426,6 +441,55 @@ def _convergence(conv: dict) -> tuple[bool, dict]:
                 ok = False
         detail[tag] = d
     return ok, detail
+
+
+def frozen_bar_readjudication(stability: dict, stable_phys: dict) -> dict:
+    """Re-adjudicate every stable-labeled cell against the FROZEN
+    ENERGY_DRIFT_TOL=5e-2 source-off drift bar (prereg §2:61) — the bar the
+    driver never wired (it minted the post-charter 0.5 cut instead, R-3).
+
+    Pure: consumes ALREADY-BANKED e_growth_frac numbers, no re-runs. Returns a
+    per-cell {e_growth_frac, frozen_verdict}. A cell whose banked drift clears the
+    exploratory 0.5 cut but FAILS 5e-2 is downgraded to instrument-blocked
+    (NUMERICAL at the frozen bar); every §3 read from such a cell is exploratory.
+    """
+    def verdict(e: float) -> str:
+        return "SURVIVES" if e < ENERGY_DRIFT_TOL else "NUMERICAL@frozen"
+
+    cells: dict[str, dict] = {}
+    for name, row in stability.get("mechanism", {}).items():
+        e = row["e_growth_frac"]
+        cells[f"mech.{name}"] = {"e_growth_frac": e, "frozen_verdict": verdict(e)}
+    for row in stability.get("shapeB_dt_scaling", []):
+        e = row["e_growth_frac"]
+        cells[f"shapeB_dt.cfl{row['cfl']}"] = {
+            "e_growth_frac": e, "frozen_verdict": verdict(e)}
+    sb = stable_phys.get("shapeB_dc_transfer", {})
+    for arm in ("past", "sub"):
+        if arm in sb:
+            e = sb[arm]["e_growth_frac"]
+            cells[f"shapeB_dc.{arm}"] = {
+                "e_growth_frac": e, "frozen_verdict": verdict(e)}
+    for row in stable_phys.get("shapeA_carrier_sweep", []):
+        pp = row["period_phys"]
+        for arm in ("past", "sub"):
+            e = row[arm]["e_growth_frac"]
+            cells[f"shapeA_p{pp}.{arm}"] = {
+                "e_growth_frac": e, "frozen_verdict": verdict(e)}
+    n_survive = sum(1 for c in cells.values()
+                    if c["frozen_verdict"] == "SURVIVES")
+    ac_blocked = all(
+        cells[f"shapeA_p{row['period_phys']}.past"]["frozen_verdict"]
+        == "NUMERICAL@frozen"
+        for row in stable_phys.get("shapeA_carrier_sweep", [])
+        if f"shapeA_p{row['period_phys']}.past" in cells)
+    return {
+        "frozen_bar": ENERGY_DRIFT_TOL,
+        "exploratory_cut": STABLE_EXPLORATION_CUT,
+        "cells": cells,
+        "n_cells_surviving_frozen_bar": n_survive,
+        "AC_null_unreadable_at_frozen_tol": bool(ac_blocked),
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -517,8 +581,10 @@ def make_figures(runs: dict, outdir: Path, stability: dict | None = None) -> lis
         plt.close(fig)
 
     # Fig 4: dt-scaling of the post-source-off energy growth — Shape B (DC push,
-    # CFL-fixable: growth falls with dt) vs Shape A (AC carrier, unconditional:
-    # growth does NOT fall with dt). The numerical-health money figure.
+    # CFL-fixable: growth falls with dt) vs Shape A (AC carrier, NON-CFL:
+    # growth does NOT fall with dt — dt-refinement does not cure). The numerical-
+    # health money figure. (R-6: label reads "non-CFL", not "unconditional" — the
+    # AC instability is frequency-selective; fragile stable corners exist.)
     if stability is not None:
         fig, ax = plt.subplots(figsize=style.figsize("single"))
         b = stability["shapeB_dt_scaling"]
@@ -526,7 +592,8 @@ def make_figures(runs: dict, outdir: Path, stability: dict | None = None) -> lis
         ax.loglog([r["dt"] for r in b], [r["e_growth_frac"] + 1e-3 for r in b],
                   "o-", color=style.COLORS["ave"], label="Shape B (DC push) — CFL-fixable")
         ax.loglog([r["dt"] for r in a], [r["e_growth_frac"] + 1e-3 for r in a],
-                  "s--", color=style.COLORS["comparison"], label="Shape A (AC carrier) — unconditional")
+                  "s--", color=style.COLORS["comparison"],
+                  label="Shape A (AC carrier) — non-CFL (dt-refinement does not cure)")
         ax.axhline(0.5, color=style.COLORS["muted"], lw=0.8, ls=":")
         ax.set_xlabel(style.axis_label("Timestep", "\\Delta t", "natural"))
         ax.set_ylabel(style.axis_label("Post-off energy growth", "E_{max}/E_{off}-1", ""))
@@ -554,7 +621,13 @@ def _probe(cfg: RunConfig) -> dict:
         carrier_period=cfg.carrier_period, A_src_max=m["A_src_max"],
         S_ker_min=m["S_ker_min"], R_rect=m["R_rect"], persist=m["persist"],
         e_growth_frac=m["e_growth_frac"], blew_up=m["blew_up"],
-        stable=bool(m["e_growth_frac"] < 0.5 and not m["blew_up"]),
+        # NOTE (post-review 2026-07-17): `stable` uses the POST-CHARTER exploratory
+        # 0.5 cut, NOT the frozen ENERGY_DRIFT_TOL=5e-2 bar. Re-adjudicate against the
+        # frozen bar with survives_frozen_bar(); the doc §2b downgrades every read
+        # from a cell that clears 0.5 but fails 5e-2 to EXPLORATION.
+        stable=bool(m["e_growth_frac"] < STABLE_EXPLORATION_CUT and not m["blew_up"]),
+        survives_frozen_bar=bool(
+            m["e_growth_frac"] < ENERGY_DRIFT_TOL and not m["blew_up"]),
     )
 
 
@@ -582,7 +655,15 @@ def stability_study() -> dict:
     mech["shared_flux_past"] = _probe(_scaled("m_sf_past", "B", 1.3, "hard", 0.4))
     mech["shared_flux_sub"] = _probe(_scaled("m_sf_sub", "B", 0.8, "hard", 0.4))
     mech["decoupled_past"] = _probe(_scaled("m_dec", "B", 1.3, "hard", 0.4, alpha_0=0.0))
+    # NOTE (post-review 2026-07-17, R-7): forward_past e_growth is IDENTICAL to
+    # decoupled_past to all digits (0.0734601027786197) — omega is zero-initialized
+    # AND unsourced in both the alpha_0=0 and the forward-coupling modes, so both
+    # reduce to the same uncoupled V-only run. It is kept as a distinct label for
+    # transparency but is NOT an independent ablation arm.
     mech["forward_past"] = _probe(_scaled("m_fwd", "B", 1.3, "hard", 0.4, coupling="forward"))
+    # Strict fourth cell of the 2x2 (R-7): coupling-OFF x SUB-snap. Completes the
+    # ablation so "requires BOTH coupling AND crossing" is a full 2x2, not 3 corners.
+    mech["decoupled_sub"] = _probe(_scaled("m_dec_sub", "B", 0.8, "hard", 0.4, alpha_0=0.0))
 
     shapeB_dt = [_probe(_scaled(f"B_cfl{c}", "B", 1.3, "hard", c)) for c in (0.4, 0.2, 0.1, 0.05)]
     shapeA_dt = [_probe(_scaled(f"A_cfl{c}", "A", 1.3, "hard", c)) for c in (0.1, 0.05, 0.025)]
@@ -616,7 +697,13 @@ def stable_physics_probe() -> dict:
 
 
 def build_matrix() -> list[RunConfig]:
-    """The frozen 6-run matrix (prereg §3)."""
+    """The frozen matrix: 5 runs (prereg §3).
+
+    NOTE (post-review 2026-07-17, R-8): the prereg §3.7 line 89 says "6-run
+    matrix" but the frozen §3.3-3.5 method defines exactly FIVE runs (2 Shape-A
+    soft, 2 Shape-B soft, 1 Shape-B hard companion) — the count slip is flagged
+    in the prereg POST-FREEZE AMENDMENT. The shipped matrix is 5 runs.
+    """
     return [
         RunConfig("shapeA_past_soft", "A", A_PEAK_PAST, "soft"),
         RunConfig("shapeA_sub_soft", "A", A_PEAK_SUB, "soft"),
@@ -706,7 +793,9 @@ def main() -> None:
         "thresholds": dict(
             RECT_FRAC=RECT_FRAC, RECT_RATIO=RECT_RATIO, PERSIST_MIN=PERSIST_MIN,
             CLIP_TOL=CLIP_TOL, STALL_GAP=STALL_GAP, CONV_TOL=CONV_TOL,
-            BLOWUP_FACTOR=BLOWUP_FACTOR),
+            ENERGY_DRIFT_TOL=ENERGY_DRIFT_TOL,  # FROZEN NUMERICAL trigger (prereg §2:61)
+            BLOWUP_FACTOR=BLOWUP_FACTOR,         # post-charter (see constants block)
+            STABLE_EXPLORATION_CUT=STABLE_EXPLORATION_CUT),  # post-charter exploratory
         "drive_params": dict(
             N=N_BASE, PML=PML, CARRIER_PERIOD=CARRIER_PERIOD, N_RAMP=N_RAMP,
             N_HOLD=N_HOLD, N_RELAX=N_RELAX, POST_SETTLE=POST_SETTLE,
@@ -720,6 +809,9 @@ def main() -> None:
         "stability_study": stability,
         "stable_physics_probe": stable_phys,
         "stable_corner_physics_reading": physics_reading,
+        # post-review 2026-07-17, R-3: re-adjudicate stable-labeled cells at the
+        # FROZEN ENERGY_DRIFT_TOL=5e-2 bar (the driver's 0.5 cut is post-charter).
+        "frozen_bar_readjudication": frozen_bar_readjudication(stability, stable_phys),
     }
     jpath = outdir / "2026-07-16_r3-snap-crossing_results.json"
     jpath.write_text(json.dumps(out, indent=2))

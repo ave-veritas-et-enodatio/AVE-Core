@@ -1487,5 +1487,125 @@
       }
     ]
   },
-  "stable_corner_physics_reading": "NO CROSSING-SPECIFIC RECTIFICATION where stable (CLIPS-ONLY / null; consistent with anhysteretic-kernel + linear-omega prior, R10 loop gap)"
+  "stable_corner_physics_reading": "NO CROSSING-SPECIFIC RECTIFICATION where stable (CLIPS-ONLY / null; consistent with anhysteretic-kernel + linear-omega prior, R10 loop gap)",
+  "post_review_addendum_2026_07_17": {
+    "_note": "Additive post-review addendum (2026-07-17, PR#718 repair). The frozen run records above are BYTE-UNTOUCHED; this key only APPENDS. See research/2026-07-16_r3-snap-crossing_result.md deviations + amendment.",
+    "frozen_thresholds_correction": {
+      "ENERGY_DRIFT_TOL": 0.05,
+      "note": "R-3: prereg \u00a72:61 froze ENERGY_DRIFT_TOL=5e-2 as the source-off NUMERICAL trigger; the original driver never wired it and minted the post-charter 0.5 exploratory cut (STABLE_EXPLORATION_CUT) + BLOWUP_FACTOR=100 instead. Both post-charter instruments disclosed.",
+      "STABLE_EXPLORATION_CUT_post_charter": 0.5,
+      "BLOWUP_FACTOR_post_charter": 100.0
+    },
+    "ablation_2x2_completion": {
+      "note": "R-7: decoupled_past and forward_past are the SAME uncoupled V-only run (omega zero-init AND unsourced in both) \u2014 e_growth identical to all digits (0.0734601027786197). The strict fourth 2x2 cell (coupling-OFF x SUB-snap: alpha_0=0, A_peak=0.8, Shape B hard, cfl0.4) was UNRUN; run + banked here. Completed 2x2 confirms requires-BOTH: only shared_flux(ON) x PAST(crosses) is unstable.",
+      "decoupled_sub": {
+        "cfl": 0.4,
+        "dt": 0.051639777949432225,
+        "shape": "B",
+        "a_peak": 0.8,
+        "source_mode": "hard",
+        "coupling": "shared_flux",
+        "alpha_0": 0.0,
+        "carrier_period": 20,
+        "A_src_max": 0.7859982203934701,
+        "S_ker_min": 0.6182287582588649,
+        "R_rect": 0.0,
+        "persist": 0.0,
+        "e_growth_frac": 0.030604444257710695,
+        "blew_up": false,
+        "stable": true,
+        "survives_frozen_bar": true
+      },
+      "twenty_two_grid": {
+        "coupling_ON_x_past": {
+          "e_growth_frac": 8.378179816540591,
+          "stable": false
+        },
+        "coupling_ON_x_sub": {
+          "e_growth_frac": 0.030798496749695703,
+          "stable": true
+        },
+        "coupling_OFF_x_past": {
+          "e_growth_frac": 0.0734601027786197,
+          "stable": true
+        },
+        "coupling_OFF_x_sub": {
+          "e_growth_frac": 0.030604444257710695,
+          "stable": true
+        }
+      }
+    },
+    "frozen_bar_readjudication": {
+      "frozen_bar": 0.05,
+      "exploratory_cut": 0.5,
+      "cells": {
+        "mech.shared_flux_past": {
+          "e_growth_frac": 8.378179816540591,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "mech.shared_flux_sub": {
+          "e_growth_frac": 0.030798496749695703,
+          "frozen_verdict": "SURVIVES"
+        },
+        "mech.decoupled_past": {
+          "e_growth_frac": 0.0734601027786197,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "mech.forward_past": {
+          "e_growth_frac": 0.0734601027786197,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeB_dt.cfl0.4": {
+          "e_growth_frac": 8.378179816540591,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeB_dt.cfl0.2": {
+          "e_growth_frac": 0.45851481152775886,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeB_dt.cfl0.1": {
+          "e_growth_frac": 0.030994671521881845,
+          "frozen_verdict": "SURVIVES"
+        },
+        "shapeB_dt.cfl0.05": {
+          "e_growth_frac": 0.042145510885000625,
+          "frozen_verdict": "SURVIVES"
+        },
+        "shapeB_dc.past": {
+          "e_growth_frac": 0.030994671521881845,
+          "frozen_verdict": "SURVIVES"
+        },
+        "shapeB_dc.sub": {
+          "e_growth_frac": 0.04219640941121505,
+          "frozen_verdict": "SURVIVES"
+        },
+        "shapeA_p20.past": {
+          "e_growth_frac": 90.01121137928935,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeA_p20.sub": {
+          "e_growth_frac": 2462.317100286623,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeA_p60.past": {
+          "e_growth_frac": 0.10201147626052132,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeA_p60.sub": {
+          "e_growth_frac": 0.09618092589506944,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeA_p200.past": {
+          "e_growth_frac": 0.22493026950167527,
+          "frozen_verdict": "NUMERICAL@frozen"
+        },
+        "shapeA_p200.sub": {
+          "e_growth_frac": 0.22467470641431708,
+          "frozen_verdict": "NUMERICAL@frozen"
+        }
+      },
+      "n_cells_surviving_frozen_bar": 5,
+      "AC_null_unreadable_at_frozen_tol": true
+    }
+  }
 }
