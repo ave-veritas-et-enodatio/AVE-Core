@@ -1581,3 +1581,38 @@ Independent adversarial review of PR #711 (11 findings confirmed, 1 refuted): th
 | **Fix** | Book vs equilibrated baseline `E_equil` (post-step-1; `RunOut.E_field_equil`) | Honest ledger **closes at 1.443 %** (`soft=0.110790` vs `E_equil=7.678`); PASSES `0.5·E_equil`; OFF ledger ≈ `5.3e-15`. |
 | **Verdict** | **BIAS-MOVED unchanged** | Decided at bias step, upstream of soft-ledger DETONATE; WRONG-OBJECT closure independent. |
 | **Propagation** | Same E0 convention flagged to **#711** (Arm A) | Same bug class — coordinate wording. |
+
+---
+
+## Continuation — 2026-07-17 (Grant in-chat): PRODUCT/TRANSITION split RATIFIED · retention row R13 · yield-fork ruling
+
+> Append-only. Evidence base: the Regime-IV dissipation audit `research/2026-07-17_regime-iv-dissipation-audit.md` (workflow `wf_3f83fc66-6f5`; 126 items; final distribution **49 RETENTION-ONLY / 24 RADIATIVE-PORT / 19 LOSS-REQUIRED / 29 AMBIGUOUS / 5 RATE-CLAIM**; verify 8 OVERTURNED / 33 WEAKENED / 38 UPHELD / 47 NO-VERIFY). Three sub-entries continue the shared Ruling/Entry sequence (last = Entry 15).
+
+### RULING 16 (RULED — Grant in-chat 2026-07-17): THE PRODUCT / TRANSITION SPLIT — RATIFIED as corpus discipline
+
+**Ruling.** The loss/irreversibility vocabulary names **two physically distinct moments**, and load-bearing prose must declare which: **PRODUCT** — persistence of a latched state (winding integer / $\Gamma=-1$ cavity / retained order parameter), **LOSSLESS** per canon, no maintenance R; vs **TRANSITION** — the irreversibility of the crossing, an arrow **licensed only from counting** (mode-spread with reconvergence ≈ 0, or the energy-conserving click), **never a valve**.
+
+| receipt | content |
+|---|---|
+| `master-equation.md:20` | the two orthogonal "3"s (A1 dilatation-mass ⊥ T2 winding) — two objects, two latches |
+| `electron-identification.md:97` | "Two-reason trap: topological (the loop cannot untangle) + impedance — both independently prevent decay" |
+| `resonant-lc-solitons.md:104-108` | $\Gamma=-1$ lossless persistence "partly follows from the lossless axiom itself" (consistency-class, not a chord) |
+| tier-1 charter `research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md:256` | "the arrow comes from mode-count or a click, **never a valve**" |
+| R10-fixed-n charter `research/2026-07-12_remanence-r10-fixed-n_CHARTER.md:108` | precedent: "the retained order parameter, not the crossing loss, is what must survive drive-off" |
+
+Canonized as the discipline leaf `manuscript/ave-kb/common/retention-transition-split.md` (batch D4).
+
+### DECISION 17 (Grant in-chat 2026-07-17): retention lands as a NEW ratings row R13 (KEEP-BOTH)
+
+**Decision.** Retention (zero-drive persistence) is added as a **new** row **R13** on the hardware-ratings map (`_orchestration/2026-07-15_hardware-ratings-map.md`), **KEEP-BOTH** (a new axis alongside legacy; nothing redefined-in-place).
+
+**R-number collision — disambiguated by cross-note, neither renumbered:** the engine-capability-map's internal "**R10**" (the remanence gap; `engine-capability-map.md:65,:80`, §3.3 *Anhysteretic ↮ loop*) is a **different namespace** from the ratings-map's **R10** (*Overclocking / driven selection*). Retention content lives in the ratings-map's **R13**; a footnote on the ratings-map records the two-namespace fact. Do **not** renumber either.
+
+### RULING 18 (RULED — Grant in-chat 2026-07-17): THE YIELD-FORK RULING — lean recorded, fork OPEN
+
+**Ruling.** On the near-yield crossing — **finite-area memristive loop ($\oint S\,dr \neq 0$, dissipative) vs zero-area saturating reactance (lossless refusal)** — Grant's **reversible-reactive lean is RECORDED AS A LEAN**; the **fork stays OPEN**; resolution is by the substrate via the **registered discriminators**, not by fiat:
+
+1. the thixotropy amplitude-dependent-τ prereg `research/2026-06-09_thixotropy-amplitude-dependent-tau_prereg.md` (FROZEN, un-run);
+2. the pre-registered `P_phase5_memristor_loop_area` prediction (`tau-relax-derivation.md:109`, UNRUN).
+
+Until one fires, the Vacuum Memristor Level-2 loop is LOSS-REQUIRED *by its own prose construction* but **not axiom-forced** (the resistor is asserted at the crossing, not derived; $\tau_{relax}=\ell_{node}/c$ derives from lossless causality). Substrate adjudicates; Grant leans reversible.
