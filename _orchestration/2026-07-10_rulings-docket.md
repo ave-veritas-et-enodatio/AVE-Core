@@ -1531,3 +1531,17 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **Rule** | Each row = claim \| cite \| observable; entailment knife on energy fate; pre-freeze pass (1)–(6) |
 | **Arm B** | Worked-fail example in PROTOCOL §3 (preserves BIAS-MOVED + WRONG-OBJECT) |
 | **Next arm** | Probe-first for S/Γ; freeze only after PROTOCOL PASS — no door backfill |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm A/B adversarial-review repair (mode-count DEMOTED; twin-64)
+
+> Append-only Rule-12 supersession of the "mode-count detector LIVE (ΔN_occ=64)" banking at **Entry rows :1490 (Arm A)** and **:1505 (Arm B)** above. Verified two ways (production driver `--json` + independent monkeypatch probe) at branch `docs/2026-07-16-f6-circuit-first-repair`. Bins/verdicts unchanged.
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Mode-count "LIVE (ΔN_occ=64)"** | **DEMOTED** → "deposit path intact (`ΔN_occ≥1`; magnitude = the `M_MODES` knob) — code-flag self-test, NOT a physical mode-count measurement" | `ΔN_occ ≡ M_MODES` by construction; live-fire `M_MODES∈{16,48,64,128,256}→ΔN_occ={16,48,64,128,256}`, `E_bath=5.776694` invariant; `b[m]` write-only, zero back-reaction. Applies to **both** :1490 and :1505. |
+| **Twin-64** | Arm A interior 64 = Arm B exterior 64 = **same `M_MODES=64` constant printed twice** | Not two geometries converging on a measurement. |
+| **FRICTION-RENAMED** | Reachable **only** by the `--sabotage-friction` plant (`credit_modes=False`) | Unreachable by production physics; discriminates bookkeeping code-path, not a physical magnitude. |
+| **BIAS-MOVED (survivor)** | **Preserved** — rests on `ΔS_core=−0.017146` (bookkeeping-independent) | The kill and WRONG-OBJECT closure stand; only the mode-count-LIVE leg is void. |
+| **Detector rebuild** | **MANDATORY GATE** before any CHANNEL-BOUNDED bank / thermometer ungate | Real bath DOF + back-reaction + a physical control that can fail on physical inputs. Registered jointly with the **#711** (Arm A) repair — cross-cite. |

@@ -10,7 +10,7 @@
 
 ## 0 · Why this charter exists
 
-Arm B (G0 face leave) fired **BIAS-MOVED** with exterior mode-count LIVE, then was adjudicated **WRONG-OBJECT**: the harness scaled **unsaturated** face \(V\) into an exterior `b[m]` ledger. That is not what K4 ports do at the wall.
+Arm B (G0 face leave) fired **BIAS-MOVED** (its exterior "mode-count LIVE" leg is **DEMOTED** — `ΔN_occ≡M_MODES`, a deposit-path self-test, not a measurement), then was adjudicated **WRONG-OBJECT**: the harness scaled **unsaturated** face \(V\) into an exterior `b[m]` ledger. That is not what K4 ports do at the wall.
 
 Skills were applied as ban-list hygiene (no Re(Z), no PML-as-pass, G0, pairing). The miss was skipping the **junction walk**: cold node → knee → wall (\(|\Gamma|\to 1\)).
 

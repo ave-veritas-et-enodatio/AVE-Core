@@ -87,7 +87,7 @@ Charter rule: no Tier-0 pass criterion may bake G1 or G3.
 | `ρ_latent` numeric from `{ℓ_node,α,G}` | **OPEN** / input-only |
 | Tier-1 occupancy FORM | **Banked** (#674) — homogeneous ODE only |
 | Rung-2 global V scale-down | **BIAS-MOVED** — killed |
-| Arm A event-gated occupancy + multi-mode credit | **BIAS-MOVED** (PR #711 open / branch tip; mode-count LIVE; bias knife kills) — Rule 11: do not retune |
+| Arm A event-gated occupancy + multi-mode credit | **BIAS-MOVED** (PR #711 open / branch tip; bias knife kills) — Rule 11: do not retune. Mode-count "LIVE" leg **DEMOTED** (`ΔN_occ≡M_MODES` self-test; twin-64 = Arm B's same constant) |
 
 **Rail:** cosmic-frontier node-genesis (new cells) ≠ soliton/pattern genesis. Graft/genesis engines do not close the frontier column.
 
@@ -108,7 +108,7 @@ Charter rule: no Tier-0 pass criterion may bake G1 or G3.
 
 ## 6 · Tier-0 Arm B — CLOSED (killed costume class)
 
-> 🔴 **Rule-12 2026-07-16:** Prior “conditional necessary door” posture for Tier-0 G0 exterior-leave is **superseded**. Arm B fired **BIAS-MOVED** (mode-count LIVE) and is banked **WRONG-OBJECT**: face \(V\)-scale siphon into exterior `b[m]` is not native K4 port refusal at the wall. Siphon class **closed**. Do not retune; no Arm C siphon.
+> 🔴 **Rule-12 2026-07-16:** Prior “conditional necessary door” posture for Tier-0 G0 exterior-leave is **superseded**. Arm B fired **BIAS-MOVED** (mode-count "LIVE" leg **DEMOTED** — `ΔN_occ≡M_MODES` deposit-path self-test, not a measurement) and is banked **WRONG-OBJECT**: face \(V\)-scale siphon into exterior `b[m]` is not native K4 port refusal at the wall. Siphon class **closed**. Do not retune; no Arm C siphon.
 
 **Historical setup (record only — not to re-fire):** G0 face ports → exterior multi-mode ledger; pairing amendment; PML/Re(Z) forbidden. Receipts: `2026-07-16_f6-arm-b-exterior-leave_*`.
 

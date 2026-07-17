@@ -125,3 +125,19 @@ VERDICT = BIAS-MOVED
 **What this does not claim:** DE lifecycle, crystallization, F6 occupancy chord, orthogonal (G1) geometry, `ρ_Λ`, native wall-port behavior.
 
 Thermometer re-fire remains **GATED**. Full `node_creation` mint remains **NO** per frontier map. No Arm C siphon.
+
+---
+
+# Post-freeze amendments (append-only)
+
+> **Freeze rule.** §0–§5 above are the **frozen body** and are byte-untouched. Post-fire adversarial-review corrections are recorded here as dated amendments only (Rule-12 preserve-under-supersession). The banked **BIAS-MOVED** verdict and its `ΔS_core = −0.017146` basis are **unchanged**; these amendments repair *labels and demonstrations*, not the classifier or any bin.
+
+## Amendment A1 — 2026-07-16 — mode-count "LIVE" demoted (twin-64)
+
+Adversarial review confirmed the §5 line "`ΔN_occ = 64` (exterior mode-count detector LIVE — not FRICTION-RENAMED)" over-reads a structural constant as a measurement. **This amendment supersedes that line.**
+
+- **Elevated as the disclosed tell:** §4's own analytic expectation — "`ΔN_occ ≥ 1` *by construction of mode credit* unless deposit path is broken" — is the correct reading. `ΔN_occ ≡ M_MODES` because `_credit_modes` round-robins into the `N_SPREAD` lowest slots of a pre-allocated `M_MODES` array that saturates in ~16 events (27 300 fire). Live-fire: `M_MODES ∈ {16,48,64,128,256} → ΔN_occ = {16,48,64,128,256}`, `E_bath = 5.776694` invariant; `b[m]` is write-only (zero back-reaction).
+- **Corrected label (everywhere banked):** "deposit-path intact (`ΔN_occ ≥ 1`; magnitude = the `M_MODES` knob) — a code-flag self-test, **not** a physical mode-count measurement."
+- **Twin-64:** Arm A's interior 64 and Arm B's exterior 64 = the same `M_MODES=64` constant printed twice (not two geometries converging).
+- **FRICTION-RENAMED** is reachable only by the deliberate `--sabotage-friction` plant (`credit_modes=False`); it is **unreachable by production physics** (any positive δ with the flag on fills the slots). It discriminates the bookkeeping code-path, not a physical irreversibility magnitude.
+- **MANDATORY GATE:** no `CHANNEL-BOUNDED` bank or thermometer ungate until the mode-count observable is rebuilt with real bath DOF + back-reaction + a physical control that can fail on physical inputs. The `#711` (Arm A) repair registers the same gate — cross-cite.
