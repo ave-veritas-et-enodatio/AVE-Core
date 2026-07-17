@@ -111,3 +111,17 @@ Recorded every `probe_every` steps over the FULL run (drive + relaxation):
 ---
 
 *Rule-of-this-prereg: §0–§4 do not change after the first RESULT byte is read. If H falls, it retracts via Rule 12 (🔴 header, body preserved) and the R3 cell closes with a DRIVEN/REFUSED status + named mechanism — the slot is not refilled with a rescue (Rule 12 / A47 v11b). Honest closure (Rule 11): a clean STALLS or CLIPS-ONLY with the anhysteretic mechanism named is the discipline working, not a failure to debug around.*
+
+---
+
+## POST-FREEZE AMENDMENTS (2026-07-17, post-review — the frozen body above is untouched)
+
+These amendments are appended below the frozen §0–§5 body (which is byte-untouched). They flag — they do **not** rewrite — prereg items surfaced by the PR#718 adversarial review (12 findings, all EVIDENCE-VOID / repair-and-bank; no physics verdict flips). Full re-adjudication lives in `2026-07-16_r3-snap-crossing_result.md`.
+
+**A-1 (R-2) — the STALLS entailed-branch liveness row is RETRO-VACUOUS.** §2 line 67 (STALLS class) and §2 line 71 ("STALLS is reachable via soft-source self-consistency") presume a stiffening wall that the soft self-consistent field runs into. But in the shipped harness the kernel feedback is floored at `S=0.141` by the `A_cap=0.99` clamp (`√(1−0.99²)=0.1411`), so **the wall never forms** — and the soft source **never calibrated amplitude** (the sub-snap soft control commanded `A=0.8` but reached `A=6.728`, `e_growth≈145`, itself in the blow-up bin). STALLS was therefore **not reachable as instrumented** — the liveness claim was retro-vacuous. The result doc reclassifies STALLS as **UNADJUDICABLE in this harness** (not "falsified"): a null where the effect cannot exist is ARTIFACT not falsification (the frozen §0 rail's own words). This does **not** flip any physics verdict; it corrects a verb/scope claim.
+
+**A-2 (R-8 / R-3) — "6-run matrix" is a count slip; the shipped matrix is 5 runs.** §3 line 89 says "the 6-run matrix batched", and the driver docstring inherited "6-run". The frozen method §3.3–§3.5 defines exactly **five** runs: 2× Shape-A soft (past + sub), 2× Shape-B soft (past + sub), and 1× Shape-B hard companion. `build_matrix()` returns 5 configs; the count word "6" is a slip with no effect on the frozen design. Corrected to "5-run" in the driver docstring; flagged here.
+
+**A-3 (R-3) — the frozen `ENERGY_DRIFT_TOL=5e-2` NUMERICAL trigger was never wired in the original driver.** §2 line 61 froze `ENERGY_DRIFT_TOL = 5e-2` (fractional source-off energy drift) as a NUMERICAL trigger. The original driver did not implement it and instead minted `stable ⇔ e_growth < 0.5` and `BLOWUP_FACTOR=100`, both **post-charter**. The repair adds the frozen constant, discloses the two post-charter instruments, and re-adjudicates every stable-labeled cell against the frozen `5e-2` bar using already-banked numbers (no re-runs; no threshold retuning — Rule 11). Consequence banked in the result doc: **the AC (Shape-A) case is instrument-blocked everywhere at the frozen tolerance** (the AC null is unreadable at `5e-2`); the Shape-B crossing at `cfl≤0.1` (`e_growth=0.031`) is the only frozen-stable crossing cell; the requires-BOTH mechanism (`8.378` vs `0.073`, ~114×) survives either bar.
+
+*These amendments are flag-only. No frozen threshold was loosened; no verdict was flipped; the RECTIFIES-not-supported physics and the named mechanism bank unchanged. The frozen §0–§5 body above remains the locked pre-registration.*
