@@ -1481,3 +1481,25 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **ℏ = lattice FD constant?** | **UNBANKED** (Grant: form not derived) | Canonical FDT remains classical Nyquist / ℏ-free (`clm-eaiqj1`). Not a FORM/VALUE 5th-instance workstream. Ratings-map §1 + parent F6 charter demoted. |
 | **Next F6 door = “Re(Z) absorb”?** | **FORBIDDEN as the plan** (Grant: most honest path) | Discriminator charter: `research/2026-07-15_f6-mode-count-door_CHARTER.md` — mode-count irreversibility without sub-yield friction; fool-mode-3 / FRICTION-RENAMED first-class. Ax3 retirement knife preserved. |
 | **#693 + #707** | Keep **separate** | Do not narrate as “one fact, two measurements.” |
+
+---
+
+## Continuation — 2026-07-16: F6 mode-count Arm A fired BIAS-MOVED
+
+| Item | Status |
+|---|---|
+| **Prereg freeze** | `17662232` pushed **before** driver (Step 3.11) — `research/2026-07-16_f6-mode-count-event-gated_prereg_FROZEN.md` |
+| **Arm A fire** | **BIAS-MOVED** — ΔN_occ=64 (mode-count LIVE); ΔS_core≫BIAS_TOL; soft ledger messy. Rule-11: do not retune. |
+| **Sabotage** | `--sabotage-friction` → **FRICTION-RENAMED** (Discriminator 7 pass) |
+| **Thermometer** | remains GATED |
+
+### Post-#711-review corrections — 2026-07-16 (append-only; supersede the row above where cited)
+
+Independent adversarial review of PR #711 (11 findings confirmed, 1 refuted): the **BIAS-MOVED verdict survives** (independent `S_core` knife), the **detector infrastructure is void**. Corrections (repairs landed on `analysis/2026-07-16-f6-mode-count-event-gated`):
+
+- **"ΔN_occ=64 (mode-count LIVE)" RETRACTED** (findings 0/4/7): ΔN_occ = min(M_MODES, N_SPREAD × event-steps) — it reads the 64-slot accumulator dimension, **not** a physical mode-count. Bookkeeping liveness only. The twin-64 across #711/#713 is the shared array size, **not** independent corroboration — do not cite it as such.
+- **FRICTION-RENAMED control = flag readback** (finding 5): production and `--sabotage-friction` are bit-identical except the `credit_modes` side-array increment (bath/field/core/events/soft_ledger/ΔS_core all identical; only N_occ differs 64 vs 0). The control verifies the credit path executes — it cannot fail on any energetic run; vacuous as a physical discriminator. **No-smuggle rail PASSED**: conservative bookkeeping, `_phase_scramble` preserves Σ_p V_p² sitewise, no Re(Z), no ℏ-FD — the void is the meter, not a hidden dissipator.
+- **★ DETECTOR-REBUILD GATE (mandatory)**: before any future F6/R7 arm banks CHANNEL-BOUNDED or ungates the thermometer re-fire, the mode-count detector must be rebuilt as a real bath DOF (dynamics/frequencies + back-reaction) AND paired with a FRICTION-RENAMED control that varies a physical quantity (not the `credit_modes` flag). Tracked in ratings-map §7 / R7 next-drive.
+- **"soft ledger messy" CORRECTED** (findings 1/6/9): it was an E0-capture accounting artifact — E0 was measured pre-step-1 on an off-shell seed whose energy doubles exactly at the first TLM connect, so soft_ledger ≡ E0 for any transfer and the lossless OFF control itself blew the criterion; **CHANNEL-BOUNDED (the only ungate bin) was structurally unreachable as shipped.** Harness repaired (E0 captured post-connect): corrected soft_ledger = 0.079 (field drop 7.634 vs bath credit 7.555 = 1.03% of on-shell E0); OFF control now passes; verdict BIAS-MOVED unchanged. Not "messy physics."
+- **Multi-kill co-fire** (findings 3/8): the fired run also satisfies **ELECTRON-DRAIN** (87.3% protected-core drain vs DRAIN_TOL 5%). As shipped it also tripped the soft-DETONATE clause, but that was the cluster-3 artifact (fired on the OFF control too) and no longer fires post-repair. classify() precedence was never frozen → BIAS-MOVED was precedence-selected. Reporting rule frozen for future arms: report ALL satisfied bins; freeze precedence pre-fire. All bins co-directional → kill stands (run is more dead, not less).
+- **BANKED (Rule 11)**: Arm A **BIAS-MOVED** stands on ΔS_core=1.421e-1 ≫ BIAS_TOL 5e-3 (**28×**) — event-gating does not evade the protected-core knife. The negative is real and banked; thermometer stays GATED; not CHANNEL-BOUNDED. No retune (the two driver changes are fidelity repairs leaving the verdict invariant). NOT banked: "mode-count LIVE" / the FRICTION-RENAMED control (await the detector-rebuild gate).
