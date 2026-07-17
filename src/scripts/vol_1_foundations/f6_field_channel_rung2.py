@@ -101,6 +101,20 @@ def run_once(*, kappa: float, seed: int = 0, n_steps: int = N_STEPS) -> RunOut:
     rng = np.random.default_rng(seed)
     _seed(lat, center, rng)
 
+    # ⚑ FLAG (E0-baseline convention, hygiene sweep 2026-07-17; FLAGGED-NOT-FIXED —
+    # banked+frozen consumer). E0 is captured PRE-CONNECT on the V_inc-only seed
+    # (_seed writes only lat.V_inc), so total_energy() = Σ_p(V_inc²+V_ref²) here reads
+    # the off-shell HALF-energy and doubles EXACTLY 2× at the first lat.step() CONNECT
+    # (k4-tlm-simulator.md "E0 baseline convention"). This is the SAME bug class fixed
+    # in the sibling arms #711 (f6_mode_count_event_gated) / #714 (f6_arm_b_exterior_leave):
+    # the `soft_resid = |(E0-Ef)-E_bath|` (run_once, below) and the classify()
+    # CHANNEL-BOUNDED gate consume this pre-connect E0, so that pass-bin is STRUCTURALLY
+    # UNREACHABLE. The BANKED verdict (BIAS-MOVED, from the `mean_S_core` branch of
+    # classify()) fires BEFORE the soft ledger and does NOT consume E0 — the banked
+    # result is unaffected. The mechanical
+    # fix (capture E0 after the first lat.step(), on-shell) is routed to the F6 lane, NOT
+    # this additive-only hygiene sweep (frozen prereg
+    # research/2026-07-15_f6-field-channel-rung2_prereg_FROZEN.md + test_f6_field_channel_rung2.py).
     E0 = float(lat.total_energy())
     E_core0 = float(lat.get_energy_density()[core].sum())
     E_bath = 0.0
