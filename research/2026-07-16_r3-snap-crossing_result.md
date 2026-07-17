@@ -45,7 +45,7 @@ The frozen 5-run matrix + convergence pair (cfl 0.4 primary vs 0.2) at `N=48`, `
 
 **dt-scaling (the convergence study):**
 - **Shape B (DC push) — CFL-fixable:** `e_growth = 8.38 (cfl0.4) → 0.46 (0.2) → 0.031 (0.1) → 0.042 (0.05)`. Stable at `cfl≤0.2`.
-- **Shape A (AC carrier) — UNCONDITIONAL:** `e_growth = 90 (cfl0.1) → 65 (0.05) → 72 (0.025)` and `R_rect = 2.10 → 0.47 → 0.002` does NOT converge across `dt 0.013→0.003`. This is anti-damping of the `(V−V_prev)/dt` velocity-coupling discretization under sustained AC drive (large `|V̇|`) — a non-CFL instability that dt-refinement cannot cure.
+- **Shape A (AC carrier) — dt-refinement does NOT cure it (at the frozen carrier):** `e_growth = 90 (cfl0.1) → 65 (0.05) → 72 (0.025)` and `R_rect = 2.10 → 0.47 → 0.002` does NOT converge across `dt 0.013→0.003`. This is a **non-CFL** instability of the explicit `(V−V_prev)/dt` velocity-coupling discretization under sustained AC drive (large `|V̇|`) — dt-refinement cannot cure it. It is **frequency-selective**, not literally unconditional: a fragile stable carrier corner exists (§3, `period 60`/`200`) — but even there no rectification appears.
 
 **A blow-up is INSTRUMENT, not physics** (charter rail): the post-source-off energy growth is energy created with no source — a numerical artifact, reported as NUMERICAL, never as a physical rupture.
 
