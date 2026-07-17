@@ -181,3 +181,17 @@ Consequences as shipped:
 CHANNEL-BOUNDED is now **reachable-in-principle** from a legal door (the soft-check no longer fires on a balanced run: 0.079 < 0.5·7.678 = 3.839).
 
 **§5 correction (Rule-12 supersession).** §5 line 109 — "fails bias≠release at the same protected-core knife as rung-2 **(scatter / soft-ledger mismatch)**" — the parenthetical is **superseded**: the soft-ledger term was an E0-capture accounting artifact, not a physical mismatch. The BIAS-MOVED kill rests **solely** on the independent protected-core `ΔS_core` bias knife (`|ΔS_core| = 0.142 ≫ BIAS_TOL = 5e-3`), which is measured before the soft check and is unaffected by this bug.
+
+### A4 — Multi-kill co-fire; classify precedence was never frozen (findings 3 / 8 — MINOR ×2)
+
+The fired run satisfies **more than one** frozen fail-closed bin. All satisfied bins (two-method-verified on the repaired harness):
+
+| bin | condition | fires? |
+|---|---|---|
+| **BIAS-MOVED** (reported) | `\|ΔS_core\| = 0.142 > BIAS_TOL 5e-3` (28×) | ✅ |
+| **ELECTRON-DRAIN** | protected-core drain `(0.3131 − 0.0398)/0.3131 = 0.873` = **87.3%** > DRAIN_TOL 5% | ✅ |
+| **DETONATE** (soft-ledger clause) | soft > 0.5·E0 | ⚠️ fired **as shipped** (soft 3.760 > 1.920) but that was the **cluster-3 E0-capture artifact** (it also fired on the lossless OFF control); **post-repair it no longer fires** (0.079 < 3.839) |
+
+`classify()` returns only the first match, and its **precedence** (`DETONATE → NULL → FRICTION-RENAMED → BIAS-MOVED → ELECTRON-DRAIN → soft-DETONATE → CHANNEL-BOUNDED`) was **never frozen** — the prereg §2 froze bin *definitions* and a fail-closed *list*, not a tie-break order, and the precedence shipped in the same commit as the RESULT (finding 2 / A5). So **BIAS-MOVED was precedence-selected** among co-firing fail-closed bins. All satisfied bins are **co-directional** (protected-core corruption), so the kill stands and the physics conclusion is invariant — this is reporting completeness, not a verdict flip; the run is *more* dead than the single-bin report stated (genuine BIAS-MOVED **and** 87.3% ELECTRON-DRAIN).
+
+> **Reporting rule (frozen for future arms, 2026-07-16):** report **ALL** satisfied bins, not just the precedence-selected one; and **classify() precedence MUST be frozen pre-fire** (in the prereg or a pushed driver preceding the result), so no tie-break is chosen with results in hand.
