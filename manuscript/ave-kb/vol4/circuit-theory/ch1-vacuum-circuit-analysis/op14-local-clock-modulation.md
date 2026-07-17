@@ -57,6 +57,18 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 > (Distinct from the electron-shell $A^2 \approx 0.95$ amplitude at §4, which is a different quantity —
 > the shell's saturation *amplitude*, not $\omega_{\text{local}}$ — and is untouched.)
 
+> **Contour tag (Ruling 12, criterion/contour sweep 2026-07-17).** The onset-row rate
+> $(1-2\alpha)^{1/4} = 0.996331$ is the **RESPONSE clock** — the $\sqrt{S}$-projection of the
+> **response-α** criterion ($A^2 = 2\alpha$, deficit $\Delta S = \alpha$). It is **NOT** the
+> storage clock $\sqrt{1-\alpha} = 0.996345$ (the $\sqrt{S}$-projection of the **storage-α**
+> criterion $A^2 = \alpha$, the CVR $|\Gamma|$ face — [`cvr-reflection-smith.md`](cvr-reflection-smith.md):38).
+> The two 0.9963s are a **near-collision, $\Delta = 1.4\times10^{-5}$** (two readings of one
+> kernel one Taylor-order apart), so the rate alone cannot discriminate the contour — always
+> carry the tag. See [`strain-registers.md`](../../../common/strain-registers.md) §2. (One
+> documented mis-use rides this collision: `research/2026-06-30_electron-bind-sim_result.md:59`
+> uses the storage-clock $\sqrt{1-A^2}$ at $A=\sqrt\alpha$ — storage exponent + storage contour —
+> not this response clock; it was non-load-bearing there. Map §4.)
+
 ## §1 — The substrate-native mechanism for time dilation
 
 Op14's saturation kernel $S(A) = \sqrt{1 - A^2}$ slows wave propagation at high amplitude. Since the wave propagation speed determines the local clock rate (a wave needs $\tau = \ell / c_{\text{eff}}$ to cross a cell), saturation slows the local clock:

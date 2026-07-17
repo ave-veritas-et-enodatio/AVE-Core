@@ -41,6 +41,26 @@ The time-domain simulation proceeds by explicit time-stepping:
 
 The wave propagates perfectly isotropically at $c_0 = dx / (dt \sqrt{2})$.
 
+> **E0 baseline convention (measurement-design, Rule 10; landed 2026-07-17 from the
+> #711/#714 F6 repairs).** The structural energy density is
+> $\rho = \sum_p \big((V^{inc}_p)^2 + (V^{ref}_p)^2\big)$ (`k4_tlm.py`
+> `get_energy_density`). A seed that writes **only** $V^{inc}$ (the usual case:
+> $V^{ref}=0$ before any propagation) is therefore an **off-shell HALF-energy**
+> state — the first **CONNECT** populates $V^{ref}$ and the total energy **doubles
+> EXACTLY $2.0000\times$** at step 1, then conserves to machine precision. **A baseline
+> energy captured for a conservation ledger, a growth/retention ratio, or a drift
+> denominator must be read ON-SHELL — i.e. AFTER the first `lat.step()`** — never on the
+> raw seed. Capturing $E_0$ pre-connect makes any $|E_0 - E_f - E_{bath}|$ soft-ledger
+> $\equiv E_0$ for *any* transfer and puts a CHANNEL-BOUNDED / conservation pass-bin
+> structurally out of reach (the artifact that read as "ledger messy" in the F6 arms
+> before #711/#714 fixed it). Instantaneous per-step diagnostics, spatial/kinematic
+> probes (front/centroid velocity), amplitude-persistence metrics, and continuum
+> (Cosserat / Master-Equation-FDTD) energies are **not** subject to this doubling —
+> only a TLM baseline read before the first connect. One live pre-connect residue is
+> FLAGGED-NOT-FIXED (banked+frozen consumer, fix routed to the F6 lane):
+> `src/scripts/vol_1_foundations/f6_field_channel_rung2.py` (its banked BIAS-MOVED
+> verdict is unaffected — it fires before the soft ledger).
+
 **Axiom 4 Frame-Dragging (Lense-Thirring):** Instead of importing "fluid acceleration vectors" from aerospace Lattice Boltzmann theories, gravity is generated exclusively via topological saturation. When local amplitude exceeds $V_{snap}$, Op14 non-linearly raises the local node impedance ($Z_{eff} = Z_0 / \sqrt{S}$). This builds a static impedance gradient manifold around mass. Photons traversing this metric observe local refractive index variations, curving the trajectory natively (Gravitational Lensing) without ad-hoc vector mathematics.
 
 > **Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH).**

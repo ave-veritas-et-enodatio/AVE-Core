@@ -46,6 +46,15 @@ On the Smith chart the locus runs straight along the real axis from the centre (
 
 This is the same $\alpha$ as the $H(s)$ pole's distance from the $j\omega$ axis ([cvr-transfer-function.md](cvr-transfer-function.md) §2): the radiative linewidth, the per-cycle leak, and the Smith-chart gap to the unit circle are three views of one number. Computed: `gamma_mag_sq_leak = 0.9927026 = 1-α` (`cvr_ee_sweep_metrics.json`).
 
+> **Contour tag (Ruling 12, criterion/contour sweep 2026-07-17).** The reflection magnitude
+> $|\Gamma| = \sqrt{1-\alpha} = 0.996345$ is the **STORAGE clock** — the $\sqrt{S}$-projection of
+> the **storage-α** criterion ($A^2 = \alpha$, stored fraction $= \alpha$). It is **NOT** the
+> response clock $(1-2\alpha)^{1/4} = 0.996331$ (the **response-α** knee $A^2 = 2\alpha$, deficit
+> $\Delta S = \alpha$ — the Op14 local clock, [`op14-local-clock-modulation.md`](op14-local-clock-modulation.md):22).
+> The two 0.9963s **near-collide, $\Delta = 1.4\times10^{-5}$** (two readings of one kernel one
+> Taylor-order apart); the rate alone cannot discriminate the contour — always carry the tag. See
+> [`strain-registers.md`](../../../common/strain-registers.md) §2.
+
 ## §4 — The chiral 2×2 on the reflection plane (the charge-"3", documented separately)
 
 A scalar object would have a $1\times1$ $\Gamma$. The $(2,3)$ winding makes the **charge-"3"** a 2-port in the $(L,R)$ handedness basis with a **non-reciprocal** scattering matrix ($S_{LR}\ne S_{RL}^{*}$, parity-odd; computed peak $|S_{LR}-S_{RL}^*|=0.53$). This is **charge-"3" content** — orthogonal to the mass-dilatation reflection above — whose canonical home is the charge-"3" leaf; fig3 (right panel, §5) is the reflection-plane *view* of it.

@@ -496,13 +496,13 @@ T_EM: float = (M_E * C_0**2) / L_NODE  # ≈ 0.212 N
 V_SNAP: float = (M_E * C_0**2) / e_charge  # ≈ 511.0 kV
 
 # Kinetic yield limit  E_k = √α · m_e c²
-E_YIELD_KINETIC: float = np.sqrt(ALPHA) * M_E * C_0**2  # ≈ 43.65 keV (in Joules)
+E_YIELD_KINETIC: float = np.sqrt(ALPHA) * M_E * C_0**2  # ≈ 43.65 keV (in Joules)  [criterion: storage-α — A²=α, √α yield family; strain-registers.md §2 Ruling 12]
 
 # Kinetic yield limit in the voltage domain  V_yield = √α · V_snap
 # This is the 3D macroscopic dielectric saturation threshold.
 # When a localized topological voltage exceeds V_yield, the vacuum LC
 # network enters the non-linear saturation plateau (ε_eff → 0).
-V_YIELD: float = np.sqrt(ALPHA) * V_SNAP  # ≈ 43,652 V (43.65 kV)
+V_YIELD: float = np.sqrt(ALPHA) * V_SNAP  # ≈ 43,652 V (43.65 kV)  [criterion: storage-α — A²=α, √α yield family; strain-registers.md §2 Ruling 12]
 
 
 # Critical electric field (Schwinger limit via AVE)
@@ -513,7 +513,7 @@ E_CRIT: float = (M_E**2 * C_0**3) / (e_charge * HBAR)
 # When the applied field reaches E_yield = V_yield / ℓ_node, the local vacuum
 # LC cell enters the nonlinear saturation plateau (ε_eff → 0).
 # E_yield = √α × m_e² c³ / (eℏ) = √α × E_crit
-E_YIELD: float = V_YIELD / L_NODE  # ≈ 1.13e17 V/m
+E_YIELD: float = V_YIELD / L_NODE  # ≈ 1.13e17 V/m  [criterion: storage-α — A²=α, √α yield family; strain-registers.md §2 Ruling 12]
 
 # Magnetic saturation threshold (Axiom 4 — magnetic sector)
 # When B² / (2μ₀) = m_e c² / ℓ³ (energy density = rest energy per cell),
@@ -522,7 +522,7 @@ E_YIELD: float = V_YIELD / L_NODE  # ≈ 1.13e17 V/m
 B_SNAP: float = np.sqrt(2.0 * MU_0 * M_E * C_0**2 / L_NODE**3)  # ≈ 1.89e9 T
 
 # Pre-computed phase boundaries (Axiom 4 Limits)
-R_I: float = np.sqrt(2.0 * ALPHA)  # Linear -> Non-Linear
+R_I: float = np.sqrt(2.0 * ALPHA)  # Linear -> Non-Linear  [criterion: response-α — deficit ΔS=α, √(2α) knee family; strain-registers.md §2 Ruling 12]
 R_II: float = np.sqrt(3.0) / 2.0  # Non-Linear -> Saturated
 R_III: float = 1.0  # Saturated -> Rupture
 

@@ -95,6 +95,74 @@ The corpus populates **all four cells (4 of 4)** under names that never advertis
 - **Ruling 11 does not overturn the canonical dielectric specialization** $A=\Delta\phi/\alpha$ (`eq_axiom_4.tex:31`): $\Delta\phi$ is the per-cell phase drop (the field / step register), consistent with the carve.
 - **Near-site — the A-034 dialect list is CONSISTENT under the carve (Op4-check-confirmed).** The kernel-dialect list (`common_equations/eq_axiom_4.tex:10`, `vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:27`, + `backmatter/02_full_derivation_chain.tex`, `backmatter/12_mathematical_closure.tex`, `frontmatter/00_foreword.tex`) writes "the same $S(A)$ governs strain expressed as $V/V_{yield}$ … **$r_s/r$ (gravitational metric strain)** …" — an inverse-$r$, accumulated-potential quantity, i.e. the **ladder / port register**, the same family as the Op4 $(d_{sat}/r)^2$ expression. With the Op4 check returned (ports localize; the ladder register is a real interaction register), these are **CONSISTENT** — no correction owed; the gravitational $r_s/r$ dialect is the ladder register read in the metric grade.
 
+## §5 — Criterion / contour-tag sweep receipt (2026-07-17)
+
+**Sweep provenance.** The RATIFIED mandate (§3 ★) was executed as an **additive-only**,
+**two-method-verified** tag sweep against `AVE-Core @ afc57956` (worklist =
+`research/2026-07-14_quarter-power-map.md`; each site re-verified live — the map's anchors
+were pinned to `bb58727f` and line-numbers were re-confirmed here). **KEEP-BOTH:** the tags
+add a bracketed criterion/contour label; **no value, name, or formula changed.** Frozen
+prereg bodies were **skipped and listed** (below), not amended.
+
+### §5.1 — Criterion tags applied in-file (canonical DEFINITION sites)
+
+| Site | Register | Criterion | Tag |
+|---|---|---|---|
+| `constants.py:499` `E_YIELD_KINETIC = √α·m_ec²` | step (field) | **storage-α** ($A^2=\alpha$) | ✅ code comment |
+| `constants.py:505` `V_YIELD = √α·V_SNAP` | ladder (port) | **storage-α** | ✅ code comment |
+| `constants.py:516` `E_YIELD = V_YIELD/ℓ_node` | step (field) | **storage-α** | ✅ code comment |
+| `constants.py:525` `R_I = √(2α)` | — | **response-α** ($A^2=2\alpha$) | ✅ code comment |
+| `chiral_lattice_v10.py:30` `A_YIELD_SQ = 2α` (coordinate authority) | step (field) | **response-α** | ✅ code comment |
+| `chiral_lattice_v10.py:77` `scale = √α` (genesis-seed bias) | — | **storage-α** (genesis-seed amplitude mark) | ✅ code comment |
+| `regime_map.py:68` `R_LINEAR_MAX = √(2α)` | — | **response-α** | ✅ code comment |
+| `regime_map.py:369` `h_yield = √α` | step (field) | **storage-α** | ✅ code comment |
+| `loop_gap_seeds.py:49` `A_YIELD = √α` (Family-I fork vs `R_I`) | — | **storage-α** | ✅ code comment (fork already documented in-file) |
+
+### §5.2 — Contour tags applied in-file (0.9963-class rates)
+
+| Site | Rate | Clock | Tag |
+|---|---|---|---|
+| `op14-local-clock-modulation.md:22` | $(1-2\alpha)^{1/4} = 0.996331$ | **RESPONSE clock** ($A^2=2\alpha$) | ✅ inline callout |
+| `cvr-reflection-smith.md:38` | $\sqrt{1-\alpha} = 0.996345$ | **STORAGE clock** ($A^2=\alpha$) | ✅ inline callout |
+
+The near-collision ($\Delta = 1.4\times10^{-5}$) was **already annotated** at
+`common/claim-quality.md:1501` (storage-clock vs response-clock, verbatim) — left as-is. The
+**one known mis-use** (`research/2026-06-30_electron-bind-sim_result.md:59`: storage-clock
+$\sqrt{1-A^2}$ at $A=\sqrt\alpha$, non-load-bearing) is documented in the 1/4-map §4 and is a
+**banked result** — referenced, not re-tagged.
+
+### §5.3 — Consumer-site inventory (NOT separately tagged; inherit the criterion via the constant)
+
+The ~100 raw sites collapse to the two registers (1/4-map §1). Consumers import/re-derive the
+tagged constants; the tag lives once at the definition site.
+- **storage-α (√α) consumers:** `genesis_lane_a_provenance.py`, `genesis_v18_coupled.py:236`,
+  `loop_gap_harness.py:602`, `loop_gap_seeds.py:{126,170}`, `orbital_resonance.py:821`,
+  `vacuum_engine.py:180`, `vacuum_varactor_scatter.py`, `cosserat.py:598` ($M_C = M_\mu/\sqrt\alpha$),
+  and ~40 vol1/vol4/vol9 drivers + ~15 tests asserting `V_YIELD = √α·V_SNAP` / `amp = √α`.
+- **response-α (√(2α)) consumers:** `lense_thirring.py:174` (imports `R_I`; Family-I inline-literal
+  hygiene ALREADY done — 1/4-map §8-6), `motion_stability_bemf_longitudinal_probe.py:83`,
+  `r10_2_3_winding_extractor_coordinate.py:79`, the `A2_OP14 = √(2α)` cluster
+  (`r10_v8_t_st_*`, `r10_v8_2a_*`, `r10_vacuumengine3d_*`), `coax_ring_secondary.py:172`,
+  `photon_propagation_saturated.py:85`, `coldfusion_eta_x_curve.py:91`, `knee_contour_check.py:67`,
+  `slew_spec_band_comparison.py:85`, plot-marker axlines (`phase3b_amplitude_sweep.py`,
+  `phase3b_eigenmode_verification.py`, `dark_wake_chiral_validation.py:260`,
+  `validate_photon_modeling.py:361`), and tests (`test_knee_contour_check.py:31`,
+  `test_regime_map.py:73`, `swept_gamma_omega_A2.py:55`).
+
+### §5.4 — Skipped frozen docs (listed, not amended — additive-rail)
+
+Frozen preregs / banked results carrying `√α` / `√(2α)` / `0.9963` were **skipped**; none
+*genuinely needs* a tag (the constant they cite is tagged at its definition site). `*_FROZEN.md`
+skip-list: `genesis-v10-cvr-convergence`, `genesis-v9-phase2`, `loop-gap-harness-rank1-regime`,
+`cage-stiffening-wall`, `loop-gap-scalar-grade-restoration`, `electron-bind-sim`,
+`electron-portmap-derivation`, `electron-unifier-cocompress`, `bond-force-sign-rule`,
+`matter-stiffening-rho`, `prestress-tensor`, `resonant-tension-law`, `saturated-elastic-tensor`,
+`channel-resolved-loading`, `em-keying-round2-worked-cell`, `em-saturation-keying-functional`,
+`pump-probe-tslot`, `electron-lock-2bS1`, `electron-tick-floor`, `p4-forward-voltage-threshold`,
+`pump-inventory-astrophysical`, `x41-radiative-scoping-why`, `radiating-face-a1`,
+`universe-stub-a2`, `cavity-census-stage1` (all under `research/`). An additional ~21 dated
+`*_prereg.md` (frozen-by-status) carry the patterns and are likewise skipped.
+
 ## Cross-references
 
 - [`envelope-anatomy.md`](envelope-anatomy.md) — surface (iii) knee / dress edge (the field knee is the dress-edge candidate) + the radial-ladder circuit table (whose knee row carries the step/field register label).
