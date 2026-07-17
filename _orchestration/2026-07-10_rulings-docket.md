@@ -1503,3 +1503,81 @@ Independent adversarial review of PR #711 (11 findings confirmed, 1 refuted): th
 - **"soft ledger messy" CORRECTED** (findings 1/6/9): it was an E0-capture accounting artifact — E0 was measured pre-step-1 on an off-shell seed whose energy doubles exactly at the first TLM connect, so soft_ledger ≡ E0 for any transfer and the lossless OFF control itself blew the criterion; **CHANNEL-BOUNDED (the only ungate bin) was structurally unreachable as shipped.** Harness repaired (E0 captured post-connect): corrected soft_ledger = 0.079 (field drop 7.634 vs bath credit 7.555 = 1.03% of on-shell E0); OFF control now passes; verdict BIAS-MOVED unchanged. Not "messy physics."
 - **Multi-kill co-fire** (findings 3/8): the fired run also satisfies **ELECTRON-DRAIN** (87.3% protected-core drain vs DRAIN_TOL 5%). As shipped it also tripped the soft-DETONATE clause, but that was the cluster-3 artifact (fired on the OFF control too) and no longer fires post-repair. classify() precedence was never frozen → BIAS-MOVED was precedence-selected. Reporting rule frozen for future arms: report ALL satisfied bins; freeze precedence pre-fire. All bins co-directional → kill stands (run is more dead, not less).
 - **BANKED (Rule 11)**: Arm A **BIAS-MOVED** stands on ΔS_core=1.421e-1 ≫ BIAS_TOL 5e-3 (**28×**) — event-gating does not evade the protected-core knife. The negative is real and banked; thermometer stays GATED; not CHANNEL-BOUNDED. No retune (the two driver changes are fidelity repairs leaving the verdict invariant). NOT banked: "mode-count LIVE" / the FRICTION-RENAMED control (await the detector-rebuild gate).
+
+---
+
+## Continuation — 2026-07-16: F6 mode-count Arm A BIAS-MOVED + frontier map charter
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Arm A (event-gated occupancy)** | **BIAS-MOVED** (PR #711 open at fire time; prereg `17662232` before driver) | Mode-count detector LIVE (ΔN_occ=64); bias knife still kills. Rule-11: do not retune. Sabotage → FRICTION-RENAMED. |
+| **Freeze causal arrow** | **★WALKED (Grant 2026-07-16)** | Crystallization **releases** latent heat; drain does **not** drive formation. AM / `Ω_freeze` residue = frozen IC (`u0*`, chirality, `J`) — **not DE**. |
+| **Orthogonal release geometry** | **CONJECTURE** (Grant challenge) | Not a proven derivation. Map forks G0–G3; Tier-0 default **G0**. Do not bake normal-to-surface into pass criteria. |
+| **Frontier map charter** | Landed `research/2026-07-16_f6-frontier-map_CHARTER.md` | Full N→N+1 mint = **NO** (`node_creation` absent). Tier-0 Arm B exterior-leave = **gated on Grant GO**. F6 occupancy ≠ frontier (KEEP SEPARATE). |
+| **SM/QED fence** | Reaffirmed | No ZPE/Λ-as-ontology/ℏ-FD/Re(Z) absorb as door. T2 primary; CMB/Kerr peer-check only. |
+| **Thermometer** | remains GATED | Needs CHANNEL-BOUNDED + V-phase coupling the clocks see. |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm B G0 exterior-leave fired BIAS-MOVED
+
+| Item | Status |
+|---|---|
+| **Grant GO** | Tier-0 Arm B under frontier map — GO (in-chat "go") |
+| **Prereg freeze** | `5bda8777` pushed **before** driver (Step 3.11) — `research/2026-07-16_f6-arm-b-exterior-leave_prereg_FROZEN.md` |
+| **Arm B fire** | **BIAS-MOVED** — exterior ΔN_occ=64 (mode-count LIVE); \|ΔS_core\|≫BIAS_TOL; soft ledger messy. Rule-11: do not retune. |
+| **Sabotage** | `--sabotage-friction` → **FRICTION-RENAMED** |
+| **Sponge control** | PML-without-ports → NULL (not CHANNEL-BOUNDED) |
+| **Geometry** | **G0** only — no orthogonal claim |
+| **Thermometer** | remains GATED |
+| **Full frontier mint** | remains NO (`node_creation` absent) |
+
+---
+
+## Continuation — 2026-07-16: F6 circuit-first repair (Arm B WRONG-OBJECT)
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Arm B object** | **WRONG-OBJECT / CATEGORY-WRONG** (bin **BIAS-MOVED** preserved) | Unsaturated face \(V\)-siphon ≠ native K4 port refusal at wall (\(\lvert\Gamma\rvert\to1\)). Siphon class **closed**. No retune; no Arm C siphon. |
+| **Circuit-map gate** | Mode-count door **§5b** mandatory before any arm freezes | Filled port/regime/Γ/energy-fate table — not ban-list theater. |
+| **Circuit-first door map** | Landed `research/2026-07-16_f6-circuit-first-door-map_CHARTER.md` | A1 wall vs frontier mint vs F6 KEEP SEPARATE; **reflection ≠ T2 leave**. |
+| **Frontier map** | Arm B demoted from “necessary door” to killed costume; fool-mode 9 banked | Full mint still NO; thermometer GATED. |
+| **Next field spend** | Frozen until §5b-passing prereg | Default: wall-native consistency probe (not DE door) or wait on node-mint epic — not chosen here. |
+
+---
+
+## Continuation — 2026-07-16: §5b rigorous fill PROTOCOL banked
+
+| Item | Status |
+|---|---|
+| **Fill PROTOCOL** | Landed `research/2026-07-16_f6-circuit-map-fill-PROTOCOL.md` — binding for mode-count §5b |
+| **Rule** | Each row = claim \| cite \| observable; entailment knife on energy fate; pre-freeze pass (1)–(6) |
+| **Arm B** | Worked-fail example in PROTOCOL §3 (preserves BIAS-MOVED + WRONG-OBJECT) |
+| **Next arm** | Probe-first for S/Γ; freeze only after PROTOCOL PASS — no door backfill |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm A/B adversarial-review repair (mode-count DEMOTED; twin-64)
+
+> Append-only Rule-12 supersession of the "mode-count detector LIVE (ΔN_occ=64)" banking at **Entry rows :1490 (Arm A)** and **:1505 (Arm B)** above. Verified two ways (production driver `--json` + independent monkeypatch probe) at branch `docs/2026-07-16-f6-circuit-first-repair`. Bins/verdicts unchanged.
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Mode-count "LIVE (ΔN_occ=64)"** | **DEMOTED** → "deposit path intact (`ΔN_occ≥1`; magnitude = the `M_MODES` knob) — code-flag self-test, NOT a physical mode-count measurement" | `ΔN_occ ≡ M_MODES` by construction; live-fire `M_MODES∈{16,48,64,128,256}→ΔN_occ={16,48,64,128,256}`, `E_bath=5.776694` invariant; `b[m]` write-only, zero back-reaction. Applies to **both** :1490 and :1505. |
+| **Twin-64** | Arm A interior 64 = Arm B exterior 64 = **same `M_MODES=64` constant printed twice** | Not two geometries converging on a measurement. |
+| **FRICTION-RENAMED** | Reachable **only** by the `--sabotage-friction` plant (`credit_modes=False`) | Unreachable by production physics; discriminates bookkeeping code-path, not a physical magnitude. |
+| **BIAS-MOVED (survivor)** | **Preserved** — rests on `ΔS_core=−0.017146` (bookkeeping-independent) | The kill and WRONG-OBJECT closure stand; only the mode-count-LIVE leg is void. |
+| **Detector rebuild** | **MANDATORY GATE** before any CHANNEL-BOUNDED bank / thermometer ungate | Real bath DOF + back-reaction + a physical control that can fail on physical inputs. Registered jointly with the **#711** (Arm A) repair — cross-cite. |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm B E0 baseline bug fixed (soft ledger closes)
+
+> Append-only Rule-12 supersession of the "soft ledger messy / ≈3.73" banking at **Entry row :1505** above. Driver fix (not a knob retune); lattice trajectory byte-identical (survivors unchanged). Two-method verified.
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Soft ledger "messy" (≈3.73)** | **ARTIFACT** — booked vs the raw V_inc-only seed `E0` | First step equilibrates; OFF energy doubles **exactly 2.000000×** (`3.839→7.678`). `soft=|(E0−E_f)−E_bath|≈E0` identically → the CHANNEL-BOUNDED **pass bin was structurally unreachable**. |
+| **Fix** | Book vs equilibrated baseline `E_equil` (post-step-1; `RunOut.E_field_equil`) | Honest ledger **closes at 1.443 %** (`soft=0.110790` vs `E_equil=7.678`); PASSES `0.5·E_equil`; OFF ledger ≈ `5.3e-15`. |
+| **Verdict** | **BIAS-MOVED unchanged** | Decided at bias step, upstream of soft-ledger DETONATE; WRONG-OBJECT closure independent. |
+| **Propagation** | Same E0 convention flagged to **#711** (Arm A) | Same bug class — coordinate wording. |
