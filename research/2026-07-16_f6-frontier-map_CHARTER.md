@@ -49,7 +49,8 @@ Per `dark-energy-latent-heat-definition.md` §4 + `consistency-vs-emergence`:
 | Element | Status |
 |---|---|
 | DE = latent heat of crystallization (definition/mechanism) | **FORCED** (FORM) |
-| Leftover free-store = DE; finished A1 lossless | **FORCED** (sector map) |
+| Leftover free-store = DE; finished-A1 **sector assignment** (leftover→ε/DE, finished→A1) | **FORCED** (sector map: A1⊥ε⊥T2) |
+| Interior **lossless null-flow** (finished A1 tank, ∂ₜρₙ=0) — the *dynamical* claim | **POSTULATED-NULL** (Ax3 + ∂ₜρₙ=0; defended by negative-search, **not** positive proof) — **WATCH** `crystal_graft_v4.py:225` live counterexample; canon `dark-energy-latent-heat-definition.md` §4 |
 | `Γ = 3H ρ_latent` rate | Form continuity **FORCED**; numeric rate **ASSERTED** |
 | Arrow = geometric T2 mode spreading | **ASSERTED** (Ax3-legal; not forced from primitives) |
 | `ρ_Λ` / Friedmann number | **ECHO / CONSISTENCY** — never a Tier-0 target |

@@ -161,17 +161,19 @@ Every future arm prereg under the mode-count door must include a section:
 
 Object: <A1 wall | frontier | F6>
 
-| Question | Claim | Cite | Observable / null |
+| Question | Claim | Cite | Observable / null (measured value + `probe.py:line`) |
 |---|---|---|---|
-| Ports | … | … | … |
-| Regime | … | … | … |
-| Port behavior | … | … | … |
-| Energy fate | … | … | … |
-| A1 protection | … | … | … |
-| Forbidden costumes | … | … | … |
+| Ports | … | … | … = <value> (`probe.py:NN`) |
+| Regime | … | … | S / A² = <value> (`probe.py:NN`) |
+| Port behavior | … | … | bond Γ = <value> (`probe.py:NN`) |
+| Energy fate | … | … | <value> (`probe.py:NN`) |
+| A1 protection | … | … | <value> (`probe.py:NN`) |
+| Forbidden costumes | … | … | <value> (`probe.py:NN`) |
 
-Pre-freeze consistency: PASS (1)–(6) dated <ISO>.
+Pre-freeze consistency: PASS (1)–(6) dated <ISO> — cite the probe `script:line` + its printed values for every Observable cell above.
 ```
+
+**Reconcile-don't-declare rule (mandatory, 2026-07-16).** Each Observable cell MUST carry the **measured value + probe `script:line`**, not just the observable's name; the terminal "PASS (1)–(6)" MUST cite the probe script path and its printed values, so the reviewer reconciles **numbers**, not a self-declared stamp. A stamp without embedded receipts is a checklist, not a gate (`feedback_gate_reconcile_not_declare`) — and Arm B shipped exactly such a self-declaration ("claimed not Re(Z)"; §3 costumes row) that review had to catch post-fire. Incomplete/receipt-free table → **DO-NOT-MERGE**.
 
 Push that prereg **before** any driver (ave-prereg Step 3.11).
 
