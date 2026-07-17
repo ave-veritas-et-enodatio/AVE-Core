@@ -157,3 +157,27 @@ The energy-removing op (`arr[gated] *= scale`) runs in **both** paths; `bath_mod
 > 2. **A FRICTION-RENAMED control that varies a physical quantity** — the sabotage must perturb an energetic/dynamical observable, not the `credit_modes` bookkeeping flag; the current control is bit-identical to production except the side-array increment, so it cannot fail on any energetic run.
 >
 > Until **both** are met, `ΔN_occ` is bookkeeping-liveness only and no arm may cite it (or the twin-64) as physical mode-count corroboration.
+
+### A3 — Soft-ledger convention bug: baseline captured off-shell; §5 physics-attribution corrected (findings 1 / 6 / 9 — MAJOR ×2 → one mechanism)
+
+**The bug.** `E0 = float(lat.total_energy())` was captured **before** the first `lat.step()`, on an off-shell seed (V_ref = 0). The TLM connect mirrors V_inc into V_ref, and `get_energy_density = Σ_p V_inc² + V_ref²`, so the total energy **doubles exactly** at the first connect: `E0_seed = 3.83914` → `E1 = 7.67828`, ratio **2.0000000000** (reproduced two ways), then conserves to 1e-15. Hence
+
+> soft = |(E0 − Ef) − E_bath| = |E0 − E1| = E0, **for ANY transfer** — the ledger measured the seed-doubling gap, not an accounting residual.
+
+Consequences as shipped:
+- Shipped `soft_ledger ≈ 3.760 ≈ E0`, vs tolerance `0.5·E0 = 1.920` — blown ~2×.
+- The **lossless OFF control** (`kappa=0`) itself blew it: `off.soft_ledger = 3.839 = E0` exactly `> 1.920` — a gate its own control fails.
+- **CHANNEL-BOUNDED — the only ungate bin — was structurally unreachable as shipped**: any run reaching the soft check returned DETONATE unconditionally. The pass bin fired only for the hand-built `test_classify_bounded` RunOut, never from a lattice run.
+
+**The fix (this PR).** `E0` is now captured **after the first `lat.step()`** (on-shell). Re-run (fixed harness, two-method-verified):
+
+| quantity | as shipped | repaired |
+|---|---|---|
+| `on.soft_ledger` | 3.760 | **7.899e-2** |
+| balance | field drop 7.634 vs bath 7.555 → 0.079 = **1.03%** of on-shell E0 (7.678) | (same, now reported) |
+| `off.soft_ledger` (lossless control) | 3.839 (**blows** 1.920) | 5.33e-15 (**passes**) |
+| verdict | BIAS-MOVED | **BIAS-MOVED** (unchanged; bias fires before soft) |
+
+CHANNEL-BOUNDED is now **reachable-in-principle** from a legal door (the soft-check no longer fires on a balanced run: 0.079 < 0.5·7.678 = 3.839).
+
+**§5 correction (Rule-12 supersession).** §5 line 109 — "fails bias≠release at the same protected-core knife as rung-2 **(scatter / soft-ledger mismatch)**" — the parenthetical is **superseded**: the soft-ledger term was an E0-capture accounting artifact, not a physical mismatch. The BIAS-MOVED kill rests **solely** on the independent protected-core `ΔS_core` bias knife (`|ΔS_core| = 0.142 ≫ BIAS_TOL = 5e-3`), which is measured before the soft check and is unaffected by this bug.

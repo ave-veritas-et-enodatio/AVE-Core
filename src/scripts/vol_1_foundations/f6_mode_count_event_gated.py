@@ -179,7 +179,15 @@ def run_once(
     scalar_bath = 0.0  # used only when credit_modes=False
     n_occ0 = _n_occ(bath_modes)
 
-    E0 = float(lat.total_energy())
+    # E0 baseline is captured AFTER the first lat.step() (on-shell). The seed
+    # writes only V_inc (V_ref=0), so total_energy() pre-step is the off-shell
+    # HALF-energy and doubles exactly at the first TLM connect (get_energy_density
+    # = Σ_p V_inc² + V_ref², k4_tlm.py). Capturing E0 pre-step made soft_ledger ≡
+    # E0 for ANY transfer and put CHANNEL-BOUNDED structurally out of reach —
+    # repaired per PR #711 adversarial review (findings 1/6/9). BIAS-MOVED fires
+    # before the soft-ledger check, so the verdict is unchanged; the corrected
+    # ledger balances to ~1%.
+    E0 = float(lat.total_energy())  # provisional (off-shell seed); overwritten at step 0
     E_core0 = float(lat.get_energy_density()[core].sum())
     detonated = False
     finite = True
@@ -187,8 +195,10 @@ def run_once(
     n_events = 0
     E_removed = 0.0
 
-    for _ in range(n_steps):
+    for i in range(n_steps):
         lat.step()
+        if i == 0:
+            E0 = float(lat.total_energy())  # on-shell baseline (V_ref now populated)
         d, ne = _arm_a_transfer(
             lat, unprot, bath_modes, rng, kappa=kappa, credit_modes=credit_modes
         )
