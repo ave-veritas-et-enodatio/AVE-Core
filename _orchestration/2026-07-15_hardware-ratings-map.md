@@ -68,3 +68,11 @@ Two-method pass (gh PR state + `rg`/`git grep` content). Full adversarial table 
 
 ---
 *Rule-of-the-map: a row leaves this table only by MEASURED/DRIVEN/REFUSED status with a receipt, or by Grant striking it. The strategy is the empty cells.*
+
+## §7 — Detector-rebuild GATE for R7 (mandatory — 2026-07-16, post-#711-review)
+
+The PR #711 adversarial review (11 findings confirmed, 1 refuted) voided the F6 mode-count **detector infrastructure** while the Arm A **BIAS-MOVED** verdict survived on the independent `S_core` knife. R7's `ΔN_occ` "mode-count LIVE" claim is relabeled **bookkeeping-only** (ΔN_occ = min(M_MODES, N_SPREAD × event-steps) = the 64-slot accumulator dimension; the FRICTION-RENAMED control is bit-identical to production except a `credit_modes` side-array increment). Receipt: `research/2026-07-16_f6-mode-count-event-gated_prereg_FROZEN.md` amendments A1–A2.
+
+> **GATE.** Before any future F6/R7 arm may bank **CHANNEL-BOUNDED** or ungate the thermometer re-fire, the mode-count detector MUST be rebuilt to satisfy **both**: (1) a **real bath DOF** — actual dynamics/frequencies with **back-reaction** onto the lattice (not a `np.zeros(M_MODES)` side-array with zero dynamical consequence); and (2) a **FRICTION-RENAMED control that varies a physical quantity**, not the `credit_modes` bookkeeping flag. Until both are met, `ΔN_occ` (and the twin-64 across #711/#713) may not be cited as physical mode-count corroboration.
+
+No-smuggle rail on Arm A **PASSED** (conservative bookkeeping; `_phase_scramble` preserves Σ_p V_p² sitewise; no Re(Z); no ℏ-FD) — the void is the meter, not a hidden dissipator.

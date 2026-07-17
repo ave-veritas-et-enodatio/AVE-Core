@@ -133,3 +133,27 @@ Probes at PR head, only the array size varied: `M_MODES=48 → ΔN_occ=48`, `M_M
 > ΔN_occ is **bookkeeping liveness only** — it reads the accumulator dimension (`M_MODES = 64`), **NOT** a physical mode-count; the twin-64 across Arms A/B is the shared array size, not two independent doors corroborating a mode count.
 
 The twin `ΔN_occ = 64` across #711 (Arm A) and #713 (Arm B) MUST NOT be cited as independent corroboration — both ship the byte-identical `M_MODES = 64` / `_credit_modes` detector machinery. (Correction to the finding as first written: the whole-file Arm B diff is *large* — only the detector machinery is identical; the twin-64 conclusion holds on that corrected ground.)
+
+### A2 — The FRICTION-RENAMED control is a flag readback; no-smuggle rail PASSED; detector-rebuild GATE registered (finding 5 — CRITICAL)
+
+§5's sabotage line — `--sabotage-friction ... → FRICTION-RENAMED as required` — is **relabeled, not banked as a physical control.** Reproduced this session: the production run and the `--sabotage-friction` run are **bit-identical** except the `credit_modes` side-array increment:
+
+| field | production | `--sabotage-friction` |
+|---|---|---|
+| `bath` | 7.554826e+00 | 7.554826e+00 |
+| `field` | 4.446578e-02 | 4.446578e-02 |
+| `core` | 3.983927e-02 | 3.983927e-02 |
+| `events` | 27289 | 27289 |
+| `soft_ledger` | 3.760e+00 | 3.760e+00 |
+| `ΔS_core` | 1.421e-01 | 1.421e-01 |
+| **`N_occ`** | **64** | **0** |
+
+The energy-removing op (`arr[gated] *= scale`) runs in **both** paths; `bath_modes` is never coupled back to the lattice (written only by `_credit_modes`, read only by `_n_occ`). So the control **verifies the credit path executes** — it **cannot fail on any energetic run** and is **vacuous as a physical discriminator**. The sabotage run is physically a BIAS-MOVED run (identical ΔS_core), relabeled FRICTION-RENAMED only because the flag check precedes the bias check.
+
+**Good news, stated plainly — the no-smuggle rail PASSED.** The credit is conservative bookkeeping (energy-conserving `sqrt(max(1−δ/E_g,0))` rescale + bath credit, Ax3-clean); `_phase_scramble` preserves `Σ_p V_p²` sitewise; there is **no Re(Z)** resistive element and **no ℏ-as-FD** constant anywhere. **The void is the meter, not a hidden dissipator.**
+
+> ★ **DETECTOR-REBUILD GATE (mandatory — 2026-07-16, post-#711-review).** Before any future F6 / R7 arm may bank **CHANNEL-BOUNDED** or ungate the thermometer re-fire, the mode-count detector MUST be rebuilt to satisfy **both**:
+> 1. **A real bath DOF** — actual dynamics and frequencies with **back-reaction** onto the lattice (not a `np.zeros(M_MODES)` side-array written by `_credit_modes` and read only by `_n_occ`, with zero dynamical consequence).
+> 2. **A FRICTION-RENAMED control that varies a physical quantity** — the sabotage must perturb an energetic/dynamical observable, not the `credit_modes` bookkeeping flag; the current control is bit-identical to production except the side-array increment, so it cannot fail on any energetic run.
+>
+> Until **both** are met, `ΔN_occ` is bookkeeping-liveness only and no arm may cite it (or the twin-64) as physical mode-count corroboration.
