@@ -41,6 +41,25 @@ def test_classify_friction_renamed(arm):
     assert arm.classify(on, off) == "FRICTION-RENAMED"
 
 
+def test_classify_friction_renamed_field_drop(arm):
+    """Prereg §2 '(or field drop)' disjunct: field energy vanishing WITHOUT any
+    bath credit and without a mode-count rise must bin FRICTION-RENAMED, not NULL
+    (PR #711 review finding 10)."""
+    RunOut = arm.RunOut
+    # E_bath = 0 (< NULL_FLOOR), field dropped 7.68 -> 0.01, dN = 0.
+    on = RunOut(0.0, 0.01, 7.68, 0.2, 0.2, 0.0, 0.99, 0, 0, 10, False, True)
+    off = RunOut(0.0, 7.68, 7.68, 0.2, 0.2, 0.0, 0.99, 0, 0, 0, False, True)
+    assert arm.classify(on, off) == "FRICTION-RENAMED"
+
+
+def test_classify_null_silent_gate(arm):
+    """NULL is reserved for a genuinely silent gate: no bath AND no field drop."""
+    RunOut = arm.RunOut
+    on = RunOut(0.0, 7.68, 7.68, 0.2, 0.2, 0.0, 0.99, 0, 0, 0, False, True)
+    off = RunOut(0.0, 7.68, 7.68, 0.2, 0.2, 0.0, 0.99, 0, 0, 0, False, True)
+    assert arm.classify(on, off) == "NULL"
+
+
 def test_sabotage_friction_can_fail(arm):
     """Discriminator 7: FRICTION-RENAMED must be able to fire when modes are skipped."""
     off = arm.run_once(kappa=0.0, seed=3, n_steps=60, credit_modes=True)

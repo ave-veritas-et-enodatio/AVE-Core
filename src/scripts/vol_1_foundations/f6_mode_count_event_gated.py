@@ -242,9 +242,17 @@ def run_once(
 def classify(on: RunOut, off: RunOut) -> str:
     if on.detonated or not on.finite:
         return "DETONATE"
-    if on.E_bath < NULL_FLOOR:
-        return "NULL"
     dN = on.N_occ_final - on.N_occ_initial
+    # FRICTION-RENAMED fires when energy MOVED — bath credited *or field dropped*
+    # (prereg §2: "`E_bath ≥ NULL_FLOOR` (or field drop) **but** `ΔN_occ < 1`") —
+    # but occupied mode-count did not rise. NULL is reserved for a genuinely
+    # silent gate: no bath AND no field drop. The shipped classify() dropped the
+    # "(or field drop)" disjunct, mis-binning pure renamed-friction (field drop,
+    # no bath credit) as NULL — repaired per PR #711 review (finding 10).
+    field_dropped = on.E_field_final < on.E_field_initial - NULL_FLOOR
+    energy_moved = on.E_bath >= NULL_FLOOR or field_dropped
+    if not energy_moved:
+        return "NULL"
     if dN < 1:
         return "FRICTION-RENAMED"
     if abs(on.mean_S_core - off.mean_S_core) > BIAS_TOL:
