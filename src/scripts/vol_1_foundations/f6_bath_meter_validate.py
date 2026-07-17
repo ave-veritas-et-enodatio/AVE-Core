@@ -33,6 +33,7 @@ import numpy as np
 
 from ave.core.k4_tlm import K4Lattice3D
 from ave.thermal import LatticeBathCoupler, OscillatorBath, make_collar_mask
+from ave.thermal.f6_bath_meter import E_BATH_MIN_DEFAULT, FLOOR_ABS_DEFAULT
 
 # --- frozen validation tolerances (charter §6 + amendment §A) ---
 MACHINE_TOL = 1e-10
@@ -69,15 +70,20 @@ V3_TONE_AMP = 0.5
 V3_TONE_OMEGA = 0.5
 
 
-def _seed_lattice(lat: K4Lattice3D) -> None:
-    """Deterministic broadband seed (fixed physics across the whole battery)."""
+def _seed_lattice(lat: K4Lattice3D, scale: float = 1.0) -> None:
+    """Deterministic broadband seed (fixed physics across the whole battery).
+
+    `scale` multiplies the seed amplitude — the W-battery operating-point knob
+    (mild/moderate/near-knee A_max, §B). Default 1.0 preserves the A-battery seed
+    byte-for-byte (V1-V6 call this without `scale`).
+    """
     rng = np.random.default_rng(SEED)
     ii, jj, kk = np.indices((lat.nx, lat.ny, lat.nz))
     c = CENTER
     env = np.exp(-((ii - c[0]) ** 2 + (jj - c[1]) ** 2 + (kk - c[2]) ** 2) / (2 * 1.5**2))
     env[~lat.mask_active] = 0.0
     for p in range(4):
-        lat.V_inc[..., p] += 0.08 * env
+        lat.V_inc[..., p] += scale * 0.08 * env
     fld = np.zeros_like(lat.V_inc)
     for _ in range(6):
         kv = rng.integers(1, lat.nx // 2, size=3) * (2 * np.pi / lat.nx) * rng.choice([-1, 1], size=3)
@@ -85,7 +91,7 @@ def _seed_lattice(lat: K4Lattice3D) -> None:
         pw = np.cos(kv[0] * ii + kv[1] * jj + kv[2] * kk + ph)
         pw2 = rng.normal(size=4)
         for p in range(4):
-            fld[..., p] += 0.03 * pw * pw2[p]
+            fld[..., p] += scale * 0.03 * pw * pw2[p]
     fld[~lat.mask_active] = 0.0
     lat.V_inc += fld
 
@@ -97,14 +103,24 @@ def _build(
     beta: float = 0.0,
     delta_omega: float = DELTA_OMEGA,
     omega_min: float = OMEGA_MIN,
+    nonlinear: bool = False,
+    scale: float = 1.0,
 ) -> LatticeBathCoupler:
-    """Build a coupled meter (LINEAR cold-plant lattice) with on-shell E0.
+    """Build a coupled meter with on-shell E0.
 
     E0 is captured after the first step() (on-shell): the V_ref=0 seed doubles at
     the first TLM connect (both arm repairs — Arm A A3 / Arm B A2).
+
+    Defaults (`nonlinear=False`, `scale=1.0`) build the A-battery cold-plant meter
+    byte-for-byte. The W-battery (§B) sets `nonlinear=True` and `scale` to reach
+    the mild/moderate/near-knee operating points. NB (§B1 FACT-1): with
+    `op3_bond_reflection=True` the `nonlinear` flag is a no-op (the K4 4-port
+    scatter is z-independent); the amplitude-dependent kernel S(A) is carried by
+    op3's bond Γ, and the nonlinearity is driven by `scale` (A_max). We still set
+    `nonlinear=nonlinear` faithfully; W1 banks the flag-no-op identity.
     """
-    lat = K4Lattice3D(N_GRID, N_GRID, N_GRID, nonlinear=False, op3_bond_reflection=True, V_SNAP=1.0)
-    _seed_lattice(lat)
+    lat = K4Lattice3D(N_GRID, N_GRID, N_GRID, nonlinear=nonlinear, op3_bond_reflection=True, V_SNAP=1.0)
+    _seed_lattice(lat, scale)
     lat.step()  # on-shell baseline
     bath = OscillatorBath(M=M, omega_min=omega_min, delta_omega=delta_omega)
     collar = make_collar_mask(lat, CENTER, COLLAR_R_IN, COLLAR_R_OUT)
@@ -313,16 +329,411 @@ def run_battery() -> tuple[list[VResult], str]:
     return results, verdict
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# W-BATTERY — NONLINEAR-REGIME REVALIDATION (charter Amendment §B, 2026-07-17)
+# ═══════════════════════════════════════════════════════════════════════════
+# Opt-in (`--w-battery`). Does NOT disturb the A-battery (V1-V6) paths: it reuses
+# `_build`/`_seed_lattice` through their new behavior-preserving defaults
+# (nonlinear=True + seed `scale` are the only additions). NO F6 arm/door fires.
+#
+# The decisive risk (§B1): with the amplitude-dependent kernel active, the §A1
+# global-rescale "scalar multiple stays on-shell" conservation argument is LINEAR
+# and may break — re-introducing a secular pump. FACT (§B1): `nonlinear=True` is a
+# no-op given op3_bond_reflection=True (K4 4-port scatter is z-independent); the
+# kernel S(A)=√(1−A²)→z_local=(1−A²)^(−1/4) flows through op3's bond Γ, and the
+# nonlinearity is driven by AMPLITUDE (seed `scale`). We set nonlinear=True
+# faithfully AND sweep A_max across the three operating points.
+
+# --- frozen operating points (ENGINEERING CHOICES — tagged; §B1 table) --------
+OP_SCALES = {"mild": 0.6, "moderate": 1.8, "near-knee": 2.9}  # A_max ≈ 0.10/0.30/0.50
+W_NSTEP = N_STEPS_LONG  # 3000-step horizon (W1/W2), matches the A-battery V6 window
+# --- frozen W thresholds (all DERIVED / inherited; Rule 11 — no retune) --------
+W2_DRIFT_CEIL = R_BATH_MAX  # KILL ceiling: |proj slope·N| / transfer < R_BATH_MAX
+W3_COLLAPSE_ORDERS = 100.0  # ≥2 orders (frozen): E_bath(res)/E_bath(det) ≥ 100
+W3_POWER_FRAC_MAX = 1e-2  # DERIVED: detuned band q-power frac < 1/100 ⇒ ≥2-order drop
+W3_HARM_GUARD = 2 * DELTA_OMEGA  # placement clearance from measured content
+W4_HARM_MATCH_TOL = 2 * DELTA_OMEGA  # occupied bath ω must sit within this of a q-peak/harmonic
+W4_SEA_MULT = 4.0  # a mode is on real content iff local q-power > 4× the off-resonant sea
+W4_M_LIST = M_LIST  # (32, 64, 90) — Nyquist-bounded M-invariance sweep
+W5_TARE_C_TOL = 0.02  # |c_fit − c|/c gate: the computable tare IS the fitted scalar
+W5_RESID_FLAG = 0.5  # residual > this ⇒ tare captures < half the divergence (flag)
+W_WORKING_STEPS = N_STEPS  # 800-step working window for W5 (matches V5)
+EPS_TINY = 1e-300  # spectral-denominator floor (psd.sum() is never 0 in practice)
+EPS_DIVZERO_LOCAL = 1e-30  # ⟨V_off·V_off⟩ floor for the W5 best-fit scalar
+
+
+def _amax(cpl: LatticeBathCoupler) -> float:
+    """A_max = max active-site strain ‖V_inc‖ / V_SNAP (V_SNAP=1 ⇒ = max ‖V_inc‖)."""
+    v = np.sqrt(np.sum(cpl.lat.V_inc**2, axis=-1))
+    return float(v[cpl.lat.mask_active].max())
+
+
+def _run_w(cpl: LatticeBathCoupler, n_steps: int, record_q: bool = False):
+    """Advance a W-plant; return (E0, signed total-E drift curve, q timeseries, A_peak).
+
+    Signed drift `(E_lat+E_bath − Etot0)/E0` is the W2 curve (kept signed; a pump is
+    a monotone one-sign accumulation). q is recorded for W3/W4 spectral honesty.
+    """
+    E0 = cpl.e_lat()
+    Etot0 = E0 + cpl.e_bath()
+    curve, qs = [], []
+    a_peak = _amax(cpl)
+    for i in range(1, n_steps):
+        cpl.step(i)
+        a_peak = max(a_peak, _amax(cpl))
+        if record_q:
+            qs.append(cpl.read_q())
+        if i % 100 == 0 or i == n_steps - 1:
+            curve.append((i, ((cpl.e_lat() + cpl.e_bath()) - Etot0) / E0))
+    return E0, curve, np.array(qs) if record_q else None, a_peak
+
+
+def _q_spectrum(qs: np.ndarray):
+    """Hann-windowed angular-frequency spectrum of the collar-q timeseries.
+
+    Returns (freqs, psd, dominant_omega, cum_power_fraction). The independent
+    read of the plant's own V-spectrum harmonics (W3 placement, W4 honesty)."""
+    q = qs - qs.mean()
+    w = np.hanning(len(q))
+    amp = np.abs(np.fft.rfft(q * w))
+    psd = amp**2
+    freqs = 2 * np.pi * np.fft.rfftfreq(len(q), d=1.0)  # angular ω (dt=1)
+    dom = float(freqs[int(np.argmax(psd))])
+    cum = np.cumsum(psd) / max(psd.sum(), EPS_TINY)
+    return freqs, psd, dom, cum
+
+
+def _band_power_frac(freqs, psd, lo, hi) -> float:
+    m = (freqs >= lo) & (freqs <= hi)
+    return float(psd[m].sum() / max(psd.sum(), EPS_TINY))
+
+
+def _slope_and_kill(curve, transfer_frac: float, n_steps: int, ceil: float):
+    """W1/W2 secularity read: |proj slope·N| and max|drift|, as a fraction of the
+    bath transfer (W2) or E0 (W1, transfer_frac=1). KILL if either ≥ ceil."""
+    steps = np.array([s for s, _ in curve], float)
+    signed = np.array([d for _, d in curve])
+    absd = np.abs(signed)
+    max_frac = float(absd.max() / transfer_frac)
+    slope = float(np.polyfit(steps, absd, 1)[0]) if len(steps) > 1 else 0.0
+    projected = abs(slope) * n_steps / transfer_frac
+    kill = (projected >= ceil) or (max_frac >= ceil)
+    return {
+        "signed_end": float(signed[-1]),
+        "sign": "+" if signed[-1] > 0 else "-",
+        "max_frac": max_frac,
+        "slope": slope,
+        "projected": projected,
+        "kill": kill,
+    }
+
+
+# --- W1: nonlinear lossless baseline (the plant's own integrator floor) --------
+def run_w1() -> VResult:
+    """Kernel ON, NO bath (κ=0), no drive after seed: the bare nonlinear plant's
+    energy-conservation FLOOR over 3000 steps at each operating point. Also banks
+    §B1 FACT-1 (nonlinear=True vs False identity). PASS: max|ΔE|/E0 < MACHINE_TOL
+    AND non-secular (proj slope·N/E0 < MACHINE_TOL) at all three points.
+    """
+    per, floors, flag_ok = {}, {}, True
+    for name, scale in OP_SCALES.items():
+        cpl = _build(kappa=0.0, nonlinear=True, scale=scale)
+        a0 = _amax(cpl)
+        E0, curve, _, a_peak = _run_w(cpl, W_NSTEP)
+        # transfer_frac=1 ⇒ read drift as a fraction of E0 vs the machine floor.
+        sk = _slope_and_kill(curve, transfer_frac=1.0, n_steps=W_NSTEP, ceil=MACHINE_TOL)
+        floors[name] = sk["max_frac"]
+        per[name] = {"A0": round(a0, 4), "A_peak": round(a_peak, 4), **sk}
+        # flag-no-op receipt: nonlinear=True must equal nonlinear=False (op3 on).
+        lin = _build(kappa=0.0, nonlinear=False, scale=scale)
+        nl = _build(kappa=0.0, nonlinear=True, scale=scale)
+        for _ in range(60):
+            lin.lat.step()
+            nl.lat.step()
+        if float(np.max(np.abs(lin.lat.V_inc - nl.lat.V_inc))) > 1e-12:
+            flag_ok = False
+    ok = all(p["max_frac"] < MACHINE_TOL and not p["kill"] for p in per.values()) and flag_ok
+    floor_str = ", ".join(f"{n}(A={per[n]['A0']}):{per[n]['max_frac']:.1e}" for n in OP_SCALES)
+    return VResult(
+        "W1",
+        ok,
+        f"bare nonlinear-plant floor over {W_NSTEP} steps [max|ΔE|/E0]: {floor_str} "
+        f"(all <{MACHINE_TOL:.0e}, non-secular); nonlinear=True≡False given op3 (FACT-1): {flag_ok}",
+        {"per_point": per, "floors": floors, "flag_no_op_ok": flag_ok},
+    )
+
+
+# --- W2: ★kernel-ON coupled drift (the decisive KILL leg) ---------------------
+def run_w2() -> VResult:
+    """Production coupling, driven-then-source-off, 3000 steps at each operating
+    point. Signed total-E drift curve. KILL (= METER-INVALID-NONLINEAR): a monotone
+    (secular) drift whose |proj slope·N| exceeds R_BATH_MAX of the bath transfer
+    (same §A2 reactive-bin-boundary derivation, restated for the nonlinear plant).
+    """
+    per, any_kill, any_collapse = {}, False, False
+    for name, scale in OP_SCALES.items():
+        cpl = _build(nonlinear=True, scale=scale)
+        E0, curve, _, a_peak = _run_w(cpl, W_NSTEP)
+        transfer = cpl.e_bath() / E0
+        if transfer < E_BATH_MIN_DEFAULT / E0:  # off-comb transfer collapse — a finding, not a silent pass
+            any_collapse = True
+            per[name] = {"A_peak": round(a_peak, 4), "transfer_frac": transfer, "collapsed": True}
+            continue
+        sk = _slope_and_kill(curve, transfer_frac=transfer, n_steps=W_NSTEP, ceil=W2_DRIFT_CEIL)
+        any_kill = any_kill or sk["kill"]
+        per[name] = {"A_peak": round(a_peak, 4), "transfer_frac": transfer, "collapsed": False, **sk}
+    ok = (not any_kill) and (not any_collapse)
+    det = "; ".join(
+        f"{n}(A={per[n]['A_peak']}): signed_end={per[n].get('signed_end', float('nan')):+.1e} "
+        f"transfer={per[n]['transfer_frac']:.2e} |slope·N|/transfer={per[n].get('projected', float('nan')):.1e} "
+        f"KILL={per[n].get('kill', 'COLLAPSE')}"
+        for n in OP_SCALES
+    )
+    return VResult("W2", ok, f"[ceil {W2_DRIFT_CEIL}=R_BATH_MAX] {det}", {"per_point": per})
+
+
+def _place_detuned_band(freqs, psd, cum):
+    """Choose a detuned comb off the plant's MEASURED content (§B W3 placement).
+
+    DISCLOSED DEVIATION from the literal §B rule ("≥2Δω from every n·ω_d, n=1..6"):
+    that rule is UNSATISFIABLE here — the plant is broadband-seeded, so (a) it has
+    independent lines not captured by n·ω_d, and (b) ω_d's high folded harmonics
+    tile (0,π) at ~ω_d spacing with NEGLIGIBLE power, so no 32-mode Nyquist band
+    avoids all six. The physically-honest control is "off all significant MEASURED
+    q-power": scan ω_min upward from the 99%-cumulative-power cutoff + guard for the
+    lowest 32-mode Nyquist band whose q-power fraction < W3_POWER_FRAC_MAX. Returns
+    (ω_min_det, ω_max_det, band_power_frac, omega_99).
+    """
+    idx99 = int(np.searchsorted(cum, 0.99))
+    omega_99 = float(freqs[idx99])
+    m_det = DETUNE_M  # 32 (frozen)
+    start = omega_99 + W3_HARM_GUARD
+    om = start
+    while om + (m_det - 1) * DELTA_OMEGA < np.pi:
+        lo, hi = om, om + (m_det - 1) * DELTA_OMEGA
+        if _band_power_frac(freqs, psd, lo, hi) < W3_POWER_FRAC_MAX:
+            return om, hi, _band_power_frac(freqs, psd, lo, hi), omega_99
+        om += DELTA_OMEGA
+    # fall back to the A-battery's proven detuned band (also off-content here)
+    hi = DETUNE_OMEGA_MIN + (m_det - 1) * DELTA_OMEGA
+    return DETUNE_OMEGA_MIN, hi, _band_power_frac(freqs, psd, DETUNE_OMEGA_MIN, hi), omega_99
+
+
+# --- W3: detuning soul-check on the nonlinear plant (harmonic-controlled) ------
+def run_w3() -> VResult:
+    """Resonant vs detuned comb at the MODERATE point — the transfer collapse must
+    survive on the nonlinear plant (≥2 orders, frozen). Confound controlled: the
+    detuned comb is placed OFF the plant's own measured harmonic content (see
+    _place_detuned_band — DISCLOSED deviation from the literal n·ω_d rule).
+    """
+    scale = OP_SCALES["moderate"]
+    res = _build(M=M_DEFAULT, nonlinear=True, scale=scale, omega_min=OMEGA_MIN)
+    _E0, _c, qs, _a = _run_w(res, W_NSTEP, record_q=True)
+    e_res, n_res = res.e_bath(), res.bath.n_occ()
+    freqs, psd, dom, cum = _q_spectrum(qs)
+    om_min_det, om_max_det, band_frac, omega_99 = _place_detuned_band(freqs, psd, cum)
+    det = _build(M=DETUNE_M, nonlinear=True, scale=scale, omega_min=om_min_det)
+    _run_w(det, W_NSTEP)
+    e_det, n_det = det.e_bath(), det.bath.n_occ()
+    ratio = e_res / max(e_det, 1e-300)
+    # folded harmonics of ω_d (reported: shows why the literal rule is unsatisfiable)
+    harm = [round(float((n * dom) % (2 * np.pi) if (n * dom) % (2 * np.pi) <= np.pi
+                         else 2 * np.pi - (n * dom) % (2 * np.pi)), 3) for n in range(1, 7)]
+    ok = ratio >= W3_COLLAPSE_ORDERS and n_res > 0 and n_det == 0
+    return VResult(
+        "W3",
+        ok,
+        f"MODERATE: resonant E_bath={e_res:.3e}(N_occ={n_res}) vs detuned "
+        f"[{om_min_det:.2f},{om_max_det:.2f}] E_bath={e_det:.3e}(N_occ={n_det}); "
+        f"collapse ×{ratio:.0f} (≥{W3_COLLAPSE_ORDERS:.0f}); ω_d={dom:.3f}, ω_99={omega_99:.3f}, "
+        f"detuned q-power-frac={band_frac:.1e}(<{W3_POWER_FRAC_MAX:.0e}); "
+        f"[DEVIATION: off-measured-content placement — n·ω_d folds {harm} tile (0,π), literal rule unsatisfiable]",
+        {"e_res": e_res, "e_det": e_det, "ratio": ratio, "n_res": n_res, "n_det": n_det,
+         "omega_d": dom, "detuned_band": [om_min_det, om_max_det], "band_frac": band_frac, "harmonics": harm},
+    )
+
+
+# --- W4: N_occ honesty under self-generated harmonics -------------------------
+def run_w4() -> VResult:
+    """With the kernel ON, bath modes at drive harmonics may be LEGITIMATELY excited.
+    Verify N_occ reads PHYSICAL harmonic content: every occupied bath mode sits within
+    HARM_MATCH_TOL of a peak of the plant's INDEPENDENTLY measured q-spectrum; N_occ is
+    M-invariant; and an off-resonant probe still reads 0. FAIL = occupied modes off all
+    plant peaks, or N_occ tracking M / exploding.
+    """
+    scale = OP_SCALES["moderate"]
+    ref = _build(M=M_DEFAULT, nonlinear=True, scale=scale)
+    _E0, _c, qs, _a = _run_w(ref, W_NSTEP, record_q=True)
+    freqs, psd, dom, _cum = _q_spectrum(qs)
+    occ_omega = ref.bath.omega[ref.bath.mode_energy() > FLOOR_ABS_DEFAULT]  # absolute occupancy floor
+    # §B "peak/HARMONIC" honesty: an occupied mode is on REAL content iff its local
+    # q-power fraction (±HARM_MATCH_TOL) sits ABOVE the off-resonant sea. This admits
+    # both measured peaks AND self-generated drive harmonics (n·ω_d) — the legitimate
+    # harmonic excitations W4 is about (e.g. the 2nd harmonic 2·ω_d, ~8× the sea). The
+    # sea floor is the minimum local band-power over the comb's Nyquist range.
+    def _local_frac(w):
+        return _band_power_frac(freqs, psd, w - W4_HARM_MATCH_TOL, w + W4_HARM_MATCH_TOL)
+
+    comb_probe = np.arange(OMEGA_MIN, np.pi - W4_HARM_MATCH_TOL, DELTA_OMEGA)
+    # sea = MEDIAN off-content band power (a discriminating background reference;
+    # the min is trivially empty, the median lands in the true off-resonant sea).
+    sea = float(np.median([_local_frac(p) for p in comb_probe])) if len(comb_probe) else EPS_TINY
+    local_fracs = np.array([_local_frac(w) for w in occ_omega])
+    matched = local_fracs > W4_SEA_MULT * sea  # above the sea ⇒ on a peak/harmonic
+    all_matched = bool(np.all(matched)) if len(occ_omega) else True
+    # which occupied modes are self-generated harmonics n·ω_d (reported)
+    harm_folds = [float((n * dom) % (2 * np.pi) if (n * dom) % (2 * np.pi) <= np.pi
+                        else 2 * np.pi - (n * dom) % (2 * np.pi)) for n in range(1, 7)]
+    n_harmonic = int(sum(any(abs(w - h) <= W4_HARM_MATCH_TOL for h in harm_folds) for w in occ_omega))
+    # coverage: fraction of q-power within tol of ANY occupied mode
+    cover_mask = np.zeros(len(freqs), bool)
+    for w in occ_omega:
+        cover_mask |= np.abs(freqs - w) <= W4_HARM_MATCH_TOL
+    coverage = float(psd[cover_mask].sum() / max(psd.sum(), EPS_TINY))
+    # M-invariance (Nyquist-bounded)
+    occ_M = {}
+    for M in W4_M_LIST:
+        c = _build(M=M, nonlinear=True, scale=scale)
+        _run_w(c, W_NSTEP)
+        occ_M[M] = c.bath.n_occ()
+    m_invariant = all(abs(occ_M[M] - occ_M[M_DEFAULT]) <= N_OCC_M_TOL for M in W4_M_LIST)
+    # off-resonant rejection
+    off = _build(M=DETUNE_M, nonlinear=True, scale=scale, omega_min=DETUNE_OMEGA_MIN)
+    _run_w(off, W_NSTEP)
+    off_rejects = off.bath.n_occ() == 0
+    ok = all_matched and coverage >= 0.5 and m_invariant and off_rejects
+    return VResult(
+        "W4",
+        ok,
+        f"MODERATE: {len(occ_omega)} occupied bath modes ({n_harmonic} at self-generated harmonics n·ω_d, "
+        f"ω_d={dom:.3f}), all on real content (local q-power >{W4_SEA_MULT:.0f}×sea): {all_matched} "
+        f"(coverage of q-power={coverage:.2f}≥0.5); N_occ(M={list(W4_M_LIST)})="
+        f"{[occ_M[M] for M in W4_M_LIST]} invariant≤{N_OCC_M_TOL} (NOT tracking M); off-resonant→0: {off_rejects}",
+        {"n_occ_M": [occ_M[M] for M in W4_M_LIST], "all_matched": all_matched, "coverage": coverage,
+         "n_harmonic": n_harmonic, "omega_d": dom, "sea": float(sea),
+         "occ_omega": [round(float(w), 3) for w in occ_omega],
+         "local_fracs": [round(float(f), 6) for f in local_fracs], "off_rejects": off_rejects},
+    )
+
+
+# --- W5: tare-rule check (the arm-spatiality budget vs operating point) --------
+def run_w5() -> VResult:
+    """At each operating point: the §B0 tare c=sqrt(1−E_bath/E0), the best-fit global
+    scalar c_fit=⟨V_on·V_off⟩/⟨V_off·V_off⟩ (§A8 V5-decomposition), and the spatial
+    residual resid=‖V_on−c_fit·V_off‖/‖V_off‖. PASS (tare-usable): |c_fit−c|/c <
+    W5_TARE_C_TOL at all three points (the computable tare IS the fitted attenuation).
+    The residual trend vs nonlinearity is REPORTED (the arm-spatiality budget) — a
+    diagnostic, flagged only if resid > W5_RESID_FLAG.
+    """
+    per, usable = {}, True
+    for name, scale in OP_SCALES.items():
+        on = _build(nonlinear=True, scale=scale)
+        off = _build(kappa=0.0, nonlinear=True, scale=scale)
+        E0 = on.e_lat()
+        _run_w(on, W_WORKING_STEPS)
+        _run_w(off, W_WORKING_STEPS)
+        a = on.active
+        von = on.lat.V_inc[a].ravel()
+        voff = off.lat.V_inc[a].ravel()
+        c = float(np.sqrt(max(1.0 - on.e_bath() / E0, 0.0)))
+        c_fit = float(np.dot(von, voff) / max(np.dot(voff, voff), EPS_DIVZERO_LOCAL))
+        resid = float(np.linalg.norm(von - c_fit * voff) / (np.linalg.norm(voff) + 1e-30))
+        match = abs(c_fit - c) / max(c, 1e-30)
+        usable = usable and (match < W5_TARE_C_TOL)
+        per[name] = {"c": round(c, 4), "c_fit": round(c_fit, 4), "match": match,
+                     "resid": round(resid, 4), "flagged": resid > W5_RESID_FLAG}
+    ok = usable
+    trend = " → ".join(f"{n}:{per[n]['resid']:.3f}" for n in OP_SCALES)
+    det = "; ".join(f"{n}(c={per[n]['c']},c_fit={per[n]['c_fit']},|Δ|/c={per[n]['match']:.1e})" for n in OP_SCALES)
+    return VResult(
+        "W5",
+        ok,
+        f"tare-usable |c_fit−c|/c<{W5_TARE_C_TOL} at all points: {det}; "
+        f"★spatial-residual trend (arm-spatiality budget) {trend} (grows with nonlinearity)",
+        {"per_point": per, "residual_trend": [per[n]["resid"] for n in OP_SCALES]},
+    )
+
+
+# --- W6: envelope restatement (Nyquist + friction discriminator on NL plant) ---
+def run_w6() -> VResult:
+    """The Nyquist assert is still enforced (build past the M≤95 cap raises), and the
+    friction discriminator (reactive stored vs friction dissipated) persists on the
+    NONLINEAR plant at the moderate point.
+    """
+    # Nyquist guard fires
+    nyquist_ok = False
+    try:
+        OscillatorBath(M=200, omega_min=OMEGA_MIN, delta_omega=DELTA_OMEGA)
+    except ValueError:
+        nyquist_ok = True
+    # friction discriminator on the nonlinear moderate plant
+    scale = OP_SCALES["moderate"]
+    reac = _build(nonlinear=True, scale=scale)
+    E0r = reac.e_lat()
+    _run_w(reac, W_WORKING_STEPS)
+    stored = reac.e_bath()
+    R_bath = abs((reac.e_lat() - E0r) + stored) / max(abs(reac.e_lat() - E0r), 1e-30)
+    fric = _build(friction=True, beta=BETA_FRICTION, nonlinear=True, scale=scale)
+    E0f = fric.e_lat()
+    _run_w(fric, W_WORKING_STEPS)
+    dissipated = fric.friction_removed
+    R_fric = abs((fric.e_lat() - E0f) + fric.e_bath()) / max(abs(fric.e_lat() - E0f), 1e-30)
+    matched = abs(dissipated - stored) / max(stored, 1e-30) <= FRICTION_MATCH_TOL
+    bath_bin = R_bath < R_BATH_MAX
+    fric_bin = R_fric > R_FRICTION_MIN
+    ok = nyquist_ok and matched and bath_bin and fric_bin
+    return VResult(
+        "W6",
+        ok,
+        f"Nyquist guard fires: {nyquist_ok}; MODERATE friction discriminator: reactive "
+        f"R={R_bath:.1e}(<{R_BATH_MAX}) stored={stored:.3f} vs friction R={R_fric:.3f}"
+        f"(>{R_FRICTION_MIN}) dissipated={dissipated:.3f} (Δ={abs(dissipated - stored) / max(stored, 1e-30) * 100:.0f}%"
+        f"≤{int(FRICTION_MATCH_TOL * 100)}%)",
+        {"nyquist_ok": nyquist_ok, "R_bath": R_bath, "R_fric": R_fric, "stored": stored, "dissipated": dissipated},
+    )
+
+
+def run_w_battery() -> tuple[list[VResult], str]:
+    """The frozen §B W-battery. Verdict classes (§B3): all pass at all three points →
+    METER-VALID-NONLINEAR-ENVELOPE; W2 kill OR W3 collapse-lost → METER-INVALID-
+    NONLINEAR; pass mild/moderate but fail near-knee → METER-PARTIAL-NONLINEAR."""
+    results = [run_w1(), run_w2(), run_w3(), run_w4(), run_w5(), run_w6()]
+    by = {r.vid: r for r in results}
+    failed = [r.vid for r in results if not r.passed]
+    w2_kill = not by["W2"].passed and any(
+        p.get("kill", False) for p in by["W2"].metrics.get("per_point", {}).values()
+    )
+    w3_lost = not by["W3"].passed
+    if not failed:
+        verdict = "METER-VALID-NONLINEAR-ENVELOPE"
+    elif w2_kill or w3_lost:
+        verdict = f"METER-INVALID-NONLINEAR (W2-kill/W3-collapse-lost: {','.join(failed)})"
+    else:
+        # PARTIAL only if the near-knee point is the failing one (mild/moderate pass)
+        verdict = f"METER-PARTIAL-NONLINEAR({','.join(failed)})"
+    return results, verdict
+
+
 def main() -> None:
-    ap = argparse.ArgumentParser(description="F6 bath meter validation battery (V1-V6)")
+    ap = argparse.ArgumentParser(description="F6 bath meter validation battery (A: V1-V6 / W: nonlinear reval)")
     ap.add_argument("--json", action="store_true", help="emit JSON")
+    ap.add_argument(
+        "--w-battery",
+        action="store_true",
+        help="run the §B NONLINEAR-regime revalidation battery (W1-W6) instead of the A-battery (V1-V6)",
+    )
     args = ap.parse_args()
-    results, verdict = run_battery()
+    if args.w_battery:
+        results, verdict = run_w_battery()
+        title = "F6 BATH METER — W-BATTERY (nonlinear-regime revalidation; §B; NO F6 arm fired)"
+    else:
+        results, verdict = run_battery()
+        title = "F6 BATH METER — VALIDATION BATTERY (plants only; NO F6 arm fired)"
     if args.json:
         print(json.dumps({"results": [asdict(r) for r in results], "verdict": verdict}, indent=2))
         return
     print("=" * 80)
-    print("F6 BATH METER — VALIDATION BATTERY (plants only; NO F6 arm fired)")
+    print(title)
     print("=" * 80)
     for r in results:
         print(f"[{'PASS' if r.passed else 'FAIL'}] {r.vid}: {r.detail}")
