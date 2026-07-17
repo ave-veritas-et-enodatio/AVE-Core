@@ -65,7 +65,7 @@ from ave.core.constants import ALPHA, B_SNAP, C_0, H_INFINITY, L_NODE, V_YIELD
 #         S(1) = 0. Topology destroyed.
 #         EE: junction breakdown, M → ∞.
 #
-R_LINEAR_MAX: float = np.sqrt(2.0 * ALPHA)  # √(2α) ≈ 0.1208
+R_LINEAR_MAX: float = np.sqrt(2.0 * ALPHA)  # √(2α) ≈ 0.1208  [criterion: response-α — deficit ΔS=α, √(2α) knee family; strain-registers.md §2 Ruling 12]
 R_NONLINEAR_MAX: float = np.sqrt(3.0) / 2.0  # √3/2 ≈ 0.8660
 R_YIELD_MAX: float = 1.0  # Axiom 4 (exact)
 
@@ -366,7 +366,7 @@ def gw_regime(h_strain: float) -> RegimeInfo:
     h_yield = √α ≈ 0.0854 (yield strain of the lattice).
     LIGO detections: h ~ 10⁻²¹ (Regime I, r ~ 10⁻²⁰).
     """
-    h_yield = np.sqrt(ALPHA)
+    h_yield = np.sqrt(ALPHA)  # [criterion: storage-α — A²=α, √α yield family; strain-registers.md §2 Ruling 12]
     return classify_regime(
         h_strain,
         h_yield,

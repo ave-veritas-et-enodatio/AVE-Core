@@ -27,7 +27,7 @@ from ave.core.chiral_lattice_vector_sat import (
 from ave.core.constants import ALPHA, C_0, L_NODE
 
 # Yield surface: A_yield = sqrt(2α) ⇒ A²_yield = 2α (three-regime knee).
-A_YIELD_SQ = 2.0 * float(ALPHA)
+A_YIELD_SQ = 2.0 * float(ALPHA)  # [criterion: response-α — deficit ΔS=α, √(2α) knee family (coordinate authority); strain-registers.md §2 Ruling 12]
 
 # Rate-gate floor for |dA²/dt| per scatter step (apparatus-floor).
 DA2_MIN = 1e-4
@@ -74,7 +74,7 @@ def apply_omega_freeze_ic(
         return
     w, _, _, _ = cl.net_ring_writhe(net)
     # Apparatus-floor: bias amplitude ∝ sqrt(α); direction from lattice writhe sign.
-    scale = float(np.sqrt(ALPHA)) if bias_scale is None else bias_scale
+    scale = float(np.sqrt(ALPHA)) if bias_scale is None else bias_scale  # [criterion: storage-α — A²=α, √α yield family (genesis-seed amplitude mark); strain-registers.md §2 Ruling 12]
     sign = 1.0 if w >= 0 else -1.0
     theta = sign * scale
     c, s = np.cos(theta), np.sin(theta)

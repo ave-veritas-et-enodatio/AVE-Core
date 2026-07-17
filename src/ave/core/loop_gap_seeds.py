@@ -46,7 +46,7 @@ A_LOCK_DEFAULT = 3.0
 # Grant. Left as √α (the inherited default); a change to R_I would move banked
 # loop-gap / G-PERSIST harness seed targets (test_loop_gap_harness_rank1_regime.py,
 # test_gpersist_meter_ontology.py).
-A_YIELD = float(np.sqrt(ALPHA))
+A_YIELD = float(np.sqrt(ALPHA))  # [criterion: storage-α — A²=α, √α register (Family-I fork vs response-α R_I=√(2α)); strain-registers.md §2 Ruling 12]
 PHOTON_SIGMA_FRAC = 3.0 / 24.0  # scale σ with N
 PHOTON_LAM_FRAC = 6.0 / 24.0
 
