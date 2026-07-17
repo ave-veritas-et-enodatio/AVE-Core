@@ -9,9 +9,11 @@
 
 ## Verdict
 
-**BIAS-MOVED**
+**BIAS-MOVED** (bin fire; Rule 11 stands)
 
-Exterior mode-count detector **LIVE** (`ΔN_occ=64`). Bias knife still kills. Soft ledger messy. Rule 11: **do not retune.**
+**WRONG-OBJECT / CATEGORY-WRONG** (2026-07-16 circuit-first repair — does not retune bins)
+
+Exterior mode-count detector **LIVE** (`ΔN_occ=64`). Bias knife still kills. Soft ledger messy. Do **not** retune.
 
 | Check | Outcome |
 |---|---|
@@ -24,13 +26,22 @@ Exterior mode-count detector **LIVE** (`ΔN_occ=64`). Bias knife still kills. So
 
 ---
 
+## WRONG-OBJECT fence (circuit-first)
+
+> 🔴 **Rule-12 2026-07-16:** Prior framing of Arm B as a “necessary-door discriminator” for frontier / saturation physics is **superseded**. The bin fire (**BIAS-MOVED**) is preserved. The object tested was an **unsaturated face \(V\)-scale siphon** into an exterior `b[m]` ledger — **not** native K4 port refusal at the wall (\(|\Gamma|\to 1\), storage→boundary; [`../manuscript/ave-kb/common/envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md) saturation anatomy). Siphon ≠ saturated-port wall. This RESULT does **not** constrain what native mirror ports do under \(S\to 0\).
+
+Canonical repair map: [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md). Fool-mode banked on mode-count + frontier charters: **unsaturated face extract ≠ saturated-port wall**.
+
+---
+
 ## Scope fence (honest)
 
-This fire is a **necessary-door discriminator** under G0. It does **not**:
-- prove DE lifecycle or crystallization
+This fire kills the **siphon / face-ledger costume class** under the mode-count bins. It does **not**:
+- prove or refute DE lifecycle or crystallization
 - prove F6 occupancy chord
 - bank orthogonal (G1) release geometry
-- ungate the thermometer (still needs CHANNEL-BOUNDED + V-phase coupling)
+- speak for native \(|\Gamma|\to 1\) port physics
+- ungate the thermometer
 
 Full frontier mint (`node_creation`) remains **out of scope** / **NO** per map charter.
 
@@ -38,4 +49,4 @@ Full frontier mint (`node_creation`) remains **out of scope** / **NO** per map c
 
 ## Rule 11
 
-Do not retune `PACKET`, `CORE_R`, face mask, or `BIAS_TOL` to chase CHANNEL-BOUNDED. Arm B class joins rung-2 / Arm A as bias≠release kill under the same core knife.
+Do not retune `PACKET`, `CORE_R`, face mask, or `BIAS_TOL` to chase CHANNEL-BOUNDED. Arm B class joins rung-2 / Arm A as bias≠release kill under the same core knife — **and** is closed as WRONG-OBJECT for wall/frontier claims. No Arm C siphon.

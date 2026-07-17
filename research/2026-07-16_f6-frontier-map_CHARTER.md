@@ -99,36 +99,20 @@ Charter rule: no Tier-0 pass criterion may bake G1 or G3.
 |---|---|
 | Pursue **map charter + hygiene** now? | **Yes** |
 | Pursue **full crystallization-frontier engine** (`node_creation` + cosmology)? | **No** — multi-epic; not current platforms |
-| Pursue **Tier-0 G0 exterior-leave** (Arm B)? | **Conditional** — only after Grant GO on this charter; prereg-first (Step 3.11) |
-| Keep iterating interior snips (rung-2 / Arm A class)? | **No** |
+| Pursue **Tier-0 G0 exterior-leave** (Arm B)? | **CLOSED** — fired **BIAS-MOVED** + adjudicated **WRONG-OBJECT** (unsaturated face siphon ≠ saturated-port wall). Not a necessary door. |
+| Keep iterating interior snips / face siphons (rung-2 / Arm A / Arm B class)? | **No** |
 | Thermometer / R9 ungating? | Remains **GATED** until CHANNEL-BOUNDED *and* V-phase coupling the clocks see |
+| Next field arm? | Only after filled **circuit-map gate** ([mode-count door](2026-07-15_f6-mode-count-door_CHARTER.md) §5b; [`circuit-first door map`](2026-07-16_f6-circuit-first-door-map_CHARTER.md)) |
 
 ---
 
-## 6 · Tier-0 Arm B (gated — hypothesis under mode-count discriminator)
+## 6 · Tier-0 Arm B — CLOSED (killed costume class)
 
-**Name:** Arm B — exterior ports / boundary leave into an exterior mode ledger.  
-**Geometry fork:** **G0** (no orthogonal assumption).  
-**Parent bins:** inherit [`2026-07-15_f6-mode-count-door_CHARTER.md`](2026-07-15_f6-mode-count-door_CHARTER.md) §4, including FRICTION-RENAMED.
+> 🔴 **Rule-12 2026-07-16:** Prior “conditional necessary door” posture for Tier-0 G0 exterior-leave is **superseded**. Arm B fired **BIAS-MOVED** (mode-count LIVE) and is banked **WRONG-OBJECT**: face \(V\)-scale siphon into exterior `b[m]` is not native K4 port refusal at the wall. Siphon class **closed**. Do not retune; no Arm C siphon.
 
-**Setup (if GO'd):**
-- Interior: reactive K4 / VacuumEngine3D; protected core = finished A1 (bias≠release).
-- Surface: discrete exterior ports into an **exterior** bath ledger (energy leave + exterior occupied-mode-count). Box-face port placement = implementation convenience, **not** cosmology (not G1).
-- OFF: closed / reflecting boundary (no exterior ports).
+**Historical setup (record only — not to re-fire):** G0 face ports → exterior multi-mode ledger; pairing amendment; PML/Re(Z) forbidden. Receipts: `2026-07-16_f6-arm-b-exterior-leave_*`.
 
-**Pairing-amendment (hard):** exterior energy↑ alone is generic-consistent and **does not** count toward CHANNEL-BOUNDED without exterior ΔN_occ≥1.
-
-**Forbidden:** PML-as-pass; interior V scale-down; Re(Z) / matched-stub / dump-R naming; baking G1/G3 into pass criteria; claiming DE lifecycle / crystallization / F6 / `ρ_Λ` on CHANNEL-BOUNDED; retuning Arm A.
-
-**Regime / phase-state (required in any sibling prereg):**
-- MODE: T2 / transverse bath mode-count (entropic sink), not A1 mass cage.
-- REGIME: boundary leave at surface ports; interior stays linear/reactive Ax3 when OFF.
-- PHASE-STATE: toy box with exterior ledger — **not** cosmic horizon crystallization; **not** BH pre-geodesic.
-
-**What Tier-0 can discriminate:** whether an Ax3-legal surface→exterior leave + exterior mode-count door exists without shaking finished core.  
-**What Tier-0 cannot claim even on CHANNEL-BOUNDED:** DE lifecycle, crystallization rate, F6 occupancy chord, `ρ_latent` magnitude, DESI spatial chord, orthogonal geometry, emergence of `ρ_Λ`.
-
-**Admissible peer-check language (after CHANNEL-BOUNDED only):** mode-count charter §6 “boundary radiation into a semi-infinite lossless line” — never as fire condition or Re(Z) relabel.
+**Circuit corollary (banked):** at full yield, node ports become **mirrors** (\(|\Gamma|\to 1\)); reflection alone does **not** implement ε→T2 exterior mode-count. See [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
 
 ---
 
@@ -143,6 +127,7 @@ Charter rule: no Tier-0 pass criterion may bake G1 or G3.
 6. Unifying F6 occupancy with frontier crystallization without a separator test.
 7. Baking G1 orthogonal into pass criteria.
 8. Upgrading ASSERTED arrow / Γ rate / `ρ_Λ` echo into FORCED/emergent.
+9. **Unsaturated face extract ≠ saturated-port wall** — peeling face \(V\) into an exterior ledger is **not** native port refusal (\(|\Gamma|\to 1\), storage→boundary). Arm B costume; closed.
 
 **Forbidden as ontology or design target**
 - QED zero-point energy / vacuum mode-sum as DE
@@ -163,36 +148,37 @@ Charter rule: no Tier-0 pass criterion may bake G1 or G3.
 ## 8 · Scope fence
 
 **IN scope**
-- This map charter + orchestration hygiene (ratings-map R7/§3, mode-count door §6 pointer, docket append).
-- After Grant GO: sibling Arm B prereg FROZEN by push before driver; one fire; Rule-11 RESULT.
+- This map charter + circuit-first repair hygiene (fool-mode 9; Arm B CLOSED; pointer to circuit-first door map).
 
 **OUT of scope**
 - Implementing `node_creation` / append-cold-cells mint.
 - `a(t)` Friedmann evolver.
 - Deriving `ρ_latent` / `ΔE_cryst` numerics.
 - Thermometer re-fire (stays GATED).
-- Retuning rung-2 / Arm A.
+- Retuning rung-2 / Arm A / Arm B; Arm C siphon.
 - Amending tier-1 #674 KEEP-BOTH.
 - Geometry sweep G1 vs G2 (deferred until legal door or real mint).
+- Any new field arm without a filled circuit-map gate.
 
 ---
 
 ## 9 · Successor gates (registered, not this charter)
 
-1. **Grant GO / NO-GO on Tier-0 Arm B** after this map reviews.
-2. If CHANNEL-BOUNDED: reopen thermometer ungating discussion (still needs V-phase coupling the clocks see).
-3. Separately: node-mint capability epic if cosmology frontier remains the strategic bet.
-4. Spatial F6 / DESI–Euclid (downstream; not Tier-0).
-5. Loop-ledger charter (ratings-map §3 item 2) — separate; not driven by unbanked ℏ=FD.
+1. ~~Grant GO on Tier-0 Arm B~~ — **done**; Arm B **CLOSED** (BIAS-MOVED + WRONG-OBJECT).
+2. Circuit-first door map: [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
+3. If a future arm passes circuit-map gate **and** CHANNEL-BOUNDED: reopen thermometer ungating discussion.
+4. Separately: node-mint capability epic if cosmology frontier remains the strategic bet.
+5. Spatial F6 / DESI–Euclid (downstream).
+6. Loop-ledger charter (ratings-map §3 item 2) — separate; not driven by unbanked ℏ=FD.
 
 ---
 
 ## 10 · Deliverables
 
-- This charter (landed).
-- Hygiene: mode-count door §6 Arm B pointer; ratings-map R7/§3 next-drive; docket append (freeze-arrow + orthogonal=conjecture + pursue decision).
-- **Stop before Arm B driver** until Grant GO + prereg freeze (Step 3.11).
+- This charter (landed; Arm B demoted to killed costume).
+- Circuit-first repair: mode-count §5b gate; circuit-first door map; RESULT WRONG-OBJECT fence.
+- **No new field driver** until a prereg fills the circuit-map gate.
 
 ---
 
-*Charter only. Nothing here canonizes a value, pre-selects orthogonal geometry, unifies F6 with frontier, or greenlights Arm B without Grant GO. Grant bank: freeze releases (drain≠drive); AM frozen IC ≠ DE; orthogonal release = conjecture; Re(Z) absorb not the plan; ℏ-as-FD unbanked.*
+*Charter only. Nothing here canonizes a value, pre-selects orthogonal geometry, or unifies F6 with frontier. Grant bank: freeze releases (drain≠drive); AM frozen IC ≠ DE; orthogonal release = conjecture; Re(Z) absorb not the plan; ℏ-as-FD unbanked; unsaturated face siphon ≠ saturated-port wall.*

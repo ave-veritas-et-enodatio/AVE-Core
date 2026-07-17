@@ -1508,3 +1508,15 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **Geometry** | **G0** only — no orthogonal claim |
 | **Thermometer** | remains GATED |
 | **Full frontier mint** | remains NO (`node_creation` absent) |
+
+---
+
+## Continuation — 2026-07-16: F6 circuit-first repair (Arm B WRONG-OBJECT)
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Arm B object** | **WRONG-OBJECT / CATEGORY-WRONG** (bin **BIAS-MOVED** preserved) | Unsaturated face \(V\)-siphon ≠ native K4 port refusal at wall (\(\lvert\Gamma\rvert\to1\)). Siphon class **closed**. No retune; no Arm C siphon. |
+| **Circuit-map gate** | Mode-count door **§5b** mandatory before any arm freezes | Filled port/regime/Γ/energy-fate table — not ban-list theater. |
+| **Circuit-first door map** | Landed `research/2026-07-16_f6-circuit-first-door-map_CHARTER.md` | A1 wall vs frontier mint vs F6 KEEP SEPARATE; **reflection ≠ T2 leave**. |
+| **Frontier map** | Arm B demoted from “necessary door” to killed costume; fool-mode 9 banked | Full mint still NO; thermometer GATED. |
+| **Next field spend** | Frozen until §5b-passing prereg | Default: wall-native consistency probe (not DE door) or wait on node-mint epic — not chosen here. |

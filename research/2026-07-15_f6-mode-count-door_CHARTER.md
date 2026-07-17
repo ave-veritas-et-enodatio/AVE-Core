@@ -87,20 +87,38 @@ Decision rule: **(ii)/(iii)/(iv)/(vi) fail closed**; only **(i)** licenses therm
 4. **Retuning after fail** — Rule 11: kill the implementation class.
 5. **Smuggling Re(Z) absorb as “the” door** — charter violation; any arm that is literally an interior resistive dump fails (vi) or (ii)/(iii) and is recorded as class kill, not retuned into pass.
 6. **Quietly amending tier-1** — KEEP-BOTH.
+7. **Unsaturated face extract ≠ saturated-port wall** — peeling face \(V\) into an exterior ledger is **not** native K4 port refusal at \(S\to 0\) (\(|\Gamma|\to 1\), storage→boundary). Arm B: **BIAS-MOVED** + **WRONG-OBJECT**; siphon class **closed**.
+
+---
+
+## 5b · Circuit map (required before any arm freezes)
+
+> **Process fix (2026-07-16):** ban-list hygiene is not enough. A sibling prereg may freeze **only after** filling this table. Incomplete table → DO-NOT-MERGE / do not drive.
+
+| Question | Required answer |
+|---|---|
+| Which node ports? | K4 tetrahedral bonds / named mask — not “box face” unless identified with bonds |
+| Regime | cold / knee / wall (\(S\to 0\)) / rupture |
+| Port behavior in that regime | matched pass / small \(\Gamma\) / \(\lvert\Gamma\rvert\to 1\) mirror / snap |
+| Where energy goes | reflected in-network / new cells / exterior ledger — **must match regime** |
+| Finished A1 protection | how wall/mirror enforces bias≠release **without** siphon |
+| Forbidden costumes | face \(V\)-scale, PML sponge, Re(Z) dump, electron `radiation_leak` |
+
+Taxonomy and corollary (reflection ≠ T2 leave): [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
 
 ---
 
 ## 6 · Implementation arms (hypotheses only — not the plan)
 
-Arms may be proposed in a sibling prereg **after** this charter reviews. Each arm must state how it intends to enlarge bath mode-count without an interior dump-R. Examples of *admissible proposal language* (not pre-approval):
+Arms may be proposed in a sibling prereg **after** this charter reviews **and** §5b is filled. Each arm must state how it intends to enlarge bath mode-count without an interior dump-R. Examples of *admissible proposal language* (not pre-approval):
 
 - Event-gated occupancy door that credits a high-mode-count accumulator when a local criterion fires. *(Arm A fired **BIAS-MOVED** — mode-count LIVE, bias knife kills; Rule 11: do not retune. See PR #711 / `2026-07-16_f6-mode-count-event-gated_prereg_FROZEN.md`.)*
-- Exterior ports / boundary leave into an **exterior** mode ledger (energy leaves; interior stays reactive) — **Arm B fired BIAS-MOVED** (`2026-07-16_f6-arm-b-exterior-leave_*`; exterior mode-count LIVE; sponge control OK; Rule 11: do not retune). Geometry fork **G0** (do **not** assume orthogonal release). Must not be relabeled as bulk Re(Z) friction.
+- Exterior ports / boundary leave into an **exterior** mode ledger — **Arm B CLOSED**: **BIAS-MOVED** + **WRONG-OBJECT** (unsaturated face siphon ≠ saturated-port wall; `2026-07-16_f6-arm-b-exterior-leave_*`). Do **not** retune; no Arm C siphon.
 - Soft bookkeeping that still couples into V-phase dynamics the thermometer can see (rung-1 did not).
 
-**Forbidden proposal language as the sole design:** “matched-termination Re(Z) absorb,” “resistive termination,” “dump resistor,” “STZ / plastic loss,” “matched stub.”
+**Forbidden proposal language as the sole design:** “matched-termination Re(Z) absorb,” “resistive termination,” “dump resistor,” “STZ / plastic loss,” “matched stub,” “face \(V\)-scale siphon.”
 
-**Map fence (2026-07-16):** full N→N+1 frontier mint is **out of scope** here (`node_creation` absent). Frontier physics target + pursue decision live in [`2026-07-16_f6-frontier-map_CHARTER.md`](2026-07-16_f6-frontier-map_CHARTER.md).
+**Map fence (2026-07-16):** full N→N+1 frontier mint is **out of scope** here (`node_creation` absent). Frontier physics target + pursue decision live in [`2026-07-16_f6-frontier-map_CHARTER.md`](2026-07-16_f6-frontier-map_CHARTER.md). Circuit-first repair: [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
 
 ---
 

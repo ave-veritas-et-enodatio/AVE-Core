@@ -120,6 +120,8 @@ VERDICT = BIAS-MOVED
 
 **Honest closure (Rule 11):** Arm B G0 face-port exterior leave enlarges exterior occupied mode-count and books exterior energy, but **fails bias≠release** at the protected-core knife (same kill-shape class as rung-2 / Arm A). Soft ledger also messy. Do **not** retune `PACKET` / `CORE_R` / face mask. This hypothesis arm is **not** CHANNEL-BOUNDED.
 
-**What this does not claim:** DE lifecycle, crystallization, F6 occupancy chord, orthogonal (G1) geometry, `ρ_Λ`.
+**WRONG-OBJECT / CATEGORY-WRONG (2026-07-16 circuit-first repair):** the tested object was an **unsaturated face \(V\)-scale siphon** into exterior `b[m]`, not native K4 port refusal at full yield (\(|\Gamma|\to 1\) mirror; storage→boundary). Bin fire preserved; siphon class closed; does **not** constrain saturated-port wall physics. See [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
 
-Thermometer re-fire remains **GATED**. Full `node_creation` mint remains **NO** per frontier map.
+**What this does not claim:** DE lifecycle, crystallization, F6 occupancy chord, orthogonal (G1) geometry, `ρ_Λ`, native wall-port behavior.
+
+Thermometer re-fire remains **GATED**. Full `node_creation` mint remains **NO** per frontier map. No Arm C siphon.
