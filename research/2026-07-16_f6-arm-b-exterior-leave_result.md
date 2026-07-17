@@ -63,6 +63,10 @@ Exterior **deposit path intact** (`ΔN_occ≥1`; magnitude = the `M_MODES` knob)
 
 > 🔴 **Rule-12 2026-07-16:** Prior framing of Arm B as a “necessary-door discriminator” for frontier / saturation physics is **superseded**. The bin fire (**BIAS-MOVED**) is preserved. The object tested was an **unsaturated face \(V\)-scale siphon** into an exterior `b[m]` ledger — **not** native K4 port refusal at the wall (\(|\Gamma|\to 1\), storage→boundary; [`../manuscript/ave-kb/common/envelope-anatomy.md`](../manuscript/ave-kb/common/envelope-anatomy.md) saturation anatomy). Siphon ≠ saturated-port wall. This RESULT does **not** constrain what native mirror ports do under \(S\to 0\).
 
+**Port-state receipt (MEASURED, not asserted).** The driver now reports the face-port state (`port_A2_max`, `port_S_floor`, `port_Gamma_rms_max`; phase-space, referenced to `V_SNAP`). Two-method measured over the ON run: face `A²_max = 0.0236` (`max|V_inc| = 0.154` vs `V_SNAP = 1.0`), `S_floor = 0.988` — **deep sub-yield / unsaturated everywhere**, never near the wall (`S→0`). The "unsaturated" regime descriptor is therefore a **measurement**, not a framing. (`Γ_rms ≈ 1.07` is the **closed-box cavity boundary** reflection of the G0 face-convenience geometry at sub-yield — *not* a saturation-driven `|Γ|→1` mirror; because `S≈0.99` proves the node is sub-yield, a saturation wall is ruled out, which is exactly the WRONG-OBJECT point.)
+
+**Class closure — surviving leg (does not depend on the regime label).** Even independent of the measured port-state, the closure holds by the **Step-4 entailment** (circuit-map fill PROTOCOL): a fiat `V_ref/V_inc` scale into a **write-only** `b[m]` ledger is a costume in **ANY** regime — reflection ≠ ε→T2 leave. The measured sub-yield port-state is **corroboration**, not the load-bearing argument.
+
 Canonical repair map: [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md). Fool-mode banked on mode-count + frontier charters: **unsaturated face extract ≠ saturated-port wall**.
 
 ---

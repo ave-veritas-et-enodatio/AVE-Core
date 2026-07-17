@@ -58,6 +58,14 @@ class RunOut:
     # figure). Defaults to 0.0 so hand-built RunOut() fixtures fall back to
     # E_field_initial in classify().
     E_field_equil: float = 0.0
+    # Face-port state observable (2026-07-16 WRONG-OBJECT measurement-gap fix).
+    # Phase-space / impedance-plane, referenced to V_SNAP — measures whether the
+    # door the harness peels is saturated (wall) or unsaturated (cold cavity face):
+    #   A = |V_inc|/V_SNAP ; S = √(1−A²) ; Γ_rms = √(ΣV_ref²/ΣV_inc²) over ports.
+    # A saturated wall would show A→1, S→0. Report-only; not a classify input.
+    port_A2_max: float = 0.0
+    port_S_floor: float = 1.0
+    port_Gamma_rms_max: float = 0.0
 
 
 def _protect_mask(lat: K4Lattice3D, center, radius: float) -> np.ndarray:
@@ -217,11 +225,24 @@ def run_once(
     finite = True
     S_acc = 0.0
     n_events = 0
+    port_A2_max = 0.0
+    port_gamma_rms_max = 0.0
 
     for step_i in range(n_steps):
         lat.step()
         if step_i == 0:
             E_equil = float(lat.total_energy())
+        # Port-state (at the door, pre-extract): A²=|V_inc|²/V_SNAP², running max;
+        # Γ_rms=√(ΣV_ref²/ΣV_inc²), running max. Diagnoses saturation vs V_SNAP.
+        vi_p = lat.V_inc[ports]
+        vr_p = lat.V_ref[ports]
+        if vi_p.size:
+            port_A2_max = max(port_A2_max, float((vi_p**2 / lat.V_SNAP**2).max()))
+            den_p = float((vi_p**2).sum())
+            if den_p > 0.0:
+                port_gamma_rms_max = max(
+                    port_gamma_rms_max, float(np.sqrt(float((vr_p**2).sum()) / den_p))
+                )
         d, ne = _arm_b_transfer(
             lat, ports, bath_modes, kappa=kappa, credit_modes=credit_modes
         )
@@ -258,6 +279,9 @@ def run_once(
         finite=finite,
         pml_thickness=pml_thickness,
         E_field_equil=E_equil,
+        port_A2_max=port_A2_max,
+        port_S_floor=float(np.sqrt(max(1.0 - port_A2_max, 0.0))),
+        port_Gamma_rms_max=port_gamma_rms_max,
     )
 
 
@@ -352,6 +376,11 @@ def main() -> None:
             f"ΔS_core={on.mean_S_core - off.mean_S_core:.3e}  "
             f"ΔN_occ={on.N_occ_final - on.N_occ_initial}  "
             f"geometry=G0"
+        )
+        print(
+            f"  port_state: A²_max={on.port_A2_max:.4e} "
+            f"S_floor={on.port_S_floor:.4f} Γ_rms_max={on.port_Gamma_rms_max:.3f} "
+            f"(vs V_SNAP=1.0 — unsaturated if S≈1)"
         )
         if sponge is not None:
             print(f"  sponge_control: {sponge}")
