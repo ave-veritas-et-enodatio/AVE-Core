@@ -203,3 +203,15 @@ The prereg push (`17662232`, 08:35:34, FROZEN.md only, 100 insertions) preceded 
 ### A6 — "(or field drop)" disjunct now IMPLEMENTED (finding 10 — MINOR)
 
 The frozen §2 bin table (line 44) defines FRICTION-RENAMED as `E_bath ≥ NULL_FLOOR` **(or field drop)** `but ΔN_occ < 1`. The shipped `classify()` dropped the "(or field drop)" disjunct and checked `E_bath < NULL_FLOOR → NULL` first, so a pure renamed-friction defect (field energy removed with **no** bath credit and `ΔN_occ < 1`) mis-binned as NULL ("build incomplete") instead of the fail-closed FRICTION-RENAMED the frozen table assigns. **Repaired (code → frozen spec):** `classify()` now bins FRICTION-RENAMED when energy moved (`E_bath ≥ NULL_FLOOR` **or** `E_field_final < E_field_initial`) with `ΔN_occ < 1`, reserving NULL for a genuinely silent gate (no bath **and** no field drop). Two new unit tests (`test_classify_friction_renamed_field_drop`, `test_classify_null_silent_gate`) cover the disjunct; 6/6 tests pass; the shipped run is unaffected (production `E_bath=7.55 ≫ NULL_FLOOR`, `ΔN_occ=64` → still BIAS-MOVED; sabotage → still FRICTION-RENAMED). This is a fidelity fix toward the frozen spec, not a retune.
+
+### A7 — What survives, banked plainly (Rule 11)
+
+**Arm A = BIAS-MOVED. BANKED.** The verdict stands on the independent protected-core strain knife:
+
+> `ΔS_core = 1.421e-1 ≫ BIAS_TOL = 5e-3` (**28×**), measured on the protected core (mean over 150 steps, ON 0.75136 vs OFF 0.60927), **before** every voided gate in `classify()`.
+
+Event-gating + multi-mode credit did **not** evade the same protected-core bias knife that killed rung-2. The Arm A negative is **real and banked**; the arm is **NOT CHANNEL-BOUNDED**; the thermometer re-fire stays **GATED**.
+
+**Rule 11 honored — no retune.** No tolerance/knob was moved to rescue a result. The two driver changes are fidelity repairs that leave the verdict invariant: (i) E0 baseline captured on-shell (A3 — corrects an accounting artifact, verdict unchanged); (ii) the `(or field drop)` disjunct implemented (A6 — code → frozen spec, shipped run unaffected).
+
+**What is NOT banked** (awaits the detector-rebuild gate, A2): the "mode-count detector LIVE" claim (A1) and the FRICTION-RENAMED control as a physical discriminator (A2). Until the detector is rebuilt (real bath DOF + physical-quantity control), no arm may bank CHANNEL-BOUNDED or ungate the thermometer on the strength of `ΔN_occ`.
