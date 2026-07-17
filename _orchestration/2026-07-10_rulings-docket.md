@@ -1545,3 +1545,16 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **FRICTION-RENAMED** | Reachable **only** by the `--sabotage-friction` plant (`credit_modes=False`) | Unreachable by production physics; discriminates bookkeeping code-path, not a physical magnitude. |
 | **BIAS-MOVED (survivor)** | **Preserved** — rests on `ΔS_core=−0.017146` (bookkeeping-independent) | The kill and WRONG-OBJECT closure stand; only the mode-count-LIVE leg is void. |
 | **Detector rebuild** | **MANDATORY GATE** before any CHANNEL-BOUNDED bank / thermometer ungate | Real bath DOF + back-reaction + a physical control that can fail on physical inputs. Registered jointly with the **#711** (Arm A) repair — cross-cite. |
+
+---
+
+## Continuation — 2026-07-16: F6 Arm B E0 baseline bug fixed (soft ledger closes)
+
+> Append-only Rule-12 supersession of the "soft ledger messy / ≈3.73" banking at **Entry row :1505** above. Driver fix (not a knob retune); lattice trajectory byte-identical (survivors unchanged). Two-method verified.
+
+| Item | Status / ruling | Consequence |
+|---|---|---|
+| **Soft ledger "messy" (≈3.73)** | **ARTIFACT** — booked vs the raw V_inc-only seed `E0` | First step equilibrates; OFF energy doubles **exactly 2.000000×** (`3.839→7.678`). `soft=|(E0−E_f)−E_bath|≈E0` identically → the CHANNEL-BOUNDED **pass bin was structurally unreachable**. |
+| **Fix** | Book vs equilibrated baseline `E_equil` (post-step-1; `RunOut.E_field_equil`) | Honest ledger **closes at 1.443 %** (`soft=0.110790` vs `E_equil=7.678`); PASSES `0.5·E_equil`; OFF ledger ≈ `5.3e-15`. |
+| **Verdict** | **BIAS-MOVED unchanged** | Decided at bias step, upstream of soft-ledger DETONATE; WRONG-OBJECT closure independent. |
+| **Propagation** | Same E0 convention flagged to **#711** (Arm A) | Same bug class — coordinate wording. |

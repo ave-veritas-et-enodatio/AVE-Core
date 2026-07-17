@@ -141,3 +141,13 @@ Adversarial review confirmed the §5 line "`ΔN_occ = 64` (exterior mode-count d
 - **Twin-64:** Arm A's interior 64 and Arm B's exterior 64 = the same `M_MODES=64` constant printed twice (not two geometries converging).
 - **FRICTION-RENAMED** is reachable only by the deliberate `--sabotage-friction` plant (`credit_modes=False`); it is **unreachable by production physics** (any positive δ with the flag on fills the slots). It discriminates the bookkeeping code-path, not a physical irreversibility magnitude.
 - **MANDATORY GATE:** no `CHANNEL-BOUNDED` bank or thermometer ungate until the mode-count observable is rebuilt with real bath DOF + back-reaction + a physical control that can fail on physical inputs. The `#711` (Arm A) repair registers the same gate — cross-cite.
+
+## Amendment A2 — 2026-07-16 — E0 baseline bug: "soft ledger messy" was an artifact
+
+Adversarial review confirmed the §5 result lines "soft_ledger ≈ 3.73" and §5 closure "Soft ledger also messy" over-read a **t=0 baseline bug**. **This amendment supersedes those lines.**
+
+- **Bug:** the frozen driver measured `E0 = lat.total_energy()` on the raw **V_inc-only seed** (`3.839`), which is not a valid `V_inc/V_ref` equilibrium. The first `lat.step()` equilibrates and the OFF energy **doubles EXACTLY 2.000000×** (`3.839 → 7.678`, then conserves to machine precision). So `soft = |(E0 − E_f) − E_bath| ≈ E0` identically (measured `0.971·E0`), and the soft sub-gate — a **mandatory** sub-condition of `CHANNEL-BOUNDED` (§2/§4) — was **structurally unreachable**. The §1 hypothesis space ("CHANNEL-BOUNDED *or* a fail-closed kill") had its pass bin foreclosed before any physics ran.
+- **Fix (driver, not a knob retune):** book the ledger against the **equilibrated** baseline `E_equil` (post-step-1, pre-transfer; `RunOut.E_field_equil`). Lattice trajectory byte-identical; all frozen tolerances (§4) untouched.
+- **Honest re-bank (two-method verified):** `soft = |(E_equil − E_f) − E_bath| = 0.110790` = **1.443 %** of `E_equil = 7.678`; **PASSES** the frozen `0.5·E_equil` tol. OFF ledger ≈ `5.3e-15`. The exterior ledger **closes**.
+- **Verdict unchanged:** BIAS-MOVED is decided at `classify()` step 4 (bias), upstream of the soft-ledger DETONATE branch; the WRONG-OBJECT closure does not rest on soft-ledger reachability.
+- Same E0 convention flagged to the **#711** (Arm A) repair — same bug class.

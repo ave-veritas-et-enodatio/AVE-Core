@@ -51,6 +51,13 @@ class RunOut:
     detonated: bool
     finite: bool
     pml_thickness: int
+    # Post-equilibration soft-ledger baseline (2026-07-16 fix). The V_inc-only
+    # seed is not a valid V_inc/V_ref equilibrium; total energy settles after
+    # step 1 (OFF: exactly 2·E0). The ledger must be booked vs this equilibrated
+    # field, not the raw seed E0 (which produced the spurious ~3.73 "messy"
+    # figure). Defaults to 0.0 so hand-built RunOut() fixtures fall back to
+    # E_field_initial in classify().
+    E_field_equil: float = 0.0
 
 
 def _protect_mask(lat: K4Lattice3D, center, radius: float) -> np.ndarray:
@@ -191,13 +198,19 @@ def run_once(
 
     E0 = float(lat.total_energy())
     E_core0 = float(lat.get_energy_density()[core].sum())
+    # Baseline for the soft ledger: the equilibrated field, captured after the
+    # first stepper equilibration (post-step-1, pre-transfer) rather than the raw
+    # V_inc-only seed E0. See RunOut.E_field_equil.
+    E_equil = E0
     detonated = False
     finite = True
     S_acc = 0.0
     n_events = 0
 
-    for _ in range(n_steps):
+    for step_i in range(n_steps):
         lat.step()
+        if step_i == 0:
+            E_equil = float(lat.total_energy())
         d, ne = _arm_b_transfer(
             lat, ports, bath_modes, kappa=kappa, credit_modes=credit_modes
         )
@@ -218,7 +231,7 @@ def run_once(
     E_core_f = float(lat.get_energy_density()[core].sum())
     E_bath = float(bath_modes.sum()) if credit_modes else float(scalar_bath)
     n_occ_f = _n_occ(bath_modes)
-    soft = abs((E0 - Ef) - E_bath)
+    soft = abs((E_equil - Ef) - E_bath)
     return RunOut(
         E_bath=E_bath,
         E_field_final=Ef,
@@ -233,6 +246,7 @@ def run_once(
         detonated=detonated,
         finite=finite,
         pml_thickness=pml_thickness,
+        E_field_equil=E_equil,
     )
 
 
@@ -252,7 +266,8 @@ def classify(on: RunOut, off: RunOut) -> str:
         rel = (off.E_core_final - on.E_core_final) / off.E_core_final
         if rel > DRAIN_TOL:
             return "ELECTRON-DRAIN"
-    if on.soft_ledger > TOL_SOFT_LEDGER_FRAC * max(on.E_field_initial, 1e-12):
+    base_equil = on.E_field_equil if on.E_field_equil > 0.0 else on.E_field_initial
+    if on.soft_ledger > TOL_SOFT_LEDGER_FRAC * max(base_equil, 1e-12):
         return "DETONATE"
     return "CHANNEL-BOUNDED"
 
