@@ -244,3 +244,64 @@ All plants: `nonlinear=True`, `op3_bond_reflection=True`, `V_SNAP=1.0`, producti
 - **METER-INVALID-NONLINEAR** — the **W2 kill** fires at **any** point, **OR** the **W3 collapse** is lost. The meter is NOT usable for an irreversibility-keyed arm in the nonlinear regime; the fix would need an **in-stepper or nonlinear-honest load** — this lane **SPECs** that as a finding, it does **not** build it.
 
 This lane returns a verdict on the **meter in the nonlinear regime**, never on F6. No arm/door fires. If the coupler itself needs a nonlinear-honest change to pass, that is a **FINDING + SPEC**, not a silent fix — the honest verdict is banked instead.
+
+---
+
+## Amendment §B-post-review addendum — PR #721 adversarial-review repairs (2026-07-17, append-only; §0–§9, §A, and the §B body above ALL preserved byte-for-byte)
+
+> 🔴 **Rule-12 supersession (2026-07-17, post-review).** The PR #721 adversarial review confirmed **8 findings** — **ALL MINOR post-verify, 0 refuted, all EVIDENCE-VOID / repair-and-bank.** The **METER-VALID-NONLINEAR-ENVELOPE** verdict **STANDS** (all W1–W6 pass at all three operating points; the battery reproduces bit-for-bit), but needs **honest re-scoping**. This addendum records the repairs (R-1…R-8). The §B body above is the frozen pre-reg and is **preserved byte-for-byte**; where a result-level claim is superseded, the supersession is stated **here**, not by editing §B. No PASS gate is loosened (Rule 11); the one gate change (R-4) is a **tightening**.
+
+### R-1 — W2 relabel + the ★SCOPE CAVEAT (the load-bearing repair)
+
+**§B2's W2 ("★the decisive leg") is relabelled** *ledger-regression + transfer-health leg*. On the STANDALONE-K4 plant class the §B validated, **energy conservation is an ALGEBRAIC IDENTITY**, not an empirical outcome that could have gone either way:
+- the z-independent equal-admittance 4-port scatter `S = 2y/(4y) − δ = 0.5 − δ` is **orthogonal**;
+- the bond connect `[[γ, T],[T, −γ]]` is **orthogonal at any γ**;
+- the global rescale is **arithmetic-exact** on the quadratic energy (`E_lat·scale² = E_lat − Δe_bath`, verified exact even as the step non-commutation grows — R-3).
+
+So **pump-immunity was STRUCTURALLY GUARANTEED, not empirically survived** — the §B1 "co-decisive substrate adjudication" reading is superseded, and the **S(A)-kernel-in-scatter pump path the §B1 risk feared is INEXPRESSIBLE on this junction.** W2's remaining, genuine content: **(a)** a REGRESSION guard vs #717-class ledger bugs (a *single-field* V_inc-only rescale breaks the identity — reviewer measured a 10.5% energy jump; independent reproduction ~0.2% per-step at these points: direction confirmed, magnitude regime-dependent, flagged not silently adopted); **(b)** transfer health (E_bath > E_BATH_MIN, no off-comb collapse); **(c)** the dormant `max(·,0)` clamp path (`max(Δe_bath/e_lat)` ≈ 5.1e-3 over 3000 steps, reviewer ~3.9e-3, ≪ the 1.0 trigger).
+
+**★SCOPE CAVEAT (load-bearing).** The certificate is scoped to **STANDALONE-K4 plants**. A **CoupledK4Cosserat arm** (a Cosserat-owned z front; Cosserat↔V exchange **outside** the meter's `E_lat` ledger) or **ANY genuine irreversible ε→T2 depletion primitive** BREAKS the conservation identity ⇒ the **W-battery must be RE-VALIDATED** before such an arm integrates the meter (not merely the §9 V1–V6 re-run). **Alignment note:** the door charter's **CHANNEL-BOUNDED** bin is *defined* energy-conserving, so identity-enforced conservation is **consistent with** (not a blocker for) the arm's counting-arrow design — the caveat is about *which plant the certificate covers*, not the arm's target.
+
+### R-2 — FACT-1 is UNCONDITIONAL + a latent double-integration hazard + a routed corpus flag
+
+§B1 FACT-1 stated the no-op *given* `op3_bond_reflection=True`. **Strengthened: `nonlinear=True` is a NO-OP UNCONDITIONALLY in `K4Lattice3D`** — the reviewer's op3-**OFF** twin was bit-identical too (7.8e-16; our reproduction 2.8e-16). Z-independence of the 4-port scatter kills the branch **everywhere**, not just under op3.
+- **Latent double-integration hazard (flagged for the engine lane; NOT triggered here).** If `op3_bond_reflection` **and** `nonlinear` **and** `use_memristive_saturation` are ever all ON, `_scatter_all` advances `S_field` **twice per step** (op3 branch via `_update_z_local_field → _integrate_s_field_from_v`, and the `nonlinear` branch). Dormant here (`use_memristive_saturation=False`, out of scope per §B1).
+- **Routed corpus flag (auditor lane; flag-only — frozen docs NOT edited here).** Both prior F6 arm preregs pin *"Platform: nonlinear=True"* as the kernel. Given FACT-1-unconditional, those labels are **costume to the same degree** this lane's was pre-relabel. An **auditor-lane correction-note is owed** on the mode-count arm preregs' platform lines.
+
+### R-3 — FACT-4 provenance: charter triple is scratch-provenance, superseded by a banked reproduction
+
+The §B1 FACT-4 non-commutation triple **`1.8e-4 / 1.76e-3 / 5.4e-3`** is **scratch-provenance** — **not reproducible from shipped code** (all natural readings are ~3–4× smaller). Per live-fire-derivation-provenance, an opt-in measuring function (`measure_noncommutation`, `--fact4`; NOT a gate) is added to the validate script and the reproduction is banked in the result JSON addendum. **§B body is NOT edited (frozen).** Measured reproduction (method = `‖step(s·x) − s·step(x)‖/‖step(x)‖`, s=0.9, on the on-shell `(V_inc,V_ref)` state the global rescale actually acts on):
+
+| point | charter §B1 (scratch, SUPERSEDED) | banked reproduction | reviewer independent |
+|-------|-----------------------------------|---------------------|----------------------|
+| mild | 1.8e-4 | **4.74e-5** | 4.3e-5 |
+| moderate | 1.76e-3 | **4.52e-4** | — |
+| near-knee | 5.4e-3 | **1.32e-3** | 1.2e-3 |
+| growth | ~30× | **27.8×** | ~28× |
+
+The banked reproduction and the reviewer's independent measurement agree in order and trend; the charter scratch triple (~4× larger) is superseded at the RESULT level. The qualitative §B1 claim (the §A1 linearity premise is genuinely violated, growing with amplitude) survives.
+
+### R-4 — W5 tare-agreement is `1 − cosθ` (not independent of the residual) + an independent liveness tightening
+
+`|c_fit − c|/c` is **algebraically `1 − cosθ`** (θ = angle between the ON/OFF trajectories) — **verified EXACT** (ratio 1.00 at all three points). It is therefore the **SAME measurement as the spatial residual** (both read θ): the c-agreement is enforced by the rescale arithmetic and **could never fail independently**. W5's informative content is the **residual TREND** (0.0255 → 0.0457 → 0.0526 = the arm's spatial-discriminant budget), not an independent tare confirmation. **Tightening (Rule-11-legal — a strengthening, disclosed here):** the W5 tare-usable gate now additionally requires `E_bath > E_BATH_MIN` at each point, so the tare check cannot pass trivially on a **dead coupling** (c→1, c_fit→1, θ→0 agreeing vacuously). All three points pass the tightened gate; the banked W-results are bit-identical except the additive per-point `e_bath`/`liveness_ok` fields.
+
+### R-5 — W4 honesty gate is a THIRD operationalization (disclosed)
+
+The **shipped** W4 gate is **`local band-power > 4× median-sea`** — a *third* operationalization, neither the frozen §B W4 proximity text ("within `2Δω` of a peak/harmonic") nor the earlier peaks-only definition. **Mitigation banked:** all **10** occupied modes ALSO pass the **strict frozen** criterion (reproduced: nearest peak/harmonic Δ ∈ [0.002, 0.057]; the weakest, ω=1.05, matches **2·ω_d** at Δ=**0.0025**), and the off-resonant / white-noise probe fires honestly (→ N_occ=0). **⚠ Future-plant divergence risk:** on a different plant the two operationalizations can disagree — reconcile before reuse.
+
+### R-6 — W3 detuned band CONTAINS harmonics n=3 and n=4 (stated plainly)
+
+The chosen detuned band **[1.18, 2.11] CONTAINS two harmonics the frozen §B W3 rule ordered avoided: n=3 (1.571) and n=4 (2.095).** Stated plainly so the reader sees the containment directly (not inferred from "off all significant measured q-power"). The placement is honest **on the power budget**: those contained harmonics carry q-power fraction **1.1e-3 < 1e-2** — a harmonic carrying negligible measured power cannot re-excite past the ≥2-order collapse budget (demonstrated by the ×323 collapse, N_occ 10→0). **The PASS criterion was untouched.**
+
+### R-7 — driver docstring corrected + §A6 "verified" flagged vacuous
+
+- The driver top docstring's stale *"Cold plant (LINEAR lattice) — NO Op14 saturation"* is corrected to the accurate **weakly-nonlinear-via-op3** wording (the `nonlinear` flag is a no-op per FACT-1; the plant is amplitude-dependent through op3's bond Γ).
+- **§A6 correction-note (auditor lane; §A byte-untouched).** §A6's *"pump independent of nonlinearity — verified"* is now **vacuous**: given FACT-1, that comparison was between **bit-identical configurations** (nonlinear=True ≡ nonlinear=False), so it is vacuously true, not an independent verification. §A stays byte-untouched; this note is the record, and the auditor lane lands the manual entry.
+
+### R-8 — the W-battery classifier is made §B3-faithful
+
+`run_w_battery`'s verdict branches are corrected to the frozen §B3 shape: **PARTIAL** = the specific per-point pass map (**mild+moderate ALL-pass AND near-knee any-fail**); **INVALID** = W2 kill at any point OR W3 collapse-lost; any **other** non-kill failure pattern (a failure touching mild/moderate, or a moderate-only leg) → an explicit **METER-UNCLASSIFIED-DEVIATION demanding adjudication** — not silently relabelled PARTIAL (the pre-repair `else` branch called every non-kill failure PARTIAL). The all-pass **VALID** path is unchanged and the battery re-runs bit-for-bit.
+
+### Verdict (re-scoped, STANDS)
+
+**METER-VALID-NONLINEAR-ENVELOPE**, **scoped to STANDALONE-K4 plants** (R-1 caveat). All W1–W6 pass at all three operating points; the battery reproduces bit-for-bit; no PASS gate was loosened. Any CoupledK4Cosserat arm or genuine irreversible ε→T2 primitive requires **W-battery re-validation** (identity broken). NO F6 arm/door fired; engine files untouched; the R7 §7 receipt stays with the auditor lane; §9 rebase-before-integration still stands.

@@ -158,7 +158,7 @@
     {
       "vid": "W5",
       "passed": true,
-      "detail": "tare-usable |c_fit\u2212c|/c<0.02 at all points: mild(c=0.8546,c_fit=0.8543,|\u0394|/c=4.4e-04); moderate(c=0.8713,c_fit=0.8701,|\u0394|/c=1.4e-03); near-knee(c=0.8897,c_fit=0.8881,|\u0394|/c=1.8e-03); \u2605spatial-residual trend (arm-spatiality budget) mild:0.025 \u2192 moderate:0.046 \u2192 near-knee:0.053 (grows with nonlinearity)",
+      "detail": "tare-usable |c_fit\u2212c|/c<0.02 (=1\u2212cos\u03b8, so NOT independent of resid) AND E_bath>E_BATH_MIN (independent liveness) at all points: mild(c=0.8546,c_fit=0.8543,|\u0394|/c=4.4e-04); moderate(c=0.8713,c_fit=0.8701,|\u0394|/c=1.4e-03); near-knee(c=0.8897,c_fit=0.8881,|\u0394|/c=1.8e-03); \u2605spatial-residual trend (arm-spatiality budget) mild:0.025 \u2192 moderate:0.046 \u2192 near-knee:0.053 (grows with nonlinearity)",
       "metrics": {
         "per_point": {
           "mild": {
@@ -166,21 +166,27 @@
             "c_fit": 0.8543,
             "match": 0.0004438563215037041,
             "resid": 0.0255,
-            "flagged": false
+            "flagged": false,
+            "e_bath": 0.5773,
+            "liveness_ok": true
           },
           "moderate": {
             "c": 0.8713,
             "c_fit": 0.8701,
             "match": 0.0013782788656473582,
             "resid": 0.0457,
-            "flagged": false
+            "flagged": false,
+            "e_bath": 4.6416,
+            "liveness_ok": true
           },
           "near-knee": {
             "c": 0.8897,
             "c_fit": 0.8881,
             "match": 0.0017509867709446566,
             "resid": 0.0526,
-            "flagged": false
+            "flagged": false,
+            "e_bath": 10.4305,
+            "liveness_ok": true
           }
         },
         "residual_trend": [
@@ -203,5 +209,34 @@
       }
     }
   ],
-  "verdict": "METER-VALID-NONLINEAR-ENVELOPE"
+  "verdict": "METER-VALID-NONLINEAR-ENVELOPE",
+  "post_review_addendum": {
+    "note": "PR #721 adversarial-review repairs R-1..R-8 (2026-07-17). The W-battery results above are bit-identical to the frozen banked run except the additive W5 per-point fields e_bath/liveness_ok (R-4 independent-liveness tightening). See research/2026-07-16_f6-bath-meter_CHARTER.md Amendment-B-post-review addendum and research/2026-07-17_f6-meter-nonlinear-reval_result.md.",
+    "fact4_noncommutation_R3": {
+      "method": "\u2016step(s\u00b7x)\u2212s\u00b7step(x)\u2016/\u2016step(x)\u2016 on the on-shell (V_inc,V_ref) active state",
+      "s": 0.9,
+      "measured": {
+        "mild": 4.741621425837967e-05,
+        "moderate": 0.00045197011966875407,
+        "near-knee": 0.0013159525931975208
+      },
+      "growth_mild_to_near_knee": 27.7532193107331,
+      "charter_scratch_triple_SUPERSEDED": {
+        "mild": 0.00018,
+        "moderate": 0.00176,
+        "near-knee": 0.0054
+      },
+      "reviewer_independent": {
+        "mild": 4.3e-05,
+        "near-knee": 0.0012,
+        "growth": "~28x"
+      },
+      "provenance": "charter Amendment-B FACT-4 triple was scratch-provenance (not reproducible from shipped code; ~3-4x larger than any natural reading); this measured reproduction supersedes it at the RESULT level; charter Amendment-B body is NOT edited (frozen)."
+    },
+    "w5_tare_algebra_R4": {
+      "identity": "|c_fit - c|/c == 1 - cos(theta), verified exact (ratio 1.00) at all three points",
+      "implication": "the c-agreement is the SAME measurement as the spatial residual (both read theta); not an independent tare confirmation. Informative content = the residual trend.",
+      "liveness_subcheck": "tare-usable gate tightened: E_bath > E_BATH_MIN required (Rule-11-legal strengthening)."
+    }
+  }
 }

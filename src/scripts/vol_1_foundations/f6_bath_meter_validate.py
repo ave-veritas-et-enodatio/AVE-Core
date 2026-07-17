@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
-"""F6 bath meter — VALIDATION driver (V1-V6 battery on synthetic plants only).
+"""F6 bath meter — VALIDATION driver (A-battery V1-V6 + W-battery W1-W6; plants only).
 
-Charter: research/2026-07-16_f6-bath-meter_CHARTER.md (+ amendment §A, 2026-07-17).
+Charter: research/2026-07-16_f6-bath-meter_CHARTER.md (+ amendments §A / §B, 2026-07-17;
++ §B-post-review addendum, 2026-07-17 — PR #721 review repairs R-1..R-8).
 Instrument: src/ave/thermal/f6_bath_meter.py
 Gate: hardware-ratings-map §7 (JOINT detector-rebuild GATE, post-#711/#714).
 
-SECTOR / REGIME: R7 thermal / entropy-sink (T2). Cold plant (LINEAR lattice) —
-NO Op14 saturation, NO |Γ|→1 yield wall, NO node mint. NO F6 ARM IS FIRED HERE:
-the meter is validated on hand-built plants only. A verdict here certifies the
-instrument, NOT an F6 result (the arm fires in a different lane, after rebasing
-onto the sibling F1 fix — charter §9).
+SECTOR / REGIME: R7 thermal / entropy-sink (T2). The plant is a WEAKLY-NONLINEAR-
+VIA-OP3 K4 plant, NOT a linear lattice: the `nonlinear` flag is a NO-OP given
+op3_bond_reflection=True (the K4 4-port scatter matrix is z-independent, §B1 FACT-1
+— verified UNCONDITIONAL, op3-OFF twin bit-identical too), so the amplitude-dependent
+Op14 kernel S(A)=√(1−A²) is carried by op3's bond Γ, which is ON in every plant here.
+The A-battery runs at mild amplitude (Γ(A) second-order, effectively cold); the
+W-battery sweeps A_max up the op3-Γ(A) register (mild/moderate/near-knee). NO |Γ|→1
+yield wall (below rupture), NO memristive hysteresis (use_memristive_saturation=False,
+out of scope), NO node mint. NO F6 ARM IS FIRED HERE: the meter is validated on
+hand-built plants only. A verdict here certifies the instrument, NOT an F6 result
+(the arm fires in a different lane, after rebasing onto the sibling F1 fix — §9),
+and is SCOPED to STANDALONE-K4 plants (§B-post-review addendum R-1: a
+CoupledK4Cosserat arm or a genuine irreversible ε→T2 primitive breaks the
+conservation identity ⇒ W-battery re-validation required).
 
 Post-#717-review rebuild (see charter amendment §A). Repairs folded in:
   V6 — the secular pump is KILLED (global on-shell rescale); drift measured over
@@ -428,6 +438,49 @@ def _slope_and_kill(curve, transfer_frac: float, n_steps: int, ceil: float):
     }
 
 
+# --- FACT-4 provenance measuring snippet (R-3, PR #721 review; opt-in, NOT a gate) --
+def measure_noncommutation(s: float = 0.9) -> dict:
+    """Reproducible FACT-4 measurement: the global rescale does NOT commute with the
+    lattice step on the nonlinear plant. Returns the on-shell non-commutation residual
+      resid = ‖step(s·x) − s·step(x)‖ / ‖step(x)‖
+    at each operating point, where x=(V_inc,V_ref) is the on-shell active-cell state
+    the §A1 global rescale actually acts on, and step = one lossless lattice step.
+
+    OPT-IN (`--fact4`); NOT part of the W-battery gate. Provenance repair (R-3): the
+    charter §B1 FACT-4 triple (1.8e-4/1.76e-3/5.4e-3) was scratch-provenance — not
+    reproducible from shipped code (all natural readings are ~3-4× smaller). This
+    banks the measured reproduction (charter body NOT edited — see the §B-post-review
+    addendum; the reviewer's independent measurement was 4.3e-5→1.2e-3, ~28×, same
+    order/trend). On a LINEAR step the two orders commute exactly (residual 0); the
+    residual grows with A_max because op3's bond Γ(A) makes the step amplitude-dependent.
+    """
+    out = {}
+    for name, scale in OP_SCALES.items():
+        lat_a = _build(kappa=0.0, nonlinear=True, scale=scale).lat
+        lat_b = _build(kappa=0.0, nonlinear=True, scale=scale).lat
+        act = lat_a.mask_active
+        # step(s·x): scale the whole active (V_inc,V_ref) state, then step
+        lat_a.V_inc[act] *= s
+        lat_a.V_ref[act] *= s
+        lat_a.step()
+        # s·step(x): step, then scale
+        lat_b.step()
+        lat_b.V_inc[act] *= s
+        lat_b.V_ref[act] *= s
+        num = float(
+            np.sqrt(np.sum((lat_a.V_inc[act] - lat_b.V_inc[act]) ** 2)
+                    + np.sum((lat_a.V_ref[act] - lat_b.V_ref[act]) ** 2))
+        )
+        den = float(np.sqrt(np.sum(lat_b.V_inc[act] ** 2) + np.sum(lat_b.V_ref[act] ** 2))) + 1e-30
+        out[name] = num / den
+    return {
+        "s": s,
+        "method": "‖step(s·x)−s·step(x)‖/‖step(x)‖ on the on-shell (V_inc,V_ref) active state",
+        "noncommutation": out,
+        "growth_mild_to_near_knee": out["near-knee"] / out["mild"],
+    }
+
+
 # --- W1: nonlinear lossless baseline (the plant's own integrator floor) --------
 def run_w1() -> VResult:
     """Kernel ON, NO bath (κ=0), no drive after seed: the bare nonlinear plant's
@@ -463,12 +516,24 @@ def run_w1() -> VResult:
     )
 
 
-# --- W2: ★kernel-ON coupled drift (the decisive KILL leg) ---------------------
+# --- W2: kernel-ON coupled drift (LEDGER-REGRESSION + TRANSFER-HEALTH leg) ------
 def run_w2() -> VResult:
     """Production coupling, driven-then-source-off, 3000 steps at each operating
     point. Signed total-E drift curve. KILL (= METER-INVALID-NONLINEAR): a monotone
     (secular) drift whose |proj slope·N| exceeds R_BATH_MAX of the bath transfer
     (same §A2 reactive-bin-boundary derivation, restated for the nonlinear plant).
+
+    ★HONEST SCOPE (R-1, PR #721 review). On THIS plant class, energy conservation is
+    IDENTITY-ENFORCED, not empirically survived: the z-independent equal-admittance
+    4-port scatter S=0.5−δ is orthogonal, the bond connect [[γ,T],[T,−γ]] is orthogonal
+    at any γ, and the global rescale is arithmetic-exact on the quadratic energy —
+    pump-immunity was STRUCTURALLY GUARANTEED. So W2 is NOT the decisive kill leg the
+    §B1 pre-reg framed; the S(A)-kernel-in-scatter pump path is INEXPRESSIBLE on this
+    junction. W2's remaining content is (a) a REGRESSION guard vs #717-class ledger
+    bugs (a single-field V_inc-only rescale breaks the exact-conservation identity),
+    (b) TRANSFER-HEALTH (E_bath stays > E_BATH_MIN — no off-comb collapse), and (c) the
+    dormant max(·,0) clamp path (d_e_bath/e_lat stays ≪ 1). A CoupledK4Cosserat arm or
+    a genuine irreversible ε→T2 primitive BREAKS the identity ⇒ re-validation required.
     """
     per, any_kill, any_collapse = {}, False, False
     for name, scale in OP_SCALES.items():
@@ -624,6 +689,19 @@ def run_w5() -> VResult:
     W5_TARE_C_TOL at all three points (the computable tare IS the fitted attenuation).
     The residual trend vs nonlinearity is REPORTED (the arm-spatiality budget) — a
     diagnostic, flagged only if resid > W5_RESID_FLAG.
+
+    ★HONEST SCOPE (R-4, PR #721 review). |c_fit−c|/c is ALGEBRAICALLY 1−cosθ, where θ
+    is the angle between the ON and OFF trajectories: c_fit = ‖V_on‖cosθ/‖V_off‖ and
+    c ≈ ‖V_on‖/‖V_off‖ (the amplitude ratio √(1−E_bath/E0)), so |c_fit−c|/c = 1−cosθ
+    — verified EXACT numerically at all three points (ratio 1.00). It is therefore the
+    SAME measurement as the spatial residual (both read θ), NOT an independent tare
+    confirmation: the c-agreement is enforced by the rescale arithmetic and could never
+    fail independently of the residual. W5's informative content is the RESIDUAL TREND
+    (the arm's spatial-discriminant budget). To give this leg a genuinely independent
+    liveness check, the tare-usable gate is TIGHTENED (Rule-11-legal — a strengthening,
+    disclosed in the §B-post-review addendum): E_bath at each point must exceed
+    E_BATH_MIN, so the tare check cannot pass on a dead coupling (c→1, c_fit→1, θ→0
+    trivially agreeing on a zero transfer).
     """
     per, usable = {}, True
     for name, scale in OP_SCALES.items():
@@ -635,20 +713,26 @@ def run_w5() -> VResult:
         a = on.active
         von = on.lat.V_inc[a].ravel()
         voff = off.lat.V_inc[a].ravel()
-        c = float(np.sqrt(max(1.0 - on.e_bath() / E0, 0.0)))
+        e_bath = on.e_bath()
+        c = float(np.sqrt(max(1.0 - e_bath / E0, 0.0)))
         c_fit = float(np.dot(von, voff) / max(np.dot(voff, voff), EPS_DIVZERO_LOCAL))
         resid = float(np.linalg.norm(von - c_fit * voff) / (np.linalg.norm(voff) + 1e-30))
         match = abs(c_fit - c) / max(c, 1e-30)
-        usable = usable and (match < W5_TARE_C_TOL)
+        # Independent liveness (R-4): the transfer must be LIVE (> E_BATH_MIN) so the
+        # tare agreement cannot pass trivially on a dead coupling.
+        liveness_ok = e_bath > E_BATH_MIN_DEFAULT
+        usable = usable and (match < W5_TARE_C_TOL) and liveness_ok
         per[name] = {"c": round(c, 4), "c_fit": round(c_fit, 4), "match": match,
-                     "resid": round(resid, 4), "flagged": resid > W5_RESID_FLAG}
+                     "resid": round(resid, 4), "flagged": resid > W5_RESID_FLAG,
+                     "e_bath": round(float(e_bath), 4), "liveness_ok": liveness_ok}
     ok = usable
     trend = " → ".join(f"{n}:{per[n]['resid']:.3f}" for n in OP_SCALES)
     det = "; ".join(f"{n}(c={per[n]['c']},c_fit={per[n]['c_fit']},|Δ|/c={per[n]['match']:.1e})" for n in OP_SCALES)
     return VResult(
         "W5",
         ok,
-        f"tare-usable |c_fit−c|/c<{W5_TARE_C_TOL} at all points: {det}; "
+        f"tare-usable |c_fit−c|/c<{W5_TARE_C_TOL} (=1−cosθ, so NOT independent of resid) "
+        f"AND E_bath>E_BATH_MIN (independent liveness) at all points: {det}; "
         f"★spatial-residual trend (arm-spatiality budget) {trend} (grows with nonlinearity)",
         {"per_point": per, "residual_trend": [per[n]["resid"] for n in OP_SCALES]},
     )
@@ -694,23 +778,61 @@ def run_w6() -> VResult:
 
 
 def run_w_battery() -> tuple[list[VResult], str]:
-    """The frozen §B W-battery. Verdict classes (§B3): all pass at all three points →
-    METER-VALID-NONLINEAR-ENVELOPE; W2 kill OR W3 collapse-lost → METER-INVALID-
-    NONLINEAR; pass mild/moderate but fail near-knee → METER-PARTIAL-NONLINEAR."""
+    """The frozen §B W-battery. Verdict classes (§B3, verbatim):
+      • METER-VALID-NONLINEAR-ENVELOPE — all W1-W6 pass at ALL three operating points.
+      • METER-PARTIAL-NONLINEAR — pass at mild/moderate, fail NEAR-KNEE (a SPECIFIC
+        per-point pass map, not a catch-all for any non-kill failure).
+      • METER-INVALID-NONLINEAR — the W2 kill fires at ANY point, OR the W3 collapse
+        is lost.
+
+    §B3-faithful reading (R-8 repair, PR #721 review). §B3 admits exactly three
+    outcomes; a non-kill failure that is NOT the specific mild/moderate-pass /
+    near-knee-fail pattern is OFF the §B3 map and must be adjudicated, NOT silently
+    relabelled PARTIAL (the pre-repair `else` branch called every non-kill failure
+    PARTIAL regardless of which point failed). Such a pattern returns an explicit
+    METER-UNCLASSIFIED-DEVIATION demanding adjudication. The all-pass VALID path is
+    unchanged.
+    """
     results = [run_w1(), run_w2(), run_w3(), run_w4(), run_w5(), run_w6()]
     by = {r.vid: r for r in results}
     failed = [r.vid for r in results if not r.passed]
+    # §B3 INVALID triggers, checked at ANY operating point: the W2 secular-pump kill,
+    # or the W3 detuning-collapse lost.
     w2_kill = not by["W2"].passed and any(
         p.get("kill", False) for p in by["W2"].metrics.get("per_point", {}).values()
     )
     w3_lost = not by["W3"].passed
+    # Per-operating-point failure map for the §B3 PARTIAL pattern (mild+moderate ALL
+    # pass, near-knee any-fail). Legs W1/W2/W5 carry per-point data over all three
+    # points; the moderate-only legs (W3/W4/W6) and the global receipts (W1 flag-no-op,
+    # W6 Nyquist) attach to 'moderate'. W3 is handled above as an INVALID trigger.
+    points = ("mild", "moderate", "near-knee")
+    point_fail: dict[str, list[str]] = {pt: [] for pt in points}
+    for pt, p in by["W1"].metrics.get("per_point", {}).items():
+        if p.get("kill", False) or p.get("max_frac", 0.0) >= MACHINE_TOL:
+            point_fail[pt].append("W1")
+    for pt, p in by["W2"].metrics.get("per_point", {}).items():
+        if p.get("kill", False) or p.get("collapsed", False):
+            point_fail[pt].append("W2")
+    for pt, p in by["W5"].metrics.get("per_point", {}).items():
+        if p.get("match", 0.0) >= W5_TARE_C_TOL or not p.get("liveness_ok", True):
+            point_fail[pt].append("W5")
+    if not by["W1"].metrics.get("flag_no_op_ok", True):
+        point_fail["moderate"].append("W1-flag")
+    for vid in ("W4", "W6"):
+        if not by[vid].passed:
+            point_fail["moderate"].append(vid)
+    near_knee_only = bool(point_fail["near-knee"]) and not point_fail["mild"] and not point_fail["moderate"]
     if not failed:
         verdict = "METER-VALID-NONLINEAR-ENVELOPE"
     elif w2_kill or w3_lost:
         verdict = f"METER-INVALID-NONLINEAR (W2-kill/W3-collapse-lost: {','.join(failed)})"
-    else:
-        # PARTIAL only if the near-knee point is the failing one (mild/moderate pass)
+    elif near_knee_only:
         verdict = f"METER-PARTIAL-NONLINEAR({','.join(failed)})"
+    else:
+        # Off the §B3 map: a non-kill failure touching mild/moderate (or a
+        # moderate-only leg). Not silently PARTIAL — demand adjudication.
+        verdict = f"METER-UNCLASSIFIED-DEVIATION({','.join(failed)}; point_fail={point_fail}) — off §B3 map, adjudicate"
     return results, verdict
 
 
@@ -722,7 +844,25 @@ def main() -> None:
         action="store_true",
         help="run the §B NONLINEAR-regime revalidation battery (W1-W6) instead of the A-battery (V1-V6)",
     )
+    ap.add_argument(
+        "--fact4",
+        action="store_true",
+        help="measure the §B1 FACT-4 step/rescale non-commutation triple (opt-in provenance; NOT a gate)",
+    )
     args = ap.parse_args()
+    if args.fact4:
+        nc = measure_noncommutation()
+        if args.json:
+            print(json.dumps(nc, indent=2))
+        else:
+            print("=" * 80)
+            print("F6 BATH METER — FACT-4 non-commutation (opt-in; ‖step(s·x)−s·step(x)‖/‖step(x)‖)")
+            print("=" * 80)
+            for name, v in nc["noncommutation"].items():
+                print(f"  {name:10s}: {v:.3e}")
+            print(f"  growth mild→near-knee: {nc['growth_mild_to_near_knee']:.1f}×  (s={nc['s']})")
+            print("=" * 80)
+        return
     if args.w_battery:
         results, verdict = run_w_battery()
         title = "F6 BATH METER — W-BATTERY (nonlinear-regime revalidation; §B; NO F6 arm fired)"
