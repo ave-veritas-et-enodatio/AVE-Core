@@ -166,3 +166,20 @@ This mass split is **exactly what's needed**: the photon ($T_2$) needs to be mas
   - Vol 1 Ch 1 (Axiom 1) — K4 lattice + tetrahedral connectivity
   - Vol 1 Ch 2 (Macroscopic Moduli) — magic-angle $K = 2G$
   - Vol 1 Ch 4 (Continuum Electrodynamics) — Master Equation context
+
+---
+
+> **🔴 FLAG (2026-07-17, flag-don't-fix — body above untouched): Op3 label-vs-code contradiction — ROUTED, not fixed here.**
+>
+> This leaf's Op3 prose reads the $A_1$ sector as a genuine **system-loss**:
+>
+> - `:28` — "Op3 asymmetric dissipation | $A_1$ **loses energy monotonically**; $T_2$ settles into quasi-stable pattern"
+> - `:109` — "This impedance mismatch **dissipates energy asymmetrically** for the two sectors:" · `:111` — "$A_1$ ... **loses energy monotonically until it reaches zero**."
+>
+> The **code that implements Op3** is unitary and power-conserving (re-verified at HEAD):
+>
+> - `src/ave/core/k4_tlm.py:396-398` — "Unitary: `V_inc_A[k] = Γ * V_ref_A[k] + T * V_ref_B[k]`, where `Γ = (Z_B - Z_A)/(Z_B + Z_A)`, `T = sqrt(1 - Γ²)`. Seen from B, the reflection is `-Γ` (opposite sign). **Conserves total power.**"
+>
+> A lossless reactive scatter ($|\Gamma|^2+|T|^2=1$) cannot dissipate. **Candidate re-read — common-mode rejection / redistribution-by-counting:** $A_1$ is the common mode; its bond-reflection destructively interferes with neighbours (`:111`), so the $A_1$ **mode** empties into the $T_2$ pattern while the **system** conserves power. That is **loss-from-a-mode**, not **loss-from-the-system** (the MODE-vs-SYSTEM carve).
+>
+> **Adjudication ROUTED; owner = the operator-physics lane.** Consequence: the terminology leaf's "four licensed loss channels" enumeration (`substrate-native-terminology.md:27`) lists this Op3 channel as a genuine system-loss and needs correction on that channel (the other three are unaffected). See the Regime-IV dissipation audit §F4 (`research/2026-07-17_regime-iv-dissipation-audit.md`) and the discipline leaf [`retention-transition-split.md`](../../../common/retention-transition-split.md).
