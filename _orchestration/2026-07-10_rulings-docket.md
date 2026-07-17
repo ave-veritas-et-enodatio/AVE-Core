@@ -1520,3 +1520,14 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **Circuit-first door map** | Landed `research/2026-07-16_f6-circuit-first-door-map_CHARTER.md` | A1 wall vs frontier mint vs F6 KEEP SEPARATE; **reflection ≠ T2 leave**. |
 | **Frontier map** | Arm B demoted from “necessary door” to killed costume; fool-mode 9 banked | Full mint still NO; thermometer GATED. |
 | **Next field spend** | Frozen until §5b-passing prereg | Default: wall-native consistency probe (not DE door) or wait on node-mint epic — not chosen here. |
+
+---
+
+## Continuation — 2026-07-16: §5b rigorous fill PROTOCOL banked
+
+| Item | Status |
+|---|---|
+| **Fill PROTOCOL** | Landed `research/2026-07-16_f6-circuit-map-fill-PROTOCOL.md` — binding for mode-count §5b |
+| **Rule** | Each row = claim \| cite \| observable; entailment knife on energy fate; pre-freeze pass (1)–(6) |
+| **Arm B** | Worked-fail example in PROTOCOL §3 (preserves BIAS-MOVED + WRONG-OBJECT) |
+| **Next arm** | Probe-first for S/Γ; freeze only after PROTOCOL PASS — no door backfill |

@@ -88,10 +88,20 @@ Costume (CLOSED)              Native wall
 
 ---
 
-## 6 · Deliverables
+## 6 · How to fill §5b (binding)
+
+Rigorous fill order, entailment knife, Arm B worked-fail, and prereg template:  
+[`2026-07-16_f6-circuit-map-fill-PROTOCOL.md`](2026-07-16_f6-circuit-map-fill-PROTOCOL.md).
+
+**Rule:** measure the junction until the cells entail each other; do not invent a door and backfill the table.
+
+---
+
+## 7 · Deliverables
 
 - This charter (landed).
 - Mode-count §5b gate + fool-mode 7; frontier fool-mode 9 + Arm B CLOSED.
+- Fill PROTOCOL (binding for §5b).
 - Arm B RESULT/prereg WRONG-OBJECT fence (BIAS-MOVED preserved).
 - Ratings-map + docket hygiene.
 - **No `src/scripts` in the repair PR.**

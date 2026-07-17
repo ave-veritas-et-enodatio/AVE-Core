@@ -93,7 +93,7 @@ Decision rule: **(ii)/(iii)/(iv)/(vi) fail closed**; only **(i)** licenses therm
 
 ## 5b · Circuit map (required before any arm freezes)
 
-> **Process fix (2026-07-16):** ban-list hygiene is not enough. A sibling prereg may freeze **only after** filling this table. Incomplete table → DO-NOT-MERGE / do not drive.
+> **Process fix (2026-07-16):** ban-list hygiene is not enough. A sibling prereg may freeze **only after** filling this table **per the fill PROTOCOL**. Incomplete table → DO-NOT-MERGE / do not drive.
 
 | Question | Required answer |
 |---|---|
@@ -104,7 +104,7 @@ Decision rule: **(ii)/(iii)/(iv)/(vi) fail closed**; only **(i)** licenses therm
 | Finished A1 protection | how wall/mirror enforces bias≠release **without** siphon |
 | Forbidden costumes | face \(V\)-scale, PML sponge, Re(Z) dump, electron `radiation_leak` |
 
-Taxonomy and corollary (reflection ≠ T2 leave): [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
+**How to fill (binding):** [`2026-07-16_f6-circuit-map-fill-PROTOCOL.md`](2026-07-16_f6-circuit-map-fill-PROTOCOL.md) — each row is a **claim | cite | observable** triple; fill order object→ports→regime→port behavior→energy fate (entailment knife)→A1 protection→costumes; pre-freeze consistency pass (1)–(6) must PASS. Taxonomy: [`2026-07-16_f6-circuit-first-door-map_CHARTER.md`](2026-07-16_f6-circuit-first-door-map_CHARTER.md).
 
 ---
 
