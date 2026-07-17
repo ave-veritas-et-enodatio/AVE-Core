@@ -102,6 +102,17 @@ def _seed(lat: K4Lattice3D, center, rng: np.random.Generator) -> None:
 
 
 def _mean_S(lat: K4Lattice3D, mask: np.ndarray) -> float:
+    """Peak-normalized density-CONTRAST statistic — NOT the Ax-4 saturation S.
+
+    A² here is normalized by the in-mask PEAK density, so the hottest site
+    always reads a2=1 (contrast S=0) at ANY amplitude. This is a
+    profile-SHAPE contrast, NOT the canonical saturation S(A)=√(1−(A/A_yield)²)
+    referenced to V_SNAP. Measured true core saturation stays S≥0.99
+    (A²_max≈0.021 vs V_SNAP=1.0) — deep sub-yield — everywhere in the run.
+    The BIAS-MOVED bin therefore gates a density-profile-shape change, not an
+    absolute saturation-bias move. (Same `_mean_S` is verbatim in Arm A / #711;
+    the relabel applies there too — cross-cite, do not touch that branch here.)
+    """
     dens = lat.get_energy_density()
     peak = dens[mask].max() if np.any(mask) else 0.0
     a2 = np.clip(dens[mask] / (peak + 1e-30), 0.0, 1.0 - 1e-12)
@@ -273,7 +284,18 @@ def classify(on: RunOut, off: RunOut) -> str:
 
 
 def sponge_control_verdict() -> str:
-    """PML ON, ports OFF: must not be misread as CHANNEL-BOUNDED (no exterior modes)."""
+    """Standard NEGATIVE control: PML ON, ports OFF (κ=0).
+
+    This is a construction-forced negative control, NOT a liveness/positive-
+    control demonstration. With κ=0, `_arm_b_transfer` returns (0,0) and
+    E_bath≡0, so `classify()` short-circuits to NULL (E_bath<NULL_FLOOR)
+    BEFORE the CHANNEL-BOUNDED path is reachable — verified across
+    pml∈{0,2,4,6} (E_field vanishes 7.68→1.7e-16, E_bath stays 0, verdict NULL
+    every time). The expected, entailed outcome is NULL; the SPONGE-COSTUME
+    branch below is therefore not fireable by this control (it documents the
+    κ-off branch, not detector liveness). Genuine mode-count liveness rests on
+    the separate FRICTION-RENAMED sabotage plant (`--sabotage-friction`).
+    """
     off = run_once(kappa=0.0, seed=SEED, pml_thickness=0)
     sponge = run_once(kappa=0.0, seed=SEED, pml_thickness=2)
     v = classify(sponge, off)

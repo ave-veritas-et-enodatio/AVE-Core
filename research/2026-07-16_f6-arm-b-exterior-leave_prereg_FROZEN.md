@@ -151,3 +151,12 @@ Adversarial review confirmed the §5 result lines "soft_ledger ≈ 3.73" and §5
 - **Honest re-bank (two-method verified):** `soft = |(E_equil − E_f) − E_bath| = 0.110790` = **1.443 %** of `E_equil = 7.678`; **PASSES** the frozen `0.5·E_equil` tol. OFF ledger ≈ `5.3e-15`. The exterior ledger **closes**.
 - **Verdict unchanged:** BIAS-MOVED is decided at `classify()` step 4 (bias), upstream of the soft-ledger DETONATE branch; the WRONG-OBJECT closure does not rest on soft-ledger reachability.
 - Same E0 convention flagged to the **#711** (Arm A) repair — same bug class.
+
+## Amendment A3 — 2026-07-16 — co-fire + statistic-honesty corrections
+
+Adversarial-review MINORs (findings 2, 3, 9, 11). No verdict moves (all fail-closed); these correct labels/omissions in §5.
+
+- **ELECTRON-DRAIN co-fired (finding 2):** the shipped run drains the protected core `rel=(off−on)/off = 0.362 ≫ DRAIN_TOL=0.05` (7.2× over). The frozen `classify()` tests **BIAS-MOVED before ELECTRON-DRAIN**, so only BIAS-MOVED is *returned* — but the drain bin genuinely fires and was absent from the §5 check enumeration. Now recorded (result check-table co-fire row) with the frozen-precedence note. Not a false pass.
+- **`mean_S_core` is a CONTRAST, not saturation (finding 3):** `_mean_S` normalizes A² by the in-mask **peak**, so the hottest site always reads contrast `S=0`. It is a profile-**shape** contrast, not the Ax-4 `S(A)` vs `V_SNAP`. Measured true core saturation stays `S≥0.99` (`A²_max≈0.021`) everywhere. **BIAS-MOVED gates a profile-shape change**, not an absolute saturation-bias move. Same `_mean_S` in Arm A/#711 — relabel applies there (cross-cite).
+- **Soft-ledger row was mis-characterized (finding 11):** the superseded "fail-adjacent … would DETONATE" was, under the shipped seed-`E0` tol, a **1.94× outright FAIL** whose counterfactual bin was **ELECTRON-DRAIN** (checked before soft DETONATE), and the 2.000000× ports-OFF non-conservation is engine-pump-created energy (echoes engine-pumps-at-dt→0). Corrected in the result E0-fix note. (Moot after Amendment A2, recorded for honesty.)
+- **Sponge control relabeled (finding 9):** §3.9's "documents SPONGE-COSTUME detector liveness" over-claims. With κ=0, `E_bath≡0` → `classify()` short-circuits to NULL (verified pml∈{0,2,4,6}) before CHANNEL-BOUNDED is reachable, so SPONGE-COSTUME is entailed-never. It is a **standard negative control** verifying the κ-off branch; genuine mode-liveness rests on the separate FRICTION-RENAMED sabotage plant.
