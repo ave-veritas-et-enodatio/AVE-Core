@@ -127,3 +127,45 @@ The bath model is Caldeira–Leggett (independent-oscillator), the canonical *ho
 
 - **F1 ordering defect (sibling lane).** A sibling lane is fixing an ordering defect in `k4_cosserat_coupling.py` / `k4_tlm.py`. This meter is built as a **standalone module** coupled through a **minimal clean interface** (reads `V_inc`, `mask_active`, `get_energy_density`, `step`; writes `V_inc` at the collar). It does **not** edit those two files. **Rebase-before-integration:** before any future F6 arm integrates this meter, rebase onto the merged F1 fix and re-run V1–V6 (the back-reaction path writes `V_inc`, which the F1 ordering fix touches).
 - **Rails:** charter pushed before code; canonical constants imported; sector headers + regime declarations present; NO F6 arm fired; flag-don't-fix anything else; per-cluster commits; `make verify` before each push. Verdict classes above are for the validation only.
+
+---
+
+## Amendment §A — post-#717-review repairs (2026-07-17, append-only; §0–§9 body preserved byte-for-byte)
+
+> 🔴 **Rule-12 supersession (2026-07-17, post-review).** The PR #717 adversarial review (14 findings confirmed, 0 refuted; 1 CRITICAL/CONCLUSION-WRONG) established that the banked **METER-VALID** was WRONG: the production coupling had a **secular energy pump**, and several frozen declarations were deviated-from in code without an amendment. The meter's **core genuineness SURVIVED** (the mid-band detuning collapse proves the transfer is bath-EOM-gated — a real coupling, not an amount-matcher), but the certificate was void. This amendment records the deviations-and-corrections and re-adjudicates the §7 gate on the mechanism **as actually shipped**. The §0–§9 body above is the frozen pre-reg and is preserved; the code now implements the corrected design recorded here. New/changed thresholds are registered below (Rule 11: derived, not tuned-to-pass).
+
+### A1 — Back-reaction mechanism: §2 bilinear force law → GLOBAL energy-matched reactive load (the load-bearing swap, now recorded)
+
+§2 froze the back-reaction as a **bilinear Caldeira–Leggett force law** `F_q = κ Σ g_m x_m − κ² q Σ g_m²/ω_m²` written additively into `V_inc`. That law was **never shipped** and does not conserve against the opaque TLM stepper (it pumps; the 1/ω² counter-term destabilises — drift 4–19%). A **local** collar amplitude rescale (the first shipped fix) drove the lattice **off-shell** every step and pumped **+4.1e-2 / 3000 steps** (the #717 CRITICAL; verified: the leak is entirely in `lat.step()`, not the rescale arithmetic).
+
+**Correction (shipped):** the back-reaction is a **GLOBAL, phase-preserving, energy-matched reactive load** — the whole active-cell amplitude `(V_inc, V_ref)` is rescaled by the ΔE the bath's own coupled EOM absorbed. Because a scalar multiple of an on-shell TLM state stays on-shell, total `E_lat + E_bath` conserves to **~1e-15 over 3000 steps** (measured; V6 slope 1.1e-17/step, non-secular). The `max(…,0)` clamp is never triggered at the operating point (transfer < collar energy); it would truncate the ledger only in an over-extraction regime, which the conserving global scheme does not reach.
+
+**§7 gate re-adjudication (SATISFIES-WITH-REWORDING).** The shipped back-reaction **returns AMOUNT, not PHASE**: it is bath-EOM-gated (off-resonance ⇒ ΔE≈0 ⇒ rescale≈1 ⇒ no back-reaction; detuning collapses the transfer ~3000×, proving a genuine resonant coupling and not an amount-matcher) and bidirectional in amount (ΔE<0 ⇒ cavity scales UP), but it is **spatially uniform and phase-blind** (no bath phase re-enters the lattice). Stated as a **known limitation.** Given the detuning evidence, this satisfies §7 condition (1) "a real bath DOF with back-reaction (coupled equations, not a ledger)": the transferred amount is set by the bath's own dynamics, and the lattice trajectory genuinely diverges (V5 D=0.15). It is NOT the frozen §2 bilinear law; §2 is superseded by this A1.
+
+### A2 — Secular-pump kill + V6 rebuilt with a MEASURED, non-secular criterion and a DERIVED ceiling (Rule 11)
+
+§6 froze the V6 criterion qualitatively ("non-secular and below the V4 friction bin"); the shipped V6 printed "non-secular" as an unearned string and gated a 300-step max against an **unfrozen** 0.02 ceiling (the #717 finding). **Correction:** V6 now runs **3000 steps**, computes the drift **slope** (secularity), and gates on a **DERIVED** ceiling — the drift as a fraction of the bath transfer must stay below `R_BATH_MAX` (the reactive-bin boundary; else the ledger would leave its own bin). Result: max/transfer = 1.3e-13, slope 1.1e-17/step → non-secular, PASS honestly (the pump is gone, not masked by a tuned window).
+
+### A3 — N_occ floor: relative-to-peak → ABSOLUTE (restores the frozen §3 semantics) + minimum-E_bath gate
+
+§3 froze an **absolute** floor ("a fixed fraction of the drive scale"); the shipped code used **relative-to-peak**, which counted the off-resonant sea (N_occ=8 on E_bath~1e-21; 33–42/64 on collapsed transfer) — the #717 MAJOR. **Correction:** `FLOOR_ABS = 1e-2` (absolute, one order above the production off-resonant sea) **plus** a minimum-total gate `E_BATH_MIN = 1e-2` (no occupancy read below it). Now eps-level and detuned spectra read **N_occ = 0** (verified), and production reads N_occ=6, M-invariant.
+
+### A4 — Nyquist envelope enforced; "twin-64 killed" → "killed-within-envelope"
+
+The coupling kicks sample the drive at dt=1.0, so modes at `ω_m ≡ ±ω_drive (mod 2π)` are re-driven by **aliasing**; the twin-64 resurrected at M≥~184 (N_occ 8,8,8,12,31 for M=32/64/128/200/256) — the #717 CRITICAL. **Correction:** `OscillatorBath.__post_init__` now **asserts `ω_max·dt < π`** (caps M ≤ 95 at the frozen comb). V2's M-sweep is held **within** the envelope (M∈{32,64,90}). The unconditional "twin-64 killed" is demoted to **killed-within-the-Nyquist-envelope**, and the verdict class is **METER-VALID-WITHIN-ENVELOPE**.
+
+**V2 physics-tracking leg (replaces the confounded Δω-bandwidth check).** Varying Δω changes the drive-resonance overlap, so the transfer magnitude (E_bath) itself swings 50× — Δω-variation is NOT "fixed physics." The decisive controlled test is **detuning**: shifting the comb off the drive band (within Nyquist) collapses N_occ to **0** (the old ΔN_occ≡M detector would still read M). V2 now gates on M-invariance **and** detuning-collapse; the Δω-response (N_occ not pinned) is reported as a non-gating diagnostic.
+
+### A5 — Friction plant rebuilt so the bin can FAIL (bath LIVE + Re(Z) damping)
+
+The shipped friction plant early-returned before driving the bath, forcing `E_bath≡0 ⇒ R≡1, N_occ≡0` by code path — the same "cannot fail on any energetic run" class the F-2 autopsy voided (the #717 MAJOR). **Correction:** friction now keeps the bath **coupling LIVE** (same reactive drive) but adds a real **Re(Z) damping on the bath modes** (`β`), so the transferred energy is **dissipated (gone)** rather than stored. The discriminator is the closed-ledger fraction **R**, genuinely measured on **both** driven baths and able to fail: reactive R<0.2 (stored) vs friction R>0.8 (gone). Matched magnitude: friction **dissipates** ≈ what the reactive plant **stores** (Δ=11% ≤ 20%). This is the recoverable-vs-gone signature, by physics not code path.
+
+### A6 — Cold-plant consistency + registered thresholds + Ax3 wording
+
+- **Cold plant.** §0 declares "no Op14 saturation"; the code now uses a **LINEAR** lattice (`nonlinear=False`), consistent with that declaration (the pump is independent of nonlinearity — verified — but the linear lattice is the honest cold-plant choice).
+- **Ax3 wording.** "conserved by construction" is demoted to **"conserved to integrator order (measured by V6); global on-shell rescale conserves to ~1e-15 over 3000 steps"** (module + §2 wording corrected).
+- **Registered thresholds (were post-charter, now recorded here):** `V6` drift ceiling = `R_BATH_MAX` (DERIVED, not asserted); `V3` gates on a **COMPUTED** resonance-window prediction (modes within one comb spacing of the tone) tested within `±N_OCC_V3_TOL`; the V3 peak-location tolerance = `2·Δω`; friction `β = 0.01`; operating point `κ = 0.012`, `M_LIST = {32,64,90}`, detuned probe `(ω_min=1.5, M=32)`.
+
+### A7 — Honest re-bank
+
+Verdict (this validation only): **METER-VALID-WITHIN-ENVELOPE** — all V1–V6 pass with the corrected instruments, including the 3000-step non-secular drift curve, the absolute-floor occupancy read, the Nyquist-bounded M-invariance + detuning collapse, and the bath-live friction discriminator. The "within-envelope" qualifier is load-bearing: the M-invariance (twin-64 kill) holds only for combs satisfying `ω_max·dt < π` (M ≤ 95 at the frozen comb), now enforced. NO F6 arm is fired; the R7 §7 receipt stays with the auditor lane; rebase-before-integration onto the F1 fix still stands (§9).
