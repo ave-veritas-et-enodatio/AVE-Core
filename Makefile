@@ -186,7 +186,14 @@ test: test-tools
 	# `--timeout` (pytest-timeout): per-test hang guard — a single stuck test fails
 	# itself instead of silently eating the whole job budget. NOT on test-engine
 	# (those are legitimately-slow sims; the gate's slowest keeper is now ~50s).
-	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread
+	$(PYTEST) $(SOURCE_DIR)/tests -m "not engine_sim" -n auto --timeout=180 --timeout-method=thread \
+		--ignore=$(SOURCE_DIR)/tests/test_mass_sector_a1_port.py
+	# Serial tail (2026-07-17): the A1-port suite transiently spikes ~340 MB; when
+	# xdist packing lands it late in the schedule it stacks on per-worker memory
+	# accumulation and the 2-core CI runner OOM-kills the worker ("node down",
+	# schedule-dependent so branch CI can red while main greens). A fresh serial
+	# process gives the spike a zero baseline; costs ~15 s.
+	$(PYTEST) $(SOURCE_DIR)/tests/test_mass_sector_a1_port.py --timeout=180 --timeout-method=thread
 
 test-engine:
 	@echo "[Test] Running engine-simulation tests (opt-in; slow tier-1/2)..."
