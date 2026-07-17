@@ -109,3 +109,27 @@ VERDICT = BIAS-MOVED
 **Honest closure (Rule 11):** Arm A enlarges occupied bath mode-count and couples into V-phase, but **fails bias≠release** at the same protected-core knife as rung-2 (scatter / soft-ledger mismatch). Event-gating + multi-mode credit did **not** evade the BIAS-MOVED kill-shape. Do **not** retune `OCC_THRESH` / `PACKET` / `CORE_R`. This hypothesis arm is **not** CHANNEL-BOUNDED.
 
 Thermometer re-fire remains **GATED**. Next hypothesis under the same discriminator (if pursued): boundary-radiation arm — still not Re(Z) absorb.
+
+---
+
+## Post-adversarial-review amendments — 2026-07-16 (append-only; §0–§5 body byte-untouched)
+
+> 🔴 **Rule-12 supersession (2026-07-16, post-review).** PR #711's independent adversarial review (11 findings confirmed, 1 refuted) voided the **detector infrastructure** while the **verdict** survives untouched: Arm A is **BIAS-MOVED** on the independent protected-core `S_core` knife (ΔS_core = 1.421e-1 ≫ BIAS_TOL = 5e-3, 28×). Per the freeze discipline the §0–§5 body above is preserved **byte-for-byte**; the corrections below are dated amendments that supersede only the specific §5 claims they cite. The Arm A negative stands and is banked (see A7). The no-smuggle rail **passed** — see A2.
+
+### A1 — Mode-count "detector LIVE" headline RETRACTED (findings 0 / 4 / 7 — CRITICAL, three lenses converged)
+
+§5 line 104 — `ΔN_occ = 64  (mode-count detector LIVE — not FRICTION-RENAMED)` — is **superseded**. The review proved, and this session reproduced two ways (review probes at PR head + independent re-run), that
+
+> **ΔN_occ = min(M_MODES, N_SPREAD × event-steps)** — a dynamics-free 64-slot accumulator (`bath_modes = np.zeros(M_MODES)`) credited by fiat, with no back-reaction onto the lattice.
+
+Probes at PR head, only the array size varied: `M_MODES=48 → ΔN_occ=48`, `M_MODES=96 → ΔN_occ=96`, all with **identical** `bath=7.5548` and `events=27289`; PACKET 10× weaker → still 64 (bath 3.69); seed=7 → still 64. ΔN_occ tracks the accumulator dimension, is decoupled from the physical leave, and saturates at `M_MODES` after 16 of the 150 steps. The prereg's own §4 concession is the disclosed-but-under-weighted tell:
+
+> "ON: if gate fires, `E_bath > NULL_FLOOR` and `ΔN_occ ≥ 1` *by construction of mode credit* unless deposit path is broken." (§4, line 88)
+
+`ΔN_occ ≥ 1` being true *by construction* means the count carries no physical evidence.
+
+**Relabel (verbatim — propagated to PR body, docket, ratings-map):**
+
+> ΔN_occ is **bookkeeping liveness only** — it reads the accumulator dimension (`M_MODES = 64`), **NOT** a physical mode-count; the twin-64 across Arms A/B is the shared array size, not two independent doors corroborating a mode count.
+
+The twin `ΔN_occ = 64` across #711 (Arm A) and #713 (Arm B) MUST NOT be cited as independent corroboration — both ship the byte-identical `M_MODES = 64` / `_credit_modes` detector machinery. (Correction to the finding as first written: the whole-file Arm B diff is *large* — only the detector machinery is identical; the twin-64 conclusion holds on that corrected ground.)

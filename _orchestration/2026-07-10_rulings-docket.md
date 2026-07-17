@@ -1492,3 +1492,9 @@ Package: `_orchestration/2026-07-15_f1-adjudication-package.md`. Charter: `resea
 | **Arm A fire** | **BIAS-MOVED** — ΔN_occ=64 (mode-count LIVE); ΔS_core≫BIAS_TOL; soft ledger messy. Rule-11: do not retune. |
 | **Sabotage** | `--sabotage-friction` → **FRICTION-RENAMED** (Discriminator 7 pass) |
 | **Thermometer** | remains GATED |
+
+### Post-#711-review corrections — 2026-07-16 (append-only; supersede the row above where cited)
+
+Independent adversarial review of PR #711 (11 findings confirmed, 1 refuted): the **BIAS-MOVED verdict survives** (independent `S_core` knife), the **detector infrastructure is void**. Corrections (repairs landed on `analysis/2026-07-16-f6-mode-count-event-gated`):
+
+- **"ΔN_occ=64 (mode-count LIVE)" RETRACTED** (findings 0/4/7): ΔN_occ = min(M_MODES, N_SPREAD × event-steps) — it reads the 64-slot accumulator dimension, **not** a physical mode-count. Bookkeeping liveness only. The twin-64 across #711/#713 is the shared array size, **not** independent corroboration — do not cite it as such.
