@@ -859,6 +859,9 @@ DENSEST_DW = 0.010          # densest sweep comb (deepest-irreversible / longest
 DENSEST_OMIN = 0.30
 DENSEST_M = 71              # ω_max = 0.30 + 70·0.010 = 1.00 < π (Nyquist OK)
 X_OP_SCALES = {"mild": 0.6, "moderate": 1.8}  # primary=mild (Phase-1 sweep pt); moderate=stress
+X2_REF_KAPPA = 0.012  # X2 REFERENCE point (the #721-certified κ) — reported as a placement
+# sanity check (the frozen placement MUST pass at the certified point); NOT band-determining
+# and NOT in the frozen κ-set {0.030,0.045,0.060} — excluded from the verdict kill map.
 # --- frozen horizons (§C2; N_sweep matches prereg §3 densest row exactly) ---
 T_REC_DENSEST = 628         # round(2π/0.010); the prereg §3 densest-row value
 N_SWEEP = 11 * T_REC_DENSEST  # 6908 — the sweep's longest horizon the drift must protect
@@ -870,7 +873,9 @@ TWO_TANK_DW = 0.20            # ω = {0.50, 0.70}; T_rec = 2π/0.20 = 31.4
 TWO_TANK_HORIZON = int(round(12 * 2 * np.pi / TWO_TANK_DW))  # 12·T_rec = 377
 SPARSE_DW = 0.080
 SPARSE_M = 10                # ω_max = 0.30 + 9·0.080 = 1.02 < π
-SPARSE_HORIZON = int(round(11 * 2 * np.pi / SPARSE_DW))  # 11·T_rec = 869
+T_REC_SPARSE = int(round(2 * np.pi / SPARSE_DW))  # 79 (prereg §3 / frozen §C X4 sparse row)
+SPARSE_HORIZON = 11 * T_REC_SPARSE  # 869 = 11·T_rec (frozen §C X4). F8-fix: the exact-formula
+# int(round(11·2π/0.08))=864 mismatched the frozen 869 (=11·round(T_rec)); use the frozen value.
 X_RCUM_X_TARGET = 10.0       # R_ret_cum read at x≫1 (prereg §2·3)
 SPARSE_RETURN_MIN = 0.70     # inherited from arm prereg §2·3 (finite comb recurs → return→1)
 # --- X6 dressed-comb artifact criterion (DERIVED, §C2 X6) ---
@@ -1003,10 +1008,19 @@ def _fold(w: float) -> float:
 
 
 def _place_detuned_harmonic_aware(omega_d, dw, m_det, omega_max_res, n_harm=6, guard=None):
-    """Detuned-band placement OFF every folded harmonic n·ω_d (§B W3 CORRECTED rule
-    + §C2 X2). Scan ω_min_det upward from just above the resonant comb top for the
-    lowest m_det-mode Nyquist band that is ≥ guard (=2·Δω) clear of all n·ω_d folds.
-    Returns (ω_min_det, ω_max_det, min_harmonic_clearance, folded_harmonics)."""
+    """Detuned-band placement OFF every folded harmonic n·ω_d. Scan ω_min_det upward
+    from just above the resonant comb top for the lowest m_det-mode Nyquist band that
+    is ≥ guard (=2·Δω) clear of all n·ω_d folds. Returns (ω_min_det, ω_max_det,
+    min_harmonic_clearance, folded_harmonics).
+
+    🔴 SUPERSEDED FOR THE X2 GATE (PR #724 review F1, 2026-07-18). The shipped X2 used
+    THIS harmonic-avoidance placement instead of the FROZEN §C X2 q-power-budget rule
+    (`_place_detuned_band`). Harmonic-avoidance is BLIND to the plant's INDEPENDENT
+    lattice lines (a genuine line at ω≈1.123 carries ~14.6% of the plant's q-power but
+    is no n·ω_d), so the band it chose ([1.07,1.38]) sat ON that line and read ×3.6
+    'LOST' even at the certified κ=0.012 — a MANUFACTURED kill. run_x2 now uses the
+    frozen `_place_detuned_band`. This helper is retained only for its unit test and
+    for computing folded harmonics; it is NOT the X2 placement."""
     guard = guard if guard is not None else 2 * dw
     folded = sorted(_fold(n * omega_d) for n in range(1, n_harm + 1))
     width = (m_det - 1) * dw
@@ -1025,48 +1039,81 @@ def _place_detuned_harmonic_aware(omega_d, dw, m_det, omega_max_res, n_harm=6, g
     return om, hi, float(min(clearances)), [round(f, 3) for f in folded]
 
 
-# --- X2: detuning soul-check at each κ (harmonic-aware placement) ---------------
+# --- X2: detuning soul-check at each κ (FROZEN §C q-power-budget placement) ------
 def run_x2() -> VResult:
-    """Densest comb, MILD. Resonant vs off-content detuned comb; the transfer
-    collapse (≥100×) must survive at EVERY κ. KILL if it falls below 100× (coupling-
-    broadening caught the detuned band — soul-check lost, §C2 X2)."""
+    """Densest comb, MILD. Resonant vs detuned comb placed by the FROZEN §C X2 rule:
+    the lowest 32-mode Nyquist band whose MEASURED q-power fraction < W3_POWER_FRAC_MAX
+    (charter §C X2, verbatim; = §B W3-corrected + R-6; implemented by _place_detuned_band).
+    The transfer collapse (≥100×, N_det=0) must survive at every κ. Reference κ=0.012
+    (the #721-certified point) is reported as a PLACEMENT SANITY CHECK — the frozen
+    placement must pass there — and is NOT band-determining.
+
+    §C3 DISCLOSED-LIMITATION (placement rule that turns out unsatisfiable): at κ≥0.045
+    the cavity FULLY DISCHARGES, the collar-q spectrum DRAINS to DC, and the frozen
+    placement — which keys on that spectrum's 99%-cumulative cutoff — becomes
+    UNEXECUTABLE (ω_99 collapses toward DC, the band lands on the drive band's wings).
+    The drain signature (drain-robust bath ω_d vs the collapsed collar-q ω_d) is
+    reported per κ as `placement_reliable`; a LOST at an UNRELIABLE placement is a
+    §C3 finding (a placement artifact), NOT a physical loss of resonance-gating — the
+    drain-robust quiet-band control (post-hoc genuineness probe) shows gating ALIVE at
+    every κ. The kill map attributes an X2 KILL only where the placement is RELIABLE
+    (an executable-placement loss); κ≥0.045 die on X5/X3 independently (see result MD).
+    """
     scale = X_OP_SCALES["mild"]
-    omega_max_res = DENSEST_OMIN + (DENSEST_M - 1) * DENSEST_DW
     per, any_lost = {}, False
-    for kappa in KAPPA_BAND:
+    for kappa in (X2_REF_KAPPA, *KAPPA_BAND):
         res = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
                      omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
         out = _run_x(res, X_NSTEP_SOUL, record_q=True, sample=100)
         e_res = out["e_bath_peak"]
         n_res = _n_occ_from_me(out["me_at_peak"])
-        # ROBUST ω_d from the absorbed-energy peak (the q-spectrum drains to DC at
-        # full discharge — the first-run artifact; bath-peak is drain-robust).
+        # drain-robust ω_d (bath mode-energy peak — stable through full discharge) vs
+        # the collar-q rFFT peak (collapses to DC when the cavity drains): DISAGREEMENT
+        # is the placement-unexecutability signature (the frozen rule keys on the q-spec).
         omega_d = _omega_d_from_bath(out["me_at_peak"], res.bath.omega)
-        _f, _p, omega_d_q, _c = _q_spectrum(out["qs"])  # q-spectrum ω_d (reported; may be 0 at drain)
-        om_min_det, om_max_det, harm_clear, folded = _place_detuned_harmonic_aware(
-            omega_d, DENSEST_DW, DETUNE_M, omega_max_res)
-        det = _build(M=DETUNE_M, kappa=kappa, delta_omega=DENSEST_DW,
+        freqs, psd, omega_d_q, cum = _q_spectrum(out["qs"])
+        placement_reliable = bool(abs(omega_d_q - omega_d) <= W3_HARM_GUARD)
+        # FROZEN §C X2 placement (q-power-budget) — _place_detuned_band; the detuned comb
+        # is the meter's canonical 32-mode probe at DELTA_OMEGA spanning the placed band.
+        om_min_det, om_max_det, band_frac, omega_99 = _place_detuned_band(freqs, psd, cum)
+        det = _build(M=DETUNE_M, kappa=kappa, delta_omega=DELTA_OMEGA,
                      omega_min=om_min_det, nonlinear=True, scale=scale)
         out_d = _run_x(det, X_NSTEP_SOUL, sample=100)
         e_det = out_d["e_bath_peak"]
         n_det = _n_occ_from_me(out_d["me_at_peak"])
         ratio = e_res / max(e_det, 1e-300)
+        # folded-harmonic clearances of the CHOSEN band (frozen §C X2: reported alongside
+        # the band + q-power fraction; the placement is by power-budget, not by these).
+        folded = sorted(_fold(n * omega_d) for n in range(1, 7))
+        harm_clear = float(min(
+            min(abs(f - om_min_det), abs(f - om_max_det),
+                0.0 if om_min_det <= f <= om_max_det else np.inf) for f in folded))
         lost = not (ratio >= W3_COLLAPSE_ORDERS and n_res > 0 and n_det == 0)
-        any_lost = any_lost or lost
+        is_ref = kappa == X2_REF_KAPPA
+        disclosed_limit = bool(lost and not placement_reliable)  # §C3 finding (drain)
+        if not is_ref:
+            any_lost = any_lost or lost
         per[str(kappa)] = {
-            "kappa": kappa, "e_res": e_res, "e_det": e_det, "ratio": ratio,
-            "n_res": n_res, "n_det": n_det, "omega_d": omega_d, "omega_d_qspec": omega_d_q,
-            "detuned_band": [om_min_det, om_max_det], "harm_clearance": harm_clear,
-            "folded_harmonics": folded, "lost": lost,
+            "kappa": kappa, "is_reference": is_ref, "e_res": e_res, "e_det": e_det,
+            "ratio": ratio, "n_res": n_res, "n_det": n_det, "omega_d": omega_d,
+            "omega_d_qspec": omega_d_q, "omega_99": omega_99,
+            "detuned_band": [om_min_det, om_max_det], "band_frac": band_frac,
+            "harm_clearance": harm_clear, "folded_harmonics": [round(f, 3) for f in folded],
+            "placement_reliable": placement_reliable, "lost": lost,
+            "disclosed_limit": disclosed_limit,
         }
     ok = not any_lost
     det = "; ".join(
-        f"κ={p['kappa']}: E_res={p['e_res']:.2e}(N={p['n_res']}) vs det[{p['detuned_band'][0]:.2f},"
-        f"{p['detuned_band'][1]:.2f}]={p['e_det']:.2e}(N={p['n_det']}) ×{p['ratio']:.0f} "
-        f"(ω_d={p['omega_d']:.3f}, harm_clear={p['harm_clearance']:.3f}) LOST={p['lost']}"
+        f"κ={p['kappa']}{'(ref)' if p['is_reference'] else ''}: "
+        f"E_res={p['e_res']:.2e}(N={p['n_res']}) vs det[{p['detuned_band'][0]:.2f},"
+        f"{p['detuned_band'][1]:.2f}](qfrac={p['band_frac']:.1e})={p['e_det']:.2e}(N={p['n_det']}) "
+        f"×{p['ratio']:.0f} (ω_d={p['omega_d']:.3f},harm_clr={p['harm_clearance']:.3f},"
+        f"reliable={p['placement_reliable']}) LOST={p['lost']}"
+        f"{'[DRAIN-LIMIT]' if p['disclosed_limit'] else ''}"
         for p in per.values()
     )
-    return VResult("X2", ok, f"[collapse ≥{W3_COLLAPSE_ORDERS:.0f}×] " + det, {"per_kappa": per})
+    return VResult("X2", ok, f"[collapse ≥{W3_COLLAPSE_ORDERS:.0f}× | frozen q-power placement] " + det,
+                   {"per_kappa": per})
 
 
 # --- X3: N_occ honesty at each κ (floor vs κ-broadened linewidth) --------------
@@ -1319,7 +1366,13 @@ def run_x_battery() -> tuple[list[VResult], str]:
         if p["point"] == "mild" and p["kill"]:
             kills[p["kappa"]].append("X1")
     for p in by["X2"].metrics.get("per_kappa", {}).values():
-        if p["lost"]:
+        # Skip the reference κ (0.012; not band-determining). Attribute an X2 KILL only
+        # where the frozen placement was EXECUTABLE (placement_reliable): a LOST at an
+        # UNRELIABLE (drained) placement is a §C3 disclosed-limitation FINDING, not a
+        # physical resonance-gating loss (result MD §7). The verdict is INVARIANT to this
+        # attribution — κ≥0.045 die on X5/X3 regardless (literal-frozen kill map banked
+        # in the result JSON gives the same band [0.03,0.03]).
+        if p["kappa"] in kills and p["lost"] and p["placement_reliable"]:
             kills[p["kappa"]].append("X2")
     for p in by["X3"].metrics.get("per_kappa", {}).values():
         if p["fail"]:
@@ -1347,7 +1400,102 @@ def run_x_battery() -> tuple[list[VResult], str]:
                        f"KILL at {[k for k in KAPPA_BAND if kills[k]]}; κ_break={kappa_break})")
         else:
             verdict = f"METER-UNCLASSIFIED-DEVIATION(non-contiguous pass {passing}; kills={kills}) — adjudicate"
-    return results, verdict
+    # literal-frozen kill map (X2 counts wherever LOST, incl. drained placements) — banked
+    # for provenance so the reader can confirm the verdict is INVARIANT to the X2 drain
+    # attribution (§C3 disclosed-limitation). Both maps yield the same band.
+    kills_literal: dict[float, list[str]] = {k: list(v) for k, v in kills.items()}
+    for p in by["X2"].metrics.get("per_kappa", {}).values():
+        if p["kappa"] in kills_literal and p["lost"] and not p["placement_reliable"]:
+            kills_literal[p["kappa"]].append("X2(drain-limit)")
+    return results, verdict, {"kills": kills, "kills_literal_frozen": kills_literal,
+                              "passing": passing, "kappa_break": kappa_break}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# POST-HOC GENUINENESS PROBES (PR #724 review F2 + F4) — UNFROZEN / NON-GATING
+# ═══════════════════════════════════════════════════════════════════════════
+# Opt-in (`--genuineness`). These are NOT frozen §C X-legs and bank NO verdict — they
+# are ROUTED POST-HOC EVIDENCE (shipped for provenance) that (F4) the coupler's
+# transfer rate tracks the comb density-of-states (Fermi golden rule ⇒ a GENUINE
+# resonant coupling, not an amount-matcher — so the coupler needs NO rebuild) and
+# (F2) the strong-κ transfer is SELECTIVE (Γ_κ ≳ Δω_comb ⇒ quasi-continuum populated,
+# TRUE; but Γ_κ ≪ the detuning offset ⇒ a quiet comb stays empty — the "full discharge
+# fills ANY comb" narrative is EXCLUDED). Feeds a §D re-certification prereg (SPEC'd in
+# the result MD; NOT frozen/run here).
+
+def _init_transfer_rate(kappa, dw, m, omin, scale, n=25):
+    """Γ_E = per-step fractional transfer rate to the bath (first-step ΔE_bath/E0 and
+    the initial linear slope over the first `n` steps, before saturation). Non-gating."""
+    cpl = _build(M=m, kappa=kappa, delta_omega=dw, omega_min=omin, nonlinear=True, scale=scale)
+    E0 = cpl.e_lat()
+    eb = []
+    for i in range(1, n + 1):
+        cpl.step(i)
+        eb.append(cpl.e_bath() / E0)
+    eb = np.array(eb)
+    slope = float(np.polyfit(np.arange(1, min(20, n) + 1), eb[:min(20, n)], 1)[0])
+    return float(eb[0]), slope, float(eb.max())
+
+
+def run_genuineness_probes() -> dict:
+    """Post-hoc (unfrozen, non-gating) genuineness evidence — F4 golden-rule
+    density-scaling + F2 transfer selectivity + F1 drain-robust quiet-band control."""
+    scale = X_OP_SCALES["mild"]
+    # --- F4: golden-rule density-scaling (transfer rate ∝ DOS = 1/Δω) ---
+    density = {}
+    dw_set = [0.010, 0.020, 0.040, 0.080]
+    for kappa in [0.030, 0.045]:
+        rows = []
+        for dw in dw_set:
+            m = int(round((1.00 - DENSEST_OMIN) / dw)) + 1  # band ≈ [0.30, 1.00] fixed
+            first, slope, peak = _init_transfer_rate(kappa, dw, m, DENSEST_OMIN, scale, n=25)
+            rows.append({"delta_omega": dw, "dos": 1.0 / dw, "M": m,
+                         "gamma_e_slope": slope, "gamma_e_first": first, "peak_frac": peak})
+        dos = np.array([r["dos"] for r in rows])
+        rate = np.array([r["gamma_e_slope"] for r in rows])
+        # golden-rule exponent p in Γ_E ∝ DOS^p (p≈1 ⇒ Fermi golden rule)
+        expo = float(np.polyfit(np.log(dos), np.log(rate), 1)[0])
+        density[str(kappa)] = {"rows": rows, "golden_rule_exponent": expo}
+    # --- F2: transfer selectivity (Γ_E per step ≪ detuning offset; quiet comb empty) ---
+    DETUNE_OFFSET = 0.55  # a q-power-quiet detuned band sits ≳0.55 above ω_d≈0.52
+    # drain-robust quiet band: highest Nyquist-valid 32-mode densest-comb band (far off content)
+    quiet_omin = float(np.pi - (DETUNE_M - 1) * DENSEST_DW - 2 * DENSEST_DW)  # ≈2.81
+    selectivity = {}
+    for kappa in KAPPA_BAND:
+        first, slope, _pk = _init_transfer_rate(kappa, DENSEST_DW, DENSEST_M, DENSEST_OMIN, scale, n=25)
+        # quiet-comb absorption (the F1 counterfactual: resonance-gating alive at every κ)
+        qc = _build(M=DETUNE_M, kappa=kappa, delta_omega=DENSEST_DW,
+                    omega_min=quiet_omin, nonlinear=True, scale=scale)
+        out_q = _run_x(qc, X_NSTEP_SOUL, sample=100)
+        e_quiet = out_q["e_bath_peak"]
+        # resonant peak for the collapse ratio (drain-robust: gating-alive control)
+        res = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
+                     omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+        out_r = _run_x(res, X_NSTEP_SOUL, sample=100)
+        e_res = out_r["e_bath_peak"]
+        # linewidth Γ_κ: FWHM of the transfer response over ω (narrow 3-mode probe sweep,
+        # 0.02 ω-grid over 200 steps — resolves the ~0.2-0.6 linewidth without undersampling)
+        resp = []
+        for wc in np.arange(0.20, 1.22, 0.02):
+            f0, _s, pk = _init_transfer_rate(kappa, 0.01, 3, float(wc), scale, n=200)
+            resp.append((float(wc), pk))
+        resp = np.array(resp)
+        pmax = resp[:, 1].max()
+        above = resp[resp[:, 1] >= pmax / 2]
+        fwhm = float(above[:, 0].max() - above[:, 0].min()) if len(above) > 1 else 0.0
+        selectivity[str(kappa)] = {
+            "gamma_e_first_step": first, "gamma_e_slope": slope,
+            "detune_offset": DETUNE_OFFSET, "offset_over_gamma": DETUNE_OFFSET / max(first, 1e-30),
+            "quiet_band_omin": quiet_omin, "e_quiet_peak": float(e_quiet),
+            "e_res_peak": float(e_res), "quiet_collapse": float(e_res / max(e_quiet, 1e-300)),
+            "linewidth_gamma_k": fwhm, "gamma_k_over_dw_comb": fwhm / DENSEST_DW,
+            "gamma_k_over_offset": fwhm / DETUNE_OFFSET,
+        }
+    return {"density_scaling_f4": density, "selectivity_f2": selectivity,
+            "note": "POST-HOC / UNFROZEN / NON-GATING (PR #724 F2+F4). Golden-rule "
+            "density-scaling ⇒ genuine coupling (no coupler rebuild); Γ_κ≫Δω_comb but "
+            "Γ_κ≪offset ⇒ selectivity survives; quiet-band collapse ⇒ resonance-gating "
+            "ALIVE at every κ (the frozen-placement X2 LOST at κ≥0.045 is a drain artifact)."}
 
 
 def main() -> None:
@@ -1368,7 +1516,34 @@ def main() -> None:
         action="store_true",
         help="measure the §B1 FACT-4 step/rescale non-commutation triple (opt-in provenance; NOT a gate)",
     )
+    ap.add_argument(
+        "--genuineness",
+        action="store_true",
+        help="POST-HOC (unfrozen, non-gating) genuineness probes — F4 golden-rule density-scaling "
+             "+ F2 transfer selectivity + F1 drain-robust quiet-band control (PR #724 review)",
+    )
     args = ap.parse_args()
+    if args.genuineness:
+        gp = run_genuineness_probes()
+        if args.json:
+            print(json.dumps(gp, indent=2))
+        else:
+            print("=" * 80)
+            print("F6 BATH METER — POST-HOC GENUINENESS PROBES (UNFROZEN / NON-GATING; PR #724 F2+F4)")
+            print("=" * 80)
+            for kap, d in gp["density_scaling_f4"].items():
+                print(f"[F4 golden-rule] κ={kap}: Γ_E ∝ DOS^{d['golden_rule_exponent']:.2f} "
+                      f"(p≈1 ⇒ Fermi golden rule)")
+                for r in d["rows"]:
+                    print(f"    Δω={r['delta_omega']:.3f} DOS={r['dos']:.0f}: "
+                          f"Γ_E(slope)={r['gamma_e_slope']:.3e} peak={r['peak_frac']:.4f}")
+            for kap, s in gp["selectivity_f2"].items():
+                print(f"[F2 selectivity] κ={kap}: Γ_E/step={s['gamma_e_first_step']:.3e} "
+                      f"(offset/Γ_E={s['offset_over_gamma']:.0f}×); Γ_κ={s['linewidth_gamma_k']:.3f} "
+                      f"(Γ_κ/Δω_comb={s['gamma_k_over_dw_comb']:.0f}, Γ_κ/offset={s['gamma_k_over_offset']:.2f}); "
+                      f"quiet-comb E={s['e_quiet_peak']:.2e} → collapse ×{s['quiet_collapse']:.0f}")
+            print("=" * 80)
+        return
     if args.fact4:
         nc = measure_noncommutation()
         if args.json:
@@ -1382,8 +1557,9 @@ def main() -> None:
             print(f"  growth mild→near-knee: {nc['growth_mild_to_near_knee']:.1f}×  (s={nc['s']})")
             print("=" * 80)
         return
+    kill_maps = None
     if args.x_battery:
-        results, verdict = run_x_battery()
+        results, verdict, kill_maps = run_x_battery()
         title = "F6 BATH METER — X-BATTERY (κ-revalidation §C; sweep prerequisite; NO arm/sweep fired)"
     elif args.w_battery:
         results, verdict = run_w_battery()
@@ -1392,7 +1568,10 @@ def main() -> None:
         results, verdict = run_battery()
         title = "F6 BATH METER — VALIDATION BATTERY (plants only; NO F6 arm fired)"
     if args.json:
-        print(json.dumps({"results": [asdict(r) for r in results], "verdict": verdict}, indent=2))
+        out = {"results": [asdict(r) for r in results], "verdict": verdict}
+        if kill_maps is not None:
+            out["kill_maps"] = kill_maps
+        print(json.dumps(out, indent=2))
         return
     print("=" * 80)
     print(title)

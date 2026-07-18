@@ -311,7 +311,9 @@ def test_x_dressed_omega_recovers_sinusoid_frequency(driver):
 
 def test_x_detuned_placement_avoids_folded_harmonics(driver):
     """_place_detuned_harmonic_aware returns a Nyquist-valid band ≥ 2·Δω clear of
-    every folded harmonic n·ω_d (the §B W3 corrected rule / §C2 X2)."""
+    every folded harmonic n·ω_d. NB (PR #724 F1): this SUPERSEDED helper is NOT the
+    X2 placement — X2 uses the frozen q-power-budget _place_detuned_band. Kept for
+    provenance; test asserts the helper's own contract only."""
     dw = 0.010
     omega_d = 0.520
     om_lo, om_hi, clear, folded = driver._place_detuned_harmonic_aware(
@@ -320,3 +322,24 @@ def test_x_detuned_placement_avoids_folded_harmonics(driver):
     assert clear >= 2 * dw - 1e-9  # ≥ guard from all folded harmonics
     for h in folded:
         assert not (om_lo - 2 * dw <= h <= om_hi + 2 * dw)  # band contains no harmonic
+
+
+def test_x_frozen_placement_dodges_genuine_lattice_line(driver):
+    """FROZEN §C X2 placement (_place_detuned_band, PR #724 F1): the detuned band is
+    chosen by the MEASURED q-power budget (< W3_POWER_FRAC_MAX), so it dodges a genuine
+    INDEPENDENT lattice line (not at any n·ω_d) that harmonic-avoidance is blind to.
+
+    Synthetic q-spectrum: bulk drive power below ω≈1.10 plus a strong independent line
+    at ω≈1.12 (the real plant's line that the shipped harmonic-aware band [1.07,1.38]
+    sat ON, reading a manufactured ×3.6 'LOST'). The frozen rule must return a band
+    whose q-power fraction is < W3_POWER_FRAC_MAX AND that does not overlap the line."""
+    freqs = np.linspace(0.0, np.pi, 2000)
+    psd = np.zeros_like(freqs)
+    # bulk drive content (ω≈0.5) + a STRONG independent line at 1.12 (no n·0.52 harmonic)
+    psd += 1.0 * np.exp(-((freqs - 0.52) ** 2) / (2 * 0.05**2))
+    psd += 0.20 * np.exp(-((freqs - 1.12) ** 2) / (2 * 0.01**2))
+    cum = np.cumsum(psd) / psd.sum()
+    om_lo, om_hi, band_frac, omega_99 = driver._place_detuned_band(freqs, psd, cum)
+    assert om_hi < np.pi  # Nyquist-valid
+    assert band_frac < driver.W3_POWER_FRAC_MAX  # the frozen contract: off the power budget
+    assert not (om_lo <= 1.12 <= om_hi)  # dodges the genuine line (unlike harmonic-avoidance)

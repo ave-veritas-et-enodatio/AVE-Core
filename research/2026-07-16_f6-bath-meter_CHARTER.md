@@ -375,3 +375,28 @@ The chosen detuned band **[1.18, 2.11] CONTAINS two harmonics the frozen §B W3 
 - **Per-leg deviation-is-a-finding rule (Rule 11).** Any leg whose shipped operationalization deviates from this frozen §C text (e.g. a placement rule that turns out unsatisfiable, a floor that goes dishonest, a ratio that goes undefined) is **disclosed as a finding** in the result — the code is left **un-retuned**, both readings stated, and the item routed. Deviations do not silently convert a KILL to a PASS or relabel a verdict class. A single mechanism that explains all failures is the discipline working at full strength (honest closure).
 
 This lane returns a verdict on the **meter at κ ∈ {0.03,0.045,0.06}**, never on F6 and never on the counting arrow. **NO arm/door/sweep fires.** If the coupler needs a κ-honest change to pass, that is a **FINDING + SPEC**, not a silent fix — the honest verdict is banked instead.
+
+---
+
+## Amendment §C-post-review addendum — PR #724 adversarial-review repairs (2026-07-18, append-only; §0–§9, §A, §B, §B-post, and the §C body above ALL preserved byte-for-byte)
+
+> 🔴 **Rule-12 supersession (2026-07-18, post-review).** The PR #724 adversarial review confirmed **9 findings** including **1 CRITICAL (F1)**: the banked **METER-INVALID-AT-KAPPA** verdict was **MANUFACTURED** by an **undisclosed prereg-vs-code deviation in the X2 placement**. The shipped X2 used `_place_detuned_harmonic_aware` (harmonic-avoidance) instead of the **FROZEN §C X2 rule** (this §C's own text, line ~356: *the q-power-budget placement* — "the lowest 32-mode Nyquist band whose q-power fraction `< W3_POWER_FRAC_MAX = 1e-2`"), whose implementation `_place_detuned_band` sat **UNUSED**. Restoring the frozen placement and re-running the full X-battery **FLIPS the verdict to METER-VALID-KAPPA-BAND[0.030, 0.030]**. **The §C body above is the frozen pre-reg and is preserved byte-for-byte** — restoring the frozen placement is **un-doing an unfrozen deviation, not a retune (Rule 11)**; no frozen §C threshold was loosened. Result-level supersessions are recorded in the result doc's §C-post-review addendum; this charter addendum records the protocol-fidelity restoration and the §D route.
+
+### §C-pr1 — the frozen X2 placement restored (F1/F5)
+
+`run_x2` now calls the FROZEN `_place_detuned_band` (q-power-budget, this §C's own X2 rule), detuned comb at the meter's canonical `DETUNE_M=32 / Δω=0.030` spanning the placed band. Honest X2: **×354.8 @κ=0.012-ref (PASS), ×128.7 @κ=0.030 (PASS, N_det=0)**; ×2.6 @0.045 / ×1.0 @0.06 are a **§C3 disclosed-limitation** (the collar-q spectrum the placement keys on **drains to DC** at full discharge, landing the band on the drive — a placement artifact, not a physical loss; the drain-robust quiet-band control shows gating alive). The finder-vs-verifier ×42-vs-×128.7 discrepancy is resolved: the collapse is density-sensitive; the faithful frozen reading (comb at the placement's own Δω=0.030) is **×128.7** (= the verifier). The reference κ=0.012 is reported as a placement sanity check only (not in the frozen κ-set, not band-determining).
+
+### §C-pr2 — the honest re-adjudication (frozen §C3 classes)
+
+With the honest X2, **all X1–X6 pass at MILD κ=0.030** ⇒ **VALID at 0.030**. κ=0.045/0.060 are excluded from the band by **X5** (tare `c=√(1−E_bath/E0)→0` at over-transfer) and **X3** (floor dishonest, off-resonant sea 1.7e-2 ≥ 1e-2 @0.06); X1/X4/X6 pass at all κ. `κ_break=0.09` (X4) and `pulling≤0.0006` (X6) bound the band above. **Verdict: METER-VALID-KAPPA-BAND[0.030, 0.030].** The κ-sweep prerequisite (a)+(b)+(c) is discharged at κ=0.030; **Grant lands the sweep-launch decision.**
+
+### §C-pr3 — findings that DON'T change the frozen §C but are recorded (F2/F3/F4/F7/F9)
+
+- **F2 (narrative retracted).** The "full discharge fills ANY comb" mechanism is quantitatively EXCLUDED (quiet comb absorbs ≤3.1e-4, collapse ×6898–27604; `Γ_E` 25–101× below the offset; `Γ_κ≫Δω_comb` but `≤offset`). Resonance-gating is ALIVE at every κ.
+- **F3 (criterion-artifact, foreseeable).** At full discharge `E_res` ceilings at `E0`, so the ×100 collapse gate degenerates to an *absolute detuned-absorption* test `E_det<E0/100`. The frozen gate still governs the frozen verdict (X2 PASSES @0.030); the artifact is routed to §D.
+- **F4 (coupler is genuine).** Density-scaling `Γ_E ∝ DOS^{0.93}` (Fermi golden rule) ⇒ the coupler needs **NO rebuild** — the redesign fork narrows to §D re-cert vs abandon.
+- **F7+F9 (§C3 wording asymmetry).** The frozen §C3 METER-INVALID KILL enumeration OMITS X5 (§C X5 calls over-transfer a FINDING), yet X5 failure legitimately excludes a κ via the METER-VALID "X1–X6 all pass" definition. The shipped X5-as-KILL is anti-rescue and verdict-neutral to the band; the KILL-vs-FINDING label is flagged for §D.
+
+### §C-pr4 — §D re-certification SPEC (OUTLINE ONLY — NOT frozen, NOT run in this lane; Grant adjudicates §D-vs-abandon)
+
+A strong-κ re-certification (§D) would freeze, for a band **above** κ=0.030: **(1)** density-scaling `Γ_E ∝ DOS^{p}`, `p∈[0.8,1.2]`, as the **frozen strong-regime genuineness criterion** (replaces the ceiling-degenerate soul-check as the primary genuineness gate); **(2)** an **honest X2** — an *absolute detuned-absorption* gate `E_det/E0 < 1e-2` with a **drain-robust placement** (place off the bath-peak `ω_d`, not the drained collar-q spectrum); **(3)** the strong-κ **X3** (κ-broadening-aware DERIVED floor) and **X5** (incremental/rate tare well-defined through `E_bath→E0`), plus X5 enumerated as a strong-regime KILL. **This lane SPECs §D; it does not build, freeze, or run it.** The meter module + engine remain **byte-untouched**; the coupler needs no rebuild (F4).
