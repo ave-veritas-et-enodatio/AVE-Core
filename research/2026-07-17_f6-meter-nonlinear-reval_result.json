@@ -1,0 +1,242 @@
+{
+  "results": [
+    {
+      "vid": "W1",
+      "passed": true,
+      "detail": "bare nonlinear-plant floor over 3000 steps [max|\u0394E|/E0]: mild(A=0.1):3.5e-14, moderate(A=0.3025):8.1e-15, near-knee(A=0.4972):3.4e-15 (all <1e-10, non-secular); nonlinear=True\u2261False given op3 (FACT-1): True",
+      "metrics": {
+        "per_point": {
+          "mild": {
+            "A0": 0.1,
+            "A_peak": 0.1371,
+            "signed_end": -3.5461883109280424e-14,
+            "sign": "-",
+            "max_frac": 3.5461883109280424e-14,
+            "slope": 1.1805397412935834e-17,
+            "projected": 3.54161922388075e-14,
+            "kill": false
+          },
+          "moderate": {
+            "A0": 0.3025,
+            "A_peak": 0.4173,
+            "signed_end": -8.110840061381877e-15,
+            "sign": "-",
+            "max_frac": 8.110840061381877e-15,
+            "slope": 2.917175388003456e-18,
+            "projected": 8.751526164010369e-15,
+            "kill": false
+          },
+          "near-knee": {
+            "A0": 0.4972,
+            "A_peak": 0.5946,
+            "signed_end": -3.408814847978893e-15,
+            "sign": "-",
+            "max_frac": 3.408814847978893e-15,
+            "slope": 1.1161202641562429e-18,
+            "projected": 3.348360792468729e-15,
+            "kill": false
+          }
+        },
+        "floors": {
+          "mild": 3.5461883109280424e-14,
+          "moderate": 8.110840061381877e-15,
+          "near-knee": 3.408814847978893e-15
+        },
+        "flag_no_op_ok": true
+      }
+    },
+    {
+      "vid": "W2",
+      "passed": true,
+      "detail": "[ceil 0.2=R_BATH_MAX] mild(A=0.1302): signed_end=-3.6e-14 transfer=2.57e-01 |slope\u00b7N|/transfer=1.4e-13 KILL=False; moderate(A=0.3967): signed_end=+2.2e-15 transfer=1.13e-01 |slope\u00b7N|/transfer=2.5e-14 KILL=False; near-knee(A=0.5814): signed_end=+1.7e-15 transfer=1.39e-01 |slope\u00b7N|/transfer=2.7e-15 KILL=False",
+      "metrics": {
+        "per_point": {
+          "mild": {
+            "A_peak": 0.1302,
+            "transfer_frac": 0.2567426592355374,
+            "collapsed": false,
+            "signed_end": -3.649878027621845e-14,
+            "sign": "-",
+            "max_frac": 1.421609497420303e-13,
+            "slope": 1.1631934167795653e-17,
+            "projected": 1.359174303455871e-13,
+            "kill": false
+          },
+          "moderate": {
+            "A_peak": 0.3967,
+            "transfer_frac": 0.11294966192398782,
+            "collapsed": false,
+            "signed_end": 2.2120472894677846e-15,
+            "sign": "+",
+            "max_frac": 5.2224970588082204e-14,
+            "slope": 9.51529443451792e-19,
+            "projected": 2.527310203262441e-14,
+            "kill": false
+          },
+          "near-knee": {
+            "A_peak": 0.5814,
+            "transfer_frac": 0.13895271592596264,
+            "collapsed": false,
+            "signed_end": 1.7044074239894466e-15,
+            "sign": "+",
+            "max_frac": 2.7598717149361738e-14,
+            "slope": 1.2639987368038304e-19,
+            "projected": 2.728983154551623e-15,
+            "kill": false
+          }
+        }
+      }
+    },
+    {
+      "vid": "W3",
+      "passed": true,
+      "detail": "MODERATE: resonant E_bath=2.177e+00(N_occ=10) vs detuned [1.18,2.11] E_bath=6.745e-03(N_occ=0); collapse \u00d7323 (\u2265100); \u03c9_d=0.524, \u03c9_99=1.123, detuned q-power-frac=1.1e-03(<1e-02); [DEVIATION: off-measured-content placement \u2014 n\u00b7\u03c9_d folds [0.524, 1.048, 1.571, 2.095, 2.619, 3.141] tile (0,\u03c0), literal rule unsatisfiable]",
+      "metrics": {
+        "e_res": 2.1768674341304366,
+        "e_det": 0.006744838480459169,
+        "ratio": 322.74567292265857,
+        "n_res": 10,
+        "n_det": 0,
+        "omega_d": 0.523773366720539,
+        "detuned_band": [
+          1.1829700982488356,
+          2.1129700982488355
+        ],
+        "band_frac": 0.0011322918876884652,
+        "harmonics": [
+          0.524,
+          1.048,
+          1.571,
+          2.095,
+          2.619,
+          3.141
+        ]
+      }
+    },
+    {
+      "vid": "W4",
+      "passed": true,
+      "detail": "MODERATE: 10 occupied bath modes (5 at self-generated harmonics n\u00b7\u03c9_d, \u03c9_d=0.524), all on real content (local q-power >4\u00d7sea): True (coverage of q-power=0.99\u22650.5); N_occ(M=[32, 64, 90])=[10, 10, 10] invariant\u22641 (NOT tracking M); off-resonant\u21920: True",
+      "metrics": {
+        "n_occ_M": [
+          10,
+          10,
+          10
+        ],
+        "all_matched": true,
+        "coverage": 0.9945807979111653,
+        "n_harmonic": 5,
+        "omega_d": 0.523773366720539,
+        "sea": 8.595643072342382e-06,
+        "occ_omega": [
+          0.48,
+          0.51,
+          0.54,
+          0.57,
+          0.72,
+          0.75,
+          0.78,
+          1.05,
+          1.11,
+          1.14
+        ],
+        "local_fracs": [
+          0.689617,
+          0.68962,
+          0.68962,
+          0.689608,
+          0.227164,
+          0.227164,
+          0.227011,
+          0.00018,
+          0.077618,
+          0.077618
+        ],
+        "off_rejects": true
+      }
+    },
+    {
+      "vid": "W5",
+      "passed": true,
+      "detail": "tare-usable |c_fit\u2212c|/c<0.02 (=1\u2212cos\u03b8, so NOT independent of resid) AND E_bath>E_BATH_MIN (independent liveness) at all points: mild(c=0.8546,c_fit=0.8543,|\u0394|/c=4.4e-04); moderate(c=0.8713,c_fit=0.8701,|\u0394|/c=1.4e-03); near-knee(c=0.8897,c_fit=0.8881,|\u0394|/c=1.8e-03); \u2605spatial-residual trend (arm-spatiality budget) mild:0.025 \u2192 moderate:0.046 \u2192 near-knee:0.053 (grows with nonlinearity)",
+      "metrics": {
+        "per_point": {
+          "mild": {
+            "c": 0.8546,
+            "c_fit": 0.8543,
+            "match": 0.0004438563215037041,
+            "resid": 0.0255,
+            "flagged": false,
+            "e_bath": 0.5773,
+            "liveness_ok": true
+          },
+          "moderate": {
+            "c": 0.8713,
+            "c_fit": 0.8701,
+            "match": 0.0013782788656473582,
+            "resid": 0.0457,
+            "flagged": false,
+            "e_bath": 4.6416,
+            "liveness_ok": true
+          },
+          "near-knee": {
+            "c": 0.8897,
+            "c_fit": 0.8881,
+            "match": 0.0017509867709446566,
+            "resid": 0.0526,
+            "flagged": false,
+            "e_bath": 10.4305,
+            "liveness_ok": true
+          }
+        },
+        "residual_trend": [
+          0.0255,
+          0.0457,
+          0.0526
+        ]
+      }
+    },
+    {
+      "vid": "W6",
+      "passed": true,
+      "detail": "Nyquist guard fires: True; MODERATE friction discriminator: reactive R=8.6e-15(<0.2) stored=4.642 vs friction R=0.953(>0.8) dissipated=5.413 (\u0394=17%\u226420%)",
+      "metrics": {
+        "nyquist_ok": true,
+        "R_bath": 8.610760247135901e-15,
+        "R_fric": 0.9528498002364827,
+        "stored": 4.64163764167042,
+        "dissipated": 5.412687633717183
+      }
+    }
+  ],
+  "verdict": "METER-VALID-NONLINEAR-ENVELOPE",
+  "post_review_addendum": {
+    "note": "PR #721 adversarial-review repairs R-1..R-8 (2026-07-17). The W-battery results above are bit-identical to the frozen banked run except the additive W5 per-point fields e_bath/liveness_ok (R-4 independent-liveness tightening). See research/2026-07-16_f6-bath-meter_CHARTER.md Amendment-B-post-review addendum and research/2026-07-17_f6-meter-nonlinear-reval_result.md.",
+    "fact4_noncommutation_R3": {
+      "method": "\u2016step(s\u00b7x)\u2212s\u00b7step(x)\u2016/\u2016step(x)\u2016 on the on-shell (V_inc,V_ref) active state",
+      "s": 0.9,
+      "measured": {
+        "mild": 4.741621425837967e-05,
+        "moderate": 0.00045197011966875407,
+        "near-knee": 0.0013159525931975208
+      },
+      "growth_mild_to_near_knee": 27.7532193107331,
+      "charter_scratch_triple_SUPERSEDED": {
+        "mild": 0.00018,
+        "moderate": 0.00176,
+        "near-knee": 0.0054
+      },
+      "reviewer_independent": {
+        "mild": 4.3e-05,
+        "near-knee": 0.0012,
+        "growth": "~28x"
+      },
+      "provenance": "charter Amendment-B FACT-4 triple was scratch-provenance (not reproducible from shipped code; ~3-4x larger than any natural reading); this measured reproduction supersedes it at the RESULT level; charter Amendment-B body is NOT edited (frozen)."
+    },
+    "w5_tare_algebra_R4": {
+      "identity": "|c_fit - c|/c == 1 - cos(theta), verified exact (ratio 1.00) at all three points",
+      "implication": "the c-agreement is the SAME measurement as the spatial residual (both read theta); not an independent tare confirmation. Informative content = the residual trend.",
+      "liveness_subcheck": "tare-usable gate tightened: E_bath > E_BATH_MIN required (Rule-11-legal strengthening)."
+    }
+  }
+}

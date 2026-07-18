@@ -1616,3 +1616,23 @@ Canonized as the discipline leaf `manuscript/ave-kb/common/retention-transition-
 2. the pre-registered `P_phase5_memristor_loop_area` prediction (`tau-relax-derivation.md:109`, UNRUN).
 
 Until one fires, the Vacuum Memristor Level-2 loop is LOSS-REQUIRED *by its own prose construction* but **not axiom-forced** (the resistor is asserted at the crossing, not derived; $\tau_{relax}=\ell_{node}/c$ derives from lossless causality). Substrate adjudicates; Grant leans reversible.
+
+---
+
+## Continuation — 2026-07-17: F6 bath-meter §7 ruling + NONLINEAR REVALIDATION lane opened
+
+**Append-only, dated block.** Records the Grant §7 ruling on the F6 bath meter and opens the implementer lane that executes its mandatory prerequisite. Companion: charter `research/2026-07-16_f6-bath-meter_CHARTER.md` (Amendment §B, frozen this date, pre-registered before any battery code).
+
+### RULING 19 (RULED — Grant in-chat 2026-07-17, "Proceed with 1"): F6 BATH-METER §7 MECHANISM — ACCEPTED-AS-METER-WITH-TARE, within the validated envelope
+
+**Ruling.** On the §A8 V5-decomposition evidence (the shipped global-rescale back-reaction is ~90% uniform amplitude attenuation + ~10% genuine spatial restructuring; trajectory divergence D=0.154, best-fit global scalar c=0.8533 = √(1−E_bath/E0) to 4 sig figs, spatial residual 4.8%):
+
+1. **§7 mechanism ACCEPTED-AS-METER-WITH-TARE (within the validated envelope).** The back-reaction is accepted as a **meter carrying a tare**, not an unqualified two-way coupling. The certificate stands only inside the envelope on which it was validated (cold plant, `nonlinear=False`, mild A_max≈0.16).
+2. **The tare rule.** Any future F6 arm that keys on a **spatial** discriminant MUST first tare it by the computable global scalar **`c = sqrt(1 − E_bath/E0)`** (subtract the ~90% uniform-attenuation component; key only on the residual spatial shape `‖ON − c·OFF‖`). `c` is computable and non-fitted (= the §A8 best-fit c to 4 sig figs), so an arm applies it without a per-run calibration loop.
+3. **Nonlinear-regime revalidation = MANDATORY PREREQUISITE.** No F6 arm may key on irreversibility until the meter is revalidated with the amplitude-dependent saturation kernel ON. The central risk: §A1's conservation argument is LINEAR ("a scalar multiple of an on-shell TLM state stays on-shell"), and with S(A)=√(1−A²) amplitude-dependent, a scalar multiple of a nonlinear on-shell state is NOT on-shell — the global energy-matched rescale may re-introduce a secular pump exactly in the regime the arms need.
+
+### ENTRY 16 (2026-07-17): implementer lane opened — F6 meter nonlinear revalidation (W-battery)
+
+**Lane.** Executes RULING-19 item 3. Charter §B (this date) pre-registers a nonlinear battery **W1–W6** with all thresholds + verdict classes frozen before code: W1 nonlinear lossless baseline (plant integrator floor), **W2 ★kernel-ON coupled drift (the decisive leg; KILL on a secular pump)**, W3 detuning soul-check (harmonic-controlled), W4 N_occ honesty under self-generated harmonics, W5 tare-rule check (fitted-c vs computed c; spatial-residual-vs-operating-point trend), W6 envelope restatement. Three operating points: mild (A_max≈0.10), moderate (≈0.30), near-knee (≈0.50). Verdict classes: METER-VALID-NONLINEAR-ENVELOPE / METER-PARTIAL-NONLINEAR / METER-INVALID-NONLINEAR. **NO F6 arm/door fires in this lane.**
+
+**★Substrate-native finding surfaced at lane open (flag-don't-fix; folded into §B1).** `nonlinear=True` is a **no-op** given `op3_bond_reflection=True` (empirically identical dynamics to ~1e-15; the K4 4-port scatter matrix `build_scattering_matrix(z)=2y/(4y)−δ` is z-independent). The amplitude-dependent kernel flows through **`op3_bond_reflection`** (`z_local=(1−A²)^(−1/4)` at bond Γ), which is ON in the validated cold plant already — so the nonlinearity knob is **amplitude (seed scale)**, not the flag. The rescale-non-commutation `|step(s·x)−s·step(x)|` was measured to grow ~30× across the operating points (1.8e-4 → 5.4e-3), confirming the §A1 on-shell violation is real and amplitude-growing. Co-decisive hypothesis (tested, not asserted): conservation is ledger-enforced (rescale removes exactly Δe_bath; op3 is power-conserving), so the pump may NOT resurrect via the stated mechanism while fidelity degrades (W5 residual growth). W2 + W5 co-decisive; substrate adjudicates.

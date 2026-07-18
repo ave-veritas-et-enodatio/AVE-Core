@@ -185,10 +185,92 @@ def test_collar_mask_excludes_inactive(driver):
     assert not np.any(collar & ~lat.mask_active)
 
 
-# --- full battery (opt-in; slow) ---------------------------------------------
+# --- W-battery: nonlinear-regime revalidation (charter §B) --------------------
+def test_w_nonlinear_flag_is_noop_given_op3(driver):
+    """§B1 FACT-1: with op3_bond_reflection=True the `nonlinear` flag is a NO-OP —
+    the K4 4-port scatter matrix is z-independent, so the amplitude-dependent kernel
+    flows through op3's bond Γ (already on in the cold plant), NOT the flag. This is
+    why the nonlinearity knob is AMPLITUDE (seed scale), not the flag."""
+    lin = driver._build(kappa=0.0, nonlinear=False, scale=1.8)
+    nl = driver._build(kappa=0.0, nonlinear=True, scale=1.8)
+    for _ in range(80):
+        lin.lat.step()
+        nl.lat.step()
+    assert float(np.max(np.abs(lin.lat.V_inc - nl.lat.V_inc))) < 1e-12
+
+
+def test_w_operating_points_reach_target_amax(driver):
+    """The frozen seed scales (§B1 table) reach mild≈0.10 / moderate≈0.30 /
+    near-knee≈0.50 A_max (post-first-step, on-shell)."""
+    targets = {"mild": 0.10, "moderate": 0.30, "near-knee": 0.50}
+    for name, scale in driver.OP_SCALES.items():
+        cpl = driver._build(nonlinear=True, scale=scale)
+        assert abs(driver._amax(cpl) - targets[name]) < 0.03, name
+
+
+def test_w_global_rescale_no_pump_on_nonlinear_plant(driver):
+    """★The decisive W2 physics in miniature: with the kernel active at the moderate
+    point, the GLOBAL energy-matched rescale STILL conserves E_lat+E_bath (no secular
+    pump resurrects). Confirms conservation is ledger-enforced (rescale removes exactly
+    Δe_bath; op3 is power-conserving), NOT dependent on the linear on-shell argument."""
+    cpl = driver._build(nonlinear=True, scale=1.8)
+    E0 = cpl.e_lat()
+    Etot0 = E0 + cpl.e_bath()
+    max_drift = 0.0
+    for i in range(1, 500):
+        cpl.step(i)
+        max_drift = max(max_drift, abs((cpl.e_lat() + cpl.e_bath()) - Etot0) / E0)
+    assert max_drift < 1e-10, f"nonlinear-regime pump resurrected: {max_drift}"
+    assert cpl.e_bath() > 0  # genuine transfer, not a dead coupling
+
+
+def test_w_tare_scalar_is_the_fitted_global_attenuation(driver):
+    """W5: on the nonlinear plant the computable tare c=√(1−E_bath/E0) matches the
+    best-fit global scalar c_fit=⟨V_on·V_off⟩/⟨V_off·V_off⟩ within 2% — so a future
+    F6 arm can tare a spatial discriminant without a per-run fit (§B0 tare rule)."""
+    on = driver._build(nonlinear=True, scale=1.8)
+    off = driver._build(kappa=0.0, nonlinear=True, scale=1.8)
+    E0 = on.e_lat()
+    for i in range(1, 400):
+        on.step(i)
+        off.step(i)
+    a = on.active
+    von = on.lat.V_inc[a].ravel()
+    voff = off.lat.V_inc[a].ravel()
+    c = np.sqrt(max(1.0 - on.e_bath() / E0, 0.0))
+    c_fit = float(np.dot(von, voff) / np.dot(voff, voff))
+    assert abs(c_fit - c) / c < 0.02, f"tare {c} != fitted {c_fit}"
+
+
+def test_w_detuning_collapses_on_nonlinear_plant(driver):
+    """W3 in miniature: on the nonlinear moderate plant, a comb detuned off the drive
+    band collapses N_occ to 0 (transfer is resonance-gated, not amount-matched) —
+    the genuine-coupling soul-check survives the kernel."""
+    res = driver._build(M=64, nonlinear=True, scale=1.8, omega_min=0.30)
+    det = driver._build(M=32, nonlinear=True, scale=1.8, omega_min=1.5)
+    for i in range(1, 800):
+        res.step(i)
+        det.step(i)
+    assert res.bath.n_occ() > 0
+    assert det.bath.n_occ() == 0
+    assert res.e_bath() / max(det.e_bath(), 1e-30) >= 100  # ≥2 orders (frozen)
+
+
+# --- full batteries (opt-in; slow) -------------------------------------------
 @pytest.mark.engine_sim
 def test_full_battery_meter_valid(driver):
     """The frozen V1-V6 battery returns METER-VALID-WITHIN-ENVELOPE (charter §7)."""
     results, verdict = driver.run_battery()
     failed = [r.vid for r in results if not r.passed]
     assert verdict == "METER-VALID-WITHIN-ENVELOPE", f"failed: {failed}"
+
+
+@pytest.mark.engine_sim
+def test_w_full_battery_meter_valid_nonlinear(driver):
+    """The frozen W1-W6 nonlinear-regime battery returns METER-VALID-NONLINEAR-
+    ENVELOPE (charter §B): no pump resurrects (W2), the detuning collapse survives
+    (W3), N_occ is harmonic-honest (W4), and the tare is usable at all three points
+    (W5). NO F6 arm is fired."""
+    results, verdict = driver.run_w_battery()
+    failed = [r.vid for r in results if not r.passed]
+    assert verdict == "METER-VALID-NONLINEAR-ENVELOPE", f"failed: {failed}"
