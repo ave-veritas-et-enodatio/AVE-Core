@@ -836,13 +836,532 @@ def run_w_battery() -> tuple[list[VResult], str]:
     return results, verdict
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# X-BATTERY — κ-REVALIDATION FOR THE COUNTING-ARROW SWEEP (Amendment §C, 2026-07-18)
+# ═══════════════════════════════════════════════════════════════════════════
+# Opt-in (`--x-battery`). Does NOT disturb the A-battery (V1-V6) or W-battery
+# (W1-W6) paths — it only reuses `_build`/`_seed_lattice`/`_q_spectrum` through
+# their existing behavior-preserving parameters. NO F6 arm/door/sweep fires;
+# engine + meter module byte-untouched. If the meter needs a change to pass, that
+# is a FINDING + SPEC (§C3), not a silent fix — the honest verdict banks instead.
+#
+# The §C central risk: at κ>0.012 the per-step coupling kick is larger and the
+# global rescale acts on a more strongly perturbed state, so the conservation
+# identity may degrade into a SECULAR pump (KILL) or stay a BOUNDED round-off
+# walk (valid). The decisive read is the SLOPE over the sweep's longest horizon
+# (N_sweep = 11·T_rec at the densest comb = 6908 steps), not the drift magnitude.
+
+# --- frozen κ set (§C2) ---
+KAPPA_BAND = (0.030, 0.045, 0.060)
+KAPPA_BREAK_SCAN = (0.030, 0.060, 0.090, 0.120, 0.150, 0.180)  # X4 break locator
+# --- frozen plants (§C2; DERIVED from the sweep grid, prereg §3) ---
+DENSEST_DW = 0.010          # densest sweep comb (deepest-irreversible / longest-horizon)
+DENSEST_OMIN = 0.30
+DENSEST_M = 71              # ω_max = 0.30 + 70·0.010 = 1.00 < π (Nyquist OK)
+X_OP_SCALES = {"mild": 0.6, "moderate": 1.8}  # primary=mild (Phase-1 sweep pt); moderate=stress
+# --- frozen horizons (§C2; N_sweep matches prereg §3 densest row exactly) ---
+T_REC_DENSEST = 628         # round(2π/0.010); the prereg §3 densest-row value
+N_SWEEP = 11 * T_REC_DENSEST  # 6908 — the sweep's longest horizon the drift must protect
+X_NSTEP_SOUL = N_STEPS_LONG   # 3000-step soul-check / spectral window (X2/X6)
+# --- X4 two-tank + sparse controls (prereg §3) ---
+TWO_TANK_M = 2
+TWO_TANK_OMIN = 0.50
+TWO_TANK_DW = 0.20            # ω = {0.50, 0.70}; T_rec = 2π/0.20 = 31.4
+TWO_TANK_HORIZON = int(round(12 * 2 * np.pi / TWO_TANK_DW))  # 12·T_rec = 377
+SPARSE_DW = 0.080
+SPARSE_M = 10                # ω_max = 0.30 + 9·0.080 = 1.02 < π
+SPARSE_HORIZON = int(round(11 * 2 * np.pi / SPARSE_DW))  # 11·T_rec = 869
+X_RCUM_X_TARGET = 10.0       # R_ret_cum read at x≫1 (prereg §2·3)
+SPARSE_RETURN_MIN = 0.70     # inherited from arm prereg §2·3 (finite comb recurs → return→1)
+# --- X6 dressed-comb artifact criterion (DERIVED, §C2 X6) ---
+X6_PULL_CEIL = DENSEST_DW / 2.0   # 0.005 — half the densest tooth-spacing (Rayleigh + recurrence)
+X6_NEAR_RES_WIDTH = 5 * DENSEST_DW  # near-resonant band: |ω_m − ω_d| < 5·Δω
+
+
+def _run_x(cpl, n_steps, record_q=False, record_bath_x=False, sample=50):
+    """Advance an X-plant; record the signed total-E drift curve + peak-transfer
+    snapshot (+ optional q / bath-x timeseries). Signed drift `(E_lat+E_bath −
+    Etot0)/E0` is kept signed (a pump is a one-sign accumulation, §C1)."""
+    E0 = cpl.e_lat()
+    Etot0 = E0 + cpl.e_bath()
+    curve, qs, bath_x = [], [], []
+    e_bath_peak = cpl.e_bath()
+    me_at_peak = cpl.bath.mode_energy().copy()
+    min_elat = E0
+    for i in range(1, n_steps):
+        cpl.step(i)
+        eb = cpl.e_bath()
+        el = cpl.e_lat()
+        if eb > e_bath_peak:
+            e_bath_peak = eb
+            me_at_peak = cpl.bath.mode_energy().copy()
+        min_elat = min(min_elat, el)
+        if record_q:
+            qs.append(cpl.read_q())
+        if record_bath_x:
+            bath_x.append(cpl.bath.x.copy())
+        if i % sample == 0 or i == n_steps - 1:
+            curve.append((i, ((el + eb) - Etot0) / E0))
+    return {
+        "E0": E0, "curve": curve,
+        "qs": np.array(qs) if record_q else None,
+        "bath_x": np.array(bath_x) if record_bath_x else None,
+        "e_bath_final": float(cpl.e_bath()), "e_bath_peak": float(e_bath_peak),
+        "me_at_peak": me_at_peak, "min_elat_frac": float(min_elat / E0),
+    }
+
+
+def _n_occ_from_me(me: np.ndarray) -> int:
+    """N_occ from a mode-energy snapshot, applying the frozen floor + total gate
+    (identical logic to OscillatorBath.n_occ, on a captured spectrum)."""
+    if me.size == 0 or float(me.sum()) < E_BATH_MIN_DEFAULT:
+        return 0
+    return int(np.count_nonzero(me > FLOOR_ABS_DEFAULT))
+
+
+# --- X1: drift anatomy over the sweep horizon (the decisive leg) ---------------
+def run_x1() -> VResult:
+    """Production coupling on the DENSEST comb (Δω=0.010, M=71), driven-then-source-
+    off, N_sweep=6908 steps, at each κ ∈ {0.030,0.045,0.060} × {mild,moderate}.
+    Signed drift curve; KILL if projected |slope|·N_sweep or realized max, as a
+    fraction of the bath transfer (E_bath_peak/E0), reaches R_BATH_MAX — OR the
+    over-extraction clamp drains the cavity and breaks the identity (§C2 X1).
+    SECULAR-vs-BOUNDED anatomy (monotonicity + slope + curvature) is REPORTED."""
+    per, any_kill = {}, False
+    for kappa in KAPPA_BAND:
+        for pt, scale in X_OP_SCALES.items():
+            cpl = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
+                         omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+            out = _run_x(cpl, N_SWEEP, sample=50)
+            curve = out["curve"]
+            steps = np.array([s for s, _ in curve], float)
+            signed = np.array([d for _, d in curve])
+            absd = np.abs(signed)
+            transfer_frac = max(out["e_bath_peak"] / out["E0"], 1e-30)
+            collapsed = transfer_frac < E_BATH_MIN_DEFAULT / out["E0"]
+            max_drift = float(absd.max())
+            slope = float(np.polyfit(steps, absd, 1)[0]) if len(steps) > 1 else 0.0
+            # signed-curve anatomy (normalized t for conditioning)
+            tn = steps / N_SWEEP
+            a2 = float(np.polyfit(tn, signed, 2)[0]) if len(steps) > 2 else 0.0
+            r = float(np.corrcoef(steps, signed)[0, 1]) if len(steps) > 2 and np.std(signed) > 0 else 0.0
+            tail = signed[len(signed) // 5:]
+            sign_consistent = bool(np.all(tail > 0) or np.all(tail < 0)) if len(tail) else False
+            end_sign = np.sign(signed[-1]) if len(signed) else 0.0
+            saturating = bool(a2 * end_sign < 0)  # curvature bends drift back toward zero
+            secular = sign_consistent and abs(r) > 0.9 and not saturating
+            projected = abs(slope) * N_SWEEP / transfer_frac
+            realized_frac = max_drift / transfer_frac
+            # FROZEN §C X1 KILL: the ledger identity break (drift) as a fraction of the
+            # bath transfer must REACH R_BATH_MAX. Over-extraction (clamp fire / full
+            # cavity discharge, min_elat_frac→0, E_bath_peak≥E0) is REPORTED anatomy
+            # (§C1-i) — it only KILLs when it pushes the drift past the ceiling, which is
+            # exactly the `realized_frac >= R_BATH_MAX` conjunct. A full discharge whose
+            # identity still holds to ≪ R_BATH_MAX·transfer is the counting-arrow regime,
+            # NOT a meter failure (the sweep's cons gate is 1e-3; the drift here is ~1e-6).
+            clamp_drain = out["min_elat_frac"] < 0.01  # over-extraction signature (reported)
+            over_transfer = transfer_frac >= 1.0        # E_bath_peak ≥ E0 (reported)
+            kill = (projected >= R_BATH_MAX) or (realized_frac >= R_BATH_MAX)
+            any_kill = any_kill or kill
+            per[f"{kappa}:{pt}"] = {
+                "kappa": kappa, "point": pt, "transfer_frac": transfer_frac,
+                "collapsed": collapsed, "signed_end": float(signed[-1]),
+                "max_drift": max_drift, "slope": slope, "curv_a2": a2, "pearson_r": r,
+                "sign_consistent": sign_consistent, "saturating": saturating,
+                "label": "SECULAR" if secular else "BOUNDED(round-off-walk)",
+                "projected_frac": projected, "realized_frac": realized_frac,
+                "min_elat_frac": out["min_elat_frac"], "clamp_drain": clamp_drain,
+                "over_transfer": over_transfer, "kill": kill,
+            }
+    ok = not any_kill
+    lines = []
+    for k, p in per.items():
+        lines.append(
+            f"{k}(transfer={p['transfer_frac']:.2f}): end={p['signed_end']:+.1e} "
+            f"proj|slope·N|/T={p['projected_frac']:.1e} realized/T={p['realized_frac']:.1e} "
+            f"a2={p['curv_a2']:+.1e} r={p['pearson_r']:+.2f} [{p['label']}] KILL={p['kill']}"
+        )
+    return VResult("X1", ok, f"[ceil {R_BATH_MAX}=R_BATH_MAX; N_sweep={N_SWEEP}] " + "; ".join(lines),
+                   {"per_point": per, "n_sweep": N_SWEEP})
+
+
+def _omega_d_from_bath(me: np.ndarray, omega: np.ndarray) -> float:
+    """Robust drive frequency = the bath mode that absorbed the most energy at the
+    transfer peak. Robust to the strong-coupling FULL-DISCHARGE regime, where the
+    collar-q timeseries drains to ~0 and its rFFT peak collapses to DC (ω_d→0) — a
+    window-averaging artifact that mis-placed the detuned band in the first X-run.
+    The bath retains the transferred energy, so its peak mode is a stable ω_d read."""
+    if me.size == 0 or float(me.sum()) <= 0:
+        return float("nan")
+    return float(omega[int(np.argmax(me))])
+
+
+def _fold(w: float) -> float:
+    """Fold an angular frequency into the Nyquist interval (0, π) (dt=1 aliasing)."""
+    ww = w % (2 * np.pi)
+    return ww if ww <= np.pi else 2 * np.pi - ww
+
+
+def _place_detuned_harmonic_aware(omega_d, dw, m_det, omega_max_res, n_harm=6, guard=None):
+    """Detuned-band placement OFF every folded harmonic n·ω_d (§B W3 CORRECTED rule
+    + §C2 X2). Scan ω_min_det upward from just above the resonant comb top for the
+    lowest m_det-mode Nyquist band that is ≥ guard (=2·Δω) clear of all n·ω_d folds.
+    Returns (ω_min_det, ω_max_det, min_harmonic_clearance, folded_harmonics)."""
+    guard = guard if guard is not None else 2 * dw
+    folded = sorted(_fold(n * omega_d) for n in range(1, n_harm + 1))
+    width = (m_det - 1) * dw
+    om = max(omega_max_res + 2 * dw, dw)
+    while om + width < np.pi:
+        hi = om + width
+        clearances = [min(abs(f - om), abs(f - hi), 0.0 if om <= f <= hi else np.inf) for f in folded]
+        contains = any(om - guard <= f <= hi + guard for f in folded)
+        if not contains:
+            return om, hi, float(min(clearances)), [round(f, 3) for f in folded]
+        om += dw
+    # fallback: highest Nyquist-valid band (report the containment honestly)
+    om = np.pi - width - dw
+    hi = om + width
+    clearances = [min(abs(f - om), abs(f - hi)) for f in folded]
+    return om, hi, float(min(clearances)), [round(f, 3) for f in folded]
+
+
+# --- X2: detuning soul-check at each κ (harmonic-aware placement) ---------------
+def run_x2() -> VResult:
+    """Densest comb, MILD. Resonant vs off-content detuned comb; the transfer
+    collapse (≥100×) must survive at EVERY κ. KILL if it falls below 100× (coupling-
+    broadening caught the detuned band — soul-check lost, §C2 X2)."""
+    scale = X_OP_SCALES["mild"]
+    omega_max_res = DENSEST_OMIN + (DENSEST_M - 1) * DENSEST_DW
+    per, any_lost = {}, False
+    for kappa in KAPPA_BAND:
+        res = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
+                     omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+        out = _run_x(res, X_NSTEP_SOUL, record_q=True, sample=100)
+        e_res = out["e_bath_peak"]
+        n_res = _n_occ_from_me(out["me_at_peak"])
+        # ROBUST ω_d from the absorbed-energy peak (the q-spectrum drains to DC at
+        # full discharge — the first-run artifact; bath-peak is drain-robust).
+        omega_d = _omega_d_from_bath(out["me_at_peak"], res.bath.omega)
+        _f, _p, omega_d_q, _c = _q_spectrum(out["qs"])  # q-spectrum ω_d (reported; may be 0 at drain)
+        om_min_det, om_max_det, harm_clear, folded = _place_detuned_harmonic_aware(
+            omega_d, DENSEST_DW, DETUNE_M, omega_max_res)
+        det = _build(M=DETUNE_M, kappa=kappa, delta_omega=DENSEST_DW,
+                     omega_min=om_min_det, nonlinear=True, scale=scale)
+        out_d = _run_x(det, X_NSTEP_SOUL, sample=100)
+        e_det = out_d["e_bath_peak"]
+        n_det = _n_occ_from_me(out_d["me_at_peak"])
+        ratio = e_res / max(e_det, 1e-300)
+        lost = not (ratio >= W3_COLLAPSE_ORDERS and n_res > 0 and n_det == 0)
+        any_lost = any_lost or lost
+        per[str(kappa)] = {
+            "kappa": kappa, "e_res": e_res, "e_det": e_det, "ratio": ratio,
+            "n_res": n_res, "n_det": n_det, "omega_d": omega_d, "omega_d_qspec": omega_d_q,
+            "detuned_band": [om_min_det, om_max_det], "harm_clearance": harm_clear,
+            "folded_harmonics": folded, "lost": lost,
+        }
+    ok = not any_lost
+    det = "; ".join(
+        f"κ={p['kappa']}: E_res={p['e_res']:.2e}(N={p['n_res']}) vs det[{p['detuned_band'][0]:.2f},"
+        f"{p['detuned_band'][1]:.2f}]={p['e_det']:.2e}(N={p['n_det']}) ×{p['ratio']:.0f} "
+        f"(ω_d={p['omega_d']:.3f}, harm_clear={p['harm_clearance']:.3f}) LOST={p['lost']}"
+        for p in per.values()
+    )
+    return VResult("X2", ok, f"[collapse ≥{W3_COLLAPSE_ORDERS:.0f}×] " + det, {"per_kappa": per})
+
+
+# --- X3: N_occ honesty at each κ (floor vs κ-broadened linewidth) --------------
+def run_x3() -> VResult:
+    """Production comb (Δω=0.030, M∈{32,64,90}), resonant, MILD, at each κ. The
+    absolute floor FLOOR_ABS must stay above the coupling-broadened off-resonant
+    sea (measured), the detuned probe must read N_occ=0, and N_occ must be
+    M-invariant. FINDING (not a retune) if sea_p90 ≥ FLOOR_ABS (§C2 X3)."""
+    scale = X_OP_SCALES["mild"]
+    per, any_fail = {}, False
+    for kappa in KAPPA_BAND:
+        # linewidth + sea on the M=64 production comb (read at peak transfer)
+        ref = _build(M=M_DEFAULT, kappa=kappa, nonlinear=True, scale=scale)
+        out = _run_x(ref, N_STEPS, record_q=True, sample=100)
+        me = out["me_at_peak"]
+        omega = ref.bath.omega
+        freqs, psd, dom, _cum = _q_spectrum(out["qs"])
+        # FWHM of the per-mode energy profile around the drive line
+        peak_i = int(np.argmax(me))
+        peak_e = float(me[peak_i])
+        half = peak_e / 2.0
+        lo, hi = peak_i, peak_i
+        while lo > 0 and me[lo] > half:
+            lo -= 1
+        while hi < len(me) - 1 and me[hi] > half:
+            hi += 1
+        fwhm = float(omega[hi] - omega[lo])
+        n_in_line = int(hi - lo + 1)
+        # off-resonant sea: modes with |ω_m − ω_d| > 3·FWHM
+        off = np.abs(omega - dom) > max(3 * fwhm, 3 * DELTA_OMEGA)
+        sea_p90 = float(np.percentile(me[off], 90)) if np.any(off) else 0.0
+        floor_honest = sea_p90 < FLOOR_ABS_DEFAULT
+        # detuned probe rejects
+        det = _build(M=DETUNE_M, kappa=kappa, omega_min=DETUNE_OMEGA_MIN, nonlinear=True, scale=scale)
+        out_d = _run_x(det, N_STEPS, sample=100)
+        detuned_rejects = _n_occ_from_me(out_d["me_at_peak"]) == 0
+        # M-invariance (Nyquist-bounded twin-64 kill at the new κ)
+        occ_M = {}
+        for M in M_LIST:
+            c = _build(M=M, kappa=kappa, nonlinear=True, scale=scale)
+            o = _run_x(c, N_STEPS, sample=100)
+            occ_M[M] = _n_occ_from_me(o["me_at_peak"])
+        m_invariant = all(abs(occ_M[M] - occ_M[M_DEFAULT]) <= N_OCC_M_TOL for M in M_LIST)
+        fail = not (floor_honest and detuned_rejects and m_invariant)
+        any_fail = any_fail or fail
+        per[str(kappa)] = {
+            "kappa": kappa, "omega_d": dom, "fwhm": fwhm, "n_in_line": n_in_line,
+            "sea_p90": sea_p90, "floor": FLOOR_ABS_DEFAULT, "floor_honest": floor_honest,
+            "detuned_rejects": detuned_rejects, "n_occ_M": [occ_M[M] for M in M_LIST],
+            "m_invariant": m_invariant, "fail": fail,
+        }
+    ok = not any_fail
+    det = "; ".join(
+        f"κ={p['kappa']}: ω_d={p['omega_d']:.3f} FWHM={p['fwhm']:.3f}({p['n_in_line']}modes) "
+        f"sea_p90={p['sea_p90']:.1e}(<floor {p['floor']}={p['floor_honest']}) "
+        f"N_occ(M)={p['n_occ_M']}(inv={p['m_invariant']}) det→0={p['detuned_rejects']}"
+        for p in per.values()
+    )
+    return VResult("X3", ok, det, {"per_kappa": per})
+
+
+def _r_cum_at(cpl, n_steps, dw, x_target):
+    """R_ret_cum(x_target) for a comb run — the arm's frozen ledger read (prereg §2)."""
+    E0 = cpl.e_lat()
+    e_bath = np.empty(n_steps)
+    for k, i in enumerate(range(1, n_steps + 1)):
+        cpl.step(i)
+        e_bath[k] = cpl.e_bath()
+    x = np.arange(1, n_steps + 1) * dw / (2 * np.pi)
+    peak_k = int(np.argmax(e_bath))
+    peak = max(float(e_bath.max()), 1e-30)
+    r_ret = np.where(np.arange(n_steps) >= peak_k, 1.0 - e_bath / peak, 0.0)
+    r_cum = np.maximum.accumulate(r_ret)
+    idx = int(np.argmin(np.abs(x - x_target)))
+    return float(r_cum[idx]), float(peak / E0)
+
+
+# --- X4: two-tank + sparse controls at each κ + locate the κ=0.12 break ---------
+def run_x4() -> VResult:
+    """Two-tank (M=2) AND sparsest sweep comb (Δω=0.080) at each κ must return
+    (R_ret_cum(x=10) > 0.70). Then scan the two-tank up to locate κ_break (bounds
+    the band from above; known break by κ=0.12). §C2 X4."""
+    scale = X_OP_SCALES["mild"]
+    per, any_fail = {}, False
+    for kappa in KAPPA_BAND:
+        tt = _build(M=TWO_TANK_M, kappa=kappa, delta_omega=TWO_TANK_DW,
+                    omega_min=TWO_TANK_OMIN, nonlinear=True, scale=scale)
+        r_tt, pf_tt = _r_cum_at(tt, TWO_TANK_HORIZON, TWO_TANK_DW, X_RCUM_X_TARGET)
+        sp = _build(M=SPARSE_M, kappa=kappa, delta_omega=SPARSE_DW,
+                    omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+        r_sp, pf_sp = _r_cum_at(sp, SPARSE_HORIZON, SPARSE_DW, X_RCUM_X_TARGET)
+        fail = not (r_tt > SPARSE_RETURN_MIN and r_sp > SPARSE_RETURN_MIN)
+        any_fail = any_fail or fail
+        per[str(kappa)] = {"kappa": kappa, "two_tank_rcum": r_tt, "sparse_rcum": r_sp,
+                           "two_tank_peakfrac": pf_tt, "sparse_peakfrac": pf_sp, "fail": fail}
+    # locate κ_break on the two-tank control
+    break_scan = {}
+    kappa_break = None
+    for kappa in KAPPA_BREAK_SCAN:
+        tt = _build(M=TWO_TANK_M, kappa=kappa, delta_omega=TWO_TANK_DW,
+                    omega_min=TWO_TANK_OMIN, nonlinear=True, scale=scale)
+        r_tt, _ = _r_cum_at(tt, TWO_TANK_HORIZON, TWO_TANK_DW, X_RCUM_X_TARGET)
+        break_scan[str(kappa)] = r_tt
+        if kappa_break is None and r_tt <= SPARSE_RETURN_MIN:
+            kappa_break = kappa
+    ok = not any_fail
+    det = "; ".join(
+        f"κ={p['kappa']}: two-tank R_cum={p['two_tank_rcum']:.3f} sparse R_cum={p['sparse_rcum']:.3f} "
+        f"(>{SPARSE_RETURN_MIN}) FAIL={p['fail']}"
+        for p in per.values()
+    )
+    bscan = ", ".join(f"{k}:{v:.3f}" for k, v in break_scan.items())
+    return VResult(
+        "X4", ok,
+        f"{det}; ★κ_break(two-tank R_cum≤{SPARSE_RETURN_MIN})={kappa_break} [scan {bscan}]",
+        {"per_kappa": per, "break_scan": break_scan, "kappa_break": kappa_break},
+    )
+
+
+# --- X5: tare residual vs κ (the sweep's spatial budget) ------------------------
+def run_x5() -> VResult:
+    """At each κ × {mild,moderate}, extend the W5 trend on the densest comb: tare
+    c=√(1−E_bath/E0), best-fit c_fit, spatial residual resid. PASS: |c_fit−c|/c <
+    W5_TARE_C_TOL AND E_bath > E_BATH_MIN (liveness). Residual vs κ = the reported
+    arm-spatiality budget (flagged if >0.5). §C2 X5."""
+    per, usable = {}, True
+    for kappa in KAPPA_BAND:
+        for pt, scale in X_OP_SCALES.items():
+            on = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
+                        omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+            off = _build(M=DENSEST_M, kappa=0.0, delta_omega=DENSEST_DW,
+                         omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+            E0 = on.e_lat()
+            _run_x(on, W_WORKING_STEPS)
+            _run_x(off, W_WORKING_STEPS)
+            a = on.active
+            von = on.lat.V_inc[a].ravel()
+            voff = off.lat.V_inc[a].ravel()
+            e_bath = on.e_bath()
+            c = float(np.sqrt(max(1.0 - e_bath / E0, 0.0)))
+            c_fit = float(np.dot(von, voff) / max(np.dot(voff, voff), EPS_DIVZERO_LOCAL))
+            resid = float(np.linalg.norm(von - c_fit * voff) / (np.linalg.norm(voff) + 1e-30))
+            match = abs(c_fit - c) / max(c, 1e-30)
+            liveness_ok = e_bath > E_BATH_MIN_DEFAULT
+            over_transfer = (e_bath / E0) >= 1.0
+            # §C X5 FINDING rule: over-transfer (E_bath≥E0 ⇒ c→0) DEGENERATES the tare
+            # and must NOT silently pass on the vacuous |0−0|/0 agreement — it fails the
+            # tare-usable gate as an over-extraction budget breakdown (reported).
+            usable = usable and (match < W5_TARE_C_TOL) and liveness_ok and (not over_transfer)
+            per[f"{kappa}:{pt}"] = {
+                "kappa": kappa, "point": pt, "c": c, "c_fit": c_fit, "match": match,
+                "resid": resid, "flagged": resid > W5_RESID_FLAG, "e_bath_frac": float(e_bath / E0),
+                "liveness_ok": liveness_ok, "over_transfer": over_transfer,
+            }
+    ok = usable
+    trend = "; ".join(
+        f"{k}(c={p['c']:.3f},c_fit={p['c_fit']:.3f},|Δ|/c={p['match']:.1e},resid={p['resid']:.3f}"
+        f"{'★FLAG' if p['flagged'] else ''}{',OVER-TRANSFER' if p['over_transfer'] else ''})"
+        for k, p in per.items()
+    )
+    return VResult("X5", ok, f"[tare-usable |c_fit−c|/c<{W5_TARE_C_TOL} AND E_bath>E_BATH_MIN] {trend}",
+                   {"per_point": per})
+
+
+def _dressed_omega(series: np.ndarray) -> float:
+    """Dressed dominant angular frequency of a mode timeseries by parabolic-
+    interpolated Hann-windowed rFFT peak (sub-bin resolution for the X6 pulling)."""
+    s = series - series.mean()
+    if len(s) < 4 or np.std(s) == 0:
+        return float("nan")
+    p = np.abs(np.fft.rfft(s * np.hanning(len(s)))) ** 2
+    if len(p) < 3:
+        return float("nan")
+    k = int(np.argmax(p[1:])) + 1
+    if 0 < k < len(p) - 1:
+        denom = p[k - 1] - 2 * p[k] + p[k + 1]
+        delta = 0.5 * (p[k - 1] - p[k + 1]) / denom if denom != 0 else 0.0
+    else:
+        delta = 0.0
+    return float(2 * np.pi * (k + delta) / len(series))
+
+
+# --- X6: dressed-comb / level-repulsion artifact check --------------------------
+def run_x6() -> VResult:
+    """Densest comb (Δω=0.010, M=71), MILD, at each κ. Measure mode-pulling =
+    max|ω_dressed − ω_bare| over near-resonant modes (within 5·Δω of ω_d). ARTIFACT
+    if pulling ≥ Δω/2 = 0.005 (the dressed teeth left the nominal comb the sweep's
+    x=T·Δω/2π assumes). §C2 X6."""
+    scale = X_OP_SCALES["mild"]
+    # bare lattice line ω_d(κ=0) from the uncoupled collar-q spectrum
+    base = _build(M=DENSEST_M, kappa=0.0, delta_omega=DENSEST_DW,
+                  omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+    out0 = _run_x(base, X_NSTEP_SOUL, record_q=True, sample=100)
+    _f0, _p0, omega_d_bare, _c0 = _q_spectrum(out0["qs"])
+    per, any_artifact = {}, False
+    for kappa in KAPPA_BAND:
+        cpl = _build(M=DENSEST_M, kappa=kappa, delta_omega=DENSEST_DW,
+                     omega_min=DENSEST_OMIN, nonlinear=True, scale=scale)
+        out = _run_x(cpl, X_NSTEP_SOUL, record_q=True, record_bath_x=True, sample=100)
+        bx = out["bath_x"]  # (T, M)
+        bare = cpl.bath.omega
+        # ROBUST ω_d from the absorbed-energy peak (q-spectrum drains to DC at full
+        # discharge — the first-run artifact that gave n_near=0 trivial passes).
+        omega_d = _omega_d_from_bath(out["me_at_peak"], bare)
+        near = np.abs(bare - omega_d) < X6_NEAR_RES_WIDTH
+        dressed = np.array([_dressed_omega(bx[:, m]) for m in range(bx.shape[1])])
+        pulls = np.abs(dressed - bare)
+        near_idx = np.nonzero(near)[0]
+        # exclude modes whose dressed read is NaN (undriven / noise-dominated)
+        valid = near_idx[np.isfinite(pulls[near_idx])]
+        pulling = float(np.nanmax(pulls[valid])) if valid.size else 0.0
+        # adjacent-tooth differential over the near-resonant set
+        if valid.size > 1:
+            sd = np.sort(valid)
+            diff = float(np.max(np.abs(np.diff((dressed - bare)[sd]))))
+        else:
+            diff = 0.0
+        line_pull = float(abs(omega_d - omega_d_bare))
+        artifact = pulling >= X6_PULL_CEIL
+        any_artifact = any_artifact or artifact
+        per[str(kappa)] = {
+            "kappa": kappa, "omega_d": omega_d, "n_near": int(valid.size),
+            "pulling": pulling, "adj_diff": diff, "line_pull": line_pull,
+            "ceil": X6_PULL_CEIL, "artifact": artifact,
+        }
+    ok = not any_artifact
+    det = "; ".join(
+        f"κ={p['kappa']}: pulling={p['pulling']:.4f}(<{p['ceil']}) adj_diff={p['adj_diff']:.4f} "
+        f"line_pull={p['line_pull']:.4f} (ω_d={p['omega_d']:.3f}, {p['n_near']}near) ARTIFACT={p['artifact']}"
+        for p in per.values()
+    )
+    return VResult("X6", ok, f"[ω_d_bare(κ=0)={omega_d_bare:.4f}; ceil Δω/2={X6_PULL_CEIL}] " + det,
+                   {"per_kappa": per, "omega_d_bare": omega_d_bare})
+
+
+def run_x_battery() -> tuple[list[VResult], str]:
+    """The frozen §C X-battery. Verdict classes (§C3):
+      • METER-VALID-KAPPA-BAND[κ_lo,κ_hi] — X1-X6 pass at MILD across a contiguous
+        sub-band; κ_hi bounded by X4 κ_break and X6 pulling crossing.
+      • METER-INVALID-AT-KAPPA — a KILL fires at ALL band κ ⇒ sweep BLOCKED, redesign
+        SPEC'd (not built).
+      • METER-VALID-KAPPA-BAND(partial) — pass at some κ, KILL at others (contiguous);
+        non-contiguous ⇒ METER-UNCLASSIFIED-DEVIATION.
+    """
+    results = [run_x1(), run_x2(), run_x3(), run_x4(), run_x5(), run_x6()]
+    by = {r.vid: r for r in results}
+    # per-κ KILL map across the frozen band (MILD point is band-determining)
+    kills: dict[float, list[str]] = {k: [] for k in KAPPA_BAND}
+    for _key, p in by["X1"].metrics.get("per_point", {}).items():
+        if p["point"] == "mild" and p["kill"]:
+            kills[p["kappa"]].append("X1")
+    for p in by["X2"].metrics.get("per_kappa", {}).values():
+        if p["lost"]:
+            kills[p["kappa"]].append("X2")
+    for p in by["X3"].metrics.get("per_kappa", {}).values():
+        if p["fail"]:
+            kills[p["kappa"]].append("X3")
+    for p in by["X4"].metrics.get("per_kappa", {}).values():
+        if p["fail"]:
+            kills[p["kappa"]].append("X4")
+    for _key, p in by["X5"].metrics.get("per_point", {}).items():
+        if p["point"] == "mild" and (p["match"] >= W5_TARE_C_TOL or not p["liveness_ok"] or p["over_transfer"]):
+            kills[p["kappa"]].append("X5")
+    for p in by["X6"].metrics.get("per_kappa", {}).values():
+        if p["artifact"]:
+            kills[p["kappa"]].append("X6")
+    passing = [k for k in KAPPA_BAND if not kills[k]]
+    kappa_break = by["X4"].metrics.get("kappa_break")
+    if not passing:
+        verdict = f"METER-INVALID-AT-KAPPA (KILL at all band κ: {dict((k, v) for k, v in kills.items() if v)})"
+    elif len(passing) == len(KAPPA_BAND):
+        verdict = f"METER-VALID-KAPPA-BAND[{min(passing)},{max(passing)}] (κ_break={kappa_break})"
+    else:
+        idx = [KAPPA_BAND.index(k) for k in passing]
+        contiguous = idx == list(range(min(idx), max(idx) + 1))
+        if contiguous:
+            verdict = (f"METER-VALID-KAPPA-BAND[{min(passing)},{max(passing)}](partial; "
+                       f"KILL at {[k for k in KAPPA_BAND if kills[k]]}; κ_break={kappa_break})")
+        else:
+            verdict = f"METER-UNCLASSIFIED-DEVIATION(non-contiguous pass {passing}; kills={kills}) — adjudicate"
+    return results, verdict
+
+
 def main() -> None:
-    ap = argparse.ArgumentParser(description="F6 bath meter validation battery (A: V1-V6 / W: nonlinear reval)")
+    ap = argparse.ArgumentParser(description="F6 bath meter validation battery (A/V1-V6, W/nonlinear, X/κ-reval)")
     ap.add_argument("--json", action="store_true", help="emit JSON")
     ap.add_argument(
         "--w-battery",
         action="store_true",
         help="run the §B NONLINEAR-regime revalidation battery (W1-W6) instead of the A-battery (V1-V6)",
+    )
+    ap.add_argument(
+        "--x-battery",
+        action="store_true",
+        help="run the §C κ-REVALIDATION battery (X1-X6) at κ∈{0.03,0.045,0.06} — the counting-arrow sweep prerequisite",
     )
     ap.add_argument(
         "--fact4",
@@ -863,7 +1382,10 @@ def main() -> None:
             print(f"  growth mild→near-knee: {nc['growth_mild_to_near_knee']:.1f}×  (s={nc['s']})")
             print("=" * 80)
         return
-    if args.w_battery:
+    if args.x_battery:
+        results, verdict = run_x_battery()
+        title = "F6 BATH METER — X-BATTERY (κ-revalidation §C; sweep prerequisite; NO arm/sweep fired)"
+    elif args.w_battery:
         results, verdict = run_w_battery()
         title = "F6 BATH METER — W-BATTERY (nonlinear-regime revalidation; §B; NO F6 arm fired)"
     else:

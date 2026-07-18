@@ -274,3 +274,49 @@ def test_w_full_battery_meter_valid_nonlinear(driver):
     results, verdict = driver.run_w_battery()
     failed = [r.vid for r in results if not r.passed]
     assert verdict == "METER-VALID-NONLINEAR-ENVELOPE", f"failed: {failed}"
+
+
+# --- X-battery (§C κ-reval) fast unit tests on the new pure helpers -----------
+# The full X-battery is a ~4-minute driver (banked in research/); these lock the
+# artifact-fix helpers (drain-robust ω_d, harmonic-aware placement, parabolic
+# dressed-frequency) that the FIRST X-run got wrong, against regression.
+def test_x_fold_into_nyquist(driver):
+    """_fold maps any angular frequency into (0, π) (dt=1 aliasing)."""
+    assert driver._fold(0.5) == pytest.approx(0.5)
+    assert driver._fold(2 * np.pi - 0.5) == pytest.approx(0.5)  # folds back
+    assert 0 <= driver._fold(5.0) <= np.pi
+
+
+def test_x_omega_d_from_bath_is_drain_robust(driver):
+    """ω_d = the bath mode that absorbed the most energy — robust to the full-
+    discharge regime that collapsed the collar-q rFFT to DC in the first X-run."""
+    omega = np.array([0.30, 0.40, 0.50, 0.60, 0.70])
+    me = np.array([1e-4, 1e-3, 1.0, 2e-3, 1e-4])  # peak at index 2 → ω=0.50
+    assert driver._omega_d_from_bath(me, omega) == pytest.approx(0.50)
+    # empty / dead transfer → nan (no spurious ω_d)
+    assert np.isnan(driver._omega_d_from_bath(np.zeros(5), omega))
+
+
+def test_x_dressed_omega_recovers_sinusoid_frequency(driver):
+    """_dressed_omega recovers a pure-tone angular frequency to sub-bin accuracy
+    (parabolic rFFT peak) — the X6 mode-pulling read must resolve ≪ Δω/2 = 0.005."""
+    n = 3000
+    omega_true = 0.5237
+    t = np.arange(n)
+    series = np.cos(omega_true * t)
+    assert driver._dressed_omega(series) == pytest.approx(omega_true, abs=0.002)
+    # a DC / undriven series returns nan (excluded from the pulling max, not 0)
+    assert np.isnan(driver._dressed_omega(np.zeros(n)))
+
+
+def test_x_detuned_placement_avoids_folded_harmonics(driver):
+    """_place_detuned_harmonic_aware returns a Nyquist-valid band ≥ 2·Δω clear of
+    every folded harmonic n·ω_d (the §B W3 corrected rule / §C2 X2)."""
+    dw = 0.010
+    omega_d = 0.520
+    om_lo, om_hi, clear, folded = driver._place_detuned_harmonic_aware(
+        omega_d, dw, m_det=32, omega_max_res=0.30 + 70 * dw)
+    assert om_hi < np.pi  # Nyquist
+    assert clear >= 2 * dw - 1e-9  # ≥ guard from all folded harmonics
+    for h in folded:
+        assert not (om_lo - 2 * dw <= h <= om_hi + 2 * dw)  # band contains no harmonic

@@ -1,0 +1,471 @@
+{
+  "meta": {
+    "lane": "F6 METER \u03ba-REVALIDATION (X-battery) \u2014 counting-arrow sweep prerequisite",
+    "charter": "research/2026-07-16_f6-bath-meter_CHARTER.md Amendment \u00a7C (frozen-by-push 2026-07-18T07:21:52Z, before any battery code)",
+    "driver": "src/scripts/vol_1_foundations/f6_bath_meter_validate.py --x-battery (opt-in; A/W paths byte-untouched)",
+    "instrument": "src/ave/thermal/f6_bath_meter.py (LatticeBathCoupler \u2014 BYTE-UNTOUCHED)",
+    "plant": "standalone-K4 densest sweep comb (\u0394\u03c9=0.010, M=71) [X1,X2,X5,X6]; production comb (\u0394\u03c9=0.030, M\u2208{32,64,90}) [X3]; two-tank M=2 + sparse \u0394\u03c9=0.080 controls [X4]",
+    "kappa_band": [
+      0.03,
+      0.045,
+      0.06
+    ],
+    "operating_points": {
+      "mild(band-determining)": 0.6,
+      "moderate(stress)": 1.8
+    },
+    "n_sweep": 6908,
+    "verdict": "METER-INVALID-AT-KAPPA (KILL at all band \u03ba: {0.03: ['X2'], 0.045: ['X2', 'X5'], 0.06: ['X2', 'X3', 'X5']})",
+    "deviations_disclosed": [
+      "X1 code-faithfulness (corrected pre-bank): the shipped `clamp_drain` boolean KILLed on full cavity discharge (min_elat_frac\u21920); the FROZEN \u00a7C X1 criterion KILLs only if the identity-break (drift) reaches R_BATH_MAX\u00b7transfer. Corrected to the frozen criterion (over-extraction is REPORTED anatomy, not an independent KILL). Not a threshold retune \u2014 a code-to-frozen-spec fix. First-run and fixed-run drift numbers are IDENTICAL (only the KILL boolean changed); the over-extraction is preserved as anatomy.",
+      "X2/X6 \u03c9_d robustness (corrected pre-bank; ARTIFACT removed): the first run read \u03c9_d from the collar-q rFFT, which collapses to DC (\u03c9_d\u21920) at \u03ba\u22650.045 because the cavity FULLY DISCHARGES (q\u21920) \u2014 a window-averaging artifact that mis-placed the X2 detuned band (overlapped resonance) and gave X6 trivial n_near=0 passes. Corrected to a drain-robust \u03c9_d = bath mode-energy peak (the bath retains the transferred energy). Post-fix \u03c9_d=0.520 stable at all \u03ba; X2 LOST and X6 PASS both hold on the valid measurement.",
+      "X1 drift vs #722 scratch probe (flag-don't-fix; both readings stated): #722 \u00a76 quoted 'drift 1e-14@0.012 \u2192 6.8e-6@0.03 \u2192 4.3e-4@0.06'. This banked reproduction confirms 6.8e-6@0.03 (mild, densest comb, N_sweep) but measures 1.9e-7@0.06 (NOT 4.3e-4) \u2014 the over-extraction over-creation is BOUNDED by the residual e_lat when the clamp fires, which SHRINKS as the discharge completes faster at higher \u03ba, so the drift is NON-monotone (decreasing) in \u03ba. The #722 scratch 4.3e-4@0.06 is superseded at the result level; both stated per Rule 11."
+    ],
+    "freeze": {
+      "charter_C_commit": "ccac3e7d",
+      "charter_C_committedDate_api": "2026-07-18T07:21:52Z",
+      "charter_C_pushed": "2026-07-18T07:22:26Z",
+      "note": "freeze-margin = interval from the \u00a7C push to the first battery-code commit (real margin; see result MD)"
+    },
+    "gates": "make verify + ruff + pytest (see result MD); A-battery V1-V6 + W-battery W1-W6 byte-identical (regression green)"
+  },
+  "battery": {
+    "results": [
+      {
+        "vid": "X1",
+        "passed": true,
+        "detail": "[ceil 0.2=R_BATH_MAX; N_sweep=6908] 0.03:mild(transfer=1.00): end=+6.8e-06 proj|slope\u00b7N|/T=8.2e-06 realized/T=6.8e-06 a2=-1.8e-05 r=+0.78 [BOUNDED(round-off-walk)] KILL=False; 0.03:moderate(transfer=1.00): end=+4.7e-05 proj|slope\u00b7N|/T=5.7e-05 realized/T=4.7e-05 a2=-1.2e-04 r=+0.78 [BOUNDED(round-off-walk)] KILL=False; 0.045:mild(transfer=1.00): end=+1.6e-07 proj|slope\u00b7N|/T=7.2e-08 realized/T=1.6e-07 a2=-3.0e-07 r=+0.47 [BOUNDED(round-off-walk)] KILL=False; 0.045:moderate(transfer=1.00): end=+2.7e-07 proj|slope\u00b7N|/T=1.2e-07 realized/T=2.7e-07 a2=-4.9e-07 r=+0.47 [BOUNDED(round-off-walk)] KILL=False; 0.06:mild(transfer=1.00): end=+1.9e-07 proj|slope\u00b7N|/T=4.8e-08 realized/T=1.9e-07 a2=-2.2e-07 r=+0.35 [BOUNDED(round-off-walk)] KILL=False; 0.06:moderate(transfer=1.00): end=+2.9e-07 proj|slope\u00b7N|/T=7.2e-08 realized/T=2.9e-07 a2=-3.3e-07 r=+0.35 [BOUNDED(round-off-walk)] KILL=False",
+        "metrics": {
+          "per_point": {
+            "0.03:mild": {
+              "kappa": 0.03,
+              "point": "mild",
+              "transfer_frac": 1.000006809665403,
+              "collapsed": false,
+              "signed_end": 6.80966540254951e-06,
+              "max_drift": 6.80966540254951e-06,
+              "slope": 1.1872027938972571e-09,
+              "curv_a2": -1.7901183683591066e-05,
+              "pearson_r": 0.7783055044970003,
+              "sign_consistent": false,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 8.201141053215757e-06,
+              "realized_frac": 6.809619031322385e-06,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            },
+            "0.03:moderate": {
+              "kappa": 0.03,
+              "point": "moderate",
+              "transfer_frac": 1.0000472804401486,
+              "collapsed": false,
+              "signed_end": 4.728044014771826e-05,
+              "max_drift": 4.728044014827127e-05,
+              "slope": 8.242911708733995e-09,
+              "curv_a2": -0.00012429037209195072,
+              "pearson_r": 0.778305503537997,
+              "sign_consistent": false,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 5.693934196678448e-05,
+              "realized_frac": 4.727820481393823e-05,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            },
+            "0.045:mild": {
+              "kappa": 0.045,
+              "point": "mild",
+              "transfer_frac": 1.0000001646622678,
+              "collapsed": false,
+              "signed_end": 1.6466226777946784e-07,
+              "max_drift": 1.6466226777946784e-07,
+              "slope": 1.036438292382679e-11,
+              "curv_a2": -2.999303948291407e-07,
+              "pearson_r": 0.4676613120541699,
+              "sign_consistent": true,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 7.159714544844713e-08,
+              "realized_frac": 1.6466224066580987e-07,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            },
+            "0.045:moderate": {
+              "kappa": 0.045,
+              "point": "moderate",
+              "transfer_frac": 1.0000002672171615,
+              "collapsed": false,
+              "signed_end": 2.6721716147056784e-07,
+              "max_drift": 2.6721716147056784e-07,
+              "slope": 1.6819518665948596e-11,
+              "curv_a2": -4.867330579784193e-07,
+              "pearson_r": 0.4676611012119597,
+              "sign_consistent": true,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 1.1618920389662363e-07,
+              "realized_frac": 2.672170900655755e-07,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            },
+            "0.06:mild": {
+              "kappa": 0.06,
+              "point": "mild",
+              "transfer_frac": 1.000000194833428,
+              "collapsed": false,
+              "signed_end": 1.9483342788840463e-07,
+              "max_drift": 1.9483342788840463e-07,
+              "slope": 6.950482646193406e-12,
+              "curv_a2": -2.1834006462813703e-07,
+              "pearson_r": 0.35207357400415007,
+              "sign_consistent": true,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 4.801392476518649e-08,
+              "realized_frac": 1.9483338992834736e-07,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            },
+            "0.06:moderate": {
+              "kappa": 0.06,
+              "point": "moderate",
+              "transfer_frac": 1.0000002920300366,
+              "collapsed": false,
+              "signed_end": 2.9203003657181053e-07,
+              "max_drift": 2.9203003657181053e-07,
+              "slope": 1.0417866408816182e-11,
+              "curv_a2": -3.272634930738832e-07,
+              "pearson_r": 0.35207335675476337,
+              "sign_consistent": true,
+              "saturating": true,
+              "label": "BOUNDED(round-off-walk)",
+              "projected_frac": 7.19666001356933e-08,
+              "realized_frac": 2.9202995129029316e-07,
+              "min_elat_frac": 0.0,
+              "clamp_drain": true,
+              "over_transfer": true,
+              "kill": false
+            }
+          },
+          "n_sweep": 6908
+        }
+      },
+      {
+        "vid": "X2",
+        "passed": false,
+        "detail": "[collapse \u2265100\u00d7] \u03ba=0.03: E_res=2.14e+00(N=15) vs det[1.07,1.38]=1.40e+00(N=4) \u00d72 (\u03c9_d=0.520, harm_clear=0.030) LOST=True; \u03ba=0.045: E_res=2.14e+00(N=23) vs det[1.07,1.38]=1.94e+00(N=6) \u00d71 (\u03c9_d=0.520, harm_clear=0.030) LOST=True; \u03ba=0.06: E_res=2.14e+00(N=33) vs det[1.07,1.38]=2.14e+00(N=9) \u00d71 (\u03c9_d=0.520, harm_clear=0.030) LOST=True",
+        "metrics": {
+          "per_kappa": {
+            "0.03": {
+              "kappa": 0.03,
+              "e_res": 2.141447812324512,
+              "e_det": 1.3981836200771645,
+              "ratio": 1.5315926903837762,
+              "n_res": 15,
+              "n_det": 4,
+              "omega_d": 0.52,
+              "omega_d_qspec": 0.523773366720539,
+              "detuned_band": [
+                1.07,
+                1.3800000000000001
+              ],
+              "harm_clearance": 0.030000000000000027,
+              "folded_harmonics": [
+                0.52,
+                1.04,
+                1.56,
+                2.08,
+                2.6,
+                3.12
+              ],
+              "lost": true
+            },
+            "0.045": {
+              "kappa": 0.045,
+              "e_res": 2.1414335824938755,
+              "e_det": 1.9441541293278595,
+              "ratio": 1.1014731549263639,
+              "n_res": 23,
+              "n_det": 6,
+              "omega_d": 0.52,
+              "omega_d_qspec": 0.0,
+              "detuned_band": [
+                1.07,
+                1.3800000000000001
+              ],
+              "harm_clearance": 0.030000000000000027,
+              "folded_harmonics": [
+                0.52,
+                1.04,
+                1.56,
+                2.08,
+                2.6,
+                3.12
+              ],
+              "lost": true
+            },
+            "0.06": {
+              "kappa": 0.06,
+              "e_res": 2.141433647103417,
+              "e_det": 2.1421691113292773,
+              "ratio": 0.9996566731253987,
+              "n_res": 33,
+              "n_det": 9,
+              "omega_d": 0.52,
+              "omega_d_qspec": 0.0,
+              "detuned_band": [
+                1.07,
+                1.3800000000000001
+              ],
+              "harm_clearance": 0.030000000000000027,
+              "folded_harmonics": [
+                0.52,
+                1.04,
+                1.56,
+                2.08,
+                2.6,
+                3.12
+              ],
+              "lost": true
+            }
+          }
+        }
+      },
+      {
+        "vid": "X3",
+        "passed": false,
+        "detail": "\u03ba=0.03: \u03c9_d=0.527 FWHM=0.060(3modes) sea_p90=7.2e-03(<floor 0.01=True) N_occ(M)=[7, 7, 7](inv=True) det\u21920=True; \u03ba=0.045: \u03c9_d=0.527 FWHM=0.060(3modes) sea_p90=9.2e-03(<floor 0.01=True) N_occ(M)=[9, 9, 9](inv=True) det\u21920=True; \u03ba=0.06: \u03c9_d=0.527 FWHM=0.060(3modes) sea_p90=1.7e-02(<floor 0.01=False) N_occ(M)=[17, 17, 17](inv=True) det\u21920=True",
+        "metrics": {
+          "per_kappa": {
+            "0.03": {
+              "kappa": 0.03,
+              "omega_d": 0.5268753636808915,
+              "fwhm": 0.06000000000000005,
+              "n_in_line": 3,
+              "sea_p90": 0.007234333649275912,
+              "floor": 0.01,
+              "floor_honest": true,
+              "detuned_rejects": true,
+              "n_occ_M": [
+                7,
+                7,
+                7
+              ],
+              "m_invariant": true,
+              "fail": false
+            },
+            "0.045": {
+              "kappa": 0.045,
+              "omega_d": 0.5268753636808915,
+              "fwhm": 0.06000000000000005,
+              "n_in_line": 3,
+              "sea_p90": 0.009202725007579989,
+              "floor": 0.01,
+              "floor_honest": true,
+              "detuned_rejects": true,
+              "n_occ_M": [
+                9,
+                9,
+                9
+              ],
+              "m_invariant": true,
+              "fail": false
+            },
+            "0.06": {
+              "kappa": 0.06,
+              "omega_d": 0.5268753636808915,
+              "fwhm": 0.06000000000000005,
+              "n_in_line": 3,
+              "sea_p90": 0.017002193056736645,
+              "floor": 0.01,
+              "floor_honest": false,
+              "detuned_rejects": true,
+              "n_occ_M": [
+                17,
+                17,
+                17
+              ],
+              "m_invariant": true,
+              "fail": true
+            }
+          }
+        }
+      },
+      {
+        "vid": "X4",
+        "passed": true,
+        "detail": "\u03ba=0.03: two-tank R_cum=0.989 sparse R_cum=0.890 (>0.7) FAIL=False; \u03ba=0.045: two-tank R_cum=0.992 sparse R_cum=0.834 (>0.7) FAIL=False; \u03ba=0.06: two-tank R_cum=0.996 sparse R_cum=0.793 (>0.7) FAIL=False; \u2605\u03ba_break(two-tank R_cum\u22640.7)=0.09 [scan 0.03:0.989, 0.06:0.996, 0.09:0.000, 0.12:0.000, 0.15:0.000, 0.18:0.000]",
+        "metrics": {
+          "per_kappa": {
+            "0.03": {
+              "kappa": 0.03,
+              "two_tank_rcum": 0.9890497361883127,
+              "sparse_rcum": 0.8898173585547371,
+              "two_tank_peakfrac": 0.09137826342907206,
+              "sparse_peakfrac": 0.169248912361119,
+              "fail": false
+            },
+            "0.045": {
+              "kappa": 0.045,
+              "two_tank_rcum": 0.991839876221213,
+              "sparse_rcum": 0.8336752524912794,
+              "two_tank_peakfrac": 0.19352008575600513,
+              "sparse_peakfrac": 0.3415046586405469,
+              "fail": false
+            },
+            "0.06": {
+              "kappa": 0.06,
+              "two_tank_rcum": 0.9957719736724184,
+              "sparse_rcum": 0.7925389077560101,
+              "two_tank_peakfrac": 0.31750627430380085,
+              "sparse_peakfrac": 0.5246612634463685,
+              "fail": false
+            }
+          },
+          "break_scan": {
+            "0.03": 0.9890497361883127,
+            "0.06": 0.9957719736724184,
+            "0.09": 0.0,
+            "0.12": 0.0,
+            "0.15": 0.0,
+            "0.18": 0.0
+          },
+          "kappa_break": 0.09
+        }
+      },
+      {
+        "vid": "X5",
+        "passed": false,
+        "detail": "[tare-usable |c_fit\u2212c|/c<0.02 AND E_bath>E_BATH_MIN] 0.03:mild(c=0.367,c_fit=0.361,|\u0394|/c=1.6e-02,resid=0.066); 0.03:moderate(c=0.366,c_fit=0.306,|\u0394|/c=1.6e-01,resid=0.200); 0.045:mild(c=0.000,c_fit=0.000,|\u0394|/c=0.0e+00,resid=0.000,OVER-TRANSFER); 0.045:moderate(c=0.000,c_fit=0.000,|\u0394|/c=0.0e+00,resid=0.000,OVER-TRANSFER); 0.06:mild(c=0.000,c_fit=0.000,|\u0394|/c=0.0e+00,resid=0.000,OVER-TRANSFER); 0.06:moderate(c=0.000,c_fit=0.000,|\u0394|/c=0.0e+00,resid=0.000,OVER-TRANSFER)",
+        "metrics": {
+          "per_point": {
+            "0.03:mild": {
+              "kappa": 0.03,
+              "point": "mild",
+              "c": 0.3674044297400538,
+              "c_fit": 0.36137089511531817,
+              "match": 0.016422051930632557,
+              "resid": 0.06631056594665025,
+              "flagged": false,
+              "e_bath_frac": 0.8650139850073859,
+              "liveness_ok": true,
+              "over_transfer": false
+            },
+            "0.03:moderate": {
+              "kappa": 0.03,
+              "point": "moderate",
+              "c": 0.3658094063754511,
+              "c_fit": 0.30603663300031586,
+              "match": 0.16339867792734405,
+              "resid": 0.20039486284480662,
+              "flagged": false,
+              "e_bath_frac": 0.8661834782072401,
+              "liveness_ok": true,
+              "over_transfer": false
+            },
+            "0.045:mild": {
+              "kappa": 0.045,
+              "point": "mild",
+              "c": 0.0,
+              "c_fit": 0.0,
+              "match": 0.0,
+              "resid": 0.0,
+              "flagged": false,
+              "e_bath_frac": 1.0000001646621623,
+              "liveness_ok": true,
+              "over_transfer": true
+            },
+            "0.045:moderate": {
+              "kappa": 0.045,
+              "point": "moderate",
+              "c": 0.0,
+              "c_fit": 0.0,
+              "match": 0.0,
+              "resid": 0.0,
+              "flagged": false,
+              "e_bath_frac": 1.0000002672170518,
+              "liveness_ok": true,
+              "over_transfer": true
+            },
+            "0.06:mild": {
+              "kappa": 0.06,
+              "point": "mild",
+              "c": 0.0,
+              "c_fit": 0.0,
+              "match": 0.0,
+              "resid": 0.0,
+              "flagged": false,
+              "e_bath_frac": 1.0000001948333324,
+              "liveness_ok": true,
+              "over_transfer": true
+            },
+            "0.06:moderate": {
+              "kappa": 0.06,
+              "point": "moderate",
+              "c": 0.0,
+              "c_fit": 0.0,
+              "match": 0.0,
+              "resid": 0.0,
+              "flagged": false,
+              "e_bath_frac": 1.0000002920299382,
+              "liveness_ok": true,
+              "over_transfer": true
+            }
+          }
+        }
+      },
+      {
+        "vid": "X6",
+        "passed": true,
+        "detail": "[\u03c9_d_bare(\u03ba=0)=0.5238; ceil \u0394\u03c9/2=0.005] \u03ba=0.03: pulling=0.0006(<0.005) adj_diff=0.0009 line_pull=0.0038 (\u03c9_d=0.520, 9near) ARTIFACT=False; \u03ba=0.045: pulling=0.0002(<0.005) adj_diff=0.0004 line_pull=0.0038 (\u03c9_d=0.520, 9near) ARTIFACT=False; \u03ba=0.06: pulling=0.0002(<0.005) adj_diff=0.0004 line_pull=0.0038 (\u03c9_d=0.520, 9near) ARTIFACT=False",
+        "metrics": {
+          "per_kappa": {
+            "0.03": {
+              "kappa": 0.03,
+              "omega_d": 0.52,
+              "n_near": 9,
+              "pulling": 0.0006292593099997967,
+              "adj_diff": 0.000896165928305992,
+              "line_pull": 0.003773366720538962,
+              "ceil": 0.005,
+              "artifact": false
+            },
+            "0.045": {
+              "kappa": 0.045,
+              "omega_d": 0.52,
+              "n_near": 9,
+              "pulling": 0.0002380689011164394,
+              "adj_diff": 0.00041787201270304664,
+              "line_pull": 0.003773366720538962,
+              "ceil": 0.005,
+              "artifact": false
+            },
+            "0.06": {
+              "kappa": 0.06,
+              "omega_d": 0.52,
+              "n_near": 9,
+              "pulling": 0.0002386052475591427,
+              "adj_diff": 0.00041705116824519717,
+              "line_pull": 0.003773366720538962,
+              "ceil": 0.005,
+              "artifact": false
+            }
+          },
+          "omega_d_bare": 0.523773366720539
+        }
+      }
+    ],
+    "verdict": "METER-INVALID-AT-KAPPA (KILL at all band \u03ba: {0.03: ['X2'], 0.045: ['X2', 'X5'], 0.06: ['X2', 'X3', 'X5']})"
+  }
+}
