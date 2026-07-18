@@ -153,3 +153,17 @@ Decision rule (consumed frozen from the door charter §4): **(ii)/(iii)/(vi) fai
 ---
 
 *Prereg only. Nothing here banks COUNTING-ARROW; §2 predictions are derived from recurrence physics and were not measured before this freeze. The RESULT (with Rule-11 honesty on any fail) follows in `2026-07-18_f6-counting-arrow-arm_result.md`.*
+
+---
+
+## POST-FREEZE AMENDMENTS (dated; the §0–§7 body above is byte-untouched)
+
+> These amendments are appended below the frozen line per the freeze rail (frozen body byte-untouched; amendments dated here). They **flag** contradictions/misfires root-caused post-fire — they do **not** edit the frozen body or retune the classifier (Rule 11).
+
+### 2026-07-18 — AMENDMENT 1 (PR #722 review R-6): §4 FRICTION-RENAMED row REDEFINED the charter bin it claimed to consume
+
+**Header contradiction, flagged (flag-don't-fix).** The header (above) states the taxonomy is *"frozen taxonomy **consumed, not redefined**."* But the frozen **§4 FRICTION-RENAMED row** maps *criterion-7* (`N_occ dense > sparse` — a **dense-vs-sparse fingerprint**) onto **door bin (vi)**, whereas the door charter's bin (vi) FRICTION-RENAMED (`2026-07-15_f6-mode-count-door_CHARTER.md` §4) requires **`N_occ` NOT rising from zero + dissipation (Q-drop / damping, Ax3-illegal)**. Substituting a dense-vs-sparse fingerprint for the charter's no-mode-count-rise + dissipation condition **REDEFINED bin (vi) in place** — contradicting the header's "consumed, not redefined." This misfire was **frozen-in** (present at freeze); it is **root-caused here**, not silently fixed: it is exactly why the shipped tree returned `FRICTION-RENAMED` on data where the bath **does** gain modes and returns energy reversibly (no dissipation). The frozen body is left untouched; the correct disposition (honest frozen reading = **FOREIGN-EATER**; `NULL-OF-REGIME` = routed regime-interpretation) is carried in the RESULT §4/§7 and routed to Grant.
+
+### 2026-07-18 — AMENDMENT 2 (pointer): RESULT-doc repairs
+
+The Phase-1 RESULT was re-banked under PR #722 review (R-1…R-10): FALSIFIED scoped to the **frozen `κ=0.012` recurrence-sweep PREDICTION** (the counting-arrow QUESTION **remains open**); `NULL-OF-REGIME` demoted from banked class to routed interpretation; regime-diagnosis numbers (`ω_d`, `n_pop`, `τ_transfer/T_rec`) given shipped provenance (RESULT §8, `…_result.json["diagnostics"]`). See `2026-07-18_f6-counting-arrow-arm_result.md`. **This prereg's frozen §0–§7 predictions are unchanged.**

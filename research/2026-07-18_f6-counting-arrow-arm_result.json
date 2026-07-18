@@ -355,6 +355,78 @@
     ],
     "re_z_proxy_monotone_in_N": true
   },
+  "diagnostics": {
+    "note": "R-7 provenance addendum (PR #722 review). Regime-diagnosis numbers the result-doc prose asserted (\u03c9_d, n_pop, \u03c4_transfer/T_rec) were prose-only at push; this shipped read computes them. NON-GATING (verdict unchanged). Load-bearing few-mode count is the meter's N_occ (banked in 'sweep').",
+    "omega_d_representative": 0.5235987755982988,
+    "cells": [
+      {
+        "delta_omega": 0.01,
+        "M": 71,
+        "t_rec": 628.3185307179587,
+        "omega_d": 0.5235987755982988,
+        "linewidth_fwhm": 0.0018180513041607949,
+        "n_pop_gt1pct": 7,
+        "tau_transfer_over_trec": 9.028859921603223,
+        "t_peak": 5673,
+        "peak_frac": 0.5731451923508141
+      },
+      {
+        "delta_omega": 0.015,
+        "M": 48,
+        "t_rec": 418.8790204786391,
+        "omega_d": 0.5235987755982988,
+        "linewidth_fwhm": 0.0027270769562413033,
+        "n_pop_gt1pct": 2,
+        "tau_transfer_over_trec": 3.3518031015153156,
+        "t_peak": 1404,
+        "peak_frac": 0.9653805684875689
+      },
+      {
+        "delta_omega": 0.02,
+        "M": 36,
+        "t_rec": 314.1592653589793,
+        "omega_d": 0.5235987755982988,
+        "linewidth_fwhm": 0.0036361026083213677,
+        "n_pop_gt1pct": 5,
+        "tau_transfer_over_trec": 2.9889298312657946,
+        "t_peak": 939,
+        "peak_frac": 0.5710520457266262
+      },
+      {
+        "delta_omega": 0.03,
+        "M": 24,
+        "t_rec": 209.43951023931956,
+        "omega_d": 0.5235987755982988,
+        "linewidth_fwhm": 0.0054541539124822735,
+        "n_pop_gt1pct": 3,
+        "tau_transfer_over_trec": 5.042028597151244,
+        "t_peak": 1056,
+        "peak_frac": 0.32244330260344206
+      },
+      {
+        "delta_omega": 0.05,
+        "M": 15,
+        "t_rec": 125.66370614359172,
+        "omega_d": 0.5228410349679106,
+        "linewidth_fwhm": 0.009092887564659313,
+        "n_pop_gt1pct": 10,
+        "tau_transfer_over_trec": 10.018803667634812,
+        "t_peak": 1259,
+        "peak_frac": 0.03317710222311479
+      },
+      {
+        "delta_omega": 0.08,
+        "M": 10,
+        "t_rec": 78.53981633974483,
+        "omega_d": 0.5235987755982988,
+        "linewidth_fwhm": 0.014544410433286137,
+        "n_pop_gt1pct": 6,
+        "tau_transfer_over_trec": 2.279098785075941,
+        "t_peak": 179,
+        "peak_frac": 0.029199453909175863
+      }
+    ]
+  },
   "_meta": {
     "prereg": "research/2026-07-18_f6-counting-arrow-arm_prereg_FROZEN.md",
     "driver": "src/scripts/vol_1_foundations/f6_counting_arrow_arm.py",

@@ -221,6 +221,13 @@ def classify(sweep: list[CombResult], two_tank: CombResult, off_drift: float,
     spread = (max(finite) - min(finite)) if len(finite) >= 2 else float("nan")
     mean_x50 = float(np.mean(finite)) if finite else float("nan")
     # sparse control: two-tank AND sparsest sweep comb return at x≫1 (use x=10 col)
+    # ★DISCLOSED NARROWING (PR #722 review R-5): this checks ONLY the sparsest comb +
+    # two-tank, narrowing the frozen FOREIGN-EATER fire condition ("return failure NOT
+    # tracking x") down to its parenthetical example ("sparse control fails to return").
+    # A FAITHFUL reading of the frozen §4 FOREIGN-EATER row FIRES on this data — the
+    # return does NOT track x (x_50 spreads 3.6→11, the headline finding). So the honest
+    # frozen-classifier answer here is FOREIGN-EATER, not the FRICTION-RENAMED this tree
+    # returns. Code left UN-RETUNED per Rule 11; the bin is routed to Grant (result §4/§7).
     sparsest = max(sweep, key=lambda r: r.delta_omega)
     sparse_ret = min(two_tank.r_cum_table[10.0], sparsest.r_cum_table[10.0])
     # dense-end pinned-low: R_return(x=0.3) for combs with Δω ≤ DENSE_MAX_DW
@@ -276,6 +283,95 @@ def run_phase1() -> dict:
         "verdict": verdict, "criteria": crit,
         "sweep": [asdict(r) for r in sweep], "two_tank": asdict(two_tank),
         "off_drift": off_drift, "bias": bias,
+    }
+
+
+# ── REGIME DIAGNOSTICS (PR #722 review R-7: provenance for the prose numbers) ─
+@dataclass
+class CombDiag:
+    """The regime-diagnosis triple the result-doc prose asserted, now COMPUTED.
+
+    Definitions (documented so the number has provenance, not prose):
+      omega_d           — dominant angular frequency of the collar coordinate q(t)
+                          (rFFT power-spectrum peak; the narrowband drive line).
+      linewidth_fwhm    — half-power (FWHM) width of that dominant line.
+      n_pop_gt1pct      — bath modes with E_m > 1% of E_bath_peak, read at t_peak.
+      tau_transfer_over_trec — t_peak / T_rec  (= x_peak; the transfer-complete time
+                          in recurrence units — the τ_transfer≫T_rec inversion).
+    """
+    delta_omega: float
+    M: int
+    t_rec: float
+    omega_d: float
+    linewidth_fwhm: float
+    n_pop_gt1pct: int
+    tau_transfer_over_trec: float
+    t_peak: int
+    peak_frac: float
+
+
+def run_comb_diagnostics(delta_omega: float, horizon_recurrences: int = HORIZON_RECURRENCES,
+                         omega_min: float = OMEGA_MIN, m: int | None = None) -> CombDiag:
+    """Re-measure the prose regime numbers deterministically. `run_comb` is NOT
+    modified (the banked sweep stays bit-identical); this is a SEPARATE read that
+    additionally records the collar coordinate q(t) and captures the per-mode bath
+    energy at the transfer peak. NON-GATING (does not touch the frozen verdict)."""
+    if m is None:
+        m = _m_for(delta_omega)
+    t_rec = 2 * np.pi / delta_omega
+    n_steps = int(round(horizon_recurrences * t_rec))
+    cpl = _build(delta_omega, m, omega_min=omega_min)
+    e0 = cpl.e_lat()  # on-shell baseline (same reference as run_comb's peak_frac)
+    q = np.empty(n_steps)
+    e_bath = np.empty(n_steps)
+    peak_e = -1.0
+    peak_me = cpl.bath.mode_energy().copy()
+    for k, i in enumerate(range(1, n_steps + 1)):
+        q[k] = cpl.read_q()          # collar drive the bath sees this step
+        cpl.step(int(i))
+        eb = cpl.e_bath()
+        e_bath[k] = eb
+        if eb > peak_e:
+            peak_e = eb
+            peak_me = cpl.bath.mode_energy().copy()
+    t_peak_k = int(np.argmax(e_bath))
+    e_bath_peak = float(e_bath.max())
+    # collar-drive spectrum (mean-subtracted rFFT power); dominant angular frequency
+    power = np.abs(np.fft.rfft(q - q.mean())) ** 2
+    freqs = 2 * np.pi * np.fft.rfftfreq(n_steps, d=DT)
+    kmax = int(np.argmax(power[1:])) + 1
+    omega_d = float(freqs[kmax])
+    half = power[kmax] / 2.0
+    lo, hi = kmax, kmax
+    while lo > 1 and power[lo] > half:
+        lo -= 1
+    while hi < len(power) - 1 and power[hi] > half:
+        hi += 1
+    linewidth = float(freqs[hi] - freqs[lo])
+    n_pop = int(np.count_nonzero(peak_me > 0.01 * e_bath_peak)) if e_bath_peak > 0 else 0
+    return CombDiag(
+        delta_omega=delta_omega, M=m, t_rec=t_rec, omega_d=omega_d,
+        linewidth_fwhm=linewidth, n_pop_gt1pct=n_pop,
+        tau_transfer_over_trec=(t_peak_k + 1) / t_rec, t_peak=t_peak_k + 1,
+        peak_frac=e_bath_peak / e0,
+    )
+
+
+def run_diagnostics() -> dict:
+    """Bank the regime-diagnosis triple (ω_d + linewidth, n_pop(>1%), τ_transfer/T_rec)
+    per sweep cell — the numbers the result-doc prose asserted but no shipped script
+    computed (PR #722 review R-7 provenance gap). NON-GATING: the frozen verdict is
+    untouched. The LOAD-BEARING few-mode count is the meter's N_occ (banked per-cell in
+    `sweep`); n_pop here is corroborative color."""
+    cells = [asdict(run_comb_diagnostics(dw)) for dw in DELTA_OMEGA_SWEEP]
+    omegas = [c["omega_d"] for c in cells]
+    return {
+        "note": "R-7 provenance addendum (PR #722 review). Regime-diagnosis numbers the "
+                "result-doc prose asserted (ω_d, n_pop, τ_transfer/T_rec) were prose-only "
+                "at push; this shipped read computes them. NON-GATING (verdict unchanged). "
+                "Load-bearing few-mode count is the meter's N_occ (banked in 'sweep').",
+        "omega_d_representative": float(np.median(omegas)),
+        "cells": cells,
     }
 
 
@@ -355,11 +451,15 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="F6 counting-arrow arm — recurrence sweep (Phase 1)")
     ap.add_argument("--json", action="store_true", help="emit JSON")
     ap.add_argument("--companion", action="store_true", help="also run the SECONDARY self-termination leg")
+    ap.add_argument("--diagnostics", action="store_true",
+                    help="also run the R-7 regime-diagnostics read (ω_d, n_pop, τ_transfer/T_rec)")
     args = ap.parse_args()
 
     out = run_phase1()
     if args.companion:
         out["companion"] = run_companion()
+    if args.diagnostics:
+        out["diagnostics"] = run_diagnostics()
 
     if args.json:
         print(json.dumps(out, indent=2, default=lambda o: None))
@@ -388,6 +488,12 @@ def main() -> None:
         for row in out["companion"]["rows"]:
             print(f"    N={row['N']:>2d} T_rec_lat={row['t_rec_lattice']:.1f} "
                   f"Re(Z_in)/Zc≈{row['re_z_in_over_zchar_proxy']:.3f} x_rev={row['x_revival']:.2f}")
+    if "diagnostics" in out:
+        print("-" * 84)
+        print(f"  REGIME DIAGNOSTICS (R-7 provenance; ω_d≈{out['diagnostics']['omega_d_representative']:.4f}):")
+        for c in out["diagnostics"]["cells"]:
+            print(f"    Δω={c['delta_omega']:.3f} ω_d={c['omega_d']:.4f} lw={c['linewidth_fwhm']:.4f} "
+                  f"n_pop(>1%)={c['n_pop_gt1pct']:>2d} τ_transfer/T_rec={c['tau_transfer_over_trec']:.2f}")
     print("-" * 84)
     print(f"VERDICT: {out['verdict']}")
     print("=" * 84)
