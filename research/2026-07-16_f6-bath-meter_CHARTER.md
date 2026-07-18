@@ -305,3 +305,13 @@ The chosen detuned band **[1.18, 2.11] CONTAINS two harmonics the frozen §B W3 
 ### Verdict (re-scoped, STANDS)
 
 **METER-VALID-NONLINEAR-ENVELOPE**, **scoped to STANDALONE-K4 plants** (R-1 caveat). All W1–W6 pass at all three operating points; the battery reproduces bit-for-bit; no PASS gate was loosened. Any CoupledK4Cosserat arm or genuine irreversible ε→T2 primitive requires **W-battery re-validation** (identity broken). NO F6 arm/door fired; engine files untouched; the R7 §7 receipt stays with the auditor lane; §9 rebase-before-integration still stands.
+
+---
+
+## Post-freeze correction-note — 2026-07-18 — §A6 "pump independent of nonlinearity — verified" is VACUOUS (landed)
+
+**Append-only, dated; below the §B-post-review addendum. §A body byte-untouched.** Formal landing of the routed §A6 correction the §B addendum **R-7** recorded (and `2026-07-17_f6-meter-nonlinear-reval_result.md` R-7 surfaced).
+
+- **§A6's receipt *"the pump is independent of nonlinearity — verified"* is vacuous.** Per PR #721 review **FACT-1-unconditional** (§B1 FACT-1; R-2), `nonlinear=True ≡ nonlinear=False` in `K4Lattice3D` — `build_scattering_matrix(z)` (`src/ave/core/k4_tlm.py:64`) is z-independent (`0.5 − δ`), so the flag carries **zero dynamical consequence**. The §A6 comparison behind *"independent of nonlinearity — verified"* was therefore **between bit-identical configurations** — the statement is **vacuously true, not an independent verification** of pump-immunity across a real nonlinearity change.
+- **The pump-immunity claim itself still stands — on a stronger footing.** Conservation is an **algebraic identity** on the STANDALONE-K4 plant (orthogonal scatter + arithmetic-exact rescale; R-1 caveat), so pump-immunity is **structurally guaranteed**, not established by the vacuous §A6 comparison. The load-bearing receipt is the identity argument, not the flag toggle.
+- **§A stays byte-untouched.** This note is the dated record; the auditor lane lands any manual entry.
