@@ -49,7 +49,7 @@ Macroscopic phenomena derived from the substrate LC vacuum network: gravity, gen
 | QNM Quality Factor | $Q = \ell$ [Cosmo](./cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) |
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md) |
 | Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} = V_\infty \cdot 2(U_\oplus/C_0) \cdot (\cos\delta_{in} - \cos\delta_{out})$; matches Anderson 2008 anchor set 2/6 within 1$\sigma$, 3/6 within 2$\sigma$; categorically distinguishes from GR Lense-Thirring ($\sim 10^{-12}$ coupling) [Cosmo](./cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
-| Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Cosmo](./cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md) |
+| Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Cosmo](./cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md) | — 🔴 **DEMOTED 2026-07-19** (reactive-bulk ruling; see leaf banner)
 | Planetary Magnetic Dipole (AC Motor) | $M_\oplus \approx 1.5 \times 10^{23}$ A$\cdot$m$^2$ from VCA Back-EMF [AP](./applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md) |
 | Tabletop Relativity | $\rho_{eff} = \rho_0/\sqrt{1 - \mathrm{M}^2}$ — acoustic SR emulation from Axiom 4 [AP](./applied-physics/ch14-sonoluminescence/index.md) |
 | Kolmogorov Nyquist Cutoff | $k_{\max} = \pi/\ell_{node}$; bounded enstrophy [CM](./condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md) |
