@@ -19,7 +19,26 @@ Throughout the SPICE chapters (Chapters~\ref{ch:particle_decay}--\ref{ch:sagnac_
 \section{The Breakdown Voltage of the Vacuum}
 As derived in Book 4 (Applied Engineering), the continuous macroscopic vacuum possesses an absolute structural yielding point. When the localized inductive tension or capacitive strain exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65 \text{ kV}$, the localized LC nodes physically saturate. 
 
-At this boundary, the purely reactive, non-dissipative nature of the "perfect" vacuum lattice breaks down. The effective transmission line impedance drops drastically, converting a lossless conservative field into an absorptive, lossy "Leaky Cavity" ($\Gamma = -1$). 
+At this boundary, the purely reactive, non-dissipative nature of the "perfect" vacuum lattice breaks down. The effective transmission line impedance drops drastically, converting a lossless conservative field into an absorptive, lossy "Leaky Cavity" ($\Gamma = -1$).
+
+% [2026-07-19 Tier-2.5 PER-SENSE clarification note (RATIFIED disciplines; physics UNCHANGED) --
+%   applies the retention/transition PRODUCT/TRANSITION split + the MODE-vs-SYSTEM carve to
+%   the "absorptive, lossy Leaky Cavity" framing above and to the objectivebox "derive half-lives
+%   from Q" claim. WHICH SENSE: the "leak" past V_yield is a Gamma-PORT (radiative / boundary)
+%   channel -- energy exits the confined LC mode through a real external port into the surrounding
+%   macroscopic network (the RADIATIVE-PORT class, R_rad == Z_0, requires_R = port-only), which is
+%   Axiom-3-LICENSED loss. It is NOT a bulk Re(Z) dissipation of the reactive substrate (Ax3 forbids
+%   that). The Gamma = -1 boundary is a REFLECTOR; the "lossy" adjective is load-bearing only in the
+%   port sense. The cavity-Q that sets the half-life is therefore an EXTERNAL-coupling (port) Q --
+%   port-physics, not internal bulk friction. Per-sense declared; no value, formula, or mechanism
+%   name changed. Cite: retention/transition split leaf manuscript/ave-kb/common/retention-transition-split.md
+%   (PRODUCT/TRANSITION + SYSTEM-loss vs MODE-loss regime-scoping table) and the Op3 = LOSSLESS
+%   TRANSDUCTION ruling for the mode-vs-system distinction (RULING 21, _orchestration/2026-07-10_rulings-docket.md:1809;
+%   k4-port-irrep-decomposition.md bottom RESOLUTION). Mirror note on the hosting KB leaf
+%   manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md (bottom). Routed
+%   origin: research/2026-07-17_regime-iv-dissipation-audit.md:129 (F5, "port-vs-bulk split", owner =
+%   particle-decay SPICE lane). This is a per-sense classification note, NOT a re-derivation and NOT a
+%   ruling on the X43 continuous-RC-rate-form flag (that stays OPEN per the KB leaf's 2026-07-11 header).]
 
 \section{Fermions as Resonant Topologies}
 In the AVE framework, an electron is the $0_1$ unknot in real space carrying a $(2, 3)$ Clifford-torus winding pattern in phase space (see Vol.~1 Ch.~\ref{ch:alpha_golden_torus}). The trefoil lives in the bond-pair LC tank's $(V_{\text{inc}}, V_{\text{ref}})$ phasor trajectory, not in the real-space flux-tube topology. Its internal metric tension ($\approx 0.511 \text{ MeV/c}^2$) generates a localized geometric standing wave whose peak voltage sits safely below the $43.65 \text{ kV}$ saturation threshold. Because it doesn't break the local vacuum elasticity, it can ring forever (infinite half-life).

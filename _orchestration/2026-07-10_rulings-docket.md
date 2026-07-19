@@ -1935,3 +1935,11 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 | `manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:203` | the corpus's own Regime-I-lossless "0 Watts" resolution the sites contradicted |
 
 **Class:** deep-space dissipation adjudication (demotion executed; band-map re-derivation SPEC'd). Nothing emergence-class; nothing minted as canon.
+## Continuation — 2026-07-19 (auditor-queue lane): §8c noise-floor transplant LANDED — engine-capability-map §8c.10 + RULING-22 slot updated (EXECUTED)
+
+**Append-only, dated block.** Lands the two owed §8c updates the noise-floor walk-record flagged as *"owed placement"* (`research/2026-07-19_noise-floor-arrow-walk_RECORD.md`, its "KB pointer (D2 — owed placement)" section), now that §8c is on `main` (#728 merged):
+
+- **engine-capability-map §8c.10 (NEW):** transplants the ready-made pointer paragraph — the noise-floor ruling + the **thermal-floor arm** in-flight (branch `feat/f6-thermal-floor-arm`) + the walk-record cross-ref.
+- **engine-capability-map §8c.8 (RULING-22 slot, UPDATED):** the DOS-balance A/B fork is **MOOT** per Grant's 2026-07-19 static-noise-floor ruling (verbatim "*my gut says its couples through a static noise floor*" `[sic]`; full arc in the walk-record + the F6 NOISE-FLOOR ARROW continuation above); the resolution path = the **thermal-floor configuration** (pre-occupied random-phase bath); the superseded "DOS-balance = recommended direction" wording is **preserved per Rule-12**; the design-walk-owed slot updates to **EXECUTED**. §8c.9's closure line carries the same forward pointer.
+
+**Class:** auditor-lane placement of an owed KB pointer (no new physics; nothing banked at result-class — the thermal-floor arm adjudicates). Receipts: the §8c diff + `research/2026-07-19_noise-floor-arrow-walk_RECORD.md`.
