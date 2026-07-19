@@ -407,3 +407,78 @@ With the honest X2, **all X1–X6 pass at MILD κ=0.030** ⇒ **VALID at 0.030**
 ### §C-pr4 — §D re-certification SPEC (OUTLINE ONLY — NOT frozen, NOT run in this lane; Grant adjudicates §D-vs-abandon)
 
 A strong-κ re-certification (§D) would freeze, for a band **above** κ=0.030: **(1)** density-scaling `Γ_E ∝ DOS^{p}`, `p∈[0.8,1.2]`, as the **frozen strong-regime genuineness criterion** (replaces the ceiling-degenerate soul-check as the primary genuineness gate); **(2)** an **honest X2** — an *absolute detuned-absorption* gate `E_det/E0 < 1e-2` with a **drain-robust placement** (place off the bath-peak `ω_d`, not the drained collar-q spectrum); **(3)** the strong-κ **X3** (κ-broadening-aware DERIVED floor) and **X5** (incremental/rate tare well-defined through `E_bath→E0`), plus X5 enumerated as a strong-regime KILL. **This lane SPECs §D; it does not build, freeze, or run it.** The meter module + engine remain **byte-untouched**; the coupler needs no rebuild (F4).
+
+---
+
+## Amendment §D — pre-occupied-bath (thermal-floor) revalidation battery (2026-07-19, pre-registered; frozen BEFORE any battery code)
+
+> **Class:** revalidation charter (battery FB1–FB5 + thresholds + verdict classes FROZEN before any battery code; **§0–§9, §A, §B, §B-post, §C, and §C-post above are ALL preserved byte-for-byte** — this amendment is append-only below §C-pr4). **Disambiguation:** this §D is the **floor-battery** the thermal-floor arm lane mandates; it is **NOT** the §C-pr4 "§D re-certification SPEC" (a distinct, unbuilt strong-κ **above** 0.030 outline). This §D certifies (or fails) the meter for a **PRE-OCCUPIED bath** at the already-certified cell (`κ=0.030` MILD, standalone-K4). **Status of the certificate being extended:** `METER-VALID-KAPPA-BAND[0.030,0.030]` @ MILD (§C-post). **NO F6 arm fires in this lane** — the battery validates the instrument on a seeded floor; the arm (if the battery passes) is STAGE 2, a separate frozen prereg. **The meter module (`src/ave/thermal/f6_bath_meter.py`) + K4 engine are BYTE-UNTOUCHED**: if reading a floor needs a meter change, that is a **FINDING + SPEC**, not a silent edit — the honest verdict banks instead.
+
+### D0 — The ruling record + the hypothesis under test (attribution discipline)
+
+**★THE RULING (Grant verbatim, in-chat 2026-07-19; `[sic]` preserved — the standing attribution lesson):**
+
+> "my gut says its couples through a static noise floor" / "so wffectively constant" / "word, that picture makes perfect sense to me, and the noise floor woild set the arrow of time right?"
+
+**The ruling, executed (ruling-execution wording — tagged as such, NOT Grant's words):** the T2 sink couples locally as a **STATIC (effectively constant) pre-occupied NOISE FLOOR** — a bath seeded at a finite energy-per-mode with fixed (frozen) random phases, present *before* the signal arrives, and large enough that the small driven signal perturbs it only slightly ("effectively constant").
+
+**The HYPOTHESIS under test (hypothesis wording — tagged; the arm tests it, §D only validates the instrument that would read it):** the floor's **phase-randomness sets the LOCAL arrow** — coherent returns (Poincaré revivals) **dephase into the occupied random background**, so **revivals die as the floor rises past the signal**. §D does **not** test this hypothesis; §D asks only whether the certified meter can **read** a pre-occupied floor at all (a CONSISTENCY-class instrument question).
+
+**Scope fences (ruling-execution):**
+- **Re-homed, NOT tested here:** the growth / node-genesis picture is re-homed to the **cosmological rate rung** (the `Γ=3Hρ_latent` depletion-rate leaf), not this lane.
+- **MOOT, NOT revived:** the earlier DOS-balance A/B fork is moot — the pathology the counting-arrow sweep hit was bath **EMPTINESS** (the absorbing clamp on a cold, drained bath), **not** head-count. The floor addresses emptiness directly (pre-occupation), which is exactly why it is worth an instrument revalidation.
+
+### D0.1 — ★PRE-FREEZE CALIBRATION FINDING (ENGINEERING-CHOICE calibration, disclosed like §A6's κ/comb; flag-don't-fix)
+
+Before freezing this battery, a config-only calibration probe (meter BYTE-UNTOUCHED; the floor seeded by overwriting `bath.x`/`bath.p` — D1) established the **floor-viability envelope**, and it **reframes the grid** (surfaced, not silently swapped):
+
+- **The banked-dip comb is NOT floor-viable.** The #726 recurrence dips (14.9% @ x≈1.3 → 35.5% @ x≈2.46) live on the **densest** comb (`Δω=0.010, M=71`), which **fully discharges** in cold (`E_lat→0`, clamps at `x=3.15` after 2 recurrences — the R-2 absorbing clamp). Under a pre-occupied floor the densest comb clamps **EARLIER** (`clamp_x`: 3.15 → 0.96 at ρ=0.3 → 0.86 at ρ≥1) — **before one recurrence completes** ⇒ **NO-INFORMATION**. **Mechanism (measured):** the floor's per-step jitter in `d_e_bath` scales with `√(M·E_floor)`; at full discharge `E_lat→0`, even a small floor jitter satisfies `d_e_bath ≥ E_lat` ⇒ the `scale=0` clamp fires. So the naive "a warm floor keeps `E_lat` alive" intuition is **FALSE on the fully-discharging combs** — the floor makes the clamp *worse* there.
+- **The floor IS readable on the PARTIAL-transfer combs.** Combs that never fully discharge (`Δω ≥ 0.030`, two-tank) keep `E_lat` alive (`min E_lat/E0 ∈ [0.02, 0.94]`, no clamp), the ledger stays **identity-clean** (`|E_lat+E_bath−etot0|/E0 ~ 1e-14` even at ρ=10), and the floor jitter is **bounded and grows smoothly with ρ** — this is the fluctuation channel FB1 measures. The **densest comb that stays alive across the whole ρ ladder is `Δω=0.030` (M=24)** (alive to ρ=30; clamps only at ρ=100) — **the densest-VIABLE comb**, the STAGE-2 primary plant.
+- **Consequence for the grid (disclosed):** the STAGE-2 arm runs on the **densest-viable** comb (`Δω=0.030`) + a sparse control (`Δω=0.080`) + a detuned-floor control — **not** the banked-dip densest comb (which the FB battery documents as the alive-envelope boundary). The #726 densest dips are cited as the **cold-cell revival EXPECTATION / premise**, not the arm's primary plant. Every ρ-level, comb, and window is enumerated in the STAGE-2 prereg; the ρ=0 positive control reproduces the **primary comb's** banked cold behavior bit-for-bit (FB5).
+
+These are ENGINEERING CHOICES (instrument configuration), calibrated on the cold/known plant pre-freeze exactly as §A6 calibrated κ/comb — no arm prediction was measured (the revival-vs-ρ dip was deliberately **not** read pre-freeze).
+
+### D1 — The floor seed is CONFIG-ONLY (meter byte-untouched)
+
+The pre-occupied floor is injected by **overwriting the public bath state arrays after construction** — no meter edit:
+
+```
+# each mode m seeded at EXACTLY e_floor_per_mode with a frozen random phase θ_m:
+#   E_m = ½p_m² + ½ω_m² x_m² = e_floor_per_mode  (exact, per mode)
+rng   = np.random.default_rng(FLOOR_SEED)
+θ     = rng.uniform(0, 2π, size=bath.M)
+amp   = √(2·e_floor_per_mode)
+bath.x = (amp / bath.omega) · cos(θ)     # sets OscillatorBath.x
+bath.p =  amp · sin(θ)                    # sets OscillatorBath.p
+```
+
+`OscillatorBath.__post_init__` sets `x=p=0`; this driver-side overwrite is the ONLY change and touches no method of the meter. The seed is applied **after** the on-shell `lat.step()` and **before** the recording loop, so `etot0 = E_lat + E_bath` books the floor into the conserved baseline. **If any FB leg reveals a meter capability that is genuinely missing (not just a config), that is a FINDING + SPEC — the honest verdict banks and no meter byte changes.**
+
+### D2 — Frozen definitions (the excess ledger — the load-bearing freeze)
+
+With the floor seeded, the raw `N_occ` / detection-floor semantics BREAK (every mode reads occupied). The battery reads the **EXCESS** relative to the seeded sea (all FROZEN here):
+
+- **Seeded floor energy (exact, config-derived):** `E_floor_expected = M · e_floor_per_mode` (= the seed's returned `bath.energy()` at t=0, exact).
+- **Excess bath energy:** `ΔE_bath(t) = E_bath(t) − E_floor_expected`. By the conservation identity `E_lat(t) + E_bath(t) = etot0 = E0 + E_floor_expected`, this equals **exactly** `ΔE_bath(t) = E0 − E_lat(t)` — i.e. the excess IS the energy the lattice gave up to the DRIVEN transfer (the floor was seeded independently, not drawn from the lattice). This identity is the FB1 conservation check restated.
+- **Excess occupancy:** `N_occ_excess(t) = #{ m : E_m(t) > e_floor_per_mode + FLOOR_ABS }` — modes driven a full absolute floor `FLOOR_ABS=1e-2` **above** the seeded sea. At `ρ=0` (`e_floor_per_mode=0`) this reduces **exactly** to the meter's `N_occ`. (Diagnostic / non-gating: floor jitter can transiently lift a mode past the threshold; the load-bearing read is the scalar `ΔE_bath`.)
+- **Excess-tare (FB3):** the §B0/§C tare `c = √(1 − E_bath/E0)` is **floor-broken** (`E_bath ≥ E_floor_expected` ⇒ the argument goes negative). The FROZEN excess-tare is `c_excess = √(max(1 − ΔE_bath/E0, 0)) = √(E_lat/E0)` (the DERIVED form: the lattice amplitude the global rescale imposes tracks the **excess** it gave up, not the pre-existing floor). Tolerance inherited: `W5_TARE_C_TOL = 0.02`; residual `resid = ‖V_on − c_excess·V_off‖/‖V_off‖` reported.
+
+### D3 — The battery FB1–FB5 (ALL thresholds FROZEN; Rule 11 — no retune after fail)
+
+**Inherited frozen tolerances (restated):** `MACHINE_TOL = 1e-10`; identity ledger floor `LEDGER_ID_TOL = 1e-6` (the §C-post standalone-K4 identity floor; the banked densest cold drift is `6.8e-6`, so the alive-comb floor sits at/below `1e-6` and this is the DERIVED identity ceiling for the seeded-floor ledger on an alive comb); `FLOOR_ABS = 1e-2`; `W5_TARE_C_TOL = 0.02`. **Frozen floor grid for the battery:** ρ ∈ {0, 0.3, 1.0, 3.0, 10.0, 30.0} on the densest-viable comb (`Δω=0.030, M=24`), where `ρ = e_floor_per_mode / E_signal_per_mode` and `E_signal_per_mode` = the cold (ρ=0) first-plateau excess / M (a FROZEN config reference, computed once on the cold plant). `FLOOR_SEED = 20260719`; second seed `FLOOR_SEED_B = 20260720` (FB4). Window ≥ `2.5·T_rec` (T_rec(Δω=0.030)=209 steps; the FB battery uses the arm's `11·T_rec` horizon for FB1/FB5 continuity).
+
+| ID | Plant | PASS criterion (declared BEFORE running) |
+|----|-------|------------------------------------------|
+| **FB1** | Hot-bath conservation, densest-viable comb, ρ ∈ {0.3,1,3,10,30} | `max_t \|E_lat+E_bath−etot0\|/E0 < LEDGER_ID_TOL` at every ρ (the identity is κ-robust with a floor) **AND** the lattice jitter `σ(E_lat)/E0` over the alive window is **bounded** (finite, no clamp) and **non-secular** (`\|Pearson r(E_lat, step)\| < 0.9` over the alive window — the floor exchange fluctuates, it does not one-signed drain). Report `σ(E_lat)/E0` vs ρ (the fluctuation channel; expected to grow smoothly with ρ). |
+| **FB2** | Excess reads, densest-viable comb, ρ ∈ {0.3,1,3,10,30} | `ΔE_bath(t) = E_bath − E_floor_expected` and `E0 − E_lat(t)` agree to `< LEDGER_ID_TOL` (the D2 identity holds numerically) **AND** `E_floor_expected` equals the seed's returned energy to `MACHINE_TOL` **AND** `N_occ_excess` is well-defined (finite, `≥0`, and `= N_occ` at ρ=0). The excess observables are frozen by D2; FB2 verifies they are computable and identity-consistent on a seeded floor. |
+| **FB3** | Excess-tare, densest-viable comb, ρ ∈ {0.3,1,3,10,30} | the floor-broken tare `√(1−E_bath/E0)` is **NaN/clamped** for `E_bath>E0` (documented broken) **AND** the excess-tare `c_excess = √(E_lat/E0)` is finite and `∈[0,1]` at every ρ, with `\|c_excess − √(1−ΔE_bath/E0)\|/max(c_excess,ε) < W5_TARE_C_TOL` (the two frozen D2 forms agree). |
+| **FB4** | Seed reproducibility, densest-viable comb, ρ ∈ {1,10}, seeds {A,B} | the floor **STATISTICS not the realization** carry the reads: seeds A and B give **different** `bath.x/p` realizations (`‖x_A−x_B‖ > 0`) but agree on `max_cons_drift`, `σ(E_lat)/E0`, and `ΔE_bath` first-plateau to within `SEED_STAT_TOL = 0.10` (relative) — i.e. the FB1/FB2 reads are seed-**statistics**-robust, not realization-locked. |
+| **FB5** | Cold limit (ρ=0), densest-viable comb + densest banked comb | with `e_floor_per_mode=0` the seed is a **no-op** (early return; `bath.x/p` stay zero) ⇒ the ρ=0 cell is **byte-identical** to the un-seeded `_build` path: `E_bath(t)` trajectory and `R_return`/`R_cum` reproduce the banked cold behavior **bit-for-bit** (`max abs diff = 0.0`) — on BOTH the densest-viable `Δω=0.030` comb (the arm's ρ=0 control) AND the banked densest `Δω=0.010` comb (reproducing the #726 dips, the cited premise). |
+
+**Frozen verdict classes (Rule 11 — no retune; a per-leg deviation is a finding, not a silent relabel):**
+
+- **FLOOR-METER-VALID** — FB1–FB5 all pass on the **alive (partial-transfer) combs**. The meter reads a pre-occupied floor: the conservation identity is κ-robust with a floor, the excess ledger + excess-tare are well-defined, the reads are seed-statistics-robust, and the cold limit reproduces the bank bit-for-bit. The instrument certificate extends to a seeded floor **scoped to the alive-comb envelope** (the fully-discharging densest comb is documented NO-INFORMATION, not part of the certificate). ⇒ **STAGE 2 (the arm) MAY fire** on the alive combs.
+- **FLOOR-LEDGER-ARTIFACT** — the meter **cannot** read a floor: the identity ledger breaks (`> LEDGER_ID_TOL`), or the jitter is **secular** (one-signed drain, `|r|≥0.9`) or unbounded on a comb that must show a revival, or the excess-tare is ill-defined, or the cold limit is not bit-for-bit. ⇒ **STOP. SPEC the fix. DO NOT fire the arm.** (The alive-envelope reframe alone does NOT trigger this class — that is the expected, documented boundary; this class is for a genuine ledger/read failure on the combs the arm needs.)
+- **FLOOR-NUMERICAL** — NaN/Inf/detonation in any FB leg from an integrator pathology (distinct from the physical clamp, which is a documented instrument limit, not a numerical failure).
+
+This lane returns a verdict on the **meter with a pre-occupied floor**, never on F6 and never on the arrow. **NO arm fires.** If the coupler needs a floor-honest change to pass, that is a **FINDING + SPEC**, not a silent fix — the honest verdict is banked instead.
