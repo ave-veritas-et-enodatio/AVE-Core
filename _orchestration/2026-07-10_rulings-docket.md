@@ -1857,3 +1857,31 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 | `manuscript/ave-kb/common/engine-capability-map.md` §8c | the capability absorption + this ruling |
 
 **Class:** F6 resolution-direction adjudication. Counting-arrow QUESTION stays **OPEN**; nothing emergence-class; instrument kept. **Owed to auditor lane:** land the RULING-22 fork direction + the DOS-balance-design-walk-owed note (implementer surfaces; auditor lands).
+
+---
+
+## Continuation — 2026-07-19 (Grant in-chat): F6 NOISE-FLOOR ARROW ruling — static pre-occupied floor sets the local arrow; DOS-balance fork MOOT; thermal-floor arm opened
+
+**Append-only, dated block.** Records the **owed F6 design-walk** left open at the counting-arrow arc closure (engine-capability-map §8c.9, on the #728 branch: *"Design-walk OWED with Grant"*). The prior blocks are left untouched; this is the current-status record of where that design-walk went. **Nothing banked at result-class** — the **thermal-floor arm** (in-flight sibling lane, branch `feat/f6-thermal-floor-arm`) adjudicates. Companion: the WALK/CONTEXT record `research/2026-07-19_noise-floor-arrow-walk_RECORD.md` (full arc + attribution key + canon anchors). *(Docket-tail collision with the arm lane's own append is expected and normal.)*
+
+### The three Grant rulings (verbatim, `[sic]` as typed)
+
+1. **The static/dynamic conflation question** — *"are we just cinflating the static picture with the diynamic effects, like exponential lattice node genesis?"*
+2. **★ THE RULING** — *"my gut says its couples through a static noise floor"* + *"so wffectively constant"* — the T2 sink couples **locally** as a static, pre-occupied noise floor. Canon home: the Johnson-Nyquist vacuum thermal-noise-floor row, `manuscript/ave-kb/common/translation-tables/translation-circuit.md:151`.
+3. **The hypothesis + lowpass questions** — *"word, that picture makes perfect sense to me, and the noise floor woild set the arrow of time right?"* and *"and that direction is a frequency shift toward a baseline lowpass filter?"* (the first clause, *"word, that picture makes perfect sense to me,"* also stands as Grant's verbatim **ratification** of the reframe cascade).
+
+### The reframe cascade (orchestrator-walk, Grant-ratified by ruling 3's first clause)
+
+- **(i)** the full-discharge pathology was bath **EMPTINESS**, not head-count — a cold comb drains to zero; a floor relaxes **to** the floor; the over-extraction clamp is **moot**.
+- **(ii)** the cold-comb recurrences were a **coherent-zero-phase initial-condition** artifact the instrument imposed; a random-phase floor never re-phases ⇒ **the local arrow = coherent returns dephasing into the pre-occupied random background** (counting-only, **static**; `retention-transition-split.md:31,:36`).
+- **(iii)** the floor = the missing **FLUCTUATION** half of the FD pair (the certified two-tank transduction = the **dissipation** half, `thermal-phase-registers.md:25`); routes to the ℏ-as-FD open + the entropy-def PROPOSED (not resolved).
+- **(iv)** growth / node-genesis **re-homes** to the cosmological rate rung (`Γ=3Hρ_latent`, `dark-energy-latent-heat-definition.md:30,:121`; `H` invisible locally) ⇒ the **DOS-balance A/B fork is MOOT** (the §8c.8 RULING-22 recommended-direction slot resolves *away* from DOS-balance).
+- **(v)** floor **PROVENANCE** (level + randomness — the past-hypothesis analog; named candidate = the **crystallization frontier**, `dark-energy-latent-heat-definition.md:30`) is **explicitly upstream**, out of the arm's scope.
+
+### The lowpass framing (Grant-proposed / orchestrator-adjudicated / arm-testable)
+
+The floor interface = a **one-way lowpass for coherence**: amount/envelope passes both ways (the certified amount channel returns energy, `f6-certified-kappa-sweep_result.md` R-1/R-3); carrier-phase passes IN but not OUT (dephased against the random floor) ⇒ the arrow = iterated lowpass on retrievable structure. **★PRECISION (honest):** in the **linear** engine per-mode energies do NOT literally shift frequency — what decays is the **cross-mode phase correlation** (= the two-tank "reversible phase scramble", `thermal-phase-registers.md:25`), which to an envelope detector *looks like* power draining to the baseline; **literal spectral downconversion needs the nonlinear channel** (the measured op3-grade harmonics, `f6-meter-nonlinear-reval_result.md:69–74`). Correct as the coherence/observable transfer-function statement; needs the linear-vs-nonlinear precision the moment it enters a derivation. Candidate secondary arm observable = the coherent-vs-envelope return split.
+
+### The arm cross-ref (in-flight)
+
+The **thermal-floor arm** (sibling lane, `feat/f6-thermal-floor-arm`: §D floor-battery + prereg + its own docket entries) adjudicates the hypothesis via a **revival-vs-ρ kill-shape**: `ρ=0` positive control = the **#726 dips** (densest comb 14.9% @ `x≈1.3` → 35.5% @ `x≈2.46`, recurrence-timed, `f6-certified-kappa-sweep_result.md` R-3); frozen classes incl. **NO-SUPPRESSION (ride-on-top)** as the **live falsifier**. Even-if-confirmed = the **local-mechanism rung** only; provenance upstream; cosmological growth on the separate `Γ=3Hρ_latent` rung. **Owed to auditor lane:** the §8c pointer (transplant to engine-capability-map §8c when #728 merges — implementer surfaces, auditor lands; NOT drafted into the #728 branch here).
