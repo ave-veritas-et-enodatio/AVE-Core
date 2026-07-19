@@ -1782,7 +1782,7 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 | `retention-transition-split.md` §MODE-vs-SYSTEM | the discipline home of the worked example (candidate resolution → now RULED) |
 
 **Execution (this ruling — the Tier-1 KB-debt batch):**
-1. `k4-port-irrep-decomposition.md` — `:28` table row + §4 `:109`/`:111` sentences corrected LOSS → TRANSDUCTION (Rule-12; originals preserved verbatim inline); the bottom 🔴 flag carries a dated 🟢 RESOLUTION addendum (routed → RULED).
+1. `k4-port-irrep-decomposition.md` — `:28` table row + §4 `:111`/`:113` sentences corrected LOSS → TRANSDUCTION (Rule-12; originals preserved verbatim inline); the bottom 🔴 flag carries a dated 🟢 RESOLUTION addendum (routed → RULED). *(Line-anchor note: the §4 sentences sit at `:111`/`:113` in the produced file — the D1 RESOLUTION block's own insertion shifted them down from the pre-insertion `:109`/`:111`; the preserved FLAG body still quotes the pre-insertion `:109`/`:111`.)*
 2. `substrate-native-terminology.md:27` — dated note: the Op3 "substrate-intrinsic mode-decay" channel corrected from LOSS to TRANSDUCTION; the corpus's genuine loss channels **reduce four → three** (radiative port, boundary-Joule, Regime-IV rupture); original text preserved.
 3. `retention-transition-split.md` — the Op3 worked example promoted "candidate resolution (routed)" → RULED (code receipt kept; candidate wording preserved).
 4. This docket block (RULING 21).
@@ -1791,19 +1791,22 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 
 ---
 
-## Continuation — 2026-07-19 (Grant in-chat): RULING 22 — F6 counting-arrow FORK = DOS-BALANCE on the existing certified instrument
+## Continuation — 2026-07-19 (Grant in-chat): RULING 22 — F6 counting-arrow FORK: KEEP the instrument (Grant-ruled); DOS-BALANCE = recommended direction (design-walk in progress)
 
-**Append-only, dated block.** Resolves the fork left open by #727 (INSTRUMENT-INCOMPATIBLE): the certified bath meter cannot reach the counting regime without full discharge by configuration alone. Grant rules the resolution DIRECTION. Continues the shared Ruling sequence (last = RULING 21). Companion absorption: `manuscript/ave-kb/common/engine-capability-map.md` §8c (this batch).
+**Append-only, dated block.** Addresses the fork left open by #727 (INSTRUMENT-INCOMPATIBLE): the certified bath meter cannot reach the counting regime without full discharge by configuration alone. Grant rules KEEP-the-instrument (ruling out the R2 meter-edit); the DOS-balance resolution direction is the orchestrator's recommendation that Grant engaged into a design walk (in progress at this batch — see the attribution note below). Continues the shared Ruling sequence (last = RULING 21). Companion absorption: `manuscript/ave-kb/common/engine-capability-map.md` §8c (this batch).
 
-### RULING 22 (RULED — Grant in-chat 2026-07-19): KEEP THE INSTRUMENT — resolve the counting arrow by DOS-BALANCE, not a meter edit or a lower-κ re-cert
+### RULING 22 (Grant in-chat 2026-07-19): KEEP THE INSTRUMENT (Grant-ruled) — DOS-BALANCE is the recommended resolution direction, design-walk IN PROGRESS (upgrade-to-RULED left open)
 
-**Grant-verbatim (the ruling):** "*yes, keep the instrument*" (+ "*fully document in kb following proper skills and rules, lets also update the kb engine map*").
+**Grant-verbatim (the four words that rule):** "*yes, keep the instrument*" (+ "*fully document in kb following proper skills and rules, lets also update the kb engine map*"). **What this verbatim actually rules:** the instrument STAYS — it rules **OUT** the R2 meter-edit (a meter-mechanism change) and endorses documenting the existing certified meter. It does **not**, by itself, confirm DOS-balance as the mechanism; that framing is the orchestrator's recommendation (see the attribution note below).
 
-**Ruling (ruling-execution wording, from the verbatim above).** The counting-arrow resolution path is **DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT** — attack the **equipartition root** (bath-DOS ≫ participating-lattice-DOS drives the full discharge that clamps every quasi-continuum comb) by **balancing the mode counts** (candidate knobs, DIRECTION-ONLY: fewer bath modes near the line / larger collar / more lattice participation). The instrument is **KEPT** (not rebuilt).
+> **🟡 Attribution note (2026-07-19, Rule-12 — the "RULED DIRECTION / the resolution path IS DOS-BALANCE" wording below is preserved; this softens the current-status attribution).** Grant's four verbatim words rule OUT R2 and keep the instrument — that part is Grant-RULED. The **DOS-BALANCE framing** (attack the equipartition root by balancing bath-vs-lattice mode counts) is the **orchestrator's recommended path**, which Grant **engaged into a design walk** — that walk was **IN PROGRESS at the time of this batch**. The **direction confirmation rides the walk's outcome**; the **upgrade-to-RULED slot is left explicitly open** (it becomes RULED when the walk closes with Grant's confirmation, not before). Superseded wording preserved: the header formerly read "RULED — … resolve the counting arrow by DOS-BALANCE"; the Fork table's DOS-balance row formerly read "**RULED DIRECTION**"; the ruling sentence formerly read "The counting-arrow resolution path **is** DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT."
+
+**Recommended direction (orchestrator; Grant-engaged, walk IN PROGRESS — from the verbatim above + the design walk).** The recommended counting-arrow resolution path is **DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT** — attack the **equipartition root** (bath-DOS ≫ participating-lattice-DOS drives the full discharge that clamps every quasi-continuum comb) by **balancing the mode counts** (candidate knobs, DIRECTION-ONLY: fewer bath modes near the line / larger collar / more lattice participation). The instrument is **KEPT** (Grant-ruled, not rebuilt); the DOS-balance *mechanism* is the recommendation the walk is adjudicating.
 
 | Fork | Ruling |
 |---|---|
-| **DOS-balance on the existing instrument** | **RULED DIRECTION** |
+| **KEEP the instrument (rule out R2 meter-edit / rule out rebuild)** | **RULED** (Grant-verbatim "yes, keep the instrument") |
+| **DOS-balance on the existing instrument** | **RECOMMENDED DIRECTION** (orchestrator; Grant engaged the design walk — **upgrade-to-RULED pending the walk's outcome**) |
 | **R1 — re-certify the meter at κ < 0.030** | **NOT taken** (doubted; the κ·g degeneracy suggests `N_occ≥10` and `peak≤0.85` may never co-exist at a single κ_eff) |
 | **R2 — rate-limited / per-mode-capped back-reaction (a meter edit)** | **NOT taken** (breaks the standalone-K4 conservation identity ⇒ full W/X reval; the meter-mechanism change Grant declined) |
 | **click mechanism** (the door's other licensed arrow source) | **UNTOUCHED** — stays the licensed *alternative* arrow-home |
