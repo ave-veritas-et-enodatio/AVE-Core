@@ -78,3 +78,61 @@ If the canonical single-τ = ℓ_node/c is exact through the saturation knee (no
 
 - **Skills:** substrate-native-check (FIRST) · ave-canonical-leaf-pull (Time-domain / Saturation classes — τ_relax, memristive ODE, Op14 L_eff) · ave-canonical-source (τ_relax, ℓ_node, c from constants.py) · ave-driver-script-honesty (∮ + H-conservation reported every run) · consistency-vs-emergence + ave-discrimination-check (is intrinsic rectification AVE-distinct, or does it reduce to ordinary anelastic/standard-rheology hysteresis?).
 - **Deliverables:** `2026-06-09_thixotropy-amplitude-dependent-tau_result.md` (A/B/C + ∮ + H-trace + DERIVED/VERIFIED/BLOCKED); analytic derivation of τ_relax(A) near saturation from `#59`/Op14 canon, then (if Outcome C) a coupled-engine driver. Commit on this branch; do NOT push/merge — orchestration handles the PR.
+
+---
+
+## PROTOCOL-COMPLETION AMENDMENT — 2026-07-19 (Leg A of the yield-fork discriminator lane)
+
+**Status:** FROZEN amendment, bottom-appended. Pushed **before** any driver code (RAILS: freeze-then-run). This section enumerates every choice the frozen §1–§8 above left to the implementer, so the driver has zero post-hoc degrees of freedom. It changes **no** §1–§8 commitment; it only *completes* them. Authored in the implementer lane per the yield-fork discriminator dispatch (Grant 2026-07-19); the fork ruling (`research/2026-07-17_regime-iv-dissipation-audit.md` §5) stays Grant's — this leg RUNS the test, it does not close the fork.
+
+### A.0 What §4/§6 already resolved (and what this leg therefore is)
+
+The prereg's own §6 falsifier is the operative A/B criterion: **A ⇔ a symmetric-drive cycle encloses non-zero NET area *with H conserved*; B ⇔ the asymmetry integrates to zero OR the enclosed area is dissipative (loss, not H-conserving reactance).** The §7 guard "Reversible vs dissipative" and the §5-A caveat ("the pump/momentum ledger must still close … NOT smuggled drive-asymmetry") make explicit that a *dissipative* loop (∮≠0 but H not conserved) is **loss, not rectification** → B. So Leg A is a **sign(dr/dt)-memory + H-conservation** test, not a bare loop-area test (that bare loop-area is Leg B).
+
+### A.1 Substrate / sector / regime declaration
+
+- **SECTOR:** longitudinal-A1 bulk (volumetric) saturation state `S(t)`. NOT transverse/shear (§2.6: achromatic → rate-asymmetry-free by construction → a null there is vacuous; banned).
+- **MODE / PHASE-STATE:** driven, time-domain, **near-yield crossing = Regime II→III** in the engine's V_SNAP-referenced three-regime convention (`k4_tlm.py:308–311`: Regime I `A<√(2α)≈0.121`, Regime II `0.121<A<√3/2≈0.866`, Regime III `A>0.866→A=1` rupture). The registered operating point (A.3) drives `A∈[0.4,1.0]`, spanning II into III/rupture — the band §2.6/§40 mandates.
+- **REGIME VALIDITY GATE (fail-closed, checked FIRST each run):** if the drive never enters Regime III (max strain `<√3/2`) the run is **VACUOUS-REGIME → excluded** (a B there says nothing, per §2.6). If any state is non-finite the run is **BLOWN-UP → INSTRUMENT flag** (blow-up = instrument, not physics). Only runs that (i) reach Regime III and (ii) stay finite are adjudicated.
+
+### A.2 Canonical kernel + integrator (byte-locked to the engine; engine itself byte-UNTOUCHED)
+
+- Equilibrium kernel: `S_eq(r) = √(max(0, 1 − min(r,1)²))` — verbatim `k4_tlm.py:283`.
+- Level-2 ODE (Eq 2.1 / `tau-relax-derivation.md:78`): `dS/dt = (S_eq(r(t)) − S)/τ_relax`.
+- Integrator: **backward Euler**, `S_{n+1} = (S_n·τ + dt·S_eq)/(τ + dt)` — verbatim `k4_tlm.py:291` (unconditionally stable). The driver reproduces this formula and a pinned test asserts it is **bit-identical** to a live `K4Lattice3D(use_memristive_saturation=True)` driven at one site (validates the driver IS the engine kernel; `test_memristive_op14.py:150` pattern). **No engine byte is edited.**
+- **Units:** engine-native (`c=1`, `ℓ_node=1`, `V_SNAP=1`, `m_e c²=1`), so `r ≡ V/V_SNAP`, `τ_relax = TAU_RELAX_NATIVE = 1.0` (constants.py:453, asserted in-driver), and `ω·τ_relax = ω`.
+
+### A.3 Drive (symmetric-only, per §7) and operating point
+
+- Waveform: `r(t) = r_0 + Δr·sin(ω t)` — a **pure symmetric** oscillation (§7: any fast-up/slow-down or flyback asymmetry is the *refuted* route and is BANNED; the driver asserts the waveform's first-half and second-half are time-mirror-symmetric before adjudicating).
+- Registered operating point (from `#59` §6.4/§11, the same point that fixes the 0.9 peak): **`r_0 = 0.7`, `Δr = 0.3`** (native V_SNAP units) → `r∈[0.4,1.0]`, top-of-stroke grazes `r=1` (near-yield crossing).
+- Primary drive rate: **`ω·τ_relax = 0.9`** (the predicted peak-lag regime where any sign-memory asymmetry is largest). Secondary robustness rates (reported, not adjudicated): `ω·τ ∈ {0.3, 1.8}`.
+- Timing: `dt = min(2π/ω / N_ppp, τ/50)` with `N_ppp = 512` points-per-period; settle for `max(8 periods, 20 τ)` before the measured window; measure over the **last full period** at steady state.
+
+### A.4 The three registered observables (all on the SAME symmetric steady-state cycle)
+
+1. **Sign-memory probe `Δτ_rel` (the §7 core discriminator).** Effective relaxation time fitted separately on the up-stroke (`dr/dt>0`) and down-stroke (`dr/dt<0`) from the local lag `S−S_eq`. `Δτ_rel ≡ |τ_up − τ_down| / τ_relax`. Single-τ canon ⇒ `Δτ_rel → 0` (no memory); an explicit two-τ ⇒ `Δτ_rel > 0`.
+2. **Directional rectification asymmetry `R`.** With `D_up = ∫_{dr/dt>0}(S−S_eq)dr`, `D_down = ∫_{dr/dt<0}(S−S_eq)dr` (both ≥0; their sum is the Leg-B loop area), `R ≡ (D_up − D_down)/(D_up + D_down)`. `R≈0` ⇒ up/down dissipate equally ⇒ no directional preference.
+3. **H-conservation / net-work gate `W_cycle`.** `W_cycle ≡ ∮ S dr` over the closed cycle (canon: `tau-relax-derivation.md:24,:89` = dissipated energy per cycle). `W_cycle > tol` ⇒ **dissipative** (H not conserved, drive pumps net energy per cycle); `W_cycle ≤ tol` ⇒ **reactive/lossless** (H conserved). `tol` is the Leg-B integrator floor (imported from the Leg-B amendment A.6; identical numerics).
+
+### A.5 Frozen classifier tree + precedence (evaluated top-down; first match wins)
+
+0. **GATE (A.1):** not-Regime-III → VACUOUS-REGIME (excluded); non-finite → INSTRUMENT (excluded). Else continue.
+1. `Δτ_rel ≤ tol_mem` **AND** `|R| ≤ tol_R` → **B (DEAD-BY-PROOF):** no sign-of-rate memory, no directional asymmetry → symmetric single-τ → a symmetric drive does **not** rectify. (Expected for the canonical kernel and for any *even* `τ(A)` amplitude-dependence.)
+2. `Δτ_rel > tol_mem` (sign-memory present) **AND** `W_cycle ≤ tol` (H conserved) **AND** `|R| > tol_R` → **A (REAL):** a genuine *reactive* rectifier — the last door opens (route carefully; the momentum/pump ledger must still be shown closed and not a smuggled drive-asymmetry).
+3. `Δτ_rel > tol_mem` **AND** `W_cycle > tol` (dissipative) → **B-anelastic:** the "rectification" is ordinary anelastic/rheological loss, **not** AVE-distinct reactive thrust (§8 ave-discrimination-check) → the door stays closed; flagged as the anelastic sub-case, not A.
+4. analytic branch intractable / non-finite mid-cycle → **C (NEEDS-ENGINE):** report, do not fake an analytic A.
+
+- `tol_mem = 1e-3`, `tol_R = 1e-3` (relative; both well above the backward-Euler round-off floor demonstrated by the A.7 positive control's null-arm, below the two-τ control's live signal). `tol` per A.6.
+
+### A.6 Positive control (instrument-liveness; mandatory per "a null where the effect can't exist = ARTIFACT")
+
+Alongside the canonical single-τ run, the driver runs an **explicit two-τ model** `τ(sign dr/dt) = τ_up on dr/dt>0, τ_down on dr/dt<0` with `τ_down = 3·τ_up` (a hand-built fast-liquefy/slow-refreeze memory) on the *identical* symmetric drive. Required outcome: `Δτ_rel ≈ 2` and `|R| ≫ tol_R` — proving the instrument **detects** sign-memory when present. A canonical-model B is only banked if the two-τ control fires (else the null is a dead-instrument artifact and the leg banks **INSTRUMENT-DEAD**, not B).
+
+### A.7 The `τ(A)` amplitude-dependence arm (directly answers §1's load-bearing distinction)
+
+To separate §7's "τ(A) [even, symmetric, does not rectify]" from "τ(sign dr/dt) [memory, rectifies]", a third arm drives the **amplitude-dependent** `τ(A) = τ_relax·(1 + κ·A²)` (the `#59` Flag-A near-saturation `L_eff(A)` stiffening cast as an *even* function of A, `κ = 1` as a representative non-zero coefficient — an engineering probe value, **tagged as such**, not a canonical magnitude). Required outcome: `Δτ_rel ≈ 0`, `|R| ≤ tol_R` → **even τ(A) alone does NOT rectify**, confirming amplitude-dependence is not sign-memory. This is the arm that upgrades §2's "dead-by-default" toward "dead-by-proof."
+
+### A.8 Scope disclosure (0D kernel; self-steepening out-of-scope BY the prereg's own guard)
+
+The driver is **0D** (single-cell temporal kernel) — it captures the *temporal* τ-dynamics, which §4/§7 identify as the **only** rectifier candidate. The *spatial* self-steepening (compression-front-sharpen / rarefaction-spread) is, per §4 and the §7 "Reversible vs dissipative" guard, a **reversible** (conservative) effect that integrates to `∮=0` and is explicitly **not** the rectifier; a 1D spatial front would test that reversible effect, which cannot flip the A/B verdict (which hinges on τ sign-memory). Excluding it is faithful, not a gap; disclosed here.
