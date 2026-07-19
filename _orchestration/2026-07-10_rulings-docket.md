@@ -1762,3 +1762,29 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 - **R-5.** The collapse-falsification is **not prospective news** — the banked #722 dense `R_cum=0` at κ=0.03 already indicated it at freeze. Freeze mechanics genuine; prospective-content claim scoped (the favorable single-comb finding is the new content).
 - **R-6.** The densest "6.8e-6 conservation drift" matches X1 to **10 significant digits**, NOT bit-for-bit (X1=6908 steps, sweep=6912; the horizon is `round(11·T_rec)=6912/864` vs the §3-table `11·round(T_rec)=6908/869`). The X4 two-tank/sparsest `0.989`/`0.890` remain genuinely bit-identical. The `self_check` consumes its own booleans (precedence guard only) — the review's raw-trace re-derivation is the real independent check.
 - **Routed follow-on (Grant-gated, NOT fired):** corrected observable + a **NO-FULL-DISCHARGE operating point on the EXISTING instrument** (the cheapest decisive next lane); the phase-faithful-meter SPEC is **DEMOTED** (its "amount can't convert" motivation is falsified).
+
+---
+
+## Continuation — 2026-07-19 (Grant in-chat): RULING 21 — Op3 = LOSSLESS TRANSDUCTION (mode loss ≠ system loss)
+
+**Append-only, dated block.** Resolves the routed Op3 label-vs-code contradiction (the 2026-07-17 `k4-port-irrep-decomposition.md` bottom flag + the `substrate-native-terminology.md:27` four-channels FLAG + the `retention-transition-split.md` Op3 worked example). Evidence base: the Regime-IV dissipation audit §F4 (`research/2026-07-17_regime-iv-dissipation-audit.md`) + the unitary-scatter code receipt. Continues the shared Ruling sequence (last = RULING 20).
+
+### RULING 21 (RULED — Grant in-chat 2026-07-19): OP3 = LOSSLESS TRANSDUCTION, not system dissipation
+
+**Grant-verbatim (the ruling, [sic] — typos in source):** "*mode loss should jot equal system loss, its trasnduction right?*"
+
+**Ruling (ruling-execution wording, normalized from the verbatim above).** Op3's $A_1$ behaviour is **LOSSLESS TRANSDUCTION out of the $A_1$ mode** — a power-conserving unitary scatter in which **common-mode rejection converts $A_1$ content into the other ($T_2$) irreps** — **NOT system dissipation.** **Mode-projection loss ≠ system loss.** The MODE-vs-SYSTEM candidate re-read named in the flag is the ruled reading (LOSS-FROM-A-MODE, `requires_R = no`; the system conserves power).
+
+| receipt | content |
+|---|---|
+| `src/ave/core/k4_tlm.py:396-398` (re-verified at HEAD) | "Unitary: `V_inc_A[k] = Γ * V_ref_A[k] + T * V_ref_B[k]` … `T = sqrt(1 - Γ²)` … **Conserves total power**" — a lossless reactive scatter ($|\Gamma|^2+|T|^2=1$) cannot dissipate |
+| `research/2026-07-17_regime-iv-dissipation-audit.md` §F4 | the audit that surfaced the Op3 label-vs-code contradiction (MODE-vs-SYSTEM carve) |
+| `retention-transition-split.md` §MODE-vs-SYSTEM | the discipline home of the worked example (candidate resolution → now RULED) |
+
+**Execution (this ruling — the Tier-1 KB-debt batch):**
+1. `k4-port-irrep-decomposition.md` — `:28` table row + §4 `:109`/`:111` sentences corrected LOSS → TRANSDUCTION (Rule-12; originals preserved verbatim inline); the bottom 🔴 flag carries a dated 🟢 RESOLUTION addendum (routed → RULED).
+2. `substrate-native-terminology.md:27` — dated note: the Op3 "substrate-intrinsic mode-decay" channel corrected from LOSS to TRANSDUCTION; the corpus's genuine loss channels **reduce four → three** (radiative port, boundary-Joule, Regime-IV rupture); original text preserved.
+3. `retention-transition-split.md` — the Op3 worked example promoted "candidate resolution (routed)" → RULED (code receipt kept; candidate wording preserved).
+4. This docket block (RULING 21).
+
+**Class:** operator-physics adjudication (consistency / terminology). No emergence chord minted; the unitary scatter was already verified fact — the ruling settles which reading of the *leaf wording* is canonical. **Owed to auditor lane:** land the RULING-21 Op3-transduction relabel in the manuscript / `COLLABORATION_NOTES` queue (implementer surfaces; auditor lands).
