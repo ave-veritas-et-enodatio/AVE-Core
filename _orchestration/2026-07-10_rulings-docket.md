@@ -1765,6 +1765,24 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 
 ---
 
+## Continuation — 2026-07-19: electron/proton shape-walk adjudicated — dead branches recorded, $r_p$ flag raised, opens tracked
+
+**Append-only, dated block.** Records the 2026-07-18 electron/proton shape-walk (in-chat Grant + orchestrator walk, workflow `wf_e86a1fd8-a2e`) and its canon-adjudication. Walk-record: `research/2026-07-18_electron-proton-shape-walk_adjudicated.md`. **NOTHING new was canonized** — the walk was adjudicated *against* existing canon by a 3-lens corpus pull; all file:line receipts re-verified at HEAD.
+
+**Adjudication outcome (the durable record):**
+- **OWNED** (walk reconciles to canon): body asymmetry ($0_1$ vs $6^3_2$, phase-space-vs-real-space); "no two loops linked" load-bearing ($S_3\to SU(3)$ confinement); charge universality = the M/Q/J no-hair rule; neutron = $6^3_2\cup 0_1$ threaded composite.
+- **CONTRADICTED — dead branches, stated so they stay dead:** (1) "proton mass = linkage/rigging strain" — canon = the self-consistent mass oscillator eigenvalue (1-residual; trapped $+1$ twist at $1.0\,m_e$ amplified by feedback); (2) "multi-cell spatial junction web / Y-junction" — canon = SUB-NODE proton ($\approx\ell_{node}/460$) with skew-line tubes offset $1.0\,\ell_{node}$ + orthogonal-crossing Transverse Polarization Strain, zero Y-junction content; (3) "fractions = shares" — canon = Witten-effect $\mathbb{Z}_3$ $\theta$-vacuum dressing + the two-ontology reconciliation.
+- **NOT-IN-CANON** (demoted to candidate-framing): the form-factor flat-vs-structured correspondence; the $g_p\approx 5.586$-as-distributed-winding story (canon delegates the moment).
+
+**Two tracked opens (surfaced, not fired):**
+- **(a) $N=3$ minimality theorem = the named chord-decider** — already canonically tracked (`topological-fractionalization.md:59`, "NO 3-loop stability theorem"; strengthen-by at `vol2/claim-quality.md:324`). Cite, don't duplicate.
+- **(b) ★ $r_p$ two-routes tension — FLAGGED, KEEP-BOTH, routed to the baryon lane.** Route A ($D_p=4\lambda_p$ Compton/Ax4, `proton-identification.md:46`, axiom-derived, matches muonic-H) vs Route B (linkage-strain-gradient RMS, `02_baryon_sector.tex:41`, asserted) — mechanisms not obviously compatible (sub-node vs multi-node framing under a shared $0.84$ fm target). Flag landed as a dated bottom-append on `proton-identification.md`; neither route edited.
+
+**Also surfaced (auditor items, not landed here):** (c) mass=A1 sector-ownership never applied in the baryon chapter (propagation gap); (d) EDM=0 anchor (`research/2026-06-24_electron-vacuum-state-synthesis.md:46,:84`) canonization candidate, low priority.
+
+**Plan-impact.** The sub-node scale fact ($D_p\approx\ell_{node}/460$) means current node-scale-DOF engines **cannot resolve baryon interior structure** — a future baryon-sector engine test needs a sub-node/internal-DOF instrument class (does not yet exist). **No change to the current F6 / counting-arrow priority.** The walk **reinforces R13 mechanism (a)** — the topological latch re-confirmed at the baryon scale via linking-invariance ("no two linked").
+
+**Propagation.** The $r_p$-reconciliation and the mass=A1 propagation-gap items are **owed to the baryon / auditor lanes** (implementer surfaces; auditor lands).
 ## Continuation — 2026-07-19 (Grant in-chat): RULING 21 — Op3 = LOSSLESS TRANSDUCTION (mode loss ≠ system loss)
 
 **Append-only, dated block.** Resolves the routed Op3 label-vs-code contradiction (the 2026-07-17 `k4-port-irrep-decomposition.md` bottom flag + the `substrate-native-terminology.md:27` four-channels FLAG + the `retention-transition-split.md` Op3 worked example). Evidence base: the Regime-IV dissipation audit §F4 (`research/2026-07-17_regime-iv-dissipation-audit.md`) + the unitary-scatter code receipt. Continues the shared Ruling sequence (last = RULING 20).
