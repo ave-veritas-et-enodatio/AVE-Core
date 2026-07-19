@@ -85,6 +85,8 @@ The **shipped classifier** (fire-conditions frozen in prereg §4; the decision-t
 
 **Disclosed prereg deviation (finding, not a fix; R-5):** the honest frozen-classifier answer on this data is **FOREIGN-EATER** (return not tracking `x`), not the FRICTION-RENAMED the shipped tree returned; the shipped tree **narrowed the frozen FOREIGN-EATER condition** (undisclosed at push). Per **Rule 11 the code is left UN-RETUNED**; **both readings are stated** and the **FRICTION-RENAMED-vs-FOREIGN-EATER adjudication stays routed to Grant** (with `NULL-OF-REGIME` = the lane's routed regime-interpretation, not a frozen class). The physical conclusion — falsification via the narrowband few-mode drive + `τ_transfer ≫ T_rec` inversion — is **unambiguous regardless of the bin label**.
 
+> **📌 Line-cite correction (2026-07-19, Rule-12 — the code moved; the two stale `f6_counting_arrow_arm.py` cites above and below are preserved).** The two references to `f6_counting_arrow_arm.py:225,:240,:253` (this section and the §deviations item below) are **stale** — re-verified at HEAD, the correct sites are: **`:247`** (`sparse_ok` **definition**: `"sparse_ok": bool(sparse_ret > SPARSE_RETURN_MIN)`), **`:260`** (the FOREIGN-EATER **short-circuit**: `if not crit["sparse_ok"]:`), and **`:224–230`** (the disclosed-narrowing **comment block**). RULING 20's docket receipt already uses the corrected `:247` / `:260` / `:224–230` triple. The `:225,:240,:253` triple is preserved above (Rule-12) as the original push-time citation.
+
 ---
 
 ## 5 · Companion leg (SECONDARY — non-gating; inconclusive)
