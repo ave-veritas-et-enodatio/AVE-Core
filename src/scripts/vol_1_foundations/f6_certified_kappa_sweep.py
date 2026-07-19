@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """F6 certified-κ recurrence sweep — the SUFFICIENT test of the counting arrow.
 
+★POST-REVIEW REPAIR (PR #726 review, 10 confirmed / 0 refuted): the FROZEN §4 verdict
+(FOREIGN-EATER) and "question NOT decided" SURVIVE, but the ORIGINAL mechanism story was
+wrong. R-1: the shipped observable resolved the prereg's frozen "first/global transfer
+peak" ambiguity to GLOBAL argmax, which lands on the post-clamp plateau ⇒ R_return ≡ 0,
+ERASING the real signal. This repair resolves it to the FIRST-PLATEAU reading (disclosed
+in the prereg POST-FREEZE amendment + result §3/§7), which recovers RECURRENCE-TIMED
+PARTIAL RETURNS at the densest comb (mildly FAVORABLE single-comb evidence). R-2: the
+scale=0 back-reaction clamp is an ABSORBING state (E_lat ≡ 0) — post-clamp R ≡ 0 is
+STRUCTURAL, and two combs spend 84-89% of their window dead. See the result doc.
+
 Prereg (FROZEN): research/2026-07-18_f6-certified-kappa-sweep_prereg_FROZEN.md
   frozen-by-push 2026-07-19T16:16:32Z (API committedDate), BEFORE this driver.
 Charters:        research/2026-07-15_f6-mode-count-door_CHARTER.md (bin (i), §5b)
@@ -91,6 +101,47 @@ INV_E = 1.0 - 1.0 / np.e   # 63% level for t63
 
 DENSEST_DW = 0.010         # the densest comb — the regime-gate + X1/X5/X6 primary plant
 
+# ── R-1 (PR #726 review): the observable resolves the prereg's FROZEN ambiguity ──
+# The prereg §3 defines t_peak = "argmax_t E_bath(t) (… first/global transfer peak)"
+# — a FROZEN AMBIGUITY ("first/global"). The originally-shipped driver resolved it to
+# GLOBAL argmax, which at κ=0.030 lands on the POST-CLAMP plateau (E_bath ≡ E0 once the
+# scale=0 clamp hard-zeroes the lattice) ⇒ R_return ≡ 0 over the whole physical run,
+# ERASING the real signal. This repair resolves it to the OTHER frozen reading — the
+# FIRST-PLATEAU / transfer-complete peak — which recovers the recurrence-timed partial
+# returns the review found in the raw trace. Per the task RAILS + Rule 11 this is a
+# DISCLOSED-RESOLUTION of the prereg's own ambiguity, NOT a retune (POST-FREEZE amendment
+# + result §3/§7 disclose it; the superseded global-argmax tables are preserved in JSON).
+EPS_CLAMP = 1e-12          # E_lat ≤ this ⇒ the scale=0 clamp has hard-zeroed the lattice
+PLATEAU_PROM = 0.05        # transfer-complete prominence tol (frac of E0): a first-plateau
+#                            peak is the first local E_bath max whose following dip exceeds
+#                            this before recovery — rejects the rising-edge ripple, catches
+#                            the ≥14% recurrence dips (same order as the other §4 tols).
+
+
+def _clamp_onset(e_lat: np.ndarray) -> int:
+    """First step index where the scale=0 back-reaction clamp has hard-zeroed the lattice
+    (E_lat ≡ 0 for the remainder — the absorbing state, PR #726 review R-2). Returns
+    len(e_lat) if no clamp fires (the physical window is the whole run)."""
+    hit = np.nonzero(e_lat <= EPS_CLAMP)[0]
+    return int(hit[0]) if hit.size else len(e_lat)
+
+
+def _first_plateau_idx(e_bath: np.ndarray, e0: float, phys_end: int) -> int:
+    """First-plateau / transfer-complete peak (the OTHER reading of the prereg's frozen
+    'first/global transfer peak' ambiguity, R-1). The first local maximum of E_bath in
+    the PHYSICAL (pre-clamp) window whose following dip exceeds PLATEAU_PROM·E0 before
+    E_bath recovers to that peak. Falls back to the pre-clamp argmax if no prominent
+    peak (e.g. a comb that clamps before its first recurrence — a NO-INFORMATION cell)."""
+    prom = PLATEAU_PROM * e0
+    for i in range(1, phys_end - 1):
+        if e_bath[i] >= e_bath[i - 1] and e_bath[i] > e_bath[i + 1]:
+            for j in range(i + 1, phys_end):
+                if e_bath[j] >= e_bath[i]:
+                    break  # recovered without a prominent dip ⇒ not the transfer peak
+                if e_bath[i] - e_bath[j] >= prom:
+                    return i
+    return int(np.argmax(e_bath[:phys_end])) if phys_end > 0 else 0
+
 
 # ── one comb run: sweep result + folded regime diagnostics (prereg §6) ───────
 @dataclass
@@ -101,8 +152,8 @@ class CombResult:
     t_rec: float
     n_steps: int
     e0: float
-    e_bath_peak: float
-    peak_frac: float          # E_bath_peak / E0 (transfer health / NULL)
+    e_bath_peak: float        # E_bath at the FIRST-PLATEAU peak (the honest R-1 reference)
+    peak_frac: float          # E_bath_peak / E0 (transfer health / NULL), first-plateau
     n_occ: int
     max_cons_drift: float     # max |E_lat+E_bath−E0|/E0 (identity audit)
     t63: int                  # first step E_bath ≥ (1−1/e)·peak (transfer timescale)
@@ -110,8 +161,26 @@ class CombResult:
     x_50: float               # x at first R_ret_cum ≥ 0.5 (nan if never) — transition midpoint
     omega_d: float            # re-measured drive line (rFFT of collar q) — diagnostics provenance
     linewidth_fwhm: float     # half-power width of ω_d
-    r_return_table: dict = field(default_factory=dict)  # x -> R_return (instantaneous)
+    # ── R-1 CORRECTED (first-plateau) observable — the classifier consumes THESE ──
+    r_return_table: dict = field(default_factory=dict)  # x -> R_return (first-plateau ref)
     r_cum_table: dict = field(default_factory=dict)     # x -> R_ret_cum (monotone)
+    # ── R-2 clamp / absorbing-state disclosure (the no-information window) ──
+    clamp_step: int = -1              # first step the scale=0 clamp hard-zeroes E_lat (-1 = none)
+    clamp_x: float = float("nan")     # x at the clamp onset (nan = no clamp)
+    frac_dead: float = 0.0            # fraction of the recording window that is post-clamp DEAD
+    post_clamp_dead: bool = False     # did the absorbing clamp fire in this run?
+    no_information: bool = False      # clamp fired before the FIRST recurrence completes (x<1)
+    first_plateau_frac: float = 0.0   # E_bath_firstplateau / E0 (the honest transfer health)
+    first_plateau_x: float = float("nan")  # x at the first-plateau peak
+    # ── R-1 dip-vs-running-max diagnostic (parameter-free, over the physical window) ──
+    dip_rmax_table: dict = field(default_factory=dict)  # x -> 1 − E_bath/running_max(E_bath)
+    dip_rmax_peak: float = 0.0        # deepest dip below the running max (physical window)
+    dip_rmax_x: float = float("nan")  # x of the deepest running-max dip
+    # ── SUPERSEDED global-argmax reading (PRESERVED for audit; NON-gating) ──
+    e_bath_peak_global_superseded: float = 0.0
+    peak_frac_global_superseded: float = 0.0
+    r_return_table_global_superseded: dict = field(default_factory=dict)
+    r_cum_table_global_superseded: dict = field(default_factory=dict)
     # reactance pair (Rule-10 corollary): bath C-state Σ½ω²x² AND L-state Σ½p²
     # sampled ACROSS the window (11-point x-grid) — not a single-phase snapshot.
     ebath_c_table: dict = field(default_factory=dict)   # x -> C-state / E0
@@ -123,7 +192,9 @@ class CombResult:
 def run_comb(delta_omega: float, horizon_recurrences: int = HORIZON_RECURRENCES,
              omega_min: float = OMEGA_MIN, m: int | None = None) -> CombResult:
     """One comb at the CERTIFIED κ=0.030 MILD. Records E_lat/E_bath, the collar q(t),
-    and the bath C/L reactance split; derives R_return(x), t63, x_50, ω_d/linewidth.
+    and the bath C/L reactance split; derives R_return(x) via the R-1 CORRECTED
+    first-plateau reference (plus the superseded global-argmax reading + the dip-vs-
+    running-max diagnostic), t63, x_50, ω_d/linewidth, and the R-2 clamp disclosure.
     """
     if m is None:
         m = _m_for(delta_omega)
@@ -133,6 +204,7 @@ def run_comb(delta_omega: float, horizon_recurrences: int = HORIZON_RECURRENCES,
     e0 = cpl.e_lat()
     etot0 = e0 + cpl.e_bath()
     steps = np.arange(1, n_steps + 1)
+    e_lat = np.empty(n_steps)  # R-2: needed to detect the scale=0 absorbing clamp
     e_bath = np.empty(n_steps)
     ebc = np.empty(n_steps)   # bath C-state Σ½ω²x²
     ebl = np.empty(n_steps)   # bath L-state Σ½p²
@@ -141,21 +213,63 @@ def run_comb(delta_omega: float, horizon_recurrences: int = HORIZON_RECURRENCES,
     for k, i in enumerate(steps):
         q_ts[k] = cpl.read_q()
         cpl.step(int(i))
+        e_lat[k] = cpl.e_lat()
         e_bath[k] = cpl.e_bath()
         ebc[k] = float(0.5 * (cpl.bath.omega**2 * cpl.bath.x**2).sum())
         ebl[k] = float(0.5 * (cpl.bath.p**2).sum())
-        max_drift = max(max_drift, abs((cpl.e_lat() + e_bath[k]) - etot0) / e0)
+        max_drift = max(max_drift, abs((e_lat[k] + e_bath[k]) - etot0) / e0)
     x = steps * delta_omega / (2 * np.pi)
-    e_bath_peak = float(e_bath.max())
-    t_peak_k = int(np.argmax(e_bath))
-    # t63 = first step E_bath ≥ (1−1/e)·peak (the transfer timescale)
+
+    # ── R-2: the scale=0 absorbing clamp (E_lat ≡ 0 for the remaining window) ──
+    phys_end = _clamp_onset(e_lat)
+    post_clamp_dead = phys_end < n_steps
+    clamp_step = int(steps[phys_end]) if post_clamp_dead else -1
+    clamp_x = float(x[phys_end]) if post_clamp_dead else float("nan")
+    frac_dead = (n_steps - phys_end) / n_steps
+
+    # ── R-1 CORRECTED reference: the FIRST-PLATEAU / transfer-complete peak ──
+    t_fp = _first_plateau_idx(e_bath, e0, phys_end)
+    e_bath_peak = float(e_bath[t_fp])            # first-plateau energy (the return reference)
+    first_plateau_x = float(x[t_fp])
+    # t63 = first step E_bath ≥ (1−1/e)·peak (the transfer timescale; first-plateau ref)
     hit63 = np.nonzero(e_bath >= INV_E * e_bath_peak)[0]
     t63 = int(steps[hit63[0]]) if hit63.size else n_steps
-    # R_return(t) = 1 − E_bath/E_bath_peak for t≥t_peak, else 0 (transfer incomplete)
-    r_ret = np.where(np.arange(n_steps) >= t_peak_k, 1.0 - e_bath / max(e_bath_peak, 1e-30), 0.0)
+
+    # NO-INFORMATION (R-1): fewer than ONE full recurrence of observation window between
+    # transfer-completion (t63) and the absorbing clamp ⇒ the recurrence RETURN (which
+    # appears at x≈1 past the transfer, and whose GROWTH per recurrence is the signal)
+    # cannot be observed at all. Marks the Δω=0.015/0.020 combs that clamp at x=1.17/1.72.
+    obs_window = clamp_x - t63 / t_rec if post_clamp_dead else float("inf")
+    no_information = bool(post_clamp_dead and obs_window < 1.0)
+    # R_return(t) = 1 − E_bath/E_bath_firstplateau for t≥t_fp, else 0 (transfer incomplete).
+    # Clipped at 0: the post-clamp plateau (E_bath ≈ E0 ≥ first-plateau) reads R_return = 0
+    # STRUCTURALLY (the absorbing state cannot return — R-2), not a physical no-return.
+    r_ret = np.where(np.arange(n_steps) >= t_fp,
+                     np.clip(1.0 - e_bath / max(e_bath_peak, 1e-30), 0.0, None), 0.0)
     r_cum = np.maximum.accumulate(r_ret)
     hit = np.nonzero(r_cum >= R_HALF)[0]
     x_50 = float(x[hit[0]]) if hit.size else float("nan")
+
+    # ── SUPERSEDED global-argmax reading (PRESERVED; NON-gating) ──
+    e_bath_peak_g = float(e_bath.max())
+    t_peak_g = int(np.argmax(e_bath))
+    r_ret_g = np.where(np.arange(n_steps) >= t_peak_g,
+                       1.0 - e_bath / max(e_bath_peak_g, 1e-30), 0.0)
+    r_cum_g = np.maximum.accumulate(r_ret_g)
+
+    # ── R-1 dip-vs-running-max diagnostic (parameter-free; physical window, post-t_fp) ──
+    run_max = np.maximum.accumulate(e_bath)
+    dip_rmax = np.clip(1.0 - e_bath / np.where(run_max > 0, run_max, np.nan), 0.0, None)
+    phys_post_fp = np.arange(n_steps)
+    dip_mask = (phys_post_fp >= t_fp) & (phys_post_fp < phys_end)
+    if dip_mask.any():
+        dip_vals = np.where(dip_mask, dip_rmax, -np.inf)
+        dip_peak_k = int(np.argmax(dip_vals))
+        dip_rmax_peak = float(dip_rmax[dip_peak_k])
+        dip_rmax_x = float(x[dip_peak_k])
+    else:
+        dip_rmax_peak, dip_rmax_x = 0.0, float("nan")
+
     # re-measured drive line (rFFT of collar q) — provenance, not prose (F9)
     power = np.abs(np.fft.rfft(q_ts - q_ts.mean())) ** 2
     freqs = 2 * np.pi * np.fft.rfftfreq(n_steps, d=DT)
@@ -179,9 +293,18 @@ def run_comb(delta_omega: float, horizon_recurrences: int = HORIZON_RECURRENCES,
         t63_over_trec=t63 / t_rec, x_50=x_50, omega_d=omega_d, linewidth_fwhm=linewidth,
         r_return_table={xt: _at(xt, r_ret) for xt in X_TABLE},
         r_cum_table={xt: _at(xt, r_cum) for xt in X_TABLE},
+        clamp_step=clamp_step, clamp_x=clamp_x, frac_dead=frac_dead,
+        post_clamp_dead=post_clamp_dead, no_information=no_information,
+        first_plateau_frac=e_bath_peak / e0, first_plateau_x=first_plateau_x,
+        dip_rmax_table={xt: _at(xt, dip_rmax) for xt in X_TABLE},
+        dip_rmax_peak=dip_rmax_peak, dip_rmax_x=dip_rmax_x,
+        e_bath_peak_global_superseded=e_bath_peak_g,
+        peak_frac_global_superseded=e_bath_peak_g / e0,
+        r_return_table_global_superseded={xt: _at(xt, r_ret_g) for xt in X_TABLE},
+        r_cum_table_global_superseded={xt: _at(xt, r_cum_g) for xt in X_TABLE},
         ebath_c_table={xt: _at(xt, ebc) / e0 for xt in X_TABLE},
         ebath_l_table={xt: _at(xt, ebl) / e0 for xt in X_TABLE},
-        ebath_c_at_peak=float(ebc[t_peak_k]) / e0, ebath_l_at_peak=float(ebl[t_peak_k]) / e0,
+        ebath_c_at_peak=float(ebc[t_fp]) / e0, ebath_l_at_peak=float(ebl[t_fp]) / e0,
     )
 
 
@@ -271,6 +394,16 @@ def classify(sweep: list[CombResult], two_tank: CombResult, off_drift: float,
     n_occ_dense = min(r.n_occ for r in dense) if dense else 0
     n_occ_sparse = sparsest.n_occ
 
+    # ── R-1/R-2 DISCLOSURE (additive; NON-gating — the frozen tree below is untouched).
+    # Which combs are NO-INFORMATION (the scale=0 clamp hard-zeroed the lattice before the
+    # first recurrence — post-clamp R_return ≡ 0 is STRUCTURAL, cannot-fail)? And what is
+    # grid_return_min if those clamp-dead rows are excluded (the honest, information-bearing
+    # min)? Both readings are banked; the VERDICT uses the byte-faithful frozen grid.
+    no_info_combs = [r.delta_omega for r in sweep + [two_tank] if r.no_information]
+    clamped_combs = [r.delta_omega for r in sweep + [two_tank] if r.post_clamp_dead]
+    informative = [r.r_cum_table[10.0] for r in sweep + [two_tank] if not r.no_information]
+    grid_return_min_excl_noinfo = min(informative) if informative else float("nan")
+
     nan_seen = any(
         not np.isfinite(v)
         for r in sweep + [two_tank]
@@ -307,6 +440,14 @@ def classify(sweep: list[CombResult], two_tank: CombResult, off_drift: float,
         "off_drift": off_drift, "off_ok": bool(off_drift < OFF_DRIFT_MAX),
         "bias_resid": bias["resid"], "bias_ok": bias["ok"],
         "det_peak_frac": det["peak_frac"], "det_gated": det["gated"],
+        # R-1/R-2 disclosure (banked, NON-gating)
+        "no_information_combs": no_info_combs,
+        "clamped_combs": clamped_combs,
+        "grid_return_min_excl_noinfo": grid_return_min_excl_noinfo,
+        "densest_dip_rmax_peak": densest.dip_rmax_peak,
+        "densest_dip_rmax_x": densest.dip_rmax_x,
+        "densest_frac_dead": densest.frac_dead,
+        "densest_clamp_x": densest.clamp_x,
     }
 
     # ── FROZEN precedence 1→6 (prereg §4) ──
@@ -341,6 +482,10 @@ def run_sweep() -> dict:
             "instrument": "src/ave/thermal/f6_bath_meter.py (BYTE-UNTOUCHED)",
             "plant": "STANDALONE-K4 (within meter certificate; #721 R-1 SCOPE CAVEAT)",
             "certificate": "METER-VALID-KAPPA-BAND[0.030,0.030] @ MILD (§C-post-review, PR #724)",
+            "observable": "R-1 CORRECTED — first-plateau/transfer-complete reference "
+                          "(the OTHER reading of the prereg §3 'first/global transfer peak' "
+                          "frozen ambiguity). Global-argmax reading PRESERVED as "
+                          "*_global_superseded. Post-clamp window marked no_information (R-2).",
         },
         "verdict": verdict, "criteria": crit,
         "sweep": [asdict(r) for r in sweep], "two_tank": asdict(two_tank),
@@ -350,9 +495,17 @@ def run_sweep() -> dict:
 
 # ── VALIDATION: byte-faithful classifier cross-check (prereg § validation) ────
 def self_check(out: dict) -> dict:
-    """Re-derive the verdict from the banked criteria via an INDEPENDENT restatement
-    of the prereg §4 tree, and assert it matches classify()'s output byte-for-byte.
-    Catches any drift between the shipped tree and the frozen §4 text."""
+    """Re-derive the verdict from the banked criteria via a restatement of the prereg §4
+    tree, and assert it matches classify()'s output byte-for-byte. Catches any PRECEDENCE
+    drift between the shipped tree and the frozen §4 text.
+
+    ★R-6 NON-INDEPENDENCE CAVEAT (PR #726 review): this cross-check CONSUMES classify()'s
+    own boolean criteria (`grid_return_ok`, `collapse_ok`, …). It therefore catches only a
+    precedence/wiring drift between the two tree restatements — it does NOT independently
+    re-derive the booleans from the raw observable, so it CANNOT catch an observable-
+    definition bug (exactly the R-1 argmax-gating that erased the signal in the first fire).
+    The real independent check is the PR #726 review's re-derivation from the raw trace
+    (see result §4/§7); this self_check is a precedence guard only, not that check."""
     c = out["criteria"]
     if c["nan_seen"] or not c["cons_ok"]:
         v = "NUMERICAL/DETONATE"
@@ -373,11 +526,13 @@ def self_check(out: dict) -> dict:
 # ── output ────────────────────────────────────────────────────────────────────
 def _fmt(r: dict) -> str:
     rc = r["r_cum_table"]
+    cx = f"{r['clamp_x']:.2f}" if r["post_clamp_dead"] else " -- "
+    tag = " ★NO-INFO" if r["no_information"] else (" (clamp)" if r["post_clamp_dead"] else "")
     return (f"Δω={r['delta_omega']:.3f} M={r['M']:>3d} T_rec={r['t_rec']:6.1f} "
-            f"peak={r['peak_frac']:.3f} N_occ={r['n_occ']:>2d} "
+            f"fp={r['first_plateau_frac']:.3f} N_occ={r['n_occ']:>2d} "
             f"t63/T_rec={r['t63_over_trec']:.3f} x50={r['x_50']:.3f} "
-            f"R[0.3]={r['r_return_table'][0.3]:.3f} R_cum[10]={rc[10.0]:.3f} "
-            f"cons={r['max_cons_drift']:.1e} ω_d={r['omega_d']:.3f}")
+            f"R_cum[10]={rc[10.0]:.3f} dipRmax={r['dip_rmax_peak']:.3f}@{r['dip_rmax_x']:.2f} "
+            f"clamp_x={cx} dead={r['frac_dead']*100:.0f}% cons={r['max_cons_drift']:.1e}{tag}")
 
 
 def main() -> None:
@@ -418,6 +573,11 @@ def main() -> None:
           f"mean(x50)={c['mean_x50']:.3f}∈[{TRANSITION_LO},{TRANSITION_HI}]={c['transition_ok']}")
     print(f"  grid_return_min={c['grid_return_min']:.3f}(≥{SPARSE_RETURN_MIN}={c['grid_return_ok']}); "
           f"dense_plateau R[0.3]={c['dense_plateau']:.3f}(<{DENSE_PLATEAU_MAX}={c['dense_pins_low']})")
+    print(f"  ★R-1/R-2: NO-INFO combs (clamp <1 recurrence past transfer)={c['no_information_combs']}; "
+          f"clamped={c['clamped_combs']}; grid_return_min(excl NO-INFO)={c['grid_return_min_excl_noinfo']:.3f}")
+    print(f"  ★densest recurrence returns (dip-vs-running-max)={c['densest_dip_rmax_peak']:.3f} "
+          f"@x={c['densest_dip_rmax_x']:.2f} before clamp@x={c['densest_clamp_x']:.2f} "
+          f"(dead={c['densest_frac_dead']*100:.0f}%) — MILDLY FAVORABLE single-comb (question OPEN)")
     print(f"  N_occ dense={c['n_occ_dense']}>sparse={c['n_occ_sparse']}({c['mode_count_ok']}); "
           f"cons={c['max_cons']:.1e}({c['cons_ok']}); off={c['off_drift']:.1e}({c['off_ok']}); "
           f"bias={c['bias_resid']:.3f}({c['bias_ok']}); det_gated={c['det_gated']}")
