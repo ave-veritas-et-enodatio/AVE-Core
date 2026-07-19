@@ -1788,3 +1788,32 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 4. This docket block (RULING 21).
 
 **Class:** operator-physics adjudication (consistency / terminology). No emergence chord minted; the unitary scatter was already verified fact — the ruling settles which reading of the *leaf wording* is canonical. **Owed to auditor lane:** land the RULING-21 Op3-transduction relabel in the manuscript / `COLLABORATION_NOTES` queue (implementer surfaces; auditor lands).
+
+---
+
+## Continuation — 2026-07-19 (Grant in-chat): RULING 22 — F6 counting-arrow FORK = DOS-BALANCE on the existing certified instrument
+
+**Append-only, dated block.** Resolves the fork left open by #727 (INSTRUMENT-INCOMPATIBLE): the certified bath meter cannot reach the counting regime without full discharge by configuration alone. Grant rules the resolution DIRECTION. Continues the shared Ruling sequence (last = RULING 21). Companion absorption: `manuscript/ave-kb/common/engine-capability-map.md` §8c (this batch).
+
+### RULING 22 (RULED — Grant in-chat 2026-07-19): KEEP THE INSTRUMENT — resolve the counting arrow by DOS-BALANCE, not a meter edit or a lower-κ re-cert
+
+**Grant-verbatim (the ruling):** "*yes, keep the instrument*" (+ "*fully document in kb following proper skills and rules, lets also update the kb engine map*").
+
+**Ruling (ruling-execution wording, from the verbatim above).** The counting-arrow resolution path is **DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT** — attack the **equipartition root** (bath-DOS ≫ participating-lattice-DOS drives the full discharge that clamps every quasi-continuum comb) by **balancing the mode counts** (candidate knobs, DIRECTION-ONLY: fewer bath modes near the line / larger collar / more lattice participation). The instrument is **KEPT** (not rebuilt).
+
+| Fork | Ruling |
+|---|---|
+| **DOS-balance on the existing instrument** | **RULED DIRECTION** |
+| **R1 — re-certify the meter at κ < 0.030** | **NOT taken** (doubted; the κ·g degeneracy suggests `N_occ≥10` and `peak≤0.85` may never co-exist at a single κ_eff) |
+| **R2 — rate-limited / per-mode-capped back-reaction (a meter edit)** | **NOT taken** (breaks the standalone-K4 conservation identity ⇒ full W/X reval; the meter-mechanism change Grant declined) |
+| **click mechanism** (the door's other licensed arrow source) | **UNTOUCHED** — stays the licensed *alternative* arrow-home |
+
+**★SCOPE HONESTY (mandatory, stated).** This ruling fixes the **DIRECTION only.** The **design walk** — *what exactly gets balanced, and how* — is **OWED with Grant in-chat BEFORE any design lane fires** (walk-the-picture-first). Any DOS-balanced configuration will need its **own validation extension on the meter certificates** before banking a counting-arrow result; the §C X5 tare-wording gap (ENTRY 18 F7) **rides that future extension**, not this ruling.
+
+| receipt | content |
+|---|---|
+| `research/2026-07-19_f6-no-discharge-scan_INSTRUMENT-INCOMPATIBLE.md` (branch `feat/f6-no-discharge-collapse`, **not yet on main**) | the fork-source: USABLE cells = 0; fast-populated-transfer ⊥ no-full-discharge; κ·g degeneracy (`f6_bath_meter.py:198`) |
+| `research/2026-07-18_f6-certified-kappa-sweep_result.md` R-3 | the favorable single-comb evidence (14.9%→35.5% recurrence-locked returns); question OPEN |
+| `manuscript/ave-kb/common/engine-capability-map.md` §8c | the capability absorption + this ruling |
+
+**Class:** F6 resolution-direction adjudication. Counting-arrow QUESTION stays **OPEN**; nothing emergence-class; instrument kept. **Owed to auditor lane:** land the RULING-22 fork direction + the DOS-balance-design-walk-owed note (implementer surfaces; auditor lands).

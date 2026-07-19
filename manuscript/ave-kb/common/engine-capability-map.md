@@ -345,6 +345,72 @@ and the X38 bore-fork disposition remain PENDING-GRANT.
 
 ---
 
+## §8c — 2026-07-19: F6 bath-meter arc — capability absorption + fork ruling (ADDITIVE)
+
+> **Refresh note (KEEP-BOTH, dated; INSTRUMENT / INFRASTRUCTURE class — no physics chord/echo/emergence minted; `mass = A1` untouched).** Absorbs the F6 counting-arrow bath-meter arc (#721 → #722 → #724 → #726 → #727) into the capability map, and records the 2026-07-19 Grant **fork ruling** (RULING 22). Where a claim supersedes an earlier §7 F6 line, the supersession is stated here (Rule-12), not by editing §7. Every number verified against its source doc at HEAD (verify-before-cite). **Provenance caveat:** the #727 doc is on the **OPEN** branch `feat/f6-no-discharge-collapse` (NOT yet on `main`) — it is cited by branch ref below and tagged as such.
+
+### §8c.1 — the bath meter EXISTS, with three stacked certificates
+
+The F6 ε→T2 candidate has a **built, certified instrument** — the Foster/Caldeira–Leggett oscillator-comb bath meter (`src/ave/thermal/f6_bath_meter.py`; charter `research/2026-07-16_f6-bath-meter_CHARTER.md`). Three certificates, each scoped:
+
+| Certificate | Scope | Source |
+|---|---|---|
+| **METER-VALID-WITHIN-ENVELOPE** | linear / mild plant (`nonlinear=False`, A_max≈0.16); V1–V6 pass, Nyquist-bounded (`ω_max·dt<π`, M≤95) | charter §A7/§A8 |
+| **METER-VALID-NONLINEAR-ENVELOPE** | driven-nonlinear W-battery, A_max ≤ ~0.50; W1–W6 pass at all three operating points — **scoped to STANDALONE-K4 plants** | charter §B + §B-post-review (R-1) |
+| **METER-VALID-KAPPA-BAND[0.030,0.030]** | X-battery at the single certified coupling κ=0.030 @ MILD; κ=0.045/0.060 excluded (X5 tare-degenerate, X3 floor-dishonest); κ_break=0.09 bounds above | charter §C-post-review; docket ENTRY 18 (post-#724 FLIP) |
+
+### §8c.2 — identity-enforced conservation (the #721 R-1 scope caveat)
+
+On the **STANDALONE-K4** plant, energy conservation `E_lat+E_bath` is an **algebraic identity**, not an empirically-survived outcome: the 4-port scatter is **z-independent** (`build_scattering_matrix` = `0.5 − δ`, `src/ave/core/k4_tlm.py:64`; `nonlinear=True` is a NO-OP in `K4Lattice3D` unconditionally), so the S(A)-kernel-in-scatter pump the §B1 risk feared is **inexpressible** on this junction; the global rescale removes exactly the bath's gain (arithmetic-exact). **★SCOPE CAVEAT (load-bearing):** the certificate is scoped to STANDALONE-K4. A **CoupledK4Cosserat** arm (Cosserat↔V exchange outside the `E_lat` ledger) **or ANY genuine irreversible ε→T2 depletion primitive** BREAKS the identity ⇒ the **W-battery must be RE-VALIDATED** before such an arm integrates the meter (charter §B-post-review R-1, `research/2026-07-16_f6-bath-meter_CHARTER.md:263`).
+
+### §8c.3 — the amount channel CAN return energy (the #726 correction; old story falsified)
+
+**Superseding the §7-era "amount-not-phase back-reaction cannot re-inject" story (retracted):** the global-rescale amount channel **does return energy**. When a step's `d_e_bath < 0`, the rescale `scale = √(max((E_lat − d_e_bath)/E_lat, 0))` gives `scale > 1` and **actively re-injects** into the lattice (`f6_bath_meter.py:303–305`). Measured (#726 corrected first-plateau observable, densest comb): recurrence-locked returns delivered **through the scalar `E_bath` ledger** — the returns are *in* the ledger, not invisible to it. The ENTRY-19 "phase-blindness ⇒ cannot return" mechanism is **falsified by the run's own trace** (`research/2026-07-18_f6-certified-kappa-sweep_result.md` R-1/R-2; docket ENTRY 19 POST-REVIEW CORRECTION).
+
+### §8c.4 — the over-extraction clamp = a hard-zero absorbing state
+
+The same rescale carries a `max(·, 0)` floor: when `d_e_bath ≥ E_lat`, `scale = 0` **hard-zeroes the lattice** (`E_lat ≡ 0` thereafter) — an **absorbing state** from which no return is possible (`f6_bath_meter.py:303`). Post-clamp `R_return ≡ 0` is **structural, not physics** (#726 R-2; two dense combs clamp-die as NO-INFORMATION at 89%/84% dead).
+
+### §8c.5 — the κ·g EXACT degeneracy (one effective knob)
+
+The coupling enters the meter **only** as the product `κ·g` (`self.p += dt * kappa * self.g * q`, `f6_bath_meter.py:198`; `κ` appears nowhere else). So `κ` and a uniform per-mode weight `g0` are **exactly degenerate** — the entire `(lattice+bath)` trajectory is a function of `κ_eff = κ·g0` alone (`(κ=0.030,g0=0.5)` is **bit-identical** to `(κ=0.015,g0=1.0)`). Consequence: softening the discharge via `g0<1` is **not** "gentler at fixed κ" — it is a **reduction of `κ_eff` below the certified single-point band**. (#727 doc §3, branch `feat/f6-no-discharge-collapse`.)
+
+### §8c.6 — the INSTRUMENT-INCOMPATIBLE finding (#727)
+
+On the certified instrument (`κ_eff = 0.030` exactly), **no operating cell** reaches the counting regime **without** full discharge: **USABLE cells = 0**. The two required conditions — **counting-regime-live** (fast transfer `t63/T_rec ≤ 0.5` **and** populated quasi-continuum `N_occ ≥ 10`) and **no-full-discharge** (`peak_frac ≤ 0.85`, clamp never fires) — are governed by the single knob `κ_eff` (§8c.5) and are **mutually exclusive** on this instrument class: every `N_occ ≥ 10` comb fully discharges and clamps; every clamp-free comb has `N_occ ≤ 3` (regime-not-reached). **Fast-populated-transfer ⊥ no-full-discharge.** The doc's own stated root: the `(κ,g0)` degeneracy collapses the knobs to a single `κ_eff` in which the quasi-continuum threshold and the full-discharge/clamp event **coincide** at the same comb density (`Δω ≈ 0.013`). *(The equipartition framing — **bath-DOS ≫ participating-lattice-DOS** drives full discharge — is RULING-22 ruling-execution wording (§8c.8), not verbatim in the #727 doc.)* Source: `research/2026-07-19_f6-no-discharge-scan_INSTRUMENT-INCOMPATIBLE.md` (branch `feat/f6-no-discharge-collapse`, **not yet on main**).
+
+### §8c.7 — counting-arrow state: OPEN, favorable single-comb evidence, nothing emergence-class
+
+The counting-arrow **QUESTION is OPEN** (undecided, not falsified). Favorable single-comb evidence (#726 corrected observable, densest comb `N_occ=15`): recurrence-locked returns **14.9% at x≈1.3 (1st recurrence), growing to 35.5% at x≈2.46 (2nd)** at `k·T_rec`, transfer `5.2×` too fast to be a transfer artifact — **MILDLY FAVORABLE**, single-comb. The **cross-comb SUFFICIENT collapse is UNSHOWN** (other dense combs clamp-die as NO-INFORMATION; non-clamping combs return at their own transfer timescale). **Nothing banked at emergence-class.** (`research/2026-07-18_f6-certified-kappa-sweep_result.md` R-3.)
+
+### §8c.8 — ★RULING 22 (Grant in-chat 2026-07-19): the F6 fork = DOS-BALANCE on the existing instrument
+
+**Grant-verbatim:** "*yes, keep the instrument*" (+ "*fully document in kb following proper skills and rules, lets also update the kb engine map*").
+
+**Ruling (ruling-execution wording).** The counting-arrow resolution path is **DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT** — attack the **equipartition root** (bath-DOS ≫ participating-lattice-DOS drives the full discharge) by **balancing the mode counts** (candidate knobs, direction-only: fewer bath modes near the line / larger collar / more lattice participation). The instrument is **kept** (not rebuilt). The other forks are **NOT taken:**
+
+| Fork | Ruling |
+|---|---|
+| **DOS-balance on the existing instrument** | **RULED DIRECTION** (attack the equipartition root by balancing mode counts) |
+| **R1 — re-certify the meter at κ < 0.030** | **NOT taken** (doubted; the §8c.5 monotone structure suggests `N_occ≥10` and `peak≤0.85` may never co-exist at any single κ_eff) |
+| **R2 — rate-limited / per-mode-capped back-reaction (a meter edit)** | **NOT taken** (breaks the §8c.2 conservation identity ⇒ full W/X reval; a meter-mechanism change Grant declined) |
+| **click mechanism** (the door's other licensed arrow-home) | **UNTOUCHED** — stays the licensed *alternative* arrow source (not part of this fork) |
+
+**★SCOPE HONESTY (mandatory).** The ruling fixes the **DIRECTION only.** The design walk — *what exactly gets balanced, and how* — is **OWED with Grant in-chat BEFORE any design lane fires** (walk-the-picture-first). Any DOS-balanced configuration will need its **own validation extension on the meter certificates** before it can bank a counting-arrow result — in particular the §C X5 tare-wording gap (docket ENTRY 18 F7) **rides that future extension**, not this ruling. Docket: RULING 22 (`_orchestration/2026-07-10_rulings-docket.md`). **Owed to auditor lane:** land the RULING-22 fork direction + the DOS-balance-walk-owed note (implementer surfaces; auditor lands).
+
+### §8c.9 — the counting-arrow ARC (closure record — D3)
+
+The counting-arrow bath-meter arc, compact:
+
+1. **#722 — FOREIGN-EATER** (Phase-1 recurrence-sweep at κ=0.012): return did not track the counting knob; **RULING 20** ruled it *transport-limited, late-not-eaten* (a κ=0.012 regime artifact, question never asked). Receipts: `research/2026-07-18_f6-counting-arrow-arm_result.md`.
+2. **κ-revalidation (#724) — verdict FLIP:** pre-review METER-INVALID-AT-KAPPA was a **manufactured X2 KILL** (placement bug); with the frozen placement restored → **METER-VALID-KAPPA-BAND[0.030,0.030]**. The κ-sweep UNBLOCKS at κ=0.030. Receipts: `research/2026-07-18_f6-meter-kappa-reval_result.md`; docket ENTRY 18 post-#724 FLIP.
+3. **#726 — FOREIGN-EATER + favorable evidence:** the SUFFICIENT test at the certified cell returned FOREIGN-EATER, but the **corrected first-plateau observable** surfaced mildly-favorable recurrence-locked single-comb returns (14.9%→35.5%) and **falsified** the phase-blindness mechanism (the amount channel *does* return). Receipts: `research/2026-07-18_f6-certified-kappa-sweep_result.md`.
+4. **#727 — INSTRUMENT-INCOMPATIBLE:** no no-full-discharge quasi-continuum cell exists on the certified instrument by configuration alone (the κ·g degeneracy collapses the knobs to one κ_eff; USABLE=0). Receipts: `research/2026-07-19_f6-no-discharge-scan_INSTRUMENT-INCOMPATIBLE.md` (branch `feat/f6-no-discharge-collapse`).
+
+**Counting-arrow QUESTION: OPEN** (favorable single-comb evidence; collapse unshown; nothing emergence-class). **Resolution: RULED direction = DOS-balance on the kept instrument (§8c.8, RULING 22), design-walk OWED with Grant.** Receipts = the four PRs (#722/#724/#726/#727) + their result docs.
+
+---
+
 ## §8 — Figure-artifact hygiene policy (2026-07-04, D4 — going-forward)
 
 > **Policy note (infrastructure, no physics).** Landed with the 2026-07-04 engine-capability
