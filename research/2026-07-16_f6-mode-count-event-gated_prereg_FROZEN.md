@@ -215,3 +215,14 @@ Event-gating + multi-mode credit did **not** evade the same protected-core bias 
 **Rule 11 honored — no retune.** No tolerance/knob was moved to rescue a result. The two driver changes are fidelity repairs that leave the verdict invariant: (i) E0 baseline captured on-shell (A3 — corrects an accounting artifact, verdict unchanged); (ii) the `(or field drop)` disjunct implemented (A6 — code → frozen spec, shipped run unaffected).
 
 **What is NOT banked** (awaits the detector-rebuild gate, A2): the "mode-count detector LIVE" claim (A1) and the FRICTION-RENAMED control as a physical discriminator (A2). Until the detector is rebuilt (real bath DOF + physical-quantity control), no arm may bank CHANNEL-BOUNDED or ungate the thermometer on the strength of `ΔN_occ`.
+
+---
+
+## Post-freeze correction-note — 2026-07-18 — Platform line `nonlinear=True` is a no-op (costume; FACT-1-unconditional)
+
+**Append-only, dated; §3 method body byte-untouched (label corrected for the record, not the frozen plant).** Routed from the F6 bath-meter nonlinear-revalidation lane (`2026-07-17_f6-meter-nonlinear-reval_result.md` R-2; charter `2026-07-16_f6-bath-meter_CHARTER.md` §B1 FACT-1 / R-2) and landed here.
+
+- **§3.1's `Platform: … nonlinear=True` is a no-op in `K4Lattice3D` — dead code.** Per PR #721 review **FACT-1-unconditional**, the `nonlinear` flag has **zero dynamical consequence**: the K4 4-port scattering matrix `build_scattering_matrix(z)` (`src/ave/core/k4_tlm.py:64`) reduces to `S[i,j] = 2y/(N·y) − δ = 0.5 − δ` for `N=4` — **z-independent** — so the nonlinear branch reproduces the linear scatter exactly (the reviewer's op3-OFF twin was bit-identical too, `~1e-15`). The flag is a no-op **regardless of `op3_bond_reflection`**.
+- **What the plant actually was: weakly-nonlinear-via-op3 only.** The amplitude-dependent kernel `S(A)=√(1−A²) → z_local=(1−A²)^(−1/4)` flows through **op3's bond Γ** (ON here), not the flag; at the mild seed its amplitude dependence is second-order / negligible. The plant is **weakly-nonlinear-via-op3**, not a genuinely Op14-saturated lattice.
+- **The Arm A verdict is UNAFFECTED.** **BIAS-MOVED** rests on the independent protected-core strain knife (`ΔS_core = 1.421e-1 ≫ BIAS_TOL`, A7) computed on the trajectory itself; the **bias knife did not consume the `nonlinear` flag**, so the no-op does not touch the verdict. Nothing is re-run or retuned.
+- **Correction:** the frozen §3 platform label is **costume for `nonlinear=True`** to the same degree the meter lane's was pre-relabel. Recorded for the register; the frozen body is unchanged.
