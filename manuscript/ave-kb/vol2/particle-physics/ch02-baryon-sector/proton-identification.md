@@ -139,3 +139,18 @@ If the **proton mass eigenvalue derivation is challenged** (e.g., $\mathcal{V}_{
 > ↗ See also: [`torus-knot-ladder-baryons.md`](torus-knot-ladder-baryons.md) — full $(2,q)$ baryon resonance spectrum (proton is $(2,5)$; $\Delta(1232)$ is $(2,7)$; etc.)
 > ↗ See also: [`proton-neutron-mass-split.md`](proton-neutron-mass-split.md) — neutron decay topological dynamics + Heavy fermion paradox + He-4 binding (framing #5)
 > ↗ See also: [`../../appendices/app-c-derivations/index.md` line 29](../../appendices/app-c-derivations/index.md) + [`../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md` line 23](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md) — $\mathcal{V}_{total} = 2.0$ dual-reactance count (load-bearing input #4 to mass eigenvalue)
+
+---
+
+## 🔴 FLAG (2026-07-19, electron/proton shape-walk) — $r_p$ two-routes tension (KEEP-BOTH, routed to baryon lane)
+
+**Append-only, dated block. The body above (including the §2 property-4 charge-radius cell at :46) is UNTOUCHED — this is a flag, not a fix.**
+
+The shape-walk adjudication (`research/2026-07-18_electron-proton-shape-walk_adjudicated.md` §4b) surfaced a **two-routes tension**: two canonical routes reach the same $0.84$ fm proton charge radius by mechanisms that are not obviously compatible. Both are quoted verbatim; neither is edited.
+
+- **Route A — $D_p = 4\lambda_p$ Compton / Ax4 route (this leaf, :46 — axiom-derived).** Verbatim: *"Charge radius $D_p = 4\lambda_p = 0.841$ fm | Ax4 (saturation transition radius); $\lambda_p = \hbar/(m_p c)$ = proton Compton wavelength | ✅ axiom-derived | Matches muonic hydrogen measurement (the famous 0.841 fm from Pohl 2010 et al.)."* Compton-scaled, saturation-transition, consistent with the **sub-node** proton at :23 ($\approx 460\times$ smaller than one $\ell_{node}$).
+- **Route B — linkage-strain-gradient RMS route (`../../../../../manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:41` — asserted).** Verbatim: *"The $6^3_2$ Borromean knot spans multiple fundamental nodes. However, the orthogonal intersections of these three flux tubes generate localised tensor strain gradients … The $0.84$ fm radius corresponds to the Root-Mean-Square (RMS) effective scattering cross-section of the topological core gradients."* Asserted (a scaling resolution via solid-state scattering theory).
+
+**The tension:** Route A treats $0.841$ fm as a sub-node Compton-scale saturation transition of an object $\approx 460\times$ smaller than one node; Route B treats it as an RMS-scattering artifact of a knot that *"spans multiple fundamental nodes"* — a **sub-node vs multi-node** framing mismatch underneath a shared numerical target. **Mechanisms not obviously compatible.**
+
+**Disposition: KEEP-BOTH — FLAGGED, not resolved. Routed to the baryon lane for reconciliation.** Neither route is edited or demoted here; a future baryon-lane adjudication owns the reconciliation. See `research/2026-07-18_electron-proton-shape-walk_adjudicated.md` §4b for the full walk-record.
