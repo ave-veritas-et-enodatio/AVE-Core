@@ -1885,3 +1885,53 @@ The floor interface = a **one-way lowpass for coherence**: amount/envelope passe
 ### The arm cross-ref (in-flight)
 
 The **thermal-floor arm** (sibling lane, `feat/f6-thermal-floor-arm`: §D floor-battery + prereg + its own docket entries) adjudicates the hypothesis via a **revival-vs-ρ kill-shape**: `ρ=0` positive control = the **#726 dips** (densest comb 14.9% @ `x≈1.3` → 35.5% @ `x≈2.46`, recurrence-timed, `f6-certified-kappa-sweep_result.md` R-3); frozen classes incl. **NO-SUPPRESSION (ride-on-top)** as the **live falsifier**. Even-if-confirmed = the **local-mechanism rung** only; provenance upstream; cosmological growth on the separate `Γ=3Hρ_latent` rung. **Owed to auditor lane:** the §8c pointer (transplant to engine-capability-map §8c when #728 merges — implementer surfaces, auditor lands; NOT drafted into the #728 branch here).
+
+---
+
+## Continuation — 2026-07-19 (Grant in-chat): DEEP-SPACE REACTIVE-BULK ruling — stall/Joule DEMOTED, band-structure framing recorded
+
+**Append-only, dated block.** Records the adjudication of the Regime-IV audit's **deep-space resistive-metric family** (F5, `research/2026-07-17_regime-iv-dissipation-audit.md:126`), left open with *"Owner: the continuum-electrodynamics / dark-sector lane"* and — for the vol1 site (item 89) — the explicit note that the call was *"a physics ruling for Grant, not an auditor relabel."* Grant ruled it. Prior blocks untouched. **Nothing banked at result-class**; the band-map re-derivation is **SPEC'd, not run** (Grant-gated). Companion: the WALK/CONTEXT record `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` (full arc + attribution key + canon anchors). *(Same-day sibling to the noise-floor ruling above — the `Re(Z)`-emergent convergence: loss lives at ports / by counting, never in the bulk.)*
+
+### The ruling (Grant verbatim, `[sic]` as typed)
+
+> "it rings but i think theres a bulk reaction from the lattice that makes it lossless/pure reactance, and that there dofferent passpa danof frequencies for effects, like the rings of saturn vs electron orbitals"
+
+Two clauses: **(1)** the deep-space bulk coupling to slow matter is a **bulk reaction that returns the ringing energy** — **lossless / pure-reactance**, no resistive stall, no bulk Joule; **(2)** effects live in **frequency passbands** — band-structured coupling, structure at the resonances (Saturn-rings-vs-electron-orbitals grammar).
+
+### The orchestrator formalization (orchestrator-walk, ratified-in-substance by the ruling's own words)
+
+- **added mass / d'Alembert** — steady motion through a lossless medium feels zero drag, a purely reactive virtual-inductance back-force (dual of Ax3-lossless, `eq_axiom_3.tex:24`).
+- **sub-band evanescence** — deep-space slow matter sits ~20 OOM below the lattice band edge `f_max = c/(π ℓ_node)` (`translation-circuit.md:154,:353`); below-cutoff ⇒ evanescent ⇒ reactive by construction (= Regime I, `A_gm≪0.121`, `06_solar_system.tex:203` "0 Watts, lossless induction").
+- **Cherenkov/Mach threshold** — real drag turns on only when the wake becomes propagating (a radiative port, Ax3-legal); deep-space is far below it, so the demoted "stall" is not an above-threshold wake either.
+- **structure-at-resonances (Kirkwood-gap grammar)** — the replacement prediction shape; already realized reactively at `<0.3%` in `kirkwood-gaps-cavity-modes.md:12`, NOT a smooth `∝v` stall.
+
+### The demotions (EXECUTED this batch)
+
+| Site | Type | Action |
+|---|---|---|
+| `vol_1_foundations/chapters/04_continuum_electrodynamics.tex:244`-area | primary (.tex) | 🔴 DEMOTED — topological-Joule-stall / resistive-metric mechanism |
+| `vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:226`-area | primary (.tex) | 🔴 DEMOTED — "Lunar Inductive Joule Heating" resultbox + fig (`P_topo≈1.04` TW) |
+| `ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md:32`-area | primary (KB, `clm-8ep2b4`) | 🔴 DEMOTED — Asteroid-Belt/Oort transition-trap corollary (scoped; τ_yield survives) |
+| `ave-kb/vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md` | KB consumer leaf (`clm-av2o4v`) | 🔴 DEMOTED — same as vol3 14 twin |
+| `vol_4_engineering/chapters/11_experimental_falsification.tex:354`-area | consumer (.tex, Protocol 10) | 🔴 FLAGGED — energy-shedding drag demoted; falsifier FLIPPED to discriminator |
+| `ave-kb/vol4/falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md` | consumer (KB, `clm-h55fy1`) | 🔴 FLAGGED — same |
+| `ave-kb/vol4/falsification/ch11-experimental-bench/advanced-protocols.md` (Protocol 10) | consumer (KB, `clm-h55fy1`) | 🔴 FLAGGED — same |
+| `ave-kb/vol3/claim-quality.md` (`clm-av2o4v`) | claim register | dated 🔴 demotion note |
+| `ave-kb/vol1/claim-quality.md` (`clm-8ep2b4`) | claim register | dated 🔴 PARTIAL demotion (belt corollary only) |
+| `ave-kb/vol4/claim-quality.md` (`clm-h55fy1`) | claim register | dated 🔴 demotion + falsifier-flip note |
+| `research/2026-07-17_regime-iv-dissipation-audit.md` (F5) | audit doc | dated ★ ADJUDICATED-DEMOTED bottom-append |
+
+**Not demoted (reactive siblings, SURVIVE, not touched):** the `τ_yield` formula (`clm-8ep2b4`), the saturated slipstream (`η→0`, `P_drag=0`), the **dark-matter added-mass** reading (`magnetic-saturation.md:30` — the ruling *affirms* it), the flyby Sagnac operator (`clm-a71inj`), the `Γ_sagnac=m_p/m_e` identity (`clm-k3p9wz`), and the reactive Oort/Kirkwood boundary derivations (`06-solar-system`).
+
+### The SPEC routing (SPEC'd, NOT run — Grant-gated)
+
+Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reactive band-structure** — the passband map of which frequencies couple and where the resonances sit (Saturn-rings-vs-electron-orbitals). Substitution-not-retraction (Rule 12 / A47 v11b): the demoted slot is left OPEN, not refilled; the re-derivation is a **new lane** with its own version number + verification chain, gated on Grant. **Owed to auditor lane:** any manuscript/`COLLABORATION_NOTES` corpus-state entry for the demotion (implementer surfaces; auditor lands).
+
+| receipt | content |
+|---|---|
+| `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` | the walk-record (arc + attribution key + §4 canon anchors + §5 SPEC'd routing) |
+| `research/2026-07-17_regime-iv-dissipation-audit.md:126` + JSON items 85/89/90 | the audit's `LOSS-REQUIRED` findings the ruling demotes-the-prose-not-the-audit |
+| `manuscript/common_equations/eq_axiom_3.tex:24` | Ax3 "never a bulk resistive one" — the axiom the stall violated |
+| `manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:203` | the corpus's own Regime-I-lossless "0 Watts" resolution the sites contradicted |
+
+**Class:** deep-space dissipation adjudication (demotion executed; band-map re-derivation SPEC'd). Nothing emergence-class; nothing minted as canon.
