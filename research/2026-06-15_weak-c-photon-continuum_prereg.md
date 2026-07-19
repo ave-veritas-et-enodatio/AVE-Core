@@ -241,3 +241,8 @@ metadata + md-links). `make refresh-kb-metadata` regenerated the derived
 `.index/` (claims.jsonl + strengthen-by.jsonl); 0 solidity-line / subtree /
 leaf-reference changes (confirms the "solidity UNCHANGED" claims for clm-yr6tu4
 0.78 and clm-gw2wgc 0.70).
+
+---
+
+> **[2026-07-19 Tier-2.5 ANCHOR REPOINT — dated bottom correction-note (frozen prereg; body above UNTOUCHED).]**
+> The §3.B **body cite** at this doc's `:63` reads `k4-port-irrep-decomposition.md:134`. Content-verified at HEAD (`verify-before-cite`, grepped the quoted string per the #728 "grep-content-not-arithmetic" lesson): the quoted content — *"the photon (T₂) needs to be massless when propagating freely … the bound electron's Cosserat shell IS the massive mode that the same T₂ sector hosts at saturation"* — is now at **`:144`** (the §7 mass-split / free-vs-locked reconciliation sentence). **REPOINTED: `:63`'s `k4-port-irrep-decomposition.md:134` → `:144`.** This completes the repoint the §7 log (above) had recorded as "left unedited … routed"; it is consistent with the §7 log's own `:134`→`:144` finding for the parallel `:193` drift-log cite (cumulative drift +10 from the 2026-06-15 freeze, not the +2 of the D1 block alone). Routed origin: the k4 leaf's bottom LINE-ANCHOR DRIFT inventory.

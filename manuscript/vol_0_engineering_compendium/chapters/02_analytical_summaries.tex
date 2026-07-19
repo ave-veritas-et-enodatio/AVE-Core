@@ -14,6 +14,25 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Macroscopic Bulk Density:} $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3$
     % [2026-06-14 KB-reconciliation (vol_0 brief D.2) -- prior symbol preserved per Rule 12]: was $\nu_{vac}$; renamed to canonical $\nu_{kin}$ (per src/ave/core/constants.py NU_KIN and ave-kb/vol1/.../lc-electrodynamics.md:54) to resolve the in-chapter symbol collision with the Poisson ratio $\nu_{vac} \equiv 2/7$ (Vacuum Poisson's Ratio item below). Value and formula unchanged.
     \item \textbf{Kinematic Network Mutual Inductance:} $\nu_{kin} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
+    % [2026-07-19 Tier-2.5 tau_yield DISAMBIGUATION (KEEP-BOTH; NO renumber / NO redefinition / NO value change) + resurrected-dropped-claim FLAG (routed, NOT adjudicated).]
+    %   WHICH tau_yield: this is the DIMENSIONAL / PLANCK-SCALE alpha^-2 estimate branch, form
+    %   tau_yield = (hbar c / ell_node^4) * (1/alpha^2). It is ONE of THREE numerically distinct magnitudes
+    %   that the corpus labels "yield stress" under Bingham/plastic naming, each from a DIFFERENT derivation:
+    %     (A) THIS site  -- dimensional/Planck estimate  (hbar c / ell_node^4) * alpha^-2  ~ 7.21e34 Pa  [here]
+    %     (B) shear / mutual-inductance branch  rho_bulk c^2 * (6 V_crossing) * p_c/8pi  ~ 1.04e22 Pa
+    %         (manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:315-318, TVS/slipstream yield)
+    %     (C) magnetic-sector branch  tau_y = B_snap^2 / 2 mu_0
+    %         (manuscript/vol_1_foundations/chapters/06_universal_operators.tex:113, Ax4 saturation-field naming)
+    %   The three are per-derivation / per-sector, not a single reconciled value; reconciliation (scope electric
+    %   vs magnetic vs Planck-estimate, or collapse to one canonical form) is ROUTED to the vol_0 compendium
+    %   reconciliation lane per research/2026-07-17_regime-iv-dissipation-audit.md:128 -- NOT adjudicated here.
+    %   FLAG (resurrected dropped claim, A47 v11b substitution-not-retraction): this EXACT formula+value was
+    %   DROPPED by the 2026-04-20 audit banner at manuscript/backmatter/01_appendices.tex:77-88 as (a) asserted
+    %   without derivation, (b) a Planck-scale dimensional estimate, (c) numerically self-inconsistent (the stated
+    %   7.21e34 Pa vs the formula recomputing to ~2.67e28 Pa), ending "Do NOT re-add this claim without a real
+    %   derivation." It nonetheless survives here in a chapter titled "Summary of Exact Analytical Derivations."
+    %   This note does NOT re-derive, re-drop, or renumber the entry (flag-don't-fix); it records the contradiction
+    %   for the vol_0 reconciliation lane to adjudicate.
     \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
 \end{itemize}
 
