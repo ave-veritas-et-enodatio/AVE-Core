@@ -1802,3 +1802,58 @@ The **FROZEN §4 verdict (FOREIGN-EATER) and "the counting-arrow QUESTION is NOT
 **★Flag-don't-fix (surfaced, not silently resolved).** #726 result §6 route-1's "**no meter-mechanism change is needed** … an operating point that populates `N_occ≥10` **without** driving `E_bath→E0`" is **falsified** under the task's fences: no such in-scope operating point exists. #726's route-1 quietly relied on the two escapes the task fences out ("weaker κ below the band" = the degenerate `g0<1.0`; "rate-limited back-reaction" = a meter edit). The **argmax half** of #726's repair (first-plateau observable) stands and is reusable; the **clamp half** is not clearable by configuration alone. Both file paths surfaced verbatim in the finding §7; routed to auditor lane / Grant — **not** silently edited into the open #726 PR.
 
 **Disposition (Rule 12: retract, do not refill).** No hypothesis banked. The two mechanisms that would resolve it are **SPEC only** (each its own charter + verification chain), and each is exactly what the task fences out of this lane: **(R1)** re-certify the meter at a `κ`-band below 0.030 (full X-battery revalidation; may still fail if `N_occ≥10` and `peak≤0.85` never co-exist at any single `κ_eff` — the scan's monotone structure suggests they may not); **(R2)** build + certify a rate-limited / per-mode-capped back-reaction primitive that never zeroes `E_lat` (a meter edit ⇒ breaks the #721 R-1 identity ⇒ full W/X revalidation). **Untouched:** depletion-rate rung; #721/#724 certificates; meter module + engine (byte-untouched). **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator]; owed to auditor lane:** land the INSTRUMENT-INCOMPATIBLE finding + the `(κ,g0)`-degeneracy scope note + the correction to #726 §6 route-1 (implementer surfaces; auditor lands).
+## Continuation — 2026-07-19 (Grant in-chat): RULING 21 — Op3 = LOSSLESS TRANSDUCTION (mode loss ≠ system loss)
+
+**Append-only, dated block.** Resolves the routed Op3 label-vs-code contradiction (the 2026-07-17 `k4-port-irrep-decomposition.md` bottom flag + the `substrate-native-terminology.md:27` four-channels FLAG + the `retention-transition-split.md` Op3 worked example). Evidence base: the Regime-IV dissipation audit §F4 (`research/2026-07-17_regime-iv-dissipation-audit.md`) + the unitary-scatter code receipt. Continues the shared Ruling sequence (last = RULING 20).
+
+### RULING 21 (RULED — Grant in-chat 2026-07-19): OP3 = LOSSLESS TRANSDUCTION, not system dissipation
+
+**Grant-verbatim (the ruling, [sic] — typos in source):** "*mode loss should jot equal system loss, its trasnduction right?*"
+
+**Ruling (ruling-execution wording, normalized from the verbatim above).** Op3's $A_1$ behaviour is **LOSSLESS TRANSDUCTION out of the $A_1$ mode** — a power-conserving unitary scatter in which **common-mode rejection converts $A_1$ content into the other ($T_2$) irreps** — **NOT system dissipation.** **Mode-projection loss ≠ system loss.** The MODE-vs-SYSTEM candidate re-read named in the flag is the ruled reading (LOSS-FROM-A-MODE, `requires_R = no`; the system conserves power).
+
+| receipt | content |
+|---|---|
+| `src/ave/core/k4_tlm.py:396-398` (re-verified at HEAD) | "Unitary: `V_inc_A[k] = Γ * V_ref_A[k] + T * V_ref_B[k]` … `T = sqrt(1 - Γ²)` … **Conserves total power**" — a lossless reactive scatter ($|\Gamma|^2+|T|^2=1$) cannot dissipate |
+| `research/2026-07-17_regime-iv-dissipation-audit.md` §F4 | the audit that surfaced the Op3 label-vs-code contradiction (MODE-vs-SYSTEM carve) |
+| `retention-transition-split.md` §MODE-vs-SYSTEM | the discipline home of the worked example (candidate resolution → now RULED) |
+
+**Execution (this ruling — the Tier-1 KB-debt batch):**
+1. `k4-port-irrep-decomposition.md` — `:28` table row + §4 `:111`/`:113` sentences corrected LOSS → TRANSDUCTION (Rule-12; originals preserved verbatim inline); the bottom 🔴 flag carries a dated 🟢 RESOLUTION addendum (routed → RULED). *(Line-anchor note: the §4 sentences sit at `:111`/`:113` in the produced file — the D1 RESOLUTION block's own insertion shifted them down from the pre-insertion `:109`/`:111`; the preserved FLAG body still quotes the pre-insertion `:109`/`:111`.)*
+2. `substrate-native-terminology.md:27` — dated note: the Op3 "substrate-intrinsic mode-decay" channel corrected from LOSS to TRANSDUCTION; the corpus's genuine loss channels **reduce four → three** (radiative port, boundary-Joule, Regime-IV rupture); original text preserved.
+3. `retention-transition-split.md` — the Op3 worked example promoted "candidate resolution (routed)" → RULED (code receipt kept; candidate wording preserved).
+4. This docket block (RULING 21).
+
+**Class:** operator-physics adjudication (consistency / terminology). No emergence chord minted; the unitary scatter was already verified fact — the ruling settles which reading of the *leaf wording* is canonical. **Owed to auditor lane:** land the RULING-21 Op3-transduction relabel in the manuscript / `COLLABORATION_NOTES` queue (implementer surfaces; auditor lands).
+
+---
+
+## Continuation — 2026-07-19 (Grant in-chat): RULING 22 — F6 counting-arrow FORK: KEEP the instrument (Grant-ruled); DOS-BALANCE = recommended direction (design-walk in progress)
+
+**Append-only, dated block.** Addresses the fork left open by #727 (INSTRUMENT-INCOMPATIBLE): the certified bath meter cannot reach the counting regime without full discharge by configuration alone. Grant rules KEEP-the-instrument (ruling out the R2 meter-edit); the DOS-balance resolution direction is the orchestrator's recommendation that Grant engaged into a design walk (in progress at this batch — see the attribution note below). Continues the shared Ruling sequence (last = RULING 21). Companion absorption: `manuscript/ave-kb/common/engine-capability-map.md` §8c (this batch).
+
+### RULING 22 (Grant in-chat 2026-07-19): KEEP THE INSTRUMENT (Grant-ruled) — DOS-BALANCE is the recommended resolution direction, design-walk IN PROGRESS (upgrade-to-RULED left open)
+
+**Grant-verbatim (the four words that rule):** "*yes, keep the instrument*" (+ "*fully document in kb following proper skills and rules, lets also update the kb engine map*"). **What this verbatim actually rules:** the instrument STAYS — it rules **OUT** the R2 meter-edit (a meter-mechanism change) and endorses documenting the existing certified meter. It does **not**, by itself, confirm DOS-balance as the mechanism; that framing is the orchestrator's recommendation (see the attribution note below).
+
+> **🟡 Attribution note (2026-07-19, Rule-12 — the "RULED DIRECTION / the resolution path IS DOS-BALANCE" wording below is preserved; this softens the current-status attribution).** Grant's four verbatim words rule OUT R2 and keep the instrument — that part is Grant-RULED. The **DOS-BALANCE framing** (attack the equipartition root by balancing bath-vs-lattice mode counts) is the **orchestrator's recommended path**, which Grant **engaged into a design walk** — that walk was **IN PROGRESS at the time of this batch**. The **direction confirmation rides the walk's outcome**; the **upgrade-to-RULED slot is left explicitly open** (it becomes RULED when the walk closes with Grant's confirmation, not before). Superseded wording preserved: the header formerly read "RULED — … resolve the counting arrow by DOS-BALANCE"; the Fork table's DOS-balance row formerly read "**RULED DIRECTION**"; the ruling sentence formerly read "The counting-arrow resolution path **is** DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT."
+
+**Recommended direction (orchestrator; Grant-engaged, walk IN PROGRESS — from the verbatim above + the design walk).** The recommended counting-arrow resolution path is **DOS-BALANCE ON THE EXISTING CERTIFIED INSTRUMENT** — attack the **equipartition root** (bath-DOS ≫ participating-lattice-DOS drives the full discharge that clamps every quasi-continuum comb) by **balancing the mode counts** (candidate knobs, DIRECTION-ONLY: fewer bath modes near the line / larger collar / more lattice participation). The instrument is **KEPT** (Grant-ruled, not rebuilt); the DOS-balance *mechanism* is the recommendation the walk is adjudicating.
+
+| Fork | Ruling |
+|---|---|
+| **KEEP the instrument (rule out R2 meter-edit / rule out rebuild)** | **RULED** (Grant-verbatim "yes, keep the instrument") |
+| **DOS-balance on the existing instrument** | **RECOMMENDED DIRECTION** (orchestrator; Grant engaged the design walk — **upgrade-to-RULED pending the walk's outcome**) |
+| **R1 — re-certify the meter at κ < 0.030** | **NOT taken** (doubted; the κ·g degeneracy suggests `N_occ≥10` and `peak≤0.85` may never co-exist at a single κ_eff) |
+| **R2 — rate-limited / per-mode-capped back-reaction (a meter edit)** | **NOT taken** (breaks the standalone-K4 conservation identity ⇒ full W/X reval; the meter-mechanism change Grant declined) |
+| **click mechanism** (the door's other licensed arrow source) | **UNTOUCHED** — stays the licensed *alternative* arrow-home |
+
+**★SCOPE HONESTY (mandatory, stated).** This ruling fixes the **DIRECTION only.** The **design walk** — *what exactly gets balanced, and how* — is **OWED with Grant in-chat BEFORE any design lane fires** (walk-the-picture-first). Any DOS-balanced configuration will need its **own validation extension on the meter certificates** before banking a counting-arrow result; the §C X5 tare-wording gap (ENTRY 18 F7) **rides that future extension**, not this ruling.
+
+| receipt | content |
+|---|---|
+| `research/2026-07-19_f6-no-discharge-scan_INSTRUMENT-INCOMPATIBLE.md` (branch `feat/f6-no-discharge-collapse`, **not yet on main**) | the fork-source: USABLE cells = 0; fast-populated-transfer ⊥ no-full-discharge; κ·g degeneracy (`f6_bath_meter.py:198`) |
+| `research/2026-07-18_f6-certified-kappa-sweep_result.md` R-3 | the favorable single-comb evidence (14.9%→35.5% recurrence-locked returns); question OPEN |
+| `manuscript/ave-kb/common/engine-capability-map.md` §8c | the capability absorption + this ruling |
+
+**Class:** F6 resolution-direction adjudication. Counting-arrow QUESTION stays **OPEN**; nothing emergence-class; instrument kept. **Owed to auditor lane:** land the RULING-22 fork direction + the DOS-balance-design-walk-owed note (implementer surfaces; auditor lands).
