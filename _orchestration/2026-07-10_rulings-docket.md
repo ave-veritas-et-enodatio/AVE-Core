@@ -1885,3 +1885,39 @@ The floor interface = a **one-way lowpass for coherence**: amount/envelope passe
 ### The arm cross-ref (in-flight)
 
 The **thermal-floor arm** (sibling lane, `feat/f6-thermal-floor-arm`: §D floor-battery + prereg + its own docket entries) adjudicates the hypothesis via a **revival-vs-ρ kill-shape**: `ρ=0` positive control = the **#726 dips** (densest comb 14.9% @ `x≈1.3` → 35.5% @ `x≈2.46`, recurrence-timed, `f6-certified-kappa-sweep_result.md` R-3); frozen classes incl. **NO-SUPPRESSION (ride-on-top)** as the **live falsifier**. Even-if-confirmed = the **local-mechanism rung** only; provenance upstream; cosmological growth on the separate `Γ=3Hρ_latent` rung. **Owed to auditor lane:** the §8c pointer (transplant to engine-capability-map §8c when #728 merges — implementer surfaces, auditor lands; NOT drafted into the #728 branch here).
+
+---
+
+## Continuation — 2026-07-19 (implementer lane): YIELD-FORK discriminators RUN — thixotropy-τ (Leg A) + memristor loop-area (Leg B); fork stays OPEN, crux relocated to #59 Flag F
+
+**Append-only, dated block.** Records the RUN of the two registered discriminators for the OPEN yield fork (`research/2026-07-17_regime-iv-dissipation-audit.md` §5; hardware-ratings-map R13). Prior blocks untouched. **Fork NOT closed** — the ruling stays Grant's; this block records what the substrate said. Full result: `research/2026-07-19_yield-fork-discriminators_result.md` (+ `_result.json`); frozen protocols: the thixotropy prereg PROTOCOL-COMPLETION amendment (2026-07-19) + `research/2026-07-19_yield-fork-loop-area_PROTOCOL-COMPLETION.md`. Drivers + tests: `research/2026-07-19_yield-fork-discriminators/`, `src/tests/test_yield_fork_discriminators.py`.
+
+### The fork (restated, verbatim §5)
+
+> finite-area memristive loop (`∮S dr≠0`, dissipative) vs zero-area saturating reactance (lossless refusal) at the near-yield crossing.
+
+Grant's reversible-reactive lean RECORDED; fork OPEN; resolution by the substrate via the two registered discriminators.
+
+### Leg A — thixotropy amplitude-dependent-τ → **B** (rectification door closed by derivation)
+
+- Symmetric near-yield drive `r=0.7+0.3sin(ωt)` (Regime II→III) on the canonical Level-2 kernel (byte-locked to `k4_tlm.py:283,291`; engine untouched).
+- **No genuine `sign(dr/dt)` memory:** the clean τ-swap discriminator gives `R_mem=0` for single-τ; two-τ controls flip (`−0.339` down-slow vs `+0.379` up-slow). Raw `R` is a nonlinear-loop artifact (scales with Δr; `−0.200@0.30 → −0.005@0.01`) — a finding surfaced at integrator time (Rule-10).
+- **H-gate excludes bin A:** canonical loop is dissipative (`W_cycle=0.174 ≫ tol=0.0035`); bin A needs H-conserved. Two-τ positive control LIVE (real null, not dead instrument).
+- **Corollary (ties to the fork):** bin A (reactive rectifier) is **structurally unreachable within the first-order relaxation framework**; the only route to A is the **second-order reactive `S`-structure = #59 Flag F = the lossless branch.** Leg A kills the *two-τ thixotropic* version of the dissipative branch.
+
+### Leg B — memristor loop-area (`P_phase5_memristor_loop_area`, `tau-relax-derivation.md:109`) → **NEITHER** (fail-closed)
+
+- Loop area is **FINITE** (`0.175 ≫ tol=0.0035`) → not the strict zero-area bin — but the **(r,S)-plane peak sits at `ωτ=1.00`** (the *linear* Debye value), **OUTSIDE** the P_phase5 `[0.85,0.95]` window → does not match P_phase5.
+- **F-B1:** the predicted nonlinear peak-shift to `0.9` (`#59` §6.3-6.4) is **NOT reproduced** in the stated plane → the peak-shift sub-prediction is **falsified** per `#59` §11's own falsifier (Flag C confirmed).
+- **F-B2:** the (V,I) "pinched hysteresis" origin-pinch does **not** apply at the near-yield point (drive `r∈[0.4,1.0]` never crosses 0; `min|I|=0.354≠0`).
+- **F-B3 (throughline):** the finite `∮` is a rate-dependent Debye lag (→0 in both quasi-static and frozen limits); its *dissipative* reading is inherited from the **first-order overdamped** model (Flag F, asserted-not-derived), not measured.
+
+### Fork adjudication — ROUTED to Grant (NOT closed)
+
+Neither discriminator adjudicates against the reversible lean. Both **relocate the crux to `#59` Flag F**: is the near-yield `S`-dynamics *first-order overdamped* (dissipative) or *second-order reactive* (`I_S≠0`, lossless)? That is a **derivation** question, upstream of and unreachable by either driver. **Recommended next step (Grant's call):** a Flag-F derivation branch (K4 Lagrangian with a kinetic term in `S`; whether `I_S→0` is forced), NOT another driver. Fork status unchanged: **LOSS-REQUIRED by its own prose but NOT axiom-forced** (= the `2026-07-17` §5 status).
+
+### Owed to auditor lane (implementer surfaces; auditor lands)
+
+- **Doc-staleness flag:** `tau-relax-derivation.md:117` + `#59` §10/§28 say the dynamic Level-2 `S(t)` ODE is "unbuilt" — **STALE**: the engine built it (`use_memristive_saturation`, `k4_tlm.py:266–296`). Auditor lands the note.
+- **P_phase5 peak-shift result:** the `[0.85,0.95]` peak claim (`tau-relax-derivation.md:109`, `#59` §11) is **falsified in the (r,S) plane** at the registered point — auditor lands the demotion/caveat on the leaf.
+- **R13 / hardware-ratings-map:** record "discriminators RUN 2026-07-19; fork OPEN; crux = Flag F" against the retention row (auditor lands).
