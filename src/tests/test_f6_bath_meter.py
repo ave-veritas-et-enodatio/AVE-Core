@@ -274,3 +274,72 @@ def test_w_full_battery_meter_valid_nonlinear(driver):
     results, verdict = driver.run_w_battery()
     failed = [r.vid for r in results if not r.passed]
     assert verdict == "METER-VALID-NONLINEAR-ENVELOPE", f"failed: {failed}"
+
+
+# --- X-battery (§C κ-reval) fast unit tests on the new pure helpers -----------
+# The full X-battery is a ~4-minute driver (banked in research/); these lock the
+# artifact-fix helpers (drain-robust ω_d, harmonic-aware placement, parabolic
+# dressed-frequency) that the FIRST X-run got wrong, against regression.
+def test_x_fold_into_nyquist(driver):
+    """_fold maps any angular frequency into (0, π) (dt=1 aliasing)."""
+    assert driver._fold(0.5) == pytest.approx(0.5)
+    assert driver._fold(2 * np.pi - 0.5) == pytest.approx(0.5)  # folds back
+    assert 0 <= driver._fold(5.0) <= np.pi
+
+
+def test_x_omega_d_from_bath_is_drain_robust(driver):
+    """ω_d = the bath mode that absorbed the most energy — robust to the full-
+    discharge regime that collapsed the collar-q rFFT to DC in the first X-run."""
+    omega = np.array([0.30, 0.40, 0.50, 0.60, 0.70])
+    me = np.array([1e-4, 1e-3, 1.0, 2e-3, 1e-4])  # peak at index 2 → ω=0.50
+    assert driver._omega_d_from_bath(me, omega) == pytest.approx(0.50)
+    # empty / dead transfer → nan (no spurious ω_d)
+    assert np.isnan(driver._omega_d_from_bath(np.zeros(5), omega))
+
+
+def test_x_dressed_omega_recovers_sinusoid_frequency(driver):
+    """_dressed_omega recovers a pure-tone angular frequency to sub-bin accuracy
+    (parabolic rFFT peak) — the X6 mode-pulling read must resolve ≪ Δω/2 = 0.005."""
+    n = 3000
+    omega_true = 0.5237
+    t = np.arange(n)
+    series = np.cos(omega_true * t)
+    assert driver._dressed_omega(series) == pytest.approx(omega_true, abs=0.002)
+    # a DC / undriven series returns nan (excluded from the pulling max, not 0)
+    assert np.isnan(driver._dressed_omega(np.zeros(n)))
+
+
+def test_x_detuned_placement_avoids_folded_harmonics(driver):
+    """_place_detuned_harmonic_aware returns a Nyquist-valid band ≥ 2·Δω clear of
+    every folded harmonic n·ω_d. NB (PR #724 F1): this SUPERSEDED helper is NOT the
+    X2 placement — X2 uses the frozen q-power-budget _place_detuned_band. Kept for
+    provenance; test asserts the helper's own contract only."""
+    dw = 0.010
+    omega_d = 0.520
+    om_lo, om_hi, clear, folded = driver._place_detuned_harmonic_aware(
+        omega_d, dw, m_det=32, omega_max_res=0.30 + 70 * dw)
+    assert om_hi < np.pi  # Nyquist
+    assert clear >= 2 * dw - 1e-9  # ≥ guard from all folded harmonics
+    for h in folded:
+        assert not (om_lo - 2 * dw <= h <= om_hi + 2 * dw)  # band contains no harmonic
+
+
+def test_x_frozen_placement_dodges_genuine_lattice_line(driver):
+    """FROZEN §C X2 placement (_place_detuned_band, PR #724 F1): the detuned band is
+    chosen by the MEASURED q-power budget (< W3_POWER_FRAC_MAX), so it dodges a genuine
+    INDEPENDENT lattice line (not at any n·ω_d) that harmonic-avoidance is blind to.
+
+    Synthetic q-spectrum: bulk drive power below ω≈1.10 plus a strong independent line
+    at ω≈1.12 (the real plant's line that the shipped harmonic-aware band [1.07,1.38]
+    sat ON, reading a manufactured ×3.6 'LOST'). The frozen rule must return a band
+    whose q-power fraction is < W3_POWER_FRAC_MAX AND that does not overlap the line."""
+    freqs = np.linspace(0.0, np.pi, 2000)
+    psd = np.zeros_like(freqs)
+    # bulk drive content (ω≈0.5) + a STRONG independent line at 1.12 (no n·0.52 harmonic)
+    psd += 1.0 * np.exp(-((freqs - 0.52) ** 2) / (2 * 0.05**2))
+    psd += 0.20 * np.exp(-((freqs - 1.12) ** 2) / (2 * 0.01**2))
+    cum = np.cumsum(psd) / psd.sum()
+    om_lo, om_hi, band_frac, omega_99 = driver._place_detuned_band(freqs, psd, cum)
+    assert om_hi < np.pi  # Nyquist-valid
+    assert band_frac < driver.W3_POWER_FRAC_MAX  # the frozen contract: off the power budget
+    assert not (om_lo <= 1.12 <= om_hi)  # dodges the genuine line (unlike harmonic-avoidance)
