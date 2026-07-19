@@ -308,6 +308,13 @@ The chosen detuned band **[1.18, 2.11] CONTAINS two harmonics the frozen §B W3 
 
 ---
 
+## Post-freeze correction-note — 2026-07-18 — §A6 "pump independent of nonlinearity — verified" is VACUOUS (landed)
+
+**Append-only, dated; below the §B-post-review addendum. §A body byte-untouched.** Formal landing of the routed §A6 correction the §B addendum **R-7** recorded (and `2026-07-17_f6-meter-nonlinear-reval_result.md` R-7 surfaced).
+
+- **§A6's receipt *"the pump is independent of nonlinearity — verified"* is vacuous.** Per PR #721 review **FACT-1-unconditional** (§B1 FACT-1; R-2), `nonlinear=True ≡ nonlinear=False` in `K4Lattice3D` — `build_scattering_matrix(z)` (`src/ave/core/k4_tlm.py:64`) is z-independent (`0.5 − δ`), so the flag carries **zero dynamical consequence**. The §A6 comparison behind *"independent of nonlinearity — verified"* was therefore **between bit-identical configurations** — the statement is **vacuously true, not an independent verification** of pump-immunity across a real nonlinearity change.
+- **The pump-immunity claim itself still stands — on a stronger footing.** Conservation is an **algebraic identity** on the STANDALONE-K4 plant (orthogonal scatter + arithmetic-exact rescale; R-1 caveat), so pump-immunity is **structurally guaranteed**, not established by the vacuous §A6 comparison. The load-bearing receipt is the identity argument, not the flag toggle.
+- **§A stays byte-untouched.** This note is the dated record; the auditor lane lands any manual entry.
 ## Amendment §C — κ-revalidation for the counting-arrow sweep (2026-07-18, pre-registered)
 
 > **Class:** revalidation charter (X-battery + thresholds + verdict classes FROZEN before any battery code; **§0–§9, §A, §B, and the §B-post-review addendum above are ALL preserved byte-for-byte** — this amendment is append-only below the R-8/Verdict section). **Status of the certificate:** the meter is **METER-VALID-NONLINEAR-ENVELOPE** but validated ONLY at the frozen operating coupling **κ=0.012** (§A6/§B/§B-post). §C pre-registers the mandatory κ-revalidation at the higher couplings the counting-arrow sweep needs. **NO F6 arm/door/sweep fires in this lane** — this certifies (or honestly bounds) the instrument at κ ∈ {0.03, 0.045, 0.06}; it does **not** run the sweep. **The engine and the meter module (`src/ave/thermal/f6_bath_meter.py`) are BYTE-UNTOUCHED**: if the meter needs a change to pass, that is a **FINDING + SPEC**, not a silent fix — the honest verdict banks instead.
