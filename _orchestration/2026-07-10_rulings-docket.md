@@ -1885,3 +1885,14 @@ The floor interface = a **one-way lowpass for coherence**: amount/envelope passe
 ### The arm cross-ref (in-flight)
 
 The **thermal-floor arm** (sibling lane, `feat/f6-thermal-floor-arm`: §D floor-battery + prereg + its own docket entries) adjudicates the hypothesis via a **revival-vs-ρ kill-shape**: `ρ=0` positive control = the **#726 dips** (densest comb 14.9% @ `x≈1.3` → 35.5% @ `x≈2.46`, recurrence-timed, `f6-certified-kappa-sweep_result.md` R-3); frozen classes incl. **NO-SUPPRESSION (ride-on-top)** as the **live falsifier**. Even-if-confirmed = the **local-mechanism rung** only; provenance upstream; cosmological growth on the separate `Γ=3Hρ_latent` rung. **Owed to auditor lane:** the §8c pointer (transplant to engine-capability-map §8c when #728 merges — implementer surfaces, auditor lands; NOT drafted into the #728 branch here).
+
+---
+
+## Continuation — 2026-07-19 (auditor-queue lane): §8c noise-floor transplant LANDED — engine-capability-map §8c.10 + RULING-22 slot updated (EXECUTED)
+
+**Append-only, dated block.** Lands the two owed §8c updates the noise-floor walk-record flagged as *"owed placement"* (`research/2026-07-19_noise-floor-arrow-walk_RECORD.md`, its "KB pointer (D2 — owed placement)" section), now that §8c is on `main` (#728 merged):
+
+- **engine-capability-map §8c.10 (NEW):** transplants the ready-made pointer paragraph — the noise-floor ruling + the **thermal-floor arm** in-flight (branch `feat/f6-thermal-floor-arm`) + the walk-record cross-ref.
+- **engine-capability-map §8c.8 (RULING-22 slot, UPDATED):** the DOS-balance A/B fork is **MOOT** per Grant's 2026-07-19 static-noise-floor ruling (verbatim "*my gut says its couples through a static noise floor*" `[sic]`; full arc in the walk-record + the F6 NOISE-FLOOR ARROW continuation above); the resolution path = the **thermal-floor configuration** (pre-occupied random-phase bath); the superseded "DOS-balance = recommended direction" wording is **preserved per Rule-12**; the design-walk-owed slot updates to **EXECUTED**. §8c.9's closure line carries the same forward pointer.
+
+**Class:** auditor-lane placement of an owed KB pointer (no new physics; nothing banked at result-class — the thermal-floor arm adjudicates). Receipts: the §8c diff + `research/2026-07-19_noise-floor-arrow-walk_RECORD.md`.
