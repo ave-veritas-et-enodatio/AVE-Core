@@ -322,38 +322,35 @@ def make_figure(out, path_png):
     cc = out["spectral_cold"]["continuum_import_colorcheck_F_bulk_over_F_shear"]
     fl_ff = cc / (1.0 + cc)   # far-field longitudinal fraction from the color-check
 
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(9.6, 3.9))
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(10.2, 4.2))
+    fig.subplots_adjust(left=0.11, right=0.98, bottom=0.15, top=0.90, wspace=0.32)
 
     axL.plot(oms, fl_cold, "o-", color=C["ave"], label="Model C — cold (S≡1)", ms=8)
     axL.plot(oms, fl_sat, "s--", color=C["comparison"],
-             label="Model C — saturated S(A), A₀=0.5", ms=7)
+             label="Model C — saturated S(A), A₀=0.5  (overlaps cold)", ms=6)
     axL.axhline(out["model_S_breathing_control"]["f_long_window"], color=C["muted"],
                 ls=":", label="Model S breathing (control)")
     axL.axhline(fl_ff, color=C["accent"], ls="-.",
                 label=f"far-field continuum (spectral) = {fl_ff:.3f}")
     axL.set_xlabel("orbital drive frequency  Ω  (lattice units)")
-    axL.set_ylabel("longitudinal energy fraction  f_long = E∥/(E∥+E⊥)")
-    axL.set_ylim(0, 1.02)
-    axL.legend(loc="center left", bbox_to_anchor=(0.0, 0.5), fontsize=7,
-               frameon=False)
-    axL.annotate("cold ≈ saturated\n(partition saturation-invariant)",
-                 xy=(0.225, 0.70), xytext=(0.18, 0.40), fontsize=7,
-                 color=C["muted"])
+    axL.set_ylabel("longitudinal energy fraction  f_long = E∥ / (E∥+E⊥)")
+    axL.set_ylim(0, 1.05)
+    axL.legend(loc="upper right", fontsize=7, frameon=False)
 
-    labels = ["far-field κ_env²\n(spectral color-check)",
-              "κ_max²  (Hulse-Taylor)", "κ_max²  (double pulsar)"]
+    labels = ["far-field κ_env²\n(spectral)", "κ_max²\n(Hulse-Taylor)",
+              "κ_max²\n(double pulsar)"]
     vals = [cc, 1.6e-3, 1.3e-4]
     cols = [C["ave"], C["muted"], C["comparison"]]
     axR.bar(range(3), vals, color=cols, width=0.6)
     axR.set_yscale("log")
     axR.set_xticks(range(3))
-    axR.set_xticklabels(labels, fontsize=7)
-    axR.set_ylabel("bulk/shear flux fraction  κ² = F_bulk/F_shear")
+    axR.set_xticklabels(labels, fontsize=8)
+    axR.set_ylabel("bulk/shear flux fraction  κ² = F_bulk / F_shear")
+    axR.set_ylim(5e-5, 1e-1)
     axR.axhline(1.3e-4, color=C["comparison"], ls=":", lw=1)
-    axR.annotate(f"port OPEN:\n{cc/1.3e-4:.0f}× the\ndouble-pulsar bound",
-                 xy=(0, cc), xytext=(0.4, cc * 3), fontsize=7, color=C["data"])
+    axR.annotate(f"port OPEN: {cc / 1.3e-4:.0f}×\nthe double-pulsar bound",
+                 xy=(0, cc), xytext=(0.35, 3.2e-2), fontsize=8, color=C["data"])
 
-    fig.tight_layout()
     fig.savefig(path_png, dpi=150, bbox_inches="tight")
     fig.savefig(str(Path(path_png).with_suffix(".pdf")), bbox_inches="tight")
     plt.close(fig)
