@@ -114,7 +114,50 @@ Per §0's A46 discipline, the observable is in the **count / `Λ`-ledger coordin
 
 ## 4 · SPEC (build-gated) — stages, frozen tree, kill-shapes, compute cost
 
-<!-- §4 COMMIT -->
+> **BUILD GATE.** Everything below is a design. No code is written, no arm fired. The arm — *if* Grant greenlights — earns its own FROZEN prereg (push-before-code) + verification chain. This lane STOPS here.
+
+### 4.1 · Stages
+
+- **Phase 0 — the clamp discriminator (cheap, read-only, gating the framing).** Overlay the X40 mint-observable (`Λ`-conservation across event + `b_1` + `f_E=1/N`) on the **existing banked meter clamp event** (§2.3). Confirms (a) numerical-guard vs (b) uninvited-click empirically. **No edit** to the meter (read-only observable). Outcome routes the whole arm's framing.
+- **Phase 1 — the mint-count arm (the click, on the X40 instrument).** A *new* driver reusing `x40_ring_closure_transient.py`: drive an **ensemble of `M` ring-completions** (fork = Decision 1), record `N_click(t)`, the per-event `Λ`-ledger, and the `f_E=1/N` split. Frozen reads: count monotonicity + per-event `Λ`-conservation.
+- **Phase 2 — the discriminators (chord-vs-echo).** (2a) **Loschmidt echo** — time-reverse at window end, evolve back, measure `N_click` un-count. (2b) **`Δω`-invariance sweep** — vary the radiated-bath comb `Δω`; require the count-arrow to be `T_rec`-independent. These two are the decisive gates.
+
+### 4.2 · Frozen-tree sketch (verdict classes — to be frozen in the arm's prereg, NOT here)
+
+```
+Phase 0 clamp observable:
+  clamp event mints persistent Λ-conserving counted quantity? ── yes ──► REOPEN (b): route to Grant (clamp = uninvited click)
+                                                              └─ no ───► CONFIRM (a): clamp = numerical guard [expected]; proceed on X40 instrument
+
+Phase 1+2 (on the X40 instrument):
+  per-event Λ conserved (drift ≈ 0)? ─ no ──► MINT-ARTIFACT: the "mint" is numerical, not a click → close negative (Rule 11)
+                                     └ yes ─┐
+  N_click monotone under forward drive? ─ no ─► NO-RATCHET: no accumulation → click gives no counting arrow → close negative
+                                        └ yes ─┐
+  N_click un-counts under Loschmidt echo? ─ yes ─► REVERSIBLE-BOOKKEEPING (echo): "arrow" reverses → no chord → close negative (Rule 11)
+                                          └ no ──┐
+  count-arrow Δω-dependent (tracks T_rec)? ─ yes ─► MODE-SPREAD-CONFOUND: arrow rides the radiated 9/10's mode-spread, not the topological count
+                                                    → ROUTE to the interacting-bath lane; do NOT double-claim the mode-spread arrow as the click
+                                           └ no ──► CLICK-ARROW-LIVE: a Δω-invariant, Loschmidt-surviving, Λ-exact protected count
+                                                    → the click supplies a counting arrow the floor could not (substrate-mechanism / coordinate-class;
+                                                       NOT emergence — no CODATA). The strongest honest outcome.
+```
+
+### 4.3 · Kill-shapes (what a clean negative looks like — pre-committed, Rule 11)
+
+- **`MINT-ARTIFACT`** — per-event `Λ`-conservation fails. The mint is a numerical event (the clamp's own failure, §2), not a topological click. One mechanism, close the branch.
+- **`REVERSIBLE-BOOKKEEPING`** — the Loschmidt echo un-counts the mints. The microdynamics' time-reversibility (§1.3) wins; there is no arrow, only bookkeeping. Clean negative, mechanism named.
+- **`MODE-SPREAD-CONFOUND`** — the count-arrow is `Δω`-dependent. The apparent arrow is the radiated `9/10`'s mode-spread (candidate 1) riding on the click event, **not** the topological count. Route to the interacting-bath lane; do **not** refill the click slot with it (Rule 12).
+- **`NO-RATCHET`** — `N_click` does not accumulate under forward driving. The completions do not net-mint. Close.
+
+Each kill-shape is a **single mechanism explaining the failure** — the Rule-11 shape. None is a rescue path; the arm banks whichever fires.
+
+### 4.4 · Compute cost
+
+- **Phase 0:** minutes. Reuses the banked meter run + the existing X40 observable; read-only. Effectively free.
+- **Phase 1:** the X40 single-ring closure is a small TLM sim (`Λ`-drift `2.2e-16`, sub-second). An ensemble of `M ~ 10²–10³` completions is **seconds-to-minutes** on a laptop.
+- **Phase 2:** the Loschmidt echo doubles a Phase-1 run (forward + backward); the `Δω` sweep is `~6–8` comb points × a Phase-1 run. **Tens of minutes**, laptop-scale.
+- **No engine build, no meter edit, no GPU.** The whole arm is cheaper than the floor arm (which ran 6-seed ensembles × 6 `ρ` × `11·T_rec` windows). The dominant cost is design rigor (the frozen prereg), not compute.
 
 ## 5 · DESIGN-WALK BRIEF for Grant — the decisions only he should make
 
