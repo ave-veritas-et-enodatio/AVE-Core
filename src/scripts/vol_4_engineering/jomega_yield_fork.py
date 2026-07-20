@@ -567,13 +567,18 @@ def main():
             "finite_N60": frozen_ab_ledger(centres, J[model], 60, 0.6),
             "dense_N1200": frozen_ab_ledger(centres, J[model], 1200, 0.6),
         }
-    # any (a-ledger) or (b-ledger) clean fire? (frozen-tree adjudication)
-    any_a = any(frozen[m][b]["a_ledger_fires"] for m in frozen for b in frozen[m])
-    any_b = any(frozen[m][b]["b_ledger_fires"] for m in frozen for b in frozen[m])
-    frozen["_a_ledger_fires_anywhere"] = any_a
-    frozen["_b_ledger_fires_anywhere"] = any_b
-    frozen["_frozen_verdict"] = ("bin(iii) DEGENERATE — neither (a-ledger) nor (b-ledger) "
-                                 "fires cleanly under the frozen driven protocol")
+    # frozen-tree adjudication: count cells firing each ledger (4 cells: 2 models × 2 baths)
+    cells = [(m, b) for m in ("C1_onsite", "C2_strain") for b in ("finite_N60", "dense_N1200")]
+    n_a = sum(frozen[m][b]["a_ledger_fires"] for m, b in cells)
+    n_b = sum(frozen[m][b]["b_ledger_fires"] for m, b in cells)
+    b_cells = [f"{m}/{b}" for m, b in cells if frozen[m][b]["b_ledger_fires"]]
+    frozen["_a_ledger_fires_count"] = n_a
+    frozen["_b_ledger_fires_count"] = n_b
+    frozen["_b_ledger_fires_cells"] = b_cells
+    frozen["_frozen_verdict"] = (
+        f"bin(iii) DEGENERATE — (a-ledger) fires in {n_a}/4 cells; (b-ledger) in {n_b}/4 "
+        f"({b_cells or 'none'}); no clean UNIFORM (a)/(b) scope separation under the frozen "
+        f"driven protocol (the (b) fire, if any, is the super-Ohmic ∞-lattice only)")
     out["frozen_ab_ledger"] = frozen
 
     # ── §4 contrast: first-order Eq 2.1 vs second-order reactive loop shapes ──

@@ -153,13 +153,14 @@ def test_ringdown_scale_scan_ordering_robust_magnitude_not(band):
 def test_frozen_ab_ledger_is_degenerate(band):
     # R-2/F2/F5/F7/F12 (Rule-11): the FROZEN (a-ledger)/(b-ledger) criterion the shipped code
     # never computed — net per-cycle transfer vs tol=3.53e-3, driven protocol, per-mode E_bath.
-    # Banked frozen output: under continuous driving the net-per-cycle transfer EXCEEDS tol in
-    # every cell (even the finite/0D bath), so (a-ledger)'s <tol conjunct fails; the finite bath
-    # RETURNS within the window (so (b-ledger)'s not-returned clause fails there too). Neither
-    # ledger fires cleanly ⇒ the frozen tree lands bin (iii) DEGENERATE. The clean scope-split
-    # came only from the POST-HOC ring-down, not this frozen instrument.
+    # PRECISE frozen output: net-per-cycle transfer EXCEEDS tol in every cell (even the finite/0D
+    # bath), so (a-ledger) fires in 0/4 cells; the finite baths RETURN within the window so
+    # (b-ledger) fails there; only the C2 super-Ohmic ∞-lattice fires (b-ledger) → 1/4. No clean
+    # UNIFORM (a)/(b) scope separation (3/4 in the degenerate gap; the 1 world-(b) read is
+    # coupling-model-specific) ⇒ bin (iii) DEGENERATE. The clean scope-split came only from the
+    # POST-HOC ring-down, not this frozen instrument.
     centres, J = band["centres"], band["J"]
-    a_fires, b_fires = [], []
+    cells = {}
     for model in ("C1_onsite", "C2_strain"):
         fin = jf.frozen_ab_ledger(centres, J[model], 60, 0.6)
         den = jf.frozen_ab_ledger(centres, J[model], 1200, 0.6)
@@ -168,10 +169,14 @@ def test_frozen_ab_ledger_is_degenerate(band):
         assert den["net_per_cycle_transfer_ge_tol"] is True
         # the finite/0D bath RETURNS within the window (Poincaré) — directionally world-a:
         assert fin["returns_within_window"] is True
-        for d in (fin, den):
-            a_fires.append(d["a_ledger_fires"])
-            b_fires.append(d["b_ledger_fires"])
-    assert not any(a_fires)   # (a-ledger) never fires: <tol conjunct fails everywhere (DEGENERATE)
+        cells[(model, "fin")] = fin
+        cells[(model, "den")] = den
+    # (a-ledger) never fires: the <tol "reactive refusal" conjunct fails everywhere:
+    assert not any(c["a_ledger_fires"] for c in cells.values())
+    # (b-ledger) fires ONLY for the super-Ohmic (C2) ∞-lattice — no finite bath, not C1:
+    assert not cells[("C1_onsite", "fin")]["b_ledger_fires"]
+    assert not cells[("C2_strain", "fin")]["b_ledger_fires"]
+    assert cells[("C2_strain", "den")]["b_ledger_fires"]   # the lone world-(b) cell (model-specific)
 
 
 def test_drag_onset_arccos_beats_cosine(band):
