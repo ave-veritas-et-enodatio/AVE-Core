@@ -1,0 +1,48 @@
+{
+  "seed_tag": "runfull",
+  "seed_kw": {
+    "R_major": 6.0,
+    "amp": 0.3,
+    "sigma": 2.5
+  },
+  "N": 32,
+  "pml": 3,
+  "n_post_compton": 12.0,
+  "tau_disperse_compton": 0.9,
+  "sweep": [
+    {
+      "v_front": 0.5,
+      "dtc_over_tau": 4.0,
+      "regime": "SLOW\u2192HEAL",
+      "bare_Qend": 0,
+      "bare_persist": 0.0,
+      "bare_Smin": 0.0,
+      "memristive_Qend": 0,
+      "memristive_persist": 1.913,
+      "memristive_Smin": 0.0
+    },
+    {
+      "v_front": 1.0,
+      "dtc_over_tau": 2.0,
+      "regime": "SLOW\u2192HEAL",
+      "bare_Qend": 0,
+      "bare_persist": 0.0,
+      "bare_Smin": 0.0,
+      "memristive_Qend": 2,
+      "memristive_persist": 1.125,
+      "memristive_Smin": 0.001
+    },
+    {
+      "v_front": 4.0,
+      "dtc_over_tau": 0.5,
+      "regime": "FAST\u2192FREEZE",
+      "bare_Qend": 0,
+      "bare_persist": 0.563,
+      "bare_Smin": 0.0,
+      "memristive_Qend": 1,
+      "memristive_persist": 3.264,
+      "memristive_Smin": 0.118
+    }
+  ],
+  "runtime_s": 2710.2
+}

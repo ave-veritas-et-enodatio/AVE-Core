@@ -141,7 +141,77 @@ lasting-freeze claim re-opens. Likewise, if the S_min monotone rise (E2)
 inverted or flattened at N=32, the memristive-lag mechanism finding would be
 exposed as resolution-limited. Neither is expected under either A44 fork.
 
-*(§2.2 N≥32 RESULT — appended AFTER the run, below the commit that froze §2.1.)*
+### §2.2 N≥32 RESULT (run AFTER the §2.1 freeze commit; banked
+
+Executed on current main's engine (byte-identical `src/ave/` between the base
+`1be045a1` the sweep ran against and the rebased base `3efa24d6` — `git diff
+--stat 1be045a1..3efa24d6 -- src/` empty, so the result is valid for current
+main). Seed = the committed `run_full` geometric scaling (`R_major=min(6.0,
+0.30·N)=6.0, sigma=2.5` at N=32) — i.e. the LANDED driver at higher N, the
+cleanest thing for a reviewer to re-run. `n_post_compton=12` (persistence
+saturates below it). Raw dataset: [`2026-07-19_moving-front-freezein_N32-extension.json`](2026-07-19_moving-front-freezein_N32-extension.json).
+Full 3-point two-arm sweep runtime = **2710 s** (~45 min).
+
+| v_front | Δt_cross/τ | regime | memr persist | bare persist | memr S_min | bare S_min |
+|---|---|---|---|---|---|---|
+| 0.5 | 4.0 | SLOW→HEAL | 1.913 Cp | 0.000 Cp | 0.000 | 0.000 |
+| 1.0 | 2.0 | SLOW→HEAL | 1.125 Cp | 0.000 Cp | 0.001 | 0.000 |
+| 4.0 | 0.5 | FAST→FREEZE | 3.264 Cp | 0.563 Cp | 0.118 | 0.000 |
+
+τ_disperse(N=32) = **0.900 Cp** (vs 0.225 Cp at N=12 — grew with grid room, as
+the §2.1 τ_disperse note predicted; NOT a gate).
+
+**Adjudication against the FROZEN §2.1 expectations:**
+
+- **E1 (persistence stays short) — CONFIRMED.** All holds ≤ **3.264 Cp** (max,
+  memristive v=4.0), the SAME order as the N=12 banked max (3.04 Cp), and ~30×
+  short of the 100 Cp G3 target. Persistence did NOT rise toward tens of Cp with
+  N. **The falsifier of §2.1 (persistence growing substantially with N + rising
+  monotonically with v_front) did NOT trigger.** The lasting-freeze negative is
+  **resolution-robust at N=32.**
+- **E2 (S_min monotone rise survives) — CONFIRMED (direction).** memristive S_min
+  rises monotonically with v_front (0.000 → 0.001 → 0.118); bare stays ≈ 0 at all
+  v (no memory). The §2.3 fast-crossing → less-S-collapse direction holds at N=32.
+  *(Honest caveat: the ABSOLUTE S_min magnitudes at N=32 (0.000/0.001/0.118) are
+  smaller than the banked N=12 (0.04/0.19/0.56), because this run used the
+  committed-driver seed R_major=6.0/sigma=2.5, NOT the banked seed 4.0/1.8 — two
+  variables (N and seed) changed. The monotone DIRECTION — the mechanism-level
+  signal §7 calls "resolution-robust" — is what E2 predicted and what holds; the
+  magnitude is seed/resolution-sensitive and was never claimed invariant.)*
+- **E3 (no clean lasting-freeze discriminator) — CONFIRMED, with a direction
+  flip on the sub-observation.** Neither arm achieves lasting freeze (all ≤ 3.264
+  Cp), so the real-space observable is NOT a clean freeze-vs-heal discriminator —
+  E3's core claim holds. The sub-observation "bare may out-persist memristive at
+  some v" (true at N=12) FLIPS at N=32: here memristive cleanly out-persists bare
+  at all three v (1.913/1.125/3.264 vs 0.000/0.000/0.563). This flip is in the
+  mechanism-EXPECTED direction (the S-lag slows annihilation, so memr > bare) and
+  makes the N=32 arm-separation CLEANER than N=12 — but still ~30× short of
+  lasting freeze. It strengthens, not weakens, the "memristive lag slows but does
+  not freeze" reading.
+
+**N≥32 VERDICT (the archived §7 gate, discharged).** The archived result's
+lasting-freeze NEGATIVE is **resolution-robust** — confirmed at N=32 across BOTH
+seed families (banked-seed N=12 §1 reproduction + committed-driver-seed N=32
+here), the falsifier untriggered. The A44 fork (engine-gap vs corpus-over-claim)
+is **NOT discriminated** — as pre-registered in §2.1, both forks predicted short
+persistence at N≥32, so this run confirms the negative is not a finite-size
+artifact but does NOT resolve which fork. This satisfies the archived doc §7
+demand ("re-confirmed at N≥32 … before it is promoted to a corpus verdict"); the
+promotion decision + any clm-exjfai status move are the AUDITOR lane's (surfaced,
+not landed here). **Relevance to clm-exjfai (surfaced only):** the CONTESTED
+demotion now on main (PR #738, `dark-wake-bemf-foc-synthesis.md` §1.2) rests in
+part on the negative being "resolution-limited (N=12–16) … should be re-confirmed
+at N≥32"; this N=32 run supplies exactly that re-confirmation — a datum the
+auditor may use, but this PR adjudicates no status change.
+
+**Seed-robustness note (honest, NOT a retune).** Because the N=32 run used the
+committed-driver seed while the banked/reproduction runs used the results.json
+seed, the short-persistence negative is now demonstrated across two DISTINCT seed
+geometries at two resolutions — stronger evidence of robustness than a
+single-seed ladder. A same-seed N=12→N=32 ladder was judged unnecessary (the
+verdict E1 is unambiguous under either seed and the ~45-min cost buys no
+verdict-relevant discrimination); flagged as the obvious follow-on if a reviewer
+wants the seed held fixed.
 
 ---
 
@@ -167,11 +237,15 @@ Diagnostic / Tag / Recovery).
 >   FAST crossing (Δt_cross ≲ τ_relax) → FREEZE.
 > - **Verdict:** SPLIT. (a) the memristive S-lag mechanism is CONFIRMED and
 >   rate-dependent exactly as derived (S_min rises monotonically 0.04→0.19→0.56
->   with v_front; reproduced on current main 2026-07-19 and resolution-robust to
->   N=32). (b) honest NEGATIVE on the lasting-freeze claim: real-space defect
->   persistence ≤ 3.04 Cp vs the pre-registered ≥ 100 Cp target (~30× short); the
->   two arms do not separate at the real-space observable (bare out-persists
->   memristive at 2 of 3 v_front).
+>   with v_front; reproduced EXACTLY on current main 2026-07-19, and the
+>   monotone-rise direction resolution-robust to N=32). (b) honest NEGATIVE on the
+>   lasting-freeze claim: real-space defect persistence ≤ 3.04 Cp (N=12 banked;
+>   ≤ 3.26 Cp at N=32) vs the pre-registered ≥ 100 Cp target (~30× short); at
+>   N=12 the two arms did not separate cleanly (bare out-persists memristive at 2
+>   of 3 v_front), while at N=32 memristive cleanly out-persists bare at all v —
+>   but NEITHER arm ever reaches lasting freeze. The N≥32 re-confirmation the
+>   archived §7 demanded is DONE (this landing): the negative is resolution-robust,
+>   the falsifier (persistence growing with N) did not trigger.
 > - **Diagnostic (single mechanism, Rule 11):** the engine's re-solidified
 >   Cosserat solid is a linear-elastic shear-wave medium with NO topological-
 >   pinning term (`_bulk_accel → _bare_linear_gradient`, `cosserat_field_3d.py`
@@ -208,9 +282,18 @@ Diagnostic / Tag / Recovery).
 PENDING; this PR adjudicates it in NEITHER direction).** Both directions are
 preserved verbatim:
 
-- **clm-exjfai, `manuscript/ave-kb/common/dark-wake-bemf-foc-synthesis.md:54`
-  (still live on main `1be045a1`, verified two-method — dark-wake §1.2 + the
-  propagated row `substrate-hysteresis-index.md:51`):**
+- **clm-exjfai, `manuscript/ave-kb/common/dark-wake-bemf-foc-synthesis.md`
+  §1.2** — the claim BODY (still asserting SLOW-crossing → freeze + ≥100 Cp
+  persistence) is preserved verbatim, now under a **🔴 CONTESTED dated-demotion
+  banner landed on main** by PR #738 (merged `31bf34d4`, 2026-07-19; register
+  confidence 0.50→0.20 ⇒ solidity 0.30→0.20). **Temporal update (verify-before-
+  cite):** at the time this landing lane was briefed the demotion was on PR
+  #738's branch `docs/post-merge-auditor-batch`; between the branch-point
+  (`1be045a1`) and this rebase (`3efa24d6`) PR #738 MERGED, so the demotion — and
+  the preserved claim body — are BOTH on main now. This landing changes NOTHING
+  in that KB file. Verified two-method: the CONTESTED banner + preserved body at
+  `dark-wake-bemf-foc-synthesis.md` §1.2, and the propagated dated pointers at
+  `substrate-hysteresis-index.md` §1/§2. The preserved claim body reads:
   > "When $V(t)$ drops through $V_{\text{yield}}$ in the Cosserat sector at a
   > rate $\|dV/dt\|$ such that the crossing takes $\geq \tau_{\text{relax}}$, any
   > topologically non-trivial $\omega$ configuration present at the start of the
@@ -227,23 +310,34 @@ preserved verbatim:
 
 These are literally opposite. Per the arc's own flag-don't-fix posture, the
 resolution is surfaced (the ODE derivation leans fast→freeze) but NOT landed as a
-correction: the clm-exjfai prose is a candidate for a Rule-12 dated correction
-that the auditor/Grant lands (the clm-exjfai register demotion is on PR #738's
-branch `docs/post-merge-auditor-batch`, separate from this landing). **This PR
-changes NOTHING in the KB and adjudicates NEITHER direction.** Note also: the
+correction: the clm-exjfai prose direction is a candidate for a Rule-12 dated
+correction that the auditor/Grant lands. **Status of the clm-exjfai handling
+(distinct from THIS direction question):** PR #738 (merged `31bf34d4`) already
+landed a CONTESTED demotion of clm-exjfai on the PERSISTENCE-MAGNITUDE axis
+(≥100 Cp contested by the arc's ≤3.04 Cp) — but it explicitly routed the
+DIRECTION conflict (slow→freeze vs fast→freeze) to Grant, unresolved (docket
+ENTRY 22 D1: "the direction conflict … routed to Grant, not resolved"). So the
+direction ruling remains PENDING even post-#738. **This PR changes NOTHING in the
+KB and adjudicates NEITHER direction.** Note also: the
 arc's lasting-freeze negative (§1/§3) means the two-arm run did NOT deliver a
 clean freeze at either direction to arbitrate the conflict at the real-space
 observable — the direction call rests on the ODE derivation + the S_min-rise
 mechanism read, not on an observed lasting freeze.
 
-**FLAG-2 — inventory numbering (surfaced, not resolved).** The launching brief
-refers to this arc as branch-scrub "FOLLOW-UP #1"; the authoritative inventory
-`_orchestration/2026-07-19_branch-scrub-inventory.md` lists `analysis/moving-
-front-freezein` as **FOLLOW-UP #2** (FOLLOW-UP #1 there = `analysis/2026-06-06-
-open-short-relabel`, the trampoline-primer hunk). The tag + head SHA
+**FLAG-2 — a FOLLOW-UP numbering SWAP between two _orchestration docs (surfaced,
+not resolved).** The two tracked docs disagree on the follow-up numbers:
+- `_orchestration/2026-07-19_branch-scrub-inventory.md` calls
+  `analysis/moving-front-freezein` **FOLLOW-UP #2** and
+  `analysis/2026-06-06-open-short-relabel` (trampoline-primer hunk) **FOLLOW-UP #1**.
+- the docket `_orchestration/2026-07-10_rulings-docket.md` ENTRY 22 (landed via
+  PR #738) SWAPS them: D1 calls this arc's landing "the still-open remainder of
+  **FOLLOW-UP #1**" and D6 calls the primer fix "scrub **FOLLOW-UP #2** discharged."
+
+The launching brief follows the docket (FOLLOW-UP #1). The tag + head SHA
 (`archive/analysis/moving-front-freezein` @ `f647f58b`) are unambiguous and
-identify THIS arc, so the work target is not in doubt; the numbering label is
-flagged for the orchestrator to reconcile, not silently renumbered here.
+identify THIS arc regardless of the label, so the work target is not in doubt.
+The inventory-vs-docket numbering swap is a genuine corpus inconsistency flagged
+for the orchestrator to reconcile — NOT silently renumbered here (flag-don't-fix).
 
 **FLAG-3 — committed driver vs banked dataset provenance (surfaced).** The
 banked `results.json` records `"driver": "…run_full / warm_sweep"` and a seed
