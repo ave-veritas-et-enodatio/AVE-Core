@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Anchor-content drift checker for AVE-Core — WARN-CLASS, NON-GATING.
+"""
+
+Known false-positive classes (do NOT promote to gating without an FP-triage pass):
+- range citations `:NN-MM` (window anchors to NN; content at MM flags falsely)
+- table cross-row quote/cite mis-association
+- TeX/ASCII notation paraphrase
+- generic short strings (def/return/origin-main class)
+Anchor-content drift checker for AVE-Core — WARN-CLASS, NON-GATING.
 
 Motivation
 ----------
@@ -11,7 +18,7 @@ real content — a "line-anchor drift" the review lane kept catching by hand.
 
 This tool automates that catch: for every `path.ext:NN` cite that carries a
 NEARBY backtick-quoted excerpt, it verifies the excerpt actually occurs within
-±10 lines of the cited line in the target file. If the excerpt has MOVED (it is
+±10 lines of the cited line in the target file. If the excerpt appears MOVED (a candidate — still FP-contaminated: range cites :NN-MM anchor only to range start, cross-row table associations, TeX/ASCII paraphrase; spot-check base rate ~1-in-5 real), (it is
 elsewhere in the file) the `:NN` is stale; if it is ABSENT the quote/target may
 be reworded or the FP classes below apply.
 
