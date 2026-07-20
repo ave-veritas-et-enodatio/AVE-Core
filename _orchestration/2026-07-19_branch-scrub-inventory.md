@@ -105,6 +105,8 @@ findable today only on that branch. Deletion of each pointer is technically loss
 verified) — but the pointer is **held** as a live signal until the bank job lands. Detail below is
 extracted verbatim-faithful from the adjudication (workflow `wf_7957ec36-42c`).
 
+> **🟡 FOLLOW-UP numbering reconcile (dated 2026-07-20; flag-don't-fix — inventory-side note, docket append-only).** This inventory numbers `open-short-relabel` as **FOLLOW-UP #1** (`:53`) and `moving-front-freezein` as **FOLLOW-UP #2** (`:87`). The rulings docket ENTRY 22 (landed via PR #738) **SWAPS** them — its D1 calls `moving-front-freezein` "the still-open remainder of **FOLLOW-UP #1**" and D6 calls the primer/`open-short` fix "scrub **FOLLOW-UP #2** discharged." The two docs' numbers are transposed. The archive tags + head SHAs (`open-short` @ `cc63c420`; `moving-front` @ `f647f58b`) are unambiguous and identify each branch regardless of the label, so **no work target is in doubt**. This note reconciles the mismatch on the inventory side; docket ENTRY 22 is append-only and is **NOT edited** (pointer only).
+
 ### FOLLOW-UP #1 — `analysis/2026-06-06-open-short-relabel` (1 commit · head `cc63c420` · tag `archive/analysis/2026-06-06-open-short-relabel`)
 
 **Content.** Single post-merge orphan commit `cc63c420` (2026-06-06 18:23, four minutes AFTER the PR #100
