@@ -22,7 +22,24 @@ Follows the established per-volume datasheet-update pattern (Vol-5 #344/#347/#35
 
 ### Provenance caveat (verify-before-cite; flag-don't-fix)
 
-The routing document that names C2-FLAG-2 — `_orchestration/2026-07-19_manuscript-cleanup-ledger.md` — is **NOT on merged main**; it lives on the unmerged branch `docs/manuscript-cleanup-2026-07-19` (the #738/#739 family excluded by the task fence). Its C2-FLAG-2 *content* is reproduced in the dispatch and the underlying physics ground-truth (the yield-fork result) IS merged. **Disposition:** the tex banners cite the MERGED result docs (`research/2026-07-19_yield-fork-discriminators_result.md`, `research/2026-07-19_f6-thermal-floor-arm_result.md`) and `engine-capability-map.md §8c` — NOT the unmerged cleanup ledger. This is a deviation from the dispatch's "cite the ledger" instruction, taken to keep every tex citation resolvable on merged main (verify-md-links gating). Flagged here, not silently substituted.
+At branch-creation (`origin/main` @ `1be045a1`) the routing document that names C2-FLAG-2 — `_orchestration/2026-07-19_manuscript-cleanup-ledger.md` — was **NOT on merged main** (it lived on `docs/manuscript-cleanup-2026-07-19`, the #738/#739 family the task fence excluded). **Disposition (unchanged, robust):** the tex banners cite the MERGED result docs (`research/2026-07-19_yield-fork-discriminators_result.md`, `research/2026-07-19_f6-thermal-floor-arm_result.md`) and `engine-capability-map.md §8c` — NOT the orchestration cleanup ledger. Deviation from the dispatch's "cite the ledger" instruction, taken so every tex citation resolves on merged main (verify-md-links gating). Flagged, not silently substituted.
+
+### ★ MID-SESSION BASE ADVANCE — origin/main moved 1be045a1 → 3efa24d6 (surfaced for the orchestrator; flag-don't-fix)
+
+During this lane's work the shared `origin/main` ref advanced by two merges — **#738 (post-merge-auditor-batch) and #739 (manuscript-cleanup-2026-07-19) merged to main** (current tip `3efa24d6`). Assessment (verified, not assumed):
+- My base `1be045a1` **is a clean ancestor** of `3efa24d6`; this branch's 3 commits sit cleanly on top.
+- **No collision on my edited files.** `git diff origin/main..HEAD -- vol_9…` = only my 6+9 insertions; **#738/#739 did NOT touch vol_9 ch5 or ch17.** A standard 3-way merge is safe (no revert, no conflict); the "deletions" in a full base-moved diff are just files #738/#739 ADDED that my older base lacks (merge keeps their version).
+- **My `\kbleaf{engine-capability-map} §8c` citations survive the merge.** #738/#739's only edit to that leaf was to ADD a new `§8c.11` (the thermal-floor arm FIRED — tri-form verdict, ratified by #734 merge); it did NOT renumber §8c.1/.2/.6/.7, which I cite. Verified all four headers present on current origin/main.
+- **The KB-side thermal-floor tri-form is now ALSO landed (§8c.11).** The auditor lane absorbed the same tri-form into `engine-capability-map §8c.11` on main. My ch17 note is the **datasheet-side** absorption of the identical verdict (cites the same merged result doc) — complementary, consistent, NOT a duplicate (implementer surfaces datasheet-side; auditor landed KB-side). No contradiction.
+- The now-merged #739 cleanup ledger's C2-FLAG-2 was a *routing* note (route to the vol-9 lane); it did NOT itself land a vol_9 ch5 edit. This lane's ch5:599 note is the sole vol_9-side landing.
+
+**Recommendation to orchestrator:** merge is clean as-is; a rebase onto `3efa24d6` is optional (no conflicts). NOT auto-rebased here to avoid racing the still-active concurrent lanes (origin/main moved twice mid-session).
+
+### Validation gates (all green)
+
+- `pdflatex -interaction=nonstopmode -halt-on-error` on `main.tex`: **EXIT 0, 268 pages**; log has zero `! ` LaTeX errors, zero undefined control sequences; my new `\kbleaf` cites resolved.
+- `make verify-md-links`: **EXIT 0** — my new cites are NOT among the (pre-existing, warn-class) broken inter-repo links; no new breakage on any edited line.
+- `make verify` (full physics suite): **EXIT 0 — "ALL PHYSICS PROTOCOLS PASSED."**
 
 ---
 
