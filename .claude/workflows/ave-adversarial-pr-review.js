@@ -24,6 +24,14 @@ if (!args || !args.pr || !args.context || !args.lenses || !args.lenses.length) {
 
 const SCRATCH = '/private/tmp'
 
+// STANDING DISCIPLINE hardening (2026-07-20, Grant #4): the `STANDING DISCIPLINE (every lens)`
+// block below carries five ADDITIVE review-instruction bullets (claim-id-solidity trail /
+// frozen-protocol-vs-verdict diff / re-derive-the-narrated-algebra / temporal-currency /
+// both-ways seduction) validated across the 2026-07-19/20 derivation wave (#744/#751/#753/#755/#758).
+// These are default reviewer-instruction TEXT only — the args schema {pr, context, lenses}, the
+// FINDINGS/VERDICT schemas, and the pipeline/parallel wiring are UNCHANGED. Paired discipline lives
+// in the ~/.claude/skills/ ensemble (ave-mechanism-claims-discipline, verify-before-cite temporal-
+// currency clause, ave-reproduction-gate).
 const COMMON = `You are reviewing AVE-Core PR #${args.pr}. FIRST: cd /Users/grantlindblom/AVE-staging/AVE-Core, run 'gh pr view ${args.pr} --json headRefName' to find the branch, then 'git fetch origin main <branch>'. Review the BRANCH via 'git diff origin/main...origin/<branch>' and 'git show origin/<branch>:<path>'. NEVER modify the main checkout or any tracked file. To execute code, create a throwaway git worktree under the session scratchpad (or ${SCRATCH}) and remove it when done.
 
 CLAIM UNDER REVIEW + GROUND TRUTH:
@@ -36,6 +44,11 @@ STANDING DISCIPLINE (every lens):
 - Identity-audit (standing): for every PASS criterion in the PR, check it is not a conservation / calibration / co-monotone identity in disguise (a detector that cannot fail on physical inputs is a checklist, not a gate); for every proposed test, check it BREAKS AN IDENTITY rather than measures a magnitude. Physics grounding + worked receipts: manuscript/ave-kb/common/identity-break-test-design.md.
 - Claim grades are ground truth: alpha=echo, K=2G=GR-imported, nu=2/7 VALUE imported, FORM-derived only; any sentence upgradeable to a value derivation is CRITICAL. The A1-vs-T2 homonym guard is binding.
 - Knife: 1/2 and 1/4 factors derived-only; visible targets may be compared against, never tuned toward; a constraint satisfied suspiciously exactly is a finding.
+- Claim-id-solidity trail (2026-07-20): for EVERY mechanism claim invoked as load-bearing in the PR, look up its claim-register entry (kb_cmd show / grep clm-xxxxxx in claim-quality.md) and check build_status/solidity. The laundering tell — a conclusion whose supporting cite proves an ADJACENT-BUT-DIFFERENT statement (a do-not-build 0.42 claim relayed through a 0.85 one; a "+1 eigenvalue PRESERVES A1" cite used to assert transduction) — is a CRITICAL finding. (#758 catch.)
+- Frozen-protocol-vs-verdict diff (2026-07-20): enumerate the prereg's FROZEN protocols; any verdict sentence resting on a protocol NOT in that frozen list (a post-hoc undriven ring-down, a band-edge step minted after the freeze) is a post-hoc mint — the measurement is CHARACTERIZATION, quarantined from the verdict, and headlining it as the frozen verdict is a finding. (#751 catch.)
+- Re-derive-the-narrated-algebra (2026-07-20): any "therefore" riding an algebraic property (a +1 eigenvalue = X, a traceless part = 0, an integral = a factor) gets the algebra RE-DERIVED in a throwaway worktree or by hand, not read from the prose. Narrated algebra that does not reproduce is a finding. (#744 / #758 catches.)
+- Temporal-currency (2026-07-20): every branch-state tag in the PR ([canon] / [branch:#NNN] / merged-vs-open / "supersedes" / "N rows canon") is re-verified AT REVIEW TIME against current origin/main (gh pr view <n> --json mergedAt; git branch --contains; git log origin/main), not trusted from authoring time — mid-lane base advances are the norm under parallel lanes, so an authoring-time-correct currency tag is routinely stale at review. (#753 / #755 class.)
+- Both-ways seduction (2026-07-20): dramatic FALSIFICATIONS are narratives too. Apply the same refute-pass to a "kill-class exposure" / "the mechanism is dead" headline as to a positive chord — a clean-looking negative can over-read its own evidence (wrong-regime, wrong-carrier, an unfireable ablation) exactly as a positive can. Consensus knife cuts both directions.
 Report ONLY substantive findings, max 5 per lens, ranked most-severe first. Checks that PASS go in clean_report with specifics (commands run, values reproduced). Empty findings + a solid clean_report is a good outcome.
 
 `
