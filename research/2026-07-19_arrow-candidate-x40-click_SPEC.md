@@ -88,7 +88,29 @@ This is Phase-0 of the SPEC (§4) — minutes, read-only, uses the existing X40 
 
 ## 3 · The honest click-arm design — frozen observable, certificates, byte-untouched set
 
-<!-- §3 COMMIT -->
+### 3.1 · The frozen observable that would show arrow-from-click
+
+Per §0's A46 discipline, the observable is in the **count / `Λ`-ledger coordinate**, not the revival coordinate. On a **driven ensemble of ring-completions** (the instrument fork is Grant's, §5 Decision 1), record every step:
+
+- **PRIMARY — the count trajectory `N_click(t)`.** The accumulated number of mint events = `b_1` increments (trapped cycle-space loops). Frozen reads: (i) **monotonicity** under forward driving (`N_click` non-decreasing); (ii) **`Δω`-INVARIANCE** — sweep the radiated bath's comb spacing `Δω` and require the count-arrow signature to be *independent* of `T_rec = 2π/Δω`. `Δω`-invariance is the discriminator that the arrow is in the **counting** (topological), not the modal recurrence — the exact axis on which the floor/counting-arrow arms failed (`R_return` was `T_rec`/`τ_transfer`-controlled, `…counting-arrow-arm_result.md` §0, `…certified-kappa-sweep_result.md` §3).
+- **PER-EVENT ledger (the click's defining property).** For each mint: `Λ`-conservation across the event (drift ≈ 0) and the `f_E = 1/N` trapped split. A "mint" that fails `Λ`-conservation is a numerical artifact (the clamp's failure mode, §2), not a click — this is the built-in honesty gate.
+- **THE KILL-SHAPE — a Loschmidt echo.** Time-reverse the TLM state at the window end (swap `V_inc ↔ V_ref` on every line — the native TLM time-reversal) and evolve backward. Measure whether `N_click` **un-counts**. A genuine counting arrow does **not** un-count within the window (the trapped `1/N` is protected; the dispersed `9/10` cannot reconverge). If the count fully reverses, the "arrow" was reversible bookkeeping (echo, not chord). This is the sharpest separation of the Loschmidt-class arrow (§1.3) from an artifact.
+- **Click-rate statistics vs recurrence structure (task's explicit alternative).** Report both framings: **click-rate** (mints per window, and its `Δω`-invariance) *and* the **recurrence structure** (`R_return(x)` in the radiated channel). The click claim rests on the click-rate being recurrence-*independent*; if the click-rate tracks the recurrence, that is the `MODE-SPREAD-CONFOUND` verdict (§4) and routes away.
+
+### 3.2 · Which certificates break — and which do not
+
+- **The #721 R-1 identity — DOES NOT break (if built on X40).** #721 R-1 is that on the **standalone-K4 bath-meter** energy conservation is an *algebraic identity* of the amount-not-phase global rescale. The X40 ring-closure instrument is a **different instrument** (standalone TLM ring-completion; its own conservation identity is the `Λ`-drift `2.2e-16`). A click-arm on the X40 instrument does **not** use `LatticeBathCoupler`'s back-reaction, so it **does not touch** the #721 bath-meter identity. ★This is a *reason to build on X40*, not the meter: it sidesteps both the clamp (§2) and the #721 identity.
+- **The port abstraction — DOES NOT break, but a real-port FORK is surfaced (flag-don't-fix).** The click's "port" is the ring-completion + matched stubs (`R_rad ≡ Z_0`), **not** the meter's collar-coupling port — so the meter's port abstraction is untouched. **BUT** the matched-stub bath is a **real radiative port** (SYSTEM-loss, Ax3-legal port-only, `retention-transition-split.md:60`), a *different bath model* from the meter's lossless-reactive Caldeira–Leggett comb (which recurs at `T_rec`). Whether the click's arrow is permitted to invoke a real matched port, or must stay in the meter's lossless-reactive world, is a genuine **physics-framing fork** — surfaced to Grant (§5 Decision 2), **not** resolved here.
+- **`clm-ldmvwi` (Born-rule capture) — CONSUMED, not redefined.** A click-primitive that keys the detector-boundary capture on "capture work-function = Joule extraction at `Z_det`" **consumes** `clm-ldmvwi` (build-status "ok to build on, see caveats"; solidity 0.65) as the capture definition. It does **not** touch or redefine the leaf. Its `Z_det` matched port is the *same* real-port fork as above. No `manuscript/ave-kb/` edit is entailed or permitted by this lane.
+
+### 3.3 · What stays byte-untouched
+
+- **`src/ave/thermal/f6_bath_meter.py`** (`LatticeBathCoupler`, `OscillatorBath`) — READ-ONLY (the Phase-0 clamp discriminator overlays a read-only observable; no edit).
+- **The K4 engine** (`k4_tlm.py`, `k4_cosserat_coupling.py`, …) — untouched.
+- **The #721 / #724 meter certificates** — untouched (the arm is off-instrument).
+- **The interacting-bath lane's files** — untouched; the one-line cross-pointer (§0) is the only contact.
+- **The canon leaves** `retention-transition-split.md`, `clm-ldmvwi`'s home leaf, the tier-1 charter, and **all files PR #738 touches** — untouched (this is a `research/` SPEC only; no `manuscript/ave-kb/` or `_orchestration/`-substantive edit; the docket append is a union-safe tail entry only, §6).
+- **The X40 driver `x40_ring_closure_transient.py`** — this SPEC does **not** edit it either (build-gated); the arm, *if built*, adds a **new** driver reusing it. STOP at the build gate.
 
 ## 4 · SPEC (build-gated) — stages, frozen tree, kill-shapes, compute cost
 
