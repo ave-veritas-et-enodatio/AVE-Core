@@ -1925,3 +1925,98 @@ Neither discriminator adjudicates against the reversible lean. Both **relocate t
 - **R13 / hardware-ratings-map:** record "discriminators RUN 2026-07-19; fork OPEN; crux = Flag F" against the retention row (auditor lands).
 
 *Repair note — 2026-07-19 (implementer lane, review `wf_f0870d0d`, 11 confirmed / 1 refuted CRITICAL→MAJOR): the Leg B block above and the owed-notes were re-banked; the fork-open disposition and the Flag-F relocation SURVIVE (via the model-tautology leg only). Frozen verdicts (Leg A = B, Leg B = NEITHER) not retro-edited (Rule-11).*
+## Continuation — 2026-07-19 (Grant in-chat): DEEP-SPACE REACTIVE-BULK ruling — stall/Joule DEMOTED, band-structure framing recorded
+
+**Append-only, dated block.** Records the adjudication of the Regime-IV audit's **deep-space resistive-metric family** (F5, `research/2026-07-17_regime-iv-dissipation-audit.md:126`), left open with *"Owner: the continuum-electrodynamics / dark-sector lane"* and — for the vol1 site (item 89) — the explicit note that the call was *"a physics ruling for Grant, not an auditor relabel."* Grant ruled it. Prior blocks untouched. **Nothing banked at result-class**; the band-map re-derivation is **SPEC'd, not run** (Grant-gated). Companion: the WALK/CONTEXT record `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` (full arc + attribution key + canon anchors). *(Same-day sibling to the noise-floor ruling above — the `Re(Z)`-emergent convergence: loss lives at ports / by counting, never in the bulk.)*
+
+### The ruling (Grant verbatim, `[sic]` as typed)
+
+> "it rings but i think theres a bulk reaction from the lattice that makes it lossless/pure reactance, and that there dofferent passpa danof frequencies for effects, like the rings of saturn vs electron orbitals"
+
+Two clauses: **(1)** the deep-space bulk coupling to slow matter is a **bulk reaction that returns the ringing energy** — **lossless / pure-reactance**, no resistive stall, no bulk Joule; **(2)** effects live in **frequency passbands** — band-structured coupling, structure at the resonances (Saturn-rings-vs-electron-orbitals grammar).
+
+### The orchestrator formalization (orchestrator-walk, ratified-in-substance by the ruling's own words)
+
+- **added mass / d'Alembert** — steady motion through a lossless medium feels zero drag, a purely reactive virtual-inductance back-force (dual of Ax3-lossless, `eq_axiom_3.tex:24`).
+- **sub-band evanescence** — deep-space slow matter sits ~20 OOM below the lattice band edge `f_max = c/(π ℓ_node)` (`translation-circuit.md:154,:353`); below-cutoff ⇒ evanescent ⇒ reactive by construction (= Regime I, `A_gm≪0.121`, `06_solar_system.tex:203` "0 Watts, lossless induction").
+- **Cherenkov/Mach threshold** — real drag turns on only when the wake becomes propagating (a radiative port, Ax3-legal); deep-space is far below it, so the demoted "stall" is not an above-threshold wake either.
+- **structure-at-resonances (Kirkwood-gap grammar)** — the replacement prediction shape; already realized reactively at `<0.3%` in `kirkwood-gaps-cavity-modes.md:12`, NOT a smooth `∝v` stall.
+
+### The demotions (EXECUTED this batch)
+
+| Site | Type | Action |
+|---|---|---|
+| `vol_1_foundations/chapters/04_continuum_electrodynamics.tex:244`-area | primary (.tex) | 🔴 DEMOTED — topological-Joule-stall / resistive-metric mechanism |
+| `vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:226`-area | primary (.tex) | 🔴 DEMOTED — "Lunar Inductive Joule Heating" resultbox + fig (`P_topo≈1.04` TW) |
+| `ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md:32`-area | primary (KB, `clm-8ep2b4`) | 🔴 DEMOTED — Asteroid-Belt/Oort transition-trap corollary (scoped; τ_yield survives) |
+| `ave-kb/vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md` | KB consumer leaf (`clm-av2o4v`) | 🔴 DEMOTED — same as vol3 14 twin |
+| `vol_4_engineering/chapters/11_experimental_falsification.tex:354`-area | consumer (.tex, Protocol 10) | 🔴 FLAGGED — energy-shedding drag demoted; falsifier FLIPPED to discriminator |
+| `ave-kb/vol4/falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md` | consumer (KB, `clm-h55fy1`) | 🔴 FLAGGED — same |
+| `ave-kb/vol4/falsification/ch11-experimental-bench/advanced-protocols.md` (Protocol 10) | consumer (KB, `clm-h55fy1`) | 🔴 FLAGGED — same |
+| `ave-kb/vol3/claim-quality.md` (`clm-av2o4v`) | claim register | dated 🔴 demotion note |
+| `ave-kb/vol1/claim-quality.md` (`clm-8ep2b4`) | claim register | dated 🔴 PARTIAL demotion (belt corollary only) |
+| `ave-kb/vol4/claim-quality.md` (`clm-h55fy1`) | claim register | dated 🔴 demotion + falsifier-flip note |
+| `research/2026-07-17_regime-iv-dissipation-audit.md` (F5) | audit doc | dated ★ ADJUDICATED-DEMOTED bottom-append |
+
+**Not demoted (reactive siblings, SURVIVE, not touched):** the `τ_yield` formula (`clm-8ep2b4`), the saturated slipstream (`η→0`, `P_drag=0`), the **dark-matter added-mass** reading (`magnetic-saturation.md:30` — the ruling *affirms* it), the flyby Sagnac operator (`clm-a71inj`), the `Γ_sagnac=m_p/m_e` identity (`clm-k3p9wz`), and the reactive Oort/Kirkwood boundary derivations (`06-solar-system`).
+
+### The SPEC routing (SPEC'd, NOT run — Grant-gated)
+
+Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reactive band-structure** — the passband map of which frequencies couple and where the resonances sit (Saturn-rings-vs-electron-orbitals). Substitution-not-retraction (Rule 12 / A47 v11b): the demoted slot is left OPEN, not refilled; the re-derivation is a **new lane** with its own version number + verification chain, gated on Grant. **Owed to auditor lane:** any manuscript/`COLLABORATION_NOTES` corpus-state entry for the demotion (implementer surfaces; auditor lands).
+
+| receipt | content |
+|---|---|
+| `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` | the walk-record (arc + attribution key + §4 canon anchors + §5 SPEC'd routing) |
+| `research/2026-07-17_regime-iv-dissipation-audit.md:126` + JSON items 85/89/90 | the audit's `LOSS-REQUIRED` findings the ruling demotes-the-prose-not-the-audit |
+| `manuscript/common_equations/eq_axiom_3.tex:24` | Ax3 "never a bulk resistive one" — the axiom the stall violated |
+| `manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:203` | the corpus's own Regime-I-lossless "0 Watts" resolution the sites contradicted |
+
+**Class:** deep-space dissipation adjudication (demotion executed; band-map re-derivation SPEC'd). Nothing emergence-class; nothing minted as canon.
+## Continuation — 2026-07-19 (auditor-queue lane): §8c noise-floor transplant LANDED — engine-capability-map §8c.10 + RULING-22 slot updated (EXECUTED)
+
+**Append-only, dated block.** Lands the two owed §8c updates the noise-floor walk-record flagged as *"owed placement"* (`research/2026-07-19_noise-floor-arrow-walk_RECORD.md`, its "KB pointer (D2 — owed placement)" section), now that §8c is on `main` (#728 merged):
+
+- **engine-capability-map §8c.10 (NEW):** transplants the ready-made pointer paragraph — the noise-floor ruling + the **thermal-floor arm** in-flight (branch `feat/f6-thermal-floor-arm`) + the walk-record cross-ref.
+- **engine-capability-map §8c.8 (RULING-22 slot, UPDATED):** the DOS-balance A/B fork is **MOOT** per Grant's 2026-07-19 static-noise-floor ruling (verbatim "*my gut says its couples through a static noise floor*" `[sic]`; full arc in the walk-record + the F6 NOISE-FLOOR ARROW continuation above); the resolution path = the **thermal-floor configuration** (pre-occupied random-phase bath); the superseded "DOS-balance = recommended direction" wording is **preserved per Rule-12**; the design-walk-owed slot updates to **EXECUTED**. §8c.9's closure line carries the same forward pointer.
+
+**Class:** auditor-lane placement of an owed KB pointer (no new physics; nothing banked at result-class — the thermal-floor arm adjudicates). Receipts: the §8c diff + `research/2026-07-19_noise-floor-arrow-walk_RECORD.md`.
+
+---
+
+## Continuation — 2026-07-19 (branch-scrub inventory): 46 unmerged branches adjudicated, 43 deleted (archive-tagged), 3 kept w/ flagged follow-ups
+
+**Append-only, dated block.** Records the Grant-fired 2026-07-19 unmerged-branch scrub and routes the three KEEP follow-ups into the KB-debt queue. The prior blocks are left untouched. **Nothing here canonizes; nothing banked at result-class** — this records queue-state (three routed KB-debt items) + the scrub disposition. Companion: the full disposition table `_orchestration/2026-07-19_branch-scrub-inventory.md` (method + 46-row table + the three KEEP branches' unbanked-content detail). Raw adjudication: 8-agent workflow `wf_7957ec36-42c`. Every SHA/tag/cite below was git/grep-confirmed this session (verify-before-cite).
+
+### The scrub (executed)
+
+- **46 unmerged branches archive-tagged then adjudicated.** Method = archive-tag-first (lossless): every branch got an annotated tag `archive/<branch>` pinned to its head SHA *before* any deletion, so a deleted pointer is fully recoverable (`git checkout archive/<branch>`). Adjudication was per-branch (unique commits enumerated, content classified vs `origin/main`, banked receipts resolved, unbanked items extracted); default disposition **DELETE**, a **KEEP** requires a named piece of unbanked content of real value.
+- **43 DELETE-POINTER · 3 KEEP-POINTER.** The 43 deleted pointers were content either FULLY-BANKED on main, SUPERSEDED-CLOSED-ARC, or closed-negatives whose record the tag preserves. Deletion is lossless in every case — the tags hold all 43 heads.
+- **Verify-before-cite spot-checks (this session).** 6 archive tags confirmed to resolve to head SHAs (the 3 KEEP tags match the adjudication's cited SHAs exactly: `cc63c420` / `f647f58b` / `205d6e6b`; 3 DELETE tags → `ee48d01c` / `121e811c` / `2ef4990f`). 2 banked receipts resolved (`9b12ee8f` BH-Γ=−1 shear/GW relabel 3 sites; `c18cd480` = PR #100 merge). All 3 KEEP live-claim flags re-verified still-live on `origin/main`. Dedup: 60 raw chunk-entries → 46 unique by name (3 names had duplicate chunk-entries; richer entry kept).
+
+### The three follow-ups routed (KB-debt queue items — surfaced for the auditor lane; implementer surfaces, auditor lands)
+
+1. **★ PRIORITY · `analysis/moving-front-freezein` (`f647f58b`) — a live claim on main stands refuted by unbanked branch work.** The branch carries an honest NEGATIVE (real-space ω-defect persistence ≤3.04 Compton periods, 30× short of the ≥100 Cp target; single mechanism: the re-solidified Cosserat solid is linear-elastic with no topological-pinning term) that **directly refutes clm-exjfai**, which is **STILL ASSERTED LIVE** on `origin/main` at `manuscript/ave-kb/common/dark-wake-bemf-foc-synthesis.md:54` ("Residues persist for ≥ 100 Compton periods…") + propagated at `substrate-hysteresis-index.md:51`. It also carries the only engine realization of the moving-front freeze-in mechanism (`src/ave/topological/moving_front_freezein.py`) + a direction-conflict flag (clm-exjfai reads slow→freeze; the arc derives fast→freeze). **Route:** reviewed PR landing the prereg/result/module/tests + a falsification-ledger entry + auditor-lane clm-exjfai adjudication (Rule-12 dated correction on the dark-wake §1.2 + hysteresis-index row). **Hold the pointer until the PR + adjudication land.**
+2. **`analysis/2026-06-06-open-short-relabel` (`cc63c420`) — a canonical primer fix main's history falsely records as landed.** Orphan post-merge commit with the Grant-confirmed BH-mechanism distinction (electron/Schwinger = EM impedance-mismatch wall vs BH = shear-mode phase transition G_shear→0, Γ=0 for EM). Main's `trampoline-analogy-primer.md:280` STILL over-unifies ("…the same fully-straight bond at A=1 viewed through different observable channels"); the fix exists only on this branch (0 hits for `do not flatten`), yet main commit `9b12ee8f`'s message claims the "#100 primer" landed — grep-verified FALSE. **Route:** cherry-pick the primer hunk into a 1-line docs PR (target ~:280); optional secondary = the 57-line contradiction-audit evidence table. **Hold until the primer hunk is banked.**
+3. **`analysis/stage4-a1-eos-scope` (`205d6e6b`) — a live un-named kernel-conflict under a headline-confirmed prediction.** The S4-5 flag: KB leaf `effective-galactic-acceleration-mond.md:15` states LINEAR √(1 − g_N/a₀) while engine `galactic_mond_drag.py:49` computes QUADRATIC `np.sqrt(1.0 - r**2)` — the quoted 11.5% Q=1 SPARC residual rode the quadratic kernel; no conflict doc exists on main. Secondary = the F3 g*=7³/4 no-provenance-caveat flag. **Route:** bank as a debt/reconciliation row (an `_orchestration` debt entry or a caveat on the MOND leaf) per the scope doc's S4-5 gate. **Hold until the flag is banked.**
+
+**Class:** repo-hygiene disposition + KB-debt routing (no new physics; canonizes nothing). **Owed to auditor lane:** the three follow-ups (FOLLOW-UP #2 priority) are queue items the auditor lands (the clm-exjfai adjudication, the primer cherry-pick, the MOND kernel-conflict debt row); the implementer surfaces them here. Receipts: `_orchestration/2026-07-19_branch-scrub-inventory.md` (full table + KEEP detail); the archive tags `archive/*` (46 heads); workflow `wf_7957ec36-42c`.
+
+---
+
+## Continuation — 2026-07-19: F6 thermal-floor arm (revival-vs-floor) — the noise-floor arrow RULING → **NO-SUPPRESSION** (FLOOR-ARROW falsified)
+
+**Append-only, dated block.** New implementer lane (`feat/f6-thermal-floor-arm`) — tests Grant's 2026-07-19 ruling that the T2 sink couples as a **static pre-occupied noise floor** whose phase-randomness **sets the local arrow** by dephasing coherent revivals. Companions: charter §D + §D-post (`research/2026-07-16_f6-bath-meter_CHARTER.md`), STAGE-1 floor-battery (`…_f6-floor-battery_result.md/.json`, `f6_floor_battery.py`, `test_f6_floor_battery.py`), STAGE-2 prereg (`…_f6-thermal-floor-arm_prereg_FROZEN.md`), STAGE-3 result (`…_f6-thermal-floor-arm_result.md/.json`, `f6_thermal_floor_arm.py`, `test_f6_thermal_floor_arm.py`). Meter module + K4 engine **BYTE-UNTOUCHED** (floor = config-only `bath.x`/`bath.p` seed).
+
+### ENTRY 21 (2026-07-19): implementer lane — F6 thermal-floor arm (revival-vs-floor)
+
+**★THE RULING (Grant verbatim, [sic] preserved — the standing attribution lesson):** "my gut says its couples through a static noise floor" / "so wffectively constant" / "word, that picture makes perfect sense to me, and the noise floor woild set the arrow of time right?" **Everything beyond his words = ruling-execution / hypothesis wording, tagged as such in the prereg §0.** Growth/node-genesis re-homed to the cosmological rate rung; DOS-balance A/B fork MOOT (pathology was bath EMPTINESS not head-count).
+
+**★STAGE 1 — floor-battery → FLOOR-METER-VALID-BAND[0,5].** The certified meter READS a pre-occupied floor cleanly in a bounded band `ρ∈[0,5]` on the densest-viable comb `Δω=0.050` (M=15), 6-seed ensemble: identity `2e-14`, excess-ledger + excess-tare well-defined, cold-limit bit-for-bit. §D frozen-by-push `21:41:18Z` BEFORE battery code. **§D-post (Rule-10, first-run corrections; the charter's own §A/§B/§C-post pattern):** multi-seed FB4 caught a seed-dependence single-seed FB1 MASKED — at high ρ the floor jitter drives over-transfer/clamp (the #727 wall from the floor side), so the clean band is BOUNDED and comb-dependent (`Δω=0.050→ρ≤5`, `Δω=0.030→ρ≤2`, banked-dip `Δω=0.010` not floor-viable). FB3 `c∈[0,1]` ceiling superseded → finite&≥0 (a warm floor PUMPS the lattice above E0 = equilibration, not a read-defect); FB4 pairwise-CoV superseded → prose-faithful "statistics not realization" (the measured `CoV≈0.23` is the FROZEN arm-ensemble budget). **Both readings banked:** the UN-amended frozen §D.D3 binary criteria return FLOOR-LEDGER-ARTIFACT (banked as `frozen_literal`), the corrected reading is the band. **Grant/orchestrator may overrule the flip.**
+
+**★STAGE 3 — the arm fired → NO-SUPPRESSION (FLOOR-ARROW falsified).** Prereg frozen-by-push `22:31:10Z` BEFORE any arm code (freeze margin ≈5.5 min; the revival-vs-ρ prediction unmeasured at freeze). Across the certified band `ρ∈[0,5]` (floor 0→5× signal-per-mode), the **clean coherent revival** (ensemble-average-first, jitter cancels √6) is **FLAT at ~0.90** (`0.899 @ ρ=0 → 0.923 @ ρ=5`, `+2.7%`, within SEM). It does NOT decay with the floor. **Grant's ride-on-top alternative is CONFIRMED.** The frozen §4 tree returns NO-SUPPRESSION (`S(ρ)` does not decrease); `self_check.match=True`.
+
+**★The mechanism (Rule 11 — one root).** The lossless-reactive Caldeira–Leggett bath is a set of **INDEPENDENT** oscillators (free rotation is per-mode, linear) with **NO mode–mode coupling**, so a static random floor **superposes with** rather than **dephases** the coherent revival. Dephasing-that-sets-the-arrow requires an **interacting / dissipative** bath (thermalization), which the Ax3 lossless-reactive regime does not provide — the arrow-from-a-static-reactive-floor is structurally inexpressible here (the same structural reason #721 conservation is an identity). Scoped: this does NOT falsify arrow-from-thermalization in an interacting bath (untested).
+
+**★Observable artifact DISCLOSED (fire-time, #726 R-1 class; flag-don't-fix).** The frozen §4 `S(ρ)` metric is partly artifactual off-plateau (the detuned control's `R_rev` blows up dividing by its near-zero no-transfer plateau `0.0096`; floor-pumping inflates the raw per-seed `R_cum>1`). The verdict is ROBUST to it — the frozen tree AND the clean ensemble-average-first cross-check both return NO-SUPPRESSION; a real suppression would have decreased both. `detuned_valid=False` is the normalization symptom, NOT a resonance-gating failure (the detuned transfer IS gated: plateau `0.0096<1e-2`).
+
+**Disposition (Rule 12: retract, do not refill).** Retract the FLOOR-ARROW prediction; branch closed negative; ride-on-top confirmed. Routed SPEC only: **(1)** a dephasing arrow needs an INTERACTING (mode-coupled / nonlinear / dissipative) bath — a meter/physics change (breaks the #721 identity ⇒ full re-cert), NOT built; **(2)** an interacting-bath arm should gate on the ensemble-average-first coherent-revival metric (the frozen §4 `S(ρ)` normalization is artifactual off-plateau). **Untouched:** depletion-rate rung; growth/node-genesis (re-homed); #721/#724/§D certificates; meter module + K4 engine (byte-untouched). **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator]; owed to auditor lane:** land the NO-SUPPRESSION negative + the independent-oscillator-no-dephasing mechanism + the §D-post FLOOR-METER-VALID-BAND[0,5] flip (both readings) for Grant adjudication (implementer surfaces; auditor lands).

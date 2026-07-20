@@ -17,6 +17,8 @@ Gravity scales $\mu$ and $\epsilon$ proportionally → $Z_{gravity} = \sqrt{\mu_
 <!-- claim-quality: clm-h55fy1 -->
 ### Protocol 10: Orbital Boundary Trapping
 
+> **🔴 FLAGGED 2026-07-19 (deep-space reactive-bulk ruling, Rule-12 — Protocol-10 text below PRESERVED verbatim).** Consumer of the demoted deep-space stall mechanism (`clm-h55fy1`). The "**shedding orbital energy**" via drag spikes is the sub-yield bulk resistive loss **DEMOTED** by the ruling (deep-space bulk coupling = lossless / pure-reactance). The impedance-shear *reflection* framing can survive reactively; the *energy-shedding drag* is retracted; the drag-spike test is **FLIPPED into a discriminator** (reactive ⇒ zero energy-shedding drag below threshold). Re-derivation = band-structured reactive coupling (structure-at-resonances), **SPEC'd, not run**. Arc: `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md`; primary banner: `boundary-trapping-test.md` (same date).
+
 The Asteroid Belt and Oort Cloud are AVE impedance shear boundaries — where solar metric slipstream collides with the galactic background impedance floor. Low-mass detritus experiences sudden inductive drag spikes, shedding orbital energy.
 
 **Test**: Deep-space probe transit velocity logs at $\sim 15{,}000$ AU Oort Cloud boundary should show sudden, otherwise inexplicable drag spike.
