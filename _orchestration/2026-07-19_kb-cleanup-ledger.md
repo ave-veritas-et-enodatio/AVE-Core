@@ -49,7 +49,19 @@ _(populated during sweep)_
 
 ## CLASS 1 — MECHANICAL HYGIENE
 
-_(populated per category commit)_
+### C1-A · Broken markdown links (FIXED 12; 70 out-of-scope residue characterized)
+
+**Method:** wrote a KB relative-link resolver (`scratchpad/check_kb_links.py`) — parses `[text](target)` links across all 802 KB `.md` files (skips http/mailto/anchors/`{}`-templates and the `tools/` test-fixture tree), checks each target file exists. 6784 links checked; 80 broken → 70 after fixes.
+
+**FIXED (10 file:line-in-href anomalies + 2 depth errors = 12 links across 7 files):**
+- The KB convention is line-in-LABEL, plain-file href (781 backtick cites; e.g. `[`q-g19a-...:108`](...q-g19a-...md)`). A rare minority (10) leaked the `:NN` into the href too → non-resolving. All target files verified to exist with valid line counts. Fixed by dropping `:NN` from the href (label keeps the line): `claim-quality-closure-roadmap.md` (×4: topological-fractionalization.md:6 ×2, constants.py:680, riemann-hypothesis.md:52), `vol4/.../baryon-mass-predictions.md:12` (constants.py:733), `vol4/simulation/ch14-.../theory.md:43` (topological:6), `vol2/.../torus-knot-uniqueness.md:112` (topological:6), `vol2/.../q-g19a-petermann-saliency-closure.md:115` (topological:6).
+- **vol9→tex depth errors (2):** `vol9/ch11-topological-characteristics/index.md:38` + `vol9/ch13-application-examples/index.md:67` used `../../../../vol_9_vacuum_datasheet/...` (up 4 = repo-root) → target is under `manuscript/` (up 3). Fixed to `../../../`. Both `.tex` targets verified present.
+
+**70 remaining broken — ALL out-of-scope (characterized, NOT fixed):**
+- **22 cross-repo cites** (`../../../../../../AVE-QED/...`, `AVE-HOPF/...`, `AVE-Tangents/...`) — correctly-formed pointers into sibling repos under `AVE-staging/` (verified depth: e.g. flyby-anomaly leaf's 6-up reaches `AVE-staging/AVE-QED`). Resolve in Grant's workspace layout; not broken there. Per workspace cross-repo citation rules.
+- **20 template/example placeholders** in `CONVENTIONS.md` / `CLAUDE.md` / `README.md` / `.index/SCHEMA.md` (`../index.md`, `path.md`, `relative/path/to/target.md`, `<rel-path>`) — documentation syntax examples, NOT real links. CONVENTIONS.md §Auditing explicitly lists these as known false positives.
+- **9 asset PNGs** in `common/trampoline-framework.md` (`../../../assets/sim_outputs/trampoline_framework/*.png`) — `assets/sim_outputs/` is not committed (only `src/scripts/trampoline_framework` exists); generated-figure output dir. Cannot fix (can't create assets); left for the figure-generation lane. LEDGERED.
+- **19 in `session/axiom-homologation.md`** — a DEPRECATED archive doc carrying its own banner: *"moved to session/ to preserve its content for evaluation until it can be deleted ... DO NOT MAKE SWEEPING CHANGES."* Stale relative paths from when it lived under `common/`. Not fixed (churn against a to-be-deleted doc). LEDGERED.
 
 ---
 
