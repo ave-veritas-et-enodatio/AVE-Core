@@ -35,6 +35,6 @@ Charge quantization is one of the framework's cleanest **forced chords**. Per Ax
 
 ## Manuscript counterpart
 
-[`manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex`](../../../../vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex) — populated in Vol 9 PR-F (Ch 11 row).
+[`manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex`](../../../vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex) — populated in Vol 9 PR-F (Ch 11 row).
 
 ---

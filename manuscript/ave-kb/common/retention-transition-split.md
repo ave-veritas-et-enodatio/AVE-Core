@@ -62,6 +62,8 @@ The subtle trap the audit surfaced: **loss from a MODE ≠ loss from the SYSTEM.
 
 The last row is the **open yield-fork** (finite-area memristive loop vs zero-area saturating reactance): Grant leans reversible; the fork stays OPEN; resolution is by the registered discriminators (audit §5). Do not bank it either way in load-bearing prose.
 
+> **Status update (2026-07-19, #735 — the registered discriminators RAN; fork STAYS OPEN; "do not bank either way" unchanged).** The two registered discriminators fired (`research/2026-07-19_yield-fork-discriminators_result.md`): **Leg A** (thixotropy amplitude-dependent-τ) returned **B** — the canonical kernel has no genuine `sign(dr/dt)` memory and is dissipative, closing the *two-τ thixotropic* sub-branch by derivation; **Leg B** (memristor loop-area, `P_phase5`) returned **NEITHER** (frozen bin). **Neither adjudicates against Grant's reversible-reactive lean.** Both **relocate the crux to `#59` Flag F** — whether the near-yield `S`-dynamics are *first-order overdamped* (dissipative) or *second-order reactive* (`$I_S\neq0$`, lossless): a **derivation** question, upstream of and unreachable by either driver (a Flag-F K4-Lagrangian derivation, NOT another driver). So "resolution is by the registered discriminators" above is now known to be insufficient — the discriminators ran and pointed *past themselves* to Flag F. The fork status is unchanged: **LOSS-REQUIRED by its own prose but NOT axiom-forced** (the 2026-07-17 §5 status). Still do not bank it either way.
+
 ## Cross-references
 
 - The EE-native leak-check (regime-scoped word selection): [`substrate-native-terminology.md`](substrate-native-terminology.md).
