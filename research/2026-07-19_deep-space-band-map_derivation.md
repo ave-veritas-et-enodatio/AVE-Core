@@ -3,7 +3,7 @@
 **Date:** 2026-07-19
 **Class:** DERIVATION (research-doc; **forms derived, values calibration-tagged; mints no `clm-`, propagates to no KB/tex leaf**). This lane executes the band-map re-derivation that the deep-space reactive-bulk walk-record (`research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` §5) SPEC'd but did not run.
 **Provenance:** SPEC = Grant's 2026-07-19 in-chat ruling, recorded verbatim in the walk-record §1(c). Every canon input below was `grep -F` content-verified in this worktree at HEAD `1be045a1` (verify-before-cite). Grant's own words are cited only through the walk-record's `[Grant-verbatim]` transcription — **not re-attributed or re-quoted from memory**.
-**Lane fences:** DERIVATION lane only. **No** `manuscript/` / `manuscript/ave-kb/` / `.tex` edits, **no** engine edits, **no** files PR #738 touches. KB/tex propagation is listed as OWED-FOLLOW-ONS (§7) and fenced to the cleanup lanes.
+**Lane fences:** DERIVATION lane only. **No** `manuscript/` / `manuscript/ave-kb/` / `.tex` edits, **no** engine edits, **no** overlap with PR #738's KB/tex files (its only shared file is the union-merge rulings docket; #738 has since MERGED). KB/tex propagation is listed as OWED-FOLLOW-ONS (§7) and fenced to the cleanup lanes.
 
 ---
 
@@ -39,14 +39,14 @@
 
 ### §2.1 — The generic acoustic branch (the shape all gapless channels share) [derived]
 
-For a nearest-neighbour lattice of pitch `ℓ_node`, a channel of long-wavelength speed `c_ch` carries the standard monatomic-chain / TLM arccos branch (the "band-structure / dispersion survey" row, `translation-circuit.md:233` catalog, coined-quantum-walk / TLM arccos map [canon]):
+For a nearest-neighbour lattice of pitch `ℓ_node`, a channel of long-wavelength speed `c_ch` carries the standard monatomic-chain (cosine) branch (the "band-structure / dispersion survey" row, `translation-circuit.md:212,:354` catalog [canon]). ★Band-model scope (review repair R2): the corpus's ADJUDICATED substrate band model is the arccos TL (coined-quantum-walk) map, NOT this cosine branch (`srs-band-structure.md:19,:49,:62`, `clm-bnd5rq`, gate-passed #604/#607; arccos band top `π√3·ω_C ≈ 5.44·ω_C` vs this branch's `2·ω_C`). The cosine branch is carried here as the tractable idealization; every band-shape-specific number below is scoped to it, and the deep-space NULL is OOM-robust to the band-model choice (§2.4):
 
 $$\omega_{ch}(k) \;=\; \frac{2\,c_{ch}}{\ell_{node}}\,\left|\sin\!\left(\tfrac{k\,\ell_{node}}{2}\right)\right|,\qquad k\in\Big[0,\ \tfrac{\pi}{\ell_{node}}\Big].$$
 
 Three consequences fall straight out, each a **[derived] FORM**:
 
 1. **Long-wavelength (Regime-I) limit is exactly linear:** `k ℓ_node ≪ 1 ⇒ ω ≈ c_ch k`. The channel is dispersionless — a matched transmission line — throughout the entire regime any macroscopic body probes. This is the field-theoretic content of "the vacuum acts as a perfect lossless transmission line" (`vol3/claim-quality.md:76` [canon]).
-2. **Upper band edge (the lattice cutoff):** at `k = π/ℓ_node`, `ω = ω_max = 2c_ch/ℓ_node`, `f_max = c_ch/(π ℓ_node)`. This reproduces the canonical Casimir/below-cutoff row exactly: `translation-circuit.md:154,:353` [canon] gives `f_max = c/(π ℓ_node)`, `ω_max = 2c/ℓ_node` for the `c_ch = c` channel — a **content-match, not a new result** (this lane recovers the canon band edge as the `k = π/ℓ_node` corner of the arccos branch).
+2. **Upper band edge (the lattice cutoff):** at `k = π/ℓ_node`, `ω = ω_max = 2c_ch/ℓ_node`, `f_max = c_ch/(π ℓ_node)`. This reproduces the canonical Casimir/below-cutoff row exactly: `translation-circuit.md:154,:353` [canon] gives `f_max = c/(π ℓ_node)`, `ω_max = 2c/ℓ_node` for the `c_ch = c` channel — a **content-match, not a new result** (this lane recovers the canon band edge as the `k = π/ℓ_node` corner of the cosine branch (n.b. the adjudicated arccos-map top is `π√3·ω_C`, §2.1 scope note)).
 3. **Group velocity collapses at the edge:** `v_g = dω/dk = c_ch cos(kℓ_node/2) → 0` as `k → π/ℓ_node`. The band edge is a *cutoff*, not a resonance; a mode driven at `ω_max` does not propagate away — it is a standing zero-group-velocity mode ("resolves near the band edge," `translation-circuit.md:188` [canon]).
 
 ### §2.2 — The four branches of the graded vacuum medium [derived FORMS; VALUES tagged]
@@ -72,7 +72,7 @@ The three gapless channels (1–3) propagate **all the way down to DC**: `ω →
 
 $$k \;=\; \pm\,\frac{i}{c_\kappa}\sqrt{m_\omega^2 - \omega^2},\qquad\text{evanescent decay length }\ \xi(\omega)=\frac{c_\kappa}{\sqrt{m_\omega^2-\omega^2}}.$$
 
-For a **static or slow** source (`ω ≪ m_ω`) the decay length saturates at `ξ_0 = c_κ/m_ω` — a Yukawa / Compton screening length. This is the field-theoretic origin of the corpus's "gapped mechanical Cosserat ω → short-range, Yukawa-screened `(2,3)` winding" (`master-equation.md:24`, `substrate-perspective-electron.md:109` [canon]).
+For a **static or slow** source (`ω ≪ m_ω`) the decay length saturates at `ξ_0 = c_κ/m_ω` — a Yukawa / Compton screening length. This is the field-theoretic origin of the corpus's "gapped mechanical Cosserat ω → short-range, Yukawa-screened `(2,3)` winding" (verbatim "Yukawa-screened" at `master-equation.md:24` [canon]; `substrate-perspective-electron.md:109` [canon] supports the ~`ℓ_node` near-field reach).
 
 **Numerically [calibration]** (`ℓ_node = ℏ/(m_e c) = 3.862×10⁻¹³ m`, the reduced Compton wavelength = the calibration identity):
 - `m_ω ~ c/ℓ_node = 7.76×10²⁰ rad/s` (the electron Compton angular frequency), so `ξ_0 ~ ℓ_node`. The gapped channel's reactive reach is **one Compton wavelength** — a *contact* interaction at any macroscopic scale.
@@ -100,7 +100,7 @@ For steady motion through a lossless medium the net force in the direction of mo
 
 ### §3.3 — The Cherenkov/Mach drag-onset threshold (the radiative port) [derived]
 
-Real drag requires a **propagating wake** — a radiative port opens (Ax3-legal: loss at a *radiation channel*, not in the bulk). The wake becomes propagating when the source can phase-match to a real lattice mode, i.e. when `v` exceeds the mode's phase velocity `v_p = ω/k` for some available `k`. On the arccos branch (§2.1),
+Real drag requires a **propagating wake** — a radiative port opens (Ax3-legal: loss at a *radiation channel*, not in the bulk). The wake becomes propagating when the source can phase-match to a real lattice mode, i.e. when `v` exceeds the mode's phase velocity `v_p = ω/k` for some available `k`. On the cosine branch (§2.1),
 
 $$v_p(k) \;=\; \frac{\omega_{ch}(k)}{k} \;=\; c_{ch}\,\operatorname{sinc}\!\left(\tfrac{k\,\ell_{node}}{2}\right),\qquad v_p:\ c_{ch}\ (k\to0)\ \longrightarrow\ \tfrac{2}{\pi}\,c_{ch}\ (k=\tfrac{\pi}{\ell_{node}}).$$
 
@@ -108,7 +108,7 @@ The phase velocity is **minimised at the band edge**, `v_{p,\min} = (2/π)\,c_{c
 
 $$\boxed{\ v \;>\; v_{crit}^{(ch)} \;=\; \frac{2}{\pi}\,c_{ch}\quad\text{(for a source that couples to band-edge modes).}\ }$$
 
-- **`v_crit/c_ch = 2/π ≈ 0.637` is a [derived], DIMENSIONLESS, LATTICE-UNIVERSAL ratio** — independent of `ℓ_node`, identical for any nearest-neighbour cosine branch. It is the single genuinely AVE-distinct dimensionless number the band-map produces at the drag-onset. Manifestation-class (a theorem of the arccos dispersion), not calibration.
+- **`v_crit/c_ch = 2/π ≈ 0.637` is a [derived], DIMENSIONLESS, LATTICE-UNIVERSAL ratio** — independent of `ℓ_node`, identical for any nearest-neighbour cosine branch — but ★COSINE-BRANCH-SPECIFIC (review repair R2): the adjudicated substrate band model is the arccos TL map (`srs-band-structure.md`, `clm-bnd5rq`), and the arccos-map `v_{p,min}` has NOT been derived here — the substrate-native value of this ratio is OPEN. Scoped: it is the single AVE-distinct dimensionless number the COSINE-idealized band-map produces at the drag-onset. Manifestation-class (a theorem of the cosine dispersion), not calibration.
 - **Per-channel thresholds:** EM/shear `v_crit = (2/π)c ≈ 0.637c`; bulk `v_crit = (2/π)√2 c ≈ 0.900c`; curvature `≈ 0.900c` (above its gap).
 
 **Bandlimiting caveat (honest, load-bearing).** The `(2/π)` reduction only applies to a source whose coupling k-content *reaches the band edge* `π/ℓ_node`. A physical body of size `R ≫ ℓ_node` has bandlimited coupling `k ≲ 1/R ≪ π/ℓ_node`, so the only phase velocities available to it are the linear-branch values `v_p ≈ c_ch`. For such a body the **effective threshold rises to `v_crit → c_ch`** — never reached by anything sub-luminal. This is *why* normal matter (and relativistic particles: an accelerator electron's de Broglie `λ ≫ ℓ_node`) shows **no** spurious vacuum-Cherenkov drag, and it is the band-map's consistency with emergent Lorentz invariance (`preferred-frame-and-emergent-lorentz.md` [canon]: the GRB `(qℓ_node)²` dispersion horn is retracted; the free photon is the linear-branch continuum field). **Deep-space slow matter is doubly protected:** `v ~ 10⁻⁴ c` (≪ `2/π c`) AND bandlimited.
@@ -161,7 +161,7 @@ The ruling's two passbands are **~27–35 orders of magnitude apart in frequency
 | Passband | Frequency regime | Structure source | Lattice-native content? |
 |---|---|---|---|
 | **"rings of Saturn" (macro)** | `Ω_orb ~ 10⁻⁸ – 10⁻¹⁴ rad/s` | **gravitational / Newtonian** mean-motion resonance | **NO** — featureless-linear lattice; structure is orbital-mechanical (§4.2) |
-| **"electron orbitals" (micro)** | `~ 10¹⁵ – 10²¹ rad/s` (approaching `m_ω`, `ω_max`) | **lattice** band structure / Cosserat mass gap | **YES** — this is where the arccos band, the gap, and the `2/π`, `√2` ratios become physical |
+| **"electron orbitals" (micro)** | `~ 10¹⁵ – 10²¹ rad/s` (approaching `m_ω`, `ω_max`) | **lattice** band structure / Cosserat mass gap | **YES** — this is where the lattice band, the gap, and the `2/π` (cosine-scoped), `√2` ratios become physical |
 
 The band-map's genuine structure-at-resonances is at the **atomic/quantum passband** (near the mass gap and band edge), where a body's coupling frequency is within a few orders of `m_ω`. The deep-space (macro) passband is the *gravitational-resonance* passband, and it has no lattice-distinct structure. Grant's "Saturn rings vs electron orbitals" is precisely this two-passband, two-decades-of-decades split — and the honest reading is that the demoted deep-space claim belongs to the *left column* (Newtonian), which the demotion correctly empties of AVE-distinct content.
 
@@ -176,7 +176,7 @@ Ranked by discriminating power × reachability. Each names: the observable, what
 - **Reactive ruling predicts:** `n` undefined — **no secular drag** (d'Alembert, §3.2); at most a *reactive reflection* (a bounded, phase-coherent, energy-conserving velocity kick at an impedance step, §3.4), not a monotone deceleration.
 - **Demoted resistive stall predicts:** `n ≥ 1` — a `∝v` (or steeper) drag spike scaling with transit velocity (`04:252` [canon, demoted]).
 - **Status:** the discriminating axis is [derived] (form-level, dimensionless exponent). **Flips the vol4 boundary-trapping falsification target `clm-h55fy1`** (`boundary-trapping-test.md`): the resistive mechanism's "sudden spike in transit drag" becomes, under the ruling, a **reactive reflection with no energy-shedding drag**. KEEP-BOTH axis.
-- **Reachability: EXISTING DATA.** Pioneer 10/11, Voyager, New Horizons Doppler residuals already bound anomalous outer-system deceleration; the Pioneer anomaly is resolved as anisotropic thermal recoil (no vacuum-drag term needed) — consistent with the **reactive `n`-undefined (zero-drag)** prediction and in tension with the demoted `∝v` stall.
+- **Reachability: FUTURE (review repair R1).** The discriminating coordinate is the **~15,000 AU Oort/yield transition** (`boundary-trapping-test.md:25`) — no probe has reached it (Pioneer 10/11 / Voyager / New Horizons sit at ~50–160 AU, ~2 OOM short). In the region they DID probe, both the reactive ruling and the demoted mechanism predict ~nothing (deep sub-yield), so the existing null — itself thermal-recoil-confounded (the Pioneer anomaly is resolved as anisotropic recoil) — **does not yet discriminate**. It bounds inner-region smooth drag only.
 
 **D2 — Coherent reactive reflection vs incoherent thermalisation at the impedance step.**
 - **Observable:** whether the boundary interaction is *phase-preserving/recoverable* (reactive `Γ`-reflection, energy returns to the body) or *irreversible/heating* (resistive stall thermalises KE into the lattice).
@@ -219,7 +219,7 @@ Ranked by discriminating power × reachability. Each names: the observable, what
 | `m_ω = √(4G_c/I_ω)` | [derived]/[canon] Cosserat gap | calibrated to `m_e` | consistency |
 | `ξ_0 = c_κ/m_ω ~ ℓ_node` | [derived] evanescent length | calibration | consistency |
 | `m_ω/ω_max = 1/2` | downstream of `ℓ_node ≡ λ̄_C` | — | **consistency (do NOT headline as emergent)** |
-| `v_crit/c_ch = 2/π` | [derived] arccos min-`v_p` | dimensionless, `ℓ_node`-free | **manifestation** (theorem of the dispersion) |
+| `v_crit/c_ch = 2/π` | [derived] cosine-branch min-`v_p` (arccos-map value OPEN) | dimensionless, `ℓ_node`-free | **manifestation** (theorem of the dispersion) |
 | `c_bulk/c_shear = √2`, `c_P/c_shear = √(10/3)` | [derived] from `K = 2G` | dimensionless | manifestation — but observability gated by an unestablished identification (§7) |
 
 **Headline discipline:** the only `ℓ_node`-free (calibration-independent) dimensionless content is `2/π`, `√2`, `√(10/3)`. Per the α-circularity lesson (any band-map "chord" must be a dimensionless ratio), these are the sole chord candidates — and all three are either unreachable at deep-space speeds (`2/π`) or gated on an unestablished sector-identification (`√2`, `√(10/3)`). **No emergence-class claim is headlined; the band-map's deep-space verdict is a clean null with one live boundary discriminator.**
@@ -234,10 +234,10 @@ Ranked by discriminating power × reachability. Each names: the observable, what
 
 ### Contradictions FLAGGED (not fixed — Grant / auditor adjudication)
 - **FLAG-1 (D5, sector-identification gap).** The band-map derives a **scalar-longitudinal `√2·c` bulk-dilatation channel** distinct from the transverse-shear GW at `c`. The corpus places the *observed* GW on the shear channel at `c` (`einstein-field-equation.md:62–63,:84` — no contradiction with GW170817 for the shear mode). **But the corpus has not stated whether the `√2·c` bulk channel radiates as an observable scalar-GW polarisation.** If it does, LIGO/Virgo scalar-polarisation bounds constrain it; if it is non-radiating (a pure near-field reactive channel), no constraint applies. **This fork is surfaced, not resolved** — it is a sector-ownership question (does the A1/bulk dilatation have a radiative far-field port?) for Grant/auditor, not something this lane silently reframes.
-- **FLAG-2 (walk-record §3 handle-1 vs D1).** The walk-record frames D1 as "flips the vol4 boundary-trapping target `clm-h55fy1`." This lane confirms the *direction* (reactive → no `∝v` stall) but notes the vol4 target's status on `main` is **not edited here** (DERIVATION-lane fence). The relabel of `clm-h55fy1` from "drag-spike falsifier" to "reactive-reflection / zero-drag test" is an **owed KB follow-on**, not executed in this lane.
+- **FLAG-2 (walk-record §3 handle-1 vs D1).** The walk-record frames D1 as "flips the vol4 boundary-trapping target `clm-h55fy1`." This lane confirms the *direction* (reactive → no `∝v` stall) but notes the vol4 target's status on `main` is **not edited here** (DERIVATION-lane fence). The banner-level FLIP already landed on main (`boundary-trapping-test.md:11`, 🔴 same-date discriminator flip); the **owed KB follow-on** is the narrower claim-body/solidity relabel of `clm-h55fy1`, not executed in this lane.
 
 ### OWED-FOLLOW-ONS (KB/tex propagation — FENCED this session; cleanup lanes own these trees)
-1. **`clm-h55fy1` relabel** (`boundary-trapping-test.md`): drag-spike falsifier → reactive-reflection / zero-drag `v`-independence test (D1, FLAG-2). *Auditor lane lands; implementer surfaces.*
+1. **`clm-h55fy1` claim-body/solidity relabel** (`boundary-trapping-test.md`): the 🔴 banner-level flip is already on main (:11); owed = the claim-registry/body relabel to reactive-reflection / zero-drag `v`-independence test — reachability FUTURE per D1-R1 (D1, FLAG-2). *Auditor lane lands; implementer surfaces.*
 2. **Kirkwood-cavity-mode leaf annotation** (`kirkwood-gaps-cavity-modes.md`): tag the `(q/p)^{2/3}` account explicitly **consistency-class / peer-with-Newtonian** (currently silent on its Kepler-relabel status; §4.1). *Auditor lane.*
 3. **D5 sector-identification fork** (FLAG-1): a `bulk-impedance-at-saturation-boundary.md` or gravity-sector note on whether the `√2·c` bulk-dilatation channel has a radiative scalar-GW port. *Grant-gated physics ruling first; then auditor lane.*
 4. **Band-map canonical leaf** (if promoted): a `translation-circuit`-adjacent leaf carrying the four-branch table + the `2/π` drag-onset ratio. **Gated on Grant** — this lane mints nothing; promotion is a *separate* session (cross-repo/KB promotions happen in different sessions).
