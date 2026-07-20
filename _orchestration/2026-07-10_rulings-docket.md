@@ -2184,11 +2184,12 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 ---
 
-## Continuation — 2026-07-20: ℏ-as-FD derivation lane — derived FD-ratio(ρ) vs the banked FD leg (ENTRY 27)
+## Continuation — 2026-07-20: ℏ-as-FD derivation lane — derived FD-ratio(ρ) vs the banked FD leg (ENTRY 28)
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).** Records the ℏ-as-FD derivation-first lane — the program's data-ahead-of-theory spearhead. Grant-fired 2026-07-20 (verbatim `[sic]`: *"lets launch the planks constant as FD"*). Everything below the ruling is execution wording (tagged), not Grant's derivation.
 
-### ENTRY 27 (2026-07-20): implementer lane — ℏ-as-FD FD-ratio(ρ) derivation vs the banked floor-arm FD leg
+### ENTRY 28 (2026-07-20): implementer lane — ℏ-as-FD FD-ratio(ρ) derivation vs the banked floor-arm FD leg
+*(Renumber note: authored as ENTRY 27 off a base predating the #749 merge, whose ratification-batch block holds ENTRY 27 on main; renumbered to next-free 28. Read the docket by entry number, not position.)*
 
 - **Freeze-by-push discipline honored.** Derivation FORM + frozen decision bins + tolerance pushed as commit `f654904e` (`research/2026-07-20_hbar-as-fd_DERIVATION_FROZEN.md`) BEFORE the comparison driver existed; overlay + verdict in the companion result (`research/2026-07-20_hbar-as-fd_result.md`). Overlay retuned nothing (exponent ½ derived; `k` = one calibration read; `relax` engine-read).
 - **★ VERDICT — FORM-MATCH (CONSISTENCY-class); NO chord; ℏ out of reach on this classical junction.** The derived `FD-ratio(ρ) = k·√ρ/relax(ρ)` — FLUCTUATION side √ρ **derived first-principles** from the microcanonical-per-mode EQUIPARTITION floor (`seed_floor`: `E_m = ρe_sig` exact, random phase ⇒ amplitude law std ∝ √ρ, confirmed to 0.8% by a live MC on the actual seeding; ½:½ Johnson-Nyquist quadrature split confirmed to 0.4%); DISSIPATION side `relax(ρ)` **engine-read** certified transductive response; `k` a single calibration anchor at ρ=1 — lands within **0.83σ** of every banked FD point (frozen band 1.5σ, σ = N=6 std-estimate uncertainty 0.316). 4/5 nonzero ρ are genuine predictions.
