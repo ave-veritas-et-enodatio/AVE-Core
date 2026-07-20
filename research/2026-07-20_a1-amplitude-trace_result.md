@@ -21,8 +21,8 @@ that. No CODATA/SI value is emergent here; the deliverable is the amplitude's su
 (Regime I–II, `g_N ≪ a_0` at the SPARC eval radius); galactic scale. DC operating-point
 identification, NOT a modal problem.
 
-#748 (`2026-07-20_mond-kernel-adjudication_result.md`, branch `feat/mond-kernel-adjudication`, NOT
-yet on `main`) found the two kernels SPARC-DEGENERATE and resolved the FORM to QUADRATIC on the
+#748 (`2026-07-20_mond-kernel-adjudication_result.md`; **MERGED to `main` @ `03d095ab` mid-task — see
+§7 corpus-state note**) found the two kernels SPARC-DEGENERATE and resolved the FORM to QUADRATIC on the
 ground that the leaf's own setup identifies `g_N` as the amplitude. Its R3 note is explicit
 [verbatim [sic]]: *"this adjudication canonicalizes the leaf's own identification, it does not derive
 it … The substrate-level question (is the drag keyed on the acceleration itself, or on a strain ∝
@@ -204,14 +204,20 @@ framework's usual FORM-derived / VALUE-imported split holds.)
 
 ## §7 — Deviations + contradictions (flag, don't fix)
 
-- **CORPUS-STATE FLAG (load-bearing context).** The #748 adjudication docs
-  (`research/2026-07-20_mond-kernel-adjudication_{prereg,result}.md`) and the QUADRATIC-form KB sweep
-  are on branch **`origin/feat/mond-kernel-adjudication`, NOT merged to `main`.** On `main` @ `64f1894d`
-  the leaf `effective-galactic-acceleration-mond.md:15` still shows the **LINEAR** form
-  `√(1 − g_N/a_0)` with the OPEN 2026-07-19 CONTRADICTION FLAG (`:20-24`) — unresolved on main. This
-  trace runs *under* #748 (assumes its QUADRATIC form-resolution lands); its own result (`A=g_N/a_0`)
-  is what makes that resolution substrate-derived rather than leaf-asserted. Surfaced so the
-  orchestrator sequences the #748 merge + this trace together.
+- **CORPUS-STATE UPDATE (post-rebase, 2026-07-20 — supersedes the freeze-time flag; git carries the
+  original).** At this lane's *freeze* (prereg push, base `origin/main` @ `64f1894d`) the #748
+  adjudication was UNMERGED and the leaf `effective-galactic-acceleration-mond.md:15` still showed the
+  **LINEAR** form with the OPEN 2026-07-19 contradiction flag — the frozen prereg + the first result
+  push recorded it that way, correctly for that base. **#748 then MERGED to `main` mid-task** (PR #748,
+  merge `03d095ab`; `origin/main` advanced `64f1894d → e60254db`). Re-verified on current `main`
+  (2026-07-20, post-rebase): the leaf now shows the **QUADRATIC** form
+  `√(1 − (g_N/a_0)²)` and the 2026-07-19 contradiction flag is **✅ RESOLVED** (`:20`). Consequence for
+  this trace: the sequencing concern is moot (#748 is already on main); this trace now lands *on top of*
+  the merged quadratic form and is what upgrades its amplitude identification **leaf-asserted →
+  substrate-derived**. No verdict/physics change — the merge status was never load-bearing on the
+  `g_N`-vs-`√g_N` result. *(This branch was rebased onto current `origin/main` so the PR diff is only
+  the 4 added files; the freeze-time flag text above is preserved in git history per the freeze-by-push
+  record.)*
 - **CITE-PRECISION FLAG (minor).** #748's R2 erratum places the "strain ∝ √g_N" narrative at
   `galactic_rotation.py:136`. On `main` @ `64f1894d` (and on the feat branch, same base) the sentence
   is verified at **`:135`** (grep, 2026-07-20). Off-by-one; non-load-bearing (the sentence
