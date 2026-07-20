@@ -34,6 +34,8 @@ A complete, stable, moving, charged electron requires all seven at once. No sing
 | **chiral grid** (srs handedness) | structural parity is set by the $I4_1 32$ srs grid; a cubic grid is achiral and cannot carry it |
 | **node-creation** (genesis) | pair production / lattice-node birth; no engine hosts it (cosmological front) |
 
+> ↗ See also: [The Port Register](port-register.md) — the per-channel × per-port map of the four channels (EM / shear / bulk / Cosserat): which configurations open a radiative port ($\mathrm{Re}(Z)>0$, port-not-valve, Ax3-legal) vs stay reactive vs closed. The **3-channel coupling** DOF row above is the *coupling* side; the port register is the *emission/ledger* side — incl. the DM-halo NOT-A-PORT reactive-near-field resolution and the OPEN **Q1** question (does the A1/bulk channel open an independent far-field radiative port for gravitating sources?).
+
 ---
 
 ## §2 — The capability matrix (verified-state)
