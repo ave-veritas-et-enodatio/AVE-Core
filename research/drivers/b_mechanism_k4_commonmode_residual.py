@@ -7,11 +7,19 @@ OMEGA_C). Touches NO engine primitive; builds the 4x4 K4-TLM scatter matrix from
 its canonical closed form and does linear algebra only. Reproduces three numbers
 the companion doc (research/2026-07-20_b-mechanism-derivation_result.md) cites:
 
-  1. B1 forcing ingredient: the K4-TLM scatter S = (1/2)*ones - I has eigenvalues
-     {+1, -1, -1, -1}; the +1 eigenvector is the A1 common-mode (1,1,1,1)/2 (the
-     longitudinal/dilatation "DC" mode), the -1 triplet spans the traceless T2
-     (shear) subspace. This is the group-theory fact (clm-j550uh) that makes the
-     A1 longitudinal a common-mode-rejected / Gauss-constrained mode.
+  1. Bare-scatter eigenstructure (clm-j550uh, solidity 0.85): the K4-TLM scatter
+     S = (1/2)*ones - I has eigenvalues {+1, -1, -1, -1}; the +1 eigenvector is the
+     A1 common-mode (1,1,1,1)/2 (the longitudinal/dilatation "DC" mode), the -1
+     triplet spans the traceless T2 (shear) subspace.
+     ** #758 R1 correction: the +1 eigenvalue means the bare scatter PRESERVES the
+     A1 exactly (k4-port-irrep-decomposition.md:85 "preserves the A_1 mode exactly";
+     :105 "A_1 would propagate forever") -- it does NOT reject or transduce. The
+     A1->T2 EMPTYING (the port-closing step) is a SEPARATE claim: the Op3/saturation
+     mechanism Z_eff=Z_0/sqrt(S_sat), banked as clm-9kd2t3 (solidity 0.42, build
+     "do not build on, rework needed", rationale "asserted rather than shown",
+     EM-scalar del.E scoped, saturation-gated). This driver reproduces the +1
+     eigenvalue (which is not in dispute); the "common-mode-rejected / Gauss-
+     constrained" INTERPRETATION rides clm-9kd2t3 do-not-build, not this group theory.
 
   2. B2-falsification cross-check: the rotating mass second-moment tensor of a
      circular binary has a NONZERO traceless (rotating) part -> a scalar field's
@@ -113,10 +121,14 @@ def check_2_traceless_quadrupole_nonzero() -> dict:
 
 
 def check_3_lattice_leakage_residual() -> dict:
-    """If B1 governs, the continuum-order residual F_bulk/F_shear = 0 exactly (the
-    A1 common-mode is transduced into T2 by the exact/unitary K4 scatter). The only
-    conceivable leakage is finite-k mode-mixing at the lattice scale, bounded by
-    (omega * ell_node / c)^2. Evaluate for Hulse-Taylor and the double pulsar.
+    """CONDITIONAL (#758 R1): IF the do-not-build A1->T2 emptying (clm-9kd2t3,
+    saturation-gated, EM-scoped) actually closed the gravitational del.u port in the
+    cold regime -- which is UN-DERIVED (result.md 3.1, 3.4b) -- THEN the continuum-
+    order residual F_bulk/F_shear = 0 exactly, and the only conceivable leakage is
+    finite-k mode-mixing at the lattice scale, bounded by (omega * ell_node / c)^2.
+    This is the residual that WOULD obtain under that un-derived closure; it is NOT
+    a residual of a derived mechanism. Evaluated for Hulse-Taylor and the double
+    pulsar (a numeric bound only; the closure premise is the open question).
     """
     # GW angular frequency = 2 * orbital Omega. Orbital periods [s]:
     systems = {
