@@ -31,7 +31,7 @@
 
 | Class | Fixed | Ledgered (flag-don't-fix / observation) | APPLY-POST-#738 |
 |---|---|---|---|
-| C1 mechanical hygiene | 14 links + 2 index rows = **16** edits across 9 files (C1-A links ×12, C1-index ×2 rows) | 6 orphan leaves + 3 no-H1 leaves + `clm-9oazz0` phantom + 2 CONVENTIONS observations | claims.jsonl (fenced) untouched — `clm-9oazz0` routed |
+| C1 mechanical hygiene | 10 links + 2 index rows = **12** edits across 9 files (C1-A links ×10, C1-index ×2 rows) | 6 orphan leaves + 3 no-H1 leaves + `clm-9oazz0` phantom + 2 CONVENTIONS observations | claims.jsonl (fenced) untouched — `clm-9oazz0` routed |
 | C2 propagation-lag drift | **3** dated Rule-12 notes (photon-identification RULING-21; cosmology/index deep-space tag; retention-transition-split #735) | `nonlinear-vacuum-capacitance.md:66` (fork-side); vol3/index.md:63 (bare ToC) | 4 (engine-capability-map §8c.10 arm-result; tau-relax-derivation caveats ×2; substrate-hysteresis-index; #59 archive) |
 
 **Fixed files (9):** `photon-identification.md`, `vol3/cosmology/index.md`, `retention-transition-split.md`, `claim-quality-closure-roadmap.md`, `baryon-mass-predictions.md`, `vol4/.../ch14-.../theory.md`, `torus-knot-uniqueness.md`, `q-g19a-petermann-saliency-closure.md`, `vol9/ch11+ch13 index.md`, `vol4/falsification/ch12-.../index.md`. (Plus the ledger.)
@@ -51,11 +51,11 @@ _(populated during sweep)_
 
 ## CLASS 1 — MECHANICAL HYGIENE
 
-### C1-A · Broken markdown links (FIXED 12; 70 out-of-scope residue characterized)
+### C1-A · Broken markdown links (FIXED 10; 70 out-of-scope residue characterized)
 
 **Method:** wrote a KB relative-link resolver (`scratchpad/check_kb_links.py`) — parses `[text](target)` links across all 802 KB `.md` files (skips http/mailto/anchors/`{}`-templates and the `tools/` test-fixture tree), checks each target file exists. 6784 links checked; 80 broken → 70 after fixes.
 
-**FIXED (10 file:line-in-href anomalies + 2 depth errors = 12 links across 7 files):**
+**FIXED (8 file:line-in-href anomalies + 2 depth errors = 10 links across 7 files):**
 - The KB convention is line-in-LABEL, plain-file href (781 backtick cites; e.g. `[`q-g19a-...:108`](...q-g19a-...md)`). A rare minority (10) leaked the `:NN` into the href too → non-resolving. All target files verified to exist with valid line counts. Fixed by dropping `:NN` from the href (label keeps the line): `claim-quality-closure-roadmap.md` (×4: topological-fractionalization.md:6 ×2, constants.py:680, riemann-hypothesis.md:52), `vol4/.../baryon-mass-predictions.md:12` (constants.py:733), `vol4/simulation/ch14-.../theory.md:43` (topological:6), `vol2/.../torus-knot-uniqueness.md:112` (topological:6), `vol2/.../q-g19a-petermann-saliency-closure.md:115` (topological:6).
 - **vol9→tex depth errors (2):** `vol9/ch11-topological-characteristics/index.md:38` + `vol9/ch13-application-examples/index.md:67` used `../../../../vol_9_vacuum_datasheet/...` (up 4 = repo-root) → target is under `manuscript/` (up 3). Fixed to `../../../`. Both `.tex` targets verified present.
 
@@ -192,3 +192,5 @@ Machine-checkable invariants all PASS:
 - **Deep banner-integrity audit (does every "preserved verbatim below" banner actually still contain the preserved text):** spot-checked on the load-bearing Class-2 leaves (all well-formed) but NOT exhaustively verified across all 169 status-marker-bearing files — a full preserved-text integrity audit is judgment-heavy and was not performed.
 - **Claim-quality sidecar solidity/depends-on re-scoring** — out of scope (that is the sidecar-refresh cadence, a `generalist-coder` dispatch per CONVENTIONS §maintenance-cadence, not doc-hygiene).
 - **Full CONVENTIONS.md rewrite for the kb-frontmatter migration** — spec-authoring judgment, routed to the auditor (C1-C Observation 2).
+
+*Count reconciliation (review, 2026-07-19): summary headers previously said 12/14 links; the itemization and the broken-link delta (80→70) both prove 8 :NN + 2 depth = 10. Headers reconciled down to the itemization.*
