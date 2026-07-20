@@ -2480,6 +2480,11 @@ Eleven debt items, ONE branch (`docs/tier-b-debt-batch`), ONE PR. Worktree self-
 
 **Discipline + ship.** `make verify` + vol_4 pdflatex + the anchor-checker on the own diff; every anchor two-method verify-before-cite'd at HEAD `3fdf88a4`; Rule-12 KEEP-BOTH throughout; pure-corpus. **Owed to orchestrator/auditor:** the D9(c) genesis-24 JSON receipt-refresh (Grant call); the D11 orphan-index + CONVENTIONS re-ledgered items (auditor judgment). PR `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`.
 
+### ENTRY 2026-07-20-envelope-walk-record (2026-07-20): orchestrator — envelope-boundary walk RECORD + pending-rulings/frontier-queue doc
+
+- **`research/2026-07-20_envelope-boundary-walk_RECORD.md`** — RECORD-class preservation of the Grant-led 2026-07-20 walk (post-#761-review): the emergent saturation boundary (level-set/rail; compression-contour reflection; probe-dependent boundary; slew-limited envelope propagation), the #761 conflation-candidate analysis (envelope-moment vs carrier-moment; config-grepped receipts), both-ways knives, 4 prediction seeds. Grant verbatim `[sic]` vs orchestrator walk-level attribution split throughout. Canonizes nothing; adjudicator = the envelope-sector lane.
+- **`_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md`** — repo-tracked state doc (per the multi-agent ruling): the 4 pending Grant calls (merge #761 / REVERT ruling / AVE-Skills push / riders), the item-3 frontier queue (envelope lane FIRED; ringdown next; build-class parked), running-lane snapshot.
+- **Class:** records + orchestration state; no physics claims minted; Rule-11 stance on the Q1 clause restated verbatim-anchored.
 ---
 
 ### ENTRY 2026-07-20-skills-crossdiscipline (implementer lane — skills batch + cross-discipline hub-and-spoke architecture; Grant itemized go's #1–#5)
