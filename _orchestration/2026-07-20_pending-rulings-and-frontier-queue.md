@@ -15,10 +15,13 @@
 | # | Lane | Status |
 |---|------|--------|
 | 1 | **Envelope-sector reduction** (`research/envelope-sector-reduction`) — slow-modulation dynamics of the saturable lattice; the gravitational-band coupling κ vs the frozen pulsar kill-line; consistency gate = observed shear GW must survive | **FIRED 2026-07-20** (Grant: "fire the lane" `[sic]`; local worktree, unpushed at authoring — pushes at PR-open); max-stakes wrapper review on landing |
+| 1b | **u/A transverse identity-collapse candidate** (trigger-7 class: are the EM and mechanical-transverse sectors two meters on one bench object?) — ★frozen observational gate: GW170817 two-distinct-signals, a **speed/arrival kill** (bulk radiates at √(10/3)·c ≈ 1.83c vs |Δv|/c ≲ 10⁻¹⁵ coincidence bound; #766 review F7 arithmetic) — COMPLEMENTARY to, not duplicating, the banked pulsar **energy-budget** kill | candidate, sequenced AFTER the envelope lane (its Leg B channel-ownership output is a direct input); does NOT displace ringdown's queued-next rec |
 | 2 | **Ringdown-systematics candidate** (mode-ratio locking + ω ∝ √C_44 critical-slowing as beyond-Kerr-deviation organizers; dimensionless; existing LIGO catalog) | queued next (orchestrator strong rec, #762 D4) |
 | 3 | J(ω) coupling fork (needs engine constitutive tensor; shares machinery with the gravitational-arc lanes) | queued |
 | 4 | D1 compact-object rider · N=3 · m_p/m_e | queued |
 | — | BUILD-class (quantum-seeded floor instrument, arrow instruments, CVR bench) | **PARKED** pending explicit word |
+
+**Routed question (#766 review F4, one-line Grant ruling owed):** under Reading-A the ch08 item-3 *rewording* ("…as transverse shear", the Part-1 fix) is itself now arguably incomplete — the original radial/bulk prose is closer to Reading-A's admixture picture. Scope the reconciliation program to revisit the item-3 rewording, or hold item-3 frozen and flag only the chapter-level double-count? (The #766 warningbox is honest either way; both options preserve the Part-1 step-3=shear ruling for the *observed* decay channel, which is Reading-independent.)
 
 ## §3 — Open PRs + running lanes (snapshot; the board is re-derived live at each session, this is orientation only)
 
