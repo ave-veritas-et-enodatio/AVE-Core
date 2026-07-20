@@ -2400,3 +2400,15 @@ Three deliverables, one branch (`infra/op4-anchorci-docstrings`), one PR.
 > **★SYNC-OWED (race note — `docs/port-register-promotion`).** A concurrent lane is transcribing `research/2026-07-20_port-register_draft.md` into a canonical `common/` port-register leaf. **The canonical port-register leaf's Q1 row MUST carry this RULED-CONDITIONAL ruling** (Reading B ruled, conditional on the B-lane; Reading A banked as the revert-live exclusion). The promotion lane checks this docket (ENTRY 32) at build; the orchestrator verifies at its review. **This lane did NOT touch `manuscript/ave-kb/common/port-register.md`** (verified absent at build; collision fence held).
 
 **Discipline + ship.** ONE branch (`docs/q1-ruling-batch`), ONE PR `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`. Worktree self-isolated off `origin/main`; every cite two-method verify-before-cite'd at HEAD `537c0b62`; Rule-12 KEEP-BOTH throughout; pure-corpus. `make verify` + vol_3 pdflatex green. **Owed to orchestrator/auditor:** verify the SYNC-OWED port-register leaf Q1 row at the promotion lane's review; the B-mechanism lane (B1/B2/B4) is the standing open obligation on which the Q1-3 ruling is conditional.
+
+---
+
+## CONVENTION CHANGE — 2026-07-20: content-keyed ENTRY IDs (Grant-fired, verbatim [sic]: "why arent we doing content-keyed IDs?")
+
+**The problem (root cause, not symptom):** sequential ENTRY numbers are shared mutable state — every concurrent lane takes "next-free" off a stale base, guaranteeing collisions (≈10 renumber commits in the 2026-07-19/20 window alone). The `merge=union` driver made the FILE conflict-free; the numbers remained the last shared counter.
+
+**The convention, effective immediately:**
+- **New entries use content keys:** `### ENTRY <YYYY-MM-DD>-<lane-slug>` (the lane slug = the branch's distinctive segment, e.g. `2026-07-20-jomega-derivation`). Collision-free by construction; unique-per-day guaranteed by branch naming.
+- **The numeric series (ENTRY 1 through the current numbers, plus any in-flight lanes finishing under the old convention) is FROZEN as-is** — Rule 12: history is never renumbered; "read by entry number, not position" remains valid for the frozen series. Known historical duplicate numbers (the 31/32 union-merge artifacts) stay grandfathered with their in-place collision notes.
+- **Cross-references** cite the key (or, for the frozen series, number + date).
+- A warn-class lint (`manuscript/ave-kb/tools/verify-docket-keys.py`, wired into `make verify` advisory) flags any duplicate entry key going forward.
