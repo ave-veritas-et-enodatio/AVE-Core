@@ -2403,6 +2403,15 @@ Three deliverables, one branch (`infra/op4-anchorci-docstrings`), one PR.
 
 ---
 
+## CONVENTION CHANGE — 2026-07-20: content-keyed ENTRY IDs (Grant-fired, verbatim [sic]: "why arent we doing content-keyed IDs?")
+
+**The problem (root cause, not symptom):** sequential ENTRY numbers are shared mutable state — every concurrent lane takes "next-free" off a stale base, guaranteeing collisions (≈10 renumber commits in the 2026-07-19/20 window alone). The `merge=union` driver made the FILE conflict-free; the numbers remained the last shared counter.
+
+**The convention, effective immediately:**
+- **New entries use content keys:** `### ENTRY <YYYY-MM-DD>-<lane-slug>` (the lane slug = the branch's distinctive segment, e.g. `2026-07-20-jomega-derivation`). Collision-free by construction; unique-per-day guaranteed by branch naming.
+- **The numeric series (ENTRY 1 through the current numbers, plus any in-flight lanes finishing under the old convention) is FROZEN as-is** — Rule 12: history is never renumbered; "read by entry number, not position" remains valid for the frozen series. Known historical same-key headers stay grandfathered: ENTRY 22 (an intentional "(cont.)" continuation — same key by design, not a collision) and ENTRY 32 (a union-merge artifact with its in-place note). ENTRY 31 was historically renumbered and is currently single — deliberately not grandfathered.
+- **Cross-references** cite the key (or, for the frozen series, number + date).
+- A warn-class lint (`manuscript/ave-kb/tools/verify-docket-keys.py`, wired into `make verify` advisory) flags any duplicate entry key going forward.
 ## Continuation — 2026-07-20: VACUUM-METALLURGY mapping (toolkit import + law-vs-texture + KZ relic + boundary instruments) (ENTRY 39)
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).**
