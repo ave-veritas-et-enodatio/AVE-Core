@@ -60,6 +60,13 @@ from srs_vector_band_survey import (  # noqa: E402
 
 TOL = 1e-9  # bond-length match tolerance (a_conv = 1 units)
 
+# Frozen C-2 direction-resolved reference (prereg §3 GATE): the srs vector band
+# survey's per-direction c_P/c_S (2026-07-09_srs-vector-band-survey_result.md:91-93).
+# The frozen gate is |measured − survey|/survey < 3% per direction (direction-resolved),
+# NOT the isotropic-mean band; both are reported (KEEP-BOTH), the direction-resolved
+# one is the frozen criterion.  Review fix #761 R3(b).
+SURVEY_CP_CS = {"100": 1.7105, "110": 1.8528, "111": 1.9041}
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # Finite real-space srs net (tile the 8-site conventional cell over L³ cells)
@@ -105,11 +112,21 @@ def forces(u, Phi, bi, bj, N):
 # C-1 — TIME-DOMAIN breathing-source injection (radiation at range, windowed)
 # ═════════════════════════════════════════════════════════════════════════════
 def run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=9.773,
-           k_s=1.0, sigma_cells=1.2, shell_width_cells=1.0):
-    """Self-contained: wave speeds + Poincaré reflect-time are MEASURED from the
-    sim's own front (no analytic-vs-sim units mismatch). The window [t_P_arrival,
-    t_reflect) captures BOTH the fast P front and the slower S front (if any lattice-
-    generated P→S conversion) but ENDS before the earliest boundary reflection."""
+           k_s=1.0, sigma_cells=1.2, shell_width_cells=1.0,
+           cP_spec=0.5196, cS_spec=0.2854):
+    """Time-domain breathing-source radiation at range, SPECTRAL-windowed.
+
+    REVIEW FIX #761 R2 (2026-07-20): the Poincaré window is built from the C-2
+    SPECTRAL acoustic speeds (cP_spec, cS_spec — pass the run's own C-2 isotropic
+    values), NOT from a 5%-of-peak energy crossing.  The prior 5%-of-peak "front
+    detector" fires on the Gaussian seed's near-field precursor RAMP and reports
+    cP≈0.95 cells/time — ~1.8× the max acoustic speed (spectral cP≈0.52), which is
+    unphysical: nothing on an acoustic branch outruns the k→0 sound speed.  That
+    detector is retained ONLY as a reported diagnostic (cP_precursor_diag), never
+    for the window.  The physical window uses the frozen §3 analytic definitions
+    t_arrival ≈ r_meas/c_P, t_reflect ≈ (2·L_edge − r_meas)/c_P at the spectral cP;
+    the lattice-converted S front at r_meas/c_S.  Defaults (0.5196/0.2854) are the
+    C-2 isotropic values; main() passes the live C-2 run's speeds."""
     pos, bi, bj, dhat = build_finite_srs(L)
     N = pos.shape[0]
     Phi = bond_tensors(dhat, rho_star, k_s)
@@ -135,8 +152,11 @@ def run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=9.773,
     n_shell = int(shell.sum())
     rhat = rel / (r[:, None] + 1e-30)
 
-    # run generously; window post-hoc from the MEASURED front (units-safe)
-    n_steps = 600
+    # integrate ~1.6× past the earliest boundary reflection (spectral t_reflect) so
+    # the reflection-free window is fully covered AND the post-window fall is shown
+    d_face = L / 2.0                                  # center→nearest-face (cells)
+    t_reflect_pre = (2.0 * d_face - r_meas) / (cP_spec + 1e-30)
+    n_steps = int(np.ceil(1.6 * t_reflect_pre / dt)) + 5
     u, v = u0.copy(), v0.copy()
     F = forces(u, Phi, bi, bj, N)
     inv_m = 1.0
@@ -164,19 +184,19 @@ def run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=9.773,
     times = np.array(times); f_long_t = np.array(f_long_t)
     E_shell_t = np.array(E_shell_t); H_t = np.array(H_t)
 
-    # ── front = first crossing of 5% of PEAK shell energy (separates the arriving
-    #    OUTGOING pulse from the seed's negligible Gaussian tail at r_meas) ───────
+    # ── SPECTRAL Poincaré window (REVIEW FIX #761 R2) ───────────────────────────
+    #   Window = frozen §3 analytic definitions at the C-2 SPECTRAL speeds.
+    #   The old 5%-of-peak crossing is kept ONLY as a reported artifact diagnostic
+    #   (cP_precursor_diag ≈ 0.95 cells/time — ~1.8× the physical acoustic speed;
+    #   it fires on the near-field precursor ramp, NOT a wave front).
     peakE = float(E_shell_t.max())
     cross = np.where(E_shell_t > 0.05 * peakE)[0]
     front_idx = int(cross[0]) if cross.size else int(np.argmax(E_shell_t))
-    t_P_arr = float(times[front_idx])
-    cP_meas = r_meas / (t_P_arr + 1e-30)             # cells / (sim time)
-    d_face = L / 2.0                                 # nearest boundary radius (cells)
-    # earliest P reflection back to the shell: out to face (d_face) then back to shell
-    t_reflect = t_P_arr + 2.0 * (d_face - r_meas - shell_width_cells) / (cP_meas + 1e-30)
-    # slower S front (if lattice generates it) arrives at r_meas/cS = t_P_arr·(cP/cS)
-    cP_cS = 1.82                                     # from C-2 (lattice-measured)
-    t_S_arr = t_P_arr * cP_cS
+    cP_precursor_diag = r_meas / (float(times[front_idx]) + 1e-30)  # DIAGNOSTIC ONLY
+
+    t_P_arr = r_meas / (cP_spec + 1e-30)             # spectral P arrival
+    t_S_arr = r_meas / (cS_spec + 1e-30)             # spectral (lattice-converted) S
+    t_reflect = (2.0 * d_face - r_meas) / (cP_spec + 1e-30)  # frozen §3 reflect @ cP
     reflectionfree_captures_S = bool(t_S_arr < t_reflect)
 
     win = (times >= t_P_arr) & (times < t_reflect)
@@ -185,6 +205,13 @@ def run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=9.773,
     w = E_shell_t[win]
     f_long_window = float(np.sum(f_long_t[win] * w) / (np.sum(w) + 1e-30))
     f_long_peak = float(f_long_t[win][np.argmax(w)]) if win.sum() else float("nan")
+    # robustness: energy-weighted f_long over the FULL trace (window-independent),
+    # and f_long at the shell-energy peak (both show the ~0.99 result is not a
+    # window-placement artifact)
+    f_long_trace_full = float(np.sum(f_long_t * E_shell_t) / (np.sum(E_shell_t) + 1e-30))
+    ipk = int(np.argmax(E_shell_t))
+    f_long_at_Epeak = float(f_long_t[ipk])
+    t_Epeak = float(times[ipk])
     H_drift = float((H_t.max() - H_t.min()) / (abs(H_t[0]) + 1e-30))
 
     return {
@@ -195,14 +222,26 @@ def run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=9.773,
         "seed_curl_energy_fraction": seed_curl_check,
         "omega_max": float(omega_max),
         "energy_drift_H": H_drift,
-        "measured_cP_cells_per_time": float(cP_meas),
-        "poincare_window": {"t_P_arrival_measured": float(t_P_arr),
-                            "t_reflect_earliest": float(t_reflect),
-                            "t_S_arrival_est": float(t_S_arr),
+        "cP_spec_used": float(cP_spec),
+        "cS_spec_used": float(cS_spec),
+        "cP_precursor_diag_cells_per_time": float(cP_precursor_diag),
+        "cP_precursor_diag_note": "ARTIFACT DIAGNOSTIC ONLY (not used for the window): "
+                                  "the 5%-of-peak crossing fires on the Gaussian seed's "
+                                  "near-field precursor ramp; ~1.8× the spectral acoustic "
+                                  "cP — no signal outruns the k→0 sound speed.",
+        "poincare_window": {"t_P_arrival_spectral": float(t_P_arr),
+                            "t_reflect_spectral": float(t_reflect),
+                            "t_S_arrival_spectral": float(t_S_arr),
                             "reflectionfree_window_captures_S_front": reflectionfree_captures_S,
-                            "n_window_samples": int(win.sum())},
+                            "n_window_samples": int(win.sum()),
+                            "definition": "frozen §3: t_arr=r_meas/cP, "
+                                          "t_reflect=(2·L/2−r_meas)/cP, t_S=r_meas/cS, "
+                                          "all at the C-2 spectral speeds"},
         "f_long_window": f_long_window,
         "f_long_peakE": f_long_peak,
+        "f_long_trace_full": f_long_trace_full,
+        "f_long_at_Epeak": f_long_at_Epeak,
+        "t_Epeak": t_Epeak,
         "trace": {"t": times.tolist(), "f_long": f_long_t.tolist(),
                   "E_shell": E_shell_t.tolist()},
     }
@@ -292,37 +331,70 @@ def run_c2(rho_star=9.773, k_s=1.0, n_random=24, seed=1):
     cS_iso = float(np.mean(cS_list))
     A_ang = 2.0 / 3.0
     quad_partition = A_ang * (cS_iso / cP_iso) ** 5
+
+    # ── frozen direction-resolved gate (prereg §3): per-dir |meas−survey|/survey<3% ─
+    dir_resolved = {}
+    for n in ("100", "110", "111"):
+        meas = per_dir[n]["cP_over_cS"]
+        ref = SURVEY_CP_CS[n]
+        rel = abs(meas - ref) / ref
+        dir_resolved[n] = {"measured": meas, "survey": ref, "rel_err": rel,
+                           "pass_lt_3pct": bool(rel < 0.03)}
+    dir_resolved_all_pass = bool(all(d["pass_lt_3pct"] for d in dir_resolved.values()))
+
     return {
         "per_direction": per_dir,
+        "cP_iso": cP_iso,
+        "cS_iso": cS_iso,
         "cP_over_cS_isotropic": cP_iso / cS_iso,
         "cP_over_cS_100_110_111": [per_dir[n]["cP_over_cS"] for n in ("100", "110", "111")],
+        "direction_resolved_gate_vs_survey": dir_resolved,
+        "direction_resolved_gate_all_pass": dir_resolved_all_pass,
         "breathing_source_long_fraction": breathing_long_fraction,
         "rotating_quadrupole_P_over_S_partition": {
             "A_ang": A_ang, "cS_over_cP": cS_iso / cP_iso,
             "F_bulk_over_F_shear": quad_partition,
-            "note": "continuum reference A_ang·(c_S/c_P)^5 evaluated at the LATTICE-"
-                    "measured c_P/c_S — the far-field bulk/shear flux the binary drives.",
+            "note": "CONTINUUM-IMPORT color-check, NOT an independent lattice partition. "
+                    "This is the continuum multipole formula A_ang·(c_S/c_P)^5 (A_ang=2/3 "
+                    "the isotropic P/S angular integral, 1/c^5 the flux scaling — both "
+                    "continuum imports, q1 §1.2) RE-EVALUATED at the lattice-measured "
+                    "c_P/c_S.  The only lattice input is the speed ratio; it adds no "
+                    "evidential weight beyond the C-2 c_P/c_S agreement (co-monotone).  "
+                    "The prereg's C-2(b) |ê_b·Ŝ|² quadrupole eigenvector projection is "
+                    "NOT implemented here (only the (a) breathing projection is) — routed "
+                    "as an owed follow-on (#761 R4).",
         },
     }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-def _verdict(c1, c2):
-    fl = c1["f_long_window"]
+def _classify(fl):
     if fl > 0.5:
-        c1v = "PORT-OPEN (longitudinal radiation PRESENT) → NONE-DERIVES leans"
-    elif fl < 0.1:
-        c1v = "MODE-ABSENCE (longitudinal absent/evanescent) → PORT-CLOSED leans"
-    else:
-        c1v = "INCONCLUSIVE on C-1 (0.1 ≤ f_long ≤ 0.5) → defer to C-2 + analytic"
-    return {
-        "C1_f_long_window": fl,
-        "C1_verdict": c1v,
+        return "PORT-OPEN (longitudinal radiation PRESENT) → NONE-DERIVES leans"
+    if fl < 0.1:
+        return "MODE-ABSENCE (longitudinal absent/evanescent) → PORT-CLOSED leans"
+    return "INCONCLUSIVE on C-1 (0.1 ≤ f_long ≤ 0.5) → defer to C-2 + analytic"
+
+
+def _verdict(c1, c2, c1_L16=None):
+    fl = c1["f_long_window"]
+    v = {
+        "C1_f_long_window_L20": fl,
+        "C1_verdict_L20": _classify(fl),
+        "C1_f_long_trace_full_L20": c1["f_long_trace_full"],
         "C2_breathing_long_fraction": c2["breathing_source_long_fraction"],
         "C2_cP_over_cS_isotropic": c2["cP_over_cS_isotropic"],
-        "C2_gate_cP_cS_in_1p71_1p90": bool(
+        # ── frozen direction-resolved gate (prereg §3) — the OPERATIVE criterion ──
+        "C2_gate_direction_resolved_lt_3pct": c2["direction_resolved_gate_all_pass"],
+        # ── isotropic-mean band: a WEAKER PROXY of the frozen gate (KEEP-BOTH) ────
+        "C2_gate_isotropic_band_proxy_1p60_1p95": bool(
             1.60 <= c2["cP_over_cS_isotropic"] <= 1.95),
     }
+    if c1_L16 is not None:
+        v["C1_f_long_window_L16_frozen_grid"] = c1_L16["f_long_window"]
+        v["C1_verdict_L16_frozen_grid"] = _classify(c1_L16["f_long_window"])
+        v["C1_f_long_trace_full_L16_frozen_grid"] = c1_L16["f_long_trace_full"]
+    return v
 
 
 def main():
@@ -335,42 +407,62 @@ def main():
     print("\n── C-2 spectral far-field partition (finite-size-free anchor) ──")
     c2 = run_c2(rho_star=rho_star)
     print(f"  c_P/c_S isotropic (lattice-measured) = {c2['cP_over_cS_isotropic']:.4f} "
-          f"(target 1.71–1.90; per-dir {['%.3f' % x for x in c2['cP_over_cS_100_110_111']]})")
+          f"(spectral cP_iso={c2['cP_iso']:.4f}, cS_iso={c2['cS_iso']:.4f}; "
+          f"per-dir {['%.3f' % x for x in c2['cP_over_cS_100_110_111']]})")
+    print(f"  C-2 direction-resolved gate (per-dir |meas−survey|/survey<3%) = "
+          f"{c2['direction_resolved_gate_all_pass']}  [FROZEN §3 criterion]")
+    print(f"  C-2 isotropic-band proxy gate (1.60–1.95 on the mean) = "
+          f"{bool(1.60 <= c2['cP_over_cS_isotropic'] <= 1.95)}  [weaker proxy, KEEP-BOTH]")
     print(f"  breathing-source LONGITUDINAL fraction = {c2['breathing_source_long_fraction']:.4f} "
           f"(→1 if a longitudinal Bloch branch exists)")
     print(f"  rotating-quadrupole F_bulk/F_shear = "
-          f"{c2['rotating_quadrupole_P_over_S_partition']['F_bulk_over_F_shear']:.4f}")
+          f"{c2['rotating_quadrupole_P_over_S_partition']['F_bulk_over_F_shear']:.4f} "
+          f"[CONTINUUM-IMPORT color-check, not an independent lattice partition]")
 
-    print("\n── C-1 time-domain radiation at range (Poincaré-windowed) ──")
-    c1 = run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=rho_star)
-    g = c1["grid"]
-    print(f"  finite srs net: L={g['L']}, N={g['N_sites']} sites, {g['n_bonds']} bonds, "
-          f"n_shell={g['n_shell_sites']}, dt={g['dt']:.4g}, n_steps={g['n_steps']}")
-    print(f"  seed transverse-energy fraction (curl check) = {c1['seed_curl_energy_fraction']:.2e} "
-          f"(≈0 confirms pure-dilatation seed)")
-    print(f"  energy drift |ΔH/H| = {c1['energy_drift_H']:.2e} (bounded Verlet)")
-    pw = c1["poincare_window"]
-    print(f"  Poincaré window: P-arrival(meas)={pw['t_P_arrival_measured']:.3g}, "
-          f"reflect={pw['t_reflect_earliest']:.3g}, S-arrival={pw['t_S_arrival_est']:.3g}, "
-          f"samples={pw['n_window_samples']}; captures-S={pw['reflectionfree_window_captures_S_front']}")
-    print(f"  ★ f_long (window, energy-weighted) = {c1['f_long_window']:.4f}")
-    print(f"    f_long at peak shell energy       = {c1['f_long_peakE']:.4f}")
+    print("\n── C-1 time-domain radiation at range (SPECTRAL-windowed; both grids) ──")
+    c1 = run_c1(L=20, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=rho_star,
+                cP_spec=c2["cP_iso"], cS_spec=c2["cS_iso"])
+    c1_L16 = run_c1(L=16, r_meas_cells=6.0, A=1e-3, cfl=0.2, rho_star=rho_star,
+                    cP_spec=c2["cP_iso"], cS_spec=c2["cS_iso"])
+    for tag, cc in (("L=20 (shipped/operative)", c1), ("L=16 (FROZEN prereg §3)", c1_L16)):
+        g = cc["grid"]
+        pw = cc["poincare_window"]
+        print(f"  [{tag}] net N={g['N_sites']}, {g['n_bonds']} bonds, dt={g['dt']:.4g}, "
+              f"n_steps={g['n_steps']}; drift |ΔH/H|={cc['energy_drift_H']:.2e}")
+        print(f"      spectral window [t_P={pw['t_P_arrival_spectral']:.3g}, "
+              f"t_reflect={pw['t_reflect_spectral']:.3g}); t_S={pw['t_S_arrival_spectral']:.3g}, "
+              f"captures-S={pw['reflectionfree_window_captures_S_front']}, "
+              f"samples={pw['n_window_samples']}")
+        print(f"      precursor-ramp DIAGNOSTIC cP={cc['cP_precursor_diag_cells_per_time']:.3g} "
+              f"(ARTIFACT; ~1.8× spectral cP — not used for the window)")
+        print(f"      ★ f_long window={cc['f_long_window']:.4f} | at E-peak(t="
+              f"{cc['t_Epeak']:.3g})={cc['f_long_at_Epeak']:.4f} | full-trace="
+              f"{cc['f_long_trace_full']:.4f}")
 
-    verdict = _verdict(c1, c2)
+    verdict = _verdict(c1, c2, c1_L16=c1_L16)
     print("\n── FROZEN-TOLERANCE VERDICT ──")
-    print(f"  C-1 f_long = {verdict['C1_f_long_window']:.3f}  ⇒  {verdict['C1_verdict']}")
+    print(f"  C-1 f_long L=20 = {verdict['C1_f_long_window_L20']:.3f}  ⇒  "
+          f"{verdict['C1_verdict_L20']}")
+    print(f"  C-1 f_long L=16 (frozen grid) = "
+          f"{verdict['C1_f_long_window_L16_frozen_grid']:.3f}  ⇒  "
+          f"{verdict['C1_verdict_L16_frozen_grid']}")
     print(f"  C-2 breathing long-fraction = {verdict['C2_breathing_long_fraction']:.3f}")
-    print(f"  C-2 c_P/c_S gate (1.71–1.90) = {verdict['C2_gate_cP_cS_in_1p71_1p90']}")
+    print(f"  C-2 direction-resolved gate (<3%, FROZEN) = "
+          f"{verdict['C2_gate_direction_resolved_lt_3pct']}")
+    print(f"  C-2 isotropic-band proxy gate = "
+          f"{verdict['C2_gate_isotropic_band_proxy_1p60_1p95']}")
 
     out = {"class": "LEG-C lattice-derived empirical injection",
            "rho_star": {"value": float(rho_star), "nu_Hill": float(nu_at)},
-           "C1_time_domain": c1, "C2_spectral": c2, "verdict": verdict}
+           "C1_time_domain": c1, "C1_time_domain_L16_frozen": c1_L16,
+           "C2_spectral": c2, "verdict": verdict}
     out_path = Path(__file__).resolve().parent / \
         "mechanical_commonmode_injection_results.json"
     # trim the long trace arrays for the on-disk JSON (keep a decimated copy)
-    tr = out["C1_time_domain"]["trace"]
-    dec = max(1, len(tr["t"]) // 200)
-    out["C1_time_domain"]["trace"] = {k: v[::dec] for k, v in tr.items()}
+    for key in ("C1_time_domain", "C1_time_domain_L16_frozen"):
+        tr = out[key]["trace"]
+        dec = max(1, len(tr["t"]) // 200)
+        out[key]["trace"] = {k: v[::dec] for k, v in tr.items()}
     out_path.write_text(json.dumps(out, indent=2))
     print(f"\nResults: {out_path}")
     try:
@@ -388,20 +480,24 @@ def _figure(c1, c2, out_dir):
     fig, (ax1, ax2) = style.plt.subplots(1, 2, figsize=style.figsize("double"))
     ax1.plot(t, E / (E.max() + 1e-30), color=style.COLORS["ave"], lw=1.2)
     pw = c1["poincare_window"]
-    ax1.axvline(pw["t_P_arrival_measured"], color=style.COLORS["data"], ls="--", lw=0.9)
-    ax1.axvline(pw["t_reflect_earliest"], color=style.COLORS["comparison"], ls="--", lw=0.9)
-    ax1.set_xlim(0, min(t.max(), 2.2 * pw["t_reflect_earliest"]))
+    tP, tR, tS = (pw["t_P_arrival_spectral"], pw["t_reflect_spectral"],
+                  pw["t_S_arrival_spectral"])
+    ax1.axvline(tP, color=style.COLORS["data"], ls="--", lw=0.9)
+    ax1.axvline(tR, color=style.COLORS["comparison"], ls="--", lw=0.9)
+    if tS < 1.6 * tR:
+        ax1.axvline(tS, color=style.COLORS["muted"], ls=":", lw=0.8)
+        ax1.annotate("S-front", (tS, 0.9), fontsize=7, rotation=90, va="top")
+    ax1.set_xlim(0, min(t.max(), 1.6 * tR))
     ax1.set_xlabel("time (lattice units)")
     ax1.set_ylabel("shell energy (normalized)")
-    ax1.annotate("P-arrival", (pw["t_P_arrival_measured"], 0.9), fontsize=7, rotation=90, va="top")
-    ax1.annotate("reflect", (pw["t_reflect_earliest"], 0.9), fontsize=7, rotation=90, va="top")
+    ax1.annotate("P-arrival (spectral)", (tP, 0.9), fontsize=7, rotation=90, va="top")
+    ax1.annotate("reflect (spectral)", (tR, 0.9), fontsize=7, rotation=90, va="top")
     ax2.plot(t, fl, color=style.COLORS["ave"], lw=1.2)
     ax2.axhline(0.5, color=style.COLORS["muted"], ls=":", lw=0.8)
     ax2.axhline(c1["f_long_window"], color=style.COLORS["comparison"], ls="-.", lw=1.0)
     ax2.set_ylim(0, 1.05)
-    ax2.set_xlim(0, min(t.max(), 2.2 * pw["t_reflect_earliest"]))
-    ax2.axvspan(pw["t_P_arrival_measured"], pw["t_reflect_earliest"],
-                color=style.COLORS["ave"], alpha=0.08)
+    ax2.set_xlim(0, min(t.max(), 1.6 * tR))
+    ax2.axvspan(tP, tR, color=style.COLORS["ave"], alpha=0.08)
     ax2.set_xlabel("time (lattice units)")
     ax2.set_ylabel(r"$f_{long}=E_\parallel/(E_\parallel+E_\perp)$ at shell")
     ax2.annotate(f"window mean = {c1['f_long_window']:.2f}",
