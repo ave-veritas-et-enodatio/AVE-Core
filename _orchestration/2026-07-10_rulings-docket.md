@@ -1888,6 +1888,43 @@ The **thermal-floor arm** (sibling lane, `feat/f6-thermal-floor-arm`: §D floor-
 
 ---
 
+## Continuation — 2026-07-19 (implementer lane): YIELD-FORK discriminators RUN — thixotropy-τ (Leg A) + memristor loop-area (Leg B); fork stays OPEN, crux relocated to #59 Flag F
+
+**Append-only, dated block.** Records the RUN of the two registered discriminators for the OPEN yield fork (`research/2026-07-17_regime-iv-dissipation-audit.md` §5; hardware-ratings-map R13). Prior blocks untouched. **Fork NOT closed** — the ruling stays Grant's; this block records what the substrate said. Full result: `research/2026-07-19_yield-fork-discriminators_result.md` (+ `_result.json`); frozen protocols: the thixotropy prereg PROTOCOL-COMPLETION amendment (2026-07-19) + `research/2026-07-19_yield-fork-loop-area_PROTOCOL-COMPLETION.md`. Drivers + tests: `research/2026-07-19_yield-fork-discriminators/`, `src/tests/test_yield_fork_discriminators.py`.
+
+### The fork (restated, verbatim §5)
+
+> finite-area memristive loop (`∮S dr≠0`, dissipative) vs zero-area saturating reactance (lossless refusal) at the near-yield crossing.
+
+Grant's reversible-reactive lean RECORDED; fork OPEN; resolution by the substrate via the two registered discriminators.
+
+### Leg A — thixotropy amplitude-dependent-τ → **B** (rectification door closed by derivation)
+
+- Symmetric near-yield drive `r=0.7+0.3sin(ωt)` (Regime II→III) on the canonical Level-2 kernel (byte-locked to `k4_tlm.py:283,291`; engine untouched).
+- **No genuine `sign(dr/dt)` memory:** the clean τ-swap discriminator gives `R_mem=0` for single-τ; two-τ controls flip (`−0.339` down-slow vs `+0.379` up-slow). Raw `R` is a nonlinear-loop artifact (scales with Δr; `−0.200@0.30 → −0.005@0.01`) — a finding surfaced at integrator time (Rule-10).
+- **H-gate excludes bin A:** canonical loop is dissipative (`W_cycle=0.174 ≫ tol=0.0035`); bin A needs H-conserved. Two-τ positive control LIVE (real null, not dead instrument).
+- **Corollary (ties to the fork):** bin A (reactive rectifier) is **structurally unreachable within the first-order relaxation framework**; the only route to A is the **second-order reactive `S`-structure = #59 Flag F = the lossless branch.** Leg A kills the *two-τ thixotropic* version of the dissipative branch.
+
+### Leg B — memristor loop-area (`P_phase5_memristor_loop_area`, `tau-relax-derivation.md:109`) → **NEITHER** (frozen bin; evidential weight RE-BANKED 2026-07-19, review `wf_f0870d0d`)
+
+- Loop area is **FINITE** (`0.175 ≫ tol=0.0035`) → not the strict zero-area bin. The frozen **NEITHER** came from the **(r,S) plane** — but that plane's window test is **INFORMATION-FREE (R-1):** the (r,S) loop-area peak is the Debye dissipation shape, **pinned at `ωτ≈1.00` for any first-order kernel** (verified across the drive family `r_0∈[0.3,0.9], Δr∈[0.05,0.5]`), so `[0.85,0.95]` is **a-priori unreachable** there. The "falsified" reading is a **theorem of the observable**, not evidence.
+- **★ The testable plane is (V,I), and it landed INSIDE the window:** peak `ωτ=0.911` at the registered `Δr=0.3` (sub-rupture `Δr=0.25`: `0.9577`). This is the one datum leaning **toward** the memristive window (F-B2 caveat: no origin-pinch at the near-yield point). *(Was omitted from this block in the original; surfaced per R-1.)*
+- **F-B1 re-banked (R-1 + R-2, BOTH-AND):** (a) the registered `ωτ≈0.9` peak-shift **does not reproduce** in (r,S) (peaks at linear `1.001`); **AND** (b) the `[0.85,0.95]` window was **MIS-REGISTERED** — its `0.9` center came from **doc-48's `A²_cos`** response-amplitude observable (`#59` §6.3), a *different* observable, and does **not** follow from `#59`'s own Eq 6.3 at the registered drive (`A_2/A_1=0.046` there → Eq 6.3 peaks at `~0.978`; `~0.954` even at the assumed `1/10`). So neither leg (a) nor (b) is evidence against memristive.
+- **F-B2:** the (V,I) "pinched hysteresis" origin-pinch does **not** apply at the near-yield point (drive `r∈[0.4,1.0]` never crosses 0; `min|I|=0.354≠0`).
+- **F-B3 (throughline, CORRECTED R-3):** the finite `∮` is a rate-dependent Debye lag; its *dissipative* reading is **assumed by the first-order model this driver integrates on itself** (PROTOCOL §8), not measured. The earlier "a second-order form gives the *same* τ-lag" claim is **RETRACTED as FALSE** (Rule-12; a lossless second-order kinetic-`S` is resonant, not Debye). Flag-F relocation rests on the **model-tautology leg only**; the promised second-order contrast **never ran** (SPEC'd for the Flag-F branch).
+
+### Fork adjudication — ROUTED to Grant (NOT closed)
+
+Neither discriminator adjudicates against the reversible lean. Both **relocate the crux to `#59` Flag F**: is the near-yield `S`-dynamics *first-order overdamped* (dissipative) or *second-order reactive* (`I_S≠0`, lossless)? That is a **derivation** question, upstream of and unreachable by either driver. **Recommended next step (Grant's call):** a Flag-F derivation branch (K4 Lagrangian with a kinetic term in `S`; whether `I_S→0` is forced), NOT another driver. Fork status unchanged: **LOSS-REQUIRED by its own prose but NOT axiom-forced** (= the `2026-07-17` §5 status).
+
+### Owed to auditor lane (implementer surfaces; auditor lands)
+
+- **Doc-staleness flag:** `tau-relax-derivation.md:117` + `#59` §10/§28 say the dynamic Level-2 `S(t)` ODE is "unbuilt" — **STALE**: the engine built it (`use_memristive_saturation`, `k4_tlm.py:266–296`). Auditor lands the note.
+- **P_phase5 peak-shift — BOTH-AND demotion (R-2), NOT "falsified":** the leaf caveat the auditor lands should record **both**: (a) the registered `ωτ≈0.9` (r,S) peak-shift **fails to reproduce** (engine peaks at linear Debye `1.001`); **AND** (b) the `[0.85,0.95]` window was **MIS-REGISTERED** — `0.9` imported from doc-48's `A²_cos` observable, and `#59` §6.4's own "`1/10 → 0.88–0.93`" arithmetic does **not** follow from its own Eq 6.3, which yields `~0.954–0.978` at the registered drive (`A_2/A_1=0.046`, not `1/10`). The clean statement is **not** "P_phase5 falsified" — the (r,S) test was information-free and the target was mis-registered; the one testable plane (V,I) landed *inside* the (mis-registered) window at `0.911`. Auditor lands the demotion/provenance-caveat on the leaf accordingly.
+- **Leg-A liveness-gate hardening (R-4):** the coded positive-control gate is vacuous (thresholds `~500×` below the F-A1 artifact background → cannot fail; frozen `Δτ_rel≈2` unreachable via the geometric-mean τ renormalization). A **fireable** gate (require the τ-swap `R_mem` to flip sign and exceed the single-τ artifact background) is SPEC'd for any re-run — not retro-applied to the frozen verdict.
+- **R13 / hardware-ratings-map:** record "discriminators RUN 2026-07-19; fork OPEN; crux = Flag F" against the retention row (auditor lands).
+
+*Repair note — 2026-07-19 (implementer lane, review `wf_f0870d0d`, 11 confirmed / 1 refuted CRITICAL→MAJOR): the Leg B block above and the owed-notes were re-banked; the fork-open disposition and the Flag-F relocation SURVIVE (via the model-tautology leg only). Frozen verdicts (Leg A = B, Leg B = NEITHER) not retro-edited (Rule-11).*
 ## Continuation — 2026-07-19 (Grant in-chat): DEEP-SPACE REACTIVE-BULK ruling — stall/Joule DEMOTED, band-structure framing recorded
 
 **Append-only, dated block.** Records the adjudication of the Regime-IV audit's **deep-space resistive-metric family** (F5, `research/2026-07-17_regime-iv-dissipation-audit.md:126`), left open with *"Owner: the continuum-electrodynamics / dark-sector lane"* and — for the vol1 site (item 89) — the explicit note that the call was *"a physics ruling for Grant, not an auditor relabel."* Grant ruled it. Prior blocks untouched. **Nothing banked at result-class**; the band-map re-derivation is **SPEC'd, not run** (Grant-gated). Companion: the WALK/CONTEXT record `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` (full arc + attribution key + canon anchors). *(Same-day sibling to the noise-floor ruling above — the `Re(Z)`-emergent convergence: loss lives at ports / by counting, never in the bulk.)*
