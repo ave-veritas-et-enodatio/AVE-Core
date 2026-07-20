@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "class": "research-driver (Q1 pulsar hardening); mints no canon; no engine edit",
+    "speeds": "DERIVED from ave.core.constants (K=2G); dimensionless ratios",
+    "A_ang": "DERIVED (isotropic-elastic P/S angular partition = 2/3)",
+    "coupling": "equal-coupling = elastic-medium default; O(1) per #750 (K=2G, no 1/omega_BD)",
+    "HT": "[import] Weisberg & Huang 2016 arXiv:1606.02744 (WebFetch-verified 2026-07-20)",
+    "DP": "[import] Kramer et al. 2021 arXiv:2112.06795 (WebFetch-verified 2026-07-20)"
+  },
+  "speeds_over_c": {
+    "c_shear": 1.0,
+    "c_bulk_port_over_c": 1.414213562373095,
+    "c_P_over_c": 1.8257418583505534,
+    "check_sqrt2": 1.4142135623730951,
+    "check_sqrt_10_3": 1.8257418583505538
+  },
+  "speed_factor_power": {
+    "sqrt2_port": 0.17677669529663695,
+    "sqrt_10_3_pwave": 0.04929503017546498
+  },
+  "A_ang": 0.6666666666666666,
+  "flux_ratio_F_bulk_over_F_shear": {
+    "headline_port_sqrt2": 0.11785113019775796,
+    "headline_pwave_sqrt_10_3": 0.03286335345030998,
+    "bracket_min": 0.014788509052639493,
+    "bracket_max": 0.17677669529663695
+  },
+  "exclusion_hulse_taylor_sigma": {
+    "port_sqrt2": 73.65695637359872,
+    "pwave_sqrt_10_3": 20.539595906443736,
+    "bracket_min": 9.242818157899682,
+    "bracket_max": 110.48543456039809
+  },
+  "exclusion_double_pulsar_factor_over_bound": {
+    "port_sqrt2": 906.547155367369,
+    "pwave_sqrt_10_3": 252.79502654084604,
+    "bracket_min": 113.75776194338073,
+    "bracket_max": 1359.8207330510536
+  }
+}
