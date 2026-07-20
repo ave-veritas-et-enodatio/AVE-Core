@@ -128,17 +128,32 @@ def ave_saturation_acceleration(
 
     .. math::
         g_{eff} = g_N + \sqrt{g_N \cdot a_0} \cdot
-                  \sqrt{1 - \min(g_N / a_0,\; 1)}
+                  \sqrt{1 - \min(g_N / a_0,\; 1)^2}
+
+    Kernel argument A = g_N/a_0 (quadratic kernel, clipped); the leading
+    \sqrt{g_N \cdot a_0} is the deep-MOND drag prefactor slot — a distinct
+    position from the kernel argument (#748 R3 + #754 trace). This matches the
+    code below (saturation_factor → universal_saturation = √(1 − (A)²)).
 
     Physical mechanism:
       - The vacuum LC lattice has mutual inductance η₀.
-      - Orbital shear creates a strain proportional to √(g_N).
+      - The kernel argument (saturation amplitude / A1 strain) is the LOCAL
+        FIELD normalized by the yield field: A = g_N/a₀ (LINEAR in g_N), which
+        gives the QUADRATIC kernel S = √(1 − (g_N/a₀)²). The √(g_N·a₀) prefactor
+        below is a DISTINCT slot — the deep-MOND drag coefficient — NOT the
+        kernel argument; a strain ∝ √(g_N) is the KINETIC (v/c) amplitude family
+        (a separate node coordinate), not this saturation strain. Corrected
+        toward A = g_N/a₀ per #748 R3
+        (research/2026-07-20_mond-kernel-adjudication_result.md §2 + Errata-R3)
+        + the #754 A1-amplitude trace
+        (research/2026-07-20_a1-amplitude-trace_result.md §2, verdict A=g_N-FORCED).
       - When g_N < a₀, the lattice is unsaturated: η_eff ≈ η₀.
         The unsaturated lattice drags on orbiting mass → "dark matter".
       - When g_N ≥ a₀, the lattice saturates: η_eff → 0.
         No drag → conservative Keplerian orbits.
 
-    The saturation_factor √(1 − g_N/a₀) is the SAME operator that:
+    The saturation_factor √(1 − (g_N/a₀)²) is the SAME operator that
+    (quadratic kernel, A = g_N/a₀; #748 R3 + #754 trace):
       - Confines particles (Pauli exclusion)
       - Drives FDTD field updates
       - Creates plasma cutoff
@@ -160,7 +175,8 @@ def ave_saturation_acceleration(
     scalar = g_N.ndim == 0
     g_N = np.atleast_1d(g_N)
 
-    # Saturation factor: S = √(1 − g_N/a₀), clipped at a₀
+    # Saturation factor: S = √(1 − (g_N/a₀)²), clipped at a₀ (quadratic
+    # kernel, A = g_N/a₀; #748 R3 + #754 trace)
     S = saturation_factor(g_N, a0)  # clips to 0 when g_N ≥ a₀
 
     # Lattice drag contribution: ∝ √(g_N · a₀) × unsaturated fraction
@@ -199,7 +215,9 @@ def radial_acceleration_relation(g_N: np.ndarray, a0: float = A0_LATTICE) -> np.
         g_obs = g_bar / (1 - exp(-√(g_bar/a₀)))
 
     AVE strictly derives this from first principles via Axiom 4 saturation:
-        g_obs = g_bar + √(g_bar × a₀) × √(1 - g_bar/a₀)
+        g_obs = g_bar + √(g_bar × a₀) × √(1 - (g_bar/a₀)²)
+        (quadratic kernel, A = g_bar/a₀; √(g_bar·a₀) = deep-MOND drag
+        prefactor slot — #748 R3 + #754 trace)
 
     Args:
         g_N: Array of Newtonian (baryonic) accelerations [m/s²].

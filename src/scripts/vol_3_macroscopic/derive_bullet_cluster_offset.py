@@ -28,7 +28,9 @@ WHAT IS IMPORTED-OBSERVATIONAL (legitimate for an astro comparison, tagged):
   Markevitch 2006; Springel & Farrar 2007 (MNRAS 380 911). Full per-number cites in doc.
 
 WHAT IS LATTICE-DERIVED:
-  the halo PROFILE (eta_eff kernel g_eff = g_N + sqrt(g_N a0) sqrt(1 - g_N/a0),
+  the halo PROFILE (eta_eff kernel g_eff = g_N + sqrt(g_N a0) sqrt(1 - (g_N/a0)^2)
+  -- quadratic kernel, argument A = g_N/a0; the sqrt(g_N a0) is the deep-MOND drag
+  prefactor slot, a distinct position from the kernel argument, #748 R3 + #754 trace,
   ave.regime_3_saturated.galactic_rotation.ave_saturation_acceleration; the same kernel
   whose SPARC-validated source is M_disk = M_star + M_gas, multi-galaxy-validation.md:23),
   a0 = A0_LATTICE = c H_inf/(2 pi) (no telescope parameter), the linear-superposition
