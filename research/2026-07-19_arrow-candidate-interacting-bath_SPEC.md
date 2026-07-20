@@ -32,7 +32,7 @@
 
 | link | form | provenance | cite |
 |---|---|---|---|
-| local strain | `A = |V_inc|_total / V_SNAP`, the **total** incident magnitude at a site | DERIVED (Op2 strain register) | `k4_tlm.py:280-281` |
+| local strain | `A = |V_inc|_total / V_SNAP`, the **total** incident magnitude at a site | DERIVED (Op2 strain register) | `k4_tlm.py:279-281` |
 | saturation kernel | `S(A) = √(1 − A²)` | DERIVED (Op2 / Ax4 saturation kernel) | `k4_tlm.py:282-283` |
 | local impedance | `z_local = 1/√S = (1 − A²)^(−1/4)` | DERIVED (Op14 canonical `Z_eff = Z_0/√S`) | `k4_tlm.py:315-318` |
 | bond reflection | `Γ = (z_B − z_A)/(z_B + z_A)`, `T = √(1 − Γ²)` | DERIVED (impedance-mismatch reflection, EE-native) | `k4_tlm.py:397, 432-448` |
@@ -109,7 +109,7 @@ Plug in the certified operating point (charter §D-post Dp-4 densest-viable comb
 |---|---|---|
 | MILD amplitude | `A ≈ 0.10` ⇒ `A² ≈ 0.010` | charter §B1 operating-point table |
 | comb spacing | `Δω = 0.050` | charter §D-post Dp-4 (densest-viable) |
-| drive scale | `ω_scale ~ ω_d ~ 0.5` | charter §A8 (`ω_d = 0.5`), walk anchor 6 (`ω_d=0.524`) |
+| drive scale | `ω_scale ~ ω_d ~ 0.5` | charter §A7 trace-fill, charter:177 (`ω_d = 0.5`), walk anchor 6 (`ω_d=0.524`) |
 | **realized** `δω_nl/Δω` | `(1/4)(0.010)(0.5) / 0.050` ≈ **`0.025`** | **derived** |
 
 **`δω_nl/Δω ≈ 0.025 ≪ 1` — the derived nonlinearity is ~40× below the resonance-overlap threshold at MILD.** This is not a failure — **it is a result**: the derived interaction *predicts the #734 null*. The floor-arm ran in exactly the regime where the substrate-native coupling is sub-threshold, so a flat coherent revival is what the derivation expects. The #734 "structural inexpressibility" is thus **sharpened**: on the non-interacting Caldeira–Leggett bath it is an *exact* identity (barrier B1, superposition), and on the *interacting* bath it is *quantitatively* sub-threshold at MILD (barrier: coupling `~40×` too weak) — two different reasons, both pointing the same way at the certified operating point.
@@ -253,7 +253,7 @@ Single-node, CPU (no GPU regime — same plant class as the certified meter, sma
 - **Nothing is refilled into the #734 slot** (Rule 12): the #734 FLOOR-ARROW prediction stays retracted; this SPEC is a **new, separately-versioned candidate** with its own verification chain (the re-cert battery), not a rescue of the falsified reactive-floor mechanism. It earns a charter + frozen prereg **only if** Grant's Decision 1/2 rulings green-light a build.
 - **Owed to the auditor lane (implementer surfaces, auditor lands):** the two-barrier sharpening of the #734 result (barrier B2 — the scalar-port bottleneck — is a *second* structural reason the arrow is inexpressible, under-weighted in the #734 framing); and the retro-prediction that the derived coupling is `~40×` sub-threshold at MILD (a *quantitative* consistency between the derivation and the #734 null). This lane does **not** edit the #734 result doc nor draft the auditor's engine-capability-map §8c entry — it surfaces the finding for adjudication.
 
-**Contradiction flagged (flag-don't-fix), NOT resolved here:** the #734 result §0(b) headlines the inexpressibility as *"the bath is a set of INDEPENDENT harmonic oscillators … no mode–mode coupling"* (barrier B1 only). This derivation finds that **even lifting B1 does not suffice** — the scalar-port + global-rescale bottleneck (barrier B2) independently blocks floor→signal phase transfer (§2.2). The two docs are not in conflict on the *verdict* (arrow inexpressible on the certified instrument), but the #734 *mechanism sentence* is **incomplete** (names one of two barriers). Surfaced with both file paths for Grant/auditor adjudication; the #734 doc is not edited by this lane.
+**Contradiction flagged (flag-don't-fix), NOT resolved here:** the #734 result §0(b) headlines the inexpressibility as *"the bath is a set of INDEPENDENT harmonic oscillators … no mode–mode coupling"* (barrier B1 only). This derivation finds that **even lifting B1 does not suffice** — the scalar-port + global-rescale bottleneck (barrier B2) independently blocks floor→signal phase transfer (§2.2). The two docs are not in conflict on the *verdict* (arrow inexpressible on the certified instrument), but the #734 *mechanism sentence* is **incomplete** (names one of two barriers). *Precision note (review wf, 2026-07-19):* #734’s body does engage the phase-blindness (R-6/§3, :100 “that channel carries no phase”) but bundles it into B1’s linear-regime story; the genuinely new content here is the **separability** — B2 is a property of the meter’s scalar PORT, so it persists regardless of bath-internal coupling (Caldeira–Leggett or Kerr-coupled). Surfaced with both file paths for Grant/auditor adjudication; the #734 doc is not edited by this lane.
 
 ---
 
