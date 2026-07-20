@@ -31,3 +31,11 @@ The three regime behaviours emerge automatically:
 Code path: `universal_operators.universal_pairwise_energy(r, K, d_sat)`. A JIT-compiled variant (`universal_pairwise_energy_jax`) is provided for $O(N^2)$ pairwise cost functions where the energy matrix must be evaluated at every optimiser step. The JAX variant replaces runtime duck-typing dispatch with static branching to satisfy `@jit` tracing requirements; the numerical output is identical.
 
 ---
+
+### Blessing: pairwise-only composition is substrate-native
+
+> **RULED 2026-07-20 (Grant verbatim [sic] "op4 bless"): the pairwise-only composition is BLESSED as substrate-native, not an approximation — every lattice coupling is bond-mediated and bonds are two-terminal (the pairwise composition IS the netlist; there are no three-terminal elements in the lattice). This tag is where any future derivation surfacing a genuine multi-node simultaneous term must record its contradiction.**
+
+**Implementation grounding (verified 2026-07-20):** `universal_pairwise_energy(r, K, d_sat)` takes a single scalar separation $r$ between exactly two nodes; the N-body caller `high_z_boundary_analysis.py` is a literal O(N²) pair-sum; the other cited callers evaluate the operator as a pure two-node function (a 1-D scan and a finite-difference force) — every use (e.g. `src/scripts/peer_review/high_z_boundary_analysis.py`, `src/scripts/vol_1_foundations/charge_sector_two_winding.py`) sums over pairs, so an N-body energy is $O(N^2)$ two-node evaluations, never a simultaneous three-or-more-node term. Multi-port structure in the lattice (the K4 vertex $A_1 \oplus T_2$ scattering, [`k4-port-irrep-decomposition.md`](./k4-port-irrep-decomposition.md); the Op5 multiport $Y\to S$ conversion) lives at the **junction** where two-terminal bonds meet under continuity + current conservation — a Kirchhoff node, not an irreducible three-terminal constitutive element. The blessing is therefore consistent with the multiport vertex physics: the vertex S-matrix is emergent from the two-terminal bonds, and the pairwise composition remains the netlist.
+
+---

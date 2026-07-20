@@ -2337,13 +2337,35 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 **Class:** MANIFESTATION / identity-class (a FORM identification of the node coordinate, not a value-emergence; `a_0` VALUE stays Class-E, untouched). **Deliverables (research/ only):** `2026-07-20_a1-amplitude-trace_{prereg,result}.md` + `_checks.py`. **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator].** **Owed to auditor lane:** the `clm-u86caq` leaf-asserted→derived re-tag + any KB/manuscript propagation (implementer surfaces; auditor lands). `make verify` green; every anchor two-method verify-before-cite'd.
 
+---
+
+## Continuation — 2026-07-20: INFRA+HYGIENE BATCH — Op4 blessing + anchor-content CI + engine docstring reconciliation (ENTRY 32)
+
+**Append-only, dated block (union-safe tail; prior blocks untouched).**
+
+> **ENTRY-number note (2026-07-20).** Base is `origin/main` @ `537c0b62` (max ENTRY 31, #754 A1-amplitude-trace merged). This block takes the next-free **ENTRY 32**. Under the documented `merge=union` collision-tolerant convention, read the docket by entry number + content, not file position; renumber to next-free at merge time if a concurrent branch collides.
+
+### ENTRY 32 (2026-07-20): implementer lane — INFRA+HYGIENE BATCH (Grant verbatim [sic] "op4 bless, anchor ci, and do doc strings")
+
+Three deliverables, one branch (`infra/op4-anchorci-docstrings`), one PR.
+
+**D1 — Op4 pairwise-only BLESSING (verified-then-blessed).** Op4 = the Universal Pairwise Potential (`universal_operators.universal_pairwise_energy(r, K, d_sat)`, `common/operators.md:44` CANONICAL, home leaf `vol1/operators-and-regimes/ch6-universal-operators/pairwise-potential.md`; INVARIANT-N3 "Op4 (potential well / H-bond)"). VERIFIED the pairwise-only characterization against the engine: the operator takes a single scalar separation `r` between exactly two nodes; every N-body caller (`high_z_boundary_analysis.py:147`, `charge_sector_two_winding.py:392`, `qed_trace_beta_gate.py:80`) sums over PAIRS (`O(N²)` two-node evaluations), and there is no three-body / multi-node simultaneous term anywhere in the implementation or the Ch6 leaves. Characterization ACCURATE → blessing tag added at the home leaf (KEEP-BOTH; existing content untouched). **Nuance surfaced (not a contradiction):** the K4 vertex multiport scattering (`k4-port-irrep-decomposition.md` `A_1 ⊕ T_2`; Op5 multiport `Y→S`) is a Kirchhoff JUNCTION where two-terminal bonds meet, emergent from those bonds — NOT an irreducible three-terminal constitutive element; the blessing stays consistent with the multiport vertex physics.
+
+**D2 — ANCHOR-CONTENT CI CHECKER (warn-class, non-gating).** New tool `manuscript/ave-kb/tools/verify-anchor-content.py` (pure stdlib, `verify-md-links.py` pattern). Scans research/ + _orchestration/ + manuscript/ave-kb/ for `path.ext:NN` cites carrying an adjacent backtick excerpt and checks the excerpt occurs within ±10 lines of the cited line in the target. Wired into `make verify` as an advisory step (`-`-prefixed, always exit 0) + standalone `make verify-anchor-content`; self-test PASSES. **First-run counts (the interesting number):** 11,366 cites scanned; 1,132 checkable (had adjacent quote + resolvable target); of those **857 drift (75.7%)** — 169 excerpt-MOVED (stale `:NN`, excerpt found elsewhere = the true line-anchor drift) + 688 excerpt-ABSENT (dominated by the documented FP classes: TeX-escaping, markdown decoration, paraphrase quotes). 5,760 not-checked (no/trivial quote), 4,474 unresolved-target (verify-md-links territory). Gating is a deliberate later promotion — the FP-absent bucket must be driven down first.
+
+**D3 — ENGINE DOCSTRING RECONCILIATION (docstring/comment-ONLY; discharges the ENTRY 31 :2273 routed follow-on).** 6 sites corrected TOWARD the derived identification: `galactic_rotation.py` math-block (:131), narrative (:135), operator mention (:141), inline comment (:163), RAR docstring (:202); `derive_bullet_cluster_offset.py` docstring (:31). Each now states the kernel argument (A = g_N/a₀, QUADRATIC kernel `√(1−(g_N/a₀)²)`) and the deep-MOND drag PREFACTOR slot (`√(g_N·a₀)`, a distinct position) correctly, citing #748 R3 (`research/2026-07-20_mond-kernel-adjudication_result.md` §2 + Errata-R3) + the #754 trace (`research/2026-07-20_a1-amplitude-trace_result.md` §2, verdict `A=g_N-FORCED`). Per #748 R3, a "fix" toward the √g_N narrative would silently re-introduce the retired linear kernel — the correction goes the other way. **ZERO executable-line change PROVEN:** code-token streams (comments + strings stripped) byte-identical HEAD-vs-working for both files (698/698, 2403/2403 tokens); full suite **2860 passed / 3 skipped / 9 xfailed** + serial A1-port tail 4 passed → byte-same behavior.
+
+**FLAGS (flag-don't-fix).** (1) `common/operators.md:23-27` records a live Op#-namespace collision (INVARIANT-N3 chemistry set vs Vol 1 Ch 6 physics set), flagged for auditor-lane; the blessing targets the Vol 1 Ch 6 Op4 (Universal Pairwise Potential), the canonical primary. Not harmonized here. (2) The anchor-content ABSENT bucket (688) is FP-heavy (TeX/paraphrase) — the tool is honest warn-class, not a clean gate; do NOT promote to gating without an FP-triage pass first.
+
+**PR [DO-NOT-MERGE][REVIEW: pending-orchestrator].** `make verify` green; full test suite green; every anchor two-method verify-before-cite'd; pure-corpus.
 ## Continuation — 2026-07-20: Q1 RULING BATCH — ch08 loose-prose fix + Reading-A exclusion BANKED + Reading-B ruled CONDITIONAL (ENTRY 32)
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).**
 
 > **★ENTRY-number collision note (2026-07-20, union-merge collision-tolerant — same class as ENTRY 24/25/29–31).** Base is `origin/main` @ `537c0b62` (Merge #754), which holds ENTRY blocks through **31** (26/27=#749/28=#752/29=#753/30=#751-J(ω)/31=A1-amplitude-trace-#754). Concurrent open branches hold **provisional lower** numbers on their own bases (`docs/port-register-promotion` provisional 30 — collides with main's 30, renumbers at its merge; `research/b-mechanism-derivation` / `research/f1-verification-rerun` / `infra/op4-anchorci-docstrings` max 29). This block takes the **next-free ENTRY 32** above main's 31. **Read by entry number and content, not file position; renumber to next-free at merge time if a concurrent lane lands 32 first.**
 
-### ENTRY 32 (2026-07-20): implementer lane — Q1 RULING BATCH (three-parter)
+### ENTRY 35 (2026-07-20): implementer lane — Q1 RULING BATCH (three-parter)
+*(Renumber note: merged main holds ENTRY 32; renumbered to next-free 35. Read by entry number, not position.)*
 
 **Provenance split (maintained everywhere).** Grant ruled the Q1 three-parter 2026-07-20 — **Grant-verbatim, [sic]: "part 1: loose works / Part 2: bank / part 3: rule it".** The ruling *content* below is the **orchestrator's walk, ratified in chat** (not Grant verbatim). The attribution split is carried on every landed site.
 

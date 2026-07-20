@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps refresh-provenance-baseline framing-audit test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -70,6 +70,7 @@ help:
 	@echo "  make verify-provenance-stamps : Check research/ provenance stamps carry a resolvable artifact reference (baseline-gated)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
+	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
 	@echo "  make test                 : Run unit tests, bedrock keepers (src/tests + kb tools; engine-sims excluded)"
 	@echo "  make test-engine          : Run slow engine-simulation tests (opt-in; -m engine_sim)"
 	@echo "  make test-tools           : Run KB tooling tests only (manuscript/ave-kb/tools/tests)"
@@ -123,6 +124,8 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps
 	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
 	@echo "\n[Verify] Running ξ namespace collision guard..."
 	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
+	@echo "\n[Verify][advisory] Running anchor-content drift check (WARN-CLASS, non-gating)..."
+	-$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py
 	@TEX_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/main.tex $(PAPER_DIR)/refs.bib $(PAPER_DIR)/figures 2>/dev/null || echo 0); \
 	PDF_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/$(PAPER_JOB).pdf 2>/dev/null || echo 0); \
 	if [ "$${TEX_T:-0}" -gt "$${PDF_T:-0}" ]; then \
@@ -167,6 +170,10 @@ refresh-provenance-baseline:
 framing-audit:
 	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
 	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+
+verify-anchor-content:
+	@echo "[Anchor] Cited-line vs quoted-excerpt drift check (WARN-CLASS advisory; always exit 0)..."
+	$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py
 
 
 # =============================================================================
