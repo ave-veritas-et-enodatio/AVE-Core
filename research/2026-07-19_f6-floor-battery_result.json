@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "lane": "F6 floor-battery \u2014 pre-occupied-bath meter revalidation (STAGE 1)",
+    "charter": "research/2026-07-16_f6-bath-meter_CHARTER.md \u00a7D + \u00a7D-post (FROZEN)",
+    "instrument": "src/ave/thermal/f6_bath_meter.py (BYTE-UNTOUCHED; floor = config-only)",
+    "kappa": 0.03,
+    "operating_point": "MILD (scale=0.6, A_max~=0.10)",
+    "densest_viable_comb": {
+      "delta_omega": 0.05,
+      "M": 15
+    },
+    "sparse_control_comb": {
+      "delta_omega": 0.08,
+      "M": 10
+    },
+    "banked_densest_comb": {
+      "delta_omega": 0.01,
+      "M": 71
+    },
+    "rho_ladder": [
+      0.3,
+      1.0,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "seeds": [
+      20260719,
+      20260720,
+      20260721,
+      20260722,
+      20260723,
+      20260724
+    ],
+    "e_signal_per_mode_dvw": 0.02619199917443722
+  },
+  "verdict": "FLOOR-METER-VALID-BAND[0,5]",
+  "criteria": {
+    "nan_seen": false,
+    "rho_hi": 5.0,
+    "fb1_ok": true,
+    "fb2_ok": true,
+    "fb3_ok": true,
+    "fb3_broken_shown": true,
+    "fb4_ok": true,
+    "fb5_ok": true,
+    "band_reaches_past_signal": true
+  },
+  "fb_primary": {
+    "per_rho": [
+      {
+        "rho": 0.3,
+        "all_clean": true,
+        "max_drift": 2.322649653941174e-14,
+        "n_identity_fail": 0,
+        "n_over_transfer": 0,
+        "n_clamp": 0,
+        "max_excess_identity": 2.3019117106024137e-14,
+        "seed_exact": true,
+        "n_occ_excess_min": 3,
+        "jitter_mean": 0.0375854703249431,
+        "jitter_cov": 0.13195853355757975,
+        "non_secular_all": true,
+        "c_finite_all": true,
+        "c_range01_all": true,
+        "tare_broken_any": false,
+        "c_form_diff_max": 0.0,
+        "excess_plateau_mean": 0.193853792588365
+      },
+      {
+        "rho": 1.0,
+        "all_clean": true,
+        "max_drift": 1.8249390138109224e-14,
+        "n_identity_fail": 0,
+        "n_over_transfer": 0,
+        "n_clamp": 0,
+        "max_excess_identity": 1.8353079854803028e-14,
+        "seed_exact": true,
+        "n_occ_excess_min": 2,
+        "jitter_mean": 0.0460195475402051,
+        "jitter_cov": 0.1723040241940519,
+        "non_secular_all": true,
+        "c_finite_all": true,
+        "c_range01_all": true,
+        "tare_broken_any": false,
+        "c_form_diff_max": 1.1102230246251565e-16,
+        "excess_plateau_mean": 0.22355550106425623
+      },
+      {
+        "rho": 2.0,
+        "all_clean": true,
+        "max_drift": 2.0323184471985274e-14,
+        "n_identity_fail": 0,
+        "n_over_transfer": 0,
+        "n_clamp": 0,
+        "max_excess_identity": 2.0323184471985274e-14,
+        "seed_exact": true,
+        "n_occ_excess_min": 4,
+        "jitter_mean": 0.05630773779012179,
+        "jitter_cov": 0.1841167637072798,
+        "non_secular_all": true,
+        "c_finite_all": true,
+        "c_range01_all": true,
+        "tare_broken_any": false,
+        "c_form_diff_max": 1.1102230246251565e-16,
+        "excess_plateau_mean": 0.25233214022247247
+      },
+      {
+        "rho": 3.0,
+        "all_clean": true,
+        "max_drift": 1.6175595804233177e-14,
+        "n_identity_fail": 0,
+        "n_over_transfer": 0,
+        "n_clamp": 0,
+        "max_excess_identity": 1.6382975237620782e-14,
+        "seed_exact": true,
+        "n_occ_excess_min": 5,
+        "jitter_mean": 0.06571982783878098,
+        "jitter_cov": 0.1867469261864291,
+        "non_secular_all": true,
+        "c_finite_all": true,
+        "c_range01_all": true,
+        "tare_broken_any": false,
+        "c_form_diff_max": 0.0,
+        "excess_plateau_mean": 0.2747883819808243
+      },
+      {
+        "rho": 5.0,
+        "all_clean": true,
+        "max_drift": 1.4931319203907548e-14,
+        "n_identity_fail": 0,
+        "n_over_transfer": 0,
+        "n_clamp": 0,
+        "max_excess_identity": 1.503500892060135e-14,
+        "seed_exact": true,
+        "n_occ_excess_min": 5,
+        "jitter_mean": 0.08156544893113814,
+        "jitter_cov": 0.20584693946439306,
+        "non_secular_all": true,
+        "c_finite_all": true,
+        "c_range01_all": true,
+        "tare_broken_any": true,
+        "c_form_diff_max": 1.1102230246251565e-16,
+        "excess_plateau_mean": 0.31076047409809554
+      }
+    ],
+    "rho_hi": 5.0
+  },
+  "fb4": {
+    "rows": [
+      {
+        "rho": 1.0,
+        "excess_plateau_cov": 0.17010068549485363,
+        "excess_plateau_sem_over_mean": 0.06944331406000523,
+        "excess_plateau_mean": 0.22355550106425623,
+        "jitter_cov_diag": 0.1723040241940519,
+        "realization_maxdiff": 0.9810217406624258,
+        "frozen_literal_cov_ok": false
+      },
+      {
+        "rho": 5.0,
+        "excess_plateau_cov": 0.22834731253136792,
+        "excess_plateau_sem_over_mean": 0.0932223999729484,
+        "excess_plateau_mean": 0.31076047409809554,
+        "jitter_cov_diag": 0.20584693946439306,
+        "realization_maxdiff": 2.1936312995263534,
+        "frozen_literal_cov_ok": false
+      }
+    ],
+    "stats_carry_read": true,
+    "realization_differs": true,
+    "sem_bounded": true,
+    "cov_bounded": true,
+    "arm_ensemble_budget_cov": 0.22834731253136792,
+    "frozen_literal_pairwise_pass": false
+  },
+  "fb5": [
+    {
+      "dw": 0.05,
+      "m": 15,
+      "n_steps": 1382,
+      "max_ebath_diff": 0.0,
+      "bit_for_bit": true
+    },
+    {
+      "dw": 0.01,
+      "m": 71,
+      "n_steps": 6912,
+      "max_ebath_diff": 0.0,
+      "bit_for_bit": true
+    }
+  ],
+  "boundary_doc": {
+    "comb": 0.03,
+    "M": 24,
+    "rows": [
+      {
+        "rho": 1.0,
+        "all_clean": true,
+        "n_clamp": 0,
+        "max_drift": 1.9701046171822458e-14
+      },
+      {
+        "rho": 2.0,
+        "all_clean": true,
+        "n_clamp": 0,
+        "max_drift": 2.073794333876048e-14
+      },
+      {
+        "rho": 3.0,
+        "all_clean": false,
+        "n_clamp": 2,
+        "max_drift": 0.00022025171620597487
+      }
+    ]
+  },
+  "frozen_literal": {
+    "rho_ladder": [
+      0.3,
+      1.0,
+      3.0,
+      10.0,
+      30.0
+    ],
+    "comb": 0.03,
+    "fb3_range_ok": false,
+    "fb4_literal_ok": false,
+    "drift_rel": 0.9999999999261966,
+    "verdict": "FLOOR-LEDGER-ARTIFACT",
+    "note": "Original \u00a7D.D3 binary criteria (FB3 c\u2208[0,1] + FB4 relative-tol) \u2014 superseded by \u00a7D-post; banked as the both-ways honesty record."
+  },
+  "self_check": {
+    "recomputed": "FLOOR-METER-VALID-BAND[0,5]",
+    "banked": "FLOOR-METER-VALID-BAND[0,5]",
+    "match": true
+  }
+}
