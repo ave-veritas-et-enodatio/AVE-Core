@@ -69,14 +69,16 @@ A = sin θ ,   S = cos θ ,   θ ∈ [0, π/2].
 
 ### 2.2 Kinetic term — the S-sector inertia is not inserted, it emerges
 
-Each coordinate carries reactive inertia (the node stores kinetic energy in *both* the axial LC motion and the transverse bow motion). **[DERIVED]** from the K4 LC Lagrangian (`#59` §1.1, `axiom-register.md:188` for the `(V_inc,Φ_link)` dynamical pair):
+> **🔴 RE-BANKED 2026-07-19 (PR #744; MAJOR F12 → R-5. Rule-12: text below preserved verbatim).** The `[DERIVED]` tags on the `m_S`/`I_S` **transverse-bow kinetic term** are RELABELED **`[ASSUMED: kinetic term posited, axiom provenance OPEN]`**. Verified against the cited sources: `#59` §1.1 (archived, line 45) is `ℒ_cell = ½·C_cell·(dV/dt)² − ½·L_cell·(dI/dt)²` — the **electrical `(V,I)` sector only, no transverse-bow term**; `axiom-register.md:188` pins only the `(V_inc,Φ_link)` pair (= `m_A`); the buckling arc (#459/#460) is **static geometry** (the constraint), not a kinetic term. So "`I_S` emerges, not inserted" is false *as stated* — the kinetic term was **written down**, which is EXACTLY the un-discharged Flag-F demand ("start from the full K4 Lagrangian *with a kinetic term in S* and show the overdamped limit leaves Eq 2.1"). A substrate-native argument for `m_S > 0` plausibly EXISTS (the T2 sector carries propagating shear waves at `c_shear = c√S`, §6 — wave propagation requires transverse kinetic energy), but it is **not made here**, so `m_S > 0` is ASSUMED, not derived. **Consequence:** the Flag-F demand is **PARTIALLY discharged at best**; and because on the constraint circle `I(θ) = m_A cos²θ + m_S sin²θ → m_S` as `A→1`, the **entire near-yield inertia is the un-derived `m_S`** — so the **isolated-node second-order (reactive) character at the crossing inherits this `[ASSUMED]` caveat** (if `m_S→0` the second-order character evaporates exactly where the verdict is about). The `m_A` axial-sector tag stays `[DERIVED]` (it is `#59`'s own `L_eff`).
+
+Each coordinate carries reactive inertia (the node stores kinetic energy in *both* the axial LC motion and the transverse bow motion). **[DERIVED — 🔴 R-5: the `m_S`/bow leg relabeled [ASSUMED: kinetic term posited, axiom provenance OPEN]; see banner above]** from the K4 LC Lagrangian (`#59` §1.1, `axiom-register.md:188` for the `(V_inc,Φ_link)` dynamical pair):
 
 ```
 T = ½ m_A Ȧ² + ½ m_S Ṡ² = ½ (m_A cos²θ + m_S sin²θ) θ̇²  ≡  ½ I(θ) θ̇² .
 ```
 
 - `m_A` **[DERIVED]** = the axial (LC) reactive inertia; its conjugate momentum is `Φ_link` (the inductive flux). This is `#59`'s own `L_eff` sector.
-- `m_S` **[DERIVED, non-zero]** = the transverse bow reactive inertia. **This is `I_S`.** It is *not inserted* — it is the inertia the bow motion necessarily carries. The bow momentum `p_S = m_S Ṡ = −m_S sinθ · θ̇ ≠ 0` for any motion. **`I_S ≠ 0` emerges automatically**, exactly as the ratified rotation picture anticipated, and exactly opposite to the `I_S → 0` premise Flag F would need for Eq 2.1.
+- `m_S` **[DERIVED, non-zero → 🔴 R-5: ASSUMED: kinetic term posited, axiom provenance OPEN]** = the transverse bow reactive inertia. **This is `I_S`.** It is *not inserted* — it is the inertia the bow motion necessarily carries. The bow momentum `p_S = m_S Ṡ = −m_S sinθ · θ̇ ≠ 0` for any motion. **`I_S ≠ 0` emerges automatically**, exactly as the ratified rotation picture anticipated, and exactly opposite to the `I_S → 0` premise Flag F would need for Eq 2.1.
 
 ### 2.3 Potential term and the EOM
 
@@ -111,7 +113,7 @@ Either way the isolated node is **world (a)**: reactive, `I_S≠0`, loop nets ze
 The dispatch required STOP-and-bank-the-negative if the rotation premise failed structurally. It does **not** fail:
 - **`A`'s conjugate momentum exists** — it is `Φ_link` (the inductive flux of the LC dilatation sector), `axiom-register.md:188`. **[DERIVED]** ✓
 - **The constraint is non-trivial** — `A²+S²=1` is the holonomic circle defining the single DOF `θ`; it is not degenerate (it has a well-defined tangent everywhere on `[0,π/2)`; the vertical tangent at `A→1` is the saddle-node yield point, `buckling_result:21`). **[DERIVED]** ✓
-- **`I_S ≠ 0` emerges** (§2.2), not inserted. ✓
+- **`I_S ≠ 0` emerges** (§2.2), not inserted. ✓ **[🔴 R-5: relabeled — `m_S`/`I_S` is [ASSUMED: kinetic term posited, axiom provenance OPEN], not derived from the cited `#59` §1.1 / `axiom-register:188`; see §2.2 banner. The structural check "`I_S ≠ 0`" is now conditional on that assumption.]**
 
 So Stage 1 proceeds; no premise-failure STOP.
 
