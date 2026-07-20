@@ -227,7 +227,7 @@ The electron is a **boundary-equilibrium precipitate**: a self-trapped `0₁`-un
 > `m_e` (via `ℓ_node`) is a **law-class boundary-equilibrium quantity** (D2 #1). And because the
 > precipitate condition is the *same* for every electron, **electron indistinguishability follows
 > from the boundary-equilibrium condition** — closing the (i)→law-class inference of D2. This is the
-> single most load-bearing datum in the classification: it is *why* particle properties are LAW.
+> most physically evocative datum (n.b. its home leaf self-grades R* as SOFT-CONSISTENCY — m_e's law-class rests on the definitional anchor + indistinguishability, not on R*) in the classification: it is *why* particle properties are LAW.
 
 ### D4d — Schwinger = the lab coupon (controlled approach to the same wall)
 
