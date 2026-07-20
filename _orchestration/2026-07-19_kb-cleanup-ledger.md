@@ -95,6 +95,28 @@ Per #735 "owed to auditor lane" (result §6 + docket continuation 2026-07-19). A
 - **`common/substrate-hysteresis-index.md`** (FENCED). Any memristive-loop / hysteresis-row that registers the loop-area as a confirmed/open dissipative prediction owes the #735 fork-OPEN / crux=Flag-F context. (Ledger-only pending #738; also carries the separate #733 clm-exjfai/moving-front residue per the branch-scrub follow-up — see NOT-SWEPT.)
 - **`research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md`** (FENCED — the `#59` source). Owes: §10/§28 "unbuilt" staleness flag + the Flag-F relocation context (auditor lands).
 
+### C2-D · Noise-floor arrow + counting-arrow / #724 meter-validity — NO non-fenced KB drift; 1 APPLY-POST-#738
+
+**Ground truth:** `research/2026-07-19_f6-thermal-floor-arm_result.md` tri-form verdict (STRONG floor-arrow excluded ~5σ; reactive-floor mechanism structurally inexpressible; partial unconstrained; ARROW QUESTION stays OPEN; bare NO-SUPPRESSION label DEGENERATE). #724 flipped the meter to VALID[0.030,0.030]; #727 INSTRUMENT-INCOMPATIBLE. `noise-floor-arrow-walk_RECORD.md` mints NOTHING new canon.
+
+**Verified: NO non-fenced KB leaf carries the drift.** Two-method (regex + `grep -F`): zero hits for "NO-SUPPRESSION" / "ride-on-top" / "floor sets the arrow" / decided-counting-arrow / "meter invalid at κ" / "sweep BLOCKED" outside the FENCED `common/engine-capability-map.md`. The F6-program leaves that DO exist are consistent with ground truth: `thermal-phase-registers.md` (§2/§6 "temperature = phase-diffusion width RE-GATED on the unbuilt F6 irreversible ε→T2 depletion channel; a lossless kernel gives only bounded reversible dephasing") is CORROBORATED by the arm (which found exactly bounded reversible dephasing on a lossless bath) — no edit; `dark-energy-latent-heat-definition.md` (F6 = UNBUILT DE-tracks-matter chord) unchanged by the arm; `identity-break-test-design.md` / `cmb-thermal-attractor.md` reference the F6 tier-1 charter (Γ=3Hρ_latent), not the counting/floor arm.
+
+**FENCED engine-capability-map.md §8c** is itself current up to the arm-in-flight point: §8c.7/§8c.9 correctly say "counting-arrow QUESTION OPEN"; §8c.3/§8c.6 carry the #726/#724 corrections; §8c.8 correctly softens DOS-balance to RECOMMENDED-not-RULED and marks it MOOT; §8c.10 records the thermal-floor arm as **"in flight"** (pre-result).
+
+**APPLY-POST-#738 (`common/engine-capability-map.md` §8c.10):** the section records the thermal-floor arm as in-flight; the arm has since FIRED and was re-banked post-review to the **tri-form verdict** (`research/2026-07-19_f6-thermal-floor-arm_result.md`): (a) STRONG floor-arrow EXCLUDED ~5σ, (b) reactive-floor arrow mechanism STRUCTURALLY INEXPRESSIBLE (identity-class, #721-W2 shape), (c) mild ≤~30% partial UNCONSTRAINED; the bare **"NO-SUPPRESSION" tree label is DEGENERATE** (interior clips to 0; verdict decided by artifact residuals); **ARROW QUESTION stays OPEN** (interacting-bath thermalization + X40-class click = the open candidates, SPEC only). The auditor appends this arm result to §8c (a new §8c.11 or §8c.10 tail) once #738 lands. NB: the FENCED docket ENTRY 21 (`_orchestration/2026-07-10_rulings-docket.md:2006-2022`) carries the **pre-review "NO-SUPPRESSION (FLOOR-ARROW falsified)" framing**, superseded by the tri-form re-bank — a coordinated APPLY-POST-#738 reconciliation for the orchestrator/auditor (docket is fenced; not a KB leaf).
+
+### C2-E · Retention/transition conflation (Regime-IV audit) — VERIFIED COMPLETE, no residual drift
+
+**Ground truth:** `research/2026-07-17_regime-iv-dissipation-audit.md` + governing split leaf `common/retention-transition-split.md`. Brief: fix conflation (persistence-of-latched-state vs irreversibility-of-crossing) in leaves the audit marked, where the split leaf now governs.
+
+**All audit-marked conflation/tension sites already carry dated notes (verified):**
+- **F1 plastic-row** — `common/substrate-native-terminology.md:50` carries the "Audit per-sense note (2026-07-17, §F1)" overturning the row's license to RETENTION-ONLY (retained-set sense licensed; friction-sense = open fork). CURRENT.
+- **F4 Op3** — RULED (see C2-A); `k4-port-irrep-decomposition.md`, `substrate-native-terminology.md:31`, `retention-transition-split.md:47`. CURRENT.
+- **F5 deep-space** — DEMOTED (see C2-B). CURRENT.
+- **BH erased-vs-conserved** — `vol3/cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md:24-26` carries a dated "🔴 FLAG (2026-07-19, Tier-2.5 hygiene — flag-don't-fix)" recording the "mass-energy conserved as latent heat (PRODUCT) but information permanently erased (TRANSITION)" one-sentence conflation and routing it to the generative-cosmology / BH-interior lane (audit §F5, item #105/#244). Body UNTOUCHED, NOT adjudicated. CURRENT (judgment item, correctly flagged not fixed).
+
+The 49 RETENTION-ONLY audit items were adjudicated clean (correctly PRODUCT-moment lossless — no conflation to correct). **No residual retention/transition drift found.**
+
 ---
 
 ## Orphan / phantom index lists
