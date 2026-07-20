@@ -64,6 +64,6 @@ The manuscript chapter ends with a tabular cross-chapter citation map (`sec:vol9
 
 ## Manuscript counterpart
 
-[`manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex`](../../../../vol_9_vacuum_datasheet/chapters/13_application_examples.tex)
+[`manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex`](../../../vol_9_vacuum_datasheet/chapters/13_application_examples.tex)
 
 ---
