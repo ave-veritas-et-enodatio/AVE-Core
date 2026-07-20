@@ -55,7 +55,15 @@ _(populated per category commit)_
 
 ## CLASS 2 — PROPAGATION-LAG DRIFT
 
-_(populated per category commit; flag-don't-fix items carry both sides verbatim + provenance)_
+### C2-A · RULING-21 Op3 = LOSSLESS TRANSDUCTION residual (FIXED — pure propagation)
+
+**Ground truth:** RULING 21 (docket `_orchestration/2026-07-10_rulings-docket.md:1809`) — Op3's $A_1$ behaviour is LOSSLESS TRANSDUCTION (mode-projection loss ≠ system loss). Tier-1 batch fixed 3 leaves (`k4-port-irrep-decomposition.md`, `substrate-native-terminology.md:27/:31`, `retention-transition-split.md:47`). Brief: "find any others."
+
+**Sweep method:** `grep -rl "Op3"` → 40+ leaves; filtered to Op3-near-loss/dissipat within 80 chars; each read for transduction-correction presence.
+
+**Already-current (verified carry the RULING-21 note):** `k4-port-irrep-decomposition.md` (owning leaf, :28 row + §4 :109 RULED block + :199 blanket note), `substrate-native-terminology.md` (:31 🟢 RULED), `retention-transition-split.md` (:47 🟢 RULED), `common/index.md` (:68 already "common-mode-rejection worked example"), `vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md` (:102-104 already cites RULING 21), `translation-circuit.md:188` (already "Axiom 3 — reactive, not loss"), `biquaternion-...-network-equations.md:224` (already "lossless reactive boundary (Op3/Op14 wall)").
+
+**RESIDUAL FIXED — `vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md`.** Carried the exact superseded wording at 6+ sites (line 11 "dissipates monotonically"; §1 scope-note :38 "$A_1$ monotonic dissipation (Op3)"; Primary xref :49 "Op3 asymmetric-dissipation mechanism"; §3 :82 "$A_1$ ... loses energy monotonically" / "asymmetric dissipation"; §2 :86/:120 "$A_1$ exactly/fully dissipated"; See-also :252 "Op3 dissipation"). Applied a dated 🟢 RULING-21 reading-note (after the G2 banner) mirroring the owning leaf's blanket-note pattern: read all as lossless transduction (mode-emptying into $T_2$; system conserves power); wording preserved unedited (Rule-12). **Zero-judgment:** RULING-21 is unambiguous + already executed on the owning leaf; this is consumer-leaf propagation, not adjudication.
 
 ---
 
