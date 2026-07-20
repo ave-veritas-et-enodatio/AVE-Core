@@ -1,0 +1,70 @@
+{
+  "constants_used_readonly": {
+    "C_0_m_s": 299792458.0,
+    "L_NODE_m": 3.8615926772428334e-13,
+    "OMEGA_C_rad_s": 7.76344071105011e+20
+  },
+  "check_1_k4_scatter_eigenstructure": {
+    "S_matrix": [
+      [
+        -0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        -0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        -0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        -0.5
+      ]
+    ],
+    "eigenvalues_sorted": [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+    ],
+    "A1_common_mode_eigenvalue": 1.0,
+    "T2_traceless_eigenvalue": -1.0,
+    "A1_is_plus1": true,
+    "T2_is_minus1": true,
+    "trace_S": -2.0,
+    "eigenvalue_sum_is_minus2": true
+  },
+  "check_2_traceless_quadrupole_nonzero": {
+    "trace_sum_m_r2_constant": true,
+    "traceless_norm_constant": true,
+    "traceless_xx_component_varies": true,
+    "verdict": "B2-via-trace FALSIFIED: traceless second moment rotates (xx varies) => scalar quadrupole radiation is DRIVEN; the constant trace does NOT kill A1 radiation."
+  },
+  "check_3_lattice_leakage_residual": {
+    "Hulse-Taylor B1913+16": {
+      "P_b_s": 27906.9804,
+      "omega_gw_rad_s": 0.00045029488802590667,
+      "omega_gw_over_omega_C": 5.8001974225806665e-25,
+      "lattice_ratio_eps": 5.800197422580667e-25,
+      "leakage_residual_bound_eps2": 3.364229014091142e-49
+    },
+    "double pulsar J0737-3039": {
+      "P_b_s": 8834.400000000001,
+      "omega_gw_rad_s": 0.0014224362281942374,
+      "omega_gw_over_omega_C": 1.8322239856480256e-24,
+      "lattice_ratio_eps": 1.8322239856480256e-24,
+      "leakage_residual_bound_eps2": 3.357044733583936e-48
+    }
+  }
+}
+
