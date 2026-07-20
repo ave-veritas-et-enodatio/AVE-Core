@@ -63,6 +63,6 @@
     "genesis_npersist_n14 / option-B / cross-sector-pump": "mechanism-robust (energy-class or z_local-independent), materiality report did not flag"
   },
   "contradictions": {
-    "C1_materiality_report_stale_genesis24": "2026-07-16_f1-materiality-report_NOTE.md:24 + consumer-audit:180 cite the superseded +2-bug runaway (max|V_inc|->1.08e4, VERDICT B); current banked JSON is the -2 Lenz C1 (max_V_inc~0.37) since 2026-06-21, 26 days earlier. Flag-don't-fix; auditor/Grant adjudicates."
+    "C1_materiality_report_stale_genesis24": "2026-07-16_f1-materiality-report_NOTE.md:24 + consumer-audit:180 cite the superseded +2-bug runaway (max|V_inc|->1.08e4, VERDICT B); current banked JSON is the -2 Lenz C1 (max_V_inc~0.37) since 2026-06-21, 25 days earlier. Flag-don't-fix; auditor/Grant adjudicates."
   }
 }

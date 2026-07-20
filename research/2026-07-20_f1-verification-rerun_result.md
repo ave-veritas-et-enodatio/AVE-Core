@@ -47,7 +47,7 @@ re-runs the banked-receipt cells it could locate; a NOT-RERUN list carries the r
    current main** (55 tests). `make verify` green.
 5. **CONTRADICTION FLAGGED (not fixed):** the materiality report's genesis-24 row cites the
    superseded `+2`-bug numbers (`max|V_inc|→1.08e4`, VERDICT B), which the 2026-06-21 Lenz correction
-   replaced 26 days earlier with the bounded `−2` C1 (`max|V_inc|~0.37`). See §Contradictions.
+   replaced 25 days earlier with the bounded `−2` C1 (`max|V_inc|~0.37`). See §Contradictions.
 
 ---
 
@@ -141,7 +141,7 @@ which is the V-active + Cosserat-active leg whose bond-Γ the shared-front fix n
 **difference** of two ~5.9 quantities, so a +0.4 % arm-1 gain amplifies to a +10.8…+42.2 % relative
 `dE_V` shift (largest where |dE_V| is smallest). **The verdict C1 is invariant** (`dE_V` stays
 `≤ eps_machine` at deep saturation on every frac) and every topological flag is invariant. This is
-exactly the materiality report's row-2 prediction — *quantitative peak may shift, qualitative FIRES
+matching row-2's coarse schema (quantitative-moves / qualitative-robust; the named max|V_inc| was bit-stable — the drift is in dE_V) — *quantitative peak may shift, qualitative FIRES
 robust* — now measured, not assumed. Banked BOTH; Grant adjudicates whether the banked JSON is
 refreshed to the post-F1 `dE_V` values (a receipt-refresh call, out of this lane's scope).
 
@@ -184,7 +184,7 @@ docs characterize genesis-24 as a *pumped runaway*:
   "the runaway/pumped regime (genesis-24, 1e4 V-growth)".
 
 But the **current banked receipt** — `genesis_24_saturated_seed_results.json`, regenerated **2026-06-21**
-by the Lenz-sign correction (`5a8b16e3`), **26 days BEFORE** those reports — is the **bounded, power-
+by the Lenz-sign correction (`5a8b16e3`), **25 days BEFORE** those reports — is the **bounded, power-
 conserving `−2` C1**: `verdict = "C1"`, `dE_V` all-negative (`0.85: −0.1705`), `max_V_inc ≈ 0.37`
 (not `1.08e4`). The genesis-24 result doc's own CORRECTING HEADER reconciles this
 (`2026-06-09_genesis-24-saturated-seed_result.md:80–88`): under the corrected `−2` EMF sign the source
