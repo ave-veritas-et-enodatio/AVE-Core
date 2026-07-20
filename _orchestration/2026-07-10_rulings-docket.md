@@ -2181,3 +2181,23 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 **ENTRY 26 addendum (2026-07-20, #747 review repair):** the review found the phantom `clm-9oazz0` ALSO live at 5 vol_9 .tex sites outside the B10 index-leaf scope (`12_cosmological_characteristics.tex:50,:117,:193,:232`; `19_calibration_parameter_justification.tex:45`) — the parallel-site incompleteness class. All five attach the id to `full-derivation-chain.md` itself; remapped uniformly to `clm-sxn6eo` (that leaf's declared Layer-7 G-closure claim; `ilk-gravmb` already separately cited at those sites as the interlock ruling). vol_9 re-compiled clean. Zero `clm-9oazz0` occurrences remain in manuscript/.
 **ENTRY 26 addendum-2 (2026-07-20, disclosure):** the .tex remap exposes an id-attachment convention divergence: the B10 ch12 INDEX row attaches `ilk-gravmb` (content-owner ruling) to the `full-derivation-chain.md` link, while the .tex sites now attach `clm-sxn6eo` (that leaf's declared claim). Both ids are real and registered; the two conventions (leaf-declared-id vs content-owner-id after a leaf link) diverge at exactly one row class. Routed to the auditor lane for a one-line convention ruling at next touch — not silently harmonized here.
+
+---
+
+## Continuation — 2026-07-20: J(ω) derivation — the yield-fork adjudicator (ENTRY 27)
+
+**Append-only, dated block.** Records the J(ω) derivation lane (branch `research/jomega-derivation`, off `origin/main` HEAD `64f1894d`) that executes the routed follow-on `#744`/`#59` Flag F left OPEN pending the z=3 bath spectral density `J(ω)`.
+
+### ENTRY 27 (2026-07-20): implementer lane — J(ω) yield-fork adjudicator (PR [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+
+**★ Verdict (frozen tree, `research/2026-07-20_jomega-derivation_prereg_FROZEN.md` → `_result.md`): DEGENERATE/UNDETERMINED as a clean (a)/(b) XOR, but with strong derived structure that reshapes the fork.**
+- **Load-bearing pivot:** the corpus-adjudicated arccos band top is `π√3·ω_C ≈ 5.44 ω_C` (`srs-band-structure.md`, `clm-bnd5rq`), NOT the flag-F doc's assumed `ω_max=ω_C` — so the crossing (`ωτ≈0.9`) sits at ≈16 % of the band, deep INSIDE, `J(ω_drive)>0`. Corrects the flag-F factor-≈5.4 underestimate.
+- **World (c) (axiom resistor / rate-independent plastic loss) DEFINITIVELY EXCLUDED [DERIVED, robust]:** the H-ledger shows a lossless (`γ=0`) second-order `S` has a FINITE reactive loop `∮S dr=0.183` with EXACTLY zero dissipated work — finite pinched loop ≠ resistor.
+- **(a)/(b) is NOT an XOR — a SCOPE + COUPLING split:** coupling-model UNDETERMINED (on-site→Ohmic `s≈1`, `J_norm(0.9)=0.31`, world-b live / strain→super-Ohmic `s≈3`, `J_norm(0.9)=0.036`, world-a); AND scope-split (0D few-mode cell recurs 70–95 % = world-a reactive / ∞-lattice bath drains to 0–10 % = world-b transduction; ring-down ledger, coupling-scale-robust). Grant's reversible-reactive lean SUPPORTED at 0D-cell scope + microscopically (Ax3-lossless); world (b) is the coarse-grained ∞-lattice description.
+- **§4.3/§5.3 inconsistency RESOLVED:** `πJ(ω→0)` (Markovian friction constant, slow-limit) ≠ `πJ(ω_drive)` (finite-drive per-cycle transfer) — different objects, dispersive friction.
+- **Loss-location three-way contradiction ADJUDICATED (FLAG-1, flag-don't-fix):** Site 1 (`01_vacuum_circuit_analysis.tex:358` "max loss at f≪1/τ") = the excluded world-(c) picture; Site 2 (`backmatter/06:147` "zero-area elastic at f≪1/τ") CORRECT there; Site 3 (`#735` Debye peak `ωτ≈0.9`) CORRECT for the loss peak. No `.tex` edited (Site 1 already fork-open-caveated `:338–339`).
+- **Batched (arccos drag-onset):** `v_p,min/c₀ = 0.80` (srs 3D acoustic) / `1.0` (1D-chain arccos, dispersionless) — the cosine-branch `2/π≈0.637` of `#741` does NOT survive; owed `#741` D4 relabel fenced.
+
+**Flag F status:** PARTIALLY discharged, advanced past OPEN-XOR (world (c) excluded; the (a)/(b) crux named as scope+coupling, not a dichotomy). `I_S` kinetic-term provenance stays OPEN (bath dresses it via added-mass, bare term not derived; scope not stretched). **AWAITING GRANT RATIFICATION.**
+
+**Class:** derivation (forms derived, values calibration-tagged; mints no `clm-`, edits no KB/tex leaf). Engine byte-UNTOUCHED (research driver `src/scripts/vol_4_engineering/jomega_yield_fork.py` + `src/tests/test_jomega_yield_fork.py`, 7/7 `engine_sim`). `make verify` PASS; ruff clean. **Owed to auditor lane (implementer surfaces; auditor lands):** (1) `#59` Flag-F status update; (2) `01_vacuum_circuit_analysis.tex:358` loss-location relabel; (3) `#741` D4 drag-onset relabel `2/π → 0.80`/`1.0`; (4) `tau-relax-derivation.md` Eq-2.1-requires-`γ_0>0` (Ohmic) note. None executed here (Rule-12 / lane fence).
