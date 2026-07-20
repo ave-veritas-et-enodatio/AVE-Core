@@ -244,6 +244,8 @@ Every damping-like term is ledgered to a mode; none is a resistor. **[DERIVED]**
 
 **No premise-failure STOP; no genuine physics fork.** The one genuine fork found is a *framing/wording* item (§9), not a physics fork, and it does not gate the battery.
 
+> **🔴 RE-BANKED 2026-07-19 (PR #744; R-1/R-7).** Two corrections to §8 above: (1) "it lands in world (a)" (Stage-2 gate rationale) is RETRACTED — Stage 1 did not land in a world; the battery-fire condition met is only "cleanly defines the (a)/(b) forms". (2) "no genuine physics fork" is RETRACTED — there **IS** an open physics fork: the (a)/(b) crossing verdict is UNDETERMINED pending `J(ω)` (§0). The framing/wording item (§9) is a *separate*, additional flag.
+
 ---
 
 ## 9. Flags (flag-don't-fix) and owed follow-ons
@@ -257,10 +259,12 @@ Every damping-like term is ledgered to a mode; none is a resistor. **[DERIVED]**
 **Flag 4 — the `#527` open ontology question is upstream and unresolved.** `axiom-register.md:193` (LOAD-RESPONSE SIGN RULE) leaves open: *"if the electron self-trap wall is the STATIC T2 winding (no real power), what physically PLUCKS the bond in matter to deliver the transverse bias?"* The near-yield crossing here is an **axial end-load** (`A` rising to yield → compression → buckling), the well-defined arm of that sign rule; the transverse-pluck arm is the open one. Noted, not resolved.
 
 **Owed follow-ons (NOT landed this session — collision fences):**
-- **Doc #59 Flag F status** → update to "RESOLVED: Eq 2.1 is the `ωτ≪1` overdamped-Markovian limit of the z=3-coupled node; near-yield (`ωτ≳1`) is world-(a) reactive." Owed pointer; PR #738 owns #59 this session.
+- **Doc #59 Flag F status** → **[🔴 RE-BANKED 2026-07-19, PR #744, R-7 — the "RESOLVED" pointer below is RETRACTED; do NOT propagate it]** corrected owed pointer: *"Flag F PARTIALLY discharged — Eq 2.1's Markovian first-order reduction is derivably unlicensed at `ωτ~1`; the (a)/(b) fork at the near-yield crossing STAYS OPEN pending a derived z=3 bath spectral density `J(ω)`; awaiting Grant ratification."* Owed pointer; PR #738 owns #59 this session. ~~update to "RESOLVED: Eq 2.1 is the `ωτ≪1` overdamped-Markovian limit of the z=3-coupled node; near-yield (`ωτ≳1`) is world-(a) reactive."~~ (superseded, preserved.)
 - **`tau-relax-derivation.md` / `#59` §10 "unbuilt"** staleness (already flagged by `#735` §5) + a note that Eq 2.1's *regime of validity* is `ωτ≪1`. Owed KB follow-on; cleanup lanes own KB this session.
 - **`axiom-register.md` Ax4** could gain a cross-link: the load-response bifurcation also fixes the near-yield *dynamics* class (reactive, not relaxational). Owed; auditor lands manual entries.
 
 ---
 
 *Derived 2026-07-19 by Opus 4.8 (implementer lane) per Grant's yield-fork adjudicator dispatch ("the rotation makes sense, one branch, derivation forst"). Provenance-tagged; anti-seduction fence held (world b earns its loop only in the `ωτ≪1` slow-limit and is named out-of-regime at the crossing); flag-don't-fix.*
+
+> **🔴 CLOSING RE-BANK 2026-07-19 (PR #744 adversarial review `wf_58c5701a`; R-1/R-7).** The closing line's "world b … named out-of-regime at the crossing" is the RETRACTED conclusion — the band-edge step that placed the crossing out of the z=3 band is an inequality inversion (§0). The anti-seduction fence was *present*, but the failure was at that band-edge step, not fence-absence: the crossing sits AT/INSIDE the band where `Γ=πJ(ω_drive)>0`, so world b is NOT out-of-regime there. The (a)/(b) fork STAYS OPEN pending `J(ω)`; awaiting Grant ratification.
