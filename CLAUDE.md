@@ -66,6 +66,12 @@ Active skills live at `~/.claude/skills/ave-*/SKILL.md`. Key skills:
 - `ave-evidence-framing-discipline` — precision check on strength language before assertion
 - `ave-walk-back` — propagation checklist when matrix rows retire or claims rescope
 - `ave-audit` + `ave-audit-of-audit` + `ave-sweep-audit` — audit-discipline triad
+- `ave-cross-discipline-mapping` — meta-skill governing the `manuscript/ave-kb/common/translation-tables/` spoke family (hub-and-spoke rule: map disciplines to the substrate hub, never discipline-to-discipline); `ave-ee-first-mapping` is the privileged EE spoke under it
+- `ave-reproduction-gate` — re-run a banked numeric receipt on the current engine before load-bearing it (drift → bank both under a dated note, never overwrite)
+- `ave-mechanism-claims-discipline` — mechanism headlines carry claim-id + solidity or wait for review; fork-adjudicator verdicts are frozen-criterion-only
+- `ave-board-assembly-check` — orchestrator status-assembly checklist: every open PR has a review task or an explicit not-yet reason (the #750-never-reviewed catch)
+
+> **Skill registry / mirror note (2026-07-20).** The AVE-discipline skills are version-controlled in the **AVE-Skills** repo (`~/.claude/skills/`, remote `ave-veritas-et-enodatio/AVE-Skills`) — user-level in *location* but committed to the AVE-Skills repo (local commit cfb2b5f, push pending — multi-agent-reachable once pushed). The four skills above (+ the `verify-before-cite` temporal-currency amendment) were minted/amended 2026-07-20 under Grant's itemized go's; the AVE-Core-side candidate tracker is [`_orchestration/skill-candidates-watch.md`](_orchestration/skill-candidates-watch.md). Skill creation remains HARD-GATED on Grant.
 
 Memory entries at `~/.claude/projects/-Users-grantlindblom-AVE-staging/memory/` carry user persona, workflow conventions, workspace layout reference, and feedback discipline.
 
