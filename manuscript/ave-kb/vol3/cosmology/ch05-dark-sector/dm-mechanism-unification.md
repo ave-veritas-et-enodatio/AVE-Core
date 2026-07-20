@@ -45,7 +45,7 @@ The cosmic Hubble-flow drift $cH_\infty$ projects through the Hoop Stress 2π fa
 
 **Saturation kernel** (Ax4 applied at galactic scale):
 
-$$g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}$$
+$$g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - (g_N/a_0)^2}$$
 
 **Empirical status (2026-05-17)**: SPARC 135-galaxy benchmark — mean |residual| 15.51% (all-valid); 11.5% for Q=1 sample (87 best-quality galaxies). Zero free parameters; $a_0$ derived value 10.7% off empirical $1.2 \times 10^{-10}$ m/s². Promoted from "partial-PASS hard-coded 5-galaxy" to "FORWARD-PREDICTION CONFIRMED at catalog scale" per [`multi-galaxy-validation.md`](multi-galaxy-validation.md).
 

@@ -257,7 +257,7 @@ is the **μ-sector inductive drag `η_eff`** (NOT A1 mass, NOT ε-sector DE); re
 **Two objects:**
 
 - **The corpus MOND kernel is purely LOCAL-algebraic in `g_N`:** `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md:15`
-  `g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}`; regime map `r = g_N/a_0`
+  `g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}` *(dated pointer 2026-07-20: this linear kernel factor was ADJUDICATED → QUADRATIC `\sqrt{1-(g_N/a_0)^2}` by the two-kernel SPARC contrast + form-level resolution, PR #748, `research/2026-07-20_mond-kernel-adjudication_result.md`; snapshot preserved as-quoted)* ``; regime map `r = g_N/a_0`
   (`asymptotic-limits.md:10-11,25`). The argument is `g_N` alone.
 - **The "MOND / a₀" namesake carries the External-Field Effect (EFE)** — the sharp MOND-vs-particle-DM discriminator —
   **absent from the entire KB.** Absence receipts (two methods): `grep -rwil "external field effect" manuscript/ave-kb`
