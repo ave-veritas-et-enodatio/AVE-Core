@@ -310,6 +310,121 @@ def gle_ringdown(centres, J_shape, n_bath, coupling_scale, omega_S=1.0, n_period
             "E_S_final": float(E_S_series[-1])}
 
 
+def ringdown_scale_scan(centres, J, scales=(0.2, 0.4, 0.6, 1.0, 1.5),
+                        n_finite=40, n_dense=1500):
+    """R-1 (POST-REVIEW EXTENSION, F1/F6/F9): scan the undriven ring-down recovery over
+    coupling scale, both models, finite (0D) vs dense (∞-lattice) bath.
+
+    Motivation: the original lane banked "coupling-scale-robust" + "∞-lattice drains to
+    0–10 %" from a SINGLE scale (0.6). This scan tests both. What the scan shows (banked):
+      - the ORDERING  finite-recovery ≥ dense-recovery  is scale-robust (holds every cell);
+      - the DRAIN MAGNITUDE is NOT robust — the super-Ohmic (C2) ∞-lattice bath recovers
+        77 % at scale 0.2, 35 % at 0.4 (world-a reactive return), only dropping into the
+        0–10 % band at scale ≥ 0.6. The drain magnitude is governed by the SAME undetermined
+        coupling-scale prefactor ζ as bin (c-magnitude); "drains to 0–10 %" is NOT robust.
+    """
+    scan = {}
+    for model in ("C1_onsite", "C2_strain"):
+        rows = {}
+        for cs in scales:
+            fin = gle_ringdown(centres, J[model], n_finite, cs)["E_S_max_recovery_after_decay"]
+            den = gle_ringdown(centres, J[model], n_dense, cs)["E_S_max_recovery_after_decay"]
+            rows[f"{cs}"] = {"finite_recovery": fin, "dense_recovery": den,
+                             "ordering_finite_ge_dense": bool(fin >= den - 1e-9)}
+        scan[model] = rows
+    ordering_robust = all(r["ordering_finite_ge_dense"]
+                          for m in scan.values() for r in m.values())
+    dense_in_0to10_all = all(m["dense_recovery"] <= 0.10
+                             for model in scan.values() for m in model.values())
+    scan["_ordering_scale_robust"] = ordering_robust
+    scan["_dense_drain_0to10_robust"] = dense_in_0to10_all  # FALSE — the retracted claim
+    return scan
+
+
+def frozen_ab_ledger(centres, J_shape, n_bath, coupling_scale, omega_S=1.0,
+                     omega_d=OMEGA_D, r0=0.7, dr=0.3, n_cycles=30, ppc=400, tol=3.53e-3):
+    """R-2 (FROZEN CRITERION, F2/F5/F7/F12): the pre-registered (a-ledger)/(b-ledger) test
+    the shipped code never computed — run here EXACTLY as prereg §4-i,ii,iv specify.
+
+    Driven r(t)=0.7+0.3·sin(ω_d t); explicit symplectic bath; PER-MODE E_bath recorded.
+    Frozen criteria (prereg §4):
+      (a-ledger): net per-cycle transfer into the bath RETURNS within the recording window
+                  (Poincaré-bounded) AND net-per-cycle transfer < tol (=3.53e-3 relative).
+      (b-ledger): monotonic net per-cycle transfer ≥ tol NOT returned within a sub-recurrence
+                  window.
+    "net per-cycle transfer" = STEADY (late-window) secular slope of E_bath per drive cycle,
+    relative to the characteristic system reactive energy E_S_peak (same natural-unit scale
+    #735's loop-area/W_cycle live in, where tol=3.53e-3 is the integrator floor).
+    """
+    wj, cj = sample_bath(centres, J_shape, n_bath, coupling_scale)
+    kappa = omega_S ** 2
+    ct = np.sum(cj ** 2 / wj ** 2)
+    T_d = 2.0 * np.pi / omega_d
+    dt = T_d / ppc
+    nsteps = int(n_cycles * T_d / dt)
+
+    S, pS = s_eq(r0), 0.0
+    q = np.zeros(n_bath)
+    p = np.zeros(n_bath)
+
+    def forces(S_, q_, t_):
+        se = s_eq(r0 + dr * np.sin(omega_d * t_))
+        FS = -kappa * (S_ - se) - ct * S_ + np.dot(cj, q_)
+        Fq = -(wj ** 2) * q_ + cj * S_
+        return FS, Fq, se
+
+    t = 0.0
+    FS, Fq, se = forces(S, q, t)
+    Eb_cycle = [0.0]
+    Eb_run = []
+    E_S_peak = 0.0
+    next_cycle = 1
+    for n in range(nsteps):
+        pS += 0.5 * dt * FS
+        p += 0.5 * dt * Fq
+        S += dt * pS
+        q += dt * p
+        t += dt
+        FS, Fq, se = forces(S, q, t)
+        pS += 0.5 * dt * FS
+        p += 0.5 * dt * Fq
+        E_S = 0.5 * pS ** 2 + 0.5 * kappa * (S - se) ** 2
+        E_S_peak = max(E_S_peak, E_S)
+        Eb = float(np.sum(0.5 * p ** 2 + 0.5 * wj ** 2 * q ** 2))
+        Eb_run.append(Eb)
+        if t >= next_cycle * T_d - 0.5 * dt:
+            Eb_cycle.append(Eb)
+            next_cycle += 1
+    Eb_cycle = np.array(Eb_cycle)
+    Eb_run = np.array(Eb_run)
+    per_mode = 0.5 * p ** 2 + 0.5 * wj ** 2 * q ** 2  # PER-MODE E_bath at window end
+
+    E_S_peak = float(E_S_peak)
+    k = np.arange(len(Eb_cycle))
+    lo = len(Eb_cycle) // 3
+    slope = float(np.polyfit(k[lo:], Eb_cycle[lo:], 1)[0])  # steady (late-window) per-cycle
+    rel = float(slope / E_S_peak) if E_S_peak > 0 else 0.0
+    peak = float(Eb_run.max())
+    tail = Eb_run[len(Eb_run) // 2:]
+    return_ratio = float(tail.min()) / peak if peak > 0 else 0.0
+    returns = bool(return_ratio < 0.5)  # Poincaré return within window
+    a_ledger_fires = bool(returns and (abs(rel) < tol))
+    b_ledger_fires = bool((abs(rel) >= tol) and (not returns))
+    return {
+        "n_bath": n_bath, "coupling_scale": coupling_scale,
+        "E_S_peak": E_S_peak,
+        "net_per_cycle_transfer_rel": rel,
+        "net_per_cycle_transfer_ge_tol": bool(abs(rel) >= tol),
+        "return_ratio_tailmin_over_peak": return_ratio,
+        "returns_within_window": returns,
+        "poincare_time": float(2.0 * np.pi / (wj[1] - wj[0])),
+        "window": float(n_cycles * T_d),
+        "per_mode_top5_E_bath": sorted(per_mode.tolist(), reverse=True)[:5],
+        "a_ledger_fires": a_ledger_fires,
+        "b_ledger_fires": b_ledger_fires,
+    }
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # §4 contrast — first-order Eq 2.1 vs second-order reactive (γ→0), loop shapes
 # ─────────────────────────────────────────────────────────────────────────────
@@ -337,10 +452,17 @@ def first_order_loop(omega, r0=0.7, dr=0.3, n_settle=8, ppc=512):
 def second_order_loop(omega, omega_S=1.0, gamma=0.0, r0=0.7, dr=0.3, n_settle=40, ppc=512):
     """Reactive contrast: S̈ + γṠ + ω_S²(S−S_eq)=0. Velocity-Verlet.
 
-    Returns (area_rS, area_VI, W_diss_per_cycle) where W_diss = γ∮v²dt is the dissipated
-    work over the steady cycle. W_diss → 0 as γ → 0 (the LOSSLESS limit) even though the
-    reactive loop area ∮S dr stays FINITE — the H-ledger, not the loop area, is the
-    first-vs-second-order discriminator (#735 F-B3).
+    Returns (area_rS, area_VI, W_diss_per_cycle, W_drive_per_cycle):
+      - W_diss = γ∮v²dt is the dissipated work over the steady cycle. At γ=0 this is
+        identically 0 for ANY trajectory — a DEFINITIONAL identity, not an energy-ledger
+        measurement (R-4/F11: the zero-work leg cannot fail). The informative content is
+        the FINITE loop area ∮S dr that survives at γ=0 (loop-area ≠ dissipation).
+      - W_drive = κ∮S_eq·v dt is the INDEPENDENT drive-work-per-cycle ledger. In the
+        driven steady cycle energy balance gives W_drive ≡ W_diss (κ∮SṠdt=∮S̈Ṡdt=0 over a
+        period), so W_drive≈W_diss for γ>0 is a real (fireable) closure check — this is the
+        actual H-ledger the shipped code lacked, replacing the tautological W_diss=0 pin.
+    NOTE: at γ=0 there is no steady state (undamped ω_S=1 transient beats against ω_d=0.9),
+    so ∮S dr is finite but window-dependent, existence-grade not value-grade (R-5/F10).
     """
     dt = min(2 * np.pi / omega / ppc, TAU / 50)
     n_per = int(round(2 * np.pi / omega / dt))
@@ -348,7 +470,7 @@ def second_order_loop(omega, omega_S=1.0, gamma=0.0, r0=0.7, dr=0.3, n_settle=40
     kappa = omega_S ** 2
     S = s_eq(r0)
     v = 0.0
-    r_hist, S_hist, v_hist = [], [], []
+    r_hist, S_hist, v_hist, se_hist = [], [], [], []
 
     def acc(S_, v_, t_):
         se = s_eq(r0 + dr * np.sin(omega * t_))
@@ -365,12 +487,15 @@ def second_order_loop(omega, omega_S=1.0, gamma=0.0, r0=0.7, dr=0.3, n_settle=40
             r_hist.append(r0 + dr * np.sin(omega * t))
             S_hist.append(S)
             v_hist.append(v)
+            se_hist.append(s_eq(r0 + dr * np.sin(omega * t)))
     r_h, S_h, v_h = np.array(r_hist), np.array(S_hist), np.array(v_hist)
+    se_h = np.array(se_hist)
     I_h = r_h * np.sqrt(np.maximum(S_h, 0.0))
     area_rS = abs(np.trapezoid(S_h, r_h))
     area_VI = abs(np.trapezoid(I_h, r_h))
-    W_diss = gamma * np.trapezoid(v_h ** 2, dx=dt)  # dissipated work over the recorded cycle
-    return area_rS, area_VI, float(W_diss)
+    W_diss = gamma * np.trapezoid(v_h ** 2, dx=dt)   # dissipated work (≡0 at γ=0 by definition)
+    W_drive = kappa * np.trapezoid(se_h * v_h, dx=dt)  # independent drive-work ledger (= W_diss for γ>0)
+    return area_rS, area_VI, float(W_diss), float(W_drive)
 
 
 def loop_sweep(loop_fn, **kw):
@@ -431,6 +556,26 @@ def main():
         }
     out["gle_ledger"] = ledger
 
+    # ── R-1 (post-review extension): ring-down coupling-scale scan (both models) ──
+    out["ringdown_scale_scan"] = ringdown_scale_scan(centres, J)
+
+    # ── R-2 (frozen criterion, prereg §4-i,ii,iv): the (a-ledger)/(b-ledger) net-per-cycle
+    #    transfer vs tol=3.53e-3 the shipped code never computed. Run here per Rule-11. ──
+    frozen = {}
+    for model in ("C1_onsite", "C2_strain"):
+        frozen[model] = {
+            "finite_N60": frozen_ab_ledger(centres, J[model], 60, 0.6),
+            "dense_N1200": frozen_ab_ledger(centres, J[model], 1200, 0.6),
+        }
+    # any (a-ledger) or (b-ledger) clean fire? (frozen-tree adjudication)
+    any_a = any(frozen[m][b]["a_ledger_fires"] for m in frozen for b in frozen[m])
+    any_b = any(frozen[m][b]["b_ledger_fires"] for m in frozen for b in frozen[m])
+    frozen["_a_ledger_fires_anywhere"] = any_a
+    frozen["_b_ledger_fires_anywhere"] = any_b
+    frozen["_frozen_verdict"] = ("bin(iii) DEGENERATE — neither (a-ledger) nor (b-ledger) "
+                                 "fires cleanly under the frozen driven protocol")
+    out["frozen_ab_ledger"] = frozen
+
     # ── §4 contrast: first-order Eq 2.1 vs second-order reactive loop shapes ──
     ws1, a1_rS, a1_VI = loop_sweep(first_order_loop)
     ws2, a2_rS, a2_VI = loop_sweep(second_order_loop, gamma=0.05)
@@ -445,12 +590,21 @@ def main():
         },
     }
 
-    # ── §4 H-ledger: dissipated work per cycle W_diss → 0 as γ → 0 (lossless limit) ──
-    #    while the reactive loop area ∮S dr stays FINITE (the true discriminator).
+    # ── §4 H-ledger (R-4/R-5 relabel): the FINITE loop area at γ=0 is the discriminator
+    #    (loop-area ≠ dissipation); W_diss=0 at γ=0 is a DEFINITIONAL identity (γ·∮v²=0).
+    #    The real ledger is the INDEPENDENT drive-work closure W_drive≈W_diss for γ>0.
+    #    ∮S dr at γ=0 is existence-grade (window-dependent, no steady state). ──
     hled = {}
     for gamma in (0.0, 0.05, 0.2, 0.5):
-        a_rS, a_VI, W = second_order_loop(OMEGA_D, gamma=gamma)
-        hled[f"gamma_{gamma}"] = {"area_rS": float(a_rS), "W_diss_per_cycle": float(W)}
+        a_rS, a_VI, W, W_drive = second_order_loop(OMEGA_D, gamma=gamma)
+        rel_mismatch = abs(W - W_drive) / max(abs(W), 1e-12) if gamma > 0 else 0.0
+        hled[f"gamma_{gamma}"] = {"area_rS": float(a_rS), "W_diss_per_cycle": float(W),
+                                  "W_drive_per_cycle": float(W_drive),
+                                  "ledger_rel_mismatch": float(rel_mismatch)}
+    # ∮S dr at γ=0 across settle windows → existence-grade (window-dependent, R-5)
+    hled["gamma_0.0_window_scan"] = {
+        f"n_settle_{ns}": float(second_order_loop(OMEGA_D, gamma=0.0, n_settle=ns)[0])
+        for ns in (40, 80, 160, 320)}
     out["h_ledger_second_order"] = hled
 
     # ── loss-location adjudication from J shape: ΔE_cycle ∝ J(ω_d) ──
@@ -483,7 +637,8 @@ def main():
         f = ledger[model]["driven_finite_N60"]["return_ratio_tailmin_over_peak"]
         de = ledger[model]["driven_dense_N1200"]["return_ratio_tailmin_over_peak"]
         print(f"  {model:12s} finite-N60 return={f:.3f}   dense-N1200 return={de:.3f}")
-    print("\nGLE RING-DOWN (E_S recovery after decay: high=recurrence/world-a; low=drain/world-b):")
+    print("\nGLE RING-DOWN [POST-HOC CHARACTERIZATION — undriven, not in frozen prereg]"
+          " (E_S recovery: high=recurrence/world-a; low=drain/world-b):")
     for model in ledger:
         rf = ledger[model]["ringdown_finite_N40"]
         rd = ledger[model]["ringdown_dense_N1500"]
@@ -491,15 +646,41 @@ def main():
               f"recovery={rf['E_S_max_recovery_after_decay']:.3f}  |  "
               f"dense-N1500 decay_min={rd['E_S_initial_decay_min']:.3f} "
               f"recovery={rd['E_S_max_recovery_after_decay']:.3f}")
+
+    print("\nR-1 RING-DOWN COUPLING-SCALE SCAN (ordering fin≥den robust; drain magnitude NOT):")
+    scan = out["ringdown_scale_scan"]
+    for model in ("C1_onsite", "C2_strain"):
+        cells = " ".join(f"cs{cs}:{scan[model][cs]['finite_recovery']:.2f}/"
+                         f"{scan[model][cs]['dense_recovery']:.2f}"
+                         for cs in ("0.2", "0.4", "0.6", "1.0", "1.5"))
+        print(f"  {model:12s} (fin/den) {cells}")
+    print(f"  ordering fin≥den scale-robust: {scan['_ordering_scale_robust']}   "
+          f"dense-drain-in-0to10%-robust: {scan['_dense_drain_0to10_robust']} (RETRACTED claim)")
+
+    print("\nR-2 FROZEN (a-ledger)/(b-ledger) CRITERION [Rule-11; net/cyc vs tol=3.53e-3 rel]:")
+    frozen = out["frozen_ab_ledger"]
+    for model in ("C1_onsite", "C2_strain"):
+        for tag in ("finite_N60", "dense_N1200"):
+            d = frozen[model][tag]
+            print(f"  {model:12s} {tag:11s} net/cyc={d['net_per_cycle_transfer_rel']:+.2e} "
+                  f"(≥tol={d['net_per_cycle_transfer_ge_tol']}) return={d['return_ratio_tailmin_over_peak']:.3f} "
+                  f"a-fires={d['a_ledger_fires']} b-fires={d['b_ledger_fires']}")
+    print(f"  → {frozen['_frozen_verdict']}")
     print("\nLOOP CONTRAST (peak ωτ):")
     lc = out["loop_contrast"]
     print(f"  first-order Eq2.1     rS-peak@{lc['first_order_eq21']['peak_rS'][0]:.3f}  "
           f"VI-peak@{lc['first_order_eq21']['peak_VI'][0]:.3f}")
     print(f"  second-order reactive rS-peak@{lc['second_order_reactive']['peak_rS'][0]:.3f}  "
           f"VI-peak@{lc['second_order_reactive']['peak_VI'][0]:.3f}")
-    print("\nH-LEDGER (2nd-order): W_diss→0 as γ→0 while ∮S dr stays finite (the discriminator):")
+    print("\nH-LEDGER (2nd-order): finite ∮S dr at γ=0 (discriminator); W_diss=0@γ=0 DEFINITIONAL;"
+          " drive-work ledger W_drive≈W_diss for γ>0 (the real closure):")
     for g, v in out["h_ledger_second_order"].items():
-        print(f"  {g:12s} ∮S dr={v['area_rS']:.4f}  W_diss/cycle={v['W_diss_per_cycle']:.4e}")
+        if g == "gamma_0.0_window_scan":
+            print("  γ=0 ∮S dr vs settle-window (existence-grade, R-5): "
+                  + ", ".join(f"{ns.split('_')[-1]}:{val:.3f}" for ns, val in v.items()))
+            continue
+        print(f"  {g:12s} ∮S dr={v['area_rS']:.4f}  W_diss={v['W_diss_per_cycle']:.4e}  "
+              f"W_drive={v['W_drive_per_cycle']:.4e}  ledger-mismatch={v['ledger_rel_mismatch']:.2e}")
 
     out_dir = Path(__file__).resolve().parent / "_output"
     out_dir.mkdir(exist_ok=True)
