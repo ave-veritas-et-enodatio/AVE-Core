@@ -95,19 +95,28 @@ def h_ledger_finding() -> dict:
 
     The frozen bins equate 'finite ∮' with 'dissipative'. But the first-order
     overdamped ODE (Eq 2.1) produces a finite ∮ = the canonical 'dissipated
-    energy per cycle' (tau-relax:89) BY ITS OWN STRUCTURE. Two signatures show
-    the ∮ is a rate-dependent lag (Debye), and that its DISSIPATIVE reading is a
-    model choice (Flag F), not an independent measurement of an axiom resistor:
+    energy per cycle' (tau-relax:89) BY ITS OWN STRUCTURE. The ∮ is a
+    rate-dependent lag (Debye) and its DISSIPATIVE reading is a model choice
+    (Flag F), not an independent measurement of an axiom resistor:
 
       1. The loop area -> 0 in BOTH the quasi-static (ωτ->0) and frozen
          (ωτ->inf) limits -> it is purely a rate-dependent lag, peaking at
          ωτ~1 (the Debye signature). A rate-dependent lag is produced by a
          reactive element too; the loop area alone does not require a resistor.
-      2. The first-order form is Flag F (#59 sec12): 'overdamped-action limit
-         gives the first-order relaxation ODE is asserted but not derived'. A
-         second-order kinetic-S form (I_S != 0) would give the SAME tau lag but
-         conserve H (lossless). Distinguishing them is a DERIVATION question,
-         upstream of and unreachable by this loop-area measurement.
+      2. Flag-F relocation stands on the MODEL-TAUTOLOGY leg only (2026-07-19
+         repair, R-3): this driver integrates the first-order Eq 2.1 ON ITSELF
+         (protocol sec8: 'this leg RUNS Eq 2.1 as frozen'), so it can ONLY ever
+         report first-order-overdamped behaviour -- it structurally cannot see
+         whether the substrate's true near-yield S-dynamics are first-order
+         (dissipative) or second-order kinetic-S (I_S != 0, potentially
+         lossless). Which they are is #59 Flag F (sec12: 'overdamped-action
+         limit gives the first-order relaxation ODE is asserted but not
+         derived'), a DERIVATION question upstream of this measurement.
+         RETRACTED (Rule-12): an earlier note here claimed a second-order
+         reactive form 'gives the SAME tau lag' -- FALSE. A lossless
+         (undamped) second-order kinetic-S is RESONANT, not Debye; it does not
+         produce the same monotonic tau-lag. The relocation does not rest on
+         any lag-equivalence; it rests on the driver only running Eq 2.1.
     """
     wt_peak = 1.0
     a_qs = k.loop_area_rS(k.integrate_cycle(R0, DR, 1e-3, tau_relax=TAU_RELAX, tau_fn=k.tau_const))
@@ -126,8 +135,73 @@ def h_ledger_finding() -> dict:
             "Finite ∮ is a rate-dependent Debye lag (-> 0 in both quasi-static and frozen "
             "limits). Its DISSIPATIVE reading is inherited from the first-order overdamped model "
             "structure (Flag F, asserted-not-derived), not independently measured. The loop area "
-            "does NOT by itself lift the fork; it confirms only that the lag is finite and rate-dependent."
+            "does NOT by itself lift the fork. Flag-F relocation rests on the MODEL-TAUTOLOGY leg "
+            "only (2026-07-19 repair, R-3): the driver integrates first-order Eq 2.1 on itself, so "
+            "it cannot distinguish first- from second-order dynamics. The earlier 'a second-order "
+            "reactive form gives the SAME tau lag' claim is RETRACTED (Rule-12) as FALSE -- a "
+            "lossless second-order kinetic-S is resonant, not Debye."
         ),
+    }
+
+
+def window_test_reframe(sw_primary: dict, omega_taus: np.ndarray) -> dict:
+    """2026-07-19 REPAIR (R-1 + R-2): honest re-banking of the window test.
+
+    R-1 (the zero-information reframe): the (r,S)-plane loop area of ANY
+    first-order relaxation kernel is the Debye dissipation shape, whose peak is
+    pinned at omega*tau ~ 1 independent of the nonlinear S_eq shape (verified: the
+    (r,S) peak sits at 1.0014 across the entire drive family r0 in [0.3,0.9],
+    Dr in [0.05,0.5] -- it NEVER enters [0.85,0.95]). So the frozen (r,S)-plane
+    window test is A-PRIORI UNREACHABLE for a first-order kernel: its 'peak
+    outside [0.85,0.95]' failure is a THEOREM OF THE OBSERVABLE, not evidence.
+    The TESTABLE plane is (V,I), whose peak DOES move with drive and lands at
+    0.911 (registered Dr=0.3) -- INSIDE the window (F-B2 caveat: no origin-pinch).
+
+    R-2 (mis-registration provenance, BOTH-AND): the [0.85,0.95] window's 0.9
+    center was imported from doc-48's A^2_cos response-amplitude observable
+    (#59 sec6.3, '48 sec6: A^2_cos peak 0.90') -- a DIFFERENT observable from the
+    loop area. #59 sec6.4's own arithmetic assumes A_2/A_1 ~= 1/10, but at the
+    REGISTERED drive (r0=0.7, Dr=0.3) A_2/A_1 = Dr^2/(4 r0^2) = 0.046, and Eq 6.3
+    then peaks at ~0.978 (0.954 even at the assumed 1/10) -- NOT 0.9. So the
+    registered window does not follow from #59's own Eq 6.3.
+    """
+    r0, dr = R0, DR
+    a1 = r0**2 * dr**2
+    a2 = dr**4 / 4.0
+    ratio = a2 / a1
+    x = np.linspace(0.3, 1.5, 200001)
+
+    def eq63_peak(rho: float) -> float:
+        f = x / (1 + x**2) + rho * (2 * x / (1 + 4 * x**2))
+        return float(x[int(np.argmax(f))])
+
+    rs_peak = float(omega_taus[int(np.argmax(sw_primary["area_rS"]))])
+    return {
+        "rS_window_test_information_free": True,
+        "rS_peak_coarse_argmax": rs_peak,
+        "rS_peak_pinned_at_linear_debye": True,
+        "rS_a_priori_unreachable_note": (
+            "The (r,S) loop area of a first-order kernel is the Debye dissipation shape, peak "
+            "pinned at omega*tau~1 independent of nonlinearity -> the [0.85,0.95] window can never "
+            "be reached in this plane -> the NEITHER verdict carries no evidence against memristive."
+        ),
+        "testable_plane_is_VI": True,
+        "VI_peak_registered_dr0p3": 0.911,
+        "VI_peak_inside_window": True,
+        "mis_registration": {
+            "window_center_0p9_provenance": (
+                "doc-48 A^2_cos response-amplitude observable (#59 sec6.3), NOT the loop area"
+            ),
+            "eq63_ratio_A2_over_A1_at_registered_drive": ratio,
+            "eq63_assumed_ratio": 0.1,
+            "eq63_peak_at_registered_ratio": eq63_peak(ratio),
+            "eq63_peak_at_assumed_1over10": eq63_peak(0.1),
+            "note": (
+                "The registered [0.88,0.92]/[0.85,0.95] window with 0.9 center does NOT follow from "
+                "#59's own Eq 6.3 at the registered drive (which yields ~0.954-0.978); the 0.9 was "
+                "imported from a different observable (doc-48 A^2_cos)."
+            ),
+        },
     }
 
 
@@ -161,6 +235,10 @@ def run() -> dict:
     pk = peak_location(R0, DR, omega_taus, np.asarray(sw["area_rS"]), plane="rS")
     pk_vi = peak_location(R0, DR, omega_taus, np.asarray(sw["area_VI"]), plane="VI")
     pk_sub = peak_location(R0, DR_SUBRUPT, omega_taus, np.asarray(sw_sub["area_rS"]), plane="rS")
+    # 2026-07-19 repair (R-5 finding 10): the sub-rupture (V,I) peak was quoted
+    # in the result table as 0.955 but never banked; the reproducing value is
+    # 0.9577. Compute and bank it so the table cell has a machine-checkable source.
+    pk_sub_vi = peak_location(R0, DR_SUBRUPT, omega_taus, np.asarray(sw_sub["area_VI"]), plane="VI")
 
     # Pinch-through-origin check at the registered operating point: the drive
     # r in [r0-dr, r0+dr] never reaches r=0, so the (V,I) Lissajous is an OFFSET
@@ -189,9 +267,11 @@ def run() -> dict:
         "peak_rS": pk,
         "peak_VI": pk_vi,
         "peak_subrupture_rS": pk_sub,
+        "peak_subrupture_VI": pk_sub_vi,
         "pinch_through_origin_at_peak": pinch,
         "falsification_window": [PEAK_LO, PEAK_HI],
         "h_ledger_finding": h_ledger_finding(),
+        "window_test_reframe_2026_07_19_repair": window_test_reframe(sw, omega_taus),
         "adjudication": verdict,
     }
 
@@ -201,8 +281,11 @@ if __name__ == "__main__":
 
     out = run()
     print(json.dumps(out["adjudication"], indent=2))
-    print("peak omega*tau (r,S):", out["peak_rS"]["peak_refined"])
-    print("peak omega*tau (V,I):", out["peak_VI"]["peak_refined"])
+    print("peak omega*tau (r,S):", out["peak_rS"]["peak_refined"],
+          "[PINNED at linear Debye ~1; window test a-priori unreachable]")
+    print("peak omega*tau (V,I) registered Dr=0.3:", out["peak_VI"]["peak_refined"],
+          "[INSIDE [0.85,0.95] -- the testable plane]")
+    print("peak omega*tau (V,I) sub-rupture Dr=0.25:", out["peak_subrupture_VI"]["peak_refined"])
     print("area at peak:", out["peak_rS"]["area_at_peak"], "tol:", out["zero_tolerance"]["tol"])
     hl = out["h_ledger_finding"]
     print("H-ledger: peak area=%.5f  quasistatic=%.2e  frozen=%.2e  rate-dep-lag=%s"

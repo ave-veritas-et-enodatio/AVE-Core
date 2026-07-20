@@ -32,18 +32,26 @@ def main() -> None:
         "leg_B_verdict": b["adjudication"],
         "leg_B_peak_rS": b["peak_rS"]["peak_refined"],
         "leg_B_peak_VI": b["peak_VI"]["peak_refined"],
+        "leg_B_peak_subrupture_VI": b["peak_subrupture_VI"]["peak_refined"],
         "leg_B_loop_area_at_peak": b["peak_rS"]["area_at_peak"],
         "leg_B_zero_tolerance": b["zero_tolerance"]["tol"],
         "combined_for_grant": (
             "Leg A: canonical kernel has NO genuine sign(dr/dt) memory and is dissipative -> "
             "rectification-thrust door CLOSED (B); bin A (reactive rectifier) is unreachable in the "
             "first-order framework and requires the second-order reactive = Flag F = lossless branch. "
-            "Leg B: the loop area is FINITE (not zero) and Debye-shaped, but the (r,S)-plane peak sits "
-            "at wt~1.0 (linear value), OUTSIDE the P_phase5 [0.85,0.95] window -> NEITHER/fail-closed; "
-            "the P_phase5 nonlinear peak-shift to 0.9 is NOT reproduced in its stated plane. NEITHER "
-            "leg adjudicates the fork against Grant's lean: both relocate the crux to Flag F (first-order "
-            "overdamped [dissipative] vs second-order reactive [lossless]), a DERIVATION question upstream "
-            "of the drivers. Fork stays OPEN; routed to Grant."
+            "Leg B (2026-07-19 repair, R-1): the frozen bin verdict is NEITHER, but its EVIDENTIAL "
+            "weight is honestly re-banked. The (r,S)-plane window test is INFORMATION-FREE on a "
+            "first-order kernel -- its loop-area peak is the Debye dissipation shape, pinned at "
+            "wt~1.0 across the whole drive family, so the [0.85,0.95] window is A-PRIORI UNREACHABLE "
+            "in that plane (the failure is a theorem of the observable, not evidence). The TESTABLE "
+            "plane is (V,I): its peak = 0.911 (registered Dr=0.3), INSIDE [0.85,0.95] (F-B2 caveat: "
+            "no origin-pinch at the near-yield point). BOTH-AND (R-2): (a) the registered wt~0.9 "
+            "peak-shift does not reproduce in (r,S); AND (b) the [0.85,0.95] window was MIS-REGISTERED "
+            "-- its 0.9 center came from doc-48's A^2_cos observable, not the loop area, and does not "
+            "follow from #59's own Eq 6.3 at the registered drive (which yields ~0.954-0.978). "
+            "NEITHER leg adjudicates the fork against Grant's lean: both relocate the crux to Flag F "
+            "(first-order overdamped vs second-order reactive), a DERIVATION question upstream of the "
+            "drivers. Fork stays OPEN; routed to Grant."
         ),
     }
 
@@ -72,8 +80,10 @@ def main() -> None:
         json.dump(out, f, indent=2, default=_default)
     print("wrote", dest)
     print("\nLeg A verdict:", json.dumps(fork["leg_A_verdict"]["bin"]))
-    print("Leg B verdict:", json.dumps(fork["leg_B_verdict"]["bin"]))
-    print("Leg B (r,S) peak:", round(fork["leg_B_peak_rS"], 4), " (V,I) peak:", round(fork["leg_B_peak_VI"], 4))
+    print("Leg B verdict:", json.dumps(fork["leg_B_verdict"]["bin"]),
+          "(frozen bin; evidential weight re-banked -- see reframe)")
+    print("Leg B (r,S) peak:", round(fork["leg_B_peak_rS"], 4), "[window test a-priori unreachable in this plane]")
+    print("Leg B (V,I) peak:", round(fork["leg_B_peak_VI"], 4), "[the testable plane -- INSIDE [0.85,0.95]]")
 
 
 if __name__ == "__main__":

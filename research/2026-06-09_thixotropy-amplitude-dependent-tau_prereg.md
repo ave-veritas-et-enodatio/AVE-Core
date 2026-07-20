@@ -136,3 +136,15 @@ To separate §7's "τ(A) [even, symmetric, does not rectify]" from "τ(sign dr/d
 ### A.8 Scope disclosure (0D kernel; self-steepening out-of-scope BY the prereg's own guard)
 
 The driver is **0D** (single-cell temporal kernel) — it captures the *temporal* τ-dynamics, which §4/§7 identify as the **only** rectifier candidate. The *spatial* self-steepening (compression-front-sharpen / rarefaction-spread) is, per §4 and the §7 "Reversible vs dissipative" guard, a **reversible** (conservative) effect that integrates to `∮=0` and is explicitly **not** the rectifier; a 1D spatial front would test that reversible effect, which cannot flip the A/B verdict (which hinges on τ sign-memory). Excluding it is faithful, not a gap; disclosed here.
+
+---
+
+## POST-FREEZE AMENDMENT — 2026-07-19 (implementer lane, review `wf_f0870d0d`)
+
+**Rule-12 append.** The frozen §A.0–§A.8 above is preserved as-written. This discloses a gate finding on §A.6; it does **not** retro-edit the frozen verdict (Rule-11). Verdict stays **B** — carried by the clean τ-swap sign-flip discriminator, not by the gate.
+
+**F-A2 — the §A.6 positive-control (instrument-liveness) gate is VACUOUS as coded, and its frozen `Δτ_rel≈2` outcome was unreachable.**
+- **The coded gate cannot fail.** `leg_a_thixotropy.py:151` codes liveness as `(Δτ_rel > tol_mem=1e-3) AND (|R| > tol_R=1e-3)`. But the **memoryless** single-τ arm already returns `Δτ_rel≈0.54`, `|R|≈0.20` — both `~500×` the `1e-3` threshold — and (F-A1) both are memoryless nonlinear-loop *artifacts* with **zero** sign-memory. So even a dead/memoryless instrument passes "live." The thresholds sit `~500×` **below** the F-A1 artifact background → the gate certifies nothing.
+- **`Δτ_rel≈2` was neither met nor its fail-path reachable.** §A.6 froze `τ_down = 3·τ_up` with required outcome `Δτ_rel ≈ 2` (which presumes `τ_up = τ_relax`, so `Δτ = |1 − 3| = 2`). But the implementation renormalizes to the **geometric mean** (`τ_up = τ_relax/√3`, `τ_down = τ_relax·√3`, `yield_fork_kernel.py:43`, "to keep the loop in the same `ωτ` band"), so the reachable ideal is `√3 − 1/√3 = 1.155`, **not 2**; measured `1.011`. The geometric-mean choice made the frozen `≈2` criterion **structurally unreachable**.
+- **What actually carries liveness (and the verdict).** The **clean τ-swap discriminator** (RESULT §3): `R_mem` **flips sign** under the swap (`−0.339` down-slow, `+0.379` up-slow for two-τ) and is `0` for single-τ. That is a *fireable* discriminator (memoryless inputs do not flip). It — not the §A.6 gate — establishes both instrument liveness and the canonical null.
+- **Gate-hardening SPEC'd for any re-run (not retro-applied, Rule-11):** replace the liveness gate with one that a memoryless input **fails** — e.g. require the two-τ `R_mem` to flip sign **and** exceed `~5×` the single-τ artifact background (`|R_single-τ|` at `Δr→0`). Do not re-adjudicate the frozen verdict on the new gate.

@@ -10,10 +10,13 @@ The CRITICAL test is `test_driver_kernel_byte_matches_engine`: it proves the
 standalone kernel used by both legs is bit-identical to the engine's own
 `use_memristive_saturation` update (k4_tlm.py:283,291) — the engine itself is
 never edited, so the drivers must reproduce it exactly or they measure a
-different object than canon.
+different object than canon. THIS byte-match is the genuine independent check
+(the engine computes S via its own code path).
 
-Also independently re-derives each leg's verdict from the raw series, so the
-verdict is not taken on the driver's own word.
+The other tests re-compute each leg's verdict from the raw series. NOTE
+(2026-07-19 repair, R-5 finding 9): the shoelace re-computation uses the SAME
+trapezoid formula as loop_area_rS, so it is a consistency re-check, NOT an
+independent method — the independent check is the engine byte-match above.
 """
 
 import importlib.util
@@ -129,9 +132,11 @@ class TestLegA:
 # Leg B — loop-area discriminator: independent re-derivation + gates
 # ═══════════════════════════════════════════════════════════════════════════
 class TestLegB:
-    def test_loop_area_independent_shoelace_matches_driver(self):
-        """Re-derive |∮ S dr| from the raw series by an independent shoelace
-        (0.5*sum((S_i+S_{i+1})*(r_{i+1}-r_i))) and confirm it equals the driver."""
+    def test_loop_area_shoelace_consistency_recompute(self):
+        """Re-compute |∮ S dr| from the raw series by the shoelace
+        (0.5*sum((S_i+S_{i+1})*(r_{i+1}-r_i))) and confirm it equals the driver.
+        This is a CONSISTENCY re-compute (same trapezoid formula), NOT an
+        independent method — the independent check is the engine byte-match."""
         s = k.integrate_cycle(0.7, 0.30, 1.0, tau_fn=k.tau_const)
         driver_area = k.loop_area_rS(s)
         r, S = s["r"], s["S"]

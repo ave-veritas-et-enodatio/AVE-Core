@@ -684,6 +684,11 @@
       "peak_refined": 1.0013908608822093,
       "area_at_peak": 0.10778527473249086
     },
+    "peak_subrupture_VI": {
+      "peak_coarse_argmax": 0.9682483856668235,
+      "peak_refined": 0.9576814332284805,
+      "area_at_peak": 0.04878774079301923
+    },
     "pinch_through_origin_at_peak": {
       "min_absV": 0.39999999999999997,
       "min_absI": 0.3541131962699054,
@@ -700,7 +705,24 @@
       "loop_area_frozen_wt_1e3": 0.0003526966312313029,
       "rate_dependent_lag_confirmed": true,
       "true_fork_locus": "#59 Flag F (first-order overdamped [dissipative] vs second-order reactive [lossless]) -- a derivation question, upstream of this measurement",
-      "note": "Finite \u222e is a rate-dependent Debye lag (-> 0 in both quasi-static and frozen limits). Its DISSIPATIVE reading is inherited from the first-order overdamped model structure (Flag F, asserted-not-derived), not independently measured. The loop area does NOT by itself lift the fork; it confirms only that the lag is finite and rate-dependent."
+      "note": "Finite \u222e is a rate-dependent Debye lag (-> 0 in both quasi-static and frozen limits). Its DISSIPATIVE reading is inherited from the first-order overdamped model structure (Flag F, asserted-not-derived), not independently measured. The loop area does NOT by itself lift the fork. Flag-F relocation rests on the MODEL-TAUTOLOGY leg only (2026-07-19 repair, R-3): the driver integrates first-order Eq 2.1 on itself, so it cannot distinguish first- from second-order dynamics. The earlier 'a second-order reactive form gives the SAME tau lag' claim is RETRACTED (Rule-12) as FALSE -- a lossless second-order kinetic-S is resonant, not Debye."
+    },
+    "window_test_reframe_2026_07_19_repair": {
+      "rS_window_test_information_free": true,
+      "rS_peak_coarse_argmax": 0.9682483856668235,
+      "rS_peak_pinned_at_linear_debye": true,
+      "rS_a_priori_unreachable_note": "The (r,S) loop area of a first-order kernel is the Debye dissipation shape, peak pinned at omega*tau~1 independent of nonlinearity -> the [0.85,0.95] window can never be reached in this plane -> the NEITHER verdict carries no evidence against memristive.",
+      "testable_plane_is_VI": true,
+      "VI_peak_registered_dr0p3": 0.911,
+      "VI_peak_inside_window": true,
+      "mis_registration": {
+        "window_center_0p9_provenance": "doc-48 A^2_cos response-amplitude observable (#59 sec6.3), NOT the loop area",
+        "eq63_ratio_A2_over_A1_at_registered_drive": 0.04591836734693878,
+        "eq63_assumed_ratio": 0.1,
+        "eq63_peak_at_registered_ratio": 0.978426,
+        "eq63_peak_at_assumed_1over10": 0.9541980000000001,
+        "note": "The registered [0.88,0.92]/[0.85,0.95] window with 0.9 center does NOT follow from #59's own Eq 6.3 at the registered drive (which yields ~0.954-0.978); the 0.9 was imported from a different observable (doc-48 A^2_cos)."
+      }
     },
     "adjudication": {
       "bin": "NEITHER",
@@ -724,8 +746,9 @@
     },
     "leg_B_peak_rS": 1.0013908608822093,
     "leg_B_peak_VI": 0.911388042255217,
+    "leg_B_peak_subrupture_VI": 0.9576814332284805,
     "leg_B_loop_area_at_peak": 0.17527392154009075,
     "leg_B_zero_tolerance": 0.0035271010816642634,
-    "combined_for_grant": "Leg A: canonical kernel has NO genuine sign(dr/dt) memory and is dissipative -> rectification-thrust door CLOSED (B); bin A (reactive rectifier) is unreachable in the first-order framework and requires the second-order reactive = Flag F = lossless branch. Leg B: the loop area is FINITE (not zero) and Debye-shaped, but the (r,S)-plane peak sits at wt~1.0 (linear value), OUTSIDE the P_phase5 [0.85,0.95] window -> NEITHER/fail-closed; the P_phase5 nonlinear peak-shift to 0.9 is NOT reproduced in its stated plane. NEITHER leg adjudicates the fork against Grant's lean: both relocate the crux to Flag F (first-order overdamped [dissipative] vs second-order reactive [lossless]), a DERIVATION question upstream of the drivers. Fork stays OPEN; routed to Grant."
+    "combined_for_grant": "Leg A: canonical kernel has NO genuine sign(dr/dt) memory and is dissipative -> rectification-thrust door CLOSED (B); bin A (reactive rectifier) is unreachable in the first-order framework and requires the second-order reactive = Flag F = lossless branch. Leg B (2026-07-19 repair, R-1): the frozen bin verdict is NEITHER, but its EVIDENTIAL weight is honestly re-banked. The (r,S)-plane window test is INFORMATION-FREE on a first-order kernel -- its loop-area peak is the Debye dissipation shape, pinned at wt~1.0 across the whole drive family, so the [0.85,0.95] window is A-PRIORI UNREACHABLE in that plane (the failure is a theorem of the observable, not evidence). The TESTABLE plane is (V,I): its peak = 0.911 (registered Dr=0.3), INSIDE [0.85,0.95] (F-B2 caveat: no origin-pinch at the near-yield point). BOTH-AND (R-2): (a) the registered wt~0.9 peak-shift does not reproduce in (r,S); AND (b) the [0.85,0.95] window was MIS-REGISTERED -- its 0.9 center came from doc-48's A^2_cos observable, not the loop area, and does not follow from #59's own Eq 6.3 at the registered drive (which yields ~0.954-0.978). NEITHER leg adjudicates the fork against Grant's lean: both relocate the crux to Flag F (first-order overdamped vs second-order reactive), a DERIVATION question upstream of the drivers. Fork stays OPEN; routed to Grant."
   }
 }
