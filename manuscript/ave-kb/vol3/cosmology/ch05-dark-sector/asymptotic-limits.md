@@ -8,7 +8,7 @@ claims: [clm-u86caq]
 ## Asymptotic Limits
 
 - $g_N \ll a_0$: $g_{eff} \to \sqrt{g_N \cdot a_0}$ (deep MOND --- flat rotation curves)
-- $g_N \ge a_0$: The term under the root ($1 - g_N/a_0$) becomes negative, yielding an imaginary inductive drag. In discrete wave mechanics, an imaginary frequency forces the solution to become an *Evanescent Wave*. The drag envelope decays to absolute zero and cannot propagate through the saturated inner-galaxy lattice, leaving only standard, conservative Newtonian gravity: $g_{eff} = g_N + 0 = g_N$.
+- $g_N \ge a_0$: The term under the root ($1 - (g_N/a_0)^2$) becomes negative, yielding an imaginary inductive drag. In discrete wave mechanics, an imaginary frequency forces the solution to become an *Evanescent Wave*. The drag envelope decays to absolute zero and cannot propagate through the saturated inner-galaxy lattice, leaving only standard, conservative Newtonian gravity: $g_{eff} = g_N + 0 = g_N$.
 
 ## Regime Identification
 

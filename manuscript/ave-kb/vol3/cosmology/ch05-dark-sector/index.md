@@ -16,7 +16,7 @@ Derives the MOND acceleration scale $a_0 = c H_\infty / (2\pi)$ as a **Class E o
 |---|---|
 | Derived MOND Acceleration Scale | $a_0 = \frac{c \cdot H_\infty}{2\pi} \approx 1.07 \times 10^{-10}$ m/s$^2$ |
 | Saturated Lattice Mutual Inductance | $\eta_{eff}(\dot\gamma) = \eta_0 \cdot \sqrt{1 - \left(\frac{\dot\gamma}{\dot\gamma_{yield}}\right)^{2}}$ |
-| Effective Galactic Acceleration (Axiom 4 MOND) | $g_{eff} = g_N + \sqrt{g_N \cdot a_0}\,\sqrt{1 - g_N/a_0}$ |
+| Effective Galactic Acceleration (Axiom 4 MOND) | $g_{eff} = g_N + \sqrt{g_N \cdot a_0}\,\sqrt{1 - (g_N/a_0)^2}$ |
 | McGaugh Empirical RAR | $g_{obs} = \frac{g_{bar}}{1 - \exp(-\sqrt{g_{bar}/a_0})}$ |
 
 ## Derivations and Detail

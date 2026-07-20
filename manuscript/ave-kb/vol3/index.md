@@ -42,7 +42,7 @@ Macroscopic phenomena derived from the substrate LC vacuum network: gravity, gen
 | Phantom Energy Equation of State | $w_{vac}=-1-\rho_{latent}/\rho_{vac}$ [Cosmo](./cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md) |
 | Mutual Inductive Accretion Time Constant | $\tau_{ind} \approx 65.1$ Myr [Cosmo](./cosmology/ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md) |
 | Derived MOND Acceleration Scale | $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s$^2$ [Cosmo](./cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md) |
-| Effective Galactic Acceleration (MOND) | $g_{eff} = g_N + \sqrt{g_N \cdot a_0}\,\sqrt{1 - g_N/a_0}$ [Cosmo](./cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md) |
+| Effective Galactic Acceleration (MOND) | $g_{eff} = g_N + \sqrt{g_N \cdot a_0}\,\sqrt{1 - (g_N/a_0)^2}$ [Cosmo](./cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md) |
 | Oort Cloud Saturation Boundary | $r_{\text{sat}} \approx 7{,}400$ AU [Cosmo](./cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md) |
 | Anomalous Perihelion Advance | $\Delta\phi = 6\pi G M_\odot / (c^2 a(1-e^2))$ [Cosmo](./cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md) |
 | AVE Merger Ringdown Eigenvalue | $\omega_R M_g = 18/49 = 0.3673$ (1.7% error) [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) |

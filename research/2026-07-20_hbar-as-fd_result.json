@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "lane": "F6 \u210f-as-FD \u2014 derived FD-ratio(\u03c1) vs the banked FD leg",
+    "derivation": "research/2026-07-20_hbar-as-fd_DERIVATION_FROZEN.md",
+    "consumes": "research/2026-07-19_f6-thermal-floor-arm_result.json (FENCED FD leg \u00a75)",
+    "instrument": "src/ave/thermal/f6_bath_meter.py (LatticeBathCoupler \u2014 BYTE-UNTOUCHED)",
+    "class": "consistency (classical FD form-match); NOTHING at emergence-class"
+  },
+  "mc_first_principles": {
+    "m": 15,
+    "e_sig": 0.02619199917443722,
+    "rows": [
+      {
+        "rho": 0.0,
+        "std_q": 0.0,
+        "std_q_over_sqrtrho": NaN,
+        "c_state_mean": 0.0,
+        "l_state_mean": 0.0,
+        "half_M_efm": 0.0
+      },
+      {
+        "rho": 0.3,
+        "std_q": 0.6487625257171914,
+        "std_q_over_sqrtrho": 1.184472899331104,
+        "c_state_mean": 0.05885252538578482,
+        "l_state_mean": 0.059011470899182676,
+        "half_M_efm": 0.058931998142483746
+      },
+      {
+        "rho": 1.0,
+        "std_q": 1.181883389377315,
+        "std_q_over_sqrtrho": 1.181883389377315,
+        "c_state_mean": 0.19611281575547493,
+        "l_state_mean": 0.19676717186108333,
+        "half_M_efm": 0.19643999380827915
+      },
+      {
+        "rho": 2.0,
+        "std_q": 1.6518722331119384,
+        "std_q_over_sqrtrho": 1.168050057687217,
+        "c_state_mean": 0.39231096713988967,
+        "l_state_mean": 0.3934490080932269,
+        "half_M_efm": 0.3928799876165583
+      },
+      {
+        "rho": 3.0,
+        "std_q": 2.034063205745493,
+        "std_q_over_sqrtrho": 1.1743669393858736,
+        "c_state_mean": 0.5880268088097721,
+        "l_state_mean": 0.5906131540399027,
+        "half_M_efm": 0.5893199814248374
+      },
+      {
+        "rho": 5.0,
+        "std_q": 2.6349669056496348,
+        "std_q_over_sqrtrho": 1.1783930238989715,
+        "c_state_mean": 0.9821339324396864,
+        "l_state_mean": 0.9822660056431046,
+        "half_M_efm": 0.9821999690413957
+      }
+    ],
+    "amp_law_sqrt_rho_flatness": 0.00796920263102634,
+    "quadrature_split_max_asym": 0.004388694277559358
+  },
+  "banked_fd_leg": {
+    "rho": [
+      0.0,
+      0.3,
+      1.0,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "relax": [
+      0.6843662552951499,
+      0.7082394967589343,
+      0.9469719113967773,
+      1.2732395447351628,
+      1.2811972918897574,
+      1.2811972918897574
+    ],
+    "fluct_sem": [
+      0.0,
+      0.03625271791359121,
+      0.08356759453818183,
+      0.11667420233602424,
+      0.13662317436976024,
+      0.165763787025867
+    ],
+    "std_rrev": [
+      0.0,
+      0.08880066067735365,
+      0.2046979656503399,
+      0.28579226186950046,
+      0.33465706424520525,
+      0.40603669604475645
+    ],
+    "fd_ratio": [
+      0.0,
+      0.051187088660674715,
+      0.0882471734720412,
+      0.09163570423057571,
+      0.10663710830065991,
+      0.12938193678302778
+    ]
+  },
+  "overlay": {
+    "k_calibration": 0.08356759453818183,
+    "anchor_rho": 1.0,
+    "pred_fd": [
+      0.0,
+      0.06462765323661017,
+      0.0882471734720412,
+      0.09282025998915608,
+      0.11297504336194068,
+      0.14585015382595237
+    ],
+    "banked_fd": [
+      0.0,
+      0.051187088660674715,
+      0.0882471734720412,
+      0.09163570423057571,
+      0.10663710830065991,
+      0.12938193678302778
+    ],
+    "rel_err": [
+      0.0,
+      0.26257724218375755,
+      0.0,
+      0.012926792766275518,
+      0.05943461110564974,
+      0.1272837418606712
+    ],
+    "sigma_point": [
+      0.0,
+      0.01618677869607098,
+      0.02790620652436395,
+      0.02897775403621466,
+      0.03372161453241329,
+      0.04091416083182863
+    ],
+    "pred_minus_data_over_sigma": [
+      0.0,
+      0.8303421470263187,
+      0.0,
+      0.040878107982419275,
+      0.1879487429401916,
+      0.40250653338863923
+    ],
+    "max_abs_nsigma": 0.8303421470263187,
+    "sigma_frac_N6": 0.31622776601683794,
+    "form_match_nsigma_band": 1.5,
+    "numerator_pred_std_rrev": [
+      0.0,
+      0.11211769326210881,
+      0.2046979656503399,
+      0.28948663921289264,
+      0.3545472767123775,
+      0.457718566050077
+    ],
+    "numerator_rel_err": [
+      0.0,
+      0.2625772421837575,
+      0.0,
+      0.01292679276627551,
+      0.05943461110564989,
+      0.12728374186067107
+    ],
+    "intercept_zero_forced": true,
+    "monotone_rising": true,
+    "verdict": "FORM-MATCH"
+  },
+  "zero_point_discriminator": {
+    "omega_min": 0.3,
+    "omega_max": 1.0,
+    "D1_intercept_classical": 0.0,
+    "D1_intercept_quantum": "sqrt(E_zp/e_sig) > 0",
+    "D2_omega_ratio_classical": 1.0,
+    "D2_omega_ratio_quantum": 3.3333333333333335,
+    "note": "classical seeding forces D1=0, D2=1 (no zero-point term); reaching \u210f needs a quantum-seeded floor E_m=\u00bd\u210f\u03c9\u00b7coth(\u210f\u03c9/2kT) \u2014 routed SPEC, not built."
+  }
+}

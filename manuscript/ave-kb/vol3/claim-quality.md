@@ -257,12 +257,12 @@
 - $a_0 = c H_\infty / (2\pi) \approx 1.07 \times 10^{-10}$ m/s²
 - _Specific Claims_
   - $a_0$ is **derived** from $H_\infty$ and $c$ (no free parameter); value is **10.7% below** the empirical $a_0 \approx 1.2 \times 10^{-10}$ m/s². The error is reported, not hidden.
-  - The galactic MOND form $g_{eff} = g_N + \sqrt{g_N a_0}\sqrt{1 - g_N/a_0}$ is the Axiom 4 saturation operator with $g_N$ as the saturation amplitude and $a_0$ as the yield limit. This is a category (iv) derived prediction.
+  - The galactic MOND form $g_{eff} = g_N + \sqrt{g_N a_0}\sqrt{1 - (g_N/a_0)^2}$ is the Axiom 4 saturation operator with $g_N$ as the saturation amplitude and $a_0$ as the yield limit. This is a category (iv) derived prediction. (**Form corrected 2026-07-20** to the QUADRATIC $\sqrt{1-(g_N/a_0)^2}$ per the MOND kernel adjudication: it matches the shipped engine AND this entry's own "$g_N$ is the amplitude, $a_0$ the yield" identification under $S(A)=\sqrt{1-(A/A_\text{yield})^2}$; the two-kernel SPARC contrast was degenerate on Q=1 mean|res|, so the form-level derivation decides — `research/2026-07-20_mond-kernel-adjudication_result.md`.)
   - The "dark matter problem IS the Regime III→IV phase transition": outer galaxy ($g_N \ll a_0$) is unsaturated lattice with full mutual-inductive drag; inner galaxy ($g_N \gg a_0$) is saturated with zero drag (Keplerian).
 - _Specific Non-Claims and Caveats_
   - Does NOT claim $a_0$ matches empirical to better than $\sim 11\%$. Treat the 10.7% deficit as the predictive accuracy; it is **not** a small-parameter result.
   - Does NOT claim MOND drag applies in the saturated inner-galaxy regime. LIVING_REFERENCE.md Pitfall #4: at $g_N \gg a_0$, $S(g_N/a_0) = 0$ and lattice drag is **zero**, not enhanced. Surface gravity of WD/NS ($g \sim 10^6$ m/s²) is far above $a_0$, hence zero MOND correction at stellar surfaces.
-  - At $g_N \ge a_0$ the radical $\sqrt{1 - g_N/a_0}$ becomes imaginary; the leaf interprets this as an evanescent (non-propagating) drag mode that decays to zero. It is **not** an analytic continuation to a real negative drag.
+  - At $g_N \ge a_0$ the radical $\sqrt{1 - (g_N/a_0)^2}$ becomes imaginary; the leaf interprets this as an evanescent (non-propagating) drag mode that decays to zero. It is **not** an analytic continuation to a real negative drag.
   - Multi-galaxy validation table errors range 3–17% across the SPARC sample. The dwarf galaxy DDO 154 shows 17% error; do not extract a single "X%-accurate" headline.
   - The Tully-Fisher relation arises automatically from the deep-MOND limit; this is a structural consequence, not an independent fit.
 

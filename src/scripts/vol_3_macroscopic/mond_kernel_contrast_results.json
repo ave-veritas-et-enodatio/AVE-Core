@@ -1,0 +1,96 @@
+{
+  "a0_lattice": 1.0719120949508851e-10,
+  "eval_scale_Rdisk": 5.0,
+  "frozen_tau": 0.010198,
+  "n_valid": 135,
+  "all_sample": {
+    "quadratic": {
+      "n": 135,
+      "mean_residual": 0.07728513580297658,
+      "median_residual": 0.04890977211029282,
+      "mean_abs_residual": 0.15505654576705075,
+      "rms_residual": 0.2717439897122021,
+      "std_residual": 0.2605221751187811
+    },
+    "linear": {
+      "n": 135,
+      "mean_residual": 0.05563499761542298,
+      "median_residual": 0.017664324218789083,
+      "mean_abs_residual": 0.14753941769737783,
+      "rms_residual": 0.26473585702174685,
+      "std_residual": 0.2588239189746007
+    }
+  },
+  "by_Q": {
+    "1": {
+      "quadratic": {
+        "n": 87,
+        "mean_residual": 0.024580844059371987,
+        "median_residual": 0.03541497157338566,
+        "mean_abs_residual": 0.1147647374718915,
+        "rms_residual": 0.1487128530588361,
+        "std_residual": 0.1466672927759554
+      },
+      "linear": {
+        "n": 87,
+        "mean_residual": 0.0021229955074628633,
+        "median_residual": 0.008023660565753064,
+        "mean_abs_residual": 0.10834270036882508,
+        "rms_residual": 0.14268506465054545,
+        "std_residual": 0.14266926986707976
+      }
+    },
+    "2": {
+      "quadratic": {
+        "n": 42,
+        "mean_residual": 0.10683591258389821,
+        "median_residual": 0.07063775763104184,
+        "mean_abs_residual": 0.15452638516772685,
+        "rms_residual": 0.2536127283144009,
+        "std_residual": 0.23001196435281318
+      },
+      "linear": {
+        "n": 42,
+        "mean_residual": 0.08640735260677146,
+        "median_residual": 0.057209648696416746,
+        "mean_abs_residual": 0.1453676857625446,
+        "rms_residual": 0.24580001814660532,
+        "std_residual": 0.23011175184323066
+      }
+    },
+    "3": {
+      "quadratic": {
+        "n": 6,
+        "mean_residual": 0.634641928618792,
+        "median_residual": 0.6338474626070129,
+        "mean_abs_residual": 0.7429988902421272,
+        "rms_residual": 0.9437145031063776,
+        "std_residual": 0.6984459075779149
+      },
+      "linear": {
+        "n": 6,
+        "mean_residual": 0.6161525432414056,
+        "median_residual": 0.6145873633267502,
+        "mean_abs_residual": 0.7310939425052259,
+        "rms_residual": 0.9267063834459558,
+        "std_residual": 0.6921999455190897
+      }
+    }
+  },
+  "r_ratio_range": [
+    0.003340148994543927,
+    1.276188188600929
+  ],
+  "primary": {
+    "metric": "Q=1 mean|residual|",
+    "n_Q1": 87,
+    "quadratic": 0.1147647374718915,
+    "linear": 0.10834270036882508,
+    "delta_lin_minus_quad": -0.006422037103066422,
+    "abs_delta": 0.006422037103066422,
+    "tau": 0.010198,
+    "q1_quad_jackknife_se": 0.010198362669490181
+  },
+  "verdict": "KERNEL-DEGENERATE-ON-SPARC",
+  "route": "form-level (S5): QUADRATIC is axiom-forced -> sweep fires"
+}
