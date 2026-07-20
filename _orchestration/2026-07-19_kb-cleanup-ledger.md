@@ -133,7 +133,25 @@ The 49 RETENTION-ONLY audit items were adjudicated clean (correctly PRODUCT-mome
 
 ## Orphan / phantom index lists
 
-_(populated during index-consistency pass)_
+### Phantom rows (index links a leaf that does not exist)
+**NONE in-KB.** Phantom rows surface as broken links; the broken-link scan (C1-A) found zero in-KB missing-leaf targets (all 70 residual broken links are cross-repo / template / uncommitted-asset / deprecated-archive). Index→leaf integrity is clean.
+
+### Orphan leaves (exist + cross-referenced, but NOT listed in any `index.md` table)
+Method: `scratchpad/check_orphans.py` (0 truly-orphaned — every leaf is linked from *somewhere*) + a stricter `check_indexed.py` (referenced by an `index.md` specifically). 8 leaves are cross-referenced by siblings but absent from any index table:
+
+**ADDED index rows (2 — unambiguous canonical ch12 prediction leaves, siblings of already-indexed leaves):**
+- `vol4/falsification/ch12-falsifiable-predictions/vacuum-photon-photon-channel.md` (clm-gg4wmx, path-stable "FOURTH testable consequence", sibling of the indexed `vacuum-birefringence-e4.md`) → added to the ch12 Benn Derivations table with a faithful one-line description from the leaf's own "What this leaf is" summary.
+- `vol4/falsification/ch12-falsifiable-predictions/k4-bloch-dispersion-quartic.md` (clm-k4d4ph, the weak-C surviving forward prediction, CONSISTENCY/FORM-class) → added to the same table.
+
+**LEDGERED (6 — NOT auto-indexed; special-class docs or status-adjudication needed, per "only add rows where unambiguous"):**
+- `common/engine-capability-map.md` — FENCED content; a whole-engine "map" doc (like a sidecar/register), widely cross-referenced; index-membership for a map-class doc is a judgment for the auditor. NOT added.
+- `common/numerical-provenance-manifest.md` — a "manifest" artifact (special-class), not a standard content leaf.
+- `common/dual-reactance-storage-taxonomy.md` — a taxonomy leaf (title: "V_TOROIDAL_HALO = 2 is a reactance-sector COUNT, not a volume"); candidate common/index add but the correct Key-Results-vs-Derivations placement + description is judgment.
+- `vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md` — a "doctrine" doc (special-class; also **lacks an H1 heading** — see CONVENTIONS note below).
+- `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md` — a vol4 circuit operator leaf (Op21 at the Γ=−1 boundary); plausible ch1-circuit-index add but status/description need auditor verification.
+- `vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md` — a vol1 ch1 foundational leaf (also **lacks an H1 heading**); plausible ch1 index add, but a foundational-axiom leaf's index placement + description warrants care.
+
+**CONVENTIONS observation (not fixed — ledgered):** three leaves deviate from the "leaf begins with an H1 `# Title`" convention — `single-substrate-scale.md` and `unified-engine-design-doctrine.md` (no `#`/`##` title found by grep) and `k4-bloch-dispersion-quartic.md` (uses `## ` H2, not `# ` H1). Not corrected (heading-level changes can break external section-anchor cites; low-value; routed to the auditor with the orphan-index adjudication).
 
 ---
 
