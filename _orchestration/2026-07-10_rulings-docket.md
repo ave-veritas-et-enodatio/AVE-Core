@@ -2198,11 +2198,12 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 **Class:** research-doc register scaffold + derivation-hardening (forms derived, values import/calibration-tagged); canonizes nothing; banks no physics; mints no `clm-`. **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator].** **Owed to auditor lane (implementer surfaces; auditor lands):** (1) the Q1 sector-ownership ruling (Grant-gated first); (2) the `08_gravitational_waves.tex` warningbox resolution (resolves *with* Q1); (3) the FLAG-A band-map channel-3 speed-label reconciliation; (4) the exact double-pulsar figure re-verification (`1.3×10⁻⁴` 95%-conf; may tighten to `~6×10⁻⁵`); (5) canon-promotion of the register to a KB leaf (separate session, after #749/#750/#751 merge so branch-state cites become `[canon]`). Receipts: the two research docs + the driver; every anchor two-method verify-before-cite'd this session.
 ---
 
-## Continuation — 2026-07-20: J(ω) derivation — the yield-fork adjudicator (ENTRY 29)
+## Continuation — 2026-07-20: J(ω) derivation — the yield-fork adjudicator (ENTRY 30)
 
 **Append-only, dated block.** Records the J(ω) derivation lane (branch `research/jomega-derivation`, off `origin/main` HEAD `64f1894d`) that executes the routed follow-on `#744`/`#59` Flag F left OPEN pending the z=3 bath spectral density `J(ω)`.
 
-### ENTRY 29 (2026-07-20): implementer lane — J(ω) yield-fork adjudicator (PR #751 [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+### ENTRY 30 (2026-07-20): implementer lane — J(ω) yield-fork adjudicator (PR #751 [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+*(Renumber note: previously 27→29 during repair; merged #753 then took ENTRY 29 on main — renumbered to next-free 30. Read by entry number, not position.)*
 
 > **ENTRY-NUMBER COLLISION NOTE (R-7/F8) — RESOLVED at the `origin/main` merge this repair.** This block was minted as ENTRY 27 off base `64f1894d`; the three-way collision F8 predicted then FIRED — `#749` (ratification-batch) merged first and KEEPS ENTRY 27, `#752` (ℏ-as-FD) renumbered to ENTRY 28. Merging the current `origin/main` (which carries 26/27/28) via the docket union-merge driver, this block **renumbers to the next-free ENTRY 29** (heading + this Continuation header). `#750` (scalar-GW-port) still open and will take 30. Earlier entries byte-untouched (append-only prefix through ENTRY 26 holds).
 
