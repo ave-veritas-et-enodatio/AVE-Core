@@ -1,0 +1,45 @@
+{
+  "provenance": {
+    "class": "consistency (FORMS derived; VALUES CODATA/astro-imported)",
+    "canonical_c_source": "ave.core.constants.C_0",
+    "imported_values": [
+      "D_GW170817 ~= 40 Mpc (Abbott+ 2017, GW170817 discovery)",
+      "h_tensor ~ 1e-21 (GW150914), ~1e-22 (GW170817) (LIGO catalogue, OOM)",
+      "Mpc, Julian-year unit conversions (IAU)"
+    ],
+    "speed_forms_derived_from": "K = 2G magic angle (GR-imported ratio; constants.py V_LONG, :778)"
+  },
+  "speed_ratios": {
+    "c_bulk_port_over_c_shear_sqrt2": 1.4142135623730951,
+    "c_pwave_over_c_shear_sqrt_10_3": 1.8257418583505538
+  },
+  "power_suppression_speed_only": {
+    "bulk_port_sqrt2__(c_s/c_b)^5": 0.1767766952966368,
+    "pwave_sqrt_10_3__(c_s/c_P)^5": 0.04929503017546494,
+    "note": "LOWER-bound suppression; O(1) coupling x tensor-structure factor NOT included (flagged, unforced)."
+  },
+  "amplitude_ratio_speed_only_equal_coupling": {
+    "bulk_port_sqrt2": 0.4204482076268572,
+    "pwave_sqrt_10_3": 0.22202484134768555,
+    "note": "h_scalar/h_tensor from the SPEED factor alone under equal coupling; the true O(1) coupling is the FLAGGED fork."
+  },
+  "superluminal_precursor_GW170817": {
+    "distance_Mpc_imported": 40.0,
+    "tensor_EM_travel_time_yr": 130465230.02341768,
+    "bulk_port_sqrt2_lead_yr": 38212381.16479629,
+    "pwave_sqrt_10_3_lead_yr": 59006480.569491565,
+    "note": "Lead time by which a superluminal scalar burst outruns the tensor GW/EM front; ~10^7-10^8 yr => the sqrt(2)c coexistence causality/observability flag."
+  },
+  "scalar_admixture_bracket_equal_coupling": {
+    "GW150914": {
+      "h_tensor_imported": 1e-21,
+      "h_scalar_bulk_port_equal_coupling": 4.2044820762685714e-22,
+      "h_scalar_pwave_equal_coupling": 2.220248413476855e-22
+    },
+    "GW170817": {
+      "h_tensor_imported": 1e-22,
+      "h_scalar_bulk_port_equal_coupling": 4.204482076268572e-23,
+      "h_scalar_pwave_equal_coupling": 2.2202484134768557e-23
+    }
+  }
+}
