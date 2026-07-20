@@ -51,7 +51,40 @@ The click **does not source its arrow from modal phase.** It sources it from a *
 
 ## 2 · ★THE CLAMP ADJUDICATION — accidental click, or numerical guard?
 
-<!-- §2 COMMIT -->
+**The sharp sub-question (task).** The certified meter's back-reaction clamp is a **hard-zero ABSORBING STATE** already sitting in the instrument — an accidental click-analog. The clamp: `scale = √(max((E_lat − d_e_bath)/E_lat, 0))`, which **hard-zeroes** `E_lat` (`scale=0`) the step `d_e_bath ≥ E_lat`; `E_lat ≡ 0` thereafter (`…certified-kappa-sweep_result.md` R-2, `f6_bath_meter.py` back-reaction). The #726 review treated its dead windows as **NO-INFORMATION** artifacts (85–90% dead rows on dense combs). Is that (a) a numerical guard merely mimicking click phenomenology, or (b) a derivable correspondence — clamp = crude click at the port boundary — that reframes those "artifacts" as the click-arrow showing up uninvited?
+
+### 2.1 · The test — score the clamp against the THREE positive click signatures
+
+The click is not defined by "one-way capture" alone (that is shared with any absorbing state). It carries **three positive signatures**, each *verified* from the X40 canon. Scoring the clamp against each:
+
+| # | Click signature (verified source) | The clamp | Verdict |
+|---|---|---|---|
+| **S1 — energy-EXACT** | `Λ` conserved to `2.2e-16`; `1/N` trapped + `(N−1)/N` radiated = **100%**, nothing lost (`…x40…result.md` HEADLINE) | `max(…,0)` **truncates** a would-be-imaginary √; when `d_e_bath > E_lat` the bath took more than the lattice held ⇒ `(d_e_bath − E_lat)` is **unaccounted**. #726 R-2/§2: the densest comb's conservation drift `6.8e-6` is **"largely clamp-created."** | **FAILS S1** — the clamp *breaks* conservation; the click's defining property is that it does not. |
+| **S2 — mints a COUNTED protected label** | `b_1: 0→1`; a trapped cycle-space `Λ=1/N` that **PERSISTS** (a conserved integer/label) | mints **nothing** — it **destroys** state (`E_lat→0`). Opposite sign of information: the click *adds* a protected quantity; the clamp *removes all* quantities. No count, no persistence, no topology. | **FAILS S2** — the clamp is a state-*sink*, not a label-*mint*. |
+| **S3 — a PHYSICAL-port boundary** | ring-completion (a real srs-graph topological event) + matched stubs (`R_rad ≡ Z_0`, a real port) | the "boundary" is a **floating-point guard** in the amount-not-phase global-rescale arithmetic, firing on an over-extraction transient at **no physical port** — `max(…,0)` in code, not a `Γ` crossing (`…no-discharge-scan…md` §3: the back-reaction enters only as the product `κ·g0`; the clamp is downstream of that rescale). | **FAILS S3** — the clamp fires at a code guard, not a substrate port. |
+
+**The clamp fails all three positive click signatures.** Its resemblance to a click is confined to the one property it shares with *any* absorbing state — "once captured, stays captured" — which is **not** a click signature. **Verdict lands on (a): the clamp is a NUMERICAL GUARD that superficially mimics click phenomenology; it is NOT a derivable click.** The #726 review's NO-INFORMATION reading of its dead windows is **correct**.
+
+### 2.2 · Both-ways consensus-bias check (`consensus-bias-symmetric-standard`) — steelmanning (b)
+
+I carry, by training volume, an SM/QED "it's just a numerical bug, exclude it" prior. Symmetric-standard demands I steelman (b) before dismissing:
+
+**Steelman for (b).** The clamp does **not** fire at random. It fires exactly when `d_e_bath ≥ E_lat` — i.e. at **FULL DISCHARGE** (`E_lat→0`), the moment the mode-spread into the quasi-continuum has *completed*. The #727 INSTRUMENT-INCOMPATIBLE scan proves this is *structural*: on the certified instrument the quasi-continuum threshold (`N_occ ≥ 10`) and the full-discharge/clamp event are crossed at the **same** comb density — "quasi-continuum transfer **is** full discharge — the clamp is the instrument **faithfully reporting** that the lattice fully drained" (`…no-discharge-scan…INSTRUMENT-INCOMPATIBLE.md` §5). So the clamp is keyed to a **physically meaningful transition** — the completion of irreversible mode-spread — not to noise.
+
+**Why the steelman does NOT rescue (b) — and where it DOES point.** Even granting that the clamp is keyed to a real transition, that transition is **mode-spread completion**, which is the *interacting-bath / mode-spread* picture (candidate 1), **NOT** a ring-completion topological mint (the click). And the clamp is a **corrupting** sensor even of mode-spread: genuine mode-spread leaves the energy in the bath modes *still oscillating* (a recurrence would return it at `T_rec`); the clamp instead **zeroes `E_lat` and freezes it**, destroying the recurrence structure that is the very observable needed to measure *either* arrow (this is exactly why #726/#727 read 85–90% NO-INFORMATION). So the honest resolution of the steelman:
+
+> The clamp is a **crude, information-destroying mode-spread-completion flag**, not a click. It is not physically arbitrary — that much of (b) survives — but it routes to the **interacting-bath lane** as a *warning about the meter*, not to the click lane as evidence. It is **not** the click-arrow showing up uninvited; it is a numerical guard that happens to trip at the mode-spread transition and then **erases** the information an arrow-test needs. The dismissal in §2.1 is **earned** (three failed positive signatures + a routed steelman), not defaulted from prior.
+
+### 2.3 · What would discriminate (whichever way it lands) + the design consequence
+
+**The empirical discriminator (cheap, read-only, byte-untouched).** Overlay the X40 mint-observable — `Λ`-conservation *across the event* + `b_1` increment + the `f_E = 1/N` trapped split — onto the **existing banked meter clamp event**:
+
+- If the clamp event **mints a persistent trapped mesh quantity AND conserves `Λ` across the event (drift ≈ 0)** → it is a click (b); reopen and route to Grant.
+- If (as §2.1 predicts) it **zeroes `E_lat`, breaks conservation (clamp-created drift), and mints no persistent counted quantity** → numerical guard (a), confirmed by receipt.
+
+This is Phase-0 of the SPEC (§4) — minutes, read-only, uses the existing X40 observable on the existing meter, no edit.
+
+★**The load-bearing design consequence.** Because the accidental click-analog in the meter is a **corruptor**, the honest click-arm must **NOT** build on the meter's back-reaction/clamp. It must build on the **X40 ring-closure mint machinery** (energy-exact, its own instrument, §3). The clamp adjudication is thus not a side-quest: it *forces the instrument choice* for the whole arm.
 
 ## 3 · The honest click-arm design — frozen observable, certificates, byte-untouched set
 
