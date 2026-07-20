@@ -28,7 +28,7 @@ Cosmological and astrophysical phenomena derived from the substrate LC lattice: 
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ [Ch.15](./ch15-black-hole-orbitals/ave-compactness-limit.md) |
 | Hawking Temperature as Impedance Noise | $T_H = \hbar c^3/(8\pi G M k_B)$ [Ch.15](./ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md) |
 | Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} = V_\infty \cdot 2(U_\oplus/C_0) \cdot (\cos\delta_{in} - \cos\delta_{out})$ (zero free parameters); Anderson 2008 anchor 2/6 within 1$\sigma$, 3/6 within 2$\sigma$ [Ch.14](./ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
-| Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Ch.14](./ch14-orbital-mechanics/lunar-inductive-heating.md) |
+| Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Ch.14](./ch14-orbital-mechanics/lunar-inductive-heating.md) | — 🔴 **DEMOTED 2026-07-19** (reactive-bulk ruling; see leaf banner)
 
 ## Derivations and Detail
 
