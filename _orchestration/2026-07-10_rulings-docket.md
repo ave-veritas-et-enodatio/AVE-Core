@@ -2023,6 +2023,34 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 ---
 
+## Continuation — 2026-07-19: deep-space BAND-MAP derivation (structure-at-resonances) — the SPEC'd re-derivation → **CLEAN NULL at solar-system scale** (+ one live boundary discriminator)
+
+**Append-only, dated block.** DERIVATION lane (`research/deep-space-band-map`) executes the band-map re-derivation the deep-space reactive-bulk walk-record SPEC'd but did not run (`research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` §5, Grant 2026-07-19 ruling). Deliverable: `research/2026-07-19_deep-space-band-map_derivation.md`. **Forms derived, values calibration-tagged; mints no `clm-`; propagates to no KB/tex leaf (owed follow-ons only).** Every [canon] input `grep -F` content-verified at HEAD `1be045a1`.
+
+### The band-map (derived FORMS)
+- **Four branches of the graded K4/Cosserat medium:** (1) EM-transverse `Z_EM=Z_0` at `c`; (2) mechanical shear / GW `Z_shear` at `c` (transverse shear, `einstein-field-equation.md:62–63,:84`); (3) bulk-longitudinal / A1-dilatation `Z_bulk` at `√2·c` (K=2G magic angle); (4) **gapped** Cosserat micro-rotation / wryness at `√2·c` with mass gap `m_ω=√(4G_c/I_ω)` (`cosserat-mass-gap.md:59`). Speeds from the "three speeds, do not fuse" table `cosserat-mass-gap.md:120–132`.
+- **Generic acoustic branch** `ω=(2c_ch/ℓ_node)sin(kℓ_node/2)` recovers the canon Casimir band edge `f_max=c/(πℓ_node)`, `ω_max=2c/ℓ_node` (`translation-circuit.md:154,:353`) as the `k=π/ℓ_node` corner — content-match, not new.
+- **Only channel 4 has a low-frequency stopband** (mass gap ⇒ evanescent, decay length `ξ_0=c_κ/m_ω ~ ℓ_node` = one Compton length, Yukawa/contact-range). Channels 1–3 are gapless: their reactive-ness comes from being **below the Mach/Cherenkov threshold**, a *different* mechanism than evanescence (this refines the walk-record's clause-ii, which conflated the two).
+- **Drag-onset (Cherenkov/Mach) per channel:** `v_crit=(2/π)c_ch` for band-edge-coupled sources; rises to `c_ch` for bandlimited (macroscopic) sources ⇒ deep-space slow matter (`v~10⁻⁴c`, bandlimited) is doubly protected → zero drag, pure added-mass reactance (d'Alembert). `2/π` is `ℓ_node`-free but COSINE-BRANCH-SCOPED (review repair R2: the adjudicated arccos TL map — `srs-band-structure.md`, `clm-bnd5rq` — gives a different band top; its `v_p,min` is OPEN).
+
+### Resonance-candidates VERDICT: CLEAN NULL (derived, not reflex)
+- Solar-system orbital frequencies sit **~28–35 orders below** the lattice band edge and the mass gap (asteroid 28.5, Jupiter 29.0, Oort 34.9) → every channel is exactly-linear/featureless there; **no lattice band feature anywhere near solar-system frequencies.**
+- The Kirkwood "cavity-mode" law `a_gap=a_J(q/p)^{2/3}` (`kirkwood-gaps-cavity-modes.md:12`) **is Kepler's third law** applied to a mean-motion resonance — a *relabel* of the Newtonian resonance, fits `<0.3%` because it reduces to Kepler. **Consensus knife both ways:** AVE adds nothing observable over Newton (relabel, not chord); Newton also only fits via the resonance condition → **peer, no distinction from Kirkwood/Oort data**.
+- **The demotion ends the story for the Kirkwood/Oort sites.** No additional spacing law, no channel-selective comb, no AVE-distinct dimensionless ratio at orbital frequencies. Lattice-band structure lives at the **atomic/quantum passband** (near `m_ω`, `ω_max`), ~27–35 OOM away — the "electron orbitals" half of Grant's Saturn-vs-orbitals split. This is the honest null the ruling anticipated.
+
+### Discriminator shortlist (ranked; dimensionless; reachability)
+- **D1 (PRIMARY, FUTURE — review repair R1):** zero-drag / `v`-independence at the ~15,000 AU Oort/yield transition — reactive predicts no `∝v` stall (at most a reactive reflection), demoted resistive predicts `a_drag∝v^{n≥1}`. **Flips vol4 `clm-h55fy1`** (banner-flip already on main; claim-body relabel owed). Pioneer/Voyager/New-Horizons sit ~2 OOM inside the discriminating boundary and are thermal-recoil-confounded — the existing null **does not yet discriminate**.
+- **D2 (FEASIBLE):** coherent reactive reflection (phase-preserving, energy returns) vs incoherent thermalisation at the impedance step.
+- **D3 (EXISTING DATA — settled NULL):** `(q/p)^{2/3}` Newtonian spacing with no lattice overlay — verdict already in: null.
+- **D4 (UNREACHABLE/protected):** vacuum Mach threshold `v_crit/c_ch=2/π` — the band-map's cleanest AVE-distinct dimensionless number, but bandlimited-protected at deep-space speeds.
+- **D5 (FORK/FLAG):** inter-channel `√2`, `√(10/3)` speed ratios — the observed transverse GW is shear at `c` (no GW170817 conflict); the `√2·c` scalar-longitudinal bulk channel's *radiative* status is UNESTABLISHED in corpus → Grant-gated fork.
+
+### Contradictions FLAGGED (flag-don't-fix) + deviations
+- **FLAG-1 (D5):** corpus has not stated whether the `√2·c` A1/bulk-dilatation channel radiates an observable scalar-GW polarisation (constrained by LIGO/Virgo scalar bounds IF radiating). Sector-ownership ruling owed to Grant/auditor — surfaced, not resolved.
+- **FLAG-2:** the `clm-h55fy1` relabel (drag-spike falsifier → reactive-reflection test) is an owed KB follow-on, NOT edited here (DERIVATION-lane fence).
+- **DEVIATION:** the walk-record's "~20 orders below the band edge" (non-canon orchestrator-walk) is an underestimate — derived value is 28.5–34.9 orders; strengthens (does not overturn) the null.
+
+**Class:** derivation (forms derived, values calibration-tagged); canonizes nothing; mints no `clm-`. **OWED-FOLLOW-ONS (KB/tex — FENCED, cleanup lanes own):** (1) `clm-h55fy1` relabel; (2) `kirkwood-gaps-cavity-modes.md` consistency-class tag; (3) D5 scalar-GW-port sector ruling (Grant-gated); (4) band-map canonical leaf (Grant-gated, separate session). **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator]; owed to auditor lane:** land items 1–4 for adjudication (implementer surfaces; auditor lands). Receipts: `research/2026-07-19_deep-space-band-map_derivation.md`; walk-record `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md`.
 ## Continuation — 2026-07-19 (post-merge): merge-ratifications #733–#737 + the routed post-merge auditor batch (ENTRY 22)
 
 **Append-only, dated block.** Records Grant's 2026-07-19 merges and the auditor-batch corrections routed out of the #734/#735 adversarial reviews plus the branch-scrub follow-ups. Prior blocks untouched.
