@@ -53,6 +53,7 @@ Docket append: **not made** — no rulings-relevant NEW disposition was produced
 
 ## Contradictions / flags surfaced (flag-don't-fix)
 
-(populated per-commit below)
+- **[C2-FLAG-2, ch5:599] Object-mapping subtlety (judgment-class) — SURFACED, not resolved.** The ch5:599 open question is framed on the datasheet's BULK amplitude-limit asymmetry (`τ_bulk,sat` toward compression ceiling `ρ̄→+1` vs `τ_bulk,desat` toward cavitation floor `ρ̄_cav=−1/φ`). Leg A of #735 tested the prereg's DIRECTIONAL two-τ `sign(dr/dt)` rate-memory. These are related but NOT verbatim the same object. #735 excludes the directional sign-memory rectifier by derivation; it does NOT by itself close the ceiling-vs-floor amplitude-limit asymmetry (which could still be carried reactively by the second-order S-structure = Flag F). The KEEP-BOTH note preserves the 2×2 structure and flags this for Grant/auditor, per the dispatch's explicit "judgment-class — flag not silently resolve" instruction. No contradiction between engine output and corpus — the datasheet's "not asserted" stance is UNCHANGED; the note adds the run-status + the fork-open scope-caveat additively.
+- **No engine-vs-corpus contradiction found in the C2-FLAG-2 landing.** The merged result (fork OPEN, Leg A = B) is fully consistent with the datasheet's pre-existing "Open (not asserted)" stance; the note is pure currency + scope-caveat, zero physics-prose deleted.
 </content>
 </invoke>
