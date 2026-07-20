@@ -77,6 +77,24 @@ _(populated per category commit)_
 
 **No other deep-space drift:** vol4 "stall" hits (`applied-telemetry.md:14` aerodynamic-stall analogy; `autoresonant-helicity.md:14` / `autoresonant-dielectric-rupture.md:12` "cascade stalls" = Duffing detuning) are unrelated to the demoted bulk mechanism. `oort-cloud-saturation-boundary.md` = the reactive saturation-boundary sibling (SURVIVES).
 
+### C2-C · Memristive loop-area (#735 yield-fork discriminators) — 1 pure-propagation FIX; 1 flag-don't-fix; primary caveats APPLY-POST-#738
+
+**Ground truth:** `research/2026-07-19_yield-fork-discriminators_result.md` (#735) — Leg B (memristor loop-area, `P_phase5`, host `tau-relax-derivation.md:109`) = NEITHER; the (r,S)-plane window test is INFORMATION-FREE (peak pinned at linear Debye ≈1.00 for any first-order kernel); the (V,I) plane peaks INSIDE the window at ωτ=0.911; the `[0.85,0.95]` window was MIS-REGISTERED (imported from doc-48's `A²_cos`); F-B3 the finite ∮'s *dissipative* character is ASSUMED by the first-order model, not measured; fork stays OPEN, crux relocated to `#59` Flag F. NOT "P_phase5 falsified."
+
+**FIXED (pure propagation) — `common/retention-transition-split.md`** (the open-yield-fork row at :63). The prose said "resolution is by the registered discriminators (audit §5)." Added a dated status note: the discriminators RAN (#735); Leg A = B (two-τ thixotropic sub-branch closed by derivation), Leg B = NEITHER; neither adjudicates against Grant's lean; crux RELOCATED to #59 Flag F (a derivation, not a driver); fork STAYS OPEN; "do not bank either way" unchanged. **Zero-judgment:** does not touch the ruling or Grant's lean — records the merged fact that the named resolution-path relocated. Fork remains OPEN.
+
+**FLAG-DON'T-FIX (routed to Grant/auditor) — `vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md:66`.** The leaf asserts the dissipative reading as settled; correcting it takes a side of the OPEN fork. NOT edited.
+> **Leaf side (`nonlinear-vacuum-capacitance.md:66`, verbatim):** "Under high-frequency AC topological stress, the memristive vacuum produces a classic **Pinched Hysteresis Loop**: the $V$–$I$ Lissajous figure passes through the origin but encloses a finite area proportional to the energy **dissipated** during each thixotropic yield–heal cycle."
+> **Ground-truth side (#735, verbatim):** F-B2 — "the (V,I) 'pinched hysteresis' registration does not apply at the near-yield point. `nonlinear-vacuum-capacitance.md:66` registers a Lissajous that 'passes through the origin.' At `r_0=0.7, Δr=0.3` the drive `r∈[0.4,1.0]` **never crosses `r=0`**, so `min|I|=0.354 ≠ 0` → the loop is **offset, not origin-pinched**." F-B3 — "the finite `∮` is a **rate-dependent Debye lag** ... **the finite `∮` alone does not require a resistor.** Its *dissipative* reading is inherited from the **first-order overdamped** model structure ... which `#59` §12 **Flag F** flags as *asserted, not derived*." Fork OPEN; Grant leans reversible-reactive.
+> **Routing:** the auditor lands the coordinated caveat here together with the FENCED `tau-relax-derivation.md` primary caveat (below) post-#738; the origin-pinch does not apply at the near-yield operating point, and the "dissipated" character is model-assumed not measured. Do NOT resolve the fork.
+
+### APPLY-POST-#738 (memristive loop-area — owed corrections on FENCED files)
+
+Per #735 "owed to auditor lane" (result §6 + docket continuation 2026-07-19). All three are on FENCED files:
+- **`vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md`** (FENCED — PR #738). Owes: (i) the P_phase5 **BOTH-AND demotion (R-2), NOT "falsified"** caveat on `:109`-area — the (r,S) window test was information-free AND the `[0.85,0.95]`/`0.9` window was mis-registered (imported from doc-48's `A²_cos`; `#59` Eq 6.3 yields `~0.954–0.978` at the registered drive, not `0.9`); the one testable plane (V,I) landed INSIDE the mis-registered window at `0.911`. (ii) the **doc-staleness flag** at `:117` — "dynamic Level-2 `S(t)` ODE unbuilt" is STALE (engine built it via `use_memristive_saturation`, `k4_tlm.py:266–296`).
+- **`common/substrate-hysteresis-index.md`** (FENCED). Any memristive-loop / hysteresis-row that registers the loop-area as a confirmed/open dissipative prediction owes the #735 fork-OPEN / crux=Flag-F context. (Ledger-only pending #738; also carries the separate #733 clm-exjfai/moving-front residue per the branch-scrub follow-up — see NOT-SWEPT.)
+- **`research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md`** (FENCED — the `#59` source). Owes: §10/§28 "unbuilt" staleness flag + the Flag-F relocation context (auditor lands).
+
 ---
 
 ## Orphan / phantom index lists
