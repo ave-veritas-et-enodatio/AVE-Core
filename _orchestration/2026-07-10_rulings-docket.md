@@ -2184,13 +2184,13 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 ---
 
-## Continuation — 2026-07-20: J(ω) derivation — the yield-fork adjudicator (ENTRY 27)
+## Continuation — 2026-07-20: J(ω) derivation — the yield-fork adjudicator (ENTRY 29)
 
 **Append-only, dated block.** Records the J(ω) derivation lane (branch `research/jomega-derivation`, off `origin/main` HEAD `64f1894d`) that executes the routed follow-on `#744`/`#59` Flag F left OPEN pending the z=3 bath spectral density `J(ω)`.
 
-### ENTRY 27 (2026-07-20): implementer lane — J(ω) yield-fork adjudicator (PR #751 [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+### ENTRY 29 (2026-07-20): implementer lane — J(ω) yield-fork adjudicator (PR #751 [DO-NOT-MERGE][REVIEW: pending-orchestrator])
 
-> **ENTRY-NUMBER COLLISION NOTE (R-7/F8):** `#749` (ratification-batch) and `#750` (scalar-GW-port) each also open an `### ENTRY 27` off the same base `64f1894d`. At this repair's `origin/main` merge, main carries only up to ENTRY 26, so 27 is next-free and this block KEEPS 27. Whichever of the three merges 2nd/3rd renumbers to 28/29 at rebase (heading + internal self-refs), stacking after the prior block (append-only byte-prefix holds).
+> **ENTRY-NUMBER COLLISION NOTE (R-7/F8) — RESOLVED at the `origin/main` merge this repair.** This block was minted as ENTRY 27 off base `64f1894d`; the three-way collision F8 predicted then FIRED — `#749` (ratification-batch) merged first and KEEPS ENTRY 27, `#752` (ℏ-as-FD) renumbered to ENTRY 28. Merging the current `origin/main` (which carries 26/27/28) via the docket union-merge driver, this block **renumbers to the next-free ENTRY 29** (heading + this Continuation header). `#750` (scalar-GW-port) still open and will take 30. Earlier entries byte-untouched (append-only prefix through ENTRY 26 holds).
 
 > **🔴 RE-BANKED 2026-07-20 (post-review repair, wrapper `wf_d07d804e` — 13 confirmed findings, 2 CRITICAL; Rule-12: superseded text preserved verbatim below; frozen prereg untouched, Rule-11).**
 
