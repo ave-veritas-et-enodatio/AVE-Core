@@ -2184,11 +2184,12 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 ---
 
-## Continuation — 2026-07-20: scalar-GW bulk-channel far-field — FLAG-1/D5 resolved-to-fork (ENTRY 27)
+## Continuation — 2026-07-20: scalar-GW bulk-channel far-field — FLAG-1/D5 resolved-to-fork (ENTRY 32)
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).** Records the SCALAR-GW-PORT DERIVATION lane (branch `research/scalar-gw-port` off `origin/main` `64f1894d`), fired by Grant 2026-07-20 (`"5. derive either way?"` `[sic]`) to derive-don't-rule the band-map's FLAG-1 (D5): does the `√2·c` A1/bulk-dilatation channel radiate as an observable scalar-GW polarisation? DERIVATION-lane: forms derived, values import-tagged; mints no `clm-`; no KB/tex/engine edits.
 
-### ENTRY 27 (2026-07-20): implementer lane — scalar-GW bulk-channel derivation (kill-class exposure)
+### ENTRY 32 (2026-07-20): implementer lane — scalar-GW bulk-channel derivation (kill-class exposure)
+*(Renumber note: authored as provisional 27 off pre-merge base; main holds 27/28/29 (#749/#752/#753), open #751 holds 30, open #754 holds 31 — renumbered to next-free 32. Read by entry number, not position.)*
 
 **★ Multipole-by-multipole verdict (theorems, assumptions enumerated).**
 - **Monopole — NON-RADIATING**: `Ṁ_tot = 0` (mass-energy conservation); same theorem class as GR monopole kill.
