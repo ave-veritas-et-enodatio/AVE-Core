@@ -76,13 +76,58 @@ Modeling the Hulse-Taylor binary pulsar as a macro-electrical orbital LC tank (\
 \begin{enumerate}
     \item \textbf{Reactive Tank Power ($Q$):} The gravitational and kinetic energy of the two $\approx 1.4 M_\odot$ neutron stars maps to a reactive resonant tank. Because Newtonian gravity holds an orthogonal V/I phase angle ($\cos(90^\circ) = 0$), the orbital energy oscillates losslessly.
     \item \textbf{Quadrupole Phase Slip ($\delta$):} The asymmetric quadrupole acceleration excites the surrounding elastic LC metric. Because lattice tension propagates at $c_0$, the differential acceleration wave acquires an inductive phase-retardation slip ($\delta$) over the metric span.
-    \item \textbf{Real Power Dissipation ($P_{real}$):} An electrical reactive tank experiencing a forced phase slip must bleed real power. The phase defect un-aligns the orthogonality, and real power radiates radially outwards into the bulk lattice network ($P_{real} \approx Q \cdot \delta$).
+    % Rule-12 wording fix (2026-07-20, Grant Q1 ruling --- RULED loose-prose; Part 1 "loose
+    % works"). Original step-3 wording, preserved verbatim here per KEEP-BOTH:
+    %   "and real power radiates radially outwards into the bulk lattice network"
+    % Grant ruled 2026-07-20 (Grant-verbatim three-parter, [sic]: "part 1: loose works /
+    % Part 2: bank / part 3: rule it"; ruling content = the orchestrator's walk, ratified in
+    % chat) that "bulk lattice network" is LOOSE PROSE for "the surrounding medium", NOT the
+    % A1 / longitudinal bulk channel: the emission is SHEAR-channel (consistent with step-2's
+    % $c_0$ propagation just above and the summary's exclusively-transverse statement). No
+    % bulk/shear double-count exists. Wording corrected to "through the surrounding lattice as
+    % transverse shear". Receipt chain in the (now-closed) warningbox below;
+    % research/2026-07-20_q1-pulsar-hardening.md (merged #753).
+    \item \textbf{Real Power Dissipation ($P_{real}$):} An electrical reactive tank experiencing a forced phase slip must bleed real power. The phase defect un-aligns the orthogonality, and real power radiates radially outwards through the surrounding lattice as transverse shear ($P_{real} \approx Q \cdot \delta$).
     \item \textbf{Orbital Decay ($\dot{P}_b$):} Subjecting this real power drain over the empirical Hulse-Taylor orbital bounds algebraically evaluates an exact period decay rate of $\mathbf{-2.402 \times 10^{-12}\text{ s/s}}$.
 \end{enumerate}
 
 The circuit model reproduces the observed orbital decay to within $\sim 2\%$, showing that the general-relativistic quadrupole result can be cast as transmission-line phase-retardation across the LC lattice.
 
-\begin{warningbox}[Current-status flag --- unresolved channel attribution]
+% Rule-12 closure (2026-07-20, Grant Q1 ruling): the "unresolved channel attribution"
+% warningbox is CLOSED with a dated RESOLVED-with-receipt lead-in; the ORIGINAL warningbox
+% text is PRESERVED VERBATIM below the lead-in per KEEP-BOTH (do not delete it). Grant ruled
+% 2026-07-20 (Grant-verbatim three-parter, [sic]: "part 1: loose works / Part 2: bank /
+% part 3: rule it"; ruling content = the orchestrator's walk, ratified in chat): step-3's
+% "bulk lattice network" is loose prose for the surrounding medium, NOT the A1 bulk channel;
+% the emission is shear-channel; no bulk/shear double-count exists. Receipts: the pulsar
+% exclusion (merged #753, research/2026-07-20_q1-pulsar-hardening.md) + step-2's own c_0.
+\begin{warningbox}[RESOLVED 2026-07-20 (Grant Q1 ruling) --- channel attribution (formerly: unresolved channel attribution)]
+\textbf{RESOLVED 2026-07-20 (Grant Q1 ruling --- Part~1 ``loose works''; ruling content = the
+orchestrator's walk, ratified in chat).} The channel-attribution tension flagged below is
+\emph{closed}. Step-3's ``radiates \ldots{} into the bulk lattice network'' was \textbf{loose
+prose} for ``the surrounding medium'', \textbf{not} the A1 / longitudinal bulk channel: the
+binary's orbital-decay power is emitted through the \textbf{transverse shear} channel --- the
+one channel the summary box below and the KB canon already name --- so \textbf{no bulk/shear
+double-count exists}. Step-3's wording is corrected to ``through the surrounding lattice as
+transverse shear'' (Rule-12 note at item~3 above). \textbf{Receipts:} (i) the pulsar-timing
+exclusion --- an \emph{independent} radiative bulk port with $O(1)$ coupling is excluded at
+$9$--$110\sigma$ by Hulse-Taylor and by $100$--$1400\times$ the double-pulsar bound
+(\texttt{research/2026-07-20\_q1-pulsar-hardening.md}, merged \#753), which forbids the
+double-count directly; (ii) step-2 of this same derivation (item~2 above) already pins the
+decay wave's propagation at $c_0$ --- the \emph{shear} speed --- internal textual evidence
+that step-3 meant the medium, not the bulk channel. The Reading-A radiative-port exclusion is
+banked in \texttt{ave-kb/common/genesis-chord-falsification-ledger.md}; the Reading-B
+standing ruling (no far-field bulk radiative port for gravitating sources; the halo is the
+complete reactive-near-field story) is \textbf{CONDITIONAL} on the B-mechanism lane deriving
+the closure (if that lane lands none-derives, the Reading-A exclusion goes live).
+
+\medskip
+\noindent\emph{Original current-status flag preserved verbatim below per Rule~12 / KEEP-BOTH
+(the wording ``left unedited pending it'' records the pre-ruling state; item~3 is now
+corrected):}
+
+\medskip
+\noindent
 The phrase ``real power radiates radially outwards into the bulk lattice
 network'' in item~3 above (the $P_{real}$ step) attributes the radiated
 power to the \emph{bulk / longitudinal} channel. This is in tension with (i)

@@ -151,6 +151,18 @@ If Grant rules **Reading B** (the bulk sector is constrained / reactive-near-fie
 
 ## §4 — Q1 ADJUDICATION PACKAGE FOR GRANT (walk-brief)
 
+> **🔴 RULED 2026-07-20 (Grant — the three-part Q1 ruling; RULED-CONDITIONAL). KEEP-BOTH: the §4 adjudication menu below is preserved verbatim (it was the pre-ruling package); this note records the ruling.**
+>
+> Grant ruled 2026-07-20 (**Grant-verbatim three-parter, [sic]: "part 1: loose works / Part 2: bank / part 3: rule it"**; the ruling *content* below = the **orchestrator's walk, ratified in chat** — the attribution split is maintained).
+>
+> - **Part 1 — "loose works" (the ch08 wording).** The `08_gravitational_waves.tex` step-3 phrase "radiates radially outwards into the bulk lattice network" is **LOOSE PROSE**, not the A1 bulk channel — one-word-class fix to "through the surrounding lattice as transverse shear"; the chapter's channel-attribution `warningbox` is closed RESOLVED-with-receipt. **No bulk/shear double-count exists.** *Landed: `manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex` (step-3 + warningbox).*
+> - **Part 2 — "bank" (Reading A).** **Reading A** (a far-field radiative bulk port with O(1) coupling for gravitating sources) is **EXCLUDED** — F_bulk/F_shear ∈ [0.015, 0.177] vs Hulse-Taylor 9–110σ and 100–1400× the double-pulsar bound (§1–§2). Banked as a kill-class closed-negative. *Landed: `manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`.*
+> - **Part 3 — "rule it" (Reading B, CONDITIONAL).** Ruling verbatim-of-walk: **"The bulk sector has no far-field radiative port for gravitating sources — the halo is its complete story (reactive near-field; nothing drains). CONDITIONAL: this ruling stands on the B-mechanism lane deriving the closure (B1 constraint-slaving / B2 source-projection / B4 no-independent-P-branch); if the lane lands NONE-DERIVES, this ruling REVERTS and the Reading-A exclusion goes live against the framework."**
+>
+> **Menu disposition (maps the ruling onto the options below).** The ruling selects **Rule B** (bulk constrained / reactive-only) — CONDITIONAL on the B1–B4 suppression lane. **Rule A's numbers are BANKED** (Part 2) as the standing exclusion that goes live if the B-lane returns NONE-DERIVES. The step-3 correction that **both** Rule A and Rule B owed is **LANDED** (Part 1). The **Cherenkov false-rescue stays ruled-out** (§3) — the discipline still forbids debugging toward it.
+>
+> **D1 rider (OPEN — NOT ruled today).** The compact-object scalar-charge/mass question surfaced by #750's review rides the **B-mechanism lane's** context (a strong-field / compact-object refinement of the source-projection question); it is **not** adjudicated by this ruling and stays OPEN, carried on the B-lane. *Landed sites: this note (§4); `research/2026-07-20_port-register_draft.md` Q1 row; docket ENTRY 32.*
+
 **The question (one line).** Does the A1/bulk-dilatation sector have an **independent far-field radiative port** for a gravitating quadrupole source (Reading A), or is it **constrained / reactive-near-field-only** for gravity (Reading B)?
 
 **The hardened numbers on the table.**
