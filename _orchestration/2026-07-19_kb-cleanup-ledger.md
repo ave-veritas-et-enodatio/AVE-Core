@@ -29,10 +29,12 @@
 
 ## Counts (running)
 
-| Class | Fixed | Ledgered (flag-don't-fix) | APPLY-POST-#738 |
+| Class | Fixed | Ledgered (flag-don't-fix / observation) | APPLY-POST-#738 |
 |---|---|---|---|
-| C1 mechanical hygiene | TBD | TBD | TBD |
-| C2 propagation-lag drift | TBD | TBD | TBD |
+| C1 mechanical hygiene | 14 links + 2 index rows = **16** edits across 9 files (C1-A links ×12, C1-index ×2 rows) | 6 orphan leaves + 3 no-H1 leaves + `clm-9oazz0` phantom + 2 CONVENTIONS observations | claims.jsonl (fenced) untouched — `clm-9oazz0` routed |
+| C2 propagation-lag drift | **3** dated Rule-12 notes (photon-identification RULING-21; cosmology/index deep-space tag; retention-transition-split #735) | `nonlinear-vacuum-capacitance.md:66` (fork-side); vol3/index.md:63 (bare ToC) | 4 (engine-capability-map §8c.10 arm-result; tau-relax-derivation caveats ×2; substrate-hysteresis-index; #59 archive) |
+
+**Fixed files (9):** `photon-identification.md`, `vol3/cosmology/index.md`, `retention-transition-split.md`, `claim-quality-closure-roadmap.md`, `baryon-mass-predictions.md`, `vol4/.../ch14-.../theory.md`, `torus-knot-uniqueness.md`, `q-g19a-petermann-saliency-closure.md`, `vol9/ch11+ch13 index.md`, `vol4/falsification/ch12-.../index.md`. (Plus the ledger.)
 
 ---
 
@@ -153,8 +155,40 @@ Method: `scratchpad/check_orphans.py` (0 truly-orphaned — every leaf is linked
 
 **CONVENTIONS observation (not fixed — ledgered):** three leaves deviate from the "leaf begins with an H1 `# Title`" convention — `single-substrate-scale.md` and `unified-engine-design-doctrine.md` (no `#`/`##` title found by grep) and `k4-bloch-dispersion-quartic.md` (uses `## ` H2, not `# ` H1). Not corrected (heading-level changes can break external section-anchor cites; low-value; routed to the auditor with the orphan-index adjudication).
 
+### C1-B · Claim-id cross-check (prose ↔ `.index/claims.jsonl`)
+
+Method: extracted all `clm-[a-z0-9]{6}` ids from prose (345 distinct) vs `.index/claims.jsonl` (322 clm- + `axiom-*`/`ilk-*`/`def-*` framework ids). Direction B (index-claim never referenced in prose) = **0**. Direction A (prose ref not in index) = 23, of which 20 are non-issues:
+- **18 documentation placeholders** (`clm-111111`, `clm-222222`, `clm-aa1111`..`clm-hh8888`, `clm-co1111`, `clm-sb1111`..`clm-sb7777`, `clm-xxxxxx`, `clm-zzzzzz`) — live only in `CLAUDE.md` / `.index/SCHEMA.md` / `claim-quality.md` example rows / `tools/tests/fixtures/` — format illustrations, not references. Out of scope.
+- **`clm-ground`** — a false extraction (first 6 chars of the metadata field name `clm-grounded`), not a claim id.
+- **`clm-trf3bd`** — a deliberately-RETIRED position, correctly absent from the index: `vol1/claim-quality.md:12` reads "superseding the former `clm-trf3bd` real-space-trefoil-body position, **which is retired**"; also a query-API example in `.index/SCHEMA.md`. No action (correct as-is).
+
+**FLAG-DON'T-FIX (routed to auditor) — `clm-9oazz0` is a genuine PHANTOM claim-id.** Cited in **3 vol9 index leaves** (`vol9/ch19-calibration-justification/index.md:26`, `vol9/ch12-cosmological-characteristics/index.md:50`, `vol9/ch13-application-examples/index.md:22,:44*,:57`) as the canonical id for `common/full-derivation-chain.md`'s Machian-G / zero-parameter content — but it exists NOWHERE: not in `full-derivation-chain.md`'s frontmatter (which declares `claims: [clm-sxn6eo, clm-ibfyda]`), and 0 hits in `.index/claims.jsonl`. The correct replacement is **ambiguous** because the phantom is cited for a *mix* of content spanning three real ids:
+> - `clm-sxn6eo` — "Mathematical Closure Status — 'Structurally Zero-Parameter,' Not Absolutely" (matches ch19:26 "From Three Limits to Zero Parameters; 26→{m_e,α,G} reduction");
+> - `clm-ibfyda` — "Full Derivation Chain — Acyclicity and Identified Methodology Disclosures";
+> - `ilk-gravmb` — "G ← Machian-boundary-impedance termination (Achromatic-Lens far-field)" (matches ch12:50 / ch13:57 "closed-form $G=\hbar c/(7\xi m_e^2)$; gravity as Machian boundary impedance").
+> **Tell:** `vol9/ch13-.../index.md:44` correctly cites `ilk-gravmb` for the same Machian-G MIXED ruling, while `:22`/`:57` cite the phantom `clm-9oazz0` — an internal inconsistency in the same file, suggesting `clm-9oazz0` is a stale/mis-minted id. Per-citation the right id is likely `ilk-gravmb` (the Machian-G rows) or `clm-sxn6eo` (the zero-parameter-closure row), but which-per-row is a judgment the auditor should adjudicate against the claim register. **NOT fixed** (the vol9 index leaves are editable, but the replacement id is ambiguous and load-bearing — Machian-G / G-ruling `ilk-gravmb` MIXED). Routed to auditor.
+
+### C1-C · CONVENTIONS.md compliance — CLEAN (2 observations ledgered)
+
+Machine-checkable invariants all PASS:
+- `## Resultbox:` heading-form: 0 real hits (the 1 grep match is CONVENTIONS.md:355 documenting the check command itself).
+- `leaf: placeholder`: 0 real hits (the 1 match is CONVENTIONS.md:360, the check-command doc).
+- Bootstrap directives (`⛔ **Bootstrap`): PRESENT on entry-point.md + all volume indexes + common/index.md (9/9).
+- Up-link (`^[↑ ` on line 1): 0 leaves/indexes missing it (full sweep, excluding entry-point/sidecars/session/.index/tools).
+
+**Observation 1 (ledgered, not fixed) — frontmatter-migration residue.** The KB has migrated to `<!-- kb-frontmatter` (798 leaves); 5 migrated leaves retain a redundant legacy `<!-- leaf: verbatim -->` marker alongside their kb-frontmatter: `vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md`, `vol3/applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md`, `vol4/simulation/ch18-universal-vacuum-cell/spice-subcircuit.md`, `vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`, `vol2/quantum-orbitals/ch07-quantum-mechanics/orbital-penetration-penalties.md`. NOT removed — CONVENTIONS.md itself still documents `<!-- leaf: verbatim -->` as the line-2 marker, so the legacy marker is not "wrong" against current (stale) CONVENTIONS, and tooling dependence is unverified. (README.md/CONVENTIONS.md "leaf: verbatim" hits are documentation text, not markers.)
+
+**Observation 2 (ledgered) — CONVENTIONS.md is stale vs the kb-frontmatter migration.** CONVENTIONS.md §Document-Types / INVARIANT-S5 still specifies the old `Line 2: <!-- leaf: verbatim -->` leaf-marker format, but 798/803 leaves now use the `<!-- kb-frontmatter ... -->` block. Updating CONVENTIONS.md to document the kb-frontmatter format is a spec-authoring judgment (not a mechanical fix) — routed to the auditor / KB-maintainer, NOT applied here.
+
 ---
 
 ## NOT-SWEPT (honest disclosure)
 
-_(populated at close)_
+- **FENCED files (PR #738) — read-only ground truth, findings routed as APPLY-POST-#738:** `.index/claims.jsonl`, `common/claim-quality.md`, `common/dark-wake-bemf-foc-synthesis.md`, `common/engine-capability-map.md`, `common/substrate-hysteresis-index.md`, `common/trampoline-analogy-primer.md`, `vol3/cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md`, `vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md`, `_orchestration/2026-07-10_rulings-docket.md`, `_orchestration/2026-07-15_hardware-ratings-map.md`, `research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md`. Not edited; drift on them is in the APPLY-POST-#738 sections above.
+- **Branch-scrub follow-ups (docket 2026-07-19 continuation) — NOT this lane's sweep:** the 3 KEEP-branch KB-debt items (clm-exjfai moving-front refutation at `dark-wake-bemf-foc-synthesis.md:54` [FENCED] + `substrate-hysteresis-index.md:51` [FENCED]; the trampoline-analogy-primer.md:280 over-unification [FENCED]; the MOND kernel-conflict at `effective-galactic-acceleration-mond.md:15` [FENCED]) are all on FENCED files and are routed via their own PRs per the docket; not swept here (out of scope + fenced).
+- **`session/` tree** — deliberately excluded from leaf/orphan/CONVENTIONS sweeps: `session/axiom-homologation.md` carries a self-declared "DEPRECATED, do not make sweeping changes, to-be-deleted" banner; its 19 broken links are characterized (C1-A) but not fixed.
+- **`tools/` tree** — test fixtures + tooling (intentional broken-link/placeholder fixtures); excluded from all checks.
+- **Manuscript tex volumes (`manuscript/vol_0..vol_9`, `common_equations/`)** — the sibling lane's domain; not touched (KB→tex outbound links were fixed only *in the KB file*, e.g. the vol9 depth corrections).
+- **Deep banner-integrity audit (does every "preserved verbatim below" banner actually still contain the preserved text):** spot-checked on the load-bearing Class-2 leaves (all well-formed) but NOT exhaustively verified across all 169 status-marker-bearing files — a full preserved-text integrity audit is judgment-heavy and was not performed.
+- **Claim-quality sidecar solidity/depends-on re-scoring** — out of scope (that is the sidecar-refresh cadence, a `generalist-coder` dispatch per CONVENTIONS §maintenance-cadence, not doc-hygiene).
+- **Full CONVENTIONS.md rewrite for the kb-frontmatter migration** — spec-authoring judgment, routed to the auditor (C1-C Observation 2).
