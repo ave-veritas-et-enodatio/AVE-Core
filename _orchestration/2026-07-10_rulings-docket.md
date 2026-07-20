@@ -2047,11 +2047,13 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 ---
 
-## Continuation — 2026-07-19: moving-front freeze-in ARC LANDED (scrub FOLLOW-UP #1 remainder — ENTRY 23)
+## Continuation — 2026-07-19: moving-front freeze-in ARC LANDED (scrub FOLLOW-UP #1 remainder — ENTRY 25)
 
 **Append-only, dated block** (union-merge driver live on this docket). Records the reviewed-PR landing of the archived `analysis/moving-front-freezein` arc (tag `archive/analysis/moving-front-freezein` @ `f647f58b`) — the still-open remainder of scrub FOLLOW-UP #1 that ENTRY 22 D1 named ("landing the arc itself (prereg/result/module/tests + falsification-ledger entry)"). The clm-exjfai register demotion was already landed by PR #738 (D1); this lane did NOT redo it. Companion: landing addendum `research/2026-07-19_moving-front-freezein_landing-addendum.md`. **Canonizes nothing; banks no physics at result-class; adjudicates NO direction/fork/status.**
 
-### ENTRY 23 (2026-07-19): implementer lane — moving-front freeze-in arc LANDING (PR [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+### ENTRY 25 (2026-07-19): implementer lane — moving-front freeze-in arc LANDING (PR [DO-NOT-MERGE][REVIEW: pending-orchestrator])
+
+> **ENTRY-number collision note (2026-07-19, PR #746 repair, Repair 1).** This block was authored as "ENTRY 23" on a base that pre-dated open PR #742 (ENTRY 23) and open PR #744 (ENTRY 24). Renumbered to **ENTRY 25** (next free) to avoid the clash; read by entry number, not file position.
 
 - **Branch `feat/moving-front-freezein-landing` off `origin/main` `3efa24d6` (rebased; PR #738 + #739 merged since brief).** Landed VERBATIM from the tag (byte-identical, re-verified post-rebase): the frozen prereg (`7b97e76d`), the archived result doc + results.json (banked numbers UNEDITED, Rule 11 — no retune of the negative), the engine module `src/ave/topological/moving_front_freezein.py`, and tests `src/tests/test_moving_front_freezein.py`. Module verified against current main (deps intact: constructor kwargs, `_freeze_clamp_omega0_shared`, `TETRA_OFFSETS`, `TAU_RELAX_NATIVE`); 5/5 module tests pass (incl. engine_sim two-arm reduced).
 - **★REPRODUCTION GATE — MATCH on current main.** The banked two-arm protocol re-run on current main reproduces EVERY load-bearing number: memristive S_min monotone rise `0.04→0.19→0.56`, persistence (memr `3.04/0.45/1.46`, bare `1.01/1.35/1.58` Cp), τ_disperse `0.225 Cp` — all to 3 decimals; the ~30×-short lasting-freeze failure holds. Only the jittery single-snapshot `Q_end` differs (disclosed shorter post-window, not engine drift). `src/ave/` is byte-identical between the brief base and current main (`git diff --stat 1be045a1..3efa24d6 -- src/` empty), so the reproduction is valid for current main. Both archived + reproduced numbers banked (archived never overwritten).

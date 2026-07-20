@@ -213,6 +213,107 @@ verdict E1 is unambiguous under either seed and the ~45-min cost buys no
 verdict-relevant discrimination); flagged as the obvious follow-on if a reviewer
 wants the seed held fixed.
 
+### §2.3 — SAME-SEED LADDER (banked seed 4.0/1.8 at N=32; run post-review per the §2.2 flagged follow-on)
+
+Run POST-review to close the clean ladder the §2.2 note flagged: the two-arm
+N=32 protocol at the **BANKED seed** (`R_major=4.0, amp=0.3, sigma=1.8` — the
+`results.json` seed, held FIXED, NOT scaled with N), same driver structure as
+`run_full` (`x0_frac=0.12, r_ahead=1.2, r_behind=0.3, ell_front=2.0`,
+`n_post_compton=12.0`, `pml=3`, `v_fronts=(0.5,1.0,4.0)`). This holds the SEED
+fixed against the §1 banked-seed N=12 reproduction, so the only variable moved is
+resolution (N=12→N=32) — the apples-to-apples ladder §2.2 could not supply
+(§2.2 moved N AND seed together). **Governed entirely by the FROZEN §2.1 block;
+NO new criteria, NO frozen-text edits (Rule 11: numbers banked as-is, the frozen
+§2.1 criteria adjudicate).** Runtime = **2453 s** (~41 min). Raw dataset:
+[`2026-07-19_moving-front-freezein_N32-banked-seed.json`](2026-07-19_moving-front-freezein_N32-banked-seed.json).
+
+| v_front | Δt_cross/τ | regime | memr persist | bare persist | memr S_min | bare S_min |
+|---|---|---|---|---|---|---|
+| 0.5 | 4.0 | SLOW→HEAL | 2.701 Cp | 0.000 Cp | 0.000 | 0.000 |
+| 1.0 | 2.0 | SLOW→HEAL | 6.190 Cp | 0.000 Cp | 0.001 | 0.000 |
+| 4.0 | 0.5 | FAST→FREEZE | 3.489 Cp | 0.563 Cp | 0.118 | 0.000 |
+
+τ_disperse(N=32, banked seed) = **0.113 Cp** (vs 0.225 Cp at banked N=12, and
+0.900 Cp at committed-seed N=32 — the banked ring is tighter (R=4.0/σ=1.8) so the
+bare loop radiates out FASTER on the finer grid; τ_disperse is seed- AND
+resolution-dependent, and its N-scaling is NOT monotone across seeds. NOT a gate,
+per the §2.1 τ_disperse note.)
+
+**Same-seed ladder (banked seed 4.0/1.8 held FIXED; N=12 from §1/`results.json`):**
+
+| metric [v=0.5 / 1.0 / 4.0] | N=12 (banked) | N=32 (banked, this run) |
+|---|---|---|
+| memr persist (Cp) | 3.039 / 0.450 / 1.463 | 2.701 / 6.190 / 3.489 |
+| bare persist (Cp) | 1.013 / 1.350 / 1.576 | 0.000 / 0.000 / 0.563 |
+| memr S_min | 0.040 / 0.189 / 0.561 | 0.000 / 0.001 / 0.118 |
+| bare S_min | 0.000 / 0.000 / 0.000 | 0.000 / 0.000 / 0.000 |
+
+**Adjudication against the FROZEN §2.1 (falsifier + E1/E2/E3 — no criterion moved):**
+
+- **FROZEN FALSIFIER — did NOT fire (negative NOT re-opened).** The frozen §2.1
+  falsifier requires BOTH conjuncts: *"persistence GREW substantially with N
+  (e.g. toward tens of Cp) AND rose monotonically with v_front."* Neither is met:
+  (i) max persist = **6.190 Cp** (v=1.0) — single-digit, ~16× short of the 100 Cp
+  G3 target, NOT "toward tens of Cp"; (ii) persistence is **NON-monotone** with
+  v_front (2.701 → 6.190 → 3.489, peaking at the MIDDLE v=1.0), so it does not
+  "rise monotonically with v_front." With both conjuncts unmet the falsifier does
+  not trigger; the lasting-freeze **NEGATIVE STANDS** under the frozen criteria.
+- **E1 (persistence stays short) — operative clause HOLDS; stated band OVERSHOT
+  at one cell (flagged, NOT smoothed).** E1's load-bearing clause ("NOT rising
+  toward the 100 Cp G3 target") holds — no arm approaches lasting freeze
+  (max 6.190 Cp ≈ 6% of the 100 Cp target). BUT E1's descriptive magnitude band
+  ("≤ ~3–4 Cp") is **exceeded** at v=1.0 (6.190 Cp, ~14× the N=12 banked cell
+  value 0.450, and the largest single-cell persistence across ALL runs: banked
+  N=12 max 3.039, committed-seed N=32 max 3.264, banked N=32 max 6.190). Surfaced
+  plainly as a same-seed resolution sensitivity of the persistence metric — NOT a
+  lasting freeze, NOT a criterion edit.
+- **E2 (S_min monotone rise + bare≈0) — DIRECTION holds but WEAKENS; MAGNITUDE
+  collapse is now shown to be RESOLUTION-driven, correcting the §2.2 caveat.**
+  The direction survives (0.000 → 0.001 → 0.118, monotone non-decreasing; bare ≈ 0
+  at all v). But the rise is now carried **almost entirely by the single fast
+  cell** (v=4.0 = 0.118); the two slow cells (0.000, 0.001) sit at the noise
+  floor, i.e. the slow-cell separation has collapsed to near-degeneracy. **★E2
+  magnitude question — the ladder's decisive datum:** the banked-seed N=32 S_min
+  (0.000 / 0.001 / 0.118) is **IDENTICAL to 3 decimals to the committed-seed N=32
+  S_min** (0.000 / 0.001 / 0.118). Because BOTH seeds give the same N=32 S_min,
+  the collapse from banked N=12 (0.040 / 0.189 / 0.561) is an **N (resolution)
+  effect, seed-INVARIANT — NOT the seed effect the §2.2 honest caveat tentatively
+  attributed it to** (§2.2 could not separate N from seed; this same-seed ladder
+  does). Stated without spin: E2's direction does not invert, but its magnitude is
+  resolution-suppressed to the point where the mechanism signal at N=32 is
+  effectively a lone fast-cell datum — the "monotone RISE" is real in sign but
+  weak in strength at N=32, and weaker than the N=12 banked seed showed.
+- **E3 (no clean lasting-freeze discriminator) — HOLDS; the §2.2 arm-flip
+  persists.** No arm reaches lasting freeze (all ≤ 6.190 Cp), so persistence is
+  not a clean freeze-vs-heal discriminator (E3 core). The §2.2 sub-observation
+  (memristive out-persists bare at all v at N=32) reproduces at the banked seed:
+  memr 2.701 / 6.190 / 3.489 vs bare 0.000 / 0.000 / 0.563 — memristive out-lasts
+  bare at every v. The bare arm's own persistence FELL from N=12 (1.013 / 1.350 /
+  1.576) to N=32 (0.000 / 0.000 / 0.563), consistent with the smaller τ_disperse
+  (0.225 → 0.113 Cp): the bare loop radiates out faster on the finer grid.
+
+**What the ladder ADDS (honest scope).** (1) The clean same-seed N=12→N=32
+resolution comparison §2.2 could not give (seed held fixed at 4.0/1.8): the
+lasting-freeze negative is confirmed a THIRD time (banked N=12 §1 + committed-seed
+N=32 §2.2 + banked-seed N=32 here), now with the seed controlled — the falsifier
+untriggered under either seed at either resolution. (2) It **resolves the E2
+magnitude question** the review raised: the S_min collapse at N=32 is a resolution
+effect (seed-invariant), not a seed effect — a correction to the §2.2 caveat's
+tentative reading, landed here without editing §2.2 (flag-don't-fix). (3) It
+surfaces TWO honest new data the single-cell/cross-seed runs did not: the v=1.0
+persistence growth to 6.190 Cp (E1 band overshoot) and the NON-monotone
+persistence-vs-v shape (peak at mid-v). Neither meets the frozen falsifier's
+conjunction, so the negative is not re-opened here — but both are surfaced to the
+auditor as the ladder's yield for any clm-exjfai promotion decision (implementer
+surfaces; auditor lands; A44 fork still undiscriminated — both forks predict short
+non-lasting persistence at N≥32 under either seed). **★Note vs §2.2's
+seed-robustness paragraph:** §2.2 judged this ladder would buy "no verdict-relevant
+discrimination"; the VERDICT (no lasting freeze) indeed did not move, but the
+ladder DID surface verdict-adjacent data (the N-driven S_min collapse + the
+v=1.0 overshoot + non-monotonicity). §2.2's paragraph is left verbatim (its
+prediction was on the verdict, which held); this §2.3 records what the run added
+beyond it.
+
 ---
 
 ## §3 FALSIFICATION-LEDGER ENTRY — OWED POST-CLEANUP (canonical ledger is FENCED)
