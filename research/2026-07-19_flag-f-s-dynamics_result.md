@@ -8,6 +8,10 @@
 
 ## 1. Headline
 
+> **🔴 RE-BANKED 2026-07-19 (PR #744 adversarial review `wf_58c5701a`; CRITICAL F1/F11 + MAJOR F2/F3/F6 → R-1/R-2/R-3/R-4). The headline below is RETRACTED where it echoes "the derivation ruled world (a)" and "degenerate reactive-vs-memristive" (Rule-12, preserved verbatim). Corrected:** the derivation did **NOT** rule world (a) at the crossing — it partially discharged Flag F and left the (a)/(b) fork **OPEN pending `J(ω)`** (see `-derivation.md` §0 re-bank). Stage 2's `ζ`-family shape-class result (Debye vs Resonant) is genuinely earned and stands; but the peak-location datum is degenerate across **THREE** worlds (Form S memristive, Form R reactive, **AND** Form T transductive world-(b), which also lands in-window at `ω_S = 1.687` — `result.json adjudication.forms_in_window_count = 3`), not two (R-2); and the loop-bearing "world-(a)" Form R is `ζ=0.1`, whose loop is 100% damping-generated (a strictly lossless `ζ=0` form has machine-zero loop — R-3). The re-banked axis rows are carried in the 🔴 banners in §3–§6 below.
+>
+> **Superseded original headline (verbatim, Rule-12):**
+
 **The derivation ruled world (a) reactive at the near-yield crossing; Stage 2 confirms the derived `ζ`-family structure empirically and shows the `#735` `0.911` datum is DEGENERATE (does not discriminate reactive-vs-memristive).** The genuine discriminator is the **loop SHAPE CLASS**, not the peak location:
 
 | Form | `ζ` | `(r,S)` peak | `(V,I)` peak | fundamental phase | **shape class** |
@@ -39,7 +43,11 @@
 4. **Axis (ii):** reported as a registration-quality caveat (no origin-pinch, all forms), not a gate.
 5. **Precedence:** Axis (iii) structural **outranks** Axis (i) tunable. Final verdict: **the shape class separates the branches; the peak-location datum does not.**
 
-## 4. What this means for the fork (routed to Grant; the derivation already ruled)
+## 4. What this means for the fork (routed to Grant; the fork STAYS OPEN — re-banked)
+
+> **🔴 RE-BANKED 2026-07-19 (PR #744; CRITICAL F1/F11 → R-1). The §4 heading's "the derivation already ruled" and the first sentence's "ruled world (a) at the near-yield crossing" are RETRACTED (Rule-12, verbatim below).** The derivation did NOT rule the fork; it showed only that Eq 2.1's Markovian *reduction* is unlicensed at `ωτ~1` (invalid-model ≠ loop-nets-zero). The crossing is a non-Markovian world-(a)/(b) HYBRID, UNDETERMINED pending `J(ω)`. See `-derivation.md` §0.
+>
+> **Superseded original (verbatim, Rule-12):**
 
 The derivation (`-derivation.md` §8) ruled **world (a) at the near-yield crossing** on structural grounds (the memristive loop is appreciable only at `ωτ~1`, exactly where the Markovian reduction producing Eq 2.1 fails). Stage 2 adds the *empirical* content the `#735` C-3 SPEC promised but never ran (the reactive second-order contrast):
 

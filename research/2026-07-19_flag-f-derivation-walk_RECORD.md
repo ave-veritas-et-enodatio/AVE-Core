@@ -9,6 +9,8 @@
 
 This RECORD is the durable walk record. It splits, cleanly and permanently, **Grant's verbatim words** from **the orchestrator's walk wording that Grant ratified**. The derivation itself is the sibling doc `research/2026-07-19_flag-f-s-dynamics-derivation.md`.
 
+> **🔴 OUTCOME POINTER (2026-07-19, PR #744 adversarial review `wf_58c5701a`; R-1).** This RECORD is a *pre-run walk record* — §4 lists the three worlds to be discriminated, it does NOT bank an outcome. For the record: the derivation's self-banked "World (a) REACTIVE — DERIVED / Flag F RESOLVED" verdict has since been **RE-BANKED** — Flag F is **PARTIALLY discharged** and the (a)/(b) fork **STAYS OPEN pending `J(ω)`** (`-derivation.md` §0). Grant's reversible-reactive lean (§4a) is **SUPPORTED, not validated-at-derived-grade**. The Grant-verbatim (§1) and ratified-frame (§3–§5) content below is untouched — only the downstream verdict grade changed.
+
 ---
 
 ## 1. Grant's verbatim ruling (NOT to be hardened, [sic] preserved)
