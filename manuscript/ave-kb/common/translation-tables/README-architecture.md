@@ -48,7 +48,7 @@ Every spoke row carries three fields beyond the concept↔substrate pair:
 |---|---|---|
 | [circuit / EE](translation-circuit.md) | **EXISTS (privileged operational spoke)** | 30+ primitive rows + tool tracker + means-test corpus; the canonical first-call |
 | [elastodynamics / seismology](translation-elastodynamics.md) | **NEW (this batch)** | seeded from merged #753 (§6 Aki–Richards P/S receipt); the elastic-medium sibling |
-| [materials / metallurgy](translation-materials.md) | **NEW (this batch) — ⚠ source-gated** | source derivation PR #762 (`research/vacuum-metallurgy`) **NOT YET MERGED**; rows provisional (see the leaf banner) |
+| [materials / metallurgy](translation-materials.md) | **NEW (this batch)** | source derivation PR #762 (`research/vacuum-metallurgy`) **merged 2026-07-20**; rows canonical (see the leaf banner) |
 | [quantum mechanics](translation-qm.md) | sibling — retrofit-graded, routed | pre-existing §8 sibling; per-row hub-and-spoke retrofit is an auditor-lane follow-on |
 | [particle physics](translation-particle-physics.md) | sibling — retrofit-graded, routed | " |
 | [gravity](translation-gravity.md) | sibling — retrofit-graded, routed | " |
