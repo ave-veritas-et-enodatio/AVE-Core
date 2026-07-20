@@ -2144,3 +2144,37 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 - **Owed to auditor lane (implementer surfaces; auditor lands):** (a) the OWED falsification-ledger entry into the canonical KB ledger; (b) the N≥32-discharges-the-resolution-caveat datum for any clm-exjfai status re-visit; (c) the FLAG-1 direction ruling to Grant; (d) FLAG-2 numbering reconciliation. **Hold the `archive/analysis/moving-front-freezein` pointer per the inventory note until the PR merges.**
 
 **Class:** repo landing of a closed-negative arc + a disclosed N≥32 extension confirming resolution-robustness; canonizes nothing. Every cite two-method verify-before-cite'd this session (`src/` byte-diff, `git show` byte-identity, PR #738 merge SHA, clm-exjfai on-main state).
+
+---
+
+## Continuation — 2026-07-20: post-wave KB batch — the fenced/owed items from PRs #740–#746 (ENTRY 26)
+
+**Append-only, dated block (union-safe tail; prior blocks untouched).** Records the consolidated post-wave KB batch (branch `docs/post-wave-kb-batch`) that discharges the items PRs #740–#746 fenced as APPLY-POST-#738 / OWED. Ground truth is now all on merged main; every anchor content-verified two-method this session (several items were specified against pre-merge line numbers).
+
+### ENTRY 26 (2026-07-20): implementer lane — consolidated post-wave KB batch (B1–B12)
+
+**★ The seven wave PRs (#740–#746) are all MERGED — ratifications (board clean).**
+- **#740** — KB documentation cleanup (07-01→07-19 window).
+- **#741** — deep-space band-map derivation: CLEAN NULL at solar-system scale (Kirkwood `(q/p)^{2/3}` = Kepler relabel, peer-with-Newton) + the `clm-h55fy1` banner-flip (drag-spike → reactive-reflection / zero-drag `v`-independence, reachability FUTURE).
+- **#742** — interacting-bath arrow SPEC (BUILD-GATED): derived shared-`S(A)` Kerr/FWM coupling (coeff `1/4` kernel-fixed), `~40×` sub-threshold at MILD (retro-predicts the #734 null), **barrier-B2 scalar-port sharpening** of #734, breaks the #721 identity if built.
+- **#743** — X40-click arrow SPEC (BUILD-GATED): count-coordinate (topological `b_1` mint) arrow expressible where the floor's modal-phase was barred; the meter's hard-zero **clamp adjudicated a NUMERICAL GUARD** (fails all three click signatures), Loschmidt-class chord-vs-echo undecided.
+- **#744** — Flag-F S-dynamics **re-banked verdict**: Eq 2.1's Markovian first-order reduction UNLICENSED at `ωτ~1`; isolated node second-order reactive (`I_S` kinetic-term provenance OPEN); axiom-level resistor EXCLUDED; the **(a)/(b) world-fork STAYS OPEN pending the z=3 bath `J(ω)`** — Flag F PARTIALLY discharged, awaiting Grant ratification (never RESOLVED).
+- **#745** — vol_9 datasheet update (ch5 thixotropy fork-open note).
+- **#746** — moving-front freeze-in arc LANDING (N≥32 resolution-robust negative; A44 engine-vs-corpus fork undiscriminated).
+
+**★ The two build-gates STAND (Grant walks each).** Neither arrow arm is built; both SPECs are BUILD-GATED (interacting-bath breaks the #721 identity ⇒ full re-cert; X40-click builds off-instrument on the X40 mint machinery). The counting-arrow QUESTION remains OPEN; the reactive-floor route is closed *structurally* (#734 tri-form, ii).
+
+**★ This batch = B1–B12 one-liner pointer/context notes** (no new canon, no physics banked; every note dated + Rule-12 KEEP-BOTH additive):
+- **B1/B2** — `engine-capability-map.md` §8c.10 superseded-in-part pointer + new §8c.12 post-wave arrow/fork state.
+- **B3** — `f6-thermal-floor-arm_result.md` §0(b) barrier-B2 sharpening note (#742).
+- **B4** — `#59` §12 Flag-F PARTIALLY-discharged pointer (#744; never RESOLVED).
+- **B5** — `tau-relax-derivation.md` §6 `S(t)`-ODE-built staleness correction + Flag-F regime-of-validity (`ωτ≪1`) pointer.
+- **B6** — `substrate-hysteresis-index.md` memristive-loop fork-OPEN context (#735 zero-info `(r,S)` + #744 three-way-degenerate `(V,I)`; crux = `J(ω)`).
+- **B7** — vol_9 ch5 `0.911`-datum THREE-WAY-DEGENERATE update (#744; pdflatex re-check clean).
+- **B8** — moving-front-freezein 🔴 GENUINE-FALSIFICATION entry LANDED into `genesis-chord-falsification-ledger.md` (seed-controlled N≥32 discharge + 6.19 Cp non-monotone rider; A44 flag carried).
+- **B9** — `clm-h55fy1` claim-body/reachability relabel (leaf + register block; solidity unchanged 0.30; `make refresh-kb-metadata` run, index unchanged).
+- **B10** — `clm-9oazz0` phantom adjudication in 3 vol9 index leaves (ch12:50/ch13:22,:44,:57 → `ilk-gravmb`; ch19:26 → `clm-sxn6eo`; ch13:44 = surfaced deviation beyond the explicit list).
+- **B11** — `kirkwood-gaps-cavity-modes.md` consistency-class note (`(q/p)^{2/3}` = Kepler; peer-with-Newton).
+- **B12** — FOLLOW-UP numbering reconcile note in the scrub inventory (docket ENTRY 22 SWAP; ENTRY 22 append-only, NOT edited).
+
+**Class:** consolidated documentation batch (fenced/owed discharge); canonizes nothing; banks no physics. **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator].** **Owed to auditor lane** (implementer surfaces; auditor lands): any manual/manuscript-queue entries downstream of these notes. Receipts: the four wave research docs (interacting-bath SPEC, X40-click SPEC, Flag-F derivation, band-map derivation) + the #746 landing addendum; every anchor two-method verify-before-cite'd this session.
