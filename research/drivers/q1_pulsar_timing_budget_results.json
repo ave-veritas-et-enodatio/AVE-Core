@@ -19,6 +19,7 @@
     "sqrt_10_3_pwave": 0.04929503017546498
   },
   "A_ang": 0.6666666666666666,
+  "A_ang_mc": 0.6661521966248216,
   "flux_ratio_F_bulk_over_F_shear": {
     "headline_port_sqrt2": 0.11785113019775796,
     "headline_pwave_sqrt_10_3": 0.03286335345030998,

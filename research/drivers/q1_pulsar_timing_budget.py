@@ -137,6 +137,7 @@ results = {
         "sqrt_10_3_pwave": speed_factor(c_P),         # (3/10)^2.5
     },
     "A_ang": A_ANG,
+    "A_ang_mc": None,  # filled in main()
     "flux_ratio_F_bulk_over_F_shear": {
         "headline_port_sqrt2": F_port,
         "headline_pwave_sqrt_10_3": F_pwave,
@@ -158,7 +159,28 @@ results = {
 }
 
 
+
+
+def mc_a_ang(n: int = 4_000_000, seed: int = 424242) -> float:
+    """Monte-Carlo verification of A_ang = I_P/I_S (review-repair R1: the shipped
+    second method for the 2/3 angular partition; analytic value at A_ANG above)."""
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    # generic traceless-symmetric test tensor (asymmetric entries)
+    M = np.array([[0.7, 0.31, -0.12], [0.31, -0.45, 0.53], [-0.12, 0.53, -0.25]])
+    M = 0.5 * (M + M.T)
+    M -= np.eye(3) * np.trace(M) / 3.0
+    v = rng.normal(size=(n, 3))
+    g = v / np.linalg.norm(v, axis=1, keepdims=True)
+    Mg = g @ M
+    long_amp = np.einsum("ij,ij->i", g, Mg)          # γ·M·γ  (P projection)
+    full_sq = np.einsum("ij,ij->i", Mg, Mg)          # |M·γ|²
+    i_p = float(np.mean(long_amp ** 2))
+    i_s = float(np.mean(full_sq - long_amp ** 2))
+    return i_p / i_s
+
 def main() -> None:
+    results["A_ang_mc"] = mc_a_ang()
     print("Q1 pulsar-timing budget + exact bulk/shear flux prefactor")
     print("=" * 64)
     print(f"c_bulk_port/c   = {r_bulk_port:.6f}  (expect sqrt2   = {math.sqrt(2):.6f})")

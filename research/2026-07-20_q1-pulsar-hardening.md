@@ -38,7 +38,7 @@ with `γ_i` the radial direction cosines, `c_L` the longitudinal (P) speed, `c_T
 
 Carrying the flux integral (the `1/(ρ² c^6)` amplitude × `ρ c` flux × `r²` cancels to `1/(ρ c^5)` × an angular integral of the traceless symmetric `M`):
 
-$$P_{\rm long} \;=\; \frac{\langle|\dddot M|^2\rangle}{\rho\,c_L^5}\cdot\underbrace{\oint |\gamma_p\gamma_q \hat M_{pq}|^2\,d\Omega}_{=\,(8\pi/15)\,|M|^2},\qquad P_{\rm shear} \;=\; \frac{\langle|\dddot M|^2\rangle}{\rho\,c_T^5}\cdot\underbrace{\oint |(\delta-\gamma\gamma)\!\cdot\!(\gamma\!\cdot\!\hat M)|^2\,d\Omega}_{=\,(4\pi/5)\,|M|^2}.$$
+$$P_{\rm long} \;=\; \frac{\langle|\ddot M|^2\rangle}{\rho\,c_L^5}\cdot\underbrace{\oint |\gamma_p\gamma_q \hat M_{pq}|^2\,d\Omega}_{=\,(8\pi/15)\,|M|^2},\qquad P_{\rm shear} \;=\; \frac{\langle|\ddot M|^2\rangle}{\rho\,c_T^5}\cdot\underbrace{\oint |(\delta-\gamma\gamma)\!\cdot\!(\gamma\!\cdot\!\hat M)|^2\,d\Omega}_{=\,(4\pi/5)\,|M|^2}.$$
 
 The two angular integrals are standard results for a traceless symmetric `M` (using `∮γ_iγ_jγ_kγ_l dΩ/4π = (1/15)(δδ+δδ+δδ)`):
 - **Longitudinal (P):** `∮|γ_pγ_q M_pq|² dΩ = (8π/15)|M|²` (the `l=2` radial projection).
@@ -103,7 +103,7 @@ Under Reading A the bulk quadrupole radiates ON TOP of the shear quadrupole, so 
 | `0.1179` (headline, port `√2·c`, `A=2/3`) | **73.7σ** | **907×** the bound |
 | `0.1768` (max bracket: `A=1.0`, `√2·c`) | **110.5σ** | **1360×** the bound |
 
-$$\boxed{\ \textbf{Reading A is EXCLUDED at }9\text{–}110\sigma\text{ (Hulse-Taylor) and by }100\text{–}1400\times\text{ the double-pulsar bound}\ (\gtrsim 200\sigma\text{-equiv.}).\ }$$
+$$\boxed{\ \textbf{Reading A ([radiative bulk port + O(1) coupling]) is EXCLUDED at }9\text{–}110\sigma\text{ (Hulse-Taylor) and by }100\text{–}1400\times\text{ the double-pulsar bound}\ (\gtrsim 200\sigma\text{-equiv.}).\ }$$
 
 **Stated plainly (Rule 11 honesty, no thumb on the scale):** the exclusion is DECISIVE across the *entire* plausible range — the smallest defensible admixture (`A=0.3`, the more-suppressed `√(10/3)·c` speed) still exceeds the double-pulsar bound by 114× and the Hulse-Taylor precision by 9σ. There is **no corner of the FLAG-A speed × O(1)-coupling grid where Reading A survives pulsar timing.** If Reading A is the physics, this is a **clean kill-class result to bank.**
 
@@ -115,6 +115,8 @@ The manuscript **already carries** the Q1 fork as an unresolved contradiction, v
 - The manuscript's own **`warningbox`** flags this as *"unresolved channel attribution"* and notes it was independently surfaced by the vacuum-impedance-probe Phase-A result and the 2026-07-03 longitudinal-energy-budget audit.
 
 **This IS Q1 surfacing inside the existing manuscript.** If the HT decay is *bulk* (as step-3 says) AND the GW is *shear* (as the summary + KB say), the two channels **double-count** the same orbital-decay energy — which pulsar timing (matched to a single quadrupole channel) forbids. The register's Q1 fork is not a new hypothetical; it is the resolution of a contradiction the corpus has been carrying. **Flagged for Grant/auditor; NOT reframed to match either side** (fence: `08_gravitational_waves.tex` not edited by this lane).
+
+*Review-repair W1 (2026-07-20) — the lightest reading, added so the ruling is not pre-framed:* step-2 of the same chapter (`:78`) pins the decay wave's propagation at **`c₀` — the SHEAR speed**, which is internal textual evidence that step-3's "bulk lattice network" may be **loose prose for "the surrounding medium"** (a shear emission), not the A1 bulk channel. Under that reading the warningbox resolves by a **standalone wording fix** (step-3 → "shear") with **no physics fork**, and Q1 remains a separate theoretical question. The adjudication menu is therefore THREE-way: (a) genuine bulk-channel double-count → resolves with the Q1 ruling; (b) loose prose → one-line wording fix, Q1 unaffected; (c) hold. One-sentence question for Grant: *is step-3's "bulk lattice network" the A1 channel, or just the medium?*
 
 ---
 
