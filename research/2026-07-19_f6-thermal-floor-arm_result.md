@@ -117,6 +117,8 @@ The floor-injected fluctuation (ensemble seed-spread of `R_rev`, a fluctuation p
 
 The fluctuation proxy grows with ρ (more floor ⇒ more jitter) while the relaxation time is roughly ρ-stable, so the FD ratio rises smoothly with the floor level. **No fluctuation-dissipation theorem is asserted;** banked for the routed open only.
 
+> **SEM caveat (2026-07-20, #752 — the "seed-spread" fluctuation proxy above and the FD-ratio table are preserved; this scopes their absolute value).** The fluctuation proxy is an **ensemble SEM** (`std/√N_seeds`, N_seeds=6), so the **absolute FD-ratio (the `0.129` at ρ=5) is an N-dependent artifact — it scales as `1/√N_seeds`** and is calibration + ensemble-size-dependent, NOT a forced dimensionless number (`research/2026-07-20_hbar-as-fd_result.md` ★VERDICT + §3, merged #752). What IS N-invariant and analytically exact is the **√ρ SHAPE** (the ½ amplitude-law exponent + the ½:½ C-state=L-state quadrature split + the ρ→0 zero intercept — the universal classical-FD / Johnson-Nyquist equipartition signature, CONSISTENCY-class, no chord). Do not read the `0.129` absolute as substrate content; the shape is the only forced content and it is peer-with-stat-mech.
+
 ---
 
 ## 6 · Independent re-derivation + gates + provenance

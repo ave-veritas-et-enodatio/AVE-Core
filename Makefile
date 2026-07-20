@@ -126,6 +126,7 @@ verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps
 	$(PYTHON) $(SCRIPT_DIR)/verify_xi_namespace.py
 	@echo "\n[Verify][advisory] Running anchor-content drift check (WARN-CLASS, non-gating)..."
 	-$(PYTHON) $(KB_TOOLS_DIR)/verify-anchor-content.py
+	-$(PYTHON) $(KB_TOOLS_DIR)/verify-docket-keys.py
 	@TEX_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/main.tex $(PAPER_DIR)/refs.bib $(PAPER_DIR)/figures 2>/dev/null || echo 0); \
 	PDF_T=$$(git log -1 --format=%ct -- $(PAPER_DIR)/$(PAPER_JOB).pdf 2>/dev/null || echo 0); \
 	if [ "$${TEX_T:-0}" -gt "$${PDF_T:-0}" ]; then \
