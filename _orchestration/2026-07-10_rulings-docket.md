@@ -2228,13 +2228,14 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 **Label note (flag-don't-fix, not a corpus edit).** The RULING-3 landing spec named "the B3 note" in `f6-thermal-floor-arm_result.md`; the doc's note is labelled **"B2-SHARPENING"** (barrier **B2** = the scalar-port bottleneck). These reconcile: **"B3" is the post-wave-batch ITEM label** (docket ENTRY 26, item B3 = "the barrier-B2 sharpening note"), while **"B2" is the BARRIER label**. `engine-capability-map.md` §8c.12 line "a SECOND barrier — see B3" likewise uses the batch-item label. Recorded here as a naming adjacency; not harmonized (both labels are correct in their own register).
 
 **Class:** ratification-landing batch (three teed rulings → KB banners/register/pointers + research-doc RULED notes); canonizes nothing new; banks no physics. **PR [DO-NOT-MERGE][REVIEW: pending-orchestrator].** `make verify` green; `make refresh-kb-metadata` used for the register solidity recompute (jsonl not hand-edited); KB verify PASS. **Owed to auditor lane (implementer surfaces; auditor lands):** any manuscript/manual-queue entries downstream of the clm-exjfai refuted-band demotion + the two build-park licenses.
-## Continuation — 2026-07-20: A1 amplitude trace — g_N vs sqrt(g_N) constitutive identification (ENTRY 29)
+## Continuation — 2026-07-20: A1 amplitude trace — g_N vs sqrt(g_N) constitutive identification (ENTRY 31)
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).**
 
 > **ENTRY-number note (2026-07-20).** Base is `origin/main` @ `64f1894d` (max ENTRY 26). ENTRY 27 is held by concurrent unmerged branches (`docs/ratification-batch-2026-07-20`, `research/jomega-derivation`, `research/scalar-gw-port`) and ENTRY 28 by `research/hbar-as-fd` (checked at freeze). This block takes **ENTRY 29** (next-free above the concurrent holds); read by entry number, not file position.
 
-### ENTRY 29 (2026-07-20): implementer lane — A1 amplitude trace (short derivation lane, Grant-fired)
+### ENTRY 31 (2026-07-20): implementer lane — A1 amplitude trace (short derivation lane, Grant-fired)
+*(Renumber note: authored as 29; main holds 27/28/29 (#749/#752/#753) and open #751 holds 30 — renumbered to next-free 31. Read by entry number, not position.)*
 
 **Question (settles the physics under #748).** At a node in a galaxy's STATIC gradient-index profile, what is the Axiom-4 kernel amplitude `A` in `S(A)=√(1−A²)`? Candidate (i) `A=g_N/a_0` (#748 canonical, → QUADRATIC kernel) vs (ii) `A∝√(g_N/a_0)` (engine-docstring "strain ∝ √g_N" narrative; retirement-equivalent to the retired LINEAR kernel). #748 (`feat/mond-kernel-adjudication`, UNMERGED) canonicalized (i) from the leaf's own setup but its R3 note SURFACED-TO-GRANT that it "does not derive it." This lane is that derivation.
 

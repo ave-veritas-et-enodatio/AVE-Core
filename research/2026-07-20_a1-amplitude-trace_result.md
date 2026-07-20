@@ -5,7 +5,7 @@
 **Checks:** [`2026-07-20_a1-amplitude-trace_checks.py`](2026-07-20_a1-amplitude-trace_checks.py) (sympy — C1–C4 all PASS)
 **Verdict:** **`A = g_N-FORCED`.** The Axiom-4 kernel amplitude at a node in a galaxy's static
 gradient-index profile is `A = g_N/a_0` (linear-in-field → the QUADRATIC kernel). #748's canonical
-form is CONFIRMED and its amplitude identification upgrades **leaf-asserted → substrate-derived**,
+form is CONFIRMED and its amplitude identification upgrades **leaf-asserted → substrate-consistent, ANCHOR-FORCED within the established gravity-as-refraction correspondence (review repair R1: the g_N↔E_local leg is analogy-level/correspondence-transported — the corpus derives Φ↔n for the metric channel; the field↔field MOND-amplitude leg is inferred, not independently traced)**,
 conditional on one corpus-native mapping named explicitly in §5.
 
 **Class (consistency-vs-emergence):** this is a FORM identification (which node coordinate is `A`),
@@ -158,7 +158,7 @@ gravity-as-dielectric-refraction), with yield `a_0`. Linear. The DC-static frami
 
 **The single named conditional (fail-closed honesty).** The forcing rests on **one** corpus-native
 identification: *`g_N` is the A1-tank's DC field-bias (the `E_local`-analog), with `a_0` the yield
-field.* This is NOT a fresh posit — it is the standard AVE gravity-as-dielectric-refraction mapping
+field.* This is not a fresh posit *in the sense that the correspondence is corpus-established* — but the g_N↔E_local leg itself is ANALOGY-LEVEL / correspondence-transported, not independently derived (review repair R1) — it is the standard AVE gravity-as-dielectric-refraction mapping
 (`einstein-field-equation.md:76`) plus Axiom-2 scale-invariance (one kernel, all scales, the
 field/yield-field grammar of all 26 catalog rows). Under that identification, `A = g_N/a_0` is FORCED
 with no free alternative at a DC operating point. **The ONLY way (ii) could win** is the additional
@@ -231,3 +231,9 @@ framework's usual FORM-derived / VALUE-imported split holds.)
 - **No adjudication-criterion drop.** The frozen bins + selection criteria + anti-anchoring fence are
   exactly as pushed in the prereg; the verdict was reached by the frozen chain, and reading (ii) was
   run as a live possibility (steel-manned in §3–§4) before being set aside.
+
+
+---
+**Review repairs (2026-07-20, R1/R2 — frozen prereg untouched):**
+- *R1 (precision):* headline softened as above; the routed `clm-u86caq` re-tag MUST carry the same qualifier — re-tag to "substrate-consistent / anchor-forced within the refraction correspondence," NOT unconditional "derived."
+- *R2 (docstring-mismatch scope):* the engine docstring/code mismatch is LARGER than the §4-flagged `:135` narrative sentence — the docstring's own kernel-formula block states the retired LINEAR `√(1−g_N/a₀)` at `galactic_rotation.py:130-131, :141, :163` while the code computes the QUADRATIC via `saturation_factor→universal_saturation`. The routed engine-hygiene follow-on (running: infra/op4-anchorci-docstrings lane) covers these sites; recorded here so the follow-on's scope is auditable.
