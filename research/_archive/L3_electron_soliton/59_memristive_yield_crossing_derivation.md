@@ -673,6 +673,8 @@ Four new entries to be added to `manuscript/predictions.yaml`:
 
 **Flag F (§2.3):** "Ax3 overdamped-action limit gives the first-order relaxation ODE" is asserted but not derived rigorously. A proper derivation would start from the full K4 Lagrangian with a kinetic term in S and show that the overdamped limit (I_S → 0) leaves only the Eq. 2.1 structure. This is the same issue as Flag A — it's a derivation consistency item.
 
+> **Flag F PARTIALLY discharged (2026-07-19, ratified-by-merge #744):** Eq 2.1's Markovian first-order reduction is derivably UNLICENSED at ωτ~1; the isolated node is second-order reactive (kinetic-term provenance OPEN); the axiom-level resistor is excluded; the (a)/(b) fork at the crossing STAYS OPEN pending the z=3 bath spectral density J(ω). Source: `research/2026-07-19_flag-f-s-dynamics-derivation.md` §0 (re-banked verdict). Never RESOLVED.
+
 **Flag G (§5.4):** the lattice-genesis framing assumes a pre-genesis plasma state that EXISTS BEFORE Ax1 applies. What axioms govern the plasma? Is there a pre-lattice effective action? This is genuinely outside Ax1-4's current scope. The framing has strong explanatory power (resolves baryogenesis, connects to BH-interior) but requires either (a) an Ax0 "plasma axiom" or (b) a demonstration that Ax1-4 can describe the plasma state as an Ax1 degenerate limit. Corpus gap; flag for future derivation.
 
 **Flag H (§8.4):** CPT analysis is done in a local inertial frame near a chirality boundary. Generalizing to globally-curved spacetime (e.g., near a rotating black hole where frame-dragging matters) is not done. For the Phase 5e soliton-scale experiments this is not load-bearing; for astrophysical predictions (Hawking polarization asymmetry, §8.5 residual item) it would matter.
