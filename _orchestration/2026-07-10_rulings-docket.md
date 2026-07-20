@@ -2321,7 +2321,8 @@ Re-derive the Asteroid-Belt / Oort structure and the lunar heat budget as **reac
 
 **Append-only, dated block (union-safe tail; prior blocks untouched).** New implementer lane (`docs/port-register-promotion`, PR [DO-NOT-MERGE][REVIEW: pending-orchestrator]) — Grant-fired 2026-07-20; the **canon-promotion gate satisfied by *"lets do it"* `[sic]`**. Promotes the port-register draft (ENTRY 29; `research/2026-07-20_port-register_draft.md`, merged #753) to the canonical `manuscript/ave-kb/common/port-register.md` leaf. **NO-CLAIM register leaf; taxonomy = orchestrator walk-wording ratified by the firing (tagged throughout, never Grant-verbatim); consolidation is CONSISTENCY-class; mints no `clm-`.** KEEP-BOTH: the draft is preserved with a dated PROMOTED note.
 
-### ENTRY 33 (2026-07-20): implementer lane — port-register canon promotion
+### ENTRY 36 (2026-07-20): implementer lane — port-register canon promotion
+*(Renumber note: merged main holds ENTRY 33; renumbered to next-free 36. Read by entry number, not position.)*
 *(Renumber note: authored as 31; main holds 27–32 (#749/#752/#753/#751/#754/#750) — renumbered to next-free 33. Open #756 contends for the same range; whichever merges second renumbers again. Read by entry number, not position.)*
 
 - **Deliverable 1 — the canonical leaf.** `common/port-register.md` (**14 rows**: 4 inherent channels §1 + 9 known ports §2 + 1 explicitly-OPEN Q1 §3). Registered in `common/index.md` Derivations table. FLAG-A channel-3 speed split ($\sqrt2\,c$ port/impedance vs $\sqrt{10/3}\,c$ radiative P-wave) carried as a COLUMN; the DM-halo NOT-A-PORT reactive-near-field resolution; **Q1 held OPEN** (no ruling on main at build).
