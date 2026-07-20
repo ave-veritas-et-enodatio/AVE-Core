@@ -22,6 +22,12 @@
 
 - **Axis (iii) shape class (structural, parameter-robust — the real discriminator): all three forms land exactly where the derivation `ζ`-family predicts.** Form S is Debye (peak pinned at `ωτ≈1` — the F-B1 theorem-of-the-observable — and phase caps at 90°, as a first-order kernel must). Forms R/T are Resonant (`(V,I)` peak **tracks `ω_S`**, corr 1.00, and the phase sweeps the full **180°** through resonance — the `#735` F-B3 corrected signature). **The derivation's damped-bow-oscillator family is empirically confirmed.**
 - **Axis (i) peak location (tunable): `DATUM-DOES-NOT-DISCRIMINATE`.** Form S reproduces `#735`'s `(V,I)` peak `0.912 ≈ 0.911` (inside legacy `[0.85,0.95]`); the derived reactive Form R **also** reaches `0.911` — at `ω_S ≈ 0.91`, an **O(1)** value fully consistent with the derived `ω_S ~ 1/τ_relax` (§2.4 of the derivation). Both the shipped-memristive form AND the derived-reactive form land on the datum ⇒ the single `0.911` peak is **degenerate**; it cannot tell reactive from memristive.
+
+> **🔴 RE-BANKED 2026-07-19 (PR #744; MAJOR F2/F3/F14 → R-2. Rule-12: the bullet above preserved verbatim). Two corrections:**
+> - **THREE-way, not two-way.** The frozen adjudicator's own output banks `result.json adjudication.forms_in_window_count = 3`: the **world-(b) transductive Form T ALSO lands in both windows** (`in_window_legacy ω_S = 1.687`, `in_window_eq63 ω_S = 1.857`). The datum is degenerate across all three worlds — memristive (S), reactive (R), AND transductive (T) — so Stage 2 supplies **zero** evidence for (a) over (b). "Cannot tell reactive from memristive" is true but one-sided; it also cannot tell either from transductive.
+> - **"Form R reaches `0.911` at `ω_S ≈ 0.91`" was NEVER COMPUTED — RETRACTED.** The only scanned in-window Form-R hits are `ω_S = 0.862` (coarse peak `0.885`; a fine refit at that `ω_S` gives `0.860`) and `ω_S = 0.949` (peak `0.968`). No scanned cell produces `0.911`; `ω_S ≈ 0.91` is an off-grid interpolation on the peak-tracks-`ω_S` slope (1.01) — i.e. it restates that `ω_S` is a FREE dial that reaches any datum (the *can-be-fit* weak form), presented as a *did-fit* run outcome. The frozen anti-rescue lock fences exactly such off-grid `ω_S` claims. **Licensed statement:** "Form R's coarse peak `0.885 ∈ [0.85,0.95]` at scanned `ω_S = 0.862`" (∃-semantics window membership) — which is what carries `DATUM-DOES-NOT-DISCRIMINATE`.
+> - **Asymmetric refit disclosed:** the datum-ward 81-pt fine peak refit (`_peak_fine_VI_formS`, `contrast_battery.py`) was applied to **Form S only** (0.885→0.912); `sweep_reactive_at_omegaS` (Forms R/T) used the coarse peak alone. The two forms' peak locations are therefore not measured at equal resolution.
+
 - **Axis (ii) origin-pinch: NO for all three forms** (drive `r∈[0.4,1.0]` never crosses `r=0`; the `#735` F-B2 finding confirmed across all forms).
 
 **Net:** Stage 2 corroborates the derivation and sharpens the forward test. The reactive branch (Grant's lean) is **not** falsified by the `0.911` datum — it fits it as well as the memristive branch. The observable that DOES separate them is the **shape class**: a resonance that *tracks the operating point* and *inverts phase through 180°* (reactive) versus a Debye lag *pinned at `ωτ=1`* that *caps at 90°* (shipped Eq 2.1). `#735`'s single-point measurement sits exactly on the degeneracy.
@@ -39,15 +45,18 @@
 
 1. Gates pass (§2).
 2. **Axis (iii) shape class decided first (parameter-robust):** Form S = Debye ✓; Forms R/T = Resonant ✓. `all_as_derived = True`. **The driver does NOT contradict the derivation** — the `ζ`-family (`ζ=0 / 0<ζ<∞ / ζ→∞` = reactive / transductive / shipped) is realized as derived. No flag-to-Grant on this axis.
-3. **Axis (i) peak-location discrimination:** `forms_in_window ≥ 2` (Form S at `0.912`; Form R at `ω_S≈0.91`) → **`DATUM-DOES-NOT-DISCRIMINATE`**. Banked as the honest outcome; the true discriminator is routed to Axis (iii).
+3. **Axis (i) peak-location discrimination:** `forms_in_window ≥ 2` → **`DATUM-DOES-NOT-DISCRIMINATE`**. Banked as the honest outcome; the true discriminator is routed to Axis (iii). **[🔴 RE-BANKED 2026-07-19, R-2: `forms_in_window_count = 3` — Form S (`0.885 ∈ [0.85,0.95]`, fine-refit peak 0.912), Form R (coarse peak `0.885` at scanned `ω_S=0.862`), AND Form T world-b (`ω_S=1.687`). The parenthetical "Form R at `ω_S≈0.91`" was an off-grid interpolation — RETRACTED; the scanned hit is `ω_S=0.862`. Three-way degeneracy.]**
 4. **Axis (ii):** reported as a registration-quality caveat (no origin-pinch, all forms), not a gate.
 5. **Precedence:** Axis (iii) structural **outranks** Axis (i) tunable. Final verdict: **the shape class separates the branches; the peak-location datum does not.**
 
 ## 4. What this means for the fork (routed to Grant; the fork STAYS OPEN — re-banked)
 
-> **🔴 RE-BANKED 2026-07-19 (PR #744; CRITICAL F1/F11 → R-1). The §4 heading's "the derivation already ruled" and the first sentence's "ruled world (a) at the near-yield crossing" are RETRACTED (Rule-12, verbatim below).** The derivation did NOT rule the fork; it showed only that Eq 2.1's Markovian *reduction* is unlicensed at `ωτ~1` (invalid-model ≠ loop-nets-zero). The crossing is a non-Markovian world-(a)/(b) HYBRID, UNDETERMINED pending `J(ω)`. See `-derivation.md` §0.
+> **🔴 RE-BANKED 2026-07-19 (PR #744; CRITICAL F1/F11 → R-1, + F2/F3 → R-2. Rule-12, body preserved verbatim below).** Scoped retractions in this section:
+> - The §4 **heading**'s "the derivation already ruled" and the **first sentence**'s "ruled world (a) at the near-yield crossing" are RETRACTED — the derivation did NOT rule the fork; it showed only that Eq 2.1's Markovian *reduction* is unlicensed at `ωτ~1` (invalid-model ≠ loop-nets-zero). The crossing is a non-Markovian world-(a)/(b) HYBRID, UNDETERMINED pending `J(ω)`. See `-derivation.md` §0.
+> - The **second bullet**'s "the reactive branch reproduces it at an O(1) `ω_S`" restates the uncomputed `0.911`-interpolation (R-2) — the scanned Form-R hit is `ω_S=0.862` (coarse peak `0.885`), not a `0.911` reproduction; and the datum is degenerate three-way (Form T world-b also in-window), so "does not weigh against Grant's lean" should read "does not weigh for OR against (a) over (b)".
+> - The **first and third bullets** (the reactive form's resonant/180° signature; the forward shape-class discriminator) are **genuinely earned and STAND** — they are the real reactive-vs-memristive test, now correctly the locus of the OPEN fork.
 >
-> **Superseded original (verbatim, Rule-12):**
+> **Original §4 body preserved verbatim (Rule-12):**
 
 The derivation (`-derivation.md` §8) ruled **world (a) at the near-yield crossing** on structural grounds (the memristive loop is appreciable only at `ωτ~1`, exactly where the Markovian reduction producing Eq 2.1 fails). Stage 2 adds the *empirical* content the `#735` C-3 SPEC promised but never ran (the reactive second-order contrast):
 
