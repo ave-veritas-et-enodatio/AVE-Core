@@ -52,7 +52,7 @@ _VOL1 = (
     / "src" / "scripts" / "vol_1_foundations"
 )
 sys.path.insert(0, str(_VOL1))
-from srs_band_survey import B1, B2, B3, srs_primitive_bcc  # noqa: E402
+from srs_band_survey import srs_primitive_bcc  # noqa: E402
 from srs_vector_band_survey import (  # noqa: E402
     derive_rho_star,
     vector_bloch_D,
