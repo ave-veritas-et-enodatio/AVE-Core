@@ -9,7 +9,7 @@ is a later promotion, per the anchor-checker precedent).
 import re, sys, collections, pathlib
 
 DOCKET = pathlib.Path(__file__).resolve().parents[3] / "_orchestration" / "2026-07-10_rulings-docket.md"
-GRANDFATHERED = {"22", "31", "32"}  # frozen-series artifacts (22 discovered by this lint first run)
+GRANDFATHERED = {"22", "32"}  # 22 = intentional "(cont.)" continuation (same key by design, not a collision); 32 = union-merge artifact. 31 deliberately NOT grandfathered (currently single; warn if it ever re-collides).
 
 def main() -> int:
     text = DOCKET.read_text(encoding="utf-8")

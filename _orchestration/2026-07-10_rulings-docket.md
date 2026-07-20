@@ -2409,6 +2409,6 @@ Three deliverables, one branch (`infra/op4-anchorci-docstrings`), one PR.
 
 **The convention, effective immediately:**
 - **New entries use content keys:** `### ENTRY <YYYY-MM-DD>-<lane-slug>` (the lane slug = the branch's distinctive segment, e.g. `2026-07-20-jomega-derivation`). Collision-free by construction; unique-per-day guaranteed by branch naming.
-- **The numeric series (ENTRY 1 through the current numbers, plus any in-flight lanes finishing under the old convention) is FROZEN as-is** — Rule 12: history is never renumbered; "read by entry number, not position" remains valid for the frozen series. Known historical duplicate numbers (the 31/32 union-merge artifacts) stay grandfathered with their in-place collision notes.
+- **The numeric series (ENTRY 1 through the current numbers, plus any in-flight lanes finishing under the old convention) is FROZEN as-is** — Rule 12: history is never renumbered; "read by entry number, not position" remains valid for the frozen series. Known historical same-key headers stay grandfathered: ENTRY 22 (an intentional "(cont.)" continuation — same key by design, not a collision) and ENTRY 32 (a union-merge artifact with its in-place note). ENTRY 31 was historically renumbered and is currently single — deliberately not grandfathered.
 - **Cross-references** cite the key (or, for the frozen series, number + date).
 - A warn-class lint (`manuscript/ave-kb/tools/verify-docket-keys.py`, wired into `make verify` advisory) flags any duplicate entry key going forward.
