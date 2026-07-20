@@ -153,3 +153,93 @@ A bounded-band kernel `K(t) = ∫₀^{ω_max} dω [J(ω)/ω] cos(ωt)` has **cor
 - **Non-Markovian regime `ωτ_relax ≳ 1`:** the bath rings, the kernel keeps memory, the bonds **return** energy within a cycle → the reactive GLE (`ξ` and the oscillatory `K` dominate) → **world (a)**.
 
 **So the literal Flag-F demand is answered [DERIVED]:** Eq 2.1 does NOT follow from the isolated K4 Lagrangian (§2 — no `θ̇` term exists there). It follows *only* as the **overdamped (`I_S→0`) + Markovian (`ωτ≪1`)** limit of the z=3-bond-coupled node. Both conditions are required; neither is axiom-forced at the near-yield crossing; and the damping `Γ` is a transduction coupling, not a resistor. §5 shows why the crossing is never in that limit where it matters.
+
+---
+
+## 5. The regime-collapse argument — world (a) wins wherever the loop is nonzero
+
+### 5.1 The three forms are ONE derived family (damped bow-oscillator)
+
+The GLE (§4.1) in its local-in-time (Markovian-truncated) form is a **driven damped oscillator** for the response coordinate `S` about `S_eq(A)`:
+
+```
+I_S S̈  +  Γ Ṡ  +  κ_eff (S − S_eq(A))  =  0 ,     ζ ≡ Γ / (2√(I_S κ_eff)) .     (FAMILY)
+```
+**[DERIVED]** The damping ratio `ζ` (set by the z=3 transduction coupling `Γ`, §4.3) organizes ALL three worlds/forms as corners of one family:
+
+| Form | limit of (FAMILY) | world | loop shape | `#59` / `#735` name |
+|---|---|---|---|---|
+| **reactive** | `ζ = 0` (undamped, `I_S≠0`) | (a) | **Lorentzian resonance** at `ω_S`, 180° phase inversion | the `#735` C-3 SPEC'd-but-unrun contrast (`PROTOCOL-COMPLETION:82`) |
+| **transductive** | `0 < ζ < ∞` (`Γ` derived) | (b) | crossover (resonance broadened by transduction) | RULING-21 mode-loss |
+| **shipped Eq 2.1** | `ζ → ∞` (overdamped, `I_S→0`) | (b)-limit | **Debye** monotonic lag, peak `ωτ=1` | `k4_tlm.py:283,291` |
+
+The shipped first-order Eq 2.1 is the `ζ→∞` corner; the reactive form is the `ζ=0` corner. `ω_S` **[CALIBRATION-TAGGED value / DERIVED form]** is the bow-mode natural frequency `√(κ_eff/I_S) = ω_θ ~ 1/τ_relax` (§2.4). This is the exact structure the `#735` C-3 spec anticipated as an ansatz (`d²S/dt² + γ dS/dt + ω_S²(S−S_eq)=0`, `PROTOCOL-COMPLETION:82`); here it is DERIVED, with `γ=Γ` a z=3 transduction coupling and `ω_S` a substrate-native bow frequency, not free knobs.
+
+### 5.2 The self-undermining of the dissipative reading (the headline)
+
+**[DERIVED]** Two facts collide:
+1. **The memristive loop area is appreciable only near `ωτ ~ 1`.** The Debye loop of Eq 2.1 peaks at `ωτ=1` and vanishes in *both* limits `ωτ→0` (quasi-static) and `ωτ→∞` (frozen) — verified numerically by `#735` (`leg_b_loop_area.py:129`: `rate_dependent_lag_confirmed`, area at `ωτ=1` ≫ area at `ωτ=10⁻³` and `10³`). A rate-dependent lag with a single peak at `ωτ~1`.
+2. **The Markovian reduction that PRODUCES Eq 2.1 is valid only for `ωτ ≪ 1`** (§4.3 — the z=3 bath memory time is `τ_relax`).
+
+Therefore **Eq 2.1's own prediction of a maximal loop at `ωτ~1` lies outside Eq 2.1's regime of validity as a bath reduction.** At `ωτ~1` the bath is non-Markovian; the correct dynamics is the reactive `ζ≈0` corner (Lorentzian resonance), NOT the Debye lag. At `ωτ≪1`, where Eq 2.1 IS valid, the loop `→ 0`. **There is no regime in which the dissipative memristive loop is simultaneously (i) appreciable and (ii) governed by a valid first-order Markovian reduction.** The dissipative reading is self-undermining. **World (a) governs wherever the loop is nonzero.** ∎
+
+This is consistent with, and explains, `#59`'s own numbers: Phase-5 sims run at `ωτ ≈ 6.3` (`#59` §7.4) — deep non-Markovian (fast) — where `#59` §9.3 already concedes the instantaneous Op14 (the `ωτ≪1` limit) "becomes increasingly approximate." The derivation names *why*: at `ωτ ≳ 1` the true dynamics is reactive, not the first-order lag.
+
+### 5.3 Why the crossing sits at `ζ ≈ 0` (underdamped), not `ζ → ∞`
+
+**[DERIVED]** The transduction damping is `Γ = πJ(ω_drive)`, the bath spectral density *at the drive frequency*. For `ω_drive ≳ ω_max = 1/τ_relax` the drive is at/above the band edge where `J → 0` (no bath modes to absorb into) → `Γ → 0` → `ζ → 0` (reactive). For `ω_drive ≪ ω_max`, `J` is finite and `Γ` is appreciable → `ζ` large (toward overdamped). Since the near-yield crossing happens on the `τ_relax` timescale (`Δt ≳ τ_relax`, the minimum state-change time, `#59` §1.2), `ω_drive τ_relax ≳ 1` at the crossing → **`ζ ≈ 0`, world (a).** The `ζ→∞` (Eq 2.1) corner is the slow-cooling / quasi-static regime (`ωτ≪1`), where the loop vanishes anyway.
+
+---
+
+## 6. Energy ledger (the crank-check) — no resistor anywhere; Ax3 survives
+
+Every damping-like term is ledgered to a mode; none is a resistor. **[DERIVED]**
+
+| Term | appears in | where the energy goes | Ax3 status |
+|---|---|---|---|
+| (none) | isolated node (EOM-a) | reactive exchange A-tank ⟷ S-bow; loop nets zero/cycle | lossless ✓ |
+| `Γ Ṡ` | world-(b) Markovian limit | **transduced into z=3 bond shear/transverse modes** (propagating at `c_shear = c√S`, Op14 shear), NOT dissipated | lossless-at-micro ✓; mode-loss, Poincaré-fenced |
+| `ξ(t)` | GLE (§4.1) | the same z=3 modes ringing **back** onto the node (reactive return) | lossless ✓ |
+
+- **0D single-cell scope:** the z=3 energy *recurs* (finite Poincaré time) — reversible, world (a) at the node.
+- **Infinite-lattice limit:** the z=3 energy is carried to the radiation boundary. In the engine that boundary is the **PML** (`#58` Cosserat absorber) — an **engineering** absorber, NOT an Ax3 resistor. The transduction is Ax3-lossless microscopically; it only *looks* dissipative under a coarse-grained, recurrence-ignoring description (RULING-21 Op3-transduction: mode-loss-not-system-loss).
+- **World (c) is NOT entered.** No step forces a genuine axiom-level resistor. Ax3 holds at every stage. **[DERIVED — world (c) derivably excluded.]**
+
+---
+
+## 7. FORM / VALUE discipline and scope
+
+- **FORMS derived:** the second-order reactive EOM (EOM-a); the load-response constraint; the GLE + bounded-band non-Markovian classification; the `ζ`-family organizing the three forms; the `ζ≈0`-at-crossing result. **[DERIVED]**
+- **VALUES calibration-tagged:** `τ_relax = ℓ_node/c` (calibration identity, `constants.py:452`); the yield anchor `arc*` (GR-imported K=2G, `axiom-register.md:189`); the bow-mode `ω_S ~ 1/τ_relax` (form derived, value calibration-tagged — the O(1) prefactor is not pinned). **[CALIBRATION-TAGGED]**
+- **Scope declared:** 0D single cell. **Flag A** (time-varying `L_eff` at saturation → self-consistent `τ`, `#59` §1.3) is **out of scope** (higher-order; would modulate `ω_S(A)` and `Γ(A)` but not change the `ζ≈0`-at-crossing conclusion). **Flag C** (no closed form at strong drive, `#59` §6.5) → the loop *shapes* per form are numerical (Stage 2). The z=3 coupling is treated at linear-response / Caldeira–Leggett order; the bounded-band conclusion is band-topology-robust (any compact `J` gives `τ_c ~ 1/ω_max`).
+
+---
+
+## 8. Verdict and the Stage-2 gate decision
+
+**Verdict:** **World (a) REACTIVE-INERTIAL at the near-yield crossing — DERIVED** (§0 one-liner; §2–§5 chain). Grant's reversible-reactive lean is validated *at the crossing*. Flag F is resolved: Eq 2.1 is the `ωτ≪1` overdamped-Markovian slow-limit (correct there, `τ`-tagged), self-undermining as a description of the `ωτ~1` loop.
+
+**Stage-2 gate — FIRES.** The dispatch fires the battery iff Stage 1 "lands cleanly in a world OR cleanly defines the (a)/(b) forms." Both hold: it lands in world (a), and it defines the (a)/(b)/shipped forms as the `ζ=0 / 0<ζ<∞ / ζ→∞` corners of (FAMILY). The battery's job is now sharp and non-trivial: **does the DERIVED reactive (`ζ=0`) form reproduce the measured `(V,I)` peak at `ωτ=0.911` that `#735` found leaning toward the memristive window — or does only the shipped Eq 2.1 land there?** Per the frozen decision semantics: multiple forms in-window ⇒ the datum does not discriminate (say so); exactly one ⇒ the substrate has spoken. Stage 2 is the sibling prereg + drivers.
+
+**No premise-failure STOP; no genuine physics fork.** The one genuine fork found is a *framing/wording* item (§9), not a physics fork, and it does not gate the battery.
+
+---
+
+## 9. Flags (flag-don't-fix) and owed follow-ons
+
+**Flag 1 — rotation-wording vs canonical load-response (framing, surfaced not fixed).** The Grant-ratified walk wording ("L2-norm / two co-equal legs `(A,S)` rotating on a circle") is the *intermediate* Ax4-reduction framing (`@7170f40e`); the *final* canonical framing (`axiom-register.md:189`, PRs #459/#460) is **load-response** (`A` = load, `S` = slaved response; normalized-L2 ≡ 1, vacuous). The rotation picture survives as the stiff-radial limit (§2.4) so the physics is unchanged, but the load-vs-response asymmetry is load-bearing and is preserved here. **Routed to Grant** (does not block Stage 2): is the ratified "rotation" wording to be re-pinned to "load-response bow" in future walks, or kept as the pedagogical stiff-radial-limit picture?
+
+**Flag 2 — `ω_S` prefactor unpinned.** The bow-mode frequency `ω_S ~ 1/τ_relax` has a derived FORM but an O(1) prefactor that is not pinned (`κ_eff`, `I_S` are the bond bend stiffness / transverse inertia; pinning them is a `G`-vs-`γ` computation, cf. the `k_stretch≫k_bend` residual of `buckling_result:39`). Stage 2 therefore scans `ω_S τ` and reports **form-level, dimensionless** loop shapes, not a single pinned peak.
+
+**Flag 3 — regime-dependence is real and honest.** World (b) transductive IS the correct description of the *slow-cooling* (`ωτ≪1`) regime — e.g. the cosmological cool-from-above of `#59` §8 — where Eq 2.1 lives with a derived transduction `Γ`. The verdict "world (a)" is specific to the *near-yield fast crossing* (`ωτ≳1`), the regime the yield-fork is about. This is not a contradiction; it is the `ζ`-family (§5.1) evaluated at two drive rates. Named so no future reader over-reads "world (a)" as "Eq 2.1 is always wrong."
+
+**Flag 4 — the `#527` open ontology question is upstream and unresolved.** `axiom-register.md:193` (LOAD-RESPONSE SIGN RULE) leaves open: *"if the electron self-trap wall is the STATIC T2 winding (no real power), what physically PLUCKS the bond in matter to deliver the transverse bias?"* The near-yield crossing here is an **axial end-load** (`A` rising to yield → compression → buckling), the well-defined arm of that sign rule; the transverse-pluck arm is the open one. Noted, not resolved.
+
+**Owed follow-ons (NOT landed this session — collision fences):**
+- **Doc #59 Flag F status** → update to "RESOLVED: Eq 2.1 is the `ωτ≪1` overdamped-Markovian limit of the z=3-coupled node; near-yield (`ωτ≳1`) is world-(a) reactive." Owed pointer; PR #738 owns #59 this session.
+- **`tau-relax-derivation.md` / `#59` §10 "unbuilt"** staleness (already flagged by `#735` §5) + a note that Eq 2.1's *regime of validity* is `ωτ≪1`. Owed KB follow-on; cleanup lanes own KB this session.
+- **`axiom-register.md` Ax4** could gain a cross-link: the load-response bifurcation also fixes the near-yield *dynamics* class (reactive, not relaxational). Owed; auditor lands manual entries.
+
+---
+
+*Derived 2026-07-19 by Opus 4.8 (implementer lane) per Grant's yield-fork adjudicator dispatch ("the rotation makes sense, one branch, derivation forst"). Provenance-tagged; anti-seduction fence held (world b earns its loop only in the `ωτ≪1` slow-limit and is named out-of-regime at the crossing); flag-don't-fix.*
