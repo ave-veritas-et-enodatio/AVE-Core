@@ -128,6 +128,12 @@ Three independent observational handles bear on a large scalar-quadrupole admixt
 ### §5.1 — Direct polarisation-content tests
 
 `[import]` Abbott et al. (LVC), *Tests of General Relativity with GW170817*, PRL **123**, 011102 (2019) / arXiv:1811.00364: using the sky location from the EM counterpart and the three-detector (LIGO-Hanford/Livingston + Virgo) network, **pure-scalar and pure-vector** polarisation hypotheses are strongly disfavoured relative to **pure-tensor** — log Bayes factors of order **O(20)** (odds `~10^20`) favouring tensor. *(Exact Bayes-factor value not re-verified against the source in this lane; the qualitative "pure-scalar strongly excluded" is the robust import; the precise figure is an owed check.)*
+
+> **✅ EXACT-FIGURE VERIFICATION (2026-07-20, discharges the §8-item-4 owed check; WebFetch-verified against the arXiv:1811.00364 full text — Rule 12, the estimate above preserved).** Verbatim from the source (Results §, sky location constrained to NGC 4993): *"we find overwhelming evidence in favor of pure tensor polarization modes in comparison to pure vector and pure scalar modes with a (base ten) logarithm of the Bayes factor of +20.81 ± 0.08 and +23.09 ± 0.08 respectively."* So the exact, **base-ten** log Bayes factors (EM-sky-fixed) are:
+> - **tensor vs pure SCALAR: log₁₀ B = +23.09 ± 0.08** (odds ~10²³) — the load-bearing figure for AVE's scalar admixture.
+> - **tensor vs pure VECTOR: log₁₀ B = +20.81 ± 0.08** (odds ~10²¹).
+>
+> **Three corrections to the estimate above (flag-don't-fix, no thumb):** (i) the figures are **base-ten** logs, not natural log — the doc's odds `~10^20` reading was correct in spirit; (ii) the doc's `~10^20` actually matches the **VECTOR** figure; the **SCALAR** exclusion is *stronger* at ~10²³ — so if anything the estimate **understated** the scalar exclusion (does not weaken the CONSTRAINED-leaning-EXCLUDED verdict); (iii) **sky-location dependence is load-bearing** — these strong figures require the EM-counterpart sky fix; with the sky location *unconstrained* the paper finds only log₁₀ B = +5.84 ± 0.09 against scalar and an **inconclusive** +0.72 ± 0.09 for vector. The §5.1 verdict (pure-scalar excluded, admixture in tension not decisively resolved) is unchanged; a leaf may now headline the exact `log₁₀ B = +23.09 ± 0.08` (EM-sky-fixed) figure.
 - **What it constrains:** AVE does **not** predict pure-scalar; it predicts tensor **plus** a scalar admixture (§4). Current 2–3-detector networks cannot fully resolve a mixed 5-polarisation content for a transient CBC, so the **admixture-amplitude** bound is weaker than the pure-hypothesis bound. Verdict on this handle alone: **CONSTRAINED** (pure-scalar excluded; a `~0.2`–`0.4` admixture is in tension but not decisively resolved by GW170817's network).
 
 ### §5.2 — Inspiral energy-balance / phasing
@@ -195,7 +201,7 @@ Neither reading is forced by current canon ⇒ **fork surfaced, not decreed** (p
 | `K=2G` ⇒ O(1) coupling (no `1/ω_BD`) | `[derived]` from `[canon]` `K=2G` | — | consistency (`K=2G` is GR-imported) |
 | `h_bulk/h_shear ~ 0.2`–`0.4` | `[derived]` speed × O(1) coupling | dimensionless, O(1)-bracketed | **the headline ratio** (robust to FLAG-B bracket) |
 | precursor lead `38`–`59 Myr` (GW170817) | `[derived]` `(D/c)(1−c/c_long)` | `D≈40 Mpc` `[import]` | consistency (astro-imported distance) |
-| LIGO pure-scalar Bayes `~10^20` | — | `[import]` Abbott 2019 (exact figure owed) | import |
+| LIGO pure-scalar Bayes (verified 2026-07-20) `log₁₀ B = +23.09 ± 0.08` (tensor vs scalar; vector `+20.81 ± 0.08`; EM-sky-fixed) | — | `[import]` Abbott 2019, arXiv:1811.00364 (exact figure VERIFIED, §5.1 note) | import |
 
 **Headline discipline:** the only calibration-free content is the speed suppression (`2^{-5/2}`, `(3/10)^{5/2}`) and the O(1)-coupling argument. No emergence-class claim is headlined; the ratio is the deliverable and it rides on the fork (Q1), not on a hidden calibration.
 
@@ -214,7 +220,7 @@ Per substitution-not-retraction (Rule 12 / A47 v11b) and the DERIVATION-lane fen
 1. **FLAG-1 (band-map D5) resolution = a Grant/auditor sector-ownership ruling** on assumption **Q1**: does the A1/bulk-dilatation sector have an independent far-field radiative port (Reading A), or is it constrained/reactive-only for gravity (Reading B)? This lane provides the material — the ruling carries a **kill-class consequence in Reading A** (large scalar-GW admixture, EXCLUDED/CONSTRAINED). *Grant-gated physics ruling first; then auditor lane lands any leaf.*
 2. **FLAG-A speed-label reconciliation** in the band-map channel-3 row (`√2·c` port vs `√(10/3)·c` radiative P-wave). *Auditor lane; not edited here.*
 3. **FLAG-B exact-prefactor driver** — a satellite driver computing the elastodynamic P-vs-S angular-partition of a rotating mass quadrupole, to pin the O(1) factor and turn `h_bulk/h_shear ~ 0.2`–`0.4` into a sharp number for a decisive LIGO comparison. *Satellite / number-generating lane.*
-4. **Exact LIGO Bayes-factor verification** — re-verify the pure-scalar/pure-vector rejection figures against Abbott et al. 2019 (§5.1) before any leaf headlines a numeric bound. *Owed cite-check.*
+4. **Exact LIGO Bayes-factor verification** — re-verify the pure-scalar/pure-vector rejection figures against Abbott et al. 2019 (§5.1) before any leaf headlines a numeric bound. *Owed cite-check.* **✅ DISCHARGED 2026-07-20** (tier-B debt batch, WebFetch against arXiv:1811.00364 full text): base-ten `log₁₀ B = +23.09 ± 0.08` (tensor vs scalar) / `+20.81 ± 0.08` (tensor vs vector), EM-sky-fixed to NGC 4993; verified figure + sky-dependence caveat landed at the §5.1 [import] site.
 
 **None of items 1–4 are executed here.** The FLAG-1 slot stays **open** (not refilled with an asserted resolution); this derivation is a new lane with its own verification chain that *frames* the fork with its quantitative consequence, and leaves the ruling to Grant.
 
