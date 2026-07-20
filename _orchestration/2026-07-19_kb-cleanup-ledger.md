@@ -65,6 +65,18 @@ _(populated per category commit)_
 
 **RESIDUAL FIXED — `vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md`.** Carried the exact superseded wording at 6+ sites (line 11 "dissipates monotonically"; §1 scope-note :38 "$A_1$ monotonic dissipation (Op3)"; Primary xref :49 "Op3 asymmetric-dissipation mechanism"; §3 :82 "$A_1$ ... loses energy monotonically" / "asymmetric dissipation"; §2 :86/:120 "$A_1$ exactly/fully dissipated"; See-also :252 "Op3 dissipation"). Applied a dated 🟢 RULING-21 reading-note (after the G2 banner) mirroring the owning leaf's blanket-note pattern: read all as lossless transduction (mode-emptying into $T_2$; system conserves power); wording preserved unedited (Rule-12). **Zero-judgment:** RULING-21 is unambiguous + already executed on the owning leaf; this is consumer-leaf propagation, not adjudication.
 
+### C2-B · Deep-space reactive-bulk demotion completeness (#733) — COMPLETE on leaves; 1 index residue FIXED, 1 ledgered
+
+**Ground truth:** `research/2026-07-19_deep-space-reactive-bulk-walk_RECORD.md` + docket continuation (2026-07-19) — the topological-Joule-stall / resistive-deep-space-metric mechanism (asteroid-belt/Oort stall, lunar 1.04 TW) is DEMOTED (Ax3-forbidden bulk resistor); band-map re-derivation SPEC'd not run. Dark-matter added-mass reading SURVIVES (scope-fenced).
+
+**Verified COMPLETE (leaves + registers carry 2026-07-19 demotion banners):** `vol1/.../magnetic-saturation.md:34` (comprehensive banner covering the whole belt/Oort subsection incl. preserved :36/:42 "resistive deep-space metric" body; dark-matter :30 survivor scope-fenced), `vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md`, `vol4/.../boundary-trapping-test.md`, `vol4/.../advanced-protocols.md` (Protocol 10), + `vol3/claim-quality.md`, `vol1/claim-quality.md`, `vol4/claim-quality.md`. Key Results table rows in `vol3/index.md:52`, `vol3/cosmology/index.md:31`, `vol3/cosmology/ch14-orbital-mechanics/index.md:21,:33` all DEMOTED-tagged.
+
+**RESIDUE FIXED — `vol3/cosmology/index.md:40`** (Ch.14 Derivations-and-Detail description quoted "lunar inductive heating ($P_{topo} \approx 1.04$ TW)" as a chapter headline WITHOUT the demotion tag its sibling Key Results row at :31 carries). Added a compact "🔴 mechanism DEMOTED 2026-07-19" pointer. Zero-judgment (sibling row in same file already tagged).
+
+**RESIDUE LEDGERED (deliberate leave) — `vol3/index.md:63`** — the Cosmology-volume flavor blurb names "lunar inductive heating" in a long parenthetical topic-list with **no number and no result-claim**; it is a pure table-of-contents pointer. The load-bearing Key Results row at :52 (same file) IS DEMOTED-tagged, and the chapter index + leaf carry the banner. Left untagged (a mid-parenthetical tag would be clumsy and the load-bearing cells are covered); recorded here for completeness.
+
+**No other deep-space drift:** vol4 "stall" hits (`applied-telemetry.md:14` aerodynamic-stall analogy; `autoresonant-helicity.md:14` / `autoresonant-dielectric-rupture.md:12` "cascade stalls" = Duffing detuning) are unrelated to the demoted bulk mechanism. `oort-cloud-saturation-boundary.md` = the reactive saturation-boundary sibling (SURVIVES).
+
 ---
 
 ## Orphan / phantom index lists
