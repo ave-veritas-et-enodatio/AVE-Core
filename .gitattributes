@@ -17,3 +17,8 @@ data/pantheon_plus/*.cov filter=lfs diff=lfs merge=lfs -text
 # block is dated, so chronology is recoverable. 2026-07-19, after 5 manual
 # both-kept-main-first resolutions of this exact conflict class.)
 _orchestration/2026-07-10_rulings-docket.md merge=union
+# Extension 2026-07-19: the meter charter and the Regime-IV audit doc are the
+# other two recurrent append-only collision targets (amendments/addenda at the
+# tail from concurrent lanes). Same union semantics as the docket.
+research/2026-07-16_f6-bath-meter_CHARTER.md merge=union
+research/2026-07-17_regime-iv-dissipation-audit.md merge=union
