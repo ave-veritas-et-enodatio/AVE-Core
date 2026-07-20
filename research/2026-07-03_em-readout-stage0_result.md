@@ -231,3 +231,8 @@ The derivation is CONSISTENT with, and sharpens, the leading hypothesis:
 ---
 
 > **Next step (gated on Grant):** the fork-resolution (A/B/C, §7.1). On (A) or (B) → lane (b)/(c) closes at 1/r, Stage-1/2 become VERIFICATION of a derived result, the Ax2 readout leg closes, F₁≡1 earned (auditor lands the axiom-register + sector-header updates). On (C) → the framework-negative branch is booked (single-charge Coulomb is a gap; Coulomb = pair-property; charter §2 highest-stakes negative), no rescue (Rule 11). Either verdict is recorded per Grant's standing instruction.
+
+---
+
+> **[2026-07-19 Tier-2.5 ANCHOR REPOINT — dated bottom correction-note (completed result record; body above UNTOUCHED).]**
+> The §"MASSLESSNESS checkpoint" (b-massless) bullet at `:88` cites `k4-port-irrep-decomposition.md:133` for *"Massless (propagates at $c\sqrt{2}$)"*. Content-verified at HEAD (`verify-before-cite`, grepped the quoted string per the #728 "grep-content-not-arithmetic" lesson): that exact string is the §7 Cosserat-mapping $A_1$ row, now at **`:141`**. **REPOINTED: `:88`'s `k4-port-irrep-decomposition.md:133` → `:141`.** Consistent with the k4 leaf's own drift inventory (`:133`→`:141`).

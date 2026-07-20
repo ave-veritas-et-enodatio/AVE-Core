@@ -101,7 +101,7 @@ def run_once(*, kappa: float, seed: int = 0, n_steps: int = N_STEPS) -> RunOut:
     rng = np.random.default_rng(seed)
     _seed(lat, center, rng)
 
-    # ⚑ FLAG (E0-baseline convention, hygiene sweep 2026-07-17; FLAGGED-NOT-FIXED —
+    # ⚑ FLAG (E0-baseline convention, hygiene sweep 2026-07-17; FIXED 2026-07-19 (D4b) — was FLAGGED-NOT-FIXED,
     # banked+frozen consumer). E0 is captured PRE-CONNECT on the V_inc-only seed
     # (_seed writes only lat.V_inc), so total_energy() = Σ_p(V_inc²+V_ref²) here reads
     # the off-shell HALF-energy and doubles EXACTLY 2× at the first lat.step() CONNECT
@@ -111,20 +111,31 @@ def run_once(*, kappa: float, seed: int = 0, n_steps: int = N_STEPS) -> RunOut:
     # CHANNEL-BOUNDED gate consume this pre-connect E0, so that pass-bin is STRUCTURALLY
     # UNREACHABLE. The BANKED verdict (BIAS-MOVED, from the `mean_S_core` branch of
     # classify()) fires BEFORE the soft ledger and does NOT consume E0 — the banked
-    # result is unaffected. The mechanical
-    # fix (capture E0 after the first lat.step(), on-shell) is routed to the F6 lane, NOT
-    # this additive-only hygiene sweep (frozen prereg
-    # research/2026-07-15_f6-field-channel-rung2_prereg_FROZEN.md + test_f6_field_channel_rung2.py).
-    E0 = float(lat.total_energy())
-    E_core0 = float(lat.get_energy_density()[core].sum())
+    # result is PROVABLY UNAFFECTED (re-run 2026-07-19: verdict BIAS-MOVED unchanged;
+    # only E_field_initial / E_core_initial in the JSON change from the half-energy to
+    # the on-shell value).
+    # RESOLUTION (2026-07-19, Grant D4b ruling): the mechanical fix the flag routed to
+    # the F6 lane — "capture E0 after the first lat.step(), on-shell" — is now APPLIED
+    # (E0 / E_core0 are captured inside the loop at the first step, after CONNECT and
+    # before that step's bath transfer). The frozen prereg
+    # (research/2026-07-15_f6-field-channel-rung2_prereg_FROZEN.md) and
+    # test_f6_field_channel_rung2.py are UNTOUCHED.
+    E0 = 0.0
+    E_core0 = 0.0
     E_bath = 0.0
     E_removed = 0.0
     detonated = False
     finite = True
     S_acc = 0.0
 
-    for _ in range(n_steps):
+    for i in range(n_steps):
         lat.step()
+        if i == 0:
+            # D4b E0-baseline fix (2026-07-19): capture E0 / E_core0 ON-SHELL, after
+            # the first CONNECT and before this step's bath transfer (was: pre-connect
+            # half-energy above the loop — see the E0-baseline note above).
+            E0 = float(lat.total_energy())
+            E_core0 = float(lat.get_energy_density()[core].sum())
         d = _transfer(lat, unprot, kappa)
         E_bath += d
         E_removed += d

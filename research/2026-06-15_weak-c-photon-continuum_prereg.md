@@ -191,6 +191,7 @@ at-lattice-resolution / birefringence-class content, distinct from the retracted
   reinforcement-1 noted; the new 2026-06-15 scope-note was layered AFTER it
   (both preserved).
 - §3.B `k4-port-irrep-decomposition.md:26, :121, :134` — NO drift (all exact).
+  - **⚠ Correction (2026-07-19, AVE-Core `docs/tier1-kb-debt-batch`; Rule-12 — the "NO drift (all exact)" line above is preserved as it was true at HEAD 4bc17c7f, and this supersedes it as now-stale):** the k4-port leaf has accreted dated Rule-12 scope-notes above §6/§7 since the 2026-06-15 freeze, so the anchors have drifted. Content-verified targets at this HEAD: **`:26` still exact** (the "T₂ … THIS IS THE PHOTON" row, before all insertion points); **`:121` → `:129`** (the §6 "T₂ = transverse photon at c=√(G/ρ)" propagation-speed row); **`:134` → `:144`** (the §7 mass-split / free-vs-locked reconciliation sentence). Cumulative drift is **+8 / +10**, NOT the +2 of the 2026-07-19 RULING-21 D1 insertion alone — i.e. this cite was already stale at `origin/main`, not only after that PR (the batch review's "off by 2 → :123/:136" estimate captured only the D1 increment). The §3.B **body** cite at this doc's `:63` (`k4-port-irrep-decomposition.md:134`) carries the same `:134` → `:144` drift; left unedited here (surgical scope) and routed to the auditor lane via the leaf's own bottom "LINE-ANCHOR DRIFT" inventory.
 - §3.C `binary-kill-switches.md:13` — NO drift.
 - §3.C/D `preferred-frame-and-emergent-lorentz.md:81` (C7 row) — NO drift.
 - §3.D clm-yr6tu4 quality entry — at `vol1/claim-quality.md:1652` (the brief
@@ -240,3 +241,8 @@ metadata + md-links). `make refresh-kb-metadata` regenerated the derived
 `.index/` (claims.jsonl + strengthen-by.jsonl); 0 solidity-line / subtree /
 leaf-reference changes (confirms the "solidity UNCHANGED" claims for clm-yr6tu4
 0.78 and clm-gw2wgc 0.70).
+
+---
+
+> **[2026-07-19 Tier-2.5 ANCHOR REPOINT — dated bottom correction-note (frozen prereg; body above UNTOUCHED).]**
+> The §3.B **body cite** at this doc's `:63` reads `k4-port-irrep-decomposition.md:134`. Content-verified at HEAD (`verify-before-cite`, grepped the quoted string per the #728 "grep-content-not-arithmetic" lesson): the quoted content — *"the photon (T₂) needs to be massless when propagating freely … the bound electron's Cosserat shell IS the massive mode that the same T₂ sector hosts at saturation"* — is now at **`:144`** (the §7 mass-split / free-vs-locked reconciliation sentence). **REPOINTED: `:63`'s `k4-port-irrep-decomposition.md:134` → `:144`.** This completes the repoint the §7 log (above) had recorded as "left unedited … routed"; it is consistent with the §7 log's own `:134`→`:144` finding for the parallel `:193` drift-log cite (cumulative drift +10 from the 2026-06-15 freeze, not the +2 of the D1 block alone). Routed origin: the k4 leaf's bottom LINE-ANCHOR DRIFT inventory.

@@ -311,6 +311,20 @@ Mutual inductance yields when the applied shear stress exceeds the structural th
 \end{resultbox}
 
 Below the yield voltage, the vacuum acts as a highly resistive solid---kinematically gripping embedded matter via inductive drag ($\eta_0 > 0$). Above $V_{yield}$, an avalanche dielectric transition annihilates the mutual inductance. The vacuum enters ideal frictionless flow ($\eta = 0$): the \textbf{Zero-Impedance Slipstream}. The yield stress evaluates from the bulk energy density and packing geometry:
+% [2026-07-19 Tier-2.5 tau_yield DISAMBIGUATION (KEEP-BOTH; NO renumber / NO redefinition / NO value change).]
+%   WHICH tau_yield: this is the SHEAR / MUTUAL-INDUCTANCE branch, form
+%   tau_yield = rho_bulk c^2 * (6 V_crossing) * p_c/8pi = rho_bulk c^2 * V_total * alpha ~ 1.04e22 Pa
+%   (the shear stress at which the mutual inductance / inductive drag yields into the Zero-Impedance Slipstream).
+%   It is ONE of THREE numerically distinct magnitudes the corpus labels "yield stress" under Bingham/plastic
+%   naming, each from a DIFFERENT derivation:
+%     (A) dimensional/Planck estimate  (hbar c / ell_node^4) * alpha^-2  ~ 7.21e34 Pa
+%         (manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:17-36 -- and see the
+%          resurrected-dropped-claim FLAG there vs backmatter/01_appendices.tex:77-88)
+%     (B) THIS site  -- shear / mutual-inductance  rho_bulk c^2 V_total alpha  ~ 1.04e22 Pa  [here]
+%     (C) magnetic-sector branch  tau_y = B_snap^2 / 2 mu_0
+%         (manuscript/vol_1_foundations/chapters/06_universal_operators.tex:113)
+%   Per-derivation / per-sector, not a single reconciled value; reconciliation ROUTED to the vol_0 compendium
+%   reconciliation lane per research/2026-07-17_regime-iv-dissipation-audit.md:128 -- NOT adjudicated here.
 \begin{align}
     \tau_{yield} &= \rho_{bulk}\, c^2 \times (6 \times \mathcal{V}_{crossing}) \times \frac{p_c}{8\pi} \nonumber \\
     &= \rho_{bulk}\, c^2 \times \mathcal{V}_{total} \times \alpha \nonumber \\

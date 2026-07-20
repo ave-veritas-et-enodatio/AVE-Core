@@ -116,3 +116,9 @@ In your physical intuition for the K4 substrate at galactic-cluster scale:
 - Or is the TT-shockwave story wrong and the offset is just **GEOMETRIC** superposition of static η_eff halos rigidly co-moving with cluster centers (interpretation γ: Vol 3 Ch 5 wins, Vol 1 Ch 4 stale)?
 
 Each leads to a clean 2-3 session derivation path. None requires multi-month work.
+
+---
+
+> **[2026-07-19 Tier-2.5 ANCHOR REPOINT — dated bottom correction-note (frozen prereg; body above UNTOUCHED).]**
+> The "Load-bearing physics tension" list at `:29` cites `k4-port-irrep-decomposition.md:109` as a corpus locus for the canonical transverse-photon speed ("same" as `photon-propagation-baseline.md:16`: *"$T_2$ (transverse photon): $c=\sqrt{G/\rho}$"*). Content-verified at HEAD (`verify-before-cite`, grepped the quoted string per the #728 "grep-content-not-arithmetic" lesson): that content — the *"$T_2$ (transverse photon) | $c=\sqrt{G/\rho}$"* §6 propagation-speed-split row — is now at **`:129`**. **REPOINTED: `:29`'s `k4-port-irrep-decomposition.md:109` → `:129`.**
+> **⚠ Correction to the k4 leaf's own drift inventory:** that inventory listed this cite as `:109`→`:111`. That is **arithmetic-only** (it applied the +2 shift of the 2026-07-19 RULING-21 D1 block, which only governs the §4 dissipation sentence) and is **content-wrong** — line `:111` is the Op3-transduction sentence, not the transverse-speed row. The real cumulative drift for THIS cite is +20 (to `:129`), exactly the "cumulative drift ≠ single-insertion offset" trap #728 warns about; the same inventory correctly maps the identical-content weak-C cite `:121`→`:129`, so the `:111` estimate for C13b/lc-electrodynamics was internally inconsistent. Grepped content is authoritative: **`:129`.**
