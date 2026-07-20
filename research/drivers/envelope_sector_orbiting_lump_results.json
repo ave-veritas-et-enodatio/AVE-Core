@@ -1,0 +1,189 @@
+{
+  "provenance": {
+    "class": "LEG C \u2014 envelope-sector orbiting-lump; coefficient-coupling FALLBACK (self-bound soliton infeasible per electron-lock arc); mints no canon; engine byte-untouched",
+    "kappa_max2_double_pulsar": 0.00013,
+    "kappa_max_double_pulsar": 0.011401754250991,
+    "note": "\u03ba_env\u00b2 = F_\u2225/F_\u22a5 measured at the far shell; compared to \u03ba_max\u00b2 = \u03b4_DP = 1.3e-4 (frozen prereg \u00a71)."
+  },
+  "spectral_cold": {
+    "cP_iso": 0.5188441251104724,
+    "cS_iso": 0.2862057244928644,
+    "cP_over_cS_iso": 1.8128362946961534,
+    "cP_over_cS_dir": {
+      "100": 1.7105503824621509,
+      "110": 1.8552075650781907,
+      "111": 1.9040985909212989
+    },
+    "continuum_import_colorcheck_F_bulk_over_F_shear": 0.03404989703609531
+  },
+  "model_S_breathing_control": {
+    "grid": {
+      "L": 20,
+      "N": 64000,
+      "n_bonds": 93600,
+      "dt": 0.07183920546667745,
+      "n_steps": 2629,
+      "r_core": 1.8,
+      "r_meas": 6.0,
+      "shell_w": 1.0,
+      "Omega": 0.2,
+      "sat_on": false,
+      "A0": 0.5,
+      "sigma": 1.2,
+      "rho_star": 9.77337
+    },
+    "omega_max": 5.567990311161497,
+    "scale_sep_Omega_over_omega_max": 0.035919602733338725,
+    "window": {
+      "t_P": 11.564166788479062,
+      "t_S": 20.963941272074695,
+      "t_reflect": 26.983055839784477,
+      "captures_S": true,
+      "n_win": 215
+    },
+    "f_long_window": 0.9931673212121437,
+    "kappa2_F_par_over_F_perp": 145.35548238815127,
+    "kappa_env": 12.056346145833375,
+    "E_par_win": 1785.2713346558767,
+    "E_perp_win": 12.282105258944057
+  },
+  "model_C_orbiting_Omega_lo_cold": {
+    "grid": {
+      "L": 20,
+      "N": 64000,
+      "n_bonds": 93600,
+      "dt": 0.07183920546667745,
+      "n_steps": 3504,
+      "r_core": 1.8,
+      "r_meas": 6.0,
+      "shell_w": 1.0,
+      "Omega": 0.15,
+      "sat_on": false,
+      "A0": 0.5,
+      "sigma": 1.2,
+      "rho_star": 9.77337
+    },
+    "omega_max": 5.567990311161497,
+    "scale_sep_Omega_over_omega_max": 0.02693970205000404,
+    "window": {
+      "t_P": 11.564166788479062,
+      "t_S": 20.963941272074695,
+      "t_reflect": 26.983055839784477,
+      "captures_S": true,
+      "n_win": 215
+    },
+    "f_long_window": 0.7623860669332094,
+    "kappa2_F_par_over_F_perp": 3.2085074182872577,
+    "kappa_env": 1.7912306993481486,
+    "E_par_win": 6398.3681899742,
+    "E_perp_win": 1994.1883735427773
+  },
+  "model_C_orbiting_Omega_lo_sat": {
+    "grid": {
+      "L": 20,
+      "N": 64000,
+      "n_bonds": 93600,
+      "dt": 0.07183920546667745,
+      "n_steps": 3504,
+      "r_core": 1.8,
+      "r_meas": 6.0,
+      "shell_w": 1.0,
+      "Omega": 0.15,
+      "sat_on": true,
+      "A0": 0.5,
+      "sigma": 1.2,
+      "rho_star": 9.77337
+    },
+    "omega_max": 5.567990311161497,
+    "scale_sep_Omega_over_omega_max": 0.02693970205000404,
+    "window": {
+      "t_P": 11.564166788479062,
+      "t_S": 20.963941272074695,
+      "t_reflect": 26.983055839784477,
+      "captures_S": true,
+      "n_win": 215
+    },
+    "f_long_window": 0.7617609952996336,
+    "kappa2_F_par_over_F_perp": 3.197465487474235,
+    "kappa_env": 1.7881458238841246,
+    "E_par_win": 6390.710831050967,
+    "E_perp_win": 1998.6801596720798
+  },
+  "model_C_orbiting_Omega_hi_cold": {
+    "grid": {
+      "L": 20,
+      "N": 64000,
+      "n_bonds": 93600,
+      "dt": 0.07183920546667745,
+      "n_steps": 1755,
+      "r_core": 1.8,
+      "r_meas": 6.0,
+      "shell_w": 1.0,
+      "Omega": 0.3,
+      "sat_on": false,
+      "A0": 0.5,
+      "sigma": 1.2,
+      "rho_star": 9.77337
+    },
+    "omega_max": 5.567990311161497,
+    "scale_sep_Omega_over_omega_max": 0.05387940410000808,
+    "window": {
+      "t_P": 11.564166788479062,
+      "t_S": 20.963941272074695,
+      "t_reflect": 26.983055839784477,
+      "captures_S": true,
+      "n_win": 215
+    },
+    "f_long_window": 0.6274503773983268,
+    "kappa2_F_par_over_F_perp": 1.6842061817606273,
+    "kappa_env": 1.2977696951927284,
+    "E_par_win": 11591.512683165221,
+    "E_perp_win": 6882.478409530444
+  },
+  "model_C_orbiting_Omega_hi_sat": {
+    "grid": {
+      "L": 20,
+      "N": 64000,
+      "n_bonds": 93600,
+      "dt": 0.07183920546667745,
+      "n_steps": 1755,
+      "r_core": 1.8,
+      "r_meas": 6.0,
+      "shell_w": 1.0,
+      "Omega": 0.3,
+      "sat_on": true,
+      "A0": 0.5,
+      "sigma": 1.2,
+      "rho_star": 9.77337
+    },
+    "omega_max": 5.567990311161497,
+    "scale_sep_Omega_over_omega_max": 0.05387940410000808,
+    "window": {
+      "t_P": 11.564166788479062,
+      "t_S": 20.963941272074695,
+      "t_reflect": 26.983055839784477,
+      "captures_S": true,
+      "n_win": 215
+    },
+    "f_long_window": 0.6287731036129258,
+    "kappa2_F_par_over_F_perp": 1.6937703321941173,
+    "kappa_env": 1.3014493198715489,
+    "E_par_win": 11578.761896861077,
+    "E_perp_win": 6836.087323516818
+  },
+  "multipole_check": {
+    "n_exponent_F_par": 0.8572929302714879,
+    "n_exponent_F_perp": 1.7871264841035845,
+    "same_order": true,
+    "note": "same \u03a9-scaling exponent \u21d2 compression & shear at same multipole order \u21d2 \u03ba_env\u00b2=F_\u2225/F_\u22a5 is structural (\u03a9-independent), comparable to \u03ba_max\u00b2. Frozen prereg \u00a73."
+  },
+  "verdict_frozen_outputs": {
+    "kappa2_env_C_cold": 3.2085074182872577,
+    "kappa2_env_C_sat": 3.197465487474235,
+    "kappa_max2": 0.00013,
+    "exceeds_kappa_max_cold": true,
+    "exceeds_kappa_max_sat": true,
+    "sat_over_cold_ratio": 0.9965585459612504,
+    "model_S_f_long": 0.9931673212121437
+  }
+}
