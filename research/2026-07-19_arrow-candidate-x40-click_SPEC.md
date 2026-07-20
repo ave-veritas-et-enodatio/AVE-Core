@@ -203,4 +203,31 @@ Four decisions gate the arm. Each is a physics-framing call, not an implementati
 
 ## 6 · Provenance + verify-before-cite receipts + fences honored
 
-<!-- §6 COMMIT -->
+### 6.1 · verify-before-cite receipts (grepped this session, at `origin/main` HEAD `1be045a1`)
+
+- **Tier-1 "never a valve"** — verbatim `research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md:256` "the arrow comes from mode-count or a click, never a valve"; `:176` "The tier-1 ledger must get its arrow from … reservoir mode-count … or a click (X40), never from a valve." ★**Flag (minor):** the task's quoted phrase "arrow from counting, never a valve" is a **faithful paraphrase**, not verbatim — the canon says "**mode-count** or a click." `retention-transition-split.md:31` carries the counting gloss ("admissible **only** from counting"). Recorded, not silently normalized.
+- **Retention/transition split** — `manuscript/ave-kb/common/retention-transition-split.md:16` (TRANSITION = crossing arrow, licensed only from counting, never a valve), `:31–:36` (the two counting sources: mode-spread reconvergence≈0 **or** the energy-conserving click (X40)), `:60` (SYSTEM-loss matched-port row, `requires_R = port-only (Ax3-legal)`).
+- **`clm-ldmvwi`** — `manuscript/ave-kb/.index/claims.jsonl`: "Born Rule from Ohmic Measurement Work", `canonical_path: vol1/claim-quality.md`, `canonical_anchor: born-rule-from-ohmic-measurement-work`, solidity **0.65**, build_status **"ok to build on, see caveats"**. Capture chain step (4): "Joule extraction `W(t) = ∫ V²/Z_det dt`." READ-ONLY; consumed as the detector-capture definition, not edited.
+- **X40 click canon** — `research/2026-07-10_x40-ring-closure-transient_result.md`: `f_E` trapped `= 1/10`, radiated `9/10`, `Λ`-drift `2.2e-16`; cut/cycle Hodge split (T-even 9/10, T-odd 1/10, `b_1=1`); "Trapping occurs ONLY at discrete ring-COMPLETION events … a conserved mesh quantity is MINTED"; CONSISTENCY-class ("does NOT prove the bias is real").
+- **The clamp** — `research/2026-07-18_f6-certified-kappa-sweep_result.md` R-2: `scale = √(max((E_lat − d_e_bath)/E_lat, 0))` hard-zeroes `E_lat` (absorbing state); dead combs 89%/84% NO-INFORMATION; conservation drift "largely clamp-created." `research/2026-07-19_f6-no-discharge-scan_INSTRUMENT-INCOMPATIBLE.md` §5: quasi-continuum threshold and full-discharge/clamp coincide; "the clamp is the instrument faithfully reporting that the lattice fully drained."
+- **Floor arm (the structural wall)** — `research/2026-07-19_f6-thermal-floor-arm_result.md` §0(b): the reactive-floor arrow mechanism is "STRUCTURALLY INEXPRESSIBLE on a non-interacting bath … identity-class" (the #721-W2 shape). §4 follow-ons name the two open candidates: interacting-bath thermalization (candidate 1, separate lane) and the X40-class click (candidate 2, this lane).
+
+### 6.2 · Discipline skills applied (`feedback_skill_selection_planning` retro-pass)
+
+`substrate-native-check` (§0 K4/Cosserat/Op14/phase-space walk — cycle-space mint ≠ (2,3) charge; sector-ownership guarded) · `phase-space-coordinate-check` (§0/§3 — count/`Λ` coordinate, not the floor's revival coordinate; the A46 fix) · `consistency-vs-emergence` (§0 — CONSISTENCY-class mint; no emergence promotion; strongest reachable = coordinate-class) · `verify-before-cite` (§6.1 receipts) · `consensus-bias-symmetric-standard` (§2.2 steelman of clamp-(b)) · `pre-test-physics-check` (surfaced Decision 2, the real-port fork, to Grant BEFORE the arm's design freezes) · flag-don't-fix (Decision 2 unresolved; the tier-1 paraphrase; the #738-docket overlap below).
+
+### 6.3 · Fences honored
+
+- **No `manuscript/ave-kb/` or tex-volume edit** — this is a `research/` SPEC only. `clm-ldmvwi` and the canon leaves are READ-ONLY.
+- **No engine/meter edit** — `f6_bath_meter.py`, the K4 engine, and `x40_ring_closure_transient.py` are untouched (build-gated; Phase-0 is a read-only overlay design).
+- **No files PR #738 touches** — verified against #738's file list (KB leaves + ratings map + docket). This SPEC touches none of them **except** the union-safe docket tail-append (§6.4), which is the merge-driver-designed exception. ★**Flagged for the orchestrator** below.
+- **No duplication of the interacting-bath lane** — one-line cross-pointer only (§0); the `MODE-SPREAD-CONFOUND` gate routes *to* that lane rather than absorbing it.
+- **`make verify` green** — the precommit hook gated each commit.
+
+### 6.4 · ★Flag-don't-fix — the PR #738 / rulings-docket overlap (surfaced, not resolved)
+
+The task's deliverable "dated docket append (union-safe)" targets `_orchestration/2026-07-10_rulings-docket.md`, which carries `merge=union` in `.gitattributes` (PR #737's union-merge extension — designed so concurrent lanes append at the tail without conflict). **PR #738 ALSO modifies that docket** (`+24` lines). The fence "no files PR #738 touches" and the "union-safe docket append" instruction are in **tension**; the union-merge driver **resolves it mechanically** (both tails concatenate, no conflict), which is precisely why #737 landed. Disposition (flag-don't-fix): I append a **minimal, dated, tail-only** pointer entry to the docket (union-safe), and surface this overlap here + in the final report for the orchestrator to adjudicate. I did **not** edit any substantive content #738 changes.
+
+---
+
+*This is a DESIGN + ADJUDICATION document. Verdict: **the click can source the local arrow in a coordinate (topological count) the floor's barred coordinate (modal phase) was not** — but only as a Loschmidt-class counting arrow whose chord-vs-echo status is undecided until the SPEC'd arm runs its Loschmidt + `Δω`-invariance gates. **The meter's clamp is a numerical guard (a), not a derivable click** — it fails all three positive click signatures; #726's NO-INFORMATION reading stands; the steelman of (b) routes to the interacting-bath lane, not the click. **Nothing built, nothing fired, nothing banked at emergence-class.** The arm, if greenlit, earns its own frozen prereg + verification chain.*
