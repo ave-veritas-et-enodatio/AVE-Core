@@ -169,6 +169,7 @@
     ],
     "stats_carry_read": true,
     "realization_differs": true,
+    "sem_bounded": true,
     "cov_bounded": true,
     "arm_ensemble_budget_cov": 0.22834731253136792,
     "frozen_literal_pairwise_pass": false

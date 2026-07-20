@@ -9,11 +9,13 @@ Instrument: src/ave/thermal/f6_bath_meter.py (BYTE-UNTOUCHED; floor = config-onl
 These tests LOCK the NEGATIVE (NO-SUPPRESSION; FLOOR-ARROW falsified):
 
   (a) ★INDEPENDENT re-derivation from the RAW banked per-ρ series (NOT the driver's
-      own verdict/self_check booleans — the #726 F9 lesson): the CLEAN coherent
-      revival (ensemble-average-first) is FLAT ~0.90 across ρ∈[0,5] (non-decreasing);
-      the frozen §4 tree returns NO-SUPPRESSION (S does not decrease); every cell
-      conserves with no clamp; ρ=0 reproduces the banked cold revival bit-for-bit;
-      the detuned transfer is resonance-gated (its R_rev is the disclosed artifact).
+      own verdict/self_check booleans — the #726 F9 lesson): the POST-HOC coherent
+      revival (ensemble-average-first; invented at fire time, NOT pre-registered —
+      PR#734 R-1) is FLAT ~0.90 across ρ∈[0,5] (non-decreasing); the frozen §4 tree
+      returns NO-SUPPRESSION (disclosed DEGENERATE, S clips to 0 in the interior —
+      PR#734 finding 6); every cell conserves with no clamp; ρ=0 is a seed no-op
+      (self-comparison, NOT #726 value reproduction — PR#734 R-4); the detuned
+      transfer is resonance-gated (its R_rev is the disclosed artifact).
   (b) ★LIVE cross-check: a live ρ=0 and ρ=5 primary cell — the coherent revival does
       NOT drop as the floor rises (locks the mechanism, not the classifier's word).
 
@@ -96,7 +98,10 @@ def test_every_cell_conserves_no_clamp(banked):
 
 
 def test_cold_control_bitforbit(banked):
-    """ρ=0 (seed no-op) reproduces the un-seeded cold revival bit-for-bit."""
+    """ρ=0 seed no-op == ρ=0 un-seeded, bit-for-bit. This establishes SEEDING IS A NO-OP
+    at ρ=0 (a self-comparison that cannot fail); it does NOT establish #726 value
+    reproduction (arm ρ=0 revival 0.899 != #726 R_cum[10]=0.932, different observables —
+    PR#734 R-4)."""
     assert banked["cold_control_bitforbit_diff"] == 0.0
     assert banked["criteria"]["cold_reproduces"] is True
 

@@ -62,7 +62,13 @@ MACHINE_TOL = 1e-10       # seed-energy exactness
 FLOOR_ABS = FLOOR_ABS_DEFAULT  # 1e-2 absolute per-mode floor (imported; meter default)
 W5_TARE_C_TOL = 0.02      # excess-tare form agreement (§C W5)
 SEED_STAT_TOL = 0.10      # FROZEN-LITERAL §D.D3 pairwise-CoV tol (superseded by §D-post Dp-2)
-COV_CHAOS = 1.0           # §D-post Dp-2: excess-plateau CoV >= this ⇒ realization-chaotic (fail)
+COV_CHAOS = 1.0           # §D-post Dp-2 → §Dp-6 RELABEL: secondary sanity bound (finite-CoV
+#                           guard), NOT the FB4 pass condition (CoV 0.17-0.23 << 1.0 is trivial)
+SEM_MEAN_MAX = 0.10       # §Dp-6 (PR#734 review, finding 1): FB4 stats-carry FIREABLE gate —
+#                           the ensemble MEAN is a stable read iff SEM/mean < this at every ρ.
+#                           Derived: SEM/mean = CoV/√N; frozen budget CoV≈0.23, N=6 ⇒ 0.094,
+#                           so the 6-seed ensemble is AT the edge of adequacy (a genuinely
+#                           fireable bound; a noisier bath / fewer seeds fails it). NOT tuned.
 SECULAR_R_MAX = 0.9       # |Pearson r(E_lat, step)| >= this ⇒ secular drain
 EPS_CLAMP = 1e-12         # E_lat <= this ⇒ scale=0 absorbing clamp fired
 OVER_TRANSFER = 1.0       # ΔE_bath/E0 >= this ⇒ over-transfer (full discharge)
@@ -277,10 +283,17 @@ def run_fb4() -> dict:
     per-realization excess-plateau CoV is finite and bounded (not realization-chaotic) and
     is the FROZEN ARM-ENSEMBLE BUDGET. The seed-robust METER reads (identity/tare/cold) are
     checked in FB1/FB2/FB3. NOT a pairwise-CoV pass/fail gate (that tests realization-
-    AGREEMENT — the opposite of the prose). The frozen-literal pairwise CoV<0.10 is banked."""
+    AGREEMENT — the opposite of the prose). The frozen-literal pairwise CoV<0.10 is banked.
+
+    §Dp-6 (PR#734 review, finding 1 — FIREABLE hardening, disclosed): the PASS now requires
+    the ensemble mean to be a stable read, SEM/mean < SEM_MEAN_MAX(=0.10) at every ρ, instead
+    of the trivially-true CoV < COV_CHAOS(=1.0). CoV<COV_CHAOS is kept as a secondary sanity
+    guard only. No numeric shifts (SEM/mean was already banked); the banked data passes, so
+    the verdict is unchanged (Rule-11 tightening, not a retune)."""
     rows = []
     realization_differs = True
     cov_bounded = True
+    sem_bounded = True
     frozen_literal_pass = True
     espm = _signal_per_mode(DVW)
     m = _m_for(DVW)
@@ -302,12 +315,15 @@ def run_fb4() -> dict:
         })
         realization_differs = realization_differs and (real_diff > 0.0)
         cov_bounded = cov_bounded and bool(np.isfinite(plat_cov) and plat_cov < COV_CHAOS)
+        sem_bounded = sem_bounded and bool(np.isfinite(sem_over_mean) and sem_over_mean < SEM_MEAN_MAX)
         frozen_literal_pass = frozen_literal_pass and bool(plat_cov < SEED_STAT_TOL)
-    # PASS: statistics (ensemble mean) carry the read; realizations differ; spread bounded.
-    stats_carry = bool(realization_differs and cov_bounded)
+    # PASS (§Dp-6): the ensemble mean is a stable read (SEM/mean < SEM_MEAN_MAX, FIREABLE) and
+    # realizations differ; CoV < COV_CHAOS kept only as a secondary sanity guard.
+    stats_carry = bool(realization_differs and sem_bounded and cov_bounded)
     arm_ensemble_budget = max(r["excess_plateau_cov"] for r in rows)  # the STAGE-2 constraint
     return {"rows": rows, "stats_carry_read": stats_carry,
-            "realization_differs": bool(realization_differs), "cov_bounded": bool(cov_bounded),
+            "realization_differs": bool(realization_differs),
+            "sem_bounded": bool(sem_bounded), "cov_bounded": bool(cov_bounded),
             "arm_ensemble_budget_cov": arm_ensemble_budget,
             "frozen_literal_pairwise_pass": bool(frozen_literal_pass)}
 

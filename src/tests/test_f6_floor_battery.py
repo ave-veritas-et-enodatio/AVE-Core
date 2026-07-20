@@ -88,16 +88,23 @@ def test_independent_fb_pass_in_band(banked):
         assert pr["n_occ_excess_min"] >= 0
 
 
+SEM_MEAN_MAX = 0.10   # §Dp-6 fireable FB4 hardening (PR#734 review, finding 1)
+
+
 def test_fb4_statistics_not_realization_raw(banked):
-    """FB4 (Dp-2): realizations differ, excess-plateau CoV bounded (<1.0, not chaotic),
-    ensemble mean is the stable read. The pairwise CoV<0.10 is the FROZEN-LITERAL gate
-    (banked False) — NOT the corrected pass condition."""
+    """FB4 (Dp-2 → §Dp-6): realizations differ AND the ensemble mean is a stable read
+    (SEM/mean < 0.10, the FIREABLE hardening); CoV<1.0 kept only as a secondary sanity
+    guard. The pairwise CoV<0.10 is the FROZEN-LITERAL gate (banked False) — NOT the pass."""
     fb4 = banked["fb4"]
     assert fb4["realization_differs"] is True
-    assert fb4["cov_bounded"] is True
+    assert fb4["cov_bounded"] is True                    # secondary sanity guard
+    assert fb4["sem_bounded"] is True                    # §Dp-6 FIREABLE gate
+    assert fb4["stats_carry_read"] is True
     for r in fb4["rows"]:
         assert r["realization_maxdiff"] > 0.0            # realizations differ
         assert np.isfinite(r["excess_plateau_cov"]) and r["excess_plateau_cov"] < COV_CHAOS
+        # §Dp-6: the ensemble mean is a stable read (fireable — this is what FB4 now gates on)
+        assert r["excess_plateau_sem_over_mean"] < SEM_MEAN_MAX
         assert r["frozen_literal_cov_ok"] is False       # the too-tight literal gate
     assert fb4["arm_ensemble_budget_cov"] > 0.10          # the arm inherits a real spread
 
