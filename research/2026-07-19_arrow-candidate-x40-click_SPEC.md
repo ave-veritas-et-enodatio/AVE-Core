@@ -161,7 +161,45 @@ Each kill-shape is a **single mechanism explaining the failure** — the Rule-11
 
 ## 5 · DESIGN-WALK BRIEF for Grant — the decisions only he should make
 
-<!-- §5 COMMIT -->
+Four decisions gate the arm. Each is a physics-framing call, not an implementation detail — the implementer must not resolve them by fiat (`feedback_substrate_adjudicates_forks`). Each carries a sit-inside-the-cell picture + the circuit, options bulleted, my rec marked ★.
+
+### Decision 1 — the counting ensemble: what does `N_click` count over?
+
+- **Lattice-first picture.** Sit inside the srs lattice. A driven front sweeps through; bonds close into rings one at a time. Each closure is a *click* — a mesh loop is minted, `1/10` of the donated circulation trapped as a persistent DC loop current, `9/10` radiated as an AC transient into the matched stub-bath. The "count" is: how many rings have closed.
+- **Circuit.** Each ring = an LC mesh; completion = the 10th bond's switch closing, minting a conserved flux linkage `Λ = L_bond·i(0)`; the trapped current is a persistent DC mesh circulation (lossless, PRODUCT-latched).
+- **Options.**
+  - **(1a)** Count `b_1` increments (trapped mesh loops) — the topological PRODUCT counter (protected, monotone, integer).
+  - **(1b)** Count radiated-fraction dispersals (`9/10` into the matched bath) — the TRANSITION reconvergence-0 events.
+  - **(1c) ★** Count **both** and report the split; the *arrow claim* rests on **(1a)** + `Δω`-invariance, with (1b) reported as the radiated channel.
+- **My rec: (1c), arrow on (1a).** Rationale: the `b_1` count is the PRODUCT-lossless topological ratchet (no valve); the radiated `9/10` is where reconvergence-0 lives but that is the *mode-spread* channel — keeping them separate is what prevents double-claiming the mode-spread arrow (candidate 1) as the click. Measuring both lets the `MODE-SPREAD-CONFOUND` gate (§4) actually fire.
+
+### Decision 2 — ★the real-matched-port fork: may the click's arrow invoke a real port?
+
+- **Lattice-first picture.** The radiated `9/10` goes into MATCHED STUBS (`R_rad ≡ Z_0`) — a real port (travelling-wave, `Γ=0`, no return within the window). The meter's Caldeira–Leggett bath is instead LOSSLESS-REACTIVE (recurs at `T_rec`). These are *different bath models*, and the choice decides whether "reconvergence ≈ 0" is a real-port fact or a large-`T_rec` approximation.
+- **Circuit.** Matched stub = a resistor equal to the line's characteristic impedance — a real port at the system boundary (Ax3-legal SYSTEM-loss, `retention-transition-split.md:60`); vs the reactive comb = a bank of lossless LC tanks (recurs).
+- **Options.**
+  - **(2a) ★** The click's arrow *may* invoke the matched real port (`R_rad ≡ Z_0`) — the Ax3-legal radiative boundary, "port-only," not a bulk valve. The radiated `9/10` genuinely does not return; the topological count carries the PRODUCT arrow.
+  - **(2b)** The click must stay in the meter's lossless-reactive world (no real port) — the radiated `9/10` recurs, and the *only* arrow left is the topological `b_1` count.
+- **My rec: (2a), with the arrow claim scoped.** The matched port supplies reconvergence-0 for the radiated `9/10` (Ax3-legal per the canon's own SYSTEM-loss row — *not* the forbidden bulk valve), while the COUNTING arrow rests on the `b_1` mint count. This is the honest reading of "never a valve": a matched port at the actual boundary is not a bulk diode. **★This is the load-bearing fork** — bears on your PHASE-ONLY / counting epistemology and the "longitudinal scalar is real, no QED-transverse-only garbage" posture. If you rule **(2b)**, the click reduces to the pure topological-count and the matched-stub radiation is out of scope (a cleaner but weaker claim). **Flag-don't-fix: I have NOT resolved this; it is yours.**
+
+### Decision 3 — the Loschmidt gate: is the arrow required to survive time-reversal?
+
+- **Lattice-first picture.** Run the ensemble of completions forward to the window end, then FLIP every `V_inc ↔ V_ref` (native TLM time-reversal), evolve backward. Do the rings UN-close? Does the count come back down?
+- **Circuit.** Time-reversal = swapping incident/reflected on every line; a truly reversible LC network retraces; a genuine arrow does not (the dispersed `9/10` cannot reconverge, the trapped `1/10` is protected).
+- **Options.**
+  - **(3a) ★** GATE the click-arrow on Loschmidt-survival — the count must NOT un-count under reversal within the window.
+  - **(3b)** Do not gate on Loschmidt; claim only the WRITE-mechanism coherence (consistency-class, as X40 did).
+- **My rec: (3a).** The whole question is whether the click gives an ARROW (chord) or a coherent write (echo). The Loschmidt echo is THE discriminator (`project_ave_chord_north_star`: real chord vs echo — prioritize discriminating tests). Without it the arm is consistency-class only and cannot answer the arrow question. Cost is one extra backward run (§4.4) — cheap insurance against banking an echo as a chord.
+
+### Decision 4 — run Phase-0 clamp discriminator, or trust the three-signature derivation?
+
+- **Lattice-first picture.** Overlay the `Λ`/`b_1` mint-observable on the EXISTING banked meter clamp event (read-only, byte-untouched). Does the clamp event mint a persistent counted quantity + conserve `Λ`?
+- **Options.**
+  - **(4a) ★** Run Phase-0 (minutes, read-only) — empirically close the "uninvited click?" both-ways question with a receipt.
+  - **(4b)** Trust the §2.1 three-signature derivation (clamp fails all three) — skip.
+- **My rec: (4a).** It is minutes and read-only, and it converts the §2 adjudication from *derivation* to *receipt* (`feedback_validate_what_you_did`: not done until live-fire has run). Cheap insurance against the consensus-bias dismissal being wrong.
+
+**Summary of my recs (for a fast read):** 1c (arrow on 1a) · **2a (scoped) — the one genuinely load-bearing physics call** · 3a · 4a. Decisions 1/3/4 are low-regret; **Decision 2 is the fork that changes what the click *is*** and should get the walk-the-picture treatment in chat before the arm's prereg freezes.
 
 ## 6 · Provenance + verify-before-cite receipts + fences honored
 
