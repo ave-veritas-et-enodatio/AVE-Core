@@ -59,6 +59,8 @@ Everything in the class tables below is a manifestation of Level 2 — the dynam
 
 **Pitfall**: the back-EMF freeze is **rate-dependent** — it only latches if the yield crossing takes $\geq \tau_{\text{relax}}$ (per dark-wake §1.2). A snapshot at one phase cannot distinguish a frozen latch from an oscillator caught at peak — record the C-state / L-state **pair** ([`op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md)).
 
+> **🔴 Correction pointer 2026-07-19 (clm-exjfai CONTESTED).** The row above ("residues persist ≥ 100 Compton periods") and this Pitfall's **direction** ("only latches if the crossing takes ≥ τ_relax" = slow→freeze) are both contested by the moving-front freeze-in engine result (`archive/analysis/moving-front-freezein` @ `f647f58b`): persistence measured **≤ 3.04 Cp** (~30× short), and the derivation gives the OPPOSITE direction (**fast→freeze / slow→heal**). See the demotion at `dark-wake-bemf-foc-synthesis.md` §1.2 + `claim-quality.md` (clm-exjfai, solidity `0.30→0.20`). CONTESTED not refuted (OPEN A44 fork; N=12–16 resolution-limited). Row/pitfall text preserved (KEEP-BOTH).
+
 ---
 
 ## §2 — Relaxation-time class (τ_relax, ≥100-Compton-period persistence)
@@ -71,6 +73,8 @@ Everything in the class tables below is a manifestation of Level 2 — the dynam
 | [`nonlinear-vacuum-capacitance.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) §"Vacuum Memristor" (lines 41-61) | Thixotropic relaxation time restated as the **memristor crossover**: at drive $f \gg 1/\tau_{\text{relax}} \approx 7.8 \times 10^{20}$ Hz the vacuum is too slow to yield (purely elastic / reversible); at $f \ll 1/\tau_{\text{relax}}$ full yield+recovery each cycle → maximum hysteresis loss. The crossover is set entirely by $\ell_{\text{node}}$ and $c$. | clm-8nkvwy, clm-vjv4zf |
 
 **Persistence**: frozen-topology residues persist $\geq 100$ Compton periods in the post-heal solid regime ([`dark-wake-bemf-foc-synthesis.md`](dark-wake-bemf-foc-synthesis.md) §1.2, line 46) — i.e. $\tau_{\text{relax}}$ is the causal *minimum* state-change time, but the physical *persistence* of a frozen defect is far longer and memristive-state-dependent ([`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §6).
+
+> **🔴 Correction pointer 2026-07-19 (clm-exjfai CONTESTED).** The "≥100-Compton-period persistence" in this §2 header and paragraph is CONTESTED: the moving-front freeze-in engine run (`archive/analysis/moving-front-freezein` @ `f647f58b`) measured real-space persistence **≤ 3.04 Cp** (~30× short); mechanism = re-solidified Cosserat solid is linear-elastic with no topological-pinning term. CONTESTED not refuted (OPEN A44 fork; resolution-limited N=12–16). See `dark-wake-bemf-foc-synthesis.md` §1.2 + `claim-quality.md` (clm-exjfai). Header/paragraph text preserved (KEEP-BOTH).
 
 ---
 
