@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "date": "2026-07-20",
+    "class": "reproduction-gate (#746 class)",
+    "branch": "research/f1-verification-rerun",
+    "base": "origin/main @ e2e870c0",
+    "f1_fix_commits": ["79435ee3", "20395fe2"],
+    "f1_fix_date": "2026-07-15",
+    "engine_deterministic": true,
+    "additions_only": true,
+    "note": "banked values compared, never edited; genesis-24 in-tree JSON+figs restored via git checkout"
+  },
+  "cells": {
+    "genesis_node_birth_discriminator": {
+      "priority": 1,
+      "grant_ordered_first": true,
+      "banked_source": "research/2026-07-12_genesis-node-birth-discriminator_result.md tables",
+      "banked_predates_f1": true,
+      "smoke": {
+        "bin_banked": "i_A_SUPPORTED", "bin_rerun": "i_A_SUPPORTED", "bin_match": true,
+        "legs": {
+          "pair":        {"E_bank": 0.8639, "E_rerun": 0.863903, "phi_bank": 7.7295, "phi_rerun": 7.232257, "phi_rel_pct": -6.43, "v_inc_peak_bank": 0.0122, "v_inc_peak_rerun": 0.012192, "rank4_bank": true, "rank4_rerun": true, "persist_bank": true, "persist_rerun": true},
+          "photon_lock": {"E_bank": 0.8198, "E_rerun": 0.819784, "phi_bank": 0.0000, "phi_rerun": 0.0, "v_inc_peak_bank": 0.0, "v_inc_peak_rerun": 0.0, "rank4_bank": false, "rank4_rerun": false, "persist_bank": false, "persist_rerun": false},
+          "graded_a0":   {"E_bank": 0.8544, "E_rerun": 0.854407, "phi_bank": 1.9636, "phi_rerun": 1.963773, "phi_rel_pct": 0.01, "v_inc_peak_bank": 0.0188, "v_inc_peak_rerun": 0.018824, "rank4_bank": true, "rank4_rerun": true, "persist_bank": true, "persist_rerun": true}
+        }
+      },
+      "production": {
+        "bin_banked": "ii_A_WEAKENED", "bin_rerun": "ii_A_WEAKENED", "bin_match": true,
+        "legs": {
+          "pair":        {"E_bank": 0.6929, "E_rerun": 0.692889, "phi_bank": 0.8734, "phi_rerun": 0.870536, "phi_rel_pct": -0.33, "v_inc_peak_bank": 0.0122, "v_inc_peak_rerun": 0.012192, "rank4_bank": false, "rank4_rerun": false, "persist_bank": false, "persist_rerun": false},
+          "photon_lock": {"E_bank": 0.7750, "E_rerun": 0.774952, "phi_bank": 0.0, "phi_rerun": 0.0, "v_inc_peak_bank": 0.0, "v_inc_peak_rerun": 0.0, "rank4_bank": false, "rank4_rerun": false, "persist_bank": false, "persist_rerun": false},
+          "graded_a0":   {"E_bank": 0.6764, "E_rerun": 0.676390, "phi_bank": 0.8905, "phi_rerun": 0.890792, "phi_rel_pct": 0.03, "v_inc_peak_bank": 0.0188, "v_inc_peak_rerun": 0.018824, "rank4_bank": false, "rank4_rerun": false, "persist_bank": false, "persist_rerun": false}
+        }
+      },
+      "d1_match": true,
+      "verdict": "MATCH on all decision-relevant quantities (v_inc_peak bit-stable, E_persist, rank4, persist, bin); one verdict-invariant DRIFT (pair smoke phi_persist -6.4%)"
+    },
+    "genesis_24_saturated_seed": {
+      "priority": 2,
+      "banked_source": "src/scripts/vol_1_foundations/genesis_24_saturated_seed_results.json",
+      "banked_date": "2026-06-21",
+      "banked_predates_f1": true,
+      "verdict_banked": "C1", "verdict_rerun": "C1", "verdict_match": true,
+      "invariant_fields": ["headline_monotone=False", "deep_positive=False", "seed_audit.max_V_inc(all fracs bit-identical)", "seed_audit.E_V_seed(bit-identical)", "smoke.E_V_arm2=5.901349(identical)", "arm2_topology_null=True", "arm4_charge_flip.any_flip=True", "ledger.L_bounded=False", "emission_reverse.reverses=True", "seed_audit_all_admissible=True", "forbidden_seeder_used=[]"],
+      "dE_V_drift": {
+        "0.3":  {"bank": -0.010093775625771628, "rerun": -0.005836101, "rel_pct": 42.18},
+        "0.6":  {"bank": -0.0640000421556488,   "rerun": -0.048685170, "rel_pct": 23.93},
+        "0.85": {"bank": -0.17054964227127112,  "rerun": -0.147318100, "rel_pct": 13.62},
+        "0.95": {"bank": -0.2387238034393473,   "rerun": -0.212998000, "rel_pct": 10.78}
+      },
+      "E_V_arm1": {"bank": 5.730799699201403, "rerun": 5.754031, "rel_pct": 0.41},
+      "verdict": "verdict C1 + all topology invariant; quantitative dE_V drifts +10.8..+42.2% (photon-ON arm-1 only), F1-attributable, verdict-invariant"
+    }
+  },
+  "tests_green": {
+    "test_f1_shared_front_ordering.py": 7,
+    "test_scalar_grade_seed_f1.py": 3,
+    "test_coupled_eigensolve+resonator+cross_sector+genesis(fast)+gpersist_ontology": 45
+  },
+  "not_rerun": {
+    "genesis_node_birth_domain_sweep_N12_N14": "boundary-leakage diagnostic (energy-class), N=10 anchor reproduced exactly",
+    "gpersist_localization_observable": "priority-3 confirmation-only, do-NOT-reopen G-PERSIST RULED, heaviest cell; ontology test re-ran green",
+    "genesis_npersist_n14 / option-B / cross-sector-pump": "mechanism-robust (energy-class or z_local-independent), materiality report did not flag"
+  },
+  "contradictions": {
+    "C1_materiality_report_stale_genesis24": "2026-07-16_f1-materiality-report_NOTE.md:24 + consumer-audit:180 cite the superseded +2-bug runaway (max|V_inc|->1.08e4, VERDICT B); current banked JSON is the -2 Lenz C1 (max_V_inc~0.37) since 2026-06-21, 26 days earlier. Flag-don't-fix; auditor/Grant adjudicates."
+  }
+}
