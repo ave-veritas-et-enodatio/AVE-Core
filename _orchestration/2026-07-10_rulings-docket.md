@@ -2364,7 +2364,8 @@ Three deliverables, one branch (`infra/op4-anchorci-docstrings`), one PR.
 
 > **★ENTRY-number collision note (2026-07-20, union-merge collision-tolerant — same class as ENTRY 24/25/29–31).** Base is `origin/main` @ `537c0b62` (Merge #754), which holds ENTRY blocks through **31** (26/27=#749/28=#752/29=#753/30=#751-J(ω)/31=A1-amplitude-trace-#754). Concurrent open branches hold **provisional lower** numbers on their own bases (`docs/port-register-promotion` provisional 30 — collides with main's 30, renumbers at its merge; `research/b-mechanism-derivation` / `research/f1-verification-rerun` / `infra/op4-anchorci-docstrings` max 29). This block takes the **next-free ENTRY 32** above main's 31. **Read by entry number and content, not file position; renumber to next-free at merge time if a concurrent lane lands 32 first.**
 
-### ENTRY 32 (2026-07-20): implementer lane — Q1 RULING BATCH (three-parter)
+### ENTRY 35 (2026-07-20): implementer lane — Q1 RULING BATCH (three-parter)
+*(Renumber note: merged main holds ENTRY 32; renumbered to next-free 35. Read by entry number, not position.)*
 
 **Provenance split (maintained everywhere).** Grant ruled the Q1 three-parter 2026-07-20 — **Grant-verbatim, [sic]: "part 1: loose works / Part 2: bank / part 3: rule it".** The ruling *content* below is the **orchestrator's walk, ratified in chat** (not Grant verbatim). The attribution split is carried on every landed site.
 
