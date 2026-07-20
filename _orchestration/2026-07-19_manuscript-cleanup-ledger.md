@@ -85,4 +85,20 @@ Three corpus statements disagree about the drive-frequency dependence of the nea
 ---
 
 ## Fix log
-_(populated by the fix commit)_
+
+### FIX-1 (commit 2) — C2-FIX-1: vol_4 vacuum-memristor fork-open caveat (Rule-12 KEEP-BOTH)
+- **File:** `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex`, `\subsection{The Vacuum Memristor (Thixotropic Hysteresis)}`.
+- **Before (verbatim, load-bearing lines preserved untouched):**
+  - `:346` *"…the defining characteristic of a **Memristor**: a circuit element whose resistance is a function of the cumulative charge that has passed through it."*
+  - `:353` *"…the memristive vacuum produces a classic **Pinched Hysteresis Loop**: the V–I Lissajous figure … encloses a finite area proportional to the **energy dissipated during each thixotropic yield–heal cycle**."*
+  - `:355` *"At f ≪ 1/τ_relax, complete yield and recovery occur within each cycle, producing **maximum hysteresis loss**."*
+- **Drift:** the subsection banks the DISSIPATIVE (first-order / memristive / `Re(Z)` / finite-area-loop) branch of the **registered-OPEN near-yield yield fork** as established fact, with no fork-open note. Contradicts `retention-transition-split.md:61-63` (RULED 2026-07-19: near-yield loop is fork-gated, "do not bank it either way in load-bearing prose"; Grant leans reversible/reactive) and the `#735` result (`research/2026-07-19_yield-fork-discriminators_result.md`: neither leg closes the fork; crux = upstream Flag F).
+- **Fix (additive, KEEP-BOTH — zero bytes of the original body changed):** a `% 🔴 FORK-OPEN SCOPE CAVEAT 2026-07-19` comment banner + a `\noindent\textbf{Scope caveat (2026-07-19, yield-fork discriminators …)}` in-text note inserted immediately after the subsection heading, scoping the dissipative reading as one branch of the OPEN fork, citing `tau-relax-derivation.md` (Flag F home), `research/2026-07-19_yield-fork-discriminators_result.md`, and `retention-transition-split.md`. The C2-FLAG-1 loss-location tension is surfaced inside the caveat as an explicitly-unresolved item routed to Grant (flag-don't-fix — not resolved in-tex).
+- **Provenance / idiom:** matches the three in-corpus deep-space #733 Rule-12 KEEP-BOTH banners (comment + `\noindent\textbf{Scope …}` + preserved body).
+- **Validation:** `verify-md-links.py` green after edit (kbleaf 1068 checked, gating 0, waived 1, EXIT 0); the 2 new `\kbleaf` targets resolve; integrity scan unchanged (dead cites 0, dead refs 2 [both pre-existing: macro `#2` false-positive + uncompiled orphan], dup labels 7 [all benign]); single-pass `pdflatex` compile of `vol_4/main.tex` EXIT 0, chapter processed, no fatal errors and no new undefined `\ref`/`\cite` attributable to the caveat.
+
+### Fixes NOT applied (routed to Grant/auditor per flag-don't-fix / when-in-doubt-ledger)
+- **C1-a** `sec:dielectric_yield` dead ref — uncompiled orphan file; retire-or-repair is a judgment call.
+- **C1-b** `p2.9b_goldstone_proof.md` dead kbleaf — already WAIVED report-don't-fix by the KB checker; repoint target is an open judgment call (KB lane owns the waiver).
+- **C2-FLAG-1** loop loss-location contradiction (vol_4:355 vs backmatter/06 vs #735 Leg-B) — substrate physics, Grant's call; surfaced in-tex + ledger, not resolved.
+- **C2-FLAG-2** vol_9 ch5:599 thixotropy cite missing #735 Leg-A outcome — honestly hedged already; the sat/desat↔two-τ mapping touches the open fork.
