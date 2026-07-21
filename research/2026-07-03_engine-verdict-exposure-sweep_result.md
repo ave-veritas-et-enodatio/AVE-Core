@@ -149,3 +149,7 @@ Neither catch breaks a conclusion; both are corpus-state-ahead-of-sweep correcti
 ## 6. What the claim-trail surfaced that the sweep missed
 
 <!-- filled next commit -->
+
+---
+
+> **🔴 DATED CORRECTION (2026-07-22, implementer lane — Rule 12; banked bytes above preserved, this is an additive note).** The phase-space coupling-winding test is referenced above by the mis-number **`#59`** at two banked sites — the §3 triage row 9 (`:49`, `#59/#417 phase-space coupling-winding = BREAK`) and the §4 nullspace paragraph (`:103`, `the #415/#59 operator`). The correct identifier is **PR #417** (head branch `analysis/engine-phase-space-winding`, merged 2026-06-24); the `#59` is the epic-summary typo run down in [`2026-06-24_engine-reroute-epic-summary.md:91`](2026-06-24_engine-reroute-epic-summary.md) (adjudicated by run record: PR #59 = the unrelated 2026-05-31 Q-EMBED-SEL-1 investigation; archive doc #59 = the memristive-yield derivation — no scheme denotes the phase-space test by #59). Read every `#59` in this doc's rows/prose that names the phase-space coupling-winding test as **#417**; the banked `:49`/`:103` line bytes are left untouched so the externally-cited line numbers still resolve.

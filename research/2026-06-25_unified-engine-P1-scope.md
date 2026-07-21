@@ -98,7 +98,7 @@ P1 **activates these DOFs dynamically** on the unified srs engine, flipping both
 
 **Honesty guard (doctrine §H.1):** activating the DOFs is a *medium* activation (the medium is fully
 dynamic). It is NOT an electron self-formation — P1 does not seed-and-grow an electron. The two-natured
-electron stays ASSEMBLED-not-emergent; bulk self-formation is closed-negative (Stage-2 / S3 / #415 / #59) and
+electron stays ASSEMBLED-not-emergent; bulk self-formation is closed-negative (Stage-2 / S3 / #415 / #417) and
 is barred from P1.
 
 ---
