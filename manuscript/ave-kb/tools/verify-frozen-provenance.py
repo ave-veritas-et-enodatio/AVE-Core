@@ -46,18 +46,24 @@ The lane's prereg is resolved, in priority order:
      ``Prereg-file: <path>`` near the top (bold / blockquote / link-wrapped
      forms accepted). An optional companion ``Prereg-commit: <sha>`` pins the
      blob to compare against (else the working tree is used).
-  2. **Header heuristic (legacy).** The first ``research/...prereg....md`` path
-     referenced in the doc's header region (the corpus habit
-     "Resolves the frozen bins of `research/..._prereg-FROZEN.md`").
-  3. **Naming convention (legacy).** ``<stem>_prereg-FROZEN.md`` /
+  2. **Naming convention (legacy).** ``<stem>_prereg-FROZEN.md`` /
      ``<stem>_prereg.md`` / ``<stem>-prereg.md`` / ``<stem>_prereg_and_derivation.md``
      beside the result doc, where ``<stem>`` is the filename minus ``[-_]result.md``.
+     A correctly-NAMED sibling is a stronger signal of THIS lane's prereg than a
+     header MENTION of some other doc, so it is tried before the header heuristic
+     (REPAIR 3: the heuristic used to preempt the correct sibling).
+  3. **Header heuristic (legacy).** The first ``research/...prereg....md`` path
+     referenced in the doc's header region (the corpus habit
+     "Resolves the frozen bins of `research/..._prereg-FROZEN.md`").
 
 A GATING doc (see below) that carries Frozen labels but resolves NO prereg by
 ANY method is a HARD FAIL — "add a machine-readable ``Prereg-file: <path>``
-line." A gating doc that resolves only via heuristic/naming (no explicit line)
-PASSES the resolution but emits an ADVISORY recommending the explicit pointer
-(recommend-but-don't-enforce, surfaced — never silent).
+line." A gating doc that resolves only via naming (no explicit line) PASSES and
+emits an ADVISORY recommending the explicit pointer. A gating doc that resolves
+ONLY via the header heuristic to a prereg whose ``YYYY-MM-DD`` date-stem DIFFERS
+from the doc's is a **HARD FAIL** (REPAIR 3): a header mention pulling in another
+lane's / another day's prereg is a likely cross-lane mis-resolution, and the
+documented escape is the one-line explicit ``Prereg-file:`` pointer.
 
 GATING DESIGN (date cutoff + explicit grandfather list)
 -------------------------------------------------------
@@ -109,6 +115,14 @@ SCOPE HONESTY — what this gate CANNOT catch (documented, not force-fitted)
     byte-match. This is a deliberate false-positive-toward-safety: the fix is to
     quote the criterion in the result doc identically to the prereg — which is
     the whole point of a *frozen* criterion.
+  * **Wrong-prereg header resolution (RESIDUAL).** The header heuristic can
+    resolve to a DIFFERENT lane's prereg that happens to contain the labeled
+    criterion string, byte-passing it against the wrong file. GUARD: naming is
+    tried before the heuristic, and a gating-dated doc that resolves ONLY via a
+    header mention of a DIFFERENT-date-stem prereg HARD-FAILS (add an explicit
+    pointer). RESIDUAL: a header mention of a SAME-date-stem prereg (same lane,
+    differently named) that is nonetheless the wrong file AND contains the string
+    still byte-passes — an explicit ``Prereg-file:`` pointer removes even that.
   * **Backdated filename (GUARDED).** A stale ``YYYY-MM-DD`` prefix on an
     otherwise-new doc used to buy the warn path (severity keyed on the filename
     alone). GUARD: severity now keys on ``max(filename date, first-add date)``
@@ -333,6 +347,12 @@ def parse_doc_date(filename: str) -> date | None:
         return None
 
 
+def _date_stem(filename: str) -> str | None:
+    """The ``YYYY-MM-DD`` filename prefix as a string, or None (REPAIR 3)."""
+    m = _DATE_PREFIX_RE.match(filename)
+    return f"{m.group(1)}-{m.group(2)}-{m.group(3)}" if m else None
+
+
 # NUL-adjacent unit-separator sentinel so a commit-header line is never confused
 # with a `research/...` path line in the single `git log` pass.
 _GITLOG_SENTINEL = "\x1f"
@@ -412,21 +432,23 @@ def resolve_prereg(doc_path: Path, text: str, repo_root: Path) -> PreregRef:
         cand = _resolve_candidate(repo_root, doc_dir, m.group(1))
         return PreregRef(path=cand, method="explicit", commit=commit)
 
-    # 2. Header heuristic — first research/...prereg....md reference near the top.
-    header = "\n".join(text.splitlines()[:_HEADER_LINES])
-    hm = _PREREG_PATH_RE.search(header)
-    if hm:
-        cand = _resolve_candidate(repo_root, doc_dir, hm.group(1))
-        if cand:
-            return PreregRef(path=cand, method="header-heuristic", commit=commit)
-
-    # 3. Naming convention beside the result doc.
+    # 2. Naming convention beside the result doc (REPAIR 3: a correctly-NAMED
+    #    sibling beats a header MENTION of some other doc — the heuristic used
+    #    to preempt the sibling and resolve to the wrong lane's prereg).
     stem = _RESULT_NAME_RE.sub("", doc_path.name)
     for suffix in ("_prereg-FROZEN.md", "_prereg.md", "-prereg-FROZEN.md",
                    "-prereg.md", "_prereg_and_derivation.md"):
         cand = doc_dir / f"{stem}{suffix}"
         if cand.is_file():
             return PreregRef(path=cand.resolve(), method="naming", commit=commit)
+
+    # 3. Header heuristic — first research/...prereg....md reference near the top.
+    header = "\n".join(text.splitlines()[:_HEADER_LINES])
+    hm = _PREREG_PATH_RE.search(header)
+    if hm:
+        cand = _resolve_candidate(repo_root, doc_dir, hm.group(1))
+        if cand:
+            return PreregRef(path=cand, method="header-heuristic", commit=commit)
 
     return PreregRef(path=None, method="none", commit=commit)
 
@@ -577,12 +599,28 @@ def scan_doc(
     prereg_rel = _rel(ref.path, repo_root)
 
     # Resolved only via fallback on a gating doc -> advisory to add the pointer.
+    # REPAIR 3: ESCALATE to gating when the resolution is ONLY a header mention of
+    # a DIFFERENT-date-stem prereg (likely cross-lane mis-resolution).
     if ref.method != "explicit" and is_gating():
+        doc_stem = _date_stem(doc_path.name)
+        prereg_stem = _date_stem(ref.path.name)
+        cross_lane = (
+            ref.method == "header-heuristic"
+            and doc_stem is not None and prereg_stem is not None
+            and doc_stem != prereg_stem
+        )
+        if cross_lane:
+            detail = (f"prereg resolved ONLY via header-heuristic to {prereg_rel}, "
+                      f"whose date-stem ({prereg_stem}) DIFFERS from this doc's "
+                      f"({doc_stem}) — likely a cross-lane mis-resolution; a Frozen "
+                      f"criterion could byte-pass against the WRONG prereg. Add an "
+                      f"explicit `Prereg-file: <path>` line pinning THIS lane's prereg")
+        else:
+            detail = (f"prereg resolved via {ref.method} ({prereg_rel}); add an "
+                      f"explicit `Prereg-file: {prereg_rel}` line (convention)")
         findings.append(Finding(
             file=doc_path, line=0, kind="no-explicit-pointer",
-            detail=(f"prereg resolved via {ref.method} ({prereg_rel}); add an "
-                    f"explicit `Prereg-file: {prereg_rel}` line (convention)"),
-            doc_date=doc_date, gating=False,
+            detail=detail, doc_date=doc_date, gating=cross_lane,
         ))
 
     if prereg_text is None:

@@ -234,6 +234,99 @@ def test_disclosure_lines_are_not_smuggles() -> None:
         assert vfp.extract_frozen_labels(line) == []
 
 
+# --------------------------------------------------------------------------
+# REPAIR 3 (audit 3c) — the header heuristic must not preempt the correctly-named
+# sibling, and a gating-dated doc that resolves ONLY via a cross-lane header
+# mention hard-fails (the explicit pointer is the documented escape).
+# --------------------------------------------------------------------------
+
+def test_naming_sibling_beats_header_heuristic() -> None:
+    vfp = _load_module()
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        research = tmp / "research"
+        research.mkdir(parents=True)
+        # Decoy: another lane's prereg, mentioned in the header.
+        (research / "2026-07-20_otherlane_prereg-FROZEN.md").write_text(
+            "# Other lane\n\nFrozen: `decoy criterion`\n", encoding="utf-8")
+        # The correctly-named sibling for THIS doc.
+        (research / "2026-07-30_mylane_prereg-FROZEN.md").write_text(
+            "# My lane\n\nFrozen: `real criterion <= 0.25`\n", encoding="utf-8")
+        doc = research / "2026-07-30_mylane_result.md"
+        text = ("# My lane result\n\n"
+                "Resolves the frozen bins of "
+                "`research/2026-07-20_otherlane_prereg-FROZEN.md`.\n\n"
+                "> **Gate — Frozen:** `real criterion <= 0.25`\n")
+        doc.write_text(text, encoding="utf-8")
+        ref = vfp.resolve_prereg(doc, text, tmp)
+        assert ref.method == "naming", (
+            f"a correctly-named sibling must win over a header mention, got {ref.method}"
+        )
+        assert ref.path.name == "2026-07-30_mylane_prereg-FROZEN.md"
+
+
+def test_gating_doc_cross_lane_header_gates() -> None:
+    vfp = _load_module()
+    from datetime import date
+    import tempfile
+    cutoff = date(2026, 7, 22)
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        research = tmp / "research"
+        research.mkdir(parents=True)
+        crit = "cross-lane criterion <= 0.10"
+        # Another lane's prereg that HAPPENS to contain the criterion string
+        # (so the byte-check would false-PASS against the wrong file).
+        (research / "2026-07-20_otherlane_prereg-FROZEN.md").write_text(
+            f"# Other lane\n\nFrozen: `{crit}`\n", encoding="utf-8")
+        # Gating-dated doc: no explicit pointer, NO naming sibling, header mention
+        # of the OTHER lane's prereg (different date-stem).
+        doc = research / "2026-07-30_mylane_result.md"
+        text = ("# My lane result\n\n"
+                "Resolves the frozen bins of "
+                "`research/2026-07-20_otherlane_prereg-FROZEN.md`.\n\n"
+                f"> **Gate — Frozen:** `{crit}`\n")
+        doc.write_text(text, encoding="utf-8")
+        findings = vfp.scan_doc(doc, tmp, cutoff, set(), add_dates=None)
+        # The criterion byte-passes against the (wrong) prereg -> no mismatch...
+        assert not any(f.kind == "mismatch" for f in findings), (
+            "the wrong-prereg criterion byte-passes; the mismatch check cannot catch it"
+        )
+        # ...but the cross-lane header-only resolution GATES.
+        gating = [f for f in findings if f.gating]
+        assert any(f.kind == "no-explicit-pointer" for f in gating), (
+            "a gating doc resolving ONLY via a cross-lane header mention must hard-fail"
+        )
+
+
+def test_gating_doc_same_stem_header_stays_advisory() -> None:
+    vfp = _load_module()
+    from datetime import date
+    import tempfile
+    cutoff = date(2026, 7, 22)
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        research = tmp / "research"
+        research.mkdir(parents=True)
+        crit = "same-lane criterion <= 0.10"
+        # SAME date-stem prereg (same lane/day, differently named) -> advisory only.
+        (research / "2026-07-30_mylane-variant_prereg-FROZEN.md").write_text(
+            f"# Same day\n\nFrozen: `{crit}`\n", encoding="utf-8")
+        doc = research / "2026-07-30_mylane_result.md"
+        text = ("# My lane result\n\n"
+                "Resolves the frozen bins of "
+                "`research/2026-07-30_mylane-variant_prereg-FROZEN.md`.\n\n"
+                f"> **Gate — Frozen:** `{crit}`\n")
+        doc.write_text(text, encoding="utf-8")
+        findings = vfp.scan_doc(doc, tmp, cutoff, set(), add_dates=None)
+        nep = [f for f in findings if f.kind == "no-explicit-pointer"]
+        assert nep, "a header-heuristic gating doc should still advise the pointer"
+        assert all(not f.gating for f in nep), (
+            "a SAME-date-stem header resolution must stay advisory, not gate"
+        )
+
+
 def test_pure_stdlib_no_third_party_imports() -> None:
     src = _TOOL.read_text(encoding="utf-8")
     for banned in ("import numpy", "import sympy", "from ave", "import ave", "import scipy"):
@@ -255,5 +348,8 @@ if __name__ == "__main__":
     test_backdated_untracked_doc_gates()
     test_quoted_label_smuggle_is_surfaced_advisory()
     test_disclosure_lines_are_not_smuggles()
+    test_naming_sibling_beats_header_heuristic()
+    test_gating_doc_cross_lane_header_gates()
+    test_gating_doc_same_stem_header_stays_advisory()
     test_pure_stdlib_no_third_party_imports()
     print("ALL PASS")
