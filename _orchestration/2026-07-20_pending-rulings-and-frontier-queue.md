@@ -16,7 +16,7 @@
 
 | # | Lane | Status |
 |---|------|--------|
-| 1 | **Envelope-sector reduction** (`research/envelope-sector-reduction`) — slow-modulation dynamics of the saturable lattice; the gravitational-band coupling κ vs the frozen pulsar kill-line; consistency gate = observed shear GW must survive | **FIRED 2026-07-20** (Grant: "fire the lane" `[sic]`; local worktree, unpushed at authoring — pushes at PR-open); max-stakes wrapper review on landing |
+| 1 | **Envelope-sector reduction** (`research/envelope-sector-reduction`) — slow-modulation dynamics of the saturable lattice; the gravitational-band coupling κ vs the frozen pulsar kill-line; consistency gate = observed shear GW must survive | **FIRED + DELIVERED + MERGED 2026-07-20 (#767 @ `5287ef32`)** (Grant: "fire the lane" `[sic]`); max-stakes wrapper review landed → verdict **BIN-1-CONDITIONAL** (ENVELOPE-RADIATES on the shipped analysis; constituent-cage-ensemble fork OPEN, owed driver §6.2-1). Result: `research/2026-07-20_envelope-sector-reduction_result.md`. |
 | 1b | **u/A transverse identity-collapse candidate** (trigger-7 class: are the EM and mechanical-transverse sectors two meters on one bench object?) — ★frozen observational gate: GW170817 two-distinct-signals, a **speed/arrival kill** (bulk radiates at √(10/3)·c ≈ 1.83c vs |Δv|/c ≲ 10⁻¹⁵ coincidence bound; #766 review F7 arithmetic) — COMPLEMENTARY to, not duplicating, the banked pulsar **energy-budget** kill | candidate, sequenced AFTER the envelope lane (its Leg B channel-ownership output is a direct input); does NOT displace ringdown's queued-next rec |
 | 2 | **Ringdown-systematics candidate** (mode-ratio locking + ω ∝ √C_44 critical-slowing as beyond-Kerr-deviation organizers; dimensionless; existing LIGO catalog) | **FIRED + DELIVERED 2026-07-20** (Grant `[sic]`: "word"; branch `research/ringdown-systematics`, frozen prereg `f22d0b2d` pushed ALONE first; both organizers DERIVED-AND-TESTABLE + CONSISTENT-UNTESTED, no bankable negative; docket ENTRY 2026-07-20-ringdown-systematics). PR `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` |
 | 3 | J(ω) coupling fork (needs engine constitutive tensor; shares machinery with the gravitational-arc lanes) | queued |
@@ -31,7 +31,7 @@
 
 - **#761** MERGED 2026-07-20 (main @ `caa51c17`) — ruling §1.2 (the revert word) **EXECUTED 2026-07-20** via `docs/q1-revert-execution` (this PR; all four arms landed — Q1 row flipped, ledger promoted LIVE, ch08 double-count flagged, receipts stamped).
 - **#764** (skills batch + hub-and-spoke architecture) — review CLEAR-WITH-REPAIRS; repair pass in flight (merge-forward, #762-merged currency flips, AVE-Skills wording soften).
-- **Envelope lane** in flight (§2.1).
+- **Envelope lane** — DELIVERED + MERGED 2026-07-20 (#767 @ `5287ef32`); verdict BIN-1-CONDITIONAL (§2 item-1); constituent-cage-ensemble driver owed (§6.2-1).
 - Walk record: `research/2026-07-20_envelope-boundary-walk_RECORD.md` (this PR).
 
 ## §4 — Process notes new this window (already repo-tracked via #764; listed for orientation)
