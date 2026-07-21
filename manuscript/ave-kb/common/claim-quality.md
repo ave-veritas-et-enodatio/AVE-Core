@@ -1578,3 +1578,87 @@ Given the walk-ratified DIRECTION (`clm-hu1jjw`: trapped-energy mass loads `ρ_e
 - rationale: The magnitude is genuinely undetermined — the derivation is pending (the β feasibility lane reported INFEASIBLE-ON-LATTICE; the magnitude is now routed to the #788 rulings items 10/11) and no experiment strengthens it, so the entry is `*pending*` by the register's pending semantics (unassessed ≠ refuted). It holds the OPEN slot so the direction (`clm-hu1jjw`) is not mis-read as carrying a magnitude, and so a future Protocol-E / continuum-import result has a home to strengthen.
 - strengthen-by:
   - close the magnitude via the #788-routed paths (the β feasibility lane is INFEASIBLE-ON-LATTICE — three structural absences): measure the structural `ρ_eff` term via Protocol E (item 10, long-λ time-of-flight `ρ_eff = K_eff/c_eff²`, folded into the vessel-state RVE prereg) and supply the trapped-energy term as a tagged `E=mc²` import on the continuum radial-solver lane (item 11), with the sector ledger (which `c²` divides `E`) declared first
+
+---
+
+## Saturation Rim-Inversion — the saturated core's phase space is the BOUNDARY of the cold lattice's (consistency-class reading, Grant-ratified mapping)
+<!-- id: clm-riminv -->
+
+The Axiom-4 kernel `S(A) = √(1−(A/A_yield)²)` is a **circle constraint** (`S² + (A/A_yield)² = 1`). Read a single mode's reactive state as a point in the **(amplitude `A`, phase `θ`) disk** of radius `A_yield` (`A` = the conserved reactive-amplitude envelope, `substrate-perspective-electron.md:62`, not an instantaneous snapshot). A **cold node** lives in the **disk interior** — amplitude and phase both dynamical, contractible (`π₁ = 0`), no integers, topology trivial. A **saturated core** is pinned **ON the rim** `A = A_yield` where `S → 0` and the local clock freezes (`c_eff = c·√S → 0`, "stable because it is static", `genesis-chord-falsification-ledger.md:145`): amplitude frozen, only **phase** free, classified by **winding numbers** (`π₁(S¹) = ℤ`). So **integers exist only on the rim** — the **quantization locus** — which is why charge (the Cosserat `(2,3)` phase-space winding, `the-abandoned-interior.md:46` / `electron-identification.md` §1 property 2) quantizes exactly where saturation lives. Canonical home [`saturation-rim-inversion.md`](./saturation-rim-inversion.md) §"The inversion statement"; walk provenance `research/2026-07-21_phase-space-inversion-walk_RECORD.md`; Grant-ratified at the MAPPING level in-chat 2026-07-21 (verbatim `[sic]`: "i saw the phasor changing, but i think this mapping you provided makes more sense than what i was thinking, shoild we scope cannonizing it?").
+
+- _Specific Claims_
+  - **The rim-inversion (organizing identity):** the saturated core's per-mode phase space is the BOUNDARY (rim `S→0`) of the cold node's (disk interior); dynamics↔topology swap roles between the two phase-states.
+  - **The quantization locus:** integers (`π₁(S¹)=ℤ`) exist only on the rim; the disk interior is contractible (`π₁=0`) — so the phase-space `(2,3)` winding quantizes exactly at saturation.
+  - **Disk vs Clifford torus (geometric content):** the single-mode disk→rim reduction gives ONE factor per bond-pair mode of the corpus's `(2,3)`-carrying Clifford torus `(V_inc, V_ref)`; the disk is not the torus, its rim is a factor of it.
+- _Specific Non-Claims and Caveats_
+  - **A READING, not a derivation.** Assembles three already-canonical objects (Axiom-4 circle shape; the frozen clock at yield; the phase-space winding) into one identity. Not an emergence result; originates no new numerical commitment. Consistency/organizing-principle class.
+  - **PER-MODE PHASE-SPACE, not real-space (A46).** Must not be conflated with the envelope three-surface anatomy (real-space radial loci, `envelope-anatomy.md:13`, "NOT phase-space contours"); they compose via `S(A(r))` but are different objects.
+  - **The MAPPING is what Grant ratified**, over his prior sign-flip reading (parked, no claim). Ratification does NOT extend to `clm-satnec` or `clm-zdual1`. PROPOSED leaf (Grant-ratification-at-merge); the `def-` register row is DEFERRED to a post-#781 batch.
+
+> **Leaf references:** [saturation-rim-inversion](./saturation-rim-inversion.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - Axiom 4 (the saturation kernel `S(A)=√(1−(A/A_yield)²)` — the circle constraint the reading rides on)
+  - Axiom 1 (Substrate Topology — the phase-only node graph on which phase-on-a-circle carries integer winding, `π₁(S¹)=ℤ`)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 1.00)]
+- rationale: A consistency-class / organizing reading, not a derivation — a near-theorem over three objects the corpus already owns (the Axiom-4 kernel's circle shape; the frozen local clock at yield, genesis ledger:145; the phase-space `(2,3)` winding, electron-identification §1). Grant ratified the MAPPING in-chat over his prior sign-flip reading. Graded 0.55 (above the relative-offset reading's 0.50) because it rides only on already-canonical objects with NO ungraded dynamical premise, and 0.55 (not higher) because it is PROPOSED/pre-review and Grant ratified a mapping, not a derivation. The reading's solidity is deliberately NOT bled onto the two candidate reads (`clm-satnec` OPEN, `clm-zdual1` 0.50).
+- strengthen-by:
+  - Grant-ratification-at-merge of the leaf + the `saturation-rim-inversion` name (and the deferred `def-` register row, post-#781 batch)
+  - adversarial review of the disk/rim reading against the corpus's phase-space-winding sites (`the-abandoned-interior.md:46`; `substrate-perspective-electron.md:243,247`; `mathematical-topology-of-mass.md:30`) — confirm the disk-factor-of-torus framing or flag a tension
+  - close `clm-satnec` (the topological necessity route) — an existence proof that the winding forces the rail would upgrade the reading from "where integers live" to "why the core exists"
+
+---
+
+## Topological necessity-to-saturation — a (2,3) winding forces the rail at its core (OPEN mechanism candidate)
+<!-- id: clm-satnec -->
+
+**OPEN — not asserted.** A candidate mechanism for *why* a saturated core exists at all: at the center of a `(2,3)` winding the phase is **undefined** (a vortex-core phase singularity); the lattice cannot smoothly carry it, so the amplitude response **rails** to the yield rim (`S→0`), and the saturated core is the lattice's **RESOLUTION** of the singularity — saturation **topologically obligatory**, not painted on. This is the **topological route** to saturation, complementary to the walk-ratified **dynamic route** (the self-biased, self-stable Q-point, `resonant-lc-solitons.md:142`; the envelope self-maintaining at the rail, `research/2026-07-20_envelope-boundary-walk_RECORD.md`). **Whether the two routes are one mechanism or two is OPEN.** Named test (routed, un-fired): impose the `(2,3)` winding as a boundary condition, relax the lattice, ask whether the core rails `S→0` at the center — this IS the standing eigenmode-existence open item (`program-arc-map.md:118`). Canonical home [`saturation-rim-inversion.md`](./saturation-rim-inversion.md) §"The topological necessity candidate".
+
+- _Specific Claims_
+  - (none asserted — the mechanism is a CANDIDATE. This entry EXISTS to hold the open slot, name the test, and carry the guard, not to assert that the winding forces the rail.)
+- _Specific Non-Claims and Caveats_
+  - **NOT Grant-ratified.** Grant ratified the inversion MAPPING (`clm-riminv`), not this necessity arrow.
+  - **Does NOT claim the topological and dynamic routes are the same mechanism** — that is explicitly OPEN.
+  - **GUARD (challenge-canonical-negative):** the static-existence test is DISTINCT from the falsified energize-LOCK formation route (pumped genesis from free precursor, closed-negative). Any future prereg MUST carry the config-grep proving it does not reconstruct the closed path (grep the CONFIG: no free-precursor genesis, no `dt→0` pump ramp; impose-and-relax only).
+
+> **Leaf references:** [saturation-rim-inversion](./saturation-rim-inversion.md).
+
+### Quality
+- confidence: *pending*
+- depends-on:
+  - clm-riminv — the rim-inversion (the rim is where the winding/quantization lives; the necessity arrow asks WHY the core reaches it)
+  - Axiom 1 (Substrate Topology — the `(2,3)` winding whose central phase singularity is the candidate driver)
+- solidity: *pending*
+- rationale: An OPEN mechanism candidate — the derivation is un-fired (the named static-existence test IS the standing K=2G eigenmode-existence open item, `program-arc-map.md:118`), so the entry is `*pending*` by the register's pending semantics (unassessed ≠ refuted). It holds the OPEN slot so the reading (`clm-riminv`) is not mis-read as carrying a necessity proof, names the test, and carries the energize-LOCK guard. NOT Grant-ratified.
+- strengthen-by:
+  - fire the static-existence test (impose `(2,3)` as BC, relax, check core rails `S→0`) with the challenge-canonical-negative config-grep attached — closes the K=2G eigenmode-existence open item
+  - adjudicate whether the topological route and the dynamic self-trap Q-point are one mechanism or two
+
+---
+
+## Channel-duality inversion — the saturated core is the impedance DUAL of the medium (consistency-class reading over INVARIANT-S2; one open μ-at-core detail)
+<!-- id: clm-zdual1 -->
+
+At the swing-railed core the impedance **ordering of the channels flips** versus cold vacuum — the core is the impedance **DUAL** of the medium. This is a **re-reading of an already-Grant-ratified split** (INVARIANT-S2, Grant-ratified 2026-06-15, `resonant-lc-solitons.md:35`), not a new result: the **longitudinal-A1 bond compliance** `C_eff = C_0/S → ∞` shorts the bulk channel (`Z_bulk = √(L/C_comp) → 0`, `Γ_bulk = −1` at the knot core, `electron-bh-isomorphism.md:26`); the **transverse-T2 permittivity** `ε_eff = ε_0·S → 0` (the swing-ε kernel, `fdtd_3d_jax.py:109-113`) opens the EM channel (`Z_wave = √(μ/ε) → ∞`). Both `|Γ|=1`, opposite boundary phase (`Γ=−1` short vs `Γ=+1` open) — the dual. Canonical home [`saturation-rim-inversion.md`](./saturation-rim-inversion.md) §"The channel-duality inversion".
+
+- _Specific Claims_
+  - **The impedance-ordering flip / dual:** at the core the A1/bulk channel shorts (`Γ_bulk=−1`) while the T2/transverse channel opens (`Γ=+1`) — opposite boundary phase, both perfectly reflecting; the core is the impedance dual of the cold medium.
+- _Specific Non-Claims and Caveats_
+  - **The DUALITY SUBSTRATE is already Grant-ratified** (INVARIANT-S2, `C_0/S`↑ vs `ε_0·S`↓ is a sector split, NOT a sign error, `resonant-lc-solitons.md:35`); this claim re-expresses it as "the impedance dual." The re-expression / framing was NOT ratified by the 2026-07-21 mapping.
+  - **OPEN sub-detail — μ at the knot core.** The `Z_wave→∞` open-read assumes `μ` stays cold while `ε→0`. The `μ`-grade keys on **circulation** `A_I` (`μ_eff = μ_0/√(1−A_I²)`, increasing; `fdtd_3d.py:339-343`); Route-C addresses static-B **transparency** (`A_I=0`), NOT the interior of a `(2,3)` core. A second unreconciled reading has `μ_eff→0` (Meissner, `resonant-lc-solitons.md:138`). What `A_I` does AT the core (cold / rising / →0) is UNPINNED — the one open detail.
+  - **Does NOT resolve the μ-at-core direction** — flagged for adjudication.
+
+> **Leaf references:** [saturation-rim-inversion](./saturation-rim-inversion.md).
+
+### Quality
+- confidence: 0.50
+- depends-on:
+  - clm-riminv — the rim-inversion (the frozen-swing rim state is the phase-state at which the channels invert)
+  - Axiom 4 (the swing kernel that rails `ε_0·S→0` and diverges the A1 compliance `C_0/S→∞`)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
+- rationale: A consistency-class reading whose SUBSTRATE (the A1-short / T2-open channel split) is already Grant-ratified as INVARIANT-S2 (2026-06-15, `resonant-lc-solitons.md:35`; `nonlinear-vacuum-capacitance.md:14`) — so the ordering-flip is well-grounded canon. Graded 0.50 (not higher) because it carries ONE explicit open sub-detail (the μ-at-core direction: the circulation-keyed relativistic inductor rises, the wall-fork Meissner route has `μ→0`, and Route-C only pins the static-B `A_I=0` case — none pins the `(2,3)` core interior) and the "impedance dual" framing was not ratified by the 2026-07-21 mapping. The reading's `clm-riminv` solidity is not bled onto this.
+- strengthen-by:
+  - pin what the circulation variable `A_I` does at the `(2,3)` knot core (cold vs rising vs Meissner-`μ→0`) — reconciles the relativistic-inductor / Route-C / wall-fork readings and closes the open sub-detail
+  - Grant/auditor adjudication of the "impedance dual" framing over the already-ratified INVARIANT-S2 split
