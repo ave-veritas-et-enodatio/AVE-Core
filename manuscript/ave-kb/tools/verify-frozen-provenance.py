@@ -61,15 +61,25 @@ PASSES the resolution but emits an ADVISORY recommending the explicit pointer
 
 GATING DESIGN (date cutoff + explicit grandfather list)
 -------------------------------------------------------
-Gating is by the result doc's date (parsed from its ``YYYY-MM-DD`` filename
-prefix), against ``gating_date`` in the checked-in grandfather list
-(``frozen-provenance-grandfather.json``, default 2026-07-22):
+Gating is by the result doc's *effective date* — ``max(filename date, first-add
+date)`` — against ``gating_date`` in the checked-in grandfather list
+(``frozen-provenance-grandfather.json``, default 2026-07-22). The filename date
+is the ``YYYY-MM-DD`` prefix; the first-add date is the doc's earliest commit
+under ``research/``, read in ONE ``git log --diff-filter=A`` pass (never a
+per-file subprocess). Keying on the MAX closes the **backdated-filename
+evasion**: a brand-new bad doc named ``2026-07-01_*.md`` cannot buy the warn
+path with a stale prefix — its add date gates it.
 
-  * doc date **>= gating_date** -> a Frozen-mismatch or a missing-prereg is a
-    HARD FAIL (exit 1).
-  * doc date **< gating_date** -> WARN-ONLY (grandfathered by the pre-gate
+  * effective date **>= gating_date** -> a Frozen-mismatch or a missing-prereg
+    is a HARD FAIL (exit 1).
+  * effective date **< gating_date** -> WARN-ONLY (grandfathered by the pre-gate
     date); printed, never gating. The two known incidents are annotated in the
     grandfather list as caught-and-corrected.
+  * an **untracked / uncommitted** result doc has no add date and is treated as
+    gating-dated (it is new by definition — a stale filename cannot exempt it).
+  * if **git is unavailable** the filename date is used and a single advisory
+    records that the add-date cross-check was skipped (fail-open on the
+    cross-check, never on the byte-check).
   * ``grandfathered_result_docs`` in the list is an explicit escape hatch: a
     named doc is warn-only even if dated on/after the cutoff (normally empty;
     the diff is reviewable).
@@ -92,6 +102,13 @@ SCOPE HONESTY — what this gate CANNOT catch (documented, not force-fitted)
     byte-match. This is a deliberate false-positive-toward-safety: the fix is to
     quote the criterion in the result doc identically to the prereg — which is
     the whole point of a *frozen* criterion.
+  * **Backdated filename (GUARDED).** A stale ``YYYY-MM-DD`` prefix on an
+    otherwise-new doc used to buy the warn path (severity keyed on the filename
+    alone). GUARD: severity now keys on ``max(filename date, first-add date)``
+    and treats untracked docs as gating-dated, so a backdated new doc gates.
+    RESIDUAL: only when git is unavailable does the check fall back to the
+    filename date (an explicit advisory says so) — that fallback window is the
+    remaining, surfaced, exposure.
 
 The gate's runtime is trivial: pure text scan + substring resolve, stdlib only
 (one optional ``git show`` per pinned-commit doc). See ``verify-frozen-provenance``
@@ -279,6 +296,50 @@ def parse_doc_date(filename: str) -> date | None:
         return None
 
 
+# NUL-adjacent unit-separator sentinel so a commit-header line is never confused
+# with a `research/...` path line in the single `git log` pass.
+_GITLOG_SENTINEL = "\x1f"
+
+
+def build_add_date_map(repo_root: Path) -> tuple[dict[str, date] | None, str | None]:
+    """First-commit (add) date per ``research/`` path, in ONE ``git log`` pass.
+
+    Returns ``(map, error)``. ``map`` is repo-root-relative posix path ->
+    earliest add date (``--reverse`` => oldest first => ``setdefault`` keeps the
+    first add). On ANY git failure returns ``(None, reason)`` so the caller
+    falls back to filename dates and emits a single 'cross-check skipped'
+    advisory (fail-open on the cross-check, never on the byte-check). Exactly one
+    subprocess — never a per-file call.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo_root), "log", "--reverse",
+             "--diff-filter=A", f"--format={_GITLOG_SENTINEL}%ad",
+             "--date=short", "--name-only", "--", SCAN_ROOT_REL],
+            capture_output=True, text=True, timeout=60,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        return None, f"git unavailable ({exc})"
+    if out.returncode != 0:
+        return None, f"git log failed (rc={out.returncode}: {out.stderr.strip()[:120]})"
+
+    add_dates: dict[str, date] = {}
+    cur: date | None = None
+    for line in out.stdout.splitlines():
+        if line.startswith(_GITLOG_SENTINEL):
+            raw = line[len(_GITLOG_SENTINEL):].strip()
+            try:
+                y, mo, d = (int(x) for x in raw.split("-"))
+                cur = date(y, mo, d)
+            except (ValueError, AttributeError):
+                cur = None
+            continue
+        path = line.strip()
+        if path and cur is not None:
+            add_dates.setdefault(path, cur)  # oldest add wins
+    return add_dates, None
+
+
 # ---------------------------------------------------------------------------
 # Prereg resolution + content read
 # ---------------------------------------------------------------------------
@@ -370,8 +431,11 @@ def read_prereg_content(ref: PreregRef, repo_root: Path) -> tuple[str | None, st
 #   "no-prereg"  — Frozen labels present, no prereg resolvable (gating-eligible)
 #   "mismatch"   — quoted criterion NOT byte-present in the prereg (gating-eligible)
 #   "unquoted"   — Frozen label, no quoted criterion (ADVISORY, never gating)
-#   "no-explicit-pointer" — resolved via fallback, lacks Prereg-file line (ADVISORY)
-_ADVISORY_KINDS = {"unquoted", "no-explicit-pointer"}
+#   "no-explicit-pointer" — resolved via fallback, lacks Prereg-file line
+#                  (ADVISORY; ESCALATES to gating on a cross-lane header-heuristic
+#                  resolution of a gating-dated doc — see resolve_prereg / REPAIR 3)
+#   "git-skipped" — add-date cross-check skipped, git unavailable (ADVISORY, once)
+_ADVISORY_KINDS = {"unquoted", "no-explicit-pointer", "git-skipped"}
 
 
 @dataclass(frozen=True)
@@ -393,8 +457,16 @@ def scan_doc(
     repo_root: Path,
     gating_date: date,
     grandfathered_docs: set[str],
+    add_dates: dict[str, date] | None = None,
 ) -> list[Finding]:
-    """Return findings for one result doc (empty if clean or no Frozen labels)."""
+    """Return findings for one result doc (empty if clean or no Frozen labels).
+
+    ``add_dates`` (REPAIR 1): repo-relative-posix -> first-commit date, from the
+    single ``build_add_date_map`` pass. When provided, severity keys on
+    ``max(filename date, add date)`` and an untracked doc (absent from the map)
+    is treated as gating-dated. When ``None`` (git unavailable, or a direct
+    caller opting out) the legacy filename-date-only rule applies.
+    """
     try:
         text = doc_path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError) as exc:
@@ -412,15 +484,24 @@ def scan_doc(
         rel = doc_path.name
 
     def is_gating(default: bool = True) -> bool:
-        """A finding gates iff the doc is dated on/after the cutoff, is not an
-        explicit grandfather-list exemption, and the finding kind is enforceable."""
+        """A finding gates iff the doc's EFFECTIVE date is on/after the cutoff,
+        it is not an explicit grandfather-list exemption, and the kind is
+        enforceable. Effective date = max(filename date, first-add date); an
+        untracked doc gates (new by definition); no map -> filename date only."""
         if not default:
             return False
         if rel in grandfathered_docs:
             return False
-        if doc_date is None:
-            return False  # undated -> cannot gate (warn-only)
-        return doc_date >= gating_date
+        if add_dates is None:
+            # Fallback (git unavailable / direct opt-out): filename date only.
+            if doc_date is None:
+                return False  # undated -> cannot gate (warn-only)
+            return doc_date >= gating_date
+        add_date = add_dates.get(rel)
+        if add_date is None:
+            return True  # untracked / uncommitted -> new by definition -> gating
+        candidates = [d for d in (doc_date, add_date) if d is not None]
+        return bool(candidates) and max(candidates) >= gating_date
 
     findings: list[Finding] = []
     ref = resolve_prereg(doc_path, text, repo_root)
@@ -485,8 +566,19 @@ def _rel(path: Path, repo_root: Path) -> str:
 
 def scan(repo_root: Path, gating_date: date, grandfathered_docs: set[str]) -> list[Finding]:
     findings: list[Finding] = []
+    # REPAIR 1: one git pass builds the file->first-add-date map for the
+    # backdated-filename cross-check. On git failure -> fallback + one advisory.
+    add_dates, git_err = build_add_date_map(repo_root)
+    if git_err is not None:
+        findings.append(Finding(
+            file=repo_root, line=0, kind="git-skipped",
+            detail=(f"add-date cross-check skipped ({git_err}); gating keyed on "
+                    f"filename date only — a backdated-filename evasion is NOT "
+                    f"cross-checked in this run"),
+            doc_date=None, gating=False,
+        ))
     for doc in iter_result_markdown(repo_root):
-        findings.extend(scan_doc(doc, repo_root, gating_date, grandfathered_docs))
+        findings.extend(scan_doc(doc, repo_root, gating_date, grandfathered_docs, add_dates))
     return findings
 
 

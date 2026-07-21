@@ -123,6 +123,58 @@ def test_pre_gate_date_is_warn_only() -> None:
 
 
 # --------------------------------------------------------------------------
+# REPAIR 1 (audit 3a) — backdated-filename evasion. Severity keys on
+# max(filename date, first-add date); an UNTRACKED doc is new by definition and
+# GATES even with a pre-cutoff filename prefix. (Fixtures are not in git history
+# as research/ docs, so the logic is exercised via the untracked-doc path.)
+# --------------------------------------------------------------------------
+
+def _write_backdated_mismatch(tmp: Path) -> Path:
+    """A pre-cutoff-NAMED result doc carrying a Frozen criterion absent from its
+    (sibling) prereg. The backdated prefix is the evasion; the doc is new."""
+    research = tmp / "research"
+    research.mkdir(parents=True)
+    (research / "2026-07-01_backdated-fixture_prereg-FROZEN.md").write_text(
+        "# Backdated prereg\n\nFrozen bins: `real criterion <= 0.25`\n",
+        encoding="utf-8",
+    )
+    doc = research / "2026-07-01_backdated-fixture_result.md"
+    doc.write_text(
+        "# Backdated result\n\n"
+        "Prereg-file: research/2026-07-01_backdated-fixture_prereg-FROZEN.md\n\n"
+        "> **Gate — Frozen:** `fabricated criterion <= 0.10`\n",
+        encoding="utf-8",
+    )
+    return doc
+
+
+def test_backdated_untracked_doc_gates() -> None:
+    vfp = _load_module()
+    from datetime import date
+    import tempfile
+    cutoff = date(2026, 7, 22)
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        doc = _write_backdated_mismatch(tmp)
+        # add_dates provided but the doc is ABSENT (untracked) -> gating.
+        gating = [
+            f for f in vfp.scan_doc(doc, tmp, cutoff, set(), add_dates={})
+            if f.gating
+        ]
+        assert any(f.kind == "mismatch" for f in gating), (
+            "a backdated-filename, untracked result doc with a Frozen mismatch "
+            "must GATE, not warn (max(filename, add-date) + untracked=new rule)"
+        )
+        # Contrast: the LEGACY filename-only path (add_dates=None) would WARN —
+        # this is exactly the evasion REPAIR 1 closes.
+        legacy = vfp.scan_doc(doc, tmp, cutoff, set(), add_dates=None)
+        assert legacy and all(not f.gating for f in legacy), (
+            "filename-only (legacy) severity lets the backdated prefix warn — "
+            "the hole REPAIR 1 closes"
+        )
+
+
+# --------------------------------------------------------------------------
 # Trivial-runtime / stdlib-only sanity.
 # --------------------------------------------------------------------------
 
@@ -144,5 +196,6 @@ if __name__ == "__main__":
     test_pass_control_is_clean()
     test_quoted_mention_is_not_a_label()
     test_pre_gate_date_is_warn_only()
+    test_backdated_untracked_doc_gates()
     test_pure_stdlib_no_third_party_imports()
     print("ALL PASS")
