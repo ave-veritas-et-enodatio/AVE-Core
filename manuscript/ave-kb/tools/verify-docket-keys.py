@@ -13,6 +13,12 @@ GRANDFATHERED = {"22", "32"}  # 22 = intentional "(cont.)" continuation (same ke
 
 def main() -> int:
     text = DOCKET.read_text(encoding="utf-8")
+    # news-fragments convention (2026-07-21): per-lane entry files, scanned alongside the frozen monolith
+    frag_dir = DOCKET.parent / "docket-entries"
+    if frag_dir.is_dir():
+        for frag in sorted(frag_dir.glob("*.md")):
+            if frag.name != "README.md":
+                text += "\n" + frag.read_text(encoding="utf-8")
     keys = re.findall(r"^### ENTRY ([0-9A-Za-z][0-9A-Za-z._-]*)", text, re.M)
     counts = collections.Counter(keys)
     dups = {k: c for k, c in counts.items() if c > 1 and k not in GRANDFATHERED}
