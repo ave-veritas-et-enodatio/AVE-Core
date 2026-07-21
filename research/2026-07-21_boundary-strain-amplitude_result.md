@@ -1,0 +1,108 @@
+# Boundary-Strain Amplitude — RESULT (the Fork-W conditional's single computation; the frozen-bin verdict)
+
+**Date:** 2026-07-21
+**Class:** DERIVATION + lattice-derived research-driver (research-doc; **forms derived, values dimensionless/geometric; mints no `clm-`/`def-`; propagates to no KB/tex leaf**). Resolves the frozen bins of `research/2026-07-21_boundary-strain-amplitude_prereg-FROZEN.md`. THE single computation that merged **#773** re-scoped Fork-W to hinge on (docket `### ENTRY 2026-07-20-forkw-kernel-keying` review-repair **R2**, verbatim: *"OWED (the single computation Fork-W now hinges on): the core-boundary transverse-vs-axial swing-amplitude, vs yield, for the actual srs breather envelope"*; #773 §4(b) NOT-YET-RATIFIABLE clause).
+**Provenance:** Grant standing derivation-class authorization (the #773 §4(a) owed follow-on). Frozen prereg committed + pushed ALONE first (`c35c612e`); analytic Leg A + driver (`10a23633`); the driver `research/drivers/boundary_strain_amplitude.py` (+ `_results.json`, white figure) reuses `constituent_cage_ensemble.py` primitives, `ave.core.*` read-only, engine BYTE-UNTOUCHED, reruns bit-identical.
+**Lane fences:** DERIVATION lane only. Engine byte-untouched; **no** `manuscript/`/`ave-kb/` leaf edit; **no** port-register / falsification-ledger edit; **no** ratification landed (implementer surfaces; Grant + auditor land) — regardless of outcome (held). Every `[canon]` input content-verified two-method at base HEAD `3d07ceeb`.
+
+> **★FROZEN-BIN VERDICT: BIN 3 — PROFILE-DEPENDENT (the #773 §4(b) `k_a`-alone clause is NOT ratifiable as stated for the localized core; the bulk-only wall is NOT forced by the keying).** The answer to Fork-W's single question splits along **two independent axes**, both of which canon under-determines:
+>
+> - **Axis 1 — direct deviatoric swing (Legs A+B):** For the SMOOTH / physically-resolved localized breathers, the peak core-boundary transverse swing (the exact `k_s` kernel argument, MEASURE-1) is **`0.19–0.28·A_yield`** — SUB-HALF-YIELD — and `ρ_dev(r_sat) ≈ 0.02–0.04` **at** the axial-saturation shell (the axial swing peaks at the core center where the deviatoric is `≈0`; the deviatoric peaks at an OUTER shell where the axial has already decayed — a **spatial separation**). This ALONE would support `k_a`-alone (bin-1 direction). **But it flips** to `0.72·A_yield` (MEASURE-1) for the sharp-core LIMIT, and to `0.50–1.5·A_yield` for the raw deviatoric-shape measure (MEASURE-2) — so the direct-swing verdict is **profile- AND measure-conditional** (the bin-1 criterion "`≤0.5` for ALL profiles AND both measures" FAILS). No admissible localized profile makes the boundary deviatoric strictly negligible: the div-free exterior tail is `ρ_dev = 3/2` (deviatoric-DOMINATED) by geometry.
+> - **Axis 2 — the pre-stress remap (Leg C; the #773-flagged countervailing mechanism):** At a yield-scale axial boundary the remap `k_{shear,eff} = k_s + T/ℓ` has `T/ℓ = k_a·ε_axial ≈ 10·k_s` (`k_a/k_s = 9.77`, AVE `O(1)` yield strain) — it **DOMINATES the bare `k_s` by ~an order of magnitude**. Sign = **DC-dilatation-sign-dependent**: **SOFTENS** (`k_{shear,eff}` → negative, shear-buckling) for a **compressed** core (the `master-equation.md:20` mass = *"trapped acoustic compression"* reading), **STIFFENS** for an expanded core. So **even where the direct transverse swing is sub-yield, the shell shear stiffness is NOT the cold `k_s`** — the "`k_s` stays cold, shear channel alive" premise the bulk-only `Γ_bulk=−1` wall needs is undercut by the pre-stress remap regardless of Axis 1.
+>
+> **Consequence for #773 (routed to Grant; NOT landed here):** the §4(b) NOT-YET-RATIFIABLE consequence clause — *"a pure A1 dilatation breather therefore rails `k_a` ALONE, the shear channel surviving as a partial floor"* — does **NOT become ratifiable**. For the LOCALIZED core it is **profile-conditional** (Axis 1: smooth-core direct-swing supports it; sharp-core / raw-`|D|` measure do not) AND **remap-undercut** (Axis 2: the pre-stress dominates `k_s` at yield-scale, softening it for a compressed core). The clean **bulk-only wall is NOT forced by the keying** for the localized breather; the channel-asymmetric wall (`electron-bh-isomorphism.md:26`) — if it is real — needs a carrier the per-coordinate swing-keying does not by itself supply. The **value-free §4(b) RATIFIABLE half** (Axiom-4's argument is per-deformation-coordinate swing; `k_a`↔axial, `k_s`↔transverse, Cosserat↔circulation) is UNAFFECTED — it stands. **Anti-seduction: BIN 1 (which flatters BOTH the walked `k_a`-alone picture AND the deep-rail bulk-only wall model) is NOT declared, and BIN 2 (which flatters the #773 R2 completion momentum) is NOT declared — the honest frozen verdict is the fork, characterized on both axes.**
+
+---
+
+## §0 — REGIME / SECTOR / PHASE-STATE header
+
+**MODE.** Static/kinematic — the strain decomposition of an IMPOSED localized breather profile, NOT envelope self-consistency (declared scope, prereg §0; a self-bound saturated soliton is INFEASIBLE on the lossless engine — electron-lock arc — and self-consistency is not what Fork-W hinges on). **REGIME.** Near-yield localized A1 breather core; cold-linear exterior. **PHASE-STATE.** Op14 saturation not run dynamically; we measure the per-bond swing amplitudes the kernel WOULD key on, vs yield. **SECTOR.** A1 bulk/compression (`k_a`, keyed on axial swing) vs T2 shear (`k_s`, keyed on transverse swing) — orthogonal swing coordinates (#773 §2 Step 3); mass = A1 dilatation (`master-equation.md:20`), A1 ⊥ T2. **A46 (`phase-space-coordinate-check` PASS):** the corpus claim (#773 §2 Step 2: `ε_rr=f′`, `ε_θθ=f/r`, deviatoric `∝(f′−f/r)`) and the test are BOTH in real-space strain-decomposition coordinates — matched, not a phase-space-vs-real-space mismatch. **CLASS (`consistency-vs-emergence`):** `ρ_dev` is a dimensionless kinematic ratio; Leg A = exact geometric IDENTITY; Leg B = its lattice MANIFESTATION; α-CLEAN. No emergence claim headlined.
+
+---
+
+## §1 — LEG A (analytic; exact spherical-elasticity kinematics) `[derived]`
+
+Full in `..._derivation.md`. Outputs (exact, normalized so peak axial = `A_yield`): `ρ_dev(r_sat) = 0` for every smooth member (axial peaks where the deviatoric vanishes); admissible bracket `ρ_dev ∈ [0 (affine), 3/2 (div-free tail)]`; peak deviatoric per profile —
+
+| profile | `ρ_dev(r_sat)` | peak `½|D|` (MEASURE-1 partner) | peak `|D|` (MEASURE-2 shape) | dilatation-frac interior |
+|---|---|---|---|---|
+| smooth-eshelby (PRIMARY) | `0` | `0.279` | `0.558` | `0.92` |
+| gaussian-curlfree (seed) | `0` | `0.368` | `0.736` | `0.90` |
+| lorentzian | `0` | `0.250` | `0.500` | `0.93` |
+| sharp-eshelby (LIMIT) | `0` | `0.750` | `1.500` | `0.83` |
+
+The **factor of ½** (bond-shear `½|D|` = the exact `k_s` argument, vs raw `|D|`) is derivation-grade (`..._derivation.md §1`), and is load-bearing near the 0.5 margin.
+
+---
+
+## §2 — LEG B (numeric; per-bond srs strain decomposition — VERDICT-CONTROLLING) `[derived]`
+
+Driver: `research/drivers/boundary_strain_amplitude.py`. On `cce.build_finite_srs(L=24)`, impose each admissible `u = f(r)r̂`; per bond measure `A_axial=|d̂·du|` (keys `k_a`) and `A_trans=|(I−d̂d̂)·du|` (keys `k_s`); bin by midpoint radius; RMS per shell; `r_sat = argmax Ā_axial`; normalize `Ā_axial(r_sat)=1`. Engine byte-untouched; deterministic (no RNG; reruns bit-identical).
+
+| profile | `r_sat` | `ρ_dev(r_sat)` (MEASURE-1) | **M1 = peak `Ā_trans`** (yield units) | `ρ_dev` exterior tail |
+|---|---|---|---|---|
+| smooth-eshelby | `0.25` | `0.042` | **`0.216`** | `1.22` |
+| gaussian-curlfree | `0.25` | `0.015` | **`0.278`** | `0.89` |
+| lorentzian | `0.25` | `0.028` | **`0.188`** | `1.03` |
+| sharp-eshelby | `0.25` | `0.000` | **`0.725`** | `1.23` |
+
+**Findings.** (1) The numeric per-bond MEASURE-1 (`0.19–0.28` smooth, `0.72` sharp) **confirms the analytic bond-shear `½|D|`** (`0.25–0.37` smooth, `0.75` sharp) to within the lattice orientation-average — the pipeline is validated. (2) `ρ_dev(r_sat) ≈ 0`: at the axial-saturation shell (core center) the transverse swing is `≈0` — the **spatial separation** of the `k_a` and `k_s` saturation loci (Leg A §3), measured directly on the net. (3) The transverse swing peaks at an OUTER shell (`r≈1.75` for smooth-eshelby: `Ā_trans=0.216` where `Ā_axial=0.318`). (4) The exterior tail `ρ_dev → 1.0–1.23` confirms the deviatoric-dominated div-free regime (rising toward the analytic `3/2`; not fully asymptotic at `L=24` — a finite-box FENCE caveat, verdict-neutral since the verdict data are the core-boundary shells). (5) **`r_c` robustness** (frozen report item): M1(smooth-eshelby) `= 0.228 / 0.216 / 0.210` at `r_c = 1.5 / 2.0 / 3.0` — the direct-swing metric is core-scale-robust (all sub-half-yield). **Verdict-controlling read:** smooth cores → M1 sub-half-yield (bin-1 direction); sharp-core LIMIT → M1 `0.72` (toward yield-scale) ⇒ profile-dependent; NOT `≤0.5` across all profiles + both measures ⇒ **bin-1 criterion FAILS**.
+
+---
+
+## §3 — LEG C (the pre-stress remap; sign matters — the #773-flagged countervailing mechanism) `[canon-read + derived]`
+
+`[canon]` remap `k_{shear,eff} = k_s + T/ℓ_node` (`axiom-register.md:193` `[SIGN-RULE-DERIVED]`). Per-bond `T/ℓ = k_a·ε_axial` at the saturation shell, normalized so peak axial strain = `A_yield`:
+
+| profile | DC dilatation | sign verdict | `⟨k_{shear,eff}⟩/k_s` | soften frac | orientation (radial / diag / hoop `T/ℓ`) |
+|---|---|---|---|---|---|
+| smooth-eshelby | outward (`θ>0`) | **STIFFENS** | `+10.56` | `0.00` | `— / +9.77 / +9.35` |
+| gaussian-curlfree | inward (`θ<0`, compressed) | **SOFTENS** | `−8.70` | `1.00` | `— / −9.77 / −9.62` |
+| lorentzian | outward | **STIFFENS** | `+10.63` | `0.00` | `— / +9.77 / +9.49` |
+| sharp-eshelby | outward | **STIFFENS** | `+8.53` | `0.00` | `+7.53 / +7.53 / +7.53` |
+
+**Findings.** (1) `|T/ℓ| ≈ 8–10·k_s` — the remap **DOMINATES the bare `k_s` by ~10×** at a yield-scale axial boundary (`k_a/k_s = 9.77`, AVE `O(1)` yield strain). So the shell shear stiffness is set by the axial pre-stress, not by the intrinsic `k_s`. (2) **The sign flips with the breather's DC dilatation sign** (robust, `ε_yield`-independent): SOFTENS (`k_{shear,eff}` → NEGATIVE, a shear-buckling instability — the `axiom-register.md:193` UNCAPPED track) for the **compressed** core (`θ<0`, the `master-equation.md:20` mass = *"trapped acoustic compression"* reading); STIFFENS for the expanded core. (3) **Magnitude disclosure:** `|T/ℓ|/k_s = (k_a/k_s)·ε_yield`; the `~10` rides the AVE `O(1)` yield strain (`arc*≈0.89–0.96 ℓ_node`, `axiom-register.md:189`) — the "dominates" conclusion holds for any `ε_yield ≳ k_s/k_a ≈ 0.1`, while the SIGN is `ε_yield`-independent. **⇒ Leg C independently undercuts the clean bulk-only wall**: the `k_s`-cold premise fails at yield-scale via the pre-stress, and for a compressed core the shear is actively softened.
+
+---
+
+## §4 — FROZEN-BIN VERDICT + consistency + anti-seduction fence check
+
+| Leg | Frozen outcome | Decisive step |
+|---|---|---|
+| **A — analytic** | `ρ_dev∈[0,3/2]`; `ρ_dev(r_sat)=0` (spatial separation); peak `½|D|` smooth `0.25–0.37`, sharp `0.75` | the factor-½ (exact `k_s` arg) + the affine/tail bracket; no profile makes deviatoric negligible |
+| **B — numeric (verdict-controlling)** | M1 smooth `0.19–0.28` (sub-half-yield), sharp `0.72`; `ρ_dev(r_sat)≈0`; exterior `→3/2`; `r_c`-robust | bin-1 criterion FAILS (not `≤0.5` across all profiles + both measures) ⇒ profile-conditional |
+| **C — pre-stress remap** | `T/ℓ ~ 10 k_s` DOMINATES `k_s`; sign DC-dilatation-dependent (SOFTENS for compressed core) | the `k_s`-cold premise fails at yield-scale independently of Axis 1 |
+
+**★Overall frozen-bin verdict: BIN 3 — PROFILE-DEPENDENT.** The direct deviatoric swing is sub-half-yield for smooth physical cores (spatially separated from the axial-saturation shell), which would support `k_a`-alone; but it flips across the admissible family (smooth `0.28` vs sharp `0.72`) AND across the deviatoric measure (bond-shear `0.28` vs shape `0.56`), and the pre-stress remap (Leg C) independently DOMINATES `k_s` at the yield-scale boundary with a DC-dilatation-sign-dependent (softening-for-compression) sign. **The #773 §4(b) NOT-YET-RATIFIABLE `k_a`-alone consequence clause is NOT ratifiable as stated for the localized core.** The value-free §4(b) RATIFIABLE half (per-coordinate swing-keying) is unaffected.
+
+**★Consistency gate: N/A (pure kinematic identity).** There is no rate/flux to reproduce — the observable is an exact geometric strain-decomposition ratio. The result is FORM/IDENTITY-class, dimensionless, α-clean.
+
+**★Anti-seduction fence check (both ways, per the frozen prereg).** (i) BIN 1 flatters BOTH the walked `k_a`-alone picture AND the deep-rail bulk-only wall model — it is NOT declared, because (a) the frozen bin-1 criterion FAILS (sharp-core + raw-`|D|` exceed 0.5) and (b) Leg C's pre-stress dominance undercuts the `k_s`-cold premise even where the direct swing is sub-yield. (ii) BIN 2 flatters the #773 R2 completion momentum — it is NOT declared, because the direct deviatoric swing on smooth cores is sub-half-yield (`0.2–0.28`, spatially separated), so the localized breather does NOT straightforwardly rail `k_s` via the direct swing; the `k_s`-railing that does occur is via the pre-stress remap (a different mechanism) with a DC-dilatation-sign-dependent (not unconditionally softening) sign. The honest verdict is the FORK, characterized on both axes, every number shipped with its computation.
+
+**Contradiction / flag-don't-fix (surfaced, not resolved).** The DC dilatation SIGN that sets the Leg-C remap (SOFTEN-for-compressed vs STIFFEN-for-expanded) is the deciding unknown, and it hinges on whether the electron mass-core's static A1 dilatation is a net **contraction** (the `master-equation.md:20` *"trapped acoustic compression"* reading ⇒ SOFTENS ⇒ `k_s` rails via pre-stress) or the oscillating standing wave's DC part is otherwise — a substrate-ontology question the corpus does not pin (it is the same open question `axiom-register.md:193` flags: *"what physically PLUCKS the bond in matter"*). **Surfaced with file:paths + verbatim content; NOT reframed. Grant adjudicates.**
+
+---
+
+## §5 — Calibration-vs-derived ledger + routing
+
+### §5.1 — Ledger (`consistency-vs-emergence` tags)
+| Quantity | FORM | VALUE | Class |
+|---|---|---|---|
+| `ρ_dev(r) = |f′−f/r|/|f′|`, bracket `[0, 3/2]` | `[derived]` (exact spherical-elasticity) | dimensionless | IDENTITY (geometric kinematics) |
+| exterior tail `ρ_dev = 3/2` (div-free) | `[derived]` + `[canon-read]` (`master-equation.md:20` mass=interior-dilatation) | `1.5` | IDENTITY |
+| M1 smooth `0.19–0.28` / sharp `0.72` (peak transverse swing, yield units) | `[derived]` (lattice per-bond, MEASURE-1) | dimensionless | MANIFESTATION (lattice) |
+| factor-½ (bond-shear vs raw `|D|`) | `[derived]` (bond kinematics) | — | IDENTITY |
+| `T/ℓ ≈ 10 k_s` remap dominance | `[derived]`-form × `[canon]` `axiom-register.md:193` × `[import]` `k_a/k_s=9.77` (GR-imported `ν=2/7`) + `O(1)` yield strain (`arc*`) | `~10` | CONSISTENCY (remap read at measured tension) |
+| remap SIGN (soften-compressed / stiffen-expanded) | `[derived]` (`ε_yield`-independent) + `[canon-read]` `axiom-register.md:193` sign rule | — | the DC-dilatation-sign-dependent fork |
+
+No emergence-class claim headlined. The deliverable is the frozen bin (3 — PROFILE-DEPENDENT), the `ρ_dev(r_sat) ≈ 0` / M1 `0.19–0.28`-smooth-`0.72`-sharp direct-swing bracket, and the `T/ℓ ~ 10 k_s` dilatation-sign-dependent remap dominance.
+
+### §5.2 — Routing (fenced; NOT executed here — Rule 12; slot NOT refilled)
+1. **★ROUTED TO GRANT — the #773 §4(b) `k_a`-alone clause does NOT ratify for the localized core.** The single computation returns BIN-3 PROFILE-DEPENDENT: the localized-core `k_a`-alone grade is profile-conditional (Axis 1) AND remap-undercut (Axis 2). The value-free per-coordinate-swing-keying commitment (§4(b) RATIFIABLE half) is unaffected and can proceed to ratification on its own. NO rescue derivation is minted (Rule 11/12); the fork is a stated result, not a new hypothesis.
+2. **★ROUTED TO GRANT — the deciding substrate-ontology question:** the electron mass-core's static DC dilatation SIGN (contraction vs expansion) sets whether the Leg-C pre-stress remap SOFTENS or STIFFENS `k_s` at the wall — the same open `axiom-register.md:193` "what PLUCKS the bond" question. This is the physical input Fork-W ultimately hinges on, once the direct-swing axis is seen to be sub-half-yield-but-not-negligible.
+3. **The channel-asymmetric wall carrier (if real) needs a DIFFERENT mechanism than per-coordinate swing-keying.** The keying does NOT force the bulk-only wall for the localized core (both axes). If canon's `electron-bh-isomorphism.md:26` bulk-only `Γ_bulk=−1` is real, its carrier is under-determined by the swing-keying alone — routed, NOT picked. (The Cosserat couple-stress `γ_c` third channel, #773 §5 Refinement 1, is the un-examined candidate; NOT built here.)
+4. **NOT owed:** a self-consistent (dynamically-bound) saturated breather — declared INFEASIBLE (electron-lock arc); the KINEMATIC decomposition is what Fork-W hinges on and is delivered.
+
+---
+
+> **Result-doc provenance.** Grant standing derivation-class authorization (#773 §4(a) owed follow-on). Frozen prereg committed + pushed ALONE first (`c35c612e`); analytic Leg A + driver (`10a23633`); driver `research/drivers/boundary_strain_amplitude.py` (+ `_results.json`, white figure), `ave.core.*` read-only, engine `src/ave` byte-untouched, reruns bit-identical. All `[canon]` citations content-verified two-method at base `3d07ceeb`: `axiom-register.md:186/189/193`, `master-equation.md:20/90`, `electron-bh-isomorphism.md:26`, `q-g22-strain-convention.md` (`clm-4r4jiy`), `gravitomagnetism-frame-dragging.md:15`, `constituent_cage_ensemble.py` bond model, `ave.core.chiral_lattice._SRS_8A/_SRS_NN`. Forms `[derived]` by exact spherical-elasticity kinematics + lattice per-bond measurement; values dimensionless/geometric (the one `[import]` is `k_a/k_s=9.77` from GR-imported `ν=2/7`). Mints no `clm-`/`def-`; propagates to no leaf; READ-ONLY on KB; port-register + ledger untouched. **Verdict: BIN 3 — PROFILE-DEPENDENT.** The #773 §4(b) `k_a`-alone clause does NOT ratify for the localized core (profile-conditional + remap-undercut); the value-free per-coordinate swing-keying commitment is unaffected. Consequence routed to Grant/auditor; no leaf touched. Companions: the frozen prereg (`_prereg-FROZEN.md`), the analytic Leg A (`_derivation.md`), merged #773 (`_forkw-kernel-keying_derivation.md` §4(a)/§4(b), docket R2), the docket continuation (`### ENTRY 2026-07-21-boundary-strain-amplitude`).
