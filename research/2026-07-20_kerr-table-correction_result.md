@@ -6,6 +6,14 @@
 **Re-run (deterministic):** [`2026-07-20_kerr-table-correction_rerun.py`](2026-07-20_kerr-table-correction_rerun.py)
 **Reference verification (this session, cross-checked):** qnm package + BCW-2006 fit; see prereg §0.
 
+> **Environment disclosure (PR #774 review finding 6).** Reference verification used the
+> `qnm` package (Stein 2019), which was `pip install`-ed into the shared `AVE-Core/.venv`
+> (`qnm 0.4.4`) and **left in place**. This is a **verification-only** side-effect: the
+> committed re-run `2026-07-20_kerr-table-correction_rerun.py` hard-codes the qnm-verified
+> table and imports only `math`/`sys`/`pathlib` + `ave.core.constants` — **no committed code
+> imports `qnm`**, so it is not a runtime dependency. To revert the environment:
+> `AVE-Core/.venv/bin/pip uninstall -y qnm`.
+
 ---
 
 ## Verdict against the frozen bins
