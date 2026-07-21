@@ -59,6 +59,8 @@ So the kernel arguments are **spatially disjoint**: `k_a` rails at the core cent
 
 ## §4 — ★the pre-stress remap DOMINATES `k_s` at the yield-scale boundary (Leg C analytic; the #773-flagged countervailing mechanism) `[canon-read + derived]`
 
+> **★RE-SCOPE (2026-07-21, PR #779 review-repair R6 — Grant's ratified vessel-state walk, `[sic]` *"nope that makes sense"*).** The "SIGN set by the breather's DC dilatation sign (STIFFEN-expanded / SOFTEN-compressed)" reading in this section is **SUPERSEDED** by the result-doc R6 re-scope: the breather has **DC=0** (first-order time-average vanishes), so the tension is keyed by the **second-order radiation stress `∝⟨A²⟩`** (`#767`, `envelope-sector-reduction_result.md:36`) — an outward-pressurized cavity ⇒ the shell is a **pressure vessel (hoop tension + radial compression)** and `k_{shear,eff}` is **ANISOTROPIC by bond orientation** (hoop-stiffen / radial-soften), not a scalar keyed on a static DC sign. The magnitude-dominance (`|T/ℓ| ~ 10 k_s`) and the "shell shear stiffness ≠ cold `k_s`" conclusion are UNAFFECTED. The `[SIGN-RULE-DERIVED]` derivation below is preserved as the per-bond sign mechanism (the orientation split is exactly this rule applied hoop-vs-radial). See `research/2026-07-21_boundary-strain-amplitude_result.md` ★REVIEW-REPAIR R6.
+
 The `[canon]` pre-stress remap (`axiom-register.md:193` `[SIGN-RULE-DERIVED]`): `k_{shear,eff} = k_s + T/ℓ_node`, with `T` the bond axial tension and the sign rule *"an axial end-load buckles the strut ⟹ COMPRESSION (`T<0`) ⟹ `k_{shear,eff}` SHRINKS ⟹ UNCAPPED."* Per bond, `T = k_a·(axial stretch) = k_a·ε_axial·ℓ_node`, so
 
 $$\frac{T}{\ell_{node}} = k_a\,\varepsilon_{axial}, \qquad \frac{k_{shear,eff}}{k_s} = 1 + \frac{k_a}{k_s}\,\varepsilon_{axial}.$$
