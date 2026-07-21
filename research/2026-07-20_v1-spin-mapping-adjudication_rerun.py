@@ -259,11 +259,11 @@ def _tau_bin(mean: float) -> str:
     return "tau-marginal"
 
 
-def leg3_modelB(events: list[tuple[str, float]]) -> tuple[float, str]:
+def leg3_modelB(events: list[tuple[str, float]]) -> tuple[float, str, float]:
     """Model B — spin-refined omega_I with the CORPUS-PINNED frame-dragging Omega(a*).
 
-    Returns (D-bar_Q(v1, Resultbox), verdict) for the frozen-bin section. The Resultbox form
-    is the corpus comparator; the exact-ZAMO variant is reported alongside as a sensitivity.
+    Returns (D-bar_Q(v1, Resultbox), verdict, D-bar_Q(v1, exact-ZAMO variant)) for the frozen-bin
+    section. The Resultbox form is the corpus comparator; the exact-ZAMO variant is the sensitivity.
     """
     print("\nModel B (spin-refined omega_I = (omega_R - m Omega)/(2 ell)) — CORPUS-PINNED (PR #776 fix):")
     print("  Omega(a*) IS pinned: Ch.2 Resultbox omega(r)=2Mar/(r^2+a^2)^2 (clm-rd9cjm,")
@@ -316,7 +316,7 @@ def leg3_modelB(events: list[tuple[str, float]]) -> tuple[float, str]:
     print("     the source-frame masses #774 flagged; the forward chain above needs none of that.")
     print("  Tension flag (still open): qnm-quality-factor.md says Q = ell (spin-independent); the")
     print("   merger leaf's Q 'increases with spin'; Phase-5 says Q is v1/v2-invariant. Reconcile first.")
-    return mB1_rb, _tau_bin(mB1_rb)
+    return mB1_rb, _tau_bin(mB1_rb), mB1_zamo
 
 
 def leg5_near_extremal() -> None:
@@ -358,7 +358,7 @@ def main() -> int:
 
     sep("LEG 3 — C-tau damping comparison (THE NEW CONTENT: v1 tau vs corrected omega_I)")
     tA, tau_verdict_A = leg3_tau(PRIMARY, "PRIMARY")
-    tB, tau_verdict_B = leg3_modelB(PRIMARY)
+    tB, tau_verdict_B, tB_zamo = leg3_modelB(PRIMARY)
 
     leg5_near_extremal()
 
@@ -373,7 +373,7 @@ def main() -> int:
           f"(v2 = {s2:+.2f}% -> {wr_bin(s2)})")
     print(f"  tau     Model A (cold Q=l=2):                        D-bar_Q(v1) = {tA:+.2f}%  -> {tau_verdict_A}")
     print(f"  tau     Model B (spin-refined, Omega CORPUS-PINNED):  D-bar_Q(v1) = {tB:+.2f}%  -> {tau_verdict_B}")
-    print("          (Resultbox = corpus comparator; exact-ZAMO variant -4.57% -> tau-marginal, sensitivity flagged)")
+    print(f"          (Resultbox = corpus comparator; exact-ZAMO variant {tB_zamo:+.2f}% -> {_tau_bin(tB_zamo)}, sensitivity flagged)")
 
     wr_match = abs(p1) < 3.0 and abs(s1) < 3.0
     tau_match = tau_verdict_A == "tau-MATCHES" and tau_verdict_B == "tau-MATCHES"

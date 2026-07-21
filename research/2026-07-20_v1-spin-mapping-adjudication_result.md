@@ -26,7 +26,7 @@
 >     spin- & v1/v2-independent): v1 (and v2) **FAIL decisively** at catalog spins, `D̄_Q = −38.18%`
 >     (AVE Q = 2 vs corrected-Kerr Q rising 3.07→3.49).
 >   - **Model B — spin-refined `ω_I = (ω_R − mΩ)/2ℓ` at `r_Ω = r_ph·√(1+ν_vac)`** (v1's *actual* corpus
->     τ prediction, the KB τ = 3.5/2.7/1.2 ms): **τ-FAILS at `D̄_Q = −5.44%`** (Resultbox form; **−4.58%
+>     τ prediction, the KB τ = 3.5/2.7/1.2 ms): **τ-FAILS at `D̄_Q = −5.44%`** (Resultbox form; **−4.57%
 >     marginal** under the exact-equatorial-ZAMO variant — sensitivity flagged). Ω is **corpus-derived,
 >     not fabricated**: the Ch.2 frame-dragging Resultbox `ω(r) = 2Mar/(r²+a²)²` (clm-rd9cjm,
 >     `frame-dragging-impedance-convolution.md:15`; equated to Ω_LT in `gravitomagnetism-frame-dragging.md:15`)
@@ -111,7 +111,7 @@ Kerr-Q match for `a* = 0.3–0.8` (claim-quality.md:204). Leg 3's `−38%` is th
 review finding 3: the earlier "already flagged this" mis-scoped the register.)
 
 **Model B — spin-refined `ω_I = (ω_R − mΩ)/(2ℓ)` at `r_Ω = r_ph·√(1+ν_vac)`** (this is v1's *actual*
-corpus τ prediction, the KB τ = 3.5/2.7/1.2 ms): **τ-FAILS at `D̄_Q = −5.44%`** (Resultbox form; **−4.58%
+corpus τ prediction, the KB τ = 3.5/2.7/1.2 ms): **τ-FAILS at `D̄_Q = −5.44%`** (Resultbox form; **−4.57%
 marginal** under the exact-equatorial-ZAMO variant — sensitivity flagged). Ω is **corpus-derived, not
 fabricated** — the driver now computes the forward chain:
 
@@ -148,7 +148,7 @@ evidence gap this repair closes.
 > **Flag (don't fix) — the Q three-way tension, still open for Grant/auditor.** (1) ~~v1's τ prediction
 > cannot be frozen-adjudicated until Ω is derived — the corpus under-specifies the spinning damping.~~
 > **Superseded (PR #776 finding 0):** Ω *is* corpus-pinned and Model B is now frozen-adjudicated (τ-FAILS
-> at −5.44%, marginal −4.58% ZAMO). The residual open work is not an Ω gap but a **Q self-consistency**
+> at −5.44%, marginal −4.57% ZAMO). The residual open work is not an Ω gap but a **Q self-consistency**
 > question. (2) Three corpus statements about Q still need reconciling: `qnm-quality-factor.md` says
 > `Q = ℓ` (spin-independent); `ave-merger-ringdown-eigenvalue.md` says Q *"increases with spin"*; Phase-5
 > (`ligo-ringdown-driver-design.md` §10) says Q is *v1/v2-invariant*. Model A instantiates the first,
@@ -214,14 +214,14 @@ wrong* — a second axis on which v1 is the surviving candidate.
 | ω_R spin-trend | overshoots, grows with spin | undershoots, grows with spin | v1 (smaller, right-side of 3% near catalog) |
 | near-extremal (a*→1) | → 54/49 (+10%, qual. correct) | → 54/77 (−30%, qual. wrong) | **v1** |
 | τ / Q (fully-specified model A, cold Q=ℓ) | FAILS (−38%) | FAILS (−38%, same) | tie (both fail) |
-| τ / Q (v1's actual model B, Ω corpus-pinned) | **FAILS at −5.44%** (Resultbox; −4.58% marginal ZAMO) | +2.12% (τ-matches, but ω_R fails) | split — neither passes both axes |
+| τ / Q (v1's actual model B, Ω corpus-pinned) | **FAILS at −5.44%** (Resultbox; −4.57% marginal ZAMO) | +2.12% (τ-matches, but ω_R fails) | split — neither passes both axes |
 | provenance (register) | disclosed phenomenological, sol 0.55 | disclosed phenomenological, sol 0.55 | tie (both phenomenological) |
 
 **Net:** v1 is the clearly-better ω_R mapping (MATCH band on the primary catalog, marginal on the secondary
 higher-spin set, and the qualitatively-correct extremal limit) — this is the reopened fork's real content
 and it favors v1 on ω_R. **But the whole ringdown "both ω_R AND τ match" story does NOT return with v1:**
 the τ side fails under **both** damping models — decisively for the cold Q=ℓ model (−38%) and as a
-**coherent near-miss** for v1's actual spin-refined mΩ model (−5.44% Resultbox / −4.58% marginal ZAMO,
+**coherent near-miss** for v1's actual spin-refined mΩ model (−5.44% Resultbox / −4.57% marginal ZAMO,
 Ω now corpus-derived, *not* undetermined). The honest forward state is **"the spin-mapping fork favors v1
 on ω_R (+2.6% primary / +3.4% secondary-marginal) with a qualitatively-correct extremal limit, while v1's
 τ model is a ~−5% near-miss that FAILS the frozen band"** — *not* "v1 fully matches Kerr," and *not* "τ is
@@ -242,7 +242,7 @@ per the review. None flips the overall MIXED bin.
    review established that the corpus **does** pin Ω — the Ch.2 frame-dragging Resultbox
    `ω(r) = 2Mar/(r²+a²)²` (clm-rd9cjm) at `r_Ω = r_ph·√(1+ν_vac)` (merger leaf:85), with clm-395gps's
    register `depends-on` listing clm-rd9cjm. The driver now computes Model B under the same frozen C-τ
-   comparator: **τ-FAILS at −5.44% (Resultbox) / −4.58% (exact-ZAMO, marginal)**. Disclosed deviation in
+   comparator: **τ-FAILS at −5.44% (Resultbox) / −4.57% (exact-ZAMO, marginal)**. Disclosed deviation in
    the *adverse* direction (v1 looks worse on τ — no resurrection-seduction harm); the false
    corpus-completeness claim is struck (Rule-12 correction in Leg 3 + the ★ block).
 
