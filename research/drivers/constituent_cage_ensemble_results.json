@@ -135,6 +135,309 @@
       "symmetric_single_cage_compression_seal_frac": 0.8521021954019623
     }
   },
+  "leg4_moving_cage": {
+    "bulk_only": {
+      "wall_class": "bulk_only",
+      "v_drive": 0.12,
+      "shell_f_long": 0.7471739875330792,
+      "shell_kappa2": 2.955289213489604,
+      "cage_displacement": 2.9482809923524425,
+      "energy_centroid_displacement": 6.972751915926552,
+      "carry_fraction": 2.36502285026875,
+      "track": [
+        {
+          "t": 0.0,
+          "cage_x": 7.0,
+          "energy_cx": 0.0
+        },
+        {
+          "t": 3.0172466296004528,
+          "cage_x": 7.362069595552054,
+          "energy_cx": 7.095820887108939
+        },
+        {
+          "t": 6.0344932592009055,
+          "cage_x": 7.724139191104109,
+          "energy_cx": 7.23174696227275
+        },
+        {
+          "t": 9.05173988880136,
+          "cage_x": 8.086208786656163,
+          "energy_cx": 7.252375540882901
+        },
+        {
+          "t": 12.068986518401811,
+          "cage_x": 8.448278382208217,
+          "energy_cx": 7.099247149443468
+        },
+        {
+          "t": 15.086233148002265,
+          "cage_x": 8.810347977760271,
+          "energy_cx": 7.054605714611286
+        },
+        {
+          "t": 18.10347977760272,
+          "cage_x": 9.172417573312327,
+          "energy_cx": 6.954775543723152
+        },
+        {
+          "t": 21.120726407203172,
+          "cage_x": 9.53448716886438,
+          "energy_cx": 6.979351458869114
+        },
+        {
+          "t": 24.137973036803622,
+          "cage_x": 9.896556764416435,
+          "energy_cx": 6.972751915926552
+        }
+      ],
+      "dt": 0.07183920546667745,
+      "n_steps": 342
+    },
+    "symmetric": {
+      "wall_class": "symmetric",
+      "v_drive": 0.12,
+      "shell_f_long": 0.6226976388209015,
+      "shell_kappa2": 1.6503942272582763,
+      "cage_displacement": 2.9482809923524425,
+      "energy_centroid_displacement": 6.875440806649771,
+      "carry_fraction": 2.3320168004623723,
+      "track": [
+        {
+          "t": 0.0,
+          "cage_x": 7.0,
+          "energy_cx": 0.0
+        },
+        {
+          "t": 3.0172466296004528,
+          "cage_x": 7.362069595552054,
+          "energy_cx": 7.181313451934933
+        },
+        {
+          "t": 6.0344932592009055,
+          "cage_x": 7.724139191104109,
+          "energy_cx": 7.417204254918474
+        },
+        {
+          "t": 9.05173988880136,
+          "cage_x": 8.086208786656163,
+          "energy_cx": 7.473131907815997
+        },
+        {
+          "t": 12.068986518401811,
+          "cage_x": 8.448278382208217,
+          "energy_cx": 7.118857419615758
+        },
+        {
+          "t": 15.086233148002265,
+          "cage_x": 8.810347977760271,
+          "energy_cx": 7.093018812047692
+        },
+        {
+          "t": 18.10347977760272,
+          "cage_x": 9.172417573312327,
+          "energy_cx": 6.976404092906707
+        },
+        {
+          "t": 21.120726407203172,
+          "cage_x": 9.53448716886438,
+          "energy_cx": 6.855565878146808
+        },
+        {
+          "t": 24.137973036803622,
+          "cage_x": 9.896556764416435,
+          "energy_cx": 6.875440806649771
+        }
+      ],
+      "dt": 0.07183920546667745,
+      "n_steps": 342
+    }
+  },
+  "leg5_ensemble_scaling": {
+    "N_values": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "by_wall": {
+      "none": {
+        "1": {
+          "N": 1,
+          "wall_class": "none",
+          "n_cores": 1,
+          "shell_E_par": 0.021752415351578475,
+          "shell_E_perp": 0.0010501269860790333,
+          "shell_kappa2": 20.714080906346094,
+          "shell_f_long": 0.9539469340510865,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "none",
+          "n_cores": 2,
+          "shell_E_par": 0.028764983358730914,
+          "shell_E_perp": 0.0088926169077073,
+          "shell_kappa2": 3.2347039861573346,
+          "shell_f_long": 0.7638559853843709,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "none",
+          "n_cores": 4,
+          "shell_E_par": 0.08753247520541223,
+          "shell_E_perp": 0.025630126546227133,
+          "shell_kappa2": 3.415218221710161,
+          "shell_f_long": 0.7735106285159634,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "none",
+          "n_cores": 8,
+          "shell_E_par": 0.1925709082783961,
+          "shell_E_perp": 0.056580347578857694,
+          "shell_kappa2": 3.4034946146275322,
+          "shell_f_long": 0.7729076364308023,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      },
+      "bulk_only": {
+        "1": {
+          "N": 1,
+          "wall_class": "bulk_only",
+          "n_cores": 1,
+          "shell_E_par": 0.010550796276042794,
+          "shell_E_perp": 0.0002376816756700113,
+          "shell_kappa2": 44.39044889052003,
+          "shell_f_long": 0.9779689334553188,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "bulk_only",
+          "n_cores": 2,
+          "shell_E_par": 0.015050206338750446,
+          "shell_E_perp": 0.004657722254034725,
+          "shell_kappa2": 3.231237398432955,
+          "shell_f_long": 0.7636625162250761,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "bulk_only",
+          "n_cores": 4,
+          "shell_E_par": 0.05002248068891809,
+          "shell_E_perp": 0.014890609044680056,
+          "shell_kappa2": 3.3593307391808493,
+          "shell_f_long": 0.7706069899647239,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "bulk_only",
+          "n_cores": 8,
+          "shell_E_par": 0.11225372558181487,
+          "shell_E_perp": 0.033909857617158666,
+          "shell_kappa2": 3.310356736060536,
+          "shell_f_long": 0.7680006409599515,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      },
+      "symmetric": {
+        "1": {
+          "N": 1,
+          "wall_class": "symmetric",
+          "n_cores": 1,
+          "shell_E_par": 0.0016681754594481811,
+          "shell_E_perp": 2.8711288530204306e-05,
+          "shell_kappa2": 58.101727398728855,
+          "shell_f_long": 0.983080020770738,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "symmetric",
+          "n_cores": 2,
+          "shell_E_par": 0.0029826840261628815,
+          "shell_E_perp": 0.0009092620308018886,
+          "shell_kappa2": 3.280334958595399,
+          "shell_f_long": 0.7663734241190899,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "symmetric",
+          "n_cores": 4,
+          "shell_E_par": 0.009351225565002223,
+          "shell_E_perp": 0.002889215040052726,
+          "shell_kappa2": 3.236597288664111,
+          "shell_f_long": 0.7639615163150612,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "symmetric",
+          "n_cores": 8,
+          "shell_E_par": 0.019980559057901876,
+          "shell_E_perp": 0.006708133444606519,
+          "shell_kappa2": 2.9785571832901847,
+          "shell_f_long": 0.7486526009479093,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      }
+    },
+    "rho_N_caged_over_uncaged_compression": {
+      "bulk_only": {
+        "1": 0.4850402176270126,
+        "2": 0.5232127601486104,
+        "4": 0.5714733939778405,
+        "8": 0.5829215149129993
+      },
+      "symmetric": {
+        "1": 0.07668920588752591,
+        "2": 0.10369149145561943,
+        "4": 0.10683149931562802,
+        "8": 0.1037568926507651
+      }
+    },
+    "shear_ratio_caged_over_uncaged": {
+      "bulk_only": {
+        "1": 0.2263361277453384,
+        "2": 0.523774081620208,
+        "4": 0.580980707130844,
+        "8": 0.5993221863810133
+      },
+      "symmetric": {
+        "1": 0.02734077774480074,
+        "2": 0.10224909497830993,
+        "4": 0.11272730295894817,
+        "8": 0.11855942445841634
+      }
+    },
+    "scaling": {
+      "p_caged_bulk_only": 1.4494540778265297,
+      "p_uncaged": 1.3715021153723514,
+      "rho_N_trend_bulk_only": "RISING_toward_1_coarse_grained_texture_BIN1",
+      "rho_bulk_only_N2": 0.5232127601486104,
+      "rho_bulk_only_N8": 0.5829215149129993,
+      "shear_survives_bulk_only_N8": 0.5993221863810133,
+      "note": "\u03c1_N RISING toward 1 = the coarse-grained mass texture emerges as cages pack (BIN-1); bulk_only shear_ratio\u22481 = shear survives (consistency gate). ROBUST across rail depth (S_RAIL 0.03\u21920.003 all RISING, pressure-tested). The symmetric wall suppresses compression strongly but ALSO kills shear (shear_ratio\u226a1) = wall-class artifact, FENCED."
+    }
+  },
   "leg3_impedance_smatrix": {
     "symmetric": {
       "cP_railed": 0.08986641280560448,

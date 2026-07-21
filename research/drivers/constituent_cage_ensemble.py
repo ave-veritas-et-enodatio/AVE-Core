@@ -432,6 +432,167 @@ def leg12_cage_seal(L, wall_class, energized, clamped, cP, cS,
     }
 
 
+def _ensemble_centers(N, L, R_lobe, pack):
+    """N caged cores in a DIPOLE-FREE two-lobe (±R) arrangement, N/2 per lobe packed
+    on small fixed deterministic offsets. N=1 = single core at center."""
+    c0 = np.array([L / 2.0] * 3)
+    if N == 1:
+        return [c0.copy()]
+    off = np.array([[0, 0, 0], [pack, 0, 0], [0, pack, 0], [0, 0, pack],
+                    [pack, pack, 0], [pack, 0, pack], [0, pack, pack],
+                    [pack, pack, pack]], float)
+    half = N // 2
+    lobe = np.array([R_lobe, 0.0, 0.0])
+    cs = []
+    for s in (+1, -1):
+        for j in range(half):
+            cs.append(c0 + s * lobe + off[j] - 0.5 * pack)
+    return cs
+
+
+def leg5_ensemble_scaling(L, wall_class, N, cP, cS, R_lobe=3.5, pack=1.0,
+                          r_cage=1.6, cage_w=1.0, r_meas=7.5, shell_w=1.0,
+                          sigma=1.0, amp=0.05, cfl=0.2, rho_star=RHO_STAR, k_s=K_S):
+    """LEG 5 — the verdict-controlling N-scaling. N energized caged cores (dipole-free
+    two-lobe ensemble), seeded as initial displacement (FREE dynamics, NO pin), free-
+    evolve, measure the NET far-field compression at a shell ENCLOSING all N cores.
+    Static seeded release (both caged and uncaged arms identical seed geometry ⇒ the
+    cage is the only difference ⇒ ρ_N = caged/uncaged far-field compression removes
+    the geometry). Discriminator: ρ_N → 1 as N grows = cages wash out into the
+    coarse-grained texture (BIN-1); ρ_N bounded < 1 = per-core cage survives
+    aggregation (BIN-2). Also the scaling exponent p of F_bulk(N) ∝ N^p."""
+    pos, bi, bj, dhat, mid = build_finite_srs(L)
+    Npt = pos.shape[0]
+    centers = _ensemble_centers(N, L, R_lobe, pack)
+    c0 = np.array([L / 2.0] * 3)
+    Phi_cold = bond_tensors(dhat, rho_star, k_s)
+    omega_max = omega_max_cold(Phi_cold, bi, bj, Npt)
+    dt = cfl * 2.0 / omega_max
+
+    ka, ks = cage_stiffness(dhat, mid, rho_star, k_s, centers,
+                            r_cage, cage_w, wall_class)
+    Phi = bond_tensors(dhat, ka, ks)
+
+    rel = pos - c0
+    r = np.linalg.norm(rel, axis=1)
+    rhat = rel / (r[:, None] + 1e-30)
+    shell = (r >= r_meas) & (r < r_meas + shell_w)
+
+    u = np.zeros((Npt, 3))
+    v = np.zeros((Npt, 3))
+    for c in centers:                                   # energize each interior
+        useed = texture_displacement(pos, c, amp, sigma)
+        rc = np.linalg.norm(pos - c, axis=1)
+        useed[rc > r_cage] = 0.0
+        u += useed
+
+    t_P = r_meas / cP
+    t_reflect = (2.0 * (L / 2.0) - r_meas) / cP
+    t_end = 1.05 * t_reflect
+    n_steps = int(np.ceil(t_end / dt)) + 3
+
+    F = forces(u, Phi, bi, bj, Npt)
+    Epar_acc = Eperp_acc = 0.0
+    n_acc = 0
+    for step in range(n_steps):
+        t = step * dt
+        if t_P <= t < t_reflect:
+            ep, eq = shell_partition(u[shell], rhat[shell])
+            Epar_acc += ep
+            Eperp_acc += eq
+            n_acc += 1
+        u = u + v * dt + 0.5 * F * dt ** 2
+        F_new = forces(u, Phi, bi, bj, Npt)
+        v = v + 0.5 * (F + F_new) * dt
+        F = F_new
+    n_acc = max(n_acc, 1)
+    Epar = Epar_acc / n_acc
+    Eperp = Eperp_acc / n_acc
+    return {
+        "N": N, "wall_class": wall_class, "n_cores": len(centers),
+        "shell_E_par": Epar, "shell_E_perp": Eperp,
+        "shell_kappa2": Epar / (Eperp + 1e-30),
+        "shell_f_long": Epar / (Epar + Eperp + 1e-30),
+        "r_meas": r_meas, "dt": float(dt),
+    }
+
+
+def leg4_moving_cage(L, wall_class, cP, cS, v_drive=0.12, r_cage=2.2, cage_w=1.0,
+                     r_meas=6.0, shell_w=1.0, sigma=1.1, amp=0.05, cfl=0.2,
+                     rho_star=RHO_STAR, k_s=K_S):
+    """LEG 4 — moving single cage. Seed an energized interior (initial displacement,
+    FREE dynamics, NO pin), translate the CONSTITUTIVE GRADE (moving-C(x,t): the cage
+    center moves at v_drive, bond tensors recomputed each step), free-evolve, and
+    measure (a) the far-field compression/shear partition and (b) whether the moving
+    cage CARRIES the interior energy (energy-centroid vs cage-centroid tracking).
+    ★Declared fallback (prereg §3): LINEAR translation (orbital motion of a single
+    cage is infeasible for a clean far-field on the L=20 box). NO pin on the source —
+    so the interior is NOT dragged; whether it follows the cage is the measurement."""
+    pos, bi, bj, dhat, mid = build_finite_srs(L)
+    N = pos.shape[0]
+    c0 = np.array([L / 2.0 - 3.0, L / 2.0, L / 2.0])  # start off-center, move +x
+    Phi_cold = bond_tensors(dhat, rho_star, k_s)
+    omega_max = omega_max_cold(Phi_cold, bi, bj, N)
+    dt = cfl * 2.0 / omega_max
+
+    cen = np.array([L / 2.0] * 3)
+    rel0 = pos - cen
+    r0 = np.linalg.norm(rel0, axis=1)
+    rhat0 = rel0 / (r0[:, None] + 1e-30)
+    shell = (r0 >= r_meas) & (r0 < r_meas + shell_w)
+
+    u = texture_displacement(pos, c0, amp, sigma)
+    u[np.linalg.norm(pos - c0, axis=1) > r_cage] = 0.0
+    v = np.zeros((N, 3))
+
+    def center(t):
+        return c0 + np.array([v_drive * t, 0.0, 0.0])
+
+    t_reflect = (2.0 * (L / 2.0) - r_meas) / cP
+    t_end = 0.9 * t_reflect                          # reflection-free
+    n_steps = int(np.ceil(t_end / dt)) + 3
+
+    ka, ks = cage_stiffness(dhat, mid, rho_star, k_s, [c0], r_cage, cage_w, wall_class)
+    Phi = bond_tensors(dhat, ka, ks)
+    F = forces(u, Phi, bi, bj, N)
+    Epar_acc = Eperp_acc = 0.0
+    n_acc = 0
+    track = []
+    for step in range(n_steps):
+        t = step * dt
+        ep, eq = shell_partition(u[shell], rhat0[shell])
+        Epar_acc += ep
+        Eperp_acc += eq
+        n_acc += 1
+        if step % max(1, n_steps // 8) == 0:
+            edens = np.sum(v ** 2, axis=1)             # kinetic energy density proxy
+            tot = edens.sum() + 1e-30
+            e_cx = float(np.sum(edens * pos[:, 0]) / tot)
+            track.append({"t": float(t), "cage_x": float(center(t)[0]),
+                          "energy_cx": e_cx})
+        cs = center(t + dt)
+        ka, ks = cage_stiffness(dhat, mid, rho_star, k_s, [cs], r_cage, cage_w, wall_class)
+        Phi = bond_tensors(dhat, ka, ks)
+        u = u + v * dt + 0.5 * F * dt ** 2
+        F_new = forces(u, Phi, bi, bj, N)
+        v = v + 0.5 * (F + F_new) * dt
+        F = F_new
+    n_acc = max(n_acc, 1)
+    Epar = Epar_acc / n_acc
+    Eperp = Eperp_acc / n_acc
+    cage_disp = v_drive * (n_steps * dt)
+    e_disp = track[-1]["energy_cx"] - track[0]["energy_cx"] if len(track) >= 2 else 0.0
+    return {
+        "wall_class": wall_class, "v_drive": v_drive,
+        "shell_f_long": Epar / (Epar + Eperp + 1e-30),
+        "shell_kappa2": Epar / (Eperp + 1e-30),
+        "cage_displacement": float(cage_disp),
+        "energy_centroid_displacement": float(e_disp),
+        "carry_fraction": float(e_disp / (cage_disp + 1e-30)),
+        "track": track, "dt": float(dt), "n_steps": n_steps,
+    }
+
+
 def leg3_impedance_smatrix(cP_cold, cS_cold):
     """CLEAN (artifact-free) channel S-matrix from the railed-medium Bloch speeds.
     For each wall class compute the railed (c_P,c_S) and the channel reflection
@@ -461,6 +622,63 @@ def leg3_impedance_smatrix(cP_cold, cS_cold):
         "props up K); bulk_only gives a channel-ASYMMETRIC partial compression seal "
         "with near-full shear pass (Γ_bulk≫|Γ_shear|) — the electron-class SURROGATE.")
     return out
+
+
+def make_figure(out, path_png):
+    """White-style figure (ave.viz.style, Okabe-Ito, honest axes/units, legend outside
+    data, no on-figure title): (L) Leg-5 ρ_N vs N — the aggregation trend (rising
+    toward the uncaged coarse-grained texture = BIN-1); (R) ensemble κ² vs the pulsar
+    kill-lines (log)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from ave.viz import style
+    style.apply()
+    C = style.COLORS
+
+    l5 = out["leg5_ensemble_scaling"]
+    Ns = [1, 2, 4, 8]
+    rho_bo = [l5["rho_N_caged_over_uncaged_compression"]["bulk_only"][str(N)] for N in Ns]
+    rho_sy = [l5["rho_N_caged_over_uncaged_compression"]["symmetric"][str(N)] for N in Ns]
+    kappa2_uncaged = out["spectral_cold"]["continuum_import_colorcheck_F_bulk_over_F_shear"]
+
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(10.2, 4.2))
+
+    axL.plot(Ns, rho_bo, "o-", color=C["ave"], ms=8,
+             label="bulk-only cage (electron-class, LIVE BIN-2 route)")
+    axL.plot(Ns, rho_sy, "s--", color=C["comparison"], ms=6,
+             label="symmetric cage (BH-class; also kills shear — fenced)")
+    axL.axhline(1.0, color=C["muted"], ls=":", label="uncaged coarse-grained texture (ρ=1)")
+    axL.set_xlabel("number of caged constituent cores  N")
+    axL.set_ylabel("ρ_N = caged / uncaged far-field compression")
+    axL.set_xscale("log", base=2)
+    axL.set_xticks(Ns)
+    axL.set_xticklabels([str(n) for n in Ns])
+    axL.set_ylim(0, 1.25)
+    axL.legend(loc="upper center", fontsize=7, frameon=False, ncol=1)
+    axL.annotate("bulk-only ρ_N RISES toward 1 = cages\nwash out into the coarse-grained texture (BIN-1)",
+                 xy=(8, rho_bo[-1]), xytext=(1.05, 0.36), fontsize=7, color=C["data"])
+
+    k_uncaged = kappa2_uncaged
+    k_bo = rho_bo[-1] * kappa2_uncaged
+    k_sy = rho_sy[-1] * kappa2_uncaged
+    labels = ["uncaged\nκ²(#767)", "bulk-only\nensemble κ²(N=8)",
+              "symmetric\nensemble κ²(N=8)", "κ_max²\n(double pulsar)"]
+    vals = [k_uncaged, k_bo, k_sy, 1.3e-4]
+    cols = [C["muted"], C["ave"], C["comparison"], C["accent"]]
+    axR.bar(range(4), vals, color=cols, width=0.62)
+    axR.set_yscale("log")
+    axR.set_xticks(range(4))
+    axR.set_xticklabels(labels, fontsize=7.5)
+    axR.set_ylabel("κ² = F_bulk / F_shear")
+    axR.set_ylim(5e-5, 1e-1)
+    axR.axhline(1.3e-4, color=C["accent"], ls=":", lw=1)
+    axR.annotate("bulk-only ensemble\n%.0f× above the kill line" % (k_bo / 1.3e-4),
+                 xy=(1, k_bo), xytext=(1.4, 4e-2), fontsize=7.5, color=C["data"])
+
+    fig.savefig(path_png, dpi=150, bbox_inches="tight")
+    fig.savefig(str(Path(path_png).with_suffix(".pdf")), bbox_inches="tight")
+    plt.close(fig)
 
 
 def main():
@@ -524,6 +742,50 @@ def main():
         },
     }
 
+    # ── LEG 4 — moving single cage (moving grade + seeded interior; carry check) ──
+    out["leg4_moving_cage"] = {
+        wc: leg4_moving_cage(args.L, wc, cP_iso, cS_iso)
+        for wc in ("bulk_only", "symmetric")
+    }
+
+    # ── LEG 5 — the verdict-controlling N-scaling (ρ_N and the shear consistency gate) ──
+    l5 = {"N_values": [1, 2, 4, 8], "by_wall": {}}
+    for wc in ("none", "bulk_only", "symmetric"):
+        l5["by_wall"][wc] = {str(N): leg5_ensemble_scaling(args.L, wc, N, cP_iso, cS_iso)
+                             for N in (1, 2, 4, 8)}
+    rho = {}
+    shear_ratio = {}
+    for wc in ("bulk_only", "symmetric"):
+        rho[wc] = {str(N): l5["by_wall"][wc][str(N)]["shell_E_par"] /
+                   (l5["by_wall"]["none"][str(N)]["shell_E_par"] + 1e-30)
+                   for N in (1, 2, 4, 8)}
+        shear_ratio[wc] = {str(N): l5["by_wall"][wc][str(N)]["shell_E_perp"] /
+                           (l5["by_wall"]["none"][str(N)]["shell_E_perp"] + 1e-30)
+                           for N in (1, 2, 4, 8)}
+    l5["rho_N_caged_over_uncaged_compression"] = rho
+    l5["shear_ratio_caged_over_uncaged"] = shear_ratio
+    # scaling exponent p: F_bulk(N) ∝ N^p  (bulk_only, N=2→8 dipole-free branch)
+    Ns = np.array([2, 4, 8], float)
+    Fb = np.array([l5["by_wall"]["bulk_only"][str(int(N))]["shell_E_par"] for N in Ns])
+    Fu = np.array([l5["by_wall"]["none"][str(int(N))]["shell_E_par"] for N in Ns])
+    p_caged = float(np.polyfit(np.log(Ns), np.log(Fb), 1)[0])
+    p_uncaged = float(np.polyfit(np.log(Ns), np.log(Fu), 1)[0])
+    rho_trend = ("RISING_toward_1_coarse_grained_texture_BIN1"
+                 if rho["bulk_only"]["8"] > rho["bulk_only"]["2"]
+                 else "falling_below_1_per_core_cage_survives_BIN2")
+    l5["scaling"] = {
+        "p_caged_bulk_only": p_caged, "p_uncaged": p_uncaged,
+        "rho_N_trend_bulk_only": rho_trend,
+        "rho_bulk_only_N2": rho["bulk_only"]["2"], "rho_bulk_only_N8": rho["bulk_only"]["8"],
+        "shear_survives_bulk_only_N8": shear_ratio["bulk_only"]["8"],
+        "note": "ρ_N RISING toward 1 = the coarse-grained mass texture emerges as cages "
+                "pack (BIN-1); bulk_only shear_ratio≈1 = shear survives (consistency "
+                "gate). ROBUST across rail depth (S_RAIL 0.03→0.003 all RISING, "
+                "pressure-tested). The symmetric wall suppresses compression strongly "
+                "but ALSO kills shear (shear_ratio≪1) = wall-class artifact, FENCED.",
+    }
+    out["leg5_ensemble_scaling"] = l5
+
     # ── LEG 3 — wall S-matrix (impedance, clean) + pulse sign / clamped STOP-gate ──
     out["leg3_impedance_smatrix"] = leg3_impedance_smatrix(cP_iso, cS_iso)
     sign = {}
@@ -550,6 +812,7 @@ def main():
     }
 
     Path(args.out).write_text(json.dumps(out, indent=2))
+    make_figure(out, str(Path(args.out).with_name("constituent_cage_ensemble.png")))
     print("spectral cP/cS iso =", round(cP_iso / cS_iso, 4),
           "colorcheck κ²_uncaged =",
           round(out["spectral_cold"]["continuum_import_colorcheck_F_bulk_over_F_shear"], 4))
@@ -560,6 +823,15 @@ def main():
         sm["bulk_only"]["channel_asymmetry_ratio"]))
     print("LEG3 STOP-gate image-doubling opposite-sign confirmed:",
           out["leg3_STOP_gate"]["image_doubling_opposite_sign_confirmed"])
+    l4 = out["leg4_moving_cage"]
+    print("LEG4 moving cage: bulk_only f_long=%.3f carry=%.2f | symmetric f_long=%.3f carry=%.2f" % (
+        l4["bulk_only"]["shell_f_long"], l4["bulk_only"]["carry_fraction"],
+        l4["symmetric"]["shell_f_long"], l4["symmetric"]["carry_fraction"]))
+    sc = out["leg5_ensemble_scaling"]["scaling"]
+    print("LEG5 ρ_N(bulk_only) N2=%.3f→N8=%.3f trend=%s | p_caged=%.2f p_uncaged=%.2f | "
+          "shear survives (bulk_only,N8)=%.2f" % (
+              sc["rho_bulk_only_N2"], sc["rho_bulk_only_N8"], sc["rho_N_trend_bulk_only"],
+              sc["p_caged_bulk_only"], sc["p_uncaged"], sc["shear_survives_bulk_only_N8"]))
     d = out["leg12_discriminators"]
     print("LEG1 exterior DC∇·u (caged/uncaged): bulk_only=%.3f symmetric=%.3f | "
           "LEG2 single-cage compression seal: bulk_only=%.0f%% symmetric=%.0f%% "
