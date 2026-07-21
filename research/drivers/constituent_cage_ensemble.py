@@ -122,9 +122,13 @@ def omega_max_cold(Phi, bi, bj, N, iters=60):
 # ═════════════════════════════════════════════════════════════════════════════
 # ★THE CONSTITUTIVE CAGE PRIMITIVE (the new physics; NOT a kinematic pin)
 # ═════════════════════════════════════════════════════════════════════════════
-def cage_stiffness(dhat, mid, rho_star, k_s, centers, r_cage, cage_w, wall_class):
+def cage_stiffness(dhat, mid, rho_star, k_s, centers, r_cage, cage_w, wall_class,
+                   s_rail=S_RAIL):
     """Per-bond (k_a_bond, k_s_bond) for a set of cages realized by CONSTITUTIVE
     GRADING toward the rail on a ~cage_w-thick shell at r_cage around each center.
+    `s_rail` (default = module S_RAIL=0.03, the shipped shallow depth) is the rail
+    stiffness factor; PR#770 review-repair threads it so the rail-depth ladder can be
+    COMPUTED rather than asserted (Findings 6/9; reconcile-don't-declare).
 
       wall_class = "none"       : cold everywhere (uncaged control; k_a=ρ*, k_s=k_s)
       wall_class = "symmetric"  : BOTH k_a,k_s → S_RAIL·(·) on the shell (BH melt
@@ -152,7 +156,7 @@ def cage_stiffness(dhat, mid, rho_star, k_s, centers, r_cage, cage_w, wall_class
     # rail weight: 1 (cold) far from the shell, S_RAIL at the shell center
     shell_mid = r_cage + 0.5 * cage_w
     w = np.exp(-((rmin - shell_mid) ** 2) / (2.0 * (0.5 * cage_w) ** 2))
-    rail = 1.0 - (1.0 - S_RAIL) * w  # →S_RAIL on the shell, →1 cold
+    rail = 1.0 - (1.0 - s_rail) * w  # →s_rail on the shell, →1 cold
     if wall_class == "symmetric":
         k_a_bond = k_a_bond * rail
         k_s_bond = k_s_bond * rail
@@ -452,7 +456,8 @@ def _ensemble_centers(N, L, R_lobe, pack):
 
 def leg5_ensemble_scaling(L, wall_class, N, cP, cS, R_lobe=3.5, pack=1.0,
                           r_cage=1.6, cage_w=1.0, r_meas=7.5, shell_w=1.0,
-                          sigma=1.0, amp=0.05, cfl=0.2, rho_star=RHO_STAR, k_s=K_S):
+                          sigma=1.0, amp=0.05, cfl=0.2, rho_star=RHO_STAR, k_s=K_S,
+                          s_rail=S_RAIL):
     """LEG 5 — the verdict-controlling N-scaling. N energized caged cores (dipole-free
     two-lobe ensemble), seeded as initial displacement (FREE dynamics, NO pin), free-
     evolve, measure the NET far-field compression at a shell ENCLOSING all N cores.
@@ -470,7 +475,7 @@ def leg5_ensemble_scaling(L, wall_class, N, cP, cS, R_lobe=3.5, pack=1.0,
     dt = cfl * 2.0 / omega_max
 
     ka, ks = cage_stiffness(dhat, mid, rho_star, k_s, centers,
-                            r_cage, cage_w, wall_class)
+                            r_cage, cage_w, wall_class, s_rail=s_rail)
     Phi = bond_tensors(dhat, ka, ks)
 
     rel = pos - c0
@@ -624,6 +629,90 @@ def leg3_impedance_smatrix(cP_cold, cS_cold):
     return out
 
 
+def rail_depth_scan(cP_cold, cS_cold, L, uncaged_leg5,
+                    imp_ladder=(0.03, 0.003, 1e-4, 1e-6, 0.0),
+                    rho_ladder=(0.03, 0.003, 1e-4),
+                    rho_star=RHO_STAR, k_s=K_S):
+    """★REVIEW-REPAIR (PR#770 maximum-stakes review, 2026-07-20; Findings 0/2/5/6/9).
+
+    The originally-shipped driver HARD-CODED 'ROBUST across rail depth (S_RAIL
+    0.03→0.003 all RISING, pressure-tested)' into l5['scaling']['note'] while running
+    ONLY S_RAIL=0.03 (module constant, no scan loop). That is the reconcile-don't-
+    declare failure mode: a machine-JSON field asserting a pressure-test the
+    deterministic run never performed. This function COMPUTES the S_RAIL ladder from
+    the SHIPPED pipeline (run_c2_speeds + leg5_ensemble_scaling), so the artifact
+    carries computed truth. Engine byte-untouched.
+
+    Two ladders:
+      • IMPEDANCE ladder (run_c2_speeds Bloch speeds — the load-bearing Leg-6 fact,
+        Findings 0/5 CRITICAL): for each s, bulk_only rails ONLY k_a (k_s full);
+        symmetric rails both. Γ_ch = (c_railed − c_cold)/(c_railed + c_cold). RESULT:
+        bulk_only Γ_bulk → −1 as s→0 with c_S FINITE — the canon bulk-only wall
+        (electron-bh-iso:26: Γ_bulk=−1, shear un-melted at the knot core) IS
+        constitutively realizable in the rank-2 bond model. The originally-shipped
+        'c_P stays finite / Γ_bulk saturates −0.5…−0.8 NOT −1' claim is INVERTED (it
+        stopped the scan at s=0.003; one decade deeper Γ_bulk marches to −1).
+      • ρ_N ladder (leg5 at each s_rail — Finding 2): caged/uncaged far-field
+        compression. Deeper rail plateaus ρ_N ~0.3 and goes flat-to-FALLING N4→N8 —
+        the originally-shipped 'RISING toward 1 / all RISING' read is rail-depth-
+        conditional (it holds only at the shallow, un-frozen shipped depth 0.03).
+    """
+    def gamma(cr, cc):
+        return (cr - cc) / (cr + cc)
+    imp = {"ladder": list(imp_ladder), "cold": {"cP": cP_cold, "cS": cS_cold},
+           "bulk_only": {}, "symmetric": {}}
+    for s in imp_ladder:
+        key = f"{s:g}"
+        cPb, cSb, _ = run_c2_speeds(s * rho_star, k_s)             # rail k_a only
+        imp["bulk_only"][key] = {
+            "cP": cPb, "cS": cSb, "gamma_bulk": gamma(cPb, cP_cold),
+            "gamma_shear": gamma(cSb, cS_cold), "cP_over_cS": cPb / (cSb + 1e-30)}
+        if s == 0.0:
+            # symmetric melt point: cP=cS=0 (0/0 in run_c2_speeds' per_dir) — the
+            # degenerate BH-melt wall, canon Γ_bulk=Γ_shear=−1 (lattice-extreme:37).
+            imp["symmetric"][key] = {
+                "cP": 0.0, "cS": 0.0, "gamma_bulk": -1.0, "gamma_shear": -1.0,
+                "cP_over_cS": None,
+                "note": "degenerate melt point cP=cS=0 (0/0); analytic limit Γ=−1 both"}
+        else:
+            cPs, cSs, _ = run_c2_speeds(s * rho_star, s * k_s)     # rail both
+            imp["symmetric"][key] = {
+                "cP": cPs, "cS": cSs, "gamma_bulk": gamma(cPs, cP_cold),
+                "gamma_shear": gamma(cSs, cS_cold), "cP_over_cS": cPs / (cSs + 1e-30)}
+
+    Ns = (1, 2, 4, 8)
+    rho = {"ladder": list(rho_ladder), "bulk_only": {}, "symmetric": {}}
+    for s in rho_ladder:
+        key = f"{s:g}"
+        for wc in ("bulk_only", "symmetric"):
+            rho[wc][key] = {
+                str(N): leg5_ensemble_scaling(L, wc, N, cP_cold, cS_cold, s_rail=s)[
+                    "shell_E_par"] / (uncaged_leg5[str(N)] + 1e-30)
+                for N in Ns}
+    # honest trend read (Finding 2): the shipped note claimed 'all RISING'; report
+    # the two sub-trends per depth from data (N2→N8 headline vs N4→N8 tail).
+    rho["trend_bulk_only_by_depth"] = {
+        f"{s:g}": {
+            "N2_to_N8_rising": rho["bulk_only"][f"{s:g}"]["8"] > rho["bulk_only"][f"{s:g}"]["2"],
+            "N4_to_N8_rising": rho["bulk_only"][f"{s:g}"]["8"] > rho["bulk_only"][f"{s:g}"]["4"],
+            "rho_N8": rho["bulk_only"][f"{s:g}"]["8"]}
+        for s in rho_ladder}
+    return {
+        "provenance": "PR#770 review-repair 2026-07-20 — the S_RAIL ladder the shipped "
+                      "l5 note asserted ('ROBUST … pressure-tested') but never ran; "
+                      "COMPUTED here from the shipped run_c2_speeds + leg5_ensemble_scaling "
+                      "(engine byte-untouched, deterministic).",
+        "impedance_ladder_run_c2_speeds": imp,
+        "rho_N_ladder_leg5": rho,
+        "finding0_5_bulk_only_gamma_bulk_to_minus1_with_shear_finite": {
+            "gamma_bulk_by_s": {f"{s:g}": imp["bulk_only"][f"{s:g}"]["gamma_bulk"] for s in imp_ladder},
+            "cS_bulk_only_by_s": {f"{s:g}": imp["bulk_only"][f"{s:g}"]["cS"] for s in imp_ladder},
+            "canon_bulk_only_wall_realizable": bool(imp["bulk_only"]["0"]["gamma_bulk"] < -0.99
+                                                    and imp["bulk_only"]["0"]["cS"] > 0.1),
+        },
+    }
+
+
 def make_figure(out, path_png):
     """White-style figure (ave.viz.style, Okabe-Ito, honest axes/units, legend outside
     data, no on-figure title): (L) Leg-5 ρ_N vs N — the aggregation trend (rising
@@ -656,8 +745,11 @@ def make_figure(out, path_png):
     axL.set_xticklabels([str(n) for n in Ns])
     axL.set_ylim(0, 1.25)
     axL.legend(loc="upper center", fontsize=7, frameon=False, ncol=1)
-    axL.annotate("bulk-only ρ_N RISES toward 1 = cages\nwash out into the coarse-grained texture (BIN-1)",
-                 xy=(8, rho_bo[-1]), xytext=(1.05, 0.36), fontsize=7, color=C["data"])
+    # ★PR#770 review-repair (Findings 2/6/9): annotation is depth-scoped + honest —
+    # the rise is a SHALLOW-rail (S_RAIL=0.03) read; deeper rail plateaus ~0.3 (see
+    # review_repair_rail_depth_scan). The verdict is RAIL-DEPTH-CONDITIONAL → REOPENED.
+    axL.annotate("bulk-only ρ_N rises N2→N8 at the SHIPPED\nS_RAIL=0.03 (un-frozen) ONLY; deeper rail\nplateaus ~0.3 — rail-depth-conditional (REOPENED)",
+                 xy=(8, rho_bo[-1]), xytext=(1.05, 0.30), fontsize=6.5, color=C["data"])
 
     k_uncaged = kappa2_uncaged
     k_bo = rho_bo[-1] * kappa2_uncaged
@@ -700,6 +792,17 @@ def main():
             "kappa_max2_double_pulsar": 1.3e-4,
             "kappa_env2_uncaged_767_baseline": 0.034,
             "S_RAIL": S_RAIL,
+            "review_repair": (
+                "PR#770 maximum-stakes review-repair rerun (2026-07-20). SUPERSEDES the "
+                "originally-shipped JSON at fa59998a, which hard-coded 'ROBUST across "
+                "rail depth (S_RAIL 0.03->0.003 all RISING, pressure-tested)' + "
+                "'shear_ratio~1' into l5['scaling']['note'] while running ONLY "
+                "S_RAIL=0.03 (module constant, no scan loop) — the reconcile-don't-"
+                "declare failure mode. This rerun (a) REMOVES the fabricated note, (b) "
+                "adds review_repair_rail_depth_scan COMPUTING the S_RAIL ladder from the "
+                "shipped run_c2_speeds + leg5_ensemble_scaling. All originally-shipped "
+                "legs are bit-identical (s_rail defaults to S_RAIL=0.03). Deterministic; "
+                "engine byte-untouched."),
         },
         "spectral_cold": {
             "cP_iso": cP_iso, "cS_iso": cS_iso, "cP_over_cS_iso": cP_iso / cS_iso,
@@ -770,21 +873,45 @@ def main():
     Fu = np.array([l5["by_wall"]["none"][str(int(N))]["shell_E_par"] for N in Ns])
     p_caged = float(np.polyfit(np.log(Ns), np.log(Fb), 1)[0])
     p_uncaged = float(np.polyfit(np.log(Ns), np.log(Fu), 1)[0])
-    rho_trend = ("RISING_toward_1_coarse_grained_texture_BIN1"
+    # ★PR#770 review-repair (Findings 2/6/9): depth-scoped, verdict-neutral trend
+    # label (the shipped label baked 'BIN1/BIN2' into the artifact; the review
+    # REOPENED the verdict). rho_N8>rho_N2 is TRUE only at this shallow shipped depth.
+    rho_trend = ("RISING_N2_to_N8_at_shipped_depth_0p03"
                  if rho["bulk_only"]["8"] > rho["bulk_only"]["2"]
-                 else "falling_below_1_per_core_cage_survives_BIN2")
+                 else "falling_N2_to_N8_at_shipped_depth_0p03")
     l5["scaling"] = {
         "p_caged_bulk_only": p_caged, "p_uncaged": p_uncaged,
         "rho_N_trend_bulk_only": rho_trend,
         "rho_bulk_only_N2": rho["bulk_only"]["2"], "rho_bulk_only_N8": rho["bulk_only"]["8"],
-        "shear_survives_bulk_only_N8": shear_ratio["bulk_only"]["8"],
-        "note": "ρ_N RISING toward 1 = the coarse-grained mass texture emerges as cages "
-                "pack (BIN-1); bulk_only shear_ratio≈1 = shear survives (consistency "
-                "gate). ROBUST across rail depth (S_RAIL 0.03→0.003 all RISING, "
-                "pressure-tested). The symmetric wall suppresses compression strongly "
-                "but ALSO kills shear (shear_ratio≪1) = wall-class artifact, FENCED.",
+        "shear_ratio_bulk_only_N1": shear_ratio["bulk_only"]["1"],
+        "shear_ratio_bulk_only_N8": shear_ratio["bulk_only"]["8"],
+        # ★PR#770 review-repair (Findings 6/9): the fabricated 'ROBUST across rail
+        # depth … all RISING, pressure-tested' + 'shear_ratio≈1' strings are REMOVED.
+        # Rail-depth robustness is COMPUTED, not asserted — see review_repair_rail_
+        # depth_scan below. shear_ratio is reported at its actual (suppressed) value.
+        "note": (
+            "SHIPPED-DEPTH (S_RAIL=%.3g, un-frozen) measurement ONLY. bulk_only rho_N "
+            "N2=%.3f->N8=%.3f (%s); bulk_only shear_ratio N1=%.2f N8=%.2f — shear is "
+            "SUPPRESSED to %.2fx uncaged (NOT ~1; a 40-77%% suppression). Rail-depth "
+            "robustness is NOT asserted from this single depth: see review_repair_rail_"
+            "depth_scan for the COMPUTED S_RAIL ladder (PR#770 review-repair). Deeper "
+            "rail plateaus rho_N ~0.3 (flat-to-FALLING N4->N8) AND drives bulk_only "
+            "Gamma_bulk -> -1 with shear FINITE (the canon bulk-only wall IS "
+            "realizable). The symmetric wall suppresses compression more but ALSO kills "
+            "shear (wall-class artifact, fenced)." % (
+                S_RAIL, rho["bulk_only"]["2"], rho["bulk_only"]["8"], rho_trend,
+                shear_ratio["bulk_only"]["1"], shear_ratio["bulk_only"]["8"],
+                shear_ratio["bulk_only"]["8"])),
     }
     out["leg5_ensemble_scaling"] = l5
+
+    # ── ★REVIEW-REPAIR (PR#770): the COMPUTED S_RAIL ladder the shipped l5 note
+    #    asserted ('ROBUST … pressure-tested') but never ran (Findings 0/2/5/6/9;
+    #    reconcile-don't-declare). Reuses the s_rail-independent uncaged 'none' leg5. ──
+    uncaged_leg5 = {str(N): l5["by_wall"]["none"][str(N)]["shell_E_par"]
+                    for N in (1, 2, 4, 8)}
+    out["review_repair_rail_depth_scan"] = rail_depth_scan(
+        cP_iso, cS_iso, args.L, uncaged_leg5)
 
     # ── LEG 3 — wall S-matrix (impedance, clean) + pulse sign / clamped STOP-gate ──
     out["leg3_impedance_smatrix"] = leg3_impedance_smatrix(cP_iso, cS_iso)
@@ -829,9 +956,17 @@ def main():
         l4["symmetric"]["shell_f_long"], l4["symmetric"]["carry_fraction"]))
     sc = out["leg5_ensemble_scaling"]["scaling"]
     print("LEG5 ρ_N(bulk_only) N2=%.3f→N8=%.3f trend=%s | p_caged=%.2f p_uncaged=%.2f | "
-          "shear survives (bulk_only,N8)=%.2f" % (
+          "shear_ratio (bulk_only,N8)=%.2f (SUPPRESSED, not ~1)" % (
               sc["rho_bulk_only_N2"], sc["rho_bulk_only_N8"], sc["rho_N_trend_bulk_only"],
-              sc["p_caged_bulk_only"], sc["p_uncaged"], sc["shear_survives_bulk_only_N8"]))
+              sc["p_caged_bulk_only"], sc["p_uncaged"], sc["shear_ratio_bulk_only_N8"]))
+    rd = out["review_repair_rail_depth_scan"]
+    gb = rd["impedance_ladder_run_c2_speeds"]["bulk_only"]
+    print("REVIEW-REPAIR rail-depth ladder (bulk_only Γ_bulk): " +
+          " ".join("s=%s→%+.4f" % (s, gb[s]["gamma_bulk"]) for s in gb) +
+          " | cS(s=0)=%.4f FINITE ⇒ canon bulk-only wall realizable: %s" % (
+              gb["0"]["cS"],
+              rd["finding0_5_bulk_only_gamma_bulk_to_minus1_with_shear_finite"][
+                  "canon_bulk_only_wall_realizable"]))
     d = out["leg12_discriminators"]
     print("LEG1 exterior DC∇·u (caged/uncaged): bulk_only=%.3f symmetric=%.3f | "
           "LEG2 single-cage compression seal: bulk_only=%.0f%% symmetric=%.0f%% "
