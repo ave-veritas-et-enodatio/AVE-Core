@@ -1,5 +1,18 @@
 # LIGO Ringdown Driver — Design + Phase-1 Verification
 
+> **🔴 SUPERSEDED §7–§10 (2026-07-20, kerr-table-canon-correction lane, upstream of PR #772).**
+> The §7 "GR matches LIGO at +0.34%", §8 "v2 −0.45% mean PASS", §9 "v2 reproduces the GR
+> Kerr curve / covers entire LIGO BBH catalog", and §10 "τ −0.47% / outperforms GR (−6.94%)"
+> conclusions are **RETRACTED as compensating-error artifacts**. Two defects: (1) the GR Kerr
+> QNM reference table (`ligo_ringdown_driver.py`) was wrong at spin by −9% to −27% (corrected
+> 2026-07-20); (2) the comparisons used **source-frame** final masses against **detector-frame**
+> observed frequencies (f ∝ 1/M, so the ≈9% mass gap inflated predictions ≈9%, cancelling a
+> genuine ≈−10% deficit into a spurious "match"). **Honest state: AVE-v2 sits −9.5% mean BELOW
+> true Kerr** (frame-independent, spin-only) at the catalog spins; cold a*=0 eigenvalue −1.7%
+> survives. Re-adjudication: [`2026-07-20_kerr-table-correction_result.md`](2026-07-20_kerr-table-correction_result.md)
+> + [`_prereg-FROZEN.md`](2026-07-20_kerr-table-correction_prereg-FROZEN.md) + [`_rerun.py`](2026-07-20_kerr-table-correction_rerun.py).
+> §1–§6 (the pre-Kerr-correction 10–18% raw comparison + Phase-1 self-consistency) are unaffected.
+
 **Branch:** `analysis/ligo-ringdown-driver` (off `research/l3-electron-soliton` at `317faf3`)
 **Goal:** Build the executable observer for matrix row **C1-BH-RING** in [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md), currently flagged as "MISSING — no LIGO driver in any repo." Tests AVE's $\omega_R M_g = 18/49 \approx 0.3673$ vs GR's $0.3737$ via re-analysis of public LIGO O1-O2 strain data.
 

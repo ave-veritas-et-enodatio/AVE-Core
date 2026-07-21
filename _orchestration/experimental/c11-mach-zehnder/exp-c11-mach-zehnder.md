@@ -36,11 +36,13 @@ C11 is one of three independent observables that converge on $\nu_{vac} = 2/7$:
 
 | Cascade node | Observable | Status |
 |---|---|---|
-| **C1-BH-RING** | $r_{sat} = 7 M_g$ + $\omega_R M_g = 18/49$ via $\nu_{vac}=2/7$ | **FULL PASS** (Phase 5 closure 2026-05-18; -0.45% mean ω_R; -0.47% mean τ across 3 LIGO events) |
+| **C1-BH-RING** | $r_{sat} = 7 M_g$ + $\omega_R M_g = 18/49$ via $\nu_{vac}=2/7$ | ~~**FULL PASS** (Phase 5 closure 2026-05-18; -0.45% mean ω_R; -0.47% mean τ across 3 LIGO events)~~ **🔴 RETRACTED 2026-07-20 (AVE-Core PR #774) — NOT A PASS.** The spinning match was a frame + Kerr-table artifact; honest AVE-v2 −9.5% below Kerr (spinning). Only the **cold a\*=0 eigenvalue (−1.7%)** survives — a single-point consistency figure, not a PASS. See the correction note under the table. |
 | **C11-MACH-ZEHNDER** | $n_s = 1 + (9/7)\varepsilon_{11}$ vs $n_t = 1 + (2/7)\varepsilon_{11}$ | **PENDING** — driver built; no hardware |
 | **C12-G-STAR** | $g_* = 7^3/4 = 85.75$ effective DOF vs SM 106.75 | LISA primordial GW wait ~2035 |
 
 **Triangulation logic**: ALL THREE converging on $\nu_{vac} = 2/7$ at three independent scales (BH-class compact-object dynamics + atomic-scale interferometry + cosmological mode-counting). **Simultaneous FAIL of any one = framework-level falsification of K4 Cosserat substrate hypothesis.**
+
+> **🔴 CORRECTION (2026-07-20, live-doc, per AVE-Core PR #774 kerr-table-canon-correction; review finding 3).** This ACTIVE planning doc still asserts C1 FULL PASS as live state (this table; the Phase-3 outcome matrix "Combined with C1 FULL PASS → 2-of-3 triangulation nodes confirmed … foreword-promotion-grade"; and the "C1-BH-RING FULL PASS — first cascade node" reference below). **C1's spinning "FULL PASS" is RETRACTED** — it was a compensating-error artifact (corrupt Kerr table + source-vs-detector frame mixing); honest AVE-v2 is −9.5% below true Kerr, and the AVE-side spin-mapping fork is REOPENED (PR #774 § FORK-REOPEN). Only the **cold a\*=0 eigenvalue (−1.7%)** survives — a single-point consistency figure, **not** an empirical cascade anchor. The ν_vac=2/7 cascade is therefore anchored **at C11 only** (pending re-adjudication), so the "2-of-3 nodes confirmed → foreword-promotion-grade" Outcome-A inference below **does not hold** as written. The canonical KB twin `project-c11-mach-zehnder.md` carries the matching retraction. Historical process logs referencing the old −0.45% state are not rewritten.
 
 C11 is the only TERRESTRIAL bench-class triangulation node. C1 is data-already-acquired (LIGO public); C12 is multi-decade facility wait. C11's "1-m electron interferometer" is the only node where Grant could potentially act in <decade timescale.
 

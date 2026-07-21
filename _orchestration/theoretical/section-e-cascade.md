@@ -11,7 +11,7 @@ E1a and E1b implementor sessions complete + merged + audit-tagged. E1b returned 
 
 The three foreword-promoted scale anchors stand:
 - **C13a-GAL-ROT** (galactic kpc, 11.5% Q=1 SPARC residual)
-- **C1-BH-RING** (BH-class km, -0.45% ω_R / -0.47% τ)
+- ~~**C1-BH-RING** (BH-class km, -0.45% ω_R / -0.47% τ)~~ **🔴 RETRACTED 2026-07-20 (AVE-Core PR #774): the -0.45%/-0.47% spinning match was a frame + Kerr-table artifact; honest AVE-v2 -9.5% below Kerr, spin-mapping fork REOPENED. Only the cold a\*=0 eigenvalue (-1.7%) survives — a single-point consistency figure, NOT a foreword-promoted anchor. This anchor does NOT stand; the foreword promotion is a flagged walk-back candidate for Grant.**
 - **C8-BARYON-LADDER** (hadronic fm, -0.002% proton + 6/6 J^P)
 
 C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stands as D awaiting tightening; E1c gated.
