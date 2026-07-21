@@ -49,9 +49,9 @@ So the kernel arguments are **spatially disjoint**: `k_a` rails at the core cent
 | **smooth-eshelby** (PRIMARY) | `0` | `0.279` | `0.558` | smooth |
 | **gaussian-curlfree** (seed) | `0` | `0.368` | `0.736` | seed |
 | **lorentzian** | `0` | `0.250` | `0.500` | smooth |
-| **sharp-eshelby** (LIMIT) | `0`* | `0.750` | `1.500` | sharp (strain-discontinuous) |
+| **sharp-eshelby** (LIMIT) | `3/2`* | `0.750` | `1.500` | sharp (strain-discontinuous) |
 
-*(`sharp-eshelby` has an interior affine plateau where `D=0`; its deviatoric jumps at the discontinuity — the continuum peak `½|D|=0.75`, `|D|=1.5` sits just outside `r_c`.)*
+*(★REVIEW-REPAIR R1 — was mis-tabulated `0`. `sharp-eshelby` has an interior affine plateau (`D=0`), but its axial swing `|f′|` PEAKS AT the discontinuity `r_sat = r_c` (jumping from `1/r_c` to `2/r_c`), and the deviatoric is ALSO maximal there — so `ρ_dev(r_sat) = |D|/|f′| = 1.5` (the `k_a` and `k_s` saturation loci **COINCIDE** in the sharp limit, unlike the smooth members' spatial separation). Continuum peak `½|D|=0.75`, `|D|=1.5`. The spatial-separation mechanism (§3) is therefore a SMOOTH-profile result; on the coarse lattice the sharp member's RMS-axial argmax smears into the plateau, giving `ρ_dev(r_sat)≈0` there as a resolution artifact, not physics.)*
 
 **★The result is bracketed but profile-conditional.** The smooth members sit at `½|D| ≈ 0.25–0.37` (**sub-half-yield** — bin-1 direction on the bond-shear measure), the sharp-core LIMIT at `0.75` (yield-scale direction), and the raw `|D|` upper-bound at `0.5–1.5`. The verdict hinges on (a) core-boundary **sharpness** (canon under-determines it, §2 of the prereg) and (b) which **deviatoric measure** — the physically-correct per-bond bond-shear (MEASURE-1) or the loose principal-strain-difference (MEASURE-2).
 

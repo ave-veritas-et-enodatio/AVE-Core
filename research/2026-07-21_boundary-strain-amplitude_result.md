@@ -14,6 +14,16 @@
 
 ---
 
+## ★REVIEW-REPAIR (PR #779 adversarial review, 2026-07-21 — frozen verdict PRESERVED; git is the trail; these corrections supersede where they conflict)
+
+The adversarial review returned **10 confirmed findings** (1 MAJOR standing, the rest MINOR post-verify; 3 refuted). **★BIN-3 PROFILE-DEPENDENT SURVIVES intact** — it fires on the frozen `measure_dependence_flip` (`True`) plus the `(0.5, 0.8)` no-clean-bin zone (sharp-core M1 `0.72`, MEASURE-2 up to `1.5`), untouched by every finding. The repairs are data-fidelity + honest-scope + one Grant-ratified physics re-scope (the vessel-state walk fold, R6), not a verdict move. Deviations are disclosed in the result only; the frozen prereg (`_prereg-FROZEN.md`) and the engine are byte-untouched.
+
+**R1 (MAJOR — doc-vs-shipped-JSON table errors; both ran mechanism-flattering).** Two shipped table cells contradicted `boundary_strain_amplitude_results.json` and are corrected in place: (a) **Leg A §1 sharp-eshelby `ρ_dev(r_sat)`: `0` → `3/2`** — the analytic sharp member's axial argmax sits AT the strain discontinuity (`r_sat = r_c = 2.0`, where `|f′|` jumps from `1/r_c` to `2/r_c`), where the deviatoric is ALSO maximal (`ρ_dev = |D|/|f′| = 3/2`), so the `k_a` and `k_s` saturation loci **COINCIDE** in the sharp limit (JSON `legA_analytic.sharp_eshelby.rho_dev_at_shell = 1.5`, `r_sat = 2.0001`); (b) **Leg B §2 sharp-eshelby `r_sat`: `0.25` → `1.25`** (clean transcription error, mis-copied from the smooth row; the other three cells matched — JSON `legB_numeric.sharp_eshelby.r_sat = 1.25`). **★Mechanism re-scope (honest):** the **spatial separation** of the `k_a` (core-center) and `k_s` (outer-shell) saturation loci is a **SMOOTH-PROFILE result only**. In the sharp limit the continuum loci **COINCIDE** (`ρ_dev(r_sat) = 3/2`, Leg A). The lattice (Leg B) sharp member reads `ρ_dev(r_sat) ≈ 0` at `r_sat = 1.25` ONLY because the coarse `L = 24` net smears the discontinuity's axial spike into the interior affine plateau (`D = 0` there) — a **lattice-resolution artifact of the discontinuity, NOT genuine spatial separation**. Both original errors ran in the mechanism-flattering direction (both understated the sharp member's boundary deviatoric at its saturation shell); disclosed.
+
+<!-- REVIEW-REPAIR-APPEND-POINT -->
+
+---
+
 ## §0 — REGIME / SECTOR / PHASE-STATE header
 
 **MODE.** Static/kinematic — the strain decomposition of an IMPOSED localized breather profile, NOT envelope self-consistency (declared scope, prereg §0; a self-bound saturated soliton is INFEASIBLE on the lossless engine — electron-lock arc — and self-consistency is not what Fork-W hinges on). **REGIME.** Near-yield localized A1 breather core; cold-linear exterior. **PHASE-STATE.** Op14 saturation not run dynamically; we measure the per-bond swing amplitudes the kernel WOULD key on, vs yield. **SECTOR.** A1 bulk/compression (`k_a`, keyed on axial swing) vs T2 shear (`k_s`, keyed on transverse swing) — orthogonal swing coordinates (#773 §2 Step 3); mass = A1 dilatation (`master-equation.md:20`), A1 ⊥ T2. **A46 (`phase-space-coordinate-check` PASS):** the corpus claim (#773 §2 Step 2: `ε_rr=f′`, `ε_θθ=f/r`, deviatoric `∝(f′−f/r)`) and the test are BOTH in real-space strain-decomposition coordinates — matched, not a phase-space-vs-real-space mismatch. **CLASS (`consistency-vs-emergence`):** `ρ_dev` is a dimensionless kinematic ratio; Leg A = exact geometric IDENTITY; Leg B = its lattice MANIFESTATION; α-CLEAN. No emergence claim headlined.
@@ -22,14 +32,16 @@
 
 ## §1 — LEG A (analytic; exact spherical-elasticity kinematics) `[derived]`
 
-Full in `..._derivation.md`. Outputs (exact, normalized so peak axial = `A_yield`): `ρ_dev(r_sat) = 0` for every smooth member (axial peaks where the deviatoric vanishes); admissible bracket `ρ_dev ∈ [0 (affine), 3/2 (div-free tail)]`; peak deviatoric per profile —
+Full in `..._derivation.md`. Outputs (exact, normalized so peak axial = `A_yield`): `ρ_dev(r_sat) = 0` for every SMOOTH member (axial peaks at the core center where the deviatoric vanishes) — but `= 3/2` for the sharp-eshelby LIMIT, whose axial argmax sits AT the strain discontinuity (`r_sat = 2.0`) where the deviatoric is also maximal (the `k_a` and `k_s` loci **COINCIDE** in the sharp limit; ★REVIEW-REPAIR R1); admissible bracket `ρ_dev ∈ [0 (affine), 3/2 (div-free tail)]`; peak deviatoric per profile —
 
 | profile | `ρ_dev(r_sat)` | peak `½|D|` (MEASURE-1 partner) | peak `|D|` (MEASURE-2 shape) | dilatation-frac interior |
 |---|---|---|---|---|
 | smooth-eshelby (PRIMARY) | `0` | `0.279` | `0.558` | `0.92` |
 | gaussian-curlfree (seed) | `0` | `0.368` | `0.736` | `0.90` |
 | lorentzian | `0` | `0.250` | `0.500` | `0.93` |
-| sharp-eshelby (LIMIT) | `0` | `0.750` | `1.500` | `0.83` |
+| sharp-eshelby (LIMIT) | `3/2`* | `0.750` | `1.500` | `0.83` |
+
+*(★REVIEW-REPAIR R1: was mis-tabulated `0`. The sharp member's axial argmax is AT the discontinuity `r_sat = 2.0` where `|D|` is also maximal ⇒ `ρ_dev(r_sat) = 3/2`; the `k_a`/`k_s` loci COINCIDE in the sharp limit — the spatial separation is a SMOOTH-profile result only.)*
 
 The **factor of ½** (bond-shear `½|D|` = the exact `k_s` argument, vs raw `|D|`) is derivation-grade (`..._derivation.md §1`), and is load-bearing near the 0.5 margin.
 
@@ -44,9 +56,11 @@ Driver: `research/drivers/boundary_strain_amplitude.py`. On `cce.build_finite_sr
 | smooth-eshelby | `0.25` | `0.042` | **`0.216`** | `1.22` |
 | gaussian-curlfree | `0.25` | `0.015` | **`0.278`** | `0.89` |
 | lorentzian | `0.25` | `0.028` | **`0.188`** | `1.03` |
-| sharp-eshelby | `0.25` | `0.000` | **`0.725`** | `1.23` |
+| sharp-eshelby | `1.25`† | `0.000`‡ | **`0.725`** | `1.23` |
 
-**Findings.** (1) The numeric per-bond MEASURE-1 (`0.19–0.28` smooth, `0.72` sharp) **confirms the analytic bond-shear `½|D|`** (`0.25–0.37` smooth, `0.75` sharp) to within the lattice orientation-average — the pipeline is validated. (2) `ρ_dev(r_sat) ≈ 0`: at the axial-saturation shell (core center) the transverse swing is `≈0` — the **spatial separation** of the `k_a` and `k_s` saturation loci (Leg A §3), measured directly on the net. (3) The transverse swing peaks at an OUTER shell (`r≈1.75` for smooth-eshelby: `Ā_trans=0.216` where `Ā_axial=0.318`). (4) The exterior tail `ρ_dev → 1.0–1.23` confirms the deviatoric-dominated div-free regime (rising toward the analytic `3/2`; not fully asymptotic at `L=24` — a finite-box FENCE caveat, verdict-neutral since the verdict data are the core-boundary shells). (5) **`r_c` robustness** (frozen report item): M1(smooth-eshelby) `= 0.228 / 0.216 / 0.210` at `r_c = 1.5 / 2.0 / 3.0` — the direct-swing metric is core-scale-robust (all sub-half-yield). **Verdict-controlling read:** smooth cores → M1 sub-half-yield (bin-1 direction); sharp-core LIMIT → M1 `0.72` (toward yield-scale) ⇒ profile-dependent; NOT `≤0.5` across all profiles + both measures ⇒ **bin-1 criterion FAILS**.
+*(†★REVIEW-REPAIR R1: was mis-transcribed `0.25` (mis-copied from the smooth row); JSON `legB_numeric.sharp_eshelby.r_sat = 1.25`. ‡On the lattice the sharp member's `argmax Ā_axial` smears into the interior affine plateau (`D = 0`), so `ρ_dev(r_sat) ≈ 0` here is a **lattice-resolution artifact of the discontinuity**, NOT genuine spatial separation — the CONTINUUM sharp member (Leg A) has coincident loci `ρ_dev(r_sat) = 3/2` at `r_sat = 2.0`.)*
+
+**Findings.** (1) The numeric per-bond MEASURE-1 (`0.19–0.28` smooth, `0.72` sharp) **confirms the analytic bond-shear `½|D|`** (`0.25–0.37` smooth, `0.75` sharp) to within the lattice orientation-average — the pipeline is validated. (2) For the SMOOTH members `ρ_dev(r_sat) ≈ 0`: at the axial-saturation shell (core center) the transverse swing is `≈0` — the **spatial separation** of the `k_a` and `k_s` saturation loci (Leg A §3), measured directly on the net. **This is a SMOOTH-profile result** (★REVIEW-REPAIR R1): in the sharp limit the continuum loci COINCIDE (`ρ_dev(r_sat) = 3/2`); the lattice sharp `ρ_dev(r_sat) ≈ 0` is the discontinuity-smearing artifact noted above, not physics. (3) The transverse swing peaks at an OUTER shell (`r≈1.75` for smooth-eshelby: `Ā_trans=0.216` where `Ā_axial=0.318`). (4) The exterior tail `ρ_dev → 1.0–1.23` confirms the deviatoric-dominated div-free regime (rising toward the analytic `3/2`; not fully asymptotic at `L=24` — a finite-box FENCE caveat, verdict-neutral since the verdict data are the core-boundary shells). (5) **`r_c` robustness** (frozen report item): M1(smooth-eshelby) `= 0.228 / 0.216 / 0.210` at `r_c = 1.5 / 2.0 / 3.0` — the direct-swing metric is core-scale-robust (all sub-half-yield). **Verdict-controlling read:** smooth cores → M1 sub-half-yield (bin-1 direction); sharp-core LIMIT → M1 `0.72` (toward yield-scale) ⇒ profile-dependent; NOT `≤0.5` across all profiles + both measures ⇒ **bin-1 criterion FAILS**.
 
 ---
 
