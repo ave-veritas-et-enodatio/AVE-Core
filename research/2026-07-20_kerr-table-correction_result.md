@@ -134,6 +134,20 @@ Fixed in this lane (implementer scope):
 - `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md` — Rule-12 re-bank.
 - `manuscript/ave-kb/common/divergence-test-substrate-map.md` — C1-BH-RING row re-grade.
 - `research/ligo-ringdown-driver-design.md` §7–10 — corrected cites.
+- `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`
+  — direct C1 "FULL PASS" cross-refs fixed (commit `b339f2c5`); only the downstream
+  "2-of-3 → foreword-promotion-grade" cascade inference remains a Grant flag (in-file ⚠).
+
+Fixed in the 2026-07-20 review-repair round (PR #774 findings 0–7; see the review disposition):
+- `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md`
+  + `divergence-test-substrate-map.md` + this result doc + docket entry — mapping-conditional
+  rider + ★FORK-REOPEN note (finding 0 / R1); Rule-12 preservation of the Execution-row
+  superseded text (finding 4 / R3).
+- `research/2026-07-20_vacuum-metallurgy_kz-relic-and-instruments.md` + `_mapping.md`
+  — dated corrections at the −0.45%/−0.47% banking sites (finding 2 / R2).
+- `_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md` + `…-sim-audit.md`
+  + `_orchestration/theoretical/section-e-cascade.md` — C1 FULL PASS live-state corrections
+  (finding 3 / R2; historical process logs untouched).
 
 Flagged for Grant / auditor (Grant-ratified or manuscript-headline — flag-don't-fix):
 - `manuscript/frontmatter/00_foreword.tex` "Second positive load-bearing empirical
@@ -145,7 +159,9 @@ Flagged for Grant / auditor (Grant-ratified or manuscript-headline — flag-don'
 - `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex` — already
   frames the spinning match as "post-hoc consistency check" but STILL reports the −0.45%/
   −0.47% numbers (the artifact numbers). Auditor lands the number correction.
-- `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md` — C1 "FULL PASS" cascade reference.
+- `project-c11-mach-zehnder.md` — **direct C1 cross-refs already FIXED (see Fixed list, commit
+  `b339f2c5`)**; only the downstream "2-of-3 confirmed → foreword-promotion-grade" cascade
+  inference remains a Grant flag (in-file ⚠ marker).
 - `manuscript/ave-kb/claim-quality-closure-roadmap.md` changelog (2026-05-18 C1 entries) — historical log; add dated correction entry.
 - `manuscript/ave-kb/.index/claims.jsonl` / `common/claim-quality.md` clm-395gps — solidity
   0.55 rationale needs a frame-artifact rider (auditor/Grant lands the register grade).
