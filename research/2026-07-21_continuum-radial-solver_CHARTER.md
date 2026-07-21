@@ -98,8 +98,23 @@ Requirements are DERIVED from the object (§2) + the can/cannot fence (§4) + th
 
 ## §6 — TRADE STUDY (decisions-OPEN, not decided)
 
-<!-- SKELETON -->
+Per the bench-test documentation pattern, these are DECISIONS-OPEN: costs and trade-offs stated, NOTHING decided here. They feed Grant's D1–D4.
+
+**T1 — solver formulation (feeds D3).**
+
+| Candidate | What it is | Cost | Buys |
+|---|---|---|---|
+| **(a) frequency-domain transfer-matrix** | propagate the acoustic field through the radial stiffness profile as a stack of thin homogeneous shells; assemble a global `2×2` (or orthotropic `4×4`) transfer/scattering matrix per `ω`; read `r_Z` and the scattered amplitude directly | low (linear algebra per `ω`; no time-stepping); cleanest at `k·r_core ≪ 1` (no CFL floor) | C1 `p`, C2/C3 `r_Z` directly; native to the quasistatic regime; easy R5(a) Lamé check |
+| **(b) time-domain 1D radial FDTD** | explicit radial grid, leapfrog step, radiation BC at `R_max`; drive a compression pulse, lock-in the scattered `ρ_N` | higher (CFL-limited `dt`; needs a good outer BC/sponge — the R6(ii) control is nontrivial); most lattice-comparable | direct `ρ_N(k·r_core)` time-of-flight (mirrors lattice Leg-K); R7 energy-conservation read is natural |
+| **(c) analytic matched-asymptotics** | inner (near-field, `k r ≪ 1`) and outer (radiation-zone) expansions matched across the shell; closed-form leading `p` | lowest compute, highest derivation cost; brittle to the anisotropic R1 profile | the cleanest `p` and its `(k·r_core)` prefactor; a CHECK on (a)/(b) more than a stand-alone instrument |
+
+Recommendation-space (NOT a decision): (a) is the natural primary for the quasistatic `r_Z`/`p` deliverables (no CFL floor at `k·r_core ≪ 1`); (b) is the lattice-comparable cross-check that shares Leg-K's language; (c) is the analytic backstop for R5. A two-of-three build (a)+(c) gives instrument + analytic gate cheaply. **Grant D3 decides.**
+
+**T2 — the `c²` choice (feeds D1).** Not a build trade-off but a physics input the build cannot proceed without: `c_P` (`0.519`), `c_S` (`0.286`), or `c_EM`. Each is a one-line change but a different physics claim (I8). **Surfaced, not picked** — the pre-test-physics-check question to Grant.
+
+**T3 — stage-1 pre-walk-vs-wait (feeds D4).** Option (i): build + validate the solver NOW on isotropic scaffolding classes (R5 gates only; no physics verdict) so the instrument is certified and ready the moment the vessel-state walk lands — parallel-progress, but risks tuning the instrument to a profile shape the walk overturns. Option (ii): WAIT for the walk, build once against the real anisotropic profile — no rework, but serial. Cost of (i) is bounded (R5 gates are profile-agnostic; the Lamé + null limits do not depend on the vessel-state shape). **Grant D4 decides;** the charter notes (i) is low-risk BECAUSE the validation gates R5 are profile-independent, so scaffolding-stage certification does not bake in a profile assumption.
 
 ---
 
-> **Charter provenance.** <!-- SKELETON -->
+> **Charter provenance.** Drafted 2026-07-21 in the implementer lane, routed by pending-rulings §1 **item 11** (`research/2026-07-20_pending-rulings-and-frontier-queue.md`, Grant-approved verbatim `[sic]`: *"approved the three words from my wue"*) — *"β-proper … enters the continuum radial-solver lane as an explicit E=mc² IMPORT … scoped by `clm-hu1jjw`'s direction; the lane charter is being drafted for Grant review before build."* This is that charter, for Grant review BEFORE any build (no solver code, no prereg, mints no `clm-`/`def-`, banks no verdict; engine byte-untouched). **Cite-don't-duplicate** sources (referenced by path+section, not copied): the β feasibility scoping doc (`research/2026-07-21_beta-tracking-feasibility_scoping.md` §3 three structural absences / §4 two-term ρ sign flag / §6 draft criteria / §7 routing); the `#782` RVE bench (`research/2026-07-21_rve-aggregation-bench_result.md` §8.2 routing + `_prereg-FROZEN.md` §1 `r_Z`/§3 KUBC extraction/§5 Fork ρ/B/W/P); the `#775` deep-rail derivation (`research/2026-07-20_deep-rail-kscaling_derivation.md` §1 F2 / §2 Fork R regime gap); the relative-offset KB leaf (`manuscript/ave-kb/common/relative-offset-principle.md` `clm-hu1jjw` direction / `clm-m5swh9` open magnitude; PR #787); the `#779` vessel-state remap (`research/2026-07-21_boundary-strain-amplitude_result.md` §3, `axiom-register.md:193`). **One surfaced tension** (§4, flag-don't-fix): `#782` §8.2-4 phrases stage-2 as "star-scale Lloyd cancellation" (an ensemble outcome) while `#775` §2 restricts the radial solver to single-core and denies it can settle aggregation — reconciled ONLY by splitting the deliverable into single-core `p` (owned) + given-medium star-boundary (owned) vs aggregation-coherence derivation (NOT owned, infeasible); routed to Grant, not reframed. **Companion:** the docket fragment `_orchestration/docket-entries/2026-07-21-continuum-solver-charter.md`.
+
