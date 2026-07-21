@@ -849,6 +849,36 @@ parse it):
 
 ---
 
+## longitudinal split (∇·u dynamical vs ∇·A gauge)
+<!-- id: def-l0ngdu -->
+
+- **term:** the longitudinal-sector split — mechanical dilatation $\theta = \nabla\cdot\mathbf{u}$ (DYNAMICAL) vs the EM longitudinal $\nabla\cdot\mathbf{A}$ (GAUGE)
+- **adjudicated-meaning:** *(ADJUDICATED distinction — **cold-linear sector-dynamics**; the SAME Helmholtz/Lamé longitudinal split applies to BOTH fields, so the difference is **constitutive**, not kinematic).* The **mechanical dilatation** $\theta = \nabla\cdot\mathbf{u}$ (with $\mathbf{u}$ = the node displacement field; $\theta$ = its volumetric/compression projection — the standard Helmholtz/Lamé split, the same split that gives seismology its P and S waves) is **DYNAMICAL**: it carries a genuine bulk restoring force $\tfrac12 K(\nabla\cdot\mathbf{u})^2$ ($K = 2G$) and rides the **gapless lattice-computed P-branch**. The **EM longitudinal** $\nabla\cdot\mathbf{A}$ is **GAUGE**: the curl-only EM Lagrangian gives it no restoring force. **One word each way — $\nabla\cdot\mathbf{u}$ propagates; $\nabla\cdot\mathbf{A}$ is gauge.** "Heaviside-excised" (the vector-calculus reformulation dropped $\nabla\cdot\mathbf{A}$) is a **historical/notational** statement about the *transverse EM* sector — NOT a dynamical gauge-kill of the A1 compression scalar.
+- **axis:** other — sector-dynamics (the longitudinal channel of two distinct vector fields), cold-linear regime
+- **dimension/type:** $\theta = \nabla\cdot\mathbf{u}$ is dimensionless volumetric strain (L/L); the adjudicated distinction is dynamical-vs-gauge, not a dimensional split
+- **status:** SOLID (Grant-ratified 2026-07-20; #761 review-hardened, merged)
+- **canonical-home:** [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):26 (the 2026-07-20 sector-dynamics tag; elaborates the A1 $\perp$ T2 anchor at [`:20`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)) + `research/2026-07-20_mechanical-commonmode-derivation_result.md` §1.3/§5 (merged, review-hardened)
+- **clm-cross-links:** *(none minted — #761 mints no `clm-`, propagates to no leaf, READ-ONLY on KB; cross-node: def-9a4f07 (longitudinal V-sector scalar), def-5d2b8a (the two "3"s), def-tk1xfm (TKI transducer))*
+- **open-ambiguity-flag:** no — this node **adjudicates** the longitudinal split (it is not itself an overload record). ★ROUTED-OPEN on a SEPARATE axis: the u/A **transverse** identity-collapse candidate is OPEN (def-uatk1s; frontier queue, GW170817 two-distinct-signals gate); this node adjudicates the **LONGITUDINAL** split ONLY.
+- **verification:** VERIFIED two-method (`grep -F` + direct read) at HEAD — the sector-dynamics tag verbatim at `master-equation.md:26` ("One word each way: **∇·u propagates; ∇·A is gauge.**"; "θ carries a genuine bulk restoring force (½K(∇·u)², K = 2G) on the gapless lattice-computed P-branch"); the #761 receipts at `research/2026-07-20_mechanical-commonmode-derivation_result.md` §1.3 (the Lagrangian-structure argument — the EM Gauss-kill is STRUCTURALLY BLOCKED from ∇·u) + §5 (the mass IS mechanical acoustic compression ∇·u — the fork-foreclosing fact). Status **SOLID** for the adjudicated longitudinal split.
+
+---
+
+## u vs A (counterpart sector variables, TKI)
+<!-- id: def-uatk1s -->
+
+- **term:** $\mathbf{u}$ vs $\mathbf{A}$ — the mechanical node-displacement field vs the EM vector potential, read as **counterpart sector variables** under the Topo-Kinematic Isomorphism
+- **adjudicated-meaning:** *(PROPOSED, gated — inherits the def-tk1xfm ceiling).* Under the Topo-Kinematic Isomorphism (Axiom 2), $\mathbf{u}$ (the mechanical node displacement field) and $\mathbf{A}$ (the EM vector potential) are **COUNTERPART SECTOR VARIABLES** — isomorphic structure (kinetic / curl-potential twins; speed-degenerate transverse channels) — **NOT one field**. They differ in **constitutive stencil**: the longitudinal $\mathbf{u}_\parallel$ carries the K-spring ($\tfrac12 K(\nabla\cdot\mathbf{u})^2$, $K = 2G$, propagating P-branch — def-l0ngdu); the longitudinal $\mathbf{A}_\parallel$ has **no** restoring force (gauge). The isomorphism is **structure-preserving**, not a real-space identity of the two fields.
+- **axis:** notation / other — cross-domain sector-variable mapping (mechanical vs EM), the Axiom-2 TKI dictionary
+- **dimension/type:** $\mathbf{u}$ = length (L, displacement); $\mathbf{A}$ = EM vector potential (V·s·m⁻¹); the isomorphism is structure-preserving (units bridged by $\xi_{topo}$), not a dimensional identity
+- **status:** proposed — inherits the def-tk1xfm status. Verbatim ([`substrate-native-terminology.md`](substrate-native-terminology.md):17): *"the `def-tk1xfm` node is **proposed**, PR #265"*; the TKI transducer carries an *"identity-by-translation, NOT a derivation"* ceiling (def-tk1xfm register entry). **NOT canon.**
+- **canonical-home:** *(none — mapping proposed/gated; the underlying isomorphism is `eq_axiom_2.tex:12` + the dictionary table `translation-circuit.md:17-26` (clm-fy05jc); the TKI def node def-tk1xfm is proposed, PR #265)*
+- **clm-cross-links:** *(none verified-specific — proposed mapping; cross-node: def-tk1xfm (TKI transducer, proposed, PR #265), def-l0ngdu (the longitudinal split), def-5d2b8a (the two "3"s))*
+- **open-ambiguity-flag:** ★ROUTED-OPEN — the u/A **transverse** identity-collapse candidate (are the EM and mechanical-transverse sectors two meters on ONE bench object, or two distinct fields?) is a **frontier-queue open question**, gated on the **GW170817 two-distinct-signals** observational test (bulk radiates at $\sqrt{10/3}\cdot c \approx 1.83c$ vs the $|\Delta v|/c \lesssim 10^{-15}$ coincidence bound — `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` §2 item 1b). This register entry adjudicates the **LONGITUDINAL split ONLY** (def-l0ngdu); it takes **NO position** on the transverse collapse.
+- **verification:** VERIFIED two-method (`grep -F` + direct read) at HEAD — the def-tk1xfm PROPOSED / PR #265 status wording verbatim at `substrate-native-terminology.md:17` ("the `def-tk1xfm` node is **proposed**, PR #265") and corroborated at `:83`; the *"identity-by-translation, NOT a derivation"* ceiling + the $\mathbf{u}\leftrightarrow$E / $\omega\leftrightarrow$B mechanical-port mapping in the def-tk1xfm register entry; the routed transverse-collapse gate at the frontier-queue doc §2 item 1b. Status **proposed** (inherits def-tk1xfm; NOT SOLID, NOT canon) — the transverse identity-collapse is adjudicated NOWHERE yet, routed to the frontier queue.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
