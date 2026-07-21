@@ -1,0 +1,3 @@
+### ENTRY 2026-07-21-docket-fragments (2026-07-21): orchestrator — the news-fragments docket convention
+
+- Root cause of the recurring PR conflicts diagnosed (shared-tail appends × GitHub ignoring the union merge driver × generated-index text-merges) and retired: per-lane fragment files in `_orchestration/docket-entries/`, monolith frozen, lint extended to scan both, the regenerate-don't-merge rule for `manuscript/ave-kb/.index/*` documented. Grant [sic]: "seems like you could fix this routine issue easilh with a dofferent pr process" — correct, and done. Dispatch-brief templates carry the new convention from this entry forward.
