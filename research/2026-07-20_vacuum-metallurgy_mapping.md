@@ -248,6 +248,15 @@ carry most of the weight:
   ringdown are **law-class (Hamiltonian)**, not casting-texture. Re-melt-and-re-freeze reaches the
   *same* moduli.
 
+  > **🔴 CORRECTION (2026-07-20, per AVE-Core PR #774; review finding 2).** "the framework's own
+  > banked match, D4a" here (and the **NH** evidence-class in row 5 of the table below, and the
+  > `:62`/`:64` cross-refs in Related-work) refers to the `−0.45%`/`−0.47%` ringdown match — now
+  > **RETRACTED as a frame + Kerr-table artifact** (AVE-v2 is −9.5% below true Kerr; spin-mapping
+  > fork additionally REOPENED). The **NH** cell keeps its *no-hair* leg (GR-observed ringdown
+  > *universality* is an `[import — GR]`, unaffected) but **loses its AVE-corroboration leg** (the
+  > sub-percent AVE match). K=2G's law-class *classification* is unchanged; only the AVE-supplied
+  > evidence weight is withdrawn.
+
 **★ The honest alternative both data admit — single-domain casting.** Neither (i) nor (ii) actually
 *proves* law-class; both are **equally consistent with a single-domain casting** whose texture
 correlation length exceeds the horizon. If the whole observable universe froze from **one seed**
@@ -378,7 +387,9 @@ anchor-checker — is run on the diff before commit; see the PR).
   + `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md:24-47`
   (G_shear→0; Γ_EM=0 SYM; Γ_shear=Γ_bulk=−1; electron bulk-TIR).
 - LIGO ringdown match: `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:62`
-  (−0.45% ω_R), `:64` (−0.47% τ).
+  (−0.45% ω_R), `:64` (−0.47% τ). **🔴 RETRACTED 2026-07-20 (AVE-Core PR #774): frame + Kerr-table
+  artifact; honest AVE-v2 is −9.5% below Kerr; the `:62`/`:64` lines now sit under a supersession
+  banner. See the (ii) correction above.**
 - Schwinger / E-route birefringence (the lab coupon): `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`
   (`clm-pp3qwf`; HIBEF facility point `:156`).
 - N=3 generations structural assumption: `manuscript/ave-kb/common/full-derivation-chain.md:366`.

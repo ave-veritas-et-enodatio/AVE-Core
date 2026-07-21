@@ -68,7 +68,7 @@ C11 is one of three independent observables that converge on $\nu_{vac} = 2/7$:
 
 | Cascade node | Observable | Status |
 |---|---|---|
-| **C1-BH-RING** | $r_{sat} = 7 M_g$ + $\omega_R M_g = 18/49$ via $\nu_{vac}=2/7$ | **FULL PASS** (Phase 5 closure 2026-05-18; $-0.45\%$ mean $\omega_R$; $-0.47\%$ mean $\tau$ across 3 LIGO events) |
+| **C1-BH-RING** 🔴 | $r_{sat} = 7 M_g$ + $\omega_R M_g = 18/49$ via $\nu_{vac}=2/7$ | ~~**FULL PASS** (Phase 5 closure 2026-05-18; $-0.45\%$ mean $\omega_R$; $-0.47\%$ mean $\tau$ across 3 LIGO events)~~ **RETRACTED 2026-07-20 (kerr-table-canon-correction, #772): spinning match = frame/table artifact; honest AVE-v2 $-9.5\%$ below Kerr. Only the cold a*=0 eigenvalue ($-1.7\%$, single-point) survives — NOT a "PASS".** |
 | **C11-MACH-ZEHNDER** (this leaf) | $n_s = 1 + (9/7)\varepsilon_{11}$ vs $n_t = 1 + (2/7)\varepsilon_{11}$ | **PENDING** — driver canonical; facility partnership search |
 | **C12-G-STAR** | $g_* = 7^3/4 = 85.75$ effective DOF vs SM 106.75 | LISA primordial-GW wait (~2035) |
 
@@ -80,7 +80,7 @@ Pre-registered Outcome A/B/C/D criteria per `ave-discrimination-check`:
 
 | Outcome | Interpretation |
 |---|---|
-| **A** (~250 rad observed at predicted magnitude) | **ν_vac=2/7 triangulation node 2 anchored.** Combined with C1 FULL PASS → 2-of-3 cascade nodes confirmed; framework-level support for K4 Cosserat substrate at 30+ OOM cross-scale evidence (BH-class km + atomic-scale m). **Foreword-promotion-grade**. |
+| **A** (~250 rad observed at predicted magnitude) | **ν_vac=2/7 triangulation node 2 anchored.** ~~Combined with C1 FULL PASS → 2-of-3 cascade nodes confirmed~~ **⚠ C1 FULL PASS RETRACTED 2026-07-20 (see 🔴 above) — C1 no longer a confirmed cascade node; the "2-of-3 confirmed" + "Foreword-promotion-grade" inference is a FLAG for Grant (the foreword "Second positive confirmation" promotion rests on the retracted C1 spinning match).** framework-level support for K4 Cosserat substrate at 30+ OOM cross-scale evidence claim needs C1 re-adjudication. |
 | **B** (phase shift detected but magnitude differs) | Partial — spatial-vs-temporal split exists; coefficient requires structural revision (9/7 or 2/7 prefactor scale-dependent?) |
 | **C** (no phase shift OR shift consistent with classical GR time-dilation only) | **Ax3 + Ax1 K4 Cosserat substrate hypothesis dies.** Cascade walk-back: C1 PASS at LIGO-scale doesn't generalize to electron-scale → major structural finding (framework-killing). |
 | **D** (phase noise dominates → 1-m baseline insufficient) | **Escalate to space-baseline interferometer** (km-class in space; decade-class wait). Driver predicts ~250-rad SNR comfortable margin; if observed phase-noise floor dominates, suggests facility-specific upgrade path. |
@@ -126,7 +126,7 @@ If C11 evolves to co-designed 1m interferometer + specific collaboration → app
 - [Vol 2 Ch 7 §Gravitational Parallax Interferometry](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) lines 49-53 — canonical physics derivation
 - [Matrix row C11-MACH-ZEHNDER](../../../common/divergence-test-substrate-map.md) — Predictions + Lifecycle + Execution rows + ν_vac=2/7 cascade Mermaid diagram
 - [Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — ν_vac=2/7 upstream derivation (Sessions 19 closure 2026-05-18; ξ_K1=8/3, ξ_K2=32, ν_vac unchanged as algebraic Poisson identity at K=2G operating point)
-- [C1-BH-RING canonical leaf](../../../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) — ν_vac=2/7 cascade node 1 (FULL PASS Phase 5 2026-05-18)
+- [C1-BH-RING canonical leaf](../../../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) — ν_vac=2/7 cascade node 1 (🔴 spinning "FULL PASS" RETRACTED 2026-07-20; only cold a*=0 eigenvalue −1.7% survives)
 - [C12-G-STAR canonical leaf](../../../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md) — ν_vac=2/7 cascade node 3 (LISA wait)
 - Sub-epic [`exp-c11-mach-zehnder.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) + Sim audit [`exp-c11-mach-zehnder-sim-audit.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md)
 
