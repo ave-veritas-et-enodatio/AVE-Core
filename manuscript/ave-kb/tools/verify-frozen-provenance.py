@@ -93,10 +93,17 @@ SCOPE HONESTY — what this gate CANNOT catch (documented, not force-fitted)
   * **Prose paraphrases that avoid the ``Frozen:`` label.** A frozen claim
     written without the label, or the criterion stated in running prose, is not
     inspected. Only labeled, QUOTED criteria are byte-verified.
-  * **Label-avoidance.** Dropping the label, or wording the criterion unquoted
-    so no code-span / double-quote token is extractable, dodges the byte-check
-    (such a line is reported as an ADVISORY "Frozen label with no quoted
-    criterion — verify manually", never gated).
+  * **Label-avoidance (PARTIALLY surfaced).** Dropping the label entirely, or
+    wording the criterion unquoted so no code-span / double-quote token is
+    extractable, dodges the byte-check (an unquoted labeled line is reported as
+    an ADVISORY "Frozen label with no quoted criterion — verify manually", never
+    gated). ONE specific dodge IS surfaced (advisory): the **quoted-label
+    smuggle** ``"Frozen:" `<criterion>` `` — a QUOTED ``"Frozen:"`` token (which
+    the label lookbehind renders invisible, so a disclosure mention doesn't
+    self-trip) immediately followed by a quoted criterion. That proximity shape
+    is flagged; a *paraphrase with no label at all* is still not caught. Do NOT
+    read this as "all label-avoidance is caught" — only the adjacent-quoted-token
+    smuggle is.
   * **Semantic equivalence.** A criterion that MEANS the same but differs by a
     byte (``<= 0.10`` vs ``<=0.10``; ``≤`` vs ``<=``; reordered terms) fails the
     byte-match. This is a deliberate false-positive-toward-safety: the fix is to
@@ -167,6 +174,22 @@ _FROZEN_LABEL_RE = re.compile(
 # label). Both patterns capture the verbatim inner text.
 _CODE_SPAN_RE = re.compile(r"`([^`]+)`")
 _DQUOTE_RE = re.compile(r'"([^"]+)"')
+
+# REPAIR 2 (audit 3b): quoted-label SMUGGLE shape. The label lookbehind above
+# deliberately makes a QUOTED `"Frozen:"` invisible (so a disclosure MENTION
+# doesn't self-trip) — but that same exclusion lets someone smuggle a frozen
+# criterion past the byte-check by quoting the label: `"Frozen:" <criterion>`.
+# We surface (advisory, never gating) the specific smuggle shape: a QUOTED
+# Frozen-label token IMMEDIATELY followed (only markdown emphasis / whitespace
+# between) by a backticked/quoted criterion-like token. The proximity constraint
+# is what keeps it off the real disclosure lines (`mislabeled "Frozen:"` then
+# PROSE, criterion far away) — regression-checked against the corrected
+# #770/#782 docs (both stay 0-findings).
+_QUOTED_FROZEN_SMUGGLE_RE = re.compile(
+    r"""["'`][Ff]rozen(?:-[A-Za-z]+)?(?:\s*\([^)\n]*\))?:["'`]"""  # a QUOTED Frozen: token
+    r"""[ \t*_]*"""                                                # only md-emphasis / space
+    r"""(?=`[^`\n]+`|"[^"\n]+")"""                                 # then, immediately, a quoted criterion
+)
 
 # Explicit machine-readable pointer: `Prereg-file: <path>` (bold / blockquote /
 # link-wrapped forms accepted). `Prereg-commit: <sha>` optionally pins the blob.
@@ -280,6 +303,20 @@ def extract_frozen_labels(text: str) -> list[FrozenLabel]:
                             criterion=_first_quoted_token(suffix))
             )
     return labels
+
+
+def find_quoted_label_smuggles(text: str) -> list[int]:
+    """1-based line numbers of the quoted-label SMUGGLE shape (REPAIR 2).
+
+    A QUOTED `"Frozen:"` token immediately followed by a backticked/quoted
+    criterion-like token — the shape that presents a frozen criterion while
+    dodging the byte-check via the label lookbehind. The proximity constraint
+    keeps this OFF real disclosure lines (`mislabeled "Frozen:"` + prose)."""
+    hits: list[int] = []
+    for idx, line in enumerate(strip_fenced_code(text).splitlines(), start=1):
+        if _QUOTED_FROZEN_SMUGGLE_RE.search(line):
+            hits.append(idx)
+    return hits
 
 
 # ---------------------------------------------------------------------------
@@ -435,7 +472,8 @@ def read_prereg_content(ref: PreregRef, repo_root: Path) -> tuple[str | None, st
 #                  (ADVISORY; ESCALATES to gating on a cross-lane header-heuristic
 #                  resolution of a gating-dated doc — see resolve_prereg / REPAIR 3)
 #   "git-skipped" — add-date cross-check skipped, git unavailable (ADVISORY, once)
-_ADVISORY_KINDS = {"unquoted", "no-explicit-pointer", "git-skipped"}
+#   "smuggle"    — quoted `"Frozen:"` + adjacent criterion (label-dodge; ADVISORY)
+_ADVISORY_KINDS = {"unquoted", "no-explicit-pointer", "git-skipped", "smuggle"}
 
 
 @dataclass(frozen=True)
@@ -474,7 +512,10 @@ def scan_doc(
         return []
 
     labels = extract_frozen_labels(text)
-    if not labels:
+    # REPAIR 2: quoted-label smuggles are detected even when the doc has NO real
+    # label (that is the whole dodge), so this must run before the early return.
+    smuggles = find_quoted_label_smuggles(text)
+    if not labels and not smuggles:
         return []
 
     doc_date = parse_doc_date(doc_path.name)
@@ -504,6 +545,21 @@ def scan_doc(
         return bool(candidates) and max(candidates) >= gating_date
 
     findings: list[Finding] = []
+
+    # REPAIR 2: surface (advisory) each quoted-label smuggle shape.
+    for ln in smuggles:
+        findings.append(Finding(
+            file=doc_path, line=ln, kind="smuggle",
+            detail=("a QUOTED `\"Frozen:\"` token is immediately followed by a "
+                    "backticked/quoted criterion — this shape dodges the "
+                    "Frozen-label byte-check; use a REAL (unquoted) Frozen label "
+                    "so the criterion is verified against the prereg"),
+            doc_date=doc_date, gating=False,
+        ))
+
+    if not labels:
+        return findings  # smuggle-only doc: nothing to byte-check
+
     ref = resolve_prereg(doc_path, text, repo_root)
 
     # No prereg resolvable at all -> hard-fail (gating docs) / warn (pre-gate).

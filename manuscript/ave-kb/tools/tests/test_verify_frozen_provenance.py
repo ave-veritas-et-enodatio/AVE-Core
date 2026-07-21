@@ -178,6 +178,62 @@ def test_backdated_untracked_doc_gates() -> None:
 # Trivial-runtime / stdlib-only sanity.
 # --------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------
+# REPAIR 2 (audit 3b) — quoted-label smuggle is surfaced (advisory), while the
+# corrected #770/#782 disclosure lines stay 0-findings (proximity discriminator).
+# --------------------------------------------------------------------------
+
+# Verbatim fragments from the merged, corrected #782 disclosure lines (sec 7.6):
+# a backtick criterion, then prose, then `mislabeled "Frozen:"`, then MORE prose.
+# The quoted `"Frozen:"` is NOT immediately followed by a quoted token -> no hit.
+_DISCLOSURE_770_782 = [
+    'agreement `|ext1−ext2| ≤ 0.10` that it **mislabeled "Frozen:"** '
+    '(a criterion invented post-freeze) and normalized the ratio.',
+    'the frozen relative shell-agreement (ii) `|Δ|/mean ≤ 0.25`, '
+    '**mislabeled it "Frozen:"** in the code comment (a criterion invented).',
+    'The driver **mislabeled "Frozen:"** the absolute criterion `x <= 1`.',
+]
+
+# The smuggle shape: a QUOTED "Frozen:" IMMEDIATELY followed by a quoted token.
+_SMUGGLES = [
+    '> **"Frozen:"** `fabricated criterion <= 0.10`',
+    'note: "Frozen:" "|ext1-ext2| <= 0.10" (banked)',
+    '`Frozen:` `some criterion` — backtick-wrapped label dodge',
+]
+
+
+def test_quoted_label_smuggle_is_surfaced_advisory() -> None:
+    vfp = _load_module()
+    for line in _SMUGGLES:
+        assert vfp.find_quoted_label_smuggles(line), (
+            f"the quoted-label smuggle shape must be surfaced: {line!r}"
+        )
+    # And the smuggle produces a NON-gating advisory finding through scan_doc,
+    # even when the doc carries no REAL Frozen label (the whole dodge).
+    import tempfile
+    from datetime import date
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        research = tmp / "research"
+        research.mkdir(parents=True)
+        doc = research / "2026-07-30_smuggle-fixture_result.md"
+        doc.write_text("# Smuggle\n\n" + _SMUGGLES[0] + "\n", encoding="utf-8")
+        findings = vfp.scan_doc(doc, tmp, date(2026, 7, 22), set(), add_dates={})
+        smug = [f for f in findings if f.kind == "smuggle"]
+        assert smug, "a smuggle-only doc must still surface the advisory"
+        assert all(not f.gating for f in smug), "the smuggle advisory must not gate"
+
+
+def test_disclosure_lines_are_not_smuggles() -> None:
+    vfp = _load_module()
+    for line in _DISCLOSURE_770_782:
+        assert vfp.find_quoted_label_smuggles(line) == [], (
+            f"a real disclosure mention must NOT be read as a smuggle: {line!r}"
+        )
+        # ...and it must not be a live label either (regression on the base gate).
+        assert vfp.extract_frozen_labels(line) == []
+
+
 def test_pure_stdlib_no_third_party_imports() -> None:
     src = _TOOL.read_text(encoding="utf-8")
     for banned in ("import numpy", "import sympy", "from ave", "import ave", "import scipy"):
@@ -197,5 +253,7 @@ if __name__ == "__main__":
     test_quoted_mention_is_not_a_label()
     test_pre_gate_date_is_warn_only()
     test_backdated_untracked_doc_gates()
+    test_quoted_label_smuggle_is_surfaced_advisory()
+    test_disclosure_lines_are_not_smuggles()
     test_pure_stdlib_no_third_party_imports()
     print("ALL PASS")
