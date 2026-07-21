@@ -17,9 +17,17 @@ Comparators (frozen prereg §3), both frame- AND mass-independent:
 AVE damping models (frozen enumeration):
   A  cold topological Q = ell = 2 (qnm-quality-factor.md, clm-395gps): spin-independent,
      v1/v2-independent, FULLY SPECIFIED -> omega_I*M = (omega_R*M)_AVE/(2 ell).
-  B  spin-refined omega_I = (omega_R - m Omega)/(2 ell): Omega(a*) UNDER-SPECIFIED in the
-     corpus -> UNDETERMINED (the lane declines to fabricate Omega; a disclosed
-     reverse-engineered bound from the rounded KB tau values is reported as sensitivity).
+  B  spin-refined omega_I = (omega_R - m Omega)/(2 ell) at r_Omega = r_ph+ sqrt(1+nu_vac).
+     REVIEW CORRECTION (PR #776 finding 0): Omega(a*) is NOT unpinned — the corpus PINS it via
+     the Ch.2 frame-dragging Resultbox omega(r) = 2 M a r / (r^2+a^2)^2 (clm-rd9cjm,
+     frame-dragging-impedance-convolution.md:15; equated to Omega_LT in Ch.3:15) at the
+     Poisson-augmented photon sphere r_Omega (merger leaf ave-merger-ringdown-eigenvalue.md:85).
+     The prereg's "UNDETERMINED / Omega not numerically pinned anywhere" was a grep-completeness
+     false-negative (a numeric-literal grep cannot see a formula pin). Computed here: D-bar_Q =
+     -5.44% (Resultbox) -> tau-FAILS (marginal -4.57% under the exact-ZAMO variant; sensitivity
+     flagged). The chain regenerates the asserted KB tau table 3.5/2.7/1.2 ms to rounding — proof
+     it is what generated the originals. Declining to FABRICATE Omega was right; declining to
+     DERIVE what the banked resultboxes determine was the evidence gap this repair closes.
 
 Run:
     python3 research/2026-07-20_v1-spin-mapping-adjudication_rerun.py
@@ -80,8 +88,9 @@ def bcw_omega_i_m(a: float) -> float:
 def kerr_ref(a: float) -> tuple[float, float, str]:
     """Corrected Kerr (omega_R*M, omega_I*M, source) at spin a*.
 
-    qnm-verified hard-coded value where tabulated `[branch @ 7aaec46c]`; else the
-    in-lane-verified BCW-2006 analytic fit (import-tagged, <1% vs qnm at all grid pts).
+    qnm-verified hard-coded value where tabulated `[canon, #774 merged 01924a96]`; else the
+    in-lane-verified BCW-2006 analytic fit (import-tagged, <1% vs qnm for a* >= 0.6 — the only
+    spins routed here; BCW is ~1.4-2.3% low near a*=0, the EXACT-ANCHOR row, not used).
     """
     key = round(a, 2)
     if key in KERR_QNM:
@@ -111,6 +120,37 @@ def ave_v2_omega_r_m(a: float) -> float:
 def ave_cold_Q_omega_i_m(omega_r_m_ave: float) -> float:
     """Model A: cold topological Q = ell (spin-independent) -> omega_I*M = omega_R*M/(2 ell)."""
     return omega_r_m_ave / (2.0 * ELL)
+
+
+# ---- Model B spin-refined damping: the frame-dragging rate Omega(a*) is CORPUS-PINNED.
+# (PR #776 finding-0 repair — the corpus determines Omega via its own banked resultboxes;
+#  the earlier "UNDETERMINED / Omega unpinned" declaration was a grep-completeness false-negative.)
+#   r_Omega  = r_ph+(a*) * sqrt(1 + nu_vac)          merger leaf ave-merger-ringdown-eigenvalue.md:85
+#   Omega(r) = 2 M a r / (r^2 + a^2)^2  (Resultbox)   Ch.2 frame-dragging-impedance-convolution.md:15
+#                                                     (clm-rd9cjm; equated to Omega_LT in Ch.3:15)
+#   omega_I*M = (omega_R*M - m Omega*M)/(2 ell) ; Q = omega_R/(2 omega_I)   merger leaf:85
+# Geometric units M = 1  =>  a = a*.  The corpus form is the far-field Resultbox; the exact
+# equatorial ZAMO denominator (keeps -a^2 Delta) is reported as a sensitivity variant.
+def r_omega(a: float) -> float:
+    """Poisson-augmented photon-sphere radius r_Omega = r_ph+ * sqrt(1+nu_vac) (merger leaf:85)."""
+    return r_ph_plus(a) * math.sqrt(1.0 + NU_VAC)
+
+
+def omega_drag_resultbox(a: float, r: float) -> float:
+    """Ch.2 Resultbox far-field frame-dragging omega(r) = 2 M a r / (r^2+a^2)^2 (M=1)."""
+    return 2.0 * a * r / (r * r + a * a) ** 2
+
+
+def omega_drag_zamo(a: float, r: float) -> float:
+    """Exact equatorial ZAMO frame-dragging (sensitivity variant): denominator keeps -a^2 Delta."""
+    delta = r * r - 2.0 * r + a * a
+    return 2.0 * a * r / ((r * r + a * a) ** 2 - a * a * delta)
+
+
+def modelB_omega_i_m(omega_r_m_ave: float, a: float, omega_fn) -> float:
+    """Model B: omega_I*M = (omega_R*M - m Omega*M)/(2 ell) at the corpus-pinned r_Omega."""
+    om = omega_fn(a, r_omega(a))
+    return (omega_r_m_ave - M_MODE * om) / (2.0 * ELL)
 
 
 def pct(x: float) -> str:
@@ -211,29 +251,72 @@ def leg3_tau(events: list[tuple[str, float]], label: str) -> tuple[float, str]:
     return mA, tau_verdict
 
 
-def leg3_modelB_disclosure() -> None:
-    print("\nModel B (spin-refined omega_I = (omega_R - m Omega)/(2 ell)) — DISCLOSURE (non-frozen):")
-    print("  Corpus specification: the frame-dragging rate Omega(a*) is NOT numerically pinned")
-    print("  anywhere in the corpus (grep: no numeric Omega / r_Omega). The KB tau_v1 = 3.5/2.7/1.2 ms")
-    print("  were asserted at initial release, not coded. => Model B is UNDETERMINED (anti-seduction:")
-    print("  the lane declines to fabricate Omega). Reverse-engineered bound from the ROUNDED KB tau")
-    print("  (source-frame M), reported as sensitivity ONLY (+-~3% from 2-sig-fig rounding):")
-    print(f"  {'event':10} {'a*':>5} {'tau_v1(ms)':>10} {'M_src':>6} {'wI*M_v1':>9} "
-          f"{'Q_v1(implied)':>13} {'Q_Kerr':>8}")
-    for name, a in PRIMARY:
-        tau_ms, m_src = KB_TAU_V1[name]
-        wi_m_v1 = (T_SUN * m_src) / (tau_ms * 1e-3)  # dimensionless wI*M implied by KB tau at M_src
-        wr1 = ave_v1_omega_r_m(a)
-        q_v1 = wr1 / (2.0 * wi_m_v1)
+def _tau_bin(mean: float) -> str:
+    if abs(mean) < 3.0:
+        return "tau-MATCHES"
+    if abs(mean) >= 5.0:
+        return "tau-FAILS"
+    return "tau-marginal"
+
+
+def leg3_modelB(events: list[tuple[str, float]]) -> tuple[float, str]:
+    """Model B — spin-refined omega_I with the CORPUS-PINNED frame-dragging Omega(a*).
+
+    Returns (D-bar_Q(v1, Resultbox), verdict) for the frozen-bin section. The Resultbox form
+    is the corpus comparator; the exact-ZAMO variant is reported alongside as a sensitivity.
+    """
+    print("\nModel B (spin-refined omega_I = (omega_R - m Omega)/(2 ell)) — CORPUS-PINNED (PR #776 fix):")
+    print("  Omega(a*) IS pinned: Ch.2 Resultbox omega(r)=2Mar/(r^2+a^2)^2 (clm-rd9cjm,")
+    print("  frame-dragging-impedance-convolution.md:15; = Omega_LT in Ch.3:15) at the Poisson-")
+    print("  augmented photon sphere r_Omega = r_ph+ sqrt(1+nu_vac) (merger leaf:85). The earlier")
+    print("  'Omega unpinned' was a grep-completeness false-negative (a numeric grep cannot see a")
+    print("  formula pin). Forward chain, dimensionless (frame- & mass-independent) — Resultbox = corpus:")
+    print(f"  {'event':10} {'a*':>5} {'r_Om':>7} {'Om*M':>8} {'wI*M v1':>8} {'Q_v1':>7} "
+          f"{'Q_v2':>7} {'Q_Kerr':>7} {'v1 dev':>8} {'v2 dev':>8}")
+    dev1_rb, dev2_rb, dev1_zamo = [], [], []
+    for name, a in events:
         wr_k, wi_k, _ = kerr_ref(a)
         q_kerr = wr_k / (2.0 * wi_k)
-        print(f"  {name:10} {a:>5.2f} {tau_ms:>10.2f} {m_src:>6.1f} {wi_m_v1:>9.5f} "
-              f"{q_v1:>13.3f} {q_kerr:>8.3f}")
-    print("  (Reverse-engineered Q_v1 sits near Kerr Q but is rounding-limited AND rides the same")
-    print("   source-frame masses #774 flagged as contaminated -> NOT frozen-adjudicable. A proper")
-    print("   Model-B tau verdict requires Grant/corpus to PIN Omega first. FLAG-DON'T-FIX.)")
-    print("  Tension flag: qnm-quality-factor.md says Q = ell (spin-independent); the merger leaf's")
-    print("   Q 'increases with spin'; Phase-5 says Q is v1/v2-invariant. These need reconciling.")
+        r_om = r_omega(a)
+        om_rb = omega_drag_resultbox(a, r_om)
+        wr1, wr2 = ave_v1_omega_r_m(a), ave_v2_omega_r_m(a)
+        wi1_rb = modelB_omega_i_m(wr1, a, omega_drag_resultbox)
+        wi2_rb = modelB_omega_i_m(wr2, a, omega_drag_resultbox)
+        wi1_zamo = modelB_omega_i_m(wr1, a, omega_drag_zamo)
+        q1_rb, q2_rb = wr1 / (2.0 * wi1_rb), wr2 / (2.0 * wi2_rb)
+        q1_zamo = wr1 / (2.0 * wi1_zamo)
+        d1, d2 = 100.0 * (q1_rb - q_kerr) / q_kerr, 100.0 * (q2_rb - q_kerr) / q_kerr
+        dev1_rb.append(d1)
+        dev2_rb.append(d2)
+        dev1_zamo.append(100.0 * (q1_zamo - q_kerr) / q_kerr)
+        print(f"  {name:10} {a:>5.2f} {r_om:>7.4f} {om_rb:>8.5f} {wi1_rb:>8.5f} {q1_rb:>7.3f} "
+              f"{q2_rb:>7.3f} {q_kerr:>7.3f} {pct(d1):>8} {pct(d2):>8}")
+    mB1_rb = sum(dev1_rb) / len(dev1_rb)
+    mB2_rb = sum(dev2_rb) / len(dev2_rb)
+    mB1_zamo = sum(dev1_zamo) / len(dev1_zamo)
+    print(f"  {'D-bar_Q':>16}  v1 (Resultbox) = {pct(mB1_rb)} -> {_tau_bin(mB1_rb)}   "
+          f"| v2 (Resultbox) = {pct(mB2_rb)} -> {_tau_bin(mB2_rb)}")
+    print(f"  {'sensitivity':>16}  v1 (exact-ZAMO variant) = {pct(mB1_zamo)} -> {_tau_bin(mB1_zamo)}  "
+          f"(denominator keeps -a^2 Delta; corpus form is the Resultbox)")
+    # ms regeneration cross-check: the SAME forward chain at source-frame M regenerates the
+    # asserted KB tau table 3.5/2.7/1.2 ms to rounding -> proof this chain generated the originals.
+    print("  ms cross-check (forward chain at source-frame M vs the asserted KB tau 3.5/2.7/1.2):")
+    for name, a in events:
+        tau_asserted, m_src = KB_TAU_V1[name]
+        wr1 = ave_v1_omega_r_m(a)
+        wi1 = modelB_omega_i_m(wr1, a, omega_drag_resultbox)
+        tau_ms = (T_SUN * m_src) / wi1 * 1e3  # tau = M/(wI*M) in s -> ms
+        wi1z = modelB_omega_i_m(wr1, a, omega_drag_zamo)
+        tau_ms_z = (T_SUN * m_src) / wi1z * 1e3
+        print(f"    {name:10} tau(Resultbox) = {tau_ms:.2f} ms | tau(ZAMO) = {tau_ms_z:.2f} ms "
+              f"(asserted KB {tau_asserted})")
+    print("  => Model B is corpus-derivable and FAILS at ~-5% (Resultbox); a coherent near-miss,")
+    print("     NOT UNDETERMINED. Declining to FABRICATE Omega was right; declining to DERIVE it")
+    print("     was the evidence gap. The m=l reverse-engineering that once looked ~4% close rode")
+    print("     the source-frame masses #774 flagged; the forward chain above needs none of that.")
+    print("  Tension flag (still open): qnm-quality-factor.md says Q = ell (spin-independent); the")
+    print("   merger leaf's Q 'increases with spin'; Phase-5 says Q is v1/v2-invariant. Reconcile first.")
+    return mB1_rb, _tau_bin(mB1_rb)
 
 
 def leg5_near_extremal() -> None:
@@ -274,8 +357,8 @@ def main() -> int:
     s1, s2 = leg2_omega_r(SECONDARY, "SECONDARY — [IMPORT: GWTC] a* only, Kerr via in-lane BCW fit")
 
     sep("LEG 3 — C-tau damping comparison (THE NEW CONTENT: v1 tau vs corrected omega_I)")
-    tA, tau_verdict = leg3_tau(PRIMARY, "PRIMARY")
-    leg3_modelB_disclosure()
+    tA, tau_verdict_A = leg3_tau(PRIMARY, "PRIMARY")
+    tB, tau_verdict_B = leg3_modelB(PRIMARY)
 
     leg5_near_extremal()
 
@@ -288,14 +371,15 @@ def main() -> int:
           f"(v2 = {p2:+.2f}% -> {wr_bin(p2)})")
     print(f"  omega_R SECONDARY:D-bar_wR(v1) = {s1:+.2f}%  -> {wr_bin(s1)}   "
           f"(v2 = {s2:+.2f}% -> {wr_bin(s2)})")
-    print(f"  tau     PRIMARY:  D-bar_Q(v1, Model A) = {tA:+.2f}%  -> {tau_verdict}")
-    print("  tau     Model B (spin-refined): UNDETERMINED (Omega under-specified; declined to fabricate)")
+    print(f"  tau     Model A (cold Q=l=2):                        D-bar_Q(v1) = {tA:+.2f}%  -> {tau_verdict_A}")
+    print(f"  tau     Model B (spin-refined, Omega CORPUS-PINNED):  D-bar_Q(v1) = {tB:+.2f}%  -> {tau_verdict_B}")
+    print("          (Resultbox = corpus comparator; exact-ZAMO variant -4.57% -> tau-marginal, sensitivity flagged)")
 
     wr_match = abs(p1) < 3.0 and abs(s1) < 3.0
-    tau_match = tau_verdict == "tau-MATCHES"
+    tau_match = tau_verdict_A == "tau-MATCHES" and tau_verdict_B == "tau-MATCHES"
     if wr_match and tau_match:
         overall = "V1-MATCHES"
-    elif (abs(p1) >= 5.0) and tau_verdict == "tau-FAILS":
+    elif (abs(p1) >= 5.0) and tau_verdict_A == "tau-FAILS":
         overall = "V1-FAILS"
     else:
         overall = "MIXED (omega_R vs tau split)"
