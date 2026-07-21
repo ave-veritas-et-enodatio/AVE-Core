@@ -1,6 +1,6 @@
 # Docket entry fragments (the news-fragments convention, adopted 2026-07-21)
 
-**Why:** every lane used to append its `### ENTRY` block to the tail of `_orchestration/2026-07-10_rulings-docket.md`. The repo's union merge driver resolves those tail-appends locally, but **GitHub's server-side merge ignores custom merge drivers**, so any two open docket-touching PRs showed CONFLICTING the moment either merged — ~15 manual union-refresh cycles in the 2026-07-20/21 window alone. Grant [sic]: "why does this keep happening? seems like you could fix this routine issue easilh with a dofferent pr process."
+**Why:** every lane used to append its `### ENTRY` block to the tail of `_orchestration/2026-07-10_rulings-docket.md`. The repo's union merge driver resolves those tail-appends locally, but **GitHub's server-side merge ignores `.gitattributes` merge drivers (including the built-in `union`)**, so any two open docket-touching PRs showed CONFLICTING the moment either merged — ~15 manual union-refresh cycles in the 2026-07-20/21 window alone. Grant [sic]: "why does this keep happening? seems like you could fix this routine issue easilh with a dofferent pr process."
 
 **The convention (for every lane from 2026-07-21 on):**
 - Write your docket entry as **one new file in this directory**: `YYYY-MM-DD-<lane-slug>.md`, containing your `### ENTRY <YYYY-MM-DD>-<lane-slug>` block (same content-keyed format as before).
@@ -9,4 +9,11 @@
 - `verify-docket-keys.py` scans BOTH the monolith and this directory for key uniqueness.
 - **Generated-index rule** (the other conflict source): `manuscript/ave-kb/.index/*` is never text-merged — on any merge conflict, take either side and run `make refresh-kb-metadata` to regenerate from the merged sources.
 
-Separate files per lane = zero textual overlap = no server-side conflicts, ever.
+Separate files per lane = zero textual overlap = no server-side conflicts **for the docket**. This convention retires the docket instance of the union-append conflict class, not the whole class.
+
+**Remaining union-append targets (2026-07-21 audit, per `.gitattributes`):**
+- `research/2026-07-16_f6-bath-meter_CHARTER.md` (`merge=union`) — same conflict class, last append 2026-07-19; unmigrated.
+- `research/2026-07-17_regime-iv-dissipation-audit.md` (`merge=union`) — same conflict class, last append 2026-07-19; unmigrated.
+- Both look to be winding-down append batteries; migrate to a per-lane fragment dir if either goes hot again.
+
+**Distinct hazard, on record (needs its own treatment, not this convention):** `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` falls under the blanket `*.md merge=ours` and is the highest-frequency shared-edit target (mid-file status-flips + tail appends). Under `merge=ours` a concurrent lane's discharge can be **silently dropped** (data loss, not a visible conflict). The fragment tool is the wrong shape for its status-flip pattern — routed as a separate follow-on.
