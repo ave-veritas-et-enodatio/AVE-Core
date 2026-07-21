@@ -1521,3 +1521,60 @@ The two α-thresholds in the corpus are **two criteria on one nonlinear element*
 - strengthen-by:
   - execute the RATIFIED criterion-tag sweep (every $\sqrt\alpha$/$\sqrt{2\alpha}$ site tagged storage-α vs response-α, folded into the contour-tag sweep) so the 2×2 is machine-checkable
   - a driven two-quadrature demo separating the wave's equipartition-½ from the kernel's Taylor-½ (confirming the static dress needs no wave to carry the response-criterion 2)
+
+---
+
+## The Relative-Offset Principle + the Fork-ρ Direction (WALK-RATIFIED DIRECTION, pending adversarial review)
+<!-- id: clm-hu1jjw -->
+
+In a phase-only substrate there is **no spatial frame beneath the node graph**: position is defined only ON the graph, as a pattern of relative phase offsets across nodes. A localized excitation IS such a pattern, so its energy goes where its host nodes go — it **cannot hold station against the material displacement of its nodes** (station-keeping would require anti-advective node-to-node hopping, which presupposes the very sub-graph spatial anchor phase-only denies). Consequence for **Fork ρ** (*is trapped-energy mass acoustic inertia, or gravitating-only?*, routed from the `#782` RVE bench): trapped-energy patterns **participate in a carrier's oscillatory material motion**, so the trapped mass **loads** the effective inertia `ρ_eff` — the **direction** is **Reading A (MATCHED)**. Canonical home [`relative-offset-principle.md`](./relative-offset-principle.md); walk provenance `research/2026-07-21_fork-rho-walk_RECORD.md`; Grant-ratified at the DIRECTION level in-chat 2026-07-21 (verbatim `[sic]`: "yes the relative offset makes sense, and seemsmlike a major concept for the cannon to adjudicate and define").
+
+- _Specific Claims_
+  - **The anti-advection impossibility (the reductio):** station-keeping against material displacement presupposes a spatial anchor beneath the graph, which phase-only forbids; therefore a trapped pattern participates in the material motion of its host nodes rather than holding station against it.
+  - **Corollary A (discrete pinning):** Peierls-Nabarro-class pinning pins to node INDICES, which displace with the carrier ⇒ FULL material tracking, not station-keeping; there is no pinned escape from advection.
+  - **Corollary B (no aether-drag mechanism):** only the RELATIVE offset between an excitation and the medium is defined; a uniform offset is shared by the wave-made rulers/clocks and self-cancels — the excitation-side statement of emergent-relativity self-cancellation (the crystal-side twin: `preferred-frame-and-emergent-lorentz.md`; the AC/DC carve `clm-acdc07`).
+  - **Corollary C (Fork-ρ direction = Reading A):** the trapped-energy mass loads `ρ_eff` (`ρ_eff/ρ_0 = 1 + β·φ > 1`), not the engine-native inertially-inert `ρ_eff/ρ_0 = 1`.
+- _Specific Non-Claims and Caveats_
+  - **DIRECTION only.** Does NOT claim a MAGNITUDE — the loaded inertia value, `β`, and the sector-crossed `c²` choice are the separate OPEN claim `clm-m5swh9` (gated on the β feasibility lane). Do not read the direction as a magnitude prediction.
+  - **WALK-RATIFIED, pending adversarial review.** Grant ratified the DIRECTION and the promote-to-canon; the leaf is PROPOSED (Grant-ratification-at-merge). The wording is the orchestrator's walk (attribution: the argument is walk-level; the two quoted strings are Grant-verbatim). Not an emergence result; not yet adversarially reviewed.
+  - **Does NOT introduce a preferred-frame observable.** The crystal frame (≈ CMB-isotropy frame) exists and is unchanged; the principle says the EXCITATION does not inherit it — a boosted breather is an equally valid lossless solution. This is consistent with, not a revision of, `preferred-frame-and-emergent-lorentz.md`.
+  - **Does NOT re-open the #782 verdict.** BIN-4 is invariant across `β`; only the `r_Z` straddle's floor lifts (bare-node values become FLOOR values under `ρ_eff` loading). The bench's `K_eff` numbers are untouched.
+  - **REFINES `localization = boundary/topological`, does not contradict it:** localized ON the graph ≠ spatially anchored beneath it.
+
+> **Leaf references:** [relative-offset-principle](./relative-offset-principle.md).
+
+### Quality
+- confidence: 0.5
+- depends-on:
+  - Axiom 1 (Substrate Topology — the phase-only node graph with no sub-graph spatial frame; the anti-advection reductio is structural over it)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
+- rationale: A walk-ratified DIRECTION with a clean structural argument (the anti-advection reductio follows from the phase-only substrate with no free steps), Grant-ratified in-chat at the direction level and promoted to a proposed canon leaf — but PENDING adversarial review and with the MAGNITUDE explicitly open (`clm-m5swh9`). Graded 0.5 (not higher) because it is pre-review and the corollary set has not yet been stress-tested against the corpus's real-space "cannot advect / does not move" statements (surfaced as flag-don't-fix revisit sites, not yet adjudicated); graded 0.5 (not lower) because the core reductio is structurally clean over Axiom 1 and the direction is Grant-ratified. Consistency/organizing-principle class, the same standing as the AC/DC carve it mechanizes on the excitation side.
+- strengthen-by:
+  - adversarial review of the corollary set against the corpus "cannot advect / does not move / pinned by its own frozen clock" sites (genesis-chord-falsification-ledger.md:144; motion-stability-bemf-longitudinal; annihilation-evaporation TRANSPORT-ABSENT) — reconcile material-tracking vs phase-velocity-surfing or flag a genuine tension
+  - Grant-ratification-at-merge of the leaf + the "relative offset" name (and the deferred `def-` register row, post-#781 batch)
+  - fire the β feasibility lane to convert the direction into a magnitude (closes `clm-m5swh9`)
+
+---
+
+## Fork-ρ Loaded-Inertia MAGNITUDE — β, effective M, and the sector-crossed c² choice (OPEN)
+<!-- id: clm-m5swh9 -->
+
+Given the walk-ratified DIRECTION (`clm-hu1jjw`: trapped-energy mass loads `ρ_eff`), the **magnitude** of that loading is **OPEN**. The effective inertia per pattern is **emergent field momentum** and **SECTOR-CROSSED**: the trapped energy is `T2`/swing-class energy inside the `A1` compression carrier's budget, and **which sector's `c²` divides `E`** to give the loaded inertia is not automatic (`A1 ⊥ T2`, `master-equation.md:20`; sector-ownership cross-wiring watch). The tracking ratio `β = v_pattern-centroid / v_local-material` and the effective `M` are derivable / lattice-measurable, routed to the β feasibility lane (un-fired at walk time). Canonical home [`relative-offset-principle.md`](./relative-offset-principle.md) §"Honest scope".
+
+- _Specific Claims_
+  - (none asserted — the magnitude is undetermined; this entry EXISTS to hold the open slot and gate consumers, not to assert a value.)
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim a value for `β`, `ρ_eff`, or the loaded `M`.
+  - Does NOT assign the loaded inertia to a specific sector's `c²` (the cross-wiring watch is unresolved).
+  - Does NOT convert the DIRECTION into a magnitude prediction — that is exactly what the β lane owes. Per testing-over-fiat, deferred to measurement, not decreed.
+
+> **Leaf references:** [relative-offset-principle](./relative-offset-principle.md).
+
+### Quality
+- confidence: *pending*
+- depends-on:
+  - clm-hu1jjw — the relative-offset principle + Fork-ρ direction (the magnitude is downstream of the direction)
+- solidity: *pending*
+- rationale: The magnitude is genuinely undetermined — the derivation is pending (the β feasibility lane is un-fired) and no experiment strengthens it, so the entry is `*pending*` by the register's pending semantics (unassessed ≠ refuted). It holds the OPEN slot so the direction (`clm-hu1jjw`) is not mis-read as carrying a magnitude, and so a future β-lane result has a home to strengthen.
+- strengthen-by:
+  - fire the β feasibility lane: measure `β = v_pattern-centroid / v_local-material` and the effective loaded `M` for a caged soliton under a passing carrier's oscillatory material motion, on the native stencil, with the sector ledger (which `c²` divides `E`) declared first
