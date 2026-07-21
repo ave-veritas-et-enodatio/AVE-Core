@@ -188,22 +188,24 @@ These deviations are **AT or ABOVE the PR's own imported δf_220 sensitivity** (
 
 ---
 
-## §4 — FROZEN-BIN OUTCOME
+## §4 — FROZEN-BIN OUTCOME `[🔴 RE-GRADED 2026-07-20 review]`
 
-Per the four bins frozen in the prereg §2:
+Per the four bins frozen in the prereg §2, with the review re-grades applied (the frozen prereg is byte-untouched; these outcomes supersede the pre-review bins). Every organizer inherits the `clm-395gps` input-only grade (§0 CLAIM-GRADE, solidity ≤0.55):
 
-| Organizer | BIN | Basis |
+| Organizer | BIN `[re-graded]` | Basis |
 |---|---|---|
-| **ORG-1 multipole-ratio locking** (robust: ratio<Kerr AND spin-independent) | **ORGANIZER-DERIVED-AND-TESTABLE** | derived from `ω_R∝ℓ` + frozen elastic ratios; falsifiable via higher-mode ω_330/ω_220 at ≲5%; CONSISTENT-UNTESTED now |
-| **ORG-1 exact point-value** (1.500 vs 1.414) | **UNDETERMINED** | the linear-ℓ vs √(ℓ(ℓ+1)) surface-dispersion fork (§4 prereg) is open; corpus asserts linear-ℓ but does not derive the dispersion |
-| **ORG-1 overtone-ratio** (ω_221/ω_220) | **FORM-ONLY-NO-NUMBER** | corpus supplies no n≥1 spectrum; the organizer is structurally real but numberless |
-| **ORG-2 arrested critical slowing** (form + sign: ω_R floored above Kerr near extremal) | **ORGANIZER-DERIVED-AND-TESTABLE** | floor/sign follow from the rigid ν_vac=2/7 skeleton; falsifiable via a resolved a\*≳0.9 ringdown; CONSISTENT-UNTESTED now |
-| **ORG-2 excess MAGNITUDE** (+5.5%/+9.2%) | **carried as v2-EXTRAPOLATION** (not frozen as a testable number) | Option-B-revisable; the corpus flags a\*≥0.9 as the Option-B regime |
-| **RANK-1 unification** (single-parameter deviation) | **ORGANIZER-DERIVED-AND-TESTABLE** (form-level) | falsifiable via multi-mode deviation-correlation; the substrate's most restrictive forward statement |
-| `ω ∝ √C_44` scaling law | **FORM-ONLY-NO-NUMBER** (mechanism of ORG-2) | C_44 not independently observable; testable only through the spin dependence it controls |
+| **ORG-1 multipole-ratio locking** (robust: ratio<Kerr AND spin-frozen) | **ORGANIZER-DERIVED-AND-TESTABLE — with REDUCED separation** | derived from `ω_R∝ℓ` + frozen elastic ratios; but Kerr DRIFTS toward AVE with spin (§1.3): the linear-fork gap drops below ~5% for `a*≳0.75` (degenerate at extremal), the spherical fork stays −8% to −12% robust. Falsifiable via higher-mode `ω_330/ω_220`, **spin-conditioned**; the robust below-Kerr+spin-frozen content survives (frozenness axis sharpens with spin). CONSISTENT-UNTESTED now. |
+| **ORG-1 exact point-value** (1.500 vs 1.414) | **UNDETERMINED** | the linear-ℓ vs √(ℓ(ℓ+1)) surface-dispersion fork (§4 prereg) is open; "= ℓ'/ℓ EXACTLY" is exact only within the linear-ℓ form — spin-independence is the fork-robust EXACT half (§1.1 conditionality) |
+| **ORG-1 overtone-ratio** (ω_221/ω_220) | **FORM-ONLY-NO-NUMBER** | corpus supplies no n≥1 spectrum; structurally real but numberless |
+| **ORG-1 damping/τ-ratio lock** | **DERIVED-AND-TESTABLE at `a*=0` ONLY; spin-behavior UNDETERMINED** | `Q=ℓ` is the Schwarzschild anchor; the all-spin τ-lock over-extends it (leaf: `Q` increases with spin). Topological-Q vs physical-Q fork flagged (§1.1 R4 caveat) |
+| **ORG-2 arrested critical slowing** (form + sign: ω_R floored ABOVE Kerr near extremal) | **🔴 RETRACTED-WRONG-REFERENCE** (Rule-11 discard, no refill) | the frozen SIGN inverts against corrected Kerr (§2 retraction): AVE sits −10% to −20% BELOW, the codified falsifier describes what AVE predicts. The `54/77` skeleton floor survives corpus-internally as a POSSIBLE FUTURE **below-Kerr** organizer needing a fresh frozen derivation AFTER the upstream canon fix — NOT refilled here |
+| **ORG-2 excess MAGNITUDE** (+5.5%/+9.2%) | **🔴 VOID (retracted with ORG-2)** | rode the corrupted Kerr column; the true AVE−Kerr magnitudes are −16.7%/−20.1% (below, not above) |
+| **RANK-1 unification** (single-parameter deviation) | **ORGANIZER-DERIVED-AND-TESTABLE** (form-level, input-only grade) | falsifiable via multi-mode deviation-correlation; the substrate's most restrictive forward statement — unaffected by the Kerr-table error (it is a within-AVE structural claim) |
+| the AVE-eigenvalue-vs-Kerr data confrontation | **🔴 UNSAFE-PENDING-UPSTREAM-FIX** (POTENTIAL LIVE TENSION) | against corrected Kerr the deviation is −4% to −13% at attested catalog spins, AT/ABOVE δf_220 sensitivity; contaminated by the corrupted canon table + a frame question, both routed to the canon-correction lane; no negative fired, outcome not presumed (§3.3) |
+| `ω ∝ √C_44` scaling law | **FORM-ONLY-NO-NUMBER** (mechanism of retracted ORG-2) | C_44 not independently observable; testable only through the spin dependence it controls |
 | mass scaling `ω∝1/M` | **not-a-discriminator** | identical AVE/Kerr |
 
-**Headline (honest):** two beyond-Kerr deviation organizers derived, both DIMENSIONLESS and FALSIFIABLE, both **CONSISTENT-UNTESTED** against current data (neither excluded, neither confirmed), both testable at next-gen ringdown precision. **No bankable negative fired** (nothing is already-excluded); no consistency-class result upgraded (the banked v2 ω_R/τ match stays CONSISTENCY). The distinctive substrate content is the **rank-1 / locked-ratio structure** — a more restrictive deviation shape than free-per-mode phenomenology.
+**Headline (honest, post-review):** ORG-1 survives as a properly-graded (input-only) forward organizer, **DERIVED-AND-TESTABLE with reduced, spin-conditioned separation**; its exact point-value stays UNDETERMINED and its damping/τ spin-lock is Schwarzschild-anchored-only. **ORG-2 is RETRACTED** — its frozen "positive excess / above Kerr" sign inverted against a correct Kerr reference (the in-repo canon table is `−9%` to `−27%` wrong at spin); Rule-11 discard, slot NOT refilled (the `54/77` floor is noted as a possible FUTURE below-Kerr organizer pending the upstream fix). The data confrontation is **UNSAFE-PENDING-UPSTREAM-FIX** (potential live tension, not the pre-review "no bankable negative fired / CONSISTENT-UNTESTED"). RANK-1 structure survives. No consistency-class result is upgraded; the banked v2 ω_R/τ match itself now carries an open frame-audit flag (routed). The distinctive substrate content remains the **rank-1 / locked-ratio** structure — but it inherits the `clm-395gps` input-only grade and must not be headlined above that.
 
 ---
 
@@ -213,23 +215,28 @@ Per the four bins frozen in the prereg §2:
 
 2. **The banked τ-outperformance deserves an error-bar scrutiny (Grant/auditor).** The corpus banks that v2 τ (mean −0.47%) *outperforms* GR Kerr QNM (mean −6.94%) at reproducing the 3 LIGO τ values (`ave-merger-ringdown-eigenvalue.md:64`). This is a genuinely AVE-distinct-looking claim — BUT the LIGO τ values it beats GR on (4.0/3.0/1.4 ms) are quoted to ~1 sig fig; if their measurement uncertainty is ≳10–20%, GR's −7% "miss" and AVE's −0.5% are BOTH consistent with the data and the "outperformance" is within noise. This does not touch the organizers (which live in the a\*≥0.9 and higher-mode regimes), but the τ-outperformance should not be headlined as AVE-distinct without the LIGO τ error bars. Consensus-knife: SM/GR would get the same scrutiny — a −7% offset on a ~15%-error measurement is a match, not a miss.
 
-3. **ORG-2 magnitude is a v2-extrapolation into the Option-B regime (already flagged in-line §2.3).** The sign/floor are robust; the exact +5.5%/+9.2% await the Option-B (full spheroidal cavity) derivation the corpus defers.
+3. **~~ORG-2 magnitude is a v2-extrapolation into the Option-B regime~~ `[🔴 SUPERSEDED by the §2 retraction]`.** The pre-review flag hedged only the MAGNITUDE while freezing the SIGN/FLOOR as robust — but the SIGN itself inverts against corrected Kerr. ORG-2 is retracted, not merely magnitude-revisable.
+
+4. **`[NEW — R1/R2 review]` The upstream in-repo Kerr `(2,2,0)` canon table is wrong at spin (Grant/auditor → canon-correction lane).** `src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py:122` `BERTI_220_OMEGA_R` is `−9.4%` to `−26.8%` LOW at `a*=0.70–0.95` (only `a*=0` correct), against its own cited source (Berti-Cardoso-Will 2006 / Leaver). Verified two-method (from-scratch Leaver + `qnm`; BCW fit + ZDM limit corroborate). **This lane does NOT edit the canon table** (fence) — routed to the **canon-correction lane** (running separately), which owns the upstream fix and the re-validation of everything downstream of that table (including the banked v2 spin-validation and the `divergence-test-substrate-map` C1-BH-RING row).
+
+5. **`[NEW — R2 review]` The banked `−0.45%` v2 cold-ringdown match may carry a detector-vs-source-frame mass error (Grant/auditor → canon-correction lane).** The leaf tables source-frame `M_final` (e.g. GW150914 `62.0 M⊙`) against `f_obs=251 Hz`, but LVC's 251 Hz `f_220` is **detector-frame** (`M≈67.6 M⊙`, `z≈0.09`). The banked `<1%` match may be two compensating `~9–10%` errors (frame-factor × the corrupted table error) — needs a frame audit before the "three-source consistent" claim (§7) is relied on. Routed to the canon-correction lane; NOT resolved or presumed here.
 
 ---
 
 ## §6 — consistency-vs-emergence classification + auditor-queue (implementer SURFACES; auditor LANDS)
 
-**Classification.** The two organizers are **forward DEVIATION predictions** (chord-surface), NOT emergence claims: ν_vac=2/7 and the ringdown eigenvalue are corpus INPUTS, not re-derived here; no VALUE is claimed emergent. The banked v2 ω_R/τ match is CONSISTENCY (recovering GR) and is NOT upgraded. The distinctive content (rank-1 locked-ratio deviation structure) is a **forward falsifiable prediction**, which is where the corpus locates any real chord (`state_of_ave` memory: "chord lives ONLY in forward predictions").
+**Classification.** The surviving organizer (ORG-1) is a **forward DEVIATION prediction** (chord-surface), NOT an emergence claim: `ν_vac=2/7` and the ringdown eigenvalue are corpus INPUTS, not re-derived here — and `ν_vac`'s VALUE is itself GR-imported via K=2G (§0 CLAIM-GRADE); no VALUE is claimed emergent. The banked v2 ω_R/τ match is CONSISTENCY (recovering GR) and is NOT upgraded — and it now carries an open frame-audit flag (§5 item 5, routed). The distinctive content (rank-1 locked-ratio deviation structure) is a **forward falsifiable prediction** at the `clm-395gps` input-only grade (solidity ≤0.55). ORG-2 is RETRACTED (§2) — nothing about it propagates.
 
-**Auditor-queue (surfaced, NOT landed — no KB/matrix edit in this lane):**
+**Auditor-queue (surfaced, NOT landed — no KB/matrix edit in this lane; re-graded post-review):**
 | Site | Proposed disposition (auditor-gated) |
 |---|---|
-| `lattice-extreme-bh-rationality.md` §4 (ringdown CONSISTENCY row) | **candidate cross-link:** add a pointer to these organizers as the soft-mode DEVIATION forward-content companion to the CONSISTENCY match (no number moves; the match stays consistency-class) |
-| `divergence-test-substrate-map.md` C1-BH-RING row | **candidate strengthen:** the "Option B deferrable until a\*>0.90 detection" note now has a *derived deviation organizer* (ORG-2 sign/floor) for that regime; and a higher-mode organizer (ORG-1) orthogonal to the current a\*<0.85 tests |
-| `ave-merger-ringdown-eigenvalue.md` | **candidate forward-content note:** the multipole-ratio + rank-1 structure as beyond-Kerr organizers (deviation-scoped, Kerr-wording fence) |
-| the τ-outperformance headline (`ave-merger-ringdown-eigenvalue.md:64`) | **candidate scrutiny flag:** error-bar the LIGO τ values before headlining "outperforms GR" (flag-don't-fix item 2) |
+| **`ligo_ringdown_driver.py:122` `BERTI_220_OMEGA_R` — the corrupted canon table** | **★PRIMARY — routed to the canon-correction lane (separate).** Correct the `(2,2,0)` spin rows to the two-method Leaver/`qnm` values (§2.3-CORRECTED); re-validate everything downstream (banked v2 spin-validation, `divergence-test-substrate-map` C1-BH-RING, `lattice-extreme-bh-rationality` §4). This is upstream of, and gates, the items below. |
+| `lattice-extreme-bh-rationality.md` §4 (ringdown CONSISTENCY row) | **candidate cross-link (post-fix):** point to ORG-1 as the surviving soft-mode DEVIATION companion; the CONSISTENCY match itself is pending the frame audit (§5 item 5) |
+| `divergence-test-substrate-map.md` C1-BH-RING row | **~~candidate strengthen with ORG-2~~ RE-GRADED:** ORG-2 is retracted — do NOT add it as a derived deviation organizer for the `a*>0.90` regime. ORG-1 (higher-mode, spin-conditioned) remains an orthogonal organizer; the row's own numbers ride the corrupted table (canon-correction lane) |
+| `ave-merger-ringdown-eigenvalue.md` | **candidate forward-content note (input-only grade):** the multipole-ratio + rank-1 structure as beyond-Kerr organizers (deviation-scoped, Kerr-wording fence, solidity ≤0.55) — ORG-1 only |
+| the τ-outperformance headline (`ave-merger-ringdown-eigenvalue.md:64`) | **candidate scrutiny flag:** error-bar the LIGO τ values AND resolve the detector-vs-source-frame mass question (§5 items 2+5) before relying on "outperforms GR" / "three-source consistent" |
 
-No leaf touched; no `clm-` minted; canonical-propagation is a gated follow-on.
+No leaf touched; no `clm-` minted; canonical-propagation is a gated follow-on. **The canon-table fix is NOT this lane's to land — it is routed to the canon-correction lane.**
 
 ---
 
@@ -238,8 +245,8 @@ No leaf touched; no `clm-` minted; canonical-propagation is a gated follow-on.
 - Prereg (FROZEN): `research/2026-07-20_ringdown-systematics_prereg-FROZEN.md` (commit `f22d0b2d`)
 - Checks: `research/2026-07-20_ringdown-systematics_checks.py` (`math`-only; `ave` untouched)
 - Registered candidate: `research/2026-07-20_vacuum-metallurgy_kz-relic-and-instruments.md` D4a
-- Banked ringdown match (CONSISTENCY): `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md` (v2 resultbox, lines 62/64); `research/ligo-ringdown-driver-design.md` §8–§10; `manuscript/ave-kb/common/divergence-test-substrate-map.md` C1-BH-RING row — three-source consistent, no walk-back
+- Banked ringdown match (CONSISTENCY): `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md` (v2 resultbox, lines 62/64); `research/ligo-ringdown-driver-design.md` §8–§10; `manuscript/ave-kb/common/divergence-test-substrate-map.md` C1-BH-RING row — ~~three-source consistent, no walk-back~~ `[🔴 the "three-source consistency" is NOT independent: all three ride the same corrupted `(2,2,0)` Kerr table AND the same frame convention (§5 items 4+5). Frame audit + canon-table fix routed to the canon-correction lane before this consistency is relied on.]`
 - Soft-mode C_44 collapse: `research/2026-07-04_saturated-elastic-tensor_result.md` §4 (PR#521); `electron-bh-isomorphism.md:38`
 - Q=ℓ (single-channel Op21): `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md`; `op21-multi-mode-mode-counting.md` §1 (BH-ringdown = single-channel row)
-- GR Kerr (2,2,0) reference table (in-repo, canonical): `src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py:122` (Berti-Cardoso-Will 2006 Leaver)
+- GR Kerr (2,2,0) reference table (in-repo): `src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py:122` `[🔴 WRONG AT SPIN — −9% to −27% at a*=0.70–0.95; corrected two-method values in §2.3-CORRECTED; upstream fix routed to the canon-correction lane]`
 - Classification (CONSISTENCY, not emergence): `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md` §4
