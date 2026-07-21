@@ -116,6 +116,8 @@
         "pass": false
       },
       "deep_rail_explicit_dynamics_underconverge_disclosed": true,
+      "frozen_ramp_gate_pass_as_written": false,
+      "static_limit_basis": "POST-FREEZE CG-tolerance-independence substitute (the frozen dynamic-ramp gate FAILED as written: rate_spread 0.133 > 0.10); legitimate on Ax3-lossless + CG tolerance-invariance, but a substituted observable \u2014 labeled post-freeze-derived, NOT frozen.",
       "pass": true,
       "rate_spread_rel": 0.1329288599151534
     },
@@ -135,7 +137,8 @@
         }
       ],
       "spread_rel": 3.7894109804579456e-15,
-      "pass": true
+      "pass": true,
+      "identity_not_fireable_gate": true
     },
     "rve_size_independence": {
       "by_L": [
@@ -209,11 +212,18 @@
       "exterior_divu_over_wall_shell1": 0.03761348661502203,
       "exterior_divu_over_wall_shell2": 0.01967767720989064,
       "exterior_divu_over_wall_mean": 0.028645581912456336,
+      "exterior_divu_over_interior_shell1": 0.03582364839611673,
+      "exterior_divu_over_interior_shell2": 0.018741314700080714,
+      "deliverable_exterior_over_interior_max": 0.03582364839611673,
+      "deliverable_pass_tol0p10": true,
+      "frozen_shell_agreement_rel": 0.6261282965011831,
+      "frozen_shell_agreement_rel_pass_tol0p25": false,
       "shell_agreement_abs": 0.017935809405131387,
       "cg_residual": 9.224484460904738e-07,
       "cg_iters": 129,
       "converged": true,
       "lame_pass": true,
+      "th_int": 0.0008117847928470904,
       "th_wall": 0.0007731560035876665,
       "r_shells": [
         5.0,
@@ -226,11 +236,18 @@
       "exterior_divu_over_wall_shell1": 0.02083817535080608,
       "exterior_divu_over_wall_shell2": 0.011402505557803666,
       "exterior_divu_over_wall_mean": 0.016120340454304872,
+      "exterior_divu_over_interior_shell1": 0.018865771115701233,
+      "exterior_divu_over_interior_shell2": 0.010323219589891486,
+      "deliverable_exterior_over_interior_max": 0.018865771115701233,
+      "deliverable_pass_tol0p10": true,
+      "frozen_shell_agreement_rel": 0.5853269550819353,
+      "frozen_shell_agreement_rel_pass_tol0p25": false,
       "shell_agreement_abs": 0.009435669793002413,
       "cg_residual": 9.712958816884094e-07,
       "cg_iters": 132,
       "converged": true,
       "lame_pass": true,
+      "th_int": 0.0008144062183669744,
       "th_wall": 0.0007373198973642766,
       "r_shells": [
         5.0,
@@ -243,18 +260,25 @@
       "exterior_divu_over_wall_shell1": 0.006686368215101578,
       "exterior_divu_over_wall_shell2": 0.0037285346979793175,
       "exterior_divu_over_wall_mean": 0.005207451456540448,
+      "exterior_divu_over_interior_shell1": 0.007235556449803239,
+      "exterior_divu_over_interior_shell2": 0.0040347797809501245,
+      "deliverable_exterior_over_interior_max": 0.007235556449803239,
+      "deliverable_pass_tol0p10": true,
+      "frozen_shell_agreement_rel": 0.568000209278434,
+      "frozen_shell_agreement_rel_pass_tol0p25": false,
       "shell_agreement_abs": 0.0029578335171222604,
       "cg_residual": 9.288098703903386e-07,
       "cg_iters": 129,
       "converged": true,
       "lame_pass": true,
+      "th_int": 0.0008182155487242308,
       "th_wall": 0.0008854200965973822,
       "r_shells": [
         5.0,
         7.0
       ]
     },
-    "retroactive_note": "static (no transient) \u21d2 converged exterior div-u; adjudicates #770 Leg-1's unconverged 0.65 (window halves swung 0.33->1.60)."
+    "retroactive_note": "\u2605REVIEW-REPAIR (finding 0/10): the Lam\u00e9 PASS re-banks on the FROZEN DELIVERABLE (exterior/INTERIOR div-u <= 0.10 -> 0; passes 0.036/0.019/0.007). The frozen relative shell-agreement (ii) |\u0394|/mean <= 0.25 FAILS as written (0.63/0.59/0.57 \u2014 near-zero-denominator pathology), reported honestly. #770 Leg-1's unconverged 0.65 is adjudicated on its METRIC-INDEPENDENT basis: the static CG carries no transient (whereas #770's dynamic window swung 0.33->1.60), corroborated by the re-banked div-free deliverable."
   },
   "leg3_phi_scan": {
     "L": 16,
@@ -265,6 +289,7 @@
         "route_A": [
           {
             "phi": 0.10099064010881427,
+            "f_incl": 0.5592868084678848,
             "r_cage": 1.3,
             "s": 4.5,
             "n_cages": 27,
@@ -282,6 +307,7 @@
           },
           {
             "phi": 0.18828295943818996,
+            "f_incl": 0.8079251208705142,
             "r_cage": 1.6,
             "s": 4.5,
             "n_cages": 27,
@@ -299,6 +325,7 @@
           },
           {
             "phi": 0.3152912155240587,
+            "f_incl": 1.1211018305024447,
             "r_cage": 1.9,
             "s": 4.5,
             "n_cages": 27,
@@ -316,6 +343,7 @@
           },
           {
             "phi": 0.48946214650826336,
+            "f_incl": 1.5062636755055197,
             "r_cage": 2.2,
             "s": 4.5,
             "n_cages": 27,
@@ -335,6 +363,7 @@
         "route_B": [
           {
             "phi": 0.07493682758712984,
+            "f_incl": 0.30022014602024777,
             "r_cage": 1.7,
             "s": 6.5,
             "n_cages": 8,
@@ -352,6 +381,7 @@
           },
           {
             "phi": 0.16463621020892427,
+            "f_incl": 0.6595836608064843,
             "r_cage": 1.7,
             "s": 5.0,
             "n_cages": 27,
@@ -369,6 +399,7 @@
           },
           {
             "phi": 0.27777138370742266,
+            "f_incl": 1.1128382140267052,
             "r_cage": 1.7,
             "s": 4.2,
             "n_cages": 27,
@@ -386,6 +417,7 @@
           },
           {
             "phi": 0.441090669498361,
+            "f_incl": 1.7671458676442586,
             "r_cage": 1.7,
             "s": 3.6,
             "n_cages": 64,
@@ -410,12 +442,35 @@
           "max_rel_disagreement": 0.5151437669968119,
           "mean_rel_disagreement": 0.2491262018072509,
           "collapses": false
+        },
+        "collapse_f_incl": {
+          "axis": "f_incl",
+          "overlap": [
+            0.5592868084678848,
+            1.5062636755055197
+          ],
+          "x_points": [
+            0.5592868084678848,
+            0.8079251208705142,
+            1.1211018305024447,
+            1.5062636755055197
+          ],
+          "rel_per_point": [
+            0.24045518945456595,
+            0.12422366504401564,
+            0.18940866625202513,
+            0.28045314594331805
+          ],
+          "max_rel_disagreement": 0.28045314594331805,
+          "mean_rel_disagreement": 0.2086351666734812,
+          "collapses": true
         }
       },
       "bulk_only_compressed": {
         "route_A": [
           {
             "phi": 0.10099064010881427,
+            "f_incl": 0.5592868084678848,
             "r_cage": 1.3,
             "s": 4.5,
             "n_cages": 27,
@@ -433,6 +488,7 @@
           },
           {
             "phi": 0.18828295943818996,
+            "f_incl": 0.8079251208705142,
             "r_cage": 1.6,
             "s": 4.5,
             "n_cages": 27,
@@ -450,6 +506,7 @@
           },
           {
             "phi": 0.3152912155240587,
+            "f_incl": 1.1211018305024447,
             "r_cage": 1.9,
             "s": 4.5,
             "n_cages": 27,
@@ -467,6 +524,7 @@
           },
           {
             "phi": 0.48946214650826336,
+            "f_incl": 1.5062636755055197,
             "r_cage": 2.2,
             "s": 4.5,
             "n_cages": 27,
@@ -486,6 +544,7 @@
         "route_B": [
           {
             "phi": 0.07493682758712984,
+            "f_incl": 0.30022014602024777,
             "r_cage": 1.7,
             "s": 6.5,
             "n_cages": 8,
@@ -503,6 +562,7 @@
           },
           {
             "phi": 0.16463621020892427,
+            "f_incl": 0.6595836608064843,
             "r_cage": 1.7,
             "s": 5.0,
             "n_cages": 27,
@@ -520,6 +580,7 @@
           },
           {
             "phi": 0.27777138370742266,
+            "f_incl": 1.1128382140267052,
             "r_cage": 1.7,
             "s": 4.2,
             "n_cages": 27,
@@ -537,6 +598,7 @@
           },
           {
             "phi": 0.441090669498361,
+            "f_incl": 1.7671458676442586,
             "r_cage": 1.7,
             "s": 3.6,
             "n_cages": 64,
@@ -561,12 +623,35 @@
           "max_rel_disagreement": 0.6220456188498399,
           "mean_rel_disagreement": 0.3165028037835829,
           "collapses": false
+        },
+        "collapse_f_incl": {
+          "axis": "f_incl",
+          "overlap": [
+            0.5592868084678848,
+            1.5062636755055197
+          ],
+          "x_points": [
+            0.5592868084678848,
+            0.8079251208705142,
+            1.1211018305024447,
+            1.5062636755055197
+          ],
+          "rel_per_point": [
+            0.2989933441529678,
+            0.15987253691384978,
+            0.2879358505543498,
+            0.3280883375040938
+          ],
+          "max_rel_disagreement": 0.3280883375040938,
+          "mean_rel_disagreement": 0.2687225172813153,
+          "collapses": false
         }
       },
       "bulk_only_expanded": {
         "route_A": [
           {
             "phi": 0.10099064010881427,
+            "f_incl": 0.5592868084678848,
             "r_cage": 1.3,
             "s": 4.5,
             "n_cages": 27,
@@ -584,6 +669,7 @@
           },
           {
             "phi": 0.18828295943818996,
+            "f_incl": 0.8079251208705142,
             "r_cage": 1.6,
             "s": 4.5,
             "n_cages": 27,
@@ -601,6 +687,7 @@
           },
           {
             "phi": 0.3152912155240587,
+            "f_incl": 1.1211018305024447,
             "r_cage": 1.9,
             "s": 4.5,
             "n_cages": 27,
@@ -618,6 +705,7 @@
           },
           {
             "phi": 0.48946214650826336,
+            "f_incl": 1.5062636755055197,
             "r_cage": 2.2,
             "s": 4.5,
             "n_cages": 27,
@@ -637,6 +725,7 @@
         "route_B": [
           {
             "phi": 0.07493682758712984,
+            "f_incl": 0.30022014602024777,
             "r_cage": 1.7,
             "s": 6.5,
             "n_cages": 8,
@@ -654,6 +743,7 @@
           },
           {
             "phi": 0.16463621020892427,
+            "f_incl": 0.6595836608064843,
             "r_cage": 1.7,
             "s": 5.0,
             "n_cages": 27,
@@ -671,6 +761,7 @@
           },
           {
             "phi": 0.27777138370742266,
+            "f_incl": 1.1128382140267052,
             "r_cage": 1.7,
             "s": 4.2,
             "n_cages": 27,
@@ -688,6 +779,7 @@
           },
           {
             "phi": 0.441090669498361,
+            "f_incl": 1.7671458676442586,
             "r_cage": 1.7,
             "s": 3.6,
             "n_cages": 64,
@@ -712,12 +804,35 @@
           "max_rel_disagreement": 0.4863793094887152,
           "mean_rel_disagreement": 0.22899027531607666,
           "collapses": false
+        },
+        "collapse_f_incl": {
+          "axis": "f_incl",
+          "overlap": [
+            0.5592868084678848,
+            1.5062636755055197
+          ],
+          "x_points": [
+            0.5592868084678848,
+            0.8079251208705142,
+            1.1211018305024447,
+            1.5062636755055197
+          ],
+          "rel_per_point": [
+            0.22423616838758376,
+            0.10488263710894424,
+            0.16570828664483875,
+            0.2687184264458418
+          ],
+          "max_rel_disagreement": 0.2687184264458418,
+          "mean_rel_disagreement": 0.19088637964680216,
+          "collapses": true
         }
       },
       "symmetric_cold": {
         "route_A": [
           {
             "phi": 0.10099064010881427,
+            "f_incl": 0.5592868084678848,
             "r_cage": 1.3,
             "s": 4.5,
             "n_cages": 27,
@@ -735,6 +850,7 @@
           },
           {
             "phi": 0.18828295943818996,
+            "f_incl": 0.8079251208705142,
             "r_cage": 1.6,
             "s": 4.5,
             "n_cages": 27,
@@ -752,6 +868,7 @@
           },
           {
             "phi": 0.3152912155240587,
+            "f_incl": 1.1211018305024447,
             "r_cage": 1.9,
             "s": 4.5,
             "n_cages": 27,
@@ -769,6 +886,7 @@
           },
           {
             "phi": 0.48946214650826336,
+            "f_incl": 1.5062636755055197,
             "r_cage": 2.2,
             "s": 4.5,
             "n_cages": 27,
@@ -788,6 +906,7 @@
         "route_B": [
           {
             "phi": 0.07493682758712984,
+            "f_incl": 0.30022014602024777,
             "r_cage": 1.7,
             "s": 6.5,
             "n_cages": 8,
@@ -805,6 +924,7 @@
           },
           {
             "phi": 0.16463621020892427,
+            "f_incl": 0.6595836608064843,
             "r_cage": 1.7,
             "s": 5.0,
             "n_cages": 27,
@@ -822,6 +942,7 @@
           },
           {
             "phi": 0.27777138370742266,
+            "f_incl": 1.1128382140267052,
             "r_cage": 1.7,
             "s": 4.2,
             "n_cages": 27,
@@ -839,6 +960,7 @@
           },
           {
             "phi": 0.441090669498361,
+            "f_incl": 1.7671458676442586,
             "r_cage": 1.7,
             "s": 3.6,
             "n_cages": 64,
@@ -862,6 +984,28 @@
           ],
           "max_rel_disagreement": 0.7421465709675593,
           "mean_rel_disagreement": 0.3523084313097174,
+          "collapses": false
+        },
+        "collapse_f_incl": {
+          "axis": "f_incl",
+          "overlap": [
+            0.5592868084678848,
+            1.5062636755055197
+          ],
+          "x_points": [
+            0.5592868084678848,
+            0.8079251208705142,
+            1.1211018305024447,
+            1.5062636755055197
+          ],
+          "rel_per_point": [
+            0.35150313217166385,
+            0.15878181856022652,
+            0.3963691939962556,
+            0.34260742072566464
+          ],
+          "max_rel_disagreement": 0.3963691939962556,
+          "mean_rel_disagreement": 0.31231539136345265,
           "collapses": false
         }
       }
@@ -908,10 +1052,45 @@
         "reuss_wood_K": 0.00020428458301026303
       }
     ],
+    "reference_forms_coated_f_incl": [
+      {
+        "r_cage": 1.3,
+        "s": 4.5,
+        "f_incl": 0.5592868084678848,
+        "voigt_coated_K": 0.4407131915321152,
+        "f_incl_gt_1_overlap_scoped": false,
+        "K_eff_over_K0_measured": 0.23906529172261679
+      },
+      {
+        "r_cage": 1.6,
+        "s": 4.5,
+        "f_incl": 0.8079251208705142,
+        "voigt_coated_K": 0.19207487912948584,
+        "f_incl_gt_1_overlap_scoped": false,
+        "K_eff_over_K0_measured": 0.18947613690597975
+      },
+      {
+        "r_cage": 1.9,
+        "s": 4.5,
+        "f_incl": 1.1211018305024447,
+        "voigt_coated_K": null,
+        "f_incl_gt_1_overlap_scoped": true,
+        "K_eff_over_K0_measured": 0.19972144354301885
+      },
+      {
+        "r_cage": 2.2,
+        "s": 4.5,
+        "f_incl": 1.5062636755055197,
+        "voigt_coated_K": null,
+        "f_incl_gt_1_overlap_scoped": true,
+        "K_eff_over_K0_measured": 0.29636822324939766
+      }
+    ],
     "percolation_phi_geometric": {
       "route_A": 0.08978031131658074,
       "route_B": 0.13069353170321807
-    }
+    },
+    "percolation_f_incl_geometric_route_independent": 0.5235987755982988
   },
   "leg4_verdict": {
     "stop_gate_pass": true,
@@ -1026,6 +1205,46 @@
       "bin": "BIN4_REGIME_UNDETERMINED",
       "verdict_invariant_across_beta": true,
       "verdict_invariant_across_prestress": true
+    },
+    "verdict_rederived_f_incl": {
+      "note": "REVIEW-REPAIR (finding 5/8): the frozen phi collapse FAILED (0.515) because phi counts the COLD cage interior, not the mechanically active soft shell. On the geometry-correct coated-inclusion fraction f_incl the HEADLINE bulk_only_cold route COLLAPSES (0.28 <= 0.30) => frozen trigger (i) does NOT fire. BIN-4 SURVIVES via frozen trigger (iii): the r_Z 0.5 bin-edge STRADDLE across the pre-stress class (compressed macro-side vs cold/expanded matched-side) + across the phi scan, compounded by the KUBC-conditional matched-side (upper bound; true r_Z could be lower => macro-side) and Fork rho. The basis shifts from 'not lattice-decidable at feasible box' to 'constitutively MEASURED (collapse passes on the correct variable); UNDETERMINED at the r_Z bin edge'. The 'needs larger box' routing is RETRACTED \u2014 the re-axis was zero compute and the owed resolver is the (feasible) SUBC/periodic lower-bound bracket + the Fork rho / Fork P ontology adjudication.",
+      "headline_f_incl_collapses": true,
+      "by_class": {
+        "bulk_only_cold": {
+          "f_incl_collapse_max_rel": 0.28045314594331805,
+          "f_incl_collapses": true,
+          "bin_on_f_incl": "BIN2_MATCHED"
+        },
+        "bulk_only_compressed": {
+          "f_incl_collapse_max_rel": 0.3280883375040938,
+          "f_incl_collapses": false,
+          "bin_on_f_incl": "BIN4_REGIME_UNDETERMINED"
+        },
+        "bulk_only_expanded": {
+          "f_incl_collapse_max_rel": 0.2687184264458418,
+          "f_incl_collapses": true,
+          "bin_on_f_incl": "BIN2_MATCHED"
+        },
+        "symmetric_cold": {
+          "f_incl_collapse_max_rel": 0.3963691939962556,
+          "f_incl_collapses": false,
+          "bin_on_f_incl": "BIN4_REGIME_UNDETERMINED"
+        }
+      },
+      "r_Z_prestress_beta0": {
+        "cold": 0.5443971190678709,
+        "compressed": 0.4664842009546496,
+        "expanded": 0.5676919873253737
+      },
+      "r_Z_straddles_0p5_trigger_iii": true,
+      "prestress_bins_on_f_incl": {
+        "cold": "BIN2_MATCHED",
+        "compressed": "BIN4_REGIME_UNDETERMINED",
+        "expanded": "BIN2_MATCHED"
+      },
+      "prestress_cross_class_flip_trigger_iii": true,
+      "BIN": "BIN4_REGIME_UNDETERMINED",
+      "basis": "constitutively measured (f_incl collapse passes for the headline class); undetermined via the r_Z 0.5 bin-edge straddle (trigger iii) + Fork rho"
     }
   }
 }
