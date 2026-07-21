@@ -64,6 +64,16 @@ The cleanest single test: a higher-mode measurement of `ω_330/ω_220`. Kerr put
 
 ## §2 — ORG-2: ARRESTED CRITICAL SLOWING (full derivation)
 
+> ### 🔴 RETRACTED 2026-07-20 (PR #772 adversarial review — Rule-11 discard, NO substitution-refill)
+>
+> **ORG-2 as frozen is FALSE as derived. Its central falsifiable content — the SIGN — inverts against a correct Kerr reference.** The GR Kerr column used throughout §2.3 below (the in-repo `BERTI_220_OMEGA_R` table, `ligo_ringdown_driver.py:122` mirrored into the checks script) is **wrong at non-zero spin**: it reads `−9.4%/−13.9%/−21.0%/−26.8%` LOW at `a*=0.70/0.80/0.90/0.95` (only the `a*=0` anchor is correct). Verified two independent ways this review — a from-scratch Leaver continued-fraction solve **and** the `qnm` package (Stein 2019), mutually agreeing to all digits and corroborated by the Berti-Cardoso-Will 2006 fitting formula — plus the decisive physical anchor that the co-rotating `(2,2,0)` real frequency **rises toward** `m·Ω_H·M = 1.0` at extremal (`qnm` at `a*=0.999` gives `0.9559`), it never plateaus at `~0.55`. **True Kerr `(2,2,0)` `M·ω_R`:** `0.53260 / 0.58602 / 0.67161 / 0.74632` at `a*=0.70/0.80/0.90/0.95` (review-produced; see §2.3-CORRECTED).
+>
+> Against the true reference, AVE v2 sits **BELOW** Kerr at every spin — `−9.9%` (`a*=0.70`) → `−16.7%` (`0.90`) → `−20.1%` (`0.95`) — the **opposite sign** of the frozen "positive excess / **ABOVE** Kerr for `a*≳0.8`, growing with spin". The prereg's codified ORG-2 falsifier (`prereg §2`: *"a resolved a\*≳0.9 ringdown shows ω_220 AT or BELOW Kerr ⇒ ALREADY-EXCLUDED"*) therefore describes **exactly what AVE actually predicts** against real Kerr — a resolved below-Kerr near-extremal ringdown would have been scored as "falsifying" an organizer AVE never implied. The "arrested-slowing → positive excess / Kerr geometrically softens" observable is an **artifact of the corrupted reference**: true Kerr `ω_R` does NOT geometrically soften (it is `ω_I`, the damping, that softens), so the `54/77` floor sits **below** extremal Kerr, not above it.
+>
+> **The `x_sat→11/3` skeleton floor and the AVE-side eigenvalue `54/77 = 0.7013` survive independently** (they are corpus-internal, untouched by the Kerr-table error). They are noted as a **POSSIBLE FUTURE below-Kerr organizer** — a hard `ω_R M_g = 0.7013` ceiling that sits below extremal Kerr's `→1.0` — but that requires a **fresh frozen derivation confronted against a corrected Kerr reference AFTER the upstream canon fix lands** (the `ligo_ringdown_driver.py` table correction is the **canon-correction lane's** job, running separately). **Per Rule-12 substitution-not-retraction, the slot is NOT refilled here** — no new below-Kerr organizer is banked in this doc; the original §2.1–§2.3 text is **preserved verbatim below** for the audit trail, and the corrected numbers are appended as §2.3-CORRECTED (evidence only, not a new frozen organizer).
+>
+> *Fence: this retraction lives in the derivation doc only; `_prereg-FROZEN.md` is byte-untouched (the frozen falsifier stands on the record as frozen — the docket correction note records that it inverted). The upstream `ligo_ringdown_driver.py` table is NOT edited by this lane (canon-correction lane, routed).*
+
 ### §2.1 — The soft-mode scaling law
 
 A displacive transition's soft mode softens as `ω² ∝ (restoring modulus)`. In the substrate the shear-wave speed is `c_shear = c₀√S` (`master-equation`/INVARIANT-S2 `[canon]`), and the absolute moduli scale by the overall saturation factor `S` (`saturated-elastic-tensor_result.md` §4 `[canon]`), so `C_44 ∝ S` and
@@ -100,6 +110,24 @@ AVE v2 `ω_R M` vs the in-repo Berti (2,2,0) Kerr table:
 **★ v2-EXTRAPOLATION CAVEAT (load-bearing honesty).** The `+5.5%`/`+9.2%` MAGNITUDES are the v2 formula **extrapolated into `a* ≥ 0.90`**, which the corpus itself flags as the **Option-B regime** (`ligo-ringdown-driver-design.md` §9 `[canon]`: v2 PASSES vs GR only for `a* ≤ 0.85`; "divergence onset a\* ≥ 0.90"). So the exact excess is **Option-B-revisable** — the SIGN/FLOOR are the frozen testable content; the magnitude is carried as an extrapolation, not a validated number.
 
 **Not-a-discriminator (consensus-knife):** `ω_R ∝ 1/M` is IDENTICAL in AVE and Kerr. Mass scaling is NOT where any deviation lives — recorded so a mass-scaling "match" is not miscredited.
+
+### §2.3-CORRECTED (added 2026-07-20 review — the true Kerr reference; evidence only, NOT a new frozen organizer)
+
+The §2.3 table above uses the corrupted in-repo `BERTI_220_OMEGA_R` Kerr column. Banking the correct reference with full provenance:
+
+> **GR Kerr `(2,2,0)` `M·ω_R` — CORRECTED reference `[review-produced — two-method]`.** From-scratch Leaver continued-fraction solve **and** the `qnm` package (Stein 2019), agreeing to all quoted digits; corroborated by the Berti-Cardoso-Will 2006 fitting formula (`ω_R = 1.5251 − 1.1568(1−a)^{0.1292}`, agrees to `<1%`); the `a*=0` anchor `0.373672` matches the (correct) in-repo row `0.37368`. Exact ZDM constraint respected: `l=m=2` → `M·ω_R → m·Ω_H·M = 1.0` at extremal (`qnm` at `a*=0.999`: `0.9559`).
+
+| a\* | x_sat | AVE ω_R M | Kerr ω_R M `[corrected — review]` | in-repo (WRONG) | AVE − Kerr(corr) |
+|---|---|---|---|---|---|
+| 0.00 | 7.000 | 0.3673 | 0.373672 | 0.37368 | −1.69% |
+| 0.30 | 6.383 | 0.4028 | 0.41953 | 0.41442 | −3.98% |
+| 0.60 | 5.648 | 0.4553 | 0.49404 | 0.46378 | −7.85% |
+| 0.70 | 5.356 | 0.4801 | 0.53260 | 0.48267 | **−9.85%** |
+| 0.80 | 5.019 | 0.5124 | 0.58602 | 0.50465 | **−12.56%** |
+| 0.90 | 4.596 | 0.5594 | 0.67161 | 0.53039 | **−16.70%** |
+| 0.95 | 4.311 | 0.5966 | 0.74632 | 0.54652 | **−20.07%** |
+
+**AVE v2 sits monotonically BELOW true Kerr, deviation growing with spin** — the sign inverts vs the retracted §2.3. The AVE extremal floor `54/77 = 0.7013` sits **below** extremal Kerr (`→1.0`). This corrected table is the evidence R2 (§3.3) re-grades against; it is NOT re-frozen as an organizer here (Rule-11 discard, no refill — a fresh below-Kerr organizer would need its own frozen derivation after the upstream canon fix).
 
 ---
 
