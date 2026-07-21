@@ -1,0 +1,734 @@
+{
+  "provenance": {
+    "class": "constituent-cage-ensemble adjudicator; cages by CONSTITUTIVE GRADING (no kinematic pin on source path); clamped = negative control (image-doubling STOP-gate); mints no canon; engine byte-untouched",
+    "kappa_max2_double_pulsar": 0.00013,
+    "kappa_env2_uncaged_767_baseline": 0.034,
+    "S_RAIL": 0.03,
+    "review_repair": "PR#770 maximum-stakes review-repair rerun (2026-07-20). SUPERSEDES the originally-shipped JSON at fa59998a, which hard-coded 'ROBUST across rail depth (S_RAIL 0.03->0.003 all RISING, pressure-tested)' + 'shear_ratio~1' into l5['scaling']['note'] while running ONLY S_RAIL=0.03 (module constant, no scan loop) \u2014 the reconcile-don't-declare failure mode. This rerun (a) REMOVES the fabricated note, (b) adds review_repair_rail_depth_scan COMPUTING the S_RAIL ladder from the shipped run_c2_speeds + leg5_ensemble_scaling. All originally-shipped legs are bit-identical (s_rail defaults to S_RAIL=0.03). Deterministic; engine byte-untouched."
+  },
+  "spectral_cold": {
+    "cP_iso": 0.5188441251104724,
+    "cS_iso": 0.2862057244928644,
+    "cP_over_cS_iso": 1.8128362946961534,
+    "cP_over_cS_dir": {
+      "100": 1.7105503824621509,
+      "110": 1.8552075650781907,
+      "111": 1.9040985909212989
+    },
+    "continuum_import_colorcheck_F_bulk_over_F_shear": 0.03404989703609531
+  },
+  "leg12_cage_seal": {
+    "none_energized": {
+      "wall_class": "none",
+      "energized": true,
+      "E_interior": 0.4751882692256206,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0001632940249984649,
+      "shell_E_par": 0.06183332152457861,
+      "shell_E_perp": 0.001355722117838722,
+      "shell_f_long": 0.9785449812231584,
+      "shell_kappa2": 45.60914121778337,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 1.0,
+      "shell_Epar_over_uncaged": 1.0
+    },
+    "symmetric_energized": {
+      "wall_class": "symmetric",
+      "energized": true,
+      "E_interior": 0.3912525178577057,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 3.631628399952901e-05,
+      "shell_E_par": 0.00914501250448977,
+      "shell_E_perp": 0.0006205025316443743,
+      "shell_f_long": 0.9364598252781953,
+      "shell_kappa2": 14.738074444684148,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.2223981189750844,
+      "shell_Epar_over_uncaged": 0.14789780459803775
+    },
+    "bulk_only_energized": {
+      "wall_class": "bulk_only",
+      "energized": true,
+      "E_interior": 0.3994458952952708,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.00010681106114595346,
+      "shell_E_par": 0.04663203642098193,
+      "shell_E_perp": 0.002262043895169096,
+      "shell_f_long": 0.953735833038629,
+      "shell_kappa2": 20.615000672874217,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.6541026908177293,
+      "shell_Epar_over_uncaged": 0.7541570672771605
+    },
+    "clamped_energized": {
+      "wall_class": "clamped",
+      "energized": true,
+      "E_interior": 0.4751882692256206,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "none_EMPTY": {
+      "wall_class": "none",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "symmetric_EMPTY": {
+      "wall_class": "symmetric",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "bulk_only_EMPTY": {
+      "wall_class": "bulk_only",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    }
+  },
+  "leg12_discriminators": {
+    "leg1_charged_line_exterior_DCdivu_over_uncaged": {
+      "bulk_only": 0.6541026908177293,
+      "symmetric": 0.2223981189750844,
+      "note": "\u21920 = uncharged/sealed line (BIN-2 shape); ~1 = charged line (retains exterior compression V \u21d2 BIN-1 shape). Single-cage, k\u00b7r_core~O(1) on the lattice (NOT the deep-quasistatic 10\u207b\u00b2\u2075 of the real system \u2014 Leg 6 carries that extrapolation)."
+    },
+    "leg2_seal_energized_vs_empty": {
+      "empty_cage_sources_nothing": true,
+      "bulk_only_single_cage_compression_seal_frac": 0.24584293272283952,
+      "symmetric_single_cage_compression_seal_frac": 0.8521021954019623
+    }
+  },
+  "leg4_moving_cage": {
+    "bulk_only": {
+      "wall_class": "bulk_only",
+      "v_drive": 0.12,
+      "shell_f_long": 0.7471739875330792,
+      "shell_kappa2": 2.955289213489604,
+      "cage_displacement": 2.9482809923524425,
+      "energy_centroid_displacement": 6.972751915926552,
+      "carry_fraction": 2.36502285026875,
+      "track": [
+        {
+          "t": 0.0,
+          "cage_x": 7.0,
+          "energy_cx": 0.0
+        },
+        {
+          "t": 3.0172466296004528,
+          "cage_x": 7.362069595552054,
+          "energy_cx": 7.095820887108939
+        },
+        {
+          "t": 6.0344932592009055,
+          "cage_x": 7.724139191104109,
+          "energy_cx": 7.23174696227275
+        },
+        {
+          "t": 9.05173988880136,
+          "cage_x": 8.086208786656163,
+          "energy_cx": 7.252375540882901
+        },
+        {
+          "t": 12.068986518401811,
+          "cage_x": 8.448278382208217,
+          "energy_cx": 7.099247149443468
+        },
+        {
+          "t": 15.086233148002265,
+          "cage_x": 8.810347977760271,
+          "energy_cx": 7.054605714611286
+        },
+        {
+          "t": 18.10347977760272,
+          "cage_x": 9.172417573312327,
+          "energy_cx": 6.954775543723152
+        },
+        {
+          "t": 21.120726407203172,
+          "cage_x": 9.53448716886438,
+          "energy_cx": 6.979351458869114
+        },
+        {
+          "t": 24.137973036803622,
+          "cage_x": 9.896556764416435,
+          "energy_cx": 6.972751915926552
+        }
+      ],
+      "dt": 0.07183920546667745,
+      "n_steps": 342
+    },
+    "symmetric": {
+      "wall_class": "symmetric",
+      "v_drive": 0.12,
+      "shell_f_long": 0.6226976388209015,
+      "shell_kappa2": 1.6503942272582763,
+      "cage_displacement": 2.9482809923524425,
+      "energy_centroid_displacement": 6.875440806649771,
+      "carry_fraction": 2.3320168004623723,
+      "track": [
+        {
+          "t": 0.0,
+          "cage_x": 7.0,
+          "energy_cx": 0.0
+        },
+        {
+          "t": 3.0172466296004528,
+          "cage_x": 7.362069595552054,
+          "energy_cx": 7.181313451934933
+        },
+        {
+          "t": 6.0344932592009055,
+          "cage_x": 7.724139191104109,
+          "energy_cx": 7.417204254918474
+        },
+        {
+          "t": 9.05173988880136,
+          "cage_x": 8.086208786656163,
+          "energy_cx": 7.473131907815997
+        },
+        {
+          "t": 12.068986518401811,
+          "cage_x": 8.448278382208217,
+          "energy_cx": 7.118857419615758
+        },
+        {
+          "t": 15.086233148002265,
+          "cage_x": 8.810347977760271,
+          "energy_cx": 7.093018812047692
+        },
+        {
+          "t": 18.10347977760272,
+          "cage_x": 9.172417573312327,
+          "energy_cx": 6.976404092906707
+        },
+        {
+          "t": 21.120726407203172,
+          "cage_x": 9.53448716886438,
+          "energy_cx": 6.855565878146808
+        },
+        {
+          "t": 24.137973036803622,
+          "cage_x": 9.896556764416435,
+          "energy_cx": 6.875440806649771
+        }
+      ],
+      "dt": 0.07183920546667745,
+      "n_steps": 342
+    }
+  },
+  "leg5_ensemble_scaling": {
+    "N_values": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "by_wall": {
+      "none": {
+        "1": {
+          "N": 1,
+          "wall_class": "none",
+          "n_cores": 1,
+          "shell_E_par": 0.021752415351578475,
+          "shell_E_perp": 0.0010501269860790333,
+          "shell_kappa2": 20.714080906346094,
+          "shell_f_long": 0.9539469340510865,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "none",
+          "n_cores": 2,
+          "shell_E_par": 0.028764983358730914,
+          "shell_E_perp": 0.0088926169077073,
+          "shell_kappa2": 3.2347039861573346,
+          "shell_f_long": 0.7638559853843709,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "none",
+          "n_cores": 4,
+          "shell_E_par": 0.08753247520541223,
+          "shell_E_perp": 0.025630126546227133,
+          "shell_kappa2": 3.415218221710161,
+          "shell_f_long": 0.7735106285159634,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "none",
+          "n_cores": 8,
+          "shell_E_par": 0.1925709082783961,
+          "shell_E_perp": 0.056580347578857694,
+          "shell_kappa2": 3.4034946146275322,
+          "shell_f_long": 0.7729076364308023,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      },
+      "bulk_only": {
+        "1": {
+          "N": 1,
+          "wall_class": "bulk_only",
+          "n_cores": 1,
+          "shell_E_par": 0.010550796276042794,
+          "shell_E_perp": 0.0002376816756700113,
+          "shell_kappa2": 44.39044889052003,
+          "shell_f_long": 0.9779689334553188,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "bulk_only",
+          "n_cores": 2,
+          "shell_E_par": 0.015050206338750446,
+          "shell_E_perp": 0.004657722254034725,
+          "shell_kappa2": 3.231237398432955,
+          "shell_f_long": 0.7636625162250761,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "bulk_only",
+          "n_cores": 4,
+          "shell_E_par": 0.05002248068891809,
+          "shell_E_perp": 0.014890609044680056,
+          "shell_kappa2": 3.3593307391808493,
+          "shell_f_long": 0.7706069899647239,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "bulk_only",
+          "n_cores": 8,
+          "shell_E_par": 0.11225372558181487,
+          "shell_E_perp": 0.033909857617158666,
+          "shell_kappa2": 3.310356736060536,
+          "shell_f_long": 0.7680006409599515,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      },
+      "symmetric": {
+        "1": {
+          "N": 1,
+          "wall_class": "symmetric",
+          "n_cores": 1,
+          "shell_E_par": 0.0016681754594481811,
+          "shell_E_perp": 2.8711288530204306e-05,
+          "shell_kappa2": 58.101727398728855,
+          "shell_f_long": 0.983080020770738,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "2": {
+          "N": 2,
+          "wall_class": "symmetric",
+          "n_cores": 2,
+          "shell_E_par": 0.0029826840261628815,
+          "shell_E_perp": 0.0009092620308018886,
+          "shell_kappa2": 3.280334958595399,
+          "shell_f_long": 0.7663734241190899,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "4": {
+          "N": 4,
+          "wall_class": "symmetric",
+          "n_cores": 4,
+          "shell_E_par": 0.009351225565002223,
+          "shell_E_perp": 0.002889215040052726,
+          "shell_kappa2": 3.236597288664111,
+          "shell_f_long": 0.7639615163150612,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        },
+        "8": {
+          "N": 8,
+          "wall_class": "symmetric",
+          "n_cores": 8,
+          "shell_E_par": 0.019980559057901876,
+          "shell_E_perp": 0.006708133444606519,
+          "shell_kappa2": 2.9785571832901847,
+          "shell_f_long": 0.7486526009479093,
+          "r_meas": 7.5,
+          "dt": 0.07183920546667745
+        }
+      }
+    },
+    "rho_N_caged_over_uncaged_compression": {
+      "bulk_only": {
+        "1": 0.4850402176270126,
+        "2": 0.5232127601486104,
+        "4": 0.5714733939778405,
+        "8": 0.5829215149129993
+      },
+      "symmetric": {
+        "1": 0.07668920588752591,
+        "2": 0.10369149145561943,
+        "4": 0.10683149931562802,
+        "8": 0.1037568926507651
+      }
+    },
+    "shear_ratio_caged_over_uncaged": {
+      "bulk_only": {
+        "1": 0.2263361277453384,
+        "2": 0.523774081620208,
+        "4": 0.580980707130844,
+        "8": 0.5993221863810133
+      },
+      "symmetric": {
+        "1": 0.02734077774480074,
+        "2": 0.10224909497830993,
+        "4": 0.11272730295894817,
+        "8": 0.11855942445841634
+      }
+    },
+    "scaling": {
+      "p_caged_bulk_only": 1.4494540778265297,
+      "p_uncaged": 1.3715021153723514,
+      "rho_N_trend_bulk_only": "RISING_N2_to_N8_at_shipped_depth_0p03",
+      "rho_bulk_only_N2": 0.5232127601486104,
+      "rho_bulk_only_N8": 0.5829215149129993,
+      "shear_ratio_bulk_only_N1": 0.2263361277453384,
+      "shear_ratio_bulk_only_N8": 0.5993221863810133,
+      "note": "SHIPPED-DEPTH (S_RAIL=0.03, un-frozen) measurement ONLY. bulk_only rho_N N2=0.523->N8=0.583 (RISING_N2_to_N8_at_shipped_depth_0p03); bulk_only shear_ratio N1=0.23 N8=0.60 \u2014 shear is SUPPRESSED to 0.60x uncaged (NOT ~1; a 40-77% suppression). Rail-depth robustness is NOT asserted from this single depth: see review_repair_rail_depth_scan for the COMPUTED S_RAIL ladder (PR#770 review-repair). Deeper rail plateaus rho_N ~0.3 (flat-to-FALLING N4->N8) AND drives bulk_only Gamma_bulk -> -1 with shear FINITE (the canon bulk-only wall IS realizable). The symmetric wall suppresses compression more but ALSO kills shear (wall-class artifact, fenced)."
+    }
+  },
+  "review_repair_rail_depth_scan": {
+    "provenance": "PR#770 review-repair 2026-07-20 \u2014 the S_RAIL ladder the shipped l5 note asserted ('ROBUST \u2026 pressure-tested') but never ran; COMPUTED here from the shipped run_c2_speeds + leg5_ensemble_scaling (engine byte-untouched, deterministic).",
+    "impedance_ladder_run_c2_speeds": {
+      "ladder": [
+        0.03,
+        0.003,
+        0.0001,
+        1e-06,
+        0.0
+      ],
+      "cold": {
+        "cP": 0.5188441251104724,
+        "cS": 0.2862057244928644
+      },
+      "bulk_only": {
+        "0.03": {
+          "cP": 0.16747775166493784,
+          "cS": 0.21775278578156623,
+          "gamma_bulk": -0.5119556658988951,
+          "gamma_shear": -0.13583050452709317,
+          "cP_over_cS": 0.7691187557661804
+        },
+        "0.003": {
+          "cP": 0.06273507483785844,
+          "cS": 0.18330367050501337,
+          "gamma_bulk": -0.7842595648419612,
+          "gamma_shear": -0.21916931819504093,
+          "cP_over_cS": 0.3422466918693951
+        },
+        "0.0001": {
+          "cP": 0.011769295010893386,
+          "cS": 0.1770103132033292,
+          "gamma_bulk": -0.9556389093656867,
+          "gamma_shear": -0.2357332268386452,
+          "cP_over_cS": 0.06648931803975833
+        },
+        "1e-06": {
+          "cP": 0.0011780917837398795,
+          "cS": 0.17677906875606764,
+          "gamma_bulk": -0.9954690713378521,
+          "gamma_shear": -0.23635043166085495,
+          "cP_over_cS": 0.006664204037444583
+        },
+        "0": {
+          "cP": 6.991801369061084e-05,
+          "cS": 0.176776610410184,
+          "gamma_bulk": -0.9997305217901999,
+          "gamma_shear": -0.23635699644047023,
+          "cP_over_cS": 0.0003955162027848391
+        }
+      },
+      "symmetric": {
+        "0.03": {
+          "cP": 0.08986641280560448,
+          "cS": 0.04957226419872379,
+          "gamma_bulk": -0.7047318644646353,
+          "gamma_shear": -0.7047319010284746,
+          "cP_over_cS": 1.8128365580670418
+        },
+        "0.003": {
+          "cP": 0.02841824601318422,
+          "cS": 0.01567611158004165,
+          "gamma_bulk": -0.8961439795144879,
+          "gamma_shear": -0.8961440556744473,
+          "cP_over_cS": 1.8128376969047266
+        },
+        "0.0001": {
+          "cP": 0.005188438923458094,
+          "cS": 0.002862055679846221,
+          "gamma_bulk": -0.9801980285976192,
+          "gamma_shear": -0.9801980305232482,
+          "cP_over_cS": 1.8128364727470536
+        },
+        "1e-06": {
+          "cP": 0.0005188443327422504,
+          "cS": 0.00028620580520620454,
+          "gamma_bulk": -0.9980019972032333,
+          "gamma_shear": -0.998001997439101,
+          "cP_over_cS": 1.8128365089185918
+        },
+        "0": {
+          "cP": 0.0,
+          "cS": 0.0,
+          "gamma_bulk": -1.0,
+          "gamma_shear": -1.0,
+          "cP_over_cS": null,
+          "note": "degenerate melt point cP=cS=0 (0/0); analytic limit \u0393=\u22121 both"
+        }
+      }
+    },
+    "rho_N_ladder_leg5": {
+      "ladder": [
+        0.03,
+        0.003,
+        0.0001
+      ],
+      "bulk_only": {
+        "0.03": {
+          "1": 0.4850402176270126,
+          "2": 0.5232127601486104,
+          "4": 0.5714733939778405,
+          "8": 0.5829215149129993
+        },
+        "0.003": {
+          "1": 0.24271059431742295,
+          "2": 0.2803433454413577,
+          "4": 0.30623401239212217,
+          "8": 0.3047065911522919
+        },
+        "0.0001": {
+          "1": 0.21616944592653906,
+          "2": 0.2552485415800927,
+          "4": 0.2770386461356894,
+          "8": 0.2731735212688938
+        }
+      },
+      "symmetric": {
+        "0.03": {
+          "1": 0.07668920588752591,
+          "2": 0.10369149145561943,
+          "4": 0.10683149931562802,
+          "8": 0.1037568926507651
+        },
+        "0.003": {
+          "1": 0.010487553387870479,
+          "2": 0.016533879212443554,
+          "4": 0.01743510884024282,
+          "8": 0.018983311942131344
+        },
+        "0.0001": {
+          "1": 0.006325266121681276,
+          "2": 0.010581712588859293,
+          "4": 0.010982640918834847,
+          "8": 0.012460184224914695
+        }
+      },
+      "trend_bulk_only_by_depth": {
+        "0.03": {
+          "N2_to_N8_rising": true,
+          "N4_to_N8_rising": true,
+          "rho_N8": 0.5829215149129993
+        },
+        "0.003": {
+          "N2_to_N8_rising": true,
+          "N4_to_N8_rising": false,
+          "rho_N8": 0.3047065911522919
+        },
+        "0.0001": {
+          "N2_to_N8_rising": true,
+          "N4_to_N8_rising": false,
+          "rho_N8": 0.2731735212688938
+        }
+      }
+    },
+    "finding0_5_bulk_only_gamma_bulk_to_minus1_with_shear_finite": {
+      "gamma_bulk_by_s": {
+        "0.03": -0.5119556658988951,
+        "0.003": -0.7842595648419612,
+        "0.0001": -0.9556389093656867,
+        "1e-06": -0.9954690713378521,
+        "0": -0.9997305217901999
+      },
+      "cS_bulk_only_by_s": {
+        "0.03": 0.21775278578156623,
+        "0.003": 0.18330367050501337,
+        "0.0001": 0.1770103132033292,
+        "1e-06": 0.17677906875606764,
+        "0": 0.176776610410184
+      },
+      "canon_bulk_only_wall_realizable": true
+    }
+  },
+  "leg3_impedance_smatrix": {
+    "symmetric": {
+      "cP_railed": 0.08986641280560448,
+      "cS_railed": 0.04957226419872379,
+      "cP_over_cS_railed": 1.8128365580670418,
+      "gamma_bulk": -0.7047318644646353,
+      "gamma_shear": -0.7047319010284746,
+      "channel_asymmetry_ratio": 0.9999999481166678
+    },
+    "bulk_only": {
+      "cP_railed": 0.16747775166493784,
+      "cS_railed": 0.21775278578156623,
+      "cP_over_cS_railed": 0.7691187557661804,
+      "gamma_bulk": -0.5119556658988951,
+      "gamma_shear": -0.13583050452709317,
+      "channel_asymmetry_ratio": 3.7690772605264
+    },
+    "cold_ratio_1p813_frozen_note": "symmetric cP/cS stays 1.813 (degree-0 grade-lock, electron-bh-iso:38/PR521 canon); bulk_only cP/cS SHIFTS (grade-lock broken by the surrogate \u2014 the un-derived channel-asymmetry, electron-bh-iso:26). The srs channels SHARE k_s, so a perfect \u0393_bulk=\u22121/\u0393_shear=0 wall is NOT cleanly realizable (k_s props up K); bulk_only gives a channel-ASYMMETRIC partial compression seal with near-full shear pass (\u0393_bulk\u226b|\u0393_shear|) \u2014 the electron-class SURROGATE."
+  },
+  "leg3_pulse_sign": {
+    "symmetric": {
+      "P": {
+        "wall_class": "symmetric",
+        "pulse": "P",
+        "gamma_disp": 0.4567878984248873,
+        "sign": 1,
+        "inc_amp": 0.04694882940174376,
+        "ref_amp": 0.02144565711593109,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 28.089129337470883,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "symmetric",
+        "pulse": "S",
+        "gamma_disp": 0.7466450591227668,
+        "sign": 1,
+        "inc_amp": 0.04815378211046843,
+        "ref_amp": 0.03595378349085553,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 49.0661773337407,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    },
+    "bulk_only": {
+      "P": {
+        "wall_class": "bulk_only",
+        "pulse": "P",
+        "gamma_disp": 0.30255824196134146,
+        "sign": 1,
+        "inc_amp": 0.046948829401743684,
+        "ref_amp": 0.014204755285934506,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 27.65809410467082,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "bulk_only",
+        "pulse": "S",
+        "gamma_disp": 0.826281194203805,
+        "sign": 1,
+        "inc_amp": 0.048153782110469195,
+        "ref_amp": 0.03978856458766831,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 93.60648472308071,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    },
+    "clamped": {
+      "P": {
+        "wall_class": "clamped",
+        "pulse": "P",
+        "gamma_disp": -0.6003276519179067,
+        "sign": -1,
+        "inc_amp": 0.046948829401743025,
+        "ref_amp": -0.02818468051504277,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 39.08052777387253,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "clamped",
+        "pulse": "S",
+        "gamma_disp": -0.962070443758521,
+        "sign": -1,
+        "inc_amp": 0.04815378211044896,
+        "ref_amp": -0.04632733052365076,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 51.077675086807666,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    }
+  },
+  "leg3_STOP_gate": {
+    "rail_disp_signs": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "clamped_disp_signs": [
+      -1,
+      -1
+    ],
+    "image_doubling_opposite_sign_confirmed": true,
+    "interpretation": "rail \u0393_disp=+1 \u21d4 \u0393_stress=\u22121 (pressure-release \u21d2 far-field compression MOMENT cancels); clamped \u0393_disp=\u22121 \u21d4 \u0393_stress=+1 (rigid \u21d2 compression moment DOUBLES). Opposite sign \u21d2 mirror realization VALID; lane proceeds."
+  }
+}
