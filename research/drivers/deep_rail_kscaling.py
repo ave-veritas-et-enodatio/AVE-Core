@@ -410,8 +410,21 @@ def legK_driven_kscan(L, cP, s_rail, N=1, drift_gate=0.30):
         conv[f"settle{nsc:g}cross"] = {"rho_N": p["rho_N"], "drift": p["energy_drift_win"]}
     conv["settle_stability_delta_rho_N"] = abs(conv["settle5cross"]["rho_N"]
                                                - conv["settle7cross"]["rho_N"])
-    # pooled admissible fit
-    adm = [p for p in route_omega + route_rcage if p["admissible"]]
+    # pooled admissible fit — DEDUP the config emitted by BOTH routes before fitting.
+    # The reference config (Omega=0.65, r_cage=1.6) is produced by route_omega (Om=0.65 at
+    # r_cage=1.6) AND route_rcage (r_cage=1.6 at Om=0.65) -> the same run, bit-identical
+    # (k.r_core=2.004, rho_N=1.023). Counting it twice inflates the AICc small-sample n.
+    # (PR #775 review R4 / finding 3: 8 unique of 9 admissible rows, 10 unique of 11 total;
+    #  every fit conclusion is invariant under the dedup.)
+    adm_rows = [p for p in route_omega + route_rcage if p["admissible"]]
+    _seen = set()
+    adm = []
+    for p in adm_rows:
+        key = (round(p["Omega"], 9), round(p["r_cage"], 9))
+        if key in _seen:
+            continue
+        _seen.add(key)
+        adm.append(p)
     krc = [p["k_rcore"] for p in adm]
     rho = [p["rho_N"] for p in adm]
     fit = fit_forms(krc, rho) if len(krc) >= 3 else {"n_admissible": len(krc),
@@ -421,6 +434,7 @@ def legK_driven_kscan(L, cP, s_rail, N=1, drift_gate=0.30):
     return {"s_rail": s_rail, "N": N, "drift_gate": drift_gate,
             "route_omega": route_omega, "route_rcage": route_rcage,
             "convergence_probe": conv, "fit": fit, "route_collapse": collapse,
+            "n_admissible_rows": len(adm_rows), "n_unique_admissible": len(adm),
             "n_admissible": len(adm)}
 
 
@@ -569,7 +583,8 @@ def main():
           " ".join("s=%s->%+.4f" % (s, lw["bulk_only"][f"{s:g}"]["gamma_bulk"]) for s in lw["ladder"]),
           "| c_S(s=0)=%.4f FINITE | canon wall realizable: %s" % (
               lw["bulk_only"]["0"]["cS"], lw["canon_bulk_only_wall_realizable"]))
-    print("LEG K (driven radiative rho_N, s=1e-4): n_admissible=%d (drift-gate<=0.30)" % lk["n_admissible"])
+    print("LEG K (driven radiative rho_N, s=1e-4): n_admissible_rows=%d n_unique=%d (drift-gate<=0.30; dedup shared config)" % (
+        lk["n_admissible_rows"], lk["n_unique_admissible"]))
     for p in lk["route_omega"]:
         print("   Route-Om k.rc=%.3f rho_N=%.4f sigma_N=%.3f drift=%.2e %s" % (
             p["k_rcore"], p["rho_N"], p["sigma_N"], p["energy_drift_win"],
