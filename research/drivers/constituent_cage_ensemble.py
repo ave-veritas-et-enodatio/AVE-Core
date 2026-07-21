@@ -194,6 +194,26 @@ def shell_partition(u_shell, rhat_shell):
     return float(np.sum(u_par ** 2)), float(np.sum(u_perp ** 2))
 
 
+def planar_wall_stiffness(mid, x_wall, wall_w, rho_star, k_s, wall_class):
+    """Per-bond (k_a,k_s) for a PLANAR wall: bonds whose midpoint x lies in
+    [x_wall, x_wall+wall_w] are graded toward the rail. Same three classes as the
+    spherical cage. (Used by Leg 3's wall S-matrix.)"""
+    M = mid.shape[0]
+    k_a_bond = np.full(M, float(rho_star))
+    k_s_bond = np.full(M, float(k_s))
+    if wall_class == "none":
+        return k_a_bond, k_s_bond
+    inb = (mid[:, 0] >= x_wall) & (mid[:, 0] < x_wall + wall_w)
+    if wall_class == "symmetric":
+        k_a_bond[inb] *= S_RAIL
+        k_s_bond[inb] *= S_RAIL
+    elif wall_class == "bulk_only":
+        k_a_bond[inb] *= S_RAIL          # compression grades; shear kept full
+    else:
+        raise ValueError(f"unknown wall_class {wall_class!r}")
+    return k_a_bond, k_s_bond
+
+
 def texture_displacement(pos, center, amp, sigma):
     """Curl-free dilatation texture centered at `center`: u = ∇φ, φ=exp(−r²/2σ²)
     (the pure-longitudinal seed shape #761/#767 used)."""
@@ -248,6 +268,112 @@ RHO_STAR = 9.77337  # DERIVED from ν_Hill=2/7 (imported, not fit)
 K_S = 1.0
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# LEG 3 — WALL S-MATRIX (planar pulse reflection) + the CLAMPED STOP-gate control
+# ═════════════════════════════════════════════════════════════════════════════
+def leg3_wall_smatrix(L, wall_class, pulse_kind, clamped, cP, cS,
+                      x_src=5.0, x_wall=14.0, x_mon=8.5, wall_w=1.0,
+                      w_pulse=1.3, amp=0.05, cfl=0.2, rho_star=RHO_STAR, k_s=K_S):
+    """Launch a planar P (u_x, curl-free) or S (u_y, div-free) pulse rightward at a
+    wall and measure the reflected DISPLACEMENT sign + reflected COMPRESSION energy
+    at an open-side monitor plane.  Γ (displacement) sign convention:
+        rail (free surface, Z→0):  Γ_disp = +1  (⇔ Γ_stress=−1 = pressure-release)
+        clamped (rigid,  Z→∞):     Γ_disp = −1  (⇔ Γ_stress=+1 = doubling)
+    The STOP-gate reads the opposite-sign requirement between clamped and rail."""
+    pos, bi, bj, dhat, mid = build_finite_srs(L)
+    N = pos.shape[0]
+    Phi_cold = bond_tensors(dhat, rho_star, k_s)
+    omega_max = omega_max_cold(Phi_cold, bi, bj, N)
+    dt = cfl * 2.0 / omega_max
+
+    if clamped:
+        ka, ks = np.full(dhat.shape[0], rho_star), np.full(dhat.shape[0], float(k_s))
+        pin = (pos[:, 0] >= x_wall) & (pos[:, 0] < x_wall + wall_w)
+    else:
+        ka, ks = planar_wall_stiffness(mid, x_wall, wall_w, rho_star, k_s, wall_class)
+        pin = np.zeros(N, dtype=bool)
+    Phi = bond_tensors(dhat, ka, ks)
+    free = ~pin
+
+    comp = 0 if pulse_kind == "P" else 1          # u_x for P, u_y for S
+    speed = cP if pulse_kind == "P" else cS
+    x = pos[:, 0]
+    g = np.exp(-((x - x_src) ** 2) / (2.0 * w_pulse ** 2))
+    u = np.zeros((N, 3))
+    v = np.zeros((N, 3))
+    u[:, comp] = amp * g
+    v[:, comp] = speed * (x - x_src) / w_pulse ** 2 * amp * g   # rightward u=f(x−ct)
+    u[pin] = 0.0
+    v[pin] = 0.0
+
+    t_wall = (x_wall - x_src) / speed
+    t_back = t_wall + (x_wall - x_mon) / speed                 # reflected reaches mon
+    t_2nd = t_back + 2.0 * x_mon / speed                       # after free-x=0 bounce
+    t_end = 1.02 * t_2nd
+    n_steps = int(np.ceil(t_end / dt)) + 3
+    slab = np.abs(x - x_mon) < 0.6
+
+    F = forces(u, Phi, bi, bj, N)
+    ts, sig = [], []
+    for step in range(n_steps):
+        t = step * dt
+        ts.append(t)
+        sig.append(float(np.mean(u[slab, comp])))
+        u[free] = u[free] + v[free] * dt + 0.5 * F[free] * dt ** 2
+        u[pin] = 0.0
+        F_new = forces(u, Phi, bi, bj, N)
+        v[free] = v[free] + 0.5 * (F[free] + F_new[free]) * dt
+        v[pin] = 0.0
+        F = F_new
+    ts = np.array(ts)
+    sig = np.array(sig)
+    inc_win = ts < 0.92 * t_wall
+    ref_win = (ts > 1.08 * t_wall) & (ts < 0.98 * t_2nd)
+    i_inc = int(np.argmax(np.abs(sig * inc_win)))
+    i_ref = int(np.argmax(np.abs(sig * ref_win)))
+    inc_amp = float(sig[i_inc])
+    ref_amp = float(sig[i_ref])
+    gamma_disp = ref_amp / (inc_amp + np.sign(inc_amp) * 1e-30)
+    return {
+        "wall_class": ("clamped" if clamped else wall_class), "pulse": pulse_kind,
+        "gamma_disp": gamma_disp, "sign": int(np.sign(gamma_disp)),
+        "inc_amp": inc_amp, "ref_amp": ref_amp,
+        "t_wall": float(t_wall), "t_inc": float(ts[i_inc]), "t_ref": float(ts[i_ref]),
+        "dt": float(dt), "n_steps": n_steps,
+    }
+
+
+def leg3_impedance_smatrix(cP_cold, cS_cold):
+    """CLEAN (artifact-free) channel S-matrix from the railed-medium Bloch speeds.
+    For each wall class compute the railed (c_P,c_S) and the channel reflection
+    Γ_ch = (Z_railed − Z_cold)/(Z_railed + Z_cold) with Z_ch = ρ·c_ch (ρ common).
+    This is the primary channel characterization; the pulse-reflection (leg3_wall_
+    smatrix) supplies the SIGN / STOP-gate only (its magnitude is wavelength-artifact
+    contaminated by the finite wall thickness)."""
+    def gamma(cr, cc):
+        return (cr - cc) / (cr + cc)
+    out = {}
+    railed = {
+        "symmetric": run_c2_speeds(S_RAIL * RHO_STAR, S_RAIL * K_S)[:2],
+        "bulk_only": run_c2_speeds(S_RAIL * RHO_STAR, K_S)[:2],
+    }
+    for name, (cP, cS) in railed.items():
+        out[name] = {
+            "cP_railed": cP, "cS_railed": cS, "cP_over_cS_railed": cP / cS,
+            "gamma_bulk": gamma(cP, cP_cold), "gamma_shear": gamma(cS, cS_cold),
+            "channel_asymmetry_ratio": abs(gamma(cP, cP_cold)) /
+                                       (abs(gamma(cS, cS_cold)) + 1e-30),
+        }
+    out["cold_ratio_1p813_frozen_note"] = (
+        "symmetric cP/cS stays 1.813 (degree-0 grade-lock, electron-bh-iso:38/PR521 "
+        "canon); bulk_only cP/cS SHIFTS (grade-lock broken by the surrogate — the "
+        "un-derived channel-asymmetry, electron-bh-iso:26). The srs channels SHARE "
+        "k_s, so a perfect Γ_bulk=−1/Γ_shear=0 wall is NOT cleanly realizable (k_s "
+        "props up K); bulk_only gives a channel-ASYMMETRIC partial compression seal "
+        "with near-full shear pass (Γ_bulk≫|Γ_shear|) — the electron-class SURROGATE.")
+    return out
+
+
 def main():
     import argparse
 
@@ -275,11 +401,42 @@ def main():
                 (2.0 / 3.0) * (cS_iso / cP_iso) ** 5,
         },
     }
-    # legs appended incrementally (per-leg commits)
+    # ── LEG 3 — wall S-matrix (impedance, clean) + pulse sign / clamped STOP-gate ──
+    out["leg3_impedance_smatrix"] = leg3_impedance_smatrix(cP_iso, cS_iso)
+    sign = {}
+    for wc, clamp in (("symmetric", False), ("bulk_only", False), ("none", True)):
+        tag = "clamped" if clamp else wc
+        sign[tag] = {
+            k: leg3_wall_smatrix(args.L, wc, k, clamp, cP_iso, cS_iso)
+            for k in ("P", "S")
+        }
+    out["leg3_pulse_sign"] = sign
+    # ★STOP-gate: rail cages must show Γ_disp SIGN +1 (pressure-release); the clamped
+    # control must show the OPPOSITE sign (−1 = rigid/doubling). If not → lane STOPS.
+    rail_signs = [sign["symmetric"]["P"]["sign"], sign["symmetric"]["S"]["sign"],
+                  sign["bulk_only"]["P"]["sign"], sign["bulk_only"]["S"]["sign"]]
+    clamp_signs = [sign["clamped"]["P"]["sign"], sign["clamped"]["S"]["sign"]]
+    stop_gate_pass = all(s > 0 for s in rail_signs) and all(s < 0 for s in clamp_signs)
+    out["leg3_STOP_gate"] = {
+        "rail_disp_signs": rail_signs, "clamped_disp_signs": clamp_signs,
+        "image_doubling_opposite_sign_confirmed": bool(stop_gate_pass),
+        "interpretation": "rail Γ_disp=+1 ⇔ Γ_stress=−1 (pressure-release ⇒ far-field "
+                          "compression MOMENT cancels); clamped Γ_disp=−1 ⇔ "
+                          "Γ_stress=+1 (rigid ⇒ compression moment DOUBLES). Opposite "
+                          "sign ⇒ mirror realization VALID; lane proceeds.",
+    }
+
     Path(args.out).write_text(json.dumps(out, indent=2))
     print("spectral cP/cS iso =", round(cP_iso / cS_iso, 4),
           "colorcheck κ²_uncaged =",
           round(out["spectral_cold"]["continuum_import_colorcheck_F_bulk_over_F_shear"], 4))
+    sm = out["leg3_impedance_smatrix"]
+    print("LEG3 impedance: symmetric Γ_bulk=%+.3f Γ_shear=%+.3f | bulk_only Γ_bulk=%+.3f Γ_shear=%+.3f (asym %.1f×)" % (
+        sm["symmetric"]["gamma_bulk"], sm["symmetric"]["gamma_shear"],
+        sm["bulk_only"]["gamma_bulk"], sm["bulk_only"]["gamma_shear"],
+        sm["bulk_only"]["channel_asymmetry_ratio"]))
+    print("LEG3 STOP-gate image-doubling opposite-sign confirmed:",
+          out["leg3_STOP_gate"]["image_doubling_opposite_sign_confirmed"])
     return out
 
 

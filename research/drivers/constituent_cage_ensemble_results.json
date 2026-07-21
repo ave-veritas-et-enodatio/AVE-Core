@@ -1,0 +1,138 @@
+{
+  "provenance": {
+    "class": "constituent-cage-ensemble adjudicator; cages by CONSTITUTIVE GRADING (no kinematic pin on source path); clamped = negative control (image-doubling STOP-gate); mints no canon; engine byte-untouched",
+    "kappa_max2_double_pulsar": 0.00013,
+    "kappa_env2_uncaged_767_baseline": 0.034,
+    "S_RAIL": 0.03
+  },
+  "spectral_cold": {
+    "cP_iso": 0.5188441251104724,
+    "cS_iso": 0.2862057244928644,
+    "cP_over_cS_iso": 1.8128362946961534,
+    "cP_over_cS_dir": {
+      "100": 1.7105503824621509,
+      "110": 1.8552075650781907,
+      "111": 1.9040985909212989
+    },
+    "continuum_import_colorcheck_F_bulk_over_F_shear": 0.03404989703609531
+  },
+  "leg3_impedance_smatrix": {
+    "symmetric": {
+      "cP_railed": 0.08986641280560448,
+      "cS_railed": 0.04957226419872379,
+      "cP_over_cS_railed": 1.8128365580670418,
+      "gamma_bulk": -0.7047318644646353,
+      "gamma_shear": -0.7047319010284746,
+      "channel_asymmetry_ratio": 0.9999999481166678
+    },
+    "bulk_only": {
+      "cP_railed": 0.16747775166493784,
+      "cS_railed": 0.21775278578156623,
+      "cP_over_cS_railed": 0.7691187557661804,
+      "gamma_bulk": -0.5119556658988951,
+      "gamma_shear": -0.13583050452709317,
+      "channel_asymmetry_ratio": 3.7690772605264
+    },
+    "cold_ratio_1p813_frozen_note": "symmetric cP/cS stays 1.813 (degree-0 grade-lock, electron-bh-iso:38/PR521 canon); bulk_only cP/cS SHIFTS (grade-lock broken by the surrogate \u2014 the un-derived channel-asymmetry, electron-bh-iso:26). The srs channels SHARE k_s, so a perfect \u0393_bulk=\u22121/\u0393_shear=0 wall is NOT cleanly realizable (k_s props up K); bulk_only gives a channel-ASYMMETRIC partial compression seal with near-full shear pass (\u0393_bulk\u226b|\u0393_shear|) \u2014 the electron-class SURROGATE."
+  },
+  "leg3_pulse_sign": {
+    "symmetric": {
+      "P": {
+        "wall_class": "symmetric",
+        "pulse": "P",
+        "gamma_disp": 0.4567878984248873,
+        "sign": 1,
+        "inc_amp": 0.04694882940174376,
+        "ref_amp": 0.02144565711593109,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 28.089129337470883,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "symmetric",
+        "pulse": "S",
+        "gamma_disp": 0.7466450591227668,
+        "sign": 1,
+        "inc_amp": 0.04815378211046843,
+        "ref_amp": 0.03595378349085553,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 49.0661773337407,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    },
+    "bulk_only": {
+      "P": {
+        "wall_class": "bulk_only",
+        "pulse": "P",
+        "gamma_disp": 0.30255824196134146,
+        "sign": 1,
+        "inc_amp": 0.046948829401743684,
+        "ref_amp": 0.014204755285934506,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 27.65809410467082,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "bulk_only",
+        "pulse": "S",
+        "gamma_disp": 0.826281194203805,
+        "sign": 1,
+        "inc_amp": 0.048153782110469195,
+        "ref_amp": 0.03978856458766831,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 93.60648472308071,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    },
+    "clamped": {
+      "P": {
+        "wall_class": "clamped",
+        "pulse": "P",
+        "gamma_disp": -0.6003276519179067,
+        "sign": -1,
+        "inc_amp": 0.046948829401743025,
+        "ref_amp": -0.02818468051504277,
+        "t_wall": 17.34625018271859,
+        "t_inc": 7.183920546667745,
+        "t_ref": 39.08052777387253,
+        "dt": 0.07183920546667745,
+        "n_steps": 866
+      },
+      "S": {
+        "wall_class": "clamped",
+        "pulse": "S",
+        "gamma_disp": -0.962070443758521,
+        "sign": -1,
+        "inc_amp": 0.04815378211044896,
+        "ref_amp": -0.04632733052365076,
+        "t_wall": 31.445911908112045,
+        "t_inc": 11.997147312935134,
+        "t_ref": 51.077675086807666,
+        "dt": 0.07183920546667745,
+        "n_steps": 1566
+      }
+    }
+  },
+  "leg3_STOP_gate": {
+    "rail_disp_signs": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "clamped_disp_signs": [
+      -1,
+      -1
+    ],
+    "image_doubling_opposite_sign_confirmed": true,
+    "interpretation": "rail \u0393_disp=+1 \u21d4 \u0393_stress=\u22121 (pressure-release \u21d2 far-field compression MOMENT cancels); clamped \u0393_disp=\u22121 \u21d4 \u0393_stress=+1 (rigid \u21d2 compression moment DOUBLES). Opposite sign \u21d2 mirror realization VALID; lane proceeds."
+  }
+}
