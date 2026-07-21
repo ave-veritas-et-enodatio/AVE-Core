@@ -65,7 +65,23 @@ Every input is exactly ONE of: **LATTICE-MEASURED** (a number the `#775`/`#782`/
 
 ## §4 — WHAT IT CAN AND CANNOT SETTLE
 
-<!-- SKELETON -->
+**CAN settle (single-core, quasistatic, GIVEN the import):**
+
+- **C1 — the deep-quasistatic scattering / effective-medium behaviour of a pre-stressed vessel-state cage at PHYSICAL `k·r_core`.** It reaches `k·r_core ≪ π`, the regime the lattice cannot (`deep-rail-kscaling_derivation.md` §2). It measures the SINGLE-CORE exponent `p` in `ρ_N ∝ (k·r_core)^p` and tests the analytic Leg-A form F2 (`p = 2`) that the lattice could neither validate nor refute.
+- **C2 — the net acoustic `ρ_eff` SIGN question, both terms present.** GIVEN the I5 import, it evaluates structural added-mass (term i — a soft/pressure-release inclusion trends DOWN, bubble-like) AGAINST trapped-energy loading (term ii — UP per `clm-hu1jjw`), kept separable in the outputs (R-below), so which wins is READ, not assumed. The lattice hosts only term (i).
+- **C3 — `r_Z(φ)` with BOTH `Z` factors.** `r_Z = √((K_eff/K_0)·(ρ_eff/ρ_0))` computed with the loaded `ρ_eff` — so the `#782` bare-node `r_Z` values (which the KB leaf flagged become FLOOR values under Reading A, `relative-offset-principle.md` "the `r_Z`-floor consequence") are lifted to their physical position within the straddle band, per the chosen/scanned magnitude (D2).
+
+**CANNOT settle (stated plainly, so the instrument is not over-read):**
+
+- **X1 — it CANNOT derive β from first principles.** That needs self-bound (field-generated, co-moving) soliton dynamics — the same self-lock capability the lattice lacks (`beta-tracking-feasibility_scoping.md` §3 absence-3, §7). The solver PROPAGATES an imported/scanned magnitude (I7/D2); it does not generate it.
+- **X2 — it CANNOT adjudicate the import's own truth.** Whether trapped-energy mass IS acoustic inertia (Fork ρ ontology) and which `c²` divides it (I8/D1) are Grant-adjudicated substrate-ontology inputs, not solver outputs. The solver shows the CONSEQUENCES of a given import; it cannot certify the import.
+- **X3 — it CANNOT settle the ENSEMBLE aggregation half (the load-bearing scope limit — see the tension note).** A spherically-symmetric single-cage solver "validates the per-core `p` (Step 1) but CANNOT represent inter-core coherent compression, so it does NOT settle aggregation (Step 2)" (`deep-rail-kscaling_derivation.md` §2, verbatim). The ensemble-coherence question (does an uncancelled net monopole emerge between cores?) needs an `N>1` instrument, infeasible on this machine class.
+
+**★Scope-tension resolution (flag-don't-fix — surfaced, not silently reconciled).** The two source docs phrase the radial-solver's remit DIFFERENTLY, and the difference is load-bearing:
+- `rve-aggregation-bench_result.md` §8.2-4 routes "the RADIATIVE consequence (**star-scale Lloyd cancellation at `k·R_star`**) … stage-2 radial-solver territory." That phrasing is an ENSEMBLE/aggregation radiative outcome (a whole homogenized star).
+- `deep-rail-kscaling_derivation.md` §2 restricts the radial solver to the SINGLE-CORE exponent and EXPLICITLY denies it can settle aggregation (Step 2).
+
+These are reconcilable ONLY by splitting the word "radiative consequence" into two objects: **(α) the single-core quasistatic `p`** — which this solver settles (C1); and **(β) the star-scale boundary problem GIVEN an already-homogenized effective medium** — which this solver can compute as a single-boundary scattering problem IF and ONLY IF the effective medium is supplied from the constitutive bench (a `#782`-class homogenization), i.e. it does NOT DERIVE the aggregation coherence (Step 2) that produces that effective medium. The charter's frozen position: **this lane owns (α) and the GIVEN-medium (β); it does NOT own the aggregation-coherence derivation (Step 2 / `N>1`), which stays infeasible and unrouted here.** If Grant reads `#782` §8.2-4 as demanding the aggregation derivation itself, that is a DIFFERENT (infeasible) instrument and the charter's object (§2) is mis-scoped — surfaced for his adjudication, not reframed by the charter.
 
 ## §5 — REQUIREMENTS (derived, numbered)
 
