@@ -9,6 +9,18 @@ claims: [clm-395gps]
 
 The impedance orbital framework immediately yields several additional falsifiable predictions that follow directly from the same $1/d$ topology without introducing any new parameters.
 
+### Near-Extremal Ringdown Overshoot: $\omega_R M_g \to 54/49$ as $a_* \to 1$
+
+> **[Resultbox]** *Near-Extremal Ringdown Limit (AVE-distinct forward prediction)*
+>
+> $$
+> \omega_R M_g \xrightarrow[a_* \to 1]{} \frac{\ell(1 + \nu_{vac})}{x_{sat,v1}(1)} = \frac{18}{49/3} = \frac{54}{49} \approx 1.102 \qquad (\text{ZDM limit } m/2 = 1;\ \text{AVE overshoots by } +10.2\%)
+> $$
+
+Under the standing v1 spin mapping ($x_{sat,v1} = 7\,r_{ph}^+/3M$, whole-cavity-compliant; re-selected as canonical per **Grant Ruling B1, 2026-07-21** — see [`ave-merger-ringdown-eigenvalue.md` § GRANT RULING](ave-merger-ringdown-eigenvalue.md)), the fundamental $\ell=2$ ringdown eigenvalue **rises toward the exact zero-damped-mode (ZDM) limit** as the remnant approaches extremal spin. Because $r_{ph}^+ \to M$ at $a_* \to 1$, $x_{sat,v1} = 7\,r_{ph}^+/3M \to 7/3$, giving $\omega_R M_g \to \ell(1+\nu_{vac})/x_{sat,v1} = 2\cdot(9/7)/(7/3) = 54/49 = 1.102$. This is **an AVE-distinct near-extremal forward prediction**: v1 overshoots the GR ZDM limit $m/2 = 1$ by $+10.2\%$, testable once LIGO/LISA/ET resolves a **near-extremal ($a_* \gtrsim 0.9$)** ringdown (none in the current catalog). Live promotion under Ruling B1: from routed-candidate to **LIVE FORWARD PREDICTION** at the clm-395gps-inherited grade (**solidity 0.55, disclosed-phenomenological, mapping-conditional; ★provenance rider (#780 review F5): the DEVIATION FORM (+10.2% overshoot rising toward the ZDM limit) is the AVE-distinct content — the ABSOLUTE value 54/49 embeds the GR-imported ν_vac = 2/7 via K=2G (form-deriving-value-importing.md; PR#261), and that value-import rider travels wherever 54/49 is load-bearing** — v1 is the standing mapping).
+
+The near-extremal axis is a **qualitative discriminator between the two spin mappings**: v1 *rises toward* the ZDM limit (qualitatively correct sign), whereas the superseded v2 mapping **floors at $54/77 \approx 0.701$** ($-29.9\%$ below ZDM — qualitatively wrong, cannot approach the ZDM limit because the rigid $\nu_{vac}$ skeleton fraction bounds $x_{sat}$ from below). At the near-extremal $a_* = 0.95$ (beyond the current catalog, whose maximum is $a_* \approx 0.74$) the two are already $+6.5\%$ (v1) vs $-20.1\%$ (v2). This is the **beyond-Kerr deviation organizer** of the BH soft-mode transition — the mode-ratio-locking + arrested-critical-slowing systematics carried at [`research/2026-07-20_ringdown-systematics_derivation.md`](../../../../../research/2026-07-20_ringdown-systematics_derivation.md) (ORG-1/ORG-2) — read here as v1's *rising* near-extremal limit rather than v2's *floored* one. Provenance + the frozen a\*=0.90/0.95 numbers: [`research/2026-07-20_v1-spin-mapping-adjudication_result.md`](../../../../../research/2026-07-20_v1-spin-mapping-adjudication_result.md) Leg 5 (#776).
+
 ### Iron K$\alpha$ Line Profile from the Refractive Gradient
 
 Accreting black holes emit a characteristic iron fluorescence line at $6.4$ keV. The observed line is broadened and redshifted by the gravitational potential. In the AVE framework, the line profile is directly computed from the refractive index gradient: photons emitted at radius $r$ are redshifted by the factor $E_{obs} = E_0 / n(r)$. The impedance band radii derived in Equation eq:impedance\_quantisation predict **discrete sub-peaks** in the broadened iron line---each corresponding to enhanced emission from a quantised impedance band in the accretion disk.

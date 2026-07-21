@@ -418,6 +418,21 @@ Until then, v2 formula is canonical for AVE Kerr-corrected ringdown predictions 
 
 ## §10 Phase-5 decay-time τ refinement (2026-05-18) — RESOLVES v1 τ under-prediction via lattice-Q preservation
 
+> **🔴 RETRACTED (2026-07-21, Grant Ruling B1; §10 body below preserved verbatim per Rule 12).** The
+> Phase-5 load-bearing hypothesis — **"Q is invariant across v1/v2 cavity-radius refinements"** (§10.2:429,
+> $Q_{v2} = Q_{v1} \Rightarrow \tau_{v2} = \tau_{v1}\cdot\omega_{R,v1}/\omega_{R,v2}$) — is **RETRACTED**.
+> Empirically, under the committed corpus-pinned Model-B damping law
+> $\omega_I = (\omega_R - m\Omega)/(2\ell)$ at $r_\Omega = r_{ph}\sqrt{1+\nu_{vac}}$ (Ω pinned by the Ch.2
+> frame-dragging Resultbox), **the dimensionless quality factor $Q$ is mapping-DEPENDENT, not v1/v2-invariant**:
+> the same chain gives $\bar D_Q = -5.44\%$ under v1 (Resultbox; $-4.57\%$ ZAMO) but $+2.12\%$ under v2 — the
+> **mirror-image split**, so neither mapping matches on both axes and Q plainly differs between them. The
+> Phase-5 invariance was an artifact of the frame-mixed / corrupt-table ω_R inputs (retracted upstream at the
+> §7–§10 banner). Under Ruling B1, **v1 is the standing ω_R mapping**; its τ is an **OPEN near-miss tension at
+> −5.4%** (not the banked $-0.47\%$ "match", which stays retracted), named as the next ringdown work. Evidence:
+> [`research/2026-07-20_v1-spin-mapping-adjudication_result.md`](2026-07-20_v1-spin-mapping-adjudication_result.md)
+> Leg 3 + the mirror-split table. The §10 body below (mechanism prose, run tables, the invariance derivation)
+> is preserved unedited as the record of the retracted Phase-5 claim.
+
 ### §10.1 Motivation
 
 Phase 3 closed the v2 ω_R refinement at -0.45% mean per event vs LIGO observed frequencies. But the same KB anchor leaf carried a separate τ prediction (3.5/2.7/1.2 ms for the 3 canonical events) derived from the v1 formula $\omega_I = (\omega_R - m\Omega)/(2\ell)$ at $r_\Omega = r_{ph}(a_*) \cdot \sqrt{1 + \nu_{vac}}$. v1 τ values are systematically 10-14% BELOW LIGO observed τ (4.0/3.0/1.4 ms). The C1-BH-RING test was therefore "half closed" — ω_R PASS, τ FAIL.
