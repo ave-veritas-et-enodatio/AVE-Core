@@ -1,0 +1,23 @@
+{
+  "_comment": "Grandfather + gating config for verify-frozen-provenance.py. Result docs dated on/after `gating_date` HARD-FAIL on a Frozen-label criterion that is not byte-present in the lane's prereg (or that resolve no prereg at all); docs dated before it are WARN-ONLY (grandfathered by the pre-gate date). `grandfathered_result_docs` is an explicit escape hatch for a doc dated on/after the cutoff (repo-relative path; normally empty, reviewable diff). `incidents` are the documented motivating failures, both caught by adversarial review and corrected in-place (Rule 12) before this gate existed — annotated here so the warn output and any reader see the class this gate closes.",
+  "gating_date": "2026-07-22",
+  "grandfathered_result_docs": [],
+  "incidents": [
+    {
+      "pr": 770,
+      "doc": "research/2026-07-20_constituent-cage-ensemble_result.md",
+      "prereg": "research/2026-07-20_constituent-cage-ensemble_prereg-FROZEN.md",
+      "class": "fabricated-string-labeled-frozen",
+      "description": "The driver JSON hard-coded the note \"ROBUST across rail depth (S_RAIL 0.03->0.003 all RISING, pressure-tested)\" and surfaced it as a frozen/pressure-tested result; the string was never in the prereg and never computed (only S_RAIL=0.03 was run). See result-doc section 7.5.",
+      "status": "caught-and-corrected (adversarial review; Rule-12 retraction in the merged doc)"
+    },
+    {
+      "pr": 782,
+      "doc": "research/2026-07-21_rve-aggregation-bench_result.md",
+      "prereg": "research/2026-07-21_rve-aggregation-bench_prereg-FROZEN.md",
+      "class": "swapped-criterion-vs-prereg",
+      "description": "The Lame gate was banked on an ABSOLUTE two-shell agreement `|ext1-ext2| <= 0.10` mislabeled \"Frozen:\", swapped for the actual frozen criterion `|Delta|/mean <= 0.25` (prereg section 4 Leg 2). See result-doc section 7.6.",
+      "status": "caught-and-corrected (adversarial review; re-banked on the frozen deliverable in the merged doc)"
+    }
+  ]
+}
