@@ -879,6 +879,66 @@ parse it):
 
 ---
 
+## envelope vs carrier (the two-level decomposition of the A1 breather)
+<!-- id: def-envcar -->
+
+- **term:** envelope vs carrier — the two-level (fast-carrier / slow-envelope) decomposition of the A1 breather
+- **adjudicated-meaning:** *(the DECOMPOSITION is definitional; it settles NO coupling claim — see status).* Canon's word for the mass object is **breather** ([`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20 `[canon]`: *"the A1 breather; mₑc² = trapped acoustic compression energy"*). Read at two levels: a fast internal **CARRIER** — the $\nabla\cdot\mathbf{u}$ compression oscillating at the node/$\omega_e$-class resonance, time-average $\approx 0$ — under a slow **ENVELOPE** $A(r,t)$ = the energy-density / operating-point **bias pattern** (what gravitates; what translates when the star orbits). This is a **level-of-description** discipline: the orbital band ($2\Omega\sim10^{-4}$ Hz) sits **$\sim$24 decades below** the carrier ($\omega_e$-class), so a slowly-orbiting envelope has **no carrier-band spectral content** at the orbital frequency — its slow-band presence is a moving bias texture (coefficient side), not a carrier-band source. **The "24-decade catch":** reading the envelope's slow energy moment as a DC carrier-band compression source conflates the two levels (RECORD §5 the sharpest-grain conflation candidate). The decomposition names the levels; it does NOT by itself decide whether the envelope couples to the radiative channel.
+- **axis:** phase-carrier (the fast $\omega_e$-class carrier band) vs other (the slow envelope $A(r,t)$ bias texture) — the level-of-description split
+- **dimension/type:** carrier = frequency (T⁻¹, $\omega_e = m_ec^2/\hbar$-class); envelope $A(r,t)$ = the dimensionless saturation-amplitude / operating-point field (an energy-density texture, $\propto|A|^2$)
+- **status:** SOLID for the DECOMPOSITION only (definitional — canon breather at `master-equation.md:20`; the two-level carrier×envelope reduction is the standard slow/fast split the #767 reduction is built on). **The coupling verdict is NOT hardened here:** the #767 envelope-sector reduction that USES this decomposition is banked **BIN-1-CONDITIONAL** (`research/2026-07-20_envelope-sector-reduction_result.md` §3.1/§6.2-1) — grade the decomposition, not the coupling.
+- **canonical-home:** [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20 (breather, canon) + the #767 reduction (`research/2026-07-20_envelope-sector-reduction_result.md`, PR #767 merged @ `5287ef32`) + the walk `research/2026-07-20_envelope-boundary-walk_RECORD.md` §5 (the envelope-vs-carrier payload, walk-level)
+- **clm-cross-links:** *(none minted — the envelope lane mints no `clm-`, propagates to no leaf, READ-ONLY on KB; cross-node: def-a9eef5 (`carrier`, the overloaded surface form — its phase-carrier reading IS this carrier), def-l0ngdu (∇·u dynamical vs ∇·A gauge), def-5d2b8a (the two "3"s), def-satshr (the shear/compression split of the same envelope's bias field))*
+- **open-ambiguity-flag:** no — this node adjudicates the two-level DECOMPOSITION (a specific compound term). The **bare** surface form "carrier" is independently overloaded and is recorded at def-a9eef5 (its phase-carrier reading is the carrier of this decomposition); read that node for the surface-form overload.
+- **verification:** VERIFIED two-method (`grep -F` + `git grep`) at HEAD `3d07ceeb` — the breather + `mₑc² = trapped acoustic compression energy` verbatim at `master-equation.md:20`; PR #767 merged (`gh pr view 767` → `mergeCommit 5287ef32`, base `origin/main` is downstream); the envelope-vs-carrier payload + the 24-decade / envelope-moment-vs-carrier-moment conflation at RECORD §5. Status **SOLID** for the decomposition; the #767 coupling verdict (BIN-1-CONDITIONAL) is cited, NOT graded here.
+
+---
+
+## saturation-shear wave vs saturation-compression wave (trace/traceless split of the bias field)
+<!-- id: def-satshr -->
+
+- **term:** saturation-shear wave vs saturation-compression wave — the traceless/trace projection split of the saturation-bias field's radiative moment
+- **adjudicated-meaning:** *(a definitional trace/traceless SPLIT of the mass second-moment; the LIVE exclusion status is cited, not this node's own grade — see status).* The radiative moment of the slow envelope's bias field is $Q_{ij}\propto\int x_i x_j|A|^2$ (the mass second-moment). Its **traceless (deviatoric)** projection = the **saturation-SHEAR wave** = the **OBSERVED gravitational wave** — the T2-shear channel, quadrupole rotating at $2\Omega$, radiating at $c$, tensor polarization (`scalar-gw-bulk-channel_derivation.md`:95 *"the traceless part rotates at 2Ω"*; kept on the T2/shear channel at exactly $c$, consistent with GW170817's $|c_{GW}-c_{EM}|/c\lesssim10^{-15}$). Its **trace** projection = the **saturation-COMPRESSION wave** = the A1-bulk / scalar (breathing) channel = the **pulsar-excluded bulk radiative port** (Q1 Reading-A, now LIVE against the framework). The observed-GW-=-shear identification is **Reading-independent** (survives the Q1 revert); the compression channel's live exclusion **rides** port-register Q1 Reading-A LIVE and is a cited consequence, not this node's grade.
+- **axis:** other — sector-projection split of the saturation-bias field (A1-bulk **trace** vs T2-shear **traceless**), a mass-second-moment decomposition
+- **dimension/type:** both are radiative wave channels (metric strain, dimensionless); scalar/breathing (trace, A1-bulk) vs tensor (traceless deviatoric, T2-shear) polarization classes
+- **status:** SOLID for the trace/traceless DEFINITIONAL SPLIT (the standard mass-second-moment decomposition; the observed GW = the traceless shear projection is Reading-independent). **NOT a hardening of the coupling verdict:** that the compression/trace channel is an independent radiative port and is pulsar-excluded is **Q1 Reading-A LIVE** (a REVERTED ruling, `port-register.md:87`) — cited here, graded there.
+- **canonical-home:** the walk `research/2026-07-20_envelope-boundary-walk_RECORD.md` §4–§5 (the corrected boundary/envelope walk) + [`port-register.md`](port-register.md):87 (Q1 Reading-A LIVE — the compression channel) + `research/2026-07-20_scalar-gw-bulk-channel_derivation.md` §5.1 (the trace/traceless partition + the Abbott #768 second-source stamp)
+- **clm-cross-links:** *(none minted — READ-ONLY on KB, no `clm-` propagated; cross-node: def-l0ngdu (∇·u vs ∇·A — the longitudinal/compression sector), def-t2ph01 (T2 photon-family disambiguation — the transverse-shear family), def-9a4f07 (longitudinal V-sector scalar), def-envcar (the envelope whose bias field is split here))*
+- **open-ambiguity-flag:** no — this node adjudicates the projection split. **Read-guard (not an overload record):** "scalar mode" here is the GW-polarization sense (the LIGO scalar/breathing polarization test = the compression/trace channel); do NOT conflate it with a QM "scalar field". The compression channel is the A1-bulk (mechanical dilatation), NOT a transverse EM mode.
+- **verification:** VERIFIED two-method (`grep -F` + `git grep`) at HEAD `3d07ceeb` — the traceless-rotates-at-$2\Omega$ shear quadrupole at `scalar-gw-bulk-channel_derivation.md:95` and the T2/shear-at-$c$ consistency at `:168`/`:150`; Q1 **Reading-A LIVE** two-method at `port-register.md:87` (row), `:93` (register verdict), `:109` (tally), `:5` (frontmatter); the Abbott second-source stamp (`log₁₀ B = +23.09±0.08` tensor-vs-scalar, EM-sky-fixed) at `scalar-gw-bulk-channel_derivation.md:138` (PR #768 merged @ `c12da9f5`). Status **SOLID** for the definitional split; the compression-port live-exclusion is cited to Q1 Reading-A, NOT graded here.
+
+---
+
+## non-captured saturation wave (bound-vs-free division of the bias field)
+<!-- id: def-ncsatw -->
+
+- **term:** non-captured (free) saturation wave vs captured (bound) saturation wave — the bound/free division of a saturation disturbance
+- **adjudicated-meaning:** *(WALK-RATIFIED DIRECTION, not a locked canon split — carries the honest walk status; see status).* A disturbance of the saturation-bias field is either **CAPTURED (bound)** — a **soliton**: self-maintained, its own amplitude pins a one-node-shell boundary at the yield **rail** ($S(A)=\sqrt{1-A^2}=0$ at $A=A_{yield}$, $\Gamma=-1$ exact), a closed/confined mode where "the mirror is made of the thing it confines" (RECORD §4) — or **NON-CAPTURED (free)** — a **radiated** saturation wave: an **open-contour** disturbance propagating **sub-rail** (below yield, $S>0$, transmission not exponentially dead), not self-confined; the far-field / GW radiation class (the escape-cone / WKB-turning-point regime of the same boundary picture, RECORD §4 `:47–:48`). The division sorts the same saturation field into the bound soliton (the mass) and the free radiation (the wave) by whether the disturbance touches the rail and self-maintains.
+- **axis:** other — bound-vs-free (captured/non-captured) classification of a saturation disturbance; the emergent-boundary picture
+- **dimension/type:** the bound mode = a confined soliton (rail-touching, $S=0$ at its boundary shell); the free mode = a propagating wave (sub-rail, open contour) — a classification, not a single dimensioned quantity
+- **status:** proposed — **WALK-RATIFIED DIRECTION** (the emergent saturation-boundary walk, `research/2026-07-20_envelope-boundary-walk_RECORD.md` §4–§5; the RECORD **canonizes nothing** — every physics statement there is a cited canon hook, a Grant-verbatim walk statement, or an orchestrator walk-level candidate). Coinage (0 prior corpus hits, `git grep` — the only prior use is the queue line that scheduled this def). **NOT SOLID, NOT canon;** adjudicated nowhere yet — the envelope-lane / boundary picture is the eventual adjudicator.
+- **canonical-home:** *(none — coinage; grounded walk-level in `research/2026-07-20_envelope-boundary-walk_RECORD.md` §4 (`:46–:48` the rail/self-maintaining/escape-cone content) + §5, the emergent saturation-boundary picture)*
+- **clm-cross-links:** *(none minted — RECORD canonizes nothing; cross-node: def-envcar (envelope/carrier — the bound soliton is the envelope of the A1 breather), def-satshr (shear/compression — the free radiated channel splits into these), def-l0ngdu (∇·u dynamical), def-envl0p (the struck soliton-size-envelope node — a distinct object; do not conflate the size-envelope with this bound/free division))*
+- **open-ambiguity-flag:** no — a coinage with a single walk-direction meaning. Carries its honest walk-level status (proposed, walk-ratified direction); the term is minted from the walk, not from a locked leaf.
+- **verification:** VERIFIED at HEAD `3d07ceeb` — the self-maintaining rail-touching bound soliton ("the mirror is made of the thing it confines") at RECORD `:46`; the free/sub-rail escape-cone radiation (transmission exponentially dead only AT the rail; the shallow-tail WKB turning point below it) at RECORD `:47–:48`; walk-level (RECORD §0 canonizes nothing, mints no `clm-`). Coinage 0-prior-hit confirmed (`git grep -Fi "non-captured saturation"` → only the pending-rulings queue line). Status **proposed** (walk-ratified direction; NOT hardened into canon).
+
+---
+
+## ponderomotive envelope coupling (the |A|²-to-carrier-branch source structure)
+<!-- id: def-pndenv -->
+
+- **term:** ponderomotive envelope coupling — the $|A|^2$-to-acoustic-branch far-field source structure of the #767 envelope reduction
+- **adjudicated-meaning:** *(the SOURCE STRUCTURE is banked per merged #767; the coupling COEFFICIENT is q1-inherited/ASSUMED, NOT derived — the def carries that; see status).* The mechanism by which the slow envelope drives the radiative channel: the **mass-quadrupole ponderomotive back-reaction** of the carrier intensity $|A|^2$ (= the mass-energy density, `master-equation.md:20`) onto the low-frequency acoustic field — source $Q_{ij}\propto\int x_i x_j|A|^2$ radiating at $2\Omega$ into the **gapless** P-branch (#767 result `:12`/`:36`). Fork F1 resolved: whether $|A|^2$ is a *source* (RHS) or a *coefficient* (the moving well the envelope rides), the far-field object is the same mass quadrupole at $2\Omega$; the adiabatic ($\varepsilon=\Omega/\omega_0\sim10^{-24}$) protection covers only the frequency-scale-separated carrier band, never the gapless acoustic channel (#761 gaplessness, clm-bnd5rq 0.8). **The coefficient is NOT derived here:** the far-field structural coupling $\kappa_{env}^2 = A_{ang}(c_S/c_P)^5 = 0.034$ uses $A_{ang}=2/3$ = the **q1-inherited ASSUMED symmetric-coupling** normalization ($\kappa_L/\kappa_T=1$; the #761 prereg's own *"assumed symmetric-coupling grade-assignment"*), NOT computed from the K4/Ax4 Lagrangian (it is not numerically circular — $\kappa^2$ is a flux ratio, the mass-moment normalization cancels).
+- **axis:** other — envelope→acoustic-branch source coupling (slow-band ponderomotive drive of the gapless P-branch)
+- **dimension/type:** a source-coupling structure ($Q_{ij}\propto\int x_i x_j|A|^2$, source of the $2\Omega$ far field); the coefficient $\kappa_{env}^2$ is dimensionless (a far-field flux ratio $F_{bulk}/F_{shear}$)
+- **status:** proposed — the SOURCE STRUCTURE is banked per **#767 merged** (`5287ef32`); the coupling **COEFFICIENT is q1-inherited / ASSUMED** (not derived from the Lagrangian — #767 review R3), and the overall lane verdict is **BIN-1-CONDITIONAL**. Coinage (0 prior corpus hits; the only prior use is the queue line). **NOT SOLID** (the coefficient is assumed, not derived); a re-open with a DERIVED coupling is a separate future ruling.
+- **canonical-home:** *(none locked — the source structure is banked at `research/2026-07-20_envelope-sector-reduction_result.md` `:12`/`:36` (the ponderomotive $|A|^2$ mass-quadrupole coupling); the assumed coefficient is flagged at `:11`/`:127`; PR #767 merged @ `5287ef32`)*
+- **clm-cross-links:** *(none minted — #767 mints no `clm-`, READ-ONLY on KB; cross-node: def-envcar (the envelope $|A|^2$ that sources this), def-l0ngdu (∇·u — the gapless P-branch this couples into), def-satshr (the compression channel this feeds vs the surviving shear))*
+- **open-ambiguity-flag:** no — this node names one specific source structure. It carries the assumed-coefficient caveat explicitly; the term is a coinage, single meaning.
+- **verification:** VERIFIED two-method (`grep -F` + `git grep`) at HEAD `3d07ceeb` — the ponderomotive $|A|^2$ mass-quadrupole coupling into the gapless P-branch at `envelope-sector-reduction_result.md:12` and `:36`; the q1-inherited/ASSUMED equal-coupling normalization ($A_{ang}=2/3$) at `:11` (*"the q1-inherited ASSUMED symmetric-coupling normalization"*) and `:127` (*"[assumed] — q1-inherited symmetric-coupling grade-assignment"*); PR #767 merged (`gh pr view 767` → `5287ef32`); clm-bnd5rq resolves. Status **proposed** (source banked, coefficient assumed, verdict BIN-1-CONDITIONAL — not hardened into canon).
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
@@ -898,6 +958,25 @@ photon-family disambiguation) — locks "T₂ = the photon" to the massless
 transverse-TRANSLATIONAL u-family (NOT the gapped Cosserat microrotational ω);
 open-ambiguity YES (the two T₂ objects, separated by massless-vs-gapped). G2
 ruling Grant 2026-07-03, `research/2026-07-03_g2-photon-relabel_note.md`.
+
+**Longitudinal sector (2 nodes, added 2026-07-20, `docs/masterq-tag-vocab-defs`):**
+`def-l0ngdu` (SOLID — ∇·u dynamical vs ∇·A gauge, Grant-ratified) + `def-uatk1s`
+(proposed — u/A counterpart sector variables, inherits `def-tk1xfm`). Category-(a)
+of the master-equation sector-dynamics harvest.
+
+**Envelope sector (4 nodes, added 2026-07-21, `docs/envelope-vocab-defs`):**
+category-(b) of the envelope-sector harvest (the follow-on after #767 merged) —
+`def-envcar` (SOLID for the DECOMPOSITION only — envelope vs carrier, the
+two-level split of the A1 breather; coupling verdict BIN-1-CONDITIONAL, not
+hardened) + `def-satshr` (SOLID for the definitional SPLIT — saturation-shear
+(traceless, observed GW) vs saturation-compression (trace, Q1 Reading-A LIVE
+bulk port)) + `def-ncsatw` (proposed, WALK-RATIFIED DIRECTION — non-captured
+(free) vs captured (bound) saturation wave; RECORD canonizes nothing) +
+`def-pndenv` (proposed — ponderomotive envelope coupling; source structure banked
+per #767, coefficient q1-inherited/ASSUMED). Receipts two-method at HEAD
+`3d07ceeb`: `master-equation.md:20` (breather), #767 merged `5287ef32`, #768
+merged `c12da9f5` (Abbott stamp), `port-register.md:87` (Q1 Reading-A LIVE), the
+walk RECORD §4–§5. No walk-level or coupling claim hardened into canon.
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —
