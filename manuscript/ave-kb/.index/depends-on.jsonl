@@ -601,6 +601,8 @@
 {"source": "clm-rg7cls", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "yield limit defining Regime II at the covalent-bond core", "fraction": null}
 {"source": "clm-rg7cls", "target": "clm-a034pf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-rg7cls", "target": "clm-yyhczl", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-riminv", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "S¹", "fraction": null}
+{"source": "clm-riminv", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-rji99i", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "dielectric coupling $\\alpha$ between Cosserat sectors", "fraction": null}
 {"source": "clm-rji99i", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "torus-knot crossing-number flavor splitting; $1/c^2$ torsional coupling", "fraction": null}
 {"source": "clm-rji99i", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "torus-knot crossing-number flavor splitting; $1/c^2$ torsional coupling", "fraction": null}
@@ -625,6 +627,8 @@
 {"source": "clm-salw2h", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2", "fraction": null}
 {"source": "clm-salw2h", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2", "fraction": null}
 {"source": "clm-salw2h", "target": "clm-h9aqmt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-satnec", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2,3", "fraction": null}
+{"source": "clm-satnec", "target": "clm-riminv", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-sd04x4", "target": "clm-llqd1n", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-sd04x4", "target": "clm-qjwj12", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-sjixaw", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Platonic/Archimedean minimum-impedance packing", "fraction": null}
@@ -754,6 +758,8 @@
 {"source": "clm-z73h6n", "target": "clm-dboxok", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-zbvfpi", "target": "clm-ir8h78", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-zbvfpi", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-zdual1", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "the swing kernel that rails `ε_0·S→0` and diverges the A1 compliance `C_0/S→∞`", "fraction": null}
+{"source": "clm-zdual1", "target": "clm-riminv", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-ze4clw", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies that the Γ=−1 boundary exposes only integrated boundary observables", "fraction": null}
 {"source": "clm-zf8eah", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-zfqd9v", "target": "clm-zgllr2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the engine split this localization claim partitions across", "fraction": null}

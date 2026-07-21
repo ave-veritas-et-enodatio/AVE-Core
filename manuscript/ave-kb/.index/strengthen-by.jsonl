@@ -542,6 +542,9 @@
 {"claim_id": "clm-refjr6", "item_idx": 1, "text": "Provide a quantitative Casimir-cavity geometry that drives a named conductor below its $T_c$, with a testable predicted gap $d$.", "mentioned_ids": []}
 {"claim_id": "clm-rg7cls", "item_idx": 0, "text": "Compute $\\Delta\\phi/\\alpha$ per scale from substrate primitives so each Regime boundary is quantitative.", "mentioned_ids": []}
 {"claim_id": "clm-rg7cls", "item_idx": 1, "text": "Prove that Regime I linearity at the chain/protein scale guarantees a unique $|S_{11}|^2$ minimum, closing the link to clm-s11nf0's uniqueness claim.", "mentioned_ids": ["clm-s11nf0"]}
+{"claim_id": "clm-riminv", "item_idx": 0, "text": "Grant-ratification-at-merge of the leaf + the `saturation-rim-inversion` name (and the deferred `def-` register row, post-#781 batch)", "mentioned_ids": []}
+{"claim_id": "clm-riminv", "item_idx": 1, "text": "adversarial review of the disk/rim reading against the corpus's phase-space-winding sites (`the-abandoned-interior.md:46,:111`; `substrate-perspective-electron.md:243,247`; `mathematical-topology-of-mass.md:30`) — the two-circles / disk-factor-of-torus leg has now RUN (PR #790 review: `π₁`-factorization survived, radius-blind, no metric identification claimed); the remaining strengthener is a full pass against the other phase-space-winding sites", "mentioned_ids": []}
+{"claim_id": "clm-riminv", "item_idx": 2, "text": "close `clm-satnec` (the topological necessity route) — an existence proof that the winding forces the rail would upgrade the reading from \"where integers live\" to \"why the core exists\"", "mentioned_ids": ["clm-satnec"]}
 {"claim_id": "clm-rji99i", "item_idx": 0, "text": "Derive the $\\alpha\\,(m_e/M_W)$ suppression factor from the Cosserat inter-sector coupling rather than labeling it.", "mentioned_ids": []}
 {"claim_id": "clm-rji99i", "item_idx": 1, "text": "Pin the three per-eigenstate masses to an independent constraint instead of inferring them from the torus-knot pairing.", "mentioned_ids": []}
 {"claim_id": "clm-rkisb8", "item_idx": 0, "text": "Pull the minimal Finkelstein–Misner argument into this leaf, or downscope the title to \"double-cover structure\" with spin-½ as a forward pointer", "mentioned_ids": []}
@@ -568,6 +571,8 @@
 {"claim_id": "clm-s4n33u", "item_idx": 1, "text": "Derive $\\delta_{strain}$ from first principles rather than calibrating it at $T_{CMB}$.", "mentioned_ids": []}
 {"claim_id": "clm-salw2h", "item_idx": 0, "text": "Provide the explicit projection map showing the classical $\\mathbf{L}$-vector and the Pauli spinor evolve identically, not just numerically close, including the $4\\pi$ vs $2\\pi$ period bookkeeping.", "mentioned_ids": []}
 {"claim_id": "clm-salw2h", "item_idx": 1, "text": "State which (if any) multi-spin correlation the mechanism can/cannot reproduce, to bound the equivalence claim.", "mentioned_ids": []}
+{"claim_id": "clm-satnec", "item_idx": 0, "text": "fire the static-existence test (impose `(2,3)` as BC, relax, check core rails `S→0`) with the challenge-canonical-negative config-grep attached — closes the K=2G eigenmode-existence open item", "mentioned_ids": []}
+{"claim_id": "clm-satnec", "item_idx": 1, "text": "adjudicate whether the topological route and the dynamic self-trap Q-point are one mechanism or two", "mentioned_ids": []}
 {"claim_id": "clm-sd04x4", "item_idx": 0, "text": "Show one archetype makes a falsifiable EE-measurable prediction beyond the per-nucleus fit", "mentioned_ids": []}
 {"claim_id": "clm-sd04x4", "item_idx": 1, "text": "Derive the coupling-pair-count → binding-energy contribution from the network (not combinatorics on an assumed shape)", "mentioned_ids": []}
 {"claim_id": "clm-sd04x4", "item_idx": 2, "text": "Reduce the all-pairs SPICE matrix to the port-connected ABCD form (clm-5965y1)", "mentioned_ids": ["clm-5965y1"]}
@@ -692,6 +697,8 @@
 {"claim_id": "clm-z73h6n", "item_idx": 1, "text": "Distinguish \"exact\" regime/identity rows from quantitative matches explicitly in the table.", "mentioned_ids": []}
 {"claim_id": "clm-zbvfpi", "item_idx": 0, "text": "Model the genuine yield-physics (the lattice phase transition at $A=1$, its rupture) to convert the RELOCATION into a demonstrated removal — the separate genesis frontier.", "mentioned_ids": []}
 {"claim_id": "clm-zbvfpi", "item_idx": 1, "text": "A convergence-vs-$N$ study to remove the $\\pm1$-ring shell-radius discretization granularity.", "mentioned_ids": []}
+{"claim_id": "clm-zdual1", "item_idx": 0, "text": "pin what the circulation variable `A_I` does at the `(2,3)` knot core (cold vs rising vs Meissner-`μ→0`) — reconciles the relativistic-inductor / Route-C / wall-fork readings and closes the open sub-detail", "mentioned_ids": []}
+{"claim_id": "clm-zdual1", "item_idx": 1, "text": "Grant/auditor adjudication of the \"impedance dual\" framing over the already-ratified INVARIANT-S2 split", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 0, "text": "Prove (or formally bound) the no-fourth-observable exhaustiveness rather than asserting it from Stokes dimensionality", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 1, "text": "Show the 0D point integral does not yield a fourth observable (the dimensional-reduction chain implicitly stops at 1D)", "mentioned_ids": []}
 {"claim_id": "clm-ze4clw", "item_idx": 2, "text": "Give an explicit operational evaluation of Q as a 1D linking integral over a concrete substrate field", "mentioned_ids": []}

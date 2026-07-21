@@ -544,6 +544,7 @@
 {"claim_id": "clm-refjr6", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/phase-transition-classification.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-refjr6", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-rg7cls", "leaf_path": "vol5/protein-folding-engine/regime-classification.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-riminv", "leaf_path": "common/saturation-rim-inversion.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-rji99i", "leaf_path": "vol2/particle-physics/ch03-neutrino-sector/delta-cp-violation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-rji99i", "leaf_path": "vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-rji99i", "leaf_path": "vol2/particle-physics/ch06-electroweak-higgs/lepton-spectrum.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -574,6 +575,7 @@
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/visual-equivalence.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-satnec", "leaf_path": "common/saturation-rim-inversion.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-sd04x4", "leaf_path": "vol6/period-1/helium/ee-equivalent.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-sd04x4", "leaf_path": "vol6/period-1/hydrogen/ee-equivalent.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-sd04x4", "leaf_path": "vol6/period-2/beryllium/ee-equivalent.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -715,6 +717,7 @@
 {"claim_id": "clm-yyhczl", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-z73h6n", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/computational-graph.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-zbvfpi", "leaf_path": "vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-zdual1", "leaf_path": "common/saturation-rim-inversion.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ze4clw", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zf8eah", "leaf_path": "vol3/gravity/ch02-general-relativity/double-deflection.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zfqd9v", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
