@@ -1092,6 +1092,43 @@ MODEL-OF / ANALOGY / IMPORT.
 
 ---
 
+## the relative-offset principle (position defined only ON the node graph)
+<!-- id: def-r0ffst -->
+
+- **term:** the relative-offset principle (Grant's handle "the relative offset"; the Fork-ρ direction-closure principle)
+- **adjudicated-meaning:** *(a named foundational PRINCIPLE, not a substrate object — cite-don't-duplicate; the full statement + three corollaries + the anti-advection reductio live at the canonical home.)* In a phase-only substrate there is **no spatial frame beneath the node graph**: position is defined only ON the graph, as a pattern of **relative phase offsets** across nodes. A localized excitation IS such a pattern, so its energy goes where its host nodes go — it **cannot hold station** against the material displacement of its nodes (station-keeping would require anti-advective node-to-node hopping, which presupposes the very sub-graph spatial anchor phase-only denies). Only the **RELATIVE** offset between an excitation and the medium it rides is defined; a **UNIFORM** such offset self-cancels and is unobservable (the excitation-side twin of no-aether-drag). Scope is **DIRECTION-not-MAGNITUDE**: Corollary C splits into **C-kin** (kinematic participation — trapped-energy patterns sway with the carrier's material motion; walk-ratified, UNCONDITIONAL) and **C-load** (the acoustic-loading consequence `ρ_eff/ρ_0 = 1 + β·φ`; CONDITIONAL on the open sector-crossed inertia ledger `clm-m5swh9`).
+- **axis:** other — a foundational phase-only frame/position principle (position on the node graph; the excitation-side mechanism of emergent-relativity self-cancellation); NOT a substrate-noun ontology node (hence no `ontology-grade`)
+- **dimension/type:** n/a (a principle, not a field or observable — only the RELATIVE offset between excitation and medium is a defined quantity; a uniform offset is unobservable)
+- **status:** SOLID for the NAME/term — the handle "the relative offset" was PROPOSED-FOR-RATIFICATION and is **Grant-ratified-at-merge** (PR #787 merged 2026-07-21, verbatim `[sic]`: *"yes the relative offset makes sense, and seemsmlike a major concept for the cannon to adjudicate and define"*), locked to its canonical home leaf. **This locks the TERM, not a physics grade** (a `def-` node carries no solidity): the underlying physics is a pre-adversarial-review consistency/organizing-class reading — the DIRECTION at `clm-hu1jjw` (0.50, walk-ratified, pending review) and the MAGNITUDE OPEN at `clm-m5swh9` (`*pending*`) — graded there, not here.
+- **canonical-home:** [`relative-offset-principle.md`](relative-offset-principle.md) §"The principle" + §"The three corollaries" + §"Honest scope" (hosts `clm-hu1jjw` principle+direction, `clm-m5swh9` open magnitude); walk provenance `research/2026-07-21_fork-rho-walk_RECORD.md`
+- **clm-cross-links:** clm-hu1jjw (the principle + Fork-ρ direction, 0.50), clm-m5swh9 (the OPEN loaded-inertia magnitude / β / sector-crossed c², `*pending*`)
+- **open-ambiguity-flag:** no — the compound term "the relative-offset principle" carries one locked sense; no other register node uses this surface form (register scan for "offset" → 0 competing `def-` nodes). **Read-guards (not overload records), recorded per the sense-collision guard:** (a) the principle's "**node** graph / **node** indices" uses `def-cc2196`'s graph-vertex / lattice-point sense (the K4 4-port active site / material lattice point), **NOT** `def-cc2196`'s SOLID spatial-Brillouin Nyquist-cell sense — do not re-key; (b) the bare word "offset" is also used for the frozen even-order DC **bias/offset** operating point `u₀*` (`def-u0star` Sense B — a saturation operating point), a different object from a graph-position offset.
+- **verification:** VERIFIED at HEAD — PR #787 MERGED 2026-07-21 (`gh pr view 787` → mergedAt 2026-07-21; leaf on `origin/main`), ratifying the previously proposed-for-ratification name; the DIRECTION-0.50 / MAGNITUDE-pending grades confirmed at `common/claim-quality.md` (`clm-hu1jjw` rationale "Graded 0.5"; `clm-m5swh9` `*pending*`). Surface-form uniqueness confirmed two-method (register "offset" scan + grep) → 0 competing `def-` nodes. Status SOLID for the Grant-ratified-at-merge name; the physics grade is cited to the two `clm-` nodes, NOT asserted here (consistency/organizing-class — the excitation-side twin of the AC/DC carve `clm-acdc07`).
+
+---
+
+## saturation rim-inversion (the interior→rim phase-space inversion)
+<!-- id: def-satrim -->
+
+- **term:** saturation rim-inversion (the interior→rim phase-space character-inversion of the Axiom-4 kernel)
+- **adjudicated-meaning:** *(a named organizing / consistency-class READING over already-canonical objects — not a substrate object and not a new derivation; cite-don't-duplicate; the full mapping + two lower-grade rider reads live at the canonical home.)* The Axiom-4 kernel `S(A)=√(1−(A/A_yield)²)` is a **circle constraint** `S²+(A/A_yield)²=1`. Reading a single mode's reactive state in the (amplitude `A`, phase `θ`) **PER-MODE PHASE-SPACE** disk: a **cold node** lives in the disk INTERIOR (amplitude-dynamic, phase-trivial — its amplitude can wander to `A→0`, so any winding can unwind); a **saturated core** is pinned ON the RIM `A=A_yield` (`S→0`, local clock frozen `c_eff=c√S→0`; amplitude-frozen, phase-topological, `π₁(S¹)=ℤ`). The dynamics and topology **swap roles**; the core's state space is the **BOUNDARY** of the baseline's. The rim is where an imposed static `(2,3)` **Link** winding is **MAXIMALLY PROTECTED** (the amplitude freeze-out removes the `A→0` unwinding channel) — a **locus-of-PROTECTION consistency reading, NOT a quantization mechanism**: charge = the STATIC imposed Link per the #416 two-natured ruling, and the nearest DYNAMICAL charge-winding tests read NEGATIVE (#415 real-space eigensolve, #59 phase-space carrier-lock).
+- **axis:** phase-carrier — the per-mode reactive amplitude/phase plane (A46 COORDINATE DISCIPLINE: a **PHASE-SPACE** state-space reading, **NOT** a real-space radial profile — must not be conflated with the envelope wall/knee real-space loci); NOT a substrate-noun ontology node (hence no `ontology-grade`)
+- **dimension/type:** n/a (an organizing phase-space reading, not a dimensioned quantity — the state coordinate is `A/A_yield ∈ [0,1]` on the unit-circle constraint; the rim is `A=A_yield`, `S=0`)
+- **status:** SOLID for the NAME/term — `saturation-rim-inversion` was PROPOSED-FOR-RATIFICATION and is **Grant-ratified-at-merge** (PR #790 merged 2026-07-21, verbatim `[sic]`: *"i saw the phasor changing, but i think this mapping you provided makes more sense than what i was thinking, shoild we scope cannonizing it?"* — the MAPPING ratified over his prior sign-flip reading), locked to its canonical home leaf. **This locks the TERM, not a physics grade** (a `def-` node carries no solidity): the physics is a pre-review reading — the inversion MAPPING at `clm-riminv` (0.55, consistency-class), with two explicitly lower-grade riders, the topological-necessity CANDIDATE `clm-satnec` (OPEN, `*pending*`, NOT ratified) and the channel-duality re-reading `clm-zdual1` (0.50) — graded there, not here.
+- **canonical-home:** [`saturation-rim-inversion.md`](saturation-rim-inversion.md) §"The inversion statement" (hosts `clm-riminv` mapping, `clm-satnec` necessity candidate, `clm-zdual1` channel-duality); walk provenance `research/2026-07-21_phase-space-inversion-walk_RECORD.md`
+- **clm-cross-links:** clm-riminv (the interior→rim mapping, 0.55), clm-satnec (the OPEN topological-necessity candidate = the K=2G eigenmode-existence open item, `*pending*`), clm-zdual1 (the A1-short / T2-open channel-duality re-reading over INVARIANT-S2, 0.50)
+- **open-ambiguity-flag:** YES — the surface word "inversion" is overloaded in the register; the locked sense here (a) must be qualified against the others:
+  - (a) **THIS node — phase-space CHARACTER-inversion** (interior disk ↔ boundary rim: amplitude-dynamic/phase-trivial ↔ amplitude-frozen/phase-topological) [per-mode phase-space, `clm-riminv`].
+  - (b) the **parity-meter "inversion-symmetry" / even-order bias** sense (`def-u0star` Sense B, `clm-invmtr`; `universal-saturation-kernel-catalog.md:179,203` "forbidden by inversion symmetry … inversion-symmetry METER") — a T-parity kernel property, NOT a phase-space state swap.
+  - (c) the **TKI "INVERTIBLE dictionary"** sense (`def-tk1xfm`; the ξ_topo change-of-reference is gain-1, pole-less, INVERTIBLE — `translation-circuit.md:17-26`) — map-invertibility, NOT a state-space inversion.
+  - (d) Grant's **PARKED sign-flip "phasor changing"** sense — the Cosserat micro-rotation SENSE inverting relative to `Ω_freeze` (same leaf §"The parked sign-flip question", `saturation-rim-inversion.md:72-78`, minted as NO-CLAIM; spin/antiparticle-flavored) — a DISTINCT open question, not adjudicated by `clm-riminv`.
+  - **cross-ref, NOT a competing sense (KEEP-BOTH):** the semiconductor-analogy spoke of THIS SAME object is the **MOS inversion-layer** row (`translation-circuit.md:299` §4.6.2 Row B / `:400` row 30, `clm-riminv`) — same walk, same object, a means-tested ANALOGY with a flagged disanalogy (MOS = conductive channel; the saturation wall = `|Γ|=1` reflective mirror); it does not redefine this node's sense.
+  - conflicting sites: parity-meter inversion-symmetry `universal-saturation-kernel-catalog.md:203`; TKI-invertible dictionary `translation-circuit.md:17`; parked sign-flip `saturation-rim-inversion.md:74`; MOS-inversion-layer cross-ref `translation-circuit.md:299`.
+  - **"rim" read-guard:** "rim" here = the phase-space unit-circle boundary `A=A_yield` (locus of protection), **NOT** a real-space envelope wall/knee radial locus (those are `S(A(r))` real-space loci — `envelope-anatomy.md:13` "NOT phase-space contours"; A46). No competing `def-` node carries "rim".
+- **verification:** VERIFIED at HEAD — PR #790 MERGED 2026-07-21 (`gh pr view 790` → mergedAt 2026-07-21; leaf on `origin/main`), ratifying the previously proposed-for-ratification name at the MAPPING level; the `clm-riminv` 0.55 / `clm-satnec` `*pending*` / `clm-zdual1` 0.50 grades confirmed at `common/claim-quality.md`. The "inversion" conflicting sites two-method verified: parity-meter at `universal-saturation-kernel-catalog.md:179,203` (+ `def-u0star`); TKI-invertible at `translation-circuit.md:17-26` (+ `def-tk1xfm`); parked sign-flip at `saturation-rim-inversion.md:72-78`; MOS cross-ref at `translation-circuit.md:299,400`. Status SOLID for the Grant-ratified-at-merge name (MAPPING level); the physics grade is cited to the three `clm-` nodes, NOT asserted here (consistency/organizing-class; the necessity candidate is OPEN).
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
@@ -1143,6 +1180,22 @@ per #767, coefficient q1-inherited/ASSUMED). Receipts two-method at HEAD
 `3d07ceeb`: `master-equation.md:20` (breather), #767 merged `5287ef32`, #768
 merged `c12da9f5` (Abbott stamp), `port-register.md:87` (Q1 Reading-A LIVE), the
 walk RECORD §4–§5. No walk-level or coupling claim hardened into canon.
+
+**Post-merge canon-leaf principle/reading nodes (2 SOLID-for-the-name, added
+2026-07-22, `docs/register-defrow-batch`):** the deferred vocabulary rows for the
+two 2026-07-21 walk leaves, minted now that both names ratified **at merge** —
+`the relative-offset principle` (`def-r0ffst`, SOLID for the Grant-ratified-at-merge
+NAME, PR #787; the physics is DIRECTION-not-MAGNITUDE — `clm-hu1jjw` 0.50 /
+`clm-m5swh9` OPEN) + `saturation rim-inversion` (`def-satrim`, SOLID for the
+Grant-ratified-at-merge NAME, PR #790; the MAPPING `clm-riminv` 0.55, with the OPEN
+necessity candidate `clm-satnec` and the channel-duality `clm-zdual1` 0.50). Both
+are named PRINCIPLES / READINGS, **not** substrate nouns — no `ontology-grade`.
+`def-satrim` carries **open-ambiguity YES** on the overloaded word "inversion"
+(parity-meter `def-u0star` Sense B / TKI-invertible `def-tk1xfm` / Grant's parked
+sign-flip / the MOS-inversion-layer cross-ref, KEEP-BOTH); `def-r0ffst` is
+single-sense with read-guards vs `def-cc2196` "node" and `def-u0star`
+"offset/bias". The `def-` grade locks the TERM only; each reading's solidity lives
+on its `clm-` nodes.
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —
