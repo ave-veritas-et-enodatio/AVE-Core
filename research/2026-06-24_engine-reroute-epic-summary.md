@@ -2,7 +2,7 @@
 
 **Status:** CONSISTENCY-class throughout. No chord claimed. Auditor-lane synthesis; all load-bearing nodes grep-verified at `/tmp/pswind` HEAD `10407d8e` (branch `analysis/engine-phase-space-winding`) this turn.
 
-**Grant-ratified conclusion:** the electron is **two-natured** — a DYNAMICAL energy-bound MASS (A1 longitudinal cavity, does work) + a STATIC topological CHARGE (the (2,3) Clifford winding = Link, reactive). Both internal *dynamical* loci tested NEGATIVE (real-space eigensolve #415 + phase-space coupling #59). `charge = Link(∂Ω,F)` STANDS. The AVE-distinct chord lives ONLY in forward predictions.
+**Grant-ratified conclusion:** the electron is **two-natured** — a DYNAMICAL energy-bound MASS (A1 longitudinal cavity, does work) + a STATIC topological CHARGE (the (2,3) Clifford winding = Link, reactive). Both internal *dynamical* loci tested NEGATIVE (real-space eigensolve #415 + phase-space coupling #417). `charge = Link(∂Ω,F)` STANDS. The AVE-distinct chord lives ONLY in forward predictions.
 
 ---
 
@@ -17,11 +17,11 @@ The reroute ran a staged engine campaign to ask one question: *does the (2,3) ch
 | Stage-2 | bulk A1 self-trap on native lattice | **DISPERSES** (mass alone does not confine) | `research/2026-06-24_engine-stage2-native-cage_result.md` |
 | S3 | Γ=−1 cavity pins the dispersing A1 core | **DISPERSE-FALSIFIED** | `research/2026-06-24_engine-s3-cavity-pinning_result.md` |
 | #415 | coupled eigensolve — both sectors present on ONE eigenstate | gate-(d) **FAIL**: winding bled out, `bw_on_torus=0.0001` | `research/2026-06-24_engine-coupled-eigensolve_result.md:69` |
-| #59 | phase-space coupling-winding orbit | **BREAK**: orbit reads (−5,−5)=(1,1)-class carrier-lock, not (2,3) | `research/2026-06-24_engine-phase-space-winding_result.md:18-23` |
+| #417 | phase-space coupling-winding orbit | **BREAK**: orbit reads (−5,−5)=(1,1)-class carrier-lock, not (2,3) | `research/2026-06-24_engine-phase-space-winding_result.md:18-23` |
 
 **Two terminal NEGATIVES, both clean, each with a single named mechanism:**
 - #415 tested the WRONG locus three ways — real-space (vs phase-space), V_snap-mass-core (vs V_yield-charge-front), static-eigenstate (vs dynamic-orbit) — and the (2,3) bled off the bound mass mode.
-- #59 corrected all three (phase-space + V_yield-front + dynamical-orbit) and STILL read NEGATIVE: the only surviving integer is the **oscillator carrier ratio**, not a topological charge.
+- #417 corrected all three (phase-space + V_yield-front + dynamical-orbit) and STILL read NEGATIVE: the only surviving integer is the **oscillator carrier ratio**, not a topological charge.
 
 The discipline caught its own scope-error and re-ran clean. This is the methodology working, not rationalizing a result.
 
@@ -85,3 +85,9 @@ The discipline caught its own scope-error and re-ran clean. This is the methodol
 ---
 
 *Operating in auditor lane; recommendations require implementer execution.*
+
+---
+
+> 🔴 **DATED CORRECTION (2026-07-22, implementer lane — Rule 12; the banked body above is preserved, only the mis-numbered PR reference was corrected in place at :5, :20, :24).** The phase-space coupling-winding test was mis-numbered **#59** above; the correct identifier is **PR #417** (corrected inline). **Adjudicated by run record, not by majority:** `gh pr view 417` → *"Phase-space coupling-winding test — BREAK: the (2,3) charge is static topology, not a dynamical orbit …"*, head branch `analysis/engine-phase-space-winding` — the **exact branch this summary's header (:3) grep-verified against** — merged 2026-06-24. By contrast **PR #59** is the unrelated **2026-05-31 Q-EMBED-SEL-1** substrate-mechanism investigation (`_orchestration/index.md:628`; `gh pr view 59` → head branch `analysis/q-embed-sel-1-investigation`), and archive doc `research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md` is the memristive-yield derivation — **no identifier scheme (PR-number or archive-doc-number) denotes the phase-space winding test by #59.** The `#59/#417` double-cite that appears at two downstream sites is a hedge on this same typo, **not** two valid schemes. The canonical KB leaf `manuscript/ave-kb/common/the-abandoned-interior.md:111` already carries the correct **`#415 + #417`** and is left untouched.
+>
+> **Propagation flag (routed to auditor lane — KB canon / claim-DAG, NOT corrected in this housekeeping PR).** The #59 mis-number was copied downstream from this root into: `manuscript/ave-kb/common/claim-quality.md` (clm-riminv, :1587/:1597/:1607) → `manuscript/ave-kb/.index/claims.jsonl:252` (derived — needs `make refresh-kb-metadata`); `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/unified-engine-design-doctrine.md:168` (`#59/#417`); `research/2026-07-03_engine-verdict-exposure-sweep_result.md:49` (`#59/#417`); `research/2026-07-21_phase-space-inversion-walk_RECORD.md:6`; and `_orchestration/docket-entries/2026-07-21-saturation-rim-inversion.md:13`. These all cite this summary's `:5,20,24` and inherit the correction; the auditor lane lands the KB/claim-DAG sweep (with `refresh-kb-metadata`).
