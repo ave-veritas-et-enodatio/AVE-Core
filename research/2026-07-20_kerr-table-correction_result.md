@@ -15,8 +15,16 @@
 > FULL PASS" agreement was two compensating errors: a **source-vs-detector-frame mass
 > mismatch** (≈+9% frequency inflation) cancelling a genuine **≈−10% below-Kerr deficit**.
 > The honest v2-vs-data state at the catalog spins is **≈−9.5%** (dimensionless,
-> frame-independent) / **≈−11%** (detector-frame frequency). This is a **flagship
+> frame-independent) / **≈−11%** (detector-frame frequency) — **−9.53% under the banked
+> v2 `x_sat(a*)` spin mapping; mapping-conditional.** This is a **flagship
 > consistency-result walk-back** — flag prominently for Grant.
+>
+> **★ Mapping-conditional / fork-reopen (do not read as "AVE is −9.5% off"):** the
+> −9.53% is conditional on the **retained v2** `x_sat(a*)` mapping, and that mapping's own
+> 2026-05-18 selection over v1 rode the same corrupt table + frame mixing this lane corrects.
+> On the same frozen C-1 dimensionless comparator, the **retired v1** mapping sits
+> **+2.63% mean** vs corrected Kerr — *inside* the frozen `MATCH-SURVIVES |D̄| < 3%` band.
+> See **§ FORK-REOPEN** below. The Grant foreword ruling should see BOTH numbers.
 
 The frame-mixing model is **confirmed**: the re-run's BANK reconstruction
 (v2 @ source-frame mass vs detector-frame obs) reproduces the leaf's exact banked
@@ -60,8 +68,11 @@ they are not clean l=m=2 QNM detector-frame frequencies) — flagged, does not c
 
 **WALKS BACK (was flagship, now artifact):**
 - The spinning-remnant "−0.45% ω_R / −0.47% τ / FULL PASS / covers entire LIGO BBH
-  catalog at GR-class precision" match. Honest state: AVE-v2 sits **≈−9.5% below Kerr**
-  at catalog spins (a*=0.64–0.74), growing with spin (−12.6% at 0.80, −20% at 0.95).
+  catalog at GR-class precision" match. Honest state: **the banked v2** `x_sat(a*)` mapping
+  sits **≈−9.5% below Kerr** at catalog spins (a*=0.64–0.74), growing with spin (−12.6% at
+  0.80, −20% at 0.95) — **mapping-conditional; see § FORK-REOPEN** (the retired v1 mapping is
+  +2.63% mean, inside the frozen survives-band, and the v1→v2 fork's own adjudication is
+  contaminated).
 - The Phase-4 "v2 reproduces the GR Kerr curve at <3%" claim (it rode the corrupt table).
 - The C1-BH-RING "FULL PASS" grade → the ν_vac=2/7 cascade is NOT empirically anchored at
   the C1 node by the spinning match (the cold eigenvalue's −1.7% is the only surviving
@@ -71,6 +82,48 @@ they are not clean l=m=2 QNM detector-frame frequencies) — flagged, does not c
 excess (AVE ABOVE Kerr)" prediction on the corrupt table; against corrected Kerr the sign
 inverts (AVE BELOW Kerr). This lane's independent re-derivation confirms AVE-v2 is
 monotonically below true Kerr at every spin — consistent with #772 findings 0/5.
+
+## ★ FORK-REOPEN — the v1↔v2 spin-mapping fork (routed to GRANT; substrate-adjudicates-forks)
+
+*Surfaced by the PR #774 adversarial review (finding 0, CONFIRMED MAJOR); computed by the
+review and reproduced deterministically this lane.*
+
+The 2026-05-18 Option-A adjudication that **retired the v1 spin mapping in favor of v2**
+(`research/ligo-ringdown-driver-design.md` §8: *"Per Grant directive 2026-05-18 … selecting
+Option A"*) was decided on the **same two errors this lane corrects**: the corrupt Kerr QNM
+table AND source-vs-detector frame mixing. The load-bearing "v1 over-predicted spin correction
+by ~13% mean" diagnosis (design doc §8.2 line 288: *"Mean AVE-v1-vs-LIGO: +12.98%"*) is the
+**frame-mixed artifact** — v1 frequency at *source-frame* mass vs *detector-frame* `f_obs`,
+reproducible only against the corrupt table — **not** a dimensionless comparison to true Kerr.
+
+Against **corrected** Kerr on this lane's own frozen **C-1 dimensionless comparator**, the
+retired v1 mapping (`x_sat,v1 = 7·r_ph⁺/3M`, entire cavity compliant; `ω_R·M = ℓ(1+ν_vac)/x_sat`)
+sits at:
+
+| a* | v1 vs corrected Kerr | v2 vs corrected Kerr |
+|---|---|---|
+| 0.64 (GW170104) | **+2.24%** | −8.59% |
+| 0.67 (GW150914) | **+2.50%** | −9.19% |
+| 0.74 (GW151226) | **+3.17%** | −10.83% |
+| **catalog mean** | **+2.63%** | **−9.53%** |
+| 0.95 (near-extremal) | +6.5% | −20.1% |
+
+So on the **same frozen mean-`|D̄|` comparator the lane authored**, the **retired v1** mapping
+lands **inside the frozen `MATCH-SURVIVES |D̄| < 3%` band** (prereg §3), while the **retained
+v2** fails (MATCH-ARTIFACT). v1 outperforms v2 at every catalog spin and near-extremal. The
+two-component (rigid K4 skeleton + compliant photon-orbit) physics that motivated Option A now
+stands **empirically disfavored** vs the single-component v1.
+
+**What this does NOT do — no silent v1 re-bank.** v1-vs-corrected-Kerr was **never** evaluated
+under this prereg's frozen bins (the prereg froze the **v2** mapping only). The **+2.63% is
+banked WITH PROVENANCE** (review-computed, reproduced this lane via `_rerun.py`'s v1 branch) as
+a **fork-reopen datum**, not a validated match. The re-adjudication is **Grant's**, with a
+**fresh frozen-first lane as the routed follow-on** — do not silently re-select v1.
+
+**What this does to the foreword walk-back framing (R1d).** The flagship BANKED match is **void
+either way** — neither +2.6% nor −9.5% is the banked sub-percent FULL PASS. But the honest
+forward state is **"the AVE spin-mapping fork is REOPENED with v1 as the surviving candidate at
++2.6% mean vs true Kerr,"** *not* "AVE is −9.5% off." The Grant foreword ruling should see BOTH.
 
 ## Re-bank / propagation (landed in the following commits + flagged)
 
@@ -83,7 +136,10 @@ Fixed in this lane (implementer scope):
 Flagged for Grant / auditor (Grant-ratified or manuscript-headline — flag-don't-fix):
 - `manuscript/frontmatter/00_foreword.tex` "Second positive load-bearing empirical
   confirmation at scale" (LIGO ringdown) — the spinning match that promotion rests on is
-  the artifact. **Walk-back candidate — flag prominently.**
+  the artifact. **Walk-back candidate — flag prominently.** The ruling should see **BOTH**
+  numbers (R1d / § FORK-REOPEN): the honest forward state is **"the spin-mapping fork is
+  reopened with v1 as the surviving candidate at +2.6% mean vs corrected Kerr,"** not
+  "AVE is −9.5% off." A fresh frozen-first v1-vs-corrected-Kerr lane is the routed follow-on.
 - `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex` — already
   frames the spinning match as "post-hoc consistency check" but STILL reports the −0.45%/
   −0.47% numbers (the artifact numbers). Auditor lands the number correction.

@@ -41,12 +41,21 @@ GR-imported via $K=2G$, PR #261; FORM-derived only.)
 >
 > **Honest state (frame-independent dimensionless eigenvalue ratio, depends only on spin a\*):
 > AVE-v2 sits $-9.5\%$ mean BELOW true Kerr** at the catalog spins (GW150914 $-9.2\%$, GW170104
-> $-8.6\%$, GW151226 $-10.8\%$), growing with spin ($-12.6\%$ at a*=0.80, $-20\%$ at 0.95). The
+> $-8.6\%$, GW151226 $-10.8\%$), growing with spin ($-12.6\%$ at a*=0.80, $-20\%$ at 0.95) —
+> **$-9.53\%$ under the banked v2 $x_{sat}(a_*)$ spin mapping; mapping-conditional.** The
 > detector-frame frequency check confirms GW150914 at $-10.1\%$ (true Kerr at detector-frame mass
 > reproduces the observed 251 Hz to $-1.0\%$; AVE-v2 gives 226 Hz). Re-run + provenance:
 > [`research/2026-07-20_kerr-table-correction_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md)
 > + [`_rerun.py`](../../../../../research/2026-07-20_kerr-table-correction_rerun.py). The v2 FORMULA
 > below is unchanged (it is still AVE's spinning prediction); only its "matches LIGO" validation is retracted.
+>
+> **★ Mapping-conditional — the v1↔v2 fork REOPENS (routed to Grant).** The $-9.53\%$ is
+> conditional on the **retained v2** mapping. On the same frozen C-1 comparator the **retired v1**
+> mapping sits **+2.63% mean** vs corrected Kerr — *inside* the frozen `MATCH-SURVIVES |D̄| < 3%`
+> band — and its 2026-05-18 retirement for v2 rode the same corrupt table + frame mixing (see the
+> 🔴 CORRECTION under "Kerr-Corrected Ringdown" below). v1 is **not re-banked** here; the
+> re-adjudication is Grant's. Fork-reopen note:
+> [`…_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md) § FORK-REOPEN.
 
 ### Kerr-Corrected Ringdown
 
@@ -64,7 +73,9 @@ Frame-dragging shifts the prograde saturation boundary inward, but the K4 Cosser
 
 **Limits**: at $a_* = 0$ (Schwarzschild), $r_{ph}^+ = 3M$ → $x_{sat} = 7$ recovering the cold eigenvalue $18/49$. At $a_* \to 1$ (extremal), $r_{ph}^+ \to M$ → $x_{sat} \to 2 + 5/3 \approx 3.67$ (cavity floored by Cosserat elasticity, not pure photon sphere).
 
-**Superseded v1 formula** (pre-2026-05-18, over-predicted spin correction by ~13% mean): $f_{ring}(a_*) = f_{ring}(0) \cdot r_{ph,\text{Schw}}/r_{ph}^+(a_*)$. Treated entire cavity as compliant (no rigid skeleton fraction); diagnosed via Phase-2 LIGO ringdown comparison at [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §7 and refined per Grant adjudication 2026-05-18 (Option A, Cosserat Poisson-ratio back-reaction).
+**Superseded v1 formula** (pre-2026-05-18, ~~over-predicted spin correction by ~13% mean~~ — **that diagnosis is RETRACTED 2026-07-20; see the correction note below**): $f_{ring}(a_*) = f_{ring}(0) \cdot r_{ph,\text{Schw}}/r_{ph}^+(a_*)$. Treated entire cavity as compliant (no rigid skeleton fraction); diagnosed via Phase-2 LIGO ringdown comparison at [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §7 and refined per Grant adjudication 2026-05-18 (Option A, Cosserat Poisson-ratio back-reaction).
+
+> **🔴 CORRECTION (2026-07-20, kerr-table-canon-correction lane, upstream of PR #772) — the "v1 over-predicted ~13% mean" diagnosis above is itself the FRAME-MIXED ARTIFACT.** The "~13%" figure (verbatim `design doc §8.2:288 "Mean AVE-v1-vs-LIGO: +12.98%"`) is v1 frequency at **source-frame** mass vs **detector-frame** `f_obs`, reproducible only against the corrupt Kerr table — **not** a dimensionless comparison to true Kerr. Against **corrected** Kerr on the frozen **C-1 dimensionless comparator**, the retired v1 mapping ($x_{sat,v1}=7\,r_{ph}^+/3M$, entire cavity compliant) sits at **+2.24%/+2.50%/+3.17%** at a\*=0.64/0.67/0.74 (**mean +2.63%**) — *inside* the prereg's frozen `MATCH-SURVIVES |D̄| < 3%` band — while the retained v2 sits at **−9.53%** (MATCH-ARTIFACT), and v1 outperforms v2 at every catalog spin. The Option-A adjudication that retired v1 for v2 rode this same artifact. **★ The v1↔v2 spin-mapping fork therefore REOPENS — routed to Grant (substrate-adjudicates-forks); v1 is NOT re-banked here** (it was never under this prereg's frozen bins). Provenance + fork-reopen note: [`research/2026-07-20_kerr-table-correction_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md) § FORK-REOPEN.
 
 ### Kerr Quality Factor
 
