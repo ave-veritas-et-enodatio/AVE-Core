@@ -1,5 +1,26 @@
 """LIGO Ringdown Driver — Phase 1: Computational verification of AVE prediction.
 
+============================================================================
+ SUPERSEDED NARRATIVE BANNER (2026-07-20, kerr-table-canon-correction lane)
+============================================================================
+The Kerr QNM reference tables below (omega_R and omega_I) were CORRECTED
+2026-07-20 — the prior values were wrong at spin by up to -27% (omega_R) and
++26% (omega_I); see the two "CORRECTED 2026-07-20" table comments and the
+frozen prereg `research/2026-07-20_kerr-table-correction_prereg-FROZEN.md`.
+
+The Phase-3/4/5 narrative that `verify_kb_table()` prints below (e.g. "PHASE 3
+PASSES", "-0.45% mean", "covers entire LIGO BBH catalog at GR-class precision")
+is a SUPERSEDED, frame-mixed artifact and MUST NOT be cited. It compared an
+AVE-v2 frequency computed from a SOURCE-frame final mass against a DETECTOR-frame
+observed frequency; because f ~ 1/M, the ~9% source-vs-detector mass gap inflated
+the prediction by ~9%, cancelling a genuine ~-10% below-Kerr deficit into a
+spurious sub-percent "match". The frame-corrected, table-corrected honest
+re-adjudication (AVE-v2 sits ~-9.5% below true Kerr at the catalog spins; cold
+a*=0 eigenvalue -1.7% survives) is in the authoritative re-run:
+`research/2026-07-20_kerr-table-correction_rerun.py`. The historical narrative
+code is preserved (Rule-12) as a record of the artifact, not as a live result.
+============================================================================
+
 Independently computes the AVE merger-ringdown eigenvalue $\\omega_R M_g = 18/49$
 plus Kerr correction for each of three canonical LIGO O1-O2 events, then compares
 against the KB-cited table at
@@ -114,23 +135,37 @@ def gr_f_ring_ave_simplified_kerr_hz(m_final_msun: float, a_star: float) -> floa
     return f_cold * kerr_correction_factor(a_star)
 
 
-# Berti, Cardoso & Will 2006 (Phys.Rev. D73 064030) tabulated Kerr QNM eigenvalues
-# for the fundamental ell=2, m=2, n=0 mode. Source: Berti's QNM tables at
-# https://pages.jh.edu/eberti2/ringdown/. Each entry: (a_star, omega_R * M).
-# These are numerical Leaver-method continued-fraction solutions — high precision
-# (~1e-5 absolute error), not fitting-formula approximations.
+# Kerr QNM eigenvalues (real part omega_R * M) for the fundamental ell=2, m=2, n=0
+# co-rotating mode. Each entry: (a_star, omega_R * M).
+#
+# CORRECTED 2026-07-20 (kerr-table-canon-correction lane, upstream of PR #772).
+# THREE-SOURCE PROVENANCE (all cross-checked to <1.5%):
+#   (1) qnm package (Stein 2019, high-precision Leaver continued-fraction; s=-2,l=2,m=2,n=0)
+#       — re-verified this session against the exact Schwarzschild anchor 0.373672;
+#   (2) Berti-Cardoso-Will 2006 fitting formula omega_R*M = 1.5251 - 1.1568(1-a*)^0.1292
+#       (Phys.Rev. D73 064030) — independent analytic method, agrees to <1.5%;
+#   (3) PR #772 auditor's independent from-scratch Leaver solve (digest findings 0/1/5).
+# Values below are the qnm high-precision figures (BCW-fit a*=0 is ~1.4% low, so the
+# exact Schwarzschild anchor is used for that row).
+#
+# PRIOR VALUES WERE WRONG (Rule-12 record). The superseded table claimed "Leaver-method
+# ~1e-5 precision" but was low by -9.4%/-13.9%/-21.0%/-26.8% at a*=0.70/0.80/0.90/0.95
+# (only a*=0 was correct) and violated the exact extremal ZDM limit (omega_R*M -> m/2 = 1.0
+# as a*->1; the old trend headed to ~0.55). Superseded rows (a*: old -> correct):
+#   0.70: 0.48267 -> 0.53260 ; 0.80: 0.50465 -> 0.58602 ;
+#   0.90: 0.53039 -> 0.67161 ; 0.95: 0.54652 -> 0.74632.
 BERTI_KERR_QNM_TABLE = [
-    (0.00, 0.37368),
-    (0.10, 0.38659),
-    (0.20, 0.40005),
-    (0.30, 0.41442),
-    (0.40, 0.42965),
-    (0.50, 0.44597),
-    (0.60, 0.46378),
-    (0.70, 0.48267),
-    (0.80, 0.50465),
-    (0.90, 0.53039),
-    (0.95, 0.54652),
+    (0.00, 0.37367),
+    (0.10, 0.38702),
+    (0.20, 0.40215),
+    (0.30, 0.41953),
+    (0.40, 0.43984),
+    (0.50, 0.46412),
+    (0.60, 0.49404),
+    (0.70, 0.53260),
+    (0.80, 0.58602),
+    (0.90, 0.67161),
+    (0.95, 0.74632),
 ]
 
 
@@ -251,21 +286,29 @@ def ave_kerr_v2_f_ring_hz(m_final_msun: float, a_star: float) -> float:
     return omega_r / (2 * math.pi)
 
 
-# Berti+Cardoso+Will 2006 tabulated imaginary part ω_I·M for ell=2, m=2, n=0
-# (Leaver-method continued-fraction values from https://pages.jh.edu/eberti2/ringdown/).
-# Note: convention ω_I > 0 with damping prefactor exp(-ω_I·t); τ_GR = 1/ω_I.
+# Kerr QNM imaginary part ω_I·M (damping magnitude) for ell=2, m=2, n=0.
+# Convention: ω_I > 0 with damping prefactor exp(-ω_I·t); τ_GR = 1/ω_I.
+#
+# CORRECTED 2026-07-20 (kerr-table-canon-correction lane). Values from the qnm package
+# (Stein 2019, high-precision Leaver), same provenance as BERTI_KERR_QNM_TABLE above.
+# PRIOR VALUES WERE WRONG (Rule-12 record): the superseded ω_I table was high by
+# +3.5%/+11.0%/+26.5% at a*=0.80/0.90/0.95 (only a*=0 correct) — it did not fall toward
+# the extremal ZDM limit ω_I·M -> 0 as a*->1 fast enough. This ω_I corruption was NOT
+# separately verified in the PR #772 digest (which checked ω_R); surfaced by this lane.
+# Superseded rows (a*: old -> correct):
+#   0.80: 0.07831 -> 0.07563 ; 0.90: 0.07198 -> 0.06487 ; 0.95: 0.06721 -> 0.05315.
 BERTI_KERR_QNM_OMEGA_I_TABLE = [
     (0.00, 0.08896),
-    (0.10, 0.08882),
-    (0.20, 0.08847),
-    (0.30, 0.08793),
-    (0.40, 0.08712),
-    (0.50, 0.08597),
-    (0.60, 0.08434),
-    (0.70, 0.08197),
-    (0.80, 0.07831),
-    (0.90, 0.07198),
-    (0.95, 0.06721),
+    (0.10, 0.08871),
+    (0.20, 0.08831),
+    (0.30, 0.08773),
+    (0.40, 0.08688),
+    (0.50, 0.08564),
+    (0.60, 0.08377),
+    (0.70, 0.08079),
+    (0.80, 0.07563),
+    (0.90, 0.06487),
+    (0.95, 0.05315),
 ]
 
 
