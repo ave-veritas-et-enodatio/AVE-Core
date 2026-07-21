@@ -33,7 +33,9 @@ The two non-ℓ factors are **properties of the cavity/lattice, not of the multi
 
 Therefore the multipole frequency RATIO cancels `x_sat` and `(1+ν_vac)` entirely:
 
-$$\boxed{\;\frac{\omega_R(\ell')}{\omega_R(\ell)} = \frac{\ell'}{\ell}\quad\text{EXACTLY, INDEPENDENT of spin }a_*\;}$$
+$$\boxed{\;\frac{\omega_R(\ell')}{\omega_R(\ell)} = \frac{\ell'}{\ell}\;\big[\text{linear-}\ell\text{ form}\big],\quad\text{spin-independent EXACTLY}\;(x_{sat}\text{ cancels})\;}$$
+
+> **★ Conditionality of "EXACTLY" (review R3 / finding 7).** Two claims are packed here and they have **different** epistemic status. **(i) Spin-independence is EXACTLY true, fork-robust** — `x_sat(a*)` and `(1+ν_vac)` cancel in the ratio for BOTH dispersion forks. **(ii) The point-VALUE `= ℓ'/ℓ` (=1.500 for ℓ=3/2) is EXACT only within the corpus's asserted-not-derived linear-ℓ form** (`ave-merger-ringdown-eigenvalue.md:16`); under the spherical-membrane fork `ω ∝ √(ℓ(ℓ+1))` the ratio is `1.4142`, not `1.5`. That value is binned **UNDETERMINED** (§4, the open linear-ℓ vs √(ℓ(ℓ+1)) fork). The honest headline is therefore **"ratio locked (fork-banded 1.41–1.50), spin-independent EXACTLY"** — the unconditional "= ℓ'/ℓ EXACTLY" must NOT be quoted at any headline site without the linear-ℓ conditionality rider.
 
 Damping locks the same way: `Q_ℓ = ℓ` (`qnm-quality-factor.md` `[canon]`, the single-channel Op21 mode-count) ⇒ `Q_{ℓ'}/Q_ℓ = ℓ'/ℓ`, so the decay-time ratio `τ_ℓ/τ_{ℓ'} = (Q_ℓ ω_{ℓ'})/(Q_{ℓ'} ω_ℓ)` is likewise set by frozen ratios, not by (M,a).
 
@@ -53,7 +55,19 @@ GR Schwarzschild (a=0) gravitational QNM real parts `[import — Leaver / Berti-
 
 > **ORG-1 (robust, both forks):** the AVE multipole ratio is **BELOW the Kerr ratio** (1.41–1.50 vs Kerr 1.60 for ℓ=3/ℓ=2) **AND spin-independent (frozen)** — whereas Kerr's ratio is a\*-dependent. The exact point-value (1.500 linear-ℓ vs 1.414 spherical) is UNDETERMINED (§4 fork), but the *below-Kerr + spin-locked* content survives the fork.
 
-The cleanest single test: a higher-mode measurement of `ω_330/ω_220`. Kerr puts it at ≈1.60 (weakly a\*-drifting); AVE puts it at ≤1.50 and *fixed*. A next-gen measurement at ≲5% would separate them.
+The cleanest single test: a higher-mode measurement of `ω_330/ω_220`. AVE puts it at ≤1.50 and *fixed*; **Kerr is NOT a single number — its ratio drifts TOWARD the AVE value with spin** (review R3 / finding 6, `qnm` two-method):
+
+| a\* | 0.00 | 0.60 | 0.70 | 0.80 | 0.90 | 0.95 | 0.99 |
+|---|---|---|---|---|---|---|---|
+| Kerr (3,3,0)/(2,2,0) | 1.6042 | 1.5914 | 1.5841 | 1.5731 | 1.5554 | 1.5409 | 1.5192 |
+| **linear-ℓ fork (1.500)** sep | −6.50% | −5.74% | −5.31% | −4.65% | −3.56% | −2.65% | −1.26% |
+| **spherical fork (1.4142)** sep | −11.84% | −11.13% | −10.73% | −10.10% | −9.08% | −8.22% | −6.91% |
+
+**Honest, spin-conditioned separability (per fork):**
+- **Linear-ℓ fork (1.500):** the gap is only `−6.5%` at `a*=0` and **drops below the ~5% testability threshold for a\*≳0.75**, reaching `−1.3%` at `a*=0.99` (exact degeneracy at extremal — the `l=m` ZDM limit `ω→mΩ_H` gives Kerr `(3/2)/(2/2)=1.500`, identical to the AVE linear fork). At realistic remnant spins (`a*≈0.7`) the linear-fork gap is `−5.3%` — borderline, NOT comfortably `≲5%`-separable.
+- **Spherical fork (1.4142):** stays `−8%` to `−12%` across the whole physical range (`−6.9%` even at `a*=0.99`) — robustly separable.
+
+So the frozen "≈6–12% gap / pinned to Kerr 1.60 to ~6% / ≲5% would separate them" criteria (prereg §2 ORG-1 row) are **`a*=0`-anchored and overstate separability**; they need spin-conditioning before any high-spin high-precision confrontation is banked. The load-bearing *robust* ORG-1 content (ratio BELOW Kerr AND spin-frozen) survives because the **frozenness axis sharpens with spin** (Kerr drifts, AVE does not) and the spherical fork keeps a clean gap; only the exact-point-value separability threshold is spin-fragile.
 
 ### §1.4 — Scope honesty (what is NOT derived)
 
@@ -145,16 +159,27 @@ $$\omega_R(\ell, a_*)\, M_g = \underbrace{[\,\ell\,(1+\nu_{vac})\,]}_{\text{froz
 |---|---|---|---|---|
 | **GW150914 220/221 overtone** (Isi+2019 no-hair test) | overtone (n) | postinspiral no-hair ~10%; first-overtone frequency ~20% | ORG-1 **overtone** (FORM-ONLY — AVE has no ω_221 number) | orthogonal — AVE makes no overtone prediction; not a test of ORG-1 |
 | **Higher-mode / subdominant events** (GW190521-class, resolved ℓ=3 content) | multipole (ℓ) | ω_330/ω_220 pinned only to ~tens-of-% | ORG-1 **multipole locking** (ratio ≤1.50, spin-independent) | CONSISTENT-UNTESTED — current precision coarser than the 6–12% AVE−Kerr gap |
-| **GWTC-3 TGR population** (δf_220, δτ_220) | overall scale (a\*) | δf_220 ~few-%-to-~10%; all events a\*<0.85 | ORG-2 **arrested slowing** (excess only at a\*≳0.9) | CONSISTENT-UNTESTED — the near-extremal regime is UNATTESTED |
+| **GWTC-3 TGR population** (δf_220, δτ_220) | overall scale (a\*) | δf_220 ~few-%-to-~10%; all events a\*<0.85 | ORG-2 (**RETRACTED §2**) / the surviving AVE v2 eigenvalue deviation | **🔴 UNSAFE-PENDING-UPSTREAM-FIX — POTENTIAL LIVE TENSION** (against corrected Kerr, AVE v2 deviates −4% to −13% at the attested catalog spins a\*=0.30–0.80 — AT/ABOVE this sensitivity; determination is contaminated, see below) |
 
-**Two-method note on the imports:** the GR Kerr reference values are two-method (in-repo Berti table + independent Leaver values, cross-checked to 2×10⁻⁵ at the anchor). The current-CONSTRAINT levels (Isi+2019 ~10%/~20%; GWTC-3 few-%-to-tens-of-%) are `[import — abstract-level]`: the primary-source *abstracts* were fetched this session (Isi+2019 confirms the ~10% postinspiral / ~20% first-overtone levels); the exact per-event 90% CI widths require the full-PDF tables, **not retrieved this session** — flagged as a citation-completeness limit (verify-before-cite honesty), and the confrontation only load-bears on the *level* (tens-of-%), which is robust across sources.
+> **★ 🔴 CORRECTED two-method note (2026-07-20 review — supersedes the below):** the GR Kerr reference used in the §2.3/§3.2 tables was **NOT two-method** where it was load-bearing. The shipped "cross-checked to 2×10⁻⁵" receipt validated **only the `a*=0` anchor** — the one row where the in-repo Berti table is correct; the load-bearing **spinning** rows were single-method on a table that is `−9.4%` to `−26.8%` wrong. The corrected two-method Kerr reference (from-scratch Leaver + `qnm` package + BCW corroboration) is banked in §2.3-CORRECTED. The current-CONSTRAINT *levels* below (Isi+2019 ~10%/~20%; GWTC-3 few-%-to-~10%) remain `[import — abstract-level]` with the full-PDF-CI-width completeness limit unchanged.
 
-### §3.3 — Where the organizers sit vs current data
+**Two-method note on the imports `[SUPERSEDED — see corrected note above]`:** the GR Kerr reference values are two-method (in-repo Berti table + independent Leaver values, cross-checked to 2×10⁻⁵ at the anchor). The current-CONSTRAINT levels (Isi+2019 ~10%/~20%; GWTC-3 few-%-to-tens-of-%) are `[import — abstract-level]`: the primary-source *abstracts* were fetched this session (Isi+2019 confirms the ~10% postinspiral / ~20% first-overtone levels); the exact per-event 90% CI widths require the full-PDF tables, **not retrieved this session** — flagged as a citation-completeness limit (verify-before-cite honesty), and the confrontation only load-bears on the *level* (tens-of-%), which is robust across sources.
 
-**Neither organizer is ALREADY-EXCLUDED.** Both sit at or below current sensitivity:
-- ORG-1 predicts a −6% to −12% multipole-ratio deviation from Kerr, spin-locked; current higher-mode precision (~tens-of-%) cannot resolve it → CONSISTENT-UNTESTED.
-- ORG-2 predicts a positive near-extremal excess (+5–9% at a\*≥0.9); the current catalog has no a\*≥0.9 event → CONSISTENT-UNTESTED.
-- Next-gen ringdown precision (LISA / Einstein Telescope / Cosmic Explorer, ~1% QNM-deviation sensitivity `[import — forecast-level]`) WOULD test both → both are ORGANIZER-DERIVED-AND-TESTABLE with a stated sensitivity.
+### §3.3 — Where the organizers sit vs current data `[🔴 RE-GRADED 2026-07-20 review — R2]`
+
+> **The original verdict of this section — "Neither organizer is ALREADY-EXCLUDED / No bankable negative fired / CONSISTENT-UNTESTED" — is WITHDRAWN.** It was computed against the corrupted in-repo Kerr table (§2 retraction), which made the AVE−Kerr offset look `≤2%` for `a*≤0.85`. Against the corrected two-method Kerr reference (§2.3-CORRECTED) the AVE v2 eigenvalue deviation at the spins the catalog **actually contains** (all events `a*<0.85`) is spin-dependent and NOT rank-1-small:
+
+| a\* (attested catalog range) | 0.30 | 0.50 | 0.60 | 0.70 | 0.80 |
+|---|---|---|---|---|---|
+| AVE v2 − corrected Kerr | −4.0% | −6.3% | −7.9% | −9.9% | −12.6% |
+
+These deviations are **AT or ABOVE the PR's own imported δf_220 sensitivity** (§3.2: GWTC-3 TGR δf_220 ~few-% to ~10%). So the axis this section exists to protect — a Rule-11 bankable NEGATIVE — **cannot be honestly binned CONSISTENT-UNTESTED**. Honest re-grade:
+
+- **ORG-1** (multipole ratio): still CONSISTENT-UNTESTED on the *robust* content — current higher-mode `ω_330/ω_220` precision (~tens-of-%) cannot resolve the (spin-conditioned) AVE−Kerr gap; the ratio side does not load-bear on the corrupted `(2,2,0)` spin table. See §1.3 for the spin-conditioned separation.
+- **The AVE v2 eigenvalue vs Kerr (the axis ORG-2 fed off)**: **🔴 POTENTIAL LIVE TENSION — UNSAFE-PENDING-UPSTREAM-FIX.** The determination is contaminated by **two** open items, **both routed to the canon-correction lane (running separately)**: (i) the corrupted in-repo `BERTI_220_OMEGA_R` canon table (`ligo_ringdown_driver.py:122`); and (ii) a **detector-vs-source-frame mass question** in the banked `−0.45%` v2 cold-ringdown match (the leaf tables source-frame `M_final`, but LVC's 251 Hz `f_220` is detector-frame — the banked `<1%` match may be two compensating ~9–10% errors, frame-factor × table-error). **This lane does NOT fire a negative and does NOT presume its outcome** — asserting ALREADY-EXCLUDED would require the actual per-event δf_220 posteriors (imported here at abstract level only) evaluated against the fixed canon. The confrontation is **UNSAFE to bank in either direction** until the upstream fix lands.
+- Next-gen ringdown precision (LISA / Einstein Telescope / Cosmic Explorer, ~1% QNM-deviation sensitivity `[import — forecast-level]`) would sharpen either determination.
+
+**Consensus-knife:** this is an objective numerical error against the repo's own cited source — any framework compared to a `~20%`-wrong reference yields a wrong verdict; the GR side would be equally faulted. No AVE-lenient standard is applied, and no negative is banked against AVE on contaminated inputs.
 
 ---
 
