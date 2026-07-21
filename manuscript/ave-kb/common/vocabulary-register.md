@@ -59,6 +59,20 @@ parse it):
 - **clm-cross-links** — verified `clm`/`exp`/`sup` ids the term is load-bearing for (reverse bookkeeping; may be empty).
 - **open-ambiguity-flag** — `YES` + conflicting meanings/sites when the surface form is overloaded; `no` otherwise.
 - **verification** — the verify-before-cite result for this entry.
+- **ontology-grade** *(Grant-ratified convention 2026-07-21; see the convention block below)* — for a **substrate-noun** `def-` node, the noun's ontological status under phase-only epistemology, one of the four values **IDENTITY** / **MODEL-OF** / **ANALOGY** / **IMPORT**. Optional and absent on the legacy clarity-risk / notation entries; present on every substrate-noun ontology node minted 2026-07-21 onward. This field is **not** parsed or materialized (INVARIANT-S12's five required fields are `term` / `adjudicated-meaning` / `axis` / `dimension/type` / `status`; the emitter ignores any additional bullet), so it is a human-facing register commitment, not a drift-gated one.
+
+---
+
+### The ontology-grade convention (`def-` substrate nouns) — Grant-ratified 2026-07-21
+
+**Adjudication basis** (Grant, verbatim `[sic]`): *"i oike the plan lets fire that lane, 1) agree its an identity not literal, 2) lets walk, 3) yup makes sense"*. Under the framework's **phase-only epistemology** (no direct observable of the substrate; the bulk self-cancels — `form-deriving-value-importing.md`:255,:265, `identity-break-test-design.md`:110-111), a substrate **noun** is a **structure commitment**, and "is" only cashes out at the *structure* level — there is no accessible substance the structure is "made of", and asking for one regresses. The `ontology-grade` field records **which** level of commitment a substrate noun carries, on a four-value scale:
+
+- **IDENTITY** *(structure-commitment — the only level where "is" means anything under phase-only epistemology; NOT a substance/material claim)* — the noun commits **exactly** the structural / constitutive relations (connectivity, DOF grades, constitutive couplings) and nothing about a material the structure is made of. An IDENTITY grade does **not** blanket-license imports keyed on the surface word: each import (e.g. a materials-science property borrowed because the substrate is "a crystal") runs the per-import means-test individually (`substrate-native-terminology.md` §"the leak-check"; the law-vs-texture program's operating assumption).
+- **MODEL-OF** *(exact isomorphic description, carrying the isomorphism's own status + regime scope)* — the noun names a description that is an **exact isomorphic image** of the structure within a stated regime (e.g. the long-wave / `ωτ≪1` limit), carrying the isomorphism's own adjudication status and its regime of validity. Outside that regime the model and the structure book their content differently and are no longer co-equal.
+- **ANALOGY** *(means-tested correspondence, regime-scoped, per the hub-and-spoke discipline)* — a correspondence that is means-tested and regime-scoped (the `ave-cross-discipline-mapping` hub-and-spoke rule: map disciplines to the substrate hub, never discipline-to-discipline), NOT an identity; it is licensed only where its defining property survives the leak-check.
+- **IMPORT** *(external value/structure, tagged)* — an externally-sourced value or structure carried into the framework with its provenance tagged (the `echo` / `mixed` value-provenance axis, `def-ech0v1` / `def-fmv001`).
+
+The grade is **orthogonal to `status`**: `status` answers "is the adjudicated sense locked?"; `ontology-grade` answers "at what ontological level does this noun commit?". A noun may be `status: SOLID` **and** carry any of the four grades.
 
 ---
 
@@ -879,6 +893,145 @@ parse it):
 
 ---
 
+<!-- ============================================================
+SUBSTRATE-NOUN ONTOLOGY BLOCK — Grant-ratified 2026-07-21
+(verbatim [sic]: "i oike the plan lets fire that lane, 1) agree its an
+identity not literal, 2) lets walk, 3) yup makes sense"; the bond grade
+ratified mid-flight, verbatim [sic]: "yes rhat grade matches my perspective").
+Eight core-noun def- nodes, each carrying the ontology-grade field (the
+convention block at the top of this register). Grade legend: IDENTITY /
+MODEL-OF / ANALOGY / IMPORT.
+============================================================ -->
+
+## crystal
+<!-- id: def-cryst1 -->
+
+- **term:** crystal / "the vacuum is a chiral Laves K4 Cosserat crystal"
+- **adjudicated-meaning:** the Axiom-1 substrate noun **"crystal"** is a **structure commitment**, NOT a literal-material claim. It commits the K4/srs connectivity (chiral z=3 srs / Sunada-K4 / Laves net, $I4_1 32$ chiral space group), the six per-node Cosserat DOF grades (3 translational→E, 3 microrotational→B), the intrinsic per-node LC oscillator, and the constitutive relations that follow — and **nothing about a material the crystal is "made of"** (there is no substance under the structure; asking "what is the crystal made of?" regresses, and under phase-only epistemology the bulk self-cancels so only the structure is observable). ★**Consequence banked here (load-bearing):** because "crystal" commits STRUCTURE not SUBSTANCE, imports from materials science are **NOT blanket-licensed** by the word — each candidate import (yield, viscosity, plasticity, amorphousness, …) runs the per-import means-test **individually** (the leak-check + the law-vs-texture programs' operating assumption, now anchored here).
+- **axis:** other — substrate-noun ontology (a structure commitment, not a glyph on a physical axis)
+- **dimension/type:** n/a (a noun — the substrate structure, not a field or observable)
+- **status:** SOLID (Grant-ratified 2026-07-21, verbatim `[sic]`: *"1) agree its an identity not literal"*)
+- **ontology-grade:** **IDENTITY-AT-STRUCTURE-LEVEL** — the noun commits exactly the structural/constitutive relations; the only level at which "is" means anything under phase-only epistemology, and explicitly NOT a substance/material claim.
+- **canonical-home:** `manuscript/common_equations/eq_axiom_1.tex:36-37` (the "chiral Laves K4 Cosserat crystal" identity, z=3 srs connectivity + 6-DOF Cosserat structure); the phase-only epistemology basis at [`form-deriving-value-importing.md`](form-deriving-value-importing.md):255,:265 + [`identity-break-test-design.md`](identity-break-test-design.md):110-111 (the bulk self-cancels — no direct observable).
+- **clm-cross-links:** clm-q39qct (z=3 Scheme-A connectivity), clm-9s9apq (z=3 justification)
+- **open-ambiguity-flag:** no — the structure-commitment sense is the single adjudicated sense. *(The surface form "K4" — distinct from "crystal" — carries its own three-referent overload at `def-4b1a2c`; the broader crystalline-vs-amorphous STRUCTURAL seam, also distinct from this ontology-grade ruling, stays open at `the-abandoned-interior.md:183`. Neither is an ambiguity of the crystal-as-structure-commitment ruling.)*
+- **verification:** VERIFIED two-method (`grep -F` + direct read) at HEAD — the "chiral Laves K4 Cosserat crystal" identity + z=3 srs + 6-DOF Cosserat structure verbatim at `eq_axiom_1.tex:36-37`; the phase-only "bulk self-cancels / no direct observable" basis at `form-deriving-value-importing.md:255,:265` and `identity-break-test-design.md:110-111`. Grade IDENTITY-AT-STRUCTURE-LEVEL ★GRANT-RATIFIED 2026-07-21 (verbatim `[sic]` "agree its an identity not literal"). The per-import means-test consequence is the operating assumption of `substrate-native-terminology.md` §"the leak-check" — now anchored here.
+
+---
+
+## the impedance analogy (mechanical ↔ electrical convention)
+<!-- id: def-1mpanl -->
+
+- **term:** the impedance analogy — the corpus's mechanical↔electrical correspondence convention (stress ↔ voltage, velocity ↔ current)
+- **adjudicated-meaning:** the corpus's mechanical-electrical analogy is **PINNED** globally as the **IMPEDANCE ANALOGY**: **stress ↔ voltage** ($V=\xi^{-1}F$), **velocity ↔ current** ($I=\xi v$) — the force-analogy (impedance) branch of the two dual analogies, matching the TKI dictionary rows (`translation-circuit.md:17-26`, clm-fy05jc). Under it, mechanical impedance $Z=\text{stress}/\text{velocity}$, so: **$Z\to0$ = short = pressure-release / free boundary = $\Gamma=-1$**, and **$Z\to\infty$ = open = rigid / clamped boundary = $\Gamma=+1$** (`translation-circuit.md:119` — "Short-circuit ($Z\to0$) … $\Gamma=-1$" vs the electric-branch "open-circuit ($Z\to\infty$) … $\Gamma\to+1$"). This is a **register commitment**: use this pairing everywhere; do not silently switch to the dual mobility analogy (force↔current) mid-derivation.
+- **axis:** notation / other — a global sign/variable-pairing convention for the mechanical↔electrical correspondence
+- **dimension/type:** n/a (a convention pinning; the paired quantities carry their own dimensions — stress Pa, voltage V, velocity m/s, current A)
+- **status:** SOLID (Grant-ratified 2026-07-21, verbatim `[sic]`: *"3) yup makes sense"*)
+- **ontology-grade:** **ANALOGY** — a means-tested, regime-scoped correspondence (the hub-and-spoke EE-spoke discipline). The pairing's *row-mapping* is underwritten by the TKI dictionary, which is IDENTITY-by-translation below the band edge (`def-tk1xfm`); the **choice of WHICH dual analogy** (impedance vs mobility) is the convention this node pins.
+- **canonical-home:** `translation-circuit.md:17-26` (the $\xi_{topo}$ dictionary rows $V=\xi^{-1}F$, $I=\xi v$; clm-fy05jc); `translation-circuit.md:119` (the $Z\to0$ short / $\Gamma=-1$ vs $Z\to\infty$ open / $\Gamma=+1$ reading; clm-lv3uw1)
+- **clm-cross-links:** clm-fy05jc (the $\xi_{topo}$ dictionary), clm-lv3uw1 (the $\Gamma=-1$ short / $\Gamma=+1$ open branches)
+- **open-ambiguity-flag:** no — the convention is pinned to one sense. **Five-instance sign-trap history this retires (recorded as the motivation for pinning, KEEP-BOTH — not open ambiguities):** (1) clamped-vs-free boundary sign; (2) the skill-row fix; (3) the impedance reading; (4) the comb phase; (5) the RVE vessel state — each a recurrence of the same short/open ↔ free/rigid ambiguity the pinned convention forecloses.
+- **verification:** VERIFIED two-method at HEAD — the dictionary rows $V=\xi^{-1}F$ (voltage↔force/stress), $I=\xi v$ (current↔velocity) at `translation-circuit.md:17-26` (clm-fy05jc; "identity statements … not analogies" at :41); the $Z\to0$ short/$\Gamma=-1$ and $Z\to\infty$ open/$\Gamma=+1$ mapping at `translation-circuit.md:119` (clm-lv3uw1). ★GRANT-RATIFIED 2026-07-21 (verbatim `[sic]` "yup makes sense"). Grade ANALOGY (the impedance-vs-mobility choice is a convention; the row-mapping itself is TKI-identity below the band edge, `def-tk1xfm`).
+
+---
+
+## bond
+<!-- id: def-b0nd01 -->
+
+- **term:** bond ("bond = transmission-line segment")
+- **adjudicated-meaning:** the substrate **BOND** noun (a K4/srs lattice edge) is an **IDENTITY-at-structure-level** commitment: **three orientation-resolved coupling channels** (axial $k_a$ / shear $k_s$ / Cosserat couple-stress $\gamma_c$ — the stretch/bend/twist grades: `axiom-register.md:189` [$\rho=k_a/k_s$ stretch/bend], `port-register.md:47-50` [the three propagating channels + the gapped couple-stress $\gamma$-grade], `vol9/ch9-mechanical-characteristics/index.md:11` [$\gamma_c$]), a **unitary node scatter** (power-conserving vertex, $|\Gamma|^2+|T|^2=1$), and a **finite per-cell delay** ($\tau=\sqrt{L_{cell}C_{cell}}=\ell_{node}/c_0$). The phrase **"transmission-line segment"** is grade **MODEL-OF, REGIME-SCOPED**: a *per-channel* projection (a TL is one-mode; the bond is three-channel), **exact in the propagating long-wave regime** ($\omega\tau\ll1$) and native to the EM-sector engines — each K4/srs bond **is** a lossless transmission-line span (`z0-derivation.md:98,:115`, clm-mfb2ax; the lumped node is the $\omega\tau\ll1$ limit of the distributed bond; distributed-vs-lumped ABCD first diverge at $O(\theta^2)$). ★**At band-edge scales the banked mechanical dispersion — the corpus-adjudicated arccos band top $\omega=\omega_{\text{link}}\arccos(\mu/3)$ (`srs-band-structure.md`, clm-bnd5rq, gates #604/#607) — rides the LUMPED mass-spring description**, and the two descriptions **book the delay differently** (distributed-in-bond vs emergent-from-chain); they are **co-equal only BELOW the band edge**. `def-tk1xfm`'s TKI co-equality should carry this band-edge scope at ratification (Task-3b package).
+- **axis:** other — substrate-noun ontology (a lattice edge / coupling element; its channels carry speeds $L\,T^{-1}$)
+- **dimension/type:** n/a as a noun; the channels carry stiffnesses/impedances ($k_a,k_s$, couple-stress $\gamma_c$) and a one-span delay $\tau=\ell_{node}/c_0$ [T]
+- **status:** SOLID — bond grade ★GRANT-RATIFIED 2026-07-21 (verbatim `[sic]`: *"yes rhat grade matches my perspective"*; the walk was delivered 2026-07-21 and Grant read + ratified it same day, superseding the DRAFTED-PENDING-GRANT status).
+- **ontology-grade:** **IDENTITY-at-structure-level** (the bond noun: three channels $k_a/k_s/\gamma_c$, unitary node scatter, finite per-cell delay) **/ MODEL-OF, REGIME-SCOPED** (the "transmission-line segment" projection: per-channel, exact in the propagating long-wave regime, EM-native; at the band edge the lumped mass-spring description takes over and the two book the delay differently — co-equal only below the band edge).
+- **canonical-home:** `z0-derivation.md:98,:115` (the bond as a distributed transmission line; ABCD identity; lumped = $\omega\tau\ll1$ limit; clm-mfb2ax); `port-register.md:47-50` (the three orientation-resolved channels); `srs-band-structure.md` §1-§2 (the arccos band top + the distributed-arccos-vs-lumped model adjudication; clm-bnd5rq); `axiom-register.md:189` ($\rho=k_a/k_s$).
+- **clm-cross-links:** clm-mfb2ax (bond = distributed TL / ABCD identity), clm-bnd5rq (srs band-structure arccos top / model adjudication), clm-fy05jc (the TKI dictionary the per-channel projection rides), clm-uu1qbo (the A1/T2 propagation-speed split across the bond's channels)
+- **open-ambiguity-flag:** no — the bond noun's structural sense is single; the "TL segment" scope is captured by the MODEL-OF/REGIME-SCOPED grade above, not an ambiguity.
+- **verification:** VERIFIED two-method at HEAD — "each K4/srs bond **is** a lossless transmission-line" span + "the lumped node is the $\omega\tau\ll1$ limit of the distributed bond" + distributed-vs-lumped ABCD first divergence $O(\theta^2)$ at `z0-derivation.md:98,:115` (clm-mfb2ax); the three channels (EM-transverse $T_2$, mechanical-shear $T_2$, bulk-longitudinal $A_1$, gapped Cosserat micro-rotation $\gamma$-grade) at `port-register.md:47-50`; the arccos band top $\omega=\omega_{\text{link}}\arccos(\mu/3)$ + "the arccos TL map, not $\omega=\sqrt\lambda$, is the substrate-native band model" (lumped would give $\sqrt{12}$) at `srs-band-structure.md` §1-§2 (clm-bnd5rq, gates #604/#607). ★Bond grade GRANT-RATIFIED 2026-07-21 (verbatim `[sic]` "yes rhat grade matches my perspective"); the `def-tk1xfm` co-equality-below-band-edge scope is surfaced for its own ratification package (Task-3b).
+
+---
+
+## node (lattice site — the intrinsic LC tank)
+<!-- id: def-n0det1 -->
+
+- **term:** node (the K4/srs lattice site read as the intrinsic LC tank — the DOF-grade bundle at a lattice site)
+- **adjudicated-meaning:** the substrate **NODE** noun, in its **lattice-site / active-site** sense, is an **IDENTITY-at-structure-level** commitment: the DOF-grade bundle at one K4/srs lattice site — the six Cosserat DOF (3 translational→E, 3 microrotational→B) plus the intrinsic per-node LC oscillator and the $A_1$ dilatation grade (Axiom 1). The description **"LC tank / oscillator"** is grade **MODEL-OF** of that same per-site structure — the EE reading of the translational/E grade (capacitive) coupled to the microrotational/B grade (inductive), co-equal with the mechanical reading per the TKI-as-scoped isomorphism (`def-tk1xfm`). **This is a DISTINCT sense of "node" from `def-cc2196`**, which locks "node" = the *spatial-Nyquist / Brillouin cell* (the sampling boundary at pitch $\ell_{node}$); THIS node is the *lattice-site / 4-port active site* sense that `def-cc2196`'s open-ambiguity flag (b) records. KEEP-BOTH: the two senses coexist (sampling-boundary vs active-site) and are read by context.
+- **axis:** other — substrate-noun ontology (a lattice site / DOF-grade bundle)
+- **dimension/type:** n/a as a noun; the site carries 6 Cosserat DOF + the $A_1$ grade + the LC tank ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$)
+- **status:** SOLID (the lattice-site/LC-tank structural sense is Axiom-1 canonical; ontology-grade node minted 2026-07-21)
+- **ontology-grade:** **IDENTITY-at-structure-level** (the DOF-grade bundle at a lattice site, per Ax 1) **/ MODEL-OF** (the "LC tank / oscillator" EE reading of the same per-sector structure, co-equal with the mechanical reading below the band edge).
+- **canonical-home:** `manuscript/common_equations/eq_axiom_1.tex:36-37` (the 6-DOF micropolar node + intrinsic LC oscillator); [`port-register.md`](port-register.md):37,:47-50 ($V_{4\text{-port}}=A_1\oplus T_2$; the per-site grade content); `z0-derivation.md:115` ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$ — the node LC tank).
+- **clm-cross-links:** clm-j550uh (K4-port irrep decomposition), clm-9kd2t3 (K4-port irrep), clm-uu1qbo (the A1/T2 grade-speed split)
+- **open-ambiguity-flag:** YES — "node" is overloaded. **(a)** the **spatial-Nyquist / Brillouin cell** sampling boundary (`def-cc2196`, SOLID; `paley-wiener-hilbert.md:10`); **(b) THIS node** — the **lattice-site / 4-port active site / intrinsic LC tank** (`docs/glossary.md:32` "K4 4-port tetrahedral active site"); **(c)** a **field/wave null** (a zero of amplitude). Read by context; "sub-node" always means "below $\ell_{node}$", never a graph vertex (per `def-cc2196`).
+  - conflicting sites: spatial-Nyquist cell `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md:10` (locked by `def-cc2196`); lattice-site / 4-port active site `docs/glossary.md:32`.
+- **verification:** VERIFIED two-method at HEAD — the 6-DOF micropolar node + intrinsic LC oscillator at `eq_axiom_1.tex:36-37`; the spatial-Nyquist sense at `paley-wiener-hilbert.md:10` (locked by `def-cc2196`); the 4-port active-site sense at `docs/glossary.md:32` ("K4 4-port tetrahedral active site"). The lattice-site sense is Axiom-1 canonical; this node (minted 2026-07-21) gives it the ontology-grade and cross-refs `def-cc2196` (the Brillouin-cell sense) — KEEP-BOTH, the two senses are distinct.
+
+---
+
+## lattice (the connectivity + ordering commitment)
+<!-- id: def-latt1c -->
+
+- **term:** lattice (the substrate connectivity + ordering commitment)
+- **adjudicated-meaning:** the substrate **LATTICE** noun is an **IDENTITY-at-structure-level** commitment: the **connectivity + ordering** of the substrate — the chiral z=3 srs / Sunada-K4 / Laves net, $I4_1 32$ chiral space group. The **srs/K4 chirality is STRUCTURAL** (a real-space handedness of the ordering, right-handed $I4_1 32$ vs its $I4_3 32$ mirror), not a dynamical order-parameter. This is the connectivity face of the "crystal" identity (`def-cryst1`): "crystal" commits the full Cosserat-crystal structure; "lattice" is the discrete / Nyquist / graph sub-commitment (the connectivity + ordering), the preferred noun in discrete/graph contexts (INVARIANT-N1).
+- **axis:** other — substrate-noun ontology (the connectivity/ordering commitment; length scale $\ell_{node}$)
+- **dimension/type:** n/a as a noun; carries the pitch $\ell_{node}$ [L] and the graph connectivity ($z=3$)
+- **status:** SOLID (the z=3 srs connectivity + $I4_1 32$ chirality are Axiom-1 canonical, doubly-ratified Grant 2026-06-25 + 2026-07-03 D1; ontology-grade node minted 2026-07-21)
+- **ontology-grade:** **IDENTITY-at-structure-level** (the connectivity + ordering commitment; srs/K4 chirality is structural).
+- **canonical-home:** `manuscript/common_equations/eq_axiom_1.tex:36-37,:43` (z=3 srs connectivity, $I4_1 32$, D1 ratification); INVARIANT-N1 (`the lattice` as the discrete/graph substrate noun).
+- **clm-cross-links:** clm-q39qct (z=3 Scheme-A connectivity), clm-9s9apq (z=3 justification)
+- **open-ambiguity-flag:** no — the connectivity/ordering sense is single. *(The "K4" NAME overload — graph/lattice vs group vs engine-diamond — is `def-4b1a2c`; the crystalline-vs-amorphous seam is `the-abandoned-interior.md:183`; neither is an ambiguity of lattice-as-connectivity-commitment.)*
+- **verification:** VERIFIED two-method at HEAD — z=3 srs connectivity + $I4_1 32$ chiral space group at `eq_axiom_1.tex:36-37`, D1 ratification at `:43`; the discrete/graph substrate-noun convention at INVARIANT-N1 (`ave-kb/CLAUDE.md`). Grade IDENTITY-at-structure-level; cross-refs `def-cryst1` (the full crystal identity) and `def-cc2196` (the Nyquist-cell sampling reading of the same lattice).
+
+---
+
+## transmission-line segment (the EE model-object)
+<!-- id: def-tls3g1 -->
+
+- **term:** transmission-line segment (the EE model-object itself)
+- **adjudicated-meaning:** the **transmission-line segment** — as the EE **model-object itself** — is grade **MODEL-OF** (per the bond def `def-b0nd01`): a single-mode lossless TL span with characteristic impedance $Z_0=\sqrt{\mu_0/\varepsilon_0}$ and one-span delay $\tau=\ell_{node}/c_0$, which is the **per-channel projection** of a substrate bond. It is exact in the propagating long-wave regime ($\omega\tau\ll1$) and native to the EM-sector engines; it does NOT carry the bond's three-channel structure (a TL is one-mode). At band-edge scales the lumped mass-spring / arccos description takes over (see `def-b0nd01`, `srs-band-structure.md`, clm-bnd5rq). Cross-ref: `def-b0nd01` (the bond, of which this is the per-channel MODEL-OF).
+- **axis:** notation / other — an EE model-object (the per-channel projection of a bond)
+- **dimension/type:** circuit/structure — $Z_0$ [Ω], one-span delay $\tau=\ell_{node}/c_0$ [T]
+- **status:** SOLID (the bond=distributed-TL identity is canonical, clm-mfb2ax; the MODEL-OF grade rides `def-b0nd01`'s ratification 2026-07-21)
+- **ontology-grade:** **MODEL-OF** (the single-mode EE model-object; per-channel projection of the bond; exact in the long-wave regime; see `def-b0nd01`).
+- **canonical-home:** `z0-derivation.md:98,:115` (the bond as a distributed TL; $Z_0$, $\tau=\ell_{node}/c_0$; clm-mfb2ax); `vol6/framework/computational-mass-defect/abcd-transfer-matrix.md:14` (each TL segment as a 2×2 ABCD; cascade).
+- **clm-cross-links:** clm-mfb2ax (bond = distributed TL / ABCD identity), clm-bnd5rq (band-edge model adjudication)
+- **open-ambiguity-flag:** no.
+- **verification:** VERIFIED two-method at HEAD — the bond-as-distributed-TL span, $Z_0=\sqrt{\mu_0/\varepsilon_0}$, one-span delay $\tau=\ell_{node}/c_0$ at `z0-derivation.md:98,:115` (clm-mfb2ax); the ABCD-cascade TL-segment usage ("each segment of a transmission line is represented as a $2\times2$ matrix") at `abcd-transfer-matrix.md:14`. Grade MODEL-OF, cross-ref `def-b0nd01`.
+
+---
+
+## Cosserat continuum (long-wave continuum description)
+<!-- id: def-c0ss3r -->
+
+- **term:** Cosserat continuum (the long-wave continuum description of the lattice)
+- **adjudicated-meaning:** the **Cosserat (micropolar) continuum** — as a description of the substrate — is grade **MODEL-OF, REGIME-SCOPED**: the **long-wave continuum limit** of the discrete K4/srs Cosserat crystal (Axiom 1's continuum clause, the "Trace-Reversed Chiral LC Network"). It is **exact below the band edge by construction of the continuum limit** (the $k\ell_{node}\to0$ face of the lattice), carrying the couple-stress modulus $\gamma_c$, the Cosserat characteristic length $l_c=\sqrt{\gamma_c/G_{vac}}$, and the micropolar 6-DOF. Above the band edge the discrete lattice's dispersion (the arccos band top, `srs-band-structure.md`, clm-bnd5rq) departs from the continuum, and the continuum description ceases to be co-equal. Distinct from the **crystal** IDENTITY (`def-cryst1`): the crystal is the structure; the Cosserat continuum is its long-wave MODEL-OF.
+- **axis:** other — substrate-description ontology (the long-wave continuum limit)
+- **dimension/type:** continuum field description — moduli $G_{vac}$, $K_{vac}=2G_{vac}$, couple-stress $\gamma_c$, length $l_c$ [L]
+- **status:** SOLID (the continuum-limit description is Axiom-1 canonical; MODEL-OF/regime-scoped grade minted 2026-07-21)
+- **ontology-grade:** **MODEL-OF, REGIME-SCOPED** (the long-wave continuum description of the lattice; exact below the band edge by construction of the continuum limit).
+- **canonical-home:** `manuscript/common_equations/eq_axiom_1.tex:36-37` (the continuum clause: "In the macroscopic continuum limit … a Trace-Reversed Chiral LC Network"); `vol9/ch9-mechanical-characteristics/index.md:11` (the Cosserat micropolar continuum spec: $G_{vac}$, $K_{vac}=2G_{vac}$, $\gamma_c$, $l_c=\sqrt{\gamma_c/G_{vac}}$).
+- **clm-cross-links:** clm-kmliqx (the $c_R=\sqrt2\,c$ rotational curvature speed), clm-uu1qbo (the A1/T2 speed split at the continuum limit)
+- **open-ambiguity-flag:** no.
+- **verification:** VERIFIED two-method at HEAD — the continuum-limit clause at `eq_axiom_1.tex:36-37` ("In the macroscopic continuum limit, the lattice is a Trace-Reversed Chiral LC Network"); the Cosserat micropolar continuum spec ($G_{vac}$, $K_{vac}=2G_{vac}$, $\gamma_c$, $l_c$) at `vol9/ch9-mechanical-characteristics/index.md:11`. Grade MODEL-OF, regime-scoped; cross-ref `def-cryst1` (the crystal it is the long-wave limit of).
+
+---
+
+## vacuum (substrate ontology-grade)
+<!-- id: def-vacm01 -->
+
+- **term:** vacuum (the substrate noun, ontology-grade)
+- **adjudicated-meaning:** the **VACUUM** noun is an **IDENTITY-at-structure-level** commitment: the substrate itself = **the crystal at its operating point** (`def-cryst1`; the chiral Laves K4 Cosserat crystal at a given saturation-state $A_0$ / quiescent point). Under phase-only epistemology it is a structure commitment, not a substance — "the physical vacuum IS a … crystal" (Axiom 1) is read at the STRUCTURE level. This node is the **ontology-grade** record for the vacuum/substrate noun; it is DISTINCT from `def-91c4e8` (`substrate`), which is the **notation** adjudication (the vacuum has no dedicated object glyph — use prose nouns per INVARIANT-N1). Cross-ref: `def-cryst1` (crystal = the same structure, formal/axiom register), `def-91c4e8` (the notation/symbol rule).
+- **axis:** other — substrate-noun ontology (the substrate = the crystal at operating point)
+- **dimension/type:** n/a (the substrate noun)
+- **status:** SOLID (the "vacuum IS a chiral Laves K4 Cosserat crystal" identity is Axiom-1 canonical; ontology-grade node minted 2026-07-21 alongside the crystal ratification)
+- **ontology-grade:** **IDENTITY-at-structure-level** (the substrate noun; = the crystal at operating point; cross-ref `def-cryst1`).
+- **canonical-home:** `manuscript/common_equations/eq_axiom_1.tex:36` ("The physical vacuum IS a chiral Laves K4 Cosserat crystal"); the operating-point (saturation-state $A_0$ / quiescent point) at `ave-kb/CLAUDE.md` INVARIANT-S2 + `def-q1escn`; the notation rule at INVARIANT-N1 / `def-91c4e8`.
+- **clm-cross-links:** (cross-cutting — all axiom-1 claims)
+- **open-ambiguity-flag:** no — the ontology-grade sense is single. *(The notation/symbol question — no object glyph — is `def-91c4e8`, a different axis, not an ambiguity of the ontology grade.)*
+- **verification:** VERIFIED two-method at HEAD — "The physical vacuum IS a chiral Laves K4 Cosserat crystal" at `eq_axiom_1.tex:36`; the operating-point / saturation-state $A_0$ reading at `ave-kb/CLAUDE.md` INVARIANT-S2 (the LC-tank operating point) + `def-q1escn` (quiescent point); the notation rule (no glyph) at INVARIANT-N1 / `def-91c4e8`. Grade IDENTITY-at-structure-level; = the crystal (`def-cryst1`) at operating point.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
@@ -898,6 +1051,18 @@ photon-family disambiguation) — locks "T₂ = the photon" to the massless
 transverse-TRANSLATIONAL u-family (NOT the gapped Cosserat microrotational ω);
 open-ambiguity YES (the two T₂ objects, separated by massless-vs-gapped). G2
 ruling Grant 2026-07-03, `research/2026-07-03_g2-photon-relabel_note.md`.
+
+**Substrate-noun ontology (8 nodes, Grant-ratified 2026-07-21):** the
+ontology-grade convention (IDENTITY / MODEL-OF / ANALOGY / IMPORT; header block)
+plus eight core-noun nodes — `crystal` (`def-cryst1`, IDENTITY), `the impedance
+analogy` (`def-1mpanl`, ANALOGY), `bond` (`def-b0nd01`, IDENTITY / MODEL-OF), `node
+(lattice site)` (`def-n0det1`, IDENTITY / MODEL-OF), `lattice` (`def-latt1c`,
+IDENTITY), `transmission-line segment` (`def-tls3g1`, MODEL-OF), `Cosserat
+continuum` (`def-c0ss3r`, MODEL-OF regime-scoped), `vacuum` (`def-vacm01`,
+IDENTITY). Grant basis verbatim `[sic]`: *"1) agree its an identity not
+literal … 3) yup makes sense"*; the bond grade ratified mid-flight (`[sic]`:
+*"yes rhat grade matches my perspective"*). The `def-tk1xfm` co-equality-below-
+band-edge scope surfaced for its own ratification package (pending-rulings doc).
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —
