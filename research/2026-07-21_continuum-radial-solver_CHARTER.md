@@ -10,7 +10,13 @@
 
 ## §0 — GRANT DECISION LIST (the OPEN decisions; one line each — nothing builds without these)
 
-<!-- SKELETON: filled in commit 2 -->
+The charter surfaces these; it does NOT pick any of them (substrate-adjudicates-forks / Rule 16 / flag-don't-fix). Each is stated with its source-doc anchor. Build is blocked on **D1–D3**; **D4–D5** are stage/profile gates that set WHEN and WITH-WHAT the build runs.
+
+- **D1 — the sector-crossed c² choice (the plumber-physical question; the pre-test-physics-check surfaced to Grant).** In the E=mc² import `ρ_contribution = E_trapped / c² · (participation)`, **which sector's wave-speed sets c²** — the A1 compression speed `c_P` (`0.519`), the shear speed `c_S` (`0.286`), or the transverse-EM speed `c_EM`? Not automatic: the trapped energy is T2/swing-class sitting in the A1 carrier's inertia budget, and `A1 ⊥ T2` forbids silently assigning it (`relative-offset-principle.md` `clm-m5swh9`; sector-ownership cross-wiring watch). **OPEN — surfaced, not picked.**
+- **D2 — the participation magnitude.** The import fixes the DIRECTION (up, Reading A, `clm-hu1jjw`) but NOT the coefficient. Does the lane import the `#782` placeholder scan `β ∈ {0,1,3}` (`ρ_eff/ρ_0 = 1 + β·φ`) as a disclosed sweep, or hold β/effective-M fully symbolic pending its own derivation with its own version + verification chain (Rule 12: the slot is NOT refilled with an unverified value)? **OPEN.**
+- **D3 — the solver formulation.** Frequency-domain transfer-matrix through the radial profile, vs time-domain 1D radial FDTD, vs analytic matched-asymptotics (trade study §6, each with its cost). **OPEN.**
+- **D4 — stage-1 gating vs the vessel-state walk.** Does stage-1 run PRE-walk with isotropic cage classes as scaffolding (instrument validation only, no physics verdict), or WAIT for the vessel-state walk to deliver the anisotropic hoop-stiff / radial-soft pre-stress profile (`#779`, `research/2026-07-21_boundary-strain-amplitude_result.md` §3; the walk is PARKED per Grant)? **OPEN (a sequencing decision).**
+- **D5 — the pre-stress sign input (Fork P, standing).** The electron mass-core profile — is it net-compressed (radial bonds soften) or expanded — enters the solver's radial profile. Per `#779` R6 the sign is orientation-keyed (pressure-vessel: hoop-tension + radial-compression), not a scalar; the vessel-state remap evaluation is a standing Grant-routed input (`research/2026-07-21_rve-aggregation-bench_prereg-FROZEN.md` §5 Fork P). Held BOTH-signs until ruled. **OPEN — routed input, not lane-decidable.**
 
 ## §1 — Sector header + regime declaration (mandatory before any substrate claim)
 
