@@ -57,6 +57,45 @@ GR-imported via $K=2G$, PR #261; FORM-derived only.)
 > re-adjudication is Grant's. Fork-reopen note:
 > [`…_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md) § FORK-REOPEN.
 
+> **🟩 GRANT RULING — the reopened fork is RULED (2026-07-21, Ruling B1; body above preserved per
+> Rule 12).** Grant, verbatim `[sic]`: *"ruling 1 proceed with your rec, ruling 2 walk back now."*
+> Ruling 1 = option **B1** on the reopened v1↔v2 spin-mapping fork (evidence brief:
+> [`research/2026-07-20_v1-spin-mapping-adjudication_result.md`](../../../../../research/2026-07-20_v1-spin-mapping-adjudication_result.md),
+> the corrected-τ MIXED verdict + mirror-split package; upstream MATCH-ARTIFACT re-adjudication
+> [`…_kerr-table-correction_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md)).
+>
+> - **v1 RE-SELECTED as the standing $\omega_R$ spin-mapping phenomenology.** $x_{sat,v1} = 7\,r_{ph}^+/3M$
+>   (entire-cavity-compliant; $\omega_R M_g = \ell(1+\nu_{vac})/x_{sat,v1}$) is the standing Kerr $\omega_R$
+>   mapping, replacing v2. On the frozen C-1 dimensionless comparator v1 sits **+2.63% mean** on the
+>   primary catalog (a\*=0.64/0.67/0.74 → +2.24/+2.50/+3.17%; *inside* the `|D̄| < 3%` MATCH band) and
+>   **+3.36% mean** on the secondary higher-spin set (marginal, 3–5%; overshoot grows monotonically with
+>   spin). **Grade UNCHANGED: solidity 0.55, build_status "use as input only", disclosed-phenomenological**
+>   — the mapping-conditional + phenomenological-photon-sphere-shift riders are RETAINED (v1 is the
+>   *simpler* phenomenology, single-component; it is NOT more first-principles-derived than v2 — both are
+>   disclosed phenomenological per clm-395gps). This is a **consistency-class** spinning match, NOT a
+>   zero-free-parameter benchmark; the only zero-parameter content remains the cold $18/49$ eigenvalue.
+> - **v2 preserved verbatim as superseded.** The v2 Resultbox + all v2 text below stay per Rule 12. Note
+>   the **mirror-image split**: under the committed Model-B $\tau$ chain, v2 gives $\bar D_Q = +2.12\%$
+>   (τ-*matches*), but v2's $\omega_R$ *fails* at −9.53% — v2 near-matches τ only by compensating ω_R/ω_I
+>   errors. **No mapping matches on both axes.**
+> - **τ STATE BANKED — OPEN NEAR-MISS TENSION (not a match, not a kill).** v1's *actual* corpus τ model
+>   is the spin-refined $\omega_I = (\omega_R - m\Omega)/(2\ell)$ at $r_\Omega = r_{ph}\sqrt{1+\nu_{vac}}$
+>   with **$\Omega$ corpus-pinned** (Ch.2 frame-dragging Resultbox $\omega(r) = 2Mar/(r^2+a^2)^2$,
+>   clm-rd9cjm at $r_\Omega$; the chain regenerates the asserted KB τ = 3.5/2.7/1.2 ms to rounding). Against
+>   corrected-Kerr Q it gives **$\bar D_Q = -5.44\%$** (Resultbox form) / **$-4.57\%$** (exact-equatorial-ZAMO
+>   variant — sensitivity flagged): an **OPEN τ near-miss tension**, outside the frozen band but far from the
+>   cold-model failure. Phase-5's `−0.47%` τ "match" and "outperforms GR" stay RETRACTED (2026-07-20 banners
+>   below). The τ tension is the **named next ringdown work** (why −5.4%: the $r_\Omega$ / $\nu_{vac}$ factor
+>   / mapping — a queued Q-law derivation, not a closed result).
+> - **Q-LAW COMMITMENT.** The **spin story is the mΩ law** $\omega_I = (\omega_R - m\Omega)/(2\ell)$ (above);
+>   the topological **$Q = \ell$ (cold flat-Q) is scoped to the a\*=0 anchor** — the $\Omega \to 0$ limit of
+>   the mΩ law (`qnm-quality-factor.md`). The flat $Q = \ell = 2$ reading would fail at $-38\%$ at catalog
+>   spins (corrected-Kerr Q rises 3.07→3.49); the mΩ law is what carries the spin dependence.
+>
+> Superseded routing note: the "re-adjudication is Grant's / v1 not re-banked" text above (2026-07-20) is
+> now DISCHARGED — this ruling IS that re-adjudication. v1 re-bank + this Q-law scope + the near-extremal
+> 54/49 forward promotion land per Ruling B1.
+
 ### Kerr-Corrected Ringdown
 
 Frame-dragging shifts the prograde saturation boundary inward, but the K4 Cosserat lattice provides a rigid skeleton fraction that does NOT yield to rotational stress. Per the (2,3) torus knot topology shared between electron and BH ([`electron-bh-isomorphism.md`](electron-bh-isomorphism.md)), the cavity has TWO components: a rigid $\nu_{vac}$ fraction set by K4 elasticity, plus a compliant $(1 - \nu_{vac})$ fraction that scales with the photon-orbit radius.
