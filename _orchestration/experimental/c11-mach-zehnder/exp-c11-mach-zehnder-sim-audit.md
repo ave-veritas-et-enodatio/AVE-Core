@@ -85,6 +85,8 @@ The driver computes `parity_anomaly_dn = eps_11` directly (Δn = ε_11), which i
 
 ## Axis 4 — C1-BH-RING Phase 5 PASS cascade implication
 
+> **🔴 CORRECTION (2026-07-20, per AVE-Core PR #774 kerr-table-canon-correction; review finding 3).** The C1 "Phase 5 PASS / −0.45% ω_R / −0.47% τ / outperforms GR" result quoted in this Axis-4 section (preserved below as the record of the 2026-05-20 audit state) is **RETRACTED** — it was a compensating-error artifact (corrupt Kerr QNM table + source-vs-detector frame mixing); honest AVE-v2 is **−9.5% below true Kerr**, and the AVE spin-mapping fork is REOPENED. **C1 does NOT "FULLY PASS at BH-class scale"**; only the cold a\*=0 eigenvalue (−1.7%) survives as a single-point consistency figure. The "close 2-of-3 triangulation" implication for C11 below therefore does not hold — the cascade is anchored at C11 only, pending re-adjudication. Numbers below preserved verbatim (audit-trail); not rewritten.
+
 ### C1 result (per [LIGO ringdown driver Phase 5 closure 2026-05-18, commits 4673963 + c9a8db6 + 531ecdd])
 
 - ν_vac=2/7 derivation produces r_sat = 7M_g + ω_R M_g = 18/49
