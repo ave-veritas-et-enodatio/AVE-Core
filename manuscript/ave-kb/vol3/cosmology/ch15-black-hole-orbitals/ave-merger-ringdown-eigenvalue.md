@@ -21,7 +21,32 @@ The $\ell = 2$ fundamental Schwarzschild QNM eigenvalue is derived entirely from
 > \omega_R \cdot M_g = \frac{\ell\,(1 + \nu_{vac})}{x_{sat}} = \frac{18}{49} = 0.3673 \qquad (\text{GR exact: } 0.3737, \text{ error } 1.7\%)
 > $$
 
-Zero free parameters, zero borrowed results.
+Zero free parameters, zero borrowed results. **This cold Schwarzschild eigenvalue
+SURVIVES the 2026-07-20 correction below** — it is the genuine, single-point, zero-free-parameter
+result of this section ($-1.7\%$ vs Kerr). (Per the FORM/VALUE carve, $\nu_{vac}=2/7$'s VALUE is
+GR-imported via $K=2G$, PR #261; FORM-derived only.)
+
+> **🔴 SUPERSEDED (2026-07-20, kerr-table-canon-correction lane, upstream of PR #772) — the
+> spinning-remnant "match" below is a FRAME ARTIFACT.**
+>
+> Everything in the "Kerr-Corrected Ringdown", "Kerr Quality Factor", Phase-4, and Phase-5
+> subsections that reports sub-percent agreement with LIGO (the banked $-0.45\%$ mean $\omega_R$,
+> $-0.47\%$ mean $\tau$, "FULL PASS", "covers entire LIGO BBH catalog at GR-class precision") is
+> **retracted as a compensating-error artifact**. Two independent defects:
+> 1. The GR Kerr QNM reference table (`ligo_ringdown_driver.py`) was **wrong at spin** by
+>    $-9.4\%$ to $-26.8\%$ (a*=0.70–0.95); corrected 2026-07-20 (qnm + BCW-2006, three-source).
+> 2. The comparison used **source-frame** final masses against **detector-frame** observed
+>    frequencies; since $f\propto 1/M$, the $\approx 9\%$ mass gap inflated the prediction by
+>    $\approx 9\%$, cancelling a genuine $\approx -10\%$ below-Kerr deficit into a spurious "match".
+>
+> **Honest state (frame-independent dimensionless eigenvalue ratio, depends only on spin a\*):
+> AVE-v2 sits $-9.5\%$ mean BELOW true Kerr** at the catalog spins (GW150914 $-9.2\%$, GW170104
+> $-8.6\%$, GW151226 $-10.8\%$), growing with spin ($-12.6\%$ at a*=0.80, $-20\%$ at 0.95). The
+> detector-frame frequency check confirms GW150914 at $-10.1\%$ (true Kerr at detector-frame mass
+> reproduces the observed 251 Hz to $-1.0\%$; AVE-v2 gives 226 Hz). Re-run + provenance:
+> [`research/2026-07-20_kerr-table-correction_result.md`](../../../../../research/2026-07-20_kerr-table-correction_result.md)
+> + [`_rerun.py`](../../../../../research/2026-07-20_kerr-table-correction_rerun.py). The v2 FORMULA
+> below is unchanged (it is still AVE's spinning prediction); only its "matches LIGO" validation is retracted.
 
 ### Kerr-Corrected Ringdown
 
@@ -49,9 +74,13 @@ $$
 \omega_I = \frac{\omega_R - m\,\Omega}{2\,\ell}, \qquad r_\Omega = r_{ph}(a_*) \cdot \sqrt{1 + \nu_\mathrm{vac}}
 $$
 
-where $\Omega$ is the asymmetric impedance convolution rate (formerly interpreted as Lense-Thirring angular velocity) at the Poisson-augmented photon sphere $r_\Omega$. The quality factor $Q = \omega_R / (2\omega_I)$ increases with spin, matching GR to sub-2% for $a_* = 0.3\textrm{--}0.8$.
+where $\Omega$ is the asymmetric impedance convolution rate (formerly interpreted as Lense-Thirring angular velocity) at the Poisson-augmented photon sphere $r_\Omega$. The quality factor $Q = \omega_R / (2\omega_I)$ increases with spin ~~matching GR to sub-2% for $a_* = 0.3\textrm{--}0.8$~~ (**"sub-2%" RETRACTED 2026-07-20** — that figure was computed against the corrupt $\omega_R$/$\omega_I$ tables + source-frame masses; see the 🔴 banner above).
 
-Comparison against three LIGO detections, including both frequency and decay time:
+Comparison against three LIGO detections, including both frequency and decay time.
+**⚠ The table below is the SUPERSEDED frame-mixed artifact (2026-05-18)** — its
+$f_\mathrm{AVE\text{-}v2}$ used source-frame $M_{final}$ against detector-frame $f_\mathrm{obs}$;
+preserved verbatim as the record of the banked claim. Honest detector-frame / dimensionless
+numbers are in the 🔴 supersession banner above ($-9.5\%$ mean, not $-2.0\%$/$-1.2\%$/$+1.9\%$):
 
 | **Event** | $M_{final}$ | $a_*$ | $f_\mathrm{AVE\text{-}v2}$ | $f_\mathrm{obs}$ | $\Delta f$ (v2) | $f_\mathrm{AVE\text{-}v1}$ (superseded) | $\Delta f$ (v1) |
 |---|---|---|---|---|---|---|---|
@@ -59,11 +88,41 @@ Comparison against three LIGO detections, including both frequency and decay tim
 | GW170104 | 48.7 $M_\odot$ | 0.64 | **308.2 Hz** | 312 Hz | **-1.2%** | 345 Hz | +10.5% |
 | GW151226 | 20.8 $M_\odot$ | 0.74 | **764.0 Hz** | 750 Hz | **+1.9%** | 884 Hz | +17.9% |
 
-**v2 refined formula (2026-05-18): mean -0.45%, max 2.0% per event — within GR Kerr QNM precision band (mean +0.34% per Berti+Cardoso+Will 2006 Leaver-method)**. v1 simplified formula (superseded) over-predicted by ~13% mean per event; failure mode was treating entire cavity as compliant. All from zero free parameters.
+**🔴 SUPERSEDED banked claim (2026-05-18), preserved verbatim:** *"v2 refined formula
+(2026-05-18): mean -0.45%, max 2.0% per event — within GR Kerr QNM precision band (mean +0.34%
+per Berti+Cardoso+Will 2006 Leaver-method). v1 simplified formula (superseded) over-predicted by
+~13% mean per event; failure mode was treating entire cavity as compliant. All from zero free
+parameters."* — **RETRACTED 2026-07-20:** both the $-0.45\%$ and the "+0.34% GR reference" rested
+on (1) a Kerr QNM table wrong at spin by up to $-27\%$ and (2) source-vs-detector frame mixing.
+Honest v2-vs-Kerr: $-9.5\%$ mean (dimensionless, spin-only), growing with spin. The cold a*=0
+eigenvalue ($18/49$, $-1.7\%$) is the only surviving zero-free-parameter result.
 
-**Phase 5 decay-time τ refinement (2026-05-18, lattice-Q preservation): mean -0.47% across same 3 events** — v2 outperforms standard GR Kerr QNM (-6.94% mean). Mechanism: K4 lattice impedance sets damping-rate Q (rigid Cosserat skeleton property), so Q is invariant across v1/v2 cavity-radius refinements. Cavity-radius shift v1 → v2 propagates inversely into τ via $\tau_{v2} = \tau_{v1} \cdot (\omega_{R,v1} / \omega_{R,v2})$, taking v2 τ to match LIGO obs at GR-class precision. Per-event: GW150914 τ_v2 = 3.95 ms (-1.2% vs LIGO 4.0 ms); GW170104 τ_v2 = 3.02 ms (+0.7% vs LIGO 3.0 ms); GW151226 τ_v2 = 1.39 ms (-0.8% vs LIGO 1.4 ms). Full C1-BH-RING test closed: both ω_R AND τ now match LIGO at <1% mean precision per event from zero free parameters.
+**🔴 SUPERSEDED banked claim (2026-05-18), preserved verbatim:** *"Phase 5 decay-time τ
+refinement (2026-05-18, lattice-Q preservation): mean -0.47% across same 3 events — v2 outperforms
+standard GR Kerr QNM (-6.94% mean). Mechanism: K4 lattice impedance sets damping-rate Q (rigid
+Cosserat skeleton property), so Q is invariant across v1/v2 cavity-radius refinements. Cavity-radius
+shift v1 → v2 propagates inversely into τ via $\tau_{v2} = \tau_{v1} \cdot (\omega_{R,v1} /
+\omega_{R,v2})$, taking v2 τ to match LIGO obs at GR-class precision. Per-event: GW150914 τ_v2 = 3.95
+ms (-1.2% vs LIGO 4.0 ms); GW170104 τ_v2 = 3.02 ms (+0.7% vs LIGO 3.0 ms); GW151226 τ_v2 = 1.39 ms
+(-0.8% vs LIGO 1.4 ms). Full C1-BH-RING test closed: both ω_R AND τ now match LIGO at <1% mean
+precision per event from zero free parameters."* — **RETRACTED 2026-07-20:** the τ chain rides the
+same source-frame masses AND a separately-corrupt $\omega_I$ table (high by $+11\%$/$+26\%$ at
+a*=0.90/0.95); the $-0.47\%$ "match" and the "outperforms GR ($-6.94\%$)" contrast do not survive
+the frame + $\omega_I$-table correction. C1-BH-RING is NOT closed; a full frame-corrected τ re-run
+is a flagged follow-on.
 
-**Phase 4 spin sweep validation (2026-05-18)**: v2 reproduces GR Kerr QNM curve across the full observed LIGO BBH spin range. 9 of 11 swept spin values (a* ∈ {0.0, 0.1, ..., 0.95}) PASS at |dev| < 3% vs GR Berti reference. Divergence onset a* ≥ 0.90 (near-extremal regime, currently unattested in LIGO catalog). Mass-independence confirmed at 7× range: **GW190521 (M = 142 M⊙, IMBH-class) matches at -0.25% per v2**; GW170729 (a* = 0.81, higher than Phase-3 max) matches at +1.77%. **v2 covers entire currently-detected LIGO BBH catalog at GR-class precision.** Near-extremal regime (a* > 0.90) deferrable to Option B (full spheroidal cavity) when LIGO detects such an event.
+**🔴 SUPERSEDED banked claim (2026-05-18), preserved verbatim:** *"Phase 4 spin sweep validation
+(2026-05-18): v2 reproduces GR Kerr QNM curve across the full observed LIGO BBH spin range. 9 of 11
+swept spin values (a* ∈ {0.0, 0.1, ..., 0.95}) PASS at |dev| < 3% vs GR Berti reference. Divergence
+onset a* ≥ 0.90 (near-extremal regime, currently unattested in LIGO catalog). Mass-independence
+confirmed at 7× range: GW190521 (M = 142 M⊙, IMBH-class) matches at -0.25% per v2; GW170729 (a* =
+0.81, higher than Phase-3 max) matches at +1.77%. v2 covers entire currently-detected LIGO BBH
+catalog at GR-class precision. Near-extremal regime (a* > 0.90) deferrable to Option B (full
+spheroidal cavity) when LIGO detects such an event."* — **RETRACTED 2026-07-20:** the entire spin
+sweep was run against the corrupt Kerr table; against corrected Kerr, v2 sits $-8.6\%$ to $-20\%$
+BELOW true Kerr across a*=0.6–0.95 (the "<3% PASS" and the near-extremal "positive excess" both
+invert — cf. PR #772 findings 0/5). No PASS survives; v2 is a definite below-Kerr forward
+prediction, not a catalog-covering GR-class match.
 
 Live-fire validation: [`src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py`](../../../../../src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py) implements v1, v2, GR Berti reference, Phase-3 LIGO-event comparison, Phase-4 spin sweep + extended LIGO events. Phase 3 + 4 results in [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §8-9.
 
