@@ -45,7 +45,9 @@
     "kappa2_F_par_over_F_perp": 145.35548238815127,
     "kappa_env": 12.056346145833375,
     "E_par_win": 1785.2713346558767,
-    "E_perp_win": 12.282105258944057
+    "E_perp_win": 12.282105258944057,
+    "seed_transverse_fraction": 2.6230369416144465e-32,
+    "energy_drift_dH_over_H_window": 0.8074370467096651
   },
   "model_C_orbiting_Omega_lo_cold": {
     "grid": {
@@ -76,7 +78,9 @@
     "kappa2_F_par_over_F_perp": 3.2085074182872577,
     "kappa_env": 1.7912306993481486,
     "E_par_win": 6398.3681899742,
-    "E_perp_win": 1994.1883735427773
+    "E_perp_win": 1994.1883735427773,
+    "seed_transverse_fraction": 2.6230369416144454e-32,
+    "energy_drift_dH_over_H_window": 0.21210258840885968
   },
   "model_C_orbiting_Omega_lo_sat": {
     "grid": {
@@ -107,7 +111,9 @@
     "kappa2_F_par_over_F_perp": 3.197465487474235,
     "kappa_env": 1.7881458238841246,
     "E_par_win": 6390.710831050967,
-    "E_perp_win": 1998.6801596720798
+    "E_perp_win": 1998.6801596720798,
+    "seed_transverse_fraction": 2.6230369416144454e-32,
+    "energy_drift_dH_over_H_window": 0.2156992550777485
   },
   "model_C_orbiting_Omega_hi_cold": {
     "grid": {
@@ -138,7 +144,9 @@
     "kappa2_F_par_over_F_perp": 1.6842061817606273,
     "kappa_env": 1.2977696951927284,
     "E_par_win": 11591.512683165221,
-    "E_perp_win": 6882.478409530444
+    "E_perp_win": 6882.478409530444,
+    "seed_transverse_fraction": 2.6230369416144454e-32,
+    "energy_drift_dH_over_H_window": 0.6106916348479792
   },
   "model_C_orbiting_Omega_hi_sat": {
     "grid": {
@@ -169,21 +177,31 @@
     "kappa2_F_par_over_F_perp": 1.6937703321941173,
     "kappa_env": 1.3014493198715489,
     "E_par_win": 11578.761896861077,
-    "E_perp_win": 6836.087323516818
+    "E_perp_win": 6836.087323516818,
+    "seed_transverse_fraction": 2.6230369416144454e-32,
+    "energy_drift_dH_over_H_window": 0.6118065350765056
   },
   "multipole_check": {
     "n_exponent_F_par": 0.8572929302714879,
     "n_exponent_F_perp": 1.7871264841035845,
-    "same_order": true,
-    "note": "same \u03a9-scaling exponent \u21d2 compression & shear at same multipole order \u21d2 \u03ba_env\u00b2=F_\u2225/F_\u22a5 is structural (\u03a9-independent), comparable to \u03ba_max\u00b2. Frozen prereg \u00a73."
+    "same_order_heuristic_lt1": true,
+    "tolerance_is_driver_minted_not_frozen": true,
+    "note": "\u2605REVIEW-CORRECTED (F5b/F9): the near-zone \u03a9-scaling exponents are INCONCLUSIVE as a multipole discriminator \u2014 n_par=0.86 vs n_perp=1.79 differ by 0.93 against a clean far-field quadrupole spacing of \u22486, and the \u03ba\u00b2 is NOT \u03a9-independent (3.21\u21921.68, factor 1.9). The '<1.0' tolerance is DRIVER-MINTED, NOT frozen (the prereg \u00a73 froze no numeric threshold). The same-multipole-order (\u0394\u2113=0) verdict is carried by the ANALYTIC Leg A (mass=A1-dilatation kills compression monopole+dipole \u21d2 compression starts at quadrupole, same order as shear), NOT by this near-zone numerical flag."
   },
   "verdict_frozen_outputs": {
-    "kappa2_env_C_cold": 3.2085074182872577,
-    "kappa2_env_C_sat": 3.197465487474235,
+    "kappa2_env_far_field_colorcheck": 0.03404989703609531,
     "kappa_max2": 0.00013,
-    "exceeds_kappa_max_cold": true,
-    "exceeds_kappa_max_sat": true,
+    "exceeds_kappa_max_far_field": true,
+    "far_field_exceedance_factor": 261.92228489304085,
+    "kappa2_env_C_cold_NEARZONE_QUARANTINED": 3.2085074182872577,
+    "kappa2_env_C_sat_NEARZONE_QUARANTINED": 3.197465487474235,
+    "nearzone_quarantined": true,
     "sat_over_cold_ratio": 0.9965585459612504,
+    "sat_over_cold_ratio_scope": "WEAK-TEXTURE invariance only (review R2/F4): deep saturation (A/A_yield=0.487, S=0.874) lives on the KINEMATICALLY-CLAMPED core-core bonds (dynamically inert); the FREE field sees S\u22650.987 (\u22642% stiffness modulation). This ratio probes weak-saturation invariance, NOT the deep-saturation (S\u21920, \u0393=\u22121) regime.",
     "model_S_f_long": 0.9931673212121437
+  },
+  "frozen_reporting_note": {
+    "seed_transverse_fraction": "per-run: curl-free seed check (prereg \u00a73); u=\u2207\u03c6 is radial about each center \u21d2 ~machine-zero (~2.6e-32).",
+    "energy_drift_dH_over_H_window": "per-run (see model_*/energy_drift_dH_over_H_window): DRIVEN/OPEN-system window energy swing (H_max\u2212H_min)/max|H| over the reflection-free window. This is NOT closed-Verlet conservation \u2014 the clamped moving boundary continuously pumps work, so the swing is LARGE (~0.21 \u03a9=0.15 / ~0.61 \u03a9=0.30 / ~0.81 Model-S breathing), NOT the \u2264~1% closed-source precedent the prereg presumed (that was #761's seeded free-evolution). It reports real boundary pumping, not numerical drift; determinism (reruns bit-identical) is the shipped integrator-stability check. See hamiltonian() docstring."
   }
 }

@@ -143,6 +143,42 @@ def shell_partition(u_shell, rhat_shell):
     return E_par, E_perp
 
 
+def hamiltonian(u, v, Phi, bi, bj, free):
+    """Total mechanical energy H = free-site KE + total elastic bond PE.
+    ★DRIVEN-SYSTEM CAVEAT (review R4c): the core sites are KINEMATICALLY CLAMPED
+    to a moving boundary, so this is an OPEN/driven system — the boundary
+    continuously does work on the free field and H is NOT conserved by design.
+    The window |ΔH/H| below therefore reports the driven-window energy SWING
+    (real boundary pumping + numerical drift), NOT the closed-system bounded-Verlet
+    conservation the frozen prereg's '≤~1% precedent' presumed (that precedent was
+    #761's cold closed breathing source). A clean integrator-drift number would
+    need an undriven relaxation run (H conserved) or a boundary power-balance
+    ledger — neither is shipped; determinism (reruns bit-identical) is the shipped
+    stability check."""
+    KE = 0.5 * float(np.sum(v[free] ** 2))
+    du = u[bi] - u[bj]
+    PE = 0.5 * float(np.einsum("bi,bij,bj->", du, Phi, du))
+    return KE + PE
+
+
+def seed_transverse_fraction(pos, centers, sigma):
+    """Curl-free check of the imposed seed (frozen prereg §3: 'seed/texture ∇×u=0
+    by construction — report the seed transverse fraction'). u = ∇φ is exactly
+    radial about each texture center, so the transverse (solenoidal) fraction about
+    a texture's OWN center is ~0 to machine precision (scale-invariant; computed at
+    unit amplitude). Reports the worst (max) fraction across the seed's centers."""
+    worst = 0.0
+    for c in centers:
+        rel = pos - c
+        r = np.linalg.norm(rel, axis=1)
+        m = r > 1e-9
+        rhat = rel[m] / r[m, None]
+        us = texture_displacement(pos, c, 1.0, sigma)[m]
+        E_par, E_perp = shell_partition(us, rhat)
+        worst = max(worst, E_perp / (E_par + E_perp + 1e-30))
+    return float(worst)
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 # Driven collective-coordinate stepper (velocity-Verlet with moving BC + moving S)
 # ═════════════════════════════════════════════════════════════════════════════
@@ -155,12 +191,21 @@ def run_driven(L, centers_fn, amp_fn, sat_on, A0, sigma, r_core, r_meas,
       centers_fn(t) -> list of (3,) lump centers at time t   (rotation / fixed)
       amp_fn(t)     -> scalar amplitude of the imposed texture (breathe / fixed)
       sat_on        -> if True, per-bond S(A) modulated by the moving texture
-                       (the COEFFICIENT picture); if False, cold (S≡1).
+                       (adds the stiffness-bias / coefficient layer); if False,
+                       cold (S≡1).
 
-    Core sites (within r_core of any center) are KINEMATICALLY DRIVEN to the imposed
-    texture (a moving boundary); the free sites evolve under the rank-2 bond forces
-    (with the moving stiffness bias when sat_on). Radiation is measured at the
-    r_meas shell over the reflection-free spectral Poincaré window.
+    ★REVIEW-CORRECTED SCOPE (F3): the compression SOURCE is hand-installed in BOTH
+    arms — the core sites (within r_core of any center) are KINEMATICALLY DRIVEN to
+    the imposed curl-free dilatation texture (a moving boundary), sat_on or not.
+    sat_on ADDS a stiffness bias S(A) on top of the same imposed displacement; it is
+    therefore a SOURCE+COEFFICIENT cell, NOT a pure-coefficient cell. A pure-
+    coefficient cell (a moving stiffness bias with NO imposed displacement) was
+    never run, so this leg empirically measures SATURATION-INVARIANCE of an already-
+    driven source (does adding S(A) change the partition — no), NOT an adjudication
+    of Fork F1 (source-vs-coefficient), which rests on the analytic Leg A. The free
+    sites evolve under the rank-2 bond forces (with the moving stiffness bias when
+    sat_on). Radiation is measured at the r_meas shell over the reflection-free
+    spectral Poincaré window.
     """
     pos, bi, bj, dhat, mid = build_finite_srs(L)
     N = pos.shape[0]
@@ -207,9 +252,18 @@ def run_driven(L, centers_fn, amp_fn, sat_on, A0, sigma, r_core, r_meas,
     Phi = bond_tensors(dhat, rho_star, k_s, sat_of(cs))
     F = forces(u, Phi, bi, bj, N)
 
+    # frozen-report items (review R4c): the seed curl-free check + the driven-window
+    # energy swing. t_P/t_reflect bound the reflection-free window (same as below).
+    t_P = r_meas / (cP_spec + 1e-30)
+    seed_tf = seed_transverse_fraction(pos, cs, sigma)
+    H_win = []
+
     times, fL, Esh = [], [], []
     for step in range(n_steps):
         t = step * dt
+        # driven-window energy sample (only inside the reflection-free window)
+        if t_P <= t < t_reflect:
+            H_win.append(hamiltonian(u, v, Phi, bi, bj, free))
         # measure at the far shell (free-region radiation)
         u_sh = u[shell]
         rh = rhat0[shell]
@@ -230,9 +284,14 @@ def run_driven(L, centers_fn, amp_fn, sat_on, A0, sigma, r_core, r_meas,
         free = ~core2
 
     times = np.array(times); fL = np.array(fL); Esh = np.array(Esh)
-    t_P = r_meas / (cP_spec + 1e-30)
     t_S = r_meas / (cS_spec + 1e-30)
     win = (times >= t_P) & (times < t_reflect)
+    H_win = np.array(H_win)
+    if H_win.size >= 2:
+        H_ref = float(np.max(np.abs(H_win))) + 1e-30
+        energy_drift = float((H_win.max() - H_win.min()) / H_ref)
+    else:
+        energy_drift = float("nan")
     if win.sum() < 3:
         win = (times >= t_P) & (times < 0.9 * times[-1])
     w = Esh[win]
@@ -255,6 +314,9 @@ def run_driven(L, centers_fn, amp_fn, sat_on, A0, sigma, r_core, r_meas,
         "kappa2_F_par_over_F_perp": float(kappa2),
         "kappa_env": float(np.sqrt(max(kappa2, 0.0))),
         "E_par_win": E_par_win, "E_perp_win": float(E_tot_win - E_par_win),
+        # ── frozen-report items (review R4c; prereg §3 grid line) ──
+        "seed_transverse_fraction": seed_tf,
+        "energy_drift_dH_over_H_window": energy_drift,
     }
 
 
@@ -426,23 +488,56 @@ def main():
         n_perp = np.log(hi["E_perp_win"] / (lo["E_perp_win"] + 1e-300)) / np.log(r_om)
     out["multipole_check"] = {
         "n_exponent_F_par": float(n_par), "n_exponent_F_perp": float(n_perp),
-        "same_order": bool(abs(n_par - n_perp) < 1.0),
-        "note": "same Ω-scaling exponent ⇒ compression & shear at same multipole "
-                "order ⇒ κ_env²=F_∥/F_⊥ is structural (Ω-independent), comparable "
-                "to κ_max². Frozen prereg §3.",
+        "same_order_heuristic_lt1": bool(abs(n_par - n_perp) < 1.0),
+        "tolerance_is_driver_minted_not_frozen": True,
+        "note": "★REVIEW-CORRECTED (F5b/F9): the near-zone Ω-scaling exponents are "
+                "INCONCLUSIVE as a multipole discriminator — n_par=0.86 vs "
+                "n_perp=1.79 differ by 0.93 against a clean far-field quadrupole "
+                "spacing of ≈6, and the κ² is NOT Ω-independent (3.21→1.68, factor "
+                "1.9). The '<1.0' tolerance is DRIVER-MINTED, NOT frozen (the prereg "
+                "§3 froze no numeric threshold). The same-multipole-order (Δℓ=0) "
+                "verdict is carried by the ANALYTIC Leg A (mass=A1-dilatation kills "
+                "compression monopole+dipole ⇒ compression starts at quadrupole, "
+                "same order as shear), NOT by this near-zone numerical flag.",
     }
 
     # ── verdict summary (frozen-criterion outputs only) ──
     kc_cold = out["model_C_orbiting_Omega_lo_cold"]["kappa2_F_par_over_F_perp"]
     kc_sat = out["model_C_orbiting_Omega_lo_sat"]["kappa2_F_par_over_F_perp"]
+    cc = out["spectral_cold"]["continuum_import_colorcheck_F_bulk_over_F_shear"]
     out["verdict_frozen_outputs"] = {
-        "kappa2_env_C_cold": kc_cold,
-        "kappa2_env_C_sat": kc_sat,
+        # ★HEADLINE verdict quantity = the finite-size-FREE spectral color-check
+        # (review F5c: the verdict κ_env² is the color-check 0.034, NOT the
+        # near-zone time-domain 3.2, which is quarantined below).
+        "kappa2_env_far_field_colorcheck": cc,
         "kappa_max2": 1.3e-4,
-        "exceeds_kappa_max_cold": bool(kc_cold > 1.3e-4),
-        "exceeds_kappa_max_sat": bool(kc_sat > 1.3e-4),
+        "exceeds_kappa_max_far_field": bool(cc > 1.3e-4),
+        "far_field_exceedance_factor": float(cc / 1.3e-4),
+        # near-zone time-domain κ² — QUARANTINED (finite-size; NOT a verdict input;
+        # review F5c corrected the prior mislabel of these as the verdict κ_env²).
+        "kappa2_env_C_cold_NEARZONE_QUARANTINED": kc_cold,
+        "kappa2_env_C_sat_NEARZONE_QUARANTINED": kc_sat,
+        "nearzone_quarantined": True,
         "sat_over_cold_ratio": float(kc_sat / (kc_cold + 1e-300)),
+        "sat_over_cold_ratio_scope": "WEAK-TEXTURE invariance only (review R2/F4): "
+            "deep saturation (A/A_yield=0.487, S=0.874) lives on the "
+            "KINEMATICALLY-CLAMPED core-core bonds (dynamically inert); the FREE "
+            "field sees S≥0.987 (≤2% stiffness modulation). This ratio probes "
+            "weak-saturation invariance, NOT the deep-saturation (S→0, Γ=−1) regime.",
         "model_S_f_long": out["model_S_breathing_control"]["f_long_window"],
+    }
+    out["frozen_reporting_note"] = {
+        "seed_transverse_fraction": "per-run: curl-free seed check (prereg §3); "
+            "u=∇φ is radial about each center ⇒ ~machine-zero (~2.6e-32).",
+        "energy_drift_dH_over_H_window": "per-run (see model_*/energy_drift_dH_over_"
+            "H_window): DRIVEN/OPEN-system window energy swing (H_max−H_min)/max|H| "
+            "over the reflection-free window. This is NOT closed-Verlet conservation "
+            "— the clamped moving boundary continuously pumps work, so the swing is "
+            "LARGE (~0.21 Ω=0.15 / ~0.61 Ω=0.30 / ~0.81 Model-S breathing), NOT the "
+            "≤~1% closed-source precedent the prereg presumed (that was #761's "
+            "seeded free-evolution). It reports real boundary pumping, not numerical "
+            "drift; determinism (reruns bit-identical) is the shipped integrator-"
+            "stability check. See hamiltonian() docstring.",
     }
 
     Path(args.out).write_text(json.dumps(out, indent=2))
