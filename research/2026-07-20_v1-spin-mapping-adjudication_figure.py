@@ -60,15 +60,23 @@ def main() -> None:
     qk = np.array([kw / (2 * R.bcw_omega_i_m(x)) for x, kw in zip(a, kerr_wr)])
     axR.plot(a, qk, color=style.COLORS["data"], lw=2, label="corrected Kerr  Q")
     axR.axhline(R.ELL, color=style.COLORS["ave"], lw=2, ls="--",
-                label=r"AVE cold model A  $Q=\ell=2$ (spin-indep.)")
-    # reverse-engineered Q_v1 (Model B; disclosed, rounding-limited) — primary events
-    for name, sp in R.PRIMARY:
-        tau_ms, m_src = R.KB_TAU_V1[name]
-        wi_v1 = (R.T_SUN * m_src) / (tau_ms * 1e-3)
-        q_v1 = R.ave_v1_omega_r_m(sp) / (2 * wi_v1)
-        axR.errorbar(sp, q_v1, yerr=0.03 * q_v1, fmt="^", color=style.COLORS["comparison"],
-                     ms=7, capsize=3,
-                     label="v1 model B $Q$ (reverse-eng., $\\Omega$ unpinned)" if name == "GW150914" else None)
+                label=r"AVE cold model A  $Q=\ell=2$ (fails $-38\%$)")
+    # Model B Q_v1 — CORPUS-PINNED forward chain (Omega = Ch.2 Resultbox 2Mar/(r^2+a^2)^2 at
+    # r_Omega, merger leaf:85), frozen-adjudicable (PR #776 finding-0 repair — replaces the earlier
+    # reverse-engineered, non-adjudicable point). Marker = Resultbox (corpus comparator); the bar
+    # spans the exact-equatorial-ZAMO variant (the genuine, quantified model-form sensitivity, not a
+    # rounding artifact). The triangles sit ~5% below Kerr -> tau-FAILS (near-miss), not "hugs Kerr".
+    for i, (name, sp) in enumerate(R.PRIMARY):
+        wr1 = R.ave_v1_omega_r_m(sp)
+        q_rb = wr1 / (2 * R.modelB_omega_i_m(wr1, sp, R.omega_drag_resultbox))
+        q_zamo = wr1 / (2 * R.modelB_omega_i_m(wr1, sp, R.omega_drag_zamo))
+        lo, hi = min(q_rb, q_zamo), max(q_rb, q_zamo)
+        axR.errorbar(sp, q_rb, yerr=[[q_rb - lo], [hi - q_rb]], fmt="v",
+                     color=style.COLORS["comparison"], ms=7, capsize=3,
+                     label=(r"v1 model B $Q$ ($\Omega$ corpus-pinned; pt=Resultbox, bar=ZAMO)"
+                            if i == 0 else None))
+    axR.text(0.615, 2.28, r"model B $Q$ $\approx 5\%$ below Kerr $\Rightarrow$ $\tau$-FAILS",
+             fontsize=7, color=style.COLORS["comparison"])
     axR.text(0.03, 0.04, "(b)", transform=axR.transAxes, fontsize=11, fontweight="bold")
     axR.set_xlabel(style.axis_label("Final spin", "a_*", ""))
     axR.set_ylabel(r"Quality factor  $Q=\omega_R/(2\omega_I)$")
