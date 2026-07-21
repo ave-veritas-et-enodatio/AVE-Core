@@ -530,8 +530,10 @@ def leg4_moving_cage(L, wall_class, cP, cS, v_drive=0.12, r_cage=2.2, cage_w=1.0
     ★QUARANTINE (2026-07-21, Grant-approved, pending-rulings §1 item 12): the
     `carry_fraction` and `energy_centroid_displacement` outputs of this leg are
     ARTIFACT-DOMINATED — the track[0] sample is taken at v=0, so energy_cx=0 is
-    subtracted as a spurious baseline, and the resulting reads (~2.4–5.0) are
-    identical for cage and no-cage. Corpus-swept 2026-07-21: LOAD-BEARING-NOWHERE
+    subtracted as a spurious baseline. Committed-JSON reads: carry_fraction
+    ~2.33-2.37 and energy_centroid_displacement ~6.9, near-identical (~1.4%)
+    across cage classes; the scratch prototype (V=0.05/0.02, discarded) showed
+    the same V-independence artifact class. Corpus-swept 2026-07-21: LOAD-BEARING-NOWHERE
     (no banked bin, ledger row, or shipped verdict consumes them; #770 banks rest
     on Legs 3/5/6). Do NOT reuse these two outputs in any future lane. The Leg-4
     FAR-FIELD outputs (`shell_f_long` partition) are NOT quarantined; the frozen
