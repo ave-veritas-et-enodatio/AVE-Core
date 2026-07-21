@@ -343,6 +343,95 @@ def leg3_wall_smatrix(L, wall_class, pulse_kind, clamped, cP, cS,
     }
 
 
+def leg12_cage_seal(L, wall_class, energized, clamped, cP, cS,
+                    r_cage=3.0, cage_w=1.2, r_meas=6.0, shell_w=1.0,
+                    sigma=1.2, amp=0.06, cfl=0.2, rho_star=RHO_STAR, k_s=K_S):
+    """LEG 1 (charged-line) + LEG 2 (seal). A single cage at the box center, interior
+    ENERGIZED by a curl-free dilatation seed (initial displacement, zero velocity —
+    FREE dynamics, NO pin on the source), free-evolve, and measure the EXTERIOR
+    dilatation ∇·u at the far r_meas shell:
+      • DC (time-averaged over the reflection-free window) exterior θ  — the STATIC
+        compression "charge" V (Leg 1 discriminator: →0 uncharged/sealed vs ∝ energy).
+      • RMS exterior θ + radial/tangential shell energy — the total compression that
+        LEAKS through the cage (Leg 2 seal; energized-vs-empty control).
+    `energized=False` = empty cold cage (Leg-2 control: the cage sources nothing).
+    `clamped=True` = rigid-shell control (u=0 pinned on the shell)."""
+    pos, bi, bj, dhat, mid = build_finite_srs(L)
+    N = pos.shape[0]
+    center = np.array([L / 2.0] * 3)
+    Phi_cold = bond_tensors(dhat, rho_star, k_s)
+    omega_max = omega_max_cold(Phi_cold, bi, bj, N)
+    dt = cfl * 2.0 / omega_max
+
+    if clamped:
+        ka, ks = np.full(dhat.shape[0], rho_star), np.full(dhat.shape[0], float(k_s))
+        pin = cage_shell_nodes(pos, [center], r_cage, cage_w)
+    else:
+        ka, ks = cage_stiffness(dhat, mid, rho_star, k_s, [center],
+                                r_cage, cage_w, wall_class)
+        pin = np.zeros(N, dtype=bool)
+    Phi = bond_tensors(dhat, ka, ks)
+    free = ~pin
+
+    rel = pos - center
+    r = np.linalg.norm(rel, axis=1)
+    rhat = rel / (r[:, None] + 1e-30)
+    shell = (r >= r_meas) & (r < r_meas + shell_w)
+
+    u = np.zeros((N, 3))
+    v = np.zeros((N, 3))
+    if energized:
+        u_seed = texture_displacement(pos, center, amp, sigma)
+        u_seed[r > r_cage] = 0.0            # energize the INTERIOR only (r<r_cage)
+        u = u_seed.copy()
+    u[pin] = 0.0
+
+    # interior energy (the "charge" the cage holds), and Compton-analog k·r_core
+    E_int = 0.5 * float(np.sum(v ** 2)) + 0.5 * float(
+        np.einsum("bi,bij,bj->", (u[bi] - u[bj]), Phi, (u[bi] - u[bj])))
+    lam_P = 2.0 * np.pi * sigma  # dominant seed wavelength ~ texture scale
+    k_rcore = 2.0 * np.pi * r_cage / (lam_P + 1e-30)
+
+    t_P = r_meas / cP
+    t_reflect = (2.0 * (L / 2.0) - r_meas) / cP
+    t_end = 1.05 * t_reflect
+    n_steps = int(np.ceil(t_end / dt)) + 3
+
+    F = forces(u, Phi, bi, bj, N)
+    theta_acc = np.zeros(N)
+    n_acc = 0
+    Epar_acc = Eperp_acc = 0.0
+    for step in range(n_steps):
+        t = step * dt
+        if t_P <= t < t_reflect:
+            theta_acc += node_dilatation(u, bi, bj, dhat, N)
+            n_acc += 1
+            ep, eq = shell_partition(u[shell], rhat[shell])
+            Epar_acc += ep
+            Eperp_acc += eq
+        u[free] = u[free] + v[free] * dt + 0.5 * F[free] * dt ** 2
+        u[pin] = 0.0
+        F_new = forces(u, Phi, bi, bj, N)
+        v[free] = v[free] + 0.5 * (F[free] + F_new[free]) * dt
+        v[pin] = 0.0
+        F = F_new
+    n_acc = max(n_acc, 1)
+    theta_dc = theta_acc / n_acc                      # time-averaged (DC) θ per node
+    ext = (r >= r_meas) & (r < r_meas + shell_w)
+    theta_dc_ext_rms = float(np.sqrt(np.mean(theta_dc[ext] ** 2)))
+    Epar = Epar_acc / n_acc
+    Eperp = Eperp_acc / n_acc
+    return {
+        "wall_class": ("clamped" if clamped else wall_class), "energized": energized,
+        "E_interior": E_int, "k_rcore": float(k_rcore),
+        "theta_dc_exterior_rms": theta_dc_ext_rms,
+        "shell_E_par": Epar, "shell_E_perp": Eperp,
+        "shell_f_long": Epar / (Epar + Eperp + 1e-30),
+        "shell_kappa2": Epar / (Eperp + 1e-30),
+        "dt": float(dt), "n_win": n_acc,
+    }
+
+
 def leg3_impedance_smatrix(cP_cold, cS_cold):
     """CLEAN (artifact-free) channel S-matrix from the railed-medium Bloch speeds.
     For each wall class compute the railed (c_P,c_S) and the channel reflection
@@ -401,6 +490,40 @@ def main():
                 (2.0 / 3.0) * (cS_iso / cP_iso) ** 5,
         },
     }
+    # ── LEG 1 (charged-line) + LEG 2 (seal): single-cage exterior ∇·u ──
+    l12 = {}
+    for wc, en, cl in (("none", True, False), ("symmetric", True, False),
+                       ("bulk_only", True, False), ("none", True, True),
+                       ("none", False, False), ("symmetric", False, False),
+                       ("bulk_only", False, False)):
+        tag = ("clamped" if cl else wc) + ("_energized" if en else "_EMPTY")
+        l12[tag] = leg12_cage_seal(args.L, wc, en, cl, cP_iso, cS_iso)
+    base_theta = l12["none_energized"]["theta_dc_exterior_rms"]
+    base_epar = l12["none_energized"]["shell_E_par"]
+    for tag, r in l12.items():
+        r["theta_dc_ext_over_uncaged"] = r["theta_dc_exterior_rms"] / (base_theta + 1e-30)
+        r["shell_Epar_over_uncaged"] = r["shell_E_par"] / (base_epar + 1e-30)
+    out["leg12_cage_seal"] = l12
+    out["leg12_discriminators"] = {
+        "leg1_charged_line_exterior_DCdivu_over_uncaged": {
+            "bulk_only": l12["bulk_only_energized"]["theta_dc_ext_over_uncaged"],
+            "symmetric": l12["symmetric_energized"]["theta_dc_ext_over_uncaged"],
+            "note": "→0 = uncharged/sealed line (BIN-2 shape); ~1 = charged line "
+                    "(retains exterior compression V ⇒ BIN-1 shape). Single-cage, "
+                    "k·r_core~O(1) on the lattice (NOT the deep-quasistatic 10⁻²⁵ of "
+                    "the real system — Leg 6 carries that extrapolation).",
+        },
+        "leg2_seal_energized_vs_empty": {
+            "empty_cage_sources_nothing": all(
+                l12[f"{w}_EMPTY"]["shell_E_par"] < 1e-12
+                for w in ("none", "symmetric", "bulk_only")),
+            "bulk_only_single_cage_compression_seal_frac":
+                1.0 - l12["bulk_only_energized"]["shell_Epar_over_uncaged"],
+            "symmetric_single_cage_compression_seal_frac":
+                1.0 - l12["symmetric_energized"]["shell_Epar_over_uncaged"],
+        },
+    }
+
     # ── LEG 3 — wall S-matrix (impedance, clean) + pulse sign / clamped STOP-gate ──
     out["leg3_impedance_smatrix"] = leg3_impedance_smatrix(cP_iso, cS_iso)
     sign = {}
@@ -437,6 +560,15 @@ def main():
         sm["bulk_only"]["channel_asymmetry_ratio"]))
     print("LEG3 STOP-gate image-doubling opposite-sign confirmed:",
           out["leg3_STOP_gate"]["image_doubling_opposite_sign_confirmed"])
+    d = out["leg12_discriminators"]
+    print("LEG1 exterior DC∇·u (caged/uncaged): bulk_only=%.3f symmetric=%.3f | "
+          "LEG2 single-cage compression seal: bulk_only=%.0f%% symmetric=%.0f%% "
+          "(empty sources nothing: %s)" % (
+              d["leg1_charged_line_exterior_DCdivu_over_uncaged"]["bulk_only"],
+              d["leg1_charged_line_exterior_DCdivu_over_uncaged"]["symmetric"],
+              100 * d["leg2_seal_energized_vs_empty"]["bulk_only_single_cage_compression_seal_frac"],
+              100 * d["leg2_seal_energized_vs_empty"]["symmetric_single_cage_compression_seal_frac"],
+              d["leg2_seal_energized_vs_empty"]["empty_cage_sources_nothing"]))
     return out
 
 

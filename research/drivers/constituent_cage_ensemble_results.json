@@ -16,6 +16,125 @@
     },
     "continuum_import_colorcheck_F_bulk_over_F_shear": 0.03404989703609531
   },
+  "leg12_cage_seal": {
+    "none_energized": {
+      "wall_class": "none",
+      "energized": true,
+      "E_interior": 0.4751882692256206,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0001632940249984649,
+      "shell_E_par": 0.06183332152457861,
+      "shell_E_perp": 0.001355722117838722,
+      "shell_f_long": 0.9785449812231584,
+      "shell_kappa2": 45.60914121778337,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 1.0,
+      "shell_Epar_over_uncaged": 1.0
+    },
+    "symmetric_energized": {
+      "wall_class": "symmetric",
+      "energized": true,
+      "E_interior": 0.3912525178577057,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 3.631628399952901e-05,
+      "shell_E_par": 0.00914501250448977,
+      "shell_E_perp": 0.0006205025316443743,
+      "shell_f_long": 0.9364598252781953,
+      "shell_kappa2": 14.738074444684148,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.2223981189750844,
+      "shell_Epar_over_uncaged": 0.14789780459803775
+    },
+    "bulk_only_energized": {
+      "wall_class": "bulk_only",
+      "energized": true,
+      "E_interior": 0.3994458952952708,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.00010681106114595346,
+      "shell_E_par": 0.04663203642098193,
+      "shell_E_perp": 0.002262043895169096,
+      "shell_f_long": 0.953735833038629,
+      "shell_kappa2": 20.615000672874217,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.6541026908177293,
+      "shell_Epar_over_uncaged": 0.7541570672771605
+    },
+    "clamped_energized": {
+      "wall_class": "clamped",
+      "energized": true,
+      "E_interior": 0.4751882692256206,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "none_EMPTY": {
+      "wall_class": "none",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "symmetric_EMPTY": {
+      "wall_class": "symmetric",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    },
+    "bulk_only_EMPTY": {
+      "wall_class": "bulk_only",
+      "energized": false,
+      "E_interior": 0.0,
+      "k_rcore": 2.5,
+      "theta_dc_exterior_rms": 0.0,
+      "shell_E_par": 0.0,
+      "shell_E_perp": 0.0,
+      "shell_f_long": 0.0,
+      "shell_kappa2": 0.0,
+      "dt": 0.07183920546667745,
+      "n_win": 215,
+      "theta_dc_ext_over_uncaged": 0.0,
+      "shell_Epar_over_uncaged": 0.0
+    }
+  },
+  "leg12_discriminators": {
+    "leg1_charged_line_exterior_DCdivu_over_uncaged": {
+      "bulk_only": 0.6541026908177293,
+      "symmetric": 0.2223981189750844,
+      "note": "\u21920 = uncharged/sealed line (BIN-2 shape); ~1 = charged line (retains exterior compression V \u21d2 BIN-1 shape). Single-cage, k\u00b7r_core~O(1) on the lattice (NOT the deep-quasistatic 10\u207b\u00b2\u2075 of the real system \u2014 Leg 6 carries that extrapolation)."
+    },
+    "leg2_seal_energized_vs_empty": {
+      "empty_cage_sources_nothing": true,
+      "bulk_only_single_cage_compression_seal_frac": 0.24584293272283952,
+      "symmetric_single_cage_compression_seal_frac": 0.8521021954019623
+    }
+  },
   "leg3_impedance_smatrix": {
     "symmetric": {
       "cP_railed": 0.08986641280560448,
