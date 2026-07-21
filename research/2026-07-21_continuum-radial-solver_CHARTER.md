@@ -40,7 +40,28 @@ The instrument's core output is `r_Z(φ)` (or `r_Z` at a physical `k·r_core`) c
 
 ## §3 — IMPORT LEDGER (the honesty core: every input tagged)
 
-<!-- SKELETON -->
+Every input is exactly ONE of: **LATTICE-MEASURED** (a number the `#775`/`#782`/`#779` engine produced), **DERIVED-FROM-AXIOMS** (a theorem of the AVE axiom set), or **TAGGED IMPORT** (a law/value brought in from outside the substrate chain, carried honestly as such). Substrate-first-for-numbers: no silent SM/GR convention default is admissible anywhere in the build; any number not on this ledger must be added to it before use.
+
+| # | Input | Class | Source / anchor | Notes |
+|---|---|---|---|---|
+| I1 | Cage stiffness profile `K_eff(φ)` / graded-shell `S(A)` moduli | **LATTICE-MEASURED** | `#782` KUBC static homogenization (`rve-aggregation-bench_prereg-FROZEN.md` §3; `K_eff/K_0 ≡ U_core^caged/U_core^uncaged`) | dimensionless ratio; MANIFESTATION-class |
+| I2 | Cold-medium speeds `c_P = 0.519`, `c_S = 0.286` (`c_P/c_S = 1.813`) | **LATTICE-MEASURED** | `beta-tracking-feasibility_scoping.md` §2 (srs-z3 Bloch, `run_c2_speeds`) | grade-lock confirmed; sets `Z_0 = ρ_0 c_P` |
+| I3 | Pre-stress remap `k_shear,eff = k_s + T/ℓ`, `T/ℓ = k_a·ε_pre` (hoop-stiffen / radial-soften, anisotropic) | **`[canon]`-FORM × `[import]`-magnitude** | `#779` (`axiom-register.md:193` `[canon]` form; `boundary-strain-amplitude_result.md` §3); yield-strain magnitude imported | the vessel-state profile input; GATED on the walk (D4/D5) |
+| I4 | The two-term acoustic `ρ_eff` DECOMPOSITION (structural added-mass ⊕ trapped-energy loading) | **DERIVED-FROM-AXIOMS (form) + I5 (one term)** | `beta-tracking-feasibility_scoping.md` §4; effective-medium theorem | the FORM is derived; term-(ii) VALUE rides I5 |
+| **I5** | **The E=mc² trapped-energy inertia law: `ρ_contribution = E_trapped / c² · (participation)`** | **★TAGGED IMPORT — NOT DERIVED** | item 11 (routed as "an explicit E=mc² IMPORT"); `relative-offset-principle.md` `clm-hu1jjw` (direction) / `clm-m5swh9` (magnitude OPEN) | see the three sub-tags below |
+| I6 | Participation DIRECTION (trapped energy LOADS `ρ_eff` upward — Reading A) | **WALK-RATIFIED (pending adversarial review)** | `clm-hu1jjw` (`ρ_eff/ρ_0 = 1 + β·φ > 1`) | direction only; not a magnitude |
+| I7 | Participation MAGNITUDE (`β`, effective `M`) | **OPEN** (D2) | `clm-m5swh9` (deferred to the β lane / this instrument) | imported as a disclosed scan OR held symbolic — Grant D2 |
+| I8 | The sector-crossed `c²` that divides `E_trapped` (`c_P` / `c_S` / `c_EM`?) | **OPEN DECISION — surfaced, not picked** (D1) | `clm-m5swh9` (`A1 ⊥ T2`; "which sector's c² … is not automatic") | the plumber-physical question to Grant |
+| I9 | Cold uncaged reference `K_0, ρ_0, Z_0` | **LATTICE-MEASURED** | `#782` uncaged arm (`rve-aggregation-bench_prereg-FROZEN.md` §1) | the ratio denominators |
+| I10 | Solver numerics (radial grid `Δr`, outer radius `R_max`, ω sampling, sponge/BC) | **ENGINEERING CHOICE — tagged** | this lane (frozen in the prereg, not here) | no physics claim; validation-gated (§5) |
+
+**The I5 honesty core, expanded (the load-bearing tag).** The inertia law `ρ_contribution = E_trapped / c² · (participation)` is imported wholesale — it is E=mc² asserting that trapped elastic/swing energy carries inertia, a law the lossless small-displacement lattice STRUCTURALLY lacks (`β_massload ≡ 0` analytically there; `beta-tracking-feasibility_scoping.md` §3 absence-1). It decomposes into three separately-tagged pieces so no under-determined choice hides inside a single symbol:
+
+- **I6 (direction) — walk-ratified.** That the loading is UPWARD (Reading A, MATCHED direction) is the `clm-hu1jjw` ruling. This is the ONE piece the corpus has closed; it is still pending adversarial review of the KB leaf (PR #787).
+- **I7 (magnitude) — OPEN, Grant D2.** `β` / effective `M` is explicitly the OPEN `clm-m5swh9` magnitude, "deferred to that measurement, not decreed." This instrument is that measurement's continuum host — but it can only PROPAGATE a chosen/scanned magnitude, not DERIVE it from first principles (that needs self-bound soliton dynamics, §4).
+- **I8 (the c² sector) — OPEN, Grant D1.** `clm-m5swh9` states verbatim that "which sector's `c²` divides `E`" is "not automatic" and invokes the `A1 ⊥ T2` cross-wiring watch. The candidates carry physically different consequences: `c_P` (`0.519`, the compression carrier's own speed) gives the smallest inertia divisor and the largest loading; `c_S` (`0.286`) larger loading still (smaller `c²`); `c_EM` a third value. **This is surfaced for Grant as the pre-test-physics-check plumber-physical question — it is NOT picked here, and no default (e.g. the SM habit of `c_light`) is admissible.**
+
+**What is NOT imported (kept honest).** The cold constitutive moduli (I1, I2, I9) and the vessel-state remap FORM (I3) are lattice/canon, not imported physics. The `r_Z` discriminator FORM and the Lloyd `(k·r_core)²` FORM are DERIVED (effective-medium / acoustic-image theorems). Only I5 (and its I7/I8 open pieces) is a tagged import; the lane's honesty rests on I5 never being silently promoted to derived.
 
 ## §4 — WHAT IT CAN AND CANNOT SETTLE
 
