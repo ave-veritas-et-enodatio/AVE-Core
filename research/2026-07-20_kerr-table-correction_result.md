@@ -27,8 +27,10 @@
 > See **§ FORK-REOPEN** below. The Grant foreword ruling should see BOTH numbers.
 
 The frame-mixing model is **confirmed**: the re-run's BANK reconstruction
-(v2 @ source-frame mass vs detector-frame obs) reproduces the leaf's exact banked
-per-event numbers −2.00% / −1.22% / +1.87% (mean −0.45%). GR sanity: true Kerr at
+(v2 @ source-frame mass vs detector-frame obs) prints **−2.01% / −1.24% / +1.86%
+(mean −0.46%)**, reproducing the leaf's banked **−2.0% / −1.2% / +1.9% (mean −0.45%)**
+at leaf-rounding precision (the ~0.01–0.02 pp per-event residue is canonical-constants
+precision in `T_SUN`). GR sanity: true Kerr at
 **detector-frame** mass reproduces GW150914's observed 251 Hz to −0.99% (GR ringdown
 consistency holds), while AVE-v2 at the same detector-frame mass gives 226 Hz (−10.1%).
 
