@@ -20,11 +20,23 @@ The charter surfaces these; it does NOT pick any of them (substrate-adjudicates-
 
 ## §1 — Sector header + regime declaration (mandatory before any substrate claim)
 
-<!-- SKELETON -->
+- **Sector:** A1 — dilatation / compression (the bulk `∇·u` channel; the P-branch, `c_P`). The observable of record is the exterior acoustic response of the compression carrier to a single cage. The trapped-energy inertia the import loads is T2/swing-class energy sitting IN the A1 budget — `A1 ⊥ T2` is live (D1); this lane does not cross-wire mass (A1 dilatation) with the trapped-swing store without the ruled c² assignment.
+- **Mode:** classical, lossless-reactive continuum (Ax3 — no `Re(Z)` dissipative term; energy moves reactively between the trapped store and the exterior field). Quasistatic scattering / effective-medium regime; a single cage/soliton, spherically symmetric.
+- **Regime — THE POINT OF THE LANE.** Deep-quasistatic: `k·r_core ≪ 1`, BELOW the fundamental cage cavity resonance `k·r_core = π` (`deep-rail-kscaling_derivation.md` §2). This is the regime the lattice cannot reach (it straddles `k·r_core ≈ π`, the resonant side — table in §2 of that doc: physical NS constituents sit at `k·r_core ~ 10⁻²⁵`, the lattice at `O(1)`). Reaching `k·r_core ≪ π` analytically-cleanly on a 1D radial grid is exactly what this instrument buys.
+- **Phase-state:** a pre-stressed VESSEL-STATE cage — a saturated soliton shell in the pressure-vessel stress state (hoop-tension + radial-compression, `#779` R6), NOT a cold isotropic inclusion. (Stage-1 may validate on cold/isotropic scaffolding classes per D4; the physics verdict requires the vessel-state profile.)
+- **Coordinate discipline (A46).** The verdict observables live in matching (phase-space / dimensionless) coordinates: the impedance ratio `r_Z = Z_bulk,eff/Z_0` (impedance plane) and the k-scaling exponent `p` in `ρ_N ∝ (k·r_core)^p` (a dimensionless radiated-power ratio vs a dimensionless argument). No real-space Cartesian read is compared against a phase-space prediction. α-CLEAN: both observables are dimensionless RATIOS (the α-circularity lesson — a chord, if any, must be a dimensionless ratio).
+- **Consistency-vs-emergence tag.** Every number this lane can produce is CONSISTENCY-class or MANIFESTATION-class GIVEN the import — it manifests the consequences of a tagged E=mc² inertia law + lattice-measured constitutive inputs; it does NOT derive β or the inertia law (§4). No emergence-class claim is headlined. Solver-internal numerics (grid spacing, truncation radii, ω sampling) are engineering choices tagged as such.
 
 ## §2 — OBJECT (what the instrument is)
 
-<!-- SKELETON -->
+A **spherically-symmetric continuum radial-acoustic solver for a single cage/soliton** in the substrate medium — a 1D (radial `r`) representation of a graded-stiffness shell embedded in the cold uncaged medium, driven on the A1 compression channel. It is the instrument that inherits BOTH lattice-infeasible questions the July `#775`/`#782` arc routed out:
+
+- **(a) The deep-quasistatic Lloyd-exponent / k-scaling discrimination** (`#775` Fork R routing, `deep-rail-kscaling_derivation.md` §2). The analytic Leg-A form F2 — `ρ_1 ∝ (k·r_core)²` (the pressure-release `Γ_bulk = −1` image/multipole cancellation, §1 of that doc) — is a LONG-WAVELENGTH theorem the lattice cannot validate because the lattice samples the resonant side of `k·r_core = π`. This solver reaches `k·r_core ≪ π` and measures the SINGLE-CORE exponent `p` directly.
+- **(b) The β magnitude** (item 11). The trapped-energy mass-loading `β` in `ρ_eff/ρ_0 = 1 + β·φ` — walk-closed in DIRECTION (up, `clm-hu1jjw`) but OPEN in MAGNITUDE (`clm-m5swh9`) — enters here as an explicit tagged E=mc² IMPORT (§3), so the net acoustic `ρ_eff` and hence `r_Z` can be evaluated with BOTH competing terms present (the two-term sign flag, `beta-tracking-feasibility_scoping.md` §4), rather than under the lattice's structural `β ≡ 0`.
+
+The instrument's core output is `r_Z(φ)` (or `r_Z` at a physical `k·r_core`) computed with the two `ρ_eff` terms kept SEPARABLE (structural added-mass vs trapped-energy loading), and the k-scaling `ρ_N(k·r_core)` over a band reaching the deep-quasistatic regime.
+
+**Why a continuum radial solver and not the lattice (the regime argument, verbatim-routed).** The `#782` bench settled the CONSTITUTIVE half (effective moduli, `K_eff(φ)`) at `L=16` and RETRACTED any "needs-a-bigger-box" framing for THAT question (`rve-aggregation-bench_result.md` §8.2-1). What it routed OUT — and what the β scoping doc confirmed INFEASIBLE-ON-LATTICE — is the RADIATIVE consequence at physical `k·R` and the mass-loading β (three structural absences: no mass-energy equivalence, no advective pattern transport, imposed-grade-sets-the-answer; `beta-tracking-feasibility_scoping.md` §3). Those are continuum-solver territory. The regime the lattice CANNOT enter (deep-quasistatic, self-bound soliton) is precisely where these two questions live; a 1D radial continuum instrument enters it at negligible cost.
 
 ## §3 — IMPORT LEDGER (the honesty core: every input tagged)
 
