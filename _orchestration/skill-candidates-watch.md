@@ -26,6 +26,12 @@ Last updated: **2026-07-20** (skills + cross-discipline batch, Grant itemized go
 |---|---|---|
 | **`verify-before-cite`** (S5) | temporal-currency ship-time clause — `[branch:#NNN]`/merge-state tags re-verified at SHIP time, not authoring time (mid-lane base advances are the norm) | **AMENDED this batch** (Grant go #4/#5 context) |
 
+## Candidate surfaced 2026-07-20 (manuscript-gravitational-reconciliation lane)
+
+| # | Candidate skill | Trigger (one line) | Status | Source / gate |
+|---|---|---|---|---|
+| 6 | **`level-of-description-check`** | before banking any **source-coupling claim** (does source X drive channel Y?), verify which **level** the source and the channel each live at — **carrier vs envelope**, fast vs slow — and that they match; a slow envelope moment installed as a fast carrier-band source is the failure mode | **WATCH — not minted** (Grant-gated) | validating instance = the **24-decade envelope/carrier catch** in the 2026-07-20 gravitational walk — the orbital band ($2\Omega \sim 10^{-4}$ Hz) sits ~24 decades below the $\omega_e$-class carrier, and the #761 source-trace installed the envelope's energy moment as a DC carrier-band compression source (envelope moment conflated with carrier moment). RECORD: [`research/2026-07-20_envelope-boundary-walk_RECORD.md`](../research/2026-07-20_envelope-boundary-walk_RECORD.md) §5. Same genus as the sector-ownership cross-wiring / per-node (INVARIANT-S2) / DM-halo-port conflation family |
+
 ## Discipline notes
 
 - **Repo-tracked home = AVE-Skills** (`~/.claude/skills/`, a git repo with remote). Skills are user-level in *location* but committed to the AVE-Skills repo (local commit cfb2b5f, push pending — multi-agent-reachable once pushed); Grant's #3/#5 requirement (multi-agent-usable ⇒ repo-tracked) is met once pushed; no migration of the existing ~44 skills is needed. Migration of the ensemble to an in-AVE-Core `.claude/skills/` home is **NOT** proposed here (it would fork the single skill home) — routed as an open question if Grant ever wants the skills co-located with the engine repo.

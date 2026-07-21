@@ -87,7 +87,24 @@ Modeling the Hulse-Taylor binary pulsar as a macro-electrical orbital LC tank (\
     % bulk/shear double-count exists. Wording corrected to "through the surrounding lattice as
     % transverse shear". Receipt chain in the (now-closed) warningbox below;
     % research/2026-07-20_q1-pulsar-hardening.md (merged #753).
-    \item \textbf{Real Power Dissipation ($P_{real}$):} An electrical reactive tank experiencing a forced phase slip must bleed real power. The phase defect un-aligns the orthogonality, and real power radiates radially outwards through the surrounding lattice as transverse shear ($P_{real} \approx Q \cdot \delta$).
+    %
+    % Rule-12 SCOPE REVISIT (2026-07-20, Grant F4 ruling --- manuscript-reconciliation lane).
+    % Grant ruled the #766-review F4 routed question --> option (a), verbatim [sic]:
+    %   "oh a for sure lets revisit that scope"
+    % (_orchestration/2026-07-10_rulings-docket.md:2573 ENTRY 2026-07-20-masterq-tag-vocab-defs;
+    % _orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:26). Under Reading-A
+    % (now standing physics per the Q1 revert), the Part-1 "loose works" shear-ONLY rewording is
+    % INCOMPLETE: it correctly names the OBSERVED decay channel (shear, Reading-independent,
+    % KEEP) but silently drops the framework's Reading-A bulk (longitudinal P-wave) admixture
+    % (forbidden at O(1), pulsar-excluded). The Part-1 shear-only wording is PRESERVED here
+    % verbatim per Rule 12 / KEEP-BOTH:
+    %   "...real power radiates radially outwards through the surrounding lattice as transverse shear"
+    % Item-3 is now restored to ADMIXTURE-HONEST wording: observed decay = shear (KEEP,
+    % Reading-independent) + Reading-A bulk admixture = the LIVE pulsar exclusion + the OPEN
+    % constituent-cage fork (see the manuscript-reconciliation warningbox below). The Part-1
+    % identification of the OBSERVED channel as shear is NOT reverted (it survives untouched);
+    % what is restored is the admixture honesty the shear-only phrasing lost under Reading-A.
+    \item \textbf{Real Power Dissipation ($P_{real}$):} An electrical reactive tank experiencing a forced phase slip must bleed real power. The phase defect un-aligns the orthogonality, and real power radiates outward into the surrounding lattice ($P_{real} \approx Q \cdot \delta$). The \emph{observed} orbital-decay power is carried by the \textbf{transverse shear} channel --- the channel step-2 pins at $c_0$, the one the Peters--Mathews $(v/c)^5$ formula computes and pulsar timing measures; this observed-channel identification is Reading-independent and stands untouched. Under \textbf{Reading-A} (the standing physics as of 2026-07-20 --- see the warningboxes below), the framework \emph{additionally} predicts a bulk (longitudinal P-wave) admixture radiating on top of the shear decay at $O(1)$ coupling ($F_{\mathrm{bulk}}/F_{\mathrm{shear}} \approx 0.03$--$0.12$); that admixture is \emph{not} part of the observed shear decay, and its standing status is the \textbf{LIVE} pulsar exclusion plus the \textbf{OPEN} constituent-cage fork flagged in the reconciliation box below.
     \item \textbf{Orbital Decay ($\dot{P}_b$):} Subjecting this real power drain over the empirical Hulse-Taylor orbital bounds algebraically evaluates an exact period decay rate of $\mathbf{-2.402 \times 10^{-12}\text{ s/s}}$.
 \end{enumerate}
 
@@ -207,6 +224,84 @@ reverted port-register Q1 row
 (\kbleaf{common/port-register.md} \S3); the falsification-ledger entry
 \texttt{q1-reading-A-radiative-bulk-port} (promoted LIVE 2026-07-20,
 \kbleaf{common/genesis-chord-falsification-ledger.md}).
+
+\medskip
+\noindent\emph{[Superseded-in-part 2026-07-20 by the manuscript-reconciliation box below.]} The
+``physics prose NOT rewritten here / routed'' state recorded in this box is the state at
+\emph{Q1-revert-execution} time; the manuscript-reconciliation lane has since \textbf{discharged
+that routing} --- item-3 is now reworded admixture-honest (Grant's F4$\to$(a) ruling), and the
+constituent-cage fork is stated as its honest \textbf{OPEN} state. This box is preserved verbatim
+(Rule~12); read the reconciliation box below as current.
+\end{warningbox}
+
+% Manuscript-reconciliation lane (2026-07-20). Additive dated warningbox discharging the routing
+% of the Q1 REVERT box above and reconciling the chapter to current canon (the honesty-lag
+% discipline): (i) item-3 reworded admixture-honest per Grant's F4 --> (a) ruling; (ii) the
+% #770 constituent-cage fork stated as its honest OPEN state (deep-rail frozen-first program
+% RUNNING concurrently --- outcome NOT presumed). Both prior boxes preserved verbatim (Rule 12).
+\begin{warningbox}[Manuscript-reconciliation 2026-07-20 --- item-3 admixture-honest (F4$\to$(a)) + the constituent-cage fork is OPEN (deep-rail program running)]
+\textbf{Reconciliation to current canon (2026-07-20, manuscript-reconciliation lane; the
+honesty-lag discipline --- the chapter must not lag the KB truth-source).} This box discharges the
+routing of the Q1 REVERT box above; both prior boxes are preserved verbatim (Rule~12).
+
+\medskip
+\noindent\textbf{(1) Item-3 reworded admixture-honest (Grant F4 ruling $\to$ option (a)).} Grant
+ruled the \#766-review F4 routed question $\to$ option~(a), verbatim [sic]: \emph{``oh a for sure
+lets revisit that scope''} (\texttt{\_orchestration/2026-07-10\_rulings-docket.md:2573};
+\texttt{\_orchestration/2026-07-20\_pending-rulings-and-frontier-queue.md:26}). Under Reading-A the
+Part-1 ``loose works'' \emph{shear-only} rewording of item-3 was \emph{incomplete}: it correctly
+names the \textbf{observed} decay channel as transverse shear (Reading-independent --- what the
+Peters--Mathews $(v/c)^5$ formula computes and pulsar timing measures; this survives untouched),
+but it silently dropped the framework's Reading-A \textbf{bulk (longitudinal P-wave) admixture}.
+Item-3 above now carries both: observed decay $=$ shear (KEEP) $+$ the forbidden-at-$O(1)$ bulk
+admixture ($F_{\mathrm{bulk}}/F_{\mathrm{shear}} \approx 0.03$--$0.12$). The Part-1 step-3$=$shear
+ruling for the observed channel is \textbf{not} reverted.
+
+\medskip
+\noindent\textbf{(2) The bulk admixture's standing status is a LIVE exclusion \emph{plus} an OPEN
+fork --- stated honestly, not resolved.} Two distinct things are true simultaneously and the
+chapter states both:
+\begin{itemize}
+    \item \textbf{LIVE exclusion (settled negative).} Under Reading-A --- now the standing physics
+    (Q1 revert; \#761 make-or-break mechanical $\nabla\!\cdot\!u$ derivation returned
+    \textbf{NONE-DERIVES}, \texttt{research/2026-07-20\_mechanical-commonmode-derivation\_result.md}
+    \S5) --- an \emph{independent far-field bulk radiative port at $O(1)$ coupling} is excluded by
+    binary-pulsar timing at $9$--$110\sigma$ (Hulse-Taylor) and by $100$--$1400\times$ the
+    double-pulsar bound (falsification-ledger entry
+    \texttt{q1-reading-A-radiative-bulk-port}, promoted LIVE 2026-07-20). A Reading-A bulk
+    admixture \emph{as an independent radiative port} is a closed-negative against the framework
+    (Rule~11 honest closure).
+    \item \textbf{OPEN constituent-cage fork (running --- outcome NOT presumed).} Whether the
+    \emph{deeper} constituent structure evades that exclusion is \textbf{re-opened}, not resolved.
+    The AVE mass texture is an ensemble of $\sim\!10^{57}$ constituent solitons, each canonically
+    carrying a bulk-only $\Gamma_{\mathrm{bulk}}=-1$ knot-core cage. The question: does that
+    ensemble present to the $2\Omega$ far field the coarse-grained \emph{uncaged} mass texture
+    (which \textbf{radiates} at the q1 partition $\Rightarrow$ confirms the kill one level deeper),
+    or do the per-core $\Gamma_{\mathrm{bulk}}=-1$ boundaries \textbf{image-cancel} the long-wave
+    compression moment (Lloyd-mirror class $\Rightarrow$ a derived suppression that could later
+    re-open Reading-B)? The maximum-stakes review of \#770
+    (\texttt{research/2026-07-20\_constituent-cage-ensemble\_result.md}, \S0/\S7) \textbf{refuted}
+    the earlier ``ensemble radiates, fork closes'' bank: at deep rail the canon channel-asymmetric
+    bulk-only wall \emph{is} constitutively realizable ($\Gamma_{\mathrm{bulk}}\!\to\!-1$ with the
+    shear channel finite), so the image-cancel (suppression) route is \textbf{live again}. The
+    verdict is re-banked \textbf{WALL-CLASS / RAIL-DEPTH-CONDITIONAL $\to$ REOPENED}; the decisive
+    adjudicator is the \textbf{deep-rail frozen-first program} (\#770~\S8.2), which is
+    \textbf{a registered owed follow-on (\#770 \S 8.2), dispatched 2026-07-20}. \emph{Its outcome is not presumed here} --- the chapter states
+    the fork as open, in either direction.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Net standing state for this chapter.} The Hulse-Taylor macro-LC reproduction
+(\S\ref{sec:orbital_damping}) is a consistency reproduction of the \emph{observed shear-quadrupole}
+decay and stands. The framework's Reading-A \emph{bulk admixture} is a live pulsar-excluded
+prediction \emph{at the naive independent-port reading}, with the constituent-cage suppression fork
+genuinely OPEN pending the deep-rail program --- so the chapter neither claims a clean gravitational
+chord here nor pretends the bulk sector is settled. \textbf{Receipts:} \#761 result \S5
+(\texttt{research/2026-07-20\_mechanical-commonmode-derivation\_result.md}); the \#770 REOPENED
+verdict + \S8.2 deep-rail program
+(\texttt{research/2026-07-20\_constituent-cage-ensemble\_result.md}); the reverted port-register
+Q1 row (\kbleaf{common/port-register.md}~\S3); the falsification-ledger entry
+\texttt{q1-reading-A-radiative-bulk-port} (\kbleaf{common/genesis-chord-falsification-ledger.md}).
 \end{warningbox}
 
 \section{GW Detection: The Impedance Antenna}
