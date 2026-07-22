@@ -1,0 +1,350 @@
+{
+  "provenance": {
+    "class": "vessel-state RVE bench (walk-1 instrument, #792-extends-#782); state-dependent geometric-stiffness operator; grown-from-imposed-source; grade-frame Eulerian/imposed; engine byte-untouched; mints no clm-/def-; deterministic (run_c2_speeds seed=1, no per-step RNG).",
+    "prereg_file": "research/2026-07-22_vessel-state-rve_prereg-FROZEN.md",
+    "grade_frame_disclosure": "grade-frame: Eulerian, imposed (not self-bound; the engine hosts no field-generated co-moving grade)",
+    "source_disclosure": "source imposed (radiation-stress surrogate body-force \u221d\u27e8A\u00b2\u27e9); stress state emergent through the nonlinear force balance",
+    "constants": {
+      "k_a_RHO_STAR": 9.77337,
+      "k_s_KS0": 1.0,
+      "A_YIELD": 1.0,
+      "ELL_SRS_NN": 0.3535533905932738,
+      "p_ref_verdict": 0.04
+    }
+  },
+  "spectral_cold": {
+    "cP": 0.5188441251104724,
+    "cS": 0.2862057244928644,
+    "cP_over_cS": 1.8128362946961534
+  },
+  "cell_walk_partition_proof": {
+    "n_rows": 12,
+    "partition_ok": true,
+    "rows": {
+      "ii|any|any": "VOID",
+      "iii|any|any": "MARGINAL",
+      "iv|any|any": "ANOMALY_STOP_route_to_Grant",
+      "i|L1|Z_lo": "SOFT",
+      "i|L1|Z_str": "UNDETERMINED",
+      "i|L1|Z_hi": "NULL",
+      "i|L2|Z_lo": "UNDETERMINED",
+      "i|L2|Z_str": "UNDETERMINED",
+      "i|L2|Z_hi": "UNDETERMINED",
+      "i|L3|Z_lo": "DISCORDANT",
+      "i|L3|Z_str": "UNDETERMINED",
+      "i|L3|Z_hi": "HARD"
+    }
+  },
+  "leg0_selftests": {
+    "selftest_ii": {
+      "loose_tol": 0.001,
+      "p0": 0.02,
+      "loose_amp_spread_plus": 649.2363568247143,
+      "loose_amp_spread_minus": 648.9645168324824,
+      "loose_A_sign": 0.030030491291758273,
+      "loose_all_scan_legs_converged": false,
+      "tight_amp_spread_plus": 0.005834326993558631,
+      "tight_amp_spread_minus": 0.004266185034791921,
+      "loose_fires_artifact": true,
+      "tight_removes_artifact": true,
+      "diagnosed_convergence_caused": true,
+      "SELFTEST_ii_FIRES": true
+    },
+    "selftest_iii": {
+      "p0": 0.028,
+      "sigma": 2.5,
+      "r_core": null,
+      "shell_band": [
+        0.0,
+        3.0
+      ],
+      "n_band_bonds": 1350,
+      "frac_shell_bonds_near_buckling_le_0p2ks": 0.015555555555555555,
+      "frac_target_ge_0p5": false,
+      "grown_bonds_positive": true,
+      "min_kse": 0.05408941657965416,
+      "gate_outcome": "iii",
+      "A_sign": 568.7730476270228,
+      "amp_spread_plus": 568.7352502781749,
+      "amp_spread_minus": 0.03740748663918678,
+      "k_tan_plus_emax": 4430645.435247334,
+      "k_tan_minus_emax": 7484.26427562058,
+      "all_scan_legs_converged": true,
+      "residual_tightening_robust": true,
+      "SELFTEST_iii_FIRES": true
+    },
+    "gate_fireability_selftest_pass": true,
+    "frozen": "gate_fireability_selftest_pass = SELFTEST-(ii) fires (ii) AND SELFTEST-(iii) fires (iii), each with the correct convergence/robustness flags",
+    "calibration_disclosure": "SELFTEST-(ii) loose inner CG tol = 0.001 (calibration-class choice, DISCLOSED, made BEFORE any verdict arm \u2014 the frozen 1e-3 did not perturb the tangent by >5%%, tuned per the \u00a73B calibration latitude). SELFTEST-(iii) p0=0.028, sigma=2.5, shell band (0.0, 3.0) (design-time numeric-confirmation run; near-buckling fraction + fired A_sign/amp_spread banked below)."
+  },
+  "leg0_instrument_validation": {
+    "uniform_medium_null": {
+      "K_tan_over_K0": 1.0,
+      "rho_N": 0.0,
+      "r_Z": 1.0,
+      "pass": true,
+      "note": "uniform cold medium, no cage/source: K_tan/K_0\u21921, \u03c1_N\u21920, r_Z\u21921"
+    },
+    "determinism": {
+      "reruns_bit_identical": true,
+      "u0_max_abs_diff": 0.0,
+      "pass": true
+    },
+    "lame_gate": {
+      "deliverable_exterior_over_interior_max": 0.03582364839611673,
+      "deliverable_pass_tol0p10": true,
+      "cg_residual": 9.224484460904738e-07,
+      "lame_pass": true,
+      "note": "carried from #782 \u00a74 Leg 2 (byte-reuse); exterior \u2207\u00b7u/interior \u2207\u00b7u \u2264 0.10"
+    },
+    "rve_size_gap": {
+      "by_L": [
+        {
+          "L": 12,
+          "n_cages": 8,
+          "phi": 0.48946214650826336,
+          "K_eff_over_K0": 0.27990064775810025
+        },
+        {
+          "L": 16,
+          "n_cages": 27,
+          "phi": 0.48946214650826336,
+          "K_eff_over_K0": 0.29636822324939766
+        },
+        {
+          "L": 20,
+          "n_cages": 64,
+          "phi": 0.48946214650826336,
+          "K_eff_over_K0": 0.29423197183100147
+        }
+      ],
+      "gap_two_largest_rel": 0.007234171055786305,
+      "pass": true
+    },
+    "stop_gate": {
+      "rail_K_eff_over_K0": 0.29636822324939766,
+      "rigid_K_eff_over_K0": 1.582711505409986,
+      "opposite_sign": true,
+      "STOP_GATE_PASS": true
+    },
+    "all_validation_pass": true
+  },
+  "leg0_VOID": false,
+  "verdict": {
+    "isotropic_control_K_eff_over_K0": 0.29636822324939766,
+    "note_control": "#782 bulk_only-cold cage at \u03c6_sf (Rule-14; reproduces #782 0.296)",
+    "fixed_budget_headline": {
+      "seed_class": "fixed_budget",
+      "p0": 0.04,
+      "a_yield_scale": 1.0,
+      "phi_sf": 0.48946214650826336,
+      "wall_class": "bulk_only",
+      "grown_equilibrium_exists": true,
+      "grown_CG_converged": true,
+      "grown_tension_nonzero": true,
+      "grown_bonds_positive": true,
+      "max_abs_T": 0.6470063516929541,
+      "min_kse": 0.35299364830704594,
+      "peak_A": 0.13946745063352736,
+      "K_tan_over_K0_grown": 0.2954759224362361,
+      "G_tan_over_G0_grown": 0.6341833316413348,
+      "control_K_eff_over_K0": 0.29636822324939766,
+      "K_ratio_lift": 0.9969892156339222,
+      "amplitude_gate": {
+        "label": "fixed_budget_hydro",
+        "mode": "hydro",
+        "scan": [
+          {
+            "eps": 1e-05,
+            "k_tan_central": 2079.9571265328605,
+            "k_tan_plus": 2078.72916657692,
+            "k_tan_minus": 2078.934484561756,
+            "all_converged": true
+          },
+          {
+            "eps": 0.0001,
+            "k_tan_central": 2079.212771621819,
+            "k_tan_plus": 2079.1828137189937,
+            "k_tan_minus": 2079.220029738149,
+            "all_converged": true
+          },
+          {
+            "eps": 0.001,
+            "k_tan_central": 2079.205292316644,
+            "k_tan_plus": 2078.9992273775315,
+            "k_tan_minus": 2079.4114077007375,
+            "all_converged": true
+          },
+          {
+            "eps": 0.01,
+            "k_tan_central": 2079.2076262488467,
+            "k_tan_plus": 2077.1610429257667,
+            "k_tan_minus": 2081.2844247180196,
+            "all_converged": true
+          }
+        ],
+        "k_tan_central_eps0": 2079.9571265328605,
+        "amp_spread_plus": 0.0009720252246723725,
+        "amp_spread_minus": 0.0011298022090391404,
+        "A_sign": 0.0019824359548825735,
+        "A_dir": -1,
+        "k_tan_plus_emax": 2077.1610429257667,
+        "k_tan_minus_emax": 2081.2844247180196,
+        "all_scan_legs_converged": true,
+        "residual_tightening_robust": true,
+        "A_sign_tight": 0.001982434868382836,
+        "outcome": "i"
+      },
+      "amplitude_gate_outcome": "i",
+      "protocol_E": {
+        "L_pe": 32,
+        "c_eff": 0.2827990003306721,
+        "c_0_lattice": 0.49802908017238046,
+        "c0_over_ceff": 1.7610708651375833,
+        "K_tan_over_K0_static": 0.2954759224362361,
+        "rho_eff_over_rho0_MEASURED": 0.9163803364985816,
+        "r_Z_measured": 0.5203540383521078,
+        "reactance_pair_recorded": true,
+        "structural_scope": "Protocol E measures the STRUCTURAL \u03c1 term only; the engine hosts no trapped-energy inertia (C-load open, clm-m5swh9); NO \u03b2 claim from this bench"
+      },
+      "r_Z": 0.5203540383521078,
+      "cell_walk_bin": "UNDETERMINED",
+      "gate_tag": "i"
+    },
+    "cv_profile_fixed_budget": {
+      "eps_bias": [
+        -0.003,
+        -0.0024000000000000002,
+        -0.0018,
+        -0.0012,
+        -0.0005999999999999998,
+        0.0,
+        0.0006000000000000003,
+        0.0012000000000000005,
+        0.0018000000000000004,
+        0.0024000000000000002,
+        0.003
+      ],
+      "K_of_eps_bias": [
+        2079.821378653257,
+        2079.69819117082,
+        2079.5736999756896,
+        2079.450193259724,
+        2079.3257794915476,
+        2079.2060288599146,
+        2079.0834143191714,
+        2078.959399409719,
+        2078.8350788780717,
+        2078.711609709849,
+        2078.5878162010717
+      ],
+      "K0_unbiased": 2079.2060288599146,
+      "shell_POSITION": 0.0013545809543436397,
+      "shell_WIDTH": 0.006,
+      "shell_WIDTH_squeeze": 0.004200000000000001,
+      "shell_WIDTH_stretch": 0.0017999999999999995,
+      "shell_ASYMMETRY": -0.4000000000000002,
+      "anisotropic_confirmed_absasym_ge_0p15": true,
+      "span_truncated": false
+    },
+    "percolation_fixed_budget": {
+      "hoop_percolates": false,
+      "largest_tense_cluster_frac": 9.1552734375e-05,
+      "n_tense_bonds": 489,
+      "corroborative": "percolation True corroborates HARD; False corroborates SOFT/NULL"
+    },
+    "painted_anisotropic_fixed_budget": {
+      "K_tan_over_K0_painted": 0.2982369862639104,
+      "note": "painted = grown k_shear,eff(u_0) pattern frozen u-independent; GROWN\u2260PAINTED \u21d2 provenance-real; GROWN\u2248PAINTED \u21d2 anisotropy-driven"
+    },
+    "fixed_budget_seed_sweep": {
+      "0.25xp_ref": {
+        "p0": 0.01,
+        "grown_equilibrium_exists": false,
+        "grown_tension_nonzero": false,
+        "max_abs_T": 0.1587295899939202,
+        "K_tan_over_K0": 0.2960815289427958,
+        "K_ratio_lift": 0.9990326415448374,
+        "r_Z_structural": 0.5441337417793495,
+        "gate_outcome": "i"
+      },
+      "0.5xp_ref": {
+        "p0": 0.02,
+        "grown_equilibrium_exists": false,
+        "grown_tension_nonzero": false,
+        "max_abs_T": 0.31966045938498305,
+        "K_tan_over_K0": 0.29581429730143255,
+        "K_ratio_lift": 0.9981309536431003,
+        "r_Z_structural": 0.5438881293992659,
+        "gate_outcome": "i"
+      },
+      "1xp_ref": {
+        "p0": 0.04,
+        "grown_equilibrium_exists": true,
+        "grown_tension_nonzero": true,
+        "max_abs_T": 0.6470063516929541,
+        "K_tan_over_K0": 0.2954759224362361,
+        "K_ratio_lift": 0.9969892156339222,
+        "r_Z_structural": 0.5435769701120864,
+        "gate_outcome": "i"
+      }
+    },
+    "seed_independence_fixed_budget": {
+      "lift_rel_spread": 0.0020474164546942313,
+      "rZ_rel_spread": 0.0010237289703319105,
+      "stable_tol_0p15": true
+    },
+    "yield_saturated_reservoir_knob": {
+      "A_yield_scale_0.9": {
+        "p0_grown": 0.06,
+        "a_yield_scale": 0.9,
+        "peak_A": 0.208745720321292,
+        "peak_A_ceiling": 0.208745720321292,
+        "yield_reached": false,
+        "A_yield_target": 0.9,
+        "grown_equilibrium_exists": false,
+        "grown_CG_converged": true,
+        "grown_bonds_positive": true,
+        "grown_tension_nonzero": true,
+        "min_kse": 0.02788493066690223
+      },
+      "A_yield_scale_1": {
+        "p0_grown": 0.06,
+        "a_yield_scale": 1.0,
+        "peak_A": 0.208745720321292,
+        "peak_A_ceiling": 0.208745720321292,
+        "yield_reached": false,
+        "A_yield_target": 1.0,
+        "grown_equilibrium_exists": false,
+        "grown_CG_converged": true,
+        "grown_bonds_positive": true,
+        "grown_tension_nonzero": true,
+        "min_kse": 0.02788493066690223
+      },
+      "A_yield_scale_1.1": {
+        "p0_grown": 0.06,
+        "a_yield_scale": 1.1,
+        "peak_A": 0.208745720321292,
+        "peak_A_ceiling": 0.208745720321292,
+        "yield_reached": false,
+        "A_yield_target": 1.1,
+        "grown_equilibrium_exists": false,
+        "grown_CG_converged": true,
+        "grown_bonds_positive": true,
+        "grown_tension_nonzero": true,
+        "min_kse": 0.02788493066690223
+      }
+    },
+    "yield_saturated_equilibrium_exists_any": false,
+    "headline_arm_selected": "fixed_budget",
+    "headline_bin": "UNDETERMINED",
+    "anti_seduction_fence": {
+      "headline_r_Z": 0.5203540383521078,
+      "matched_ish_0p8_1p25": false,
+      "seed_independence_passes": true,
+      "disposition": "not matched-ish; no candidate flag",
+      "frozen_rule": "a matched-ish r_Z fed by a single source reservoir is a CANDIDATE ONLY, excluded from the headline verdict regardless of arm"
+    }
+  },
+  "_runtime_sec": 755.738774061203
+}
