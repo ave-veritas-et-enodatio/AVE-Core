@@ -116,7 +116,7 @@ must be reported precisely, NOT forced — and it is reported here, not forced.
 ## 3. regime-dispatch facade API
 
 `ave.facade.unified_engine` — the MEDIUM-scaffold (validate-on-known), NOT a
-self-formation search. The falsified bulk self-trap (S3 DISPERSE / #415 / #59)
+self-formation search. The falsified bulk self-trap (S3 DISPERSE / #415 / #417)
 is CLOSED-NEGATIVE; the self-formation slot is BARRED (the facade does not
 re-run it).
 

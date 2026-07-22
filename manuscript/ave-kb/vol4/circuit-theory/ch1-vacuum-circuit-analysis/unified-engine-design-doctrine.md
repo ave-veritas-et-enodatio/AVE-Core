@@ -165,7 +165,7 @@ split:**
   [`../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
   Wiring the winding into the A1 amplitude phasor is the genesis-24 double-count and is barred.
 - the dynamical orbit-winding of the *coupled* system reads the **LC oscillator carrier ratio** (proven by
-  carrier-ratio detuning, #59/#417), which is a *distinct* object from the static topological charge — do
+  carrier-ratio detuning, #417), which is a *distinct* object from the static topological charge — do
   not conflate the carrier integer with the charge integer
   ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):124).
 
@@ -324,7 +324,7 @@ The engine exists to turn the screening-leaks into bankable numbers — the dive
 - **GW-echo** (the lattice's discrete signature in gravitational-wave ring-down).
 
 **What the engine's job is NOT: it is NOT "watch the electron form."** The electron is sub-Nyquist and
-screened; self-formation is closed-negative (§H — Stage-2 MODE-III, S3-DISPERSE, #415, #59). Pointing the
+screened; self-formation is closed-negative (§H — Stage-2 MODE-III, S3-DISPERSE, #415, #417). Pointing the
 engine at "let the electron self-assemble from a free precursor" asks it to resolve the one thing it is
 structurally screened from. The engine's value is the *forward leaks*, computed from an *assembled* electron
 (or from the linear network directly) — not an emergence movie of the soliton birthing itself.
@@ -343,7 +343,7 @@ closed-negative across the whole reroute campaign:
   $c_{eff}(V)$ ([`2026-06-24_engine-stage2-native-cage_result.md`](../../../../../research/2026-06-24_engine-stage2-native-cage_result.md):4);
 - **S3 winding+$H_{couple}$+cavity pinning → DISPERSE-FALSIFIED**
   ([`2026-06-24_engine-s3-cavity-pinning_result.md`](../../../../../research/2026-06-24_engine-s3-cavity-pinning_result.md):4);
-- **#415 coupled eigensolve → gate-(d) FAIL** (winding bled out) and **#59 phase-space orbit → BREAK**
+- **#415 coupled eigensolve → gate-(d) FAIL** (winding bled out) and **#417 phase-space orbit → BREAK**
   (reads the carrier-lock $(−5,−5)=(1,1)$, not the topological $(2,3)$)
   ([`2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md):19-20).
 
@@ -463,6 +463,6 @@ as frontier (the genuine missing physics, capability-map §6).
 - [`../../../../../research/2026-06-25_unified-engine-P1-scope.md`](../../../../../research/2026-06-25_unified-engine-P1-scope.md)
   — the P1 carrier-unification scope doc this doctrine gates.
 - [`../../../../../research/2026-06-24_engine-reroute-epic-summary.md`](../../../../../research/2026-06-24_engine-reroute-epic-summary.md)
-  — the two-natured electron + the self-formation closed-negatives (Stage-2 / S3 / #415 / #59).
+  — the two-natured electron + the self-formation closed-negatives (Stage-2 / S3 / #415 / #417).
 - [`../../../../../research/2026-06-06_biquaternion-node-algebra-result.md`](../../../../../research/2026-06-06_biquaternion-node-algebra-result.md)
   — the biquaternion = coupling-layer algebra, canonized-to-nothing-as-a-primitive.

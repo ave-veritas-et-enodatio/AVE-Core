@@ -7,7 +7,7 @@ WHAT THIS IS (and is NOT)
 ═══════════════════════════════════════════════════════════════════════════════
 A thin DISPATCH + WIRING facade over the certified cores. P0 = the MEDIUM-
 scaffold (validate-on-known), NOT a self-formation search. The falsified bulk
-self-trap (S3 DISPERSE / #415 / #59) is CLOSED-NEGATIVE and the self-formation
+self-trap (S3 DISPERSE / #415 / #417) is CLOSED-NEGATIVE and the self-formation
 slot is BARRED — this facade never re-runs it.
 
 Rule-14 anti-rebuild: every role is filled by a certified core, wired verbatim:
