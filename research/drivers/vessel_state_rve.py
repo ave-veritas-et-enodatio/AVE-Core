@@ -58,6 +58,7 @@ Run: PYTHONPATH=src python3 research/drivers/vessel_state_rve.py --legs 0
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -123,6 +124,43 @@ ASYMMETRY_THRESH = 0.15
 # WITHOUT masking the crossing — the raw (unfloored) k_shear,eff is what the STOP
 # criterion and every observable read).
 KSE_SOLVE_FLOOR = 1e-6
+
+# ── Protocol E — long-λ compression ToF, ρ_eff MEASURED (prereg §4; PR#796 F2 repair) ──
+# The shipped extraction was UNDER-GUARDED (no PML exclusion, slab-mean not density-peak,
+# window ~12× the frozen formula, unfrozen argmax arrival, reactance-pair flag hardcoded).
+# This block reimplements the frozen §4 sub-requirements AS WRITTEN: PML/window boundary-
+# cell exclusion, density-peak (top-K |field|²) monitor sampling, the FROZEN reflection-free
+# window t_end ≤ 0.9·(L/2−r_meas)/c_P, a FROZEN two-monitor cross-correlation arrival
+# criterion (the "first-arrival group speed", operationalized + documented), a REAL
+# reactance-pair flag, and BOTH L∈{32,48}.
+PE_PML_THICKNESS = 2.0     # boundary-cell exclusion margin (≥ KUBC bw=1.5), lattice units
+PE_R1_FRAC = 0.07          # near density-peak monitor distance from centered source (·Lx)
+PE_R2_FRAC = 0.13          # far  density-peak monitor distance from centered source (·Lx)
+PE_W_FRAC = 0.06           # compression-pulse Gaussian width (·Lx). ★DISCLOSED: on L∈{32,48}
+#                            w≈1.9–2.9 ≲ cage radius 2.2 ⇒ k·r_core≈2–4, LONG-λ MARGINAL —
+#                            the grown cage medium is a locally-resonant scatterer, so the
+#                            ToF c_eff is EXTRACTION-DEPENDENT (see protocol_E method band).
+PE_TOPK = 48               # density-peak sampling: top-K |field|² nodes per monitor slab
+PE_CFL = 0.2               # velocity-Verlet CFL
+PE_SC_MAXIT = 4            # self-consistent launch-speed iterations (coherent forward eigenmode)
+PE_SC_TOL = 0.01           # SC convergence: |Δc|/c ≤ 1%
+PE_WINDOW_SAFETY = 0.9     # frozen reflection-free window safety factor
+PE_AMP = 1e-3              # linear-regime pulse amplitude
+# ToF-medium grow: a fail-fast capped grow (the ToF medium is a homogenized TANGENT operator,
+# insensitive to the last outer/inner digits — verified: L=32 capped min_kse=0.34722 IDENTICAL
+# to the full frozen 1e-10/100-outer solve; the VERDICT K_tan solve keeps the frozen 1e-10).
+PE_GROW_OUTER = 12
+PE_GROW_INNER_TOL = 1e-6
+
+# ── yield_saturated ascending-p0 scan (prereg §1/§6; PR#796 F11/F3/F8/F9 repair) ──
+# The shipped scan stopped at an UNDISCLOSED hard-coded p0=0.06 ceiling with every point
+# STABLE, then banked yield_saturated as an *extrapolated* NULL. This grid EXTENDS past the
+# ceiling to OBSERVE the terminal buckling onset. ALL yield-scan solves run at a fail-fast cap
+# (F9: the cap applies to EVERY yield-scan solve, not only buckled ones).
+YIELD_SCAN_P0 = (0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.055, 0.06,
+                 0.062, 0.064, 0.066, 0.068, 0.07, 0.08)
+YIELD_OUTER_CAP = 8
+YIELD_INNER_CAP = 800
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -625,18 +663,30 @@ def leg0_selftests(cache):
                           SELFTEST_III_SIGMA, None, *SELFTEST_III_SHELL)
     st_iii.pop("_gate", None)
     gate_pass = bool(st_ii["SELFTEST_ii_FIRES"] and st_iii["SELFTEST_iii_FIRES"])
+    # ★PR#796 F4/F15: the calibration_disclosure is REGENERATED to match COMPUTED truth. The
+    # shipped string falsely claimed 'the frozen 1e-3 did not perturb the tangent by >5%, tuned'
+    # beside a measured spread of ~649 — the frozen 1e-3 was shipped UNCHANGED and FIRED the
+    # artifact with NO tuning. (%% literal bug also fixed.)
+    ii_loose_spread = max(st_ii["loose_amp_spread_plus"], st_ii["loose_amp_spread_minus"])
+    ii_tight_spread = max(st_ii["tight_amp_spread_plus"], st_ii["tight_amp_spread_minus"])
+    calibration_disclosure = (
+        f"SELFTEST-(ii): the FROZEN loose inner CG tol = {SELFTEST_II_LOOSE_TOL:g} was shipped "
+        f"UNCHANGED and FIRED the artifact with NO calibration latitude used — measured loose "
+        f"amp_spread = {ii_loose_spread:.3g} (>> the 0.05 threshold), tight-tol "
+        f"({INNER_CG_TOL:g}) amp_spread = {ii_tight_spread:.3g} (≤ 0.05, removed by tightening), "
+        f"A_sign(loose) = {st_ii['loose_A_sign']:.3g} (≤ 0.10, symmetric) with "
+        f"all_scan_legs_converged(loose) = {st_ii['loose_all_scan_legs_converged']}. "
+        f"SELFTEST-(iii): p0={SELFTEST_III_P0:g}, sigma={SELFTEST_III_SIGMA:g}, shell band "
+        f"{SELFTEST_III_SHELL} (design-time numeric-confirmation run; achieved near-buckling "
+        f"fraction = {st_iii['frac_shell_bonds_near_buckling_le_0p2ks']:.4g}, min k_shear,eff = "
+        f"{st_iii['min_kse']:.4g}, fired A_sign = {st_iii['A_sign']:.4g}, amp_spread+ = "
+        f"{st_iii['amp_spread_plus']:.4g}).")
     return {
         "selftest_ii": st_ii, "selftest_iii": st_iii,
         "gate_fireability_selftest_pass": gate_pass,
         "frozen": "gate_fireability_selftest_pass = SELFTEST-(ii) fires (ii) AND "
                   "SELFTEST-(iii) fires (iii), each with the correct convergence/robustness flags",
-        "calibration_disclosure": (
-            f"SELFTEST-(ii) loose inner CG tol = {SELFTEST_II_LOOSE_TOL:g} (calibration-class "
-            f"choice, DISCLOSED, made BEFORE any verdict arm — the frozen 1e-3 did not perturb "
-            f"the tangent by >5%%, tuned per the §3B calibration latitude). SELFTEST-(iii) "
-            f"p0={SELFTEST_III_P0:g}, sigma={SELFTEST_III_SIGMA:g}, shell band {SELFTEST_III_SHELL} "
-            f"(design-time numeric-confirmation run; near-buckling fraction + fired A_sign/amp_spread "
-            f"banked below)."),
+        "calibration_disclosure": calibration_disclosure,
     }
 
 
@@ -663,14 +713,20 @@ def leg0_instrument_validation(cache):
         "note": "uniform cold medium, no cage/source: K_tan/K_0→1, ρ_N→0, r_Z→1",
     }
 
-    # (b) determinism bit-compare — two independent grows are bit-identical (no per-step RNG)
+    # (b) determinism in-process bit-compare — two independent grows are bit-identical (no
+    # per-step RNG). ★PR#796 F5/F13: this is a PROXY (two in-process grow calls). The FROZEN
+    # criterion is 'two independent full driver runs diff -q clean' — satisfied by the
+    # determinism_digest emitted at the end of main() (two full runs → identical digest).
     g1 = grow_vessel(geom, free, [xc.copy()], P_REF, inner_tol=INNER_CG_TOL)
     g2 = grow_vessel(geom, free, [xc.copy()], P_REF, inner_tol=INNER_CG_TOL)
     bit_identical = bool(np.array_equal(g1["u0"], g2["u0"])
                          and np.array_equal(g1["sol"]["kse_raw"], g2["sol"]["kse_raw"]))
     out["determinism"] = {"reruns_bit_identical": bit_identical,
                           "u0_max_abs_diff": float(np.max(np.abs(g1["u0"] - g2["u0"]))),
-                          "pass": bit_identical}
+                          "pass": bit_identical,
+                          "note": "IN-PROCESS PROXY (two grow calls). The frozen 'two independent "
+                                  "full driver runs diff -q clean' criterion = the determinism_digest "
+                                  "(main() emits a content hash; two full runs → identical digest)."}
 
     # (c) Lamé exterior gate — reuse #782 lame_gate on a single pressurized bulk_only cage
     lame = lame_gate(geom, xc, "bulk_only", 3.0, CAGE_W)
@@ -710,6 +766,25 @@ def leg0_instrument_validation(cache):
     out["stop_gate"] = {"rail_K_eff_over_K0": rail, "rigid_K_eff_over_K0": rigid,
                         "opposite_sign": bool(rail < 1.0 < rigid),
                         "STOP_GATE_PASS": bool(rail < 1.0 < rigid)}
+
+    # (f) Bloch cross-check (prereg §8; PR#796 F14 — never ran before). Cold uncaged P & S
+    # compression/shear ToF speeds (the repaired _pe_pulse_xcorr) vs the Bloch c_P/c_S from
+    # run_c2_speeds, rel ≤ 0.20. Advisory (a §8 internal validation, not a §7 VOID STOP).
+    gB = cache[20]
+    posB, biB, bjB, dhatB = gB[0], gB[1], gB[2], gB[3]
+    cP_b, cS_b, _ = run_c2_speeds(RHO_STAR, K_S)
+    Phi_cold_B = bond_tensors(dhatB, K_A, KS0)
+    cP_tof = _pe_pulse_xcorr(gB, Phi_cold_B, cP_b, cP_b, comp=0)["c"]     # P: longitudinal
+    cS_tof = _pe_pulse_xcorr(gB, Phi_cold_B, cS_b, cS_b, comp=1)["c"]     # S: transverse
+    relP = float(abs(cP_tof - cP_b) / cP_b)
+    relS = float(abs(cS_tof - cS_b) / cS_b)
+    out["bloch_crosscheck"] = {
+        "cP_Bloch": float(cP_b), "cP_ToF_cold": float(cP_tof), "rel_P": relP,
+        "cS_Bloch": float(cS_b), "cS_ToF_cold": float(cS_tof), "rel_S": relS,
+        "pass_rel_le_0p20_P": bool(relP <= 0.20), "pass_rel_le_0p20_S": bool(relS <= 0.20),
+        "note": "cold uncaged P/S ToF speeds (repaired _pe_pulse_xcorr, L=20) vs run_c2_speeds "
+                "Bloch c_P/c_S; frozen §8 internal validation (advisory, rel ≤ 0.20)."}
+
     out["all_validation_pass"] = bool(
         out["uniform_medium_null"]["pass"] and out["determinism"]["pass"]
         and out["lame_gate"]["lame_pass"] and out["rve_size_gap"]["pass"]
@@ -772,7 +847,11 @@ def assert_partition():
 # ★THE VERDICT ARM — grown cage-array vessel at φ_sf (prereg §6/§8)
 # ═════════════════════════════════════════════════════════════════════════════
 VERDICT_P_REF = 0.040          # [engineering-choice] per-core source for the cage-array arm
-VERDICT_SRC_SIGMA = 1.6        # per-core source width (confined to r < r_core)
+VERDICT_SRC_SIGMA = 1.6        # per-core source width (confined to r < r_core) [engineering-choice]
+#                                ★PR#796 F10/F14: an UNDISCLOSED knob differing from the single-
+#                                core calibrated SRC_SIGMA=2.5 — now ledgered + tested by a σ-variant
+#                                verdict arm (below); grade-frame Eulerian/imposed.
+VERDICT_SRC_SIGMA_VARIANT = 2.5   # the single-core calibrated width — σ-verdict-relevance probe
 VERDICT_WALL = "bulk_only"     # the k_a-only verdict wall (§0 Fork W; SYMMETRIC is a control)
 VERDICT_S_RAIL = 1e-4          # #782 deep rail on the cage shells
 
@@ -800,43 +879,84 @@ def grow_verdict_arm(geom, free, xc, p0, seed_class="fixed_budget",
     centers, k_a_bond, k_s_cold = build_cage(geom, wall_class, s_rail)
     yield_reached = None
     peak_A_ceiling = None
+    yield_scan = None
     if seed_class == "yield_saturated":
-        # BOUNDED ascending scan: push the per-core source up until max|ε| reaches the
-        # (scaled) yield A_yield·a_yield_scale, OR the vessel buckles first (min k_shear,eff
-        # crosses 0). Buckled solves are USELESS (not used downstream), so they run at a
-        # small cap (outer≤8, inner≤800) to FAIL FAST — the empirical-driver runtime fix:
-        # the near-buckling secant grinds the 100×4000 caps if left uncapped (Rule 10).
+        # BOUNDED ascending p0 scan, EXTENDED PAST the buckling onset to OBSERVE the terminal
+        # state (PR#796 F11/F3/F8 repair — the shipped scan stopped at an UNDISCLOSED p0=0.06
+        # ceiling with every point STABLE and banked yield_saturated as an *extrapolated* NULL).
+        # ALL yield-scan solves run at a fail-fast cap (outer≤8, inner≤800) — the empirical-driver
+        # runtime fix (Rule 10): the near-buckling secant grinds the frozen 100×4000 caps. F9:
+        # the cap applies to EVERY yield-scan solve, not only buckled ones. The first non-stable
+        # point is the OBSERVED terminal state, classified physical BUCKLING (min k_shear,eff ≤ 0)
+        # vs a converged=False STALL ((ii)-artifact per §2).
         target = A_YIELD * a_yield_scale
-        scan_p0 = (0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06)
+        scan_p0 = YIELD_SCAN_P0
         best_stable = None
         reached = None
         peak_A_ceiling = 0.0
+        highest_stable_p0 = None
+        onset = None
         for pm in scan_p0:
             b_src = radiation_source(pos, centers, pm, sigma, r_core=PHI_SF_RCAGE)
             sol = solve_state_dependent(geom, free, np.zeros((N, 3)), b_src, k_s_cold,
                                         k_a_bond=k_a_bond, inner_tol=INNER_CG_TOL,
-                                        outer_max=8, inner_max=800)
+                                        outer_max=YIELD_OUTER_CAP, inner_max=YIELD_INNER_CAP)
             peakA = float(np.max(np.abs(sol["eps_axial"])))
-            stable = bool(sol["converged"] and sol["kse_raw"].min() > 0.0)
+            mkse = float(sol["kse_raw"].min())
+            stable = bool(sol["converged"] and mkse > 0.0)
             if stable:
                 best_stable = (pm, sol, b_src, peakA)
+                highest_stable_p0 = float(pm)
                 peak_A_ceiling = max(peak_A_ceiling, peakA)
                 if peakA >= target:
                     reached = (pm, sol, b_src, peakA)
                     break
             else:
-                break                                # buckled — no higher stable state
+                onset = {"p0": float(pm), "min_kse": mkse, "peak_A": peakA,
+                         "converged": bool(sol["converged"]),
+                         "kind": "buckled" if mkse <= 0.0 else "stall_ii_artifact",
+                         "outer_it": int(sol["outer_it"]), "nlres": float(sol["nlres"])}
+                break                                # OBSERVED terminal state — STOP the scan
+        # capped-vs-uncapped confirmation at the terminal point (F9): re-solve the onset p0 with
+        # 2× MORE outer/inner iterations than the fail-fast cap and confirm the classification is
+        # unchanged (more iterations do NOT rescue the buckled state → the cap hid no would-be-
+        # stable state). NOT the full frozen 100×4000 — a buckled (non-SPD) state makes the inner
+        # CG non-convergent, so the full cap would grind indefinitely (exactly the pathology the
+        # fail-fast cap avoids, Rule 10); a bounded 2× confirmation is sufficient.
+        capped_vs_uncapped = None
+        if onset is not None:
+            b_on = radiation_source(pos, centers, onset["p0"], sigma, r_core=PHI_SF_RCAGE)
+            sol_full = solve_state_dependent(geom, free, np.zeros((N, 3)), b_on, k_s_cold,
+                                             k_a_bond=k_a_bond, inner_tol=INNER_CG_TOL,
+                                             outer_max=2 * YIELD_OUTER_CAP,
+                                             inner_max=2 * YIELD_INNER_CAP)
+            mkse_full = float(sol_full["kse_raw"].min())
+            kind_full = ("buckled" if mkse_full <= 0.0
+                         else ("stall_ii_artifact" if not sol_full["converged"] else "stable"))
+            capped_vs_uncapped = {
+                "onset_p0": onset["p0"], "failfast_cap": [YIELD_OUTER_CAP, YIELD_INNER_CAP],
+                "confirm_cap_2x": [2 * YIELD_OUTER_CAP, 2 * YIELD_INNER_CAP],
+                "failfast_min_kse": onset["min_kse"], "failfast_kind": onset["kind"],
+                "confirm_min_kse": mkse_full, "confirm_kind": kind_full,
+                "confirm_outer_it": int(sol_full["outer_it"]),
+                "classification_unchanged": bool(kind_full == onset["kind"])}
         pick = reached if reached is not None else best_stable
         if pick is None:
             pm = scan_p0[0]
             b_src = radiation_source(pos, centers, pm, sigma, r_core=PHI_SF_RCAGE)
             sol = solve_state_dependent(geom, free, np.zeros((N, 3)), b_src, k_s_cold,
                                         k_a_bond=k_a_bond, inner_tol=INNER_CG_TOL,
-                                        outer_max=8, inner_max=800)
+                                        outer_max=YIELD_OUTER_CAP, inner_max=YIELD_INNER_CAP)
         else:
             pm, sol, b_src, _ = pick
         p0 = pm
         yield_reached = bool(reached is not None)
+        yield_scan = {
+            "scan_grid_p0": list(scan_p0), "outer_cap": YIELD_OUTER_CAP,
+            "inner_cap": YIELD_INNER_CAP, "a_yield_target": target,
+            "highest_stable_p0": highest_stable_p0, "peak_A_ceiling": peak_A_ceiling,
+            "terminal_onset": onset, "capped_vs_uncapped": capped_vs_uncapped,
+            "yield_reached_before_buckling": yield_reached}
     else:
         b_src = radiation_source(pos, centers, p0, sigma, r_core=PHI_SF_RCAGE)
         sol = solve_state_dependent(geom, free, np.zeros((N, 3)), b_src, k_s_cold,
@@ -862,6 +982,7 @@ def grow_verdict_arm(geom, free, xc, p0, seed_class="fixed_budget",
         "max_abs_T": max_abs_T, "tension_threshold_0p05kaAyield": tension_thresh,
         "min_kse": min_kse, "peak_A": float(np.max(np.abs(sol["eps_axial"]))),
         "peak_A_ceiling": peak_A_ceiling, "yield_reached": yield_reached,
+        "yield_scan": yield_scan,
         "eps_min": float(sol["eps_axial"].min()), "eps_max": float(sol["eps_axial"].max()),
         "grown_CG_converged": g_cg, "grown_tension_nonzero": g_tension,
         "grown_bonds_positive": g_bonds,
@@ -1031,78 +1152,273 @@ def painted_anisotropic_arm(geom, free, arm, xc, half):
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# ★ABLATION DECOMPOSITION — the F6 "cancellation"-mechanism REFUTATION (PR#796)
+# ═════════════════════════════════════════════════════════════════════════════
+def _painted_K_ratio(geom, free, kse_pattern, k_a_bond, xc, half):
+    """Central second-difference K_tan/K_0 (core-restricted) for an arbitrary PAINTED
+    (u-independent) transverse-stiffness pattern — the driver's own painted machinery."""
+    pos, bi, bj, dhat, mid = geom
+    N = pos.shape[0]
+    kse = np.maximum(kse_pattern, KSE_SOLVE_FLOOR)
+
+    def energy(E):
+        u_bc = np.zeros((N, 3))
+        u_bc[~free] = affine_field(pos[~free], xc, E)
+        Phi = bond_tensors(dhat, k_a_bond, kse)
+        diag = jacobi_diag(dhat, k_a_bond, kse, bi, bj, N)
+        idx = np.where(free)[0]
+        Mi = 1.0 / np.maximum(diag[free], 1e-30)
+
+        def applyK(wf):
+            w = np.zeros((N, 3)); w[idx] = wf
+            return (-forces(w, Phi, bi, bj, N))[idx]
+        rhs = forces(u_bc, Phi, bi, bj, N)[idx]
+        x, _, _ = _cg_interior(applyK, rhs, np.zeros_like(rhs), Mi, INNER_CG_TOL, INNER_CG_MAX)
+        u = u_bc.copy(); u[idx] = x
+        return core_energy(u, Phi, bi, bj, mid, xc, half)
+    e = EPS_PROBE_BASE
+    kc = (energy(strain_mode("hydro", e)) + energy(strain_mode("hydro", -e))
+          - 2.0 * energy(strain_mode("hydro", 0.0))) / e ** 2
+    kc_cold = cold_central_modulus(geom, free, "hydro", e, xc, half)
+    return float(kc / (kc_cold + 1e-300))
+
+
+def ablation_decomposition(geom, free, arm, xc, half, control_K):
+    """DECOMPOSE the grown small-signal tangent into its named 'hoop-stiffen' (ε_axial>0)
+    and 'radial-soften' (ε_axial<0) painted components — the PR#796 F6 repair. The retracted
+    result-doc headline claimed the null lift (≈1.0) is a hoop-stiffen ⊕ radial-soften
+    CANCELLATION. That mechanism predicts hoop_only > control AND radial_only < control (one
+    stiffens, one softens, they cancel to ≈control). The cheapest ablation (this function)
+    tests it: paint ONLY the tensile-bond remap (radial bonds reset cold) vs ONLY the
+    compressive-bond remap (hoop bonds reset cold), each measured core-restricted vs the
+    isotropic control. If radial_only does NOT drop below control, the cancellation mechanism
+    is REFUTED — both named components STIFFEN and the null lift is provenance/live-operator-
+    driven (grown≈painted≈control), NOT a hoop-vs-radial cancellation."""
+    kse_grown = np.asarray(arm["sol"]["kse_raw"], float)
+    eps = np.asarray(arm["sol"]["eps_axial"], float)
+    k_a_bond = arm["k_a_bond"]
+    ks_cold = np.asarray(arm["k_s_cold"], float)   # the cold (railed) transverse baseline
+    # full painted grown pattern
+    k_full = _painted_K_ratio(geom, free, kse_grown, k_a_bond, xc, half)
+    # hoop-only: keep the remap where ε_axial>0 (tension stiffens); reset ε_axial<0 bonds cold
+    kse_hoop = np.where(eps > 0.0, kse_grown, ks_cold)
+    k_hoop = _painted_K_ratio(geom, free, kse_hoop, k_a_bond, xc, half)
+    # radial-only: keep the remap where ε_axial<0 (compression softens); reset ε_axial>0 cold
+    kse_rad = np.where(eps < 0.0, kse_grown, ks_cold)
+    k_rad = _painted_K_ratio(geom, free, kse_rad, k_a_bond, xc, half)
+    d_full = float(k_full / control_K - 1.0)
+    d_hoop = float(k_hoop / control_K - 1.0)
+    d_rad = float(k_rad / control_K - 1.0)
+    # cancellation mechanism REQUIRES the radial-only component to SOFTEN the core tangent
+    radial_softens = bool(d_rad < 0.0)
+    cancellation_supported = bool((d_hoop > 0.0) and (d_rad < 0.0))
+    return {
+        "control_K_eff_over_K0": float(control_K),
+        "K_tan_over_K0_full_painted": k_full,
+        "K_tan_over_K0_hoop_only": k_hoop,
+        "K_tan_over_K0_radial_only": k_rad,
+        "delta_full_vs_control_pct": 100.0 * d_full,
+        "delta_hoop_only_vs_control_pct": 100.0 * d_hoop,
+        "delta_radial_only_vs_control_pct": 100.0 * d_rad,
+        "radial_only_softens_core_tangent": radial_softens,
+        "cancellation_mechanism_supported": cancellation_supported,
+        "n_tension_bonds_eps_gt_0": int((eps > 0.0).sum()),
+        "n_compression_bonds_eps_lt_0": int((eps < 0.0).sum()),
+        "attribution": ("cancellation SUPPORTED (hoop stiffens, radial softens)" if cancellation_supported
+                        else "cancellation REFUTED — the radial-soften pattern does NOT soften the "
+                             "core tangent; both named components stiffen ⇒ the null lift is "
+                             "provenance/live-operator-driven, NOT a hoop-vs-radial cancellation"),
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # ★PROTOCOL E — ρ_eff MEASURED via long-λ compression-pulse time-of-flight (§4)
 # ═════════════════════════════════════════════════════════════════════════════
-def _pulse_tof(geom, Phi, cP_guess, comp=0, x_src=None, x_mon=None, w_pulse=None,
-               cfl=0.2, amp=1e-3):
-    """Plane compression (P) pulse first-arrival time-of-flight through a FROZEN medium
-    operator Phi. Reactance-pair recording (C-state compression amplitude + L-state
-    kinetic flux) every step; reflection-free window (window exclusion). Returns
-    (c_eff, t_arrival, distance, reactance_pair_recorded)."""
+def _pe_pulse_xcorr(geom, Phi, c_launch, cP_window, comp=0, amp=PE_AMP):
+    """Coherent rightward long-λ compression pulse launched into a FROZEN medium operator
+    Phi; TWO density-peak monitors (top-K |field|², PML-excluded); cross-correlation
+    transit-time between them → the group speed (prereg §4; the PR#796 F2 repair). Source at
+    box CENTER (the frozen (L/2−r_meas) window frame). The reactance pair — C-state
+    (compression amplitude) AND L-state (kinetic flux) — is recorded at EVERY step over the
+    frozen reflection-free window (Rule-10 corollary; NOT hardcoded)."""
     pos, bi, bj, dhat, mid = geom
     N = pos.shape[0]
     x = pos[:, 0]
-    lo, hi = x.min(), x.max()
-    if x_src is None:
-        x_src = lo + 0.20 * (hi - lo)
-    if x_mon is None:
-        x_mon = lo + 0.60 * (hi - lo)
-    if w_pulse is None:
-        w_pulse = 0.10 * (hi - lo)                    # long-λ: k·r_core ≪ 1
+    lo, hi = float(x.min()), float(x.max())
+    Lx = hi - lo
+    x_src = lo + 0.5 * Lx
+    r1 = PE_R1_FRAC * Lx; r2 = PE_R2_FRAC * Lx; w = PE_W_FRAC * Lx
+    # PML/window boundary-cell exclusion (prereg §4 Rule-10 corollary): drop nodes within
+    # PE_PML_THICKNESS of ANY face BEFORE the top-K density argpartition (PML cells return a
+    # frozen-absorbing artifact, not interior physics).
+    interior = ((pos >= (lo + PE_PML_THICKNESS)) & (pos <= (hi - PE_PML_THICKNESS))).all(axis=1)
+    s1 = np.where((np.abs(x - (x_src + r1)) < 0.5 * w) & interior)[0]
+    s2 = np.where((np.abs(x - (x_src + r2)) < 0.5 * w) & interior)[0]
     omega = omega_max_cold(Phi, bi, bj, N)
-    dt = cfl * 2.0 / omega
-    g = np.exp(-((x - x_src) ** 2) / (2.0 * w_pulse ** 2))
+    dt = PE_CFL * 2.0 / omega
+    # FROZEN reflection-free window: t_end ≤ 0.9·(L/2 − r_meas)/c_P (r_meas = far monitor r2)
+    t_end = PE_WINDOW_SAFETY * (0.5 * Lx - r2) / cP_window
+    n = int(np.ceil(t_end / dt)) + 1
+    g = np.exp(-((x - x_src) ** 2) / (2.0 * w ** 2))
     u = np.zeros((N, 3)); v = np.zeros((N, 3))
     u[:, comp] = amp * g
-    v[:, comp] = cP_guess * (x - x_src) / w_pulse ** 2 * amp * g   # rightward u=f(x−ct)
-    r_meas = x_mon - x_src
-    t_reflect = (hi - x_mon) / cP_guess + (hi - x_src) / cP_guess
-    t_end = 0.9 * t_reflect                            # reflection-free window (exclusion)
-    n_steps = int(np.ceil(t_end / dt)) + 3
-    slab = np.abs(x - x_mon) < 0.5 * w_pulse
+    v[:, comp] = c_launch * (x - x_src) / w ** 2 * amp * g       # coherent rightward launch
     F = forces(u, Phi, bi, bj, N)
-    ts, sig, cstate, lstate = [], [], [], []
-    for step in range(n_steps):
-        t = step * dt
-        ts.append(t)
-        sig.append(float(np.mean(u[slab, comp])))
-        cstate.append(float(np.mean(np.abs(u[slab, comp]))))    # C-state: compression amp
-        lstate.append(float(np.mean(v[slab, comp] ** 2)))        # L-state: kinetic flux
+    t1, t2, cstate, lstate = [], [], [], []
+
+    def _peak(si):
+        """density-peak (top-K |field|²) selection → (signed-disp mean, |disp| mean, kin flux mean)."""
+        fld = u[si, comp]
+        d2 = fld * fld
+        top = np.argpartition(d2, -PE_TOPK)[-PE_TOPK:] if d2.size > PE_TOPK else np.arange(d2.size)
+        return float(np.mean(fld[top])), float(np.mean(np.abs(fld[top]))), float(np.mean(v[si, comp][top] ** 2))
+
+    for _ in range(n):
+        s1v, s1a, s1l = _peak(s1)
+        s2v, _, _ = _peak(s2)
+        t1.append(s1v); t2.append(s2v)
+        cstate.append(s1a); lstate.append(s1l)        # reactance pair at monitor 1, every step
         u = u + v * dt + 0.5 * F * dt ** 2
         Fn = forces(u, Phi, bi, bj, N)
         v = v + 0.5 * (F + Fn) * dt
         F = Fn
-    ts = np.array(ts); sig = np.abs(np.array(sig))
-    i_arr = int(np.argmax(sig))                        # first-arrival peak at monitor
-    t_arr = float(ts[i_arr]) if i_arr > 0 else float(dt)
-    c_eff = float(r_meas / t_arr) if t_arr > 0 else float("nan")
-    return c_eff, t_arr, float(r_meas), True
+    a = np.array(t1) - np.mean(t1)
+    b = np.array(t2) - np.mean(t2)
+    xc = np.correlate(b, a, mode="full")
+    lags = np.arange(-n + 1, n)
+    xcp = xc.copy(); xcp[lags <= 0] = -np.inf           # far monitor arrives LATER (positive lag)
+    im = int(np.argmax(xcp))
+    if 0 < im < len(xc) - 1:                            # parabolic sub-step interpolation
+        y0, y1, y2 = xc[im - 1], xc[im], xc[im + 1]
+        den = (y0 - 2 * y1 + y2)
+        sh = 0.5 * (y0 - y2) / den if abs(den) > 1e-300 else 0.0
+    else:
+        sh = 0.0
+    lag = (lags[im] + sh) * dt
+    c = float((r2 - r1) / lag) if lag > 0 else float("nan")
+    cstate = np.array(cstate); lstate = np.array(lstate)
+    pair_ok = bool(cstate.size and lstate.size
+                   and (cstate.max() - cstate.min()) > 1e-9 * amp
+                   and (lstate.max() - lstate.min()) > 1e-15 * amp ** 2)
+    return {
+        "c": c, "lag_steps": int(lags[im]), "n_steps": int(n), "dt": float(dt),
+        "t_end": float(t_end), "n_mon1": int(s1.size), "n_mon2": int(s2.size),
+        "reactance_pair_recorded": pair_ok,
+        "C_state_peak_step": int(np.argmax(cstate)) if cstate.size else -1,
+        "L_state_peak_step": int(np.argmax(lstate)) if lstate.size else -1,
+    }
 
 
-def protocol_E(L_pe, arm_builder, cP_cold, K_ratio, label=""):
-    """Measure ρ_eff/ρ_0 on the grown-vessel RVE via long-λ compression ToF (§4).
-    ρ_eff = K_eff/c_eff²; ρ_eff/ρ_0 = (K_eff/K_0)·(c_0/c_eff)²; r_Z = √((K_eff/K_0)(ρ_eff/ρ_0)).
-    STRUCTURAL term only (no trapped-energy inertia; C-load open, clm-m5swh9; NO β claim)."""
+def _pe_sc_speed(geom, Phi, cP_window):
+    """Self-consistent coherent group speed: iterate the launch speed to the medium's own
+    forward-eigenmode fixed point (c_launch = c_measured), capped at PE_SC_MAXIT. The FROZEN
+    arrival criterion (prereg §4 'first-arrival group speed', operationalized as the coherent
+    forward-eigenmode transit speed). Returns (c, history, last_pulse_dict)."""
+    c = cP_window
+    hist = [float(c)]
+    last = None
+    for _ in range(PE_SC_MAXIT):
+        r = _pe_pulse_xcorr(geom, Phi, c, cP_window)
+        cn = r["c"]; last = r
+        if not (cn == cn):                              # nan guard
+            break
+        hist.append(float(cn))
+        if abs(cn - c) / max(abs(c), 1e-9) <= PE_SC_TOL:
+            c = cn
+            break
+        c = cn
+    return float(c), hist, last
+
+
+def _rz(K_ratio, c0, ce):
+    """r_Z = Z_eff/Z_0 = (K_eff/c_eff)/(K_0/c_0) = (K_eff/K_0)·(c_0/c_eff)."""
+    return float(K_ratio * (c0 / ce)) if (ce and ce == ce and c0 == c0) else float("nan")
+
+
+def _rho(K_ratio, c0, ce):
+    return float(K_ratio * (c0 / ce) ** 2) if (ce and ce == ce and c0 == c0) else float("nan")
+
+
+def protocol_E(L_pe, arm_builder, cP_cold, K_ratio, label="", do_sc=True):
+    """Measure ρ_eff/ρ_0 on the grown-vessel RVE via a long-λ compression-pulse ToF (prereg
+    §4; REVISION per PR#796 F2 — PML exclusion, density-peak top-K sampling, the FROZEN
+    reflection-free window, a FROZEN cross-correlation arrival criterion, a REAL reactance-pair
+    flag, run at L∈{32,48}). ρ_eff/ρ_0 = K_ratio·(c_0/c_eff)²; r_Z = K_ratio·(c_0/c_eff).
+    STRUCTURAL term only (no trapped-energy inertia; C-load open, clm-m5swh9; NO β claim).
+
+    ★F2 METHOD-SENSITIVITY (surfaced, not hidden): the grown cage medium is a MARGINAL-λ
+    (k·r_core≈2–4 on L∈{32,48}) locally-resonant scatterer, so the ToF c_eff is EXTRACTION-
+    DEPENDENT. Two frozen coherent extractions are shipped as a method-band plus the structural
+    anchor: (a) launch@cP one-shot (the fast coherent FRONT = the prereg's 'first-arrival');
+    (b) SC-coherent (the self-consistent forward-eigenmode group speed); (c) structural
+    ρ_eff/ρ_0≡1 (the long-λ k→0 limit for uniform point masses). method_indeterminate = the
+    band straddles >1 r_Z verdict bin ⇒ the ρ-correction CANNOT move the bin off the structural
+    anchor (route to Grant; the SUBC/periodic lower-bound bracket is the owed resolver, NOT a
+    ToF). The ToF-medium is grown with a fail-fast capped solve (PE_GROW_OUTER/PE_GROW_INNER_TOL
+    — verified identical grown OP to the frozen full solve; the VERDICT K_tan keeps 1e-10)."""
     geom = build_finite_srs(L_pe)
     pos, bi, bj, dhat, mid = geom
+    Phi_cold = bond_tensors(dhat, K_A, KS0)
     xc = 0.5 * (pos.max(0) + pos.min(0))
     free = ~boundary_mask(pos, None)
     centers, k_a_bond, k_s_cold, u0 = arm_builder(geom, free, xc)
-    # medium operator = state operator FROZEN at the grown OP (the tangent medium)
     Phi_grown = state_operator(u0, bi, bj, dhat, k_s_cold, k_a_bond)[0]
-    Phi_cold = bond_tensors(dhat, K_A, KS0)
-    c_eff, t_e, dist, pair = _pulse_tof(geom, Phi_grown, cP_cold)
-    c_0, t_0, _, _ = _pulse_tof(geom, Phi_cold, cP_cold)
-    rho_ratio_meas = float(K_ratio * (c_0 / c_eff) ** 2) if c_eff > 0 else float("nan")
-    r_Z = float(np.sqrt(max(K_ratio, 0.0) * max(rho_ratio_meas, 0.0)))
+
+    # (a) launch@cP one-shot — the fast coherent front ("first-arrival")
+    p_c0 = _pe_pulse_xcorr(geom, Phi_cold, cP_cold, cP_cold)
+    p_ce = _pe_pulse_xcorr(geom, Phi_grown, cP_cold, cP_cold)
+    c0_1, ce_1 = p_c0["c"], p_ce["c"]
+    rZ_1 = _rz(K_ratio, c0_1, ce_1)
+
+    # (b) SC-coherent forward-eigenmode group speed (the band's slow end)
+    if do_sc:
+        c0_sc, c0_hist, _ = _pe_sc_speed(geom, Phi_cold, cP_cold)
+        ce_sc, ce_hist, ce_pulse = _pe_sc_speed(geom, Phi_grown, cP_cold)
+        rZ_sc = _rz(K_ratio, c0_sc, ce_sc)
+    else:
+        c0_sc = ce_sc = rZ_sc = float("nan"); c0_hist = ce_hist = []; ce_pulse = None
+
+    # (c) structural anchor (ρ_eff/ρ_0 ≡ 1; long-λ k→0 limit, uniform point masses)
+    rZ_struct = float(np.sqrt(max(K_ratio, 0.0)))
+
+    band = sorted(v for v in (rZ_1, rZ_sc, rZ_struct) if v == v)
+    bins_in_band = sorted({rz_band(v) for v in band})
+    method_indeterminate = bool(len(bins_in_band) > 1)
+    # Bloch cross-check (prereg §8): cold ToF speed vs run_c2_speeds cP, rel ≤ 0.20
+    bloch_rel = float(abs(c0_1 - cP_cold) / cP_cold) if c0_1 == c0_1 else float("nan")
+
     return {
-        "L_pe": L_pe, "c_eff": c_eff, "c_0_lattice": c_0, "c0_over_ceff": float(c_0 / c_eff),
+        "L_pe": L_pe,
+        "c_0_launch_cP": c0_1, "c_eff_launch_cP": ce_1,
+        "c0_over_ceff_launch_cP": float(c0_1 / ce_1) if ce_1 else float("nan"),
+        "c_0_SC": c0_sc, "c_eff_SC": ce_sc,
         "K_tan_over_K0_static": float(K_ratio),
-        "rho_eff_over_rho0_MEASURED": rho_ratio_meas, "r_Z_measured": r_Z,
-        "reactance_pair_recorded": pair,
-        "structural_scope": "Protocol E measures the STRUCTURAL ρ term only; the engine "
-                            "hosts no trapped-energy inertia (C-load open, clm-m5swh9); NO β "
-                            "claim from this bench",
+        "rho_eff_over_rho0_launch_cP": _rho(K_ratio, c0_1, ce_1),
+        "rho_eff_over_rho0_SC": _rho(K_ratio, c0_sc, ce_sc),
+        "r_Z_launch_cP_headline": rZ_1, "r_Z_SC": rZ_sc, "r_Z_structural": rZ_struct,
+        "r_Z_method_band": [band[0], band[-1]] if band else [float("nan"), float("nan")],
+        "method_indeterminate": method_indeterminate,
+        "bins_spanned_by_band": bins_in_band,
+        "sc_cold_history": c0_hist, "sc_grown_history": ce_hist,
+        "reactance_pair_recorded": bool(p_ce["reactance_pair_recorded"]),
+        "reactance_C_peak_step": int(p_ce["C_state_peak_step"]),
+        "reactance_L_peak_step": int(p_ce["L_state_peak_step"]),
+        "reactance_note": "C-state (compression amp) & L-state (kinetic flux) recorded EVERY "
+                          "step over the frozen window; distinct peak steps ⇒ a genuine reactive "
+                          "C↔L exchange, not a one-phase snapshot (Rule-10 corollary).",
+        "window_frozen": "t_end ≤ 0.9·(L/2 − r_meas)/c_P (reflection-free; r_meas = far monitor)",
+        "n_steps": int(p_ce["n_steps"]), "pml_thickness": PE_PML_THICKNESS,
+        "n_mon1": int(p_ce["n_mon1"]), "n_mon2": int(p_ce["n_mon2"]),
+        "bloch_crosscheck_cold_ToF_vs_cP_rel": bloch_rel,
+        "bloch_crosscheck_pass_rel_le_0p20": bool(bloch_rel <= 0.20) if bloch_rel == bloch_rel else False,
+        "method_band_note": "grown cage medium = MARGINAL-λ (k·r_core≈2–4 on L∈{32,48}) locally-"
+                            "resonant scatterer ⇒ ToF c_eff EXTRACTION-DEPENDENT; r_Z spans "
+                            "[launch@cP front, SC-coherent] bracketing the structural ρ≡1 value; "
+                            "method_indeterminate ⇒ the ρ-correction cannot move the bin off the "
+                            "structural anchor (route to Grant / SUBC bracket owed).",
+        "structural_scope": "Protocol E measures the STRUCTURAL ρ term only; the engine hosts "
+                            "no trapped-energy inertia (C-load open, clm-m5swh9); NO β claim "
+                            "from this bench",
     }
 
 
@@ -1120,7 +1436,11 @@ def isotropic_control_K(geom, xc):
 
 
 def _protocolE_builder(p0, wall_class, s_rail, sigma):
-    """Closure that grows the verdict arm on a Protocol-E box (any L)."""
+    """Closure that grows the verdict arm on a Protocol-E box (any L). ★PR#796: the ToF-medium
+    grow uses a fail-fast capped solve (PE_GROW_OUTER/PE_GROW_INNER_TOL) — DISCLOSED engineering
+    choice: the ToF medium is a homogenized TANGENT operator, insensitive to the last
+    outer/inner digits (verified: L=32 capped min_kse=0.34722 IDENTICAL to the frozen full
+    1e-10/100-outer solve); the VERDICT K_tan solve keeps the frozen 1e-10."""
     def build(geom, free, xc):
         pos = geom[0]; N = pos.shape[0]
         L = int(round((pos.max(0) - pos.min(0)).mean())) + 1
@@ -1130,31 +1450,60 @@ def _protocolE_builder(p0, wall_class, s_rail, sigma):
         k_a_bond = np.asarray(k_a_bond, float); k_s_cold = np.asarray(k_s_cold, float)
         b_src = radiation_source(pos, centers, p0, sigma, r_core=PHI_SF_RCAGE)
         sol = solve_state_dependent(geom, free, np.zeros((N, 3)), b_src, k_s_cold,
-                                    k_a_bond=k_a_bond, inner_tol=INNER_CG_TOL)
+                                    k_a_bond=k_a_bond, inner_tol=PE_GROW_INNER_TOL,
+                                    outer_max=PE_GROW_OUTER, inner_max=2000)
         return centers, k_a_bond, k_s_cold, sol["u"]
     return build
 
 
 def measure_full_arm(geom, free, xc, half, arm, cP_cold, control_K, run_protocol_E,
-                     protocolE_L=32):
+                     protocolE_Ls=(32, 48)):
     """Full verdict measurement of ONE grown arm: hydro amplitude gate + K_tan/K_0 + G +
-    K_ratio_lift + (Protocol E → r_Z) + cell-walk bin."""
+    K_ratio_lift + (Protocol E → r_Z at L∈{32,48}) + cell-walk bin.
+
+    ★PR#796 F2: Protocol E is run at BOTH L=32 (with the SC method-band) and L=48; the headline
+    r_Z is the launch@cP 'first-arrival' value at L=32. If the ToF is method-indeterminate (the
+    r_Z band straddles >1 verdict bin) OR the mechanical bin FLIPS between L=32 and L=48, the
+    ρ-correction cannot decide the bin — it is routed to the structural anchor r_Z=√K_ratio and
+    the disposition is UNDETERMINED (frozen §9 verdict-controlling-flip / straddle rule)."""
     mK = measure_K_ratio(geom, free, arm, xc, half, "hydro", robustness=True)
     # G_eff/G_0 (shear central diff, corroborative)
     mG = measure_K_ratio(geom, free, arm, xc, half, "shear", robustness=False)
     K_ratio = mK["K_tan_over_K0"]
     lift = float(K_ratio / (control_K + 1e-300))
     gate_outcome = mK["gate"]["outcome"]
-    # r_Z via Protocol E (structural ρ measured); fall back to structural ρ=1 if skipped
+    r_Z_structural = float(np.sqrt(max(K_ratio, 0.0)))
+    pe_by_L = {}
     if run_protocol_E and arm["grown_equilibrium_exists"]:
-        pe = protocol_E(protocolE_L, _protocolE_builder(arm["p0"], arm["wall_class"],
-                        VERDICT_S_RAIL, VERDICT_SRC_SIGMA), cP_cold, K_ratio,
-                        label=arm["seed_class"])
-        r_Z = pe["r_Z_measured"]
+        for i, L in enumerate(protocolE_Ls):
+            print(f"[protocol_E]   L={L} ...", flush=True)
+            pe_by_L[L] = protocol_E(L, _protocolE_builder(arm["p0"], arm["wall_class"],
+                                    VERDICT_S_RAIL, VERDICT_SRC_SIGMA), cP_cold, K_ratio,
+                                    label=arm["seed_class"], do_sc=(i == 0))
+        L0 = protocolE_Ls[0]
+        r_Z_headline = pe_by_L[L0]["r_Z_launch_cP_headline"]
+        # mechanical bin at each L (frozen table, gate (i) branch reads lift×r_Z)
+        bins_by_L = {L: cell_walk_bin(gate_outcome, lift, pe_by_L[L]["r_Z_launch_cP_headline"])[0]
+                     for L in protocolE_Ls}
+        size_flip = bool(len({b for b in bins_by_L.values()}) > 1)
+        method_indeterminate = bool(any(pe_by_L[L]["method_indeterminate"] for L in protocolE_Ls))
+        # F2 disposition: a ToF that is method-indeterminate OR size-flips CANNOT move the bin
+        # off the structural anchor → the r_Z that decides the headline bin is the structural
+        # anchor (UNDETERMINED zone), the ToF band disclosed. Else use the measured headline r_Z.
+        rz_decides = r_Z_structural if (method_indeterminate or size_flip) else r_Z_headline
+        pe = {"by_L": pe_by_L, "r_Z_headline_launch_cP_L%d" % L0: r_Z_headline,
+              "r_Z_structural_anchor": r_Z_structural,
+              "bins_by_L_from_launch_cP": {str(L): b for L, b in bins_by_L.items()},
+              "size_flip_L32_vs_L48": size_flip,
+              "method_indeterminate_any_L": method_indeterminate,
+              "rz_used_for_headline_bin": rz_decides,
+              "rz_decider": ("structural_anchor (ToF method-indeterminate/size-flip)"
+                             if (method_indeterminate or size_flip) else "launch_cP_measured")}
+        r_Z = rz_decides
     else:
         pe = {"skipped": True, "rho_eff_over_rho0_assumed": 1.0,
               "note": "Protocol E not run for this arm; structural ρ_eff/ρ_0=1 assumed"}
-        r_Z = float(np.sqrt(max(K_ratio, 0.0)))
+        r_Z = r_Z_structural
     bin_name, gate_tag = cell_walk_bin(gate_outcome, lift, r_Z)
     return {
         "seed_class": arm["seed_class"], "p0": arm["p0"], "a_yield_scale": arm["a_yield_scale"],
@@ -1167,15 +1516,16 @@ def measure_full_arm(geom, free, xc, half, arm, cP_cold, control_K, run_protocol
         "K_tan_over_K0_grown": K_ratio, "G_tan_over_G0_grown": mG["K_tan_over_K0"],
         "control_K_eff_over_K0": control_K, "K_ratio_lift": lift,
         "amplitude_gate": mK["gate"], "amplitude_gate_outcome": gate_outcome,
-        "protocol_E": pe, "r_Z": r_Z,
+        "protocol_E": pe, "r_Z": r_Z, "r_Z_structural": r_Z_structural,
         "cell_walk_bin": bin_name, "gate_tag": gate_tag,
     }
 
 
-def verdict_leg(cache, run_protocol_E=True, protocolE_L=32):
+def verdict_leg(cache, run_protocol_E=True, protocolE_Ls=(32, 48)):
     """The verdict arms (prereg §6): both seed_class values, the p_0 seed-independence
     sweep, the yield_saturated reservoir knob, the isotropic control, the PAINTED-
-    ANISOTROPIC provenance-ablation arm, the C-V profile, percolation, anti-seduction."""
+    ANISOTROPIC provenance-ablation arm, the ablation decomposition (PR#796 F6), the σ-variant
+    arm (PR#796 F10), the C-V profile, percolation, anti-seduction."""
     geom = cache[16]
     xc, free, half = _setup(geom)
     cP, cS, _ = run_c2_speeds(RHO_STAR, K_S)
@@ -1186,15 +1536,41 @@ def verdict_leg(cache, run_protocol_E=True, protocolE_L=32):
     # ── fixed_budget headline (p_ref) + full measurement ──
     print("[verdict] fixed_budget headline (p_ref) ...", flush=True)
     arm = grow_verdict_arm(geom, free, xc, VERDICT_P_REF, "fixed_budget")
-    head = measure_full_arm(geom, free, xc, half, arm, cP, control_K, run_protocol_E, protocolE_L)
+    head = measure_full_arm(geom, free, xc, half, arm, cP, control_K, run_protocol_E, protocolE_Ls)
     out["fixed_budget_headline"] = head
-    # C-V + percolation + painted only if a stable grown equilibrium exists
+    # C-V + percolation + painted + ablation decomposition only if a stable grown equilibrium exists
     if arm["grown_equilibrium_exists"]:
         print("[verdict]   C-V profile ...", flush=True)
         out["cv_profile_fixed_budget"] = cv_profile(geom, free, arm, xc, half)
         out["percolation_fixed_budget"] = percolation(geom, arm)
         print("[verdict]   painted-anisotropic ablation ...", flush=True)
         out["painted_anisotropic_fixed_budget"] = painted_anisotropic_arm(geom, free, arm, xc, half)
+        print("[verdict]   ablation decomposition (F6 cancellation-mechanism test) ...", flush=True)
+        out["ablation_decomposition_fixed_budget"] = ablation_decomposition(
+            geom, free, arm, xc, half, control_K)
+
+    # ── σ-variant arm (PR#796 F10/F14 — VERDICT_SRC_SIGMA is a verdict-adjacent knob) ──
+    print("[verdict] σ-variant arm ...", flush=True)
+    arm_sig = grow_verdict_arm(geom, free, xc, VERDICT_P_REF, "fixed_budget",
+                               sigma=VERDICT_SRC_SIGMA_VARIANT)
+    mK_sig = measure_K_ratio(geom, free, arm_sig, xc, half, "hydro", robustness=False)
+    lift_sig = float(mK_sig["K_tan_over_K0"] / (control_K + 1e-300))
+    rz_sig_struct = float(np.sqrt(max(mK_sig["K_tan_over_K0"], 0.0)))
+    bin_sig, _ = cell_walk_bin(mK_sig["gate"]["outcome"], lift_sig, rz_sig_struct)
+    bin_head_struct, _ = cell_walk_bin(head["amplitude_gate_outcome"],
+                                       head["K_ratio_lift"], head["r_Z_structural"])
+    out["sigma_variant_arm"] = {
+        "sigma_headline": VERDICT_SRC_SIGMA, "sigma_variant": VERDICT_SRC_SIGMA_VARIANT,
+        "grown_equilibrium_exists": arm_sig["grown_equilibrium_exists"],
+        "max_abs_T": arm_sig["max_abs_T"], "min_kse": arm_sig["min_kse"],
+        "K_tan_over_K0": mK_sig["K_tan_over_K0"], "K_ratio_lift": lift_sig,
+        "r_Z_structural": rz_sig_struct, "gate_outcome": mK_sig["gate"]["outcome"],
+        "bin_from_structural_rZ": bin_sig,
+        "headline_bin_from_structural_rZ": bin_head_struct,
+        "verdict_relevant_flip": bool(bin_sig != bin_head_struct),
+        "note": "VERDICT_SRC_SIGMA is a DISCLOSED [engineering-choice] knob (per-core source "
+                "width, confined to r<r_core). This variant tests whether the headline bin is "
+                "σ-sensitive; a bin flip ⇒ verdict-relevant ⇒ route to Grant."}
 
     # ── fixed_budget seed-independence sweep {0.25,0.5,1.0}·p_ref ──
     print("[verdict] fixed_budget seed sweep ...", flush=True)
@@ -1229,7 +1605,8 @@ def verdict_leg(cache, run_protocol_E=True, protocolE_L=32):
                  "grown_equilibrium_exists": a["grown_equilibrium_exists"],
                  "grown_CG_converged": a["grown_CG_converged"],
                  "grown_bonds_positive": a["grown_bonds_positive"],
-                 "grown_tension_nonzero": a["grown_tension_nonzero"], "min_kse": a["min_kse"]}
+                 "grown_tension_nonzero": a["grown_tension_nonzero"], "min_kse": a["min_kse"],
+                 "yield_scan": a["yield_scan"]}   # OBSERVED buckling onset (PR#796 F11)
         if a["grown_equilibrium_exists"]:
             mK = measure_K_ratio(geom, free, a, xc, half, "hydro", robustness=False)
             entry["K_tan_over_K0"] = mK["K_tan_over_K0"]
@@ -1272,10 +1649,12 @@ def main():
     ap.add_argument("--legs", default="0", help="comma list: 0 (self-test+validation), "
                     "verdict, all")
     ap.add_argument("--out", default=str(Path(__file__).with_name("vessel_state_rve_results.json")))
-    ap.add_argument("--protocolE-L", type=int, default=32)
+    ap.add_argument("--protocolE-Ls", default="32,48",
+                    help="comma list of Protocol E box sizes (frozen §4 L∈{32,48})")
     ap.add_argument("--no-protocolE", action="store_true")
     args = ap.parse_args()
     legs = set(args.legs.split(","))
+    protocolE_Ls = tuple(int(s) for s in args.protocolE_Ls.split(","))
 
     t0 = time.time()
     cache = _geom_cache()
@@ -1314,14 +1693,22 @@ def main():
 
     if "verdict" in legs or "all" in legs:
         out["verdict"] = verdict_leg(cache, run_protocol_E=not args.no_protocolE,
-                                     protocolE_L=args.protocolE_L)
+                                     protocolE_Ls=protocolE_Ls)
         hb = out["verdict"].get("headline_bin")
         print(f"[verdict]   headline_arm={out['verdict']['headline_arm_selected']} "
               f"headline_bin={hb}", flush=True)
 
+    # ── determinism digest (PR#796 F5/F13) — a content hash over the results EXCLUDING the
+    # wall-clock timing + the digest itself. Two INDEPENDENT full driver runs producing the
+    # SAME digest IS the frozen 'two independent full driver runs diff -q clean' criterion
+    # (the shipped in-process bit-compare is a PROXY; this is the frozen full-run check).
+    digest_payload = {k: v for k, v in out.items() if k not in ("_runtime_sec", "determinism_digest")}
+    out["determinism_digest"] = hashlib.sha256(
+        json.dumps(digest_payload, sort_keys=True, default=float).encode()).hexdigest()
     out["_runtime_sec"] = time.time() - t0
     Path(args.out).write_text(json.dumps(out, indent=2, default=float))
-    print(f"[done] wrote {args.out}  ({out['_runtime_sec']:.0f}s)", flush=True)
+    print(f"[done] wrote {args.out}  ({out['_runtime_sec']:.0f}s)  "
+          f"determinism_digest={out['determinism_digest'][:16]}…", flush=True)
     return out
 
 

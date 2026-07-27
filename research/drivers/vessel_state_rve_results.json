@@ -75,7 +75,7 @@
     },
     "gate_fireability_selftest_pass": true,
     "frozen": "gate_fireability_selftest_pass = SELFTEST-(ii) fires (ii) AND SELFTEST-(iii) fires (iii), each with the correct convergence/robustness flags",
-    "calibration_disclosure": "SELFTEST-(ii) loose inner CG tol = 0.001 (calibration-class choice, DISCLOSED, made BEFORE any verdict arm \u2014 the frozen 1e-3 did not perturb the tangent by >5%%, tuned per the \u00a73B calibration latitude). SELFTEST-(iii) p0=0.028, sigma=2.5, shell band (0.0, 3.0) (design-time numeric-confirmation run; near-buckling fraction + fired A_sign/amp_spread banked below)."
+    "calibration_disclosure": "SELFTEST-(ii): the FROZEN loose inner CG tol = 0.001 was shipped UNCHANGED and FIRED the artifact with NO calibration latitude used \u2014 measured loose amp_spread = 649 (>> the 0.05 threshold), tight-tol (1e-10) amp_spread = 0.00583 (\u2264 0.05, removed by tightening), A_sign(loose) = 0.03 (\u2264 0.10, symmetric) with all_scan_legs_converged(loose) = False. SELFTEST-(iii): p0=0.028, sigma=2.5, shell band (0.0, 3.0) (design-time numeric-confirmation run; achieved near-buckling fraction = 0.01556, min k_shear,eff = 0.05409, fired A_sign = 568.8, amp_spread+ = 568.7)."
   },
   "leg0_instrument_validation": {
     "uniform_medium_null": {
@@ -88,7 +88,8 @@
     "determinism": {
       "reruns_bit_identical": true,
       "u0_max_abs_diff": 0.0,
-      "pass": true
+      "pass": true,
+      "note": "IN-PROCESS PROXY (two grow calls). The frozen 'two independent full driver runs diff -q clean' criterion = the determinism_digest (main() emits a content hash; two full runs \u2192 identical digest)."
     },
     "lame_gate": {
       "deliverable_exterior_over_interior_max": 0.03582364839611673,
@@ -126,6 +127,17 @@
       "rigid_K_eff_over_K0": 1.582711505409986,
       "opposite_sign": true,
       "STOP_GATE_PASS": true
+    },
+    "bloch_crosscheck": {
+      "cP_Bloch": 0.5188441251104724,
+      "cP_ToF_cold": 0.5243169535710435,
+      "rel_P": 0.010548116853796486,
+      "cS_Bloch": 0.2862057244928644,
+      "cS_ToF_cold": 0.34000523152451195,
+      "rel_S": 0.18797495097967146,
+      "pass_rel_le_0p20_P": true,
+      "pass_rel_le_0p20_S": true,
+      "note": "cold uncaged P/S ToF speeds (repaired _pe_pulse_xcorr, L=20) vs run_c2_speeds Bloch c_P/c_S; frozen \u00a78 internal validation (advisory, rel \u2264 0.20)."
     },
     "all_validation_pass": true
   },
@@ -197,17 +209,105 @@
       },
       "amplitude_gate_outcome": "i",
       "protocol_E": {
-        "L_pe": 32,
-        "c_eff": 0.2827990003306721,
-        "c_0_lattice": 0.49802908017238046,
-        "c0_over_ceff": 1.7610708651375833,
-        "K_tan_over_K0_static": 0.2954759224362361,
-        "rho_eff_over_rho0_MEASURED": 0.9163803364985816,
-        "r_Z_measured": 0.5203540383521078,
-        "reactance_pair_recorded": true,
-        "structural_scope": "Protocol E measures the STRUCTURAL \u03c1 term only; the engine hosts no trapped-energy inertia (C-load open, clm-m5swh9); NO \u03b2 claim from this bench"
+        "by_L": {
+          "32": {
+            "L_pe": 32,
+            "c_0_launch_cP": 0.5132676580627891,
+            "c_eff_launch_cP": 0.7005173205552505,
+            "c0_over_ceff_launch_cP": 0.7326980261615204,
+            "c_0_SC": 0.5100607851410838,
+            "c_eff_SC": 1.4994226039213743,
+            "K_tan_over_K0_static": 0.2954759224362361,
+            "rho_eff_over_rho0_launch_cP": 0.15862518451999372,
+            "rho_eff_over_rho0_SC": 0.034191476866209505,
+            "r_Z_launch_cP_headline": 0.21649462514728468,
+            "r_Z_SC": 0.10051247766571313,
+            "r_Z_structural": 0.5435769701120864,
+            "r_Z_method_band": [
+              0.10051247766571313,
+              0.5435769701120864
+            ],
+            "method_indeterminate": true,
+            "bins_spanned_by_band": [
+              "Z_lo",
+              "Z_str"
+            ],
+            "sc_cold_history": [
+              0.5188441251104724,
+              0.5132676580627891,
+              0.5100607851410838
+            ],
+            "sc_grown_history": [
+              0.5188441251104724,
+              0.7005173205552505,
+              1.4994226039213743
+            ],
+            "reactance_pair_recorded": true,
+            "reactance_C_peak_step": 110,
+            "reactance_L_peak_step": 21,
+            "reactance_note": "C-state (compression amp) & L-state (kinetic flux) recorded EVERY step over the frozen window; distinct peak steps \u21d2 a genuine reactive C\u2194L exchange, not a one-phase snapshot (Rule-10 corollary).",
+            "window_frozen": "t_end \u2264 0.9\u00b7(L/2 \u2212 r_meas)/c_P (reflection-free; r_meas = far monitor)",
+            "n_steps": 282,
+            "pml_thickness": 2.0,
+            "n_mon1": 12544,
+            "n_mon2": 10976,
+            "bloch_crosscheck_cold_ToF_vs_cP_rel": 0.010747865838311244,
+            "bloch_crosscheck_pass_rel_le_0p20": true,
+            "method_band_note": "grown cage medium = MARGINAL-\u03bb (k\u00b7r_core\u22482\u20134 on L\u2208{32,48}) locally-resonant scatterer \u21d2 ToF c_eff EXTRACTION-DEPENDENT; r_Z spans [launch@cP front, SC-coherent] bracketing the structural \u03c1\u22611 value; method_indeterminate \u21d2 the \u03c1-correction cannot move the bin off the structural anchor (route to Grant / SUBC bracket owed).",
+            "structural_scope": "Protocol E measures the STRUCTURAL \u03c1 term only; the engine hosts no trapped-energy inertia (C-load open, clm-m5swh9); NO \u03b2 claim from this bench"
+          },
+          "48": {
+            "L_pe": 48,
+            "c_0_launch_cP": 0.437230179513388,
+            "c_eff_launch_cP": 0.6542506305262175,
+            "c0_over_ceff_launch_cP": 0.6682915676546178,
+            "c_0_SC": NaN,
+            "c_eff_SC": NaN,
+            "K_tan_over_K0_static": 0.2954759224362361,
+            "rho_eff_over_rho0_launch_cP": 0.13196357116428892,
+            "rho_eff_over_rho0_SC": NaN,
+            "r_Z_launch_cP_headline": 0.1974640674091065,
+            "r_Z_SC": NaN,
+            "r_Z_structural": 0.5435769701120864,
+            "r_Z_method_band": [
+              0.1974640674091065,
+              0.5435769701120864
+            ],
+            "method_indeterminate": true,
+            "bins_spanned_by_band": [
+              "Z_lo",
+              "Z_str"
+            ],
+            "sc_cold_history": [],
+            "sc_grown_history": [],
+            "reactance_pair_recorded": true,
+            "reactance_C_peak_step": 159,
+            "reactance_L_peak_step": 75,
+            "reactance_note": "C-state (compression amp) & L-state (kinetic flux) recorded EVERY step over the frozen window; distinct peak steps \u21d2 a genuine reactive C\u2194L exchange, not a one-phase snapshot (Rule-10 corollary).",
+            "window_frozen": "t_end \u2264 0.9\u00b7(L/2 \u2212 r_meas)/c_P (reflection-free; r_meas = far monitor)",
+            "n_steps": 423,
+            "pml_thickness": 2.0,
+            "n_mon1": 42592,
+            "n_mon2": 46464,
+            "bloch_crosscheck_cold_ToF_vs_cP_rel": 0.15729954652509007,
+            "bloch_crosscheck_pass_rel_le_0p20": true,
+            "method_band_note": "grown cage medium = MARGINAL-\u03bb (k\u00b7r_core\u22482\u20134 on L\u2208{32,48}) locally-resonant scatterer \u21d2 ToF c_eff EXTRACTION-DEPENDENT; r_Z spans [launch@cP front, SC-coherent] bracketing the structural \u03c1\u22611 value; method_indeterminate \u21d2 the \u03c1-correction cannot move the bin off the structural anchor (route to Grant / SUBC bracket owed).",
+            "structural_scope": "Protocol E measures the STRUCTURAL \u03c1 term only; the engine hosts no trapped-energy inertia (C-load open, clm-m5swh9); NO \u03b2 claim from this bench"
+          }
+        },
+        "r_Z_headline_launch_cP_L32": 0.21649462514728468,
+        "r_Z_structural_anchor": 0.5435769701120864,
+        "bins_by_L_from_launch_cP": {
+          "32": "SOFT",
+          "48": "SOFT"
+        },
+        "size_flip_L32_vs_L48": false,
+        "method_indeterminate_any_L": true,
+        "rz_used_for_headline_bin": 0.5435769701120864,
+        "rz_decider": "structural_anchor (ToF method-indeterminate/size-flip)"
       },
-      "r_Z": 0.5203540383521078,
+      "r_Z": 0.5435769701120864,
+      "r_Z_structural": 0.5435769701120864,
       "cell_walk_bin": "UNDETERMINED",
       "gate_tag": "i"
     },
@@ -256,6 +356,35 @@
     "painted_anisotropic_fixed_budget": {
       "K_tan_over_K0_painted": 0.2982369862639104,
       "note": "painted = grown k_shear,eff(u_0) pattern frozen u-independent; GROWN\u2260PAINTED \u21d2 provenance-real; GROWN\u2248PAINTED \u21d2 anisotropy-driven"
+    },
+    "ablation_decomposition_fixed_budget": {
+      "control_K_eff_over_K0": 0.29636822324939766,
+      "K_tan_over_K0_full_painted": 0.2982369862639104,
+      "K_tan_over_K0_hoop_only": 0.2969597184502174,
+      "K_tan_over_K0_radial_only": 0.29764062375152966,
+      "delta_full_vs_control_pct": 0.6305544481198133,
+      "delta_hoop_only_vs_control_pct": 0.19958118125302793,
+      "delta_radial_only_vs_control_pct": 0.4293309478935914,
+      "radial_only_softens_core_tangent": false,
+      "cancellation_mechanism_supported": false,
+      "n_tension_bonds_eps_gt_0": 10398,
+      "n_compression_bonds_eps_lt_0": 13974,
+      "attribution": "cancellation REFUTED \u2014 the radial-soften pattern does NOT soften the core tangent; both named components stiffen \u21d2 the null lift is provenance/live-operator-driven, NOT a hoop-vs-radial cancellation"
+    },
+    "sigma_variant_arm": {
+      "sigma_headline": 1.6,
+      "sigma_variant": 2.5,
+      "grown_equilibrium_exists": true,
+      "max_abs_T": 0.7818698053307457,
+      "min_kse": 0.21813019466925432,
+      "K_tan_over_K0": 0.2955447005229739,
+      "K_ratio_lift": 0.9972212853409362,
+      "r_Z_structural": 0.5436402307804067,
+      "gate_outcome": "i",
+      "bin_from_structural_rZ": "UNDETERMINED",
+      "headline_bin_from_structural_rZ": "UNDETERMINED",
+      "verdict_relevant_flip": false,
+      "note": "VERDICT_SRC_SIGMA is a DISCLOSED [engineering-choice] knob (per-core source width, confined to r<r_core). This variant tests whether the headline bin is \u03c3-sensitive; a bin flip \u21d2 verdict-relevant \u21d2 route to Grant."
     },
     "fixed_budget_seed_sweep": {
       "0.25xp_ref": {
@@ -306,7 +435,57 @@
         "grown_CG_converged": true,
         "grown_bonds_positive": true,
         "grown_tension_nonzero": true,
-        "min_kse": 0.02788493066690223
+        "min_kse": 0.02788493066690223,
+        "yield_scan": {
+          "scan_grid_p0": [
+            0.005,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.055,
+            0.06,
+            0.062,
+            0.064,
+            0.066,
+            0.068,
+            0.07,
+            0.08
+          ],
+          "outer_cap": 8,
+          "inner_cap": 800,
+          "a_yield_target": 0.9,
+          "highest_stable_p0": 0.06,
+          "peak_A_ceiling": 0.208745720321292,
+          "terminal_onset": {
+            "p0": 0.062,
+            "min_kse": -0.002779913566735681,
+            "peak_A": 0.21562376504249586,
+            "converged": false,
+            "kind": "buckled",
+            "outer_it": 8,
+            "nlres": 2.7685325741622336e-07
+          },
+          "capped_vs_uncapped": {
+            "onset_p0": 0.062,
+            "failfast_cap": [
+              8,
+              800
+            ],
+            "confirm_cap_2x": [
+              16,
+              1600
+            ],
+            "failfast_min_kse": -0.002779913566735681,
+            "failfast_kind": "buckled",
+            "confirm_min_kse": -0.0027799177401091058,
+            "confirm_kind": "buckled",
+            "confirm_outer_it": 11,
+            "classification_unchanged": true
+          },
+          "yield_reached_before_buckling": false
+        }
       },
       "A_yield_scale_1": {
         "p0_grown": 0.06,
@@ -319,7 +498,57 @@
         "grown_CG_converged": true,
         "grown_bonds_positive": true,
         "grown_tension_nonzero": true,
-        "min_kse": 0.02788493066690223
+        "min_kse": 0.02788493066690223,
+        "yield_scan": {
+          "scan_grid_p0": [
+            0.005,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.055,
+            0.06,
+            0.062,
+            0.064,
+            0.066,
+            0.068,
+            0.07,
+            0.08
+          ],
+          "outer_cap": 8,
+          "inner_cap": 800,
+          "a_yield_target": 1.0,
+          "highest_stable_p0": 0.06,
+          "peak_A_ceiling": 0.208745720321292,
+          "terminal_onset": {
+            "p0": 0.062,
+            "min_kse": -0.002779913566735681,
+            "peak_A": 0.21562376504249586,
+            "converged": false,
+            "kind": "buckled",
+            "outer_it": 8,
+            "nlres": 2.7685325741622336e-07
+          },
+          "capped_vs_uncapped": {
+            "onset_p0": 0.062,
+            "failfast_cap": [
+              8,
+              800
+            ],
+            "confirm_cap_2x": [
+              16,
+              1600
+            ],
+            "failfast_min_kse": -0.002779913566735681,
+            "failfast_kind": "buckled",
+            "confirm_min_kse": -0.0027799177401091058,
+            "confirm_kind": "buckled",
+            "confirm_outer_it": 11,
+            "classification_unchanged": true
+          },
+          "yield_reached_before_buckling": false
+        }
       },
       "A_yield_scale_1.1": {
         "p0_grown": 0.06,
@@ -332,19 +561,70 @@
         "grown_CG_converged": true,
         "grown_bonds_positive": true,
         "grown_tension_nonzero": true,
-        "min_kse": 0.02788493066690223
+        "min_kse": 0.02788493066690223,
+        "yield_scan": {
+          "scan_grid_p0": [
+            0.005,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.055,
+            0.06,
+            0.062,
+            0.064,
+            0.066,
+            0.068,
+            0.07,
+            0.08
+          ],
+          "outer_cap": 8,
+          "inner_cap": 800,
+          "a_yield_target": 1.1,
+          "highest_stable_p0": 0.06,
+          "peak_A_ceiling": 0.208745720321292,
+          "terminal_onset": {
+            "p0": 0.062,
+            "min_kse": -0.002779913566735681,
+            "peak_A": 0.21562376504249586,
+            "converged": false,
+            "kind": "buckled",
+            "outer_it": 8,
+            "nlres": 2.7685325741622336e-07
+          },
+          "capped_vs_uncapped": {
+            "onset_p0": 0.062,
+            "failfast_cap": [
+              8,
+              800
+            ],
+            "confirm_cap_2x": [
+              16,
+              1600
+            ],
+            "failfast_min_kse": -0.002779913566735681,
+            "failfast_kind": "buckled",
+            "confirm_min_kse": -0.0027799177401091058,
+            "confirm_kind": "buckled",
+            "confirm_outer_it": 11,
+            "classification_unchanged": true
+          },
+          "yield_reached_before_buckling": false
+        }
       }
     },
     "yield_saturated_equilibrium_exists_any": false,
     "headline_arm_selected": "fixed_budget",
     "headline_bin": "UNDETERMINED",
     "anti_seduction_fence": {
-      "headline_r_Z": 0.5203540383521078,
+      "headline_r_Z": 0.5435769701120864,
       "matched_ish_0p8_1p25": false,
       "seed_independence_passes": true,
       "disposition": "not matched-ish; no candidate flag",
       "frozen_rule": "a matched-ish r_Z fed by a single source reservoir is a CANDIDATE ONLY, excluded from the headline verdict regardless of arm"
     }
   },
-  "_runtime_sec": 755.738774061203
+  "determinism_digest": "69968227e455137f549586e3897486910f1fe59899ed1608fe7cb673d2aaf076",
+  "_runtime_sec": 1048.6240530014038
 }
