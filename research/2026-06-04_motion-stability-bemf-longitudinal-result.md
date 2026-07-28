@@ -333,8 +333,11 @@ can't-track-material-displacement."*
 
 - The drive was **external and one-shot**: a curl-free +x compression imprint
   (Variant B, `form="displacement"` — probe `:759`, `:212-214`, `:218-221`; results
-  JSON `drive_variant="B"`, `drive_form="displacement"`; the selection table at
-  `:72`). The knot was asked to be *carried by* an imposed bias — it was never asked
+  JSON `variant="B"`, `form="displacement"` on every arm; the drive-selection table
+  at `:68-71`, chosen row `:71` — *(2026-07-28 audit repair: this citation read `:72`,
+  a blank line, and the JSON keys were named `drive_variant`/`drive_form`; corrected
+  to the table span + the actual JSON keys. No substantive change — B/displacement is
+  what the run used.)*). The knot was asked to be *carried by* an imposed bias — it was never asked
   to *track the material displacement of its own host nodes*.
 - The **K4→Cosserat FORCE channel was DISABLED** for the whole run
   (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). The only

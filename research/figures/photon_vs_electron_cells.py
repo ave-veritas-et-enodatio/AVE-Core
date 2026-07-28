@@ -46,6 +46,17 @@ for col, t in enumerate(times):
     ae.scatter(xs, np.full(N,-1.45), c=elecI(), cmap="hot", vmin=0, vmax=1, s=42, marker="s", zorder=2)
     ae.add_patch(Rectangle((xc-3.6,-1.1), 7.2, 2.25, fill=False, ec="steelblue", lw=2.0, zorder=4))
     ae.set_title(f"ELECTRON   t={col+1}", fontsize=9.5, loc="left", color="steelblue")
+    # NOTE (2026-07-26 scope carve, Grant ruling): "stays put" below means STAYS PUT
+    # RELATIVE TO ITS HOST CELLS — the road/car reading this figure's own footer states
+    # ("cells = the K4 lattice medium (the 'road'); envelope = the soliton's shell (the
+    # 'car')", the axes[1,0].text call below) — NOT
+    # station-keeping against material displacement of those cells. Per
+    # manuscript/ave-kb/common/relative-offset-principle.md (Corollary A), a pattern
+    # pinned to node INDICES tracks those indices when the medium displaces. Caption
+    # string left verbatim on purpose: the rendered .png/.gif are committed artifacts and
+    # this script's strip output (photon_vs_electron_cells_strip.png) is recorded
+    # LEAVE-STALE / superseded by photon_engine_real_strip.png
+    # (research/2026-06-07_figure-audit-ledger.md:44,:58), so no re-render is warranted.
     if col==1: ae.text(xc, 1.32, "cubic envelope = the SKIN (stays put)", ha="center", fontsize=8, color="steelblue")
 axes[0,0].text(0.5,1.3,"the wave-packet rides the cells →", fontsize=8, color="crimson")
 axes[1,0].text(0.5,-1.95,"cells = the K4 lattice medium (the 'road'); envelope = the soliton's shell (the 'car')",
