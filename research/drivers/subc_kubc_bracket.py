@@ -108,6 +108,43 @@ BOTH_MODES = ("hydro", "shear")   # every bracketed config runs both (supplement
 
 SIG_HYDRO = np.eye(3)
 SIG_SHEAR = np.outer([1.0, 0, 0], [0, 1.0, 0]) + np.outer([0, 1.0, 0], [1.0, 0, 0])
+# ★TETRAGONAL mode — SUPPLEMENTARY, added by the PR #802 review repair (finding F2).
+#  E = ε·diag(1,−1,0) / Σ = σ·diag(1,−1,0) measures the CUBIC tetragonal shear constant
+#  C′ = (C11 − C12)/2, which is the constant the [100] longitudinal modulus needs. It is
+#  NOT in `BOTH_MODES` and NOT in any `by_mode` block, so it enters NO frozen gate, NO
+#  frozen read and NO frozen count — it is carried in a separate, clearly-labelled
+#  SUPPLEMENTARY_anisotropy block (additive, never substitutive).
+SIG_TETRA = np.diag([1.0, -1.0, 0.0])
+
+
+def sigma_matrix(mode):
+    """The macroscopic STRESS direction of each probe mode (SUBC side)."""
+    return {"hydro": SIG_HYDRO, "shear": SIG_SHEAR, "tetra": SIG_TETRA}[mode]
+
+
+def strain_matrix(mode, eps):
+    """The macroscopic STRAIN of each probe mode (KUBC side). `hydro`/`shear` are the
+    Rule-14 shipped `rve_aggregation_bench.strain_mode` forms, byte-unchanged; `tetra` is
+    the SUPPLEMENTARY cubic C′ mode added by the F2 repair and defined here so the merged
+    #782 driver stays untouched."""
+    if mode == "tetra":
+        return eps * SIG_TETRA
+    return strain_mode(mode, eps)
+
+
+def sigma_bar_scalar(Sb, mode):
+    """The scalar amplitude of the REALIZED macroscopic stress `Σ̄` in each mode, i.e. the
+    coefficient of that mode's unit tensor:
+      hydro  σ̄ = tr(Σ̄)/3          ⇒ U/V = ½σ̄²/K
+      shear  σ̄ = Σ̄_xy             ⇒ U/V = ½σ̄²/C44
+      tetra  σ̄ = (Σ̄_xx − Σ̄_yy)/2  ⇒ U/V = ½σ̄²/C′   (complementary energy of a cubic
+             medium under Σ = σ·diag(1,−1,0) is (S11 − S12)σ² = σ²/(2C′))
+    """
+    if mode == "hydro":
+        return float(np.trace(Sb) / 3.0)
+    if mode == "shear":
+        return float(Sb[0, 1])
+    return 0.5 * float(Sb[0, 0] - Sb[1, 1])
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -234,10 +271,10 @@ def subc_solve(geom, act, Phi, diag, mode, xc, V, half, sigma=SIGMA_PROBE):
     """
     pos, bi, bj, dhat, mid = geom
     N = pos.shape[0]
-    Sig = sigma * (SIG_HYDRO if mode == "hydro" else SIG_SHEAR)
+    Sig = sigma * sigma_matrix(mode)
     f = traction_load(pos, act, Sig)
     Sb = hill_stress(f, pos, xc, V)
-    sbar = float(np.trace(Sb) / 3.0) if mode == "hydro" else float(Sb[0, 1])
+    sbar = sigma_bar_scalar(Sb, mode)
     u, res, it = cg_neumann(Phi, bi, bj, N, act, f, diag)
     U = elastic_energy(u, Phi, bi, bj)
     work = 0.5 * float(np.sum(f * u))
@@ -247,6 +284,7 @@ def subc_solve(geom, act, Phi, diag, mode, xc, V, half, sigma=SIGMA_PROBE):
         "work_half_f_dot_u": work,
         "work_identity_rel": float(abs(U - work) / (abs(U) + 1e-300)),
         "sigma_bar": sbar, "M_abs": float(M_abs),
+        "Sigma_bar_tensor": [[float(x) for x in row] for row in Sb],
         "cg_residual": res, "cg_iters": it,
         "net_force_norm": float(np.linalg.norm(f.sum(axis=0))),
         "net_torque_norm": float(np.linalg.norm(np.cross(pos - xc, f).sum(axis=0))),
@@ -261,7 +299,7 @@ def kubc_solve(geom, free, Phi, diag, mode, xc, V, half, eps=EPS):
     """
     pos, bi, bj, dhat, mid = geom
     N = pos.shape[0]
-    E = strain_mode(mode, eps)
+    E = strain_matrix(mode, eps)
     u_bc = np.zeros((N, 3))
     u_bc[~free] = affine_field(pos[~free], xc, E)
     u, res, it = cg_solve_interior(Phi, bi, bj, N, free, u_bc, diag)
@@ -427,6 +465,45 @@ def measure_config(S, k_a, k_s, mode, unc):
     return out
 
 
+def measure_cprime_abs(S, k_a, k_s):
+    """★SUPPLEMENTARY (PR #802 review repair, finding F2) — the tetragonal cubic constant
+    `C' = (C11 - C12)/2` under BOTH boundary conditions, for ONE operator.
+
+    Runs through the SAME `subc_solve` / `kubc_solve` primitives the frozen modes use, on
+    the SAME medium, with the SAME tolerances. It is deliberately NOT added to `by_mode`,
+    so it enters NO frozen gate (G1/G4/G5), NO frozen read, and NO frozen count — additive,
+    never substitutive."""
+    Phi, diag = operator(S["geom"], k_a, k_s)
+    a_s = subc_solve(S["geom"], S["act"], Phi, diag, "tetra", S["xc"], S["V"], S["half"])
+    a_k = kubc_solve(S["geom"], S["free"], Phi, diag, "tetra", S["xc"], S["V"], S["half"])
+    return {
+        "Cprime_SUBC": a_s["M_abs"], "Cprime_KUBC": a_k["M_abs"],
+        "subc_cg_residual": a_s["cg_residual"], "subc_cg_iters": a_s["cg_iters"],
+        "subc_work_identity_rel": a_s["work_identity_rel"],
+        "kubc_cg_residual": a_k["cg_residual"], "kubc_cg_iters": a_k["cg_iters"],
+        "sigma_bar_SUBC": a_s["sigma_bar"],
+        "Sigma_bar_tensor_SUBC": a_s["Sigma_bar_tensor"],
+        "modulus_identity": MODULUS_IDENTITY["tetra"],
+    }
+
+
+def _attach_anisotropy(S, row, k_a, k_s, unc_abs):
+    """Attach the SUPPLEMENTARY F2 anisotropy block to a configuration row, if the row
+    carries both frozen modes and an uncaged reference triple is available."""
+    if unc_abs is None or not {"hydro", "shear"} <= set(row["by_mode"]):
+        return row
+    cp = measure_cprime_abs(S, k_a, k_s)
+    blk = anisotropy_axis(row["by_mode"]["hydro"], row["by_mode"]["shear"],
+                          cp["Cprime_SUBC"], cp["Cprime_KUBC"], unc_abs)
+    blk["tetra_solver"] = {k: cp[k] for k in (
+        "subc_cg_residual", "subc_cg_iters", "subc_work_identity_rel",
+        "kubc_cg_residual", "kubc_cg_iters", "sigma_bar_SUBC",
+        "Sigma_bar_tensor_SUBC")}
+    blk["modulus_identity_tetra"] = cp["modulus_identity"]
+    row["SUPPLEMENTARY_anisotropy_NOT_FROZEN"] = blk
+    return row
+
+
 def uncaged_pair(S, modes=("hydro", "shear")):
     Phi0, diag0 = cold_operator(S["geom"])
     out = {}
@@ -453,10 +530,22 @@ def uncaged_pair(S, modes=("hydro", "shear")):
 MODULUS_IDENTITY = {
     "hydro": "BULK modulus K (pure dilatation; dev=0 in BOTH boundary conditions) — "
              "NOT the P-wave modulus M = K + 4G/3, NOT Young's E",
-    "shear": "SHEAR modulus G (pure deviator; tr=0 in BOTH boundary conditions)",
+    "shear": "SHEAR modulus G = C44 (the xy engineering-shear cubic constant; pure "
+             "deviator, tr=0 in BOTH boundary conditions). ★On a CUBIC medium C44 is "
+             "NOT the only shear constant — the tetragonal C' = (C11-C12)/2 is "
+             "independent of it, and this medium is cubic-anisotropic (Zener A != 1); "
+             "see the SUPPLEMENTARY_anisotropy block.",
+    "tetra": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added "
+             "by the PR #802 review repair F2; enters NO frozen gate, read or count). "
+             "C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 "
+             "needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs.",
     "note": "frozen prereg §1.2 fixes both ends of each mode; the KUBC prefactor 4.5 = "
             "9/2 is ½·(tr I)² = ½·9 and the SUBC prefactor is ½/K — both pure-K forms. "
-            "A ToF/acoustic comparison reads M = K + 4G/3 and is a DIFFERENT modulus.",
+            "A ToF/acoustic comparison reads a LONGITUDINAL modulus, and on a CUBIC "
+            "medium that modulus is DIRECTION-DEPENDENT: [100] reads C11 = K + 4C'/3, "
+            "[111] reads K + 4C44/3, and the two differ whenever the Zener anisotropy "
+            "A = C44/C' differs from 1. Measured here: A != 1 under BOTH boundary "
+            "conditions, so 'the longitudinal modulus' is not a single number.",
 }
 
 
@@ -559,52 +648,292 @@ def realized_fractions(S, centers, r_cage, s, cage_w=CAGE_W):
 #  longitudinal modulus M = K + 4G/3 — the modulus a normal-incidence impedance
 #  actually carries, bracketed by the SAME two boundary conditions.
 # ═════════════════════════════════════════════════════════════════════════════
+def _threshold_classes(rz_primary, rz_conservative):
+    """The frozen §5.2 threshold walk applied to a SUPPLEMENTARY axis, through the SAME
+    classifier the frozen read uses. NO VOID overlay is applied here — these axes are not
+    frozen criteria, so a frozen-gate VOID is not theirs to carry; the frozen read's own
+    VOID flags travel with the frozen rows."""
+    out = {}
+    for name, thr in (("T1_rZ_0.50", T1_RZ), ("T2_rZ_0.45", T2_RZ[0]),
+                      ("T2_rZ_0.55", T2_RZ[1])):
+        out[name + "_PRIMARY"] = classify_bracket(rz_primary[0], rz_primary[1], thr)
+        out[name + "_CONSERVATIVE"] = classify_bracket(rz_conservative[0],
+                                                       rz_conservative[1], thr)
+    return out
+
+
 def m_axis(res_h, res_s, unc_m):
     """★NOT A FROZEN CRITERION — a clearly-labelled ADDITIONAL axis shipped alongside the
     frozen bulk-K bracket (KEEP-BOTH). The frozen deliverable is and remains the BULK-K
     bracket of prereg §1.2/§2; nothing here amends, replaces or reweights it.
 
-    WHY IT IS SHIPPED. The frozen `r_Z = √((K_eff/K_0)(ρ_eff/ρ_0))` is built on the BULK
-    modulus K. But a normal-incidence acoustic impedance is `Z = ρ c_P = √(ρ·M)` with the
-    P-WAVE (longitudinal / constrained) modulus `M = K + 4G/3`, and `√(ρK)` is the correct
-    impedance ONLY for a medium with `G = 0`. This composite is NOT a fluid — its measured
-    `G_eff/G_0 ≈ 0.67` — so the two differ materially. Whether the corpus discriminator
-    should ride K or M is a DEFINITION question this lane does not own and does not
-    settle; it is ROUTED. The axis is shipped so the question can be adjudicated on data.
+    ★★AXIS RELABEL, PR #802 review finding F2 (the shipped label was WRONG).  This axis is
+    `K + 4·C44/3`.  On an ISOTROPIC medium that equals the P-wave modulus and equals C11.
+    THIS MEDIUM IS NOT ISOTROPIC — it is CUBIC, with a measured Zener anisotropy
+    `A = C44/C' != 1` under BOTH boundary conditions (see `anisotropy_axis`).  On a cubic
+    medium `K + 4·C44/3` is the LONGITUDINAL modulus along the body diagonal [111]; the
+    [100] longitudinal modulus is `C11 = K + 4·C'/3` with `C' = (C11 - C12)/2`, and the
+    two differ by `(4/3)(C44 - C')`.  The previously shipped label "= C11 for an isotropic
+    average" is therefore WITHDRAWN and replaced by the honest one: this is the **[111]
+    longitudinal modulus**, and it OVERSTATES the [100] C11 on this medium.  The true C11
+    is measured and shipped separately in `anisotropy_axis`.
 
-    HOW IT IS BOUNDED. `M = K + 4G/3` is monotone increasing in BOTH K and G, and the
+    WHY IT IS STILL SHIPPED. The frozen `r_Z = √((K_eff/K_0)(ρ_eff/ρ_0))` is built on the
+    BULK modulus K, while a normal-incidence acoustic impedance is `Z = ρ c_P = √(ρ·M_L)`
+    with a LONGITUDINAL modulus `M_L`, and `√(ρK)` is the correct impedance ONLY for a
+    medium with zero shear response. Whether the corpus discriminator should ride K or a
+    longitudinal modulus — and, now, WHICH longitudinal modulus — is a DEFINITION question
+    this lane does not own and does not settle; it is ROUTED.
+
+    HOW IT IS BOUNDED. `K + 4C44/3` is monotone increasing in BOTH K and C44, and the
     Hill/Huet ordering brackets each of them in the same direction under the same pair of
-    boundary conditions. Hence `M_SUBC = K_SUBC + 4G_SUBC/3 ≤ M* ≤ K_KUBC + 4G_KUBC/3 =
-    M_KUBC` is a legitimate bracket on the ABSOLUTE P-wave modulus, inheriting its rigor
-    from the two absolute brackets. The RATIO carries the SAME §2.1 caveat as the bulk
-    axis (the uncaged reference is itself boundary-conditioned), stated, not glossed."""
+    boundary conditions. Hence `M_SUBC ≤ M* ≤ M_KUBC` is a legitimate bracket on the
+    ABSOLUTE [111] longitudinal modulus, inheriting its rigor from the two absolute
+    brackets. The RATIO carries the SAME §2.1 caveat as the bulk axis — `the PRIMARY
+    same-instrument bracket cancels the finite-size boundary-layer bias to leading order
+    ... but is NOT theorem-grade on the RATIO, because the uncaged reference is itself
+    boundary-conditioned` — so BOTH a PRIMARY and a CONSERVATIVE (theorem-grade) ratio
+    bracket are shipped, exactly as on the frozen bulk-K axis (F1/F8 repair)."""
     Ks, Kk = res_h["abs"]["K_SUBC"], res_h["abs"]["K_KUBC"]
     Gs, Gk = res_s["abs"]["K_SUBC"], res_s["abs"]["K_KUBC"]
     Ms, Mk = Ks + 4.0 * Gs / 3.0, Kk + 4.0 * Gk / 3.0
     M0s, M0k = unc_m["subc"], unc_m["kubc"]
     R_s, R_k = Ms / (M0s + 1e-300), Mk / (M0k + 1e-300)
+    g0_M = M0k / (M0s + 1e-300)
+    R_lo, R_hi = R_s / g0_M, R_k * g0_M
+    rz_p = [float(np.sqrt(max(min(R_s, R_k), 0.0))),
+            float(np.sqrt(max(max(R_s, R_k), 0.0)))]
+    rz_c = [float(np.sqrt(max(R_lo, 0.0))), float(np.sqrt(max(R_hi, 0.0)))]
     return {
         "LABEL": "SUPPLEMENTARY AXIS — NOT the frozen deliverable (the frozen bracket is "
                  "on BULK K, prereg sec 1.2). Shipped additively for the modulus-identity "
                  "question, which is ROUTED to Grant, not settled here.",
-        "modulus_identity": "P-WAVE / VRH longitudinal modulus M = K + 4G/3 (= C11 for an "
-                            "isotropic average) — the modulus a normal-incidence "
-                            "impedance Z = rho*c_P carries",
+        "modulus_identity": "[111] LONGITUDINAL modulus M_[111] = K + 4*C44/3 of a CUBIC "
+                            "medium. NOT C11: on this medium C11 = K + 4*C'/3 with "
+                            "C' = (C11-C12)/2, and C44 != C' (Zener A != 1). The earlier "
+                            "shipped label '= C11 for an isotropic average' is WITHDRAWN "
+                            "(PR #802 review finding F2) — see anisotropy_axis for the "
+                            "measured C' and the true C11.",
+        "ANISOTROPY_DISCLOSURE": "the medium is CUBIC, not isotropic; do NOT consume "
+                                 "M_SUBC_abs / M_KUBC_abs as C11. A normal-incidence "
+                                 "pulse along [100] reads C11 = K + 4*C'/3, which is "
+                                 "SMALLER than this axis on this medium.",
         "M_SUBC_abs": float(Ms), "M_KUBC_abs": float(Mk),
         "M_SUBC_uncaged_abs": float(M0s), "M_KUBC_uncaged_abs": float(M0k),
         "absolute_bracket_M": [float(Ms), float(Mk)],
         "absolute_order_ok": bool(Ms <= Mk * (1.0 + G1_SLACK)),
         "R_M_SUBC": float(R_s), "R_M_KUBC": float(R_k),
         "primary_bracket_M": [float(min(R_s, R_k)), float(max(R_s, R_k))],
+        "primary_bracket_M_LABEL": "PRIMARY (same-instrument) — NOT theorem-grade on the "
+                                   "ratio (frozen sec 2.1 caveat applies verbatim)",
+        "conservative_bracket_M": [float(R_lo), float(R_hi)],
+        "conservative_bracket_M_LABEL": "CONSERVATIVE (theorem-grade) = "
+                                        "[R_M_SUBC/g0_M, R_M_KUBC*g0_M], the frozen "
+                                        "sec 2.2 construction applied to this axis",
+        "R_M_lo_conservative": float(R_lo), "R_M_hi_conservative": float(R_hi),
         "ratio_order_SUBC_le_KUBC": bool(R_s <= R_k * (1.0 + G1_SLACK)),
-        "g0_M_uncaged": float(M0k / (M0s + 1e-300)),
-        "r_Z_M_bracket_rho_ASSUMED_1": [float(np.sqrt(max(min(R_s, R_k), 0.0))),
-                                        float(np.sqrt(max(max(R_s, R_k), 0.0)))],
+        "g0_M_uncaged": float(g0_M),
+        "r_Z_M_bracket_rho_ASSUMED_1": rz_p,
+        "r_Z_M_bracket_conservative_rho_ASSUMED_1": rz_c,
+        "threshold_classes": _threshold_classes(rz_p, rz_c),
         "K_only_counterpart_for_comparison": {
             "R_K_SUBC": res_h["R_SUBC"], "R_K_KUBC": res_h["R_KUBC"],
-            "r_Z_K_bracket": res_h["r_Z_bracket_rho_ASSUMED_1"]},
-        "scope": "K-and-G-bracketed M around an ASSUMED rho_eff/rho_0 == 1; rho is NOT "
-                 "measured and NOT bracketed by this lane (OWED-2 stands, prereg sec 7)",
+            "r_Z_K_bracket": res_h["r_Z_bracket_rho_ASSUMED_1"],
+            "r_Z_K_bracket_conservative":
+                res_h["r_Z_bracket_conservative_rho_ASSUMED_1"]},
+        "scope": "K-and-C44-bracketed [111] longitudinal modulus around an ASSUMED "
+                 "rho_eff/rho_0 == 1; rho is NOT measured and NOT bracketed by this lane "
+                 "(OWED-2 stands, prereg sec 7)",
+    }
+
+
+def bound_robustness_crosscheck_782(configs):
+    """★NOT A FROZEN CRITERION — the PR #802 adversarial-review repair, finding F5.
+
+    ★WHY THIS BLOCK EXISTS, stated plainly. This lane banked the status-quo-PRESERVING
+    consequence ("#782 BIN-4 and #796 UNDETERMINED stand unchanged") while its own shipped
+    JSON already contained the status-quo-UNDERCUTTING one and never stated it. That
+    asymmetry is precisely what the anti-rescue fence exists to catch, so the undercutting
+    consequence is computed HERE, in the artefact, where it cannot be softened in prose.
+
+    THE CLAIM UNDER TEST is merged #782's, verbatim from
+    `research/2026-07-21_rve-aggregation-bench_result.md` §7.1:
+      `the MATCHED-side legs (cold r_Z = 0.544, expanded 0.568) are √(KUBC upper bound)
+       hence UPPER bounds — consistent with the true r_Z being uniformly ≤ 0.5
+       (macro-side); only compressed r_Z = 0.466 < 0.5 is bound-robust.`
+    and §5/:12, which carry that compressed leg as the MACRO-side leg of the BIN-4
+    `r_Z`-straddle (trigger (iii)) — the sole bound-robust macro-side reading #782 has.
+
+    THE DEFECT. All three of those `r_Z` values are `√(R_KUBC_core)` — the CORE-energy
+    estimator. The frozen prereg §2.3 states outright that the core estimator carries NO
+    bound status under EITHER boundary condition, and §5.1 REQUIRES this result to report
+    where each banked number falls relative to its bracket. The measure the Hill/Huet
+    kinematic-uniform theorem actually bounds from above is the WHOLE-CELL apparent
+    modulus. So "bound-robust" was asserted of a number on a non-bound-carrying measure.
+
+    WHAT IS COMPUTED. For every #782 pre-stress/wall-class leg this lane also ran, on the
+    SAME configuration at `φ_sf`: the core-estimator `r_Z` (which must reproduce #782's own
+    shipped JSON leaf bit-for-bit — the anchor), the WHOLE-CELL KUBC `r_Z` (the actual
+    upper bound), the WHOLE-CELL SUBC `r_Z` (the lower bound this lane adds), and whether
+    the macro-side (`r_Z < 0.5`) reading is bound-robust on each measure. Nothing here
+    edits, reframes or re-bins #782 — it is measured, shipped and ROUTED."""
+    src = _DRIVERS / "rve_aggregation_bench_results.json"
+    by_class = json.loads(src.read_text())["leg4_verdict"]["by_class"]
+    legs = {"bulk_only_cold": "bulk_only_cold_phi_sf",
+            "bulk_only_compressed": "bulk_only_compressed_phi_sf",
+            "bulk_only_expanded": "bulk_only_expanded_phi_sf",
+            "symmetric_cold": "symmetric_cold_phi_sf"}
+    rows = []
+    for leg, cfg in legs.items():
+        h = [c for c in configs if c["config"] == cfg][0]["by_mode"]["hydro"]
+        core_k = float(h["R_KUBC_core"])
+        rz_core = float(np.sqrt(max(core_k, 0.0)))
+        rz_kubc = float(np.sqrt(max(h["R_KUBC"], 0.0)))
+        rz_subc = float(np.sqrt(max(h["R_SUBC"], 0.0)))
+        m782 = by_class[leg]
+        rows.append({
+            "leg_782": leg, "config_here": cfg,
+            "K_782_shipped_core": float(m782["K_eff_over_K0_sf"]),
+            "K_here_core": core_k,
+            "reproduces_782_core_bitwise": bool(
+                core_k == float(m782["K_eff_over_K0_sf"])),
+            "r_Z_782_shipped_core": float(m782["by_beta"]["beta_0"]["r_Z"]),
+            "r_Z_here_CORE_estimator_NO_BOUND_STATUS": rz_core,
+            "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": rz_kubc,
+            "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": rz_subc,
+            "macro_side_on_CORE_estimator": bool(rz_core < T1_RZ),
+            "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": bool(rz_kubc < T1_RZ),
+            "two_sided_class_vs_T1": classify_bracket(rz_subc, rz_kubc, T1_RZ),
+            "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading":
+                bool(rz_core < rz_kubc),
+        })
+    n_core = sum(r["macro_side_on_CORE_estimator"] for r in rows)
+    n_bound = sum(r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] for r in rows)
+    return {
+        "LABEL": "SUPPLEMENTARY — NOT a frozen criterion, in no frozen gate, read or "
+                 "count. PR #802 adversarial-review repair, finding F5.",
+        "source_782": "research/drivers/rve_aggregation_bench_results.json "
+                      "(leg4_verdict.by_class), read at run time — NOT retyped.",
+        "claim_under_test_782_sec_7p1": (
+            "only compressed r_Z = 0.466 < 0.5 is bound-robust "
+            "(research/2026-07-21_rve-aggregation-bench_result.md:124)"),
+        "rows": rows,
+        "n_legs": len(rows),
+        "n_macro_side_on_the_CORE_estimator": n_core,
+        "n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC": n_bound,
+        "FINDING": (
+            "#782's macro-side legs are macro-side ONLY on the CORE estimator, which the "
+            "frozen prereg §2.3 says carries NO bound status. On the WHOLE-CELL apparent "
+            "modulus — the measure the Hill/Huet kinematic-uniform theorem actually bounds "
+            "from above — NO leg's upper bound falls below the r_Z = 0.5 macro-cage edge. "
+            "So #782's SOLE bound-robust macro-side reading does NOT survive the change to "
+            "the bound-carrying measure: it is not bound-robust, it is estimator-"
+            "conditional. The core estimator reads systematically BELOW the bound-carrying "
+            "KUBC value at every leg (column above), which is the direction that "
+            "manufactures a macro-side reading out of a measure that cannot support one."),
+        "WHAT_THIS_DOES_NOT_DO": (
+            "it does NOT re-bin #782. BIN-4 is UNDETERMINED, and removing a bound-robust "
+            "macro-side leg makes the r_Z axis MORE undetermined, not less — see the "
+            "two_sided_class_vs_T1 column, which STRADDLES at every leg on the two-sided "
+            "bracket. What changes is the BASIS #782 §7.1 states for the straddle, not the "
+            "bin. This lane edits no merged doc and mints no bin; the basis correction is "
+            "ROUTED to Grant / the auditor lane, in the same shape as the basis correction "
+            "already routed from the rho-flags audit."),
+    }
+
+
+def anisotropy_axis(res_h, res_s, cp_subc, cp_kubc, unc_abs):
+    """★NOT A FROZEN CRITERION — the PR #802 review finding-F2 repair, shipped ADDITIVELY.
+
+    The frozen prereg, the driver and the first result doc all assumed, without ever
+    checking, that a VRH/isotropic reading of the srs-z3 composite was adequate. It is
+    not: the medium is CUBIC and measurably anisotropic. This block ships, for the arm and
+    for the cold uncaged reference, under BOTH boundary conditions:
+
+      K       — bulk modulus                     (frozen `hydro` mode)
+      C44     — the xy engineering shear constant (frozen `shear` mode)
+      C'      — the tetragonal shear constant (C11-C12)/2 (SUPPLEMENTARY `tetra` mode)
+      A       — the ZENER anisotropy ratio C44/C'  (A = 1 iff the medium is isotropic)
+      M_[111] — K + 4*C44/3, the longitudinal modulus along the body diagonal
+      C11     — K + 4*C'/3,  the longitudinal modulus along [100]  (the TRUE cubic C11)
+
+    ★WHY IT MATTERS AND WHERE IT IS ROUTED. A cubic medium has NO single "longitudinal
+    modulus": the longitudinal wave speed depends on the propagation direction. Protocol E
+    launches its pulse along [100], so the comparator for a Protocol-E time-of-flight is
+    `C11 = K + 4*C'/3` — NOT the `K + 4*C44/3` axis this driver previously (mis)labelled
+    "C11 for an isotropic average", and NOT a VRH isotropic average of the two. That
+    SHARPENS the already-routed modulus-identity question rather than answering it, and it
+    is ROUTED to Grant with data, not settled here.
+
+    Bound status: `C11 = K + 4C'/3` is monotone increasing in BOTH K and C', each of which
+    the Hill/Huet ordering brackets in the same direction under the same boundary-condition
+    pair, so `C11_SUBC <= C11* <= C11_KUBC` is a legitimate ABSOLUTE bracket, exactly as
+    for the [111] axis. The RATIO again carries the frozen sec 2.1 non-theorem-grade
+    caveat, so PRIMARY and CONSERVATIVE ratio brackets are both shipped."""
+    Ks, Kk = res_h["abs"]["K_SUBC"], res_h["abs"]["K_KUBC"]
+    C44s, C44k = res_s["abs"]["K_SUBC"], res_s["abs"]["K_KUBC"]
+    Cps, Cpk = float(cp_subc), float(cp_kubc)
+    M111s, M111k = Ks + 4.0 * C44s / 3.0, Kk + 4.0 * C44k / 3.0
+    C11s, C11k = Ks + 4.0 * Cps / 3.0, Kk + 4.0 * Cpk / 3.0
+    u = unc_abs
+    C11_0s = u["K_SUBC"] + 4.0 * u["Cp_SUBC"] / 3.0
+    C11_0k = u["K_KUBC"] + 4.0 * u["Cp_KUBC"] / 3.0
+    M111_0s = u["K_SUBC"] + 4.0 * u["C44_SUBC"] / 3.0
+    M111_0k = u["K_KUBC"] + 4.0 * u["C44_KUBC"] / 3.0
+    R_s, R_k = C11s / (C11_0s + 1e-300), C11k / (C11_0k + 1e-300)
+    g0_C11 = C11_0k / (C11_0s + 1e-300)
+    R_lo, R_hi = R_s / g0_C11, R_k * g0_C11
+    rz_p = [float(np.sqrt(max(min(R_s, R_k), 0.0))),
+            float(np.sqrt(max(max(R_s, R_k), 0.0)))]
+    rz_c = [float(np.sqrt(max(R_lo, 0.0))), float(np.sqrt(max(R_hi, 0.0)))]
+    return {
+        "LABEL": "SUPPLEMENTARY — NOT a frozen criterion, NOT in any frozen gate, read or "
+                 "count. Added by the PR #802 adversarial-review repair (finding F2).",
+        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under "
+                          "BOTH boundary conditions. No isotropy check existed in the "
+                          "frozen prereg, the driver or the first result doc.",
+        "absolutes_arm": {
+            "K_SUBC": float(Ks), "K_KUBC": float(Kk),
+            "C44_SUBC": float(C44s), "C44_KUBC": float(C44k),
+            "Cprime_SUBC": Cps, "Cprime_KUBC": Cpk,
+            "M_111_SUBC": float(M111s), "M_111_KUBC": float(M111k),
+            "C11_true_SUBC": float(C11s), "C11_true_KUBC": float(C11k),
+        },
+        "absolutes_uncaged_reference": {
+            "K_SUBC": float(u["K_SUBC"]), "K_KUBC": float(u["K_KUBC"]),
+            "C44_SUBC": float(u["C44_SUBC"]), "C44_KUBC": float(u["C44_KUBC"]),
+            "Cprime_SUBC": float(u["Cp_SUBC"]), "Cprime_KUBC": float(u["Cp_KUBC"]),
+            "M_111_SUBC": float(M111_0s), "M_111_KUBC": float(M111_0k),
+            "C11_true_SUBC": float(C11_0s), "C11_true_KUBC": float(C11_0k),
+        },
+        "zener_A_arm": {"SUBC": float(C44s / (Cps + 1e-300)),
+                        "KUBC": float(C44k / (Cpk + 1e-300))},
+        "zener_A_uncaged_reference": {
+            "SUBC": float(u["C44_SUBC"] / (u["Cp_SUBC"] + 1e-300)),
+            "KUBC": float(u["C44_KUBC"] / (u["Cp_KUBC"] + 1e-300))},
+        "M_111_overstates_C11_by_arm": {
+            "SUBC": float(M111s / (C11s + 1e-300) - 1.0),
+            "KUBC": float(M111k / (C11k + 1e-300) - 1.0)},
+        "M_111_overstates_C11_by_uncaged": {
+            "SUBC": float(M111_0s / (C11_0s + 1e-300) - 1.0),
+            "KUBC": float(M111_0k / (C11_0k + 1e-300) - 1.0)},
+        "absolute_bracket_C11_true": [float(C11s), float(C11k)],
+        "absolute_order_ok": bool(C11s <= C11k * (1.0 + G1_SLACK)),
+        "R_C11_SUBC": float(R_s), "R_C11_KUBC": float(R_k),
+        "primary_bracket_C11": [float(min(R_s, R_k)), float(max(R_s, R_k))],
+        "conservative_bracket_C11": [float(R_lo), float(R_hi)],
+        "g0_C11_uncaged": float(g0_C11),
+        "r_Z_C11_bracket_rho_ASSUMED_1": rz_p,
+        "r_Z_C11_bracket_conservative_rho_ASSUMED_1": rz_c,
+        "threshold_classes": _threshold_classes(rz_p, rz_c),
+        "ROUTED_TO_GRANT": (
+            "a CUBIC medium has a DIRECTION-DEPENDENT longitudinal modulus. Protocol E "
+            "launches along [100], so a Protocol-E time-of-flight comparator is "
+            "C11 = K + 4*C'/3 — NOT the K + 4*C44/3 axis and NOT a VRH isotropic "
+            "average. This SHARPENS the routed modulus-identity question; it does not "
+            "answer it, and this lane does not answer it."),
+        "scope": "K-and-C'-bracketed [100] C11 around an ASSUMED rho_eff/rho_0 == 1; rho "
+                 "is NOT measured and NOT bracketed (OWED-2 stands, prereg sec 7)",
     }
 
 
@@ -719,7 +1048,7 @@ def uncaged_and_g0(S, modes=("hydro", "shear")):
 # ★THE FROZEN §3 CONFIGURATION RUNNER
 # ═════════════════════════════════════════════════════════════════════════════
 def run_cage_config(S, unc, label, wall_class, r_cage, s, modes=("hydro",),
-                    eps_pre=0.0, s_rail=S_RAIL_DEEP):
+                    eps_pre=0.0, s_rail=S_RAIL_DEEP, unc_abs=None):
     """One frozen §3 A/C cage configuration under BOTH boundary conditions.
     Rule-14: the cage stiffness field is the SHIPPED #782 `cage_bond_stiffness` — this
     lane changes NOTHING about the medium, only the outer-surface condition."""
@@ -736,10 +1065,11 @@ def run_cage_config(S, unc, label, wall_class, r_cage, s, modes=("hydro",),
         res = measure_config(S, k_a, k_s, m, unc)
         res["modulus_identity"] = MODULUS_IDENTITY[m]
         row["by_mode"][m] = res
-    return row
+    return _attach_anisotropy(S, row, k_a, k_s, unc_abs)
 
 
-def run_operator_config(S, unc, label, k_a, k_s, modes=("hydro",), extra=None):
+def run_operator_config(S, unc, label, k_a, k_s, modes=("hydro",), extra=None,
+                        unc_abs=None):
     """One frozen §3 B configuration supplied as an EXPLICIT (k_a, k_s) bond-stiffness
     pair — the frozen-tangent-operator carve (§1.4): the operator is held BYTE-IDENTICAL
     between the SUBC and the KUBC solve, which is what makes the pair a bracket on a
@@ -752,7 +1082,7 @@ def run_operator_config(S, unc, label, k_a, k_s, modes=("hydro",), extra=None):
         res = measure_config(S, k_a, k_s, m, unc)
         res["modulus_identity"] = MODULUS_IDENTITY[m]
         row["by_mode"][m] = res
-    return row
+    return _attach_anisotropy(S, row, k_a, k_s, unc_abs)
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -886,7 +1216,37 @@ def gate_G1(configs, unc_meta_by_L):
                 violations.append(rows[-1])
     ratio_only = [v for v in violations if v["absolute_order_ok"]
                   and not v["ratio_order_ok"]]
+    # ★HONEST DENOMINATORS for the RATIO clause (PR #802 review repair, finding F3).
+    #  `rows` mixes two populations: the 42 (configuration, mode) measurements, which have
+    #  a real ratio pair and CAN fail the ratio clause, and the 6 uncaged-reference rows,
+    #  which are written with R_SUBC = R_KUBC = 1.0 and `ratio_order_ok = True` BY
+    #  CONSTRUCTION and therefore cannot fail it. Quoting "8 of 48" (or a clean "24 of 24"
+    #  on the hydro side) silently inflates the denominator with rows that cannot fail.
+    ratio_bearing = [r for r in rows if r["config"] != "uncaged_reference"]
+    hydro_bearing = [r for r in ratio_bearing if r["mode"] == "hydro"]
+    shear_bearing = [r for r in ratio_bearing if r["mode"] == "shear"]
+    ratio_viol = [v for v in violations if not v["ratio_order_ok"]]
+    honest = {
+        "n_rows_walked_including_uncaged_identity_rows": len(rows),
+        "n_uncaged_identity_rows_that_CANNOT_fail_the_ratio_clause":
+            len(rows) - len(ratio_bearing),
+        "n_ratio_bearing_measurements": len(ratio_bearing),
+        "n_ratio_bearing_hydro": len(hydro_bearing),
+        "n_ratio_bearing_shear": len(shear_bearing),
+        "ratio_clause_violations": len(ratio_viol),
+        "ratio_clause_inversion_rate_over_ratio_bearing_rows":
+            float(len(ratio_viol) / max(len(ratio_bearing), 1)),
+        "hydro_ratio_clause_violations":
+            len([v for v in ratio_viol if v["mode"] == "hydro"]),
+        "shear_ratio_clause_violations":
+            len([v for v in ratio_viol if v["mode"] == "shear"]),
+        "note": "the uncaged-reference rows carry R_SUBC = R_KUBC = 1.0 and "
+                "ratio_order_ok = True BY CONSTRUCTION; they exercise only G1's ABSOLUTE "
+                "clause. The honest denominator for the RATIO clause is therefore the "
+                "ratio-bearing measurement count, not the walked-row count.",
+    }
     return {"rows": rows, "n_checked": len(rows), "violations": violations,
+            "honest_ratio_clause_denominators": honest,
             # ★TWO VOID SCOPINGS, both computed and shipped — NOT adjudicated here.
             # Frozen G1 reads "for EVERY bracketed configuration and BOTH modes ... the
             # bench is VOID for that configuration". "that configuration" admits a STRICT
@@ -1096,38 +1456,131 @@ def verdict(reads, grown_lift, g1):
                 "core_estimator_inside_primary_bracket":
                     r["core_estimator_inside_primary_bracket"]}
 
+    def _disposition(cls):
+        if cls == "VOID":
+            return ("VOID — bracket NOT reported as physics; the standing merged verdict "
+                    "for this configuration is left exactly as merged (frozen §5.5 "
+                    "item 4)")
+        if cls == "STRADDLES":
+            return ("BOUND-CONDITIONAL — the corpus verdict is NOT tightened in either "
+                    "direction; #782 BIN-4 and #796 UNDETERMINED STAND UNCHANGED; no new "
+                    "bin, no side picked, no rescue (frozen §5.5 item 1)")
+        if cls == "RESOLVES-LOW":
+            return ("the macro-side reading is BOUND-ROBUST for this arm — an INPUT to "
+                    "the Reading-B re-open question and to nothing else; surfaced and "
+                    "ROUTED, not landed (frozen §5.5 item 2)")
+        return ("the matched-side reading is BOUND-ROBUST for this arm and the #782 "
+                "§7.1 'matched-side is KUBC-conditional' caveat is discharged FOR THIS "
+                "ARM; surfaced and ROUTED, not landed (frozen §5.5 item 3)")
+
     disp = []
     for r in reads:
         c1 = r["classes"]["T1_rZ_0.50_PRIMARY"]
-        if c1 == "VOID":
-            d = ("VOID — bracket NOT reported as physics; the standing merged verdict for "
-                 "this configuration is left exactly as merged (frozen §5.5 item 4)")
-        elif c1 == "STRADDLES":
-            d = ("BOUND-CONDITIONAL — the corpus verdict is NOT tightened in either "
-                 "direction; #782 BIN-4 and #796 UNDETERMINED STAND UNCHANGED; no new "
-                 "bin, no side picked, no rescue (frozen §5.5 item 1)")
-        elif c1 == "RESOLVES-LOW":
-            d = ("the macro-side reading is BOUND-ROBUST for this arm — an INPUT to the "
-                 "Reading-B re-open question and to nothing else; surfaced and ROUTED, "
-                 "not landed (frozen §5.5 item 2)")
-        else:
-            d = ("the matched-side reading is BOUND-ROBUST for this arm and the #782 "
-                 "§7.1 'matched-side is KUBC-conditional' caveat is discharged FOR THIS "
-                 "ARM; surfaced and ROUTED, not landed (frozen §5.5 item 3)")
+        c1c = r["classes"]["T1_rZ_0.50_CONSERVATIVE"]
+        nv_p = r["classes_no_void_overlay"]["T1_rZ_0.50_PRIMARY"]
+        nv_c = r["classes_no_void_overlay"]["T1_rZ_0.50_CONSERVATIVE"]
+        identity = bool(r["config"] == "uniform_medium_null")
+        # ★THE THIRD FROZEN AMBIGUITY (PR #802 review repair, finding F7), surfaced.
+        #  Frozen §5.5 names its items by OUTCOME CLASS ("if a bracket STRADDLES", "if a
+        #  bracket RESOLVES-HIGH") but never says WHICH of the two frozen bracket
+        #  definitions (§2.1 PRIMARY / §2.2 CONSERVATIVE) the word "a bracket" denotes.
+        #  On this data the two definitions disagree at many rows, so item 1 and item 3
+        #  have their antecedents satisfied SIMULTANEOUSLY on the same configuration.
+        both = bool(nv_p in ("RESOLVES-HIGH", "RESOLVES-LOW") and nv_c == "STRADDLES")
         disp.append({"config": r["config"], "mode": r["mode"],
+                     "is_G2a_IDENTITY_row_not_a_physics_disposition": identity,
                      "class_vs_T1_PRIMARY": c1,
-                     "class_vs_T1_CONSERVATIVE": r["classes"]["T1_rZ_0.50_CONSERVATIVE"],
+                     "class_vs_T1_CONSERVATIVE": c1c,
                      "class_vs_T1_PRIMARY_void_scope_per_mode":
                          r["classes_void_scope_per_mode"]["T1_rZ_0.50_PRIMARY"],
-                     "class_vs_T1_PRIMARY_no_void_overlay":
-                         r["classes_no_void_overlay"]["T1_rZ_0.50_PRIMARY"],
-                     "pre_registered_disposition": d})
+                     "class_vs_T1_PRIMARY_no_void_overlay": nv_p,
+                     "class_vs_T1_CONSERVATIVE_no_void_overlay": nv_c,
+                     # the shipped field, basis now stated on its face rather than implied
+                     "pre_registered_disposition": _disposition(c1),
+                     "pre_registered_disposition_BASIS":
+                         "the §2.1 PRIMARY bracket vs T1, with the STRICT G1 VOID overlay",
+                     "pre_registered_disposition_on_CONSERVATIVE": _disposition(c1c),
+                     "frozen_5p5_antecedent_audit": {
+                         "item1_STRADDLE_antecedent_satisfied_on_PRIMARY":
+                             bool(nv_p == "STRADDLES"),
+                         "item1_STRADDLE_antecedent_satisfied_on_CONSERVATIVE":
+                             bool(nv_c == "STRADDLES"),
+                         "item3_RESOLVES_HIGH_antecedent_satisfied_on_PRIMARY":
+                             bool(nv_p == "RESOLVES-HIGH"),
+                         "item3_RESOLVES_HIGH_antecedent_satisfied_on_CONSERVATIVE":
+                             bool(nv_c == "RESOLVES-HIGH"),
+                         "BOTH_item1_and_item3_antecedents_satisfied": both,
+                         "ambiguity": "frozen §5.5 does not say which of the two frozen "
+                                      "bracket definitions 'a bracket' denotes; where "
+                                      "BOTH is true, items 1 and 3 fire together and the "
+                                      "frozen text does not adjudicate between them",
+                     }})
     classes_seen = sorted({r["classes"][k] for r in reads for k in r["classes"]})
     classes_seen_no_void = sorted({v for r in reads
                                    for v in r["classes_no_void_overlay"].values()})
     straddle_any = any(v == "STRADDLES" for r in reads
                        for v in r["classes_no_void_overlay"].values())
+
+    # ★F6 — reconcile the JSON's own §5.5-item-3 invocations with what the prose says.
+    def _rows(pred):
+        return sorted(f"{d['config']}::{d['mode']}" for d in disp if pred(d))
+
+    item3_primary = _rows(lambda d: d["class_vs_T1_PRIMARY"] == "RESOLVES-HIGH")
+    item3_cons = _rows(lambda d: d["class_vs_T1_CONSERVATIVE"] == "RESOLVES-HIGH")
+    item3_primary_ident = _rows(
+        lambda d: d["class_vs_T1_PRIMARY"] == "RESOLVES-HIGH"
+        and d["is_G2a_IDENTITY_row_not_a_physics_disposition"])
+    both_rows = _rows(
+        lambda d: d["frozen_5p5_antecedent_audit"]["BOTH_item1_and_item3_antecedents_"
+                                                   "satisfied"])
+    headline_keys = {"bulk_only_cold_phi_sf::hydro", "grown_frozen_tangent::hydro"}
+    item3_audit = {
+        "n_rows": len(disp),
+        "rows_where_the_shipped_PRIMARY_basis_emits_the_item3_string": item3_primary,
+        "n_rows_item3_on_PRIMARY": len(item3_primary),
+        "of_which_are_the_G2a_IDENTITY_null": item3_primary_ident,
+        "rows_where_the_CONSERVATIVE_basis_would_emit_item3": item3_cons,
+        "n_rows_item3_on_CONSERVATIVE": len(item3_cons),
+        "item3_invoked_at_a_HEADLINE_arm_on_PRIMARY":
+            sorted(headline_keys & set(item3_primary)),
+        "item3_invoked_at_a_HEADLINE_arm_on_CONSERVATIVE":
+            sorted(headline_keys & set(item3_cons)),
+        "RECONCILIATION": (
+            "the shipped per-row disposition string is generated from the §2.1 PRIMARY "
+            "class with the STRICT VOID overlay, so it emits the frozen §5.5 item-3 "
+            "sentence ('the #782 §7.1 caveat is discharged FOR THIS ARM') on the rows "
+            "listed above — INCLUDING the G2a identity null, whose bracket is [1.0, 1.0] "
+            "by construction and is not a physics disposition at all. The result doc's "
+            "statement that item 3 is not invoked is TRUE OF THE HEADLINE ARMS ON THE "
+            "THEOREM-GRADE BRACKET and false as a statement about the whole JSON. Both "
+            "counts are shipped here so the doc and the artefact cannot drift apart."),
+    }
+    void_audit = {
+        "VOID_scoping_carried": "STRICT (a violation in EITHER mode voids the whole "
+                                "configuration)",
+        "rows_VOID_under_STRICT": _rows(lambda d: d["class_vs_T1_PRIMARY"] == "VOID"),
+        "n_rows_VOID_under_STRICT":
+            len(_rows(lambda d: d["class_vs_T1_PRIMARY"] == "VOID")),
+        "ASYMMETRY_SURFACED": (
+            "frozen §5.5 item 4 says a VOIDed configuration's bracket is NOT reported as "
+            "physics and its standing verdict is left exactly as merged. Item 1's "
+            "STRADDLE disposition and item 4's VOID disposition therefore have the SAME "
+            "practical consequence (nothing moves), which is why taking item 1 on a "
+            "VOIDed arm looks harmless — but it is still a disposition taken on a row "
+            "the frozen text says is not physics. Item 3 is the only item whose "
+            "consequence differs from VOID's (it would DISCHARGE a standing caveat), and "
+            "it is the one refused. Stated plainly: the ONLY frozen §5.5 disposition "
+            "that survives a VOID is item 4 — nothing moves. Items 1, 2 and 3 all "
+            "presuppose a readable bracket, so on a VOIDed row none of them is available, "
+            "and the fact that item 1 and item 4 agree on the outcome does not make item "
+            "1 available. This lane therefore reports NOTHING MOVED on every row, which "
+            "is item 4's consequence on the VOIDed rows and item 1's on the rest."),
+        "BOTH_antecedents_satisfied_rows": both_rows,
+        "n_BOTH_antecedents_satisfied": len(both_rows),
+    }
     return {
+        "frozen_5p5_item3_invocation_audit": item3_audit,
+        "VOID_and_ambiguity_consistency_audit": void_audit,
         "HEADLINE_frozen_5p4": {
             "bulk_only_cold_phi_sf": head("bulk_only_cold_phi_sf"),
             "grown_frozen_tangent": head("grown_frozen_tangent"),
@@ -1192,7 +1645,7 @@ def run_all():
 
     # ── setup + uncaged references at every frozen box size ──────────────────
     print("[setup] building srs-z3 boxes L =", L_SIZES)
-    SS, unc_meta, unc = {}, {}, {}
+    SS, unc_meta, unc, unc_abs = {}, {}, {}, {}
     for L in L_SIZES:
         SS[L] = setup(L)
         SS[L]["components"] = component_count(SS[L]["geom"][1], SS[L]["geom"][2],
@@ -1200,6 +1653,40 @@ def run_all():
         print(f"[uncaged] L={L} N={SS[L]['N']} active={SS[L]['n_active']} "
               f"components={SS[L]['components']}")
         unc_meta[L], unc[L] = uncaged_and_g0(SS[L], ("hydro", "shear"))
+        # ── SUPPLEMENTARY (F2): the uncaged tetragonal C' under BOTH boundary conditions
+        M0 = SS[L]["geom"][1].shape[0]
+        cp0 = measure_cprime_abs(SS[L], np.full(M0, float(RHO_STAR)),
+                                 np.full(M0, float(K_S)))
+        bm = unc_meta[L]["by_mode"]
+        unc_abs[L] = {
+            "K_SUBC": bm["hydro"]["K_SUBC_abs"], "K_KUBC": bm["hydro"]["K_KUBC_abs"],
+            "C44_SUBC": bm["shear"]["K_SUBC_abs"], "C44_KUBC": bm["shear"]["K_KUBC_abs"],
+            "Cp_SUBC": cp0["Cprime_SUBC"], "Cp_KUBC": cp0["Cprime_KUBC"],
+        }
+        unc_meta[L]["SUPPLEMENTARY_anisotropy_NOT_FROZEN"] = {
+            "LABEL": "SUPPLEMENTARY — PR #802 review repair (F2). NOT a frozen criterion "
+                     "and in no frozen gate, read or count.",
+            "Cprime_SUBC": cp0["Cprime_SUBC"], "Cprime_KUBC": cp0["Cprime_KUBC"],
+            "C44_SUBC": unc_abs[L]["C44_SUBC"], "C44_KUBC": unc_abs[L]["C44_KUBC"],
+            "K_SUBC": unc_abs[L]["K_SUBC"], "K_KUBC": unc_abs[L]["K_KUBC"],
+            "zener_A_SUBC": float(unc_abs[L]["C44_SUBC"] / cp0["Cprime_SUBC"]),
+            "zener_A_KUBC": float(unc_abs[L]["C44_KUBC"] / cp0["Cprime_KUBC"]),
+            "M_111_SUBC": float(unc_abs[L]["K_SUBC"] + 4.0 * unc_abs[L]["C44_SUBC"] / 3.0),
+            "M_111_KUBC": float(unc_abs[L]["K_KUBC"] + 4.0 * unc_abs[L]["C44_KUBC"] / 3.0),
+            "C11_true_SUBC": float(unc_abs[L]["K_SUBC"] + 4.0 * cp0["Cprime_SUBC"] / 3.0),
+            "C11_true_KUBC": float(unc_abs[L]["K_KUBC"] + 4.0 * cp0["Cprime_KUBC"] / 3.0),
+            "M_111_overstates_C11_by_SUBC": float(
+                (unc_abs[L]["K_SUBC"] + 4.0 * unc_abs[L]["C44_SUBC"] / 3.0)
+                / (unc_abs[L]["K_SUBC"] + 4.0 * cp0["Cprime_SUBC"] / 3.0) - 1.0),
+            "M_111_overstates_C11_by_KUBC": float(
+                (unc_abs[L]["K_KUBC"] + 4.0 * unc_abs[L]["C44_KUBC"] / 3.0)
+                / (unc_abs[L]["K_KUBC"] + 4.0 * cp0["Cprime_KUBC"] / 3.0) - 1.0),
+            "tetra_solver": {k: cp0[k] for k in (
+                "subc_cg_residual", "subc_cg_iters", "subc_work_identity_rel",
+                "kubc_cg_residual", "kubc_cg_iters", "sigma_bar_SUBC",
+                "Sigma_bar_tensor_SUBC")},
+            "modulus_identity": cp0["modulus_identity"],
+        }
     S = SS[L_BASE]
     out["lattice"] = {L: {"N": SS[L]["N"], "M": SS[L]["M"],
                           "n_active": SS[L]["n_active"],
@@ -1220,26 +1707,30 @@ def run_all():
         lab = ("bulk_only_cold_phi_sf" if rc == ROUTE_A["r_cage"][-1]
                else f"bulk_only_cold_rc{rc}")
         configs.append(run_cage_config(S, unc[L_BASE], lab, "bulk_only", rc,
-                                       ROUTE_A["s"], BOTH_MODES))
+                                       ROUTE_A["s"], BOTH_MODES,
+                                       unc_abs=unc_abs[L_BASE]))
     print("[A] route-A phi scan, symmetric_cold (wall-class control) ...")
     for rc in ROUTE_A["r_cage"]:
         lab = ("symmetric_cold_phi_sf" if rc == ROUTE_A["r_cage"][-1]
                else f"symmetric_cold_rc{rc}")
         configs.append(run_cage_config(S, unc[L_BASE], lab, "symmetric", rc,
-                                       ROUTE_A["s"], BOTH_MODES))
+                                       ROUTE_A["s"], BOTH_MODES,
+                                       unc_abs=unc_abs[L_BASE]))
     print("[A] pre-stress arms + rigid STOP-gate mirror ...")
     configs.append(run_cage_config(S, unc[L_BASE], "bulk_only_compressed_phi_sf",
                                    "bulk_only", PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES,
-                                   eps_pre=-0.08))
+                                   eps_pre=-0.08, unc_abs=unc_abs[L_BASE]))
     configs.append(run_cage_config(S, unc[L_BASE], "bulk_only_expanded_phi_sf",
                                    "bulk_only", PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES,
-                                   eps_pre=+0.08))
+                                   eps_pre=+0.08, unc_abs=unc_abs[L_BASE]))
     configs.append(run_cage_config(S, unc[L_BASE], "rigid_phi_sf", "rigid",
-                                   PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES))
+                                   PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES,
+                                   unc_abs=unc_abs[L_BASE]))
     print("[A] route-B (the second collapse route) ...")
     for s_b in ROUTE_B["s"]:
         configs.append(run_cage_config(S, unc[L_BASE], f"routeB_bulk_only_cold_s{s_b}",
-                                       "bulk_only", ROUTE_B["r_cage"], s_b, BOTH_MODES))
+                                       "bulk_only", ROUTE_B["r_cage"], s_b, BOTH_MODES,
+                                       unc_abs=unc_abs[L_BASE]))
 
     # ── §3 B — the #796 grown arm on its FROZEN TANGENT OPERATOR ─────────────
     print("[B] growing the #796 fixed_budget verdict arm ...")
@@ -1262,13 +1753,15 @@ def run_all():
         S, unc[L_BASE], "grown_frozen_tangent", ka_grown, kse_grown, ("hydro", "shear"),
         extra={"fractions": realized_fractions(S, centers_sf, PHI_SF_RCAGE, PHI_SF_S),
                "operator_provenance": "Phi_eff(u_0) at the #796 fixed_budget p_ref "
-                                      "operating point (FROZEN, u-independent)"}))
+                                      "operating point (FROZEN, u-independent)"},
+        unc_abs=unc_abs[L_BASE]))
     configs.append(run_operator_config(
         S, unc[L_BASE], "painted_anisotropic", ka_grown, kse_grown, BOTH_MODES,
         extra={"same_operator_as": "grown_frozen_tangent",
                "note": "on the #796 carve this is the SAME operator as configuration 7; "
                        "running both is the G6 cross-check that our reconstruction of the "
-                       "#796 operating point is faithful, NOT two physics arms"}))
+                       "#796 operating point is faithful, NOT two physics arms"},
+        unc_abs=unc_abs[L_BASE]))
     ka_iso, ks_iso = cage_bond_stiffness(S["geom"][3], S["geom"][4], centers_sf,
                                          PHI_SF_RCAGE, CAGE_W, VERDICT_WALL,
                                          VERDICT_S_RAIL, 0.0)
@@ -1277,7 +1770,8 @@ def run_all():
         np.asarray(ks_iso, float), BOTH_MODES,
         extra={"fractions": realized_fractions(S, centers_sf, PHI_SF_RCAGE, PHI_SF_S),
                "note": "the #782 bulk_only_cold cage at phi_sf with k_s = KS0 — the "
-                       "crash BASELINE K_ratio_lift normalizes against"}))
+                       "crash BASELINE K_ratio_lift normalizes against"},
+        unc_abs=unc_abs[L_BASE]))
 
     # ── §3 C — the uniform-medium null + the size scan ───────────────────────
     print("[C] uniform-medium null + size scan ...")
@@ -1285,7 +1779,8 @@ def run_all():
     null_row = run_operator_config(S, unc[L_BASE], "uniform_medium_null",
                                    np.full(M0, float(RHO_STAR)),
                                    np.full(M0, float(K_S)), ("hydro", "shear"),
-                                   extra={"n_cages": 0})
+                                   extra={"n_cages": 0},
+                                   unc_abs=unc_abs[L_BASE])
     configs.append(null_row)
     size_rows = []
     for L in L_SIZES:
@@ -1293,7 +1788,8 @@ def run_all():
             row = [c for c in configs if c["config"] == "bulk_only_cold_phi_sf"][0]
         else:
             row = run_cage_config(SS[L], unc[L], f"bulk_only_cold_phi_sf_L{L}",
-                                  "bulk_only", PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES)
+                                  "bulk_only", PHI_SF_RCAGE, PHI_SF_S, BOTH_MODES,
+                                  unc_abs=unc_abs[L])
             configs.append(row)
         h = row["by_mode"]["hydro"]
         size_rows.append({"L": L, "n_cages": row["fractions"]["n_cages"],
@@ -1377,13 +1873,23 @@ def run_all():
                 c["by_mode"]["hydro"], c["by_mode"]["shear"], unc_m[c["L"]])
     out["supplementary_M_axis_note"] = (
         "ADDITIVE, NOT the frozen deliverable. The frozen bracket is on the BULK modulus "
-        "K (prereg sec 1.2). A normal-incidence impedance Z = rho*c_P carries the P-WAVE "
-        "modulus M = K + 4G/3, and sqrt(rho*K) is the right impedance only for a G = 0 "
-        "medium — which this composite is not (G_eff/G_0 ~ 0.67). Both axes are shipped; "
-        "WHICH modulus the corpus discriminator r_Z should ride is a DEFINITION question "
-        "ROUTED to Grant and NOT settled by this lane. No frozen criterion is amended.")
+        "K (prereg sec 1.2). A normal-incidence impedance Z = rho*c_P carries a "
+        "LONGITUDINAL modulus, and sqrt(rho*K) is the right impedance only for a medium "
+        "with no shear response — which this composite is not (G_eff/G_0 ~ 0.67). "
+        "★PR #802 review finding F2: the shipped axis K + 4*C44/3 was mislabelled 'the "
+        "P-wave modulus M (= C11 for an isotropic average)'. This medium is CUBIC, not "
+        "isotropic (Zener A != 1 under BOTH boundary conditions), so K + 4*C44/3 is the "
+        "[111] longitudinal modulus and the [100] one is C11 = K + 4*C'/3 with "
+        "C' = (C11-C12)/2. BOTH are now measured and shipped (see "
+        "SUPPLEMENTARY_anisotropy_NOT_FROZEN on every configuration). WHICH modulus the "
+        "corpus discriminator r_Z should ride — and now, WHICH DIRECTION'S longitudinal "
+        "modulus — is a DEFINITION question ROUTED to Grant and NOT settled by this lane. "
+        "No frozen criterion is amended.")
 
     out["configurations"] = configs
+    # ── SUPPLEMENTARY (additive, NOT frozen): the F5 anti-rescue cross-check ──
+    out["F5_782_bound_robustness_crosscheck_NOT_FROZEN"] = \
+        bound_robustness_crosscheck_782(configs)
     g1 = out["gate_G1_VOID_ordering"]
     vstrict = set(g1["void_configs_STRICT"])
     vmode = set(g1["void_config_modes"])
@@ -1395,8 +1901,28 @@ def run_all():
     ic = [c for c in configs if c["config"] == "isotropic_control"][0]["by_mode"]["hydro"]
     lift_s = gh["R_SUBC"] / (ic["R_SUBC"] + 1e-300)
     lift_k = gh["R_KUBC"] / (ic["R_KUBC"] + 1e-300)
+    lift_s_core = gh["R_SUBC_core"] / (ic["R_SUBC_core"] + 1e-300)
+    lift_k_core = gh["R_KUBC_core"] / (ic["R_KUBC_core"] + 1e-300)
+    variants = {"whole_cell_SUBC": float(lift_s), "whole_cell_KUBC": float(lift_k),
+                "core_convention_SUBC": float(lift_s_core),
+                "core_convention_KUBC": float(lift_k_core)}
     out["verdict"] = verdict(reads, {
         "lift_under_SUBC": float(lift_s), "lift_under_KUBC": float(lift_k),
+        "all_four_variants": variants,
+        "worst_departure_from_unity": float(max(abs(v - 1.0)
+                                                for v in variants.values())),
+        "WHAT_WAS_MEASURED": (
+            "this lane's lift is (grown_frozen_tangent ratio) / (isotropic_control "
+            "ratio) recomputed IN THIS DRIVER under each boundary condition. It is NOT "
+            "#796's banked K_ratio_lift read back — that is a different construction on "
+            "#796's own arms — and the frozen T4 band test (L1 < 1.2 / L2 / L3) CANNOT "
+            "FIRE on values this close to 1: all four variants sit within "
+            "the worst-departure figure above of unity, so every variant is L1 by "
+            "arithmetic and 'the band does not flip across the boundary condition' is "
+            "not a discriminating statement. What IS supported: the grown-vs-control "
+            "ratio is ~1 under BOTH boundary conditions on BOTH energy conventions, i.e. "
+            "the near-null lift this bench family measures is not an artefact of "
+            "clamping the outer skin."),
         "bands_T4": {"L1": "< 1.2", "L2": "1.2 - 1.5", "L3": ">= 1.5"},
         "band_under_SUBC": ("L1" if lift_s < T4_LIFT[0]
                             else ("L2" if lift_s < T4_LIFT[1] else "L3")),
@@ -1583,11 +2109,51 @@ def main():
         mc = [c for c in out["configurations"] if c["config"] == key]
         if mc and "SUPPLEMENTARY_M_axis_NOT_FROZEN" in mc[0]:
             ma = mc[0]["SUPPLEMENTARY_M_axis_NOT_FROZEN"]
-            print("    [SUPPLEMENTARY, not frozen] P-wave M = K+4G/3: R_M bracket "
-                  "[%.5f, %.5f] -> r_Z_M [%.5f, %.5f]" % (
+            print("    [SUPPL, not frozen] [111] long. M=K+4*C44/3: R_M PRIMARY "
+                  "[%.5f, %.5f] -> r_Z [%.5f, %.5f]" % (
                       ma["primary_bracket_M"][0], ma["primary_bracket_M"][1],
                       ma["r_Z_M_bracket_rho_ASSUMED_1"][0],
                       ma["r_Z_M_bracket_rho_ASSUMED_1"][1]))
+            print("    [SUPPL, not frozen] [111] long. M: R_M CONSERVATIVE "
+                  "[%.5f, %.5f] -> r_Z [%.5f, %.5f]" % (
+                      ma["conservative_bracket_M"][0], ma["conservative_bracket_M"][1],
+                      ma["r_Z_M_bracket_conservative_rho_ASSUMED_1"][0],
+                      ma["r_Z_M_bracket_conservative_rho_ASSUMED_1"][1]))
+        if mc and "SUPPLEMENTARY_anisotropy_NOT_FROZEN" in mc[0]:
+            an = mc[0]["SUPPLEMENTARY_anisotropy_NOT_FROZEN"]
+            print("    [SUPPL, not frozen] CUBIC: Zener A arm SUBC %.4f / KUBC %.4f ; "
+                  "C11_true [%.5f, %.5f]" % (
+                      an["zener_A_arm"]["SUBC"], an["zener_A_arm"]["KUBC"],
+                      an["absolute_bracket_C11_true"][0],
+                      an["absolute_bracket_C11_true"][1]))
+            print("    [SUPPL, not frozen] C11 r_Z PRIMARY [%.5f, %.5f]  "
+                  "CONSERVATIVE [%.5f, %.5f]" % (
+                      an["r_Z_C11_bracket_rho_ASSUMED_1"][0],
+                      an["r_Z_C11_bracket_rho_ASSUMED_1"][1],
+                      an["r_Z_C11_bracket_conservative_rho_ASSUMED_1"][0],
+                      an["r_Z_C11_bracket_conservative_rho_ASSUMED_1"][1]))
+    f5 = out["F5_782_bound_robustness_crosscheck_NOT_FROZEN"]
+    print("\n[SUPPLEMENTARY F5 — #782 bound-robustness cross-check, r_Z vs T1 = 0.5]")
+    print("  leg                    r_Z(core, NO bound)  r_Z(whole-cell KUBC = the "
+          "UPPER bound)  macro-side?")
+    for r in f5["rows"]:
+        print("  %-22s %-20.5f %-32.5f %s" % (
+            r["leg_782"], r["r_Z_here_CORE_estimator_NO_BOUND_STATUS"],
+            r["r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound"],
+            "YES" if r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] else "NO"))
+    print("  macro-side legs: %d of %d on the CORE estimator -> %d of %d on the "
+          "BOUND-CARRYING measure" % (
+              f5["n_macro_side_on_the_CORE_estimator"], f5["n_legs"],
+              f5["n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC"],
+              f5["n_legs"]))
+    print("\n[SUPPLEMENTARY anisotropy — uncaged cold reference, both BCs]")
+    for L, meta in sorted(out["uncaged_reference_by_L"].items()):
+        a = meta["SUPPLEMENTARY_anisotropy_NOT_FROZEN"]
+        print("  L=%-3s C44 %.5f/%.5f  C' %.5f/%.5f  Zener A %.4f/%.4f  "
+              "M[111] %.5f/%.5f  C11 %.5f/%.5f  (SUBC/KUBC)" % (
+                  L, a["C44_SUBC"], a["C44_KUBC"], a["Cprime_SUBC"], a["Cprime_KUBC"],
+                  a["zener_A_SUBC"], a["zener_A_KUBC"], a["M_111_SUBC"], a["M_111_KUBC"],
+                  a["C11_true_SUBC"], a["C11_true_KUBC"]))
     print("\n[pinned-shell confound, KUBC side only]")
     for c in out["configurations"]:
         f = c.get("fractions")
