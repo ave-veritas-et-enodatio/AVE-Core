@@ -418,8 +418,10 @@ bullet on the motion-stability section.
 
 **★ 2026-07-28 REPAIR NOTE — the over-carve corrected (adversarial review of this
 carve).** Two defects in the 2026-07-26 draft of *this block* are corrected above.
-Nothing banked was touched (the doc body `:1-315` remains byte-untouched); the repair
-edits this branch's own unmerged carve prose.
+Nothing banked was touched: the banked body is `:1-313` (byte-identical to
+`origin/main`'s copy of this file in full, sha `a4fc5b9a…`, re-verified this session),
+`:314-316` are the 2026-07-26 carve's own separator, and this repair's first changed
+line is `:343`. The repair edits only this branch's own unmerged carve prose.
 
 1. **Half-cited control (the walk-back-shaped defect).** The draft cited only the
    *screened* half of this doc's coupling control (`:210`) and omitted the **live**
