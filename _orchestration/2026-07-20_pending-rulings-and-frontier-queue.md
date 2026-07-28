@@ -80,6 +80,13 @@
     - **What rides on it.** `clm-hu1jjw`'s strengthen-by leg 1 (the owed adversarial reconciliation of the corollary set against those sites) and the grade currently HELD at 0.50 pending a formal re-grade.
     - **Status:** propagation lane **running** in a **separate PR** (not this one).
 
+### 21. The anisotropy observable — direction-dependent long-wave P-speed of a single-crystal vacuum (⚑ OPEN frontier candidate, 2026-07-28; NOT fired)
+
+- **What it is.** The #802 SUBC/KUBC lane MEASURED the vacuum lattice as cubic-anisotropic at lattice scale: Zener `A = C44/C′ = 1.605` (KUBC) / `1.330` (SUBC) at `L=16`, cubic axes = lattice axes (verified by direct uniaxial probe, `C11 = K + 4C′/3` to `1e-10`). A cubic **single crystal** has a **direction-dependent longitudinal wave speed** — and the vacuum's lattice axes are cosmically fixed, while physical compression-wave directions are source-set. Surfaced by the 2026-07-28 orchestrator leak-audit (the same check that caught the VRH/polycrystal import: there are no grains, so "grain average" and "propagation-direction average" are different objects).
+- **The question.** Does the direction dependence survive to the long-wavelength limit of the P-branch (the mechanical/gravitational band), at what magnitude, and is it already constrained observationally (gravitational-band propagation anisotropy relative to fixed axes)? Note the known corpus constraint class: emergent isotropy/Lorentz statements exist for the EM sector; whether the P-branch carries an analogous isotropization mechanism or genuinely inherits the lattice anisotropy is the open physics.
+- **What rides on it.** Potentially a falsifiable prediction class (anisotropy in GW propagation vs a fixed cosmic frame) OR a consistency requirement (a mechanism that isotropizes the long-wave P-branch). Also bears on the item-13-adjacent modulus question: the physical discriminator's comparator is direction-resolved `C(q̂)`, not any polycrystal average.
+- **Status:** OPEN, candidate for a scoping lane (feasibility-first per the standing pattern); NOT fired; no claim minted. Provenance: #802 §6.5 measurement + the 2026-07-28 leak-audit fold (docket ENTRY 2026-07-28-leak-audit-carves).
+
 #### ★ STANDING DESIGN LESSONS — now binding on every future prereg (from the #791/#796 arc)
 
 Recorded here because they are **cross-lane and permanent**, not #796 bookkeeping. All three are freeze-time obligations: they are cheap before a freeze and unrecoverable after one (the #796 verdict could not be re-banded post-hoc, and correctly was not).
