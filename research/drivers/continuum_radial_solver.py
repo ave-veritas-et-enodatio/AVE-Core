@@ -75,7 +75,7 @@ FROZEN_STRINGS = {
     "no_verdict": (
         "stage 1 banks NO physics verdict; every physics-shaped number in these "
         "outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled "
-        "DEMONSTRATION - no verdict banked"
+        "DEMONSTRATION — no verdict banked"
     ),
     "n1_absent": (
         "n=0 monopole channel only; the n=1 dipole channel (F2 displaced-source "
@@ -93,7 +93,7 @@ FROZEN_STRINGS = {
     ),
     "d5_shape": (
         "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE "
-        "between them is an ENGINEERING CHOICE - #796 shipped no resolved "
+        "between them is an ENGINEERING CHOICE — #796 shipped no resolved "
         "radial profile, and its C-V shell reconstruction is corroborative-only "
         "by its own grading"
     ),
@@ -103,7 +103,7 @@ FROZEN_STRINGS = {
         "#796 rho half is UNRESOLVED and stage 1 does not repair it"
     ),
     "beta_symbolic": (
-        "beta = (u_trapped * P) / (rho_0 * c_x^2) - c_x SYMBOLIC, D1 HELD; "
+        "beta = (u_trapped · P) / (rho_0 · c_x^2) — c_x SYMBOLIC, D1 HELD; "
         "no c^2 evaluated"
     ),
     "structural_not_built": (
@@ -696,7 +696,7 @@ def two_term_rho_report(cold, d5):
             "r_Z_family": float(np.sqrt(k_ratio_lattice * (term_i + term_ii))),
             "K_factor_provenance": ("I1 lattice input (#796 K_tan/K_0); R4: "
                                     "r_Z must NOT recompute or perturb K_eff/K_0"),
-            "label": "DEMONSTRATION - no verdict banked",
+            "label": "DEMONSTRATION — no verdict banked",
         })
     c_p, c_s = cold["cP"], cold["cS"]
     return {
@@ -725,7 +725,7 @@ def two_term_rho_report(cold, d5):
 
 def liveness_demonstration(cold, d5):
     """Instrument liveness ONLY.  Explicitly NOT a physics verdict (prereg X4)."""
-    out = {"label": "DEMONSTRATION - no verdict banked",
+    out = {"label": "DEMONSTRATION — no verdict banked",
            "n1_fence": FROZEN_STRINGS["n1_absent"],
            "quasistatic_read_fence": ("no exponent or quasistatic quantity is read "
                                       "above k·r_core = 1e-3; the resonant band is "

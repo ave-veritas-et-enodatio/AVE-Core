@@ -14,13 +14,13 @@
   "disclosures": {
    "grade_frame": "grade-frame: Eulerian, imposed (not self-bound); the instrument hosts no field-generated co-moving grade",
    "source_fitting": "source fitting reported on BOTH axes (prescribed displacement / prescribed traction); the physical fitting is Grant-routed and not picked here",
-   "no_verdict": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION - no verdict banked",
+   "no_verdict": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked",
    "n1_absent": "n=0 monopole channel only; the n=1 dipole channel (F2 displaced-source p, and the structural added-mass term of rho_eff) is NOT built in stage 1",
    "op14": "Op14 saturation enters as a static constitutive grade S(A); the kernel-knee marginality is NOT hosted",
    "continuum_scope": "the continuum radial channel is a CONTINUUM representation whose constitutive inputs are lattice-measured; it is not a discretization of the srs stencil and carries no K4 connectivity claim",
-   "d5_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE - #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
+   "d5_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE \u2014 #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
    "mixed_provenance": "any stage-1 output that carries the #796 r_Z cites it as MIXED-provenance (K derived, rho assumed at rho_eff/rho_0 = 1); the #796 rho half is UNRESOLVED and stage 1 does not repair it",
-   "beta_symbolic": "beta = (u_trapped * P) / (rho_0 * c_x^2) - c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+   "beta_symbolic": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
    "structural_not_built": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
    "tag_class": "stage-1 outputs are CONSISTENCY-class (analytic-limit reproduction) or ENGINEERING-class (numerics); no manifestation- or emergence-class claim is made"
   },
@@ -73,7 +73,7 @@
   "r_Z_796_mixed_provenance": 0.5435769701120864,
   "K_tan_over_K0_796": 0.2954759224362361,
   "read_from": "research/drivers/vessel_state_rve_results.json",
-  "disclosure_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE - #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
+  "disclosure_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE \u2014 #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
   "disclosure_mixed_provenance": "any stage-1 output that carries the #796 r_Z cites it as MIXED-provenance (K derived, rho assumed at rho_eff/rho_0 = 1); the #796 rho half is UNRESOLVED and stage 1 does not repair it"
  },
  "gates": {
@@ -465,11 +465,11 @@
     "term_i_structural_rho_over_rho0": 1.0,
     "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
     "term_ii_trapped_energy_rho_over_rho0": 0.0,
-    "term_ii_symbolic_c2_label": "beta = (u_trapped * P) / (rho_0 * c_x^2) - c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
     "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 1.0,
     "r_Z_family": 0.5435769701120864,
     "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
-    "label": "DEMONSTRATION - no verdict banked"
+    "label": "DEMONSTRATION \u2014 no verdict banked"
    },
    {
     "beta_D2_disclosed_scan": 1,
@@ -477,11 +477,11 @@
     "term_i_structural_rho_over_rho0": 1.0,
     "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
     "term_ii_trapped_energy_rho_over_rho0": 0.48946214650826336,
-    "term_ii_symbolic_c2_label": "beta = (u_trapped * P) / (rho_0 * c_x^2) - c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
     "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 1.4894621465082634,
     "r_Z_family": 0.6634004836246242,
     "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
-    "label": "DEMONSTRATION - no verdict banked"
+    "label": "DEMONSTRATION \u2014 no verdict banked"
    },
    {
     "beta_D2_disclosed_scan": 3,
@@ -489,11 +489,11 @@
     "term_i_structural_rho_over_rho0": 1.0,
     "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
     "term_ii_trapped_energy_rho_over_rho0": 1.46838643952479,
-    "term_ii_symbolic_c2_label": "beta = (u_trapped * P) / (rho_0 * c_x^2) - c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
     "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 2.46838643952479,
     "r_Z_family": 0.8540191801989484,
     "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
-    "label": "DEMONSTRATION - no verdict banked"
+    "label": "DEMONSTRATION \u2014 no verdict banked"
    }
   ],
   "c2_lever": {
@@ -509,7 +509,7 @@
   "r_Z_796_cited": 0.5435769701120864
  },
  "liveness_demonstration": {
-  "label": "DEMONSTRATION - no verdict banked",
+  "label": "DEMONSTRATION \u2014 no verdict banked",
   "n1_fence": "n=0 monopole channel only; the n=1 dipole channel (F2 displaced-source p, and the structural added-mass term of rho_eff) is NOT built in stage 1",
   "quasistatic_read_fence": "no exponent or quasistatic quantity is read above k\u00b7r_core = 1e-3; the resonant band is reported as characterization only",
   "isotropic_baseline": {
@@ -614,11 +614,11 @@
    "B_CERTIFIED_SCOPED": "all of G1..G9 PASS and gate_fireability_selftest_pass = True, but at least one gate passes only over a REDUCED band or a REDUCED profile class",
    "C_NOT_CERTIFIED_VOID": "any of G1..G9 FAILS, OR any of FT-1..FT-4 fails to fire"
   },
-  "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION - no verdict banked"
+  "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked"
  },
  "_runtime_sec": 1.15,
  "runtime_budget_frozen": "total certification-battery runtime <= 600 s on the reference machine; a longer run is disclosed, not silently accepted",
  "runtime_within_budget": true,
- "determinism_digest": "2f96d169788ff72fef8e7e433c1903ef1619d28c8d0005ab72234fbe85d2e8da",
+ "determinism_digest": "1012a94da9cfc98cb6578c713bf8641c61fb02c4d4d79d8371a0d022f4ad9d9b",
  "determinism_frozen": "two independent full driver runs produce an identical results digest (SHA-256 over the results object minus timing fields)"
 }
