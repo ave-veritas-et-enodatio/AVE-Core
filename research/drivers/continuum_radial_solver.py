@@ -186,13 +186,22 @@ def iso_layer(k_mod: float, g_mod: float, rho: float = 1.0):
 
 
 def ortho_layer(k_mod: float, g_mod: float, hoop_gain: float = 1.0,
-                radial_gain: float = 1.0, rho: float = 1.0):
-    """R1: two radial stiffness functions -> radially varying orthotropic moduli."""
+                radial_gain: float = 1.0, rho: float = 1.0,
+                misnorm: float = 0.0):
+    """R1: two radial stiffness functions -> radially varying orthotropic moduli.
+
+    `misnorm` is the FT-5 mis-specification hook (#801 review F1): a nonzero
+    value breaks the unit-gain reduction `ortho_layer(k,g,1,1) == iso_layer(k,g)`
+    that G3 certifies.  It is 0.0 everywhere except inside FT-5, and at 0.0 the
+    factor is exactly 1.0, so the default path is BIT-IDENTICAL to the
+    pre-repair one (verified: the shipped G1/G4/G5/G6/G7/G8/G9 numbers are
+    unchanged by the repair).
+    """
     a = k_mod + 4.0 * g_mod / 3.0
     b = k_mod - 2.0 * g_mod / 3.0
     return (a * radial_gain,
             b * np.sqrt(hoop_gain * radial_gain),
-            (a + b) * hoop_gain,
+            (a + b) * hoop_gain * (1.0 + misnorm),
             rho)
 
 
@@ -255,8 +264,9 @@ def stack_transfer(edges, layers, omega: float):
 # ----------------------------------------------------------------------------
 
 
-def _shell_edges(s_rail: float, n_shell: int, uniform: bool):
-    if uniform or s_rail >= 1.0:
+def _shell_edges(s_rail: float, n_shell: int, uniform: bool,
+                 r_uniform_alloc: bool = False):
+    if uniform or s_rail >= 1.0 or r_uniform_alloc:
         t = np.linspace(0.0, 1.0, n_shell + 1)
     else:
         s_j = np.exp(np.linspace(0.0, np.log(s_rail), n_shell + 1))
@@ -267,17 +277,36 @@ def _shell_edges(s_rail: float, n_shell: int, uniform: bool):
 def build_profile(cold, s_rail: float = S_RAIL, shell_ortho=(1.0, 1.0),
                   n_shell: int = N_SHELL, uniform: bool = False,
                   r_match: float = R_MATCH, absorb: float = 0.0,
-                  ext_grade: float = 0.0, ext_ortho=None):
-    """Returns (edges, layers).  `uniform=True` is the no-cage NULL arm."""
+                  ext_grade: float = 0.0, ext_ortho=None,
+                  iso_shell: bool = False, ortho_misnorm: float = 0.0,
+                  r_uniform_alloc: bool = False, grade_power: float = 2.0):
+    """Returns (edges, layers).  `uniform=True` is the no-cage NULL arm.
+
+    ★`iso_shell=True` builds the graded shell from `iso_layer` — a genuinely
+    INDEPENDENT isotropic construction that never touches `ortho_layer`.
+    Added by the #801 review repair (F1): before it there was NO code path
+    that built the graded shell isotropically, so G3's "orthotropic vs
+    isotropic" comparison had no isotropic arm to compare against and was
+    a self-comparison.  `iso_shell` is incompatible with non-unit gains by
+    construction and refuses them rather than silently ignoring them.
+    """
+    if iso_shell and tuple(float(g) for g in shell_ortho) != (1.0, 1.0):
+        raise ValueError("iso_shell=True hosts no orthotropy; got "
+                         f"shell_ortho={shell_ortho}")
     k0, g0 = cold["K_0"], cold["G_0"]
     edges = [R_S, R_CORE - W_SHELL]
     layers = [iso_layer(k0, g0)]
-    rr = _shell_edges(s_rail, n_shell, uniform)
+    rr = _shell_edges(s_rail, n_shell, uniform, r_uniform_alloc)
     for i in range(n_shell):
         r_mid = 0.5 * (rr[i] + rr[i + 1])
         t = (r_mid - (R_CORE - W_SHELL)) / W_SHELL
-        s_val = 1.0 if uniform else 1.0 + (s_rail - 1.0) * t ** 2
-        layer = ortho_layer(k0 * s_val, g0 * s_val, *shell_ortho)
+        # `t ** 2` is kept literal on the frozen path so the repair is
+        # bit-identical there; grade_power != 2.0 is the F6 shape-scope probe.
+        t_g = t ** 2 if grade_power == 2.0 else t ** grade_power
+        s_val = 1.0 if uniform else 1.0 + (s_rail - 1.0) * t_g
+        layer = (iso_layer(k0 * s_val, g0 * s_val) if iso_shell else
+                 ortho_layer(k0 * s_val, g0 * s_val, *shell_ortho,
+                             misnorm=ortho_misnorm))
         if absorb:
             f = 1.0 + 1j * absorb
             layer = (layer[0] * f, layer[1] * f, layer[2] * f, layer[3])
@@ -291,6 +320,28 @@ def build_profile(cold, s_rail: float = S_RAIL, shell_ortho=(1.0, 1.0),
                       else iso_layer(k0 * fac, g0 * fac))
         edges.append(re[i + 1])
     return edges, layers
+
+
+def uniform_reference_profile(cold, r_match: float = R_MATCH):
+    """★The INDEPENDENT uniform-medium reference (#801 review repair, F3).
+
+    A homogeneous isotropic medium built FROM FIRST PRINCIPLES: one region,
+    `r in [r_s, R_match]`, one `iso_layer` at the cold moduli.  No cage, no
+    grade band, no shell stack, no exterior annulus, and — the point — no call
+    to `build_profile`.  A uniform medium has no layers, so the single region
+    is the construction the physics actually specifies; any subdivision would
+    be an artefact of the caged code path.
+
+    Before this repair the G2 null arm was `build_profile(..., uniform=True)`,
+    which at zero contrast produces a layer stack BIT-IDENTICAL to the
+    scatterer arm's `build_profile(..., s_rail=1.0)`.  The gate therefore
+    divided a number by itself and returned exactly 0.0 with the transfer
+    kernel corrupted.  Dividing by THIS arm instead makes the null a real
+    measurement: the 265-layer graded assembly at zero contrast must reproduce
+    the exact one-region analytic homogeneous solution.
+    """
+    k0, g0 = cold["K_0"], cold["G_0"]
+    return [R_S, r_match], [iso_layer(k0, g0)]
 
 
 def _source_states(src: str):
@@ -372,6 +423,20 @@ def rho_N_transfer_matrix(cold, kr: float, src="displacement", **kw):
     return abs(c1 / c0) ** 2, max(cond1, cond0)
 
 
+def rho_N_vs_independent_null(cold, kr: float, src="displacement", **kw):
+    """rho_N with the null arm taken from `uniform_reference_profile` (#801 F3).
+
+    Used by G2 and by its self-test FT-2, so the gate and the test that must
+    break it are pointed at the SAME comparison.
+    """
+    omega = kr * cold["cP"] / R_CORE
+    c1, _, cond1 = outgoing_amplitude(*build_profile(cold, **kw), omega=omega, src=src)
+    c0, _, cond0 = outgoing_amplitude(
+        *uniform_reference_profile(cold, r_match=kw.get("r_match", R_MATCH)),
+        omega=omega, src=src)
+    return abs(c1 / c0) ** 2, max(cond1, cond0)
+
+
 def power_balance(cold, kr: float, src="displacement", **kw):
     """Ax3: work done by the source == power radiated to infinity."""
     omega = kr * cold["cP"] / R_CORE
@@ -397,8 +462,12 @@ def gate_G1_lame(cold):
     """Lame exterior div u -> 0 static limit for a graded shell in an infinite
     medium (charter R5(a); the #782-confirmed gate)."""
     d5 = load_d5_profile_gains()
+    # #801 review F1 (arm labelling): the "isotropic_baseline" label used to
+    # name the ORTHO path at unit gains.  It now names the genuinely isotropic
+    # construction (iso_shell=True).  The numbers are unchanged — which is the
+    # substance repaired-G3 certifies, not an assumption made here.
     arms = {
-        "isotropic_baseline": {},
+        "isotropic_baseline": {"iso_shell": True},
         "D5_orthotropic": {"shell_ortho": (d5["hoop_gain"], d5["radial_gain"])},
     }
     out, worst_ratio, worst_agree = {}, 0.0, 0.0
@@ -439,11 +508,14 @@ def _K_compliance_ratio(cold, **kw):
     """Instrument-internal static-compliance ratio (traction drive).
 
     NOT the R4 K_eff/K_0 — that stays the lattice input I1 and is never
-    recomputed here.  Used only by the G2 null check.
+    recomputed here.  Used only by the G2 null check, and — since the #801 F3
+    repair — against the INDEPENDENT uniform reference, not against the caged
+    path at zero contrast.
     """
     b1, _, _ = static_solve(*build_profile(cold, **kw), src="traction")
-    kw0 = {k: v for k, v in kw.items() if k in ("n_shell", "r_match")}
-    b0, _, _ = static_solve(*build_profile(cold, uniform=True, **kw0), src="traction")
+    b0, _, _ = static_solve(
+        *uniform_reference_profile(cold, r_match=kw.get("r_match", R_MATCH)),
+        src="traction")
     return abs(b0 / b1)
 
 
@@ -451,11 +523,19 @@ def gate_G2_uniform_null(cold):
     """Cage moduli = matrix  =>  rho_N -> 1, rho_S -> 0, r_Z -> 1 (charter R5(b)).
 
     KEEP-BOTH: the #775 ratio convention AND the charter's residual convention.
+
+    ★REPAIRED (#801 review F3).  The null arm is now
+    `uniform_reference_profile` — a homogeneous medium constructed from first
+    principles, independent of the scatterer arm's code path.  As shipped, both
+    arms were `build_profile` and at zero contrast they were bit-identical, so
+    the gate had zero degrees of freedom and passed with the transfer kernel
+    corrupted.  It now measures whether the 265-layer graded assembly at zero
+    contrast reproduces the exact one-region analytic homogeneous solution.
     """
     rows, worst = {}, 0.0
     for src in SOURCES:
         for kr in (1e-3, 0.3):
-            rho_n, _ = rho_N_transfer_matrix(cold, kr, src=src, s_rail=1.0)
+            rho_n, _ = rho_N_vs_independent_null(cold, kr, src=src, s_rail=1.0)
             rho_s = abs(rho_n - 1.0)
             k_ratio = _K_compliance_ratio(cold, s_rail=1.0)
             r_z = float(np.sqrt(k_ratio * 1.0))
@@ -470,20 +550,60 @@ def gate_G2_uniform_null(cold):
         "keep_both": ("the uniform-medium NULL is read on BOTH conventions: "
                       "rho_N -> 1 and rho_S -> 0; neither convention is "
                       "redefined in place (KEEP-BOTH)"),
+        "null_arm": ("INDEPENDENT: uniform_reference_profile (one homogeneous "
+                     "region r in [r_s, R_match], built without build_profile). "
+                     "#801 F3 repair — the pre-repair null arm was the scatterer "
+                     "arm's own code path at zero contrast, hence bit-identical."),
+        "selftest": "FT-2 (rho_S >= 1e-5 at a S_rail = 0.99 contrast)",
         "pass": bool(worst <= 1e-12),
     }
 
 
 def gate_G3_ortho_reduction(cold):
-    b_o, _, _ = static_solve(*build_profile(cold, shell_ortho=(1.0, 1.0)))
-    b_i, _, _ = static_solve(*build_profile(cold))
-    rel = abs(b_o - b_i) / abs(b_i)
+    """The orthotropic layer at unit gains must reproduce the isotropic layer.
+
+    ★REPAIRED (#801 review F1).  As shipped this called
+    `build_profile(cold, shell_ortho=(1.0, 1.0))` against `build_profile(cold)`
+    — and `(1.0, 1.0)` IS the default, so both calls were the same call and
+    `rel = 0.0` held by construction.  There was NO code path that built the
+    graded shell from `iso_layer`, so the gate had no isotropic arm at all.
+    The isotropic arm is now `iso_shell=True`, which assembles the shell from
+    `iso_layer` and never touches `ortho_layer`; and the gate is evaluated on
+    BOTH source fittings, per the frozen source-fitting axis it previously
+    skipped.  Its self-test is FT-5.
+    """
+    rows, worst, worst_dyn = {}, 0.0, 0.0
+    for src in SOURCES:
+        b_o, _, _ = static_solve(*build_profile(cold, shell_ortho=(1.0, 1.0)),
+                                 src=src)
+        b_i, _, _ = static_solve(*build_profile(cold, iso_shell=True), src=src)
+        rel = abs(b_o - b_i) / abs(b_i)
+        rn_o, _ = rho_N_transfer_matrix(cold, 1e-3, src=src,
+                                        shell_ortho=(1.0, 1.0))
+        rn_i, _ = rho_N_transfer_matrix(cold, 1e-3, src=src, iso_shell=True)
+        rel_dyn = abs(rn_o - rn_i) / abs(rn_i)
+        worst = max(worst, rel)
+        worst_dyn = max(worst_dyn, rel_dyn)
+        rows[src] = {
+            "B_ortho_unit_gains": complex(b_o).real,
+            "B_isotropic_independent_construction": complex(b_i).real,
+            "rel": float(rel),
+            "rho_N_ortho_unit_gains_kr1e-3": rn_o,
+            "rho_N_isotropic_construction_kr1e-3": rn_i,
+            "rel_dynamic_diagnostic": float(rel_dyn),
+        }
     return {
-        "B_ortho_unit_gains": complex(b_o).real,
-        "B_isotropic": complex(b_i).real,
-        "rel": float(rel),
+        "rows": rows,
+        "rel_worst": float(worst),
+        "rel_dynamic_diagnostic_worst": float(worst_dyn),
+        "isotropic_arm": ("INDEPENDENT: build_profile(iso_shell=True) assembles "
+                          "the graded shell from iso_layer and never calls "
+                          "ortho_layer. #801 F1 repair — the pre-repair "
+                          "'isotropic' arm was the default ortho path, i.e. the "
+                          "same call."),
+        "selftest": "FT-5 (a mis-normalized ortho_layer, misnorm = 1e-3)",
         "frozen": ("|B_ortho(hoop=1,radial=1) - B_iso| / |B_iso| <= 1e-12"),
-        "pass": bool(rel <= 1e-12),
+        "pass": bool(worst <= 1e-12),
     }
 
 
@@ -526,7 +646,7 @@ def gate_G5_ax3(cold):
 
 def gate_G6_refinement(cold):
     d5 = load_d5_profile_gains()
-    arms = {"isotropic_baseline": {},
+    arms = {"isotropic_baseline": {"iso_shell": True},      # #801 F1 arm labelling
             "D5_orthotropic": {"shell_ortho": (d5["hoop_gain"], d5["radial_gain"])}}
     rows, worst = {}, 0.0
     for name, kw in arms.items():
@@ -634,13 +754,19 @@ def selftest_FT1(cold):
 
 
 def selftest_FT2(cold):
-    """G2 fireability — the structural-null lens: rho_S must be a LIVE observable."""
-    rho_n, _ = rho_N_transfer_matrix(cold, 1e-3, s_rail=0.99)
+    """G2 fireability — the structural-null lens: rho_S must be a LIVE observable.
+
+    Re-pointed at the REPAIRED G2 comparison (#801 F3): the null arm is the
+    independent uniform reference, so FT-2 breaks the gate that is actually
+    shipped rather than a different one.
+    """
+    rho_n, _ = rho_N_vs_independent_null(cold, 1e-3, s_rail=0.99)
     rho_s = abs(rho_n - 1.0)
     return {
         "s_rail_contrast": 0.99, "rho_N": rho_n, "rho_S": rho_s,
         "frozen": "the contrast case MUST return rho_S >= 1e-5 at k·r_core = 1e-3",
         "targets": "G2",
+        "null_arm": "INDEPENDENT (uniform_reference_profile) — same as repaired G2",
         "FIRES": bool(rho_s >= 1e-5),
     }
 
@@ -669,6 +795,159 @@ def selftest_FT4(cold):
         "targets": "G4",
         "FIRES": bool(rel >= 1e-1),
     }
+
+
+# ----------------------------------------------------------------------------
+# REPAIR-ADDED SELF-TESTS FT-5..FT-8 (#801 adversarial review)
+#
+# These are ADDITIONS BEYOND the frozen FT-1..FT-4 set.  The frozen prereg is
+# BYTE-UNTOUCHED and `gate_fireability_selftest_pass` keeps its frozen
+# definition (FT-1 AND FT-2 AND FT-3 AND FT-4) exactly.  FT-5..FT-8 are an
+# additional NECESSARY condition on the class: they can only turn a PASS into a
+# FAIL, never the reverse, so they STRENGTHEN the frozen criterion and never
+# relax it (Rule 11).  Each threshold is set at >= 10x its gate's frozen pass
+# tolerance and is declared here BEFORE the run; the run's outcome is reported
+# whatever it is.
+#
+# Requirement being discharged: every gate ends with either a self-test that
+# can break it, or a disclosed caveat naming why it cannot.  Post-repair
+# mapping: G1<-FT-1, G2<-FT-2, G3<-FT-5, G4<-FT-4, G5<-FT-3, G6<-FT-6,
+# G7<-CAVEAT (frozen: structurally exact in a linear frequency-domain solver),
+# G8<-FT-7, G9<-FT-8.
+# ----------------------------------------------------------------------------
+
+
+def selftest_FT5(cold):
+    """★G3 fireability (#801 F1) — a MIS-NORMALIZED orthotropic layer.
+
+    The defect G3 exists to catch: `ortho_layer(k, g, 1, 1)` no longer reduces
+    to `iso_layer(k, g)`.  This is the reviewer's mutation, run as a shipped
+    self-test.  Threshold 1e-6 = 1e6 x the G3 pass tolerance; a 1e-3 hoop
+    mis-normalization enters beta^2 linearly, so B shifts at O(1e-3).
+    """
+    worst = 0.0
+    rows = {}
+    for src in SOURCES:
+        b_o, _, _ = static_solve(
+            *build_profile(cold, shell_ortho=(1.0, 1.0), ortho_misnorm=1e-3),
+            src=src)
+        b_i, _, _ = static_solve(*build_profile(cold, iso_shell=True), src=src)
+        rel = abs(b_o - b_i) / abs(b_i)
+        worst = max(worst, float(rel))
+        rows[src] = {"B_ortho_misnormalized": complex(b_o).real,
+                     "B_isotropic_independent_construction": complex(b_i).real,
+                     "rel": float(rel)}
+    return {
+        "ortho_misnorm": 1e-3, "rows": rows, "rel_worst": worst,
+        "frozen_at_repair": ("the mis-normalized orthotropic layer MUST return "
+                             "G3 rel >= 1e-6 (1e6 x the G3 pass tolerance)"),
+        "targets": "G3",
+        "FIRES": bool(worst >= 1e-6),
+    }
+
+
+def selftest_FT6(cold):
+    """★G6 fireability — the layer-allocation rule the frozen one replaced.
+
+    An r-uniform allocation converges only first-order on this grade (the
+    disclosed pre-freeze scouting: ~7 % per doubling at n = 192), so it must
+    blow the frozen 1e-3 refinement tolerance.  Threshold 1e-2 = 10 x it.
+    """
+    v1, _ = rho_N_transfer_matrix(cold, 1e-2, n_shell=192, r_uniform_alloc=True)
+    v2, _ = rho_N_transfer_matrix(cold, 1e-2, n_shell=384, r_uniform_alloc=True)
+    rel = float(abs(v2 - v1) / v1)
+    return {
+        "allocation": "r-uniform (the rejected rule)", "n_shell": [192, 384],
+        "rho_N_n": v1, "rho_N_2n": v2, "rel": rel,
+        "frozen_at_repair": ("the r-uniform allocation MUST return G6 rel >= 1e-2 "
+                             "(10 x the G6 pass tolerance)"),
+        "targets": "G6",
+        "FIRES": bool(rel >= 1e-2),
+    }
+
+
+def selftest_FT7(cold):
+    """★G8 fireability — an exterior that is NOT homogeneous beyond the contour.
+
+    G8 asserts that the answer does not depend on where the analytic exterior
+    is matched on.  That is true only because the exterior is homogeneous; with
+    a residual power-law grade past the cage contour the matching radius must
+    matter.  Threshold 1e-8 = 10 x the G8 pass tolerance.
+    """
+    vals = []
+    for r_m in (2.0, 4.0, 8.0, 16.0):
+        v, _ = rho_N_transfer_matrix(cold, 1e-2, r_match=r_m, ext_grade=0.10)
+        vals.append(v)
+    rel = float((max(vals) - min(vals)) / np.mean(vals))
+    return {
+        "ext_grade_q": 0.10, "rho_N_by_R_match": vals, "rel_spread": rel,
+        "frozen_at_repair": ("the graded-exterior case MUST return a G8 spread "
+                             ">= 1e-8 (10 x the G8 pass tolerance)"),
+        "targets": "G8",
+        "FIRES": bool(rel >= 1e-8),
+    }
+
+
+def selftest_FT8(cold):
+    """★G9 fireability — the certified band floor is a real floor.
+
+    G9 declares `k*r_core in [1e-8, 4]` at `cond <= 1e12`.  Below the floor the
+    conditioning must actually break: the shipped band shows `cond ~ x^-1.5`
+    (5.02e10 at 1e-8, 5.02e7 at 1e-6, 5.02e4 at 1e-4), so `k*r_core = 1e-11`
+    should land ~1.6e15.  Threshold 1e13 = 10 x the G9 tolerance.  A
+    non-finite conditioning number is a fortiori a breach.
+    """
+    rows, worst = {}, 0.0
+    for src in SOURCES:
+        _, cond = rho_N_transfer_matrix(cold, 1e-11, src=src)
+        rows[src] = cond
+        worst = max(worst, cond) if np.isfinite(cond) else float("inf")
+    fires = bool((not np.isfinite(worst)) or worst >= 1e13)
+    return {
+        "k_r_core_below_floor": 1e-11, "cond_by_source": rows,
+        "cond_worst": worst if np.isfinite(worst) else "non-finite",
+        "frozen_at_repair": ("below the certified band floor (k·r_core = 1e-11) "
+                             "the conditioning MUST breach 1e13 (10 x the G9 "
+                             "pass tolerance), or be non-finite"),
+        "targets": "G9",
+        "FIRES": fires,
+    }
+
+
+def grade_shape_scope(cold):
+    """★F6 scope disclosure — the frozen grade SHAPE, not the rail depth, sets
+    the headline liveness observable.
+
+    `S(t) = 1 + (S_rail - 1) t^p` with the frozen `p = 2` puts the soft region
+    in only the outermost sliver of the grade band (`S <= 0.1` for `t >= 0.95`).
+    This block measures how far the liveness `rho_N` moves at FIXED nominal rail
+    depth when only the shape exponent changes.  CHARACTERIZATION ONLY — no gate
+    consumes it, no verdict is banked on it; it exists so the liveness number in
+    §6 of the result doc is read with its shape dependence visible.
+    """
+    out = {"frozen_shape": "S(t) = 1 + (S_rail - 1)·t², S_rail = 1e-3 (prereg §5)",
+           "label": "DEMONSTRATION — no verdict banked; characterization only",
+           "rows": {}}
+    for p in (0.1, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0):
+        v = rho_N_matched_asymptotics(cold, grade_power=p)
+        # S(t) = 1 + (S_rail - 1)·t^p  =>  S <= 0.1  <=>  t >= ((1-0.1)/(1-S_rail))^(1/p)
+        frac_soft = float(1.0 - ((1.0 - 0.1) / (1.0 - S_RAIL)) ** (1.0 / p))
+        out["rows"][f"grade_power={p}"] = {
+            "rho_N_matched_asymptotics_k_to_0": v,
+            "band_fraction_with_S_le_0p1": frac_soft,
+        }
+    vals = [r["rho_N_matched_asymptotics_k_to_0"] for r in out["rows"].values()]
+    out["rho_N_span_over_shape_family"] = [min(vals), max(vals)]
+    out["rho_N_orders_of_magnitude_moved_by_shape_alone"] = float(
+        np.log10(max(vals) / min(vals)))
+    out["reading"] = ("at the SAME nominal rail depth S_rail = 1e-3, changing "
+                      "only the shape exponent moves the liveness rho_N across "
+                      "the span above. The frozen p = 2 shape is an "
+                      "[engineering-choice], so the liveness magnitude is a "
+                      "property of that choice and not of the rail depth; the "
+                      "baseline never realizes a full pressure-release wall "
+                      "(Gamma_bulk = -1, rho_N -> 0).")
+    return out
 
 
 # ----------------------------------------------------------------------------
@@ -730,23 +1009,28 @@ def liveness_demonstration(cold, d5):
            "quasistatic_read_fence": ("no exponent or quasistatic quantity is read "
                                       "above k·r_core = 1e-3; the resonant band is "
                                       "reported as characterization only")}
-    arms = {"isotropic_baseline": {},
+    arms = {"isotropic_baseline": {"iso_shell": True},      # #801 F1 arm labelling
             "D5_orthotropic_measured": {"shell_ortho": (d5["hoop_gain"],
                                                         d5["radial_gain"])}}
     for name, kw in arms.items():
         per_src = {}
         for src in SOURCES:
             ma = rho_N_matched_asymptotics(cold, src=src, **kw)
-            curve = {}
+            curve, curve_s = {}, {}
             for kr in BAND:
                 v, _ = rho_N_transfer_matrix(cold, kr, src=src, **kw)
                 curve[str(kr)] = v
+                # #801 review F8: the KEEP-BOTH pair is now reported HERE too,
+                # not only inside G2/FT-2.
+                curve_s[str(kr)] = abs(v - 1.0)
             sub = [k for k in BAND if k <= QUASISTATIC_TOP]
             slope = float(np.polyfit(np.log([k for k in sub]),
                                      np.log([curve[str(k)] for k in sub]), 1)[0])
             per_src[src] = {
                 "rho_N_matched_asymptotics_k_to_0": ma,
+                "rho_S_matched_asymptotics_k_to_0": abs(ma - 1.0),
                 "rho_N_by_k_r_core": curve,
+                "rho_S_by_k_r_core": curve_s,
                 "fitted_exponent_p_over_subresonant_tail": slope,
                 "p_interpretation": ("the n=0 CENTRED-source channel is analytically "
                                      "k-INDEPENDENT in the deep-quasistatic limit "
@@ -792,11 +1076,40 @@ def main():
         "FT3_ax3_fireability": selftest_FT3(cold),
         "FT4_TM_MA_nonvacuity": selftest_FT4(cold),
     }
+    # ★#801 review repair: FT-5..FT-8, kept in their OWN block so the frozen
+    # `gate_fireability_selftest_pass` keeps its frozen definition exactly.
+    selftests_repair = {
+        "FT5_G3_ortho_normalization": selftest_FT5(cold),
+        "FT6_G6_refinement_fireability": selftest_FT6(cold),
+        "FT7_G8_matching_radius_fireability": selftest_FT7(cold),
+        "FT8_G9_band_floor_fireability": selftest_FT8(cold),
+    }
     all_gates_pass = all(g["pass"] for g in gates.values())
     all_fire = all(s["FIRES"] for s in selftests.values())
+    all_fire_repair = all(s["FIRES"] for s in selftests_repair.values())
     selftests["gate_fireability_selftest_pass"] = all_fire
     selftests["frozen"] = ("gate_fireability_selftest_pass = FT-1 AND FT-2 AND "
                            "FT-3 AND FT-4 all FIRE at their frozen thresholds")
+    selftests_repair["repair_selftest_pass"] = all_fire_repair
+    selftests_repair["status"] = (
+        "REPAIR-ADDED beyond the frozen FT-1..FT-4 set (#801 adversarial "
+        "review). The frozen prereg is BYTE-UNTOUCHED and "
+        "gate_fireability_selftest_pass above keeps its frozen definition. "
+        "These are an ADDITIONAL NECESSARY condition on the class: they can "
+        "only turn a PASS into a FAIL, so they STRENGTHEN the frozen criterion "
+        "and never relax it (Rule 11). Their thresholds were declared before "
+        "the run at >= 10x each gate's frozen pass tolerance.")
+    selftests_repair["gate_selftest_map"] = {
+        "G1": "FT-1", "G2": "FT-2", "G3": "FT-5", "G4": "FT-4", "G5": "FT-3",
+        "G6": "FT-6",
+        "G7": ("CAVEAT (no self-test possible) — frozen: 'G7 is STRUCTURALLY "
+               "exact in a linear frequency-domain solver; it certifies wiring, "
+               "not physical linearity, and is reported as such'. Amplitude "
+               "enters only as a right-hand-side scale factor of a linear "
+               "solve, so no admissible INPUT can make it fail; only a wiring "
+               "error can, which is exactly what it certifies."),
+        "G8": "FT-7", "G9": "FT-8",
+    }
 
     # --- CLASS-B reachability: the certified band/profile scope is MEASURED ---
     band_ok = sorted({float(k.split("kr=")[1])
@@ -819,7 +1132,14 @@ def main():
         if len(profiles) < 2:
             scope_reductions.append(f"{name} profile class REDUCED to {profiles}")
 
-    if all_gates_pass and all_fire and not scope_reductions:
+    if not all_fire_repair:
+        # The fireability rule, applied to the repair-added tests: a gate that
+        # cannot fail voids the certification exactly as hard as one that fails.
+        cls, why = "C_NOT_CERTIFIED_VOID", (
+            "a REPAIR-ADDED self-test (FT-5..FT-8) failed to fire, so the gate "
+            "it targets cannot fail: 'A gate that cannot fail voids the "
+            "certification exactly as hard as a gate that fails' (prereg §8)")
+    elif all_gates_pass and all_fire and not scope_reductions:
         cls, why = "A_CERTIFIED", ("all of G1..G9 PASS on both source fittings AND "
                                    "gate_fireability_selftest_pass = True")
     elif all_gates_pass and all_fire:
@@ -874,11 +1194,14 @@ def main():
         "d5_profile": d5,
         "gates": gates,
         "selftests": selftests,
+        "selftests_repair_added": selftests_repair,
         "two_term_rho_report": two_term_rho_report(cold, d5),
         "liveness_demonstration": liveness_demonstration(cold, d5),
+        "grade_shape_scope": grade_shape_scope(cold),
         "certification": {
             "all_gates_pass": all_gates_pass,
             "gate_fireability_selftest_pass": all_fire,
+            "repair_selftest_pass": all_fire_repair,
             "measured_certified_band": band_ok,
             "measured_G4_overlap_subband": g4_ok,
             "scope_reductions": scope_reductions,
@@ -894,7 +1217,23 @@ def main():
                 "C_NOT_CERTIFIED_VOID": ("any of G1..G9 FAILS, OR any of "
                                          "FT-1..FT-4 fails to fire"),
             },
+            "repair_addendum": (
+                "STRENGTHENING, never a relaxation (Rule 11): on top of the "
+                "frozen class criterion, a failure of any REPAIR-ADDED "
+                "self-test FT-5..FT-8 forces C_NOT_CERTIFIED_VOID by the "
+                "prereg §8 fireability rule."),
             "no_verdict_fence": FROZEN_STRINGS["no_verdict"],
+            "review_repair_provenance": (
+                "PR #801 adversarial review, 2026-07-28. CLASS A_CERTIFIED was "
+                "WITHDRAWN on the finding BEFORE any repair (F1: G3 was a "
+                "self-comparison — build_profile(shell_ortho=(1.0,1.0)) IS "
+                "build_profile(); F3: G2's null arm was the scatterer arm's own "
+                "code path at zero contrast). Repairs: an independent "
+                "iso_shell construction for G3 + FT-5; an independent "
+                "uniform_reference_profile for G2 with FT-2 re-pointed at it; "
+                "FT-6/FT-7/FT-8 so every gate but G7 carries a breaking "
+                "self-test, G7 carrying its frozen caveat. The class in this "
+                "file is the RE-RUN outcome, not the withdrawn label."),
         },
     }
     results["_runtime_sec"] = round(time.time() - t0, 2)
