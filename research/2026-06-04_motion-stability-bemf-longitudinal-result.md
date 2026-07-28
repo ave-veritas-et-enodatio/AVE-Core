@@ -337,7 +337,17 @@ can't-track-material-displacement."*
   at `:68-71`, chosen row `:71` — *(2026-07-28 audit repair: this citation read `:72`,
   a blank line, and the JSON keys were named `drive_variant`/`drive_form`; corrected
   to the table span + the actual JSON keys. No substantive change — B/displacement is
-  what the run used.)*). The knot was asked to be *carried by* an imposed bias — it was never asked
+  what the run used.)* — ***2026-07-28 CORRECTION to that repair note (Rule 12 — the
+  note above is preserved, not deleted): only the `:72` → `:68-71` half was a real
+  defect. The JSON-key half was a FALSE POSITIVE. `drive_variant` / `drive_form` ARE
+  actual keys of `motion_stability_bemf_longitudinal_probe_results.json` — they are the
+  `config` block's keys (`config.drive_variant = "B"`, `config.drive_form =
+  "displacement"`; re-verified by re-reading the committed JSON this session), while
+  `variant` / `form` are the per-arm keys under `arms.*` and `smoke.chosen_variant` /
+  `smoke.chosen_form` are the selection keys. The original citation was CORRECT; the
+  repair note's assertion that the corpus named a key the JSON lacks is itself the
+  error, and is withdrawn here. Both key spellings resolve; the run used
+  B / displacement either way.***). The knot was asked to be *carried by* an imposed bias — it was never asked
   to *track the material displacement of its own host nodes*.
 - The **K4→Cosserat FORCE channel was DISABLED** for the whole run
   (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). This is a
@@ -366,8 +376,8 @@ can't-track-material-displacement."*
   measured at the production N=48 host, this doc `:176-178`) and drives a **live**
   kernel response (`:209`). A spatially varying strain is exactly what a uniform shift
   is not, so the analogy fails on its own terms. Provenance bars the re-class as well:
-  `#788` self-labels `research/2026-07-21_beta-tracking-feasibility_scoping.md:3`
-  *"Class: SCOPING (pre-lane) … NOT adversarially reviewed … banks no verdict"*, and
+  `#788` self-labels *"NOT adversarially reviewed … banks no verdict"* and
+  `Class: SCOPING (pre-lane)` (`research/2026-07-21_beta-tracking-feasibility_scoping.md:3`), and
   offers its June clause only as *"the candidate reconciliation … adjudication routed
   to the #787 review, not resolved here"* (`:31`) — a banks-no-verdict scoping doc's
   candidate cannot re-class a banked falsification.

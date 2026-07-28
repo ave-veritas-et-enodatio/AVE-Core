@@ -147,8 +147,9 @@ can't-track-material-displacement."*
 **Why (verified this session, two-method).**
 
 - The drive was an explicit **moving-solution rigid-translation ansatz on `V`**: the
-  §4.2 mechanism imprints `V_prev = A·env(x − v·dt)` as an initial condition
-  (`research/2026-06-11_annihilation-evaporation_prereg.md:94-98`, CP10 at `:41`).
+  §4.2 mechanism imprints the back-shifted field `A·env(x − v·dt)` into `V_prev` as an
+  initial condition (`research/2026-06-11_annihilation-evaporation_prereg.md:98`;
+  the §4.2 heading is at `:94`, CP10 at `:41`).
   That asks the blob to **transport itself**; it never displaces the blob's host
   material and then asks whether the pattern follows.
 - The **material/advective channel was decoupled by construction.** `:89` records it
