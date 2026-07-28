@@ -961,6 +961,65 @@ def bound_robustness_crosscheck_782(configs):
         })
     n_core = sum(r["macro_side_on_CORE_estimator"] for r in rows)
     n_bound = sum(r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] for r in rows)
+    n_straddle = sum(r["two_sided_class_vs_T1"] == "STRADDLES" for r in rows)
+
+    # ── ★F8 (PR #802 RE-VERIFY repair): #782:12 grounds trigger (iii) on TWO clauses,
+    #    not one. The first (the pre-stress cross-class split) is `rows` above. This is
+    #    the SECOND: `AND across the phi scan (crash-min r_Z ~ 0.40 vs phi_sf
+    #    r_Z = 0.544)`. Both are read off the CORE estimator; both are re-measured here
+    #    on the bound-carrying WHOLE-CELL modulus.
+    cold_B = scan["bulk_only_cold"]["route_B"]
+    crash = min(cold_B, key=lambda r: r["Z_eff_over_Z0_b0"])
+    hyd = [(cfg, res) for cfg, _L, mode, res in _iter_measurements(configs)
+           if mode == "hydro"]
+    wc = [(float(np.sqrt(max(res["R_KUBC"], 0.0))), cfg) for cfg, res in hyd]
+    wc_min, wc_min_cfg = min(wc)
+    matched = [c for c in configs if c["config"] == "routeB_bulk_only_cold_s4.2"]
+    m_h = matched[0]["by_mode"]["hydro"] if matched else None
+    phi_scan_leg = {
+        "clause_782": ("AND across the phi scan (crash-min r_Z ~ 0.40 vs phi_sf "
+                       "r_Z = 0.544) — research/2026-07-21_rve-aggregation-bench_"
+                       "result.md:12, trigger (iii), SECOND clause"),
+        "crash_min_782": {
+            "class": "bulk_only_cold", "route": "route_B",
+            "r_cage": float(crash["r_cage"]), "s": float(crash["s"]),
+            "r_Z_782_CORE_estimator": float(crash["Z_eff_over_Z0_b0"]),
+            "K_eff_over_K0_782_CORE": float(crash["K_eff_over_K0"]),
+            "estimator": "core-energy KUBC — the SAME non-bound-carrying measure as "
+                         "the pre-stress clause (frozen prereg sec 2.3)",
+        },
+        "matched_config_here": ("routeB_bulk_only_cold_s4.2" if matched else None),
+        "reproduces_782_crash_min_core_bitwise": bool(
+            m_h is not None
+            and float(m_h["R_KUBC_core"]) == float(crash["K_eff_over_K0"])),
+        "r_Z_here_CORE_at_matched_config": (
+            float(np.sqrt(max(m_h["R_KUBC_core"], 0.0))) if m_h else None),
+        "r_Z_here_WHOLE_CELL_KUBC_at_matched_config": (
+            float(np.sqrt(max(m_h["R_KUBC"], 0.0))) if m_h else None),
+        "n_hydro_configurations_scanned_here": len(hyd),
+        "min_r_Z_WHOLE_CELL_KUBC_over_all_hydro_configs": float(wc_min),
+        "argmin_config": wc_min_cfg,
+        "n_hydro_configs_with_whole_cell_r_Z_below_T1": int(
+            sum(1 for v, _ in wc if v < T1_RZ)),
+        "FINDING": (
+            "BOTH clauses of #782:12's trigger (iii) evaporate on the bound-carrying "
+            "measure, not one. The crash-min r_Z ~ 0.40 is the CORE estimator at "
+            "route B r_cage = 1.7, s = 4.2 — reproduced here bit-for-bit — and on the "
+            "WHOLE-CELL modulus that same configuration reads far higher. Across this "
+            "lane's ENTIRE hydrostatic configuration set the MINIMUM whole-cell KUBC "
+            "r_Z is above 0.5, and NO configuration anywhere reads below it. So the "
+            "phi-scan clause supplies no macro-side crash-min either."),
+        "WHAT_SURVIVES_AND_IN_WHAT_FORM": (
+            "the r_Z straddle SURVIVES — but as a BOUNDARY-CONDITION ARTEFACT, not as "
+            "a cross-class physical flip. It is restored at exactly the legs where "
+            "this lane's SUBC LOWER bound falls below 0.5 (see n_legs_two_sided_"
+            "STRADDLE), i.e. by the free-surface softening of the traction boundary "
+            "condition, not by any class reading macro-side. That distinction is the "
+            "substance of what BIN-4's basis becomes: 'undetermined because the two "
+            "admissible boundary conditions disagree', NOT 'undetermined because one "
+            "pre-stress class flips to the macro side'."),
+    }
+
     # ── ★F3 (PR #802 RE-VERIFY repair): the OTHER 'cross-class flip' in #782 — the one
     #    at :114 (sec 6, LEG 4/VERDICT) — is the f_incl BIN-2-vs-BIN-4 split, and it is
     #    COLLAPSE-GATE-driven, not r_Z-driven. This lane does NOT touch it. Measured
@@ -1001,6 +1060,8 @@ def bound_robustness_crosscheck_782(configs):
         "n_legs": len(rows),
         "n_macro_side_on_the_CORE_estimator": n_core,
         "n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC": n_bound,
+        "n_legs_two_sided_STRADDLE": n_straddle,
+        "phi_scan_clause_F8": phi_scan_leg,
         "f_incl_cross_class_flip_NOT_TOUCHED_F3": f_incl_not_touched,
         "FINDING": (
             "#782's macro-side legs are macro-side ONLY on the CORE estimator, which the "
@@ -1014,11 +1075,17 @@ def bound_robustness_crosscheck_782(configs):
             "manufactures a macro-side reading out of a measure that cannot support one."),
         "WHAT_THIS_DOES_NOT_DO": (
             "it does NOT re-bin #782. BIN-4 is UNDETERMINED, and removing a bound-robust "
-            "macro-side leg makes the r_Z axis MORE undetermined, not less — see the "
-            "two_sided_class_vs_T1 column, which STRADDLES at every leg on the two-sided "
-            "bracket. What changes is the BASIS #782 §7.1 states for the straddle, not the "
-            "bin. This lane edits no merged doc and mints no bin; the basis correction is "
-            "ROUTED to Grant / the auditor lane, in the same shape as the basis correction "
+            "macro-side leg makes the r_Z axis MORE undetermined, not less. ★CORRECTED "
+            "at the RE-VERIFY repair: an earlier version of this string said the "
+            "two_sided_class_vs_T1 column 'STRADDLES at every leg', which the shipped "
+            "column CONTRADICTS — it STRADDLES at n_legs_two_sided_STRADDLE of n_legs "
+            "(bulk_only_compressed, symmetric_cold) and RESOLVES-HIGH at the other two "
+            "(bulk_only_cold, bulk_only_expanded). The straddle is restored by this "
+            "lane's SUBC LOWER bound at exactly those legs — a boundary-condition "
+            "artefact — and NOT by any leg reading macro-side on an upper bound. What "
+            "changes is the BASIS #782 §7.1 states for the straddle, not the bin. This "
+            "lane edits no merged doc and mints no bin; the basis correction is ROUTED "
+            "to Grant / the auditor lane, in the same shape as the basis correction "
             "already routed from the rho-flags audit."),
     }
 
