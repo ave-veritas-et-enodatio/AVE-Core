@@ -125,3 +125,61 @@ Notes (all from JSON): MAIN per-object windowed masses exactly symmetric (12.668
 ---
 
 *Disciplines fired in the run phase, retroactive pass: ave-apparatus-floor-attribution v1.1 (ordered floors first, per-run F-BURST recalibration, every knob swept or deviation stated pre-run); ave-driver-script-honesty (this doc reads only the JSON); ave-regime-phase-state-check (never-met = wrong-regime artifact, both directions); ave-conserved-vs-pumped (energize-once verified: H excursion 0.0000); consistency-vs-emergence (ledger results tagged consistency-class); ave-evidence-framing-discipline (panel demotions 4a/4b); verify-before-cite (v6 anchors re-pulled from the v6 JSON this session); flag-don't-fix (ontology-gate collapse + analysis-layer-edit nuance + classifier cosmetic flag all surfaced).*
+
+---
+
+## ★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; no verdict overturned)
+
+**Placement disclosure:** appended at the doc **TAIL** (not adjacent) so that every
+banked line number stays valid — `:89`, `:112`, `:123` and the `#787` mini-sweep's
+citations resolve unchanged. All banked text above is **byte-untouched**; this block
+scopes how it may be READ.
+
+**What is carved.** `TRANSPORT-ABSENT` (`:89`) — *"admits no subluminal rigid
+translation of a trapped blob … the trap does not convect … A v6-class dilatation
+mass has no transport degree of freedom at this architecture"* — together with the
+panel's *"Transport structurally absent"* (`:112`) and the v7 *"transport-capable
+carrier"* item (`:123`) is a **no-SELF-transport / no-re-hosting-DOF** result at this
+architecture. It is **not** an absolute real-space station-keeping result, and **must
+not** be read as *"can't-surf-a-drive-at-phase-velocity ⇒
+can't-track-material-displacement."*
+
+**Why (verified this session, two-method).**
+
+- The drive was an explicit **moving-solution rigid-translation ansatz on `V`**: the
+  §4.2 mechanism imprints `V_prev = A·env(x − v·dt)` as an initial condition
+  (`research/2026-06-11_annihilation-evaporation_prereg.md:94-98`, CP10 at `:41`).
+  That asks the blob to **transport itself**; it never displaces the blob's host
+  material and then asks whether the pattern follows.
+- The **material/advective channel was decoupled by construction.** `:89` records it
+  verbatim: *"The v6 'motion-lock' (D-PERM) lives in the `u_adv` advective channel,
+  which is dynamically decoupled from V,"* and `:123` records the complement:
+  *"the `u_adv` advective sector hosts motion — D-PERM — but carries no V-mass."* An
+  unwired material→mass channel is a **formulation anchor**, the same family as the
+  `#788` structural absences (under a uniform material shift the small-displacement
+  bond strains are invariant, `max|Δdu| = 5.6e-17` —
+  `research/2026-07-21_beta-tracking-feasibility_scoping.md` §3 item 2), whose `:31`
+  explicitly names the June *"does not advect / TRANSPORT-ABSENT"* readings as
+  measuring *"this same formulation anchor."*
+- **The doc already carved half of this itself.** Panel demotion 4b (`:112`) scoped
+  the finding to *"the §4.2 `V_prev`-imprint mechanism at v ≤ 0.8, N ≤ 56"* and noted
+  that *"a different transport rendering … was not frozen and was not tested."* This
+  block extends that same demotion along the axis 4b did not name: **material
+  tracking** (the pattern following its host node indices) was likewise not tested.
+- A blob with **no re-hosting DOF** is the dynamical content of **index-pinning**, so
+  the finding **SUPPORTS Corollary A** of
+  `manuscript/ave-kb/common/relative-offset-principle.md` (pinning delivers material
+  TRACKING, not station-keeping) rather than contradicting it. The A44 disposition at
+  `:93` — *"an engine coupling-family limit (two missing couplings …), NOT a missing
+  axiom"* — is the same reading in the engine's own vocabulary.
+
+**What is NOT carved.** The `UNRESOLVED` verdict, the three named mechanisms, the
+`§2` ontology answer (reading B, refined), the panel demotions, and every number
+stand unchanged. Rule 11 closure holds; Rule 12 applies — this block adds scope and
+retracts nothing.
+
+**Provenance.** Grant ruling 2026-07-26 (verbatim `[sic]`: *"for the relabel, let's
+propagate/ (a)"*), discharging the adjudication routed by the `#787` adversarial
+review. Canon home of the carve:
+`manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE
+bullet on the motion-stability section.

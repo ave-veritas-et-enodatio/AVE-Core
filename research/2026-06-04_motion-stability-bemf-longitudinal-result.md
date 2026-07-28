@@ -311,3 +311,60 @@ is honestly bounded), and the result is classified per `consistency-vs-emergence
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe.py`
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe_results.json`
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe_capture.npz`
+
+---
+
+## ★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; no verdict overturned)
+
+**Placement disclosure:** appended at the doc **TAIL** (not adjacent) so that every
+banked line number stays valid — `:14`, `:18`, `:144`, `:246` and the `#787`
+mini-sweep's citations resolve unchanged. The banked verdict and every number above
+are **byte-untouched**; this block scopes how they may be READ.
+
+**What is carved.** `PIN-even-longitudinal` — *"LINEAR advects but the SELF-TRAP
+knot does NOT"* (`:14`, `:18`), *"the control advects, the knot does not"* (`:144`),
+*"SELF-TRAP (2,3) knot does NOT translate under the same drive"* (`:246`) — is a
+**no-SELF-transport / no-re-hosting-DOF** result for the saturated core **at this
+run's formulation**. It is **not** an absolute real-space station-keeping result, and
+**must not** be read as *"can't-surf-a-drive-at-phase-velocity ⇒
+can't-track-material-displacement."*
+
+**Why (verified this session, two-method).**
+
+- The drive was **external and one-shot**: a curl-free +x compression imprint
+  (Variant B, `form="displacement"` — probe `:759`, `:212-214`, `:218-221`; results
+  JSON `drive_variant="B"`, `drive_form="displacement"`; the selection table at
+  `:72`). The knot was asked to be *carried by* an imposed bias — it was never asked
+  to *track the material displacement of its own host nodes*.
+- The **K4→Cosserat FORCE channel was DISABLED** for the whole run
+  (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). The only
+  surviving path from the material channel to the knot was `z_local`, which this doc
+  itself measures as **screened at the core** (`S_ε,min` pinned at the `1e-5` floor
+  whether `v_drive` is 0 or 0.30 — `:181-182`, `:210`). That makes the null a
+  **formulation-anchor null**, of the same family as the `#788` structural absences
+  (under a uniform material shift the small-displacement bond strains are invariant,
+  `max|Δdu| = 5.6e-17` — `research/2026-07-21_beta-tracking-feasibility_scoping.md`
+  §3 item 2), whose `:31` explicitly names these June readings as measuring *"this
+  same formulation anchor."*
+- The mechanism this doc names (saturation-screening; the frozen clock `S→0 ⇒
+  c_eff→0`) is itself a **no-re-hosting** statement — the same fact as
+  index-pinning — so it **SUPPORTS Corollary A** of
+  `manuscript/ave-kb/common/relative-offset-principle.md` (pinning delivers material
+  TRACKING, not station-keeping) rather than contradicting it.
+- The doc's own **"Tension flagged for Grant"** (`:215-230`) already isolates the
+  same distinction from the other side: an **externally imposed** bulk drive versus
+  the electron's **own** kinetic-energy-sourced de-Broglie wake. That fork stays
+  **OPEN**; this carve does not close it.
+
+**What is NOT carved.** The verdict `PIN-even-longitudinal` **stands**.
+Stability-FROM-motion stays **CONTRADICTED on the longitudinal channel**. Every
+measured number, gate, control and the SM-counterfactual classification are
+unchanged. Rule 11 closure holds; Rule 12 applies — this block adds scope and
+retracts nothing.
+
+**Provenance.** Grant ruling 2026-07-26 (verbatim `[sic]`: *"for the relabel, let's
+propagate/ (a)"*), discharging the adjudication routed by the `#787` adversarial
+review (`manuscript/ave-kb/common/relative-offset-principle.md` §"Scope +
+cross-refs"). Canon home of the carve:
+`manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE
+bullet on the motion-stability section.
