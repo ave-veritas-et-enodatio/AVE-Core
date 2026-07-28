@@ -286,3 +286,37 @@ cannot; two-tone = FORK A). So the corpus consequence is a **ledger row recordin
 This is surfaced to the auditor's manuscript / COLLABORATION_NOTES queue; the manual entry is the
 auditor's to land (lane discipline). The framing note remains FRAMING; the flags in §5–§6 correct
 it and this run establishes them.
+
+---
+
+## ★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; no verdict overturned)
+
+**Sweep-missed site, disclosed.** This doc was **not** on the `#787` mini-sweep list; it
+is the same class and is carved here for consistency. Appended at the doc **TAIL**, so
+every banked line number (`:94`, `:102`, `:21-22`) resolves unchanged; banked text is
+**byte-untouched**.
+
+`:94` — *"**The core does not translate.** |v| ≤ 0.063 c (peak) / 0.040 c (COM) … the core
+stays within ±22 nodes of its origin and the kick radiates away as phonons"* — and the
+`:102` *"also pinned"* cross-check are a **no-SELF-transport / no-re-hosting-DOF** result
+for the self-localized core **under a momentum-kick drive**. The applied drive is a
+gradient/`cos`-staggered **momentum kick on the field** — a moving-solution self-transport
+ansatz. The **material displacement of the host nodes was never driven**, so this run
+carries no evidence either way about material tracking. It **must not** be read as
+*"can't-surf-a-drive-at-phase-velocity ⇒ can't-track-material-displacement."* A core with
+no re-hosting DOF is the dynamical content of index-pinning and therefore **SUPPORTS
+Corollary A** of `manuscript/ave-kb/common/relative-offset-principle.md` (discrete pinning
+delivers material TRACKING, not station-keeping).
+
+The doc's own `:21-22` verdict already carries half this scope (*"No mobile super-band
+carrier in 1D. An above-band drive is **evanescent-only in steady state**"*); this block
+makes the other half — the untested material-tracking axis — explicit.
+
+**What is NOT carved.** `NULL-mobility-banked` **stands**, as do the PN-barrier number, the
+`r/√S` force-law robustness check, the energy-injection scaling, and the CONSISTENCY
+classification. Rule 12 applies — this block adds scope and retracts nothing.
+
+**Provenance.** Grant ruling 2026-07-26 (verbatim `[sic]`: *"for the relabel, let's
+propagate/ (a)"*). Canon home:
+`manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE bullet
+on the motion-stability section.
