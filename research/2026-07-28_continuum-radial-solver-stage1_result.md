@@ -290,6 +290,8 @@ Shipped as `two_term_rho_report.rows`, `columns_kept_separable = true`. **Never 
 
 ---
 
+
+- **§8.15 — the "bubble-like" clause carried from the charter (2026-07-28 leak-audit fold, Grant [sic]: "fold").** This lane's frozen prereg §"walk checkpoint" and §C2 restated the charter's term-(i) phrase *"a soft/pressure-release inclusion trends DOWN, bubble-like."* That clause has since been scope-carved at its sources (the β-scoping §4 origin and the charter I4/C2 — dated Rule-12 notes, PR #803): the bubble mechanism is a **mass-density-contrast dipole**, which does not exist for a stiffness-graded inclusion at uniform density. **On this continuum instrument the same carve applies**: an equal-density soft inclusion has no density-contrast dipole either — term (i) is nonzero here only if the `ρ_latent` import supplies an actual density contrast, and must be **derived from the density profile**, not assumed downward. §5's R2 separable-columns output already keeps term (i) distinct, and §5's own C2 note re-grounds it as the `n = 1` dipole channel (absent in stage 1), so **no shipped number rides the carved clause**. The frozen prereg is **byte-untouched** per freeze discipline; this deviation is the disclosure.
 ## §9 — Consequences ROUTED (this lane surfaces; it does not land)
 
 1. **X5 — the `n = 1` channel gap.** The charter's C1 and C2 are not reachable on the chartered `n = 0` object. Routed to Grant / the auditor lane as a charter-scope finding with the verbatim source quote (§7). No charter edit made here.
