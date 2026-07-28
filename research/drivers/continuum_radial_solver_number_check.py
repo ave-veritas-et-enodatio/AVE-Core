@@ -20,7 +20,23 @@ number, and requires each one to be either
 Anything else FAILS.  So a number cannot enter the result doc by being typed:
 it enters by being registered against its source.
 
-Run:  PYTHONPATH=src python3 research/drivers/continuum_radial_solver_number_check.py
+★A THIRD CATEGORY, added by the #801 re-verify (R3 / WARN-4): NON_REGISTRABLE.
+`_runtime_sec` is machine-dependent and is excluded from the frozen determinism
+digest by the prereg's own §7 (vi) definition.  Registering a doc token against
+it made this tool go MISMATCH -> FAIL on every honest re-run on every machine —
+a self-defeating check.  The runtime numeral is DROPPED from the result doc
+(not allow-listed: an allow-listed numeral is a typed number that is never
+verified, which is the exact defect this tool exists to remove), and `main()`
+now refuses any future attempt to register or allow-list it.
+
+★WIRING (R4 / WARN-5): this runs as a GATING step of `make verify` via the
+`verify-lane-number-checks` target, so it protects the doc continuously rather
+than only at the moment someone runs it by hand.  It is hermetic — stdlib only,
+three in-tree JSONs, one in-tree doc, no `ave` import, no network, no RNG,
+sub-second — so it is safe in CI.
+
+Run:  python3 research/drivers/continuum_radial_solver_number_check.py
+      (or `make verify-lane-number-checks`)
 """
 
 from __future__ import annotations
@@ -113,8 +129,27 @@ REGISTERED = {
                             "FT7_G8_matching_radius_fireability>>rel_spread"),
     "1.5875e+15": lambda: S("selftests_repair_added>>"
                             "FT8_G9_band_floor_fireability>>cond_worst"),
-    # --- runtime ---
-    "1.47": lambda: S("_runtime_sec"),
+    # --- FT-9 (#801 re-verify R1): the G7 fireability test + its R_match sweep ---
+    "1.1932e-11": lambda: S("selftests_repair_added>>"
+                            "FT9_G7_amplitude_fireability>>rel_worst"),
+    "3.3556e-14": lambda: S("selftests_repair_added>>FT9_G7_amplitude_fireability"
+                            ">>R_match_conditioning_sweep>>R_match=2.0"),
+    "3.2399e-12": lambda: S("selftests_repair_added>>FT9_G7_amplitude_fireability"
+                            ">>R_match_conditioning_sweep>>R_match=8.0"),
+    "11.9": lambda: S("selftests_repair_added>>"
+                      "FT9_G7_amplitude_fireability>>breaches_G7_by_factor"),
+    "1.2": lambda: S("selftests_repair_added>>"
+                     "FT9_G7_amplitude_fireability>>rel_worst") / 1e-11,
+    # --- FT-1's G1b shell-agreement coverage (#801 re-verify R5) ---
+    "2.2530": lambda: S("selftests>>FT1_lame_fireability>>"
+                        "shell_agreement_graded_exterior_q0p10"),
+    "2.1454": lambda: S("selftests>>FT1_lame_fireability>>"
+                        "shell_agreement_orthotropic_exterior_1p02_0p99"),
+    "9.0": lambda: S("selftests>>FT1_lame_fireability>>"
+                     "shell_agreement_graded_exterior_q0p10") / 0.25,
+    "8.6": lambda: S("selftests>>FT1_lame_fireability>>"
+                     "shell_agreement_orthotropic_exterior_1p02_0p99") / 0.25,
+    # --- runtime: DELIBERATELY ABSENT.  See NON_REGISTRABLE below (re-verify R3).
     # --- margins: tolerance / measured, computed here, never typed ---
     "3.7e3": lambda: 1e-10 / S(G + "G1_lame_static>>lame_ratio_worst"),
     "3.6": lambda: math.log10(1e-10 / S(G + "G1_lame_static>>lame_ratio_worst")),
@@ -302,8 +337,53 @@ ALLOWED = {
     "5": "section / count", "3": "count", "1": "count", "0": "count",
     "9": "gate count", "13": "significant figures", "7": "percent, scouting",
     "2/7": "canonical nu_Hill", "1e+0": "unit",
-    "3ad1f7429788022fe7b48f93f209fb50feb8e03645ed5945e691516aae3d7066": "digest",
+    "efea5059a98d0503b094737d9e7477b1d737dccba87bf9545916c6993cb25576": "digest",
+    # out-of-tree mutation receipts (the mutated driver is never committed)
+    "2.999999999997": "G7 under the wiring-error mutation (out-of-tree)",
+    "5.665625e-13": "G7 under the common-mode mutation (out-of-tree)",
+    "1e-11)": "guard",
 }
+
+# ---------------------------------------------------------------------------
+# (c) NON-REGISTRABLE: shipped JSON fields that must NEVER back a doc token.
+#     ★#801 re-verify R3 (WARN-4) — a self-defeating tool.
+# ---------------------------------------------------------------------------
+NON_REGISTRABLE = {
+    "_runtime_sec": (
+        "MACHINE-DEPENDENT, and excluded by the frozen determinism definition "
+        "itself: prereg §7 (vi) freezes the digest as a SHA-256 over the "
+        "results object MINUS timing fields, so the runtime is deliberately "
+        "outside the reproducible surface. It changes on every run and on "
+        "every machine. Registering a doc token against it made this tool FAIL "
+        "on every re-run everywhere — the re-verify audit re-ran the driver, "
+        "got 1.52 s against the doc's 1.47, and the tool went MISMATCH -> FAIL. "
+        "A check that fails on every honest re-run is worse than no check: it "
+        "trains its reader to ignore it. "
+        "DISPOSITION = DROP THE TOKEN, not allow-list it. Allow-listing would "
+        "leave a runtime numeral in the doc that entered by being TYPED and is "
+        "then never verified against anything — precisely the property this "
+        "tool exists to remove (F5/F13/F14 were three instances of it). The "
+        "result doc therefore quotes NO runtime numeral; it cites the shipped "
+        "field `_runtime_sec` and the frozen 600 s budget verdict "
+        "`runtime_within_budget` instead."),
+}
+
+
+def self_check() -> list:
+    """Refuse a future re-registration of a non-registrable field."""
+    src = open(os.path.abspath(__file__)).read()
+    reg_block = src.split("REGISTERED = {", 1)[1].split("\n}\n", 1)[0]
+    allow_block = src.split("ALLOWED = {", 1)[1].split("\n}\n", 1)[0]
+    out = []
+    for key, why in NON_REGISTRABLE.items():
+        if key in reg_block:
+            out.append(f"SELF-CHECK  REGISTERED references the non-registrable "
+                       f"field `{key}`. {why}")
+        if key in allow_block:
+            out.append(f"SELF-CHECK  ALLOWED references the non-registrable "
+                       f"field `{key}`. {why}")
+    return out
+
 
 NUM = re.compile(r"^[−-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$")
 TOKEN = re.compile(r"`([^`]+)`")
@@ -329,7 +409,8 @@ def rounds_to(value: float, tok: str) -> bool:
 
 def main() -> int:
     text = open(DOC).read()
-    seen, bad, checked = set(), [], 0
+    seen, checked, allowed_n, unaccounted = set(), 0, 0, 0
+    bad = list(self_check())
     for raw in TOKEN.findall(text):
         for tok in re.split(r"[\s,;:()\[\]{}=<>×/]+", raw):
             tok = tok.strip("`*_.'\"")
@@ -345,14 +426,15 @@ def main() -> int:
                     bad.append(f"MISMATCH  `{tok}`  <-  JSON value {val!r} "
                                f"(rounds to {float('%.{}g'.format(sig_digits(tok)) % float(val))!r})")
             elif tok in ALLOWED:
-                continue
+                allowed_n += 1
             else:
+                unaccounted += 1
                 bad.append(f"UNREGISTERED  `{tok}`  — not mapped to a JSON path "
                            f"and not allow-listed. Register it or justify it.")
     print(f"[number-check] doc: {os.path.relpath(DOC, REPO)}")
     print(f"[number-check] distinct numeric tokens: {len(seen)}  |  "
           f"registered-and-verified: {checked}  |  "
-          f"allow-listed: {len(seen) - checked - len(bad)}")
+          f"allow-listed: {allowed_n}  |  unaccounted: {unaccounted}")
     for b in bad:
         print("  " + b)
     if bad:

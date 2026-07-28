@@ -310,8 +310,11 @@
     }
    },
    "worst_rel": 2.9550062722232135e-13,
+   "R_match_evaluated": 4.0,
    "frozen": "rho_N invariant across source amplitude 1e-6 ... 1e+6 to <= 1e-12 relative",
    "honesty_caveat": "G7 is STRUCTURALLY exact in a linear frequency-domain solver; it certifies wiring, not physical linearity, and is reported as such",
+   "selftest": "FT-9 (the SAME amplitude sweep at R_match/r_core = 16, a value the prereg's own frozen G8 sweep declares admissible)",
+   "caveat_correction": "\u2605#801 re-verify R1. The frozen caveat's word STRUCTURALLY EXACT is contradicted by measurement: this gate is ROUNDOFF-limited, not structurally exact, and its residual grows with the conditioning of the assembled system. The measured spread over the prereg's OWN frozen G8 R_match sweep {2, 4, 8, 16} is shipped in selftests_repair_added.FT9_G7_amplitude_fireability.R_match_conditioning_sweep, and its top value BREACHES the 1e-12 G7 tolerance. G7 is evaluated at the frozen geometry R_match = 4 (prereg \u00a75), where it passes; FT-9 is the shipped demonstration that it CAN fail on an admissible input. The frozen prereg stays BYTE-UNTOUCHED \u2014 the defective frozen clause is disclosed and routed, not amended.",
    "pass": true
   },
   "G8_matching_radius_independence": {
@@ -443,6 +446,11 @@
   "FT1_lame_fireability": {
    "lame_ratio_graded_exterior_q0p10": 0.004647677716003735,
    "lame_ratio_orthotropic_exterior_1p02_0p99": 0.003366883011483848,
+   "shell_agreement_graded_exterior_q0p10": 2.2530473163613944,
+   "shell_agreement_orthotropic_exterior_1p02_0p99": 2.145367579900533,
+   "shell_agreement_frozen_tolerance_G1b": 0.25,
+   "shell_agreement_also_breaches_G1b": true,
+   "shell_agreement_coverage_note": "SHIPPED, and NOT part of the frozen FIRES criterion. G1 is an AND of lame_ratio <= 1e-10 and shell_agreement <= 0.25; the frozen FT-1 threshold names only the first. These two numbers show the same mis-specifications break the second as well, so G1b's fireability coverage is shipped (#801 re-verify R5).",
    "frozen": "both mis-specified profiles MUST return lame_ratio >= 1e-3",
    "targets": "G1",
    "FIRES": true
@@ -535,19 +543,56 @@
    "targets": "G9",
    "FIRES": true
   },
+  "FT9_G7_amplitude_fireability": {
+   "R_match_over_r_core": 16.0,
+   "admissibility": "R_match/r_core = 16 is a member of the prereg's OWN frozen G8 sweep {2, 4, 8, 16} (prereg \u00a75, G8 row), so this is an ADMISSIBLE instrument configuration, not a mis-specified input",
+   "R_match_conditioning_sweep": {
+    "R_match=2.0": 3.355617563357991e-14,
+    "R_match=4.0": 2.9550062722232135e-13,
+    "R_match=8.0": 3.2398946494609526e-12,
+    "R_match=16.0": 1.1932211730808878e-11
+   },
+   "rows": {
+    "displacement": {
+     "rho_N_by_amplitude": [
+      0.4135688154526204,
+      0.4135688154510734,
+      0.4135688154489474
+     ],
+     "rel_spread": 8.881245892571124e-12
+    },
+    "traction": {
+     "rho_N_by_amplitude": [
+      0.43939190234029946,
+      0.43939190233505654,
+      0.4393919023361114
+     ],
+     "rel_spread": 1.1932211730808878e-11
+    }
+   },
+   "rel_worst": 1.1932211730808878e-11,
+   "G7_frozen_pass_tolerance": 1e-12,
+   "breaches_G7_by_factor": 11.932211730808879,
+   "frozen_at_repair": "at the admissible R_match/r_core = 16 the G7 amplitude spread MUST breach 1e-11 (10 x the G7 pass tolerance)",
+   "caveat_retired": "This test RETIRES the G7 'no self-test possible' caveat. The half of that caveat which IS true, verified out-of-tree by mutation: a genuine WIRING error \u2014 the amplitude dropped from the reference arm \u2014 puts G7 at 2.999999999997, a FAIL by 12 orders, so the gate does catch the defect it claims to catch and would force class C. A naive COMMON-MODE mutation (both arms scaled by 1+1e-9) stays at 5.665625e-13, UNDER the 1e-12 tolerance, and correctly does not fire \u2014 it shifts the roundoff floor without breaking the caged/uncaged ratio. What was FALSE is the other half: that ONLY a wiring error can break it. An admissible R_match does.",
+   "targets": "G7",
+   "FIRES": true
+  },
   "repair_selftest_pass": true,
-  "status": "REPAIR-ADDED beyond the frozen FT-1..FT-4 set (#801 adversarial review). The frozen prereg is BYTE-UNTOUCHED and gate_fireability_selftest_pass above keeps its frozen definition. These are an ADDITIONAL NECESSARY condition on the class: they can only turn a PASS into a FAIL, so they STRENGTHEN the frozen criterion and never relax it (Rule 11). Their thresholds were declared before the run at >= 10x each gate's frozen pass tolerance.",
+  "status": "REPAIR-ADDED beyond the frozen FT-1..FT-4 set (#801 adversarial review + re-verify). The frozen prereg is BYTE-UNTOUCHED and gate_fireability_selftest_pass above keeps its frozen definition. These are an ADDITIONAL NECESSARY condition on the class: they can only turn a PASS into a FAIL, so they STRENGTHEN the frozen criterion and never relax it (Rule 11). Their thresholds were declared before the run at >= 10x each gate's frozen pass tolerance.",
+  "labelling": "These tests carry `frozen_at_repair`, NEVER `frozen`. `frozen` means the string byte-matches the pre-registration committed and pushed BEFORE any solver code existed. `frozen_at_repair` means only that the threshold was written down before ITS run, in the same commit as the test \u2014 pre-declaration witnessed by git at COMMIT granularity, not by a pre-registration. Weaker warrant; do not read it as the stronger one (#801 re-verify R6).",
   "gate_selftest_map": {
-   "G1": "FT-1",
+   "G1": "FT-1 (+ G1b shell_agreement coverage shipped in FT-1)",
    "G2": "FT-2",
    "G3": "FT-5",
    "G4": "FT-4",
    "G5": "FT-3",
    "G6": "FT-6",
-   "G7": "CAVEAT (no self-test possible) \u2014 frozen: 'G7 is STRUCTURALLY exact in a linear frequency-domain solver; it certifies wiring, not physical linearity, and is reported as such'. Amplitude enters only as a right-hand-side scale factor of a linear solve, so no admissible INPUT can make it fail; only a wiring error can, which is exactly what it certifies.",
+   "G7": "FT-9 \u2014 the G7 caveat is RETIRED (#801 re-verify R1). The map used to read 'CAVEAT (no self-test possible) ... no admissible INPUT can make it fail; only a wiring error can.' That was FALSE: G7 is roundoff-limited, not structurally exact, and it FAILS at R_match/r_core = 16 \u2014 a value the prereg's own frozen G8 sweep declares admissible. FT-9 is that measurement, and it is the same species as FT-8 (an in-family stress, not a corruption).",
    "G8": "FT-7",
    "G9": "FT-8"
-  }
+  },
+  "undispositioned_gates": []
  },
  "two_term_rho_report": {
   "columns_kept_separable": true,
@@ -808,13 +853,13 @@
    "B_CERTIFIED_SCOPED": "all of G1..G9 PASS and gate_fireability_selftest_pass = True, but at least one gate passes only over a REDUCED band or a REDUCED profile class",
    "C_NOT_CERTIFIED_VOID": "any of G1..G9 FAILS, OR any of FT-1..FT-4 fails to fire"
   },
-  "repair_addendum": "STRENGTHENING, never a relaxation (Rule 11): on top of the frozen class criterion, a failure of any REPAIR-ADDED self-test FT-5..FT-8 forces C_NOT_CERTIFIED_VOID by the prereg \u00a78 fireability rule.",
+  "repair_addendum": "STRENGTHENING, never a relaxation (Rule 11): on top of the frozen class criterion, a failure of any REPAIR-ADDED self-test FT-5..FT-9 forces C_NOT_CERTIFIED_VOID by the prereg \u00a78 fireability rule.",
   "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked",
   "review_repair_provenance": "PR #801 adversarial review, 2026-07-28. CLASS A_CERTIFIED was WITHDRAWN on the finding BEFORE any repair (F1: G3 was a self-comparison \u2014 build_profile(shell_ortho=(1.0,1.0)) IS build_profile(); F3: G2's null arm was the scatterer arm's own code path at zero contrast). Repairs: an independent iso_shell construction for G3 + FT-5; an independent uniform_reference_profile for G2 with FT-2 re-pointed at it; FT-6/FT-7/FT-8 so every gate but G7 carries a breaking self-test, G7 carrying its frozen caveat. The class in this file is the RE-RUN outcome, not the withdrawn label."
  },
- "_runtime_sec": 1.47,
+ "_runtime_sec": 2.0,
  "runtime_budget_frozen": "total certification-battery runtime <= 600 s on the reference machine; a longer run is disclosed, not silently accepted",
  "runtime_within_budget": true,
- "determinism_digest": "3ad1f7429788022fe7b48f93f209fb50feb8e03645ed5945e691516aae3d7066",
+ "determinism_digest": "efea5059a98d0503b094737d9e7477b1d737dccba87bf9545916c6993cb25576",
  "determinism_frozen": "two independent full driver runs produce an identical results digest (SHA-256 over the results object minus timing fields)"
 }

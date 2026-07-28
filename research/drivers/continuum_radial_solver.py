@@ -289,10 +289,23 @@ def build_profile(cold, s_rail: float = S_RAIL, shell_ortho=(1.0, 1.0),
     isotropic" comparison had no isotropic arm to compare against and was
     a self-comparison.  `iso_shell` is incompatible with non-unit gains by
     construction and refuses them rather than silently ignoring them.
+
+    ★The refusal now covers BOTH orthotropy knobs (#801 re-verify R2 / WARN-1).
+    As first repaired the guard caught `shell_ortho` but not `ortho_misnorm`, so
+    `build_profile(cold, iso_shell=True, ortho_misnorm=1e-3)` was ACCEPTED and
+    produced layers bit-identical to `ortho_misnorm=0.0` — the same defect shape
+    as F1 itself: a parameter that appears to do something and does not.
+    `iso_shell=True` never calls `ortho_layer`, so `ortho_misnorm` can reach
+    nothing; it is refused rather than silently dropped.
     """
     if iso_shell and tuple(float(g) for g in shell_ortho) != (1.0, 1.0):
         raise ValueError("iso_shell=True hosts no orthotropy; got "
                          f"shell_ortho={shell_ortho}")
+    if iso_shell and float(ortho_misnorm) != 0.0:
+        raise ValueError(
+            "iso_shell=True assembles the shell from iso_layer and never calls "
+            "ortho_layer, so ortho_misnorm has no effect; refusing it rather "
+            f"than silently ignoring it. got ortho_misnorm={ortho_misnorm}")
     k0, g0 = cold["K_0"], cold["G_0"]
     edges = [R_S, R_CORE - W_SHELL]
     layers = [iso_layer(k0, g0)]
@@ -664,27 +677,58 @@ def gate_G6_refinement(cold):
     }
 
 
-def gate_G7_amplitude(cold):
+def _g7_amplitude_spread(cold, r_match: float = R_MATCH):
+    """The G7 kernel: the `rho_N` spread across the frozen amplitude sweep.
+
+    ★Shared by G7 and by its self-test FT-9 (#801 re-verify R1), so the test
+    breaks the comparison the gate actually ships.  That is the FT-2 lesson of
+    this lane's own repair: a self-test pointed at a NEIGHBOURING input
+    certifies nothing about the shipped one.  `r_match` is the only free
+    parameter; at the frozen `R_MATCH = 4` this is bit-identical to the
+    pre-refactor gate body.
+    """
     rows, worst = {}, 0.0
     for src in SOURCES:
         vals = []
         for amp in (1e-6, 1.0, 1e6):
             omega = 1e-2 * cold["cP"] / R_CORE
-            c1, _, _ = outgoing_amplitude(*build_profile(cold), omega=omega,
-                                          src=src, amplitude=amp)
-            c0, _, _ = outgoing_amplitude(*build_profile(cold, uniform=True),
+            c1, _, _ = outgoing_amplitude(*build_profile(cold, r_match=r_match),
                                           omega=omega, src=src, amplitude=amp)
+            c0, _, _ = outgoing_amplitude(
+                *build_profile(cold, uniform=True, r_match=r_match),
+                omega=omega, src=src, amplitude=amp)
             vals.append(abs(c1 / c0) ** 2)
         rel = (max(vals) - min(vals)) / np.mean(vals)
         worst = max(worst, rel)
         rows[src] = {"rho_N_by_amplitude": vals, "rel_spread": rel}
+    return rows, float(worst)
+
+
+def gate_G7_amplitude(cold):
+    rows, worst = _g7_amplitude_spread(cold, r_match=R_MATCH)
     return {
         "rows": rows, "worst_rel": worst,
+        "R_match_evaluated": R_MATCH,
         "frozen": ("rho_N invariant across source amplitude 1e-6 ... 1e+6 to "
                    "<= 1e-12 relative"),
         "honesty_caveat": ("G7 is STRUCTURALLY exact in a linear frequency-domain "
                            "solver; it certifies wiring, not physical linearity, "
                            "and is reported as such"),
+        "selftest": ("FT-9 (the SAME amplitude sweep at R_match/r_core = 16, a "
+                     "value the prereg's own frozen G8 sweep declares admissible)"),
+        "caveat_correction": (
+            "★#801 re-verify R1. The frozen caveat's word STRUCTURALLY EXACT is "
+            "contradicted by measurement: this gate is ROUNDOFF-limited, not "
+            "structurally exact, and its residual grows with the conditioning "
+            "of the assembled system. The measured spread over the prereg's OWN "
+            "frozen G8 R_match sweep {2, 4, 8, 16} is shipped in "
+            "selftests_repair_added.FT9_G7_amplitude_fireability."
+            "R_match_conditioning_sweep, and its top value BREACHES the 1e-12 "
+            "G7 tolerance. G7 is evaluated at the frozen geometry R_match = 4 "
+            "(prereg §5), where it passes; FT-9 is the shipped demonstration "
+            "that it CAN fail on an admissible input. The frozen prereg stays "
+            "BYTE-UNTOUCHED — the defective frozen clause is disclosed and "
+            "routed, not amended."),
         "pass": bool(worst <= 1e-12),
     }
 
@@ -727,7 +771,15 @@ def gate_G9_band_conditioning(cold):
 # ----------------------------------------------------------------------------
 
 
-def _lame_ratio_only(cold, **kw):
+def _lame_measures(cold, **kw):
+    """BOTH G1 measures on one profile: `(lame_ratio, shell_agreement)`.
+
+    ★#801 re-verify R5 / WARN-3.  This returned the ratio ALONE
+    (`_lame_ratio_only`), so FT-1 shipped no number at all for G1's SECOND
+    frozen criterion — the multi-radius `shell_agreement` — and coverage of the
+    compound gate was inferrable but not shipped.  G1 is an AND of two
+    criteria, so its fireability demonstration has to carry both.
+    """
     edges, layers = build_profile(cold, **kw)
     _, y0, _ = static_solve(edges, layers)
     y_i, lay_i = state_at(edges, layers, y0, 0.5)
@@ -736,17 +788,37 @@ def _lame_ratio_only(cold, **kw):
     for r_q in (1.5, 2.5, 3.5):
         y_q, lay_q = state_at(edges, layers, y0, r_q)
         d_ext.append(abs(div_u(r_q, lay_q, y_q)))
-    return max(d_ext) / d_int
+    ratio = max(d_ext) / d_int
+    agree = (max(d_ext) - min(d_ext)) / float(np.mean(d_ext))
+    return float(ratio), float(agree)
 
 
 def selftest_FT1(cold):
-    """G1 fireability: profiles whose grade does not terminate at the contour."""
-    r_grade = _lame_ratio_only(cold, ext_grade=0.10)
-    r_ortho = _lame_ratio_only(cold, ext_ortho=(1.02, 0.99))
+    """G1 fireability: profiles whose grade does not terminate at the contour.
+
+    The FROZEN firing criterion is on `lame_ratio` alone and is UNCHANGED
+    (prereg §6).  `shell_agreement` is now shipped ALONGSIDE it as coverage
+    evidence for G1's second frozen criterion (#801 re-verify R5): the same two
+    mis-specified exteriors also breach the frozen `0.25` agreement tolerance,
+    so the compound gate is demonstrably breakable on BOTH conjuncts — as a
+    shipped measurement rather than one the reader must recompute.
+    """
+    r_grade, a_grade = _lame_measures(cold, ext_grade=0.10)
+    r_ortho, a_ortho = _lame_measures(cold, ext_ortho=(1.02, 0.99))
     fires = bool(r_grade >= 1e-3 and r_ortho >= 1e-3)
     return {
         "lame_ratio_graded_exterior_q0p10": r_grade,
         "lame_ratio_orthotropic_exterior_1p02_0p99": r_ortho,
+        "shell_agreement_graded_exterior_q0p10": a_grade,
+        "shell_agreement_orthotropic_exterior_1p02_0p99": a_ortho,
+        "shell_agreement_frozen_tolerance_G1b": 0.25,
+        "shell_agreement_also_breaches_G1b": bool(a_grade > 0.25 and a_ortho > 0.25),
+        "shell_agreement_coverage_note": (
+            "SHIPPED, and NOT part of the frozen FIRES criterion. G1 is an AND "
+            "of lame_ratio <= 1e-10 and shell_agreement <= 0.25; the frozen "
+            "FT-1 threshold names only the first. These two numbers show the "
+            "same mis-specifications break the second as well, so G1b's "
+            "fireability coverage is shipped (#801 re-verify R5)."),
         "frozen": "both mis-specified profiles MUST return lame_ratio >= 1e-3",
         "targets": "G1",
         "FIRES": fires,
@@ -798,22 +870,30 @@ def selftest_FT4(cold):
 
 
 # ----------------------------------------------------------------------------
-# REPAIR-ADDED SELF-TESTS FT-5..FT-8 (#801 adversarial review)
+# REPAIR-ADDED SELF-TESTS FT-5..FT-9 (#801 adversarial review + re-verify)
 #
 # These are ADDITIONS BEYOND the frozen FT-1..FT-4 set.  The frozen prereg is
 # BYTE-UNTOUCHED and `gate_fireability_selftest_pass` keeps its frozen
-# definition (FT-1 AND FT-2 AND FT-3 AND FT-4) exactly.  FT-5..FT-8 are an
+# definition (FT-1 AND FT-2 AND FT-3 AND FT-4) exactly.  FT-5..FT-9 are an
 # additional NECESSARY condition on the class: they can only turn a PASS into a
 # FAIL, never the reverse, so they STRENGTHEN the frozen criterion and never
 # relax it (Rule 11).  Each threshold is set at >= 10x its gate's frozen pass
 # tolerance and is declared here BEFORE the run; the run's outcome is reported
 # whatever it is.
 #
+# ★LABELLING (#801 re-verify R6 / WARN-2).  These carry `frozen_at_repair`,
+# NEVER `frozen`.  `frozen` in this driver and in the result doc means ONE
+# thing: the string byte-matches the pre-registered file that was committed and
+# pushed BEFORE any solver code existed.  `frozen_at_repair` means only that
+# the threshold was written down before ITS run, in the same commit as the test
+# — pre-declaration witnessed at COMMIT granularity by git, not by a
+# pre-registration.  That is a weaker warrant and must not be read as the
+# stronger one.
+#
 # Requirement being discharged: every gate ends with either a self-test that
 # can break it, or a disclosed caveat naming why it cannot.  Post-repair
 # mapping: G1<-FT-1, G2<-FT-2, G3<-FT-5, G4<-FT-4, G5<-FT-3, G6<-FT-6,
-# G7<-CAVEAT (frozen: structurally exact in a linear frequency-domain solver),
-# G8<-FT-7, G9<-FT-8.
+# G7<-FT-9, G8<-FT-7, G9<-FT-8.  ZERO caveats, zero undispositioned.
 # ----------------------------------------------------------------------------
 
 
@@ -911,6 +991,71 @@ def selftest_FT8(cold):
                              "pass tolerance), or be non-finite"),
         "targets": "G9",
         "FIRES": fires,
+    }
+
+
+def selftest_FT9(cold):
+    """★G7 fireability (#801 re-verify R1) — a CONDITIONING-STRESSED ADMISSIBLE
+    input, which is a different and stronger species than a mis-specification.
+
+    WHAT IT REPLACES.  G7 shipped with a caveat claiming no self-test was
+    possible: `Amplitude enters only as a right-hand-side scale factor of a
+    linear solve, so no admissible INPUT can make it fail; only a wiring error
+    can.`  That is FALSE and the re-verify audit measured it false.  G7 is not
+    structurally exact — it is ROUNDOFF-limited, and the roundoff floor grows
+    with the conditioning of the assembled system.  Push the matching radius
+    out and the floor rises through the 1e-12 tolerance.
+
+    WHY R_match = 16 IS ADMISSIBLE AND NOT A MIS-SPECIFICATION.  The prereg's
+    OWN frozen G8 criterion (§5) sweeps `R_match/r_core in {2, 4, 8, 16}` and
+    calls every member of that set a valid configuration of this instrument.
+    FT-9 therefore does NOT feed the gate a broken input the way FT-1/FT-6/FT-7
+    do; it feeds it a configuration the pre-registration itself declares
+    admissible, and the gate breaches.  Same species as FT-8, which evaluates
+    at a k below the declared floor — an in-family stress, not a corruption.
+
+    THRESHOLD, DECLARED BEFORE THE RUN: `1e-11` = 10x the frozen G7 pass
+    tolerance of `1e-12`, the SAME mechanical rule FT-6/FT-7/FT-8 use.  It is
+    rule-determined, not outcome-tuned.  DISCLOSED: the re-verify audit had
+    already measured this configuration when FT-9 was minted, so the
+    pre-declaration is `by-rule`, not blind — the rule is what fixes the
+    number, and the rule predates the measurement.
+
+    The full `R_match` sweep of the G7 spread is shipped alongside, so the
+    conditioning-scaling claim is a measurement rather than an assertion.
+    """
+    sweep = {}
+    for r_m in (2.0, 4.0, 8.0, 16.0):
+        _, w = _g7_amplitude_spread(cold, r_match=r_m)
+        sweep[f"R_match={r_m}"] = w
+    rows, worst = _g7_amplitude_spread(cold, r_match=16.0)
+    return {
+        "R_match_over_r_core": 16.0,
+        "admissibility": (
+            "R_match/r_core = 16 is a member of the prereg's OWN frozen G8 "
+            "sweep {2, 4, 8, 16} (prereg §5, G8 row), so this is an ADMISSIBLE "
+            "instrument configuration, not a mis-specified input"),
+        "R_match_conditioning_sweep": sweep,
+        "rows": rows,
+        "rel_worst": worst,
+        "G7_frozen_pass_tolerance": 1e-12,
+        "breaches_G7_by_factor": float(worst / 1e-12),
+        "frozen_at_repair": ("at the admissible R_match/r_core = 16 the G7 "
+                             "amplitude spread MUST breach 1e-11 (10 x the G7 "
+                             "pass tolerance)"),
+        "caveat_retired": (
+            "This test RETIRES the G7 'no self-test possible' caveat. The half "
+            "of that caveat which IS true, verified out-of-tree by mutation: a "
+            "genuine WIRING error — the amplitude dropped from the reference "
+            "arm — puts G7 at 2.999999999997, a FAIL by 12 orders, so the gate "
+            "does catch the defect it claims to catch and would force class C. "
+            "A naive COMMON-MODE mutation (both arms scaled by 1+1e-9) stays "
+            "at 5.665625e-13, UNDER the 1e-12 tolerance, and correctly does "
+            "not fire — it shifts the roundoff floor without breaking the "
+            "caged/uncaged ratio. What was FALSE is the other half: that ONLY "
+            "a wiring error can break it. An admissible R_match does."),
+        "targets": "G7",
+        "FIRES": bool(worst >= 1e-11),
     }
 
 
@@ -1076,13 +1221,14 @@ def main():
         "FT3_ax3_fireability": selftest_FT3(cold),
         "FT4_TM_MA_nonvacuity": selftest_FT4(cold),
     }
-    # ★#801 review repair: FT-5..FT-8, kept in their OWN block so the frozen
+    # ★#801 review repair: FT-5..FT-9, kept in their OWN block so the frozen
     # `gate_fireability_selftest_pass` keeps its frozen definition exactly.
     selftests_repair = {
         "FT5_G3_ortho_normalization": selftest_FT5(cold),
         "FT6_G6_refinement_fireability": selftest_FT6(cold),
         "FT7_G8_matching_radius_fireability": selftest_FT7(cold),
         "FT8_G9_band_floor_fireability": selftest_FT8(cold),
+        "FT9_G7_amplitude_fireability": selftest_FT9(cold),
     }
     all_gates_pass = all(g["pass"] for g in gates.values())
     all_fire = all(s["FIRES"] for s in selftests.values())
@@ -1093,23 +1239,34 @@ def main():
     selftests_repair["repair_selftest_pass"] = all_fire_repair
     selftests_repair["status"] = (
         "REPAIR-ADDED beyond the frozen FT-1..FT-4 set (#801 adversarial "
-        "review). The frozen prereg is BYTE-UNTOUCHED and "
+        "review + re-verify). The frozen prereg is BYTE-UNTOUCHED and "
         "gate_fireability_selftest_pass above keeps its frozen definition. "
         "These are an ADDITIONAL NECESSARY condition on the class: they can "
         "only turn a PASS into a FAIL, so they STRENGTHEN the frozen criterion "
         "and never relax it (Rule 11). Their thresholds were declared before "
         "the run at >= 10x each gate's frozen pass tolerance.")
+    selftests_repair["labelling"] = (
+        "These tests carry `frozen_at_repair`, NEVER `frozen`. `frozen` means "
+        "the string byte-matches the pre-registration committed and pushed "
+        "BEFORE any solver code existed. `frozen_at_repair` means only that "
+        "the threshold was written down before ITS run, in the same commit as "
+        "the test — pre-declaration witnessed by git at COMMIT granularity, "
+        "not by a pre-registration. Weaker warrant; do not read it as the "
+        "stronger one (#801 re-verify R6).")
     selftests_repair["gate_selftest_map"] = {
-        "G1": "FT-1", "G2": "FT-2", "G3": "FT-5", "G4": "FT-4", "G5": "FT-3",
-        "G6": "FT-6",
-        "G7": ("CAVEAT (no self-test possible) — frozen: 'G7 is STRUCTURALLY "
-               "exact in a linear frequency-domain solver; it certifies wiring, "
-               "not physical linearity, and is reported as such'. Amplitude "
-               "enters only as a right-hand-side scale factor of a linear "
-               "solve, so no admissible INPUT can make it fail; only a wiring "
-               "error can, which is exactly what it certifies."),
+        "G1": "FT-1 (+ G1b shell_agreement coverage shipped in FT-1)",
+        "G2": "FT-2", "G3": "FT-5", "G4": "FT-4", "G5": "FT-3", "G6": "FT-6",
+        "G7": ("FT-9 — the G7 caveat is RETIRED (#801 re-verify R1). The map "
+               "used to read 'CAVEAT (no self-test possible) ... no admissible "
+               "INPUT can make it fail; only a wiring error can.' That was "
+               "FALSE: G7 is roundoff-limited, not structurally exact, and it "
+               "FAILS at R_match/r_core = 16 — a value the prereg's own frozen "
+               "G8 sweep declares admissible. FT-9 is that measurement, and it "
+               "is the same species as FT-8 (an in-family stress, not a "
+               "corruption)."),
         "G8": "FT-7", "G9": "FT-8",
     }
+    selftests_repair["undispositioned_gates"] = []
 
     # --- CLASS-B reachability: the certified band/profile scope is MEASURED ---
     band_ok = sorted({float(k.split("kr=")[1])
@@ -1136,7 +1293,7 @@ def main():
         # The fireability rule, applied to the repair-added tests: a gate that
         # cannot fail voids the certification exactly as hard as one that fails.
         cls, why = "C_NOT_CERTIFIED_VOID", (
-            "a REPAIR-ADDED self-test (FT-5..FT-8) failed to fire, so the gate "
+            "a REPAIR-ADDED self-test (FT-5..FT-9) failed to fire, so the gate "
             "it targets cannot fail: 'A gate that cannot fail voids the "
             "certification exactly as hard as a gate that fails' (prereg §8)")
     elif all_gates_pass and all_fire and not scope_reductions:
@@ -1220,7 +1377,7 @@ def main():
             "repair_addendum": (
                 "STRENGTHENING, never a relaxation (Rule 11): on top of the "
                 "frozen class criterion, a failure of any REPAIR-ADDED "
-                "self-test FT-5..FT-8 forces C_NOT_CERTIFIED_VOID by the "
+                "self-test FT-5..FT-9 forces C_NOT_CERTIFIED_VOID by the "
                 "prereg §8 fireability rule."),
             "no_verdict_fence": FROZEN_STRINGS["no_verdict"],
             "review_repair_provenance": (
