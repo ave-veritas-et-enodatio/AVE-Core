@@ -340,15 +340,45 @@ can't-track-material-displacement."*
   what the run used.)*). The knot was asked to be *carried by* an imposed bias — it was never asked
   to *track the material displacement of its own host nodes*.
 - The **K4→Cosserat FORCE channel was DISABLED** for the whole run
-  (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). The only
-  surviving path from the material channel to the knot was `z_local`, which this doc
-  itself measures as **screened at the core** (`S_ε,min` pinned at the `1e-5` floor
-  whether `v_drive` is 0 or 0.30 — `:181-182`, `:210`). That makes the null a
-  **formulation-anchor null**, of the same family as the `#788` structural absences
-  (under a uniform material shift the small-displacement bond strains are invariant,
-  `max|Δdu| = 5.6e-17` — `research/2026-07-21_beta-tracking-feasibility_scoping.md`
-  §3 item 2), whose `:31` explicitly names these June readings as measuring *"this
-  same formulation anchor."*
+  (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). This is a
+  real and — importantly — **previously-undisclosed configuration-scope** fact: the
+  banked body above documents the surviving `z_local` path but nowhere states that the
+  FORCE channel was off, so the run's configuration scope is narrower than the banked
+  text alone conveys. **That disclosure is what this bullet banks**, and it stands.
+- **The surviving path was LIVE, not dead — and the screening IS the physics.** This
+  doc's own committed control measures **both** halves, and only the pair is
+  load-bearing: *"**Coupling is LIVE** (mean moves 0.973→0.051 at 100× — the drive's
+  strain reaches the kernel) AND **screened at the core**"* (`:209-211`), closing with
+  *"**SCREENED-PIN confirmed — the falsification is real, not a no-op.**"*
+  (`:212-213`). The core-side pin (`S_ε,min` at the `1e-5` floor whether `v_drive` is
+  0 or 0.30 — `:181-182`, `:210`) is only the *screened* half; citing that half alone
+  understates the run and makes the carve read as a walk-back. The doc names the
+  screening as the **mechanism**, not as a defect: *"the frozen V-core does not merely
+  fail to track the longitudinal bias — it **screens** it"* (`:187-188`).
+- **The `#788`-family "formulation-anchor null" label is WITHDRAWN for this run**
+  *(2026-07-28 repair — see the dated note at the end of this block)*. That family is
+  **defined by uniform-shift invariance** — `research/2026-07-21_beta-tracking-feasibility_scoping.md:28`,
+  verbatim: *"Under a uniform material shift `u → u + Δ`, bond strains `du = u_j − u_i`
+  are invariant"*, `max|Δdu| = 5.6e-17`. That invariance **provably does not obtain
+  here**: the drive was Variant **B**, a *spatially varying* `x`-planar displacement
+  pulse — probe `:177` (`u_x = w(x)·sin(k_x·(x−c_x)), uniform across y,z`), `:198`,
+  `:212-214` — which imprints **nonzero** core strain (`ε_sym²/ε_yield² ≈ 1.90e-2`,
+  measured at the production N=48 host, this doc `:176-178`) and drives a **live**
+  kernel response (`:209`). A spatially varying strain is exactly what a uniform shift
+  is not, so the analogy fails on its own terms. Provenance bars the re-class as well:
+  `#788` self-labels `research/2026-07-21_beta-tracking-feasibility_scoping.md:3`
+  *"Class: SCOPING (pre-lane) … NOT adversarially reviewed … banks no verdict"*, and
+  offers its June clause only as *"the candidate reconciliation … adjudication routed
+  to the #787 review, not resolved here"* (`:31`) — a banks-no-verdict scoping doc's
+  candidate cannot re-class a banked falsification.
+- **Residual artifact language, scoped to the MATERIAL-TRACKING axis ONLY.** What
+  `#788:31` licenses is its own qualifier, quoted verbatim: *"any lattice β null is an
+  **ARTIFACT, not a falsification** `of the relative-offset direction ruling`."* On
+  **that** axis — β / material tracking — this run banks nothing either way, because it
+  never drove a material shift of the host nodes. On **its own** axis — an externally
+  imposed longitudinal compression bias failing to translate the saturated core — the
+  result is a real, mechanism-explained falsification and the verdict
+  **`PIN-even-longitudinal` STANDS**.
 - The mechanism this doc names (saturation-screening; the frozen clock `S→0 ⇒
   c_eff→0`) is itself a **no-re-hosting** statement — the same fact as
   index-pinning — so it **SUPPORTS Corollary A** of
@@ -371,3 +401,30 @@ review (`manuscript/ave-kb/common/relative-offset-principle.md` §"Scope +
 cross-refs"). Canon home of the carve:
 `manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE
 bullet on the motion-stability section.
+
+**★ 2026-07-28 REPAIR NOTE — the over-carve corrected (adversarial review of this
+carve).** Two defects in the 2026-07-26 draft of *this block* are corrected above.
+Nothing banked was touched (the doc body `:1-315` remains byte-untouched); the repair
+edits this branch's own unmerged carve prose.
+
+1. **Half-cited control (the walk-back-shaped defect).** The draft cited only the
+   *screened* half of this doc's coupling control (`:210`) and omitted the **live**
+   half (`:209`, `:212-213`). The omitted half is load-bearing: it is what converts
+   "the knot didn't move" from a possible wiring no-op into a measured
+   **SCREENED-PIN**. Both halves are now cited, and the screening is restored as the
+   named mechanism (`:187-188`) rather than presented as a formulation defect.
+2. **False family label.** The draft re-classified this run as a **`#788`-family
+   formulation-anchor null** — a class `#788:31` itself calls an *"ARTIFACT, not a
+   falsification"*. That label is **WITHDRAWN**: `#788`'s family is defined by
+   uniform-shift invariance, which provably does not obtain here (spatially varying
+   Variant-B drive, measured nonzero core strain, live kernel response), and `#788` is
+   a banks-no-verdict SCOPING doc whose June clause is an explicit *candidate*.
+   Residual artifact language is now scoped to the **material-tracking axis only**,
+   with `#788:31`'s own qualifier quoted verbatim.
+
+**What SURVIVES from the 2026-07-26 draft, unchanged:** the narrow
+**no-SELF-transport / no-re-hosting-DOF** scope; the **disabled-FORCE-channel**
+configuration-scope disclosure (genuine, and absent from the banked body — the founded
+part of the carve); and the OPEN self-sourced-vs-externally-imposed fork (`:215-230`).
+**No verdict is overturned in either direction: `PIN-even-longitudinal` STANDS**, and
+stability-FROM-motion stays **CONTRADICTED on the longitudinal channel**.
