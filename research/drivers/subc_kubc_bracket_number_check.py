@@ -8,9 +8,10 @@ are failures of "is the prose actually what the artefact says?".  Care is not a
 remedy for that class of defect; a check is.  This is the #801 pattern
 (`continuum_radial_solver_number_check.py`) ported to this lane.
 
-WHAT IT DOES.  It scans every inline-code token in
-`research/2026-07-28_subc-kubc-bracket_result.md` that parses as a number and
-requires each one to be either
+WHAT IT DOES.  It scans every inline-code token that parses as a number in
+EVERY document this lane ships — the result doc AND both docket fragments (see
+DOCS; coverage extended by the RE-VERIFY repair, finding F7) — and requires each
+one to be either
 
   (a) REGISTERED — the correctly-rounded value, at its own quoted precision, of
       a NAMED leaf of a shipped JSON (this lane's results, merged #782's, merged
@@ -20,8 +21,12 @@ requires each one to be either
       constant, a digest, a commit sha, a section or PR number, or a plain
       count, each with a reason.
 
-Anything else FAILS.  A number cannot enter the result doc by being typed: it
-enters by being registered against its source.
+Anything else FAILS.  A number cannot enter any of this lane's documents by
+being typed: it enters by being registered against its source.
+
+★BARE INTEGERS are never auto-registrable (see BARE_INT).  The MIN_SIG floor
+covers FLOAT coincidence; it does not cover INTEGER-vs-INTEGER collision, and
+this bench ships thousands of integer leaves.  A count is not a measurement.
 
 ★NON_REGISTRABLE (the lesson #801 learned the hard way, its R3).  Wall-clock is
 machine-dependent and is EXCLUDED from the frozen determinism digest by the
@@ -39,8 +44,8 @@ few hundred lambdas.  Every registered token still resolves to a NAMED path —
 `explain()` prints it — so provenance is preserved; what is automated is the
 rounding, not the naming.
 
-Hermetic: stdlib only, three in-tree JSONs, one in-tree doc, no `ave` import, no
-network, no RNG, sub-second.
+Hermetic: stdlib only, three in-tree JSONs, three in-tree docs, no `ave` import,
+no network, no RNG, sub-second.
 
 Run:  python3 research/drivers/subc_kubc_bracket_number_check.py
       [--explain]   also print each token's registered source path
@@ -56,7 +61,21 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
-DOC = os.path.join(REPO, "research", "2026-07-28_subc-kubc-bracket_result.md")
+# ★COVERAGE, extended by the PR #802 RE-VERIFY repair (finding F7).  This was a
+# single result-doc path.  That left this lane's DOCKET FRAGMENTS outside the
+# check, and a fragment-body reader was getting numerals the appended REPAIR NOTE
+# had already superseded (the pre-D-14 net moment, the pre-repair determinism
+# digest, `8 of 48`, `24 of 24`, a withdrawn label, and wall-clock numerals D-13's
+# own policy had removed from the result doc).  Nothing was live-false — each is
+# superseded by the appended note — but a body-only reader could not know that.
+# Every doc this lane ships is now scanned under the SAME rules.
+DOCS = [
+    os.path.join(REPO, "research", "2026-07-28_subc-kubc-bracket_result.md"),
+    os.path.join(REPO, "_orchestration", "docket-entries",
+                 "2026-07-28-subc-kubc-bracket.md"),
+    os.path.join(REPO, "_orchestration", "docket-entries",
+                 "2026-07-28-subc-kubc-bracket-prereg.md"),
+]
 
 SOURCES = {
     "owed1": os.path.join(HERE, "subc_kubc_bracket_results.json"),
@@ -113,7 +132,7 @@ def _fmts(v: float):
         out.add("%.{}g".format(n) % v)
     for d in range(0, 12):
         out.add("%.{}f".format(d) % v)
-    for d in range(1, 6):
+    for d in range(1, 18):
         out.add("%.{}e".format(d) % v)
     out.add(repr(float(v)))
     out = {_norm_exp(s) for s in out}
@@ -267,6 +286,22 @@ def _register_all():
                     100.0 * abs(comp[k_c] - gt[k_g]) / abs(gt[k_g]))
     except (KeyError, IndexError):
         pass
+    # -- ★T1 CLEARANCE MARGINS (RE-VERIFY repair, the auditor's margin note).
+    #    The routed modulus consequence is stated on C11_[100] rather than on
+    #    M_[111] because the margin is real there. Both are registered so the
+    #    comparison in sec 8 consequence 2 is machine-checked, not asserted:
+    #    margin = 100 * (r_Z_conservative_lo - T1) / T1, T1 = 0.5.
+    for cfg in path("owed1", "configurations"):
+        for blk, lo_key, name in (
+                ("SUPPLEMENTARY_anisotropy_NOT_FROZEN",
+                 "r_Z_C11_bracket_conservative_rho_ASSUMED_1", "C11_[100]"),
+                ("SUPPLEMENTARY_M_axis_NOT_FROZEN",
+                 "r_Z_M_bracket_conservative_rho_ASSUMED_1", "M_[111]")):
+            b = cfg.get(blk) or {}
+            if lo_key in b:
+                reg(f"derived: 100 x ({name} CONSERVATIVE r_Z lo - 0.5)/0.5 at "
+                    f"{cfg['config']} — T1 clearance margin",
+                    100.0 * (b[lo_key][0] - 0.5) / 0.5)
     #    tolerance / measured margins the doc quotes
     reg("derived: G4 frozen tol 1e-9 / worst SUBC residual",
         1e-9 / path("owed1", "gate_G4_solver>>worst_relative_residual")
@@ -320,7 +355,10 @@ ALLOWED = {
     "13": "count", "14": "count", "19": "count", "21": "count", "24": "count",
     "27": "count", "32": "count", "42": "count", "48": "count", "64": "count",
     "437": "line count of the surviving driver skeleton (D-1)",
-    "8587": "numeric-leaf count of the leaf-by-leaf WIP audit (D-1)",
+    "8587": "★D-1/F5: a WITHDRAWN figure, quoted in D-1 precisely to record that "
+            "it is UNAUDITABLE. It must NOT resolve to a JSON leaf — no committed "
+            "state of this lane's JSON yields it under any leaf convention, which "
+            "is the whole reason it is withdrawn.",
     "782": "PR number", "796": "PR number", "802": "PR number",
     "770": "PR number", "801": "PR number", "761": "PR number",
     "767": "PR number", "775": "PR number", "779": "PR number",
@@ -347,12 +385,43 @@ ALLOWED = {
     "318": "this checker's own auto-registered count, quoted in sec 8",
     "66": "this checker's own allow-list count, quoted in sec 8",
     "31164": "this checker's own registered-rounded-form count, quoted in D-13",
+    "461": "this checker's own token count (RE-VERIFY round) — re-run to verify",
+    "361": "this checker's own auto-registered count (RE-VERIFY round)",
+    "75": "this checker's own allow-list count (RE-VERIFY round)",
+    "471": "this checker's own token count (RE-VERIFY round)",
+    "367": "this checker's own auto-registered count (RE-VERIFY round)",
+    "79": "this checker's own allow-list count (RE-VERIFY round)",
+    "69120": "this checker's own registered-rounded-form count (RE-VERIFY round)",
+    # ★D-16 leaf-diff counts. NOT leaves of any shipped JSON — they are counts
+    #   of a leaf walk over TWO committed blobs, so they are allow-listed with
+    #   the convention stated (which is the whole difference from the withdrawn
+    #   D-1b figure, F5): a LEAF is a JSON path whose value is a non-boolean int
+    #   or float; `_runtime_sec` and `wall_clock_s` are excluded as machine-
+    #   dependent. Both sides are named commits, so the walk is re-runnable.
+    "3673": "D-16: numeric-leaf count of research/drivers/"
+            "subc_kubc_bracket_results.json AT COMMIT 0e8d4e67, under the "
+            "convention stated in D-16",
+    "6253": "D-16: numeric-leaf count of the CURRENT shipped JSON, same "
+            "convention",
+    "5150": "D-16: numeric-leaf count AT COMMIT 1b007cb2, same convention",
+    "1108": "D-16: leaves ADDED between 1b007cb2 and HEAD, same convention",
+    "2580": "D-16: leaves ADDED between 0e8d4e67 and HEAD, same convention",
     # crystallographic direction indices, not measurements
     "111": "Miller index [111] (body diagonal)",
     "100": "Miller index [100] / STOP-gate rigid control stiffness multiplier",
     "110": "Miller index",
-    # line-number cites into merged docs (verify-before-cite anchors)
+    # line-number cites into merged docs / drivers (verify-before-cite anchors,
+    # each re-grepped at the RE-VERIFY repair before being quoted)
     "124": "line cite research/2026-07-21_rve-aggregation-bench_result.md:124",
+    "114": "line cite research/2026-07-21_rve-aggregation-bench_result.md:114 "
+           "(the ONLY occurrence of 'cross-class' in that document; §6 LEG 4)",
+    "76": "line cite — the §5 (LEG 3) header of "
+          "research/2026-07-21_rve-aggregation-bench_result.md",
+    "96": "line cite — the §6 (LEG 4) header of "
+          "research/2026-07-21_rve-aggregation-bench_result.md",
+    "831": "line cite research/drivers/rve_aggregation_bench.py:831 (_bin_of)",
+    "45": "rotation angle in degrees — the cubic 45-degree branch the "
+          "off-diagonal test is blind to (F1); not a measurement",
     # tensor components of the frozen / supplementary probe modes
     "−1": "component of the tetragonal probe tensor diag(1,−1,0)",
     "−0": "sign-only token",
@@ -437,6 +506,11 @@ PINNED = {
     "0.0000": ("derived", lambda: [r for r in path("owed1", "reads")
                                    if r["config"] == "uniform_medium_null"
                                    and r["mode"] == "hydro"][0]["width"]),
+    # ★bare integers that ARE genuine named measurements: pinned by hand, since
+    #   the BARE_INT rule (RE-VERIFY repair) refuses to match them by value.
+    "6474": ("owed1", "gate_G4_solver>>worst_subc_iters"),
+    "48": ("owed1", "gate_G4_solver>>n_solves"),
+    "60000": ("owed1", "gate_G4_solver>>cap"),
 }
 
 # digests / shas / md5s: matched structurally, not by value
@@ -464,6 +538,19 @@ def rounds_to(value, tok: str) -> bool:
 NUM = re.compile(r"^[−-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$")
 TOKEN = re.compile(r"`([^`]+)`")
 
+# ★BARE INTEGERS ARE NEVER AUTO-REGISTRABLE (RE-VERIFY repair, found by this
+# checker's own second run).  The MIN_SIG floor was designed against FLOAT
+# coincidence, and it works there.  It does NOT cover INTEGER-vs-INTEGER
+# collision: this bench ships thousands of integer leaves (CG iteration counts,
+# node/bond counts, cage counts), so a prose COUNT of four or five digits can
+# auto-match one of them and be reported as verified provenance when it is pure
+# coincidence.  That is exactly what happened — the doc's leaf-diff count `1108`
+# matched `configurations>>5>>by_mode>>hydro>>solver>>subc_iters`, an unrelated
+# CG iteration count, and was reported OK.  A count is not a measurement, so it
+# must be ALLOW-listed with a reason or PINNED to a named path, never matched by
+# value.  This makes the check STRICTER, not laxer.
+BARE_INT = re.compile(r"^[−-]?\d+$")
+
 
 def self_check() -> list:
     """Refuse to run if a machine-dependent leaf has been NAMED as a source.
@@ -489,7 +576,7 @@ def self_check() -> list:
 
 def main() -> int:
     _register_all()
-    text = open(DOC).read()
+    text = "\n".join(open(d).read() for d in DOCS)
     seen, checked, allowed_n, hexy_n, unaccounted = set(), 0, 0, 0, 0
     pinned_n = 0
     explain = "--explain" in sys.argv
@@ -512,7 +599,7 @@ def main() -> int:
                 hexy_n += 1
                 continue
             tok = _norm_exp(tok)   # `1.24e-03` and `1.24e-3` are one number
-            lowp = sig_digits(tok) < MIN_SIG
+            lowp = sig_digits(tok) < MIN_SIG or bool(BARE_INT.match(tok))
             if lowp and tok in PINNED:
                 src, ref = PINNED[tok]
                 val = ref() if callable(ref) else path(src, ref)
@@ -529,13 +616,19 @@ def main() -> int:
                     lines.append(f"  ALLOW  `{tok}`  — {ALLOWED[tok]}")
             elif lowp:
                 unaccounted += 1
+                why = ("a BARE INTEGER (a count/index), which is never "
+                       "auto-registrable: this bench ships thousands of integer "
+                       "leaves (CG iteration counts, node counts), so a value "
+                       "match would be coincidence, not provenance"
+                       if BARE_INT.match(tok) else
+                       f"only {sig_digits(tok)} significant digit(s), below "
+                       f"MIN_SIG={MIN_SIG}, so an auto-match against "
+                       f"~{len(REGISTERED)} rounded forms would be coincidence, "
+                       f"not provenance")
                 bad.append(
-                    f"LOW-PRECISION UNPINNED  `{tok}`  — only "
-                    f"{sig_digits(tok)} significant digit(s), below MIN_SIG="
-                    f"{MIN_SIG}, so an auto-match against ~{len(REGISTERED)} "
-                    f"rounded forms would be coincidence, not provenance. Add it "
-                    f"to PINNED (hand-mapped to a named path) or to ALLOWED "
-                    f"(a constant, with a reason).")
+                    f"LOW-PRECISION / BARE-INT UNPINNED  `{tok}`  — {why}. Add "
+                    f"it to PINNED (hand-mapped to a named path) or to ALLOWED "
+                    f"(a constant/count, with a reason).")
             elif tok in REGISTERED:
                 checked += 1
                 if explain:
@@ -549,7 +642,8 @@ def main() -> int:
                 bad.append(f"UNREGISTERED  `{tok}`  — not the rounded value of "
                            f"any named JSON leaf and not allow-listed. Register "
                            f"it against its source or justify it.")
-    print(f"[number-check] doc: {os.path.relpath(DOC, REPO)}")
+    for d in DOCS:
+        print(f"[number-check] doc: {os.path.relpath(d, REPO)}")
     print(f"[number-check] JSON leaves registered (named): {len(REGISTERED)} "
           f"distinct rounded forms")
     print(f"[number-check] distinct numeric tokens in doc: {len(seen)}")

@@ -951,16 +951,31 @@ def bound_robustness_crosscheck_782(configs):
                 core_k == float(m782["K_eff_over_K0_sf"])),
             "r_Z_782_shipped_core": float(m782["by_beta"]["beta_0"]["r_Z"]),
             "r_Z_here_CORE_estimator_NO_BOUND_STATUS": rz_core,
-            "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": rz_kubc,
+            # ★F4 (RE-VERIFY repair): this key was `..._the_actual_UPPER_bound`, which
+            # applies the bound-ordering word to a RATIO. Frozen §2.1 says the same-
+            # instrument ratio is NOT theorem-grade; what IS theorem-grade is the
+            # ABSOLUTE whole-cell KUBC modulus. Renamed, with the bound status spelled
+            # out in a sibling leaf and the CONSERVATIVE (bound-ordered) pair added.
+            "r_Z_here_WHOLE_CELL_KUBC_apparent_modulus": rz_kubc,
+            "RATIO_BOUND_STATUS": (
+                "whole-cell KUBC apparent modulus: theorem-grade on the ABSOLUTE "
+                "(Hill/Huet kinematic-uniform upper bound). This RATIO is the frozen "
+                "§2.1 PRIMARY and is NOT bound-ordered — the uncaged reference is "
+                "itself boundary-conditioned. The bound-ordered pair is "
+                "r_Z_theorem_grade_CONSERVATIVE below (frozen §2.2)."),
             "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": rz_subc,
+            "r_Z_theorem_grade_CONSERVATIVE": [
+                float(x) for x in h["r_Z_bracket_conservative_rho_ASSUMED_1"]],
+            "theorem_grade_class_vs_T1": classify_bracket(
+                *h["r_Z_bracket_conservative_rho_ASSUMED_1"], T1_RZ),
             "macro_side_on_CORE_estimator": bool(rz_core < T1_RZ),
-            "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": bool(rz_kubc < T1_RZ),
+            "macro_side_on_the_WHOLE_CELL_KUBC_reading": bool(rz_kubc < T1_RZ),
             "two_sided_class_vs_T1": classify_bracket(rz_subc, rz_kubc, T1_RZ),
             "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading":
                 bool(rz_core < rz_kubc),
         })
     n_core = sum(r["macro_side_on_CORE_estimator"] for r in rows)
-    n_bound = sum(r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] for r in rows)
+    n_bound = sum(r["macro_side_on_the_WHOLE_CELL_KUBC_reading"] for r in rows)
     n_straddle = sum(r["two_sided_class_vs_T1"] == "STRADDLES" for r in rows)
 
     # ── ★F8 (PR #802 RE-VERIFY repair): #782:12 grounds trigger (iii) on TWO clauses,
@@ -1059,7 +1074,7 @@ def bound_robustness_crosscheck_782(configs):
         "rows": rows,
         "n_legs": len(rows),
         "n_macro_side_on_the_CORE_estimator": n_core,
-        "n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC": n_bound,
+        "n_macro_side_on_the_WHOLE_CELL_KUBC_reading": n_bound,
         "n_legs_two_sided_STRADDLE": n_straddle,
         "phi_scan_clause_F8": phi_scan_leg,
         "f_incl_cross_class_flip_NOT_TOUCHED_F3": f_incl_not_touched,
@@ -2385,17 +2400,18 @@ def main():
                       an["r_Z_C11_bracket_conservative_rho_ASSUMED_1"][1]))
     f5 = out["F5_782_bound_robustness_crosscheck_NOT_FROZEN"]
     print("\n[SUPPLEMENTARY F5 — #782 bound-robustness cross-check, r_Z vs T1 = 0.5]")
-    print("  leg                    r_Z(core, NO bound)  r_Z(whole-cell KUBC = the "
-          "UPPER bound)  macro-side?")
+    print("  leg                    r_Z(core, NO bound)  r_Z(whole-cell KUBC "
+          "apparent modulus)  theorem-grade [lo,hi]        macro-side?")
     for r in f5["rows"]:
-        print("  %-22s %-20.5f %-32.5f %s" % (
+        tg = r["r_Z_theorem_grade_CONSERVATIVE"]
+        print("  %-22s %-20.5f %-33.5f [%.5f, %.5f]  %s" % (
             r["leg_782"], r["r_Z_here_CORE_estimator_NO_BOUND_STATUS"],
-            r["r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound"],
-            "YES" if r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] else "NO"))
+            r["r_Z_here_WHOLE_CELL_KUBC_apparent_modulus"], tg[0], tg[1],
+            "YES" if r["macro_side_on_the_WHOLE_CELL_KUBC_reading"] else "NO"))
     print("  macro-side legs: %d of %d on the CORE estimator -> %d of %d on the "
           "BOUND-CARRYING measure" % (
               f5["n_macro_side_on_the_CORE_estimator"], f5["n_legs"],
-              f5["n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC"],
+              f5["n_macro_side_on_the_WHOLE_CELL_KUBC_reading"],
               f5["n_legs"]))
     print("\n[SUPPLEMENTARY anisotropy — uncaged cold reference, both BCs]")
     for L, meta in sorted(out["uncaged_reference_by_L"].items()):
