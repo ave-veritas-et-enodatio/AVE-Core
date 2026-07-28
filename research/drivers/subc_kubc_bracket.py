@@ -115,6 +115,14 @@ SIG_SHEAR = np.outer([1.0, 0, 0], [0, 1.0, 0]) + np.outer([0, 1.0, 0], [1.0, 0, 
 #  frozen read and NO frozen count — it is carried in a separate, clearly-labelled
 #  SUPPLEMENTARY_anisotropy block (additive, never substitutive).
 SIG_TETRA = np.diag([1.0, -1.0, 0.0])
+# ★UNIAXIAL mode — SUPPLEMENTARY, added by the PR #802 RE-VERIFY repair (finding F1).
+#  KUBC only: E = eps*diag(1,0,0) => U/V = 1/2*C11*eps^2, so C11 = 2U/(V eps^2) DIRECTLY,
+#  without assembling it from K and C'. Its agreement with K + 4C'/3 is a CUBIC IDENTITY
+#  that holds only when [100] is an elastic axis of the medium — which is the axis-
+#  alignment evidence the first repair's SUBC-Sigma_bar sentence did NOT supply (that
+#  Sigma_bar is a property of the LOAD SET; it never sees Phi). Like `tetra`, it is NOT in
+#  BOTH_MODES and NOT in any by_mode block: NO frozen gate, read or count sees it.
+SIG_UNIAX = np.diag([1.0, 0.0, 0.0])
 
 
 def sigma_matrix(mode):
@@ -129,6 +137,8 @@ def strain_matrix(mode, eps):
     #782 driver stays untouched."""
     if mode == "tetra":
         return eps * SIG_TETRA
+    if mode == "uniax":
+        return eps * SIG_UNIAX
     return strain_mode(mode, eps)
 
 
@@ -291,11 +301,18 @@ def subc_solve(geom, act, Phi, diag, mode, xc, V, half, sigma=SIGMA_PROBE):
     }
 
 
-def kubc_solve(geom, free, Phi, diag, mode, xc, V, half, eps=EPS):
+def kubc_solve(geom, free, Phi, diag, mode, xc, V, half, eps=EPS, want_reaction=False):
     """The KUBC counterpart, Rule-14 on the #782 primitive (`cg_solve_interior`): impose
     the affine macroscopic strain on the boundary shell, relax the interior, return BOTH
     the whole-cell energy (the bound-carrying measure) and the central-L/2-cube core
     energy (the SHIPPED #782/#796 estimator, which carries NO bound status, prereg §2.3).
+
+    `want_reaction` (SUPPLEMENTARY, F1 repair; OFF for every frozen call so no frozen
+    record gains or loses a leaf) additionally reads the macroscopic REACTION stress by
+    the same Hill lemma the SUBC side uses, from the reaction force field `r = K u`
+    (which is nonzero only on the prescribed shell once the interior has equilibrated).
+    Unlike the SUBC load set, `r` is a functional of `Phi` — so its tensor STRUCTURE is a
+    property of the MEDIUM and can test elastic-axis alignment.
     """
     pos, bi, bj, dhat, mid = geom
     N = pos.shape[0]
@@ -304,12 +321,16 @@ def kubc_solve(geom, free, Phi, diag, mode, xc, V, half, eps=EPS):
     u_bc[~free] = affine_field(pos[~free], xc, E)
     u, res, it = cg_solve_interior(Phi, bi, bj, N, free, u_bc, diag)
     U = elastic_energy(u, Phi, bi, bj)
-    pref = 4.5 if mode == "hydro" else 2.0
-    return {
+    pref = {"hydro": 4.5, "uniax": 0.5}.get(mode, 2.0)
+    out = {
         "U_total": float(U), "U_core": float(core_energy(u, Phi, bi, bj, mid, xc, half)),
         "M_abs": float(U / (pref * eps ** 2 * V)),
         "cg_residual": float(res), "cg_iters": int(it),
     }
+    if want_reaction:
+        Sb = hill_stress(-forces(u, Phi, bi, bj, N), pos, xc, V)
+        out["Sigma_bar_reaction"] = [[float(x) for x in row] for row in Sb]
+    return out
 
 
 def born_rotation_check(geom, Phi, xc):
@@ -487,6 +508,129 @@ def measure_cprime_abs(S, k_a, k_s):
     }
 
 
+def _tensor_diagnostics(Sb):
+    """Structure diagnostics of a 3x3 macroscopic stress, all RELATIVE so the probe
+    amplitude cancels."""
+    A = np.asarray(Sb, dtype=float)
+    od = max(abs(A[0, 1]), abs(A[0, 2]), abs(A[1, 2]))
+    dg = max(abs(A[0, 0]), abs(A[1, 1]), abs(A[2, 2]))
+    return {"max_abs_offdiag": float(od), "max_abs_diag": float(dg),
+            "max_offdiag_over_max_diag": float(od / (dg + 1e-300))}
+
+
+def isotropy_check(S, k_a, k_s, K_KUBC, C44_KUBC, Cp_KUBC, eps=EPS):
+    """★THE AXIS-ALIGNMENT EVIDENCE — PR #802 RE-VERIFY repair, finding F1.
+
+    ★WHAT THIS REPLACES, AND WHY. The first repair offered the realized SUBC macroscopic
+    stress `Sigma_bar = diag(+0.9047.., -0.9047.., 0)` as evidence that "the cubic axes
+    are the lattice axes". That is a NON SEQUITUR: `Sigma_bar = hill_stress(traction_load
+    (...))` is built from the load set and the node positions and NEVER SEES `Phi`, so it
+    is bit-identical for a rigid medium, for a caged medium and for no medium at all. A
+    medium whose elastic axes were rotated 45 deg would return the same `Sigma_bar`. It is
+    a property of the LOAD SET, not of the MEDIUM. The claim it was offered for is
+    nonetheless TRUE; this function measures it properly, two ways:
+
+      (a) DIRECT UNIAXIAL PROBE. KUBC with `E = eps*diag(1,0,0)` gives `C11 = 2U/(V eps^2)`
+          with NO assembly step. For a cubic medium whose [100] IS an elastic axis this
+          must equal the assembled `K + 4C'/3` built from the independent `hydro` and
+          `tetra` modes. It is an IDENTITY only under axis alignment: for a crystal rotated
+          by 45 deg about z the same two extractions read `(C11+C12+2C44)/2` and
+          `K + 4C44/3` respectively, which differ from each other and from the true C11
+          whenever the Zener anisotropy `A != 1`. Both rotated comparators are computed and
+          shipped so the reader can see the size of the discrimination.
+
+      (b) KUBC REACTION-STRESS STRUCTURE. The reaction field `r = K u` IS a functional of
+          `Phi`. Under the tetragonal strain a medium with aligned axes returns a purely
+          tetragonal stress (Sigma_33 = 0, off-diagonals = 0); under the uniaxial strain it
+          returns `Sigma_22 = Sigma_33` exactly — the cubic `C12 = C13` signature. For a
+          crystal rotated by a general angle `theta` about z the tetragonal probe returns a
+          lab off-diagonal `Sigma_xy = eps*(C' - C44)*sin(4 theta)`, so the measured
+          off-diagonal ratio BOUNDS `|sin 4 theta|` — quantified and shipped. That bound is
+          blind at exactly `theta = 45 deg` (where sin(4 theta) = 0 too), which is precisely
+          the branch (a) excludes. The two together are the evidence; neither alone is.
+
+    ★HONEST SCOPE: KUBC side only. The SUBC side has no reaction field to read (no DOF is
+    prescribed), and the SUBC apparent moduli are not needed for an axis-alignment
+    statement, which is a property of the medium and not of the boundary condition.
+    SUPPLEMENTARY throughout: no frozen gate, read or count sees any of it."""
+    Phi, diag = operator(S["geom"], k_a, k_s)
+    geom, free, xc, V, half = S["geom"], S["free"], S["xc"], S["V"], S["half"]
+    a_u = kubc_solve(geom, free, Phi, diag, "uniax", xc, V, half, want_reaction=True)
+    a_t = kubc_solve(geom, free, Phi, diag, "tetra", xc, V, half, want_reaction=True)
+    C11_direct = float(a_u["M_abs"])
+    C11_assembled = float(K_KUBC + 4.0 * Cp_KUBC / 3.0)
+    Su = np.asarray(a_u["Sigma_bar_reaction"], dtype=float)
+    St = np.asarray(a_t["Sigma_bar_reaction"], dtype=float)
+    C11_react = float(Su[0, 0] / eps)
+    C12_react, C13_react = float(Su[1, 1] / eps), float(Su[2, 2] / eps)
+    # what the SAME two extractions would read if the cubic axes were rotated 45 deg
+    # about z (standard cubic rotation: C11' = (C11+C12+2C44)/2; the `tetra` mode then
+    # returns C44 in place of C', so the assembly becomes K + 4*C44/3)
+    C12_from_modes = C11_assembled - 2.0 * Cp_KUBC
+    C11_rot45_direct = 0.5 * (C11_assembled + C12_from_modes + 2.0 * C44_KUBC)
+    C11_rot45_assembled = float(K_KUBC + 4.0 * C44_KUBC / 3.0)
+    dt, du = _tensor_diagnostics(St), _tensor_diagnostics(Su)
+    A_zener = C44_KUBC / (Cp_KUBC + 1e-300)
+    sin4theta_bound = (dt["max_offdiag_over_max_diag"] * 2.0
+                       / (abs(1.0 - A_zener) + 1e-300))
+    return {
+        "STATEMENT": ("the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH "
+                      "boundary conditions. No isotropy check existed in the frozen "
+                      "prereg, the driver or the first result doc."),
+        "SUPERSEDES": (
+            "the first repair's axis-alignment sentence cited the realized SUBC "
+            "Sigma_bar. That is a NON SEQUITUR — hill_stress(traction_load(...)) never "
+            "sees Phi and is bit-identical for a rigid medium, a caged medium and no "
+            "medium at all, so it cannot distinguish an aligned medium from a rotated "
+            "one. WITHDRAWN as evidence (the conclusion it was offered for stands, on "
+            "the two independent measurements below)."),
+        "direct_uniaxial_C11_KUBC": C11_direct,
+        "assembled_K_plus_4Cprime_over_3_KUBC": C11_assembled,
+        "rel_direct_minus_assembled": float(C11_direct / C11_assembled - 1.0),
+        "C11_from_uniax_reaction_traction": C11_react,
+        "rel_reaction_minus_energy_C11": float(C11_react / C11_direct - 1.0),
+        "C12_from_uniax_reaction": C12_react,
+        "C13_from_uniax_reaction": C13_react,
+        "rel_C12_minus_C13": float(abs(C12_react - C13_react)
+                                   / (abs(C12_react) + 1e-300)),
+        "uniax_reaction_Sigma_bar": a_u["Sigma_bar_reaction"],
+        "uniax_reaction_structure": du,
+        "tetra_reaction_Sigma_bar": a_t["Sigma_bar_reaction"],
+        "tetra_reaction_structure": dt,
+        "tetra_reaction_Sigma33_over_Sigma11": float(abs(St[2, 2])
+                                                     / (abs(St[0, 0]) + 1e-300)),
+        "rotated_45deg_about_z_comparators": {
+            "note": ("what the SAME two extractions would read on a medium whose cubic "
+                     "axes were rotated 45 deg about z — the branch the off-diagonal "
+                     "test is blind to and the direct/assembled identity excludes"),
+            "direct_uniaxial_C11_would_read": float(C11_rot45_direct),
+            "assembled_would_read": C11_rot45_assembled,
+            "their_relative_disagreement": float(C11_rot45_assembled
+                                                 / (C11_rot45_direct + 1e-300) - 1.0),
+            "measured_relative_disagreement": float(C11_direct / C11_assembled - 1.0),
+        },
+        "misalignment_bound_about_z": {
+            "model": ("a cubic medium rotated by theta about z returns, under the "
+                      "tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*"
+                      "sin(4 theta) against a diagonal 2*C'*eps at small theta, so "
+                      "|sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio"),
+            "zener_A_KUBC": float(A_zener),
+            "measured_offdiag_ratio_tetra": dt["max_offdiag_over_max_diag"],
+            "implied_abs_sin_4theta_upper_bound": float(sin4theta_bound),
+            "implied_theta_upper_bound_deg": float(
+                np.degrees(np.arcsin(min(sin4theta_bound, 1.0))) / 4.0),
+            "blind_at_theta_45deg": True,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above",
+        },
+        "solver": {
+            "uniax_cg_residual": a_u["cg_residual"], "uniax_cg_iters": a_u["cg_iters"],
+            "tetra_cg_residual": a_t["cg_residual"], "tetra_cg_iters": a_t["cg_iters"],
+        },
+        "LABEL": ("SUPPLEMENTARY — PR #802 RE-VERIFY repair (F1). KUBC side only. Enters "
+                  "NO frozen gate, read or count."),
+    }
+
+
 def _attach_anisotropy(S, row, k_a, k_s, unc_abs):
     """Attach the SUPPLEMENTARY F2 anisotropy block to a configuration row, if the row
     carries both frozen modes and an uncaged reference triple is available."""
@@ -500,6 +644,12 @@ def _attach_anisotropy(S, row, k_a, k_s, unc_abs):
         "kubc_cg_residual", "kubc_cg_iters", "sigma_bar_SUBC",
         "Sigma_bar_tensor_SUBC")}
     blk["modulus_identity_tetra"] = cp["modulus_identity"]
+    # ★F1 repair: the axis-alignment evidence, MEASURED (replaces the load-set Sigma_bar
+    # non sequitur the first repair carried). ISOTROPY_CHECK was a bare string; it is now
+    # the measurement block, with the superseded claim named inside it.
+    blk["ISOTROPY_CHECK"] = isotropy_check(
+        S, k_a, k_s, row["by_mode"]["hydro"]["abs"]["K_KUBC"],
+        row["by_mode"]["shear"]["abs"]["K_KUBC"], cp["Cprime_KUBC"])
     row["SUPPLEMENTARY_anisotropy_NOT_FROZEN"] = blk
     return row
 
@@ -778,7 +928,9 @@ def bound_robustness_crosscheck_782(configs):
     the macro-side (`r_Z < 0.5`) reading is bound-robust on each measure. Nothing here
     edits, reframes or re-bins #782 — it is measured, shipped and ROUTED."""
     src = _DRIVERS / "rve_aggregation_bench_results.json"
-    by_class = json.loads(src.read_text())["leg4_verdict"]["by_class"]
+    J782 = json.loads(src.read_text())
+    by_class = J782["leg4_verdict"]["by_class"]
+    scan = J782["leg3_phi_scan"]["scan"]
     legs = {"bulk_only_cold": "bulk_only_cold_phi_sf",
             "bulk_only_compressed": "bulk_only_compressed_phi_sf",
             "bulk_only_expanded": "bulk_only_expanded_phi_sf",
@@ -809,6 +961,34 @@ def bound_robustness_crosscheck_782(configs):
         })
     n_core = sum(r["macro_side_on_CORE_estimator"] for r in rows)
     n_bound = sum(r["macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC"] for r in rows)
+    # ── ★F3 (PR #802 RE-VERIFY repair): the OTHER 'cross-class flip' in #782 — the one
+    #    at :114 (sec 6, LEG 4/VERDICT) — is the f_incl BIN-2-vs-BIN-4 split, and it is
+    #    COLLAPSE-GATE-driven, not r_Z-driven. This lane does NOT touch it. Measured
+    #    from #782's own artefact so the non-dependence is checkable, not asserted.
+    coll = {k: {"max_rel_disagreement": float(v["collapse_f_incl"]
+                                              ["max_rel_disagreement"]),
+                "collapses": bool(v["collapse_f_incl"]["collapses"])}
+            for k, v in scan.items()}
+    f_incl_not_touched = {
+        "WHAT_IT_IS": (
+            "research/2026-07-21_rve-aggregation-bench_result.md:114 (sec 6, LEG 4 / "
+            "VERDICT) uses the words 'a verdict-controlling cross-class flip' for the "
+            "f_incl BIN-2-vs-BIN-4 split, NOT for the r_Z macro/matched split of :12."),
+        "WHY_IT_IS_NOT_r_Z_DRIVEN": (
+            "rve_aggregation_bench._bin_of returns BIN4_REGIME_UNDETERMINED whenever "
+            "collapse_ok is False, BEFORE r_Z is consulted at all. bulk_only_compressed "
+            "FAILS the f_incl collapse gate and therefore reads BIN-4 for ANY r_Z, "
+            "while bulk_only_cold and bulk_only_expanded PASS it and read BIN-2."),
+        "collapse_f_incl_by_class_782": coll,
+        "collapse_threshold_782": 0.30,
+        "NOT_TOUCHED_BY_THIS_LANE": (
+            "this lane changes the MEASURE r_Z is read on; it does not touch the "
+            "f_incl collapse gate, which is a phi-vs-f_incl scaling-collapse test on "
+            "#782's own scan. The f_incl BIN-2/BIN-4 flip therefore PERSISTS UNCHANGED "
+            "on the bound-carrying measure. Only :12's r_Z macro/matched clause "
+            "evaporates."),
+    }
+
     return {
         "LABEL": "SUPPLEMENTARY — NOT a frozen criterion, in no frozen gate, read or "
                  "count. PR #802 adversarial-review repair, finding F5.",
@@ -821,6 +1001,7 @@ def bound_robustness_crosscheck_782(configs):
         "n_legs": len(rows),
         "n_macro_side_on_the_CORE_estimator": n_core,
         "n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC": n_bound,
+        "f_incl_cross_class_flip_NOT_TOUCHED_F3": f_incl_not_touched,
         "FINDING": (
             "#782's macro-side legs are macro-side ONLY on the CORE estimator, which the "
             "frozen prereg §2.3 says carries NO bound status. On the WHOLE-CELL apparent "
@@ -1686,6 +1867,9 @@ def run_all():
                 "kubc_cg_residual", "kubc_cg_iters", "sigma_bar_SUBC",
                 "Sigma_bar_tensor_SUBC")},
             "modulus_identity": cp0["modulus_identity"],
+            "ISOTROPY_CHECK": isotropy_check(
+                SS[L], np.full(M0, float(RHO_STAR)), np.full(M0, float(K_S)),
+                unc_abs[L]["K_KUBC"], unc_abs[L]["C44_KUBC"], cp0["Cprime_KUBC"]),
         }
     S = SS[L_BASE]
     out["lattice"] = {L: {"N": SS[L]["N"], "M": SS[L]["M"],

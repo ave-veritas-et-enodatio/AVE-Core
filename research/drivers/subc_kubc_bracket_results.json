@@ -344,7 +344,87 @@
             ]
           ]
         },
-        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs."
+        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 2.496312820383994,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 2.4963128204233955,
+          "rel_direct_minus_assembled": -1.5783818696490926e-11,
+          "C11_from_uniax_reaction_traction": 2.4963127812801202,
+          "rel_reaction_minus_energy_C11": -1.5664652908142784e-08,
+          "C12_from_uniax_reaction": 1.246042461993845,
+          "C13_from_uniax_reaction": 1.2460425398762154,
+          "rel_C12_minus_C13": 6.250378514875108e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.00249631278128012,
+              4.478318590052955e-07,
+              4.958503775852377e-07
+            ],
+            [
+              4.478318590052955e-07,
+              0.001246042461993845,
+              -9.436313461316707e-07
+            ],
+            [
+              4.958503775852377e-07,
+              -9.436313461316707e-07,
+              0.0012460425398762155
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 9.436313461316707e-07,
+            "max_abs_diag": 0.00249631278128012,
+            "max_offdiag_over_max_diag": 0.0003780100607616055
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0012502702959065653,
+              -4.80457479366377e-08,
+              1.4395446112752924e-06
+            ],
+            [
+              -4.80457479366377e-08,
+              -0.0012502703053112701,
+              -1.3914988633383028e-06
+            ],
+            [
+              1.4395446112752924e-06,
+              -1.3914988633383028e-06,
+              9.404716184756824e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.4395446112752924e-06,
+            "max_abs_diag": 0.0012502703053112701,
+            "max_offdiag_over_max_diag": 0.0011513867082661778
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 7.522146383504622e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 2.890626965707649,
+            "assembled_would_read": 3.0220650141357335,
+            "their_relative_disagreement": 0.04547042907555077,
+            "measured_relative_disagreement": -1.5783818696490926e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.6307662158759344,
+            "measured_offdiag_ratio_tetra": 0.0011513867082661778,
+            "implied_abs_sin_4theta_upper_bound": 0.0036507557928329008,
+            "implied_theta_upper_bound_deg": 0.05229334090210105,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.570054764665825e-07,
+            "uniax_cg_iters": 109,
+            "tetra_cg_residual": 9.18316741894951e-07,
+            "tetra_cg_iters": 102
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        }
       }
     },
     "16": {
@@ -430,7 +510,87 @@
             ]
           ]
         },
-        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs."
+        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 2.406553079293439,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 2.406553079062829,
+          "rel_direct_minus_assembled": 9.582601379065636e-11,
+          "C11_from_uniax_reaction_traction": 2.406553089870041,
+          "rel_reaction_minus_energy_C11": 4.3949173189616886e-09,
+          "C12_from_uniax_reaction": 1.2782237879433649,
+          "C13_from_uniax_reaction": 1.2782237945402415,
+          "rel_C12_minus_C13": 5.160971547207703e-09,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.002406553089870041,
+              2.6953855278911194e-07,
+              2.9910302944798567e-07
+            ],
+            [
+              2.6953855278911194e-07,
+              0.0012782237879433648,
+              -5.686557259599115e-07
+            ],
+            [
+              2.9910302944798567e-07,
+              -5.686557259599115e-07,
+              0.0012782237945402415
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 5.686557259599115e-07,
+            "max_abs_diag": 0.002406553089870041,
+            "max_offdiag_over_max_diag": 0.00023629469399763796
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0011283292575010656,
+              -2.9592848758245263e-08,
+              8.67816649840024e-07
+            ],
+            [
+              -2.9592848758245263e-08,
+              -0.0011283292739144545,
+              -8.382238010812122e-07
+            ],
+            [
+              8.67816649840024e-07,
+              -8.382238010812122e-07,
+              1.6413361292959685e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 8.67816649840024e-07,
+            "max_abs_diag": 0.0011283292739144545,
+            "max_offdiag_over_max_diag": 0.0007691164892224701
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.4546606129234564e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 2.7480507557864744,
+            "assembled_would_read": 2.8618833146943565,
+            "their_relative_disagreement": 0.04142301908659762,
+            "measured_relative_disagreement": 9.582601379065636e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.6053156327541482,
+            "measured_offdiag_ratio_tetra": 0.0007691164892224701,
+            "implied_abs_sin_4theta_upper_bound": 0.0025412080825437736,
+            "implied_theta_upper_bound_deg": 0.036400163675767545,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.649173686826554e-07,
+            "uniax_cg_iters": 141,
+            "tetra_cg_residual": 8.839954643301584e-07,
+            "tetra_cg_iters": 143
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        }
       }
     },
     "20": {
@@ -516,7 +676,87 @@
             ]
           ]
         },
-        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs."
+        "modulus_identity": "TETRAGONAL cubic shear constant C' = (C11 - C12)/2 (SUPPLEMENTARY, added by the PR #802 review repair F2; enters NO frozen gate, read or count). C' is the shear constant the [100] longitudinal modulus C11 = K + 4C'/3 needs; C44 is the one the [111] longitudinal modulus K + 4C44/3 needs.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 2.3466541884514487,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 2.3466541883510423,
+          "rel_direct_minus_assembled": 4.278710719063383e-11,
+          "C11_from_uniax_reaction_traction": 2.3466541989775425,
+          "rel_reaction_minus_energy_C11": 4.485575244572715e-09,
+          "C12_from_uniax_reaction": 1.300547349288742,
+          "C13_from_uniax_reaction": 1.3005473154138845,
+          "rel_C12_minus_C13": 2.6046616145259386e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0023466541989775424,
+              1.7908962971531011e-07,
+              1.9894629536577815e-07
+            ],
+            [
+              1.7908962971531011e-07,
+              0.001300547349288742,
+              -3.7804966893137873e-07
+            ],
+            [
+              1.9894629536577815e-07,
+              -3.7804966893137873e-07,
+              0.0013005473154138845
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 3.7804966893137873e-07,
+            "max_abs_diag": 0.0023466541989775424,
+            "max_offdiag_over_max_diag": 0.00016110156711461715
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.001046106866973055,
+              -1.983213687998901e-08,
+              5.770706326684991e-07
+            ],
+            [
+              -1.983213687998901e-08,
+              -0.0010461068822345116,
+              -5.572384957869873e-07
+            ],
+            [
+              5.770706326684991e-07,
+              -5.572384957869873e-07,
+              1.5261350341985996e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 5.770706326684991e-07,
+            "max_abs_diag": 0.0010461068822345116,
+            "max_offdiag_over_max_diag": 0.0005516363982195215
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.4588710602909263e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 2.6524784995883564,
+            "assembled_would_read": 2.754419936667461,
+            "their_relative_disagreement": 0.03843252154350174,
+            "measured_relative_disagreement": 4.278710719063383e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.5846903901317622,
+            "measured_offdiag_ratio_tetra": 0.0005516363982195215,
+            "implied_abs_sin_4theta_upper_bound": 0.001886935060092943,
+            "implied_theta_upper_bound_deg": 0.02702836982885657,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.592258922448401e-07,
+            "uniax_cg_iters": 180,
+            "tetra_cg_residual": 9.788487278000054e-07,
+            "tetra_cg_iters": 182
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        }
       }
     }
   },
@@ -1912,7 +2152,7 @@
       }
     ],
     "converged": true,
-    "wall_clock_s": 12.774085998535156,
+    "wall_clock_s": 14.137647151947021,
     "not_run_reason": null,
     "status": "CONVERGED \u2014 reported as a labelled COMPANION only",
     "min_kse_raw": 0.2904375282705164,
@@ -2103,7 +2343,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.5989123810151944,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.5989123810257126,
+          "rel_direct_minus_assembled": -6.57840448781144e-12,
+          "C11_from_uniax_reaction_traction": 1.5989123512595371,
+          "rel_reaction_minus_energy_C11": -1.8609936147662154e-08,
+          "C12_from_uniax_reaction": 0.5911738650556168,
+          "C13_from_uniax_reaction": 0.5911738896594587,
+          "rel_C12_minus_C13": 4.161862257133729e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0015989123512595372,
+              1.2299625117162982e-07,
+              2.0960275250327723e-07
+            ],
+            [
+              1.2299625117162982e-07,
+              0.0005911738650556167,
+              -2.428986187956345e-07
+            ],
+            [
+              2.0960275250327723e-07,
+              -2.428986187956345e-07,
+              0.0005911738896594587
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 2.428986187956345e-07,
+            "max_abs_diag": 0.0015989123512595372,
+            "max_offdiag_over_max_diag": 0.00015191490553205874
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.001007738429063015,
+              -8.659636443982906e-08,
+              4.5246629695031314e-07
+            ],
+            [
+              -8.659636443982906e-08,
+              -0.0010077384256556119,
+              -3.658699325105181e-07
+            ],
+            [
+              4.5246629695031314e-07,
+              -3.658699325105181e-07,
+              -3.4074001410693707e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 4.5246629695031314e-07,
+            "max_abs_diag": 0.001007738429063015,
+            "max_offdiag_over_max_diag": 0.00044899180571193634
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 3.3812346962272116e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.861122825372727,
+            "assembled_would_read": 1.9485263068217318,
+            "their_relative_disagreement": 0.04696276906469099,
+            "measured_relative_disagreement": -6.57840448781144e-12
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.52039384074445,
+            "measured_offdiag_ratio_tetra": 0.00044899180571193634,
+            "implied_abs_sin_4theta_upper_bound": 0.0017255846267113025,
+            "implied_theta_upper_bound_deg": 0.024717191342306592,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.163235616306647e-07,
+            "uniax_cg_iters": 157,
+            "tetra_cg_residual": 9.527408777382277e-07,
+            "tetra_cg_iters": 151
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.4638802763092952,
           "K_KUBC": 0.9270867397078246,
@@ -2398,7 +2717,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.4230453387475785,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.4230453387706226,
+          "rel_direct_minus_assembled": -1.6193490992577608e-11,
+          "C11_from_uniax_reaction_traction": 1.4230453830957308,
+          "rel_reaction_minus_energy_C11": 3.116425806304335e-08,
+          "C12_from_uniax_reaction": 0.4880997877700987,
+          "C13_from_uniax_reaction": 0.48809977132588006,
+          "rel_C12_minus_C13": 3.369028027764372e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0014230453830957309,
+              -9.344762398183021e-08,
+              6.2093542182753645e-09
+            ],
+            [
+              -9.344762398183021e-08,
+              0.00048809978777009875,
+              -1.7055241192081871e-07
+            ],
+            [
+              6.2093542182753645e-09,
+              -1.7055241192081871e-07,
+              0.0004880997713258801
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 1.7055241192081871e-07,
+            "max_abs_diag": 0.0014230453830957309,
+            "max_offdiag_over_max_diag": 0.00011985029707892691
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0009349456064420115,
+              -9.966727728437198e-08,
+              1.7679376048724553e-07
+            ],
+            [
+              -9.966727728437198e-08,
+              -0.0009349456304487836,
+              -7.712648320254512e-08
+            ],
+            [
+              1.7679376048724553e-07,
+              -7.712648320254512e-08,
+              2.4006766318779938e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.7679376048724553e-07,
+            "max_abs_diag": 0.0009349456304487836,
+            "max_offdiag_over_max_diag": 0.00018909523156162853
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 2.5677179670525485e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.647267788910424,
+            "assembled_would_read": 1.7220086056236912,
+            "their_relative_disagreement": 0.04537259649974956,
+            "measured_relative_disagreement": -1.6193490992577608e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.479648101837415,
+            "measured_offdiag_ratio_tetra": 0.00018909523156162853,
+            "implied_abs_sin_4theta_upper_bound": 0.0007884748457765215,
+            "implied_theta_upper_bound_deg": 0.011294071399046066,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.449223262194648e-07,
+            "uniax_cg_iters": 163,
+            "tetra_cg_residual": 9.541011744755587e-07,
+            "tetra_cg_iters": 157
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.35818950222112,
           "K_KUBC": 0.799748247199087,
@@ -2693,7 +3091,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.2807558718311234,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.2807558718604661,
+          "rel_direct_minus_assembled": -2.2910451313862268e-11,
+          "C11_from_uniax_reaction_traction": 1.280755939577205,
+          "rel_reaction_minus_energy_C11": 5.2895390290075284e-08,
+          "C12_from_uniax_reaction": 0.4241457408341903,
+          "C13_from_uniax_reaction": 0.4241457254181413,
+          "rel_C12_minus_C13": 3.634611305562737e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.001280755939577205,
+              3.4894437064228997e-07,
+              3.2944362508881414e-07
+            ],
+            [
+              3.4894437064228997e-07,
+              0.00042414574083419034,
+              -8.367524951126313e-08
+            ],
+            [
+              3.2944362508881414e-07,
+              -8.367524951126313e-08,
+              0.00042414572541814126
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 3.4894437064228997e-07,
+            "max_abs_diag": 0.001280755939577205,
+            "max_offdiag_over_max_diag": 0.00027245188553057286
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0008566102281604832,
+              1.950292961712985e-08,
+              4.1310230784960265e-07
+            ],
+            [
+              1.950292961712985e-08,
+              -0.0008566102377720239,
+              -4.326052374675336e-07
+            ],
+            [
+              4.1310230784960265e-07,
+              -4.326052374675336e-07,
+              9.611547196494697e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 4.326052374675336e-07,
+            "max_abs_diag": 0.0008566102377720239,
+            "max_offdiag_over_max_diag": 0.0005050199243388754
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.1220444118598598e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.467444000534208,
+            "assembled_would_read": 1.5296733767587885,
+            "their_relative_disagreement": 0.04240664461603072,
+            "measured_relative_disagreement": -2.2910451313862268e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.4358764940066746,
+            "measured_offdiag_ratio_tetra": 0.0005050199243388754,
+            "implied_abs_sin_4theta_upper_bound": 0.002317261569655289,
+            "implied_theta_upper_bound_deg": 0.03319235669782848,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.255957360061485e-07,
+            "uniax_cg_iters": 168,
+            "tetra_cg_residual": 9.564396234710542e-07,
+            "tetra_cg_iters": 163
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.31946956252079095,
           "K_KUBC": 0.7096823950362935,
@@ -2988,7 +3465,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.2109017632998478,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.210901763349438,
+          "rel_direct_minus_assembled": -4.0953240798558e-11,
+          "C11_from_uniax_reaction_traction": 1.2109018171151817,
+          "rel_reaction_minus_energy_C11": 4.4442361568641786e-08,
+          "C12_from_uniax_reaction": 0.4224175914679662,
+          "C13_from_uniax_reaction": 0.4224175933461253,
+          "rel_C12_minus_C13": 4.4462141507489535e-09,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0012109018171151818,
+              9.749025752024862e-08,
+              6.737430510127924e-08
+            ],
+            [
+              9.749025752024862e-08,
+              0.0004224175914679662,
+              -1.921726200353674e-08
+            ],
+            [
+              6.737430510127924e-08,
+              -1.921726200353674e-08,
+              0.0004224175933461253
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 9.749025752024862e-08,
+            "max_abs_diag": 0.0012109018171151818,
+            "max_offdiag_over_max_diag": 8.051045604383239e-05
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0007884842741794965,
+              3.0114162279158766e-08,
+              8.660312309524595e-08
+            ],
+            [
+              3.0114162279158766e-08,
+              -0.000788484277398493,
+              -1.1671728537449717e-07
+            ],
+            [
+              8.660312309524595e-08,
+              -1.1671728537449717e-07,
+              3.2189988131395157e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.1671728537449717e-07,
+            "max_abs_diag": 0.000788484277398493,
+            "max_offdiag_over_max_diag": 0.00014802740995621563
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 4.082514919513434e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.3670684552385581,
+            "assembled_would_read": 1.4191240192015981,
+            "their_relative_disagreement": 0.03807824236128399,
+            "measured_relative_disagreement": -4.0953240798558e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.3961187457234572,
+            "measured_offdiag_ratio_tetra": 0.00014802740995621563,
+            "implied_abs_sin_4theta_upper_bound": 0.0007473890673154771,
+            "implied_theta_upper_bound_deg": 0.010705560799519726,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.374092845174796e-07,
+            "uniax_cg_iters": 165,
+            "tetra_cg_residual": 9.706341535595984e-07,
+            "tetra_cg_iters": 155
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.35086798000859787,
           "K_KUBC": 0.6852456107433039,
@@ -3283,7 +3839,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.3795283766705166,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.3795283766172979,
+          "rel_direct_minus_assembled": 3.857758557046509e-11,
+          "C11_from_uniax_reaction_traction": 1.379528149974212,
+          "rel_reaction_minus_energy_C11": -1.6432884486494714e-07,
+          "C12_from_uniax_reaction": 0.5649293885386578,
+          "C13_from_uniax_reaction": 0.5649294491476078,
+          "rel_C12_minus_C13": 1.0728588598786651e-07,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.001379528149974212,
+              4.916271239600997e-07,
+              6.237811704014684e-07
+            ],
+            [
+              4.916271239600997e-07,
+              0.0005649293885386579,
+              -2.2035205252244112e-07
+            ],
+            [
+              6.237811704014684e-07,
+              -2.2035205252244112e-07,
+              0.0005649294491476078
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 6.237811704014684e-07,
+            "max_abs_diag": 0.001379528149974212,
+            "max_offdiag_over_max_diag": 0.0004521699469584067
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0008145987097405869,
+              -1.3218103133756898e-07,
+              8.441764026939192e-07
+            ],
+            [
+              -1.3218103133756898e-07,
+              -0.0008145987450032097,
+              -7.119953713562017e-07
+            ],
+            [
+              8.441764026939192e-07,
+              -7.119953713562017e-07,
+              3.5262627934328775e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 8.441764026939192e-07,
+            "max_abs_diag": 0.0008145987450032097,
+            "max_offdiag_over_max_diag": 0.0010363094810446744
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 4.3288342484065975e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.637478621301478,
+            "assembled_would_read": 1.7234620361962047,
+            "their_relative_disagreement": 0.05250964121069668,
+            "measured_relative_disagreement": 3.857758557046509e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.633318611082779,
+            "measured_offdiag_ratio_tetra": 0.0010363094810446744,
+            "implied_abs_sin_4theta_upper_bound": 0.003272632330424983,
+            "implied_theta_upper_bound_deg": 0.046877088784667106,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.676611619861756e-07,
+            "uniax_cg_iters": 236,
+            "tetra_cg_residual": 9.943767481615047e-07,
+            "tetra_cg_iters": 233
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.30830719691606395,
           "K_KUBC": 0.8364626059921674,
@@ -3578,7 +4213,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.1786686724987527,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.1786686724843662,
+          "rel_direct_minus_assembled": 1.2205791932728971e-11,
+          "C11_from_uniax_reaction_traction": 1.1786684656904471,
+          "rel_reaction_minus_energy_C11": -1.7545923669537444e-07,
+          "C12_from_uniax_reaction": 0.4766043101676811,
+          "C13_from_uniax_reaction": 0.47660433058639967,
+          "rel_C12_minus_C13": 4.284207698859009e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0011786684656904473,
+              2.936381640398008e-07,
+              3.52191291693366e-07
+            ],
+            [
+              2.936381640398008e-07,
+              0.00047660431016768114,
+              -1.4853012507959396e-07
+            ],
+            [
+              3.52191291693366e-07,
+              -1.4853012507959396e-07,
+              0.00047660433058639966
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 3.52191291693366e-07,
+            "max_abs_diag": 0.0011786684656904473,
+            "max_offdiag_over_max_diag": 0.0002988043728539537
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.000702063864710402,
+              -5.8524218065557854e-08,
+              5.006783208029393e-07
+            ],
+            [
+              -5.8524218065557854e-08,
+              -0.0007020638750439836,
+              -4.4215410273709503e-07
+            ],
+            [
+              5.006783208029393e-07,
+              -4.4215410273709503e-07,
+              1.0333579539877967e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 5.006783208029393e-07,
+            "max_abs_diag": 0.0007020638750439836,
+            "max_offdiag_over_max_diag": 0.0007131520914269693
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.471885972103196e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.4043683424244873,
+            "assembled_would_read": 1.4796015657378607,
+            "their_relative_disagreement": 0.05357086245869902,
+            "measured_relative_disagreement": 1.2205791932728971e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.6429601366544135,
+            "measured_offdiag_ratio_tetra": 0.0007131520914269693,
+            "implied_abs_sin_4theta_upper_bound": 0.002218339989591869,
+            "implied_theta_upper_bound_deg": 0.031775405793513366,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.973224900647625e-07,
+            "uniax_cg_iters": 282,
+            "tetra_cg_residual": 9.650374411540652e-07,
+            "tetra_cg_iters": 281
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.19959557820661697,
           "K_KUBC": 0.7106258248836232,
@@ -3873,7 +4587,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.0019264036305287,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.001926403674117,
+          "rel_direct_minus_assembled": -4.3504422286844147e-11,
+          "C11_from_uniax_reaction_traction": 1.0019259664558688,
+          "rel_reaction_minus_energy_C11": -4.363341041813129e-07,
+          "C12_from_uniax_reaction": 0.4003984707446771,
+          "C13_from_uniax_reaction": 0.4003984907896791,
+          "rel_C12_minus_C13": 5.0062633741625304e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0010019259664558688,
+              2.544519517201157e-07,
+              2.4294651435766305e-07
+            ],
+            [
+              2.544519517201157e-07,
+              0.0004003984707446771,
+              5.46260502870356e-08
+            ],
+            [
+              2.4294651435766305e-07,
+              5.46260502870356e-08,
+              0.00040039849078967913
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 2.544519517201157e-07,
+            "max_abs_diag": 0.0010019259664558688,
+            "max_offdiag_over_max_diag": 0.0002539628278326724
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0006015275245439825,
+              1.151385253257304e-08,
+              1.8834289646962212e-07
+            ],
+            [
+              1.151385253257304e-08,
+              -0.0006015275233410557,
+              -1.9985674892905443e-07
+            ],
+            [
+              1.8834289646962212e-07,
+              -1.9985674892905443e-07,
+              -1.2029685416409666e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.9985674892905443e-07,
+            "max_abs_diag": 0.0006015275245439825,
+            "max_offdiag_over_max_diag": 0.00033224871809576075
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.9998561870513505e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.1900552930979857,
+            "assembled_would_read": 1.2527649229059419,
+            "their_relative_disagreement": 0.052694719456865435,
+            "measured_relative_disagreement": -4.3504422286844147e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.6255038034599998,
+            "measured_offdiag_ratio_tetra": 0.00033224871809576075,
+            "implied_abs_sin_4theta_upper_bound": 0.0010623395613517086,
+            "implied_theta_upper_bound_deg": 0.015216896181019216,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.903279270497272e-07,
+            "uniax_cg_iters": 301,
+            "tetra_cg_residual": 9.874071139010183e-07,
+            "tetra_cg_iters": 293
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.14572194208642575,
           "K_KUBC": 0.6009080280154852,
@@ -4168,7 +4961,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 0.9355861840419757,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 0.9355861841101583,
+          "rel_direct_minus_assembled": -7.287681569323468e-11,
+          "C11_from_uniax_reaction_traction": 0.935585839625632,
+          "rel_reaction_minus_energy_C11": -3.6812893300375293e-07,
+          "C12_from_uniax_reaction": 0.38155211820949275,
+          "C13_from_uniax_reaction": 0.38155209028680975,
+          "rel_C12_minus_C13": 7.31818319608547e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.000935585839625632,
+              1.264414129939568e-07,
+              1.084579568142206e-07
+            ],
+            [
+              1.264414129939568e-07,
+              0.00038155211820949277,
+              8.069066115892436e-08
+            ],
+            [
+              1.084579568142206e-07,
+              8.069066115892436e-08,
+              0.0003815520902868098
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 1.264414129939568e-07,
+            "max_abs_diag": 0.000935585839625632,
+            "max_offdiag_over_max_diag": 0.0001351467793105456
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0005540336288740524,
+              1.7965459066326164e-08,
+              2.7830086712721622e-08
+            ],
+            [
+              1.7965459066326164e-08,
+              -0.000554033635666687,
+              -4.579554578558022e-08
+            ],
+            [
+              2.7830086712721622e-08,
+              -4.579554578558022e-08,
+              6.792619304186956e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 4.579554578558022e-08,
+            "max_abs_diag": 0.000554033635666687,
+            "max_offdiag_over_max_diag": 8.265842150625552e-05
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.2260301451360295e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.0894619022668306,
+            "assembled_would_read": 1.1407538083190545,
+            "their_relative_disagreement": 0.04708003643404268,
+            "measured_relative_disagreement": -7.287681569323468e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.5554741596210746,
+            "measured_offdiag_ratio_tetra": 8.265842150625552e-05,
+            "implied_abs_sin_4theta_upper_bound": 0.00029761392163639894,
+            "implied_theta_upper_bound_deg": 0.0042630054714576605,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.999106492608414e-07,
+            "uniax_cg_iters": 246,
+            "tetra_cg_residual": 9.685411940294378e-07,
+            "tetra_cg_iters": 236
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.14579794211722585,
           "K_KUBC": 0.5662303452195523,
@@ -4463,7 +5335,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.0402863520392047,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.0402863520524284,
+          "rel_direct_minus_assembled": -1.271149852044573e-11,
+          "C11_from_uniax_reaction_traction": 1.0402864658316564,
+          "rel_reaction_minus_energy_C11": 1.0938570094154443e-07,
+          "C12_from_uniax_reaction": 0.4027245236511344,
+          "C13_from_uniax_reaction": 0.40272453494055177,
+          "rel_C12_minus_C13": 2.8032604627736812e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0010402864658316565,
+              2.0655535223285755e-07,
+              1.0868960406257511e-07
+            ],
+            [
+              2.0655535223285755e-07,
+              0.0004027245236511344,
+              7.061284090037731e-08
+            ],
+            [
+              1.0868960406257511e-07,
+              7.061284090037731e-08,
+              0.0004027245349405518
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 2.0655535223285755e-07,
+            "max_abs_diag": 0.0010402864658316565,
+            "max_offdiag_over_max_diag": 0.0001985562237106747
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0006375620675324458,
+              9.785449457073246e-08,
+              3.80530252258392e-08
+            ],
+            [
+              9.785449457073246e-08,
+              -0.0006375620590565059,
+              -1.3590751979657374e-07
+            ],
+            [
+              3.80530252258392e-08,
+              -1.3590751979657374e-07,
+              -8.475923761483175e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.3590751979657374e-07,
+            "max_abs_diag": 0.0006375620675324458,
+            "max_offdiag_over_max_diag": 0.0002131675121805413
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.3294272343220657e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.2002720876271242,
+            "assembled_would_read": 1.2536006661520227,
+            "their_relative_disagreement": 0.04443040796718534,
+            "measured_relative_disagreement": -1.271149852044573e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.5018671819535285,
+            "measured_offdiag_ratio_tetra": 0.0002131675121805413,
+            "implied_abs_sin_4theta_upper_bound": 0.0008494977151157097,
+            "implied_theta_upper_bound_deg": 0.012168159909052597,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.374732377826848e-07,
+            "uniax_cg_iters": 198,
+            "tetra_cg_residual": 9.624740266907777e-07,
+            "tetra_cg_iters": 194
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.23989758220638108,
           "K_KUBC": 0.6152449830008319,
@@ -4758,7 +5709,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.3075723668743051,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.3075723669222112,
+          "rel_direct_minus_assembled": -3.663747083493263e-11,
+          "C11_from_uniax_reaction_traction": 1.3075724765711543,
+          "rel_reaction_minus_energy_C11": 8.389352057491806e-08,
+          "C12_from_uniax_reaction": 0.4130822143235676,
+          "C13_from_uniax_reaction": 0.41308220889507175,
+          "rel_C12_minus_C13": 1.3141441792468696e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0013075724765711544,
+              8.503052874127425e-08,
+              5.474033760722916e-08
+            ],
+            [
+              8.503052874127425e-08,
+              0.00041308221432356763,
+              -4.471831342808729e-08
+            ],
+            [
+              5.474033760722916e-08,
+              -4.471831342808729e-08,
+              0.00041308220889507176
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 8.503052874127425e-08,
+            "max_abs_diag": 0.0013075724765711544,
+            "max_offdiag_over_max_diag": 6.502930450497834e-05
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0008944902602436663,
+              3.0265197310558006e-08,
+              9.951371874504132e-08
+            ],
+            [
+              3.0265197310558006e-08,
+              -0.0008944902612064292,
+              -1.2977891605553503e-07
+            ],
+            [
+              9.951371874504132e-08,
+              -1.2977891605553503e-07,
+              9.627848641024218e-13
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.2977891605553503e-07,
+            "max_abs_diag": 0.0008944902612064292,
+            "max_offdiag_over_max_diag": 0.00014508700841582984
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.0763503046306524e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.449801209112315,
+            "assembled_would_read": 1.4972108231756829,
+            "their_relative_disagreement": 0.03270076874359629,
+            "measured_relative_disagreement": -3.663747083493263e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.3180109364829,
+            "measured_offdiag_ratio_tetra": 0.00014508700841582984,
+            "implied_abs_sin_4theta_upper_bound": 0.0009124655272579371,
+            "implied_theta_upper_bound_deg": 0.013070107729445992,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.656066929336722e-07,
+            "uniax_cg_iters": 159,
+            "tetra_cg_residual": 9.94288705036174e-07,
+            "tetra_cg_iters": 152
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.39118385294600605,
           "K_KUBC": 0.7112455287611948,
@@ -5053,7 +6083,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 51.44319702198488,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 51.44319711280731,
+          "rel_direct_minus_assembled": -1.765489643368312e-09,
+          "C11_from_uniax_reaction_traction": 51.4431923945961,
+          "rel_reaction_minus_energy_C11": -8.995142297685277e-08,
+          "C12_from_uniax_reaction": 26.186870600994105,
+          "C13_from_uniax_reaction": 26.186872123237276,
+          "rel_C12_minus_C13": 5.813001461001368e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.051443192394596104,
+              3.213683083573416e-05,
+              3.2287400731119665e-05
+            ],
+            [
+              3.213683083573416e-05,
+              0.026186870600994106,
+              -7.522294277734639e-06
+            ],
+            [
+              3.2287400731119665e-05,
+              -7.522294277734639e-06,
+              0.026186872123237278
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 3.2287400731119665e-05,
+            "max_abs_diag": 0.051443192394596104,
+            "max_offdiag_over_max_diag": 0.0006276321361135302
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.025256321732154894,
+              -1.5557152036748095e-07,
+              3.9817439270987174e-05
+            ],
+            [
+              -1.5557152036748095e-07,
+              -0.02525632074240877,
+              -3.966262971982134e-05
+            ],
+            [
+              3.9817439270987174e-05,
+              -3.966262971982134e-05,
+              -2.3009241606071e-09
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 3.9817439270987174e-05,
+            "max_abs_diag": 0.025256321732154894,
+            "max_offdiag_over_max_diag": 0.0015765335781375443
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 9.110290029595624e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 63.856957467399724,
+            "assembled_would_read": 67.99487758559718,
+            "their_relative_disagreement": 0.06479983203568618,
+            "measured_relative_disagreement": -1.765489643368312e-09
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.9830220801053189,
+            "measured_offdiag_ratio_tetra": 0.0015765335781375443,
+            "implied_abs_sin_4theta_upper_bound": 0.0032075242459836464,
+            "implied_theta_upper_bound_deg": 0.04594447927650469,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.945029508362763e-07,
+            "uniax_cg_iters": 702,
+            "tetra_cg_residual": 9.842034195121661e-07,
+            "tetra_cg_iters": 686
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 2.4628299939723486,
           "K_KUBC": 34.60565011588069,
@@ -5348,7 +6457,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.68930538270648,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.68930538289842,
+          "rel_direct_minus_assembled": -1.1362066842934837e-10,
+          "C11_from_uniax_reaction_traction": 1.6893053056367526,
+          "rel_reaction_minus_energy_C11": -4.5622140398826616e-08,
+          "C12_from_uniax_reaction": 0.637851829115141,
+          "C13_from_uniax_reaction": 0.6378518065387132,
+          "rel_C12_minus_C13": 3.539447064004789e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0016893053056367526,
+              6.223931931599926e-07,
+              7.503531819432891e-07
+            ],
+            [
+              6.223931931599926e-07,
+              0.0006378518291151411,
+              -4.740271300601645e-07
+            ],
+            [
+              7.503531819432891e-07,
+              -4.740271300601645e-07,
+              0.0006378518065387132
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 7.503531819432891e-07,
+            "max_abs_diag": 0.0016893053056367526,
+            "max_offdiag_over_max_diag": 0.00044417855046069204
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0010514534809061488,
+              -1.2797128052187932e-07,
+              1.2243976796201076e-06
+            ],
+            [
+              -1.2797128052187932e-07,
+              -0.0010514534751701957,
+              -1.0964263990984116e-06
+            ],
+            [
+              1.2243976796201076e-06,
+              -1.0964263990984116e-06,
+              -5.7359624428295484e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.2243976796201076e-06,
+            "max_abs_diag": 0.0010514534809061488,
+            "max_offdiag_over_max_diag": 0.0011644810748687754
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 5.455269821244267e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.9745858857237895,
+            "assembled_would_read": 2.0696793866655794,
+            "their_relative_disagreement": 0.04815870589844362,
+            "measured_relative_disagreement": -1.1362066842934837e-10
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.5426402703694264,
+            "measured_offdiag_ratio_tetra": 0.0011644810748687754,
+            "implied_abs_sin_4theta_upper_bound": 0.004291908059370541,
+            "implied_theta_upper_bound_deg": 0.0614772432060154,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.900606430597558e-07,
+            "uniax_cg_iters": 157,
+            "tetra_cg_residual": 9.289349478952264e-07,
+            "tetra_cg_iters": 148
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.49513260834825307,
           "K_KUBC": 0.9883363901102457,
@@ -5643,7 +6831,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.4788513029448276,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.4788513029907655,
+          "rel_direct_minus_assembled": -3.106326307289464e-11,
+          "C11_from_uniax_reaction_traction": 1.478851484620401,
+          "rel_reaction_minus_energy_C11": 1.2284911488080752e-07,
+          "C12_from_uniax_reaction": 0.51375197979309,
+          "C13_from_uniax_reaction": 0.5137520352143421,
+          "rel_C12_minus_C13": 1.0787550086990352e-07,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.001478851484620401,
+              1.2536369837986633e-06,
+              1.3689272023778556e-06
+            ],
+            [
+              1.2536369837986633e-06,
+              0.00051375197979309,
+              -7.720438601087537e-07
+            ],
+            [
+              1.3689272023778556e-06,
+              -7.720438601087537e-07,
+              0.0005137520352143421
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 1.3689272023778556e-06,
+            "max_abs_diag": 0.001478851484620401,
+            "max_offdiag_over_max_diag": 0.0009256691538090713
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.000965099457799544,
+              -1.1525464520059666e-07,
+              2.1409452379528615e-06
+            ],
+            [
+              -1.1525464520059666e-07,
+              -0.0009650994342278897,
+              -2.025690592752676e-06
+            ],
+            [
+              2.1409452379528615e-06,
+              -2.025690592752676e-06,
+              -2.357165366148239e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 2.1409452379528615e-06,
+            "max_abs_diag": 0.000965099457799544,
+            "max_offdiag_over_max_diag": 0.002218367465291382
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 2.442406683682786e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.7178745585908584,
+            "assembled_would_read": 1.7975489771242228,
+            "their_relative_disagreement": 0.04637964869723654,
+            "measured_relative_disagreement": -3.106326307289464e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.495333949294177,
+            "measured_offdiag_ratio_tetra": 0.002218367465291382,
+            "implied_abs_sin_4theta_upper_bound": 0.00895705803509907,
+            "implied_theta_upper_bound_deg": 0.12830212119466158,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.650440157758949e-07,
+            "uniax_cg_iters": 166,
+            "tetra_cg_residual": 9.636374699664661e-07,
+            "tetra_cg_iters": 163
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.3698373380635667,
           "K_KUBC": 0.8354516842333931,
@@ -5938,7 +7205,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.236067108524595,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.2360671085055577,
+          "rel_direct_minus_assembled": 1.540145788681002e-11,
+          "C11_from_uniax_reaction_traction": 1.236067270509733,
+          "rel_reaction_minus_energy_C11": 1.3104882179426625e-07,
+          "C12_from_uniax_reaction": 0.4144129316990356,
+          "C13_from_uniax_reaction": 0.4144128990120612,
+          "rel_C12_minus_C13": 7.887537261672202e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.001236067270509733,
+              -8.355624115641019e-07,
+              -1.4173019924612495e-07
+            ],
+            [
+              -8.355624115641019e-07,
+              0.0004144129316990356,
+              -1.0913323955508163e-06
+            ],
+            [
+              -1.4173019924612495e-07,
+              -1.0913323955508163e-06,
+              0.0004144128990120612
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 1.0913323955508163e-06,
+            "max_abs_diag": 0.001236067270509733,
+            "max_offdiag_over_max_diag": 0.0008829069595061516
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0008216544171599338,
+              -6.938706863797901e-07,
+              9.496247350077086e-07
+            ],
+            [
+              -6.938706863797901e-07,
+              -0.0008216544071127517,
+              -2.557540486273026e-07
+            ],
+            [
+              9.496247350077086e-07,
+              -2.557540486273026e-07,
+              -1.0047171420864128e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 9.496247350077086e-07,
+            "max_abs_diag": 0.0008216544171599338,
+            "max_offdiag_over_max_diag": 0.0011557471306368765
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.2227977128866892e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.4051766834367219,
+            "assembled_would_read": 1.46154654174711,
+            "their_relative_disagreement": 0.04011585089251635,
+            "measured_relative_disagreement": 1.540145788681002e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.4116318944588195,
+            "measured_offdiag_ratio_tetra": 0.0011557471306368765,
+            "implied_abs_sin_4theta_upper_bound": 0.005615440135688998,
+            "implied_theta_upper_bound_deg": 0.08043567770656967,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.32685886489822e-07,
+            "uniax_cg_iters": 163,
+            "tetra_cg_residual": 9.064930596752149e-07,
+            "tetra_cg_iters": 162
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.34752332548348847,
           "K_KUBC": 0.6882975204905314,
@@ -6233,7 +7579,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.929072794476247,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.9290727945767814,
+          "rel_direct_minus_assembled": -5.211542308813932e-11,
+          "C11_from_uniax_reaction_traction": 1.9290726145545867,
+          "rel_reaction_minus_energy_C11": -9.32684659504801e-08,
+          "C12_from_uniax_reaction": 0.8323919471317611,
+          "C13_from_uniax_reaction": 0.8323919928140029,
+          "rel_C12_minus_C13": 5.4880686826156966e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0019290726145545867,
+              3.738565618220961e-07,
+              3.912406711932241e-07
+            ],
+            [
+              3.738565618220961e-07,
+              0.0008323919471317612,
+              -4.632886570673244e-07
+            ],
+            [
+              3.912406711932241e-07,
+              -4.632886570673244e-07,
+              0.0008323919928140029
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 4.632886570673244e-07,
+            "max_abs_diag": 0.0019290726145545867,
+            "max_offdiag_over_max_diag": 0.00024016133637058315
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0010966807149753036,
+              -1.7373786356611027e-08,
+              8.54566149012211e-07
+            ],
+            [
+              -1.7373786356611027e-08,
+              -0.001096680688182157,
+              -8.371923626559303e-07
+            ],
+            [
+              8.54566149012211e-07,
+              -8.371923626559303e-07,
+              -2.6793132220534814e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 8.54566149012211e-07,
+            "max_abs_diag": 0.0010966807149753036,
+            "max_offdiag_over_max_diag": 0.0007792296676170285
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 2.4431114593948316e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 2.2439225384156907,
+            "assembled_would_read": 2.3488724530286604,
+            "their_relative_disagreement": 0.04677073865797032,
+            "measured_relative_disagreement": -5.211542308813932e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.574186709889346,
+            "measured_offdiag_ratio_tetra": 0.0007792296676170285,
+            "implied_abs_sin_4theta_upper_bound": 0.002714203077835769,
+            "implied_theta_upper_bound_deg": 0.0388781430106728,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 8.976397190536332e-07,
+            "uniax_cg_iters": 156,
+            "tetra_cg_residual": 9.033111231224188e-07,
+            "tetra_cg_iters": 152
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.7783191566495035,
           "K_KUBC": 1.1979523224000912,
@@ -6525,7 +7950,86 @@
       "operator_provenance": "Phi_eff(u_0) at the #796 fixed_budget p_ref operating point (FROZEN, u-independent)",
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.1982595829427936,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.1982595829736074,
+          "rel_direct_minus_assembled": -2.5715429785577726e-11,
+          "C11_from_uniax_reaction_traction": 1.1982597839923528,
+          "rel_reaction_minus_energy_C11": 1.6778464551059358e-07,
+          "C12_from_uniax_reaction": 0.42893134009107786,
+          "C13_from_uniax_reaction": 0.4289313319820086,
+          "rel_C12_minus_C13": 1.8905285045611372e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0011982597839923527,
+              9.721407429385662e-08,
+              6.635475728949439e-08
+            ],
+            [
+              9.721407429385662e-08,
+              0.0004289313400910779,
+              -1.4235875772055611e-08
+            ],
+            [
+              6.635475728949439e-08,
+              -1.4235875772055611e-08,
+              0.00042893133198200863
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 9.721407429385662e-08,
+            "max_abs_diag": 0.0011982597839923527,
+            "max_offdiag_over_max_diag": 8.112938078415643e-05
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0007693284512143608,
+              3.086623394437812e-08,
+              8.060391340324972e-08
+            ],
+            [
+              3.086623394437812e-08,
+              -0.0007693284444240498,
+              -1.114701473476093e-07
+            ],
+            [
+              8.060391340324972e-08,
+              -1.114701473476093e-07,
+              -6.790313066759552e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.114701473476093e-07,
+            "max_abs_diag": 0.0007693284512143608,
+            "max_offdiag_over_max_diag": 0.00014489279211194798
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 8.826286166904728e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.3532517867931895,
+            "assembled_would_read": 1.4049158547330503,
+            "their_relative_disagreement": 0.038177720099146883,
+            "measured_relative_disagreement": -2.5715429785577726e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.4029285589471285,
+            "measured_offdiag_ratio_tetra": 0.00014489279211194798,
+            "implied_abs_sin_4theta_upper_bound": 0.0007191984231177841,
+            "implied_theta_upper_bound_deg": 0.010301759457369676,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.713551991172683e-07,
+            "uniax_cg_iters": 172,
+            "tetra_cg_residual": 9.658327739191893e-07,
+            "tetra_cg_iters": 160
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.3512252781431821,
           "K_KUBC": 0.6853739431484096,
@@ -6791,7 +8295,86 @@
       "note": "on the #796 carve this is the SAME operator as configuration 7; running both is the G6 cross-check that our reconstruction of the #796 operating point is faithful, NOT two physics arms",
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.1982595829427936,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.1982595829736074,
+          "rel_direct_minus_assembled": -2.5715429785577726e-11,
+          "C11_from_uniax_reaction_traction": 1.1982597839923528,
+          "rel_reaction_minus_energy_C11": 1.6778464551059358e-07,
+          "C12_from_uniax_reaction": 0.42893134009107786,
+          "C13_from_uniax_reaction": 0.4289313319820086,
+          "rel_C12_minus_C13": 1.8905285045611372e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0011982597839923527,
+              9.721407429385662e-08,
+              6.635475728949439e-08
+            ],
+            [
+              9.721407429385662e-08,
+              0.0004289313400910779,
+              -1.4235875772055611e-08
+            ],
+            [
+              6.635475728949439e-08,
+              -1.4235875772055611e-08,
+              0.00042893133198200863
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 9.721407429385662e-08,
+            "max_abs_diag": 0.0011982597839923527,
+            "max_offdiag_over_max_diag": 8.112938078415643e-05
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0007693284512143608,
+              3.086623394437812e-08,
+              8.060391340324972e-08
+            ],
+            [
+              3.086623394437812e-08,
+              -0.0007693284444240498,
+              -1.114701473476093e-07
+            ],
+            [
+              8.060391340324972e-08,
+              -1.114701473476093e-07,
+              -6.790313066759552e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.114701473476093e-07,
+            "max_abs_diag": 0.0007693284512143608,
+            "max_offdiag_over_max_diag": 0.00014489279211194798
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 8.826286166904728e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.3532517867931895,
+            "assembled_would_read": 1.4049158547330503,
+            "their_relative_disagreement": 0.038177720099146883,
+            "measured_relative_disagreement": -2.5715429785577726e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.4029285589471285,
+            "measured_offdiag_ratio_tetra": 0.00014489279211194798,
+            "implied_abs_sin_4theta_upper_bound": 0.0007191984231177841,
+            "implied_theta_upper_bound_deg": 0.010301759457369676,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.713551991172683e-07,
+            "uniax_cg_iters": 172,
+            "tetra_cg_residual": 9.658327739191893e-07,
+            "tetra_cg_iters": 160
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.3512252781431821,
           "K_KUBC": 0.6853739431484096,
@@ -7083,7 +8666,86 @@
       "note": "the #782 bulk_only_cold cage at phi_sf with k_s = KS0 \u2014 the crash BASELINE K_ratio_lift normalizes against",
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.2109017632998478,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.210901763349438,
+          "rel_direct_minus_assembled": -4.0953240798558e-11,
+          "C11_from_uniax_reaction_traction": 1.2109018171151817,
+          "rel_reaction_minus_energy_C11": 4.4442361568641786e-08,
+          "C12_from_uniax_reaction": 0.4224175914679662,
+          "C13_from_uniax_reaction": 0.4224175933461253,
+          "rel_C12_minus_C13": 4.4462141507489535e-09,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0012109018171151818,
+              9.749025752024862e-08,
+              6.737430510127924e-08
+            ],
+            [
+              9.749025752024862e-08,
+              0.0004224175914679662,
+              -1.921726200353674e-08
+            ],
+            [
+              6.737430510127924e-08,
+              -1.921726200353674e-08,
+              0.0004224175933461253
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 9.749025752024862e-08,
+            "max_abs_diag": 0.0012109018171151818,
+            "max_offdiag_over_max_diag": 8.051045604383239e-05
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0007884842741794965,
+              3.0114162279158766e-08,
+              8.660312309524595e-08
+            ],
+            [
+              3.0114162279158766e-08,
+              -0.000788484277398493,
+              -1.1671728537449717e-07
+            ],
+            [
+              8.660312309524595e-08,
+              -1.1671728537449717e-07,
+              3.2189988131395157e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.1671728537449717e-07,
+            "max_abs_diag": 0.000788484277398493,
+            "max_offdiag_over_max_diag": 0.00014802740995621563
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 4.082514919513434e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.3670684552385581,
+            "assembled_would_read": 1.4191240192015981,
+            "their_relative_disagreement": 0.03807824236128399,
+            "measured_relative_disagreement": -4.0953240798558e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.3961187457234572,
+            "measured_offdiag_ratio_tetra": 0.00014802740995621563,
+            "implied_abs_sin_4theta_upper_bound": 0.0007473890673154771,
+            "implied_theta_upper_bound_deg": 0.010705560799519726,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.374092845174796e-07,
+            "uniax_cg_iters": 165,
+            "tetra_cg_residual": 9.706341535595984e-07,
+            "tetra_cg_iters": 155
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.35086798000859787,
           "K_KUBC": 0.6852456107433039,
@@ -7348,7 +9010,86 @@
       "n_cages": 0,
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 2.406553079293439,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 2.406553079062829,
+          "rel_direct_minus_assembled": 9.582601379065636e-11,
+          "C11_from_uniax_reaction_traction": 2.406553089870041,
+          "rel_reaction_minus_energy_C11": 4.3949173189616886e-09,
+          "C12_from_uniax_reaction": 1.2782237879433649,
+          "C13_from_uniax_reaction": 1.2782237945402415,
+          "rel_C12_minus_C13": 5.160971547207703e-09,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.002406553089870041,
+              2.6953855278911194e-07,
+              2.9910302944798567e-07
+            ],
+            [
+              2.6953855278911194e-07,
+              0.0012782237879433648,
+              -5.686557259599115e-07
+            ],
+            [
+              2.9910302944798567e-07,
+              -5.686557259599115e-07,
+              0.0012782237945402415
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 5.686557259599115e-07,
+            "max_abs_diag": 0.002406553089870041,
+            "max_offdiag_over_max_diag": 0.00023629469399763796
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0011283292575010656,
+              -2.9592848758245263e-08,
+              8.67816649840024e-07
+            ],
+            [
+              -2.9592848758245263e-08,
+              -0.0011283292739144545,
+              -8.382238010812122e-07
+            ],
+            [
+              8.67816649840024e-07,
+              -8.382238010812122e-07,
+              1.6413361292959685e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 8.67816649840024e-07,
+            "max_abs_diag": 0.0011283292739144545,
+            "max_offdiag_over_max_diag": 0.0007691164892224701
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 1.4546606129234564e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 2.7480507557864744,
+            "assembled_would_read": 2.8618833146943565,
+            "their_relative_disagreement": 0.04142301908659762,
+            "measured_relative_disagreement": 9.582601379065636e-11
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.6053156327541482,
+            "measured_offdiag_ratio_tetra": 0.0007691164892224701,
+            "implied_abs_sin_4theta_upper_bound": 0.0025412080825437736,
+            "implied_theta_upper_bound_deg": 0.036400163675767545,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.649173686826554e-07,
+            "uniax_cg_iters": 141,
+            "tetra_cg_residual": 8.839954643301584e-07,
+            "tetra_cg_iters": 143
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 1.3320853417859337,
           "K_KUBC": 1.6543335575550109,
@@ -7643,7 +9384,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.5058365533934723,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.5058365534063467,
+          "rel_direct_minus_assembled": -8.549605468033405e-12,
+          "C11_from_uniax_reaction_traction": 1.5058366279165232,
+          "rel_reaction_minus_energy_C11": 4.948946852323388e-08,
+          "C12_from_uniax_reaction": 0.5485607128886744,
+          "C13_from_uniax_reaction": 0.548560722294254,
+          "rel_C12_minus_C13": 1.714592282580581e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0015058366279165232,
+              5.417055475005349e-07,
+              6.227900396456236e-07
+            ],
+            [
+              5.417055475005349e-07,
+              0.0005485607128886743,
+              -9.754997082556778e-08
+            ],
+            [
+              6.227900396456236e-07,
+              -9.754997082556778e-08,
+              0.000548560722294254
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 6.227900396456236e-07,
+            "max_abs_diag": 0.0015058366279165232,
+            "max_offdiag_over_max_diag": 0.0004135840688822375
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0009572759479256545,
+              -8.109273354729654e-08,
+              7.203618141306114e-07
+            ],
+            [
+              -8.109273354729654e-08,
+              -0.0009572759569522961,
+              -6.392690805834144e-07
+            ],
+            [
+              7.203618141306114e-07,
+              -6.392690805834144e-07,
+              9.026631202946615e-12
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 7.203618141306114e-07,
+            "max_abs_diag": 0.0009572759569522961,
+            "max_offdiag_over_max_diag": 0.0007525121767646246
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 9.42949754718757e-09,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.740599549570137,
+            "assembled_would_read": 1.8188538816247335,
+            "their_relative_disagreement": 0.04495826284335336,
+            "measured_relative_disagreement": -8.549605468033405e-12
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.4904813479337018,
+            "measured_offdiag_ratio_tetra": 0.0007525121767646246,
+            "implied_abs_sin_4theta_upper_bound": 0.003068463989241611,
+            "implied_theta_upper_bound_deg": 0.04395257801541156,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.590231157974063e-07,
+            "uniax_cg_iters": 127,
+            "tetra_cg_residual": 9.753583316476036e-07,
+            "tetra_cg_iters": 123
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.37118120824145356,
           "K_KUBC": 0.8676525948581464,
@@ -7938,7 +9758,86 @@
       },
       "SUPPLEMENTARY_anisotropy_NOT_FROZEN": {
         "LABEL": "SUPPLEMENTARY \u2014 NOT a frozen criterion, NOT in any frozen gate, read or count. Added by the PR #802 adversarial-review repair (finding F2).",
-        "ISOTROPY_CHECK": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+        "ISOTROPY_CHECK": {
+          "STATEMENT": "the medium is CUBIC-ANISOTROPIC: Zener A = C44/C' != 1 under BOTH boundary conditions. No isotropy check existed in the frozen prereg, the driver or the first result doc.",
+          "SUPERSEDES": "the first repair's axis-alignment sentence cited the realized SUBC Sigma_bar. That is a NON SEQUITUR \u2014 hill_stress(traction_load(...)) never sees Phi and is bit-identical for a rigid medium, a caged medium and no medium at all, so it cannot distinguish an aligned medium from a rotated one. WITHDRAWN as evidence (the conclusion it was offered for stands, on the two independent measurements below).",
+          "direct_uniaxial_C11_KUBC": 1.0361588721688952,
+          "assembled_K_plus_4Cprime_over_3_KUBC": 1.0361588719520491,
+          "rel_direct_minus_assembled": 2.092788164986814e-10,
+          "C11_from_uniax_reaction_traction": 1.0361589447864425,
+          "rel_reaction_minus_energy_C11": 7.008341018632791e-08,
+          "C12_from_uniax_reaction": 0.3444220892382521,
+          "C13_from_uniax_reaction": 0.3444221099170193,
+          "rel_C12_minus_C13": 6.003902724216453e-08,
+          "uniax_reaction_Sigma_bar": [
+            [
+              0.0010361589447864426,
+              8.662432871504472e-08,
+              1.3878867640753956e-07
+            ],
+            [
+              8.662432871504472e-08,
+              0.00034442208923825214,
+              2.6520871774771225e-08
+            ],
+            [
+              1.3878867640753956e-07,
+              2.6520871774771225e-08,
+              0.0003444221099170193
+            ]
+          ],
+          "uniax_reaction_structure": {
+            "max_abs_offdiag": 1.3878867640753956e-07,
+            "max_abs_diag": 0.0010361589447864426,
+            "max_offdiag_over_max_diag": 0.00013394535375665226
+          },
+          "tetra_reaction_Sigma_bar": [
+            [
+              0.0006917368264709635,
+              -5.217490535900603e-08,
+              1.1228332789164151e-07
+            ],
+            [
+              -5.217490535900603e-08,
+              -0.0006917367917783292,
+              -6.010842253273553e-08
+            ],
+            [
+              1.1228332789164151e-07,
+              -6.010842253273553e-08,
+              -3.4692662620904125e-11
+            ]
+          ],
+          "tetra_reaction_structure": {
+            "max_abs_offdiag": 1.1228332789164151e-07,
+            "max_abs_diag": 0.0006917368264709635,
+            "max_offdiag_over_max_diag": 0.00016232087637212814
+          },
+          "tetra_reaction_Sigma33_over_Sigma11": 5.01529791292099e-08,
+          "rotated_45deg_about_z_comparators": {
+            "note": "what the SAME two extractions would read on a medium whose cubic axes were rotated 45 deg about z \u2014 the branch the off-diagonal test is blind to and the direct/assembled identity excludes",
+            "direct_uniaxial_C11_would_read": 1.1471334248128147,
+            "assembled_would_read": 1.1841249424330698,
+            "their_relative_disagreement": 0.03224691811790881,
+            "measured_relative_disagreement": 2.092788164986814e-10
+          },
+          "misalignment_bound_about_z": {
+            "model": "a cubic medium rotated by theta about z returns, under the tetragonal strain, a lab off-diagonal Sigma_xy = eps*(C'-C44)*sin(4 theta) against a diagonal 2*C'*eps at small theta, so |sin 4 theta| <= 2*r/|1-A| with r the measured off-diagonal ratio",
+            "zener_A_KUBC": 1.3208577321618387,
+            "measured_offdiag_ratio_tetra": 0.00016232087637212814,
+            "implied_abs_sin_4theta_upper_bound": 0.001011793452995264,
+            "implied_theta_upper_bound_deg": 0.014492876121688928,
+            "blind_at_theta_45deg": true,
+            "theta_45deg_branch_excluded_by": "direct_uniaxial_C11_KUBC identity above"
+          },
+          "solver": {
+            "uniax_cg_residual": 9.842406337003588e-07,
+            "uniax_cg_iters": 177,
+            "tetra_cg_residual": 9.507022130543436e-07,
+            "tetra_cg_iters": 174
+          },
+          "LABEL": "SUPPLEMENTARY \u2014 PR #802 RE-VERIFY repair (F1). KUBC side only. Enters NO frozen gate, read or count."
+        },
         "absolutes_arm": {
           "K_SUBC": 0.34708644178689874,
           "K_KUBC": 0.575000995269222,
@@ -8114,10 +10013,16 @@
         "reproduces_782_core_bitwise": true,
         "r_Z_782_shipped_core": 0.5443971190678709,
         "r_Z_here_CORE_estimator_NO_BOUND_STATUS": 0.5443971190678709,
-        "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": 0.6435934144284258,
+        "r_Z_here_WHOLE_CELL_KUBC_apparent_modulus": 0.6435934144284258,
+        "RATIO_BOUND_STATUS": "whole-cell KUBC apparent modulus: theorem-grade on the ABSOLUTE (Hill/Huet kinematic-uniform upper bound). This RATIO is the frozen \u00a72.1 PRIMARY and is NOT bound-ordered \u2014 the uncaged reference is itself boundary-conditioned. The bound-ordered pair is r_Z_theorem_grade_CONSERVATIVE below (frozen \u00a72.2).",
         "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": 0.5132226840452131,
+        "r_Z_theorem_grade_CONSERVATIVE": [
+          0.46053254733292703,
+          0.7172277866128653
+        ],
+        "theorem_grade_class_vs_T1": "STRADDLES",
         "macro_side_on_CORE_estimator": false,
-        "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": false,
+        "macro_side_on_the_WHOLE_CELL_KUBC_reading": false,
         "two_sided_class_vs_T1": "RESOLVES-HIGH",
         "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading": true
       },
@@ -8129,10 +10034,16 @@
         "reproduces_782_core_bitwise": true,
         "r_Z_782_shipped_core": 0.4664842009546496,
         "r_Z_here_CORE_estimator_NO_BOUND_STATUS": 0.4664842009546496,
-        "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": 0.6098352173422836,
+        "r_Z_here_WHOLE_CELL_KUBC_apparent_modulus": 0.6098352173422836,
+        "RATIO_BOUND_STATUS": "whole-cell KUBC apparent modulus: theorem-grade on the ABSOLUTE (Hill/Huet kinematic-uniform upper bound). This RATIO is the frozen \u00a72.1 PRIMARY and is NOT bound-ordered \u2014 the uncaged reference is itself boundary-conditioned. The bound-ordered pair is r_Z_theorem_grade_CONSERVATIVE below (frozen \u00a72.2).",
         "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": 0.4243721849890805,
+        "r_Z_theorem_grade_CONSERVATIVE": [
+          0.38080390724320373,
+          0.6796072696322223
+        ],
+        "theorem_grade_class_vs_T1": "STRADDLES",
         "macro_side_on_CORE_estimator": true,
-        "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": false,
+        "macro_side_on_the_WHOLE_CELL_KUBC_reading": false,
         "two_sided_class_vs_T1": "STRADDLES",
         "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading": true
       },
@@ -8144,10 +10055,16 @@
         "reproduces_782_core_bitwise": true,
         "r_Z_782_shipped_core": 0.5676919873253737,
         "r_Z_here_CORE_estimator_NO_BOUND_STATUS": 0.5676919873253737,
-        "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": 0.6556895088638865,
+        "r_Z_here_WHOLE_CELL_KUBC_apparent_modulus": 0.6556895088638865,
+        "RATIO_BOUND_STATUS": "whole-cell KUBC apparent modulus: theorem-grade on the ABSOLUTE (Hill/Huet kinematic-uniform upper bound). This RATIO is the frozen \u00a72.1 PRIMARY and is NOT bound-ordered \u2014 the uncaged reference is itself boundary-conditioned. The bound-ordered pair is r_Z_theorem_grade_CONSERVATIVE below (frozen \u00a72.2).",
         "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": 0.541906593600443,
+        "r_Z_theorem_grade_CONSERVATIVE": [
+          0.48627161605611224,
+          0.7307078111813432
+        ],
+        "theorem_grade_class_vs_T1": "STRADDLES",
         "macro_side_on_CORE_estimator": false,
-        "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": false,
+        "macro_side_on_the_WHOLE_CELL_KUBC_reading": false,
         "two_sided_class_vs_T1": "RESOLVES-HIGH",
         "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading": true
       },
@@ -8159,19 +10076,72 @@
         "reproduces_782_core_bitwise": true,
         "r_Z_782_shipped_core": 0.38583455489392426,
         "r_Z_here_CORE_estimator_NO_BOUND_STATUS": 0.38583455489392426,
-        "r_Z_here_WHOLE_CELL_KUBC_the_actual_UPPER_bound": 0.5850392860613116,
+        "r_Z_here_WHOLE_CELL_KUBC_apparent_modulus": 0.5850392860613116,
+        "RATIO_BOUND_STATUS": "whole-cell KUBC apparent modulus: theorem-grade on the ABSOLUTE (Hill/Huet kinematic-uniform upper bound). This RATIO is the frozen \u00a72.1 PRIMARY and is NOT bound-ordered \u2014 the uncaged reference is itself boundary-conditioned. The bound-ordered pair is r_Z_theorem_grade_CONSERVATIVE below (frozen \u00a72.2).",
         "r_Z_here_WHOLE_CELL_SUBC_the_LOWER_bound": 0.3308336469258758,
+        "r_Z_theorem_grade_CONSERVATIVE": [
+          0.29686852685722953,
+          0.6519744031190517
+        ],
+        "theorem_grade_class_vs_T1": "STRADDLES",
         "macro_side_on_CORE_estimator": true,
-        "macro_side_BOUND_ROBUST_on_the_bound_carrying_KUBC": false,
+        "macro_side_on_the_WHOLE_CELL_KUBC_reading": false,
         "two_sided_class_vs_T1": "STRADDLES",
         "core_estimator_sits_BELOW_the_bound_carrying_KUBC_reading": true
       }
     ],
     "n_legs": 4,
     "n_macro_side_on_the_CORE_estimator": 2,
-    "n_macro_side_BOUND_ROBUST_on_the_bound_carrying_WHOLE_CELL_KUBC": 0,
+    "n_macro_side_on_the_WHOLE_CELL_KUBC_reading": 0,
+    "n_legs_two_sided_STRADDLE": 2,
+    "phi_scan_clause_F8": {
+      "clause_782": "AND across the phi scan (crash-min r_Z ~ 0.40 vs phi_sf r_Z = 0.544) \u2014 research/2026-07-21_rve-aggregation-bench_result.md:12, trigger (iii), SECOND clause",
+      "crash_min_782": {
+        "class": "bulk_only_cold",
+        "route": "route_B",
+        "r_cage": 1.7,
+        "s": 4.2,
+        "r_Z_782_CORE_estimator": 0.4048630894644663,
+        "K_eff_over_K0_782_CORE": 0.16391412121071244,
+        "estimator": "core-energy KUBC \u2014 the SAME non-bound-carrying measure as the pre-stress clause (frozen prereg sec 2.3)"
+      },
+      "matched_config_here": "routeB_bulk_only_cold_s4.2",
+      "reproduces_782_crash_min_core_bitwise": true,
+      "r_Z_here_CORE_at_matched_config": 0.4048630894644663,
+      "r_Z_here_WHOLE_CELL_KUBC_at_matched_config": 0.7106391502114198,
+      "n_hydro_configurations_scanned_here": 21,
+      "min_r_Z_WHOLE_CELL_KUBC_over_all_hydro_configs": 0.5850392860613116,
+      "argmin_config": "symmetric_cold_phi_sf",
+      "n_hydro_configs_with_whole_cell_r_Z_below_T1": 0,
+      "FINDING": "BOTH clauses of #782:12's trigger (iii) evaporate on the bound-carrying measure, not one. The crash-min r_Z ~ 0.40 is the CORE estimator at route B r_cage = 1.7, s = 4.2 \u2014 reproduced here bit-for-bit \u2014 and on the WHOLE-CELL modulus that same configuration reads far higher. Across this lane's ENTIRE hydrostatic configuration set the MINIMUM whole-cell KUBC r_Z is above 0.5, and NO configuration anywhere reads below it. So the phi-scan clause supplies no macro-side crash-min either.",
+      "WHAT_SURVIVES_AND_IN_WHAT_FORM": "the r_Z straddle SURVIVES \u2014 but as a BOUNDARY-CONDITION ARTEFACT, not as a cross-class physical flip. It is restored at exactly the legs where this lane's SUBC LOWER bound falls below 0.5 (see n_legs_two_sided_STRADDLE), i.e. by the free-surface softening of the traction boundary condition, not by any class reading macro-side. That distinction is the substance of what BIN-4's basis becomes: 'undetermined because the two admissible boundary conditions disagree', NOT 'undetermined because one pre-stress class flips to the macro side'."
+    },
+    "f_incl_cross_class_flip_NOT_TOUCHED_F3": {
+      "WHAT_IT_IS": "research/2026-07-21_rve-aggregation-bench_result.md:114 (sec 6, LEG 4 / VERDICT) uses the words 'a verdict-controlling cross-class flip' for the f_incl BIN-2-vs-BIN-4 split, NOT for the r_Z macro/matched split of :12.",
+      "WHY_IT_IS_NOT_r_Z_DRIVEN": "rve_aggregation_bench._bin_of returns BIN4_REGIME_UNDETERMINED whenever collapse_ok is False, BEFORE r_Z is consulted at all. bulk_only_compressed FAILS the f_incl collapse gate and therefore reads BIN-4 for ANY r_Z, while bulk_only_cold and bulk_only_expanded PASS it and read BIN-2.",
+      "collapse_f_incl_by_class_782": {
+        "bulk_only_cold": {
+          "max_rel_disagreement": 0.28045314594331805,
+          "collapses": true
+        },
+        "bulk_only_compressed": {
+          "max_rel_disagreement": 0.3280883375040938,
+          "collapses": false
+        },
+        "bulk_only_expanded": {
+          "max_rel_disagreement": 0.2687184264458418,
+          "collapses": true
+        },
+        "symmetric_cold": {
+          "max_rel_disagreement": 0.3963691939962556,
+          "collapses": false
+        }
+      },
+      "collapse_threshold_782": 0.3,
+      "NOT_TOUCHED_BY_THIS_LANE": "this lane changes the MEASURE r_Z is read on; it does not touch the f_incl collapse gate, which is a phi-vs-f_incl scaling-collapse test on #782's own scan. The f_incl BIN-2/BIN-4 flip therefore PERSISTS UNCHANGED on the bound-carrying measure. Only :12's r_Z macro/matched clause evaporates."
+    },
     "FINDING": "#782's macro-side legs are macro-side ONLY on the CORE estimator, which the frozen prereg \u00a72.3 says carries NO bound status. On the WHOLE-CELL apparent modulus \u2014 the measure the Hill/Huet kinematic-uniform theorem actually bounds from above \u2014 NO leg's upper bound falls below the r_Z = 0.5 macro-cage edge. So #782's SOLE bound-robust macro-side reading does NOT survive the change to the bound-carrying measure: it is not bound-robust, it is estimator-conditional. The core estimator reads systematically BELOW the bound-carrying KUBC value at every leg (column above), which is the direction that manufactures a macro-side reading out of a measure that cannot support one.",
-    "WHAT_THIS_DOES_NOT_DO": "it does NOT re-bin #782. BIN-4 is UNDETERMINED, and removing a bound-robust macro-side leg makes the r_Z axis MORE undetermined, not less \u2014 see the two_sided_class_vs_T1 column, which STRADDLES at every leg on the two-sided bracket. What changes is the BASIS #782 \u00a77.1 states for the straddle, not the bin. This lane edits no merged doc and mints no bin; the basis correction is ROUTED to Grant / the auditor lane, in the same shape as the basis correction already routed from the rho-flags audit."
+    "WHAT_THIS_DOES_NOT_DO": "it does NOT re-bin #782. BIN-4 is UNDETERMINED, and removing a bound-robust macro-side leg makes the r_Z axis MORE undetermined, not less. \u2605CORRECTED at the RE-VERIFY repair: an earlier version of this string said the two_sided_class_vs_T1 column 'STRADDLES at every leg', which the shipped column CONTRADICTS \u2014 it STRADDLES at n_legs_two_sided_STRADDLE of n_legs (bulk_only_compressed, symmetric_cold) and RESOLVES-HIGH at the other two (bulk_only_cold, bulk_only_expanded). The straddle is restored by this lane's SUBC LOWER bound at exactly those legs \u2014 a boundary-condition artefact \u2014 and NOT by any leg reading macro-side on an upper bound. What changes is the BASIS #782 \u00a77.1 states for the straddle, not the bin. This lane edits no merged doc and mints no bin; the basis correction is ROUTED to Grant / the auditor lane, in the same shape as the basis correction already routed from the rho-flags audit."
   },
   "reads": [
     {
@@ -12295,6 +14265,6 @@
     "gate_fireability_selftest_pass": false,
     "frozen_consequence": "If ANY fails to force its target, the correctness gates are a checklist not gates => the bench is VOID before any bracket is read; route to Grant. (frozen sec 4B)"
   },
-  "_runtime_sec": 411.4550609588623,
-  "determinism_digest": "7bcebdb2d83092dd7262dc0db8407fd041d33423f7548eb604c72b8576bf440e"
+  "_runtime_sec": 482.1638059616089,
+  "determinism_digest": "37b5fc81eb537902ea1d4e137b2a41cdc897fef52c8a55e60efa1b74e3db26f2"
 }
