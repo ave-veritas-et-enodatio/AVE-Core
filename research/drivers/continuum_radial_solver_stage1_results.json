@@ -607,14 +607,17 @@
    0.001
   ],
   "scope_reductions": [],
-  "class": "A_CERTIFIED",
+  "class": "C_NOT_CERTIFIED_VOID",
   "frozen_class_criterion": "all of G1..G9 PASS on both source fittings AND gate_fireability_selftest_pass = True",
   "classes_frozen": {
    "A_CERTIFIED": "all of G1..G9 PASS on both source fittings AND gate_fireability_selftest_pass = True",
    "B_CERTIFIED_SCOPED": "all of G1..G9 PASS and gate_fireability_selftest_pass = True, but at least one gate passes only over a REDUCED band or a REDUCED profile class",
    "C_NOT_CERTIFIED_VOID": "any of G1..G9 FAILS, OR any of FT-1..FT-4 fails to fire"
   },
-  "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked"
+  "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked",
+  "class_as_shipped_WITHDRAWN": "A_CERTIFIED",
+  "class_withdrawal_2026_07_28": "\u2605CLASS WITHDRAWN on the PR #801 adversarial review, BEFORE any repair. G3 (gate_G3_ortho_reduction) compared build_profile(shell_ortho=(1.0,1.0)) against build_profile() \u2014 (1.0,1.0) IS the default, so the two calls were bit-identical and rel=0.0 held by construction, not by physics; a corrupted ortho_layer left G3 at exactly 0.0 while all nine gates still passed. G2 (gate_G2_uniform_null) compared the caged path at s_rail=1.0 against the same path at uniform=True, which at zero contrast is the same layer stack. Prereg \u00a76: 'A gate that cannot fail is not a gate'; \u00a78 CLASS C: 'A gate that cannot fail voids the certification exactly as hard as a gate that fails'. The class is therefore C_NOT_CERTIFIED_VOID until the gates are repaired and the battery RE-RUN; it is re-earned by the re-run, never restored by the fix.",
+  "class_withdrawal_stamp_provenance": "MANUAL STAMP \u2014 the only hand-edit ever applied to this driver-generated file. Applied so the withdrawal is committed as its own step ahead of any repair. determinism_digest below is the PRE-withdrawal driver digest and no longer digests this file; both are superseded by the repaired re-run."
  },
  "_runtime_sec": 1.15,
  "runtime_budget_frozen": "total certification-battery runtime <= 600 s on the reference machine; a longer run is disclosed, not silently accepted",
