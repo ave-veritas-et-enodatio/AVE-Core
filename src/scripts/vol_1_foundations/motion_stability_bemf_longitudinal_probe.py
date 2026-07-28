@@ -647,6 +647,28 @@ def adjudicate_motion_stability(sweep, V_SWEEP):
     if has_neg and st_signflip is not None:
         knot_pinned = bool(knot_pinned and (st_signflip is False))
 
+    # ★ SCOPE CARVE (2026-07-26 Grant ruling; carved 2026-07-28 — ADDITIVE, the
+    # PIN-even-longitudinal verdict below STANDS and its emitted text is byte-untouched).
+    # "the SELF-TRAP knot does NOT [translate]" / "PINNED even on the channel the
+    # electron physically moves in" below mean: no SELF-transport, no re-hosting DOF,
+    # AT THIS RUN'S FORMULATION. The drive is an EXTERNALLY IMPOSED curl-free
+    # compression bias on u, applied with the K4→Cosserat FORCE channel DISABLED
+    # (disable_cosserat_lc_force=True, :115) — the material displacement of the knot's
+    # own host nodes was never driven. So the verdict must NOT be read as
+    # "can't-surf-a-drive-at-phase-velocity ⇒ can't-track-material-displacement":
+    # on the material-tracking axis this run is EVIDENTIALLY NULL, which makes it
+    # NOT COUNTEREVIDENCE against Corollary A of
+    # manuscript/ave-kb/common/relative-offset-principle.md (pinning delivers material
+    # TRACKING, not station-keeping) — and not positive support for it either.
+    # NOT carved: the coupling control is LIVE and the screening is the MECHANISM
+    # (research/2026-06-04_motion-stability-bemf-longitudinal-result.md :209-213); this
+    # run is NOT a #788-family formulation-anchor null (that family is defined by
+    # uniform-shift invariance, which does not obtain for the spatially-varying
+    # Variant-B drive at :176-177/:198). Canon home of the carve:
+    # manuscript/ave-kb/common/genesis-chord-falsification-ledger.md, the ★SCOPE CARVE
+    # bullet on the motion-stability section. Under-carve found on adversarial review;
+    # the analogous moving_defect_transport_gate.py header was carved 2026-07-26 while
+    # this one — which carries the verdict sentence VERBATIM — was missed.
     # ── VERDICT ─────────────────────────────────────────────────────────────────
     if not linear_advects:
         verdict = "BLOCKED-drive"

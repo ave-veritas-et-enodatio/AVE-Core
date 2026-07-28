@@ -332,7 +332,7 @@ can't-track-material-displacement."*
 **Why (verified this session, two-method).**
 
 - The drive was **external and one-shot**: a curl-free +x compression imprint
-  (Variant B, `form="displacement"` — probe `:759`, `:212-214`, `:218-221`; results
+  (Variant B, `form="displacement"` — probe `:781`, `:212-214`, `:218-221`; results
   JSON `variant="B"`, `form="displacement"` on every arm; the drive-selection table
   at `:68-71`, chosen row `:71` — *(2026-07-28 audit repair: this citation read `:72`,
   a blank line, and the JSON keys were named `drive_variant`/`drive_form`; corrected
@@ -425,6 +425,17 @@ edits this branch's own unmerged carve prose.
    a banks-no-verdict SCOPING doc whose June clause is an explicit *candidate*.
    Residual artifact language is now scoped to the **material-tracking axis only**,
    with `#788:31`'s own qualifier quoted verbatim.
+
+**Probe-side carve + line-shift disclosure (2026-07-28).** The probe itself was an
+**under-carved** site: `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe.py`
+carries the `PIN-even-longitudinal` verdict sentence verbatim and was missed by the
+2026-07-26 sweep (the analogous `moving_defect_transport_gate.py` header *was* carved).
+It now carries the same ★SCOPE CARVE as a comment block immediately above its VERDICT
+section — the emitted verdict string is **byte-untouched**. That insertion shifts probe
+lines **≥ 650 only**; the one affected citation in this block, the smoke-selection call,
+moved `:759 → :781` and is updated above. Every other probe cite in this doc
+(`:40-41`, `:108-109`, `:115`, `:177`, `:198`, `:212-214`, `:218-221`) is **below the
+insertion point and unchanged** (re-verified two-method by grep after the edit).
 
 **What SURVIVES from the 2026-07-26 draft, unchanged:** the narrow
 **no-SELF-transport / no-re-hosting-DOF** scope; the **disabled-FORCE-channel**

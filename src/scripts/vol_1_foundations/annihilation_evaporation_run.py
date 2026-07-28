@@ -70,6 +70,27 @@ a clean annihilation negative; the V-sector dynamics still classify the
 encounter (MERGE/BOUNCE/PASS-THROUGH) and the handedness contrast still answers
 the §2 ontology question.
 
+★ SCOPE CARVE (2026-07-26 Grant ruling; carved 2026-07-28 — ADDITIVE, nothing above
+is retracted and no verdict is overturned). DEV-6 above (:46-50) states that "the
+V-sector drift imprint produces ZERO centroid motion over 17k steps (the 3D scalar
+wave equation admits no subluminal rigid transport; the imprinted KE radiates instead
+of convecting the trap)". That is a no-SELF-transport / no-re-hosting-DOF statement
+about a MOVING-SOLUTION ANSATZ: a V_prev drift imprint asks the blob to transport
+ITSELF. The material displacement of the blob's own host nodes was never driven here,
+so the sentence must NOT be read as "can't-surf-a-drive-at-phase-velocity ⇒
+can't-track-material-displacement". On the material-tracking axis this engine
+observation is EVIDENTIALLY NULL — which makes it NOT COUNTEREVIDENCE against
+Corollary A of manuscript/ave-kb/common/relative-offset-principle.md (pinning delivers
+material TRACKING, not station-keeping), and not positive support for it either.
+The transport-less ENGINE fact itself is unchanged: fixed windows, the arrival
+infeasibility, and every downstream design consequence stand. This site is the
+UPSTREAM SOURCE of the same phrasing at mass_sector_two_body_scattering.py:23-25 and
+research/2026-06-23_mass-sector-two-body-scattering_result.md:147 (both of which cite
+:46-50); carved here at the origin, found on adversarial review of the propagation
+lane. Canon home of the carve:
+manuscript/ave-kb/common/genesis-chord-falsification-ledger.md, the ★SCOPE CARVE
+bullet on the motion-stability section.
+
 Run:
     PYTHONPATH=src .venv/bin/python src/scripts/vol_1_foundations/annihilation_evaporation_run.py
 """
