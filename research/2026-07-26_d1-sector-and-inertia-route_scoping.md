@@ -8,7 +8,7 @@
 
 ## 1 The question
 
-**Charter D1**, verbatim from [`research/2026-07-21_continuum-radial-solver_CHARTER.md`](2026-07-21_continuum-radial-solver_CHARTER.md) §0 (the same object as ledger row **I8**, §3 of that charter):
+**Charter D1**, verbatim from [`research/2026-07-21_continuum-radial-solver_CHARTER.md`](2026-07-21_continuum-radial-solver_CHARTER.md) §0 — the T2 storage wording lands at **`:15` (the D1 entry)**; the **`:54` I8 table row** attributes only `clm-m5swh9` (`A1 ⊥ T2`; "which sector's `c²` … is not automatic"). The charter itself calls them "the D1/I8 object" (`:16`, `:35`, `:52`), so the identification is corpus-supported
 
 > **D1 — the sector-crossed c² choice (the plumber-physical question; the pre-test-physics-check surfaced to Grant).** In the E=mc² import `ρ_contribution = E_trapped / c² · (participation)`, **which sector's wave-speed sets c²** — the A1 compression speed `c_P` (`0.519`), the shear speed `c_S` (`0.286`), or the transverse-EM speed `c_EM`? … **OPEN — surfaced, not picked.**
 
@@ -62,7 +62,7 @@ Separation factor `c_P/c_S = 1.81` — the two candidate resonances are **cleanl
 **Feasibility (favourable, and for a specific structural reason).** Two routes, both cheap:
 
 1. **`L = 24–32` near-field BOUND-mode read.** The object is a *bound* cage mode, not a far-field radiated wave — so the `#775` radiative-sponge-vs-wavelength constraint does **not** bind. That constraint is what made the deep-quasistatic Lloyd tail infeasible on the lattice ([`research/2026-07-20_deep-rail-kscaling_derivation.md`](2026-07-20_deep-rail-kscaling_derivation.md) §2: the sponge "thickness must exceed the wavelength to absorb", forcing `k·r_core ~ O(1)`, and the `N>1` aggregation instrument needs `L ≳ O(10²–10³)`, "infeasible on this class of machine"). A near-field bound-mode read needs no giant sponge and no long-wavelength box.
-2. **★Cheapest: an EIGENSOLVE of the caged sub-block.** No time-domain drive at all — assemble the dynamical matrix over the cage neighbourhood, solve for the low-lying localized modes, read `ω_0` and the sector composition of each eigenvector. Seconds-to-minutes, not hours.
+2. **★Cheapest: an EIGENSOLVE of the caged sub-block.** *(Sizing and cost below are **extrapolated from the β-scoping cost table, not timed** — see §8.)* No time-domain drive at all — assemble the dynamical matrix over the cage neighbourhood, solve for the low-lying localized modes, read `ω_0` and the sector composition of each eigenvector. Seconds-to-minutes, not hours.
 
 **★HONEST SCOPE LIMIT (the load-bearing fence).** This measures **which sector hosts the cage's stiffness/resonance mode** — it does **NOT** measure whether `E_trapped` converts to inertia at that rate. The `E = mc²` conversion is precisely the law the lossless small-displacement lattice **structurally lacks** ([`2026-07-21_beta-tracking-feasibility_scoping.md`](2026-07-21_beta-tracking-feasibility_scoping.md) §3, absence-1: node mass uniform and fixed, implicit `m = 1`, "trapped elastic energy carries zero inertia → `β_massload ≡ 0` analytically"). So the eigensolve is a **corroborating STRUCTURAL input** to the sector-of-storage question, not a magnitude measurement and not a closure of D1.
 
@@ -109,7 +109,7 @@ c_P²/c_S² = (0.519/0.286)² = 3.29        →  a 229% spread between the two c
 
 | imbalance | `Δf_sector` | predicted `Δ(m_g/m_i)` | vs bound `~1e-15` |
 |---|---|---|---|
-| nuclear-binding | `~1e-3` | `~2e-3` | **~12 orders over** |
+| nuclear-binding *(Δf external, un-sourced — see §8)* | `~1e-3` | `~2e-3` | **~12 orders over** |
 | EM-binding | `~1e-5` | `~2e-5` | **~10 orders over** |
 
 The bound is the corpus's own imported WEP figure: **`WEP-CMRR ~1e-15` (Eötvös / MICROSCOPE)**, [`manuscript/ave-kb/common/translation-tables/translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md):156 (also carried at [`research/2026-07-11_ep-cmrr-acceptance-test_prereg_FROZEN.md`](2026-07-11_ep-cmrr-acceptance-test_prereg_FROZEN.md):151).
@@ -143,11 +143,11 @@ The bound is the corpus's own imported WEP figure: **`WEP-CMRR ~1e-15` (Eötvös
 
 > - **The effective inertia per pattern is EMERGENT field momentum and SECTOR-CROSSED.** The trapped energy is `T2`/swing-class energy sitting inside the `A1` compression carrier's budget; **which sector's `c²` divides `E`** to give the loaded inertia is **not automatic**.
 
-**These cannot both name the store.** Site A says the trapped store IS A1 compression energy (`mₑc²` = trapped acoustic compression energy). Site B says the trapped energy is `T2`/swing-class *sitting inside* A1's budget — i.e. stored on T2, merely bookkept against A1. If Site A is right, D1's answer is `c_P` and the "sector-crossed" framing of I8 is misdescribed at the root; if Site B is right, the store is T2 and the §4 lever points elsewhere.
+**These cannot both name the store — with one important caveat the canon line itself supplies.** `master-equation.md:20` closes: *"The electron is the unknot dilatation-mass **carrying** the `(2,3)` winding — two objects, not one."* That clause is the on-line seed of exactly the DECOMPOSITION §6's honest remainder reaches by the independent AC/DC route: canon already says the electron is two objects, so the live question may be how `mₑc²` divides between them rather than which one wins outright. Site A says the trapped store IS A1 compression energy (`mₑc²` = trapped acoustic compression energy). Site B says the trapped energy is `T2`/swing-class *sitting inside* A1's budget — i.e. stored on T2, merely bookkept against A1. If Site A is right, D1's answer is `c_P` and the "sector-crossed" framing of I8 is misdescribed at the root; if Site B is right, the store is T2 and the §4 lever points elsewhere.
 
-**Provenance, recorded honestly (this is the load-bearing part).** The **T2 label entered via the orchestrator's Fork-ρ walk framing** — it appears first at [`research/2026-07-21_fork-rho-walk_RECORD.md`](2026-07-21_fork-rho-walk_RECORD.md):55 (*"the trapped energy is `T2`/swing-class sitting inside the `A1` compression carrier's budget"*) and propagates from there into the leaf at :49 verbatim. The leaf itself is stamped *"⚠ STATUS: PROPOSED — Grant-ratification-at-merge"* at :11, and its magnitude node `clm-m5swh9` is `*pending*`/OPEN. The **A1 statement is older, and Grant-ratified canon** (2026-06-10, pre-adjudicated).
+**Provenance, recorded honestly (this is the load-bearing part).** *(The propagation is **near-verbatim**, not verbatim: the leaf inserts "energy", re-punctuates `, and` → `;`, and splits the parenthetical into a following sentence.)* The **T2 label entered via the orchestrator's Fork-ρ walk framing** — it appears first at [`research/2026-07-21_fork-rho-walk_RECORD.md`](2026-07-21_fork-rho-walk_RECORD.md):55 (*"the trapped energy is `T2`/swing-class sitting inside the `A1` compression carrier's budget"*) and propagates from there into the leaf at :49 near-verbatim. The leaf itself is stamped *"⚠ STATUS: PROPOSED — Grant-ratification-at-merge"* at :11, and its magnitude node `clm-m5swh9` is `*pending*`/OPEN. The **A1 statement is older, and Grant-ratified canon** (2026-06-10, pre-adjudicated).
 
-**★A sharper flag inside the provenance:** the walk record's own sentence **cites `master-equation.md:20`** — it invokes the canon line for the `A1 ⊥ T2` orthogonality *while assigning the store to T2*, which is what that same line assigns to A1. The citation was used for the orthogonality half and not read against the storage half. So a proposed-status walk product is in tension with ratified canon **on the canon's own cited line**, and the corpus now propagates the *walk's* label into the charter's I8 row. **Flag-don't-fix: surfaced with both paths, both quotes, and the propagation chain; NOT reconciled here.**
+**★A sharper flag inside the provenance:** the walk record's own sentence **cites `master-equation.md:20`** — it invokes the canon line for the `A1 ⊥ T2` orthogonality *while assigning the store to T2*, which is what that same line assigns to A1. The **observable** fact, stated without any claim about a prior author's reading process: the cite is **bound to the orthogonality clause**, and the same line's **storage assignment is not engaged**. ★**Three instances of the same pattern, not two** — the third is [`relative-offset-principle.md`](../manuscript/ave-kb/common/relative-offset-principle.md):41, which likewise writes "nonzero acoustic inertia per unit sector-crossed trapped-`T2` energy" while citing `master-equation.md:20` for `A1 ⊥ T2`. ★**Self-evidencing corroboration:** leaf:49's own bullet juxtaposes BOTH assignments internally — "the trapped energy is `T2`/swing-class energy…" and, two clauses later, "mass is `A1` dilatation" — and that second clause is **not** in RECORD:55; it was added at the leaf. The flag therefore stands on the text alone.
 
 **Status: OPEN — Grant is walking it.** *(Routing-cite caveat: the orchestration lane refers to this as "pending-rulings item 13". That item is **NOT on `main`** at `c8ceacc3` — [`_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md`](../_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md) §1 currently ends at item 12. It is therefore the **next unlanded §1 slot**, not a citable line; recorded that way deliberately rather than repeated as if it resolved.)*
 
@@ -223,7 +223,7 @@ The whole point of banking this doc is that chat-only claims become checkable. S
 
 | quantity | value | from |
 |---|---|---|
-| `c_P/c_S` | `1.8147` (→ `1.81`) | `0.519 / 0.286` |
+| `c_P/c_S` | `1.8147` (→ `1.81`) | `0.519 / 0.286` — ⚑ the cited source prints `1.813` (`research/2026-07-21_beta-tracking-feasibility_scoping.md`:11), which is off in the 4th figure; `1.8147` is the arithmetically correct value from the same inputs. Flagged so a reader comparing the two does not read this as a mis-copy. |
 | `ω_0^A1 = π·c_P/r_core` | `1.0191` (→ `≈ 1.02`) | `r_core = 1.6` |
 | `ω_0^S = π·c_S/r_core` | `0.5616` (→ `≈ 0.56`) | `r_core = 1.6` |
 | `ω_0^A1/ω_0^S` | `1.8147` — identical to `c_P/c_S` (as it must be; `r_core` cancels) | — |
