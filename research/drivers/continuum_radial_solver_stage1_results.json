@@ -1,0 +1,865 @@
+{
+ "provenance": {
+  "class": "continuum radial-acoustic solver STAGE 1 - INSTRUMENT CERTIFICATION ONLY; banks no physics verdict; mints no clm-/def-; engine byte-untouched; deterministic (no RNG).",
+  "prereg_file": "research/2026-07-28_continuum-radial-solver-stage1_prereg-FROZEN.md",
+  "charter": "research/2026-07-21_continuum-radial-solver_CHARTER.md",
+  "rulings": "Grant 2026-07-28 [sic]: 'D2: disclosed, D3: follow rec, D4: do it, D5: do the rec'; D1 HELD",
+  "engine_fence": "engine src/ave BYTE-UNTOUCHED; the instrument lives entirely in research/drivers/ and imports ave.core.* read-only",
+  "exterior": "the exterior beyond R_match is represented by the exact analytic outgoing solution; no sponge, no absorbing layer, no far-field truncation",
+  "source_axis": "every gate is evaluated for both source fittings (prescribed displacement and prescribed traction) and passes only if it passes for both",
+  "d5_read": "the D5 profile gains are computed from the shipped vessel_state_rve_results.json fields (min_kse, peak_A, k_a_RHO_STAR, k_s_KS0) at driver runtime; no vessel-state number is retyped from prose",
+  "R8": "every number the solver consumes appears on the charter \u00a73 ledger or the \u00a73 delta with its tag; no SM/GR convention default (in particular no c_light and no unlabeled c) enters anywhere",
+  "rule11": "no adjudication criterion may be dropped or relaxed post-hoc to convert a FAIL to a PASS",
+  "below_band": "below k\u00b7r_core = 1e-8 the matched-asymptotics backstop is the instrument of record; it is k-independent in that limit and is certified against the transfer matrix in the overlap band [1e-8, 1e-3]",
+  "disclosures": {
+   "grade_frame": "grade-frame: Eulerian, imposed (not self-bound); the instrument hosts no field-generated co-moving grade",
+   "source_fitting": "source fitting reported on BOTH axes (prescribed displacement / prescribed traction); the physical fitting is Grant-routed and not picked here",
+   "no_verdict": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked",
+   "n1_absent": "n=0 monopole channel only; the n=1 dipole channel (F2 displaced-source p, and the structural added-mass term of rho_eff) is NOT built in stage 1",
+   "op14": "Op14 saturation enters as a static constitutive grade S(A); the kernel-knee marginality is NOT hosted",
+   "continuum_scope": "the continuum radial channel is a CONTINUUM representation whose constitutive inputs are lattice-measured; it is not a discretization of the srs stencil and carries no K4 connectivity claim",
+   "d5_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE \u2014 #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
+   "mixed_provenance": "any stage-1 output that carries the #796 r_Z cites it as MIXED-provenance (K derived, rho assumed at rho_eff/rho_0 = 1); the #796 rho half is UNRESOLVED and stage 1 does not repair it",
+   "beta_symbolic": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+   "structural_not_built": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
+   "tag_class": "stage-1 outputs are CONSISTENCY-class (analytic-limit reproduction) or ENGINEERING-class (numerics); no manifestation- or emergence-class claim is made"
+  },
+  "geometry": {
+   "r_core": 1.0,
+   "r_s": 0.3,
+   "W_shell": 0.3,
+   "S_rail": 0.001,
+   "n_shell": 256,
+   "R_match": 4.0,
+   "n_ext": 8,
+   "band": [
+    1e-08,
+    1e-06,
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    0.3,
+    1.0,
+    3.0,
+    4.0
+   ],
+   "quasistatic_top": 0.001
+  }
+ },
+ "cold_medium": {
+  "cP": 0.5188441251104724,
+  "cS": 0.2862057244928644,
+  "cP_over_cS": 1.8128362946961534,
+  "rho0": 1.0,
+  "C_rr_0": 0.26919922616165154,
+  "G_0": 0.0819137167324854,
+  "K_0": 0.15998093718500433,
+  "nu_implied_from_lattice_speeds": 0.28131325540840557,
+  "nu_Hill_canon_N_NU": 0.2857142857142857,
+  "nu_rel_dev_vs_canon": -0.015403606070580445,
+  "source": "research/drivers/vessel_state_rve_results.json (spectral_cold)",
+  "tag": "[lattice-measured] (charter I2 / prereg I11); ratio-only use"
+ },
+ "d5_profile": {
+  "min_kse": 0.35299364830704594,
+  "peak_A": 0.13946745063352736,
+  "k_a_RHO_STAR": 9.77337,
+  "k_s_KS0": 1.0,
+  "eps_radial_extremum": -0.06620094723651658,
+  "eps_hoop_extremum": 0.13946745063352736,
+  "radial_gain": 0.35299364830704594,
+  "hoop_gain": 2.3630669979981973,
+  "r_Z_796_mixed_provenance": 0.5435769701120864,
+  "K_tan_over_K0_796": 0.2954759224362361,
+  "read_from": "research/drivers/vessel_state_rve_results.json",
+  "disclosure_shape": "the D5 vessel-state EXTREMA are lattice-measured; the radial SHAPE between them is an ENGINEERING CHOICE \u2014 #796 shipped no resolved radial profile, and its C-V shell reconstruction is corroborative-only by its own grading",
+  "disclosure_mixed_provenance": "any stage-1 output that carries the #796 r_Z cites it as MIXED-provenance (K derived, rho assumed at rho_eff/rho_0 = 1); the #796 rho half is UNRESOLVED and stage 1 does not repair it"
+ },
+ "gates": {
+  "G1_lame_static": {
+   "arms": {
+    "isotropic_baseline|displacement": {
+     "div_u_interior_r0p5": 0.12102601814763236,
+     "div_u_exterior_r1p5_2p5_3p5": [
+      3.262593996389204e-15,
+      3.267987705864257e-15,
+      3.2680263185854646e-15
+     ],
+     "lame_ratio": 2.7002675694072622e-14,
+     "shell_agreement": 0.0016631920119799608
+    },
+    "isotropic_baseline|traction": {
+     "div_u_interior_r0p5": 0.1142182905781981,
+     "div_u_exterior_r1p5_2p5_3p5": [
+      1.902410150005739e-15,
+      1.914000472545661e-15,
+      1.9131789913280097e-15
+     ],
+     "lame_ratio": 1.675739028185915e-14,
+     "shell_agreement": 0.006068666337906074
+    },
+    "D5_orthotropic|displacement": {
+     "div_u_interior_r0p5": 0.13889658071858502,
+     "div_u_exterior_r1p5_2p5_3p5": [
+      2.4578626236377776e-15,
+      2.46005686602238e-15,
+      2.460391334735824e-15
+     ],
+     "lame_ratio": 1.7713836597034474e-14,
+     "shell_agreement": 0.0010281666731979532
+    },
+    "D5_orthotropic|traction": {
+     "div_u_interior_r0p5": 0.13168148388638679,
+     "div_u_exterior_r1p5_2p5_3p5": [
+      2.934681265601825e-15,
+      2.9371366204086292e-15,
+      2.9372741996217705e-15
+     ],
+     "lame_ratio": 2.2305901429209406e-14,
+     "shell_agreement": 0.0008830424275531864
+    }
+   },
+   "lame_ratio_worst": 2.7002675694072622e-14,
+   "shell_agreement_worst": 0.006068666337906074,
+   "frozen": "lame_ratio \u2261 max over r in {1.5, 2.5, 3.5} of |div u|(r) / |div u|(0.5) <= 1e-10",
+   "frozen_agreement": "max|\u0394 div u| / mean(div u) <= 0.25 across the three exterior radii",
+   "pass": true
+  },
+  "G2_uniform_null": {
+   "rows": {
+    "displacement|kr=0.001": {
+     "rho_N": 0.9999999999998124,
+     "rho_S": 1.8762769116165146e-13,
+     "K_compliance_ratio": 1.0000000000000342,
+     "r_Z": 1.000000000000017
+    },
+    "displacement|kr=0.3": {
+     "rho_N": 0.999999999999849,
+     "rho_S": 1.509903313490213e-13,
+     "K_compliance_ratio": 1.0000000000000342,
+     "r_Z": 1.000000000000017
+    },
+    "traction|kr=0.001": {
+     "rho_N": 0.9999999999999185,
+     "rho_S": 8.149037000748649e-14,
+     "K_compliance_ratio": 1.0000000000000342,
+     "r_Z": 1.000000000000017
+    },
+    "traction|kr=0.3": {
+     "rho_N": 1.0000000000001092,
+     "rho_S": 1.092459456231154e-13,
+     "K_compliance_ratio": 1.0000000000000342,
+     "r_Z": 1.000000000000017
+    }
+   },
+   "worst_deviation": 1.8762769116165146e-13,
+   "frozen": "at zero contrast: |rho_N - 1| <= 1e-12 AND rho_S <= 1e-12 AND |r_Z - 1| <= 1e-12",
+   "keep_both": "the uniform-medium NULL is read on BOTH conventions: rho_N -> 1 and rho_S -> 0; neither convention is redefined in place (KEEP-BOTH)",
+   "null_arm": "INDEPENDENT: uniform_reference_profile (one homogeneous region r in [r_s, R_match], built without build_profile). #801 F3 repair \u2014 the pre-repair null arm was the scatterer arm's own code path at zero contrast, hence bit-identical.",
+   "selftest": "FT-2 (rho_S >= 1e-5 at a S_rail = 0.99 contrast)",
+   "pass": true
+  },
+  "G3_ortho_to_iso_reduction": {
+   "rows": {
+    "displacement": {
+     "B_ortho_unit_gains": 0.05787697879835225,
+     "B_isotropic_independent_construction": 0.05787697879835225,
+     "rel": 0.0,
+     "rho_N_ortho_unit_gains_kr1e-3": 0.4135489261942403,
+     "rho_N_isotropic_construction_kr1e-3": 0.4135489261942403,
+     "rel_dynamic_diagnostic": 0.0
+    },
+    "traction": {
+     "B_ortho_unit_gains": -0.054621392022621,
+     "B_isotropic_independent_construction": -0.054621392022621,
+     "rel": 0.0,
+     "rho_N_ortho_unit_gains_kr1e-3": 0.4393710662646189,
+     "rho_N_isotropic_construction_kr1e-3": 0.4393710662646189,
+     "rel_dynamic_diagnostic": 0.0
+    }
+   },
+   "rel_worst": 0.0,
+   "rel_dynamic_diagnostic_worst": 0.0,
+   "isotropic_arm": "INDEPENDENT: build_profile(iso_shell=True) assembles the graded shell from iso_layer and never calls ortho_layer. #801 F1 repair \u2014 the pre-repair 'isotropic' arm was the default ortho path, i.e. the same call.",
+   "selftest": "FT-5 (a mis-normalized ortho_layer, misnorm = 1e-3)",
+   "frozen": "|B_ortho(hoop=1,radial=1) - B_iso| / |B_iso| <= 1e-12",
+   "pass": true
+  },
+  "G4_TM_vs_matched_asymptotics": {
+   "rows": {
+    "displacement|kr=1e-08": {
+     "rho_N_TM": 0.41354872528675635,
+     "rho_N_MA": 0.4135487252870375,
+     "rel": 6.798811453019701e-13,
+     "cond": 50202390756.2205
+    },
+    "displacement|kr=1e-06": {
+     "rho_N_TM": 0.4135487252869528,
+     "rho_N_MA": 0.4135487252870375,
+     "rel": 2.0483684654112664e-13,
+     "cond": 50202390.757013105
+    },
+    "displacement|kr=0.0001": {
+     "rho_N_TM": 0.41354872729560116,
+     "rho_N_MA": 0.4135487252870375,
+     "rel": 4.856897206834507e-09,
+     "cond": 50202.399156729996
+    },
+    "displacement|kr=0.001": {
+     "rho_N_TM": 0.4135489261942403,
+     "rho_N_MA": 0.4135487252870375,
+     "rel": 4.858126515168571e-07,
+     "cond": 1587.5791761992753
+    },
+    "traction|kr=1e-08": {
+     "rho_N_TM": 0.43937085579356416,
+     "rho_N_MA": 0.4393708557940992,
+     "rel": 1.2176876743449407e-12,
+     "cond": 45965186990.75633
+    },
+    "traction|kr=1e-06": {
+     "rho_N_TM": 0.4393708557940387,
+     "rho_N_MA": 0.4393708557940992,
+     "rel": 1.3771317337995283e-13,
+     "cond": 45965186.99148559
+    },
+    "traction|kr=0.0001": {
+     "rho_N_TM": 0.43937085789817326,
+     "rho_N_MA": 0.4393708557940992,
+     "rel": 4.7888339745012915e-09,
+     "cond": 45965.194801866586
+    },
+    "traction|kr=0.001": {
+     "rho_N_TM": 0.4393710662646189,
+     "rho_N_MA": 0.4393708557940992,
+     "rel": 4.790270382280554e-07,
+     "cond": 1453.5864516298773
+    }
+   },
+   "worst_rel": 4.858126515168571e-07,
+   "frozen": "|rho_N_TM(k\u00b7r_core) - rho_N_MA| / rho_N_MA <= 1e-6 for every k\u00b7r_core <= 1e-3 in the frozen band",
+   "pass": true
+  },
+  "G5_ax3_lossless": {
+   "rows": {
+    "displacement": {
+     "P_in": 2.4624740517083773e-05,
+     "P_rad": 2.4624740517087235e-05,
+     "rel_imbalance": 1.406175503036591e-13,
+     "max_Im_over_Re_T": 0.0
+    },
+    "traction": {
+     "P_in": 2.221440167875515e-05,
+     "P_rad": 2.2214401678754997e-05,
+     "rel_imbalance": 6.863382264829829e-15,
+     "max_Im_over_Re_T": 0.0
+    }
+   },
+   "worst_rel_imbalance": 1.406175503036591e-13,
+   "worst_Im_over_Re_T": 0.0,
+   "frozen": "|P_in - P_rad| / |P_in| <= 1e-10",
+   "frozen_real_T": "max|Im T| / max|Re T| <= 1e-14",
+   "pass": true
+  },
+  "G6_layer_refinement": {
+   "rows": {
+    "isotropic_baseline|displacement": {
+     "rho_N_n": 0.4135688154499297,
+     "rho_N_2n": 0.4135753913921909,
+     "rel": 1.5900478990583606e-05
+    },
+    "isotropic_baseline|traction": {
+     "rho_N_n": 0.4393919023130271,
+     "rho_N_2n": 0.43941326113001206,
+     "rel": 4.860994677533857e-05
+    },
+    "D5_orthotropic|displacement": {
+     "rho_N_n": 0.02652172000332607,
+     "rho_N_2n": 0.026523917918194723,
+     "rel": 8.287225973188542e-05
+    },
+    "D5_orthotropic|traction": {
+     "rho_N_n": 0.02843525546815821,
+     "rho_N_2n": 0.028438222107073034,
+     "rel": 0.00010432960302206345
+    }
+   },
+   "worst_rel": 0.00010432960302206345,
+   "n_shell": 256,
+   "frozen": "|rho_N(2\u00b7n_shell) - rho_N(n_shell)| / rho_N(n_shell) <= 1e-3 at the frozen n_shell = 256",
+   "pass": true
+  },
+  "G7_drive_amplitude_independence": {
+   "rows": {
+    "displacement": {
+     "rho_N_by_amplitude": [
+      0.4135688154499413,
+      0.4135688154499297,
+      0.4135688154500132
+     ],
+     "rel_spread": 2.020081773142086e-13
+    },
+    "traction": {
+     "rho_N_by_amplitude": [
+      0.43939190231311026,
+      0.4393919023130271,
+      0.4393919023129804
+     ],
+     "rel_spread": 2.9550062722232135e-13
+    }
+   },
+   "worst_rel": 2.9550062722232135e-13,
+   "R_match_evaluated": 4.0,
+   "frozen": "rho_N invariant across source amplitude 1e-6 ... 1e+6 to <= 1e-12 relative",
+   "honesty_caveat": "G7 is STRUCTURALLY exact in a linear frequency-domain solver; it certifies wiring, not physical linearity, and is reported as such",
+   "selftest": "FT-9 (the SAME amplitude sweep at R_match/r_core = 16, a value the prereg's own frozen G8 sweep declares admissible)",
+   "caveat_correction": "\u2605#801 re-verify R1. The frozen caveat's word STRUCTURALLY EXACT is contradicted by measurement: this gate is ROUNDOFF-limited, not structurally exact, and its residual grows with the conditioning of the assembled system. The measured spread over the prereg's OWN frozen G8 R_match sweep {2, 4, 8, 16} is shipped in selftests_repair_added.FT9_G7_amplitude_fireability.R_match_conditioning_sweep, and its top value BREACHES the 1e-12 G7 tolerance. G7 is evaluated at the frozen geometry R_match = 4 (prereg \u00a75), where it passes; FT-9 is the shipped demonstration that it CAN fail on an admissible input. The frozen prereg stays BYTE-UNTOUCHED \u2014 the defective frozen clause is disclosed and routed, not amended.",
+   "pass": true
+  },
+  "G8_matching_radius_independence": {
+   "rows": {
+    "displacement": {
+     "rho_N_by_R_match": [
+      0.4135688154500882,
+      0.4135688154499297,
+      0.41356881545191426,
+      0.4135688154510734
+     ],
+     "rel_spread": 4.798667340296663e-12
+    },
+    "traction": {
+     "rho_N_by_R_match": [
+      0.43939190231341285,
+      0.4393919023130271,
+      0.4393919023151098,
+      0.43939190233505654
+     ],
+     "rel_spread": 5.0136185296992416e-11
+    }
+   },
+   "worst_rel": 5.0136185296992416e-11,
+   "frozen": "rho_N invariant across R_match/r_core in {2, 4, 8, 16} to <= 1e-9 relative",
+   "pass": true
+  },
+  "G9_band_conditioning": {
+   "rows": {
+    "displacement|kr=1e-08": {
+     "rho_N": 0.41354872528675635,
+     "cond": 50202390756.2205
+    },
+    "displacement|kr=1e-06": {
+     "rho_N": 0.4135487252869528,
+     "cond": 50202390.757013105
+    },
+    "displacement|kr=0.0001": {
+     "rho_N": 0.41354872729560116,
+     "cond": 50202.399156729996
+    },
+    "displacement|kr=0.001": {
+     "rho_N": 0.4135489261942403,
+     "cond": 1587.5791761992753
+    },
+    "displacement|kr=0.01": {
+     "rho_N": 0.4135688154499297,
+     "cond": 50.76035717433124
+    },
+    "displacement|kr=0.1": {
+     "rho_N": 0.41555212368476363,
+     "cond": 25.33274856545454
+    },
+    "displacement|kr=0.3": {
+     "rho_N": 0.4311363699351694,
+     "cond": 96.43541843447986
+    },
+    "displacement|kr=1.0": {
+     "rho_N": 0.5249649544182169,
+     "cond": 5.766423563950245
+    },
+    "displacement|kr=3.0": {
+     "rho_N": 3.0127033638346896,
+     "cond": 3.4760606207343985
+    },
+    "displacement|kr=4.0": {
+     "rho_N": 0.3041480771031104,
+     "cond": 2.6814327013910795
+    },
+    "traction|kr=1e-08": {
+     "rho_N": 0.43937085579356416,
+     "cond": 45965186990.75633
+    },
+    "traction|kr=1e-06": {
+     "rho_N": 0.4393708557940387,
+     "cond": 45965186.99148559
+    },
+    "traction|kr=0.0001": {
+     "rho_N": 0.43937085789817326,
+     "cond": 45965.194801866586
+    },
+    "traction|kr=0.001": {
+     "rho_N": 0.4393710662646189,
+     "cond": 1453.5864516298773
+    },
+    "traction|kr=0.01": {
+     "rho_N": 0.4393919023130271,
+     "cond": 46.562082917538646
+    },
+    "traction|kr=0.1": {
+     "rho_N": 0.44147018375974223,
+     "cond": 26.71665101097617
+    },
+    "traction|kr=0.3": {
+     "rho_N": 0.45784193072458135,
+     "cond": 101.63828237631739
+    },
+    "traction|kr=1.0": {
+     "rho_N": 0.5611011897821057,
+     "cond": 5.513535417949463
+    },
+    "traction|kr=3.0": {
+     "rho_N": 1.2448575266474091,
+     "cond": 3.0032990802284294
+    },
+    "traction|kr=4.0": {
+     "rho_N": 0.10071230821159081,
+     "cond": 3.0674118323086925
+    }
+   },
+   "worst_cond": 50202390756.2205,
+   "band": [
+    1e-08,
+    1e-06,
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    0.3,
+    1.0,
+    3.0,
+    4.0
+   ],
+   "frozen": "cond(system matrix) <= 1e12 at every sampled k\u00b7r_core in the certified band k\u00b7r_core in [1e-8, 4]",
+   "pass": true
+  }
+ },
+ "selftests": {
+  "FT1_lame_fireability": {
+   "lame_ratio_graded_exterior_q0p10": 0.004647677716003735,
+   "lame_ratio_orthotropic_exterior_1p02_0p99": 0.003366883011483848,
+   "shell_agreement_graded_exterior_q0p10": 2.2530473163613944,
+   "shell_agreement_orthotropic_exterior_1p02_0p99": 2.145367579900533,
+   "shell_agreement_frozen_tolerance_G1b": 0.25,
+   "shell_agreement_also_breaches_G1b": true,
+   "shell_agreement_coverage_note": "SHIPPED, and NOT part of the frozen FIRES criterion. G1 is an AND of lame_ratio <= 1e-10 and shell_agreement <= 0.25; the frozen FT-1 threshold names only the first. These two numbers show the same mis-specifications break the second as well, so G1b's fireability coverage is shipped (#801 re-verify R5).",
+   "frozen": "both mis-specified profiles MUST return lame_ratio >= 1e-3",
+   "targets": "G1",
+   "FIRES": true
+  },
+  "FT2_null_liveness": {
+   "s_rail_contrast": 0.99,
+   "rho_N": 0.9998988008340683,
+   "rho_S": 0.00010119916593165357,
+   "frozen": "the contrast case MUST return rho_S >= 1e-5 at k\u00b7r_core = 1e-3",
+   "targets": "G2",
+   "null_arm": "INDEPENDENT (uniform_reference_profile) \u2014 same as repaired G2",
+   "FIRES": true
+  },
+  "FT3_ax3_fireability": {
+   "absorb_Im_over_Re": 0.001,
+   "P_in": 1.9062444175769578e-05,
+   "P_rad": 2.462497068997284e-05,
+   "rel_imbalance": 0.29180552414542055,
+   "max_Im_over_Re_T": 0.0003412936912352721,
+   "frozen": "the absorbing case MUST return |P_in - P_rad|/|P_in| >= 1e-2",
+   "targets": "G5",
+   "FIRES": true
+  },
+  "FT4_TM_MA_nonvacuity": {
+   "k_r_core": 3.0,
+   "rho_N_TM": 3.0127033638346896,
+   "rho_N_MA": 0.4135487252870375,
+   "rel": 6.285002176572109,
+   "frozen": "the out-of-regime comparison MUST return |rho_N_TM - rho_N_MA|/rho_N_MA >= 1e-1",
+   "targets": "G4",
+   "FIRES": true
+  },
+  "gate_fireability_selftest_pass": true,
+  "frozen": "gate_fireability_selftest_pass = FT-1 AND FT-2 AND FT-3 AND FT-4 all FIRE at their frozen thresholds"
+ },
+ "selftests_repair_added": {
+  "FT5_G3_ortho_normalization": {
+   "ortho_misnorm": 0.001,
+   "rows": {
+    "displacement": {
+     "B_ortho_misnormalized": 0.05786118652546951,
+     "B_isotropic_independent_construction": 0.05787697879835225,
+     "rel": 0.0002728593166163578
+    },
+    "traction": {
+     "B_ortho_misnormalized": -0.054604006499544,
+     "B_isotropic_independent_construction": -0.054621392022621,
+     "rel": 0.00031829146847447634
+    }
+   },
+   "rel_worst": 0.00031829146847447634,
+   "frozen_at_repair": "the mis-normalized orthotropic layer MUST return G3 rel >= 1e-6 (1e6 x the G3 pass tolerance)",
+   "targets": "G3",
+   "FIRES": true
+  },
+  "FT6_G6_refinement_fireability": {
+   "allocation": "r-uniform (the rejected rule)",
+   "n_shell": [
+    192,
+    384
+   ],
+   "rho_N_n": 0.4583939565281491,
+   "rho_N_2n": 0.435874415188386,
+   "rel": 0.04912704676633374,
+   "frozen_at_repair": "the r-uniform allocation MUST return G6 rel >= 1e-2 (10 x the G6 pass tolerance)",
+   "targets": "G6",
+   "FIRES": true
+  },
+  "FT7_G8_matching_radius_fireability": {
+   "ext_grade_q": 0.1,
+   "rho_N_by_R_match": [
+    0.4885231400301863,
+    0.5724752738642576,
+    0.6731433956518722,
+    0.796687554505375
+   ],
+   "rel_spread": 0.48705680256821066,
+   "frozen_at_repair": "the graded-exterior case MUST return a G8 spread >= 1e-8 (10 x the G8 pass tolerance)",
+   "targets": "G8",
+   "FIRES": true
+  },
+  "FT8_G9_band_floor_fireability": {
+   "k_r_core_below_floor": 1e-11,
+   "cond_by_source": {
+    "displacement": 1587538987754399.2,
+    "traction": 1453546839663308.8
+   },
+   "cond_worst": 1587538987754399.2,
+   "frozen_at_repair": "below the certified band floor (k\u00b7r_core = 1e-11) the conditioning MUST breach 1e13 (10 x the G9 pass tolerance), or be non-finite",
+   "targets": "G9",
+   "FIRES": true
+  },
+  "FT9_G7_amplitude_fireability": {
+   "R_match_over_r_core": 16.0,
+   "admissibility": "R_match/r_core = 16 is a member of the prereg's OWN frozen G8 sweep {2, 4, 8, 16} (prereg \u00a75, G8 row), so this is an ADMISSIBLE instrument configuration, not a mis-specified input",
+   "R_match_conditioning_sweep": {
+    "R_match=2.0": 3.355617563357991e-14,
+    "R_match=4.0": 2.9550062722232135e-13,
+    "R_match=8.0": 3.2398946494609526e-12,
+    "R_match=16.0": 1.1932211730808878e-11
+   },
+   "rows": {
+    "displacement": {
+     "rho_N_by_amplitude": [
+      0.4135688154526204,
+      0.4135688154510734,
+      0.4135688154489474
+     ],
+     "rel_spread": 8.881245892571124e-12
+    },
+    "traction": {
+     "rho_N_by_amplitude": [
+      0.43939190234029946,
+      0.43939190233505654,
+      0.4393919023361114
+     ],
+     "rel_spread": 1.1932211730808878e-11
+    }
+   },
+   "rel_worst": 1.1932211730808878e-11,
+   "G7_frozen_pass_tolerance": 1e-12,
+   "breaches_G7_by_factor": 11.932211730808879,
+   "frozen_at_repair": "at the admissible R_match/r_core = 16 the G7 amplitude spread MUST breach 1e-11 (10 x the G7 pass tolerance)",
+   "caveat_retired": "This test RETIRES the G7 'no self-test possible' caveat. The half of that caveat which IS true, verified out-of-tree by mutation: a genuine WIRING error \u2014 the amplitude dropped from the reference arm \u2014 puts G7 at 2.999999999997, a FAIL by 12 orders, so the gate does catch the defect it claims to catch and would force class C. A naive COMMON-MODE mutation (both arms scaled by 1+1e-9) stays at 5.665625e-13, UNDER the 1e-12 tolerance, and correctly does not fire \u2014 it shifts the roundoff floor without breaking the caged/uncaged ratio. What was FALSE is the other half: that ONLY a wiring error can break it. An admissible R_match does.",
+   "targets": "G7",
+   "FIRES": true
+  },
+  "repair_selftest_pass": true,
+  "status": "REPAIR-ADDED beyond the frozen FT-1..FT-4 set (#801 adversarial review + re-verify). The frozen prereg is BYTE-UNTOUCHED and gate_fireability_selftest_pass above keeps its frozen definition. These are an ADDITIONAL NECESSARY condition on the class: they can only turn a PASS into a FAIL, so they STRENGTHEN the frozen criterion and never relax it (Rule 11). Their thresholds were declared before the run at >= 10x each gate's frozen pass tolerance.",
+  "labelling": "These tests carry `frozen_at_repair`, NEVER `frozen`. `frozen` means the string byte-matches the pre-registration committed and pushed BEFORE any solver code existed. `frozen_at_repair` means only that the threshold was written down before ITS run, in the same commit as the test \u2014 pre-declaration witnessed by git at COMMIT granularity, not by a pre-registration. Weaker warrant; do not read it as the stronger one (#801 re-verify R6).",
+  "gate_selftest_map": {
+   "G1": "FT-1 (+ G1b shell_agreement coverage shipped in FT-1)",
+   "G2": "FT-2",
+   "G3": "FT-5",
+   "G4": "FT-4",
+   "G5": "FT-3",
+   "G6": "FT-6",
+   "G7": "FT-9 \u2014 the G7 caveat is RETIRED (#801 re-verify R1). The map used to read 'CAVEAT (no self-test possible) ... no admissible INPUT can make it fail; only a wiring error can.' That was FALSE: G7 is roundoff-limited, not structurally exact, and it FAILS at R_match/r_core = 16 \u2014 a value the prereg's own frozen G8 sweep declares admissible. FT-9 is that measurement, and it is the same species as FT-8 (an in-family stress, not a corruption).",
+   "G8": "FT-7",
+   "G9": "FT-8"
+  },
+  "undispositioned_gates": []
+ },
+ "two_term_rho_report": {
+  "columns_kept_separable": true,
+  "rows": [
+   {
+    "beta_D2_disclosed_scan": 0,
+    "phi_sf_lattice": 0.48946214650826336,
+    "term_i_structural_rho_over_rho0": 1.0,
+    "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
+    "term_ii_trapped_energy_rho_over_rho0": 0.0,
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 1.0,
+    "r_Z_family": 0.5435769701120864,
+    "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
+    "label": "DEMONSTRATION \u2014 no verdict banked"
+   },
+   {
+    "beta_D2_disclosed_scan": 1,
+    "phi_sf_lattice": 0.48946214650826336,
+    "term_i_structural_rho_over_rho0": 1.0,
+    "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
+    "term_ii_trapped_energy_rho_over_rho0": 0.48946214650826336,
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 1.4894621465082634,
+    "r_Z_family": 0.6634004836246242,
+    "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
+    "label": "DEMONSTRATION \u2014 no verdict banked"
+   },
+   {
+    "beta_D2_disclosed_scan": 3,
+    "phi_sf_lattice": 0.48946214650826336,
+    "term_i_structural_rho_over_rho0": 1.0,
+    "term_i_flag": "structural dipole term NOT BUILT (n=1 channel absent in stage 1)",
+    "term_ii_trapped_energy_rho_over_rho0": 1.46838643952479,
+    "term_ii_symbolic_c2_label": "beta = (u_trapped \u00b7 P) / (rho_0 \u00b7 c_x^2) \u2014 c_x SYMBOLIC, D1 HELD; no c^2 evaluated",
+    "rho_eff_over_rho0_if_summed_DOWNSTREAM_ONLY": 2.46838643952479,
+    "r_Z_family": 0.8540191801989484,
+    "K_factor_provenance": "I1 lattice input (#796 K_tan/K_0); R4: r_Z must NOT recompute or perturb K_eff/K_0",
+    "label": "DEMONSTRATION \u2014 no verdict banked"
+   }
+  ],
+  "c2_lever": {
+   "candidate_swap_ratio_cP2_over_cS2": 3.2863754313676785,
+   "candidate_swap_ratio_cS2_over_cP2": 0.3042865980725257,
+   "c_EM": "UNEVALUATED SYMBOL - no lattice-measured value on the ledger",
+   "designated_candidate": null,
+   "reading": "swapping the divisor between the two lattice-measured candidates rescales beta by exactly this ratio; D2's disclosed sweep and D1's sector choice therefore lie on the SAME axis, which is what makes stage 1 D1-INDEPENDENT by construction",
+   "frozen": "the c^2 dependence is reported as the dimensionless candidate-swap ratio (c_i/c_j)^2 from the lattice-measured speeds, with NO candidate designated and c_EM carried as an unevaluated symbol"
+  },
+  "D1_status": "HELD by Grant; no c^2 evaluated anywhere in stage 1",
+  "mixed_provenance_citation": "any stage-1 output that carries the #796 r_Z cites it as MIXED-provenance (K derived, rho assumed at rho_eff/rho_0 = 1); the #796 rho half is UNRESOLVED and stage 1 does not repair it",
+  "r_Z_796_cited": 0.5435769701120864
+ },
+ "liveness_demonstration": {
+  "label": "DEMONSTRATION \u2014 no verdict banked",
+  "n1_fence": "n=0 monopole channel only; the n=1 dipole channel (F2 displaced-source p, and the structural added-mass term of rho_eff) is NOT built in stage 1",
+  "quasistatic_read_fence": "no exponent or quasistatic quantity is read above k\u00b7r_core = 1e-3; the resonant band is reported as characterization only",
+  "isotropic_baseline": {
+   "displacement": {
+    "rho_N_matched_asymptotics_k_to_0": 0.4135487252870375,
+    "rho_S_matched_asymptotics_k_to_0": 0.5864512747129624,
+    "rho_N_by_k_r_core": {
+     "1e-08": 0.41354872528675635,
+     "1e-06": 0.4135487252869528,
+     "0.0001": 0.41354872729560116,
+     "0.001": 0.4135489261942403,
+     "0.01": 0.4135688154499297,
+     "0.1": 0.41555212368476363,
+     "0.3": 0.4311363699351694,
+     "1.0": 0.5249649544182169,
+     "3.0": 3.0127033638346896,
+     "4.0": 0.3041480771031104
+    },
+    "rho_S_by_k_r_core": {
+     "1e-08": 0.5864512747132437,
+     "1e-06": 0.5864512747130473,
+     "0.0001": 0.5864512727043989,
+     "0.001": 0.5864510738057598,
+     "0.01": 0.5864311845500703,
+     "0.1": 0.5844478763152363,
+     "0.3": 0.5688636300648306,
+     "1.0": 0.4750350455817831,
+     "3.0": 2.0127033638346896,
+     "4.0": 0.6958519228968896
+    },
+    "fitted_exponent_p_over_subresonant_tail": 3.236307552050545e-08,
+    "p_interpretation": "the n=0 CENTRED-source channel is analytically k-INDEPENDENT in the deep-quasistatic limit (the k^4 monopole prefactor cancels in the caged/uncaged ratio), so p = 0 here is a CHANNEL property, NOT a test of the charter's F2 (p = 2), which is a DISPLACED-source n=1 statement - see prereg X5"
+   },
+   "traction": {
+    "rho_N_matched_asymptotics_k_to_0": 0.4393708557940992,
+    "rho_S_matched_asymptotics_k_to_0": 0.5606291442059008,
+    "rho_N_by_k_r_core": {
+     "1e-08": 0.43937085579356416,
+     "1e-06": 0.4393708557940387,
+     "0.0001": 0.43937085789817326,
+     "0.001": 0.4393710662646189,
+     "0.01": 0.4393919023130271,
+     "0.1": 0.44147018375974223,
+     "0.3": 0.45784193072458135,
+     "1.0": 0.5611011897821057,
+     "3.0": 1.2448575266474091,
+     "4.0": 0.10071230821159081
+    },
+    "rho_S_by_k_r_core": {
+     "1e-08": 0.5606291442064358,
+     "1e-06": 0.5606291442059613,
+     "0.0001": 0.5606291421018268,
+     "0.001": 0.5606289337353811,
+     "0.01": 0.560608097686973,
+     "0.1": 0.5585298162402578,
+     "0.3": 0.5421580692754187,
+     "1.0": 0.43889881021789434,
+     "3.0": 0.24485752664740912,
+     "4.0": 0.8992876917884092
+    },
+    "fitted_exponent_p_over_subresonant_tail": 3.1911077314206245e-08,
+    "p_interpretation": "the n=0 CENTRED-source channel is analytically k-INDEPENDENT in the deep-quasistatic limit (the k^4 monopole prefactor cancels in the caged/uncaged ratio), so p = 0 here is a CHANNEL property, NOT a test of the charter's F2 (p = 2), which is a DISPLACED-source n=1 statement - see prereg X5"
+   }
+  },
+  "D5_orthotropic_measured": {
+   "displacement": {
+    "rho_N_matched_asymptotics_k_to_0": 0.026519694544172707,
+    "rho_S_matched_asymptotics_k_to_0": 0.9734803054558273,
+    "rho_N_by_k_r_core": {
+     "1e-08": 0.026519694544100216,
+     "1e-06": 0.0265196945439388,
+     "0.0001": 0.026519694746359707,
+     "0.001": 0.02651971479886662,
+     "0.01": 0.02652172000332607,
+     "0.1": 0.02672204498823172,
+     "0.3": 0.028320988429477383,
+     "1.0": 0.037920285447537644,
+     "3.0": 0.23224389900995224,
+     "4.0": 0.1250301806404166
+    },
+    "rho_S_by_k_r_core": {
+     "1e-08": 0.9734803054558998,
+     "1e-06": 0.9734803054560612,
+     "0.0001": 0.9734803052536403,
+     "0.001": 0.9734802852011334,
+     "0.01": 0.9734782799966739,
+     "0.1": 0.9732779550117683,
+     "0.3": 0.9716790115705226,
+     "1.0": 0.9620797145524623,
+     "3.0": 0.7677561009900478,
+     "4.0": 0.8749698193595834
+    },
+    "fitted_exponent_p_over_subresonant_tail": 5.0878836162856804e-08,
+    "p_interpretation": "the n=0 CENTRED-source channel is analytically k-INDEPENDENT in the deep-quasistatic limit (the k^4 monopole prefactor cancels in the caged/uncaged ratio), so p = 0 here is a CHANNEL property, NOT a test of the charter's F2 (p = 2), which is a DISPLACED-source n=1 statement - see prereg X5"
+   },
+   "traction": {
+    "rho_N_matched_asymptotics_k_to_0": 0.028433188816130203,
+    "rho_S_matched_asymptotics_k_to_0": 0.9715668111838698,
+    "rho_N_by_k_r_core": {
+     "1e-08": 0.028433188815760204,
+     "1e-06": 0.028433188815736674,
+     "0.0001": 0.02843318902235886,
+     "0.001": 0.02843320948275739,
+     "0.01": 0.02843525546815821,
+     "0.1": 0.028639612457047024,
+     "0.3": 0.030267672952591744,
+     "1.0": 0.0398211674251586,
+     "3.0": 1.1598931384090387,
+     "4.0": 0.09252370870548247
+    },
+    "rho_S_by_k_r_core": {
+     "1e-08": 0.9715668111842398,
+     "1e-06": 0.9715668111842634,
+     "0.0001": 0.9715668109776412,
+     "0.001": 0.9715667905172426,
+     "0.01": 0.9715647445318418,
+     "0.1": 0.971360387542953,
+     "0.3": 0.9697323270474083,
+     "1.0": 0.9601788325748414,
+     "3.0": 0.15989313840903874,
+     "4.0": 0.9074762912945176
+    },
+    "fitted_exponent_p_over_subresonant_tail": 4.8420789667885376e-08,
+    "p_interpretation": "the n=0 CENTRED-source channel is analytically k-INDEPENDENT in the deep-quasistatic limit (the k^4 monopole prefactor cancels in the caged/uncaged ratio), so p = 0 here is a CHANNEL property, NOT a test of the charter's F2 (p = 2), which is a DISPLACED-source n=1 statement - see prereg X5"
+   }
+  }
+ },
+ "grade_shape_scope": {
+  "frozen_shape": "S(t) = 1 + (S_rail - 1)\u00b7t\u00b2, S_rail = 1e-3 (prereg \u00a75)",
+  "label": "DEMONSTRATION \u2014 no verdict banked; characterization only",
+  "rows": {
+   "grade_power=0.1": {
+    "rho_N_matched_asymptotics_k_to_0": 0.018164653904383952,
+    "band_fraction_with_S_le_0p1": 0.6478155212255328
+   },
+   "grade_power=0.25": {
+    "rho_N_matched_asymptotics_k_to_0": 0.05859240401603535,
+    "band_fraction_with_S_le_0p1": 0.34126902585499963
+   },
+   "grade_power=0.5": {
+    "rho_N_matched_asymptotics_k_to_0": 0.1284397639084832,
+    "band_fraction_with_S_le_0p1": 0.18837756675594508
+   },
+   "grade_power=1.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.2479491209012713,
+    "band_fraction_with_S_le_0p1": 0.09909909909909909
+   },
+   "grade_power=2.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.4135487252870375,
+    "band_fraction_with_S_le_0p1": 0.05084200424750096
+   },
+   "grade_power=4.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.5940531913508746,
+    "band_fraction_with_S_le_0p1": 0.025752600335777642
+   },
+   "grade_power=8.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.7489533110514712,
+    "band_fraction_with_S_le_0p1": 0.012960284657085208
+   },
+   "grade_power=16.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.8576692176170447,
+    "band_fraction_with_S_le_0p1": 0.0065012756208919775
+   },
+   "grade_power=32.0": {
+    "rho_N_matched_asymptotics_k_to_0": 0.9237925166561591,
+    "band_fraction_with_S_le_0p1": 0.0032559383778060225
+   }
+  },
+  "rho_N_span_over_shape_family": [
+   0.018164653904383952,
+   0.9237925166561591
+  ],
+  "rho_N_orders_of_magnitude_moved_by_shape_alone": 1.7063473122878625,
+  "reading": "at the SAME nominal rail depth S_rail = 1e-3, changing only the shape exponent moves the liveness rho_N across the span above. The frozen p = 2 shape is an [engineering-choice], so the liveness magnitude is a property of that choice and not of the rail depth; the baseline never realizes a full pressure-release wall (Gamma_bulk = -1, rho_N -> 0)."
+ },
+ "certification": {
+  "all_gates_pass": true,
+  "gate_fireability_selftest_pass": true,
+  "repair_selftest_pass": true,
+  "measured_certified_band": [
+   1e-08,
+   1e-06,
+   0.0001,
+   0.001,
+   0.01,
+   0.1,
+   0.3,
+   1.0,
+   3.0,
+   4.0
+  ],
+  "measured_G4_overlap_subband": [
+   1e-08,
+   1e-06,
+   0.0001,
+   0.001
+  ],
+  "scope_reductions": [],
+  "class": "A_CERTIFIED",
+  "frozen_class_criterion": "all of G1..G9 PASS on both source fittings AND gate_fireability_selftest_pass = True",
+  "classes_frozen": {
+   "A_CERTIFIED": "all of G1..G9 PASS on both source fittings AND gate_fireability_selftest_pass = True",
+   "B_CERTIFIED_SCOPED": "all of G1..G9 PASS and gate_fireability_selftest_pass = True, but at least one gate passes only over a REDUCED band or a REDUCED profile class",
+   "C_NOT_CERTIFIED_VOID": "any of G1..G9 FAILS, OR any of FT-1..FT-4 fails to fire"
+  },
+  "repair_addendum": "STRENGTHENING, never a relaxation (Rule 11): on top of the frozen class criterion, a failure of any REPAIR-ADDED self-test FT-5..FT-9 forces C_NOT_CERTIFIED_VOID by the prereg \u00a78 fireability rule.",
+  "no_verdict_fence": "stage 1 banks NO physics verdict; every physics-shaped number in these outputs is an INSTRUMENT-LIVENESS DEMONSTRATION and is labelled DEMONSTRATION \u2014 no verdict banked",
+  "review_repair_provenance": "PR #801 adversarial review, 2026-07-28. CLASS A_CERTIFIED was WITHDRAWN on the finding BEFORE any repair (F1: G3 was a self-comparison \u2014 build_profile(shell_ortho=(1.0,1.0)) IS build_profile(); F3: G2's null arm was the scatterer arm's own code path at zero contrast). Repairs: an independent iso_shell construction for G3 + FT-5; an independent uniform_reference_profile for G2 with FT-2 re-pointed at it; FT-6/FT-7/FT-8 so every gate but G7 carries a breaking self-test, G7 carrying its frozen caveat. The class in this file is the RE-RUN outcome, not the withdrawn label."
+ },
+ "_runtime_sec": 2.0,
+ "runtime_budget_frozen": "total certification-battery runtime <= 600 s on the reference machine; a longer run is disclosed, not silently accepted",
+ "runtime_within_budget": true,
+ "determinism_digest": "efea5059a98d0503b094737d9e7477b1d737dccba87bf9545916c6993cb25576",
+ "determinism_frozen": "two independent full driver runs produce an identical results digest (SHA-256 over the results object minus timing fields)"
+}
