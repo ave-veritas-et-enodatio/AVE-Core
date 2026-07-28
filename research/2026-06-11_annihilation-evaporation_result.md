@@ -167,9 +167,14 @@ can't-track-material-displacement."*
   block extends that same demotion along the axis 4b did not name: **material
   tracking** (the pattern following its host node indices) was likewise not tested.
 - A blob with **no re-hosting DOF** is the dynamical content of **index-pinning**, so
-  the finding **SUPPORTS Corollary A** of
+  the finding is **NOT COUNTEREVIDENCE** against Corollary A of
   `manuscript/ave-kb/common/relative-offset-principle.md` (pinning delivers material
-  TRACKING, not station-keeping) rather than contradicting it. The A44 disposition at
+  TRACKING, not station-keeping). It is **not positive support** either — the
+  material-tracking axis was never driven here, so on that axis the run is
+  **evidentially NULL**. *(2026-07-28 harmonization: the 2026-07-26 draft read
+  "SUPPORTS Corollary A"; the ruling licensed only the weaker
+  supporting-rather-than-contradicting reading — a null cannot double as support.)*
+  The A44 disposition at
   `:93` — *"an engine coupling-family limit (two missing couplings …), NOT a missing
   axiom"* — is the same reading in the engine's own vocabulary.
 

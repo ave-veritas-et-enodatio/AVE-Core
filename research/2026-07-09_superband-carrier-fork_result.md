@@ -304,9 +304,14 @@ gradient/`cos`-staggered **momentum kick on the field** — a moving-solution se
 ansatz. The **material displacement of the host nodes was never driven**, so this run
 carries no evidence either way about material tracking. It **must not** be read as
 *"can't-surf-a-drive-at-phase-velocity ⇒ can't-track-material-displacement."* A core with
-no re-hosting DOF is the dynamical content of index-pinning and therefore **SUPPORTS
-Corollary A** of `manuscript/ave-kb/common/relative-offset-principle.md` (discrete pinning
-delivers material TRACKING, not station-keeping).
+no re-hosting DOF is the dynamical content of index-pinning, so this run is **NOT
+COUNTEREVIDENCE** against Corollary A of
+`manuscript/ave-kb/common/relative-offset-principle.md` (discrete pinning delivers
+material TRACKING, not station-keeping). **On the material-tracking axis this run is
+evidentially NULL — full stop.** *(2026-07-28 harmonization: the 2026-07-26 draft read
+"SUPPORTS Corollary A" four lines after declaring the run carries no evidence either
+way; those cannot both hold. The ruling licensed only the weaker
+supporting-rather-than-contradicting reading — a null cannot double as support.)*
 
 The doc's own `:21-22` verdict already carries half this scope (*"No mobile super-band
 carrier in 1D. An above-band drive is **evanescent-only in steady state**"*); this block

@@ -381,9 +381,13 @@ can't-track-material-displacement."*
   **`PIN-even-longitudinal` STANDS**.
 - The mechanism this doc names (saturation-screening; the frozen clock `S→0 ⇒
   c_eff→0`) is itself a **no-re-hosting** statement — the same fact as
-  index-pinning — so it **SUPPORTS Corollary A** of
+  index-pinning — so this run is **NOT COUNTEREVIDENCE** against Corollary A of
   `manuscript/ave-kb/common/relative-offset-principle.md` (pinning delivers material
-  TRACKING, not station-keeping) rather than contradicting it.
+  TRACKING, not station-keeping). It is **not positive support** either: the
+  material-tracking axis was never driven here, so on that axis the run is
+  **evidentially NULL**. *(2026-07-28 harmonization: the 2026-07-26 draft read
+  "SUPPORTS Corollary A"; the ruling licensed only the weaker
+  supporting-rather-than-contradicting reading — a null cannot double as support.)*
 - The doc's own **"Tension flagged for Grant"** (`:215-230`) already isolates the
   same distinction from the other side: an **externally imposed** bulk drive versus
   the electron's **own** kinetic-energy-sourced de-Broglie wake. That fork stays

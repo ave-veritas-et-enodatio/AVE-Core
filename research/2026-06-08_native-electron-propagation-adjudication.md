@@ -88,8 +88,12 @@ the saturated core being *carried by a drive at phase velocity* — **not** its 
 to track the material displacement of its host node indices, which was never driven.
 It **must not** be read as *"can't-surf-a-drive-at-phase-velocity ⇒
 can't-track-material-displacement."* A saturated core with no re-hosting DOF is the
-dynamical content of index-pinning and therefore **SUPPORTS Corollary A** of
-`manuscript/ave-kb/common/relative-offset-principle.md`.
+dynamical content of index-pinning, so this reading is **NOT COUNTEREVIDENCE** against
+Corollary A of `manuscript/ave-kb/common/relative-offset-principle.md`. It is **not
+positive support** either — the material-tracking axis was never driven here, so on
+that axis this run is **evidentially NULL**. *(2026-07-28 harmonization: the
+2026-07-26 draft read "SUPPORTS Corollary A"; the ruling licensed only the weaker
+supporting-rather-than-contradicting reading — a null cannot double as support.)*
 
 The `PROPAGATION_WITH_TIR_AT_WALL` verdict and the propagation–saturation tradeoff at
 `:21` (*"motion without leak or leak without motion, not both at once with this
