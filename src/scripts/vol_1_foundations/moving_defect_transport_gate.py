@@ -32,6 +32,25 @@ bound state lives in NEITHER:
      K4-TLM (Z(V)-only, NO c_eff(V)) so the core is a frozen-clock object that
      cannot translate. C-transport FAIL.
 
+★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; the ENGINE-GAP verdict stands).
+"frozen-clock object that cannot translate" (above) and the same phrase in the
+C-transport print below mean **cannot SELF-transport under a boost** — no re-hosting
+degree of freedom. BOTH cited runs drove the excitation itself (a transverse V-sector
+winding-phasor boost; an externally imposed curl-free compression bias with the
+K4->Cosserat FORCE channel disabled), never the material displacement of the host
+nodes. They must NOT be read as "can't-surf-a-drive-at-phase-velocity => can't-track-
+material-displacement": a core with no re-hosting DOF is exactly the dynamical content
+of index-pinning, so these runs are NOT COUNTEREVIDENCE against Corollary A of
+manuscript/ave-kb/common/relative-offset-principle.md (discrete pinning pins to node
+INDICES, and those indices move with the medium => material TRACKING, not
+station-keeping). They are NOT positive support either — the material-tracking axis
+was never driven, so on that axis they are evidentially NULL. (2026-07-28
+harmonization: the 2026-07-26 draft read "SUPPORTS Corollary A"; the ruling licensed
+only the weaker supporting-rather-than-contradicting reading — a null cannot double as
+support.) Canon home of the carve:
+manuscript/ave-kb/common/genesis-chord-falsification-ledger.md, the SCOPE CARVE bullet
+on the motion-stability section. Sweep-missed site, disclosed.
+
 C4 — validate-on-known-positive (ave-apparatus-floor-attribution): the boost
 apparatus is confirmed live on a LINEAR free packet — v_meas RESPONDS to v_boost
 — so the self-trap's failure is the ENGINE, not a dead boost.

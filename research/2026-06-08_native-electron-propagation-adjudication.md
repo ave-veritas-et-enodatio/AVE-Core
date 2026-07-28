@@ -72,3 +72,35 @@ Projection uses scalar-only `z(S(|V|))`; native coupled asymmetric Meissner reac
 - Co-moving chirp / lower `SAT_FRAC` if autoresonant-only snap is target
 - Bridge fix: feed native `z_local_total` into projection readout?
 - ε proxy: is `1−Γ²` correct at native TIR (ε≈0.013 vs α≈0.0073)?
+
+## ★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; no verdict overturned)
+
+**Sweep-missed site, disclosed.** This doc was **not** on the `#787` mini-sweep list;
+it is the same class and is carved here for consistency. Appended at the doc **TAIL**
+so `:19` stays valid; banked text is **byte-untouched**.
+
+`:19` — *"Wall amplitude **reaches TIR** (ε≈0.013, ~1.7× α) but **does not
+translate** — consistent with motion_stability PIN finding on saturated cores"* — is
+a **no-SELF-transport** reading, inheriting its scope from the motion-stability runs
+it cites. Those runs drove a V-sector winding phasor / an externally imposed
+compression bias with the K4→Cosserat force channel disabled, so what they falsify is
+the saturated core being *carried by a drive at phase velocity* — **not** its ability
+to track the material displacement of its host node indices, which was never driven.
+It **must not** be read as *"can't-surf-a-drive-at-phase-velocity ⇒
+can't-track-material-displacement."* A saturated core with no re-hosting DOF is the
+dynamical content of index-pinning, so this reading is **NOT COUNTEREVIDENCE** against
+Corollary A of `manuscript/ave-kb/common/relative-offset-principle.md`. It is **not
+positive support** either — the material-tracking axis was never driven here, so on
+that axis this run is **evidentially NULL**. *(2026-07-28 harmonization: the
+2026-07-26 draft read "SUPPORTS Corollary A"; the ruling licensed only the weaker
+supporting-rather-than-contradicting reading — a null cannot double as support.)*
+
+The `PROPAGATION_WITH_TIR_AT_WALL` verdict and the propagation–saturation tradeoff at
+`:21` (*"motion without leak or leak without motion, not both at once with this
+drive"*) are unchanged; the `with this drive` qualifier at `:21` is exactly the scope
+this carve makes explicit at `:19`.
+
+**Provenance.** Grant ruling 2026-07-26 (verbatim `[sic]`: *"for the relabel, let's
+propagate/ (a)"*). Canon home:
+`manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE
+bullet on the motion-stability section.

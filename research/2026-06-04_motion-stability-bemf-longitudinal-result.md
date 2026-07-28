@@ -311,3 +311,147 @@ is honestly bounded), and the result is classified per `consistency-vs-emergence
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe.py`
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe_results.json`
 - `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe_capture.npz`
+
+---
+
+## ★ SCOPE CARVE (2026-07-26, Grant ruling — ADDITIVE; no verdict overturned)
+
+**Placement disclosure:** appended at the doc **TAIL** (not adjacent) so that every
+banked line number stays valid — `:14`, `:18`, `:144`, `:246` and the `#787`
+mini-sweep's citations resolve unchanged. The banked verdict and every number above
+are **byte-untouched**; this block scopes how they may be READ.
+
+**What is carved.** `PIN-even-longitudinal` — *"LINEAR advects but the SELF-TRAP
+knot does NOT"* (`:14`, `:18`), *"the control advects, the knot does not"* (`:144`),
+*"SELF-TRAP (2,3) knot does NOT translate under the same drive"* (`:246`) — is a
+**no-SELF-transport / no-re-hosting-DOF** result for the saturated core **at this
+run's formulation**. It is **not** an absolute real-space station-keeping result, and
+**must not** be read as *"can't-surf-a-drive-at-phase-velocity ⇒
+can't-track-material-displacement."*
+
+**Why (verified this session, two-method).**
+
+- The drive was **external and one-shot**: a curl-free +x compression imprint
+  (Variant B, `form="displacement"` — probe `:781`, `:212-214`, `:218-221`; results
+  JSON `variant="B"`, `form="displacement"` on every arm; the drive-selection table
+  at `:68-71`, chosen row `:71` — *(2026-07-28 audit repair: this citation read `:72`,
+  a blank line, and the JSON keys were named `drive_variant`/`drive_form`; corrected
+  to the table span + the actual JSON keys. No substantive change — B/displacement is
+  what the run used.)* — ***2026-07-28 CORRECTION to that repair note (Rule 12 — the
+  note above is preserved, not deleted): only the `:72` → `:68-71` half was a real
+  defect. The JSON-key half was a FALSE POSITIVE. `drive_variant` / `drive_form` ARE
+  actual keys of `motion_stability_bemf_longitudinal_probe_results.json` — they are the
+  `config` block's keys (`config.drive_variant = "B"`, `config.drive_form =
+  "displacement"`; re-verified by re-reading the committed JSON this session), while
+  `variant` / `form` are the per-arm keys under `arms.*` and `smoke.chosen_variant` /
+  `smoke.chosen_form` are the selection keys. The original citation was CORRECT; the
+  repair note's assertion that the corpus named a key the JSON lacks is itself the
+  error, and is withdrawn here. Both key spellings resolve; the run used
+  B / displacement either way.***). The knot was asked to be *carried by* an imposed bias — it was never asked
+  to *track the material displacement of its own host nodes*.
+- The **K4→Cosserat FORCE channel was DISABLED** for the whole run
+  (`disable_cosserat_lc_force=True` — probe `:40-41`, `:108-109`, `:115`). This is a
+  real and — importantly — **previously-undisclosed configuration-scope** fact: the
+  banked body above documents the surviving `z_local` path but nowhere states that the
+  FORCE channel was off, so the run's configuration scope is narrower than the banked
+  text alone conveys. **That disclosure is what this bullet banks**, and it stands.
+- **The surviving path was LIVE, not dead — and the screening IS the physics.** This
+  doc's own committed control measures **both** halves, and only the pair is
+  load-bearing: *"**Coupling is LIVE** (mean moves 0.973→0.051 at 100× — the drive's
+  strain reaches the kernel) AND **screened at the core**"* (`:209-211`), closing with
+  *"**SCREENED-PIN confirmed — the falsification is real, not a no-op.**"*
+  (`:212-213`). The core-side pin (`S_ε,min` at the `1e-5` floor whether `v_drive` is
+  0 or 0.30 — `:181-182`, `:210`) is only the *screened* half; citing that half alone
+  understates the run and makes the carve read as a walk-back. The doc names the
+  screening as the **mechanism**, not as a defect: *"the frozen V-core does not merely
+  fail to track the longitudinal bias — it **screens** it"* (`:187-188`).
+- **The `#788`-family "formulation-anchor null" label is WITHDRAWN for this run**
+  *(2026-07-28 repair — see the dated note at the end of this block)*. That family is
+  **defined by uniform-shift invariance** — `research/2026-07-21_beta-tracking-feasibility_scoping.md:28`,
+  verbatim: *"Under a uniform material shift `u → u + Δ`, bond strains `du = u_j − u_i`
+  are invariant"*, `max|Δdu| = 5.6e-17`. That invariance **provably does not obtain
+  here**: the drive was Variant **B**, a *spatially varying* `x`-planar displacement
+  pulse — probe `:177` (`u_x = w(x)·sin(k_x·(x−c_x)), uniform across y,z`), `:198`,
+  `:212-214` — which imprints **nonzero** core strain (`ε_sym²/ε_yield² ≈ 1.90e-2`,
+  measured at the production N=48 host, this doc `:176-178`) and drives a **live**
+  kernel response (`:209`). A spatially varying strain is exactly what a uniform shift
+  is not, so the analogy fails on its own terms. Provenance bars the re-class as well:
+  `#788` self-labels *"NOT adversarially reviewed … banks no verdict"* and
+  `Class: SCOPING (pre-lane)` (`research/2026-07-21_beta-tracking-feasibility_scoping.md:3`), and
+  offers its June clause only as *"the candidate reconciliation … adjudication routed
+  to the #787 review, not resolved here"* (`:31`) — a banks-no-verdict scoping doc's
+  candidate cannot re-class a banked falsification.
+- **Residual artifact language, scoped to the MATERIAL-TRACKING axis ONLY.** What
+  `#788:31` licenses is its own qualifier, quoted verbatim: *"any lattice β null is an
+  **ARTIFACT, not a falsification** `of the relative-offset direction ruling`."* On
+  **that** axis — β / material tracking — this run banks nothing either way, because it
+  never drove a material shift of the host nodes. On **its own** axis — an externally
+  imposed longitudinal compression bias failing to translate the saturated core — the
+  result is a real, mechanism-explained falsification and the verdict
+  **`PIN-even-longitudinal` STANDS**.
+- The mechanism this doc names (saturation-screening; the frozen clock `S→0 ⇒
+  c_eff→0`) is itself a **no-re-hosting** statement — the same fact as
+  index-pinning — so this run is **NOT COUNTEREVIDENCE** against Corollary A of
+  `manuscript/ave-kb/common/relative-offset-principle.md` (pinning delivers material
+  TRACKING, not station-keeping). It is **not positive support** either: the
+  material-tracking axis was never driven here, so on that axis the run is
+  **evidentially NULL**. *(2026-07-28 harmonization: the 2026-07-26 draft read
+  "SUPPORTS Corollary A"; the ruling licensed only the weaker
+  supporting-rather-than-contradicting reading — a null cannot double as support.)*
+- The doc's own **"Tension flagged for Grant"** (`:215-230`) already isolates the
+  same distinction from the other side: an **externally imposed** bulk drive versus
+  the electron's **own** kinetic-energy-sourced de-Broglie wake. That fork stays
+  **OPEN**; this carve does not close it.
+
+**What is NOT carved.** The verdict `PIN-even-longitudinal` **stands**.
+Stability-FROM-motion stays **CONTRADICTED on the longitudinal channel**. Every
+measured number, gate, control and the SM-counterfactual classification are
+unchanged. Rule 11 closure holds; Rule 12 applies — this block adds scope and
+retracts nothing.
+
+**Provenance.** Grant ruling 2026-07-26 (verbatim `[sic]`: *"for the relabel, let's
+propagate/ (a)"*), discharging the adjudication routed by the `#787` adversarial
+review (`manuscript/ave-kb/common/relative-offset-principle.md` §"Scope +
+cross-refs"). Canon home of the carve:
+`manuscript/ave-kb/common/genesis-chord-falsification-ledger.md`, the ★ SCOPE CARVE
+bullet on the motion-stability section.
+
+**★ 2026-07-28 REPAIR NOTE — the over-carve corrected (adversarial review of this
+carve).** Two defects in the 2026-07-26 draft of *this block* are corrected above.
+Nothing banked was touched: the banked body is `:1-313` (byte-identical to
+`origin/main`'s copy of this file in full, sha `a4fc5b9a…`, re-verified this session),
+`:314-316` are the 2026-07-26 carve's own separator, and this repair's first changed
+line is `:343`. The repair edits only this branch's own unmerged carve prose.
+
+1. **Half-cited control (the walk-back-shaped defect).** The draft cited only the
+   *screened* half of this doc's coupling control (`:210`) and omitted the **live**
+   half (`:209`, `:212-213`). The omitted half is load-bearing: it is what converts
+   "the knot didn't move" from a possible wiring no-op into a measured
+   **SCREENED-PIN**. Both halves are now cited, and the screening is restored as the
+   named mechanism (`:187-188`) rather than presented as a formulation defect.
+2. **False family label.** The draft re-classified this run as a **`#788`-family
+   formulation-anchor null** — a class `#788:31` itself calls an *"ARTIFACT, not a
+   falsification"*. That label is **WITHDRAWN**: `#788`'s family is defined by
+   uniform-shift invariance, which provably does not obtain here (spatially varying
+   Variant-B drive, measured nonzero core strain, live kernel response), and `#788` is
+   a banks-no-verdict SCOPING doc whose June clause is an explicit *candidate*.
+   Residual artifact language is now scoped to the **material-tracking axis only**,
+   with `#788:31`'s own qualifier quoted verbatim.
+
+**Probe-side carve + line-shift disclosure (2026-07-28).** The probe itself was an
+**under-carved** site: `src/scripts/vol_1_foundations/motion_stability_bemf_longitudinal_probe.py`
+carries the `PIN-even-longitudinal` verdict sentence verbatim and was missed by the
+2026-07-26 sweep (the analogous `moving_defect_transport_gate.py` header *was* carved).
+It now carries the same ★SCOPE CARVE as a comment block immediately above its VERDICT
+section — the emitted verdict string is **byte-untouched**. That insertion shifts probe
+lines **≥ 650 only**; the one affected citation in this block, the smoke-selection call,
+moved `:759 → :781` and is updated above. Every other probe cite in this doc
+(`:40-41`, `:108-109`, `:115`, `:177`, `:198`, `:212-214`, `:218-221`) is **below the
+insertion point and unchanged** (re-verified two-method by grep after the edit).
+
+**What SURVIVES from the 2026-07-26 draft, unchanged:** the narrow
+**no-SELF-transport / no-re-hosting-DOF** scope; the **disabled-FORCE-channel**
+configuration-scope disclosure (genuine, and absent from the banked body — the founded
+part of the carve); and the OPEN self-sourced-vs-externally-imposed fork (`:215-230`).
+**No verdict is overturned in either direction: `PIN-even-longitudinal` STANDS**, and
+stability-FROM-motion stays **CONTRADICTED on the longitudinal channel**.
