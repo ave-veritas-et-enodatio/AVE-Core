@@ -224,7 +224,7 @@ A thesaurus is as much about **names that collide** as about names that agree. E
 | **Hill (1963) apparent-modulus ORDERING** — the theorem (**TH-3**) | ★UNMERGED #802 §1.3 / #804 §4.7.2 row F | The bound proper |
 | **Hill's lemma** — the macroscopic-stress identification from the load set | ★UNMERGED #802 §1.1 / #804 dictionary | §5 |
 
-> ★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md):116, PR #261) — a *number fed into* the Born-Huang extraction (TH-6). If a future reading lets "Hill" drift from the **average** to the **bound**, an imported calibration input would acquire the standing of a variational theorem. Nothing in the corpus does this today; the row exists so nothing does it tomorrow.
+> ★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ([`srs-band-structure.md`](../vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md):116, PR #261) — a *number fed into* the Born-Huang extraction (TH-6). **The feed-in itself is at :81**, verbatim: the 12-band vector survey runs *"at the canonical bond ratio $\rho^*=9.77337$, **DERIVED from** $\nu_{\text{Hill}}=$`N_NU`$=2/7$"* — cite both lines, since :116's own literal subject is $\sqrt{10/3}$ and it carries the import label, while :81 is where the imported number actually enters the extraction. If a future reading lets "Hill" drift from the **average** to the **bound**, an imported calibration input would acquire the standing of a variational theorem. Nothing in the corpus does this today; the row exists so nothing does it tomorrow.
 
 ### Dirichlet — three distinct objects
 
