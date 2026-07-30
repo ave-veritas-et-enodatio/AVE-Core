@@ -246,4 +246,199 @@ banked −5.44% Q deviation. **Surfaced with both paths + verbatim content; not 
 derivation lane that reads app-F as canon would start from a false premise (that the Q-law already
 matches to sub-2% with zero parameters) and would therefore have no tension to explain.
 
+---
+
+## §2 — Candidate derivation routes (enumerated, NOT pursued)
+
+### §2.0 ★ FINDING F8 — a decomposition the derivation lane must see before choosing a route
+
+The Ruling-B1 queue item names the suspect: verbatim
+[`_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md:109`](../_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md):
+"**Q-law derivation** (why the standing-v1 mΩ τ lands at −5.4%: the `r_Ω = r_ph·√(1+ν_vac)` / `ν_vac`
+factor / mapping — the named next ringdown work banked by Ruling B1)".
+
+**That suspect cannot carry most of the deficit.** Arithmetic on already-banked corpus numbers only:
+
+- At $a_* = 0$ the standing model gives $\Omega = 0$, so $\omega_I = \omega_R/(2\ell)$ and
+  $Q_{AVE} = \ell = 2$ **exactly** — $r_\Omega$, $\sqrt{1+\nu_{vac}}$ and $\Omega$ have all dropped
+  out of the calculation.
+- Corpus-sourced GR Schwarzschild $\ell=2$ references: $\omega_R M = 0.3737$
+  (`manuscript/ave-kb/vol3/claim-quality.md:199` — "vs GR exact $0.3737$, **error 1.7%**") and
+  $\omega_I M = 0.0890$ (`qnm-quality-factor.md:18` — "GR exact: $0.0890$, error $3.2\%$").
+  → $Q_{GR}(a_*{=}0) = 0.3737/(2\times 0.0890) = 2.0994$.
+- So the **cold** $Q$ deficit is $2/2.0994 - 1 = \mathbf{-4.74\%}$.
+- The banked **catalog** deficit is $\mathbf{-5.44\%}$ mean (−5.76 / −5.53 / −5.02).
+
+**The Q deficit is very nearly spin-FLAT: ≈ −4.7% at $a_*=0$, ≈ −5.4% at $a_*\approx0.68$.**
+Roughly **87% of the banked −5.44% is already present at zero spin**, where the named suspect
+($r_\Omega$, $\sqrt{1+\nu_{vac}}$, the spin mapping) is *absent from the arithmetic*. The
+spin-refined mΩ law is therefore doing its job well — it tracks the Kerr $Q$ *rise* (3.07→3.49) to
+about a percentage point — and what remains is **an offset inherited from the cold anchor itself.**
+
+> **FLAG (don't fix) — routed to Grant/auditor.** The queue text and the eigenvalue-leaf ruling both
+> point the next work at `r_Ω`/`ν_vac`/mapping (`ave-merger-ringdown-eigenvalue.md:88-89`: "why
+> −5.4%: the $r_\Omega$ / $\nu_{vac}$ factor / mapping"). The decomposition above says the dominant
+> term lives instead in the **cold $Q = \ell$ anchor** — i.e. in the $1/\ell$ leak-fraction
+> convention (F7), not in the spin machinery. **Class of this statement: arithmetic-consistency
+> observation on banked corpus numbers** (same class as §1.3), **NOT a derivation and NOT a claim.**
+> It is offered as hypothesis **H1** for the derivation lane to test, and as a re-pointing candidate
+> for the queue item. Surfaced with receipts; not resolved here.
+
+Corollary for route selection: a route that only repairs $r_\Omega$ has a **ceiling of ≈0.7 pp** of
+the 5.44 pp. Routes must reach the cold anchor to be capable of closing the tension.
+
+### §2.1 Cross-cutting class ceiling (consistency-vs-emergence, applies to EVERY route)
+
+Because $\nu_{vac} = 2/7$'s **VALUE** is GR-IMPORTED via $K = 2G$ (F3), and $r_{sat} = 7GM/c^2$ and
+$r_{eff} = 49M_g/9$ both ride it, **no route below can produce a value-level EMERGENCE claim for an
+absolute $Q$ or $\omega$.** The best available class for absolutes is **FORM-emergence /
+VALUE-consistency**. The only emergence-capable objects are **$\nu_{vac}$-free dimensionless
+ratios** — candidates: $Q(a_*)/Q(0)$, $\omega_R(\ell')/\omega_R(\ell)$ (already derived, ORG-1),
+and (Route R3) an echo-delay-to-ringdown-period ratio. This is the standing "the chord must be a
+dimensionless ratio" discipline; it should be written into the derivation pre-reg header, not
+discovered afterwards.
+
+### §2.2 Route R1 — Radiation-resistance leaky-cavity Q in the SHEAR channel
+
+**The electron-template route.** Replace the scaling assertion "loss per cycle scales as $1/\ell$"
+(F7) with a **computed radiation resistance** at the port, exactly as the electron tank does it.
+
+- **Consumes from canon:** the Q template
+  `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md:40-42`
+  ($Q_{tank} = \omega_C L_e / R$ at "the impedance-matched boundary $R = Z_0/(4\pi)$", where
+  `:79-83` derives $Z_0/(4\pi)$ as "radiation impedance averaged over one full observable Compton
+  cycle") — clm-rtdmsn / clm-0ktpcn; the port-class licence
+  `manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md:100` verbatim:
+  "the **RADIATIVE-PORT** class ($R_{\text{rad}} \equiv Z_0$, `requires_R = port-only`), which is
+  **Axiom-3-LICENSED** loss"; the channel law $Z_{shear} = \rho\,c_{shear}$
+  (`manuscript/ave-kb/vol3/claim-quality.md:122`).
+- **What it would predict:** $Q = c_1\,\ell$ with $c_1$ **computed** from the shear-channel radiation
+  resistance instead of set to 1 by the $2\pi$-divides-out convention. H1 says the target is
+  $c_1 \approx 1.05$. It would also predict the analogous $\ell$-dependence, i.e. a check against
+  the GR overtone/$\ell>2$ structure that $Q=\ell$ currently "disagrees with" (register rationale).
+- **Class if it lands:** FORM-emergence, VALUE-consistency (per §2.1). The *ratio* $c_1$ is
+  potentially $\nu_{vac}$-free and would be the emergence-capable object.
+- **What would falsify it:** the computed $c_1$ lands at $1.00$ (then the tension is not here and H1
+  is wrong); or $c_1$ carries the wrong sign (a route that makes $Q$ *smaller* deepens the deficit);
+  or the computation requires a bulk $\mathrm{Re}(Z)$ (Ax 3 violation → route is illegal, not merely
+  wrong).
+- **Sector check:** must stay in the **shear** channel. The electron template uses $Z_0 \equiv Z_{EM}$;
+  transplanting $Z_0$ into a GW problem is exactly the category error the corpus already caught twice
+  (`gw-impedance-perturbation.md:18`, `invariant-gravitational-impedance.md:30`). **This is the
+  route's main leak risk.**
+
+### §2.3 Route R2 — Graded-$Z_{shear}$ turning-point (WKB) Q
+
+**The honest-profile route.** The corpus models the boundary as a *hard* wall at $r_{sat}$ with
+$\Gamma_{shear} = -1$; but $Z_{shear}(r) = \rho\,c_0\,(1-A^2(r))^{1/4}$ is a **continuous grade**
+(`saturating-modulus-and-backreaction.md:60` verbatim: "**SHEAR softens:**
+$c_{\text{shear}}=c_0\sqrt{S}=c_0(1-A^2)^{1/4}\to0$ — a **derived** $\sqrt{S}$ projection").
+A graded resonator's $Q$ is set by **barrier transmission at a turning point**, not by mode-counting.
+
+- **Consumes:** the Ax-4 kernel $S = \sqrt{1-A^2}$ and the $c_{shear}$ projection above;
+  $Z_{shear} = \rho c_{shear}$; Op14 local-clock $\omega_{local}(r) = \omega_{global}\sqrt{1-A^2(r)}$
+  (`op14-cosmic-horizon-profile.md:43`).
+- **★ BLOCKED by a real gap — FINDING F9.** $A^2(r)$ has **no canonical radial profile** for a BH
+  anywhere in `manuscript/ave-kb/vol3/gravity/`. Targeted greps for an $A^2 = \varepsilon_{11}$ /
+  $A^2 = 2GM/c^2r$ / $A^2(r)$ pinning in `ch01-gravity-yield/` and `ch02-general-relativity/`
+  return **zero hits**. Two candidate conventions are both defensible and they disagree by 3.5×:
+  $A^2 = \varepsilon_{11} = 7GM/(c^2 r)$ (gives $A^2 = 1$ exactly at $r_{sat}$, the Ax-4 yield
+  surface) vs $A^2 = r_s/r = 2GM/(c^2 r)$ (gives GR's $\sqrt{1-r_s/r}$ clock and $A^2 = 1$ at the
+  horizon). **This must be settled before R2 can be executed** — see §3 Q3.
+- **What it would predict:** $Q$ from a barrier integral $\propto \exp(2\int|k|\,dr)$, which is
+  intrinsically both $\ell$- and $a_*$-dependent — so it could in principle deliver the cold offset
+  *and* the spin trend from one mechanism (addressing F5 at the root).
+- **Class if it lands:** FORM-emergence; absolute values still VALUE-consistency per §2.1, but a
+  ratio $Q(a_*)/Q(0)$ from the same profile could be emergence-capable.
+- **What would falsify it:** the barrier integral lands $\gg 5\%$ from GR; or $A^2(r)$ turns out to
+  be a free function chosen to fit (then the route is a re-parameterised fit, not a derivation, and
+  must be reported as such); or the graded profile destroys the clean $Q=\ell$ cold anchor that
+  Ruling B1 just pinned (a route that breaks a ratified anchor is a **flag**, not a fix).
+
+### §2.4 Route R3 — Light-ring barrier-transmission cavity (the echo-coupled route)
+
+**The route that could retire F1 instead of patching it.** In GR the ringdown $Q$ *is* the light-ring
+barrier's property. AVE's $r_{ph}^+(a_*)$ already appears in **both** $x_{sat,v1}$ **and** $r_\Omega$
+— a tell that the photon sphere is doing load-bearing work that the corpus attributes to a
+"phenomenological shift." Reframe: the cavity is bounded **inside** by the $\Gamma_{shear} = -1$
+mirror at $r_{sat}$ and **outside** by the light-ring potential barrier; $Q$ = round-trip phase /
+barrier leakage.
+
+- **Consumes:** $r_{ph}^+(a_*)$ (`ave-merger-ringdown-eigenvalue.md:110`); the two-channel instrument
+  ($\Gamma_{shear} = -1$, $\Gamma_{EM} = 0$, `electron-bh-isomorphism.md:34-42`); and the corpus's
+  **own already-banked echo prediction** — verbatim `manuscript/ave-kb/vol3/claim-quality.md:123`:
+  "GW (transverse shear) modes therefore reflect off $r_{sat}$ — gravitational ringdown **echoes are
+  predicted** (reflect $\Rightarrow$ echo; retrospective, no SHA-pinned forward prereg yet)".
+- **What it would predict:** (i) a $Q$-law with **no free radius factor** — the evaluation radius
+  becomes the *computed* barrier-peak / turning-point radius, so $r_\Omega = r_{ph}\sqrt{1+\nu_{vac}}$
+  is either **derived or replaced** (this is the only route that removes F1 rather than re-justifying
+  it); (ii) as a by-product, an **echo delay** $\Delta t \approx 2\int dr/c_{shear}$ between $r_{sat}$
+  and the barrier — an independent, already-searched-for LIGO observable.
+- **Class if it lands:** FORM-emergence for the $Q$-law; the **echo-delay-to-ringdown-period ratio is
+  a genuine forward, $\nu_{vac}$-sensitive-but-ratio-structured chord candidate** — the highest-value
+  by-product of the whole Q-law item.
+- **What would falsify it:** the round-trip $Q$ lands nowhere near $\ell$ at $a_*=0$ (breaks the
+  ratified cold anchor); or the implied echo delay is already excluded by published LIGO echo-search
+  limits (**a clean kill, and a good one** — and note it would be a kill of an *existing banked
+  corpus prediction*, so this route carries real downside risk for the corpus and must be pre-reg'd
+  with that bin reachable).
+- **Discipline note:** R3 must respect the KERR-WORDING FENCE already riding this arc
+  (`research/2026-07-20_ringdown-systematics_derivation.md:14`) — GR QNMs are $(M,a)$-determined;
+  R3 is an organizer for the AVE $Q$, never a replacement for the Kerr spectrum.
+
+### §2.5 Route R4 — Op21 mode-counting re-derived in the co-rotating frame
+
+**The route that addresses F5 at the root.** The cold $Q=\ell$ is a Nyquist-cell mode-counting
+identity (`op21-multi-mode-mode-counting.md:82-98`). The spinning law
+$\omega_I = (\omega_R - m\Omega)/(2\ell)$ is *grafted on* as a Park-transform decomposition
+(`kerr-q-correction.md:49-61`), not obtained from the same counting. R4 asks: **redo the
+Nyquist-cell count in the co-rotating frame** and see what damping law falls out.
+
+- **Consumes:** Op21's five-step chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 forcing $\Gamma=-1$ →
+  per-cycle leak $1/\ell$ → $Q_{mode,\ell} = \ell$ → cell-count = geometric measure); the FOC/Park
+  analogy table as the *hypothesis to test*, not as the derivation.
+- **What it would predict:** either (a) exactly $(\omega_R - m\Omega)/(2\ell)$ — in which case the
+  spin law is **derived rather than analogised**, a real solidity upgrade even though it moves no
+  number; or (b) a different law (e.g. leak-per-*co-rotating*-radian, which changes the count when
+  the boundary itself spins), which would move the spin-dependent ≈0.7 pp.
+- **Class if it lands:** FORM-emergence and **$\nu_{vac}$-free** (mode counting uses Ax 1 cell size
+  and topology, not the elastic value) — R4 is the route with the cleanest class ceiling.
+- **What would falsify it:** the co-rotating count is frame-ambiguous (no unique cell count in a
+  rotating frame → route is ill-posed); or it reproduces the existing law exactly *and* H1 is right,
+  in which case R4 legitimises the spin law but explains none of the tension.
+
+### §2.6 Route R5 — Ω-form adjudication (canon hygiene; run FIRST, but NOT a derivation)
+
+F2 established that two different $\Omega$ formulas are both canonical. R5 is simply: decide which
+one is the substrate's frame-dragging rate.
+
+- **Consumes:** `frame-dragging-impedance-convolution.md:15` ($\omega = 2Mar/(r^2+a^2)^2$, clm-rd9cjm)
+  vs `kerr-q-correction.md:29` ($\Omega = 2a_*/(r_\Omega^3 + a_*^2 r_\Omega + 2a_*^2)$, clm-d9ivj1).
+- **What it decides:** whether the banked number is **−5.44%** or **−4.57%**.
+- **Class:** none — this is an **adjudication/hygiene item**, not a hypothesis. It cannot close the
+  tension (0.9 pp of 5.44 pp) but everything downstream inherits the choice, so it should be settled
+  before any route is executed.
+- **★ Rule-11 fence, explicit:** choosing the exact-ZAMO form *because* −4.57% is closer to the band
+  is **RETUNING and inadmissible.** The choice must be made on substrate grounds (which rate is the
+  physical impedance-convolution rate at $r_\Omega$), and the resulting number is then whatever it is
+  — including "still outside the band."
+
+### §2.7 Route R6 — Mode-form fork (prerequisite, not a route)
+
+F4's open fork (linear-$\ell$ vs $\sqrt{\ell(\ell+1)}$) sets **both** the $\omega_R$ numerator and the
+$2\ell$ damping denominator, so no $Q$-law is well-posed until it is resolved. Note the fork is
+*probably* already decided on $\omega_R$ grounds — the $\sqrt{\ell(\ell+1)}$ form would move the cold
+eigenvalue from $0.3673$ to $\approx 0.4498$ against GR's $0.3737$ (a ≈+20% error vs the standing
+−1.7%) — but that inference is **not** in the corpus and the fork is formally binned UNDETERMINED
+(`research/2026-07-20_ringdown-systematics_derivation.md:41-44`). Resolve, don't assume.
+
+### §2.8 Route R0 — no route closes (must stay reachable)
+
+Honestly enumerated: if R1 returns $c_1 = 1.00$, R2 stays blocked on F9, R3's echo delay is excluded
+or its cold limit breaks the anchor, and R4 merely reproduces the grafted law, then **nothing closes.**
+That outcome is a **result**, not a failure: v1 stays at solidity 0.55, `build_status "use as input
+only"`, disclosed-phenomenological, and the −5.4% is banked *deeper* — with the F8 decomposition
+naming the mechanism honestly ("the offset is the cold $Q$ anchor's own ≈−4.7%, not the spin
+mapping"). Naming the mechanism is worth more than moving the number.
+
 <!-- REMAINING SECTIONS FILLED IN SUBSEQUENT COMMITS -->
