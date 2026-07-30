@@ -375,13 +375,58 @@ A graded resonator's $Q$ is set by **barrier transmission at a turning point**, 
 - **Consumes:** the Ax-4 kernel $S = \sqrt{1-A^2}$ and the $c_{shear}$ projection above;
   $Z_{shear} = \rho c_{shear}$; Op14 local-clock $\omega_{local}(r) = \omega_{global}\sqrt{1-A^2(r)}$
   (`op14-cosmic-horizon-profile.md:43`).
-- **★ BLOCKED by a real gap — FINDING F9.** $A^2(r)$ has **no canonical radial profile** for a BH
-  anywhere in `manuscript/ave-kb/vol3/gravity/`. Targeted greps for an $A^2 = \varepsilon_{11}$ /
-  $A^2 = 2GM/c^2r$ / $A^2(r)$ pinning in `ch01-gravity-yield/` and `ch02-general-relativity/`
-  return **zero hits**. Two candidate conventions are both defensible and they disagree by 3.5×:
-  $A^2 = \varepsilon_{11} = 7GM/(c^2 r)$ (gives $A^2 = 1$ exactly at $r_{sat}$, the Ax-4 yield
-  surface) vs $A^2 = r_s/r = 2GM/(c^2 r)$ (gives GR's $\sqrt{1-r_s/r}$ clock and $A^2 = 1$ at the
-  horizon). **This must be settled before R2 can be executed** — see §3 Q3.
+- **★ FINDING F9 — a live CANON INCONSISTENCY, not a gap. R2 is NOT blocked.**
+  *(Repair-pass correction. The first version of this finding asserted that "$A^2(r)$ has no
+  canonical radial profile … targeted greps in `ch01-gravity-yield/` and `ch02-general-relativity/`
+  return zero hits." **That absence claim is FALSE** — the same absence-direction
+  `verify-before-cite` trigger-6 failure that under-counted F6. The pinning is in the second of those
+  two directories, and the grep that "returned zero hits" was pattern-scoped to `A^2 = …` while canon
+  writes the identification on **$A$**, not $A^2$. Corrected below with receipts.)*
+
+  **The shear-channel profile IS canonically pinned, in two lines:**
+  - `vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md:51` — Resultbox,
+    verbatim: `\qquad A=\varepsilon_{11}/\varepsilon_{\text{yield}}\ (\varepsilon_{\text{yield}}=1),`
+    → i.e. **$A = \varepsilon_{11}$**, with the one Op14 kernel $S(A)=(1-A^2)^{1/2}$ at `:52`.
+  - `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md:14` — "The principal
+    radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically" (clm-rd9cjm).
+  - Third-site corroboration, `common/vocabulary-register.md:309`: $\varepsilon_{11} = 7GM/(c^2 r)$ is
+    "the A1-dilatation **radial 'strain' that IS the Axiom-4 saturation amplitude $A$**".
+  - And the shear projection rides **the same $A$**: `saturating-modulus-and-backreaction.md:60`
+    "$c_{\text{shear}}=c_0\sqrt{S}=c_0(1-A^2)^{1/4}\to0$".
+
+  ⇒ $A(r) = 7GM/(c^2 r)$, $A = 1$ exactly at $r_{sat} = 7GM/c^2$, and
+  $c_{shear}(r) = c_0\,[1-(7GM/c^2r)^2]^{1/4} \to 0$ at $r_{sat}$. **That is R2's integrand, in canon,
+  with no free function.**
+
+  **What is genuinely inconsistent (the real F9).** A *second* convention is also canonically stated,
+  on the temporal/EM side: `temporal-spatial-lattice-decomposition.md:24` and the W2 walk-back at
+  `:28` both give the local clock as $\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2 r)$, i.e.
+  $S \approx 1 - r_s/r$. That cannot be the same $A$: it puts $A \to 1$ at a radius of order
+  $r_s = 2GM/c^2$ (the 3.5× discrepancy already banked here) **and** it makes $A \propto 1/\sqrt{r}$
+  rather than the $A \propto 1/r$ of $\varepsilon_{11}$ — the two conventions disagree on the yield
+  *surface* and on the *functional form*. Both are canonically asserted. The convention-split leaf
+  `vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md:10` resolves the
+  *electron/Coulomb* $A$ ($A_{\text{geom}}$ vs $A_{\text{field}}$) and is **silent on the
+  gravitational case** — `vocabulary-register.md:309` says so in as many words.
+
+  **Why R2 un-blocks anyway — the channel-split decides it.** `vol3/claim-quality.md:121` (verbatim,
+  one line above the `:122`/`:123` lines already quoted in §2.2/§2.4) splits the surface **by
+  channel**: "The event horizon at $r_s = 2GM/c^2$ marks the **EM-transverse** saturation limit
+  ($n \to \infty$, $\varepsilon_{11}(r_s) = 1$ in the GW-gauge transverse formulation); the
+  **shear/bulk** rupture boundary is deeper, at $r_{sat} = 7GM/c^2 = 3.5\,r_s$ where the radial strain
+  $\varepsilon_{11} = 1$". So the $r_s$-surface convention is the **EM-transverse** reading and the
+  $r_{sat}$-surface convention is the **shear/bulk** reading — and this document's own §1.0 SECTOR
+  header declares the ringdown a **shear (T2-channel) cavity mode**. R2 therefore takes
+  $A = \varepsilon_{11} = 7GM/(c^2 r)$ and is **executable**.
+
+- **R2's remaining prerequisites (both narrow, neither a blocker):** (i) confirm the channel-split
+  reading with Grant (§3 Q3, now a confirm-note not a walk question) — the residual is the
+  kernel-argument **power**, $A = \varepsilon_{11}$ (per `:51`) vs $A^2 = \varepsilon_{11}$ (as this
+  doc's own first draft wrote it); `:51` pins $A = \varepsilon_{11}$ for the **A1/radial-bulk**
+  Resultbox and `:60` projects the *same* $A$ into shear, so the power looks settled, but `q-g22` does
+  **not** settle the gravitational case and the reading should be confirmed, not assumed. (ii) the
+  open $S$-exponent flag at `vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:25-35`,
+  which is exactly R2's WKB integrand.
 - **What it would predict:** $Q$ from a barrier integral $\propto \exp(2\int|k|\,dr)$, which is
   intrinsically both $\ell$- and $a_*$-dependent — so it could in principle deliver the cold offset
   *and* the spin trend from one mechanism (addressing F5 at the root).
@@ -471,7 +516,7 @@ eigenvalue from $0.3673$ to $\approx 0.4498$ against GR's $0.3737$ (a ≈+20% er
 
 ### §2.8 Route R0 — no route closes (must stay reachable)
 
-Honestly enumerated: if R1 returns $c_1 = 1.00$, R2 stays blocked on F9, R3's echo delay is excluded
+Honestly enumerated: if R1 returns $c_1 = 1.00$, R2's barrier integral lands nowhere near GR, R3's echo delay is excluded
 or its cold limit breaks the anchor, and R4 merely reproduces the grafted law, then **nothing closes.**
 That outcome is a **result**, not a failure: v1 stays at solidity 0.55, `build_status "use as input
 only"`, disclosed-phenomenological, and the −5.4% is banked *deeper* — with the F8 decomposition
@@ -485,6 +530,10 @@ mapping"). Naming the mechanism is worth more than moving the number.
 Per Rule 16 strengthening: these are asked **before** design, not after 30 commits return Mode III.
 One question per load-bearing noun. Sector-declaration header for the whole walk: **shear (T2)
 channel, saturated boundary, Op14 ON, $\Gamma_{shear}=-1$, cold-reactive far field.**
+
+**Count after the repair pass: SEVEN walk questions (Q1, Q2, Q4–Q8) + one demoted confirm-note (Q3).**
+Q3 was drafted as a walk question on a false premise and is demoted rather than deleted — the residual
+it still carries is narrow and is stated in place.
 
 ### Q1 — THE ontology one-liner: what IS the ringdown, physically, in the substrate?
 
@@ -522,16 +571,28 @@ the $\Gamma_{shear}=-1$ inner mirror contributes nothing to $Q$ at all**, which 
 derivation's attribution ("$Q$ from the $\Gamma=-1$ saturation/TIR boundary") a mislabel of where
 the physics lives.
 
-### Q3 — the noun "$A^2(r)$": what is the saturation amplitude's radial profile? (blocks R2, F9)
+### Q3 — DEMOTED to a confirm-the-channel-split note (was: "what is $A^2(r)$?"; F9, R2)
 
-$A^2$ has no canonical $r$-dependence for a BH. The two candidates disagree by $3.5\times$:
-$A^2 = \varepsilon_{11} = 7GM/(c^2 r)$ (saturates at $r_{sat}$, Ax-4-native) vs $A^2 = r_s/r$
-(saturates at the horizon, reproduces GR's clock factor).
+**Demoted in the repair pass.** This was drafted as a full walk question on the premise that $A(r)$ had
+no canonical profile. That premise was wrong (see §2.3 F9): canon pins
+$A = \varepsilon_{11} = 7GM/(c^2 r)$ (`saturating-modulus-and-backreaction.md:51` +
+`temporal-spatial-lattice-decomposition.md:14`, corroborated `vocabulary-register.md:309`), and
+`vol3/claim-quality.md:121` **already channel-splits** the two conflicting surfaces — $r_s$ is the
+**EM-transverse** saturation limit, $r_{sat} = 3.5\,r_s$ is the **shear/bulk** rupture boundary. The
+ringdown is declared shear/T2 in §1.0. Grant has, in effect, already answered "two surfaces, one per
+channel."
 
-**Ask Grant:** which surface is $A^2 = 1$? Is the Ax-4 yield surface at $3.5\,r_s$ *the same object*
-as the GR horizon at $r_s$, or are there genuinely two surfaces (a yield surface outside a horizon)?
-*Plumber picture: is there one wall, or a soft yield zone standing off a hard wall?* This is
-load-bearing for every graded-profile route and is also the cleanest single question in the walk.
+**What is left to confirm (a note, not a walk):** (i) that the channel-split reading is the intended
+one for a *graded* (not hard-wall) shear profile; and (ii) the narrow residual — the kernel-argument
+**power**: $A = \varepsilon_{11}$ (what `:51` writes) vs $A^2 = \varepsilon_{11}$ (what this doc's own
+first draft assumed). `:51` + the `:60` shear projection read as $A = \varepsilon_{11}$;
+`q-g22-strain-convention.md:10` splits the *electron/Coulomb* $A$ and is silent on the gravitational
+case, so this is not settled by fiat elsewhere. The difference is not cosmetic — it moves the
+weak-field falloff of the WKB integrand by one power of $r$.
+
+*Plumber picture retained (it is the right one): is there one wall, or a soft yield zone standing off a
+hard wall? Canon's answer is the second, per channel — light stops at the hard wall, shear stops at the
+yield zone $3.5\times$ further out.*
 
 ### Q4 — the noun "$\Omega$": which rate is the substrate's frame-dragging? (F2, R5)
 
@@ -608,14 +669,20 @@ frozen C-τ dimensionless $Q$ comparator against corrected Kerr) is inherited un
 |---|---|---|---|
 | **(a) RESOLVED** | a route derives the mapping from substrate inputs fixed pre-comparison AND reproduces $Q$ (equivalently $\tau$) within a **tolerance stated in the frozen pre-reg** — draft proposal: $\|\bar D_Q\| < 3\%$, the same band already frozen for $\omega_R$, on the same primary catalog (a\*=0.64/0.67/0.74) **and** at the cold $a_*=0$ anchor | tension resolved; solidity re-graded on the derivation's own merits | **FORM-emergence / VALUE-consistency** per §2.1 — must NOT be headlined as emergence at value level; only a $\nu_{vac}$-free ratio could carry that |
 | **(b) DEEPENED** | a route derives a **different** value (outside the stated tolerance, either sign) from an honest substrate chain | **tension deepens — banked honestly. THIS IS A GOOD OUTCOME.** The mechanism is now named rather than unexplained; the disagreement becomes a sharper falsifier than the near-miss was | consistency-class negative with a named mechanism |
-| **(c) NO ROUTE CLOSES** | R1 returns $c_1 = 1$; R2 blocked on F9 (unresolvable $A^2(r)$); R3's cold limit breaks the anchor or its echo delay is excluded; R4 reproduces the grafted law | v1 **stays** disclosed-phenomenological at solidity 0.55, `build_status "use as input only"`; −5.4% banked deeper with the F8 decomposition attached | no class change; a recorded negative |
+| **(c) NO ROUTE CLOSES** | R1 returns $c_1 = 1$; R2's barrier integral lands $\gg$ tolerance from GR (or its profile turns out to be a fitted free function); R3's cold limit breaks the anchor or its echo delay is excluded; R4 reproduces the grafted law | v1 **stays** disclosed-phenomenological at solidity 0.55, `build_status "use as input only"`; −5.4% banked deeper with the F8 decomposition attached | no class change; a recorded negative |
 | **(d) SCOPE-BLOCKED** | the §3 walk returns "cold anchor is out of scope" (Q8c) | lane's reachable ceiling is ≈0.7 pp of 5.44 pp → (c) is the predicted outcome and the lane may be **declined before firing** | n/a — a scoping decision, recorded not executed |
 | **(e) CANON-INCONSISTENT** | a route is well-posed but two canonical inputs contradict (e.g. Q4 has no substrate answer; Q1 answer conflicts with Op21's single-channel classification) | **flag-don't-fix** — surface both file paths + verbatim content to Grant; do NOT reframe one to match the other | n/a — adjudication routed, not resolved |
 
 **Reachability audit** (per the standing design lesson that every outcome class needs a reachable bin):
 (a) reachable via R1/R2/R3/R4; (b) reachable via any route that computes rather than fits;
 (c) reachable and explicitly *not* a failure; (d) reachable from the walk alone, before any code;
-(e) reachable and **already partially triggered** — F2 and F6 are live canon inconsistencies today.
+(e) reachable and **already partially triggered** — **F2**, **F6** and **F9** are live canon
+inconsistencies today. (F2: two Ω formulas both canonical. F6: six un-bannered "sub-2%" sites against
+a leaf-level retraction. **F9: two saturation-amplitude conventions both canonically stated —
+$A = \varepsilon_{11} = 7GM/c^2r$ per `saturating-modulus-and-backreaction.md:51` +
+`temporal-spatial-lattice-decomposition.md:14` vs the $\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/c^2r$
+clock at `temporal-spatial-lattice-decomposition.md:24`/`:28` — reconciled *for the shear channel* by
+the channel-split at `vol3/claim-quality.md:121`, un-reconciled as a global convention.**)
 No outcome of this lane is unbinnable.
 
 **Non-goals, stated so they cannot creep in:** this lane does **not** re-open the v1↔v2 fork (B1
