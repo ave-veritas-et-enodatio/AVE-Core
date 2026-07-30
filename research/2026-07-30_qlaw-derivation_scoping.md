@@ -586,4 +586,38 @@ ruled it), does **not** revisit the frame/table corrections (#774 settled them),
 $\nu_{vac}$'s value provenance (GR-imported, PR #261 closed), and does **not** land any manuscript or
 `COLLABORATION_NOTES` entry — findings F1–F9 are surfaced for the auditor lane to land.
 
-<!-- REMAINING SECTIONS FILLED IN SUBSEQUENT COMMITS -->
+---
+
+## Appendix A — Step-0 skill-selection plan (written before §1, retro-checked before push)
+
+Written as a 60-second plan at lane start; the retro-pass at the bottom records where the applied set
+drifted.
+
+| skill / discipline | fired? | why (and where it bit) |
+|---|---|---|
+| **`ave-prereg` corpus-grep-first** | YES, first action | Grep before thinking. It bit immediately: the ringdown arc is spread over 65 KB files + ~25 research docs, and the load-bearing τ chain lives in a **research doc** (`…_v1-spin-mapping-adjudication_result.md`), not in the KB leaf. Thinking first would have missed the −5.44% table entirely. |
+| **`verify-before-cite` (two-method)** | YES, on every quoted formula/number | It bit twice. (i) `regime-eigenvalue-method.md:63` looked like a **wrong** citation under `cut -c1-200` — the quote lives in the *tail* of a long line; a naive check would have mis-flagged a correct corpus cite. (ii) It caught F6 (three unbannered "sub-2%" sites) purely because I re-grepped for retraction banners instead of assuming the 2026-07-20 banner propagated. |
+| **`consistency-vs-emergence`** | YES, applied to all 6 routes | Every route rides $\nu_{vac} = 2/7$, whose **VALUE is GR-imported** via $K=2G$. Without this pass, a landed Q-law would get headlined as emergence when its absolute scale is inherited from GR's trace-reversal identity. Produced the §2.1 class ceiling and the "only $\nu_{vac}$-free ratios are emergence-capable" constraint. |
+| **`pre-test-physics-check` (trigger 8, ontology one-liner)** | YES → §3 Q1, routed to Grant | The load-bearing ontology question ("what IS the ringdown") has **three** mutually-exclusive answers implied in canon, and they route to different derivations. Asked BEFORE design per the Rule-16 strengthening — this is exactly the item that would otherwise surface after 30 commits as Mode III. |
+| **`substrate-native-check`** | PARTIAL — deliberately | No solver/observer/operator is scaffolded in this lane, so the full K4/Cosserat/Op14 walk is **deferred to the derivation lane** (it is a firing prerequisite, listed at Q1/Q3). What *was* done: the §1.0 sector/regime/phase-state header, and the sector-ownership check that flagged R1's main leak risk (transplanting $Z_0 \equiv Z_{EM}$ into a **shear**-channel problem — the category error canon already caught twice). |
+| **`phase-space-coordinate-check` (A46)** | YES, cheap pass | The whole confrontation lives in the dimensionless-eigenvalue register ($\omega M$, $Q$) that AVE and GR share — no phase-space-vs-real-space mismatch. Recorded in §1.0 COORDS rather than left implicit. |
+| **`pure-AVE-corpus`** | YES, standing | No external, non-physics context appears anywhere in this doc, its commits, its branch name, or the docket fragment. Grant's frontier signal is recorded as a **physics** rationale (the named next ringdown work banked by Ruling B1). |
+| **flag-don't-fix (durable directive)** | YES, 9 times | F1–F9 are all surfaced with both paths + verbatim content and **zero corpus files modified**. F6 in particular (a stale "zero free parameters / sub-2%" premise) is the kind of thing that is tempting to just fix — fixing it silently would have hidden a real propagation-discipline signal. |
+| **Rule 11 honest-closure** | YES, structurally | Bin (b) "tension deepens" is written as a **good** outcome, bin (c) as a **result**; the Rule-11 fence in §4 names the four specific retunings that are inadmissible (mapping, $\sqrt{1+\nu_{vac}}$, $\Omega$-variant, leak constant) so they can't be reached for later. |
+| **lane discipline (Rule 15)** | YES | Scoping lane: no derivation, no solver, no claim, no `COLLABORATION_NOTES`/manuscript entry. F1–F9 are handed to the **auditor** lane to land; Q1–Q8 are handed to **Grant**. This doc mints nothing. |
+| `ave-discrimination-check` | NOT fired | Deferred: correct at derivation-fire time (does the landed law discriminate AVE from GR?). Noted rather than silently skipped — R3's echo delay is the discrimination candidate to test then. |
+| `ave-audit` | NOT fired | This is not an audit of a landed claim; it is pre-work scoping. F1–F9 are audit *leads* for the auditor lane, not audit findings. |
+
+**Retro-pass (applied-set drift).** Two skills fired that were **not** in the opening plan, both
+because the corpus forced them: (1) `consistency-vs-emergence` was planned as a per-route tag but had
+to be promoted to a **cross-cutting §2.1 ceiling** once F3 established the $\nu_{vac}$ value-import —
+a per-route tag would have let a "ratio is emergent, therefore the law is emergent" slide through;
+(2) the **sector-ownership** check (`A1 ⊥ T2` cross-wiring watch) was not planned at all and became
+load-bearing for R1 — the electron $Q$ template is an **EM**-channel calculation and the ringdown is
+a **shear**-channel object, so the template cannot be copied verbatim. Recorded here rather than
+back-dated into the plan.
+
+**One skill I should flag as *not applicable* despite looking applicable:** the structural-null
+stencil lens. There is no coupling=0 / spectator null in this lane — the −5.44% is a *non-null*
+near-miss, so there is no disabled-flag-validated-as-physics hazard to check for here.
+
