@@ -330,9 +330,34 @@ Because $\nu_{vac} = 2/7$'s **VALUE** is GR-IMPORTED via $K = 2G$ (F3), and $r_{
 $r_{eff} = 49M_g/9$ both ride it, **no route below can produce a value-level EMERGENCE claim for an
 absolute $Q$ or $\omega$.** The best available class for absolutes is **FORM-emergence /
 VALUE-consistency**. The only emergence-capable objects are **$\nu_{vac}$-free dimensionless
-ratios** — candidates: $Q(a_*)/Q(0)$, $\omega_R(\ell')/\omega_R(\ell)$ (already derived, ORG-1),
-and (Route R3) an echo-delay-to-ringdown-period ratio. This is the standing "the chord must be a
-dimensionless ratio" discipline; it should be written into the derivation pre-reg header, not
+ratios** — and "dimensionless ratio" is **not** the test; **$\nu_{vac}$-cancellation is**, and it has
+to be checked per-candidate rather than assumed:
+
+- **$\omega_R(\ell')/\omega_R(\ell)$ — SURVIVES.** Genuine cancellation: $\omega_R M_g =
+  \ell(1+\nu_{vac})/x_{sat}$, so the ratio is $\ell'/\ell$ with both $x_{sat}$ and $(1+\nu_{vac})$
+  gone. Corroborated in canon-adjacent research:
+  `research/2026-07-20_ringdown-systematics_derivation.md:45` — "it is genuinely exact and
+  spin-independent (the `x_sat` and `(1+ν_vac)` cancellation holds at all spins for ORG-1)".
+- **$Q(a_*)/Q(0)$ — ★ STRUCK (repair-pass correction). It does NOT cancel $\nu_{vac}$.** Under the
+  standing model $Q = \ell/(1 - m\Omega/\omega_R)$ and $Q(0) = \ell$, so
+  $Q(a_*)/Q(0) = 1/(1 - m\Omega/\omega_R)$ — a ratio in which **both** factors carry $\nu_{vac}$:
+  $\omega_R$ rides $(1+\nu_{vac})$ in its numerator, and $\Omega$ is evaluated at
+  $r_\Omega = r_{ph}\sqrt{1+\nu_{vac}}$. Nothing divides out. Recomputed on the frozen driver's own
+  chain (`research/2026-07-20_v1-spin-mapping-adjudication_rerun.py`, reproducing its banked
+  −5.76/−5.53/−5.02% row-for-row): at $a_*=0.67$ the ratio is **1.500** at $\nu_{vac}=2/7$ versus
+  **2.492** at $\nu_{vac}=0$ — a **+66%** swing (0.64: 1.447 → 2.261, +56%; 0.74: 1.656 → 3.347,
+  +102%). A "$\nu_{vac}$-free" object cannot move by 66% when $\nu_{vac}$ is set to zero. It is
+  removed from the emergence-capable list wherever it appeared (§2.1 here, Route R2's class line,
+  and the docket entry).
+- **(Route R3) echo-delay-to-ringdown-period ratio — UNTESTED, must be checked before it is
+  headlined.** Both legs are lengths/times inside the same $\nu_{vac}$-scaled cavity, so cancellation
+  is *plausible* — but that is exactly the reasoning that failed for $Q(a_*)/Q(0)$. The pre-reg must
+  carry the explicit $\nu_{vac} \to 0$ sensitivity computation, not the plausibility argument.
+
+**The discipline this corrects:** the standing "the chord must be a dimensionless ratio" rule is
+necessary, not sufficient. Dimensionlessness is cheap; **cancellation is the actual requirement**, and
+the way to establish it is to re-run the chain at $\nu_{vac}=0$ and show the number does not move.
+That $\nu_{vac}\to0$ sensitivity run belongs in the derivation pre-reg header per candidate ratio, not
 discovered afterwards.
 
 ### §2.2 Route R1 — Radiation-resistance leaky-cavity Q in the SHEAR channel
@@ -430,8 +455,12 @@ A graded resonator's $Q$ is set by **barrier transmission at a turning point**, 
 - **What it would predict:** $Q$ from a barrier integral $\propto \exp(2\int|k|\,dr)$, which is
   intrinsically both $\ell$- and $a_*$-dependent — so it could in principle deliver the cold offset
   *and* the spin trend from one mechanism (addressing F5 at the root).
-- **Class if it lands:** FORM-emergence; absolute values still VALUE-consistency per §2.1, but a
-  ratio $Q(a_*)/Q(0)$ from the same profile could be emergence-capable.
+- **Class if it lands:** FORM-emergence; absolute values still VALUE-consistency per §2.1. **No
+  emergence-capable ratio is named for this route** — $Q(a_*)/Q(0)$ was the candidate and it is
+  **struck** (§2.1: it does not cancel $\nu_{vac}$; +66% swing at $\nu_{vac}\to0$). Worse for R2 than
+  for the standing model: R2's profile *is* $A = \varepsilon_{11} = 7GM/(c^2r)$, whose $7$ is the
+  $\nu_{vac}$-riding $r_{sat}$ coefficient, so the barrier integral carries $\nu_{vac}$ through the
+  integrand itself. Any ratio proposed off this route needs its own $\nu_{vac}\to0$ sensitivity run.
 - **What would falsify it:** the barrier integral lands $\gg 5\%$ from GR; or $A^2(r)$ turns out to
   be a free function chosen to fit (then the route is a re-parameterised fit, not a derivation, and
   must be reported as such); or the graded profile destroys the clean $Q=\ell$ cold anchor that
@@ -483,8 +512,18 @@ Nyquist-cell count in the co-rotating frame** and see what damping law falls out
   spin law is **derived rather than analogised**, a real solidity upgrade even though it moves no
   number; or (b) a different law (e.g. leak-per-*co-rotating*-radian, which changes the count when
   the boundary itself spins), which would move the spin-dependent ≈0.7 pp.
-- **Class if it lands:** FORM-emergence and **$\nu_{vac}$-free** (mode counting uses Ax 1 cell size
-  and topology, not the elastic value) — R4 is the route with the cleanest class ceiling.
+- **Class if it lands:** FORM-emergence, and **$\nu_{vac}$-free only in its COLD half.** The
+  mode-counting content (Ax 1 cell size + topology → $Q_{mode,\ell} = \ell$) genuinely carries no
+  elastic value: at $a_*=0$, $Q = \ell$ with no $\nu_{vac}$ anywhere. **But the co-rotating spin term
+  is not $\nu_{vac}$-free** — it enters as $m\Omega/\omega_R$, and $\Omega$ is evaluated at
+  $r_\Omega(\nu_{vac}) = r_{ph}\sqrt{1+\nu_{vac}}$ while $\omega_R$ rides $(1+\nu_{vac})$. R4 inherits
+  both unless it **also re-derives the evaluation radius** from the co-rotating count instead of
+  importing $r_\Omega$ — which is worth stating as an R4 sub-goal, because a co-rotating Nyquist count
+  that produces its own evaluation radius would simultaneously discharge F1. **Honest statement of the
+  ceiling:** R4 has the cleanest ceiling *at the cold anchor*; at catalog spins its class is the same
+  VALUE-consistency as every other route unless the $r_\Omega$ import is eliminated. (Struck: the
+  earlier blanket "R4 is the route with the cleanest class ceiling" — it was true only of the half of
+  R4 that has no spin in it.)
 - **What would falsify it:** the co-rotating count is frame-ambiguous (no unique cell count in a
   rotating frame → route is ill-posed); or it reproduces the existing law exactly *and* H1 is right,
   in which case R4 legitimises the spin law but explains none of the tension.
