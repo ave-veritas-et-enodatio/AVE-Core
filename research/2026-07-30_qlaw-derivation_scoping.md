@@ -441,4 +441,149 @@ only"`, disclosed-phenomenological, and the −5.4% is banked *deeper* — with 
 naming the mechanism honestly ("the offset is the cold $Q$ anchor's own ≈−4.7%, not the spin
 mapping"). Naming the mechanism is worth more than moving the number.
 
+---
+
+## §3 — The Grant walk (pre-test-physics-check; must happen IN CHAT before any derivation fires)
+
+Per Rule 16 strengthening: these are asked **before** design, not after 30 commits return Mode III.
+One question per load-bearing noun. Sector-declaration header for the whole walk: **shear (T2)
+channel, saturated boundary, Op14 ON, $\Gamma_{shear}=-1$, cold-reactive far field.**
+
+### Q1 — THE ontology one-liner: what IS the ringdown, physically, in the substrate?
+
+Three mutually exclusive pictures are all *implied* somewhere in canon, and they route to different
+derivations:
+
+- **(i) A leaky cavity with a radiative port.** The mode is trapped between $r_{sat}$ and infinity;
+  the "loss" is a real external port ($R_{rad}$, Ax-3-licensed) and $Q$ is stored reactance over port
+  resistance. → Route R1. *Plumber picture: a bell with a small hole drilled in it.*
+- **(ii) An impedance-mismatch ring-down on a graded profile.** No hole at all — the mode sits in a
+  continuously graded $Z_{shear}(r)$ well and leaks by **tunnelling past a turning point**. $Q$ is a
+  barrier-transmission integral. → Route R2/R3. *Plumber picture: a water-hammer surge in a pipe
+  whose diameter tapers — it reflects off the taper, not off a valve.*
+- **(iii) A mode-conversion drain.** The shear mode converts into another channel (bulk/A1, or EM) at
+  the boundary and *that* is where the energy goes. → not currently a corpus route at all.
+  *Plumber picture: the ring dies because it couples into the mounting bracket.*
+
+**Ask Grant:** which one is it? And is it exactly one, or does the corpus need to say "(i) at the
+port AND (ii) at the taper" — because if it's both, $Q^{-1}$ is a **sum of two loss terms** and the
+whole $Q=\ell$ single-channel derivation is under-counting. *(Note: Op21 explicitly classifies BH
+ringdown as **single-channel**, `op21-multi-mode-mode-counting.md:31,36` — so "both" would be a
+substantive correction to a ratified leaf, not a detail.)*
+
+### Q2 — the noun "$\Gamma_{shear} = -1$": is the reflector *perfect*, and if so where does the energy go?
+
+Canon says the saturated interior is a **perfect** reflector for shear waves
+(`electron-bh-isomorphism.md:36`) — $|\Gamma| = 1$, zero transmitted. But the ringdown *decays*.
+Canon resolves this by attributing the loss to **curvature radiation from the orbiting mode**
+(`regime-eigenvalue-method.md:63`), i.e. to the *outward* side, not the boundary.
+
+**Ask Grant:** in the plumber picture, is the ringdown's decay (a) radiation *outward* to infinity
+from a mode that is perfectly mirrored inward, or (b) leakage *inward* through an imperfect mirror?
+If (a) — and canon says (a) — then **the $Q$ is set entirely by the outer radiation impedance and
+the $\Gamma_{shear}=-1$ inner mirror contributes nothing to $Q$ at all**, which makes the current
+derivation's attribution ("$Q$ from the $\Gamma=-1$ saturation/TIR boundary") a mislabel of where
+the physics lives.
+
+### Q3 — the noun "$A^2(r)$": what is the saturation amplitude's radial profile? (blocks R2, F9)
+
+$A^2$ has no canonical $r$-dependence for a BH. The two candidates disagree by $3.5\times$:
+$A^2 = \varepsilon_{11} = 7GM/(c^2 r)$ (saturates at $r_{sat}$, Ax-4-native) vs $A^2 = r_s/r$
+(saturates at the horizon, reproduces GR's clock factor).
+
+**Ask Grant:** which surface is $A^2 = 1$? Is the Ax-4 yield surface at $3.5\,r_s$ *the same object*
+as the GR horizon at $r_s$, or are there genuinely two surfaces (a yield surface outside a horizon)?
+*Plumber picture: is there one wall, or a soft yield zone standing off a hard wall?* This is
+load-bearing for every graded-profile route and is also the cleanest single question in the walk.
+
+### Q4 — the noun "$\Omega$": which rate is the substrate's frame-dragging? (F2, R5)
+
+Two canonical formulas: $\omega(r) = 2Mar/(r^2+a^2)^2$ (Ch.2 Resultbox, clm-rd9cjm) and
+$\Omega = 2a_*/(r_\Omega^3 + a_*^2 r_\Omega + 2a_*^2)$ (app-F, clm-d9ivj1 — the exact equatorial
+Kerr ZAMO). The second is the exact GR object; the first drops the $-a^2\Delta\sin^2\theta$ term.
+
+**Ask Grant:** the corpus calls $\Omega$ "the asymmetric impedance convolution rate (formerly
+interpreted as Lense–Thirring angular velocity)" (`ave-merger-ringdown-eigenvalue.md:127`). If it is
+an **impedance-convolution** rate and not a GR kinematic rate, then *neither* imported Kerr formula
+is automatically right — the substrate should have its own expression. Is $\Omega$ (a) an imported
+GR ZAMO rate, (b) an approximation of one, or (c) a substrate quantity that merely *coincides* with
+frame-dragging in the weak-field limit? *Plumber picture: is this the speed the water swirls, or the
+rate at which the pipe's impedance rotates past the mode?*
+
+### Q5 — the noun "$\sqrt{1+\nu_{vac}}$": why a square root, and why does it grow the radius? (F1)
+
+The eigenfrequency correction **shrinks** a radius by $(1+\nu)$; the spin-evaluation correction
+**grows** one by $\sqrt{1+\nu}$. Canon asserts these are "the same $\nu_{vac}$ correcting" both.
+
+**Ask Grant:** is there a physical reason a *rotational* evaluation radius would pick up
+$\sqrt{1+\nu}$ (e.g. a geometric-mean / two-way-transit reading, $\sqrt{r_{in}r_{out}}$-like) rather
+than the linear Poisson factor — or is this an unmotivated fit that should be *replaced* by a
+computed turning point (R3) rather than justified? **Do not let the answer be "it works."** Per F8
+the factor can only be worth ≈0.7 pp anyway, so the honest outcome may be "retire the factor, accept
+the number moves the wrong way."
+
+### Q6 — the noun "the $1/\ell$ leak": is the leak-constant really 1? (F7, H1, R1)
+
+The per-cycle leak is asserted to *scale as* $1/\ell$ with the proportionality constant set to
+exactly 1 by a $2\pi$ convention. H1 says the missing ≈5% lives here.
+
+**Ask Grant:** for a mode with $\ell$ wavelengths around the cavity, is "one wavelength's worth of
+energy radiates per cycle" a **counting statement** (exactly $1/\ell$, no constant) or a **scaling
+statement** ($c_1/\ell$ with $c_1$ to be computed from radiation resistance)? *Plumber picture: does
+each bend in the pipe dump exactly its own share, or its share times an efficiency?*
+
+### Q7 — the noun "echo": is the corpus's own echo prediction in play, and are we willing to risk it?
+
+`vol3/claim-quality.md:123` already banks "gravitational ringdown **echoes are predicted**." Route R3
+would *derive* the echo delay as a by-product — and could therefore **kill an existing banked corpus
+prediction** against published LIGO echo-search limits.
+
+**Ask Grant:** do we want that exposure in this lane, or is the echo a separate pre-reg? *(A kill
+there would be a clean, high-value negative — but it should be a chosen risk, pre-registered, not a
+surprise mid-derivation.)*
+
+### Q8 — scope: is this lane allowed to touch the ratified cold anchor?
+
+Ruling B1 just pinned $Q = \ell$ as the cold $a_*=0$ anchor. F8/H1 says the tension **is** in that
+anchor (it is ≈−4.7% low against GR by the corpus's own reference values).
+
+**Ask Grant:** if a route lands a cold $Q = c_1\ell$ with $c_1 \approx 1.05$, is that (a) a permitted
+refinement of the B1-ratified anchor, (b) a flag-don't-fix routed back to you, or (c) out of scope —
+in which case the lane's ceiling is ≈0.7 pp and bin (c) is the likely outcome and we should say so
+up front. **This question determines whether the lane is worth firing at all.**
+
+---
+
+## §4 — DRAFT success bins — ⚠ NOT FROZEN
+
+> **Freezing happens at derivation-fire time, in a separate pre-reg, after the §3 walk.** These are
+> drafts for Grant to react to. Adjudication criteria may be *tightened* before freezing; they may
+> **not** be loosened after results are seen (no post-hoc dropping of criteria to convert ❌ to ✅).
+
+**Rule 11 framing, stated up front:** the −5.44% is a **clean banked tension**, already honestly
+recorded at solidity 0.55 with `build_status "use as input only"`. This lane **explains it or banks
+it deeper.** It is **not** a rescue-debug. **No retuning of v1 is admissible** — not the mapping, not
+the $\sqrt{1+\nu_{vac}}$ factor, not the $\Omega$ variant choice, not the leak constant. Any route
+must derive its numbers from substrate inputs fixed *before* comparison, and the comparator (the
+frozen C-τ dimensionless $Q$ comparator against corrected Kerr) is inherited unchanged.
+
+| bin | condition (draft) | outcome | class |
+|---|---|---|---|
+| **(a) RESOLVED** | a route derives the mapping from substrate inputs fixed pre-comparison AND reproduces $Q$ (equivalently $\tau$) within a **tolerance stated in the frozen pre-reg** — draft proposal: $\|\bar D_Q\| < 3\%$, the same band already frozen for $\omega_R$, on the same primary catalog (a\*=0.64/0.67/0.74) **and** at the cold $a_*=0$ anchor | tension resolved; solidity re-graded on the derivation's own merits | **FORM-emergence / VALUE-consistency** per §2.1 — must NOT be headlined as emergence at value level; only a $\nu_{vac}$-free ratio could carry that |
+| **(b) DEEPENED** | a route derives a **different** value (outside the stated tolerance, either sign) from an honest substrate chain | **tension deepens — banked honestly. THIS IS A GOOD OUTCOME.** The mechanism is now named rather than unexplained; the disagreement becomes a sharper falsifier than the near-miss was | consistency-class negative with a named mechanism |
+| **(c) NO ROUTE CLOSES** | R1 returns $c_1 = 1$; R2 blocked on F9 (unresolvable $A^2(r)$); R3's cold limit breaks the anchor or its echo delay is excluded; R4 reproduces the grafted law | v1 **stays** disclosed-phenomenological at solidity 0.55, `build_status "use as input only"`; −5.4% banked deeper with the F8 decomposition attached | no class change; a recorded negative |
+| **(d) SCOPE-BLOCKED** | the §3 walk returns "cold anchor is out of scope" (Q8c) | lane's reachable ceiling is ≈0.7 pp of 5.44 pp → (c) is the predicted outcome and the lane may be **declined before firing** | n/a — a scoping decision, recorded not executed |
+| **(e) CANON-INCONSISTENT** | a route is well-posed but two canonical inputs contradict (e.g. Q4 has no substrate answer; Q1 answer conflicts with Op21's single-channel classification) | **flag-don't-fix** — surface both file paths + verbatim content to Grant; do NOT reframe one to match the other | n/a — adjudication routed, not resolved |
+
+**Reachability audit** (per the standing design lesson that every outcome class needs a reachable bin):
+(a) reachable via R1/R2/R3/R4; (b) reachable via any route that computes rather than fits;
+(c) reachable and explicitly *not* a failure; (d) reachable from the walk alone, before any code;
+(e) reachable and **already partially triggered** — F2 and F6 are live canon inconsistencies today.
+No outcome of this lane is unbinnable.
+
+**Non-goals, stated so they cannot creep in:** this lane does **not** re-open the v1↔v2 fork (B1
+ruled it), does **not** revisit the frame/table corrections (#774 settled them), does **not** touch
+$\nu_{vac}$'s value provenance (GR-imported, PR #261 closed), and does **not** land any manuscript or
+`COLLABORATION_NOTES` entry — findings F1–F9 are surfaced for the auditor lane to land.
+
 <!-- REMAINING SECTIONS FILLED IN SUBSEQUENT COMMITS -->
