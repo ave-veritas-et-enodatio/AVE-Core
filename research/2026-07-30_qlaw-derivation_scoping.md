@@ -320,16 +320,53 @@ banked −5.44% Q deviation. A derivation lane that reads app-F or the backmatte
 from a false premise (that the Q-law already matches to sub-2% with zero parameters) and would
 therefore have no tension to explain.
 
-**Routing — reconcile, don't re-open.** A B1-retraction propagation lane is **in flight** on branch
-`docs/b1-retraction-propagation` (local at `014d2cf5`; **not** pushed and **no** PR open as of
-2026-07-30 — verified via `git ls-remote origin refs/heads/docs/b1-retraction-propagation` → empty
-and `gh pr list --state all` → no PR on that head). This F6 list is therefore **not** new
-auditor-lane work to route; it is a **reconciliation input** to that lane: sites 1–3 are the ones
-already named in the earlier three-site version of this finding, and sites 4–6 + the four
-superradiance sites are the additions this pass verified. Whoever lands that lane should diff its
-touched-file set against this table and against a `< 2%` / `first-principles` pattern sweep, not only
-a `sub-2%` one. **State is as-of-`f7cc3e52`; re-verify at that lane's ship time** (branch state moves
-between authoring and shipping).
+**Routing — reconcile, don't re-open. ⚑ Re-verified at ship time and the state MOVED.** A
+B1-retraction propagation lane was in flight on branch `docs/b1-retraction-propagation`; at the
+authoring of this repair it was local-only at `014d2cf5` with no PR. **At ship time it has pushed and
+opened [PR #809]** (`docs/b1-retraction-propagation` @ `c451a305`, OPEN,
+`[DO-NOT-MERGE][REVIEW: pending-orchestrator] docs: propagate the B1 sub-2% retraction to the lagging
+sites (honesty-lag)`). Re-verified this turn via `git ls-remote origin
+refs/heads/docs/b1-retraction-propagation` + `gh pr view 809`. *(Recorded because the correct-check-run-too-early
+failure is the exact `verify-before-cite` v1.6 SHIP-TIME clause; the authoring-time state was true when
+written and false ~an hour later.)*
+
+**#809 discharges F6 sites 1–6 — independently, and it found the same six.** Its file set is
+`kerr-q-correction.md`, `common/solver-toolchain.md`, `vol2/claim-quality.md`,
+`common/claim-quality.md`, `manuscript/backmatter/05_universal_solver_toolchain.tex`,
+`src/ave/solvers/orbital_resonance.py` — i.e. **all six**, each getting a 🔴 Rule-12 struck-and-banner
+treatment. Its own docket entry says two of them "were **NOT** in the four named to the lane — both
+found only by the exhaustive multi-pattern + two-method sweep (the single-pattern lesson, live again)".
+Two lanes converged on the same six-site set by the same corrected method, from different starting
+counts. **F6 sites 1–6 therefore need no routing: they are handled, pending #809's merge.** (Currency
+caveat: #809 is `[DO-NOT-MERGE]` at time of writing, so at `origin/main` = `f7cc3e52` all six sites are
+still live. The F6 table above is correct **as canon state**; it is superseded **as work-to-do**.)
+
+**★ What does NOT reconcile — one live disagreement, surfaced with both paths (flag-don't-fix).** The
+four companion **superradiance** sites are **deliberately retained** by #809, as an explicit scope
+carve. #809's entry, verbatim: *"**Scope carve held (no over-retraction):** only the ACCURACY claim is
+retracted. The m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ and the superradiance limit at
+$\omega_R = m\Omega$ are B1's standing **Q-LAW COMMITMENT** and are explicitly retained at every
+site."* Its diff leaves `kerr-q-correction.md:33` and
+`backmatter/05_universal_solver_toolchain.tex:98` — *"This is the first-principles prediction of
+superradiance from pure lattice geometry"* — untouched as context lines.
+
+This lane's F6 says the opposite about that sentence: the superradiance root
+$\omega_R = m\Omega \Rightarrow \omega_I \to 0$ is a root **of the grafted Park-transform law**
+(`kerr-q-correction.md:49-61`), which §2.5/R4 records as *analogised, not derived* — so
+"**first-principles** prediction … from pure lattice geometry" is an underivation of exactly the same
+shape as the retracted "zero free parameters", asserted about the same formula whose $Q$ this lane
+finds at −5.4%.
+
+**Both statements are on the record; neither is reframed here.** The disagreement is narrow and
+well-posed: *is the $\omega_R = m\Omega$ superradiance limit "first-principles" when the law it is a
+limit of is a Park-transform analogy?* Two defensible readings — (i) the *structure* (a co-rotating
+frequency crossing zero) is forced by the substrate independently of how the law was obtained, so
+"first-principles" is about the structure and survives; (ii) "first-principles prediction … from pure
+lattice geometry" claims derivation-grade provenance for a formula the corpus itself grades
+`solidity 0.55, disclosed-phenomenological`, so it should carry the same rider the accuracy claim now
+carries. **Routed to Grant/auditor for adjudication — this lane does not pick.** (If (ii), the fix is
+a rider on four sites, not a retraction; if (i), F6's companion flag closes and this note is the
+record of why.)
 
 ---
 
