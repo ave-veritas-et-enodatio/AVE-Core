@@ -173,6 +173,7 @@ verify-frozen-provenance:
 verify-lane-number-checks:
 	@echo "Checking research-lane result-doc numeric tokens against their shipped JSON sources (gating)..."
 	$(PYTHON) research/drivers/continuum_radial_solver_number_check.py
+	$(PYTHON) research/drivers/subc_kubc_bracket_number_check.py
 
 refresh-provenance-baseline:
 	@echo "Regenerating the provenance-stamp grandfather baseline from the live scan (allowed to shrink)..."
