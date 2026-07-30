@@ -120,7 +120,7 @@ At the **superradiance** threshold ($\omega_R = m\,\Omega$): $\omega_I \to 0$, $
 > source-frame masses** (#774) — the same MATCH-ARTIFACT that produced the retracted $-0.45\%$/$-0.47\%$
 > LIGO ringdown figures. **Corrected picture:** the topological **flat $Q = \ell = 2$ is scoped to the
 > $a_* = 0$ cold anchor** (the $\Omega \to 0$ limit of the m$\Omega$ law); at catalog spins the flat-$Q$
-> reading **fails at $\bar D_Q = -38\%$** (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The **spin-refined
+> reading **would fail at $\bar D_Q = -38\%$** (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The **spin-refined
 > m$\Omega$ law** $\omega_I = (\omega_R - m\Omega)/(2\ell)$ under the standing v1 mapping lands at
 > **$-5.44\%$** (Resultbox form) / **$-4.57\%$** (exact-equatorial-ZAMO variant) — an **OPEN near-miss
 > tension**, the named next ringdown work; **NOT** a sub-2% match and **NOT** a zero-free-parameter
