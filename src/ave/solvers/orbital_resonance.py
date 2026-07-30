@@ -482,8 +482,28 @@ def qnm_eigenvalue(
     #   The mode gains energy from the BH spin — no net radiation.
     #
     # Accuracy:
-    #   a* = 0.3–0.8: Q error < 2% vs GR (LIGO observing band)
-    #   a* > 0.9:     diverges from GR (higher-order coupling needed)
+    #   🔴 RETRACTED 2026-07-21 (Grant Ruling B1; prior wording preserved per Rule 12):
+    #     was "a* = 0.3–0.8: Q error < 2% vs GR (LIGO observing band)"
+    #          "a* > 0.9:     diverges from GR (higher-order coupling needed)"
+    #   The sub-2% Kerr-Q match was computed against the CORRUPT ω_R/ω_I Kerr
+    #   reference tables + source-frame masses (#774) — the same MATCH-ARTIFACT
+    #   behind the retracted −0.45%/−0.47% LIGO ringdown figures. The "diverges
+    #   at a* > 0.9 / ~40% at a* = 0.99" figure is read off that same corrupt
+    #   table and inherits the corruption.
+    #   Corrected picture: the topological flat Q = ℓ = 2 is scoped to the a* = 0
+    #   COLD ANCHOR (the Ω → 0 limit of the mΩ law) and would fail at D̄_Q = −38%
+    #   at catalog spins (corrected-Kerr Q rises 3.07 → 3.49). The spin-refined
+    #   mΩ law ω_I = (ω_R − m·Ω)/(2ℓ) under the standing v1 mapping lands at
+    #   −5.44% (Resultbox form) / −4.57% (ZAMO variant): an OPEN near-miss
+    #   tension, the named next ringdown work. NOT a sub-2% match, NOT a
+    #   zero-free-parameter benchmark (only the cold 18/49 eigenvalue is).
+    #   The mΩ law implemented below — and the superradiance limit at ω_R = m·Ω
+    #   — are the STANDING Q-law under Ruling B1; the code is unchanged, only
+    #   the accuracy comment is retracted.
+    #   Truth-source: manuscript/ave-kb/vol3/claim-quality.md:204 (clm-395gps);
+    #   manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/
+    #     ave-merger-ringdown-eigenvalue.md § GRANT RULING B1
+    #     (solidity 0.55, disclosed-phenomenological).
 
     # Domain-specific: compute Kerr frame-dragging at r_Ω
     if abs(a_star) > 1e-10:
