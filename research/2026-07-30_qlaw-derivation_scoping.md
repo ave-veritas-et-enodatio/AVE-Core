@@ -165,7 +165,8 @@ constitutively-forced". Second-method confirmation, same file `:407`: "`ν_vac =
 which is **itself GR-IMPORTED**". The ringdown-systematics lane already applied this rider:
 "every non-pure-ratio ORG-2 number that rides `ν_vac` — `(1+ν_vac)=9/7`, the `54/77` floor, the
 `0.3673` cold eigenvalue — inherits a **GR-imported value**"
-(`research/2026-07-20_ringdown-systematics_derivation.md:19`).
+(`research/2026-07-20_ringdown-systematics_derivation.md:18` — the `CLASS
+(consistency-vs-emergence)` header bullet; `:19` is the adjacent `CLAIM-GRADE` bullet).
 
 ### §1.5 (e) The Q = ℓ cold-anchor re-scope
 
@@ -211,8 +212,10 @@ convention — and $c_1 \ne 1$ is a candidate ≈8% home for the tension (see §
 **★ FINDING F4 — an OPEN upstream fork the Q-law inherits.** The linear-$\ell$ mode form
 $\omega_R = \ell c/r_{eff}$ is **asserted-not-derived**; the spherical-membrane alternative
 $\omega \propto \sqrt{\ell(\ell+1)}$ is live and binned UNDETERMINED
-(`research/2026-07-20_ringdown-systematics_derivation.md:41-44`, quoting
-`ave-merger-ringdown-eigenvalue.md:16`). This matters for the Q-law because the **same $\ell$**
+(`research/2026-07-20_ringdown-systematics_derivation.md:214` — the §5 flag-don't-fix entry that
+states the fork and quotes `ave-merger-ringdown-eigenvalue.md:16`; its formal bin is the
+`ORG-1 exact point-value` row at the same doc's `:198`, **UNDETERMINED**). This matters for the Q-law
+because the **same $\ell$**
 appears in the numerator ($\omega_R \propto \ell$) and the damping denominator ($2\ell$). If the
 mode form is $\sqrt{\ell(\ell+1)}$, the cold $Q$ is not $\ell$.
 
@@ -494,7 +497,9 @@ barrier leakage.
   corpus prediction*, so this route carries real downside risk for the corpus and must be pre-reg'd
   with that bin reachable).
 - **Discipline note:** R3 must respect the KERR-WORDING FENCE already riding this arc
-  (`research/2026-07-20_ringdown-systematics_derivation.md:14`) — GR QNMs are $(M,a)$-determined;
+  (`research/2026-07-20_ringdown-systematics_derivation.md:8` — *corrected in the repair pass from
+  `:14`, which is that doc's MODE bullet, not the fence; found by my own re-grep, not flagged in
+  review*) — GR QNMs are $(M,a)$-determined;
   R3 is an organizer for the AVE $Q$, never a replacement for the Kerr spectrum.
 
 ### §2.5 Route R4 — Op21 mode-counting re-derived in the co-rotating frame
@@ -551,7 +556,7 @@ $2\ell$ damping denominator, so no $Q$-law is well-posed until it is resolved. N
 *probably* already decided on $\omega_R$ grounds — the $\sqrt{\ell(\ell+1)}$ form would move the cold
 eigenvalue from $0.3673$ to $\approx 0.4498$ against GR's $0.3737$ (a ≈+20% error vs the standing
 −1.7%) — but that inference is **not** in the corpus and the fork is formally binned UNDETERMINED
-(`research/2026-07-20_ringdown-systematics_derivation.md:41-44`). Resolve, don't assume.
+(`research/2026-07-20_ringdown-systematics_derivation.md:198`, stated at `:214`). Resolve, don't assume.
 
 ### §2.8 Route R0 — no route closes (must stay reachable)
 
