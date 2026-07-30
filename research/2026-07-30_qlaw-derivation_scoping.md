@@ -44,7 +44,7 @@ All line receipts are against this worktree at `origin/main` = `f7cc3e52`.
 ### §1.1 (a) The EXACT standing v1 mapping and its grade
 
 Standing $\omega_R$ spin-mapping (re-selected by Ruling B1), verbatim from
-[`manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:67-68`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md):
+[`manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:67-69`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md):
 
 > "**v1 RE-SELECTED as the standing $\omega_R$ spin-mapping phenomenology.** $x_{sat,v1} = 7\,r_{ph}^+/3M$
 > (entire-cavity-compliant; $\omega_R M_g = \ell(1+\nu_{vac})/x_{sat,v1}$) is the standing Kerr $\omega_R$
@@ -56,7 +56,8 @@ $$r_{ph}^+ = \frac{2GM}{c^2}\Big(1 + \cos\big[\tfrac{2}{3}\arccos(-a_*)\big]\Big
 
 **Grade (unchanged by B1)** — verbatim `ave-merger-ringdown-eigenvalue.md:72-76`:
 "**Grade UNCHANGED: solidity 0.55, build_status "use as input only", disclosed-phenomenological**
-… v1 is the *simpler* phenomenology, single-component; it is **NOT** more first-principles-derived
+… v1 is the *simpler* phenomenology, single-component; it is **NOT** *[emphasis added — the source
+line `:74` reads "it is NOT more first-principles-derived", unbolded]* more first-principles-derived
 than v2 — both are disclosed phenomenological per clm-395gps … This is a **consistency-class**
 spinning match, NOT a zero-free-parameter benchmark; the only zero-parameter content remains the
 cold $18/49$ eigenvalue."
@@ -208,11 +209,15 @@ with a per-cycle leak fraction $1/\ell$ from the $\Gamma=-1$ TIR boundary gives 
 "(The factor-of-$2\pi$ convention divides out because the substrate's natural per-cycle quantity is
 per-radian leak in angular phase.)" The $1/\ell$ leak is sourced three ways
 (`op21-…:78-80`), e.g. `regime-eigenvalue-method.md:63` "Each wavelength subtends angle $2\pi/\ell$,
-and the curvature radiation loss per cycle **scales as** $1/\ell$". **So the $2\ell$ in the damping
-denominator IS the $Q=\ell$ mode-counting identity — it is not an independent free constant.**
+and the curvature radiation loss per cycle **scales as** $1/\ell$" *[emphasis added on "scales as" —
+unbolded in the source; the bolding is this document's, and it is the whole point of F7]*. **So the
+$2\ell$ in the damping denominator IS the $Q=\ell$ mode-counting identity — it is not an independent
+free constant.**
 
 **★ FINDING F7 — the leak fraction is a SCALING assertion, not a computed radiated power.** All three
-sources say the per-cycle loss "**scales as** $1/\ell$"; none computes a radiation resistance or a
+sources say the per-cycle loss "**scales as** $1/\ell$" *[emphasis added, as above — the sources say
+"scales as" in plain text; F7 is precisely the observation that a scaling word is doing a derivation's
+work]*; none computes a radiation resistance or a
 transmitted power through the boundary. The $\Gamma=-1$ boundary is a *perfect* reflector
 (`regime-eigenvalue-method.md:63`), so in the corpus the loss is not sourced at the boundary at all
 — it is attributed to curvature radiation from the orbiting mode. The proportionality **constant** in
@@ -584,7 +589,9 @@ mirror at $r_{sat}$ and **outside** by the light-ring potential barrier; $Q$ = r
 barrier leakage.
 
 - **Consumes:** $r_{ph}^+(a_*)$ (`ave-merger-ringdown-eigenvalue.md:110`); the two-channel instrument
-  ($\Gamma_{shear} = -1$, $\Gamma_{EM} = 0$, `electron-bh-isomorphism.md:34-42`); and the corpus's
+  ($\Gamma_{shear} = -1$, $\Gamma_{EM} = 0$, `electron-bh-isomorphism.md:34-43` — `:36` carries
+  $\Gamma_{shear} = -1$, and the two-channel row including $\Gamma_{EM} = 0$ is the "Confinement
+  Mechanism" table row at `:43`); and the corpus's
   **own already-banked echo prediction** — verbatim `manuscript/ave-kb/vol3/claim-quality.md:123`:
   "GW (transverse shear) modes therefore reflect off $r_{sat}$ — gravitational ringdown **echoes are
   predicted** (reflect $\Rightarrow$ echo; retrospective, no SHA-pinned forward prereg yet)".
