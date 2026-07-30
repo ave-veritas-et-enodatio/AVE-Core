@@ -227,24 +227,61 @@ the derivation lane should confirm rather than assume the reconciliation is comp
 
 ### §1.7 Honesty-lag flag — a stale "sub-2% / zero free parameters" premise the derivation lane would inherit
 
-**★ FINDING F6 (flag-don't-fix; auditor-lane item, NOT touched here).** The 2026-07-20 "sub-2%
-RETRACTED" banner landed on `ave-merger-ringdown-eigenvalue.md:127` but did **not** propagate to
-three other canonical sites, which still assert the retracted accuracy claim *and* call it
-zero-free-parameter:
+**★ FINDING F6 (flag-don't-fix; reconcile with the in-flight propagation lane — NOT touched here).**
+The 2026-07-20 "sub-2% RETRACTED" banner landed on `ave-merger-ringdown-eigenvalue.md:127` but did
+**not** propagate. **State as of `origin/main` = `f7cc3e52` (2026-07-30):** **six** un-bannered sites
+still assert the retracted accuracy claim, most of them also calling it zero-free-parameter.
 
-- `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/kerr-q-correction.md:37` — "this formula
-  reproduces the quality factor to **sub-2%** with zero free parameters" + the $Q_{AVE}$ vs $Q_{GR}$
-  table at `:39-45` (2.24/2.54/3.02/3.75/4.93 vs 2.25/2.54/3.01/3.81/5.23) computed against the
-  **corrupt** Kerr reference. No retraction banner anywhere in that file (`grep -n "RETRACT\|SUPERSED\|🔴"` → 0 hits).
-- `manuscript/ave-kb/common/solver-toolchain.md:116` — same sentence, "reproduces the GR quality
-  factor to **sub-2%** with zero free parameters". No banner.
-- `manuscript/ave-kb/vol2/claim-quality.md:1097` — "sub-2% accuracy across $a_* = 0.3$–$0.8$".
+| # | site (at `f7cc3e52`) | verbatim content |
+|---|---|---|
+| 1 | `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/kerr-q-correction.md:37` | "this formula reproduces the quality factor to **sub-2%** with zero free parameters" + the $Q_{AVE}$ vs $Q_{GR}$ table at `:39-45` (2.24/2.54/3.02/3.75/4.93 vs 2.25/2.54/3.01/3.81/5.23) computed against the **corrupt** Kerr reference. No retraction banner anywhere in that file (`grep -n "RETRACT\|SUPERSED\|🔴" kerr-q-correction.md` → 0 hits). |
+| 2 | `manuscript/ave-kb/common/solver-toolchain.md:116` | same sentence, "reproduces the GR quality factor to **sub-2%** with zero free parameters". No banner. |
+| 3 | `manuscript/ave-kb/vol2/claim-quality.md:1097` | "sub-2% accuracy across $a_* = 0.3$–$0.8$". |
+| 4 | `manuscript/ave-kb/common/claim-quality.md:136` | "The Kerr $Q$ correction (co-rotating frame decomposition) reproduces GR to sub-2% for $a_* \in [0.3, 0.8]$." — filed under `_Specific Claims_`. |
+| 5 | `manuscript/backmatter/05_universal_solver_toolchain.tex:101` | "this formula reproduces the GR quality factor to \textbf{sub-2\%} with zero free parameters". `grep -c "RETRACT\|SUPERSED\|🔴"` on that file → **0**. |
+| 6 | `src/ave/solvers/orbital_resonance.py:485` | code comment "`a* = 0.3–0.8: Q error < 2% vs GR (LIGO observing band)`". |
+
+**Why the count was wrong the first time — a grep-completeness false negative.** Site 6 says
+"**< 2%**", not "sub-2%"; a single-pattern `grep "sub-2"` cannot see it. Sites 4 and 5 were missed by
+scoping the grep to the KB subtree that the eigenvalue leaf lives in rather than to
+`manuscript/` + `src/`. The two-method rule that caught the first three has to include a
+**pattern**-variant second method, not only a **file**-variant one.
+
+**Companion overclaim riding the same sentence (not a "sub-2%" string, so a `sub-2` grep misses it
+entirely).** Four sites assert superradiance as first-principles-derived:
+`kerr-q-correction.md:33` ≡ `common/solver-toolchain.md:113` ≡
+`backmatter/05_universal_solver_toolchain.tex:98` — verbatim "This is the first-principles prediction
+of superradiance from pure lattice geometry" — plus `vol2/claim-quality.md:1097` ("with superradiance
+recovered from first principles at $\omega_R = m\Omega$"). Superradiance there is the
+$\omega_R = m\Omega \Rightarrow \omega_I \to 0$ root of the **same grafted Park-transform law** whose
+$Q$ this lane finds at −5.4%; "first-principles" is doing the same work "zero free parameters" was.
+Flagged in the same bin, not adjudicated here.
+
+**Partially mitigated (do not double-count as un-bannered):** `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex`
+carries the retracted figures at `:271` (which *quotes* "matches GR sub-2\% only for $a_* = 0.3$--$0.8$"
+from the `clm-395gps` caveat that `vol3/claim-quality.md:204` has since struck 🔴) and at `:387`
+(the same $a_*=0.3$–$0.8$ validation-scope restatement, plus "cold-cavity forward prediction (zero
+free parameters)" — no literal "sub-2%" string on that line). Both sit under the Ruling-B1 number-
+correction banner at `:31` and per-occurrence `#780` pointer comments at `:270` / `:289`. Mitigated
+at the section level, un-reconciled at the occurrence level — the tex file's own pointers route it to
+"the manuscript-reconciliation program".
 
 This directly contradicts the load-bearing leaf's own grade ("solidity 0.55 …
 disclosed-phenomenological … NOT a zero-free-parameter benchmark", `eigenvalue leaf:72-76`) and the
-banked −5.44% Q deviation. **Surfaced with both paths + verbatim content; not resolved here.** A
-derivation lane that reads app-F as canon would start from a false premise (that the Q-law already
-matches to sub-2% with zero parameters) and would therefore have no tension to explain.
+banked −5.44% Q deviation. A derivation lane that reads app-F or the backmatter as canon would start
+from a false premise (that the Q-law already matches to sub-2% with zero parameters) and would
+therefore have no tension to explain.
+
+**Routing — reconcile, don't re-open.** A B1-retraction propagation lane is **in flight** on branch
+`docs/b1-retraction-propagation` (local at `014d2cf5`; **not** pushed and **no** PR open as of
+2026-07-30 — verified via `git ls-remote origin refs/heads/docs/b1-retraction-propagation` → empty
+and `gh pr list --state all` → no PR on that head). This F6 list is therefore **not** new
+auditor-lane work to route; it is a **reconciliation input** to that lane: sites 1–3 are the ones
+already named in the earlier three-site version of this finding, and sites 4–6 + the four
+superradiance sites are the additions this pass verified. Whoever lands that lane should diff its
+touched-file set against this table and against a `< 2%` / `first-principles` pattern sweep, not only
+a `sub-2%` one. **State is as-of-`f7cc3e52`; re-verify at that lane's ship time** (branch state moves
+between authoring and shipping).
 
 ---
 
@@ -596,13 +633,13 @@ drifted.
 | skill / discipline | fired? | why (and where it bit) |
 |---|---|---|
 | **`ave-prereg` corpus-grep-first** | YES, first action | Grep before thinking. It bit immediately: the ringdown arc is spread over 65 KB files + ~25 research docs, and the load-bearing τ chain lives in a **research doc** (`…_v1-spin-mapping-adjudication_result.md`), not in the KB leaf. Thinking first would have missed the −5.44% table entirely. |
-| **`verify-before-cite` (two-method)** | YES, on every quoted formula/number | It bit twice. (i) `regime-eigenvalue-method.md:63` looked like a **wrong** citation under `cut -c1-200` — the quote lives in the *tail* of a long line; a naive check would have mis-flagged a correct corpus cite. (ii) It caught F6 (three unbannered "sub-2%" sites) purely because I re-grepped for retraction banners instead of assuming the 2026-07-20 banner propagated. |
+| **`verify-before-cite` (two-method)** | YES, on every quoted formula/number — **but NOT strongly enough on the absence direction** | It bit twice. (i) `regime-eigenvalue-method.md:63` looked like a **wrong** citation under `cut -c1-200` — the quote lives in the *tail* of a long line; a naive check would have mis-flagged a correct corpus cite. (ii) It opened F6 (un-bannered "sub-2%" sites) because I re-grepped for retraction banners instead of assuming the 2026-07-20 banner propagated. **Self-correction (repair pass):** my first version of F6 said **three** sites; review re-grepped and found **six** (+4 companion superradiance sites). Both misses were trigger-6 absence-direction failures: a single-pattern `grep "sub-2"` cannot see `orbital_resonance.py:485`'s "`< 2%`", and a KB-subtree-scoped grep cannot see `manuscript/backmatter/` or `src/`. The two-method rule as I applied it varied the *file* and not the *pattern* or the *scope* — see §1.7. F9 failed the same way and worse (a "returns zero hits" absence claim that was false, §1.4-F9 / §2.3). |
 | **`consistency-vs-emergence`** | YES, applied to all 6 routes | Every route rides $\nu_{vac} = 2/7$, whose **VALUE is GR-imported** via $K=2G$. Without this pass, a landed Q-law would get headlined as emergence when its absolute scale is inherited from GR's trace-reversal identity. Produced the §2.1 class ceiling and the "only $\nu_{vac}$-free ratios are emergence-capable" constraint. |
 | **`pre-test-physics-check` (trigger 8, ontology one-liner)** | YES → §3 Q1, routed to Grant | The load-bearing ontology question ("what IS the ringdown") has **three** mutually-exclusive answers implied in canon, and they route to different derivations. Asked BEFORE design per the Rule-16 strengthening — this is exactly the item that would otherwise surface after 30 commits as Mode III. |
 | **`substrate-native-check`** | PARTIAL — deliberately | No solver/observer/operator is scaffolded in this lane, so the full K4/Cosserat/Op14 walk is **deferred to the derivation lane** (it is a firing prerequisite, listed at Q1/Q3). What *was* done: the §1.0 sector/regime/phase-state header, and the sector-ownership check that flagged R1's main leak risk (transplanting $Z_0 \equiv Z_{EM}$ into a **shear**-channel problem — the category error canon already caught twice). |
 | **`phase-space-coordinate-check` (A46)** | YES, cheap pass | The whole confrontation lives in the dimensionless-eigenvalue register ($\omega M$, $Q$) that AVE and GR share — no phase-space-vs-real-space mismatch. Recorded in §1.0 COORDS rather than left implicit. |
 | **`pure-AVE-corpus`** | YES, standing | No external, non-physics context appears anywhere in this doc, its commits, its branch name, or the docket fragment. Grant's frontier signal is recorded as a **physics** rationale (the named next ringdown work banked by Ruling B1). |
-| **flag-don't-fix (durable directive)** | YES, 9 times | F1–F9 are all surfaced with both paths + verbatim content and **zero corpus files modified**. F6 in particular (a stale "zero free parameters / sub-2%" premise) is the kind of thing that is tempting to just fix — fixing it silently would have hidden a real propagation-discipline signal. |
+| **flag-don't-fix (durable directive)** | YES, 9 times | F1–F9 are all surfaced with both paths + verbatim content and **zero corpus files modified**. F6 in particular (a stale "zero free parameters / sub-2%" premise) is the kind of thing that is tempting to just fix — fixing it silently would have hidden a real propagation-discipline signal. F6's routing is now **reconcile-with-the-in-flight-lane** (`docs/b1-retraction-propagation`), not "open new auditor work" — surfacing a finding into a lane that already owns the file set is the non-duplicating form of flag-don't-fix. |
 | **Rule 11 honest-closure** | YES, structurally | Bin (b) "tension deepens" is written as a **good** outcome, bin (c) as a **result**; the Rule-11 fence in §4 names the four specific retunings that are inadmissible (mapping, $\sqrt{1+\nu_{vac}}$, $\Omega$-variant, leak constant) so they can't be reached for later. |
 | **lane discipline (Rule 15)** | YES | Scoping lane: no derivation, no solver, no claim, no `COLLABORATION_NOTES`/manuscript entry. F1–F9 are handed to the **auditor** lane to land; Q1–Q8 are handed to **Grant**. This doc mints nothing. |
 | `ave-discrimination-check` | NOT fired | Deferred: correct at derivation-fire time (does the landed law discriminate AVE from GR?). Noted rather than silently skipped — R3's echo delay is the discrimination candidate to test then. |
