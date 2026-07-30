@@ -120,7 +120,8 @@ it must *reduce* the loss rate (or raise $m\Omega$) at catalog spins.
 
 ### §1.4 (d) `r_Ω = r_ph·√(1+ν_vac)` — every site, and is it derived?
 
-**Sites** (7 canonical + 3 driver):
+**Sites** (12 canonical KB/manuscript + 3 driver — the KB-only count in the first draft of this table
+missed the `manuscript/` LaTeX mirrors and one KB mirror; extended in the repair pass):
 
 | site | form |
 |---|---|
@@ -130,12 +131,23 @@ it must *reduce* the loss rate (or raise $m\Omega$) at catalog spins.
 | `common/solver-toolchain.md:103` | $= r_{ph}\cdot\sqrt{9/7}$ (mirror of app-F) |
 | `app-f-solver-toolchain/index.md:20` | table row, $r_\Omega = r_{ph}\cdot\sqrt{9/7}$ |
 | `app-f-solver-toolchain/derived-numerology.md:39` | $\sqrt{9/7}=1.134$, "Kerr spin evaluation radius" |
+| **`common/solver-toolchain.md:433`** | **KB mirror of the numerology row**: `\| $\sqrt{9/7} = 1.134$ \| $\sqrt{1+\nu_\mathrm{vac}}$ \| Kerr spin evaluation radius \|` |
 | `vol2/claim-quality.md:1097` | register rationale |
+| **`manuscript/backmatter/05_universal_solver_toolchain.tex:89`** | **LaTeX equation** `\label{eq:r_omega}`: $r_\Omega = r_{ph}(a_*)\cdot\sqrt{1+\nu_\mathrm{vac}} = r_{ph}\cdot\sqrt{9/7}$ |
+| **`manuscript/backmatter/05_universal_solver_toolchain.tex:92`** | **the justification sentence, third instance** (see F1) |
+| **`manuscript/backmatter/05_universal_solver_toolchain.tex:533`** | **LaTeX numerology-table row**, $\sqrt{9/7} = 1.134$ "Kerr spin evaluation radius" |
+| **`manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:257`** | **LaTeX equation** carrying $\omega_I = (\omega_R - m\Omega)/(2\ell)$ **and** $r_\Omega = r_{ph}(a_*)\cdot\sqrt{1+\nu_\mathrm{vac}}$ together |
 | `research/2026-07-20_v1-spin-mapping-adjudication_rerun.py:135` | driver docstring + implementation |
 | `research/ligo-ringdown-driver-design.md:425,438` | design-doc statement of the τ model |
 
+*(Propagation note for whoever acts on F1: the factor is not a KB-local object. Any repair or
+retirement has to reach `manuscript/backmatter/` and `manuscript/vol_3_macroscopic/` LaTeX, not just
+the KB leaves — the same propagation surface F6 is about.)*
+
 **Is the factor derived? NO — it is asserted by analogy.** The entire justification in the corpus is
-one sentence, appearing twice (verbatim, `kerr-q-correction.md:26` ≡ `common/solver-toolchain.md:106`):
+one sentence, appearing **three** times (verbatim, `kerr-q-correction.md:26` ≡
+`common/solver-toolchain.md:106` ≡ `manuscript/backmatter/05_universal_solver_toolchain.tex:92` — the
+third instance was missed by the first draft's KB-only sweep):
 
 > "The same $\nu_{\mathrm{vac}} = 2/7$ that corrects the eigenfrequency ($r_{\mathrm{eff}} =
 > r_{\mathrm{sat}}/(1+\nu)$) also corrects the spin evaluation radius ($r_\Omega = r_{ph} \cdot
@@ -147,7 +159,18 @@ radius by $(1+\nu)$ (shrinks it, $\times 7/9 = 0.778$); the spin-evaluation corr
 **multiplies** by $\sqrt{1+\nu}$ (grows it, $\times\sqrt{9/7} = 1.134$). No derivation in the corpus
 produces the square root, and none explains the sign flip. The register agrees this is unproven —
 it grades exactly this object a "**disclosed phenomenological** photon-sphere shift"
-(`…_result.md:167-169`). **This is the single most likely home of the −5.4%.**
+(`…_result.md:167-169`).
+
+**★ Hardening receipt (repair pass) — a fit would not have chosen the square root either.** Write the
+factor generally as $r_\Omega = r_{ph}^+\,(1+\nu_{vac})^{p}$; the standing value is $p = 1/2$. Computed
+on the validated chain (§2.0), the $p$ that **zeroes the catalog-mean $Q$ deviation** is
+$p^\* = \mathbf{0.355}$ ($k = 1.0933$); zeroing the single $a_*=0.67$ event gives $p = 0.345$. So
+$p = 1/2$ is **neither derived nor best-fitting** — it is ≈0.15 in exponent away from the value a fit
+would pick, and it sits on the wrong side (a larger $p$ makes $Q$ *smaller*, deepening the deficit).
+That kills the last available defence of the factor, which would have been "it's phenomenological but
+it's what the data wants." It isn't. **This hardens F1 from "unproven" to "unproven *and*
+un-fitted."** *(Reported as an attribution measurement only — tuning $p$ is the retuning the §4
+Rule-11 fence forbids.)*
 
 **★ FINDING F2 — two different Ω formulas are both canonical.** `kerr-q-correction.md:29` gives
 $\Omega = 2a_*/(r_\Omega^3 + a_*^2 r_\Omega + 2a_*^2)$ (this is the *exact* equatorial Kerr ZAMO
@@ -228,6 +251,23 @@ are **not the same physics** and the three-way tension is real. A single pinned 
 reconciled first. Surfaced, not resolved." Ruling B1 discharged (1) and (3) by scoping/retraction;
 the derivation lane should confirm rather than assume the reconciliation is complete.
 
+**★ A FOURTH reading of "Q" the tension list omits (added in the repair pass): topological-integer
+vs physical-observable.** `research/2026-07-20_ringdown-systematics_derivation.md:43` flags it
+verbatim: "The topological-integer reading `Q=ℓ` (Op21 mode-count) vs the physical observable
+`Q=ω_R/2ω_I` is a **fork, flagged UNDETERMINED** (flag-don't-fix, alongside the ℓ-dispersion fork §4)
+— the τ-observable is governed by the physical `Q`, so the topological reading does not rescue the
+all-spin claim." So the "three-way" tension is really **four-way**, and the fourth axis is not about
+spin at all — it is about *which quantity the symbol denotes*: a mode count (an integer, by
+construction exactly $\ell$, no error bar possible) or a ratio of two measured frequencies (a real
+number with a GR comparator). **A Q-law must declare which $Q$ it derives, in its pre-reg header.**
+
+*This does **not** break F8.* At $a_*=0$ the two readings coincide **exactly** — the mode count gives
+$Q = \ell = 2$ and the physical ratio $\omega_R/(2\omega_I)$ evaluated on the standing model also gives
+exactly $2$ (because $\omega_I \equiv \omega_R/2\ell$ there), so the −4.77% cold deficit is the *same*
+number under either reading, and F8's decomposition is unaffected. The fork bites only on what the
+$\ell>2$ / overtone / spin structure of $Q$ is *allowed to be* — an integer ladder cannot bend, a
+frequency ratio can.
+
 ### §1.7 Honesty-lag flag — a stale "sub-2% / zero free parameters" premise the derivation lane would inherit
 
 **★ FINDING F6 (flag-don't-fix; reconcile with the in-flight propagation lane — NOT touched here).**
@@ -302,15 +342,31 @@ factor / mapping — the named next ringdown work banked by Ruling B1)".
 - At $a_* = 0$ the standing model gives $\Omega = 0$, so $\omega_I = \omega_R/(2\ell)$ and
   $Q_{AVE} = \ell = 2$ **exactly** — $r_\Omega$, $\sqrt{1+\nu_{vac}}$ and $\Omega$ have all dropped
   out of the calculation.
-- Corpus-sourced GR Schwarzschild $\ell=2$ references: $\omega_R M = 0.3737$
-  (`manuscript/ave-kb/vol3/claim-quality.md:199` — "vs GR exact $0.3737$, **error 1.7%**") and
-  $\omega_I M = 0.0890$ (`qnm-quality-factor.md:18` — "GR exact: $0.0890$, error $3.2\%$").
-  → $Q_{GR}(a_*{=}0) = 0.3737/(2\times 0.0890) = 2.0994$.
-- So the **cold** $Q$ deficit is $2/2.0994 - 1 = \mathbf{-4.74\%}$.
+- **Primary receipt — the frozen generating table the banked catalog numbers come from.**
+  `research/2026-07-20_v1-spin-mapping-adjudication_rerun.py:51`, the qnm-verified corrected-Kerr
+  reference `KERR_QNM` (hard-coded `[branch @ 7aaec46c]` per the #774 frozen prereg):
+  `    0.00: (0.37367, 0.08896),` → $Q_{GR}(a_*{=}0) = 0.37367/(2\times0.08896) =
+  \mathbf{2.10021}$, so the **cold** $Q$ deficit is $2/2.10021 - 1 = \mathbf{-4.772\%}$, which is
+  $\mathbf{87.7\%}$ of the banked −5.44%.
+  **Same-table, same-line-block cross-check closing the mixed-sources objection:** the `0.64` / `0.67`
+  / `0.74` rows of that same dict — `(0.50819, 0.08275)` / `(0.51986, 0.08185)` /
+  `(0.55163, 0.07909)` — give $Q_{Kerr} = 3.071/3.176/3.487$, exactly the $Q_{Kerr}$ column of the
+  §1.2 table. Cold anchor and catalog comparator therefore come from **one** frozen table, not two
+  sources.
+- **Prose cross-check (kept, secondary).** The KB prose quotes the same GR references to 4 s.f.:
+  $\omega_R M = 0.3737$ (`manuscript/ave-kb/vol3/claim-quality.md:199` — "vs GR exact $0.3737$,
+  **error 1.7%**") and $\omega_I M = 0.0890$ (`qnm-quality-factor.md:18` — "GR exact: $0.0890$, error
+  $3.2\%$") → $Q_{GR}(0) = 2.0994$, cold deficit $-4.74\%$. Agrees with the frozen table to 3 s.f.
+  (0.3737/0.0890 are the rounded forms of 0.37367/0.08896); the small residual is rounding, not a
+  second physics input. **The load-bearing number is the frozen-table one.**
 - The banked **catalog** deficit is $\mathbf{-5.44\%}$ mean (−5.76 / −5.53 / −5.02).
+  *(Instrument check run in the repair pass: re-executing the driver's own chain — $x_{sat,v1} =
+  7r_{ph}^+/3M$, $r_\Omega = r_{ph}^+\sqrt{9/7}$, Resultbox $\Omega$, $Q = \ell/(1-m\Omega/\omega_R)$
+  — reproduces −5.76 / −5.53 / −5.02%, mean −5.44%, row-for-row against the §1.2 table. Every
+  counterfactual quoted in this doc is computed on that validated chain.)*
 
-**The Q deficit is very nearly spin-FLAT: ≈ −4.7% at $a_*=0$, ≈ −5.4% at $a_*\approx0.68$.**
-Roughly **87% of the banked −5.44% is already present at zero spin**, where the named suspect
+**The Q deficit is very nearly spin-FLAT: −4.77% at $a_*=0$, −5.44% mean at $a_*\approx0.68$.**
+Roughly **88% of the banked −5.44% is already present at zero spin**, where the named suspect
 ($r_\Omega$, $\sqrt{1+\nu_{vac}}$, the spin mapping) is *absent from the arithmetic*. The
 spin-refined mΩ law is therefore doing its job well — it tracks the Kerr $Q$ *rise* (3.07→3.49) to
 about a percentage point — and what remains is **an offset inherited from the cold anchor itself.**
@@ -324,8 +380,32 @@ about a percentage point — and what remains is **an offset inherited from the 
 > It is offered as hypothesis **H1** for the derivation lane to test, and as a re-pointing candidate
 > for the queue item. Surfaced with receipts; not resolved here.
 
-Corollary for route selection: a route that only repairs $r_\Omega$ has a **ceiling of ≈0.7 pp** of
-the 5.44 pp. Routes must reach the cold anchor to be capable of closing the tension.
+**Corollary for route selection — an ATTRIBUTION ceiling, not a numerical one.** *(Reworded in the
+repair pass; the earlier "a route that only repairs $r_\Omega$ has a ceiling of ≈0.7 pp of the 5.44 pp"
+was wrong as arithmetic, right as physics.)*
+
+An $r_\Omega$-only change **can** zero the catalog mean. Computed on the validated chain: with
+$r_\Omega = r_{ph}^+\!\cdot k$, the value $k^\* = 1.0933$ (vs $\sqrt{9/7} = 1.1339$, i.e.
+$r_\Omega(0.67): 2.3452 \to 2.2612$, **−3.6%**) puts the catalog mean $\bar D_Q$ at exactly $0.00\%$
+(per-event −1.14 / −0.41 / +1.55%). *(Zeroing the single $a_*=0.67$ event instead of the mean gives
+$k = 1.0905$, $r_\Omega \to 2.2553$, −3.8%.)* So the ceiling is **not** ≈0.7 pp of catalog
+deviation — an $r_\Omega$ knob has full authority over the catalog mean.
+
+**What it cannot touch is the cold anchor.** At $a_*=0$, $\Omega = 0$ and $r_\Omega$ is absent from the
+arithmetic, so the same $k^\*$ leaves the cold deficit at **−4.77%, unchanged.** The result of an
+$r_\Omega$-only repair is therefore **catalog-perfect and cold-broken** — an internal inconsistency
+between the two ends of the same law, which is a **sharper falsifier** than the current uniform
+−5.4% offset, not a resolution.
+
+**★ And under the Rule-11 no-retune fence (§4), this computation is not a route at all.** Tuning $k$
+to zero the mean is exactly the retuning the fence forbids; it is reported here only as an
+**attribution measurement** (which knob has authority over which end of the law), which is what the
+F8 decomposition needs. The honest statement of the ceiling:
+
+> An $r_\Omega$-only mechanism can be made to explain **all** of the catalog deviation and **none** of
+> the −4.77% cold deficit. A cold-anchor mechanism can explain ≈88% of the catalog deviation and
+> **all** of the cold deficit. Only the second kind of route can close the tension **coherently across
+> both ends**; the first kind can only relocate it.
 
 ### §2.1 Cross-cutting class ceiling (consistency-vs-emergence, applies to EVERY route)
 
@@ -453,8 +533,33 @@ A graded resonator's $Q$ is set by **barrier transmission at a turning point**, 
   doc's own first draft wrote it); `:51` pins $A = \varepsilon_{11}$ for the **A1/radial-bulk**
   Resultbox and `:60` projects the *same* $A$ into shear, so the power looks settled, but `q-g22` does
   **not** settle the gravitational case and the reading should be confirmed, not assumed. (ii) the
-  open $S$-exponent flag at `vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:25-35`,
-  which is exactly R2's WKB integrand.
+  open $S$-exponent flag below.
+
+- **★ R2 prerequisite (ii) — the open $S$-exponent flag, which IS R2's WKB integrand.**
+  `vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:25-35` carries a dated
+  register-correction block with a live downstream flag. Verbatim from `:26-27`: "Previously stated as
+  $Z_{\text{local}} = Z_0/S^{1/4}$ — the legacy register that let the Family-E
+  $S^{1/4}=(1-A^2)^{1/8}$ exponent ride in, un-propagated." Corrected to $Z = Z_0/\sqrt{S}$
+  (`operators.md:54`; `cosserat_field_3d.py:425`) — **but** `:30-33`: "⚑ **Downstream flag
+  (auditor):** with $Z_0/\sqrt{S}$, the $c_{\text{local}} = c_0\sqrt{Z_0/Z_{\text{local}}}$ relation
+  below yields $c_0 S^{1/4}$, which still differs from the canonical shear/lensing slow-down
+  $c_{\text{shear}} = c_0\sqrt{S}$. That $c_{\text{local}}$ derivation relation is a SEPARATE
+  un-propagated item, NOT silently rewritten here."
+
+  **Why this is load-bearing for R2 specifically and not a distant hygiene item:** R2's WKB integrand
+  is built from exactly these two objects. $Z_{shear}(r)$ sets the turning point (impedance grade) and
+  $c_{shear}(r)$ sets the local wavenumber $k = \omega_{local}/c_{shear}$; the barrier integral
+  $\exp(2\int|k|\,dr)$ is therefore a direct functional of which $S$-exponent is canonical. $\sqrt{S}$
+  vs $S^{1/4}$ is a factor-of-two in the exponent of $(1-A^2)$ — it does not perturb the answer, it
+  changes the *shape* of the barrier and hence $Q$'s $\ell$- and $a_*$-dependence. **R2 cannot be
+  scored against a tolerance until the exponent is pinned**, or it will produce a number whose
+  provenance is a register ambiguity.
+
+  This is the same standing flag as the workspace-level `c_shear √S`-vs-`S^¼` item — R2 is the first
+  route that would be *quantitatively* sensitive to it, so firing R2 is also a way to force that flag
+  to resolution. Note the sign of the risk: the flag lives in a KEEP-BOTH register correction, so a
+  route that silently picks one exponent and reports a match would be validating a register ambiguity
+  as physics.
 - **What it would predict:** $Q$ from a barrier integral $\propto \exp(2\int|k|\,dr)$, which is
   intrinsically both $\ell$- and $a_*$-dependent — so it could in principle deliver the cold offset
   *and* the spin trend from one mechanism (addressing F5 at the root).
@@ -516,7 +621,9 @@ Nyquist-cell count in the co-rotating frame** and see what damping law falls out
 - **What it would predict:** either (a) exactly $(\omega_R - m\Omega)/(2\ell)$ — in which case the
   spin law is **derived rather than analogised**, a real solidity upgrade even though it moves no
   number; or (b) a different law (e.g. leak-per-*co-rotating*-radian, which changes the count when
-  the boundary itself spins), which would move the spin-dependent ≈0.7 pp.
+  the boundary itself spins), which would move the **spin-dependent** part of the deviation — the
+  ≈0.7 pp *spread* between the cold −4.77% and the catalog −5.44%, not the whole 5.44 pp (per the
+  §2.0 attribution ceiling: spin-side knobs own the spread, the cold anchor owns the offset).
 - **Class if it lands:** FORM-emergence, and **$\nu_{vac}$-free only in its COLD half.** The
   mode-counting content (Ax 1 cell size + topology → $Q_{mode,\ell} = \ell$) genuinely carries no
   elastic value: at $a_*=0$, $Q = \ell$ with no $\nu_{vac}$ anywhere. **But the co-rotating spin term
@@ -660,9 +767,12 @@ The eigenfrequency correction **shrinks** a radius by $(1+\nu)$; the spin-evalua
 **Ask Grant:** is there a physical reason a *rotational* evaluation radius would pick up
 $\sqrt{1+\nu}$ (e.g. a geometric-mean / two-way-transit reading, $\sqrt{r_{in}r_{out}}$-like) rather
 than the linear Poisson factor — or is this an unmotivated fit that should be *replaced* by a
-computed turning point (R3) rather than justified? **Do not let the answer be "it works."** Per F8
-the factor can only be worth ≈0.7 pp anyway, so the honest outcome may be "retire the factor, accept
-the number moves the wrong way."
+computed turning point (R3) rather than justified? **Do not let the answer be "it works."** Note the
+hardening receipt in F1: a *fit* would not have chosen $1/2$ — zeroing the catalog mean wants the
+exponent $\approx 0.355$, not $0.5$ — so the square root is neither derived nor fitted, which makes
+"replace it with a computed turning point" the better-motivated option. And per §2.0 the factor owns
+the catalog **spread**, not the cold offset, so the honest outcome may still be "retire the factor,
+accept that the cold −4.77% does not move."
 
 ### Q6 — the noun "the $1/\ell$ leak": is the leak-constant really 1? (F7, H1, R1)
 
@@ -687,12 +797,14 @@ surprise mid-derivation.)*
 ### Q8 — scope: is this lane allowed to touch the ratified cold anchor?
 
 Ruling B1 just pinned $Q = \ell$ as the cold $a_*=0$ anchor. F8/H1 says the tension **is** in that
-anchor (it is ≈−4.7% low against GR by the corpus's own reference values).
+anchor (it is −4.77% low against the frozen corrected-Kerr table's own $a_*=0$ row).
 
 **Ask Grant:** if a route lands a cold $Q = c_1\ell$ with $c_1 \approx 1.05$, is that (a) a permitted
-refinement of the B1-ratified anchor, (b) a flag-don't-fix routed back to you, or (c) out of scope —
-in which case the lane's ceiling is ≈0.7 pp and bin (c) is the likely outcome and we should say so
-up front. **This question determines whether the lane is worth firing at all.**
+refinement of the B1-ratified anchor, (b) a flag-don't-fix routed back to you, or (c) out of scope?
+Under (c) the lane can still reach bins (b)/(c)/(e) — a spin-side-only route can even zero the catalog
+mean (§2.0) — but it would then leave the cold anchor broken while the catalog matches, an internal
+inconsistency, so (c) makes bin (c) *or a sharper-falsifier variant of (b)* the predicted outcome and
+we should say so up front. **This question determines whether the lane is worth firing at all.**
 
 ---
 
@@ -714,7 +826,7 @@ frozen C-τ dimensionless $Q$ comparator against corrected Kerr) is inherited un
 | **(a) RESOLVED** | a route derives the mapping from substrate inputs fixed pre-comparison AND reproduces $Q$ (equivalently $\tau$) within a **tolerance stated in the frozen pre-reg** — draft proposal: $\|\bar D_Q\| < 3\%$, the same band already frozen for $\omega_R$, on the same primary catalog (a\*=0.64/0.67/0.74) **and** at the cold $a_*=0$ anchor | tension resolved; solidity re-graded on the derivation's own merits | **FORM-emergence / VALUE-consistency** per §2.1 — must NOT be headlined as emergence at value level; only a $\nu_{vac}$-free ratio could carry that |
 | **(b) DEEPENED** | a route derives a **different** value (outside the stated tolerance, either sign) from an honest substrate chain | **tension deepens — banked honestly. THIS IS A GOOD OUTCOME.** The mechanism is now named rather than unexplained; the disagreement becomes a sharper falsifier than the near-miss was | consistency-class negative with a named mechanism |
 | **(c) NO ROUTE CLOSES** | R1 returns $c_1 = 1$; R2's barrier integral lands $\gg$ tolerance from GR (or its profile turns out to be a fitted free function); R3's cold limit breaks the anchor or its echo delay is excluded; R4 reproduces the grafted law | v1 **stays** disclosed-phenomenological at solidity 0.55, `build_status "use as input only"`; −5.4% banked deeper with the F8 decomposition attached | no class change; a recorded negative |
-| **(d) SCOPE-BLOCKED** | the §3 walk returns "cold anchor is out of scope" (Q8c) | lane's reachable ceiling is ≈0.7 pp of 5.44 pp → (c) is the predicted outcome and the lane may be **declined before firing** | n/a — a scoping decision, recorded not executed |
+| **(d) SCOPE-BLOCKED** | the §3 walk returns "cold anchor is out of scope" (Q8c) | the lane's reachable ceiling becomes an **attribution** ceiling, not a numerical one (§2.0): a spin-side-only route *can* zero the catalog mean but leaves the cold −4.77% untouched, so the reachable outcomes are (c) or a **cold-broken/catalog-matching** variant of (b) — an internal inconsistency that is a sharper falsifier than the present uniform offset. The lane may be **declined before firing** on that basis | n/a — a scoping decision, recorded not executed |
 | **(e) CANON-INCONSISTENT** | a route is well-posed but two canonical inputs contradict (e.g. Q4 has no substrate answer; Q1 answer conflicts with Op21's single-channel classification) | **flag-don't-fix** — surface both file paths + verbatim content to Grant; do NOT reframe one to match the other | n/a — adjudication routed, not resolved |
 
 **Reachability audit** (per the standing design lesson that every outcome class needs a reachable bin):
