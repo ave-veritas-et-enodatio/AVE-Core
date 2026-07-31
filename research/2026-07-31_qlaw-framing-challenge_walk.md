@@ -784,10 +784,39 @@ energy leaves, $Q \to O(1)$). So:
 > order $\ell$, evaluated exactly at its own radiation cutoff.**
 
 That quantity is a **closed-form standard-EE object** — the spherical-mode wave impedance
-$Z_\ell(x) = j\eta\,h_\ell'(x)/h_\ell(x)$ and the Chu / Collin–Rothschild stored-energy integral. It is
-computable with no free parameters, in the shear channel, from $\eta = Z_{sh,\infty}$. **That is the
-missing computation upstream F7 says has never been done**, and it is what upstream R1's "computed
+$Z_\ell(x) = j\eta\,h_\ell'(x)/h_\ell(x)$ and the Chu / Collin–Rothschild stored-energy integral. **That is
+the missing computation upstream F7 says has never been done**, and it is what upstream R1's "computed
 radiation resistance" route should actually compute.
+
+> **⚠ SECTOR CAUTION — mirrored here from E10 on 2026-07-31 (repair pass, PR #814 audit F10), and it is
+> a PREREQUISITE on R7, not a footnote.**
+>
+> **$Z_\ell(x) = j\eta\,h_\ell'(x)/h_\ell(x)$ is the SPIN-1 vector-multipole impedance.** It is the
+> electric/magnetic-multipole result — the object that governs an antenna radiating a vector field.
+> **The GW observable is a SPIN-2 tensor multipole.** The two share the **same radial functions** (the
+> spherical Hankel $h_\ell$, hence the same $ka=\ell$ cutoff structure — which is why the identity
+> $k r_{eff} = \ell$ is unaffected), but they differ in **two places that both land directly on $Q$**:
+> 1. **the impedance relation** — which combination of radial function and derivative forms the wave
+>    impedance is set by the tensor rank, not by the radial equation; and
+> 2. **the stored-energy weighting** — the angular integrals that build $W_{stored}$ carry
+>    $\ell$-dependent factors that differ between vector and tensor harmonics.
+>
+> **Therefore: "derive the spin-2 spherical-mode impedance; do not import the spin-1 one" is an explicit
+> R7 prerequisite.** Every $Q$ number in this document computed from $Z_\ell$ — the F1 triple, the F9
+> ladder, both estimators — is a **spin-1 locator for the size and sign of an effect**, not a prediction
+> for a GW mode. Importing the spin-1 impedance into a spin-2 problem would be the same class of error
+> as the E10 caution (an **EM**-channel $Q$ template used on a **shear** problem, `theorem-3-1-q-factor.md`
+> at $Z_0 \equiv Z_{EM}$) — and this document would be committing it while flagging it elsewhere.
+>
+> **On "no free parameters."** The original text said the object is *"computable with no free parameters,
+> in the shear channel, from $\eta = Z_{sh,\infty}$."* **The conclusion holds but the reason given is
+> wrong:** $\eta$ **cancels out of $Q$ entirely** — $Q$ is a ratio of a reactance to a resistance, both
+> proportional to $\eta$ — which is *verified* in the F1/F9 arithmetic (every $Q$ there is computed from
+> the normalized $Z_\ell/\eta$ and never uses $Z_{sh,\infty}$). So the parameter-freedom does **not**
+> come from knowing $\eta$ in the shear channel; it comes from $Q$ being $\eta$-independent. **That is a
+> stronger result than claimed** — it means R7's cold answer does not depend on the shear-channel
+> impedance normalization at all — **and it removes $\eta = Z_{sh,\infty}$ as a justification, leaving
+> the spin-1-vs-spin-2 question as the only live sector risk.**
 
 This is an `ave-ee-first-mapping` **trigger-7 IDENTITY-COLLAPSE**: the mode-count $\ell$ and the
 electrical size $ka$ are one bench object, seen from two sides. **It is proposed as candidate route
@@ -1023,6 +1052,9 @@ candidate rows:
 
 - **Candidate row (a) — E9:** *"Op21 $1/\ell$ per-cycle leak at a curved saturation boundary" ↔ "external
   (radiation) $Q$ of the $\ell$-th spherical mode at $ka=\ell$ (Chu / Collin–Rothschild)"*.
+  **Sector prerequisite (F10, 2026-07-31): the row must be stated for the SPIN-2 tensor multipole.** The
+  standard $Z_\ell$ is spin-1; landing the row with the spin-1 impedance would bank a sector error in
+  the canonical catalog. A further reason the row is not landed.
 - **Candidate row (b) — E14:** *"frame-dragging $\Omega$ at a spinning saturation wall" ↔ "gyrotropic
   (ferrite-circulator) bias on a ring resonator"*.
 
