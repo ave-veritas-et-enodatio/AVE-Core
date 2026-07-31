@@ -52,7 +52,8 @@ reflection coefficients:
 sharpest receipt is the **T1 atom-Q adjudication** (merged **#668**,
 [`../../../research/2026-07-13_t1-atom-q-cascade-gate_RESULT.md`](../../../research/2026-07-13_t1-atom-q-cascade-gate_RESULT.md)):
 the atom's observed `~10⁷` "excited-state Q" *looked* like a distinct intermediate cascade-filter
-cutoff sitting between the electron's loaded `α⁻¹` and the black hole's `Q = ℓ`. It is not. The
+cutoff sitting between the electron's loaded `α⁻¹` and the black hole's `Q = ℓ` (cold `a* = 0`
+anchor — B1). It is not. The
 result splits it across the two fixed points seen through **different sector ports**:
 
 - the **wall channel** (longitudinal `Z_bulk` trapping walls of the graded Coulomb dress) returns
@@ -64,6 +65,13 @@ result splits it across the two fixed points seen through **different sector por
 
 The black-hole endpoint stays canon and **distinct** (`Q = ℓ`, Op21 at the at/above-rupture
 `Γ = −1` boundary — a genuine structural cutoff, the contrast that sharpens the atom's collapse).
+**[Spin-scope, Grant Ruling B1 2026-07-21 (propagated 2026-07-31; nothing struck, scope added): both
+`Q = ℓ` mentions above are the BH-ringdown fire, where flat `Q = ℓ` is the **cold `a* = 0` anchor**
+only — at catalog spins the flat reading fails at `D̄_Q = −38%` (corrected-Kerr Q rises 3.07 → 3.49)
+and the mΩ law `ω_I = (ω_R − mΩ)/(2ℓ)` carries the spin dependence. The *endpoint-vs-atom* contrast
+this section draws is unaffected: it turns on `Γ = −1` being a structural cutoff, not on the value of
+`Q`. Scope banner: [`qnm-quality-factor.md`](../vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md);
+model banner [`vol3/claim-quality.md`](../vol3/claim-quality.md) `:204`.]**
 So the "cascade filter" is the homogeneous vacuum line **relabeled** on this rung — a vocabulary
 echo, not a third fixed point. **There is no ladder; there are two fixed points read through
 ports.**
