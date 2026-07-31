@@ -16,7 +16,7 @@ The AVE framework reduces every bounded physical system --- from quark confineme
 |---|---|
 | Universal eigenvalue | $\omega \cdot r_{\mathrm{char}} = \frac{\ell\,(1 + \nu_{\mathrm{vac}})}{x_{\mathrm{sat}}}$ |
 | Schwarzschild QNM eigenvalue | $\omega_R \cdot M_g = 18/49 = 0.3673$ (error: 1.7%) |
-| Schwarzschild QNM quality factor | $Q = \ell$ (for $\ell = 2$: $\omega_I \cdot M_g = 9/98 = 0.0918$, error: 3.2%) |
+| Schwarzschild QNM quality factor | $Q = \ell$ (for $\ell = 2$: $\omega_I \cdot M_g = 9/98 = 0.0918$, error: 3.2%) — **cold $a_* = 0$ anchor only** (Ruling B1, 2026-07-21; flat $Q = \ell$ fails at $\bar D_Q = -38\%$ at catalog spins, where the m$\Omega$ row below carries the spin dependence) |
 | Kerr QNM decay rate | $\omega_I = (\omega_R - m\,\Omega)/(2\,\ell)$ with $r_\Omega = r_{ph} \cdot \sqrt{9/7}$ |
 | Protein backbone eigenfrequency | $f = 21.7$ THz from $\ell = 7$, $d_0 = 3.80$ A (error: +0.1%) |
 | Proton QNM | $E = 1508$ MeV from $\ell = 5$, $D_p = 0.841$ fm (error: $-0.8\%$ vs $N(1520)$) |

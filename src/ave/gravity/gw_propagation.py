@@ -46,7 +46,7 @@ it in the shear+bulk channels at r_sat. Canonical leaf:
 manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/
 electron-bh-isomorphism.md:34-42. Corroborated by
 bulk-impedance-at-saturation-boundary.md:51,
-lattice-extreme-bh-rationality.md:75, existing-signatures.md:36.
+lattice-extreme-bh-rationality.md:95, existing-signatures.md:36.
 
 (Walk-back 2026-06-17: the prior "Γ = 0 everywhere / no black hole
 echoes / not an impedance boundary" docstring was a CHANNEL CONFLATION —

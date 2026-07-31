@@ -10,7 +10,7 @@ CANONICAL ANCHORS (verify-before-cite; grep these in manuscript/ave-kb):
   - Kernel S(A)=sqrt(1-(A/A_yield)^2)               INVARIANT-S2 (Axiom 4)
   - Varactor  C_eff(A)=C0/S(A)                      nonlinear-vacuum-capacitance.md;
                                                      translation-circuit.md:111-112
-  - Two speeds c_EM=c0/S, c_shear=c0*sqrt(S)        INVARIANT-S2; universal_operators.py:969
+  - Two speeds c_EM=c0/S, c_shear=c0*sqrt(S)        INVARIANT-S2; universal_operators.py:994
   - ELECTRON = MAGNETIC branch mu_eff->0 => Z->0    master-equation.md:78-79 (clm-lv3uw1);
               => Gamma=-1 (short, trapped knot)      translation-circuit.md:115; photon-ee-mapping.md S2
   - alpha = 1/Q (per-cycle leak)                    theorem-3-1-q-factor.md:15,38,81
@@ -108,7 +108,7 @@ def c_em(A: np.ndarray) -> np.ndarray:
 def c_shear(A: np.ndarray) -> np.ndarray:
     """Mechanical / group / rest-mass velocity c_shear(A) = c0*sqrt(S(A)).
 
-    Canonical at universal_operators.py:969 (= c0*(1-A^2)^(1/4)). Freezes to 0 as
+    Canonical at universal_operators.py:994 (= c0*(1-A^2)^(1/4)). Freezes to 0 as
     A->1 — the clock-freeze / Schwarzschild reduction.
     """
     return C_0 * np.sqrt(saturation_kernel(A))

@@ -939,6 +939,31 @@ def universal_quality_factor(ell: int) -> float:
     making it a perfect reflector. The mode has ℓ wavelengths around
     the circumference, each releasing ~1/ℓ of energy per cycle.
 
+    SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
+    For the BH-ringdown fire this is the COLD a* = 0 anchor. ℓ is an
+    integer MODE COUNT — cavity-deformable
+    (``manuscript/ave-kb/common/vocabulary-register.md:261``, def-quant3;
+    sense (1) at :271), NOT a deformation-invariant winding.
+    THE DISCRIMINATOR IS ITS INTEGRALITY,
+    NOT ITS SENSE CLASS: an integer can only jump discretely, while
+    the physical Q = ω_R/2ω_I is an impedance ratio that moves
+    continuously with the strain profile; an integer that can only jump
+    cannot track a ratio that moves smoothly, so the equality is a
+    zero-spin coincidence, not a law — at catalog spins corrected-Kerr Q
+    rises 3.07 → 3.49 and the flat Q = ℓ = 2 reading fails at
+    D̄_Q = −38%. The spin dependence
+    belongs to the mΩ law ω_I = (ω_R − m·Ω)/(2ℓ), whose Ω → 0 limit is
+    this operator. B1 scoped the BH INSTANCE, not the Op21 mode-counting
+    identity itself.
+    Truth-source: ``manuscript/ave-kb/vol3/claim-quality.md`` clm-395gps
+    at :204.
+
+    [#808 SCOPING F7/F8 — OPEN FLAG, NOT A RULING; B1 did not adjudicate
+    this.] The ~1/ℓ leak above is a *scaling assertion* with its constant
+    set to 1 by convention, never a computed radiated power. Source
+    ``research/2026-07-30_qlaw-derivation_scoping.md`` §1.5 — surfaced,
+    unadjudicated.
+
     Args:
         ell: Angular mode number (integer >= 1).
 

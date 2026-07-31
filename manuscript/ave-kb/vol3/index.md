@@ -46,7 +46,7 @@ Macroscopic phenomena derived from the substrate LC vacuum network: gravity, gen
 | Oort Cloud Saturation Boundary | $r_{\text{sat}} \approx 7{,}400$ AU [Cosmo](./cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md) |
 | Anomalous Perihelion Advance | $\Delta\phi = 6\pi G M_\odot / (c^2 a(1-e^2))$ [Cosmo](./cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md) |
 | AVE Merger Ringdown Eigenvalue | $\omega_R M_g = 18/49 = 0.3673$ (1.7% error) [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) |
-| QNM Quality Factor | $Q = \ell$ [Cosmo](./cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) |
+| QNM Quality Factor | $Q = \ell$ (cold $a_*=0$ anchor — B1) [Cosmo](./cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) |
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md) |
 | Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} = V_\infty \cdot 2(U_\oplus/C_0) \cdot (\cos\delta_{in} - \cos\delta_{out})$; matches Anderson 2008 anchor set 2/6 within 1$\sigma$, 3/6 within 2$\sigma$; categorically distinguishes from GR Lense-Thirring ($\sim 10^{-12}$ coupling) [Cosmo](./cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
 | Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Cosmo](./cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md) | — 🔴 **DEMOTED 2026-07-19** (reactive-bulk ruling; see leaf banner)

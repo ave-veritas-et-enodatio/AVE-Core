@@ -15,7 +15,7 @@ Every AVE application follows the same five-step chain:
 2. **Locate the regime boundary** $r_{\mathrm{sat}}$ where $S_{\mathrm{grav}} = \sqrt{1 - \varepsilon_{11}^2} = 0$.
 3. **Apply the Poisson correction** $r_{\mathrm{eff}} = r_{\mathrm{sat}} / (1 + \nu_{\mathrm{vac}})$ for 3D volumetric strain.
 4. **Compute the eigenfrequency** $\omega_0 = \ell \cdot c / r_{\mathrm{eff}}$ for mode number $\ell$.
-5. **Extract the quality factor** $Q = \ell$ from the lattice phase transition.
+5. **Extract the quality factor** $Q = \ell$ from the lattice phase transition. **[Spin-scope, B1 — for the BH-ringdown fire of this step, flat $Q = \ell$ is the cold $a_* = 0$ anchor only; see Step 5 below.]**
 
 For the Schwarzschild case ($\ell = 2$), this yields the closed-form eigenvalue:
 
@@ -75,6 +75,25 @@ $$
 $$
 
 compared with the exact value $\omega_I M = 0.0890$ (error: 3.2%).
+
+> **🟩 SPIN-SCOPE — this $Q = \ell$ is the cold $a_* = 0$ anchor (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
+> $\ell$ is an integer **mode count** — cavity-deformable (def-quant3 sense (1),
+> `common/vocabulary-register.md:261` (def-quant3), sense (1) at `:271`, *"Failure mode: ionization destroys them"*), **not** a
+> deformation-invariant winding. **The discriminator is its INTEGRALITY, not its sense class:** an integer
+> cannot drift continuously with strain — it can only jump discretely — while
+> the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that moves *continuously* with the strain
+> profile. An integer that can only jump cannot track a ratio that moves smoothly: the equality is a
+> **zero-spin coincidence, not a law**, and the banked $\bar D_Q = -38\%$ at catalog spins is what that
+> looks like (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
+> m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$; flat $Q = \ell$ is its $\Omega \to 0$ limit
+> ([`kerr-q-correction.md`](kerr-q-correction.md)). *(Physical reading = orchestrator-walk provenance
+> 2026-07-31, not canon.)* Model banner: [`vol3/claim-quality.md`](../../../vol3/claim-quality.md)
+> `clm-395gps` at `:204`; scoping doc `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+>
+> **[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.]** Even the cold value is
+> convention: the $1/\ell$-per-cycle leak constant is a *scaling assertion* set to 1 by the
+> $2\pi$-divides-out convention, never a computed radiated power. The cold-$Q$ derivation is the named
+> next work. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.
 
 > → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — substrate-foundational Op21 form: $Q = \ell$ per Nyquist-cell-resolved confined mode at the substrate's $\Gamma = -1$ saturation boundary. The BH-ringdown Step 5 extraction $Q = \ell$ at the lattice phase transition is one of four canonical cross-scale fires (electron LC tank, BH ringdown, this universal substrate-Q derivation procedure, knot-mode isomorphism) of the same substrate-foundational Op21 mode-counting mechanism. Full substrate-mechanism derivation chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 → curvature-mismatch per-cycle leak fraction $1/\ell$ → $Q_{\text{mode},\ell} = \ell$) at the canonical leaf.
 

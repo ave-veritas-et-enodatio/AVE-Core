@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.15: Black Holes as Macroscopic Electron Orbitals
 
-Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The electron--black hole isomorphism establishes that both are confinement boundaries surrounded by quantised standing-wave orbitals, differing only in their interior physics: the electron preserves topology (constructive), while the black hole destroys it via lattice phase transition (destructive). Accretion disk QPOs are derived as impedance band resonances. Hawking radiation is spontaneous emission from Nyquist noise leakage at the phase boundary. The merger ringdown eigenvalue $\omega_R M_g = 18/49 = 0.3673$ (1.7% error vs GR) and quality factor $Q = \ell$ are derived from Axioms 1--4 with zero free parameters. The AVE compactness limit $2GM/(c^2 R) < 2/7 = \nu_{vac}$ is more restrictive than the Buchdahl bound.
+Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The electron--black hole isomorphism establishes that both are confinement boundaries surrounded by quantised standing-wave orbitals, differing only in their interior physics: the electron preserves topology (constructive), while the black hole destroys it via lattice phase transition (destructive). Accretion disk QPOs are derived as impedance band resonances. Hawking radiation is spontaneous emission from Nyquist noise leakage at the phase boundary. The merger ringdown eigenvalue $\omega_R M_g = 18/49 = 0.3673$ (1.7% error vs GR) and quality factor $Q = \ell$ (the latter **scoped to the cold $a_* = 0$ anchor** per Ruling B1, 2026-07-21) are derived from Axioms 1--4 with zero free parameters. The AVE compactness limit $2GM/(c^2 R) < 2/7 = \nu_{vac}$ is more restrictive than the Buchdahl bound.
 
 ## Key Results
 
@@ -21,7 +21,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | QPO Frequency from Impedance Resonance | $\nu_n = \frac{1}{2\pi}\sqrt{GM/r_n^3}$ |
 | Hawking Temperature as Impedance Noise | $T_H = \frac{\hbar c^3}{8\pi G M k_B}$ |
 | AVE Merger Ringdown Eigenvalue | $\omega_R M_g = 18/49 = 0.3673$ (GR exact: 0.3737, error 1.7%) |
-| QNM Quality Factor | $Q = \ell$; $\omega_I = \omega_R/(2\ell) = (9/98)(c/M_g)$ |
+| QNM Quality Factor | $Q = \ell$; $\omega_I = \omega_R/(2\ell) = (9/98)(c/M_g)$ — **cold $a_* = 0$ anchor only** (Ruling B1, 2026-07-21; $\bar D_Q = -38\%$ at catalog spins, where the m$\Omega$ law carries the spin dependence) |
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ |
 | GW Memory from Lattice Yield | $\Delta h_{memory} = h_{peak}(h_{peak}/h_{yield})^2$; $h_{yield} = \sqrt{\alpha}$ |
 | Kerr-Corrected Ringdown | $f_{ring}(a_*) = f_{ring}(0) \times r_{ph,Schw}/r_{ph}^+(a_*)$ |
@@ -40,8 +40,8 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | [Cross-Scale Emission](cross-scale-emission.md) | Electron/Saturn/stellar/BH emission isomorphism table |
 | [AVE Merger Ringdown Eigenvalue](ave-merger-ringdown-eigenvalue.md) | $\ell = 2$ QNM eigenvalue, Kerr correction, Kerr quality factor, LIGO comparison |
 | [First-Principles Predictions](first-principles-predictions.md) | Iron K$\alpha$ sub-peaks, jet polar impedance matching, GW memory, EHT shadow fine structure |
-| [Axiom Coverage Audit](axiom-coverage-audit.md) | Axiom 1--4 coverage table, $Q = \ell$ derivation, LIGO decay time comparison |
-| [QNM Quality Factor](qnm-quality-factor.md) | Standalone resultbox: $Q = \ell$ |
+| [Axiom Coverage Audit](axiom-coverage-audit.md) | Axiom 1--4 coverage table, $Q = \ell$ derivation (cold $a_*=0$ anchor — B1), LIGO decay time comparison |
+| [QNM Quality Factor](qnm-quality-factor.md) | Standalone resultbox: $Q = \ell$ (cold $a_*=0$ anchor — B1) |
 | [AVE Compactness Limit](ave-compactness-limit.md) | Buchdahl bound comparison, $2/7 = \nu_{vac}$, neutron star test case |
 | [AVE BH Horizon Area Theorem ($r_{\text{sat}} = 7GM/c^2$)](ave-bh-horizon-area-theorem.md) | Axiom-first derivation: $r_{\text{sat}} = 7GM/c^2 = 3.5 \cdot r_s$ (AVE Buchdahl-bound Poisson $\nu_{\text{vac}} = 2/7$ vs standard GR); area theorem $\delta A \geq 0$ direct from Axiom 4 saturation kernel + mass-energy conservation; **stronger than Hawking's 1971 theorem** (derives WHY horizon can only grow); falsifiable prediction $r_{\text{sat}} / r_s = 3.5$ for high-gravity observational tests |
 | [Interior Singularity Resolution](interior-singularity-resolution.md) | Topological halting, $\rho_{eff}$ divergence, phase-transition point resolution |
