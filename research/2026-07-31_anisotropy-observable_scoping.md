@@ -862,10 +862,28 @@ modulus is **negative** there ($K=-0.0589$), i.e. the medium would collapse unde
 pressure. At $\rho^\ast=9.7734$ the medium is mechanically stable and $\nu=2/7$, but $A=1.229$ and
 the shear branch is `10 %` direction-dependent. Plumber form: *is the vacuum one medium sitting at one
 stiffness ratio, or is the "photon operating point" a different thing from the "matter operating
-point" in a way that a real material can actually do?* Options on the table: **(a)** one medium at
+point" in a way that a real material can actually do?*
+
+⊗ **Evidence added in review, and it is not neutral between the options.** #516's own reflection
+table shows Axiom 3 does not merely *prefer* $\rho_{bond}=1$ — it **actively disfavours $\rho^\ast$**.
+[`2026-07-04_parent-condition-match-forces-balance_result.md`](2026-07-04_parent-condition-match-forces-balance_result.md):117,
+verbatim: *"\| 9.7734 \| 3.28×10⁻¹ \| **strongly reflecting** (the matter ν=2/7 point) \|"* — against
+$\Gamma_{min}=1.54\times10^{-8}$ at $\rho_{bond}=1$ (`:120`), with the minimum *"a true, sharp,
+interior minimum … reflection increases **monotonically on BOTH sides**"* (`:121`–`:122`). **The
+matter point sits at $\lvert\Gamma\rvert \approx 0.33$ — seven orders of magnitude worse on the very
+quantity Axiom 3 minimises.** This **strengthens option (b)** and correspondingly weakens (a). It is
+surfaced as an input to the walk, **not** as a pick. *(Flag-don't-fix, and the tension is worth
+naming plainly: the corpus carries $\rho^\ast$ as the matter sector's home while its own Axiom-3
+receipt grades that same point "strongly reflecting." Whether a stable static solid is simply
+**allowed** to sit far off the reflection minimum — and what pays for that reflection if it is — is
+close to the centre of what W1 is asking.)*
+
+Options on the table: **(a)** one medium at
 $\rho^\ast$ — then Axis 1 is a live falsification exposure, probably already excluded by optical
-cavities; **(b)** one medium at $\rho_{bond}=1$ — then item 21 closes negative-by-construction and
-the $K<0$ instability becomes the frontier question instead; **(c)** genuinely two operating points
+cavities, **and** the `:117` Axiom-3 receipt has to be accounted for; **(b)** one medium at
+$\rho_{bond}=1$ — then item 21 closes negative-by-construction, the $K<0$ instability becomes the
+frontier question instead, and the `:117` reflection number reads as corroboration rather than an
+anomaly; **(c)** genuinely two operating points
 (some carve makes the photon see $\rho=1$ and matter see $\rho^\ast$) — then the carve itself is
 what needs deriving, and it is a bigger and more interesting object than item 21; **(d)** the
 question is malformed because $\rho_{bond}$ is not a single global number.
@@ -1119,11 +1137,24 @@ session context. Three draft cites were wrong and were corrected before commit
 `graded-network-response.md:160`→`:161`). ★ **The same check found F-B1** — a cite-correction in the
 corpus that itself resolved against the wrong `CLAUDE.md`.
 
-**Receipt 5 — the two operating-point numbers, cross-read.** $\rho_{bond}=1$ giving $A=1.000$ is read
-BOTH from #506's table row (`:125`, Zener column `1.000`) AND from #506's prose (`:197`–`:198`, *"At
-the iso-bond point (ρ=1) all directions collapse to 0.17678 (A=1, but K<0 unstable)"*) AND
-independently from #516's minimiser landing at $\rho^\ast=0.99999999$ with $\Gamma_{min}=1.5\times10^{-8}$
-(`2026-07-04_parent-condition-match-forces-balance_result.md`:24,:119). Three sites, one number.
+**Receipt 5 — the iso-bond Zener number, TWO SITES + an INDEPENDENT DERIVATION of the operating point
+(⊗ relabelled in review: it is not "three sites, one number").** The first version counted #516's
+minimiser as a third reading of the same quantity. **It is not the same quantity**, and the honest
+count is two-plus-one:
+
+| | Source | What it actually measures |
+|---|---|---|
+| **Site 1** | #506 table row, `:125`, Zener column `1.000` | **the Zener number at $\rho_{bond}=1$** |
+| **Site 2** | #506 prose, `:197`–`:198`, *"At the iso-bond point (ρ=1) all directions collapse to 0.17678 (A=1, but K<0 unstable)"* | **the Zener number at $\rho_{bond}=1$** — same quantity, independent statement in the same shipped artefact |
+| **Independent derivation** *(not a third site)* | #516 minimiser landing at $\rho^\ast = 0.99999999$, $\Gamma_{min}=1.5\times10^{-8}$ (`2026-07-04_parent-condition-match-forces-balance_result.md`:24,:119) | **WHERE the operating point sits** — i.e. that Axiom 3 selects $\rho_{bond}=1$. It says nothing about the Zener number *at* that point. |
+
+★ **The distinction matters for how the receipt may be used.** #516 and #506 answer **different
+questions** — "which $\rho_{bond}$ does Axiom 3 pick?" versus "what is $A$ at a given $\rho_{bond}$?"
+— and stacking them as three confirmations of one number would over-count the evidence. **What the
+pair genuinely gives is stronger than a triple-check and should be stated as what it is:** an
+axiom-level derivation of the operating point, landing on the point where an independently-measured
+tensor happens to be exactly isotropic. That co-location is the interesting content (it is #516's own
+*"MATCH / BALANCE / HEAVISIDE CO-LOCATE at one point"*, `:28`–`:30`), **not** a third read of `1.000`.
 
 ---
 
