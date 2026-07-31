@@ -1072,7 +1072,17 @@ if and when the derivation validates them.**
 compliance is $C$. A vanishing $Z$ is a **free surface** — zero force, maximum motion. All numbers below
 are $S(A)$ evaluated at $A = 7M_g/r$; arithmetic on canonical inputs, IDENTITY class, not claims.*
 
-**Hop 0 — you are the node sitting exactly on the wall, $r = 7\,M_g$, $A = 1$.**
+> **⚠ Scale honesty, corrected 2026-07-31 (repair pass, PR #814 audit F11).** The steps below were
+> originally labelled **"hops"** and **"one node out"**, which reads as *one lattice cell*. **It is
+> nothing like one cell.** The smallest step in the table is $1\%$ of $r_{sat}$: for a GW150914-class
+> remnant ($r_{sat}\approx 640$ km) that is $\approx 6.4$ km, of order $\mathbf{10^{38}}$ node spacings
+> at Planck pitch. **Every "hop" below is a macroscopic sampling step, not a lattice hop**, and the
+> sit-inside-the-cell framing is a *narrative* device, not a statement about cell-scale physics. The
+> steps are relabelled **"steps"** and the $1.01$ row **"one $1\%$ step out"** throughout. *(The physics
+> in the column is unaffected — it is a continuum profile sampled at chosen radii — but the original
+> wording invited a reader to think the impedance ramp is resolved at the node scale, and it is not.)*
+
+**Step 0 — you are a node sitting exactly on the wall, $r = 7\,M_g$, $A = 1$.**
 Your four K4 bonds are at yield. The shear stiffness holding you sideways is **exactly zero**
 ($G/G_0 = S = 0$). Push you tangentially and nothing pushes back. You are a free surface: **force node,
 motion antinode.** A shear wave arriving from outside cannot get past you — not because something blocks
@@ -1084,35 +1094,41 @@ makes the ringdown die, it is not you.
 > infinitely heavy, $Z\to\infty$, a **clamped** surface: motion node, force antinode. Same $\lvert\Gamma\rvert$,
 > opposite phase, and the whole standing-wave pattern outside you shifts by a quarter wavelength.
 
-**Hop 1 — one node out, $r/r_{sat} = 1.01$.**
-$A = 0.990$, $S = 0.140$: your bond is now $14\%$ as stiff as cold vacuum and the shear speed here is
-$0.375\,c_0$. Crossing this one hop takes $2.7\times$ longer than it would in flat space. Impedance
-$Z/Z_{sh,0} = 0.375$. The wave has just gone from $Z = 0$ to $Z = 0.375$ in a single node: **the ramp is
+**Step 1 — one $1\%$ step out, $r/r_{sat} = 1.01$.**
+$A = 0.990$, $S = 0.140$: the bond here is $14\%$ as stiff as cold vacuum and the shear speed is
+$0.375\,c_0$. Crossing this step takes $2.7\times$ longer than it would in flat space. Impedance
+$Z/Z_{sh,0} = 0.375$. The wave has gone from $Z = 0$ to $Z = 0.375$ in **one $1\%$ step**: **the ramp is
 steepest right at the wall**, which is exactly where a taper reflects hardest.
 
-**Hops 2–10 — climbing the ramp.**
+**Steps 2–10 — climbing the ramp.**
 
 | $r/r_{sat}$ | $r$ [$M_g$] | $A$ | $G/G_0 = S$ | $c_{shear}/c_0 = \sqrt S$ | $Z/Z_{sh,0}$ |
 |---|---|---|---|---|---|
 | 1.00 | 7.00 | 1.000 | 0.000 | 0.000 | 0.000 |
 | 1.01 | 7.07 | 0.990 | 0.140 | 0.375 | 0.375 |
 | 1.10 | 7.70 | 0.909 | 0.417 | 0.645 | 0.645 |
-| 1.22 | 8.57 | 0.816 | 0.577 | 0.760 | 0.760 |
+| **1.2247** ★ | **8.573** | 0.816 | 0.577 | 0.760 | 0.760 |
 | 1.50 | 10.50 | 0.667 | 0.745 | 0.863 | 0.863 |
 | 2.00 | 14.00 | 0.500 | 0.866 | 0.931 | 0.931 |
 | 3.00 | 21.00 | 0.333 | 0.943 | 0.971 | 0.971 |
 | 5.00 | 35.00 | 0.200 | 0.980 | 0.990 | 0.990 |
 
-Each hop outward, the DC radial strain $\varepsilon_{11} = 7M_g/r$ relaxes, the Ax-4 kernel $S$ recovers,
-and your neighbour's bond is a little stiffer than yours. **Every hop is therefore a small impedance
-step, and every step throws a little of the wave back inward.** The ringdown's decay is the sum of what
-*doesn't* get thrown back. Note where the work happens: by $r = 2r_{sat}$ the ramp is $93\%$ done, by
+★ **Row corrected 2026-07-31 (F11).** This row was labelled $1.22$ while carrying the values of
+$r^\star/r_{sat} = 1.2247$ (the CF-9 turning point, $A^2 = 2/3$, $A = 1/\sqrt{\tfrac32} = 0.8165$,
+$S = 1/\sqrt3 = 0.5774$, $\sqrt S = 0.7599$). At a literal $r/r_{sat} = 1.22$ the values are
+$8.54 / 0.820 / 0.573 / 0.757$. **The label is now the turning point it always was**, quoted at
+$1.2247$ and $r = 8.573\,M_g$ so the row is self-consistent with CF-9 and with the receipts table.
+
+Each step outward, the DC radial strain $\varepsilon_{11} = 7M_g/r$ relaxes, the Ax-4 kernel $S$ recovers,
+and the next bond out is a little stiffer. **Every step is therefore a small impedance step, and every
+step throws a little of the wave back inward.** The ringdown's decay is the sum of what *doesn't* get
+thrown back. Note where the work happens: by $r = 2r_{sat}$ the ramp is $93\%$ done, by
 $5r_{sat}$ it is flat. **The entire horn is between $7$ and $\sim15\,M_g$ — about half a wavelength.**
 > ⇢ **FORK-2 (A5) bites on the whole column.** These are $\sqrt S$ numbers. Under $S^{1/4}$ every
 > $c/c_0$ and $Z/Z_0$ entry moves toward $1$ (the ramp gets *shallower*, the horn gets *gentler*, the
 > reflection *smaller*, $Q$ *lower*). The column is the $Q$ integrand; the exponent is not a footnote.
 
-**Hop ~11, $r \approx 8.6\,M_g$ — the turning point.**
+**Step ~11, $r \approx 8.6\,M_g$ — the turning point.**
 Here $\ell(\ell+1)c_{shear}^2/r^2$ peaks. Two effects race: going outward the medium gets *faster*
 (helping the wave escape) but the centrifugal $\ell(\ell+1)/r^2$ term falls (letting it escape too). The
 stationary point of their product is the substrate's own barrier crest — the object GR calls the
@@ -1121,22 +1137,22 @@ $5.6\,M_g$ behind your back inside the melt.
 > ⇢ **FORK-6 bites here.** If the echo has a second mirror, this is it — **not** the light ring. The
 > round trip is $\sim3\,M_g$ of very slow medium, not $\sim10\,M_g$ of fast medium.
 
-**Hops 12 → ∞ — out into the cold.**
-Past $\sim3r_{sat}$ every hop is like the last: $Z$ flat at $\rho_0c_0$, $c$ flat at $c_0$. This is
+**Steps 12 → ∞ — out into the cold.**
+Past $\sim3r_{sat}$ every step is like the last: $Z$ flat at $\rho_0c_0$, $c$ flat at $c_0$. This is
 Regime I, a matched line, a legal radiating port. Energy that reaches here **never comes back**. This —
 and only this — is the loss in the $Q$ ledger.
 
 **Now run one full cycle of the bell.**
 Two wavelengths wrapped around the rim; the mode's electrical size is $ka = \ell = 2$ **exactly**
-(CF-8). Per radian of phase, the fraction of stored energy that makes it out past hop ~12 is what the
+(CF-8). Per radian of phase, the fraction of stored energy that makes it out past step ~12 is what the
 corpus writes as $1/\ell$ and never computes. In the walk you can see what that number is made of:
 (i) how much reactive energy is stored in the sloshing near the rim, (ii) how much gets past the
-steepest part of the ramp at hops 1–3, (iii) how much of *that* survives the turning point at hop 11.
+steepest part of the ramp at steps 1–3, (iii) how much of *that* survives the turning point at step 11.
 **Three factors, all computable from the column above, and the corpus replaces all three with the
 word "scales as".**
 > ⇢ **FORK-1 and FORK-4 bite on "the mode".** Where is it actually sloshing? Under the *literal* reading
 > the frequency comes from a circle at $5.44\,M_g$ — a radius you would have to walk *inward* past the
-> wall to reach, through hops where shear does not exist — while the leak comes from a circle at
+> wall to reach, through radii where shear does not exist — while the leak comes from a circle at
 > $7\,M_g$, where you are standing and where the shear speed is zero.
 > **Corrected 2026-07-31 (F1):** under the *multipole* reading those are not two circles at all.
 > $5.44\,M_g$ is the $\ell=2$ mode's **cutoff radius** — a spectral marker, not a place you can stand —
@@ -1199,7 +1215,7 @@ pre-workstream skill-selection discipline.
 | **`pre-test-physics-check`** | YES | YES → the entire §4 fork menu | Every fork is asked **before** design, in plumber form, per the Rule-16 strengthening. FORK-1 is upstream Q1 sharpened by CF-1/2/3; FORK-2/3/5/6/8/9/10 are **new** and were not askable before the circuit mapping existed. |
 | **`phase-space-coordinate-check` (A46)** | YES | YES, and it caught something | Cheap pass on the eigenvalue register (matched, §0 COORDS). **But it bit on the second register**: PART 2 works in the impedance plane, and port-$Q$ ≡ pole-$Q$ only for an isolated pole. That is **CF-14**, a real pre-reg item, not a formality. |
 | **`verify-before-cite`** | YES | YES, on every quote — **two-method, and the second method changed an answer** | Battery in Appendix B. It bit twice: (i) the SYM/ASYM lines are in `manuscript/ave-kb/claim-quality.md`, **not** `common/claim-quality.md` — a first-draft path error caught by a file-variant re-check; (ii) grepping for the *engine's* view of the impedance conflict surfaced the verbatim `cosserat_field_3d.py` FLAG comment, which is a stronger receipt than any leaf. |
-| **`consistency-vs-emergence`** | YES | YES, per-number | Every number in this document is tagged inline: **IDENTITY** ($ka=\ell$; $0.41\lambda$; the hop table) or **arithmetic-consistency observation on canonical inputs** ($r^\star \approx 8.573\,M_g$). The upstream $\nu_{vac}$ class ceiling is inherited unchanged and restated in §0. **No emergence-class language appears anywhere.** |
+| **`consistency-vs-emergence`** | YES | YES, per-number | Every number in this document is tagged inline: **IDENTITY** ($ka=\ell$; $0.41\lambda$; the step table) or **arithmetic-consistency observation on canonical inputs** ($r^\star \approx 8.573\,M_g$). The upstream $\nu_{vac}$ class ceiling is inherited unchanged and restated in §0. **No emergence-class language appears anywhere.** |
 | **`pure-AVE-corpus`** | YES | YES, standing | No external, non-physics context in this document, its commits, its branch name, or the docket fragment. |
 | **flag-don't-fix** (durable directive) | YES | YES, 16 times | CF-1…CF-16 are surfaced with paths + verbatim content and **zero corpus files modified**. CF-5 is the hard case — the analysis points to an answer, and the answer is **routed for ratification, not applied**. |
 | **Rule 11 / honest closure** | YES | Structurally | CF-10 **closes** a candidate (a Scholte mode cannot ring down) rather than keeping it alive for optionality. CF-9 **kills the geometry** of an upstream route (R3) rather than re-scoping it silently — it is re-scoped explicitly and the reason is named. |
@@ -1301,7 +1317,7 @@ arithmetic-consistency class — **no engine run, no solver, no fitted parameter
 | turning point, canonical $c\propto\sqrt S$ | $A^2 = 2/3$, $r^\star = 8.573\,M_g$ | $A = 7M_g/r$, $V\propto c_{shear}^2/r^2$ |
 | turning point, Family-E $c\propto S^{1/4}$ | $A^2 = 4/5$, $r^\star = 7.826\,M_g$ | same, exponent varied |
 | $c_{shear}(r^\star)/c_0$ | $0.760$ | canonical exponent |
-| hop table $G/G_0$, $c/c_0$, $Z/Z_0$ | §3 | $S = \sqrt{1-(7M_g/r)^2}$ |
+| step table $G/G_0$, $c/c_0$, $Z/Z_0$ | §3 | $S = \sqrt{1-(7M_g/r)^2}$ |
 
 **What was NOT verified, stated so it is not mistaken for verified:** the Chu / Collin–Rothschild
 external-$Q$ value at $ka=\ell=2$ was **not computed** (that is the derivation). The vessel-state R6
