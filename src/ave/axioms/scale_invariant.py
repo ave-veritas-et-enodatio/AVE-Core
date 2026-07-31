@@ -466,11 +466,22 @@ def phase_transition_Q(ell: int) -> int:
     ===========  ======  ======  ==============================
     BH QNM       2       2       Fundamental GW ringdown (a* = 0 only)
     BH QNM       3       3       ℓ=3 angular multipole (NOT an
-                                 overtone; the radial overtone
-                                 index n_r is a distinct object,
-                                 Op6 — corrected 2026-07-31)
+                                 overtone — corrected 2026-07-31)
     Electron     n       n       Atomic orbital Q
     ===========  ======  ======  ==============================
+
+    [SECTOR TAG — the overtone-analog index is ATOMIC, not gravitational.
+    #816 compact audit F1, 2026-07-31.] In the ATOMIC sector the
+    overtone-analog index is Op6's radial node count n_r = n − l − 1
+    (``…/vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md``
+    at :160; ``manuscript/ave-kb/common/operators.md`` at :189) — BOTH cites
+    are atomic-sector leaves, so n_r is NOT an object of the BH column and
+    is not named in the row above. A gravitational QNM overtone (n ≥ 1) is
+    a DAMPING-LADDER label, not a bound-state radial node count, and the
+    corpus supplies NO BH overtone spectrum at all:
+    ``research/2026-07-20_ringdown-systematics_derivation.md`` at :79 —
+    "the corpus derives ω_R ∝ ℓ and Q=ℓ only for the **fundamental** (n=0).
+    It supplies **no** overtone spectrum."
 
     Args:
         ell: Angular mode number (integer ≥ 1).
