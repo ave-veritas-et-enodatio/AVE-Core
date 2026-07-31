@@ -81,7 +81,9 @@ ever conflated them is a question for the auditor lane, not a finding this lane 
 **★ F-A1 — the corpus already contains the direction-resolved long-wave answer, and the item-21
 flag did not consult it.** Merged **#506**
 ([`research/2026-07-04_srs-elastic-tensor_result.md`](2026-07-04_srs-elastic-tensor_result.md)) ships
-a **per-direction acoustic-slope table** at §4 (`:186`–`:199`) — *"the deliverable Born-Huang table"* — computed
+a **per-direction acoustic-slope table** at §4 — the heading at `:176` reads *"Per-direction
+acoustic-slope table (**the deliverable Born-Huang table**)"*, and the section runs `:176`–`:198`
+(the $\rho^\ast$ table at `:188`–`:194`, its reading at `:196`–`:198`) — computed
 from the $k\to0$ acoustic branches of the SAME chiral srs-z3 net, cross-validated against an
 independent direct eigensolve (`:112`, verbatim: *"An **independent direct-eigensolve** of the
 small-k acoustic branches along [100] recovers the same C11=0.72786, C44=0.24876 at ρ*=9.77 —
@@ -174,7 +176,7 @@ with a direction-dependent $c_{shear}$** — see §1.5.
 
 ### §1.5 — ★ F-A3: the corpus's inter-channel speed ratios ride an ISOTROPIC average of a medium now measured cubic (FLAG, not fixed)
 
-[`port-register.md`](../manuscript/ave-kb/common/port-register.md):48–51 canonizes four channel
+[`port-register.md`](../manuscript/ave-kb/common/port-register.md):47–50 canonizes four channel
 speeds: photon $c = \sqrt{G/\rho}$; shear GW $c_{shear} = c$; bulk PORT $\sqrt2\,c$; bulk RADIATIVE
 $\sqrt{10/3}\,c \approx 1.83c$. [`research/2026-07-19_deep-space-band-map_derivation.md`](2026-07-19_deep-space-band-map_derivation.md):207
 states these are *"[derived from `K = 2G`]"*.
@@ -449,7 +451,8 @@ does the gravitational strain field split the two polarizations?**
 ### §2.1 — (a) Where canon states the SYM claim, and its derived-vs-asserted grade
 
 **The canonical leaf is [`graded-network-response.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md)
-§2** (the achromatic leaf is its SYM limit, and the leaf says so at `:157`). The load-bearing table,
+§2** (the achromatic leaf is its SYM limit, and the leaf says so at `:159`, verbatim: *"The achromatic
+leaf is the SYM limit of this graded network."*). The load-bearing table,
 `:145`–`:148`, verbatim:
 
 > | Loading | $S_\varepsilon(x),S_\mu(x)$ | $Z(x)=Z_0\sqrt{S_\mu/S_\varepsilon}$ | Index | Boundary |
@@ -701,7 +704,7 @@ a new finding.**
 | Cold lattice has **no birefringence**: the two transverse photon branches are DEGENERATE, $\max\lvert\omega_{T1}-\omega_{T2}\rvert = 1.7\times10^{-14}$, *"for every direction including the low-symmetry [110]/[210]"* | **MEASURED node-up** (#515) | [`research/2026-07-04_lorentz-on-srs_result.md`](2026-07-04_lorentz-on-srs_result.md):27–29,:127 |
 | Cold $c(k\to0)$ direction-independent, cross-direction spread extrapolated to $k=0$ = **0.0** | **MEASURED node-up** (#515) | ibid. `:24`–`:25`,`:125`–`:126` |
 | srs point group **432** is non-centrosymmetric and PERMITS $k$-linear gyrotropy (**optical activity**) that centrosymmetric diamond $m\bar3m$ forbids | **MEASURED node-up in two sectors** (#508 mechanical, #515 photon), parity-odd, diamond-null | [`chiral-mechanical-gyrotropy.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/chiral-mechanical-gyrotropy.md):54–55; [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):710,:713 |
-| Its magnitude is $\mathcal{O}(k\ell_{node})$-suppressed: $\delta_{chiral}\approx1.7\times10^{-9}\cdot(q\ell_{node})$, i.e. $1.7\times10^{-9}$ at 633 nm, $\sim$**11 OOM below** SME cavity bounds | **MEASURED; ECHO-class, explicitly NOT a near-term falsifier** | [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):716 |
+| Its magnitude is $\mathcal{O}(k\ell_{node})$-suppressed. Source form restored verbatim (`:716`): *"$\delta_{chiral}\sim\lvert B\rvert\cdot(q\ell_{node})$: $1.7\times10^{-9}$ at optical (633 nm), $1.0\times10^{-5}$ at X-ray (1 Å) … its coefficient sits $\sim$11 OOM below the $\sim10^{-19}$–$10^{-20}$ SME cavity bounds"* — i.e. $1.7\times10^{-9}$ is the **value at optical**, not the coefficient (the coefficient is $\lvert B\rvert$) | **MEASURED; ECHO-class, explicitly NOT a near-term falsifier** | [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):716 |
 
 **★ The honest carve required by the brief — "verify each symmetry claim against the corpus's actual
 EM implementation."** The answer is the same one Axis 1 reached at F-A5, and it constrains what §2.4
