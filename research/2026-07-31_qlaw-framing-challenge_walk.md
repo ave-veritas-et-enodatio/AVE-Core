@@ -75,7 +75,7 @@ asked.
 |---|---|---|---|
 | **A1** | The resonator is the wall rim at $r_{sat}$ (the "bell") | **OPEN-FORK** — four candidate resonators, canon has explored one; and the standing chain uses **two different radii** for the same mode **without declaring which reading it intends** (cutoff radius vs physical wall — one mode described twice, or two places) | CF-1, CF-2, CF-3, CF-9, CF-10 |
 | **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED** at linear order (A1 = DC bias, T2 = AC signal; any A1 product lands at $2\omega$ or DC, not $\omega$). **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | CF-12 |
-| **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork**: the radial-overtone index $n$ has **no AVE object at all** | CF-8, and §2.6 probe E15 |
+| **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork** — *corrected 2026-07-31 (F1 repair pass, audit F2)*: AVE **does** own a radial-overtone object ($n_r$, Op6); what is true is narrower — **the BH-ringdown chain does not instantiate it** | CF-8, and §2.6 probe E15 |
 | **A4** | The loss channel is radiation outward into the graded exterior | **FORCED by canon** that the wall is lossless and contributes **nothing** to $Q$ — which makes the corpus's own label ("$Q$ from the $\Gamma=-1$ TIR boundary") a mis-attribution. **OPEN** off the exact $A=1$ point: $\lvert\Gamma\rvert < 1$ there, and the transmitted shear has nowhere to go as shear | CF-11, CF-15 |
 | **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **RECLASSIFIED → CHANNEL fork, and CLOSED for the shear integrand at $\sqrt{S}$** by three-way over-determination in the $(L,C)$ constitutive pair. **Routed to Grant for ratification; NOT canon until he rules.** | **CF-5, CF-6**, CF-16 ★ |
 | **A6** | The $(1+\nu)$ loading factor | **CHOICE** — the FORM (a Poisson factor on a shell mode) is plausible and unexceptional; the SPECIFIC $r_{sat}/(1+\nu)$ is **asserted, not derived**, and its VALUE is GR-imported (upstream F3). Its arithmetic content is that the physical wall sits $9/7$ **above the $\ell$-th mode's own radiation cutoff** ($k r_{sat} = 2.571$) — a *result*, not a defect (CF-4 retracted 2026-07-31) | CF-1, CF-4 |
@@ -354,9 +354,42 @@ is an untested move. **Flagged, not asserted.** But it is the single most plausi
   which is a *different point on the same universal curve*. So the fork does not change the **kind** of
   object $Q$ is; it changes where on the curve you evaluate it. That is a much cheaper fork than it looked.
 - **Whispering-gallery vs radial overtones — a GAP, not a fork.** GR's QNM spectrum is a ladder in the
-  overtone index $n$; **AVE has no object for $n$ at all.** The five-step chain produces exactly one
-  resonance. A tapered line has radial resonances as a matter of course, so the absence is a modelling
-  gap, not a physical prediction of "no overtones". Recorded as failure-mode probe **E15** in §2.6.
+  overtone index $n$. ~~**AVE has no object for $n$ at all.**~~
+  🔴 **CORRECTED 2026-07-31 (repair pass, PR #814 audit F2) — the original sentence was FALSE.**
+  **AVE owns a radial-overtone object and has for a long time: $n_r$, and Op6 owns it.** Receipts,
+  verified two-method (Appendix B rows 21–24):
+  - [`vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md:160`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md)
+    verbatim: *"where $n_r = n - l - 1$ is the number of radial nodes (Step 1(h)). **This phase-matching
+    condition IS Op6**: the eigenvalue $E$ is the value for which the total phase equals $n_r \pi$."*
+    The condition itself is $\int_0^{R_a} k_{in}\,dr + \int_{R_a}^{r_{max}} k_{out}\,dr + \phi_\Gamma = n_r\pi$
+    — **a radial phase integral with an explicit reflection phase $\phi_\Gamma$ at the inner boundary.**
+  - [`vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:226`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md)
+    verbatim table row: *"| Radial | Phase per bounce between turning points | $n_r$ | Radial quantum number |"*.
+  - [`common/operators.md:189`](../manuscript/ave-kb/common/operators.md) verbatim:
+    *"Op6 (eigenvalue target → radial nodes $n_r$), Op10 ($c=3$ invariant → angular nodes $l$)"* —
+    **the angular/radial split is explicitly operator-owned in canon.**
+
+  **The narrow true statement, which is what this finding now asserts:** *the BH-ringdown chain does not
+  instantiate $n_r$.* The five-step chain produces exactly one resonance and never writes a radial phase
+  integral. Canon already **knows** this and scopes the claim accordingly —
+  [`vol3/claim-quality.md:205`](../manuscript/ave-kb/vol3/claim-quality.md) verbatim:
+  *"'$Q = \ell$' is the lattice-derived form; for higher modes ($\ell > 2$) this disagrees with GR
+  overtone structure — **the claim is the fundamental mode, not the full QNM spectrum**."*
+  So this is a **chain-coverage gap, not a corpus-vocabulary gap**, and it is a *smaller* finding than
+  originally written — but it is now a **sharper** one, because the object that would close it already
+  exists and has a canonical phase-matching form to apply. Recorded as probe **E15** in §2.6.
+
+  > **⚠ Routed, NOT repaired here — a corpus error this repair pass found while verifying the above.**
+  > Two canonical leaves cross-wire the **angular** index with the **overtone** index. Verbatim, identical
+  > row in both: *"| First excitation | Cinquefoil $c = 5$ (proton) | $\ell = 3$ **(1st GW overtone)** |"* —
+  > [`vol2/appendices/app-f-solver-toolchain/knot-mode-isomorphism.md:22`](../manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/knot-mode-isomorphism.md)
+  > and [`common/solver-toolchain.md:440`](../manuscript/ave-kb/common/solver-toolchain.md).
+  > **$\ell = 3$ is the octupole — a different *angular* multipole, not an overtone of $\ell = 2$.** The
+  > GW overtone index is $n$ (radial), and $\ell$ and $n$ are independent quantum numbers. The row's own
+  > ladder line two rows above (*"$\ell = 2, 3, 4, 5, \ldots$"*) is fine; only the "(1st GW overtone)"
+  > gloss is wrong. **Flag-don't-fix: not repaired in this lane** (it is a Vol-2 appendix + common-toolchain
+  > leaf, outside this branch's two-file scope). **Routed to the auditor lane with both paths and the
+  > verbatim row.**
 
 ---
 
@@ -700,7 +733,7 @@ the means-test PASS that licenses the rest of the mapping.
 | **E12** | $\rho_{eff} = \rho_0/S^3$ (topological halting) | would be a **series $L$ diverging at the wall** $\Rightarrow Z\to\infty \Rightarrow$ **open** termination | infalling-matter inertia | `interior-singularity-resolution.md:19` | ⚠ **CONFLICTS with E1/E5.** Failure-mode probe / CF-7 |
 | **E13** | the predicted echo | **multiple reflection between E5 and the partially-reflecting taper E6** | — | `vol3/claim-quality.md:123` | clean; delay $= 2\int_{r_{sat}}^{r^\star} dr/c_{shear}$ (CF-9) |
 | **E14** | spin $a_*$ / frame dragging $\Omega$ | **a non-reciprocal (gyrotropic) bias on the ring — a ferrite-circulator loading**, splitting CW from CCW | Cosserat micro-rotation bias | `frame-dragging-impedance-convolution.md:15`; the Park/FOC reading at `kerr-q-correction.md:49-61` | ⚠ **PARTIAL** — the corpus models it as a **frequency offset** $\omega\to\omega-m\Omega$ (a rotating-frame Doppler), which is **not the same EE object** as a circulator's nonreciprocal mode split. Both are legitimate EE devices; they make different $Q$ predictions. **FLAG** |
-| **E15** | radial overtone index $n$ | **higher-order radial resonances of the tapered line** (they exist automatically) | — | — | ⚠ **NO CORPUS OBJECT AT ALL.** Failure-mode probe / gap |
+| **E15** | radial overtone index $n$ | **higher-order radial resonances of the tapered line** (they exist automatically) | **Op6 radial phase-matching**, $\int k\,dr + \phi_\Gamma = n_r\pi$ | `radial-eigenvalue-solver.md:160`; `de-broglie-standing-wave.md:226`; `operators.md:189` | **CORRECTED 2026-07-31 (F2).** The earlier "NO CORPUS OBJECT AT ALL" is **false** — canon owns $n_r$ via Op6. The true gap is narrower: **the BH-ringdown chain does not instantiate it** (and `vol3/claim-quality.md:205` already scopes the claim to the fundamental mode). Probe / chain-coverage gap |
 
 > ⚑ **Dual-convention note (stated so it cannot silently flip a sign).** The `translation-circuit.md` §4
 > rows map the **EM** channel (translational DOF → capacitor, micro-rotational DOF → inductor). The
@@ -803,7 +836,7 @@ repair pass (P1 was withdrawn; it is retained in the table so the count is audit
 | ~~**P1**~~ | ~~**E11** — $(1+\nu_{vac})$ as $VF = 1.286 > 1$~~ | 🔴 **WITHDRAWN 2026-07-31 (F1).** Original: *"passive lines cannot exceed $1/\sqrt{LC}$; the factor is not a line property"* — a uniform-TEM statement misapplied to a multipole's azimuthal phase velocity. **E11 maps cleanly** as $r_{sat}/r_{eff}$ | not a mapping failure; the open item is **FORK-4** (is the cutoff-to-wall ratio derived or coincidental?) |
 | **P2** | **E12** — $\rho_{eff} = \rho_0/S^3$ | it is a *matter* inertia, not a line inertia; if it were the line's, the termination flips short→open | canon must say which $\rho$ enters $Z_{shear}=\rho c_{shear}$ (CF-7 / FORK-3) |
 | **P3** | **E14** — spin as Doppler-offset vs circulator-bias | a rotating-frame frequency shift and a gyrotropic nonreciprocity are different devices with different loaded-$Q$ structure | decide whether $\Omega$ is a kinematic frame rate or a material bias (upstream Q4, now with an EE-sharp form) |
-| **P4** | **E15** — radial overtone $n$ | not a mapping failure but a **corpus gap**: the circuit *has* the object, AVE has no name for it | either derive the radial ladder or state why the AVE cavity is single-layer |
+| **P4** | **E15** — radial overtone $n$ | **CORRECTED 2026-07-31 (F2).** Not a mapping failure and **not a corpus-vocabulary gap** — the original *"AVE has no name for it"* is false; canon owns $n_r$ (Op6, `operators.md:189`). The gap is **chain coverage**: the BH-ringdown chain never writes a radial phase integral | apply Op6's own phase-matching condition to the graded shear cavity — **FORK-9**, re-posed |
 
 **Not a failure mode, recorded to prevent a false one:** $\ell$ itself. EE does not derive *which*
 integer; the spherical-mode ladder supplies the family and topology/geometry supplies the index — the
@@ -930,7 +963,7 @@ derivation lane computes.**
 | **FORK-6** | **A9/CF-9 — which echo cavity?** | *Where's the second mirror?* | (a) the graded turning point at $\approx7.8$–$8.6\,M_g$ (this doc's reading — a **short** delay through **slow** medium); (b) the light ring at $r_{ph}$ — but it is buried inside the wall (CF-9); (c) no second mirror, the taper is adiabatic and there is no echo |
 | **FORK-7** | **A2/CF-12 — vessel anisotropy** | *Is the wall a pressure vessel? Hoop bonds tight, radial bonds slack — does the rim ring in two different notes?* | (a) yes, R6 transplants to the BH wall ⇒ split rim modes + mode conversion ⇒ $Q^{-1}$ is a sum; (b) no, R6 is core-local and does not transplant; (c) untested — make it a gate in the derivation pre-reg |
 | **FORK-8** | **E14 — what kind of device is spin?** | *Is frame dragging a Doppler shift (the whole ring moving past you) or a magnetic bias on a circulator (CW and CCW seeing different media)?* | (a) Doppler / Park rotating frame — the standing $\omega\to\omega-m\Omega$; (b) gyrotropic bias — nonreciprocal, **different loaded $Q$ per sense**, a prediction the standing law does not make; (c) both, at different orders |
-| **FORK-9** | **A3/E15 — overtones** | *A horn has more than one resonance. Does this one?* | (a) derive the radial ladder (then AVE has an $n$ index and can be compared to GR's overtone spectrum); (b) state why the AVE cavity is single-layer; (c) leave as a declared gap |
+| **FORK-9** *(re-posed 2026-07-31, F2)* | **A3/E15 — overtones** | *Canon already owns the radial-overtone object — $n_r$, via Op6's phase-matching condition $\int k\,dr + \phi_\Gamma = n_r\pi$, written for the atomic cavity. **Does that condition apply to a graded shear cavity with a $\Gamma = -1$ inner wall?** A horn has more than one resonance; does this one, and does Op6 already tell us its ladder?* | (a) **yes — fire Op6 on the graded shear profile** with $\phi_\Gamma = \pi$ at the wall (or $0$, per A8's sign degeneracy) and read off the $n_r$ ladder; then AVE has a GR-comparable overtone spectrum for free; (b) no — Op6 is scoped to the Coulomb/atomic $Z$-profile and the shear cavity needs its own condition; (c) leave as a declared chain-coverage gap. **Superseded option:** the original menu's *"(a) derive the radial ladder (then AVE has an $n$ index)"* is withdrawn — **AVE already has the index** |
 | **FORK-10** | **A7/CF-14 — which $Q$ object?** | *Are we measuring how lossy the port is, or where the pole sits? For a taper those aren't the same number.* | (a) port-$Q$ ($X/R$ at the rim); (b) pole-$Q$ (complex-frequency eigenvalue of the graded problem, directly comparable to the frozen C-$\tau$ comparator); (c) compute both and report the gap as a diagnostic |
 
 **And the one scope question that gates the rest** (upstream Q8, unchanged and still unanswered): **is
@@ -1005,6 +1038,28 @@ upstream lane's own lesson that varying only the *file* is not enough.
 | 18 | `theorem-3-1-q-factor.md` ($Q_{tank}=\omega_C L_e/R$, $R = Z_0/(4\pi)$ radiation impedance) | ranged read `:30-115` | upstream scoping §2.2 cites `:40-42`, `:79-83` independently | **CONFIRMED**; sector caution recorded at E10 |
 | 19 | `qnm-quality-factor.md` (Resultbox $Q=\ell$; the B1 ruling banner) | full-file read | `grep` of the B1 banner text in `op21-…` (propagated copy, same wording) | **CONFIRMED** |
 | 20 | Currency of the upstream state (#810–#812 merged; scoping doc at its merged content) | `git log --oneline` at `origin/main` = `512e1ef4` | full read of `research/2026-07-30_qlaw-derivation_scoping.md` (928 lines) + its docket fragment | **CONFIRMED**; this document is written against `512e1ef4` |
+
+**Rows 21–28 — added by the 2026-07-31 repair pass (PR #814 audit).** Same two-method rule.
+
+| # | Cited object | Method 1 | Method 2 | Result |
+|---|---|---|---|---|
+| 21 | `radial-eigenvalue-solver.md:160` ($n_r = n-l-1$; *"This phase-matching condition IS Op6"*) | ranged read `:155-165` | `grep -rn "n_r"` across `manuscript/ave-kb/` filtered to the leaf | **CONFIRMED**; line exact — **this is the receipt that falsifies the original "no AVE object" claim (F2)** |
+| 22 | `de-broglie-standing-wave.md:226` (Radial \| $n_r$ \| Radial quantum number) | ranged read `:222-230` | same KB-wide `n_r` grep, independent path | **CONFIRMED** |
+| 23 | `operators.md:189` (*"Op6 (eigenvalue target → radial nodes $n_r$)"*) | ranged read `:186-192` | same KB-wide `n_r` grep | **CONFIRMED** |
+| 24 | `vol3/claim-quality.md:205` (*"the claim is the fundamental mode, not the full QNM spectrum"*) | ranged read `:200-210` | — | **CONFIRMED**; canon already scopes the QNM claim, which is why F2's corrected form is the narrow one |
+| 25 | `knot-mode-isomorphism.md:22` + `common/solver-toolchain.md:440` (*"$\ell = 3$ (1st GW overtone)"*) | ranged read `:18-26` / `:436-444` | independent `find`-located paths, identical row text in both leaves | **CONFIRMED — and it is a corpus ERROR** ($\ell$ is angular, $n$ is the overtone index). **Routed, not repaired** (F2) |
+| 26 | `manuscript/ave-kb/claim-quality.md:111-112` (SYM/ASYM **superluminal phase velocities**) | ranged read `:108-114` | the existing row-5 KB-wide grep | **CONFIRMED**; *"$c_{EM,sym} = c_0/S \to \infty$ (EM phase velocity rises)"* — the receipt that retracts CF-4 (F1) |
+| 27 | `interior-singularity-resolution.md:14`, `:23` (**scope** of $\rho_{eff}$: *"collapsing matter"* / *"infalling matter"*) | ranged read `:12-26` | the existing row-8 grep | **CONFIRMED**; both sites scope to matter, not to the lattice's shear inertia (F7) |
+| 28 | `k4-tlm-lensing-validation.md:22` now reads $Z_0/\sqrt S$; `:25-29` is the 2026-07-14 KEEP-BOTH correction banner | ranged read `:18-36` | `grep -n "Register correction\|Downstream flag"` | **CONFIRMED — and it makes the engine FLAG's third clause STALE** (F4) |
+
+**Numerical receipts added by the repair pass** (all re-run in this lane, stated with their estimator):
+
+| quantity | value | method |
+|---|---|---|
+| $Q_Z(\ell{=}2)$ at $ka = 2 / 2.4495 / 2.5714$ | $1.863 / 0.973 / 0.839$ | Yaghjian–Best $Q_Z = \tfrac{1}{2R}\sqrt{(xR')^2+(xX'+\lvert X\rvert)^2}$ on $Z_\ell/\eta = j\hat H_\ell'/\hat H_\ell$ |
+| exact Chu / Collin–Rothschild $Q$, same three points | $2.812 / 1.837 / 1.679$ | stored-energy integral; **validated to 4 digits** against $1/x+1/x^3$ ($\ell{=}1$) and $3/x+6/x^3+18/x^5$ ($\ell{=}2$) |
+| $Q_Z$ ladder at $ka = \ell$, $\ell = 1,2,3,4,10$ | $1.581 / 1.863 / 2.117 / 2.352 / 3.534$ | as above |
+| exact CR ladder at $ka = \ell$, $\ell = 1,2,3,4,10$ | $2.000 / 2.812 / 3.641 / 4.482 / 9.657$ | as above — **linear in $\ell$, slope $\approx0.86$** |
 
 **Numerical receipts** (all computed inline, all from canonical inputs only, all IDENTITY or
 arithmetic-consistency class — **no engine run, no solver, no fitted parameter**):
