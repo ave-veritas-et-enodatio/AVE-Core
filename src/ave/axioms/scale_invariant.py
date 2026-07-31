@@ -434,10 +434,25 @@ def phase_transition_Q(ell: int) -> int:
     This is the gravitational-scale manifestation of the knot crossing
     number → mass stability relationship at the particle scale.
 
+    SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
+    The BH-QNM row below is the COLD a* = 0 anchor. ℓ is a topological
+    integer (strain-immune); Q is an impedance ratio riding the strain
+    profile, so the equality cannot survive shape-changing strain — and
+    spin is exactly that: at catalog spins corrected-Kerr Q rises
+    3.07 → 3.49 and the flat Q = ℓ = 2 reading fails at D̄_Q = −38%.
+    The spin dependence belongs to the mΩ law
+    ω_I = (ω_R − m·Ω)/(2ℓ) (``ave.solvers.orbital_resonance``), whose
+    Ω → 0 limit is this function. Even the cold value is convention:
+    the 1/ℓ-per-cycle leak above is a *scaling assertion*, never a
+    computed radiated power (#808 scoping, finding F7/F8); deriving the
+    cold Q is the named next ringdown work.
+    Truth-source: ``manuscript/ave-kb/vol3/claim-quality.md`` clm-395gps
+    at :204; scope banner ``…/ch15-black-hole-orbitals/qnm-quality-factor.md``.
+
     ===========  ======  ======  ==============================
     Domain       ℓ       Q       Physical meaning
     ===========  ======  ======  ==============================
-    BH QNM       2       2       Fundamental GW ringdown
+    BH QNM       2       2       Fundamental GW ringdown (a* = 0 only)
     Overtone 1   3       3       First GW overtone
     Electron     n       n       Atomic orbital Q
     ===========  ======  ======  ==============================

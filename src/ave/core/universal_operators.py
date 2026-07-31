@@ -939,6 +939,19 @@ def universal_quality_factor(ell: int) -> float:
     making it a perfect reflector. The mode has ℓ wavelengths around
     the circumference, each releasing ~1/ℓ of energy per cycle.
 
+    SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
+    For the BH-ringdown fire this is the COLD a* = 0 anchor. ℓ is a
+    topological integer (strain-immune); Q is an impedance ratio riding
+    the strain profile, so the equality cannot survive shape-changing
+    strain — at catalog spins corrected-Kerr Q rises 3.07 → 3.49 and the
+    flat Q = ℓ = 2 reading fails at D̄_Q = −38%. The spin dependence
+    belongs to the mΩ law ω_I = (ω_R − m·Ω)/(2ℓ), whose Ω → 0 limit is
+    this operator. The ~1/ℓ leak above is a *scaling assertion*, never a
+    computed radiated power (#808 scoping, finding F7/F8). B1 scoped the
+    BH INSTANCE, not the Op21 mode-counting identity itself.
+    Truth-source: ``manuscript/ave-kb/vol3/claim-quality.md`` clm-395gps
+    at :204.
+
     Args:
         ell: Angular mode number (integer >= 1).
 
