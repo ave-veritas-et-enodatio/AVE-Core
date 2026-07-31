@@ -20,13 +20,31 @@ Upstream: [`research/2026-07-30_qlaw-derivation_scoping.md`](2026-07-30_qlaw-der
 - **NOT a retitle of the upstream scoping doc.** F1–F9 stand as written; this document adds CF-1…CF-16
   in a separate numbering space so the two sets never collide.
 
+> **⚑ REPAIR PASS 2026-07-31 (PR #814 compact audit, CLEAR-WITH-REPAIRS — 2 FAILs, 9 warns/infos).**
+> This document has been revised against its own audit. **Two findings were retracted outright** —
+> **CF-4** (the "$VF>1$ is impossible" objection was a framing artifact: a uniform-TEM statement applied
+> to a spherical multipole's azimuthal phase velocity) and the **"$n$ has no AVE object"** claim (false;
+> canon owns $n_r$ via Op6). **Seven more were downgraded, re-scoped, or quantified.** Every retraction
+> follows **Rule 12**: the original body is preserved verbatim under a dated supersession header and the
+> slot is **not refilled** with a new hypothesis. Retracted and downgraded material is marked 🔴 / ⚠ with
+> the audit finding-id (F1–F11) inline at each site. **Two forks were added** (FORK-11, FORK-12),
+> attributed to the audit. **Still zero corpus files modified** — the two corpus errors this pass found
+> ($\ell$-as-overtone at `knot-mode-isomorphism.md:22` and `common/solver-toolchain.md:440`; the stale
+> engine FLAG clause at `cosserat_field_3d.py:419-423`) are **routed, not repaired.**
+>
+> **⚠ One unresolved disagreement is carried, not smoothed over.** The audit's decision-relevant
+> arithmetic (AUDITOR-ARITHMETIC, spin-1 estimator) and the implementer's re-computation of the same
+> quantities **do not match numerically**, and on the $\ell$-ladder they **support opposite conclusions**
+> about whether $Q\propto\ell$ survives. Both are on the record side by side (CF-4, §1.3); **neither is
+> adopted**; the adjudication is **FORK-11 / FORK-10** and belongs to Grant and the auditor lane.
+
 ## Sections
 
 - §0 — Sector / regime / phase-state / coordinate header
 - **PART 1** — §1 Adversarial framing challenge (A1–A9, verdict table, CF-1…CF-16)
 - **PART 2** — §2 The vacuum-circuit mapping (EE-first)
 - **PART 3** — §3 The lattice walk (sit-inside-the-cell, one page)
-- §4 — The fork menu for Grant (one plumber question per OPEN fork)
+- §4 — The fork menu for Grant (one plumber question per OPEN fork; FORK-1…FORK-12)
 - Appendix A — Step-0 skill-selection plan + retro-pass
 - Appendix B — verify-before-cite battery (two-method receipts)
 
@@ -596,7 +614,10 @@ The flagged item at
 > ⚑ **Downstream flag (auditor):** with $Z_0/\sqrt{S}$, the $c_{\text{local}} = c_0\sqrt{Z_0/Z_{\text{local}}}$
 > relation below yields $c_0 S^{1/4}$, which still differs from the canonical shear/lensing slow-down
 > $c_{\text{shear}} = c_0\sqrt{S}$. That $c_{\text{local}}$ derivation relation is a SEPARATE
-> un-propagated item, NOT silently rewritten here
+> un-propagated item, NOT silently rewritten here …
+
+*[Quote truncated at `:34`; the source continues "…(it touches the still-open sign/ontology fork, map §3)."
+Full span of the flag is `:30-35`, not `:30-33` as originally cited.]*
 
 **In both fixed-$L$ branches the correct relation is $c/c_0 = Z/Z_0$ exactly** — check it:
 SHEAR gives $Z/Z_0=\sqrt S$ and $c/c_0=\sqrt S$ ✓; ASYM gives $Z/Z_0=1/\sqrt S$ and $c/c_0=1/\sqrt S$ ✓.
@@ -1217,9 +1238,9 @@ pre-workstream skill-selection discipline.
 | **`verify-before-cite`** | YES | YES, on every quote — **two-method, and the second method changed an answer** | Battery in Appendix B. It bit twice: (i) the SYM/ASYM lines are in `manuscript/ave-kb/claim-quality.md`, **not** `common/claim-quality.md` — a first-draft path error caught by a file-variant re-check; (ii) grepping for the *engine's* view of the impedance conflict surfaced the verbatim `cosserat_field_3d.py` FLAG comment, which is a stronger receipt than any leaf. |
 | **`consistency-vs-emergence`** | YES | YES, per-number | Every number in this document is tagged inline: **IDENTITY** ($ka=\ell$; $0.41\lambda$; the step table) or **arithmetic-consistency observation on canonical inputs** ($r^\star \approx 8.573\,M_g$). The upstream $\nu_{vac}$ class ceiling is inherited unchanged and restated in §0. **No emergence-class language appears anywhere.** |
 | **`pure-AVE-corpus`** | YES | YES, standing | No external, non-physics context in this document, its commits, its branch name, or the docket fragment. |
-| **flag-don't-fix** (durable directive) | YES | YES, 16 times | CF-1…CF-16 are surfaced with paths + verbatim content and **zero corpus files modified**. CF-5 is the hard case — the analysis points to an answer, and the answer is **routed for ratification, not applied**. |
+| **flag-don't-fix** (durable directive) | YES | YES, 16 times **+ 4 more in the 2026-07-31 repair pass** | CF-1…CF-16 are surfaced with paths + verbatim content and **zero corpus files modified**. CF-5 is the hard case — the analysis points to an answer, and the answer is **routed for ratification, not applied**. **Repair-pass additions, all surfaced-not-fixed:** (i) the $\ell=3$-as-overtone cross-wiring at `knot-mode-isomorphism.md:22` + `common/solver-toolchain.md:440` (F2); (ii) the stale third clause of the engine FLAG at `cosserat_field_3d.py:419-423` (F4); (iii) the CF-5↔CF-7 under-determination the document carried as two independent findings (F3); (iv) **the implementer's own re-computation disagreeing with the AUDITOR-ARITHMETIC** on both the $Q$ triple and the $\ell$-ladder — recorded side by side, neither adopted (F1/F9). |
 | **Rule 11 / honest closure** | YES | Structurally | CF-10 **closes** a candidate (a Scholte mode cannot ring down) rather than keeping it alive for optionality. CF-9 **kills the geometry** of an upstream route (R3) rather than re-scoping it silently — it is re-scoped explicitly and the reason is named. |
-| **lane discipline (Rule 15)** | YES | YES | Framing lane: no derivation, no solver, no claim, no pre-reg, no `COLLABORATION_NOTES`, no manuscript edit, no `translation-circuit.md` row. CF-1…CF-16 go to the **auditor** lane; FORK-1…FORK-10 go to **Grant**. |
+| **lane discipline (Rule 15)** | YES | YES | Framing lane: no derivation, no solver, no claim, no pre-reg, no `COLLABORATION_NOTES`, no manuscript edit, no `translation-circuit.md` row. CF-1…CF-16 go to the **auditor** lane; **FORK-1…FORK-12** go to **Grant** (FORK-11/12 added by the 2026-07-31 repair pass and attributed to the PR #814 audit). **Repair pass held the same fence:** two corpus errors found (F2's $\ell$-as-overtone rows, F4's stale engine FLAG) were **routed, not repaired** — both live outside this branch's two-file scope. |
 
 **Retro-pass — applied-set drift (three, all corpus-forced):**
 
