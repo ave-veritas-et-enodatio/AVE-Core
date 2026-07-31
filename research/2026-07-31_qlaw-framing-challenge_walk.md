@@ -438,26 +438,61 @@ yes; near the wall, no, and the corpus has never asked how near.**
 This is the single largest deliverable of the framing challenge, and it comes straight out of firing
 `ave-ee-first-mapping` rather than staying in elastic language.
 
-#### ★★★ CF-5 — go to $(L, C)$ and the register collapses into three channels with no exponent freedom left
+#### ★★★ CF-5 — go to $(L, C)$ and the register organises into channel branches; the shear branch has ONE canonical constraint, one dictionary identity, and one open DOF
+
+> **⚠ Over-count corrected 2026-07-31 (repair pass, PR #814 audit F3).** This finding originally claimed
+> *"three statements for two degrees of freedom"* and *"zero freedom left over."* **That over-counts.**
+> Honest ledger for the shear channel:
+> - **$Z_{shear} = \rho\,c_{shear}$ is an algebraic IDENTITY of the chosen mechanical dictionary**
+>   ($L\leftrightarrow\rho$, $C\leftrightarrow 1/G$), not an independent canonical constraint. It imposes
+>   **zero** constraints on $(L,C)$ — it is the *means-test PASS* that licenses the dictionary (§2.1 says
+>   exactly this), and **a means-test pass cannot also be counted as evidence of over-determination.**
+>   Counting it twice is what produced the "three statements" figure.
+> - **$C_{eff} = C_0/S$ is disowned by this document's own residual box below** — `nonlinear-vacuum-capacitance.md:14`
+>   labels it the **longitudinal-A1** bond compliance, *"NOT the transverse dielectric capacitance"*. It
+>   is not a shear-channel statement and cannot be counted as one.
+> - **What is actually left: ONE canonical constraint** — $c_{shear} = c_0\sqrt S$ (Op16,
+>   `operators.md:56`) — **plus one dictionary identity, plus one open degree of freedom: which $\rho$**
+>   (CF-7 / FORK-3). One constraint on a two-parameter family does **not** pin the pair; it pins the
+>   product $LC$ and leaves the ratio $L/C$ open. **That open ratio *is* FORK-3.**
+>
+> The claim that survives, and it is still the finding's real content, is the **branch structure**:
+> different saturation channels move different constitutive elements, and the $\sqrt S$-vs-$S^{1/4}$
+> confusion is a **channel** confusion. What does **not** survive is "no freedom left over."
 
 A transmission line has exactly **two** independent constitutive functions per unit length, $L$ and $C$.
-Everything else is an **output**: $Z = \sqrt{L/C}$, $c = 1/\sqrt{LC}$. Canon states $Z(S)$, $c(S)$, **and**
-a $Z\!\leftrightarrow\!c$ relation — three statements for two degrees of freedom. That over-determination
-*is* the standing $\sqrt S$-vs-$S^{1/4}$ flag. Resolve it by declaring $L$ and $C$ from the lattice
-primitive and letting $Z$ and $c$ both fall out. Doing that, **every canonical impedance/speed statement
-in the corpus lands in exactly one of three branches, and each branch is internally exact:**
+Everything else is an **output**: $Z = \sqrt{L/C}$, $c = 1/\sqrt{LC}$. The discipline is therefore to
+declare $L$ and $C$ from the lattice primitive and let $Z$ and $c$ both fall out. Doing that, canonical
+impedance/speed statements sort into **channel branches, each internally exact:**
 
 | branch | $L$ per length | $C$ per length | $\Rightarrow Z$ | $\Rightarrow c$ | canonical receipts |
 |---|---|---|---|---|---|
 | **SYM** — "gravity, BH interior, particle confinement" | $L_0 S$ ($\mu$ scales) | $C_0 S$ ($\varepsilon$ scales) | $Z_0$ **invariant** | $c_0/S$ | [`manuscript/ave-kb/claim-quality.md:111`](../manuscript/ave-kb/claim-quality.md) verbatim: *"both $\mu$ and $\varepsilon$ scale by $S$. Result: $Z_{sym} = Z_0$ (impedance invariant); $c_{EM,sym} = c_0/S \to \infty$"* |
 | **ASYM** — strong EM field only | $L_0$ ($\mu$ frozen) | $C_0 S$ ($\varepsilon_{eff}=\varepsilon_0 S$ rolls off) | $Z_0/\sqrt S \to \infty$ (**open**) | $c_0/\sqrt S$ | `manuscript/ave-kb/claim-quality.md:112` verbatim: *"only $\varepsilon$ scales by $S$. Result: $Z_{asym} = Z_0/\sqrt{S} \to \infty$ (medium opaque); $c_{EM,asym} = c_0/\sqrt{S} \to \infty$"*; this is **Op14's** $Z_{eff}=Z_0/\sqrt S$ ([`common/operators.md:54`](../manuscript/ave-kb/common/operators.md)) |
 | **SHEAR (T2)** — the ringdown's own channel | $L_0 \leftrightarrow \rho$ (inertia unsaturated) | $C_0/S \leftrightarrow 1/G_{shear}$ (compliance diverges as $G_{shear}=G_0S \to 0$) | $Z_{sh,0}\sqrt S \to 0$ (**short**, $\Gamma=-1$) | $c_0\sqrt S \to 0$ | [`vol3/claim-quality.md:122`](../manuscript/ave-kb/vol3/claim-quality.md) ($Z_{shear}=\rho c_{shear}\to0 \Rightarrow \Gamma_{shear}=-1$); `operators.md` Op16 ($c_{shear}=c_0\sqrt S$); `saturating-modulus-and-backreaction.md:60`; the #260 B3 banner's $Z=Z_0\sqrt S$, $\lvert\Gamma\rvert=1$ |
+| **LENSING** — *fourth branch, added 2026-07-31 (F3); it was missing and its absence is why the table read as exhaustive* | $L_0/S$ | $C_0$ (unchanged) | $Z_0/\sqrt S$ | $c_0\sqrt S$ | [`k4-tlm-lensing-validation.md:22`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md) verbatim $Z_{local}(r) = Z_0/S^{1/2}$, combined with the canonical lensing slow-down $c = c_0\sqrt S$. Solving $Z/Z_0 = \sqrt{\lambda/\gamma} = S^{-1/2}$, $c/c_0 = (\lambda\gamma)^{-1/2} = S^{1/2}$ gives $\lambda = 1/S$, $\gamma = 1$ |
 
-Three canonical statements about the shear channel — $Z_{shear}=\rho\,c_{shear}\to0$,
-$c_{shear}=c_0\sqrt S$, and the Ax-4 compliance divergence $C_{eff}=C_0/S$
-([`nonlinear-vacuum-capacitance.md:27`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md))
-— are **simultaneously satisfied by one constitutive pair with zero freedom left over.**
-**$S^{1/4}$ appears in none of the three branches.**
+**$S^{1/4}$ appears in none of the four branches.** But note what the fourth branch does to the original
+reading: **ASYM and LENSING carry the *same* $Z = Z_0/\sqrt S$ and *different* $c$** ($c_0/\sqrt S$ vs
+$c_0\sqrt S$). So $Z(S)$ alone does **not** identify a branch, and the original claim that *"every
+statement lands in exactly three branches"* is withdrawn — the branches are not a partition of the
+statements, they are **points in a two-parameter family**.
+
+> **⚑ Canon already carries the two-parameter family explicitly.** [`common/operators.md:54`](../manuscript/ave-kb/common/operators.md),
+> Op14, verbatim: *"Asymmetric Meissner case: $Z_{eff} = Z_0\cdot\sqrt{S_\mu/S_\varepsilon}$ … different
+> observable when $S_\mu \neq S_\varepsilon$."* **That is a two-parameter constitutive family $(S_\mu, S_\varepsilon)$
+> with $Z = Z_0\sqrt{S_\mu/S_\varepsilon}$ and $c = c_0/\sqrt{S_\mu S_\varepsilon}$** — i.e. exactly the
+> $(L,C)$ pair, in canon's own notation, with SYM ($S_\mu = S_\varepsilon = S$) and ASYM ($S_\mu = 1$)
+> as two of its points. **The $(L,C)$ move of this finding is therefore not a new degree of freedom this
+> document introduces; it is a re-notation of one canon already owns.** That makes the finding weaker as
+> a discovery and stronger as a receipt.
+
+> **⚑ Unacknowledged tension with CF-7, now stated (F3).** The SHEAR row above assumes $\rho$ is
+> unsaturated ($L = L_0$). **CF-7 / FORK-3(b) takes the other branch** — $\rho_{eff} = \rho_0/S^3$ — and
+> that branch gives $Z_{shear} = \rho_0 S^{-3}\cdot c_0\sqrt S = Z_{sh,0}S^{-5/2}\to\infty$ **with the
+> same $c = c_0\sqrt S$**. So FORK-3(b) is *not* excluded by the constraint $c_{shear} = c_0\sqrt S$; it
+> satisfies it. **The one canonical constraint pins $LC$; FORK-3 is the free $L/C$ ratio.** CF-5 and CF-7
+> were written as if independent; they are the two halves of one under-determination.
 
 > **⚑ Honest residual on the SHEAR row (do not paper over).** `nonlinear-vacuum-capacitance.md:14`
 > explicitly labels the diverging $C_0/S$ the *"**longitudinal-A1 bond compliance** ($1/k_a$, the
@@ -491,18 +526,38 @@ $L = L_0\lambda$, $C = C_0\gamma$ gives
 
 $$\lambda = S^{-3/4}, \qquad \gamma = S^{1/4}$$
 
-i.e. an **inductance that rises** as $S^{-3/4}$ and a **capacitance that falls** as $S^{1/4}$ — quarter-
-and three-quarter powers that appear nowhere in canon, and a capacitance moving in the **opposite
-direction from the canonical Ax-4 varactor** ($C_{eff}=C_0/S$, rising). **The $S^{1/4}$ exponent has no
-constitutive home.**
+i.e. an **inductance that rises** as $S^{-3/4}$ and a **capacitance that falls** as $S^{1/4}$ —
+**quarter- and three-quarter powers that appear nowhere in canon.** *(Leg 1 — this is the finding's real
+deliverable and it stands unchanged: the $S^{1/4}$ speed relation demands a constitutive pair with
+fractional powers canon never writes.)*
+
+> **⚑ Leg 2 hedged 2026-07-31 (F3).** The original text continued: *"…and a capacitance moving in the
+> **opposite direction from the canonical Ax-4 varactor** ($C_{eff}=C_0/S$, rising)."* **That comparison
+> is weaker than it reads**, because $C_{eff} = C_0/S$ is the compliance this document's own residual box
+> **disowns for this channel** — `nonlinear-vacuum-capacitance.md:14` calls it the *"longitudinal-A1 bond
+> compliance … NOT the transverse dielectric capacitance"*. A transverse-channel $\gamma$ falling while
+> the **longitudinal-A1** compliance rises is not a contradiction; they are different elements. Retained
+> as a **directional observation, not an argument.** Leg 1 does not depend on it.
 
 **Flag-don't-fix, and stated as such.** Both readings are on the record with paths and verbatim text;
 neither is reframed and **no corpus file is modified**. Routed to Grant/auditor.
 
-**A5 verdict.** For the **shear** integrand this document's analysis says the exponent is **pinned at
-$\sqrt S$** by three-way over-determination, and $S^{1/4}$ is an EM/ASYM-branch artifact carried in on
-an inconsistent relation. **That is a proposal for ratification, NOT a ruling and NOT canon.** Until
-Grant rules, the derivation lane should carry $\sqrt S$ as primary **and record the $S^{1/4}$
+> **⚑ Correction banner that belongs with the quote above (added 2026-07-31, F4).** The flag quoted at
+> `:30-35` sits **underneath** a 2026-07-14 KEEP-BOTH register correction at
+> [`k4-tlm-lensing-validation.md:25-29`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md),
+> verbatim: *"**Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH).** Previously
+> stated as $Z_{local} = Z_0/S^{1/4}$ — the legacy register that let the Family-E $S^{1/4}=(1-A^2)^{1/8}$
+> exponent ride in, un-propagated. Corrected to the canonical Op14 register $Z = Z_0/\sqrt{S}$
+> (`operators.md:54`; `cosserat_field_3d.py:425`, `Z_eff = 1/\sqrt{S}`). Prior form preserved here for
+> provenance."* **So `:22` already reads $Z_0/\sqrt S$** — the leaf is *not* carrying the $S^{1/4}$
+> impedance any more; only the downstream $c_{local}$ relation is. Quoting the flag without this banner
+> made the leaf look more broken than it is.
+
+**A5 verdict.** For the **shear** integrand, the canonical exponent is $\sqrt S$ (Op16) — and, per the
+F3/F5 corrections above, **it was never open in canon**; see the A5 row note in §1.0. What this document
+adds is CF-6 leg 1: **$S^{1/4}$ has no constitutive home**, because the pair it demands carries
+fractional powers canon never writes. **That is a proposal for ratification, NOT a ruling and NOT canon.**
+Until Grant rules, the derivation lane should carry $\sqrt S$ as primary **and record the $S^{1/4}$
 counterfactual** (it moves the graded turning point $8.573 \to 7.826\,M_g$, CF-9) — the KEEP-BOTH
 pattern, not a silent pick.
 
