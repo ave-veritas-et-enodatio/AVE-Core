@@ -8,7 +8,7 @@ nodes (V_snap subatomic-scale per Vol 4 Ch 1:711).
 
 Manuscript-canonical framing (NOT (2,3) phase-space winding which is research-tier):
 - electron = unknot 0_1 Beltrami standing wave (Vol 1 Ch 1:18, Vol 1 Ch 3:402,
-  backmatter/05:302)
+  backmatter/05:327)
 - trapped CP photon at one full Compton wavelength on chiral K4 substrate
 - Möbius half-twist substrate-inherited from K4 chirality (distributed)
 - single intrinsic chirality globally (lattice-genesis); spin up/down is

@@ -113,7 +113,34 @@ $$
 At the **superradiance** threshold ($\omega_R = m\,\Omega$): $\omega_I \to 0$, $Q \to \infty$. The mode gains energy from the BH spin---no net radiation. This is the first-principles prediction of superradiance from pure lattice geometry.
 
 **Accuracy.**
-For the LIGO observing band ($a_* = 0.3$--$0.8$), this formula reproduces the GR quality factor to **sub-2%** with zero free parameters:
+~~For the LIGO observing band ($a_* = 0.3$--$0.8$), this formula reproduces the GR quality factor to **sub-2%** with zero free parameters:~~
+
+> **🔴 RETRACTED 2026-07-21 (Grant Ruling B1; original struck, preserved per Rule 12).** The "sub-2%"
+> Kerr-$Q$ match was computed against the **corrupt $\omega_R$/$\omega_I$ Kerr reference tables +
+> source-frame masses** (#774) — the same MATCH-ARTIFACT that produced the retracted $-0.45\%$/$-0.47\%$
+> LIGO ringdown figures. **Corrected picture:** the topological **flat $Q = \ell = 2$ is scoped to the
+> $a_* = 0$ cold anchor** (the $\Omega \to 0$ limit of the m$\Omega$ law); at catalog spins the flat-$Q$
+> reading **would fail at $\bar D_Q = -38\%$** (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The **spin-refined
+> m$\Omega$ law** $\omega_I = (\omega_R - m\Omega)/(2\ell)$ under the standing v1 mapping lands at
+> **$-5.44\%$** (Resultbox form) / **$-4.57\%$** (exact-equatorial-ZAMO variant) — an **OPEN near-miss
+> tension**, the named next ringdown work; **NOT** a sub-2% match and **NOT** a zero-free-parameter
+> benchmark (the only zero-parameter content is the cold $18/49$ eigenvalue). The *structure* above
+> (the m$\Omega$ law, superradiance at $\omega_R = m\Omega$) is untouched by this retraction — only the
+> accuracy claim is retracted.
+>
+> Honest grade / truth-source: [`vol3/claim-quality.md`](../vol3/claim-quality.md) `clm-395gps`
+> (the model banner, at `:204`) and
+> [`ave-merger-ringdown-eigenvalue.md` § GRANT RULING B1](../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md)
+> (solidity 0.55, `use as input only`, disclosed-phenomenological, *"NOT a zero-free-parameter
+> benchmark"*). Receipts: `research/2026-07-20_kerr-table-correction_result.md`,
+> `research/2026-07-20_v1-spin-mapping-adjudication_result.md`.
+
+> **⚠ The $Q_\mathrm{AVE}$/$Q_\mathrm{GR}$ table below was computed against the CORRUPT Kerr reference**
+> (#774) — preserved verbatim per Rule 12 as the record of the retracted claim, **not** as honest
+> numbers. The $Q_\mathrm{GR}$ column is the corrupt table, so every figure derived from it — the
+> per-row errors **and** the "$\sim\!40\%$ at $a_* = 0.99$" divergence statement below — inherits the
+> same corruption. Corrected-Kerr comparisons live in
+> `research/2026-07-20_v1-spin-mapping-adjudication_result.md`.
 
 | $a_*$ | $Q_\mathrm{AVE}$ | $Q_\mathrm{GR}$ | Error |
 |---|---|---|---|
@@ -123,7 +150,7 @@ For the LIGO observing band ($a_* = 0.3$--$0.8$), this formula reproduces the GR
 | 0.80 | 3.75 | 3.81 | $-1.5\%$ |
 | 0.90 | 4.93 | 5.23 | $-5.7\%$ |
 
-The formula diverges from GR at $a_* > 0.9$ (error grows to $\sim\!40\%$ at $a_* = 0.99$), indicating higher-order coupling is needed near the extremal Kerr limit.
+The formula diverges from GR at $a_* > 0.9$ (error grows to $\sim\!40\%$ at $a_* = 0.99$), indicating higher-order coupling is needed near the extremal Kerr limit. **[Corrupt-reference inheritance, 2026-07-21: this divergence figure is read off the corrupt-reference table above — see the ⚠ banner.]**
 
 **FOC / Park Transform Analogy.**
 This co-rotating frame decomposition is *structurally identical* to **Field-Oriented Control (FOC)** of a brushless DC motor. The Park transform decomposes stator currents into a frame co-rotating with the rotor magnetic field:

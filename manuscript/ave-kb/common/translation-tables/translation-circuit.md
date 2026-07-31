@@ -759,10 +759,10 @@ $$\alpha = Q^{-1} = \tan\delta \approx \frac{1}{137.036}, \qquad \delta = \arcta
 
 ### §10.4 — FOC: the electron is a self-commutating 3-phase machine; "½-commutation" = spinor double-cover (g=2 POSITED)
 
-Field-Oriented Control (Park d/q) is the canonical co-rotating-frame decomposition ([`05_universal_solver_toolchain.tex`](../../../backmatter/05_universal_solver_toolchain.tex):120-136; d-axis = reactive/non-radiating, q-axis = real/radiating). Applied to the electron rotor:
+Field-Oriented Control (Park d/q) is the canonical co-rotating-frame decomposition ([`05_universal_solver_toolchain.tex`](../../../backmatter/05_universal_solver_toolchain.tex):145-161; d-axis = reactive/non-radiating, q-axis = real/radiating). Applied to the electron rotor:
 
 - The **"½ phase-pair commutation" is the SPINOR DOUBLE-COVER** — the Finkelstein-Misner kink / Dirac belt trick (SU(2)→SO(3), 2:1), **NOT** a half-pole-pair machine. Canonical: [`spin-half-paradox.md`](../../vol2/appendices/app-b-paradoxes/spin-half-paradox.md):12-14 (Cosserat microrotation DOF IS the substrate-native spin origin); §4 "SU(2)→SO(3) double cover" + "$(2,3)$ Clifford-torus winding" rows.
-- The **pole-pairs are the $(2,3)$ WINDING numbers** — already canonical (toolchain :401 pole-pairs ↔ mode-$\ell$ row; §4 $(2,3)$ Clifford-torus winding row).
+- The **pole-pairs are the $(2,3)$ WINDING numbers** — already canonical (toolchain :426 pole-pairs ↔ mode-$\ell$ row; §4 $(2,3)$ Clifford-torus winding row).
 - The electron is **SELF-COMMUTATING**: the Compton-clock spinor rotation IS the de Broglie propagation drive (the rotor supplies its own commutation; no external commutator). Cross-ref the $\nu_{slew} = \alpha\,\nu_{Compton}$ Compton-clock structure ([`preferred-frame-and-emergent-lorentz.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):107).
 - **$g = 2$ is POSITED, not derived** (`ave-evidence-framing-discipline`); the anomalous part $a_e = \alpha/2\pi$ is the slip (§10.2/§10.3), but the leading $g=2$ is an input.
 

@@ -38,8 +38,8 @@ Manuscript-canonical citations grep-confirmed at freeze time per A43 v2:
 - Vol 4 Ch 1:419 (Virial split)
 - Vol 4 Ch 1:430-468 (Confinement Bubble Γ=-1)
 - Vol 4 Ch 1:711 (subatomic-scale v_yield=V_SNAP)
-- backmatter/05:148-156 (phase vs group velocity at saturation)
-- backmatter/05:281-302 (electron = unknot 0_1, NOT torus knot)
+- backmatter/05:173-181 (phase vs group velocity at saturation)
+- backmatter/05:306-327 (electron = unknot 0_1, NOT torus knot)
 - common_equations/eq_axiom_4.tex (canonical S(A) saturation kernel)
 
 Per doc 85 §10 synthesis-as-corpus footnotes: §4.2 FOC d-q time-phase reading

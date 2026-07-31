@@ -136,7 +136,7 @@ $\sqrt{1-A^2}$ at $A=\sqrt\alpha$, non-load-bearing) is documented in the 1/4-ma
 The ~100 raw sites collapse to the two registers (1/4-map §1). Consumers import/re-derive the
 tagged constants; the tag lives once at the definition site.
 - **storage-α (√α) consumers:** `genesis_lane_a_provenance.py`, `genesis_v18_coupled.py:236`,
-  `loop_gap_harness.py:602`, `loop_gap_seeds.py:{126,170}`, `orbital_resonance.py:821`,
+  `loop_gap_harness.py:602`, `loop_gap_seeds.py:{126,170}`, `orbital_resonance.py:841`,
   `vacuum_engine.py:180`, `vacuum_varactor_scatter.py`, `cosserat.py:598` ($M_C = M_\mu/\sqrt\alpha$),
   and ~40 vol1/vol4/vol9 drivers + ~15 tests asserting `V_YIELD = √α·V_SNAP` / `amp = √α`.
 - **response-α (√(2α)) consumers:** `lense_thirring.py:174` (imports `R_I`; Family-I inline-literal
