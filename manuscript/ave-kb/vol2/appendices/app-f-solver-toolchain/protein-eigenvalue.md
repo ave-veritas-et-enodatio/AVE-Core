@@ -65,6 +65,8 @@ $$
 Q = \ell = 7, \qquad \Delta f = f_0 / Q = 3.1\;\mathrm{THz} \quad (\text{measured: } {\sim}3.3\;\mathrm{THz}, \;\text{error: }{-6\%})
 $$
 
+**[Convention flag, 2026-07-31 — count-vs-loss.** This step reads $Q$ as a **loss** (linewidth $\Delta f = f_0/Q$), while $Q = \ell$ is derived as a mode **count** whose $1/\ell$-per-cycle leak fraction is a *scaling assertion* with its proportionality constant set to 1 by convention, never a computed radiated power (#808 scoping, finding F7; `research/2026-07-30_qlaw-derivation_scoping.md` §1.5). This is a **protein-domain** step: the Ruling-B1 $a_* = 0$ BH spin-scoping does **not** apply here and is not asserted.**]**
+
 ### Cross-Domain Comparison
 
 | Quantity | BH | Proton QNM | Pion | Protein |

@@ -21,7 +21,7 @@ The appendices collect cross-domain reference material: the complete interdiscip
 | Kerr QNM decay | $\omega_I = (\omega_R - m\,\Omega)/(2\,\ell)$ — superradiance at $\omega_R = m\Omega$ |
 | Pion mass | $m_\pi = \frac{45}{7}\sqrt{I_{\mathrm{baryon}}}\,m_e \approx 140.8$ MeV (error: +0.9%) |
 | Protein backbone eigenfrequency | $f = 21.7$ THz from $\ell = 7$, $\nu_{vac} = 2/7$ (error: +0.1% vs IR spectroscopy) |
-| Quality factor | $Q = \ell$ from lattice phase transition at saturation boundary |
+| Quality factor | $Q = \ell$ from lattice phase transition at saturation boundary — for the BH-ringdown fire this is the **cold $a_* = 0$ anchor only** (Ruling B1, 2026-07-21); the Kerr-QNM-decay row above carries the spin dependence |
 | Spin-1/2 resolution | Extended $0_1$ unknot on $SO(3)$ manifold generates Finkelstein-Misner kink — $SU(2)$ spinor from $SO(3)$ substrate |
 | Holographic principle | Information bandwidth bounded by 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$ via Nyquist-Shannon on substrate graph |
 | Peierls-Nabarro resolution | Saturable dielectric LC network; the electron is a co-moving self-matched envelope presenting a matched impedance ($\Gamma \to 0$, Op17) and coupling through reactively — zero-impedance phase slipstream, lossless, no Bremsstrahlung (distinct from the $\Gamma \to -1$ saturation confinement wall) |
