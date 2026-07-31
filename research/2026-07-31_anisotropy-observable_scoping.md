@@ -526,12 +526,39 @@ uniaxial-radial strain state **pull in opposite directions on the gravitational 
 nothing in the corpus maps a radial/tangential strain split onto the $(S_{axial},S_{shear})$
 bond-channel pair. **That mapping is the sharp residual the fold was asked to find, and it is W4.**
 
-**★ F-B4 — the corpus has NO photoelastic coupling anywhere, verified two ways.** `grep -rniE` and
-`git grep -niE` over `*.md` / `*.tex` / `*.py` for
-`photoelast|photo-elast|stress-optic|elasto-optic|piezo-optic|Pockels tensor` return **0 hits by both
-methods** (Appendix B receipt 3). The framework has never named, derived, measured or bounded a
-$p_{ijkl}$. **That is the honest state: the polarization-blindness of gravitational lensing is a
-standing forward statement with no coupling calculation behind it, in either direction.**
+**★ F-B4 — the corpus has NO photoelastic coupling anywhere, verified THREE ways on a WIDENED pattern
+set.** The framework has never named, derived, measured or bounded a $p_{ijkl}$. **That is the honest
+state: the polarization-blindness of gravitational lensing is a standing forward statement with no
+coupling calculation behind it, in either direction.**
+
+⊗ **Receipt widened in review (F4), and a false-negative in the original disclosed.** The first
+version's pattern set ended in the two-word token `Pockels tensor`. **Dropping the second word turns
+up four pre-existing hits** that the original silently missed — the exact grep-completeness
+false-negative shape this document warns about elsewhere. They are reported here in full, with the
+carve that makes each a non-hit:
+
+| # | Site | Verbatim fragment | Why it is NOT a $p_{ijkl}$ hit |
+|---|---|---|---|
+| 1 | [`research/2026-07-11_keying-register-walk_framing.md`](2026-07-11_keying-register-walk_framing.md):46 | *"**Kerr cells, Pockels cells**, every bench varactor: bias with a static, spatially-uniform $\mathbf E$ and the permittivity shifts"* | bench-device analogy for **electric-field** biasing of $\varepsilon$ |
+| 2 | [`research/2026-06-22_c4-symmetric-loading-reconciliation.md`](2026-06-22_c4-symmetric-loading-reconciliation.md):70 | *"the same pass for DC-vs-AC susceptibility / **Pockels-vs-Kerr** regime scoping"* | a *linear-vs-quadratic-in-$E$* regime label |
+| 3 | [`temporal-saturation-regime-classifier.md`](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md):130 | *"\| **Pockels effect** ($\chi^{(2)}$ in non-centrosymmetric) \| **Linear in $E$** \| Lossless \|"* | names $\chi^{(2)}$ explicitly — an **electric-field** susceptibility |
+| 4 | [`temporal-saturation-regime-classifier.md`](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md):370 | *"Saturable absorber / **Pockels** / EIT / slow light / optical bistability / self-focusing detailed leaves"* | a to-do list of $E$-driven nonlinear-optics leaves |
+
+★ **The carve, stated once so it is checkable: rank-3 electro-optic ≠ rank-4 photoelastic.** All four
+hits are the **electro-optic** effect — the rank-3 tensor $r_{ijk}$, $\delta(\varepsilon^{-1})_{ij} =
+r_{ijk}E_k$, an index change driven by an **electric field**, linear in $E$, and permitted only in
+**non-centrosymmetric** groups. F-B4's object is the **photoelastic** tensor $p_{ijkl}$,
+$\delta(\varepsilon^{-1})_{ij} = p_{ijkl}\epsilon_{kl}$, an index change driven by **strain**,
+permitted in **every** point group including centrosymmetric ones. **Different rank, different
+driving field, different symmetry requirement.** Gravity supplies strain, not a lab $\mathbf E$ — so
+the four electro-optic mentions carry no information about the gravitational channel. **F-B4 stands,
+and is now stated on a pattern set that would have caught them.**
+
+**Widened pattern set, three methods, all zero** (Appendix B receipt 3): the search now also covers
+`acousto-optic`, `strain-optic`, `stress-optic`, `piezo-optic`, `elasto-optic` (with and without
+hyphen) and the symbol `p_ijkl`, and adds a **third method that neither working-tree grep can
+provide** — `git log -S` over the whole `origin/main` history, which catches any such content that
+was ever written and later deleted. **Zero on all three.**
 
 **★ Related LIVE flag, already on the books — do NOT re-mint it.** The $n_{eff}$ sign/direction
 overload ($\sqrt S$ EM-transverse vs $1/\sqrt S$ gravitational) is **already a tracked open item**:
@@ -936,7 +963,7 @@ the $\rho_{bond}$ fork.
 | regime / phase-state discipline | A null where the effect cannot exist is an artifact | ✅ — §0 row 5; used in bin A2-COUPLING-BLOCKED |
 | `pre-test-physics-check` | Rule-16 strengthening: ask BEFORE design | ✅ — §3, eight questions, asked before any pre-reg exists |
 | pure-AVE-corpus rule | Every tracked file must be pure physics | ✅ — §A.3 receipt |
-| grep-completeness two-method | My `**` globs and `$…$` patterns silently false-negative | ✅ — the F-B4 absence claim is checked by two independent methods (Appendix B receipt 3) |
+| grep-completeness two-method | My `**` globs and `$…$` patterns silently false-negative | ⚠ **FIRED BUT INSUFFICIENT AS FIRST APPLIED — see the retro-pass §A.2 addendum.** The F-B4 absence claim was checked by two independent methods, but on a pattern set too narrow in BOTH: the two-word token `Pockels tensor` hid four bare-`Pockels` hits. Repaired in review to three methods on a widened set (Appendix B receipt 3), with the original false-negative disclosed rather than silently fixed. |
 
 ### A.2 — Retro-pass on applied-set drift (run before commit, per the standing discipline)
 
@@ -1005,16 +1032,32 @@ $C'$ computed this way equals the shipped `[110]` T(low) slope `0.20235` exactly
 textbook cubic identity $\rho c^2_{[110],T\perp} = C'$ — a third, independent confirmation that the
 table and the tensor are the same object.
 
-**Receipt 3 — the photoelasticity absence (F-B4), two independent methods.**
+**Receipt 3 — the photoelasticity absence (F-B4), WIDENED pattern set, THREE independent methods.**
 
-| Method | Command | Hits |
-|---|---|---|
-| filesystem walk | `grep -rniE "photoelast\|photo-elast\|stress-optic\|stress optic\|elasto-optic\|elastooptic\|piezo-optic\|Pockels tensor" . --include="*.md" --include="*.tex" --include="*.py"` | **0** |
-| git index | `git grep -niE "photoelast\|stress.optic\|elasto.optic\|piezo.optic" -- '*.md' '*.tex' '*.py'` | **0** |
+Pattern set (widened in review; additions in **bold**):
+`photoelast|photo-elast|stress-?optic|stress optic|elasto-?optic|elastooptic|piezo-?optic|`**`acousto-?optic|strain-?optic|p_{?ijkl`**`|Pockels tensor`
 
-Two methods, two zeroes. The absence claim is safe. *(This is the grep-completeness discipline
-applied deliberately: a single-pattern `grep` returning zero is exactly the false-negative shape
-that has bitten before.)*
+| # | Method | What it enumerates | Command | Hits (excluding this lane's own two files) |
+|---|---|---|---|---|
+| 1 | **filesystem walk** | every file on disk, tracked or not | `grep -rniE "<pattern set>" . --include="*.md" --include="*.tex" --include="*.py"` | **0** |
+| 2 | **git index** | tracked files as git sees them (different path/glob engine — the one that has produced my false negatives before) | `git grep -niE "<pattern set>" -- '*.md' '*.tex' '*.py'` | **0** |
+| 3 | **★ git history pickaxe** *(added in review — genuinely third: it looks at a set neither working-tree method can see)* | every commit in `origin/main` that ever **added or removed** the string, so content that was written and later deleted still registers | `git log --oneline -S"<term>" origin/main -- '*.md' '*.tex' '*.py'` for each of `photoelast`, `stress-optic`, `elasto-optic`, `piezo-optic`, `acousto-optic`, `strain-optic`, `p_ijkl` | **0 commits, every term** |
+
+**Three methods, three zeroes, on a wider pattern than the first version used.** Method 3 additionally
+establishes that no photoelastic content was ever written and retracted — the absence is not a
+walk-back residue, it is a genuine never-touched.
+
+★ **Disclosed false-negative in the ORIGINAL receipt (the reason the set was widened).** The first
+version's last token was the two-word `Pockels tensor`. **The bare word `Pockels` returns four
+pre-existing hits** (`keying-register-walk_framing.md`:46; `c4-symmetric-loading-reconciliation.md`:70;
+`temporal-saturation-regime-classifier.md`:130 and :370). All four are **rank-3 electro-optic**
+($\chi^{(2)}$ / $r_{ijk}$, index change driven by an **electric field**, non-centrosymmetric-only) and
+therefore non-hits for the **rank-4 photoelastic** $p_{ijkl}$ (index change driven by **strain**,
+allowed in every point group) — the carve is spelled out at F-B4. **The conclusion is unchanged; the
+receipt that supports it was not sound as written, and both facts are now on the record.** *(This is
+the grep-completeness discipline biting its own author: a multi-word token in a pattern list is
+exactly the silent-false-negative shape, and "two methods, two zeroes" does not protect against a
+pattern that is too narrow in BOTH methods.)*
 
 **Receipt 4 — every file:line cite in this document was re-read at ship time**, not carried from
 session context. Three draft cites were wrong and were corrected before commit
