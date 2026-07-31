@@ -28,7 +28,7 @@ birefringence? if AVE is right?"* Axis 2 scopes exactly that: **gravitational ph
 |---|---|---|
 | **Which sector?** | Translational Cauchy grade of the srs-z3 net; the **shear ($T_2$) branch** is the observed-GW channel per the Q1-revert, the **$A_1$ dilatation / P-branch** is the compression carrier | **$T_2$ transverse EM** (the probe photon) propagating **through** a graded $A_1$-dilatation + $T_2$ static strain field (the gravitational DC bias) |
 | **Does the engine carry that DOF?** | YES — the rank-4 elastic tensor $C_{ijkl}$ is measured node-up on srs-z3 by two independent merged lanes (#506 Born + long-wave slopes; #802 SUBC/KUBC homogenization) | **PARTIALLY.** The engine carries the cold photon branches node-up (#515) and carries a static strain state (#779/#796), but the corpus has **no measured photoelastic coupling tensor** $p_{ijkl}$ — see §2.4. That absence is the scoping finding, not a gap to paper over. |
-| **Cold or saturated?** | Both live. #506/#802 measure **COLD** (uncaged reference) and cold-plus-cage. The gravitational band is a **weak-DC-bias** regime ($A \ll 1$), so the cold tensor is the right leading term. | **Weak DC bias on a cold lattice.** Gravitational $A = \varepsilon_{11} = 7GM/c^2r$ is $\sim10^{-9}$ at the solar limb — deeply sub-yield. NOT the R2 varactor regime the flagship falsifier lives in. |
+| **Cold or saturated?** | Both live. #506/#802 measure **COLD** (uncaged reference) and cold-plus-cage. The gravitational band is a **weak-DC-bias** regime ($A \ll 1$), so the cold tensor is the right leading term. | **Weak DC bias on a cold lattice.** Gravitational $A = \varepsilon_{11} = 7GM/c^2r$ is $1.486\times10^{-5}$ at the **solar limb** ($A^2 = 2.21\times10^{-10}$) — deeply sub-yield. NOT the R2 varactor regime the flagship falsifier lives in. (**Amplitude discipline, §2.5a:** the Earth-surface value is $4.87\times10^{-9}$ — 3.5 OOM smaller — and the two must not be swapped.) |
 | **Coordinates (A46)** | **Real-space / spatial-Brillouin.** Both the corpus claim (direction-dependent $c(\hat q)$ against cosmically-fixed lattice axes) and the measurement (acoustic slopes vs $\hat q$) are real-space directional. No phase-space mismatch. | **Real-space / spatial-Brillouin** for the index tensor; the observable (accumulated ellipticity) is a **phase** quantity read on the polarization 2-plane. Matched. |
 | **Regime / phase-state** | Regime I (deeply linear), lossless-reactive, cold single crystal, no grains | Regime I, sub-yield, lossless-reactive; the strain is **static DC**, the probe is **AC optical** |
 
@@ -506,15 +506,21 @@ in vocabulary and antipodal in physics.
 | **Impedance** | $Z\equiv Z_0$ **invariant** ⇒ $\Gamma=0$ | $Z=Z_0(1-A^2)^{-1/4}$ **varies** ⇒ $\Gamma\ne0$ |
 | **Index sign** | $\delta n\approx+\tfrac14A^2$ (light **slows**) | $\delta n\approx-\tfrac14A^2$ |
 | **Predicted birefringence** | **ZERO** (the standing forward statement) | $\delta n_{bir}\approx-\tfrac12A^2$, ratio $3.75\pi/\alpha^2\approx2.2\times10^5$ over instantaneous Euler-Heisenberg |
-| **Amplitude at its own bench** | $A\sim10^{-9}$ at the solar limb | $A^2\sim5.9\times10^{-7}$ at HIBEF demonstrated pump |
+| **Amplitude at its own bench** | $A = 1.486\times10^{-5}$ at the **solar limb** ($A^2 = 2.21\times10^{-10}$); the **Earth-surface** value is $4.87\times10^{-9}$ (§2.5a) | $A^2\sim5.9\times10^{-7}$ at HIBEF demonstrated pump ($A = 7.7\times10^{-4}$) |
 | **Kill-shape** | *"any confirmed **polarization-dependence** or **reflection component** in gravitational lensing kills the symmetric carve outright"* — [`research/2026-07-13_registers-walk_framing.md`](2026-07-13_registers-walk_framing.md):160, verbatim; recorded in the docket at [`_orchestration/2026-07-10_rulings-docket.md`](../_orchestration/2026-07-10_rulings-docket.md):463 | a QED-sized differential coefficient falsifies AVE; an AVE-sized one falsifies QED |
 
 > ### ★ THE NON-CONFUSION STATEMENT (write this into any pre-reg on either channel)
 >
 > **A gravitational-lensing polarization NULL does not corroborate the flagship, and does not kill it.**
 > A null there is the SYM carve's **own** prediction (§2.2), on a **different loading symmetry**, a
-> **different kernel argument**, and an amplitude $\sim10^{-9}$ versus the flagship's
-> $\sim7.7\times10^{-4}$ in $A$.
+> **different kernel argument**, and an amplitude $A = 1.486\times10^{-5}$ at the solar limb versus the
+> flagship's $A = 7.7\times10^{-4}$ at HIBEF.
+>
+> **The amplitude gap is `~1.7` OOM in $A$ and `~3.4` OOM in $A^2$** — NOT the `5–6` OOM this document
+> asserted in its first version (§2.5a). The two channels are **much closer in amplitude than first
+> stated**, and the non-confusion argument therefore rests on the *structural* differences (loading
+> symmetry, kernel argument, index sign), **not** on an amplitude chasm. Anyone re-using this
+> statement must carry the structural half; the amplitude half is now weak.
 >
 > **Conversely, a HIBEF null does not rescue the SYM carve** and a HIBEF detection does not imply
 > gravitational birefringence: the ASYM channel is $\varepsilon$-only *because* $\partial{\bf B}/\partial t=0$,
@@ -523,6 +529,57 @@ in vocabulary and antipodal in physics.
 > **The one thing that WOULD couple them** is a demonstration that the gravitational bias is not
 > exactly symmetric (F-B3). Then gravity acquires a small ASYM component and the two channels share
 > a mechanism. **That is the physics question, and it is open.**
+
+### §2.5a — ★ AMPLITUDE CORRECTION (self-repair, 2026-07-31 review): the solar-limb $A$ was wrong by 4 OOM, and it moved a verdict
+
+> **What was wrong.** The first version of this document carried $A \sim 10^{-9}$ "at the solar limb"
+> at five sites (§0, §2.5 twice, §2.8 twice) and once in the docket fragment. **That is the
+> EARTH-SURFACE amplitude, not the solar-limb one.** The corpus carries the Earth value explicitly:
+> [`appendix-experiments.md`](../manuscript/ave-kb/common/appendix-experiments.md):17, verbatim —
+> *"canonical Earth strain $\varepsilon_{11} = 7GM_\oplus/(c^2 R_\oplus) \approx 4.87 \times 10^{-9}$
+> (factor-7 corrected 2026-05-17…)"*. The wrong body was substituted into a statement about the Sun.
+
+**The corrected arithmetic** (class: arithmetic on the canonical definition
+[`domain-catalog.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md):45,
+verbatim *"Principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$"*, with CODATA $GM_\odot$ and the
+IAU nominal solar radius — **not** a new derivation):
+
+| Body | $A = \varepsilon_{11} = 7GM/(c^2 r)$ | $A^2$ |
+|---|---|---|
+| **Solar limb** ($r = R_\odot$) | **`1.486e-05`** | **`2.21e-10`** |
+| Earth surface | `4.87e-09` (corpus-carried, `appendix-experiments.md`:17) | `2.37e-17` |
+| Flagship E-route at HIBEF | `7.7e-04` | `5.9e-07` (corpus-carried) |
+
+**Consequences, all of which are repairs to THIS document and none of which touch a corpus file:**
+
+1. **§2.5's non-confusion gap is restated honestly:** `~1.7` OOM in $A$, `~3.4` OOM in $A^2$ — not
+   `5–6`. The gravitational and flagship channels are amplitude-*neighbours*, and the non-confusion
+   argument now rides entirely on the structural carve.
+2. **§2.8's reachability audit is RE-RUN at the corrected $A^2$** (see the re-band note under that
+   table). The old "honest and un-testable" verdict on `A2-RESIDUAL-BELOW-BOUND` was computed at
+   $A^2 \sim 10^{-18}$; at $A^2 = 2.2\times10^{-10}$ it is **unsupported**.
+3. **★ W8's "fire neither" recommendation was reached on the wrong amplitude and is RE-OPENED.**
+   That recommendation (§3, W8 option (b)) was formed partly on the read that Axis 2's signal is
+   hopelessly small. It is not. **This lane does NOT re-answer W8** — the re-answer is Grant's walk,
+   with the corrected amplitude in hand. The W8 text below is left standing with a
+   ⊗**RE-OPENED**⊗ marker so the record shows what was recommended and on what basis.
+
+★ **FLAG-DON'T-FIX, routed to the auditor lane — a factor-7 residual in the corpus.**
+[`domain-catalog.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md):50
+states, verbatim: *"Solar surface: $\varepsilon_{11} = 2.1 \times 10^{-6}$ --- Regime I"*. But that
+same leaf's own definition at `:45` is $\varepsilon_{11} = 7GM/(c^2r)$, and
+$7GM_\odot/(c^2R_\odot) = 1.486\times10^{-5}$. The quoted `2.1e-6` is **exactly**
+$GM_\odot/(c^2R_\odot) = 2.12\times10^{-6}$ — i.e. the **factor of 7 is missing**, the same defect the
+2026-05-17 factor-7 cleanup fixed elsewhere (`appendix-experiments.md`:17 names that cleanup by date
+and calls the pre-cleanup value a *"factor-7-low driver bug"*). The neighbouring rows in the same
+list **do** carry the 7 (neutron star `1.46` = $7GM/(c^2R)$ for $1.4M_\odot$ at 10 km; black hole
+`7/2 = 3.5` at $r_s$), so the solar row is an isolated residual, not a different convention.
+**This lane edits no corpus file. Two paths on the record, neither reframed; the auditor lane
+adjudicates whether `:50` is a stale value or a deliberately different quantity.**
+
+*(Discipline note for the record: this is the empirical-driver lesson in documentary form. The wrong
+number survived a full write because it was never evaluated — it was carried as a remembered
+order-of-magnitude. Every amplitude in this document is now arithmetic on a cited definition.)*
 
 ### §2.6 — Observational constraint classes for a gravitational polarization signature
 
@@ -567,11 +624,61 @@ magnitude-vs-vector reading of the kernel (**W5**).
 | Bin | Condition | Reachable? | Consequence |
 |---|---|---|---|
 | **A2-BLIND-FORCED** | channel (i) returns exactly zero splitting for a symmetric bias **and** W4 rules the gravitational bias symmetric | **YES** — #519's $\rho_{eff}=\rho_{cold}(S_{ax}/S_{sh})$ identity makes the zero exact, not numerical | The SYM carve's polarization-blindness is **upgraded asserted → derived**. **Consistency-class** (a $\mu_r=\varepsilon_r$ metamaterial does the same, `graded-network-response.md`:324) — **not** a chord. Real gain: the standing kill-shape gets a mechanism. |
-| **A2-RESIDUAL-BELOW-BOUND** | splitting nonzero but $\propto A^2$ with an $\mathcal{O}(1)$ coefficient ⇒ $\sim10^{-18}$ at the solar limb | **YES** | A forward prediction that is **honest and un-testable**; bank as ECHO/consistency, do **not** headline. Same shape as the §2.4 optical-activity result. |
-| **A2-RESIDUAL-TESTABLE** | splitting $\propto A$ (first order) rather than $A^2$ ⇒ $\sim10^{-9}$ at the limb | **YES** — first order is what a genuine rank-4 photoelastic coupling to a **linear** strain gives; $A^2$ would require the linear term to cancel | **The interesting branch.** P1/P2 become live tests and the lane earns a pre-reg. ⚠ Note this bin is reachable *precisely because* photoelasticity is linear in strain while the kernel's index shift is quadratic in amplitude — **the two are not the same expansion**, which is why the bin is not a rescue. |
+| **A2-RESIDUAL-QUADRATIC** *(was `A2-RESIDUAL-BELOW-BOUND`; RE-BANDED, see note)* | splitting $\propto \kappa A^2$ ⇒ $\delta n_{bir} = \kappa\cdot2.21\times10^{-10}$ at the solar limb | **YES** | **NOT "un-testable."** At $\kappa = \mathcal{O}(1)$ the accumulated differential retardance through the solar field is `~9e5` waves (re-band note); the bin splits on $\kappa$, and only $\kappa \lesssim 10^{-6}$ puts it under one wave. Verdict `[requires-external-retrieval]`. |
+| **A2-RESIDUAL-LINEAR** *(was `A2-RESIDUAL-TESTABLE`; RE-BANDED)* | splitting $\propto \kappa A$ (first order) ⇒ $\delta n_{bir} = \kappa\cdot1.486\times10^{-5}$ at the limb | **YES** — first order is what a genuine rank-4 photoelastic coupling to a **linear** strain gives; $A^2$ would require the linear term to cancel | **The loud branch.** At $\kappa = \mathcal{O}(1)$ the retardance is `~2e11` waves; one wave needs $\kappa \lesssim 4\times10^{-12}$. P1/P2 are live tests **if** the coefficient is anywhere near $\mathcal{O}(1)$. ⚠ Still true that photoelasticity is linear in strain while the kernel's index shift is quadratic in amplitude — **the two are not the same expansion**, which is why the bin is not a rescue. |
 | **A2-KILLED** | splitting large enough that existing lensing polarimetry already excludes it | **YES** | The SYM carve dies on its own recorded kill-shape (`registers-walk_framing.md`:160). Rule 11: bank the negative, name the mechanism, close. |
 | **A2-COUPLING-BLOCKED** | channel (i) cannot represent the gravitational bias at all (e.g. it needs (iii), the relaxation term) | **YES** | ARTIFACT, not falsification, per regime discipline. Routes to a bigger build with a stated ceiling. |
 | **A2-DEGENERATE** | W4 unanswerable — "is gravitational strain hydrostatic or uniaxial?" is not settled by the corpus | **YES, and likely** | Escalates F-B3 to Grant. This is the honest default and it costs nothing to reach. |
+
+> #### ★ RE-BAND NOTE — the reachability audit RE-RUN at the corrected $A^2 = 2.21\times10^{-10}$ (§2.5a)
+>
+> The first version banded the two residual bins on a **point index shift at the limb** computed from
+> the wrong amplitude ($\sim10^{-18}$ and $\sim10^{-9}$), and concluded the quadratic bin was *"honest
+> and un-testable."* **That verdict is withdrawn — it is unsupported at the corrected amplitude.**
+>
+> **What actually sets a polarization observable is the ACCUMULATED differential retardance, not the
+> point index shift.** For a ray of impact parameter $b$ past a mass with $A(r) = A_b\,(b/r)$
+> (class: arithmetic on the `domain-catalog.md`:45 definition; **not** a derivation, **not** a
+> prediction — it exists only to band the bins):
+>
+> | Scaling | Path integral | Value at $b = R_\odot$ | Retardance at $\kappa=1$, $\lambda = 550$ nm | $\kappa$ for **one wave** |
+> |---|---|---|---|---|
+> | $\delta n_{bir} = \kappa A^2$ | $\int A^2\,d\ell = \pi b A_b^2$ (converges) | `4.82e-01 m` | **`8.8e5` waves** | `1.1e-06` |
+> | $\delta n_{bir} = \kappa A$ | $\int A\,d\ell = 2 A_b b \ln(2L/b)$ (log-cut at $L = 1$ AU) | `1.25e05 m` | **`2.3e11` waves** | `4.4e-12` |
+>
+> **Honest re-band, three statements:**
+>
+> 1. **Neither residual bin is "un-testable" at $\kappa = \mathcal{O}(1)$.** Both give retardance
+>    $\gg 1$ wave. A retardance of $\gg 1$ wave that scales as $1/\lambda$ varies by many multiples of
+>    $2\pi$ across any finite observing bandwidth ⇒ **bandwidth depolarization of a linearly-polarized
+>    background source seen through the field** — which is an observable, and one that strongly
+>    polarized lensed radio sources and pulsars plainly do *not* show at the "complete depolarization"
+>    level. That is a qualitative statement about signal shape, **not** a bound; see (3).
+> 2. **The discriminating quantity is therefore the COEFFICIENT $\kappa$, not the amplitude.** The
+>    bins must band on $\kappa$, and $\kappa$ is exactly the object F-B4 shows the corpus has never
+>    computed ($p_{ijkl}$ absent everywhere). **The gate is unchanged and is reinforced: compute the
+>    coupling first.** What changed is that "the amplitude is too small to matter" is no longer an
+>    available reason to skip it.
+> 3. **What bound classes would set the verdict, and what numbers are missing.** The matched classes
+>    are already enumerated in §2.6 — **P1** (image-to-image differential polarimetry of strong-lensed
+>    radio-loud quasars: the cleanest differential form), **P2** (solar-limb polarimetry: the exact
+>    geometry priced above), **P3** (pulsar polarization-angle stability through the Galactic
+>    potential, separable from Faraday by its non-$\lambda^2$ dependence), **P5** (X-ray polarimetry
+>    at deep $\varepsilon_{11}$). **The published sensitivity of each to a $\delta n_{bir}$ of order
+>    `1e-10`–`1e-5` is `[requires-external-retrieval]` and is NOT invented here.** Per the standing
+>    rule (`alpha-hand-of-god-framing.md`:255) no bound number is written down until it is
+>    externally verified. ⇒ the two residual bins carry verdict **`[requires-external-retrieval]`**,
+>    not "below bound".
+>
+> **Bin-name change recorded, not hidden:** `A2-RESIDUAL-BELOW-BOUND` → `A2-RESIDUAL-QUADRATIC` and
+> `A2-RESIDUAL-TESTABLE` → `A2-RESIDUAL-LINEAR`. The old names asserted verdicts (`BELOW-BOUND`,
+> `TESTABLE`) that the corrected arithmetic does not support; the new names state the *scaling*, which
+> is the thing the bin actually tests. Bins remain **NOT FROZEN**.
+>
+> **Reachability re-audit result: all six Axis-2 bins remain reachable.** `A2-KILLED` is now
+> substantially *more* reachable than the first version implied (it no longer requires an exotic
+> coefficient — an $\mathcal{O}(1)$ $\kappa$ in either residual bin routes there, subject to the
+> retrieval), and `A2-BLIND-FORCED` is unaffected because it turns on an exact zero, not a magnitude.
 
 ### §2.9 — Consistency-vs-emergence class of every Axis-2 candidate statement
 
@@ -670,7 +777,14 @@ loaded" — is that the cap and the inductor, or the stretch-spring and the shea
 channels, and $S_\varepsilon=S_\mu$ follows; **(c)** they are the same thing under TKI and the
 identification is already canon somewhere this lane did not find.
 
-**W8 — Priority: does either axis get fired at all?** ★ The honest read from this scoping is that
+**W8 — Priority: does either axis get fired at all?** ⊗ **RE-OPENED 2026-07-31 (§2.5a).** The
+recommendation below was formed while this document carried the solar-limb amplitude 4 OOM too small.
+At the corrected $A = 1.486\times10^{-5}$ / $A^2 = 2.21\times10^{-10}$, "Axis 2's signal is too small
+to chase" is **not** an available reason, and the §2.8 re-band makes `A2-KILLED` substantially more
+reachable. **This lane does not re-answer W8** — the text below stands as the record of what was
+recommended and on what basis; the re-answer is Grant's walk. ⊗
+
+★ The honest read from this scoping is that
 **item 21 is not an independent frontier item.** Axis 1 collapses onto W1/W6, and if W6 answers
 "one branch" then existing optical-cavity data has already constrained the object ~18 OOM tighter
 than any GW measurement could. Axis 2 is the axis with genuine untouched content (F-B4: zero
