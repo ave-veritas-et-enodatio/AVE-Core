@@ -84,3 +84,242 @@ asked.
 | **A9** | Where the radiated energy goes; re-reflection from the taper | **OPEN-FORK** — the strain grade is $\approx 0.41$ wavelengths thick, i.e. **borderline** between adiabatic and lumped, exactly the regime where partial re-reflection is expected and $Q$ is $O(1)$. Re-reflection **does** feed back into $Q$ by definition (it is the taper's input impedance). The echo cavity is **wall ↔ taper**, not wall ↔ light-ring | CF-9, and §2.3 |
 
 ---
+
+### §1.1 — A1: what IS the resonator? (the "bell")
+
+**The assumption.** The ringdown is an $\ell = 2$ shear oscillation riding the rim of the saturation
+wall at $r_{sat} = 7GM/c^2$, with $\omega_R M_g = \ell(1+\nu_{vac})/x_{sat}$.
+
+**Is the keying forced or inherited?** Inherited. The five-step chain at
+[`vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md:14-18`](../manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md)
+is a *procedure*, and it keys to $r_{sat}$ because step 2 locates $r_{sat}$ and steps 3–4 build off it.
+Nothing in Ax 1–4 says the resonant mode of a *graded* medium sits at the point where the grade
+terminates. In a graded resonator the mode sits where the substrate puts it — that is an eigenvalue
+output, not an input.
+
+#### ★ CF-1 — the canonical five-step chain uses TWO different radii for the same mode
+
+Verbatim, same file, adjacent steps:
+
+> `:52` — $r_{\mathrm{eff}} = \dfrac{r_{\mathrm{sat}}}{1 + \nu_{\mathrm{vac}}} = \dfrac{7}{1 + \tfrac{2}{7}} = \dfrac{49}{9}\,M_g \approx 5.444\,M_g$
+>
+> `:55` — **Step 4: Eigenfrequency.** The $\ell = 2$ tangential standing wave **at $r_{\mathrm{eff}}$**
+>
+> `:63` — The mode **orbits tangentially at $r_{\mathrm{sat}}$** with $\ell$ wavelengths fitting around
+> the circumference. Each wavelength subtends angle $2\pi/\ell$, and the curvature radiation loss per
+> cycle scales as $1/\ell$
+
+*[emphasis added on "at $r_{\mathrm{eff}}$" and "at $r_{\mathrm{sat}}$"; both phrases are unbolded in the source.]*
+
+$\omega_R$ is taken from $r_{eff} = 5.444\,M_g$; $Q = \ell$ is taken from a mode-counting picture on the
+circumference at $r_{sat} = 7\,M_g$. **The two numbers this lane is trying to reconcile are read off two
+different circles.** If $\ell$ wavelengths genuinely fit around $2\pi r_{sat}$, then
+$\omega_R M_g = \ell/x_{sat} = 2/7 = 0.2857$, not $18/49 = 0.3673$ — a 22% shift, and the
+$(1+\nu_{vac})$ factor disappears.
+
+**Steelman.** $r_{eff}$ is not a location — it is an *effective electrical length* (a velocity-factor /
+end-effect correction), and the ring is physically at $r_{sat}$. That reading is coherent and is what
+PART 2 adopts to build the circuit. But then: (i) the corpus's own word for it, "**effective cavity
+radius**" (`:16`, `:52`), is a category label that hides a circuit length; and (ii) the leak fraction
+$1/\ell$ is a statement about the circumference the mode *wraps*, so if the mode wraps $r_{sat}$ while
+its frequency is set by $r_{eff}$, the per-cycle leak picks up a factor $(1+\nu_{vac})^{\pm1}$ =
+$9/7 = 1.286$ or $7/9 = 0.778$ — i.e. **the upstream F7 leak-constant $c_1$ has a candidate home here,
+of exactly the right size class** (upstream H1 wants $c_1 \approx 1.05$; neither $9/7$ nor $7/9$ is
+$1.05$, so this is a *candidate*, not an answer).
+
+**Class:** arithmetic-consistency observation on two verbatim canonical lines. NOT a claim.
+**Verdict:** the resonator's radius is a **CHOICE the chain makes twice, inconsistently**.
+
+#### ★ CF-2 — $r_{eff}$ sits 22% INSIDE the shear-reflecting wall
+
+$r_{eff} = 49M_g/9 = 5.444\,M_g$ against $r_{sat} = 7\,M_g$. The Poisson correction points **inward**,
+into the region canon calls Regime IV, where
+[`vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)
+states verbatim: *"Gravitational waves, being **transverse shear waves**, **cannot propagate** in the
+ruptured interior"*. Under the literal "cavity radius" reading, the eigen-radius is inside the region
+where the mode cannot exist.
+
+**Steelman:** identical to CF-1's — $r_{eff}$ is a length, not a place. **But the two findings are one
+fork with two horns:** either $r_{eff}$ is a radius (and it is inadmissible), or it is an electrical
+length (and the chain's own prose mislabels it, and CF-4 bites).
+
+#### ★★★ CF-3 — the rim frequency is computed with the COLD far-field speed at the radius where canon puts the local shear speed at exactly ZERO
+
+Step 4 writes $\omega_R = \ell\cdot c/r_{eff}$ with $c = c_0$, the unsaturated speed. Canon at the same
+boundary says the shear speed vanishes:
+
+- [`vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md:60`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md)
+  — *"**SHEAR softens:** $c_{\text{shear}}=c_0\sqrt{S}=c_0(1-A^2)^{1/4}\to0$ — a **derived** $\sqrt{S}$ projection, NOT a second kernel."*
+- [`common/operators.md`](../manuscript/ave-kb/common/operators.md) Op16 — $c_{shear} = c_0\cdot\sqrt{S}$, CANONICAL.
+- [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md:13`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md)
+  — the local matter clock rides that same shear speed, $\omega_{local} = \omega_{global}(1-A^2)^{1/4}$,
+  $\to 0$ at $A^2\to1$.
+
+Evaluated with canonical **local** quantities at the wall, the rim mode's frequency is **zero**, not
+$18/49$. **The standing eigenvalue is a cold-cavity, hard-wall, far-field-speed calculation wearing
+saturated-wall language.** Every piece of Op14/Ax-4 saturation content the corpus owns —
+$c_{shear}\to0$, $\omega_{local}\to0$, the $Z$-grade, $\rho_{eff}\to\infty$ — is **absent from the
+number $18/49$ and absent from $Q = \ell$.**
+
+**Steelman (and it is a good one).** The mode is not *at* the wall; it lives in the graded exterior
+where $c_{shear}$ is finite, and $18/49$ is a stand-in for a proper graded eigenvalue problem whose
+answer happens to be nearby. That steelman is correct — **and it is the whole argument for firing R2/R7
+rather than patching the spin machinery.** It also predicts the sign of the fix: a mode that lives in a
+region of *reduced* $c_{shear}$ rings *lower* than the cold estimate, while GR wants $\omega_R$
+**lower** ($0.3737$ vs the standing $0.3673$ is AVE *under*; but the standing catalog $\omega_R$ is
+**+2.63% over** — upstream §1.3). The two ends disagree in sign, which is itself informative and is
+exactly the kind of thing a graded eigenvalue solve would settle.
+
+**Class:** consistency observation across four canonical statements. NOT a claim, NOT a derivation.
+
+#### ★ CF-4 — the two-radius reading implies a tangential phase speed of $1.286\,c_0$
+
+Take Step 5's geometry literally (ring at $r_{sat}$, $\ell$ wavelengths around the circumference) and
+Step 4's frequency: $\lambda = 2\pi r_{sat}/\ell$, so
+$v_\varphi = \omega_R\lambda/2\pi = \ell c_0(1+\nu_{vac})/r_{sat}\cdot r_{sat}/\ell = c_0(1+\nu_{vac}) = 1.286\,c_0$.
+A tangential wave running around the rim at $1.286\,c_0$ — in a region where canon says the local shear
+speed is $\le c_0$ and heading to $0$.
+
+**Steelman.** Shell theory *does* put Poisson factors on membrane eigenfrequencies, and a
+"frequency-raising" factor is not by itself superluminal *if the mode is not a simple travelling
+tangential wave* (a flexural shell mode has a different dispersion). But then the $\ell$-wavelengths-
+around-the-circumference picture — which is the *entire source of $Q = \ell$* — no longer applies, and
+$Q$ has to come from somewhere else. **The two halves of the standing derivation are load-bearing on
+mutually exclusive mode pictures.**
+
+#### ★ CF-9 — the light-ring cavity is geometrically INVERTED for the shear channel
+
+Upstream R3 (§2.4) proposes a cavity *"bounded **inside** by the $\Gamma_{shear} = -1$ mirror at
+$r_{sat}$ and **outside** by the light-ring potential barrier."* Canon says the light ring is **inside**
+the mirror. Verbatim,
+[`regime-eigenvalue-method.md:47`](../manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md):
+
+> *"The photon sphere at $r_{ph} = 3M_g$ lies **inside** the saturated region."*
+
+*[the source emphasises "inside" in italics.]* And the Kerr prograde branch
+$r_{ph}^+ = 2M_g(1+\cos[\tfrac23\arccos(-a_*)])$ runs from $3\,M_g$ at $a_*=0$ down to $1\,M_g$ at
+$a_*=1$ — **always** inside $r_{sat} = 7\,M_g$. There is no annulus between the shear mirror and a
+light-ring barrier; the barrier is behind the mirror, unreachable by shear waves.
+
+**What the substrate has instead.** The graded profile has *its own* turning point, outside the wall.
+Illustrative locator on canonical inputs only — $A(r) = 7M_g/r$, $c_{shear} = c_0\sqrt{S}$,
+$V_{eff}\propto \ell(\ell+1)\,c_{shear}^2(r)/r^2$ — the stationary point is at $A^2 = 2/3$, i.e.
+$r^\star \approx 8.573\,M_g$; under the un-propagated Family-E exponent ($c\propto S^{1/4}$) it moves to
+$A^2 = 4/5$, $r^\star \approx 7.826\,M_g$. Both are **outside** $r_{sat}$, where $c_{shear}$ is finite
+($c_{shear}(r^\star)/c_0 = 0.760$ at the canonical exponent), and **neither is near $r_{ph}$.**
+
+> ⚠ **Fence on the two numbers above.** They are a one-line stationary-point evaluation of a textbook
+> effective potential on canonical inputs, offered **to locate the fork, not to answer it**. They are
+> **not a derivation, not a claim, not pre-registered**, they neglect the medium-gradient terms, and
+> they move by ~10% under the A5 exponent — which is precisely the point being made.
+
+**Consequence for R3:** R3 should be **re-scoped** from "light-ring barrier-transmission cavity" to
+"the substrate's own graded-shear turning point," which is R2's object. R3 and R2 are then one route,
+not two — and the echo by-product survives the re-scope (the echo cavity is wall ↔ taper).
+
+#### ★ CF-10 — a true interface mode does not ring down; the corpus's own word "curvature radiation" is the right one
+
+The fourth candidate resonator in the brief is an interface mode *on* the wall. Name it correctly: the
+interior is a $G_{shear} = 0$ **fluid**, so a solid/fluid interface wave is **Scholte**-class, not
+Stoneley (which is solid/solid). On a *flat* interface a Scholte wave is genuinely trapped — real
+wavenumber, no leakage, $Q \to \infty$. **A finite ringdown $Q$ therefore rules out a pure interface
+mode.** What survives is a *curved*-interface surface wave, which leaks by curvature — and
+"curvature radiation loss per cycle" is exactly the corpus's own phrase at `regime-eigenvalue-method.md:63`.
+
+So this challenge **strengthens** the corpus's mechanism word while renaming the mode: the object is a
+**curvature-leaking whispering-gallery mode**, i.e. an $\ell$-th spherical multipole of the exterior
+graded medium. That is candidate resonator (b)+(c) fused, and it is the one PART 2 maps.
+
+**A1 verdict: OPEN-FORK.** Four candidates — (a) rim ring at $r_{sat}$; (b) distributed mode of the
+graded shell; (c) interface/Scholte mode on the wall; (d) curvature-leaking whispering-gallery mode
+(= b ∩ c). Canon has explored (a) only, and explored it with two radii (CF-1) and a cold speed (CF-3).
+Candidate (c) is **excluded by its own physics** (CF-10, $Q\to\infty$). The live fork is (a) vs (d).
+
+---
+
+### §1.2 — A2: sector ownership
+
+**FORCED half.** The DC strain that builds the wall is **A1** ($\varepsilon_{11}$, the dilatation); the
+ringing observable is **T2** (transverse shear). This is the canonical sector split and it is clean:
+in circuit terms the A1 strain is the **varactor's DC bias** and the T2 shear mode is the
+**small-signal AC** riding it. The important structural consequence, which the corpus does not state
+but which follows from the split: **any A1 admixture in the ringdown observable is a mixing product —
+it lands at $2\omega$ or at DC, not at $\omega$.** That is a testable structural prediction and it is a
+good independent reason to believe Op21's **single-channel** classification of BH ringdown
+([`op21-multi-mode-mode-counting.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) §1 table row)
+is right at linear order — a stronger reason than the corpus currently gives.
+
+**Mode conversion at the anisotropic vessel state — OPEN.**
+
+#### CF-12 — the vessel-state anisotropy is not carried anywhere in the ringdown chain
+
+[`research/2026-07-21_boundary-strain-amplitude_result.md:96`](2026-07-21_boundary-strain-amplitude_result.md)
+(R6, Grant's ratified vessel-state walk) states verbatim that at a yield-scale boundary the shell is a
+*"**pressure vessel (hoop tension + radial compression)**"* and $k_{shear,eff}$ is *"**anisotropic**:
+hoop bonds STIFFEN, radial bonds SOFTEN toward buckling"*, with the pre-stress dominating the bare
+$k_s$ by $\sim10\times$.
+
+An anisotropic rim does not have one $\ell = 2$ mode; it has a **hoop-polarised branch and a
+radial/flexural branch** at different frequencies, generically coupled — i.e. mode conversion *is* a
+channel, and $Q^{-1}$ becomes a sum.
+
+**Honest fence:** that result is about a **localized breather core**, not the BH wall. Transplanting it
+is an untested move. **Flagged, not asserted.** But it is the single most plausible route to a
+"both (i) and (ii)" answer to upstream Q1 — which would be a substantive correction to a ratified leaf
+(Op21's single-channel classification), not a detail.
+
+---
+
+### §1.3 — A3: mode geometry
+
+- **$\ell$ vs $\sqrt{\ell(\ell+1)}$** — OPEN-FORK, already binned UNDETERMINED upstream (F4). No new
+  evidence here; but see CF-8, which gives the fork a sharper handle: whichever dispersion is right, the
+  quantity that controls the radiation is the **electrical size** $k r$, and CF-8 shows the standing
+  chain sets $kr = \ell$ *exactly*. Under $\sqrt{\ell(\ell+1)}$ it would set $kr = \sqrt{\ell(\ell+1)} = 2.449$,
+  which is a *different point on the same universal curve*. So the fork does not change the **kind** of
+  object $Q$ is; it changes where on the curve you evaluate it. That is a much cheaper fork than it looked.
+- **Whispering-gallery vs radial overtones — a GAP, not a fork.** GR's QNM spectrum is a ladder in the
+  overtone index $n$; **AVE has no object for $n$ at all.** The five-step chain produces exactly one
+  resonance. A tapered line has radial resonances as a matter of course, so the absence is a modelling
+  gap, not a physical prediction of "no overtones". Recorded as failure-mode probe **E15** in §2.6.
+
+---
+
+### §1.4 — A4: the loss channel
+
+#### CF-11 — canon already says the wall contributes NOTHING to $Q$; the corpus's own label says otherwise
+
+`regime-eigenvalue-method.md:63` attributes the loss to *"curvature radiation"* from the orbiting mode —
+i.e. to the **outward** side. The wall is a **perfect** reflector. Therefore, in the corpus's own
+physics, **$Q$ is set entirely by the outer radiation impedance and the $\Gamma_{shear} = -1$ mirror
+contributes exactly zero to the loss ledger.** But the canonical leaf that carries the derivation is
+titled *"Op21 Multi-Mode Mode-Counting **at the $\Gamma = -1$ Saturation/TIR Boundary**"* and
+`qnm-quality-factor.md` files $Q = \ell$ as *"an axiom-manifestation of Ax 3 + Ax 4 **at the
+$\Gamma = -1$ saturation/TIR boundary**"*.
+
+This is upstream Q2 restated with its circuit consequence: **the Q-law is a radiation-resistance
+problem, full stop.** The wall's only role is to set the boundary *phase* (A8/CF-13). Naming it as the
+source of $Q$ is a mis-attribution of where the physics lives — and it is why the corpus has never
+computed a radiated power (upstream F7).
+
+#### CF-15 — off the exact $A = 1$ point, $\lvert\Gamma\rvert < 1$, and the transmitted shear has nowhere to go AS SHEAR
+
+$\Gamma_{shear} = -1$ is exact only in the limit $S \to 0$. At any finite offset from the wall, $S > 0$,
+$Z_{shear} > 0$, and there is a nonzero transmission coefficient (Op17: $T^2 = 1 - \Gamma^2$). Nothing
+in the corpus computes it. And once inside, $G_{shear} = 0$: **a shear wave cannot propagate in the
+interior at all.** So the transmitted energy must do one of three things:
+
+1. **Mode-convert** to a bulk/A1 wave at the interface (the interior *does* support bulk waves) — a
+   real, standard elastodynamic P–SV conversion at a solid/fluid interface, and a **second loss channel**
+   that would break Op21's single-channel classification.
+2. **Reflect back** from a deeper structure (the compact shell) — then it is not a loss at all, it is a
+   delay, and it feeds the echo.
+3. **Be absorbed** — which requires a bulk $\mathrm{Re}\{Z\}$ in the interior. That is an **Axiom-3
+   violation** unless it is licensed as a port (cf. the RADIATIVE-PORT carve at
+   [`vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)).
+
+**Nobody has checked which.** This is a first-class fork and it is *not* in the upstream route list.
+It is also the honest form of the brief's "is $\Gamma=-1$ exactly lossless?" question: **at the wall,
+yes; near the wall, no, and the corpus has never asked how near.**
+
+---
