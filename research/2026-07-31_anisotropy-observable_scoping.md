@@ -129,24 +129,40 @@ no default is admissible.** It is Grant walk-question **W1** (§3).
 > level anything could see, or is it 20 OOM below every bound?" — the feasibility question this lane
 > was chartered to answer. It is conditional on W1 answering "$\rho^\ast$", which is open.
 
-Solving the cubic Christoffel eigenproblem $\Gamma_{ik}(\hat n) = C_{ijkl}\hat n_j \hat n_l$ on the
-shipped $C_{11}, C_{12}, C_{44}$ over a 400×800 direction sphere (Appendix B, method 2):
+Solving the cubic Christoffel eigenproblem $\Gamma_{ik}(\hat n) = C_{ijkl}\hat n_j \hat n_l$ (Appendix B,
+method 2). ⊗ **Convention + provenance repair (2026-07-31 review), stated inline so the two columns
+cannot be confused:**
 
-| Branch | $c(\hat n)$ range (lattice units, $\rho=1$) | max/min | fractional spread |
-|---|---|---|---|
-| **L (P / $A_1$-adjacent)** | `[0.85317, 0.88873]` | `1.0417` | **`4.08 %`** |
-| **T-fast (shear)** | `[0.46688, 0.49880]` | `1.0684` | `6.61 %` |
-| **T-slow (shear, the observed-GW branch)** | `[0.44983, 0.49880]` | `1.1088` | **`10.32 %`** |
-| **shear SPLITTING at one direction** (acoustic birefringence, max at `[110]`-class) | — | — | **`10.32 %`** |
+> **"Fractional spread" $\equiv (c_{max} - c_{min})/\bar c$ with $\bar c = (c_{max}+c_{min})/2$.**
+> It is **not** $(\text{max}/\text{min}) - 1$, which is the *other* natural normalisation and gives a
+> systematically larger number (for the T-slow branch: `10.88 %` by max/min$-1$ versus `10.32 %` by
+> this convention). Same physics, two normalisations; both columns are printed so the reader can see
+> which is which. **Every "`10.3 %`" in this document is the $(max-min)/\bar c$ number.**
+>
+> **Extrema are quoted from the ANALYTIC symmetry directions**, i.e. $c = \sqrt{\rho c^2}$ on #506's
+> shipped 5-decimal $\rho^\ast$ slope table (`:192`–`:194`) — **not** from a sweep grid. The first
+> version quoted a 400×800 sphere sweep run on the 4-decimal $C_{ij}$, which put the T-fast minimum
+> at `0.46688` instead of the exact $\sqrt{0.21782} = 0.46671$ at `[111]`. For a cubic medium the
+> extrema of all three branches **provably sit on the symmetry directions**, so the grid adds noise
+> and no information.
+
+| Branch | $c(\hat n)$ range (lattice units, $\rho=1$), **analytic** | at direction (min → max) | max/min | fractional spread $(max-min)/\bar c$ |
+|---|---|---|---|---|
+| **L (P / $A_1$-adjacent)** | `[0.85315, 0.88867]` | `[100]` → `[111]` | `1.0416` | **`4.08 %`** |
+| **T-fast (shear)** | `[0.46671, 0.49876]` | `[111]` → `[100]` | `1.0687` | `6.64 %` |
+| **T-slow (shear, the observed-GW branch)** | `[0.44983, 0.49876]` | `[110]` → `[100]` | `1.1088` | **`10.32 %`** |
+| **shear SPLITTING at one direction** (acoustic birefringence, max at `[110]`-class: `0.44983` vs `0.49876`) | — | `[110]` | `1.1088` | **`10.32 %`** |
 
 Two things follow, both stated flatly and neither adjudicated:
 
-1. **The anisotropy is LARGER on the shear branch than on the P branch** (`10.3 %` vs `4.1 %`).
+1. **The anisotropy is LARGER on the shear branch than on the P branch** (`10.3 %` vs `4.1 %`, both
+   in the $(max-min)/\bar c$ convention above).
    The tracker item is titled *"direction-dependent long-wave **P**-speed"*; the sector-honest
    reading is that **the observed-GW channel is the branch with the bigger effect**, not the smaller
    one. Sector-ownership correction, surfaced.
 2. **There is a second observable the tracker does not name: shear-mode SPLITTING.** Along a
-   `[110]`-class direction the two shear polarizations travel at speeds differing by `10.3 %` —
+   `[110]`-class direction the two shear polarizations travel at `0.44983` and `0.49876`, differing
+   by `10.3 %` of their mean (`1.1088` as a ratio) —
    i.e. **acoustic birefringence of the gravitational-band channel**, a *polarization*-resolved
    observable distinct from the sky-pattern *speed* observable. If the GW channel rides $\rho^\ast$
    this is arguably the sharper axis, because LIGO/Virgo measure the two GW polarizations directly.
@@ -970,6 +986,16 @@ Residuals are at the 4-decimal precision of the $C_{ij}$ as printed in the sourc
 agreement is **exact to the available input precision**. ★ **Consequence for §1.10: the
 "direction-resolved Christoffel treatment" the merged caveat names is not new work — the symmetry
 directions are already solved, and the full sky sweep is a `~30`-line extension.**
+
+⊗ **Precision note added in review (F3).** Because the eigensolve here runs on the **4-decimal**
+$C_{ij}$ while #506's shipped slope table carries **5 decimals**, method 2 is the right instrument for
+*cross-validating the structure* but the wrong one for *quoting extrema*. §1.4's speed ranges are
+therefore quoted as $\sqrt{\rho c^2}$ on the **shipped 5-decimal table** at the analytic symmetry
+directions (method 1), not from this eigensolve and not from a sphere sweep. For a cubic medium the
+branch extrema provably lie on the symmetry directions, so nothing is lost. The first version quoted
+a 400×800 sweep on the 4-decimal input, which shifted the T-fast minimum from the exact
+$\sqrt{0.21782}=0.46671$ at `[111]` to `0.46688` and the transverse maxima from
+$\sqrt{0.24876}=0.49876$ to `0.49880`.
 
 **Receipt 2 — the two Zener definitions in play agree.** #802 uses $A = C_{44}/C'$ with
 $C'=(C_{11}-C_{12})/2$; #506 uses $A = 2C_{44}/(C_{11}-C_{12})$. These are algebraically identical.
