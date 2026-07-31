@@ -27,14 +27,19 @@ The physical mechanism is the same at both scales: each additional topological w
 
 > **🟩 SPIN-SCOPE — the gravitational-scale $Q = \ell$ in this isomorphism is the cold $a_* = 0$ anchor**
 > (Grant Ruling B1, 2026-07-21; propagated 2026-07-31). This is the isomorphism's own limit, not an add-on:
-> $c$ is a deformation-invariant **winding** (def-quant3 sense (2)) but the BH-side $\ell$ is an integer
-> **mode count** — cavity-protected only (def-quant3 sense (1), `common/vocabulary-register.md:261`,
-> *"Failure mode: ionization destroys them"*). Neither can drift continuously with strain; both can only
-> jump discretely. The physical $Q = \omega_R/2\omega_I$, by contrast, is an impedance ratio that moves
+> **both sides are integers** — the particle-side crossing number $c$ and the BH-side mode number $\ell$ —
+> and neither can drift continuously with strain; both can only jump discretely. The BH-side $\ell$ is an
+> integer **mode count** — cavity-protected only (def-quant3 sense (1), `common/vocabulary-register.md:261`,
+> *"Failure mode: ionization destroys them"*). **Whether the particle-side integer $c$ is the
+> deformation-invariant winding class (def-quant3 sense (2)) is register-OPEN and is not settled here:**
+> `def-3638f2` carries status *ambiguous* on exactly this question — real-space knot **CROSSING** number
+> vs the phase-space $(2,3)$ Clifford-torus **WINDING** pattern — and `def-kn0t01` locks the *phase-space*
+> qualifier before any $(2,q)$ label attached to a particle name. Surfaced, not adjudicated. The physical
+> $Q = \omega_R/2\omega_I$, by contrast, is an impedance ratio that moves
 > *continuously* with the strain profile — and an integer that can only jump cannot track a ratio that
 > moves smoothly, so the equality is a **zero-spin coincidence, not a law** (banked $\bar D_Q = -38\%$ at
-> catalog spins; corrected-Kerr $Q$ rises $3.07 \to 3.49$). **The two sides of this isomorphism are not
-> even the same integer class** — that asymmetry is itself the reason the gravitational side is
+> catalog spins; corrected-Kerr $Q$ rises $3.07 \to 3.49$). **Whether the two sides carry the same integer
+> class is therefore register-open.** What is *observed*, not derived, is that the gravitational side is
 > spin-scoped and the particle side is not. The spin dependence lives in the m$\Omega$ law
 > $\omega_I = (\omega_R - m\Omega)/(2\ell)$, whose $\Omega \to 0$ limit is flat $Q = \ell$; and the
 > $\sim 1/\ell$ leak quoted above is a *scaling assertion*, never a computed radiated power (#808 scoping,
