@@ -633,9 +633,9 @@ lines apart.**
 
 **Flag-don't-fix.** Not repaired here; not in this lane's scope (it is a cosmology leaf, and the
 ringdown does not consume it). Surfaced with both line numbers for the auditor lane. **Why it matters
-to this lane anyway:** it is a third, independent instance of the same failure class as CF-5/CF-6 — an
-exponent register that drifted because $Z$, $c$ and $\omega$ were maintained as three separate
-statements instead of as outputs of one $(L,C)$ pair.
+to this lane anyway:** it is a third instance of the same failure class as CF-5/CF-6 — an exponent
+register that drifted because $Z$, $c$ and $\omega$ were maintained as separate statements instead of as
+outputs of one $(L,C)$ pair. *(The word "independent" is struck per the F4 downgrade box above.)*
 
 #### ★ CF-7 — which $\rho$ carries the shear wave at the wall? The two candidates flip the termination
 
@@ -650,12 +650,33 @@ If **that** $\rho$ is the one in the wave impedance, then
 $Z_{shear} = \rho_0 S^{-3}\cdot c_0\sqrt S = Z_{sh,0}\,S^{-5/2} \to \infty$ — an **OPEN**, $\Gamma=+1$,
 not a short. The taper's direction reverses.
 
-**Steelman (and it is probably right).** The leaf's own words are *"effective inertial density of
-**collapsing matter**"* — the frozen infalling matter, not the lattice's own inertia for shear-wave
-propagation. Legitimately two different objects. **But the corpus never says which $\rho$ enters
-$Z_{shear} = \rho c_{shear}$**, and the near-wall $Z$-profile — which *is* the $Q$ integrand — is
-undetermined until it does. **Plumber form: is the frozen infalling matter part of the pipe wall, or is
-it the water in the pipe?**
+> **⚠ Re-weighted 2026-07-31 (repair pass, PR #814 audit F7) — the conflict is APPARENT, and the
+> steelman is the leading reading, not a hedge.** **Canon scopes $\rho_{eff}$ to collapsing matter at
+> *every* site**, not just the one quoted:
+> - `interior-singularity-resolution.md:14` — *"The effective inertial density of **collapsing matter**
+>   diverges as the topological yield approaches zero"*
+> - `interior-singularity-resolution.md:23` — *"As **infalling matter** approaches $r_{sat}$,
+>   $\rho_{eff}\to\infty$ relative to the saturated boundary metric. The group velocity of the
+>   **collapsing mass** $c_g \to 0$"*
+> - [`vol3/claim-quality.md:124`](../manuscript/ave-kb/vol3/claim-quality.md) — *"$\rho_{eff}\to\infty$ as
+>   $\varepsilon_{11}\to 1$ **freezes infalling matter** at $r\approx r_{sat}$, forming a hollow / densely
+>   compact shell"*
+>
+> **Three sites, one scope, no ambiguity: $\rho_{eff}$ is a statement about matter, never about the
+> lattice's own shear-wave inertia.** So E12 does **not** conflict with E1/E5 — the two $\rho$'s were
+> never the same object, and reading them as one was this document's error, not the corpus's.
+>
+> **What survives, and it is the whole of CF-7:** [`vol3/claim-quality.md:122`](../manuscript/ave-kb/vol3/claim-quality.md)
+> writes $Z_{shear} = \rho\,c_{shear}$ and **never names $\rho$.** That is a genuine under-specification —
+> the near-wall $Z$-profile *is* the $Q$ integrand, and it is undetermined until canon says which inertia
+> the shear wave rides. **The finding is a naming gap, not a contradiction.**
+
+**Steelman (and per F7 it is the leading reading, not merely "probably right").** The leaf's own words are
+*"effective inertial density of **collapsing matter**"* — the frozen infalling matter, not the lattice's
+own inertia for shear-wave propagation. Legitimately two different objects, and canon says so three
+times. **But the corpus never says which $\rho$ enters $Z_{shear} = \rho c_{shear}$**, and the near-wall
+$Z$-profile — which *is* the $Q$ integrand — is undetermined until it does. **Plumber form: is the frozen
+infalling matter part of the pipe wall, or is it the water in the pipe?**
 
 ---
 
@@ -832,7 +853,7 @@ the means-test PASS that licenses the rest of the mapping.
 | **E9** | the "$1/\ell$ leak per cycle" | **external (radiation) $Q$ of the $\ell$-th spherical mode at $ka=\ell$** | curvature radiation from a curved-interface surface wave | CF-8; `regime-eigenvalue-method.md:63` | ★ **NEW correspondence — candidate row, NOT landed** (§2.7) |
 | **E10** | $Q$ itself | **loaded $Q$** $= \omega W_{stored} / P_{out} = X_{rim}/\mathrm{Re}\{Z_{in}^{taper}\}$ | — | template at [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) ($Q_{tank}=\omega_C L_e/R$ at $R = Z_0/4\pi$) | clean in FORM; ⚠ **sector caution**: the template is an **EM**-channel calculation ($Z_0 \equiv Z_{EM}$) and this is a **shear** problem — the upstream R1 leak risk, restated |
 | **E11** | the $(1+\nu_{vac})$ factor | **wall-above-cutoff ratio** $r_{sat}/r_{eff}$ on the $\ell$-th spherical mode ($k r_{eff}=\ell$ ⇒ $k r_{sat} = 2.571$) | Poisson transverse coupling | `regime-eigenvalue-method.md:16,52` | **MAPS CLEANLY (corrected 2026-07-31, F1).** The earlier "$VF>1$, no clean mapping" reading is **retracted** — a spherical multipole's azimuthal $v_\varphi$ exceeds $c_0$ above cutoff by definition. What is open is whether the ratio is *derived* or coincidental (**FORK-4**) |
-| **E12** | $\rho_{eff} = \rho_0/S^3$ (topological halting) | would be a **series $L$ diverging at the wall** $\Rightarrow Z\to\infty \Rightarrow$ **open** termination | infalling-matter inertia | `interior-singularity-resolution.md:19` | ⚠ **CONFLICTS with E1/E5.** Failure-mode probe / CF-7 |
+| **E12** | $\rho_{eff} = \rho_0/S^3$ (topological halting) | would be a **series $L$ diverging at the wall** $\Rightarrow Z\to\infty \Rightarrow$ **open** termination | infalling-**matter** inertia | `interior-singularity-resolution.md:14,:19,:23`; `vol3/claim-quality.md:124` | ⚠ **APPARENT conflict with E1/E5, not a real one** *(re-graded 2026-07-31, F7)* — **canon scopes $\rho_{eff}$ to collapsing MATTER at every site**, so it was never a claim about the lattice's shear-wave inertia. **The real gap is narrower: `vol3/claim-quality.md:122` never names which $\rho$ enters $Z_{shear} = \rho\,c_{shear}$.** Probe / CF-7 / FORK-3 |
 | **E13** | the predicted echo | **multiple reflection between E5 and the partially-reflecting taper E6** | — | `vol3/claim-quality.md:123` | clean; delay $= 2\int_{r_{sat}}^{r^\star} dr/c_{shear}$ (CF-9) |
 | **E14** | spin $a_*$ / frame dragging $\Omega$ | **a non-reciprocal (gyrotropic) bias on the ring — a ferrite-circulator loading**, splitting CW from CCW | Cosserat micro-rotation bias | `frame-dragging-impedance-convolution.md:15`; the Park/FOC reading at `kerr-q-correction.md:49-61` | ⚠ **PARTIAL** — the corpus models it as a **frequency offset** $\omega\to\omega-m\Omega$ (a rotating-frame Doppler), which is **not the same EE object** as a circulator's nonreciprocal mode split. Both are legitimate EE devices; they make different $Q$ predictions. **FLAG** |
 | **E15** | radial overtone index $n$ | **higher-order radial resonances of the tapered line** (they exist automatically) | **Op6 radial phase-matching**, $\int k\,dr + \phi_\Gamma = n_r\pi$ | `radial-eigenvalue-solver.md:160`; `de-broglie-standing-wave.md:226`; `operators.md:189` | **CORRECTED 2026-07-31 (F2).** The earlier "NO CORPUS OBJECT AT ALL" is **false** — canon owns $n_r$ via Op6. The true gap is narrower: **the BH-ringdown chain does not instantiate it** (and `vol3/claim-quality.md:205` already scopes the claim to the fundamental mode). Probe / chain-coverage gap |
@@ -1059,7 +1080,7 @@ derivation lane computes.**
 |---|---|---|---|
 | **FORK-1** | **A1 — where does the bell live?** | *Is this a bell (mass at a radius) or a horn (a taper that resonates)?* | (a) a ring at the rim $r_{sat}$; (b) a distributed mode of the graded shell, radius = solver **output**; (c) an interface/Scholte mode on the wall — **already excluded**, it wouldn't ring down (CF-10); (d) a curvature-leaking whispering-gallery mode = (b) evaluated at its own turning point |
 | **FORK-2** | **A5 — the $S$-exponent, reclassified** | *At the wall, does the vacuum go **soft** (compliant, $C\to\infty$, short) or **stiff-and-opaque** ($Z\to\infty$, open)? You can't have both in one channel.* | (a) ratify the three-branch $(L,C)$ table (§CF-5) ⇒ shear pinned at $\sqrt S$, $S^{1/4}$ is an ASYM/EM artifact; (b) reject the channel assignment and keep $S^{1/4}$ live in the shear integrand; (c) KEEP-BOTH and make the derivation report both |
-| **FORK-3** | **CF-7 — which $\rho$?** | *Is the frozen infalling matter part of the pipe wall, or is it the water in the pipe?* | (a) $\rho_0$, cold lattice inertia ⇒ free surface, $\Gamma=-1$; (b) $\rho_{eff}=\rho_0/S^3$ ⇒ clamped surface, $\Gamma=+1$, taper reverses; (c) two different substances, and canon must say so at `vol3/claim-quality.md:122` |
+| **FORK-3** *(re-weighted 2026-07-31, F7)* | **CF-7 — which $\rho$?** | *Is the frozen infalling matter part of the pipe wall, or is it the water in the pipe?* | **(c) — LEADING: two different substances, and canon must say so at `vol3/claim-quality.md:122`.** Canon already scopes $\rho_{eff}$ to *matter* at three sites (`interior-singularity-resolution.md:14,:23`; `vol3/claim-quality.md:124`), so (c) is not a compromise option — it is what the corpus already means, and the gap is that `:122` never writes it down. Then (a) $\rho_0$, cold lattice inertia ⇒ free surface, $\Gamma=-1$ follows for the shear wave; (b) $\rho_{eff}=\rho_0/S^3$ ⇒ clamped surface, $\Gamma=+1$, taper reverses — **kept live, and note per F3 that (b) satisfies the one canonical constraint $c = c_0\sqrt S$ just as (a) does**, so it is not excluded by the exponent argument |
 | **FORK-4** *(re-posed 2026-07-31, F1)* | **A6/CF-1 — the two radii** | *The standing chain puts the physical wall exactly $9/7$ above the mode's own cutoff radius ($k r_{eff} = \ell$, $k r_{sat} = \ell(1+\nu) = 2.571$). **Is that the $(1+\nu)$ factor's actual job** — the wall-to-cutoff ratio — or is the coincidence accidental?* | (a) **yes, that is its job** — then the derivation must *produce* $9/7$ from the graded profile, not assert it, and $Q$ must be evaluated at $ka = 2.571$ (where $Q$ is $\sim2\times$ smaller than at cutoff); (b) coincidence — the factor is a shell-membrane correction and the wall/cutoff coincidence is unexplained; (c) retire $(1+\nu)$ and let a graded solve output both radii. **Superseded option:** the original menu's *"then explain $VF>1$"* is withdrawn — there is nothing to explain (CF-4) |
 | **FORK-5** | **CF-15 — disposal** | *A hair off the wall the mirror isn't perfect and some shear crosses. Shear can't propagate in there. Where does it go?* | (a) mode-converts to bulk/A1 at the interface (a **second** loss channel ⇒ Op21's single-channel classification breaks); (b) reflects off the compact shell (a delay, not a loss ⇒ feeds the echo); (c) absorbed (needs a bulk $\mathrm{Re}\{Z\}$ ⇒ Ax-3 violation unless port-licensed) |
 | **FORK-6** | **A9/CF-9 — which echo cavity?** | *Where's the second mirror?* | (a) the graded turning point at $\approx7.8$–$8.6\,M_g$ (this doc's reading — a **short** delay through **slow** medium); (b) the light ring at $r_{ph}$ — but it is buried inside the wall (CF-9); (c) no second mirror, the taper is adiabatic and there is no echo |
