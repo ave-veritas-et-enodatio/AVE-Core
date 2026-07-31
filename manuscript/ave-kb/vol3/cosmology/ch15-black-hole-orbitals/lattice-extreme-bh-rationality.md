@@ -58,11 +58,15 @@ The scale gap is $\sim21$ orders of magnitude; the kernel is one ([universal-sat
 > moves smoothly: the equality is a **zero-spin coincidence, not a law** — at catalog spins corrected-Kerr
 > $Q$ rises $3.07 \to 3.49$ and the flat reading fails at $\bar D_Q = -38\%$. The spin dependence is carried by the
 > m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ (banked $-5.44\%$ / $-4.57\%$, an OPEN near-miss
-> tension). Even the cold value is convention — the $1/\ell$-per-cycle leak is a *scaling assertion*, never a
-> computed radiated power (#808 scoping F7/F8), and deriving the cold $Q$ is the named next work.
+> tension).
 > *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner:
 > [`vol3/claim-quality.md`](../../claim-quality.md) `:204`; scoping doc
 > `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+>
+> **[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.]** Even the cold value is
+> convention: the $1/\ell$-per-cycle leak constant is a *scaling assertion* set to 1 by the
+> $2\pi$-divides-out convention, never a computed radiated power. The cold-$Q$ derivation is the named
+> next work. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.
 
 > **[Resultbox]** *The rationality test, stated*
 >

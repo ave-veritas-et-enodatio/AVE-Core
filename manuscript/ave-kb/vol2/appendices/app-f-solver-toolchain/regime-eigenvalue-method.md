@@ -85,11 +85,14 @@ compared with the exact value $\omega_I M = 0.0890$ (error: 3.2%).
 > **zero-spin coincidence, not a law**, and the banked $\bar D_Q = -38\%$ at catalog spins is what that
 > looks like (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
 > m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$; flat $Q = \ell$ is its $\Omega \to 0$ limit
-> ([`kerr-q-correction.md`](kerr-q-correction.md)). Even the cold value is convention — the $1/\ell$-per-cycle
-> leak is a *scaling assertion*, never a computed radiated power (#808 scoping, finding F7/F8), and deriving
-> the cold $Q$ is the named next work. *(Physical reading = orchestrator-walk provenance 2026-07-31, not
-> canon.)* Model banner: [`vol3/claim-quality.md`](../../../vol3/claim-quality.md) `clm-395gps` at `:204`;
-> scoping doc `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+> ([`kerr-q-correction.md`](kerr-q-correction.md)). *(Physical reading = orchestrator-walk provenance
+> 2026-07-31, not canon.)* Model banner: [`vol3/claim-quality.md`](../../../vol3/claim-quality.md)
+> `clm-395gps` at `:204`; scoping doc `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+>
+> **[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.]** Even the cold value is
+> convention: the $1/\ell$-per-cycle leak constant is a *scaling assertion* set to 1 by the
+> $2\pi$-divides-out convention, never a computed radiated power. The cold-$Q$ derivation is the named
+> next work. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.
 
 > → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — substrate-foundational Op21 form: $Q = \ell$ per Nyquist-cell-resolved confined mode at the substrate's $\Gamma = -1$ saturation boundary. The BH-ringdown Step 5 extraction $Q = \ell$ at the lattice phase transition is one of four canonical cross-scale fires (electron LC tank, BH ringdown, this universal substrate-Q derivation procedure, knot-mode isomorphism) of the same substrate-foundational Op21 mode-counting mechanism. Full substrate-mechanism derivation chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 → curvature-mismatch per-cycle leak fraction $1/\ell$ → $Q_{\text{mode},\ell} = \ell$) at the canonical leaf.
 

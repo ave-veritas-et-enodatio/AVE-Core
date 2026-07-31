@@ -96,11 +96,14 @@ compared with the GR exact value $\omega_I M = 0.0890$ (error: 3.2%).
 > **zero-spin coincidence, not a law**, and the banked $\bar D_Q = -38\%$ at catalog spins is what that
 > looks like (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
 > m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ below; flat $Q = \ell$ is its $\Omega \to 0$ limit.
-> Even the cold value is convention — the $1/\ell$-per-cycle leak is a *scaling assertion*, never a computed
-> radiated power (#808 scoping, finding F7/F8), and deriving the cold $Q$ is the named next work.
 > *(Physical reading above = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner:
 > [`vol3/claim-quality.md`](../vol3/claim-quality.md) `clm-395gps` at `:204`; scoping doc
 > `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+>
+> **[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.]** Even the cold value is
+> convention: the $1/\ell$-per-cycle leak constant is a *scaling assertion* set to 1 by the
+> $2\pi$-divides-out convention, never a computed radiated power. The cold-$Q$ derivation is the named
+> next work. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.
 
 ### Kerr Q Correction: Co-Rotating Frame Decomposition
 
@@ -437,7 +440,9 @@ The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation
 
 The physical mechanism is the same at both scales: each additional topological winding adds one unit of confinement. At the particle scale, the phase must wind through $c$ crossings, partitioning the coupling energy equally among them (`faddeev_skyrme.solve_scalar_trace`). At the gravitational scale, $\ell$ wavelengths fit around the cavity, each releasing $\sim 1/\ell$ of the mode energy per cycle via curvature radiation.
 
-**[Spin-scope, B1 (2026-07-21; propagated 2026-07-31).** The gravitational-scale side of this isomorphism holds at the **cold $a_* = 0$ anchor** only. That is the isomorphism's own limit, not an add-on. **Both sides are integers** — the particle-side crossing number $c$ and the BH-side mode number $\ell$ — and neither can drift continuously with strain; both can only jump discretely. The BH-side $\ell$ is a cavity-protected **mode count** (def-quant3 sense (1), `common/vocabulary-register.md:261`). **Whether the particle-side $c$ is the deformation-invariant winding class (def-quant3 sense (2)) is register-OPEN and is not settled here:** `def-3638f2` carries status *ambiguous* on exactly this question (real-space knot **CROSSING** number vs the phase-space $(2,3)$ Clifford-torus **WINDING** pattern), and `def-kn0t01` locks the *phase-space* qualifier before any $(2,q)$ label attached to a particle name. Surfaced, not adjudicated. The *physical* $Q = \omega_R/2\omega_I$ is an impedance ratio that moves continuously — an integer that can only jump cannot track it — so at catalog spins the flat reading fails at $\bar D_Q = -38\%$ (corrected-Kerr $Q$ rises $3.07 \to 3.49$) and the spin dependence is carried by the m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$. The $\sim 1/\ell$ per-cycle leak quoted above is a *scaling assertion* with its constant fixed by convention, never a computed radiated power (#808 scoping F7/F8). *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner: [`vol3/claim-quality.md`](../vol3/claim-quality.md) `:204`; scoping doc `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.**]**
+**[Spin-scope, B1 (2026-07-21; propagated 2026-07-31).** The gravitational-scale side of this isomorphism holds at the **cold $a_* = 0$ anchor** only. That is the isomorphism's own limit, not an add-on. **Both sides are integers** — the particle-side crossing number $c$ and the BH-side mode number $\ell$ — and neither can drift continuously with strain; both can only jump discretely. The BH-side $\ell$ is a cavity-protected **mode count** (def-quant3 sense (1), `common/vocabulary-register.md:261`). **Whether the particle-side $c$ is the deformation-invariant winding class (def-quant3 sense (2)) is register-OPEN and is not settled here:** `def-3638f2` carries status *ambiguous* on exactly this question (real-space knot **CROSSING** number vs the phase-space $(2,3)$ Clifford-torus **WINDING** pattern), and `def-kn0t01` locks the *phase-space* qualifier before any $(2,q)$ label attached to a particle name. Surfaced, not adjudicated. The *physical* $Q = \omega_R/2\omega_I$ is an impedance ratio that moves continuously — an integer that can only jump cannot track it — so at catalog spins the flat reading fails at $\bar D_Q = -38\%$ (corrected-Kerr $Q$ rises $3.07 \to 3.49$) and the spin dependence is carried by the m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$. *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner: [`vol3/claim-quality.md`](../vol3/claim-quality.md) `:204`; scoping doc `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.**]**
+
+**[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.** The $\sim 1/\ell$ per-cycle leak quoted above is a *scaling assertion* with its constant fixed to 1 by convention, never a computed radiated power. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.**]**
 
 ## Standard Model Translation
 

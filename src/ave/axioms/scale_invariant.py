@@ -447,12 +447,17 @@ def phase_transition_Q(ell: int) -> int:
     3.07 → 3.49 and the flat Q = ℓ = 2 reading fails at D̄_Q = −38%.
     The spin dependence belongs to the mΩ law
     ω_I = (ω_R − m·Ω)/(2ℓ) (``ave.solvers.orbital_resonance``), whose
-    Ω → 0 limit is this function. Even the cold value is convention:
-    the 1/ℓ-per-cycle leak above is a *scaling assertion*, never a
-    computed radiated power (#808 scoping, finding F7/F8); deriving the
-    cold Q is the named next ringdown work.
+    Ω → 0 limit is this function.
     Truth-source: ``manuscript/ave-kb/vol3/claim-quality.md`` clm-395gps
     at :204; scope banner ``…/ch15-black-hole-orbitals/qnm-quality-factor.md``.
+
+    [#808 SCOPING F7/F8 — OPEN FLAG, NOT A RULING; B1 did not adjudicate
+    this.] Even the cold value is convention: the 1/ℓ-per-cycle leak
+    constant above is a *scaling assertion* set to 1 by the 2π-divides-out
+    convention, never a computed radiated power. Deriving the cold Q is
+    the named next ringdown work. Source
+    ``research/2026-07-30_qlaw-derivation_scoping.md`` §1.5 — surfaced,
+    unadjudicated.
 
     ===========  ======  ======  ==============================
     Domain       ℓ       Q       Physical meaning

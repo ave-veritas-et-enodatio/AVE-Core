@@ -41,11 +41,14 @@ The physical mechanism is the same at both scales: each additional topological w
 > catalog spins; corrected-Kerr $Q$ rises $3.07 \to 3.49$). **Whether the two sides carry the same integer
 > class is therefore register-open.** What is *observed*, not derived, is that the gravitational side is
 > spin-scoped and the particle side is not. The spin dependence lives in the m$\Omega$ law
-> $\omega_I = (\omega_R - m\Omega)/(2\ell)$, whose $\Omega \to 0$ limit is flat $Q = \ell$; and the
-> $\sim 1/\ell$ leak quoted above is a *scaling assertion*, never a computed radiated power (#808 scoping,
-> finding F7/F8). *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner:
+> $\omega_I = (\omega_R - m\Omega)/(2\ell)$, whose $\Omega \to 0$ limit is flat $Q = \ell$.
+> *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner:
 > [`vol3/claim-quality.md`](../../../vol3/claim-quality.md) `clm-395gps` at `:204`; scoping doc
 > `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
+>
+> **[#808 scoping F7/F8 — OPEN FLAG, not a ruling; B1 did not adjudicate this.]** The $\sim 1/\ell$ leak
+> quoted above is a *scaling assertion* with its constant fixed to 1 by convention, never a computed
+> radiated power. Source `research/2026-07-30_qlaw-derivation_scoping.md` §1.5 — surfaced, unadjudicated.
 
 > → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — substrate-foundational Op21 form (Phase 3-A4, 2026-05-27): $Q = \ell$ per Nyquist-cell-resolved confined mode at substrate $\Gamma = -1$ saturation boundary is the cross-scale-canonical substrate mechanism this knot-mode isomorphism instantiates at both particle scale (crossing number $c$) and gravitational scale (mode number $\ell$). Same per-cycle leak fraction $1/\ell$ at both substrate scales — substrate-mechanism content of "each additional topological winding adds one unit of confinement" is the substrate Nyquist-cell-count = mode-count = dimensionless geometric measure identity.
 
