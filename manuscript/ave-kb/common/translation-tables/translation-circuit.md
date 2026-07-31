@@ -759,7 +759,7 @@ $$\alpha = Q^{-1} = \tan\delta \approx \frac{1}{137.036}, \qquad \delta = \arcta
 
 ### §10.4 — FOC: the electron is a self-commutating 3-phase machine; "½-commutation" = spinor double-cover (g=2 POSITED)
 
-Field-Oriented Control (Park d/q) is the canonical co-rotating-frame decomposition ([`05_universal_solver_toolchain.tex`](../../../backmatter/05_universal_solver_toolchain.tex):174-190; d-axis = reactive/non-radiating, q-axis = real/radiating). Applied to the electron rotor:
+Field-Oriented Control (Park d/q) is the canonical co-rotating-frame decomposition ([`05_universal_solver_toolchain.tex`](../../../backmatter/05_universal_solver_toolchain.tex):179-195; d-axis = reactive/non-radiating, q-axis = real/radiating). Applied to the electron rotor:
 
 - The **"½ phase-pair commutation" is the SPINOR DOUBLE-COVER** — the Finkelstein-Misner kink / Dirac belt trick (SU(2)→SO(3), 2:1), **NOT** a half-pole-pair machine. Canonical: [`spin-half-paradox.md`](../../vol2/appendices/app-b-paradoxes/spin-half-paradox.md):12-14 (Cosserat microrotation DOF IS the substrate-native spin origin); §4 "SU(2)→SO(3) double cover" + "$(2,3)$ Clifford-torus winding" rows.
 - The **pole-pairs are the $(2,3)$ WINDING numbers** — already canonical (toolchain :437 pole-pairs ↔ mode-$\ell$ row; §4 $(2,3)$ Clifford-torus winding row).
