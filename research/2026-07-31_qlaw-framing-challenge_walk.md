@@ -561,20 +561,33 @@ Until Grant rules, the derivation lane should carry $\sqrt S$ as primary **and r
 counterfactual** (it moves the graded turning point $8.573 \to 7.826\,M_g$, CF-9) — the KEEP-BOTH
 pattern, not a silent pick.
 
-#### ★ CF-16 — a corroborating honesty-lag: the 2026-06-22 clock-exponent correction did not propagate, and the leaf that lags contradicts itself four lines apart
+#### ★ CF-16 — a THIRD INSTANCE of the same drift (not independent corroboration): the 2026-06-22 clock-exponent correction did not propagate, and the leaf that lags contradicts itself four lines apart
 
-The CF-5 table's SHEAR row is independently corroborated by a correction canon has already made
-elsewhere. [`op14-local-clock-modulation.md:13`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md),
+> **⚠ Downgraded 2026-07-31 (repair pass, PR #814 audit F4).** Originally headed *"a corroborating
+> honesty-lag"* and claimed the CF-5 SHEAR row was **"independently corroborated"** by the clock-exponent
+> correction. **It is not independent.** `op14-local-clock-modulation.md:13`'s own chain **consumes the
+> same Op16 input** this document's SHEAR row consumes — the leaf says so in the quoted line, deriving
+> $\omega_{local}$ from $c_{shear} = c_0\sqrt S$ via *"$\omega_{local}\propto c_{eff}$ (a wave crosses a
+> cell in $\tau = \ell/c_{eff}$)"*. Agreeing with Op16 after substituting Op16 is not a second route; it
+> is the same route. **What CF-16 actually is — and this is still worth carrying — is a third instance
+> of the same failure class:** an exponent register that drifted because $Z$, $c$ and $\omega$ were
+> maintained as separate statements rather than as outputs of one constitutive pair.
+
+[`op14-local-clock-modulation.md:13`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md),
 verbatim:
 
 > **Matter-clock exponent (corrected to the $1/4$ shear form, 2026-06-22).** The local matter clock rides
 > the **shear** speed $c_{\text{shear}} = c_0\cdot(1-A^2)^{1/4} = c_0\sqrt{S}$ … the matter-clock forms
 > are $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$ … **The earlier $(1-A^2)^{1/2}$
 > exponent was the pre-split single-speed model … it was off by a factor of 2 in the exponent and is now
-> corrected**
+> corrected** …
 
-That corrected form, $\omega_{local} \propto \sqrt S$, is **exactly** what the SHEAR branch's
-$\omega = 1/\sqrt{LC}$ gives with $L$ fixed and $C = C_0/S$. Two independent routes, same exponent.
+*[Emphasis added on "The earlier … is now corrected"; that sentence is **unbolded** in the source. The
+quote is truncated — the source continues "…in the equations below. The qualitative results … are
+exponent-independent."]*
+
+That corrected form, $\omega_{local} \propto \sqrt S$, is what the SHEAR branch's $\omega = 1/\sqrt{LC}$
+gives with $L$ fixed and $C = C_0/S$ — **consistently, but not independently** (see the downgrade box).
 
 **The lag.** [`vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md`](../manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md)
 still carries the **superseded** exponent at `:22` and `:43`
@@ -1088,7 +1101,20 @@ upstream lane's own lesson that varying only the *file* is not enough.
 | 13 | `common/vocabulary-register.md:309` ($\varepsilon_{11}$ IS the Ax-4 amplitude $A$) | `sed -n '309p'` | upstream scoping doc §2.3 quotes the same line independently | **CONFIRMED** |
 | 14 | `translation-circuit.md:119` (short-vs-open two-branch row) + §4.7.3 disanalogy (ii) | `sed -n '119p'`, `sed -n '354,362p'` | section-header map via `grep -n '^#'` | **CONFIRMED** |
 | 15 | `research/2026-07-21_boundary-strain-amplitude_result.md:13,96` (vessel state R6, hoop-stiffen / radial-soften) | workspace-wide `grep -rln hoop` | `grep -rn 'hoop-stiffen\|radial-soften'` returning `:13,:96,:106,:112` | **CONFIRMED**; scope caveat (core-local, not BH wall) recorded in CF-12 |
-| 16 | `src/ave/topological/cosserat_field_3d.py:419-424` — the engine's own impedance-conflict FLAG | ranged read `:418-430` | `grep -n 'Z_eff\|2nd-impedance'` | **CONFIRMED** verbatim: *"⚑ FLAG (2nd-impedance conflict, task #12, NOT resolved here): this OPEN Z=Z0/√S coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME file, and with operators.md:54 (Z0/√S) vs k4-tlm-lensing-validation.md:22 (Z0/S^{1/4}). The exponent/sign reconciliation across Op14 forms is a separate physics-review item"* |
+| 16 | `src/ave/topological/cosserat_field_3d.py:419-423` — the engine's own impedance-conflict FLAG *(span corrected 2026-07-31: `:424` is code, `S_safe = jnp.maximum(S, 1e-6)`, not comment)* | ranged read `:416-426` | `grep -n 'FLAG (2nd-impedance'` → `:419` | **CONFIRMED** verbatim: *"⚑ FLAG (2nd-impedance conflict, task #12, NOT resolved here): this OPEN Z=Z0/√S coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME file, and with operators.md:54 (Z0/√S) vs k4-tlm-lensing-validation.md:22 (Z0/S^{1/4}). The exponent/sign reconciliation across Op14 forms is a separate physics-review item (see the task-12 PR FLAGs)."* — **but see the STALENESS note below** |
+
+> **⚑ The engine FLAG's third clause is STALE (found 2026-07-31, repair pass, audit F4) — routed, NOT
+> fixed here.** The FLAG contrasts *"`operators.md:54` (Z0/√S) **vs `k4-tlm-lensing-validation.md:22`
+> (Z0/S^{1/4})**"*. **That contrast no longer exists.** `k4-tlm-lensing-validation.md:22` was corrected
+> on **2026-07-14** and now reads $Z_{local}(r) = Z_0/S^{1/2} = Z_0/\sqrt{S}$ — verified by ranged read
+> `:18-36` — under the KEEP-BOTH banner at `:25-29` which says so explicitly and even cites
+> `cosserat_field_3d.py:425` as the authority for the corrected form. **So the code comment and the leaf
+> now agree, and the comment still describes them as conflicting.** The *first* clause of the FLAG (the
+> in-file OPEN-vs-SHORT coexistence) **is still live** and is untouched by this. **Scope fence:** this is
+> an engine source-comment repair in `src/`, outside this branch's two-file scope. **Routed to a separate
+> lane with the exact span (`:419-423`) and the superseding leaf line.** Because CF-5/CF-6 cited this
+> FLAG as a *"third receipt"*, note that **one of its three clauses has expired**; the receipt is weaker
+> than it was quoted as being.
 | 17 | `op21-multi-mode-mode-counting.md` §1 table + §2.2/§2.3/§2.4 ($\Gamma=-1$ forcing, $1/\ell$ leak, $Q=\ell$) | ranged read `:20-110` | cross-check against `theorem-3-1-q-factor.md` "Op21 multi-mode generalization" paragraph (independent leaf, same $1/\ell$ statement) | **CONFIRMED** |
 | 18 | `theorem-3-1-q-factor.md` ($Q_{tank}=\omega_C L_e/R$, $R = Z_0/(4\pi)$ radiation impedance) | ranged read `:30-115` | upstream scoping §2.2 cites `:40-42`, `:79-83` independently | **CONFIRMED**; sector caution recorded at E10 |
 | 19 | `qnm-quality-factor.md` (Resultbox $Q=\ell$; the B1 ruling banner) | full-file read | `grep` of the B1 banner text in `op21-…` (propagated copy, same wording) | **CONFIRMED** |
