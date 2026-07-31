@@ -465,7 +465,10 @@ def phase_transition_Q(ell: int) -> int:
     Domain       ℓ       Q       Physical meaning
     ===========  ======  ======  ==============================
     BH QNM       2       2       Fundamental GW ringdown (a* = 0 only)
-    Overtone 1   3       3       First GW overtone
+    BH QNM       3       3       ℓ=3 angular multipole (NOT an
+                                 overtone; the radial overtone
+                                 index n_r is a distinct object,
+                                 Op6 — corrected 2026-07-31)
     Electron     n       n       Atomic orbital Q
     ===========  ======  ======  ==============================
 
