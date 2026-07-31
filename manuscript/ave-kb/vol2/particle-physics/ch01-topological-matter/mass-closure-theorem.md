@@ -51,7 +51,7 @@ where $W$ is the integer winding. The closed tube cannot un-knot without unwindi
 $$
 E_{\text{reactive}} = \frac{1}{2} L_{\text{tube}} I_{\max}^2 = \frac{1}{2} C_{\text{tube}} V_{\text{peak}}^2
 $$
-By the LC tank virial theorem (equipartition between magnetic and electric reactance, $\tfrac{1}{2}LI^2 = \tfrac{1}{2}CV^2$ at every instant), and identifying the closed-loop standing-wave invariant with the particle's invariant rest energy:
+By the LC tank virial theorem (equipartition between magnetic and electric reactance: the peak-amplitude equality $\tfrac{1}{2}LI_{\max}^2 = \tfrac{1}{2}CV_{\text{peak}}^2$, equivalently the cycle-average equality — the two stores are in phase quadrature, instantaneously equal only at the four crossings per cycle), and identifying the closed-loop standing-wave invariant with the particle's invariant rest energy:
 $$
 E_{\text{reactive}} = mc^2
 $$
