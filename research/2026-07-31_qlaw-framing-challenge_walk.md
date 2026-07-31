@@ -386,7 +386,56 @@ is an untested move. **Flagged, not asserted.** But it is the single most plausi
   quantity that controls the radiation is the **electrical size** $k r$, and CF-8 shows the standing
   chain sets $kr = \ell$ *exactly*. Under $\sqrt{\ell(\ell+1)}$ it would set $kr = \sqrt{\ell(\ell+1)} = 2.449$,
   which is a *different point on the same universal curve*. So the fork does not change the **kind** of
-  object $Q$ is; it changes where on the curve you evaluate it. That is a much cheaper fork than it looked.
+  object $Q$ is; it changes where on the curve you evaluate it.
+  ~~That is a much cheaper fork than it looked.~~
+  🔴 **CORRECTED 2026-07-31 (repair pass, PR #814 audit F9) — "cheaper" was an unquantified guess, and
+  the magnitude says otherwise.** Moving from $ka = 2$ to $ka = 2.449$ moves the radiation $Q$ from
+  $\mathbf{1.962}$ to $\mathbf{1.100}$ — **a $-44\%$ shift** *(AUDITOR-ARITHMETIC, spin-1 estimator; the
+  implementer re-computation gives $1.863\to0.973$, $-48\%$, and the exact Collin–Rothschild
+  stored-energy $Q$ gives $2.812\to1.837$, $-35\%$ — all three land in the same class)*. **The deficit
+  this whole lane is chasing is $\sim5\%$.** A fork that moves the answer by $\sim9\times$ the deficit is
+  not cheap; **it is one of the largest single levers on the table**, and the fact that it "stays on one
+  curve" is what makes it dangerous rather than safe — it can absorb the discrepancy without anyone
+  noticing a mechanism changed.
+
+> **⚑ THE MAKE-OR-BREAK THE WALK MUST SURFACE (added 2026-07-31, F9). Route R7 as scoped may falsify the
+> $Q = \ell$ *scaling law* while landing the $\ell = 2$ *number*.**
+>
+> **AUDITOR-ARITHMETIC (provenance: PR #814 compact audit; spin-1 vector-multipole estimator, see the
+> F10 sector caution at CF-8/E10).** Yaghjian–Best $Q_Z$ evaluated **at each mode's own cutoff**
+> $ka = \ell$:
+>
+> | $\ell$ | 1 | 2 | 3 | 4 | 10 |
+> |---|---|---|---|---|---|
+> | $Q_Z$ at $ka=\ell$ | $2.06$ | $1.96$ | $2.09$ | $2.27$ | $3.36$ |
+> | $Q = \ell$ predicts | $1$ | $2$ | $3$ | $4$ | $10$ |
+>
+> **Read it:** R7 as scoped predicts $Q \approx 2$, **nearly $\ell$-independent** — *not* $Q = \ell$. It
+> would land the $\ell=2$ anchor within $\sim7\%$ of GR's $2.10021$ **and destroy the linear-in-$\ell$
+> scaling that `Q = ℓ` asserts and that `knot-mode-isomorphism.md` builds its whole ladder on.** That is
+> not a detail to discover after the derivation runs; it is the thing to decide before firing it.
+>
+> **⚑ IMPLEMENTER RE-COMPUTATION — and it does NOT reproduce the conclusion (flag-don't-fix).**
+>
+> | $\ell$ | 1 | 2 | 3 | 4 | 10 |
+> |---|---|---|---|---|---|
+> | $Q_Z$ (my run of the same estimator) | $1.581$ | $1.863$ | $2.117$ | $2.352$ | $3.534$ |
+> | **exact Chu / Collin–Rothschild $Q$** | $\mathbf{2.000}$ | $\mathbf{2.812}$ | $\mathbf{3.641}$ | $\mathbf{4.482}$ | $\mathbf{9.657}$ |
+>
+> The CR column is **validated to four digits** against the closed forms $1/x + 1/x^3$ ($\ell=1$) and
+> $3/x + 6/x^3 + 18/x^5$ ($\ell=2$). **It is linear in $\ell$ with slope $\approx 0.86$** — i.e. the exact
+> stored-energy $Q$ of the $\ell$-th spherical mode at its own cutoff **essentially reproduces $Q \propto \ell$
+> rather than falsifying it.** $Q_Z$ is a high-$Q$ approximation; at $Q\sim2$ it under-reads badly, which
+> is why it flattens the ladder.
+>
+> **So the make-or-break is real but its sign is estimator-dependent, and CF-8/R7 names the
+> Collin–Rothschild object specifically.** Two honest readings are on the record:
+> **(i)** $Q_Z$ (port-side, tuned-input-impedance) ⇒ scaling falsified, $\ell=2$ number close;
+> **(ii)** Collin–Rothschild (stored-energy) ⇒ scaling essentially reproduced ($0.86\ell$), $\ell=2$
+> number **$+34\%$ high** vs GR at the cutoff and $-20\%$ low at the wall.
+> **Neither is adopted here.** This is exactly CF-14 (port-$Q$ vs pole-$Q$) with numbers attached, and
+> **FORK-10's "declared port→pole transfer" is the item that decides which column the derivation is
+> allowed to quote.** Routed to Grant and the auditor lane; **not resolved by the implementer.**
 - **Whispering-gallery vs radial overtones — a GAP, not a fork.** GR's QNM spectrum is a ladder in the
   overtone index $n$. ~~**AVE has no object for $n$ at all.**~~
   🔴 **CORRECTED 2026-07-31 (repair pass, PR #814 audit F2) — the original sentence was FALSE.**
@@ -1088,6 +1137,15 @@ derivation lane computes.**
 | **FORK-8** | **E14 — what kind of device is spin?** | *Is frame dragging a Doppler shift (the whole ring moving past you) or a magnetic bias on a circulator (CW and CCW seeing different media)?* | (a) Doppler / Park rotating frame — the standing $\omega\to\omega-m\Omega$; (b) gyrotropic bias — nonreciprocal, **different loaded $Q$ per sense**, a prediction the standing law does not make; (c) both, at different orders |
 | **FORK-9** *(re-posed 2026-07-31, F2)* | **A3/E15 — overtones** | *Canon already owns the radial-overtone object — $n_r$, via Op6's phase-matching condition $\int k\,dr + \phi_\Gamma = n_r\pi$, written for the atomic cavity. **Does that condition apply to a graded shear cavity with a $\Gamma = -1$ inner wall?** A horn has more than one resonance; does this one, and does Op6 already tell us its ladder?* | (a) **yes — fire Op6 on the graded shear profile** with $\phi_\Gamma = \pi$ at the wall (or $0$, per A8's sign degeneracy) and read off the $n_r$ ladder; then AVE has a GR-comparable overtone spectrum for free; (b) no — Op6 is scoped to the Coulomb/atomic $Z$-profile and the shear cavity needs its own condition; (c) leave as a declared chain-coverage gap. **Superseded option:** the original menu's *"(a) derive the radial ladder (then AVE has an $n$ index)"* is withdrawn — **AVE already has the index** |
 | **FORK-10** *(re-posed 2026-07-31, F8)* | **A7/CF-14 — which $Q$ object?** | *A7 is already **FORCED** to pole-$Q$ ($\omega_R/2\omega_I$) — that is not open. The open item is the **transfer**: a circuit calculation returns port-$Q$, the GR comparator is pole-$Q$, and for a tapered exterior with a branch cut they are different numbers. **What declares the map between them, and what is its error bar?*** | **(c) plus a declared port→pole transfer — the only complete option.** Compute port-$Q$ (what the impedance route natively returns), **state the transfer to pole-$Q$ explicitly as a pre-reg line** (single-pole approximation? fitted complex resonance? direct complex-frequency solve?), and report the gap as a diagnostic. (a) port-$Q$ alone is not comparable to the frozen C-$\tau$ comparator; (b) pole-$Q$ alone abandons the circuit route's main advantage. **Empirical note (F1/F9):** the $Q_Z$-vs-Collin–Rothschild spread of up to $50\%$ at $Q\sim2$ is this transfer showing up as a number — the estimator choice is not a formality at $O(1)$ $Q$ |
+
+**Two further forks, added 2026-07-31 by the repair pass** — these are the **PR #814 compact audit's own
+open questions**, carried here verbatim in intent and attributed. They are not this lane's questions;
+they are the auditor's, and they belong on the same menu because Grant answers both in the same walk.
+
+| # | Fork | The plumber question | Options |
+|---|---|---|---|
+| **FORK-11** *(auditor's open question 1, PR #814 audit)* | **Estimator choice at $O(1)$ $Q$** | *Two standard, textbook-correct radiation-$Q$ estimators disagree by up to $50\%$ at $Q\sim2$ — and they disagree about whether $Q\propto\ell$ survives. **Which one is the substrate's $Q$?*** | (a) **port-side** ($Q_Z$, Yaghjian–Best on the input impedance) — what the impedance route natively returns; ladder goes flat, scaling falsified; (b) **stored-energy** (Chu / Collin–Rothschild) — the object CF-8 actually names; ladder is $\approx0.86\ell$, scaling essentially reproduced; (c) neither — the QNM pole-$Q$ is a third object and both are approximations to it (this is **FORK-10**, and it is why FORK-10 is now the gating fork) |
+| **FORK-12** *(auditor's open question 2, PR #814 audit)* | **What counts as success for R7?** | ***Is a route that lands the cold number but kills the scaling law a win or a falsifier?*** R7 could return $Q(\ell{=}2)$ within $\sim7\%$ of GR while predicting $Q\approx2$ for **every** $\ell$ — reproducing the anchor and destroying the ladder that `knot-mode-isomorphism.md` and Op21 build on. | (a) **win** — the $\ell=2$ anchor is the only ringdown observable AVE claims; the ladder was always an extrapolation and losing it is a scope correction; (b) **falsifier** — $Q=\ell$ *is* the claim (it is what makes the mode-count↔crossing-number isomorphism a claim at all), so killing the scaling kills the content even if the anchor survives; (c) **neither until the estimator is fixed** — decide FORK-11 first, because the two columns disagree about whether the scaling is even threatened. **This must be answered BEFORE R7 fires**, or the result is unfalsifiable after the fact |
 
 **And the one scope question that gates the rest** (upstream Q8, unchanged and still unanswered): **is
 the B1-ratified cold $Q = \ell$ anchor in scope?** Everything in this document says the tension lives
