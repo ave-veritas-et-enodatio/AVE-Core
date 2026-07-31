@@ -3,7 +3,7 @@
 > **★ SCOPE FENCE, STATED FIRST AND BINDING ON EVERY LINE BELOW.** This lane is **SCOPING, not
 > derivation and not measurement.** No solver was run. No engine file was touched. No corpus file
 > was modified. **No claim was minted, no solidity was changed, no magnitude is asserted without a
-> named derivation-path, and the outcome bins in §1.9 / §2.8 are explicitly NOT FROZEN** — freezing
+> named derivation-path, and the outcome bins in §1.11 / §2.8 are explicitly NOT FROZEN** — freezing
 > happens in a separate pre-reg at fire time, after the Grant walk (§3). Every number that appears
 > below is either (i) a verbatim read of an already-merged shipped artefact, cited file:line, or
 > (ii) arithmetic on such reads, labelled as arithmetic and receipted two ways in Appendix B.
@@ -682,14 +682,131 @@ Christoffel sky-pattern anyway as a cheap consistency artefact, accepting that i
 conditional on an unpicked operating point; **(d)** park both and record item 21 as **subsumed** by
 the $\rho_{bond}$ fork.
 
-## §4 — What this lane did NOT do
+## §4 — What this lane did NOT do (non-goals, fenced)
 
-*(sections below)*
+- **Did not run a solver.** No driver executed, no engine file touched, `src/ave` byte-untouched.
+  The only computation is the Appendix-B Christoffel cross-check, which is a scratch verification of
+  an already-shipped table and produces no new physics.
+- **Did not mint a claim, a `clm-`/`def-`/`sup-` node, or a solidity.** No `claim-quality.md` edited.
+- **Did not freeze bins.** §1.11 and §2.8 are drafts with a reachability audit; a pre-reg freezes.
+- **Did not resolve any contradiction it found.** F-A3, F-A4, F-A5, F-B1, F-B2, F-B3 are all
+  surfaced with both file paths and verbatim content, neither side reframed to match the other.
+  **Flag-don't-fix.**
+- **Did not walk anything back.** #802's anisotropy block is already `SUPPLEMENTARY…NOT_FROZEN` and
+  enters no frozen read, so F-A4 needs no retraction — only a warning to future consumers. #515's
+  measurements stand exactly as measured; F-A5 narrows an *interpretation*, not a number.
+- **Did not invent an external bound.** Every observational magnitude in §1.8 and §2.6 is either a
+  corpus read with a cite or tagged `[requires-external-retrieval]`, per the standing rule at
+  [`research/2026-06-11_alpha-hand-of-god-framing.md`](2026-06-11_alpha-hand-of-god-framing.md):255.
+- **Did not draft the auditor's manual entry, a KB leaf, or a manuscript edit.** The findings are
+  surfaced; the auditor lane lands them.
+- **Did not re-mint the `n_eff` overload** — cited as already-live item (13a).
+- **Did not draft an Axiom-5 candidate.** Nothing here diagnoses a missing axiom; every finding is
+  either an engine/corpus consistency question or a Grant-adjudicable physics fork.
+- **Did not pick a side on W1–W8.** W8 carries a stated *recommendation* (route the $\rho_{bond}$
+  fork above item 21), explicitly labelled as a recommendation, not a decision.
+
+---
 
 ## Appendix A — skill-selection plan + retro-pass
 
-*(sections below)*
+### A.1 — The 60-second plan, written BEFORE work started
+
+| Skill / discipline | Why planned | Fired? |
+|---|---|---|
+| `ave-prereg` (corpus-grep-first) | Both axes smell like they may already exist somewhere in a merged lane; grep before deriving | ✅ **and it paid the whole lane** — the grep found #506's direction-resolved slope table (F-A1) and #519's saturated tensor (§2.2), which is why nothing needed deriving |
+| `verify-before-cite` | Every finding is a file:line claim against merged corpus; stale beliefs do not carry | ✅ continuously — caught two of my own draft cites (`:124`→`:125`, `:199`→`:197`) **and** caught F-B1, a stale cite-correction in the corpus itself |
+| `substrate-native-check` (K4 / Cosserat / Op14 / phase-space-vs-real-space) | Mandatory before any solver-shaped thinking | ✅ — fired as the §0 sector header before any standard-physics word; it is what forced the rank-2/rank-4 carve (§1.2) rather than reaching for a continuum-Helmholtz picture |
+| `phase-space-coordinate-check` (A46) | Corpus claim is directional real-space; must not compare against a phase-space object | ✅ — §0 row 4; both axes matched, no mismatch found |
+| `consistency-vs-emergence` | Brief requires a class per candidate statement | ✅ — §1.12 and §2.9, per-statement |
+| `ave-discrimination-check` | Anything smelling AVE-distinct must face the SM counterfactual | ✅ — killed the "anisotropy = AVE-distinct falsifiable prediction" framing (§1.12 last-but-one row) and confirmed the corpus's own `:324` verdict that $\Gamma=0$ is metamaterial-reproducible |
+| sector-ownership (A1 ⊥ T2 cross-wiring watch) | The tracker title says "P-speed" but the GW channel is shear | ✅ — §0 note + §1.4 finding 1; corrected the sector without silently rewriting the tracker |
+| regime / phase-state discipline | A null where the effect cannot exist is an artifact | ✅ — §0 row 5; used in bin A2-COUPLING-BLOCKED |
+| `pre-test-physics-check` | Rule-16 strengthening: ask BEFORE design | ✅ — §3, eight questions, asked before any pre-reg exists |
+| pure-AVE-corpus rule | Every tracked file must be pure physics | ✅ — §A.3 receipt |
+| grep-completeness two-method | My `**` globs and `$…$` patterns silently false-negative | ✅ — the F-B4 absence claim is checked by two independent methods (Appendix B receipt 3) |
+
+### A.2 — Retro-pass on applied-set drift (run before commit, per the standing discipline)
+
+**Three skills fired that were NOT in the plan, and one planned item was deliberately NOT fired:**
+
+- **`ave-canonical-leaf-pull` — fired, unplanned.** Both axes are propagation-speed problems, which
+  is an explicit trigger. Pulled: `port-register.md` (the four-channel table), the band-map
+  derivation, `cosserat-mass-gap.md` via the port-register's two-method receipt line,
+  `achromatic-impedance-matching.md`, `graded-network-response.md`. **This is what surfaced F-A3**
+  (the VRH provenance of the canonical channel ratios) — a finding the planned set would have missed.
+- **`ave-mechanism-claims-discipline` — fired, unplanned.** §2.2 is a mechanism statement (the
+  $\rho_{eff}$ forcing chain). It is headlined with its class (CONSISTENCY / model-bounded) and its
+  premise-dependence, not as a bare mechanism win.
+- **`ave-evidence-framing-discipline` — fired, unplanned.** Applied to the §1.4 magnitudes: they are
+  labelled *arithmetic on merged numbers, conditional on W1*, not "AVE predicts 10 % GW anisotropy."
+- **`ave-reproduction-gate` — deliberately NOT fired, disclosed.** The gate would re-run #506's and
+  #519's drivers on the current engine before load-bearing their numbers. This lane load-bears them
+  only for *scoping direction*, does not bank any of them, and is engine-untouched by charter. ★ **A
+  pre-reg that fires on the back of this doc MUST run the reproduction gate on #506's `C_ij` before
+  banding anything on them** — recorded here so the omission is a disclosed scope choice, not an
+  oversight.
+
+### A.3 — Pure-AVE-corpus receipt
+
+Deliverable and docket fragment contain no reference to investors, funds, interviews, external
+pitches, or any non-physics external context. All rationale is stated in pure-physics terms.
+
+---
 
 ## Appendix B — two-method receipts
 
-*(sections below)*
+**Receipt 1 — the #506 slope table IS the exact cubic Christoffel solution of the #506 $C_{ij}$
+(method 1 = shipped table read; method 2 = independent eigensolve).** Feeding
+$C_{11},C_{12},C_{44} = 0.7279, 0.3232, 0.2488$ (the $\rho^\ast$ row,
+[`2026-07-04_srs-elastic-tensor_result.md`](2026-07-04_srs-elastic-tensor_result.md):132) into
+$\Gamma_{ik}(\hat n)=C_{ijkl}\hat n_j\hat n_l$ and diagonalizing:
+
+| Direction | Christoffel eigenvalues (method 2) | shipped table (method 1) | max abs diff |
+|---|---|---|---|
+| `[100]` | `0.24880, 0.24880, 0.72790` | `0.24876, 0.24876, 0.72786` | `4.0e-05` |
+| `[110]` | `0.20235, 0.24880, 0.77435` | `0.20235, 0.24876, 0.77426` | `9.0e-05` |
+| `[111]` | `0.21783, 0.21783, 0.78983` | `0.21782, 0.21782, 0.78973` | `1.03e-04` |
+
+Residuals are at the 4-decimal precision of the $C_{ij}$ as printed in the source table — i.e. the
+agreement is **exact to the available input precision**. ★ **Consequence for §1.10: the
+"direction-resolved Christoffel treatment" the merged caveat names is not new work — the symmetry
+directions are already solved, and the full sky sweep is a `~30`-line extension.**
+
+**Receipt 2 — the two Zener definitions in play agree.** #802 uses $A = C_{44}/C'$ with
+$C'=(C_{11}-C_{12})/2$; #506 uses $A = 2C_{44}/(C_{11}-C_{12})$. These are algebraically identical.
+Evaluated on the $\rho^\ast$ row: $C' = (0.7279-0.3232)/2 = 0.20235$, $A = 0.2488/0.20235 =
+1.229553$, against #506's shipped `1.229` — agreement to the shipped precision. **Cross-method bonus:
+$C'$ computed this way equals the shipped `[110]` T(low) slope `0.20235` exactly**, which is the
+textbook cubic identity $\rho c^2_{[110],T\perp} = C'$ — a third, independent confirmation that the
+table and the tensor are the same object.
+
+**Receipt 3 — the photoelasticity absence (F-B4), two independent methods.**
+
+| Method | Command | Hits |
+|---|---|---|
+| filesystem walk | `grep -rniE "photoelast\|photo-elast\|stress-optic\|stress optic\|elasto-optic\|elastooptic\|piezo-optic\|Pockels tensor" . --include="*.md" --include="*.tex" --include="*.py"` | **0** |
+| git index | `git grep -niE "photoelast\|stress.optic\|elasto.optic\|piezo.optic" -- '*.md' '*.tex' '*.py'` | **0** |
+
+Two methods, two zeroes. The absence claim is safe. *(This is the grep-completeness discipline
+applied deliberately: a single-pattern `grep` returning zero is exactly the false-negative shape
+that has bitten before.)*
+
+**Receipt 4 — every file:line cite in this document was re-read at ship time**, not carried from
+session context. Three draft cites were wrong and were corrected before commit
+(`srs-elastic-tensor_result.md:124`→`:125`, `:199`→`:197`–`:198`,
+`graded-network-response.md:160`→`:161`). ★ **The same check found F-B1** — a cite-correction in the
+corpus that itself resolved against the wrong `CLAUDE.md`.
+
+**Receipt 5 — the two operating-point numbers, cross-read.** $\rho_{bond}=1$ giving $A=1.000$ is read
+BOTH from #506's table row (`:125`, Zener column `1.000`) AND from #506's prose (`:197`–`:198`, *"At
+the iso-bond point (ρ=1) all directions collapse to 0.17678 (A=1, but K<0 unstable)"*) AND
+independently from #516's minimiser landing at $\rho^\ast=0.99999999$ with $\Gamma_{min}=1.5\times10^{-8}$
+(`2026-07-04_parent-condition-match-forces-balance_result.md`:24,:119). Three sites, one number.
+
+---
+
+> **Lane mechanics.** Self-isolated throwaway worktree off `origin/main` @ `512e1ef4`; branch
+> `research/anisotropy-observable-scoping`; skeleton-first incremental commits (one section per
+> commit). Engine `src/ave` byte-untouched; zero corpus files modified; the only new files are this
+> document and its docket fragment. PR opened `[DO-NOT-MERGE][REVIEW: pending-orchestrator]`.
