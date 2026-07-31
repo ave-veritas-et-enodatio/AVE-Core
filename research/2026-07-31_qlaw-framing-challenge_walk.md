@@ -77,11 +77,36 @@ asked.
 | **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED** at linear order (A1 = DC bias, T2 = AC signal; any A1 product lands at $2\omega$ or DC, not $\omega$). **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | CF-12 |
 | **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork** — *corrected 2026-07-31 (F1 repair pass, audit F2)*: AVE **does** own a radial-overtone object ($n_r$, Op6); what is true is narrower — **the BH-ringdown chain does not instantiate it** | CF-8, and §2.6 probe E15 |
 | **A4** | The loss channel is radiation outward into the graded exterior | **FORCED by canon** that the wall is lossless and contributes **nothing** to $Q$ — which makes the corpus's own label ("$Q$ from the $\Gamma=-1$ TIR boundary") a mis-attribution. **OPEN** off the exact $A=1$ point: $\lvert\Gamma\rvert < 1$ there, and the transmitted shear has nowhere to go as shear | CF-11, CF-15 |
-| **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **RECLASSIFIED → CHANNEL fork, and CLOSED for the shear integrand at $\sqrt{S}$** by three-way over-determination in the $(L,C)$ constitutive pair. **Routed to Grant for ratification; NOT canon until he rules.** | **CF-5, CF-6**, CF-16 ★ |
+| **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **OPEN-FORK, with a recommended resolution ($\sqrt S$)** *(verdict cell corrected 2026-07-31, F5 — see the A5 note below the table)* | **CF-5, CF-6**, CF-16 ★ |
 | **A6** | The $(1+\nu)$ loading factor | **CHOICE** — the FORM (a Poisson factor on a shell mode) is plausible and unexceptional; the SPECIFIC $r_{sat}/(1+\nu)$ is **asserted, not derived**, and its VALUE is GR-imported (upstream F3). Its arithmetic content is that the physical wall sits $9/7$ **above the $\ell$-th mode's own radiation cutoff** ($k r_{sat} = 2.571$) — a *result*, not a defect (CF-4 retracted 2026-07-31) | CF-1, CF-4 |
 | **A7** | Which $Q$ the derivation targets ($\omega_R/2\omega_I$) | **FORCED** — the $\tau$ observable is the physical ratio; the integer mode-count reading coincides only at $a_*=0$ (upstream §1.6 fourth reading). **New caveat:** port-$Q$ and pole-$Q$ diverge once the exterior carries a branch cut | CF-14 |
 | **A8** | Boundary condition at the wall: $\Gamma = -1$ | **FORCED** at $\lvert\Gamma\rvert = 1$ (#260 B3-DEGENERATE). The **sign is Q-neutral in the loss ledger** (a lossless termination either way) but **Q-relevant through the frequency**: short vs open moves the rim between a node and an antinode, a quarter-wave shift in effective length | CF-13 |
 | **A9** | Where the radiated energy goes; re-reflection from the taper | **OPEN-FORK** — the strain grade is $\approx 0.41$ wavelengths thick, i.e. **borderline** between adiabatic and lumped, exactly the regime where partial re-reflection is expected and $Q$ is $O(1)$. Re-reflection **does** feed back into $Q$ by definition (it is the taper's input impedance). The echo cavity is **wall ↔ taper**, not wall ↔ light-ring | CF-9, and §2.3 |
+
+> **⚑ A5 note (added 2026-07-31, repair pass, PR #814 audit F5) — two corrections, one of them to this
+> document's own framing.**
+>
+> **(1) The verdict cell said CLOSED. It should not have.** The legend on this table defines three
+> words — FORCED, CHOICE, OPEN-FORK — and **"CLOSED" is not one of them.** A verdict cell that invents a
+> stronger word than the legend allows is exactly the drift `ave-mechanism-claims-discipline` exists to
+> catch. The cell now reads **OPEN-FORK, with a recommended resolution**, and the substance moves here,
+> hedged: *this document's analysis recommends $\sqrt S$ for the shear integrand, on the strength of
+> CF-6 leg 1 ($S^{1/4}$ demands a constitutive pair with fractional powers canon never writes). That is a
+> **proposal for ratification, not a ruling and not canon.** Grant has not ruled. Per F3 the
+> over-determination argument that originally justified "CLOSED" does not hold: one canonical constraint
+> does not pin a two-parameter pair.*
+>
+> **(2) Canon never had the shear exponent open in the first place.** This is the more uncomfortable
+> correction. The assumption as written — *"the local shear speed exponent is the biggest open input"* —
+> **inherited its breadth from the engine/leaf FLAG**, which is about the **Op14 impedance** register.
+> For the **shear speed** canon is and was unambiguous: [`common/operators.md:56`](../manuscript/ave-kb/common/operators.md)
+> carries Op16 as **CANONICAL** ($c_{shear} = c_0\cdot\sqrt S$), and
+> [`saturating-modulus-and-backreaction.md:60`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md)
+> says verbatim *"a **derived** $\sqrt{S}$ projection, **NOT** a second kernel"*. **So A5 was not
+> challenging an open canonical input; it was challenging a flag whose scope it had over-read.** The
+> genuinely new content of this section is therefore **narrower than advertised**: it is **CF-6 leg 1**
+> — that the $S^{1/4}$ relation has no constitutive home — plus the channel reclassification. Both stand.
+> The framing *"the biggest open input"* does not.
 
 ---
 
