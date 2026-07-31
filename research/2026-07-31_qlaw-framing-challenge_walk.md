@@ -73,12 +73,12 @@ asked.
 
 | # | Assumption under challenge | Verdict | Load-bearing findings |
 |---|---|---|---|
-| **A1** | The resonator is the wall rim at $r_{sat}$ (the "bell") | **OPEN-FORK** — four candidate resonators, canon has explored one; and the standing chain contains **two different radii** for the same mode | CF-1, CF-2, CF-3, CF-9, CF-10 |
+| **A1** | The resonator is the wall rim at $r_{sat}$ (the "bell") | **OPEN-FORK** — four candidate resonators, canon has explored one; and the standing chain uses **two different radii** for the same mode **without declaring which reading it intends** (cutoff radius vs physical wall — one mode described twice, or two places) | CF-1, CF-2, CF-3, CF-9, CF-10 |
 | **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED** at linear order (A1 = DC bias, T2 = AC signal; any A1 product lands at $2\omega$ or DC, not $\omega$). **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | CF-12 |
 | **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork**: the radial-overtone index $n$ has **no AVE object at all** | CF-8, and §2.6 probe E15 |
 | **A4** | The loss channel is radiation outward into the graded exterior | **FORCED by canon** that the wall is lossless and contributes **nothing** to $Q$ — which makes the corpus's own label ("$Q$ from the $\Gamma=-1$ TIR boundary") a mis-attribution. **OPEN** off the exact $A=1$ point: $\lvert\Gamma\rvert < 1$ there, and the transmitted shear has nowhere to go as shear | CF-11, CF-15 |
 | **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **RECLASSIFIED → CHANNEL fork, and CLOSED for the shear integrand at $\sqrt{S}$** by three-way over-determination in the $(L,C)$ constitutive pair. **Routed to Grant for ratification; NOT canon until he rules.** | **CF-5, CF-6**, CF-16 ★ |
-| **A6** | The $(1+\nu)$ loading factor | **CHOICE** — the FORM (a Poisson factor on a shell mode) is plausible and unexceptional; the SPECIFIC $r_{sat}/(1+\nu)$ is **asserted, not derived**, and its VALUE is GR-imported (upstream F3). It also implies a tangential phase speed of $1.286\,c_0$ | CF-1, CF-4 |
+| **A6** | The $(1+\nu)$ loading factor | **CHOICE** — the FORM (a Poisson factor on a shell mode) is plausible and unexceptional; the SPECIFIC $r_{sat}/(1+\nu)$ is **asserted, not derived**, and its VALUE is GR-imported (upstream F3). Its arithmetic content is that the physical wall sits $9/7$ **above the $\ell$-th mode's own radiation cutoff** ($k r_{sat} = 2.571$) — a *result*, not a defect (CF-4 retracted 2026-07-31) | CF-1, CF-4 |
 | **A7** | Which $Q$ the derivation targets ($\omega_R/2\omega_I$) | **FORCED** — the $\tau$ observable is the physical ratio; the integer mode-count reading coincides only at $a_*=0$ (upstream §1.6 fourth reading). **New caveat:** port-$Q$ and pole-$Q$ diverge once the exterior carries a branch cut | CF-14 |
 | **A8** | Boundary condition at the wall: $\Gamma = -1$ | **FORCED** at $\lvert\Gamma\rvert = 1$ (#260 B3-DEGENERATE). The **sign is Q-neutral in the loss ledger** (a lossless termination either way) but **Q-relevant through the frequency**: short vs open moves the rim between a node and an antinode, a quarter-wave shift in effective length | CF-13 |
 | **A9** | Where the radiated energy goes; re-reflection from the taper | **OPEN-FORK** — the strain grade is $\approx 0.41$ wavelengths thick, i.e. **borderline** between adiabatic and lumped, exactly the regime where partial re-reflection is expected and $Q$ is $O(1)$. Re-reflection **does** feed back into $Q$ by definition (it is the taper's input impedance). The echo cavity is **wall ↔ taper**, not wall ↔ light-ring | CF-9, and §2.3 |
@@ -97,19 +97,29 @@ Nothing in Ax 1–4 says the resonant mode of a *graded* medium sits at the poin
 terminates. In a graded resonator the mode sits where the substrate puts it — that is an eigenvalue
 output, not an input.
 
-#### ★ CF-1 — the canonical five-step chain uses TWO different radii for the same mode
+#### ★ CF-1 — the canonical five-step chain uses TWO different radii for the same mode, and never states which reading it intends
+
+> **⚠ Downgraded 2026-07-31 (repair pass, PR #814 audit F1).** This finding was originally written as an
+> **inconsistency**. It is not one. Under the spherical-multipole reading established in the corrected
+> **CF-4** below, $r_{eff}$ is the $\ell$-th mode's **radiation-cutoff radius** and $r_{sat}$ is the
+> **physical wall** — *one mode described twice*, at two radii that stand in the fixed ratio
+> $r_{sat}/r_{eff} = 1+\nu_{vac}$. What is genuinely open, and what this finding now says, is that
+> **the chain never states which of the two readings it is using**, so a reader cannot tell whether
+> "effective cavity radius" means a place or a cutoff. The steelmen below are unchanged and still stand.
 
 Verbatim, same file, adjacent steps:
 
 > `:52` — $r_{\mathrm{eff}} = \dfrac{r_{\mathrm{sat}}}{1 + \nu_{\mathrm{vac}}} = \dfrac{7}{1 + \tfrac{2}{7}} = \dfrac{49}{9}\,M_g \approx 5.444\,M_g$
 >
-> `:55` — **Step 4: Eigenfrequency.** The $\ell = 2$ tangential standing wave **at $r_{\mathrm{eff}}$**
+> `:55` — **Step 4: Eigenfrequency.** The $\ell = 2$ tangential standing wave **at $r_{\mathrm{eff}}$** …
 >
 > `:63` — The mode **orbits tangentially at $r_{\mathrm{sat}}$** with $\ell$ wavelengths fitting around
 > the circumference. Each wavelength subtends angle $2\pi/\ell$, and the curvature radiation loss per
-> cycle scales as $1/\ell$
+> cycle scales as $1/\ell$ …
 
-*[emphasis added on "at $r_{\mathrm{eff}}$" and "at $r_{\mathrm{sat}}$"; both phrases are unbolded in the source.]*
+*[emphasis added on "at $r_{\mathrm{eff}}$" and "at $r_{\mathrm{sat}}$"; both phrases are unbolded in the
+source. Both quotes are truncated: `:55` continues with a colon into the displayed equation, and `:63`
+continues "…, giving:" into the Resultbox.]*
 
 $\omega_R$ is taken from $r_{eff} = 5.444\,M_g$; $Q = \ell$ is taken from a mode-counting picture on the
 circumference at $r_{sat} = 7\,M_g$. **The two numbers this lane is trying to reconcile are read off two
@@ -128,9 +138,11 @@ of exactly the right size class** (upstream H1 wants $c_1 \approx 1.05$; neither
 $1.05$, so this is a *candidate*, not an answer).
 
 **Class:** arithmetic-consistency observation on two verbatim canonical lines. NOT a claim.
-**Verdict:** the resonator's radius is a **CHOICE the chain makes twice, inconsistently**.
+**Verdict (revised 2026-07-31, F1):** the resonator's radius is a **reading the chain never declares**.
+Under the multipole reading the two radii are the same mode's cutoff radius and physical wall; under the
+literal reading they are two places and CF-2 bites. The chain's own prose does not distinguish them.
 
-#### ★ CF-2 — $r_{eff}$ sits 22% INSIDE the shear-reflecting wall
+#### ★ CF-2 — $r_{eff}$ sits 22% INSIDE the shear-reflecting wall **under the literal (place) reading only**
 
 $r_{eff} = 49M_g/9 = 5.444\,M_g$ against $r_{sat} = 7\,M_g$. The Poisson correction points **inward**,
 into the region canon calls Regime IV, where
@@ -139,9 +151,14 @@ states verbatim: *"Gravitational waves, being **transverse shear waves**, **cann
 ruptured interior"*. Under the literal "cavity radius" reading, the eigen-radius is inside the region
 where the mode cannot exist.
 
-**Steelman:** identical to CF-1's — $r_{eff}$ is a length, not a place. **But the two findings are one
-fork with two horns:** either $r_{eff}$ is a radius (and it is inadmissible), or it is an electrical
-length (and the chain's own prose mislabels it, and CF-4 bites).
+**Steelman:** identical to CF-1's — $r_{eff}$ is a length, not a place. **The two findings are one fork
+with two horns:** either $r_{eff}$ is a radius (and it is inadmissible), or it is **not a place at all**
+— the $\ell$-th mode's cutoff radius, a spectral quantity — and the chain's own word "effective cavity
+**radius**" invites the wrong reading.
+
+> **⚠ Downgraded 2026-07-31 (F1).** The original text closed this horn with "*and CF-4 bites*". **It does
+> not** — CF-4's $VF>1$ objection is retracted below, so the cutoff-radius horn carries **no** residual
+> defect. The live content of CF-1/CF-2 is now entirely the **undeclared reading**, not an inconsistency.
 
 #### ★★★ CF-3 — the rim frequency is computed with the COLD far-field speed at the radius where canon puts the local shear speed at exactly ZERO
 
@@ -172,20 +189,78 @@ exactly the kind of thing a graded eigenvalue solve would settle.
 
 **Class:** consistency observation across four canonical statements. NOT a claim, NOT a derivation.
 
-#### ★ CF-4 — the two-radius reading implies a tangential phase speed of $1.286\,c_0$
+#### 🔴 CF-4 — RETRACTED 2026-07-31 (repair pass, PR #814 audit F1). The "$v_\varphi > c_0$ is impossible" objection was a framing artifact; the $1.286$ is $r_{sat}/r_{eff}$, and that is a *result*, not a defect
 
-Take Step 5's geometry literally (ring at $r_{sat}$, $\ell$ wavelengths around the circumference) and
-Step 4's frequency: $\lambda = 2\pi r_{sat}/\ell$, so
-$v_\varphi = \omega_R\lambda/2\pi = \ell c_0(1+\nu_{vac})/r_{sat}\cdot r_{sat}/\ell = c_0(1+\nu_{vac}) = 1.286\,c_0$.
-A tangential wave running around the rim at $1.286\,c_0$ — in a region where canon says the local shear
-speed is $\le c_0$ and heading to $0$.
+**What was wrong.** "A passive line cannot have $VF > 1$" is a **uniform-TEM** statement. It is true of a
+TEM transmission line, which has exactly one propagation constant $1/\sqrt{LC}$. It was applied here to
+the **azimuthal phase velocity of a spherical multipole**, which is a different object and which
+**exceeds $c_0$ above cutoff by definition**. For an $\ell$-th multipole the azimuthal phase speed at
+radius $r$ is $v_\varphi(r) = \omega r/\ell$; it equals $c_0$ **exactly at** $kr=\ell$ and rises linearly
+with $r$ beyond it. No energy moves superluminally — the **radial group** velocity carries the power and
+stays subluminal. A phase front sweeping a large circle faster than $c_0$ is the ordinary above-cutoff
+behaviour of every waveguide and every spherical mode; it is the same thing as $v_\varphi = \omega/\beta
+= c/\sqrt{1-(f_c/f)^2} > c$ in a hollow guide.
 
-**Steelman.** Shell theory *does* put Poisson factors on membrane eigenfrequencies, and a
-"frequency-raising" factor is not by itself superluminal *if the mode is not a simple travelling
-tangential wave* (a flexural shell mode has a different dispersion). But then the $\ell$-wavelengths-
-around-the-circumference picture — which is the *entire source of $Q = \ell$* — no longer applies, and
-$Q$ has to come from somewhere else. **The two halves of the standing derivation are load-bearing on
-mutually exclusive mode pictures.**
+**The arithmetic, restated correctly — and it is the real content of $(1+\nu_{vac})$.**
+CF-8 gives $k\,r_{eff} = \ell$ exactly. That **is** the radiation-cutoff condition, so $r_{eff}$ is the
+$\ell$-th mode's **cutoff radius**. Then
+
+$$k\,r_{sat} \;=\; k\,r_{eff}\cdot\frac{r_{sat}}{r_{eff}} \;=\; \ell\,(1+\nu_{vac}) \;=\; \tfrac{9}{7}\cdot 2 \;=\; \mathbf{2.571},
+\qquad v_\varphi(r_{sat}) \;=\; \frac{\omega_R\,r_{sat}}{\ell} \;=\; \tfrac97 c_0 \;=\; 1.286\,c_0$$
+
+**$1.286$ is not a velocity-factor violation — it *is* $r_{sat}/r_{eff}$**, the factor by which the
+physical wall sits above the $\ell$-th mode's own cutoff. And $v_\varphi(r_{eff}) = c_0$ **exactly**,
+which is the cutoff condition written a third way. *(CLASS: IDENTITY — three re-expressions of
+$\omega_R M_g = 18/49$, $r_{eff}=49M_g/9$, $r_{sat}=7M_g$.)*
+
+**Canon carries superluminal phase velocities on its own account.** `manuscript/ave-kb/claim-quality.md:111-112`,
+quoted verbatim in this very document's CF-5 table: *"$c_{EM,sym} = c_0/S \to \infty$ (EM phase velocity
+rises)"* and *"$c_{EM,asym} = c_0/\sqrt{S} \to \infty$ (EM evanescent, no energy transport)"*. **A framing
+challenge that forbids $v_\varphi > c_0$ deletes two of the three branches in its own CF-5 table.** That
+self-collision is the tell that the objection, not the corpus, was wrong.
+
+**FORK-4 is therefore re-posed, not closed.** The two-radius structure is still an open physics question
+— but the open question is no longer "explain the impossible velocity". It is the audit's plumber form:
+
+> **The standing chain puts the physical wall exactly $9/7$ above the mode's own cutoff radius. Is that
+> the $(1+\nu_{vac})$ factor's actual job — a cutoff-to-wall ratio — or is the coincidence accidental?**
+
+**Decision-relevant arithmetic — where on the curve you evaluate matters more than the fork looked.**
+
+> **⚑ AUDITOR-ARITHMETIC (provenance: PR #814 compact audit, 2026-07-31).** Yaghjian–Best $Q_Z$ for the
+> $\ell=2$ spherical mode: **$1.962$ at $ka=2$** (cutoff / $r_{eff}$) vs **$0.965$ at $ka=2.571$**
+> (wall / $r_{sat}$) vs **$1.100$ at $ka=2.449$** (the $\sqrt{\ell(\ell+1)}$ fork of A3).
+> **The cutoff-vs-wall choice moves $Q$ by a factor of $\sim2$.** This is a **spin-1 vector-multipole**
+> estimator — see the sector caution now carried at CF-8/E10/R7 (F10): the GW observable is a **spin-2
+> tensor** multipole and its impedance relation is *not* imported here. Illustrative locator for the
+> fork's size, **not a derivation, not a claim, not pre-registered**.
+
+> **⚑ IMPLEMENTER RE-COMPUTATION (2026-07-31, flag-don't-fix — the two do not agree numerically).**
+> Re-running the standard Yaghjian–Best estimator
+> $Q_Z = \tfrac{1}{2R}\sqrt{(x R')^2 + (x X' + \lvert X\rvert)^2}$ on the spherical-mode wave impedance
+> $Z_\ell(x)/\eta = j\,\hat H_\ell'(x)/\hat H_\ell(x)$, $\hat H_\ell(x) = x h^{(2)}_\ell(x)$, $x = ka$,
+> I get **$1.863 / 0.839 / 0.973$** for the same three points, **not** $1.962/0.965/1.100$. Running the
+> *exact* Chu / Collin–Rothschild stored-energy $Q$ instead (validated to 4 digits against the closed
+> forms $1/x + 1/x^3$ at $\ell=1$ and $3/x + 6/x^3 + 18/x^5$ at $\ell=2$) gives **$2.812 / 1.679 / 1.837$**.
+> **All three estimators agree on the decision-relevant fact** — cutoff → wall moves $Q$ down by
+> $40$–$55\%$, i.e. by roughly $2\times$ — **and they disagree on the absolute number by up to $50\%$**,
+> because $Q_Z$ is a high-$Q$ approximation and this problem sits at $Q\sim2$. **That estimator spread is
+> CF-14 (port-$Q$ vs pole-$Q$) showing up as a number rather than as a caution.** Surfaced, not resolved.
+
+> **Preserved original (Rule 12), superseded 2026-07-31 — retained verbatim, NOT refilled with a new
+> hypothesis.** *"CF-4 — the two-radius reading implies a tangential phase speed of $1.286\,c_0$. Take
+> Step 5's geometry literally (ring at $r_{sat}$, $\ell$ wavelengths around the circumference) and Step
+> 4's frequency: $\lambda = 2\pi r_{sat}/\ell$, so $v_\varphi = \omega_R\lambda/2\pi = c_0(1+\nu_{vac}) =
+> 1.286\,c_0$. A tangential wave running around the rim at $1.286\,c_0$ — in a region where canon says
+> the local shear speed is $\le c_0$ and heading to $0$. **Steelman.** Shell theory does put Poisson
+> factors on membrane eigenfrequencies, and a 'frequency-raising' factor is not by itself superluminal
+> if the mode is not a simple travelling tangential wave (a flexural shell mode has a different
+> dispersion). But then the $\ell$-wavelengths-around-the-circumference picture — which is the entire
+> source of $Q = \ell$ — no longer applies, and $Q$ has to come from somewhere else. The two halves of
+> the standing derivation are load-bearing on mutually exclusive mode pictures."*
+>
+> The final sentence is the part that does not survive: under the multipole reading the two halves are
+> **the same picture** — $\ell$ wavelengths around the cutoff circle *is* $ka=\ell$.
 
 #### ★ CF-9 — the light-ring cavity is geometrically INVERTED for the shear channel
 
@@ -459,19 +534,23 @@ it the water in the pipe?**
   justification is the one sentence *"The saturation boundary defines the 1D strain threshold. The
   orbital mode lives in 3D — the effective cavity radius accounts for transverse Poisson coupling"*).
 - **VALUE.** $\nu_{vac} = 2/7$ is **GR-IMPORTED** via $K = 2G$ (upstream F3, PR #261). Not re-opened here.
-- **CIRCUIT READING.** In EE the factor is a **velocity factor / end-effect correction on the ring's
-  electrical length** — the same object as the end-effect that makes a half-wave dipole physically
-  shorter than $\lambda/2$. That is a clean and honest mapping *except* for its **direction**: it acts
-  as a velocity factor **greater than one** ($v_\varphi = 1.286\,c_0$, CF-4). **A passive line cannot
-  have $VF > 1$ in its own medium.** Recorded as failure-mode probe **E11** in §2.6 — this is one of
-  the few places in this whole mapping where the circuit picture says *"that element does not exist"*.
+- **CIRCUIT READING (corrected 2026-07-31, F1).** The original text read this factor as a
+  **velocity factor** and objected that it acts as $VF>1$. **That objection is retracted** — see the
+  superseded CF-4. A ring resonator is not a uniform TEM line, and the azimuthal phase velocity of an
+  $\ell$-th spherical multipole exceeds $c_0$ above its own cutoff **by definition**. The honest circuit
+  reading is instead a **cutoff-to-wall ratio**: $k\,r_{eff} = \ell$ makes $r_{eff}$ the mode's cutoff
+  radius, $k\,r_{sat} = \ell(1+\nu_{vac}) = 2.571$, and $(1+\nu_{vac})$ is exactly how far above cutoff
+  the physical wall sits. Whether that is the factor's *job* or a coincidence is **FORK-4**, re-posed.
 
 **What the honest options are.** (i) The factor is a genuine shell-mode correction and the
 $\ell$-wavelengths-around-the-circumference picture (hence $Q=\ell$) must be replaced by shell dispersion.
 (ii) The factor is a placeholder for a computed graded eigenvalue and should be **retired** rather than
 justified (upstream Q5 already reaches this conclusion from a different direction: a *fit* would have
 picked exponent $0.355$, not $0.5$). (iii) The factor belongs to the frequency and not to the geometry,
-in which case CF-1's leak-fraction correction $(1+\nu)^{\pm1}$ is live.
+in which case CF-1's leak-fraction correction $(1+\nu)^{\pm1}$ is live. (iv) **New, and now the leading
+reading:** the factor's content is $r_{sat}/r_{eff}$ — the mode's wall-above-cutoff ratio — in which case
+it is not a correction to a length at all but a statement about *where the wall is relative to the
+mode's own spectrum*, and the derivation must reproduce it rather than assert it.
 
 ---
 
@@ -617,7 +696,7 @@ the means-test PASS that licenses the rest of the mapping.
 | **E8** | the $\ell=2$ rim oscillation | **ring resonator** = closed loop of $\ell$ full wavelengths; equivalently the $\ell$-th **spherical mode** of the exterior | Op21 single-channel wavelength count | `op21-…:§2.3` | clean |
 | **E9** | the "$1/\ell$ leak per cycle" | **external (radiation) $Q$ of the $\ell$-th spherical mode at $ka=\ell$** | curvature radiation from a curved-interface surface wave | CF-8; `regime-eigenvalue-method.md:63` | ★ **NEW correspondence — candidate row, NOT landed** (§2.7) |
 | **E10** | $Q$ itself | **loaded $Q$** $= \omega W_{stored} / P_{out} = X_{rim}/\mathrm{Re}\{Z_{in}^{taper}\}$ | — | template at [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) ($Q_{tank}=\omega_C L_e/R$ at $R = Z_0/4\pi$) | clean in FORM; ⚠ **sector caution**: the template is an **EM**-channel calculation ($Z_0 \equiv Z_{EM}$) and this is a **shear** problem — the upstream R1 leak risk, restated |
-| **E11** | the $(1+\nu_{vac})$ factor | **velocity factor / end-effect correction** on the ring's electrical length | Poisson transverse coupling | `regime-eigenvalue-method.md:16,52` | ⚠ **NO CLEAN MAPPING** — acts as $VF = 1.286 > 1$; a passive line cannot exceed its own medium's speed. **Failure-mode probe** |
+| **E11** | the $(1+\nu_{vac})$ factor | **wall-above-cutoff ratio** $r_{sat}/r_{eff}$ on the $\ell$-th spherical mode ($k r_{eff}=\ell$ ⇒ $k r_{sat} = 2.571$) | Poisson transverse coupling | `regime-eigenvalue-method.md:16,52` | **MAPS CLEANLY (corrected 2026-07-31, F1).** The earlier "$VF>1$, no clean mapping" reading is **retracted** — a spherical multipole's azimuthal $v_\varphi$ exceeds $c_0$ above cutoff by definition. What is open is whether the ratio is *derived* or coincidental (**FORK-4**) |
 | **E12** | $\rho_{eff} = \rho_0/S^3$ (topological halting) | would be a **series $L$ diverging at the wall** $\Rightarrow Z\to\infty \Rightarrow$ **open** termination | infalling-matter inertia | `interior-singularity-resolution.md:19` | ⚠ **CONFLICTS with E1/E5.** Failure-mode probe / CF-7 |
 | **E13** | the predicted echo | **multiple reflection between E5 and the partially-reflecting taper E6** | — | `vol3/claim-quality.md:123` | clean; delay $= 2\int_{r_{sat}}^{r^\star} dr/c_{shear}$ (CF-9) |
 | **E14** | spin $a_*$ / frame dragging $\Omega$ | **a non-reciprocal (gyrotropic) bias on the ring — a ferrite-circulator loading**, splitting CW from CCW | Cosserat micro-rotation bias | `frame-dragging-impedance-convolution.md:15`; the Park/FOC reading at `kerr-q-correction.md:49-61` | ⚠ **PARTIAL** — the corpus models it as a **frequency offset** $\omega\to\omega-m\Omega$ (a rotating-frame Doppler), which is **not the same EE object** as a circulator's nonreciprocal mode split. Both are legitimate EE devices; they make different $Q$ predictions. **FLAG** |
@@ -689,8 +768,14 @@ standing derivation:
 4. **$ka = \ell$ is an identity** and it names the object (CF-8). The elastic phrase "$\ell$ wavelengths
    fit around the circumference" conceals that this is the antenna radiation-cutoff condition, with a
    closed-form answer sitting right there.
-5. **$VF > 1$ is impossible** (E11/CF-4). Elasticity happily writes a Poisson factor; a transmission line
-   refuses to propagate faster than $1/\sqrt{LC}$.
+5. **~~$VF > 1$ is impossible~~ — RETRACTED 2026-07-31 (F1).** The original entry read: *"Elasticity
+   happily writes a Poisson factor; a transmission line refuses to propagate faster than $1/\sqrt{LC}$."*
+   That is a **uniform-TEM** statement misapplied to a spherical multipole's azimuthal phase velocity,
+   which exceeds $c_0$ above cutoff by definition — and canon's own SYM/ASYM branches carry
+   $c_{EM}\to\infty$ (`manuscript/ave-kb/claim-quality.md:111-112`). **What the circuit picture actually
+   makes obvious here is the replacement:** $(1+\nu_{vac}) = r_{sat}/r_{eff} = k r_{sat}/\ell$ is a
+   **wall-above-cutoff ratio**, a spectral statement the elastic "Poisson correction" language hides.
+   See the superseded CF-4.
 6. **A resonator has exactly one electrical length.** CF-1's two-radius split is invisible in prose and
    glaring the moment you ask "so how long is the line?"
 
@@ -710,11 +795,12 @@ standing derivation:
 
 ### §2.6 — Failure-mode probes (elements with no clean mapping)
 
-Per `ave-ee-first-mapping` §"Failure-mode probes" — honest list, four entries:
+Per `ave-ee-first-mapping` §"Failure-mode probes" — honest list, **three** entries after the 2026-07-31
+repair pass (P1 was withdrawn; it is retained in the table so the count is auditable):
 
 | probe | element | why it fails to map | what it would take |
 |---|---|---|---|
-| **P1** | **E11** — $(1+\nu_{vac})$ as $VF = 1.286 > 1$ | passive lines cannot exceed $1/\sqrt{LC}$; the factor is not a line property | either a shell-dispersion object (a *different* wave type, not a TL mode), or retirement of the factor |
+| ~~**P1**~~ | ~~**E11** — $(1+\nu_{vac})$ as $VF = 1.286 > 1$~~ | 🔴 **WITHDRAWN 2026-07-31 (F1).** Original: *"passive lines cannot exceed $1/\sqrt{LC}$; the factor is not a line property"* — a uniform-TEM statement misapplied to a multipole's azimuthal phase velocity. **E11 maps cleanly** as $r_{sat}/r_{eff}$ | not a mapping failure; the open item is **FORK-4** (is the cutoff-to-wall ratio derived or coincidental?) |
 | **P2** | **E12** — $\rho_{eff} = \rho_0/S^3$ | it is a *matter* inertia, not a line inertia; if it were the line's, the termination flips short→open | canon must say which $\rho$ enters $Z_{shear}=\rho c_{shear}$ (CF-7 / FORK-3) |
 | **P3** | **E14** — spin as Doppler-offset vs circulator-bias | a rotating-frame frequency shift and a gyrotropic nonreciprocity are different devices with different loaded-$Q$ structure | decide whether $\Omega$ is a kinematic frame rate or a material bias (upstream Q4, now with an EE-sharp form) |
 | **P4** | **E15** — radial overtone $n$ | not a mapping failure but a **corpus gap**: the circuit *has* the object, AVE has no name for it | either derive the radial ladder or state why the AVE cavity is single-layer |
@@ -811,11 +897,15 @@ corpus writes as $1/\ell$ and never computes. In the walk you can see what that 
 steepest part of the ramp at hops 1–3, (iii) how much of *that* survives the turning point at hop 11.
 **Three factors, all computable from the column above, and the corpus replaces all three with the
 word "scales as".**
-> ⇢ **FORK-1 and FORK-4 bite on "the mode".** Where is it actually sloshing? The standing chain says
+> ⇢ **FORK-1 and FORK-4 bite on "the mode".** Where is it actually sloshing? Under the *literal* reading
 > the frequency comes from a circle at $5.44\,M_g$ — a radius you would have to walk *inward* past the
-> wall to reach, through hops where shear does not exist. And it says the leak comes from a circle at
-> $7\,M_g$ — where you are standing, where the shear speed is zero. Neither circle can carry the mode
-> the other one describes.
+> wall to reach, through hops where shear does not exist — while the leak comes from a circle at
+> $7\,M_g$, where you are standing and where the shear speed is zero.
+> **Corrected 2026-07-31 (F1):** under the *multipole* reading those are not two circles at all.
+> $5.44\,M_g$ is the $\ell=2$ mode's **cutoff radius** — a spectral marker, not a place you can stand —
+> and $7\,M_g$ is where you *are*, at $k r = 2.571$, i.e. $9/7$ **above** that cutoff. The mode is
+> above cutoff here and therefore radiating, which is exactly why $Q$ is $O(1)$. The live question is
+> no longer "which circle" but **"is the wall's position relative to the cutoff derived or assumed?"**
 
 **The one-sentence version for the walk.**
 > You are standing on a free surface at the bottom of a stiffness ramp that climbs to full vacuum
@@ -835,7 +925,7 @@ derivation lane computes.**
 | **FORK-1** | **A1 — where does the bell live?** | *Is this a bell (mass at a radius) or a horn (a taper that resonates)?* | (a) a ring at the rim $r_{sat}$; (b) a distributed mode of the graded shell, radius = solver **output**; (c) an interface/Scholte mode on the wall — **already excluded**, it wouldn't ring down (CF-10); (d) a curvature-leaking whispering-gallery mode = (b) evaluated at its own turning point |
 | **FORK-2** | **A5 — the $S$-exponent, reclassified** | *At the wall, does the vacuum go **soft** (compliant, $C\to\infty$, short) or **stiff-and-opaque** ($Z\to\infty$, open)? You can't have both in one channel.* | (a) ratify the three-branch $(L,C)$ table (§CF-5) ⇒ shear pinned at $\sqrt S$, $S^{1/4}$ is an ASYM/EM artifact; (b) reject the channel assignment and keep $S^{1/4}$ live in the shear integrand; (c) KEEP-BOTH and make the derivation report both |
 | **FORK-3** | **CF-7 — which $\rho$?** | *Is the frozen infalling matter part of the pipe wall, or is it the water in the pipe?* | (a) $\rho_0$, cold lattice inertia ⇒ free surface, $\Gamma=-1$; (b) $\rho_{eff}=\rho_0/S^3$ ⇒ clamped surface, $\Gamma=+1$, taper reverses; (c) two different substances, and canon must say so at `vol3/claim-quality.md:122` |
-| **FORK-4** | **A6/CF-1 — the two radii** | *A ring can only have one electrical length. Which circle is the mode on — and if the answer is "$7\,M_g$ physically, $5.44\,M_g$ electrically", what makes the wave run round it at $1.286\,c_0$?* | (a) ring at $r_{sat}$, $(1+\nu)$ is a velocity factor — then explain $VF>1$; (b) mode at $r_{eff}$ — then explain how shear exists inside the melt; (c) retire $(1+\nu)$ and let a graded solve output the radius |
+| **FORK-4** *(re-posed 2026-07-31, F1)* | **A6/CF-1 — the two radii** | *The standing chain puts the physical wall exactly $9/7$ above the mode's own cutoff radius ($k r_{eff} = \ell$, $k r_{sat} = \ell(1+\nu) = 2.571$). **Is that the $(1+\nu)$ factor's actual job** — the wall-to-cutoff ratio — or is the coincidence accidental?* | (a) **yes, that is its job** — then the derivation must *produce* $9/7$ from the graded profile, not assert it, and $Q$ must be evaluated at $ka = 2.571$ (where $Q$ is $\sim2\times$ smaller than at cutoff); (b) coincidence — the factor is a shell-membrane correction and the wall/cutoff coincidence is unexplained; (c) retire $(1+\nu)$ and let a graded solve output both radii. **Superseded option:** the original menu's *"then explain $VF>1$"* is withdrawn — there is nothing to explain (CF-4) |
 | **FORK-5** | **CF-15 — disposal** | *A hair off the wall the mirror isn't perfect and some shear crosses. Shear can't propagate in there. Where does it go?* | (a) mode-converts to bulk/A1 at the interface (a **second** loss channel ⇒ Op21's single-channel classification breaks); (b) reflects off the compact shell (a delay, not a loss ⇒ feeds the echo); (c) absorbed (needs a bulk $\mathrm{Re}\{Z\}$ ⇒ Ax-3 violation unless port-licensed) |
 | **FORK-6** | **A9/CF-9 — which echo cavity?** | *Where's the second mirror?* | (a) the graded turning point at $\approx7.8$–$8.6\,M_g$ (this doc's reading — a **short** delay through **slow** medium); (b) the light ring at $r_{ph}$ — but it is buried inside the wall (CF-9); (c) no second mirror, the taper is adiabatic and there is no echo |
 | **FORK-7** | **A2/CF-12 — vessel anisotropy** | *Is the wall a pressure vessel? Hoop bonds tight, radial bonds slack — does the rim ring in two different notes?* | (a) yes, R6 transplants to the BH wall ⇒ split rim modes + mode conversion ⇒ $Q^{-1}$ is a sum; (b) no, R6 is core-local and does not transplant; (c) untested — make it a gate in the derivation pre-reg |
@@ -924,7 +1014,9 @@ arithmetic-consistency class — **no engine run, no solver, no fitted parameter
 | $k\,r_{eff} = (\omega_R/c)\,r_{eff}$ | $\mathbf{2.000} = \ell$ **exactly** | $\omega_R M_g = 18/49$, $r_{eff}=49M_g/9$ |
 | $\lambda_\infty = 2\pi c/\omega_R$ | $17.10\,M_g$ | $\omega_R M_g = 18/49$ |
 | taper length / $\lambda$ | $\approx 0.41$ | grade scale $\sim r_{sat}=7M_g$ |
-| $v_\varphi$ under the "ring at $r_{sat}$" reading | $1.286\,c_0 = (1+\nu_{vac})c_0$ | $\omega_R$, $r_{sat}$, $\ell$ |
+| $k\,r_{sat} = \ell(1+\nu_{vac})$ (wall's electrical size) | $\mathbf{2.571}$ | $\omega_R M_g = 18/49$, $r_{sat}=7M_g$ |
+| $v_\varphi(r_{sat}) = \omega_R r_{sat}/\ell$ | $1.286\,c_0 = (1+\nu_{vac})c_0$ — **above-cutoff phase velocity, not a defect** (CF-4 retracted 2026-07-31) | $\omega_R$, $r_{sat}$, $\ell$ |
+| $v_\varphi(r_{eff}) = \omega_R r_{eff}/\ell$ | $c_0$ **exactly** — the cutoff condition, third re-expression | $\omega_R$, $r_{eff}$, $\ell$ |
 | turning point, canonical $c\propto\sqrt S$ | $A^2 = 2/3$, $r^\star = 8.573\,M_g$ | $A = 7M_g/r$, $V\propto c_{shear}^2/r^2$ |
 | turning point, Family-E $c\propto S^{1/4}$ | $A^2 = 4/5$, $r^\star = 7.826\,M_g$ | same, exponent varied |
 | $c_{shear}(r^\star)/c_0$ | $0.760$ | canonical exponent |
