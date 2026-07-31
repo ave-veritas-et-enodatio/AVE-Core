@@ -400,12 +400,34 @@ does the gravitational strain field split the two polarizations?**
 verbatim: *"⚠ **Cite correction (verify-before-cite).** The walk pointed this carve at `CLAUDE.md:75`;
 that line did **not** verify — `CLAUDE.md:75` is the repo's *Pure-AVE-corpus rule* text, not the
 SYM/ASYM physics carve. So the carve is recorded here as **chat-record framing** … **pending a
-canonical carve leaf.**"* **That correction resolved against the wrong file.** The repo-root
-`CLAUDE.md:75` is indeed the pure-corpus rule — but the SYM/ASYM carve **is canonical**, at
-**`manuscript/ave-kb/CLAUDE.md`:75** (INVARIANT-S2, the W6 clarification 2026-06-05), and
-`graded-network-response.md`:137 cites exactly that path. So the SYM/ASYM carve is **not**
-chat-record-pending-a-leaf; it is INVARIANT-level canon plus a canonical leaf. Surfaced for the
-auditor lane; nothing edited here.
+canonical carve leaf.**"* **That correction resolved against the wrong file.** The SYM/ASYM carve
+**is canonical**, at **`manuscript/ave-kb/CLAUDE.md`:75** (INVARIANT-S2, the W6 clarification
+2026-06-05 — content-verified: that line carries the *"**SYMMETRIC-loading operating point** …
+realized when *both* sectors are driven"* / *"a **static-E-only drive is ASYMMETRIC**"* carve
+verbatim), and `graded-network-response.md`:137 cites exactly that path. So the SYM/ASYM carve is
+**not** chat-record-pending-a-leaf; it is INVARIANT-level canon plus a canonical leaf. Surfaced for
+the auditor lane; nothing edited here.
+
+⊗ **And the anchor that correction leaned on has itself drifted — which makes the finding stronger,
+not weaker.** *(Added in review, and stated in past/present-honest form: a bare present-tense
+"repo-root `CLAUDE.md:75` is the pure-corpus rule" is **not true today**, and this document's first
+version asserted it without re-checking — reproducing, in miniature, the very error it was flagging.)*
+
+| When | repo-root `CLAUDE.md` — where the Pure-AVE-corpus rule actually sits | What is at `:75` |
+|---|---|---|
+| **At the 2026-07-13 walk** (`d072025f`, nearest `origin/main` commit) | heading `:72`, rule text `:74` | **blank line** |
+| **Today** (this branch's head) | heading **`:78`**, rule text **`:80`** | **blank line** |
+
+★ **So the 2026-07-13 correction was wrong on BOTH legs, and the second is the sharper one.** It
+resolved against the wrong *file* (repo-root rather than `manuscript/ave-kb/`) — **and** the line it
+named in that wrong file **was already blank on the day it was written**, the rule text sitting at
+`:74`. **A `:75` that verified against nothing was read as verifying against the pure-corpus rule,
+and that non-existent coincidence is the entire basis on which a canonical carve was demoted to
+"chat-record framing."** The anchor has since moved again, to `:78`–`:80`.
+
+**Durable lesson routed with the finding:** a `path:line` cite into a frequently-edited instruction
+file is a weak anchor — **content-verify the line, and when two files share a basename, always name
+the full path.** Every `CLAUDE.md` cite in this document names its full path for exactly that reason.
 
 ### §2.2 — The gravitational forcing chain, IF the loading is exactly symmetric
 
