@@ -323,3 +323,233 @@ It is also the honest form of the brief's "is $\Gamma=-1$ exactly lossless?" que
 yes; near the wall, no, and the corpus has never asked how near.**
 
 ---
+
+### §1.5 — A5: the $S$-exponent in the shear speed (the brief called this the biggest unresolved input)
+
+**It is not an exponent fork. It is a CHANNEL fork, and the shear channel is over-determined-consistent.**
+This is the single largest deliverable of the framing challenge, and it comes straight out of firing
+`ave-ee-first-mapping` rather than staying in elastic language.
+
+#### ★★★ CF-5 — go to $(L, C)$ and the register collapses into three channels with no exponent freedom left
+
+A transmission line has exactly **two** independent constitutive functions per unit length, $L$ and $C$.
+Everything else is an **output**: $Z = \sqrt{L/C}$, $c = 1/\sqrt{LC}$. Canon states $Z(S)$, $c(S)$, **and**
+a $Z\!\leftrightarrow\!c$ relation — three statements for two degrees of freedom. That over-determination
+*is* the standing $\sqrt S$-vs-$S^{1/4}$ flag. Resolve it by declaring $L$ and $C$ from the lattice
+primitive and letting $Z$ and $c$ both fall out. Doing that, **every canonical impedance/speed statement
+in the corpus lands in exactly one of three branches, and each branch is internally exact:**
+
+| branch | $L$ per length | $C$ per length | $\Rightarrow Z$ | $\Rightarrow c$ | canonical receipts |
+|---|---|---|---|---|---|
+| **SYM** — "gravity, BH interior, particle confinement" | $L_0 S$ ($\mu$ scales) | $C_0 S$ ($\varepsilon$ scales) | $Z_0$ **invariant** | $c_0/S$ | [`manuscript/ave-kb/claim-quality.md:111`](../manuscript/ave-kb/claim-quality.md) verbatim: *"both $\mu$ and $\varepsilon$ scale by $S$. Result: $Z_{sym} = Z_0$ (impedance invariant); $c_{EM,sym} = c_0/S \to \infty$"* |
+| **ASYM** — strong EM field only | $L_0$ ($\mu$ frozen) | $C_0 S$ ($\varepsilon_{eff}=\varepsilon_0 S$ rolls off) | $Z_0/\sqrt S \to \infty$ (**open**) | $c_0/\sqrt S$ | `manuscript/ave-kb/claim-quality.md:112` verbatim: *"only $\varepsilon$ scales by $S$. Result: $Z_{asym} = Z_0/\sqrt{S} \to \infty$ (medium opaque); $c_{EM,asym} = c_0/\sqrt{S} \to \infty$"*; this is **Op14's** $Z_{eff}=Z_0/\sqrt S$ ([`common/operators.md:54`](../manuscript/ave-kb/common/operators.md)) |
+| **SHEAR (T2)** — the ringdown's own channel | $L_0 \leftrightarrow \rho$ (inertia unsaturated) | $C_0/S \leftrightarrow 1/G_{shear}$ (compliance diverges as $G_{shear}=G_0S \to 0$) | $Z_{sh,0}\sqrt S \to 0$ (**short**, $\Gamma=-1$) | $c_0\sqrt S \to 0$ | [`vol3/claim-quality.md:122`](../manuscript/ave-kb/vol3/claim-quality.md) ($Z_{shear}=\rho c_{shear}\to0 \Rightarrow \Gamma_{shear}=-1$); `operators.md` Op16 ($c_{shear}=c_0\sqrt S$); `saturating-modulus-and-backreaction.md:60`; the #260 B3 banner's $Z=Z_0\sqrt S$, $\lvert\Gamma\rvert=1$ |
+
+Three canonical statements about the shear channel — $Z_{shear}=\rho\,c_{shear}\to0$,
+$c_{shear}=c_0\sqrt S$, and the Ax-4 compliance divergence $C_{eff}=C_0/S$
+([`nonlinear-vacuum-capacitance.md:27`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md))
+— are **simultaneously satisfied by one constitutive pair with zero freedom left over.**
+**$S^{1/4}$ appears in none of the three branches.**
+
+> **⚑ Honest residual on the SHEAR row (do not paper over).** `nonlinear-vacuum-capacitance.md:14`
+> explicitly labels the diverging $C_0/S$ the *"**longitudinal-A1 bond compliance** ($1/k_a$, the
+> stretch-reactance), **NOT** the transverse dielectric capacitance"*. The SHEAR row above therefore
+> uses the **shear** bond compliance $1/G_{shear}$ with $G_{shear} = G_0 S$, which is licensed by
+> `saturating-modulus-and-backreaction.md:60` projecting **the same $A$** into shear ("a **derived**
+> $\sqrt{S}$ projection, NOT a second kernel"), not by the A1 varactor line. Whether the shear
+> compliance's kernel *argument* is the A1 amplitude (canon's projection) or its own transverse swing
+> (the per-deformation-coordinate reading of Ax 4,
+> [`research/2026-07-21_boundary-strain-amplitude_result.md:13`](2026-07-21_boundary-strain-amplitude_result.md))
+> is a live residual — the same residual as upstream Q3's $A$-vs-$A^2$ item.
+
+#### ★★ CF-6 — the $S^{1/4}$ Family-E exponent is an artifact of one relation, and that relation is not a fixed-inductance relation in ANY branch
+
+The flagged item at
+[`vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:30-33`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md) reads verbatim:
+
+> ⚑ **Downstream flag (auditor):** with $Z_0/\sqrt{S}$, the $c_{\text{local}} = c_0\sqrt{Z_0/Z_{\text{local}}}$
+> relation below yields $c_0 S^{1/4}$, which still differs from the canonical shear/lensing slow-down
+> $c_{\text{shear}} = c_0\sqrt{S}$. That $c_{\text{local}}$ derivation relation is a SEPARATE
+> un-propagated item, NOT silently rewritten here
+
+**In both fixed-$L$ branches the correct relation is $c/c_0 = Z/Z_0$ exactly** — check it:
+SHEAR gives $Z/Z_0=\sqrt S$ and $c/c_0=\sqrt S$ ✓; ASYM gives $Z/Z_0=1/\sqrt S$ and $c/c_0=1/\sqrt S$ ✓.
+(In SYM the relation does **not** hold, because SYM moves $L$ too — $Z/Z_0=1$ while $c/c_0=1/S$; that is
+the correct and expected behaviour, and it is a useful signature of which branch you are in.)
+
+The relation $c = c_0\sqrt{Z_0/Z}$ demands a **different** constitutive pair. Solving
+$Z/Z_0=\sqrt{\lambda/\gamma}=S^{-1/2}$ and $c/c_0=(\lambda\gamma)^{-1/2}=S^{1/4}$ for
+$L = L_0\lambda$, $C = C_0\gamma$ gives
+
+$$\lambda = S^{-3/4}, \qquad \gamma = S^{1/4}$$
+
+i.e. an **inductance that rises** as $S^{-3/4}$ and a **capacitance that falls** as $S^{1/4}$ — quarter-
+and three-quarter powers that appear nowhere in canon, and a capacitance moving in the **opposite
+direction from the canonical Ax-4 varactor** ($C_{eff}=C_0/S$, rising). **The $S^{1/4}$ exponent has no
+constitutive home.**
+
+**Flag-don't-fix, and stated as such.** Both readings are on the record with paths and verbatim text;
+neither is reframed and **no corpus file is modified**. Routed to Grant/auditor.
+
+**A5 verdict.** For the **shear** integrand this document's analysis says the exponent is **pinned at
+$\sqrt S$** by three-way over-determination, and $S^{1/4}$ is an EM/ASYM-branch artifact carried in on
+an inconsistent relation. **That is a proposal for ratification, NOT a ruling and NOT canon.** Until
+Grant rules, the derivation lane should carry $\sqrt S$ as primary **and record the $S^{1/4}$
+counterfactual** (it moves the graded turning point $8.573 \to 7.826\,M_g$, CF-9) — the KEEP-BOTH
+pattern, not a silent pick.
+
+#### ★ CF-7 — which $\rho$ carries the shear wave at the wall? The two candidates flip the termination
+
+Canon writes $Z_{shear} = \rho\,c_{shear}$ and lets $Z\to0$ *because* $c_{shear}\to0$ — holding $\rho$
+fixed. But canon **also** says the effective inertial density diverges at the same place. Verbatim,
+[`vol3/cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md) `:14-21`:
+
+> *"The effective inertial density of collapsing matter diverges as the topological yield approaches zero:
+> $\rho_{eff} = \rho_0/S_{topo}^3$ where $S_{topo}(r) = \sqrt{1 - \varepsilon_{11}^2}$"*
+
+If **that** $\rho$ is the one in the wave impedance, then
+$Z_{shear} = \rho_0 S^{-3}\cdot c_0\sqrt S = Z_{sh,0}\,S^{-5/2} \to \infty$ — an **OPEN**, $\Gamma=+1$,
+not a short. The taper's direction reverses.
+
+**Steelman (and it is probably right).** The leaf's own words are *"effective inertial density of
+**collapsing matter**"* — the frozen infalling matter, not the lattice's own inertia for shear-wave
+propagation. Legitimately two different objects. **But the corpus never says which $\rho$ enters
+$Z_{shear} = \rho c_{shear}$**, and the near-wall $Z$-profile — which *is* the $Q$ integrand — is
+undetermined until it does. **Plumber form: is the frozen infalling matter part of the pipe wall, or is
+it the water in the pipe?**
+
+---
+
+### §1.6 — A6: the $(1+\nu_{vac})$ loading factor
+
+**CHOICE, on two axes.**
+
+- **FORM.** A Poisson factor on a shell/membrane eigenfrequency is entirely ordinary elasticity — the
+  form is unexceptional and this challenge does not dispute it. **What is asserted, not derived, is the
+  specific $r_{eff} = r_{sat}/(1+\nu_{vac})$** (`regime-eigenvalue-method.md:16`, `:52` — the whole
+  justification is the one sentence *"The saturation boundary defines the 1D strain threshold. The
+  orbital mode lives in 3D — the effective cavity radius accounts for transverse Poisson coupling"*).
+- **VALUE.** $\nu_{vac} = 2/7$ is **GR-IMPORTED** via $K = 2G$ (upstream F3, PR #261). Not re-opened here.
+- **CIRCUIT READING.** In EE the factor is a **velocity factor / end-effect correction on the ring's
+  electrical length** — the same object as the end-effect that makes a half-wave dipole physically
+  shorter than $\lambda/2$. That is a clean and honest mapping *except* for its **direction**: it acts
+  as a velocity factor **greater than one** ($v_\varphi = 1.286\,c_0$, CF-4). **A passive line cannot
+  have $VF > 1$ in its own medium.** Recorded as failure-mode probe **E11** in §2.6 — this is one of
+  the few places in this whole mapping where the circuit picture says *"that element does not exist"*.
+
+**What the honest options are.** (i) The factor is a genuine shell-mode correction and the
+$\ell$-wavelengths-around-the-circumference picture (hence $Q=\ell$) must be replaced by shell dispersion.
+(ii) The factor is a placeholder for a computed graded eigenvalue and should be **retired** rather than
+justified (upstream Q5 already reaches this conclusion from a different direction: a *fit* would have
+picked exponent $0.355$, not $0.5$). (iii) The factor belongs to the frequency and not to the geometry,
+in which case CF-1's leak-fraction correction $(1+\nu)^{\pm1}$ is live.
+
+---
+
+### §1.7 — A7: which $Q$?
+
+**FORCED** to the physical $Q = \omega_R/2\omega_I$ — the $\tau$ observable is governed by it, and the
+integer mode-count reading coincides with it only at $a_*=0$ (upstream §1.6's fourth reading, and
+`op21-multi-mode-mode-counting.md` §1's propagated B1 note: *"an integer that can only jump cannot track
+a ratio that moves smoothly"*). Nothing new to challenge. But the **circuit** reading adds two things:
+
+#### ★★★ CF-8 — $ka = \ell$ is an IDENTITY, and it names what $Q = \ell$ actually is
+
+The standing chain sets $\omega_R = \ell c/r_{eff}$. Therefore the mode's **electrical size** is
+
+$$k\,r_{eff} \;=\; \frac{\omega_R}{c}\,r_{eff} \;=\; \ell \qquad\text{(exactly, by construction; }= 2.000\text{ at }\ell=2)$$
+
+This is not a coincidence and it is not a new result — it is a one-line re-expression of two canonical
+lines. **CLASS: IDENTITY** (`consistency-vs-emergence`), NOT emergence, NOT a claim.
+
+What it *buys* is the substrate-native name for the object: in antenna/spherical-mode theory, $ka = \ell$
+is exactly the **radiation cutoff of the $\ell$-th spherical mode** — the boundary between the reactive
+/ evanescent regime ($ka < \ell$, energy stored, high $Q$) and the freely-radiating regime ($ka > \ell$,
+energy leaves, $Q \to O(1)$). So:
+
+> **The cold $Q = \ell$ is a claim about the external ($=$ radiation) $Q$ of a spherical multipole of
+> order $\ell$, evaluated exactly at its own radiation cutoff.**
+
+That quantity is a **closed-form standard-EE object** — the spherical-mode wave impedance
+$Z_\ell(x) = j\eta\,h_\ell'(x)/h_\ell(x)$ and the Chu / Collin–Rothschild stored-energy integral. It is
+computable with no free parameters, in the shear channel, from $\eta = Z_{sh,\infty}$. **That is the
+missing computation upstream F7 says has never been done**, and it is what upstream R1's "computed
+radiation resistance" route should actually compute.
+
+This is an `ave-ee-first-mapping` **trigger-7 IDENTITY-COLLAPSE**: the mode-count $\ell$ and the
+electrical size $ka$ are one bench object, seen from two sides. **It is proposed as candidate route
+R7 in §4; it is NOT executed here.**
+
+#### CF-14 — port-$Q$ and pole-$Q$ coincide only for an isolated single pole (an A46-class caution)
+
+$Q = X/R$ at a port and $Q = \lvert\omega\rvert/2\lvert\mathrm{Im}\,\omega\rvert$ from a pole are the
+same number for a lone second-order resonance. A **tapered** exterior contributes a **branch cut**, not
+just poles; then the port-$Q$ (what a circuit calculation returns) and the pole-$Q$ (what the GR
+comparator is) can differ, and the difference is not a small correction — it is the difference between
+"how lossy is the port" and "where is the QNM in the complex plane". **The derivation pre-reg must
+declare which object it computes and how it maps to the frozen C-$\tau$ comparator.** Recorded per
+`phase-space-coordinate-check`: same register (dimensionless eigenvalue), but the *transfer* between
+impedance-plane and complex-frequency-plane is an assumption, not an identity.
+
+---
+
+### §1.8 — A8: the boundary condition at the wall
+
+**FORCED at $\lvert\Gamma\rvert = 1$; the sign is degenerate.** Cited honestly, verbatim from the
+PR #260 B3-DEGENERATE banner (e.g.
+[`vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md:28`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md)):
+
+> *"the magnetic-vs-electric fork is DEGENERATE on the equilibrium observables ($Z=Z_0\sqrt{S}$,
+> $\lvert\Gamma\rvert=1$ both ways), the asymmetry chirality-set not substrate-forced"*
+
+#### CF-13 — the sign is Q-neutral in the loss ledger and Q-relevant through the frequency
+
+- **Loss ledger:** $\lvert\Gamma\rvert = 1$ either way $\Rightarrow$ zero transmitted power $\Rightarrow$
+  the wall contributes **nothing** to $Q$ under either sign. **So for the leak, A8 genuinely does not matter.**
+- **Frequency:** a short puts a *node* at the rim; an open puts an *antinode*. That is a **quarter-wave
+  shift in the resonator's effective radial length**, which moves $\omega_R$, which moves
+  $Q = \omega_R/2\omega_I$. **So for the eigenvalue, A8 matters — and the standing chain never uses the
+  radial boundary condition at all** (it is a purely tangential $\ell$-counting argument, which has no
+  radial degree of freedom to apply a boundary condition to).
+
+**That absence is itself the finding**: the standing derivation is *insensitive* to A8 because it has no
+radial structure. Any route that gives the cavity radial structure (R2 / R7) immediately becomes
+sensitive to it, and the #260 degeneracy no longer protects the answer.
+
+---
+
+### §1.9 — A9: where does the radiated energy go?
+
+The exterior is a **tapered line** from $Z_{shear}(r_{sat}) \to 0$ (or $\to\infty$, CF-7) up to
+$Z_{shear}(\infty) = \rho_0 c_0$. Two numbers decide whether that taper reflects:
+
+- **Mode wavelength (far field):** $\lambda_\infty = 2\pi c/\omega_R = 2\pi M_g/(18/49) = 17.10\,M_g$.
+- **Grade scale:** the strain profile $A = 7M_g/r$ does essentially all its work between $r_{sat}=7\,M_g$
+  and $\sim 2r_{sat}$, i.e. over $\sim 7\,M_g$.
+
+$\Rightarrow$ **the whole taper is $\approx 0.41$ wavelengths long.** *(Arithmetic on canonical inputs;
+IDENTITY/consistency class, not a claim.)*
+
+**This is the number the elastic picture never computes and the circuit picture demands.** A taper much
+longer than $\lambda$ is adiabatic (reflectionless, low $Q$, energy just leaves). A taper much shorter
+than $\lambda$ is a lumped discontinuity (strongly reflecting, high $Q$). **$0.41\lambda$ is the
+borderline** — the one regime where neither limit applies, where partial reflection is guaranteed, and
+where $Q$ comes out $O(1)$ rather than $\gg1$ or $\approx 1$. **The observed $Q\approx2$ is exactly what
+a borderline taper gives.** That is a structural consistency the corpus has never noticed and it is a
+genuine point in the standing picture's favour.
+
+**Does re-reflection feed back into $Q$?** Yes — *by definition*. Loaded $Q$ is set by the **input
+impedance of the taper seen at the rim**, and a partially-reflecting taper is exactly what makes
+$\mathrm{Re}\{Z_{in}\} \neq Z_{sh,\infty}$. There is no separate "echo correction"; the echo and the $Q$
+are two readings of the same $Z_{in}$.
+
+**And that relocates the corpus's own echo prediction.** `vol3/claim-quality.md:123` banks
+*"gravitational ringdown **echoes are predicted** (reflect $\Rightarrow$ echo)"*. Per CF-9 the second
+mirror is **not** the light ring (which is inside the wall) — it is the **taper's own turning point** at
+$\approx 7.8$–$8.6\,M_g$. The echo delay is therefore $\Delta t \approx 2\int_{r_{sat}}^{r^\star} dr/c_{shear}(r)$,
+a **short** delay set by the near-wall slow-down (the integrand diverges as $(r-r_{sat})^{-1/4}$, which
+is integrable — a finite delay), **not** the long light-ring delay that published LIGO echo searches
+target. **This materially changes the exposure upstream Q7 asks Grant about**: the risk is not
+"AVE's echo is excluded", it is "AVE's echo is at a different delay than anyone has searched".
+
+---
