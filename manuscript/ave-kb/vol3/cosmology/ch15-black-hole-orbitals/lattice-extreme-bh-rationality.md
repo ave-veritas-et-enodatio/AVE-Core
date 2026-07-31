@@ -50,10 +50,13 @@ The scale gap is $\sim21$ orders of magnitude; the kernel is one ([universal-sat
 | Iron-K$\alpha$ inner edge | inner disk at $r_{sat}=7GM/c^2$ | GR ISCO $6GM/c^2$ | **departure** | **AVE-DISTINCT** ([ave-bh-horizon-area-theorem.md](ave-bh-horizon-area-theorem.md) §5) |
 
 > **🟩 SPIN-SCOPE on the QNM-quality-factor row (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
-> The flat $Q = \ell$ "match" holds at the cold $a_* = 0$ anchor only. $\ell$ is a topological integer
-> (strain-immune); $Q$ is an impedance ratio riding the strain profile, so the equality cannot survive
-> shape-changing strain — and spin is exactly that: at catalog spins corrected-Kerr $Q$ rises
-> $3.07 \to 3.49$ and the flat reading fails at $\bar D_Q = -38\%$. The spin dependence is carried by the
+> The flat $Q = \ell$ "match" holds at the cold $a_* = 0$ anchor only. $\ell$ is an integer **mode count** —
+> cavity-protected only (def-quant3 sense (1), `common/vocabulary-register.md:261`, *"Failure mode:
+> ionization destroys them"*), **not** a deformation-invariant winding — so it cannot drift continuously
+> with strain, only jump discretely; the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that
+> moves *continuously* with the strain profile. An integer that can only jump cannot track a ratio that
+> moves smoothly: the equality is a **zero-spin coincidence, not a law** — at catalog spins corrected-Kerr
+> $Q$ rises $3.07 \to 3.49$ and the flat reading fails at $\bar D_Q = -38\%$. The spin dependence is carried by the
 > m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ (banked $-5.44\%$ / $-4.57\%$, an OPEN near-miss
 > tension). Even the cold value is convention — the $1/\ell$-per-cycle leak is a *scaling assertion*, never a
 > computed radiated power (#808 scoping F7/F8), and deriving the cold $Q$ is the named next work.

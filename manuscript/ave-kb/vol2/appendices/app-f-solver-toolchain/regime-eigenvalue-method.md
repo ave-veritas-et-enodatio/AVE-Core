@@ -77,9 +77,13 @@ $$
 compared with the exact value $\omega_I M = 0.0890$ (error: 3.2%).
 
 > **🟩 SPIN-SCOPE — this $Q = \ell$ is the cold $a_* = 0$ anchor (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
-> $\ell$ is a topological integer (strain-immune); $Q$ is an impedance ratio riding the strain profile, so the
-> equality cannot survive shape-changing strain — and spin is exactly that, which is the banked
-> $\bar D_Q = -38\%$ at catalog spins (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
+> $\ell$ is an integer **mode count** — cavity-protected only (def-quant3 sense (1),
+> `common/vocabulary-register.md:261`, *"Failure mode: ionization destroys them"*), **not** a
+> deformation-invariant winding — so it cannot drift continuously with strain, only jump discretely;
+> the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that moves *continuously* with the strain
+> profile. An integer that can only jump cannot track a ratio that moves smoothly: the equality is a
+> **zero-spin coincidence, not a law**, and the banked $\bar D_Q = -38\%$ at catalog spins is what that
+> looks like (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
 > m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$; flat $Q = \ell$ is its $\Omega \to 0$ limit
 > ([`kerr-q-correction.md`](kerr-q-correction.md)). Even the cold value is convention — the $1/\ell$-per-cycle
 > leak is a *scaling assertion*, never a computed radiated power (#808 scoping, finding F7/F8), and deriving

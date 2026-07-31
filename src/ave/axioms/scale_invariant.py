@@ -435,10 +435,15 @@ def phase_transition_Q(ell: int) -> int:
     number → mass stability relationship at the particle scale.
 
     SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
-    The BH-QNM row below is the COLD a* = 0 anchor. ℓ is a topological
-    integer (strain-immune); Q is an impedance ratio riding the strain
-    profile, so the equality cannot survive shape-changing strain — and
-    spin is exactly that: at catalog spins corrected-Kerr Q rises
+    The BH-QNM row below is the COLD a* = 0 anchor. ℓ is an integer MODE
+    COUNT — cavity-protected only (def-quant3 sense (1),
+    ``manuscript/ave-kb/common/vocabulary-register.md:261``, "Failure
+    mode: ionization destroys them"), NOT a deformation-invariant winding
+    — so it cannot drift continuously with strain, only jump discretely;
+    the physical Q = ω_R/2ω_I is an impedance ratio that moves
+    continuously with the strain profile. An integer that can only jump
+    cannot track a ratio that moves smoothly: the equality is a zero-spin
+    coincidence, not a law — at catalog spins corrected-Kerr Q rises
     3.07 → 3.49 and the flat Q = ℓ = 2 reading fails at D̄_Q = −38%.
     The spin dependence belongs to the mΩ law
     ω_I = (ω_R − m·Ω)/(2ℓ) (``ave.solvers.orbital_resonance``), whose

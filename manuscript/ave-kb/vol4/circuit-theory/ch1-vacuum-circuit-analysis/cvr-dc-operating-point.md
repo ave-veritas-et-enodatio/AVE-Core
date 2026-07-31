@@ -32,7 +32,7 @@ With $S(A_0)=\sqrt{1-A_0^2}$ (the dielectric specialization, $A_0=\Delta\phi/\al
 
 > **★ Keying correction (KEEP-BOTH; ruling 2026-07-06/07, PR #562/#558; propagated 2026-07-13; see §1).** The divergent row — "| Effective capacitance | $C_{eff}/C_0 = 1/S(A_0)$ | $\to\infty$ (varactor diverges) | capacitive / E |" under the "Limit as $A_0\to1$" column — is the **longitudinal-$A_1$ bond compliance keyed on $V_{snap}\approx511$ kV** ($A_0=V/V_{snap}$), NOT the $V_{yield}$-keyed transverse-$T_2$ dielectric $C_{diel}=C_0 S$ (which *rolls off*, $\times S$, and is what an across-gap LCR meter reads). Row preserved KEEP-BOTH as the superseded mixed form. Canonical: [`dielectric-plateau-prediction.md`](../../falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md):25-38.
 
-The two speeds are **not interchangeable** (INVARIANT-S2 Pitfall #5): $c_{EM}=c_0/S$ enters the fine-structure constant and all Maxwell-equation work; $c_{shear}=c_0\sqrt{S}$ is the energy-transport / Schwarzschild-reduction speed ([universal_operators.py:982](../../../../../src/ave/core/universal_operators.py)). Computed values: at $A_0=0.9$, $C_{eff}/C_0=2.29$, $Z_{core}/Z_0=0.66$ (`cvr_ee_sweep_metrics.json`).
+The two speeds are **not interchangeable** (INVARIANT-S2 Pitfall #5): $c_{EM}=c_0/S$ enters the fine-structure constant and all Maxwell-equation work; $c_{shear}=c_0\sqrt{S}$ is the energy-transport / Schwarzschild-reduction speed ([universal_operators.py:987](../../../../../src/ave/core/universal_operators.py)). Computed values: at $A_0=0.9$, $C_{eff}/C_0=2.29$, $Z_{core}/Z_0=0.66$ (`cvr_ee_sweep_metrics.json`).
 
 ## §3 — The exponent defect (carried, per `flag-don't-fix`)
 
