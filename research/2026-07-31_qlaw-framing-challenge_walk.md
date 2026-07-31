@@ -74,7 +74,7 @@ asked.
 | # | Assumption under challenge | Verdict | Load-bearing findings |
 |---|---|---|---|
 | **A1** | The resonator is the wall rim at $r_{sat}$ (the "bell") | **OPEN-FORK** — four candidate resonators, canon has explored one; and the standing chain uses **two different radii** for the same mode **without declaring which reading it intends** (cutoff radius vs physical wall — one mode described twice, or two places) | CF-1, CF-2, CF-3, CF-9, CF-10 |
-| **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED** at linear order (A1 = DC bias, T2 = AC signal; any A1 product lands at $2\omega$ or DC, not $\omega$). **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | CF-12 |
+| **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED against nonlinear A1 admixture** (A1 = DC bias, T2 = AC signal; any A1×T2 *product* lands at $2\omega$ or DC, not $\omega$). **OPEN against linear interface conversion** — P↔SV mode conversion at the solid/fluid boundary is a **linear** process, lands at $\omega$, and the mixing-product argument does not touch it (CF-15). *(Cell corrected 2026-07-31, F6: the original read "FORCED at linear order", which the CF-15 channel contradicts.)* **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | **CF-15**, CF-12 |
 | **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork** — *corrected 2026-07-31 (F1 repair pass, audit F2)*: AVE **does** own a radial-overtone object ($n_r$, Op6); what is true is narrower — **the BH-ringdown chain does not instantiate it** | CF-8, and §2.6 probe E15 |
 | **A4** | The loss channel is radiation outward into the graded exterior | **FORCED by canon** that the wall is lossless and contributes **nothing** to $Q$ — which makes the corpus's own label ("$Q$ from the $\Gamma=-1$ TIR boundary") a mis-attribution. **OPEN** off the exact $A=1$ point: $\lvert\Gamma\rvert < 1$ there, and the transmitted shear has nowhere to go as shear | CF-11, CF-15 |
 | **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **OPEN-FORK, with a recommended resolution ($\sqrt S$)** *(verdict cell corrected 2026-07-31, F5 — see the A5 note below the table)* | **CF-5, CF-6**, CF-16 ★ |
@@ -348,6 +348,15 @@ it lands at $2\omega$ or at DC, not at $\omega$.** That is a testable structural
 good independent reason to believe Op21's **single-channel** classification of BH ringdown
 ([`op21-multi-mode-mode-counting.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) §1 table row)
 is right at linear order — a stronger reason than the corpus currently gives.
+
+> **⚠ Scope of the FORCED half, corrected 2026-07-31 (repair pass, PR #814 audit F6).** The mixing-product
+> argument is **only** an argument against **nonlinear** A1 admixture: a *product* of the DC bias and the
+> AC signal necessarily sits at $2\omega$ or DC. **It says nothing about linear conversion.** P↔SV mode
+> conversion at the solid/fluid interface (**CF-15**, §1.4) is a **linear** boundary process — it
+> converts T2 shear into A1/bulk **at the same frequency $\omega$** — so it is untouched by the
+> $2\omega$ argument and would break Op21's single-channel classification if it carries any power.
+> **A2 is therefore FORCED against the nonlinear channel and OPEN against the linear one.** CF-15 is
+> cross-listed under A2 for this reason, not only under A4.
 
 **Mode conversion at the anisotropic vessel state — OPEN.**
 
