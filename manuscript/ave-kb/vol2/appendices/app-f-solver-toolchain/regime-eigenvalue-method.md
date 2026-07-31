@@ -78,7 +78,7 @@ compared with the exact value $\omega_I M = 0.0890$ (error: 3.2%).
 
 > **🟩 SPIN-SCOPE — this $Q = \ell$ is the cold $a_* = 0$ anchor (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
 > $\ell$ is an integer **mode count** — cavity-deformable (def-quant3 sense (1),
-> `common/vocabulary-register.md:261`, *"Failure mode: ionization destroys them"*), **not** a
+> `common/vocabulary-register.md:261` (def-quant3), sense (1) at `:271`, *"Failure mode: ionization destroys them"*), **not** a
 > deformation-invariant winding. **The discriminator is its INTEGRALITY, not its sense class:** an integer
 > cannot drift continuously with strain — it can only jump discretely — while
 > the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that moves *continuously* with the strain

@@ -436,9 +436,10 @@ def phase_transition_Q(ell: int) -> int:
 
     SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
     The BH-QNM row below is the COLD a* = 0 anchor. ℓ is an integer MODE
-    COUNT — cavity-deformable (def-quant3 sense (1),
-    ``manuscript/ave-kb/common/vocabulary-register.md:261``, "Failure
-    mode: ionization destroys them"), NOT a deformation-invariant winding.
+    COUNT — cavity-deformable
+    (``manuscript/ave-kb/common/vocabulary-register.md:261``, def-quant3;
+    sense (1) at :271, "Failure mode: ionization destroys them"),
+    NOT a deformation-invariant winding.
     THE DISCRIMINATOR IS ITS INTEGRALITY, NOT ITS SENSE CLASS: an integer
     cannot drift continuously with strain — it can only jump discretely —
     while the physical Q = ω_R/2ω_I is an impedance ratio that moves

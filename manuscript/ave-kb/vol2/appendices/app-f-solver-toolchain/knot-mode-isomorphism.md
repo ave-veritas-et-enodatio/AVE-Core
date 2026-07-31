@@ -30,7 +30,7 @@ The physical mechanism is the same at both scales: each additional topological w
 > **both sides are integers** — the particle-side crossing number $c$ and the BH-side mode number $\ell$ —
 > and **integrality is the discriminator**: neither can drift continuously with strain; both can only jump
 > discretely. The BH-side $\ell$ is an
-> integer **mode count** — cavity-deformable (def-quant3 sense (1), `common/vocabulary-register.md:261`,
+> integer **mode count** — cavity-deformable (`common/vocabulary-register.md:261` (def-quant3), sense (1) at `:271`,
 > *"Failure mode: ionization destroys them"*). **Whether the particle-side integer $c$ is the
 > deformation-invariant winding class (def-quant3 sense (2)) is register-OPEN and is not settled here:**
 > `def-3638f2` carries status *ambiguous* on exactly this question — real-space knot **CROSSING** number

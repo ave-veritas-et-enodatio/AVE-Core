@@ -941,9 +941,10 @@ def universal_quality_factor(ell: int) -> float:
 
     SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).
     For the BH-ringdown fire this is the COLD a* = 0 anchor. ℓ is an
-    integer MODE COUNT — cavity-deformable (def-quant3 sense (1),
-    ``manuscript/ave-kb/common/vocabulary-register.md:261``), NOT a
-    deformation-invariant winding. THE DISCRIMINATOR IS ITS INTEGRALITY,
+    integer MODE COUNT — cavity-deformable
+    (``manuscript/ave-kb/common/vocabulary-register.md:261``, def-quant3;
+    sense (1) at :271), NOT a deformation-invariant winding.
+    THE DISCRIMINATOR IS ITS INTEGRALITY,
     NOT ITS SENSE CLASS: an integer can only jump discretely, while
     the physical Q = ω_R/2ω_I is an impedance ratio that moves
     continuously with the strain profile; an integer that can only jump
