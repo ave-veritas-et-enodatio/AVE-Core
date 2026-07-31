@@ -15,7 +15,7 @@ Every AVE application follows the same five-step chain:
     \item \textbf{Locate the regime boundary} $r_\mathrm{sat}$ where $S_\mathrm{grav} = \sqrt{1 - \varepsilon_{11}^2} = 0$.
     \item \textbf{Apply the Poisson correction} $r_\mathrm{eff} = r_\mathrm{sat} / (1 + \nu_\mathrm{vac})$ for 3D volumetric strain.
     \item \textbf{Compute the eigenfrequency} $\omega_0 = \ell \cdot c / r_\mathrm{eff}$ for mode number $\ell$.
-    \item \textbf{Extract the quality factor} $Q = \ell$ from the lattice phase transition (\S\ref{sec:knot_mode_isomorphism}).
+    \item \textbf{Extract the quality factor} $Q = \ell$ from the lattice phase transition (\S\ref{sec:knot_mode_isomorphism}).  \emph{[Spin-scope, Ruling B1: for the BH-ringdown fire of this step, flat $Q = \ell$ is the cold $a_* = 0$ anchor only --- see Step~5 below.]}
 \end{enumerate}
 
 \noindent For the Schwarzschild black hole ($\ell = 2$), this yields the closed-form eigenvalue:
@@ -73,6 +73,19 @@ The ruptured interior therefore acts as a \textbf{perfect reflector} for GW shea
     \omega_I \cdot M_g = \frac{\omega_R}{2Q} = \frac{18/49}{2 \times 2} = \frac{9}{98} = 0.0918
 \end{equation}
 compared with the GR exact value $\omega_I M = 0.0890$ (error: 3.2\%).
+
+\noindent\textbf{Spin-scope (2026-07-21, Grant Ruling B1; propagated 2026-07-31) --- this $Q = \ell$ is
+the cold $a_* = 0$ anchor.}  $\ell$ is a topological integer (strain-immune); $Q$ is an impedance ratio
+riding the strain profile, so the equality cannot survive shape-changing strain --- and spin is exactly
+that, which is the banked $\bar D_Q = -38\%$ at catalog spins (corrected-Kerr $Q$ rises $3.07 \to 3.49$).
+The spin story is the m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$
+(\S\ref{sec:kerr_q_correction}); flat $Q = \ell$ is its $\Omega \to 0$ limit.  Even the cold value is
+convention --- the $1/\ell$-per-cycle leak quoted above is a \emph{scaling assertion}, never a computed
+radiated power (\#808 scoping, finding F7/F8) --- and deriving the cold $Q$ is the named next ringdown
+work.  \emph{(Physical reading above: orchestrator-walk provenance 2026-07-31, not canon.)}
+Truth-source: \kbleaf{manuscript/ave-kb/vol3/claim-quality.md} \texttt{clm-395gps} at \texttt{:204};
+scope banner \kbleaf{ave-kb/vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md}; scoping doc
+\texttt{research/2026-07-30\_qlaw-derivation\_scoping.md} \S1.5.
 
 \subsection{Kerr Q Correction: Co-Rotating Frame Decomposition}
 \label{sec:kerr_q_correction}
@@ -251,6 +264,13 @@ and $v_\mathrm{backbone} = d_0\sqrt{k_\mathrm{bend}/M_\mathrm{cell}} = 5470$~m/s
 \begin{equation}
     Q = \ell = 7, \qquad \Delta f = f_0 / Q = 3.1\;\mathrm{THz} \quad (\text{measured: } {\sim}3.3\;\mathrm{THz}, \;\text{error: }{-6\%})
 \end{equation}
+
+\noindent\textbf{[Convention flag, 2026-07-31 --- count-vs-loss.]}  This step reads $Q$ as a
+\emph{loss} (linewidth $\Delta f = f_0/Q$), while $Q = \ell$ is derived as a mode \emph{count} whose
+$1/\ell$-per-cycle leak fraction is a scaling assertion with its proportionality constant set to 1 by
+convention, never a computed radiated power (\#808 scoping, finding F7;
+\texttt{research/2026-07-30\_qlaw-derivation\_scoping.md} \S1.5).  This is a \textbf{protein-domain}
+step: the Ruling-B1 $a_* = 0$ BH spin-scoping does \emph{not} apply here and is not asserted.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -435,7 +455,7 @@ Saturation & $\varepsilon_{11} = 1$ & $V = \alpha$ & $V_R / V_{BR} \to 1$ & Paul
 $r_\mathrm{sat}$ & $7M_g$ & $\ell_{node}$ & $V_{BR} = 6\alpha\hbar c/D$ & $d_0 = 3.80$~\AA & Stub length & Wall radius & Stall current \\
 $\nu$ correction & 2/7 & $\alpha$ & $\alpha$ & 2/7 & 2/7 & 2/7 & Winding factor \\
 Mode $\ell$ & 2 (GW) & $n,l$ & 5 (cinquefoil) & 7 ($d_0/a_0$) & $\lambda/4$ & Alfv\'en & Pole pairs \\
-$Q$ source & $Q = \ell$ & Spectral width & Miller stages & $Q = 7$ & BW & Confinement & $Q = \ell$ (mech.) \\
+$Q$ source & $Q = \ell$ (cold $a_*=0$ --- B1) & Spectral width & Miller stages & $Q = 7$ (count-vs-loss flag) & BW & Confinement & $Q = \ell$ (mech.) \\
 Co-rotation & Frame drag $\Omega$ & --- & Shell rotation & --- & --- & Plasma rot. & Rotor $\theta_r$ (FOC) \\
 Regime I & Flat space & Bound & Sub-critical & Folded & Short & Core & Motoring \\
 Regime II & Curved & Free & Avalanche & Unfolded & Open & SOL & Generating \\
@@ -455,11 +475,28 @@ Regime II & Curved & Free & Avalanche & Unfolded & Open & SOL & Generating \\
 \end{enumerate}
 \noindent Step~6 is the Park transform (FOC) generalisation, applicable whenever the system has a co-rotating component (BH spin, nuclear shell rotation, motor rotor, tokamak plasma rotation).
 
+\noindent\textbf{[Spin-scope, Ruling B1 (2026-07-21; propagated 2026-07-31).]}  Steps~5 and 6 are not
+alternatives for a \emph{rotating} system: for the BH-ringdown fire, flat $Q = \ell$ (Step~5) is the
+\textbf{cold $a_* = 0$ anchor} --- the $\Omega \to 0$ limit of Step~6 --- because $\ell$ is a
+strain-immune topological integer while the physical $Q$ is an impedance ratio riding the strain
+profile.  Reading Step~5 through at catalog spins is the banked $\bar D_Q = -38\%$ failure
+(corrected-Kerr $Q$ rises $3.07 \to 3.49$).  Truth-source:
+\kbleaf{manuscript/ave-kb/vol3/claim-quality.md} \texttt{clm-395gps} at \texttt{:204}.
+
 
 \section{Knot Crossing Number $\leftrightarrow$ Mode Number Isomorphism}
 \label{sec:knot_mode_isomorphism}
 
 The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation of a universal topological scaling law. At the particle scale, the \textbf{torus knot crossing number} $c$ plays the identical role to the \textbf{angular mode number} $\ell$:
+
+\noindent\textbf{[Spin-scope, Ruling B1 (2026-07-21; propagated 2026-07-31).]}  The gravitational-scale
+side of this isomorphism holds at the \textbf{cold $a_* = 0$ anchor} only --- which is the isomorphism's
+own limit, not an add-on: $c$ and $\ell$ are topological integers and cannot respond to strain, whereas
+the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that does.  At catalog spins the flat
+reading fails at $\bar D_Q = -38\%$ (corrected-Kerr $Q$ rises $3.07 \to 3.49$) and the spin dependence
+is carried by the m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$.  \emph{(Physical reading:
+orchestrator-walk provenance 2026-07-31, not canon.)}  Truth-source:
+\kbleaf{manuscript/ave-kb/vol3/claim-quality.md} \texttt{clm-395gps} at \texttt{:204}.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -469,7 +506,7 @@ The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation
 \midrule
 Topological index & Crossing number $c$ & Mode number $\ell$ \\
 Confinement & $r = \kappa_{FS} / c$ & $r_\mathrm{eff} = r_\mathrm{sat}/(1+\nu)$ \\
-Stability & Mass $\propto c^{2/3}$ & $Q = \ell$ \\
+Stability & Mass $\propto c^{2/3}$ & $Q = \ell$ (cold $a_*=0$ --- B1) \\
 Energy partition & Coupling$/c$ per crossing & Radiation$/\ell$ per wavelength \\
 Ladder & $c = 3, 5, 7, 9, 11, 13$ & $\ell = 2, 3, 4, 5, \ldots$ \\
 Ground state & Trefoil $c = 3$ (electron) & $\ell = 2$ (fundamental GW) \\
