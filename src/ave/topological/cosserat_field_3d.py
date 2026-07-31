@@ -417,10 +417,10 @@ def _s11_density(
     # impedance-MATCHING, mode-blind), NOT the μ-load matter SHORT (Z↓→0) used by
     # W_refl_asymmetric:500 / step:1647 (Z_eff=Z0·√(S_μ/S_ε)).
     # ⚑ FLAG (2nd-impedance conflict, task #12; NARROWED 2026-07-31, still NOT resolved here): this OPEN Z=Z0/√S
-    # coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME file — that clause stands, and the exponent/sign
-    # reconciliation across Op14 forms is still a separate physics-review item (see the task-12 PR FLAGs). The FLAG's
-    # THIRD clause is STALE and struck (#814 audit): k4-tlm-lensing-validation.md:22 no longer reads Z0/S^{1/4} — it
-    # was corrected to Z0/√S on 2026-07-14 (KEEP-BOTH banner :25-29), so it AGREES with operators.md:54 (see :30-35).
+    # coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME file — that clause stands; the exponent/sign
+    # reconciliation across Op14 forms is still a separate physics-review item (task-12 PR FLAGs). The THIRD clause is
+    # STALE and struck (#814 audit): k4-tlm-lensing-validation.md:22 no longer reads Z0/S^{1/4} — corrected to Z0/√S on
+    # 2026-07-14 (KEEP-BOTH banner :25-29), so it AGREES with operators.md:54 (see k4-tlm-lensing-validation.md:30-35).
     S_safe = jnp.maximum(S, 1e-6)
     Z_eff = 1.0 / jnp.sqrt(S_safe)
 
