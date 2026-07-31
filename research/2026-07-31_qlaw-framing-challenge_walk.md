@@ -553,3 +553,163 @@ target. **This materially changes the exposure upstream Q7 asks Grant about**: t
 "AVE's echo is excluded", it is "AVE's echo is at a different delay than anyone has searched".
 
 ---
+
+## PART 2 — THE VACUUM-CIRCUIT MAPPING (EE-first)
+
+`ave-ee-first-mapping` fired as the **primary** framing skill, per the brief. Canonical home for the
+mapping catalog: [`common/translation-tables/translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md)
+(§4 primitive↔component catalog, §4.5 tool tracker, §4.6/§4.7 tiered rows).
+**Nothing is landed in that leaf by this document** — see §2.7.
+
+### §2.1 — The one load-bearing move: declare $(L, C)$, let $Z$ and $c$ fall out
+
+Stated in full at **CF-5**. The whole of the standing impedance-register confusion is a
+**two-degrees-of-freedom problem being described with three statements.** The circuit discipline is:
+a transmission line is specified by $L$ and $C$ per unit length and by nothing else. The mechanical
+dictionary for the shear channel is the standard one:
+
+$$L \;\leftrightarrow\; \rho \ (\text{node inertia}), \qquad C \;\leftrightarrow\; 1/G_{shear}\ (\text{bond compliance})$$
+$$\Rightarrow\quad Z_{shear}=\sqrt{L/C}=\sqrt{\rho\,G_{shear}}=\rho\,c_{shear},\qquad c_{shear}=1/\sqrt{LC}=\sqrt{G_{shear}/\rho}$$
+
+The first output **is** `vol3/claim-quality.md:122`'s $Z_{shear} = \rho\,c_{shear}$, verbatim. That is
+the means-test PASS that licenses the rest of the mapping.
+
+### §2.2 — Element table: circuit element ↔ lattice primitive ↔ canonical leaf
+
+| # | Ringdown object | Circuit element | Lattice primitive | Canonical receipt | Mapping |
+|---|---|---|---|---|---|
+| **E1** | inertia of a node against transverse displacement | **series $L$ per unit length**, $L = L_0$ (unsaturated) | K4 node translational DOF | `translation-circuit.md` §4 ("K4 node intrinsic LC"; "Translational E DOFs at node → Capacitor" is the *EM* row — the mechanical dual swaps $L\!\leftrightarrow\!C$, see ⚑ below) | clean |
+| **E2** | shear bond compliance $1/G_{shear}(A)$ | **shunt $C$ per unit length**, $C = C_0/S$ | Ax 4 kernel projected into shear | `saturating-modulus-and-backreaction.md:52,60`; `nonlinear-vacuum-capacitance.md:27` (form) | clean, with the CF-5 kernel-argument residual |
+| **E3** | local shear speed | $1/\sqrt{LC} = c_0\sqrt S$ | Op16 | `common/operators.md` Op16; `saturating-modulus…:60` | clean |
+| **E4** | local shear characteristic impedance | $\sqrt{L/C} = Z_{sh,0}\sqrt S$ | three-channel impedance law | `vol3/claim-quality.md:122` | clean |
+| **E5** | the wall at $r_{sat}$ ($A=1$) | **short-circuit termination**, $Z\to0$, $\Gamma=-1$ | Ax 4 saturation / Regime-IV melt | `vol3/claim-quality.md:122-123`; `op21-…:§2.2` | clean; **sign degenerate** (#260), and Q-neutral in the loss ledger (CF-13) |
+| **E6** | the graded exterior $r > r_{sat}$ | **non-uniform (tapered) transmission line**, $Z(r) = Z_{sh,0}\sqrt{S(A(r))}$, $A = 7M_g/r$ | Op14 graded network | `temporal-spatial-lattice-decomposition.md:14`; `saturating-modulus…:51,60` | clean — **this is the $Q$ integrand** |
+| **E7** | far cold lattice | **matched load** $Z_\infty = \rho_0 c_0$ (the line's own reference) | Regime I linear lossless | §0 REGIME header | clean |
+| **E8** | the $\ell=2$ rim oscillation | **ring resonator** = closed loop of $\ell$ full wavelengths; equivalently the $\ell$-th **spherical mode** of the exterior | Op21 single-channel wavelength count | `op21-…:§2.3` | clean |
+| **E9** | the "$1/\ell$ leak per cycle" | **external (radiation) $Q$ of the $\ell$-th spherical mode at $ka=\ell$** | curvature radiation from a curved-interface surface wave | CF-8; `regime-eigenvalue-method.md:63` | ★ **NEW correspondence — candidate row, NOT landed** (§2.7) |
+| **E10** | $Q$ itself | **loaded $Q$** $= \omega W_{stored} / P_{out} = X_{rim}/\mathrm{Re}\{Z_{in}^{taper}\}$ | — | template at [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) ($Q_{tank}=\omega_C L_e/R$ at $R = Z_0/4\pi$) | clean in FORM; ⚠ **sector caution**: the template is an **EM**-channel calculation ($Z_0 \equiv Z_{EM}$) and this is a **shear** problem — the upstream R1 leak risk, restated |
+| **E11** | the $(1+\nu_{vac})$ factor | **velocity factor / end-effect correction** on the ring's electrical length | Poisson transverse coupling | `regime-eigenvalue-method.md:16,52` | ⚠ **NO CLEAN MAPPING** — acts as $VF = 1.286 > 1$; a passive line cannot exceed its own medium's speed. **Failure-mode probe** |
+| **E12** | $\rho_{eff} = \rho_0/S^3$ (topological halting) | would be a **series $L$ diverging at the wall** $\Rightarrow Z\to\infty \Rightarrow$ **open** termination | infalling-matter inertia | `interior-singularity-resolution.md:19` | ⚠ **CONFLICTS with E1/E5.** Failure-mode probe / CF-7 |
+| **E13** | the predicted echo | **multiple reflection between E5 and the partially-reflecting taper E6** | — | `vol3/claim-quality.md:123` | clean; delay $= 2\int_{r_{sat}}^{r^\star} dr/c_{shear}$ (CF-9) |
+| **E14** | spin $a_*$ / frame dragging $\Omega$ | **a non-reciprocal (gyrotropic) bias on the ring — a ferrite-circulator loading**, splitting CW from CCW | Cosserat micro-rotation bias | `frame-dragging-impedance-convolution.md:15`; the Park/FOC reading at `kerr-q-correction.md:49-61` | ⚠ **PARTIAL** — the corpus models it as a **frequency offset** $\omega\to\omega-m\Omega$ (a rotating-frame Doppler), which is **not the same EE object** as a circulator's nonreciprocal mode split. Both are legitimate EE devices; they make different $Q$ predictions. **FLAG** |
+| **E15** | radial overtone index $n$ | **higher-order radial resonances of the tapered line** (they exist automatically) | — | — | ⚠ **NO CORPUS OBJECT AT ALL.** Failure-mode probe / gap |
+
+> ⚑ **Dual-convention note (stated so it cannot silently flip a sign).** The `translation-circuit.md` §4
+> rows map the **EM** channel (translational DOF → capacitor, micro-rotational DOF → inductor). The
+> **mechanical/shear** channel uses the **impedance analogy's dual** (inertia → $L$, compliance → $C$),
+> which is what reproduces $Z_{shear} = \rho c_{shear}$. Both are standard; mixing them is exactly the
+> open/short trap that `translation-circuit.md:119` already documents on the substrate side — verbatim:
+> *"$\Gamma = -1$ saturation TIR boundary | **Short-circuit ($Z \to 0$) / Total reflection** … NOT the
+> dielectric-yield boundary: $\tau_{yield}$ is the **electric** branch ($\varepsilon_{eff} \to 0$,
+> $Z \to \infty$, **open-circuit**, $\Gamma \to +1$)"*. This document uses the mechanical dual
+> **throughout PART 2** and says so here once.
+
+### §2.3 — The taper, quantitatively (the number the elastic picture never computes)
+
+$$\lambda_\infty = \frac{2\pi c}{\omega_R} = \frac{2\pi M_g}{18/49} = 17.10\,M_g, \qquad
+\text{grade scale} \sim r_{sat} = 7\,M_g \;\Rightarrow\; \frac{\text{taper length}}{\lambda} \approx 0.41$$
+
+*(Arithmetic on canonical inputs. IDENTITY/consistency class. Not a claim.)*
+
+| taper regime | reflection | resulting $Q$ | is this us? |
+|---|---|---|---|
+| $L_{taper} \gg \lambda$ | adiabatic, $\Gamma_{in}\to0$ | low, $Q \to \sim1$ | no |
+| $L_{taper} \ll \lambda$ | lumped discontinuity, $\lvert\Gamma_{in}\rvert\to1$ | high, $Q \gg 1$ | no |
+| $L_{taper} \sim 0.4\lambda$ | **partial, frequency-dependent** | **$O(1)$, a few** | **yes — and $Q\approx2$ is what that gives** |
+
+**This is the structural reason $Q$ is small, and it is invisible in elastic language.** The elastic
+picture says "perfect mirror inside, radiation outside" and has no way to ask *how many wavelengths thick
+is the impedance ramp*. The circuit picture asks that first, because it is the only question that
+decides whether a taper reflects.
+
+### §2.4 — $Q$ as the taper's input-impedance mismatch (and what $Q = \ell$ becomes)
+
+The loaded $Q$ of a resonator coupled through a taper is
+
+$$Q \;=\; \frac{\omega\,W_{stored}}{P_{radiated}} \;=\; \frac{X_{rim}}{\mathrm{Re}\{Z_{in}(r_{sat})\}}$$
+
+where $Z_{in}(r_{sat})$ is the **input impedance of the tapered line E6 terminated in the matched cold
+lattice E7, transformed back to the rim.** Three consequences, each of which reframes something in the
+standing derivation:
+
+1. **The wall is not in this formula.** E5 is a lossless termination on the *other* side; it sets the
+   standing-wave phase, not the loss. This is CF-11 in one line: **$Q$ is a taper problem, not a wall problem.**
+2. **"Leak per cycle $= 1/\ell$" becomes "$\mathrm{Re}\{Z_{in}\}/X_{rim} = 1/\ell$"** — i.e. upstream
+   F7's uncomputed proportionality constant $c_1$ is precisely the ratio of the taper's **input
+   resistance** to the rim mode's **reactance**. That is a computable number, not a convention.
+3. **At $ka = \ell$ (CF-8), the taper-free limit of that ratio is a textbook closed form.** Strip the
+   grade (set $S\equiv1$) and E6 becomes free space; then $Z_{in}$ is exactly the $\ell$-th spherical-mode
+   wave impedance $Z_\ell(x) = j\eta\,h_\ell'(x)/h_\ell(x)$ evaluated at $x = ka = \ell$, and $Q$ is the
+   Chu/Collin–Rothschild external $Q$ of that mode. **The graded profile is then a correction on top of a
+   known cold answer** — which is a far better-posed derivation than starting from a scaling assertion.
+
+> **This is the derivation-lane target this framing challenge recommends** (candidate **R7**, §4).
+> It is stated, not executed. Executing it is the derivation lane's job, after Grant's walk.
+
+### §2.5 — What each picture makes obvious, and what each hides
+
+**The CIRCUIT picture makes obvious (and the elastic picture hides):**
+
+1. **Only $(L,C)$ are free.** Three canonical statements for two DOF ⇒ the whole $\sqrt S$-vs-$S^{1/4}$
+   flag is an over-determination, not a physics fork (CF-5/CF-6). Elastic language never forces you to
+   count degrees of freedom, so the corpus carried three inconsistent registers for a year.
+2. **Taper length in wavelengths is the question** (§2.3). Elasticity gives you "there is a gradient";
+   circuits give you "0.41 λ, therefore borderline, therefore $Q = O(1)$".
+3. **The wall drops out of the loss ledger** (CF-11). The elastic "perfect reflector ⇒ TIR ⇒ high $Q$"
+   intuition is exactly backwards about *where* $Q$ comes from.
+4. **$ka = \ell$ is an identity** and it names the object (CF-8). The elastic phrase "$\ell$ wavelengths
+   fit around the circumference" conceals that this is the antenna radiation-cutoff condition, with a
+   closed-form answer sitting right there.
+5. **$VF > 1$ is impossible** (E11/CF-4). Elasticity happily writes a Poisson factor; a transmission line
+   refuses to propagate faster than $1/\sqrt{LC}$.
+6. **A resonator has exactly one electrical length.** CF-1's two-radius split is invisible in prose and
+   glaring the moment you ask "so how long is the line?"
+
+**The ELASTIC picture makes obvious (and the circuit picture hides):**
+
+1. **Polarisation and grade structure.** A scalar TL has one field; the substrate has A1 dilatation, T2
+   shear (two polarisations) and the Cosserat micro-rotation. **The circuit cannot carry the A1 ⊥ T2
+   split** — this is exactly disanalogy (ii) already banked at `translation-circuit.md` §4.7.3 for the
+   network-duality row, live again here.
+2. **Angular structure ($\ell$, $m$).** A 1-D line has no $\ell$; you have to *import* the spherical-mode
+   ladder to get one. That is why E8/E9 map to spherical modes rather than to a lumped ring.
+3. **Mode conversion at an interface.** P↔SV conversion at a solid/fluid boundary (CF-15) is elementary
+   elastodynamics and has no scalar-circuit counterpart at all.
+4. **What the interior can carry.** The circuit says "short". The elastic picture says "shear cannot
+   exist there but bulk can" — which is precisely the CF-15 disposal question, and only the elastic
+   picture even poses it.
+
+### §2.6 — Failure-mode probes (elements with no clean mapping)
+
+Per `ave-ee-first-mapping` §"Failure-mode probes" — honest list, four entries:
+
+| probe | element | why it fails to map | what it would take |
+|---|---|---|---|
+| **P1** | **E11** — $(1+\nu_{vac})$ as $VF = 1.286 > 1$ | passive lines cannot exceed $1/\sqrt{LC}$; the factor is not a line property | either a shell-dispersion object (a *different* wave type, not a TL mode), or retirement of the factor |
+| **P2** | **E12** — $\rho_{eff} = \rho_0/S^3$ | it is a *matter* inertia, not a line inertia; if it were the line's, the termination flips short→open | canon must say which $\rho$ enters $Z_{shear}=\rho c_{shear}$ (CF-7 / FORK-3) |
+| **P3** | **E14** — spin as Doppler-offset vs circulator-bias | a rotating-frame frequency shift and a gyrotropic nonreciprocity are different devices with different loaded-$Q$ structure | decide whether $\Omega$ is a kinematic frame rate or a material bias (upstream Q4, now with an EE-sharp form) |
+| **P4** | **E15** — radial overtone $n$ | not a mapping failure but a **corpus gap**: the circuit *has* the object, AVE has no name for it | either derive the radial ladder or state why the AVE cavity is single-layer |
+
+**Not a failure mode, recorded to prevent a false one:** $\ell$ itself. EE does not derive *which*
+integer; the spherical-mode ladder supplies the family and topology/geometry supplies the index — the
+standard `translation-circuit.md` §7 Probe-1/Probe-5 verdict (geometry/topology content EE does not
+furnish, but cross-checks once fixed).
+
+### §2.7 — Landing note (Step 6 discipline, deliberately NOT executed)
+
+`ave-ee-first-mapping` Step 6 says a **new** substrate↔EE correspondence is not done until it is landed
+in `translation-circuit.md` §4 + mirrored into the skill + cross-ref'd. This document establishes two
+candidate rows:
+
+- **Candidate row (a) — E9:** *"Op21 $1/\ell$ per-cycle leak at a curved saturation boundary" ↔ "external
+  (radiation) $Q$ of the $\ell$-th spherical mode at $ka=\ell$ (Chu / Collin–Rothschild)"*.
+- **Candidate row (b) — E14:** *"frame-dragging $\Omega$ at a spinning saturation wall" ↔ "gyrotropic
+  (ferrite-circulator) bias on a ring resonator"*.
+
+**Neither is landed, and that is deliberate.** Step 6 lands *established* correspondences; these are
+**hypotheses generated by a framing challenge**, means-test **not yet run** (running it *is* the
+derivation). Landing an unvalidated row would put a hypothesis in the canonical catalog — the exact
+failure mode `ave-mechanism-claims-discipline` exists to stop. **Routed to the auditor lane to land
+if and when the derivation validates them.**
+
+---
