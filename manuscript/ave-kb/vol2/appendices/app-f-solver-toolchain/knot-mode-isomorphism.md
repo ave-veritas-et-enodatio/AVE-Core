@@ -28,8 +28,9 @@ The physical mechanism is the same at both scales: each additional topological w
 > **🟩 SPIN-SCOPE — the gravitational-scale $Q = \ell$ in this isomorphism is the cold $a_* = 0$ anchor**
 > (Grant Ruling B1, 2026-07-21; propagated 2026-07-31). This is the isomorphism's own limit, not an add-on:
 > **both sides are integers** — the particle-side crossing number $c$ and the BH-side mode number $\ell$ —
-> and neither can drift continuously with strain; both can only jump discretely. The BH-side $\ell$ is an
-> integer **mode count** — cavity-protected only (def-quant3 sense (1), `common/vocabulary-register.md:261`,
+> and **integrality is the discriminator**: neither can drift continuously with strain; both can only jump
+> discretely. The BH-side $\ell$ is an
+> integer **mode count** — cavity-deformable (def-quant3 sense (1), `common/vocabulary-register.md:261`,
 > *"Failure mode: ionization destroys them"*). **Whether the particle-side integer $c$ is the
 > deformation-invariant winding class (def-quant3 sense (2)) is register-OPEN and is not settled here:**
 > `def-3638f2` carries status *ambiguous* on exactly this question — real-space knot **CROSSING** number

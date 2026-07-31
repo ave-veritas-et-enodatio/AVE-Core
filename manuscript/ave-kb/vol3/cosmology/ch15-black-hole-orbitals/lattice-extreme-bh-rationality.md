@@ -51,9 +51,10 @@ The scale gap is $\sim21$ orders of magnitude; the kernel is one ([universal-sat
 
 > **🟩 SPIN-SCOPE on the QNM-quality-factor row (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
 > The flat $Q = \ell$ "match" holds at the cold $a_* = 0$ anchor only. $\ell$ is an integer **mode count** —
-> cavity-protected only (def-quant3 sense (1), `common/vocabulary-register.md:261`, *"Failure mode:
-> ionization destroys them"*), **not** a deformation-invariant winding — so it cannot drift continuously
-> with strain, only jump discretely; the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that
+> cavity-deformable (def-quant3 sense (1), `common/vocabulary-register.md:261`, *"Failure mode:
+> ionization destroys them"*), **not** a deformation-invariant winding. **The discriminator is its
+> INTEGRALITY, not its sense class:** an integer cannot drift continuously with strain — it can only jump
+> discretely — while the physical $Q = \omega_R/2\omega_I$ is an impedance ratio that
 > moves *continuously* with the strain profile. An integer that can only jump cannot track a ratio that
 > moves smoothly: the equality is a **zero-spin coincidence, not a law** — at catalog spins corrected-Kerr
 > $Q$ rises $3.07 \to 3.49$ and the flat reading fails at $\bar D_Q = -38\%$. The spin dependence is carried by the
