@@ -276,15 +276,56 @@ constraint **classes** are enumerated with their discriminating structure; every
 | **O3** | **SME gravity-sector coefficients** (Kostelecký–Mewes GW framework) | direction-dependent (anisotropic) $d=4$ GW-speed coefficients, expanded in spherical harmonics | **DIRECTLY the sky pattern.** The corpus already knows this basis exists and owes a mapping — [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):733, verbatim: *"Map the parity-odd $k$-linear term onto the explicit SME operator basis and show which Kostelecký coefficient it feeds"*. A cubic $A\neq1$ anisotropy feeds the **parity-EVEN** anisotropic coefficients — a different operator set from that owed campaign. | `[requires-external-retrieval]` for values; the basis is corpus-acknowledged |
 | **O4** | **Inter-detector timing residuals** (H/L/V/KAGRA triangulation vs EM counterpart position) | consistency of the GW-derived sky position with the optical one | Weak per-event, but **exists today for every localized event**; a direction-dependent $c_{GW}$ biases triangulation systematically. | `[requires-external-retrieval]` |
 | **O5** | **GW polarization-splitting / birefringence bounds** (the §1.4 second observable) | $\lvert c_{T1}-c_{T2}\rvert/c$ at a given $\hat n$ | LVK tests-of-GR already publish GW-birefringence constraints. **This is the matched observable for the shear-splitting axis and the tracker does not name it.** | `[requires-external-retrieval]` |
-| **O6** | **Optical cavity / Michelson-Morley class** | $\delta c_{EM}(\hat n)/c$ | Corpus-carried: SME cavity bounds $\sim10^{-19}$–$10^{-20}$ ([`preferred-frame-and-emergent-lorentz.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):22). **Load-bearing under F-A5:** if the photon is the transverse-$u$ branch, THESE bounds already constrain the elastic anisotropy at $10^{-19}$ — far tighter than any GW bound, and they would rule out $\rho^\ast$ for the photon branch outright. | corpus-carried |
+| **O6** | **Optical cavity / Michelson-Morley class** | $\delta c_{EM}(\hat n)/c$ | Corpus-carried: SME cavity bounds $\sim10^{-19}$–$10^{-20}$ ([`preferred-frame-and-emergent-lorentz.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):22). **Load-bearing under F-A5:** if the photon is the transverse-$u$ branch, THESE bounds already constrain the elastic anisotropy at $10^{-19}$ — far tighter than any GW bound, and they would rule out $\rho^\ast$ for the photon branch outright. **⊗ Carries an $\mathcal{O}(1)$-PROJECTION DISCLOSURE — see the note under this table.** | corpus-carried |
 | **O7** | **Pulsar-timing-array / nanohertz band** | low-frequency $c_{GW}$ anisotropy | different band, same axes; a genuinely independent frequency lever | `[requires-external-retrieval]` |
+
+> ⊗ **$\mathcal{O}(1)$-PROJECTION DISCLOSURE (added 2026-07-31 review) — applies to O6 and to every
+> "`~18` OOM" statement in this document.** Comparing a **Zener number** (a ratio of elastic
+> constants) against an **SME cavity bound** (a limit on a specific Lorentz-violating operator
+> coefficient) requires a **mapping** from one to the other. **This document assumes that mapping is
+> $\mathcal{O}(1)$ — it does not derive it, and no corpus leaf derives it either.** The corpus
+> already knows it owes exactly this object: [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):733,
+> verbatim — *"Map the parity-odd $k$-linear term onto the explicit SME operator basis and show which
+> Kostelecký coefficient it feeds, to sharpen the $\sim$11-OOM below-bound margin into a per-operator
+> statement."* (That owed campaign is for the **parity-odd** term; a cubic $A\neq1$ anisotropy feeds
+> the **parity-even** anisotropic coefficients — a *different* operator set, so the debt is a sibling,
+> not the same one.)
+>
+> **Why the scoping verdict survives the assumption, and where it would not.** At a gap of `~18` OOM
+> the conclusion is **projection-insensitive**: any mapping short of an 18-OOM suppression leaves the
+> $\rho^\ast$ value excluded, and a suppression that large would itself be a remarkable, derivable
+> claim. **So the feasibility read below stands.** ★ **But a PRE-REG may not inherit this.** A frozen
+> bin that reads "excluded by optical-cavity bounds" is a **quantitative** statement about a specific
+> Kostelecký coefficient, and it **must derive the Zener → SME projection first** — otherwise the bin
+> is banding a number the lane never computed. **Recorded here as a downstream obligation on any
+> pre-reg that fires on this document**, alongside the `ave-reproduction-gate` obligation in §A.2.
 
 ★ **The feasibility verdict for Axis 1(b) falls out of O6, not O2.** If the photon rides the same
 rank-4 tensor (F-A5), then the *tightest existing constraint on the vacuum's Zener anisotropy is
 already an optical-cavity bound at $10^{-19}$–$10^{-20}$*, not a GW bound. That is `~18` OOM below
-the $\rho^\ast$ value of `10 %`. **The discriminating work is therefore NOT "go measure a GW sky
-pattern" — it is "answer W1", and the answer is already heavily constrained by existing optical
-data.** This is a cheap-and-decisive scoping outcome and it inverts the tracker's implied plan.
+the $\rho^\ast$ value of `10 %` (**modulo the $\mathcal{O}(1)$ projection disclosed above**). **The
+discriminating work is therefore NOT "go measure a GW sky pattern" — it is "answer W1", and the
+answer is already heavily constrained by existing optical data.** This is a cheap-and-decisive
+scoping outcome and it inverts the tracker's implied plan.
+
+★ **And there is a sharper form of the same point that does NOT need any SME projection at all
+(added in review).** If the photon is the transverse-$u$ branch (F-A5 / W6) **and** the medium sits at
+$\rho^\ast$, then the photon branch is not merely anisotropic — **it is BIREFRINGENT**, because
+T-fast and T-slow are split by `10.3 %` along `[110]`-class directions (§1.4). **That is a
+vacuum-birefringence prediction of order $10^{-1}$**, to be compared against a vacuum the corpus's own
+flagship falsifier is trying to detect at $\delta n \sim 10^{-10}$. **No operator-basis mapping is
+required to see that a `10 %` vacuum birefringence is grossly excluded — light from every
+astrophysical source would be depolarized on any path.** This is a *stronger and more robust*
+exclusion than the sky-pattern one, and it turns W1 from a fork into a **kill-question**:
+
+| If W1 answers… | …then the consequence |
+|---|---|
+| **the photon and GW bands both ride $\rho^\ast$** | the **photon** branch is `10 %` birefringent — excluded by inspection, no projection needed. The GW band would additionally carry a `10 %` polarization-speed split, which LVK tests-of-GR plausibly already exclude `[requires-external-retrieval]`. |
+| **both ride $\rho_{bond}=1$** | $A=1.000$ exactly ⇒ **no anisotropy observable of any kind**, on either band. Item 21 closes negative-by-construction. |
+| **the two bands ride DIFFERENT points** | then *that carve* — not item 21 — is the frontier object, and it must be derived, because one medium with two operating points is the thing needing explanation. |
+
+**All three branches are reachable and none is picked here.** ⇒ item 21's fate is decided by W1/W6 in
+every branch, which is why §3 fences firing on them.
 
 ### §1.9 — (c) The bench-frame caveat, quoted verbatim as required
 
@@ -317,6 +358,16 @@ The caveat names the required object: *"the direction-resolved Christoffel treat
 2. **Project onto cubic harmonics** to get the observable decomposition (the $\ell=4$ cubic harmonic
    is the leading anisotropic term for a cubic medium), which is what an SME-style sky regression
    consumes.
+   > ⊗ **$\mathcal{O}(1)$-PROJECTION DISCLOSURE (added in review; the same one flagged under O6).**
+   > **Step 2 is where a Zener number turns into an SME coefficient, and this document does not
+   > derive that map — it assumes it is $\mathcal{O}(1)$.** No corpus leaf derives it either, and the
+   > corpus already records the sibling debt at `vol4/claim-quality.md`:733 (*"Map the parity-odd
+   > $k$-linear term onto the explicit SME operator basis and show which Kostelecký coefficient it
+   > feeds"* — that campaign is for the **parity-odd** term; a cubic $A\neq1$ feeds the
+   > **parity-EVEN** anisotropic coefficients, a different operator set). ★ **At the `~18` OOM gap of
+   > §1.8 the scoping verdict is projection-insensitive and stands; a PRE-REG's frozen bin is not,
+   > and MUST derive this map before writing "excluded by cavity bounds" as a quantitative
+   > criterion.** Listed as a blocking input in the feasibility table below.
 3. **Fix the lattice-axis orientation on the sky.** The corpus identifies the lattice rest frame
    with the CMB rest frame ([`preferred-frame-and-emergent-lorentz.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):16)
    — but that fixes the **frame**, not the **axes**. The three cubic axes' orientation on the sky is
@@ -334,10 +385,11 @@ The caveat names the required object: *"the direction-resolved Christoffel treat
 | Which $\rho_{bond}$ (W1) | — | **BLOCKING physics input, unresolved** |
 | Lattice-axis sky orientation (W3) | — | **BLOCKING input, never derived** |
 | Reconciling $c_{shear}\equiv c$ with a direction-dependent $c_{shear}$ (F-A3) | — | **BLOCKING definition, flagged** |
+| ⊗ **Zener → SME operator-coefficient projection** *(added in review)* | a derivation, not a compute job | **NOT blocking for SCOPING** (the `~18` OOM gap is projection-insensitive); **BLOCKING for any PRE-REG bin** that states a quantitative exclusion |
 
 ★ **Feasibility verdict, Axis 1:** the *computation* is essentially free and partly already done; the
-lane is blocked entirely on **three physics inputs, all of which are Grant/adjudication questions,
-none of which is a compute question.** Firing a build lane before W1/W3 would produce a
+lane is blocked entirely on **physics inputs, all of which are Grant/adjudication or derivation
+questions, none of which is a compute question.** Firing a build lane before W1/W3 would produce a
 precisely-computed sky pattern for an operating point nobody has selected — the #796 band-placement
 fault in a new costume.
 
@@ -887,6 +939,25 @@ anomaly; **(c)** genuinely two operating points
 (some carve makes the photon see $\rho=1$ and matter see $\rho^\ast$) — then the carve itself is
 what needs deriving, and it is a bigger and more interesting object than item 21; **(d)** the
 question is malformed because $\rho_{bond}$ is not a single global number.
+
+⊗ **W1 is sharper than a fork — it is a KILL-QUESTION (added in review; §1.8).** The reason is that
+at $\rho^\ast$ the **photon branch itself would be birefringent**: T-fast and T-slow split by
+`10.3 %` along `[110]`-class directions (§1.4). **A `10 %` vacuum birefringence needs no SME operator
+mapping to evaluate — light from every astrophysical source would be depolarized on any path.** It is
+*grossly* more excluded than any sky-pattern anisotropy, and it is a cleaner instrument than the
+`~18` OOM cavity comparison because it carries no projection assumption. So:
+
+- **if the gravitational band rides $\rho^\ast$** — the GW channel carries a `10 %` polarization
+  speed split (LVK tests-of-GR plausibly already exclude this, `[requires-external-retrieval]`) **and**,
+  if the photon shares the branch (W6), the photon is `10 %` birefringent, which is excluded by
+  inspection;
+- **if it rides $\rho_{bond}=1$** — $A=1.000$ exactly, and **there is no anisotropy observable at
+  all**, on either band;
+- **or the two bands ride different points** — in which case *that carve* is the frontier object and
+  must be derived.
+
+**No branch leaves item 21 as an independent live prediction.** That is the finding; the choice among
+the three is Grant's.
 
 **W2 — Is `c_shear = c` a statement about ONE direction, or an averaged number?** `port-register.md`:48
 canonizes $c_{shear}=c$ and the band-map derives $\sqrt2$ and $\sqrt{10/3}$ inter-channel ratios
