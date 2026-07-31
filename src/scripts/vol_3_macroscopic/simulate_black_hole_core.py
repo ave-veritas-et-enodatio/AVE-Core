@@ -164,7 +164,9 @@ def run_simulation() -> None:
         # Decay time from Q = ℓ.
         # SPIN-SCOPE (Grant Ruling B1, 2026-07-21; propagated 2026-07-31): flat
         # Q = ℓ is the COLD a* = 0 anchor, and every LIGO_EVENTS entry sits at
-        # a* = 0.6-0.7 — so tau_ave below is the cold anchor read OUTSIDE its
+        # a* = 0.64-0.74 (0.67 / 0.64 / 0.74 above; the canonical catalog-spin
+        # range quoted by qnm-quality-factor.md:28) — so tau_ave below is the
+        # cold anchor read OUTSIDE its
         # scope (banked D̄_Q = -38%; corrected-Kerr Q rises 3.07 -> 3.49). The
         # spin dependence belongs to the mΩ law ω_I = (ω_R - m·Ω)/(2ℓ).
         # Numbers preserved per Rule 12; truth-source
