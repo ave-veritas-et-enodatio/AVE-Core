@@ -584,9 +584,103 @@ magnitude-vs-vector reading of the kernel (**W5**).
 | "A nonzero gravitational photoelastic splitting would be an AVE chord" | **would be genuinely AVE-distinct in FORM** | GR predicts **exactly zero** — the spacetime metric couples to both polarizations identically at leading order; a nonzero splitting is a presence/absence divergence of the same clean shape as `clm-fofwr1`'s parity chord. **But its magnitude would be an $A$-echo** (rides $GM/c^2r$, an imported scale), so headline the FORM only. |
 | "The $n_{eff}$ direction convention" | **NOT a physics statement** — a live notation adjudication | Already tracked as item (13a). |
 
-## §3 — Walk questions for Grant
+## §3 — Walk questions for Grant (one per load-bearing assumption; asked BEFORE design, per the Rule-16 strengthening)
 
-*(sections below)*
+These are the `pre-test-physics-check` output. **Nothing fires until W1 and W6 are answered** —
+those two decide whether either axis exists. Each is stated as a plumber-physical question with the
+options that are actually on the table; none is rhetorical and none has a pre-picked answer.
+
+**W1 — Which bond-stiffness operating point does the gravitational-band channel sit at?** The corpus
+carries two, and they give opposite answers to item 21. At $\rho_{bond}=k_a/k_s=1$ the lattice is
+**Zener-isotropic exactly** ($A=1.000$) and there is no anisotropy observable at all — but the bulk
+modulus is **negative** there ($K=-0.0589$), i.e. the medium would collapse under hydrostatic
+pressure. At $\rho^\ast=9.7734$ the medium is mechanically stable and $\nu=2/7$, but $A=1.229$ and
+the shear branch is `10 %` direction-dependent. Plumber form: *is the vacuum one medium sitting at one
+stiffness ratio, or is the "photon operating point" a different thing from the "matter operating
+point" in a way that a real material can actually do?* Options on the table: **(a)** one medium at
+$\rho^\ast$ — then Axis 1 is a live falsification exposure, probably already excluded by optical
+cavities; **(b)** one medium at $\rho_{bond}=1$ — then item 21 closes negative-by-construction and
+the $K<0$ instability becomes the frontier question instead; **(c)** genuinely two operating points
+(some carve makes the photon see $\rho=1$ and matter see $\rho^\ast$) — then the carve itself is
+what needs deriving, and it is a bigger and more interesting object than item 21; **(d)** the
+question is malformed because $\rho_{bond}$ is not a single global number.
+
+**W2 — Is `c_shear = c` a statement about ONE direction, or an averaged number?** `port-register.md`:48
+canonizes $c_{shear}=c$ and the band-map derives $\sqrt2$ and $\sqrt{10/3}$ inter-channel ratios
+"from $K=2G$" — but $K$ and $G$ are the **two** constants of an isotropic solid and this medium has
+**three**, so a Voigt/Reuss/Hill choice is buried in there (#506 `:147`). The same corpus's leak-audit
+ruling forbids exactly that average on a single crystal. Plumber form: *when we say the GW travels at
+`c`, do we mean along a lattice axis, along the body diagonal, or "on average" — and if the last one,
+average over what, given there are no grains?* Options: **(a)** it is a direction-resolved statement
+and one direction must be named; **(b)** it is a source-direction average and that average must be
+derived, not VRH-borrowed; **(c)** at the true operating point $A=1$ so the question dissolves (this
+is W1 option (b) again); **(d)** the ratios are FORM-only and were never meant to carry a direction.
+
+**W3 — Where are the cubic axes on the sky?** The corpus fixes the lattice **rest frame** to the CMB
+rest frame, but a frame is 3 numbers and an orientation is 3 more. No corpus statement derives the
+axis orientation — yet `preferred-frame-and-emergent-lorentz.md`:178 already reports a null against
+"cubic axes (±x, ±y, ±z)", which means an orientation was assumed somewhere. Plumber form: *when the
+vacuum crystallized at recombination, what picked which way the crystal axes point, and is that even
+a well-posed question for a single cosmic-scale crystal?* Options: **(a)** derivable from the freeze
+process; **(b)** an initial condition, i.e. 3 free parameters any sky-pattern test must fit; **(c)**
+not a single global orientation at all (domains — which would reintroduce grains and change the
+whole leak-audit ruling); **(d)** already fixed somewhere and this lane failed to find it.
+
+**W4 — Is the gravitational strain state hydrostatic or uniaxial?** This is the Axis-2 crux and it is
+squarely a plumber question. A pressure vessel has hoop tension and radial compression — different
+signs on different bond orientations. A hydrostatic squeeze has the same strain in every direction.
+The corpus says gravity is "symmetric bulk strain" (INVARIANT-S2) in one place and "hoop-stiffen /
+radial-soften" (#779 R6) in another. Plumber form: *sitting inside one lattice cell a solar radius
+from the Sun — is the cell being squeezed equally from all sides, or squeezed radially and stretched
+tangentially?* Options: **(a)** hydrostatic ⇒ $S_{axial}=S_{shear}$ ⇒ zero photoelastic splitting,
+exactly (§2.2 forcing chain closes); **(b)** uniaxial-radial ⇒ nonzero splitting, magnitude to be
+computed; **(c)** hydrostatic in the far field and uniaxial only near the yield boundary — a
+regime-split answer; **(d)** the $A_1$/$T_2$ decomposition already answers this and the two
+statements are about different sectors, in which case the reconciliation is bookkeeping not physics.
+
+**W5 — Does the Axiom-4 kernel see the bias as a MAGNITUDE or as a VECTOR?** The corpus does both.
+`graded-network-response.md`:271 leans on *"the kernel keys off $\lvert E\rvert$"* to get
+polarization-blindness; `vacuum-birefringence-e4.md`:95 differentiates the same kernel with respect to
+a **directed** $E_0$ and gets a **uniaxial** tensor — and calls that DERIVED. Plumber form: *when a
+cell is biased, does it get uniformly softer, or does it get softer along the bias direction and stay
+stiff across it?* Options: **(a)** magnitude — then the flagship's uniaxial tensor needs re-deriving;
+**(b)** vector — then SYM polarization-blindness needs re-deriving; **(c)** both, because the two
+sites are describing different objects (the boundary $\Gamma$ vs the propagation index) and the
+apparent conflict is a category error; **(d)** it depends on which bond channel is loaded, which
+routes back to W4.
+
+**W6 — Is the photon really the transverse-$u$ acoustic branch?** `port-register.md`:47 says yes (the
+G2 relabel: *"photon $=$ transverse-$u$, not micro-$\omega$"*). If yes, then the photon's speed is an
+eigenvalue of the same rank-4 $C_{ijkl}$ as the GW shear branch, and (i) the emergent-Lorentz isotropy
+is operating-point protection rather than rank-2 symmetry protection, and (ii) existing optical-cavity
+anisotropy bounds at $10^{-19}$ already constrain the vacuum's Zener number ~18 OOM below the
+$\rho^\ast$ value. Plumber form: *is light a shear wave in this medium, or is it a genuinely separate
+electromagnetic mode that only shares a speed?* Options: **(a)** yes, one branch — then W1 is
+essentially already answered by optical-cavity data and the answer is $\rho_{bond}=1$; **(b)** no,
+separate sectors — then the G2 relabel needs revisiting and the rank-2 protection returns; **(c)**
+the same branch at long wavelength but distinguishable near the zone edge.
+
+**W7 — Does "SYM = both sectors driven" mean equal $S$ per FIELD sector ($\varepsilon$ vs $\mu$) or
+equal $S$ per BOND channel (axial vs shear)?** The two are not the same statement and the whole
+Axis-2 forcing chain rides on which one is meant: #519's identity is
+$\rho_{eff}=\rho_{cold}(S_{axial}/S_{shear})$ — a **bond-channel** ratio — while INVARIANT-S2's SYM
+condition is $S_\varepsilon=S_\mu$, a **field-sector** condition. Plumber form: *"both sectors
+loaded" — is that the cap and the inductor, or the stretch-spring and the shear-spring?* Options:
+**(a)** field sectors, and the bond-channel mapping is a separate open question; **(b)** bond
+channels, and $S_\varepsilon=S_\mu$ follows; **(c)** they are the same thing under TKI and the
+identification is already canon somewhere this lane did not find.
+
+**W8 — Priority: does either axis get fired at all?** ★ The honest read from this scoping is that
+**item 21 is not an independent frontier item.** Axis 1 collapses onto W1/W6, and if W6 answers
+"one branch" then existing optical-cavity data has already constrained the object ~18 OOM tighter
+than any GW measurement could. Axis 2 is the axis with genuine untouched content (F-B4: zero
+photoelastic coupling anywhere in the corpus) and a cheap first cut on merged machinery. Options:
+**(a)** fire Axis 2 channel-(i) only, as a small driver extension, after W4/W5/W7; **(b)** fire
+neither, and instead route the $\rho_{bond}$ two-operating-point fork (W1/W6) as its own frontier item
+above item 21 — this lane's recommendation if only one thing moves; **(c)** fire the Axis-1
+Christoffel sky-pattern anyway as a cheap consistency artefact, accepting that its output is
+conditional on an unpicked operating point; **(d)** park both and record item 21 as **subsumed** by
+the $\rho_{bond}$ fork.
 
 ## §4 — What this lane did NOT do
 
