@@ -713,3 +713,111 @@ failure mode `ave-mechanism-claims-discipline` exists to stop. **Routed to the a
 if and when the derivation validates them.**
 
 ---
+
+## PART 3 — THE LATTICE WALK (sit inside the cell)
+
+*Convention, stated once: force ↔ voltage, velocity ↔ current, so $Z = F/v$, inertia is $L$ and bond
+compliance is $C$. A vanishing $Z$ is a **free surface** — zero force, maximum motion. All numbers below
+are $S(A)$ evaluated at $A = 7M_g/r$; arithmetic on canonical inputs, IDENTITY class, not claims.*
+
+**Hop 0 — you are the node sitting exactly on the wall, $r = 7\,M_g$, $A = 1$.**
+Your four K4 bonds are at yield. The shear stiffness holding you sideways is **exactly zero**
+($G/G_0 = S = 0$). Push you tangentially and nothing pushes back. You are a free surface: **force node,
+motion antinode.** A shear wave arriving from outside cannot get past you — not because something blocks
+it, but because there is nothing on the far side to push against. It turns around, and its force wave
+comes back inverted. That is $\Gamma_{shear} = -1$, and **you have taken no energy from it.** Whatever
+makes the ringdown die, it is not you.
+> ⇢ **FORK-3 bites here.** If the frozen infalling matter's $\rho_{eff} = \rho_0/S^3$ is *your* inertia
+> rather than a separate substance sitting on you, you are not a free surface at all — you are
+> infinitely heavy, $Z\to\infty$, a **clamped** surface: motion node, force antinode. Same $\lvert\Gamma\rvert$,
+> opposite phase, and the whole standing-wave pattern outside you shifts by a quarter wavelength.
+
+**Hop 1 — one node out, $r/r_{sat} = 1.01$.**
+$A = 0.990$, $S = 0.140$: your bond is now $14\%$ as stiff as cold vacuum and the shear speed here is
+$0.375\,c_0$. Crossing this one hop takes $2.7\times$ longer than it would in flat space. Impedance
+$Z/Z_{sh,0} = 0.375$. The wave has just gone from $Z = 0$ to $Z = 0.375$ in a single node: **the ramp is
+steepest right at the wall**, which is exactly where a taper reflects hardest.
+
+**Hops 2–10 — climbing the ramp.**
+
+| $r/r_{sat}$ | $r$ [$M_g$] | $A$ | $G/G_0 = S$ | $c_{shear}/c_0 = \sqrt S$ | $Z/Z_{sh,0}$ |
+|---|---|---|---|---|---|
+| 1.00 | 7.00 | 1.000 | 0.000 | 0.000 | 0.000 |
+| 1.01 | 7.07 | 0.990 | 0.140 | 0.375 | 0.375 |
+| 1.10 | 7.70 | 0.909 | 0.417 | 0.645 | 0.645 |
+| 1.22 | 8.57 | 0.816 | 0.577 | 0.760 | 0.760 |
+| 1.50 | 10.50 | 0.667 | 0.745 | 0.863 | 0.863 |
+| 2.00 | 14.00 | 0.500 | 0.866 | 0.931 | 0.931 |
+| 3.00 | 21.00 | 0.333 | 0.943 | 0.971 | 0.971 |
+| 5.00 | 35.00 | 0.200 | 0.980 | 0.990 | 0.990 |
+
+Each hop outward, the DC radial strain $\varepsilon_{11} = 7M_g/r$ relaxes, the Ax-4 kernel $S$ recovers,
+and your neighbour's bond is a little stiffer than yours. **Every hop is therefore a small impedance
+step, and every step throws a little of the wave back inward.** The ringdown's decay is the sum of what
+*doesn't* get thrown back. Note where the work happens: by $r = 2r_{sat}$ the ramp is $93\%$ done, by
+$5r_{sat}$ it is flat. **The entire horn is between $7$ and $\sim15\,M_g$ — about half a wavelength.**
+> ⇢ **FORK-2 (A5) bites on the whole column.** These are $\sqrt S$ numbers. Under $S^{1/4}$ every
+> $c/c_0$ and $Z/Z_0$ entry moves toward $1$ (the ramp gets *shallower*, the horn gets *gentler*, the
+> reflection *smaller*, $Q$ *lower*). The column is the $Q$ integrand; the exponent is not a footnote.
+
+**Hop ~11, $r \approx 8.6\,M_g$ — the turning point.**
+Here $\ell(\ell+1)c_{shear}^2/r^2$ peaks. Two effects race: going outward the medium gets *faster*
+(helping the wave escape) but the centrifugal $\ell(\ell+1)/r^2$ term falls (letting it escape too). The
+stationary point of their product is the substrate's own barrier crest — the object GR calls the
+light-ring barrier, sitting here at $1.22\,r_{sat}$ rather than at $r_{ph} = 3\,M_g$, which is buried
+$5.6\,M_g$ behind your back inside the melt.
+> ⇢ **FORK-6 bites here.** If the echo has a second mirror, this is it — **not** the light ring. The
+> round trip is $\sim3\,M_g$ of very slow medium, not $\sim10\,M_g$ of fast medium.
+
+**Hops 12 → ∞ — out into the cold.**
+Past $\sim3r_{sat}$ every hop is like the last: $Z$ flat at $\rho_0c_0$, $c$ flat at $c_0$. This is
+Regime I, a matched line, a legal radiating port. Energy that reaches here **never comes back**. This —
+and only this — is the loss in the $Q$ ledger.
+
+**Now run one full cycle of the bell.**
+Two wavelengths wrapped around the rim; the mode's electrical size is $ka = \ell = 2$ **exactly**
+(CF-8). Per radian of phase, the fraction of stored energy that makes it out past hop ~12 is what the
+corpus writes as $1/\ell$ and never computes. In the walk you can see what that number is made of:
+(i) how much reactive energy is stored in the sloshing near the rim, (ii) how much gets past the
+steepest part of the ramp at hops 1–3, (iii) how much of *that* survives the turning point at hop 11.
+**Three factors, all computable from the column above, and the corpus replaces all three with the
+word "scales as".**
+> ⇢ **FORK-1 and FORK-4 bite on "the mode".** Where is it actually sloshing? The standing chain says
+> the frequency comes from a circle at $5.44\,M_g$ — a radius you would have to walk *inward* past the
+> wall to reach, through hops where shear does not exist. And it says the leak comes from a circle at
+> $7\,M_g$ — where you are standing, where the shear speed is zero. Neither circle can carry the mode
+> the other one describes.
+
+**The one-sentence version for the walk.**
+> You are standing on a free surface at the bottom of a stiffness ramp that climbs to full vacuum
+> stiffness over about half a wavelength. The bell is not the wall — the wall just refuses to absorb.
+> The bell is the ramp, and $Q$ is asking how leaky a half-wavelength horn is when the thing radiating
+> into it is exactly at its own cutoff.
+
+---
+
+## §4 — THE FORK MENU FOR GRANT
+
+One plumber question per open fork. **Nothing below is asked rhetorically — each answer changes what the
+derivation lane computes.**
+
+| # | Fork | The plumber question | Options |
+|---|---|---|---|
+| **FORK-1** | **A1 — where does the bell live?** | *Is this a bell (mass at a radius) or a horn (a taper that resonates)?* | (a) a ring at the rim $r_{sat}$; (b) a distributed mode of the graded shell, radius = solver **output**; (c) an interface/Scholte mode on the wall — **already excluded**, it wouldn't ring down (CF-10); (d) a curvature-leaking whispering-gallery mode = (b) evaluated at its own turning point |
+| **FORK-2** | **A5 — the $S$-exponent, reclassified** | *At the wall, does the vacuum go **soft** (compliant, $C\to\infty$, short) or **stiff-and-opaque** ($Z\to\infty$, open)? You can't have both in one channel.* | (a) ratify the three-branch $(L,C)$ table (§CF-5) ⇒ shear pinned at $\sqrt S$, $S^{1/4}$ is an ASYM/EM artifact; (b) reject the channel assignment and keep $S^{1/4}$ live in the shear integrand; (c) KEEP-BOTH and make the derivation report both |
+| **FORK-3** | **CF-7 — which $\rho$?** | *Is the frozen infalling matter part of the pipe wall, or is it the water in the pipe?* | (a) $\rho_0$, cold lattice inertia ⇒ free surface, $\Gamma=-1$; (b) $\rho_{eff}=\rho_0/S^3$ ⇒ clamped surface, $\Gamma=+1$, taper reverses; (c) two different substances, and canon must say so at `vol3/claim-quality.md:122` |
+| **FORK-4** | **A6/CF-1 — the two radii** | *A ring can only have one electrical length. Which circle is the mode on — and if the answer is "$7\,M_g$ physically, $5.44\,M_g$ electrically", what makes the wave run round it at $1.286\,c_0$?* | (a) ring at $r_{sat}$, $(1+\nu)$ is a velocity factor — then explain $VF>1$; (b) mode at $r_{eff}$ — then explain how shear exists inside the melt; (c) retire $(1+\nu)$ and let a graded solve output the radius |
+| **FORK-5** | **CF-15 — disposal** | *A hair off the wall the mirror isn't perfect and some shear crosses. Shear can't propagate in there. Where does it go?* | (a) mode-converts to bulk/A1 at the interface (a **second** loss channel ⇒ Op21's single-channel classification breaks); (b) reflects off the compact shell (a delay, not a loss ⇒ feeds the echo); (c) absorbed (needs a bulk $\mathrm{Re}\{Z\}$ ⇒ Ax-3 violation unless port-licensed) |
+| **FORK-6** | **A9/CF-9 — which echo cavity?** | *Where's the second mirror?* | (a) the graded turning point at $\approx7.8$–$8.6\,M_g$ (this doc's reading — a **short** delay through **slow** medium); (b) the light ring at $r_{ph}$ — but it is buried inside the wall (CF-9); (c) no second mirror, the taper is adiabatic and there is no echo |
+| **FORK-7** | **A2/CF-12 — vessel anisotropy** | *Is the wall a pressure vessel? Hoop bonds tight, radial bonds slack — does the rim ring in two different notes?* | (a) yes, R6 transplants to the BH wall ⇒ split rim modes + mode conversion ⇒ $Q^{-1}$ is a sum; (b) no, R6 is core-local and does not transplant; (c) untested — make it a gate in the derivation pre-reg |
+| **FORK-8** | **E14 — what kind of device is spin?** | *Is frame dragging a Doppler shift (the whole ring moving past you) or a magnetic bias on a circulator (CW and CCW seeing different media)?* | (a) Doppler / Park rotating frame — the standing $\omega\to\omega-m\Omega$; (b) gyrotropic bias — nonreciprocal, **different loaded $Q$ per sense**, a prediction the standing law does not make; (c) both, at different orders |
+| **FORK-9** | **A3/E15 — overtones** | *A horn has more than one resonance. Does this one?* | (a) derive the radial ladder (then AVE has an $n$ index and can be compared to GR's overtone spectrum); (b) state why the AVE cavity is single-layer; (c) leave as a declared gap |
+| **FORK-10** | **A7/CF-14 — which $Q$ object?** | *Are we measuring how lossy the port is, or where the pole sits? For a taper those aren't the same number.* | (a) port-$Q$ ($X/R$ at the rim); (b) pole-$Q$ (complex-frequency eigenvalue of the graded problem, directly comparable to the frozen C-$\tau$ comparator); (c) compute both and report the gap as a diagnostic |
+
+**And the one scope question that gates the rest** (upstream Q8, unchanged and still unanswered): **is
+the B1-ratified cold $Q = \ell$ anchor in scope?** Everything in this document says the tension lives
+there (upstream F8: $88\%$ of the deficit is present at zero spin). If the anchor is out of scope, the
+derivation lane can still run — but its reachable outcome is a *cold-broken, catalog-matching*
+inconsistency, which is a sharper falsifier than the present uniform offset, not a resolution.
+
+---
