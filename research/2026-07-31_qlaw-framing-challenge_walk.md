@@ -17,13 +17,13 @@ Upstream: [`research/2026-07-30_qlaw-derivation_scoping.md`](2026-07-30_qlaw-der
 - **NOT an adjudication.** Every fork below is *surfaced with both paths*; none is picked. Where this
   document's own analysis points to an answer (CF-5), the answer is routed to Grant for ratification and
   explicitly fenced as **not yet canon**.
-- **NOT a retitle of the upstream scoping doc.** F1–F9 stand as written; this document adds CF-1…CF-15
+- **NOT a retitle of the upstream scoping doc.** F1–F9 stand as written; this document adds CF-1…CF-16
   in a separate numbering space so the two sets never collide.
 
 ## Sections
 
 - §0 — Sector / regime / phase-state / coordinate header
-- **PART 1** — §1 Adversarial framing challenge (A1–A9, verdict table, CF-1…CF-15)
+- **PART 1** — §1 Adversarial framing challenge (A1–A9, verdict table, CF-1…CF-16)
 - **PART 2** — §2 The vacuum-circuit mapping (EE-first)
 - **PART 3** — §3 The lattice walk (sit-inside-the-cell, one page)
 - §4 — The fork menu for Grant (one plumber question per OPEN fork)
@@ -77,7 +77,7 @@ asked.
 | **A2** | Sector ownership: observable is shear (T2); no A1 admixture | **FORCED** at linear order (A1 = DC bias, T2 = AC signal; any A1 product lands at $2\omega$ or DC, not $\omega$). **Sub-fork OPEN**: does the anisotropic vessel state split the rim modes? | CF-12 |
 | **A3** | Mode geometry: whispering-gallery $\ell = 2$, linear-$\ell$ dispersion | **OPEN-FORK** on $\ell$ vs $\sqrt{\ell(\ell+1)}$ (upstream F4, binned UNDETERMINED). **Separate GAP, not a fork**: the radial-overtone index $n$ has **no AVE object at all** | CF-8, and §2.6 probe E15 |
 | **A4** | The loss channel is radiation outward into the graded exterior | **FORCED by canon** that the wall is lossless and contributes **nothing** to $Q$ — which makes the corpus's own label ("$Q$ from the $\Gamma=-1$ TIR boundary") a mis-attribution. **OPEN** off the exact $A=1$ point: $\lvert\Gamma\rvert < 1$ there, and the transmitted shear has nowhere to go as shear | CF-11, CF-15 |
-| **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **RECLASSIFIED → CHANNEL fork, and CLOSED for the shear integrand at $\sqrt{S}$** by three-way over-determination in the $(L,C)$ constitutive pair. **Routed to Grant for ratification; NOT canon until he rules.** | **CF-5, CF-6** ★ |
+| **A5** | The local shear speed exponent ($\sqrt{S}$ vs $S^{1/4}$) is the biggest open input | **RECLASSIFIED → CHANNEL fork, and CLOSED for the shear integrand at $\sqrt{S}$** by three-way over-determination in the $(L,C)$ constitutive pair. **Routed to Grant for ratification; NOT canon until he rules.** | **CF-5, CF-6**, CF-16 ★ |
 | **A6** | The $(1+\nu)$ loading factor | **CHOICE** — the FORM (a Poisson factor on a shell mode) is plausible and unexceptional; the SPECIFIC $r_{sat}/(1+\nu)$ is **asserted, not derived**, and its VALUE is GR-imported (upstream F3). It also implies a tangential phase speed of $1.286\,c_0$ | CF-1, CF-4 |
 | **A7** | Which $Q$ the derivation targets ($\omega_R/2\omega_I$) | **FORCED** — the $\tau$ observable is the physical ratio; the integer mode-count reading coincides only at $a_*=0$ (upstream §1.6 fourth reading). **New caveat:** port-$Q$ and pole-$Q$ diverge once the exterior carries a branch cut | CF-14 |
 | **A8** | Boundary condition at the wall: $\Gamma = -1$ | **FORCED** at $\lvert\Gamma\rvert = 1$ (#260 B3-DEGENERATE). The **sign is Q-neutral in the loss ledger** (a lossless termination either way) but **Q-relevant through the frequency**: short vs open moves the rim between a node and an antinode, a quarter-wave shift in effective length | CF-13 |
@@ -397,6 +397,35 @@ an inconsistent relation. **That is a proposal for ratification, NOT a ruling an
 Grant rules, the derivation lane should carry $\sqrt S$ as primary **and record the $S^{1/4}$
 counterfactual** (it moves the graded turning point $8.573 \to 7.826\,M_g$, CF-9) — the KEEP-BOTH
 pattern, not a silent pick.
+
+#### ★ CF-16 — a corroborating honesty-lag: the 2026-06-22 clock-exponent correction did not propagate, and the leaf that lags contradicts itself four lines apart
+
+The CF-5 table's SHEAR row is independently corroborated by a correction canon has already made
+elsewhere. [`op14-local-clock-modulation.md:13`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md),
+verbatim:
+
+> **Matter-clock exponent (corrected to the $1/4$ shear form, 2026-06-22).** The local matter clock rides
+> the **shear** speed $c_{\text{shear}} = c_0\cdot(1-A^2)^{1/4} = c_0\sqrt{S}$ … the matter-clock forms
+> are $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$ … **The earlier $(1-A^2)^{1/2}$
+> exponent was the pre-split single-speed model … it was off by a factor of 2 in the exponent and is now
+> corrected**
+
+That corrected form, $\omega_{local} \propto \sqrt S$, is **exactly** what the SHEAR branch's
+$\omega = 1/\sqrt{LC}$ gives with $L$ fixed and $C = C_0/S$. Two independent routes, same exponent.
+
+**The lag.** [`vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md`](../manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md)
+still carries the **superseded** exponent at `:22` and `:43`
+($\omega_{local} = \omega_{global}\cdot\sqrt{1-A^2}$, i.e. $\propto S$) — and `:41` cites
+`op14-local-clock-modulation.md:13`, **which is the very line that retracts it.** Worse, the same leaf
+writes the **corrected** form four lines later at `:47`
+($\omega_{local}(r\to R_H) = \omega_{global}\cdot\sqrt{S(A(R_H))}$). **One leaf, both exponents, four
+lines apart.**
+
+**Flag-don't-fix.** Not repaired here; not in this lane's scope (it is a cosmology leaf, and the
+ringdown does not consume it). Surfaced with both line numbers for the auditor lane. **Why it matters
+to this lane anyway:** it is a third, independent instance of the same failure class as CF-5/CF-6 — an
+exponent register that drifted because $Z$, $c$ and $\omega$ were maintained as three separate
+statements instead of as outputs of one $(L,C)$ pair.
 
 #### ★ CF-7 — which $\rho$ carries the shear wave at the wall? The two candidates flip the termination
 
@@ -819,5 +848,91 @@ the B1-ratified cold $Q = \ell$ anchor in scope?** Everything in this document s
 there (upstream F8: $88\%$ of the deficit is present at zero spin). If the anchor is out of scope, the
 derivation lane can still run — but its reachable outcome is a *cold-broken, catalog-matching*
 inconsistency, which is a sharper falsifier than the present uniform offset, not a resolution.
+
+---
+
+## Appendix A — Step-0 skill-selection plan + retro-pass
+
+Written as a 60-second plan before PART 1; retro-checked before push, per the standing
+pre-workstream skill-selection discipline.
+
+| skill / discipline | planned | fired? | where it bit |
+|---|---|---|---|
+| **`ave-ee-first-mapping`** (mandatory — the mapping IS the deliverable) | YES | **YES, and it was the whole lane** | Step 2 lookup put $\Gamma=-1$ on the **short/open two-branch** row (`translation-circuit.md:119`), which forced the $(L,C)$ question, which produced **CF-5/CF-6** — the reclassification of the standing $\sqrt S$-vs-$S^{1/4}$ flag from an exponent fork to a channel fork. Trigger 7 (IDENTITY-COLLAPSE) fired unplanned and produced **CF-8** ($ka \equiv \ell$). Step 6 (land new rows) was **deliberately NOT executed** — §2.7. |
+| **`substrate-native-check`** | YES | YES, partial-by-design | No solver is scaffolded, so the full walk defers to the derivation lane. What *was* done: the §0 sector/regime/phase-state header; the K4 bond/node identification behind E1/E2; and the **sector-ownership** pass that produced A2's "A1 = DC bias, T2 = AC signal, any admixture lands at $2\omega$" statement. |
+| **`pre-test-physics-check`** | YES | YES → the entire §4 fork menu | Every fork is asked **before** design, in plumber form, per the Rule-16 strengthening. FORK-1 is upstream Q1 sharpened by CF-1/2/3; FORK-2/3/5/6/8/9/10 are **new** and were not askable before the circuit mapping existed. |
+| **`phase-space-coordinate-check` (A46)** | YES | YES, and it caught something | Cheap pass on the eigenvalue register (matched, §0 COORDS). **But it bit on the second register**: PART 2 works in the impedance plane, and port-$Q$ ≡ pole-$Q$ only for an isolated pole. That is **CF-14**, a real pre-reg item, not a formality. |
+| **`verify-before-cite`** | YES | YES, on every quote — **two-method, and the second method changed an answer** | Battery in Appendix B. It bit twice: (i) the SYM/ASYM lines are in `manuscript/ave-kb/claim-quality.md`, **not** `common/claim-quality.md` — a first-draft path error caught by a file-variant re-check; (ii) grepping for the *engine's* view of the impedance conflict surfaced the verbatim `cosserat_field_3d.py` FLAG comment, which is a stronger receipt than any leaf. |
+| **`consistency-vs-emergence`** | YES | YES, per-number | Every number in this document is tagged inline: **IDENTITY** ($ka=\ell$; $0.41\lambda$; the hop table) or **arithmetic-consistency observation on canonical inputs** ($r^\star \approx 8.573\,M_g$). The upstream $\nu_{vac}$ class ceiling is inherited unchanged and restated in §0. **No emergence-class language appears anywhere.** |
+| **`pure-AVE-corpus`** | YES | YES, standing | No external, non-physics context in this document, its commits, its branch name, or the docket fragment. |
+| **flag-don't-fix** (durable directive) | YES | YES, 16 times | CF-1…CF-16 are surfaced with paths + verbatim content and **zero corpus files modified**. CF-5 is the hard case — the analysis points to an answer, and the answer is **routed for ratification, not applied**. |
+| **Rule 11 / honest closure** | YES | Structurally | CF-10 **closes** a candidate (a Scholte mode cannot ring down) rather than keeping it alive for optionality. CF-9 **kills the geometry** of an upstream route (R3) rather than re-scoping it silently — it is re-scoped explicitly and the reason is named. |
+| **lane discipline (Rule 15)** | YES | YES | Framing lane: no derivation, no solver, no claim, no pre-reg, no `COLLABORATION_NOTES`, no manuscript edit, no `translation-circuit.md` row. CF-1…CF-16 go to the **auditor** lane; FORK-1…FORK-10 go to **Grant**. |
+
+**Retro-pass — applied-set drift (three, all corpus-forced):**
+
+1. **`ave-cavity-class-identification` fired by analogy and was not planned.** The skill is scoped to
+   AVE-Neurology applied phenomena, but its *discipline* — "name the cavity class before asserting a
+   shared operator mechanism" — is exactly A1. Op21 claims BH ringdown and the electron tank share the
+   $\Gamma=-1$ mode-counting mechanism; this lane's A1 shows the **BH cavity class itself is
+   unidentified** (four candidates, §1.1). Recorded here rather than back-dated.
+2. **`ave-ee-first-mapping` trigger 7** was not in the plan (only triggers 1/2/4 were) and produced CF-8,
+   the highest-value structural finding.
+3. **`ave-mechanism-claims-discipline`** was not planned and became load-bearing at §2.7 — it is the
+   reason the two new translation-circuit rows are **not landed**.
+
+**One skill deliberately NOT fired:** `ave-discrimination-check`. Correct at derivation-fire time (does
+the landed law discriminate AVE from GR?), not at framing time. Noted rather than silently skipped — the
+discrimination candidate to test then is the FORK-6 echo delay, whose *value* this lane has just moved.
+
+---
+
+## Appendix B — verify-before-cite battery (two-method)
+
+Every quoted line was verified by **two independent methods** — a ranged read (`sed`/`Read`) **and** a
+pattern grep whose scope differs from the read's — per the `verify-before-cite` two-method rule and the
+upstream lane's own lesson that varying only the *file* is not enough.
+
+| # | Cited object | Method 1 | Method 2 | Result |
+|---|---|---|---|---|
+| 1 | `regime-eigenvalue-method.md:16,47,52,55,58,63` (the five-step chain, $r_{eff}$, $r_{ph}$ inside, "orbits tangentially at $r_{sat}$") | ranged read `:1-40`, `:40-80` | targeted `grep -n` on `Poisson correction\|r_{\mathrm{eff}}\|photon sphere at\|orbits tangentially\|curvature radiation loss` | **CONFIRMED**; line numbers exact |
+| 2 | `vol3/claim-quality.md:121,122,123` (channel split; $Z_{shear}=\rho c_{shear}$; echoes predicted) | ranged read `:115-130` | `grep -n "" \| sed -n '120,124p'` (independent numbering path) | **CONFIRMED** |
+| 3 | `saturating-modulus-and-backreaction.md:51,52,60` ($A=\varepsilon_{11}$, $S=(1-A^2)^{1/2}$, SHEAR softens) | full-file `Read` | `grep -n 'c_{\text{shear}}\|SHEAR softens\|A=\varepsilon_{11}'` | **CONFIRMED** |
+| 4 | `common/operators.md:54` (Op14 $Z_0/\sqrt S$) + Op16 row ($c_{shear}=c_0\sqrt S$) | ranged read `:50-58` | KB-wide `grep` for `Z_0/\sqrt{S}\|Z_0\sqrt{S}` (19 hits across 15 files, all classified) | **CONFIRMED**, and the grep is what exposed the multi-register spread |
+| 5 | `manuscript/ave-kb/claim-quality.md:111,112` (SYM / ASYM branches) | ranged read `:110-113` | KB-wide grep for `Z_0/\sqrt{S}` returning this file | **CONFIRMED — and a first-draft path error corrected**: the lines are in `ave-kb/claim-quality.md`, not `ave-kb/common/claim-quality.md` (`grep -n SYMMETRIC` on the latter → **0 hits**) |
+| 6 | `nonlinear-vacuum-capacitance.md:14,27` ($C_{eff}=C_0/S$; the A1-vs-T2 sector note) | `grep -n 'C_{eff}\|C_0/S'` | ranged read of the returned lines | **CONFIRMED**; the `:14` sector note is why CF-5's SHEAR row carries an explicit residual |
+| 7 | `k4-tlm-lensing-validation.md:22-33` (register correction + the downstream $c_{local}$ flag) | ranged read `:18-45` | KB-wide grep `Z_0/S^` returning `:28,:30` | **CONFIRMED** |
+| 8 | `interior-singularity-resolution.md:14-21` ($\rho_{eff}=\rho_0/S_{topo}^3$) | `grep -n 'rho_\|S_{topo}'` | ranged read of returned lines | **CONFIRMED** |
+| 9 | `electron-bh-isomorphism.md` ("cannot propagate"; $c_g = c(1-\varepsilon^2)^{1/4}$; two-channel table) | ranged read `:28-50` | independent `find`-located path check | **CONFIRMED** |
+| 10 | PR#260 B3-DEGENERATE banner ($Z=Z_0\sqrt S$, $\lvert\Gamma\rvert=1$ both ways) | KB-wide `grep -rn "B3"` | verified the *identical* banner sentence (`grep -rl` on the banner's own wording) at **8** independent leaves, incl. `lattice-extreme-bh-rationality.md:28`, `cvr-reflection-smith.md:27`, `vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md:37`, `common/dual-reactance-storage-taxonomy.md:189`, `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`; a separate #260 *reference* (not the banner) at `chirality-and-antimatter.md:43` | **CONFIRMED**, multi-site |
+| 11 | `op14-local-clock-modulation.md:13,19` (the 2026-06-22 exponent correction) | `grep -n 'Matter-clock exponent\|omega_{\text{local}}'` | ranged read `:13-16`, `:8-16` | **CONFIRMED** |
+| 12 | `op14-cosmic-horizon-profile.md:22,41,43,47` (the lagging exponent + the self-contradiction) | ranged read `:40,46` | `grep -n 'omega_{\text{local}}\|sqrt{1 - A^2}'` (returns `:22,:43,:47` — three sites, two exponents) | **CONFIRMED** — this is CF-16 |
+| 13 | `common/vocabulary-register.md:309` ($\varepsilon_{11}$ IS the Ax-4 amplitude $A$) | `sed -n '309p'` | upstream scoping doc §2.3 quotes the same line independently | **CONFIRMED** |
+| 14 | `translation-circuit.md:119` (short-vs-open two-branch row) + §4.7.3 disanalogy (ii) | `sed -n '119p'`, `sed -n '354,362p'` | section-header map via `grep -n '^#'` | **CONFIRMED** |
+| 15 | `research/2026-07-21_boundary-strain-amplitude_result.md:13,96` (vessel state R6, hoop-stiffen / radial-soften) | workspace-wide `grep -rln hoop` | `grep -rn 'hoop-stiffen\|radial-soften'` returning `:13,:96,:106,:112` | **CONFIRMED**; scope caveat (core-local, not BH wall) recorded in CF-12 |
+| 16 | `src/ave/topological/cosserat_field_3d.py:419-424` — the engine's own impedance-conflict FLAG | ranged read `:418-430` | `grep -n 'Z_eff\|2nd-impedance'` | **CONFIRMED** verbatim: *"⚑ FLAG (2nd-impedance conflict, task #12, NOT resolved here): this OPEN Z=Z0/√S coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME file, and with operators.md:54 (Z0/√S) vs k4-tlm-lensing-validation.md:22 (Z0/S^{1/4}). The exponent/sign reconciliation across Op14 forms is a separate physics-review item"* |
+| 17 | `op21-multi-mode-mode-counting.md` §1 table + §2.2/§2.3/§2.4 ($\Gamma=-1$ forcing, $1/\ell$ leak, $Q=\ell$) | ranged read `:20-110` | cross-check against `theorem-3-1-q-factor.md` "Op21 multi-mode generalization" paragraph (independent leaf, same $1/\ell$ statement) | **CONFIRMED** |
+| 18 | `theorem-3-1-q-factor.md` ($Q_{tank}=\omega_C L_e/R$, $R = Z_0/(4\pi)$ radiation impedance) | ranged read `:30-115` | upstream scoping §2.2 cites `:40-42`, `:79-83` independently | **CONFIRMED**; sector caution recorded at E10 |
+| 19 | `qnm-quality-factor.md` (Resultbox $Q=\ell$; the B1 ruling banner) | full-file read | `grep` of the B1 banner text in `op21-…` (propagated copy, same wording) | **CONFIRMED** |
+| 20 | Currency of the upstream state (#810–#812 merged; scoping doc at its merged content) | `git log --oneline` at `origin/main` = `512e1ef4` | full read of `research/2026-07-30_qlaw-derivation_scoping.md` (928 lines) + its docket fragment | **CONFIRMED**; this document is written against `512e1ef4` |
+
+**Numerical receipts** (all computed inline, all from canonical inputs only, all IDENTITY or
+arithmetic-consistency class — **no engine run, no solver, no fitted parameter**):
+
+| quantity | value | inputs |
+|---|---|---|
+| $k\,r_{eff} = (\omega_R/c)\,r_{eff}$ | $\mathbf{2.000} = \ell$ **exactly** | $\omega_R M_g = 18/49$, $r_{eff}=49M_g/9$ |
+| $\lambda_\infty = 2\pi c/\omega_R$ | $17.10\,M_g$ | $\omega_R M_g = 18/49$ |
+| taper length / $\lambda$ | $\approx 0.41$ | grade scale $\sim r_{sat}=7M_g$ |
+| $v_\varphi$ under the "ring at $r_{sat}$" reading | $1.286\,c_0 = (1+\nu_{vac})c_0$ | $\omega_R$, $r_{sat}$, $\ell$ |
+| turning point, canonical $c\propto\sqrt S$ | $A^2 = 2/3$, $r^\star = 8.573\,M_g$ | $A = 7M_g/r$, $V\propto c_{shear}^2/r^2$ |
+| turning point, Family-E $c\propto S^{1/4}$ | $A^2 = 4/5$, $r^\star = 7.826\,M_g$ | same, exponent varied |
+| $c_{shear}(r^\star)/c_0$ | $0.760$ | canonical exponent |
+| hop table $G/G_0$, $c/c_0$, $Z/Z_0$ | §3 | $S = \sqrt{1-(7M_g/r)^2}$ |
+
+**What was NOT verified, stated so it is not mistaken for verified:** the Chu / Collin–Rothschild
+external-$Q$ value at $ka=\ell=2$ was **not computed** (that is the derivation). The vessel-state R6
+transplant to the BH wall was **not tested**. The $\nu_{vac}\to0$ cancellation sensitivity of any
+candidate ratio was **not run** — it remains a pre-reg requirement per upstream §2.1.
 
 ---
