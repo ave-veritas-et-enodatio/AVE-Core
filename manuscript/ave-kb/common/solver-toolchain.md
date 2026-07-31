@@ -110,7 +110,24 @@ $$
 \qquad (\text{in units of } c/M_g)
 $$
 
-At the **superradiance** threshold ($\omega_R = m\,\Omega$): $\omega_I \to 0$, $Q \to \infty$. The mode gains energy from the BH spin---no net radiation. This is the first-principles prediction of superradiance from pure lattice geometry.
+At the **superradiance** threshold ($\omega_R = m\,\Omega$): $\omega_I \to 0$, $Q \to \infty$. The mode gains energy from the BH spin---no net radiation. ~~This is the first-principles prediction of superradiance from pure lattice geometry.~~ This threshold is a **structural consequence of the adopted m$\Omega$ law** — which is disclosed-phenomenological, solidity 0.55 — **not** a first-principles lattice derivation.
+
+> **🟡 PROVENANCE SOFTENED 2026-07-30 (Grant ruling [sic]: "soften"; original struck, preserved per
+> Rule 12).** The superradiance threshold at $\omega_R = m\Omega$ ($\omega_I \to 0$, $Q \to \infty$)
+> follows **structurally** from the adopted m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ —
+> and that law is graded **disclosed-phenomenological, solidity 0.55, `use as input only`**
+> ([`ave-merger-ringdown-eigenvalue.md`](../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md)
+> `:72-76`: *"it is NOT more first-principles-derived than v2 — both are disclosed phenomenological per
+> `clm-395gps`"*). The law is **grafted on** as a Park-transform decomposition rather than obtained from
+> the Op21 Nyquist-cell count — recorded as *analogised, not derived* by the #808 scoping lane
+> (`research/2026-07-30_qlaw-derivation_scoping.md` §2.5 / Route R4; provenance flag raised at §1.7).
+> "First-principles … from pure lattice geometry" therefore over-states **provenance** in the same shape
+> the retracted "zero free parameters" did.
+>
+> **The threshold itself is RETAINED — nothing is weakened.** The m$\Omega$ law and its
+> $\omega_R = m\Omega$ superradiance limit are Grant Ruling B1's standing **Q-law commitment**. This edit
+> changes the *provenance wording only*; the threshold, the $\omega_I \to 0$ / $Q \to \infty$ limit, and
+> the law are unchanged.
 
 **Accuracy.**
 ~~For the LIGO observing band ($a_* = 0.3$--$0.8$), this formula reproduces the GR quality factor to **sub-2%** with zero free parameters:~~
