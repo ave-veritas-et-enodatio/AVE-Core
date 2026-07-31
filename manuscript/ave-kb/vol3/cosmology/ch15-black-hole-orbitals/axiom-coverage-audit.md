@@ -14,7 +14,7 @@ The following table records which AVE axioms are fully exercised in the current 
 | 1 | LC lattice, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ | **Full** | Symmetric Gravity ($Z = Z_0$) |
 | 2 | Topological defects (self-trapped $\gamma$) | **Full** | BH-electron isomorphism |
 | 3 | Gravity = dielectric strain $n(r)$ | **Full** | Kerr saturation boundary, QPOs |
-| 4 | Saturation ($V_{SNAP}$, viscosity) | **Full** | Phase transition, $Q = \ell$, $\tau_{ring}$ |
+| 4 | Saturation ($V_{SNAP}$, viscosity) | **Full** | Phase transition, $Q = \ell$ (cold $a_*=0$ anchor — B1), $\tau_{ring}$ |
 
 ### Axiom 4 Saturation: Phase Transition and $Q = \ell$
 
@@ -30,6 +30,19 @@ The quality factor follows from the topological mode structure: with $\ell$ wave
 
 For $\ell = 2$: $Q = 2$, $\omega_I M = 9/98 = 0.0918$ (GR exact: $0.0890$, error $3.2\%$).
 
+> **🟩 SPIN-SCOPE — this $Q = \ell$ is the cold $a_* = 0$ anchor (Grant Ruling B1, 2026-07-21; propagated
+> 2026-07-31).** $\ell$ is a topological integer (strain-immune); $Q$ is an impedance ratio riding the strain
+> profile, so the equality cannot survive shape-changing strain — and spin is exactly that, which is the banked
+> $\bar D_Q = -38\%$ at catalog spins (corrected-Kerr $Q$ rises $3.07 \to 3.49$). The spin story is the
+> m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$
+> ([`ave-merger-ringdown-eigenvalue.md` § Kerr Quality Factor](ave-merger-ringdown-eigenvalue.md)); flat
+> $Q = \ell$ is its $\Omega \to 0$ limit. Even the cold value is convention — the $1/\ell$-per-cycle leak is a
+> *scaling assertion*, never a computed radiated power (#808 scoping, finding F7/F8), and deriving the cold $Q$
+> is the named next work. *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model
+> banner: [`vol3/claim-quality.md`](../../claim-quality.md) `clm-395gps` at `:204`; scoping doc
+> `research/2026-07-30_qlaw-derivation_scoping.md` §1.5. Chapter-canonical scope banner:
+> [`qnm-quality-factor.md`](qnm-quality-factor.md).
+
 This is the gravitational-scale manifestation of the **knot crossing number $\leftrightarrow$ mode number** isomorphism: the crossing number $c$ at the particle scale (confinement radius $r = \kappa/c$) plays the identical role to the angular mode number $\ell$ at the gravitational scale ($Q = \ell$). Each additional topological winding adds one unit of confinement stability.
 
 Comparison against three LIGO events:
@@ -41,5 +54,18 @@ Comparison against three LIGO events:
 | GW190521 | 0.72 | 2 | 5.0 | 15.0 | $\dagger$ |
 
 The Schwarzschild $Q = \ell = 2$ is used for all events; the Kerr correction to $Q$ (which increases Q for spinning remnants) is not yet included and accounts for the remaining $\tau$ discrepancy.
+
+> **🟩 SPIN-SCOPE — the table above applies the cold $a_* = 0$ anchor *outside its scope* (Ruling B1,
+> 2026-07-21; propagated 2026-07-31; the table itself is preserved per Rule 12).** All three events sit at
+> $a_* = 0.64$–$0.72$, so the flat $Q = \ell = 2$ column is the cold anchor read through at catalog spins —
+> exactly the reading B1 scoped out, and the 38–43% $\tau$ errors are its signature (banked on the
+> frame-independent comparator as $\bar D_Q = -38\%$; corrected-Kerr $Q$ rises $3.07 \to 3.49$). The
+> "not yet included" clause is a **scoping lag**: under B1 the standing spin story is the m$\Omega$ law
+> $\omega_I = (\omega_R - m\Omega)/(2\ell)$, which is computed and banked at $-5.44\%$ (Resultbox) /
+> $-4.57\%$ (ZAMO) — an OPEN near-miss tension, the named next ringdown work, not an un-attempted correction.
+> **Nothing here is re-adjudicated** — the numbers above stay as the record. Model banner:
+> [`vol3/claim-quality.md`](../../claim-quality.md) `:204`; Q-LAW COMMITMENT:
+> [`ave-merger-ringdown-eigenvalue.md` § GRANT RULING B1](ave-merger-ringdown-eigenvalue.md); receipts
+> `research/2026-07-20_v1-spin-mapping-adjudication_result.md`.
 
 ---

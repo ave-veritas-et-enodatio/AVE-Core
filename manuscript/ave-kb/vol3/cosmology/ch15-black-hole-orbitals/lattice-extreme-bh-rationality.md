@@ -43,11 +43,23 @@ The scale gap is $\sim21$ orders of magnitude; the kernel is one ([universal-sat
 | Observable | AVE (lattice extreme) | GR / data | Agreement | Class |
 |---|---|---|---|---|
 | Merger ringdown | $\omega_R M_g = 18/49 = 0.3673$ | $0.3737$ (GR) | $1.7\%$ | CONSISTENCY ([ave-merger-ringdown-eigenvalue.md](ave-merger-ringdown-eigenvalue.md)) |
-| QNM quality factor | $Q = \ell$ | GR QNM | match | CONSISTENCY ([qnm-quality-factor.md](qnm-quality-factor.md)) |
+| QNM quality factor | $Q = \ell$ **(cold $a_*=0$ anchor only — B1)** | GR QNM **at $a_* = 0$** | match **at $a_*=0$; $\bar D_Q = -38\%$ at catalog spins** | CONSISTENCY ([qnm-quality-factor.md](qnm-quality-factor.md)) |
 | Hawking temperature | $T_H = \hbar c^3/(8\pi GMk_B)$ | exact GR form | identity | CONSISTENCY ([hawking-temperature-nyquist-noise.md](hawking-temperature-nyquist-noise.md)) |
 | Compactness limit | $2GM/(c^2R) < 2/7 = \nu_{vac}$ | Buchdahl $8/9$ | **stricter** | **AVE-DISTINCT** ([ave-compactness-limit.md](ave-compactness-limit.md)) |
 | GW echoes | $\Gamma_{shear}=-1$ reflector at $r_{sat}$ | GR: horizon absorbs | **departure** | **AVE-DISTINCT** ([first-principles-predictions.md](first-principles-predictions.md)) |
 | Iron-K$\alpha$ inner edge | inner disk at $r_{sat}=7GM/c^2$ | GR ISCO $6GM/c^2$ | **departure** | **AVE-DISTINCT** ([ave-bh-horizon-area-theorem.md](ave-bh-horizon-area-theorem.md) §5) |
+
+> **🟩 SPIN-SCOPE on the QNM-quality-factor row (Grant Ruling B1, 2026-07-21; propagated 2026-07-31).**
+> The flat $Q = \ell$ "match" holds at the cold $a_* = 0$ anchor only. $\ell$ is a topological integer
+> (strain-immune); $Q$ is an impedance ratio riding the strain profile, so the equality cannot survive
+> shape-changing strain — and spin is exactly that: at catalog spins corrected-Kerr $Q$ rises
+> $3.07 \to 3.49$ and the flat reading fails at $\bar D_Q = -38\%$. The spin dependence is carried by the
+> m$\Omega$ law $\omega_I = (\omega_R - m\Omega)/(2\ell)$ (banked $-5.44\%$ / $-4.57\%$, an OPEN near-miss
+> tension). Even the cold value is convention — the $1/\ell$-per-cycle leak is a *scaling assertion*, never a
+> computed radiated power (#808 scoping F7/F8), and deriving the cold $Q$ is the named next work.
+> *(Physical reading = orchestrator-walk provenance 2026-07-31, not canon.)* Model banner:
+> [`vol3/claim-quality.md`](../../claim-quality.md) `:204`; scoping doc
+> `research/2026-07-30_qlaw-derivation_scoping.md` §1.5.
 
 > **[Resultbox]** *The rationality test, stated*
 >
@@ -89,7 +101,7 @@ The factor $7=2/\nu_{vac}=2/(2/7)$ is the Poisson-ratio conversion (the coeffici
 
 ## §7 — Discrimination + honest flags
 
-- **CONSISTENCY:** the GR-regime BH observables (ringdown, $Q=\ell$, Hawking) — the lattice recovering a known theory.
+- **CONSISTENCY:** the GR-regime BH observables (ringdown, $Q=\ell$ **at the cold $a_*=0$ anchor only — B1, see the §4 banner**, Hawking) — the lattice recovering a known theory.
 - **AVE-DISTINCT:** $2/7$ compactness, $\Gamma_{shear}=-1$ echoes, $7GM$ Iron-K$\alpha$ inner edge; and on the electron side, $\lvert\Gamma\rvert^2=1-\alpha$.
 - **Exponent defect** ($n=S^{0.5}$ vs $S^{0.25}$, `master_equation_fdtd.py:165`) understates the compression wall depth — carried from the CVR leaves.
 - **Photon-geometric observables do NOT discriminate** $r_{sat}$ from $r_s$ (EHT shadow is silent; [ave-bh-horizon-area-theorem.md](ave-bh-horizon-area-theorem.md):79). Surviving falsifiers are matter/shear observables only.
