@@ -841,12 +841,45 @@ calculation, not the observation survey.**
 
 **Feasibility verdict, Axis 2:** channel (i) is a **cheap, decisive first cut on already-merged
 machinery** and it directly tests F-B3 — feed a symmetric bias, confirm the §2.2 forcing chain
-returns exactly zero splitting (a known-positive gate); then feed the #779 hoop/radial split and read
-whether the splitting is nonzero and at what order in $A$. **That is the whole discriminator, and it
-is a driver-extension, not a new engine.** ★ **Blocking inputs are the same three as Axis 1 plus one
+returns exactly zero splitting; then feed an orientation-split bias and read whether the splitting is
+nonzero and at what order in $A$. **That is the whole discriminator, and it is a driver-extension,
+not a new engine.** ★ **Blocking inputs are the same three as Axis 1 plus one
 new one:** the $\rho_{bond}$ operating point (W1), the $n_{eff}$ convention (item 13a), the SYM-vs-
 orientation-split question for the *gravitational* bias specifically (**W4**), and the F-B2
 magnitude-vs-vector reading of the kernel (**W5**).
+
+> ⊗ **STANDING DESIGN LESSON 2 — named explicitly (added 2026-07-31 review).** The symmetric-bias
+> step above is not a warm-up; it is the **known-positive fireability demonstration** that lesson 2
+> requires — *"**Gates must be DEMONSTRABLY FIREABLE on known-positives before any verdict arm.** A
+> gate that has never fired is a checklist, not a gate"*
+> ([`_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md`](../_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md):95).
+> **This lane satisfies lesson 2 in substance and had failed to name it**; naming it matters because
+> a downstream pre-reg must ship the demonstration *with* the freeze, not after.
+>
+> **Why this particular gate is unusually strong:** the known-positive is not an empirical
+> almost-zero, it is an **exact algebraic zero** — #519's $\rho_{eff}=\rho_{cold}(S_{ax}/S_{sh})$
+> identity makes a symmetric bias return **identically** zero splitting, so the gate discriminates
+> *machine-zero from a real bug* rather than *small from smaller*. **Honest scoping of what it
+> demonstrates:** it fires the **zero arm**. It does **not** demonstrate that the nonzero arm can
+> fire — that would need a bias known independently to produce splitting, and none is banked. **Per
+> lesson 2's own instruction to "scope honestly what fireable means", this is
+> zero-arm-fireability-only, and a pre-reg owes a nonzero-arm demonstration too.**
+>
+> ⊗ **STANDING DESIGN LESSON 3 — recorded as an INHERITED FREEZE-TIME OBLIGATION, not discharged
+> here.** Lesson 3 (`:96`): *"**Frozen requirements must be checked MUTUALLY SATISFIABLE before
+> freeze**"*, with both halves — (i) a **precondition-consistency check** of every frozen requirement
+> against every other frozen parameter, and (ii) a pre-registered **fallback** for when a measurement
+> returns non-decisive, *"so the fallback is pre-registered rather than chosen after seeing the
+> numbers."* **Nothing here is frozen, so lesson 3 cannot be discharged by this document** — but it
+> **transfers**, and the specific pairs a future Axis-2 freeze must check against each other are
+> already visible: the $\rho_{bond}$ operating point (W1) against the bias-symmetry assumption (W4);
+> the #519 **MODEL-SCOPE fence** (§2.2 — fixed reference geometry, pre-stress and relaxation out of
+> scope) against any bin that would need channel (ii) or (iii) to be reachable; and the
+> $\mathcal{O}(1)$ **Zener → SME projection** (§1.10) against any bin phrased as a quantitative
+> exclusion. **Recorded as owed, with the pairs named, so the freeze-time check has a starting list
+> instead of a blank page.** *(This is precisely the #796 failure mode: the fault there was not the
+> data, it was that two frozen requirements were mutually unsatisfiable and "nothing in the freeze
+> caught it.")*
 
 ### §2.8 — Outcome-class bins, Axis 2 (**DRAFT — NOT FROZEN**; every class has a reachable bin)
 
