@@ -352,7 +352,237 @@ the future pre-reg, not criteria.
 
 ## §2 — AXIS 2: gravitational photoelasticity (the Grant fold)
 
-*(sections below)*
+**Grant's picture, taken as canon for this axis** (his words, verbatim `[sic]`): *"isn't gravity just
+macroscopic static strain including e and b field? so vacuum birefringence? if AVE is right?"*
+Restated in substrate-native terms: **gravity is a macroscopic static DC strain of the lattice,
+sourced by all stored energy including field energy; a probe photon crossing that strain gradient is
+a wave crossing a pre-stressed medium; pre-stressed media are generically photoelastic; therefore —
+does the gravitational strain field split the two polarizations?**
+
+### §2.1 — (a) Where canon states the SYM claim, and its derived-vs-asserted grade
+
+**The canonical leaf is [`graded-network-response.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md)
+§2** (the achromatic leaf is its SYM limit, and the leaf says so at `:157`). The load-bearing table,
+`:145`–`:148`, verbatim:
+
+> | Loading | $S_\varepsilon(x),S_\mu(x)$ | $Z(x)=Z_0\sqrt{S_\mu/S_\varepsilon}$ | Index | Boundary |
+> |---|---|---|---|---|
+> | **SYM co-grade** (gravity-class; internal $\mathbf E$ **and** $\mathbf B$) | $S(x),\,S(x)$ | $Z_0$ **invariant** | $n=1/\sqrt{S}$, $\delta n\approx+\tfrac14 A^2$ | $\Gamma=0$ **reflectionless** |
+> | **ASYM** (static-$\mathbf E$; $\partial\mathbf B/\partial t=0\Rightarrow S_\mu=1$) | $S(x),\,1$ | $Z_0(1-A^2)^{-1/4}$ **varies** | $\delta n\approx-\tfrac14 A^2$ | $\Gamma\ne0$ **reflective** |
+
+**Derived-vs-asserted, graded honestly and per-link:**
+
+| Link in the SYM chain | Grade | Evidence |
+|---|---|---|
+| Given $S_\varepsilon=S_\mu=S$, then $Z\equiv Z_0$ and $\Gamma=0$ | **DERIVED** (algebraic identity) | `graded-network-response.md`:337 verbatim: *"SYM $\Rightarrow Z=Z_0$ reflectionless, $\delta n\approx+\tfrac14 A^2$ \| **DERIVED** \| impedance ratio cancellation"*. The register's rationale for `clm-07kd5v` says the same (`vol3/claim-quality.md`:94: *"an exact algebraic identity given symmetric scaling"*). |
+| That gravity IS the SYM loading (both sectors driven) | **ASSERTED / structurally-argued, NOT node-up derived** | [`achromatic-impedance-matching.md`](../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/achromatic-impedance-matching.md):15 states it as a premise: *"the geometric polarization of the LC network scales its dual reactive components symmetrically"* — no derivation in the leaf. INVARIANT-S2 (`manuscript/ave-kb/CLAUDE.md`:75) grounds it on the driving picture (*"realized when both sectors are driven, e.g. a mass-soliton carrying internal $\mathbf E$ and $\mathbf B$"*), which is a physical argument, not a node-up measurement. The **Axiom-3 parent derivation exists only for the ELASTIC sibling** ($k_s=k_a$, #516) and the EM half is stated as its sibling by analogy (`achromatic-impedance-matching.md`:33). |
+| That SYM $\Rightarrow$ polarization-blind | **ASSERTED**, and §2.3 shows the corpus's own machinery does not obviously give it | see §2.3 |
+| Solidity of the whole | `clm-07kd5v` **solidity 0.55**, `use as input only, don't build deeper` (`vol3/claim-quality.md`:93) | verbatim |
+
+**★ F-B1 — a stale verify-before-cite false-negative that under-grades this carve (flag, do not fix).**
+[`research/2026-07-13_registers-walk_framing.md`](2026-07-13_registers-walk_framing.md):147 records,
+verbatim: *"⚠ **Cite correction (verify-before-cite).** The walk pointed this carve at `CLAUDE.md:75`;
+that line did **not** verify — `CLAUDE.md:75` is the repo's *Pure-AVE-corpus rule* text, not the
+SYM/ASYM physics carve. So the carve is recorded here as **chat-record framing** … **pending a
+canonical carve leaf.**"* **That correction resolved against the wrong file.** The repo-root
+`CLAUDE.md:75` is indeed the pure-corpus rule — but the SYM/ASYM carve **is canonical**, at
+**`manuscript/ave-kb/CLAUDE.md`:75** (INVARIANT-S2, the W6 clarification 2026-06-05), and
+`graded-network-response.md`:137 cites exactly that path. So the SYM/ASYM carve is **not**
+chat-record-pending-a-leaf; it is INVARIANT-level canon plus a canonical leaf. Surfaced for the
+auditor lane; nothing edited here.
+
+### §2.2 — The gravitational forcing chain, IF the loading is exactly symmetric
+
+The corpus supplies a mechanism, not just an assertion — and it is worth stating because it is the
+strongest form of the polarization-blindness case. Merged **#519**
+([`research/2026-07-04_saturated-elastic-tensor_result.md`](2026-07-04_saturated-elastic-tensor_result.md):16–18)
+computes the DC-biased small-signal Cauchy tensor, verbatim:
+
+> *"the saturated **small-signal** Cauchy elastic tensor — computed by the Born-Huang method of long
+> waves on the **SATURATED** bond tensor `Φ_b(A) = k_{a,0}·S(A_axial)·d̂⊗d̂ +
+> k_{s,0}·S(A_shear)·(I−d̂⊗d̂)`, i.e. the differential stiffnesses at the DC bias point — is the
+> **COLD tensor with ρ → ρ_eff = ρ_cold·(S_axial/S_shear)**, exactly."*
+
+★ **The forcing chain falls straight out of that identity.** The whole bias-dependence enters through
+the single ratio $S_{axial}/S_{shear}$. **A perfectly symmetric bias has $S_{axial}=S_{shear}$ ⇒
+$\rho_{eff}=\rho_{cold}$ ⇒ the small-signal tensor is UNCHANGED ⇒ zero induced birefringence, at any
+bias depth.** That is a genuine forcing statement, in this model, on already-merged machinery — the
+polarization-blindness of SYM lensing is not merely asserted, it has a lattice-level mechanism.
+**Class: CONSISTENCY / axiom-manifestation, model-bounded.** It is exactly as strong as the premise
+"the gravitational bias loads the two bond channels equally," which is §2.3's residual.
+
+### §2.3 — (b) The sharp residual: three independent reasons the polarization-blindness is NOT automatic
+
+**★ F-B2 — the corpus's own flagship falsifier derives a POLARIZATION-SPLITTING tensor from the SAME
+scalar kernel.** [`vacuum-birefringence-e4.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md):95,
+verbatim:
+
+> *"Under a linearly-polarized pump, the AVE vacuum is **uniaxial** (optic axis $\parallel$ the pump).
+> The probe-response tensor is $\varepsilon_{ij}=\varepsilon\,\delta_{ij}+2\varepsilon' E_{0i}E_{0j}$
+> (the exact differential of the scalar Axiom-4 kernel $S=\sqrt{1-(E/E_{yield})^2}$, optic axis
+> $\parallel \hat E_0$; DERIVED, OQ-1 Step 1)."*
+
+So **the scalar Axiom-4 kernel does NOT produce a scalar response once the bias has a DIRECTION.**
+Differentiating $S(|{\bf E}|)$ with respect to a directed bias yields a rank-2 **uniaxial** tensor
+with optic axis along the bias. The cross-polarization-isotropy statement the SYM side leans on —
+`graded-network-response.md`:271, verbatim: *"the cross-polarization **isotropy** — the kernel keys
+off $|E|$ so $\Gamma_\parallel=\Gamma_\perp$"* — is a statement about the **normal-incidence boundary
+reflection coefficient**, a different observable from the **propagation index tensor**. **Two merged
+canonical leaves, one scalar kernel, opposite polarization verdicts, because one treats the bias as a
+magnitude and the other as a vector. Surfaced with both cites; not reframed; not resolved here.**
+
+**★ F-B3 — the gravitational bias state is intrinsically UNIAXIAL, at BOTH scales the corpus measures.**
+Photoelastic response is **rank-4** ($\delta(\varepsilon^{-1})_{ij}=p_{ijkl}\,\epsilon_{kl}$), so —
+exactly as in §1.2 — cubic symmetry does **not** force it isotropic: a cubic $p_{ijkl}$ has three
+independent constants ($p_{11},p_{12},p_{44}$), and a **uniaxial** strain drives a birefringence
+proportional to $(p_{11}-p_{12})$ or $p_{44}$ depending on the axis. It vanishes only if the strain
+itself is **hydrostatic**. The corpus says it is not:
+
+| Scale | Strain state | Cite |
+|---|---|---|
+| **Far field / weak** | $A = \varepsilon_{11} = 7GM/(c^2 r)$ — a **strain-tensor component**, not a scalar; the radial and tangential strains of a spherical field differ (this is the same content as the corpus's own temporal-vs-spatial index split, $n_{temporal}=1+(2/7)\varepsilon_{11}$ vs $n_{spatial}=1+(9/7)\varepsilon_{11}$) | [`vol3/claim-quality.md`](../manuscript/ave-kb/vol3/claim-quality.md):42,:45 |
+| **Vessel / near** | explicitly orientation-split: **hoop-stiffen / radial-soften**, `k_{shear,eff}` anisotropic by bond orientation | [`research/2026-07-21_boundary-strain-amplitude_result.md`](2026-07-21_boundary-strain-amplitude_result.md):96 (R6), verbatim: *"the shell is a **pressure vessel (hoop tension + radial compression)** and `k_{shear,eff}` is **anisotropic**: hoop bonds STIFFEN, radial bonds SOFTEN"* |
+
+★ **In #519's own variables, an orientation-split bias is precisely $S_{axial}\neq S_{shear}$ — the
+one thing that moves $\rho_{eff}$, and $\rho_{eff}$ is the parameter that sets the Zener anisotropy
+(§1.3).** So the SYM forcing chain of §2.2 and the #779 R6 vessel state **pull in opposite
+directions**, on merged corpus numbers, and nothing in the corpus reconciles them. **This is the
+sharp residual the fold was asked to find.**
+
+**★ F-B4 — the corpus has NO photoelastic coupling anywhere, verified two ways.** `grep -rniE` and
+`git grep -niE` over `*.md` / `*.tex` / `*.py` for
+`photoelast|photo-elast|stress-optic|elasto-optic|piezo-optic|Pockels tensor` return **0 hits by both
+methods** (Appendix B receipt 3). The framework has never named, derived, measured or bounded a
+$p_{ijkl}$. **That is the honest state: the polarization-blindness of gravitational lensing is a
+standing forward statement with no coupling calculation behind it, in either direction.**
+
+**★ Related LIVE flag, already on the books — do NOT re-mint it.** The $n_{eff}$ sign/direction
+overload ($\sqrt S$ EM-transverse vs $1/\sqrt S$ gravitational) is **already a tracked open item**:
+[`engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md):130 and
+[`vol9/ch17-engine-requirements/index.md`](../manuscript/ave-kb/vol9/ch17-engine-requirements/index.md):32
+item **(13a)**, *"LIVE (KB-owner decision)"*, flagged in code at `master_equation_fdtd.py:178-180` and
+`crystal_engine.py:433-435`. Any Axis-2 magnitude work inherits it, because the sign of the induced
+$\delta n$ per polarization rides exactly that convention. **Cited as already-live; not re-raised as
+a new finding.**
+
+### §2.4 — (c) EM protection of the UNSTRAINED lattice: what is measured, and what the measurement can and cannot support
+
+| Statement | Status | Cite |
+|---|---|---|
+| Cold lattice has **no birefringence**: the two transverse photon branches are DEGENERATE, $\max\lvert\omega_{T1}-\omega_{T2}\rvert = 1.7\times10^{-14}$, *"for every direction including the low-symmetry [110]/[210]"* | **MEASURED node-up** (#515) | [`research/2026-07-04_lorentz-on-srs_result.md`](2026-07-04_lorentz-on-srs_result.md):27–29,:127 |
+| Cold $c(k\to0)$ direction-independent, cross-direction spread extrapolated to $k=0$ = **0.0** | **MEASURED node-up** (#515) | ibid. `:24`–`:25`,`:125`–`:126` |
+| srs point group **432** is non-centrosymmetric and PERMITS $k$-linear gyrotropy (**optical activity**) that centrosymmetric diamond $m\bar3m$ forbids | **MEASURED node-up in two sectors** (#508 mechanical, #515 photon), parity-odd, diamond-null | [`chiral-mechanical-gyrotropy.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/chiral-mechanical-gyrotropy.md):54–55; [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):710,:713 |
+| Its magnitude is $\mathcal{O}(k\ell_{node})$-suppressed: $\delta_{chiral}\approx1.7\times10^{-9}\cdot(q\ell_{node})$, i.e. $1.7\times10^{-9}$ at 633 nm, $\sim$**11 OOM below** SME cavity bounds | **MEASURED; ECHO-class, explicitly NOT a near-term falsifier** | [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):716 |
+
+**★ The honest carve required by the brief — "verify each symmetry claim against the corpus's actual
+EM implementation."** The answer is the same one Axis 1 reached at F-A5, and it constrains what §2.4
+can be used for:
+
+- The corpus's long-wave EM response does **NOT** reduce to an independent rank-2 $\varepsilon$
+  tensor at the lattice level. `port-register.md`:47 makes the photon **the transverse-$u$ branch**
+  (*"photon $=$ transverse-$u$, not micro-$\omega$"*), whose $k\to0$ speeds are eigenvalues of the
+  **rank-4** $C_{ijkl}$. The rank-2 $\varepsilon,\mu$ description is the **continuum projection** of
+  that, not an independent structure.
+- Consequently **"cubic symmetry forces $\varepsilon$ isotropic" is a true statement about a rank-2
+  object that the lattice does not independently carry**, and the #515 degeneracy measurement was
+  taken at $\rho_{bond}=1$, where the rank-4 tensor is isotropic anyway ($A=1.000$).
+- **What survives untouched:** every #515 number, and the structural statement that **432 admits
+  optical activity at order $k\ell_{node}$** (a point-group fact, magnitude honestly wavelength-
+  suppressed, already ECHO-graded). **What does not survive as written:** "the unstrained lattice is
+  EM-protected *by rank-2 cubic symmetry*." On the corpus's own G2 relabel the protection is
+  **operating-point** protection (Axiom-3-forced $\rho_{bond}=1$), which is a different — and
+  arguably stronger, because derived — claim, but it is not the one usually stated.
+
+### §2.5 — (d) Why the gravitational (SYM) and pumped-E (ASYM) predictions DIFFER — stated so neither null can be misread as killing the other
+
+This is the single most important framing output of Axis 2, because the two channels are near-neighbours
+in vocabulary and antipodal in physics.
+
+| | **Gravitational photoelasticity (Axis 2)** | **Flagship E-route falsifier (`clm-pp3qwf`)** |
+|---|---|---|
+| **Loading class** | **SYM** — both $\varepsilon$ and $\mu$ grades co-scale | **ASYM** — $\varepsilon$-only |
+| **Why** | the source carries internal $\mathbf E$ **and** $\mathbf B$ (mass-soliton / symmetric bulk strain), INVARIANT-S2 W6 | a static/DC $\mathbf E$ has $\partial\mathbf B/\partial t=0$, so $I_{vac}=0$, so $S_\mu=1$ is **forced, not assumed** (`graded-network-response.md`:161–163) |
+| **Kernel argument** | strain amplitude $A=\varepsilon_{11}=7GM/c^2r$ | $A=E/E_{yield}$ (the $V$-keyed varactor) |
+| **Impedance** | $Z\equiv Z_0$ **invariant** ⇒ $\Gamma=0$ | $Z=Z_0(1-A^2)^{-1/4}$ **varies** ⇒ $\Gamma\ne0$ |
+| **Index sign** | $\delta n\approx+\tfrac14A^2$ (light **slows**) | $\delta n\approx-\tfrac14A^2$ |
+| **Predicted birefringence** | **ZERO** (the standing forward statement) | $\delta n_{bir}\approx-\tfrac12A^2$, ratio $3.75\pi/\alpha^2\approx2.2\times10^5$ over instantaneous Euler-Heisenberg |
+| **Amplitude at its own bench** | $A\sim10^{-9}$ at the solar limb | $A^2\sim5.9\times10^{-7}$ at HIBEF demonstrated pump |
+| **Kill-shape** | *"any confirmed **polarization-dependence** or **reflection component** in gravitational lensing kills the symmetric carve outright"* — [`research/2026-07-13_registers-walk_framing.md`](2026-07-13_registers-walk_framing.md):160, verbatim; recorded in the docket at [`_orchestration/2026-07-10_rulings-docket.md`](../_orchestration/2026-07-10_rulings-docket.md):463 | a QED-sized differential coefficient falsifies AVE; an AVE-sized one falsifies QED |
+
+> ### ★ THE NON-CONFUSION STATEMENT (write this into any pre-reg on either channel)
+>
+> **A gravitational-lensing polarization NULL does not corroborate the flagship, and does not kill it.**
+> A null there is the SYM carve's **own** prediction (§2.2), on a **different loading symmetry**, a
+> **different kernel argument**, and an amplitude $\sim10^{-9}$ versus the flagship's
+> $\sim7.7\times10^{-4}$ in $A$.
+>
+> **Conversely, a HIBEF null does not rescue the SYM carve** and a HIBEF detection does not imply
+> gravitational birefringence: the ASYM channel is $\varepsilon$-only *because* $\partial{\bf B}/\partial t=0$,
+> which is a property of the drive, not of the vacuum.
+>
+> **The one thing that WOULD couple them** is a demonstration that the gravitational bias is not
+> exactly symmetric (F-B3). Then gravity acquires a small ASYM component and the two channels share
+> a mechanism. **That is the physics question, and it is open.**
+
+### §2.6 — Observational constraint classes for a gravitational polarization signature
+
+Same discipline as §1.8: classes enumerated, magnitudes tagged `[requires-external-retrieval]`, no
+bound invented. All of these are **already-existing-data** classes — none needs a new facility.
+
+| # | Class | Signature it would carry | Why it is the matched observable |
+|---|---|---|---|
+| **P1** | **Strong-lensed quasar / radio-source polarimetry** (multiple images of one source through one deflector) | differential polarization-angle or ellipticity **between images** at different impact parameters | The source polarization cancels in the image-to-image difference — the cleanest differential form. Radio-loud lenses have high intrinsic polarization and precise angle measurement. **Best class.** |
+| **P2** | **Solar-limb polarimetry** | tangential/radial polarization pattern in light grazing the Sun | Largest well-characterized nearby $\varepsilon_{11}$; the F-B3 predicted axis is **radial**, giving a tangential/radial split with a known geometry |
+| **P3** | **Pulsar polarization through the Galactic potential** | secular polarization-angle drift correlated with potential gradient, not with rotation measure | Pulsars are strongly polarized with stable angle profiles; separable from Faraday rotation by its **non-$\lambda^2$** frequency dependence |
+| **P4** | **CMB polarization** | large-angle E/B pattern correlated with the lensing potential | Sensitive but confusion-limited; note the corpus's own §2.4 optical activity is a **rotation** (parity-odd), while photoelasticity is a **linear birefringence** (parity-even) — different CMB signatures, must not be merged |
+| **P5** | **Black-hole / neutron-star X-ray polarimetry (IXPE-class)** | polarization-angle rotation with photon ring / strong-field impact parameter | Deepest available $\varepsilon_{11}$; but the strong-field regime brings the corpus's own $r_{sat}=3.5r_s$ saturation boundary into play — **regime-check first** |
+| **P6** | **Shapiro-delay polarization dependence** | polarization-dependent arrival time for a grazing signal | A pure-timing form of the same effect; VLBI/pulsar-timing data already exist |
+
+**All six are `[requires-external-retrieval]` on magnitudes.** ★ **But the honest feasibility read is
+that the class matters less than the coupling**: with $p_{ijkl}$ entirely absent from the corpus
+(F-B4), no bound-comparison is possible yet in either direction. **The gating work is the coupling
+calculation, not the observation survey.**
+
+### §2.7 — Feasibility of the coupling calculation (the actual gate)
+
+★ **HIGH feasibility. The two photoelastic channels are already named and one is already built.**
+
+| Channel | Mechanism | Corpus status | Cost to compute |
+|---|---|---|---|
+| **(i) Spring-softening** | bias softens the two bond springs by their per-channel $S(A)$ ⇒ $\rho_{eff}=\rho_{cold}(S_{axial}/S_{shear})$ ⇒ new $C_{ijkl}$ ⇒ new branch speeds per polarization | **BUILT + MERGED** (#519 `saturated_elastic_tensor.py`) | **A parameter sweep, not a new solver.** Feed an *orientation-split* $(S_{axial},S_{shear})$ instead of a symmetric one, re-run the existing Born-Huang extraction, read $\Delta c$ between the two transverse branches. |
+| **(ii) Geometric / pre-stress stiffness** | $k_{shear,eff}=k_s+T/\ell$, the #779 remap; explicitly orientation-split (hoop vs radial) | **BUILT** in the vessel-state driver (#796 live geometric term); **NOT** connected to any optical read | Moderate — needs the pre-stressed lattice's transverse branches, i.e. #515's eigensolve on #796's stressed configuration |
+| **(iii) Bias-induced geometry relaxation** | node positions / bond directions relax off the cold geometry | **NAMED AND OPEN** — #519 `:29`–`:30` verbatim: *"**(b) bias-induced geometry change** … Both are **OUT OF SCOPE here and remain OPEN**"* | Higher; needs a relaxation solve |
+
+**Feasibility verdict, Axis 2:** channel (i) is a **cheap, decisive first cut on already-merged
+machinery** and it directly tests F-B3 — feed a symmetric bias, confirm the §2.2 forcing chain
+returns exactly zero splitting (a known-positive gate); then feed the #779 hoop/radial split and read
+whether the splitting is nonzero and at what order in $A$. **That is the whole discriminator, and it
+is a driver-extension, not a new engine.** ★ **Blocking inputs are the same three as Axis 1 plus one
+new one:** the $\rho_{bond}$ operating point (W1), the $n_{eff}$ convention (item 13a), the SYM-vs-
+orientation-split question for the *gravitational* bias specifically (**W4**), and the F-B2
+magnitude-vs-vector reading of the kernel (**W5**).
+
+### §2.8 — Outcome-class bins, Axis 2 (**DRAFT — NOT FROZEN**; every class has a reachable bin)
+
+| Bin | Condition | Reachable? | Consequence |
+|---|---|---|---|
+| **A2-BLIND-FORCED** | channel (i) returns exactly zero splitting for a symmetric bias **and** W4 rules the gravitational bias symmetric | **YES** — #519's $\rho_{eff}=\rho_{cold}(S_{ax}/S_{sh})$ identity makes the zero exact, not numerical | The SYM carve's polarization-blindness is **upgraded asserted → derived**. **Consistency-class** (a $\mu_r=\varepsilon_r$ metamaterial does the same, `graded-network-response.md`:324) — **not** a chord. Real gain: the standing kill-shape gets a mechanism. |
+| **A2-RESIDUAL-BELOW-BOUND** | splitting nonzero but $\propto A^2$ with an $\mathcal{O}(1)$ coefficient ⇒ $\sim10^{-18}$ at the solar limb | **YES** | A forward prediction that is **honest and un-testable**; bank as ECHO/consistency, do **not** headline. Same shape as the §2.4 optical-activity result. |
+| **A2-RESIDUAL-TESTABLE** | splitting $\propto A$ (first order) rather than $A^2$ ⇒ $\sim10^{-9}$ at the limb | **YES** — first order is what a genuine rank-4 photoelastic coupling to a **linear** strain gives; $A^2$ would require the linear term to cancel | **The interesting branch.** P1/P2 become live tests and the lane earns a pre-reg. ⚠ Note this bin is reachable *precisely because* photoelasticity is linear in strain while the kernel's index shift is quadratic in amplitude — **the two are not the same expansion**, which is why the bin is not a rescue. |
+| **A2-KILLED** | splitting large enough that existing lensing polarimetry already excludes it | **YES** | The SYM carve dies on its own recorded kill-shape (`registers-walk_framing.md`:160). Rule 11: bank the negative, name the mechanism, close. |
+| **A2-COUPLING-BLOCKED** | channel (i) cannot represent the gravitational bias at all (e.g. it needs (iii), the relaxation term) | **YES** | ARTIFACT, not falsification, per regime discipline. Routes to a bigger build with a stated ceiling. |
+| **A2-DEGENERATE** | W4 unanswerable — "is gravitational strain hydrostatic or uniaxial?" is not settled by the corpus | **YES, and likely** | Escalates F-B3 to Grant. This is the honest default and it costs nothing to reach. |
+
+### §2.9 — Consistency-vs-emergence class of every Axis-2 candidate statement
+
+| Candidate statement | Class | Why |
+|---|---|---|
+| "SYM co-grading ⇒ $Z\equiv Z_0$ ⇒ $\Gamma=0$" | **definitional-identity** | Algebraic cancellation, given the premise. `graded-network-response.md`:337 grades it DERIVED; the content is in the premise, not the algebra. |
+| "Gravity is the SYM loading" | **consistency-check**, premise-grade | Physically argued from the mass-soliton's internal $\mathbf E$&$\mathbf B$; not node-up derived. |
+| "Gravitational lensing is polarization-blind" | **consistency-check** (currently), **candidate axiom-manifestation** if channel (i) closes it | Consistent with all data; no coupling calculation behind it either way (F-B4). |
+| "SYM ⇒ reflectionless achromatic lens is AVE-distinct" | **NOT AVE-distinct as a mechanism-existence claim** | The corpus already says so: `graded-network-response.md`:324, verbatim — *"a co-doped $\mu_r=\varepsilon_r$ metamaterial also gives $\Gamma=0$; the AVE-distinct content is which physical drive … realizes it"*. `ave-discrimination-check` PASSES only on the drive-identification, not on the $\Gamma=0$. |
+| "A nonzero gravitational photoelastic splitting would be an AVE chord" | **would be genuinely AVE-distinct in FORM** | GR predicts **exactly zero** — the spacetime metric couples to both polarizations identically at leading order; a nonzero splitting is a presence/absence divergence of the same clean shape as `clm-fofwr1`'s parity chord. **But its magnitude would be an $A$-echo** (rides $GM/c^2r$, an imported scale), so headline the FORM only. |
+| "The $n_{eff}$ direction convention" | **NOT a physics statement** — a live notation adjudication | Already tracked as item (13a). |
 
 ## §3 — Walk questions for Grant
 
