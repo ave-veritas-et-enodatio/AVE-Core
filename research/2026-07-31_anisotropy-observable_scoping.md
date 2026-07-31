@@ -431,23 +431,84 @@ reflection coefficient**, a different observable from the **propagation index te
 canonical leaves, one scalar kernel, opposite polarization verdicts, because one treats the bias as a
 magnitude and the other as a vector. Surfaced with both cites; not reframed; not resolved here.**
 
-**★ F-B3 — the gravitational bias state is intrinsically UNIAXIAL, at BOTH scales the corpus measures.**
+**★ F-B3 — the gravitational bias state is UNIAXIAL-RADIAL, and this is founded on the FAR-FIELD leg alone.**
 Photoelastic response is **rank-4** ($\delta(\varepsilon^{-1})_{ij}=p_{ijkl}\,\epsilon_{kl}$), so —
 exactly as in §1.2 — cubic symmetry does **not** force it isotropic: a cubic $p_{ijkl}$ has three
 independent constants ($p_{11},p_{12},p_{44}$), and a **uniaxial** strain drives a birefringence
 proportional to $(p_{11}-p_{12})$ or $p_{44}$ depending on the axis. It vanishes only if the strain
-itself is **hydrostatic**. The corpus says it is not:
+itself is **hydrostatic**.
 
-| Scale | Strain state | Cite |
-|---|---|---|
-| **Far field / weak** | $A = \varepsilon_{11} = 7GM/(c^2 r)$ — a **strain-tensor component**, not a scalar; the radial and tangential strains of a spherical field differ (this is the same content as the corpus's own temporal-vs-spatial index split, $n_{temporal}=1+(2/7)\varepsilon_{11}$ vs $n_{spatial}=1+(9/7)\varepsilon_{11}$) | [`vol3/claim-quality.md`](../manuscript/ave-kb/vol3/claim-quality.md):42,:45 |
-| **Vessel / near** | explicitly orientation-split: **hoop-stiffen / radial-soften**, `k_{shear,eff}` anisotropic by bond orientation | [`research/2026-07-21_boundary-strain-amplitude_result.md`](2026-07-21_boundary-strain-amplitude_result.md):96 (R6), verbatim: *"the shell is a **pressure vessel (hoop tension + radial compression)** and `k_{shear,eff}` is **anisotropic**: hoop bonds STIFFEN, radial bonds SOFTEN"* |
+> ⊗ **SCOPE REPAIR (2026-07-31 review).** The first version founded this finding on **two** scales
+> and called the second one a gravitational bias state. **It is not** — see the sector note under the
+> table. F-B3 is therefore **re-founded on the far-field leg alone**, which turns out to be
+> sufficient and is in fact the stronger footing: a spherically-symmetric gravitational strain is
+> *generically* uniaxial for a reason that does not need any near-field input.
+
+**The far-field split, derived (not borrowed).** Take the substrate displacement field of a static,
+spherically-symmetric source: $\mathbf u(\mathbf r) = u(r)\,\hat r$, purely radial by symmetry. Its
+strain components in spherical coordinates are
+
+$$\varepsilon_{rr} = u'(r), \qquad \varepsilon_{\theta\theta} = \varepsilon_{\phi\phi} = u(r)/r .$$
+
+These are equal — i.e. the state is **hydrostatic** — **if and only if** $u'(r) = u(r)/r$, i.e.
+$u \propto r$: a *uniform* dilatation with no falloff. **A localized mass cannot source that**; its
+field decays, so $\varepsilon_{rr} \neq \varepsilon_{\theta\theta}$ everywhere. And the deviatoric
+(trace-free) part of a spherically-symmetric strain is, identically,
+
+$$\varepsilon^{dev} = (\varepsilon_{rr}-\varepsilon_{\theta\theta})\,\mathrm{diag}(\tfrac23,-\tfrac13,-\tfrac13)
+\quad\text{in the } (\hat r,\hat\theta,\hat\phi) \text{ frame,}$$
+
+which is **uniaxial with optic axis $\hat r$** by construction. **⇒ radial-vs-tangential uniaxiality
+is a kinematic property of any decaying spherically-symmetric strain field, not an assumption.**
+
+**And the corpus's own constitutive statement says the same thing, with a coefficient.**
+[`double-deflection.md`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/double-deflection.md):26,
+verbatim: *"In classical mechanics the relationship between axial and transverse strain is governed
+exactly by **Poisson's ratio**"* — with $\nu_{vac}=2/7$. A Poisson-coupled uniaxial state has
+tangential strain $= -\nu\times$ radial, i.e. **a different number with the opposite sign**, which is
+the definition of not-hydrostatic. Consistently, `domain-catalog.md`:45 calls $\varepsilon_{11}$ the
+*"**Principal radial** strain"* — a **principal component of a tensor**, i.e. one eigenvalue — and
+[`temporal-spatial-lattice-decomposition.md`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md):14
+says in the corpus's own words that it *"compresses the lattice **asymmetrically**."*
+
+★ **A distinctness correction the first version got wrong, stated explicitly so it is not repeated:**
+the **radial-vs-tangential** split above is **NOT** the same decomposition as the corpus's
+**temporal-vs-spatial** index split ($n_{temporal}=1+\tfrac27\varepsilon_{11}$ vs
+$n_{spatial}=1+\tfrac97\varepsilon_{11}$, `vol3/claim-quality.md`:42,:45). They are different carves
+of different objects: temporal-vs-spatial is a **time-versus-space** carve of the refractive index
+built from the *same scalar* $\varepsilon_{11}$ (coordinate-time propagation index vs matter-wave
+parallax index, `temporal-spatial-lattice-decomposition.md`:18–19,:24); radial-vs-tangential is a
+**direction** carve *within the spatial 3-strain tensor*. **Neither implies the other.** The first
+version asserted they were "the same content"; that was an over-reach and is withdrawn.
+
+**★ The magnitude of the split is NOT in the corpus.** The corpus names only the radial principal
+component $\varepsilon_{11}$; **no leaf names $\varepsilon_{\theta\theta}$ for the gravitational
+field**. So F-B3 establishes the **FORM** (uniaxial-radial, optic axis $\hat r$) on corpus-plus-
+kinematics, and the **magnitude** of $(\varepsilon_{rr}-\varepsilon_{\theta\theta})$ is an owed
+derivation, not a read. Any Axis-2 magnitude work must derive that second component first.
+
+| Sector | Strain state | Status for F-B3 | Cite |
+|---|---|---|---|
+| **Far field / gravitational (LOAD-BEARING)** | $A=\varepsilon_{11}=7GM/(c^2r)$ is a **principal component of a strain tensor**; $\varepsilon_{rr}\neq\varepsilon_{\theta\theta}$ for any decaying spherically-symmetric field; deviator is uniaxial-radial | **This alone founds F-B3.** Form derived; magnitude owed | `domain-catalog.md`:45; `double-deflection.md`:26; `temporal-spatial-lattice-decomposition.md`:14; `vol3/claim-quality.md`:42,:45 |
+| **Soliton boundary shell / near (ANALOGY ONLY — ⊗ NOT a gravitational bias state)** | hoop-stiffen / radial-soften; `k_{shear,eff}` anisotropic by bond orientation | ⊗ **CROSS-SECTOR. Carries NO weight in F-B3.** Retained only as a same-*shape* precedent that the engine can represent an orientation-split bias at all | [`research/2026-07-21_boundary-strain-amplitude_result.md`](2026-07-21_boundary-strain-amplitude_result.md):96 (R6), verbatim: *"the shell is a **pressure vessel (hoop tension + radial compression)** and `k_{shear,eff}` is **anisotropic**: hoop bonds STIFFEN, radial bonds SOFTEN"* |
+
+> ⊗ **SECTOR NOTE on the second row (the repair).** #779 R6's object is **a soliton breather's own
+> boundary shell** — a **phonon-pressurized vessel** whose hoop tension comes from the second-order
+> radiation stress of the breather's *own* internal oscillation. Same source, `:96`, verbatim:
+> *"with DC=0 the tension is set by the second-order radiation stress `∝⟨A²⟩` … — **a
+> phonon-pressurized cavity, outward pressure always** — so the shell is a **pressure vessel**"*.
+> That is the **charge/winding (soliton-structure) sector**, not the $A_1$-dilatation gravitational
+> bias of a distant mass. **Per the A1 ⊥ T2 sector-ownership discipline, the two must not be
+> cross-wired.** The row is kept because the *shape* (radial-vs-tangential orientation split) is the
+> same and because it is the corpus's proof-of-existence that such a state is representable — but it
+> is an **analogy only**, and it is **not** evidence about the gravitational bias state.
 
 ★ **In #519's own variables, an orientation-split bias is precisely $S_{axial}\neq S_{shear}$ — the
 one thing that moves $\rho_{eff}$, and $\rho_{eff}$ is the parameter that sets the Zener anisotropy
-(§1.3).** So the SYM forcing chain of §2.2 and the #779 R6 vessel state **pull in opposite
-directions**, on merged corpus numbers, and nothing in the corpus reconciles them. **This is the
-sharp residual the fold was asked to find.**
+(§1.3).** So the §2.2 SYM forcing chain (which needs $S_{axial}=S_{shear}$) and the far-field
+uniaxial-radial strain state **pull in opposite directions on the gravitational bias itself** — and
+nothing in the corpus maps a radial/tangential strain split onto the $(S_{axial},S_{shear})$
+bond-channel pair. **That mapping is the sharp residual the fold was asked to find, and it is W4.**
 
 **★ F-B4 — the corpus has NO photoelastic coupling anywhere, verified two ways.** `grep -rniE` and
 `git grep -niE` over `*.md` / `*.tex` / `*.py` for
@@ -733,17 +794,38 @@ process; **(b)** an initial condition, i.e. 3 free parameters any sky-pattern te
 not a single global orientation at all (domains — which would reintroduce grains and change the
 whole leak-audit ruling); **(d)** already fixed somewhere and this lane failed to find it.
 
-**W4 — Is the gravitational strain state hydrostatic or uniaxial?** This is the Axis-2 crux and it is
-squarely a plumber question. A pressure vessel has hoop tension and radial compression — different
-signs on different bond orientations. A hydrostatic squeeze has the same strain in every direction.
-The corpus says gravity is "symmetric bulk strain" (INVARIANT-S2) in one place and "hoop-stiffen /
-radial-soften" (#779 R6) in another. Plumber form: *sitting inside one lattice cell a solar radius
-from the Sun — is the cell being squeezed equally from all sides, or squeezed radially and stretched
-tangentially?* Options: **(a)** hydrostatic ⇒ $S_{axial}=S_{shear}$ ⇒ zero photoelastic splitting,
-exactly (§2.2 forcing chain closes); **(b)** uniaxial-radial ⇒ nonzero splitting, magnitude to be
-computed; **(c)** hydrostatic in the far field and uniaxial only near the yield boundary — a
-regime-split answer; **(d)** the $A_1$/$T_2$ decomposition already answers this and the two
-statements are about different sectors, in which case the reconciliation is bookkeeping not physics.
+**W4 — Does a radially-uniaxial gravitational squeeze load the two BOND channels unequally?** *(⊗
+REWRITTEN 2026-07-31 review. The first version framed this as a corpus contradiction between
+INVARIANT-S2's "symmetric bulk strain" and #779 R6's "hoop-stiffen / radial-soften." **That framing
+was wrong and is withdrawn: those two statements are about different sectors** — R6's object is a
+soliton breather's own phonon-pressurized boundary shell, not a gravitational bias state (F-B3
+sector note). There is no contradiction to resolve. The real question is narrower, harder, and
+entirely inside the gravitational sector.)*
+
+**The setup, with no cross-sector borrowing.** F-B3 establishes on the far-field leg alone that the
+gravitational strain is **uniaxial-radial**: $\varepsilon_{rr} \neq \varepsilon_{\theta\theta}$ for
+any decaying spherically-symmetric field, deviator along $\hat r$. Separately, INVARIANT-S2 says
+gravity is the **SYM** loading — both field sectors driven, $S_\varepsilon = S_\mu$. And #519 says
+the whole small-signal tensor moves only through the **bond-channel** ratio
+$S_{axial}/S_{shear}$. **Nothing in the corpus maps the first onto the third.** A strain state can be
+uniaxial in *real space* and still load the two bond channels equally, or not — and which it is
+decides whether the §2.2 forcing chain closes.
+
+**Plumber form (the seed for the walk):** *when we say the vacuum near the Sun is hoop-stiff /
+radially-soft — is that the same squeeze as the shell around one electron, or a different squeeze
+that happens to have the same shape?* And, one step in: *sitting inside one lattice cell a solar
+radius from the Sun — is the cell squeezed equally from all sides, or squeezed radially and stretched
+tangentially; and does the cell's stretch-spring and its shear-spring feel that differently?*
+
+Options: **(a)** the radial uniaxiality is real but averages out over the cell's bond orientations,
+so $S_{axial}=S_{shear}$ anyway ⇒ zero photoelastic splitting, exactly (§2.2 forcing chain closes);
+**(b)** it does not average out ⇒ $S_{axial}\neq S_{shear}$ ⇒ nonzero splitting, magnitude to be
+computed — and note the magnitude needs $\varepsilon_{\theta\theta}$, which **no corpus leaf names**;
+**(c)** the real-space uniaxial split and the bond-channel split are simply different objects and the
+mapping is the missing derivation (in which case W4 is a build item, not a walk answer);
+**(d)** the same shape at both scales is a genuine structural kinship — the soliton shell and the
+solar-field cell are the same squeeze — in which case the cross-sector row F-B3 demotes to analogy
+can be re-promoted, but only by an argument Grant supplies, not by the resemblance.
 
 **W5 — Does the Axiom-4 kernel see the bias as a MAGNITUDE or as a VECTOR?** The corpus does both.
 `graded-network-response.md`:271 leans on *"the kernel keys off $\lvert E\rvert$"* to get
