@@ -441,13 +441,45 @@ computes the DC-biased small-signal Cauchy tensor, verbatim:
 > k_{s,0}·S(A_shear)·(I−d̂⊗d̂)`, i.e. the differential stiffnesses at the DC bias point — is the
 > **COLD tensor with ρ → ρ_eff = ρ_cold·(S_axial/S_shear)**, exactly."*
 
-★ **The forcing chain falls straight out of that identity.** The whole bias-dependence enters through
-the single ratio $S_{axial}/S_{shear}$. **A perfectly symmetric bias has $S_{axial}=S_{shear}$ ⇒
-$\rho_{eff}=\rho_{cold}$ ⇒ the small-signal tensor is UNCHANGED ⇒ zero induced birefringence, at any
-bias depth.** That is a genuine forcing statement, in this model, on already-merged machinery — the
+★ **The forcing chain falls straight out of that identity.** The whole *shape* dependence enters
+through the single ratio $S_{axial}/S_{shear}$. **A perfectly symmetric bias has
+$S_{axial}=S_{shear}=S$ ⇒ $\rho_{eff}=\rho_{cold}$ ⇒ zero induced birefringence, at any bias depth.**
+That is a genuine forcing statement, in this model, on already-merged machinery — the
 polarization-blindness of SYM lensing is not merely asserted, it has a lattice-level mechanism.
+
+⊗ **Precision repair (2026-07-31 review): "the small-signal tensor is UNCHANGED" was too strong and
+is replaced by the exact statement.** Under a symmetric bias the bond tensor becomes
+$\Phi_b = S\cdot[\,k_{a,0}\,\hat d\otimes\hat d + k_{s,0}(I-\hat d\otimes\hat d)\,]$ — i.e.
+**$\Phi_b(A) = S(A)\cdot\Phi_b(0)$ exactly**, so the small-signal $C_{ijkl}$ is the cold tensor
+**UNIFORMLY $S$-SCALED**, not unchanged. Precisely:
+
+| Quantity | Under a symmetric bias | Consequence |
+|---|---|---|
+| **Shape / structure** — $\rho_{eff}$, Zener $A$, $\nu$, the branch-speed *ratios*, the polarization eigenvectors | **UNCHANGED** (every $S$ cancels in a ratio) | **Zero induced birefringence.** This is the real content of the forcing chain, and it survives intact. |
+| **Overall scale** — $C_{ijkl} \to S\,C_{ijkl}$, so every branch speed $\to \sqrt S \times$ its cold value | **CHANGES with bias depth** | This is exactly the **SYM common-mode index shift**: `graded-network-response.md`:147, verbatim — *"$n=1/\sqrt{S}$, $\delta n\approx+\tfrac14 A^2$"* with $Z_0$ **invariant** and $\Gamma=0$. |
+
+★ **Why the distinction is load-bearing and not pedantry: "unchanged" would predict that a symmetric
+gravitational bias has NO optical effect at all, which contradicts the corpus's own SYM row.** The
+common-mode $\delta n \approx +\tfrac14 A^2$ is **the one nonzero SYM observable** — it is what makes
+gravitational lensing *happen* in this picture — and it rides precisely the overall scale factor that
+"unchanged" would have deleted. The correct statement is therefore: **a symmetric bias moves the
+scale (giving lensing, polarization-blind) and leaves the shape alone (giving zero birefringence).**
+Both halves matter; the first version kept only the second and mis-stated its mechanism.
+
 **Class: CONSISTENCY / axiom-manifestation, model-bounded.** It is exactly as strong as the premise
 "the gravitational bias loads the two bond channels equally," which is §2.3's residual.
+
+⊗ **MODEL-SCOPE cite carried inline (added in review), because the forcing chain is only as good as
+its scope fence.** #519 fences its own closure at `:24`–`:32`, verbatim: *"**MODEL SCOPE (explicit —
+the closure is model-bounded).** This arc models the DC-biased lattice as the cold Born-Huang tensor
+with the two bond springs SOFTENED by their per-channel S(A) factor at FIXED reference geometry
+('swapped springs at fixed geometry'). A real DC-biased lattice can carry contributions this model
+OMITS: **(a) initial/residual stress** (the bias pre-loads the bonds → a nonzero reference stress that
+shifts the effective moduli beyond spring-softening), and **(b) bias-induced geometry change** (the
+operating point may relax the node positions / bond directions away from the cold geometry). Both are
+**OUT OF SCOPE here and remain OPEN.**"* ⇒ **the zero-birefringence forcing chain holds for the
+swapped-springs small-signal model and is silent on (a) and (b)** — which are, not coincidentally,
+channels (ii) and (iii) of §2.7. Any Axis-2 result must carry this fence.
 
 ### §2.3 — (b) The sharp residual: three independent reasons the polarization-blindness is NOT automatic
 
