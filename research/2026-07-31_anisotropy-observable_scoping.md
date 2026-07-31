@@ -375,6 +375,25 @@ The caveat names the required object: *"the direction-resolved Christoffel treat
    *"Cluster mean direction vs cubic axes (±x, ±y, ±z) | 95.8°, 133.7°, 44.3° (no alignment)"* — so
    the corpus has *assumed* an axis orientation somewhere in that Gaia analysis without deriving it.
    **This is walk-question W3.**
+   > ★ ⊗ **RECEIPT (added 2026-07-31 review) — the assumption is now DEMONSTRATED, not suspected.**
+   > The published null's *"cubic axes ($\pm x,\pm y,\pm z$)"* **are the GALACTIC Cartesian axes.**
+   > Take the same leaf's cluster mean direction, `:182` verbatim — *"**Cluster mean direction in
+   > galactic (l, b)**: (261.8°, 45.7°)"* — and form the unit vector in galactic Cartesian
+   > coordinates, $\hat v = (\cos b\cos l,\ \cos b\sin l,\ \sin b) = (-0.0996,\ -0.6913,\ 0.7157)$.
+   > Its angles to $\hat x, \hat y, \hat z$ are **`95.72°`, `133.73°`, `44.30°`** — reproducing the
+   > published **`95.8°`, `133.7°`, `44.3°`** exactly, to the rounding of the inputs.
+   >
+   > ⇒ **The lattice's cubic axes were not derived, measured, or independently oriented; they were
+   > SET EQUAL to the galactic coordinate frame's axes because that is the frame the data happened to
+   > be in.** The "no alignment" null is therefore a null against **an assumed orientation chosen for
+   > coordinate convenience**, and it constrains the lattice only if that assumption is right — which
+   > nothing supports. **This is the same shape as the merged #802 bench-frame caveat** (`[100]` was
+   > the bench's launch direction *"because the simulation grid made it convenient — an **engineering
+   > choice**, not a derived one"*, §1.9): a frame chosen for convenience, then read as physical.
+   > **Flag-don't-fix — surfaced with both cites and the arithmetic; the corpus text is untouched and
+   > the disposition is the auditor lane's.** *(Note the null's own stated reason — $(q\ell_{node})^4$
+   > suppression at stellar wavelengths — is independent of the orientation and is unaffected by this;
+   > what fails is only the null's value as evidence **about the axes**.)*
 
 **Feasibility: TRIVIAL on cost, BLOCKED on inputs.**
 
@@ -973,12 +992,27 @@ is W1 option (b) again); **(d)** the ratios are FORM-only and were never meant t
 **W3 — Where are the cubic axes on the sky?** The corpus fixes the lattice **rest frame** to the CMB
 rest frame, but a frame is 3 numbers and an orientation is 3 more. No corpus statement derives the
 axis orientation — yet `preferred-frame-and-emergent-lorentz.md`:178 already reports a null against
-"cubic axes (±x, ±y, ±z)", which means an orientation was assumed somewhere. Plumber form: *when the
+"cubic axes (±x, ±y, ±z)", which means an orientation was assumed somewhere.
+
+⊗ **Upgraded in review from suspicion to a DEMONSTRATED assumption (§1.10 step 3 receipt).** The
+published null's "cubic axes" **are the galactic Cartesian axes.** Its own cluster mean direction,
+`:182` verbatim *"(l, b): (261.8°, 45.7°)"*, gives the galactic-Cartesian unit vector
+$(-0.0996,\ -0.6913,\ 0.7157)$, whose angles to $\hat x,\hat y,\hat z$ are **`95.72°`, `133.73°`,
+`44.30°`** — reproducing the published `95.8°`, `133.7°`, `44.3°` **exactly**. ⇒ **the lattice axes
+were set equal to the galactic coordinate frame because that is the frame the data was in.** A null
+against an orientation chosen for coordinate convenience is **the same shape as the merged #802
+bench-frame caveat** (`[100]` chosen *"because the simulation grid made it convenient — an
+engineering choice, not a derived one"*). **So W3 is not a gap the corpus merely never filled; it is
+a gap the corpus has already, once, silently filled with a convenience choice.**
+
+Plumber form: *when the
 vacuum crystallized at recombination, what picked which way the crystal axes point, and is that even
 a well-posed question for a single cosmic-scale crystal?* Options: **(a)** derivable from the freeze
 process; **(b)** an initial condition, i.e. 3 free parameters any sky-pattern test must fit; **(c)**
 not a single global orientation at all (domains — which would reintroduce grains and change the
-whole leak-audit ruling); **(d)** already fixed somewhere and this lane failed to find it.
+whole leak-audit ruling); **(d)** already fixed somewhere and this lane failed to find it —
+**now much less likely, since the one place the corpus appears to fix them turns out to be a
+coordinate-frame default.**
 
 **W4 — Does a radially-uniaxial gravitational squeeze load the two BOND channels unequally?** *(⊗
 REWRITTEN 2026-07-31 review. The first version framed this as a corpus contradiction between
