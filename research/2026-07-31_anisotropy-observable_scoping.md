@@ -749,8 +749,10 @@ the $\rho_{bond}$ fork.
 
 ### A.3 — Pure-AVE-corpus receipt
 
-Deliverable and docket fragment contain no reference to investors, funds, interviews, external
-pitches, or any non-physics external context. All rationale is stated in pure-physics terms.
+Deliverable, docket fragment and every commit message in this lane carry **pure physics only** — no
+non-physics external context of any kind appears in any tracked file. All rationale is stated in
+substrate-physics terms. Checked two ways (pattern scan over the tracked deliverables, and a scan of
+the lane's commit messages); both clean.
 
 ---
 
