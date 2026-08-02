@@ -8,7 +8,7 @@
     \item Spec out the magnetic / microrotational primitives: bond inductance $L_{cell} = \mu_0\, \ell_{node}$, magnetic-rotation node-destruction field $B_{snap}$, Cosserat couple-stress modulus $\gamma_c$, rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with the weak-force range $r_W$.
     \item Tie the rotation-sector mass-gap to the ferrite-Curie thermal-freeze analog: below $T \sim m_\omega/k_B$, microrotational excitations are frozen out, producing the asymmetric B-side response that drives the Cosserat-Curie thermal mechanism documented in Ch.~\ref{ch:vol9_temperature_characteristics}.
     \item Cite the canonical Vol~II derivation of $W^\pm / Z^0$ as the evanescent cutoff modes of the substrate's bending and torsional rotation sectors, with $l_c = \sqrt{\gamma_c/G_{vac}}$ setting the weak-force range.
-    \item Anchor the substrate-native origin of intrinsic spin in the Cosserat microrotational DOF: the SU(2) / SO(3) double cover of the spin-$\tfrac{1}{2}$ representation is the Finkelstein--Misner kink on the extended $0_1$ unknot defect, documented as a topological characteristic in Ch.~\ref{ch:vol9_topological_characteristics}.
+    \item Anchor the substrate-native origin of intrinsic spin in the Cosserat microrotational DOF: the SU(2) / SO(3) double cover of the spin-$\tfrac{1}{2}$ representation is the Finkelstein--Misner kink on the extended $0_1$ unknot defect, documented as a topological characteristic in Ch.~\ref{ch:vol9_topological_characteristics}. State the grade honestly --- the double-cover \textbf{structure} is axiom-derived, the fermionic spin-$\tfrac{1}{2}$ \textbf{selection} is posited (\S\ref{sec:vol9_spin_half_origin}).
     \item Translate the magnetic / microrotational primitives into the EE-substrate-native projection (canonical leaf \kbleaf{common/translation-tables/translation-circuit.md} \S 4): inductance = bond microrotation density; Faraday induction = E$\leftrightarrow$B mode coupling at substrate boundary; transformer leakage-$L$ = W/Z mass-scale via $l_c$.
 \end{itemize}
 \end{objectivebox}
@@ -193,7 +193,24 @@ The on-shell Weinberg angle is $\sin^2 \theta_W = 1 - m_W^2/m_Z^2 = 1 - 7/9 = 2/
 \section{Spin-1/2 Origin}
 \label{sec:vol9_spin_half_origin}
 
-The Cosserat microrotational DOF is the substrate-native origin of intrinsic spin-$\tfrac{1}{2}$. The mechanism (canonical at \kbleaf{vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md}; see Ch.~\ref{ch:vol9_topological_characteristics} \S SU(2) / SO(3) Double Cover and Cosserat Spin-Half for full derivation):
+% 🔴 SPIN-1/2 STRUCTURE/SELECTION CARVE 2026-08-02 (Rule 12; the prior opening sentence read "The
+%   Cosserat microrotational DOF is the substrate-native origin of intrinsic spin-$\tfrac{1}{2}$."
+%   -- preserved verbatim here and in git; the objective bullet at :11 and the Axiom-1 restatement
+%   at :19 carried the same unqualified assertion and are qualified in the same pass). Authority:
+%   [SPIN-HALF-POSITED], #584/#585 (2026-07-08);
+%   ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 -- "STRUCTURE
+%   axiom-derived / SELECTION posited ... the $2T \subset SU(2)$ double-cover STRUCTURE is
+%   axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/import --
+%   $\pi_1 = \mathbb{Z}_2$ ADMITS both statistics ... and forces neither; PEER-WITH-SM. See
+%   clm-rkisb8"; restated at :90 (the SELECTION is imported via an action-level Z_2/Wess-Zumino
+%   term, the half-angle lift). Mirrored ave-kb/vol1/claim-quality.md:26, vol2/claim-quality.md:410.
+%   The FM-kink mechanism, the 2T exact sequence, the -I / +I lift arithmetic and every number in
+%   this section are UNCHANGED and remain canonical for the STRUCTURE. The in-chapter companion
+%   sites :25 (double-cover representation produced classically via FM-kink) and :202 ("this is the
+%   substrate-native origin of spin-1/2 representation, derived without quantum-mechanical
+%   postulates") are dispositioned by the carve paragraph below rather than edited inline -- they
+%   are STRUCTURE statements once the SELECTION carve is in force at the top of the section.
+The Cosserat microrotational DOF is the substrate-native origin of the $SU(2)/SO(3)$ double-cover \textbf{structure} that intrinsic spin-$\tfrac{1}{2}$ rides. The mechanism (canonical at \kbleaf{vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md}; see Ch.~\ref{ch:vol9_topological_characteristics} \S SU(2) / SO(3) Double Cover and Cosserat Spin-Half for full derivation):
 
 \begin{itemize}
     \item An extended closed defect on the substrate (the electron's $0_1$ unknot at minimum ropelength $2\pi$, embedded across multiple K4 bonds) acquires a topologically non-trivial twist under a $2\pi$ rotation of its environment relative to the lattice. The twist accumulates in the substrate's microrotational coordinate $\boldsymbol{\omega}$ along the defect's length.
@@ -202,7 +219,9 @@ The Cosserat microrotational DOF is the substrate-native origin of intrinsic spi
     \item A $2\pi$ rotation in $SO(3)$ lifts to $-I \in SU(2)$ (sign flip); only $4\pi$ lifts to $+I$. This is the substrate-native origin of spin-$\tfrac{1}{2}$ representation, derived without quantum-mechanical postulates.
 \end{itemize}
 
-The substrate's three projections of the Cosserat microrotational coordinate $\boldsymbol{\omega}$ are: (i) the macroscopic magnetic field $\mathbf{B}$ (coarse-grained microrotation density, this chapter), (ii) macroscopic angular momentum (Cosserat micro-inertia $I_\omega$ acting through the rotational PDE), and (iii) intrinsic spin-$\tfrac{1}{2}$ on extended closed defects (FM-kink + $T \to 2T \subset SU(2)$ chain). One substrate primitive, three engineering observables.
+\noindent\textbf{Structure / selection carve (2026-07-08, \texttt{[SPIN-HALF-POSITED]}, \#584/\#585; canonical at \kbleaf{vol2/particle-physics/ch01-topological-matter/electron-identification.md}:89--90).} What the substrate supplies above is the \textbf{double-cover STRUCTURE}, and that is axiom-derived (K4-native: the $T = A_4 \to 2T \subset SU(2)$ chain). The \textbf{fermionic spin-$\tfrac{1}{2}$ SELECTION --- fermion over boson --- is POSITED / imported}: $\pi_1 = \mathbb{Z}_2$ \emph{admits} both statistics ($\mathrm{Hom}(\mathbb{Z}_2, U(1))$ two-valued) and forces neither, and the selection enters at action level via a $\mathbb{Z}_2$ / Wess--Zumino term (the half-angle lift $U = \exp(i\,\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$). Grade: \textbf{PEER-WITH-SM} (\texttt{clm-rkisb8}). Read every ``substrate-native origin of spin-$\tfrac{1}{2}$'' phrasing \emph{in this chapter} --- the bullets above, the microrotational-sector bullet in \S\ref{sec:vol9_microrotational_sector_identity}, and the chapter objectives --- at that grade: structure derived, selection imported. The mechanism, the group chain and the numbers are unaffected. \emph{(Scope note: Axiom~1's own wording, quoted verbatim in \S\ref{sec:vol9_microrotational_sector_identity}, says ``intrinsic spin'' and not ``spin-$\tfrac{1}{2}$''; that quotation is the axiom text and is left byte-exact --- the carve applies to the fermionic \emph{selection}, which the axiom does not assert.)}
+
+The substrate's three projections of the Cosserat microrotational coordinate $\boldsymbol{\omega}$ are: (i) the macroscopic magnetic field $\mathbf{B}$ (coarse-grained microrotation density, this chapter), (ii) macroscopic angular momentum (Cosserat micro-inertia $I_\omega$ acting through the rotational PDE), and (iii) the spin-$\tfrac{1}{2}$ double-cover structure on extended closed defects (FM-kink + $T \to 2T \subset SU(2)$ chain; selection posited per the carve above). One substrate primitive, three engineering observables.
 
 The substrate's right-handed $I4_1 32$ chirality (Axiom~1) ties Cosserat micro-rotation orientation directly to the substrate chirality bias; the $V$--$A$ structure of the weak interaction is the macroscopic manifestation of substrate chirality acting on the $\gamma_c$ Cosserat coupling sector. See Ch.~\ref{ch:vol9_topological_characteristics} \S Chirality Implications for the full enumeration of substrate-chirality observables (weak-force parity violation, $K$/$B$ meson CP violation, biological homochirality, $\hat{\Omega}_{freeze}$).
 
