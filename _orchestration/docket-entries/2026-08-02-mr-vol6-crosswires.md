@@ -7,4 +7,4 @@
 - **(d) Boron d-label.** `07_boron.tex:23` calls d = 4ħ/(m_p c) the "proton charge radius"; the volume defines d as the SPIN radius (`01_computational.tex:94`), and the KB mirror carries the same mislabel (`period-2/boron/struct…`).
 - **(e) Magnesium Op3 sense.** `14_magnesium.tex:92` uses an Op3 reflection sense that `vol6/claim-quality.md:83` (clm-7tk051) and INVARIANT-N3 leave ambiguous across sectors (interacts with RULING 21 Op3 = lossless transduction).
 - **(f) "acoustic drag (vacuum friction)" as the dissipation mechanism** (`01_computational.tex:75`) vs Ax3-losslessness and the substrate-native-terminology leak table — whether the Vol-6 Q-loss prose survives as a sub-yield-regime statement or is struck is a physics ruling, not a relabel.
-- **(g) Mg alloy strength overclaim** (`14_magnesium.tex:36`) rides clm-f8k2um's same non-claim boundary as (b).
+- **(g) Mg alloy strength overclaim** (`14_magnesium.tex:34-37`, section opening at `:34`) rides clm-f8k2um's same non-claim boundary as (b). (Line-cite corrected 2026-08-02 after #825 audit; `:36` is blank.)
