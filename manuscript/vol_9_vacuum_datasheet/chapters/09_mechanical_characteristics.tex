@@ -134,18 +134,48 @@ $\ell_c^{\text{(K4)}}$ & COLLECTIVE (lattice) & DERIVED ($\sqrt{6}\,\ell_{node}$
 \section{Vacuum Poisson Ratio $\nu_{vac} = 2/7$}
 \label{sec:vol9_mech_poisson}
 
-The Poisson ratio of the substrate at the cold-lattice limit is the substrate-axiomatic identity
+The Poisson ratio of the substrate at the cold-lattice limit follows from the $K = 2G$ operating point by the standard isotropic elastic identity
 
 \[
 \nu_{vac} = \frac{3 K_{vac} - 2 G_{vac}}{2 (3 K_{vac} + G_{vac})} = \frac{6 G_{vac} - 2 G_{vac}}{2 (6 G_{vac} + G_{vac})} = \frac{4}{14} = \frac{2}{7}.
 \]
 
-This is \emph{not} a fitted parameter. It is forced by two independent axiomatic inputs:
+% 🔴 K=2G PROVENANCE CORRECTION 2026-08-02 (CRIB-1; Rule 12 -- the prior wording is PRESERVED
+%   verbatim here and in git: "This is \emph{not} a fitted parameter. It is forced by two
+%   independent axiomatic inputs:" followed by the two \item bullets, the first reading "Axiom~1 LC
+%   + Axiom~2 packing identity: the Feng--Thorpe--Garboczi EMT quadratic at packing fraction
+%   $p^* = 8\pi\alpha$ has the unique trace-reversal solution $K/G = 2$."). The claim that the EMT
+%   crossing FORCES K/G = 2 is the superseded route. Ruled authority:
+%   (a) ave-kb/vol3/gravity/ch01-gravity-yield/trace-reversal-mechanism.md:20 -- Rule-12 banner over
+%       exactly this route: prior wording "confirming the trace-reversal identity as a geometric
+%       consequence of the network topology" SUPERSEDED; "K = 2G is the GR-imported trace-reversal
+%       identity (nu_vac = 2/7), not crystalline-geometrically forced"; live prose at :21 -- "This
+%       crossing is a consistency illustration of the imported identity at the substrate operating
+%       point, not an independent determination of alpha or of K=2G."
+%   (b) ave-kb/vol1/claim-quality.md:665 (STAYS OPEN 2026-07-04, PR #508) -- "the genuine 48x48
+%       chiral micropolar Bloch eigensolve on the ratified srs-z3 net does NOT close it ... the
+%       substrate does not supply K=2G at either the Cauchy grade (PR #506) or the micropolar grade
+%       (PR #508); K=2G stays GR-imported (PR #261)." Never write "simulation confirms ... emergent".
+%   (c) trace-reversal-mechanism.md:23 -- the alpha-circularity caveat: z_0 ~ 51.25 is itself fixed
+%       by C_ratio = 1.187 <- p_c = 8*pi*alpha, so the crossing sits at alpha BY CONSTRUCTION.
+%   (d) nu_Hill label: ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md:18-24
+%       (anisotropy tag, PR #506) -- 2/7 is the isotropic Voigt-Reuss-Hill AVERAGE at K=2G, Zener
+%       A ~ 1.23, "an averaging choice, not a per-direction lattice output"; engine comment
+%       src/ave/core/constants.py:626 "NU_VAC ... nu_Hill (isotropic Voigt-Reuss-Hill average at
+%       K=2G)"; ave-kb/common/theorem-thesaurus.md:227 -- the VRH average is "Not a theorem and not
+%       a bound" (line verified at HEAD; the sweep record cited :223, 4-line drift), with the live
+%       hazard restated at :231 ("nu_Hill = 2/7 is GR-imported"). First printed "Hill" instances in
+%       this manuscript are minted by this pass.
+%   NO VALUE CHANGES: 2/7 stands, K=2G stands, the EMT crossing at p* = 8*pi*alpha stands, and the
+%   isotropic elastic identity is untouched. Only the PROVENANCE and the LABEL are corrected.
+\noindent\textbf{Provenance (2026-08-02; the superseded ``forced by two independent axiomatic inputs'' wording is preserved per Rule~12).} The \emph{value} is not forced by the substrate. $K = 2G$ is the \textbf{GR trace-reversal identity, form-derived but value-imported} --- see \kbleaf{common/form-deriving-value-importing.md} --- and $\nu_{\mathrm{Hill}} = 2/7$ is the \textbf{isotropic Voigt--Reuss--Hill average} at that operating point, an averaging choice rather than a lattice-emergent bound (the srs/K4 lattice is materially anisotropic, Zener $A \approx 1.23$). The substrate does \emph{not} supply $K = 2G$ at the Cauchy grade (PR~\#506) or at the micropolar grade (PR~\#508: the 48$\times$48 chiral micropolar Bloch eigensolve on the ratified srs-z3 net gives a one-parameter $\nu_{\mathrm{eff}}(\rho)$ family, not a forced $K = 2G$). What the two inputs below actually establish:
 
 \begin{itemize}
-    \item Axiom~1 LC + Axiom~2 packing identity: the Feng--Thorpe--Garboczi EMT quadratic at packing fraction $p^* = 8\pi\alpha$ has the unique trace-reversal solution $K/G = 2$.
-    \item Standard isotropic elastic identity: $\nu = (3K - 2G)/[2(3K + G)]$ evaluated at $K = 2G$ gives $\nu = 2/7$.
+    \item \textbf{A consistency crossing, not a determination.} The Feng--Thorpe--Garboczi EMT quadratic crosses $K/G = 2$ at packing fraction $p^* = 8\pi\alpha$. Per \kbleaf{vol3/gravity/ch01-gravity-yield/trace-reversal-mechanism.md} this crossing is a \emph{consistency illustration of the imported identity at the substrate operating point}, not an independent determination of $K = 2G$ or of $\alpha$ --- the coordination $z_0 \approx 51.25$ that locates it is itself fixed by $C_{ratio} = 1.187 \leftarrow p_c = 8\pi\alpha$, so the crossing sits at $\alpha$ by construction.
+    \item \textbf{The isotropic elastic identity} $\nu = (3K - 2G)/[2(3K + G)]$ evaluated at $K = 2G$ gives $\nu = 2/7$. This step is exact and unconditional --- it is algebra, and it is what makes $\nu_{\mathrm{Hill}} = 2/7$ and $K = 2G$ two statements of one operating point rather than two independent facts.
 \end{itemize}
+
+\noindent The datasheet therefore reads $\nu_{vac} \equiv \nu_{\mathrm{Hill}} = 2/7$ as a \textbf{forced FORM on an imported VALUE}: the elastic response \emph{form} $K/G = f(\rho)$ is substrate-forced, the operating-point \emph{value} is GR-imported. Vol~9's own calibration ledger already states this grade (Ch.~\ref{ch:vol9_calibration_justification}: ``$K = 2G$ ($\nu_{vac} = 2/7$) $\mid$ genuine input (GR-imported value) $\mid$ \textbf{GR-IMPORTED} (echo for value)'').
 
 \input{figures/moduli_relationship.tex}
 
