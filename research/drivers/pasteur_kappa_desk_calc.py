@@ -649,9 +649,26 @@ def commensurability_checklist(kappa_ave: float, f0: float) -> dict:
                                     "HOPF-02a bench, which sits in air."),
             "ave_value_fractional": 2.0 * kappa_ave,
             "ave_value_MHz": 2.0 * kappa_ave * f0 / 1e6,
-            "experiment": ("already fabbed: HOPF-02a enantiomer pair, differential "
-                           "1-port S11; round-2 sec 4 inherits the S-8 fab floor "
+            # 2026-08-02 REPAIR (audit F2).  Prior text, verbatim: "already
+            # fabbed: HOPF-02a enantiomer pair, differential 1-port S11; ...".
+            # That was FALSE.  AVE-HOPF .agents/HANDOFF.md:14 verbatim: "Next
+            # gate: Phase 0b - physical fab order for HOPF-02a (user action;
+            # ~$123 BOM; ordering guide ready)".  The board is designed to
+            # fab-artifact completeness, not built.
+            "experiment": ("HOPF-02a enantiomer pair, differential 1-port S11. "
+                           "STATUS: NOT FABBED — designed to fab-artifact "
+                           "completeness (Gerbers + drill + DRC + BOM + ORDERING "
+                           "exported); the PHYSICAL fab order is AVE-HOPF Phase "
+                           "0b, gated on Grant, ~$123 BOM + build "
+                           "(AVE-HOPF .agents/HANDOFF.md:14 and :42). "
+                           "Round-2 sec 4 inherits the S-8 FABRICATION floor "
                            "~130 kHz = 1.912e-4 fractional at 680 MHz"),
+            "fab_floor_class": ("S-8 FABRICATION floor (AVE-HOPF hardened-prereg "
+                                ":264, L<->R fab/assembly asymmetry, 5000-trial "
+                                "geometry MC). The MEASUREMENT floor "
+                                "sigma_repeat*sqrt(2/N) is UNMEASURED and routed "
+                                "at AVE-HOPF PR #3; the margin below is against "
+                                "the fabrication floor only."),
             "fab_floor_fractional": 130e3 / f0,
             "margin_over_fab_floor": 2.0 * kappa_ave / (130e3 / f0),
             "discriminating_axis_on_this_observable":
