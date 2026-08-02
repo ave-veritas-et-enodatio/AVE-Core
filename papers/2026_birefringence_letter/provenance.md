@@ -334,6 +334,44 @@ v2 supersedes the QUOTED ratio only; v1's anchored record stands unaltered.
   > the Letter body was already correct; only this ledger's description of it was stale. Durable
   > lesson: a re-freeze sweep must include the provenance ledger that *describes* the sweep, or the
   > ledger silently becomes the last surviving copy of the superseded number.
+  >
+  > **⚠ SWEEP-GAP, THE TABLE-I LEG — SECOND DATED LINE, STILL OPEN (2026-08-02, same D7 execution;
+  > DISCLOSE-ONLY).** The line above closed the §1 map's *ratio* rows (`:121`, `:168`). It did **not**
+  > close the §1 map's **Table-I rows `:122-126`**, which remain **REV-2 / driver-footed on the QED
+  > column**. Those rows quote the generating driver's committed JSON — `P_qed = 2.757e-14 / 2.190e-14
+  > / 4.754e-14 / 2.757e-12 / 2.757e-10` and model/QED `1.95e11` — while `main.tex` prints the Table-I
+  > QED column on the **INSTANTANEOUS** normalization: rows at `main.tex`:832-834,:836-837 read
+  > `1.10e-13 / 8.76e-14 / 1.90e-13 / 1.10e-11 / 1.10e-09` with model/QED `4.89e10 / 4.89e10 / 4.88e10
+  > / 4.07e10`, and the caption states it explicitly at `:792-794` — *"so the QED column uses the
+  > instantaneous one-loop coefficient $2\alpha/(15\pi)$ and the model/QED column equals
+  > $(3.75\pi/\alpha^2)^2$ in the small-angle rows"*.
+  >
+  > **The gap is exactly `×4` on the QED column (and `×1/4` on model/QED), and the `×4` is named:** it
+  > is the **square** of the `×2` coefficient step `alpha/(15pi) -> 2 alpha/(15pi)` — the
+  > `<cos^2>=1/2` carrier average removed — squared through `P ∝ (delta n)^2` (`P_flip =
+  > sin^2(dphi/2)`, small-angle; `dphi ∝ delta n`). It is the *same* carrier factor that halved the
+  > Eq.(9) ratio, entering the P column at second power instead of first. Live arithmetic:
+  > `4 × 2.757218e-14 = 1.102887e-13` → prints `1.10e-13` ✓; `1.9542e11 / 4 = 4.886e10` → prints
+  > `4.89e10` ✓. On the retained `x4`-geometry `x1/2`-carrier chain
+  > (`alpha/30pi -> 2alpha/15pi -> alpha/15pi`), the driver's leg sits **one carrier-step below** the
+  > coefficient `main.tex` prints.
+  >
+  > **Cause — the same shape as the line above, one function over.** The D7 execution re-pointed the
+  > **ratio** function only: `coefficient_ratio_differential_pvlas` gained an `"instantaneous"` branch
+  > and all three drivers call it that way. But `delta_n_qed_electric_pvlas` — the function that
+  > actually generates the Table-I QED column — **has no `"instantaneous"` branch at all** (its
+  > `geometry` accepts `"propagating"` / `"static"` and raises otherwise), and the generating call
+  > `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py`:187 still runs
+  > `geometry="propagating"`. So **this ledger is again the last surviving copy of a superseded
+  > number — this time of the propagating QED leg.** Rows `:122-126` are honest read as a
+  > *driver-output* map and stale read as a *paper-claim* map; they are left as written and disclosed
+  > rather than silently re-scoped.
+  >
+  > **NOT decided here.** `main.tex` is byte-untouched, no driver was edited, no JSON regenerated, and
+  > the PDF was NOT rebuilt. The substantive question — does `delta_n_qed_electric_pvlas` get an
+  > `"instantaneous"` branch (and the three JSONs regenerate), or do the §1 Table-I rows get re-scoped
+  > to the AVE column only? — is **routed as a named follow-on** in
+  > `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md` (FOLLOW-ON D7-F1).
 - **The x4-geometry x 1/2-carrier decomposition RETAINED** (Grant: "Arm-3 one-sentence decomposition
   retained where it reads naturally"): §III.A carries it (`alpha/30pi -> 2alpha/15pi` head-on geometry
   x4, `-> alpha/15pi` carrier x1/2); item (iv) cross-references it.
