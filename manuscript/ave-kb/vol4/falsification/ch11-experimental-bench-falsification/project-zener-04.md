@@ -24,6 +24,18 @@ strengthens:
 > $R_I = \sqrt{2\alpha} \approx 0.1208$ (`src/ave/core/constants.py` `R_I`). Reaching $A_0 = 1$ across
 > even a 1 µm gap needs **~113 GV**. The lattice sits deep in Regime I at the specified drive.
 >
+> **Scale reference (engineering choice, not leaf-specified).** The **1 mm standoff is a representative
+> laboratory engineering reference**, not a leaf parameter — the Test Protocol below specifies only an
+> *"encapsulated, highly polished, symmetrical spherical electrode"* and fixes no gap. Geometry enters
+> through the Q-G42 field-concentration factor
+> ($V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$); the **polished-sphere** specification
+> pins that factor at the un-enhanced end, $G_{geom} \approx 1$ (no tip enhancement) — the *conservative*
+> reading in the sense that it assumes no geometric help. **The conclusion is not sensitive to the
+> choice:** granting the geometry every benefit at once — a sharp-tip enhancement of $10$–$10^2$ *and* a
+> $1\,\mu$m gap ($10^3$) — still leaves $A_0 \lesssim 7\times10^{-5}$, $\gtrsim 3$ OOM below the $R_I$
+> knee. Restating any bench-reachable threshold honestly requires performing that Q-G42
+> apparatus→substrate step, which this leaf does not do.
+>
 > **Consequence (regime discipline).** No "Avalanche Knee" is predicted at 43.65 kV of *apparatus*
 > volts, and **a null on this bench is an artifact-of-regime, not a falsification of Axiom 4** — the
 > effect cannot exist at the drive specified. What survives is the Zener/TVS **mechanism** (the
