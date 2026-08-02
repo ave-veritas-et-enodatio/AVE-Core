@@ -348,8 +348,22 @@ The compliance channel between $\nu_i$ and $\nu_j$ requires a torsional quantum 
 
 \subsubsection{Compliance Classification}
 
-A channel is \emph{compliant} if $\Delta c \le \Delta c_\text{crit} = 3$ (the K4 coordination
-number minus~1); otherwise it is \emph{screened}.  For the neutrino
+% [2026-08-02 PROVENANCE correction. Rule 12 -- prior wording preserved byte-verbatim and in git:
+%  "$\Delta c_\text{crit} = 3$ (the K4 coordination\n number minus~1)". The VALUE 3 is NOT stale and
+%  is unchanged; what was wrong is the printed DERIVATION of it. Authority (mirrored):
+%  ave-kb/vol2/particle-physics/ch03-neutrino-sector/index.md:22 -- "Chiral Screening Threshold |
+%  $\Delta c_{crit} = 3$ (K4 connectivity = trefoil crossing number)"; chiral-screening.md:18 (same
+%  Resultbox), :11 ("3-connected: each node has exactly 3 bonds"), :13 ("Each K4 bond transfers at
+%  most 1 unit per interaction. With 3 bonds per node ..."), :24 ("the trefoil has $c = 3$ crossings
+%  *because* the K4 lattice is 3-connected"). The threshold is the connectivity ITSELF, not
+%  coordination-minus-one. The same volume already prints the correct form at
+%  03_neutrino_sector.tex:250 ("the K4 lattice connectivity (3)"), so this also removes an
+%  in-volume inconsistency. Concordance note: the KB's 3-connected reading is the ratified srs z=3
+%  carrier, which is why this correction AGREES with the :230 carrier note rather than fighting it.]
+A channel is \emph{compliant} if $\Delta c \le \Delta c_\text{crit} = 3$ --- the K4 lattice
+connectivity itself (three bonds per node, each transferring at most one torsional unit per
+interaction), which is simultaneously the trefoil crossing number; otherwise it is
+\emph{screened}.  For the neutrino
 ladder:
 \[
     \Delta c_{12} = 2 \le 3 \;(\text{open}),\qquad
