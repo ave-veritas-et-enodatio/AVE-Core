@@ -29,10 +29,17 @@ THE CHORD (existence, NOT magnitude — frame precisely):
   the AVE-distinct content is the **EXISTENCE** of a tree-level O(1) birefringence-
   bearing structure that the QED vacuum LACKS (QED's birefringence is an α²-loop
   Euler-Heisenberg effect; QED-with-a-cutoff does NOT reproduce it). The
-  **MAGNITUDE** δn_AVE/δn_QED = 7.5/α³ ≈ 1.93e7 is an **α-ECHO** at the value
-  level: AVE imports α, so the number rides α⁻³. Symmetric standard: QED's
-  a_EH·α² is *equally* α-rooted — QED does not derive α either. Do NOT headline
-  the magnitude as a chord.
+  **MAGNITUDE** is an **α-ECHO** at the value level: AVE imports α, so the number
+  rides a power of α. Symmetric standard: QED's a_EH·α² is *equally* α-rooted —
+  QED does not derive α either. Do NOT headline the magnitude as a chord.
+
+  ==== The LIVE magnitude is the **v3** (consistent instantaneous footing) matched
+  differential ratio δn_AVE/δn_QED = 15π/(4α²) = 3.75π/α² ≈ 2.2e5, boxed at
+  `vacuum-birefringence-e4.md`:104. The v1 form 7.5/α³ ≈ 1.93e7 is **SUPERSEDED**
+  convention history (same leaf, `:106`); it survives ONLY as the preserved return
+  of the deprecated `chord_magnitude_ratio()` below. Grant ruling D1 (2026-08-01),
+  option (ii) = DEPRECATE. The AVE-side numerator δn_bir ≈ −½A² is UNAFFECTED by
+  the re-freeze — only the QED normalization moved (α⁻³ → α⁻²). ====
 
 DISCRIMINATOR = the **E-route**. A static B is a corroborative NULL (μ
 circulation-keyed, S_μ = 1, δn_μ = 0 exactly — PVLAS-consistent). Do NOT claim
