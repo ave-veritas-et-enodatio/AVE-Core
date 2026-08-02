@@ -182,6 +182,78 @@ a_eh=_A_EH_DIFFERENTIAL)` with `_A_EH_DIFFERENTIAL = 3.0/45.0` (`:72`).
 the PR body cannot be read as claiming the re-point fixes it: it does not, and the frozen block
 must not be edited. That surface stays exactly where D1 left it — routed, open, untouched.
 
+### 2.6 Mid-lane supplement folded in — `adopters.py` re-derived at head
+
+A mid-task supplement routed the D1 lane's `adopters.py` findings with the instruction to
+re-derive them before acting. Done. **Two of the three claims reproduce exactly; the third
+(reachability) does not, and the divergence is the load-bearing part.**
+
+**★ Claim (a) — "the verdict-flip is a STOP-and-route condition same as the letter": DOES NOT
+HOLD for a re-point of *this* function, and the disproof is empirical, not an argument.**
+
+Reproduced first, so the flip itself is on the record as REAL:
+
+```
+ratio_at(1e13) = ratio_at(1e14) = ratio_at(3e16) = 1.930035e+07  ->  verdict_fn True
+KB v3                            = 2.212333e+05  ->  verdict_fn False
+v1/v3 = 87.2398   ==   2/(pi*ALPHA) = 87.2398        (KB :102 factor reproduced to 6 s.f.)
+```
+
+**But the flip is unreachable from D7's payload.** `verdict_fn` is applied to
+`SensitivitySpec.observable_of = ratio_at`, and `ratio_at` recomputes the v1 pairing inline from
+`delta_n_ave_differential` / `delta_n_qed(a_eh=3/45)`. Monkeypatching the arbiter to return v3 and
+re-running the full bench model:
+
+```
+BASELINE   verdict=BANKABLE_AS_DISCRIMINATOR | ratio_at(1e13)=1.930035e+07 | verdict_fn=True
+PVLAS->v3  verdict=BANKABLE_AS_DISCRIMINATOR | ratio_at(1e13)=1.930035e+07 | verdict_fn=True
+VERDICT MOVED?  False
+```
+
+The banked verdict *does* exist and *is* pinned — `src/tests/test_bench_adopters.py`:33,
+`assert r.verdict is Verdict.BANKABLE_AS_DISCRIMINATOR` — and it is **invariant under the
+re-point**. ⇒ **`adopters.py` is not a STOP condition for D7.** The v1→v3 verdict flip is real but
+belongs to a *different, un-fired* change (re-pointing `ratio_at`'s QED leg), which D7 does not
+authorize and this lane did not make.
+
+**★ Claim (b) — "the 7 non-frozen adopters sites are in-scope consumers for execute step
+(d)/(e)": PUSHED BACK, with evidence.** Step (d)/(e) scope "consumers of its value" — of
+`coefficient_ratio_differential_pvlas`. The `adopters.py` sites carry the **v1** magnitude
+$7.5/\alpha^3\approx1.93\times10^7$, which is the return of the *already-deprecated*
+`coefficient_ratio_differential()` — a different quantity, one re-freeze further back. Editing
+them under a D7 re-point would be **re-freezing v1→v3 in a file D7 never names, silently skipping
+the v2 rung**, and would put this lane's hands on the same surface the D1 lane deliberately
+routed rather than fixed. **Flagged, not taken.** They are a genuine open surface; they are a
+*separate ruling's* surface.
+
+**★ Claim (c) — the site inventory: reproduces in substance, diverges in count. My own
+re-derivation, pattern set `7\.5|1\.93e7|:328|:320|1e6`, `Prereg` block content-located at
+`:179–:201` (`frozen=True` at `:181`):**
+
+| Line | Content | Frozen? |
+|---|---|---|
+| :13 | module docstring *"MATCHED par-perp DIFFERENTIAL ratio 7.5/alpha^3 ~ 1.93e7"* | no |
+| :14 | *"= coefficient_ratio(7/45), **birefringence.py:320**"* — **a SECOND stale cite, distinct from :328** (`coefficient_ratio` is content-located at `:356`) | no |
+| :18 | *"the 7.5-trace a94672de"* | no |
+| :86-87 | `birefringence_bench_spec` docstring *"= 7.5 / alpha^3 ~ 1.93e7"* | no |
+| :138-139 | ledger row *"7.5/alpha^3 ~ 1.93e7 is a symmetric alpha-ECHO"* | no |
+| :152 | axis `name="par-perp coefficient ratio (7.5/alpha^3)"` | no |
+| **:180** | `ref="…(+ 7.5-trace a94672de)"` | **YES — inside `Prereg(` at :179** |
+| :185 | `"birefringence.py:328 coefficient_ratio_differential"` (content-located at `:375`) | **YES** |
+| :191 | POSITIVE bin *"ratio ~1.93e7, field-independent"* | **YES** |
+| :203 | `gating_axis="par-perp coefficient ratio (7.5/alpha^3)"` | no |
+| :214 | `verdict_fn=lambda r: r > 1e6` | no |
+| :219 | *"the 7.5/alpha^3 ratio is a quantitative claim"* | no |
+| :221-222 | `analytic_provenance="…(birefringence.py:328)"` — the second `:328` | no |
+
+**Divergences from the supplement, both surfaced not silently absorbed:** (1) the frozen count is
+**3, not 2** — `:180` sits between `Prereg(` at `:179` and `frozen=True` at `:181`, so it is
+inside the frozen block by construction and must be disclose-only along with `:185`/`:191`;
+(2) there is a **third** stale cite, `birefringence.py:320` at `:14`, pointing at
+`coefficient_ratio` (actually `:356`) — the supplement named only the two `:328` instances. Row
+count depends entirely on the pattern set, so "eight" and "thirteen" are not in conflict; the
+*frozen/non-frozen boundary* is the part that matters and it moves by one.
+
 ## 3. GATE 2 — the letter check
 
 *(§3 lands next)*
