@@ -227,6 +227,9 @@
 {"source": "clm-cmic3e", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cmic3e", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cmic3e", "target": "clm-mnb3lt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-cmtwst", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.7, "strength": null, "context": null, "fraction": null}
+{"source": "clm-cmtwst", "target": "clm-ka5zdx", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.5, "strength": null, "context": null, "fraction": null}
+{"source": "clm-cmtwst", "target": "clm-zw6mut", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.6, "strength": null, "context": null, "fraction": null}
 {"source": "clm-crbl60", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "p_c = 8πα in ρ_bulk and α in ν_kin = αcℓ_node", "fraction": null}
 {"source": "clm-crbl60", "target": "clm-dfaiwj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies L = ξ_topo^-2 m used in m_node", "fraction": null}
 {"source": "clm-crit2a", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
