@@ -21,9 +21,25 @@ The AVE lattice is a \textbf{Cosserat continuum}---a generalization of classical
 For the substrate lattice, this distinction is physically critical:
 \begin{itemize}
     \item Each LC node stores energy in \emph{both} translational (capacitive, $\epsilon_0$) and rotational (inductive, $\mu_0$) modes. This is precisely the Cosserat structure: translation $\leftrightarrow$ electric field, rotation $\leftrightarrow$ magnetic field.
-    \item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
-    \item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled through the electromagnetic constitutive relations.
+% [2026-08-02 manuscript-reconciliation, CRIB-1 (K=2G / nu_Hill / "Cauchy"); prior wording of the two
+%  bullets below preserved verbatim per Rule 12:]
+%   "\item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a
+%    Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal
+%    length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors."
+%   "\item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat
+%    equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled
+%    through the electromagnetic constitutive relations."
+%  Two defects, both KB-ruled: (a) Axiom 2 is the Topo-Kinematic Isomorphism ([Q] = [L], xi_topo = e/l_node;
+%  common_equations/eq_axiom_2.tex:12-17 is the declared single source of truth and carries no elastic ratio)
+%  -- the nu attribution is an artifact of this file's pre-2026-04-27 title "Axiom 2 -- Fine Structure";
+%  (b) K=2G is NOT lattice-forced at any grade (Q-G41 CLOSED-NEGATIVE, PR #261/#506/#508). NOT adjudicated
+%  here: vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex:1036 attributes the same ratio to
+%  "Axiom~3" and :3511 to "Axiom~2" -- a live cross-volume attribution mismatch, flagged not fixed.
+    \item The Poisson ratio $\nu_\text{Hill} = 2/7$ ---  the isotropic Voigt--Reuss--Hill average, an averaging choice and not a lattice-emergent bound --- relates translational and rotational compliance. It is fixed by the $K = 2G$ operating point below, not by an axiom. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
+    \item The lattice is operated at the $K = 2G$ point (trace-reversal identity): \emph{form-derived, value GR-imported}. It is \textbf{not} enforced by the K4 graph topology, and it is \textbf{not} a Cosserat equilibrium condition on the 3 translational $+$ 3 rotational modes per node --- see the provenance note below.
 \end{itemize}
+
+\noindent\textbf{Provenance of $K = 2G$ (2026-08-02 reconciliation; the prior wording of the two bullets above is preserved verbatim in the source per Rule~12).} This primer previously stated that the K4 graph topology ``enforces $K = 2G$ \ldots{} which is the Cosserat equilibrium condition for a network with 3 translational $+$ 3 rotational modes per node.'' Both halves are withdrawn against closed computations. The two-phase forward computation found $z=4$ K4 sub-isostatic (Maxwell $z < 2d = 6$), leaving $K/G$ an unforced one-parameter family in the bond-stiffness ratio, and found the constitutive operating-point factor \emph{invariant} on the branch where $K = 2G$ lives: ``\textbf{$K=2G$ is the GR trace-reversal --- IMPORTED}'' (\kbleaf{ave-kb/claim-quality-closure-roadmap.md}:832, Q-G41 CLOSED-NEGATIVE 2026-06-15, PR~\#261). The genuine $48\times48$ chiral micropolar Bloch eigensolve on the ratified chiral \emph{srs} ($z=3$) net does not close it either --- the micropolar grade returns a one-parameter $\nu_\text{eff}(\rho)$ family, so ``the substrate does not supply $K = 2G$ at either the Cauchy grade (PR~\#506) or the micropolar grade (PR~\#508)'' (\kbleaf{ave-kb/vol1/claim-quality.md}:665). What is withdrawn is the \emph{forcing}; the operating point itself is unchanged, and the algebra downstream of it is untouched --- $\nu = (3K-2G)/(2(3K+G))$ at $K = 2G$ gives $2/7$ exactly. The framework-level statement of this pattern (which quantities AVE derives the \emph{form} of versus \emph{imports} the value of) is \kbleaf{ave-kb/common/form-deriving-value-importing.md}.
 
 Readers familiar with micropolar elasticity will recognize the LC lattice as its electromagnetic dual. Those arriving from circuit theory may simply note: \textit{the lattice is a distributed transmission line in which every node is also a gyroscope.}
 
