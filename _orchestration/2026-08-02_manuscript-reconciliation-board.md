@@ -15,7 +15,7 @@
 
 | # | Brief item | Verified state |
 |---|---|---|
-| 1 | ch08 physics prose rewrite owed | **DISCHARGED** — #771 (2026-07-21, `b39bd9cc`) rewrote item-3 admixture-honest. Two NEW debts replace it: (a) deep-rail sites `08_gravitational_waves.tex:240,:242,:284,:288,:298,:301` still say "outcome is not presumed" though #775 landed BIN 3 (MIXED / FORM-UNDETERMINED); (b) **INVERSION** — ch08 print is AHEAD of the KB: `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md` carries no admixture note / no Reading-A banner. KB-ward propagation lane opened (§4). |
+| 1 | ch08 physics prose rewrite owed | **DISCHARGED** — #771 (2026-07-21, `b39bd9cc`) rewrote item-3 admixture-honest. Two NEW debts replace it: (a) the deep-rail mention sites `08_gravitational_waves.tex:{240 (%-comment), 242, 284, 288, 298, 301}` predate #775's landed BIN 3 (MIXED / FORM-UNDETERMINED) — none carries the outcome, and the explicit "*Its outcome is not presumed here*" clause at `:289` is now stale; (b) **INVERSION** — ch08 print is AHEAD of the KB: `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md` carries no admixture note / no Reading-A banner. KB-ward propagation lane opened (§4). |
 | 2 | ch08 item-3 rewording (F4→(a)) | **EXECUTED** in #771; docket EXECUTED stamp at `2026-07-10_rulings-docket.md:2649`. Cite-shift found: `08_gravitational_waves.tex:250-251` and `rulings-docket.md:2649` cite `2026-07-20_pending-rulings-and-frontier-queue.md:26`; the ruling lives at `:113` at HEAD (items 13–20 appended 2026-07-26 shifted it). Repair rides the gated ch08 lane (tex) + a tracker touch-up. |
 | 3 | ch15 four sub-2%/spin-range sites | **CONFIRMED exactly 4**: `15_black_hole_orbital_resonance.tex:{27,271,292,387}` (`:31` = the interim note itself; `:270`/`:289` are %-comments — not rewrite targets). Per-occurrence rewrite still owed, gated (§4). |
 | 4 | Vol 6 + Vol 9 datasheet cleanup "never run" | **FALSE** — Vol 6 ran (#348, 2026-06-22); Vol 9 ran twice (#332 2026-06-21; #745 2026-07-20). All volumes are drift re-sweeps. |
@@ -26,7 +26,7 @@
 ## §3 Ratified wording cribs (Grant 2026-08-02; sites become MECHANICAL under these)
 
 - **CRIB-1 — K=2G / ν_Hill / "Cauchy".** Replacement pattern: *"the K = 2G operating point (form-derived; value GR-imported — see `common/form-deriving-value-importing.md`) with ν_Hill = 2/7 (isotropic Voigt–Reuss–Hill average; an averaging choice, not a lattice-emergent bound)"*. Never label the AVE lock "the Cauchy relation" (three-way homonym; `vol1/claim-quality.md:652`); never "simulation confirms … emergent" (κ_rot micropolar-grade test returned negative; `vol1/claim-quality.md:665`, PR #508 STAYS-OPEN). First printed "Hill" instances are minted by this epic (grep-verified zero manuscript precedent).
-- **CRIB-2 — carrier + T2-photon vocabulary.** (a) photon = the massless transverse-TRANSLATIONAL u-family T2 (`def-t2ph01`, vocabulary-register watch-rule: never write microrotation = the photon); (b) production carrier = chiral **srs-z3** (D1 ratified 2026-07-03); K4-diamond z=4 = historical, statics-pathological instrument (`def-4b1a2c`); FCC/"z = 4 coordination" carrier wording is corrected to the srs-z3 statement with an instrument-history parenthetical where the text is about the engine.
+- **CRIB-2 — carrier + T2-photon vocabulary.** (a) photon = the massless transverse-TRANSLATIONAL u-family T2 (`def-t2ph01`, vocabulary-register watch-rule: never write microrotation = the photon); (b) production carrier = chiral **srs-z3** (D1 ratified 2026-07-03); K4-diamond z=4 = historical, non-canonical instrument (`def-4b1a2c`; "statics-pathological" per `common/engine-capability-map.md:190`); FCC/"z = 4 coordination" carrier wording is corrected to the srs-z3 statement with an instrument-history parenthetical where the text is about the engine.
 - **CRIB-3 — spin-½ carve.** *"the SU(2)/SO(3) double-cover STRUCTURE is axiom-derived; the fermionic spin-½ SELECTION is posited/import (PEER-WITH-SM)"* — `[SPIN-HALF-POSITED]` #584/#585, `electron-identification.md:89-90`. Applies to every "spin-½ is substrate-derived end-to-end / IS the substrate-native origin" site.
 - **CRIB-4 — validation-headline scope.** BCS "0.00% error" → definitional identity at per-material calibration, not a fit (`ave-kb/claim-quality.md:171-182`); ringdown "1.7%" → cold Schwarzschild a\*=0 single-point anchor, spin scope per Ruling B1; "10–18% LIGO match" → retracted frame-mixed artifact (#774/#780) — strike per Rule 12, no replacement number; Petermann "50 ppm" → the landed q-g19a numbers + scope (`q-g19a-petermann-saliency-closure.md:92,:121`); "most direct experimental validation"-class sentences demoted to the claim-quality grade.
 - **CRIB-5 — TKI transformer status.** Sites citing the EM-Ω ↔ mechanical-ρc isomorphism carry `def-tk1xfm` **RATIFIED SOLID (2026-07-21)** with its REGIME FENCE and strength ceiling, quoted from `common/vocabulary-register.md:435-441` — not the pre-ratification "exact dimensional isomorphism" absolutism.
@@ -37,15 +37,15 @@ Discipline riders on every crib application: Rule 12 strike-don't-delete with da
 
 | Wave | Lane | Scope | Status |
 |---|---|---|---|
-| now | orchestration-docs | this board + 8 docket fragments (`docket-entries/2026-08-02-mr-*.md`) | THIS PR |
+| now | orchestration-docs | this board + 9 docket fragments (`docket-entries/2026-08-02-mr-*.md`) | THIS PR |
 | now | KB-ward ch08 | admixture propagation to `gw-propagation-lossless.md` (already-ruled Reading-A; #771's owed note; fixes the §2-item-1 inversion) | DISPATCHED |
 | 0 (pilot) | vol4 | mechanical + crib-covered items; `:720` and `15_autoresonant:34` EXCLUDED (routed) | DISPATCHED |
 | 1 | vol0, vol1, vol2, vol9 | after pilot review validates the pattern; vol1 ch07 + vol9 ch14 EXCLUDED (live-lane collision, `docs/factor7-and-782-basis-notes`); vol9 ringdown sites EXCLUDED (gated) | queued |
 | 2 | vol5, vol6, backmatter, vol3-non-ringdown | backmatter/07 ringdown block EXCLUDED (gated); vol3 ch07 EXCLUDED (collision); vol3 ch08/ch15 EXCLUDED (gated) | queued |
-| gated (LAST) | ringdown set | vol3 ch08+ch15 (incl. the four §2-item-3 sites + deep-rail BIN-3 + cite-shift), backmatter/07:{85,145,211,213}, vol9 ch07:195/ch03:175/ch14:105-adjacent, vol1 ch04:116/ch07:19, vol5 ch02:717 | gated on the cold-Q derivation arc landing (core session) |
-| repo-side | papers pointers | `provenance.md:114,:121` + `outline.md:156,:220` pointer rows ONLY; `main.tex` untouched | queued (wave 2) |
+| gated (LAST) | ringdown set | **Authority rule (repair R1, 2026-08-02): §5 per-finding disposition tags are the authoritative gating register; this row is derived from them.** The §5 `gated-ringdown` set = vol3 ch15:{250, 271, 290, 292 (x2), 337, 354, 387} + vol9 ch03:205 + backmatter/07:{85, 211, 213} (12 findings), PLUS the chapter-level rule from the handoff brief: ALL remaining vol3 ch08+ch15 edits ride this wave regardless of disposition (incl. the four §2-item-3 sites, ch08:364, ch08:11, deep-rail BIN-3 refresh, and the §2-item-2 cite-shift). The already-ruled B1 cold-a*=0 scope-tag mirror sites OUTSIDE those chapters (vol1 ch04:116, ch07:19; vol5 ch02:717; vol9 ch07:195, ch03:175; backmatter/07:145 per its §5 ruling-needed tag under CRIB-4) fire in their own volume lanes — Ruling B1 is settled and independent of the cold-Q outcome, so no double-reconcile risk. | gated on the cold-Q derivation arc landing (core session) |
+| repo-side | papers pointers | `2026_birefringence_letter/provenance.md:114,:121` + `2026_reach_saturating_family/outline.md:156,:220` pointer rows ONLY; both `main.tex` untouched | queued (wave 2) |
 
-Collision ledger: `docs/factor7-and-782-basis-notes` (vol1 ch07 / vol3 ch07 / vol9 ch14 + 2 KB leaves) and `docs/rulings-d2-d3-d4` (theorem-thesaurus + translation-tables README) are live mid-flight lanes — their files are excluded from every wave until they land. `#819` = src-only, no overlap.
+Collision ledger: `docs/factor7-and-782-basis-notes` (vol1 ch07 / vol3 ch07 / vol9 ch14 + 2 KB leaves) and `docs/rulings-d2-d3-d4` (theorem-thesaurus + translation-tables README) are live mid-flight lanes — their files are excluded from every wave until they land. `#819` = src + one docket fragment (`2026-08-01-d1-deprecate-ratio.md`) — no manuscript overlap; fragment-key collision checked (none).
 
 Refuted-finding note: the four REFUTED findings are dropped from execution but listed in §5 with reasons. The two ch15 refutations are CLASS-level only (the interim note at `:31` already discloses the retraction); the #780 per-occurrence rewrite obligation is unaffected and lives in the gated wave.
 
@@ -274,103 +274,103 @@ to macroscopic kinematic impedance within the vacuum substrate, correctly yieldi
 
 ### vol3 — 21 findings
 
-#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:427
+#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:427
 - PRINTED: \item BH merger ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events
 - KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:202 — the '10–18%' is 'the frame-mixed pre-correction artifact (#774) ... not a dimensionless comparison to true Kerr', corrected 2026-07-21 under Ruling B1. This line sits under the heading 'Tightest validations' at :423-424 with no retraction marker anywhere in ch04 (grep -c 'B1' on the file returns 0).
 - VERIFY NOTE: 'mechanical' is wrong. I re-read the printed context: the bullet sits inside an itemize under the heading 'Tightest validations:' at ch04:423-424. Under Ruling B1 the corrected state is explicitly NOT a validation - claim-quality.md:202 reads 'Mapping-conditional, consistency-class, disclosed-phenomenological - NOT sub-percent, NOT a zero-free-parameter benchmark'. So there is no number you can sw
 
-#### [HIGH] [missing-retraction] [gated-ringdown] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:250
+#### [HIGH] [missing-retraction] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:250
 - PRINTED: \textbf{Superseded v1 formula} (pre-2026-05-18, over-predicted spin correction by $\sim$13\% mean)
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md § Kerr-Corrected Ringdown: '~~over-predicted spin correction by ~13% mean~~ — **that diagnosis is RETRACTED 2026-07-20**'; the 🔴 CORRECTION block below it: v1 sits +2.24/+2.50/+3.17% (mean +2.63%) against corrected Kerr and 'v1 outperforms v2 at every catalog spin'. Under Ruling B1 v1 is the STANDING mappin
 
-#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:271
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:271
 - PRINTED: Per the truth-source card ... AVE ``does NOT claim sub-percent agreement ... show \textbf{10--18\%} frequency error and 10--14\% decay-time error'' ... and the Kerr quality factor ``matches GR sub-2\% only for $a_* = 0.3$--$0.8$; behaviour outside this spin range is not validated.''
 - KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:202 and :204 — BOTH quoted clauses now carry 🔴 corrections/strikes dated 2026-07-21. The manuscript quotes the pre-correction card text as if it were current truth-source.
 - VERIFY NOTE: The kb_truth's framing - 'The manuscript quotes the pre-correction card text as if it were current truth-source' - is refuted by the printed text. ch15:31 explicitly instructs the reader to read every such statement in the chapter as carrying the retraction, and names these as 'four printed occurrences ... left standing per Rule 12 and are pending per-occurrence reconciliation'. So the corpus alre
 
-#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:290
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:290
 - PRINTED: \noindent \textbf{Frequency mean $-0.45\%$, decay-time mean $-0.47\%$ per event}.
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:130-133 marks the companion table '⚠ The table below is the SUPERSEDED frame-mixed artifact (2026-05-18)' and :141-148 retracts the −0.45% bank outright; the printed table at :277-288 carries no visible marker.
 - VERIFY NOTE: kb_truth says 'the printed table at :277-288 carries no visible marker' - true locally, but the chapter DOES carry a rendered marker at :31 whose scope is 'the $-0.45\%$/$-0.47\%$ spinning-remnant figures printed throughout this section', which reaches this table. So this is not a missing retraction; it is the same per-site invisibility problem as finding 4 (blanket ~260 lines upstream, in-place p
 
-#### [HIGH] [missing-retraction] [gated-ringdown] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
+#### [HIGH] [missing-retraction] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
 - PRINTED: 9 of 11 swept spin values $a_* \in \{0.0, 0.1, \ldots, 0.95\}$ PASS at $|\text{dev}| < 3\%$ vs GR reference ... GW190521 ... matches at $-0.25\%$ per v2; GW170729 ($a_* = 0.81$) matches at $+1.77\%$
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:164-175: 'RETRACTED 2026-07-20: the entire spin sweep was run against the corrupt Kerr table; against corrected Kerr, v2 sits −8.6% to −20% BELOW true Kerr across a*=0.6–0.95 ... No PASS survives.'
 
-#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:337
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:337
 - PRINTED: the v2 Cosserat-back-reaction formula reaches \textbf{$-0.45\%$ mean $\omega_R$ + $-0.47\%$ mean $\tau$} per event (Phase 3+5 closure 2026-05-18)
 - KB TRUTH: Same B1/MATCH-ARTIFACT retraction as the body (ave-merger-ringdown-eigenvalue.md:31-45). The figure CAPTION carries the retracted numbers, and the underlying raster bh_untapped_predictions.png plots them.
 - VERIFY NOTE: Same blanket problem as findings 1/5: ch15:31's 'printed figures above/below preserved per Rule 12' plus '$-0.45\%$/$-0.47\%$ ... printed throughout this section' reaches the caption. So 'missing-retraction' overstates it. What is genuinely distinct and NOT dischargeable by any caption edit is the raster: bh_untapped_predictions.png plots the retracted comparison, so a caption-only fix leaves the 
 
-#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:387
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:387
 - PRINTED: the standard GR Kerr QNM comparison figure for the same events is $-6.94\%$ mean ... Per \texttt{clm-395gps}, this Kerr comparison is validated only for $a_* = 0.3$--$0.8$ (10--18\% frequency error otherwise); the larger cold-$Q=\ell$ discrepancies in the table above reflect that the cold approximation is not the Kerr-refined case.
 - KB TRUTH: clm-395gps at manuscript/ave-kb/vol3/claim-quality.md:204 (struck) and ave-merger-ringdown-eigenvalue.md:150-162 ('the $-0.47\%$ "match" and the "outperforms GR ($-6.94\%$)" contrast do not survive'). The closing clause is exactly what axiom-coverage-audit.md:71 names a 'scoping lag': under B1 the spin story is the mΩ law, computed and banked at −5.44%/−4.57%, not an un-attempted correction.
 - VERIFY NOTE: The receipts assert the ch15:31 blanket 'does NOT reach ... the -6.94% GR contrast (:387)'. That is wrong on two counts. (i) The blanket explicitly retracts the GR contrast: 'the ``outperforms GR for $\tau$'' contrast rode the same compensation and is retracted' - and the -0.47%-vs--6.94% pairing at :387 IS that contrast. (ii) The 'validated only for $a_* = 0.3$--$0.8$ (10--18\%)' clause at :387 i
 
-#### [MEDIUM] [stale-value] [mechanical] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:231
+#### [MEDIUM] [stale-value] [mechanical] manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:231
 - PRINTED:     Z_{\text{local}}(r) = \frac{Z_0}{S^{1/4}}
 - KB TRUTH: manuscript/ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:20-33 — 'Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH). Previously stated as $Z_{local} = Z_0/S^{1/4}$ — the legacy register that let the Family-E $S^{1/4}$ exponent ride in, un-propagated. Corrected to the canonical Op14 register $Z = Z_0/\sqrt{S}$'. Canonical Op14 confirmed at ave-kb/co
 
-#### [MEDIUM] [other] [route-to-core] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:186
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:186
 - PRINTED: the geometric quantum information is physically, mathematically, and permanently erased. ... quantum unitarity is macroscopically violated at the event horizon, enforcing information loss.
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md:24-26 — '🔴 FLAG (2026-07-19, Tier-2.5 hygiene — flag-don't-fix)' on exactly these two sentences: they sit 'in tension with topological retention elsewhere in the corpus'; 'Status: recorded + routed, NOT adjudicated', routed to the generative-cosmology / BH-interior lane. Same wording is un-flagged at ch15:
 
-#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:426
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:426
 - PRINTED: \item BCS $B_c(T)$: \textbf{0.00\% error} across all measured superconductors   [companion table cell at :361: '\textbf{0.00\% error}']
 - KB TRUTH: manuscript/ave-kb/claim-quality.md:171-182: 'The "0.00%" reads like a numerical fit but is not ... The 0.00% match is not a numerical fit — it is the same operator at a different scale', plus the explicit tripwire at :182 against 'a global "AVE achieves 0.00% on N predictions" claim'. closure-roadmap.md:206 records the RECLASSIFICATION to DEFINITIONAL IDENTITY. Vol 3 ch09:18-21 and ch15:35 already
 - VERIFY NOTE: 'mechanical' is wrong for the same structural reason as finding 15, and more sharply. The KB tripwire I re-read at claim-quality.md:182 targets exactly this construction: 'a global "AVE achieves 0.00% on N predictions" claim collapses meaningful distinctions'. ch04:423-430 IS a global validated-anchor enumeration. So a mechanical fix that appends the ch15:35-style parenthetical would leave the tri
 
-#### [MEDIUM] [other] [route-to-core] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:62
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:62
 - PRINTED: This falls within the observed Hills Cloud range (2,000--5,000~AU inner edge), confirming that the Oort Cloud is the solar system's \textit{impedance boundary}.
 - KB TRUTH: The printed value two lines above is $r_{sat} \approx 7{,}400$ AU, which is NOT inside 2,000–5,000 AU — the sentence asserts containment its own number contradicts. Auditor arithmetic: $\sqrt{GM_\odot/a_0}$ = 7,030 AU at empirical $a_0=1.2\times10^{-10}$, 7,446 AU at AVE's derived $a_0=1.07\times10^{-10}$; both outside the quoted band. The KB mirror carries the identical defect (oort-cloud-saturat
 
-#### [MEDIUM] [overclaim] [mechanical] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:71
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:71
 - PRINTED: The asteroid belt gaps at mean-motion resonances with Jupiter are modelled as cavity modes in the gravitational impedance field: $a_{\text{gap}} = a_J \cdot (q/p)^{2/3}$.  All five major gaps (4:1, 3:1, 5:2, 7:3, 2:1) are reproduced to $< 0.3\%$ error.
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md:14 — '🟡 CONSISTENCY-CLASS note (dated 2026-07-20; ratified-by-merge #741)': the law 'reduces to Kepler's third law', 'the $2/3$ is the Kepler exponent, not a lattice number', 'a relabel of the Newtonian mean-motion resonance: it fits to <0.3% BECAUSE it is the Newtonian resonance condition', and 'there is no AVE-disti
 
-#### [MEDIUM] [stale-value] [defer-to-live-lane] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:29
+#### [MEDIUM] [stale-value] [defer-to-live-lane] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:29
 - PRINTED: Solar surface              & $2.1 \times 10^{-6}$ & I  & Standard GR; $\Delta S < \alpha$ \\
 - KB TRUTH: The row's own control parameter is $\varepsilon_{11}=7GM/(c^2r)$ (:19, :23). 2.1e-6 = GM/(c^2R) — factor-7 low. Auditor arithmetic: $7GM_\odot/(c^2R_\odot) = 4.672\times10^{-10}\cdot1.989\times10^{30}/(9\times10^{16}\cdot6.957\times10^{8}) = 1.484\times10^{-5}$. The live lane's KB fix (stellar-regime-classification.md, branch docs/factor7-and-782-basis-notes) sets 1.486e-5 and adds a dated Correct
 - VERIFY NOTE: 'mechanical' fails its own stated bar: it requires a MERGED, adjudicated KB state. There is none. I read the KB at HEAD - manuscript/ave-kb/vol3/applied-physics/ch07-stellar-interiors/stellar-regime-classification.md:16 still reads '| Solar surface | $2.1 \times 10^{-6}$ | I | ...'. The 1.486e-5 fix and its dated Correction note exist ONLY on the unmerged branch docs/factor7-and-782-basis-notes (v
 
-#### [MEDIUM] [other] [route-to-core] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:31
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:31
 - PRINTED: White dwarf (Sirius~B)     & $3 \times 10^{-4}$   & I  & Gravitational redshift $\sim 10^{-4}$ \\
 - KB TRUTH: The live lane's own note leaves this ROUTED: '$3\times10^{-4}$ matches $GM/(c^2R)$ (the measured gravitational redshift its own consequence-column cites) rather than $7GM/(c^2R) = 1.77\times10^{-3}$'. Meanwhile ave-kb/vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md tabulates Sirius B at $\varepsilon_{11}=1.81\times10^{-3}$ — the 7-carrying value. So two KB leaves
 
-#### [MEDIUM] [stale-value] [ruling-needed] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:11
+#### [MEDIUM] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:11
 - PRINTED: Verify that GW strain amplitudes remain $\sim 28$ orders of magnitude below the dielectric hardware snap limit.  [same at :365]
 - KB TRUTH: Internally contradicted at :61 ('$\sim 2 \times 10^{-25}$ times smaller'), :355 ('$V_{GW}/V_{snap} \approx 2 \times 10^{-25}$') and :358 ('Twenty-five orders of magnitude'). Commit aef2cd23 (2026-06-21) fixed 3 of 5 sites and left :11 and :365. Arithmetic: 1e-19 V / 511 kV = 1.96e-25 → 25 orders is right, 28 is wrong. Separately the KB is STALE in the other direction — ligo-gw-saturation-ratio.md:
 - VERIFY NOTE: The divergence is real and I re-derived all of it, but 'gated-ringdown' is the wrong disposition - the saturation ratio is not ringdown content and is not gated on the cold-Q arc. The finding's own kb_unsettled entry says 'Grant must rule which number the KB adopts before the two ch08 residual 28 orders sites are touched', which is ruling-needed by definition. Parking it behind the ringdown gate w
 
-#### [MEDIUM] [overclaim] [route-to-core] (verify-CORRECTED) /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:364
+#### [MEDIUM] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:364
 - PRINTED: Gravitational waves propagate \textbf{exclusively} as lossless, trace-free, transverse impedance modulations of the macroscopic LC vacuum lattice.
 - KB TRUTH: The chapter's own Grant-F4→(a) reconciliation box (:242-258, landed b39bd9cc/667f9ae3 2026-07-20) states item-3 now carries 'observed decay = shear (KEEP) + the forbidden-at-$O(1)$ bulk admixture ($F_{bulk}/F_{shear}\approx0.03$--$0.12$)'. Under standing Reading-A (port-register.md:5 'Q1 REVERTED 2026-07-20'; #761 NONE-DERIVES) an exclusively-transverse summary is the pre-revert state. Both warnin
 - VERIFY NOTE: Two problems. (1) DISPOSITION: 'gated-ringdown' is the wrong parking lot - this is the Q1/bulk-admixture fork, not ringdown content, and it is in no way gated on the cold-Q derivation. Parking it there would silently defer a LIVE open contradiction. The sweep's own kb_unsettled entry says 'the physics itself belongs to the core session' - that is route-to-core, and route-to-core's bar is met: the 
 
-#### [MEDIUM] [scope-lag] [gated-ringdown] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
+#### [MEDIUM] [scope-lag] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
 - PRINTED: near-extremal remnants ($a_* > 0.90$) are deferrable to Option B (full spheroidal cavity) when LIGO/ET detects such an event
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/first-principles-predictions.md:20-22 — under Ruling B1 the near-extremal axis was PROMOTED 'from routed-candidate to LIVE FORWARD PREDICTION': v1 gives ω_R M_g → 54/49 = 1.102, +10.2% over the GR ZDM limit, and is the qualitative v1-vs-v2 discriminator. Vol 3 prints none of it.
 
-#### [MEDIUM] [scope-lag] [gated-ringdown] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:354
+#### [MEDIUM] [scope-lag] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:354
 - PRINTED: 4 & Saturation ($V_{SNAP}$, viscosity) & \textbf{Full} & Phase transition, $Q = \ell$, $\tau_{ring}$ \\
 - KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md:17 — the same row now reads 'Phase transition, $Q = \ell$ (cold $a_*=0$ anchor — B1), $\tau_{ring}$'. Companion 🟩 SPIN-SCOPE banners at :33-52 (on the resultbox) and :66-77 (on the LIGO table) were propagated 2026-07-31; the printed chapter carries neither at :359, :364-369 or :373-386.
 
-#### [LOW] [scope-lag] [mechanical] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:38
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:38
 - PRINTED: When local Newtonian acceleration $g_N$ serves as the saturation amplitude (with $a_0$ as the yield limit), the drag contribution
 - KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:261 — 'Amplitude-identification tag (2026-07-20, #754 R1 qualifier). The kernel-amplitude identification $A = g_N/a_0$ ... is substrate-consistent / ANCHOR-FORCED within the established gravity-as-refraction correspondence — NOT an unconditional "derived." ... That $g_N \leftrightarrow E_{local}$ leg is analogy-level / correspondence-transported.'
 
-#### [LOW] [scope-lag] [mechanical] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/13_geophysics.tex:122
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_3_macroscopic/chapters/13_geophysics.tex:122
 - PRINTED: rotates physically inside the solar Sagnac phase-boundary (amplified electromagnetically by the magnetopause $+1$ reflection boundary)
 - KB TRUTH: manuscript/ave-kb/vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md:18 — 'Register note (2026-07-14) — the magnetopause $\Gamma=+1$ is a defensible OPEN-circuit convention, TAGGED not flipped ... it lives on the pressure-balance boundary register, distinct from the electron-scale amplitude-level-set $\Gamma=-1$ TIR wall ... Flag-don't-fix: surfaced for the auditor, not silently reconc
 
-#### [LOW] [scope-lag] [route-to-core] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:322
+#### [LOW] [scope-lag] [route-to-core] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:322
 - PRINTED: In the AVE dielectric framework, this is the \textbf{permanent plastic deformation} of the LC lattice after being driven past its linear elastic limit by the passing wave.
 - KB TRUTH: manuscript/ave-kb/common/retention-transition-split.md (ratified Grant 2026-07-17) — 'Any load-bearing use of remanence / irreversible / plastic / latch / dissipates / frozen / erased must declare WHICH moment it refers to: PRODUCT ... or TRANSITION'. substrate-native-terminology.md:52 records the GW-memory item itself as still AMBIGUOUS ('requires_R=yes retained conservatively — its leaf prose co
 
-#### [REFUTED — dropped] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:23
+#### [REFUTED — dropped] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:23
 - REASON: Class 'missing-retraction' is false: the retraction is present, dated, rendered, and adjacent. ch15:31 (live \noindent\textbf{} body prose, 8 lines below) reads verbatim: 'Number correction (2026-07-21, ringdown MATCH-ARTIFACT + Grant Ruling B1; printed figures above/below preserved per Rule 12).} T
 
-#### [REFUTED — dropped] /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:27
+#### [REFUTED — dropped] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:27
 - REASON: This is the single most explicitly-discharged site in the chapter. ch15:31 names it by location, verbatim: 'read every ``validated only for $a_* = 0.3$--$0.8$'' and ``matches GR sub-2\%'' statement in this chapter --- including the one in the A-034 anchor paragraph immediately above --- as carrying 
 
 ### vol4 — 11 findings
@@ -446,7 +446,7 @@ There are no fake Euclidean axes. The network operates strictly through 4-port $
 #### [HIGH] [other] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/07_solvent_damping.tex:37
 - PRINTED: G_\text{solvent} = n \cdot \gamma_\text{Stokes} \cdot \xi_\text{topo}^2 \approx 1.0 \times 10^{-24} \text{ S}   [and :49 |Y_solvent|/Y_backbone \approx 1.8\times10^{-23}; :52 'This is the key result. The solvent shunt admittance is $10^{-23}$ of the backbone admittance ... a $10^{23}$~$\Omega$ shunt across a 17.6~$\Omega$ transmission line---a perturbation so small it is unmeasurable.']
 - KB TRUTH: No KB leaf and no clm- entry exists for this section (see finding 5), so the governing truth-source is the volume's own ratified bridge: ave-kb/vol5/claim-quality.md:19 (clm-lm9b3j) 'L_atom = m_atom/xi^2 and C_bond = xi^2/k_bond are definitional dimensional bridges', and ave-kb/common/vocabulary-register.md def-tk1xfm 'V=\xi^{-1}F, L=\xi^{-2}m, C=\xi^{2}\kappa, R=\xi^{-2}\eta' — i.e. a mechanical 
-- VERIFY NOTE: Disposition only. 'route-to-core' requires the KB to be unsettled or internally inconsistent on the point — it is not. R = xi^-2 * eta is RATIFIED SOLID at two independent canonical sites I re-read at HEAD: /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/ave-kb/common/vocabulary-register.md:438 (def-tk1xfm, '(RATIFIED SOLID — Grant 2026-07-21)', six-row table '...L=\xi^{-2}m,\ C=\xi^{2}\kappa
+- VERIFY NOTE: Disposition only. 'route-to-core' requires the KB to be unsettled or internally inconsistent on the point — it is not. R = xi^-2 * eta is RATIFIED SOLID at two independent canonical sites I re-read at HEAD: manuscript/ave-kb/common/vocabulary-register.md:438 (def-tk1xfm, '(RATIFIED SOLID — Grant 2026-07-21)', six-row table '...L=\xi^{-2}m,\ C=\xi^{2}\kappa
 
 #### [HIGH] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/07_solvent_damping.tex:58
 - PRINTED: At 24~THz, the inertial impedance of a carbon nucleus ($\sqrt{m_C \cdot k_{CN}} \sim 10^{-18}$~kg/s) is astronomically larger than the viscous friction of a water molecule ($\gamma \sim 10^{-12}$~kg/s). The mapping preserves this ratio.
@@ -468,7 +468,7 @@ There are no fake Euclidean axes. The network operates strictly through 4-port $
 #### [LOW] [mirror-drift] [route-to-core] (verify-CORRECTED) manuscript/common/translation_protein.tex:31
 - PRINTED: Salt bridge (Glu--Lys) & Conjugate impedance match & $\operatorname{Re}(Z_i \cdot Z_j^*) > 0$ \\
 - KB TRUTH: The KB mirror ave-kb/vol5/common/translation-protein.md gained a T19 reconciliation FLAG on 2026-07-11 (in-window): 'The "Conjugate impedance match" label on the salt bridge (:28 above) is attached to a different residue pair by vol5/common/translation-protein-solver.md:20-21 ... The solver ground truth common/solver-toolchain.md:548 uses one Conjugate-Matching term ... for both salt bridges and h
-- VERIFY NOTE: Disposition, and this is the highest-risk mis-tag in the batch — it was marked mechanical, so it would have been edited with no ruling. The KB state it propagates is explicitly NOT adjudicated. I read the full note at /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/ave-kb/vol5/common/translation-protein.md:34, which ends verbatim: '**FLAG, not asserted** — the two-terms-vs-one question depend
+- VERIFY NOTE: Disposition, and this is the highest-risk mis-tag in the batch — it was marked mechanical, so it would have been edited with no ruling. The KB state it propagates is explicitly NOT adjudicated. I read the full note at manuscript/ave-kb/vol5/common/translation-protein.md:34, which ends verbatim: '**FLAG, not asserted** — the two-terms-vs-one question depend
 
 #### [LOW] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/01_biophysics_intro.tex:36
 - PRINTED: with $Q_{\text{backbone}} \approx 7$ suppressing reactive coupling.   [companion sites :11, :70, :133 all state the same value; :34-35 'The amino acid impedance table $Z_{\text{topo}}$ assigns complex impedances (R + jX) to each of the 20 residues']
@@ -486,7 +486,7 @@ There are no fake Euclidean axes. The network operates strictly through 4-port $
 #### [LOW] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:717
 - PRINTED: the BH ring-down $\omega_R M_g = 18/49$ ... (all canonical at $0.00\%$ for BCS, $1.7\%$ for ring-down; see Vol 3 Ch~\ref{ch:cosmology} \S\ref{sec:tki_strain_snap})   [companion site :32 'BH ring-down (1.7\% from GR)']
 - KB TRUTH: ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:148 'eigenvalue ($18/49$, $-1.7\%$) is the only surviving zero-free-parameter result' and :113 'at $a_* = 0$ (Schwarzschild) ... recovering the cold eigenvalue $18/49$' — post-Grant-Ruling-B1 the value SURVIVES but is spin-scoped to the cold a*=0 anchor. Vol 5 prints it as an unqualified cross-scale validation anchor.
-- VERIFY NOTE: Disposition. This site does NOT depend on the mid-churn cold-Q derivation, so the gate does not apply. I read the full Ruling B1 block at /Users/grantlindblom/AVE-staging/AVE-Core/manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97 (MERGED, dated 2026-07-21, Grant verbatim '[sic]: "ruling 1 proceed with your rec, ruling 2 walk back now"'). It states at
+- VERIFY NOTE: Disposition. This site does NOT depend on the mid-churn cold-Q derivation, so the gate does not apply. I read the full Ruling B1 block at manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97 (MERGED, dated 2026-07-21, Grant verbatim '[sic]: "ruling 1 proceed with your rec, ruling 2 walk back now"'). It states at
 
 #### [LOW] [scope-lag] [ruling-needed] manuscript/vol_5_biology/chapters/06_biophysics_pharmacology.tex:477
 - PRINTED: \item Cancer is modelled as impedance decoupling: mutations shift $Z_{\text{cell}}$ ...   [and :478 'Red light therapy is impedance-matched photon absorption at the cytochrome~$c$ oxidase resonance'; :479 'Methylene blue functions as a molecular impedance bridge']
