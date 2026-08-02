@@ -100,12 +100,35 @@ The baseline RMS thermal noise of the vacuum (``quantum foam'') partially averag
 
 where the residual thermal correction factor $\delta_{th} = 1/(14\pi^2)$ captures the RMS noise averaging that remains after the gradient saturation is applied:
 \begin{enumerate}
-    \item $\nu_{vac} = 2/7$ --- the Poisson ratio of the chiral LC lattice, which sets the anharmonic Gr{\"u}neisen parameter governing the coupling between thermal fluctuations and elastic stiffness.
+    % 🔴 [RELABEL + PROVENANCE 2026-08-02 (CRIB-1). This is the VOLUME'S FIRST use of the symbol, so
+    %  the definitional clause lands here. Rule 12 -- prior wording preserved byte-verbatim and in
+    %  git: "\item $\nu_{vac} = 2/7$ --- the Poisson ratio of the chiral LC lattice, which sets the
+    %  anharmonic Gr{\"u}neisen parameter ...". Two things were wrong with the old form: the SYMBOL
+    %  (the corpus relabelled it nu_Hill in #589 -- engine src/ave/core/constants.py:397 "N_NU ...
+    %  nu_Hill (Poisson ratio, Axiom 2; isotropic V-R-H avg at GR-imported K=2G)" and :626
+    %  "NU_VAC ... nu_Hill (isotropic Voigt-Reuss-Hill average at K=2G)"; KB theorem-thesaurus.md
+    %  :227 and srs-band-structure.md throughout) and the ATTRIBUTION ("of the chiral LC lattice"
+    %  reads lattice-emergent, which theorem-thesaurus.md:227 explicitly denies: the Voigt-Reuss-Hill
+    %  average is "★**Not a theorem and not a bound**"). VALUE UNCHANGED at 2/7 -- this is a naming
+    %  and provenance correction only, with zero numerical consequence anywhere in the volume.
+    %  Naming status re-verified at HEAD: theorem-thesaurus.md:132 carried an AUDIT-FLAG on the
+    %  Voigt/Reuss classification, and that flag is DISCHARGED at :133 by "★RULING LANDED --
+    %  2026-08-01, Grant ruling D3". The residual discipline is the homonym caveat at :227 ("Hill --
+    %  three distinct objects"), which the printed clause below carries.]
+    \item $\nu_{\text{Hill}} = 2/7$ --- the vacuum Poisson ratio at the $K = 2G$ operating point
+    (form-derived; \emph{value} GR-imported, see
+    \kbleaf{ave-kb/common/form-deriving-value-importing.md}), which sets the anharmonic
+    Gr{\"u}neisen parameter governing the coupling between thermal fluctuations and elastic
+    stiffness. \emph{Naming, used throughout this volume:} the subscript is ``Hill'' because $2/7$
+    is an \textbf{isotropic Voigt--Reuss--Hill average} --- an averaging \emph{choice}, not a
+    lattice-emergent bound and not a theorem. Do not read it as the Hill (1963) apparent-modulus
+    \emph{ordering}, which is a different object sharing the name
+    (\kbleaf{ave-kb/common/theorem-thesaurus.md}, ``Hill --- three distinct objects'').
     \item $\kappa_{cold} = 8\pi$ --- the Faddeev-Skyrme coupling (Skyrme stiffness).
     \item $2/\pi$ --- the mean-to-peak ratio of rectified sinusoidal thermal noise. With the peak gradient already saturated by Axiom~4, the residual averaging acts on only the mean component.
 \end{enumerate}
 
-The product evaluates to $\delta_{th} = \frac{\nu_{vac}}{\kappa_{cold}} \times \frac{2}{\pi} = \frac{2/7}{8\pi} \times \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00721$. Together with the gradient saturation inside the energy functional, this produces proton mass agreement to better than $0.1\%$ and covers the baryon ladder through crossing number $c = 15$ with maximum error $\sim 2.4\%$. \emph{Read ``covers'' as consistency, not ensemble-validation} (scope correction 2026-06-19, see the section-level note below the prediction table): the load-bearing positive is the single proton hit + the curved ladder FORM, not a six-state forward-validation.
+The product evaluates to $\delta_{th} = \frac{\nu_{\text{Hill}}}{\kappa_{cold}} \times \frac{2}{\pi} = \frac{2/7}{8\pi} \times \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00721$. Together with the gradient saturation inside the energy functional, this produces proton mass agreement to better than $0.1\%$ and covers the baryon ladder through crossing number $c = 15$ with maximum error $\sim 2.4\%$. \emph{Read ``covers'' as consistency, not ensemble-validation} (scope correction 2026-06-19, see the section-level note below the prediction table): the load-bearing positive is the single proton hit + the curved ladder FORM, not a six-state forward-validation.
 
 \begin{figure}[h]
     \centering

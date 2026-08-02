@@ -30,7 +30,7 @@ Thus, physical ``mass'' is Macroscopic Electromagnetic Resistance.
 
 \section{The Weak Mixing Angle from the Perpendicular Axis Theorem}
 
-The electroweak mixing angle is not a free parameter in the AVE framework. It is derived analytically from the Poisson ratio of the vacuum ($\nu_{vac} = 2/7$) and the Perpendicular Axis Theorem (PAT) applied to cylindrical flux tubes.
+The electroweak mixing angle is not a free parameter in the AVE framework. It is derived analytically from the Poisson ratio of the vacuum ($\nu_{\text{Hill}} = 2/7$ --- the isotropic Voigt--Reuss--Hill average at the GR-imported $K = 2G$ operating point, an averaging choice rather than a lattice-emergent bound; defined in Ch.~\ref{ch:baryons}) and the Perpendicular Axis Theorem (PAT) applied to cylindrical flux tubes.
 
 The W and Z bosons are torsional (Cosserat) excitations of the chiral LC lattice. Their mass ratio is set by the relationship between shear and torsional stiffness in a cylindrical medium. For a cylinder with Poisson ratio $\nu$, the PAT relates the polar moment of area $J$ to the two planar moments $I_x$, $I_y$:
 \begin{equation}
@@ -39,7 +39,7 @@ The W and Z bosons are torsional (Cosserat) excitations of the chiral LC lattice
 
 The torsional-to-shear stiffness ratio is therefore $GJ/(EI) = 2G/E = 2G/(2G(1+\nu))$. For the flux tube eigenmode, this ratio sets the W/Z pole mass ratio:
 \begin{equation}
-    \frac{m_W}{m_Z} = \frac{1}{\sqrt{1 + \nu_{vac}}} = \frac{1}{\sqrt{1 + 2/7}} = \sqrt{\frac{7}{9}} = \frac{\sqrt{7}}{3} \approx 0.8819
+    \frac{m_W}{m_Z} = \frac{1}{\sqrt{1 + \nu_{\text{Hill}}}} = \frac{1}{\sqrt{1 + 2/7}} = \sqrt{\frac{7}{9}} = \frac{\sqrt{7}}{3} \approx 0.8819
 \end{equation}
 
 The on-shell weak mixing angle follows directly:
@@ -55,7 +55,7 @@ An internal coupling constant used in the W mass derivation is the torsion-shear
 \end{equation}
 
 % 🔴 OPEN FLAG (Rule 12) -- the "torsion-shear / PAT" label on sqrt(3/7); Grant's physics adjudication pending; label NOT swapped per substitution-not-retraction. This flag covers EVERY use of the "torsion-shear" label for sqrt(3/7) in this chapter (the W-mass site above and the muon-coupling sites below). Lockstep with KB leaves lepton-spectrum.md:29, higgs-mechanism.md:54, spontaneous-symmetry-breaking.md:38 and backmatter/02_full_derivation_chain.tex:469.
-\noindent\textbf{[OPEN FLAG --- $\sqrt{3/7}$ ``torsion--shear'' label; Grant's physics adjudication pending (Rule 12; label NOT swapped)]:} $\sqrt{3/7} = \sqrt{1 - 2\nu_{vac}}$ at $\nu_{vac} = 2/7$ is \emph{exactly} the dilatational/compressional (bulk) elastic signature: $(1-2\nu)$ is the bulk/volumetric combination, $(1+\nu) = 9/7$ the shear/deviatoric one (the corpus uses $(1+\nu)$ as the $Z$-factor $3/\sqrt{7} = \sqrt{9/7}$). The genuinely-shear $(1+\nu)$ combination is thus used elsewhere while the \emph{bulk} combination $\sqrt{1-2\nu}$ here (and at every $\sqrt{3/7}$ ``torsion--shear'' site in this chapter) carries that label --- an elastic-type contradiction. \emph{Open question for adjudication:} does an independent torsion route reach $\sqrt{3/7}$, or is this the dilatational (bulk) projection and the ``torsion--shear'' label wrong? The engine constant \texttt{\_SIN\_THETA\_W\_PAT} (defined in \texttt{src/ave/topological/cosserat.py}) is NOT renamed --- deferred to adjudication.
+\noindent\textbf{[OPEN FLAG --- $\sqrt{3/7}$ ``torsion--shear'' label; Grant's physics adjudication pending (Rule 12; label NOT swapped)]:} $\sqrt{3/7} = \sqrt{1 - 2\nu_{\text{Hill}}}$ at $\nu_{\text{Hill}} = 2/7$ is \emph{exactly} the dilatational/compressional (bulk) elastic signature: $(1-2\nu)$ is the bulk/volumetric combination, $(1+\nu) = 9/7$ the shear/deviatoric one (the corpus uses $(1+\nu)$ as the $Z$-factor $3/\sqrt{7} = \sqrt{9/7}$). The genuinely-shear $(1+\nu)$ combination is thus used elsewhere while the \emph{bulk} combination $\sqrt{1-2\nu}$ here (and at every $\sqrt{3/7}$ ``torsion--shear'' site in this chapter) carries that label --- an elastic-type contradiction. \emph{Open question for adjudication:} does an independent torsion route reach $\sqrt{3/7}$, or is this the dilatational (bulk) projection and the ``torsion--shear'' label wrong? The engine constant \texttt{\_SIN\_THETA\_W\_PAT} (defined in \texttt{src/ave/topological/cosserat.py}) is NOT renamed --- deferred to adjudication.
 
 This is the ratio of torsional to total mechanical coupling in the cylindrical flux tube geometry.
 
@@ -165,7 +165,7 @@ Evaluating this structurally against $m_e \approx 0.511 \text{ MeV}$ gives:
 \[ m_\mu = \frac{0.511 \text{ MeV}}{\alpha \sqrt{3/7}} \approx 107.0 \text{ MeV} \quad (\text{Exp: } 105.66 \text{ MeV, } +1.24\%) \]
 \end{examplebox}
 
-The coupling $\alpha\sqrt{3/7}$ carries a direct geometric consequence for the unknot's flux tube. The factor $\sqrt{3/7}$ is the PAT torsion-shear projection: the fraction of the translational (shear) impedance density that maps onto the torsional (rotational) degree of freedom when $\nu_{vac} = 2/7$. As the unknot is traversed, the cross-sectional impedance pattern rotates by exactly $\sqrt{3/7}$ turns ($\approx 236°$): % [OPEN-FLAGGED: sqrt(3/7) "PAT torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
+The coupling $\alpha\sqrt{3/7}$ carries a direct geometric consequence for the unknot's flux tube. The factor $\sqrt{3/7}$ is the PAT torsion-shear projection: the fraction of the translational (shear) impedance density that maps onto the torsional (rotational) degree of freedom when $\nu_{\text{Hill}} = 2/7$. As the unknot is traversed, the cross-sectional impedance pattern rotates by exactly $\sqrt{3/7}$ turns ($\approx 236°$): % [OPEN-FLAGGED: sqrt(3/7) "PAT torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
 \begin{equation}
     \Phi_{\text{twist}} = 2\pi\sqrt{\frac{3}{7}} \approx 4.11 \text{ rad} \approx 236°
     \label{eq:muon_twist_angle}
@@ -186,7 +186,7 @@ The tau is the unknot promoted to the full bending energy scale:
     \boxed{m_\tau = m_e \cdot \frac{p_c}{\alpha^2} = \frac{8\pi m_e}{\alpha} \approx 1{,}760 \text{ MeV}} \quad (\text{Exp: } 1{,}776.9 \text{ MeV, } -0.95\%)
 \end{equation}
 
-Geometrically, the curvature-twist excitation manifests as $7$ radial undulation lobes around the unknot circumference (from $\nu_{vac} = 2/7$, giving $7$ compliance modes in the torsional sector). The amplitude of the tube-radius modulation is bounded by the packing fraction $p_c = 8\pi\alpha \approx 0.183$---the maximum bending deformation before Axiom~4 saturation clamps the lattice.
+Geometrically, the curvature-twist excitation manifests as $7$ radial undulation lobes around the unknot circumference (from $\nu_{\text{Hill}} = 2/7$, giving $7$ compliance modes in the torsional sector). The amplitude of the tube-radius modulation is bounded by the packing fraction $p_c = 8\pi\alpha \approx 0.183$---the maximum bending deformation before Axiom~4 saturation clamps the lattice.
 
 This is the maximum excitation before packing saturates. The hierarchy of Cosserat sectors yields exactly three generations:
 \begin{equation}
@@ -240,12 +240,12 @@ This creates an impedance mismatch between the origin node and the surrounding l
     \alpha_{\text{eff}}^2 = \alpha^2 \bigl(1 - |S_{11}|^2\bigr), \qquad
     M_W^{\text{loop}} = \frac{M_W^{\text{tree}}}{1 - |S_{11}|^2}
 \end{equation}
-where $S_{11} \approx -0.0588$ is computed from the K4 Bethe tree at depth~1 with $\nu_{\text{vac}} = 2/7$ branch coupling (\texttt{cosserat.py}). Every element---graph topology, coupling constant, boundary condition, and mismatch loss rule---is derived from AVE axioms and VCA circuit mechanics. Zero free parameters are employed.
+where $S_{11} \approx -0.0588$ is computed from the K4 Bethe tree at depth~1 with $\nu_{\text{Hill}} = 2/7$ branch coupling (\texttt{cosserat.py}). Every element---graph topology, coupling constant, boundary condition, and mismatch loss rule---is derived from AVE axioms and VCA circuit mechanics. Zero free parameters are employed.
 
 \paragraph{Self-Consistent Back-Saturation (P2.7).}
 The depth-1 result ($-0.22\%$) omits a second-order effect: the reflected power $|S_{11}|^2$ re-enters the origin node and partially re-saturates it under Axiom~4, reducing its effective self-admittance:
 \begin{equation}
-    Y_{00}^{(k+1)} = Y_{00}^{(0)} - \bigl|S_{11}^{(k)}\bigr|^2 \cdot (z\,\nu_{\text{vac}})
+    Y_{00}^{(k+1)} = Y_{00}^{(0)} - \bigl|S_{11}^{(k)}\bigr|^2 \cdot (z\,\nu_{\text{Hill}})
 \end{equation}
 % [2026-08-02 CARRIER VOCABULARY correction (CRIB-2; D1 ratification, Grant 2026-07-03). Rule 12 --
 %  prior wording preserved byte-verbatim and in git: "where $z = 4$ is the K4 coordination number."
@@ -288,9 +288,9 @@ condition for a $(2,c)$ torus-knot torsional mode.  Applying the self-consistent
 Dyson equation to the radial Bethe lattice of coordination $z=4$ --- the degree-4 diamond
 \emph{instrument}, not the ratified $z = 3$ \emph{srs} production carrier (carrier note in the
 W-boson section above) --- with arm admittance
-$\nu_\text{vac}$ gives the ring resonance energy:
+$\nu_{\text{Hill}}$ gives the ring resonance energy:
 \begin{equation}
-    E_\text{res}(c) = \frac{3}{2}\,\nu_\text{vac}\cos\!\left(\frac{2\pi}{c}\right)
+    E_\text{res}(c) = \frac{3}{2}\,\nu_{\text{Hill}}\cos\!\left(\frac{2\pi}{c}\right)
     \label{eq:bethe_ring}
 \end{equation}
 
@@ -304,8 +304,8 @@ $z=4$ radial arms.
 The Dyson self-energy of the ring (returned to the origin) is
 $\Sigma(E) = E/3$ (the linear Bethe-lattice limit), giving the fixed-point condition
 $E_\text{res} = E_\text{bare} - \Sigma(E_\text{res}) = (3/4)E_\text{bare}$.
-For arm coupling $E_\text{bare}(c) = 2\nu_\text{vac}\cos(2\pi/c)$, this yields
-$E_\text{res}(c) = (3/2)\nu_\text{vac}\cos(2\pi/c)$.  Zero free parameters.
+For arm coupling $E_\text{bare}(c) = 2\nu_{\text{Hill}}\cos(2\pi/c)$, this yields
+$E_\text{res}(c) = (3/2)\nu_{\text{Hill}}\cos(2\pi/c)$.  Zero free parameters.
 
 The three flavor masses are normalised to the heaviest eigenstate ($c=9$, which
 sets the electroweak torsional scale $M_\nu = m_e\alpha(m_e/M_W)$):
@@ -392,10 +392,10 @@ The corrected compliance junction coupling is therefore:
 
 From Lemma~1 (proven in \kbleaf{mixing\_derivation.py}), the compliance mixing angle at the $\nu_1\leftrightarrow\nu_2$ junction is:
 \begin{equation}
-    \sin^2\theta_{12} = \frac{\Delta c_{12}}{c_2} = \frac{2}{7} = \nu_\text{vac}
+    \sin^2\theta_{12} = \frac{\Delta c_{12}}{c_2} = \frac{2}{7} = \nu_{\text{Hill}}
 \end{equation}
 
-The fractional crossing-number mismatch \emph{is} the lattice Poisson ratio.  This is not a tuning---it is the selection rule that picks the crossing numbers $\{5,7,9\}$ uniquely: the K4 lattice sustains stable torsional ladder modes only when adjacent rungs satisfy $\Delta c / c_j = \nu_\text{vac}$.
+The fractional crossing-number mismatch \emph{is} the lattice Poisson ratio.  This is not a tuning---it is the selection rule that picks the crossing numbers $\{5,7,9\}$ uniquely: the K4 lattice sustains stable torsional ladder modes only when adjacent rungs satisfy $\Delta c / c_j = \nu_{\text{Hill}}$.
 
 \subsubsection{Solar Splitting Prediction}
 
@@ -422,7 +422,7 @@ Error & $0.65\%$ & within $1\sigma$ of PDG \\
 Four lemmas are proven from Axioms~1 and~4 (see\linebreak \kbleaf{p2.9b\_goldstone\_proof.md}):
 
 \begin{enumerate}
-  \item \textbf{Lemma 1 (proven):} $\nu_\text{vac} = \Delta c_{12}/c_2$ --- the compliance eigenvalue is the Poisson strain.
+  \item \textbf{Lemma 1 (proven):} $\nu_{\text{Hill}} = \Delta c_{12}/c_2$ --- the compliance eigenvalue is the Poisson strain.
   \item \textbf{Lemma 2 (proven):} $Y_{12}^{\rm bare} = 1/(c_1 c_2)$ --- junction counting from Axiom~1.
   \item \textbf{Lemma 3 (proven):} $c_2^{\rm eff} = (c_2^2-\Delta c_{12})/c_2$ --- Goldstone-mode reduction.
   \item \textbf{Lemma 4 (proven):} $Y_{12}^{\rm corr} = 7/235$ --- algebraic consequence of Lemmas~1--3.
@@ -492,7 +492,7 @@ The QED expansion of the anomalous magnetic moment is:
 \end{equation}
 where $C_2 = -0.328\,478\,965\ldots$ (Petermann 1957, Sommerfield 1957). The $C_2$ coefficient involves specific transcendentals:
 \begin{equation}
-    C_2^{\text{Lattice}} = S_{11}\big[ \mathbf{Y}_{K4}(\nu_{\text{vac}}) \big] \approx -0.0094
+    C_2^{\text{Lattice}} = S_{11}\big[ \mathbf{Y}_{K4}(\nu_{\text{Hill}}) \big] \approx -0.0094
 \end{equation}
 
 \paragraph{AVE mapping.}
@@ -503,7 +503,7 @@ On the AVE lattice, the isomorphic computation is the \textbf{Multi-Port Nodal A
 \begin{itemize}
     \item The first-order parameter $\alpha/(2\pi)$ is the \emph{on-site} capacitive correction isolated to the single resonant node inhabited by the unknot.
     \item The second-order $C_2$ correction arises from the structural perturbation propagating outward to the local discrete network and reflecting back identically as phase reflection $S_{11}$.
-    \item The adjacency graph coupling is completely dictated by the trace-reversed Poisson ratio ($\nu_{\text{vac}} = 2/7$).
+    \item The adjacency graph coupling is completely dictated by the trace-reversed Poisson ratio ($\nu_{\text{Hill}} = 2/7$).
 \end{itemize}
 
 \paragraph{Topological Derivation.}
@@ -760,7 +760,7 @@ The tree-level Fermi constant is the effective coupling strength of weak interac
 \begin{equation}
     G_F = \frac{\sqrt{2}\,\pi\alpha}{2\sin^2\theta_W \cdot M_W^2}
 \end{equation}
-Since $\sin^2\theta_W = 2/9$ (from $\nu_{vac} = 2/7$, \S\ref{ch:electroweak_higgs}) and $M_W$ is the unknot torsional self-energy, $G_F$ is fully determined.
+Since $\sin^2\theta_W = 2/9$ (from $\nu_{\text{Hill}} = 2/7$, \S\ref{ch:electroweak_higgs}) and $M_W$ is the unknot torsional self-energy, $G_F$ is fully determined.
 
 \subsection{The Vacuum Expectation Value (VEV)}
 
@@ -817,7 +817,7 @@ $a_e$ (Schwinger) & $\alpha/(2\pi) = 0.001161$ & 0.001160 & $+0.09\%$ \\ \hline
 \end{center}
 
 % [2026-06-15 KB-reconciliation (vol_2 brief A.2) -- prior wording preserved per Rule 12]: read "...the same three canonical hardware scales ($m_e$, $\alpha$, $G$ --- all three themselves derived; ...)". SUPERSEDED: "all three themselves derived" is false for all three --- they are RETAINED inputs ($m_e$ calibration anchor, $\alpha$ Class-B value-scoped echo, $G$ mixed/value-fitted). Relabelled per the alpha keystone register (\kbleaf{ave-kb/vol1/ch8-alpha-golden-torus.md} :11) + the 2026-06-14 G-ruling. No value change.
-Every entry in this table is computed from the same three canonical hardware scales ($m_e$, $\alpha$, $G$ --- the framework's three retained calibration inputs, not first-principles derivations: $m_e$ the calibration anchor, $\alpha$ a value-scoped echo beneath the canonical Class-B identification resting on $R\cdot r = 1/4$ which the substrate does not independently select, and $G$ mixed [form-derived $/7$ form, value-fitted $\xi$]; see Vol.~1, Ch.~\ref{ch:alpha_golden_torus} for the $\alpha$ closure) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
+Every entry in this table is computed from the same three canonical hardware scales ($m_e$, $\alpha$, $G$ --- the framework's three retained calibration inputs, not first-principles derivations: $m_e$ the calibration anchor, $\alpha$ a value-scoped echo beneath the canonical Class-B identification resting on $R\cdot r = 1/4$ which the substrate does not independently select, and $G$ mixed [form-derived $/7$ form, value-fitted $\xi$]; see Vol.~1, Ch.~\ref{ch:alpha_golden_torus} for the $\alpha$ closure) plus the Poisson ratio $\nu_{\text{Hill}} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
 
 \subsection{Standard Model $\leftrightarrow$ AVE Translation Dictionary}
 \label{sec:sm_ave_translation}
