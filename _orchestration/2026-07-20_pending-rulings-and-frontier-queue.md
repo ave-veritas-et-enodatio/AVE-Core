@@ -95,6 +95,59 @@ Recorded here because they are **cross-lane and permanent**, not #796 bookkeepin
 2. **Gates must be DEMONSTRABLY FIREABLE on known-positives before any verdict arm.** A gate that has never fired is a checklist, not a gate (cf. the standing reconcile-don't-declare discipline). #796 ran LEG-0 gate-fireability self-tests that **force** outcomes (ii)/(iii) before the verdict arms were allowed to read. **Obligation:** ship the known-positive fireability demonstration *with* the freeze, and scope honestly what "fireable" means (#796 scoped (iii) to **fireability-in-extremis**).
 3. **Frozen requirements must be checked MUTUALLY SATISFIABLE before freeze.** The #796 miss: `k·r_core ≪ 1` **and** `L ∈ {32,48}` at `φ_sf = 0.489` are **mutually unsatisfiable**, *"and nothing in the freeze caught it"* (`:219`). **Obligation (both halves):** (i) freeze a **precondition-consistency check** — every frozen requirement checked against every other frozen parameter at freeze time; (ii) freeze **what the verdict falls back to** when a measurement returns non-decisive, *"so the fallback is pre-registered rather than chosen after seeing the numbers, as it was here"* (`:219`).
 
+
+---
+
+### §1 continued — the 2026-08-01/02 ruling batch, enumerated (items D1–D8 + three side rulings), appended 2026-08-02
+
+> **Why this block exists — the D1-label collision hazard, and it is not hypothetical.** Grant fired eleven
+> rulings across 2026-08-01/02 under a **`D<n>` shorthand** that this corpus **already uses for at least five
+> unrelated things**. Verified at HEAD, two-method (`git grep` + filesystem recursive grep):
+>
+> | Older `D1` sense | Receipt |
+> |---|---|
+> | **D1-CHSH** — the Tier-D divergence-map row ($\|S\|_{max}=2\sqrt2$ from the K4 Möbius half-angle) | `manuscript/ave-kb/common/divergence-test-substrate-map.md`:380 (section), :542 (Matrix-1 row) |
+> | **D1 = the sector-of-storage question** (A1 canon vs the T2/swing label) | **item 13 of this very file**, `:30`; scoping doc `research/2026-07-26_d1-sector-and-inertia-route_scoping.md`; `manuscript/ave-kb/common/vocabulary-register.md`:1150 (*"This does not touch D1 itself, which stays OPEN"*) |
+> | **D1 = the field-definition lane** (a lane name, not a question) | `_orchestration/2026-06-15_k2g-crystalline-provenance.md`:142 (*"HAND-OFF → D1 (field-definition lane)"*) |
+> | **D1 = "Canonize the projective-ℂP¹ Smith-chart ontology?"** — a standing-decisions audit item | `_orchestration/2026-06-16_standing-decisions-audit-lane.md`:32 |
+> | **D1 = a decision-item label inside a frozen astro sweep** | `research/2026-07-11_astro-adjudicator-sweep_branch-signature-map_FROZEN.md`:17 |
+>
+> ★**Honest count note:** the dispatch for this block said *"four older unrelated `D1` uses"*; the sweep found
+> **five**. Recorded as found rather than as briefed. ★**And a verify-before-cite correction on the same
+> sentence:** the dispatch attributed the collision finding to *"the #819 audit"*. **That attribution does not
+> verify** — PR #819's body and its reviews carry no D1-label-collision item (checked via `gh pr view 819` and
+> the reviews API). The collision is real; its provenance is **this block's own sweep**, not #819. The receipts
+> above are what it rests on.
+>
+> **The disambiguator is the DATE, not the letter.** Every row below is `D<n>` **of the 2026-08-01/02 batch**.
+> A bare "D1" in this corpus does not resolve; `D1 (2026-08-01)` does. Cite the date or cite the executing PR.
+
+| # | Ruling, verbatim `[sic]` | What it decided | Executing PR / lane | State |
+|---|---|---|---|---|
+| **D1** | *"D1: (ii)"* | Option **(ii) = DEPRECATE** `chord_magnitude_ratio()`, the superseded v1 $7.5/\alpha^3 \approx 1.93\times10^7$ birefringence ratio (over stamp-only and re-point). Return value preserved; `DeprecationWarning` added. | **#819 — MERGED** (`fcf2c96b`, 2026-08-02) | ✅ executed |
+| **D2** | *"D2: follow rec"* | `common/theorem-thesaurus.md` **stays in `common/`** (no `git mv`); the carve-out lands in `translation-tables/README-architecture.md` §3 as a deliberate OUTSIDE-SCOPE sibling. | **#821 — MERGED** (`276916d3`) | ✅ executed |
+| **D3** | *"D3: rec"* | TH-3 kept as **ONE row** with **two labelled tightness tiers**; class demoted to `EXACT-same-mechanism-two-tightness-tiers`; boundary-layer clause rescoped to tier (b); the homonym lands in §6 as a **class-label** collision row. | **#821 — MERGED** | ✅ executed |
+| **D4** | *"D4: follow rec"* | Discharges the one row merged `#812`'s F4 repair left flagged-not-fixed (class-(a) tag vs deferral to the `#668` relabel). | **#821 — MERGED** | ✅ executed |
+| **D5** | *"wait"* | **NO ACTION.** The `WD` / $Q=\ell$ tag question is **held**, deliberately — the cold-$Q$ derivation **supersedes any tag** that would be applied now, so tagging first would bank a label the derivation is about to move. Not a deferral for capacity reasons; a sequencing decision. | — (no lane fires) | ⏸ held by ruling |
+| **D6** | *"D6: recs"* | The `Q` glyph content **stays a §6 thesaurus row**; **no `def-Q` node is minted**; revisit only on a structural change to `vocabulary-register.md`. | recorded in **#821 — MERGED** (`theorem-thesaurus.md` §6 placement stamp) | ✅ executed |
+| **D7** | *"D7: follow your rec"* then *"go"* | (i) Re-point the live bench arbiter to **v3** — **gated** on a clean consumer-and-letter sweep. The gate **fired negative** (letter leg dirty), Grant adjudicated, and the second word (*"go"*) authorized the five-piece plan with **shape (B)** for BLOCKER-1. | **#822** — `src/repoint-pvlas-v3`, **execution in flight** | 🔄 in flight |
+| **D8** | *"correct plus note"* | Correct the item **and** carry a note (rather than correct silently or note-only). | `docs/rulings-d8-and-ell-split` — **in flight** | 🔄 in flight |
+| **side** | *"go"* — the κ desk-calc | Fire the Pasteur-κ desk calculation lane. | `research/pasteur-kappa-desk-calc` — **in flight** | 🔄 in flight |
+| **side** | *"adopt and split"* — the ℓ handshake | Adopt the handshake **and** split it (both, not either). | `docs/rulings-d8-and-ell-split` — **in flight** | 🔄 in flight |
+| **side** | *"4, follow rec"* — the divergence-map priority block | Point, don't restate: the map's "Priority order for action" is reduced to **one pointer** at `_orchestration/2026-07-15_hardware-ratings-map.md` §2/§3; only map-row-scoped ordering stays local. Rationale: **KB leaves catalog physics; orchestration owns process ordering.** | **this PR** (`docs/mechanical-closeout-batch`) | ✅ executed |
+| **side** | *"5, yes"* — this enumeration | Enumerate the batch here, with verbatim words + executing-PR pointers. | **this PR** — this block | ✅ executed |
+
+**Receipt discipline on the verbatims above — which are re-quoted from the repo and which are first-recorded here.**
+Six carry a pre-existing repo receipt and were re-read from it rather than from session context:
+**D1** `_orchestration/docket-entries/2026-08-01-d1-deprecate-ratio.md`:3 · **D2/D3/D4** `_orchestration/docket-entries/2026-08-01-rulings-d2-d3-d4.md`:3 · **D6** same fragment `:12` · **D7** `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md`:3 and `:26` (read from `origin/src/repoint-pvlas-v3`; that branch owns the file and **it was not edited**).
+Five are **chat-only and are first-recorded here** — **D5**, **D8**, the two side rulings (**κ desk-calc**, **ℓ handshake**), and the two this PR executes — which is precisely the tracker gap this block closes. They carry no independent receipt yet; the lanes that execute them own landing one.
+
+> **⚑ Merge hazard, restated because this block is a fresh mid-file insert into the file that has it:** this doc
+> falls under the blanket `*.md merge=ours` (see this file's own 2026-07-26 preamble note at `:28` and `_orchestration/docket-entries/README.md`:19),
+> so a concurrent lane's edit to §1 can be **silently dropped** rather than surfacing as a conflict. If a
+> D5/D8/κ/ℓ lane lands its own status flip here while this block is open, re-read the file before assuming
+> either edit survived.
+
 ---
 
 ## §2 — Frontier queue (item-3 standing authorization: derivation-class fires with judgment; build-class parked)
