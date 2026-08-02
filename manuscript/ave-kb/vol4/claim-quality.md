@@ -451,7 +451,40 @@ Axiom 3 (Minimum Reflection Principle, boundary form: minimise $|\Gamma|^2$ at e
 ## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^5\times$ QED at the matched differential observable)
 <!-- id: clm-pp3qwf -->
 
+> 🔵 **FOOTING RE-FREEZE — v3 IS THE STANDING RATIO (2026-08-02; Grant ruling D7; Rule-12 — the 🔴 note
+> below is preserved verbatim as convention history, git is the trail).** The 🔴 note immediately below
+> headlines $\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$ as the *"Corrected matched-differential ratio"*.
+> **That value is v2 and is NO LONGER the standing headline** — it is preserved below as convention history.
+> The standing re-freeze is
+> $$\frac{\delta n_{AVE}}{\delta n_{QED}}=\frac{\tfrac12}{2\alpha/(15\pi)}\left(\frac{E_{crit}}{E_c}\right)^2=\frac{15\pi}{4\alpha^2}=\frac{3.75\pi}{\alpha^2}\approx2.2\times10^5\quad\text{(v3)}$$
+> — **boxed** at [`vacuum-birefringence-e4.md`](falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md):34
+> (🔵 FOOTING RE-FREEZE) and restated in that leaf's Option-B-consolidated body at `:104`; its `:106` records
+> the convention chain verbatim — *"v1 $=7.5/\alpha^3\approx1.93\times10^7$ … v2 $=7.5\pi/\alpha^2\approx4.42\times10^5$
+> QED-normalized but mixed-footing (instantaneous SVE over cycle-averaged $\alpha/15\pi$); v3 is exactly half v2,
+> the $\langle\cos^2\rangle=\tfrac12$ carrier average removed."*
+>
+> **What was wrong with v2 was a PAIRING, not a coefficient.** Both of its pieces were individually correct;
+> they were paired across inconsistent temporal footings — the AVE kernel $-\tfrac12(E/E_c)^2$ is
+> **instantaneous**, while $\alpha/(15\pi)$ is the **cycle-averaged** one-loop coefficient, so v2
+> double-counted the $\langle\cos^2\rangle=\tfrac12$ carrier average and came out exactly $2\times$ too large.
+> Neither $\alpha/(15\pi)$ nor $\alpha/(30\pi)$ is superseded — each is the correct one-loop coefficient in its
+> **own** footing, per the decomposition chain at that leaf's `:38-41`
+> ($\alpha/(30\pi) \xrightarrow{\times4} 2\alpha/(15\pi) \xrightarrow{\times\frac12} \alpha/(15\pi)$); the v3
+> denominator is the middle rung, $2\alpha/(15\pi)$.
+>
+> **The AVE leg $-\tfrac12 A^2$ is UNAFFECTED by this step, as it was by the 🔴 one.** No order of magnitude
+> and **no falsifier verdict** moves: the SVE $P_{flip}$ headline is footing-**invariant** and the kill criterion
+> $P_{flip}<10^{-8}$ is unchanged. Harness re-pointed the same day: `coefficient_ratio_differential_pvlas()` now
+> defaults to `geometry="instantaneous"` and returns $2.212333\times10^5$ (the `"propagating"` = v2 and
+> `"static"` branches are KEEP-BOTH preserved, byte-unchanged). Provenance: the Letter's
+> `papers/2026_birefringence_letter/provenance.md` §9 (Arm-2 re-freeze) and the D7 gated sweep
+> `research/2026-08-01_pvlas-arbiter-v3-repoint_scoping.md`.
+
 > 🔴 **QED-NORMALIZATION CORRECTION (2026-07-03; Rule-12 — body preserved below, git is the trail).**
+> **[SUPERSEDED at the VALUE level by the 🔵 FOOTING RE-FREEZE above (2026-08-02, D7): this note's
+> $7.5\pi/\alpha^2\approx4.42\times10^5$ is v2 = convention history; the standing ratio is
+> $3.75\pi/\alpha^2\approx2.2\times10^5$. The note's own content — that $(3/45)\alpha^2$ was understated
+> against the PVLAS-anchored leg — REMAINS CORRECT and is what carried v1→v2.]**
 > Every "$7.5/\alpha^3\approx1.93\times10^7$" (differential) and "$4.14\times10^6$" (single-arm) ratio in this
 > claim carries an **understated QED denominator** — $(3/45)\alpha^2$ and the $\alpha^3$ single-arm form are too
 > small by exactly $1/(2\pi\alpha)\approx21.8$. Cross-checked against the module's own PVLAS-anchored magnetic leg
