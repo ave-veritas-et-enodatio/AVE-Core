@@ -78,7 +78,109 @@ identity) with no magic number.
 
 ## 2. GATE 1 — consumer sweep, three methods
 
-*(§2 lands next)*
+Per the D1 lane's precedent (`_orchestration/docket-entries/2026-08-01-d1-deprecate-ratio.md`,
+"★(d) LIVE-CALLER SWEEP — clean negative, THREE methods agreeing"): `git grep` over the tracked
+tree; an independent filesystem `grep -rn` (sees untracked files the index cannot); and an **AST
+`Call`/`ImportFrom`/`Attribute` node scan** over every `.py` under the repo (1307 files parsed,
+excluding `.git`, `.claude/worktrees`, `.venv`, `_archive`).
+
+⚠ **A shell-glob false-negative was hit and corrected mid-sweep** (the standing
+grep-completeness-false-negatives lesson): zsh expanded `--include=*.py` as a glob and aborted
+method 1's first invocation with `no matches found`. Re-run with quoted pathspecs. Recorded
+because a silent zero here would have been read as "no consumers".
+
+### 2.1 GATE-1 VERDICT: **CLEAN.** Five call sites, three files, all record-only.
+
+The AST scan is authoritative for callers and returns **exactly 5 `Call` nodes + 4 imports + 0
+bare attribute references**; methods 1 and 2 return the same file set. **No call site is inside
+`src/ave/`** — the arbiter has no internal consumer. **No call site feeds a `P_flip`, a bin edge,
+a verdict function, or any adjudicated quantity**; every one of the five writes the value into a
+JSON record and prints it as context. That is the substantive Gate-1 finding: *the re-point is
+behaviourally inert for every downstream prediction*, which is exactly what the KB predicts
+(`vacuum-birefringence-e4.md`:44, footing-invariance of the $P_{flip}$ headline).
+
+| # | Site | Kind | Argument | What it does with the value | Class |
+|---|---|---|---|---|---|
+| 1 | `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py`:382 | live caller | `geometry="propagating"` | `out["matched_differential_ratio_7.5pi_over_alpha2_propagating"]` + a print; **not** consumed by the `P_flip` chain below it | live, record-only |
+| 2 | …`birefringence_gap1_hibef_feasibility.py`:385 | live caller | `geometry="static"` | `out["matched_differential_ratio_15pi_over_alpha2_static"]` | live, record-only |
+| 3 | `src/scripts/vol_9_device/birefringence_hibef_scenario_predictions.py`:136 | live caller | `geometry="propagating"` | same key + print; the per-scenario table is computed independently | live, record-only |
+| 4 | …`birefringence_hibef_scenario_predictions.py`:140 | live caller | `geometry="static"` | static key | live, record-only |
+| 5 | `src/scripts/vol_9_device/birefringence_prior_art_exposure_scan.py`:359 | live caller | `geometry="propagating"` | same key + print; the CLEAN-FIELD gate is computed independently | live, record-only |
+| — | `src/ave/bench/__init__.py`:81, :159 | re-export + `__all__` | — | public-API surface only | export |
+
+### 2.2 Value consumers (the `4.42…e5` / `7.5π/α²` pattern set), classified
+
+Pattern set swept: `4.42`, `4.424666`, `4.4e5`, `4.4247`, `442466`, `7.5\s*\*?\s*(np\.)?pi`,
+`7.5π`. Raw-hit count across `src/ scripts/ research/ manuscript/ _orchestration/ papers/
+claim-prereg-ots/` = **245**; below is the classified set after dropping unrelated float
+substrings inside simulation-output JSON (e.g. a `4.42…` timestep in
+`bemf_feedback_results.json`), which are numerically coincidental and physically unrelated.
+
+| Site | Content | Class | Re-point impact |
+|---|---|---|---|
+| `src/ave/bench/birefringence.py`:402 | docstring *"= 7.5\*pi/alpha^2 ~ 4.42e5"* | **the arbiter itself** | rewritten by the re-point |
+| `src/ave/bench/birefringence.py`:376-388 `coefficient_ratio_differential()` | already banner-stamped `==== SUPERSEDED (2026-07-03) ====`, returns v1 `1.93e7` | superseded sibling | none (untouched) |
+| `src/tests/test_birefringence_v3_chain.py`:38,:41 | `assert isclose(chain["v2"], 7.5*pi/ALPHA**2)`; `assert isclose(chain["v2"], 4.4247e5)` | **test pin — on the CHAIN driver, not on the arbiter** | **NONE.** See §2.3 |
+| `src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py`:158-176 | computes v1→v2→v3 and self-asserts the closed forms | independent v3 implementation | none |
+| `src/scripts/vol_9_device/*.py` ×3, comment blocks at :378-381 / :133-135 / :356-358 | *"CORRECTED (2026-07-03) … 7.5 pi/alpha^2 ~ 4.42e5"* narration | live driver comments | would need per-site rewrite |
+| `src/scripts/vol_9_device/*.py` ×3, JSON key literal `matched_differential_ratio_7.5pi_over_alpha2_propagating` | **the key NAMES the value** | live driver output schema | **BLOCKER-2, §4** |
+| `src/scripts/vol_9_device/_output/birefringence_{gap1_hibef_feasibility,hibef_scenario_predictions,prior_art_exposure_scan}.json` | `442466.5835078048` under that key | committed driver output (letter-cited) | value moves on re-run |
+| `src/scripts/vol_9_device/_output/vacuum_birefringence_{bench,facility_sweep}.json` | `442466.58353669324` under `"PVLAS A_e differential (~1.45)"` | **LOOK-ALIKE, NOT A CONSUMER** — see §2.4 | none |
+| `src/ave/bench/adopters.py`:13,:86,:138,:152,:180-191,:203,:214,:219,:221 | the whole bench spec, incl. `frozen=True` `Prereg` at :181 and `verdict_fn=lambda r: r > 1e6` at :214 | **v1-footing, NOT a consumer of this function** — see §2.5 | none from this re-point |
+| `manuscript/ave-kb/vol4/claim-quality.md`:455-466 | 🔴 header quoting *"Corrected matched-differential ratio: $7.5\pi/\alpha^2\approx4.42\times10^5$"* + naming this function as the harness | **manuscript site, v2-footing, un-re-frozen** | **out of scope** (auditor lane owns KB) |
+| `research/2026-07-03_…qed-normalization-correction.md`, `research/2026-07-05_field-convention-carrier-average_note.md`:107,:109,:219, `research/2026-07-05_qed-leg-crossing-angle_note.md`:22,:98 | dated research records | dated record | never edit |
+| `manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex`:120 | LaTeX comment, already v3-aware | manuscript site | none |
+| `_orchestration/experimental/2026-06-04_round2-adjudications.md`:15,:161 | 2026-06-04 adjudication | dated record | never edit |
+| `claim-prereg-ots/claims_by_hash.md`:9 | **OTS-anchored** v1-document registration quoting `7.5*pi/alpha^2 ~ 4.42e5` | **frozen public artifact** | never edit — §3.2 |
+| `papers/2026_birefringence_letter/*` | **GATE 2** | — | §3 |
+
+### 2.3 The one test that pins `4.4247e5` does NOT pin the arbiter
+
+`src/tests/test_birefringence_v3_chain.py`:41 asserts `chain["v2"] ≈ 4.4247e5` — but `chain` is
+`scripts.vol_4_engineering.birefringence_coefficient_discriminator.differential_ratio_v3_chain()`,
+a **separate** implementation that already emits **v3 as its headline** (`:39`, `:42`:
+`assert isclose(chain["v3"], 3.75*pi/ALPHA**2)` and `≈ 2.2123e5`). That module's own docstring at
+`:12` reads *"v3 = 3.75 pi/alpha^2 ~ 2.2e5 = 15 pi/(4 alpha^2) `<-- THE HEADLINE`"*.
+
+**So the corpus already carries a live, tested v3 implementation in `src/`** — it is simply not
+the function the bench arbiter exposes. Nothing in `src/tests/` pins
+`coefficient_ratio_differential_pvlas` at all (verified: zero hits for the function name under
+`src/tests/`). Consequence: **D7's execute-step (c) — "any test pinning 4.42e5 updated" — has no
+work in it.** The `4.4247e5` pin is a *chain-provenance* assertion (v1→v2→v3 arithmetic), and
+re-pointing the arbiter must **not** touch it; deleting it would destroy the record of the very
+carrier-average step D7 is applying.
+
+### 2.4 Look-alike disclosed: two JSONs carry `442466.58…` from a DIFFERENT function
+
+`vacuum_birefringence_bench.json`:74 and `vacuum_birefringence_facility_sweep.json`:106 carry
+`442466.58353669324` under the key `"PVLAS A_e differential (~1.45)"`. This is **not** a consumer:
+`vacuum_birefringence_facility_sweep.py`:398 calls `coefficient_ratio(A_EH_LITERATURE["PVLAS A_e
+differential (~1.45)"])` — i.e. the **single-arm** function with the PVLAS static-duality
+$a_{EH}=\alpha/(30\pi\alpha^2)=1.4544$.
+
+The numeric coincidence is exact and worth naming so a future sweep does not misclassify it:
+$$\text{single-arm }\tfrac14 \text{ over static } \tfrac{\alpha}{30\pi} \;=\; \frac{30\pi}{4\alpha^2}=\frac{7.5\pi}{\alpha^2}
+\qquad=\qquad \text{differential }\tfrac12 \text{ over propagating } \tfrac{\alpha}{15\pi}$$
+Two *mismatched-observable* pairings landing on one number because the $\tfrac12/\tfrac14$ and
+$15/30$ factors of two cancel. Different function, different footing, **numerically identical to
+the last digit of the shared route**. A re-point of the arbiter leaves both JSONs unchanged.
+
+### 2.5 `adopters.py` is v1-footing and is NOT reachable from this re-point
+
+The D1 lane routed `adopters.py` as its FLAG-DON'T-FIX #2 and escalated that
+`verdict_fn=lambda r: r > 1e6` (`:214`) flips under v3. **Independently re-verified here, and the
+reachability is the load-bearing part:** `adopters.py`:40-44 imports exactly three names —
+`delta_n_ave_differential`, `delta_n_qed`, `vacuum_magnetic_birefringence_constant` — so it
+**imports neither `coefficient_ratio_differential` NOR `coefficient_ratio_differential_pvlas`**
+(the `coefficient_ratio_differential()` text at `:203`/`:219` is a *provenance string*, not a
+call), and the AST scan finds zero calls to either in that file. `ratio_at` (`:103-105`)
+recomputes the v1 pairing inline: `abs(delta_n_ave_differential(E)) / delta_n_qed(E,
+a_eh=_A_EH_DIFFERENTIAL)` with `_A_EH_DIFFERENTIAL = 3.0/45.0` (`:72`).
+
+⇒ **A D7 re-point of the arbiter does not move `adopters.py`'s verdict at all.** The frozen
+`Prereg` at `:181` and the `>1e6` verdict remain on the v1 footing either way. Disclosed here so
+the PR body cannot be read as claiming the re-point fixes it: it does not, and the frozen block
+must not be edited. That surface stays exactly where D1 left it — routed, open, untouched.
 
 ## 3. GATE 2 — the letter check
 
