@@ -1,5 +1,33 @@
 # Prereg (DRAFT): cRIO C_eff(V) Saturation-Onset Discriminator — the program's first real-hardware bench
 
+> 🔴 **§11 ITEMS 1-2 RESOLVED — GATE NO LONGER BLOCKING (2026-08-01; Rule 12, body preserved below
+> unedited, git is the trail).**
+>
+> §11 still lists items 1 and 2 as open decisions for Grant, item 1 explicitly marked **"Blocking"** for
+> the §6 bin pinning. **Both were resolved by the ratified roll-off ruling** (Grant-ratified 2026-07-06/07,
+> PRs #562/#558), which landed as a KEEP-BOTH supersession at
+> [`manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md):20.
+>
+> - **§11 item 1 (sign-of-slope, Branch R rising vs Branch F falling) — RESOLVED to the roll-off (Branch F
+>   sign).** The across-gap precision LCR couples to the **transverse-$T_2$ dielectric**: the large-signal
+>   chord $C_{diel} = C_0 S \to 0$ and the small-signal tangent $C_{ss} = C_0(S - A^2/S)$ crosses zero at
+>   $E/E_{yield} = 1/\sqrt2$ (NDC snap-back), keyed on $V_{yield} \approx 43.65$ kV. The bin boundary is
+>   pinned to the roll-off, not to a spike.
+> - **§11 item 2 ("is Branch R an observable the small-signal bench does not measure?") — RESOLVED YES.**
+>   Branch R's divergent $C_0/S \to \infty$ is the **orthogonal longitudinal-$A_1$ bond compliance**, keyed
+>   on the higher $V_{snap} \approx 511$ kV, which an across-gap meter does **NOT** read. So the R/F
+>   tension is **scope, not contradiction** — exactly the disposition item 2 proposed.
+>
+> **Canonical successor for this bench's requirements:**
+> [`research/2026-07-13_cvr-requirements_DERIVED.md`](2026-07-13_cvr-requirements_DERIVED.md) (the DERIVED
+> requirements datasheet, spec'd against the ratified prediction leaf
+> `dielectric-plateau-prediction.md:25-38`), with its sibling
+> `research/2026-07-13_cvr-trade-study_DECISIONS-OPEN.md` for the still-open design choices.
+> §11 items **3 and 4 are untouched by this ruling and remain open.**
+>
+> This document is a **draft**, not a frozen prereg — the body is preserved anyway per Rule 12 so the
+> superseded framing stays auditable.
+
 **Status:** `DRAFT-FOR-GRANT-REVIEW` (2026-06-10). **NOT FROZEN.** This document freezes
 only when Grant schedules bench time. DOC-ONLY: no hardware acquired, no execution. The
 genesis-v7 simulation run closes the sim arc; this is the staged first-hardware prereg that
