@@ -101,6 +101,24 @@ A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological
 
 **HOPF-02a DESIGN-COMPLETE; PHASE 0a artifact-generation pending**. Per AVE-HOPF HANDOFF.md: *"Next gate: physical fab order for HOPF-02a (user action; design package complete; Python KiCad emitter is the canonical fab path)."*
 
+> ⚠ **FAB-STATUS DISAMBIGUATION (2026-08-01; Rule 12 — the 2026-05-20 status line above is preserved
+> verbatim, git is the trail).** The label *"PHASE 0a artifact-generation pending"* is stale in the
+> **opposite** direction from the usual error, so it is easy to misread in either direction:
+>
+> - **Phase 0a is COMPLETE.** The HOPF-02a fab artifacts exist and are exported — Gerbers + drill at
+>   `AVE-HOPF/hardware/Gerbers_hopf_02a/`, DRC report at `AVE-HOPF/hardware/hopf_02a_DRC.rpt`, ordering
+>   guide at `AVE-HOPF/hardware/hopf_02a_ORDERING.md` (titled "HOPF-02a JLCPCB Ordering Guide",
+>   250 × 185 mm panel of 5 sub-boards, v-score only). **BLOCKER-1 and BLOCKER-2 below are resolved by
+>   those artifacts**, and BLOCKER-3 is resolved by the hardened pre-registration at
+>   `AVE-HOPF/docs/analysis/2026-06-03_hopf_antenna_hardened_prereg.md`.
+> - **Phase 0b is the open gate: the physical fab ORDER has not been placed** — the ~$123 JLCPCB upload
+>   is a user action. **No HOPF-02a board exists and no HOPF-02a measurement exists.** Nothing in this
+>   leaf may be read as "already fabbed" or "already measured".
+>
+> **Source of truth for physical hardware state = `AVE-HOPF/.agents/HANDOFF.md`** (the `Canonical state`
+> row in the artifact table above). This leaf is a Core-side mirror and defers to it on fab state.
+> Cross-repo discipline: **AVE-HOPF was not edited** by the lane that added this note.
+
 Per the Phase A repo audit at [`_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md), three blockers remain before JLCPCB submission:
 
 1. **🔴 BLOCKER-1** (5 min): Export HOPF-02a Gerbers + drill files from `hopf_02a.kicad_pcb` via `kicad-cli pcb export gerbers/drill`. Currently `AVE-HOPF/hardware/Gerbers/` contains HOPF-01 Gerbers only.

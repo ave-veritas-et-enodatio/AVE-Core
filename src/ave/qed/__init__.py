@@ -23,7 +23,11 @@ FORM / VALUE honesty (the two halves sit at DIFFERENT rungs — NOT co-equal):
     discrete-Hilbert commutator — the more-principled-than-dim-reg half);
   • the saturating-ε is FORM-POSTULATED (it IS Axiom 4);
   • α is QED's coupling — IMPORTED here (a VALUE-import, EXPECTED for a
-    QED-extension; the birefringence MAGNITUDE 7.5/α³ is an α-ECHO, not α-clean).
+    QED-extension; the birefringence MAGNITUDE is an α-ECHO, not α-clean).
+    ==== LIVE magnitude = the **v3** ratio 3.75π/α² ≈ 2.2e5 (`vacuum-
+    birefringence-e4.md`:104). The v1 7.5/α³ ≈ 1.93e7 is **SUPERSEDED** convention
+    history (`:106`), preserved only as the deprecated `chord_magnitude_ratio()`
+    return — Grant ruling D1 (2026-08-01), option (ii) = DEPRECATE. ====
 
 See research/2026-06-29_grqed-stage2-qed-extension_result.md for the full ledger.
 """

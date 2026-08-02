@@ -210,9 +210,9 @@ breakdown (Object B); the split axis is **loss-character** (lossless-reactive vs
 - **Object B — the dissipative breakdown rupture** (at/above yield; energy *released*):
   `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md:127` "the
   inductive capacity … physically shatters ($\Gamma=-1$) … absolute dielectric breakdown, completely dropping its
-  topological grip … causes … the Muon … to decay (the 'Leaky Cavity' mechanism)"; `project-torsion-05.md:19` "absolute
-  impedance rupture ($\Gamma=-1$), producing exactly $0.0\,\text{mN}$ of backward reaction force"; `project-zener-04.md:14`;
-  `metric-levitation-limit.md:16`.
+  topological grip … causes … the Muon … to decay (the 'Leaky Cavity' mechanism)"; `project-torsion-05.md:63` "absolute
+  impedance rupture ($\Gamma=-1$), producing exactly $0.0\,\text{mN}$ of backward reaction force"; `project-zener-04.md:55`;
+  `metric-levitation-limit.md:53`.
 - **The corpus draws the loss boundary but does not tag the glyph with it:** `vol4/claim-quality.md:1168` "linear below
   rupture, **dissipative at and above rupture**"; `common/substrate-hysteresis-index.md:82,84` (sub-yield lossless-reactive
   vs above-yield genuinely-dissipative Level-2 memristive). And `vol4/claim-quality.md:1612` already flags **two other**
