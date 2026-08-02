@@ -1,6 +1,25 @@
-# PVLAS arbiter v3 re-point — GATED SCOPING (Grant ruling D7)
+# PVLAS arbiter v3 re-point — GATED SCOPING → **EXECUTED** (Grant ruling D7)
 
-**Class:** scoping only. **Nothing re-pointed.** `src/` is byte-untouched on this branch;
+> ## ✅ STATUS: EXECUTED (2026-08-02, Grant "go")
+>
+> **Grant ruling (2026-08-02), verbatim `[sic]`: *"go"*.** The gate below fired as recorded, the
+> three blockers were routed, and Grant returned a **go** on the full five-piece plan. Everything
+> from §0 down is **preserved verbatim as the scoping record the execution followed** — it is the
+> pre-execution state, not a description of the current tree. What changed:
+>
+> | Piece | Blocker it clears | Landed |
+> |---|---|---|
+> | **1** | BLOCKER-1 — shape **(B)** picked by Grant | `coefficient_ratio_differential_pvlas` gains a named `"instantaneous"` branch (denominator $2\alpha/(15\pi)$), **now the default**, returning `2.212333e+05`. `"propagating"`/`"static"` byte-unchanged (KEEP-BOTH). |
+> | **2** | GATE-2 trigger | `provenance.md`:121 and :168 corrected to v3; a dated **SWEEP-GAP** note added at the §9 Arm-2 site list recording the `main.tex`-only gap this closes. `main.tex` byte-untouched; **PDF not rebuilt**. |
+> | **3** | BLOCKER-2 | The three self-naming JSON keys renamed; v2 preserved under an explicit `_v2_history` key; the three driver outputs regenerated. **Flat-key diff receipt: zero shared-key value changes** — every letter-cited number byte-identical. |
+> | **4** | BLOCKER-3 | `vol4/claim-quality.md` gains a Rule-12 🔵 v3 re-freeze note; the 🔴 note preserved verbatim with a value-level supersession stamp. |
+> | **5** | the §2.3 coverage gap | New `src/tests/test_birefringence_pvlas_arbiter.py` (7 tests, **fireability-demonstrated**); `adopters.py` `verdict_fn` **recalibrated** `1e6`→`1e4` (footing-invariant); two non-frozen stale cites fixed, the frozen one disclosed. |
+>
+> **The §3 gate verdict is NOT retracted** — it was correct, and the resolution is exactly what it
+> asked for: Grant adjudicated, then the letter fix was made *deliberately and disclosed*, rather
+> than the arbiter being re-pointed underneath a stale ledger. **Execution receipts: §6.**
+
+**Class (as-scoped, pre-execution):** scoping only. **Nothing re-pointed.** `src/` is byte-untouched on this branch;
 `manuscript/` is byte-untouched; `papers/` is byte-untouched. This document is the
 consumer-and-letter sweep that Grant ruling **D7** made the *gate* on the re-point, plus the
 gate verdict and the three execution blockers the sweep surfaced.
@@ -524,3 +543,166 @@ added. No contradiction resolved. No shape picked for BLOCKER-1. No `src/ave/qed
 for write. The v2-vs-v3 footing itself is **not** re-litigated here — KB is truth-source and the
 factor 2 is adjudicated; only the *engine's* alignment to it is at issue, and that is what stays
 open.
+
+---
+
+## 6. EXECUTION RECEIPTS (2026-08-02, Grant "go")
+
+Everything above this line is the **pre-execution scoping record**, preserved verbatim. This
+section records what actually landed.
+
+### 6.0 Merge-check
+
+Branch re-based-by-merge onto the advanced `origin/main` (**`3009adee`**, +30 commits over the
+scoping base `19285c5d`, including **#819** which merged the D1 lane that had been fenced from
+this one, plus #820/#821/#823). **Clean merge, zero conflicts** — the predicted non-overlap held
+through to the merge.
+
+### 6.1 PIECE 1 — the arbiter (shape B)
+
+`src/ave/bench/birefringence.py`:391. Signature default moved `"propagating"` → `"instantaneous"`;
+new branch computes `2.0 * ALPHA / (15.0 * np.pi)` as the QED denominator, `ALPHA` imported from
+`ave.core.constants`. **No magic number** — the value is never written as a literal.
+
+```
+KB box 15pi/(4a^2)     = 2.212333e+05
+default (no arg)       = 2.212333e+05     default == KB box: True (rtol 1e-15)
+instantaneous          = 2.212333e+05     default == 3.75pi/a^2: True
+propagating (v2 KEEP)  = 4.424666e+05     <- byte-identical to pre-D7
+static      (KEEP)     = 8.849332e+05     <- byte-identical to pre-D7
+v2/v3 == 2.0 exactly   : True             <- the leaf's :106 "exactly half" reproduced
+```
+
+The docstring records the D7 ruling verbatim, cites `:34`/`:104`/`:106` and the `:38-41`
+decomposition chain, cites this doc as the record, and states the finding that made shape (B) the
+right call: **v2 was a wrong PAIRING of two individually-correct coefficients, not a wrong
+coefficient.** It also names the honest factorisation not taken (shape (C), two parameters) and
+why — no call signature breaks.
+
+### 6.2 PIECE 2 — the letter provenance ledger
+
+| Site | Before | After |
+|---|---|---|
+| `provenance.md`:121 | `Ratio 7.5pi/alpha^2 ~ 4.42e5` … `geometry="propagating"`; live `4.4247e5` | **REV-3**: `3.75pi/alpha^2 = 15pi/(4α²) ~ 2.2e5`, **"matches `main.tex`:750 as printed"**; default `geometry="instantaneous"`; live `2.2123e5`; REV-2/REV-1 preserved inline as *"Was …"* |
+| `provenance.md`:168 | `the 4.42e5 magnitude (REV-2; was 1.93e7)` | `the 2.2e5 magnitude (REV-3 / D7 2026-08-02; was 4.42e5 at REV-2 and 1.93e7 at REV-1)` |
+| `provenance.md` §9 (~:325) | — | **new dated SWEEP-GAP note** naming the `main.tex`-only scope of the Arm-2 sweep as the cause, and the durable lesson: *a re-freeze sweep must include the provenance ledger that describes the sweep, or the ledger silently becomes the last surviving copy of the superseded number.* |
+
+**`main.tex` byte-UNTOUCHED. `sve_vacuum_birefringence_letter.pdf` NOT rebuilt** (`make paper` not
+run). Post-edit grep confirms every surviving v2 string in `provenance.md` sits in a dated banner,
+an OTS-anchored preserved-verbatim block, retained convention history, or the new gap note.
+
+### 6.3 PIECE 3 — driver keys + outputs, with the per-artifact classification
+
+**Classification, stated per artifact:**
+
+| Artifact | Class | Action |
+|---|---|---|
+| `_output/birefringence_gap1_hibef_feasibility.json` | **driver output, letter-CITED but re-runnable** (`provenance.md`:102-106 lists it as a driver "re-run this session, all reconcile") | **REGENERATED** |
+| `_output/birefringence_hibef_scenario_predictions.json` | same | **REGENERATED** |
+| `_output/birefringence_prior_art_exposure_scan.json` | same | **REGENERATED** |
+| `_output/vacuum_birefringence_bench.json` | **NOT a consumer** — its `442466.58` comes from `coefficient_ratio()` on the static $a_{EH}$ (scoping §2.4 look-alike) | **UNTOUCHED** |
+| `_output/vacuum_birefringence_facility_sweep.json` | same | **UNTOUCHED** |
+| `claim-prereg-ots/claims_by_hash.md` | **OTS-anchored public artifact** | **UNTOUCHED, never regenerable** |
+| `papers/.../sve_vacuum_birefringence_letter.pdf` | **artifact of record** | **UNTOUCHED, not rebuilt** |
+
+**The regeneration receipt — the strongest form available.** Flat-key diff of every leaf value,
+pre vs post, all three files:
+
+```
+keys REMOVED : /matched_differential_ratio_7.5pi_over_alpha2_propagating
+keys ADDED   : /matched_differential_ratio_3.75pi_over_alpha2_instantaneous
+               /matched_differential_ratio_7.5pi_over_alpha2_propagating_v2_history
+VALUES CHANGED on shared keys: NONE          <-- all three files
+```
+
+⇒ **every letter-cited number is byte-identical** — the `P_flip` triplet, the QED co-predictions,
+`ave_over_qed`, the floor margins, the bins, the CLEAN-FIELD verdict. The re-freeze moved only the
+context ratio, which is precisely what the footing-invariance claim predicts and is now *measured*
+rather than asserted.
+
+### 6.4 PIECE 4 — the KB register
+
+`manuscript/ave-kb/vol4/claim-quality.md`, `clm-pp3qwf`. A 🔵 **FOOTING RE-FREEZE** note added
+**above** the 🔴 QED-normalization note, plus a bracketed value-level supersession stamp inside the
+🔴 note's opening. **Rule 12 honoured: the 🔴 body is preserved verbatim** — and the note explicitly
+records that its *content* (that $(3/45)\alpha^2$ was understated) **remains correct**; only its
+*headline value* is superseded. `make verify` re-run on the edit: `verify-kb-metadata` **PASS**,
+`verify-md-links` gating **0**.
+
+### 6.5 PIECE 5 — wire-up
+
+**(a) Default.** `geometry="instantaneous"` is the documented entry path; a bare
+`coefficient_ratio_differential_pvlas()` returns v3. Stated here as the scoping's own call, now
+ratified: the alternative — leaving the default at `"propagating"` and requiring every caller to
+opt in — would have left the *entry path* teaching v2, which is the exact failure mode this whole
+lane exists to fix.
+
+**(b) The pin test.** `src/tests/test_birefringence_pvlas_arbiter.py`, **7 tests, all passing**.
+Closes the §2.3 gap: before this file **zero tests pinned the arbiter**, which is *why* it drifted
+a full re-freeze behind the KB with a green suite. Every target is an independent closed form in
+`ALPHA`; the arbiter's own return never pins itself. It pins the **default/entry path** (not only
+the named branch), the physics reconstruction through the substrate identity, both KEEP-BOTH
+branches, the exact `×2` carrier and `×4` geometry step factors, field-independence, and the error
+message.
+
+★ **FIREABILITY DEMONSTRATED** (a gate that has never fired is a checklist, not a gate). Reverting
+only the default back to the pre-D7 `"propagating"`:
+
+```
+FAILED test_default_is_the_v3_instantaneous_refreeze
+FAILED test_matches_the_kb_box_to_stated_precision
+2 failed, 5 passed
+```
+— then restored: `7 passed`. The gate fires **on the exact historical defect**, not on a synthetic
+perturbation.
+
+**(c) `adopters.py` — RECALIBRATION, framed as such.** Frozen-boundary re-verified **by AST**, not
+by eye:
+
+```
+Prereg( call spans lines 179-201   frozen= at line 181 value True
+SensitivitySpec( spans lines 211-217   verdict_fn= at line 214
+```
+⇒ `verdict_fn` is **OUTSIDE** the frozen block ⇒ editable. Recalibrated `1e6` → `1e4`, preserving
+the original comment's stated intent verbatim (*"discriminator stays orders above the QED floor"*).
+The justification is footing-brittleness, not a physics change:
+
+| footing | ratio | `> 1e6`? | `> 1e4`? | OOM above unity |
+|---|---|---|---|---|
+| v1 `7.5/α³` | `1.9300e+07` | ✅ | ✅ | 7.3 |
+| v2 `7.5π/α²` | `4.4247e+05` | ❌ | ✅ | 5.6 |
+| **v3 `3.75π/α²`** | `2.2123e+05` | ❌ | ✅ | 5.3 |
+| QED-sized ~1 (NEGATIVE bin) | `1.0` | ❌ | ❌ | 0 |
+
+The old threshold would have been **silently flipped by a convention re-freeze that moves no
+physics**. `1e4` is footing-invariant across all three and still fails the NEGATIVE bin by 4 OOM,
+so the gate still discriminates. ⚠ Note this is a latent-brittleness fix: `adopters.py`'s
+`ratio_at` still computes the **v1** pairing inline (scoping §2.5/§2.6), so no live verdict moved
+today — `BANKABLE_AS_DISCRIMINATOR` before and after.
+
+**Stale cites.** `:14` `birefringence.py:320` → **`:356`** (`coefficient_ratio`) and `:221`
+`birefringence.py:328` → **`:375`** (`coefficient_ratio_differential`) — both **non-frozen, both
+fixed**. `:185` carries the same stale `:328` but sits **inside** the frozen `Prereg` — **disclosed,
+NOT edited**, per frozen-provenance discipline.
+
+### 6.6 Execution battery
+
+| Check | Result |
+|---|---|
+| `make verify` | **exit 0** — *"ALL PHYSICS PROTOCOLS PASSED"*; `verify-kb-metadata` PASS; `verify-md-links` gating **0** |
+| targeted pytest (bench + qed + new pin) | **164 passed** |
+| new arbiter pin test | **7 passed**, and **demonstrated to fail** on the pre-D7 default |
+| `ruff check` (bench + vol_9_device) | **86 = 86** vs the `origin/main` baseline — **zero new violations** |
+| `ruff check` (the new test file) | **All checks passed!** |
+| pure-corpus over every changed file | **zero hits** |
+| `make paper` | **deliberately NOT run** — PDF artifact-of-record unchanged |
+
+### 6.7 What remains open
+
+- The **`adopters.py` v1-footing surface** (`ratio_at` recomputing the v1 pairing; the frozen
+  `Prereg` bin stated in `~1.93e7`; the frozen `:185` stale cite). Still a **separate ruling's**
+  surface — D7 fenced to the arbiter, and re-freezing a frozen pre-registration bin would destroy
+  the record of what was pre-registered. Routed, unchanged.
+- Whether the **Letter should be re-stamped** to OTS under the corrected provenance ledger. Not
+  this lane's call; the PDF and every `claims_by_hash.md` entry are untouched, and the current V6
+  entry already carries the v3 ratio, so no anchored claim is stale.
