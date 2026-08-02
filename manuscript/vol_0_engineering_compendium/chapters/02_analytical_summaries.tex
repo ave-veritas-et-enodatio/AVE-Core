@@ -111,7 +111,19 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Faddeev-Skyrme Coupling (Cold):} $\kappa_{FS} = p_c / \alpha = 8\pi \approx 25.133$
     \item \textbf{Thermal Lattice Softening:} $\delta_{th} = \frac{\nu_{vac}}{\kappa_{FS}} \cdot \frac{2}{\pi} = \frac{2/7}{8\pi} \cdot \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00724$ (residual RMS noise averaging after Axiom~4 gradient saturation)
     \item \textbf{Effective Coupling:} $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$
-    \item \textbf{Proton Rest Mass (Geometric Eigenvalue):} $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002\% from CODATA)
+    % [2026-08-02 SIGNED-RESIDUAL correction + framing de-claim. Prior wording (git trail):
+    %   "(0.002\% from CODATA)" -- unsigned, and framed as though the residual were
+    %   pure-geometry precision. House rule: ave-kb/CONVENTIONS.md:305 clause (e),
+    %   "residuals quoted **only to experiment-supported digits, with sign**" (clause (d)
+    %   also bans "matches" without a sigma). Sign supplied from the canonical KB value.
+    %   Authority for both the sign and the framing: ave-kb/vol2/claim-quality.md:1415 --
+    %   "bare topology predicts **+0.74%** (emergence vs baryon sector, zero baryon input);
+    %    the canonical $\delta_{th}=1/(14\pi^2)$ thermal correction (precision-setter)
+    %    refines to **-0.002%** from CODATA. The $-0.002\%$ is topology + one contained
+    %    thermal-residual, ~~0.002% from CODATA~~ NOT pure-geometry-to-ppm."
+    %   NO VALUE REFILL: the magnitude 0.002% is unchanged and the formula is untouched;
+    %   only the sign (a house-rule correction) and the framing scope are supplied.
+    \item \textbf{Proton Rest Mass (Geometric Eigenvalue):} $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ ($-0.002\%$ from CODATA --- see the framing note below)
     \item \textbf{Mutual Inductance at Crossing:} $M/L = \exp(-d^2/(4\sigma^2)) = 1/\sqrt{2}$ (exact, $d = \ell_{node}/2$, $\sigma = \ell_{node}/(2\sqrt{2\ln2})$)
     \item \textbf{Saturation Threshold (closed-form, conditional on Gaussian flux-tube ansatz):} $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (no fitted parameters; profile derivation pending — see \texttt{mathematical-closure.md} Outstanding Rigour Gaps)
     \item \textbf{Dual-Reactance Count (Axiom-1 sectors):} $\mathcal{V}_{total} = 2.0$ --- the node's two reactance sectors ($X_C + X_L$), mass-confirmed via $m_p$; NOT a FEM-integrated volume (prior FEM provenance fabricated, dropped per the V2 closure 2026-06-01)
@@ -121,6 +133,8 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Weak Mixing Angle (Acoustic Mode Ratio):} $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$
     \item \textbf{Non-Linear FDTD Acoustic Steepening PDE:} $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$ (Derived structurally for topological stress limits)
 \end{itemize}
+
+\noindent\textbf{[DE-CLAIM 2026-08-02] Proton rest mass --- what the residual is.} The $-0.002\%$ above is \textbf{not} pure geometry carried to parts per million. Per the ruled framing, bare topology predicts $+0.74\%$ (an emergence-class result against the baryon sector, with zero baryon input), and the canonical thermal correction $\delta_{th} = 1/(14\pi^2)$ --- the precision-setter, itself listed above --- refines that to $-0.002\%$ from CODATA. The $-0.002\%$ is therefore \textbf{topology plus one contained thermal residual}, not a pure-geometry-to-ppm result (\kbleaf{ave-kb/vol2/claim-quality.md}). The sign was supplied per the house residual rule --- residuals are quoted only to experiment-supported digits, \emph{with sign} (\kbleaf{ave-kb/CONVENTIONS.md}) --- and no formula or magnitude in the entry is changed.
 
 \section{Cosmological Dynamics}
 \begin{itemize}
