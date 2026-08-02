@@ -14,9 +14,10 @@ What it shows, in order:
   (1) T4's U_AVE = T_EM * l_node is EXACTLY 1.0 m_e c^2 -- a Class-A definitional
       identity (T_EM is DEFINED as m_e c^2 / l_node at constants.py:493), so it
       cannot be read as evidence that the budget is physically exhausted.
-  (2) The dimensional defect in the canonical xi_K relations (audit FLAG-2), and
-      the stress-reading under which the canonical l_c = sqrt(6)*l_node
-      cross-check reproduces exactly.
+  (2) The dimensional defect in the canonical xi_K relations (audit FLAG-2). The
+      stress reading is forced by DIMENSIONAL ANALYSIS ALONE; the l_c = sqrt(6)
+      cross-check is a T_EM-INVARIANT null check (both readings degenerate) and
+      is printed only to show that degeneracy explicitly.
   (3) E_twist under the two 6-OOM-separated gamma_c normalizations canon carries
       (audit FLAG-3 / constants.py:331-337), spanning 12 orders.
   (4) The generation rung for comparison -- recorded, explicitly NOT claimed as a
@@ -79,11 +80,20 @@ def main() -> None:
     print(f"  stress reading, T_EM -> sigma_0 = m_e c^2 / l_node^3 = {sigma_0:.4e} Pa:")
     print(f"     mu+kappa                = {mu_k:.4e} Pa    [Pa] OK")
     print(f"     beta+gamma              = {b_g:.6e} N     [N]  OK")
-    lc_chk = np.sqrt(b_g / (2.0 * mu_k))
-    print(
-        f"     cross-check l_c = sqrt((b+g)/(2(mu+k))) = {lc_chk / L_NODE:.4f} * l_node"
-        f"   vs canon sqrt(6) = {np.sqrt(6.0):.4f}  -> REPRODUCES\n"
-    )
+    # l_c = sqrt((beta+gamma)/(2(mu+kappa))) is T_EM-INVARIANT: T_EM cancels between
+    # numerator and denominator, so it CANNOT discriminate the tension reading from the
+    # stress reading. Canon states the invariance itself at
+    # q-g47-substrate-scale-cosserat-closure.md:56 ("independent of T_EM") and
+    # constants.py:326. Both readings are evaluated below to show the degeneracy.
+    lc_stress = np.sqrt(b_g / (2.0 * mu_k))
+    lc_tension = np.sqrt((XI_K2 * T_EM * L_NODE**2) / (2.0 * XI_K1 * T_EM))
+    print(f"     l_c | stress reading  = {lc_stress / L_NODE:.5f} * l_node")
+    print(f"     l_c | tension reading = {lc_tension / L_NODE:.5f} * l_node")
+    print(f"     canon sqrt(6)         = {np.sqrt(6.0):.5f}")
+    print("     -> T_EM-INVARIANT CONSISTENCY CHECK, NOT A DISCRIMINATOR.")
+    print("        T_EM cancels in (beta+gamma)/(2(mu+kappa)); BOTH readings are")
+    print("        DEGENERATE here. Confirms only xi_K2/(2*xi_K1) = 6.")
+    print("        The STRESS reading is forced by DIMENSIONAL ANALYSIS ALONE (above).\n")
 
     print("=" * 78)
     print("(3) FLAG-3 -- E_twist under the two 6-OOM-separated gamma_c readings")
