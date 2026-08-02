@@ -1,0 +1,5 @@
+
+### ENTRY 2026-08-02-mr-varactor-keying-correction (2026-08-02): manuscript-reconciliation lane — held-back list corrected (17:79 was executable)
+
+- **Class: dated correction of `2026-08-02-mr-varactor-keying.md` (original untouched, Rule 12). Bookkeeping, not adjudication.** The original fragment's held-back list included `17_noise_floor_boundary.tex:79` "pending that adjudication." That contradicted the board's ratified authority rule (§5 per-finding disposition tags govern; board §4, repair R1), under which 17:79 is `ruling-needed` covered by CRIB-4 and executable. #827 executed it: the banner de-claims the superseded spike prediction per `ee-bench-plateau.md:20` (★Supersession) and supplies NO replacement values — it does not touch, or depend on, the A1-vs-T2 keying question. The #827 audit (F4) verified this and flagged the document conflict rather than resolving it silently.
+- **Corrected held-back list: `01_vacuum_circuit_analysis.tex:720` (and its `:756` companion) + the `15_autoresonant_breakdown_spice.tex` chapter.** The routed REQUEST (rule the A1-vs-T2 keying for the printed divergent-form sites) stands unchanged.
