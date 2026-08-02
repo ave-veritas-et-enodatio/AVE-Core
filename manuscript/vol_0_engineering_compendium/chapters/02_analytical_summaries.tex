@@ -129,7 +129,30 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Dual-Reactance Count (Axiom-1 sectors):} $\mathcal{V}_{total} = 2.0$ --- the node's two reactance sectors ($X_C + X_L$), mass-confirmed via $m_p$; NOT a FEM-integrated volume (prior FEM provenance fabricated, dropped per the V2 closure 2026-06-01)
     \item \textbf{Macroscopic Strong Force:} $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
     \item \textbf{Witten Effect Fractional Charge (Quarks):} $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
-    \item \textbf{Vacuum Poisson's Ratio (Trace-Reversed Bound):} $\nu_{vac} \equiv \frac{2}{7}$
+    % [2026-08-02 NU-HILL RELABEL -- CRIB-1, board sec 3 (Grant-ratified 2026-08-02).
+    %   Prior label (git trail): "\textbf{Vacuum Poisson's Ratio (Trace-Reversed Bound):}".
+    %   The word "Bound" is wrong: 2/7 is nu_Hill, an isotropic Voigt-Reuss-Hill AVERAGE.
+    %   Authority: ave-kb/common/theorem-thesaurus.md:223 -- "**The Voigt-Reuss-Hill AVERAGE**
+    %   ($\nu_{\text{Hill}}$, $G_{\text{Hill}}$) -- a *heuristic mean* of the two bounds ...
+    %   *Not a theorem and not a bound.*"; and :227 -- "*The live hazard, stated plainly:*
+    %   $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ... If a future reading lets \"Hill\"
+    %   drift from the **average** to the **bound**, an imported calibration input would
+    %   acquire the standing of a variational theorem." Value provenance:
+    %   ave-kb/common/form-deriving-value-importing.md:87 -- "**K = 2G** (nu_vac = 2/7) |
+    %   **GR-IMPORTED** (echo for the value) | the substrate forces the *form* of the elastic
+    %   response `K/G = f(rho)` | the *value* 2/7 -- the GR trace-reversal identity, not
+    %   crystalline-forced nor constitutively-forced". Anisotropy tag (PR #506):
+    %   ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md:19-26, "an **averaging
+    %   choice, not a per-direction lattice output**". Engine already carries the relabel:
+    %   src/ave/core/constants.py:397 (N_NU) and :626 (NU_VAC), both commented "nu_Hill".
+    %   SCOPE / NO CASCADE: this is a LABEL correction. The VALUE 2/7 is unchanged and the
+    %   SYMBOL $\nu_{vac}$ is deliberately RETAINED so that the dependent entries in this
+    %   chapter (Thermal Lattice Softening $\delta_{th}$; Weak Mixing Angle $m_W/m_Z$) and the
+    %   2026-06-14 $\nu_{kin}$ symbol-collision note above are untouched -- no renumber, no
+    %   symbol swap, no value refill. This mints the manuscript's first printed "nu_Hill"
+    %   (`grep -rn --include='*.tex' -e Voigt -e Reuss -e "\\nu_{Hill}" manuscript/` returned
+    %   zero real precedent), per CRIB-1.
+    \item \textbf{Vacuum Poisson's Ratio ($\nu_{Hill}$, at the $K = 2G$ operating point):} $\nu_{vac} \equiv \nu_{Hill} = \frac{2}{7}$ --- the $K = 2G$ operating point is \textbf{form-derived; value GR-imported} (\kbleaf{ave-kb/common/form-deriving-value-importing.md}), and $\nu_{Hill} = 2/7$ is the \textbf{isotropic Voigt--Reuss--Hill average}: an averaging choice, \emph{not} a lattice-emergent bound (\kbleaf{ave-kb/common/theorem-thesaurus.md})
     \item \textbf{Weak Mixing Angle (Acoustic Mode Ratio):} $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$
     \item \textbf{Non-Linear FDTD Acoustic Steepening PDE:} $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$ (Derived structurally for topological stress limits)
 \end{itemize}
