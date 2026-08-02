@@ -562,12 +562,18 @@ As fully derived in the supplementary \textit{Periodic Table of Knots}, the 3D s
 %   convergence tolerance on R, not an independent prediction error on the mass." Corroborated
 %   by ave-kb/vol1/claim-quality.md:531 ("NOT zero-parameter ab initio") and
 %   ave-kb/vol6/period-2/neon/index.md:21 ("structurally zero by construction").
-%   FLAG-DON'T-FIX (routed, NOT adjudicated here): (i) the printed R_bipyramid = 80.174d has no
-%   verified KB twin -- the KB's Si-28 pentagonal-bipyramid row is
-%   ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md:24 (R = 83.0,
-%   0.0002%), a different value; (ii) the printed count "exactly 378 coupled inductor nodes"
-%   does not match the canonical Si-28 model in ave-kb/vol6/claim-quality.md:625 (7 alpha
-%   clusters, 21 inter-alpha coupling pairs). Neither is corrected here; both are surfaced.
+%   FLAG-DON'T-FIX (routed, NOT adjudicated here; corrected 2026-08-02 per #827 audit F1/F5/F6):
+%   the printed R_bipyramid = 80.174d agrees with the engine (src/scripts/vol_6_periodic_table/
+%   simulations/simulate_element.py:390, r_bipyr = 80.174370*d) but diverges from the KB's Si-28
+%   row at ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md:24 (R ($d$) =
+%   83.0) -- same quantity, same units; the KB row is the staleness candidate (routed). That
+%   leaf's 0.0002% column is a geometric residual to assumed Platonic coordinates (its :14 scope
+%   correction), NOT a mass-mapping error -- do not compare it to the 0.0000% below. [A prior
+%   limb here asserted the printed "378 coupled inductor nodes" diverges from the KB's 21
+%   inter-alpha pairs; WITHDRAWN -- the KB carries both, reconciled (claim-quality.md:629 "378
+%   SPICE coupled inductors"; period-3/silicon/ee-equivalent.md:10 "378-parameter SPICE matrix
+%   decomposes into 21 inter-alpha links"). Residual wording nit only: print says "inductor
+%   nodes", KB says "coupled inductors".]
 \noindent\textbf{Methodology disclosure (2026-08-02, per the Vol~6 fit/predict split; the paragraph below is preserved per Rule~12 KEEP-BOTH).} The Silicon-28 result below reports a residual as though it were a prediction error. Per the ruled disclosure, within the $(Z,A)$-forced bipyramid topology the inter-alpha distance $R_{bipyramid}$ is \textbf{the single fitted scalar adjusted per nucleus} so that the pairwise summation reproduces the CODATA mass. What is \emph{predicted} (axiom-derived) is the cluster topology as a function of $(Z,A)$ via minimum-impedance packing, the coupling $K_{mutual} = m_p c^2$, and the parameter count (one scalar per nucleus); what is \emph{fitted} is the numerical value of $R_{bipyramid}$. Consequently the quoted mass-mapping residual is \textbf{the optimizer's convergence tolerance on $R$, not an independent prediction error on the mass} --- an exactly-zero residual on a closed shell is structurally zero by construction, and the pipeline is \textbf{not} zero-parameter \emph{ab initio}. The falsifiable structural content is the topology and the one-scalar-per-nucleus parameter count (against the $\sim 5$ parameters per nucleus of liquid-drop or shell-model fits), not the residual. Read the ``strictest possible verification'' sentence below in that scope. Canonical: \kbleaf{ave-kb/vol1/operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md}.
 
 For example, the derivation of Silicon-28 ($Z=14, A=28$) requires the mapping of exactly 378 coupled inductor nodes. The solver algebraically targets the empirical CODATA nuclear mass~\cite{codata2018}, forcing the geometry to converge. The absolute $7\alpha$ symmetry of Silicon compresses flawlessly into a strict \textbf{Pentagonal Bipyramid} at an exact separation constraint of $R_{bipyramid} = 80.174d$, yielding a \textbf{$0.0000\%$ mass mapping error}. 
@@ -888,7 +894,7 @@ The 3D Finite-Difference Time-Domain engine (\texttt{ave.core.fdtd\_3d}) discret
 %  (git trail): "discretises the vacuum on the native diamond graph ($K_4$ complete graph)". The
 %  word "native" asserted the degree-4 diamond as the vacuum's carrier. Authority:
 %  ave-kb/common/vocabulary-register.md:526 (def-4b1a2c) -- the PRODUCTION CARRIER named "K4" is
-%  the chiral srs z=3 net, RATIFIED by Grant 2026-07-03 (D1); and :536 referent (b) -- the engine
+%  the chiral srs z=3 net, RATIFIED by Grant 2026-07-03 (D1); and :534 referent (b) -- the engine
 %  "K4" (src/ave/core/k4_tlm.py) is the degree-4 bipartite-FCC DIAMOND (achiral Fd-3m),
 %  "re-tagged a non-canonical instrument by the 2026-07-03 D1 ratification". The solver
 %  DESCRIPTION is factually accurate about the code and is retained unchanged; only the carrier
