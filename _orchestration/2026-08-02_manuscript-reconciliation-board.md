@@ -1,0 +1,810 @@
+# Manuscript-Reconciliation Epic — Board + Ratified Cribs (2026-08-02)
+
+**Lane:** manuscript-reconciliation orchestrator (separate epic session; handoff = [`2026-08-01_manuscript-reconciliation-epic_handoff.md`](2026-08-01_manuscript-reconciliation-epic_handoff.md), delivered #818).
+**Base:** `main` @ `19285c5d`. **KB is the truth source** (standing G-ruling); physics divergences where the KB is unsettled are ROUTED via `docket-entries/` fragments, never adjudicated in-lane.
+**Ratification:** the classified board below + the sequencing + the crib rulings were presented to Grant 2026-08-02 and ratified, verbatim `[sic]`: **"proceed"**. Mechanical items fire without per-item rulings; crib-covered items fire as mechanical under the crib texts in §3; route-to-core items get docket fragments only (no manuscript edits in this epic until the core session rules).
+
+## §1 Sweep method (receipts)
+
+- Grounding: 29-topic KB-delta inventory over the post-2026-07-01 window (441 merge commits scanned; 368 distinct PR merges #445→#818; 363 non-merge KB commits), every topic anchor two-method verified at HEAD.
+- 10 read-only auditor lanes (Vols 0–6, 9, backmatter, papers), two-method receipts required per finding.
+- 10 independent refute-by-default verifier lanes re-derived every finding (quote fidelity / KB-truth currency / real-divergence / class / disposition). One verifier under-returned by one verdict; that finding was verified inline by the orchestrator (recorded in §5 vol9).
+- Result: **158 raw findings → 154 surviving** (83 CONFIRMED / 70 CORRECTED / 4 REFUTED). Final dispositions: **47 mechanical / 58 ruling-needed (mostly crib-covered) / 36 route-to-core / 12 gated-ringdown / 1 defer-to-live-lane**. Severity: 39 high / 76 medium / 39 low.
+
+## §2 Routed-backlog verification (the brief said verify-at-launch; 4 of 7 rows corrected)
+
+| # | Brief item | Verified state |
+|---|---|---|
+| 1 | ch08 physics prose rewrite owed | **DISCHARGED** — #771 (2026-07-21, `b39bd9cc`) rewrote item-3 admixture-honest. Two NEW debts replace it: (a) the deep-rail mention sites `08_gravitational_waves.tex:{240 (%-comment), 242, 284, 288, 298, 301}` predate #775's landed BIN 3 (MIXED / FORM-UNDETERMINED) — none carries the outcome, and the explicit "*Its outcome is not presumed here*" clause at `:289` is now stale; (b) **INVERSION** — ch08 print is AHEAD of the KB: `manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md` carries no admixture note / no Reading-A banner. KB-ward propagation lane opened (§4). |
+| 2 | ch08 item-3 rewording (F4→(a)) | **EXECUTED** in #771; docket EXECUTED stamp at `2026-07-10_rulings-docket.md:2649`. Cite-shift found: `08_gravitational_waves.tex:250-251` and `rulings-docket.md:2649` cite `2026-07-20_pending-rulings-and-frontier-queue.md:26`; the ruling lives at `:113` at HEAD (items 13–20 appended 2026-07-26 shifted it). Repair rides the gated ch08 lane (tex) + a tracker touch-up. |
+| 3 | ch15 four sub-2%/spin-range sites | **CONFIRMED exactly 4**: `15_black_hole_orbital_resonance.tex:{27,271,292,387}` (`:31` = the interim note itself; `:270`/`:289` are %-comments — not rewrite targets). Per-occurrence rewrite still owed, gated (§4). |
+| 4 | Vol 6 + Vol 9 datasheet cleanup "never run" | **FALSE** — Vol 6 ran (#348, 2026-06-22); Vol 9 ran twice (#332 2026-06-21; #745 2026-07-20). All volumes are drift re-sweeps. |
+| 5 | Backmatter mirror-trio class | **CONFIRMED** — trio = `common/solver-toolchain.md` + `vol2/appendices/app-f-solver-toolchain/*.md` + `backmatter/05_universal_solver_toolchain.tex`; #809/#810/#816 each touched all three. |
+| 6 | "No systematic diff since 2026-07-01" | **PREMISE STALE** — the 2026-07-19 two-lane sweep ran (ledgers: `2026-07-19_manuscript-cleanup-ledger.md`, `2026-07-19_kb-cleanup-ledger.md`, windowed 07-01→07-19). This sweep audited against HEAD, superset window — coverage unaffected. |
+| 7 | papers/ v3 provenance | Letter **IS v3-current** (`main.tex:81,:750,:1136` = 3.75π/α²) but #815's receipt did not establish it, and `provenance.md:121` still carries the v2-form ratio row. Repo-side pointer repairs approved (§4); `main.tex` untouched (submission-gated). |
+
+## §3 Ratified wording cribs (Grant 2026-08-02; sites become MECHANICAL under these)
+
+- **CRIB-1 — K=2G / ν_Hill / "Cauchy".** Replacement pattern: *"the K = 2G operating point (form-derived; value GR-imported — see `common/form-deriving-value-importing.md`) with ν_Hill = 2/7 (isotropic Voigt–Reuss–Hill average; an averaging choice, not a lattice-emergent bound)"*. Never label the AVE lock "the Cauchy relation" (three-way homonym; `vol1/claim-quality.md:652`); never "simulation confirms … emergent" (κ_rot micropolar-grade test returned negative; `vol1/claim-quality.md:665`, PR #508 STAYS-OPEN). First printed "Hill" instances are minted by this epic (grep-verified zero manuscript precedent).
+- **CRIB-2 — carrier + T2-photon vocabulary.** (a) photon = the massless transverse-TRANSLATIONAL u-family T2 (`def-t2ph01`, vocabulary-register watch-rule: never write microrotation = the photon); (b) production carrier = chiral **srs-z3** (D1 ratified 2026-07-03); K4-diamond z=4 = historical, non-canonical instrument (`def-4b1a2c`; "statics-pathological" per `common/engine-capability-map.md:190`); FCC/"z = 4 coordination" carrier wording is corrected to the srs-z3 statement with an instrument-history parenthetical where the text is about the engine.
+- **CRIB-3 — spin-½ carve.** *"the SU(2)/SO(3) double-cover STRUCTURE is axiom-derived; the fermionic spin-½ SELECTION is posited/import (PEER-WITH-SM)"* — `[SPIN-HALF-POSITED]` #584/#585, `electron-identification.md:89-90`. Applies to every "spin-½ is substrate-derived end-to-end / IS the substrate-native origin" site.
+- **CRIB-4 — validation-headline scope.** BCS "0.00% error" → definitional identity at per-material calibration, not a fit (`ave-kb/claim-quality.md:171-182`); ringdown "1.7%" → cold Schwarzschild a\*=0 single-point anchor, spin scope per Ruling B1; "10–18% LIGO match" → retracted frame-mixed artifact (#774/#780) — strike per Rule 12, no replacement number; Petermann "50 ppm" → the landed q-g19a numbers + scope (`q-g19a-petermann-saliency-closure.md:92,:121`); "most direct experimental validation"-class sentences demoted to the claim-quality grade.
+- **CRIB-5 — TKI transformer status.** Sites citing the EM-Ω ↔ mechanical-ρc isomorphism carry `def-tk1xfm` **RATIFIED SOLID (2026-07-21)** with its REGIME FENCE and strength ceiling, quoted from `common/vocabulary-register.md:435-441` — not the pre-ratification "exact dimensional isomorphism" absolutism.
+
+Discipline riders on every crib application: Rule 12 strike-don't-delete with dated banners; **no value refills** into struck slots unless independently verified; frozen preregs byte-untouched; cite-shift sweep AFTER content settles.
+
+## §4 Sequencing + lane tracker (ratified)
+
+| Wave | Lane | Scope | Status |
+|---|---|---|---|
+| now | orchestration-docs | this board + 9 docket fragments (`docket-entries/2026-08-02-mr-*.md`) | THIS PR |
+| now | KB-ward ch08 | admixture propagation to `gw-propagation-lossless.md` (already-ruled Reading-A; #771's owed note; fixes the §2-item-1 inversion) | DISPATCHED |
+| 0 (pilot) | vol4 | mechanical + crib-covered items; `:720` and `15_autoresonant:34` EXCLUDED (routed) | DISPATCHED |
+| 1 | vol0, vol1, vol2, vol9 | after pilot review validates the pattern; vol1 ch07 + vol9 ch14 EXCLUDED (live-lane collision, `docs/factor7-and-782-basis-notes`); vol9 ringdown sites EXCLUDED (gated) | queued |
+| 2 | vol5, vol6, backmatter, vol3-non-ringdown | backmatter/07 ringdown block EXCLUDED (gated); vol3 ch07 EXCLUDED (collision); vol3 ch08/ch15 EXCLUDED (gated) | queued |
+| gated (LAST) | ringdown set | **Authority rule (repair R1, 2026-08-02): §5 per-finding disposition tags are the authoritative gating register; this row is derived from them.** The §5 `gated-ringdown` set = vol3 ch15:{250, 271, 290, 292 (x2), 337, 354, 387} + vol9 ch03:205 + backmatter/07:{85, 211, 213} (12 findings), PLUS the chapter-level rule from the handoff brief: ALL remaining vol3 ch08+ch15 edits ride this wave regardless of disposition (incl. the four §2-item-3 sites, ch08:364, ch08:11, deep-rail BIN-3 refresh, and the §2-item-2 cite-shift). The already-ruled B1 cold-a*=0 scope-tag mirror sites OUTSIDE those chapters (vol1 ch04:116, ch07:19; vol5 ch02:717; vol9 ch07:195, ch03:175; backmatter/07:145 per its §5 ruling-needed tag under CRIB-4) fire in their own volume lanes — Ruling B1 is settled and independent of the cold-Q outcome, so no double-reconcile risk. | gated on the cold-Q derivation arc landing (core session) |
+| repo-side | papers pointers | `2026_birefringence_letter/provenance.md:114,:121` + `2026_reach_saturating_family/outline.md:156,:220` pointer rows ONLY; both `main.tex` untouched | queued (wave 2) |
+
+Collision ledger: `docs/factor7-and-782-basis-notes` (vol1 ch07 / vol3 ch07 / vol9 ch14 + 2 KB leaves) and `docs/rulings-d2-d3-d4` (theorem-thesaurus + translation-tables README) are live mid-flight lanes — their files are excluded from every wave until they land. `#819` = src + one docket fragment (`2026-08-01-d1-deprecate-ratio.md`) — no manuscript overlap; fragment-key collision checked (none).
+
+Refuted-finding note: the four REFUTED findings are dropped from execution but listed in §5 with reasons. The two ch15 refutations are CLASS-level only (the interim note at `:31` already discloses the retraction); the #780 per-occurrence rewrite obligation is unaffected and lives in the gated wave.
+
+## §5 The classified board (154 findings, post-verify)
+
+(Appended below verbatim from the sweep+verify pipeline output; per-finding format: severity / class / disposition / file:line / printed excerpt / KB truth / verify note.)
+
+## vol0 — 12 findings
+
+#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:36
+- PRINTED: \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$   [printed live, under the chapter heading "Summary of Exact Analytical Derivations"]
+- KB TRUTH: This exact formula+value was DROPPED by the 2026-04-20 audit and is under a standing do-not-re-add. manuscript/backmatter/01_appendices.tex:76-88 — "DROPPED CLAIM (2026-04-20 audit): A prior version of this appendix listed a SECOND 'tau_yield' formula: tau_yield = hbar c / (alpha^2 l_node^4) ~ 7.21x10^34 Pa [Bingham-Plastic Limit] ... (c) numerically inconsistent with itself -- the stated 7.21x10^
+- VERIFY NOTE: The disposition. Everything else holds and is stronger than stated. Quote verbatim at :36 as live \item prose. The 2026-04-20 drop banner is live at manuscript/backmatter/01_appendices.tex:76-88 ending 'Do NOT re-add this claim without a real derivation', mirrored in the KB at common/appendices-overview.md (HTML comment block, 'Do not re-add without a derivation'), and clm-yawl6z at .index/claims.
+
+#### [HIGH] [scope-lag] [route-to-core] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:11
+- PRINTED: \paragraph{The Poisson-Disk Solution:} To satisfy macroscopic isotropy while enforcing the microscopic hardware cutoff, the software must generate the node coordinates using a \textbf{Poisson-Disk Hard-Sphere Sampling Algorithm}. By enforcing an exclusion radius of $r_{min} = \ell_{node}$ during genesis, the lattice settles into a packing fraction of $\approx 0.17-0.18$ ...   [companion sites :6 s
+- KB TRUTH: The engine's production carrier is the ratified chiral srs-z3 net, not a Poisson-disk point cloud. manuscript/ave-kb/common/engine-capability-map.md:184-190 — "### §8b.0 — D1 RATIFICATION (2026-07-03): srs-z3 is the production carrier ... **srs-z3** — the true Sunada-K4 / Laves / (10,3)-a / srs net (degree-3, chiral, $I4_1 32$ — the object Axiom 1 names) — is the engine's **production carrier**." 
+- VERIFY NOTE: Two things: a refuted receipt and a wrong class. (1) RECEIPT REFUTED: 'grep -rn -i -E "poisson.?disk|poisson_disk|delaunay" src/ave/ returns ZERO hits -- no Poisson-disk or Delaunay genesis code exists in the engine at all.' The grep was scoped to src/ave/ but the conclusion was asserted over the engine. Re-running over src/ returns src/scripts/vol_4_engineering/verify_coordination.py:4-5, whose m
+
+#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex:13
+- PRINTED: \paragraph{Rheological Tuning:} Simulation confirms that the "Trace-Reversed" mechanical state ($K=2G$) is an emergent property of the Chiral LC coupling modulus.  [followed by :15 "Low Coupling ($k_{couple} < 3.0$): ... ($K/G \approx 1.67$)" and :16 "High Coupling ($k_{couple} > 4.5$): ... driving the bulk modulus to roughly twice the shear modulus ($K/G \approx 1.78 - 2.0$)"]
+- KB TRUTH: K=2G is GR-IMPORTED, not emergent and not simulation-confirmed. manuscript/ave-kb/vol1/claim-quality.md:665 — "STAYS OPEN (2026-07-04, PR #508): the genuine 48x48 chiral micropolar Bloch eigensolve on the ratified srs-z3 net does NOT close it ... the independent kappa_rot is a k->0 Cauchy-grade spectator sourcing no chiral coupling, and the geometry-fixed chiral B moves nu_eff AWAY from 2/7. So th
+- VERIFY NOTE: The disposition, not the physics. Quote is verbatim at :13 (plus :15/:16 exactly as excerpted). KB truth re-confirmed two ways: `grep -n "STAYS OPEN (2026-07-04, PR #508)"` -> manuscript/ave-kb/vol1/claim-quality.md:665 verbatim including 'the independent kappa_rot is a k->0 Cauchy-grade spectator sourcing no chiral coupling ... K=2G stays GR-imported (PR #261)', and `grep -Fn '**K = 2G**'` -> man
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex:9
+- PRINTED: The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry.   [presented under "\textbf{The Resolution:}" with no SELECTION carve; section heading :6 "The Spin-1/2 Paradox"]
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:90 — "The $2\pi$ vs $4\pi$ double-cover **STRUCTURE** is genuinely K4-native (axiom-derived), but it **ADMITS** both boson and fermion statistics and does **NOT force** spin-1/2 — $\pi_1 = \mathbb{Z}_2$ with $\mathrm{Hom}(\mathbb{Z}_2, U(1))$ two-valued (2026-07-08, [SPIN-HALF-POSITED], #584/#585). The fermi
+- VERIFY NOTE: The disposition. Quote verbatim at :9. KB truth re-confirmed by direct read of manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:90: 'The $2\pi$ vs $4\pi$ double-cover **STRUCTURE** is genuinely K4-native (axiom-derived), but it **ADMITS** both boson and fermion statistics and does **NOT force** spin-1/2 ... The fermionic **SELECTION** is imported via an ac
+
+#### [MEDIUM] [overclaim] [ruling-needed] manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:5
+- PRINTED: The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, given the framework's three interlocked calibration inputs $\{m_e, \alpha, G\}$ (which replace the $\sim$26 free parameters of the Standard Model) and the four axioms --- introducing zero further free param
+- KB TRUTH: The {m_e, alpha, G} set itself is CORRECT (manuscript/ave-kb/common/form-deriving-value-importing.md:63 — "a marked **calibration set of 3 dimensionful constants** `{m_e, alpha, G}` ... `expected-independent-count: 3`"). What the absolute "zero further free parameters beyond those three" does not carry is the same leaf's :87 row — "**K = 2G** (nu_vac = 2/7) | **GR-IMPORTED** (echo for the value) |
+
+#### [MEDIUM] [stale-value] [mechanical] manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:47
+- PRINTED: \item \textbf{Proton Rest Mass (Geometric Eigenvalue):} $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002\% from CODATA)
+- KB TRUTH: manuscript/ave-kb/vol2/claim-quality.md:1415 strikes this exact phrasing: "🔴 *[framing precision 2026-06-08 — walk-back from correction 3]* bare topology predicts **+0.74%** (emergence vs baryon sector, zero baryon input); the canonical $\delta_{th}=1/(14\pi^2)$ thermal correction (precision-setter) refines to **-0.002%** from CODATA. The $-0.002\%$ is topology + one contained thermal-residual, ~~
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:53
+- PRINTED: \item \textbf{Vacuum Poisson's Ratio (Trace-Reversed Bound):} $\nu_{vac} \equiv \frac{2}{7}$   [and the dependent :45 "$\delta_{th} = \frac{\nu_{vac}}{\kappa_{FS}} \cdot \frac{2}{\pi}$", :54 "$\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}}$"]
+- KB TRUTH: 2/7 is nu_Hill, an isotropic Voigt-Reuss-Hill AVERAGE and a GR-import — explicitly NOT a bound. manuscript/ave-kb/common/theorem-thesaurus.md:223 — "**The Voigt-Reuss-Hill AVERAGE** ($\nu_{\text{Hill}}$, $G_{\text{Hill}}$) — a *heuristic mean* of the two bounds ... ★**Not a theorem and not a bound.**" And :227 — "★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ..
+- VERIFY NOTE: Disposition, plus an overreach in the KB framing. Quote verbatim at :53, and the dependents at :45 and :54 are exactly as excerpted. KB pointers resolve: `grep -Fn 'Not a theorem and not a bound'` -> theorem-thesaurus.md:223 and `grep -Fn 'live hazard, stated plainly'` -> :227, both verbatim; constants.py:397 and :626 do carry the relabel ('nu_Hill ... isotropic V-R-H avg at GR-imported K=2G'). TW
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:31
+- PRINTED: The presence of $\kappa_{rot}$ enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies while correctly simulating the emergent trace-reversed vacuum signatures.
+- KB TRUTH: Same ruled negative as finding 1. manuscript/ave-kb/vol1/claim-quality.md:665 specifically kills the kappa_rot mechanism named here: "the independent kappa_rot is a k->0 Cauchy-grade spectator sourcing no chiral coupling" — so kappa_rot does not source the trace-reversal, and "emergent trace-reversed" is the retracted provenance word. manuscript/ave-kb/common/form-deriving-value-importing.md:87 GR
+
+#### [MEDIUM] [mirror-drift] [ruling-needed] (verify-CORRECTED) manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:62
+- PRINTED: \textbf{The Computational Spec:} ... The exact simulation logic leverages the non-linear AQUAL Lagrangian definition for computational evaluation:
+
+Where the background vacuum noise floor establishes $\mu(x \ll 1) \approx x$.   [:62 ends in a colon; :63 blank; :64 opens with an orphaned "Where" clause — the announced AQUAL Lagrangian equation is ABSENT from the printed text]
+- KB TRUTH: The canonical AVE galactic kernel is the Axiom-4 QUADRATIC form, not a bare generic AQUAL mu-function. manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md:15 — "$g_{eff} = g_N + \sqrt{g_N \cdot a_0}\; \sqrt{1 - (g_N/a_0)^{2}}$", with the ✅ RESOLVED 2026-07-20 block: "The kernel factor in the Resultbox is the **QUADRATIC** ... This **corrects a prior transcript
+- VERIFY NOTE: The kb_truth pointer is misdirected, and the stated divergence does not follow from it. The typography is exactly as reported and I confirmed it: :62 ends 'for computational evaluation:', :63 is blank, :64 opens 'Where the background vacuum noise floor establishes $\mu(x \ll 1) \approx x$' — the announced equation is absent. The MOND leaf pointer also resolves: manuscript/ave-kb/vol3/cosmology/ch0
+
+#### [LOW] [overclaim] [ruling-needed] manuscript/vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex:14
+- PRINTED: The AVE framework recovers the Holographic Principle via the \textbf{Cross-Sectional Porosity ($\Phi_A \equiv \alpha^2$)} derived in Chapter 4. ... Thus, the Holographic Principle emerges from discrete network mechanics, averting the $R^3$ divergence.
+- KB TRUTH: manuscript/ave-kb/vol2/claim-quality.md:665 (claim clm-nhlo1e) — "A qualitative stress-test resolution: the $R^2$ entropy scaling is **asserted** to be recovered ... No calculation of $S_{BH}=A/(4\ell_P^2)$ ab initio; the porosity-to-area argument is presented as a geometric mechanism, **not a derivation**. Asserted mechanism." The claim record at manuscript/ave-kb/.index/claims.jsonl:203 carries 
+
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:65
+- PRINTED: \item \textbf{Visco-Kinematic Rotation (MOND Floor):} $v_{flat} = (GM_{baryon} a_{genesis})^{1/4}$ where $a_{genesis} = \frac{c H_\infty}{2\pi} \approx \mathbf{1.07 \times 10^{-10} \text{ m/s}^2}$ (Derived via 1D Hoop Stress).
+- KB TRUTH: manuscript/ave-kb/common/claim-quality.md:292 — "$a_0 = c H_\infty / (2\pi)$ is derived (**10.7% below empirical**) and applies in the **unsaturated regime only** (Vol 3 MOND entry). The appendix's reference is structural, not a separate validation." The printed entry carries neither the 10.7% residual nor the unsaturated-regime scope, and sits under the heading "Summary of Exact Analytical Deriva
+
+#### [LOW] [scope-lag] [ruling-needed] manuscript/vol_0_engineering_compendium/chapters/04_dcve.tex:49
+- PRINTED: \textbf{The Computational Spec:} The engine architecture must compute the emergent rest mass ($M_{rest}$) of any dynamically shifting geometric knot (vortex) deterministically via the \textbf{Vakulenko-Kapitanski} geometric functional bound. Tracking the topological array mapping of the internal currents provides the Hopf linking number $Q_H$.   [equation at :52: $M_{rest} = \int d^3x\ \mathcal{L}
+- KB TRUTH: manuscript/ave-kb/vol2/claim-quality.md:1081 (rationale for clm-o3q9ul, the DCVE-specification claim this chapter IS the source of) — "Asserted/imported pieces: the Vakulenko-Kapitanski bound $M_{rest}\ge C_{VK}|Q_H|^{3/4}$ with $C_{VK}$ tied to $\kappa_{FS}$ (**adopted, not independently derived**) and the AQUAL $a_0=cH_\infty/(2\pi)$ identification." Claim record manuscript/ave-kb/.index/claims.
+
+### vol1 — 18 findings
+
+#### [HIGH] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex:117
+- PRINTED: The substrate-scale derivation closes the magic-angle equation
+$K(u_0^*) = 2 G(u_0^*)$ via continuous Cosserat micropolar moduli:
+$\mu + \kappa = \xi_{K1} \cdot T_{EM}$, $\beta + \gamma = \xi_{K2} \cdot T_{EM} \cdot \ell_{node}^2$,
+with $\xi_{K2} / \xi_{K1} = 12$ forced by the $|T| = 12$ proper-rotation orbit
+on K4 mode spaces. The magic-angle equation IS the substrate-scale expression
+of $S(A^*) 
+- KB TRUTH: The magic-angle 'closure' framing is RETRACTED. manuscript/ave-kb/claim-quality-closure-roadmap.md:32: "Q-G47 Session 6+ keystone u_0* derivation — 🔴 **FRAMING RETRACTED 2026-06-14** (magic-angle-provenance audit): u0*~0.187 is **asserted/back-fit, underdetermined**, NOT forward-derived. What landed is the magic-angle LOCK K(u0*)=2G(u0*) + nu_vac=2/7 (firm — but K=2G is itself **IMPORTED** from GR
+- VERIFY NOTE: Quote is verbatim at :117-122 and the roadmap receipts resolve (roadmap:32 'Q-G47 ... FRAMING RETRACTED 2026-06-14 ... u0*~0.187 is asserted/back-fit, underdetermined, NOT forward-derived'; roadmap:439 RETRACT-HEADER; clm-iouqn9 in .index/claims.jsonl line 162 confirmed at solidity 0.55 / build_status 'use as input only, don\'t build deeper'). What the kb_truth field OMITS is disqualifying for a m
+
+#### [HIGH] [overclaim] [mechanical] manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:25
+- PRINTED: \item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled through the electromagnetic constitutive relations.
+- KB TRUTH: K=2G is NOT lattice-forced at any grade — it is GR-IMPORTED. manuscript/ave-kb/claim-quality-closure-roadmap.md:832 (Q-G41 CLOSED-NEGATIVE 2026-06-15): "~~Derive $K = 2G$ from K4 topology as topological inevitability~~ — **NOT a topological inevitability, NOR a chiral-LC constitutive one.** ... **K=2G is the GR trace-reversal — IMPORTED.**" Reinforced at manuscript/ave-kb/vol1/claim-quality.md:665
+
+#### [HIGH] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex:79
+- PRINTED: The spin-1/2 structure of the electron substrate is substrate-derived end-to-end via the K4 substrate's tetrahedral rotation symmetry:
+- KB TRUTH: STRUCTURE derived / SELECTION posited. manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89: "⚠ **STRUCTURE axiom-derived / SELECTION posited** ... **Structure/selection split (2026-07-08, [SPIN-HALF-POSITED], #584/#585):** the $2T \subset SU(2)$ double-cover STRUCTURE is axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/impo
+- VERIFY NOTE: Quote verbatim at :79; companion sites :73 and :85 verified verbatim. The ruling is real and merged: electron-identification.md:89 'STRUCTURE axiom-derived / SELECTION posited ... the spin-1/2 SELECTION (fermion over boson) is POSITED/import ... PEER-WITH-SM. See clm-rkisb8', mirrored at :90, vol1/claim-quality.md:26 and vol2/claim-quality.md:410. BUT the disposition is self-contradicted by the fi
+
+#### [MEDIUM] [other] [ruling-needed] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:82
+- PRINTED: For a macroscopic wave propagating through a stochastic 3D amorphous solid, the effective continuous momentum operator $\langle \hat{P} \rangle$ is defined as an isotropic ensemble average of the symmetric central finite-difference operator across adjacent nodes:
+- KB TRUTH: At the PRIMARY-lattice scale (which is where this GUP/Brillouin derivation lives — it is explicitly on the $\ell_{node}$ sampling grid, ch03:65,:78), 'amorphous' is a ruled substitution. manuscript/ave-kb/common/substrate-native-terminology.md:50: "| **amorphous** | *primary-lattice* geometric-disorder -> **ordered chiral K4 crystal** | ..." and :74: "3. **Amorphous.** *Primary scale*: 'amorphous'
+- VERIFY NOTE: Quote verbatim at :82 and the KB rule is verbatim as cited (substrate-native-terminology.md:50 '| **amorphous** | *primary-lattice* geometric-disorder -> **ordered chiral K4 crystal** | (warning) *secondary-EMT-scale* "amorphous network" ($z_0\approx51.25$) is **under the open D3 amorphous-retirement adjudication** — do **not** classify either way here |' and :74). The failure is that the finding'
+
+#### [MEDIUM] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex:462
+- PRINTED: Both curves are computed entirely from Axioms~1--4 with no imported quantum postulates.
+- KB TRUTH: Ingredient (i) of the CHSH derivation is the spin-1/2 Moebius half-angle coupling (printed at ch03:424), and the spin-1/2 SELECTION is a disclosed import. manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89-90: "the spin-1/2 SELECTION (fermion over boson) is POSITED/import ... PEER-WITH-SM"; manuscript/ave-kb/vol1/claim-quality.md:26: "Selecting spin-1/2 r
+- VERIFY NOTE: Quote verbatim at :462 (figure caption — renders, so it counts as printed) and the companion at :514 verbatim. But criterion 3 FAILS as framed: the printed text does not lag its KB truth-state — it MATCHES it. Three independent checks: (i) `grep -rn 'no imported quantum postulates' manuscript/` returns three hits, and one of them is the KB leaf itself, manuscript/ave-kb/vol1/dynamics/ch3-quantum-s
+
+#### [MEDIUM] [other] [mechanical] manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:24
+- PRINTED: \item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D.
+- KB TRUTH: Two problems against one KB truth-state: (a) nu=2/7 carries no import label — theorem-thesaurus.md:227 "$\nu_{\text{Hill}} = 2/7$ is **GR-imported**", srs-band-structure.md:146 "$\nu=2/7$ is **GR-imported**"; (b) the axiom attribution is wrong — Axiom 2 is the Topo-Kinematic Isomorphism ($[Q] \equiv [L]$, $\xi_{topo} = e/\ell_{node}$; manuscript/common_equations/eq_axiom_2.tex and this volume's ow
+
+#### [MEDIUM] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:116
+- PRINTED: the same kernel produces BCS
+$B_c(T)$ at 0.00\% error, BH ring-down at 1.7\% from GR exact, the
+solar-flare statistics (an A-034 forward prediction over a synthesized
+illustrative timeline, not yet a live-validated anchor),
+and the cosmic K4 crystallization
+seed event.
+- KB TRUTH: Same as the ch07:19 finding — ave-merger-ringdown-eigenvalue.md Resultbox + GRANT RULING B1: the 1.7% is the cold Schwarzschild a*=0 18/49 eigenvalue, the only surviving zero-parameter ringdown content; the spinning-remnant sub-percent LIGO match is retracted as a MATCH-ARTIFACT (corrupt Kerr table x source-vs-detector-frame mass). This site prints "1.7\% from GR exact" in a cross-scale-validation
+- VERIFY NOTE: Same correction as finding 8. Quote verbatim (excerpt begins :115; 'BH ring-down at 1.7\% from GR exact' is on :116); the paragraph :109-120 carries the LF-03 solar-flare demotion but no ringdown qualifier, exactly as stated. KB re-verified independently at ave-merger-ringdown-eigenvalue.md:21/:24-25/:76 and :147-148 ('The cold a*=0 eigenvalue ($18/49$, $-1.7\%$) is the only surviving zero-free-pa
+
+#### [MEDIUM] [missing-retraction] [mechanical] manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:166
+- PRINTED: The Cauchy bulk modulus is fixed at
+$K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
+- KB TRUTH: This exact label is the string the KB corrected. manuscript/ave-kb/vol1/claim-quality.md:646: "the bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (⚠ **collapse-batch T7 correction:** previously labelled \"Cauchy relation for the isotropic lattice\" — a MISLABEL. $K=2G$ is the **GR trace-reversal lock** $\nu_{vac}=2/7$ ..., NOT the genuine central-force Cauchy relation, which forces a *different* po
+
+#### [MEDIUM] [scope-lag] [mechanical] manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:305
+- PRINTED: c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
+- KB TRUTH: sqrt(10/3) holds ONLY at the Voigt-Reuss-Hill average, and is a K=2G re-expression, not lattice-emergent. manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:116: "**$\sqrt{10/3}$** | 1.8257 | **P-wave (LONGITUDINAL)** speed ratio $c_P/c_S$ at the **VRH (Voigt-Reuss-Hill) average ONLY** ... A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emerge
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:308
+- PRINTED: At the $K_{vac}=2G_{vac}$ operating point (equivalently Poisson ratio $\nu=2/7$; canonical derivation in Vol~2 Ch~7) the longitudinal P-wave carries the $4G/3$ shear term
+- KB TRUTH: nu = 2/7 is not derived — it is imported, and the corpus relabelled it nu_Hill (#589). manuscript/ave-kb/common/theorem-thesaurus.md:227: "★**The live hazard, stated plainly:** $\nu_{\text{Hill}} = 2/7$ is **GR-imported** (srs-band-structure.md:116, PR #261) — a *number fed into* the Born-Huang extraction (TH-6). **The feed-in itself is at :81** ... 'at the canonical bond ratio $\rho^*=9.77337$, *
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_1_foundations/chapters/05_universal_spatial_tension.tex:41
+- PRINTED: \item \textbf{Muon:} one quantum of torsional coupling $\alpha\sqrt{3/7}$ yields $m_\mu = m_e/(\alpha\sqrt{3/7}) \approx 107.0 \text{ MeV}$ ($+1.24\%$).
+- KB TRUTH: The 'torsion' label on sqrt(3/7) is an OPEN, Grant-pending contradiction that the KB carries as a visible flag and the manuscript does not. manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/lepton-spectrum.md:29: "🔴 **OPEN FLAG** ... $\sqrt{3/7} = \sqrt{1 - 2\nu_{vac}}$ at $\nu_{vac} = 2/7$ is EXACTLY the dilatational/compressional (bulk) elastic signature ... while the bulk combinati
+
+#### [MEDIUM] [other] [ruling-needed] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/06_universal_operators.tex:110
+- PRINTED: \textbf{Dielectric saturation} (Axiom 4): lattice permittivity
+          collapses under strong-field loading.  In fluid-mechanics language,
+          this is the Bingham plastic yield: the vacuum flows above
+          $\tau_y = B_\text{snap}^2/2\mu_0$.
+- KB TRUTH: manuscript/ave-kb/common/substrate-native-terminology.md leak table: "| **plastic / plastic yield** | sub-yield: reactive **saturation knee** / nonlinear reactance. AVE 'yield' $=$ reversible saturation $\neq$ plastic flow | **Regime IV / past $V_{snap}$**: 'irreversible plastic deformation' is canonical |". The printed passage attaches the plastic-flow naming to the sub-yield Axiom-4 knee and ass
+- VERIFY NOTE: Quote is verbatim but spans :110-113 (the excerpt begins at :110, '\item \textbf{Dielectric saturation} (Axiom 4)'), and the printed-vs-comment asymmetry is real: the disclosure sits in a % block at :114-128 which does not render, including :127-128 'substrate-native-terminology.md:39 marks the sub-yield "Bingham plastic" naming as a leak for the reversible saturation knee; not fixed here.' The DI
+
+#### [MEDIUM] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/06_universal_operators.tex:380
+- PRINTED: \item \textbf{Op 21 (Quality Factor Phase Transition):} Governs superconductivity threshold via $Q \sim 1/\ln(Z_1/Z_0)$.
+- KB TRUTH: The substrate-foundational Op21 form is Q = ell; the printed log form is a CONJECTURED, explicitly NOT-YET-DERIVED specialization. manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md §5: "**The substrate-foundational Op21 form is $Q = \ell$ per Nyquist-cell-resolved confined mode at the $\Gamma = -1$ saturation/TIR boundary**" ... "**The Bardeen $Q \s
+- VERIFY NOTE: Quote verbatim at :380 and the primary KB receipts hold: op21-multi-mode-mode-counting.md:214 verbatim 'The Bardeen $Q \sim 1/\ln(Z_1/Z_0)$ form (Cooper-pair-phase-transition specialization status: conjectured, not yet derived) ... The explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ from substrate-impedance integration at the Cooper-pair scale has NOT yet been derived in the corpus ... logged as 
+
+#### [MEDIUM] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/07_regime_map.tex:19
+- PRINTED: Empirical anchors include BCS $B_c(T)$, which matches the kernel
+form by definitional identity (per-material $T_c$, $B_{c0}$ inputs); the
+black-hole ring-down at 1.7\% from GR; and the Schwarzschild radius exactly.
+- KB TRUTH: The 1.7% VALUE survives, but only as the COLD Schwarzschild a*=0 anchor; the spinning/LIGO-catalog ringdown match is retracted. manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md Resultbox: "$\omega_R \cdot M_g = \frac{\ell(1+\nu_{vac})}{x_{sat}} = \frac{18}{49} = 0.3673$ (GR exact: 0.3737, error 1.7%)" followed by "**This cold Schwarzschild eigenvalue SURV
+- VERIFY NOTE: Quote verbatim (excerpt begins at :17; the ringdown clause is on :19; nothing in :12-24 carries a cold/Schwarzschild qualifier). KB verified verbatim: ave-merger-ringdown-eigenvalue.md:21 gives $\omega_R M_g = 18/49 = 0.3673$ (GR exact 0.3737, error 1.7%) and :24-25 'This cold Schwarzschild eigenvalue SURVIVES the 2026-07-20 correction below', with GRANT RULING B1 at :60-76 'This is a consistency-
+
+#### [LOW] [other] [route-to-core] manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:198
+- PRINTED: The Effective Medium Theory (EMT) of Feng, Thorpe, and Garboczi for a 3D amorphous central-force network with bond occupation fraction $p$ and coordination number $z_0$ gives two distinct percolation thresholds
+- KB TRUTH: The secondary-EMT-scale 'amorphous network' is explicitly NOT classified — it is under an open adjudication, so this is routed, not fixable in a volume lane. manuscript/ave-kb/common/substrate-native-terminology.md:50: "⚠ *secondary-EMT-scale* 'amorphous network' ($z_0\approx51.25$) is **under the open D3 amorphous-retirement adjudication** — do **not** classify either way here"; :74: "*Secondary-
+
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex:39
+- PRINTED: This establishes a rigorous dimensional proof that electrical resistance is physically isomorphic
+to macroscopic kinematic impedance within the vacuum substrate, correctly yielding $Z_{elec}=\xi_{topo}^{-2}Z_{m}$
+- KB TRUTH: def-tk1xfm was RATIFIED SOLID 2026-07-21 with a REGIME FENCE and a standing strength ceiling, neither of which is printed. manuscript/ave-kb/common/vocabulary-register.md:441: "the Topo-Kinematic Isomorphism (Axiom 2) is an EXACT, lossless, gain-1, pole-less, invertible **co-equality of the mechanical and electrical descriptions BELOW the band edge** ($\omega\tau\ll1$ / long-wave regime) ... The s
+
+#### [LOW] [stale-value] [route-to-core] (verify-CORRECTED) manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:155
+- PRINTED: \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3
+- KB TRUTH: The engine computes 7.9097e6 kg/m^3, i.e. 7.91e6 to three significant figures — a 0.13% drift from the printed 7.92e6. src/ave/core/constants.py RHO_BULK = 7909692.740007466 (verified by direct import with PYTHONPATH=src). The KB leaf carries the SAME stale rounding: manuscript/ave-kb/vol1/claim-quality.md:644 "$\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92\times 10^6$ kg/m^3" — 
+- VERIFY NOTE: The value drift is real and I re-derived it independently — engine RHO_BULK = 7909692.740007466 by direct import AND recomputed from XI_TOPO=4.1490047447053624e-07, P_C=0.18340247377893987, L_NODE=3.8615926772428334e-13 giving the identical 7909692.740007466, i.e. 7.91e6 to 3 s.f. vs the printed 7.92e6 (0.13% high) — but this is NOT a manuscript-vs-KB divergence, which is the sweep's subject. The 
+
+#### [LOW] [mirror-drift] [mechanical] manuscript/vol_1_foundations/chapters/06_universal_operators.tex:380
+- PRINTED: (KB-side pointer drift, not a print error) The KB cites this operator's canonical source as line 349; at HEAD the Op-21 bullet is line 380. Line 349 of the file is inside the Op-8 packing-reflection section ('finite cavity.').
+- KB TRUTH: manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md §5: "The [`common/operators.md:61`] Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:349`])". The pointer is stale by 31 lines. Flagged, not fixed — the fix belongs to the KB leaf o
+
+### vol2 — 13 findings
+
+#### [HIGH] [stale-value] [mechanical] manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:81
+- PRINTED: The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value).
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/thermal-softening.md:11 now reads "$\mathcal{I}_{scalar}^{(cold)} \approx 1170.6\,m_e$, yielding a proton ratio of $\approx 1849.70$ ($+0.7377\%$ above the empirical value)"; :13 carries the 🔴 value-refresh 2026-07-13 banner striking the printed triplet BYTE-VERBATIM: ~~"evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \appr
+
+#### [HIGH] [scope-lag] [ruling-needed] manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:230
+- PRINTED: where $z = 4$ is the K4 coordination number.  [companion sites :257 "the radial Bethe lattice of coordination $z=4$ with arm admittance $\nu_\text{vac}$"; :265 "Each $(2,c)$ knot sits at a single K4 node and couples to $z=4$ radial arms."]
+- KB TRUTH: manuscript/ave-kb/common/vocabulary-register.md:526 (def-4b1a2c): "the **production carrier** named \"K4\" is the **chiral srs z=3 net** ... RATIFIED as the engine's production carrier by Grant 2026-07-03 (D1)"; :534 tags the degree-4 diamond as "(re-tagged a non-canonical instrument by the 2026-07-03 D1 ratification)"; :978 "SOLID (the z=3 srs connectivity + $I4_1 32$ chirality are Axiom-1 canoni
+
+#### [HIGH] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:466
+- PRINTED: matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$).  [also :562 "Final result --- $50$ ppm match." and :567 "\textbf{Deviation: $50$ ppm}"]
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md:121 (landed IN-WINDOW, commit 2b9f4026 2026-07-13 "flag the electron 2-loop 50-ppm cell postulate-conditional") requires the tag: "50 ppm match to PDG — **postulate-conditional** (rides n_q-additivity, RESOLVED-NEGATIVE 2026-05-31 ...; NOT an unconditional forward match — the parameter-free forward 
+- VERIFY NOTE: Quote fidelity, KB currency and class all hold -- :466 'matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$).', :562 '\paragraph{Final result --- $50$ ppm match.}', :567 '\textbf{Deviation: $50$ ppm}' all grep-confirmed; q-g19a:121 carries the postulate-conditional cell verbatim, :110 the RESOLVED-NEGATIVE / winding-blind / 1-point-fit verdict, and electron-identification.md:93 the
+
+#### [HIGH] [stale-value] [mechanical] manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:564
+- PRINTED: \Delta a_e^{(2),\text{AVE}} = -8.857\times 10^{-7},\qquad C_2^{\text{AVE}} = -0.32846  ...  $a_e^{(1)} + a_e^{(2)} = +1.16052\times 10^{-3}$ vs measured $+1.15965\times 10^{-3}$, deviation $+0.075\%$. The remaining $0.075\%$ is exactly the contribution of three-loop and higher QED corrections plus hadronic and electroweak (:564, :569-573)
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md:92 gives $\Delta a_e^{(2),\text{AVE}} = C_2(\alpha/\pi)^2 = -1.772\times10^{-6}$; :100 gives total $1.15964\times10^{-3}$ vs measured $1.15965\times10^{-3}$, deviation ≈ −10 ppm; :105 explicitly: "prior versions of this leaf reported $\Delta a_e^{(2),\text{AVE}} = -8.857\times10^{-7}$ and a $+0.075\
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:40
+- PRINTED: The internal electrodynamic circulation of this resonant LC loop generates macroscopic \textbf{$g=2$ Gyroscopic Precession} in the presence of an external magnetic field. Quantum Spin is therefore classically derivable as the continuous optical circulation of this massive electromagnetic light-loop.
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md:185 (IN-WINDOW, 2026-07-09): "🔴 **Rule-12 mechanism-vs-value banner (2026-07-09, g=2 propagation).** ... It does **NOT** derive the *value* $g = 2$ ... the leading $g = 2$ is the imported **Dirac value** (POSITED / consistency, PEER-with-Dirac) ... **Decisive falsifier:** the proton ($g_p\approx5.586$)
+- VERIFY NOTE: Quote, KB and class all verified. :40 exact; `command grep -rnF -e 'g=2' -e 'g = 2' -e 'g-2' manuscript/vol_2_subatomic/chapters/` returns :40 as the only g=2 VALUE site in the volume (the other two hits are 06:397 and 09:73, both the anomalous $g-2$, a different object). KB: l3-electron-soliton-synthesis.md:185 confirmed by `command grep -nF 'Rule-12 mechanism-vs-value banner'` returning exactly 
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/04_quantum_spin.tex:53
+- PRINTED: Taking the magnitude yields the exact Larmor frequency ($\omega_L = \gamma B_0$), proving that quantum NMR spectral lines are purely classical gyroscopic resonances.  [and :68 "This establishes a profound mechanical victory for the AVE framework."]
+- KB TRUTH: manuscript/ave-kb/vol2/claim-quality.md:409 (clm-salw2h non-claims): "The Larmor frequency $\omega_L = \gamma B_0$ is recovered as a classical precession rate; this is an **ontological reinterpretation** (categories (i)/(iii) cohabit), **not a novel numerical prediction**." :408: "The claimed equivalence is at the single-particle level ... Multi-particle entanglement / Bell-inequality predictions 
+- VERIFY NOTE: class overclaim and disposition ruling-needed both HOLD, and the quotes are exact (grep -nF returns :53 'proving that quantum NMR spectral lines are purely classical gyroscopic resonances.' and :68 'This establishes a profound mechanical victory for the AVE framework.'; clm-salw2h re-read at vol2/claim-quality.md:408,:409,:410 verbatim, solidity 0.70 at :417). What is wrong is the FRAMING OF THE D
+
+#### [MEDIUM] [other] [route-to-core] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/05_electroweak_gauge_theory.tex:35
+- PRINTED: Because the vacuum substrate is incompressible ($K = 2G$), an irrotational flow field generates no localised compression ($-\partial_t \mathbf{A}$), no transverse vorticity ($\nabla \times \mathbf{A}$), and no topological defects.
+- KB TRUTH: $K = 2G$ is the $\nu_{vac} = 2/7$ point — a COMPRESSIBLE solid; incompressibility is $K\to\infty$, $\nu\to 1/2$. manuscript/ave-kb/vol1/claim-quality.md:646: "the bulk modulus is fixed at $K_{vac} = 2G_{vac}$ ... $K=2G$ is the **GR trace-reversal lock** $\nu_{vac}=2/7$ ... NOT the genuine central-force Cauchy relation"; :652 spells out that the genuine Cauchy route forces a DIFFERENT point ($\nu=1
+- VERIFY NOTE: THE MOST MATERIAL BREAK IN THE SET. The finding presents this as the manuscript printing something the KB contradicts. The KB does not contradict it -- manuscript/ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md:34 carries the sentence BYTE-VERBATIM, including the mislabel: 'Because the vacuum substrate is incompressible ($K = 2G$), an irrotational flow field generates
+
+#### [MEDIUM] [other] [mechanical] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:313
+- PRINTED: A channel is \emph{compliant} if $\Delta c \le \Delta c_\text{crit} = 3$ (the K4 coordination\nnumber minus~1); otherwise it is \emph{screened}.
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch03-neutrino-sector/index.md:22: "Chiral Screening Threshold | $\Delta c_{crit} = 3$ (K4 connectivity = trefoil crossing number)"; chiral-screening.md:18 "$\Delta c_{\text{crit}} = 3$ (K4 connectivity = trefoil crossing number)" and :24 "the trefoil has $c = 3$ crossings *because* the K4 lattice is 3-connected." The threshold is the connectivity ITSELF (=3)
+- VERIFY NOTE: class 'stale-value' is wrong -- the VALUE is not stale. Both the manuscript (:313 '$\Delta c_\text{crit} = 3$') and the KB (chiral-screening.md:18 '\Delta c_{\text{crit}} = 3', index.md:22, pmns-eigenvalues.md:43) carry 3. What diverges is the printed PROVENANCE: the manuscript derives 3 as 'the K4 coordination\nnumber minus~1' (wrapped across :313-314, confirmed by direct sed read), while the KB 
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex:243
+- PRINTED: Therefore, the buckled electron's effective mass limits down strictly to $50\%$. The isolated $s^2$ shell loads structurally not as $2.0$, but perfectly as $N_{eff} = 1.0 + 0.5 = 1.5$. (This correlates precisely to the mathematical extraction collapsing the error envelope in Helium's first ionization energy from $+72\%$ completely down to $-2.6\%$).
+- KB TRUTH: No KB home: `grep -rn '72\\%|N_{eff} = 1.5|1.0 + 0.5|Euler Buckling'` across manuscript/ave-kb/vol2/ returns ZERO hits. It also contradicts the two KB-anchored helium values printed 10 and 3,748 lines later in the SAME chapter: :253-257 "By applying the Mutual Cavity Loading architecture to Helium's $1s^2$ shell ($N_{eff} = 2.0$) ... $IE_\text{He (AVE)} = 24.19$ eV ... $\Delta = -1.6\%$" (mirrored
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex:3510
+- PRINTED: confirmed independently by the elastic modulus ratio $G/K = 1/2$\n(since $K = 2G$ from $\nu = 2/7$, Axiom~2),  [companion mis-attributions: :243 "Axiom 3 rigidly mandates that $G = K/2$"; 09_computational_proof.tex:224 "subject to the $K = 2G$ topological limit" listed under "(Axiom 4)"]
+- KB TRUTH: Three different axioms are cited in one volume for a relation the KB rules axiom-free. manuscript/ave-kb/common/form-deriving-value-importing.md:87: $K=2G$ / $\nu_{vac}=2/7$ is "**GR-IMPORTED** (echo for the value) ... not crystalline-forced nor constitutively-forced". manuscript/ave-kb/vol1/claim-quality.md:665 (IN-WINDOW, PR #508, 2026-07-04): "**STAYS OPEN (2026-07-04, PR #508):** the genuine 4
+- VERIFY NOTE: Three corrections; disposition ruling-needed survives. (1) LINE: the quoted excerpt starts at :3510 ('confirmed independently by the elastic modulus ratio $G/K = 1/2$') and wraps to :3511 ('(since $K = 2G$ from $\nu = 2/7$, Axiom~2),'). Minor drift, but a mechanical-batch editor keying on :3511 alone would miss the first half. (2) MISSED FOURTH SITE: `command grep -nF -e 'K = 2G' -e 'K=2G' -e 'G =
+
+#### [MEDIUM] [overclaim] [mechanical] (verify-CORRECTED) manuscript/vol_2_subatomic/chapters/11_standard_model_overdrive.tex:66
+- PRINTED: \textbf{Computation time:} Seconds on a single core, versus months on a supercomputer for Lattice QCD at comparable accuracy.
+- KB TRUTH: manuscript/ave-kb/vol2/claim-quality.md:602 (clm-dboxok, Specific Non-Claims): "Does NOT claim AVE replaces Lattice QCD or AlphaFold in their respective production roles. The comparison is **methodological (scaling, free parameters), not a head-to-head accuracy benchmark**." The printed "at comparable accuracy" is precisely the head-to-head accuracy assertion the KB non-claims. Claim solidity is 0
+- VERIFY NOTE: class overclaim and the KB non-claim both HOLD -- quote exact at :66 ('\item \textbf{Computation time:} Seconds on a single core, versus months on a supercomputer for Lattice QCD at comparable accuracy.'), `git grep -n 'comparable accuracy' -- manuscript/vol_2_subatomic/` returns exactly :66, clm-dboxok non-claim verified verbatim at vol2/claim-quality.md:602 ('Does NOT claim AVE replaces Lattice 
+
+#### [MEDIUM] [missing-retraction] [route-to-core] manuscript/vol_2_subatomic/chapters/11_standard_model_overdrive.tex:123
+- PRINTED: The universe is structurally scale-invariant. The exact same continuous $1/d$ impedance topology algorithm governs both the dense nuclear assembly of Uranium-235 and the dynamic macro-molecular folding of long-chain Polypeptides.  [also :7 "Unify nuclear strong-force baryonic assembly and molecular protein folding under a single $O(N^2)$ impedance-minimising gradient descent energy functional"; :9
+- KB TRUTH: manuscript/ave-kb/common/program-arc-map.md:370 registers the arc as NEGATIVE: "| N13 | **Protein impedance-folding** (impedance carries the fold) | NEGATIVE (all EE-reflection channels dead) — **cross-repo (AVE-Protein lane); Core walk-back STAGED, B4 row may be STALE** `[PARTIAL-RECEIPT]` |". BUT the vol2 leaf that owns the printed claim (vol2/claim-quality.md clm-dboxok:601, proofs-computation/
+
+#### [LOW] [mirror-drift] [ruling-needed] manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:92
+- PRINTED: $\nu_{vac} = 2/7$ --- the Poisson ratio of the chiral LC lattice  [~20 further $\nu_{vac}$ / $\nu_\text{vac}$ sites across ch02, ch03, ch05, ch06, ch10]
+- KB TRUTH: The #589 relabel to $\nu_{\text{Hill}}$ (isotropic Voigt-Reuss-Hill average, anisotropy-tagged, no value change) has landed in the engine — src/ave/core/constants.py:397 `N_NU: float = 2.0 / 7.0  # ν_Hill (Poisson ratio, Axiom 2; isotropic V-R-H avg at GR-imported K=2G; see note above)` and :626 `NU_VAC ... # ν_Hill (isotropic Voigt-Reuss-Hill average at K=2G)` — and in the KB (theorem-thesaurus.m
+
+### vol3 — 21 findings
+
+#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:427
+- PRINTED: \item BH merger ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:202 — the '10–18%' is 'the frame-mixed pre-correction artifact (#774) ... not a dimensionless comparison to true Kerr', corrected 2026-07-21 under Ruling B1. This line sits under the heading 'Tightest validations' at :423-424 with no retraction marker anywhere in ch04 (grep -c 'B1' on the file returns 0).
+- VERIFY NOTE: 'mechanical' is wrong. I re-read the printed context: the bullet sits inside an itemize under the heading 'Tightest validations:' at ch04:423-424. Under Ruling B1 the corrected state is explicitly NOT a validation - claim-quality.md:202 reads 'Mapping-conditional, consistency-class, disclosed-phenomenological - NOT sub-percent, NOT a zero-free-parameter benchmark'. So there is no number you can sw
+
+#### [HIGH] [missing-retraction] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:250
+- PRINTED: \textbf{Superseded v1 formula} (pre-2026-05-18, over-predicted spin correction by $\sim$13\% mean)
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md § Kerr-Corrected Ringdown: '~~over-predicted spin correction by ~13% mean~~ — **that diagnosis is RETRACTED 2026-07-20**'; the 🔴 CORRECTION block below it: v1 sits +2.24/+2.50/+3.17% (mean +2.63%) against corrected Kerr and 'v1 outperforms v2 at every catalog spin'. Under Ruling B1 v1 is the STANDING mappin
+
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:271
+- PRINTED: Per the truth-source card ... AVE ``does NOT claim sub-percent agreement ... show \textbf{10--18\%} frequency error and 10--14\% decay-time error'' ... and the Kerr quality factor ``matches GR sub-2\% only for $a_* = 0.3$--$0.8$; behaviour outside this spin range is not validated.''
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:202 and :204 — BOTH quoted clauses now carry 🔴 corrections/strikes dated 2026-07-21. The manuscript quotes the pre-correction card text as if it were current truth-source.
+- VERIFY NOTE: The kb_truth's framing - 'The manuscript quotes the pre-correction card text as if it were current truth-source' - is refuted by the printed text. ch15:31 explicitly instructs the reader to read every such statement in the chapter as carrying the retraction, and names these as 'four printed occurrences ... left standing per Rule 12 and are pending per-occurrence reconciliation'. So the corpus alre
+
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:290
+- PRINTED: \noindent \textbf{Frequency mean $-0.45\%$, decay-time mean $-0.47\%$ per event}.
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:130-133 marks the companion table '⚠ The table below is the SUPERSEDED frame-mixed artifact (2026-05-18)' and :141-148 retracts the −0.45% bank outright; the printed table at :277-288 carries no visible marker.
+- VERIFY NOTE: kb_truth says 'the printed table at :277-288 carries no visible marker' - true locally, but the chapter DOES carry a rendered marker at :31 whose scope is 'the $-0.45\%$/$-0.47\%$ spinning-remnant figures printed throughout this section', which reaches this table. So this is not a missing retraction; it is the same per-site invisibility problem as finding 4 (blanket ~260 lines upstream, in-place p
+
+#### [HIGH] [missing-retraction] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
+- PRINTED: 9 of 11 swept spin values $a_* \in \{0.0, 0.1, \ldots, 0.95\}$ PASS at $|\text{dev}| < 3\%$ vs GR reference ... GW190521 ... matches at $-0.25\%$ per v2; GW170729 ($a_* = 0.81$) matches at $+1.77\%$
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:164-175: 'RETRACTED 2026-07-20: the entire spin sweep was run against the corrupt Kerr table; against corrected Kerr, v2 sits −8.6% to −20% BELOW true Kerr across a*=0.6–0.95 ... No PASS survives.'
+
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:337
+- PRINTED: the v2 Cosserat-back-reaction formula reaches \textbf{$-0.45\%$ mean $\omega_R$ + $-0.47\%$ mean $\tau$} per event (Phase 3+5 closure 2026-05-18)
+- KB TRUTH: Same B1/MATCH-ARTIFACT retraction as the body (ave-merger-ringdown-eigenvalue.md:31-45). The figure CAPTION carries the retracted numbers, and the underlying raster bh_untapped_predictions.png plots them.
+- VERIFY NOTE: Same blanket problem as findings 1/5: ch15:31's 'printed figures above/below preserved per Rule 12' plus '$-0.45\%$/$-0.47\%$ ... printed throughout this section' reaches the caption. So 'missing-retraction' overstates it. What is genuinely distinct and NOT dischargeable by any caption edit is the raster: bh_untapped_predictions.png plots the retracted comparison, so a caption-only fix leaves the 
+
+#### [HIGH] [scope-lag] [gated-ringdown] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:387
+- PRINTED: the standard GR Kerr QNM comparison figure for the same events is $-6.94\%$ mean ... Per \texttt{clm-395gps}, this Kerr comparison is validated only for $a_* = 0.3$--$0.8$ (10--18\% frequency error otherwise); the larger cold-$Q=\ell$ discrepancies in the table above reflect that the cold approximation is not the Kerr-refined case.
+- KB TRUTH: clm-395gps at manuscript/ave-kb/vol3/claim-quality.md:204 (struck) and ave-merger-ringdown-eigenvalue.md:150-162 ('the $-0.47\%$ "match" and the "outperforms GR ($-6.94\%$)" contrast do not survive'). The closing clause is exactly what axiom-coverage-audit.md:71 names a 'scoping lag': under B1 the spin story is the mΩ law, computed and banked at −5.44%/−4.57%, not an un-attempted correction.
+- VERIFY NOTE: The receipts assert the ch15:31 blanket 'does NOT reach ... the -6.94% GR contrast (:387)'. That is wrong on two counts. (i) The blanket explicitly retracts the GR contrast: 'the ``outperforms GR for $\tau$'' contrast rode the same compensation and is retracted' - and the -0.47%-vs--6.94% pairing at :387 IS that contrast. (ii) The 'validated only for $a_* = 0.3$--$0.8$ (10--18\%)' clause at :387 i
+
+#### [MEDIUM] [stale-value] [mechanical] manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:231
+- PRINTED:     Z_{\text{local}}(r) = \frac{Z_0}{S^{1/4}}
+- KB TRUTH: manuscript/ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md:20-33 — 'Register correction (2026-07-14, quarter-power map §Family-E; KEEP-BOTH). Previously stated as $Z_{local} = Z_0/S^{1/4}$ — the legacy register that let the Family-E $S^{1/4}$ exponent ride in, un-propagated. Corrected to the canonical Op14 register $Z = Z_0/\sqrt{S}$'. Canonical Op14 confirmed at ave-kb/co
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:186
+- PRINTED: the geometric quantum information is physically, mathematically, and permanently erased. ... quantum unitarity is macroscopically violated at the event horizon, enforcing information loss.
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md:24-26 — '🔴 FLAG (2026-07-19, Tier-2.5 hygiene — flag-don't-fix)' on exactly these two sentences: they sit 'in tension with topological retention elsewhere in the corpus'; 'Status: recorded + routed, NOT adjudicated', routed to the generative-cosmology / BH-interior lane. Same wording is un-flagged at ch15:
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:426
+- PRINTED: \item BCS $B_c(T)$: \textbf{0.00\% error} across all measured superconductors   [companion table cell at :361: '\textbf{0.00\% error}']
+- KB TRUTH: manuscript/ave-kb/claim-quality.md:171-182: 'The "0.00%" reads like a numerical fit but is not ... The 0.00% match is not a numerical fit — it is the same operator at a different scale', plus the explicit tripwire at :182 against 'a global "AVE achieves 0.00% on N predictions" claim'. closure-roadmap.md:206 records the RECLASSIFICATION to DEFINITIONAL IDENTITY. Vol 3 ch09:18-21 and ch15:35 already
+- VERIFY NOTE: 'mechanical' is wrong for the same structural reason as finding 15, and more sharply. The KB tripwire I re-read at claim-quality.md:182 targets exactly this construction: 'a global "AVE achieves 0.00% on N predictions" claim collapses meaningful distinctions'. ch04:423-430 IS a global validated-anchor enumeration. So a mechanical fix that appends the ch15:35-style parenthetical would leave the tri
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:62
+- PRINTED: This falls within the observed Hills Cloud range (2,000--5,000~AU inner edge), confirming that the Oort Cloud is the solar system's \textit{impedance boundary}.
+- KB TRUTH: The printed value two lines above is $r_{sat} \approx 7{,}400$ AU, which is NOT inside 2,000–5,000 AU — the sentence asserts containment its own number contradicts. Auditor arithmetic: $\sqrt{GM_\odot/a_0}$ = 7,030 AU at empirical $a_0=1.2\times10^{-10}$, 7,446 AU at AVE's derived $a_0=1.07\times10^{-10}$; both outside the quoted band. The KB mirror carries the identical defect (oort-cloud-saturat
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_3_macroscopic/chapters/06_solar_system.tex:71
+- PRINTED: The asteroid belt gaps at mean-motion resonances with Jupiter are modelled as cavity modes in the gravitational impedance field: $a_{\text{gap}} = a_J \cdot (q/p)^{2/3}$.  All five major gaps (4:1, 3:1, 5:2, 7:3, 2:1) are reproduced to $< 0.3\%$ error.
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md:14 — '🟡 CONSISTENCY-CLASS note (dated 2026-07-20; ratified-by-merge #741)': the law 'reduces to Kepler's third law', 'the $2/3$ is the Kepler exponent, not a lattice number', 'a relabel of the Newtonian mean-motion resonance: it fits to <0.3% BECAUSE it is the Newtonian resonance condition', and 'there is no AVE-disti
+
+#### [MEDIUM] [stale-value] [defer-to-live-lane] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:29
+- PRINTED: Solar surface              & $2.1 \times 10^{-6}$ & I  & Standard GR; $\Delta S < \alpha$ \\
+- KB TRUTH: The row's own control parameter is $\varepsilon_{11}=7GM/(c^2r)$ (:19, :23). 2.1e-6 = GM/(c^2R) — factor-7 low. Auditor arithmetic: $7GM_\odot/(c^2R_\odot) = 4.672\times10^{-10}\cdot1.989\times10^{30}/(9\times10^{16}\cdot6.957\times10^{8}) = 1.484\times10^{-5}$. The live lane's KB fix (stellar-regime-classification.md, branch docs/factor7-and-782-basis-notes) sets 1.486e-5 and adds a dated Correct
+- VERIFY NOTE: 'mechanical' fails its own stated bar: it requires a MERGED, adjudicated KB state. There is none. I read the KB at HEAD - manuscript/ave-kb/vol3/applied-physics/ch07-stellar-interiors/stellar-regime-classification.md:16 still reads '| Solar surface | $2.1 \times 10^{-6}$ | I | ...'. The 1.486e-5 fix and its dated Correction note exist ONLY on the unmerged branch docs/factor7-and-782-basis-notes (v
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex:31
+- PRINTED: White dwarf (Sirius~B)     & $3 \times 10^{-4}$   & I  & Gravitational redshift $\sim 10^{-4}$ \\
+- KB TRUTH: The live lane's own note leaves this ROUTED: '$3\times10^{-4}$ matches $GM/(c^2R)$ (the measured gravitational redshift its own consequence-column cites) rather than $7GM/(c^2R) = 1.77\times10^{-3}$'. Meanwhile ave-kb/vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md tabulates Sirius B at $\varepsilon_{11}=1.81\times10^{-3}$ — the 7-carrying value. So two KB leaves
+
+#### [MEDIUM] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:11
+- PRINTED: Verify that GW strain amplitudes remain $\sim 28$ orders of magnitude below the dielectric hardware snap limit.  [same at :365]
+- KB TRUTH: Internally contradicted at :61 ('$\sim 2 \times 10^{-25}$ times smaller'), :355 ('$V_{GW}/V_{snap} \approx 2 \times 10^{-25}$') and :358 ('Twenty-five orders of magnitude'). Commit aef2cd23 (2026-06-21) fixed 3 of 5 sites and left :11 and :365. Arithmetic: 1e-19 V / 511 kV = 1.96e-25 → 25 orders is right, 28 is wrong. Separately the KB is STALE in the other direction — ligo-gw-saturation-ratio.md:
+- VERIFY NOTE: The divergence is real and I re-derived all of it, but 'gated-ringdown' is the wrong disposition - the saturation ratio is not ringdown content and is not gated on the cold-Q arc. The finding's own kb_unsettled entry says 'Grant must rule which number the KB adopts before the two ch08 residual 28 orders sites are touched', which is ruling-needed by definition. Parking it behind the ringdown gate w
+
+#### [MEDIUM] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex:364
+- PRINTED: Gravitational waves propagate \textbf{exclusively} as lossless, trace-free, transverse impedance modulations of the macroscopic LC vacuum lattice.
+- KB TRUTH: The chapter's own Grant-F4→(a) reconciliation box (:242-258, landed b39bd9cc/667f9ae3 2026-07-20) states item-3 now carries 'observed decay = shear (KEEP) + the forbidden-at-$O(1)$ bulk admixture ($F_{bulk}/F_{shear}\approx0.03$--$0.12$)'. Under standing Reading-A (port-register.md:5 'Q1 REVERTED 2026-07-20'; #761 NONE-DERIVES) an exclusively-transverse summary is the pre-revert state. Both warnin
+- VERIFY NOTE: Two problems. (1) DISPOSITION: 'gated-ringdown' is the wrong parking lot - this is the Q1/bulk-admixture fork, not ringdown content, and it is in no way gated on the cold-Q derivation. Parking it there would silently defer a LIVE open contradiction. The sweep's own kb_unsettled entry says 'the physics itself belongs to the core session' - that is route-to-core, and route-to-core's bar is met: the 
+
+#### [MEDIUM] [scope-lag] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:292
+- PRINTED: near-extremal remnants ($a_* > 0.90$) are deferrable to Option B (full spheroidal cavity) when LIGO/ET detects such an event
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/first-principles-predictions.md:20-22 — under Ruling B1 the near-extremal axis was PROMOTED 'from routed-candidate to LIVE FORWARD PREDICTION': v1 gives ω_R M_g → 54/49 = 1.102, +10.2% over the GR ZDM limit, and is the qualitative v1-vs-v2 discriminator. Vol 3 prints none of it.
+
+#### [MEDIUM] [scope-lag] [gated-ringdown] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:354
+- PRINTED: 4 & Saturation ($V_{SNAP}$, viscosity) & \textbf{Full} & Phase transition, $Q = \ell$, $\tau_{ring}$ \\
+- KB TRUTH: manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md:17 — the same row now reads 'Phase transition, $Q = \ell$ (cold $a_*=0$ anchor — B1), $\tau_{ring}$'. Companion 🟩 SPIN-SCOPE banners at :33-52 (on the resultbox) and :66-77 (on the LIGO table) were propagated 2026-07-31; the printed chapter carries neither at :359, :364-369 or :373-386.
+
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:38
+- PRINTED: When local Newtonian acceleration $g_N$ serves as the saturation amplitude (with $a_0$ as the yield limit), the drag contribution
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:261 — 'Amplitude-identification tag (2026-07-20, #754 R1 qualifier). The kernel-amplitude identification $A = g_N/a_0$ ... is substrate-consistent / ANCHOR-FORCED within the established gravity-as-refraction correspondence — NOT an unconditional "derived." ... That $g_N \leftrightarrow E_{local}$ leg is analogy-level / correspondence-transported.'
+
+#### [LOW] [scope-lag] [mechanical] manuscript/vol_3_macroscopic/chapters/13_geophysics.tex:122
+- PRINTED: rotates physically inside the solar Sagnac phase-boundary (amplified electromagnetically by the magnetopause $+1$ reflection boundary)
+- KB TRUTH: manuscript/ave-kb/vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md:18 — 'Register note (2026-07-14) — the magnetopause $\Gamma=+1$ is a defensible OPEN-circuit convention, TAGGED not flipped ... it lives on the pressure-balance boundary register, distinct from the electron-scale amplitude-level-set $\Gamma=-1$ TIR wall ... Flag-don't-fix: surfaced for the auditor, not silently reconc
+
+#### [LOW] [scope-lag] [route-to-core] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:322
+- PRINTED: In the AVE dielectric framework, this is the \textbf{permanent plastic deformation} of the LC lattice after being driven past its linear elastic limit by the passing wave.
+- KB TRUTH: manuscript/ave-kb/common/retention-transition-split.md (ratified Grant 2026-07-17) — 'Any load-bearing use of remanence / irreversible / plastic / latch / dissipates / frozen / erased must declare WHICH moment it refers to: PRODUCT ... or TRANSITION'. substrate-native-terminology.md:52 records the GW-memory item itself as still AMBIGUOUS ('requires_R=yes retained conservatively — its leaf prose co
+
+#### [REFUTED — dropped] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:23
+- REASON: Class 'missing-retraction' is false: the retraction is present, dated, rendered, and adjacent. ch15:31 (live \noindent\textbf{} body prose, 8 lines below) reads verbatim: 'Number correction (2026-07-21, ringdown MATCH-ARTIFACT + Grant Ruling B1; printed figures above/below preserved per Rule 12).} T
+
+#### [REFUTED — dropped] manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:27
+- REASON: This is the single most explicitly-discharged site in the chapter. ch15:31 names it by location, verbatim: 'read every ``validated only for $a_* = 0.3$--$0.8$'' and ``matches GR sub-2\%'' statement in this chapter --- including the one in the A-034 anchor paragraph immediately above --- as carrying 
+
+### vol4 — 11 findings
+
+#### [HIGH] [stale-value] [mechanical] manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:234
+- PRINTED: As defined by Axiom~4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. ... $C_{eff}(V) = \frac{C_0}{\sqrt{1 - \left(\dfrac{V}{V_{yield}}\right)^{\!2}}} = \frac{C_0}{S(V)}$  [:237]  ... table rows :258-:265 "$V/V_{yield}$ & $V$ (kV) ... 1.000 & 43.65 & $\infty$ & 0"
+- KB TRUTH: manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md:18 — "**Grade-fork RESOLVED = T2 (Grant 2026-06-30; `def-vyvsn1` adjudicated ...)** The prior wording keyed this A1 varactor's saturation-completion voltage on $V_{yield}=\sqrt\alpha\,V_{snap}\approx43.65$ kV. That is **corrected**: ... The **longitudinal-A1** bond compliance below diverges at the hig
+
+#### [HIGH] [missing-retraction] [route-to-core] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/15_autoresonant_breakdown_spice.tex:34
+- PRINTED: As established in Axiom 4, the localized effective permittivity ($\epsilon_{eff}$) structurally yields as the gap voltage approaches the capacity limit ($\sim 43.65 \text{ kV}$ point-yield, or the $60 \text{ kV}$ bulk-avalanche limit depending on geometry).   [+ :50 "$C_{eff}(V) = C_0 \sqrt{1 - (V/60\text{k})^2}$"; :84 ".param L0=1mH C0=1nF V\_yield=60000"; :108 "successfully pump the localized me
+- KB TRUTH: manuscript/ave-kb/vol4/simulation/ch15-autoresonant-breakdown/theory.md:8 — "⛔ **INVALIDATED — RECOMPUTATION REQUIRED.** ... The line-6 framing \"($\sim 43.65\,\text{kV}$ point-yield, or the $60\,\text{kV}$ bulk-avalanche limit depending on geometry)\" treats these as two independent yield thresholds; they are not — there is one canonical V_yield. ... **All downstream numerical claims in this leaf
+- VERIFY NOTE: The disposition, and the finding's own kb_unsettled note ("The manuscript propagation is therefore banner-only and MECHANICAL") is the thing I break. The KB banner it would mirror is at theory.md:8 (grep-confirmed line number; the finding said :8, correct) and prescribes: "All downstream numerical claims in this leaf ... should be disregarded until recomputed against $V_{yield} = 43.65\,\text{kV}$
+
+#### [HIGH] [missing-retraction] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/17_noise_floor_boundary.tex:79
+- PRINTED: The AVE-predicted signal at $V/V_{yield} = 0.85$ (onset of divergence):
+\begin{equation}
+    \frac{C_{eff}}{C_0} = \frac{1}{\sqrt{1 - 0.85^2}} \approx 1.90\times \quad \Longrightarrow \quad \frac{\Delta C}{C_0} \approx 90\%
+\end{equation}   [+ :108 "The predicted AVE capacitance divergence exceeds the thermal noise floor by nine orders of magnitude." + :114 caption "The Axiom~4 capacitance diverge
+- KB TRUTH: manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md:20 — "**★ Supersession (KEEP-BOTH; roll-off ruling ratified 2026-07-06/07, PR #562/#558).** The superseded line read: *\"As $E \to E_{yield}$: $\varepsilon_{eff} \to 0$ and $C_{eff} = C_0/S \to \infty$.\"* — a **spike, sign-inverted** vs the ratified across-gap roll-off"; and :28 — "*(Superseded, KEEP-BOTH: this 
+- VERIFY NOTE: The disposition. Everything else in the finding checks out, including its arithmetic. Verified quotes: :79-:82 (the 0.85 operating point and $C_{eff}/C_0 = 1/\sqrt{1-0.85^2} \approx 1.90\times \Rightarrow \Delta C/C_0 \approx 90\%$), :84 ("The signal-to-noise ratio exceeds $10^{9}$"), :108, :114 caption. KB truth re-derived two ways: ee-bench-plateau.md carries the ★ Supersession block quoting the
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:15
+- PRINTED: The Vacuum Circuit Analysis (VCA) framework rests upon a single, exact dimensional isomorphism between continuum spatial mechanics and electrical network theory. This section derives the mapping rigorously ...   [+ :31 "Each row of the Topo-Kinematic identity is derived by substituting $\xi_{topo}$ into the standard SI definition"; + :220 "This proves the mapping is dimensionally exact and energy-
+- KB TRUTH: manuscript/ave-kb/common/vocabulary-register.md:435-441 (def-tk1xfm, **RATIFIED SOLID** Grant 2026-07-21) carries two qualifiers the printed section lacks: (a) the REGIME FENCE — "an EXACT, lossless, gain-1, pole-less, invertible **co-equality of the mechanical and electrical descriptions BELOW the band edge** ($\omega\tau\ll1$ / long-wave regime) ... the co-equality is REGIME-SCOPED — at band-edg
+- VERIFY NOTE: Half the finding does not survive, and the disposition fails. SURVIVES: the REGIME FENCE limb. def-tk1xfm is real and RATIFIED SOLID (Grant 2026-07-21) at vocabulary-register.md:435 ff., and its ratified sentence does read "...co-equality of the mechanical and electrical descriptions BELOW the band edge ($\omega\tau\ll1$ / long-wave regime) ... the co-equality is REGIME-SCOPED". Two-method grep co
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:313
+- PRINTED: Below the yield voltage, the vacuum acts as a highly resistive solid---kinematically gripping embedded matter via inductive drag ($\eta_0 > 0$).   [+ :376 "\textbf{Unsaturated Vacuum ($V < V_{yield}$):} $R_{vac} = \xi_{topo}^{-2}\, \eta_0 > 0$. The skin depth is finite"; + :650-661 the Orbital Friction Paradox framing that presupposes a real sub-yield drag which is then "neutralized"]
+- KB TRUTH: manuscript/ave-kb/common/substrate-native-terminology.md:33 — "🟢 **RULED (2026-07-19 ...)** ... the corpus's genuine **loss/irreversibility channels reduce from four to THREE**: (1) radiative port, (2) boundary-Joule extraction, (3) Regime-IV rupture" (Ax3 forbids a bulk Re(Z) sink); and clm-h55fy1 at ave-kb/vol4/falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md:11 — "t
+- VERIFY NOTE: Disposition. The KB truth checks out — I re-read substrate-native-terminology.md:33 (grep-confirmed line number) verbatim: "🟢 RULED (2026-07-19, Grant in-chat ...) ... the corpus's genuine loss/irreversibility channels reduce from four to THREE: (1) radiative port, (2) boundary-Joule extraction, (3) Regime-IV rupture", and boundary-trapping-test.md:11 verbatim: "the deep-space bulk coupling to slo
+
+#### [MEDIUM] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:512
+- PRINTED: For example, the derivation of Silicon-28 ($Z=14, A=28$) requires the mapping of exactly 378 coupled inductor nodes. The solver algebraically targets the empirical CODATA nuclear mass~\cite{codata2018}, forcing the geometry to converge. The absolute $7\alpha$ symmetry of Silicon compresses flawlessly into a strict \textbf{Pentagonal Bipyramid} at an exact separation constraint of $R_{bipyramid} = 
+- KB TRUTH: manuscript/ave-kb/vol1/operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md:35 — "**Methodology disclosure (per Vol 6 introduction).** Within the $(Z,A)$-forced bipyramid topology, the inter-alpha distance $R_{bipyramid}$ is the single fitted scalar adjusted per nucleus so the pairwise summation reproduces the CODATA mass"; :41 — "The reported $<0.001\%$ residual is **the optimi
+- VERIFY NOTE: The kb_truth receipt is materially FALSE, the class under-calls the divergence, and the disposition fails. THE FALSE RECEIPT: the finding asserts — twice, once in the receipts field and once in kb_unsettled #4 — that "the Si-28 value itself appears nowhere in manuscript/ave-kb/ (verified two-method)" and that "the Si-28 pentagonal-bipyramid site is manuscript-only with no KB twin". Both are wrong.
+
+#### [MEDIUM] [stale-value] [route-to-core] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:720
+- PRINTED:     C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/V_{yield})^2}}, \qquad V_{yield} \approx 43.65 \text{ kV}   [resultbox "Vacuum Varactor (Axiom~4)"]  ... and :756  "V_{IP3} = \sqrt{\frac{4}{3}}\; V_{yield} \approx 1.155 \times 43.65 \approx 50.4 \text{ kV}"
+- KB TRUTH: Same ruling as above — nonlinear-vacuum-capacitance.md:16,:20,:27 (A1 varactor keyed on $V_{snap}\approx511$ kV, Grant 2026-06-30). The Rule-12 scope-correction already printed at 01:711 (dated 2026-06-21) corrects the per-node-vs-apparatus strain, the 30%-foothold and the sextic-QED discriminator, but PRE-DATES the 2026-06-30 sector re-keying and therefore does NOT cover it — the IM3 chain still 
+- VERIFY NOTE: The disposition. The finding's kb_truth says "Same ruling as above — nonlinear-vacuum-capacitance.md ... (A1 varactor keyed on $V_{snap}$)" and infers a mechanical token swap. But the KB twin for THIS section — ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md, the leaf the manuscript's own :710 Rule-12 comment names as its lockstep partner — still prints at HEAD
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:824
+- PRINTED: The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on the native diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix.
+- KB TRUTH: Same D1 ratification — vocabulary-register.md:536: `src/ave/core/k4_tlm.py` is referent (b), the achiral z=4 diamond, "re-tagged a non-canonical instrument"; and the chirality entry def-7c3f9e (:~560) records that the diamond's handedness is a DYNAMICAL $\kappa_{chiral}$ order-parameter on an ACHIRAL $Fd\bar3m$ lattice, with whether it "genuinely realizes Axiom-1's CHIRAL $I4_132$ space group" fla
+- VERIFY NOTE: Disposition, for the same reason as finding 5 and by the finding's own routing note. The printed sentence is a SOLVER description and is factually accurate about the code — src/ave/core/k4_tlm.py really is the z=4 diamond engine (vocabulary-register.md:534 pins K4Lattice3D at k4_tlm.py:101-119). The divergence is carried entirely by two words: "native diamond graph" (asserts the re-tagged carrier)
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/13_future_geometries.tex:315
+- PRINTED: The underlying geometry of the vacuum is an FCC bipartite embedding of K4 intersections, forming the classic Diamond lattice. Each scattering node occupies exactly one LC junction and communicates with exactly $4$ adjacent neighbors.
+There are no fake Euclidean axes. The network operates strictly through 4-port $sp^3$-like topological channels.
+- KB TRUTH: manuscript/ave-kb/common/vocabulary-register.md:526 (def-4b1a2c) — "the **production carrier** named \"K4\" is the **chiral srs z=3 net** ... RATIFIED as the engine's production carrier by Grant 2026-07-03 (D1)"; and :536 referent (b) — "the **engine \"K4\"** — the degree-4 (z=4) bipartite-FCC **DIAMOND** lattice (achiral $Fd\bar{3}m$) ... **re-tagged a non-canonical instrument** by the 2026-07-03
+- VERIFY NOTE: Disposition, plus three cite errors in the kb_truth. (1) DISPOSITION: the finding's own kb_unsettled entry #2 says "any rewrite of 13_future_geometries.tex §K4-TLM must not silently adjudicate [the chirality realization]. ROUTE-TO-CORE" — which contradicts its own mechanical tag on the same site. The quoted block continues at :316 into "the inherent 3D chirality of the vacuum is preserved structur
+
+#### [MEDIUM] [other] [mechanical] manuscript/vol_4_engineering/chapters/14_particle_decay_spice.tex:124
+- PRINTED: The $3_1$ node geometry of an electron or a muon occupies a spatial volume significantly smaller than the physical radius of an atomic nucleus ($< 10^{-15} \text{ m}$).   [+ :75 caption "The continuous LC tank models the $3_1$ topological geometry."; :53 "The Trefoil topology is modeled as a resonant LC tank circuit"]
+- KB TRUTH: manuscript/ave-kb/CLAUDE.md, INVARIANT-N1 (Knot / trefoil disambiguation) — "the electron's **real-space body** is the $0_1$ **unknot** ... Rolfsen names ($3_1$ trefoil, $5_1$ cinquefoil, …) and \"$(2,q)$ torus knot\" labels refer to **phase-space winding portraits** on the bond-pair LC tank (Clifford torus), **not** real-space body knots. Never write \"trefoil electron\" without an explicit *phas
+
+#### [LOW] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:150
+- PRINTED: Envelope & wavefunction support & zone of influence &
+  Default: substrate. What the substrate \emph{actually sees}. \\   [row of the three-column Rosetta-Stone table, \S sec:rosetta_stone_3col]
+- KB TRUTH: manuscript/ave-kb/common/envelope-anatomy.md (word-level ruling block, ~:20) — "**Word-level ruling — CONFIRMED (Grant in-chat 2026-07-15 ...).** The token *\"envelope\"* now **canonically denotes the wall** — surface (i), the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert=1$ mirror. The **balance shell** (ii) and the **knee / dress edge** (iii) keep their own names." The printed row glosses "enve
+- VERIFY NOTE: Disposition only. KB truth verified: envelope-anatomy.md carries the word-level ruling verbatim — "Word-level ruling — CONFIRMED (Grant in-chat 2026-07-15 ...). The token *\"envelope\"* now canonically denotes the wall — surface (i), the fully-yielded $S(A)\to 0$, $\lvert\Gamma\rvert=1$ mirror. The balance shell (ii) and the knee / dress edge (iii) keep their own names." — and the printed row does
+
+### vol5 — 13 findings
+
+#### [HIGH] [overclaim] [mechanical] manuscript/vol_5_biology/chapters/01_biophysics_intro.tex:134
+- PRINTED: \item Macroscopic rigid proteins establish theoretical bounds to sub-3~\AA\ precision using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
+- KB TRUTH: ave-kb/vol5/claim-quality.md:190 '2.59 Å is described as "sub-3 Å: Level 6 Emergence" in the leaf — a qualitative classification, not a precision metric'; :192 'Does NOT claim sub-Å agreement on backbone coordinates ... a coarse-correctness result, not atomic precision'; :193 'The Chignolin result is a single 10-residue mini-protein'. clm-u4vmgk solidity 0.30.
+
+#### [HIGH] [overclaim] [route-to-core] manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:531
+- PRINTED: The universal LC packing architecture is determined by Axioms 1 and 2 ($K=2G$ selects the dense Face-Centered Cubic layout). The fraction of occupied space is the packing fraction $\phi = \pi\sqrt{2}/6 \approx 0.7405$.   [companion sites :587 table row 'Vacuum Lattice & Face-Centered Cubic (FCC) ($K=2G$) & $\phi \approx 0.7405$' and :595 caption 'directly back to the $K=2G$ vacuum geometry constra
+- KB TRUTH: Three canonical statements conflict with this attribution: (a) ave-kb/CLAUDE.md INVARIANT-S2 Axiom 1 — 'vacuum is a 3D chiral Laves K4 Cosserat crystal ... I4_132 chiral space group', not FCC; (b) ave-kb/common/appendices-overview.md:127 — the canonical vacuum packing is p_c ~ 0.1834 and 'While less dense than a perfect crystal (FCC $\approx 0.74$), it is still too dense to survive'; (c) ave-kb/vo
+
+#### [HIGH] [other] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/07_solvent_damping.tex:37
+- PRINTED: G_\text{solvent} = n \cdot \gamma_\text{Stokes} \cdot \xi_\text{topo}^2 \approx 1.0 \times 10^{-24} \text{ S}   [and :49 |Y_solvent|/Y_backbone \approx 1.8\times10^{-23}; :52 'This is the key result. The solvent shunt admittance is $10^{-23}$ of the backbone admittance ... a $10^{23}$~$\Omega$ shunt across a 17.6~$\Omega$ transmission line---a perturbation so small it is unmeasurable.']
+- KB TRUTH: No KB leaf and no clm- entry exists for this section (see finding 5), so the governing truth-source is the volume's own ratified bridge: ave-kb/vol5/claim-quality.md:19 (clm-lm9b3j) 'L_atom = m_atom/xi^2 and C_bond = xi^2/k_bond are definitional dimensional bridges', and ave-kb/common/vocabulary-register.md def-tk1xfm 'V=\xi^{-1}F, L=\xi^{-2}m, C=\xi^{2}\kappa, R=\xi^{-2}\eta' — i.e. a mechanical 
+- VERIFY NOTE: Disposition only. 'route-to-core' requires the KB to be unsettled or internally inconsistent on the point — it is not. R = xi^-2 * eta is RATIFIED SOLID at two independent canonical sites I re-read at HEAD: manuscript/ave-kb/common/vocabulary-register.md:438 (def-tk1xfm, '(RATIFIED SOLID — Grant 2026-07-21)', six-row table '...L=\xi^{-2}m,\ C=\xi^{2}\kappa
+
+#### [HIGH] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/07_solvent_damping.tex:58
+- PRINTED: At 24~THz, the inertial impedance of a carbon nucleus ($\sqrt{m_C \cdot k_{CN}} \sim 10^{-18}$~kg/s) is astronomically larger than the viscous friction of a water molecule ($\gamma \sim 10^{-12}$~kg/s). The mapping preserves this ratio.
+- KB TRUTH: Same governing bridge as finding 3 (clm-lm9b3j, ave-kb/vol5/claim-quality.md:19). The chapter's own Z_bb = 17.6 ohm at :47 forces sqrt(m_C*k_CN) = Z_bb * xi^2 = 3.03e-12 kg/s, not 1e-18 kg/s.
+- VERIFY NOTE: Disposition only. Same defect as the :37 item: the KB is not unsettled here — the number is fully determined by the chapter's own inputs, so 'route-to-core' (KB-unsettled) does not apply. But it is also not mechanical: substituting the correct 3.03e-12 destroys the sentence's rhetorical load (3.03e-12 vs gamma = 1.95e-12 is a factor 1.55, not 'astronomically larger'), so the paragraph needs a rewr
+
+#### [MEDIUM] [overclaim] [ruling-needed] manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:43
+- PRINTED: This chapter derives the \emph{exact} translation layer required to simulate amino acids as pure SPICE electronic circuits, proving that the foundation of biology operates via high-frequency AC resonance.
+- KB TRUTH: ave-kb/common/vocabulary-register.md, def-tk1xfm (RATIFIED SOLID, Grant 2026-07-21, in-window): the standing strength ceiling is 'identity-by-translation, NOT emerges-from / NOT a derivation' and 'SOLID means the node is ratified/canonical, NOT that it derives a mechanism'; the same node carries the ratified REGIME FENCE 'exact co-equality below the band edge'. Reinforced by ave-kb/vol5/claim-qual
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_5_biology/chapters/07_solvent_damping.tex:1
+- PRINTED: \section{Solvent Damping: The Cytosol Noise Floor}  [entire 98-line section, bound into the printed book as the final section of Ch. 2 via chapters/_manifest.tex:11]
+- KB TRUTH: No coverage. ave-kb/vol5/ contains no solvent-damping leaf and ave-kb/vol5/claim-quality.md (637 L, read in full) contains no clm- entry for it — so a printed 'This is the key result' (:52) with a 20-orders-of-magnitude margin claim has no truth-source card, no solidity grade, and no non-claim block, unlike every other printed Vol 5 section.
+
+#### [MEDIUM] [stale-value] [mechanical] manuscript/vol_5_biology/chapters/07_solvent_damping.tex:41
+- PRINTED: The H-bond spring constant ($k_{HB} = E_{HB}/d_{HB}^2 \approx 11.2$~N/m) contributes a reactive mass-loading term:
+- KB TRUTH: E_HB = 0.2158 eV and d_HB = 1.754 Å are the canonical values (ave-kb/CLAUDE.md INVARIANT-C3; ave-kb/vol5/claim-quality.md:38 clm-j9l3ww). E_HB/d_HB^2 = 1.12 N/m, a factor of 10 below the printed value.
+
+#### [LOW] [mirror-drift] [route-to-core] (verify-CORRECTED) manuscript/common/translation_protein.tex:31
+- PRINTED: Salt bridge (Glu--Lys) & Conjugate impedance match & $\operatorname{Re}(Z_i \cdot Z_j^*) > 0$ \\
+- KB TRUTH: The KB mirror ave-kb/vol5/common/translation-protein.md gained a T19 reconciliation FLAG on 2026-07-11 (in-window): 'The "Conjugate impedance match" label on the salt bridge (:28 above) is attached to a different residue pair by vol5/common/translation-protein-solver.md:20-21 ... The solver ground truth common/solver-toolchain.md:548 uses one Conjugate-Matching term ... for both salt bridges and h
+- VERIFY NOTE: Disposition, and this is the highest-risk mis-tag in the batch — it was marked mechanical, so it would have been edited with no ruling. The KB state it propagates is explicitly NOT adjudicated. I read the full note at manuscript/ave-kb/vol5/common/translation-protein.md:34, which ends verbatim: '**FLAG, not asserted** — the two-terms-vs-one question depend
+
+#### [LOW] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_5_biology/chapters/01_biophysics_intro.tex:36
+- PRINTED: with $Q_{\text{backbone}} \approx 7$ suppressing reactive coupling.   [companion sites :11, :70, :133 all state the same value; :34-35 'The amino acid impedance table $Z_{\text{topo}}$ assigns complex impedances (R + jX) to each of the 20 residues']
+- KB TRUTH: ave-kb/vol5/claim-quality.md:448 (clm-pav5m3) 'The "$Q_\text{backbone} \approx 7$" quality factor is stated without leaf-level derivation in this volume; treat as an input from the engine repo', and :447 'The per-residue impedance table $Z_\text{topo}$ is referenced as a deliverable of the protein-folding-engine chapters, which live in the private AVE-Protein repository'; also :535 (clm-zt0pd1) 't
+- VERIFY NOTE: Disposition. 'mechanical' requires a merged ruling that fully determines the replacement text. There is none here: the KB states a truth (Q_backbone ~ 7 is un-derived, imported from the private engine repo) but prescribes no printed remedy. The fix is to ADD a caveat that does not exist, which is simultaneously a wording judgment, a placement judgment, and a scope choice across four candidate site
+
+#### [LOW] [other] [mechanical] manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:9
+- PRINTED: \item Derive covalent bond force constants from first principles using the loaded Fabry--P\\'{e}rot cavity eigenvalue with topological projections (isotropy, three-phase balance, $\pi$-coupling, lone-pair Q-factor).
+- KB TRUTH: Not a KB divergence — a LaTeX escape defect. The doubled backslash is a line break, so the objectivebox bullet renders with a spurious break mid-word.
+
+#### [LOW] [other] [ruling-needed] manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:647
+- PRINTED: cross-validating the cooperative amplification number $n_{coop} = 9$ (derived from the K4 junction mode count: 3~translational + 3~librational + $z/2$~stretch + $z/4$~bend $= 9$; see Volume~III, Chapter~13).
+- KB TRUTH: The arithmetic closes only at z=4, which is the WATER molecule's H-bond coordination per manuscript/vol_3_macroscopic/chapters/13_water_lc_lattice.tex:206 'Each water molecule is a K4 junction with $z = 4$ H-bond ports' — NOT the substrate srs/K4 coordination z=3 (ave-kb/vol1/.../srs-band-structure.md, 'D=3 isotropic average over $z=3$'; the z=3 srs is the ratified carrier). Printed as a bare 'K4 
+
+#### [LOW] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_5_biology/chapters/02_organic_circuitry.tex:717
+- PRINTED: the BH ring-down $\omega_R M_g = 18/49$ ... (all canonical at $0.00\%$ for BCS, $1.7\%$ for ring-down; see Vol 3 Ch~\ref{ch:cosmology} \S\ref{sec:tki_strain_snap})   [companion site :32 'BH ring-down (1.7\% from GR)']
+- KB TRUTH: ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:148 'eigenvalue ($18/49$, $-1.7\%$) is the only surviving zero-free-parameter result' and :113 'at $a_* = 0$ (Schwarzschild) ... recovering the cold eigenvalue $18/49$' — post-Grant-Ruling-B1 the value SURVIVES but is spin-scoped to the cold a*=0 anchor. Vol 5 prints it as an unqualified cross-scale validation anchor.
+- VERIFY NOTE: Disposition. This site does NOT depend on the mid-churn cold-Q derivation, so the gate does not apply. I read the full Ruling B1 block at manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97 (MERGED, dated 2026-07-21, Grant verbatim '[sic]: "ruling 1 proceed with your rec, ruling 2 walk back now"'). It states at
+
+#### [LOW] [scope-lag] [ruling-needed] manuscript/vol_5_biology/chapters/06_biophysics_pharmacology.tex:477
+- PRINTED: \item Cancer is modelled as impedance decoupling: mutations shift $Z_{\text{cell}}$ ...   [and :478 'Red light therapy is impedance-matched photon absorption at the cytochrome~$c$ oxidase resonance'; :479 'Methylene blue functions as a molecular impedance bridge']
+- KB TRUTH: ave-kb/vol5/claim-quality.md:273 (clm-8zwyl3, solidity 0.10, lowest band) — the Ch. 6 leaves are 'explicitly classified as hypotheses with predictions, not as derived results. The chapter index states: "No resultboxes; all content is hypothesis and prediction."' and :280 'None of these sections constitute derived numerical predictions.' The printed chapter carries no status declaration, and 3 of i
+
+### vol6 — 19 findings
+
+#### [HIGH] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/00_introduction.tex:39
+- PRINTED: \textbf{Sulfur-32 ($8\alpha$):} The \textbf{Cube} topology---the first element requiring the \textbf{Large Signal} Miller avalanche correction ($M = 32.8$, $V_R/V_{BR} = 0.994$). Solved to $0.0000\%$ error.  [companion sites :40 Ar-40 "$0.0002\%$ error", :41 Ca-40 "$0.0000\%$ error---the second exact avalanche solution", :42 Ti-48, :43 Cr-52, :44 Fe-56 "$0.0001\%$ error"]
+- KB TRUTH: manuscript/ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md (scope-correction blockquote, 2026-05-17 Foundation Item 7/8, immediately above the table): "The 'Error' column in the table below reports the **geometric residual** of cluster positions vs. assumed Platonic-solid coordinates ... It is NOT a binding-energy prediction error against experiment (AME). Per Foundation Item 
+- VERIFY NOTE: Quote is verbatim at :39 and companions :40-:44 check out; platonic-progression.md:14 scope-correction and claim-quality.md:24 (clm-llqd1n) both verified verbatim. Two problems. (1) DEBT PARTLY DISCHARGED NEARBY: the same chapter's methodology resultbox at :21 already reads 'The $\leq 0.03\%$ (and in places $\leq 0.0002\%$) agreements reported throughout Volume~6 are therefore \textbf{fitting tole
+
+#### [HIGH] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/01_computational.tex:365
+- PRINTED: \caption{Predicted nuclear masses from the semiconductor avalanche model. The non-geometric constants are axiom-derived (zero empirical fits); the per-nucleus inter-alpha distance $R$ is fit to reproduce each CODATA mass. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).}  [column head at :369 is \textbf{Error}; rows :371-377 
+- KB TRUTH: Same platonic-progression.md scope correction as finding 1 — this Error column is the geometric residual, not a mass-prediction error. The volume prints BOTH quantities for the same nuclei under the same word: 00_summary_table.tex:33 gives Si-28 as $0.01907\%$ (the CODATA mass residual, KB manuscript/ave-kb/vol6/framework/mass-defect-summary.md:30 identical), while this table gives Si-28 as $0.000
+- VERIFY NOTE: Quote verbatim at :365; column head \textbf{Error} at :369; rows :371-377 exactly as printed; 00_summary_table.tex:33 Si-28 = 0.01907% confirmed; mass-defect-summary.md:30 identical and :10 confirmed verbatim as 'the load-bearing binding-energy emergence test surface'. The internal inconsistency is real. But 'mechanical' fails on two counts. (1) The caption ALREADY discharges the fit-vs-predict de
+
+#### [HIGH] [overclaim] [route-to-core] manuscript/vol_6_periodic_table/chapters/12_neon.tex:48
+- PRINTED: When subjected to an external electric field (as in a neon discharge tube), the high-$Q$ internal resonance stores the injected energy with extreme efficiency, then re-radiates it as narrow-band photon solitons at the characteristic $585$--$703$ nm wavelengths. The famous orange-red glow of neon signage is a direct emission signature of the Triangular Bipyramid's resonant frequency response: the p
+- KB TRUTH: manuscript/ave-kb/vol6/claim-quality.md:566 (clm-f8k2um, the entry governing every per-element 'Topological Area' leaf, solidity 0.30 'do not build on, rework needed'): "Does NOT claim quantitative predictions of bond enthalpies, electronegativity scales (Pauling / Mulliken), reaction kinetics, or material constants from the topology alone. The mapping is structural / interpretive." The printed se
+
+#### [HIGH] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/B_high_z_boundary.tex:74
+- PRINTED: \paragraph{What the model predicts.} All six isotopes are \textbf{bound} ($B > 0$) with $B/A \approx 11.2$--$11.8$ MeV.  [table rows :63-68 give ${}^{290}$Fl $B = 3{,}318$ MeV, $B/A = 11.441$; ${}^{300}$Ubn $B = 3{,}535$, $B/A = 11.784$; ${}^{316}$Ubh $B = 3{,}716$, $B/A = 11.759$]
+- KB TRUTH: Contradicts the volume's OWN Axiom-4 binding ceiling and the KB claim registering it. 01_computational.tex:200 prints $E_{\text{binding(max)}} \approx (1/137.036) \times 938.27 = \mathbf{6.847}$ MeV, and manuscript/ave-kb/vol6/claim-quality.md:296 (clm-86gq2d, solidity 0.40) states: "per-nucleon binding cannot exceed $\alpha \cdot M_p c^2 \approx 6.847$ MeV before the localized phase geometry rupt
+- VERIFY NOTE: Line and table verified (\paragraph command at :73, the quoted sentence at :74; rows :63-68 exact), and I independently reproduced every B and B/A from B = Z*m_p + N*m_n - M_AVE with CODATA m_p=938.27209, m_n=939.56542 (290Fl: 272326.73 - 269009 = 3317.7 -> B/A = 11.44). But the load-bearing KB leg is OVER-READ. clm-86gq2d's own Specific-Non-Claims at manuscript/ave-kb/vol6/claim-quality.md:300 re
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/00_introduction.tex:78
+- PRINTED: Describe the relationship between the $K=2G$ vacuum lattice selection rule and the observed nuclear stability patterns across the first 16 elements.  [companion sites :7 "a deterministic topological assembly from the $K=2G$ vacuum lattice", :69 "a specific knot configuration on the $K=2G$ vacuum lattice", 02_chemistry.tex:7 and :67 "a topological shell-closure condition on the $K=2G$ lattice"]
+- KB TRUTH: manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:116: "A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent**"; :146: "$\nu=2/7$ is **GR-imported**"; and the feed-in at :81, verbatim — the 12-band vector survey runs "at the canonical bond ratio $\rho^*=9.77337$, DERIVED from $\nu_{\text{Hill}}=$`N_NU`$=2/7$". Corroborated at manuscript/a
+- VERIFY NOTE: All quotes and KB pointers verify — :78 verbatim; `grep -rn 'K=2G'` over the volume returns exactly the 5 sites claimed (00_introduction :7/:69/:78, 02_chemistry :7/:67); srs-band-structure.md:116 verbatim 'A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent**' and :146 '$\nu=2/7$ is **GR-imported**'; vol1/claim-quality.md:646 verbatim T7 'previously labelled "Cauchy relation f
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_6_periodic_table/chapters/01_computational.tex:75
+- PRINTED: Within the AVE framework, "dissipation" maps physically to the acoustic drag (vacuum friction) across the geometric perimeter of the defect. $Q$ is calculated as the ratio of Total Internal Mutual Inductance ($U_{stored}$) to the Effective Topological Radius ($R_{eff}$).  [companion :39 "\textbf{Isotope Stability ($\Gamma \rightarrow Q$)}: Nuclear half-life is defined by the \textit{Quality Factor
+- KB TRUTH: manuscript/ave-kb/common/substrate-native-terminology.md:33 (🟢 RULED 2026-07-19, Grant in-chat, docket RULING 21): "the corpus's genuine **loss/irreversibility channels reduce from four to THREE**: (1) radiative port, (2) boundary-Joule extraction, (3) Regime-IV rupture." And the leak-check register table in the same leaf, `friction / drag` row: "leaks (regime) → internal-friction drag: reflection
+- VERIFY NOTE: Substance holds; one cite is mis-anchored. The RULING-21 quote ('loss/irreversibility channels reduce from four to THREE: (1) radiative port, (2) boundary-Joule extraction, (3) Regime-IV rupture') IS at substrate-native-terminology.md:33 as cited. But the leak-check `friction / drag` row the finding also attributes to ':33' is at :49 — verified by `grep -n 'friction / drag' manuscript/ave-kb/commo
+
+#### [MEDIUM] [other] [ruling-needed] manuscript/vol_6_periodic_table/chapters/01_computational.tex:155
+- PRINTED: This derived value, applied to the symmetric Helium-4 Alpha particle (6 pairs at uniform distance $d_{\text{core}}\sqrt{8}$), predicts a total nuclear mass of $3727.380$ MeV---matching the CODATA empirical limit of $3727.379$ MeV to within $0.001\%$.  [exemplar of a volume-wide pattern: 00_summary_table.tex:21-33 error column at 5 decimals unsigned ($0.00001\%$ ... $0.02739\%$); 04_helium.tex:8/:1
+- KB TRUTH: manuscript/ave-kb/CONVENTIONS.md:301-305, the RATIFIED five-clause precision house rule: "(b) measured values quoted at **full CODATA digits + (uncertainty) + vintage**; (c) exact expressions **labelled EXACT**, evaluated to the comparator's uncertainty **+ 2 guard digits**; (d) every comparison stated as **Δ ± propagated σ** — the word **'matches' without a σ is banned**; (e) residuals quoted **o
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_6_periodic_table/chapters/02_chemistry.tex:22
+- PRINTED: \textbf{The "$2s$ / $2p$" Shells:} Elements beyond Helium are forced by geometrical packing constraints to shed nucleons outward, establishing a disjointed secondary shell. For instance, the solitary $2s^1$ electron in Lithium corresponds directly to the single unpaired outer nucleon orbiting the core at a massive $11.84d$ gap.
+- KB TRUTH: $11.84d$ is BORON-11's Tritium halo, not Lithium's outer shell. Boron: 07_boron.tex:21 "$R_{halo} = 11.8404 d$"; KB manuscript/ave-kb/vol6/period-2/boron/index.md:20 "| Halo radius | $R_{halo} = 11.8404\,d$ |"; KB vol6/claim-quality.md:150 (clm-l416hl) "$R_{\text{halo}}(^{11}\text{B}) = 11.8404\,d$". Lithium: 05_lithium.tex:44 "$R_{outer} \approx 9.72d$"; KB manuscript/ave-kb/vol6/period-2/lithium
+
+#### [MEDIUM] [other] [route-to-core] manuscript/vol_6_periodic_table/chapters/B_high_z_boundary.tex:1
+- PRINTED: \section{High-Z Nuclear Geometry: Accuracy Frontier}\n\label{sec:high_z_frontier}  [98-line appendix carrying: the three-regime accuracy partition :6-12; the $\rho_{CS} = (Z^2/A^{1/3})/(Z_{Fe}^2/A_{Fe}^{1/3})$ instability ratio :29-33; the claim "The structural instability boundary in the AVE framework is reached when $\rho_{CS} \to 1/\alpha$ ($\approx 137$)" :50; a six-isotope Island-of-Stability
+- KB TRUTH: The entire appendix has NO KB counterpart and NO claim-id. manuscript/ave-kb/vol6/appendix/heavy-element-catalog/ contains exactly six leaves (full-element-table, index, mass-prediction-accuracy, selected-heavy-circuit-models, selected-heavy-orbital-topology, selected-heavy-strain-fields) — none covers the accuracy frontier, $\rho_{CS}$, the $1/\alpha$ rupture limit, or the Island of Stability. Pe
+
+#### [MEDIUM] [stale-value] [ruling-needed] manuscript/vol_6_periodic_table/chapters/B_high_z_boundary.tex:10
+- PRINTED: \textbf{Fibonacci Heuristic ($15 \leq Z \leq 82$):} Alpha clusters are placed on a spherical Fibonacci lattice with a density-scaled radius $r_{core} = d(15 + 0.95A)$. Mean accuracy: $|\Delta| = 0.24\%$. Maximum error: $0.41\%$ (S-32).  [companion :9 "\textbf{Analytic Regime ($Z \leq 14$):} ... Mean accuracy: $|\Delta| = 0.055\%$. Maximum error: $0.12\%$ (Si-28)."]
+- KB TRUTH: Direct contradiction with the same volume's own catalog and with the KB. S-32: A_heavy_element_catalog.tex:47 prints "16 & Sulfur (S) & 32 & 29\,855.525 & 29\,855.525 & 0.000\% & Large Signal", and manuscript/ave-kb/vol6/appendix/heavy-element-catalog/mass-prediction-accuracy.md states "Exact Large Signal solutions ($0.000\%$ error) are found for S-32". S-32 is also not in the Fibonacci regime at 
+
+#### [MEDIUM] [mirror-drift] [mechanical] manuscript/vol_6_periodic_table/figures/circuit_h3_decay.tex:78
+- PRINTED: The secondary $3_1$ (electron) topology stored within the Neutron node is ejected as transient energy dissipation, converting the node to a stable Proton.
+- KB TRUTH: manuscript/ave-kb/CLAUDE.md INVARIANT-N1, knot/trefoil disambiguation clause: "the electron's **real-space body** is the $0_1$ **unknot** ... Rolfsen names ($3_1$ trefoil, $5_1$ cinquefoil, …) and '$(2,q)$ torus knot' labels refer to **phase-space winding portraits** on the bond-pair LC tank (Clifford torus), **not** real-space body knots. Never write 'trefoil electron' without an explicit *phase-
+
+#### [LOW] [other] [ruling-needed] manuscript/vol_6_periodic_table/chapters/00_introduction.tex:21
+- PRINTED: the axiomatic content of Volume~6 is the claim that \textbf{one scalar per nucleus — constrained by the forced cluster topology and the axiom-derived coupling $K$ — suffices to recover the full mass defect}  [$K$ here is the mutual coupling constant, defined at :63 as "$K = (5\pi/2)\cdot\alpha\hbar c / (1 - \alpha/3) \approx 11.337$ MeV$\cdot$fm"; the SAME glyph $K$ is used for the bulk modulus at
+- KB TRUTH: manuscript/ave-kb/common/theorem-thesaurus.md:205 (§6 admission bar, scope extended additively 2026-07-31 to cover SYMBOL collisions): "an entry lands when one name or glyph demonstrably denotes **≥2 distinct corpus objects whose properties could be swapped**, and **every sense carries a verified on-`main` file:line**." The precedent is the $Q$ row at :267-271, where the corpus fenced three senses
+- VERIFY NOTE: Substance holds; two KB line anchors are off. The §6 admission-bar text quoted is at theorem-thesaurus.md:207, not :205 (`grep -n` on the admission-bar sentence returns 207). The Q-row precedent block runs :264-:274, not :267-:271; the specific '2026-07-31 orchestrator walk had to disambiguate the three senses mid-discussion' sentence is at :272.
+
+#### [LOW] [other] [ruling-needed] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/00_introduction.tex:25
+- PRINTED: \begin{resultbox}{Scope note — peer with standard quantum chemistry}\n\label{box:internal_peer_scope}  [referenced from 18 call sites across 13 chapters; five of them print the box form, e.g. 13_sodium.tex:12 "see Box~\ref{box:internal_peer_scope}", 14_magnesium.tex:62, 15_aluminum.tex:27, 16_silicon.tex:22 and :42]
+- KB TRUTH: Not a KB divergence — a printed-rendering defect on the volume's single most load-bearing honesty caveat. `resultbox` is defined at manuscript/structure/commands.tex:84-87 as a bare `\newtcolorbox` with NO auto-counter and no `list inside` option, so it steps no counter; the `\label` therefore binds to the last-stepped counter, which is the enclosing `\section{Continuous Mathematical Closure ($Z=1
+- VERIFY NOTE: The technical diagnosis is CORRECT and I reproduce it: manuscript/structure/commands.tex:84-87 defines `\newtcolorbox{resultbox}[1]{colback=white, colframe=black, ...}` with NO counter option, in contrast to simbox (:77) and examplebox (:111) which both carry `[auto counter, number within=chapter]` — so the \label at :25 binds to the last-stepped counter (the \section at :17) and the five 'Box~\re
+
+#### [LOW] [other] [route-to-core] manuscript/vol_6_periodic_table/chapters/07_boron.tex:23
+- PRINTED: Where $d = 4\hbar/m_pc \approx 0.841$ fm is the axiom-derived proton charge radius (gyroscopic spin radius of the cinquefoil knot).  [companion A_heavy_element_catalog.tex:14 "...and internal charge radius ($d$) are all derived rigidly from the topological graph structure"]
+- KB TRUTH: $d$ is defined in this volume as the proton SPIN radius, not the charge radius: 01_computational.tex:94 "The fundamental spatial scale of the nuclear LC network is the \textbf{proton spin radius} $d$---the radius of a single nucleon's gyroscopic orbit", matching KB manuscript/ave-kb/vol6/framework/computational-mass-defect/nucleon-spacing-derivation.md:14 verbatim. The volume separately and correc
+
+#### [LOW] [stale-value] [route-to-core] manuscript/vol_6_periodic_table/chapters/10_oxygen.tex:19
+- PRINTED: the one fitted scalar $R_{tet}$ reproduces the inductive binding energy when the four Alpha centers sit at $R_{tet} = 33.393d$ from the system's geometric barycenter  [same chapter, :65: "has a single geometric degree of freedom ($R_{\text{tet}} = 33.383\,d$)"]
+- KB TRUTH: The KB carries the identical unreconciled split — manuscript/ave-kb/vol6/period-2/oxygen/structure-isotope-stability.md:16 = $33.393d$; manuscript/ave-kb/vol6/period-2/oxygen/semiconductor-regime.md:10 = $33.383d$; and downstream consumers pick the second (period-2/fluorine/semiconductor-regime.md:10 and 11_fluorine.tex:60 both fix the O-16 core at $33.383\,d$). The KB DOES log the analogous Neon 
+
+#### [LOW] [stale-value] [ruling-needed] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/12_neon.tex:24
+- PRINTED: the $(Z,A)$-forced $5\alpha$ bipyramid topology reproduces the binding energy when its single fitted scalar places the 5 vertices at $R_{bipyramid} = 81.181d$ from the origin.  [also :53 figure caption "$R=81.181d$"; but :73 "($R_{\text{bipyr}} = 81.158\,d$)", and 13_sodium.tex:65 fixes the Neon core at "$R_{\text{core}} = 81.158\,d$"]
+- KB TRUTH: manuscript/ave-kb/vol6/period-2/neon/index.md:22 already logs the split as a known discrepancy: "| Bipyramid radius | $R_{\text{bipyr}} = 81.158d$ (engine) / $81.181d$ (chapter body) |". That reconciliation note exists only in the KB index; neither number in the printed chapter carries it, so a reader of 12_neon.tex sees two different values for one scalar with no explanation.
+- VERIFY NOTE: Two issues. (1) LINE DRIFT in a companion: the figure caption carrying '$R=81.181d$' is at :54, not :53 (:53 is the \includegraphics). The primary site :24 and the :73 = 81.158d site and 13_sodium.tex:65 = 81.158d all verify. (2) DISPOSITION: neon/index.md:22 verified verbatim as '| Bipyramid radius | $R_{\text{bipyr}} = 81.158d$ (engine) / $81.181d$ (chapter body) |' — but that RECORDS the split,
+
+#### [LOW] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/vol_6_periodic_table/chapters/14_magnesium.tex:36
+- PRINTED: Magnesium alloys achieve extreme strength-to-weight ratios precisely because the Octahedral $78d$ compact geometry allows dense metallic packing while maintaining only $24/27 = 89\%$ of Aluminum's mass per atom. In structural material applications, this $11\%$ mass savings at comparable bond strength is the direct macroscopic manifestation of the $6\alpha$ closure.
+- KB TRUTH: manuscript/ave-kb/vol6/claim-quality.md:566 (clm-f8k2um, solidity 0.30): "Does NOT claim quantitative predictions of bond enthalpies, electronegativity scales (Pauling / Mulliken), reaction kinetics, or **material constants** from the topology alone. The mapping is structural / interpretive." The printed sentence asserts a quantitative material-science causal claim, and it is wrong on its own term
+- VERIFY NOTE: TWO errors, one of them the dangerous kind. (1) LINE: the quoted sentence is at :36; :37 is blank. (2) THE RECEIPT IS FALSE. The finding states '`grep -rn "strength-to-weight" manuscript/ave-kb/` returns zero (cross-checked with a second `grep -rn "Magnesium alloys" manuscript/ave-kb/` also zero) — the claim is print-only, with no KB truth-source to defend it.' Both greps return ONE hit, not zero:
+
+#### [LOW] [other] [route-to-core] manuscript/vol_6_periodic_table/chapters/14_magnesium.tex:92
+- PRINTED: \paragraph{Op3 reflection.}  ...  The crossing scattering at this step removes $|\Gamma|^2 \times P_C/2 = 0.444 \times 0.0917 = 0.0407$ of $E_\text{base}$  [same operator invoked at 15_aluminum.tex:95 "\textbf{Op3 (Reflection):} $|\Gamma|^2 = (3-11)^2/(3+11)^2 = 64/196 = 0.327$ (32.7\% power reflection)" and 16_silicon.tex:88]
+- KB TRUTH: AMBIGUOUS AT KB LEVEL — flagging, not adjudicating. manuscript/ave-kb/CLAUDE.md INVARIANT-N3 defines "Op3 (small-signal impedance correction)", which the Vol 6 usage matches. But manuscript/ave-kb/common/substrate-native-terminology.md:33 (RULING 21) now reads Op3's $A_1$ behaviour as "**LOSSLESS TRANSDUCTION**, **not** system dissipation ... a power-conserving mode-transduction (the $A_1$ mode em
+
+#### [LOW] [other] [ruling-needed] manuscript/vol_6_periodic_table/figures/circuit_h3_decay.tex:18
+- PRINTED: \fill[darkbg] (-6,-6) rectangle (6,5);  [with \definecolor{darkbg}{RGB}{15, 15, 15} at :14 and a neon palette at :10-15; the same dark-background construction appears in 23 of the volume's 31 hand-authored TikZ circuit files]
+- KB TRUTH: src/ave/viz/README.md:1-3: "# `ave.viz` — the shared AVE house figure style ... The single source of truth for manuscript / Vol-9 datasheet figure appearance", and :12 "style.apply()  # white-background 'print' profile (the default)". FLAGGING A GAP RATHER THAN ASSERTING A BREACH: `ave.viz.style` is a matplotlib mechanism and these are hand-authored circuitikz standalones, so the house style has n
+- VERIFY NOTE: Substance and posture hold; one count and one line anchor are off. (a) `grep -rln 'darkbg' manuscript/vol_6_periodic_table | wc -l` = 23 confirmed, but the denominator is wrong: `ls figures/*.tex` = 22 and `ls circuits/*.tex` = 7, so the volume has 29 hand-authored TikZ .tex, not 31. Read it as 23 of 29. (b) src/ave/viz/README.md:1 and :3 verify verbatim ('# `ave.viz` — the shared AVE house figure
+
+#### [REFUTED — dropped] manuscript/vol_6_periodic_table/chapters/A_heavy_element_catalog.tex:20
+- REASON: The finding quotes the first two sentences of :20 and stops. The full paragraph at :20 continues: 'Near-exact Small Signal solutions ($<0.001\%$) are found for Ar-40, Ti-48, Cr-52, and Fe-56 using Platonic/Archimedean packing geometries. The remaining elements use Fibonacci lattice packing as a geom
+
+### vol9 — 23 findings
+
+#### [HIGH] [other] [route-to-core] manuscript/vol_9_vacuum_datasheet/chapters/01_general_description.tex:45
+- PRINTED: The three channels are \emph{asymmetric in port role}: the EM channel is the substrate's \textbf{sole external port} --- it is matched, $\Gamma_{\mathrm{EM}} = 0$ ... and is how a bound interior couples to the far field (a radiative port, not a hair-sector). The two \emph{mechanical} channels (shear $=$ charge, bulk $=$ mass) are \textbf{confined} ...
+- KB TRUTH: CONTRADICTED by the Q1 REVERT. manuscript/ave-kb/common/port-register.md:5 (frontmatter): 'Q1 is a RULED row — REVERTED 2026-07-20 to Reading-A-live: the make-or-break mechanical common-mode derivation returned NONE-DERIVES (#761 merged @ caa51c17) ... so the RULED-CONDITIONAL Reading-B reverts and the independent-radiative-port exclusion is live against the framework.' Register verdict at :93: 'R
+
+#### [HIGH] [missing-retraction] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex:195
+- PRINTED: \textbf{Tightest validations.} ... BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; ...
+- KB TRUTH: Grant Ruling B1 (2026-07-21). The 18/49 eigenvalue at -1.7% is the COLD Schwarzschild ($a_*=0$) SINGLE-POINT result — manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:21-27 ('GR exact: 0.3737, error 1.7%' ... 'This cold Schwarzschild eigenvalue SURVIVES the 2026-07-20 correction'). The '3 LIGO events' scope is the RETRACTED Phase-3 catalog comparison: :14
+- VERIFY NOTE: Quote verbatim at :195; KB truth fully confirmed (ave-merger-ringdown-eigenvalue.md — the cold eigenvalue block states 'GR exact: 0.3737, error 1.7%' and 'This cold Schwarzschild eigenvalue SURVIVES the 2026-07-20 correction below'; the catalog retraction is at :140-148, 'RETRACTED 2026-07-20 ... The cold a*=0 eigenvalue (18/49, -1.7%) is the only surviving zero-free-parameter result'). The line-l
+
+#### [HIGH] [overclaim] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/09_mechanical_characteristics.tex:49
+- PRINTED: Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter.
+- KB TRUTH: Two separate divergences on one spec row. (a) Provenance: same as finding above — K=2G/ν_vac=2/7 VALUE is GR-imported (vol1/claim-quality.md:652,:665). (b) Label: #589 relabelled ν=2/7 as nu_Hill with a mandatory anisotropy tag — manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md:19-27, '**Anisotropy tag (PR #506; value unchanged).** $\nu_{Hill} = 2/7$ is the **isotropic (Vo
+
+#### [HIGH] [overclaim] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/09_mechanical_characteristics.tex:143
+- PRINTED: This is \emph{not} a fitted parameter. It is forced by two independent axiomatic inputs:  \item Axiom~1 LC + Axiom~2 packing identity: the Feng--Thorpe--Garboczi EMT quadratic at packing fraction $p^* = 8\pi\alpha$ has the unique trace-reversal solution $K/G = 2$.
+- KB TRUTH: manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/trace-reversal-mechanism.md:20 carries a Rule-12 correction over exactly this route: 'prior wording "confirming the trace-reversal identity as a geometric consequence of the network topology" superseded — $K = 2G$ is the GR-imported trace-reversal identity ($\nu_{vac} = 2/7$), not crystalline-geometrically forced ... This crossing is a **consistenc
+
+#### [HIGH] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:25
+- PRINTED: ... and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ --- the photon, whose saturated bound mode is the electron's massive mode). $A_1 \perp T_2$ is the canonical orthogonality fence
+- KB TRUTH: Same as above — def-t2ph01 at manuscript/ave-kb/common/vocabulary-register.md:851,:858-:860 (photon = transverse-TRANSLATIONAL u-family; the microrotational ω family is the GAPPED mechanical sector, 'This is NOT the photon'), and the G2 correction blockquote under manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:26. ch11:25 explicitly cites that K
+- VERIFY NOTE: Quote verbatim at :25 (read ch11:1-70); KB truth confirmed (vocabulary-register.md:851/:858/:860 + k4-port-irrep-decomposition.md:33-35). Divergence real. Disposition=mechanical is wrong for the same three reasons as #2: the KB deliberately preserved the row rather than rewriting it, the owning leaf's §1:59 still carries the uncorrected ω mapping, and the printed clause also asserts 'whose saturat
+
+#### [HIGH] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/figures/k4_irrep_decomposition.tex:22
+- PRINTED: {$T_2$ (3D, eigenvalue $-1$, triple)\\traceless triplet — vector / transverse\\$\leftrightarrow$ microrotational $\omega$;\;\; speed $c_0$\\\textbf{PHOTON} (free $T_2$); bound massive\\mode at saturation (same $T_2$ sector)};  [same label repeated in the :4 header comment and the :35 caption]
+- KB TRUTH: def-t2ph01 (manuscript/ave-kb/common/vocabulary-register.md:848-862), Grant ruling G2 2026-07-03: 'the **default canonical "T2 = the photon" sense is the massless transverse-TRANSLATIONAL mode pair (u-family)**'; watch-list rule at :860 — '**never write bare "T2" or "T2 microrotational ω" for the photon**'. The upstream KB row this figure mirrors (k4-port-irrep-decomposition.md:26) preserves the s
+- VERIFY NOTE: Quote and KB truth both hold (def-t2ph01 adjudicated-meaning verbatim at vocabulary-register.md:851, watch-list rule at :860, sense-(2) 'This is NOT the photon' at :858; G2 blockquote at k4-port-irrep-decomposition.md:33-35 verbatim; the :4 header comment and :35 caption repeat the label as stated). What is wrong is disposition=mechanical. Three receipts: (1) the KB's own executed resolution was K
+
+#### [HIGH] [missing-retraction] [mechanical] manuscript/vol_9_vacuum_datasheet/figures/k4_irrep_decomposition.tex:33
+- PRINTED: {Op3 dissipation: $A_1$ loses energy (Gauss's law forbids longitudinal EM in vacuum); $T_2$ settles into the quasi-stable photon pattern.};
+- KB TRUTH: RULING 21 (Grant 2026-07-19) re-read Op3's A1 behaviour as LOSSLESS TRANSDUCTION, not system dissipation. manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:28 now reads 'Op3 asymmetric **transduction** (2026-07-19 RULED) | The $A_1$ **mode** empties by lossless power-conserving scatter ... **Mode-projection loss != system loss** — the system conser
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:76
+- PRINTED: \item \textbf{Photon} $= T_2$ alone --- the linear K4-TLM propagating mode (port amplitudes $(+1, -1, +1, -1)$ for $+x$), the $(0,3)$ entry: pure 3-fold body-axis propagating vector mode
+- KB TRUTH: def-t2ph01 watch-list rule, manuscript/ave-kb/common/vocabulary-register.md:860: '**never write bare "T2" ... for the photon**'. The hazard is compounded locally: the same chapter's per-cell mode table at :55 assigns 'Microrotational $\boldsymbol{\omega}$' the irrep '$T_2$', so :55 + :76 read together imply photon = microrotational ω — the exact sense-(2)-for-the-photon confusion G2 ruled against.
+- VERIFY NOTE: Quote verbatim at :76, and the compounding hazard is real — I read ch03:44-93 in one window and confirm :55 assigns 'Microrotational $\boldsymbol{\omega}$' the irrep '$T_2$ (3-fold body-axis); intrinsic spin'. But disposition=mechanical is wrong: fixing :76 alone leaves the chapter still readable as photon=microrotational-ω via :55, so the edit's SCOPE (does :55 change too?) is a choice the KB doe
+
+#### [MEDIUM] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:175
+- PRINTED: Substrate-foundational form of Op21: $Q = \ell$ per Nyquist-cell-resolved confined mode ... Cross-scale fires: Pauli exclusion (sub-nuclear); particle confinement at the saturated topological core; BH ringdown at $r_{sat}$; electron LC tank ...
+- KB TRUTH: #812 propagated the B1 spin-scope to every site teaching Q=ell as universal. manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md:17-30 ('GRANT RULING — Q = ell spin-scope pinned to the cold a*=0 anchor'), and manuscript/ave-kb/vol4/.../op21-multi-mode-mode-counting.md:207-229 ('BH ringdown ... $Q = \ell$ per ringdown mode (cold $a_*=0$ anchor — B1)'). This is the other 
+- VERIFY NOTE: Quote verbatim at :175; KB truth confirmed (qnm-quality-factor.md carries the 'GRANT RULING — Q = ℓ spin-scope pinned to the cold a*=0 anchor (2026-07-21, Ruling B1)' blockquote beginning at :20, not :17 as cited — 3-line drift; op21-multi-mode-mode-counting.md item 2 at :208 reads 'single-channel $Q = \ell$ per ringdown mode, **spin-scoped to the cold $a_* = 0$ anchor** (Ruling B1, 2026-07-21)' —
+
+#### [MEDIUM] [mirror-drift] [gated-ringdown] manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex:205
+- PRINTED: \item \textbf{Single-channel wavelength-counting}: one resonance, linewidth $\propto 1/\ell$. Cross-scale instances: BH ringdown QNMs, knot-mode isomorphism, the universal substrate-Q derivation procedure.
+- KB TRUTH: This is a verbatim printed mirror of manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md §1 first bullet. That KB bullet now carries TWO inserts the print lacks: (a) the B1 spin-scope — 'at the BH-ringdown fire, flat $Q = \ell$ is the **cold $a_* = 0$ anchor** ... at catalog spins the flat reading fails at $\bar D_Q = -38\%$ and the mΩ law ... carries
+
+#### [MEDIUM] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/09_mechanical_characteristics.tex:64
+- PRINTED: \textbf{Solid longitudinal P-wave speed} $= \sqrt{(K_{vac} + 4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\,c_0$ at $K=2G$ ($\nu_{vac}=2/7$; keeps the $4G/3$ shear term) --- the standard isotropic-solid P-wave ... Both are $\alpha$-free / $\alpha$-invariant.   [ch03a:75 caption: "$c_L/c_T=\sqrt{10/3}\approx1.826$ $\alpha$-free derived"]
+- KB TRUTH: manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:81 (table row): '$\sqrt{10/3}$ | 1.8257 | **P-wave (LONGITUDINAL)** speed ratio $c_P/c_S$ at the **VRH (Voigt-Reuss-Hill) average ONLY**: $(K+4G/3)/G=10/3$. A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent** — no single lattice direction gives $10/3$; only the VRH average does.' The sa
+- VERIFY NOTE: Printed quote verbatim at :64 and the ch03a:75 caption companion confirmed verbatim ('$c_L/c_T=\sqrt{10/3}\approx1.826$ $\alpha$-free derived'). The divergence is real. The defect is the KB pointer: the finding attributes the VRH-average-ONLY / K=2G RE-EXPRESSION / NOT-lattice-emergent table row to srs-band-structure.md:81. That row is at :116. Verified two ways: grep -n '10/3' on the leaf returns
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/09_mechanical_characteristics.tex:240
+- PRINTED: \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: \emph{cross-validated} (substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; consistent with gradient-index refraction in Vol~3 gravity).
+- KB TRUTH: 'cross-validated ... substrate-axiomatic from EMT' is the strongest form of the retracted claim. manuscript/ave-kb/vol1/claim-quality.md:665 (strengthen-by, STAYS OPEN 2026-07-04 PR #508): 'the genuine 48x48 chiral micropolar Bloch eigensolve on the ratified srs-z3 net does NOT close it ... K=2G stays GR-imported (PR #261).' Vol 9's own ch01:60 prints the correct status: '$K = 2G$ ($\nu_{vac} = 2/
+
+#### [MEDIUM] [overclaim] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:64
+- PRINTED: The Cosserat microrotational DOF is the substrate-native origin of intrinsic spin-$\tfrac{1}{2}$.   [companion :25 "produces the SU(2) / SO(3) double-cover spin-$\tfrac{1}{2}$ representation classically via the Finkelstein--Misner kink mechanism"; ch11:9; ch16:154]
+- KB TRUTH: #584/#585 [SPIN-HALF-POSITED]. manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 grades Spin-1/2 as 'STRUCTURE axiom-derived / SELECTION posited' — 'the $2T \subset SU(2)$ double-cover STRUCTURE is axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/import — $\pi_1 = \mathbb{Z}_2$ ADMITS both statistics ... and forces neithe
+- VERIFY NOTE: Printed quote verbatim at :64 and the ch03a:75 caption companion confirmed verbatim ('$c_L/c_T=\sqrt{10/3}\approx1.826$ $\alpha$-free derived'). The divergence is real. The defect is the KB pointer: the finding attributes the VRH-average-ONLY / K=2G RE-EXPRESSION / NOT-lattice-emergent table row to srs-band-structure.md:81. That row is at :116. Verified two ways: grep -n '10/3' on the leaf returns
+
+#### [MEDIUM] [overclaim] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:102
+- PRINTED: Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson identity (Ax~1 LC + Ax~2 $\alpha$ interlink; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio).
+- KB TRUTH: Inherits the ch09 provenance error via explicit cross-reference. Truth-state: nu_vac = 2/7 <- K = 2G is GR-IMPORTED (manuscript/ave-kb/vol1/claim-quality.md:652,:665; manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:81,:116 'GR-imported, PR #261, NOT lattice-emergent'). Vol 9 ch15:238 already prints the honest form: 'a forced ratio whose root is the $\nu_{
+- VERIFY NOTE: The printed quote and the divergence are exactly right (verbatim at :102; ch15:238 counter-exemplar confirmed verbatim). The defect is in the kb_truth receipt: it cites 'srs-band-structure.md:81,:116' for 'GR-imported, PR #261, NOT lattice-emergent'. Only :116 contains that string. Line :81 reads 'd\otimes\hat d)$ at the canonical bond ratio $\rho^*=9.77337$, DERIVED from $\nu_{\text{Hill}}=$`N_NU
+
+#### [MEDIUM] [overclaim] [ruling-needed] manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:196
+- PRINTED: The Cosserat microrotational DOF is the substrate-native origin of intrinsic spin-$\tfrac{1}{2}$.   [companion :25 "produces the SU(2) / SO(3) double-cover spin-$\tfrac{1}{2}$ representation classically via the Finkelstein--Misner kink mechanism"; ch11:9; ch16:154]
+- KB TRUTH: #584/#585 [SPIN-HALF-POSITED]. manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 grades Spin-1/2 as 'STRUCTURE axiom-derived / SELECTION posited' — 'the $2T \subset SU(2)$ double-cover STRUCTURE is axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/import — $\pi_1 = \mathbb{Z}_2$ ADMITS both statistics ... and forces neithe
+- VERIFY NOTE: Verified inline by orchestrator (verify agent returned 22/23 verdicts): printed at :196 (+companions :11,:19) with no STRUCTURE/SELECTION carve; KB carve settled at electron-identification.md:89-90 ([SPIN-HALF-POSITED] #584/#585). Folded into spin-half crib theme.
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/11_topological_characteristics.tex:56
+- PRINTED: Intrinsic spin-$\tfrac{1}{2}$ is the substrate-native consequence of the Cosserat microrotational DOF integrated across the extended $0_1$ unknot defect.  (companion sites: chapters/10_magnetic_microrotational_characteristics.tex:203 "This is the substrate-native origin of spin-$\tfrac{1}{2}$ representation, derived without quantum-mechanical postulates."; chapters/16_cross_volume_reference.tex:15
+- KB TRUTH: [SPIN-HALF-POSITED] structure/selection carve (#584/#585, 2026-07-08). manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 — "⚠ **STRUCTURE axiom-derived / SELECTION posited** ... the $2T \subset SU(2)$ double-cover STRUCTURE is axiom-derived (K4-native); the spin-½ SELECTION (fermion over boson) is POSITED/import — $\pi_1 = \mathbb{Z}_2$ ADMITS both stati
+
+#### [MEDIUM] [scope-lag] [route-to-core] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:105
+- PRINTED: The black-hole compression extreme reproduces GR to $<2\%$ zero-parameter (the \emph{rationality test}), departing only at the AVE-distinct discriminators ($2/7$ compactness, $\Gamma_{shear}=-1$ echoes, $7GM$ Iron-K$\alpha$); the synthesis is \kbleaf{.../lattice-extreme-bh-rationality.md}.
+- KB TRUTH: The cited leaf manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md still carries the '<2% zero-parameter' §4 heading at :41, BUT its QNM row is now scoped: :46 reads '| QNM quality factor | $Q = \ell$ **(cold $a_*=0$ anchor only — B1)** | GR QNM **at $a_* = 0$** | match **at $a_*=0$; $\bar D_Q = -38\%$ at catalog spins** |', with a SPIN-SCOPE banner at :52-:
+- VERIFY NOTE: Quote verbatim at :105 and the KB state is confirmed exactly as described (lattice-extreme-bh-rationality.md: '<2% zero-parameter' survives in the no-claim frontmatter :5, the intro :13, and the §4 heading :41, while the QNM row :46 is carved to 'cold $a_*=0$ anchor only — B1 ... $\bar D_Q = -38\%$ at catalog spins', with the SPIN-SCOPE banner at :52-65 and the §7 repeat at :112). But disposition=
+
+#### [MEDIUM] [overclaim] [mechanical] manuscript/vol_9_vacuum_datasheet/figures/moduli_relationship.tex:12
+- PRINTED: \node[box, fill=blue!8] (kg) at (0,2.4) {EMT at $p^* = 8\pi\alpha$\\$\Rightarrow K_{vac} = 2\,G_{vac}$};   [caption :29 repeats: "the EMT $K = 2G$ closure at $p^* = 8\pi\alpha$ fixes $\nu_{vac} = 2/7$"]
+- KB TRUTH: Same as the two findings above — the EMT crossing is a consistency illustration of the GR-imported identity, not a derivation of it (trace-reversal-mechanism.md:20 Rule-12 banner; vol1/claim-quality.md:665). The figure draws it as a causal arrow (EMT => K=2G => nu=2/7), which is precisely the superseded reading. Also missing the nu_Hill anisotropy tag (vacuum-poisson-ratio.md:19-27).
+
+#### [LOW] [stale-value] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex:15
+- PRINTED: \noindent\textbf{Metric-varactor sector keying (\texttt{def-vyvsn1}, Grant 2026-07-03).}
+- KB TRUTH: def-vyvsn1 is dated Grant 2026-06-30, not 2026-07-03 — manuscript/ave-kb/common/vocabulary-register.md:754: 'status: SOLID — adjudicated (Grant 2026-06-30)', and :751 'the transverse Cosserat ($T_2$) self-trap wall (Grant 2026-06-30 ruling)'. The 2026-07-03 date belongs to the separate SPICE sector-keying fix mentioned later in the same sentence. Four other Vol 9 sites (ch01:22, ch03:175, ch03:233
+
+#### [LOW] [other] [ruling-needed] manuscript/vol_9_vacuum_datasheet/chapters/06_temperature_characteristics.tex:225
+- PRINTED: The substrate is one substance characterized across scales.
+- KB TRUTH: Grant ratified 2026-07-21 (#781) the ontology-grade convention at manuscript/ave-kb/common/vocabulary-register.md:66-75: 'Under the framework's **phase-only epistemology** ... a substrate **noun** is a **structure commitment**, and "is" only cashes out at the *structure* level — **there is no accessible substance the structure is "made of"**, and asking for one regresses.' IDENTITY grade is define
+
+#### [LOW] [stale-value] [mechanical] manuscript/vol_9_vacuum_datasheet/chapters/13_application_examples.tex:163
+- PRINTED: \textbf{The EM-$\Omega$ $\leftrightarrow$ mechanical-$\rho c$ TKI-transformer} (Ch.~... $\xi_{topo}$; \kbleaf{device-circuit-models.md}:205--210; the transducer node is provisional, not yet ratified)  (companion sites: chapters/03a_device_circuit_models.tex:25 "(\texttt{def-tk1xfm}, provisional)"; :67 "the TKI-transformer; provisional, pending experimental confirmation")
+- KB TRUTH: def-tk1xfm was RATIFIED SOLID by Grant on 2026-07-21. manuscript/ave-kb/common/vocabulary-register.md:441 — "- **status:** SOLID — ★GRANT-RATIFIED 2026-07-21 (verbatim `[sic]`: *\"ratify def-tk1xfm\"*)", with a REGIME FENCE ("exact co-equality below the band edge ($\omega\tau\ll1$ / long-wave regime)") and the standing ceiling "identity-by-translation, NOT emerges-from / NOT a derivation". Vol 9 c
+
+#### [LOW] [scope-lag] [mechanical] (verify-CORRECTED) manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex:279
+- PRINTED: The transition is observationally bracketed by the LIGO ring-down quasi-normal-mode spectrum at $\omega_R M_g = 18/49$ in the spin-2 sector (canonical at \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/}).
+- KB TRUTH: Same B1 scope issue as ch07:195, in weaker form: 18/49 is the a*=0 Schwarzschild eigenvalue (ave-merger-ringdown-eigenvalue.md:21-27, ':113 At $a_* = 0$ (Schwarzschild) ... recovering the cold eigenvalue $18/49$'), while LIGO's catalog remnants sit at a* = 0.64-0.74 where the spin story is the mOmega law, not the cold eigenvalue. Companion site with the same shape at ch12_cosmological_characterist
+- VERIFY NOTE: Quote verbatim at :279; KB truth confirmed verbatim at ave-merger-ringdown-eigenvalue.md:113 ('at $a_* = 0$ (Schwarzschild), $r_{ph}^+ = 3M$ → $x_{sat} = 7$ recovering the cold eigenvalue $18/49$'); companion ch12:176 confirmed verbatim ('ring-down QNM spectrum at $\omega_R M_g = 18/49$ for the parent BH'). Disposition=gated-ringdown is wrong for the same reason as #10: this is an omega_R-eigenval
+
+#### [LOW] [other] [ruling-needed] manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:210
+- PRINTED: though $K = 2G$ is itself \emph{imported} from GR (Cauchy isotropy), not independently substrate-forced.   [identical parenthetical at ch12_cosmological_characteristics.tex:77]
+- KB TRUTH: The provenance verdict is CORRECT and current; the parenthetical LABEL is the T7-recorded homonym hazard. manuscript/ave-kb/vol1/claim-quality.md:665: '**"Cauchy" is a 3-way homonym (collapse-batch T7)** ... the **genuine classical Cauchy relation** ... gives $\nu=1/4$ and $K=\tfrac{5}{3}G$. AVE's $K=2G$ instead requires $\lambda=\tfrac{4}{3}\mu$ ($\nu=2/7$). So the one classical-elasticity route 
+
+### backmatter — 17 findings
+
+#### [HIGH] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/backmatter/01_appendices.tex:132
+- PRINTED: \paragraph{Rheological Tuning:} Simulation confirms that the "Trace-Reversed" mechanical state ($K=2G$) is an emergent property of the Chiral LC coupling modulus.
+- KB TRUTH: manuscript/ave-kb/vol1/claim-quality.md:665 (clm-crbl60 strengthen-by) — "**STAYS OPEN (2026-07-04, PR #508):** the genuine 48×48 chiral micropolar Bloch eigensolve on the ratified srs-z3 net does NOT close it. ... So the substrate does not supply K=2G at either the Cauchy grade (PR #506) or the micropolar grade (PR #508); **K=2G stays GR-imported (PR #261)**." Corroborated at manuscript/ave-kb/vo
+- VERIFY NOTE: Disposition 'mechanical' is wrong. The auditor verified KB truth only in the claim-quality distillations (vol1/claim-quality.md:665) and never opened the mirror LEAF. manuscript/ave-kb/vol2/appendices/app-d-computational-graph/graph-architecture.md:16 carries the IDENTICAL sentence verbatim with NO walk-back banner: 'Rheological Tuning: Simulation confirms that the "Trace-Reversed" mechanical stat
+
+#### [HIGH] [stale-value] [gated-ringdown] manuscript/backmatter/07_universal_saturation_kernel.tex:85
+- PRINTED: BH merger (ring-down) & SYM & strain / $r_{\text{sat}}=7M_g$ & QNM $\omega_R M_g = 18/49$ & Vol~3 Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
+- KB TRUTH: Same as :211 — manuscript/ave-kb/vol3/claim-quality.md:202 marks "10–18%" as the frame-mixed pre-correction artifact, 🔴 Corrected 2026-07-21 under Ruling B1 (#774 corrupt Kerr table + source-frame mass). This is the A-034 catalog's Empirical-Validation column, so the retracted number is what the catalog row banks as its evidence.
+
+#### [HIGH] [missing-retraction] [gated-ringdown] manuscript/backmatter/07_universal_saturation_kernel.tex:211
+- PRINTED: AVE prediction
+$\omega_R M_g = 18/49 = 0.3673$ (1.7\% from GR exact 0.3737); 10--18\%
+agreement with three LIGO events (GW150914, GW170104, GW151226).
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:202 (clm-395gps Non-Claims) — "The Kerr-corrected LIGO ringdown comparisons (GW150914, GW170104, GW151226) show **10–18%** frequency error and 10–14% decay-time error ... **🔴 Corrected 2026-07-21 (Ruling B1; original preserved per Rule 12).** The "10–18%" is the **frame-mixed pre-correction artifact** (#774: v1 frequency at source-frame mass vs detector-fram
+
+#### [HIGH] [overclaim] [gated-ringdown] manuscript/backmatter/07_universal_saturation_kernel.tex:213
+- PRINTED: This is the framework's most direct experimental validation of the
+kernel at non-atomic scale.
+- KB TRUTH: The sentence's empirical leg is the retracted 10-18% LIGO figure on the preceding line. Under manuscript/ave-kb/vol3/claim-quality.md:202 that figure is a frame-mixed artifact; the surviving zero-parameter content is the cold 18/49 eigenvalue, which claim-quality.md:198 grades as "0.3673 vs GR exact 0.3737, **error 1.7%** — a category (iv) derived prediction" — i.e. a comparison against GR THEORY,
+
+#### [MEDIUM] [scope-lag] [mechanical] manuscript/backmatter/01_appendices.tex:48
+- PRINTED: The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry.
+- KB TRUTH: manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:90 — "The $2\pi$ vs $4\pi$ double-cover **STRUCTURE** is genuinely K4-native (axiom-derived), but it **ADMITS** both boson and fermion statistics and does **NOT force** spin-½ — $\pi_1 = \mathbb{Z}_2$ with $\mathrm{Hom}(\mathbb{Z}_2, U(1))$ two-valued (2026-07-08, [SPIN-HALF-POSITED], #584/#585). The fermion
+
+#### [MEDIUM] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/backmatter/01_appendices.tex:135
+- PRINTED: \item \textbf{High Coupling ($k_{couple} > 4.5$):} The lattice undergoes a phase transition, locking microrotations to shear vectors, driving the bulk modulus to roughly twice the shear modulus ($K/G \approx 1.78 - 2.0$).
+- KB TRUTH: manuscript/ave-kb/vol1/claim-quality.md:665 — the micropolar-grade test of exactly this mechanism returned NEGATIVE 2026-07-04 (PR #508): "The full micropolar sector (rotational DOF included — the corpus's own proposed K=2G mechanism, clm-o3q9ul) gives a one-parameter ν_eff(ρ) family, not a forced K=2G; the independent κ_rot is a k→0 Cauchy-grade spectator sourcing no chiral coupling, and the geom
+- VERIFY NOTE: Same as finding #5: 'mechanical' is wrong because the mirror KB leaf still asserts the negated proposition. graph-architecture.md:17-18 carries the identical Low-Coupling / High-Coupling bullets verbatim, unbannered, as does manuscript/vol_0.../03_computational_graph.tex:15-16. Additionally the finding's framing overstates the KB's reach: vol1/claim-quality.md:665's negative is on the ratified srs
+
+#### [MEDIUM] [overclaim] [ruling-needed] (verify-CORRECTED) manuscript/backmatter/02_full_derivation_chain.tex:744
+- PRINTED: (Nearly identical to liquid water---a non-trivial structural prediction.)
+- KB TRUTH: manuscript/ave-kb/vol1/claim-quality.md:650 (clm-crbl60 Specific Non-Claims) — "The $\nu_{kin}$ \"close to liquid water\" comparison is an **order-of-magnitude consistency observation, not a derivation** that the vacuum *behaves like* water in any operationally relevant sense." Reinforced at :667 (strengthen-by) — "Drop or formalize the \"close to liquid water\" comparison so it is not read as a p
+- VERIFY NOTE: 'mechanical' fails on the KB's own wording. The finding cites vol1/claim-quality.md:667 as its strengthen-by anchor; I re-read it verbatim at HEAD: 'Drop **or** formalize the "close to liquid water" comparison so it is not read as a physical correspondence.' The KB explicitly offers two mutually-exclusive remedies. That is the definition of a fix that is not fully determined. Second, the mirror le
+
+#### [MEDIUM] [mirror-drift] [ruling-needed] (verify-CORRECTED) manuscript/backmatter/04_physics_engine_architecture.tex:99
+- PRINTED: |-- mechanics/                   impedance.py
+|-- hardware/                    7 modules: geometric diode, soliton memory,
+|                                  resonance cavity, I/O stepper, etc.
+- KB TRUTH: Neither package exists at HEAD. `src/ave/` contains: axioms, bench, condensed, core, facade, gravity, nuclear, plasma, qed, regime_1_linear, regime_2_nonlinear, regime_3_saturated, regime_4_rupture, solvers, thermal, topological, utils, validation, viz — no `mechanics/`, no `hardware/`. Conversely the printed Three-Tier tree omits facade/, bench/, nuclear/, qed/, thermal/, condensed/, validation/,
+- VERIFY NOTE: Two problems. (1) The supporting receipt is false. The finding states 'the 17 Tier-1/Tier-3 modules cited at 04:65-108 were each existence-tested and all 17 returned OK, so the drift is localized to Tier-2b.' I re-ran the existence test on every path in the printed tree: `[ -f src/ave/regime_2_nonlinear/protein_fold.py ]` -> ABSENT; `ls src/ave/regime_2_nonlinear` -> __init__.py, seismic.py, seism
+
+#### [MEDIUM] [overclaim] [route-to-core] manuscript/backmatter/05_universal_solver_toolchain.tex:712
+- PRINTED: By relying entirely on macroscopic S-parameters rather than microscopic statistical fits, this analysis proves that \textbf{biological shape is a direct mechanical consequence of electronic feedline geometry}.
+- KB TRUTH: KB IS INTERNALLY INCONSISTENT — routed, not adjudicated. The mirror leaf manuscript/ave-kb/common/solver-toolchain.md:553 carries the identical sentence with NO Rule-12 banner (verified: no 🔴/⚠/RETRACT/NEGATIVE marker anywhere in :536-556), so the tex is a faithful mirror. But manuscript/ave-kb/common/program-arc-map.md:370 records: "| N13 | **Protein impedance-folding** (impedance carries the fol
+
+#### [MEDIUM] [overclaim] [ruling-needed] manuscript/backmatter/07_universal_saturation_kernel.tex:145
+- PRINTED: BCS
+$B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00\% error is the tightest
+single-instance validation; BH merger ring-down at 1.7\% from GR exact
+is the most direct cross-scale experimental validation.
+- KB TRUTH: manuscript/ave-kb/vol3/claim-quality.md:198 grades the 1.7% as "a category (iv) derived prediction" against "GR exact" — a theory-vs-theory comparison, and the printed clause says "from GR exact" in the same breath as "experimental validation". The experimental leg (LIGO) is retracted at :202. Compare backmatter/12_mathematical_closure.tex:170, which books the same row honestly as "GR exact ($\ome
+
+#### [MEDIUM] [scope-lag] [mechanical] manuscript/backmatter/12_mathematical_closure.tex:112
+- PRINTED: \item $\nu_{vac} = 2/7 \leftarrow \{A1$ LC mechanism, $K{=}2G$ at $\alpha\}$;\quad $\sin^2\theta_W = 2/9 \leftarrow \{\nu_{vac}\}$.
+- KB TRUTH: Same as the appendix_vacuum row: the DAG forward-edge books ν_vac=2/7 as derived from A1 + K=2G with no import tag, and the companion prose at :89 says "This trace-reversed geometric boundary **forces** the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$." manuscript/ave-kb/vol1/claim-quality.md:665 — "the substrate does not supply K=2G at either the Cauchy grade (PR #506) or the micropola
+
+#### [MEDIUM] [stale-value] [mechanical] manuscript/backmatter/12_mathematical_closure.tex:158
+- PRINTED: The same kernel --- identical functional form, no per-scale parameter retuning --- has been empirically matched at \textbf{four widely-separated scales}:
+- KB TRUTH: Contradicted by this file's own ruled count 69 lines earlier at 12:80, which carries the Rule-12 comment "% [2026-06-15 LF-03 -- prior wording preserved per Rule 12]: was \"four empirical anchors at zero free parameters ...\". SUPERSEDED per KB leaf solar-flares-led-avalanche.md: NOAA GOES comparison is a synthesized illustrative timeline, not a live fetch; solar flare = A-034 forward prediction, 
+
+#### [MEDIUM] [scope-lag] [ruling-needed] (verify-CORRECTED) manuscript/backmatter/appendix_c_derived_numerology.tex:58
+- PRINTED: \textit{Axiom trace:} Axiom~1 LC mechanism + $K=2G$ operating point at Axiom~2's $\alpha$ $\rightarrow$ Cauchy boundary conditions $\rightarrow$ $\nu_{vac} = 2/7$.
+- KB TRUTH: Two divergences in one line. (a) The "Cauchy" label: manuscript/ave-kb/vol1/claim-quality.md:652 — "**\"Cauchy\" is a 3-way homonym (collapse-batch T7 ...)** ... (iii) the **genuine classical Cauchy relation** — a central-force lattice ... reduces in the isotropic limit to λ=μ, giving **ν=1/4** and K=(5/3)G. AVE's K=2G instead requires λ=(4/3)μ (ν=2/7). So the one classical-elasticity route that *
+- VERIFY NOTE: Disposition 'mechanical' fails on both halves of the finding's own two-part structure. (a) The 'Cauchy boundary conditions' label: `git grep -n -F 'Cauchy boundary conditions' -- manuscript/` returns EXACTLY ONE site corpus-wide — appendix_c:58. It is not mirrored in the KB twin (common/appendix-derived-numerology.md:22 has no 'Cauchy' at all). vol1/claim-quality.md:652's T7 note enumerates three 
+
+#### [MEDIUM] [scope-lag] [mechanical] manuscript/backmatter/appendix_vacuum_engineering.tex:39
+- PRINTED: Vacuum Poisson ratio & $\nu_{vac}$ & 2/7 & Axiom 1 LC + $K=2G$ at Axiom 2's $\alpha$ \\
+- KB TRUTH: The Axiom-Source column books ν_vac=2/7 as axiom-derived. manuscript/ave-kb/vol1/claim-quality.md:665 keeps K=2G GR-imported after both closure attempts failed (PR #506 Cauchy grade, PR #508 micropolar grade, 2026-07-04); manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:116 states "GR-imported, PR #261, **NOT lattice-emergent**". The corpus's own Rule-12 s
+
+#### [LOW] [missing-retraction] [mechanical] (verify-CORRECTED) manuscript/backmatter/01_appendices.tex:141
+- PRINTED: As shown in Chapter 4, a standard Cauchy elastic solid ($K = -\frac{4}{3}G$) is thermodynamically unstable and will implode during macroscopic continuous simulation.
+- KB TRUTH: In-file contradiction, and the KB does not decide it. The same file names "a standard Cauchy solid" as $K/G \approx 1.67$ at :134 and "a Cauchy elastic solid requiring a fixed ratio of bulk to shear forces ($K = \frac{5}{3}G$)" at :187 — three lines, two different values for one named object. The $-4G/3$ form IS mirrored in the KB at manuscript/ave-kb/vol2/claim-quality.md:1033 ("Standard nearest-
+- VERIFY NOTE: The finding's central adjudication — 'the KB does not decide it ... Surfaced, not resolved' — is REFUTED. The auditor grepped only the DISTILLATION (vol2/claim-quality.md:1033, which is itself the stale mirror) and never opened the leaf it points to. The LEAF, manuscript/ave-kb/vol2/appendices/app-d-computational-graph/graph-architecture.md:24, carries a dated 🔴 Rule-12 correction landed 2026-06-1
+
+#### [LOW] [overclaim] [route-to-core] (verify-CORRECTED) manuscript/backmatter/01_appendices.tex:196
+- PRINTED: The presence of $\kappa_{rot}$ enforces a strictly positive effective bulk modulus within the numerical grid, ensuring stability at all acoustic frequencies while correctly simulating the emergent trace-reversed vacuum signatures.
+- KB TRUTH: Same canonical negative as :132/:135 — manuscript/ave-kb/vol1/claim-quality.md:665 (K=2G GR-imported, not substrate-supplied at either grade; κ_rot is a k→0 Cauchy-grade spectator per PR #508). The word "emergent" is the residual leak at the close of the Micropolar-Stability section.
+- VERIFY NOTE: 'mechanical' is wrong for the same leaf-vs-distillation reason, and the finding also pointed at a weaker KB anchor than exists. `git grep -n -F 'emergent trace-reversed vacuum signatures' -- manuscript/` returns FOUR sites, all identical and all unbannered: manuscript/ave-kb/vol2/appendices/app-e-dcve/dcve-specification.md:30 (the LEAF for clm-o3q9ul), manuscript/ave-kb/common/appendices-overview.
+
+#### [LOW] [stale-value] [ruling-needed] manuscript/backmatter/12_mathematical_closure.tex:61
+- PRINTED: > Total Test Suite:                       62/62 PASSED
+[...]
+168/168 framework files -- zero Standard Model parameters.
+- KB TRUTH: Not a KB divergence — a repo divergence in a block the chapter labels "Dynamic Output -- Generated from src/ave/core/constants.py" (12:16). Measured at HEAD: 239 test files and 2983 `def test_` functions under src/tests/ (vs "62/62"); 198 .py files under src/ave/ (vs "168/168"). `git log -S'62/62 PASSED'` and `git log -S'168/168 framework files'` both bottom out at de9d2293 (2026-04-13, "Initial r
+
+### papers — 7 findings
+
+#### [MEDIUM] [other] [route-to-core] papers/2026_birefringence_letter/main.tex:488
+- PRINTED: $I_{\max}=\varepsilon_0 c\,\Ec\,\ell_{\mathrm{node}} =\Ec\,\ell_{\mathrm{node}}/Z_0\simeq\SI{116}{\ampere}$ (with $Z_0=\SI{376.73}{\ohm}$ the vacuum wave impedance and $\varepsilon_0 c=1/Z_0$; a $2\pi$ closed-loop convention gives $\simeq\SI{730}{\ampere}$ instead --- an $O(1)$ loop-geometry ambiguity immaterial to everything below)
+- KB TRUTH: The corpus carries a DIFFERENT value for the same named quantity in the same S_B(A_I)=sqrt(1-A_I^2) kernel. manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md:33 (the clm-pvlas1 leaf the Letter's static-B side-prediction is cross-referenced to): 'L_{eff}(I) = \frac{L_0}{S(A_I)}, \qquad A_I = \frac{I}{I_{max}}, \qquad I_{max}=\xi_{topo}c\approx124.4
+
+#### [MEDIUM] [other] [ruling-needed] (verify-CORRECTED) papers/2026_birefringence_letter/main.tex:1108
+- PRINTED: \includegraphics[width=\columnwidth]{figures/exposure_plane.pdf}  ... caption: 'for the QED Euler--Heisenberg co-prediction (orange, Eq.~\eqref{eq:dnqed}), through the identical single-pass readout chain at probe energy \SI{9835}{\electronvolt}, $z=\SI{10}{\micro\meter}$'
+- KB TRUTH: The v3 re-freeze (Grant-ratified Arm-2, 2026-07-05; provenance.md:299-336) put BOTH legs on the single INSTANTANEOUS footing and moved the QED column to 2*alpha/(15*pi) -> 1.10e-13/8.76e-14/1.90e-13 (main.tex Table I:832-834, caption :791-794 'the QED column uses the instantaneous one-loop coefficient $2\alpha/(15\pi)$'). The figure was NOT regenerated: figures/exposure_plane.pdf last commit 248dd
+- VERIFY NOTE: The causal story and the class are wrong; the arithmetic and the disposition are right. The finding says the v3 re-freeze 'put BOTH legs on the single INSTANTANEOUS footing' and that the figure therefore lags a merged KB state. It does not. At HEAD the paper DELIBERATELY carries both footings: Eq.(7) (label eq:dnqed) at main.tex:679-683 still prints `\delta n_{\mathrm{QED}}=\frac{\alpha}{15\pi}\le
+
+#### [LOW] [other] [ruling-needed] papers/2026_birefringence_letter/main.tex:1114
+- PRINTED: The dotted line marks the record X-ray-polarimeter purity ($\num{8e-11}$, Ref.~\cite{Karbstein2021}; the conservative $\num{2.4e-10}$ single-measurement floor of Ref.~\cite{Marx2013} used for the kill criterion lies just above it)
+- KB TRUTH: Not a KB divergence -- an internal figure-vs-caption label conflict. The on-figure annotation, extracted verbatim from figures/exposure_plane.pdf via pdftotext, reads 'Demonstrated purity floor 8 x 10 11'. But the paper reserves 'demonstrated' for the 2.4e-10 Marx2013 single-measurement floor (main.tex:975-978, :86, :917-918) and calls 8e-11 the RECORD (Karbstein2021). provenance.md:132-140 ('Two-
+
+#### [LOW] [mirror-drift] [ruling-needed] papers/2026_birefringence_letter/provenance.md:114
+- PRINTED: | Abstract, Eq.(1),(4); §II.B | Kernel `S=sqrt(1-(E/E_c)^2)`; `E_c ~ 1.13e17 V/m` | `ave.core.constants.E_YIELD = V_YIELD/L_NODE` (constants.py:475); live-verified `1.1304e17`. ...  [and :117] '| Eq.(4) | ... | constants.py:469 (`E_CRIT`), :475 (`E_YIELD`). `E_crit` live = `1.3233e18`. |'
+- KB TRUTH: The constants.py line pointers no longer resolve. src/ave/core/constants.py:469 is a BLANK line and :475 is a '# ====' section separator. The actual definitions are at :510 ('E_CRIT: float = (M_E**2 * C_0**3) / (e_charge * HBAR)') and :516 ('E_YIELD: float = V_YIELD / L_NODE  # ~ 1.13e17 V/m'). The VALUES are correct and re-verified live (E_YIELD=1.1304105713e17, E_CRIT=1.3232855e18, E_YIELD == sq
+
+#### [LOW] [mirror-drift] [ruling-needed] papers/2026_birefringence_letter/provenance.md:121
+- PRINTED: | Eq.(9), abstract, §III.B **(REV-2)** | Ratio `7.5pi/alpha^2 ~ 4.42e5` (propagating; `15pi/α²~8.85e5` static) | `ave.bench.coefficient_ratio_differential_pvlas(geometry="propagating")`; live `4.4247e5`. Was `7.5/α³~1.93e7`. |
+- KB TRUTH: §1's 'Number-by-number map (paper claim -> source)' still maps the paper's Eq.(9) and Table-I QED column to the SUPERSEDED v2 values, with no forward-pointer to the §9 Arm-2 re-freeze that supersedes them. The paper now prints 3.75*pi/alpha^2 ~ 2.2e5 at main.tex:750 and QED 1.10e-13/8.76e-14/1.90e-13 at Table I:832-834; §1 rows :122-:126 still carry `P_qed=2.76e-14 / 2.19e-14 / 4.75e-14 / 2.76e-12
+
+#### [LOW] [mirror-drift] [ruling-needed] papers/2026_reach_saturating_family/outline.md:156
+- PRINTED: | C1 | The zero-birefringence NLED subfamily is completely classified ... | THEOREM | EXTERNAL: Russo & Townsend, JHEP 01 (2023) 039, arXiv:2211.10689 (Crossref DOI + arXiv verified in Letter refs.bib `RussoTownsend2023`; verbatim in Letter `main.tex:100-104,632-635`). |   [and :157]  '| C2 | Exact Born-Infeld predicts zero birefringence ... | THEOREM | ... Verbatim in Letter `main.tex:628-644`. |
+- KB TRUTH: The cited line ranges no longer contain the cited content. main.tex:100-104 is '\end{abstract}' / '\maketitle' / a comment rule. main.tex:628-644 is the astrophysical-pumping / geometric-suppression paragraph ('the birefringence lives in the pump--probe cross terms and scales as $(1-\cos\vartheta_{\mathrm{coll}})^4$'). The actual RussoTownsend2023 / Boillat1970 sites at HEAD are main.tex:140-144, 
+
+#### [LOW] [stale-value] [ruling-needed] papers/2026_reach_saturating_family/outline.md:220
+- PRINTED: (the birefringence Letter is already 9 pp as a Letter; this superset is an article).
+- KB TRUTH: The Letter is 12 pages, not 9. papers/2026_birefringence_letter/provenance.md:854: '**`make paper`:** clean, **12 pages** (v5 LbL paragraph + round-4 body additions)'. The 9-page figure is the 2026-07-06 state recorded at provenance.md:608 ('**9 pages** (was 8)'); v5 (#594, LbL/EFT paragraph) and v6 (round-4) grew it to 12. The outline was written 2026-07-06 (commit b9fa904b) and never refreshed. 
+
+#### [REFUTED — dropped] papers/2026_birefringence_letter/main.tex:128
+- REASON: The quote is accurate and the KB pointers resolve, but check 3 (REAL DIVERGENCE) fails -- this is a paraphrase/register difference, not a corpus contradiction, and the finding's own headline claim ('the one place the Letter's register crosses a post-window ratified corpus convention') is falsified b

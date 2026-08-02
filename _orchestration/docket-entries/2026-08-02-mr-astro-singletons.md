@@ -1,0 +1,6 @@
+### ENTRY 2026-08-02-mr-astro-singletons (2026-08-02): manuscript-reconciliation lane — astro singletons routed
+
+- **Class: routed adjudication request.** Provenance: board §5 vol3.
+- **(a) Oort-cloud non-sequitur.** `06_solar_system.tex:62`: printed r_sat ≈ 7,400 AU is asserted to "fall within" the 2,000–5,000 AU Hills-cloud inner-edge range. 7,400 is not inside 2,000–5,000. Either the saturation radius, the observational bracket, or the containment claim must move — which one is physics, not editing.
+- **(b) Sirius-B ε₁₁ two-leaf disagreement.** `07_stellar_interiors.tex:31` prints 3e-4 (matches GM/c²R, the measured redshift); the row's own control parameter is ε₁₁ = 7GM/(c²r) (factor-7). Two KB leaves disagree (`stellar-regime-classification.md` vs its sibling; board receipt), and the live `docs/factor7-and-782-basis-notes` lane is mid-flight on exactly this file — routed with a defer-to-live-lane marker; this epic will not touch ch07 until that lane lands and the leaves agree.
+- **(c) BH information erasure vs topological retention.** `04_generative_cosmology.tex:186` teaches permanent erasure + unitarity language that `black-holes-impedance-mismatch.md:24-26` carries under a 🔴 FLAG (retention question open). Print cannot be reconciled to a flagged-open leaf; request a ruling or an explicit both-readings banner text.

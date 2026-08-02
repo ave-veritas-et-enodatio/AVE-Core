@@ -1,0 +1,5 @@
+### ENTRY 2026-08-02-mr-varactor-keying (2026-08-02): manuscript-reconciliation lane — V_YIELD vs V_SNAP sector-keying residual routed
+
+- **Class: routed adjudication request.** The 2026-07-03 value change re-keyed the divergent metric varactor V_YIELD (43.65 kV) → V_SNAP (511 kV) (`def-vyvsn1`), and the two 2026-07-03 sector-keying forks (AVE_EE_BENCH FORM contradiction; L1 memristor cross-sector) were surfaced-not-adjudicated then and remain so.
+- **Print sites held back from the vol4 lane pending that adjudication:** `01_vacuum_circuit_analysis.tex:720` (C_vac(V) with V_yield ≈ 43.65 kV in the A1 divergent form — whether the honest fix is V_snap-relabel or sector-annotation depends on the fork); `17_noise_floor_boundary.tex:79` companion sites where the plateau supersession (`ee-bench-plateau.md:20` ★Supersession) interacts with the same keying.
+- **Request:** core session rules the A1-vs-T2 keying for the printed divergent-form sites (the "which sector does the printed formula model" question), after which these become CRIB-mechanical for the vol4 corrections lane.
