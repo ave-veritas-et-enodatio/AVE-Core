@@ -16,9 +16,9 @@ ONLY to form the AVE-side reference value.
 
 THE CHAIN (prereg sec 3.1, every step elementary EM):
 
-  1. resonant mode          I(s) = I0 sin(pi s / L)          [thin-wire half-wave]
-  2. dipole moments         ell_e = (1/I0) INT I t_hat ds                  [m]
-                            A_e   = (1/2I0) INT I (r x t_hat) ds           [m^2]
+  1. resonant mode          Ic(s) = I0 sin(pi s / L)          [thin-wire half-wave]
+  2. dipole moments         ell_e = (1/I0) INT Ic t_hat ds                  [m]
+                            A_e   = (1/2I0) INT Ic (r x t_hat) ds           [m^2]
   3. chiral pseudoscalar    chi = ell_e . A_e                             [m^3]
        origin-independent: r -> r+a sends A_e -> A_e + (1/2) a x ell_e, which is
        PERPENDICULAR to ell_e, so the parallel projection is invariant.
@@ -142,7 +142,7 @@ def discretise(pts: np.ndarray, n_sub: int = N_SUB):
 
 
 def mode_current(s: np.ndarray, L: float, gamma: float = 1.0) -> np.ndarray:
-    """Frozen resonant mode I(s)/I0 = sin(pi s / L)^gamma  (gamma=1 is the freeze)."""
+    """Frozen resonant mode Ic(s)/I0 = sin(pi s / L)^gamma  (gamma=1 is the freeze)."""
     return np.sin(np.pi * s / L) ** gamma
 
 
@@ -154,27 +154,27 @@ def uniform_current(s: np.ndarray, L: float) -> np.ndarray:
 # --------------------------------------------------------------------------
 # The three mode integrals (prereg sec 3.1 steps 2-3, 6)
 # --------------------------------------------------------------------------
-def effective_length(r, t, ds, I) -> np.ndarray:
-    """ell_e = (1/I0) INT I t_hat ds   [m]."""
-    return (I[:, None] * t * ds[:, None]).sum(axis=0)
+def effective_length(r, t, ds, Ic) -> np.ndarray:
+    """ell_e = (1/I0) INT Ic t_hat ds   [m]."""
+    return (Ic[:, None] * t * ds[:, None]).sum(axis=0)
 
 
-def effective_area(r, t, ds, I, origin=None) -> np.ndarray:
-    """A_e = (1/2 I0) INT I (r x t_hat) ds   [m^2].  `origin` shifts r (for G1)."""
+def effective_area(r, t, ds, Ic, origin=None) -> np.ndarray:
+    """A_e = (1/2 I0) INT Ic (r x t_hat) ds   [m^2].  `origin` shifts r (for G1)."""
     rr = r if origin is None else r - origin
-    return 0.5 * (I[:, None] * np.cross(rr, t) * ds[:, None]).sum(axis=0)
+    return 0.5 * (Ic[:, None] * np.cross(rr, t) * ds[:, None]).sum(axis=0)
 
 
-def chi_pseudoscalar(r, t, ds, I, origin=None) -> float:
+def chi_pseudoscalar(r, t, ds, Ic, origin=None) -> float:
     """chi = ell_e . A_e   [m^3] — the origin-independent chiral invariant."""
-    return float(effective_length(r, t, ds, I) @ effective_area(r, t, ds, I, origin))
+    return float(effective_length(r, t, ds, Ic) @ effective_area(r, t, ds, Ic, origin))
 
 
-def radiation_resistance(r, t, ds, I, k: float,
+def radiation_resistance(r, t, ds, Ic, k: float,
                          n_theta: int = N_THETA, n_phi: int = N_PHI) -> float:
     """R_rad = 2 P_rad / I0^2 from the far-field integral of the SAME mode.
 
-        P_rad = (Z0 k^2 / 32 pi^2) INT |INT I t_perp exp(i k.r) ds|^2 dOmega
+        P_rad = (Z0 k^2 / 32 pi^2) INT |INT Ic t_perp exp(i k.r) ds|^2 dOmega
 
     Gauss-Legendre in cos(theta), uniform (periodic-exact) in phi.
     """
@@ -188,7 +188,7 @@ def radiation_resistance(r, t, ds, I, k: float,
                      np.broadcast_to(ct, (n_theta, n_phi))], axis=-1)   # [T,P,3]
     khat_f = khat.reshape(-1, 3)
     wt = np.broadcast_to(w[:, None], (n_theta, n_phi)).reshape(-1) * dphi
-    src_w = (I * ds).astype(complex)
+    src_w = (Ic * ds).astype(complex)
     integ = 0.0
     # Chunked over DIRECTIONS: the full [D,M] phase matrix would be tens of GB at
     # useful resolution.  Chunking bounds peak memory and changes no arithmetic.
@@ -228,13 +228,13 @@ def bbox_volume(pts: np.ndarray) -> float:
 def analyse(name: str, pts: np.ndarray, f0: float, eps_eff: float = 1.0,
             gamma: float = 1.0, uniform: bool = False) -> dict:
     r, t, ds, s, L = discretise(pts)
-    I = uniform_current(s, L) if uniform else mode_current(s, L, gamma)
+    Ic = uniform_current(s, L) if uniform else mode_current(s, L, gamma)
     lam = C_0 / (f0 * np.sqrt(eps_eff))
     k = 2.0 * np.pi / lam
-    ell = effective_length(r, t, ds, I)
-    a_e = effective_area(r, t, ds, I)
+    ell = effective_length(r, t, ds, Ic)
+    a_e = effective_area(r, t, ds, Ic)
     chi = float(ell @ a_e)
-    r_rad = radiation_resistance(r, t, ds, I, k)
+    r_rad = radiation_resistance(r, t, ds, Ic, k)
     v_chi = chiral_volume(chi, r_rad)
     v_bbox = bbox_volume(pts)
     n_ref = 1.0 / v_bbox
@@ -280,10 +280,10 @@ def run_gates(res: dict, polys: dict) -> dict:
 
     # G1 origin-invariance of chi
     r, t, ds, s, L = discretise(polys["k23_R"])
-    I = mode_current(s, L)
-    chi0 = chi_pseudoscalar(r, t, ds, I)
+    Ic = mode_current(s, L)
+    chi0 = chi_pseudoscalar(r, t, ds, Ic)
     shifts = rng.normal(scale=1.0, size=(8, 3))
-    drift = [abs(chi_pseudoscalar(r, t, ds, I, origin=o) - chi0) / abs(chi0)
+    drift = [abs(chi_pseudoscalar(r, t, ds, Ic, origin=o) - chi0) / abs(chi0)
              for o in shifts]
     g["G1_origin_invariance"] = {
         "criterion": "|chi(shifted) - chi(0)| / |chi(0)| <= 1e-9",
@@ -419,8 +419,8 @@ def ohmic_bound(pts: np.ndarray, r_rad: float) -> dict:
     never move the verdict toward the bin this lane happens to report.
 
     Skin-effect surface resistance of the wire, weighted by the SAME sin^2 current
-    profile that sets R_rad:  R_ohm = (rho L)/(2 pi a delta) * <I^2>/I0^2, with
-    <I^2>/I0^2 = 1/2 for I = I0 sin(pi s/L), and delta = sqrt(2 rho/(omega mu0)).
+    profile that sets R_rad:  R_ohm = (rho L)/(2 pi a delta) * <Ic^2>/I0^2, with
+    <Ic^2>/I0^2 = 1/2 for Ic = I0 sin(pi s/L), and delta = sqrt(2 rho/(omega mu0)).
     """
     rho_cu = 1.68e-8        # standard material constant, annealed Cu, ohm*m
     a = WIRE_DIA_M / 2.0
@@ -475,10 +475,10 @@ def quadrature_convergence(pts: np.ndarray) -> dict:
     rows = []
     for n_sub, nt, npz in ((32, 40, 80), (64, 80, 160), (128, 160, 320)):
         r, t, ds, s, L = discretise(pts, n_sub=n_sub)
-        I = mode_current(s, L)
+        Ic = mode_current(s, L)
         rows.append({"n_sub": n_sub, "n_theta": nt, "n_phi": npz,
-                     "chi_m3": chi_pseudoscalar(r, t, ds, I),
-                     "R_rad_ohm": radiation_resistance(r, t, ds, I, k, nt, npz)})
+                     "chi_m3": chi_pseudoscalar(r, t, ds, Ic),
+                     "R_rad_ohm": radiation_resistance(r, t, ds, Ic, k, nt, npz)})
     base = rows[1]
     return {"rows": rows,
             "chi_rel_drift_vs_base":
