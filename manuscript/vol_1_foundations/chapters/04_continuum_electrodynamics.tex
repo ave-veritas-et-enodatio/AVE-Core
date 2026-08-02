@@ -179,8 +179,12 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 This is the macroscopic 3D shear modulus of the substrate---the elastic
 resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
-\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The Cauchy bulk modulus is fixed at
-$K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
+\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The bulk modulus is fixed at
+% [2026-08-02 manuscript-reconciliation, CRIB-1; prior wording preserved verbatim per Rule 12:]
+%   "The Cauchy bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice)."
+% Both the adjective and the parenthetical are the label the KB corrected (collapse-batch T7,
+% ave-kb/vol1/claim-quality.md:646 + the 3-way "Cauchy" homonym note at :652).
+$K_{vac} = 2G_{vac}$ --- the \textbf{GR trace-reversal lock} ($\nu_\text{Hill} = 2/7$), \emph{not} the classical Cauchy relation. The genuine central-force Cauchy relation ($c_{12} = c_{44}$, every site a centre of symmetry) reduces in the isotropic limit to $\lambda = \mu$ and forces a \emph{different} point, $\nu = 1/4$ and $K = \tfrac{5}{3}G$; AVE's $K = 2G$ instead requires $\lambda = \tfrac{4}{3}\mu$. Naming the AVE lock ``the Cauchy relation'' both mis-cashes the namesake and papers over the GR import (\kbleaf{ave-kb/vol1/claim-quality.md}:646, :652; collapse-batch T7 correction).
 
 \subsection{Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)}
 
