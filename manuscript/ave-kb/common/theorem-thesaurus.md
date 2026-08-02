@@ -75,7 +75,7 @@ Each row in §4 carries seven fields.
 | **id** | `TH-n`. A **local table label only** — deliberately NOT a spine id (no `\b[a-z]{3}-[a-z0-9]{6}\b` form, nothing materialised into `.index/`), so it cannot be mistaken for, or accrete into, a shadow knowledge-id scheme (INVARIANT-S11). It is a row number with a prefix |
 | **canonical statement** | One sentence, framework-neutral mathematics. No substrate nouns, no EE nouns, no AVE symbols |
 | **names across disciplines** | Only names that genuinely denote **this** theorem. A name that denotes a *cousin* goes in §6, not here |
-| **exactness class** | One of the four below |
+| **exactness class** | One of the five below |
 | **ceiling** | The ontological-silence ceiling — **mandatory on every EXACT row**, and stated in the row, not deferred |
 | **corpus use sites** | file:line, two-method verified at `c8ceacc3`. **Unmerged-branch sites are flagged inline** (`★UNMERGED`) and never carry a row alone |
 | **regime fence** | Where the identity stops. A row with no fence says "none known", explicitly |
