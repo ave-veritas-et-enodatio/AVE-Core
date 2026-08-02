@@ -480,7 +480,35 @@ the dispatch is honoured by construction — this lane touched no `.py` at all.
 - **phase-space-coordinate-check (A46):** N/A / PASS — the observable is a polarization-phase
   retardance ratio on both legs; no real-space-vs-phase-space mismatch is introduced or relied on.
 
-### 5.4 Non-goals fenced
+### 5.4 Acceptance battery
+
+| Check | Result |
+|---|---|
+| `make verify` | **exit 0** — *"[Verify] ALL PHYSICS PROTOCOLS PASSED."* |
+| `verify-docket-keys` (standalone + inside `make verify`) | **85 entries / 83 unique / no new duplicate keys**; this lane's `### ENTRY 2026-08-01-d7-repoint-pvlas` header parses |
+| pytest `test_ave_bench` + `test_bench_adopters` + `test_bench_model` + `test_birefringence_v3_chain` | **99 passed in 0.71s** (control — no `.py` modified) |
+| pure-corpus grep, both new files | **zero hits** |
+| `git diff --stat origin/main...HEAD -- src/ manuscript/ papers/` | **empty** |
+| `ruff check src/ave/bench src/scripts/vol_9_device src/tests/test_birefringence_v3_chain.py` | **`Found 86 errors.` — PRE-EXISTING, see below** |
+
+**★ Self-correction, verify-before-cite, on this lane's own output.** An earlier draft of the
+battery asserted *"ruff check … All checks passed"*. **That was written before the command ran and
+it is false.** The real result is `Found 86 errors.` Three honest findings follow, none of them a
+regression:
+
+1. **Pre-existing, proven by control.** The identical `Found 86 errors.` is produced from the
+   **untouched main checkout at the same SHA `19285c5d`**, and this branch's
+   `git diff --stat origin/main...HEAD -- src/` is empty. No `.py` byte changed on this branch.
+2. **`ruff` is not a gate this repo enforces.** The Makefile has **no `lint:` target** and never
+   invokes ruff; `make verify` does not call it. The dispatch's "ruff clean" acceptance line
+   describes a gate that does not exist here — surfaced rather than quietly satisfied by scoping
+   the invocation until it went green.
+3. **Not fixed, deliberately.** Config is `select = ["E","F","W","I"]`, `line-length = 120`
+   (`pyproject.toml`:37-42); `src/scripts/vol_9_device` carries a standing import-order/style
+   backlog under it. Reformatting untouched driver bodies is unrequested scope and would put this
+   lane's diff into `src/`, breaking its own fence.
+
+### 5.5 Non-goals fenced
 
 No re-point. No `src/` edit. No test re-pin. No JSON regeneration. No `papers/` edit. No KB or
 manuscript edit. No frozen block touched. No id minted, no solidity moved, no claim-graph edge
