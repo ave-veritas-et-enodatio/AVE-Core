@@ -21,7 +21,9 @@ co-locates the latch + drive + momentum:
   - CONSTRUCTIVE INTERFERENCE = COMPRESSION = u-sector drive.  The focal density peak
     is a longitudinal/P-wave/bulk (u-sector) excitation; the geometric concentration
     G_geom (= array directivity; Q-G42 V_yield^(apparatus)=E_yield/G_geom,
-    trampoline-framework.md:455) drives the local field to A_yield.
+    trampoline-framework.md:465) drives the local field to A_yield.
+    [cite-rot repair 2026-08-02: read `:455`, the '### 3.1 The saturation kernel'
+     heading, which never carried the Q-G42 template. Content-located at HEAD.]
   - THE u-SECTOR LATCH (NOT the ω Lenz-freeze).  Peierls-Nabarro STZ thixotropic
     re-freeze (peierls-nabarro-paradox.md, clm-ghs75o) + Bingham yield τ_y
     (saturation-operator.md, clm-gdd70j: "the vacuum flows above τ_y=B_snap²/2μ₀").

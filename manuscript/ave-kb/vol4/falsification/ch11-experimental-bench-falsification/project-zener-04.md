@@ -48,7 +48,7 @@ strengthens:
 > template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
 > Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
 > + per-node-vs-apparatus); Q-G42 apparatus-vs-substrate template
-> $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:439`).
+> $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:465` — ★cite-rot repair 2026-08-02: this banner inherited `:439` from the walk-back doc's template cite; `:439` is a §2.4 cross-reference bullet and never carried the template).
 
 ## Project ZENER-04: The Impedance Avalanche Detector
 

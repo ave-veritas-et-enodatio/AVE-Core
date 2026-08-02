@@ -44,7 +44,7 @@ strengthens:
 > work-item #3 (ledger `_orchestration/experimental/2026-06-04_round2-adjudications.md` §3). Applied-banner
 > template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
 > Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
-> + per-node-vs-apparatus); Q-G42 template at `trampoline-framework.md:439`.
+> + per-node-vs-apparatus); Q-G42 template at `trampoline-framework.md:465` (★cite-rot repair 2026-08-02: this banner inherited `:439` from the walk-back doc's template cite; `:439` is a §2.4 cross-reference bullet and never carried the template).
 
 ## The Absolute Hardware Limit of Metric Levitation
 
