@@ -1,0 +1,10 @@
+### ENTRY 2026-08-02-mr-vol6-crosswires (2026-08-02): manuscript-reconciliation lane — Vol-6 cross-wires where the KB mirrors the defect
+
+- **Class: routed adjudication request — each defect is KB-mirrored or KB-silent, so the volume lane cannot fix print without a KB ruling.** Provenance: board §5 vol6 (sweep + independent verify).
+- **(a) Lithium/Boron halo cross-wire.** `02_chemistry.tex:22` teaches 11.84d as the Li outer-shell distance; 11.84d is BORON-11's tritium-halo radius (`07_boron.tex:21`). The KB mirrors the cross-wire (`vol6/framework/…` per board receipt) rather than correcting it.
+- **(b) Neon discharge spectral claim.** `12_neon.tex:48` asserts discharge-tube spectral behaviour that `vol6/claim-quality.md:566` (clm-f8k2um, solidity 0.30) explicitly non-claims. The per-element "Topological Resonance" leaves assert what their governing claim entry denies — which register wins is a ruling.
+- **(c) Oxygen R_tet split.** `10_oxygen.tex:19` — the fitted R_tet reproduces binding at a value the KB's own `period-2/oxygen/structure-isotopes` leaf logs as an unreconciled split. KB carries the split; no side is ruled.
+- **(d) Boron d-label.** `07_boron.tex:23` calls d = 4ħ/(m_p c) the "proton charge radius"; the volume defines d as the SPIN radius (`01_computational.tex:94`), and the KB mirror carries the same mislabel (`period-2/boron/struct…`).
+- **(e) Magnesium Op3 sense.** `14_magnesium.tex:92` uses an Op3 reflection sense that `vol6/claim-quality.md:83` (clm-7tk051) and INVARIANT-N3 leave ambiguous across sectors (interacts with RULING 21 Op3 = lossless transduction).
+- **(f) "acoustic drag (vacuum friction)" as the dissipation mechanism** (`01_computational.tex:75`) vs Ax3-losslessness and the substrate-native-terminology leak table — whether the Vol-6 Q-loss prose survives as a sub-yield-regime statement or is struck is a physics ruling, not a relabel.
+- **(g) Mg alloy strength overclaim** (`14_magnesium.tex:36`) rides clm-f8k2um's same non-claim boundary as (b).
