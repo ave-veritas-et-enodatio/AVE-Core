@@ -418,6 +418,38 @@ Per `AVE-HOPF/AGENTS.md` line 82 (sibling-repo authority): the AVE-Propulsion $k
 
 ## Priority order for action (Grant-plumber perspective)
 
+> 🔴 **RE-DERIVED 2026-08-01 against the hardware-ratings map (Rule 12 — the superseded block is
+> preserved verbatim below; git is the trail).** The prior ranking was patched-row-by-row over a year and
+> went stale in four of its five entries: #2 (Sagnac-RLVE fab package) was **RETIRED to corroborative-null
+> on 2026-06-03** by the A2 entry of *this same file* (§A2 and its Matrix-2 row); #3, #4 and #5 all say
+> "driver missing / execution deferred" for drivers that have since been **built and run** (C1 ran and its
+> result was **RETRACTED 2026-07-20**; C5 executed 2026-05-19 at Outcome MARGINAL-D; C3 built + re-run
+> 2026-05-19). Rather than patch rows again, the ordering is re-derived from the fresher organizing view:
+> [`_orchestration/2026-07-15_hardware-ratings-map.md`](../../../_orchestration/2026-07-15_hardware-ratings-map.md)
+> §2 ratings table + §3 missing-spec-pages, whose own charter rule is imported verbatim: *"every probe is
+> IN-SPEC … or AT-THE-RAILS … The program no longer spends on in-spec consistency. Every new lane drives a
+> rating or writes a missing spec page,"* and *"The strategy is the empty cells."*
+
+**Ordering imported from the ratings map's own priority marks (§2 / §3):**
+
+1. **F6 $\varepsilon\to$T2 irreversible *field* channel** — ratings map §3 item 1, marked **"Priority 1"**. A *missing spec page* (build, don't probe). **GATED**: the §7 detector-rebuild GATE plus the two R7 gates — (a) the §7 mechanism accept/reject Grant call, (b) meter revalidation outside the cold-linear regime — must clear before any arm fires.
+2. **R10 — Overclocking / census Stage-2 driven** (does drive select $(2,3)$? the selection-principle gate) — ratings map §2, marked **"priority 4"**; F1 hygiene cleared, **R2 input still owed**.
+3. **R11 — the real varactor curve $C_{eff}(V)$; the CVR selection session** — ratings map §2, marked **"priority 5, elevated"** and flagged **the only real-machine probe** (real-machine status: *"BENCH-∅ — nothing measured, ever"*). Model side is spec'd (CVR requirements + trade-study v2).
+4. **R12 — Cleave-01 gap-independence** (the femto-electrometer kill-test) — ratings map §2, **"queued behind R11's session."** Read with the 2026-07-02 rescope: the axis is gap-**INDEPENDENCE** (not the slope), and it is a **corroborative-null-class discriminator** — AVE itself predicts the null (`clm-clvchn` NULL-CONFIRMED-FINAL), so a positive REOPENS rather than confirms.
+5. **The remaining un-numbered ratings rows, all BENCH-∅** — in the map's own row order: R1 dynamic knee-crossing drive; R2 drive-a-region-to-refusal (watch the wall form; feeds the census S2 design and is R10's owed input); R4 derating-curve sweep (cheap — rides R1/R6); R5 FPB slew / crossover-band map (**REVIVED**); R6 two-tone mixer + phase-slip capture (**REVIVED**); R3 spec'd-not-retuned (gated on the **R13** yield fork); R13 retention resolution arc (thixotropy prereg + the pre-registered memristor loop-area).
+
+**Rows of *this* map with no ratings-table row** (outside the ratings program's scope — ranked by the original *AVE-distinctness × accessibility × decisiveness* rule, with current status):
+
+- **A1-HOPF (HOPF-02a)** — still the cheapest un-run real-hardware shot in this portfolio (~$123 BOM, 60-400$\times$ NEC2 SNR margin). **Fab artifacts are exported (Gerbers + drill + DRC); the fab ORDER has not been placed** — the gate is the JLCPCB upload, per `AVE-HOPF/.agents/HANDOFF.md` (source of truth for physical hardware state). Discriminator is **C3 medium-independence + C4 enantiomer sign**, NOT the slope (slope=$\alpha$ is consistency-class, CODATA-injected).
+- **C1-BH-RING** — the driver exists and ran; the 2026-07-20 retraction (corrupt Kerr table + source-vs-detector frame mixing) means the open item is the **frame-corrected $\tau$ re-run**, not building an observer.
+- **C5-CMB-AXIS** — executed 2026-05-19 (Outcome MARGINAL-D). The open item is the **cross-catalog precision path** (Shamir catalog access / methodology-systematic adjudication), not "execution deferred."
+- **C3-MUON-DELTA** — driver built + re-framed 2026-05-19. The open item is **Fermilab Run-4/5 + the BMW-vs-$e^+e^-$ SM-baseline adjudication**, not building a driver.
+
+**Explicitly NOT ranked (retired / regime-artifact — do not re-promote):** **A2-SAGNAC** (retired to corroborative-null 2026-06-03; existing RLG geodesy already resolves it); **C16-TORSION-05** and **C9-LEVITATION** and the bench-voltage leg of **B1-VAC-BIREFRINGE** (per-node/apparatus conflation — 2026-06-04 adjudication propagated to the Ch.11 leaves 2026-08-01; a null at those drives is an artifact-of-regime); **BH photon-ring** (removed 2026-05-16 — AVE keeps the photon sphere at GR's $3GM/c^2$). Facility-class items (Schwinger autoresonance, vacuum birefringence at facility fields, baryon-ladder forward predictions) remain outside the current workspace.
+
+<details>
+<summary>Superseded priority block (preserved verbatim per Rule 12 — do NOT action)</summary>
+
 Ranked by *AVE-distinctness × accessibility × decisiveness*:
 
 1. **HOPF-02a fab + measure** — already designed, ~$123, 60-400$\times$ predicted SNR margin. Single decisive shot at the chiral antenna shift law. Order package at `AVE-HOPF/hardware/hopf_02a.kicad_pcb`.
@@ -427,6 +459,8 @@ Ranked by *AVE-distinctness × accessibility × decisiveness*:
 5. **Muon g-2 family-saliency comparison driver** — Fermilab Muon g-2 collaboration data is public; AVE's $\delta = -5\alpha/2$ prediction is a single-number comparison.
 
 The rest (Schwinger autoresonance, vacuum birefringence at $10^{12}$, baryon-ladder forward predictions) need facility-class infrastructure outside the current workspace. (BH photon-ring previously listed here; removed 2026-05-16 per audit — AVE keeps photon sphere at GR's $3GM/c^2$, so EHT-class photon-ring radius is GR-standard and not AVE-distinct.)
+
+</details>
 
 ---
 
