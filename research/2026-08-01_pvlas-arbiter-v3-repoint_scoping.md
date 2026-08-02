@@ -436,7 +436,15 @@ behind four adjudications — is the honest summary of why this lane stopped.
 |---|---|---|
 | `src/deprecate-superseded-birefringence-ratio` | `_orchestration/docket-entries/2026-08-01-d1-deprecate-ratio.md`, `src/ave/qed/__init__.py`, `src/ave/qed/birefringence.py`, `src/tests/test_grqed_stage2_qed_extension.py` | **none** |
 | `docs/factor7-and-782-basis-notes` | `_orchestration/docket-entries/2026-08-01-factor7-and-782-basis.md`, `manuscript/ave-kb/vol1/…/domain-catalog.md`, `manuscript/ave-kb/vol3/…/stellar-regime-classification.md`, `manuscript/vol_1_foundations/chapters/07_regime_map.tex`, `manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex`, `manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex`, `research/2026-07-21_rve-aggregation-bench_result.md` | **none** |
-| `docs/rulings-d2-d3-d4` | **no ref on `origin`** (`git rev-parse --verify origin/docs/rulings-d2-d3-d4` fails) — un-pushed or differently named | **cannot collide with an unpushed ref**; re-check at merge time |
+| `docs/rulings-d2-d3-d4` | `_orchestration/docket-entries/2026-08-01-rulings-d2-d3-d4.md`, `manuscript/ave-kb/common/identity-break-test-design.md`, `manuscript/ave-kb/common/index.md`, `manuscript/ave-kb/common/theorem-thesaurus.md`, `manuscript/ave-kb/common/translation-tables/README-architecture.md` | **none** |
+
+⚠ **The `docs/rulings-d2-d3-d4` row changed during this lane and the earlier state is recorded
+rather than overwritten silently.** At first check the branch had **no `origin` ref**
+(`git rev-parse --verify origin/docs/rulings-d2-d3-d4` failed — unpushed at that moment); it was
+pushed mid-lane and the row above is the **re-checked** state at ship time. Overlap is `none`
+either way, computed by `comm -12` on the two sorted file lists rather than by eye. The lesson
+carried: a concurrent-branch overlap check is only valid **as of its fetch**, so it was re-run
+immediately before the PR rather than trusted from the start of the session.
 
 This lane's file set is **two files**: `research/2026-08-01_pvlas-arbiter-v3-repoint_scoping.md`
 and `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md`. The `src/ave/qed/*` fence in
