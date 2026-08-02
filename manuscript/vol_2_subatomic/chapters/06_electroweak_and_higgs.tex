@@ -212,7 +212,27 @@ $Z$    & $M_W^{\text{sc}} \cdot 3/\sqrt{7}$           & 90,965 MeV  & 91,188 MeV
 \end{tabular}
 \end{center}
 
-\paragraph{Loop Correction (Impedance Mismatch Loss).} 
+\noindent\textbf{Carrier note (2026-08-02, D1 ratification --- Grant 2026-07-03; governs every
+``$z = 4$'' and ``K4 Bethe tree'' in this section and in the neutrino Bethe-lattice section below).}
+The name ``K4'' is overloaded, and the D1 ratification fixed which referent is production. The
+\textbf{production carrier} is the \textbf{chiral \emph{srs} $z = 3$ net} (Sunada-K4 / Laves,
+$I4_1 32$ --- the object Axiom~1 names, coordination $z = 3$). The \textbf{degree-4 ($z = 4$)
+bipartite-FCC diamond} used by the Bethe-tree arithmetic below is a \emph{different} referent: the
+historical engine substrate, \textbf{re-tagged a non-canonical instrument} by the 2026-07-03
+ratification (part of the ratification's evidence basis being that diamond statics are ill-posed ---
+``statics-pathological''), with the migration chartered. \textbf{Read every $z = 4$ below as the
+coordination of that instrument, not of the vacuum's carrier.} Consequently the ``Every element
+\ldots\ is derived from AVE axioms'' sentence in the paragraph above is \emph{scoped}: the graph
+topology it names is the instrument's, not the ratified carrier's. \emph{Flag, not fixed here:} the
+downstream numbers on this page ($S_{11}^{\text{sc}} \approx -0.06123$,
+$M_W^{\text{sc}} \approx 80{,}224$~MeV, and the neutrino Bethe-ring spectrum below) ride the $z = 4$
+arithmetic. Re-running them on the ratified $z = 3$ carrier is a solver run, \textbf{owed and not
+performed in this documentation pass}; no claim is made here that the printed values survive the
+migration, and none of them is altered. Canonical:
+\kbleaf{ave-kb/common/vocabulary-register.md} (\texttt{def-4b1a2c}: adjudicated-meaning, and
+referent~(b) --- the degree-4 diamond); \kbleaf{ave-kb/common/engine-capability-map.md} \S8b.0.
+
+\paragraph{Loop Correction (Impedance Mismatch Loss).}
 Unlike the static muon and tau defects, the transient W-Boson operates at the extreme energy density limit of the lattice. Its self-energy immediately drives the nearest-neighbor nodes past the Axiom~4 yield point ($V_{yield}$), saturating them into an open-circuit boundary ($Y_{\text{boundary}} = 0$).
 
 This creates an impedance mismatch between the origin node and the surrounding locked lattice. From the Vacuum Circuit Analysis framework (Vol.~4, Ch.~1), the standard mismatch loss applies: a fraction $|S_{11}|^2$ of the two-vertex coupling \textit{power} reflects back without completing the interaction. The effective coupling is therefore reduced:
@@ -227,7 +247,18 @@ The depth-1 result ($-0.22\%$) omits a second-order effect: the reflected power 
 \begin{equation}
     Y_{00}^{(k+1)} = Y_{00}^{(0)} - \bigl|S_{11}^{(k)}\bigr|^2 \cdot (z\,\nu_{\text{vac}})
 \end{equation}
-where $z = 4$ is the K4 coordination number. Because $|S_{11}|^2 \approx 3.75 \times 10^{-3} \ll 1$, the series is geometric and converges to a unique fixed point after $\sim 10$ iterations:
+% [2026-08-02 CARRIER VOCABULARY correction (CRIB-2; D1 ratification, Grant 2026-07-03). Rule 12 --
+%  prior wording preserved byte-verbatim and in git: "where $z = 4$ is the K4 coordination number."
+%  That sentence read the vacuum's carrier off the degree-4 diamond. Authority:
+%  ave-kb/common/vocabulary-register.md:526 (def-4b1a2c adjudicated-meaning -- the PRODUCTION
+%  CARRIER named "K4" is the chiral srs z=3 net, RATIFIED Grant 2026-07-03, D1) and :534
+%  (referent (b) -- the engine "K4" is the degree-4 bipartite-FCC DIAMOND, achiral Fd-3m,
+%  "re-tagged a non-canonical instrument by the 2026-07-03 D1 ratification").
+%  The ARITHMETIC is untouched: z = 4 remains z = 4 in the equation, because that is the
+%  instrument the number was computed on. Only the ontology label is corrected.]
+where $z = 4$ is the coordination number of the degree-4 diamond \emph{instrument} on which this
+Bethe-tree calculation was run --- \emph{not} of the ratified $z = 3$ \emph{srs} production carrier
+(carrier note above). Because $|S_{11}|^2 \approx 3.75 \times 10^{-3} \ll 1$, the series is geometric and converges to a unique fixed point after $\sim 10$ iterations:
 \begin{equation}
     S_{11}^{\text{sc}} \approx -0.06123, \qquad
     M_W^{\text{sc}} = \frac{M_W^{\text{tree}}}{1 - \bigl|S_{11}^{\text{sc}}\bigr|^2} \approx 80{,}224\ \text{MeV}
@@ -254,7 +285,9 @@ The neutrino is a pure torsional (screw) defect---a propagating twist wave in th
 
 The three neutrino mass eigenvalues are derived from the K4 Bethe-lattice resonance
 condition for a $(2,c)$ torus-knot torsional mode.  Applying the self-consistent
-Dyson equation to the radial Bethe lattice of coordination $z=4$ with arm admittance
+Dyson equation to the radial Bethe lattice of coordination $z=4$ --- the degree-4 diamond
+\emph{instrument}, not the ratified $z = 3$ \emph{srs} production carrier (carrier note in the
+W-boson section above) --- with arm admittance
 $\nu_\text{vac}$ gives the ring resonance energy:
 \begin{equation}
     E_\text{res}(c) = \frac{3}{2}\,\nu_\text{vac}\cos\!\left(\frac{2\pi}{c}\right)
@@ -262,7 +295,12 @@ $\nu_\text{vac}$ gives the ring resonance energy:
 \end{equation}
 
 \noindent\textbf{Derivation of Eq.~(\ref{eq:bethe_ring}):}
-Each $(2,c)$ knot sits at a single K4 node and couples to $z=4$ radial arms.
+% [2026-08-02 CARRIER VOCABULARY correction (CRIB-2; D1 ratification). Rule 12 -- prior wording
+%  preserved byte-verbatim and in git: "Each $(2,c)$ knot sits at a single K4 node and couples to
+%  $z=4$ radial arms." Same authority as the :230 correction (def-4b1a2c, vocabulary-register.md
+%  :526 and referent (b) at :534). Arithmetic untouched; ontology label corrected.]
+Each $(2,c)$ knot sits at a single node of the degree-4 diamond \emph{instrument} and couples to
+$z=4$ radial arms.
 The Dyson self-energy of the ring (returned to the origin) is
 $\Sigma(E) = E/3$ (the linear Bethe-lattice limit), giving the fixed-point condition
 $E_\text{res} = E_\text{bare} - \Sigma(E_\text{res}) = (3/4)E_\text{bare}$.
