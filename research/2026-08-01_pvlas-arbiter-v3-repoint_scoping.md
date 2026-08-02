@@ -702,10 +702,34 @@ so the gate still discriminates. ⚠ Note this is a latent-brittleness fix: `ado
 `ratio_at` still computes the **v1** pairing inline (scoping §2.5/§2.6), so no live verdict moved
 today — `BANKABLE_AS_DISCRIMINATOR` before and after.
 
-**Stale cites.** `:14` `birefringence.py:320` → **`:356`** (`coefficient_ratio`) and `:221`
-`birefringence.py:328` → **`:375`** (`coefficient_ratio_differential`) — both **non-frozen, both
-fixed**. `:185` carries the same stale `:328` but sits **inside** the frozen `Prereg` — **disclosed,
-NOT edited**, per frozen-provenance discipline.
+**Stale cites — NON-FROZEN, FIXED (2).** `:14` `birefringence.py:320` → **`:356`**
+(`coefficient_ratio`) and `:221` `birefringence.py:328` → **`:375`**
+(`coefficient_ratio_differential`) — both **non-frozen, both fixed**.
+
+**Stale cites — INSIDE the frozen `Prereg` (`:179-201`): FOUR sites, DISCLOSE-ONLY, frozen block
+byte-untouched.** The first pass disclosed only one of these; all four are enumerated here, each
+true home **content-located this session** (`grep -n '^NAME'`), each left exactly as written:
+
+| frozen site | cite as written | true home (content-located) | drift |
+|---|---|---|---|
+| `adopters.py`:185 | `birefringence.py:328 coefficient_ratio_differential` | `birefringence.py`:**375** | +47 |
+| `adopters.py`:197 | `DimensionalIngredient("alpha", ALPHA, "constants.py:154")` | `constants.py`:**163** (`ALPHA: float = 7.2973525693e-3`) | +9 |
+| `adopters.py`:198 | `DimensionalIngredient("E_CRIT", E_CRIT, "constants.py:465")` | `constants.py`:**510** (`E_CRIT: float = (M_E**2 * C_0**3) / (e_charge * HBAR)`) | +45 |
+| `adopters.py`:199 | `DimensionalIngredient("E_YIELD", E_YIELD, "constants.py:471")` | `constants.py`:**516** (`E_YIELD: float = V_YIELD / L_NODE`) | +45 |
+
+All four sit **inside** the `frozen=True` `Prereg` (AST receipt above: span `179-201`, `frozen=` at
+`:181`; `prior_work_refs` at `:183-186` and `expected_magnitude_eval` at `:196-200` are both within
+it). Per frozen-provenance discipline they are **disclosed, NOT edited** — a frozen pre-registration
+records what was cited *at freeze time*, and silently re-pointing its cites destroys that record.
+The **symbols themselves are imported live** (`from ave.core.constants import ALPHA, E_CRIT,
+E_YIELD`, `:66`), so **no value is stale — only the line numbers are.**
+
+⚑ **Surfaced, not fixed, and NOT one of the four (flag-don't-fix, outside this repair's item list):**
+`adopters.py`:125 — a `LedgerRow` reading `"A = E/E_YIELD (Axiom-4 per-node amplitude); E_YIELD
+constants.py:471"` — carries the **same stale `:471`** but is **OUTSIDE** the frozen block, so under
+the non-frozen-cites-get-fixed rule applied at `:14`/`:221` it *would* be fixable. It was missed by
+the first pass and is left untouched here rather than absorbed into a docs-only repair that touches
+no `.py`. Routed to the orchestrator.
 
 ### 6.6 Execution battery
 
