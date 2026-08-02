@@ -66,6 +66,43 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
 \end{itemize}
 
+% [DE-CLAIM 2026-08-02] tau_yield (Bingham-Plastic Limit) -- VOL-0 posture D2 strike banner.
+%   Board finding [HIGH][missing-retraction][ruling-needed](verify-CORRECTED) at the
+%   \item above. Rule 12 KEEP-BOTH: the entry, its formula and its printed value are
+%   PRESERVED EXACTLY AS THEY STAND. NO VALUE REFILL -- the number is NOT corrected, NOT
+%   renumbered, NOT dropped, and no replacement magnitude is supplied.
+%   THIS NOTE RECORDS TWO FACTS AND ADJUDICATES NEITHER:
+%   (1) STANDING DO-NOT-RE-ADD. This exact formula+value was dropped by the 2026-04-20
+%       audit. Banner live at manuscript/backmatter/01_appendices.tex:76-88, verbatim:
+%       "DROPPED CLAIM (2026-04-20 audit): A prior version of this appendix listed a
+%        SECOND 'tau_yield' formula: tau_yield = hbar c / (alpha^2 l_node^4) ~ 7.21x10^34 Pa
+%        [Bingham-Plastic Limit]. That formula was: (a) asserted without derivation anywhere
+%        in the manuscript, (b) dimensionally a Planck-scale estimate (not a
+%        physical-mechanism derivation), and (c) numerically inconsistent with itself -- the
+%        stated 7.21x10^34 Pa does not match the stated formula, which recomputes to
+%        2.67x10^28 Pa. ... Do NOT re-add this claim without a real derivation."
+%       KB mirror: ave-kb/common/appendices-overview.md ("Do not re-add without a
+%       derivation."). The KB's claim record for this chapter, clm-yawl6z, scores Vol 0 at
+%       solidity 0.75 on the assumption the claim IS dropped ("The dropped tau_yield
+%       Bingham-Plastic comment (HTML comment block, 2026-04-20 audit) is a model
+%       editorial-transparency record") -- while the printed manuscript has it live.
+%   (2) THE ARITHMETIC, INDEPENDENTLY REPRODUCED (CODATA hbar, c, alpha;
+%       l_node = hbar/(m_e c) = 3.8615926772e-13 m): hbar*c/l_node^4 = 1.4218e24 Pa, and
+%       x alpha^-2 gives 2.6699e28 Pa. The printed 7.21e34 Pa is a factor 2.70e6 above what
+%       its own printed formula yields. Correcting the number to 2.67e28 Pa would itself
+%       violate the 2026-04-20 drop banner (the formula is dropped, not just the value), so
+%       under the D2 no-refill posture NO correction is made here.
+%   (3) The file's own 2026-07-19 Tier-2.5 KEEP-BOTH comment above this itemize
+%       ("NO renumber / NO redefinition / NO value change" ... "it records the contradiction
+%       for the vol_0 reconciliation lane to adjudicate") reserved adjudication for this
+%       lane. This lane's ratified authority is execute-already-ruled-corrections and
+%       ADJUDICATE NOTHING, so the reservation is discharged as: contradiction now recorded
+%       IN PRINT (it was previously visible only in LaTeX comments), adjudication still
+%       OWED and routed to the epic orchestrator. The three-magnitude disambiguation
+%       recorded in that comment (this Planck-estimate branch; the shear / mutual-inductance
+%       branch; the magnetic-sector branch) is unchanged and unresolved.
+\noindent\textbf{[DE-CLAIM 2026-08-02] Macroscopic Rheological Yield Stress (Bingham-Plastic Limit).} The $\tau_{yield}$ entry above is \textbf{not} an exact analytical derivation, and it stands under a \textbf{standing do-not-re-add}. This exact formula and value were dropped by the 2026-04-20 audit as (a) asserted without derivation anywhere in the manuscript, (b) dimensionally a Planck-scale estimate rather than a physical-mechanism derivation, and (c) numerically inconsistent with itself; that audit banner ends ``Do NOT re-add this claim without a real derivation'' (\kbleaf{ave-kb/common/appendices-overview.md}). The self-inconsistency is reproducible from the printed line: with $\ell_{node} = \hbar/(m_e c)$, $\hbar c/\ell_{node}^4 \approx 1.42 \times 10^{24}$~Pa, and the $\alpha^{-2}$ factor raises that to $\approx 2.67 \times 10^{28}$~Pa --- a factor $\approx 2.7 \times 10^{6}$ below the printed $7.21 \times 10^{34}$~Pa. \textbf{No number is corrected here}: per the Vol-0 reconciliation posture this note records the contradiction and refills nothing, and the entry is left exactly as printed. Two further facts belong to the record. \textbf{(i)} The corpus carries \textbf{three} numerically distinct magnitudes under Bingham/plastic ``yield stress'' naming, each from a different derivation --- this dimensional / Planck-estimate branch, the shear / mutual-inductance branch, and the magnetic-sector branch --- and their reconciliation is \textbf{still owed}. \textbf{(ii)} The entry stands in a chapter titled \emph{Summary of Exact Analytical Derivations}; that tension is the object of this flag, not of a fix.
+
 \section{Signal Dynamics and Topological Matter}
 \begin{itemize}
     \item \textbf{Continuous Action Lagrangian:} $\mathcal{L}_{AVE} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2$ (Evaluates to continuous spatial stress [N/m$^2$])
