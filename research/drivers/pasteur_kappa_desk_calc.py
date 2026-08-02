@@ -576,6 +576,35 @@ def post_audit_supplementary(pts: np.ndarray, kR: dict) -> dict:
             "tol": TOL_G7,
             "agrees": bool(max(rel_em, rel_me) <= TOL_G7),
         },
+        "S3_combined_floor_scope": {
+            "why": ("audit F4: the 91.61x margin is against the S-8 FABRICATION "
+                    "floor only. That is the correct floor CLASS for an "
+                    "enantiomer differential (an L<->R fab/assembly asymmetry is "
+                    "exactly what a fab floor bounds), but it is not the whole "
+                    "floor: a measured differential also carries "
+                    "sigma_repeat*sqrt(2/N), which nobody has measured."),
+            "S8_fab_floor_Hz": 130e3,
+            "S8_source": ("AVE-HOPF main:docs/analysis/"
+                          "2026-06-03_hopf_antenna_hardened_prereg.md:264 — "
+                          "5000-trial geometry Monte Carlo (hole +-0.1 mm, "
+                          "mandrel +-0.05-0.1 mm, wire-bend, operator)"),
+            "sigma_repeat_worst_admitted_Hz": 290e3,
+            "sigma_repeat_source": ("AVE-HOPF PR #3 (branch "
+                                    "bench/sigma-repeat-and-sweep-spec, UNMERGED, "
+                                    "docs/open_questions.md:116): the 130 kHz gate "
+                                    "is readable as a pure fab floor only when "
+                                    "N >= 2(sigma_repeat/130 kHz)^2, which at "
+                                    "S-1's own N >= 10 demands sigma_repeat "
+                                    "<= 0.29 MHz at 680 MHz. UNMEASURED."),
+            "N_reps": 10,
+            "measurement_floor_Hz": 290e3 * (2.0 / 10.0) ** 0.5,
+            "combined_floor_Hz": (130e3 ** 2
+                                  + (290e3 * (2.0 / 10.0) ** 0.5) ** 2) ** 0.5,
+            "margin_over_combined_floor":
+                2.0 * KAPPA_AVE_EFF * F0_HZ
+                / ((130e3 ** 2 + (290e3 * (2.0 / 10.0) ** 0.5) ** 2) ** 0.5),
+            "existence_claim_robust_under_both_floors": True,
+        },
         "S2_chi_quadrature_floor": {
             "why": ("audit nit N1: the lane quotes chi to 7 significant digits; "
                     "the closed form says the 7th is mesh noise."),

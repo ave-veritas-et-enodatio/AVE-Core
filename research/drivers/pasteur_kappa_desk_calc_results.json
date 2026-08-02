@@ -351,6 +351,18 @@
       "rel_quadrature_vs_analytic": 3.478510179897328e-07,
       "why": "audit nit N1: the lane quotes chi to 7 significant digits; the closed form says the 7th is mesh noise."
     },
+    "S3_combined_floor_scope": {
+      "N_reps": 10,
+      "S8_fab_floor_Hz": 130000.0,
+      "S8_source": "AVE-HOPF main:docs/analysis/2026-06-03_hopf_antenna_hardened_prereg.md:264 \u2014 5000-trial geometry Monte Carlo (hole +-0.1 mm, mandrel +-0.05-0.1 mm, wire-bend, operator)",
+      "combined_floor_Hz": 183630.06289820847,
+      "existence_claim_robust_under_both_floors": true,
+      "margin_over_combined_floor": 64.8547367742245,
+      "measurement_floor_Hz": 129691.9426949878,
+      "sigma_repeat_source": "AVE-HOPF PR #3 (branch bench/sigma-repeat-and-sweep-spec, UNMERGED, docs/open_questions.md:116): the 130 kHz gate is readable as a pure fab floor only when N >= 2(sigma_repeat/130 kHz)^2, which at S-1's own N >= 10 demands sigma_repeat <= 0.29 MHz at 680 MHz. UNMEASURED.",
+      "sigma_repeat_worst_admitted_Hz": 290000.0,
+      "why": "audit F4: the 91.61x margin is against the S-8 FABRICATION floor only. That is the correct floor CLASS for an enantiomer differential (an L<->R fab/assembly asymmetry is exactly what a fab floor bounds), but it is not the whole floor: a measured differential also carries sigma_repeat*sqrt(2/N), which nobody has measured."
+    },
     "STATUS": "POST-AUDIT ADDITION, NOT FROZEN, disclosed. The seven frozen gates are unchanged; this block is excluded from gates>>ALL_PASS by construction."
   },
   "prereg": "research/2026-08-02_pasteur-kappa-desk-calc_prereg-FROZEN.md",
