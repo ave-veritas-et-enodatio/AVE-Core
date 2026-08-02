@@ -577,8 +577,18 @@ def main() -> int:
     n_dilute = KAPPA_DILUTE_CEILING / kR["V_chi_m3"]
 
     # K-2: the observable-matched classical kappa.  A parity THEOREM, not a run.
+    #
+    # 2026-08-02 REPAIR (audit F5).  The shipped `definition` string said
+    # `|f_R - f_L| / (2 f0)`, which evaluates to kappa_AVE_eff = 8.756823e-03 —
+    # but the `ave_value` leaf below is 2*kappa_AVE_eff = 1.751365e-02, the FULL
+    # L-to-R split (Delta f_R = +kappa f0 and Delta f_L = -kappa f0, so
+    # |f_R - f_L| = 2 kappa f0).  The VALUE was right and is what the result doc
+    # sec 6.1 quotes; the LABEL was wrong by 2x.  Fixed in the label, not the
+    # value, so the doc's convention and the JSON now agree.
     k2 = {
-        "definition": "kappa_obs = |f_R - f_L| / (2 f0) predicted by classical EM",
+        "definition": ("kappa_obs_split = |f_R - f_L| / f0 predicted by classical "
+                       "EM — the FULL enantiomer split (result doc sec 6.1 "
+                       "convention), i.e. 2 * kappa per enantiomer"),
         "classical_value": 0.0,
         "basis": ("Maxwell is parity-covariant: the mirror image of a solution is a "
                   "solution, so in a mirror-symmetric environment f_R = f_L exactly"),

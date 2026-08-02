@@ -136,7 +136,7 @@
       "AVE-HOPF docs/design/2026-05-05_hopf02_design_proposal.md:57 (f_R = f_L to floating-point precision in NEC2)",
       "AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:80 (Delta_classical = +0.000 MHz for (2,3))"
     ],
-    "definition": "kappa_obs = |f_R - f_L| / (2 f0) predicted by classical EM"
+    "definition": "kappa_obs_split = |f_R - f_L| / f0 predicted by classical EM \u2014 the FULL enantiomer split (result doc sec 6.1 convention), i.e. 2 * kappa per enantiomer"
   },
   "K3_density_free": {
     "N_dilute_ceiling_per_m3": 988.0960542888662,
