@@ -882,7 +882,19 @@ The 3D Finite-Difference Time-Domain engine (\texttt{ave.core.fdtd\_3d}) discret
 
 \subsection{K4-TLM (Tetrahedral Diamond Lattice)}
 
-The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on the native diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix. The solver applies the Axiom~4 saturation operator directly to the 4-port scatter coefficients.
+\noindent\textbf{Carrier note (2026-08-02, D1 ratification --- Grant 2026-07-03; solver descriptions below are unchanged).} The \texttt{k4\_tlm} engine described here implements the \textbf{degree-4 ($z = 4$) bipartite-FCC diamond} lattice (achiral $Fd\bar{3}m$). That object is the \emph{historical} engine substrate and is \textbf{re-tagged a non-canonical instrument}: the ratified \textbf{production carrier} named ``K4'' is the \textbf{chiral \emph{srs} $z = 3$ net} (the Sunada-K4 / Laves net that Axiom~1 names), and the migration is chartered. Read this subsection --- and the ``K4 diamond topology of the physical lattice'' phrase in the FDTD limitations above --- as describing \emph{an instrument}, not the vacuum's carrier. \emph{Registered open, not adjudicated here:} whether the port-handed \emph{achiral} diamond genuinely realises Axiom~1's \emph{chiral} $I4_132$ space group is an \textbf{open} question (the diamond's handedness is a dynamical $\kappa_{chiral}$ order parameter on an achiral lattice); the chirality claims in this subsection are left standing under that flag. Canonical: \kbleaf{ave-kb/common/vocabulary-register.md} (\texttt{def-4b1a2c} referents (a)/(b); \texttt{def-7c3f9e} chirality, status \emph{ambiguous}).
+
+% [2026-08-02 CARRIER VOCABULARY correction (D1 ratification, Grant 2026-07-03). Prior wording
+%  (git trail): "discretises the vacuum on the native diamond graph ($K_4$ complete graph)". The
+%  word "native" asserted the degree-4 diamond as the vacuum's carrier. Authority:
+%  ave-kb/common/vocabulary-register.md:526 (def-4b1a2c) -- the PRODUCTION CARRIER named "K4" is
+%  the chiral srs z=3 net, RATIFIED by Grant 2026-07-03 (D1); and :536 referent (b) -- the engine
+%  "K4" (src/ave/core/k4_tlm.py) is the degree-4 bipartite-FCC DIAMOND (achiral Fd-3m),
+%  "re-tagged a non-canonical instrument by the 2026-07-03 D1 ratification". The solver
+%  DESCRIPTION is factually accurate about the code and is retained unchanged; only the carrier
+%  assertion is corrected. Same-file concordance: the branch-vertex paragraph already prints
+%  "the chiral srs vacuum-net vertex (coordination z=3)".]
+The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on a degree-4 bipartite diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix. The solver applies the Axiom~4 saturation operator directly to the 4-port scatter coefficients.
 
 \paragraph{Strengths.} The K4-TLM is the only solver that preserves the vacuum's topological chirality at the simulation level. It is required for any computation where the observable depends on the handedness of the lattice: chiral antenna design (torus knot coupling), gravitational frame-dragging (Lense--Thirring), and topological symmetry-breaking experiments.
 
