@@ -256,7 +256,72 @@ count depends entirely on the pattern set, so "eight" and "thirteen" are not in 
 
 ## 3. GATE 2 — the letter check
 
-*(§3 lands next)*
+### 3.1 GATE-2 VERDICT: **FIRES.** The letter rides v2 — but in the *opposite direction* the gate anticipated.
+
+The gate's stop condition is *"IF the letter rides v2 anywhere."* It does, at two live
+`provenance.md` sites. **But the letter's body and its authoritative public registration are
+already on v3, and it is the CODE that is behind.** The gate is protecting the right surface for
+a reason nobody wrote down: re-pointing the arbiter would *silently change what a
+submission-gated artifact's traceability row resolves to*, without touching that row.
+
+| Surface | Footing | Class | Verdict |
+|---|---|---|---|
+| `main.tex`:81-82, :275, :291, :750, :756, :794, :1083, :1136 | **v3** $3.75\pi/\alpha^2\simeq2.2\times10^5$ | live headline | ✅ already v3 |
+| `main.tex`:294, :759 | v2 $7.5\pi/\alpha^2$ | **intentional convention history** — `:759` reads *"(A prior draft quoted $7.5\pi/\alpha^2\simeq\num{4.4e5}$, which paired the instantaneous model kernel against the cycle-averaged one-loop coefficient — a mixed footing…)"*; `provenance.md`:322-323 records these two as deliberately RETAINED | ✅ correct as written |
+| `claim-prereg-ots/claims_by_hash.md`:12 (`42c760c1`, V4), :15 (`9988dc39`, V5), :18 (`e3071e70`, V6) | **v3** | **OTS-anchored, current** — V6 verbatim: *"coefficient ratio 3.75\*pi/alpha^2 ~ 2.2e5 to the instantaneous Euler-Heisenberg coefficient"* | ✅ already v3 |
+| `claim-prereg-ots/claims_by_hash.md`:9 (`f34e7559`, V1) | v2 | **OTS-anchored, superseded** — V4 explicitly *"Supersedes the 2026-07-04 registration (f34e755998a9)"* | ⛔ never edit (frozen public artifact) |
+| `provenance.md`:89, :243, :307, :405 | v2 | dated `REVISION-2` banner + two *"ANCHORED v1 … preserved verbatim"* blocks + the §10 KB-seam narration | ⛔ never edit (Rule-12 preserved) |
+| **`provenance.md`:121** | **v2** | **★ LIVE traceability row, §1 "Number-by-number map (paper claim -> source)"** | 🔴 **STALE — the trigger** |
+| **`provenance.md`:168** | **v2** | **★ LIVE §4 discipline-tags line** | 🔴 **STALE** |
+| `make paper` build | — | `latexmk -pdf` only (`Makefile`:269-272); no Python, no driver, no `ave` import | ✅ build does not consume the function |
+| `figures/exposure_plane.{pdf,png}` | — | committed artifacts; generator `birefringence_prior_art_exposure_scan.py` **is** a call site (#5) but the ratio is record-only, not plotted (`vacuum-birefringence-e4.md`:160: *"This render does **NOT** restate the matched-differential COEFFICIENT ratio"*) | ✅ figure unaffected |
+
+### 3.2 The two stale rows, verbatim
+
+`papers/2026_birefringence_letter/provenance.md`:121 —
+
+> `| Eq.(9), abstract, §III.B **(REV-2)** | Ratio `7.5pi/alpha^2 ~ 4.42e5` (propagating; `15pi/α²~8.85e5` static) | `ave.bench.coefficient_ratio_differential_pvlas(geometry="propagating")`; live `4.4247e5`. Was `7.5/α³~1.93e7`. |`
+
+`papers/2026_birefringence_letter/provenance.md`:168 —
+
+> `headline the `4.42e5` magnitude (REV-2; was `1.93e7`) as emergence; it ledgers`
+
+**★ Row `:121` is already self-contradicting at head, independently of anything this lane does.**
+It asserts the paper's **Eq.(9)** is $7.5\pi/\alpha^2\approx4.42\times10^5$. `main.tex`:750
+(the equation body; `\label{eq:ratio}` on the following line, `:751`) reads:
+
+> `  =\frac{15\pi}{4\alpha^2}=\frac{3.75\pi}{\alpha^2}\simeq\num{2.2e5}.`
+
+Eq.(9) is v3. The traceability row says v2. Both files are at `origin/main` `19285c5d`; both were
+last touched by the same commit `5109c961`. The row was never carried through the §9 Arm-2
+re-freeze — `provenance.md`:319 records the re-freeze sweep as covering *"abstract, §II.B
+honesty-item (iv), Eq.9 + surrounding text, §III conclusion, Table I caption"*, i.e. **`main.tex`
+sites only**. The §1 map, a `provenance.md` site, was outside that sweep's scope and stayed at
+REV-2. **This is a pre-existing corpus defect, surfaced not created.**
+
+### 3.3 Why the gate is right to stop this lane
+
+The re-point would make `:121`'s cited call return `2.212333e+05`. That **repairs** the
+paper↔code link at Eq.(9) — the code would finally agree with the equation. But it
+**simultaneously falsifies the row's own prose as written** (*"Ratio `7.5pi/alpha^2 ~ 4.42e5`
+… live `4.4247e5`"`) and leaves `:168` quoting a magnitude no longer produced anywhere. So a
+D7 re-point is **not** completable without editing
+`papers/2026_birefringence_letter/provenance.md`.
+
+Three reasons that edit is not this lane's to make:
+
+1. **Scope.** The dispatch fences this lane to `src/ave/bench/` + consumers. `papers/` is not in it.
+2. **Artifact class.** The Letter is submission-gated with a committed PDF and a live OTS chain;
+   its provenance ledger is part of the artifact of record. Which rows are *history* and which are
+   *live map* is a judgement the Letter's own revision protocol owns (`provenance.md`:307 — *"this
+   v2 does NOT re-stamp"*), not an engine lane's.
+3. **Flag-don't-fix.** Two merged corpus files disagree about what Eq.(9) is. Both paths and both
+   verbatim strings are now on the record above. Neither was reframed to match the other.
+
+**Consequence for D7 as written: the gate's stop condition is met, so the ruling's own
+conditional withholds execution.** D7 said re-point *gated on the sweep coming back clean*; the
+letter leg did not come back clean. Routing back, not proceeding, is executing D7 — not
+declining it.
 
 ## 4. The three execution blockers
 
