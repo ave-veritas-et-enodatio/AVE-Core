@@ -243,7 +243,21 @@ This is independently verifiable as the acoustic impedance of a single lattice n
 
 Standard circuit simulators rely on ideal, linear RLC components. However, the physical substrate exhibits precise non-linear behaviors under extreme mechanical stress, each governed by the Axiom~4 saturation kernel $S(V) = \sqrt{1-(V/V_{yield})^2}$. This section derives the exact non-linear equivalent circuit component for each physical regime.
 
-\subsection{The Metric Varactor (Dielectric Yield)}
+\subsection{The Metric Varactor --- Longitudinal Bond Compliance (Dielectric Yield)}
+
+% 🔴 SECTOR RE-KEYING CORRECTION 2026-08-02 (Rule 12 KEEP-BOTH; manuscript-side propagation of a
+%   ratified KB ruling. The printed prose, Eq. eq:varactor, its Taylor expansion and
+%   Table tab:varactor_values below are PRESERVED VERBATIM -- no equation, no number and no
+%   table row is edited.) KB twin: nonlinear-vacuum-capacitance.md:18 -- "Grade-fork RESOLVED = T2
+%   (Grant 2026-06-30; def-vyvsn1 adjudicated ...)": the A1 varactor's saturation-completion
+%   voltage is keyed on V_snap, NOT V_yield. Corrected constitutive equation at that leaf :27;
+%   corrected table at :38-:46 (V/V_snap from sqrt(alpha)~0.085 to 1.000, i.e. 43.65 kV ->
+%   511.0 kV); sector note at :14 (the printed identification is "the genesis-24 double-count");
+%   heading retitled at :12. Engine already re-keyed: src/ave/solvers/spice_models/
+%   ave_vacuum_cell.lib:61,:84 ("C_eff = C0 / S(V), knee at V_SNAP (A1 compliance)") and the KB
+%   ch18 index :33. SCOPE: this note covers THIS subsection only; it does not adjudicate the
+%   keying of any other section of this chapter.
+\noindent\textbf{Sector re-keying correction (2026-08-02, \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the subsection body below is preserved per Rule~12 KEEP-BOTH).} The text below keys the diverging compliance $C_{eff} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected}. \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. The two are \textbf{orthogonal} reactances (A1 $\perp$ T2) that share the EE name ``capacitance''; identifying them is the \emph{genesis-24 double-count}. \textbf{(2) Which voltage.} $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV is the \textbf{transverse Cosserat ($T_2$) self-trap wall} --- the electron's confining $\Gamma = -1$ --- \emph{not} the A1 compliance bound. The longitudinal-A1 compliance diverges at the higher $V_{snap} = m_e c^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} \approx 11.7$ above $V_{yield}$. Read Eq.~\ref{eq:varactor}, its Taylor expansion and every row of Table~\ref{tab:varactor_values} with $V_{yield} \to V_{snap}$: the tabulated \emph{ratios} $C_{eff}/C_0$ and $S$ are unchanged, but the voltage column rescales by $1/\sqrt{\alpha}$ --- the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{(3) Consequence.} A standing electron's A1 mass core operates at strain $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ --- deeply \textbf{sub-saturated} ($S \approx 0.996$) --- which is \emph{why} it binds: the $S \to 0$ varactor runaway never fires on the mass channel, and the confining wall is supplied by the transverse $T_2$ self-trap instead. Since $V_{yield} = \sqrt{\alpha}\,V_{snap}$ exactly, $A = \sqrt{\alpha}$ is an $\alpha$-echo operating point (Class-C), not a free parameter. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}); the engine's SPICE cell is already keyed on \texttt{V\_SNAP}. \emph{Scope:} this note covers this subsection only.
 
 As defined by Axiom~4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the electric sector:
 \begin{resultbox}{Vacuum Varactor Constitutive Equation}
