@@ -10,6 +10,8 @@ subtree-experiments: []
 
 Gravitational waves are transverse inductive shear waves in the substrate LC lattice. Symmetric scaling of $\varepsilon_{eff}$ and $\mu_{eff}$ preserves the gravitational impedance $Z(r) = Z_0$ everywhere, yielding zero reflection ($\Gamma = 0$) and lossless propagation. LIGO-class detectors are modeled as impedance antennas whose Fabry--Perot cavities accumulate GW-induced phase shifts. The lattice voltage ratio $V_{GW}/V_{snap} \approx 10^{-28}$ confirms operation deep within the linear regime.
 
+> **[2026-08-02 --- Reading-A bulk admixture: read the leaves, not this summary]** The paragraph above states the **observed** channel only, and the observed-channel = transverse-shear identification is Reading-independent. Under **Reading-A** (the standing physics as of 2026-07-20) the framework **additionally** predicts a bulk (longitudinal P-wave) admixture radiating on top of the shear decay at $O(1)$ coupling, $F_{\text{bulk}}/F_{\text{shear}} \approx 0.03$--$0.12$, carrying a **LIVE** pulsar exclusion plus an **OPEN** constituent-cage fork; and the bulk/shear double-count contradiction (Q1-REVERT) remains **LIVE and routed**, not closed. The canonical statement is the 2026-08-02 banner in [GW Propagation (Lossless)](gw-propagation-lossless.md); the register caveat is `clm-07kd5v` in [`../../claim-quality.md`](../../claim-quality.md).
+
 ## Key Results
 
 | Result | Statement |
