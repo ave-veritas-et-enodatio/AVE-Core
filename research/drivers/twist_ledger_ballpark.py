@@ -14,6 +14,10 @@ What it shows, in order:
   (1) T4's U_AVE = T_EM * l_node is EXACTLY 1.0 m_e c^2 -- a Class-A definitional
       identity (T_EM is DEFINED as m_e c^2 / l_node at constants.py:493), so it
       cannot be read as evidence that the budget is physically exhausted.
+  (1b) T5 -- the l3-electron-soliton-synthesis.md Virial sum (audit sec.2.2b):
+      substituting canon's own closed forms (:98-105) gives 0.5 + 0.5 = 1.0
+      EXACTLY, with xi_topo cancelling identically. clm-ka5zdx's open
+      strengthen-by is therefore trivially satisfiable, hence vacuous.
   (2) The dimensional defect in the canonical xi_K relations (audit FLAG-2). The
       stress reading is forced by DIMENSIONAL ANALYSIS ALONE; the l_c = sqrt(6)
       cross-check is a T_EM-INVARIANT null check (both readings degenerate) and
@@ -63,6 +67,37 @@ def main() -> None:
         f"  ->  {T_EM * L_NODE / MEC2:.6f} m_e c^2   [electron-unknot.md:48]"
     )
     print("  => the '1.0' is a tautology, not an exhausted physical budget.\n")
+
+    print("=" * 78)
+    print("(1b) T5 -- the l3 Virial sum closes at 1.0 BY CONSTRUCTION (Class A)")
+    print("=" * 78)
+    # Closed forms quoted from l3-electron-soliton-synthesis.md:98-105 (parameter table);
+    # the boxed sum is at :90, the per-half split at :114-116, the closure claim at :118.
+    xi_topo = e_charge / L_NODE  # :101  (identical to constants.py:356 XI_TOPO)
+    l_0 = M_E / xi_topo**2  # :102  L_0 = xi_topo^-2 * m_e
+    i_max = xi_topo * C_0  # :103  I_max = xi_topo * c
+    v_snap = MEC2 / e_charge  # :105  V_SNAP = m_e c^2 / e
+    c_e = e_charge**2 / MEC2  # :104  C_e = e/V_SNAP = e^2/(m_e c^2)
+    e_l = 0.5 * l_0 * i_max**2
+    e_c = 0.5 * c_e * v_snap**2
+    print(f"  xi_topo = e/l_node        = {xi_topo:.6e} C/m   (= constants.py:356 XI_TOPO)")
+    print(f"  L_0     = xi_topo^-2 * m_e = {l_0:.6e} H")
+    print(f"  I_max   = xi_topo * c      = {i_max:.6e} A")
+    print(f"  C_e     = e^2/(m_e c^2)    = {c_e:.6e} F")
+    print(f"  V_SNAP  = m_e c^2 / e      = {v_snap:.6e} V")
+    print(f"  1/2 L_0 I_max^2 / (m_e c^2) = {e_l / MEC2:.6f}")
+    print(f"  1/2 C_e V_peak^2 / (m_e c^2) = {e_c / MEC2:.6f}")
+    print(f"  SUM                          = {(e_l + e_c) / MEC2:.6f}")
+    # xi_topo-independence: rescale xi_topo by an arbitrary factor; the inductive half
+    # is unchanged, because L_0 ~ xi_topo^-2 and I_max^2 ~ xi_topo^2 cancel identically.
+    for scale in (1.0, 7.0, 1.0e6):
+        xt = xi_topo * scale
+        e_l_s = 0.5 * (M_E / xt**2) * (xt * C_0) ** 2
+        print(f"  xi_topo scaled by {scale:>9.1e} -> 1/2 L_0 I_max^2/(m_e c^2) = {e_l_s / MEC2:.6f}")
+    print("  => xi_topo CANCELS IDENTICALLY; the sum is 1.0 before any number is chosen.")
+    print("     clm-ka5zdx's open strengthen-by (vol2/claim-quality.md:1258) is therefore")
+    print("     TRIVIALLY SATISFIABLE and carries no information. See audit sec.2.2b;")
+    print("     canon's own longhand cancellation: relativistic-inductor.md:28.\n")
 
     print("=" * 78)
     print("(2) FLAG-2 -- dimensional defect in the canonical xi_K relations")

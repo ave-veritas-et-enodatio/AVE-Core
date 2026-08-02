@@ -43,9 +43,11 @@ The sector identification carrying the ladder is canon's own flagged weak point 
 
 ## §2 TRACE — the mass-closure sum, end to end, every term enumerated
 
-Four independent statements of the electron's rest-energy budget exist in canon. **Every one of them is a two-term-or-fewer sum, and not one of them contains a Cosserat-rotational / couple-stress ($\gamma_c$) term.**
+**Five** distinct statements of the electron's rest-energy budget exist in canon, plus a restatement family that propagates them. **Every one of them is a two-term-or-fewer sum, and not one of them contains a Cosserat-rotational / couple-stress ($\gamma_c$) term.**
 
-### 2.1 The four budget statements
+> **⚠ COUNT CORRECTED 2026-08-02 (repair pass; Rule 12 — prior wording quoted, not deleted).** This section originally opened: *"**Four** independent statements of the electron's rest-energy budget exist in canon."* **That was an under-count.** It missed [`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md) — the single most explicit budget site in the corpus, and the only one that supplies a closed form for **every symbol** in the sum. Added below as **T5**, with a **two-method sweep receipt in §9.3.4** enumerating every hit and its classification. **The correction EXTENDS the §2.2 finding rather than softening it** — see §2.2b.
+
+### 2.1 The five budget statements
 
 | # | Statement | Terms in the sum | Any $\gamma_c$ / couple-stress term? | Class |
 |---|---|---|---|---|
@@ -53,6 +55,7 @@ Four independent statements of the electron's rest-energy budget exist in canon.
 | **T2** | [`mass-closure-theorem.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/mass-closure-theorem.md):54 — the LC-tank virial: peak-amplitude equality $\tfrac12 LI^2_{\max} = \tfrac12 CV^2_{\text{peak}}$, *"the two stores are in phase quadrature"* | **2** (magnetic ⊕ electric reactance) | **NO** | **A — identity** |
 | **T3** | [`relativistic-inductor-newtonian-limit.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor-newtonian-limit.md):24 — $E_L = E_C = \tfrac{m_ec^2}{2},\ \ E_L + E_C = m_ec^2$ | **2**, and **explicitly closed** — the two halves are each exactly $\tfrac12 m_ec^2$ and they **sum to the whole** | **NO** — and no slot remains | **A — identity** |
 | **T4** | [`electron-unknot.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md):48 — $U_{AVE} = \oint_{C_{loop}} T_{EM}\,ds = T_{EM}\cdot \ell_{node} = 1.0\,m_ec^2$ | **1** (a 1-D line integral of the string tension along the loop) | **NO** — a 1-D scalar-tension integral carries no rotational DOF at all | **A — identity** (see 2.2) |
+| **T5** *(added 2026-08-02 repair pass)* | [`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md):90 — the **boxed** Virial sum $\boxed{E_e = m_ec^2 = \hbar\omega_C = T_{EM}\cdot\ell_{node} = \tfrac12 L_0I_{\max}^2 + \tfrac12 C_eV_{\text{peak}}^2}$, with a **closed form for every symbol** at :98-105, the per-half split at :114-116, and the closure claim at :118 | **2** (inductive ⊕ capacitive), and it is the **only site that writes the sum AND supplies every symbol's closed form** — so it is the only one whose arithmetic can actually be executed | **NO** | **A — identity, demonstrably so.** Substituting :98-105 gives $\tfrac12 L_0I^2_{\max}/m_ec^2 = 0.5$ and $\tfrac12 C_eV^2_{\text{peak}}/m_ec^2 = 0.5$ **exactly**, with $\xi_{topo}$ and $e$ cancelling identically (§2.2b, receipt §9.4) |
 
 **T3 is the load-bearing one for this audit.** It is the only statement that writes the budget as an explicit *closed sum over named sectors*, and it closes at **two**: inductive ⊕ capacitive, $\tfrac12 + \tfrac12 = 1$. There is **no third slot**. The [`vol4/simulation/ch14`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) and [`electron-identification.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md):165 restatements ("*the soliton's total energy decomposes 50/50 inductive/capacitive by virial equipartition*") propagate the same two-term closure.
 
@@ -70,7 +73,25 @@ and its own open strengthen-by item, [`vol2/claim-quality.md`](../manuscript/ave
 
 The same holds for T4: $T_{EM} \equiv m_ec^2/\ell_{node}$ is *defined from* $m_e$ ([`constants.py`](../src/ave/core/constants.py):493, `T_EM: float = (M_E * C_0**2) / L_NODE`), so $U_{AVE} = T_{EM}\cdot\ell_{node} = 1.0\,m_ec^2$ is **algebraically forced** — verified numerically to 1.000000 in §6. It is a **Class-A definitional identity**, not a computation that could have come out ≠ 1 and thereby left or refused room for a twist term. The "1.0" is not evidence of exhaustion; it is evidence of tautology.
 
-> **Consistency-vs-emergence tag for §2 as a whole: Class A (definitional identity) throughout.** No term in the four budget statements is a Class-D emergence result. This is not a criticism of the chain — canon labels it honestly at :1256 — but it is decisive for the ledger question: *a tautology has no residual, so it can neither absorb nor exclude a physical term.*
+> **Consistency-vs-emergence tag for §2 as a whole: Class A (definitional identity) throughout.** No term in the five budget statements is a Class-D emergence result. This is not a criticism of the chain — canon labels it honestly at :1256 — but it is decisive for the ledger question: *a tautology has no residual, so it can neither absorb nor exclude a physical term.*
+
+### 2.2b ★T5 EXTENDS the Class-A finding — `clm-ka5zdx`'s strengthen-by is TRIVIALLY SATISFIABLE, therefore vacuous (added 2026-08-02 repair pass)
+
+T5 is the **fifth** budget site and the **sharpest confirmation** of §2.2, not a counterexample to it. It is the only site that supplies a closed form for every symbol in the sum ([`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md):98-105, verbatim rows): $\xi_{topo} = e/\ell_{node}$; $L_0 = \xi_{topo}^{-2}\cdot m_e$; $I_{\max} = \xi_{topo}\cdot c$; $C_e = e/V_{\text{SNAP}} = e^2/(m_ec^2)$; $V_{\text{SNAP}} = m_ec^2/e$. Substituting them:
+
+$$\tfrac12 L_0 I_{\max}^2 \;=\; \tfrac12\,\big(\xi_{topo}^{-2}m_e\big)\big(\xi_{topo}c\big)^2 \;=\; \tfrac12 m_ec^2, \qquad \tfrac12 C_e V_{\text{SNAP}}^2 \;=\; \tfrac12\,\frac{e^2}{m_ec^2}\cdot\frac{(m_ec^2)^2}{e^2} \;=\; \tfrac12 m_ec^2.$$
+
+**$\xi_{topo}$ cancels identically in the first; $e$ cancels identically in the second; the sum is $1.000000\,m_ec^2$ by construction** — numeric receipt in §9.4 (driver block 1b), and canon writes the first cancellation out longhand itself at [`relativistic-inductor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md):28, verbatim: *"the rest energy stored in the inductor's self-field is $E_0 = \tfrac{1}{2} L_0 I_{max}^2 = \tfrac{1}{2} (\xi_{topo}^{-2} m_0)(\xi_{topo} c)^2 = \tfrac{1}{2} m_0 c^2$."*
+
+**Consequence: `clm-ka5zdx`'s open strengthen-by is vacuous.** [`vol2/claim-quality.md`](../manuscript/ave-kb/vol2/claim-quality.md):1258 asks to *"Compute $E_{reactive}=\frac12 L_{tube}I_{max}^2$ for the unknot and show it equals $m_ec^2$ **numerically**, closing the identification."* **That is already trivially satisfiable from canon's own closed forms and therefore carries no information** — executing it produces `0.5 + 0.5 = 1.0` with the only free symbol cancelling out, and closes nothing. The `clm-ka5zdx` solidity-0.50 hedge cannot be lifted by running an arithmetic that is an identity before it is run.
+
+**The sharpest counter-text in the corpus to any "the budget is exhausted" reading is this same leaf**, [`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md):118, verbatim:
+
+> Given Axiom 1 (LC network with fixed $Z_0$) + Axiom 4 (saturation kernel with $V_{\text{yield, macro}} = \sqrt{\alpha} \cdot V_{\text{SNAP}}$) + the bond-pair smallest-coupled-oscillator scale, the energy at saturation onset MUST equal $m_e c^2$ by the Virial sum identity. There is no remaining empirical question about the energy magnitude.
+
+**Read against §2.2 this EXTENDS the Class-A verdict.** A budget declared to have *"no remaining empirical question about the energy magnitude"* — reached by substituting definitions that cancel — is **exactly** a ledger that cannot detect a physical term it never enumerated. Canon's own vol-4 claim-quality entry says the same thing in the same words, [`vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md):200, verbatim: *"The 'particle as resonant LC tank, $E = m_e c^2 = \tfrac{1}{2}LI^2 + \tfrac{1}{2}CV^2$' mapping is **structural (Virial decomposition), not an independent rest-mass derivation** — $m_e$ is taken as given."*
+
+**Rule 12 note: the `clm-ka5zdx` slot is NOT refilled here.** The finding is that the *existing* strengthen-by is vacuous. It is **not** a proposal that a twist term belongs in that slot; that stays exactly as canon wrote it (§8.1).
 
 ### 2.3 The one named sub-leading term canon DOES carry — and it is not the twist
 
@@ -391,10 +412,56 @@ git grep -n -I -E 'T2 (sector )?(stores|carries) (no|zero)|zero rest energy|no r
 **A3 — "the engine's (2,3) `gamma kappa·kappa` integral was never booked against $m_ec^2$."**
 `git grep -l -I -E 'cosserat_field_3d|CosseratField3D' -- research/ manuscript/` cross-read against every result doc citing the module; none reports a couple-stress energy in MeV or as a fraction of $m_ec^2$. The module's own moduli are `G = G_c = gamma = rho_vac = 1` natural units (`cosserat_field_3d.py`:12, `:942`), so no such conversion is even available without the calibration step T1 proposes. **Absence confirmed.**
 
+### 9.3.4 ★The budget-site sweep that corrected §2.1's count from FOUR to FIVE (added 2026-08-02 repair pass)
+
+**Method A** — `git grep` against `origin/main`, pathspec by directory (not a `**` glob — those silently false-negative):
+
+```
+git grep -n -I -E '(tfrac|frac)\{?1\}?\{?2\}? *[LC]_' origin/main -- manuscript/ave-kb \
+  | grep -v '\.index/' | grep -E 'm_ec\^2|m_e c\^2|m_0 ?c\^2'
+```
+
+**Method B** — filesystem `grep -rn`, orthogonal pattern (anchor on the equated rest energy, not on the fraction):
+
+```
+grep -rn -I -E '=[^|]*m_e ?c\^2' manuscript/ave-kb --include='*.md' | grep -v '/\.index/' \
+  | grep -E 'tfrac\{1\}\{2\}|frac\{1\}\{2\}|tfrac12'
+```
+
+**Both methods independently return [`l3-electron-soliton-synthesis.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md) at `:19`, `:90`, `:114`, `:115`** — the T5 site the original four-way enumeration missed. Full classification of the union of hits:
+
+| Site | Class |
+|---|---|
+| `mass-closure-theorem.md`:52, :54 | **budget statement** — T1, T2 |
+| `relativistic-inductor-newtonian-limit.md`:24 | **budget statement** — T3 |
+| `electron-unknot.md`:48 | **budget statement** — T4 |
+| `l3-electron-soliton-synthesis.md`:19, :90, :114-116, :118 | **budget statement — T5, ADDED** |
+| `relativistic-inductor.md`:28 | **restatement family** — same closure as T3, and it writes the $\xi_{topo}$ cancellation out longhand (quoted in §2.2b) |
+| `resonant-lc-solitons.md`:20, :23 | **restatement family** — $E_{mag}=\tfrac12(\xi_{topo}\dots)$ + the Virial split |
+| `single-substrate-scale.md`:24, :75, :126 | **index / cross-reference rows** pointing at `relativistic-inductor.md`:28 |
+| `electron-identification.md`:165 | **restatement family** — the 50/50 propagation already noted in §2.1 |
+| `vol4/claim-quality.md`:200 | **canon self-label** — *"structural (Virial decomposition), not an independent rest-mass derivation — $m_e$ is taken as given"*; **independently confirms §2.2** |
+| `vol1/claim-quality.md`:1408, `parametric-coupling-kernel.md`:54/:430, `higgs-mass.md`:44, `yang-mills-steps1-2.md`:35, `dielectric-rupture.md`:19, `cvr-phasor-reactance.md`:37, `vol4/claim-quality.md`:1615 | **not electron rest-energy budgets** — one-scale-import note, pump-kernel, Higgs/YM/rupture/phasor contexts |
+
+**Result: five budget statements (T1–T5), a four-leaf restatement family that propagates them, and one canon self-label that confirms §2.2. Not one of them contains a $\gamma_c$ / couple-stress term.** The §2.1 count is corrected in place with the prior wording quoted (Rule 12).
+
 ### 9.4 Numeric receipts (banked; re-runnable via `research/drivers/twist_ledger_ballpark.py`)
 
 ```
 U_AVE = T_EM * l_node                      = 8.187106e-14 J = 1.000000 m_e c^2   (Class A, forced)
+--- T5 (l3-electron-soliton-synthesis.md:90/:98-105), added 2026-08-02 repair pass ---
+xi_topo = e/l_node                         = 4.149005e-07 C/m  (= constants.py:356)
+L_0 = xi_topo^-2 * m_e                     = 5.291772e-18 H
+I_max = xi_topo * c                        = 1.243840e+02 A
+C_e = e^2/(m_e c^2)                        = 3.135381e-25 F
+V_SNAP = m_e c^2 / e                       = 5.109989e+05 V
+1/2 L_0 I_max^2 / (m_e c^2)                = 0.500000
+1/2 C_e V_peak^2 / (m_e c^2)               = 0.500000
+SUM                                        = 1.000000   (Class A, forced)
+xi_topo scaled x1 / x7 / x1e6 -> 1/2 L I^2 = 0.500000 / 0.500000 / 0.500000
+   => xi_topo CANCELS IDENTICALLY; clm-ka5zdx:1258's strengthen-by is trivially
+      satisfiable, hence vacuous (audit 2.2b)
+--- end T5 ---
 sigma_0 = m_e c^2 / l_node^3               = 1.4218e+24 Pa
 beta+gamma = xi_K2 * sigma_0 * l_node^2    = 6.784439e+00 N     [N] OK
 l_c | stress reading                       = 2.44949 * l_node
