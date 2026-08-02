@@ -50,7 +50,7 @@ This extreme scaling forces the localized topological voltage of the Muon's stan
 \section{The SPICE Equivalent: An RLC Avalanche}
 This ``quantum decay'' can be perfectly modeled using a standard transient analog SPICE solver. 
 
-The Trefoil topology is modeled as a resonant LC tank circuit ($L = 1 \text{ mH}$, $C = 1 \text{ nF}$). The surrounding vacuum is modeled as a non-linear parallel resistor ($R_{eff}$), controlled dynamically by the localized metric voltage ($V_{LC}$). 
+The $(2,3)$ Clifford-torus winding --- the trefoil \emph{phase-space} portrait, not a real-space body knot --- is modeled as a resonant LC tank circuit ($L = 1 \text{ mH}$, $C = 1 \text{ nF}$). The surrounding vacuum is modeled as a non-linear parallel resistor ($R_{eff}$), controlled dynamically by the localized metric voltage ($V_{LC}$). 
 
 \subsection{Circuit Schematic and Netlist}
 The circuit consists of an initial voltage condition placed on the capacitor (representing the internal pumped energy of the knot) draining through an ideal inductor. The vacuum boundary is represented by a Voltage-Controlled Resistor (or a behavioral switch). 
@@ -72,7 +72,7 @@ The circuit consists of an initial voltage condition placed on the capacitor (re
                 --- (GND)
     \end{verbatim}
     \end{tcolorbox}
-    \caption{The continuous LC tank models the $3_1$ topological geometry. The non-linear $R_{eff}$ acts as the boundary condition: providing perfect isolation ($1\text{ G}\Omega$) when $V < 43.65\text{ kV}$, and avalanching into an absorptive load ($50\ \Omega$) when $V > 43.65\text{ kV}$.}
+    \caption{The continuous LC tank models the $3_1$ \emph{phase-space} winding portrait (the real-space body is the $0_1$ unknot). The non-linear $R_{eff}$ acts as the boundary condition: providing perfect isolation ($1\text{ G}\Omega$) when $V < 43.65\text{ kV}$, and avalanching into an absorptive load ($50\ \Omega$) when $V > 43.65\text{ kV}$.}
 \end{figure}
 
 The explicit SPICE netlist for this model is defined as follows:
@@ -121,7 +121,16 @@ When you plunge an experiment into pure, deionized liquid water, the macroscopic
 
 \textbf{However, it fundamentally cannot alter the decay rate of a fundamental topological particle.} 
 
-The $3_1$ node geometry of an electron or a muon occupies a spatial volume significantly smaller than the physical radius of an atomic nucleus ($< 10^{-15} \text{ m}$). A liquid water molecule ($H_2O$) has an effective radius constructed out of atomic electron clouds spanning roughly $\sim 10^{-10} \text{ m}$ (the Bohr radii). 
+% [2026-08-02 KNOT DISAMBIGUATION per ave-kb/CLAUDE.md INVARIANT-N1. Prior wording (git trail):
+%  "The $3_1$ node geometry of an electron or a muon occupies a spatial volume ...". The invariant
+%  is explicit: "the electron's REAL-SPACE BODY is the $0_1$ UNKNOT ... Rolfsen names ($3_1$
+%  trefoil, $5_1$ cinquefoil, ...) and \"$(2,q)$ torus knot\" labels refer to PHASE-SPACE winding
+%  portraits on the bond-pair LC tank (Clifford torus), NOT real-space body knots." Attaching
+%  $3_1$ to a SPATIAL volume is the exact form the invariant forbids. Compliant wording already
+%  present in this file at the "Fermions as Resonant Topologies" section opener; this is an
+%  incomplete in-file sweep, not an unruled question. Same sweep: the LC-tank sentence and the
+%  circuit-schematic caption above. No number, size or decay claim is changed.]
+The real-space body of an electron or a muon --- the $0_1$ unknot carrying a $(2,q)$ Clifford-torus winding in phase space --- occupies a spatial volume significantly smaller than the physical radius of an atomic nucleus ($< 10^{-15} \text{ m}$). A liquid water molecule ($H_2O$) has an effective radius constructed out of atomic electron clouds spanning roughly $\sim 10^{-10} \text{ m}$ (the Bohr radii). 
 
 To the ultra-microscopic topology of a Muon knot, the "water molecule" is not a bulk fluid; it is a massive, extremely distant arrangement of extremely sparse electromagnetic fields. The localized sub-femtometer substrate LC network operating at the core of the Muon does not "feel" the $\epsilon_r = 80$ bulk polarization of the water, because the Muon's topology sits cleanly in the "empty" void space between the physical nuclei of the hydrogen and oxygen atoms.
 
