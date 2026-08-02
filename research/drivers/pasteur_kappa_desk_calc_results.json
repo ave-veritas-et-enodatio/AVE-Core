@@ -331,6 +331,27 @@
     "skin_depth_m": 2.501614100400152e-06,
     "wire_radius_m": 0.00025527
   },
+  "post_audit_supplementary_NOT_FROZEN": {
+    "S1_dyad_consumption": {
+      "V_chi_from_alpha_em_trace_m3": -0.00010120473567923527,
+      "V_chi_from_alpha_me_trace_m3": -0.00010120473567923528,
+      "V_chi_signed_m3": -0.00010120473567923527,
+      "agrees": true,
+      "identity": "-c tr(alpha_em)/3 == +mu0 c tr(alpha_me)/3 == Z0 chi/(3 R_rad) == sign(chi) * V_chi",
+      "rel_alpha_em_route": 0.0,
+      "rel_alpha_me_route": 1.3391198608554297e-16,
+      "tol": 1e-12,
+      "why": "audit F3: no FROZEN reported number consumes a SIGNED polarizability (the production path takes abs(chi)), so G7's sign catch could not have propagated. This makes a reported number consume both signed dyads."
+    },
+    "S2_chi_quadrature_floor": {
+      "chi_analytic_per_edge_m3": -5.95147664129087e-07,
+      "chi_quadrature_N_SUB_64_m3": -5.951478711518078e-07,
+      "digits_trustworthy": 6,
+      "rel_quadrature_vs_analytic": 3.478510179897328e-07,
+      "why": "audit nit N1: the lane quotes chi to 7 significant digits; the closed form says the 7th is mesh noise."
+    },
+    "STATUS": "POST-AUDIT ADDITION, NOT FROZEN, disclosed. The seven frozen gates are unchanged; this block is excluded from gates>>ALL_PASS by construction."
+  },
   "prereg": "research/2026-08-02_pasteur-kappa-desk-calc_prereg-FROZEN.md",
   "prereg_commit": "3ae1f3de",
   "quadrature_convergence": {

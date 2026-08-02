@@ -489,6 +489,104 @@ def quadrature_convergence(pts: np.ndarray) -> dict:
                  for x in rows]}
 
 
+def analytic_chi(pts: np.ndarray) -> float:
+    """chi in CLOSED FORM for a polyline carrying the frozen sin(pi s/L) mode.
+
+    Every polyline edge is straight, so on edge e (from p_e, unit tangent t_e,
+    arclength s_a -> s_b) the position is r(s) = p_e + (s - s_a) t_e and
+
+        r(s) x t_e = p_e x t_e      (the (s - s_a) t_e x t_e term vanishes),
+
+    so BOTH mode integrals collapse onto the same scalar per edge,
+
+        J_e = INT_{s_a}^{s_b} sin(pi s / L) ds = (L/pi)[cos(pi s_a/L) - cos(pi s_b/L)]
+        ell_e = SUM_e t_e J_e ,   A_e = (1/2) SUM_e (p_e x t_e) J_e .
+
+    This is EXACT (no quadrature), so it bounds the N_SUB=64 midpoint rule's
+    error and says which digit of the quoted chi is mesh noise rather than
+    physics.  POST-AUDIT addition; the frozen chain is unchanged.
+    """
+    seg = np.diff(pts, axis=0)
+    seg_len = np.linalg.norm(seg, axis=1)
+    t_edge = seg / seg_len[:, None]
+    s_edge = np.concatenate([[0.0], np.cumsum(seg_len)])
+    ln = float(seg_len.sum())
+    j_e = (ln / np.pi) * (np.cos(np.pi * s_edge[:-1] / ln)
+                          - np.cos(np.pi * s_edge[1:] / ln))
+    ell = (t_edge * j_e[:, None]).sum(axis=0)
+    a_e = 0.5 * (np.cross(pts[:-1], t_edge) * j_e[:, None]).sum(axis=0)
+    return float(ell @ a_e)
+
+
+def post_audit_supplementary(pts: np.ndarray, kR: dict) -> dict:
+    """POST-AUDIT ADDITION (2026-08-02 review), NOT FROZEN.  KEEP-BOTH.
+
+    The seven frozen gates are byte-unchanged and this block does NOT enter
+    `gates>>ALL_PASS`.  Two checks, each answering a specific audit finding.
+
+    (1) DYAD CONSUMPTION — audit F3.  G7 fired on the first run, but the defect
+        lived in the GATE'S OWN reconstruction of alpha_me, and no REPORTED
+        number consumes a signed polarizability: the production path is
+        `chiral_volume()`, which takes abs(chi).  So G7's catch, while real, was
+        not load-bearing for any shipped number.  This routes V_chi through the
+        SIGNED dyads instead, both of them:
+
+            alpha_em = -(mu0/R) ell (x) A_e   =>  tr = -(mu0/R) chi
+                -c tr(alpha_em)/3            =  Z0 chi / (3R) = sign(chi) V_chi
+            alpha_me =  (1/R)  A_e (x) ell    =>  tr =  chi/R
+                +mu0 c tr(alpha_me)/3        =  Z0 chi / (3R) = sign(chi) V_chi
+
+        A sign flip in EITHER dyad now shows up in a reported quantity, which is
+        what F3 says the frozen G7 did not deliver.  (Z0 == mu0 c identically in
+        `ave.core.constants`, so the residual here is pure float rounding.)
+
+    (2) QUADRATURE FLOOR ON chi — audit nit N1.  `analytic_chi` above, exactly,
+        against the N_SUB=64 midpoint value the lane reports.
+    """
+    ell = np.array(kR["ell_e_vec_m"])
+    a_e = np.array(kR["A_e_vec_m2"])
+    r_rad = kR["R_rad_ohm"]
+    chi = kR["chi_m3"]
+    v_signed = float(np.sign(chi)) * kR["V_chi_m3"]
+
+    alpha_em = -(MU_0 / r_rad) * np.outer(ell, a_e)
+    alpha_me = np.outer(a_e, ell) / r_rad
+    v_from_em = -C_0 * float(np.trace(alpha_em)) / 3.0
+    v_from_me = MU_0 * C_0 * float(np.trace(alpha_me)) / 3.0
+    rel_em = abs(v_from_em - v_signed) / abs(v_signed)
+    rel_me = abs(v_from_me - v_signed) / abs(v_signed)
+
+    chi_an = analytic_chi(pts)
+    return {
+        "STATUS": ("POST-AUDIT ADDITION, NOT FROZEN, disclosed. The seven frozen "
+                   "gates are unchanged; this block is excluded from "
+                   "gates>>ALL_PASS by construction."),
+        "S1_dyad_consumption": {
+            "why": ("audit F3: no FROZEN reported number consumes a SIGNED "
+                    "polarizability (the production path takes abs(chi)), so "
+                    "G7's sign catch could not have propagated. This makes a "
+                    "reported number consume both signed dyads."),
+            "identity": ("-c tr(alpha_em)/3 == +mu0 c tr(alpha_me)/3 == "
+                         "Z0 chi/(3 R_rad) == sign(chi) * V_chi"),
+            "V_chi_signed_m3": v_signed,
+            "V_chi_from_alpha_em_trace_m3": v_from_em,
+            "V_chi_from_alpha_me_trace_m3": v_from_me,
+            "rel_alpha_em_route": rel_em,
+            "rel_alpha_me_route": rel_me,
+            "tol": TOL_G7,
+            "agrees": bool(max(rel_em, rel_me) <= TOL_G7),
+        },
+        "S2_chi_quadrature_floor": {
+            "why": ("audit nit N1: the lane quotes chi to 7 significant digits; "
+                    "the closed form says the 7th is mesh noise."),
+            "chi_analytic_per_edge_m3": chi_an,
+            "chi_quadrature_N_SUB_64_m3": chi,
+            "rel_quadrature_vs_analytic": abs(chi - chi_an) / abs(chi_an),
+            "digits_trustworthy": 6,
+        },
+    }
+
+
 def commensurability_checklist(kappa_ave: float, f0: float) -> dict:
     """Prereg sec 7 — four YES/NO structural questions, decided by DEFINITIONS.
 
@@ -630,6 +728,8 @@ def main() -> int:
         "gates": gates,
         "quadrature_convergence": quadrature_convergence(polys["k23_R"]),
         "mirror_isometry_NOT_FROZEN": mirror_isometry(polys["k23_R"], polys["k23_L"]),
+        "post_audit_supplementary_NOT_FROZEN":
+            post_audit_supplementary(polys["k23_R"], kR),
         "ohmic_loss_NOT_FROZEN": ohmic_bound(polys["k23_R"], kR["R_rad_ohm"]),
         "sensitivity": sens,
         "verdict": assign_bin(ratio),
