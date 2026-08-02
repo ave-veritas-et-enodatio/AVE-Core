@@ -670,10 +670,22 @@ perturbation.
 by eye:
 
 ```
-Prereg( call spans lines 179-201   frozen= at line 181 value True
-SensitivitySpec( spans lines 211-217   verdict_fn= at line 214
+PRE-EDIT   (the run that established editability, on the pre-D7 file):
+  Prereg( call spans lines 179-201   frozen= at line 181 value True
+  SensitivitySpec( spans lines 211-217   verdict_fn= at line 214
+
+POST-EDIT  (same AST check RE-CONFIRMED at ship time, on the committed file):
+  Prereg( call spans lines 179-201   frozen= at line 181 value True
+  SensitivitySpec( spans lines 211-228   verdict_fn= at line 225
 ```
-⇒ `verdict_fn` is **OUTSIDE** the frozen block ⇒ editable. Recalibrated `1e6` → `1e4`, preserving
+**The check ran pre-edit and was re-confirmed post-edit**; both geometries are printed because
+the post-edit one is the geometry a reader will reproduce, and the pre-edit one is what the
+editability decision was actually taken on. The **`Prereg` span and the `frozen=True` line are
+UNMOVED** (`179-201` / `:181`) — that is the load-bearing invariant. `SensitivitySpec` grew
+`211-217` → `211-228` and `verdict_fn` moved `:214` → `:225` purely because the 11-line
+recalibration comment was inserted *above* it, i.e. entirely **below** the frozen block.
+
+⇒ `verdict_fn` is **OUTSIDE** the frozen block in **both** geometries ⇒ editable. Recalibrated `1e6` → `1e4`, preserving
 the original comment's stated intent verbatim (*"discriminator stays orders above the QED floor"*).
 The justification is footing-brittleness, not a physics change:
 
