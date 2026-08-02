@@ -175,7 +175,9 @@ carrier-average step D7 is applying.
 `442466.58353669324` under the key `"PVLAS A_e differential (~1.45)"`. This is **not** a consumer:
 `vacuum_birefringence_facility_sweep.py`:398 calls `coefficient_ratio(A_EH_LITERATURE["PVLAS A_e
 differential (~1.45)"])` — i.e. the **single-arm** function with the PVLAS static-duality
-$a_{EH}=\alpha/(30\pi\alpha^2)=1.4544$.
+$a_{EH}=\alpha/(30\pi\alpha^2)=1/(30\pi\alpha)=1.45400$ (live: `1.4539971090471087`; the earlier
+`1.4544` printed here was a transcription slip in the 4th–5th significant figure, corrected — the
+JSON key's own `~1.45` label is unaffected).
 
 The numeric coincidence is exact and worth naming so a future sweep does not misclassify it:
 $$\text{single-arm }\tfrac14 \text{ over static } \tfrac{\alpha}{30\pi} \;=\; \frac{30\pi}{4\alpha^2}=\frac{7.5\pi}{\alpha^2}
@@ -183,6 +185,20 @@ $$\text{single-arm }\tfrac14 \text{ over static } \tfrac{\alpha}{30\pi} \;=\; \f
 Two *mismatched-observable* pairings landing on one number because the $\tfrac12/\tfrac14$ and
 $15/30$ factors of two cancel. Different function, different footing, **numerically identical to
 the last digit of the shared route**. A re-point of the arbiter leaves both JSONs unchanged.
+
+⚑ **[FLAGGED 2026-08-02, repair pass — the "identical to the last digit" clause is OVERSTATED;
+surfaced, original left standing for adjudication.]** The two are **not** the same float. Verified
+live this session: `coefficient_ratio(A_EH_LITERATURE["PVLAS A_e differential (~1.45)"])` =
+**`442466.58353669324`** vs `coefficient_ratio_differential_pvlas(geometry="propagating")` =
+$7.5\pi/\alpha^2$ = **`442466.5835078048`** — **relative difference `6.529e-11`**, i.e. agreement to
+**10 significant figures**, not to the last digit. The residual is **traced, not hand-waved**: it is
+the **$\alpha$ self-consistency residual of the constants module** — `e**2/(4*pi*EPSILON_0*HBAR*C_0)
+= 0.007297352569776441` vs the tabulated `ALPHA = 0.0072973525693`, relative **`6.529e-11`**,
+matching the ratio residual to 4 s.f. — because the `A_EH_LITERATURE` entry is *composed* from
+CODATA $A_e$/$B_{crit}$ (`birefringence.py`:106-110) while the arbiter uses the closed form. **A
+CODATA-closure residual, NOT a footing difference**, so the section's physics conclusion (different
+function, different footing, re-point leaves both JSONs unchanged) is **unaffected** — only the
+"last digit" wording is wrong. Routed with the JSON footing-tag question as **FOLLOW-ON D7-F2**.
 
 ### 2.5 `adopters.py` is v1-footing and is NOT reachable from this re-point
 
@@ -736,7 +752,7 @@ no `.py`. Routed to the orchestrator.
 | Check | Result |
 |---|---|
 | `make verify` | **exit 0** — *"ALL PHYSICS PROTOCOLS PASSED"*; `verify-kb-metadata` PASS; `verify-md-links` gating **0** |
-| targeted pytest (bench + qed + new pin) | **164 passed** |
+| targeted pytest (bench + qed + new pin) — **selector**: `pytest src/tests/test_ave_bench.py src/tests/test_bench_adopters.py src/tests/test_bench_model.py src/tests/test_birefringence_pvlas_arbiter.py src/tests/test_birefringence_v3_chain.py src/tests/test_grqed_stage1_gr_extension.py src/tests/test_grqed_stage2_qed_extension.py src/tests/test_grqed_stage3_backreaction.py` | **164 passed** (re-run at repair time: `164 passed, 4 warnings in 84.51s`) |
 | **full suite** `pytest src/tests -m "not engine_sim"` | **2872 passed, 3 skipped, 9 xfailed, 220 deselected** (536 s) |
 | `make test` (canonical partition) | **exit 0** |
 | new arbiter pin test | **7 passed**, and **demonstrated to fail** on the pre-D7 default |
