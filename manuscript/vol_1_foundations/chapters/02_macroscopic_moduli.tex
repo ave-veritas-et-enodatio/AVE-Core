@@ -103,7 +103,21 @@ This factor has a precise geometric interpretation: the effective Voronoi cell o
 \end{equation}
 \end{resultbox}
 
-This necessitates that the substrate lattice acts \textit{macroscopically} as a \textbf{Structurally Over-Braced Chiral LC Network}---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom~1 substrate, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint that fixes Axiom~2's value of $\alpha$.
+This necessitates that the substrate lattice acts \textit{macroscopically} as a \textbf{Structurally Over-Braced Chiral LC Network}---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom~1 substrate, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to sit at the $K = 2G$ operating point.
+% [2026-08-02 manuscript-reconciliation, CRIB-1; prior clause preserved verbatim per Rule 12:]
+%   "... provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint that fixes
+%    Axiom~2's value of $\alpha$."
+% Two defects, both KB-ruled and both already corrected elsewhere in this chapter's own framing:
+% (a) K=2G is not a substrate-forced stability constraint -- it is GR-imported (Q-G41 CLOSED-NEGATIVE,
+%     ave-kb/claim-quality-closure-roadmap.md:832; ave-kb/vol1/claim-quality.md:665);
+% (b) the causal direction is inverted relative to this chapter's ratified framing at the "Framing
+%     (consistency check, not derivation of alpha)" paragraph and the "What this section actually
+%     establishes" paragraph -- alpha's value is an input (Ch. 8), p_c = 8*pi*alpha is a rearrangement of
+%     alpha's SI definition, and alpha is NOT an Axiom-2 quantity (common_equations/eq_axiom_2.tex:5-10:
+%     pre-2026-04-27 this file was titled "Axiom 2 -- Fine Structure"; per the 2026-04-27 homologation
+%     alpha moved to eq_calibration_constants.tex). This edit does NOT touch the routed magic-angle /
+%     u_0* closure paragraph below (route-to-core, board §5 vol1 finding #1).
+That point is \emph{form-derived, value GR-imported} (\kbleaf{ave-kb/common/form-deriving-value-importing.md}) --- it is not a stability constraint the lattice supplies, and it does not fix $\alpha$. The direction of the argument is the one stated in this chapter's framing above: \emph{given} $\alpha$'s value (Ch.~\ref{ch:alpha_golden_torus}), the QED Schwinger limit places the lattice at $p_c \approx 0.1834$, which is precisely the $K = 2G$ operating point.
 
 \paragraph{Substrate-scale closure and the symmetric-case identification.}
 The $K = 2G$ operating point identified
