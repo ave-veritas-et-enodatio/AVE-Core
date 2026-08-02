@@ -78,7 +78,18 @@ This is a pure geometric constant: the solid-angle normalisation ($4\pi$) of the
 \subsection{Thermal Lattice Softening ($\delta_{th}$)}
 \label{sec:thermal_softening}
 
-The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC network at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
+% 🔴 [VALUE REFRESH 2026-08-02 -- manuscript-side propagation of the KB value-refresh 2026-07-13.
+%  Rule 12: prior wording PRESERVED here byte-verbatim and in git, NOT deleted:
+%    "evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a
+%     proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value)"
+%  That triplet is the PRE-Ax4-saturation-refactor result. Authority (byte-mirror of the sentence
+%  below): ave-kb/vol2/particle-physics/ch02-baryon-sector/thermal-softening.md:11, with the dated
+%  strike banner at :13 ("Live solver ... gives $\mathcal{I}_{scalar}^{(cold)} = 1170.59\,m_e \to$
+%  ratio $1849.70$ ($+0.7377\%$ vs CODATA $1836.153$)"); cross-confirmed at
+%  ch02-baryon-sector/proton-identification.md:13. NO new value is minted here -- every digit below
+%  is transcribed from the leaf. This also removes a self-contradiction with :219 of this chapter,
+%  which already prints the corrected "+0.74% with zero baryon input".]
+The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1170.6\,m_e$, yielding a proton ratio of $\approx 1849.70$ ($+0.7377\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC network at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
 
 The baseline RMS thermal noise of the vacuum (``quantum foam'') partially averages out the sharp gradient tensor $(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2$, effectively softening the quartic Skyrme repulsion.  Additionally, the Faddeev-Skyrme energy functional includes Axiom~4 gradient saturation $S(|\partial_r\phi|,\,\pi/\ell_{node})$ inside the integrand, preventing the solver from resolving sub-lattice gradients.  The thermally corrected coupling is:
 \begin{resultbox}{Thermal Lattice Softening}
@@ -99,7 +110,22 @@ The product evaluates to $\delta_{th} = \frac{\nu_{vac}}{\kappa_{cold}} \times \
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{thermal_skyrmion_comparison.png}
-    \caption{Cold ($\kappa = 8\pi$) vs.\ thermally corrected ($\kappa_{eff} = 8\pi(1-\delta_{th})$) Skyrmion profiles. Left: the hedgehog profile $f(r)$ broadens slightly under thermal softening. Right: the radial energy integrand $r^2\mathcal{E}(r)$ decreases by approximately 2\%, shifting $\mathcal{I}_{scalar}$ from $\sim 1185\,m_e$ to $\sim 1160\,m_e$.}
+    % 🔴 [VALUE REFRESH 2026-08-02 -- companion to the :81 refresh; same KB authority. Rule 12:
+    %  prior caption wording PRESERVED byte-verbatim and in git, NOT deleted:
+    %    "the radial energy integrand $r^2\mathcal{E}(r)$ decreases by approximately 2\%, shifting
+    %     $\mathcal{I}_{scalar}$ from $\sim 1185\,m_e$ to $\sim 1160\,m_e$."
+    %  Corrected endpoints are transcribed from the KB, not minted here: the COLD trace
+    %  $1170.59\,m_e$ (thermal-softening.md:11,:13) and the thermally-CORRECTED trace
+    %  $\approx 1162\,m_e$ (proton-identification.md:68; src/ave/core/constants.py I_SCALAR_1D =
+    %  1161.987). The standalone "approximately 2\%" figure is STRUCK rather than replaced -- it is
+    %  a derived quantity of the two endpoints and no KB leaf carries a refreshed percentage; the
+    %  ratio is recoverable from the two printed endpoints.
+    %  ⚠ FLAG-DON'T-FIX (owed, NOT executed in this lane): the plotted PNG
+    %  (thermal_skyrmion_comparison.png, generator src/scripts/vol_2_subatomic/plot_thermal_skyrmion.py)
+    %  is itself PRE-refresh -- the curves it draws are the 1185/1160 pair. Regenerating the figure
+    %  is a driver run, outside a manuscript-reconciliation lane. Until it is regenerated the caption
+    %  is correct and the artwork is stale; this is disclosed rather than silently reconciled.]
+    \caption{Cold ($\kappa = 8\pi$) vs.\ thermally corrected ($\kappa_{eff} = 8\pi(1-\delta_{th})$) Skyrmion profiles. Left: the hedgehog profile $f(r)$ broadens slightly under thermal softening. Right: the radial energy integrand $r^2\mathcal{E}(r)$ decreases under the softening, shifting $\mathcal{I}_{scalar}$ from the cold trace $\approx 1170.6\,m_e$ to the thermally corrected trace $\approx 1162\,m_e$. \emph{(Artwork pre-dates the 2026-07-13 value refresh and is queued for regeneration; the numbers quoted here are the current solver values.)}}
     \label{fig:thermal_skyrmion}
 \end{figure}
 
