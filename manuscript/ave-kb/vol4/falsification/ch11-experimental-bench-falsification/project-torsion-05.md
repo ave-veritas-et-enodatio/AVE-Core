@@ -35,7 +35,7 @@ strengthens:
 >
 > **Provenance.** 2026-06-04 per-node adjudication:
 > [`research/2026-06-04_corrections-walkback-pernode-result.md`](../../../../../research/2026-06-04_corrections-walkback-pernode-result.md)
-> work-item #3 (ledger `_orchestration/experimental/2026-06-04_round2-adjudications.md` §6). Applied-banner
+> work-item #3 (ledger `_orchestration/experimental/2026-06-04_round2-adjudications.md` §3). Applied-banner
 > template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
 > Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
 > + per-node-vs-apparatus); Q-G42 apparatus-vs-substrate template
