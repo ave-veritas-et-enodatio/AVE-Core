@@ -463,6 +463,14 @@ Axiom 3 (Minimum Reflection Principle, boundary form: minimise $|\Gamma|^2$ at e
 > QED-normalized but mixed-footing (instantaneous SVE over cycle-averaged $\alpha/15\pi$); v3 is exactly half v2,
 > the $\langle\cos^2\rangle=\tfrac12$ carrier average removed."*
 >
+> **Read-order note — this register's BODY was already v3 before this note.** The 🔵 **OPTION-B FOOTING
+> CONSOLIDATION (2026-07-07; Grant-fired)** further below (`:536`, boxed v3 at `:543`) had already re-frozen
+> this entry's body to $3.75\pi/\alpha^2$, and the body line at `:563` reads v3. What was stale was the
+> **header-first read order**: a reader meets the 🔴 note's *"Corrected matched-differential ratio
+> $7.5\pi/\alpha^2$"* headline before reaching that consolidation. This note fixes the **read order** and
+> stamps the 🔴 headline as superseded; it does **not** re-freeze a body that was already v3, and it is
+> consistent with — not a substitute for — the 2026-07-07 consolidation.
+>
 > **What was wrong with v2 was a PAIRING, not a coefficient.** Both of its pieces were individually correct;
 > they were paired across inconsistent temporal footings — the AVE kernel $-\tfrac12(E/E_c)^2$ is
 > **instantaneous**, while $\alpha/(15\pi)$ is the **cycle-averaged** one-loop coefficient, so v2

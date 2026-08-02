@@ -422,15 +422,25 @@ src/scripts/vol_9_device/_output/birefringence_prior_art_exposure_scan.json     
 Neither the key rename nor the JSON regeneration is authorized by D7's execute list, and both
 touch letter-cited artifacts — i.e. BLOCKER-2 folds into the same Gate-2 routing.
 
-### BLOCKER-3 — the manuscript/KB side is still on v2 at a site D7 does not name
+### BLOCKER-3 — the manuscript/KB register's HEADER-FIRST READ ORDER lands on v2
 
 `manuscript/ave-kb/vol4/claim-quality.md`:455-466 carries a 🔴 header whose **corrected** value is
 still v2 — verbatim: *"**Corrected matched-differential ratio: $\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$**
 (propagating/LoI-matched headline)"* — and names this exact function as the harness at `:464`.
 The KB leaf that D7 treats as truth-source has been consolidated to v3 (`vacuum-birefringence-e4.md`
-Option-B, `:51`); `claim-quality.md` has not. **Not edited** — KB is the auditor lane's, and
-D7 fences this lane to `src/`. Surfaced so the re-point is not landed while the claim-quality
-register still teaches v2 as *the correction*.
+Option-B, `:51`). **Not edited** — KB is the auditor lane's, and
+D7 fences this lane to `src/`. Surfaced so the re-point is not landed while a header-first read of
+the claim-quality register still teaches v2 as *the correction*.
+
+★ **[CHARACTERIZATION CORRECTED 2026-08-02, repair item R2.]** This section originally continued
+*"`claim-quality.md` has not [been consolidated]"* — **that was wrong.** The register's **body was
+already re-frozen to v3 on 2026-07-07** by its own 🔵 **OPTION-B FOOTING CONSOLIDATION**
+(`claim-quality.md`:536 post-repair, boxed v3 at `:543`, body line `:563` reading
+$3.75\pi/\alpha^2$) — the same Grant-fired Option-B round that consolidated the leaf. The real
+defect is the **read order**: the 🔴 note's v2 headline is met *before* that consolidation, so a
+header-first reader is taught v2. PIECE 4 (§6.4) is accordingly a **read-order / supersession-stamp**
+fix, **not** a body re-freeze, and it is consistent with — not a substitute for — the 2026-07-07
+consolidation.
 
 ### 4.1 What a clean D7 execution would need, as a routing list
 
