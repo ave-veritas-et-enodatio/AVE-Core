@@ -430,4 +430,61 @@ behind four adjudications — is the honest summary of why this lane stopped.
 
 ## 5. Non-overlap + lane mechanics
 
-*(§5 lands next)*
+### 5.1 Zero overlap with the three named concurrent branches — file sets diffed, not assumed
+
+| Branch | File set vs `origin/main` | Overlap with this lane |
+|---|---|---|
+| `src/deprecate-superseded-birefringence-ratio` | `_orchestration/docket-entries/2026-08-01-d1-deprecate-ratio.md`, `src/ave/qed/__init__.py`, `src/ave/qed/birefringence.py`, `src/tests/test_grqed_stage2_qed_extension.py` | **none** |
+| `docs/factor7-and-782-basis-notes` | `_orchestration/docket-entries/2026-08-01-factor7-and-782-basis.md`, `manuscript/ave-kb/vol1/…/domain-catalog.md`, `manuscript/ave-kb/vol3/…/stellar-regime-classification.md`, `manuscript/vol_1_foundations/chapters/07_regime_map.tex`, `manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex`, `manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex`, `research/2026-07-21_rve-aggregation-bench_result.md` | **none** |
+| `docs/rulings-d2-d3-d4` | **no ref on `origin`** (`git rev-parse --verify origin/docs/rulings-d2-d3-d4` fails) — un-pushed or differently named | **cannot collide with an unpushed ref**; re-check at merge time |
+
+This lane's file set is **two files**: `research/2026-08-01_pvlas-arbiter-v3-repoint_scoping.md`
+and `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md`. The `src/ave/qed/*` fence in
+the dispatch is honoured by construction — this lane touched no `.py` at all.
+
+### 5.2 Lane mechanics
+
+- Self-isolated throwaway worktree at `.claude/worktrees/repoint-pvlas-v3`, branched from
+  **`origin/main` @ `19285c5d`** (the dispatch's `e6de554b` is 2 commits stale — §1 C3).
+- Branch name `src/repoint-pvlas-v3` **retained as dispatched** even though the branch carries no
+  `src/` change, so the orchestrator's tracking key does not move. Disclosed rather than
+  unilaterally renamed.
+- Skeleton-first, one section per commit (the incremental-write discipline).
+- **Every `file:line` in this doc was re-read at ship time.** Six of this lane's own draft cites
+  were wrong and were corrected before commit: the three dispatch cites in §1 (C1/C2/C3), the
+  `claims_by_hash.md` V5/V6 line numbers (`:14`/`:16` → `:15`/`:18`), the KB decomposition-chain
+  lines (`:46-50` → `:38-41`), and the provenance driver-list lines (`:98-101` → `:102-106`). Two
+  further corrections came from re-deriving the supplement (§2.6): the `adopters.py` import list
+  and the frozen-block boundary.
+- A zsh glob false-negative was hit and disclosed (§2), per the standing
+  grep-completeness lesson.
+
+### 5.3 Discipline tags
+
+- **consistency-vs-emergence:** *nothing newly asserted.* This lane derives no quantity and moves
+  no claim. The v2/v3 numbers it prints are re-computations of already-adjudicated corpus values,
+  banked as receipts (§1.1). Class of the underlying claim is unchanged: `clm-pp3qwf` remains
+  CONSISTENCY-class with the magnitude an adjudicated $\alpha$-echo, the FORM the chord.
+- **verify-before-cite:** fired; six corrections, itemised in §5.2.
+- **flag-don't-fix:** three contradictions surfaced with both paths + verbatim strings, none
+  resolved — `provenance.md`:121 vs `main.tex`:750 (§3.2); `claim-quality.md`:455-466 vs
+  `vacuum-birefringence-e4.md` Option-B (§4 BLOCKER-3); the three JSON keys vs their own values
+  (§4 BLOCKER-2).
+- **honest closure (Rule 11):** no criterion was dropped to convert the gate's ❌ to ✅. The gate
+  fired; the ruling's own conditional withheld execution; the branch is reported as gated, not as
+  done.
+- **KEEP-BOTH discriminator pattern:** invoked in BLOCKER-1 as the reason shape (A) is
+  inadmissible and shape (B) is recommended — add an axis, don't redefine a frozen one in place.
+- **substrate-native-check:** N/A — no solver, observer, eigsolver, or operator was scaffolded;
+  the object is a closed-form ratio of two already-canonical coefficients.
+- **phase-space-coordinate-check (A46):** N/A / PASS — the observable is a polarization-phase
+  retardance ratio on both legs; no real-space-vs-phase-space mismatch is introduced or relied on.
+
+### 5.4 Non-goals fenced
+
+No re-point. No `src/` edit. No test re-pin. No JSON regeneration. No `papers/` edit. No KB or
+manuscript edit. No frozen block touched. No id minted, no solidity moved, no claim-graph edge
+added. No contradiction resolved. No shape picked for BLOCKER-1. No `src/ave/qed/*` file opened
+for write. The v2-vs-v3 footing itself is **not** re-litigated here — KB is truth-source and the
+factor 2 is adjudicated; only the *engine's* alignment to it is at issue, and that is what stays
+open.
