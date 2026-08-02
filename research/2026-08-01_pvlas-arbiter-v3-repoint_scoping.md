@@ -691,6 +691,8 @@ NOT edited**, per frozen-provenance discipline.
 |---|---|
 | `make verify` | **exit 0** — *"ALL PHYSICS PROTOCOLS PASSED"*; `verify-kb-metadata` PASS; `verify-md-links` gating **0** |
 | targeted pytest (bench + qed + new pin) | **164 passed** |
+| **full suite** `pytest src/tests -m "not engine_sim"` | **2872 passed, 3 skipped, 9 xfailed, 220 deselected** (536 s) |
+| `make test` (canonical partition) | **exit 0** |
 | new arbiter pin test | **7 passed**, and **demonstrated to fail** on the pre-D7 default |
 | `ruff check` (bench + vol_9_device) | **86 = 86** vs the `origin/main` baseline — **zero new violations** |
 | `ruff check` (the new test file) | **All checks passed!** |
