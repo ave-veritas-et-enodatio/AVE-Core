@@ -150,8 +150,19 @@ Saturation kernel $S(A) = \sqrt{1-A^2}$ & Schwinger / breakdown & yield / ruptur
 Boundary & charged surface & yield surface &
   Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. \\
 \hline
-Envelope & wavefunction support & zone of influence &
-  Default: substrate. What the substrate \emph{actually sees}. \\
+% [2026-08-02 ENVELOPE WORD-SENSE reconciliation to the ruled KB block. Prior row (git trail):
+%  "Envelope & wavefunction support & zone of influence & Default: substrate. What the substrate
+%  \emph{actually sees}." -- glossed "envelope" as a REGION, the pre-ruling sense. Authority:
+%  ave-kb/common/envelope-anatomy.md, "Word-level ruling -- CONFIRMED (Grant in-chat 2026-07-15)":
+%  the token "envelope" now canonically denotes the WALL -- surface (i), the fully-yielded
+%  S(A)->0, |Gamma|=1 mirror; the balance shell (ii) and the knee / dress edge (iii) keep their
+%  own names. Vocabulary correction only: no numerical value, radius or gate status is touched
+%  (the leaf's radii stay gate-registered, NOT SOLID).]
+Envelope & $|\Gamma| = 1$ mirror & yield surface &
+  Ruled 2026-07-15: \emph{envelope} $=$ \textbf{the wall} --- the fully-yielded
+  $S(A) \to 0$ surface. A surface, not a region. The \textbf{balance shell} and
+  the \textbf{knee / dress edge} keep their own names
+  (\kbleaf{ave-kb/common/envelope-anatomy.md}). \\
 \hline
 \textbf{Linking number $\mathcal{Q}$} & charge $Q$ & (no clean analog) &
   Integer per boundary; universal substrate; project to $Q$ for EE. \\
