@@ -245,18 +245,41 @@ class TestDistinctCutoffDiscipline:
 
 
 class TestChordMagnitudeAlphaEcho:
-    """The 7.5/α³ magnitude — an α-ECHO (value-level), NOT the chord."""
+    """The 7.5/α³ magnitude — SUPERSEDED (v1); an α-ECHO, never the chord.
+
+    Deprecated per Grant ruling D1 (2026-08-01), option (ii) = DEPRECATE. The
+    re-frozen v3 ratio is 3.75π/α² ≈ 2.2e5 (vacuum-birefringence-e4.md:104); the
+    7.5/α³ form is v1 convention history (:106). These tests PIN THE PRESERVED
+    HISTORICAL VALUE so it stays reproducible — they do NOT defend a live claim.
+    """
+
+    def test_deprecation_warning_names_the_supersession(self):
+        # (b) of D1(ii): the call must warn. The return value is deliberately
+        # UNCHANGED — the only behavior change is the DeprecationWarning.
+        with pytest.warns(DeprecationWarning, match="SUPERSEDED"):
+            chord_magnitude_ratio()
 
     def test_chord_magnitude_equals_7p5_over_alpha_cubed(self):
-        ratio = chord_magnitude_ratio()
+        # NOTE (D1(ii), 2026-08-01): this assertion DOCUMENTS THE PRESERVED
+        # HISTORICAL VALUE of a deprecated function — it is NOT a defense of a
+        # live AVE claim. The live matched-differential ratio is the v3
+        # 3.75π/α² ≈ 2.2e5 (vacuum-birefringence-e4.md:104); 7.5/α³ ≈ 1.93e7 is
+        # v1 convention history (:106). The pin exists so the deprecated return
+        # value cannot silently drift while it is retained for provenance.
+        with pytest.warns(DeprecationWarning):
+            ratio = chord_magnitude_ratio()
         assert np.isclose(ratio, 7.5 / ALPHA**3, rtol=1e-9)
-        assert np.isclose(ratio, 1.93e7, rtol=2e-2)  # ≈ 1.93×10⁷
+        assert np.isclose(ratio, 1.93e7, rtol=2e-2)  # ≈ 1.93×10⁷ (historical)
 
     def test_magnitude_rides_alpha_inverse_cubed(self):
         # the magnitude IS an α-echo: it is exactly (45/6)·α⁻³, i.e. it rides α⁻³.
         # (Symmetric standard: QED's a_EH·α² is equally α-rooted.) This is the
         # value-level dependence on the IMPORTED α — flagged, not hidden.
-        ratio = chord_magnitude_ratio()
+        # Same D1(ii) note as above: preserved-historical-value documentation.
+        # (The α-echo character survives the v1→v3 re-freeze; only the power
+        # changes, α⁻³ → α⁻².)
+        with pytest.warns(DeprecationWarning):
+            ratio = chord_magnitude_ratio()
         assert np.isclose(ratio * ALPHA**3, 45.0 / 6.0, rtol=1e-9)
 
     def test_qed_differenced_coeff_is_three_over_45(self):

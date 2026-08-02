@@ -46,6 +46,8 @@ Canonical leaf:
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 
 # REUSE the canonical Op14 saturation kernel (the SAME function fdtd_3d uses).
@@ -111,8 +113,30 @@ def birefringence_dn(E: np.ndarray, *, e_yield: float = E_YIELD) -> np.ndarray:
 
 def chord_magnitude_ratio() -> float:
     r"""
-    The α-ECHO magnitude ratio δn_AVE / δn_QED at the matched differential
-    observable (field-INDEPENDENT):
+    Field-INDEPENDENT matched par−perp DIFFERENTIAL ratio (SUPERSEDED value).
+
+    ==== SUPERSEDED (2026-07-03) — this returns the WRONG-NORMALIZATION 7.5/α³.
+    The QED denominator (3/45)·α² is understated (the AVE-side differenced 3/45
+    estimate, not a QED-normalized Euler-Heisenberg coefficient). The corrected,
+    re-frozen ratio is the **v3 consistent-instantaneous-footing** value
+
+        δn_AVE/δn_QED = (1/2)/(2α/15π)·(E_crit/E_yield)² = 15π/(4α²)
+                      = 3.75π/α² ≈ 2.2e5
+
+    boxed at `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/
+    vacuum-birefringence-e4.md:104`; that leaf's `:106` records the 7.5/α³ form
+    returned here as **v1 convention history**. This function is retained ONLY for
+    provenance — the return value is UNCHANGED so the historical number stays
+    reproducible; do NOT use its value in any prediction. ====
+
+    **Deprecation provenance:** Grant ruling **D1 (2026-08-01)**, verbatim [sic]
+    *"D1: (ii)"* — option (ii) = DEPRECATE, chosen over stamp-only and re-point.
+    The bench-module sibling `ave.bench.birefringence.coefficient_ratio_differential`
+    already carried an equivalent SUPERSEDED banner; this is the QED-module half of
+    the same quantity, previously un-stamped (routed from the 2026-07-31
+    verify-cite corrections lane).
+
+    The historical derivation, for the record:
 
     .. math::
         \frac{\delta n_{AVE}}{\delta n_{QED}}
@@ -121,12 +145,27 @@ def chord_magnitude_ratio() -> float:
 
     using ``E_crit = α^(−1/2) E_yield`` so ``(E_crit/E_yield)² = 1/α``.
 
-    ★ This number is an **α-ECHO**, NOT a chord — AVE imports α, so the magnitude
-    rides α⁻³ (symmetric standard: QED's a_EH·α² is equally α-rooted). The CHORD
-    is the EXISTENCE of the tree-level O(1) structure (see module docstring), not
-    this value.
+    ★ Under EITHER normalization the number is an **α-ECHO**, NOT a chord — AVE
+    imports α, so the magnitude rides a power of α (v1: α⁻³; v3: α⁻²; symmetric
+    standard: QED's a_EH·α² is equally α-rooted). The CHORD is the EXISTENCE of the
+    tree-level O(1) structure (see module docstring), not this value.
+
+    Raises:
+        DeprecationWarning: on every call (the value is superseded).
 
     Returns:
-        The field-independent ratio 7.5/α³ ≈ 1.93e7.
+        The preserved-for-provenance v1 ratio 7.5/α³ ≈ 1.93e7 (NOT the live value).
     """
+    warnings.warn(
+        "chord_magnitude_ratio() is SUPERSEDED: it returns the v1 wrong-normalization "
+        "ratio 7.5/alpha^3 ~ 1.93e7. The re-frozen v3 (consistent instantaneous "
+        "footing) matched differential ratio is 3.75*pi/alpha^2 ~ 2.2e5 — boxed at "
+        "manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/"
+        "vacuum-birefringence-e4.md:104 (that leaf's :106 calls the 7.5/alpha^3 form "
+        "v1 convention history). The return value is PRESERVED UNCHANGED for "
+        "provenance/reproducibility; do NOT use it in any prediction. "
+        "Deprecated per Grant ruling D1 (2026-08-01), option (ii) = DEPRECATE.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return (0.5 / (QED_EH_DIFFERENCED_COEFF * ALPHA**2)) * (E_CRIT / E_YIELD) ** 2
