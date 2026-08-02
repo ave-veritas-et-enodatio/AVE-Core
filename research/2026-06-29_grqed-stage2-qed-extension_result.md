@@ -8,6 +8,20 @@ vacuum birefringence** (the bankable chord, clm-pp3qwf, reusing the saturating-�
 are **dormant in the QED regime** (recover-QED at low momentum / low field). The inherited continuum QED core
 is the low-momentum / weak-field limit and is NOT re-derived here.
 
+> 🔴 **==== v3-SUPERSESSION STAMP — added 2026-08-02; document-scoped; Rule 12, every body below preserved verbatim (git is the trail). ====**
+>
+> **Every statement of the birefringence MAGNITUDE in this document is the v1 form** $\delta n_{AVE}/\delta n_{QED} = 7.5/\alpha^3 \approx 1.93\times10^7$. **That normalization is SUPERSEDED.** The footing was re-frozen (2026-07-03, again 2026-07-05) and the **live v3 value is** $\delta n_{AVE}/\delta n_{QED} = 15\pi/(4\alpha^2) = 3.75\pi/\alpha^2 \approx 2.2\times10^5$, **boxed** at [`vacuum-birefringence-e4.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md):104; that leaf's `:106` records the $7.5/\alpha^3$ form explicitly as **v1 convention history** (v2 $= 7.5\pi/\alpha^2 \approx 4.42\times10^5$ sits between them, QED-normalized but mixed-footing).
+>
+> **What moved and what did NOT — read this before citing any number below.**
+> - **MOVED: only the QED normalization**, $\alpha^{-3} \to \alpha^{-2}$. The v1 pairing put the instantaneous SVE kernel against the AVE-side differenced $(3/45)\alpha^2$; v3 normalizes both sides on the same instantaneous footing.
+> - **UNAFFECTED: the AVE-side numerator** $\delta n_{bir} = n_\parallel - n_\perp \approx -\tfrac12 A^2$, the eigen-indices, the reused Op14 kernel $S(A)=\sqrt{1-A^2}$, and **both two-test legs** (recover-QED at $E \ll E_{yield}$; activate at high $E$). None of the shipped code paths or test outcomes in §4–§6 depend on the normalization.
+> - **UNAFFECTED: the CHORD and its class.** The AVE-distinct content is the **EXISTENCE** of a tree-level $O(1)$ birefringence-bearing structure QED lacks — a FORM claim. The magnitude was an adjudicated **$\alpha$-ECHO at the value level under v1 *and* under v3**; the re-freeze changes the power of $\alpha$ it rides, not its epistemic class. §7's "do NOT headline the magnitude as a chord" stands unchanged.
+>
+> **Sites in this document that carry the superseded v1 magnitude** (all preserved, none rewritten; **line numbers stated POST-stamp — this banner is +14 lines, so the pre-stamp numbers `:28`/`:36`/`:50`/`:74`/`:94`/`:184`–`:186`/`:275` each read +14 here**): `:42` (§0 summary) · `:50` (§0 honest framing, *"rides $\alpha^{-3}$"*) · **`:64`** (§1 spec table, the α-echo-magnitude row — one of the two rows the ruling names, now carrying an in-cell stamp) · `:88` (§2 substrate-native-check) · **`:108`** (§3 code-delivered table, `chord_magnitude_ratio()` — the other named row, in-cell stamped) · `:198`–`:200` (§7 the-chord-framed-precisely) · `:289` (§10 flag 5).
+>
+> **Provenance.** Banner form mirrored from the `==== … ====` stamp merged in **PR #819** (`src/ave/qed/birefringence.py`:36-42 module header and `:125` function banner), which executed **Grant ruling D1 (2026-08-01), verbatim [sic]: *"D1: (ii)"*** — option (ii) = DEPRECATE — on the code surface. `chord_magnitude_ratio()` still returns `1.930035e+07`, **retained for provenance and now raising `DeprecationWarning`**; this document is the un-stamped research-side twin of that same surface, stamped here on the same authority. **Nothing is retracted and no value is edited** — this is a status stamp, not a re-derivation.
+
+
 ---
 
 ## 0 · One-paragraph summary
@@ -47,7 +61,7 @@ rides α⁻³). See the FORM/VALUE ledger (§8) and the F4 self-energy honesty (
 | Distinct-cutoff discipline | SPATIAL `k_max=π/ℓ_node` (LOOP bound) vs TEMPORAL `ω_C=c/ℓ_node` (μ bound); ratio exactly π | `K_MAX_SPATIAL` (DECLARED); constants.py:286-294 |
 | The E-route birefringence (the chord) | `A=E/E_yield`; `n_⊥=(1−A²)^(1/4)`, `n_∥=√[(1−2A²)/√(1−A²)]`, `δn_bir=n_∥−n_⊥≈−½A²` | `qed/birefringence.py`: `birefringence_dn`, `birefringence_eigenindices` |
 | The ONE kernel (REUSED, not minted) | `S(A)=√(1−A²)` via `scale_invariant.saturation_factor` — the SAME `fdtd_3d._compute_local_epsilon` uses | `qed/birefringence.py` (imports `saturation_factor`) |
-| The α-echo magnitude | `δn_AVE/δn_QED=(1/2)/((3/45)α²)·(E_crit/E_yield)²=7.5/α³≈1.93×10⁷` | `qed/birefringence.py`: `chord_magnitude_ratio` |
+| The α-echo magnitude ★**v1 — SUPERSEDED, see the 2026-08-02 stamp above** | `δn_AVE/δn_QED=(1/2)/((3/45)α²)·(E_crit/E_yield)²=7.5/α³≈1.93×10⁷` — live v3 is `3.75π/α²≈2.2×10⁵` (`vacuum-birefringence-e4.md`:104) | `qed/birefringence.py`: `chord_magnitude_ratio` (**DEPRECATED, PR #819**) |
 | Two-test doctrine ×2 | recover-QED (consistency) + activate (manifestation) for BOTH corrections | §4-§5 (propagator), §6 (birefringence) |
 
 ## 2 · Substrate-native-check (walked before numerical code)
@@ -91,7 +105,7 @@ New QED-extension package `src/ave/qed/` (distinct from the GR-extension which l
 | `brillouin_cutoff.continuum_loop_integral(cutoff_lambda, *, m_sq, n_radial)` | the continuum contrast `∫_{|k|<Λ} d³k/(k²+m²)` — DIVERGES ~Λ (linear) (no AVE claim) |
 | `birefringence.birefringence_eigenindices(A)` | the uniaxial eigen-indices; `n_⊥` built from the REUSED canonical `S(A)` |
 | `birefringence.birefringence_dn(E, *, e_yield)` | the par−perp differential `δn_bir(E)≈−½A²` (the polarimeter observable) |
-| `birefringence.chord_magnitude_ratio()` | the α-echo magnitude `7.5/α³≈1.93×10⁷` (NOT the chord — the chord is the existence) |
+| `birefringence.chord_magnitude_ratio()` **★DEPRECATED (PR #819, Grant ruling D1(ii))** | the α-echo magnitude `7.5/α³≈1.93×10⁷` — ★**v1, SUPERSEDED; see the 2026-08-02 stamp above.** Live v3 = `3.75π/α²≈2.2×10⁵` (`vacuum-birefringence-e4.md`:104). Return value preserved for provenance; calling it now raises `DeprecationWarning`. (NOT the chord — the chord is the existence) |
 
 Tests live in `src/tests/test_grqed_stage2_qed_extension.py` (26 tests); the heavy BZ convergence /
 finite-vs-continuum quadrature sweeps are routed to the `engine_sim` lane via `src/tests/conftest.py`
