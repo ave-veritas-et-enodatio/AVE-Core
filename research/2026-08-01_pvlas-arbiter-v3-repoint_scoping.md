@@ -325,7 +325,108 @@ declining it.
 
 ## 4. The three execution blockers
 
-*(§4 lands next)*
+Gate 2 alone suffices to stop. Two further blockers surfaced during the sweep that would have
+bitten *even if* the letter had come back clean, so both are routed with it. **BLOCKER-1 is the
+one that changes what "re-point to v3" means.**
+
+### ★ BLOCKER-1 — the function has no v3 branch, and adding one is a KEEP-BOTH design decision, not a scalar swap
+
+D7's execute-step (a) reads *"compute `3.75*pi/ALPHA**2` or equivalent"*. That presumes the
+arbiter's shape can carry v3. It cannot, as written. The function is
+**denominator-parameterised**, not footing-parameterised
+(`src/ave/bench/birefringence.py`:411-418):
+
+```python
+    ave_num = 0.5 * (E_CRIT / E_YIELD) ** 2  # = 1/(2 alpha)
+    if geometry == "propagating":
+        qed_coeff = ALPHA / (15.0 * np.pi)
+    elif geometry == "static":
+        qed_coeff = ALPHA / (30.0 * np.pi)
+    else:
+        raise ValueError(f"geometry must be 'propagating' or 'static', got {geometry!r}")
+    return ave_num / qed_coeff
+```
+
+v3 requires the QED denominator $2\alpha/(15\pi)$ — the **instantaneous** one-loop coefficient.
+**Neither existing branch is it**, and neither existing branch is *wrong*: per
+`vacuum-birefringence-e4.md`:38-41 (the *"static-to-propagating decomposition"*) the chain is
+$\alpha/(30\pi) \xrightarrow{\times4} 2\alpha/(15\pi) \xrightarrow{\times\frac12} \alpha/(15\pi)$
+— static duality, head-on crossing geometry, carrier average. All three are legitimate QED
+coefficients **in their own footing**; what v2 got wrong was the *pairing* (instantaneous AVE
+numerator against a cycle-averaged QED denominator), not either coefficient.
+
+⇒ The parameter is doing two jobs at once. `"propagating"` and `"static"` name **geometries**;
+the v2→v3 step is a **temporal-footing** change orthogonal to geometry. Three admissible shapes,
+none of which an implementer lane should pick unilaterally:
+
+- **(A) Redefine `"propagating"` in place** to $2\alpha/(15\pi)$. Smallest diff; but it makes the
+  keyword *lie* (the propagating one-loop headline in the literature **is** $\alpha/(15\pi)$), and
+  it silently changes what every existing call site means. Fails the KEEP-BOTH pattern.
+- **(B) Add a third keyword** (`"instantaneous"`) returning $15\pi/(4\alpha^2)$, make it the
+  **default**, and leave `"propagating"`/`"static"` returning exactly what they return today with
+  a mixed-footing warning in the docstring. Preserves both legacy axes; matches the standing
+  KEEP-BOTH-discriminator practice (add an axis, don't redefine in place); costs a default flip
+  that moves all five call sites' recorded value.
+- **(C) Split the parameter in two** — `geometry ∈ {static, propagating}` × `footing ∈
+  {instantaneous, cycle_averaged}` — which is the physically honest factorisation and makes the
+  v2 mixed-footing state *unrepresentable*, but is the largest diff and changes the signature.
+
+**Recommendation, stated as a recommendation and not a decision: (B).** It is the only one of the
+three that leaves every existing call site's semantics intact while making v3 the thing the
+arbiter returns by default, and it is the shape the corpus already uses when an audit finds an
+inconsistency in a frozen axis. **Not taken here.** Note that (A) — the reading a fast pass at
+D7's *"re-point"* wording most naturally supports — is the one shape that fails the corpus's own
+pattern.
+
+### BLOCKER-2 — three JSON keys NAME the value they carry
+
+All three v9 drivers write the arbiter's return under the literal key
+`matched_differential_ratio_7.5pi_over_alpha2_propagating`
+(`birefringence_gap1_hibef_feasibility.py`:383, `birefringence_hibef_scenario_predictions.py`:138,
+`birefringence_prior_art_exposure_scan.py`:361), plus
+`matched_differential_ratio_15pi_over_alpha2_static` at `birefringence_gap1_hibef_feasibility.py`:384
+and `birefringence_hibef_scenario_predictions.py`:139. A re-point without a
+key rename produces a **self-contradicting record** — a key that says `7.5pi` over a value that is
+`3.75pi`. A re-point *with* a key rename changes the **output schema** of three drivers whose
+committed JSON is cited by the Letter's provenance ledger as the source of Table I
+(`provenance.md`:102-106, *"Drivers (re-run this session, all reconcile):"*, which lists all three
+by path).
+
+Committed values that would move on re-run:
+
+```
+src/scripts/vol_9_device/_output/birefringence_gap1_hibef_feasibility.json      442466.5835078048
+src/scripts/vol_9_device/_output/birefringence_hibef_scenario_predictions.json  442466.5835078048
+src/scripts/vol_9_device/_output/birefringence_prior_art_exposure_scan.json     442466.5835078048
+```
+
+Neither the key rename nor the JSON regeneration is authorized by D7's execute list, and both
+touch letter-cited artifacts — i.e. BLOCKER-2 folds into the same Gate-2 routing.
+
+### BLOCKER-3 — the manuscript/KB side is still on v2 at a site D7 does not name
+
+`manuscript/ave-kb/vol4/claim-quality.md`:455-466 carries a 🔴 header whose **corrected** value is
+still v2 — verbatim: *"**Corrected matched-differential ratio: $\mathbf{7.5\pi/\alpha^2\approx4.42\times10^5}$**
+(propagating/LoI-matched headline)"* — and names this exact function as the harness at `:464`.
+The KB leaf that D7 treats as truth-source has been consolidated to v3 (`vacuum-birefringence-e4.md`
+Option-B, `:51`); `claim-quality.md` has not. **Not edited** — KB is the auditor lane's, and
+D7 fences this lane to `src/`. Surfaced so the re-point is not landed while the claim-quality
+register still teaches v2 as *the correction*.
+
+### 4.1 What a clean D7 execution would need, as a routing list
+
+1. **Grant/orchestrator picks a shape** from BLOCKER-1 (A) / (B) / (C).
+2. **A ruling on whether `papers/2026_birefringence_letter/provenance.md`:121 and :168 may be
+   updated**, and by which lane. (The rows are stale *today*; the re-point makes them stale in a
+   new way.)
+3. **A ruling on the JSON key rename + driver-output regeneration** (BLOCKER-2), which is the same
+   letter-artifact question in a different file.
+4. **A routing for `claim-quality.md`:455-466** to the auditor lane (BLOCKER-3).
+5. Only then: the `src/ave/bench/birefringence.py` edit, which is ~8 lines and the *easiest* part
+   of D7 by a wide margin.
+
+**Nothing in items 1-4 is an implementer call.** That asymmetry — a trivial code change fenced
+behind four adjudications — is the honest summary of why this lane stopped.
 
 ## 5. Non-overlap + lane mechanics
 
