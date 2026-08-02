@@ -22,7 +22,22 @@ The substrate carrier space is a \textbf{3D chiral Laves K4 Cosserat crystal}, w
 
 The K4 graph (4-valent nearest-neighbour connectivity, $\ell_{node}$ pitch) provides the discrete topology; the Cosserat micropolar structure adds rotational degrees of freedom at each node beyond the standard elastic-continuum translational ones. Each node carries six intrinsic DOF: three translational (electric-field $\mathbf{E}$ origin, capacitive sector) and three microrotational (magnetic-field $\mathbf{B}$ origin, inductive sector). The Cosserat rotational DOF is the substrate-native origin of intrinsic spin: macroscopic angular momentum, the EM $\mathbf{B}$ field, and quantum spin-$\tfrac{1}{2}$ are three projections of the same per-node rotational coordinate (Axiom~1).
 
-The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ --- the photon, whose saturated bound mode is the electron's massive mode). $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
+% 🔴 T2-PHOTON FAMILY CORRECTION 2026-08-02 (Rule 12; prior wording PRESERVED verbatim here and in
+%   git: "... and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ ---
+%   the photon, whose saturated bound mode is the electron's massive mode)."). Authority:
+%   def-t2ph01, ave-kb/common/vocabulary-register.md:851 (adjudicated-meaning: "the default
+%   canonical 'T2 = the photon' sense is the massless transverse-TRANSLATIONAL mode pair
+%   (u-family)"), :858 (sense 1), :859 (sense 2, the GAPPED Cosserat microrotational omega family
+%   -- "This is NOT the photon"), :860 (watch-list rule: "never write bare 'T2' or 'T2
+%   microrotational omega' for the photon"). Ruling G2, Grant 2026-07-03,
+%   research/2026-07-03_g2-photon-relabel_note.md; KEEP-BOTH adjudication blockquote at
+%   ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:33-35.
+%   NOTE the KB's resolution shape: the owning leaf's :26 row and its §1 body at :59 ("Maps to
+%   Cosserat microrotational sector omega") were deliberately PRESERVED unedited and dispositioned
+%   by the :33-35 blockquote -- so this passage now carries BOTH senses rather than swapping one
+%   label for the other. Nothing numeric changes: eigenvalues {+1,-1,-1,-1}, the A1/T2 split, the
+%   speeds sqrt(2)c0 and c0, and the A1-perp-T2 fence are all as printed before.
+The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (propagating at $c_0$). \textbf{The label $T_2$ names two physically distinct objects} (\texttt{def-t2ph01}; Grant ruling G2, 2026-07-03), separated by their massless-vs-gapped mass status: sense~(1) is the \emph{massless transverse-translational $u$-family} --- \textbf{this is the photon}; sense~(2) is the \emph{gapped} Cosserat microrotational $\boldsymbol{\omega}$ family --- the home of the static $(2,3)$ winding and of the electron's bound massive mode at saturation --- which is \emph{not} the photon. $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
 
 \input{figures/k4_irrep_decomposition.tex}
 
