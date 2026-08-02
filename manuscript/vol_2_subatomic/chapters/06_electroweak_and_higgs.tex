@@ -515,7 +515,26 @@ Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/so
 \begin{equation*}
 C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle = -0.32846
 \end{equation*}
-matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$).
+matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$) --- a
+\textbf{postulate-conditional} match, not an unconditional forward one. It rides the
+$n_q$-additivity postulate, which the corpus resolved \textbf{NEGATIVE} on 2026-05-31; the
+\emph{parameter-free} forward result of this framework is the Stage-1 $+4.0\%$ figure derived in
+the ``Numerical robustness (Route~B base case)'' paragraph below. The full two-stage scope is stated at the end of this
+section and is load-bearing for how the number should be read.
+
+% 🔴 [SCOPE TAG 2026-08-02 (CRIB-4) -- manuscript-side propagation of the landed q-g19a
+%  postulate-conditional flag. Rule 12: prior wording preserved byte-verbatim and in git:
+%    "matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$)."
+%  The NUMBER is correct and is NOT changed -- ave-kb/vol2/particle-physics/ch06-electroweak-higgs/
+%  q-g19a-petermann-saliency-closure.md:95 carries "versus PDG/Petermann $C_2 = -0.32848$.
+%  **Deviation: 50 ppm (0.005%) at the $C_2$ level.**" What was missing is the SCOPE the leaf
+%  requires at :121 -- "50 ppm match to PDG -- **postulate-conditional** (rides n_q-additivity,
+%  RESOLVED-NEGATIVE 2026-05-31 ...; NOT an unconditional forward match -- the parameter-free
+%  forward result is the Stage-1 +4.0%)" -- landed in-window by commit 2b9f4026 (2026-07-13,
+%  "flag the electron 2-loop 50-ppm cell postulate-conditional"). Corroborated at
+%  electron-identification.md:93 ("the 50 ppm headline is **conditional on the $n_q$-additivity
+%  postulate** (the parameter-free result is $+4.0\%$)") and at the leaf's own two-stage
+%  headline, :8/:12/:14.]
 \paragraph{Route B substrate derivation (full).} The five ingredients are
 each substrate-canonical:
 \begin{enumerate}
@@ -575,7 +594,10 @@ $N_t \gtrsim 2\times 10^5$ to
     \quad
     C_2^{\text{AVE,sym}} = -0.3416,
 \]
-a $+4.0\%$ structural offset from Petermann's $-0.32848$. The offset
+a $+4.0\%$ structural offset from Petermann's $-0.32848$. \textbf{This is the Stage-1 result: the
+parameter-free, postulate-free forward prediction of the framework} (label added 2026-08-02 per
+\kbleaf{ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md}
+:12; number unchanged). The offset
 is invariant under three independent derivative methods (analytic,
 \texttt{numpy.gradient}, manual central-difference), is sharply peaked
 in $\tau_{\text{retard}}$ around the Compton transit time
@@ -611,18 +633,63 @@ The sign ($\delta < 0$) places the heavier reactance on the q-axis,
 the 3-winding side --- consistent with the trefoil's topological
 weighting.
 
-\paragraph{Final result --- $50$ ppm match.} With $\delta = -3\alpha/2$:
+% 🔴 [VALUE REFRESH + SCOPE TAG 2026-08-02 (CRIB-4). Rule 12: prior wording preserved byte-verbatim
+%  here and in git, NOT deleted:
+%    "\paragraph{Final result --- $50$ ppm match.} With $\delta = -3\alpha/2$:"
+%    "    \Delta a_e^{(2),\text{AVE}} = -8.857\times 10^{-7},\qquad"
+%    "versus PDG/Petermann $C_2 = -0.32848$. \textbf{Deviation: $50$ ppm}"
+%    "($0.005\%$). Total Schwinger + Petermann shift:"
+%    "$a_e^{(1)} + a_e^{(2)} = +1.16052\times 10^{-3}$ vs measured"
+%    "$+1.15965\times 10^{-3}$, deviation $+0.075\%$. The remaining $0.075\%$"
+%    "is exactly the contribution of three-loop and higher QED corrections"
+%    "plus hadronic and electroweak --- explicitly outside Q-G19$\alpha$'s"
+%    "leading-plus-first-correction scope."
+%  WHY the numbers move. ave-kb/.../q-g19a-petermann-saliency-closure.md:105 (Scope correction,
+%  2026-05-18 late-evening walk-back): "prior versions of this leaf reported
+%  $\Delta a_e^{(2),\text{AVE}} = -8.857 \times 10^{-7}$ and a $+0.075\%$ deviation from measured
+%  $a_e$ ... found those values were the standard QED conversion $C_2\,(\alpha/\pi)^2$ computed with
+%  a silent factor of $1/2$." The KB corrected in 2026-05; the print side was never propagated --
+%  claim-quality-closure-roadmap.md:84 enumerates the SIX propagation targets of that walk-back and
+%  06_electroweak_and_higgs.tex is NOT among them. This is a documented missed print-side
+%  propagation, not a judgment call.
+%  EVERY replacement digit is transcribed from the leaf; none is minted here:
+%    :92  "$C_2^{\text{AVE}} = -0.32846, \qquad \Delta a_e^{(2),\text{AVE}} =
+%          C_2^{\text{AVE}}\,(\alpha/\pi)^2 = -1.772 \times 10^{-6}$"
+%    :95  "versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%) at the $C_2$ level.**"
+%    :100 "$a_e^{(1)} + a_e^{(2)} = ... = 1.15964 \times 10^{-3}$ vs measured
+%          $1.15965 \times 10^{-3}$, deviation $\approx -10$ ppm."
+%    :103 "The residual $\sim 10$ ppm gap is the contribution of three-loop and higher QED
+%          corrections ($C_3\,(\alpha/\pi)^3 \approx +1.5 \times 10^{-8}$) plus hadronic and
+%          electroweak"
+%  Note the printed $C_2^{\text{AVE}} = -0.32846$ was ALREADY correct against :92 and is unchanged.
+%  The old "+0.075% is exactly the contribution of three-loop" attribution was doubly wrong: the
+%  deviation is not +0.075%, and three-loop contributes only ~1.5e-8 (12 ppm), which cannot account
+%  for 0.075%.
+%  SCOPE per :121 / :14: the 50 ppm figure is the Stage-2, postulate-conditional result.]
+\paragraph{Final result --- $50$ ppm at $C_2$, postulate-conditional.} With
+$\delta = -3\alpha/2$:
 \begin{equation}
-    \Delta a_e^{(2),\text{AVE}} = -8.857\times 10^{-7},\qquad
+    \Delta a_e^{(2),\text{AVE}} = -1.772\times 10^{-6},\qquad
     C_2^{\text{AVE}} = -0.32846
 \end{equation}
 versus PDG/Petermann $C_2 = -0.32848$. \textbf{Deviation: $50$ ppm}
-($0.005\%$). Total Schwinger + Petermann shift:
-$a_e^{(1)} + a_e^{(2)} = +1.16052\times 10^{-3}$ vs measured
-$+1.15965\times 10^{-3}$, deviation $+0.075\%$. The remaining $0.075\%$
-is exactly the contribution of three-loop and higher QED corrections
-plus hadronic and electroweak --- explicitly outside Q-G19$\alpha$'s
+($0.005\%$) at the $C_2$ level. Total Schwinger + Petermann shift:
+$a_e^{(1)} + a_e^{(2)} = 1.15964\times 10^{-3}$ vs measured
+$1.15965\times 10^{-3}$, deviation $\approx -10$~ppm. The residual
+$\sim\!10$~ppm gap is the contribution of three-loop and higher QED corrections
+($C_3(\alpha/\pi)^3 \approx +1.5\times 10^{-8}$) plus hadronic and
+electroweak --- explicitly outside Q-G19$\alpha$'s
 leading-plus-first-correction scope.
+
+\noindent\textbf{How to read these two numbers (2026-08-02, per the landed \texttt{q-g19a}
+closure).} They are \textbf{Stage-2} results and are \textbf{postulate-conditional}: both ride the
+$n_q$-additivity postulate introduced with $\delta = -\alpha n_q/2$ above, and that postulate was
+\textbf{resolved NEGATIVE} on 2026-05-31 (next paragraph). The framework's \emph{unconditional,
+parameter-free} forward result at two loops is the \textbf{Stage-1 $+4.0\%$} offset
+($C_2^{\text{AVE,sym}} = -0.3416$), not the $50$~ppm figure. Quoting the $50$~ppm match without the
+postulate is an overstatement of what the substrate derives. Canonical:
+\kbleaf{ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md}
+(:12/:14 the two-stage split, :92/:100/:103 the values, :121 the postulate-conditional cell).
 
 \paragraph{What still needs derivation (honest open items).}
 \begin{itemize}
@@ -630,12 +697,44 @@ leading-plus-first-correction scope.
     it from substrate dynamics (rather than imposing it) is open. A
     different split shifts $C_2$ between $-0.085$ and $-0.692$, so the
     convention is highly sensitive.
-    \item The saliency formula $\delta = -\alpha n_q/2$ is inferred
-    from the numerical match $\delta^*/\alpha = -1.498$, not derived
-    from Cosserat substrate dynamics directly. The structural mapping
-    (q-winding number $\to$ $\alpha$-order saliency in strain
-    amplitude) is intuitive but requires a derivation from
-    Axiom~2 + the trefoil's bilateral-symmetry breaking.
+    % 🔴 [RETRACTION REWRITE 2026-08-02 (CRIB-4). Rule 12: prior wording preserved byte-verbatim
+    %  here and in git, NOT deleted:
+    %    "The saliency formula $\delta = -\alpha n_q/2$ is inferred
+    %     from the numerical match $\delta^*/\alpha = -1.498$, not derived
+    %     from Cosserat substrate dynamics directly. The structural mapping
+    %     (q-winding number $\to$ $\alpha$-order saliency in strain
+    %     amplitude) is intuitive but requires a derivation from
+    %     Axiom~2 + the trefoil's bilateral-symmetry breaking."
+    %  That framing was materially WEAKER than the corpus verdict: it presented the derivation as
+    %  merely OWED, when it has been attempted and RESOLVED NEGATIVE. Authority (verbatim, leaf
+    %  ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md
+    %  :110): "RESOLVED NEGATIVE (2026-05-31, FT-b saliency-derivability): n_q-additivity is *not*
+    %  derivable. The saturation kernel is provably winding-blind at $\alpha$-order --
+    %  $\langle 1 - S(A^2)\rangle$ is exactly $q$-independent (since
+    %  $\langle\sin^2(n\omega t)\rangle = 1/2\ \forall n$), so a single $(2,q)$ knot supplies one
+    %  current at frequency $q$, not $q$ independent oscillators. The linear $\delta = -q\alpha/2$
+    %  law fits *only* $q=3$ (0.12%); it is 24-780x off with the **wrong sign** at $q = 1, 5, 7$.
+    %  So $\delta = -3\alpha/2$ is a **1-point fit**, not a winding law". Result doc:
+    %  research/2026-05-31_FT-b-saliency-derivability_result.md. Corroborated at :14 ("now resolved
+    %  NEGATIVE ... the 50-ppm headline is a postulate-dependent echo, not a derived result").
+    %  Per Rule 12 substitution-not-retraction: the slot is NOT refilled with a replacement
+    %  mechanism. What survives is stated positively (the Stage-1 forward), and nothing else.]
+    \item \textbf{The saliency formula $\delta = -\alpha n_q/2$ is not
+    derivable --- resolved NEGATIVE (2026-05-31).} It was inferred from
+    the numerical match $\delta^*/\alpha = -1.498$, and the derivation
+    that was owed has since been attempted and \emph{failed}: the
+    Axiom-4 saturation kernel is provably \emph{winding-blind} at
+    $\alpha$-order, because $\langle 1 - S(A^2)\rangle$ is exactly
+    $q$-independent (since $\langle\sin^2(n\omega t)\rangle = 1/2$ for
+    every $n$), so a single $(2,q)$ knot supplies one current at
+    frequency $q$ rather than $q$ independent oscillators. The linear
+    law fits \emph{only} $q = 3$ (to $0.12\%$); at $q = 1, 5, 7$ it is
+    $24$--$780\times$ off \emph{with the wrong sign}. $\delta = -3\alpha/2$
+    is therefore a \textbf{one-point fit, not a winding law}, and the
+    $50$~ppm closure it produces is a postulate-dependent echo rather
+    than a derived result. No replacement mechanism is proposed here;
+    what stands unconditionally is the Stage-1 $+4.0\%$ forward.
+    (\kbleaf{ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md}:110.)
     \item Higher-order kernel terms ($A^4/8$ in the Taylor expansion
     of $S(A) = \sqrt{1-A^2}$) enter at order $\alpha^2$ and could
     shift $C_2$ at the $\alpha$-order. Currently the script uses the
