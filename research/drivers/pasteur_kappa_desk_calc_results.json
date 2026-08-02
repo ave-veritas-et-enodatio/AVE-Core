@@ -1,0 +1,444 @@
+{
+  "K1_primary": {
+    "control": {
+      "A_e_mag_m2": 1.9452749962658083e-05,
+      "A_e_vec_m2": [
+        1.9452749962658083e-05,
+        0.0,
+        0.0
+      ],
+      "N_ref_per_m3": 4514554.235085742,
+      "R_rad_ohm": 43.8029367437768,
+      "V_chi_m3": 0.0,
+      "arc_length_m": 0.17747143599999998,
+      "arc_length_mm": 177.47143599999998,
+      "bbox_diag_over_lambda": 0.3785497136217594,
+      "bbox_m": [
+        0.0,
+        0.16687143599999998,
+        0.0026
+      ],
+      "bbox_mm": [
+        0.0,
+        166.871436,
+        2.6
+      ],
+      "bbox_volume_m3": 2.2150581163214395e-07,
+      "chi_m3": 0.0,
+      "cos_angle_ell_A": 0.0,
+      "ell_e_mag_m": 0.10665172280510261,
+      "ell_e_vec_m": [
+        0.0,
+        0.10664883616221393,
+        -0.0007846798975991023
+      ],
+      "eps_eff": 1.0,
+      "gamma": 1.0,
+      "k_per_m": 14.251746149271437,
+      "kappa_cls_aligned": 0.0,
+      "kappa_cls_isotropic": 0.0,
+      "lambda_m": 0.44087126176470587,
+      "n_points": 18,
+      "name": "control",
+      "uniform_current": false
+    },
+    "k23_L": {
+      "A_e_mag_m2": 0.0008867937195987737,
+      "A_e_vec_m2": [
+        -1.0510749892582938e-05,
+        -3.408476972497726e-06,
+        -0.0008867248770285245
+      ],
+      "N_ref_per_m3": 287478.35034704435,
+      "R_rad_ohm": 0.7384708582733792,
+      "V_chi_m3": 0.00010120473567923527,
+      "arc_length_m": 0.23055974061945106,
+      "arc_length_mm": 230.55974061945105,
+      "bbox_diag_over_lambda": 0.11784810733938897,
+      "bbox_m": [
+        0.034581583000000006,
+        0.038688032,
+        0.0026
+      ],
+      "bbox_mm": [
+        34.58158300000001,
+        38.688032,
+        2.6
+      ],
+      "bbox_volume_m3": 3.4785228132581056e-06,
+      "chi_m3": 5.951478711518078e-07,
+      "cos_angle_ell_A": 0.09733633457959281,
+      "ell_e_mag_m": 0.006894889142257879,
+      "ell_e_vec_m": [
+        0.006769573673201943,
+        -0.0010742102768058035,
+        -0.0007472889991974572
+      ],
+      "eps_eff": 1.0,
+      "gamma": 1.0,
+      "k_per_m": 14.251746149271437,
+      "kappa_cls_aligned": 87.28251138112566,
+      "kappa_cls_isotropic": 29.094170460375217,
+      "lambda_m": 0.44087126176470587,
+      "n_points": 40,
+      "name": "k23_L",
+      "uniform_current": false
+    },
+    "k23_R": {
+      "A_e_mag_m2": 0.0008867937195987737,
+      "A_e_vec_m2": [
+        -1.0510749892582938e-05,
+        3.408476972497726e-06,
+        0.0008867248770285245
+      ],
+      "N_ref_per_m3": 287478.35034704435,
+      "R_rad_ohm": 0.7384708582733792,
+      "V_chi_m3": 0.00010120473567923527,
+      "arc_length_m": 0.23055974061945106,
+      "arc_length_mm": 230.55974061945105,
+      "bbox_diag_over_lambda": 0.11784810733938897,
+      "bbox_m": [
+        0.034581583000000006,
+        0.038688032,
+        0.0026
+      ],
+      "bbox_mm": [
+        34.58158300000001,
+        38.688032,
+        2.6
+      ],
+      "bbox_volume_m3": 3.4785228132581056e-06,
+      "chi_m3": -5.951478711518078e-07,
+      "cos_angle_ell_A": -0.09733633457959281,
+      "ell_e_mag_m": 0.006894889142257879,
+      "ell_e_vec_m": [
+        -0.006769573673201943,
+        -0.0010742102768058035,
+        -0.0007472889991974572
+      ],
+      "eps_eff": 1.0,
+      "gamma": 1.0,
+      "k_per_m": 14.251746149271437,
+      "kappa_cls_aligned": 87.28251138112566,
+      "kappa_cls_isotropic": 29.094170460375217,
+      "lambda_m": 0.44087126176470587,
+      "n_points": 40,
+      "name": "k23_R",
+      "uniform_current": false
+    }
+  },
+  "K2_observable_matched": {
+    "ave_value": 0.01751364616632,
+    "ave_value_MHz_at_f0": 11.9092793930976,
+    "basis": "Maxwell is parity-covariant: the mirror image of a solution is a solution, so in a mirror-symmetric environment f_R = f_L exactly",
+    "classical_value": 0.0,
+    "corpus_receipts": [
+      "AVE-HOPF docs/design/2026-05-05_hopf02_design_proposal.md:57 (f_R = f_L to floating-point precision in NEC2)",
+      "AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:80 (Delta_classical = +0.000 MHz for (2,3))"
+    ],
+    "definition": "kappa_obs = |f_R - f_L| / (2 f0) predicted by classical EM"
+  },
+  "K3_density_free": {
+    "N_dilute_ceiling_per_m3": 988.0960542888662,
+    "N_dilute_ceiling_volume_per_knot_m3": 0.0010120473567923527,
+    "N_ref_over_N_star": 3322.4572637907227,
+    "N_ref_per_m3": 287478.35034704435,
+    "N_star_per_m3": 86.5258233657606,
+    "N_star_volume_per_knot_m3": 0.011557243388171132,
+    "V_chi_m3": 0.00010120473567923527
+  },
+  "class": "CLASSICAL-BASELINE \u2014 makes no AVE claim",
+  "commensurability_checklist": {
+    "bin_d_fires": true,
+    "honest_common_observable": {
+      "ave_value_MHz": 11.9092793930976,
+      "ave_value_fractional": 0.01751364616632,
+      "classical_basis": [
+        "Maxwell is parity-covariant: the mirror of a solution is a solution, so in a mirror-symmetric fixture f_R = f_L exactly",
+        "the as-fabbed L/R mirror operation is a PURE reflection x -> -x with zero translation (computed here, max residual 0.0 mm), so the fixture symmetry premise is checkable, not assumed",
+        "AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:80 \u2014 the NEC2 Delta_classical column for (2,3) reads +0.000 MHz"
+      ],
+      "classical_condition": "holds iff the HOST is achiral. A classical chiral (Pasteur) HOST does split the scalar self-resonance \u2014 that is the configuration round-2 sec 2.3 describes, and it is not the HOPF-02a bench, which sits in air.",
+      "classical_value": 0.0,
+      "discriminating_axis_on_this_observable": "EXISTENCE (nonzero vs exactly zero), NOT magnitude",
+      "experiment": "already fabbed: HOPF-02a enantiomer pair, differential 1-port S11; round-2 sec 4 inherits the S-8 fab floor ~130 kHz = 1.912e-4 fractional at 680 MHz",
+      "fab_floor_fractional": 0.0001911764705882353,
+      "margin_over_fab_floor": 91.60984148536615,
+      "observable": "enantiomer split of the scalar self-resonance, (f_R - f_L)/f0, on the as-fabbed HOPF-02a pair in an ACHIRAL host (air + FR-4)"
+    },
+    "n_different": 3,
+    "rows": [
+      {
+        "id": "C-i",
+        "kappa_AVE": "dimensionless",
+        "kappa_cls": "dimensionless",
+        "question": "physical dimension",
+        "verdict": "SAME"
+      },
+      {
+        "id": "C-ii",
+        "kappa_AVE": "coefficient in k_AVE = k0 (1 + alpha pq/(p+q)) \u2014 a single shifted wavenumber, no +- pair; the sign is keyed to the STRUCTURE's handedness (round-2 sec 2.3: Delta f_R = -Delta f_L)",
+        "kappa_cls": "coefficient in k_pm = k0 (n +- kappa) for a wave propagating THROUGH the medium; the +- is keyed to the WAVE's circular-polarisation handedness",
+        "question": "defining equation (and what the sign keys to)",
+        "verdict": "DIFFERENT"
+      },
+      {
+        "id": "C-iii",
+        "kappa_AVE": "a fixed number per knot TOPOLOGY, alpha pq/(p+q), with no density in it; a fractional shift of ONE structure's own eigenfrequency",
+        "kappa_cls": "bulk effective-medium constitutive parameter; strictly PROPORTIONAL TO the inclusion number density N \u2014 not a property of one object",
+        "question": "object class",
+        "verdict": "DIFFERENT"
+      },
+      {
+        "id": "C-iv",
+        "kappa_AVE": "Delta f/f of the knot's OWN 1-port S11 resonance, with the two enantiomers shifting in opposite directions",
+        "kappa_cls": "optical rotation / circular birefringence of a wave TRANSMITTED through the composite: Delta k/k = kappa/n between LCP and RCP",
+        "question": "observable consequence",
+        "verdict": "DIFFERENT"
+      }
+    ]
+  },
+  "gates": {
+    "ALL_PASS": true,
+    "G1_origin_invariance": {
+      "criterion": "|chi(shifted) - chi(0)| / |chi(0)| <= 1e-9",
+      "n_shifts": 8,
+      "pass": true,
+      "tol": 1e-09,
+      "worst": 4.513421561571926e-13
+    },
+    "G2_mirror_antisymmetry": {
+      "chi_L_m3": 5.951478711518078e-07,
+      "chi_R_m3": -5.951478711518078e-07,
+      "criterion": "|chi_L + chi_R| / |chi_R| <= 1e-9",
+      "pass": true,
+      "rel": 0.0,
+      "tol": 1e-09
+    },
+    "G3_planar_null": {
+      "chi_control_m3": 0.0,
+      "criterion": "|chi_control| / |chi_k23R| <= 1e-9",
+      "pass": true,
+      "rel": 0.0,
+      "tol": 1e-09
+    },
+    "G4_helix_known_positive": {
+      "a_m": 0.005,
+      "chi_analytic_m3": 1.5707963267948966e-07,
+      "chi_computed_m3": 1.5707963009561105e-07,
+      "criterion": "helix chi matches pi a^2 h to <= 1e-6 relative",
+      "h_m": 0.002,
+      "pass": true,
+      "rel": 1.644948213377302e-08,
+      "tol": 1e-06
+    },
+    "G5_dipole_validation": {
+      "R_rad_ohm": 73.07904449143211,
+      "R_rel": 0.0006967798245300318,
+      "criterion": "R_rad within 2 percent of 73.13 ohm and |ell_e| within 1 percent of lambda/pi",
+      "ell_e_m": 0.14033372123036453,
+      "ell_rel": 2.855788893666103e-07,
+      "lambda_over_pi_m": 0.14033368115402772,
+      "pass": true,
+      "tol_L": 0.01,
+      "tol_R": 0.02
+    },
+    "G6_subwavelength": {
+      "bbox_diag_over_lambda": 0.11784810733938897,
+      "criterion": "bbox diagonal / lambda <= 0.25",
+      "pass": true,
+      "tol": 0.25
+    },
+    "G7_reciprocity": {
+      "criterion": "alpha_em == -mu0 alpha_me^T identically",
+      "max_abs_residual": 2.0194839173657902e-28,
+      "pass": true,
+      "rel": 1.9770319365241757e-17,
+      "scale": 1.0214725822367085e-11,
+      "tol": 1e-12
+    }
+  },
+  "inputs": {
+    "Z_0_ohm": 376.73031346177066,
+    "alpha_CODATA_AVE_SIDE_ONLY": 0.0072973525693,
+    "c_0_m_per_s": 299792458.0,
+    "f0_Hz": 680000000.0,
+    "geometry_sha256": {
+      "control_wire.csv": "e7a9675a9c9d0e00db27af41a4610785052ece9cf802efaeaa398c229bdd5797",
+      "k23_L_wire.csv": "4032340d3114c8408fcbc968a53abc5b570e939b3891b3cb5d0400f1a70b8f4b",
+      "k23_R_wire.csv": "76835d45daaf526cbaa182b3134ea0846e821d0dd3cc4103c19fef874fff6e52"
+    },
+    "kappa_AVE_eff": 0.00875682308316,
+    "mu_0_H_per_m": 1.2566370614359173e-06,
+    "p": 2,
+    "q": 3,
+    "quadrature": {
+      "n_phi": 160,
+      "n_sub_per_edge": 64,
+      "n_theta": 80
+    }
+  },
+  "lane": "research/pasteur-kappa-desk-calc",
+  "mirror_isometry_NOT_FROZEN": {
+    "NOT_FROZEN": "added at result time; conditions the K-2 parity argument",
+    "best": {
+      "max_residual_mm": 0.0,
+      "plane": "x -> -x",
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "candidates": [
+      {
+        "max_residual_mm": 0.0,
+        "plane": "x -> -x",
+        "translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "max_residual_mm": 47.139680879587246,
+        "plane": "y -> -y",
+        "translation_mm": [
+          29.087424400000007,
+          34.144181499999995,
+          0.0
+        ]
+      },
+      {
+        "max_residual_mm": 40.13283773657142,
+        "plane": "z -> -z",
+        "translation_mm": [
+          29.087424400000007,
+          0.0,
+          -1.0600000000000003
+        ]
+      }
+    ],
+    "is_pure_coordinate_plane_mirror": true
+  },
+  "ohmic_loss_NOT_FROZEN": {
+    "NOT_FROZEN": "quantifies prereg I-4; can only reduce kappa_cls",
+    "R_ohmic_ohm": 0.4826838832906189,
+    "R_rad_ohm": 0.7384708582733792,
+    "kappa_reduction_factor": 0.6047315980017243,
+    "note": "kappa_cls scales as 1/R; including copper loss multiplies every kappa_cls in this file by kappa_reduction_factor",
+    "rho_Cu_ohm_m": 1.68e-08,
+    "skin_depth_m": 2.501614100400152e-06,
+    "wire_radius_m": 0.00025527
+  },
+  "prereg": "research/2026-08-02_pasteur-kappa-desk-calc_prereg-FROZEN.md",
+  "prereg_commit": "3ae1f3de",
+  "quadrature_convergence": {
+    "R_rad_rel_drift_vs_base": [
+      2.5718768477970257e-06,
+      0.0,
+      6.429619361684682e-07
+    ],
+    "chi_rel_drift_vs_base": [
+      1.0435540211556804e-06,
+      0.0,
+      2.608882191749971e-07
+    ],
+    "rows": [
+      {
+        "R_rad_ohm": 0.7384727575294824,
+        "chi_m3": -5.951484922207619e-07,
+        "n_phi": 80,
+        "n_sub": 32,
+        "n_theta": 40
+      },
+      {
+        "R_rad_ohm": 0.7384708582733792,
+        "chi_m3": -5.951478711518078e-07,
+        "n_phi": 160,
+        "n_sub": 64,
+        "n_theta": 80
+      },
+      {
+        "R_rad_ohm": 0.7384703834647264,
+        "chi_m3": -5.951477158847396e-07,
+        "n_phi": 320,
+        "n_sub": 128,
+        "n_theta": 160
+      }
+    ]
+  },
+  "sensitivity": {
+    "I1_current_profile": [
+      {
+        "R_rad_ohm": 0.8295223397159309,
+        "chi_m3": -7.303524446885757e-07,
+        "kappa_cls": 31.784754192972528,
+        "variant": "sin^0.8"
+      },
+      {
+        "R_rad_ohm": 0.7384708582733792,
+        "chi_m3": -5.951478711518078e-07,
+        "kappa_cls": 29.094170460375217,
+        "variant": "sin^1.0"
+      },
+      {
+        "R_rad_ohm": 0.6494273884938282,
+        "chi_m3": -4.898443027390101e-07,
+        "kappa_cls": 27.229641103511227,
+        "variant": "sin^1.2"
+      },
+      {
+        "R_rad_ohm": 2.03855976992747,
+        "chi_m3": -3.205015597908997e-06,
+        "kappa_cls": 56.75722510479334,
+        "variant": "uniform"
+      }
+    ],
+    "I2_host_index": [
+      {
+        "R_rad_ohm": 0.7384708582733792,
+        "chi_m3": -5.951478711518078e-07,
+        "eps_eff": 1.0,
+        "kappa_cls": 29.094170460375217,
+        "lambda_m": 0.44087126176470587
+      },
+      {
+        "R_rad_ohm": 1.510672883362424,
+        "chi_m3": -5.951478711518078e-07,
+        "eps_eff": 1.5,
+        "kappa_cls": 14.222269603995263,
+        "lambda_m": 0.35996987786017487
+      },
+      {
+        "R_rad_ohm": 2.5461063248528846,
+        "chi_m3": -5.951478711518078e-07,
+        "eps_eff": 2.0,
+        "kappa_cls": 8.438452401184271,
+        "lambda_m": 0.311743058824093
+      }
+    ],
+    "kappa_max": 56.75722510479334,
+    "kappa_min": 8.438452401184271,
+    "spread_factor": 6.726023020148565
+  },
+  "verdict": {
+    "bin": "a",
+    "bin_d_fires": true,
+    "bin_stable_across_sensitivity": true,
+    "edges": {
+      "hi": 3.0,
+      "hi_strong": 10.0,
+      "lo": 0.3333333333333333,
+      "lo_strong": 0.1
+    },
+    "final_bin": "d",
+    "gates_all_pass": true,
+    "magnitude_bin_status": "REPORTED BUT NON-ADJUDICATING (bin (d) fired; prereg sec 4)",
+    "meaning": "DISCRIMINATES-HIGH: classical kappa far exceeds AVE's; the MAGNITUDE axis discriminates",
+    "ratio": 3322.457263790723,
+    "ratio_at_sensitivity_max": 6481.485872877981,
+    "ratio_at_sensitivity_min": 963.6431295970821,
+    "strong_sub_band": true
+  }
+}
