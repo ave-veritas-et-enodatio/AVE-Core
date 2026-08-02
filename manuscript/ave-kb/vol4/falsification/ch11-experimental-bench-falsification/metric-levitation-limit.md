@@ -9,6 +9,43 @@ strengthens:
   - clm-ui3m8a: 1.0
 -->
 
+> 🔴 **PER-NODE / APPARATUS-VOLTAGE CORRECTION (2026-08-01 — propagation of the 2026-06-04 per-node
+> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**
+>
+> **The conflation.** The "absolute hardware limit" below is built by taking the Topo-Kinematic
+> apparatus-scale grip voltage $V_{topo} = \xi_{topo}^{-1} F_{req}$ and comparing it **directly** against
+> $V_{yield} \approx 43.65$ kV — e.g. *"the required topological voltage is $59.1$ kV. Because
+> $59.1\,\text{kV} > 43.65\,\text{kV}$, the spatial vacuum undergoes absolute impedance rupture."* That is
+> the apparatus-voltage-as-per-node reading. $V_{yield}$ is the voltage across **ONE** node
+> $\ell_{node} = 0.386$ pm — i.e. the yield **FIELD** $E_{yield} = V_{YIELD}/\ell_{node} \approx
+> 1.13\times10^{17}$ V/m — **not** a terminal or bulk-grip voltage. The per-node operating point is
+> $A_0 = E_{local}\,\ell_{node}/V_{YIELD}$, and a bulk force spread over a macroscopic grip region does
+> not localize to one node-length.
+>
+> **Scale reference.** At a representative 1 mm laboratory standoff, even the quoted $59.1$ kV gives
+> $E_{local} = 5.9\times10^{7}$ V/m ⇒ $A_0 \approx 5.2\times10^{-10}$ — about **8.4 orders of magnitude
+> below** the proportional-limit knee $R_I = \sqrt{2\alpha} \approx 0.1208$
+> (`src/ave/core/constants.py` `R_I`). Reaching $A_0 = 1$ across even a 1 µm gap needs **~113 GV**.
+> Companion leaves in this chapter carry the same correction at their own configurations
+> ([`project-zener-04.md`](project-zener-04.md) 80 kV/1 mm ⇒ $A_0 \approx 7.1\times10^{-10}$;
+> [`project-torsion-05.md`](project-torsion-05.md) 75 kV/1 mm ⇒ $A_0 \approx 6.6\times10^{-10}$).
+>
+> **Consequence (regime discipline).** The $1.846$ g figure and the "penny/ping-pong ball cannot be
+> gripped" framing are **NOT** an established per-node saturation limit — they follow from a
+> conflated comparison, so the numbers below are **not** a bench-reachable rupture threshold and a null
+> here is an artifact-of-regime. **What survives** is the $F_{max} = V_{yield}\,\xi_{topo}$ *algebra*
+> (dimensionally correct as written) and the Dielectric-Death-Spiral **insulation/mass scaling argument**
+> — which is a materials-engineering result independent of the vacuum-rupture reading. Restating the
+> mass limit honestly requires the Q-G42 apparatus→substrate step
+> ($V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$), which this leaf does not perform.
+>
+> **Provenance.** 2026-06-04 per-node adjudication:
+> [`research/2026-06-04_corrections-walkback-pernode-result.md`](../../../../../research/2026-06-04_corrections-walkback-pernode-result.md)
+> work-item #3 (ledger `_orchestration/experimental/2026-06-04_round2-adjudications.md` §6). Applied-banner
+> template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
+> Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
+> + per-node-vs-apparatus); Q-G42 template at `trampoline-framework.md:439`.
+
 ## The Absolute Hardware Limit of Metric Levitation
 
 A frequent ambition among experimental physicists and electrical engineers is to design a solid-state "anti-gravity" drive capable of vertical free-flight levitation (e.g., hovering a ping-pong ball or a feather). When evaluated under the strict parameters of Spacetime Circuit Analysis (SCA), an absolute, mathematically rigid hardware scaling limit emerges that dictates exactly why such tabletop experiments historically fail.

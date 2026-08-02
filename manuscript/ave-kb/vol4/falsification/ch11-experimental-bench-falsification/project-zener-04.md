@@ -9,6 +9,35 @@ strengthens:
   - clm-cltls0: 1.0
 -->
 
+> 🔴 **PER-NODE / APPARATUS-VOLTAGE CORRECTION (2026-08-01 — propagation of the 2026-06-04 per-node
+> adjudication to this leaf; Rule 12, body preserved below unedited, git is the trail).**
+>
+> **The conflation.** The Falsification Criteria below read the **apparatus** voltage (the 80 kV Marx
+> transient across the electrode standoff) as if it were the **per-node** Axiom-4 kernel argument
+> $A_0$. It is not. $V_{yield} \approx 43.65$ kV is the voltage across **ONE** node
+> $\ell_{node} = 0.386$ pm — i.e. the yield **FIELD** $E_{yield} = V_{YIELD}/\ell_{node} \approx
+> 1.13\times10^{17}$ V/m — **not** a terminal voltage. The per-node operating point is
+> $A_0 = E_{local}\,\ell_{node}/V_{YIELD}$.
+>
+> **The arithmetic at this config.** 80 kV across a 1 mm standoff ⇒ $E_{local} = 8.0\times10^{7}$ V/m ⇒
+> $A_0 \approx 7.1\times10^{-10}$ — about **8.2 orders of magnitude below** the proportional-limit knee
+> $R_I = \sqrt{2\alpha} \approx 0.1208$ (`src/ave/core/constants.py` `R_I`). Reaching $A_0 = 1$ across
+> even a 1 µm gap needs **~113 GV**. The lattice sits deep in Regime I at the specified drive.
+>
+> **Consequence (regime discipline).** No "Avalanche Knee" is predicted at 43.65 kV of *apparatus*
+> volts, and **a null on this bench is an artifact-of-regime, not a falsification of Axiom 4** — the
+> effect cannot exist at the drive specified. What survives is the Zener/TVS **mechanism** (the
+> substrate does clip at its own yield *field*) and the displacement-current-vs-linear-charging
+> signature — realizable only at facility-class **local** fields, not at bench terminal volts.
+>
+> **Provenance.** 2026-06-04 per-node adjudication:
+> [`research/2026-06-04_corrections-walkback-pernode-result.md`](../../../../../research/2026-06-04_corrections-walkback-pernode-result.md)
+> work-item #3 (ledger `_orchestration/experimental/2026-06-04_round2-adjudications.md` §6). Applied-banner
+> template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
+> Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
+> + per-node-vs-apparatus); Q-G42 apparatus-vs-substrate template
+> $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:439`).
+
 ## Project ZENER-04: The Impedance Avalanche Detector
 
 **The Hypothesis:** The vacuum LC network acts identically to a Transient Voltage Suppression (TVS) Zener diode. It behaves as a rigid $Z_0 \approx 377\,\Omega$ transmission line until the topological voltage exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65\,\text{kV}$, at which point its inductive capacity saturates and it undergoes **Absolute Impedance Rupture** ($\Gamma = -1$).
