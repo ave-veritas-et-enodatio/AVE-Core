@@ -47,10 +47,12 @@ At the lattice scale, even extreme laboratory fields ($10^6$ V/m) correspond to 
 | Control parameter | $r = \varepsilon_{11}$ |
 
 The factor of 7 arises from the 7 compliance modes of the K4/SRS lattice ($\nu_{vac} = 2/7$). **Regime locations:**
-- Solar surface: $\varepsilon_{11} = 2.1 \times 10^{-6}$ --- Regime I
+- Solar surface: $\varepsilon_{11} = 1.486 \times 10^{-5}$ --- Regime I
 - White dwarf: $\varepsilon_{11} \approx 3 \times 10^{-4}$ --- Regime I
 - Neutron star (1.4 $M_\odot$, $R = 10$ km): $\varepsilon_{11} \approx 1.46$ --- Regime IV
 - Black hole at $r_s = 2GM/c^2$: $\varepsilon_{11} = 7/2 = 3.5$ --- Regime IV
+
+> **Correction (2026-08-01 — factor-7 residual; flagged by two independent audits).** The solar-surface row previously read $\varepsilon_{11} = 2.1 \times 10^{-6}$, which is exactly $GM_\odot/(c^2R_\odot) = 2.123 \times 10^{-6}$ — the **un-multiplied Newtonian potential**, a factor of 7 low against this leaf's own $\varepsilon_{11} = 7GM/(c^2r)$ definition above. Recomputed on canonical constants ($G$, $c$, $M_\odot$ from [`constants.py`](../../../../../src/ave/core/constants.py); $R_\odot = 6.957\times10^{8}$ m, IAU nominal): $7GM_\odot/(c^2R_\odot) = 1.486\times10^{-5}$. This is a **residual of the 2026-05-17 factor-7 cleanup** logged at [`claim-quality-closure-roadmap.md`](../../../claim-quality-closure-roadmap.md) (row C11-MACH-ZEHNDER, commit `d48f75d`) — that pass corrected the driver, the C11 source leaf, `eq_gravity_derived.tex` and the matrix, but did not reach this catalog. The neighbouring neutron-star ($7 \times 0.2068 = 1.4475 \approx 1.46$) and black-hole ($7/2 = 3.5$) rows already carried the 7 and are unchanged; so does the companion red-giant row in [`stellar-regime-classification.md`](../../../vol3/applied-physics/ch07-stellar-interiors/stellar-regime-classification.md) ($7 \times 1.062\times10^{-7} = 7.43\times10^{-7} \approx 7\times10^{-7}$). **Not corrected here — routed:** the white-dwarf row states no $M$ or $R$, so it is not decidable from this file alone; on the Sirius B parameters its companion table names, $3\times10^{-4}$ matches $GM/(c^2R)$ (the measured gravitational redshift) rather than $7GM/(c^2R) = 1.77\times10^{-3}$, i.e. it appears to carry the same defect. Adjudication routed, not resolved here.
 
 *The neutron star result demands attention.* A 1.4 $M_\odot$ star at $R = 10$ km has $\varepsilon_{11} = 1.46 > 1$, placing it in Regime IV (ruptured topology). This is the AVE analog of the Buchdahl limit: no static configuration can have $r < 9GM/4c^2$ (where $\varepsilon_{11} > 63/36 = 1.75$). In AVE, the saturation boundary defines an absolute limit on gravitational compactness --- the lattice topology cannot support strain beyond unity.
 
