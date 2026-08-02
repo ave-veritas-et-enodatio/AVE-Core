@@ -122,7 +122,7 @@ def chord_magnitude_ratio() -> float:
     r"""
     Field-INDEPENDENT matched par−perp DIFFERENTIAL ratio (SUPERSEDED value).
 
-    ==== SUPERSEDED (2026-07-03) — this returns the WRONG-NORMALIZATION 7.5/α³.
+    ==== SUPERSEDED (2026-07-03; footing re-frozen to v3 2026-07-05) — this returns the WRONG-NORMALIZATION 7.5/α³.
     The QED denominator (3/45)·α² is understated (the AVE-side differenced 3/45
     estimate, not a QED-normalized Euler-Heisenberg coefficient). The corrected,
     re-frozen ratio is the **v3 consistent-instantaneous-footing** value
@@ -157,7 +157,7 @@ def chord_magnitude_ratio() -> float:
     standard: QED's a_EH·α² is equally α-rooted). The CHORD is the EXISTENCE of the
     tree-level O(1) structure (see module docstring), not this value.
 
-    Raises:
+    Warns:
         DeprecationWarning: on every call (the value is superseded).
 
     Returns:
