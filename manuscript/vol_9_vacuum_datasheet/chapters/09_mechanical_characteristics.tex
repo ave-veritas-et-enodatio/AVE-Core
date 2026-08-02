@@ -43,10 +43,10 @@ $G_{vac}$ & $\rho_{bulk}\, c_0^2$ (canonical) & \si{\pascal} &
 3D continuum shear modulus, from $v_T = \sqrt{G/\rho} = c_0$ on the LC lattice. Ax~1 + Ax~4. Source: \kbleaf{src/ave/core/constants.py} (\texttt{G\_VAC}). \\
 
 $K_{vac}$ & $2\, G_{vac}$ & \si{\pascal} &
-Bulk modulus from Effective Medium Theory at packing fraction $p^* = 8\pi\alpha$ (trace-reversal identity $K/G = 2$). Ax~1 LC mechanism + Ax~2 $\alpha$. Source: derived-numerology Appendix; Vol~3 Ch.~\ref{ch:gravity_and_yield}. \\
+Bulk modulus at the $K = 2G$ operating point (the GR trace-reversal identity: form-derived, \textbf{value GR-imported}, \kbleaf{common/form-deriving-value-importing.md}). The EMT crossing at packing fraction $p^* = 8\pi\alpha$ is a \emph{consistency illustration} of that imported identity, not an independent determination. Source: derived-numerology Appendix; Vol~3 Ch.~\ref{ch:gravity_and_yield}; \kbleaf{vol3/gravity/ch01-gravity-yield/trace-reversal-mechanism.md}. \\
 
-$\nu_{vac}$ & $2/7 \approx 0.2857$ & --- &
-Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \kbleaf{src/ave/core/constants.py} (\texttt{NU\_VAC}); \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md}. See \S\ref{sec:vol9_mech_poisson} below. \\
+$\nu_{vac} \equiv \nu_{\mathrm{Hill}}$ & $2/7 \approx 0.2857$ & --- &
+Vacuum Poisson ratio at the $K = 2G$ operating point (form-derived; \textbf{value GR-imported}). The $2/7$ is the \textbf{isotropic Voigt--Reuss--Hill average} --- an averaging choice, not a lattice-emergent bound (the srs/K4 lattice is materially anisotropic, Zener $A \approx 1.23$; PR~\#506). Source: \kbleaf{src/ave/core/constants.py} (\texttt{NU\_VAC}, whose canonical comment reads ``$\nu_{\mathrm{Hill}}$ (isotropic Voigt--Reuss--Hill average at $K = 2G$)''); \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md}. See \S\ref{sec:vol9_mech_poisson} below. \\
 
 $\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
 Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39. \\
@@ -267,7 +267,7 @@ The EE-substrate-native projection of the entire mechanical sector --- LC-networ
 
 \begin{itemize}
     \item $G_{vac}, \rho_{bulk}, v_T = c_0$: \emph{identity} (LC-network shear modulus = $\rho c^2$; trivially consistent with EE free-space propagation $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$).
-    \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: \emph{cross-validated} (substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; consistent with gradient-index refraction in Vol~3 gravity).
+    \item $K_{vac} = 2 G_{vac}$ + $\nu_{\mathrm{Hill}} = 2/7$: \emph{consistency-class} --- the operating point is form-derived with a \textbf{GR-imported value}, the EMT crossing at $p^* = 8\pi\alpha$ is a consistency illustration of that imported identity rather than a cross-validation of it, and the agreement with gradient-index refraction in Vol~3 gravity is a downstream consequence of the same import (\S\ref{sec:vol9_mech_poisson}).
     \item $\gamma_c$ + $l_c$: \emph{order-of-magnitude} match against W/Z mass scale via transformer-leakage-inductance characteristic frequency.
     \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): \emph{cross-validated}; canonical at \kbleaf{trampoline-framework.md} line~188.
 \end{itemize}
