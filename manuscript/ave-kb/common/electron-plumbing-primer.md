@@ -63,6 +63,61 @@ The **half-integer spin lives entirely in this phase plane**: the "2" means the 
 
 ---
 
+## Step 3.5 (walk-ratified physical analogy, 2026-08-02): the paperclip — a pre-loaded twist that cannot unsnap
+
+> **Class tag.** **Walk-ratified physical analogy — consistency-class rendering of structure the corpus already carries.** **No claim is minted here**: no `clm-` id, no solidity, no confidence. Like every other beat in this primer it re-exposes already-canonical content behind `→ Primary:` pointers, and the source stays authoritative. *(Two anchors below are **research-lane docs**, not KB leaves — the $540°$ twist quantification and its clean-negative history. They are marked by path and carry their own status; they are cited as receipts for a number, not as canonical leaves.)* Per `ave-discrimination-check`: this is a **pedagogical rendering of in-corpus structure**, **not** a cross-domain chord and **not** a discriminating connection — do **not** log it as one.
+
+### The picture (Grant, 2026-08-02, verbatim `[sic]`)
+
+> the twist feels like stored negative tension. Almost like a paperclip unfolded and the two ends pulled apart, then you bend them together until they just barely catch eachother and form a closed shape, but could unsnap at anytime, there's spring tension in the clip still?
+
+### Walk-level refinements (orchestrator, 2026-08-02)
+
+*These three are **refinements added in the walk**, not part of the verbatim above. Kept separate on purpose — the picture is Grant's; the sharpening below is the walk's, and each one is a pointer at an existing leaf, not a new proposition.*
+
+**(1) The catch is a linking number — so it cannot unsnap on its own.** In the picture the two ends "just barely catch." In the substrate the catch is an **integer**, not a friction fit: the conserved quantity is the linking number $\mathrm{Lk}$, and $\mathrm{Lk}$ **is** the charge. A closed loop cannot shed an integer by relaxing — you would have to *cut the wire*. So the release path is not "unsnap at any time"; it is the single **topologically gated** path canon already names: meet the mirror clip, wound the other way, whose unwinding exactly cancels yours. That is **annihilation**. Read this way, **charge conservation and electron stability are the same statement seen from two sides** — the clip stays shut because the integer has nowhere to go, and the integer has nowhere to go because the clip stays shut.
+
+> → Primary: [Chirality and Antimatter Disintegration](../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md):14 — *"In a purely continuous mathematical manifold, matter-antimatter annihilation is topologically impossible because geometrical lines cannot mechanically pass through each other"* — the "can't unsnap without cutting" half, stated in canon.
+> → Primary: [Chirality and Antimatter Disintegration](../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md):18 — the mirror-clip half: at overlap $\boldsymbol{\omega} + (-\boldsymbol{\omega}) = 0$, *"The topological optical boundary condition confining the resonant loop snaps"*, and the trapped energy *"unspools into linear transverse vector waves (gamma-ray photons)"*. Mechanism-status is unchanged by this picture and stays as the leaf tags it: **asserted peer re-interpretation, not an AVE-distinct chord** (`clm-hb2xmj`, confidence 0.30, :28).
+> → Primary: [Chirality and Antimatter Disintegration](../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md):58 — *"the conserved far-field quantity the electron **projects/broadcasts** … is the linking number $\mathrm{Lk}$ (= charge)"*.
+
+> **⚑ Flag (surfaced, not resolved) — canon carries TWO stability accounts, and this refinement leans on one of them.** The *topological* account is the one above (an integer cannot relax away). But [`vol4/…/ch14-leaky-cavity-particle-decay/theory.md`](../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md):41 gives an **energetic** account of the same fact — the electron's standing wave *"sits safely below the $43.65\,\text{kV}$ saturation threshold. Because it doesn't break the local vacuum elasticity, it can ring forever (infinite half-life)"*. Those are different gates (topology vs. sub-yield amplitude), they are not obviously the same statement, and **this primer does not pick between them.** Flagged for adjudication; the analogy is unharmed either way, because the paperclip picture is about *what holds the clip shut*, and both accounts agree it is held.
+
+**(2) The stored energy is positive — "negative tension" names the pre-load's *direction*, not a negative-energy store.** The clip pushes toward unwinding; topology refuses. That felt-sense of a *store pulling the wrong way* is what "negative tension" is doing in the verbatim — the sign is a **direction of the pre-load**, not a sign on the energy. Canon already carries exactly this at rest-state: the vacuum's rotors are **wound but not spinning**, and the winding is elastic *storage*, not circulation.
+
+> → Primary: this primer, Step 1 rest-state caveat (`:34`) — *"At rest the gyroscope-fabric is **wound but not spinning** ($\omega = 0$): cocked springs storing the chirality (parity), no net circulation, **no net B**."*
+> → Primary: [Trampoline Framework](trampoline-framework.md):370 (Figure 8 (A)) — *"the chiral twist-lacing winds each rotor to a handed rest-angle $\theta$; the rotation rate $\omega = 0$, so the vacuum is magnetically neutral (**the winding is stored elastic energy, not circulation**)"*.
+
+**(3) The generation ladder is the same clip, cranked one quantum tighter.** Canon does **not** climb the $(p,q)$ torus-knot ladder for the heavy leptons — it keeps the $(2,3)$ topology fixed and adds **Cosserat torsional excitation quanta**. In the picture: same paperclip, same catch, one more turn wound into it. And then decay is exactly what the picture predicts of an over-wound clip — **the extra twist lets go**, which canon renders as impedance rupture: the muon's localized topological voltage overruns the $43.65\,\text{kV}$ structural limit and the vacuum ruptures continuously, discharging the excess.
+
+> → Primary: [Torus-Knot Uniqueness](../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md):102 — *"**The lepton family climbs a Cosserat-torsion ladder on fixed (2,3) topology**"*; and `:110` — *"Higher-mass leptons stay at (2,3) topology — they don't climb the (p,q) torus-knot ladder; they climb the Cosserat-torsion excitation ladder."*
+> → Primary: [Leaky-Cavity Particle Decay — theory](../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md):43 — the muon *"possesses the same real-space unknot topology and the same $(2, 3)$ phase-space winding pattern as the electron, but with **one quantum of Cosserat torsional excitation** added on top"*; and `:47` — *"the localized vacuum undergoes continuous impedance rupture."*
+> **Do not import the muon MASS number through this analogy.** The mass value on that ladder is tagged in its own leaf as *"echo/import … a fit-echo, not a chord"* ([`torus-knot-uniqueness.md`](../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md):107). The picture renders the **ladder's structure**, not its numbers.
+
+### What the picture is a rendering *of*
+
+The paperclip is the physical face of the **Călugăreanu relation with a pre-load**. Canon states the relation and its two lawful readings; the clip is what it feels like in the hand:
+
+| Paperclip | Substrate | Canon anchor |
+|---|---|---|
+| the wire bent round until the ends catch | closed $0_1$ unknot flux tube; the catch is an **integer** | $\mathrm{Lk} = \mathrm{Tw} + \mathrm{Wr}$, [`chirality-and-antimatter.md`](../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md):10 |
+| the twist you wound into the wire | $\mathrm{Tw}$ — the internal twist = the charge-defining LH Beltrami helicity | same, `:10`; register attribute (3), `:40` |
+| the way the whole loop lies over itself | $\mathrm{Wr}$ — the real-space loop writhe | same, `:10`; register attribute (2), `:39` |
+| "it's caught, and it can't come apart" | $\mathrm{Lk}$ — conserved, integer, **= charge** | same, `:10`, `:58` |
+| how tight the winding actually is | $\mathrm{Tw} = q/p = 3/2$ turns $= 540°$ per toroidal revolution for $(2,3)$ — **exact and geometry-independent** | [`research/2026-06-07_alpha-twist-framing-test.md`](../../../research/2026-06-07_alpha-twist-framing-test.md):177; program row at [`research/2026-06-07_vacuum-characterization-program.md`](../../../research/2026-06-07_vacuum-characterization-program.md):59 |
+
+> **Honest history on the $540°$, so nobody re-runs a closed test.** That number is **exact, $\alpha$-free, and geometry-independent** — and the attempt to read $\alpha$ out of it is a **CLEAN NEGATIVE**: the framing twist is the full $(2,3)$ **winding**, roughly $1292\times$ $\alpha$-radians and $205\times$ $1/137$-of-a-turn, *"not even a near-miss"* ([`research/2026-06-07_alpha-twist-framing-test.md`](../../../research/2026-06-07_alpha-twist-framing-test.md):190,:193). The banked separation: **the gross twist ($540°$) is the spin/structure; the small per-revolution slip is the loss.** Use the clip for the structure; do not walk it toward $\alpha$.
+
+### ★ THE FENCE — what this picture does NOT settle
+
+**Whether the base twist's spring energy sits INSIDE $m_ec^2$ is OPEN, and this section does not touch it.** That is precisely tracked **open item 13 (sector-of-storage)** in [`_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md`](../../../_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md) — *"WHERE the compression store lives (A1 canon vs the T2/swing label) … **⚑ OPEN-IN-WALK** — Grant is walking it; NOT ruled"* — the question of whether the trapped store is booked in the **A1 dilatation** slot (the mass "3") or as **T2/swing-class** energy riding in the A1 carrier's inertia budget. `A1 ⊥ T2` forbids assigning it silently either way; that is the whole content of the sector-ownership cross-wiring watch.
+
+- **A lane is auditing it** — the twist-ledger lane, branch `research/twist-ledger-audit`, in flight. **Cited as pending only.** *(Verified 2026-08-02: that branch does not yet resolve on `origin` — `git ls-remote --heads origin` returns no match — so this pointer names a lane, not a readable tree. Do not cite it as a source until it lands.)*
+- **Nothing here pre-empts it.** This section makes no statement about which sector the store is booked in, and asserts no energy magnitude.
+- **The analogy is pedagogically live under EITHER outcome.** If the spring energy is inside $m_ec^2$, the clip is a wound spring whose stored energy *is* part of what you weigh. If it is not, the clip is a wound spring held by a latch whose energy is booked elsewhere. **In both readings the picture teaches the same three things it was ratified for**: the catch is an integer, the pre-load pushes toward unwinding, and the release path is the mirror clip. The item-13 outcome changes the **ledger**, not the **picture**.
+
+---
+
 ## Step 4: A wire carries two things at two speeds — and a plumber already knows this
 
 "A wire is a pipe electrons flow down" is **literally true for charge**: electrons enter one end, exit the other, net transport. The drift is slow (~mm/s) but real. The only thing to add is the second quantity, and the plumber's own world already contains it:
