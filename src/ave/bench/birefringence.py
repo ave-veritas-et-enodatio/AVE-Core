@@ -388,33 +388,71 @@ def coefficient_ratio_differential() -> float:
     return (0.5 / ((3.0 / 45.0) * ALPHA**2)) * (E_CRIT / E_YIELD) ** 2
 
 
-def coefficient_ratio_differential_pvlas(*, geometry: str = "propagating") -> float:
-    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (CORRECTED, arbiter-anchored).
+def coefficient_ratio_differential_pvlas(*, geometry: str = "instantaneous") -> float:
+    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (v3 re-freeze, KB-anchored).
 
-    The AVE differential (numerator) is UNCHANGED: delta_n_bir ~ -(1/2) A^2, whose
-    coefficient of (E/E_crit)^2 is (1/2)(E_crit/E_yield)^2 = 1/(2 alpha) (substrate
-    identity (E_crit/E_yield)^2 = 1/alpha).
+    ==== FOOTING RE-FREEZE (D7, 2026-08-02) — DEFAULT MOVED TO 'instantaneous' ====
+    Grant ruling D7 (2026-08-01), verbatim [sic]: "D7: follow your rec", adopting
+    option (i) — re-point the live bench arbiter to v3 — SHAPE (B) per the Grant
+    "go" of 2026-08-02. The KB v3 re-freeze is boxed at
+    vacuum-birefringence-e4.md:34 (and restated unboxed in the Option-B body at
+    :104):  delta_n_AVE/delta_n_QED = 15*pi/(4 alpha^2) = 3.75*pi/alpha^2 ~ 2.21e5.
+    That leaf's :106 records the convention history and states "v3 is exactly half
+    v2, the <cos^2>=1/2 carrier average removed".
 
-    The QED denominator is the PVLAS-anchored electric leg
-    (delta_n_qed_electric_pvlas):
-        propagating (LoI-matched, default): alpha/(15*pi) (E/E_crit)^2
-            => ratio = [1/(2 alpha)] / [alpha/(15 pi)] = 15*pi/(2 alpha^2)
-                     = 7.5*pi/alpha^2 ~ 4.42e5.
-        static (PVLAS-magnetic-matched):    alpha/(30*pi) (E/E_crit)^2
-            => ratio = 15*pi/alpha^2 ~ 8.85e5.
+    WHAT WAS WRONG WITH v2 — A PAIRING, NOT A COEFFICIENT. Both pieces of v2 were
+    individually correct; they were paired across INCONSISTENT temporal footings.
+    The AVE kernel -(1/2)(E/E_c)^2 is INSTANTANEOUS (algebraic in |E|^2 at the
+    pump), while alpha/(15 pi) is the CYCLE-AVERAGED one-loop coefficient. Pairing
+    an instantaneous numerator against a cycle-averaged denominator double-counts
+    the <cos^2>=1/2 carrier average, inflating the ratio by exactly 2. No
+    coefficient was ever wrong; the FOOTING of the comparison was.
+
+    KEEP-BOTH: the 'propagating' and 'static' branches are PRESERVED BYTE-FOR-BYTE
+    and still return exactly what they always returned. They are not superseded
+    QED coefficients — each is the correct one-loop coefficient IN ITS OWN FOOTING,
+    per the decomposition chain at vacuum-birefringence-e4.md:38-41:
+        alpha/(30 pi)     static E<->cB duality
+          --x4-->  2*alpha/(15 pi)   head-on crossing geometry  [THE v3 DENOMINATOR]
+          --x1/2-> alpha/(15 pi)     <cos^2>=1/2 carrier average
+    'geometry' therefore now spans BOTH a geometry axis and a temporal-footing
+    axis; the honest factorisation would be two parameters (scoping shape (C)),
+    deliberately not taken so no call signature breaks.
+
+    The AVE numerator is UNAFFECTED across all three: delta_n_bir ~ -(1/2) A^2,
+    whose coefficient of (E/E_crit)^2 is (1/2)(E_crit/E_yield)^2 = 1/(2 alpha) via
+    the substrate identity (E_crit/E_yield)^2 = 1/alpha.
+
+    Branches (QED denominator -> returned ratio):
+        instantaneous (DEFAULT, v3, the KB re-freeze):  2*alpha/(15*pi)
+            => ratio = [1/(2 alpha)] / [2 alpha/(15 pi)] = 15*pi/(4 alpha^2)
+                     = 3.75*pi/alpha^2 ~ 2.2123e5.
+        propagating (v2 numerator-vs-denominator MIXED FOOTING): alpha/(15*pi)
+            => ratio = 7.5*pi/alpha^2 ~ 4.4247e5. Exactly 2x v3. Retained as
+               convention history; do NOT quote it as the headline ratio.
+        static (PVLAS-magnetic E<->cB duality):          alpha/(30*pi)
+            => ratio = 15*pi/alpha^2 ~ 8.8493e5.
 
     The FORM (tree-O(1)/2 saturation vs an alpha^2 loop) is the AVE-distinct chord;
     the MAGNITUDE is an alpha-echo (symmetric standard: QED is equally alpha-rooted).
-    Falsifier LOGIC unchanged: AVE ~7 OOM above the polarimeter floor, corrected QED
-    still ~4 OOM below it.
+    Falsifier LOGIC unchanged by the re-freeze — the SVE P_flip headline is
+    footing-INVARIANT and the kill criterion P_flip < 1e-8 is untouched.
+
+    Record: research/2026-08-01_pvlas-arbiter-v3-repoint_scoping.md (the gated
+    consumer-and-letter sweep this re-point followed).
     """
     ave_num = 0.5 * (E_CRIT / E_YIELD) ** 2  # = 1/(2 alpha)
-    if geometry == "propagating":
+    if geometry == "instantaneous":
+        qed_coeff = 2.0 * ALPHA / (15.0 * np.pi)
+    elif geometry == "propagating":
         qed_coeff = ALPHA / (15.0 * np.pi)
     elif geometry == "static":
         qed_coeff = ALPHA / (30.0 * np.pi)
     else:
-        raise ValueError(f"geometry must be 'propagating' or 'static', got {geometry!r}")
+        raise ValueError(
+            "geometry must be 'instantaneous' (v3 re-freeze, default), "
+            f"'propagating' (v2 mixed footing), or 'static', got {geometry!r}"
+        )
     return ave_num / qed_coeff
 
 
