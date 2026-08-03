@@ -153,7 +153,7 @@ with no source are in the NEEDS-DERIVATION list (§7), NOT here.
 
 | # | claim (paper will assert) | class | provenance (solidity) |
 |---|---|---|---|
-| C1 | The zero-birefringence NLED subfamily is completely classified: exactly four members — Born–Infeld, Plebański, reverse-B-I, extreme-B-I — and B-I is the unique member WITH a Maxwell weak-field limit. | THEOREM | EXTERNAL: Russo & Townsend, JHEP 01 (2023) 039, arXiv:2211.10689 (Crossref DOI + arXiv verified in Letter refs.bib `RussoTownsend2023`; verbatim in Letter `main.tex:100-104,632-635`). |
+| C1 | The zero-birefringence NLED subfamily is completely classified: exactly four members — Born–Infeld, Plebański, reverse-B-I, extreme-B-I — and B-I is the unique member WITH a Maxwell weak-field limit. | THEOREM | EXTERNAL: Russo & Townsend, JHEP 01 (2023) 039, arXiv:2211.10689 (Crossref DOI + arXiv verified in Letter `refs.bib:84-94` — DOI `10.1007/JHEP01(2023)039`, arXiv:2211.10689; verbatim in Letter `main.tex:139-146` (intro: "a family fully classified by Russo and Townsend … Born--Infeld, Plebański, reverse and extreme Born--Infeld … exact B-I is the unique member \emph{with a Maxwell weak-field limit}") and `main.tex:863-870` (discussion: "the latter three all lacking a Maxwell weak-field limit"). Cites re-pinned 2026-08-02 — see the pointer-row note at the end of this section.) |
 | C2 | Exact Born–Infeld predicts zero birefringence: both photon polarizations share one effective light cone in any constant electromagnetic background (single-cone uniqueness). | THEOREM | EXTERNAL: Boillat, J. Math. Phys. 11(3), 941 (1970), DOI 10.1063/1.1665231 (Crossref-verified, Letter `Boillat1970`); RT 2023. Verbatim in Letter `main.tex:628-644`. |
 | C3 | Saturating-field NLED is a family with a Born–Infeld (1934) ancestor; a general member is a coefficient–scale pair (weak-field O(A²) response coefficient + saturation ceiling field). | CONSISTENCY / EXPOSITION | EXTERNAL: Born & Infeld, Proc. R. Soc. A 144, 425 (1934), DOI 10.1098/rspa.1934.0059 (Letter `BornInfeld1934`). Family framing corpus-grounded: `manuscript/ave-kb/common/historical-precedents.md` "Root 3" (consistency-class, not a derivation). |
 | C4 | A saturating continuum static-E constitutive law with no length floor, applied to the muonic-H near-nucleus Coulomb field, induces a 2S–2P level shift that overshoots the CREMA 2.3 µeV window by 4–7 orders of magnitude — non-perturbatively (the correction exceeds the entire 202.3706(23) meV interval). | COMPUTATION | CORPUS: `research/2026-07-05_problem3-muonic-lamb_RESULT.md` (bands `[1.5e6,2.3e7]`/`[4.9e4,6.2e5]` µeV); claim-id `clm-sve3xc` (solidity **0.80**). EXTERNAL window: Antognini/CREMA 2013, Science 339, 417, DOI 10.1126/science.1230016. |
@@ -173,6 +173,24 @@ close the "is the exposure contingent on an open keying escape?" question, but N
 headline claim rests on it; if a referee pushes on C8, the fallback is that the
 whole-family exposure (C7) does not require C8 at all (it is a floor-independence
 argument). This is the KEEP-BOTH posture: C7 stands without C8.
+
+**Pointer-row repair note (2026-08-02 — ruling D4: repo-side pointer rows only; the Letter's
+`main.tex` is submission-gated and byte-untouched by this pass).** This outline was written
+2026-07-06 (`b9fa904b`) against the Letter's then-current text, which carried no version stamp
+and ran 898 lines; at HEAD the Letter is 1236 lines and stamped "manuscript version 6"
+(`main.tex:65`), having passed through the v4/v5/v6 rounds (`main.tex:5,:17,:25` — none of those
+version comments existed at `b9fa904b`). Its line numbers therefore moved. **C1's cite is
+re-pinned above** — `main.tex:100-104` at
+HEAD is `\end{abstract}` / `\maketitle` / a comment rule, and `:632-635` is the
+astrophysical-pumping paragraph; the Russo–Townsend four-member classification actually sits at
+`main.tex:139-146` and `:863-870` (both verified verbatim at HEAD). The *content* of C1 is
+unchanged and still fully supported — only the pointers drifted.
+
+**Flagged, NOT repaired** (outside this pass's row scope — surfaced, not silently fixed):
+**C2's** cite `main.tex:628-644` is stale by the same drift. That range at HEAD is the
+astrophysical-pumping / geometric-suppression and dispersion paragraphs. The single-effective-
+light-cone (Boillat) content C2 quotes is at `main.tex:144-146`, `:858-862` and `:873-875`.
+C2's claim itself is unaffected.
 
 ---
 
@@ -217,7 +235,14 @@ What the map does NOT constrain — stated as first-class content, not a hedge:
 **Document class.** This is a methods/constraints paper (a reusable exclusion-map
 instrument + one worked member), NOT a discovery Letter. It is longer than a Letter
 and reference-heavy. Estimated length: full-article, `~8–12 pages` two-column
-(the birefringence Letter is already 9 pp as a Letter; this superset is an article).
+(the birefringence Letter is already **12 pp** as a Letter; this superset is an article).
+*Page count corrected 2026-08-02: the "9 pp" written here was the Letter's 2026-07-06 state
+(`2026_birefringence_letter/provenance.md:608`); its latest build record is 12 pp
+(`provenance.md:854`, `make paper` after the round-4 integration), confirmed second-method by
+`pdfinfo` on the committed `sve_vacuum_birefringence_letter.pdf` (Pages: 12). **Flagged, NOT
+repaired:** the `~8–12 pages` estimate above was calibrated against the 9 pp figure and is now
+internally odd (a superset of a 12 pp Letter is unlikely to fit in 8–12 pp). Re-estimating the
+target length is a content judgement, not a pointer repair, so it is left to the authors.*
 
 **Candidate venues (3, with fit rationale):**
 
