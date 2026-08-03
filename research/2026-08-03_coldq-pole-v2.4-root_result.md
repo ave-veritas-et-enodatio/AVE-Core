@@ -58,8 +58,8 @@
 | **law's OUT-OF-SAMPLE prediction** for `e(32)` (fit never saw this rung) | `2.2779698805088156e-10` |
 | predicted / measured | `1.822840164432575` |
 | **both exceed the frozen `1e-10`?** | **`true`** |
-| max pairwise over the FULL five-rung ladder (the quantity v2.2's G2 gated on) | `1.2496816389659964e-10` |
-| would that FULL-ladder quantity pass the `1e-10` tolerance? | **`false`** |
+| max pairwise over the FULL five-rung ladder (the quantity v2.2's G2 gated on) | `1.2496816389659964e-10` with `\|Ω_k\|` in the denominator (this doc's convention, the shipped `full_ladder_max_pairwise`) — **and `1.2496816388248957e-10` with `\|Ω_i\|`, which is the number v2.2 published**; both are the same `32 ↔ 80` separation under the **two orderings of the relative-separation denominator**, they differ in the 10th significant figure, and **the successor should freeze the symmetric form** `\|Ω_i − Ω_k\| / max(\|Ω_i\|, \|Ω_k\|)` so the quantity stops depending on which rung is named first |
+| would that FULL-ladder quantity pass the `1e-10` tolerance? | **`false`** — under either denominator |
 
 **Read plainly: `n = 32` still fails a `1e-10` `n`-independence test, exactly as v2.2 measured — and the convergence law, fitted without it, said so in advance to within a factor of `1.82`.** The rung is excluded from G2 because the law places it below the asymptotic regime, **not** because excluding it was convenient. It remains a **gated** rung of G4(b), G5, FT-5(a) and FT-5(b), all of which it passes.
 

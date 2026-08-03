@@ -187,6 +187,12 @@ REGISTERED = {
         lambda: _g2_diag_row(32)["predicted_over_measured"],
     "1.2496816389659964e-10":
         lambda: P(GATES + "G2/diagnostic/full_ladder_max_pairwise"),
+    # F3: the SAME 32 <-> 80 separation under the other ordering of the
+    # relative-separation denominator.  Shipped, and it is v2.2's published
+    # number -- so both forms are machine-tied here rather than one being
+    # allow-listed as un-readable cross-lane prose.
+    "1.2496816388248957e-10":
+        lambda: _g2_diag_row(32)["rel_vs_certification_rungs"]["80"],
     # self-tests
     "2.0668129728690202e-12": lambda: P(FT + "FT_0/measured"),
     "9.946402719819208e-12": lambda: P(FT + "FT_1/measured"),
