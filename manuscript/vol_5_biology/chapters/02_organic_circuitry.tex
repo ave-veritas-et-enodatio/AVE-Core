@@ -40,7 +40,20 @@ spin-sector rows remain provisional).
 
 Standard biology and organic chemistry model molecular interactions using the ``ball-and-stick'' visual metaphor, defined by abstract bond enthalpies and electron cloud probabilities. However, under the Applied Vacuum Engineering (AVE) framework, this chemical abstraction is incomplete. Molecules are not collections of distinct billiard balls; they are continuous, resonant RLC (Resistor-Inductor-Capacitor) circuit topologies embedded within the dielectric vacuum lattice.
 
-By mathematically mapping atomic mass to \textbf{Geometric Inductance} ($L$) and covalent bond stiffness to \textbf{Dielectric Capacitance} ($C$), organic chemistry becomes a subset of macroscopic RF circuit design. This chapter derives the \emph{exact} translation layer required to simulate amino acids as pure SPICE electronic circuits, proving that the foundation of biology operates via high-frequency AC resonance.
+% [2026-08-02 manuscript-reconciliation, CRIB-5; prior wording preserved verbatim per Rule 12:]
+%   "By mathematically mapping atomic mass to \textbf{Geometric Inductance} ($L$) and covalent bond
+%    stiffness to \textbf{Dielectric Capacitance} ($C$), organic chemistry becomes a subset of
+%    macroscopic RF circuit design. This chapter derives the \emph{exact} translation layer required
+%    to simulate amino acids as pure SPICE electronic circuits, proving that the foundation of biology
+%    operates via high-frequency AC resonance."
+% Two clauses reach past the ratified def-tk1xfm ceiling: "derives the ... translation layer" (the
+% layer is stated, not derived -- "identity-by-translation, NOT emerges-from / NOT a derivation",
+% ave-kb/common/vocabulary-register.md:441) and "proving that the foundation of biology operates via
+% high-frequency AC resonance" (a translation identity proves no mechanism). "exact" is retained but
+% fenced: the co-equality is exact BELOW the band edge (omega*tau << 1), not unconditionally.
+By mathematically mapping atomic mass to \textbf{Geometric Inductance} ($L$) and covalent bond stiffness to \textbf{Dielectric Capacitance} ($C$), organic chemistry becomes a subset of macroscopic RF circuit design. This chapter states the translation layer required to simulate amino acids as pure SPICE electronic circuits, and works the biology in its electrical description.
+
+\noindent\textbf{Regime fence and strength ceiling (\texttt{def-tk1xfm}, ratified SOLID 2026-07-21).} The Axiom-2 Topo-Kinematic Isomorphism that carries this chapter is an \emph{exact, lossless, gain-1, pole-less, invertible \textbf{co-equality of the mechanical and electrical descriptions below the band edge}} ($\omega\tau \ll 1$, the long-wave regime); the co-equality is \textbf{regime-scoped} --- at band-edge scales the distributed-in-bond (arccos transmission-line) and lumped mass--spring descriptions book the delay differently and are no longer co-equal. The standing strength ceiling is \emph{``identity-by-translation, NOT emerges-from / NOT a derivation''}: ``SOLID'' means the node is ratified/canonical, not that it derives a mechanism (\kbleaf{ave-kb/common/vocabulary-register.md}:435-441). Concretely for this chapter, $L_\text{atom} = m_\text{atom}/\xi_\text{topo}^2$ and $C_\text{bond} = \xi_\text{topo}^2/k_\text{bond}$ are \textbf{definitional} dimensional bridges --- ``they convert mechanical inputs into electrical units, not numerical predictions'' (\texttt{clm-lm9b3j}, \kbleaf{ave-kb/vol5/claim-quality.md}:19). The downstream predictions (FTIR transfer functions, batch SPICE notches, folding RMSDs) ``are what the bridge enables; the bridge itself is not a falsifiable result'' (same leaf, same line).
 
 \section{The Electromechanical Transduction Constant}
 
