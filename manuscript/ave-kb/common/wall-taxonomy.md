@@ -179,4 +179,37 @@ The walls in §5 are then the *same kind of object* on every **other** axis: $\G
 
 > **⚑ Explicit non-claim.** *"Every object is a patch fenced by boundaries"* is **not** a theorem, **not** a derivation, and **not** a prediction. It is a way of holding the table in one hand. §2.2's register fence applies to it with full force: the rows share a $\Gamma$-**form**, and canon has ruled that sharing a $\Gamma$-form is **not** sharing a mechanism.
 
-<!-- APPEND-MARKER -->
+## §8 — Anchor receipts and walk-memory corrections
+
+### §8.1 — Verification method
+
+Every `file:line` in this leaf was verified **two-method** at the ship tip: the worktree line (`sed -n "Np"`) byte-compared against `git show origin/main:<file>` at the same line index. The sweep was run by **machine over the rendered leaf** — every link-form anchor extracted by regex, not by hand-listing — so the count cannot drift from the text: **47 distinct anchors, 47 PASS, 0 FAIL.** Where a claim is an **absence**, the command is shown inline (§6 flag 1). Per `verify-before-cite`: a remote-state check is a **timestamp, not a fact** — these receipts are stamped **2026-08-03** at base `origin/main` @ `66fc7e69`, and should be re-verified at read time.
+
+### §8.2 — Corrections the walk's own memory needed (recorded, not silently fixed)
+
+Four places where the walk's recollection did not survive the grep. In every case **the corpus was followed and the walk was corrected**, per `flag-don't-fix` / follow-the-corpus.
+
+| # | What the walk carried | What the corpus says | Disposition |
+|---|---|---|---|
+| 1 | *"crossing $V_{yield}$ = Miller avalanche"* | Miller multiplication $M = 1/S^2$ is the **Regime-III approach**; the wall at $r_3 = 1$ is **Regime IV, $M\to\infty$, topology destroyed** ([`four-regimes.md`](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md):58) | **Corrected in row 3** + the ⚠ precision note. Avalanche is the ramp; the wall is the asymptote |
+| 2 | *"cite the **ratified** cold-Q circuit map site"* for the $0.41\lambda$ taper | The $0.41\lambda$ taper lives **only** in [`research/2026-07-31_qlaw-framing-challenge_walk.md`](../../../research/2026-07-31_qlaw-framing-challenge_walk.md), which self-tags *"🟡 WALK MATERIAL … not to be believed"* (`:5`) and *"**NOT a claim.** No claim-id is minted"* (`:15`). **There is no ratified site.** The cold-Q lane's shipped certification is `SOLVER-NOT-CERTIFIED` with **no physics bin adjudicated** | **Row 8 re-tagged 🟡 NOT CANON.** The row is kept because it is the taxonomy's best illustration that these boundaries are impedance conditions, not edges — but its status is stated in the row |
+| 3 | the *"$Q \approx 2$ instead of $\infty$"* figure for the anti-wall | Not asserted in the row. The ringdown $Q$ is exactly what the uncertified lane was to determine, and it determined nothing | **Number omitted from row 8** rather than quoted. Per the no-magnitude-beyond-cited-canon fence |
+| 4 | $V_{YIELD}$ at `constants.py:382` (the line a sibling leaf cites) | `V_YIELD` is defined at **`constants.py:505`**; line 382 is in the native-units preamble | **This leaf cites `:505`.** ⚑ **Surfaced, not fixed (other lane's file):** [`dual-reactance-storage-taxonomy.md`](dual-reactance-storage-taxonomy.md) §"the collision" row 1 cites `constants.py:382` for `V_yield` and row 2 cites `:373` for `V_snap`; the actual homes are `:505` and `:496`. Two stale line-anchors, routed to the auditor, **not edited here** |
+
+## §9 — What this leaf does NOT do
+
+- **It does not mint anything.** Zero `clm-` / `def-` / `exp-` / `sup-` / `ilk-` ids. No solidity moved, no confidence set, no status promoted or demoted anywhere in the corpus.
+- **It does not adjudicate any fork.** Row 1's coordinate-artifact discriminator, row 6's two-$\ell_c$ collision, the $\tau > \tau_{yield}$ dissipative-vs-lossless fork, the missing fifth boundary register, and the #260-adjacent chirality→spin-sign open seam are all **surfaced with both sides and left open**.
+- **It does not claim the rows share a mechanism.** §2.2. Canon's register discipline governs; this leaf's axis column is a routing aid layered on top of it.
+- **It asserts no magnitude of its own.** Every number is quoted from its anchor.
+- **It does not touch any other file's content.** Cross-references *from* the cold-Q arc documents and from `envelope-anatomy.md` / `boundary-observables-m-q-j.md` back to this leaf are a **recorded post-merge follow-on for the owning lanes**, deliberately not performed here.
+
+## See also
+
+- [`envelope-anatomy.md`](envelope-anatomy.md) — **the sibling to read first.** One particle's boundary **region**, resolved radially into wall / balance shell / knee. Where this leaf indexes walls *across axes*, that leaf resolves *one* wall's neighbourhood.
+- [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md) — what a $\Gamma=-1$ surface **emits** ($\mathcal{M},\mathcal{Q},\mathcal{J}$), plus the **four boundary registers** that fence §2 (`:57`–`:63`).
+- [`port-register.md`](port-register.md) — the complementary question: not *"where is the wall?"* but *"is a channel open here, and is it radiative or reactive?"*
+- [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) — the $S(A) = \sqrt{1-A^2}$ kernel across 26 cross-scale instances; the amplitude-axis rows here are instances of it.
+- [`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md) — the substrate↔EE mapping table that supplies rows 3, 4 and 7's circuit readings.
+- [`retention-transition-split.md`](retention-transition-split.md) — the PRODUCT-vs-TRANSITION discipline, which is the right lens for *"a $\Gamma=-1$ latch is lossless"* (§2.1).
+
