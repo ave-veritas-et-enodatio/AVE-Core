@@ -412,9 +412,23 @@ ALLOWED = {
     "110": "Miller index",
     # line-number cites into merged docs / drivers (verify-before-cite anchors,
     # each re-grepped at the RE-VERIFY repair before being quoted)
-    "124": "line cite research/2026-07-21_rve-aggregation-bench_result.md:124",
+    # ★CURRENCY NOTE 2026-08-02 (comment-only; no token, no key, no gate changed).
+    #   PR #820 merged 2026-08-01 and inserted +6 lines after :12 and +1 after :124
+    #   in research/2026-07-21_rve-aggregation-bench_result.md. Both cites below are
+    #   therefore stale AS LINE NUMBERS. They are NOT re-pointed here: the tokens are
+    #   quoted from a DATED result doc, and this registry's job is to justify the
+    #   token that appears in the lane doc, not to keep a third document's line
+    #   numbering current. Re-verified targets recorded instead, so the next reader
+    #   does not have to re-derive them.
+    "124": "line cite research/2026-07-21_rve-aggregation-bench_result.md:124 "
+           "(the §7.1 KUBC-bound-character bullet; that bullet is at :130 at HEAD "
+           "post-#820 — :124 now lands on the Leg-5 analytic-FORM paragraph)",
     "114": "line cite research/2026-07-21_rve-aggregation-bench_result.md:114 "
-           "(the ONLY occurrence of 'cross-class' in that document; §6 LEG 4)",
+           "(the §7.7-re-derived BIN-4 'cross-class' verdict line; it is at :120 at "
+           "HEAD post-#820 — :114 now lands on a bin table row). ★The parenthetical "
+           "this comment used to carry — 'the ONLY occurrence of cross-class in that "
+           "document' — is FALSE at HEAD: #820's inline Rule-12 correction block adds "
+           "three more, at :14, :16 and :17. Two-method re-verified 2026-08-02",
     "76": "line cite — the §5 (LEG 3) header of "
           "research/2026-07-21_rve-aggregation-bench_result.md",
     "96": "line cite — the §6 (LEG 4) header of "

@@ -1,0 +1,166 @@
+### ENTRY 2026-08-02-mechanical-closeout
+
+**Lane:** implementer · **Branch:** `docs/mechanical-closeout-batch` · **Class:** mechanical closeout — two Grant rulings + a queued zero-decision micro-batch. **No physics adjudicated, no claim minted, no verdict moved, no status promoted.** Every content change is either a ruling execution, a marker flip to an already-merged reference, a cite repaired to its own stated target, or a supersession stamp mirroring one already merged elsewhere.
+
+**Provenance.** Grant 2026-08-02, verbatim `[sic]`: **"4, follow rec"** (ITEM A) and **"5, yes"** (ITEM B). ITEMs C/D/E are the zero-decision micro-batch routed by merged `#823` (cite-rot lane + its 2026-08-02 addendum), merged `#820` (the `#782` basis-note insert), merged `#821` (which unblocked the thesaurus tripwire), and merged `#819` (the v3 birefringence supersession).
+
+---
+
+#### ITEM A (ruling 4) — the divergence-map priority block reduced to a pointer
+
+`manuscript/ave-kb/common/divergence-test-substrate-map.md` restated the orchestration-tier ordering that `_orchestration/2026-07-15_hardware-ratings-map.md` §2/§3 owns. **Rationale, one line: KB leaves catalog physics; orchestration owns process ordering.**
+
+A second copy goes stale on its own clock, and this one did twice — the pre-2026-08-01 ranking went stale in four of five entries, and `#823` ITEM 2's re-derivation fixed that only by restating another doc's priority marks, which is the same failure mode one iteration later. The five-item ordering is therefore **removed**, not re-patched, and replaced by ONE pointer naming the ratings map as the canonical action-ordering surface with an explicit *"do not restate it here"*.
+
+**Kept locally (map-row-scoped, which is what this leaf owns):** the four rows of *this* map with no ratings-table row (A1-HOPF, C1-BH-RING, C5-CMB-AXIS, C3-MUON-DELTA) under the original *AVE-distinctness × accessibility × decisiveness* rule, plus the explicitly-NOT-ranked retired/regime-artifact paragraph.
+
+**Rule 12:** the `#823` re-derived block is preserved verbatim in a new dated `<details>` citing this ruling verbatim; the pre-2026-08-01 block's existing `<details>` is untouched. **+22 lines, all below `:428`.**
+
+#### ITEM B (ruling 5) — the 2026-08-01/02 ruling batch enumerated
+
+New dated §1-continuation block in `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md`: **twelve** rulings *(★corrected 2026-08-03 — this read "eleven", collapsing Grant's two 2026-08-02 words into one line item while the table always split them; see the 2026-08-03 repairs section)*, each with its verbatim word, what it decided, its executing PR/lane and its state. **D1** "(ii)" #819 merged · **D2** "follow rec" #821 · **D3** "rec" #821 · **D4** "follow rec" #821 · **D5** "wait" (no action — the cold-`Q` derivation supersedes any tag applied now; a sequencing decision, not a capacity deferral) · **D6** "recs" #821 · **D7** "follow your rec" + "go" #822 in flight · **D8** "correct plus note" in flight · κ desk-calc "go" in flight · ℓ handshake "adopt and split" in flight · "4, follow rec" + "5, yes" this PR.
+
+**Why the block exists — the `D1`-label collision, verified two-method at HEAD.** A bare `D1` already denotes **many** unrelated things in this corpus *(★corrected 2026-08-03 — this read "five", and the block's "at least five" ceiling was unearned: `grep -rl '\bD1\b'` returns **165 files**. The two most-established misses were the **srs-vs-diamond lattice-identity** D1 — Grant-ratified at `vocabulary-register.md`:536 — and the **canonical-wall-location** D1 at `_orchestration/2026-06-06_genesis-next-steps-scope.md`:10; both are now tabled, and the census is restated **representative, not exhaustive**)*: the **D1-CHSH** divergence-map Tier-D row (`:380`, Matrix-1 `:542`); the **sector-of-storage** question (**item 13 of that same file**, `:30`; `research/2026-07-26_d1-sector-and-inertia-route_scoping.md`; `vocabulary-register.md:1150`); the **field-definition lane** (`_orchestration/2026-06-15_k2g-crystalline-provenance.md:142`); the standing-decisions **Smith-chart ontology** item (`_orchestration/2026-06-16_standing-decisions-audit-lane.md:32`); and a decision label inside a frozen astro sweep (`research/2026-07-11_astro-adjudicator-sweep_branch-signature-map_FROZEN.md:17`). **The date disambiguates, not the letter.**
+
+> ★**Two corrections to the dispatch, recorded rather than absorbed.** (1) It said *"four older unrelated `D1` uses"*; the sweep found **five** — ★*and the five was itself short (2026-08-03), which is the more useful finding: the label is reused across 165 files, so no small number was ever the right shape for this claim.* (2) It attributed the collision finding to *"the #819 audit"* — **that does not verify.** PR #819's body and its reviews carry no D1-label-collision item (checked via `gh pr view 819 --json body` and the reviews API). The collision is real; its provenance is this lane's own sweep, and the block says so.
+
+**Receipt discipline in-block:** six verbatims were re-read from existing repo receipts (D1/D2/D3/D4/D6 fragments; **D7 read READ-ONLY from `origin/src/repoint-pvlas-v3`**, whose fragment that branch owns and which was **not** edited). **Six** are chat-only and first-recorded here — the tracker gap this closes *(★corrected 2026-08-03 — this read "Five" while the block enumerated six; 6 receipted + 6 chat-only = the table's 12 rows)*.
+
+#### ITEM C — the thesaurus marker sweep (tripwire 2's own deliverable, DISCHARGED)
+
+All three cited branches are on `main` (`#800` 2026-07-28 · `#802` 2026-07-28 · `#804` 2026-07-30) and every `★UNMERGED` marker was stale at HEAD. Each was **content-located on `main`** before flipping — never offset arithmetic.
+
+**Anchor set (all verified at HEAD):** `translation-tables/translation-circuit.md` §4.7 `:313`, rows **D/E/F/G** `:332`/`:333`/`:334`/`:335`, object dictionary `:337` (Hill's-lemma `:348`, KCL `:349`), §4.7.3 `:354` (EXACT para `:356`, disanalogy 3 `:362`), §6 row **#32** `:467` · `research/2026-07-28_subc-kubc-bracket_prereg-FROZEN.md` §1.1 `:40` (`:46`), §1.3 `:59` (`:63`/`:64`/`:65`), §9 `:277` (`:279`) · `..._result.md` `:70` · `research/2026-07-26_d1-sector-and-inertia-route_scoping.md` §2 `:17` (`:26`/`:32`), §3 `:41` (`:43`), §4 `:69` (`:76`), §8 `:240`.
+
+**Three defects found in the process, each stated rather than folded in silently:**
+
+1. **TH-3's `[derived]`-textbook-theorem quote was cited to the prereg's §1.3 and is not there** — it lives in **§9** (`:279`, the frozen ledger-tags block). §1.3 carries the *variational argument*, which is what TH-1/TH-2 cite. Re-pointed by content.
+2. **Two *"no on-`main` site"* negatives EXPIRED at the `#804` merge** — §6's Rayleigh row and TH-8's naming provenance. ★**The Foster one survived invisibly, and the reason is worth the record:** the on-`main` form is the **hyphenated compound** `Foster's-reactance-theorem` (`translation-circuit.md:362`), which the space-separated pattern `"reactance theorem"` **cannot match**. A grep-shape false negative, recorded in-row; two-method re-verified 2026-08-02.
+3. **§5's two *"re-evaluate on merge"* triggers have FIRED** (the constraint lemma; Hill's lemma). Both stamped as fired; **neither candidate re-admitted** — admission is the §7 Owner call, not a sweep's. Flag-don't-fix.
+
+**The cascading instance the tripwire named is discharged in the same pass:** `translation-circuit.md` `:196` / `:370` / `:467` flipped from *"PR #802 OPEN — cite by path, not yet on `main`"* to merged. ★**The VOID-AS-FROZEN verdict is untouched — merging banks nothing**, and each repair says so in-line.
+
+**Also re-pointed:** the §6 class-label row's ship-time cite-currency note. It predicted `:124 → ≈:130` on `#820`'s merge; `#820`'s diff against that doc is `+6` after `:12` and `+1` after `:124`, so the `#782` §7.1 bullet is at **`:130`** — prediction exact, re-verified by **reading** the target rather than applying the predicted offset.
+
+**Rule 12:** dated verification negatives preserved with dated updates appended; no flag text struck. ★**Grep receipt:** `grep -c '★UNMERGED'` returns **4**, all four *about* the marker rather than *being* one (schema rule `:80`, a preserved ship-time quote `:290`, the preserved flag `:300`, the discharge note `:301`). **Zero live markers.** New sweep prose was written **without** the glyph so a future grep does not false-positive on the record of the sweep that removed them.
+
+#### ITEM D (i) — the six wrong-target cites repaired by content
+
+| Citing site | Label | Old target | New target (content-located at HEAD) |
+|---|---|---|---|
+| `manuscript/vol_9_vacuum_datasheet/figures/gen_bankable_falsification_windows.py`:12 | C1-BH-RING | map `:143` | map `:165` (§C1) + `:167` (`r_sat = 7GM/c² = 3.5 r_s`) |
+| same `:17` | C12-G-STAR | map `:245,247` | map `:269` (§C12) + `:271` + `:273` |
+| `.../preferred-frame-and-emergent-lorentz.md`:235 | C7 matrix row | map `:399` | map `:538` (Matrix-1 C7 row) |
+| `manuscript/ave-kb/claim-quality-closure-roadmap.md`:85 | C5-CMB-AXIS rows | map `:514`+`:554`+`:428`+`:907` | map `:536` + `:622` + `:662` + `:204` |
+| same `:100` | C15 pred/§/exec rows | map `:497` + `:298-303` + `:599` | map `:579` + `:322-331` + `:681` |
+| same `:115` | C5 axis-coordinate sites | map `:153,160,949` | map `:204` + `:211` + `:1057` |
+
+> ★**FLAG (surfaced, not reframed): the `#823` docket's *"Actually lands in"* column does not reproduce against `origin/main`.** It reproduces **exactly** against the **pre-`#823`** map (1107 lines, `3009adee^`) — `#823`'s own `+43` moved every one of those landings again *before* it merged. A reader repairing from that table alone would repair to the wrong place. The fragment is left **byte-identical** (one lane, one file); recorded here so the table is read as the dated snapshot it is.
+
+**Also repaired, disclosed as a SEVENTH instance not in the docket's six:** `preferred-frame-and-emergent-lorentz.md`:102 cites map `:456` for the **same** Matrix-1 C7 row as `:235` — a blockquote-marker/blank line at every revision checked. Found while content-locating `:399`; repaired in the same pass rather than leave one file carrying one repaired and one rotten cite to one target.
+
+**Honest caveat carried in-text at roadmap:85:** the quoted cell values (*"frozen 2026-05-15 / spec-only / MISSING — no driver"*) are the **2026-05-19 pre-walk-back state**; all three C5 rows now read **DRIVER EXECUTED 2026-05-19**. That is the walk-back working, not a stale claim.
+
+#### ITEM D (ii) — the 13-site trampoline-framework class
+
+Re-verified at HEAD before touching anything: the Q-G42 template `V_yield^(apparatus) = E_yield^(substrate)/G_geom` is at `trampoline-framework.md:465`; **at HEAD** `:439` is the §2.4 cross-reference bullet and `:455` is the `### 3.1 The saturation kernel` heading.
+
+> ★**FRAMING CORRECTED 2026-08-03 (Rule 12) — "never carried the template" was historically FALSE and is withdrawn at all six sites.** The 2026-08-02 inline notes read the HEAD state backwards into history. git archaeology on the (byte-identical) V_yield ≈ 43.65 kV sentence: `:439` **2026-05-18 (`b0b9d4ea`) → 2026-05-31 (`367669ef`)** · `:455` **2026-06-05 → 2026-06-06 (`90f0b968`)** · `:457` 2026-06-13 · `:459` 2026-06-20 · `:461` 2026-07-02 · `:465` 2026-07-03 → HEAD. **The class is PURE LINE-SHIFT — which is exactly what the executing commit's own TITLE said** (`7ead9c39`, *"re-point … to `:465`"*); only the inline notes overreached.
+> ★**Provenance is not uniform, so the correction is not uniform** (finer than the audit's blanket "correct when written"): `CLAUDE.md`:75 and `divergence-test-substrate-map.md`:152 first cited `:439` on **2026-06-04** (`5c5bea45`) and the driver cited `:455` on **2026-06-08** (`0fec3508`) — **correct when written**, the sentence moved out from under them. The three Ch.11 banners were written **2026-08-02** (`6afe3749`) copying the walk-back doc's cite, so for those the class is **inherited-stale**, not shift-under-the-citer.
+> ★**SIXTH SITE:** the audit listed five; `grep` finds six — `divergence-test-substrate-map.md`:152 carried the same wording and was not on the list. Repaired with the rest.
+> ★**Target choice:** `:465` stays **content-primary** (it carries the sentence); every site now **also** names `:730`, the block explicitly **headed** *"The $V_{yield}$ apparatus-geometry-scaling (Q-G42)"*. Both pointers, content first.
+
+**Six LIVE sites repaired** (`:439 → :465`, except the driver `:455 → :465`): `manuscript/ave-kb/CLAUDE.md`:75 · `.../ch11-.../project-zener-04.md`:51 · `.../project-torsion-05.md`:54 · `.../metric-levitation-limit.md`:47 (those three inherited the wrong target from the walk-back doc, per `#823`) · `manuscript/ave-kb/common/divergence-test-substrate-map.md`:152 · `src/scripts/vol_4_engineering/rrad_l_phased_array_compression.py`:24.
+
+**Seven DATED-RECORD sites disclosed, not rewritten** (per the `#823` cite-repair policy carve). ★**2026-08-03 — these were ACCURATE AT THEIR DATE, not always-wrong, and the disclosure now says so.** All four `:439` cites in the 2026-06-03/04 docs were added 2026-06-03/04, when the sentence was still at `:439`; the `:455` cite in `2026-06-08_rrad-l-phased-array-phase4_result.md` was added 2026-06-08, when it was at `:455`. **A dated record is not stale — it is dated.** Leaving them is the policy carve working, not a defect tolerated: `research/2026-06-04_corrections-walkback-pernode-result.md`:40, :62 (**the upstream source the three banners inherited from**) · `research/2026-06-03_ivim-RA-adjudication.md`:73 · `research/2026-06-04_ivim-interferometric-rescope-result.md`:159 · `research/2026-06-08_rrad-l-phased-array-phase4_result.md`:165 · `_orchestration/2026-06-03_experimental-protocol-revamp-orchestration.md`:173 · `_orchestration/experimental/2026-06-04_round2-adjudications.md`:80.
+
+**Zero residual `:439`/`:455` cites in `manuscript/` or `src/`** (re-grepped after the edits). No physics changed — template, scope and every banner's arithmetic byte-untouched.
+
+#### ITEM D (iii) — the stale "only occurrence" comment
+
+`research/drivers/subc_kubc_bracket_number_check.py` justified token `"114"` as *"the ONLY occurrence of 'cross-class' in that document"*. True when written, **false at HEAD**: `#820` merged 2026-08-01 inserting `+6` after `:12` and `+1` after `:124` in `research/2026-07-21_rve-aggregation-bench_result.md`. Two-method re-verified 2026-08-02 — the BIN-4 `cross-class` verdict line moved `:114 → :120`, **three further occurrences now exist at `:14`, `:16`, `:17`** (inside `#820`'s own inline Rule-12 block), and `:114` now lands on a bin table row.
+
+Also noted in the same comment block, since leaving a known-stale sibling next to a repaired one is the defect this lane closes: token `"124"`'s §7.1 bullet moved `:124 → :130`.
+
+**REGISTRY-JUSTIFICATION-STRING-ONLY; no key, no gate, no executable path.** *(★label corrected 2026-08-03 — the 2026-08-02 label read **"COMMENT-ONLY"**, which understates the diff: `a37e9220` changes two **values** in the `ALLOWED` dict at `:322`, not only comments. Verified those values are **print-only**: the membership test at `:627`/`:650` is `tok in ALLOWED`, which reads **keys**, and both keys — `"114"` and `"124"` — are byte-unchanged; the values are consumed **only** at `:630`/`:653` inside `lines.append(f"  ALLOW  \`{tok}\`  — {ALLOWED[tok]}")`, i.e. report text. So no token added or removed, no allow-list membership changed, no gate behaviour changed, no executable path touched — but "comment-only" was the wrong word for a dict-value edit.)* The line numbers are deliberately **not** re-pointed — they are quoted from a dated result doc, and this registry justifies the token appearing in the **lane** doc; it is not a third document's line-number maintainer.
+
+#### ITEM E — the v3-supersession stamp on the Stage-2 QED-extension ledger
+
+`research/2026-06-29_grqed-stage2-qed-extension_result.md` taught the v1 magnitude `7.5/α³ ≈ 1.93e7` un-stamped while its code twin has carried the `==== … ====` v3 banner since `#819` merged (Grant ruling D1(ii)).
+
+The ruling named `:50` and `:94`. Content-location found **five more** un-stamped instances (`:28`, `:36`, `:74`, `:184-186`, `:275`). Stamping only the two named rows would have reproduced inside this doc **the exact self-contradiction `#819`'s own D1-completion had to repair inside `src/ave/qed/`** (module header says live; function 80 lines below says SUPERSEDED). So: **one document-scoped dated banner** in the `#819` form carrying the boxed v3 `15π/(4α²) = 3.75π/α² ≈ 2.2e5` cited to `vacuum-birefringence-e4.md`:104 (with `:106` for the v1 convention history) and enumerating all seven sites, **plus in-cell stamps on exactly the two rows the ruling names**. Bodies preserved verbatim — dated record, appended notes only.
+
+★**The load-bearing part, stated in the banner:** only the **QED normalization** moved (`α⁻³ → α⁻²`). The AVE numerator `δn_bir ≈ −½A²`, the eigen-indices, the reused Op14 kernel and **both two-test legs** are unaffected; the magnitude was an adjudicated **α-echo under v1 AND under v3**. **The chord is still the EXISTENCE.**
+
+★**Self-inflicted-shift check:** the banner is `+14` lines and moved the very sites it enumerates, so the enumeration states **post-stamp** numbers with the `+14` offset disclosed. No other file cites this doc by line (grep clean).
+
+---
+
+#### Cite-shift re-sweep (run AFTER all content settled)
+
+Seven files changed line count: `pending-rulings-and-frontier-queue.md` 128→181 (from `:97`) · `divergence-test-substrate-map.md` 1150→1172 (from `:429`) · `theorem-thesaurus.md` 305→307 (`+1` from `:185`, `+1` more from `:301`) · `gen_bankable_falsification_windows.py` 136→145 (from `:12`) · `grqed-stage2-…_result.md` 281→295 (from `:10`) · `subc_kubc_bracket_number_check.py` 672→686 (from `:415`) · `rrad_l_phased_array_compression.py` 673→675 (from `:24`).
+
+Swept **both** cite forms (`filename:NNN` **and** the bare `line NNN` / `lines NNN-MMM` form) over `*.md` / `*.tex` / `*.py`. **51 shift-exposed cite sites** classified.
+
+**REPAIRED (live KB leaves; every target verified by reading it):** `physics-lineage-map.md`:115/:196/:453/:461 · `claim-quality-closure-roadmap.md`:105 (map `:735 → :757`) · `vol9/ch15-falsification-tests/index.md`:35 and :37.
+
+**★THREE MORE WRONG-TARGET CITES surfaced by the sweep — a naive `+22` bump would have preserved every one:**
+
+1. `physics-lineage-map`'s four `:603` cites were **never** a `D1-CHSH` row — on `origin/main` `:603` is the **C8-BARYON-LADDER** Matrix-2 row, three lines above the D1-CHSH one. Re-pointed by content: the verbatim *"matches QM by construction; no novel comparison source"* has **exactly one** corpus occurrence, the **Matrix-3** D1-CHSH row (`:668`); the open/NULL-framing cites go to the **Matrix-1** row (`:542`).
+2. `vol9/ch15`:35 cited map `:448,67` as B1-VAC-BIREFRINGE. `:448` landed **in the priority-order block this branch replaced**, so the bump would have aimed at a blank line inside a collapsed `<details>`; `:67` landed on a bare *"Test type: new experiment."* in §A1. → `:87`,`:89`,`:91`,`:528`.
+3. `vol9/ch15`:37 cited map `:469` as C11 — a blank line, same block. → `:259`,`:549`.
+
+> 🔴 ★**WITHDRAWN 2026-08-03 — THIS FLAG WAS FALSE, AND IT WAS ABOUT TO OVERWRITE A TRUE STATEMENT IN A CANONICAL KB LEAF.** As written on 2026-08-02 it read, verbatim: *"FLAG-DON'T-FIX (surfaced in-text at `physics-lineage-map`:115, NOT rewritten). The parenthetical "GHZ/contextual scenarios named as open" **does not verify** against the divergence map: that map's only five `GHZ` hits are the **10 GHz microwave** unit in the B6-PONDER-02 rows (`:141`, `:143`, `:547`, `:668`, `:673`), and `contextual` returns **zero**. Whether the open-scenario pointer belongs elsewhere or should be struck is a content call for the owning lane."*
+>
+> **Both counts are wrong.** `divergence-test-substrate-map.md`:668 — one of the five lines the flag itself listed — is **not** a microwave-unit line. It is the **Matrix-3 D1-CHSH row**, and it reads verbatim: *"Identify quantum-info protocol where AVE deterministic substrate diverges from QM (e.g. contextual measurements, GHZ scenarios)"*. `grep -c contextual` on that map returns **1**, not 0. The *10 GHz* probe unit is on **four** lines (`:141`/`:143`/`:547`/`:673`), 7 occurrences of the literal `10 GHz` — `grep -n` and `grep -o` agree.
+>
+> **So the parenthetical the flag disputed was CORRECT AS WRITTEN**, and the in-leaf flag is retracted at `physics-lineage-map`:115 with its back-reference rider at `:453`. The `:603 → :542`/`:668` cite-rot repair underneath is **sound and kept**.
+>
+> ★**The methodological catch worth more than the fix.** The failure was a **case-folded grep read as case-sensitive**: `ghz` case-insensitively matches both `GHz` (a frequency unit) and `GHZ` (Greenberger–Horne–Zeilinger). Five *lines* matched; the flag assumed all five were the same kind of hit and never read `:668`. **A grep-shape false positive, one commit from deleting a true corpus claim** — the mirror image of the grep-shape false *negative* this same lane recorded at ITEM C defect 2 (`Foster's-reactance-theorem` vs `"reactance theorem"`). Two opposite grep-shape errors in one branch is the pattern, not the coincidence: **content-locate before flagging, exactly as this lane already requires before repairing.**
+
+**DISCLOSED, not rewritten (~40):** shifted cites inside dated `research/` result+prereg docs, `_orchestration/` boards, docket fragments and `_orchestration/experimental/` protocols.
+
+> ★**HANDOVER — the reconciliation lane's board cites into `theorem-thesaurus.md`, deliberately not edited from here.**
+> **The shift rule for that leaf:** lines `< 185` unmoved · `185`–`300` **`+1`** (the TH-8 dated-update bullet) · `> 301` **`+2`** (the tripwire-2 discharge bullet).
+> **Content-located anchor moves** (verified by reading both revisions, not by arithmetic): §5 Fluctuation–dissipation row `:205 → :206` · §5 Hill's-lemma candidate row `:207 → :208` *(its cell text also changed — ITEM C's fired-trigger stamp)* · `### Hill — three distinct objects` heading `:223 → :224` · the Voigt–Reuss–Hill **AVERAGE** row, which carries *"Not a theorem and not a bound"*, `:227 → :228` · the Hill *"live hazard, stated plainly"* blockquote `:231 → :232` · §6 admission-bar preamble `:211 → :212` · the D6 `Q`-row placement block `:270 → :271`.
+> **Board sites exposed:** `:88`, `:89` (both cite `:223`), `:147`, `:170` (both cite `:227`), `:548` (cites `:205`), `:549` (a VERIFY NOTE citing `:207` and the `Q`-row block as `:264-:274`).
+> ★**Pre-existing, NOT created here — flag-don't-fix:** two of those board cites did not resolve at `origin/main` before this branch either. `:88`/`:89` cite **`:223`** for the *Voigt–Reuss–Hill AVERAGE* row and for the string *"Not a theorem and not a bound"*, but on `origin/main` `:223` is the **`### Hill — three distinct objects` heading** and both quoted items are at **`:227`** — off by four, independent of any shift. That is the reconciliation lane's own item.
+> **Handed over, not applied:** that board belongs to the reconciliation lane and is live; editing it from here would be a drive-by on another lane's working surface.
+
+---
+
+#### Battery
+
+**Re-run 2026-08-03 after the `#832` merge and the audit repairs, against CURRENT `main` (`2fcde4db`, which had advanced past `#829`/`#830`/`#831`/`#832`/`#836`/`#837`/`#839`/`#840`).**
+
+`make verify` **exit 0** (*"ALL PHYSICS PROTOCOLS PASSED"*) · `verify-md-links` counters **byte-identical to a fresh `2fcde4db` checkout**, measured rather than assumed — branch **gating 0 · warn-only 206 · broken inter 42 · kbleaf 1152 checked / gating 0 / waived 1**; `main` baseline **gating 0 · warn-only 206 · broken inter 42 · kbleaf 1152 / 0 / 1** ⇒ **zero new debt** *(the `kbleaf` denominator moved 1095 → 1152 because `main` advanced, not because of this branch — both sides re-measured at the same tip)* · `verify-lane-number-checks` clean · `research/drivers/subc_kubc_bracket_number_check.py` **PASS, exit 0** (UNACCOUNTED **0**; 369 auto-verified + 19 pinned + 79 allow-listed + 6 digest-shaped) · `make refresh-kb-metadata` **idempotent** (no file touched) · `verify-docket-keys` **no new duplicate keys** (104 entries / 102 unique; the two grandfathered numeric dups `22`/`32` unchanged) · **pure-corpus grep on the full 315 kB diff: 0 hits.**
+
+**Two-method count check on every number restated by the 2026-08-03 repairs:** ruling-table rows = **12** by manual read **and** by `awk`-extracted row grep · `GHz` occurrences in the divergence map = **7 on 4 lines** by `grep -n` **and** `grep -o` · `grep -c contextual` = **1** · `grep -c '★UNMERGED'` on the thesaurus = **4** · `grep -c 'primer.md):101'` = **0** · residual `trampoline-framework.md:439`/`:455` cites in `manuscript/` + `src/` = **0**.
+
+★**OVERLAP FENCE CORRECTED 2026-08-03 — the 2026-08-02 fence below omitted `kb/paperclip-twist-analogy` entirely, and that branch DID overlap.** It merged as **`#832`** on 2026-08-03 and re-anchored `theorem-thesaurus.md`. Re-measured against current `main` (`2fcde4db`), merge-base `e72d18f6`: this branch touches **17** files, `main` moved **47**, intersection = **exactly 2** — `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` (**auto-merged clean**, the two inserts land 62 lines apart) and `manuscript/ave-kb/common/theorem-thesaurus.md` (**one conflicted hunk** at the TH-2 corpus-use-sites line, hand-resolved to carry both sides — see the 2026-08-03 repairs section). **No other live branch overlaps.** The 2026-08-02 fence text is preserved below as the dated snapshot it was:
+
+**Overlap fence — zero file overlap with every live branch, re-checked at their current tips before push.** `src/repoint-pvlas-v3` (#822, 11 files incl. `src/ave/bench/birefringence.py`, `adopters.py`, `papers/…/provenance.md`, `vol4/claim-quality.md`, its docket + scoping): **empty intersection** — its `2026-08-01-d7-repoint-pvlas.md` fragment was **read** (`git show origin/src/repoint-pvlas-v3:…`) and **not** written. `docs/rulings-d8-and-ell-split` (`domain-catalog.md`, `identity-break-test-design.md`, its docket): **none touched** — local branch is at `origin/main` with no commits yet. `research/pasteur-kappa-desk-calc`: **branch does not exist** locally or on origin; ★**fence-adjacency disclosed** — ITEM D(iii) touches `research/drivers/subc_kubc_bracket_number_check.py`, which sits inside that lane's declared `research/ + drivers` fence footprint. It was **explicitly routed to this lane by the dispatch**, the change is **registry-justification-string-only** *(★2026-08-03: this said "comment-only"; corrected per ITEM D(iii) above — dict **values**, print-only, keys and gate untouched)*, and it is named here so the κ lane can see it on arrival. `analysis/2026-08-02-bell-quote-provenance` (merged #824; its `-repairs` sibling owns `common/the-abandoned-interior.md`): **not touched**. `bench/sigma-repeat-and-sweep-spec`: different repo (AVE-HOPF), no risk.
+
+---
+
+#### 2026-08-03 — #838 audit repairs (CLEAR-WITH-REPAIRS: 3 must-fix + 4 warns), and the merge with `#832`
+
+**The headline finding is about this lane's own error mode, not about the corpus.** Three of the seven items are cases where **this branch's disclosure prose was wrong about history or about a grep** while the underlying repair was right. In two of them the false disclaimer would have **overwritten a true statement** in a live KB leaf. Recorded at that grain deliberately: the mechanical repairs were sound; the *narration* of them was where the defects landed.
+
+| # | Class | What was wrong | Disposition |
+|---|---|---|---|
+| **R1** | FAIL | The GHZ/contextual flag written into `physics-lineage-map.md`:115 (+ its `:453` rider) claimed the divergence map *"names **no** GHZ-state or contextuality scenario anywhere"* and that `contextual` *"returns zero"*. **Both false** — `divergence-test-substrate-map.md`:668 names *"contextual measurements, GHZ scenarios"* verbatim, and `grep -c contextual` returns **1**. Root cause: a **case-folded grep read as case-sensitive** (`GHz` the unit vs `GHZ` the state). | **Flag RETRACTED** at both sites; the disputed parenthetical **stands, correct as written**; the `:603 → :542`/`:668` cite-rot repair underneath **kept**. |
+| **R2** | FAIL | *"never carried the template"* at **six** sites (audit said five). Historically false: the V_yield ≈ 43.65 kV sentence **was** at `:439` 2026-05-18→2026-05-31 and at `:455` 2026-06-05→2026-06-06. Pure line-shift — as the executing commit's own title said. | Shift framing at all six, with **per-site provenance** (four correct-when-written; three Ch.11 banners inherited-stale). `:465` content-primary, `:730` named as the explicitly-headed block. |
+| **R3** | FAIL | §1-continuation shipped **four inconsistent counts** (banner "eleven", heading "three side rulings", ":141 Six", ":143 Five" then six items) against a **twelve-row** table; and the D1-collision census claimed *"at least five"*. | All counts → **twelve** (8 + 4 side; 6 receipted + 6 chat-only). Census **widened** (srs-vs-diamond lattice identity — the oldest and most-established older D1, missing entirely — plus the canonical-wall D1) and restated **representative, not exhaustive** (`grep -rl '\bD1\b'` = **165 files**). |
+| **R4** | WARN | Two more wrong-target rows in `vol9/ch15…/index.md`: `:33` (C1-BH-RING) and `:34` (C12-G-STAR). | Repaired by content: `:165`/`:167`/`:532` and `:269`/`:271`/`:273`/`:550`. ★`:470` was **degraded by this PR's own ITEM A** from visible prose to a blank line inside a collapsed `<details>` (`:454`–`:479`). |
+| **R5** | WARN | ITEM D(iii) labelled **"comment-only"**; `a37e9220` also edits two `ALLOWED` **dict values**. | Relabelled **registry-justification-string-only; no key, no gate, no executable path** — values verified print-only (`:630`/`:653`), keys byte-unchanged. |
+| **R6** | WARN | `vocabulary-register.md`:1150 quoted with bold dropped and truncated with no ellipsis. | Restored: *"This does **not** touch D1 itself, which stays OPEN…"*. `theorem-thesaurus.md`:122's pre-existing global case **not touched** (#832-owned, routed style call). |
+| **R7** | WARN | This branch asserted `*.md merge=ours` causes **silent drops**. | **Mechanism does not exist**: no `merge.ours.driver` is configured (empty, exit 1, local **and** global), so git uses the default 3-way text merge. Own text corrected; corpus-wide correction **routed, Grant-gated**. |
+
+**★R7 — the empirical receipt is this branch's own merge.** Merging `origin/main` (`2fcde4db`) produced a **LOUD conflict with markers** in `manuscript/ave-kb/common/theorem-thesaurus.md` — a `.md` file under the same blanket attribute — and in the same merge, main's new content in `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` was **kept**, not dropped. Real collisions conflict; non-overlapping edits merge. **NOT FIXED HERE (not this lane's text):** the same false belief pre-exists on `main` at that queue file's `:28` preamble and at `_orchestration/docket-entries/README.md`:19 — both verified verbatim, both left alone.
+
+**Merge with `#832` (`kb/paperclip-twist-analogy`, merged 2026-08-03) — one conflicted hunk, hand-resolved.** `#832` re-anchored the TH-2 Thomson primer cite to `electron-plumbing-primer.md`:159; this branch had flipped the `#804`/`#802` ★UNMERGED markers on the same line. **Neither side alone was complete** — #838's carried a stale `:101`, #832's resurrected a ★UNMERGED marker for PRs merged 2026-07-28/30. Resolved to carry **both**. Re-verified: Thomson sentence at primer `:159` ✓ · `grep -c 'primer.md):101'` = **0** ✓ · `grep -c '★UNMERGED'` = **4**, all four meta (`:80` schema rule, `:290` a quoted stale-marker discussion, `:300`/`:301` tripwire-2 rule + discharge) ✓. ★**Extra catch, disclosed:** the TH-2 *Regime fence* bullet cited the primer at `:103` for *"This is the substrate's own law — Axiom 3"*, now at `:161` — same `#832` shift, one bullet below the conflicted hunk. Repaired by content and stamped. **That cite is also stale on `main`** at `theorem-thesaurus.md`:123; the repair rides here only because this branch is the merging party and was already editing the block.
+
+**★ROUTED TO GRANT (both bookkeeping, neither blocking):**
+1. **Eleven or twelve?** Do Grant's two 2026-08-02 words — *"4, follow rec"* and *"5, yes"* — count as **one** ruling-event or **two**? The table has always split them (twelve rows); the banner collapsed them (eleven). **No row is a duplicate**, nothing decided changes either way, and both words are recorded verbatim regardless. Twelve is used because twelve rows is what the table has.
+2. **Corpus-wide `merge=ours` correction.** The silent-drop belief is written into at least two process docs on `main`. Correcting them is a process-doc sweep, and it carries a prior question: **was the `ours` driver meant to be configured and simply never was?** If yes, the right fix may be to configure it rather than to rewrite the warnings.

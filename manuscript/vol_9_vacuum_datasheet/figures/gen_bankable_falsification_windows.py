@@ -9,12 +9,21 @@ Panel A -- Iron-Kalpha disk edge.  AVE saturation-boundary horizon r_sat = 7GM/c
            (= 3.5 r_s) vs GR ISCO at 6GM/c^2.  The discriminator is the inner
            accretion-disk edge via X-ray Fe-Kalpha reflection / kHz QPOs (a MATTER
            observable; NOT the GR-standard photon ring, which AVE keeps at 3GM/c^2).
-           Canonical: divergence-test-substrate-map.md:143 (C1-BH-RING).
+           Canonical: divergence-test-substrate-map.md:165 (the C1-BH-RING section
+           heading) + :167 (the AVE-predicts line carrying r_sat = 7GM/c^2 = 3.5 r_s).
+           [cite-rot repair 2026-08-02: this read `:143`, which was never the C1 row --
+            it landed in the PONDER-05 body when the label was written and lands in the
+            PONDER-02 body today. Re-pointed by content, not by offset.]
 
 Panel B -- g_* effective-DOF cutoff.  AVE g_* = 7^3/4 = 343/4 = 85.75 vs SM 106.75.
            Three observable consequences: Omega_GW +7.6% (LISA/DECIGO),
            EW expansion rate -10.4% (CMB-S4), EW latent heat -20% (FCC-ee/CEPC).
-           Canonical: divergence-test-substrate-map.md:245,247 (C12-G-STAR).
+           Canonical: divergence-test-substrate-map.md:269 (the C12-G-STAR section
+           heading) + :271 (AVE-predicts: g_* = 7^3/4 = 343/4 = 85.75, Omega_GW +7.6%,
+           EW expansion rate) + :273 (Discriminator).
+           [cite-rot repair 2026-08-02: this read `:245,247`, which was never the C12 row --
+            it landed in the C10 muon-lifetime row when the label was written and lands in
+            the C9 metric-levitation row today. Re-pointed by content, not by offset.]
 
 ALL plotted numbers are PURE DIMENSIONLESS forced ratios (7, 6, 3, 343/4, 106.75,
 +7.6%, -10.4%, -20%) -- NO CODATA literal, NO engine constant sits in any plotted

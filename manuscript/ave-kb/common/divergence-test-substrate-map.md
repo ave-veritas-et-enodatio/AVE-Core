@@ -149,7 +149,7 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 
 ### B7. Project PONDER-05 — differential saturation parallax (paired DC-biased quartz, vertical gravity gradient)
 
-- **AVE predicts:** the bench-measured 27.4% $\varepsilon_{eff}$ collapse / 37.7% $C_{eff}$ rise in DC-biased quartz at ~30 kV is the **quartz material's own voltage-coefficient-of-capacitance** (Class-II ceramic varactor) — a **consistency-class analog of the kernel SHAPE**, NOT a vacuum-kernel measurement. ⚠ **Per-node-conflation correction (2026-06-04):** the "30 kV holds material at 68.7% of $V_{yield}$" framing reads the apparatus voltage as the **per-node** ratio $A_0 = V_{DC}/V_{yield} = E_{local}\ell_{node}/V_{YIELD}$; reaching $A_0 = 0.687$ needs 30 kV across 1.0 node-lengths ($\ell_{node} = 0.386$ pm). Across real quartz (mm–µm) the vacuum per-node $A_0 = 10^{-7}$–$10^{-10}$ → vacuum-kernel collapse ~0; appreciable vacuum per-node $A_0$ needs facility fields ($\sim 8\times10^{16}$ V/m, $E_{yield} = V_{YIELD}/\ell_{node} \approx 1.13\times10^{17}$ V/m). The predicted ~469 μN paired-resonator differential rides on the quartz material response, not a vacuum-saturation signal. Per `vol4/claim-quality.md:51` (per-node-vs-apparatus discipline) + Q-G42 $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:439`).
+- **AVE predicts:** the bench-measured 27.4% $\varepsilon_{eff}$ collapse / 37.7% $C_{eff}$ rise in DC-biased quartz at ~30 kV is the **quartz material's own voltage-coefficient-of-capacitance** (Class-II ceramic varactor) — a **consistency-class analog of the kernel SHAPE**, NOT a vacuum-kernel measurement. ⚠ **Per-node-conflation correction (2026-06-04):** the "30 kV holds material at 68.7% of $V_{yield}$" framing reads the apparatus voltage as the **per-node** ratio $A_0 = V_{DC}/V_{yield} = E_{local}\ell_{node}/V_{YIELD}$; reaching $A_0 = 0.687$ needs 30 kV across 1.0 node-lengths ($\ell_{node} = 0.386$ pm). Across real quartz (mm–µm) the vacuum per-node $A_0 = 10^{-7}$–$10^{-10}$ → vacuum-kernel collapse ~0; appreciable vacuum per-node $A_0$ needs facility fields ($\sim 8\times10^{16}$ V/m, $E_{yield} = V_{YIELD}/\ell_{node} \approx 1.13\times10^{17}$ V/m). The predicted ~469 μN paired-resonator differential rides on the quartz material response, not a vacuum-saturation signal. Per `vol4/claim-quality.md:51` (per-node-vs-apparatus discipline) + Q-G42 $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:465` — ★cite-**shift** repair 2026-08-02, framing corrected 2026-08-03: the cite read `:439`, which **did** carry this exact sentence when this leaf first cited it on 2026-06-04 (`5c5bea45`) — byte-identical at `:439` from 2026-05-18 (`b0b9d4ea`) through 2026-05-31 (`367669ef`), moving on 2026-06-05 to `:455`, then `:457` 2026-06-13, `:459` 2026-06-20, `:461` 2026-07-02, `:465` 2026-07-03→HEAD. **Pure line-shift, correct-when-written.** The 2026-08-02 wording *"a §2.4 cross-reference bullet that never carried the template"* was historically false and is **withdrawn** — §2.4 is what `:439` holds today, not what it held at cite time. Content-primary target `:465`; the block explicitly **headed** *"The $V_{\text{yield}}$ apparatus-geometry-scaling (Q-G42)"* is at `:730`).
 - **Standard predicts:** standard piezoelectric/electrostrictive response; no net thrust from saturated vacuum.
 - **Discriminator:** measured $C_{eff}(V)$ rise + 469 μN thrust on torsion balance + vertical-gradient differential between paired resonators.
 - **Test type:** new experiment.
@@ -427,6 +427,35 @@ Per `AVE-HOPF/AGENTS.md` line 82 (sibling-repo authority): the AVE-Propulsion $k
 
 ## Priority order for action (Grant-plumber perspective)
 
+> 🔴 **REDUCED TO A POINTER 2026-08-02 — Grant ruling, verbatim [sic]: *"4, follow rec"* (Rule 12 — both
+> superseded versions are preserved verbatim in the collapsed blocks below; git is the trail).** **Rationale:
+> KB leaves catalog physics; orchestration owns process ordering.** A ratings-tier ordering restated in this
+> leaf is a *second copy* that goes stale on its own clock — it did so twice: the pre-2026-08-01 ranking went
+> stale in four of its five entries, and the 2026-08-01 replacement fixed that only by restating another
+> doc's priority marks, which is the same failure mode one iteration later. The restatement is therefore
+> removed rather than re-patched. What stays here is the ordering this leaf actually owns: the rows of *this*
+> map that have no ratings-table row at all.
+
+**Canonical action-ordering surface (do not restate it here):**
+[`_orchestration/2026-07-15_hardware-ratings-map.md`](../../../_orchestration/2026-07-15_hardware-ratings-map.md)
+**§2** (the ratings table, which carries its own priority marks and real-machine status per row) **+ §3**
+(missing spec pages — build, don't probe). That map is the program's action ordering; this leaf is its
+physics catalogue.
+
+**Map-row-scoped ordering — rows of *this* map with no ratings-table row** (outside the ratings program's scope — ranked by the original *AVE-distinctness × accessibility × decisiveness* rule, with current status):
+
+- **A1-HOPF (HOPF-02a)** — still the cheapest un-run real-hardware shot in this portfolio (~$123 BOM, 60-400$\times$ NEC2 SNR margin). **Fab artifacts are exported (Gerbers + drill + DRC); the fab ORDER has not been placed** — the gate is the JLCPCB upload, per `AVE-HOPF/.agents/HANDOFF.md` (source of truth for physical hardware state). Discriminator: ⚠ **C3 + C4 are RETIRED to consistency-class (round-2, 2026-06-04)** — the surviving AVE-distinct leg is the **2-port S₂₁-vs-S₁₂ reciprocity sweep** (a linear-null in the accessible regime; the distinct regime is above-yield), which needs 2-port hardware the 1-port 02a board lacks. The slope was already consistency-class (CODATA-$\alpha$ injected).
+- **C1-BH-RING** — the driver exists and ran; the 2026-07-20 retraction (corrupt Kerr table + source-vs-detector frame mixing) means the open item is the **frame-corrected $\tau$ re-run**, not building an observer.
+- **C5-CMB-AXIS** — executed 2026-05-19 (Outcome MARGINAL-D). The open item is the **cross-catalog precision path** (Shamir catalog access / methodology-systematic adjudication), not "execution deferred."
+- **C3-MUON-DELTA** — driver built + re-framed 2026-05-19. The open item is **Fermilab Run-4/5 + the BMW-vs-$e^+e^-$ SM-baseline adjudication**, not building a driver.
+
+**Explicitly NOT ranked (retired / regime-artifact — do not re-promote):** **A2-SAGNAC** (retired to corroborative-null 2026-06-03; existing RLG geodesy already resolves it); **C16-TORSION-05** and **C9-LEVITATION** and the bench-voltage leg of **B1-VAC-BIREFRINGE** (per-node/apparatus conflation — 2026-06-04 adjudication propagated to the Ch.11 leaves 2026-08-01; a null at those drives is an artifact-of-regime); **BH photon-ring** (removed 2026-05-16 — AVE keeps the photon sphere at GR's $3GM/c^2$). Facility-class items (Schwinger autoresonance, vacuum birefringence at facility fields, baryon-ladder forward predictions) remain outside the current workspace.
+
+<details>
+<summary>Superseded 2026-08-01 re-derived ordering (landed in PR #823; superseded 2026-08-02 by the pointer above — preserved verbatim per Rule 12, do NOT action)</summary>
+
+*Preserved because it was a real re-derivation, not a patch: it is the version that established the ratings map as the fresher organizing view. Superseded on 2026-08-02 per Grant's ruling — verbatim [sic] "4, follow rec" — on the ground that the restatement itself, not its content, was the defect.*
+
 > 🔴 **RE-DERIVED 2026-08-01 against the hardware-ratings map (Rule 12 — the superseded block is
 > preserved verbatim below; git is the trail).** The prior ranking was patched-row-by-row over a year and
 > went stale in four of its five entries: #2 (Sagnac-RLVE fab package) was **RETIRED to corroborative-null
@@ -447,14 +476,7 @@ Per `AVE-HOPF/AGENTS.md` line 82 (sibling-repo authority): the AVE-Propulsion $k
 4. **R12 — Cleave-01 gap-independence** (the femto-electrometer kill-test) — ratings map §2, **"queued behind R11's session."** Read with the 2026-07-02 rescope: the axis is gap-**INDEPENDENCE** (not the slope), and it is a **corroborative-null-class discriminator** — AVE itself predicts the null (`clm-clvchn` NULL-CONFIRMED-FINAL), so a positive REOPENS rather than confirms.
 5. **The remaining un-numbered ratings rows, all BENCH-∅** — in the map's own row order: R1 dynamic knee-crossing drive; R2 drive-a-region-to-refusal (watch the wall form; feeds the census S2 design and is R10's owed input); R4 derating-curve sweep (cheap — rides R1/R6); R5 FPB slew / crossover-band map (**REVIVED**); R6 two-tone mixer + phase-slip capture (**REVIVED**); R3 spec'd-not-retuned (gated on the **R13** yield fork); R13 retention resolution arc (thixotropy prereg + the pre-registered memristor loop-area).
 
-**Rows of *this* map with no ratings-table row** (outside the ratings program's scope — ranked by the original *AVE-distinctness × accessibility × decisiveness* rule, with current status):
-
-- **A1-HOPF (HOPF-02a)** — still the cheapest un-run real-hardware shot in this portfolio (~$123 BOM, 60-400$\times$ NEC2 SNR margin). **Fab artifacts are exported (Gerbers + drill + DRC); the fab ORDER has not been placed** — the gate is the JLCPCB upload, per `AVE-HOPF/.agents/HANDOFF.md` (source of truth for physical hardware state). Discriminator: ⚠ **C3 + C4 are RETIRED to consistency-class (round-2, 2026-06-04)** — the surviving AVE-distinct leg is the **2-port S₂₁-vs-S₁₂ reciprocity sweep** (a linear-null in the accessible regime; the distinct regime is above-yield), which needs 2-port hardware the 1-port 02a board lacks. The slope was already consistency-class (CODATA-$\alpha$ injected).
-- **C1-BH-RING** — the driver exists and ran; the 2026-07-20 retraction (corrupt Kerr table + source-vs-detector frame mixing) means the open item is the **frame-corrected $\tau$ re-run**, not building an observer.
-- **C5-CMB-AXIS** — executed 2026-05-19 (Outcome MARGINAL-D). The open item is the **cross-catalog precision path** (Shamir catalog access / methodology-systematic adjudication), not "execution deferred."
-- **C3-MUON-DELTA** — driver built + re-framed 2026-05-19. The open item is **Fermilab Run-4/5 + the BMW-vs-$e^+e^-$ SM-baseline adjudication**, not building a driver.
-
-**Explicitly NOT ranked (retired / regime-artifact — do not re-promote):** **A2-SAGNAC** (retired to corroborative-null 2026-06-03; existing RLG geodesy already resolves it); **C16-TORSION-05** and **C9-LEVITATION** and the bench-voltage leg of **B1-VAC-BIREFRINGE** (per-node/apparatus conflation — 2026-06-04 adjudication propagated to the Ch.11 leaves 2026-08-01; a null at those drives is an artifact-of-regime); **BH photon-ring** (removed 2026-05-16 — AVE keeps the photon sphere at GR's $3GM/c^2$). Facility-class items (Schwinger autoresonance, vacuum birefringence at facility fields, baryon-ladder forward predictions) remain outside the current workspace.
+</details>
 
 <details>
 <summary>Superseded priority block (preserved verbatim per Rule 12 — do NOT action)</summary>
