@@ -113,11 +113,34 @@ Frozen: `every gate below must PASS before any bin verdict is booked`.
 | **G6** subwavelength admissibility | Frozen: `bbox diagonal / lambda <= 0.25` | `0.11784810733938897` | **PASS** |
 | **G7** reciprocity | prereg §5 G7 (stated there unquoted): $\overleftrightarrow{\alpha}_{em}=-\mu_0\overleftrightarrow{\alpha}_{me}^{T}$ holds identically | rel residual `1.977e-17` | **PASS** |
 
-**★ G7 FIRED on the first run** and is the reason this section is not decoration. The initial
-implementation built $\overleftrightarrow{\alpha}_{me}$ with a flipped sign
+**★ G7 FIRED on the first run — and here is exactly how much that is worth.** *(Rule 12
+quote-and-correct, 2026-08-02. The `f9d5c86c` text read: "The bug was in the cross-polarizability
+— precisely the quantity the whole lane exists to compute. A gate that has never fired is a
+checklist; this one is a gate." That overstated it, and the audit was right to say so.)*
+
+The initial implementation built $\overleftrightarrow{\alpha}_{me}$ with a flipped sign
 ($\mathbf A_e\otimes\boldsymbol\ell_e/(-R)$ instead of $/R$), and G7 returned a residual of order
-the dyad itself. The bug was in the *cross*-polarizability — precisely the quantity the whole
-lane exists to compute. A gate that has never fired is a checklist; this one is a gate. (The
+the dyad itself. But the defect lived in **the gate's own reconstruction** of
+$\overleftrightarrow{\alpha}_{me}$ (driver `run_gates`, the G7 block), and **no reported number in
+this lane consumes a signed $\overleftrightarrow{\alpha}_{em}$**: the production chain routes
+through `chiral_volume()`, which takes $|\chi|$. **So the reported chain is sign-free and the
+defect could not have propagated.** G7 caught a real bug in real code; it did not catch a bug that
+was on its way into a shipped number.
+
+**The numerically load-bearing known-positives are G4 and G5**, because they are the two that
+compare a computed quantity against an *independent* target: G4 the helix against the exact closed
+form $\chi=\pi a^2h$ (rel `1.6449e-08`), G5 the straight dipole against the textbook `73.13` Ω
+(computed `73.079`, rel `6.9678e-04`). Those are what stand behind the numbers this document
+quotes.
+
+**Repair, disclosed and KEEP-BOTH (post-audit, NOT FROZEN).** Because F3's point is fair, the
+driver now also routes $V_\chi$ through **both signed dyads** —
+$-c\,\mathrm{tr}(\overleftrightarrow{\alpha}_{em})/3 = +\mu_0
+c\,\mathrm{tr}(\overleftrightarrow{\alpha}_{me})/3 = Z_0\chi/(3R_{\rm rad}) =
+\mathrm{sign}(\chi)\,V_\chi$ — so a sign flip in *either* dyad now shows up in a reported quantity.
+Agreement `0.0` and `1.3391198608554297e-16` relative
+(`post_audit_supplementary_NOT_FROZEN.S1_dyad_consumption`). The seven frozen gates are
+byte-unchanged and this block is excluded from `ALL_PASS` by construction. (The
 second bug the lane caught was not physics: the far-field integral originally materialised the
 full direction×element phase matrix and spent six minutes in swap. Chunked; arithmetic unchanged;
 `quadrature_convergence` shows `chi` and `R_rad` drifting at most `1.04355e-06` and `2.57188e-06` across a 4x mesh change.)
