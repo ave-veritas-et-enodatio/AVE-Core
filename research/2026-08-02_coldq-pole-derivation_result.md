@@ -151,7 +151,7 @@ Comparison quantities, computed from the shipped pole and the frozen comparators
 - against the frozen GR cold comparator `omega_R M = 0.37367` (read programmatically from `KERR_QNM[0.00]`): deviation `-29.13` percent.
 - against the standing corpus shortcut `18/49`: deviation `-27.91` percent.
 - `Q` against `Q_GR = 2.1002135791366907`: deviation `-56.19` percent.
-- `Q` against the Op21 `2*pi`-convention `Q = ell = 2`: deviation `-54.0` percent. The measured `Q` is nearer the convention value than the GR value (distances `1.0798` and `1.1801`).
+- `Q` against the Op21 `2*pi`-convention `Q = ell = 2`: deviation `-54.0` percent. Distance to the convention value: `1.0798`. Distance to `Q_GR`: `1.1801`. **Which of the two the measured `Q` sits nearer is BIN-2's frozen discriminator, and it is NOT evaluated here** — `BIN-F-SOLVER` fired, so the two distances are recorded as diagnostics and are not compared.
 - `k_0*r_sat = 1.8537` against the standing chain's asserted `ell*(1+nu_vac) = 2.5714`.
 
 > **★ The IDENTITY the prereg froze BEFORE any number existed, and it holds.** `k_0*r_sat = x_sat * omega_R M_g` identically, so the "9/7-above-cutoff" test **is** the `omega_R` vs `18/49` comparison re-expressed, not an independent axis. Both read `-27.91` percent. The prereg recorded this in advance precisely so it could not be presented afterwards as two corroborating results. **It is one.**
@@ -160,7 +160,9 @@ Comparison quantities, computed from the shipped pole and the frozen comparators
 
 Both frozen measures agree exactly and both place the maximum at the **outer** edge of the frozen window `r/r_sat` in `[1.0, 2.0]`: `u_energy = 1.9997126071429716`, `u_kinetic = 1.9997126071429716`, `interior_max = false`. The mode-energy density at the wall is `0.04058976258552422` of the window maximum.
 
-**Read honestly, this measurement is dominated by a generic property of quasinormal eigenfunctions, not by substrate physics:** a QNM amplitude grows as `exp(|omega_I| r)` outward, which over this window is a factor of `e^(1.007)` in amplitude before the `r^2` measure is applied. That is why the prereg reserved a `BIN-3-MONOTONE` sub-bin for "the maximum sits at an endpoint, so localization is not a well-posed observable for this mode" — **the reserved bin turned out to be the relevant one.** Had bins been adjudicated, this is where BIN-3 would have landed, and it would have said that the derived mode is **neither** a rim ring at `r_sat` **nor** a ramp mode at the `r*/r_sat = 1.2247` turning point.
+**Read honestly, this measurement is dominated by a generic property of quasinormal eigenfunctions, not by substrate physics:** a QNM amplitude grows as `exp(|omega_I| r)` outward, which over this window is a factor of `e^(1.007)` in amplitude before the `r^2` measure is applied. The prereg reserved a `BIN-3-MONOTONE` sub-bin for "the maximum sits at an endpoint, so localization is not a well-posed observable for this mode"; **whether that sub-bin applies is NOT adjudicated here, because `BIN-F-SOLVER` fired first.**
+
+**FORK-1 is NOT adjudicated. The diagnostic that would have fed it is recorded above, and nothing more** — no statement is made or implied about where the mode lives, and the turning-point comparator `r*/r_sat = 1.2247` is listed in the prereg's frozen comparator set without being evaluated against anything here.
 
 ### §4.3 Overtones
 
