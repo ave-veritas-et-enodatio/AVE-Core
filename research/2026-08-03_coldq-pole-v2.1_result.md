@@ -107,7 +107,9 @@ A fourth, non-numerical change was also made: `fundamental()` is memoized on its
 
 ---
 
-## §3 — THE MECHANISM: three defective gate SPECIFICATIONS, named
+## §3 — THE MECHANISM: ONE defective gate SPECIFICATION, and TWO measured INSTRUMENT defects that share one mechanism
+
+🔴 **THE §3 HEADING IS CORRECTED, 2026-08-03, REFUTED BY MEASUREMENT for two of the three. Original heading, verbatim:** *"§3 — THE MECHANISM: three defective gate SPECIFICATIONS, named"*. **Only FT-B (§3.1) is a specification defect.** C9 (§3.2) and C1's high-`ℓ` rows (§3.3) are **real instrument degradation** — the discretization manufactures spectrum the continuous problem does not have — and **the gates that caught it worked.** This parent heading was left standing when its own child sections were retitled and dated; it contradicted them, and it is corrected here to the same pattern.
 
 ### §3.1 FT-B is structurally vacuous against the object it targets
 
