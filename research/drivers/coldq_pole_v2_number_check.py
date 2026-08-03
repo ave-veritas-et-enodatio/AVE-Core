@@ -83,7 +83,11 @@ ALLOWED = {
     "1.1058e-08": "#845 G8 measured spread, NOT-ADJUDICATED prior-lane data",
     "6.80e-07": "cross-lane relative |dOmega| vs #845, derived from prior-lane data",
     "-2.58e-07": "cross-lane relative dQ vs #845, derived from prior-lane data",
-    "2.1e-04": "cross-lane relative wall-shift difference vs #845",
+    "2.1e-04": "RETRACTED 2026-08-03 (v2.2 lane FLAG-9) as a cross-lane "
+               "comparison -- it is the distance between #845's CLAMPED-wall "
+               "shift and this lane's SPIN-1-wall shift, two different "
+               "mutations. The token survives in the doc ONLY inside the "
+               "Rule-12 verbatim quote of the retracted row",
     "6.8e-07": "cross-lane relative |dOmega| vs #845 (prior-lane data)",
     "2.6e-07": "cross-lane relative dQ vs #845 (prior-lane data)",
     # --- POST-REVIEW CORRECTION (2026-08-03): values MEASURED BY THE REVIEW

@@ -281,8 +281,15 @@ Both frozen measures agree exactly and both place the maximum at the **outer** e
 |---|---|---|---|
 | `Omega` | `1.8536565650028993 - 1.00725725871003i` | `1.8536552108408788 - 1.0072567831433188i` | **`6.80e-07`** |
 | `Q` | `0.9201505121823758` | `0.9201502744197103` | **`-2.58e-07`** |
-| spin-1 weighting break | `0.21729` | `0.48017` | — |
-| spin-1 / clamped wall shift | `0.28430` | `0.28424` | `2.1e-04` |
+| spin-1 **weighting** break — #845 FT-6 vs v2.1 FT-F(i) | `0.21729` | `0.48017` | — |
+| **clamped**-wall inner-BC shift, `W(r_sat) = 0` (Γ = +1) — #845 FT-2 | `0.28430` | **not measured** — this lane has no clamped-wall mutation | **no comparand** |
+| **spin-1 wall**-condition shift, `W'(r_sat) = 0` in place of `T(r_sat) = 0` — v2.1 FT-F(ii) | **not measured** — #845 has no spin-1 wall-condition self-test | `0.28424` | **no comparand** |
+
+> 🔴 **CORRECTED 2026-08-03 — the wall-mutation row above was a CROSS-LANE CONFLATION of two DIFFERENT mutations, and its agreement figure is RETRACTED as a comparison. Original row, verbatim:** *"| spin-1 / clamped wall shift | `0.28430` | `0.28424` | `2.1e-04` |"*
+>
+> **The two numbers were never measuring the same thing, so their closeness compared nothing.** #845's `0.28430` is its **FT-2**: the **clamped** inner wall `W(r_sat) = 0`, the Γ = +1 open/clamped alternative frozen at `research/2026-08-02_coldq-pole-derivation_prereg-FROZEN.md:229` and shipped under the key `selftests/FT2_clamped_wall/rel_shift_vs_traction_free`. v2.1's `0.28424` is its **FT-F(ii)**: the **spin-1 wall condition** `W'(r_sat) = 0` in place of the spin-2 `T(r_sat) = 0`, frozen at `research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:352` and shipped under `self_tests/FT_F/spin1_wall_shift`. **Neither lane ran the other's mutation:** #845 has no spin-1 wall-condition self-test, and the v2.1 driver contains no clamped-wall mutation at all. **No comparand exists on either side, so the `2.1e-04` is retracted as a comparison** — it is the distance between a clamped-wall shift and a spin-1-wall shift, and it supports no cross-lane statement. **Both measured values stand, unchanged, each under its own label.**
+>
+> **Scope of the correction.** Only this row. The `Omega` and `Q` rows compare like with like and stand as written; §3's gate table and §6 item 6 already labelled `0.28424` correctly as the spin-1 wall condition and are unchanged — **the conflation existed at exactly one site, the one where the number was paired with #845's.** The spin-1 **weighting** row's values are unchanged; only its FT provenance was made explicit. **Caught by the v2.2 lane as FLAG-9 (2026-08-03).**
 
 > **Two instruments that are different in kind — real-axis asymptotic matching with subdominant-coefficient extraction, versus compactified spectral with the outgoing wave divided out in closed form — agree on the scale-free eigenvalue to `6.8e-07` and on `Q` to `2.6e-07`.** That is a striking convergence and it is recorded as such. **It is NOT a verdict, NOT a bin, and NOT a certification:** both lanes are `SOLVER-NOT-CERTIFIED`, and two uncertified instruments agreeing does not certify either. It is offered as the single most useful pointer for the successor.
 >
