@@ -303,6 +303,9 @@ ALLOWED = {
                 "of this battery",
     "6.100131": "a PAIRWISE c estimate, same provenance",
     "6.354001": "a PAIRWISE c estimate, same provenance",
+    "0.578619": "the total monotonic drift across the pairwise c sequence, "
+                "6.354001 - 5.775382, arithmetic on two allow-listed PREREG "
+                "numerals; not a value of this battery",
     "[4.775382, 7.354001]": "the COUNTERFACTUAL lane-only G2b c band -- this "
                             "lane's own pairwise span widened by the prereg's "
                             "plus/minus 1.0, computed here to show that no "

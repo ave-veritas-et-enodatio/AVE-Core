@@ -121,6 +121,8 @@ The **identical** fit routine, pointed at the v2.1-banked discretization artifac
 
 Fitted over the **full** five-rung ladder including `n = 32`, the law gives `c` = `6.043847309998414` with `max|resid|` = `0.18870776957898983` — **which would also pass G2b's `0.40` floor.**
 
+**And the law itself is not exactly constant-`c`, which is the honest reason the out-of-sample prediction over-shot.** The three pairwise estimates the prereg fitted on drift **monotonically upward** — `5.775382`, then `6.100131`, then `6.354001` — so `c` is still creeping with `n` rather than having settled. A three-point fit over `{48, 64, 80}` therefore carries a slightly-too-large `c` when it is extrapolated one rung *downward* to `n = 32`, and it over-predicts `e(32)` by the factor `1.822840164432575` reported in §1. **That is a property of the fit, not a defect in the rung**, and the frozen band absorbs it by construction: the `±1.0` widening is far larger than the `0.578619` total drift across the whole pairwise sequence, and the G2 tolerance derivation is anchored at the band's **upper** edge `7.6` — the fastest-convergence corner, which yields the *smallest* worst-case error and is therefore the **conservative** choice against exactly this drift.
+
 **Stated plainly, because it runs against the convenient reading: the `n = 32` rung is not an outlier to the LAW. It is pre-asymptotic in MAGNITUDE.** Its error obeys the same root-exponential decay; that error is simply still larger than `1e-10` at that order. **The prereg said this in advance** — `G2b gates the LAW, not the presence or absence of any rung` — and the ladder placement rests on the out-of-sample magnitude prediction of §1, not on `n = 32` violating anything.
 
 ---
