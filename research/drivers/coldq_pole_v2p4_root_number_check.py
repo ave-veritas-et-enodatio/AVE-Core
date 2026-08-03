@@ -292,6 +292,19 @@ ALLOWED = {
                "(section 4.4(d)); this checker scans the result doc only",
     "2.9206": "the c-band ratio-tolerance factor, PREREG arithmetic "
               "(section 4.4(c)); this checker scans the result doc only",
+    "5.775382": "a PAIRWISE c estimate from the prereg's section 4.4(b) fit on "
+                "the in-repo blob at 982c4c9b; PREREG arithmetic, not a value "
+                "of this battery",
+    "6.100131": "a PAIRWISE c estimate, same provenance",
+    "6.354001": "a PAIRWISE c estimate, same provenance",
+    "[4.775382, 7.354001]": "the COUNTERFACTUAL lane-only G2b c band -- this "
+                            "lane's own pairwise span widened by the prereg's "
+                            "plus/minus 1.0, computed here to show that no "
+                            "gate OUTCOME depends on the relayed I22 range.  "
+                            "It is NOT a frozen band and gates nothing",
+    "5.4": "the lower edge of the ORCHESTRATOR-RELAYED, UNVERIFIED I22 range "
+           "(prereg section 4.4(c)); names no value of this battery",
+    "6.6": "the upper edge of the same relayed I22 range",
     # cross-lane numerals quoted at v2.2's published precision (its JSON is on
     # PR #856's branch, NOT on origin/main, so it cannot be read from here)
     "1.0385e-15": "v2.2's published G0, quoted for the expectation-5 "
