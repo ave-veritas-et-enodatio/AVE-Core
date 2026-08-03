@@ -1,4 +1,4 @@
-# The cold-Q pole derivation v2.1 — RESULT: the instrument PASSED the entry ticket by 22 orders and is NOT CERTIFIED, because three of its own gate SPECIFICATIONS were defective
+# The cold-Q pole derivation v2.1 — RESULT: the instrument PASSED the entry ticket by 22 orders and is NOT CERTIFIED, because it DEGRADES on the frozen rectangle's low-`Re Ω` edge — and the gates that caught it WORKED
 
 **Date:** 2026-08-03
 **Prereg-file**: research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md
@@ -8,7 +8,7 @@
 **Class:** DERIVATION result (research-doc; **mints no `clm-`/`def-`; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger**). Engine `src/ave` byte-untouched.
 **Provenance:** Grant's GO, 2026-08-03, verbatim `[sic]`: `"Go on cold-Q"`. Written against `origin/main` = `583d43dd`.
 
-> **★ POST-REVIEW CORRECTION — 2026-08-03. THIS DOCUMENT'S CENTRAL ATTRIBUTION WAS REFUTED BY MEASUREMENT AND IS RETRACTED HERE.** Adversarial review of PR #854 at head `bdcfa678` returned BLOCKED. The original HEADLINE attributed **all three** failures to defective gate SPECIFICATIONS rather than to the instrument. **Review refuted that for two of the three — by building this lane's own proposed replacement and by sweeping this lane's own unfrozen parameters.** Every corrected passage below is quoted verbatim before its correction and dated. **Nothing in either frozen prereg and nothing in the driver `coldq_pole_v2.py` was touched by this repair; no gate outcome, no tolerance, no verdict and no bin moved.** The certification `SOLVER-NOT-CERTIFIED` is unchanged — the *reason* is now honest. **§10 states plainly what survives.**
+> **★ POST-REVIEW CORRECTION — 2026-08-03. THIS DOCUMENT'S CENTRAL ATTRIBUTION WAS REFUTED BY MEASUREMENT AND IS RETRACTED HERE.** Adversarial review of PR #854 at head `bdcfa678` returned BLOCKED. **Original title, verbatim, RETRACTED 2026-08-03:** *"The cold-Q pole derivation v2.1 — RESULT: the instrument PASSED the entry ticket by 22 orders and is NOT CERTIFIED, because three of its own gate SPECIFICATIONS were defective"*. The original HEADLINE likewise attributed **all three** failures to defective gate SPECIFICATIONS rather than to the instrument. **Review refuted that for two of the three — by building this lane's own proposed replacement and by sweeping this lane's own unfrozen parameters.** Every corrected passage below is quoted verbatim before its correction and dated. **Nothing in either frozen prereg and nothing in the driver `coldq_pole_v2.py` was touched by this repair; no gate outcome, no tolerance, no verdict and no bin moved.** The certification `SOLVER-NOT-CERTIFIED` is unchanged — the *reason* is now honest. **§10 states plainly what survives.**
 
 ---
 
@@ -32,6 +32,8 @@
 > - **FT-B — SPECIFICATION DEFECT, and the only one of the three.** The mutation is **structurally vacuous**: it asks to apply the gauge `λ` to the interior but not to the wall-BC row, and the graded wall-BC row (`ψ_η(0) = 0`) **carries no `λ` at all.** A self-test that cannot fire. **⚑ Corrected 2026-08-03:** the *number* reported for it is not a measurement of the frozen mutation, and there is a **second, independent** vacuity — see §3.1.
 >
 > **Per the frozen Rule-11 fence, none of this is repaired here.** No gate, tolerance or method element was changed after a gate result was seen. The lane banks the honest negative and routes to a **v2.2** successor with a new version number and its own verification chain — exactly as #845 routed to v2 and v2 to v2.1.
+>
+> **⚑ 2026-08-03: that fence held, and this correction did not breach it.** No gate, tolerance, criterion, verdict or bin was changed by the post-review repair, and **no v2.2 prereg was written.** What the repair changed is the **attribution** — which had moved post-result in the exculpatory direction while Rule 11's letter was being kept. **§10 states what stands.**
 
 ---
 
@@ -342,5 +344,23 @@ Both frozen measures agree exactly and both place the maximum at the **outer** e
 - **Scope, unchanged:** `ℓ = 2` is an input, not derived; `nu_vac`, `K = 2G` and the `7` in `r_sat` are GR-imported and untouched; the spin (`a_* > 0`) mapping is out of scope; the spheroidal branch is not built; FORK-3(b) is not run; FORK-12 is not adjudicated.
 
 ---
+
+## §10 — ADDED 2026-08-03 — WHAT STANDS AFTER THIS CORRECTION
+
+**Stated plainly, because the correction above is adverse and a reader is entitled to know exactly what it did and did not take away.**
+
+1. **`SOLVER-NOT-CERTIFIED` STANDS** — unchanged, and now for honest reasons. **The certification did not move; only the attribution did, and it moved *toward* the instrument, not away from it.** The prereg pre-committed to this reading at `research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:492`; the post-result drift away from it, and the fact that Rule 11's *letter* was kept throughout while its *spirit* was not, is recorded in the docket fragment.
+2. **THE ENTRY-TICKET PASS STANDS.** The FT-5-analog control — the exact problem #845's FT-5 failed at `15.000`, same box, same closed-form reference — returns counts `1`/`1`/`2`, windings `1.0`/`1.0`/`2.0` identically at all three contour samplings, and locations to `2.971e-44`, `3.538e-46` and `5.778e-42` against a frozen `1e-20`: **inside the gate by ~22 orders.** Review did not disturb it, and nothing in this correction touches it.
+3. **C2, C3, C5, C6, C7, C8 and C11 STAND as passes.** C5's *arithmetic* wording is corrected in §6 item 3 — its spread is below the driver's double-precision reporting floor, not identically zero — and **its gate outcome against the frozen `1e-9` is unaffected.** C2 in particular was independently shown to be a **live** gate: a correctly-specified half-applied-gauge mutation fires at `6.4e-02` against `1e-12` (§3.1).
+4. **C4 and C10 are BANKED WITH CAVEATS, not clean passes** (§3.4). Neither is re-adjudicated; neither certifies what its headline suggested.
+5. **THE LOCATED POLE STANDS AS AN UNCERTIFIED DIAGNOSTIC.** `Ω = 1.853655 - 1.007257i` is stable to **12 digits across `n = 32 → 80`**, and it is the **only** in-box eigenvalue that is `n`-stable. The `6.80e-07` agreement with #845 — two instruments different in kind — likewise stands as a diagnostic. **Both lanes are `SOLVER-NOT-CERTIFIED`, and two uncertified instruments agreeing does not certify either.** That sentence is retained exactly as originally written, and this correction makes it *more* load-bearing, not less.
+6. **THE TWO QUESTIONS REVIEW ROUTED TO GRANT ARE THE OPEN DECISIONS, AND THEY ARE NOT RESOLVED HERE.**
+   - **(i) Where is the honest left edge of the frozen rectangle?** Moving it requires a *derivation* of where the spectral-pollution threshold sits — not a retreat fitted to the probes that failed.
+   - **(ii) Should a successor certify THE ROOT or THE RECTANGLE?** The located pole is `n`-stable while the rectangle's in-box count is not. **Those are different instruments with different certification burdens**, and choosing between them is a scope decision about what this lane is building.
+   - **Neither is decided in this document. No v2.2 prereg is written here.**
+
+---
+
+> **Correction provenance.** This document was corrected on **2026-08-03** against the adversarial review of PR #854 at head `bdcfa678` (verdict **BLOCKED**), findings 1–10. **Both frozen preregs are byte-identical to their freeze commits** (`research/2026-08-03_coldq-pole-v2_prereg-FROZEN.md` at `00724432`; `research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md` at `7d8fe484`) and **the driver `research/drivers/coldq_pole_v2.py` is byte-identical to `bdcfa678`.** No gate, tolerance, criterion, verdict or bin was changed by the correction; no history was rewritten; no v2.2 prereg was written. Only the number-check's allow-list was extended, and every added entry names the review as its source. Companion corrections: `_orchestration/docket-entries/2026-08-03-coldq-pole-v2.md` and the PR #854 body.
 
 > **Result provenance.** Resolves the frozen bins of `research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md` (commit `7d8fe484`, COMMIT 2 of this lane, pushed ALONE before any driver code existed). All numbers above are read from the shipped `research/drivers/coldq_pole_v2_results.json` and are machine-verified against it by `research/drivers/coldq_pole_v2_number_check.py`, wired into `make verify`. Two full driver runs produced identical digests. Predecessor lanes, both unmodified: `research/2026-08-03_coldq-pole-v2_prereg-FROZEN.md` (commit `00724432`, superseded pre-measurement) and PR #845 (`SOLVER-NOT-CERTIFIED`). Mints no `clm-`/`def-`; propagates to no leaf; engine byte-untouched; falsification ledger untouched. Companion: the docket fragment `_orchestration/docket-entries/2026-08-03-coldq-pole-v2.md`.
