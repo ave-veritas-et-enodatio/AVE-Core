@@ -116,6 +116,59 @@ block, so refresh can parse it):
 > value-rider; AVE-Fusion `V_yield`-as-bulk-rupture cross-wire) is flagged for a
 > separate sibling-repo session — not edited from AVE-Core.
 
+> **`K = 2G` is NOT an independent calibration input — it is a separately-tagged
+> constitutive-FORM import edge (Grant ruling 2026-08-03).** Ruling verbatim
+> `[sic]`: ***"1. Agree, and I think we should at some point find it's a forced
+> form"***. **`expected-independent-count:` stays 3** and the
+> `calibration-params:` set is unchanged — `{m_e, α, G}` (`clm-5xon03`,
+> `clm-0ktpcn`, `clm-dsb560`). `K = 2G` (⟺ `ν_vac = 2/7`) **is** an import — the
+> GR **trace-reversal identity**, established GR-IMPORTED by PR
+> [#261](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/261) (MERGED:
+> both provenance gates pass — *not* crystalline-forced and *not*
+> constitutively-forced) — but **what it imports is a constitutive FORM (a
+> relation between two moduli), which is a DIFFERENT edge class from what G
+> imports, which is a VALUE** (the dimensionless Machian termination
+> `ξ ≈ 8.15×10⁴³`, back-solved from CODATA G — `ilk-gravmb`, `constants.py:589`).
+> **Two distinct import edges; one count of 3.** Concretely: `K = 2G` mints no
+> `ilk-` node, adds no `interlocks` edge, and moves no `real_or_fitted` tag, so
+> the count machinery here is **byte-untouched** — the same
+> mints-nothing/touches-nothing shape as the orthogonal view and the yield
+> consumer-map above. **Do not** book `K = 2G` as a fourth calibration parameter
+> (it is not a dimensionful constant the substrate is fed), and **do not** fold
+> it into G's row (that would collapse a FORM import into a VALUE import and
+> mis-state `ilk-gravmb`'s `mixed` grounding). The prose home for the
+> per-constant accounting stays
+> [`form-deriving-value-importing.md`](form-deriving-value-importing.md) (its
+> `K = 2G` table row, and the companion note added by this same ruling).
+>
+> **OPEN RESEARCH ITEM — derive `K = 2G` as substrate-FORCED (routed by the same
+> ruling; NOT attempted here).** Grant's routed aspiration, in the same sentence
+> `[sic]`: ***"I think we should at some point find it's a forced form"***.
+> Landing it would be **the FORM-deriving pattern's completion for this row**:
+> the meta-finding tabulated at
+> [`form-deriving-value-importing.md`](form-deriving-value-importing.md) reads
+> *"AVE forces FORMS, imports VALUES"*, and `K = 2G` is the one row where **even
+> the form is currently imported** — so forcing it would move the row from
+> import-of-a-form to derivation-of-a-form, not merely flip a value. **Named
+> attack point:** PR #261's record leaves exactly **one** open physics item —
+> [`program-arc-map.md:118`](program-arc-map.md), verbatim: *"**Closed:**
+> K=2G-as-derived. **Opened:** eigenmode-existence as the only remaining open
+> physics."* The corresponding un-fired test is `clm-satnec`'s static-existence
+> test ([`saturation-rim-inversion.md:55`](saturation-rim-inversion.md): impose
+> the `(2,3)` winding as a boundary condition, relax the lattice, ask whether the
+> relaxed core rails `S → 0`), which the register itself already identifies as
+> *"the K=2G eigenmode-existence open item"*
+> ([`vocabulary-register.md:1119`](vocabulary-register.md)). **Scope guard —
+> this is NOT the G/Chain-B′ flip-test and does not touch the count.** Even if
+> `K = 2G` were forced, it flips no `real_or_fitted` tag by itself and the count
+> stays 3; what it would do is remove the GR-import that Chain B′ currently
+> *routes through* (`ilk-gravmb` grounding, the 2026-07-02
+> EXAMINED-AND-CLOSED elastic-moduli sub-route). Also note that sub-route is a
+> **standing negative on one named path** (`z=4` fixes only the form `K/G=f(ρ)`;
+> `ρ` inherits from the imported value) — **closed ≠ exhausted** (Grant-ratified),
+> so this aspiration is live, not re-opening a refuted route. Routed, not
+> attempted; no status, solidity or tag moves on this ruling.
+
 ---
 
 ## R·r = 1/4 (Golden-Torus screening)

@@ -95,6 +95,42 @@ be preserved); for **K=2G** the value is imported from GR; for **E_yield** the
 *existence* is a chord and only the *value* is the echo; for **m_e** it is the
 definitional anchor. **The FORM-DERIVING half applies to all of them.**
 
+> **`K = 2G` is a FORM import, NOT a fourth calibration input — and the ruled
+> aspiration is to make it forced (Grant ruling 2026-08-03).** Ruling verbatim
+> `[sic]`: ***"1. Agree, and I think we should at some point find it's a forced
+> form"***. Two halves, both additive — **no verdict in the table above is
+> redefined, and the calibration set stays `{m_e, α, G}` with
+> `expected-independent-count: 3`** ([`interlock-register.md:12`](interlock-register.md)).
+>
+> **(a) The tagging.** `K = 2G` is a **separately-tagged constitutive-FORM
+> import edge** — an imported *relation between two moduli* — which is a
+> **different edge class** from G's import, which is a **VALUE** (the ξ
+> termination back-solved from CODATA G). The row above stays `GR-IMPORTED
+> (echo for the value)`; what the ruling adds is that it must **not** be booked
+> as a fourth calibration parameter and must **not** be folded into G's row.
+> It mints no `ilk-` node and moves no `real_or_fitted` tag, so the count
+> machinery is byte-untouched (the machine home for the tagging note is
+> [`interlock-register.md`](interlock-register.md)).
+>
+> **(b) The OPEN research item (routed, NOT attempted).** Derive `K = 2G` as
+> **substrate-forced** rather than GR-imported. This row is the one where **even
+> the FORM is imported**, so closing it would be **this meta-finding's own
+> completion for this row** — it would move `K = 2G` from *import-of-a-form* to
+> *derivation-of-a-form*, which is a strictly different move from flipping a
+> value (α's `fitted→real`, G's Chain B′). **Named attack point:** PR #261's
+> record leaves exactly one open physics item —
+> [`program-arc-map.md:118`](program-arc-map.md), verbatim: *"**Closed:**
+> K=2G-as-derived. **Opened:** eigenmode-existence as the only remaining open
+> physics."* The un-fired test is `clm-satnec`'s static-existence test
+> ([`saturation-rim-inversion.md:55`](saturation-rim-inversion.md)). **Scope
+> guard:** forcing `K = 2G` moves no calibration count by itself; its downstream
+> consequence is that the Axiom-4 yield-anchor row above (which inherits `ρ = 2`
+> from the *imported* `K = 2G`) and Chain B′ (which currently routes *through*
+> the import) would each stop carrying a GR-import. The 2026-07-02
+> elastic-moduli sub-route is closed-negative on its own named path
+> (`z=4` fixes only the form `K/G = f(ρ)`); **closed ≠ exhausted**
+> (Grant-ratified), so the aspiration is live rather than a re-opened refutation.
+
 > **NOT a deflation, restated per-constant.** Magnitudes *downstream* of the
 > calibration — `ν_vac = 2/7` given K=2G, `sin²θ_W = 2/9`, the H-bond 1.754 Å,
 > the proton mass to −0.002% — are *forced* and ride the chords; only the handful
