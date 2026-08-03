@@ -82,17 +82,38 @@ def _c2(delta, n_t):
 
 
 def test_analytic_dv2_matches_numerical_derivative():
-    """The closed form is COUPLED to the current definitions; pin the coupling.
+    """The closed form is COUPLED to the winding -- and this test now proves it.
 
-    ``_dv2_dt_analytic`` hard-codes dV^2/dt for i_d = cos(2t), i_q = sin(3t).
-    If the (p, q) winding is ever changed in ``route_b_correlation`` without
-    changing the closed form, every other assertion in this file would keep
-    passing against a stale derivative. This is the guard for that.
+    ``_dv2_dt_analytic`` hard-codes dV^2/dt for the (2,3) phase-space trefoil.
+    This test differentiates ``drv._trefoil_currents`` NUMERICALLY and compares
+    it to that closed form, so the driver's own winding is what gets checked.
+
+    ★ COVERAGE CORRECTION (2026-08-03; the previous version of this docstring
+    overstated what the test did). Before this repair the test re-declared
+    ``cos(2t)`` / ``sin(3t)`` INLINE rather than calling the driver, so it
+    compared the driver's closed form against the TEST's private copy of the
+    winding. A winding change in the driver could not reach the comparison, and
+    the guard was structurally unable to fire. Demonstrated by mutation:
+    setting the driver's q-current to ``sin(5t)`` while leaving
+    ``_dv2_dt_analytic`` stale left THIS test PASSING (three pin tests failed
+    on value; re-banking those three pins turned all five green against a stale
+    derivative). The old docstring's claim that "every other assertion would
+    keep passing" was also wrong -- three of them fail on value until re-banked.
+    Repair: ``_trefoil_currents`` is now the driver's single source of the
+    (p, q) winding and is CALLED here.
+
+    What the guard DOES catch: a winding change in ``_trefoil_currents`` with a
+    stale ``_dv2_dt_analytic`` (or the reverse), independently of whether the
+    pinned C2 values are re-banked in the same edit.
+    What it does NOT catch: a consistent change to both (intended -- it should
+    pass), or a change that re-inlines currents inside ``route_b_correlation``
+    and thereby bypasses ``_trefoil_currents`` again.
     """
     n = 2_000_000
     t = np.linspace(0.0, 2.0 * pi, n, endpoint=False)
     dt = t[1] - t[0]
-    v_sq = np.cos(2.0 * t) ** 2 + np.sin(3.0 * t) ** 2
+    i_d, i_q = drv._trefoil_currents(t)  # the DRIVER's winding, not a copy
+    v_sq = i_d**2 + i_q**2
     num = np.gradient(v_sq, dt)
     ana = drv._dv2_dt_analytic(t)
     # INTERIOR only. np.gradient falls back to a ONE-SIDED first-order stencil
@@ -102,6 +123,19 @@ def test_analytic_dv2_matches_numerical_derivative():
     # periodic array with no wrap. Its weight in the cycle mean is ~1e-14, i.e.
     # ~9 orders below the 97 ppm truncation defect; recorded, not headlined.
     # The 2nd-order interior stencil is accurate to ~dt^2 ~ 1e-11.
+    #
+    # ★ CORRECTION (2026-08-03, re-audit finding 2): the "~1e-14 / ~9 orders"
+    # above is the PER-CELL weight -- each of the two bad cells contributes
+    # ~2.73e-14 to the correlation cycle-mean (~2.4e-12 in C2). It is NOT the
+    # net. The two endpoint errors are EQUAL AND OPPOSITE (+1.5708e-5 at index
+    # 0, -1.5708e-5 at index -1) and, after the pre-repair np.roll by
+    # shift_idx, they land on ADJACENT post-roll indices (k and k-1), where the
+    # kernel-asymmetry weight differs only by O(dt). So they very nearly
+    # cancel. Measured net, delta = -3*alpha/2, n_t = 2e6, against a
+    # wrap-aware central-difference reference: 1.301e-18 in the correlation /
+    # 1.135e-16 in C2 -- i.e. ~11.4 orders below the 3.19e-5 (97 ppm) C2
+    # truncation defect, not ~9. (Symmetric case: 1.735e-18 / 1.513e-16.)
+    # The conclusion is unchanged and strengthened: numerically irrelevant.
     assert np.max(np.abs(num[1:-1] - ana[1:-1])) < 1e-8
 
 
