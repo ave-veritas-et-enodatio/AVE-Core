@@ -28,6 +28,12 @@ on the MERGED, VALIDATED cold Born-Huang pipeline (imported unmodified from
                             BOTH readings + the Zener ratio. (Prediction from #519's
                             degree-1 homogeneity: sign(K) is INVARIANT; Zener stays 1.)
   P3  ASYMMETRIC PRICE   -- the anisotropy price of buying K > 0 with S_axial != S_shear.
+                            The K_thermodynamic threshold is reported TWICE (KEEP-BOTH,
+                            added 2026-08-02 in review): the original numeric secant gate
+                            (`> 1e-12`, retained UNCHANGED but disclosed as sitting ~3 OOM
+                            BELOW this arm's own noise floor, so it does not resolve the
+                            threshold) AND the resolution-independent analytic form
+                            K_th = (rho_eff - 1)*sigma_0/3 > 0 iff rho_eff > 1.
   P4  BZ-WIDE DEGENERACY -- at rho_bond = 1 the 24x24 D(q) factorizes EXACTLY as
                             L(q) (x) I_3 (scalar graph Laplacian tensor the 3x3 identity),
                             so all three polarizations are degenerate at EVERY q, and
@@ -89,8 +95,30 @@ RHO_ISO_BOND = 1.0          # the Ax3 |Gamma|^2-min iso-bond point (#516, knob-f
 RHO_STAR_IMPORTED = 9.7734  # the GR-imported nu=2/7 <=> K=2G matter point (#506)
 RHO_K0_FLOOR = 2.0          # where the ACOUSTIC K combination changes sign (#506)
 A_CORE_SQRT_ALPHA = float(np.sqrt(ALPHA))  # def-vyvsn1 A1 core amplitude
-# Merged #506 rho=1 row literals (5 s.f.), for the cold-recovery receipt.
-C506_RHO1 = {"C11": 0.17678, "C12": -0.17678, "C44": 0.17678, "K": -0.058926, "Zener": 1.0}
+# Merged rho=1 row literals, for the cold-recovery receipt.
+#
+# ⚑ RE-ATTRIBUTED 2026-08-02 IN REVIEW (finding 4). The previous comment read
+#   "# Merged #506 rho=1 row literals (5 s.f.)"
+# and the K entry was -0.058926. That attribution does NOT hold: -0.058926 appears NOWHERE
+# in the corpus at any precision. Per-cell provenance, byte-verified:
+#   C11 / C12 / C44 / Zener  -- 5 s.f. at `research/2026-07-04_saturated-elastic-tensor_result.md`
+#     :57 and :117, verbatim "C11=C44=+0.17678, C12=-0.17678, ... Zener=1.0000". The merged
+#     #506 row (`research/2026-07-04_srs-elastic-tensor_result.md`:125) prints the same cells
+#     to 4 s.f. (+0.1768) and #506:198 prints the collapsed iso-bond value "0.17678".
+#   K  -- 5 s.f. -0.05893 at `saturated-elastic-tensor_result.md`:57 and :117, verbatim
+#     "K=-0.05893". #506:125 prints -0.0589 (4 s.f.), which this gate would FAIL
+#     (|computed - (-0.0589)| = 2.56e-5 > 5e-6); the 5-s.f. #519 literal PASSES at 4.43e-6,
+#     and 4.43e-6 is now the arm's max deviation. Gate left UNCHANGED at 5e-6; disclosed here,
+#     in the JSON provenance block, and in the doc's Receipt 1.
+MERGED_RHO1_LITERALS = {"C11": 0.17678, "C12": -0.17678, "C44": 0.17678, "K": -0.05893, "Zener": 1.0}
+MERGED_RHO1_PROVENANCE = {
+    "C11": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.), :198",
+    "C12": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.)",
+    "C44": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.), :198",
+    "K": ("saturated-elastic-tensor_result.md:57,:117 (5 s.f. -0.05893); "
+          "srs-elastic-tensor_result.md:125 prints -0.0589 (4 s.f.)"),
+    "Zener": "saturated-elastic-tensor_result.md:57,:117; srs-elastic-tensor_result.md:125",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -202,17 +230,19 @@ def arm_P0(pos, bonds, rho):
     f = extract_cubic_Cij(pos, bonds, k_axial=1.0, k_shear=1.0, rho=rho)
     m = moduli_from_Cij(f["C11"], f["C12"], f["C44"])
     dev = {
-        "C11": abs(f["C11"] - C506_RHO1["C11"]),
-        "C12": abs(f["C12"] - C506_RHO1["C12"]),
-        "C44": abs(f["C44"] - C506_RHO1["C44"]),
-        "K": abs(m["K_bulk"] - C506_RHO1["K"]),
-        "Zener": abs(m["Zener_A"] - C506_RHO1["Zener"]),
+        "C11": abs(f["C11"] - MERGED_RHO1_LITERALS["C11"]),
+        "C12": abs(f["C12"] - MERGED_RHO1_LITERALS["C12"]),
+        "C44": abs(f["C44"] - MERGED_RHO1_LITERALS["C44"]),
+        "K": abs(m["K_bulk"] - MERGED_RHO1_LITERALS["K"]),
+        "Zener": abs(m["Zener_A"] - MERGED_RHO1_LITERALS["Zener"]),
     }
-    ok = max(dev.values()) < 5e-6  # the merged row is quoted to 5 s.f.
+    ok = max(dev.values()) < 5e-6  # every literal is quoted to 5 s.f.
     return {
         "computed": {"C11": f["C11"], "C12": f["C12"], "C44": f["C44"],
                      "K_acoustic_Birch": m["K_bulk"], "Zener_A": m["Zener_A"]},
-        "merged_506_row": C506_RHO1,
+        "merged_reference_row": MERGED_RHO1_LITERALS,
+        "merged_reference_row_provenance": MERGED_RHO1_PROVENANCE,
+        "per_cell_abs_deviation": dev,
         "max_abs_deviation": max(dev.values()),
         "PASS": bool(ok),
     }
@@ -348,6 +378,50 @@ def arm_P3(pos, bonds, rho, und, V):
     dS = float(np.mean(dS_secants))
     thr_birch = next(r for r in rows if r["K_acoustic_Birch"] > 0)
     thr_thermo = next(r for r in rows if r["K_thermodynamic"] > 1e-12)
+
+    # --- SUPPLEMENTARY ANALYTIC THRESHOLD (added 2026-08-02 in review, finding 12) --------
+    # DISCLOSURE, stated before the number. The numeric secant gate `> 1e-12` immediately
+    # above sits ~3 OOM BELOW this arm's own measured K_thermodynamic noise floor at
+    # rho_eff = 1 (|K_th| ~ 4e-10 here, ~5e-10 across the P2 sweep). It is therefore NOT
+    # resolving a threshold: which row it first fires on is decided by the SIGN of a
+    # numerical residual, not by physics -- had the rho_eff = 1 residual come out positive,
+    # the gate would have fired at rho_eff = 1.0. The gate is deliberately RETAINED
+    # UNCHANGED (KEEP-BOTH; this is a post-result gate-QUALITY note, not a retune, and
+    # retuning a gate after seeing its result is exactly what Rule 11 forbids). What
+    # follows is the resolution-independent statement the document's threshold claim
+    # actually rests on -- the P1 closed form, which is exact to 1.1e-08 over rho in
+    # [0.5, 10]:
+    #     K_th(rho_eff) = (rho_eff - 1) * sigma_0 / 3 ,  sigma_0 > 0
+    #  => K_th > 0  IF AND ONLY IF  rho_eff > 1 ,  with NO finite threshold and no
+    #     resolution floor. The measured rows are checked against it below wherever the
+    #     predicted magnitude clears 10x the noise floor.
+    sigma_0_p3 = float(np.trace(prestress_tensor(und, V, 1.0)) / 3.0)
+    noise_floor = max([abs(rw["K_thermodynamic"]) for rw in rows if rw["rho_eff"] == 1.0]
+                      or [0.0])
+    closed_err, sign_ok, n_checked = 0.0, True, 0
+    for rw in rows:
+        pred = (rw["rho_eff"] - 1.0) * sigma_0_p3 / 3.0
+        closed_err = max(closed_err, abs(rw["K_thermodynamic"] - pred))
+        if abs(pred) > 10.0 * max(noise_floor, 1e-30):
+            n_checked += 1
+            sign_ok = sign_ok and (np.sign(rw["K_thermodynamic"]) == np.sign(pred))
+    analytic_threshold = {
+        "closed_form": "K_thermodynamic(rho_eff) = (rho_eff - 1) * sigma_0 / 3",
+        "sigma_0": sigma_0_p3,
+        "threshold_rho_eff_ANALYTIC": 1.0,
+        "assertion": "K_thermodynamic > 0 if and only if rho_eff > 1 (sigma_0 > 0)",
+        "sigma_0_positive": bool(sigma_0_p3 > 0.0),
+        "max_abs_error_of_closed_form_over_P3_grid": closed_err,
+        "measured_noise_floor_|K_th|_at_rho_eff=1": noise_floor,
+        "rows_above_10x_noise_floor_checked": n_checked,
+        "sign_agrees_with_closed_form_on_every_resolved_row": bool(sign_ok),
+        "PASS": bool(sigma_0_p3 > 0.0 and sign_ok and closed_err < 1e-7),
+        "DISCLOSURE": ("the numeric secant gate `K_thermodynamic > 1e-12` reported in "
+                       "`threshold_K_thermodynamic_positive` is ~3 OOM BELOW the measured "
+                       "noise floor at rho_eff = 1 and cannot resolve the threshold; it is "
+                       "RETAINED UNCHANGED for the frozen record (KEEP-BOTH). This analytic "
+                       "form is the resolution-independent statement."),
+    }
     return {
         "rows": rows,
         "dZener_drho_at_iso_bond": float(dZ),
@@ -357,7 +431,9 @@ def arm_P3(pos, bonds, rho, und, V):
                                           "T_spread": thr_birch["T_branch_fractional_spread"]},
         "threshold_K_thermodynamic_positive": {"rho_eff": thr_thermo["rho_eff"],
                                                "Zener_A": thr_thermo["Zener_A"],
-                                               "T_spread": thr_thermo["T_branch_fractional_spread"]},
+                                               "T_spread": thr_thermo["T_branch_fractional_spread"],
+                                               "GATE_IS_NOISE_FLOOR_LIMITED": True},
+        "threshold_K_thermodynamic_positive_ANALYTIC": analytic_threshold,
         "VERDICT": ("ASYMMETRIC BIAS CAN buy K>0, and the price is anisotropy: near the "
                     "iso-bond point Zener-1 ~ (rho_eff-1)/8 and the transverse-branch "
                     "fractional speed spread ~ (rho_eff-1)/16."),
@@ -429,6 +505,9 @@ def main():
         raise SystemExit(f"HALT: P1 pre-stress identity FAILED: {p1}")
     p2 = arm_P2(pos, bonds, rho, und, V)
     p3 = arm_P3(pos, bonds, rho, und, V)
+    if not p3["threshold_K_thermodynamic_positive_ANALYTIC"]["PASS"]:
+        raise SystemExit("HALT: P3 ANALYTIC K_thermodynamic threshold FAILED: "
+                         f"{p3['threshold_K_thermodynamic_positive_ANALYTIC']}")
     p4 = arm_P4(pos, bonds)
 
     out = {
@@ -461,7 +540,14 @@ def main():
     print(f"P2 sign(K_acoustic) ever flips: {p2['sign_K_acoustic_ever_flips']}; "
           f"max|K_thermo| {p2['max_|K_thermodynamic|']:.2e}; max|Zener-1| {p2['max_|Zener-1|']:.2e}")
     print(f"P3 dZener/drho at iso-bond = {p3['dZener_drho_at_iso_bond']:.6f}; "
+          f"dTspread/drho = {p3['dTspread_drho_at_iso_bond_onesided_secant']:.6f}; "
           f"K_acoustic>0 first at rho_eff={p3['threshold_K_acoustic_positive']['rho_eff']}")
+    _an = p3["threshold_K_thermodynamic_positive_ANALYTIC"]
+    _an_err = _an["max_abs_error_of_closed_form_over_P3_grid"]
+    print(f"P3 ANALYTIC K_thermo>0 iff rho_eff>1 (closed-form err {_an_err:.2e}; "
+          f"sign OK on {_an['rows_above_10x_noise_floor_checked']} resolved rows) PASS={_an['PASS']}; "
+          f"the numeric secant gate 1e-12 is NOISE-FLOOR-LIMITED "
+          f"(floor {_an['measured_noise_floor_|K_th|_at_rho_eff=1']:.1e}), retained unchanged")
     print(f"P4 ||D - L(x)I3||/||D|| = {p4['exact_factorization_||D - L(x)I3||/||D||']:.2e}; "
           f"worst triple spread {p4['worst_relative_intra_triple_spread_rho1']:.2e} "
           f"(control rho=3: {p4['control_rho3_worst_intra_triple_spread']:.3f}); "

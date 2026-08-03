@@ -25,14 +25,28 @@
       "K_acoustic_Birch": -0.058925565493096375,
       "Zener_A": 1.0000000000000004
     },
-    "merged_506_row": {
+    "merged_reference_row": {
       "C11": 0.17678,
       "C12": -0.17678,
       "C44": 0.17678,
-      "K": -0.058926,
+      "K": -0.05893,
       "Zener": 1.0
     },
-    "max_abs_deviation": 3.303520710762342e-06,
+    "merged_reference_row_provenance": {
+      "C11": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.), :198",
+      "C12": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.)",
+      "C44": "saturated-elastic-tensor_result.md:57,:117 (5 s.f.); srs-elastic-tensor_result.md:125 (4 s.f.), :198",
+      "K": "saturated-elastic-tensor_result.md:57,:117 (5 s.f. -0.05893); srs-elastic-tensor_result.md:125 prints -0.0589 (4 s.f.)",
+      "Zener": "saturated-elastic-tensor_result.md:57,:117; srs-elastic-tensor_result.md:125"
+    },
+    "per_cell_abs_deviation": {
+      "C11": 3.30352071065132e-06,
+      "C12": 3.303520710762342e-06,
+      "C44": 3.3035207106235642e-06,
+      "K": 4.4345069036277884e-06,
+      "Zener": 4.440892098500626e-16
+    },
+    "max_abs_deviation": 4.4345069036277884e-06,
     "PASS": true
   },
   "P1_prestress_identity": {
@@ -757,7 +771,21 @@
     "threshold_K_thermodynamic_positive": {
       "rho_eff": 1.000001,
       "Zener_A": 1.000000115938476,
-      "T_spread": 7.503993214413442e-08
+      "T_spread": 7.503993214413442e-08,
+      "GATE_IS_NOISE_FLOOR_LIMITED": true
+    },
+    "threshold_K_thermodynamic_positive_ANALYTIC": {
+      "closed_form": "K_thermodynamic(rho_eff) = (rho_eff - 1) * sigma_0 / 3",
+      "sigma_0": 0.1767766952966369,
+      "threshold_rho_eff_ANALYTIC": 1.0,
+      "assertion": "K_thermodynamic > 0 if and only if rho_eff > 1 (sigma_0 > 0)",
+      "sigma_0_positive": true,
+      "max_abs_error_of_closed_form_over_P3_grid": 1.1196942484303918e-08,
+      "measured_noise_floor_|K_th|_at_rho_eff=1": 3.9421740871681266e-10,
+      "rows_above_10x_noise_floor_checked": 13,
+      "sign_agrees_with_closed_form_on_every_resolved_row": true,
+      "PASS": true,
+      "DISCLOSURE": "the numeric secant gate `K_thermodynamic > 1e-12` reported in `threshold_K_thermodynamic_positive` is ~3 OOM BELOW the measured noise floor at rho_eff = 1 and cannot resolve the threshold; it is RETAINED UNCHANGED for the frozen record (KEEP-BOTH). This analytic form is the resolution-independent statement."
     },
     "VERDICT": "ASYMMETRIC BIAS CAN buy K>0, and the price is anisotropy: near the iso-bond point Zener-1 ~ (rho_eff-1)/8 and the transverse-branch fractional speed spread ~ (rho_eff-1)/16."
   },
