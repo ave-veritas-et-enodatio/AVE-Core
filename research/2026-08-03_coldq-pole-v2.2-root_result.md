@@ -84,7 +84,7 @@
 
 > **⚑ DISCLOSED: this diagnostic was ADDED AFTER G2's outcome was seen.** It changes no frozen criterion, changes no verdict, enters no bin, and is tagged in the shipped JSON as `NOT-ADJUDICATED DIAGNOSTIC -- no gate, no bin, no verdict`. It exists because *"this is under-resolution, not the audit's pseudo-spectrum"* is a claim, and a claim of that shape is exactly what the PR #854 audit refuted the last time this arc asserted one (`0a7dec1f`, R1). **So it is measured.**
 
-**The test.** If the ladder's spread is spectral under-resolution, the error against the highest order must fall **geometrically** in `n`. If it is a migrating pseudo-pole — the audit's mechanism — it must not.
+**The test.** If the ladder's spread is spectral under-resolution, the error against the highest order must fall **exponentially** in `n` — smoothly, monotonically, at a rate set by the operator's own regularity. If it is a migrating pseudo-pole — the audit's mechanism — it must not.
 
 | `n` | error vs `n = 96`, relative | ratio to the next rung |
 |---|---|---|
@@ -94,7 +94,9 @@
 | 80 | `2.9026e-19` | — |
 | 96 | `0.0` (reference) | — |
 
-**Clean geometric convergence over four rungs.** The instrument is resolving, and it is resolving at a rate that puts `n = 32`'s error exactly where an exponentially-convergent spectral method puts it. **A migrating pseudo-pole does not do this** — FT-5(a) measures what one actually does (§3.2), and it is not this.
+**Clean root-exponential (sub-geometric) convergence over four rungs:** `E(n) ≈ C·exp(−c√n)`, with the local rate `c = −d ln E / d√n` running `5.8` → `6.4` across the three intervals this table prints, and `5.4` → `6.6` over `n = 24 → 96` of the twelve-rung extension recorded in the docket fragment (still climbing at the two rungs above that). **This is the expected Chebyshev rate for an ENDPOINT-SINGULAR operator** — the Ax-4 kernel `S = η√(2 − η²)` vanishes at the wall `η = 0`, so the coefficient functions are not analytic at the endpoint and the classical geometric rate is not available. The instrument is resolving, and it is resolving at exactly the rate this operator's own regularity allows. **A migrating pseudo-pole does not do this** — FT-5(a) measures what one actually does (§3.2), and it is not this.
+
+> **⚑ CORRECTED 2026-08-03 (post-review) — "GEOMETRIC" WAS THE WRONG WORD, AND THIS TABLE'S OWN NUMBERS REFUTE IT.** Original text, verbatim: *"**Clean geometric convergence over four rungs.** The instrument is resolving, and it is resolving at a rate that puts `n = 32`'s error exactly where an exponentially-convergent spectral method puts it."* **Geometric convergence in `n` at a fixed rung spacing requires a CONSTANT ratio between rungs. The ratios printed one column to the left are `1544.6`, `690.97`, `403.39` — they fall by roughly a factor of two per step.** A `C·ρⁿ` law cannot produce that; `C·exp(−c√n)` produces exactly it, because the increment `√(n+16) − √n` shrinks as `n` grows. **The correction runs slightly against this lane's convenience: sub-geometric convergence is *slower* than the word "geometric" advertised, so the `n = 32` rung's error is larger than a geometric reading would have predicted, and the mechanism attribution is if anything better supported — an endpoint singularity is a property of the CONTINUOUS operator, not of the discretization, and it predicts the observed law with no free choices.** The conclusion of §2.2 — under-resolution, not a migrating pseudo-pole — is **unchanged and independently strengthened** by the extension in the docket: monotone across every rung of a twelve-rung ladder, thirteen orders of decay, no plateau, and the deepest rung still far above the polish's own floor.
 
 ### §2.3 Why the failure is a specification defect, and why it was knowable at freeze
 

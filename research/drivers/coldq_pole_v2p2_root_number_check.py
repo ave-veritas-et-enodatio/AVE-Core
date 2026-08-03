@@ -222,6 +222,25 @@ ALLOWED = {
             "G2 tolerance divided by the SHIPPED n = 48 convergence row, which "
             "IS registered) -- the margin a ladder starting at n = 48 would "
             "have had at the frozen tolerance.  Adjudicates nothing",
+    "5.8": "section 2.2 root-exponential rate c = -dlnE/dsqrt(n) on the FIRST "
+           "interval the shipped convergence table prints (n = 32 -> 48): "
+           "(ln 1.2497e-10 - ln 8.0906e-14)/(sqrt(48)-sqrt(32)) = 5.7754, "
+           "quoted to two significant figures.  Derived from two REGISTERED "
+           "tokens by the formula stated here; a post-review characterization, "
+           "not a battery output",
+    "6.4": "section 2.2 root-exponential rate on the LAST interval the shipped "
+           "convergence table prints (n = 64 -> 80): "
+           "(ln 1.1709e-16 - ln 2.9026e-19)/(sqrt(80)-sqrt(64)) = 6.3540, "
+           "quoted to two significant figures.  Same formula, same two "
+           "REGISTERED-token provenance",
+    "5.4": "section 2.2: the same rate on the LOWEST interval of the twelve-rung "
+           "post-review extension (n = 24 -> 32) = 5.4718.  The extension is a "
+           "POST-RESULT reproduction recorded in the docket fragment; it is NOT "
+           "in the shipped JSON and it adjudicates nothing",
+    "6.6": "section 2.2: the same rate at n = 88 -> 96 of that extension = "
+           "6.6206 -- the top of the band over n = 24 -> 96.  The rate keeps "
+           "climbing above n = 96 (6.71, 6.81), which the doc states rather "
+           "than truncating.  POST-RESULT, docket-recorded, adjudicates nothing",
     "8.9716e-16": "v2.1's C11 operator-identity measurement, quoted from the "
                   "prereg SECTION 9 G0 tolerance row (prereg :474) by the "
                   "2026-08-03 post-review pointer correction, to show what "
