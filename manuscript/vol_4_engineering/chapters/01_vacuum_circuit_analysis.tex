@@ -821,20 +821,40 @@ By modelling the universe as a non-linear dielectric network, the AVE framework 
 
 \subsection{The Non-Linear Source Term}
 
-\noindent\textbf{Sector re-keying correction (2026-08-03, $V_{yield} \to V_{snap}$; \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the rest of this section is preserved per Rule~12 KEEP-BOTH).} This section keys the \emph{diverging} compliance $C_{vac} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected} --- this is the un-propagated remainder of the same ratified ruling already applied at \S``The Vacuum Varactor'' above, whose note is explicitly scoped \emph{``this note covers this subsection only.''} \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. A1 $\perp$ T2 are orthogonal reactances sharing the EE name ``capacitance''; identifying them is the genesis-24 double-count. \textbf{(2) Which voltage.} $V_{yield}$ is the \textbf{transverse Cosserat ($T_2$) self-trap wall}, not the A1 compliance bound; the A1 compliance diverges at the higher $V_{snap} = m_ec^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} = 11.706$ above $V_{yield}$. \textbf{(3) How to read this section.} Eq.~\ref{eq:varactor_imd} and the IP3 result (Eq.~\ref{eq:ip3}) are \textbf{updated in place}; the Taylor expansion below, Table~\ref{tab:imd_levels} and the falsification criterion keep their $V_{yield}$ token \textbf{preserved per Rule~12} and are read with $V_{yield} \to V_{snap}$. The dimensionless \emph{ratios} ($C_{vac}/C_0$, $S$, and the $V/V_{\cdot}$ column) are \textbf{unchanged}; only the absolute voltage column rescales by $1/\sqrt{\alpha}$, so the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{(4) What this does NOT do.} It does \emph{not} revive the retracted tabletop foothold --- the 2026-06-21 scope correction above stands untouched on the \emph{per-node} argument, which is orthogonal to which apparatus voltage normalizes the ratio (honest detection field remains facility-class $E \approx 1.3\times10^{15}$ V/m) --- and it does not touch the KEEP-BOTH cubic-vs-sextic retraction. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}):18, \kbleaf{ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md}:18--20; KB twin re-keyed in lockstep at \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md}.
+\noindent\textbf{Sector re-keying correction (2026-08-03, $V_{yield} \to V_{snap}$; \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the rest of this section is preserved per Rule~12 KEEP-BOTH).} This section keys the \emph{diverging} compliance $C_{vac} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected} --- this is the un-propagated remainder of the same ratified ruling already applied at \S``The Vacuum Varactor'' above, whose note is explicitly scoped \emph{``this note covers this subsection only.''} \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. A1 $\perp$ T2 are orthogonal reactances sharing the EE name ``capacitance''; identifying them is the genesis-24 double-count. \textbf{(2) Which voltage.} $V_{yield}$ is the \textbf{transverse Cosserat ($T_2$) self-trap wall}, not the A1 compliance bound; the A1 compliance diverges at the higher $V_{snap} = m_ec^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} = 11.706$ above $V_{yield}$. \textbf{(3) How to read this section --- note-only, nothing edited in place.} \emph{Every} equation, number, table row and criterion in this section keeps its printed $V_{yield}$ token \textbf{preserved per Rule~12} and is read with $V_{yield} \to V_{snap}$: Eq.~\ref{eq:varactor_imd}, its Taylor expansion, Table~\ref{tab:imd_levels}, the falsification criterion, \emph{and} the IP3 result (Eq.~\ref{eq:ip3}). The dimensionless \emph{ratios} ($C_{vac}/C_0$, $S$, and the $V/V_{\cdot}$ column) are \textbf{unchanged}; only the absolute voltage column rescales by $1/\sqrt{\alpha}$, so the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{The one absolute value that must be carried explicitly is IP3:} read Eq.~\ref{eq:ip3} as $V_{IP3} = \sqrt{4/3}\,V_{snap} = 1.1547005 \times 510{,}998.95 = \mathbf{590{,}051}$~V $\approx \mathbf{590}$~kV --- the printed $50.4$~kV is the $V_{yield}$-keyed reading and is low by exactly $1/\sqrt{\alpha} = 11.70624$. That is a \textbf{value substitution downstream of an adjudicated ruling}, not a transcription fix, and it is disclosed here, at the equation, in the KB twin and in the docket; the cross-check $\sqrt{4/3}\,V_{yield} = 50{,}404.8$~V reproduces the printed $50.4$~kV to the digit, confirming the printed arithmetic is right and only the keying is at issue. \emph{Method note (2026-08-03, Rule~12 --- the struck sentence read ``Eq.~\ref{eq:varactor_imd} and the IP3 result (Eq.~\ref{eq:ip3}) are \textbf{updated in place}''):} an interim pass edited those two equations in place; that method is \textbf{reverted} per orchestrator ruling, because this chapter must not print the same Axiom-4 constitutive equation two ways --- the chapter's Grant-merged precedent at the Vacuum-Varactor subsection (\S``no equation, no number and no table row is edited'') is \textbf{note-only}, and this section now matches it. \textbf{Only the equation-editing method reverted; the value work above stands.} The KB twin retains the in-place convention it inherits from its own upstream, so print and KB differ in \emph{method} while agreeing on \emph{content}. \textbf{(4) What this does NOT do.} It does \emph{not} revive the retracted tabletop foothold --- the 2026-06-21 scope correction above stands untouched on the \emph{per-node} argument, which is orthogonal to which apparatus voltage normalizes the ratio (honest detection field remains facility-class $E \approx 1.3\times10^{15}$ V/m) --- and it does not touch the KEEP-BOTH cubic-vs-sextic retraction. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}):18, \kbleaf{ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md}:18--20; KB twin re-keyed in lockstep at \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md}.
 
 Standard QED models the vacuum as a linear medium at low energies, predicting that photon-photon scattering occurs only via extraordinarily weak perturbative quantum fluctuations (Euler-Heisenberg, $\sigma \propto \alpha^4$). The AVE framework replaces this with a deterministic, classical non-linearity: the squared geometric saturation limit (Axiom~4) imposes a macroscopic varactor on the dielectric constant of the vacuum:
 \begin{resultbox}{Vacuum Varactor (Axiom~4)}
-% [RE-KEYED 2026-08-03 per the sector-re-keying correction above -- prior form
-%  preserved per Rule 12]: this equation read
-%    "C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/V_{yield})^2}}, \qquad
-%     V_{yield} \approx 43.65 \text{ kV}"
-%  Token swapped V_yield -> V_snap; the divergent C_0/S is the longitudinal-A1
-%  compliance, bounded at V_SNAP = 510,998.95 V (src/ave/core/constants.py),
-%  not at the transverse-T2 wall V_YIELD = 43,651.85 V. Functional form
-%  unchanged.
+% [METHOD REVERT 2026-08-03 (orchestrator ruling; supersedes the in-place edit
+%  made earlier the same day). An interim edit had swapped this equation's token
+%  IN PLACE, reading:
+%    "C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/V_{snap})^2}}, \qquad
+%     V_{snap} \approx 511 \text{ kV}"
+%  That swap is REVERTED, and the equation is restored to the form it has always
+%  printed. NOTHING ABOUT THE PHYSICS CHANGES: the ratified def-vyvsn1 re-keying
+%  still governs, and is still stated in the section note above.
+%  WHY: METHODOLOGY CONSISTENCY, not a physics reversal. This chapter must not
+%  print the same Axiom-4 constitutive equation two different ways. The chapter's
+%  own Grant-merged precedent for exactly this correction is the Vacuum-Varactor
+%  subsection note at :260 (commit 03591777, 2026-08-02), which is explicitly
+%  NOTE-ONLY -- its own comment block states "no equation, no number and no table
+%  row is edited", and Eq. eq:varactor at :265 (label :266; identical on
+%  origin/main) still prints V_yield with the note above it supplying "read with
+%  V_yield -> V_snap". Editing eq:varactor_imd in
+%  place while eq:varactor stays note-only would have left the chapter printing
+%  the constitutive equation BOTH ways, three subsections apart.
+%  ELECTED METHOD FOR THIS CHAPTER (print side): NOTE-ONLY read-with-substitution.
+%  The KB side keeps the in-place convention it inherits from its own upstream
+%  (nonlinear-vacuum-capacitance.md's resultbox prints V_snap directly), so print
+%  and KB differ in METHOD while agreeing on CONTENT; that split is deliberate and
+%  is disclosed in the docket.
+%  READ THIS EQUATION AS: C_vac(V) = C_0 / sqrt(1 - (V/V_snap)^2), with the
+%  divergence at V_SNAP = 510,998.95 V (src/ave/core/constants.py V_SNAP), NOT at
+%  the transverse-T2 wall V_YIELD = 43,651.85 V. The printed 43.65 kV is then the
+%  V/V_snap = sqrt(alpha) ~ 0.085 FIRST row of the corrected scale, not the
+%  divergence. The functional form is unchanged under either keying.
 \begin{equation}
-    C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/V_{snap})^2}}, \qquad V_{snap} \approx 511 \text{ kV}
+    C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/V_{yield})^2}}, \qquad V_{yield} \approx 43.65 \text{ kV}
     \label{eq:varactor_imd}
 \end{equation}
 \end{resultbox}
@@ -869,27 +889,42 @@ These IM3 tones fall \textit{close} to the original drive frequencies (unlike ha
 
 For a standard varactor with $C(V) = C_0 (1 - V/V_{br})^{-1/2}$, the 3rd-order intercept point (IP3) is related to the breakdown voltage by:
 \begin{resultbox}{Third-Order Intercept (IP3)}
-% [VALUE SUBSTITUTION 2026-08-03 -- executed under the ratified sector re-keying
-%  above; FLAGGED, not silent. Prior line preserved per Rule 12]: this equation
-%  read
-%    "V_{IP3} = \sqrt{\frac{4}{3}}\; V_{yield} \approx 1.155 \times 43.65
-%     \approx 50.4 \text{ kV}"
-%  The 50.4 kV is STRUCK. The IP3 form V_IP3 = sqrt(4/3) V_br is unchanged; what
-%  changes is WHICH voltage is the breakdown reference, and the sector re-keying
-%  rules that to be V_snap. Recompute on src/ave/core/constants.py:
-%    V_IP3 = sqrt(4/3) * V_SNAP = 1.1547005 * 510,998.95 V = 590,051 V ~ 590 kV.
-%  THE 11.7x MOVE IS DISCLOSED EXPLICITLY: the new value is exactly 1/sqrt(alpha)
-%  times the old, because V_SNAP / V_YIELD = 1/sqrt(alpha) = 11.70624 identically.
+% [METHOD REVERT 2026-08-03 (orchestrator ruling; supersedes the in-place edit
+%  made earlier the same day). An interim edit had substituted this equation IN
+%  PLACE, reading:
+%    "V_{IP3} = \sqrt{\frac{4}{3}}\; V_{snap} \approx 1.1547 \times 511.0
+%     \approx 590 \text{ kV}"
+%  That in-place substitution is REVERTED for METHODOLOGY CONSISTENCY -- this
+%  chapter elects the NOTE-ONLY read-with-substitution method throughout, matching
+%  its own Grant-merged precedent at :260 (see the fuller statement in the comment
+%  block above eq:varactor_imd). THE VALUE WORK STANDS AND IS BANKED HERE; only
+%  the equation-editing METHOD reverts.
+%
+%  ---- BANKED VALUE RECEIPT (the B8 disclosure, preserved in full) ----
+%  READ THIS EQUATION AS keyed on V_snap, i.e. V_IP3 = sqrt(4/3) * V_snap.
+%  Recomputed by this lane on src/ave/core/constants.py (not copied from any
+%  handoff):
+%      V_IP3 = sqrt(4/3) * V_SNAP = 1.1547005 * 510,998.95 V
+%            = 590,051 V  ~  590 kV.
+%  THE PRINTED 50.4 kV IS THE V_yield-KEYED READING, and it is 11.7x LOW under the
+%  ratified keying. That is a VALUE SUBSTITUTION downstream of an adjudicated
+%  physics ruling (def-vyvsn1, Grant 2026-06-30), NOT a transcription correction,
+%  and it is disclosed as such -- here, in the section note above, in the KB twin
+%  (intermodulation-distortion.md, which carries the same receipt), in the commit
+%  message, and in _orchestration/docket-entries/2026-08-03-mr-handoff-mechanical.md.
+%  THE 11.7x MOVE IS EXACTLY 1/sqrt(alpha): V_SNAP / V_YIELD = 1/sqrt(alpha)
+%  = 11.70624 identically.
 %  Cross-check both directions:
-%    sqrt(4/3) * V_YIELD = 50,404.8 V -- reproduces the struck 50.4 kV to the
-%      digit, confirming the struck value's ARITHMETIC was right and only its
-%      KEYING was wrong;
+%    sqrt(4/3) * V_YIELD = 50,404.8 V -- reproduces the printed 50.4 kV TO THE
+%      DIGIT, confirming that the printed value's ARITHMETIC is right and only its
+%      KEYING is at issue;
 %    50,404.8 V * 11.70624 = 590,051 V.
-%  This is a VALUE SUBSTITUTION downstream of an adjudicated physics ruling, not
-%  a transcription correction, and is recorded as such in the commit message and
-%  in _orchestration/docket-entries/2026-08-03-mr-handoff-mechanical.md.
+%  Arithmetic drift vs the handoff, recorded: the handoff quoted 590,047 V; the
+%  recompute from V_SNAP gives 590,050.76 V. Both round to 590 kV; the banked
+%  digits are this lane's recompute.
+%  ---------------------------------------------------------------------
 \begin{equation}
-    V_{IP3} = \sqrt{\frac{4}{3}}\; V_{snap} \approx 1.1547 \times 511.0 \approx 590 \text{ kV}
+    V_{IP3} = \sqrt{\frac{4}{3}}\; V_{yield} \approx 1.155 \times 43.65 \approx 50.4 \text{ kV}
     \label{eq:ip3}
 \end{equation}
 \end{resultbox}
