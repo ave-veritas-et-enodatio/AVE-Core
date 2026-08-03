@@ -202,7 +202,30 @@ is not an admissible closure."*
 | **(1) The observable both sides predict in the same coordinates** | the **enantiomer split of the scalar self-resonance**, $(f_R-f_L)/f_0$, on the as-fabbed HOPF-02a pair in an **achiral host** (air + FR-4) — the quantity a 1-port $S_{11}$ differential actually reads |
 | **(2) Classical value** | **exactly `0`** |
 | **(3) AVE value** | `1.751365e-02` fractional = **`11.9093` MHz** at `680` MHz |
-| **(4) The experiment that reads it** | the HOPF-02a enantiomer pair, differential $S_{11}$ — **designed to fab-artifact completeness (Gerbers + drill + DRC + BOM + ORDERING exported); NOT FABBED.** The physical fab order is AVE-HOPF **Phase 0b, gated on Grant, ~\$`123` BOM + build**. Round-2 §4 inherits the S-8 fab floor ≈ `130` kHz = `1.911765e-04` fractional at `680` MHz ⇒ margin `91.6098`× |
+| **(4) The experiment that reads it** | the HOPF-02a enantiomer pair, differential $S_{11}$ — **designed to fab-artifact completeness (Gerbers + drill + DRC + BOM + ORDERING exported); NOT FABBED.** The physical fab order is AVE-HOPF **Phase 0b, gated on Grant, ~\$`123` BOM + build**. Round-2 §4 inherits the S-8 **FABRICATION** floor ≈ `130` kHz = `1.911765e-04` fractional at `680` MHz ⇒ margin `91.6098`× — see the floor-class note below |
+
+**★ Floor-class note — what the `91.6098`× is a margin over, and what it is not.** *(Rule 12
+quote-and-correct, 2026-08-02. The `f9d5c86c` text quoted "margin `91.6098`×" against "the S-8 fab
+floor" without saying which CLASS of floor that is; the audit's F4 is that the qualifier is
+load-bearing.)*
+
+The `91.6098`× is against the **S-8 FABRICATION floor** — AVE-HOPF
+`docs/analysis/2026-06-03_hopf_antenna_hardened_prereg.md:264`, an L↔R fab/assembly asymmetry
+drawn from a `5000`-trial Monte Carlo over hole, mandrel, wire-bend and operator. That **is** the
+correct floor *class* for an enantiomer differential: what an L-vs-R comparison is exposed to is
+precisely an L-vs-R build asymmetry. But it is not the whole floor. A *measured* differential also
+carries a **MEASUREMENT** floor $\sigma_{\rm repeat}\sqrt{2/N}$, and $\sigma_{\rm repeat}$ **has
+never been measured on this hardware** — it is routed at **AVE-HOPF PR #`3`** (branch
+`bench/sigma-repeat-and-sweep-spec`, unmerged), whose `docs/open_questions.md:116` puts the
+ceiling S-1's own $N\ge$ `10` implies at $\sigma_{\rm repeat}\le$ `0.29` MHz.
+
+At that worst admitted value the combined floor is
+$\sqrt{(`130`\,\text{kHz})^2 + (`290`\,\text{kHz}\sqrt{2/`10`})^2} = $ `183.630` kHz
+(measurement term alone `129.692` kHz), giving margin **`64.855`×**
+(`post_audit_supplementary_NOT_FROZEN.S3_combined_floor_scope`). **The EXISTENCE claim is robust
+under both floors** — `0` versus `11.9093` MHz clears either by ~two orders of magnitude. Only
+the margin *figure* moves, `91.6098`× → `64.855`×, and both are quoted here rather than one
+being silently swapped for the other.
 
 **Why the classical value is exactly zero, and what that is conditional on.** Maxwell's equations
 are parity-covariant: the mirror image of a solution is a solution, so in a **mirror-symmetric
@@ -404,7 +427,9 @@ Constructively, three routes — each is a real experiment or a real derivation,
    mechanism. Then C-iii and C-iv become SAME and the magnitude comparison adjudicates directly.
 3. **Measure the common observable (cheapest — the board is *designed*, not built).** The
    enantiomer split of the scalar self-resonance in air: `0` vs `1.751365e-02`, margin
-   `91.6098`× over the fab floor. This is still the cheapest of the three: it needs **no new
+   `91.6098`× over the S-8 **fabrication** floor (`64.855`× over the worst combined
+   fabrication+measurement floor S-1 admits — §6.1 floor-class note). This is still the
+   cheapest of the three: it needs **no new
    design and no new derivation**, only the fab order that is already staged and gated — AVE-HOPF
    Phase 0b, ~\$`123` BOM **plus build time**, not \$`0`. Routes 1 and 2 need a whole new
    composite slab and a whole new derivation respectively; this one needs a PCB order.
