@@ -46,6 +46,24 @@ In this text, the absolute nucleonic 3D geometry \textit{class} is rigorously de
 Within each $(Z, A)$-forced topology class, a single scalar inter-alpha distance $R$ is adjusted per nucleus so that the $1/d_{ij}$ mutual-impedance summation over the alpha-cluster geometry reproduces the observed CODATA mass. The $\leq 0.03\%$ (and in places $\leq 0.0002\%$) agreements reported throughout Volume~6 are therefore \textbf{fitting tolerances on this one scalar per nucleus}, not ab-initio prediction errors on the mass itself. The axiomatic content of Volume~6 is the claim that \textbf{one scalar per nucleus — constrained by the forced cluster topology and the axiom-derived coupling $K$ — suffices to recover the full mass defect}. What is predicted: the value of $K$ (see \S\ref{sub:R_coupled_cavity}), the cluster topology as a function of $(Z,A)$, and the parameter count (one scalar per nucleus). What is fit: the numerical value of $R$ within each topology.
 \end{resultbox}
 
+% [2026-08-02 RENDERING-DEFECT REPAIR on the volume's load-bearing honesty caveat. Not a KB
+%  divergence -- a printed cross-reference defect. DIAGNOSIS (reproduced): manuscript/structure/
+%  commands.tex:84-87 defines
+%    \newtcolorbox{resultbox}[1]{colback=white, colframe=black, fonttitle=\bfseries, ...}
+%  with NO counter option, in contrast to simbox (commands.tex:77) and examplebox (:111), which
+%  both carry [auto counter, number within=chapter]. resultbox therefore steps no counter, so the
+%  \label below binds to the last-stepped counter -- the enclosing \section{Continuous
+%  Mathematical Closure ($Z=1 \rightarrow 28$)} -- and every "Box~\ref{box:internal_peer_scope}"
+%  printed a PHANTOM box number that resolves to a section.
+%  REPAIR (this commit): the five sites that printed the box form -- 13_sodium.tex:12,
+%  14_magnesium.tex:62, 15_aluminum.tex:27, 16_silicon.tex:22 and :42 -- now read "the Scope note
+%  in \S\ref{box:internal_peer_scope}", which is what the label actually resolves to and matches
+%  the eleven sites in this volume that already used the \S\ref form. The box, its title, its
+%  body and its \label are UNTOUCHED; no other volume is affected (`grep -rn 'Box~\ref'
+%  manuscript/` returned exactly these five sites corpus-wide, all in vol6, and returns zero now).
+%  ROOT CAUSE NOT FIXED, FLAGGED: giving resultbox [auto counter, number within=chapter] in
+%  commands.tex would rebind every resultbox \label across all volumes -- a structural change
+%  outside this volume lane. Surfaced for the orchestrator.]
 \begin{resultbox}{Scope note — peer with standard quantum chemistry}
 \label{box:internal_peer_scope}
 The periodic-table structure derived in this volume is a substrate-mechanism re-description of atomic structure that is \textbf{peer with standard quantum chemistry}, not a distinct empirical prediction: the same shells, aufbau filling, and hybridization that quantum mechanics obtains are recovered here on the vacuum lattice, and (per the framework's own calibration) are \textbf{not empirically distinguishable from standard quantum mechanics / chemistry}. AVE's genuine structural wins are finite-by-construction (no renormalization), exact topologically-quantized charge, and derived spin-statistics; the framework's \emph{distinct, falsifiable} predictions live in the forward-prediction volumes, not in the periodic table itself.
