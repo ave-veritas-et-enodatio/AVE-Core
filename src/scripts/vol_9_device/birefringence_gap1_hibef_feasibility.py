@@ -377,14 +377,19 @@ def main() -> None:
 
     # ---- (1) the field-independent matched-differential ratio (context) -----
     # CORRECTED (2026-07-03): PVLAS-anchored ratio. Propagating/LoI-matched =
-    # 7.5 pi/alpha^2 ~ 4.42e5; static-duality = 15 pi/alpha^2 ~ 8.85e5. The old
-    # 7.5/alpha^3 ~ 1.93e7 was too large by 1/(2 pi alpha) (understated QED denom).
-    ratio = coefficient_ratio_differential_pvlas(geometry="propagating")
-    out["matched_differential_ratio_7.5pi_over_alpha2_propagating"] = ratio
+    # RE-FROZEN to v3 (D7, 2026-08-02): the headline is the INSTANTANEOUS-footing
+    # 3.75 pi/alpha^2 ~ 2.21e5 (KB vacuum-birefringence-e4.md:34). v2's
+    # 7.5 pi/alpha^2 ~ 4.42e5 paired an instantaneous AVE kernel against the
+    # cycle-averaged alpha/(15 pi) -- a MIXED footing, exactly 2x too large; it is
+    # retained below as convention history. static-duality = 15 pi/alpha^2 ~ 8.85e5.
+    ratio = coefficient_ratio_differential_pvlas(geometry="instantaneous")
+    out["matched_differential_ratio_3.75pi_over_alpha2_instantaneous"] = ratio
+    out["matched_differential_ratio_7.5pi_over_alpha2_propagating_v2_history"] = (
+        coefficient_ratio_differential_pvlas(geometry="propagating"))
     out["matched_differential_ratio_15pi_over_alpha2_static"] = (
         coefficient_ratio_differential_pvlas(geometry="static"))
-    print(f"\n[1] Matched differential ratio delta_n_AVE/delta_n_QED (CORRECTED, "
-          f"PVLAS-anchored, propagating) = 7.5 pi/alpha^2 = {ratio:.4e} "
+    print(f"\n[1] Matched differential ratio delta_n_AVE/delta_n_QED (v3 re-freeze, "
+          f"PVLAS-anchored, instantaneous) = 3.75 pi/alpha^2 = {ratio:.4e} "
           f"(field-independent, ECHO-tagged)")
 
     # ---- (2) AVE realized flip-prob at HIBEF (the GAP-1 arithmetic) ---------

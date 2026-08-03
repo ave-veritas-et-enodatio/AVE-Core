@@ -118,7 +118,7 @@ its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 | Eq.(5) | `(E_crit/E_c)^2 = 1/alpha` | `ave.bench.substrate_identity_holds()` = True; live `(E_CRIT/E_YIELD)^2 = 137.036 = 1/ALPHA`. |
 | Eq.(7) **(REV-2)** | `delta_n_QED = (alpha/15pi)(E/E_crit)^2` (propagating) | `ave.bench.delta_n_qed_electric_pvlas(E, geometry="propagating")` (birefringence.py). ANCHORED to (a) PVLAS `A_e=1.32e-24` via `E↔cB` duality (`= alpha/30pi` static, ×2 propagating), (b) LoI Eq.19. Was `(3/45)α²`, understated by `1/(2πα)`. |
 | Eq.(8) | `P_flip = sin^2(dphi/2)`, `dphi=(2pi/lambda)|dn|z` | `flip_prob_exact` + `retardance_phase` (gap1 driver :140,:119). |
-| Eq.(9), abstract, §III.B **(REV-2)** | Ratio `7.5pi/alpha^2 ~ 4.42e5` (propagating; `15pi/α²~8.85e5` static) | `ave.bench.coefficient_ratio_differential_pvlas(geometry="propagating")`; live `4.4247e5`. Was `7.5/α³~1.93e7`. |
+| Eq.(9), abstract, §III.B **(REV-3, D7 2026-08-02)** | Ratio `3.75pi/alpha^2 = 15pi/(4α²) ~ 2.2e5` (instantaneous, the §9 Arm-2 re-freeze — **matches `main.tex`:750 as printed**) | `ave.bench.coefficient_ratio_differential_pvlas()` (default `geometry="instantaneous"`); live `2.2123e5`. Was `7.5pi/α²~4.42e5` (REV-2, mixed footing) and before that `7.5/α³~1.93e7` (REV-1). |
 | Table I, row 1 (9835 eV, demonstrated) **(REV-2)** | `E=8.68e13`, `A^2=5.90e-7`, `P_ave=5.39e-3`, `P_qed=2.76e-14`, ratio `1.95e11` | scenario driver JSON `scenarios[0]`: `P_ave_exact=5.3883e-3`, `P_qed_exact=2.757e-14`, `ave_over_qed=1.954e11`. |
 | Table I, row 2 (8766 eV) **(REV-2)** | `P_ave=4.28e-3`, `P_qed=2.19e-14` | `scenarios[1]`: `4.2822e-3`, `2.190e-14`. |
 | Table I, row 3 (12914 eV) **(REV-2)** | `P_ave=9.28e-3`, `P_qed=4.75e-14` | `scenarios[2]`: `9.2781e-3`, `4.754e-14`. |
@@ -165,7 +165,8 @@ All refs verified via Crossref DOI lookup / arXiv abstract this session:
 ## 4. Discipline tags
 
 - **consistency-vs-emergence:** CONSISTENCY-class throughout. The paper does NOT
-  headline the `4.42e5` magnitude (REV-2; was `1.93e7`) as emergence; it ledgers
+  headline the `2.2e5` magnitude (REV-3 / D7 2026-08-02; was `4.42e5` at REV-2 and
+  `1.93e7` at REV-1) as emergence; it ledgers
   `E_c` as calibrated from `alpha, m_e` (§II.B honesty ledger). Matches the
   pre-reg CONSISTENCY tag.
 - **chord-vs-echo:** the paper's "discriminating claim" is the FORM (existence of
@@ -321,6 +322,56 @@ v2 supersedes the QUOTED ratio only; v1's anchored record stands unaltered.
   abstract, §II.B honesty-item (iv), Eq.9 + surrounding text, §III conclusion, Table I caption. The two
   intentional v1-history mentions (item (iv) "mixed footing doubles to 7.5pi", Eq.9 "a prior draft
   quoted 7.5pi") are RETAINED as the convention history.
+  > **⚠ SWEEP-GAP, IDENTIFIED AND CLOSED 2026-08-02 (Grant ruling D7).** The site list above is
+  > **`main.tex`-only**. `provenance.md` was not itself swept, so this document's own §1
+  > number-by-number map (`:121`) and §4 discipline-tags line (`:168`) were left quoting the
+  > **REV-2 mixed-footing `7.5pi/alpha^2 ~ 4.42e5`** while the Letter body moved to
+  > `3.75pi/alpha^2`. From 2026-07-05 until 2026-08-02 the §1 map therefore asserted that
+  > Eq.(9) was `4.42e5` while `main.tex`:750 printed `\frac{15\pi}{4\alpha^2}…\simeq\num{2.2e5}` —
+  > a **self-contradiction internal to this ledger**, surfaced by the D7 consumer-and-letter sweep
+  > (`research/2026-08-01_pvlas-arbiter-v3-repoint_scoping.md` §3.2) and **fixed at both sites**
+  > under this note. **No `main.tex` value moved and the PDF artifact-of-record was NOT rebuilt** —
+  > the Letter body was already correct; only this ledger's description of it was stale. Durable
+  > lesson: a re-freeze sweep must include the provenance ledger that *describes* the sweep, or the
+  > ledger silently becomes the last surviving copy of the superseded number.
+  >
+  > **⚠ SWEEP-GAP, THE TABLE-I LEG — SECOND DATED LINE, STILL OPEN (2026-08-02, same D7 execution;
+  > DISCLOSE-ONLY).** The line above closed the §1 map's *ratio* rows (`:121`, `:168`). It did **not**
+  > close the §1 map's **Table-I rows `:122-126`**, which remain **REV-2 / driver-footed on the QED
+  > column**. Those rows quote the generating driver's committed JSON — `P_qed = 2.757e-14 / 2.190e-14
+  > / 4.754e-14 / 2.757e-12 / 2.757e-10` and model/QED `1.95e11` — while `main.tex` prints the Table-I
+  > QED column on the **INSTANTANEOUS** normalization: rows at `main.tex`:832-834,:836-837 read
+  > `1.10e-13 / 8.76e-14 / 1.90e-13 / 1.10e-11 / 1.10e-09` with model/QED `4.89e10 / 4.89e10 / 4.88e10
+  > / 4.07e10`, and the caption states it explicitly at `:792-794` — *"so the QED column uses the
+  > instantaneous one-loop coefficient $2\alpha/(15\pi)$ and the model/QED column equals
+  > $(3.75\pi/\alpha^2)^2$ in the small-angle rows"*.
+  >
+  > **The gap is exactly `×4` on the QED column (and `×1/4` on model/QED), and the `×4` is named:** it
+  > is the **square** of the `×2` coefficient step `alpha/(15pi) -> 2 alpha/(15pi)` — the
+  > `<cos^2>=1/2` carrier average removed — squared through `P ∝ (delta n)^2` (`P_flip =
+  > sin^2(dphi/2)`, small-angle; `dphi ∝ delta n`). It is the *same* carrier factor that halved the
+  > Eq.(9) ratio, entering the P column at second power instead of first. Live arithmetic:
+  > `4 × 2.757218e-14 = 1.102887e-13` → prints `1.10e-13` ✓; `1.9542e11 / 4 = 4.886e10` → prints
+  > `4.89e10` ✓. On the retained `x4`-geometry `x1/2`-carrier chain
+  > (`alpha/30pi -> 2alpha/15pi -> alpha/15pi`), the driver's leg sits **one carrier-step below** the
+  > coefficient `main.tex` prints.
+  >
+  > **Cause — the same shape as the line above, one function over.** The D7 execution re-pointed the
+  > **ratio** function only: `coefficient_ratio_differential_pvlas` gained an `"instantaneous"` branch
+  > and all three drivers call it that way. But `delta_n_qed_electric_pvlas` — the function that
+  > actually generates the Table-I QED column — **has no `"instantaneous"` branch at all** (its
+  > `geometry` accepts `"propagating"` / `"static"` and raises otherwise), and the generating call
+  > `src/scripts/vol_9_device/birefringence_gap1_hibef_feasibility.py`:187 still runs
+  > `geometry="propagating"`. So **this ledger is again the last surviving copy of a superseded
+  > number — this time of the propagating QED leg.** Rows `:122-126` are honest read as a
+  > *driver-output* map and stale read as a *paper-claim* map; they are left as written and disclosed
+  > rather than silently re-scoped.
+  >
+  > **NOT decided here.** `main.tex` is byte-untouched, no driver was edited, no JSON regenerated, and
+  > the PDF was NOT rebuilt. The substantive question — does `delta_n_qed_electric_pvlas` get an
+  > `"instantaneous"` branch (and the three JSONs regenerate), or do the §1 Table-I rows get re-scoped
+  > to the AVE column only? — is **routed as a named follow-on** in
+  > `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md` (FOLLOW-ON D7-F1).
 - **The x4-geometry x 1/2-carrier decomposition RETAINED** (Grant: "Arm-3 one-sentence decomposition
   retained where it reads naturally"): §III.A carries it (`alpha/30pi -> 2alpha/15pi` head-on geometry
   x4, `-> alpha/15pi` carrier x1/2); item (iv) cross-references it.
