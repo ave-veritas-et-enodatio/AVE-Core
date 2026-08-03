@@ -4,6 +4,19 @@
 \usepackage{amsmath}
 \usetikzlibrary{arrows, decorations.pathmorphing, shapes.symbols}
 
+% [2026-08-02 KNOT DISAMBIGUATION per manuscript/ave-kb/CLAUDE.md INVARIANT-N1
+%  (knot / trefoil disambiguation clause), verbatim: "the electron's **real-space body** is the
+%  $0_1$ **unknot** ... Rolfsen names ($3_1$ trefoil, $5_1$ cinquefoil, ...) and '$(2,q)$ torus
+%  knot' labels refer to **phase-space winding portraits** on the bond-pair LC tank (Clifford
+%  torus), **not** real-space body knots. Never write 'trefoil electron' without an explicit
+%  *phase-space* qualifier". The annotation below attached $3_1$ to an electron STORED WITHIN and
+%  EJECTED FROM a node -- a real-space body statement, the exact form the invariant forbids.
+%  Prior wording (git trail): "The secondary $3_1$ (electron) topology stored within the Neutron
+%  node is ejected as transient energy dissipation, converting the node to a stable Proton."
+%  Same rewrite pattern as the ratified vol4 pilot (#827, 14_particle_decay_spice.tex:53/:75/:124).
+%  UNTOUCHED and CORRECT: the $6^3_2$ labels on the Proton / Neutron nodes -- INVARIANT-N1 names
+%  the $6^3_2$ Borromean linkage as the proton's REAL-SPACE body. No decay claim, threshold,
+%  coupling or geometry is changed.]
 \begin{document}
 \begin{tikzpicture}[>=latex']
 
@@ -75,7 +88,7 @@
     \textbf{Tritium Beta-Minus ($^3\text{H} \rightarrow ^3\text{He} + e^- + \bar{\nu}_e$)}\\
     The geometric asymmetry of 1 Proton + 2 Neutrons creates an unstable LC loop.\\
     Capacitive tension in the overarching node cluster exceeds the structural $V_{yield}$ limit.\\
-    The secondary $3_1$ (electron) topology stored within the Neutron node is ejected as transient energy dissipation, converting the node to a stable Proton.
+    The secondary electron topology stored within the Neutron node---a $0_1$ unknot body carrying the $(2,3)$ Clifford-torus winding in \emph{phase space} (the $3_1$ trefoil is that phase-space portrait, not a real-space body knot)---is ejected as transient energy dissipation, converting the node to a stable Proton.
 };
 
 \end{tikzpicture}
