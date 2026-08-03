@@ -52,7 +52,7 @@ When translating the vacuum into a discrete mechanical solid, the framework inhe
 %   WORDING PARITY (required by the lane brief): the printed resolution sentence above is the
 %   byte-identical twin of vol_0_engineering_compendium/chapters/01_theoretical_stress_tests.tex:27,
 %   and the carve paragraph below is the one minted at that file's :48 in #839 (MERGED
-%   2026-08-03, verified `gh pr view 839 --json mergedAt`). It is reused verbatim so the
+%   2026-08-03, verified `gh pr view 839 --json mergedAt`). It is reused BYTE-VERBATIM (0 divergences, #853-audit-confirmed) so the
 %   mirror pair cannot drift.
 %   Rule 12 KEEP-BOTH: the resolution paragraph above is PRESERVED VERBATIM; not one word is
 %   deleted, and no mechanism, value or equation is replaced. NO VALUE REFILL.
@@ -162,7 +162,7 @@ The first step in simulating the vacuum is establishing the 3D coordinate positi
 %   WORDING PARITY (required by the lane brief): the paragraph and both itemize rows above are
 %   the byte-identical twins of vol_0_engineering_compendium/chapters/03_computational_graph.tex
 %   :35-39, and the de-claim below is the one minted at that file's :74 in #839 (MERGED
-%   2026-08-03). Reused with ONE adaptation, disclosed in the "Scope" sentence: ch03's de-claim
+%   2026-08-03). Reused with FOUR mirror-context adaptations (#853 audit R2; the first is disclosed in the "Scope" sentence, the other three are mechanical: "chapter"->"appendix"; an inserted "this appendix mirrors" clause in the register-seam sentence; \texttt{} wrapping of the docket key): ch03's de-claim
 %   points the retained K/G ~ 1.67 row at a 2026-06-14 KB-reconciliation comment that exists in
 %   ch03 (:79) and does NOT exist in this file -- the corroborated statement here is instead the
 %   "K = 5/3 G" standard-Cauchy sentence in this file's DCVE "Micropolar Stability" section.
@@ -204,7 +204,8 @@ The first step in simulating the vacuum is establishing the 3D coordinate positi
 \section{Chiral LC Over-Bracing and The $p_c$ Constraint}
 Once the spatial nodes are safely crystallized via the Poisson-Disk algorithm, the computational architecture must generate the connective spatial edges (The Capacitive Flux Tubes, $\epsilon_0$).
 
-\textbf{The Cauchy Delaunay Failure:} If the physics engine simply computes a standard nearest-neighbor Delaunay Triangulation on the Poisson-Disk point cloud, the resulting discrete volumetric packing fraction of the amorphous manifold evaluates to $\kappa_{cauchy} \approx 0.3068$. While less dense than a perfect crystal (FCC $\approx 0.74$), it is still too dense to survive. As shown in Chapter 4, a standard Cauchy elastic solid ($K = -\frac{4}{3}G$) is thermodynamically unstable and will implode during macroscopic continuous simulation.
+% [2026-08-03 mirror-parity repair (#853 audit finding B; board :764 [mechanical], KB-settled at ave-kb/vol2/appendices/app-d-computational-graph/graph-architecture.md:24 dated 2026-06-15) -- prior wording preserved per Rule 12]: read (verbatim): "As shown in Chapter 4, a standard Cauchy elastic solid ($K = -\frac{4}{3}G$) is thermodynamically unstable and will implode during macroscopic continuous simulation." SUPERSEDED: a standard Cauchy solid is K = 5/3 G, NOT -4/3 G; K = -4/3 G is the longitudinal-modulus instability threshold (M = K + 4/3 G = 0). Wording mirrored BYTE-VERBATIM from the vol0 twin 03_computational_graph.tex:80 (repair landed 2026-06-14, pre-epic) so the mirror pair cannot drift. No physics change.
+\textbf{The Cauchy Delaunay Failure:} If the physics engine simply computes a standard nearest-neighbor Delaunay Triangulation on the Poisson-Disk point cloud, the resulting discrete volumetric packing fraction of the amorphous manifold evaluates to $\kappa_{cauchy} \approx 0.3068$. While less dense than a perfect crystal (FCC $\approx 0.74$), it is still too dense to survive. As shown in Chapter 4, a standard (non-micropolar) Cauchy elastic treatment of this substrate is thermodynamically unstable: without the chiral couple-stress the effective bulk modulus is not held positive, so the longitudinal modulus collapses through its instability threshold ($M = K + \frac{4}{3}G = 0$, i.e.\ $K = -\frac{4}{3}G$) and the lattice implodes during macroscopic continuous simulation.
 
 \textbf{Enforcing QED Saturation:} In Chapter 1, the analysis derived that the fundamental phase limits of the universe bounded the geometric packing fraction of the vacuum to $p_{c} \approx \mathbf{0.1834}$, forcing the emergence of $\alpha$. To computationally force the effective geometric packing fraction ($p_{eff}$) down from the unstable $\sim 0.3068$ baseline to the stable $0.1834$ limit, the software must enforce \textbf{Chiral LC Over-Bracing}. The connective array of the physics engine cannot be limited to primary nearest neighbors; the internal structural logic must span outward to incorporate the next-nearest-neighbor lattice shell.
 
@@ -268,7 +269,7 @@ To achieve algorithmic stability, the discrete constitutive stiffness matrix ($C
 %   WORDING PARITY (required by the lane brief): this sentence is the byte-identical twin of
 %   vol_0_engineering_compendium/chapters/04_dcve.tex:81, which took exactly this one-adjective
 %   strike in #839 (MERGED 2026-08-03); the de-claim paragraph below is that file's :83,
-%   reused verbatim so the mirror pair cannot drift.
+%   reused with ONE adaptation ("chapter"->"appendix"; #853-audit-confirmed) so the mirror pair cannot drift.
 %   Authority (verified at HEAD two-method): ave-kb/vol1/claim-quality.md:665 kills the
 %   mechanism this sentence names -- "the independent kappa_rot is a k->0 Cauchy-grade
 %   spectator sourcing no chiral coupling ... So the substrate does not supply K=2G at
