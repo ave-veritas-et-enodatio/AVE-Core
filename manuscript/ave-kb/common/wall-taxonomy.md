@@ -133,4 +133,50 @@ Three walk-level observations, each with its canon-side hook:
 
 > **⚠ Precision note on row 3 (a correction to the walk's own wording, made in favour of the corpus).** The walk phrased the crossing as *"= Miller avalanche."* Canon is one notch sharper and the row above follows canon: **Miller multiplication $M = 1/S(r)^2$ is the Regime-III *approach*** (avalanche onset at $r_2$; the identity is an Op22 anchor, [`translation-circuit.md`](translation-tables/translation-circuit.md):128,:208), and **the wall at $r_3 = 1$ is Regime IV, where $M \to \infty$ and the topology is destroyed** ([`four-regimes.md`](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md):58). Avalanche is the ramp; the wall is the asymptote. Also note the **two distinct voltages** and do not fuse them: $V_{yield} \approx 43.65$ kV is the Axiom-4 saturation wall ([`constants.py`](../../../src/ave/core/constants.py):505), while $V_{snap} = m_ec^2/e \approx 511$ kV is the **per-cell quantum of rupture** — *"one cell's rest energy … which is **why** the products are particles"* ([`envelope-anatomy.md`](envelope-anatomy.md):109; [`constants.py`](../../../src/ave/core/constants.py):496).
 
+## §6 — The open flags, carried in full (do not read the table without them)
+
+### ⚑ FLAG 1 — row 1's "wave horizon with a singular gradient skin" is a WALK-LEVEL RIDER, and its coordinate-artifact discriminator has NOT been run
+
+**The rider (orchestrator, walk-level, 2026-08-03 — NOT canon):** beyond being an impedance short, $r_{sat}$ may also be a **wave horizon** — a point where the radial wave equation itself becomes singular, so the eigenfunction develops a non-analytic crease against the wall rather than a smooth approach.
+
+**What is honestly known, with receipts:**
+
+- **The coordinate-free argument (the lean, and it is only a lean).** The ODE's singular point sits where $G_{shear}(A) = 0$ — and *that* is a **substrate condition**, not a coordinate choice. A singularity located by a constitutive modulus vanishing cannot be transformed away by relabelling the radius. **This is the reason to take the rider seriously, and it is flagged, not adjudicated.**
+- **Canon does place a genuine singular point of the ODE at the wall, and handles it structurally.** [`research/2026-08-02_coldq-pole-derivation_result.md`](../../../research/2026-08-02_coldq-pole-derivation_result.md):208, verbatim: *"The `A = 1` point is handled as a **regular singular point** of the ODE whose indicial structure selects the traction-free branch — not by a floor on `S`."*
+- **★ But the lane that would settle it is NOT CERTIFIED, and adjudicates NO physics.** [`research/2026-08-03_coldq-pole-v2.1_result.md`](../../../research/2026-08-03_coldq-pole-v2.1_result.md):17, verbatim: *"**Certification: `SOLVER-NOT-CERTIFIED`. Frozen precedence therefore fires `BIN-F-SOLVER`, and NO physics bin is adjudicated.**"*
+- **The compactification-swap discriminator has not been run.** Coordinate-artifact-vs-physical is **not yet excluded**: a crease that appears in one compactification and vanishes in another is a discretization artifact, and only swapping the compactification distinguishes the two. **No such swap exists on `origin/main`.**
+- **Two-method absence receipt, so nobody over-reads the rider's vocabulary.** The phrase *"root-exponential"* has **zero hits on `origin/main`** (`git grep -c "root-exponential" origin/main -- research/` returns no match). It resolves only on the **unmerged** branch `research/coldq-pole-v2p3`, in `research/2026-08-03_coldq-pole-v2.4-root_prereg-FROZEN.md` — **a FROZEN PRE-REGISTRATION, i.e. a lane that has not measured yet.** Do not cite it as a result; do not cite it from this leaf at all.
+
+**Disposition: the rider is recorded so the question is not lost, and it is fenced so it cannot be mistaken for a finding.** Row 1's canonical content — $r_{sat} = 7GM/c^2$, $\Gamma_{shear} = -1$ — is unaffected either way.
+
+### ⚑ FLAG 2 — row 6 sits on an OPEN two-$\ell_c$ symbol collision, flagged in-code and still unresolved
+
+**Two different physical objects are written $\ell_c = \sqrt{\text{couple-stress}/\text{shear}}$ in the corpus, and they are about six orders of magnitude apart.** The collision is flagged where it lives, in the engine's own constants file — [`constants.py`](../../../src/ave/core/constants.py):331–337, verbatim:
+
+> *"⚠ DISAMBIGUATION (two-objects-one-symbol — flag-don't-fix): this `ELL_C` (≈ 9.46e-13 m, the K4 **LATTICE**-scale Cosserat coupling length, ≈ 2.45 node spacings) is **NOT** the weak-force-range `l_c = √(γ_c/G_vac) ≈ 1e-18 m` used in vol9 ch9/ch10 + `gauge-boson-masses.md:39`. Same symbol and same formula **STRUCTURE** (√(couple-stress/shear)), but ~6 orders of magnitude apart and a different physical referent. **Surfaced for auditor adjudication** …; not silently merged."*
+
+| | lattice-scale $\ell_c$ | weak-scale $\ell_c$ |
+|---|---|---|
+| value | $\sqrt6\,\ell_{node} \approx 9.46\times10^{-13}$ m | $\approx 10^{-18}$ m |
+| home | [`constants.py`](../../../src/ave/core/constants.py):338 (`ELL_C`) | [`gauge-boson-masses.md`](../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39 |
+| **row 6 uses** | — | **this one** |
+
+**Why it matters beyond naming.** $\gamma_c$ is not a single-job primitive: canon states the **joint constraint** at [`delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md):47, verbatim — *"the substrate primitive $\gamma_c$ underlies **both** the weak force range **AND** the B-mode mass-gap that freezes substrate magnetic-modulus response to thermal-photon-bath loading"*, with *"Falsification of the weak-force derivation … **simultaneously falsifies** the $\delta_{strain}$ mechanism."* **So rows 5 and 6 of this table are wired to the same primitive, and the collision sits on the wire.** The twist-ledger arc independently found the same collision to be **ledger-load-bearing** rather than naming-only, and routed it to Grant/auditor at that strength — `_orchestration/docket-entries/2026-08-02-twist-ledger.md` (flag 3), branch record `research/2026-08-02_twist-ledger-audit.md`.
+
+**Disposition: OPEN. Not adjudicated here, not merged here, not renamed here.** This leaf uses the weak-scale referent for row 6 because that is what `gauge-boson-masses.md:39` uses, and says so explicitly rather than picking a winner.
+
+## §7 — Closing synthesis (WALK-LEVEL, orchestrator — NOT canon)
+
+> **Status: walk-provenance, 2026-08-03. This section is a *picture*, deliberately placed after every fence. It asserts nothing, and no downstream document should cite it as a premise.**
+
+Put the ground twist next to the table. The **bias** composition law that Grant ratified on 2026-08-03 makes the ground twist a **DC boundary condition in the PHASE plane** — a standing offset that every excitation rides on top of, and that cancels out of exactly the invariant appropriate to its composition law (the ratification is recorded at [`vol2/…/ch01-topological-matter/index.md`](../vol2/particle-physics/ch01-topological-matter/index.md):44, verbatim: *"**Grant's 2026-08-03 walk ratified a BIAS (multiplicative) composition law**, under which **the carve INVERTS**"*).
+
+The walls in §5 are then the *same kind of object* on every **other** axis: $\Gamma = \pm1$ boundary conditions in space, in amplitude, in frequency, in length scale. And on that reading:
+
+- **Objects are wall-enclosures.** A particle is a patch of the network fenced by its own saturation (row 2); a black hole is a patch fenced at $r_{sat}$ (row 1); the observable universe is a patch fenced at $R_H$ (row 7).
+- **Observables are wall reflections.** Canon says this outright and independently of this leaf: what the outside world gets is $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ read at the boundary, *"and everything else is interior plumbing"* ([`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md)).
+- **The self-cancelling parts are the boundaries every observer sits inside of.** This is Grant's phase-only epistemology stated in wall coordinates: a bias you are *inside* is not measurable from inside — it cancels out of every ratio you can form. Credit for the framing is Grant's; the restatement in wall coordinates is the walk's.
+
+> **⚑ Explicit non-claim.** *"Every object is a patch fenced by boundaries"* is **not** a theorem, **not** a derivation, and **not** a prediction. It is a way of holding the table in one hand. §2.2's register fence applies to it with full force: the rows share a $\Gamma$-**form**, and canon has ruled that sharing a $\Gamma$-form is **not** sharing a mechanism.
+
 <!-- APPEND-MARKER -->
