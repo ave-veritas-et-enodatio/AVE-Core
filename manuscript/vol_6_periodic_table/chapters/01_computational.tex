@@ -362,7 +362,22 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 
 \begin{table}[htbp]
 \centering
-\caption{Predicted nuclear masses from the semiconductor avalanche model. The non-geometric constants are axiom-derived (zero empirical fits); the per-nucleus inter-alpha distance $R$ is fit to reproduce each CODATA mass. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).}
+% [2026-08-02 SCOPE PROPAGATION -- the \textbf{Error} column below is the GEOMETRIC RESIDUAL,
+%  not a mass/binding prediction error. No row, number or column is changed; the caption gains
+%  the column's referent. Authority, verbatim, from
+%  manuscript/ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md:14:
+%    "The \"Error\" column in the table below reports the GEOMETRIC RESIDUAL of cluster
+%     positions vs. assumed Platonic-solid coordinates (engine's converged positions vs.
+%     assumed geometry). It is NOT a binding-energy prediction error against experiment (AME).
+%     ... (structurally zero by solver construction). The load-bearing physics test EXISTS in
+%     sibling doc [vol6/framework/mass-defect-summary.md]:8-24 ..."
+%  This volume prints BOTH quantities for the SAME nuclei under the same word "Error":
+%  00_summary_table.tex:33 gives Si-28 as 0.01907% (the CODATA mass residual; identical at
+%  manuscript/ave-kb/vol6/framework/mass-defect-summary.md:30) while the Si-28 row of the table
+%  below gives 0.0002% (the geometric residual). Both are correct for their own quantity; only the
+%  shared label was ambiguous. The caption's fit-vs-predict disclosure is UNCHANGED and is a
+%  separate debt already discharged.]
+\caption{Predicted nuclear masses from the semiconductor avalanche model. The non-geometric constants are axiom-derived (zero empirical fits); the per-nucleus inter-alpha distance $R$ is fit to reproduce each CODATA mass. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal). \textbf{The Error column is the geometric residual} of the converged cluster positions against the assumed Platonic/Archimedean coordinates (structurally zero by solver construction), \emph{not} a binding-energy prediction error against experiment; the CODATA mass residuals for these same nuclei are the separate, larger figures in the validation table of Ch.~\ref{ch:summary} (e.g.\ Si-28: $0.01907\%$ there vs.\ $0.0002\%$ here). Canonical: \kbleaf{manuscript/ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md}.}
 \label{tab:avalanche_results}
 \begin{tabularx}{\textwidth}{@{}l c c c c X@{}}
 \hline
