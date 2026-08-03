@@ -40,6 +40,38 @@ check scans the RESULT DOC only; the arithmetic of sections 4.3 and 4.4 of this
 prereg is reproduced by the driver and reported in the result doc, where it IS
 machine-checked, and no claim is made anywhere in this lane that the prereg
 itself is machine-checked".
+
+TIGHTEN-TO-SPEC REPAIR, 2026-08-03 (post-ship; the frozen text is unchanged)
+--------------------------------------------------------------------------
+AS SHIPPED this file did NOT implement the frozen fix (ii).  ``TOKEN_RE`` was
+``r"`([^`]+)`"``; a negated character class matches newlines, so the FENCED
+CODE BLOCK at result-doc lines 99-103 was consumed as a single "token" that
+swallowed one of its own closing back-ticks.  That INVERTED back-tick pairing
+for the whole remainder of the document: from line ~97 onward, opening
+delimiters were read as closing ones.  Result: 71 sites were reported where
+151 exist, and 34 of the 72 keys registered in this file -- EVERY bin numeral,
+G2b's fitted ``c``, and the run digest -- were never exercised at all.
+
+The repair is a TIGHTENING, not a loosening.  Rule 11 forbids dropping or
+widening a frozen criterion after a result is seen; it does not forbid making
+an implementation actually meet the criterion it was frozen to meet.  The
+frozen text says "every occurrence of a numeral is checked".  As shipped, it
+was not.  Three changes, all in the direction of MORE checking:
+
+  (a) ``TOKEN_RE`` excludes newlines (``r"`([^`\\n]+)`"``), the form used by
+      the v1 checker at research/drivers/coldq_pole_derivation_number_check.py.
+      Triple-back-tick fences no longer pair with anything, so pairing parity
+      is restored and every inline site downstream of a fenced block is read.
+  (b) a COMPLETENESS GUARD: any key in REGISTERED or REGISTERED_LISTS that the
+      document never exercises is a hard configuration FAIL.  A registration
+      that is never reached checks nothing, and its presence in this file
+      overstates how much of the document is machine-tied -- which is the
+      defect that hid (a) for a whole ship cycle.
+  (c) the one token the repair newly exposed as unregistered, ``0.28430``, is
+      allow-listed with its provenance (below).
+
+TWO STATEMENTS SHIPPED WITH THIS LANE WERE FALSE WHEN MADE, and are corrected
+in the result doc rather than quietly dropped; see result doc section 8.
 """
 from __future__ import annotations
 
@@ -277,6 +309,12 @@ ALLOWED = {
                   "expectation-4 regression check at v2.2's precision",
     "8.09e-14": "the expectation-2 statement, quoted at the precision the "
                 "prereg froze it (section 9)",
+    # cross-lane numerals from PR #845 (v1), quoted inside a FLAG restatement
+    "0.28430": "v1's FT-2 CLAMPED-wall relative shift, an I20-class PRIOR-LANE "
+               "numeral quoted verbatim from research/2026-08-02_coldq-pole-"
+               "derivation_result.md:58 (shipped by that lane under "
+               "selftests/FT2_clamped_wall/rel_shift_vs_traction_free) -- it "
+               "is the subject of FLAG-9 and is not a value of this battery",
     # structural / label integers -- BELOW the significant-digits floor, so
     # they can only be allow-listed (fix i), never registered
     "0.0": "an exact zero: G10(a)'s measured operator reality, and the FT-7 "
@@ -324,13 +362,27 @@ ALLOWED = {
 
 NON_REGISTRABLE = {"_runtime_sec", "262.19", "255.27"}
 
-TOKEN_RE = re.compile(r"`([^`]+)`")
+# TIGHTEN-TO-SPEC (a), 2026-08-03.  The newline exclusion is load-bearing: a
+# bare [^`]+ swallows a fenced code block whole, consumes one of its three
+# closing back-ticks, and inverts delimiter parity for the entire remainder of
+# the file.  Same form as the v1 checker.
+TOKEN_RE = re.compile(r"`([^`\n]+)`")
 NUM_RE = re.compile(r"^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$")
 LIST_RE = re.compile(r"^\[\s*[-+0-9.eE]+(\s*,\s*[-+0-9.eE]+)*\s*\]$")
+# TIGHTEN-TO-SPEC (b), consequence.  A run digest is a 16-hex-character blake2b
+# token; NUM_RE never matched one, so the three digest registrations below were
+# unreachable BY CLASSIFICATION even after the regex repair.  They are shipped
+# values of this battery and are checked against the JSON like any other; the
+# significant-digits floor does not apply to a hash, which is not a numeral.
+DIGEST_RE = re.compile(r"^[0-9a-f]{16}$")
 
 
 def is_number(tok: str) -> bool:
     return bool(NUM_RE.match(tok.strip()))
+
+
+def is_digest(tok: str) -> bool:
+    return bool(DIGEST_RE.match(tok.strip()))
 
 
 def is_numlist(tok: str) -> bool:
@@ -401,10 +453,14 @@ def main() -> int:
     # token on another line is a DIFFERENT site that is checked again.
     seen_sites, tokens = set(), set()
     bad_rows, n_reg, n_allow = [], 0, 0
+    # TIGHTEN-TO-SPEC (b): every REGISTERED / REGISTERED_LISTS key must be
+    # reached by at least one site in the document.  A registration the scan
+    # never touches is dead configuration that inflates the apparent coverage.
+    exercised = set()
     for m in TOKEN_RE.finditer(text):
         tok = m.group(1).strip()
-        numeric, listy = is_number(tok), is_numlist(tok)
-        if not (numeric or listy):
+        numeric, listy, digesty = is_number(tok), is_numlist(tok), is_digest(tok)
+        if not (numeric or listy or digesty):
             continue
         line = text.count("\n", 0, m.start()) + 1
         if (tok, line) in seen_sites:
@@ -414,6 +470,7 @@ def main() -> int:
 
         if listy:
             if tok in REGISTERED_LISTS:
+                exercised.add(tok)
                 try:
                     val = REGISTERED_LISTS[tok]()
                 except Exception as exc:  # noqa: BLE001
@@ -431,8 +488,9 @@ def main() -> int:
                                             "shipped JSON and not allow-listed"))
             continue
 
-        # FIX (i), enforced at the DOCUMENT end.
-        if sig_digits(tok) < MIN_SIG_DIGITS:
+        # FIX (i), enforced at the DOCUMENT end.  A digest is exempt: it is a
+        # 16-character hash, not a numeral carrying significant figures.
+        if not digesty and sig_digits(tok) < MIN_SIG_DIGITS:
             if tok in ALLOWED:
                 n_allow += 1
             else:
@@ -444,6 +502,7 @@ def main() -> int:
             continue
 
         if tok in REGISTERED:
+            exercised.add(tok)
             try:
                 val = REGISTERED[tok]()
             except Exception as exc:  # noqa: BLE001
@@ -471,6 +530,22 @@ def main() -> int:
         for tok, line, why in bad_rows:
             print(f"  FAIL  line {line}  `{tok}`  {why}")
         return 1
+
+    # TIGHTEN-TO-SPEC (b): the completeness guard, run AFTER the scan.
+    unexercised = sorted((set(REGISTERED) | set(REGISTERED_LISTS))
+                         - exercised)
+    if unexercised:
+        print(f"[coldq-v24-number-check] FAIL - {len(unexercised)} of "
+              f"{len(REGISTERED) + len(REGISTERED_LISTS)} registered keys were "
+              f"NEVER EXERCISED by the document.  A registration the scan never "
+              f"reaches checks nothing and overstates coverage; either the key "
+              f"is dead configuration and must be removed, or the scanner is "
+              f"not reaching the site: {unexercised}")
+        return 1
+
+    print(f"[coldq-v24-number-check] completeness: all "
+          f"{len(REGISTERED) + len(REGISTERED_LISTS)} registered keys "
+          f"exercised")
     print("[coldq-v24-number-check] OK")
     return 0
 

@@ -36,7 +36,7 @@
 |---|---|---|---|---|
 | **G0** | operator-transcription identity, `𝓛_η ≡ 4η²·𝓛_A` | `1e-13` | `1.038488291045556e-15` | **PASS** |
 | **G1** | residual of the certified eigenfunction at the certified root (mp, `dps = 50`) | `1e-20` | `4.726832751705419e-50` | **PASS** |
-| **G2** ★ | `n`-independence over the **certification ladder** `n ∈ {48, 64, 80, 96}` | `1e-10` | `8.090607956292325e-14` | **PASS** |
+| **G2** ★ | `n`-independence over the **certification ladder** `n ∈ {48, 64, 80, 96}`, shipped as `[48, 64, 80, 96]` | `1e-10` | `8.090607956292325e-14` | **PASS** |
 | **G2b** ★ | the **root-exponential convergence law**, both parameters gated | `max\|resid\| ≤ 0.40` **and** `c ∈ [4.4, 7.6]` | `0.08484862390265135` and `c = 6.216374478994577` | **PASS** |
 | **G3** | hyperboloidal-gauge independence, `λ ∈ {−0.25, 0, +0.25}` | `1e-12` | `3.332294747541498e-14` | **PASS** |
 | **G4** | (a) precision `dps 50` vs `80`; (b) double-pencil vs mp at every FULL-ladder order | `1e-25` / `1e-6` | `5.277782707837865e-47` / `1.755941633596894e-08` | **PASS** |
@@ -70,7 +70,7 @@
 | **FT-0** `𝒞₀` corrupted `1e-12` | G0 | `≥ 1e-13` | `2.0668129728690202e-12` | **FIRES** |
 | **FT-1** residual off-root at `Ω(1 + 1e-10)` | G1 | `≥ 1e-15` | `9.946402719819208e-12` | **FIRES** |
 | **FT-2** under-resolved `n = 8` | G2 | `≥ 1e-6` | `0.000440375300940382` | **FIRES** |
-| **FT-2b** ★ STAGNATION `+1e-12` on every non-reference rung | G2b | fitted `c` must fall below `4.4` | `c = 0.07345138526200583` | **FIRES** |
+| **FT-2b** ★ STAGNATION `+1e-12` on every non-reference rung | G2b | fitted `c` must fall below `4.4` | fitted `c` = `0.07345138526200583` | **FIRES** |
 | **FT-3** correctly-specified half-applied gauge | G3 | `≥ 1e-6` | `0.3485948410197033` | **FIRES** |
 | **FT-4** (a) `dps = 20`; (b) double pencil at `n = 8` vs mp at `n = 48` | G4 | `≥ 1e-25` / `≥ 1e-6` | `4.316731050519307e-17` / `0.0004403753009474462` | **FIRES** |
 | **FT-5** ★ (a) on the v2.1 artifact; (b) on the v2.1 contaminated-edge probe | G5 | count `≠ 1` at ≥ 1 order | `[2, 1, 2, 3, 0]` / `[1, 1, 0, 0, 0]` | **FIRES** |
@@ -102,7 +102,7 @@ fitted lnC  = 12.962558101032272
 max|resid|  = 0.08484862390265135        floor 0.40             INSIDE
 ```
 
-**The successive ratios are reported and are NOT gated on:** `690.9729432434473` and `403.39016918622724`. **Frozen:** `the convergence law of this instrument is ROOT-EXPONENTIAL, E(n) = C*exp(-c*sqrt(n)); the successive-error ratio therefore DECLINES with n by construction, and a declining ratio sequence is the law's signature rather than evidence of any defect`. **This is the repair of the defect that killed v2.3's freeze: those declining ratios are the law's signature, and a constant-ratio gate would have been testing a law this instrument does not obey.**
+The fit's intercept is `12.962558101032272`. **The successive ratios are reported and are NOT gated on:** `690.9729432434473` and `403.39016918622724`. **Frozen:** `the convergence law of this instrument is ROOT-EXPONENTIAL, E(n) = C*exp(-c*sqrt(n)); the successive-error ratio therefore DECLINES with n by construction, and a declining ratio sequence is the law's signature rather than evidence of any defect`. **This is the repair of the defect that killed v2.3's freeze: those declining ratios are the law's signature, and a constant-ratio gate would have been testing a law this instrument does not obey.**
 
 ### §2.2 ★ The law discriminates the root from the pseudo-pole — a pre-registered, non-gating receipt
 
@@ -119,7 +119,7 @@ The **identical** fit routine, pointed at the v2.1-banked discretization artifac
 
 ### §2.3 What the law says about `n = 32`, and the honest limit of that statement
 
-Fitted over the **full** five-rung ladder including `n = 32`, the law gives `c = 6.043847309998414` with `max|resid| = 0.18870776957898983` — **which would also pass G2b's `0.40` floor.**
+Fitted over the **full** five-rung ladder including `n = 32`, the law gives `c` = `6.043847309998414` with `max|resid|` = `0.18870776957898983` — **which would also pass G2b's `0.40` floor.**
 
 **Stated plainly, because it runs against the convenient reading: the `n = 32` rung is not an outlier to the LAW. It is pre-asymptotic in MAGNITUDE.** Its error obeys the same root-exponential decay; that error is simply still larger than `1e-10` at that order. **The prereg said this in advance** — `G2b gates the LAW, not the presence or absence of any rung` — and the ladder placement rests on the out-of-sample magnitude prediction of §1, not on `n = 32` violating anything.
 
@@ -166,6 +166,7 @@ The frozen precedence is `BIN-F-NOROOT` > `BIN-F-ROOT` > `BIN-F-PROFILE` > `BIN-
 | quantity | value |
 |---|---|
 | `Ω = ω·r_sat/c₀`, mp strings | `1.853655210840878848320699157729883961213` `-1.00725678314331889260211374956072904467` |
+| the same root cast to double, `Re(Ω)` then `Im(Ω)` | `1.8536552108408788` `-1.0072567831433188` |
 | `\|Ω\|` | `2.109645436528558` |
 | `ω_R M_g = Re(Ω)/x_sat` | `0.2648078872629827` |
 | `ω_I M_g = \|Im(Ω)\|/x_sat` | `0.14389382616333127` |
@@ -204,6 +205,7 @@ The frozen precedence is `BIN-F-NOROOT` > `BIN-F-ROOT` > `BIN-F-PROFILE` > `BIN-
 | quantity | value |
 |---|---|
 | `Q` derived | `0.9201502744197102` |
+| the two frozen GR comparator inputs (I11, read programmatically) | `0.37367` and `0.08896` |
 | `Q_GR = 0.37367/(2·0.08896)` | `2.1002135791366907` |
 | `D_Q = derived/Q_GR − 1` | `-0.5618777615951112` |
 | **verdict** | **`BIN-2-MISS`** |
@@ -318,6 +320,19 @@ The frozen precedence is `BIN-F-NOROOT` > `BIN-F-ROOT` > `BIN-F-PROFILE` > `BIN-
 - **Determinism.** Two full runs, digests `6cec005e0155513a` and `6cec005e0155513a`, shipped objects byte-identical apart from `_runtime_sec`.
 - **Runtime.** **Frozen:** `total battery runtime <= 3600 s on the reference machine; a longer run is disclosed, not silently accepted`. Measured 262.19 s and 255.27 s — inside the budget. **These two numerals are deliberately written WITHOUT backticks and are NOT registered:** `_runtime_sec` is machine-dependent, so registering it would make the gating number check fail on every honest re-run on every other machine (the #801 R3 lesson).
 - **The gating number check implements the three fixes and the narrowed scope**, all frozen pre-measurement. **Frozen:** `this lane's gating number check implements (i) a MINIMUM SIGNIFICANT-DIGITS FLOOR of 3, machine-enforced, below which a numeral token may NOT be registered against the shipped JSON and MUST be allow-listed with a stated reason; (ii) PER-SITE rather than global dedup, so every occurrence of a numeral is checked and the reported counts describe SITES rather than distinct tokens; and (iii) LIST-VALUED REGISTRATION, so that a bracketed count vector such as the G5 isolation counts or the FT-5 artifact counts is registered against the shipped JSON list as a whole rather than decomposed into single-digit tokens that the significant-digits floor would force onto the allow-list`. **Frozen:** `the gating number check scans the RESULT DOC only; the arithmetic of sections 4.3 and 4.4 of this prereg is reproduced by the driver and reported in the result doc, where it IS machine-checked, and no claim is made anywhere in this lane that the prereg itself is machine-checked`.
+
+> **🔴 CORRECTION 2026-08-03 (added after the PR was opened, under adversarial review) — THE CHECKER DID NOT DO WHAT THE BULLET ABOVE SAYS IT DID, AND TWO STATEMENTS IN THIS DOCUMENT WERE FALSE WHEN THEY WERE MADE.**
+>
+> **The defect.** The checker's token pattern was `` `([^`]+)` ``. A negated character class matches newlines, so the fenced code block in §2.1 was consumed as one span that swallowed one of its own three closing back-ticks. From that point to the end of the file, **back-tick pairing was inverted**: opening delimiters were read as closing ones. The shipped instrument produced **111 newline-spanning phantom spans**, reported 71 sites where 151 exist, and **never exercised 34 of the 72 keys registered in its own file** — including **every `BIN-1`/`BIN-2` numeral**, G2b's fitted `c`, and the run digest.
+>
+> **The first false statement — the frozen §4.5 claim, quoted verbatim from the prereg:** *"(ii) PER-SITE rather than global dedup, so that every occurrence of a numeral is checked and the reported counts describe SITES rather than distinct tokens"*. **Every occurrence was not checked.** The frozen text is correct and is unchanged; the implementation did not meet it.
+>
+> **The second false statement — this document's own provenance line, quoted verbatim from §S below:** *"All numbers above are read from the shipped `research/drivers/coldq_pole_v2p4_root_results.json` and are machine-verified against it by `research/drivers/coldq_pole_v2p4_root_number_check.py`, wired into `make verify`."* **At ship, roughly half of them were not.** The sentence is true only after the repair recorded here.
+>
+> **The repair is a TIGHTENING, and it is recorded as one.** Rule 11 forbids dropping, widening or re-defining a frozen criterion after a result is seen. It does not forbid — it requires — making an implementation actually meet the criterion it was frozen to meet. **No gate, tolerance, band, bin, threshold, comparator or measured number is changed by this repair.** Three changes, all strictly in the direction of more checking: the token pattern excludes newlines; a **completeness guard** makes any registered key the document never exercises a hard configuration FAIL; and run digests are classified as checkable tokens rather than skipped. Where a registered numeral was unreachable because this document wrote it only inside a compound expression or a fenced block, **the document was edited to write that numeral where the machine reads it** — the honest direction, since the alternative (deleting the registration) would leave the same number unchecked while making the counter look clean.
+>
+> **Mutation receipts, run against the as-shipped instrument and the repaired one.** Drifting the last digit of G2b's fitted `c` at its §2.2 site, and one digit of `D_omega` at its §4.2 site: **the as-shipped checker returned exit 0 on both, with its site counts completely unchanged — it never saw either mutation.** The repaired checker fails both, naming the token and the line. Receipts are recorded in the docket entry.
+
 - **mp strings.** **Frozen:** `the shipped results object carries Omega_re_mp and Omega_im_mp as 40-digit mp STRINGS for EVERY rung of the FULL ladder, for every gauge, for every dps and for every x_sat, so that no reported separation depends on a double-precision cast of the root`. **Honoured.**
 - **Engine fence.** **Frozen:** `engine src/ave BYTE-UNTOUCHED; the instrument lives entirely in research/drivers/ and imports ave.core.* read-only`. **Honoured.**
 - **Carry-over fence.** **Frozen:** `the v2.4 instrument CARRIES OVER v2.2's method into this lane's own file research/drivers/coldq_pole_v2p4_root.py by copy-with-attribution, so that the ONLY differences between the two batteries are the gate specifications of section S.4; it is NOT an independent third reimplementation, and this lane may not claim reimplementation independence from v2.2`. **Honoured — transcription sites are marked `[xcribe v2.2 ...]` and `[xcribe v2.1 ...]`, the chain preserved rather than collapsed.** **Frozen:** `the v2.4 driver is adapted from the UNCOMMITTED and NEVER-EXECUTED v2.3 driver, which produced no results object, no digest and no number; the adaptation is therefore pre-measurement and carries no contamination, and this lineage is disclosed rather than presented as a fresh authorship`. **Honoured.**
