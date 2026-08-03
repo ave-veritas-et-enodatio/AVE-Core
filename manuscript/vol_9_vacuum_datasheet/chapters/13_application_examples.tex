@@ -155,12 +155,31 @@ The substrate's cosmic-scale temperature coefficient $\delta_{strain}$ is theref
 
 \textbf{Observed phenomenon.} The electron presents one external electromagnetic coupling (it radiates and absorbs photons at the matched vacuum impedance) while its mass and charge are \emph{confined} --- not radiated. A faithful equivalent circuit must reproduce this asymmetry: \emph{one} external port plus \emph{two} confined internal channels.
 
+% 🔴 def-tk1xfm STATUS FLIP 2026-08-02 (CRIB-5; Rule 12 -- prior wording PRESERVED verbatim here and
+%   in git: "the transducer node is provisional, not yet ratified"). Authority (INVARIANT-S12: the
+%   vocabulary register is the authority for def- nodes): ave-kb/common/vocabulary-register.md:441
+%   -- "**status:** SOLID -- GRANT-RATIFIED 2026-07-21 (verbatim `[sic]`: *\"ratify def-tk1xfm\"*)",
+%   on the framed ratification package quoting the REGIME FENCE ("EXACT, lossless, gain-1,
+%   pole-less, invertible co-equality of the mechanical and electrical descriptions BELOW the band
+%   edge (omega*tau << 1 / long-wave regime) ... at band-edge scales the distributed-in-bond (arccos
+%   TL) and lumped mass-spring descriptions book the delay differently and are no longer co-equal")
+%   and the standing STRENGTH CEILING ("identity-by-translation, NOT emerges-from / NOT a
+%   derivation ... SOLID means the node is ratified/canonical, NOT that it derives a mechanism",
+%   reaffirmed by the Cleave-01 Chern null clm-clvchn). Adjudicated-meaning at :438. Per CRIB-5 the
+%   sites carry the RATIFIED status WITH both riders -- not the pre-ratification "exact dimensional
+%   isomorphism" absolutism, and not the stale "provisional".
+%   OUT-OF-LANE DEBT, FLAGGED NOT FIXED (this lane is manuscript/vol_9_vacuum_datasheet/ only): the
+%   Vol-9 KB leaf ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md is STALE against
+%   the register -- :60 "transduced, `def-tk1xfm` provisional" and :214 "def-tk1xfm is itself
+%   `status:proposed`, awaiting auditor + Grant ratification -- NOT yet canonical". This .tex cites
+%   that leaf. Until the leaf is repaired the manuscript points at a document that contradicts it.
+%   Surfaced for the orchestrator; NOT edited in-lane.
 \textbf{Substrate primitives invoked.}
 
 \begin{itemize}
     \item \textbf{Three wired reactance channels} (Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models; canonical at \kbleaf{device-circuit-models.md}:141--149): the EM channel $Z_{EM} \equiv Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ ($\Gamma_{EM} = 0$, matched), the shear channel $Z_{shear} = \rho_{bulk}\, c_{shear}$ ($\Gamma_{shear} \to -1$, confined --- the CHARGE-``3''), and the bulk channel $Z_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K = 2G$ ($\Gamma_{bulk} \to -1$, confined --- the MASS-``3'').
     \item \textbf{Mixed impedance domains} (Ch.~\ref{ch:vol9_mechanical_characteristics} \S Node-model channel tags): $Z_{EM}$ is an \emph{electrical} impedance ($\Omega$); $Z_{shear}$ and $Z_{bulk}$ are \emph{mechanical/acoustic} impedances ($\rho \times$ speed, Pa$\cdot$s/m), $\sim$12 OOM off $Z_0$ and a unit change away.
-    \item \textbf{The EM-$\Omega$ $\leftrightarrow$ mechanical-$\rho c$ TKI-transformer} (Ch.~\ref{ch:vol9_topological_characteristics} $\xi_{topo}$; \kbleaf{device-circuit-models.md}:205--210; the transducer node is provisional, not yet ratified): two ports in different units cannot be directly wired --- a domain crossing requires a TRANSDUCER (an electro-mechanical change-of-reference), realized as an ideal transformer (turns-ratio scaling), not a direct wire and not a gyrator.
+    \item \textbf{The EM-$\Omega$ $\leftrightarrow$ mechanical-$\rho c$ TKI-transformer} (Ch.~\ref{ch:vol9_topological_characteristics} $\xi_{topo}$; \kbleaf{device-circuit-models.md}:205--210): two ports in different units cannot be directly wired --- a domain crossing requires a TRANSDUCER (an electro-mechanical change-of-reference), realized as an ideal transformer (turns-ratio scaling), not a direct wire and not a gyrator. \emph{Status (\texttt{def-tk1xfm}, \textbf{RATIFIED SOLID}, Grant 2026-07-21; \kbleaf{common/vocabulary-register.md}:435--441):} the Topo-Kinematic Isomorphism (Axiom~2) is an exact, lossless, gain-1, pole-less, invertible \textbf{co-equality of the mechanical and electrical descriptions below the band edge} ($\omega\tau \ll 1$, the long-wave regime). Two riders travel with the ratification. \textbf{(a) Regime fence:} the co-equality is regime-scoped --- at band-edge scales the distributed-in-bond (arccos transmission-line) and lumped mass--spring descriptions book the propagation delay differently and are \emph{no longer} co-equal. \textbf{(b) Strength ceiling:} it is \emph{identity-by-translation}, \textbf{not} emerges-from and \textbf{not} a derivation of a mechanism --- SOLID means the node is canonical, not that it derives anything (ceiling reaffirmed by the Cleave-01 Chern null, \texttt{clm-clvchn}). The dynamics (poles $=$ masses, the $Q = 1/\alpha$ radiative leak, the Axiom-4 saturation trap) live in the resonator transfer function, not in the Axiom-2 dictionary.
     \item \textbf{$\alpha$ localized to the transducer} via the critical packing fraction $p_c = 8\pi\alpha$ (\kbleaf{src/ave/core/constants.py}, \texttt{P\_C}): the $\alpha$-echo localizes to \emph{exactly} the EM$\leftrightarrow$mechanical transformer turns-ratio (Ch.~\ref{ch:vol9_breakdown_characteristics} dielectric-rupture consistency identity).
     \item \textbf{Fork-A conservative shear$\leftrightarrow$bulk coupling} (Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} \S\ref{sec:vol9_magnetic_forka}): a bounded, lossless, helicity-transferring skew-Hermitian coupling between the two confined mechanical channels (PARTIAL --- the form is forced, the non-reciprocity magnitude is imposed).
 \end{itemize}

@@ -6,7 +6,7 @@
 \begin{itemize}
     \item Document the substrate's topological invariants: the chiral Laves K4 graph, the $I4_1 32$ chiral space group, and the Cosserat micropolar 6 DOF / node structure (Axiom~1).
     \item Catalog the $(p, q)$ torus-knot winding assignments for stable soliton sectors; identify the electron as the $(2, 3)$ phase-space trefoil on the Clifford torus (Axiom~2; \kbleaf{torus-knot-uniqueness.md}).
-    \item Document the SU(2) / SO(3) double-cover origin of intrinsic spin-$\tfrac{1}{2}$ via the Finkelstein--Misner kink on the extended $0_1$ unknot defect, anchored in the Cosserat microrotational DOF (\kbleaf{finkelstein-misner-spin-half-derivation.md}).
+    \item Document the SU(2) / SO(3) double-cover \emph{structure} underlying intrinsic spin-$\tfrac{1}{2}$ via the Finkelstein--Misner kink on the extended $0_1$ unknot defect, anchored in the Cosserat microrotational DOF (\kbleaf{finkelstein-misner-spin-half-derivation.md}); and carve it honestly --- \textbf{structure axiom-derived, fermionic SELECTION posited} (\S\ref{sec:vol9_su2_so3_double_cover}).
     \item State the topological transduction constant $\xi_{topo} = e/\ell_{node}$ that bridges substrate-topology observables (discrete dislocation count) to EE observables (current, voltage, flux).
     \item Translate substrate $(p, q)$ torus-knot solitons into their canonical EE projection: integer-winding toroidal transformer coupling patterns (see \kbleaf{translation-circuit.md}).
     \item Pointer to Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} for the cosmological consequence of substrate chirality: $\hat{\Omega}_{freeze}$ selects right-handed $I4_1 32$ at lattice genesis, predicting parity-violation observables (weak force, $K$ / $B$ CP violation, biological homochirality).
@@ -20,9 +20,24 @@ The substrate is topological at the structural level: it is a 3D chiral Laves K4
 
 The substrate carrier space is a \textbf{3D chiral Laves K4 Cosserat crystal}, with the $I4_1 32$ chiral space group (right-handed; Axiom~1). The $I4_1 32$ group (No.~214 in the International Tables, chiral cubic class) admits \textbf{no mirror or improper symmetries}: the substrate is fundamentally chiral at the lattice level. There is no parity-symmetric ground-state vacuum in AVE; the parity-violation observed in weak interactions, in $K$ and $B$-meson CP-violation, and in cosmic chirality of $\hat{\Omega}_{freeze}$ is the direct manifestation of substrate chirality rather than an emergent gauge-sector phenomenon.
 
-The K4 graph (4-valent nearest-neighbour connectivity, $\ell_{node}$ pitch) provides the discrete topology; the Cosserat micropolar structure adds rotational degrees of freedom at each node beyond the standard elastic-continuum translational ones. Each node carries six intrinsic DOF: three translational (electric-field $\mathbf{E}$ origin, capacitive sector) and three microrotational (magnetic-field $\mathbf{B}$ origin, inductive sector). The Cosserat rotational DOF is the substrate-native origin of intrinsic spin: macroscopic angular momentum, the EM $\mathbf{B}$ field, and quantum spin-$\tfrac{1}{2}$ are three projections of the same per-node rotational coordinate (Axiom~1).
+The K4 graph (4-valent nearest-neighbour connectivity, $\ell_{node}$ pitch) provides the discrete topology; the Cosserat micropolar structure adds rotational degrees of freedom at each node beyond the standard elastic-continuum translational ones. Each node carries six intrinsic DOF: three translational (electric-field $\mathbf{E}$ origin, capacitive sector) and three microrotational (magnetic-field $\mathbf{B}$ origin, inductive sector). The Cosserat rotational DOF is the substrate-native origin of intrinsic spin: macroscopic angular momentum, the EM $\mathbf{B}$ field, and quantum spin-$\tfrac{1}{2}$ are three projections of the same per-node rotational coordinate (Axiom~1). \emph{Grade note:} for the third projection this is a \emph{structure}-level statement --- the double-cover structure is axiom-derived, the fermionic spin-$\tfrac{1}{2}$ selection is posited (\S\ref{sec:vol9_su2_so3_double_cover}).
 
-The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ --- the photon, whose saturated bound mode is the electron's massive mode). $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
+% 🔴 T2-PHOTON FAMILY CORRECTION 2026-08-02 (Rule 12; prior wording PRESERVED verbatim here and in
+%   git: "... and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ ---
+%   the photon, whose saturated bound mode is the electron's massive mode)."). Authority:
+%   def-t2ph01, ave-kb/common/vocabulary-register.md:851 (adjudicated-meaning: "the default
+%   canonical 'T2 = the photon' sense is the massless transverse-TRANSLATIONAL mode pair
+%   (u-family)"), :858 (sense 1), :859 (sense 2, the GAPPED Cosserat microrotational omega family
+%   -- "This is NOT the photon"), :860 (watch-list rule: "never write bare 'T2' or 'T2
+%   microrotational omega' for the photon"). Ruling G2, Grant 2026-07-03,
+%   research/2026-07-03_g2-photon-relabel_note.md; KEEP-BOTH adjudication blockquote at
+%   ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md:33-35.
+%   NOTE the KB's resolution shape: the owning leaf's :26 row and its §1 body at :59 ("Maps to
+%   Cosserat microrotational sector omega") were deliberately PRESERVED unedited and dispositioned
+%   by the :33-35 blockquote -- so this passage now carries BOTH senses rather than swapping one
+%   label for the other. Nothing numeric changes: eigenvalues {+1,-1,-1,-1}, the A1/T2 split, the
+%   speeds sqrt(2)c0 and c0, and the A1-perp-T2 fence are all as printed before.
+The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (propagating at $c_0$). \textbf{The label $T_2$ names two physically distinct objects} (\texttt{def-t2ph01}; Grant ruling G2, 2026-07-03), separated by their massless-vs-gapped mass status: sense~(1) is the \emph{massless transverse-translational $u$-family} --- \textbf{this is the photon}; sense~(2) is the \emph{gapped} Cosserat microrotational $\boldsymbol{\omega}$ family --- the home of the static $(2,3)$ winding and of the electron's bound massive mode at saturation --- which is \emph{not} the photon. $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
 
 \input{figures/k4_irrep_decomposition.tex}
 
@@ -53,7 +68,27 @@ Charge is the discrete geometric dislocation count on the substrate (Axiom~2, To
 \section{SU(2) / SO(3) Double Cover and Cosserat Spin-Half}
 \label{sec:vol9_su2_so3_double_cover}
 
-Intrinsic spin-$\tfrac{1}{2}$ is the substrate-native consequence of the Cosserat microrotational DOF integrated across the extended $0_1$ unknot defect. The standard $SU(2) / SO(3)$ double-cover --- single-valuedness on $SU(2)$, double-valuedness on $SO(3)$ --- arises classically on the K4 substrate via the Finkelstein--Misner kink mechanism (1959 differential topology; equivalent to the Dirac belt-trick) without invoking quantum-mechanical postulates.
+% 🔴 SPIN-1/2 STRUCTURE/SELECTION CARVE 2026-08-02 (Rule 12; the prior opening sentence read
+%   "Intrinsic spin-$\tfrac{1}{2}$ is the substrate-native consequence of the Cosserat
+%   microrotational DOF integrated across the extended $0_1$ unknot defect." -- preserved verbatim
+%   here and in git). Authority: [SPIN-HALF-POSITED], #584/#585 (2026-07-08);
+%   ave-kb/vol2/particle-physics/ch01-topological-matter/electron-identification.md:89 -- "STRUCTURE
+%   axiom-derived / SELECTION posited ... the $2T \subset SU(2)$ double-cover STRUCTURE is
+%   axiom-derived (K4-native); the spin-1/2 SELECTION (fermion over boson) is POSITED/import --
+%   $\pi_1 = \mathbb{Z}_2$ ADMITS both statistics ($\mathrm{Hom}(\mathbb{Z}_2, U(1))$ two-valued)
+%   and forces neither; PEER-WITH-SM. See clm-rkisb8" -- restated at :90 ("The $2\pi$ vs $4\pi$
+%   double-cover STRUCTURE is genuinely K4-native (axiom-derived), but it ADMITS both boson and
+%   fermion statistics and does NOT force spin-1/2 ... The fermionic SELECTION is imported via an
+%   action-level Z_2/Wess-Zumino term (half-angle lift $U = \exp(i\sigma\cdot\omega/2)$),
+%   PEER-WITH-SM"). Mirrored at ave-kb/vol1/claim-quality.md:26 and vol2/claim-quality.md:410.
+%   The FM-kink mechanism, the $T \to 2T \subset SU(2)$ chain, the $4\pi$ closure spec and every
+%   number in this section are UNCHANGED and remain canonical for the STRUCTURE; what is carved is
+%   the strength of the derivation claim on the fermionic SELECTION. This section's companion
+%   sites -- the objective bullet at :9 and the three-projections sentence at :23 -- are covered by
+%   the same carve and qualified in the same pass.
+The $SU(2) / SO(3)$ double-cover \textbf{structure} is the substrate-native consequence of the Cosserat microrotational DOF integrated across the extended $0_1$ unknot defect. That structure --- single-valuedness on $SU(2)$, double-valuedness on $SO(3)$ --- arises classically on the K4 substrate via the Finkelstein--Misner kink mechanism (1959 differential topology; equivalent to the Dirac belt-trick) without invoking quantum-mechanical postulates.
+
+\noindent\textbf{Structure / selection carve (2026-07-08, \texttt{[SPIN-HALF-POSITED]}, \#584/\#585; canonical at \kbleaf{vol2/particle-physics/ch01-topological-matter/electron-identification.md}:89--90).} The framework's claim here is \emph{structure-level, not selection-level}, and the datasheet states it at that grade. The $2T \subset SU(2)$ \textbf{double-cover STRUCTURE is axiom-derived} (K4-native, per the group chain below). The \textbf{fermionic spin-$\tfrac{1}{2}$ SELECTION --- fermion over boson --- is POSITED / imported}: $\pi_1 = \mathbb{Z}_2$ \emph{admits} both statistics ($\mathrm{Hom}(\mathbb{Z}_2, U(1))$ is two-valued) and forces neither; the selection enters at action level via a $\mathbb{Z}_2$ / Wess--Zumino term (the half-angle lift $U = \exp(i\,\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$). Grade: \textbf{PEER-WITH-SM} (\texttt{clm-rkisb8}) --- the substrate supplies the double-cover the SM also has, and imports the same statistics choice the SM imports. Nothing in the mechanism, the group chain, or the $4\pi$ closure spec below changes; only the strength of the claim on the \emph{selection} is carved.
 
 The mechanism: an extended closed defect (the $0_1$ unknot at minimum ropelength $2\pi$, embedded across multiple K4 bonds) acquires a topologically non-trivial twist under a $2\pi$ rotation of its environment relative to the lattice. The twist cannot be removed without cutting the loop. Under a $4\pi$ rotation, the accumulated twist unwinds through the loop's body and the embedding returns to its initial state. Extended objects connected to their environment have a 2-to-1 cover of the $SO(3)$ rotation group --- this is classical topology of extended objects in 3D, demonstrable with any belt or rope.
 
