@@ -19,6 +19,14 @@ and requires each one to be either
 Anything else FAILS.  A number cannot enter the result doc by being typed: it
 enters by being registered against its source.
 
+★SCOPE, stated honestly (PR #845 audit R8b).  The unit of coverage is the
+BACKTICKED numeral, not "every numeral".  Numerals written in prose without
+backticks are NOT scanned and NOT covered -- the doc carries several dozen of
+them (section headings, PR numbers, ordinals, the "two mechanisms" counts), all
+benign, none load-bearing.  The house convention that makes the tool sufficient
+is therefore: ANY load-bearing numeral MUST be backticked.  A claim that this
+tool covers "every numeral" would be false, and the tool now says so on stdout.
+
 ★NON_REGISTRABLE.  `_runtime_sec` is machine-dependent and is excluded from the
 frozen determinism digest by the prereg's own G9 definition.  Registering a doc
 token against it would make this tool FAIL on every honest re-run on every
@@ -217,8 +225,10 @@ ALLOWED = {
           "is the phase RATE 2*R_match - a, not this integer (audit R4)",
     "64000": "frozen N_STEPS_POLISH (prereg section 4.3)",
     "16000": "frozen N_STEPS_SCAN (prereg section 4.3)",
-    "8000": "step-sweep endpoint quoted in G3 prose",
-    "128000": "step-sweep endpoint quoted in G3 prose",
+    "8000": "AS-RUN, not re-derivable: step-sweep endpoint quoted in G3 prose "
+            "(the sweep ran outside the shipped battery; not in the JSON)",
+    "128000": "AS-RUN, not re-derivable: step-sweep endpoint quoted in G3 prose "
+              "(the sweep ran outside the shipped battery; not in the JSON)",
     "2048": "frozen contour sampling (prereg section 4.3)",
     "4096": "frozen contour sampling (prereg section 4.3)",
     "8192": "frozen contour sampling (prereg section 4.3)",
@@ -245,9 +255,14 @@ ALLOWED = {
     "1e-3`": "frozen tolerance token adjacent to punctuation",
     "50": "the #814 estimator-spread percentage, quoted from that document",
     "1.007": "exp argument |omega_I|*(2 r_sat - r_sat) quoted in prose as e^(1.007)",
-    "3.64": "R/r_sat at the buggy first-run x_sat = 11 configuration",
-    "1.74": "the first-run G8 Q spread, recorded in the bug banner",
-    "174": "the same first-run G8 spread as a percentage",
+    # AS-RUN, NOT RE-DERIVABLE (audit R8a).  The pre-repair driver was never
+    # committed, so these three cannot be regenerated from anything in-tree.
+    # The result doc marks them as as-run prose at the point of use.
+    "3.64": "AS-RUN, not re-derivable: R/r_sat at the buggy first-run x_sat = 11 "
+            "configuration (pre-repair driver never committed)",
+    "1.74": "AS-RUN, not re-derivable: the first-run G8 Q spread in the bug banner "
+            "(pre-repair driver never committed)",
+    "174": "AS-RUN, not re-derivable: the same first-run G8 spread as a percentage",
     "80": "exp argument 2*|omega_I|*R_match at the rectangle corner",
     "801": "PR number", "802": "PR number", "808": "PR number",
     "814": "PR number", "261": "PR number", "506": "PR number",
@@ -338,8 +353,10 @@ def main() -> int:
         print(f"  FAIL  `{tok}`  {why}")
     if bad_rows:
         return 1
-    print("[coldq-number-check] OK — every numeral in the result doc is "
+    print("[coldq-number-check] OK — every BACKTICKED numeral in the result doc is "
           "registered against the shipped JSON or allow-listed with a reason")
+    print("[coldq-number-check] SCOPE — backticked numerals only.  Un-backticked "
+          "numerals in prose are NOT covered by this tool (audit R8b).")
     return 0
 
 

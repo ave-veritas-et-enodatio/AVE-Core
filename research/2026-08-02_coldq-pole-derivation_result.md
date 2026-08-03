@@ -22,7 +22,7 @@
 >
 > **This is a clean instrument-failure result with a named mechanism — Rule 11's good shape, not a rescue candidate.** The physics numbers the battery produced are reported below as **NOT-ADJUDICATED DIAGNOSTICS** and carry **no bin verdict**, per the frozen precedence.
 >
-> **The five gates that DID pass are the load-bearing physics ones**, and two of them are new: the derived **spin-2** radial system reproduces the exact spherical-Hankel far field to `1.7688e-14` (G1), its **spin-2 energy weighting** reproduces the shot closed-cavity eigenvalue to `4.9220e-13` (G2) — and swapping in the **spin-1** weighting breaks that agreement by `21.7` percent (FT-6). **The #814 R7 spin-1-vs-spin-2 prerequisite is therefore not merely obeyed here; it is measured, and it is load-bearing.**
+> **The five gates that DID pass are the load-bearing physics ones**, and two of them are new: the derived **spin-2** radial system reproduces the exact spherical-Hankel far field to `1.7688e-14` (G1), its **spin-2 energy weighting** reproduces the shot closed-cavity eigenvalue to `4.9220e-13` (G2) — and swapping in the **spin-1** weighting breaks that agreement by `21.7` percent (FT-6; the break is on the **recovered closed-cavity eigenfrequency**, not a measured `Q` shift on the open problem — see §5 item 1). **The #814 R7 spin-1-vs-spin-2 prerequisite is therefore not merely obeyed here; it is measured, and it is load-bearing.**
 
 ---
 
@@ -83,9 +83,11 @@ Read the rows, not the cells:
 - At `R_match = 40` the floor is `4.3437e-07`.
 - At `R_match = 60` the floor reaches `1.2588e-08`–`5.6969e-09`.
 
-**G4 and G5 fail for exactly this reason and for no other.** G4's frozen set contains `R = 25`, whose floor is four orders above the frozen `1e-8`. G5's frozen set contains `N = 12`, which at `R = 40` is far from optimal truncation. **The controls were designed for a convergent expansion, where "more terms is better" and "any `R` in the set is equivalent". For an asymptotic expansion both statements are false.** G3 independently proves the *integrator* is not the limit: `n_steps` 16000 → 64000 moves the pole by `3.5006e-10`, and a separate sweep found 8000 → 128000 agreeing to `1e-11`.
+**G4 and G5 fail for exactly this reason and for no other.** G4's frozen set contains `R = 25`, whose floor is four orders above the frozen `1e-8`. G5's frozen set contains `N = 12`, which at `R = 40` is far from optimal truncation. **The controls were designed for a convergent expansion, where "more terms is better" and "any `R` in the set is equivalent". For an asymptotic expansion both statements are false.** G3 independently proves the *integrator* is not the limit: `n_steps` 16000 → 64000 moves the pole by `3.5006e-10`, and a separate sweep found `8000` → `128000` agreeing to `1e-11`.
 
-### §2.2 The subdominant-coefficient extraction is exponentially ill-conditioned
+> **⚑ AS-RUN, NOT RE-DERIVABLE FROM THE SHIPPED ARTIFACTS (disclosed, PR #845 audit R8).** The `8000` → `128000` step sweep was run outside the shipped battery and its endpoints are **not** in `coldq_pole_derivation_results.json`; they are as-run prose. The gated number-check therefore allow-lists them rather than registering them. The G3 row in the gate table (`n_steps` 16000 → 64000, `3.5006e-10`) **is** shipped and registered, and it is the one that carries the gate.
+
+### §2.2 M2 — the subdominant-coefficient extraction is exponentially ill-conditioned
 
 With `Im omega < 0` the **outgoing** solution is the *dominant* one at large `r`, so the quasinormal condition asks for the *subdominant* ingoing coefficient to vanish. A relative integration error `delta` manufactures a spurious ingoing amplitude of order `delta * exp(2|Im omega| R_match)`. The prereg named this at §9 item 8 and froze `R_match` independence over a finite set rather than "arbitrarily large `R`" **because of it** — but it still froze a search rectangle reaching `|omega_I| M_g = 1.00`, where at `R_match = 40` the contamination factor is `exp(80)`. That region is pure roundoff.
 
@@ -178,7 +180,7 @@ Comparison quantities, computed from the shipped pole and the frozen comparators
 - `Q` against the Op21 `2*pi`-convention `Q = ell = 2`: deviation `-54.0` percent. Distance to the convention value: `1.0798`. Distance to `Q_GR`: `1.1801`. **Which of the two the measured `Q` sits nearer is BIN-2's frozen discriminator, and it is NOT evaluated here** — `BIN-F-SOLVER` fired, so the two distances are recorded as diagnostics and are not compared.
 - `k_0*r_sat = 1.8537` against the standing chain's asserted `ell*(1+nu_vac) = 2.5714`.
 
-> **★ The IDENTITY the prereg froze BEFORE any number existed, and it holds.** `k_0*r_sat = x_sat * omega_R M_g` identically, so the "9/7-above-cutoff" test **is** the `omega_R` vs `18/49` comparison re-expressed, not an independent axis. Both read `-27.91` percent. The prereg recorded this in advance precisely so it could not be presented afterwards as two corroborating results. **It is one.**
+> **★ The IDENTITY the prereg froze BEFORE any number existed, and it holds.** **Attribution, corrected after review (PR #845 R8):** what the prereg froze (prereg:284) is the **literal-`7`** form, `k_0 r_sat = 7 * omega_R M_g`. The `x_sat`-generalized form `k_0*r_sat = x_sat * omega_R M_g` used elsewhere in this doc is **this document's trivial generalization of it**, not a frozen string, and it is the frozen literal-`7` form that carries the pre-registration. Either way the content is the same: the "9/7-above-cutoff" test **is** the `omega_R` vs `18/49` comparison re-expressed, not an independent axis. Both read `-27.91` percent. The prereg recorded this in advance precisely so it could not be presented afterwards as two corroborating results. **It is one.**
 
 ### §4.2 Radial localization
 
@@ -202,7 +204,7 @@ Within the region where the extraction is conditioned there is **one** pole. The
 
 ## §5 — WHAT THIS LANE DID ESTABLISH (the gates that passed are not nothing)
 
-1. **★ The spin-2 discipline is discharged AND measured.** The #814 R7 prerequisite was *"derive the spin-2 spherical-mode impedance; do NOT import the spin-1 one."* **Frozen:** `the radial system is the toroidal (odd-parity, exactly divergence-free) branch derived from the shear-channel continuum equations; the radial functions coincide with spherical Hankel functions in the homogeneous limit but the impedance relation T = mu(W' - W/r) and the (l-1)(l+2) stored-energy weighting are the spin-2 ones and no spin-1 vector-multipole impedance is imported anywhere in this lane`. G1 confirms the radial functions do coincide (`1.7688e-14`); G2 confirms the spin-2 energy weighting is the Euler–Lagrange partner of the integrated system (`4.9220e-13`); and **FT-6 shows the spin-1 `l(l+1)` weighting breaks that agreement by `0.21729`.** The distinction is therefore not bookkeeping — it is worth `22` percent on the object `Q` is built from.
+1. **★ The spin-2 discipline is discharged AND measured.** The #814 R7 prerequisite was *"derive the spin-2 spherical-mode impedance; do NOT import the spin-1 one."* **Frozen:** `the radial system is the toroidal (odd-parity, exactly divergence-free) branch derived from the shear-channel continuum equations; the radial functions coincide with spherical Hankel functions in the homogeneous limit but the impedance relation T = mu(W' - W/r) and the (l-1)(l+2) stored-energy weighting are the spin-2 ones and no spin-1 vector-multipole impedance is imported anywhere in this lane`. G1 confirms the radial functions do coincide (`1.7688e-14`); G2 confirms the spin-2 energy weighting is the Euler–Lagrange partner of the integrated system (`4.9220e-13`); and **FT-6 shows the spin-1 `l(l+1)` weighting breaks that agreement by `0.21729`.** **Scope, tightened after review (PR #845 R8):** `0.21729` is the relative break in the **recovered closed-cavity eigenfrequency** that G2's Rayleigh quotient reproduces. It is **not** a measured `Q` shift on the open (radiating) problem — no such shift was computed by this battery, and none is claimed. Scoped that way the claim stands: the distinction is not bookkeeping, because substituting the spin-1 weighting moves the eigenfrequency that `Q` is *built from* by `22` percent.
 2. **The wall terminus is reached exactly, with no regulator.** **Frozen:** `the wall is reached exactly via the r = r_sat + sigma^2 substitution, which makes the two-component system analytic at sigma = 0; the initial condition is exactly (W,T) = (1,0) and no offset, series start, or regularized modulus floor is used`. G3 measures `3.5006e-10`. **The `A = 1` point is handled as a regular singular point of the ODE whose indicial structure selects the traction-free branch — not by a floor on `S`.**
 3. **Ax-3 losslessness is structural, not asserted.** G6: every closed-cavity eigenvalue is real to `0.0` exactly and the assembled transfer carries zero imaginary part; FT-3 shows a smuggled `Im(mu)/Re(mu) = 1e-3` is detected. **The only loss in the ledger is the radiative port** — #814's CF-11 instantiated.
 4. **FORK-10 and FORK-11 are dissolved as designed.** **Frozen:** `no port-Q is computed and no port-to-pole transfer is performed; the reported Q is the pole-Q that the GR comparator is`. Neither disputed spin-1 estimator was used and the `50` percent estimator spread recorded in #814 §1.3 never entered.
@@ -235,6 +237,35 @@ Within the region where the extraction is conditioned there is **one** pole. The
 - **Frozen:** `total battery runtime <= 900 s on the reference machine; a longer run is disclosed, not silently accepted`. **Disclosed: the battery took longer than the frozen budget.** The shipped `_runtime_sec` records it. The budget is not an adjudication criterion and no result depends on it.
 - **Disclosed implementation choices**, neither of which touches a frozen criterion: (i) seed refinement inside `find_poles` runs at the scan step count, and every reported pole is re-polished at the frozen `N_STEPS_POLISH = 64000` before it is used; (ii) the instrument-accuracy map runs at the scan step count, which G3 measures is not the accuracy limit.
 - **`_runtime_sec` is machine-dependent and is deliberately NOT registered** in the number check (the #801 R3/WARN-4 lesson: registering a machine-dependent numeral makes the checker fail on every honest re-run).
+
+---
+
+## §8 — CORRECTIONS AFTER REVIEW (PR #845 audit, dated 2026-08-03)
+
+**Nothing below changes a gate verdict, a bin, or the certification class.** The verdict was and remains `SOLVER-NOT-CERTIFIED` with all four physics bins `N/A — not adjudicated`. These are corrections to *this document's language and completeness*, landed in the repair pass. **The frozen prereg is byte-untouched, and so is the driver `coldq_pole_derivation.py`** — the only executable edited in the repair is the number check's allow-list.
+
+| # | audit finding | what changed |
+|---|---|---|
+| **F1** | verdict language leaked into §4.2 despite `BIN-F-SOLVER` firing | the leaking clause **REMOVED** (quoted below); the FORK-1 routing restated as *not adjudicated* |
+| **F2** | BIN-2's discriminator was evaluated in prose | the comparative sentence **REMOVED** (quoted below); both distances kept and tagged as the frozen, unevaluated discriminator |
+| **F3** | a second contamination source, and two design-time gaps, were missing | **§2.4 ADDED**; §6 item 1 extended with a fourth successor control and two structural requirements |
+| **F4** | FT-5's `15` was presented as a fixed signature | §2.2 restated as a phase-**rate** identification with its box-width dependence; the number check's allow-list reason for `15` corrected |
+| **F5** | the `x_sat`-scaling convention's unfrozen status was undisclosed; §5 item 5 overclaimed; §2.3 cited the wrong accuracy-map row | disclosure added to the bug banner; §5 item 5 downgraded; the floor corrected to the `R_match/r_sat` = `5.714` row |
+| **F6** | blame was assigned to the controls | headline and title retitled to the **instrument**; the single mechanism split into M1/M2 with per-gate attribution |
+| **F7** | two commits lack the `Co-Authored-By` trailer | **recorded, NOT repaired** — see the docket fragment; rewriting would destroy the frozen-first SHA evidence chain |
+| **F8** | prose-only numerals, coverage wording, an identity mis-attribution, FT-6 scope | as-run disclosures added; number-check wording fixed; the identity attributed to the result doc's generalization; FT-6 scoped to the closed-cavity eigenfrequency |
+
+**Rule 12 — the withdrawn text, preserved verbatim so the correction is auditable.** Both passages are **WITHDRAWN**. They are reproduced here as history, not as content.
+
+> **🔴 WITHDRAWN (F1, §4.2).** *"**the reserved bin turned out to be the relevant one.** Had bins been adjudicated, this is where BIN-3 would have landed, and it would have said that the derived mode is **neither** a rim ring at `r_sat` **nor** a ramp mode at the `r*/r_sat = 1.2247` turning point."*
+> **Why withdrawn:** the frozen precedence says that when an earlier bin fires *"the later ones are reported as `N/A — not adjudicated` and no verdict language is used about them."* A counterfactual verdict is still a verdict. The measurement it rested on (no interior maximum; both measures agree at the outer window edge) and the QNM `exp(|omega_I| r)` caveat are **kept**, because they are diagnostics.
+
+> **🔴 WITHDRAWN (F2, §4.1).** *"The measured `Q` is nearer the convention value than the GR value (distances `1.0798` and `1.1801`)."*
+> **Why withdrawn:** "nearer which comparator" **is** BIN-2's frozen discriminator. Stating it in prose evaluates a bin the precedence forbids evaluating. Both distances are **kept** as unevaluated diagnostics.
+
+> **🔴 SUPERSEDED (F6, headline).** *"**All five outcomes have a single named mechanism**, and it is a property of the frozen *controls*, not of the physics"* — and the original title, *"one mechanism explains every failure"*. **Why:** the failing behaviour is a property of the frozen **instrument** (the §4.2 real-`sigma` far-field method). The controls are what **detected** it. And there are two mechanisms, opposed in `R_match`, not one — with a third contamination source found later (§2.4).
+
+> **🔴 SUPERSEDED (F5, §5 item 5).** Withdrawn verbatim, byte-for-byte as it stood: "to eight significant figures, which is the strongest form of the #808 §2.1 requirement (*"cancellation is the actual requirement"*) yet produced in this arc." **Why:** under `scaled_geometry()` the three `x_sat` runs are the same problem in scaled units by construction, so the agreement is a **unit-covariance receipt**, not an independent measurement of a cancellation the prereg already establishes analytically.
 
 ---
 
