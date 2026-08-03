@@ -1,0 +1,803 @@
+{
+  "_digest": "e953f8882a4e675e",
+  "_frozen_numerics": {
+    "contour_samples": [
+      200,
+      400,
+      800
+    ],
+    "ctrl_box": [
+      [
+        0.05,
+        6.0
+      ],
+      [
+        0.02,
+        4.0
+      ]
+    ],
+    "ctrl_ells": [
+      1,
+      2,
+      3,
+      6,
+      10,
+      14,
+      18
+    ],
+    "dps": 50,
+    "ell": 2,
+    "high_box": [
+      [
+        0.02,
+        20.0
+      ],
+      [
+        0.02,
+        10.0
+      ]
+    ],
+    "lambda_indep": [
+      -0.25,
+      0.0,
+      0.25
+    ],
+    "n_indep": [
+      48,
+      56,
+      64
+    ],
+    "n_primary": 48,
+    "n_sweep": [
+      24,
+      32,
+      40,
+      48,
+      56,
+      64
+    ],
+    "rect_wi": [
+      0.001,
+      1.0
+    ],
+    "rect_wr": [
+      0.02,
+      2.0
+    ],
+    "width_family": [
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0
+    ],
+    "x_sat": 7.0
+  },
+  "_method": "compactified hyperboloidal Chebyshev spectral discretization in the Axiom-4 amplitude coordinate A = r_sat/r; outgoing wave divided out in closed form; traction-free SHORT as dpsi/deta = 0; no BC imposed at infinity; extended-precision determinant polish; argument-principle winding of the determinant phase",
+  "_prereg": "research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md",
+  "_prereg_commit": "7d8fe484",
+  "_runtime_sec": 450.74,
+  "adjudication": {
+    "BIN-1": "N/A - not adjudicated",
+    "BIN-2": "N/A - not adjudicated",
+    "BIN-3": "N/A - not adjudicated",
+    "BIN-4": "N/A - not adjudicated",
+    "bin": "BIN-F-SOLVER",
+    "certification": "SOLVER-NOT-CERTIFIED",
+    "failed_gates": [
+      "C1",
+      "C9"
+    ],
+    "note": "no physics bin adjudicated (prereg section 7 precedence); diagnostics are NOT-ADJUDICATED",
+    "unfired_selftests": [
+      "FT_B"
+    ]
+  },
+  "comparators": {
+    "Q_GR": 2.1002135791366907,
+    "Q_GR_rounded_prose": 2.099438202247191,
+    "nu_vac": 0.2857142857142857,
+    "omega_I_GR": 0.08896,
+    "omega_I_GR_n1": 0.273915,
+    "omega_R_GR": 0.37367,
+    "schw_omega_R": {
+      "2,0": 0.373672,
+      "2,1": 0.346711,
+      "2,2": 0.301053
+    },
+    "source_omega": "research/2026-07-20_v1-spin-mapping-adjudication_rerun.py:51",
+    "source_overtones": "research/2026-07-20_ringdown-systematics_checks.py:72-73"
+  },
+  "discretization_artifacts": [
+    [
+      0.30587571217415294,
+      -2.4674822214282157
+    ]
+  ],
+  "ell_ladder": {
+    "Omega": {
+      "2": [
+        1.8536552108408788,
+        -1.0072567831433188
+      ],
+      "3": [
+        2.513862504041755,
+        -0.8270827809320116
+      ],
+      "4": [
+        3.138966224667151,
+        -0.6935556956900625
+      ],
+      "5": [
+        3.7413481998279248,
+        -0.5832069991729377
+      ]
+    },
+    "tag": "DIAGNOSTIC - no bin, no verdict; FORK-12 is unanswered and this lane does not adjudicate it"
+  },
+  "gates": {
+    "C1": {
+      "pass": false,
+      "rows": [
+        {
+          "closed_form_count": 1,
+          "closed_form_roots": [
+            [
+              0.8660254037844386,
+              -1.5
+            ]
+          ],
+          "ell": 1,
+          "located_count": 1,
+          "located_roots": [
+            [
+              0.8660254037844386,
+              -1.5
+            ]
+          ],
+          "max_loc_err": 2.971418348104843e-44,
+          "n": 32,
+          "pass": true,
+          "winding": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "closed_form_count": 1,
+          "closed_form_roots": [
+            [
+              1.9364916731037085,
+              -1.5
+            ]
+          ],
+          "ell": 2,
+          "located_count": 1,
+          "located_roots": [
+            [
+              1.9364916731037085,
+              -1.5
+            ]
+          ],
+          "max_loc_err": 3.538106850351623e-46,
+          "n": 32,
+          "pass": true,
+          "winding": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "closed_form_count": 2,
+          "closed_form_roots": [
+            [
+              0.906011843489535,
+              -2.450760519671951
+            ],
+            [
+              2.9301045427845316,
+              -1.549239480328049
+            ]
+          ],
+          "ell": 3,
+          "located_count": 2,
+          "located_roots": [
+            [
+              0.906011843489535,
+              -2.450760519671951
+            ],
+            [
+              2.9301045427845316,
+              -1.549239480328049
+            ]
+          ],
+          "max_loc_err": 5.778101396963759e-42,
+          "n": 32,
+          "pass": true,
+          "winding": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        },
+        {
+          "closed_form_count": 3,
+          "closed_form_roots": [
+            [
+              1.766196067893024,
+              -4.187750506906615
+            ],
+            [
+              3.6052170095802043,
+              -3.396842917128602
+            ],
+            [
+              5.844472117096263,
+              -1.701274531500481
+            ]
+          ],
+          "ell": 6,
+          "located_count": 3,
+          "located_roots": [
+            [
+              1.766196067893024,
+              -4.187750506906615
+            ],
+            [
+              3.6052170095802043,
+              -3.396842917128602
+            ],
+            [
+              5.844472117096263,
+              -1.701274531500481
+            ]
+          ],
+          "max_loc_err": 5.177479846670382e-38,
+          "n": 40,
+          "pass": false,
+          "winding": [
+            8.0,
+            8.0,
+            4.999999999999999
+          ]
+        },
+        {
+          "closed_form_count": 5,
+          "closed_form_roots": [
+            [
+              1.7469615572485855,
+              -6.882709766339829
+            ],
+            [
+              3.513968383763666,
+              -6.417559435317129
+            ],
+            [
+              5.331598444374395,
+              -5.581462405626877
+            ],
+            [
+              7.271406909725248,
+              -4.23187379619652
+            ],
+            [
+              9.728572895807531,
+              -1.870089456900638
+            ]
+          ],
+          "ell": 10,
+          "located_count": 4,
+          "located_roots": [
+            [
+              3.513968383763666,
+              -6.417559435317129
+            ],
+            [
+              5.331598444374395,
+              -5.581462405626877
+            ],
+            [
+              7.271406909725248,
+              -4.23187379619652
+            ],
+            [
+              9.728572895807531,
+              -1.870089456900638
+            ]
+          ],
+          "max_loc_err": Infinity,
+          "n": 40,
+          "pass": false,
+          "winding": [
+            6.0,
+            10.000000000000002,
+            8.0
+          ]
+        },
+        {
+          "closed_form_count": 7,
+          "closed_form_roots": [
+            [
+              1.7414714439681964,
+              -9.554343632361995
+            ],
+            [
+              3.4925301007782985,
+              -9.222435328580387
+            ],
+            [
+              5.265002434522873,
+              -8.648456375094398
+            ],
+            [
+              7.076674730731996,
+              -7.794147574504587
+            ],
+            [
+              8.960371908950234,
+              -6.5848419241164935
+            ],
+            [
+              10.996902431077316,
+              -4.8539611266427
+            ],
+            [
+              13.63021864467124,
+              -2.0102817127985584
+            ]
+          ],
+          "ell": 14,
+          "located_count": 5,
+          "located_roots": [
+            [
+              5.265002434522873,
+              -8.648456375094398
+            ],
+            [
+              7.076674730731996,
+              -7.794147574504587
+            ],
+            [
+              8.960371908950234,
+              -6.5848419241164935
+            ],
+            [
+              10.996902431077316,
+              -4.8539611266427
+            ],
+            [
+              13.63021864467124,
+              -2.0102817127985584
+            ]
+          ],
+          "max_loc_err": Infinity,
+          "n": 40,
+          "pass": false,
+          "winding": [
+            3.0,
+            2.0,
+            2.0
+          ]
+        },
+        {
+          "closed_form_count": 4,
+          "closed_form_roots": [
+            [
+              10.68828579214447,
+              -8.879575971488482
+            ],
+            [
+              12.636602489387899,
+              -7.388688803392066
+            ],
+            [
+              14.7617006912578,
+              -5.360445964771831
+            ],
+            [
+              17.545791577038806,
+              -2.131339407139568
+            ]
+          ],
+          "ell": 18,
+          "located_count": 4,
+          "located_roots": [
+            [
+              10.68828579214447,
+              -8.879575971488482
+            ],
+            [
+              12.636602489387899,
+              -7.388688803392066
+            ],
+            [
+              14.7617006912578,
+              -5.360445964771831
+            ],
+            [
+              17.545791577038806,
+              -2.131339407139568
+            ]
+          ],
+          "max_loc_err": 1.5767179491718027e-38,
+          "n": 40,
+          "pass": false,
+          "winding": [
+            4.0,
+            4.0,
+            12.0
+          ]
+        }
+      ],
+      "tol_loc": 1e-20,
+      "tol_wind": 0.001
+    },
+    "C10": {
+      "derived_left_edge_bound": 6e-38,
+      "margin_orders": 36.3685189759407,
+      "max_rho_out": 42.80367166619334,
+      "metric": 4.280367166619334e-49,
+      "pass": true,
+      "rectangle_Omega_min": 0.14017489076150552,
+      "tol": 1e-15
+    },
+    "C11": {
+      "measured": 8.971610057197202e-16,
+      "pass": true,
+      "tol": 1e-13
+    },
+    "C2": {
+      "by_lambda": {
+        "-0.25": [
+          1.8536552108408528,
+          -1.0072567831433368
+        ],
+        "0.0": [
+          1.8536552108408788,
+          -1.0072567831433188
+        ],
+        "0.25": [
+          1.85365521084091,
+          -1.007256783143296
+        ]
+      },
+      "measured": 3.326782184023656e-14,
+      "pass": true,
+      "tol": 1e-12
+    },
+    "C3": {
+      "measured": 8.331825359103876e-14,
+      "pass": true,
+      "sweep": {
+        "24": [
+          1.8536552089749856,
+          -1.0072567665751264
+        ],
+        "32": [
+          1.8536552111039672,
+          -1.007256783157842
+        ],
+        "40": [
+          1.853655210835567,
+          -1.007256783146279
+        ],
+        "48": [
+          1.8536552108408788,
+          -1.0072567831433188
+        ],
+        "56": [
+          1.853655210840719,
+          -1.0072567831433918
+        ],
+        "64": [
+          1.853655210840725,
+          -1.0072567831433927
+        ]
+      },
+      "tol": 1e-12
+    },
+    "C4": {
+      "content_saturates_while_width_doubles": true,
+      "equals_located": true,
+      "integer_ok": true,
+      "located": 2,
+      "pass": true,
+      "sampling_stable": true,
+      "tol": 0.001,
+      "width_family": [
+        {
+          "closed_form_content": 0,
+          "pass": true,
+          "width": 0.5,
+          "winding": 0.0
+        },
+        {
+          "closed_form_content": 0,
+          "pass": true,
+          "width": 1.0,
+          "winding": 0.0
+        },
+        {
+          "closed_form_content": 1,
+          "pass": true,
+          "width": 2.0,
+          "winding": 0.9999999999999999
+        },
+        {
+          "closed_form_content": 2,
+          "pass": true,
+          "width": 4.0,
+          "winding": 2.0
+        },
+        {
+          "closed_form_content": 3,
+          "pass": true,
+          "width": 8.0,
+          "winding": 3.0
+        },
+        {
+          "closed_form_content": 3,
+          "pass": true,
+          "width": 16.0,
+          "winding": 3.0
+        }
+      ],
+      "width_family_pass": true,
+      "winding": [
+        2.0,
+        2.0,
+        2.0
+      ]
+    },
+    "C5": {
+      "Omega_by_x_sat": {
+        "11.0": [
+          1.8536552108408788,
+          -1.0072567831433188
+        ],
+        "5.0": [
+          1.8536552108408788,
+          -1.0072567831433188
+        ],
+        "7.0": [
+          1.8536552108408788,
+          -1.0072567831433188
+        ]
+      },
+      "Omega_spread": 0.0,
+      "Q_by_x_sat": {
+        "11.0": 0.9201502744197103,
+        "5.0": 0.9201502744197103,
+        "7.0": 0.9201502744197103
+      },
+      "Q_spread": 0.0,
+      "omega_Mg_by_x_sat": {
+        "11.0": [
+          0.16851411007644354,
+          -0.09156879846757443
+        ],
+        "5.0": [
+          0.37073104216817576,
+          -0.20145135662866376
+        ],
+        "7.0": [
+          0.2648078872629827,
+          -0.14389382616333127
+        ]
+      },
+      "pass": true,
+      "tol": 1e-09
+    },
+    "C6": {
+      "omega2_eig": 0.001963992656702563,
+      "pass": true,
+      "rayleigh_spin1": 0.0029070409835433167,
+      "rayleigh_spin2": 0.0019639926567138386,
+      "residual": 5.7411853049416095e-12,
+      "spin1_break": 0.4801689678535157,
+      "tol_break": 0.001,
+      "tol_res": 1e-09
+    },
+    "C7": {
+      "max_rel_imag": 1.785256334545669e-27,
+      "n_modes": 63,
+      "pass": true,
+      "tol": 1e-10
+    },
+    "C8": {
+      "note": "determinism is verified by re-running the driver and comparing the shipped digest",
+      "pass": true
+    },
+    "C9": {
+      "max_diff": 18.99269360670885,
+      "pass": false,
+      "probes": [
+        {
+          "Omega": [
+            0.14,
+            -0.007
+          ],
+          "diff_32_64": 1.285761017052075e-08
+        },
+        {
+          "Omega": [
+            14.0,
+            -0.007
+          ],
+          "diff_32_64": 6.996583308357501e-14
+        },
+        {
+          "Omega": [
+            14.0,
+            -7.0
+          ],
+          "diff_32_64": 4.438586530858924e-08
+        },
+        {
+          "Omega": [
+            0.14,
+            -7.0
+          ],
+          "diff_32_64": 18.99269360670885
+        },
+        {
+          "Omega": [
+            7.07,
+            -0.007
+          ],
+          "diff_32_64": 1.6971552916300845e-13
+        },
+        {
+          "Omega": [
+            7.07,
+            -7.0
+          ],
+          "diff_32_64": 0.0012255453065647584
+        },
+        {
+          "Omega": [
+            0.14,
+            -3.5035
+          ],
+          "diff_32_64": 3.6581755986295597
+        },
+        {
+          "Omega": [
+            14.0,
+            -3.5035
+          ],
+          "diff_32_64": 1.0056014121005825e-11
+        },
+        {
+          "Omega": [
+            7.07,
+            -3.5035
+          ],
+          "diff_32_64": 4.738949552137712e-09
+        }
+      ],
+      "tol": 1e-10
+    }
+  },
+  "localization": {
+    "interior_max": false,
+    "u_energy": 2.0000000000000004,
+    "u_kinetic": 2.0000000000000004,
+    "wall_fraction_of_peak": 0.040561477093055825
+  },
+  "located_roots_primary": [
+    [
+      1.8536552108408788,
+      -1.0072567831433188
+    ],
+    [
+      0.30587571217415294,
+      -2.4674822214282157
+    ]
+  ],
+  "physical_roots": [
+    [
+      1.8536552108408788,
+      -1.0072567831433188
+    ]
+  ],
+  "self_tests": {
+    "FT_A": {
+      "fires": true,
+      "measured": 3.7227495669678426e-09,
+      "threshold": 1e-15
+    },
+    "FT_B": {
+      "fires": false,
+      "measured": 1.8293589502922866e-14,
+      "threshold": 1e-12
+    },
+    "FT_C": {
+      "fires": true,
+      "measured": 0.0004403753009261499,
+      "threshold": 1e-06
+    },
+    "FT_D": {
+      "fires": true,
+      "saturates": true,
+      "width_family": [
+        {
+          "closed_form_content": 0,
+          "pass": true,
+          "width": 0.5,
+          "winding": 0.0
+        },
+        {
+          "closed_form_content": 0,
+          "pass": true,
+          "width": 1.0,
+          "winding": 0.0
+        },
+        {
+          "closed_form_content": 1,
+          "pass": true,
+          "width": 2.0,
+          "winding": 0.9999999999999999
+        },
+        {
+          "closed_form_content": 2,
+          "pass": true,
+          "width": 4.0,
+          "winding": 2.0
+        },
+        {
+          "closed_form_content": 3,
+          "pass": true,
+          "width": 8.0,
+          "winding": 3.0
+        },
+        {
+          "closed_form_content": 3,
+          "pass": true,
+          "width": 16.0,
+          "winding": 3.0
+        }
+      ],
+      "width_family_pass": true
+    },
+    "FT_E": {
+      "fires": true,
+      "measured": 6.013720615560138e-07,
+      "threshold": 1e-09
+    },
+    "FT_F": {
+      "cross_lane_845_FT6": 0.21729,
+      "cross_lane_note": "NOT-ADJUDICATED prior-lane data; NON-GATING (prereg FLAG-2)",
+      "fires": true,
+      "spin1_wall_shift": 0.2842379922351736,
+      "spin1_weight_break": 0.4801689678535157,
+      "threshold_bc": 0.01,
+      "threshold_w": 0.001
+    },
+    "FT_G": {
+      "fires": true,
+      "measured": 0.000499999813566115,
+      "threshold": 1e-05
+    },
+    "FT_H": {
+      "fires": true,
+      "killed_B1_rho": Infinity,
+      "killed_B1_threshold": 1e+30,
+      "low_Omega_metric": 6e-14,
+      "low_Omega_threshold": 1e-15
+    },
+    "FT_I": {
+      "fires": true,
+      "measured": 67.51362416272218,
+      "threshold": 1e-10
+    },
+    "FT_J": {
+      "fires": true,
+      "measured": 2.0668129728690202e-12,
+      "threshold": 1e-13
+    }
+  }
+}
