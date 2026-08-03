@@ -32,7 +32,8 @@ Key predictions:
      stall (04_continuum_electrodynamics.tex:272, MECHANISM-RETRACTED
      2026-07-19). What survives is a solar-FIELD radius, whose existence is
      itself gated by the unadjudicated internal-vs-total-field keying fork.
-     See oort_cloud_prediction() below for the full retraction record.
+     See solar_axiom4_onset_summary() below for the full retraction record
+     (that function was named oort_cloud_prediction() until 2026-08-03).
   3. Kirkwood gaps = destructive interference in Jupiter's impedance cavity
 
 References:
@@ -318,7 +319,12 @@ def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict[str, float | bo
 
 
 # ═══════════════════════════════════════════════════════════════
-# Oort Cloud as impedance boundary
+# Solar Axiom-4 onset radius (internal-field keying)
+# 🔴 RELABELED 2026-08-03 (Oort containment retraction, Rule 12).
+# This banner formerly read, verbatim: "Oort Cloud as impedance boundary".
+# Same relabel as the section title, figure caption and the two functions
+# below: what this block computes is a solar-FIELD radius, and the "Oort
+# Cloud" identification was the retracted population claim.
 # ═══════════════════════════════════════════════════════════════
 
 
@@ -329,8 +335,8 @@ def saturation_radius_au() -> float:
     The radius at which the Axiom-4 kernel turns on for the solar monopole
     under INTERNAL-FIELD keying — equivalently, the outer edge of the Sun's
     Newtonian region. This is a property of the solar FIELD and carries no
-    claim about where any body sits (see oort_cloud_prediction(): the Oort
-    containment claim was retracted 2026-08-03).
+    claim about where any body sits (see solar_axiom4_onset_summary(): the
+    Oort containment claim was retracted 2026-08-03).
 
     g(r) = GM/r² = a₀  →  r = √(GM/a₀)
 
@@ -342,9 +348,15 @@ def saturation_radius_au() -> float:
     a₀). Pinned in src/tests/test_solar_impedance.py.
 
     ⚑ Existence gated by the unadjudicated T4 keying fork: under
-    total-local-field keying the Sun already sits at g_ext ≈ 2.0-2.1 a₀, so
+    total-local-field keying the Sun already sits at g_ext ≈ 1.8-2.0 a₀, so
     no saturation transition exists anywhere in the solar system
     (research/2026-07-10_collapse-target-registry.md:271-290). Grant's call.
+    [Ratio corrected 2026-08-03: this line shipped as "≈ 2.0-2.1 a₀", which
+    read the mantissa of g_ext = 2.1e-10 m/s² as if it were a ratio. The
+    registry's own arithmetic at :282-:283 is 2.1/1.07 = 1.96 against the
+    AVE a₀ and 2.1/1.2 = 1.75 against the empirical a₀ — hence 1.8-2.0. The
+    physics is unchanged: 1.75 a₀ > a₀ either way, so total-field keying
+    still removes the transition.]
 
     Returns:
         Saturation radius [AU].
@@ -353,9 +365,20 @@ def saturation_radius_au() -> float:
     return r_sat / AU
 
 
-def oort_cloud_prediction() -> dict[str, float | int | str]:
+def solar_axiom4_onset_summary() -> dict[str, float | int | str]:
     """
     Solar Axiom-4 onset radius under internal-field keying.
+
+    🔴 FUNCTION RENAMED 2026-08-03 (repair pass). Former name, verbatim:
+    oort_cloud_prediction(). The name was the retracted claim in miniature —
+    it promised an Oort *prediction* from a function that computes a solar
+    FIELD radius and (since the same-date retraction) makes no population
+    claim at all. Renamed rather than flagged because the rename does not
+    ripple: the module exports no __all__, ave/gravity/__init__.py does not
+    re-export it, and the only consumer in the tree is
+    src/tests/test_solar_impedance.py (verified two methods, 2026-08-03).
+    Suffix "_summary" follows this module's existing convention for
+    dict-returning roll-ups (cf. oumuamua_summary above).
 
     🔴 CONTAINMENT CLAIM RETRACTED 2026-08-03 (Oort containment-retraction
     lane; propagation of the merged 2026-07-19 deep-space reactive-bulk
@@ -393,10 +416,14 @@ def oort_cloud_prediction() -> dict[str, float | int | str]:
     turns on for the solar monopole under INTERNAL-FIELD keying — i.e. the
     outer edge of the Newtonian region. Its very existence is gated by the
     unadjudicated internal-vs-total-field keying fork (T4): under
-    total-local-field keying the Sun already sits at g_ext ≈ 2.0–2.1 a₀
-    (research/2026-07-10_collapse-target-registry.md:281-283), so no
-    saturation transition exists anywhere in the solar system. Grant's call;
-    routed 2026-08-03, not resolved here.
+    total-local-field keying the Sun already sits at g_ext ≈ 1.8–2.0 a₀
+    (research/2026-07-10_collapse-target-registry.md:281-283 — g_ext ≈
+    2.1e-10 m/s² is 2.1/1.07 = 1.96 a₀ against the AVE-derived a₀ and
+    2.1/1.2 = 1.75 a₀ against the empirical one; ratio corrected 2026-08-03
+    from a shipped "≈ 2.0–2.1 a₀" that misread the mantissa as a ratio), so
+    no saturation transition exists anywhere in the solar system. The
+    physics direction is unchanged — even the smaller ratio, 1.75, exceeds
+    1. Grant's call; routed 2026-08-03, not resolved here.
 
     Returns:
         Dict describing the solar-FIELD onset radius. No population claim.

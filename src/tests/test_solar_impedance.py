@@ -13,11 +13,11 @@ from ave.gravity.solar_impedance import (
     heliospheric_impedance_profile,
     kirkwood_gap_radius,
     kirkwood_impedance_model,
-    oort_cloud_prediction,
     oumuamua_impedance_acceleration,
     oumuamua_radiation_acceleration,
     oumuamua_summary,
     saturation_radius_au,
+    solar_axiom4_onset_summary,
     solar_radiation_pressure,
     solar_wind_density,
     solar_wind_impedance,
@@ -137,9 +137,11 @@ class TestSolarAxiom4OnsetRadius:
     lane). The Oort *containment* claim — "inner Oort Cloud coincides with the
     g = a₀ transition" — was retracted; what these tests pin is a solar-FIELD
     radius, not a population edge. See ave/gravity/solar_impedance.py
-    oort_cloud_prediction() for the full retraction record, and note that the
-    radius's existence is gated by the unadjudicated internal-vs-total-field
-    keying fork (T4), routed to Grant 2026-08-03.
+    solar_axiom4_onset_summary() for the full retraction record (that function
+    was named oort_cloud_prediction() until the 2026-08-03 repair pass renamed
+    it for the same reason this class was renamed), and note that the radius's
+    existence is gated by the unadjudicated internal-vs-total-field keying fork
+    (T4), routed to Grant 2026-08-03.
     """
 
     def test_saturation_radius_order(self) -> None:
@@ -196,7 +198,7 @@ class TestSolarAxiom4OnsetRadius:
         against; this test asserts their absence so they cannot be silently
         reintroduced.
         """
-        p = oort_cloud_prediction()
+        p = solar_axiom4_onset_summary()
         assert "r_saturation_au" in p
         assert "g_at_saturation" in p
         assert p["g_at_saturation"] == A0_LATTICE
