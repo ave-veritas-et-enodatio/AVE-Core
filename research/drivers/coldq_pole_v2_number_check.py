@@ -90,7 +90,8 @@ ALLOWED = {
     #     of PR #854, NOT produced by this driver and NOT in the shipped JSON.
     #     They enter the result doc as quoted review measurements and are
     #     allow-listed as such, with the source named in each reason. ---
-    "bdcfa678": "PR #854 head SHA under review (identifier, not a measurement)",
+    "bdcfa678": "the PR #854 head SHA the adversarial review ran against, named "
+                "by that review (identifier, not a measurement; NOT this JSON)",
     "6.963e-01": "review re-measurement: homogeneous-probe C9 replacement at "
                  "Omega = 0.14 - 3.5035i, n = 64 -> 96, dps = 60 (NOT this JSON)",
     "5.620e+00": "review re-measurement: homogeneous-probe C9 replacement at "
@@ -101,14 +102,21 @@ ALLOWED = {
                  "driver's double-precision reporting floor (NOT this JSON)",
     "1.381e-46": "review re-measurement: C5 |Omega| spread at dps = 50, below "
                  "the driver's double-precision reporting floor (NOT this JSON)",
-    "60": "review sweep working precision, mpmath dps",
-    "80": "review sweep Chebyshev order (C4 count instability; pencil sweep)",
-    "96": "review sweep Chebyshev order (homogeneous-probe convergence test)",
-    "128": "review sweep upper Chebyshev order (C1 high-ell parameter sweep)",
-    "0.2503": "|Im Omega|/Re Omega of the shipped C9 probe 14 - 3.5035i, "
-              "computed from the JSON probe coordinates",
-    "37": "order-of-magnitude gap between C10's derived left-edge bound and "
-          "the operative left-edge mechanism, prose",
+    "60": "review sweep working precision, mpmath dps; set by the review "
+          "(NOT this JSON)",
+    "80": "review sweep Chebyshev order (C4 count instability; pencil sweep); "
+          "run by the review (NOT this JSON -- the shipped C3 sweep stops at 64)",
+    "96": "review sweep Chebyshev order (homogeneous-probe convergence test); "
+          "run by the review (NOT this JSON)",
+    "128": "review sweep upper Chebyshev order (C1 high-ell parameter sweep); "
+           "run by the review (NOT this JSON)",
+    "0.2503": "review re-measurement: |Im Omega|/Re Omega of the shipped C9 "
+              "probe 14 - 3.5035i, formed BY THE REVIEW from the JSON probe "
+              "coordinates -- the coordinates are this JSON's, the ratio is "
+              "NOT in this JSON",
+    "37": "review finding: order-of-magnitude gap between C10's derived "
+          "left-edge bound and the operative left-edge mechanism, prose "
+          "(NOT this JSON)",
     # --- run-1 (pre-repair) record; superseded by the shipped run ---
     "8ed2738391046900": "run-1 digest, recorded for auditability",
     "408.73": "run-1 runtime, disclosure class (non-registrable family)",
