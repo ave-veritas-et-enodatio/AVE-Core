@@ -110,6 +110,32 @@
 
 **Per Rule 12 the slot is not refilled.** The obvious successor move — a ladder whose lowest rung is derived from the coefficient tail rather than chosen — is **stated so a successor does not have to rediscover it, and explicitly NOT adopted here**: it would be a post-hoc parameter selection under a frozen fence, which is exactly what Rule 11 forbids. A v2.3 needs a new prereg, a new version number and its own verification chain. **G2 stays banked as FAIL.**
 
+### §2.5 ⚑ ADDED 2026-08-03 (post-review) — THE TOLERANCE'S PREMISE WAS MIS-ATTRIBUTED, AND IT WAS ALREADY STALE WHEN THE PREREG FROZE
+
+> **This subsection changes NO frozen criterion, NO gate result and NO verdict.** `G2` remains **FAIL** at the tolerance it was frozen at, the certification remains **`ROOT-NOT-CERTIFIED`**, and the frozen prereg is **byte-untouched** — the defect is disclosed here, not edited there. It is written because the PR #856 review established that the failure is manufactured by a premise, and a reader is entitled to know that before a successor inherits the same derivation.
+
+**What the prereg derived the `1e-10` from, verbatim** (`research/2026-08-03_coldq-pole-v2.2-root_prereg-FROZEN.md:476`, the §9 G2 row):
+
+> *"the PR #854 audit measured this root stable to **12 digits** over `n = 32 → 80` (`0a7dec1f`: "only Omega = 1.853655 - 1.007257i is n-stable"). **`1e-10` is frozen two orders looser than the measured evidence supports**, as honest headroom for the two orders the audit did not sweep (`n = 96`, and this lane's own reimplementation)"*
+
+**Defect 1 — the attribution is wrong.** Commit `0a7dec1f` **contains no digit count at all.** The review checked the whole commit — message and diff — and the string `digit` does not occur in it; what `0a7dec1f` actually measured, and what the quoted fragment actually says, is that the root is the only `n`-stable eigenvalue in the box, with **no** statement of how many digits. The *"12 digits"* characterization is not the audit's; it was the **#854 lane's own result-doc text**.
+
+**Defect 2 — and that text had already been retracted by the lane that wrote it.** `cb2012af` (`2026-08-03T06:36:08-07:00`) carries the 🔴 restatement verbatim: *"stable to **12 digits across `n = 48 → 80` (~10 digits from `n = 32`)**"*, correcting an original that read *"stable to **12 digits across `n = 32 → 80`**"*. **This lane's FLAG-8 (§7) already reported the measurement half of this and credited `cb2012af`. What FLAG-8 did not report is the consequence for the tolerance itself, which is this:**
+
+**Under the corrected premise, the prereg's OWN rule returns a tolerance this gate passes.** The rule the prereg states is *"two orders looser than the measured evidence supports"*:
+
+| premise | evidence | prereg's own rule → tolerance | this battery's measurement | outcome |
+|---|---|---|---|---|
+| **as frozen** — 12 digits from `n = 32` | `1e-12` | `1e-10` | `1.2496816388248957e-10` over `{32, 48, 64, 80, 96}` | **FAIL by `1.25`×** |
+| **as corrected** — ~10 digits from `n = 32` | `1e-10` | `1e-8` | the same `1.2496816388248957e-10` | **PASS by `80.02`×** |
+| **as corrected, ladder from `n = 48`** — 12 digits from `n = 48` | `1e-12` | `1e-10` (the frozen value itself) | `8.0906e-14` over `{48, 64, 80, 96}` | **PASS by `1236`×** |
+
+**So the FAIL is manufactured entirely by the stale premise.** Every route through the prereg's own derivation rule, run on a premise that was already corrected in the corpus twelve minutes after this file froze, returns a tolerance this instrument meets — in one case the *identical* `1e-10`, merely applied to a ladder whose lowest rung is resolved.
+
+**The operational receipt, and it is a sharp one.** The review located the FAIL/PASS boundary by re-running this lane's own `root()` on shifted ladders: the frozen `1e-10` is crossed **between `n = 32` and the very next rungs above it**, and every ladder whose lowest rung is `n = 34` or higher PASSES. **The boundary sits immediately below the `n = 40` resolution receipt the prereg itself cites in §6** — which is the same statement §2.3 makes, now with the crossing measured rather than argued. The per-rung numbers are in the docket fragment; they are a post-result reproduction, they are not in the shipped JSON, and **they adjudicate nothing here.**
+
+**What this does NOT do.** It does not retune, reinterpret or rescue `G2`. **The gate as frozen, measured as frozen, failed** — that is the banked result and it is what `BIN-F-ROOT` fired on. **A tolerance derived from a stale premise is still the tolerance this lane froze, and Rule 11 binds the lane to it.** The correction is routed **into the v2.3 prereg's tolerance derivation**, where it belongs: a successor must derive `G2`'s tolerance from the *corrected* stability characterization and from a ladder whose lowest rung is resolved, and must cite `cb2012af` rather than `0a7dec1f` for the digit count.
+
 ---
 
 ## §3 — WHAT THE LANE DID ESTABLISH

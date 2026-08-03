@@ -175,7 +175,10 @@ ALLOWED = {
     "1e-13": "frozen G0 tolerance / FT-0 threshold (prereg sections 5-6)",
     "1e-20": "frozen G1 and G10(b) tolerance (prereg section 5)",
     "1e-10": "frozen G2 tolerance (prereg section 5)",
-    "1e-12": "frozen G3 tolerance (prereg section 5)",
+    "1e-12": "frozen G3 tolerance (prereg section 5); ALSO, from the 2026-08-03 "
+             "post-review section 2.5 table, the numeric reading of a "
+             "'12 significant digits' stability premise -- a PREREG/prior-lane "
+             "premise, not a measurement of this battery",
     "1e-25": "frozen G4(a) tolerance / FT-4(a) threshold (prereg sections 5-6)",
     "1e-6": "frozen G4(b) tolerance / FT-2, FT-3, FT-4(b) thresholds",
     "1e-5": "frozen G6 tolerance / FT-10(b) threshold (prereg sections 5-6)",
@@ -196,6 +199,29 @@ ALLOWED = {
     "5.3e-16": "quoted from the prereg SECTION 6 FT-2 non-vacuity cell "
                "(prereg :337): v2.1's measured Chebyshev coefficient tail at "
                "n = 40 -- a PREREG numeral, NOT from this battery's JSON",
+    # --- 2026-08-03 POST-REVIEW additions (PR #856 findings 2, 3, 5, 9). ---
+    # Each of these is a COUNTERFACTUAL or a PREREG numeral introduced by the
+    # post-review correction notes.  NONE is a battery output and NONE is in the
+    # shipped JSON, so each is ALLOW-LISTED with its formula or its source named
+    # rather than registered against a path.  The checker's REGISTERED table and
+    # its matching logic are UNCHANGED by this repair -- changing gating logic
+    # after the result is the post-result move Rule 11 forbids, and the two
+    # known gaps in that logic (a minimum significant-digit floor, and per-site
+    # rather than global dedup) are ROUTED to the v2.3 checker, disclosed in the
+    # docket fragment, NOT fixed here.
+    "1e-8": "section 2.5 COUNTERFACTUAL tolerance: the prereg's own "
+            "'two orders looser than the measured evidence supports' rule "
+            "(prereg :476) applied to the CORRECTED '~10 digits from n = 32' "
+            "premise of cb2012af.  Not a frozen tolerance, not a measurement, "
+            "adjudicates nothing",
+    "80.02": "section 2.5 COUNTERFACTUAL margin = 1e-8 / 1.2496816388248957e-10 "
+             "(the counterfactual tolerance above divided by the SHIPPED G2 "
+             "measured value, which IS registered).  Reported to one decimal "
+             "beyond the leading digits; adjudicates nothing",
+    "1236": "section 2.5 COUNTERFACTUAL margin = 1e-10 / 8.0906e-14 (the FROZEN "
+            "G2 tolerance divided by the SHIPPED n = 48 convergence row, which "
+            "IS registered) -- the margin a ladder starting at n = 48 would "
+            "have had at the frozen tolerance.  Adjudicates nothing",
     "8.9716e-16": "v2.1's C11 operator-identity measurement, quoted from the "
                   "prereg SECTION 9 G0 tolerance row (prereg :474) by the "
                   "2026-08-03 post-review pointer correction, to show what "
