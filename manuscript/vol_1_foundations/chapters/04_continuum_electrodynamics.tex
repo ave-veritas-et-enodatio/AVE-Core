@@ -21,9 +21,25 @@ The AVE lattice is a \textbf{Cosserat continuum}---a generalization of classical
 For the substrate lattice, this distinction is physically critical:
 \begin{itemize}
     \item Each LC node stores energy in \emph{both} translational (capacitive, $\epsilon_0$) and rotational (inductive, $\mu_0$) modes. This is precisely the Cosserat structure: translation $\leftrightarrow$ electric field, rotation $\leftrightarrow$ magnetic field.
-    \item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
-    \item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled through the electromagnetic constitutive relations.
+% [2026-08-02 manuscript-reconciliation, CRIB-1 (K=2G / nu_Hill / "Cauchy"); prior wording of the two
+%  bullets below preserved verbatim per Rule 12:]
+%   "\item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a
+%    Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal
+%    length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors."
+%   "\item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat
+%    equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled
+%    through the electromagnetic constitutive relations."
+%  Two defects, both KB-ruled: (a) Axiom 2 is the Topo-Kinematic Isomorphism ([Q] = [L], xi_topo = e/l_node;
+%  common_equations/eq_axiom_2.tex:12-17 is the declared single source of truth and carries no elastic ratio)
+%  -- the nu attribution is an artifact of this file's pre-2026-04-27 title "Axiom 2 -- Fine Structure";
+%  (b) K=2G is NOT lattice-forced at any grade (Q-G41 CLOSED-NEGATIVE, PR #261/#506/#508). NOT adjudicated
+%  here: vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex:1036 attributes the same ratio to
+%  "Axiom~3" and :3511 to "Axiom~2" -- a live cross-volume attribution mismatch, flagged not fixed.
+    \item The Poisson ratio $\nu_\text{Hill} = 2/7$ ---  the isotropic Voigt--Reuss--Hill average, an averaging choice and not a lattice-emergent bound --- relates translational and rotational compliance. It is fixed by the $K = 2G$ operating point below, not by an axiom. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
+    \item The lattice is operated at the $K = 2G$ point (trace-reversal identity): \emph{form-derived, value GR-imported}. It is \textbf{not} enforced by the K4 graph topology, and it is \textbf{not} a Cosserat equilibrium condition on the 3 translational $+$ 3 rotational modes per node --- see the provenance note below.
 \end{itemize}
+
+\noindent\textbf{Provenance of $K = 2G$ (2026-08-02 reconciliation; the prior wording of the two bullets above is preserved verbatim in the source per Rule~12).} This primer previously stated that the K4 graph topology ``enforces $K = 2G$ \ldots{} which is the Cosserat equilibrium condition for a network with 3 translational $+$ 3 rotational modes per node.'' Both halves are withdrawn against closed computations. The two-phase forward computation found the historical $z=4$ K4-diamond instrument (non-canonical, statics-pathological; \kbleaf{ave-kb/common/engine-capability-map.md}:190) sub-isostatic (Maxwell $z < 2d = 6$), leaving $K/G$ an unforced one-parameter family in the bond-stiffness ratio, and found the constitutive operating-point factor \emph{invariant} on the branch where $K = 2G$ lives: ``\textbf{$K=2G$ is the GR trace-reversal --- IMPORTED}'' (\kbleaf{ave-kb/claim-quality-closure-roadmap.md}:832, Q-G41 CLOSED-NEGATIVE 2026-06-15, PR~\#261). The genuine $48\times48$ chiral micropolar Bloch eigensolve on the ratified chiral \emph{srs} ($z=3$) net does not close it either --- the micropolar grade returns a one-parameter $\nu_\text{eff}(\rho)$ family, so ``the substrate does not supply $K = 2G$ at either the Cauchy grade (PR~\#506) or the micropolar grade (PR~\#508)'' (\kbleaf{ave-kb/vol1/claim-quality.md}:665). What is withdrawn is the \emph{forcing}; the operating point itself is unchanged, and the algebra downstream of it is untouched --- $\nu = (3K-2G)/(2(3K+G))$ at $K = 2G$ gives $2/7$ exactly. The framework-level statement of this pattern (which quantities AVE derives the \emph{form} of versus \emph{imports} the value of) is \kbleaf{ave-kb/common/form-deriving-value-importing.md}.
 
 Readers familiar with micropolar elasticity will recognize the LC lattice as its electromagnetic dual. Those arriving from circuit theory may simply note: \textit{the lattice is a distributed transmission line in which every node is also a gyroscope.}
 
@@ -113,11 +129,17 @@ A-034 canonical synthesis (see Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}
 + Backmatter Ch~\ref{app:universal_saturation_kernel}). 26 canonical
 instances span 21 orders of magnitude. The Master Equation is the
 substrate-scale FDTD realization; the same kernel produces BCS
-$B_c(T)$ at 0.00\% error, BH ring-down at 1.7\% from GR exact, the
+$B_c(T)$ at 0.00\% error (\emph{definitional identity with per-material
+$T_c$, $B_{c0}$ inputs --- not a curve fit}; \kbleaf{ave-kb/claim-quality.md}:171-182),
+BH ring-down at 1.7\% from GR exact
+(\emph{cold Schwarzschild $a^* = 0$ single point} --- see the scope note
+below), the
 solar-flare statistics (an A-034 forward prediction over a synthesized
 illustrative timeline, not yet a live-validated anchor),
 and the cosmic K4 crystallization
 seed event. The bulk response of the lattice to strain is universal.
+
+\noindent\textbf{Ring-down scope (2026-08-02, per Ruling B1 2026-07-21; printed figure above preserved per Rule~12).} The $1.7\%$ ring-down anchor is the \textbf{cold Schwarzschild} $a^{*} = 0$ eigenvalue $\omega_R M_g = \ell(1+\nu_{vac})/x_{sat} = 18/49 = 0.3673$ (GR exact $0.3737$; $\nu_{vac} \equiv \nu_\text{Hill} = 2/7$), a \emph{single-point}, zero-free-parameter result --- and per Ruling B1 it is the \emph{only} surviving zero-free-parameter ring-down content. The spinning-remnant sub-percent LIGO-catalog match is \textbf{retracted as a frame-mixed match artifact} (corrupt Kerr QNM table $\times$ source-vs-detector-frame mass mixing); the standing spin mapping (v1, $x_{sat,v1} = 7r_{ph}^{+}/3M$) is a \emph{consistency-class} phenomenology at $+2.63\%$ mean on the primary catalog, not a benchmark. No replacement number is claimed here. Canonical: \kbleaf{ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md}:21, :24-25, :60-76 (GRANT RULING B1), :147-148.
 
 \paragraph{Substrate-observability rule near saturation boundaries.}
 When the saturation kernel reaches $S(A) \to 0$ (the local $\Gamma = -1$
@@ -163,8 +185,12 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 This is the macroscopic 3D shear modulus of the substrate---the elastic
 resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
-\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The Cauchy bulk modulus is fixed at
-$K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
+\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The bulk modulus is fixed at
+% [2026-08-02 manuscript-reconciliation, CRIB-1; prior wording preserved verbatim per Rule 12:]
+%   "The Cauchy bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice)."
+% Both the adjective and the parenthetical are the label the KB corrected (collapse-batch T7,
+% ave-kb/vol1/claim-quality.md:646 + the 3-way "Cauchy" homonym note at :652).
+$K_{vac} = 2G_{vac}$ --- the \textbf{GR trace-reversal lock} ($\nu_\text{Hill} = 2/7$), \emph{not} the classical Cauchy relation. The genuine central-force Cauchy relation ($c_{12} = c_{44}$, every site a centre of symmetry) reduces in the isotropic limit to $\lambda = \mu$ and forces a \emph{different} point, $\nu = 1/4$ and $K = \tfrac{5}{3}G$; AVE's $K = 2G$ instead requires $\lambda = \tfrac{4}{3}\mu$. Naming the AVE lock ``the Cauchy relation'' both mis-cashes the namesake and papers over the GR import (\kbleaf{ave-kb/vol1/claim-quality.md}:646, :652; collapse-batch T7 correction).
 
 \subsection{Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)}
 
@@ -304,8 +330,16 @@ a_{genesis}=\frac{a_r}{2\pi}=\frac{c\cdot H_{\infty}}{2\pi} = \frac{14 m_e^3 c^2
 \begin{equation}
     c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
 \end{equation}
+\emph{Scope (2026-08-02):} $\sqrt{10/3}$ is the isotropic-continuum value at the \textbf{Voigt--Reuss--Hill average only}, and it is a re-expression of the imported $K = 2G$ --- not a lattice-emergent ratio. The direction-resolved lattice computation on the chiral \emph{srs} net gives $c_P/c_S = 1.71$ [100], $1.85$ [110], $1.90$ [111] (Zener anisotropy $A = 1.23$); only the Hill average recovers the clean $\sqrt{10/3}$, and the per-direction spread is the material anisotropy (\kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md}:116, :120-122).
 \end{resultbox}
-At the $K_{vac}=2G_{vac}$ operating point (equivalently Poisson ratio $\nu=2/7$; canonical derivation in Vol~2 Ch~7) the longitudinal P-wave carries the $4G/3$ shear term; the pure bulk-modulus dilatational speed $\sqrt{K_{vac}/\rho_{bulk}}=\sqrt{2}\,c$ omits it. Because $c_L > c$, the longitudinal mode carries only phase information, not
+% [2026-08-02 manuscript-reconciliation, CRIB-1; prior wording preserved verbatim per Rule 12:]
+%   "At the $K_{vac}=2G_{vac}$ operating point (equivalently Poisson ratio $\nu=2/7$; canonical derivation
+%    in Vol~2 Ch~7) the longitudinal P-wave carries the $4G/3$ shear term;"
+% Two defects: (a) "canonical derivation" -- nu = 2/7 is GR-imported through K=2G, not derived
+% (srs-band-structure.md:146, theorem-thesaurus.md:227); (b) the sqrt(10/3) ratio holds at the
+% Voigt-Reuss-Hill average ONLY and is a K=2G re-expression, not lattice-emergent
+% (srs-band-structure.md:116, direction-resolved spread :120-122).
+At the $K_{vac}=2G_{vac}$ operating point (equivalently Poisson ratio $\nu_\text{Hill}=2/7$ --- GR-imported through $K = 2G$, not derived; \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md}:146) the longitudinal P-wave carries the $4G/3$ shear term; the pure bulk-modulus dilatational speed $\sqrt{K_{vac}/\rho_{bulk}}=\sqrt{2}\,c$ omits it. Because $c_L > c$, the longitudinal mode carries only phase information, not
 extractable energy---the same topological constraint demonstrated for the entanglement thread
 (Chapter~3, \S3.7).
 

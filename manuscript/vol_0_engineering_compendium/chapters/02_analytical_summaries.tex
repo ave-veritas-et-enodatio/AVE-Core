@@ -1,6 +1,36 @@
 \chapter{Summary of Exact Analytical Derivations}
 \label{ch:analytical_summaries}
 
+% =============================================================================
+% VOL-0 REGISTER BANNER 2026-08-02 -- wave-1 manuscript reconciliation.
+%   Posture (Grant-ratified VOL-0 ruling D2, 2026-08-02): ONE chapter-head register
+%   banner per affected chapter + per-site Rule-12 strike banners; NO VALUE REFILLS
+%   into struck slots -- pure de-claims only. Nothing in this chapter is deleted or
+%   renumbered; prior wording is preserved per Rule 12 KEEP-BOTH and in the git trail.
+%   Board authority: _orchestration/2026-08-02_manuscript-reconciliation-board.md
+%   (sec 3 ratified cribs; sec 4 authority rule -- the sec 5 per-finding disposition
+%   tags govern).
+%   Quoted claim record: ave-kb/.index/claims.jsonl clm-yawl6z, rationale verbatim:
+%   "The 'Summary of Exact Analytical Derivations' is a cross-reference index of
+%   derivations whose canonical entries live elsewhere; consulting those is the right
+%   path for substantive use."
+%   Entries carrying a [DE-CLAIM 2026-08-02] note below: the Bingham-Plastic yield
+%   stress, the proton rest mass residual, the vacuum Poisson's ratio label, and the
+%   MOND floor.
+%   FLAG-DON'T-FIX (recorded, NOT adjudicated in this pass -- routed to the epic
+%   orchestrator): the umbrella sentence immediately below ("introducing zero further
+%   free parameters beyond those three") does not carry the K = 2G carve. The KB holds
+%   BOTH registers at HEAD -- ave-kb/common/form-deriving-value-importing.md marks a
+%   "calibration set of 3 dimensionful constants {m_e, alpha, G}" AND, in the same
+%   leaf, a "K = 2G (nu_vac = 2/7) | GR-IMPORTED (echo for the value)" row that the
+%   set does not count, while the leaf's closing block explicitly declines to fold the
+%   two together ("NOT a deflation ... Magnitudes downstream of the calibration --
+%   nu_vac = 2/7 given K = 2G ... are forced"). Whether the Vol-0 umbrella carries a
+%   K = 2G carve is a framing ruling; this pass does not make it and does not edit the
+%   sentence.
+% =============================================================================
+\noindent\textbf{Register note (2026-08-02, Vol-0 reconciliation; the chapter body below is preserved per Rule~12 KEEP-BOTH).} This chapter is a \textbf{cross-reference index}: the canonical derivation, scope and solidity of each entry live in the volume that derives it, and ``consulting those is the right path for substantive use'' (\kbleaf{ave-kb/common/claim-quality.md}, \texttt{clm-yawl6z}). Four entries below are re-scoped by this pass, two of them under a marked \textbf{[DE-CLAIM 2026-08-02]} note. Per the Vol-0 reconciliation posture those edits \textbf{de-claim only}: no formula or magnitude is deleted, renumbered or replaced, no struck slot is refilled with a new number; one residual gains its sign per \texttt{CONVENTIONS.md}~305(e), and one entry label is corrected.
+
 % [2026-06-14 KB-reconciliation (vol_0 brief A.4) -- prior wording preserved per Rule 12]: read (verbatim): "The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, requiring zero arbitrary phenomenological parameters." SUPERSEDED: self-contradictory umbrella -- the list it heads itself takes m_e (Spatial Lattice Pitch item, l_node = hbar/m_e c), G (Cosmological Dynamics items) and alpha (Dielectric Saturation Limit item) as inputs. Rescoped to the canonical parameter-reduction framing (26 SM params -> 3 interlocked calibration inputs {m_e, alpha, G} + 4 axioms), per backmatter/03_geometric_inevitability.tex (keystone scope correction) and ave-kb/common/appendices-overview.md "Three-Parameter Theory".
 The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, given the framework's three interlocked calibration inputs $\{m_e, \alpha, G\}$ (which replace the $\sim$26 free parameters of the Standard Model) and the four axioms --- introducing zero further free parameters beyond those three.
 
@@ -36,6 +66,43 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
 \end{itemize}
 
+% [DE-CLAIM 2026-08-02] tau_yield (Bingham-Plastic Limit) -- VOL-0 posture D2 strike banner.
+%   Board finding [HIGH][missing-retraction][ruling-needed](verify-CORRECTED) at the
+%   \item above. Rule 12 KEEP-BOTH: the entry, its formula and its printed value are
+%   PRESERVED EXACTLY AS THEY STAND. NO VALUE REFILL -- the number is NOT corrected, NOT
+%   renumbered, NOT dropped, and no replacement magnitude is supplied.
+%   THIS NOTE RECORDS TWO FACTS AND ADJUDICATES NEITHER:
+%   (1) STANDING DO-NOT-RE-ADD. This exact formula+value was dropped by the 2026-04-20
+%       audit. Banner live at manuscript/backmatter/01_appendices.tex:76-88, verbatim:
+%       "DROPPED CLAIM (2026-04-20 audit): A prior version of this appendix listed a
+%        SECOND 'tau_yield' formula: tau_yield = hbar c / (alpha^2 l_node^4) ~ 7.21x10^34 Pa
+%        [Bingham-Plastic Limit]. That formula was: (a) asserted without derivation anywhere
+%        in the manuscript, (b) dimensionally a Planck-scale estimate (not a
+%        physical-mechanism derivation), and (c) numerically inconsistent with itself -- the
+%        stated 7.21x10^34 Pa does not match the stated formula, which recomputes to
+%        2.67x10^28 Pa. ... Do NOT re-add this claim without a real derivation."
+%       KB mirror: ave-kb/common/appendices-overview.md ("Do not re-add without a
+%       derivation."). The KB's claim record for this chapter, clm-yawl6z, scores Vol 0 at
+%       solidity 0.75 on the assumption the claim IS dropped ("The dropped tau_yield
+%       Bingham-Plastic comment (HTML comment block, 2026-04-20 audit) is a model
+%       editorial-transparency record") -- while the printed manuscript has it live.
+%   (2) THE ARITHMETIC, INDEPENDENTLY REPRODUCED (CODATA hbar, c, alpha;
+%       l_node = hbar/(m_e c) = 3.8615926772e-13 m): hbar*c/l_node^4 = 1.4218e24 Pa, and
+%       x alpha^-2 gives 2.6699e28 Pa. The printed 7.21e34 Pa is a factor 2.70e6 above what
+%       its own printed formula yields. Correcting the number to 2.67e28 Pa would itself
+%       violate the 2026-04-20 drop banner (the formula is dropped, not just the value), so
+%       under the D2 no-refill posture NO correction is made here.
+%   (3) The file's own 2026-07-19 Tier-2.5 KEEP-BOTH comment above this itemize
+%       ("NO renumber / NO redefinition / NO value change" ... "it records the contradiction
+%       for the vol_0 reconciliation lane to adjudicate") reserved adjudication for this
+%       lane. This lane's ratified authority is execute-already-ruled-corrections and
+%       ADJUDICATE NOTHING, so the reservation is discharged as: contradiction now recorded
+%       IN PRINT (it was previously visible only in LaTeX comments), adjudication still
+%       OWED and routed to the epic orchestrator. The three-magnitude disambiguation
+%       recorded in that comment (this Planck-estimate branch; the shear / mutual-inductance
+%       branch; the magnetic-sector branch) is unchanged and unresolved.
+\noindent\textbf{[DE-CLAIM 2026-08-02] Macroscopic Rheological Yield Stress (Bingham-Plastic Limit).} The $\tau_{yield}$ entry above is \textbf{not} an exact analytical derivation, and it stands under a \textbf{standing do-not-re-add}. This exact formula and value were dropped by the 2026-04-20 audit as (a) asserted without derivation anywhere in the manuscript, (b) dimensionally a Planck-scale estimate rather than a physical-mechanism derivation, and (c) numerically inconsistent with itself; that audit banner ends ``Do NOT re-add this claim without a real derivation'' (\kbleaf{ave-kb/common/appendices-overview.md}). The self-inconsistency is reproducible from the printed line: with $\ell_{node} = \hbar/(m_e c)$, $\hbar c/\ell_{node}^4 \approx 1.42 \times 10^{24}$~Pa, and the $\alpha^{-2}$ factor raises that to $\approx 2.67 \times 10^{28}$~Pa --- a factor $\approx 2.7 \times 10^{6}$ below the printed $7.21 \times 10^{34}$~Pa. \textbf{No number is corrected here}: per the Vol-0 reconciliation posture this note records the contradiction and refills nothing, and the entry is left exactly as printed. Two further facts belong to the record. \textbf{(i)} The corpus carries \textbf{three} numerically distinct magnitudes under Bingham/plastic ``yield stress'' naming, each from a different derivation --- this dimensional / Planck-estimate branch, the shear / mutual-inductance branch, and the magnetic-sector branch --- and their reconciliation is \textbf{still owed}. \textbf{(ii)} The entry stands in a chapter titled \emph{Summary of Exact Analytical Derivations}; that tension is the object of this flag, not of a fix.
+
 \section{Signal Dynamics and Topological Matter}
 \begin{itemize}
     \item \textbf{Continuous Action Lagrangian:} $\mathcal{L}_{AVE} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2$ (Evaluates to continuous spatial stress [N/m$^2$])
@@ -44,16 +111,53 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Faddeev-Skyrme Coupling (Cold):} $\kappa_{FS} = p_c / \alpha = 8\pi \approx 25.133$
     \item \textbf{Thermal Lattice Softening:} $\delta_{th} = \frac{\nu_{vac}}{\kappa_{FS}} \cdot \frac{2}{\pi} = \frac{2/7}{8\pi} \cdot \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00724$ (residual RMS noise averaging after Axiom~4 gradient saturation)
     \item \textbf{Effective Coupling:} $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$
-    \item \textbf{Proton Rest Mass (Geometric Eigenvalue):} $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002\% from CODATA)
+    % [2026-08-02 SIGNED-RESIDUAL correction + framing de-claim. Prior wording (git trail):
+    %   "(0.002\% from CODATA)" -- unsigned, and framed as though the residual were
+    %   pure-geometry precision. House rule: ave-kb/CONVENTIONS.md:305 clause (e),
+    %   "residuals quoted **only to experiment-supported digits, with sign**" (clause (d)
+    %   also bans "matches" without a sigma). Sign supplied from the canonical KB value.
+    %   Authority for both the sign and the framing: ave-kb/vol2/claim-quality.md:1415 --
+    %   "bare topology predicts **+0.74%** (emergence vs baryon sector, zero baryon input);
+    %    the canonical $\delta_{th}=1/(14\pi^2)$ thermal correction (precision-setter)
+    %    refines to **-0.002%** from CODATA. The $-0.002\%$ is topology + one contained
+    %    thermal-residual, ~~0.002% from CODATA~~ NOT pure-geometry-to-ppm."
+    %   NO VALUE REFILL: the magnitude 0.002% is unchanged and the formula is untouched;
+    %   only the sign (a house-rule correction) and the framing scope are supplied.
+    \item \textbf{Proton Rest Mass (Geometric Eigenvalue):} $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ ($-0.002\%$ from CODATA --- see the framing note below)
     \item \textbf{Mutual Inductance at Crossing:} $M/L = \exp(-d^2/(4\sigma^2)) = 1/\sqrt{2}$ (exact, $d = \ell_{node}/2$, $\sigma = \ell_{node}/(2\sqrt{2\ln2})$)
     \item \textbf{Saturation Threshold (closed-form, conditional on Gaussian flux-tube ansatz):} $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (no fitted parameters; profile derivation pending — see \texttt{mathematical-closure.md} Outstanding Rigour Gaps)
     \item \textbf{Dual-Reactance Count (Axiom-1 sectors):} $\mathcal{V}_{total} = 2.0$ --- the node's two reactance sectors ($X_C + X_L$), mass-confirmed via $m_p$; NOT a FEM-integrated volume (prior FEM provenance fabricated, dropped per the V2 closure 2026-06-01)
     \item \textbf{Macroscopic Strong Force:} $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
     \item \textbf{Witten Effect Fractional Charge (Quarks):} $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
-    \item \textbf{Vacuum Poisson's Ratio (Trace-Reversed Bound):} $\nu_{vac} \equiv \frac{2}{7}$
+    % [2026-08-02 NU-HILL RELABEL -- CRIB-1, board sec 3 (Grant-ratified 2026-08-02).
+    %   Prior label (git trail): "\textbf{Vacuum Poisson's Ratio (Trace-Reversed Bound):}".
+    %   The word "Bound" is wrong: 2/7 is nu_Hill, an isotropic Voigt-Reuss-Hill AVERAGE.
+    %   Authority: ave-kb/common/theorem-thesaurus.md:227 (re-pinned 2026-08-02; rows moved -4/-4 in the D3 TH-3 restructure 11c9e9ba) -- "**The Voigt-Reuss-Hill AVERAGE**
+    %   ($\nu_{\text{Hill}}$, $G_{\text{Hill}}$) -- a *heuristic mean* of the two bounds ...
+    %   *Not a theorem and not a bound.*"; and :227 -- "*The live hazard, stated plainly:*
+    %   $\nu_{\text{Hill}} = 2/7$ is **GR-imported** ... If a future reading lets \"Hill\"
+    %   drift from the **average** to the **bound**, an imported calibration input would
+    %   acquire the standing of a variational theorem." Value provenance:
+    %   ave-kb/common/form-deriving-value-importing.md:87 -- "**K = 2G** (nu_vac = 2/7) |
+    %   **GR-IMPORTED** (echo for the value) | the substrate forces the *form* of the elastic
+    %   response `K/G = f(rho)` | the *value* 2/7 -- the GR trace-reversal identity, not
+    %   crystalline-forced nor constitutively-forced". Anisotropy tag (PR #506):
+    %   ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md:19-26, "an **averaging
+    %   choice, not a per-direction lattice output**". Engine already carries the relabel:
+    %   src/ave/core/constants.py:397 (N_NU) and :626 (NU_VAC), both commented "nu_Hill".
+    %   SCOPE / NO CASCADE: this is a LABEL correction. The VALUE 2/7 is unchanged and the
+    %   SYMBOL $\nu_{vac}$ is deliberately RETAINED so that the dependent entries in this
+    %   chapter (Thermal Lattice Softening $\delta_{th}$; Weak Mixing Angle $m_W/m_Z$) and the
+    %   2026-06-14 $\nu_{kin}$ symbol-collision note above are untouched -- no renumber, no
+    %   symbol swap, no value refill. This mints the manuscript's first printed "nu_Hill"
+    %   (`grep -rn --include='*.tex' -e Voigt -e Reuss -e "\\nu_{Hill}" manuscript/` returned
+    %   zero real precedent), per CRIB-1.
+    \item \textbf{Vacuum Poisson's Ratio ($\nu_{Hill}$, at the $K = 2G$ operating point):} $\nu_{vac} \equiv \nu_{Hill} = \frac{2}{7}$ --- the $K = 2G$ operating point is \textbf{form-derived; value GR-imported} (\kbleaf{ave-kb/common/form-deriving-value-importing.md}), and $\nu_{Hill} = 2/7$ is the \textbf{isotropic Voigt--Reuss--Hill average}: an averaging choice, \emph{not} a lattice-emergent bound (\kbleaf{ave-kb/common/theorem-thesaurus.md})
     \item \textbf{Weak Mixing Angle (Acoustic Mode Ratio):} $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$
     \item \textbf{Non-Linear FDTD Acoustic Steepening PDE:} $c_{eff}^2(x, y, z) = c_0^2 \left(1 + \kappa \cdot \bar{\rho}(x, y, z) \right)$ (Derived structurally for topological stress limits)
 \end{itemize}
+
+\noindent\textbf{[DE-CLAIM 2026-08-02] Proton rest mass --- what the residual is.} The $-0.002\%$ above is \textbf{not} pure geometry carried to parts per million. Per the ruled framing, bare topology predicts $+0.74\%$ (an emergence-class result against the baryon sector, with zero baryon input), and the canonical thermal correction $\delta_{th} = 1/(14\pi^2)$ --- the precision-setter, itself listed above --- refines that to $-0.002\%$ from CODATA. The $-0.002\%$ is therefore \textbf{topology plus one contained thermal residual}, not a pure-geometry-to-ppm result (\kbleaf{ave-kb/vol2/claim-quality.md}). The sign was supplied per the house residual rule --- residuals are quoted only to experiment-supported digits, \emph{with sign} (\kbleaf{ave-kb/CONVENTIONS.md}) --- and no formula or magnitude in the entry is changed.
 
 \section{Cosmological Dynamics}
 \begin{itemize}
@@ -62,6 +166,18 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Asymptotic Horizon Scale ($R_H$):} $\frac{R_H}{\ell_{node}} = \frac{\alpha^2}{28\pi\alpha_G} \implies \mathbf{14.1 \text{ Billion Light-Years}}$
     \item \textbf{Asymptotic Hubble Time ($t_H$):} $t_H = \frac{R_H}{c} \implies \mathbf{14.1 \text{ Billion Years}}$
     \item \textbf{Dark Energy (Stable Phantom):} $w_{vac} = -1 - \frac{\rho_{latent}}{\rho_{vac}} < -1$
-    \item \textbf{Visco-Kinematic Rotation (MOND Floor):} $v_{flat} = (GM_{baryon} a_{genesis})^{1/4}$ where $a_{genesis} = \frac{c H_\infty}{2\pi} \approx \mathbf{1.07 \times 10^{-10} \text{ m/s}^2}$ (Derived via 1D Hoop Stress).
+    % [2026-08-02 MOND-FLOOR SCOPE QUALIFIERS -- mechanical. Prior wording (git trail):
+    %   "(Derived via 1D Hoop Stress)." -- carried neither the residual nor the regime scope.
+    %   Authority: ave-kb/common/claim-quality.md:292 -- "$a_0 = c H_\infty / (2\pi)$ is
+    %   derived (**10.7% below empirical**) and applies in the **unsaturated regime only**
+    %   (Vol 3 MOND entry). The appendix's reference is structural, not a separate
+    %   validation." Live manuscript precedent copied for the residual wording:
+    %   vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex:27 -- "(10.7\% below the
+    %   empirical value)"; the signed table form is at vol_1_foundations/chapters/
+    %   04_continuum_electrodynamics.tex:326 -- "$a_0$ (MOND) & $1.07 \times 10^{-10}$
+    %   m/s$^2$ & $1.2 \times 10^{-10}$ & $-10.7\%$".
+    %   NO VALUE REFILL: 1.07e-10 m/s^2, the formula and the 1D-Hoop-Stress provenance are
+    %   all unchanged; only the residual and the regime scope are supplied.
+    \item \textbf{Visco-Kinematic Rotation (MOND Floor):} $v_{flat} = (GM_{baryon} a_{genesis})^{1/4}$ where $a_{genesis} = \frac{c H_\infty}{2\pi} \approx \mathbf{1.07 \times 10^{-10} \text{ m/s}^2}$ (Derived via 1D Hoop Stress; $10.7\%$ below the empirical value, and applicable in the \textbf{unsaturated regime only} --- \kbleaf{ave-kb/common/claim-quality.md}).
     \item \textbf{Hamiltonian Optical-Fluid Mechanics (Gargantua Vortex):} Metric refraction and frame dragging are evaluated via explicit Symplectic Raymarching mappings ($n = (W^3) / U$ and $\mathbf{v}_{fluid} = \vec{\omega} \times \vec{r}$). 
 \end{itemize}

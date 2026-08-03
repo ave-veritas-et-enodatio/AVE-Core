@@ -12,7 +12,10 @@
 \section{The Topo-Kinematic Circuit Identity}
 \label{sec:topo_kinematic}
 
-The Vacuum Circuit Analysis (VCA) framework rests upon a single, exact dimensional isomorphism between continuum spatial mechanics and electrical network theory. This section derives the mapping rigorously, verifies it through independent thermodynamic consistency checks, and tabulates the complete translation dictionary.
+The Vacuum Circuit Analysis (VCA) framework rests upon a dimensional isomorphism between continuum spatial mechanics and electrical network theory --- exact within the regime fence stated immediately below. This section states the mapping row by row, verifies it through independent thermodynamic consistency checks, and tabulates the complete translation dictionary.
+
+% 🔴 SCOPE FENCE 2026-08-02 (manuscript-side propagation of def-tk1xfm, RATIFIED SOLID Grant 2026-07-21; Rule 12 KEEP-BOTH). The prior opening wording is PRESERVED in git and read: "rests upon a single, exact dimensional isomorphism between continuum spatial mechanics and electrical network theory. This section derives the mapping rigorously, ...". Two ratified qualifiers were missing from this section and are supplied below: (a) the REGIME FENCE (co-equality holds BELOW the band edge) and (b) the standing STRENGTH CEILING ("identity-by-translation, NOT emerges-from / NOT a derivation"). KB authority: ave-kb/common/vocabulary-register.md:435-441 (def-tk1xfm, adjudicated-meaning + status fields). NO row, number, equation or dimensional check in this section changes -- only the regime and the strength of the claim are scoped.
+\noindent\textbf{Scope of the isomorphism (2026-08-02, per the ratified \texttt{def-tk1xfm} node; the section body below is preserved per Rule~12).} The Topo-Kinematic Isomorphism (Axiom~2) is ratified as an \textbf{exact, lossless, gain-1, pole-less, invertible co-equality of the mechanical and electrical descriptions \emph{below the band edge}} ($\omega\tau \ll 1$, the long-wave regime). The co-equality is \textbf{regime-scoped}: at band-edge scales the distributed-in-bond (arccos transmission-line) and lumped mass--spring descriptions book the propagation delay differently and are \emph{no longer co-equal}. Two consequences for the reading of this section. \textbf{(1)} The unqualified word ``exact'' is fenced --- it holds in the long-wave regime, not at every scale. \textbf{(2)} The \textbf{strength ceiling stands}: this is \emph{identity-by-translation}, \textbf{not} emerges-from and \textbf{not} a derivation of a mechanism. Where the text below says ``derived'' or ``proves'' (the six-row substitution and the work--energy / impedance consistency checks), read \emph{identity-by-translation verified for consistency}, not a derived mechanism; ratified-SOLID status means the node is canonical, not that it derives anything. The ceiling was reaffirmed by a computed null --- the Cleave-01 registry-pump Chern number returns $C = 0$ on both readings and both enantiomorphs (\texttt{clm-clvchn}), so no derived-mechanism instance has emerged. The dynamics (poles $=$ masses, $Q = 1/\alpha$ radiative leak, the Axiom-4 saturation trap) live in the resonator transfer function, \emph{not} in the Axiom-2 dictionary; conflating the two inflates a units bridge into a derived mechanism. Canonical: \kbleaf{ave-kb/common/vocabulary-register.md} (\texttt{def-tk1xfm}).
 
 \subsection{Defining the Topological Conversion Constant}
 
@@ -147,8 +150,19 @@ Saturation kernel $S(A) = \sqrt{1-A^2}$ & Schwinger / breakdown & yield / ruptur
 Boundary & charged surface & yield surface &
   Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. \\
 \hline
-Envelope & wavefunction support & zone of influence &
-  Default: substrate. What the substrate \emph{actually sees}. \\
+% [2026-08-02 ENVELOPE WORD-SENSE reconciliation to the ruled KB block. Prior row (git trail):
+%  "Envelope & wavefunction support & zone of influence & Default: substrate. What the substrate
+%  \emph{actually sees}." -- glossed "envelope" as a REGION, the pre-ruling sense. Authority:
+%  ave-kb/common/envelope-anatomy.md, "Word-level ruling -- CONFIRMED (Grant in-chat 2026-07-15)":
+%  the token "envelope" now canonically denotes the WALL -- surface (i), the fully-yielded
+%  S(A)->0, |Gamma|=1 mirror; the balance shell (ii) and the knee / dress edge (iii) keep their
+%  own names. Vocabulary correction only: no numerical value, radius or gate status is touched
+%  (the leaf's radii stay gate-registered, NOT SOLID).]
+Envelope & $|\Gamma| = 1$ mirror & yield surface &
+  Ruled 2026-07-15: \emph{envelope} $=$ \textbf{the wall} --- the fully-yielded
+  $S(A) \to 0$ surface. A surface, not a region. The \textbf{balance shell} and
+  the \textbf{knee / dress edge} keep their own names
+  (\kbleaf{ave-kb/common/envelope-anatomy.md}). \\
 \hline
 \textbf{Linking number $\mathcal{Q}$} & charge $Q$ & (no clean analog) &
   Integer per boundary; universal substrate; project to $Q$ for EE. \\
@@ -229,7 +243,21 @@ This is independently verifiable as the acoustic impedance of a single lattice n
 
 Standard circuit simulators rely on ideal, linear RLC components. However, the physical substrate exhibits precise non-linear behaviors under extreme mechanical stress, each governed by the Axiom~4 saturation kernel $S(V) = \sqrt{1-(V/V_{yield})^2}$. This section derives the exact non-linear equivalent circuit component for each physical regime.
 
-\subsection{The Metric Varactor (Dielectric Yield)}
+\subsection{The Metric Varactor --- Longitudinal Bond Compliance (Dielectric Yield)}
+
+% 🔴 SECTOR RE-KEYING CORRECTION 2026-08-02 (Rule 12 KEEP-BOTH; manuscript-side propagation of a
+%   ratified KB ruling. The printed prose, Eq. eq:varactor, its Taylor expansion and
+%   Table tab:varactor_values below are PRESERVED VERBATIM -- no equation, no number and no
+%   table row is edited.) KB twin: nonlinear-vacuum-capacitance.md:18 -- "Grade-fork RESOLVED = T2
+%   (Grant 2026-06-30; def-vyvsn1 adjudicated ...)": the A1 varactor's saturation-completion
+%   voltage is keyed on V_snap, NOT V_yield. Corrected constitutive equation at that leaf :27;
+%   corrected table at :38-:46 (V/V_snap from sqrt(alpha)~0.085 to 1.000, i.e. 43.65 kV ->
+%   511.0 kV); sector note at :14 (the printed identification is "the genesis-24 double-count");
+%   heading retitled at :12. Engine already re-keyed: src/ave/solvers/spice_models/
+%   ave_vacuum_cell.lib:61,:84 ("C_eff = C0 / S(V), knee at V_SNAP (A1 compliance)") and the KB
+%   ch18 index :33. SCOPE: this note covers THIS subsection only; it does not adjudicate the
+%   keying of any other section of this chapter.
+\noindent\textbf{Sector re-keying correction (2026-08-02, \texttt{def-vyvsn1} grade-fork RESOLVED $=$ T2, Grant 2026-06-30; the subsection body below is preserved per Rule~12 KEEP-BOTH).} The text below keys the diverging compliance $C_{eff} = C_0/S$ on $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV. That keying is \textbf{corrected}. \textbf{(1) Which reactance.} The diverging $C_0/S$ is the \textbf{longitudinal-A1 bond compliance} (the stretch-reactance $1/k_a$), \emph{not} the transverse dielectric capacitance; the transverse permittivity $\varepsilon_{eff} = \varepsilon_0 S$ and the across-gap cell capacitance an LCR meter reads, $C_{diel} \propto S$, \emph{roll off} instead. The two are \textbf{orthogonal} reactances (A1 $\perp$ T2) that share the EE name ``capacitance''; identifying them is the \emph{genesis-24 double-count}. \textbf{(2) Which voltage.} $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV is the \textbf{transverse Cosserat ($T_2$) self-trap wall} --- the electron's confining $\Gamma = -1$ --- \emph{not} the A1 compliance bound. The longitudinal-A1 compliance diverges at the higher $V_{snap} = m_e c^2/e \approx 511$~kV, a factor $1/\sqrt{\alpha} \approx 11.7$ above $V_{yield}$. Read Eq.~\ref{eq:varactor}, its Taylor expansion and every row of Table~\ref{tab:varactor_values} with $V_{yield} \to V_{snap}$: the tabulated \emph{ratios} $C_{eff}/C_0$ and $S$ are unchanged, but the voltage column rescales by $1/\sqrt{\alpha}$ --- the printed $43.65$~kV endpoint is the $V/V_{snap} = \sqrt{\alpha} \approx 0.085$ \emph{first} row of the corrected table, not its divergence. \textbf{(3) Consequence.} A standing electron's A1 mass core operates at strain $A = V_{yield}/V_{snap} = \sqrt{\alpha} \approx 0.085$ --- deeply \textbf{sub-saturated} ($S \approx 0.996$) --- which is \emph{why} it binds: the $S \to 0$ varactor runaway never fires on the mass channel, and the confining wall is supplied by the transverse $T_2$ self-trap instead. Since $V_{yield} = \sqrt{\alpha}\,V_{snap}$ exactly, $A = \sqrt{\alpha}$ is an $\alpha$-echo operating point (Class-C), not a free parameter. Canonical: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md} (\texttt{def-vyvsn1}); the engine's SPICE cell is already keyed on \texttt{V\_SNAP}. \emph{Scope:} this note covers this subsection only.
 
 As defined by Axiom~4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the electric sector:
 \begin{resultbox}{Vacuum Varactor Constitutive Equation}
@@ -297,6 +325,21 @@ Summing with the capacitive (potential) energy via the Virial Theorem recovers $
 In a standard SPICE transient simulation, the inductor $L_0$ limits the current slew rate to $dI/dt = V/L$. As $I \to I_{max}$, $L_{eff} \to \infty$, and the slew rate collapses to zero. The circuit physically cannot push current (matter) past the hardware limit. SPICE engines natively enforce Special Relativity without any code modification.
 
 \subsection{The Viscoelastic TVS Zener Diode (Phase Transition)}
+
+% 🔴 SUB-YIELD BULK-LOSS FLAG 2026-08-02 (Rule 12 KEEP-BOTH; the TVS body, Eq. eq:tvs_transition,
+%   the "highly resistive solid" sentence and the skin-effect subsection below are PRESERVED
+%   VERBATIM -- no equation and no number is edited). Ruled authority:
+%   ave-kb/common/substrate-native-terminology.md:33 (GREEN RULED 2026-07-19, Grant in-chat) --
+%   "the corpus's genuine loss/irreversibility channels reduce from four to THREE: (1) radiative
+%   port, (2) boundary-Joule extraction, (3) Regime-IV rupture"; a sub-yield BULK Re(Z) sink is
+%   not among them (Ax 3). Term-register row :49 gives the substrate-native replacement for
+%   "friction / drag": reflection / mismatch (Gamma != 0), with radiation resistance R_rad = Z_0
+%   the real port. Consumer ruling: clm-h55fy1 at ave-kb/vol4/falsification/
+%   ch11-experimental-bench-falsification/boundary-trapping-test.md:11 -- "the deep-space bulk
+%   coupling to slow matter is lossless / pure-reactance", energy-shedding drag retracted.
+%   Same-volume precedent banner: 11_experimental_falsification.tex:358 (2026-07-19). This is a
+%   status flag, NOT a re-derivation: no replacement skin depth or drag coefficient is supplied.
+\noindent\textbf{Scope flag (2026-08-02, sub-yield bulk loss; the body below is preserved per Rule~12 KEEP-BOTH).} This subsection and the skin-effect subsection that follows read the sub-yield vacuum as a \emph{dissipative} medium: ``a highly resistive solid \ldots kinematically gripping embedded matter via inductive drag ($\eta_0 > 0$)'', with $R_{vac} = \xi_{topo}^{-2}\eta_0 > 0$ giving a finite skin depth. That reading is \textbf{flagged}. Per the ruled loss-channel enumeration, the corpus's genuine loss/irreversibility channels are \textbf{three} --- the radiative port, boundary-Joule extraction at a resistive load, and Regime-IV rupture --- and a \emph{sub-yield bulk} $\mathrm{Re}(Z)$ sink is \textbf{not} among them (Axiom~3 forbids internal viscous heating in the reactive regime). The consumer ruling is explicit for slow matter in the bulk: the deep-space bulk coupling is \textbf{lossless / pure-reactance}, and the energy-shedding drag is retracted. What survives is the \textbf{reactive} reading: ``grip'' is impedance mismatch and reflection ($\Gamma \neq 0$), and the one honest resistive term is the \emph{radiation} resistance $R_{rad} \equiv Z_0$ (a real port, i.e.\ wave-making drag above the radiation threshold), not internal friction. Two riders. \textbf{(a)} The finite-skin-depth statement below \emph{consumes} the demoted $\eta_0$; no corrected skin depth is supplied here (that recomputation is not performed in this pass). \textbf{(b)} The Orbital Friction Paradox section later in this chapter resolves the paradox by \emph{neutralising} a presupposed sub-yield drag; the flag lands on that premise, not on that section's orthogonality conclusion ($P_{real} = F_g v_{orb}\cos 90^\circ = 0$), which is unaffected. Canonical: \kbleaf{ave-kb/common/substrate-native-terminology.md} (ruled 2026-07-19) and \kbleaf{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md} (\texttt{clm-h55fy1}); sibling banner in the \emph{Experimental Bench Falsification} chapter, \S``Orbital Detritus and Boundary Trapping'' (\texttt{sec:boundary\_trapping}).
 
 Mutual inductance yields when the applied shear stress exceeds the structural threshold ($\tau > \tau_{yield}$). This voltage-driven breakdown maps exactly to a \textbf{Transient Voltage Suppression (TVS) Zener Diode}:
 
@@ -508,6 +551,30 @@ This reveals that while a gravity well is "stealthy" to approaching waves, the E
 To decisively bridge the theoretical kinematic behavior of a single LC knot into complex, multi-body engineering, the AVE framework mathematically derives the entire structural sequence of atomic elements. 
 
 As fully derived in the supplementary \textit{Periodic Table of Knots}, the 3D stable geometry of an atomic nucleus is deterministically bounded by these exact inductive LC matrices ($M_{ij}$). By mathematically mapping protons ($6^3_2$ topological lattice defaults) into continuous Spatial SPICE networks, the engine computes exactly how atomic geometry collapses into absolute symmetric extremes (the noble gases and base metallics) versus partial, highly reactive asymmetric valences (the halogens and alkali metals).
+
+% 🔴 METHODOLOGY DISCLOSURE 2026-08-02 (Rule 12 KEEP-BOTH; the Silicon-28 paragraph and the
+%   "strictest possible verification" sentence below are PRESERVED VERBATIM -- no number is
+%   edited and no number is replaced). Ruled authority: ave-kb/vol1/operators-and-regimes/
+%   ch5-universal-spatial-tension/scale-invariance.md:35 -- "Methodology disclosure (per Vol 6
+%   introduction). Within the (Z,A)-forced bipyramid topology, the inter-alpha distance
+%   R_bipyramid is the single fitted scalar adjusted per nucleus so the pairwise summation
+%   reproduces the CODATA mass" -- and :41 -- "The reported <0.001% residual is the optimizer's
+%   convergence tolerance on R, not an independent prediction error on the mass." Corroborated
+%   by ave-kb/vol1/claim-quality.md:531 ("NOT zero-parameter ab initio") and
+%   ave-kb/vol6/period-2/neon/index.md:21 ("structurally zero by construction").
+%   FLAG-DON'T-FIX (routed, NOT adjudicated here; corrected 2026-08-02 per #827 audit F1/F5/F6):
+%   the printed R_bipyramid = 80.174d agrees with the engine (src/scripts/vol_6_periodic_table/
+%   simulations/simulate_element.py:390, r_bipyr = 80.174370*d) but diverges from the KB's Si-28
+%   row at ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md:24 (R ($d$) =
+%   83.0) -- same quantity, same units; the KB row is the staleness candidate (routed). That
+%   leaf's 0.0002% column is a geometric residual to assumed Platonic coordinates (its :14 scope
+%   correction), NOT a mass-mapping error -- do not compare it to the 0.0000% below. [A prior
+%   limb here asserted the printed "378 coupled inductor nodes" diverges from the KB's 21
+%   inter-alpha pairs; WITHDRAWN -- the KB carries both, reconciled (claim-quality.md:629 "378
+%   SPICE coupled inductors"; period-3/silicon/ee-equivalent.md:10 "378-parameter SPICE matrix
+%   decomposes into 21 inter-alpha links"). Residual wording nit only: print says "inductor
+%   nodes", KB says "coupled inductors".]
+\noindent\textbf{Methodology disclosure (2026-08-02, per the Vol~6 fit/predict split; the paragraph below is preserved per Rule~12 KEEP-BOTH).} The Silicon-28 result below reports a residual as though it were a prediction error. Per the ruled disclosure, within the $(Z,A)$-forced bipyramid topology the inter-alpha distance $R_{bipyramid}$ is \textbf{the single fitted scalar adjusted per nucleus} so that the pairwise summation reproduces the CODATA mass. What is \emph{predicted} (axiom-derived) is the cluster topology as a function of $(Z,A)$ via minimum-impedance packing, the coupling $K_{mutual} = m_p c^2$, and the parameter count (one scalar per nucleus); what is \emph{fitted} is the numerical value of $R_{bipyramid}$. Consequently the quoted mass-mapping residual is \textbf{the optimizer's convergence tolerance on $R$, not an independent prediction error on the mass} --- an exactly-zero residual on a closed shell is structurally zero by construction, and the pipeline is \textbf{not} zero-parameter \emph{ab initio}. The falsifiable structural content is the topology and the one-scalar-per-nucleus parameter count (against the $\sim 5$ parameters per nucleus of liquid-drop or shell-model fits), not the residual. Read the ``strictest possible verification'' sentence below in that scope. Canonical: \kbleaf{ave-kb/vol1/operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md}.
 
 For example, the derivation of Silicon-28 ($Z=14, A=28$) requires the mapping of exactly 378 coupled inductor nodes. The solver algebraically targets the empirical CODATA nuclear mass~\cite{codata2018}, forcing the geometry to converge. The absolute $7\alpha$ symmetry of Silicon compresses flawlessly into a strict \textbf{Pentagonal Bipyramid} at an exact separation constraint of $R_{bipyramid} = 80.174d$, yielding a \textbf{$0.0000\%$ mass mapping error}. 
 
@@ -821,7 +888,19 @@ The 3D Finite-Difference Time-Domain engine (\texttt{ave.core.fdtd\_3d}) discret
 
 \subsection{K4-TLM (Tetrahedral Diamond Lattice)}
 
-The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on the native diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix. The solver applies the Axiom~4 saturation operator directly to the 4-port scatter coefficients.
+\noindent\textbf{Carrier note (2026-08-02, D1 ratification --- Grant 2026-07-03; solver descriptions below are unchanged).} The \texttt{k4\_tlm} engine described here implements the \textbf{degree-4 ($z = 4$) bipartite-FCC diamond} lattice (achiral $Fd\bar{3}m$). That object is the \emph{historical} engine substrate and is \textbf{re-tagged a non-canonical instrument}: the ratified \textbf{production carrier} named ``K4'' is the \textbf{chiral \emph{srs} $z = 3$ net} (the Sunada-K4 / Laves net that Axiom~1 names), and the migration is chartered. Read this subsection --- and the ``K4 diamond topology of the physical lattice'' phrase in the FDTD limitations above --- as describing \emph{an instrument}, not the vacuum's carrier. \emph{Registered open, not adjudicated here:} whether the port-handed \emph{achiral} diamond genuinely realises Axiom~1's \emph{chiral} $I4_132$ space group is an \textbf{open} question (the diamond's handedness is a dynamical $\kappa_{chiral}$ order parameter on an achiral lattice); the chirality claims in this subsection are left standing under that flag. Canonical: \kbleaf{ave-kb/common/vocabulary-register.md} (\texttt{def-4b1a2c} referents (a)/(b); \texttt{def-7c3f9e} chirality, status \emph{ambiguous}).
+
+% [2026-08-02 CARRIER VOCABULARY correction (D1 ratification, Grant 2026-07-03). Prior wording
+%  (git trail): "discretises the vacuum on the native diamond graph ($K_4$ complete graph)". The
+%  word "native" asserted the degree-4 diamond as the vacuum's carrier. Authority:
+%  ave-kb/common/vocabulary-register.md:526 (def-4b1a2c) -- the PRODUCTION CARRIER named "K4" is
+%  the chiral srs z=3 net, RATIFIED by Grant 2026-07-03 (D1); and :534 referent (b) -- the engine
+%  "K4" (src/ave/core/k4_tlm.py) is the degree-4 bipartite-FCC DIAMOND (achiral Fd-3m),
+%  "re-tagged a non-canonical instrument by the 2026-07-03 D1 ratification". The solver
+%  DESCRIPTION is factually accurate about the code and is retained unchanged; only the carrier
+%  assertion is corrected. Same-file concordance: the branch-vertex paragraph already prints
+%  "the chiral srs vacuum-net vertex (coordination z=3)".]
+The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on a degree-4 bipartite diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix. The solver applies the Axiom~4 saturation operator directly to the 4-port scatter coefficients.
 
 \paragraph{Strengths.} The K4-TLM is the only solver that preserves the vacuum's topological chirality at the simulation level. It is required for any computation where the observable depends on the handedness of the lattice: chiral antenna design (torus knot coupling), gravitational frame-dragging (Lense--Thirring), and topological symmetry-breaking experiments.
 
