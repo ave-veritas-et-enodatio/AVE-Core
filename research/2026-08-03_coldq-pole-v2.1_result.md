@@ -8,19 +8,27 @@
 **Class:** DERIVATION result (research-doc; **mints no `clm-`/`def-`; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger**). Engine `src/ave` byte-untouched.
 **Provenance:** Grant's GO, 2026-08-03, verbatim `[sic]`: `"Go on cold-Q"`. Written against `origin/main` = `583d43dd`.
 
+> **★ POST-REVIEW CORRECTION — 2026-08-03. THIS DOCUMENT'S CENTRAL ATTRIBUTION WAS REFUTED BY MEASUREMENT AND IS RETRACTED HERE.** Adversarial review of PR #854 at head `bdcfa678` returned BLOCKED. The original HEADLINE attributed **all three** failures to defective gate SPECIFICATIONS rather than to the instrument. **Review refuted that for two of the three — by building this lane's own proposed replacement and by sweeping this lane's own unfrozen parameters.** Every corrected passage below is quoted verbatim before its correction and dated. **Nothing in either frozen prereg and nothing in the driver `coldq_pole_v2.py` was touched by this repair; no gate outcome, no tolerance, no verdict and no bin moved.** The certification `SOLVER-NOT-CERTIFIED` is unchanged — the *reason* is now honest. **§10 states plainly what survives.**
+
 ---
 
 ## HEADLINE
 
 > **Certification: `SOLVER-NOT-CERTIFIED`. Frozen precedence therefore fires `BIN-F-SOLVER`, and NO physics bin is adjudicated.**
 >
-> Two of eleven gates failed (**C1**, **C9**) and one of ten self-tests did not fire (**FT-B**). **All three failures are defects in this prereg's own gate SPECIFICATIONS, not in the instrument** — and that is a materially different result from #845's, whose failures were in its instrument.
+> Two of eleven gates failed (**C1**, **C9**) and one of ten self-tests did not fire (**FT-B**).
+>
+> 🔴 **RETRACTED 2026-08-03 (post-review). Original text, verbatim:** *"**All three failures are defects in this prereg's own gate SPECIFICATIONS, not in the instrument** — and that is a materially different result from #845's, whose failures were in its instrument."*
+>
+> **REFUTED BY MEASUREMENT, for two of the three.** Review built the C9 replacement **this document itself proposed** — a homogeneous outgoing probe at identical normalization, grid and probe points — and it **fails the same 6 of 9 probes at the same magnitudes** (§3.2). Review swept C1's two unfrozen parameters over `n` from `32` to `128` and over both precisions, and the high-`ℓ` winding **never** equals the closed-form count at any order and gets **monotonically worse** with `n` (§3.3). **Corrected attribution: C9 and C1's high-`ℓ` rows are REAL INSTRUMENT DEGRADATION, and they share one mechanism — spurious in-box discrete spectrum carried by the discretization.** Only **FT-B** is a specification defect, and even there the *number* this document reported was mis-provenanced (§3.1). **The two gates v2.1 added to certify the instrument's corners and edges did exactly the job they were added for: they caught a real defect in the instrument.**
+>
+> **This correction is adverse to the lane's own reading and it does not change the verdict:** `SOLVER-NOT-CERTIFIED` stood before it and stands after it. What changed is which object is at fault.
 >
 > **★ THE ENTRY TICKET WAS PASSED, DECISIVELY.** C1's low-`ℓ` rows are the *exact* control #845's FT-5 failed at `15.000`. v2.1 returns the closed-form root count `1`/`1`/`2` for `ℓ = 1, 2, 3`, an argument-principle winding of **exactly `1.0`/`1.0`/`2.0` stable at all three contour samplings**, and located roots matching the closed-form roots to `2.97e-44`, `3.54e-46` and `5.78e-42` against a frozen tolerance of `1e-20` — **inside the gate by roughly 22 orders of magnitude.** The compactified formulation does what the prereg said it would.
 >
-> **What actually failed, and why none of it is the method:**
-> - **C1's high-`ℓ` rows** — where the *mp location* path is still perfect (`5.18e-38`, `1.58e-38`) but the *double-precision* seeding and winding path breaks over the large high-`Ω` box. **The prereg never froze a Chebyshev order for the control runs, and never froze the winding's precision.** Both are unfrozen parameters the gate's outcome depends on.
-> - **C9** — the gate probes a **forced** solution `M(Ω)ψ = b` at an arbitrary `Ω`, which is **not guaranteed analytic**: it develops a boundary layer of width `~1/|Im Ω|` at the compactified infinity. The gate therefore tests an object **the method never uses.** The objects the method *does* use — the QNM eigenfunctions — are analytic by construction and converge (C2 `3.33e-14`, C3 `8.33e-14` against `1e-12`).
+> **What actually failed** (🔴 the original heading read *"What actually failed, and why none of it is the method"* — the second half is **RETRACTED 2026-08-03**; two of the three are the instrument):
+> - **C1's high-`ℓ` rows — REAL DEGRADATION.** 🔴 **Original text, verbatim, RETRACTED 2026-08-03:** *"where the *mp location* path is still perfect (`5.18e-38`, `1.58e-38`) but the *double-precision* seeding and winding path breaks over the large high-`Ω` box. **The prereg never froze a Chebyshev order for the control runs, and never froze the winding's precision.** Both are unfrozen parameters the gate's outcome depends on."* The unfrozen-parameter statement is **true but not exculpatory**: review swept both and the failure survives every setting (§3.3). The discretization carries **spurious in-box zeros** of `det M_n` over the high-`|Ω|` box; the argument principle is faithfully counting them.
+> - **C9 — REAL DEGRADATION.** 🔴 **Original text, verbatim, RETRACTED 2026-08-03:** *"the gate probes a **forced** solution `M(Ω)ψ = b` at an arbitrary `Ω`, which is **not guaranteed analytic**: it develops a boundary layer of width `~1/|Im Ω|` at the compactified infinity. The gate therefore tests an object **the method never uses.** The objects the method *does* use — the QNM eigenfunctions — are analytic by construction and converge (C2 `3.33e-14`, C3 `8.33e-14` against `1e-12`)."* The forced-vs-homogeneous distinction is **measured to be irrelevant**: the homogeneous outgoing probe fails identically (§3.2). The failure sits on the rectangle's **low-`Re Ω` edge** and is a migrating pseudo-spectrum, not a boundary layer.
 > - **FT-B** — the mutation is **structurally vacuous**: it asks to apply the gauge `λ` to the interior but not to the wall-BC row, and the graded wall-BC row (`ψ_η(0) = 0`) **carries no `λ` at all.** A self-test that cannot fire.
 >
 > **Per the frozen Rule-11 fence, none of this is repaired here.** No gate, tolerance or method element was changed after a gate result was seen. The lane banks the honest negative and routes to a **v2.2** successor with a new version number and its own verification chain — exactly as #845 routed to v2 and v2 to v2.1.
@@ -109,11 +117,26 @@ dψ/dη |_{η=0} = 0
 
 which contains **no `λ` and no `Ω`**. The mutation is therefore indistinguishable from simply running at `λ = 0` — and by gauge invariance that returns the *same* eigenvalue (measured `1.83e-14`, i.e. C2's own agreement level). **The self-test cannot fire because there is nothing at the graded wall row for it to break.** This is a defect in the *prereg's* mutation design, discovered only by running — precisely what Rule 10 says empirical drivers are for.
 
-### §3.2 C9 probes an object the method never uses
+### §3.2 C9 measures REAL instrument degradation on the frozen rectangle's low-`Re Ω` edge — the gate v2.1 added to certify corner accuracy WORKED
 
-C9 solves the **forced** problem `M_n(Ω)ψ = b` at arbitrary `Ω` and requires resolution-doubling convergence. But the method's guarantee is that the **outgoing homogeneous** solution is analytic — the ingoing branch carries the essential singularity `e^{−2iΩ/A}`. A *forced* solution generically excites that branch, which for `Im Ω < 0` decays as `e^{2 Im(Ω)/A}`: a boundary layer at the compactified infinity of width `~1/|Im Ω|`. Chebyshev cannot resolve it at `n = 32/64` when `|Im Ω|` is large.
+🔴 **THE ORIGINAL §3.2 IS RETRACTED IN FULL, 2026-08-03, REFUTED BY MEASUREMENT. Original heading, verbatim:** *"§3.2 C9 probes an object the method never uses"*. **Original mechanism paragraph, verbatim:**
 
-**The measured probe pattern is exactly that signature, and it is the cleanest evidence in this battery:**
+> *"C9 solves the **forced** problem `M_n(Ω)ψ = b` at arbitrary `Ω` and requires resolution-doubling convergence. But the method's guarantee is that the **outgoing homogeneous** solution is analytic — the ingoing branch carries the essential singularity `e^{−2iΩ/A}`. A *forced* solution generically excites that branch, which for `Im Ω < 0` decays as `e^{2 Im(Ω)/A}`: a boundary layer at the compactified infinity of width `~1/|Im Ω|`. Chebyshev cannot resolve it at `n = 32/64` when `|Im Ω|` is large."*
+
+**HOW IT WAS REFUTED — by building the replacement this document itself proposed.** Review implemented the **homogeneous outgoing probe** at identical normalization, identical grid and the identical nine probe points. **It fails the same 6 of 9 probes at the same magnitudes.** The forced-vs-homogeneous distinction the original paragraph rests on is therefore **measured to be irrelevant to the failure**. Two left-edge probes do not converge even under mpmath at `dps = 60` carried up to `n = 96`:
+
+| probe `Ω` | homogeneous-probe diff | order pair |
+|---|---|---|
+| `0.14 − 3.5035i` | `6.963e-01` | `64 → 96` |
+| `0.14 − 7i` | `5.620e+00` | `64 → 96` |
+
+**THE MECHANISM, MEASURED.** The failure is a **migrating pseudo-spectrum adjacent to `Re Ω ≈ 0`**: the in-box pencil eigenvalue count grows from `2` to `9` as `n` goes `32 → 80`, and **only `Ω = 1.853655 - 1.007257i` is `n`-stable.** The discretization is manufacturing discrete spectrum on the rectangle's low-`Re Ω` edge, and every probe placed there sits in it. This is **not** a property of the boundary datum, of the forcing, or of arithmetic precision — it is the instrument.
+
+**THE HONEST READING.** C9 is the gate v2.1 added to certify **corner accuracy on the frozen rectangle**. It found that the instrument is not accurate at the rectangle's left edge. **The gate worked.** The prereg pre-committed to exactly this reading at `research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:492`: *"if the graded solve nonetheless fails C9, that is an honest SOLVER-NOT-CERTIFIED and routes to a successor — it will NOT be retuned."* **That pre-committed reading is restored here.**
+
+**WHAT A v2.2 HAS TO DECIDE — an instrument-SCOPE question, not a gate-wording repair.** Two honest routes, **neither taken here**: (i) **move the left edge**, with a *derivation* of where the spectral pollution threshold sits — not a fitted retreat from the failing probes; or (ii) **restrict the counting region** to the sub-rectangle the instrument can certify, and state plainly that the frozen rectangle is not it. **Both are decisions about what this instrument is for. They are routed to Grant, not resolved in this document.**
+
+**The measured probe pattern (shipped JSON, retained as data):**
 
 | probe `Ω` | `\|Im Ω\|` | diff `n = 32 → 64` |
 |---|---|---|
@@ -127,7 +150,17 @@ C9 solves the **forced** problem `M_n(Ω)ψ = b` at arbitrary `Ω` and requires 
 | `0.1400 − 3.5035i` | 3.50 | `3.658e+00` |
 | `0.1400 − 7.0000i` | 7.00 | `1.899e+01` |
 
-Convergence degrades monotonically with `|Im Ω|/Re Ω` — the boundary-layer sharpness — and is at machine level wherever the layer is absent. **Meanwhile the physical eigenfunction, at `Ω = 1.8537 − 1.0073i`, is the analytic branch by construction, and C2 and C3 measure its convergence at `3.33e-14` and `8.33e-14`.** C9 as frozen tests the wrong object; the right object passes. **This is stated as a diagnosis, not as grounds to re-define C9, which the frozen fence forbids.**
+🔴 **THE SIGNATURE CLAIMS ATTACHED TO THIS TABLE ARE RETRACTED, 2026-08-03. Original text, verbatim:** *"**The measured probe pattern is exactly that signature, and it is the cleanest evidence in this battery:**"* … *"Convergence degrades monotonically with `|Im Ω|/Re Ω` — the boundary-layer sharpness — and is at machine level wherever the layer is absent. **Meanwhile the physical eigenfunction, at `Ω = 1.8537 − 1.0073i`, is the analytic branch by construction, and C2 and C3 measure its convergence at `3.33e-14` and `8.33e-14`.** C9 as frozen tests the wrong object; the right object passes. **This is stated as a diagnosis, not as grounds to re-define C9, which the frozen fence forbids.**"*
+
+**Three separate defects in that reading, all measured:**
+
+1. **The monotonicity is FALSE in `|Im Ω|/Re Ω`.** One row of this lane's own table breaks it: `0.14 − 0.007i` has ratio `0.05` and diff `1.286e-08`, while `14 − 3.5035i` has ratio `0.2503` — five times larger — and diff `1.006e-11`, **three orders better.** The larger claimed "sharpness" converges better.
+2. **The monotonicity is FALSE in `|Im Ω|` too.** The PR body stated the same claim in the bare-`|Im Ω|` variant; **the same pair violates it** (`0.007` → `1.286e-08` against `3.5035` → `1.006e-11`). Neither variable orders the data. **What orders it is `Re Ω`:** every failing probe has `Re Ω = 0.14` or sits at the extreme `|Im Ω| = 7`, and the two worst are both at the left edge.
+3. **The `~1/|Im Ω|` layer width is DIMENSIONALLY INVERTED.** The recessive branch `e^{−2iΩ/A}` has magnitude `e^{−2|Im Ω|/A}` and transitions at `A ~ 2|Im Ω|`, so the layer width scales **`∝ |Im Ω|`, not `1/|Im Ω|`.** Larger `|Im Ω|` makes the layer **wider and easier** to resolve. The original paragraph inverted the very scaling it invoked, then read a false monotonicity as its confirmation.
+
+**"The cleanest evidence in this battery" is retracted with it.** It was the least clean: a mechanism with the wrong scaling, supported by a monotonicity its own table falsifies.
+
+**C2's and C3's convergence numbers (`3.33e-14`, `8.33e-14`) stand as measured** — but they are convergence *of one `n`-stable eigenvalue*, and they do **not** license the sentence they were used to support. **The right object does not "pass" in place of the wrong one: there was no wrong object.**
 
 ### §3.3 C1's high-`ℓ` rows depend on two parameters the prereg never froze
 
@@ -240,7 +273,13 @@ Both frozen measures agree exactly and both place the maximum at the **outer** e
 
 **Nothing below is repaired here.**
 
-1. **★ Three defective gate SPECIFICATIONS in this lane's own prereg — routed to a v2.2 successor, NOT repaired.** (i) FT-B's mutation is structurally vacuous against the graded wall row; (ii) C9 probes a forced solution that is not guaranteed analytic; (iii) C1's control Chebyshev order and the winding's precision were never frozen. **Per Rule 12 the slot is not refilled: v2.2 needs a new prereg with a new version number and its own verification chain, not an edit to this one.** Candidate replacements, stated so the successor does not have to rediscover them and **explicitly not adopted here**: a gauge mutation that targets a row that actually carries `λ`; a C9 replacement that probes the **homogeneous outgoing** solution (which the method guarantees analytic) rather than a forced one; and a frozen control order plus an mp winding at high `ℓ`.
+1. 🔴 **RETRACTED IN PART, 2026-08-03. Original text, verbatim:** *"**★ Three defective gate SPECIFICATIONS in this lane's own prereg — routed to a v2.2 successor, NOT repaired.** (i) FT-B's mutation is structurally vacuous against the graded wall row; (ii) C9 probes a forced solution that is not guaranteed analytic; (iii) C1's control Chebyshev order and the winding's precision were never frozen. **Per Rule 12 the slot is not refilled: v2.2 needs a new prereg with a new version number and its own verification chain, not an edit to this one.** Candidate replacements, stated so the successor does not have to rediscover them and **explicitly not adopted here**: a gauge mutation that targets a row that actually carries `λ`; a C9 replacement that probes the **homogeneous outgoing** solution (which the method guarantees analytic) rather than a forced one; and a frozen control order plus an mp winding at high `ℓ`."*
+
+   **Corrected: ONE defective gate specification, not three, and TWO measured instrument defects.**
+   - **(i) FT-B — SPECIFICATION DEFECT, stands** (§3.1), with its reported number's provenance corrected. Its candidate replacement — *a gauge mutation that targets a row that actually carries `λ`* — **stands, and review demonstrated it fires** at `6.4e-02` against `1e-12`.
+   - **(ii) C9 — NOT a specification defect. REAL INSTRUMENT DEGRADATION** (§3.2). 🔴 **The candidate replacement is STRUCK, 2026-08-03, MEASURED-REFUTED. Struck text, verbatim:** *"a C9 replacement that probes the **homogeneous outgoing** solution (which the method guarantees analytic) rather than a forced one"*. Review **built it** — identical normalization, grid and probes — and it **fails the same 6 of 9 probes at the same magnitudes**, with two left-edge probes non-convergent at `dps = 60` up to `n = 96`. **It is not a replacement; it reproduces the defect.** What v2.2 must decide instead is an **instrument-scope** question — move the left edge with a derivation, or restrict the counting region — **routed to Grant, §3.2.**
+   - **(iii) C1's high-`ℓ` rows — the unfrozen-parameter statement is true but NOT the cause** (§3.3).
+   - **Per Rule 12 the slot is not refilled:** v2.2 needs a new prereg with a new version number and its own verification chain, not an edit to this one. **No v2.2 prereg is written here, and this repair does not write one.**
 2. **⚑ FLAG-1 stands, and the review assertion attached to it remains falsified.** The frozen `Q_GR = 2.1002135791366907` is the programmatic `KERR_QNM[0.00]` value; the rounded-prose `2.099438202247191` is the same table at 3 s.f. A review claim that *nothing in the corpus reads 2.0994* is false — `research/2026-07-30_qlaw-derivation_scoping.md:401` reads it verbatim. **Routed to the auditor lane as a corpus-precision question.**
 3. **⚑ FLAG-3 stands: I7 is assumed, not tested.** The reflectionless Regime-I port at infinity is a frozen canonical input, and this lane's entire method divides out the corresponding analytic factor. If the substrate carries any far-field reflector, every number here is wrong in the same direction. **Not tested; routed.**
 4. **⚑ FLAG-4 stands: #814 CF-7's naming gap is untouched.** `vol3/claim-quality.md:122` writes `Z_{shear} = \rho\,c_{shear}` and never names which `ρ`.
