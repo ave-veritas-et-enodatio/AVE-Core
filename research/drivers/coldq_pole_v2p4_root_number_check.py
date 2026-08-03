@@ -331,6 +331,20 @@ ALLOWED = {
                   "expectation-4 regression check at v2.2's precision",
     "8.09e-14": "the expectation-2 statement, quoted at the precision the "
                 "prereg froze it (section 9)",
+    "2.220446049250313e-16": "IEEE-754 binary64 machine epsilon, 2**-52 -- a "
+                             "property of the FORMAT, not a value of this "
+                             "battery; quoted to size FT-7(b) in ULPs",
+    # FLAG-1's corpus-precision numerals, none of them values of this battery
+    "2.099438202247191": "the ROUNDED-PROSE Q_GR of FLAG-1, re-computed from "
+                         "the 4-s.f. corpus pair; a PREREG numeral (section "
+                         "7.3), not a measurement here",
+    "2.0994": "the same rounded-prose Q_GR as actually written at "
+              "research/2026-07-30_qlaw-derivation_scoping.md:401 -- the "
+              "citation-precision note's whole point",
+    "0.3737": "the 4-s.f. corpus omega_R M at "
+              "research/2026-07-30_qlaw-derivation_scoping.md:399",
+    "0.0890": "the 4-s.f. corpus omega_I M at "
+              "research/2026-07-30_qlaw-derivation_scoping.md:400",
     # cross-lane numerals from PR #845 (v1), quoted inside a FLAG restatement
     "0.28430": "v1's FT-2 CLAMPED-wall relative shift, an I20-class PRIOR-LANE "
                "numeral quoted verbatim from research/2026-08-02_coldq-pole-"
@@ -347,6 +361,9 @@ ALLOWED = {
     "2.0": "the corpus 2-pi-convention comparator Q = ell = 2 (prereg "
            "section 7.3)",
     "3": "structural integer / the minimum-significant-digits floor",
+    "4": "the spin-2 energy weight (ell-1)(ell+2) = ell**2+ell-2 at ell = 2, "
+         "an exact integer -- the numeral whose two spellings the FT-7(b) "
+         "attribution correction shows to be bit-identical",
     "7": "x_sat = 7, the r_sat coefficient (prereg I1)",
     "8": "the FT-2 / FT-4(b) under-resolved Chebyshev order",
     "32": "a ladder rung -- the NON-GATED diagnostic order",
