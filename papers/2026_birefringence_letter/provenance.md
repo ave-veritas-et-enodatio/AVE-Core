@@ -111,23 +111,54 @@ its corpus source: canonical claim-id, driver, output JSON, and the merged PR.
 
 | Paper location | Claim | Source |
 |---|---|---|
-| Abstract, Eq.(1),(4); §II.B | Kernel `S=sqrt(1-(E/E_c)^2)`; `E_c ~ 1.13e17 V/m` | `ave.core.constants.E_YIELD = V_YIELD/L_NODE` (constants.py:475); live-verified `1.1304e17`. The paper's `E_c` **is** the corpus `E_YIELD`. |
+| Abstract, Eq.(1),(4); §II.B | Kernel `S=sqrt(1-(E/E_c)^2)`; `E_c ~ 1.13e17 V/m` | `ave.core.constants.E_YIELD = V_YIELD/L_NODE` — grep the **symbol** `E_YIELD` (at 2026-08-02 HEAD: `constants.py:516`; its inputs `V_YIELD` `:505`, `L_NODE` `:293`); live-verified `1.1304105713e17`. The paper's `E_c` **is** the corpus `E_YIELD`. |
 | Eq.(2) | Eigen-indices `n_perp=(1-A^2)^{1/4}`, `n_par=sqrt((1-2A^2)/sqrt(1-A^2))` | `ave.qed.birefringence.birefringence_eigenindices`; leaf :30. |
 | Eq.(3) boxed | `delta_n_bir = n_par - n_perp ~ -1/2 A^2` | `ave.bench.delta_n_ave_differential_exact` (birefringence.py:193); leaf :31 (boxed, verbatim match). |
-| Eq.(4) | `E_c = sqrt(alpha) E_crit`, `E_crit = m_e^2 c^3/(e hbar)` | constants.py:469 (`E_CRIT`), :475 (`E_YIELD`). `E_crit` live = `1.3233e18`. |
+| Eq.(4) | `E_c = sqrt(alpha) E_crit`, `E_crit = m_e^2 c^3/(e hbar)` | Grep the **symbols** `E_CRIT` (at 2026-08-02 HEAD: `constants.py:510`) and `E_YIELD` (`:516`). `E_crit` live = `1.3232854749e18`. |
 | Eq.(5) | `(E_crit/E_c)^2 = 1/alpha` | `ave.bench.substrate_identity_holds()` = True; live `(E_CRIT/E_YIELD)^2 = 137.036 = 1/ALPHA`. |
 | Eq.(7) **(REV-2)** | `delta_n_QED = (alpha/15pi)(E/E_crit)^2` (propagating) | `ave.bench.delta_n_qed_electric_pvlas(E, geometry="propagating")` (birefringence.py). ANCHORED to (a) PVLAS `A_e=1.32e-24` via `E↔cB` duality (`= alpha/30pi` static, ×2 propagating), (b) LoI Eq.19. Was `(3/45)α²`, understated by `1/(2πα)`. |
 | Eq.(8) | `P_flip = sin^2(dphi/2)`, `dphi=(2pi/lambda)|dn|z` | `flip_prob_exact` + `retardance_phase` (gap1 driver :140,:119). |
 | Eq.(9), abstract, §III.B **(REV-3, D7 2026-08-02)** | Ratio `3.75pi/alpha^2 = 15pi/(4α²) ~ 2.2e5` (instantaneous, the §9 Arm-2 re-freeze — **matches `main.tex`:750 as printed**) | `ave.bench.coefficient_ratio_differential_pvlas()` (default `geometry="instantaneous"`); live `2.2123e5`. Was `7.5pi/α²~4.42e5` (REV-2, mixed footing) and before that `7.5/α³~1.93e7` (REV-1). |
+| ~~Eq.(9), abstract, §III.B **(REV-2)**~~ | ~~Ratio `7.5pi/alpha^2 ~ 4.42e5` (propagating; `15pi/α²~8.85e5` static)~~ | ~~`ave.bench.coefficient_ratio_differential_pvlas(geometry="propagating")`; live `4.4247e5`. Was `7.5/α³~1.93e7`.~~ — **SUPERSEDED 2026-07-05** by the Arm-2 footing re-freeze (§9). Row content preserved, struck 2026-08-02 (Rule 12). |
 | Table I, row 1 (9835 eV, demonstrated) **(REV-2)** | `E=8.68e13`, `A^2=5.90e-7`, `P_ave=5.39e-3`, `P_qed=2.76e-14`, ratio `1.95e11` | scenario driver JSON `scenarios[0]`: `P_ave_exact=5.3883e-3`, `P_qed_exact=2.757e-14`, `ave_over_qed=1.954e11`. |
 | Table I, row 2 (8766 eV) **(REV-2)** | `P_ave=4.28e-3`, `P_qed=2.19e-14` | `scenarios[1]`: `4.2822e-3`, `2.190e-14`. |
 | Table I, row 3 (12914 eV) **(REV-2)** | `P_ave=9.28e-3`, `P_qed=4.75e-14` | `scenarios[2]`: `9.2781e-3`, `4.754e-14`. |
 | Table I, row 4 (1e22 design) **(REV-2)** | `P_ave=4.49e-1`, `P_qed=2.76e-12`, `dphi=1.47 rad` (saturating) | `scenarios[3]`: `P_ave_exact=4.4940e-1`, `P_qed_exact=2.757e-12`, `dphi_ave_rad=1.4694`. |
 | Table I, row 5 (1e23 design) **(REV-2)** | `P_ave=7.65e-1`, `P_qed=2.76e-10`, `dphi=14.7 rad` (beyond validity, EXCLUDED, daggered) | `scenarios[4]`: `7.6470e-1`, `2.757e-10`, `dphi_ave_rad=14.6951`. GAP-1 bins FORM-BREAKS-UNRESOLVABLE. |
+
+> **v3-footing completion (2026-08-02; DISCHARGES the D7-F1 follow-on — see the merge note below. Same-list completion of the Eq.(9) repair, orchestrator-extended under the D4 rationale, Grant veto open).** The five Table-I rows above carry **(REV-2)**-vintage `P_qed` and `model/QED` cells; the scenario-driver JSON they cite is itself v2-vintage (a v3 re-run is owed on the engine side — the src helper still returns the v2 ratio; see the :121 row's caveat and the D7 arbiter-repoint lane). Under the v3 ratio (`3.75pi/alpha^2` = v2/2, the <cos^2>=1/2 carrier average), `P_qed` scales x4 and `model/QED` scales /4; the printed Table I at `main.tex:832-837` is v3-consistent to the digit: row 1 `P_qed=1.10e-13`, ratio `4.89e10` (= 2.757e-14 x 4 = 1.1028e-13; 1.95e11 / 4 = 4.888e10); row 2 `8.76e-14`; row 3 `1.90e-13`, `4.88e10`; row 4 `1.10e-11`; row 5 `1.10e-09` (excluded/daggered, unchanged status). The model `P_ave` column is footing-invariant and matches at all five rows. The JSON `*_exact` values remain the v2-run record — preserved above, not restated.
+
+> **Merge note (2026-08-03, #844 ↔ D7 collision resolution — Grant-approved).** This ledger was repaired concurrently by two lanes: the core session's **D7 arbiter-repoint** (`1a98d8b8`, `fcbd57f9`) and this manuscript-reconciliation pointer-row lane (#844). Resolution: (i) the **Eq.(9) row keeps D7's `(REV-3, D7 2026-08-02)` naming** — the core session owns that ruling and its tag is authoritative; (ii) the superseded **REV-2 row is preserved struck beneath it** per Rule 12 rather than overwritten, which is what this lane added; (iii) the `constants.py` **symbol-first re-pins** (`E_YIELD` :516, `E_CRIT` :510, `V_YIELD` :505, `L_NODE` :293) are this lane's — main still carried `:475`/`:469`, which resolve to a blank line and a comment separator; (iv) the **Table-I block above discharges D7-F1**, which `fcbd57f9` disclosed and routed as a follow-on: the ×4 / ÷4 footing transform is verified against the printed table at `main.tex:832-837` to the digit, so the core session can close that item rather than working it twice. No number changed in this resolution; the two lanes never disagreed numerically (both give 2.2e5).
 | §V "seven orders above floor"; abstract | `~2e7` margin vs demonstrated `2.4e-10` | GAP-1 driver `margin_vs_demonstrated_2.4e-10 = 2.266e7` (9835 eV). Floor value = Marx-Schulze `P_DEMONSTRATED_6457 = 2.4e-10` (gap1 :83). |
 | Fig.1 / §V "8e-11 floor" | Record polarimeter purity `8e-11` | LoI Sec 4.1 record; scan driver `BEST_XRAY_POLARIMETER_PURITY = 8e-11`. |
 | §VI, Eq.(6); abstract; §IV | `delta_n_mu = 0` static-B | `clm-pvlas1`; leaf :13-22 (route scope, side-prediction); GAP-1 `e_vs_b_asymmetry()`. |
 | §V "forward prediction / CLEAN-FIELD" | No prior experiment bounds the E-route flip-prob | scan driver `scan_bin = CLEAN-FIELD`; pre-reg §0 gate; `2026-07-03_birefringence-prior-art-exposure-scan_result.md`. |
+
+**Pointer-row repair note (2026-08-02 — ruling D4: repo-side pointer rows only, `main.tex`
+byte-untouched).** Two repairs to the map above, both re-verified two-method against HEAD:
+
+1. **Eq.(9) ratio row re-pinned to v3.** The row carried the v2 mixed-footing `7.5pi/alpha^2 ~
+   4.42e5` while the paper has printed the v3 single-instantaneous-footing `3.75pi/alpha^2
+   ~ 2.2e5` since the Grant-ratified Arm-2 re-freeze of 2026-07-05 (§9). The v2 row is struck,
+   not deleted — this file is the provenance ledger, its history is the point (Rule 12).
+   **Version-label disambiguation** (three schemes are live in this corpus and they do not
+   agree by number): "v1/v2/v3" here indexes the **ratio convention** (`vacuum-birefringence-e4.md:106`;
+   `src/ave/qed/birefringence.py:128`) — v1 `7.5/alpha^3`, v2 `7.5pi/alpha^2`, v3 `3.75pi/alpha^2`.
+   §9 calls the round that produced v3 "Letter-**v2** ARM-2", and the manuscript itself is
+   stamped "manuscript version 6" (`main.tex:65`). Same object, three counters.
+2. **`constants.py` line pointers re-pinned** (rows for Eq.(1)/(4) and §II.B). The old `:469`/`:475`
+   pointers had drifted off the definitions (`:469` is blank, `:475` a section separator at HEAD);
+   the symbols are now cited **by name first**, line numbers advisory, so the next drift is
+   survivable. Values re-verified live and unchanged: `E_YIELD = 1.1304105713e17`,
+   `E_CRIT = 1.3232854749e18`, `(E_CRIT/E_YIELD)^2 = 137.035999 = 1/ALPHA`.
+
+**Flagged, NOT repaired** (outside this pass's row scope — surfaced, not silently fixed): the
+Table-I rows above still map the paper's QED column to the **v2** values `P_qed = 2.76e-14 /
+2.19e-14 / 4.75e-14 / 2.76e-12 / 2.76e-10` and model/QED `1.95e11`, whereas `main.tex:832-834,
+:836-837` prints the v3 instantaneous column `1.10e-13 / 8.76e-14 / 1.90e-13` (design rows
+`1.10e-11` / `1.10e-09`) and model/QED `4.89e10 = (3.75pi/alpha^2)^2`. §9's "Table I (v2)" bullet
+is the authority for the printed numbers. The model `P_flip` column (`5.39/4.28/9.28e-3`) is
+footing-invariant and correct as it stands.
 
 **Two-floor note (REV-2, citation corrected):** two X-ray polarimeter purity
 numbers. The **record `8e-11`** is now correctly cited to **Karbstein2021**
