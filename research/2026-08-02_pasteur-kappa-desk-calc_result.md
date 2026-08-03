@@ -487,10 +487,38 @@ The classical chain is analytic + quadrature, validated against two closed-form 
 > divergence, not a magnitude one — and a classical chiral medium reproduces it only when the
 > HOST is chiral, which the air-bath HOPF-02a bench is not.**
 
-The actionable consequence, stated as a routed question and not as a lane decision: round-2's
-§2.3 equates the classical enantiomer sign-flip (a reversal of a *polarisation difference*) with
-the HOPF enantiomer prediction (a reversal of a *scalar frequency*), and the live protocol row at
-`hopf_01_TEST_PROCEDURE.md:180` carries that reading as CONSISTENCY-CLASS. **Whether the C4 leg
-returns to the table — as an EXISTENCE discriminator on an achiral bench, never as a magnitude
-one — is Grant's / the auditor lane's call, with both sides verbatim in §6.2.** This lane's own
-verdict is the frozen one: **bin (d), magnitude bin (a) reported and non-adjudicating.**
+### §8.1 Routed to Grant — three decisions, none of them taken here
+
+**(1) The C4-return LABEL — not the physics.** The physics part is settled and the substrate
+settled it: on the common observable, classical EM gives an **exact zero by parity covariance**,
+and round-2's retirement of C4 rested on a $\Delta k/k \to \Delta f/f$ step that the lane declines
+to license (§6.2.1; the audit confirmed at source that this reading follows from round-2's **own**
+definition at `:45`, not from a strawman). What is *not* settled, and is not this lane's to
+settle, is **what row C4 goes back on**. Two shapes are on the table for the KEEP-BOTH block at
+`hopf_01_TEST_PROCEDURE.md:180`:
+
+- relabel C4 **AVE-DISTINCT**; or
+- add a **third row** that carves the existing one — *EXISTENCE-DISCRIMINATING* (nonzero vs
+  exactly zero in an achiral host) alongside *MAGNITUDE-CONSISTENCY-CLASS* (the $\alpha$-injected
+  size of the shift, which round-1 already closed and this lane does not reopen).
+
+The second preserves the legacy row rather than redefining it in place. **Grant's call.** This
+lane records both sides verbatim in §6.2.1 and stops.
+
+**(2) The fab-status contradiction (§6.2.2).** `.agents/HANDOFF.md:14`/`:42` say the physical fab
+order is the **next gate**; round-2's roll-up at `:193` calls HOPF-02a **"the fabbed, $123,
+enantiomer-pair board"**. Both are live merged AVE-HOPF `main`. Grant is the one person who knows
+whether a board was ever ordered. **The correction to whichever document is wrong belongs to an
+AVE-HOPF lane** — nothing was written to that repo from here.
+
+**(3) Weave orientation at order time — a one-line close on the last parity hole.** Residual 1 in
+§6.1 (FR-4 glass-weave off-diagonal $\varepsilon$) exists only because the weave axes might not
+align with the board axes. **If the weave is specified aligned to the panel axes in the fab
+order, that systematic vanishes identically** — the laminate becomes $x\to-x$-invariant and the
+parity theorem binds with no residual of that class at all. That is one line in
+`hardware/hopf_02a_ORDERING.md`, added *before* the panel is cut, and it is free. **Routed, not
+executed:** it is an AVE-HOPF ordering-guide change and this lane does not touch AVE-HOPF. Pair it
+with the singulation precondition (residual 2), which is a one-line instruction in the same place.
+
+This lane's own verdict is unchanged and is the frozen one: **bin (d), magnitude bin (a) reported
+and non-adjudicating.**
