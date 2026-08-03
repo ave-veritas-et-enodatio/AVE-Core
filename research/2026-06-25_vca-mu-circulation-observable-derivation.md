@@ -110,6 +110,13 @@ Units: `(C/m)·(m/s) = C/s = A`, so `A_I = I_cell/I_max` is `A/A` = dimensionles
 
 ### The SCALAR threshold I_max is CLOSED (no free factor)
 
+> 🔴 **GRADE CORRECTED 2026-08-03 (Rule 12 — the body below is preserved verbatim; this header
+> supersedes it). The "fixed two independent ways" claim is ONE-LEGGED, and the surviving leg is
+> not an independent scale-fixer.** The corrected grade is **DEFINITIONAL-from-Ax2**, not
+> "closed by two independent routes". Both legs are refuted below by receipts the corpus already
+> carries; neither refutation is new physics, and **nothing about the numeric value `124.384 A`
+> changes**. Detail after the preserved paragraph.
+
 `I_max = ξ_topo·c` is fixed two independent ways: (1) canonically as the V→I, V_yield→I_max dual
 of the varactor under the single Axiom-4 kernel (`relativistic-inductor.md:15,:18`,
 clm-p5cf3t); (2) re-grounded by the rest-energy mapping
@@ -118,6 +125,61 @@ No free factor lives in the constant itself.
 **Classification (consistency-vs-emergence): the scalar I_max is DERIVED** (`node-up-small-large-signal.md:346`,
 arithmetic-verified), but it carries `e` (via ξ_topo = e/ℓ_node), so any magnitude that rides on
 it is an **α-echo at the value level** — see §7.
+
+#### 🔴 The correction, leg by leg (2026-08-03)
+
+**The sentence being corrected, quoted verbatim** (this doc, `:113–:117`, written 2026-06-25):
+
+> *"`I_max = ξ_topo·c` is fixed two independent ways: (1) canonically as the V→I, V_yield→I_max dual
+> of the varactor under the single Axiom-4 kernel (`relativistic-inductor.md:15,:18`, clm-p5cf3t);
+> (2) re-grounded by the rest-energy mapping `E_0 = ½ L_0 I_max² = ½(ξ_topo⁻² m_0)(ξ_topo c)² =
+> ½ m_0 c²` (`relativistic-inductor.md:28`). No free factor lives in the constant itself."*
+
+**Leg (1) is FORM-ONLY — it fixes no value at all.** The cited source says, verbatim
+([`relativistic-inductor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md):18):
+*"This is structurally identical to the varactor equation, with the substitution $V \to I$ and
+$V_{yield} \to I_{max}$."* That is a statement about the **shape** of the kernel. The substitution
+puts *a* current in the denominator slot; it does not say **which** current. And if the
+substitution is executed the way the medium actually executes it — through the characteristic
+impedance, $I = V/Z_0$ — it returns a **different** number from the one this section asserts:
+`V_YIELD / Z_0 = 43651.851844321354 / 376.73031346177066 = 115.87029311022246 A`
+(recomputed live at `origin/main` `66fc7e69`; the inverse identity `Z_0 · 115.87029311022246 =
+43651.851844321354 = V_YIELD` holds to the last printed digit). So leg (1), read through the
+substrate's own impedance, yields **115.870 A**, *not* `ξ_topo·c = 124.384 A`. It is not a second
+route to the same number; it is a form statement that is silent on the value, and whose most
+literal execution lands on the *rival* sense.
+
+**Leg (2) is the TAUTOLOGY the canon itself names.** The corpus already adjudicated this exact
+identity, verbatim
+([`single-substrate-scale.md`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/single-substrate-scale.md):75):
+*"`XI_TOPO = e/L_NODE`; $I_{max}=\xi_{topo}\,c$; and $L_0=\xi_{topo}^{-2}m_0$ (Topo-Kinematic map).
+Then $E_0=\tfrac12 L_0 I_{max}^2=\tfrac12(\xi_{topo}^{-2}m_0)(\xi_{topo}c)^2=\tfrac12 m_0 c^2$ —
+**the $\xi_{topo}$ factors cancel identically**; face (3) is true for ANY value of $\xi_{topo}$ or
+$\ell_{node}$, so it carries **zero information** about the substrate scale."* A relation that
+holds for **any** $\xi_{topo}$ cannot fix $\xi_{topo}c$. Leg (2) is a consistency check on the
+Topo-Kinematic map, not a scale-fixer.
+
+**Corrected grade: DEFINITIONAL-from-Ax2 (Row 2 evaluated at $v=c$).** `I_max = ξ_topo·c` is
+**one line of the Ax2 Topo-Kinematic dictionary read at the light-speed endpoint** — *"Row 2:
+Current $\leftrightarrow$ Velocity"*
+([`topological-kinematics.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md):38,
+with the $v_{max}=c$ evaluation at `:46–:50`). That is a **definition evaluated at an endpoint**,
+which is a perfectly good provenance — it is simply not *"fixed two independent ways"*, and the
+distinction matters because the rival displacement sense (`V_yield/Z_0 = 115.870 A`) is **also**
+Ax2-legal and is **also** called `I_max` in the corpus
+([`operators.md`](../manuscript/ave-kb/common/operators.md):145, *"the FPB slew rating,
+$I_{max}\simeq116$ A"*). The one-legged claim was the load-bearing reason to believe no such rival
+could exist.
+
+**Unaffected.** The α-echo classification in the preserved paragraph **stands** (both senses carry
+`e`, hence both are α-echoes at the value level). §"The per-cell MAP I_cell → I_max is OPEN" below
+**stands and is strengthened** — the map is open *and* now the denominator's identity is open too.
+The numeric value used everywhere in this doc is **unchanged**. Which sense the μ-grade
+denominator should carry is **Grant's A4 ruling and is still OPEN**
+(`research/2026-07-10_operator-typing-pass_result.md:112`, verbatim: *"**Grant's physical ruling —
+still OPEN.**"*). Three-sense map + hazard box:
+[`theorem-thesaurus.md`](../manuscript/ave-kb/common/theorem-thesaurus.md) §6, the `I_max` row.
+**This correction rules nothing on that fork.**
 
 ### The per-cell MAP I_cell → I_max is OPEN (the actual sign-off item)
 

@@ -171,12 +171,44 @@ domain-specific adapter.
 \end{tabular}
 \end{center}
 
-\noindent The physical values $V_{snap} = m_e c^2/e = 510998.95$ V,
-$V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V and
-$I_{max} = \xi_{topo}\,c = 124.384$ A are the canonical
-\texttt{ave.core.constants} values. \textbf{The A1 metric varactor keys on
+\noindent The physical values $V_{snap} = m_e c^2/e = 510998.95$ V and
+$V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V are the canonical
+\texttt{ave.core.constants} values (\texttt{V\_SNAP}, \texttt{V\_YIELD}).
+The current threshold $I_{max} = \xi_{topo}\,c = 124.384$ A is \emph{not} a
+\texttt{constants} symbol: it lives in the engine module as
+\texttt{ave.core.fdtd\_3d.I\_MAX\_MU}
+(\texttt{src/ave/core/fdtd\_3d.py}:69, \texttt{I\_MAX\_MU = XI\_TOPO * C\_0}).
+\textbf{The A1 metric varactor keys on
 $V_{snap}$; the TVS-Zener rupture and the thixotropic memristor key on
 $V_{yield}$} (the sector split, 2026-07-03).
+% DEAD-CITE REPAIR (2026-08-03, imax-mechanical lane).  The sentence above
+% formerly read, verbatim (Rule 12): "The physical values $V_{snap} = m_e c^2/e
+% = 510998.95$ V, $V_{yield} = \sqrt{\alpha}\,V_{snap} = 43651.851844\ldots$ V
+% and $I_{max} = \xi_{topo}\,c = 124.384$ A are the canonical
+% \texttt{ave.core.constants} values."  That attribution is FALSE for $I_{max}$:
+% ave.core.constants.I_MAX DOES NOT EXIST (two-method verified at origin/main
+% 66fc7e69 -- hasattr() False; grep of src/ave/core/constants.py exits 1).
+% Re-pointed to the live symbol ave.core.fdtd_3d.I_MAX_MU.  No symbol is minted
+% in constants.py by this repair, deliberately: minting one would force the open
+% A4 / I_max homonym ruling.  The V_snap / V_yield half of the sentence was and
+% remains correct.
+
+\begin{quote}
+\small
+\textbf{Open-fork caveat on the $I_{max}$ value (2026-08-03).}  The
+$124.384$ A default is the \emph{convection} reading of $I_{max}$
+($\xi_{topo}c$, Ax2 TKI at $v=c$).  The corpus also uses the name $I_{max}$
+for a \emph{displacement} reading, $V_{yield}/Z_0 = 115.870$ A --- the
+``FPB slew rating'' (\texttt{manuscript/ave-kb/common/operators.md}:145).
+The two differ by exactly $4\pi\sqrt{\alpha} = 1.073476$, i.e.\ $+15.2\%$ in
+the \emph{quadratic} Axiom-4 kernel argument $(I/I_{max})^2$.  Which reading
+the $\mu$-grade denominator should carry is Grant's A4 ruling and is
+\textbf{still open}
+(\texttt{research/2026-07-10\_operator-typing-pass\_result.md}:112).  Three-sense
+map and hazard box: \texttt{manuscript/ave-kb/common/theorem-thesaurus.md}
+\S6, the $I_{max}$ row.  This manual keeps $124.384$ A --- the repair is to the
+cite and the disclosure, not to the number.
+\end{quote}
 % FLAG-1 correction (2026-07-03, ave-canonical-source): the prior 43653.7 V /
 % 124.4 A defaults were DRIFTED; corrected to the constants.py canonical values.
 % The prior claim "No constants are hardcoded in the .lib file" was FALSE — the
@@ -186,8 +218,12 @@ $V_{yield}$} (the sector split, 2026-07-03).
 % these defaults are a maintained copy, not a generated one.
 The default literals above are also carried as subcircuit-parameter defaults in
 the hand-written \texttt{.lib}; until the generated-\texttt{.lib} mechanism
-(charter design-(d)) lands, they are a maintained copy of the
-\texttt{constants.py} values, not an auto-substituted one.
+(charter design-(d)) lands, they are a maintained copy of their canonical
+sources --- \texttt{constants.py} for \texttt{V\_SNAP}/\texttt{V\_YLD},
+\texttt{fdtd\_3d.py} for \texttt{I\_YMAX} --- not an auto-substituted one.
+% Same 2026-08-03 dead-cite repair: this sentence formerly read "a maintained
+% copy of the \texttt{constants.py} values", which is the same false attribution
+% for the I_YMAX row only.  Split by symbol; V_SNAP/V_YLD unchanged.
 
 
 \section{Domain-Specific Wiring Topologies}

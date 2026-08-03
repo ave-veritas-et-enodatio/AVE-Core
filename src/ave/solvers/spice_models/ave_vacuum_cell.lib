@@ -9,24 +9,52 @@
 *             Backmatter App 4 - Physics Engine Architecture
 *             Backmatter App 6 - SPICE Verification Manual
 *
-* Constants (from ave.core.constants):
-*   V_SNAP  = 510998.95 V     (m_e c^2 / e)
-*   V_YIELD = 43651.85 V      (sqrt(alpha) * V_SNAP; ave.core.constants.V_YIELD = 43651.851844...)
-*   I_MAX   = 124.384 A       (xi_topo * c)
-*   Z_0     = 376.73 Ohm      (sqrt(mu_0 / eps_0))
+* Constants (canonical source stated PER SYMBOL - see the 2026-08-03 dead-cite
+* repair note below; the block header formerly read "from ave.core.constants",
+* which is FALSE for I_MAX):
+*   V_SNAP  = 510998.95 V     (m_e c^2 / e)              -> ave.core.constants.V_SNAP
+*   V_YIELD = 43651.85 V      (sqrt(alpha) * V_SNAP)     -> ave.core.constants.V_YIELD = 43651.851844...
+*   I_MAX   = 124.384 A       (xi_topo * c)              -> ave.core.fdtd_3d.I_MAX_MU  (NOT constants.py)
+*   Z_0     = 376.73 Ohm      (sqrt(mu_0 / eps_0))       -> ave.core.constants.Z_0
 *
 * FLAG-1 VALUE-DRIFT WARNING (2026-07-03, ave-canonical-source).
 *   V_SNAP / V_YLD / I_YMAX below are HAND-WRITTEN literals - they are NOT
 *   generated from ave.core.constants and WILL drift. Canonical values:
 *     V_SNAP  = 510998.946... V   (ave.core.constants.V_SNAP)
 *     V_YIELD = 43651.851844... V (ave.core.constants.V_YIELD)
-*     I_MAX   = 124.384 A         (ave.core.constants.I_MAX)
+*     I_MAX   = 124.384 A         (ave.core.fdtd_3d.I_MAX_MU) -- REPOINTED 2026-08-03,
+*                                 see the DEAD-CITE REPAIR note below
 *   The prior 43651.9 / KB-spec 43653.7 disagreements are corrected to
 *   43651.85 here (2026-07-03, FLAG-1). The DURABLE fix is to GENERATE
 *   this .lib from constants.py (SPICE-charter design-(d):
 *   _orchestration/2026-07-03_spice-lane-charter.md 2(d) - .lib.template
 *   + substitute-at-test-time). Generator NOT built here; values fixed +
 *   warned only. Do NOT hand-edit these literals to a rounded value again.
+*
+* DEAD-CITE REPAIR (2026-08-03, imax-mechanical lane). ave.core.constants.I_MAX
+*   DOES NOT EXIST and never has. Two-method verified at origin/main 66fc7e69:
+*   hasattr(ave.core.constants, "I_MAX") is False, and grep for I_MAX in
+*   src/ave/core/constants.py exits 1 (no match). The false attributions this
+*   header formerly carried, quoted verbatim (Rule 12):
+*     "* Constants (from ave.core.constants):"                  (was line 12)
+*     "*     I_MAX   = 124.384 A         (ave.core.constants.I_MAX)"  (was line 23)
+*   The LIVE symbol is ave.core.fdtd_3d.I_MAX_MU (src/ave/core/fdtd_3d.py:69):
+*     I_MAX_MU: float = XI_TOPO * C_0   # ~= 124.384 A - mu-grade circulation
+*                                       #    threshold
+*   i.e. the mu-grade threshold lives in the ENGINE MODULE, not the constants
+*   module. V_SNAP, V_YIELD and Z_0 above ARE in ave.core.constants; only the
+*   I_MAX row was dead. Nothing is minted in constants.py by this repair.
+*   ! THE VALUE 124.384 A SITS ON AN OPEN FORK. Which physical current
+*   ceiling the Axiom-4 mu-kernel denominator should carry is Grant's A4
+*   ruling and is STILL OPEN (research/2026-07-10_operator-typing-pass_result.md
+*   :112, verbatim: "Grant's physical ruling - still OPEN."). A rival sense
+*   reads it as the DISPLACEMENT ceiling V_yield/Z_0 = 115.870 A, which the
+*   corpus also calls I_max (manuscript/ave-kb/common/operators.md:145,
+*   "the FPB slew rating, $I_{max}\simeq116$ A"). The two differ by exactly
+*   4*pi*sqrt(alpha) = 1.073476, i.e. ~15% in the QUADRATIC kernel argument.
+*   Three-sense map + hazard box:
+*   manuscript/ave-kb/common/theorem-thesaurus.md section 6, the I_max row.
+*   This .lib keeps 124.384 A (no value change); only the cite is repaired.
 *
 * SECTOR-KEYING FIX (2026-07-03, follow-up batch; Grant grade-fork 2026-06-30
 *   ratified, nonlinear-vacuum-capacitance.md:18, def-vyvsn1):
