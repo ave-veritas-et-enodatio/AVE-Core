@@ -81,4 +81,39 @@ That tag ([`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md):57–
 
 > **⚑ FLAG SURFACED, NOT RESOLVED (flag-don't-fix) — the four-register list is spatial-boundary-scoped and does not cover rows 4–6.** Canon's four registers were enumerated over a table of **spatial** boundaries (electron / nucleus / atom / magnetopause / BH / cosmic horizon). Rows **4** (lattice band edge), **5** (Cosserat mass gap) and **6** (evanescent cutoff length) are **cutoff-class** conditions on the *frequency* and *length-scale* axes — a band-position condition is not an amplitude level-set, not a pressure balance, not a coordinate radius, and not a force-balance locus. **Either the register list needs a fifth (cutoff / dispersion) register, or rows 4–6 are outside its intended scope.** Surfaced here with both readings; **not adjudicated by this leaf** — it is the auditor's / Grant's call, and canon's own P5 row already tags the band-edge case as **"emergent-configurational (band position)"** rather than as any of the four ([`port-register.md`](port-register.md):73).
 
+## §3 — Grant's gradient-vs-wall split: the wall is the bookkeeping surface; the physics lives in the skin
+
+> **Grant, 2026-08-03, verbatim `[sic]`:** *"There can still be a gradient toward the wall vs the wall itself"*
+
+**This is the load-bearing correction to §2, and it is Grant's.** Everything §2 says is about a *surface* — and a surface with $\lvert\Gamma\rvert = 1$ is, by construction, a **boundary condition**: a line in the bookkeeping where the field is told what to do. It is not where anything *happens*. What happens happens in the **gradient skin** hugging it, on the inside.
+
+### §3.1 — Canon already carries the split (this is not new structure)
+
+The corpus does not have one radius per particle; it has **three named radial surfaces**, and the middle-and-outer ones *are* the skin:
+
+> [`vocabulary-register.md`](vocabulary-register.md):404, verbatim: *"a bound soliton's boundary region is **THREE physically-distinct radial surfaces** on $S(A(r))$: **(i) the wall** (fully-yielded $S\to0$, $\lvert\Gamma\rvert=1$ mirror …); **(ii) the balance shell** …; **(iii) the knee / dress edge** (the $\Delta S=\alpha$ proportional limit, $A^2=2\alpha$)."*
+
+Canonical home for that anatomy: [`envelope-anatomy.md`](envelope-anatomy.md). And that leaf already states the reflectivity contrast Grant's split predicts — `:40`, verbatim: *"The reflection off the knee is **small** ($\lvert\Gamma\rvert \ll 1$, the near-matched sub-yield regime — distinct from the wall's $\lvert\Gamma\rvert = 1$)."* **So the corpus's own answer to "gradient vs wall" is: the gradient is the sub-yield, near-matched, energy-storing region; the wall is the yielded mirror at its inner edge.** Grant's framing names, in the general case, a carve canon had already made for the single-particle case.
+
+### §3.2 — Why the skin is where anything interesting can be (WALK-LEVEL, orchestrator — NOT canon)
+
+> **Status: walk-level, 2026-08-03. Offered as a *reason to look there*, not as a result. Nothing here is measured, and the one lane that is measuring it is not certified (§6, flag 1).**
+
+Three walk-level observations, each with its canon-side hook:
+
+1. **The wave shoals.** The propagation speed is amplitude-modulated by the saturation kernel — Op16, $c_{shear} = c_0\sqrt{S}$ ([`operators.md`](operators.md):56). Approaching a wall, $S \to 0$, so $c \to 0$, so the local wavelength compresses without bound and the optical depth $\int dr/c$ grows. **The last few percent of the approach is where most of the phase accumulates.**
+2. **The skin is a reactive stub.** A region that compresses wavelength and stores without dissipating is, in EE terms, a **stub** hung off the wall: it holds energy and it transforms the impedance seen from outside. Whatever the wall's own $\Gamma$ is, **what a distant observer measures is the input impedance of the skin-plus-wall**, not the wall alone.
+3. **The skin is where every candidate departure from the linear lossless model must concentrate** — discreteness (the lattice has a finite $\ell_{node}$ and a compressing wavelength must eventually reach it), nonlinearity (the kernel's curvature is largest near $A\to1$), any Cherenkov-type shedding (from $c$ falling below a source's speed), and the Miller-avalanche approach on the amplitude axis (row 3). **All four live in the skin, none of them at the wall.**
+
+> **⚑ Fence on §3.2.** Observation 1 is arithmetic on Op16. Observations 2 and 3 are **pictures**, not results: the corpus has no certified measurement of a skin structure at any wall, and the lane that would supply one is **`SOLVER-NOT-CERTIFIED`** with **no physics bin adjudicated** ([`research/2026-08-03_coldq-pole-v2.1_result.md`](../../../research/2026-08-03_coldq-pole-v2.1_result.md):17). Do not cite §3.2 as evidence of anything.
+
+## §4 — Per-channel discipline: *"is there a wall here?"* is unanswerable without naming the channel
+
+**This is the single most abusable line in the taxonomy, so it is stated first and loudly.** A row's wall belongs to **one channel**. The other channels are entitled to walk straight through it, and in canon they demonstrably do:
+
+- **At $r_{sat}$, the same physical surface is three different things at once.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–54 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting.** That leaf's own conclusion, verbatim (`:54`): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."*
+- **The $\mu$-grade is keyed on circulation, so a static $\mathbf{B}$ sees no wall at all.** Route C: *"$\Delta n = 0$ under static B ($\mu$ = ideal relativistic inductor, circulation-keyed; static B has no $dB/dt \to S_\mu = 1$)"* ([`cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md):124; verdict leaf [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). A field that would saturate the rotational grade if it were *circulating* does nothing to it when it is *static* — same field magnitude, no wall, because the wall's coordinate is the wrong one for that excitation.
+
+**Operational rule.** Before asserting a wall anywhere: name (i) the **channel**, (ii) the **axis** it lives on, and (iii) the **phase-state** (cold/sub-yield vs saturated). A claim missing any of the three is not yet a claim about a wall.
+
 <!-- APPEND-MARKER -->
