@@ -241,6 +241,13 @@ ALLOWED = {
            "6.6206 -- the top of the band over n = 24 -> 96.  The rate keeps "
            "climbing above n = 96 (6.71, 6.81), which the doc states rather "
            "than truncating.  POST-RESULT, docket-recorded, adjudicates nothing",
+    "-2.857143e-07": "section 3.5 post-review correction of the FROZEN PREREG's "
+                     "FT-8 non-vacuity arithmetic (prereg :343, which quotes "
+                     "+/-1.43e-06).  Exact value of the frozen mutation "
+                     "1e-6*(x_sat - 7)/7 at x_sat = 5.  A PREREG-arithmetic "
+                     "correction, disclosed not edited; NOT a battery output",
+    "5.714286e-07": "same, at x_sat = 11: 1e-6*(11 - 7)/7.  A PREREG-arithmetic "
+                    "correction, disclosed not edited; NOT a battery output",
     "8.9716e-16": "v2.1's C11 operator-identity measurement, quoted from the "
                   "prereg SECTION 9 G0 tolerance row (prereg :474) by the "
                   "2026-08-03 post-review pointer correction, to show what "
