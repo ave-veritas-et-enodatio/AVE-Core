@@ -87,6 +87,8 @@ $7.92\times10^6 \to \mathbf{7.91\times10^6}$ kg/m³ (3 s.f., matching every site
 | 9 | `manuscript/backmatter/01_appendices.tex:92` | **NO** |
 | 10 | `manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex:44` | **NO** |
 
+*(Line numbers above are as-found on `origin/main`. The three `.tex` sites are displaced by their own in-place Rule-12 comment blocks and read `:194` / `:99` / `:53` after this branch lands; the seven KB sites are single-line edits and do not move. The receipt site `lc-electrodynamics.md:35` carries the same note. Content anchor for all ten: the `\rho_{bulk} = ... \xi_{topo}^2 \mu_0 / (p_c \ell_{node}^2)` line.)*
+
 - **Already correct, untouched:** `backmatter/02_full_derivation_chain.tex:1117`, `backmatter/12_mathematical_closure.tex:50`, `vol4/claim-quality.md:870`/`:882` (all $7.91\times10^6$).
 - **No cascade.** $G_{vac} = \rho_{bulk}c^2$ ($7.11$–$7.12\times10^{23}$ Pa) and $c_L$ are unaffected at printed precision; $v_T=\sqrt{G_{vac}/\rho_{bulk}}=c$ is exact either way.
 - **Not a de-claim.** At site 10 the note states explicitly that this is a value re-pin and does not touch that chapter's `[DE-CLAIM 2026-08-02]` entries.

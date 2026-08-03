@@ -16,7 +16,7 @@ The **content anchor** is the primary, drift-proof key; the two line columns are
 | 4 | `2026-08-02-mr-varactor-keying.md:4`; `2026-08-02-mr-varactor-keying-correction.md:6`, `:7` | `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex` | `C_{vac}(V) = \frac{C_0}{\sqrt{1 - (V/…)^2}}` (IMD varactor resultbox, `\label{eq:varactor_imd}`) | ~~`:720`~~ → **`:787`** | **`:837`** |
 | 5 | `2026-08-02-mr-varactor-keying-correction.md:7` | `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex` | `V_{IP3} = \sqrt{\frac{4}{3}}\; V_{…}` (`\label{eq:ip3}`) | ~~`:756`~~ → **`:823`** | **`:892`** |
 | 6 | `2026-08-02-mr-legacy-negatives.md:12` | `manuscript/vol_0_engineering_compendium/chapters/03_computational_graph.tex` | `\paragraph{The Poisson-Disk Solution:}` | ~~`:11`~~ → **`:33`** | `:33` (unchanged) |
-| 7 | `2026-08-02-mr-legacy-negatives.md:11` | `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex` | `\rho_{bulk} = \frac{m_{node}}{V_{node}}` | ~~`:155`~~ → **`:177`** | **`:193`** |
+| 7 | `2026-08-02-mr-legacy-negatives.md:11` | `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex` | `\rho_{bulk} = \frac{m_{node}}{V_{node}}` | ~~`:155`~~ → **`:177`** | **`:194`** |
 
 **Note on row 6.** `:11` was not merely stale — on `main` it lands inside a `%` comment block, not on the substantive claim. The Poisson-disk two-register item's actual print site is the `\paragraph{The Poisson-Disk Solution:}` at `:33`. The item's substance is unaffected.
 
