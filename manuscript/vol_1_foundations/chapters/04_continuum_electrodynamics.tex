@@ -174,7 +174,24 @@ The reduced form $\sqrt{K_{bulk}/\rho_{node}}$ is the bulk-modulus dilatational 
 Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p_c \ell_{node}^3$, from the packing fraction $p_c = 8\pi\alpha$ derived in Chapter \ref{ch:macroscopic_moduli}):
 \begin{resultbox}{Macroscopic Bulk Mass Density}
 \begin{equation}
-    \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3
+    % ENGINE-LOCKSTEP VALUE RE-PIN 2026-08-03 (Rule 12 quote-and-date; prior
+    % printed value preserved here, not deleted). This line printed
+    %   "\approx 7.92 \times 10^6 \text{ kg/m}^3"
+    % -- a +0.13% transcription drift against the engine constant. Two-method
+    % recompute, both on src/ave/core/constants.py:
+    %   banked:      RHO_BULK = 7,909,692.740007466 kg/m^3
+    %   recomputed:  XI_TOPO**2 * MU_0 / (P_C * L_NODE**2)
+    %                         = 7,909,692.740007466 kg/m^3  (bit-identical)
+    % so the formula on this line and the engine constant are the SAME object
+    % and the drift was transcription-only. To 3 s.f.: 7.91e6, not 7.92e6.
+    % NO CASCADE: the G_vac = rho_bulk c^2 resultbox below (7.11e23 Pa) and the
+    % c_L longitudinal-speed equation at :347 are unaffected at their printed
+    % precision, and v_T = sqrt(G_vac/rho_bulk) = c is exact either way;
+    % vol4/claim-quality.md:870/:882 already carried 7.91e6.
+    % Ten sites re-pinned in the same commit; RECEIPT SITE is the canonical KB
+    % derivation leaf ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/
+    % lc-electrodynamics.md:35, which enumerates all ten.
+    \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.91 \times 10^6 \text{ kg/m}^3
 \end{equation}
 \end{resultbox}
 \begin{resultbox}{Baseline Vacuum Shear Modulus}

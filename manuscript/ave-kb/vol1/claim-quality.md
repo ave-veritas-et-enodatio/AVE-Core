@@ -640,7 +640,7 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 ## Vacuum Bulk Mass Density and Shear Modulus
 <!-- id: clm-crbl60 -->
 
-- $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92\times 10^6$ kg/m³; $G_{vac} = \rho_{bulk}c^2 \approx 7.11\times 10^{23}$ Pa
+- $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.91\times 10^6$ kg/m³ 🔴 *(engine-lockstep re-pin 2026-08-03, Rule 12: prior value ~~$7.92\times 10^6$~~, a $+0.13\%$ transcription drift against `constants.py` `RHO_BULK` $= 7{,}909{,}692.74$; formula unchanged and recomputes bit-identical — receipt at [`dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md`](./dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md):35)*; $G_{vac} = \rho_{bulk}c^2 \approx 7.11\times 10^{23}$ Pa
 - _Specific Claims_
   - The dimensionally-corrected bulk mass density is derived via $L = \xi_{topo}^{-2}m$ inductance-mass isomorphism + Voronoi cell volume $V_{node} = p_c\ell_{node}^3$.
   - $G_{vac}$ is the macroscopic 3D shear modulus of the substrate; the bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (⚠ **collapse-batch T7 correction:** previously labelled "Cauchy relation for the isotropic lattice" — a MISLABEL. $K=2G$ is the **GR trace-reversal lock** $\nu_{vac}=2/7$ (`ch8-alpha-golden-torus.md:13`, already correctly named there), NOT the genuine central-force Cauchy relation, which forces a *different* point $\nu=1/4$, $K=5G/3$. See the "Cauchy" 3-way homonym note in Non-Claims below.).

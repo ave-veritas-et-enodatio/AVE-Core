@@ -32,8 +32,16 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 > **[Resultbox]** *Macroscopic Bulk Mass Density*
 >
 > $$
-> \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3
+> \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.91 \times 10^6 \text{ kg/m}^3
 > $$
+
+> 🔴 **Engine-lockstep value re-pin, 2026-08-03 (Rule 12 — the prior printed `\approx 7.92 \times 10^6 \text{ kg/m}^3` is quoted here and preserved, not deleted). THIS IS THE RECEIPT SITE for the corpus-wide re-pin; the ten mirror rows point here.** The printed 3-s.f. value carried a $+0.13\%$ transcription drift against the engine constant. Recomputed two ways, both on `src/ave/core/constants.py`:
+> - **banked:** `RHO_BULK` $= 7{,}909{,}692.740007466$ kg/m³
+> - **recomputed from this leaf's own formula:** `XI_TOPO**2 * MU_0 / (P_C * L_NODE**2)` $= 7{,}909{,}692.740007466$ kg/m³ — **bit-identical**, so the formula printed above and the engine constant are the same object, and the drift was purely in the transcription.
+>
+> To 3 significant figures that is $\mathbf{7.91 \times 10^6}$ kg/m³, not $7.92\times10^6$. **No formula, symbol or downstream quantity changes.** Specifically $G_{vac} = \rho_{bulk}c^2$ at `index.md`:21 ($7.12\times10^{23}$ Pa) and the cross-check $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c$ are both unaffected at their printed precision, and `vol4/claim-quality.md`:870/:882 already carried $7.91\times10^6$.
+>
+> **Ten sites re-pinned in the same commit** (two-method sweep — a literal `7.92` scan **plus** an independent `rho_bulk`-symbol context scan; the second method found four sites the first item list did not name): this leaf `:35`; [`ch4-continuum-electrodynamics/index.md`](index.md):20; [`vol1/dynamics/index.md`](../index.md):25; [`vol1/index.md`](../../index.md):31; [`vol1/claim-quality.md`](../../claim-quality.md):643; [`vol2/appendices/app-c-derivations/index.md`](../../../vol2/appendices/app-c-derivations/index.md):20; [`common/appendices-overview.md`](../../../common/appendices-overview.md):64; `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex`:177; `manuscript/backmatter/01_appendices.tex`:92; `manuscript/vol_0_engineering_compendium/chapters/02_analytical_summaries.tex`:44.
 
 > **[Resultbox]** *1D String Tension Density (axial stiffness)*
 >
