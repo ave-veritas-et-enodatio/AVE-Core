@@ -131,7 +131,14 @@ By attaching Cy3/Cy5 fluorophore pairs to the terminal ends of a rigid structura
 \begin{itemize}
     \item The protein backbone is derived from the proton radius through a chain of AVE identities: $\ell_{\text{node}} \to a_0 \to r_{\text{cov}} \to d_0 \approx 3.80$~\AA, introducing zero free parameters.
     \item The 20 canonical amino acids are classified by sidechain impedance relative to the backbone quality factor ($Q_{\text{backbone}} \approx 7$), mapping hydrophobic, polar, and charged residues to reactive coupling strengths.
-    \item Macroscopic rigid proteins establish theoretical bounds to sub-3~\AA\ precision using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
+% [2026-08-02 manuscript-reconciliation; prior wording preserved verbatim per Rule 12:]
+%   "Macroscopic rigid proteins establish theoretical bounds to sub-3~\AA\ precision using only
+%    \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the
+%    same three functions used at every other scale."
+% "sub-3 \AA\ precision" reads the leaf's qualitative "sub-3 Å: Level 6 Emergence" classification as a
+% precision metric, which clm-u4vmgk explicitly denies (ave-kb/vol5/claim-quality.md:190, :192, :193).
+% The summarybox also lagged this chapter's own scope callout at the Chignolin benchmark (:117-119).
+    \item The Chignolin benchmark returns backbone RMSD $= 2.59$~\AA{} using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale. This is a \textbf{coarse-correctness} result for a \emph{single} 10-residue mini-protein: per the truth-source card (\kbleaf{manuscript/ave-kb/vol5/claim-quality.md}:190, \texttt{clm-u4vmgk}, solidity 0.30) ``sub-3 \AA'' is ``a qualitative classification, not a precision metric''. Scope callout above, \S``Biophysical Coarse-Correctness Benchmark''.
 \end{itemize}
 \end{summarybox}
 
