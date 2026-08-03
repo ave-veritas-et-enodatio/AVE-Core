@@ -190,6 +190,66 @@ Six carry a pre-existing repo receipt and were re-read from it rather than from 
 
 ---
 
+### §1 continued — the 2026-08-03 Petermann re-audit opens (items 22–24), appended 2026-08-03
+
+> **Why appended.** Per the 2026-07-26 ruling that opened items 13–20 (Grant, verbatim `[sic]`: *"do the rec"* — *every* open and *every* ruling gets a repo-tracked row so the queue survives outside the session). The re-audit of PR #857 (`kb/petermann-artifact-record`) surfaced three questions the repair lane deliberately did **not** answer. All three are **Grant-facing physics/scope calls**; none is an implementer decision. Each row: **status / the one-line ask / receipt pointers.**
+>
+> **Arithmetic provenance.** Every number below was **re-measured by the repair lane on this branch** (not transcribed): the driver at `src/scripts/vol_2_subatomic/simulate_g2_direction2.py`, canonical `ALPHA` from `ave.core.constants`. Where a figure is *asserted* rather than measured it says so.
+
+22. **The factor-2 normalization fork — leaf `:47` vs `:48`. ⚑ OPEN / ROUTED to Grant. Not adjudicated; a normalization-ledger lane is OFFERED and awaits a GO.**
+    - **The ask (one line):** *which prefactor on $\langle (S_d-S_q)(-\dot\Sigma_{near})\rangle$ is substrate-derived — and is this a physics question at all, or a faceplate-convention bug?*
+    - **What it is.** In the **same display block, two lines apart**, `q-g19a-petermann-saliency-closure.md:47` writes $\Delta a_e^{(2)} = (1/\pi^2)\langle\cdot\rangle(\alpha/\pi)$, which with the textbook $\Delta a^{(2)} \equiv C_2(\alpha/\pi)^2$ **implies** $C_2 = \langle\cdot\rangle/(\pi\alpha)$; `:48` **asserts** $C_2 = 2\langle\cdot\rangle/(\pi\alpha)$. Inconsistent by exactly 2.
+    - **Three candidate conversions, measured on this branch** (symmetric Stage-1, $\langle\cdot\rangle = -3.9160489803942641\times10^{-3}$):
+
+      | Prefactor | $C_2^{\text{sym}}$ | vs PDG $-0.328478965$ |
+      |---|---|---|
+      | $\tfrac{1}{2}\langle\cdot\rangle/(\pi\alpha)$ | $-0.085409$ | **+74.0 %** |
+      | $\langle\cdot\rangle/(\pi\alpha)$ (leaf `:47` implied) | $-0.170818$ | **+48.0 %** |
+      | $2\langle\cdot\rangle/(\pi\alpha)$ (leaf `:48`, driver `:189`, `.tex:516`) | $-0.341635$ | **−4.005 %** |
+
+    - **★ The verdict does NOT ride on this.** Outcome C stands under every branch: the Direction-2 discrimination demands **0.145 %**, so the shortfall is **28×** with the 2 and **331×** without it. Recording this so the row is not mistaken for a rescue path (Rule 11) — it is a **correctness** question about what the corpus prints, not a live route to a match.
+    - **The proposed discriminator — the FIRST-ORDER ANCHOR test (cheap, not yet run).** Run the *same* normalization chain ($1/\pi^2$ Schwinger form factor × one $\alpha/\pi$ loop factor) at **Schwinger order**, where the answer is independently pinned at $A_1 = 1/2$ by `simulate_g2.py` (driver `:75-78`), and see which of the three prefactors the chain returns. If the first-order anchor is reproduced by only one prefactor, the fork closes without a walk.
+    - **Four candidate physical sources of the 2 (none adjudicated; list not claimed exhaustive).**
+      1. **Faceplate-vs-Petermann convention** — $a_e = A_1(\alpha/\pi)+A_2(\alpha/\pi)^2$ vs $a_e = (\alpha/2\pi)[1+2C_2(\alpha/\pi)]$, so $A_2 = 2A_1C_2 = C_2$ at $A_1=1/2$. The driver's `correlation_to_A2` **docstring derives** $A_2 = \langle\cdot\rangle/(\pi\alpha)$ and its **code returns** $2\langle\cdot\rangle/(\pi\alpha)$. If this is the source, the fork is **bookkeeping, not physics**.
+      2. **LC equipartition** $E_L = E_C = E_{tot}/2$ — the same $1/2$ the corpus already uses in $\delta = -\alpha n_q/2$ (leaf `:85`; Vol 4 Ch 1:175-184 Virial sum via leaf `:221`). A correlation built from **one** reactive store needs ×2 for both.
+      3. **The two-axis d/q split** — each phase-space axis carries half the Schwinger budget ($A_{d,peak}^2 = A_{q,peak}^2 = 2\pi\alpha$, total $4\pi\alpha$; leaf `:53`, driver `:103-107`). A per-axis quantity needs ×2 for the pair.
+      4. **The spinor double cover** — SU(2)→SO(3): the (2,3) portrait closes on the Clifford torus after $4\pi$ of carrier phase, so a cycle-average taken over $2\pi$ carries a factor 2 against a full closure. ⚑ **Structural candidate only — no receipt in this leaf**, unlike 1–3.
+    - **⚑ The corpus already half-adjudicated it, one direction only.** The 2026-05-18 walk-back **doubled $\Delta a_e$ and held $C_2$** (leaf `:216`, verbatim: *"computed with a silent factor of $1/2$"*; *"is independent of the conversion arithmetic and is preserved"*). The opposite branch — hold $\Delta a_e$, halve $C_2$ — was never considered and `:47` was never updated. **A residual site of that halving still survives in the leaf's own §"Numerical robustness" table** ($\Delta a_e = -9.21\times10^{-7}$, the un-doubled form, against the Stage-2 display's $-1.772\times10^{-6}$; the row's PDG cell is likewise half the textbook value). The row is internally self-consistent, so its $+4.0\%$ is unaffected — but it prints the **opposite convention** from the Stage-2 display two sections above.
+    - **Lane OFFERED, awaiting GO: a normalization-ledger lane** — one pass that (i) runs the first-order-anchor test, (ii) enumerates every site in leaf + `.tex` + driver + the addendum that carries either convention, (iii) proposes ONE canonical form with the 2 sourced or retired. **Nothing fires without Grant's word**; per substrate-adjudicates-forks the anchor test, not fiat, should pick the branch.
+    - **Receipts:** `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`:47,:48,:53,:85,:216 + §"Numerical robustness" table + the F5 block · `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex`:516 · `src/scripts/vol_2_subatomic/simulate_g2_direction2.py` `correlation_to_A2` (docstring-vs-return) · `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md` §D last bullet · PR **#857** + its 2026-08-03 amendment comment · docket `2026-08-03-petermann-amendments` F5.
+    - **Status: OPEN — ROUTED to Grant** (Grant is walking it in-chat as of 2026-08-03). **No lane fired.**
+
+23. **The falsifier-precision decision — leaf `:236` asserts a threshold the instrument cannot resolve. ⚑ OPEN / ROUTED to Grant.**
+    - **The ask (one line):** *once no ppm label on $C_2$ is defensible, what precision does the electron falsifier assert — or does the falsifier come down?*
+    - **What it is.** The 2026-08-03 ruling struck **every** ppm deviation label on $C_2$, with **no number substituted, not even the converged 60**. But leaf `:236` still reads, live: *"if the (2,3) electron's Petermann coefficient saliency $\neq -3\alpha/2$ **at 50 ppm precision**, the n_q-additivity assumption is falsified at the lepton scale."* That is a **falsification threshold**, not a deviation claim — which is why the strike lane correctly left it — but it is **the same 50 ppm the ruling just retired**, and the two limiters that killed the deviation labels kill the threshold too: with $dC_2/d\tau = -11.4555$ and $\tau_{retard}$ **asserted, not derived**, a 50 ppm threshold needs $\tau$ known to **1.43 ppm**, which nothing supplies.
+    - **★ Classification (re-audit finding 5, recorded here because it was correct):** changing a falsifier's asserted precision is a **physics decision**, not a label sweep. It is not the strike lane's to make and it is not the repair lane's either. It is this row.
+    - **Options on the table (none picked, none recommended-as-ruled):** (a) restate the threshold in a $\tau$-independent quantity; (b) restate it as a **relative** threshold against Stage-1's own parameter-free forward, which carries no $\tau$-precision claim; (c) demote the falsifier to non-quantitative pending a derived $\tau$; (d) retire it — the postulate it tests was already **RESOLVED NEGATIVE 2026-05-31**, so the falsifier may have no live work to do.
+    - **Receipts:** leaf `:236` (Falsifier sentence, live) · leaf §"ppm-STRIKE RULING" (the ruling + its two limiters, and its own flag that this mention was left unstruck *"deliberately"*) · `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md`:126 (the *asserted-not-derived* concession) · `research/2026-05-31_FT-b-saliency-derivability_result.md` (the RESOLVED-NEGATIVE n_q-additivity finding) · docket `2026-08-03-petermann-amendments` F6.
+    - **Status: OPEN — ROUTED to Grant.** No sweep, no relabel, no lane.
+
+24. **Op14 local-clock modulation of the retardation — the driver retards by COORDINATE phase. ⚑ OPEN / ROUTED to Grant (physics call).**
+    - **The ask (one line):** *should $\tau_{retard}$ be one Compton transit of the **coordinate** clock, or of the **saturation-modulated local substrate clock** — and if the latter, does the leverage swallow the whole Stage-1 result?*
+    - **What it is (substrate-native-check Checkpoint 5, fired during the R1 refactor).** `route_b_correlation` evaluates the retarded rate at $s = t - \tau_{retard}$ with $\tau_{retard}$ a **coordinate**-phase offset. But Axiom-4 / Op14 saturation makes the local clock run slow exactly where the strain is: $\omega_{local} = \omega_{global}\sqrt{1-A^2}$. The correlation is evaluated **along the trajectory**, i.e. at strains up to $A_{peak}^2 = 2\pi\alpha$ — so the retardation is being applied in a clock the substrate does not keep at the sites where the kernel asymmetry is largest.
+    - **Measured on this branch (all four figures re-derived here, canonical `ALPHA`):**
+
+      | Quantity | Value |
+      |---|---|
+      | $A_{peak}^2 = 2\pi\alpha$ | $0.0458506$ |
+      | $S = \sqrt{1-A^2}$ at peak strain (local-clock factor) | $0.9768057$ |
+      | $\sqrt{S}$ | $0.9883348$ |
+      | propagation quantity ⇒ $2(1-\sqrt{S})$ | $\mathbf{2.33\ \%}$ |
+      | one-leg $(1-\sqrt{S})$ | $1.17\ \%$ |
+
+    - **★ The leverage, and why this row matters more than any ppm question.** With the measured $dC_2/d\tau = -11.4555$: a $2.33\%$ shift in $\tau$ moves $C_2$ by $-0.267$ = **78 % of $C_2$**; the one-leg $1.17\%$ moves it $-0.134$ = **39 %**. Against the Stage-1 forward's **$+4.0053\%$** gap that is **10–20× the whole thing**. A convention question about *which clock* therefore **dominates** the Stage-1 result — the one result in this chain that is parameter-free and still standing.
+    - **⚑ Do not read this as a rescue route.** The moves are in the **wrong direction and far too large** — $-39\%$ to $-78\%$ against a $+4\%$ gap and a $0.145\%$ requirement. If anything the correct reading of this row is that it is a **stability** problem for Stage 1, not an opportunity. Rule 11: it gets recorded as what it is.
+    - **What it is NOT.** Not a driver bug — the driver does what its docstring says. Not an implementer call — which clock the retardation is measured in is a **substrate-physics** question about what "one Compton-loop transit" means, and it is adjacent to the already-open $\tau_{retard}$ convention question (*one transit* vs *one full lap* $2\pi/\omega_C$) that #857 routed and that remains unanswered.
+    - **Receipts:** `src/scripts/vol_2_subatomic/simulate_g2_direction2.py` `route_b_correlation` (the $s = t - \tau$ line) + `_kernel_S` (the $\sqrt{1-A^2}$ kernel) · `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md`:126 (τ asserted, not derived) + its 2026-08-03 addendum §D (the $dC_2/d\tau = -11.4555$ slope, re-measured) · leaf §"ppm-STRIKE RULING" limiter 1 · leaf F-block item **(b)**, the *one transit vs one lap* convention question, still open · `substrate-native-check` Checkpoint 5 (local-clock modulation).
+    - **Status: OPEN — ROUTED to Grant.** No lane fired; no value changed; the driver is **not** modified on the strength of this.
+
+> **⚑ Post-push survival check on this file (2026-08-03).** The `:28` preamble asserts a `merge=ours` silent-drop hazard on this doc; the 2026-08-02 block's own corrected merge note at `:170-189` shows that mechanism **does not exist** (no `merge.ours.driver` configured; real collisions surface as loud conflicts) and routes a corpus-wide correction of the `:28` belief to Grant, untouched here. Following the guidance anyway: items 22–24 were **re-read at the pushed tip after push** and confirmed present. Recorded in the PR comment for `kb/petermann-artifact-record`.
+
+---
+
 ## §2 — Frontier queue (item-3 standing authorization: derivation-class fires with judgment; build-class parked)
 
 | # | Lane | Status |
