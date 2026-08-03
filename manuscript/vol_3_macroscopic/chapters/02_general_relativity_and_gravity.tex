@@ -228,8 +228,32 @@ In a true K4-TLM Diamond lattice, the presence of mass is implemented strictly v
 
 This builds a static $Z_{local}$ gradient across the network:
 \begin{equation}
-    Z_{\text{local}}(r) = \frac{Z_0}{S^{1/4}}
+    Z_{\text{local}}(r) = \frac{Z_0}{S^{1/2}} = \frac{Z_0}{\sqrt{S}}
 \end{equation}
+
+\noindent\textbf{Register correction (2026-08-02, propagating the KB
+correction of 2026-07-14; prior form preserved per Rule~12).} This equation
+previously read $Z_{\text{local}}(r) = Z_0/S^{1/4}$ --- the legacy register
+that let the quarter-power Family-E exponent $S^{1/4} = (1 - A^2)^{1/8}$ ride
+in un-propagated. The canonical Op~14 dynamic-impedance register is
+$Z_{\text{eff}} = Z_0/\sqrt{S}$
+(\kbleaf{ave-kb/common/operators.md}:54; engine:
+\texttt{src/ave/topological/cosserat\_field\_3d.py}:425, \texttt{Z\_eff =
+1.0 / jnp.sqrt(S\_safe)}), and the corrected form above is the one this
+section's simulation actually integrates. Canonical:
+\kbleaf{ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md}:22,
+:25-35 (KEEP-BOTH register-correction banner).
+
+\noindent\textbf{Downstream flag (flag-don't-fix; not repaired here).}
+With $Z_{\text{local}} = Z_0/\sqrt{S}$, the $c_{\text{local}}$ relation
+printed immediately below yields $c_{\text{local}} = c_0 S^{1/4}$, which
+still differs from the canonical Op~16 shear/lensing slow-down
+$c_{\text{shear}} = c_0\sqrt{S}$ (\kbleaf{ave-kb/common/operators.md}:56).
+That $c_{\text{local}}$ derivation relation is a SEPARATE un-propagated
+item --- it touches the still-open sign/ontology fork --- and is deliberately
+not silently rewritten here, matching the auditor flag carried at
+\kbleaf{ave-kb/vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md}:30-35.
+
 The refractive index operates directly within the explicit 4-port scattering matrices ($S_{ij} = \frac{y_{local}}{2} - \delta_{ij}$), passively slowing the effective wave speed $c_{\text{local}} = c_0 \sqrt{Z_0/Z_{\text{local}}}$.
 
 A photon wavepacket is injected into the lattice, propagating toward the mass defect with a finite impact parameter.

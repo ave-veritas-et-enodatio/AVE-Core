@@ -124,6 +124,26 @@ As the massive conductive fluid core ($R \approx 3,480$ km) rotates physically i
     \mathcal{E}_{emf} = ( \omega_\oplus \cdot R_{core} \cdot \Gamma_{sagnac} ) \cdot B_{stator} \cdot (2 R_{core})
 \end{equation}
 
+\noindent\textbf{Register note (2026-07-14) --- the magnetopause
+$\Gamma = +1$ is a defensible open-circuit convention, TAGGED not flipped.}
+The ``$+1$ reflection boundary'' above reads the magnetopause as an
+\emph{open circuit} ($Z \to \infty$, pressure/voltage antinode), which
+returns an in-phase reflection and so doubles the induced Sagnac EMF.  That
+is physically consistent with a \textbf{pressure-balance} boundary
+($B^2/2\mu_0 = \tfrac12 \rho_{sw} v_{sw}^2$), where the planetary field is
+confined and the solar wind excluded.  It is \textbf{not} an error and is
+\textbf{not} flipped to $\Gamma = -1$: it lives on the pressure-balance
+boundary register, which is distinct from the electron-scale
+amplitude-level-set $\Gamma = -1$ total-internal-reflection wall
+($S(A) \to 0$).  The only tension is with the universal $\Gamma = -1$
+heading of the six-scale boundary table, resolved there by the same
+boundary-register tag (magnetopause $=$ pressure-balance register, not
+amplitude level-set).  \emph{Flag-don't-fix}: the $\Gamma = +1$ versus
+universal-$\Gamma = -1$ framing is a register distinction, surfaced rather
+than silently reconciled by flipping either side.  Canonical:
+\kbleaf{ave-kb/vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md}:18
+and \kbleaf{ave-kb/common/boundary-observables-m-q-j.md}:59.
+
 For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma_{sagnac} \approx 1836$ for baryonic phase boundaries --- the cross-scale identification $\Gamma_{sagnac} = m_p/m_e$, a numerical correspondence not independently derived) against a piled-up Solar Wind Magnetopause ($B \sim 400$ nT), this produces a driving electric potential of approximately $1.3 \times 10^6$ V. Integrating this topological voltage across the AC inductive reactance of the core ($Z = \omega L \approx 3.2 \times 10^{-4}\;\Omega$) yields an eddy current $I_{eddy} \approx 4.0 \times 10^9$ A.
 
 \begin{resultbox}{Planetary Magnetic Dipole (AC Motor Output)}
