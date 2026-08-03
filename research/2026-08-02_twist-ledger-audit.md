@@ -208,7 +208,7 @@ So the (2,3) has a **real-space mechanical-ω image on the couple-stress/curvatu
 
 **(a) The energy-arithmetic inconsistency.** If the ladder is real and physical, an $n=0$ ground state on a **massive, costly** grade with a geometrically nonzero $\mathrm{Tw}=3/2$ carries a nonzero ground-rung energy $E_0$ (the zero-point of any real oscillator ladder is not zero). Canon's electron closure has **no slot for $E_0$** (§2, T3's $\tfrac12+\tfrac12$ is closed) and canon's ladder declares $n=0$ excitation-free ([`lepton-spectrum.md`](../manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/lepton-spectrum.md):21). **These are compatible only if the ground-state (2,3) twist costs exactly zero — which no site derives, and which §3.3 + §3.2 + [`trampoline-framework.md`](../manuscript/ave-kb/common/trampoline-framework.md):559 all contradict.**
 
-**(b) The spacing inconsistency (quantitative, §6).** The $n=0\to1$ rung costs $205.8\,m_ec^2$ (CODATA anchors) / $208.3\,m_ec^2$ (canon's closed form). The ground-rung twist energy, priced from canon's own $\gamma_c$ inputs on the **lattice-scale** normalization, lands at $\mathbf{O(10)-O(10^2)}\,m_ec^2$ (§6.3). **A ladder whose ground rung is within one order of magnitude of its first spacing is not a small perturbation on a torsion-free ground state** — it means the electron's own mass is *substantially* the twist energy the closure omits, and $m_e$ would not be the "torsion-free" anchor the whole ladder is built on. On the **weak-scale** normalization it is $\sim10^{-11}\,m_ec^2$ and the problem evaporates entirely. **The two readings are 12 orders apart and canon has not chosen — §6.2.**
+**(b) The spacing inconsistency (quantitative, §6).** The $n=0\to1$ rung costs $205.8\,m_ec^2$ (CODATA anchors) / $208.3\,m_ec^2$ (canon's closed form). The ground-rung twist energy, priced from canon's own $\gamma_c$ inputs on the **lattice-scale** normalization, lands at $\mathbf{O(10)-O(10^2)}\,m_ec^2$ (§6.3). **A ladder whose ground rung is within one order of magnitude of its first spacing is not a small perturbation on a torsion-free ground state** — it means the electron's own mass is *substantially* the twist energy the closure omits, and $m_e$ would not be the "torsion-free" anchor the whole ladder is built on. On the **weak-scale** normalization it is $\sim10^{-11}\,m_ec^2$ (one-sig-fig input; §6.3 R2/R2b) and the problem evaporates entirely. **The two readings are 12 orders apart and canon has not chosen — §6.2.**
 
 ### 4.3 What "no torsional excitation is present" does and does not zero — the precise scope
 
@@ -249,7 +249,7 @@ This is the closest thing canon has to a **ZERO** answer, so its scope must be e
 
 **Honest size of the hole (the two-sided answer, §6):** the magnitude is **gated on an already-flagged, unadjudicated symbol collision** — canon carries **two** Cosserat lengths, both written $\ell_c=\sqrt{\text{couple-stress}/\text{shear}}$, **6 orders of magnitude apart** ([`constants.py`](../src/ave/core/constants.py):331-337, *"Surfaced for auditor adjudication … not silently merged"*). Since $E_{\text{twist}}\propto\gamma_c\propto\ell_c^2$, the ballpark spans **12 orders**:
 - **lattice-scale $\ell_c=\sqrt6\,\ell_{node}$ → $E_{\text{twist}}\sim 2\times10^{1}$ to $2\times10^{2}\ m_ec^2$** — the hole is *larger than the particle*, and the ledger is broken.
-- **weak-scale $\ell_c\approx10^{-18}$ m → $E_{\text{twist}}\sim2\times10^{-11}\ m_ec^2$** — the hole is negligible and "UNACCOUNTED" is a bookkeeping nit, not a physics problem.
+- **weak-scale $\ell_c\approx10^{-18}$ m → $E_{\text{twist}}\sim10^{-11}\ m_ec^2$** (input is **one significant figure**; sharpened to $r_W=\hbar/(m_Wc)$ it is $1.4\times10^{-10}$ — §6.3 R2b, negligible either way) — the hole is negligible and "UNACCOUNTED" is a bookkeeping nit, not a physics problem.
 
 **So the twist-ledger question REDUCES TO an already-open corpus adjudication.** That is the most useful thing this audit produces: it converts a new open question into a **decision that was already on the board** and shows that decision is load-bearing for the electron's mass ledger and the entire generation spectrum — not just for naming conventions in Vol 9.
 
@@ -257,7 +257,7 @@ This is the closest thing canon has to a **ZERO** answer, so its scope must be e
 
 ## §6 The ballpark — canon-supplied inputs only
 
-**Class: paper arithmetic, order-of-magnitude only. NOT a simulation, NOT a prediction, mints nothing.** Driver: `research/drivers/twist_ledger_ballpark.py` (added by this doc; pure-constants, no solver, no lattice). Re-runnable: `PYTHONPATH=src .venv/bin/python research/drivers/twist_ledger_ballpark.py`.
+**Class: paper arithmetic, order-of-magnitude only. NOT a simulation, NOT a prediction, mints nothing.** Driver: `research/drivers/twist_ledger_ballpark.py` (added by this doc; pure-constants, no solver, no lattice; **zero constants duplicating `ave.core.constants`, plus four canon-quoted numerics each cited inline** — `XI_K1 = 8/3`, `XI_K2 = 32`, `TW_TURNS = 3/2`, `L_C_WEAK = 1e-18 m`). Re-runnable: `PYTHONPATH=src .venv/bin/python research/drivers/twist_ledger_ballpark.py`.
 
 ### 6.1 ★A dimensional defect found in the canonical $\xi_K$ relation (FLAG-2, not repaired)
 
@@ -308,7 +308,8 @@ Geometry, all canon: $C_{loop}=\ell_{node}$ ([`electron-unknot.md`](../manuscrip
 |---|---|---|---|
 | **R1a** lattice-scale via $G_{vac}\ell_c^2$, $\ell_c=\sqrt6\ell_{node}$ — **⚠ deliberate CROSS-MODULUS HYBRID, labelled below** | $6.360\times10^{-1}$ N | $1.736\times10^{-12}$ J | **$2.12\times10^{1}$** |
 | **R1b** lattice-scale via $\xi_{K2}\sigma_0\ell_{node}^2$, $\xi_{K2}=32$ (upper: $\gamma=\beta+\gamma$) — **the self-consistent route** | $6.784$ N | $1.852\times10^{-11}$ J | **$2.26\times10^{2}$** |
-| **R2** weak-scale, $\ell_c\approx10^{-18}$ m | $7.109\times10^{-13}$ N | $1.940\times10^{-24}$ J | **$2.37\times10^{-11}$** |
+| **R2** weak-scale, $\ell_c\approx10^{-18}$ m — **ONE significant figure**, canon's own order-of-magnitude stand-in | $7.109\times10^{-13}$ N | $1.940\times10^{-24}$ J | **$\sim10^{-11}$** |
+| **R2b** *(added 2026-08-02 repair pass)* weak-scale sharpened to the actual W Compton length $r_W = \hbar/(m_Wc) = 2.469\times10^{-18}$ m, from the canonical `M_W_MEV` ([`constants.py`](../src/ave/core/constants.py):661) | $4.333\times10^{-12}$ N | $1.183\times10^{-23}$ J | **$1.44\times10^{-10}$** |
 
 R1a vs R1b differ by **10.667×**, and the decomposition is exactly **two** factors:
 
@@ -323,6 +324,8 @@ with $G_{vac}=\rho_{bulk}c^2 = 7.109\times10^{23}$ Pa and $\sigma_0 = m_ec^2/\el
 **Shear-modulus sensitivity, stated explicitly (added 2026-08-02 repair pass).** $E_{\text{twist}}^{R1a}\propto G_{vac}$ **linearly**. Swap $G_{vac}$ for the shear scale `ELL_C` was actually defined against — $2(\mu+\kappa) = 2\xi_{K1}\sigma_0 = 7.583\times10^{24}$ Pa, the denominator in $\ell_c^2=(\beta+\gamma)/[2(\mu+\kappa)]$ — and R1a is multiplied by $2(\mu+\kappa)/G_{vac} = 10.667$, landing **exactly** on R1b. **That identity is the whole 10.667×: R1a and R1b are the same quantity evaluated with two different shear scales, and R1a's is not the one `ELL_C` was defined against.** Verified numerically in the driver.
 
 **Honest lattice-scale bracket: $2\times10^1$ – $2\times10^2\ m_ec^2$** — and it must now be read as a **shear-modulus-choice bracket**, not a physics bracket.
+
+> **⚠ WEAK-SCALE PRECISION QUALIFIED 2026-08-02 (repair pass).** R2's input $\ell_c\approx10^{-18}$ m is **one significant figure** — canon's own order-of-magnitude stand-in for the weak range ([`gauge-boson-masses.md`](../manuscript/ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39; the value *"imported by identification with $r_W\sim10^{-18}$ m"*, [`physics-lineage-map.md`](../manuscript/ave-kb/common/physics-lineage-map.md):220). **Quoting R2 to three figures ($2.37\times10^{-11}$) over-stated its precision.** Two honest forms: quote it to **one figure, $\sim10^{-11}\,m_ec^2$**, or sharpen the input to the actual W Compton length $r_W=\hbar/(m_Wc)=2.469\times10^{-18}$ m — **row R2b**, which is $\sim6\times$ larger in $\gamma_c$ and gives $1.44\times10^{-10}\,m_ec^2$. **The conclusion is negligible either way**, which is exactly why the imprecision was harmless but should not have been dressed as precision.
 
 ### 6.4 ★The muon-rung near-coincidence — recorded, and explicitly NOT claimed
 
@@ -505,7 +508,9 @@ kappa = 2 pi Tw / l_node,  Tw = 3/2        = 2.4406e+13 1/m
 V_tube = l_node^3 / (4 pi)                 = 4.5824e-39 m^3
 R1a  gamma_c = G_vac * ELL_C^2 = 6.3604e-01 N  -> E_twist = 2.1206e+01 m_e c^2
 R1b  gamma_c = xi_K2*sigma_0*l^2 = 6.7844 N    -> E_twist = 2.2619e+02 m_e c^2   (= 72 pi)
-R2   gamma_c = G_vac * (1e-18 m)^2 = 7.1089e-13 N -> E_twist = 2.3701e-11 m_e c^2
+R2   gamma_c = G_vac * (1e-18 m)^2 = 7.1089e-13 N -> E_twist ~ 1e-11 m_e c^2  (1 sig fig in)
+R2b  gamma_c = G_vac * r_W^2, r_W = hbar/(m_W c) = 2.4690e-18 m
+     -> gamma_c = 4.3334e-12 N -> E_twist = 1.4448e-10 m_e c^2  (~6x R2; still negligible)
 R1b/R1a = 10.6667 (= 32/3, internal spread) |  R1a/R2 = 8.9471e+11 (the 12-OOM gate)
 --- R1b/R1a decomposition + shear sensitivity, added 2026-08-02 repair pass ---
 coefficient  xi_K2 / (ELL_C^2/l_node^2)    = 32/6 = 5.3333

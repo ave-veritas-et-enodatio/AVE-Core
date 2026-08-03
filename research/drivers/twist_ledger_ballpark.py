@@ -35,24 +35,34 @@ from ave.core.constants import (
     C_0,
     ELL_C,
     G_VAC,
+    HBAR,
     L_NODE,
     M_E,
     M_MUON,
+    M_W_MEV,
     RHO_BULK,
     T_EM,
     e_charge,
 )
 
 # --- canon geometry (each line carries its cite) ---------------------------
+# NOTE (2026-08-02 repair pass): these FOUR are canon-quoted numerics, each with its
+# cite inline. They are NOT duplicates of anything in ave.core.constants -- no constant
+# in this file shadows a constants.py symbol (ave-canonical-source). Do not describe
+# the driver as having "zero hard-coded constants"; describe it as having zero
+# constants that duplicate ave.core.constants.
 XI_K1, XI_K2 = 8.0 / 3.0, 32.0  # q-g47-substrate-scale-cosserat-closure.md:58
 TW_TURNS = 3.0 / 2.0  # Tw = q/p, 540 deg/rev: 2026-06-07_vacuum-characterization-program.md:59
-L_C_WEAK = 1.0e-18  # weak-force range: gauge-boson-masses.md:39
+L_C_WEAK = 1.0e-18  # weak-force range, ORDER-OF-MAGNITUDE ONLY: gauge-boson-masses.md:39
 
 MEC2 = M_E * C_0**2
 C_LOOP = L_NODE  # electron-unknot.md:28
 R_0 = L_NODE / (2.0 * np.pi)  # electron-unknot.md:11 ; weak-coupling.md:18
 V_TUBE = np.pi * R_0**2 * C_LOOP  # = l_node^3 / (4 pi)
 KAPPA = 2.0 * np.pi * TW_TURNS / C_LOOP  # |grad omega| along the loop [rad/m]
+# W-boson Compton length, from the canonical M_W_MEV (constants.py:661). Used only as
+# a sensitivity on L_C_WEAK's one-sig-fig "~1e-18 m" (audit sec.6.3, FLAG-8 repair).
+R_W_COMPTON = HBAR * C_0 / (M_W_MEV * 1.0e6 * e_charge)
 
 
 def main() -> None:
@@ -138,6 +148,8 @@ def main() -> None:
     print("=" * 78)
     print(f"  G_vac    = {G_VAC:.4e} Pa   (= RHO_BULK*C_0**2, rho_bulk = {RHO_BULK:.4e} kg/m^3)")
     print(f"  ELL_C    = {ELL_C:.4e} m  (= sqrt(6)*l_node, constants.py:338)")
+    print(f"  L_C_WEAK = {L_C_WEAK:.4e} m  (ONE sig fig, gauge-boson-masses.md:39)")
+    print(f"  r_W      = {R_W_COMPTON:.4e} m  (= hbar/(m_W c), M_W_MEV constants.py:661)")
     print(f"  V_tube   = {V_TUBE:.4e} m^3 (= l_node^3/4pi)")
     print(f"  Tw       = {TW_TURNS} turns/rev = {TW_TURNS * 360:.0f} deg/rev -> kappa = {KAPPA:.4e} 1/m")
     print("  E_twist  = gamma_c * kappa^2 * V_tube    [cosserat_field_3d.py:713 'gamma kappa.kappa']\n")
@@ -145,6 +157,11 @@ def main() -> None:
         ("R1a  lattice-scale  gamma_c = G_vac*ELL_C^2       ", G_VAC * ELL_C**2),
         ("R1b  lattice-scale  gamma_c = xi_K2*sigma_0*l^2   ", b_g),
         ("R2   weak-scale     gamma_c = G_vac*(1e-18 m)^2   ", G_VAC * L_C_WEAK**2),
+        # R2b: L_C_WEAK is a ONE-SIG-FIG order-of-magnitude stand-in. Sharpen it to the
+        # actual W Compton length r_W = hbar/(m_W c), using the canonical M_W_MEV
+        # (constants.py:661) -- ~2.45x larger, so gamma_c ~6x larger. Conclusion
+        # (negligible) is unchanged either way. Audit sec.6.3 / FLAG-8 repair.
+        ("R2b  weak-scale     gamma_c = G_vac*r_W^2, r_W=h/m_Wc", G_VAC * R_W_COMPTON**2),
     )
     for lab, gam in rows:
         e = gam * KAPPA**2 * V_TUBE
