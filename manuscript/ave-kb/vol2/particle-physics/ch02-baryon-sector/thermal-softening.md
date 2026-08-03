@@ -36,6 +36,9 @@ where the residual thermal correction factor $\delta_{th} = 1/(14\pi^2)$ capture
 
 The product evaluates to $\delta_{th} = \frac{\nu_{\text{Hill}}}{\kappa_{cold}} \times \frac{2}{\pi} = \frac{2/7}{8\pi} \times \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00721$. Together with the gradient saturation inside the energy functional, this produces proton mass agreement to better than $0.1\%$ and validates the baryon ladder through crossing number $c = 15$ with maximum error $2.4\%$.
 
+
+> **[FLAGGED-NOT-FIXED — 2026-08-02, #847 audit R3.]** The sentence above still reads "**validates** the baryon ladder". Print walked that verb back on 2026-06-19 — `manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex:131` now reads "**covers**" with the explicit rider *"Read 'covers' as consistency, not ensemble-validation"*, and the demotion is canonical KB-side too (`vol4/claim-quality.md:760`; `vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md:14,:29,:35`). This leaf is the LAST KB site carrying the pre-walk-back verb. Not synced here: this lane's mandate at this site was the ν_Hill relabel, and the verb sync is a distinct discharged decision — surfaced so it is not lost, routed to the next KB propagation pass.
+
 ### The Faddeev-Skyrme Coupling Constant ($\kappa_{FS}$)
 
 The quartic Skyrme stabilization term requires a dimensionless coupling constant $\kappa_{FS}$ that sets the relative strength of the fourth-order repulsive gradient against the second-order attractive gradient. In the AVE framework, this coupling is not a free parameter but is derived directly from the packing fraction:
