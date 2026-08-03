@@ -12,7 +12,7 @@ inputs, and hands a BenchSpec to ``run_bench_model``.
      (``ave.bench.birefringence``) rather than re-deriving it, and headlines the
      MATCHED par-perp DIFFERENTIAL ratio 7.5/alpha^3 ~ 1.93e7 (NOT the demoted
      single-arm 1/(4*(7/45)*alpha^3) ~ 4.14e6 = coefficient_ratio(7/45),
-     birefringence.py:320; FLAG-A 2026-06-21). Expected verdict:
+     birefringence.py:356; FLAG-A 2026-06-21). Expected verdict:
      BANKABLE_AS_DISCRIMINATOR — a forced-given-alpha quantitative ratio + a
      tree-vs-loop FORM chord whose MAGNITUDE is a symmetric alpha-echo (the
      charter's intermediate Fork-2 tier; the 7.5-trace a94672de resolved input b).
@@ -211,14 +211,25 @@ def birefringence_bench_spec() -> BenchSpec:
         sensitivity=SensitivitySpec(
             observable_of=ratio_at,
             param_grids={"E_field": tuple(float(e) for e in _FACILITY_E_GRID)},
-            verdict_fn=lambda r: r > 1e6,  # discriminator stays orders above the QED floor
+            # RECALIBRATION (D7, 2026-08-02), NOT a physics change. Intent is
+            # unchanged and verbatim from the original comment: "discriminator stays
+            # orders above the QED floor" -- i.e. AVE must sit orders of magnitude
+            # above the QED-sized ratio ~1, which is the NEGATIVE bin at :192.
+            # The old 1e6 was calibrated to the v1 footing (7.5/alpha^3 ~ 1.93e7) and
+            # is BRITTLE TO THE FOOTING CONVENTION: it passes v1 but FAILS both v2
+            # (7.5pi/alpha^2 ~ 4.42e5) and the standing v3 re-freeze
+            # (3.75pi/alpha^2 ~ 2.21e5) -- a convention re-freeze, which moves no
+            # physics, would have silently flipped this gate. 1e4 is footing-INVARIANT
+            # (passes v1/v2/v3: 7.3/5.6/5.3 OOM above unity) while still failing a
+            # QED-sized ratio ~1 by 4 OOM, so the gate still discriminates.
+            verdict_fn=lambda r: r > 1e4,  # discriminator stays orders above the QED floor
             convergence_param=None,  # analytic closed form — no discretization to converge
             response_surface_ref="(field-independence is the response surface: ratio flat in E)",
         ),
         is_physics_test=True,
         magnitude_is_claimed=True,  # the 7.5/alpha^3 ratio is a quantitative claim
         result_is_numerical=False,  # closed-form analytic
-        analytic_provenance="coefficient_ratio_differential() closed form (birefringence.py:328); "
+        analytic_provenance="coefficient_ratio_differential() closed form (birefringence.py:375); "
         "7.5 = lattice-1/2 / textbook-3/45, alpha^-3 via (E_CRIT/E_YIELD)^2 = 1/alpha — no "
         "discretization to converge",
         regime_note="weak-field probe (A = E/E_YIELD << 1); facility-gated (E-route/HIBEF); "

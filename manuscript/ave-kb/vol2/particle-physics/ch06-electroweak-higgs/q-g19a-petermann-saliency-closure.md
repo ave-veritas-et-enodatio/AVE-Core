@@ -94,6 +94,8 @@ $$
 
 versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%) at the $C_2$ level.**
 
+> **[Display-precision record — 2026-08-02; SECOND HALF RETRACTED 2026-08-02 per the #847 audit (R1).]** The two numbers **as printed** do not reproduce the stated deviation: $|-0.32846 - (-0.32848)|/0.32848 = 6.089 \times 10^{-5} \approx \mathbf{61\ ppm}$, not 50 ppm. ~~The 50 ppm figure requires the **unrounded** $C_2^{\text{AVE}} \approx -0.3284636$ (which gives $49.9$ ppm); $-0.32846$ is that value displayed to five decimals, and the rounding alone moves the apparent deviation by $\sim 11$ ppm — about 20% of the headline.~~ **RETRACTED:** that reconciling value has **zero corpus provenance** (repo-wide grep for `3284636`/`328463`/`328464` returns 0 hits; it is exactly back-solved from the headline as $-0.32848 \times (1 - 50\times10^{-6})$), and the corpus's own live driver disagrees with the leaf outright: `src/scripts/vol_2_subatomic/simulate_g2_direction2.py` returns $C_2^{\text{AVE}} = -0.328427$ (rounding to $-0.32843$, **~158 ppm** vs PDG), corroborated at `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md:51,:64`. **What is verifiable, and all that is recorded here:** the printed digits give 61 ppm; the headline says 50 ppm; the live driver gives ~158 ppm; the three do not reconcile. **ROUTED, not adjudicated:** which value is the corpus's Petermann coefficient — the leaf's $-0.32846$ (carried since 2026-05-18) or the driver's $-0.328427$ — is a core-session question. No value is changed and no claim is withdrawn here; the Stage-2 headline is postulate-conditional either way.
+
 Total Schwinger + Petermann shift:
 
 $$
@@ -125,6 +127,12 @@ Per the n_q-additive derivation chain, the saliency scales linearly across the $
 **Falsifier** (within the lepton single-loop topology): if the (2,3) electron's Petermann coefficient saliency $\neq -3\alpha/2$ at 50 ppm precision, the n_q-additivity assumption is falsified at the lepton scale. The n_q-additive saliency formula applies WITHIN single-loop lepton topology (electron); extension to baryon Borromean 3-loop topology requires separate derivation (see Q-G27 for the muon Cosserat-torsion saliency).
 
 ## Zero parameters fudged
+
+> **[Stage-1 scope label — 2026-08-02. ADDITIVE: this is a MISSING SCOPE LABEL, not a walk-back. Nothing below is struck, retracted or restated; no verdict moves; no value changes.]**
+>
+> **No fit parameters — *at Stage 1*.** The enumeration below is exactly the **Stage-1** ingredient list — the trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2$ form factor, the $\alpha/\pi$ loop coupling — and the Stage-2 asymmetry $\delta = -3\alpha/2$ **is not in it**. So the section title and its "No fit parameters" sentence are true **of the Stage-1 forward result** (the parameter-free $+4.0\%$ Route-B Petermann) and are **not** a statement about the Stage-2 closure.
+>
+> The **Stage-2 saliency closure is postulate-conditional.** It rides the n_q-additivity postulate, which is **RESOLVED NEGATIVE (2026-05-31)**: the saturation kernel is provably winding-blind at $\alpha$-order, so $\delta = -3\alpha/2$ is a **1-point fit**, not a winding law (:112, §"What still needs derivation"). The leaf already carries that verdict at the electron row (:123), which labels the 50 ppm match **postulate-conditional** and names the Stage-1 $+4.0\%$ as the parameter-free forward result. This label repeats the leaf's own standing verdict at the one section that most invites reading it unconditionally, and adds nothing to it.
 
 The trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2$ form factor, and the $\alpha/\pi$ loop coupling are all corpus-canonical inputs from Axioms 1–4 and prior derivations. **No fit parameters.** The 97% K4-Bethe-tree result that the legacy `g_minus_2_lattice.py` engine returned was substrate misidentification (wrong K4-discrete substrate instead of correct Cosserat continuous substrate), not a feature of the framework.
 

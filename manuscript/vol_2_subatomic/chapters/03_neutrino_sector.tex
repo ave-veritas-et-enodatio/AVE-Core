@@ -174,10 +174,10 @@ Three distinct boundary conditions arise for the three mode pairs:
 \paragraph{(a) Compliance Regime ($\nu_1 \leftrightarrow \nu_2$, $\Delta c = 2 \le 3$):}
 Below the chiral screening threshold, the compliance channel is open. The regime-boundary eigenvalue gives:
 \begin{equation}
-    \sin^2\theta_{12}^{(0)} = \frac{\Delta c}{c_2} = \frac{2}{7} = \nu_{vac}
+    \sin^2\theta_{12}^{(0)} = \frac{\Delta c}{c_2} = \frac{2}{7} = \nu_{\text{Hill}}
     \label{eq:theta12_leading}
 \end{equation}
-The spacing-to-mode ratio IS the Poisson ratio. This is not coincidence: the torus knot crossing numbers $5, 7, 9$ are separated by $\Delta c = 2$ precisely because the lattice compliance manifold allocates 2 compressive and 5 transverse modes out of 7 total ($\nu_{vac} = 2/7$).
+The spacing-to-mode ratio IS the Poisson ratio. This is not coincidence: the torus knot crossing numbers $5, 7, 9$ are separated by $\Delta c = 2$ precisely because the lattice compliance manifold allocates 2 compressive and 5 transverse modes out of 7 total ($\nu_{\text{Hill}} = 2/7$; the ``Hill'' subscript marks the isotropic Voigt--Reuss--Hill average at the GR-imported $K = 2G$ operating point --- an averaging choice, not a lattice-emergent bound; defined in Ch.~\ref{ch:baryons}).
 
 \paragraph{(b) Impedance-Matched Regime ($\nu_2 \leftrightarrow \nu_3$, $c_2 = $ midpoint):}
 The middle crossing number $c_2 = 7$ is the arithmetic mean of the boundary values: $c_2 = (c_1 + c_3)/2 = (5 + 9)/2 = 7$. At the midpoint of a 3-port mode system, the impedances to the left and right are \textbf{matched}: $Z_{\text{left}} = Z_{\text{right}}$. The reflection coefficient vanishes ($\Gamma = 0$), and energy splits equally:
@@ -202,7 +202,7 @@ The junction coupling $Y_{\text{junc}} = 1/(c_1 c_3) = 1/45$ persists as an evan
 \begin{resultbox}{PMNS Mixing Angles}
 \begin{align}
     \sin^2\theta_{13} &= \frac{1}{c_1 c_3} = \frac{1}{45} \label{eq:pmns_13} \\[4pt]
-    \sin^2\theta_{12} &= \nu_{vac} + \frac{1}{c_1 c_3} = \frac{2}{7} + \frac{1}{45} = \frac{97}{315} \label{eq:pmns_12} \\[4pt]
+    \sin^2\theta_{12} &= \nu_{\text{Hill}} + \frac{1}{c_1 c_3} = \frac{2}{7} + \frac{1}{45} = \frac{97}{315} \label{eq:pmns_12} \\[4pt]
     \sin^2\theta_{23} &= \frac{1}{2} + \frac{2}{c_1 c_3} = \frac{1}{2} + \frac{2}{45} = \frac{49}{90} \label{eq:pmns_23}
 \end{align}
 \end{resultbox}
@@ -239,7 +239,7 @@ Each term has a distinct physical origin:
 \textbf{Parameter} & \textbf{Regime Boundary} & \textbf{AVE Formula} & \textbf{AVE Value} & \textbf{NuFIT 5.2} & \textbf{$\Delta$} \\
 \midrule
 $\sin^2\theta_{13}$ & Screened ($\Delta c = 4 > 3$) & $1/(c_1 c_3) = 1/45$ & 0.02222 & 0.02200 & $1.0\%$ \\
-$\sin^2\theta_{12}$ & Compliance ($\Delta c = 2 \le 3$) & $\nu_{vac} + 1/45$ & 0.30794 & 0.307 & $0.3\%$ \\
+$\sin^2\theta_{12}$ & Compliance ($\Delta c = 2 \le 3$) & $\nu_{\text{Hill}} + 1/45$ & 0.30794 & 0.307 & $0.3\%$ \\
 $\sin^2\theta_{23}$ & Matched (midpoint) & $1/2 + 2/45$ & 0.54444 & 0.546 & $0.3\%$ \\
 $\delta_{CP}/\pi$   & Chiral K4 structure & $(1 + 1/3 + 1/45)$ & 1.3556 & 1.36 & $0.3\%$ \\
 \bottomrule
@@ -247,7 +247,7 @@ $\delta_{CP}/\pi$   & Chiral K4 structure & $(1 + 1/3 + 1/45)$ & 1.3556 & 1.36 &
 \end{center}
 
 \noindent
-\textbf{All four PMNS parameters derive from three inputs}: the torus knot crossing numbers ($c_1 = 5$, $c_3 = 9$), the vacuum Poisson ratio ($\nu_{vac} = 2/7$), and the K4 lattice connectivity (3). The maximum deviation from NuFIT~5.2 is $1.0\%$. No curve fitting is used; the values are computed by \texttt{ave.topological.mixing\_derivation}.
+\textbf{All four PMNS parameters derive from three inputs}: the torus knot crossing numbers ($c_1 = 5$, $c_3 = 9$), the vacuum Poisson ratio ($\nu_{\text{Hill}} = 2/7$), and the K4 lattice connectivity (3). The maximum deviation from NuFIT~5.2 is $1.0\%$. No curve fitting is used; the values are computed by \texttt{ave.topological.mixing\_derivation}.
 
 The derived PMNS matrix is \textbf{unitary} to machine precision ($|U^\dagger U - I| < 10^{-16}$), with Jarlskog invariant $J \approx -0.030$.
 

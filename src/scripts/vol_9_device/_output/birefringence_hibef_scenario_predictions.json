@@ -1,6 +1,7 @@
 {
   "substrate_identity_holds": true,
-  "matched_differential_ratio_7.5pi_over_alpha2_propagating": 442466.5835078048,
+  "matched_differential_ratio_3.75pi_over_alpha2_instantaneous": 221233.2917539024,
+  "matched_differential_ratio_7.5pi_over_alpha2_propagating_v2_history": 442466.5835078048,
   "matched_differential_ratio_15pi_over_alpha2_static": 884933.1670156096,
   "scenarios": [
     {

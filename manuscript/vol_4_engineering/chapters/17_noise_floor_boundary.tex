@@ -76,6 +76,24 @@ The fundamental thermal noise floor for a capacitive measurement is set by the $
     V_{noise} = \sqrt{\frac{k_B T}{C_{total}}} \;\bigg|_{300\text{ K},\; 10\text{ pF}} \approx 20.4\text{ $\mu$V RMS}
 \end{equation}
 
+% 🔴 SUPERSEDED PREDICTION 2026-08-02 (Rule 12 KEEP-BOTH; Eq. below, the SNR sentence, the
+%   operating-envelope box line and the figure caption are PRESERVED VERBATIM -- nothing is
+%   deleted and NO replacement number is supplied). Authority: ave-kb/vol4/falsification/
+%   ch12-falsifiable-predictions/ee-bench-plateau.md:20 -- "★ Supersession (KEEP-BOTH; roll-off
+%   ruling ratified 2026-07-06/07, PR #562/#558). The superseded line read: 'As E -> E_yield:
+%   eps_eff -> 0 and C_eff = C_0/S -> infinity.' -- a spike, SIGN-INVERTED vs the ratified
+%   across-gap roll-off. The across-gap precision LCR couples to the transverse-T2 dielectric
+%   (C ~ S, roll-off, keyed on V_yield ~ 43.65 kV), not to the longitudinal-A1 C_0/S divergence
+%   (keyed on the higher V_snap)"; and :28 -- the protocol line "formerly read 'AVE -> asymptotic
+%   spike at ~85% of E_yield' -- a sign-inverted spike; corrected to the roll-off". The printed
+%   0.85 operating point and the 1.90x / 90% / 10^9 figures are consumers of the superseded
+%   spike. Corrected picture is canonical in dielectric-plateau-prediction.md and
+%   ee-bench-netlist.md, and is already printed in this volume at
+%   12_falsifiable_predictions.tex (roll-off protocol + the figure-caption regeneration note that
+%   relocates the shaded detectable window off the stale 0.85-1.0 E_yield band). NO value refill
+%   here per the reconciliation crib.
+\noindent\textbf{Superseded prediction (2026-08-02, roll-off ruling ratified 2026-07-06/07; the body below is preserved per Rule~12 KEEP-BOTH).} The signal figure computed below rides a \textbf{superseded} form of the EE-bench prediction. The superseded statement was: \emph{as $E \to E_{yield}$, $\varepsilon_{eff} \to 0$ and $C_{eff} = C_0/S \to \infty$} --- an asymptotic \textbf{spike}, and it is \textbf{sign-inverted} with respect to the ratified prediction. An across-gap precision LCR meter couples to the \textbf{transverse-$T_2$} dielectric, whose capacitance \textbf{rolls off} with $S$; the divergent $C_0/S$ form is the \emph{orthogonal} longitudinal-A1 bond compliance, keyed on the higher $V_{snap}$, which an across-gap meter does not read. Consequently the following are \textbf{de-claimed as stated}: the ``$V/V_{yield} = 0.85$ (onset of divergence)'' operating point and the $1.90\times$ / $90\%$ capacitance-change figure below; the signal-to-noise claim built on them; the operating-envelope line ``the predicted AVE capacitance divergence exceeds the thermal noise floor by nine orders of magnitude''; and the figure caption's ``Axiom~4 capacitance divergence signal initiating at $85\%$ of $V_{yield}$''. \textbf{No replacement figure is supplied here} --- this pass records the supersession and does not re-derive the signal. The corrected roll-off protocol, its measurable window and its stability boundary are printed in this volume in Ch.~\ref{ch:falsifiable_predictions} and are canonical at \kbleaf{ave-kb/vol4/falsification/ch12-falsifiable-predictions/ee-bench-plateau.md} and \kbleaf{ave-kb/vol4/falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md}. \emph{Unaffected:} the Johnson--Nyquist noise-floor calculation itself, and Failure Modes~1--3.
+
 The AVE-predicted signal at $V/V_{yield} = 0.85$ (onset of divergence):
 \begin{equation}
     \frac{C_{eff}}{C_0} = \frac{1}{\sqrt{1 - 0.85^2}} \approx 1.90\times \quad \Longrightarrow \quad \frac{\Delta C}{C_0} \approx 90\%

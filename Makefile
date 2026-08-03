@@ -175,6 +175,7 @@ verify-lane-number-checks:
 	$(PYTHON) research/drivers/continuum_radial_solver_number_check.py
 	$(PYTHON) research/drivers/subc_kubc_bracket_number_check.py
 	$(PYTHON) research/drivers/coldq_pole_derivation_number_check.py
+	$(PYTHON) research/drivers/pasteur_kappa_desk_calc_number_check.py
 
 refresh-provenance-baseline:
 	@echo "Regenerating the provenance-stamp grandfather baseline from the live scan (allowed to shrink)..."

@@ -1,6 +1,7 @@
 {
   "substrate_identity_holds": true,
-  "matched_differential_ratio_7.5pi_over_alpha2_propagating": 442466.5835078048,
+  "matched_differential_ratio_3.75pi_over_alpha2_instantaneous": 221233.2917539024,
+  "matched_differential_ratio_7.5pi_over_alpha2_propagating_v2_history": 442466.5835078048,
   "flip_prob_scaling_1e21_over_1e20": 99.82209805467991,
   "flip_prob_scales_as_I_squared": true,
   "ave_exposure_line": [

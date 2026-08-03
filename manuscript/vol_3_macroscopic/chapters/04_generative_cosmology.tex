@@ -358,7 +358,7 @@ Substrate (K4) & SYM & bond-bow / saturation & K4 lattice + soliton formation & 
 \hline
 Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ collapse & Vol 2 Ch~2 + Vol 3 Ch~14 & DT fusion canonical \\
 \hline
-Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$-only) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & KB \texttt{ch09} leaf & \textbf{0.00\% error} \\
+Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$-only) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & KB \texttt{ch09} leaf & 0.00\% --- definitional identity, not a fit \\
 \hline
 Plasma ($\varepsilon$-sector) & \textbf{ASYM-N} ($\varepsilon$-only) & $V_{\text{local}} / V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
 \hline
@@ -421,13 +421,45 @@ cosmic-DE $\varepsilon$-only), 1 ASYM-E (active topological metamaterials),
 2 TBD (galactic spin-axis, LSS spin-axis).
 
 \textbf{Empirical anchor: 21 orders of magnitude span with multiple
-validated scales}. Tightest validations:
+validated scales}. Closest-agreement anchors --- each carried at its own
+claim-quality class, and the classes are \emph{not} interchangeable
+(no aggregate ``AVE achieves 0.00\% on $N$ predictions'' reading is claimed
+here; \kbleaf{ave-kb/claim-quality.md}:182):
 \begin{itemize}
     \item BCS $B_c(T)$: \textbf{0.00\% error} across all measured superconductors
-    \item BH merger ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events
+      --- a \emph{definitional identity at per-material calibration}, not a fit.
+      $B_{c0}$ and $T_c$ are per-material experimental inputs and the Axiom~4
+      kernel is algebraically the BCS form, so the residual is zero by
+      construction (an axiom manifestation, not a forward prediction;
+      Ch.~\ref{ch:condensed_matter} \S\ref{sec:superconductor_validation},
+      \kbleaf{ave-kb/claim-quality.md}:171-182). The AVE-distinct content is
+      the cross-instance universality of the kernel, not the per-material number.
+    \item BH merger ring-down: 1.7\% from GR exact --- the \emph{cold
+      Schwarzschild $a^{*} = 0$ single point}; see the ring-down scope note below.
     \item Solar flares (forward prediction): 0.46-yr FWHM danger window; NOAA GOES 40-yr validation pending a live catalog fetch.
     \item Schwarzschild radius: exact match (AVE-native derivation)
 \end{itemize}
+
+\noindent\textbf{Ring-down scope (2026-08-02, per Ruling B1 2026-07-21;
+prior wording preserved per Rule~12).} The list header above previously read
+``Tightest validations:'' and the ring-down entry previously read ``BH merger
+ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events''. The
+``10--18\% match to 3 LIGO events'' clause is \textbf{struck}: it is the
+frame-mixed pre-correction artifact (corrupt Kerr QNM table $\times$
+source-vs-detector-frame mass mixing), not a dimensionless comparison to true
+Kerr --- and under Ruling B1 the spinning-remnant comparison is not a
+validation at all. \textbf{No replacement number is claimed here.} What
+survives is the cold Schwarzschild $a^{*} = 0$ eigenvalue
+$\omega_R M_g = \ell(1 + \nu_{vac})/x_{sat} = 18/49 = 0.3673$ (GR exact
+$0.3737$; $\nu_{vac} \equiv \nu_\text{Hill} = 2/7$), a single-point,
+zero-free-parameter result --- and per Ruling B1 the \emph{only} surviving
+zero-free-parameter ring-down content. The standing spin mapping
+(v1, $x_{sat,v1} = 7 r_{ph}^{+}/3M$) is \emph{consistency-class},
+mapping-conditional, disclosed-phenomenological at $+2.63\%$ mean on the
+primary catalog --- not a benchmark. Canonical:
+\kbleaf{ave-kb/vol3/claim-quality.md}:202 and
+\kbleaf{ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md}:21,
+:24-25, :60-76 (GRANT RULING B1), :147-148.
 
 The catalog content was already distributed across Vol~3 Ch~13, 14, 15,
 Ax~4 itself, the universal-saturation-operator KB leaf, the

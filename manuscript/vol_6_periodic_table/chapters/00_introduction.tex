@@ -10,6 +10,31 @@
 \end{itemize}
 \end{objectivebox}
 
+% [2026-08-02 CRIB-1 PROVENANCE FENCE for the "$K=2G$ vacuum lattice" label. No claim is
+%  retracted and no number changes; the label gains its ratified provenance. Ratified crib
+%  (board _orchestration/2026-08-02_manuscript-reconciliation-board.md section 3, CRIB-1):
+%  "the K = 2G operating point (form-derived; value GR-imported -- see
+%   common/form-deriving-value-importing.md) with nu_Hill = 2/7 (isotropic Voigt-Reuss-Hill
+%   average; an averaging choice, not a lattice-emergent bound)".
+%  KB receipts, verbatim, two-method verified at HEAD:
+%   manuscript/ave-kb/common/form-deriving-value-importing.md:87 --
+%     "| **K = 2G** (nu_vac = 2/7) | **GR-IMPORTED** (echo for the value) | the substrate forces
+%      the *form* of the elastic response `K/G = f(rho)` | the *value* 2/7 -- the GR
+%      trace-reversal identity, not crystalline-forced nor constitutively-forced |"
+%   manuscript/ave-kb/common/theorem-thesaurus.md:223 -- "**The Voigt-Reuss-Hill AVERAGE**
+%     ($nu_Hill$, $G_Hill$) -- a *heuristic mean* of the two bounds ... **Not a theorem and not
+%     a bound.**"
+%   manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:116
+%     -- "A **K=2G RE-EXPRESSION** (GR-imported, PR #261), **NOT lattice-emergent**"; :146 --
+%     "$\nu=2/7$ is **GR-imported**".
+%  CRIB-1's two banned labels are already absent from this volume (grep for "Cauchy" and for
+%  "simulation confirms" over manuscript/vol_6_periodic_table/ returns zero) -- nothing to strike.
+%  SCOPE: this note fences all five "$K=2G$" sites in the volume -- 00_introduction.tex :7, :134
+%  (naming epithets) and :143 (the exercise, corrected inline below), plus the two companion
+%  epithets at 02_chemistry.tex:7 and :67, which are NOT edited (that file carries a separately
+%  held route-to-core finding at :22 and is left untouched in this lane). Surfaced in the PR.]
+\noindent\emph{Provenance of the ``$K=2G$ vacuum lattice'' label used above and throughout this volume:} $K=2G$ names the \textbf{operating point} at which the substrate's elastic response is evaluated. Its \emph{form} --- that the substrate forces an elastic response $K/G = f(\rho)$ --- is substrate-derived; its \emph{value} (equivalently $\nu_{\text{Hill}} = 2/7$) is \textbf{GR-imported}, being the general-relativistic trace-reversal identity rather than a crystalline- or constitutively-forced result, and $2/7$ is an isotropic Voigt--Reuss--Hill \emph{average} --- an averaging choice, not a lattice-emergent bound. The label is therefore a naming convention for that operating point, not a lattice-derived selection rule. Canonical: \kbleaf{manuscript/ave-kb/common/form-deriving-value-importing.md} and \kbleaf{manuscript/ave-kb/common/theorem-thesaurus.md}.
+
 The Periodic Table of Knots redefines atomic nucleosynthesis not as a probabilistic clustering of hard spheres, but as a deterministic process of macroscopic topological linkage. Within the Applied Vacuum Engineering (AVE) framework, mass, charge, and binding energy are emergent properties of continuous refractive gradients (vacuum strain) induced by discrete geometric defects (knots).
 
 By treating individual nucleons as 3D discrete inductive loads ($6^3_2$ Borromean links), composite nuclei are constructed as formal, mathematically constrained LC circuit networks. The inductive coupling limits between these topological nodes strictly govern the geometric layout of the nucleus, yielding profound architectural symmetry. 
@@ -21,6 +46,24 @@ In this text, the absolute nucleonic 3D geometry \textit{class} is rigorously de
 Within each $(Z, A)$-forced topology class, a single scalar inter-alpha distance $R$ is adjusted per nucleus so that the $1/d_{ij}$ mutual-impedance summation over the alpha-cluster geometry reproduces the observed CODATA mass. The $\leq 0.03\%$ (and in places $\leq 0.0002\%$) agreements reported throughout Volume~6 are therefore \textbf{fitting tolerances on this one scalar per nucleus}, not ab-initio prediction errors on the mass itself. The axiomatic content of Volume~6 is the claim that \textbf{one scalar per nucleus — constrained by the forced cluster topology and the axiom-derived coupling $K$ — suffices to recover the full mass defect}. What is predicted: the value of $K$ (see \S\ref{sub:R_coupled_cavity}), the cluster topology as a function of $(Z,A)$, and the parameter count (one scalar per nucleus). What is fit: the numerical value of $R$ within each topology.
 \end{resultbox}
 
+% [2026-08-02 RENDERING-DEFECT REPAIR on the volume's load-bearing honesty caveat. Not a KB
+%  divergence -- a printed cross-reference defect. DIAGNOSIS (reproduced): manuscript/structure/
+%  commands.tex:84-87 defines
+%    \newtcolorbox{resultbox}[1]{colback=white, colframe=black, fonttitle=\bfseries, ...}
+%  with NO counter option, in contrast to simbox (commands.tex:77) and examplebox (:111), which
+%  both carry [auto counter, number within=chapter]. resultbox therefore steps no counter, so the
+%  \label below binds to the last-stepped counter -- the enclosing \section{Continuous
+%  Mathematical Closure ($Z=1 \rightarrow 28$)} -- and every "Box~\ref{box:internal_peer_scope}"
+%  printed a PHANTOM box number that resolves to a section.
+%  REPAIR (this commit): the five sites that printed the box form -- 13_sodium.tex:12,
+%  14_magnesium.tex:62, 15_aluminum.tex:27, 16_silicon.tex:22 and :42 -- now read "the Scope note
+%  in \S\ref{box:internal_peer_scope}", which is what the label actually resolves to and matches
+%  the eleven sites in this volume that already used the \S\ref form. The box, its title, its
+%  body and its \label are UNTOUCHED; no other volume is affected (`grep -rn 'Box~\ref'
+%  manuscript/` returned exactly these five sites corpus-wide, all in vol6, and returns zero now).
+%  ROOT CAUSE NOT FIXED, FLAGGED: giving resultbox [auto counter, number within=chapter] in
+%  commands.tex would rebind every resultbox \label across all volumes -- a structural change
+%  outside this volume lane. Surfaced for the orchestrator.]
 \begin{resultbox}{Scope note — peer with standard quantum chemistry}
 \label{box:internal_peer_scope}
 The periodic-table structure derived in this volume is a substrate-mechanism re-description of atomic structure that is \textbf{peer with standard quantum chemistry}, not a distinct empirical prediction: the same shells, aufbau filling, and hybridization that quantum mechanics obtains are recovered here on the vacuum lattice, and (per the framework's own calibration) are \textbf{not empirically distinguishable from standard quantum mechanics / chemistry}. AVE's genuine structural wins are finite-by-construction (no renormalization), exact topologically-quantized charge, and derived spin-statistics; the framework's \emph{distinct, falsifiable} predictions live in the forward-prediction volumes, not in the periodic table itself.
@@ -30,6 +73,28 @@ Every other atomic property (electronegativity, ionization energy, bond characte
 
 \subsection{The Absolute Symmetric Cores ($\alpha$-Series)}
 When atomic structures cluster into completed Alpha ($\alpha$) particle configurations, the geometries collapse into perfectly symmetric, unreactive thermodynamic endpoints. Across the analytical derivations, the mathematical continuity of building perfect integer $\alpha$ shells operates flawlessly:
+
+% [2026-08-02 SCOPE PROPAGATION -- geometric residual, NOT a mass/binding prediction error.
+%  Nothing below is retracted and no number is changed; this supplies the scope the figures
+%  already carry in the per-element chapters. Authority, verbatim, from
+%  manuscript/ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md:14
+%  ("Scope correction (2026-05-17 Foundation Item 7 per consistency-vs-emergence discipline
+%  trigger 1; AMENDED Foundation Item 8 ...)"):
+%    "The \"Error\" column in the table below reports the GEOMETRIC RESIDUAL of cluster
+%     positions vs. assumed Platonic-solid coordinates (engine's converged positions vs.
+%     assumed geometry). It is NOT a binding-energy prediction error against experiment (AME).
+%     ... Read \"Error\" as \"geometric residual to ideal Platonic coordinates\" (structurally
+%     zero by solver construction). The load-bearing physics test EXISTS in sibling doc
+%     [vol6/framework/mass-defect-summary.md]:8-24 -- a 13-nucleus binding-energy table
+%     validating against CODATA experimental masses at 0.005-0.027% error ..."
+%  The figures at the S-32 / Ar-40 / Ca-40 / Ti-48 / Cr-52 / Fe-56 items below are that leaf's
+%  table rows (platonic-progression.md:25-30 verbatim). This wording already stands in the
+%  per-element chapters -- 08_carbon.tex:80, 10_oxygen.tex:65, 12_neon.tex:90 -- so this is an
+%  incomplete in-file sweep, not an unruled question. The separate fit-vs-predict debt is
+%  discharged by the methodology resultbox above; this note discharges only the
+%  geometric-residual-vs-mass-residual one.]
+\noindent\emph{Scope of the ``Solved to \dots\% error'' figures in this subsection:} each is the \textbf{geometric residual} of the engine's converged cluster positions against the assumed Platonic/Archimedean coordinates --- structurally zero by solver construction --- and is \textbf{not} a binding-energy prediction error against experiment. The load-bearing comparison against CODATA masses is the validation table in Ch.~\ref{ch:summary}, whose residuals for these nuclei are two to three orders of magnitude larger. Canonical: \kbleaf{manuscript/ave-kb/vol6/appendix/geometric-inevitability/platonic-progression.md} (geometric residual) and \kbleaf{manuscript/ave-kb/vol6/framework/mass-defect-summary.md} (the binding-energy test surface).
+
 \begin{itemize}
     \item \textbf{Carbon-12 ($3\alpha$):} Bounds perfectly into an equilateral \textbf{Ring}. Small Signal regime.
     \item \textbf{Oxygen-16 ($4\alpha$):} Bounds perfectly into a \textbf{Tetrahedron}. Small Signal regime.
@@ -75,7 +140,7 @@ In this picture atomic structure is described not as a probability cloud but as 
 \begin{exercisebox}
 \begin{enumerate}
     \item Explain how the AVE framework converts the empirical periodic table into a deterministic topological assembly without invoking probabilistic electron distributions.
-    \item Describe the relationship between the $K=2G$ vacuum lattice selection rule and the observed nuclear stability patterns across the first 16 elements.
+    \item Describe the relationship between the $K=2G$ vacuum-lattice operating point (form-derived; value GR-imported --- see the provenance note at the head of this chapter) and the observed nuclear stability patterns across the first 16 elements.
 \end{enumerate}
 \end{exercisebox}
 
