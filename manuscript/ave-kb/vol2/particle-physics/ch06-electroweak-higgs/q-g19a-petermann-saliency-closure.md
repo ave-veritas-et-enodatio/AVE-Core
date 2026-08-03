@@ -128,6 +128,12 @@ Per the n_q-additive derivation chain, the saliency scales linearly across the $
 
 ## Zero parameters fudged
 
+> **[Stage-1 scope label — 2026-08-02. ADDITIVE: this is a MISSING SCOPE LABEL, not a walk-back. Nothing below is struck, retracted or restated; no verdict moves; no value changes.]**
+>
+> **No fit parameters — *at Stage 1*.** The enumeration below is exactly the **Stage-1** ingredient list — the trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2$ form factor, the $\alpha/\pi$ loop coupling — and the Stage-2 asymmetry $\delta = -3\alpha/2$ **is not in it**. So the section title and its "No fit parameters" sentence are true **of the Stage-1 forward result** (the parameter-free $+4.0\%$ Route-B Petermann) and are **not** a statement about the Stage-2 closure.
+>
+> The **Stage-2 saliency closure is postulate-conditional.** It rides the n_q-additivity postulate, which is **RESOLVED NEGATIVE (2026-05-31)**: the saturation kernel is provably winding-blind at $\alpha$-order, so $\delta = -3\alpha/2$ is a **1-point fit**, not a winding law (:112, §"What still needs derivation"). The leaf already carries that verdict at the electron row (:123), which labels the 50 ppm match **postulate-conditional** and names the Stage-1 $+4.0\%$ as the parameter-free forward result. This label repeats the leaf's own standing verdict at the one section that most invites reading it unconditionally, and adds nothing to it.
+
 The trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2$ form factor, and the $\alpha/\pi$ loop coupling are all corpus-canonical inputs from Axioms 1–4 and prior derivations. **No fit parameters.** The 97% K4-Bethe-tree result that the legacy `g_minus_2_lattice.py` engine returned was substrate misidentification (wrong K4-discrete substrate instead of correct Cosserat continuous substrate), not a feature of the framework.
 
 ## Cross-references
