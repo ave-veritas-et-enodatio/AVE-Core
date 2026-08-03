@@ -6,6 +6,23 @@
 
 **Discipline applied:** `verify-before-cite` (v1.6 ship-time currency — all 19 load-bearing cites re-verified two-method at the tip, ledger in §9), `consistency-vs-emergence` (per-term class tags throughout), `phase-space-coordinate-check` (§3.4 — the load-bearing coordinate question), `ave-dimensional-provenance-check` shape (§6.1 — a live units defect found), flag-don't-fix (§7 — five flags surfaced, zero repaired), Rule 11 / Rule 12 (no post-hoc criterion drops; no slot refills).
 
+> ### ⚠ REPAIR PASS 2026-08-02 — read this before citing anything below
+>
+> This doc was reviewed and returned **CLEAR-WITH-REPAIRS**. **The §5 headline verdict — UNACCOUNTED — SURVIVES unchanged and un-weakened.** What the repair pass corrected is a set of **over-strong supporting claims**. Every correction is inline, quotes the prior wording verbatim per **Rule 12** (strike-don't-delete), and states its **verdict impact** explicitly. **Zero canon files were edited by the repair pass.**
+>
+> | Item | What was over-strong | Where the correction lives | Verdict impact |
+> |---|---|---|---|
+> | **F1** | *"no account of where a rest-frame energy goes if not into the invariant mass"* — **FALSE**; and *"three mutually inconsistent answers and adjudicates none"* — **FALSE**. [`master-equation.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):34 (Grant-ratified block at :30) **is** an account, and it **does** adjudicate two of the three stores. | §3.3, §4.1, §5, §7 FLAG-4 (**DEMOTED**), §8.2 Q2**(d)** | **NONE** |
+> | **F2** | *"independently confirmed … under it, and only under it"* — the $\ell_c=\sqrt6$ cross-check is a **$T_{EM}$-invariant NULL TEST**; both readings are degenerate. | §6.1, §7 FLAG-2, driver block 2 | **NONE** — FLAG-2's core stands |
+> | **F3** | *"cancels identically out of every mass DIFFERENCE"* — the cancellation needs a **generation-independence premise**, and that premise is an open fork. | §4.3, §5, §7 FLAG-4 | **NONE** |
+> | **F4** | *"**Four** … statements … exist in canon"* — **under-count**; T5 added. | §2.1, §2.2b, §9.3.4 | **EXTENDS** the finding |
+> | **F5** | The `[Pa]`/`[N]` brackets were mis-anchored to `q-g47…:58`. | §6.1, §7 FLAG-2, driver | none |
+> | **F6** | Q1's briefing did not show what rides on each branch. | §8.2 Q1 | none |
+> | **F7** | The 10.67× spread was mis-attributed to the $\gamma$-vs-$\beta{+}\gamma$ ambiguity. | §6.3 | none |
+> | **F8** | *"zero hard-coded constants"*; R2 quoted to 3 figures off a 1-figure input. | §6, §6.3 (**R2b**), §9.4 | none |
+> | **F9** | The `trampoline-framework.md`:559 **"COSTLY"** quote needed its scope carried. | §3.1, §5 | none |
+> | *(minor)* | §8.2 Q3 pre-framed its own answer. | §8.2 Q3 — **tagged orchestrator-lean** | none |
+
 ---
 
 ## §0 The walk frame (Grant's physical picture — carried with attribution, verbatim `[sic]`)
@@ -421,6 +438,28 @@ Method A: `sed -n "<N>p" <file>` on the worktree. Method B: `git show origin/mai
 | 19 | `src/ave/core/constants.py`:493 (`T_EM = M_E*C_0**2/L_NODE`) | OK |
 
 Additionally verified in-body (same two methods): `master-equation.md`:41-42 (the G2-dissolution bullets), `constants.py`:331-337 (the $\ell_c$ collision flag), `trampoline-framework.md`:559, `physics-lineage-map.md`:220, `electron-unknot.md`:41, `electron-identification.md`:64, `lepton-spectrum.md`:17/29/39/51/84, `torus-knot-uniqueness.md`:110, `cosserat_field_3d.py`:12/942, `k4_cosserat_coupling.py`:34.
+
+**★Repair-pass cite ledger (2026-08-02) — 15 NEW load-bearing cites, all byte-verified two-method.** Method A: `sed -n "<N>p" <file>` on the worktree. Method B: `git show origin/main:<file> | sed -n "<N>p"`, byte-compared. Every quoted fragment was **additionally** re-checked as an exact substring of the canon line by a Python `str.count`, because shell-escaped `$…$` grep patterns silently false-negative (grep-completeness discipline) — that second method is what caught three non-verbatim renderings (`**sets**` for `*sets*`; a compressed `m_ec^2`; an inserted bold inside a quote), all corrected before commit.
+
+| # | Cite | Used for | Verdict |
+|---|---|---|---|
+| R1 | `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`:30 | the Grant-ratified block header | OK |
+| R2 | `…/master-equation.md`:34 | the lepton-tower transduction bullet (**F1**) | OK — byte-identical, both methods |
+| R3 | `common/q-g47-substrate-scale-cosserat-closure.md`:51-54 | the $\xi_K$ relations, **no** unit brackets (**F5**) | OK |
+| R4 | `…/q-g47-…`:56 | *"which is independent of $T_{EM}$"* + *"the lattice's electromagnetic string tension"* (**F2**, **F5**) | OK |
+| R5 | `src/ave/core/constants.py`:326 | the $\ell_c^2$ relation with no stress scale in it (**F2**) | OK |
+| R6 | `src/ave/topological/cosserat_field_3d.py`:27-28 | bracket site 1 (**F5**) | OK |
+| R7 | `src/ave/topological/k4_cosserat_coupling.py`:33-34 | bracket site 2 (**F5**) | OK |
+| R8 | `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md`:19 / :90 | T5's boxed Virial sum (**F4**) | OK |
+| R9 | `…/l3-electron-soliton-synthesis.md`:98-105 | the closed-form parameter table (**F4**) | OK |
+| R10 | `…/l3-electron-soliton-synthesis.md`:114-116 / :118 | the per-half split + *"no remaining empirical question about the energy magnitude"* (**F4**) | OK |
+| R11 | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md`:28 | canon's own longhand $\xi_{topo}$ cancellation (**F4**) | OK |
+| R12 | `vol4/claim-quality.md`:200 | *"structural (Virial decomposition), not an independent rest-mass derivation"* (**F4**) | OK |
+| R13 | `vol2/particle-physics/ch01-topological-matter/electron-unknot.md`:28 | $C_{loop}=\hbar/(m_ec)$, the Compton-scaled reading (**F3**) | OK |
+| R14 | `vol2/particle-physics/ch02-baryon-sector/proton-identification.md`:46 / :151 | Route A per-particle Compton-scaling precedent (**F3**) | OK |
+| R15 | `vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`:47 ⊕ `common/physics-lineage-map.md`:347 | the two downstream costs riding on $\gamma_c$ (**F6**) | OK |
+
+**★Anchor correction found BY the repair pass and recorded, not silently fixed.** `trampoline-framework.md`'s *"Force balance at $B$ requires $B$'s microrotation $\omega_B$ to develop"* and *"This $\omega_B$ is COSTLY"* are on the **same line, `:559`**. An in-flight draft of the F9 scope note had mis-anchored the first half to `:558` — which is the *"Primary K4 bonds alone…"* bullet. Corrected before commit. Recorded here because it is **the same off-by-one class that F5 caught**, which is the argument for the two-method check being mandatory rather than optional.
 
 ### 9.2 ★Cite CORRECTION against the dispatch brief (recorded as a failure, not silently fixed)
 
