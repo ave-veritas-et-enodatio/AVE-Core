@@ -38,7 +38,32 @@ Converting to electrical conductance via $\xi_\text{topo}^2$:
 \end{equation}
 
 \paragraph{Reactive Susceptance.}
-The H-bond spring constant ($k_{HB} = E_{HB}/d_{HB}^2 \approx 11.2$~N/m) contributes a reactive mass-loading term:
+% ---------------------------------------------------------------------------
+% VALUE CORRECTION 2026-08-03 (Rule 12 quote-and-date; struck value preserved
+% here, not deleted). The printed spring constant read
+%     "k_{HB} = E_{HB}/d_{HB}^2 \approx 11.2~N/m"
+% -- a single-decade transcription slip that preserved the mantissa. Recomputed
+% from the chapter's own canonical inputs:
+%     E_HB  = 0.2158 eV  = 3.4575e-20 J   (this chapter :20; canonical at
+%             ave-kb/vol5/molecular-foundations/organic-circuitry/
+%             hbond-op4-equilibrium.md, Op4 equilibrium)
+%     d_HB  = 1.754 Angstrom = 1.754e-10 m (canonical, same leaf; mirrored at
+%             ave-kb/vol5/index.md:26 and ave-kb/CLAUDE.md:318)
+%     k_HB  = E_HB / d_HB^2 = 3.4575e-20 / (1.754e-10)^2 = 1.1246 N/m
+% TWO-METHOD CHECK -- NO CASCADE. The downstream B_solvent below is unaffected
+% and was already computed on the CORRECT 1.12 N/m:
+%     B_solvent = n k_HB xi_topo^2 / (2 pi f_bb)
+%               = 3 * 1.1246 * (4.1490e-7)^2 / (2 pi * 24.2e12) = 3.82e-27 S
+% which matches the printed 3.8e-27 S; the slipped 11.2 N/m would give
+% 3.80e-26 S (10x). The loading ratio at :49 is G-dominated and is likewise
+% untouched. Only the :41 transcription is corrected.
+% ROUTED SEPARATELY (not adjudicated here): this chapter has no KB home leaf
+% for k_HB -- a repo-wide grep of manuscript/ave-kb/ for the symbol returns
+% zero hits, while both of its inputs (E_HB, d_HB) are canonical. The KB-home
+% question for the solvent-damping admittance chain is routed, not resolved by
+% this value fix.
+% ---------------------------------------------------------------------------
+The H-bond spring constant ($k_{HB} = E_{HB}/d_{HB}^2 \approx 1.12$~N/m) contributes a reactive mass-loading term:
 \begin{equation}
     B_\text{solvent} = \frac{n \cdot k_{HB} \cdot \xi_\text{topo}^2}{2\pi f_\text{bb}} \approx 3.8 \times 10^{-27} \text{ S}
 \end{equation}
