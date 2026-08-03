@@ -6,7 +6,7 @@ Solves the incompressible Navier-Stokes equations on the same 3D grid
 as the FDTD Maxwell solver, treating the vacuum as a Cosserat fluid.
 
 The vacuum has:
-    - Density: ρ_vac = ξ_topo² μ₀ / (p_c ℓ_node²) ≈ 7.92e6 kg/m³ (canonical at constants.py:RHO_BULK)
+    - Density: ρ_vac = ξ_topo² μ₀ / (p_c ℓ_node²) ≈ 7.9097e6 kg/m³ (canonical at constants.py:RHO_BULK)
     - Kinematic mutual inductance: ν_kin = α × c × ℓ_node ≈ 8.45e-7 m²/s
       (canonical at constants.py:NU_KIN + backmatter §Layer 6→7 Step 5;
        nearly identical to liquid water — non-trivial structural prediction)
@@ -19,6 +19,17 @@ The 1/(4π) form would predict ν ≈ 9.2e-6 m²/s (~10× water), breaking the
 code used the 1/(4π) form (default nu=0.1 in lattice units; tests use 0.1;
 no production calculations depended on the wrong formula). Documentation
 corrected. See closure-roadmap.md §0.5 (2026-05-17 evening entry).
+
+ENGINE-LOCKSTEP RE-PIN 2026-08-03 (Rule 12 quote-and-date; the struck token is
+preserved here, not deleted). The density line above read "≈ 7.92e6 kg/m³" while
+citing constants.py:RHO_BULK on the same line — the two disagreed. RHO_BULK
+evaluates to 7,909,692.740007466 kg/m³ (verified two ways: direct import, and
+recompute of XI_TOPO**2 * MU_0 / (P_C * L_NODE**2) — bit-identical). The docstring
+now reads 7.9097e6, consistent with the constant it cites. This is a DOCSTRING-only
+re-pin: no code path in this module reads rho_vac (the LBM runs in lattice units,
+default nu=0.1), so there is no numerical cascade. Corpus receipt for the same
+re-pin: manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/
+lc-electrodynamics.md (the 7.92e6 -> 7.91e6 3-s.f. corpus family).
 
 Uses the D3Q19 lattice Boltzmann model with BGK collision operator.
 
