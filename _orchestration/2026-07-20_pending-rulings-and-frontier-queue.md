@@ -99,22 +99,46 @@ Recorded here because they are **cross-lane and permanent**, not #796 bookkeepin
 
 ---
 
-### §1 continued — the 2026-08-01/02 ruling batch, enumerated (items D1–D8 + three side rulings), appended 2026-08-02
+### §1 continued — the 2026-08-01/02 ruling batch, enumerated (items D1–D8 + four side rulings), appended 2026-08-02, counts corrected 2026-08-03
 
-> **Why this block exists — the D1-label collision hazard, and it is not hypothetical.** Grant fired eleven
-> rulings across 2026-08-01/02 under a **`D<n>` shorthand** that this corpus **already uses for at least five
-> unrelated things**. Verified at HEAD, two-method (`git grep` + filesystem recursive grep):
+> ★**COUNT CORRECTION 2026-08-03 (Rule 12 — the 2026-08-02 numbers were internally inconsistent and are withdrawn).**
+> As shipped, this block said *"eleven rulings"* in the banner, *"D1–D8 + three side rulings"* in the heading,
+> and *"Five are chat-only"* immediately before enumerating six — against a table that has always had
+> **twelve rows**. Recounted by reading the table: **D1–D8 (8) + four side rows (κ desk-calc, ℓ handshake,
+> "4, follow rec", "5, yes") = 12**, and 6 receipted + 6 chat-only = 12. **No row is a duplicate** — each of
+> the four side rows carries a distinct verbatim word and a distinct decision. The *"eleven"* came from
+> collapsing Grant's two 2026-08-02 words (*"4, follow rec"* and *"5, yes"*) into one line item; the table
+> always split them. **All counts in this block now read twelve.**
+> ★**ROUTED TO GRANT (bookkeeping, not physics):** *is the 2026-08-01/02 batch eleven rulings or twelve* — i.e.
+> do *"4, follow rec"* + *"5, yes"* count as one ruling-event or two? Nothing decided changes either way; both
+> words are recorded verbatim. Twelve is used here because twelve rows is what the table has.
+
+> **Why this block exists — the D1-label collision hazard, and it is not hypothetical.** Grant fired twelve
+> rulings across 2026-08-01/02 under a **`D<n>` shorthand** that this corpus **already uses for many
+> unrelated things**. The table below is **REPRESENTATIVE, NOT EXHAUSTIVE** — it is the set this lane
+> content-verified, not the set that exists. Verified at HEAD, two-method (`git grep` + filesystem recursive grep):
 >
 > | Older `D1` sense | Receipt |
 > |---|---|
+> | ★**D1 = srs-vs-diamond — the LATTICE-IDENTITY question.** The oldest and by far the most established older `D1`: which net the engine actually runs, adjudicated and then Grant-ratified. Missing from the 2026-08-02 sweep entirely; added 2026-08-03. | `_orchestration/2026-06-11_lattice-d1-test-gated.md`:1 (*"# Epic — Lattice D1 test-gated (srs vs diamond)"*) · `research/2026-06-12_lattice-d1-adjudication-memo.md`:1 (*"# D1 Adjudication Memo — srs vs diamond (test-gated)"*) · `_orchestration/2026-06-07_lattice-net-resolution.md`:28,:30 (*"D1-FINAL: B-primary / A-partial"*) · ratified at `manuscript/ave-kb/common/vocabulary-register.md`:536 (*"ADJUDICATED (Grant 2026-07-03 D1 RATIFICATION)"*) |
+> | ★**D1 = the canonical-wall location** — a gating open decision in the genesis scope | `_orchestration/2026-06-06_genesis-next-steps-scope.md`:10 (*"## §1 OPEN DECISION D1 (gates everything below — Grant) — the canonical-wall location"*) |
 > | **D1-CHSH** — the Tier-D divergence-map row ($\|S\|_{max}=2\sqrt2$ from the K4 Möbius half-angle) | `manuscript/ave-kb/common/divergence-test-substrate-map.md`:380 (section), :542 (Matrix-1 row) |
-> | **D1 = the sector-of-storage question** (A1 canon vs the T2/swing label) | **item 13 of this very file**, `:30`; scoping doc `research/2026-07-26_d1-sector-and-inertia-route_scoping.md`; `manuscript/ave-kb/common/vocabulary-register.md`:1150 (*"This does not touch D1 itself, which stays OPEN"*) |
+> | **D1 = the sector-of-storage question** (A1 canon vs the T2/swing label) | **item 13 of this very file**, `:30`; scoping doc `research/2026-07-26_d1-sector-and-inertia-route_scoping.md`; `manuscript/ave-kb/common/vocabulary-register.md`:1150 (*"This does **not** touch D1 itself, which stays OPEN…"* — ★2026-08-03: bold restored and the truncation marked; the 2026-08-02 quote dropped the `**not**` emphasis and cut mid-sentence with no ellipsis) |
 > | **D1 = the field-definition lane** (a lane name, not a question) | `_orchestration/2026-06-15_k2g-crystalline-provenance.md`:142 (*"HAND-OFF → D1 (field-definition lane)"*) |
 > | **D1 = "Canonize the projective-ℂP¹ Smith-chart ontology?"** — a standing-decisions audit item | `_orchestration/2026-06-16_standing-decisions-audit-lane.md`:32 |
 > | **D1 = a decision-item label inside a frozen astro sweep** | `research/2026-07-11_astro-adjudicator-sweep_branch-signature-map_FROZEN.md`:17 |
 >
-> ★**Honest count note:** the dispatch for this block said *"four older unrelated `D1` uses"*; the sweep found
-> **five**. Recorded as found rather than as briefed. ★**And a verify-before-cite correction on the same
+> ★**Honest count note — itself corrected 2026-08-03.** The dispatch for this block said *"four older unrelated
+> `D1` uses"*; the 2026-08-02 sweep found **five** and recorded five. **That five was also short, and the
+> ceiling framing *"at least five"* was doing work it had not earned.** The 2026-08-03 re-sweep adds the two
+> ★rows above and finds the label is far more widely reused than any small number suggests: `grep -rl '\bD1\b'`
+> over `_orchestration/` + `research/` + `manuscript/` returns **165 files**, spanning at least the
+> lattice-identity question, the canonical-wall decision, discriminator labels in the genesis node-birth fork
+> (`_orchestration/2026-07-12_genesis-node-birth-fork.md`:8, *"discriminators (D1–D4)"*), collapse-batch item
+> labels (`_orchestration/2026-07-10_rulings-docket.md`:178), and engine-DAG lane labels
+> (`_orchestration/2026-06-12_loop-gap-engine-dag.md`:102, *"genesis-v5 D1"*) on top of the rows tabled here.
+> **The table is a representative sample, and the hazard it documents is worse than the sample shows** — which
+> strengthens rather than weakens the date-disambiguator rule below. ★**And a verify-before-cite correction on the same
 > sentence:** the dispatch attributed the collision finding to *"the #819 audit"*. **That attribution does not
 > verify** — PR #819's body and its reviews carry no D1-label-collision item (checked via `gh pr view 819` and
 > the reviews API). The collision is real; its provenance is **this block's own sweep**, not #819. The receipts
@@ -141,13 +165,28 @@ Recorded here because they are **cross-lane and permanent**, not #796 bookkeepin
 **Receipt discipline on the verbatims above — which are re-quoted from the repo and which are first-recorded here.**
 Six carry a pre-existing repo receipt and were re-read from it rather than from session context:
 **D1** `_orchestration/docket-entries/2026-08-01-d1-deprecate-ratio.md`:3 · **D2/D3/D4** `_orchestration/docket-entries/2026-08-01-rulings-d2-d3-d4.md`:3 · **D6** same fragment `:12` · **D7** `_orchestration/docket-entries/2026-08-01-d7-repoint-pvlas.md`:3 and `:26` (read from `origin/src/repoint-pvlas-v3`; that branch owns the file and **it was not edited**).
-Five are **chat-only and are first-recorded here** — **D5**, **D8**, the two side rulings (**κ desk-calc**, **ℓ handshake**), and the two this PR executes — which is precisely the tracker gap this block closes. They carry no independent receipt yet; the lanes that execute them own landing one.
+**Six** are **chat-only and are first-recorded here** — **D5**, **D8**, the two side rulings (**κ desk-calc**, **ℓ handshake**), and the **two** this PR executes (*"4, follow rec"* and *"5, yes"*) — which is precisely the tracker gap this block closes. *(★2026-08-03: this sentence read "Five" while enumerating six items; 6 receipted + 6 chat-only = the table's 12 rows.)* They carry no independent receipt yet; the lanes that execute them own landing one.
 
-> **⚑ Merge hazard, restated because this block is a fresh mid-file insert into the file that has it:** this doc
-> falls under the blanket `*.md merge=ours` (see this file's own 2026-07-26 preamble note at `:28` and `_orchestration/docket-entries/README.md`:19),
-> so a concurrent lane's edit to §1 can be **silently dropped** rather than surfacing as a conflict. If a
-> D5/D8/κ/ℓ lane lands its own status flip here while this block is open, re-read the file before assuming
-> either edit survived.
+> **⚑ Merge note, CORRECTED 2026-08-03 — the silent-drop mechanism this block asserted on 2026-08-02 does NOT exist.**
+> The withdrawn wording read: *"this doc falls under the blanket `*.md merge=ours` … so a concurrent lane's
+> edit to §1 can be **silently dropped** rather than surfacing as a conflict."* **That is wrong.**
+> `.gitattributes:9` does set `*.md merge=ours`, but a `merge=<name>` attribute is inert unless a matching
+> **`merge.<name>.driver`** is configured. Checked at HEAD: `git config --get-regexp '^merge\.ours\.'` returns
+> **empty**, exit 1, both **local** and **`--global`**. With no driver registered, git falls back to the
+> **default 3-way text merge** for these paths.
+> ★**Empirical receipt, first-party, in this branch's own history:** merging `origin/main` (`2fcde4db`) into
+> this branch produced a **LOUD conflict** with `<<<<<<<`/`>>>>>>>` markers in `manuscript/ave-kb/common/theorem-thesaurus.md`
+> — a `.md` file, covered by the same blanket attribute — which had to be hand-resolved. In the same merge,
+> `origin/main`'s new content in **this** file (the 2026-08-02 paperclip pointer) was **kept**, not dropped.
+> Both sides survived. So: real collisions surface as conflicts; non-overlapping edits merge normally.
+> **The practical guidance is unchanged and still worth following** — if a D5/D8/κ/ℓ lane lands a status flip
+> here while this block is open, re-read the file — but the reason is ordinary insert-vs-insert proximity,
+> **not** a silent-drop driver.
+> ★**ROUTED, NOT FIXED HERE (Grant-gated, corpus-wide):** the same false belief pre-exists on `main` at
+> **this file's own `:28` preamble note** and at **`_orchestration/docket-entries/README.md`:19**. Those are
+> not this lane's text and are **not** touched here. A corpus-wide `merge=ours` correction sweep — including
+> the separate question of whether the driver was *meant* to be configured and simply never was — needs a
+> Grant call before anyone edits process docs on the strength of it.
 
 ---
 
