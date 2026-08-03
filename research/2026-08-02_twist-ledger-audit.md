@@ -306,11 +306,23 @@ Geometry, all canon: $C_{loop}=\ell_{node}$ ([`electron-unknot.md`](../manuscrip
 
 | Route | $\gamma_c$ | $E_{\text{twist}}$ | in $m_ec^2$ |
 |---|---|---|---|
-| **R1a** lattice-scale via $G_{vac}\ell_c^2$, $\ell_c=\sqrt6\ell_{node}$ | $6.360\times10^{-1}$ N | $1.736\times10^{-12}$ J | **$2.12\times10^{1}$** |
-| **R1b** lattice-scale via $\xi_{K2}\sigma_0\ell_{node}^2$, $\xi_{K2}=32$ (upper: $\gamma=\beta+\gamma$) | $6.784$ N | $1.852\times10^{-11}$ J | **$2.26\times10^{2}$** |
+| **R1a** lattice-scale via $G_{vac}\ell_c^2$, $\ell_c=\sqrt6\ell_{node}$ — **⚠ deliberate CROSS-MODULUS HYBRID, labelled below** | $6.360\times10^{-1}$ N | $1.736\times10^{-12}$ J | **$2.12\times10^{1}$** |
+| **R1b** lattice-scale via $\xi_{K2}\sigma_0\ell_{node}^2$, $\xi_{K2}=32$ (upper: $\gamma=\beta+\gamma$) — **the self-consistent route** | $6.784$ N | $1.852\times10^{-11}$ J | **$2.26\times10^{2}$** |
 | **R2** weak-scale, $\ell_c\approx10^{-18}$ m | $7.109\times10^{-13}$ N | $1.940\times10^{-24}$ J | **$2.37\times10^{-11}$** |
 
-R1a vs R1b differ by $32/3=10.67$ — internal slop *within* the lattice-scale reading (two canon stress scales, $G_{vac}=\rho_{bulk}c^2 = 7.109\times10^{23}$ Pa vs $\sigma_0=1.422\times10^{24}$ Pa; and $\gamma$ alone vs $\beta+\gamma$, which canon never separates). **Honest lattice-scale bracket: $2\times10^1$ – $2\times10^2\ m_ec^2$.**
+R1a vs R1b differ by **10.667×**, and the decomposition is exactly **two** factors:
+
+$$\frac{E^{R1b}}{E^{R1a}} \;=\; \frac{\xi_{K2}\,\sigma_0\,\ell_{node}^2}{G_{vac}\cdot 6\,\ell_{node}^2} \;=\; \underbrace{\frac{32}{6}}_{\text{coefficient}}\times\underbrace{\frac{\sigma_0}{G_{vac}}}_{\text{stress scale}} \;=\; 5.333\times 2.000 \;=\; \frac{32}{3} \;=\; 10.667,$$
+
+with $G_{vac}=\rho_{bulk}c^2 = 7.109\times10^{23}$ Pa and $\sigma_0 = m_ec^2/\ell_{node}^3 = 1.4218\times10^{24}$ Pa.
+
+> **⚠ ATTRIBUTION CORRECTED 2026-08-02 (repair pass; Rule 12 — the prior sentence is quoted here in full, not deleted).** This paragraph originally read: *"R1a vs R1b differ by $32/3=10.67$ — internal slop within the lattice-scale reading (two canon stress scales, $G_{vac}=\rho_{bulk}c^2 = 7.109\times10^{23}$ Pa vs $\sigma_0=1.422\times10^{24}$ Pa; **and $\gamma$ alone vs $\beta+\gamma$, which canon never separates**)."* **The $\gamma$-vs-$\beta{+}\gamma$ term contributes NOTHING to the 10.667×.** **R1a never uses $\beta+\gamma$ at all** — it is $G_{vac}\cdot\texttt{ELL\_C}^2$. The entire ratio is coefficient ($32/6$) × stress scale ($\sigma_0/G_{vac}=2.000$), as shown above. The $\gamma$-vs-$\beta{+}\gamma$ ambiguity is a **separate, additional, un-quantified $\le2\times$ uncertainty on R1b alone**, not a component of the observed spread.
+
+**★R1a is a deliberate CROSS-MODULUS HYBRID — labelled, not hidden (added 2026-08-02 repair pass).** $\gamma_c^{R1a}=G_{vac}\cdot\texttt{ELL\_C}^2$ mixes the **bulk-sector-derived** shear modulus $G_{vac}=\rho_{bulk}c^2$ ([`constants.py`](../src/ave/core/constants.py):758, :766) with **`ELL_C`, which is defined against $2(\mu+\kappa)$** through the $\xi_K$ relations ([`constants.py`](../src/ave/core/constants.py):326, `ℓ_c² = (β+γ)/[2(μ+κ)] = ℓ_node² · ξ_K2/(2·ξ_K1) = 6·ℓ_node²`). **It is retained deliberately**, because it is exactly what a reader following canon's own $\ell_c=\sqrt{\gamma_c/G_{vac}}$ formula ([`gauge-boson-masses.md`](../manuscript/ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39) would compute at the lattice-scale $\ell_c$. **R1b is the self-consistent route** — both moduli drawn from the same relation pair.
+
+**Shear-modulus sensitivity, stated explicitly (added 2026-08-02 repair pass).** $E_{\text{twist}}^{R1a}\propto G_{vac}$ **linearly**. Swap $G_{vac}$ for the shear scale `ELL_C` was actually defined against — $2(\mu+\kappa) = 2\xi_{K1}\sigma_0 = 7.583\times10^{24}$ Pa, the denominator in $\ell_c^2=(\beta+\gamma)/[2(\mu+\kappa)]$ — and R1a is multiplied by $2(\mu+\kappa)/G_{vac} = 10.667$, landing **exactly** on R1b. **That identity is the whole 10.667×: R1a and R1b are the same quantity evaluated with two different shear scales, and R1a's is not the one `ELL_C` was defined against.** Verified numerically in the driver.
+
+**Honest lattice-scale bracket: $2\times10^1$ – $2\times10^2\ m_ec^2$** — and it must now be read as a **shear-modulus-choice bracket**, not a physics bracket.
 
 ### 6.4 ★The muon-rung near-coincidence — recorded, and explicitly NOT claimed
 
@@ -494,7 +506,16 @@ V_tube = l_node^3 / (4 pi)                 = 4.5824e-39 m^3
 R1a  gamma_c = G_vac * ELL_C^2 = 6.3604e-01 N  -> E_twist = 2.1206e+01 m_e c^2
 R1b  gamma_c = xi_K2*sigma_0*l^2 = 6.7844 N    -> E_twist = 2.2619e+02 m_e c^2   (= 72 pi)
 R2   gamma_c = G_vac * (1e-18 m)^2 = 7.1089e-13 N -> E_twist = 2.3701e-11 m_e c^2
-R1b/R1a = 10.6667 (= 32/3, internal slop)  |  R1a/R2 = 8.9471e+11 (the 12-OOM gate)
+R1b/R1a = 10.6667 (= 32/3, internal spread) |  R1a/R2 = 8.9471e+11 (the 12-OOM gate)
+--- R1b/R1a decomposition + shear sensitivity, added 2026-08-02 repair pass ---
+coefficient  xi_K2 / (ELL_C^2/l_node^2)    = 32/6 = 5.3333
+stress scale sigma_0 / G_vac               = 2.0000
+product                                    = 10.6667  (= 32/3)
+   => the gamma-vs-(beta+gamma) ambiguity contributes NOTHING to the spread
+R1a with G_vac       = 7.1089e+23 Pa       -> 2.1206e+01 m_e c^2
+R1a with 2(mu+kappa) = 7.5828e+24 Pa       -> 2.2619e+02 m_e c^2  (= R1b exactly)
+ratio 2(mu+kappa)/G_vac                    = 10.6667
+   => the lattice-scale bracket is a SHEAR-MODULUS-CHOICE bracket, not physics
 (m_mu - m_e)/m_e = 205.77 (CODATA anchors) ; 1/(alpha*sqrt(3/7)) - 1 = 208.33 (canon) ; 72 pi = 226.19
 ```
 

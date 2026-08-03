@@ -149,8 +149,28 @@ def main() -> None:
     for lab, gam in rows:
         e = gam * KAPPA**2 * V_TUBE
         print(f"  {lab} gamma_c = {gam:.4e} N -> E = {e:.4e} J = {e / MEC2:.4e} m_e c^2")
-    print(f"\n  R1b/R1a = {(b_g) / (G_VAC * ELL_C**2):.4f}  (internal lattice-scale slop: 32/3)")
+    print(f"\n  R1b/R1a = {b_g / (G_VAC * ELL_C**2):.4f}  (internal lattice-scale spread)")
     print(f"  R1a/R2  = {(G_VAC * ELL_C**2) / (G_VAC * L_C_WEAK**2):.4e}  (the 12-OOM gate)\n")
+    # --- R1b/R1a decomposition + shear-modulus sensitivity (audit sec.6.3) -------
+    # The spread is coefficient (32 vs 6) x stress scale (sigma_0/G_vac), NOT the
+    # gamma-vs-(beta+gamma) ambiguity: R1a never uses beta+gamma at all.
+    coeff = XI_K2 / 6.0
+    stress_ratio = sigma_0 / G_VAC
+    print("  decomposition of R1b/R1a (audit sec.6.3):")
+    print(f"     coefficient  xi_K2 / (ELL_C^2/l_node^2) = {XI_K2:.0f}/6 = {coeff:.4f}")
+    print(f"     stress scale sigma_0 / G_vac            = {stress_ratio:.4f}")
+    print(f"     product                                 = {coeff * stress_ratio:.4f}  (= 32/3)")
+    print("     the gamma-vs-(beta+gamma) ambiguity contributes NOTHING here.")
+    # R1a is a CROSS-MODULUS HYBRID: G_vac (bulk-derived) x ELL_C^2 (defined against
+    # 2(mu+kappa)). Swapping in the shear scale ELL_C was defined against recovers R1b.
+    two_mu_k = 2.0 * mu_k
+    e_r1a = G_VAC * ELL_C**2 * KAPPA**2 * V_TUBE
+    e_r1a_consistent = two_mu_k * ELL_C**2 * KAPPA**2 * V_TUBE
+    print("  shear-modulus sensitivity (E_twist ~ G linearly):")
+    print(f"     R1a with G_vac      = {G_VAC:.4e} Pa -> {e_r1a / MEC2:.4e} m_e c^2")
+    print(f"     R1a with 2(mu+kappa)= {two_mu_k:.4e} Pa -> {e_r1a_consistent / MEC2:.4e} m_e c^2")
+    print(f"     ratio 2(mu+kappa)/G_vac = {two_mu_k / G_VAC:.4f}  -> lands EXACTLY on R1b")
+    print("     => the lattice-scale bracket is a SHEAR-MODULUS-CHOICE bracket.\n")
 
     print("=" * 78)
     print("(4) the generation rung -- recorded, NOT claimed as a match")
