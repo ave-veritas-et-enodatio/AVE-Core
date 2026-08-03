@@ -63,13 +63,13 @@ A fourth, non-numerical change was also made: `fundamental()` is memoized on its
 | **C1** ★ | zero-grade closed-form control (the entry ticket) | count exact; loc `1e-20`; winding `1e-3` | **`ℓ=1,2,3` PASS** (see below); `ℓ=6,10,14,18` FAIL | **FAIL** |
 | **C2** | hyperboloidal-gauge independence, `λ ∈ {−0.25, 0, +0.25}` | `1e-12` | `3.3268e-14` | **PASS** |
 | **C3** | resolution convergence, `n ∈ {48, 56, 64}` | `1e-12` | `8.3318e-14` | **PASS** |
-| **C4** | argument-principle consistency **+ count-vs-box-width scaling** | integer to `1e-3` | winding `2.0/2.0/2.0`, located `2`; width family all match | **PASS** |
+| **C4** | argument-principle consistency **+ count-vs-box-width scaling** | integer to `1e-3` | winding `2.0/2.0/2.0`, located `2`; width family all match | **PASS** — ⚑ **DE-WEIGHTED, §3.4(a)**: the count is not `n`-stable |
 | **C5** | `nu_vac`-cancellation across `x_sat ∈ {5,7,11}` | `1e-9` | `Q` spread **`0.0`**, `Omega` spread **`0.0`** | **PASS** |
 | **C6** | spin-2 energy functional + spin-2-vs-spin-1 discrimination | resid `1e-9`; break `1e-3` | resid `5.7412e-12`; break `0.48017` | **PASS** |
 | **C7** | Ax-3: closed doubly-traction-free cavity spectrum is REAL | `1e-10` | `1.7853e-27` over `63` modes | **PASS** |
 | **C8** | determinism | identical digest | `e953f8882a4e675e` twice | **PASS** |
 | **C9** ★ | graded-representation convergence at 9 rectangle probes | `1e-10` | `1.8993e+01` (5 of 9 probes pass) | **FAIL** |
-| **C10** | outflow-row conditioning monitor | `rho_out·10^-dps ≤ 1e-15` | max `rho_out = 42.8037` → `4.28e-49`; margin over derived bound **36.37 orders** | **PASS** |
+| **C10** | outflow-row conditioning monitor | `rho_out·10^-dps ≤ 1e-15` | max `rho_out = 42.8037` → `4.28e-49`; margin over derived bound **36.37 orders** | **PASS** — ⚑ **DE-WEIGHTED, §3.4(b)**: wrong quantity's margin |
 | **C11** | `η`-form ≡ `4η²`·`A`-form operator identity | `1e-13` | `8.9716e-16` | **PASS** |
 
 ### C1 in full — the entry ticket, row by row
@@ -183,6 +183,25 @@ which contains **no `λ` and no `Ω`**. The mutation is therefore indistinguisha
 
 **Rule 11 is untouched: nothing was retuned, no parameter was selected post-hoc, and the gate stays banked as FAIL.** The correction runs in the direction *against* this lane's interest — it removes the exculpatory reading, it does not supply one.
 
+### §3.4 ADDED 2026-08-03 — TWO PASSES ARE DE-WEIGHTED: C4 and C10 are BANKED WITH CAVEATS
+
+**Both passed as frozen and neither is re-adjudicated here.** Review measured that neither certifies what its headline suggested, and a reader who takes them at face value will over-trust this instrument. **Disclosed, not repaired.**
+
+**(a) C4's PASS is an accident of the frozen order.** The winding over the frozen physics rectangle reads `2.0/2.0/2.0` **only at `n ≤ 48`**. At the next three orders it reads:
+
+| `n` | winding over the frozen physics rectangle |
+|---|---|
+| `≤ 48` | `2.0 / 2.0 / 2.0` |
+| `56` | `3 / 5 / 3` |
+| `64` | `3 / 4 / 14` |
+| `80` | `12 / 4 / 11` |
+
+**C4 as frozen required sampling-stability, not `n`-stability.** It was evaluated at `N_PRIMARY = 48`, where the count happens to be right and stable across the three contour samplings — so it passed. **It would have FAILED at `56` and `64`, which are two of the three orders C3's own independence set uses.** The instrument therefore passes its argument-principle gate and fails it at orders it simultaneously certifies convergence on. **This is the §3.2/§3.3 mechanism again, read from the pass side: the in-box count is not `n`-stable, and only the located pole `Ω = 1.853655 - 1.007257i` is.**
+
+**What a v2.2 C4 must require: `n`-independence of the count**, not merely stability across contour samplings of one fixed discretization. **Not written here** — no v2.2 prereg is drafted in this repair.
+
+**(b) C10 measured the wrong quantity's margin.** C10's derived left-edge bound is `|Ω|_min ≥ ℓ(ℓ+1)·10^(12−dps) = 6e-38` at `dps = 50` (`research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:294`), and the result was reported as a `36.37`-order margin. **The binding left-edge constraint is roughly `37` orders away from that bound.** The mechanism that actually limits the left edge is **spectral** — the migrating in-box pseudo-spectrum of §3.2, operative at `O(0.1)` in `|Ω|`, i.e. right at the rectangle's frozen `|Ω|_min = 0.1402` — **not arithmetic precision.** C10 certified an arithmetic-conditioning margin that was never the constraint, and reported comfort about an edge that was in fact failing. **The gate is banked as it stands; its margin is not evidence that the left edge is sound.**
+
 ---
 
 ## §4 — THE FOUR FROZEN BINS: all four report `N/A — not adjudicated`
@@ -263,7 +282,7 @@ Both frozen measures agree exactly and both place the maximum at the **outer** e
 2. **The load-bearing algebra is verified as algebra.** C11: the `η`-form operator equals `4η²`·the `A`-form operator to `8.97e-16` on arbitrary analytic test functions that solve nothing.
 3. **★ The `nu_vac` cancellation is EXACT, to the last bit.** C5 measures `Q` spread and `Omega` spread of **`0.0`** across `x_sat ∈ {5, 7, 11}` — not `1e-8`, not `1e-15`, but zero — while FT-E fires at `6.01e-07`, proving the gate is live and not dead. #845 measured `1.1058e-08` here and failed its own `1e-9`. The prereg's structural claim (§0) that the cancellation is exact **by construction** because the compactified coordinate *is* the Axiom-4 amplitude is confirmed at machine level.
 4. **Ax-3 losslessness is structural.** C7: every one of `63` closed-cavity eigenvalues is real to `1.79e-27`; FT-G detects a smuggled `Im(μ)/Re(μ) = 1e-3` at `5.0e-04`.
-5. **The counting instrument is now trustworthy in its certified range, and the box-width artifact class is excluded empirically.** C4's width family returns windings `0, 0, 1, 2, 3, 3` against run-time closed-form contents `0, 0, 1, 2, 3, 3` — **content saturates at `3` while the box width doubles from `8` to `16`, over a `32×` width span.** A count proportional to box width is decisively excluded. This is the direct empirical kill of the phase-rate artifact class §2.4 of the prereg describes.
+5. 🔴 **CORRECTED 2026-08-03. Original leading claim, verbatim, RETRACTED:** *"**The counting instrument is now trustworthy in its certified range, and the box-width artifact class is excluded empirically.**"* **The first half is refuted** — the count over the frozen physics rectangle is not `n`-stable (`3/5/3`, `3/4/14`, `12/4/11` at `n = 56/64/80`, §3.4(a)) and the count over the high-`|Ω|` control box carries spurious zeros that grow with `n` (§3.3). **The second half stands:** C4's width family returns windings `0, 0, 1, 2, 3, 3` against run-time closed-form contents `0, 0, 1, 2, 3, 3` — **content saturates at `3` while the box width doubles from `8` to `16`, over a `32×` width span.** A count proportional to box width is decisively excluded. That is a real empirical kill of the phase-rate artifact class §2.4 of the prereg describes — **and it excludes one artifact class, not the one that actually bit this instrument.**
 6. **The spin-2 discipline is load-bearing and measured twice.** C6: spin-2 Rayleigh residual `5.74e-12`; spin-1 weighting break `0.48017`; spin-1 wall condition moves the fundamental by `0.28424`.
 7. **Determinism.** Two full runs produced byte-identical shipped objects apart from `_runtime_sec`, digest `e953f8882a4e675e`.
 
