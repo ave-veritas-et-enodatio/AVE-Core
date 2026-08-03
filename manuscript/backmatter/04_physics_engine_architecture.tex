@@ -102,65 +102,70 @@ Tier 1: CORE (never duplicated)
 |-- axioms/open_problems.py      Millennium problem demonstrations
 
 Tier 2a: REGIME BOUNDARY MODULES (explicit saturation / rupture physics)
-|-- regime_1_linear/              Linear vacuum regime           (2 modules)
+|-- regime_1_linear/     2 mods  Linear vacuum regime
 |     |-- fluids_factory.py        Polymorphic fluid Z(T) factory
 |     |-- hexagonal_lattice.py     2D hexagonal lattice geometry
-|-- regime_2_nonlinear/           Non-linear topology solvers    (2 modules)
-|     |-- seismic.py               Seismic layer stacks
-|     |-- seismic_fdtd.py          3D seismic wave FDTD driver
-|-- regime_3_saturated/           Deep saturation regime         (7 modules)
+|-- regime_2_nonlinear/  2 mods  Non-linear solvers
+|     |-- seismic.py / seismic_fdtd.py   Layer stacks + 3D wave FDTD
+|-- regime_3_saturated/  7 mods  Deep saturation regime
 |     |-- galactic_rotation.py     Axiom 4 MOND from a_0 = cH/(2pi)
 |     |-- orbital_impedance.py     Gravitational refractive strain
 |     |-- condensed_matter.py      T_melt, c_sound, E_gap (Regime II)
 |     |-- kolmogorov_cutoff.py     Turbulence spectral arrest at L_NODE
-|     |-- black_hole_core.py       Saturated-core interior
-|     |-- cavitation_collapse.py   Cavitation / collapse dynamics
-|     |-- electrostatic_core.py    Saturated electrostatic core
-|-- regime_4_rupture/             Lattice rupture regime (S = 0) (3 modules)
+|     |-- black_hole_core.py / cavitation_collapse.py /
+|         electrostatic_core.py    Saturated cores + collapse
+|-- regime_4_rupture/    3 mods  Lattice rupture regime (S = 0)
 |     |-- rupture_solver.py        c_eff -> 0, impedance collapse
 |     |-- black_hole_jets.py       Energy redirection at (1-S) -> 1
 |     |-- caustic_solver.py        Axiom 4 TL optical caustic arrest
+\end{verbatim}
+\caption{Engine architecture, part 1 of 2 --- Tier~1 core operators and
+Tier~2a regime boundary modules.
+Package and module inventory verified against \texttt{src/ave/} at HEAD
+(2026-08-02).
+Every computation flows downward; no tier re-derives operators
+from a higher tier.}
+\label{fig:engine_tiers}
+\end{figure}
 
+% [2026-08-02 FIGURE SPLIT -- wave-2 backmatter reconciliation, disclosed typographic repair.
+%   The architecture tree was ONE figure[H] holding a ~67-line verbatim. A figure[H] cannot
+%   break across pages, and the block did not fit: the BASELINE build (origin/main
+%   2fcde4db, before any edit in this branch) already reported
+%     "[63]Overfull \vbox (245.75883pt too high) has occurred while \output is active [][64]"
+%   in build/aux/vol_0_engineering_compendium.log -- roughly 21 verbatim lines silently
+%   clipped off page 64, i.e. essentially the whole Tier-3 SOLVERS block never rendered.
+%   Bringing the package inventory to the measured HEAD state made the block longer and the
+%   overflow worse (721.76pt), so the float is split in two here. Nothing in the corpus
+%   \ref's fig:engine_tiers (`git grep -n "fig:engine_tiers"` returns only its own \label),
+%   so the label is kept on part 1 and a second float carries part 2. This is a typographic
+%   repair of a PRE-EXISTING defect found while executing the assigned content fix, disclosed
+%   rather than silently absorbed; no tree row is dropped by the split.
+\begin{figure}[H]
+\centering
+\begin{verbatim}
 Tier 2b: DOMAIN ADAPTERS (thin wrappers providing eps/mu analogs)
-|-- gravity/                     11 modules: solar impedance, galactic MOND
-|                                  drag, GW propagation + detector, stellar
-|                                  interior, neutrino MSW, planetary
-|                                  magnetosphere, Lense-Thirring, orbital LC
-|                                  damping, hyperbolic kinematics,
-|                                  two-way backreaction
-|-- topological/                 19 modules: Faddeev-Skyrme, Borromean,
-|                                  Cosserat (+ 3D field), K4 holonomy + K4
-|                                  Cosserat coupling, srs-DEC (+ punctured),
-|                                  FR braid exchange, helicity observer,
-|                                  charge quantization, soliton bond,
-|                                  combiner, tensors, operator registry,
-|                                  vacuum engine, mixing, entanglement
-|                                  thread, moving-front freeze-in
-|-- condensed/                   5 modules: silicon crystal, Si/Ge/GaAs
-|                                  doping, BJT mechanics
-|-- nuclear/                     8 modules: Si nucleus + per-species atoms
-|                                  (B, C, P, As, Ga, Ge, Si)
-|-- plasma/                      cutoff.py, superconductor.py
-|-- qed/                         birefringence.py, brillouin_cutoff.py
-|-- thermal/                     f6_bath_meter.py
+|-- gravity/     11 mods  solar, galactic MOND drag, GW propagation +
+|                           detector, stellar, neutrino MSW, magnetosphere,
+|                           Lense-Thirring, orbital LC damping, backreaction
+|-- topological/ 19 mods  Faddeev-Skyrme, Borromean, Cosserat (+3D field),
+|                           K4 holonomy + coupling, srs-DEC (+punctured),
+|                           FR braid, charge quantization, soliton bond
+|-- condensed/    5 mods  Si crystal, Si/Ge/GaAs doping, BJT mechanics
+|-- nuclear/      8 mods  Si nucleus + per-species atoms (B,C,P,As,Ga,Ge,Si)
+|-- plasma/ 2: cutoff, superconductor | qed/ 2: birefringence, brillouin
+|-- thermal/ 1: f6_bath_meter
 
-Tier 2c: DISPATCH, BENCH AND GATE INFRASTRUCTURE
-|-- facade/unified_engine.py     Regime-dispatch facade over the certified
-|                                  backends (reuses, never re-implements)
-|-- bench/                       8 modules: channel-agnostic bench model,
-|                                  apparatus, adopters, SNR, sweep, SPICE
-|                                  runner, birefringence, validate
-|-- validation/                  6 modules: equation audit, planted source,
-|                                  reconcile gate, runtime independence,
-|                                  spectral liveness, structural degeneracy
-|-- utils/                       4 modules: fast winding extractor, genesis
-|                                  parallel runner, topology genus, v8
-|                                  instrumentation
-|-- viz/style.py                 Manuscript figure house style
+Tier 2c: DISPATCH / BENCH / GATE INFRASTRUCTURE
+|-- facade/  1 mod   unified_engine -- regime dispatch over certified cores
+|-- bench/   8 mods  bench model, apparatus, adopters, SNR, sweep, SPICE
+|-- validation/ 6 mods  equation audit, planted source, reconcile gate,
+|                         runtime independence, liveness, degeneracy
+|-- utils/ 4 mods: winding extractor, genesis runner, genus, v8 instr.
+|-- viz/   1 mod:  style (manuscript figure house style)
 
 Tier 3: SOLVERS (consume Tiers 1+2, never re-derive operators)
-   [core/ holds 58 modules and solvers/ 31; the rows below are a
-    representative selection, not the full listing]
+   [core/ holds 58 modules and solvers/ 31; rows below are a selection]
 |-- core/fdtd_3d.py              3D nonlinear FDTD (numpy)
 |-- core/fdtd_3d_jax.py          3D nonlinear FDTD (JAX GPU)
 |-- core/grid.py                 Grid infrastructure
@@ -175,20 +180,17 @@ Tier 3: SOLVERS (consume Tiers 1+2, never re-derive operators)
 |-- solvers/radial_eigenvalue     Regime-aware Hopf coupling
 |-- solvers/resonator             Single-mode LC resonator
 |-- solvers/graded_vacuum_network Graded vacuum impedance network
-|-- solvers/phase_space_winding   Phase-space winding extraction
 |-- solvers/spice_transient       Topological SPICE extraction
 |-- solvers/spice_netlist_compiler Topology -> ngspice .cir compiler
 |-- solvers/transmission_line     S-parameters, Q-factor
 \end{verbatim}
-\caption{Three-tier architecture enforcing scale invariance.
-Tier~2a provides the regime boundary modules; Tier~2b provides the
-domain-specific constitutive adapters; Tier~2c provides the regime-dispatch
-facade, the bench model and the gate/validation harnesses.
+\caption{Engine architecture, part 2 of 2 --- Tier~2b domain-specific
+constitutive adapters, Tier~2c the regime-dispatch facade / bench model /
+gate-validation harnesses, and Tier~3 the solvers.
 Package and module inventory verified against \texttt{src/ave/} at HEAD
-(2026-08-02).
-Every computation flows downward; no tier re-derives operators
-from a higher tier.}
-\label{fig:engine_tiers}
+(2026-08-02); \texttt{core/} and \texttt{solvers/} rows are a selection,
+with the true totals stated in the block.}
+\label{fig:engine_tiers_part2}
 \end{figure}
 
 
