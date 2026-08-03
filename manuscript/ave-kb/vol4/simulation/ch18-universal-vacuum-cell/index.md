@@ -36,14 +36,18 @@ The `AVE_VACUUM_CELL` contains three behavioral elements between nodes A and B:
 3. **(c) TVS Zener** (optional damping): Linear resistance $R_0$ for material domains; $R_0 = 0$ for free vacuum.
 4. **(d) Memristor** (placeholder): $\tau_{relax} \approx 1.29 \times 10^{-21}$ s — below any practical SPICE timestep.
 
-### Parameters (from `ave.core.constants`)
+### Parameters (canonical source stated ~~from `ave.core.constants`~~ **PER SYMBOL** — attribution repaired 2026-08-03, see the note below; no value moves)
 
 | Parameter | Value | Origin |
 |---|---|---|
-| $V_{SNAP}$ | 510,998.95 V | $m_e c^2 / e$ |
+| $V_{SNAP}$ | 510,998.95 V | $m_e c^2 / e$ — `ave.core.constants.V_SNAP` |
 | $V_{YIELD}$ | 43,651.85 V | $\sqrt{\alpha} \times V_{SNAP}$ (`ave.core.constants.V_YIELD` = 43651.851844… — FLAG-1 fix 2026-07-03; prior 43,653.7 was drifted) |
-| $I_{MAX}$ | 124.4 A | $\xi_{topo} \times c$ |
-| $Z_0$ | 376.73 Ω | $\sqrt{\mu_0 / \varepsilon_0}$ |
+| $I_{MAX}$ | 124.4 A | $\xi_{topo} \times c$ — **`ave.core.fdtd_3d.I_MAX_MU`, NOT `constants.py`** (see note); the printed `124.4` is a **display rounding** of `124.3840330668883` |
+| $Z_0$ | 376.73 Ω | $\sqrt{\mu_0 / \varepsilon_0}$ — `ave.core.constants.Z_0` |
+
+> ⚑ **DEAD-CITE REPAIR (2026-08-03, `imax-mechanical` lane) — naming/attribution only; no value moves and nothing is minted.** The section header above read *"Parameters (from `ave.core.constants`)"* and governed the $I_{MAX}$ row. **`ave.core.constants.I_MAX` DOES NOT EXIST**, and never has. Two-method verified at `origin/main` `66fc7e69`: (A) `hasattr(ave.core.constants, "I_MAX")` returns `False`; (B) `grep -n I_MAX src/ave/core/constants.py` exits `1` (no match). The struck header text is preserved above (Rule 12). The **live** symbol is [`src/ave/core/fdtd_3d.py`](../../../../../src/ave/core/fdtd_3d.py)`:69` — `I_MAX_MU: float = XI_TOPO * C_0  # ≈ 124.384 A — μ-grade circulation threshold` — i.e. **the μ-grade threshold lives in the engine module, not the constants module.** $V_{SNAP}$, $V_{YIELD}$ and $Z_0$ *are* `ave.core.constants` symbols; only the $I_{MAX}$ row was dead. **No `I_MAX` is minted in `constants.py` by this repair, deliberately** — minting one would force the open A4 / `I_max` homonym ruling described next. ★**The `124.4` display rounding is FLAGGED, NOT CHANGED**: it is the same hand-maintained-literal class the FLAG-1 note at [`spice-subcircuit.md`](spice-subcircuit.md):125 names, and moving a number is outside a naming/attribution repair's scope.
+>
+> ⚑ **The VALUE it carries sits on an OPEN fork.** `124.384 A` is the **convection** reading of `I_max` ($\xi_{topo}c$; Ax2 TKI evaluated at $v=c$). The corpus uses the same name `I_max` for a **displacement** reading, $V_{yield}/Z_0 = 115.870$ A — the *"FPB slew rating, $I_{max}\simeq116$ A"* ([`operators.md`](../../../common/operators.md):145; same sentence at [`universal-saturation-kernel-catalog.md`](../../../common/universal-saturation-kernel-catalog.md):171). The two differ by **exactly $4\pi\sqrt\alpha = 1.073476$**, i.e. **$+15.2\%$ in the quadratic kernel argument** $(I/I_{max})^2$ *at a fixed numerator convention*. Which reading the $\mu$-grade denominator should carry is **Grant's A4 ruling and is still open** (`research/2026-07-10_operator-typing-pass_result.md`:112, verbatim: *"**Grant's physical ruling — still OPEN.**"*). Three-sense map + hazard box: [`theorem-thesaurus.md`](../../../common/theorem-thesaurus.md) §6, the `I_max` row. **This spec keeps `124.4 A`** — the repair is to the cite, not to the number, and it **rules nothing** on the fork.
 
 ### Datasheet device schematic (Vol 9 render)
 

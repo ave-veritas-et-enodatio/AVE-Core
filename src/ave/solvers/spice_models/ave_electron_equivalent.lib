@@ -17,14 +17,52 @@
 *   - min(...,0.9999) clamps the kernel argument below 1 for sqrt stability.
 * Idioms parse + DC-converge (probed 2026-07-07 before commit).
 *
-* CONSTANTS (defaults from ave.core.constants; a driver SHOULD substitute the
-*   live values rather than trust these literals — FLAG per ave_vacuum_cell.lib
-*   FLAG-1 value-drift warning; these are the same canonical numbers):
+* CONSTANTS (canonical source stated PER SYMBOL - see the 2026-08-03 dead-cite
+*   repair note below; this header formerly read "defaults from
+*   ave.core.constants", which is FALSE for I_MAX.  A driver SHOULD substitute
+*   the live values rather than trust these literals - FLAG per
+*   ave_vacuum_cell.lib FLAG-1 value-drift warning; these are the same
+*   canonical numbers):
 *     V_SNAP  = 510998.95 V     (m_e c^2 / e)          A1 metric-varactor knee
+*                               -> ave.core.constants.V_SNAP
 *     V_YIELD = 43651.85 V      (sqrt(alpha)*V_SNAP)   T2 yield wall
+*                               -> ave.core.constants.V_YIELD
 *     I_MAX   = 124.384 A       (xi_topo * c)          inductor current ceiling
+*                               -> ave.core.fdtd_3d.I_MAX_MU  (NOT constants.py)
 *   L0/C0 default to the SCALED tank values (1nH/1pF) for parse/DC-converge; a
 *   driver passes L0=L_CELL, C0=C_CELL for the physical run.
+*
+* DEAD-CITE REPAIR (2026-08-03, imax-mechanical lane).  Same defect class as
+*   the one repaired in ave_vacuum_cell.lib, which this file .INCLUDEs below
+*   (see the ".INCLUDE ave_vacuum_cell.lib" directive); found by the two-method
+*   sweep of that repair, disclosed rather than absorbed silently -- the
+*   included lib's header was repaired while this INCLUDING lib's own header
+*   still carried the same false attribution.
+*   ave.core.constants.I_MAX DOES NOT EXIST
+*   and never has.  Two-method verified at origin/main 66fc7e69:
+*   hasattr(ave.core.constants, "I_MAX") is False, and grep for I_MAX in
+*   src/ave/core/constants.py exits 1 (no match).  The false attribution this
+*   header formerly carried, quoted verbatim (Rule 12):
+*     "* CONSTANTS (defaults from ave.core.constants; a driver SHOULD substitute the"
+*     "*     I_MAX   = 124.384 A       (xi_topo * c)          inductor current ceiling"
+*   The LIVE symbol is ave.core.fdtd_3d.I_MAX_MU (src/ave/core/fdtd_3d.py:69):
+*     I_MAX_MU: float = XI_TOPO * C_0   # ~= 124.384 A - mu-grade circulation
+*                                       #    threshold
+*   i.e. the mu-grade threshold lives in the ENGINE MODULE, not the constants
+*   module.  V_SNAP and V_YIELD above ARE in ave.core.constants; only the
+*   I_MAX row was dead.  Nothing is minted in constants.py by this repair.
+*   ! THE VALUE 124.384 A SITS ON AN OPEN FORK.  Which physical current
+*   ceiling the Axiom-4 mu-kernel denominator should carry is Grant's A4
+*   ruling and is STILL OPEN (research/2026-07-10_operator-typing-pass_result.md
+*   :112, verbatim: "Grant's physical ruling - still OPEN.").  A rival sense
+*   reads it as the DISPLACEMENT ceiling V_yield/Z_0 = 115.870 A, which the
+*   corpus also calls I_max (manuscript/ave-kb/common/operators.md:145,
+*   "the FPB slew rating, $I_{max}\simeq116$ A").  The two differ by exactly
+*   4*pi*sqrt(alpha) = 1.073476, i.e. ~15% in the QUADRATIC kernel argument
+*   at a FIXED numerator convention.  Three-sense map + hazard box:
+*   manuscript/ave-kb/common/theorem-thesaurus.md section 6, the I_max row.
+*   This .lib keeps 124.384 A (no value change); only the cite is repaired.
+*   This block is COMMENT-ONLY: no .param, .subckt or element line is touched.
 * ====================================================================
 
 .INCLUDE ave_vacuum_cell.lib
