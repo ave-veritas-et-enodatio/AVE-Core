@@ -322,6 +322,10 @@ The frozen precedence is `BIN-F-NOROOT` > `BIN-F-ROOT` > `BIN-F-PROFILE` > `BIN-
 9. **⚑ FLAG-12 — the Makefile contact is a REAL two-line conflict**, not an append-only merge. **Frozen:** `the Makefile contact with PR #854 and PR #856 is a REAL two-line conflict on the .PHONY line and the verify: prerequisite line, is NOT append-only, and is NOT auto-resolved by any merge driver on the server side`. Mitigation as frozen: the number check is wired as its **own** target so no recipe body is shared, and this branch is **rebased onto a fresh `origin/main` immediately before the PR**. Every `research/` and `_orchestration/` file in this lane is new and shared with no open branch.
 10. **`gates.G9.pass` is a driver-side placeholder.** Determinism is adjudicated **externally**, by running the driver twice and diffing the shipped objects. That was done: identical digests `6cec005e0155513a`, byte-identical apart from `_runtime_sec`. **Disclosed so the JSON flag is not mistaken for a self-measurement.**
 
+    > **ROUTED TO THE SUCCESSOR, 2026-08-03 (added under adversarial review).** Disclosing the placeholder is not enough. **A gate that consumes a self-declared field is a checklist, not a gate** — the driver writes `"pass": true` into `gates.G9` and nothing in the battery can ever make it write anything else, so any consumer that reads the shipped object and tallies `pass` flags will count a gate that measured nothing. **The successor's driver MUST NOT EMIT a `pass` field for `G9` at all.** It should ship the digest and the note, and leave the verdict to the external two-run diff, so that the only way to obtain a G9 verdict is to actually perform the comparison.
+    >
+    > **This lane's G9 content is nevertheless discharged, and externally:** the adversarial review ran the driver a further two times itself and obtained the same digest `6cec005e0155513a`, independently of this lane's own two runs. **Recorded as the receipt that G9's content — not its flag — is satisfied here.** The placeholder is a defect in the *instrument's reporting*, not in the determinism it claims.
+
 ---
 
 ## §8 — VALIDATION AND SCOPE DISCLOSURES
