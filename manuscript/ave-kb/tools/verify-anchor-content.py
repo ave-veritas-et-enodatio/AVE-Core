@@ -306,10 +306,15 @@ class TargetCache:
         return self._norm_lines[path], self._whole[path]
 
 
-def resolve_target(cite_path: str, citing_file: Path, repo_root: Path) -> Path | None:
-    """Resolve a cite path relative to the citing file, then the repo root."""
+def resolve_target(target_path: str, citing_file: Path, repo_root: Path) -> Path | None:
+    """Resolve a cite path relative to the citing file, then the repo root.
+
+    The parameter is `target_path`, NOT `cite_path` — `cite_path` is the
+    module-level helper that reads the path out of either CITE_RE branch, and a
+    same-named parameter would shadow it inside this function body.
+    """
     for base in (citing_file.parent, repo_root):
-        cand = (base / cite_path).resolve()
+        cand = (base / target_path).resolve()
         if cand.is_file():
             return cand
     return None
