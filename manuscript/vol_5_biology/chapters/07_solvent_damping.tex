@@ -49,11 +49,30 @@ Converting to electrical conductance via $\xi_\text{topo}^2$:
 %             hbond-op4-equilibrium.md, Op4 equilibrium)
 %     d_HB  = 1.754 Angstrom = 1.754e-10 m (canonical, same leaf; mirrored at
 %             ave-kb/vol5/index.md:26 and ave-kb/CLAUDE.md:318)
-%     k_HB  = E_HB / d_HB^2 = 3.4575e-20 / (1.754e-10)^2 = 1.1246 N/m
+%     k_HB  = E_HB / d_HB^2 = 3.4575e-20 / (1.754e-10)^2 = 1.1238 N/m
+%   [DIGIT CORRECTION 2026-08-03, Rule 12 quote-and-date -- the struck digits are
+%    preserved here. This line first read "= 1.1246 N/m", which did NOT equal its
+%    own quoted division: 3.4575e-20 / 3.076516e-20 = 1.12384, not 1.1246. The
+%    quoted-input/quoted-result mismatch came from mixing the chain's two canonical
+%    energy expressions. ONE canonical input is now elected and used consistently:
+%      ELECTED  E_HB = 0.2158 eV = 3.457497e-20 J  ->  k_HB = 1.1238 N/m
+%      (the eV form is this chapter's own cited input at :20, and it is the PRIMARY
+%       derived output of the Op4 chain: E_HB = U_raw x (1-phi) = 0.8317 eV x 0.2595
+%       = 0.2158 eV, ave-kb/vol5/molecular-foundations/organic-circuitry/
+%       hbond-op4-equilibrium.md:79)
+%      NOT ELECTED  E_HB = 4.98 kcal/mol = 3.459952e-20 J  ->  k_HB = 1.1246 N/m
+%      (the kcal/mol form is the same energy re-expressed for comparison against the
+%       5.02 +/- 0.05 kcal/mol gas-phase water-dimer reference; it rounds at 3 s.f.
+%       and reintroduces a 4th-digit difference)
+%    The two routes differ by 0.07% -- far below any digit this chapter prints, and
+%    with NO effect on the printed 1.12 N/m or on anything downstream. Only the
+%    receipt's internal consistency was at fault, and it is now exact.]
 % TWO-METHOD CHECK -- NO CASCADE. The downstream B_solvent below is unaffected
 % and was already computed on the CORRECT 1.12 N/m:
 %     B_solvent = n k_HB xi_topo^2 / (2 pi f_bb)
-%               = 3 * 1.1246 * (4.1490e-7)^2 / (2 pi * 24.2e12) = 3.82e-27 S
+%               = 3 * 1.1238 * (4.1490e-7)^2 / (2 pi * 24.2e12) = 3.82e-27 S
+%   (on the non-elected 1.1246 this reads 3.82e-27 S as well -- the no-cascade
+%    conclusion is insensitive to the election)
 % which matches the printed 3.8e-27 S; the slipped 11.2 N/m would give
 % 3.80e-26 S (10x). The loading ratio at :49 is G-dominated and is likewise
 % untouched. Only the :41 transcription is corrected.
