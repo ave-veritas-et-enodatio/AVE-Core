@@ -22,8 +22,19 @@ co-locates the latch + drive + momentum:
     is a longitudinal/P-wave/bulk (u-sector) excitation; the geometric concentration
     G_geom (= array directivity; Q-G42 V_yield^(apparatus)=E_yield/G_geom,
     trampoline-framework.md:465) drives the local field to A_yield.
-    [cite-rot repair 2026-08-02: read `:455`, the '### 3.1 The saturation kernel'
-     heading, which never carried the Q-G42 template. Content-located at HEAD.]
+    [cite-SHIFT repair 2026-08-02, framing corrected 2026-08-03: the cite read
+     `:455`, which DID carry the Q-G42 template sentence when this driver was
+     written on 2026-06-08 (0fec3508) -- the sentence sat at :455 in the then-
+     current main revision 90f0b968 (2026-06-06). Full shift history: :439
+     (2026-05-18 b0b9d4ea -> 2026-05-31 367669ef), :455 (2026-06-05), :457
+     (2026-06-13), :459 (2026-06-20), :461 (2026-07-02), :465 (2026-07-03 ->
+     HEAD). PURE LINE-SHIFT, CORRECT-WHEN-WRITTEN. The 2026-08-02 wording
+     ("the '### 3.1 The saturation kernel' heading, which never carried the
+     Q-G42 template") was historically false and is WITHDRAWN -- that heading
+     is what :455 holds today, not what it held at cite time. Content-located
+     at HEAD: :465 carries the sentence (content-primary target); the block
+     explicitly HEADED "The V_yield apparatus-geometry-scaling (Q-G42)" is at
+     :730.]
   - THE u-SECTOR LATCH (NOT the ω Lenz-freeze).  Peierls-Nabarro STZ thixotropic
     re-freeze (peierls-nabarro-paradox.md, clm-ghs75o) + Bingham yield τ_y
     (saturation-operator.md, clm-gdd70j: "the vacuum flows above τ_y=B_snap²/2μ₀").

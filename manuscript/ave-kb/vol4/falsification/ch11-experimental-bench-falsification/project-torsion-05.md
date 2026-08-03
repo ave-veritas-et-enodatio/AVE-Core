@@ -51,7 +51,7 @@ strengthens:
 > template = [`vacuum-impedance-mirror.md`](vacuum-impedance-mirror.md) (its 2026-06-04 RE-SCOPED box).
 > Reading-hazard discipline: [`vol4/claim-quality.md`](../../claim-quality.md) ($V_{yield}$-vs-$V_{snap}$
 > + per-node-vs-apparatus); Q-G42 apparatus-vs-substrate template
-> $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:465` — ★cite-rot repair 2026-08-02: this banner inherited `:439` from the walk-back doc's template cite; `:439` is a §2.4 cross-reference bullet and never carried the template).
+> $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$ (`trampoline-framework.md:465` — ★cite-**shift** repair 2026-08-02, framing corrected 2026-08-03: this banner inherited `:439` from the walk-back doc's template cite — `research/2026-06-04_corrections-walkback-pernode-result.md` (`1f3e7b8f`), where `:439` **was** the template sentence byte-for-byte on 2026-06-04. It then shifted: `:455` 2026-06-05, `:457` 2026-06-13, `:459` 2026-06-20, `:461` 2026-07-02, `:465` 2026-07-03→HEAD. This banner was itself written 2026-08-02 (`6afe3749`), so **for this leaf the defect is inherited-stale, not shift-under-the-citer** — the upstream cite was correct at its own date, the copy was already stale at its own. The 2026-08-02 wording *"`:439` … never carried the template"* was historically false and is **withdrawn**. Content-primary target `:465`; the block explicitly **headed** *"The $V_{yield}$ apparatus-geometry-scaling (Q-G42)"* is at `:730`).
 
 ## Project TORSION-05: Horizontal Metric Rectification
 
