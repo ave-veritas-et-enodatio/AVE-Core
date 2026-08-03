@@ -57,54 +57,193 @@
   1. **The which-moment defect (PRODUCT).** *"permanent **plastic** deformation"* — `plastic` is on `retention-transition-split.md:11`'s own declaration-required word list, used here with **no declaration**, and in its dissipative sense (metal plasticity) it is an **Ax3 loss leak**. Ruled wording: **retained residual offset / latched strain; "plastic" struck.**
   2. **The regime-broken premise (independent of #1).** *"after being **driven past its linear elastic limit**"* is **false by ~28 decades**. Verified numerically against the corpus's own numbers: `vol3/gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md:15` gives $V_{GW}/V_{\text{snap}} \approx \mathbf{1.4\times10^{-28}}$, and `vol3/claim-quality.md:76` reads *"All observed GW signals are **far in Regime I** (deeply linear)"* with the per-class table at `einstein-field-equation.md:92-95` (GW150914 $\sim10^{-28}$, GW170817 $\sim10^{-29}$, pulsar timing $\sim10^{-22}$; **all Regime I**). Nothing observed is anywhere near yield.
 
-- **★ THE EQUATION SURVIVES THE PREMISE STRIKE — and this is why the strike is a repair, not a deletion.** $\Delta h_{memory} = h_{peak}(h_{peak}/h_{yield})^2$ is exactly the shape of the **leading cubic nonlinear correction of the Axiom-4 kernel expanded about zero** ($\sqrt{1-x^2} \approx 1 - x^2/2$, first correction $O(x^2)$ on a linear response). That is a **Regime-I sub-yield** statement, fully consistent with $V_{GW}/V_{snap} \sim 10^{-28}$. It is **only the post-yield plasticity narrative** that dies, not the scaling law. The staged text keeps the equation byte-unchanged.
+- 🔴 **RETRACTED 2026-08-03 (review finding 1) — "THE EQUATION SURVIVES THE PREMISE STRIKE" is WRONG. Body preserved per Rule 12; do not build on it.** The retracted claim read verbatim:
 
-- **★ STAGED FLAG (surfaced here, NOT written as a strike) — the word "permanent" is not yet earned by the engine.** A *retained* offset after the drive passes is a **remanence**, and the corpus's own engine map says the canonical kernel cannot produce one: [`common/engine-capability-map.md:67`](../../manuscript/ave-kb/common/engine-capability-map.md), verified verbatim — *"The canonical kernel $S(A)=\sqrt{1-A^2}$ is **anhysteretic** — zero enclosed loop area ⇒ **no remanence**. Every attempt to get retention imposes a latch by hand (the [#215] IMPOSED-LATCH). The loop is the deepest open gap (**R10**)."* So the PRODUCT declaration says *what kind of object this is if it exists* (a lossless latched residual); **whether the substrate has a non-imposed latch to hold it is the OPEN R10 gap.** This is flagged for the ch15 lane, **not** resolved here, and **not** used to strike the section.
+  > ***"★ THE EQUATION SURVIVES THE PREMISE STRIKE — and this is why the strike is a repair, not a deletion.** $\Delta h_{memory} = h_{peak}(h_{peak}/h_{yield})^2$ is exactly the shape of the **leading cubic nonlinear correction of the Axiom-4 kernel expanded about zero** ($\sqrt{1-x^2} \approx 1 - x^2/2$, first correction $O(x^2)$ on a linear response). That is a **Regime-I sub-yield** statement, fully consistent with $V_{GW}/V_{snap} \sim 10^{-28}$. It is **only the post-yield plasticity narrative** that dies, not the scaling law. The staged text keeps the equation byte-unchanged."*
 
-- **THE STAGED EDIT TEXT, VERBATIM (to fire with the gated ch15 wave, not now):**
+  The review killed it **three independent ways**. Any one of the three is sufficient; all three are recorded so no single rescue re-opens it.
+
+### The three strikes (review finding 1 — verbatim receipts)
+
+**STRIKE (a) — PARITY. An even kernel cannot rectify.** $S(A) = \sqrt{1-A^2}$ is **even** in $A$. The modulated response $\sigma(h) = S(h/h_y)\,h$ is therefore **odd** in $h$. An odd nonlinearity driven by a symmetric wave generates only **odd harmonics** and **zero DC**:
+$$\cos^3\omega t = \tfrac34\cos\omega t + \tfrac14\cos 3\omega t \;\Longrightarrow\; \langle\cos^3\omega t\rangle = 0 .$$
+So the cubic term produces a **third harmonic**, not an offset. **No rectification ⇒ no residual.** Memory is by definition a **DC offset** surviving the drive; the cubic term is the one thing that provably cannot supply it. *(This is the plumber-physical statement: you cannot get a DC bias out of a symmetric device driven symmetrically — you need a diode, and Axiom 3 does not have one.)*
+
+**STRIKE (b) — SINGLE-VALUEDNESS. The kernel is anhysteretic, so nothing is retained.** [`common/engine-capability-map.md`](../../manuscript/ave-kb/common/engine-capability-map.md)**`:67`**, read verbatim at that line at this tip (bullet 3, *"Anhysteretic ↮ loop"*):
+
+  > *"The canonical kernel $S(A)=\sqrt{1-A^2}$ is anhysteretic — zero enclosed loop area ⇒ **no remanence** (`loop-gap-electron-resonator-closure-doctrine.md:18`). Every attempt to get retention imposes a latch by hand (the [#215] IMPOSED-LATCH). The loop is the deepest open gap (R10)."*
+
+  $\sigma$ is a **single-valued function of the instantaneous $h$**. Therefore $h \to 0 \Rightarrow \sigma \to 0$, identically, for every history. **Nothing is retained when the wave passes** — not approximately, exactly. *(Byte-note: this fragment's earlier rendering of the same quote silently dropped the inline `loop-gap-…:18` cite and added bold to "anhysteretic" and "R10" that the source does not carry. The line above is the source's own bytes.)*
+
+**STRIKE (c) — MAGNITUDE. ~39 orders below the effect it is supposed to model.** For GW150914 ($h_{peak} = 10^{-21}$, $h_{yield} = \sqrt{\alpha} = 0.085425$):
+$$\frac{h_{peak}}{h_{yield}} = 1.171\times10^{-20}, \qquad \Delta h = h_{peak}\!\left(\frac{h_{peak}}{h_{yield}}\right)^{\!2} = 1.370\times10^{-61}.$$
+The GR / Christodoulou memory for the same event is $\sim 10^{-22}$. The gap is $10^{38.86}$ — **~39 orders of magnitude**. With the correct $-\tfrac12$ prefactor (below) it is $6.85\times10^{-62}$, i.e. **~39.2 orders**. A formula that is 39 decades below the phenomenon it names is not "the scaling law surviving"; it is a different quantity wearing the same symbol.
+
+### ★ The $-\tfrac12$ prefactor — the unhedged identity the review caught
+
+The retracted bullet wrote *"exactly the shape of"* and then quoted $\sqrt{1-x^2} \approx 1 - x^2/2$ **without carrying the $-\tfrac12$ through**. Carried through:
+$$\sigma(h) = S\!\left(\tfrac{h}{h_y}\right) h \;\approx\; h\left[1 - \tfrac12\!\left(\tfrac{h}{h_y}\right)^{\!2}\right] = h \;-\; \underbrace{\tfrac12\,h\!\left(\tfrac{h}{h_y}\right)^{\!2}}_{\text{leading nonlinear term}} .$$
+So the kernel's leading nonlinear term is $-\tfrac12\,h(h/h_y)^2$: it differs from the printed $\Delta h_{memory} = +\,h(h/h_y)^2$ by a factor of $-2$, and — the load-bearing part — it is **negative**, a *softening of the instantaneous response*, not an *accumulated offset*. **"Exactly the shape of" was an unhedged identity claim and is withdrawn.**
+
+### What actually survives
+
+**Only this: the cubic $h(h/h_y)^2$ is the SCALE of the sub-yield nonlinearity.** Concretely, the fractional size of the leading nonlinear correction to the *instantaneous* strain response of a Regime-I gravitational wave is
+$$\left|\frac{\delta\sigma}{\sigma}\right| = \tfrac12\!\left(\frac{h_{peak}}{h_{yield}}\right)^{\!2} = 6.85\times10^{-41} \quad\text{(GW150914)} .$$
+That is a statement about **waveform distortion in-flight**, single-valued and drive-synchronous. It is **not** a memory law, **not** a residual, and **not** a DC quantity. The symbol $\Delta h_{memory}$ must not be attached to it.
+
+### ⚑ The DUAL-RULER defect (review finding 5) — receipt corrected here, reconciliation ROUTED
+
+- **What was wrong.** The retracted bullet said the cubic form *"is exactly what the deeply-linear regime supplies"* and cited $V_{GW}/V_{snap} \approx 1.4\times10^{-28}$ as its receipt. That silently asserts a **quantitative link between two different yield rulers** that the corpus has never reconciled:
+  - the **EMF ruler** — $V_{GW}/V_{\text{snap}} \approx 1.4\times10^{-28}$ ([`vol3/gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md`](../../manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md)`:15`);
+  - the **strain ruler** — $h/h_{yield} = 10^{-21}/\sqrt{\alpha} = 1.171\times10^{-20}$.
+- **The equation-native receipt is the strain one.** $\Delta h = h(h/h_{yield})^2$ contains $h/h_{yield}$ and nothing else. **$h/h_{yield} \approx 1.2\times10^{-20}$ is the number that belongs in that sentence**; $1.4\times10^{-28}$ belongs to a different quantity. *(The premise strike itself survives either way — both rulers put every observed signal far sub-yield — so this is a receipt correction, not a re-opening of Ruling 5's or Ruling 3's strike.)*
+- **★ The two rulers are not related by any power, and they disagree about WHERE yield is by $\sim\!10^8$.** Recomputed here from the corpus's own regime table ([`vol3/gravity/ch02-general-relativity/einstein-field-equation.md`](../../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/einstein-field-equation.md)`:92-95`): across **all four** of its rows the $V$ column is exactly $V_{GW}/V_{snap} = 10^{-7} h$ (checked: $10^{-21}\!\to\!10^{-28}$, $10^{-22}\!\to\!10^{-29}$, $10^{-15}\!\to\!10^{-22}$, $10^{-1}\!\to\!10^{-8}$ — a linear map, ratio $1.000$ each row). So the **EMF ruler places saturation at $h = 10^{7}$**, while the **strain ruler places yield at $h = \sqrt{\alpha} = 0.0854$** — the two rulers disagree about the location of the yield point by a factor of $\mathbf{1.17\times10^{8}}$.
+- **The table contradicts itself in one row, and the corpus has been reading past it.** Its own **near-merger** row is $h = 10^{-1}$, $V_{GW}/V_{snap} \sim 10^{-8}$, labelled **"I–II boundary"**. On the strain ruler $h/h_{yield} = 1.171$, i.e. **past yield** — which is what earns the "I–II boundary" label. On the EMF ruler the same row is **$10^{-8}$ of saturation**, i.e. deeply Regime I. **One row, two columns, two incompatible regime verdicts.** The regime label follows the strain ruler; the number quoted in premise arguments (including this ruling's own strike) has been the EMF one.
+- **Status: PRE-EXISTING DEBT, first surfaced here. Routed, not taken.** Nothing in this fragment attempts the reconciliation — it is corpus-wide (it touches every leaf that cites either ruler to place a regime), and it needs a physics answer (what maps lattice EMF to metric strain, and which of the two — if either — is the Axiom-4 argument $A$) rather than an editorial one. Booked as routed follow-on **#8** below. **Both rulers stay quoted as-is at their own leaves; neither is edited.**
+
+- **The R10 flag is no longer a "flag" — after strikes (a)+(b) it is the whole finding.** The earlier staged text carried the remanence gap as a *caveat beneath a surviving equation*. With the equation retracted, the R10 gap **is** the state of this section: the canonical kernel is anhysteretic **and** even-parity, so it can neither *hold* a residual (b) nor *generate* one (a). **There is no engine behind $\Delta h_{memory}$ at all** — not a weak one, none. Recording that plainly is the whole content of the rewrite below.
+
+- **What is unchanged from the first staging, because the review confirmed both:** the **plasticity strike** (rate-independent plastic loss is a dissipation channel Axiom 3 does not have; none of the three ruled loss channels is active) and the **regime-broken-premise strike** (observed GWs are nowhere near yield). Both stand exactly as ruled. Only the *"the equation survives"* half is rewritten.
+
+---
+
+### 🔴 REWRITTEN STAGED TEXT (2026-08-03, review finding 1) — TWO VARIANTS, **NEITHER FIRED**, Grant picks
+
+**Routing, explicit.** The two variants below are **not** alternative wordings of one position — they are **two different epistemic postures**, and the choice is Grant's, not this lane's:
+
+| | **VARIANT A — conservative retraction** | **VARIANT B — forward NULL prediction** |
+|---|---|---|
+| what the section ends up asserting | $\Delta h_{memory}$ is **UNDERIVED**; the memory law has no engine behind it until R10 closes | AVE-as-canonized **predicts GW memory ~39 orders below GR**; a GR-level detection falsifies this sector |
+| class | Rule-12 retraction, no new claim | **forward-prediction class** — a real discriminator |
+| risk if wrong | none (it claims nothing) | a genuine falsifier is on the table, and it can lose |
+| what it costs | the section stops predicting anything | it commits the sector to a null that LISA/PTA can test |
+
+**Neither is fired. Both are staged verbatim below. No `clm-` is minted by either.**
+
+#### VARIANT A — conservative retraction (LaTeX, staged)
 
 ```latex
-After a gravitational wave passes, the local metric retains an offset---so-called
-``memory'' or residual strain. In the AVE dielectric framework this is read as a
-\textbf{retained residual offset}: a \emph{latched} strain state of the LC lattice
-that survives with the drive off. Declared per the corpus's PRODUCT/TRANSITION
-discipline (\kbleaf{ave-kb/common/retention-transition-split.md}) this is the
-\textbf{PRODUCT} moment---persistence of a latched state---which under canon is
-\textbf{lossless} and carries \textbf{no maintenance resistor}. The residual memory
-strain scales as:
+\subsection{Gravitational Wave Memory as Residual Strain}
+
+After a gravitational wave passes, the local metric is observed to retain an
+offset---so-called ``memory'' or residual strain. This section previously read that
+offset as \textbf{permanent plastic deformation} of the LC lattice after being
+driven past its linear elastic limit. \textbf{Both halves of that reading are
+struck}, and the scaling law they carried is \textbf{marked UNDERIVED}.
+
+\noindent\textbf{(i) The regime premise is false.} An observed gravitational wave
+does not drive the lattice past any elastic limit. For GW150914,
+$h_{peak}/h_{yield} = 10^{-21}/\sqrt{\alpha} = 1.2\times10^{-20}$---\textbf{twenty
+decades} below yield---and every observed source is classified \textbf{Regime~I,
+deeply linear} (\kbleaf{ave-kb/vol3/gravity/ch02-general-relativity/einstein-field-equation.md},
+regime table).
+
+\noindent\textbf{(ii) The plasticity analogy is struck.} Rate-independent plastic
+loss is a dissipation channel the lossless substrate (Axiom~3) does not have, and
+none of the three ruled loss channels---radiative port, boundary-Joule extraction,
+Regime-IV rupture---is active in a Regime-I wave passing through cold vacuum.
+
+\noindent\textbf{(iii) The scaling law is UNDERIVED, not merely re-scoped.} The
+expression $\Delta h_{memory} = h_{peak}(h_{peak}/h_{yield})^2$ has \textbf{no
+engine behind it}, for three independent reasons. \emph{Parity:} the Axiom~4 kernel
+$S(A)=\sqrt{1-A^2}$ is \emph{even} in $A$, so the modulated response is \emph{odd}
+in $h$; an odd nonlinearity driven by a symmetric wave yields a third harmonic and
+\emph{zero} DC ($\langle\cos^3\omega t\rangle = 0$), and memory is by definition a
+DC offset. \emph{Single-valuedness:} the same kernel is \textbf{anhysteretic}---zero
+enclosed loop area, hence no remanence
+(\kbleaf{ave-kb/common/engine-capability-map.md}, \S3.3)---so $h \to 0$ returns the
+response identically to zero, retaining nothing. \emph{Magnitude:} evaluated for
+GW150914 the expression gives $1.4\times10^{-61}$, roughly \textbf{39 orders of
+magnitude} below the GR/Christodoulou memory of $\sim10^{-22}$ for the same event.
+
+\noindent\textbf{What does survive} is a strictly weaker, non-memory statement: the
+cubic form sets the \emph{scale of the sub-yield nonlinearity}. Expanding the
+kernel, the leading nonlinear term in the instantaneous response is
+$-\tfrac12\,h\,(h/h_{yield})^2$---note the $-\tfrac12$, and note that it is a
+\emph{softening of the in-flight waveform}, not an accumulated offset. Its
+fractional size for GW150914 is $\tfrac12 (h/h_{yield})^2 = 6.9\times10^{-41}$.
+That is a statement about waveform distortion during propagation. It is not a
+memory law and must not carry the symbol $\Delta h_{memory}$.
+
+\noindent\textbf{Status.} Gravitational-wave memory is \textbf{an observable this
+framework does not currently derive}. Supplying it requires a genuine, non-imposed
+retention mechanism---the standing \textbf{R10 remanence gap}, the deepest open gap
+in the engine map. Until R10 closes there is no AVE memory law, and none is claimed
+here.
 ```
+
+**Companion edits in VARIANT A:** the `resultbox` equation is **removed** (a boxed result is a claim; an UNDERIVED quantity does not get one), the `:328` metal-plasticity analogy sentence is **deleted**, and the figure caption at `:337` panel (5) — *"GW memory strain as residual lattice deformation **above** $h_{yield} = \sqrt{\alpha}$"* — becomes *"GW memory strain (panel retained for the observable; the AVE scaling law for it is marked UNDERIVED, see text)"*.
+
+#### VARIANT B — forward NULL prediction (LaTeX, staged)
 
 ```latex
-The scaling is a \textbf{sub-yield} statement, not a post-yield one: the cubic form
-$h_{peak}(h_{peak}/h_{yield})^2$ is the leading nonlinear correction of the Axiom~4
-kernel expanded about zero ($\sqrt{1-x^2} \approx 1 - x^2/2$), which is exactly what
-the deeply-linear regime supplies. The dimensionless yield strain $h_{yield} =
-\sqrt{\alpha}$ enters as the \emph{normalising} scale of that expansion, from the
-same Axiom~4 saturation physics that defines $V_{yield}$.
+\subsection{Gravitational Wave Memory: A Null Prediction}
 
-\noindent\textbf{Regime note (2026-08-03).} Two earlier framings of this section are
-struck. (i) The lattice is \textbf{not} ``driven past its linear elastic limit'' by an
-observed gravitational wave: LIGO-class signals sit at $V_{GW}/V_{snap} \approx
-1.4 \times 10^{-28}$ (\kbleaf{ave-kb/vol3/gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md}),
-about \textbf{28 decades} below saturation, and every observed source is classified
-\textbf{Regime~I, deeply linear} (\kbleaf{ave-kb/vol3/gravity/ch02-general-relativity/einstein-field-equation.md},
-regime table). (ii) The metal-plasticity analogy---``permanently deforming after
-exceeding its yield stress $\sigma_Y$''---is therefore struck as well, and with it the
-word \emph{plastic}: rate-independent plastic loss is a dissipation channel the
-lossless substrate (Axiom~3) does not have, and none of the three ruled loss channels
-is active here. What remains is a \emph{reactive} latched residual, which is a
-statement about a retained state, not about a loss.
+After a gravitational wave passes, the local metric is observed to retain an
+offset---so-called ``memory'' or residual strain. General Relativity predicts this
+(the Christodoulou memory, $\sim10^{-22}$ for a GW150914-class event) as a
+second-order effect of the wave's own energy flux. \textbf{The AVE substrate, as
+canonized, predicts no memory of its own}---and that is a testable statement.
 
-\noindent\textbf{Open, flagged not resolved.} Whether the substrate supplies a genuine
-(non-imposed) latch to hold such a residual is the standing \textbf{R10 remanence gap}:
-the canonical kernel $S(A) = \sqrt{1-A^2}$ is anhysteretic---zero enclosed loop area,
-hence no remanence---and every retention obtained so far has been an imposed latch
-(\kbleaf{ave-kb/common/engine-capability-map.md}, \S3.3). Until R10 closes, the word
-``permanent'' in this section is a description of the \emph{observable} being modelled,
-not a property the engine has been shown to produce.
+\noindent\textbf{The substrate cannot rectify.} The Axiom~4 kernel
+$S(A)=\sqrt{1-A^2}$ is \emph{even} in $A$, so the modulated strain response is
+\emph{odd} in $h$. An odd nonlinearity driven by a symmetric wave produces odd
+harmonics and \textbf{exactly zero DC}: $\cos^3\omega t = \tfrac34\cos\omega t +
+\tfrac14\cos 3\omega t$, so $\langle\cos^3\omega t\rangle = 0$. Rectification
+requires a diode; a lossless, even, single-valued substrate does not have one.
+
+\noindent\textbf{The substrate cannot retain.} The same kernel is
+\textbf{anhysteretic}---zero enclosed loop area, hence no remanence
+(\kbleaf{ave-kb/common/engine-capability-map.md}, \S3.3). The response is a
+single-valued function of the instantaneous strain, so $h \to 0$ returns it
+identically to zero for \emph{every} drive history. Nothing is held.
+
+\noindent\textbf{The bound, if one insists on a residual.} The most generous
+estimate---taking the entire leading sub-yield nonlinearity and treating it as
+though it accumulated---is $\tfrac12\,h_{peak}(h_{peak}/h_{yield})^2$, which for
+GW150914 ($h_{peak}=10^{-21}$, $h_{yield}=\sqrt{\alpha}=0.0854$, so
+$h_{peak}/h_{yield}=1.2\times10^{-20}$) is $6.9\times10^{-62}$: about
+\textbf{39 orders of magnitude} below the GR value. So both the strict prediction
+(zero) and the generous bound ($\sim10^{-61}$) sit far below anything observable.
+
+\begin{resultbox}{Forward Null Prediction --- Substrate GW Memory}
+The AVE substrate contributes \textbf{no} gravitational-wave memory:
+\begin{equation}
+    \Delta h_{\text{memory}}^{\text{substrate}} = 0
+    \quad\text{(strictly)}, \qquad
+    \left|\Delta h^{\text{substrate}}\right| \lesssim
+    \tfrac12 h_{peak}\!\left(\frac{h_{peak}}{h_{yield}}\right)^{2}
+    \sim 10^{-61} \quad\text{(generous bound)} .
+\end{equation}
+\end{resultbox}
+
+\noindent\textbf{What would falsify this.} A LISA or pulsar-timing-array detection
+of gravitational-wave memory \emph{in excess of} the GR/Christodoulou prediction,
+scaling as $h^3$ with a $h_{yield}=\sqrt{\alpha}$ normalisation, would falsify the
+lossless-anhysteretic substrate of this framework. Conversely, a memory detection
+\emph{at} the GR level is consistent with this prediction only if the GR value is
+sourced by the wave's own energy flux and not by the medium---see the scope
+statement below, which is the load-bearing caveat on this test.
+
+\noindent\textbf{Scope --- the caveat this prediction lives or dies on.} This is a
+null on the \emph{medium} channel: the substrate's constitutive nonlinearity
+contributes no memory. It is \emph{not} a prediction that no memory is observed.
+Whether AVE also inherits the second-order GR/Christodoulou memory through its
+Einstein-field-equation correspondence is \textbf{OPEN} and is stated here as
+unresolved: if it does, this null is silent about the observed value and the test
+above is not a discriminator; if it does not, AVE predicts \emph{no} memory at all
+and the existing GR expectation is already the falsifier.
 ```
 
-  Companion sites in the same staged set, **flagged**: the figure caption at `15_black_hole_orbital_resonance.tex:337` panel (5) reads *"GW memory strain as residual lattice deformation **above** $h_{yield} = \sqrt{\alpha}$"* — same regime-broken premise, wants *"normalised by"* rather than *"above"*. **Disclosed as slightly beyond the dispatch's letter** (which named `:322`): striking the premise at `:322` while leaving the identical premise in the caption and in the `:328` analogy would ship an internally inconsistent section. All three are staged together and **none is fired here**.
+**Companion edits in VARIANT B:** the `:328` metal-plasticity analogy sentence is **deleted** (identically to Variant A — the plasticity strike is common to both), and the figure caption at `:337` panel (5) becomes *"GW memory: the AVE substrate's null contribution ($\lesssim 10^{-61}$) against the GR expectation ($\sim 10^{-22}$)"*, which requires the panel itself to be re-plotted or dropped — **flagged, not decided here.**
+
+#### Adjudication notes for the pick (this lane's read, not a recommendation)
+
+- **Variant A is the honest-closure shape** (Rule 11): a pre-registered claim failed decisively, a single mechanism (an even, single-valued, lossless kernel) explains all three failures, and the branch closes. It claims nothing and cannot be wrong.
+- **Variant B is the only one that buys anything**, and per the corpus's own standing position — the chord lives in **forward predictions**, not in internal consistency — a clean sector-level null with a named falsifier is worth more than a silent retraction. **But** it is load-bearing on the OPEN scope question written into its own last paragraph, and if AVE inherits Christodoulou memory through the EFE correspondence, Variant B's discriminator is **not** a discriminator. **That question is not answered here and must not be assumed either way when picking.**
+- **What is common to both and therefore not at issue:** the plasticity strike, the regime-premise strike, the $-\tfrac12$ prefactor, the $h/h_{yield}=1.2\times10^{-20}$ receipt, and the deletion of the `:328` analogy.
+
+  Companion site in **both** staged variants, **flagged**: the figure caption at `15_black_hole_orbital_resonance.tex:337` panel (5) reads *"GW memory strain as residual lattice deformation **above** $h_{yield} = \sqrt{\alpha}$"* — carrying the same regime-broken premise, and now also the retracted law. **Disclosed as beyond the dispatch's letter** (which named `:322`): striking the premise at `:322` while leaving the identical premise in the caption and in the `:328` analogy would ship an internally inconsistent section. All three move together, and **none is fired here**.
 
 ### (c) CANONIZATION-CANDIDATE — Grant's theorem instinct (routed for a walk, NOT canonized)
 
@@ -241,8 +380,10 @@ Verified by intersecting `git diff --name-only origin/main...<branch>` per lane 
 
 1. **Derive `K = 2G` as substrate-forced** — Grant's routed aspiration; attack point = the eigenmode-existence open item (`program-arc-map.md:118` / `clm-satnec`). *(Ruling 1)*
 2. **Canonization walk** — Grant's *"cost when transferring energy between regimes/states/channels"* theorem instinct; candidate wording, the three ruled loss channels as instances, and the three open edges are drafted in §Ruling 3(c). **Routed for a Grant walk, NOT canonized.** *(Ruling 3)*
-3. **Fire the staged ch15 GW-memory edit** with the gated ringdown wave — text verbatim in §Ruling 3(b), including the `:328` analogy strike and the `:337` panel-(5) caption, and the R10-remanence flag on the word *"permanent"*. *(Ruling 3)*
-4. **The `incompressible` premise at two Vol-3 sites** (`cauchy-implosion-resolution.md:15`, `03_macroscopic_relativity.tex:164`) — same false premise, different sentence, outside Ruling 5's named scope. *(Ruling 5)*
-5. **The `"mass flow"` wording** at the repaired Vol-2 paragraph vs `def-uatk1s`'s counterpart-sector-variables adjudication. *(Ruling 5)*
+3. **★ GRANT DECISION REQUIRED — pick VARIANT A or VARIANT B for the ch15 GW-memory section**, then fire with the gated ringdown wave. Both texts verbatim in §Ruling 3(b), together with the `:328` analogy deletion and the `:337` panel-(5) caption (which differ per variant). **This is a posture choice, not a wording choice** — A retracts, B stages a forward null with a named falsifier and a named open scope caveat. *(Ruling 3 / review finding 1)*
+4. **★ PREMISE-CRITICAL — the `"mass flow"` reading at the repaired Vol-2 paragraph** vs `def-uatk1s`'s counterpart-sector-variables adjudication (`vocabulary-register.md:882`, SOLID 2026-07-21: $\mathbf{u}$ and $\mathbf{A}$ are **counterpart sector variables, NOT one field**). **Re-ranked from wording to premise-critical (review finding 4):** the repair rests on the added $\nabla\Lambda$ landing in the *EM* longitudinal channel, which has no restoring force. If it is genuinely added to the **mass flow** $\mathbf{u}$, the same `def-l0ngdu` makes that channel **dynamical** — bulk restoring force $\tfrac12 K(\nabla\cdot\mathbf{u})^2$, propagating P-branch — so the addition **is** observable and the repaired premise is **refuted**, not mis-worded. Resolution requires settling the $\mathbf{A}$-vs-$\mathbf{u}$ identification for this paragraph, not a synonym swap. *(Ruling 5 / review finding 4)*
+5. **The `incompressible` premise at two Vol-3 sites** (`cauchy-implosion-resolution.md:15`, `03_macroscopic_relativity.tex:164`) — same false premise, different sentence, outside Ruling 5's named scope. *(Ruling 5)*
 6. **`clm-f8k2um` carries no spectral non-claim** while governing leaves that describe spectra — auditor-lane card-scope question. *(Ruling 6)*
 7. **Upstream receipt staleness** — the board row and fragment (b) cite `12_neon.tex:48`; the print is at `:65`. Owned by whichever lane next opens the board. *(Ruling 6)*
+8. **★ CORPUS-WIDE — reconcile the two yield rulers.** The **EMF ruler** ($V_{GW}/V_{snap}$, saturation at $h = 10^{7}$) and the **strain ruler** ($h/h_{yield}$, yield at $h = \sqrt{\alpha} = 0.0854$) place the yield point $1.17\times10^{8}$ apart, and the regime table's own near-merger row ($h=10^{-1}$) is simultaneously *past yield* on one and $10^{-8}$ *of saturation* on the other. **Pre-existing debt, first surfaced here** (§Ruling 3(b), dual-ruler receipt); every leaf that cites either ruler to place a regime is downstream of it. **Needs a physics answer** — what maps lattice EMF to metric strain, and which (if either) is the Axiom-4 argument $A$ — not an editorial one. *(review finding 5)*
+9. **Stale `src/` cite in this fragment, and the sixth instance of a standing pattern** — `constants.py:589` for `XI_MACHIAN` (§Ruling 1); the symbol is at **`:650`** at this tip (`:589` is inside the topological-packing-fraction comment block). Corrected in place. **This is the sixth `src/`-line-cite staleness caught in the corpus** — the underlying debt is that KB/docket prose pins `src/` line numbers that refactors move, with no check binding them. **Routed as its own infrastructure question** (symbol-anchored cites, or a `src`-cite verifier in `make verify`), not taken here. *(review finding 8)*
