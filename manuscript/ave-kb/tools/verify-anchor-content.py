@@ -32,7 +32,14 @@ Scope
   * Citing files: `.md` under research/ + _orchestration/ + manuscript/ave-kb/
     (SKIP_DIRS pruned — .git, build, session/, _archive, .index, ...).
   * Cite pattern: `path.ext:NN` where ext ∈ TARGET_EXTS (md, py, tex, json, ...),
-    optionally wrapped in backticks or a Markdown link.
+    optionally wrapped in backticks. TWO written forms are recognized, and both
+    are scanned (see CITE_RE):
+      - BARE form ...... `path.ext:NN`, including the in-parens link variant
+                         `[text](path.ext:NN)` where the line rides inside the
+                         link target;
+      - LINK form ...... `[text](path.ext):NN` where the line number is written
+                         AFTER the closing paren. This is the house style for
+                         KB-leaf-to-KB-leaf anchors.
   * Target files: resolved relative to the citing file's directory first, then
     the repo root. Unresolvable targets are counted UNRESOLVED and skipped
     (broken-link territory — that is `verify-md-links`'s job, not ours).
@@ -116,9 +123,32 @@ TARGET_EXTS = (
 # A `path.ext:NN` cite. Path may carry directory segments; ext is a known target
 # extension; line is a positive integer. Word boundary after the digits keeps
 # `foo.md:12` from swallowing a trailing `:34` range half.
+_PATH_RE = r"(?:[\w.+-]+/)*[\w.+-]+\.(?:" + "|".join(TARGET_EXTS) + r")"
+
+# TWO branches, sharing the `:NN` tail:
+#   LINK branch (`lpath`) — `[text](path.ext):NN`. The `](` opener is asserted by
+#     a fixed-width lookbehind rather than consumed, so `m.start()` still lands on
+#     the path (the column `associate_quote` ranks quote-proximity against) and the
+#     trailing `)` is only allowed when a link actually opened it. A bare
+#     `(prose parenthetical foo.md):12` is therefore NOT matched — the lookbehind
+#     is what keeps an unrelated `):` sequence out.
+#   BARE branch (`path`) — `path.ext:NN`, incl. the `[text](path.ext:NN)` variant
+#     where the line rides inside the link target (unchanged, pre-existing).
+# The branches are mutually exclusive at any given start position (the LINK
+# branch needs `](` behind AND `)` ahead; the BARE branch needs `:` where the
+# LINK branch needs `)`), so alternation order does not change the match set —
+# it is written LINK-first only to read in the order of the docstring.
+# Use cite_path(m) to read the path — the two branches need distinct group names.
 CITE_RE = re.compile(
-    r"(?P<path>(?:[\w.+-]+/)*[\w.+-]+\.(?:" + "|".join(TARGET_EXTS) + r")):(?P<line>\d+)(?!\d)"
+    r"(?:(?<=\]\()(?P<lpath>" + _PATH_RE + r")\)|(?P<path>" + _PATH_RE + r"))"
+    r":(?P<line>\d+)(?!\d)"
 )
+
+
+def cite_path(m: "re.Match[str]") -> str:
+    """The cited path from either CITE_RE branch (markdown-link form or bare)."""
+    return m.group("lpath") or m.group("path")
+
 
 # One inline backtick span (no nested backticks).
 BACKTICK_RE = re.compile(r"`([^`\n]+)`")
@@ -276,10 +306,15 @@ class TargetCache:
         return self._norm_lines[path], self._whole[path]
 
 
-def resolve_target(cite_path: str, citing_file: Path, repo_root: Path) -> Path | None:
-    """Resolve a cite path relative to the citing file, then the repo root."""
+def resolve_target(target_path: str, citing_file: Path, repo_root: Path) -> Path | None:
+    """Resolve a cite path relative to the citing file, then the repo root.
+
+    The parameter is `target_path`, NOT `cite_path` — `cite_path` is the
+    module-level helper that reads the path out of either CITE_RE branch, and a
+    same-named parameter would shadow it inside this function body.
+    """
     for base in (citing_file.parent, repo_root):
-        cand = (base / cite_path).resolve()
+        cand = (base / target_path).resolve()
         if cand.is_file():
             return cand
     return None
@@ -321,7 +356,7 @@ def scan(citing_files, repo_root: Path) -> tuple[Counts, list[Finding]]:
         for i, line in enumerate(lines):
             for m in CITE_RE.finditer(line):
                 counts.cites += 1
-                cite_path = m.group("path")
+                target_path = cite_path(m)
                 cited_line = int(m.group("line"))
                 quote = associate_quote(lines, i, m.start())
                 if quote is None:
@@ -335,7 +370,7 @@ def scan(citing_files, repo_root: Path) -> tuple[Counts, list[Finding]]:
                     else:
                         counts.not_checked_noquote += 1
                     continue
-                target = resolve_target(cite_path, cf, repo_root)
+                target = resolve_target(target_path, cf, repo_root)
                 if target is None:
                     counts.unresolved += 1
                     continue
@@ -346,12 +381,12 @@ def scan(citing_files, repo_root: Path) -> tuple[Counts, list[Finding]]:
                 elif kind in ("moved", "moved-wrapped"):
                     counts.drift_moved += 1
                     findings.append(
-                        Finding(cf, i + 1, cite_path, cited_line, quote, kind, found)
+                        Finding(cf, i + 1, target_path, cited_line, quote, kind, found)
                     )
                 else:
                     counts.drift_absent += 1
                     findings.append(
-                        Finding(cf, i + 1, cite_path, cited_line, quote, kind, found)
+                        Finding(cf, i + 1, target_path, cited_line, quote, kind, found)
                     )
     return counts, findings
 
