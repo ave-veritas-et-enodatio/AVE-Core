@@ -87,6 +87,28 @@ Same worktree, same tree (`origin/main` @ `2fcde4db`), same arguments
 
 **Totals: 1012 → 1220 findings. `+208`.**
 
+> ⚑ **Base-robustness — the `+208` is not an artifact of one tip.** Re-measured on a clean
+> worktree at `origin/main` `583d43dd` (which has since moved past the `2fcde4db` this lane
+> branched from), same arguments, only the tool differing: **`1014` → `1222`, `+208`,
+> `0` removed**, and **`858`** link-form cites. **The DELTA reproduces exactly; the
+> ABSOLUTES drift with the tree.** Same caveat family as the `1006`-vs-`1012` note below —
+> quote the delta, re-measure the absolutes.
+
+> ⚑ **Re-running at THIS branch head, not at the base.** With this branch's own docs in the
+> tree, `cites scanned` moves `14106` → **`14122`** (`+16`, all of it no-quote / trivial /
+> unresolved) while **findings stay `1220`** — the self-suppression note at the top of this
+> doc, measured rather than asserted. A reviewer re-running at the branch tip should expect
+> that `+16` and no finding-count move. Link-form cites likewise read `857` at `2fcde4db`,
+> `858` at `583d43dd`, `859` at this head.
+
+> ⚑ **How the finding-set diff is counted.** `208` new / `0` removed is a **multiset** diff
+> over `(citing file, citing line, target, target line, quote, kind)`. Counted as a
+> DISTINCT-key set the same diff reads **`198` new / `0` removed** — `1012` findings collapse
+> to `1005` distinct keys and `1220` to `1203`, because some citing lines carry the identical
+> `(target, line, quote, kind)` tuple more than once (the row-6 lines below are the extreme
+> case). Both numbers are stated so a re-count matches whichever a reviewer computes; the
+> `0 removed` is the load-bearing half and holds either way.
+
 > ⚑ **Baseline-number correction (surfaced, not reconciled away).** The #832 docket receipts
 > record the pre-change baseline as **`1006`** findings / `1368` checked cites. At
 > `origin/main` `2fcde4db` the same command returns **`1012`** / `1376`. The `+6` is corpus
@@ -139,10 +161,31 @@ classes). Classifying the associated excerpt:
 (checked against each target's real line count), so none is an unambiguous hard error.
 
 **A second, independent pass was run** to get past the backtick-association FP: instead of
-the checker's nearest-backtick-span heuristic, extract the `*"…"*` prose quote written
-immediately after each link-form cite and check *that*. It returns **65** findings,
+the checker's nearest-backtick-span heuristic, extract the `"…"` prose quote written
+immediately after each link-form cite and check *that*. As run, it returned **65** findings,
 **13 of them KB-leaf→KB-leaf `moved`** — the high-confidence real-drift set. Those 13 (minus
 one that the second pass itself mis-associated, see below) are the rows worth an owner's time.
+
+> ⚑ **`65` / `13` are AS-RUN and are NOT re-derivable; the harness that replaces them IS.**
+> The script that produced those two numbers was a session scratch file, never committed,
+> and its association window was never recorded — so the population behind the 7 rows below
+> could not be re-checked by a reviewer. A re-runnable extractor for this pass now lives at
+> `manuscript/ave-kb/tools/audit-link-form-cites.py` (NON-GATING, not in `make verify`;
+> regression test alongside it). It is **parameter-free on purpose**: the excerpt is the
+> first `"…"` after the cite, truncated at the next cite on the line AND at the next bare
+> `:NN` fragment — two rules that encode demonstrated FP modes instead of a dial. A
+> fixed-gap sweep does land on the as-run pair (a ~102-char tail window returns exactly
+> `65` / `13` at the tree of §2), which is good evidence the original used a ~100-char
+> window and is exactly why no window was committed: tuning a parameter until a remembered
+> number reappears is fitting, not verification. **The committed harness's own numbers are
+> the re-derivable ones** — at `origin/main` `583d43dd`: `858` link cites, `165`
+> prose-quoted, `116` findings, **`16` KB-leaf→KB-leaf `moved`**; at `2fcde4db`:
+> `857` / `165` / `115` / **`16`**. That 16-row set is a *superset* of the drift behind the
+> hand-verified rows below (it adds e.g. `photon-ee-mapping` `:67` → the same hub `:178`,
+> `envelope-anatomy` `:94` → `master-equation` `:103`, `physics-lineage-map` `:62` →
+> `vocabulary-register` `:499`) and drops the rows whose excerpts carry TeX that differs
+> character-for-character from the target — the documented ABSENT FP class, not a
+> disagreement. It also kills the discarded candidate below *by construction*.
 
 > ⚑ **The second method has the same FP mode, demonstrated.** `double-slit-ee-mapping.md:60`
 > reads (fenced):
@@ -159,6 +202,18 @@ one that the second pass itself mis-associated, see below) are the rows worth an
 
 Seven rows verified by printing the cited line AND grepping the target for the excerpt.
 **None is repaired here.** Listed with the owning area so triage can route.
+
+> ★ **These are METHOD-2 rows, not a top-7 of the 208.** They were drawn from the
+> adjacent-prose-quote pass of §3, so the two sets only partly overlap. Under the FIXED
+> checker: **`4` of the 7 rows are in the 208** (★1, ★3, ★6, ★7 — and every one of them for
+> a MIS-ASSOCIATED backtick reason: ★1 lands on the sibling `:238` fragment's span, ★3 on
+> `clm-0ktpcn`, ★6 on `clm-533gvm`, ★7 on a `pole_real/ω₀` span). **`3` are `noquote`** —
+> ★2, ★4 and ★5 pin their excerpt in prose straight quotes and carry no checkable backtick
+> span at all, so the fixed checker still does not check them. **They are real drift the
+> tool cannot see even after this fix.** `associate_quote` reads backtick spans only, and
+> the KB house style writes link-form excerpts as `"…"` in prose. Link-class recall at the
+> tree measured in §2 is **`276` / `857` = `32.2%`** — the fix made the class *visible*, not
+> *checked*. See §7 for the routed follow-on.
 
 ```
 ★1  manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md:79
@@ -215,8 +270,8 @@ Seven rows verified by printing the cited line AND grepping the target for the e
       "A1 dilatation-MASS"    → :20 and nowhere else  (:20 = the TWO-"3"s block)
       "TWO DISTINCT CLOCKS"   → :38 and nowhere else  (:20 says TWO DISTINCT
                                 *objects*, a different phrase in the same banner)
-      the REFUTED banner      → :36   (":33 mentions "see the REFUTED-flag below"
-                                but is a pointer, not the flag)
+      the REFUTED banner      → :36   (:33 also contains the word REFUTED, but only
+                                as "see the REFUTED-flag below" — a pointer, not the flag)
 
     ⚠ DO NOT blanket-repoint either line. Two of these six `:20` occurrences are
       CORRECT; a line-granular sed/repoint would break working anchors while fixing
@@ -276,8 +331,11 @@ surface as findings at all. **The finding count measures CHECKABILITY, not stale
 number affirmatively confirmed good.
 
 **Not adjudicated here:** whether the correct repair is re-pointing each `:NN`, converting
-these to anchor-slug links, or retiring line anchors into `path-stable` frontmatter for
-high-churn hub leaves. That is an owner/Grant decision, not a tooling-lane one.
+these to anchor-slug links **(⚠ REQUIRES A SECOND TOOL CHANGE — see §7.2: an anchor-slug
+link renders as `](x.md#sec):NN`, which the new `CITE_RE` does NOT match, so that route
+re-hides the class it is meant to repair)**, or retiring line anchors into `path-stable`
+frontmatter for high-churn hub leaves. That is an owner/Grant decision, not a tooling-lane
+one.
 
 ---
 
@@ -1265,3 +1323,77 @@ Fenced (see the self-suppression note).
 > stale-anchor fixture would be counted as corpus drift forever. This branch sidesteps it by
 > building its fixture in a tmpdir (as the tool's own `--self-test` does) rather than by
 > changing `SKIP_DIRS` mid-audit.
+
+---
+
+## 7. Residual blind spots + the routed follow-on
+
+Three things this fix does **not** close. All are reported, none is taken here.
+
+### 7.1 The recall hole — `associate_quote` cannot read the KB's own excerpt style ★
+
+**This is where the real remaining loss is, and it is bigger than the `+208` this branch
+recovered.** `associate_quote` looks only at inline **backtick** spans. The KB house style
+for a link-form anchor writes the pinned excerpt in **straight double quotes in prose**:
+
+```
+… canonical at [`master-equation.md`](../vol1/…/master-equation.md):20 "A1 dilatation-MASS")
+… the honest stance is canonical at [`translation-circuit.md`](…):637 ("$g = 2$ is POSITED, not derived")
+```
+
+Measured at `origin/main` `583d43dd`: of `858` link-form cites, **`582` carry no checkable
+backtick span at all**, and **`82` of those DO carry a recoverable prose excerpt**. Teaching
+`associate_quote` the straight-quote prose form would move link-class recall from
+`276`/`858` = **`32.2%`** to `358`/`858` ≈ **`41.7%`** — and it is exactly the population
+rows ★2, ★4 and ★5 of §4 sit in: **real, hand-verified drift the checker still cannot see
+after this fix.**
+
+**Routed as a candidate follow-on lane, NOT taken here.** It changes the association
+heuristic — i.e. it moves the advisory baseline for the whole corpus, bare form included —
+so it wants its own before/after measurement and its own review, exactly as this branch got
+for `CITE_RE`. The parameter-free association rule in
+`manuscript/ave-kb/tools/audit-link-form-cites.py` (§3) is the candidate implementation and
+is already measured; promoting it into `verify-anchor-content` is the open decision.
+
+### 7.2 The anchor-slug repair route re-hides the class ⚠
+
+One of §4's candidate repairs is "convert these to anchor-slug links". **That route requires
+a second tool change before it is safe.** An anchor-slug link renders as `](x.md#sec):NN`,
+and the new `CITE_RE` does not match it — verified directly against the compiled pattern:
+
+```
+[t](x.md):12            ->  MATCH   (link branch)
+[t](x.md#sec):12        ->  NO MATCH
+[t](dir/x.md#a-b-c):345 ->  NO MATCH
+(as noted in foo.md):12 ->  NO MATCH   (the intended negative control)
+```
+
+`_PATH_RE` ends at the extension and the link branch then requires `)` immediately; a `#`
+fragment breaks both branches. So converting the 208 to anchor-slug form would make the
+whole class invisible again — the identical failure this branch exists to close. **Tag this
+"requires a second tool change" wherever it is offered as an option.**
+
+### 7.3 The spaced form `](path.md) :NN` — 3 sites, unscanned
+
+A third written form exists in the corpus: a space between the closing paren and the line
+number. The new `CITE_RE` requires `:` immediately after `)`, so these are not matched.
+Complete census (two independent methods — the compiled pattern over the stripped corpus,
+and a PCRE `rg` sweep — both return the same `3`):
+
+```
+research/2026-06-07_session-reframes-ee-fluids-mapping.md:31   -> …/spin-half-paradox.md) :12-14
+research/2026-06-07_session-reframes-ee-fluids-mapping.md:32   -> …/05_universal_solver_toolchain.tex) :120-136, :401
+research/2026-06-07_session-reframes-ee-fluids-mapping.md:35   -> …/water-anomaly-lc-partition.md) :36
+```
+
+All three are in one research doc — a table where the spacing is cosmetic. Two carry no
+checkable excerpt. **The third does**, and it does not verify: line `35` pins
+`"z=4 represents the tetrahedral network symmetry"` to `water-anomaly-lc-partition.md` `:36`;
+that string occurs **nowhere** in the target (a 48-line file), and the nearest real content
+("tetrahedral diamond-like topological structure") is at `:18`. Whether that is a paraphrase
+quote or a stale anchor is an owner call — **surfaced, not adjudicated, not repaired.**
+
+Not folded into `CITE_RE` here for the same reason the loose `\)?` was rejected in §1: a
+`\s*` between `)` and `:` widens what the pattern will swallow, and widening the pattern is
+the change that needs its own before/after measurement. Three sites in one file do not
+justify it; they justify a docket line.
