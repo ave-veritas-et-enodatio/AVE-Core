@@ -51,7 +51,7 @@ Every wall in the table below is the same *bookkeeping* statement in a different
 | **frequency** | how fast you drive | 4, 5 |
 | **length scale** | how big a structure you ask the medium to carry | 6 |
 
-The reflection law itself is the corpus's Op3 boundary relation, which is channel-subscripted: at an impedance step, $\Gamma_X = (Z_{X,2} - Z_{X,1})/(Z_{X,2} + Z_{X,1})$, so $Z_X \to 0$ gives $\Gamma_X \to -1$ (short) and $Z_X \to \infty$ gives $\Gamma_X \to +1$ (open) — written out for the bulk channel at [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39 and for the electron wall at [`zero-impedance-boundary.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md):35,:43.
+The reflection law itself is the corpus's **Op3, the Universal Reflection Coefficient** — $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$, CANONICAL ([`operators.md`](operators.md):43) — read with a channel subscript per §4: $Z_X \to 0$ gives $\Gamma_X \to -1$ (short) and $Z_X \to \infty$ gives $\Gamma_X \to +1$ (open). Written out for the bulk channel at [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39 and for the electron wall at [`zero-impedance-boundary.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md):35,:43.
 
 **Walls are not material objects — they are level-sets of a DC operating-point field.** Nothing sits *at* $r_{sat}$ or *at* $V_{yield}$; what sits there is a **value of a field** that happens to hit the reflecting condition. Canon already names this for the electron-scale case in exactly these words — an **"amplitude level-set"** ([`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md):59) — and the whole point of the phrase is that the surface is *defined by a contour*, not by a membrane.
 
@@ -183,7 +183,7 @@ The walls in §5 are then the *same kind of object* on every **other** axis: $\G
 
 ### §8.1 — Verification method
 
-Every `file:line` in this leaf was verified **two-method** at the ship tip: the worktree line (`sed -n "Np"`) byte-compared against `git show origin/main:<file>` at the same line index. The sweep was run by **machine over the rendered leaf** — every link-form anchor extracted by regex, not by hand-listing — so the count cannot drift from the text: **47 distinct anchors, 47 PASS, 0 FAIL.** Where a claim is an **absence**, the command is shown inline (§6 flag 1). Per `verify-before-cite`: a remote-state check is a **timestamp, not a fact** — these receipts are stamped **2026-08-03** at base `origin/main` @ `66fc7e69`, and should be re-verified at read time.
+Every `file:line` in this leaf was verified **two-method** at the ship tip: the worktree line (`sed -n "Np"`) byte-compared against `git show origin/main:<file>` at the same line index. The sweep was run by **machine over the rendered leaf** — every link-form anchor extracted by regex, not by hand-listing — so the count cannot drift from the text: **48 distinct anchors, 48 PASS, 0 FAIL.** Where a claim is an **absence**, the command is shown inline (§6 flag 1). Per `verify-before-cite`: a remote-state check is a **timestamp, not a fact** — these receipts are stamped **2026-08-03** at base `origin/main` @ `66fc7e69`, and should be re-verified at read time.
 
 ### §8.2 — Corrections the walk's own memory needed (recorded, not silently fixed)
 
