@@ -1,0 +1,1028 @@
+{
+ "_carry_over": "CARRY-OVER of the v2.2 instrument by copy-with-attribution (prereg section 2.3); NOT an independent third reimplementation; G6 adds NO new implementation independence and agreement with v2.2 is a REGRESSION CHECK, not corroboration",
+ "_digest": "6cec005e0155513a",
+ "_frozen_numerics": {
+  "R_iso": 0.5,
+  "convergence_law": "E(n) = C*exp(-c*sqrt(n))  [ROOT-EXPONENTIAL]",
+  "dedupe_rel": 1e-06,
+  "dps": 50,
+  "dps_high": 80,
+  "ell": 2,
+  "ft2b_stagnation": 1e-12,
+  "g2b_c_band": [
+   4.4,
+   7.6
+  ],
+  "g2b_resid_floor": 0.4,
+  "invit_rounds": 4,
+  "lambda_set": [
+   -0.25,
+   0.0,
+   0.25
+  ],
+  "loc_points": 401,
+  "loc_window": [
+   1.0,
+   2.0
+  ],
+  "n_ladder": [
+   32,
+   48,
+   64,
+   80,
+   96
+  ],
+  "n_ladder_g2_certification": [
+   48,
+   64,
+   80,
+   96
+  ],
+  "n_ladder_g2_diagnostic_only": [
+   32
+  ],
+  "n_primary": 48,
+  "polish_iters": 60,
+  "polish_tol_exp": 38,
+  "runtime_budget_s": 3600.0,
+  "x_sat": 7.0,
+  "x_sat_set": [
+   5.0,
+   7.0,
+   11.0
+  ]
+ },
+ "_method": "compactified hyperboloidal Chebyshev spectral; ROOT-LOCAL certification only; NO winding, NO contour, NO region count",
+ "_non_claim": "this lane asserts the existence and location of THIS root; it asserts NOTHING about the absence or presence of other modes",
+ "_one_change": "G2's certification ladder is n in {48, 64, 80, 96} at the UNCHANGED 1e-10 tolerance, derived from the v2.1 coefficient-tail receipt (n = 40, 5.3e-16) at research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:489 @ 7d8fe484; G2b and FT-2b added; the n = 32 rung RETAINED as a gated rung of G4(b)/G5/FT-5 and as a mandatory non-gated G2 diagnostic",
+ "_prereg": "research/2026-08-03_coldq-pole-v2.4-root_prereg-FROZEN.md",
+ "_prereg_commit": "36186006",
+ "_runtime_sec": 255.27,
+ "adjudication": {
+  "BIN_1": "BIN-1-MISS",
+  "BIN_2": "BIN-2-MISS",
+  "BIN_2_discriminator": "BIN-2-CLOSER-CONVENTION",
+  "BIN_2_flag1_ambiguous": false,
+  "BIN_2_flag1_window": [
+   2.0497191011235953,
+   2.0501067895683454
+  ],
+  "BIN_3": "BIN-3-MONOTONE",
+  "BIN_3_subflags": [],
+  "BIN_4": "N/A BY CONSTRUCTION",
+  "D_Q": -0.5618777615951112,
+  "D_omega": -0.2913322255921462,
+  "D_omega_shortcut": -0.2791340846729915,
+  "Q": 0.9201502744197102,
+  "dist_to_Q_GR": 1.1800633047169806,
+  "dist_to_Q_convention": 1.07984972558029,
+  "k0_r_sat": 1.8536552108408788,
+  "k0_r_sat_identity_tag": "IDENTITY -- not independent of BIN-1's shortcut comparison",
+  "nu_vac_rider_falsified": true,
+  "omega_I_M_g": 0.14389382616333127,
+  "omega_R_M_g": 0.2648078872629827
+ },
+ "certification": "ROOT-CERTIFIED",
+ "certified_root": {
+  "Omega_im": -1.0072567831433188,
+  "Omega_im_mp": "-1.00725678314331889260211374956072904467",
+  "Omega_re": 1.8536552108408788,
+  "Omega_re_mp": "1.853655210840878848320699157729883961213",
+  "abs_Omega": 2.109645436528558,
+  "pencil_seed_double": [
+   1.8536552108110975,
+   -1.0072567831635564
+  ]
+ },
+ "comparators": {
+  "Omega_GR_n0": [
+   2.615704,
+   -0.622734
+  ],
+  "Omega_GR_n1": [
+   2.426977,
+   -1.917405
+  ],
+  "Omega_v1": [
+   1.8536565650028993,
+   -1.00725725871003
+  ],
+  "Q_GR": 2.1002135791366907,
+  "Q_GR_rounded_prose": 2.099438202247191,
+  "Q_convention": 2.0,
+  "nu_vac": 0.2857142857142857,
+  "omega_I_GR": 0.08896,
+  "omega_R_GR": 0.37367,
+  "omega_R_shortcut": 0.3673469387755102
+ },
+ "diagnostics": {
+  "artifact_convergence": {
+   "c": 0.25002341694486013,
+   "centre": [
+    0.30587571217415294,
+    -2.4674822214282157
+   ],
+   "errors": [
+    {
+     "e_vs_ref": 0.4634575039104712,
+     "n": 48
+    },
+    {
+     "e_vs_ref": 0.4611632142706101,
+     "n": 64
+    },
+    {
+     "e_vs_ref": 0.27680695848541004,
+     "n": 80
+    }
+   ],
+   "fittable": true,
+   "lnC": 1.0470663503111812,
+   "max_abs_residual": 0.17911773057438807,
+   "ratios": [
+    {
+     "pair": "e(48)/e(64)",
+     "ratio": 1.004975005743877
+    },
+    {
+     "pair": "e(64)/e(80)",
+     "ratio": 1.6660101927853708
+    }
+   ],
+   "reference_n": 96,
+   "residuals": [
+    {
+     "n": 48,
+     "residual": -0.08389388876740467
+    },
+    {
+     "n": 64,
+     "residual": 0.17911773057438807
+    },
+    {
+     "n": 80,
+     "residual": -0.09522384180697796
+    }
+   ],
+   "tag": "PRE-REGISTERED NON-GATING DIAGNOSTIC -- no gate, no bin, no verdict; the artifact is a v2.1-banked pseudo-pole and this row reports what the SAME routine reads there",
+   "would_pass_G2b": false
+  },
+  "spectral_convergence_full_ladder": {
+   "c": 6.043847309998414,
+   "errors": [
+    {
+     "e_vs_ref": 1.2496816369074884e-10,
+     "n": 32
+    },
+    {
+     "e_vs_ref": 8.090599741070316e-14,
+     "n": 48
+    },
+    {
+     "e_vs_ref": 1.1708996452296386e-16,
+     "n": 64
+    },
+    {
+     "e_vs_ref": 2.9026479440283196e-19,
+     "n": 80
+    }
+   ],
+   "fittable": true,
+   "lnC": 11.538806246880416,
+   "max_abs_residual": 0.18870776957898983,
+   "ratios": [
+    {
+     "pair": "e(32)/e(48)",
+     "ratio": 1544.6093947321715
+    },
+    {
+     "pair": "e(48)/e(64)",
+     "ratio": 690.9729432434473
+    },
+    {
+     "pair": "e(64)/e(80)",
+     "ratio": 403.39016918622724
+    }
+   ],
+   "reference_n": 96,
+   "residuals": [
+    {
+     "n": 32,
+     "residual": -0.15260500957217715
+    },
+    {
+     "n": 48,
+     "residual": 0.18870776957898983
+    },
+    {
+     "n": 64,
+     "residual": 0.12838312608520397
+    },
+    {
+     "n": 80,
+     "residual": -0.16448588609212322
+    }
+   ],
+   "tag": "PRE-REGISTERED NON-GATING DIAGNOSTIC -- no gate, no bin, no verdict; the G2b bands are NOT applied here"
+  }
+ },
+ "failed_gates": [],
+ "gates": {
+  "G0": {
+   "measured": 1.038488291045556e-15,
+   "pass": true,
+   "tol": 1e-13
+  },
+  "G1": {
+   "dps": 50,
+   "invit_rounds": 4,
+   "measured": 4.726832751705419e-50,
+   "n": 48,
+   "pass": true,
+   "tol": 1e-20
+  },
+  "G10": {
+   "Omega_mirror": [
+    -1.8536552108408788,
+    -1.0072567831433188
+   ],
+   "measured_a": 0.0,
+   "measured_b": 9.273121713408482e-47,
+   "pass": true,
+   "tol_a": 1e-40,
+   "tol_b": 1e-20
+  },
+  "G2": {
+   "certification_ladder": [
+    48,
+    64,
+    80,
+    96
+   ],
+   "diagnostic": {
+    "full_ladder": [
+     32,
+     48,
+     64,
+     80,
+     96
+    ],
+    "full_ladder_max_pairwise": 1.2496816389659964e-10,
+    "full_ladder_would_pass_G2_tol": false,
+    "non_certification_rungs": [
+     32
+    ],
+    "note": "full_ladder_max_pairwise is the quantity v2.2's G2 gated on; it is reported here and gates NOTHING",
+    "out_of_sample_source": "the G2b root-exponential fit over n in {48, 64, 80}, which never saw this rung",
+    "receipt": "research/2026-08-03_coldq-pole-v2.1_prereg-FROZEN.md:489 @ 7d8fe484 -- the Chebyshev coefficient tail falls to 5.3e-16 by n = 40",
+    "rows": [
+     {
+      "Omega": [
+       1.8536552111039672,
+       -1.007256783157842
+      ],
+      "Omega_im_mp": "-1.00725678315784204770526531401798871333",
+      "Omega_re_mp": "1.853655211103967150148849766702804665292",
+      "both_exceed_G2_tol": true,
+      "e_vs_ref_measured": 1.2496816369074884e-10,
+      "e_vs_ref_predicted_out_of_sample": 2.2779698805088156e-10,
+      "n": 32,
+      "predicted_over_measured": 1.822840164432575,
+      "rel_vs_certification_rungs": {
+       "48": 1.2489722215276877e-10,
+       "64": 1.2496810260596293e-10,
+       "80": 1.2496816388248957e-10,
+       "96": 1.2496816367663877e-10
+      }
+     }
+    ],
+    "tag": "PRE-ASYMPTOTIC BY THE v2.1 n = 40 COEFFICIENT-TAIL RECEIPT -- REPORTED, NOT GATED"
+   },
+   "measured": 8.090607956292325e-14,
+   "pass": true,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Omega_im_mp": "-1.00725678314331889260211374956072904467",
+     "Omega_re_mp": "1.853655210840878848320699157729883961213",
+     "n": 48
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433927
+     ],
+     "Omega_im_mp": "-1.007256783143392821883490313289178117157",
+     "Omega_re_mp": "1.853655210840725019808429165611137841116",
+     "n": 64
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "Omega_im_mp": "-1.007256783143392603926108914365345356373",
+     "Omega_re_mp": "1.853655210840724902305746075508192334854",
+     "n": 80
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "Omega_im_mp": "-1.007256783143392604380987459987126273427",
+     "Omega_re_mp": "1.853655210840724902715703552785480517257",
+     "n": 96
+    }
+   ],
+   "tol": 1e-10
+  },
+  "G2b": {
+   "c": 6.216374478994577,
+   "c_band": [
+    4.4,
+    7.6
+   ],
+   "c_in_band": true,
+   "errors": [
+    {
+     "e_vs_ref": 8.090599741070316e-14,
+     "n": 48
+    },
+    {
+     "e_vs_ref": 1.1708996452296386e-16,
+     "n": 64
+    },
+    {
+     "e_vs_ref": 2.9026479440283196e-19,
+     "n": 80
+    }
+   ],
+   "fittable": true,
+   "lnC": 12.962558101032272,
+   "max_abs_residual": 0.08484862390265135,
+   "not_a_rung_exclusion_argument": "G2b gates the LAW, not the presence or absence of any rung.  A G2b pass is not by itself evidence that removing n = 32 from G2 was correct; that placement rests on the law's OUT-OF-SAMPLE prediction for e(32), reported in the G2 diagnostic row.",
+   "pass": true,
+   "ratios": [
+    {
+     "pair": "e(48)/e(64)",
+     "ratio": 690.9729432434473
+    },
+    {
+     "pair": "e(64)/e(80)",
+     "ratio": 403.39016918622724
+    }
+   ],
+   "ratios_are_reported_not_gated": "under E(n) = C*exp(-c*sqrt(n)) the successive ratio declines with n by construction; the ratios are reported and NOT gated",
+   "reference_n": 96,
+   "resid_floor": 0.4,
+   "resid_ok": true,
+   "residuals": [
+    {
+     "n": 48,
+     "residual": -0.039740795023359254
+    },
+    {
+     "n": 64,
+     "residual": 0.08484862390265135
+    },
+    {
+     "n": 80,
+     "residual": -0.045107828879913825
+    }
+   ]
+  },
+  "G3": {
+   "measured": 3.332294747541498e-14,
+   "pass": true,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552108408528,
+      -1.0072567831433368
+     ],
+     "lambda": -0.25
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "lambda": 0.0
+    },
+    {
+     "Omega": [
+      1.85365521084091,
+      -1.007256783143296
+     ],
+     "lambda": 0.25
+    }
+   ],
+   "tol": 1e-12
+  },
+  "G4": {
+   "dps_pair": [
+    50,
+    80
+   ],
+   "measured_a": 5.277782707837865e-47,
+   "measured_b": 1.755941633596894e-08,
+   "pass": true,
+   "rows": [
+    {
+     "n": 32,
+     "pencil_double": [
+      1.8536552111082487,
+      -1.0072567831622314
+     ],
+     "rel_double_vs_mp": 2.906500668451344e-12
+    },
+    {
+     "n": 48,
+     "pencil_double": [
+      1.8536552108110975,
+      -1.0072567831635564
+     ],
+     "rel_double_vs_mp": 1.7067672718253653e-11
+    },
+    {
+     "n": 64,
+     "pencil_double": [
+      1.853655211059697,
+      -1.0072567837689963
+     ],
+     "rel_double_vs_mp": 3.141848841149333e-10
+    },
+    {
+     "n": 80,
+     "pencil_double": [
+      1.8536552098579886,
+      -1.0072567801671972
+     ],
+     "rel_double_vs_mp": 1.4856751378261543e-09
+    },
+    {
+     "n": 96,
+     "pencil_double": [
+      1.8536551850497505,
+      -1.0072567565521509
+     ],
+     "rel_double_vs_mp": 1.755941633596894e-08
+    }
+   ],
+   "tol_a": 1e-25,
+   "tol_b": 1e-06
+  },
+  "G5": {
+   "R_iso": 0.5,
+   "counts": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pass": true,
+   "rows": [
+    {
+     "centre": [
+      1.8536552111039672,
+      -1.007256783157842
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552111082487,
+       -1.0072567831622314
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      1.8536552111039672,
+      -1.007256783157842
+     ]
+    },
+    {
+     "centre": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552108110975,
+       -1.0072567831635564
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433927
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.853655211059697,
+       -1.0072567837689963
+      ]
+     ],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433927
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552098579886,
+       -1.0072567801671972
+      ]
+     ],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433925
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536551850497505,
+       -1.0072567565521509
+      ]
+     ],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433925
+     ]
+    }
+   ]
+  },
+  "G6": {
+   "Omega_v1": [
+    1.8536565650028993,
+    -1.00725725871003
+   ],
+   "measured": 6.803231574438666e-07,
+   "pass": true,
+   "tol": 1e-05
+  },
+  "G7": {
+   "measured_a": 0.28423799223517354,
+   "measured_b": 0.19696614906560894,
+   "pass": true,
+   "strain_to_kinetic_spin1": 0.7618696377732791,
+   "strain_to_kinetic_spin2": 0.636500571355355,
+   "tol": 0.001,
+   "weight_spin1": 6,
+   "weight_spin2": 4
+  },
+  "G8": {
+   "Q_spread": 1.8618720608205777e-46,
+   "absOmega_spread": 6.063254577322465e-47,
+   "measured": 1.8618720608205777e-46,
+   "mp_end_to_end": true,
+   "pass": true,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.37073104216817576,
+     "x_sat": 5.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.2648078872629827,
+     "x_sat": 7.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.16851411007644354,
+     "x_sat": 11.0
+    }
+   ],
+   "scaling_spread": 9.774131690910903e-47,
+   "tol": 1e-09
+  },
+  "G9": {
+   "note": "determinism is adjudicated EXTERNALLY by running the driver twice and diffing the shipped objects; this flag is a placeholder and is NOT a self-measurement",
+   "pass": true
+  }
+ },
+ "isolation_receipts": {
+  "GR_gap_over_R_iso": 2.6167085269628334,
+  "GR_overtone_gap": 1.3083542634814167,
+  "R_iso": 0.5,
+  "R_iso_over_abs_Omega": 0.23700665113790634,
+  "R_iso_over_dedupe": 237006.65113790636,
+  "abs_Omega_seed": 2.1096454365285577,
+  "artifact_over_R_iso": 4.255763013659168,
+  "dist_seed_to_artifact": 2.127881506829584
+ },
+ "localization": {
+  "interior_max": false,
+  "u_energy": 2.0000000000000004,
+  "u_kinetic": 2.0000000000000004,
+  "wall_fraction_of_peak": 0.040561477092864194,
+  "window": [
+   1.0,
+   2.0
+  ]
+ },
+ "seed": {
+  "Omega_seed": [
+   1.8536552108408788,
+   -1.0072567831433188
+  ],
+  "role": "SEED ONLY -- selects which pencil eigenvalue is polished; enters no gate, tolerance, comparator or bin",
+  "source": "research/drivers/coldq_pole_v2_results.json @ bdcfa678 (PR #854, not on origin/main)"
+ },
+ "self_tests": {
+  "FT_0": {
+   "fires": true,
+   "measured": 2.0668129728690202e-12,
+   "mutation": "C0 corrupted by 1e-12 relative",
+   "threshold": 1e-13
+  },
+  "FT_1": {
+   "fires": true,
+   "measured": 9.946402719819208e-12,
+   "mutation": "residual evaluated at Omega_star*(1 + 1e-10)",
+   "threshold": 1e-15
+  },
+  "FT_10": {
+   "fires": true,
+   "measured_a": 0.03167549395692262,
+   "measured_b": 0.0005836018036712878,
+   "mutation": "Im(mu)/Re(mu) = 1e-3 smuggled into the modulus",
+   "threshold_a": 1e-06,
+   "threshold_b": 1e-05
+  },
+  "FT_2": {
+   "fires": true,
+   "measured": 0.000440375300940382,
+   "mutation": "under-resolved order n = 8",
+   "threshold": 1e-06
+  },
+  "FT_2b": {
+   "c": 0.07345138526200583,
+   "c_band": [
+    4.4,
+    7.6
+   ],
+   "errors": [
+    {
+     "e_vs_ref": 5.481003917000373e-13,
+     "n": 48
+    },
+    {
+     "e_vs_ref": 4.740688169962164e-13,
+     "n": 64
+    },
+    {
+     "e_vs_ref": 4.740131079505865e-13,
+     "n": 80
+    }
+   ],
+   "fires": true,
+   "fittable": true,
+   "lnC": -27.744605626477753,
+   "max_abs_residual": 0.04520719164359832,
+   "mutation": "STAGNATION: +1e-12 added to every non-reference rung; MUST drive fitted c below 4.4",
+   "ratios": [
+    {
+     "pair": "e(48)/e(64)",
+     "ratio": 1.156162084595435
+    },
+    {
+     "pair": "e(64)/e(80)",
+     "ratio": 1.0001175263820672
+    }
+   ],
+   "reference_n": 96,
+   "residuals": [
+    {
+     "n": 48,
+     "residual": 0.021173822910004247
+    },
+    {
+     "n": 64,
+     "residual": -0.04520719164359832
+    },
+    {
+     "n": 80,
+     "residual": 0.024033368733455518
+    }
+   ]
+  },
+  "FT_3": {
+   "fires": true,
+   "measured": 0.3485948410197033,
+   "mutation": "lambda carried into B1 and C1 but omitted from C2",
+   "threshold": 1e-06
+  },
+  "FT_4": {
+   "fires": true,
+   "measured_a": 4.316731050519307e-17,
+   "measured_b": 0.0004403753009474462,
+   "mutation": "(a) dps = 20; (b) double pencil at n = 8 against the mp root at n = 48",
+   "threshold_a": 1e-25,
+   "threshold_b": 1e-06
+  },
+  "FT_5": {
+   "artifact_counts": [
+    2,
+    1,
+    2,
+    3,
+    0
+   ],
+   "artifact_drift": 0.16190809508521392,
+   "artifact_rows": [
+    {
+     "centre": [
+      0.2634122115130044,
+      -2.5170323837698896
+     ],
+     "count_within_R_iso": 2,
+     "inside": [
+      [
+       1.6707219653215641e-07,
+       -2.290166728225626
+      ],
+      [
+       0.2634159030903094,
+       -2.5170324383088145
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      0.2634122115130044,
+      -2.5170323837698896
+     ]
+    },
+    {
+     "centre": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       0.3052491848603351,
+       -2.4679724154164746
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ]
+    },
+    {
+     "centre": [
+      0.29585346894232556,
+      -2.467279185353117
+     ],
+     "count_within_R_iso": 2,
+     "inside": [
+      [
+       0.16172980938644502,
+       -2.1990449013096938
+      ],
+      [
+       0.4761773790668746,
+       -2.5470854813949813
+      ]
+     ],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": [
+      0.29585346894232556,
+      -2.467279185353117
+     ]
+    },
+    {
+     "centre": [
+      1.4142791927586542e-35,
+      -2.2057625766051365
+     ],
+     "count_within_R_iso": 3,
+     "inside": [
+      [
+       -0.4793866852059491,
+       -2.103142769298128
+      ],
+      [
+       -0.15973820020262086,
+       -1.7464287826204992
+      ],
+      [
+       0.2994558059173917,
+       -1.8857760824666665
+      ]
+     ],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": [
+      1.4142791927586542e-35,
+      -2.2057625766051365
+     ]
+    },
+    {
+     "centre": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": null
+    }
+   ],
+   "edge_counts": [
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "edge_rows": [
+    {
+     "centre": [
+      -2.269472960833127e-46,
+      -3.475288173639173
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       -2.9951116009907177e-07,
+       -3.475300396260647
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      -2.269472960833127e-46,
+      -3.475288173639173
+     ]
+    },
+    {
+     "centre": [
+      -4.340688455613318e-46,
+      -3.549687015211718
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       -0.009019596263115166,
+       -3.5611674503964714
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      -4.340688455613318e-46,
+      -3.549687015211718
+     ]
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": null
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": null
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": null
+    }
+   ],
+   "fires": true,
+   "fires_a": true,
+   "fires_b": true,
+   "mutation": "(a) centred on the v2.1 artifact; (b) centred on the v2.1 contaminated-edge C9 probe"
+  },
+  "FT_6": {
+   "fires": true,
+   "measured": 0.0005872196298821127,
+   "mutation": "C0 corrupted by 1e-3 relative",
+   "threshold": 1e-05
+  },
+  "FT_7": {
+   "code_paths_collapsed": false,
+   "collapse_disclosure": "an EXACT 0.0 on either axis means the two code paths collapsed and the intended arithmetic separation did not materialise; the result doc MUST record that rather than let it pass silently (prereg section 6, frozen)",
+   "exact_zero_a": false,
+   "exact_zero_b": false,
+   "fires": true,
+   "measured_a": 1.5015831404915055e-46,
+   "measured_b": 4.440892098500626e-16,
+   "mutation": "REVERSE: a DIFFERENTLY-CODED EQUIVALENT spin-2 specification on both axes -- (a) closed-form CGL corner entry for the wall row, (b) ell**2+ell-2 weight with reversed-association quadrature",
+   "threshold": 0.001
+  },
+  "FT_8": {
+   "fires": true,
+   "measured": 6.013720615540751e-07,
+   "mutation": "A -> A*(1 + 1e-6*(x_sat - 7)/7)",
+   "rows": [
+    {
+     "Omega": [
+      1.8536549761862235,
+      -1.0072564537224116
+     ],
+     "Q": 0.920150458870661,
+     "omega_R_M_g": 0.37073099523724473,
+     "x_sat": 5.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.2648078872629827,
+     "x_sat": 7.0
+    },
+    {
+     "Omega": [
+      1.853655680149931,
+      -1.0072574419851463
+     ],
+     "Q": 0.9201499055180306,
+     "omega_R_M_g": 0.1685141527409028,
+     "x_sat": 11.0
+    }
+   ],
+   "threshold": 1e-09
+  },
+  "FT_9": {
+   "digest": "75d7fc892e625892",
+   "fires": true,
+   "mutation": "gates.G1.measured perturbed by 1e-15 relative in a copy",
+   "perturbed_digest": "95676d738972694d"
+  }
+ },
+ "unfired_self_tests": []
+}
