@@ -20,6 +20,22 @@
 
 Two independent readings of the same table: (i) roughly **half of all cites carry no excerpt and are therefore uncheckable by any tool we have**; (ii) among cites the tool *can* check, **73.5% are already drifted** — and none of that gates a commit. (The checker's header documents its own FP classes — range cites `:NN-MM`, cross-row table associations, TeX/ASCII paraphrase — with a spot-check base rate of ~1-in-5 real, so the 1,012 is a candidate pool, not 1,012 confirmed breaks. The 25 "moved" rows are the high-confidence subset.)
 
+**AMENDMENT 2026-08-02 (#847 audit, independently reproduced by the orchestrator) — the hole is WIDER than the entry above states, in two ways.**
+
+**(i) The dominant KB cite form is invisible to the gating checker ENTIRELY — neither line nor path is validated.** `verify-md-links.py` blanks inline code spans before parsing (`strip_code()`), and its link regex only matches `[text](target)`. So:
+
+| cite form | count in `manuscript/ave-kb/*.md` | path checked? | line checked? |
+|---|---|---|---|
+| `` `path.md:NN` `` (backticked bare) | **1,802** | **NO** | **NO** |
+| `[`x.md`](x.md):NN` (label-external — the KB house convention) | **729** | yes | **NO** |
+| `](path.md:NN)` (in-target) | 1 | yes | **NO** |
+
+(Orchestrator's independent counts; the #847 auditor measured 1,283 / 708 / 1 with a narrower pattern set. Both agree on the shape: the backticked-bare form is the most common, and it is wholly unchecked — a cite can name a file that **does not exist** and gating stays green.)
+
+**(ii) Proven by mutation, not inference.** The auditor rewrote a live cite to `device-circuit-models.md):999991-999992,999993-999994` plus `` `vocabulary-register.md:999999` `` and re-ran the checker: **exit 0, `gating errors: 0`, and the finding list byte-identical to the unmutated run.** An absurd line number and a bogus backticked path produce zero new findings.
+
+This upgrades option (2) below from "nice hardening" to "closes a class of silent corpus breakage": asserting the line EXISTS is zero-FP, and extending the parser to see backticked-bare cites would put ~1,800 currently-invisible pointers under the path check for the first time.
+
 **Why it matters here.** Line-cites are the corpus's load-bearing provenance form: every claim card, every KB leaf pointer, every `\kbleaf{...:NN}` in print. This session alone produced repeated real instances — `pending-rulings:26→:113` (stale in PRINT), `theorem-thesaurus:223→:227` (asserted HEAD-verified while stale), `vocabulary-register:536→:534` (inherited into two lanes from the board), `srs-band-structure:81→:116`, `q-g19a:121→:123` / `:110→:112`, three in-KB cites to a `q-g19a:108` that is a BLANK LINE at HEAD. Every one was caught by a human-directed grep, never by a gate.
 
 **A second, cheaper failure mode found while measuring this (recorded, not fixed).** The workspace's own documented zsh false-negative bit again during this very verification: `grep -rn ... --include=*.md` (unquoted) returns **zero matches** under this shell, silently. Quoted (`--include='*.md'`) it returns 1,910. Any "0 hits / complete / all-sites" claim made with an unquoted `--include` or a `**` pathspec is worthless in this repo. `git grep -- 'manuscript/ave-kb/**'` likewise returns zero (#847 flag 5, independently reproduced).
