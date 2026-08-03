@@ -234,7 +234,10 @@ ALLOWED = {
            "pair's mirror line",
     "200": "AVE-HOPF Gerbers Edge_Cuts v-score position in mm",
     "45": "AVE-HOPF Gerbers — PTH.drl hole count, and the per-layer copper "
-          "flash count in F_Cu.gtl / B_Cu.gbl",
+          "flash count in F_Cu.gtl / B_Cu.gbl; also the line cite AVE-HOPF "
+          "research/2026-06-04_hopf-round2-chiral-counterfactual-result.md:45",
+    "63": "line cite AVE-HOPF research/"
+          "2026-06-04_hopf-round2-chiral-counterfactual-result.md:63",
     "94": "AVE-HOPF Gerbers hopf_02a-NPTH.drl hole count",
     "0.001": "AVE-HOPF Gerbers NPTH.drl mirror residual in mm — the file's own "
              "3-decimal-place quantization, not a measured asymmetry",
@@ -286,6 +289,10 @@ PINNED: dict[str, tuple[str, object]] = {
     # is below MIN_SIG and must be hand-mapped rather than auto-matched.
     "0.7": ("derived",
             lambda: 0.06 * path("K2_observable_matched>>ave_value_MHz_at_f0")),
+    # 2026-08-02 audit-repair pass (nit N1): the sub-elements-per-edge count,
+    # quoted in the sec 2 chi-digit-count note.  A bare integer, so hand-mapped
+    # to the leaf that actually carries it rather than auto-matched.
+    "64": ("json", "inputs>>quadrature>>n_sub_per_edge"),
 }
 
 

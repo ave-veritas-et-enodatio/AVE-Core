@@ -58,13 +58,24 @@ are the as-fabbed polyline, the as-fabbed resonance, and CODATA SI constants.
 | 2 | $\boldsymbol\ell_e$ | `6.8949e-3` m (vector `[-6.7696e-3, -1.0742e-3, -7.4729e-4]`) | $\frac1{I_0}\!\int\! I\hat{\mathbf t}\,ds$ |
 | 2 | $\mathbf A_e$ | `8.8679e-4` m² (vector `[-1.0511e-5, 3.4085e-6, 8.8672e-4]`) | $\frac1{2I_0}\!\int\! I(\mathbf r\times\hat{\mathbf t})\,ds$ |
 | 3 | $\cos\angle(\boldsymbol\ell_e,\mathbf A_e)$ | `-0.0973` | the knot is only ~10 % "aligned-chiral" — its 2.6 mm out-of-plane excursion tilts an otherwise in-plane $\boldsymbol\ell_e$ against an otherwise normal $\mathbf A_e$ |
-| 3 | $\chi = \boldsymbol\ell_e\cdot\mathbf A_e$ | `-5.951479e-07` m³ | origin-independent pseudoscalar (G1) |
+| 3 | $\chi = \boldsymbol\ell_e\cdot\mathbf A_e$ | `-5.951479e-07` m³ | origin-independent pseudoscalar (G1). **Trust six digits, not seven** — see the note below |
 | 6 | $R_{\rm rad}$ | `0.7385` Ω | far-field radiation integral of the SAME mode |
 | 5 | $V_\chi = Z_0|\chi|/(3R_{\rm rad})$ | `1.012047e-04` m³ | $\kappa_{\rm cls} = N V_\chi$ for any $N$ |
 | 7 | $N_{\rm ref} = 1/V_{\rm bbox}$ | `2.874784e+05` m⁻³ | close-packed as-fabbed bounding boxes |
 | — | $\kappa_{\rm cls}(N_{\rm ref})$ | `29.09` | K-1 PRIMARY |
 | — | $\kappa_{AVE,\text{eff}} = 1.2\alpha$ | `8.756823e-03` | AVE side only; `ave.core.constants.ALPHA` |
 | — | $\mathcal{R} = \kappa_{\rm cls}/\kappa_{AVE,\text{eff}}$ | `3322.457263790723` | frozen bin variable |
+
+**How many digits of $\chi$ are real (post-audit nit N1).** The polyline edges are straight, so
+$\mathbf r\times\hat{\mathbf t}=\mathbf p_e\times\hat{\mathbf t}_e$ on each edge and *both* mode
+integrals collapse onto the same per-edge scalar
+$J_e=(L/\pi)[\cos(\pi s_a/L)-\cos(\pi s_b/L)]$ — i.e. $\chi$ has a **closed form**, with no
+quadrature at all. Evaluating it gives `-5.95147664129087e-07` m³ against the `N_SUB=64` midpoint
+value `-5.951478711518078e-07` m³, a relative difference of `3.478510179897328e-07`. **So the
+seventh significant digit of the quoted $\chi$ is mesh noise, not physics; six are real.** Nothing
+downstream cares — $\mathcal{R}$, $V_\chi$ and $N^\star$ are all quoted far coarser than that, and
+the frozen bin edges are orders of magnitude away — but the digit count is now stated rather than
+implied (`post_audit_supplementary_NOT_FROZEN.S2_chi_quadrature_floor`).
 
 **Physical read of $R_{\rm rad} = 0.7385\ \Omega$.** A 231 mm wire at 680 MHz is a half-wave
 radiator *if it is straight* (73 Ω). Coiled into the (2,3) knot, the vector sum
@@ -356,10 +367,14 @@ $\alpha$-injected: AVE-HOPF `docs/ave_crib_sheet.md:27`, verbatim:
 > only when the **host** is chiral.
 
 **Live corpus state, verified at source (`verify-before-cite`).** The round-2 relabel has
-**landed** — AVE-HOPF `main`:`hardware/hopf_01_TEST_PROCEDURE.md:180`, verbatim:
-> | Opposite-sign Δf for L vs R enantiomer | **CONSISTENCY-CLASS** — reproducible by classical reciprocal Pasteur (chiral) media: mirroring sends κ→−κ, so a classical chiral medium ALSO flips the sign.
+**landed** — AVE-HOPF `main`:`hardware/hopf_01_TEST_PROCEDURE.md:180`, quoted **whole**, because
+the row's own KEEP-BOTH parenthetical is part of what is at issue:
+> | Opposite-sign Δf for L vs R enantiomer | **CONSISTENCY-CLASS** — reproducible by classical reciprocal Pasteur (chiral) media: mirroring sends κ→−κ, so a classical chiral medium ALSO flips the sign. The enantiomer sign-flip is the textbook signature of ALL classical chiral media (dextro/levo optical rotation), NOT an AVE discriminator on its own. *(Legacy round-1 framing, KEEP-BOTH: beats classical mutual inductance, which is parity-invariant — but that was the wrong competitor; it does NOT beat classical optical activity.)* See `research/2026-06-04_hopf-round2-chiral-counterfactual-result.md` §2.3, §5. |
 
-So the contradiction is against **live, merged corpus text**, not a draft.
+So the contradiction is against **live, merged corpus text**, not a draft. And the specific clause
+this lane's §6.1 bears on is the row's last one — **"it does NOT beat classical optical
+activity"** — because classical optical activity is a property of a *chiral host*, and the row's
+own test is run in air.
 
 #### §6.2.2 A SECOND contradiction, found while repairing this document: is the board fabbed?
 
@@ -409,8 +424,14 @@ across this repair is empty by construction.
   achiral host, then "same $\Delta f/f$ in air, oil and vacuum" is classically $0=0=0$, so C3
   remains non-discriminating on its own — §2.2 of round-2 is untouched.
 - It does **not** claim the magnitude `8.756823e-03` is AVE-distinct. It is $\alpha$-injected
-  (§6.1). What is at issue is a **presence/absence** divergence, which is the shape the corpus's
-  own round-2 synthesis says survives (`research/2026-06-04_experimental-round2-synthesis.md`).
+  (§6.1). What is at issue is a **presence/absence** divergence — which is the shape the corpus's
+  own round-2 synthesis says survives. `research/2026-06-04_experimental-round2-synthesis.md:28`,
+  verbatim:
+  > **The tests that survive are SYMMETRY, SIGN, or zero-free-parameter discriminators; the ones anchored on a MAGNITUDE or the per-node conflation deflate.**
+
+  An exact-zero-by-parity versus nonzero test is a **SYMMETRY** discriminator by that line's own
+  taxonomy; the magnitude leg this lane was sent to run is the other kind, and it deflated exactly
+  as that sentence predicts.
 - It does **not** touch AVE-HOPF. Nothing was written to that repo.
 
 ### §6.3 What would make the two κ's genuinely commensurable
