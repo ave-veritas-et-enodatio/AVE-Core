@@ -109,7 +109,24 @@ The forward DAG is constructed by inspection of the per-row formulas in Appendix
 \begin{itemize}
     \item $\ell_{node} \leftarrow \{m_e, A1\}$;\quad $\xi_{topo} = e/\ell_{node} \leftarrow \{\ell_{node}, A2\}$;\quad $T_{EM} = m_e c^2/\ell_{node}$;\quad $V_{snap} = m_e c^2/e$.
     \item $p_c = 8\pi\alpha \leftarrow \{\alpha\}$;\quad $V_{yield} = \sqrt{\alpha}\,V_{snap} \leftarrow \{\alpha, V_{snap}, A2\}$.
-    \item $\nu_{vac} = 2/7 \leftarrow \{A1$ LC mechanism, $K{=}2G$ at $\alpha\}$;\quad $\sin^2\theta_W = 2/9 \leftarrow \{\nu_{vac}\}$.
+    % [2026-08-02 CRIB-1 DAG-EDGE CORRECTION -- board sec 3 (Grant-ratified 2026-08-02);
+    %   wave-2 backmatter reconciliation. Board finding [MEDIUM][scope-lag] at this edge.
+    %   Prior edge preserved per Rule 12 (git trail), verbatim:
+    %     "$\nu_{vac} = 2/7 \leftarrow \{A1$ LC mechanism, $K{=}2G$ at $\alpha\}$"
+    %   The edge booked nu_vac = 2/7 as derived from A1 + K=2G with no import tag, so the
+    %   forward DAG showed 2/7 reachable from Layer-0 axioms alone. K=2G is not a Layer-0
+    %   input and not axiom-supplied: it is an import edge. NO VALUE CHANGE (2/7, 2/9 stand);
+    %   NO VALUE REFILL. See the marked provenance note after this itemize, which also covers
+    %   the companion prose "This trace-reversed geometric boundary FORCES the macroscopic
+    %   vacuum Poisson's ratio to $\nu_{vac} = 2/7$" earlier in this chapter (Electroweak
+    %   Layer bullet; that bullet already sits under the 2026-06-15 Scope-correction banner
+    %   above it, which is silent on the K=2G import -- this note supplies that leg only).
+    %   ROUTED, not adjudicated here: whether K=2G is a FOURTH import row in the register or
+    %   is subsumed under G's import -- docket 2026-08-02-mr-k2g-kb-internal item (a), which
+    %   names THIS site and appendix_vacuum_engineering.tex:39 as the two backmatter DAG
+    %   sites awaiting that ruling. Executed under the board's ratified authority rule
+    %   (sec 4: the sec 5 per-finding disposition tags govern; tagged [mechanical]).
+    \item $\nu_{vac} \equiv \nu_{\text{Hill}} = 2/7 \leftarrow \{A1$ LC mechanism, $K{=}2G$ at $\alpha$ --- \textbf{$K{=}2G$ is an IMPORT edge, not a Layer-0 derivation}$\}$;\quad $\sin^2\theta_W = 2/9 \leftarrow \{\nu_{vac}\}$.
     \item $M_W \leftarrow \{m_e, \alpha, p_c, \sin^2\theta_W\}$;\quad $M_Z = (3/\sqrt{7})M_W$.
     \item $G_F \leftarrow \{M_W, \sin^2\theta_W, \alpha\}$;\quad $v_{Higgs} = 1/\sqrt{\sqrt{2}\,G_F}$;\quad $m_H = v/\sqrt{N_{K4}}$.
     \item Lepton spectrum: $m_\mu \leftarrow \{m_e, \alpha, A1$ Cosserat$\}$;\quad $m_\tau \leftarrow \{m_e, \alpha, p_c\}$.
@@ -117,7 +134,10 @@ The forward DAG is constructed by inspection of the per-row formulas in Appendix
     \item CKM $\leftarrow \{\sin^2\theta_W, \nu_{vac}\}$;\quad PMNS $\leftarrow \{\nu_{vac}, c_1, c_3\}$.
     \item $H_\infty = 28\pi m_e^3 c G/(\hbar^2 \alpha^2)$;\quad $a_0 = c H_\infty / (2\pi)$.
 \end{itemize}
-By inspection, the forward graph is acyclic: every derived quantity depends only on Layer-0 inputs and earlier-layer derivations.
+
+\noindent\textbf{$K = 2G$ is an import edge (2026-08-02, CRIB-1; no value changes).} The $\nu_{vac}$ edge above, and the ``\emph{This trace-reversed geometric boundary \textbf{forces} the macroscopic vacuum Poisson's ratio to} $\nu_{vac} = 2/7$'' sentence in the Electroweak-Layer bullet earlier in this chapter, both read as though $2/7$ were reachable from the Layer-0 axioms alone. It is not. $K = 2G$ is \textbf{form-derived, value GR-imported}: the substrate forces the \emph{form} of the elastic response $K/G = f(\rho)$, but the value is the GR trace-reversal identity, and the corpus's two closure attempts both returned negative --- the Cauchy grade (PR~\#506) and the genuine chiral micropolar Bloch eigensolve on the ratified \emph{srs}-z3 production carrier (PR~\#508), which yields a one-parameter $\nu_{eff}(\rho)$ \emph{family} rather than a forced $K = 2G$. Read the $\nu_{vac}$ edge as \emph{acyclic conditional on that import}, the same qualification the $G$ closure carries below. $2/7$ is $\nu_{\text{Hill}}$, the isotropic Voigt--Reuss--Hill average at that operating point --- an averaging choice, not a lattice-emergent bound. No number in this section changes and no replacement provenance is supplied. Canonical: \kbleaf{ave-kb/common/form-deriving-value-importing.md}; \kbleaf{ave-kb/vol1/claim-quality.md}; \kbleaf{ave-kb/common/theorem-thesaurus.md}.
+
+By inspection, the forward graph is acyclic \emph{given} Layer-0 inputs, the axioms, and the $K = 2G$ import edge noted above: every derived quantity depends only on those and on earlier-layer derivations.
 
 \paragraph{Back-edges (Layer-8 closure attempts).}
 The framework's ``zero free parameters'' claim requires closing the Layer-0 inputs $\{m_e, \alpha, G\}$ via back-edges:
