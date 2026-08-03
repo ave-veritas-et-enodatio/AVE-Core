@@ -1,4 +1,4 @@
-# The cold-Q pole derivation — RESULT: the instrument is NOT CERTIFIED, and one mechanism explains every failure
+# The cold-Q pole derivation — RESULT: the instrument is NOT CERTIFIED, and the failures are properties of the instrument
 
 **Date:** 2026-08-02
 **Prereg-file**: research/2026-08-02_coldq-pole-derivation_prereg-FROZEN.md
@@ -13,7 +13,12 @@
 
 > **Certification: `SOLVER-NOT-CERTIFIED`. Frozen precedence therefore fires `BIN-F-SOLVER`, and NO physics bin is adjudicated.**
 >
-> Four of nine gates failed at their frozen tolerances (G4, G5, G7, G8) and one of six self-tests did not fire (FT-5). **All five outcomes have a single named mechanism**, and it is a property of the frozen *controls*, not of the physics: **the far-field matching is an ASYMPTOTIC (divergent) series, and the ingoing-coefficient extraction is exponentially ill-conditioned as `exp(2|Im omega| R_match)`.** The frozen tolerances (`1e-8`, `1e-9`) and the frozen search rectangle (`|omega_I| M_g` up to `1.00`) were written as if the far-field expansion were convergent and the extraction uniformly conditioned. Both assumptions are false, and the battery measured exactly that.
+> Four of nine gates failed at their frozen tolerances (G4, G5, G7, G8) and one of six self-tests did not fire (FT-5). **All five outcomes are explained by TWO named mechanisms, and both are properties of the frozen INSTRUMENT — the prereg §4.2 real-`sigma` far-field matching method — not of the physics, and NOT of the controls, which did their job by firing:**
+>
+> - **M1 — the far-field matching is an ASYMPTOTIC (divergent) series**, so its truncation floor *falls* as `R_match` rises (§2.1);
+> - **M2 — the ingoing-coefficient extraction is exponentially ill-conditioned as `exp(2|Im omega| R_match)`**, which *rises* as `R_match` rises (§2.2).
+>
+> The two run in **opposite directions in `R_match`**, which is why no single frozen `R_match` set can satisfy both. **Per-gate attribution: G4 and G5 are M1; G7 and FT-5 are M2; G8's residual spread is the non-cancelling remainder of M1 (§2.3).** A **third, independent** contamination source — a low-frequency divergence of the same series at the rectangle's left edge — was found by the PR #845 audit *after* this doc first shipped and is recorded in §2.4. The frozen tolerances (`1e-8`, `1e-9`) and the frozen search rectangle (`|omega_I| M_g` up to `1.00`) were written as if the far-field expansion were convergent and the extraction uniformly conditioned. Both assumptions are false, and the battery measured exactly that.
 >
 > **This is a clean instrument-failure result with a named mechanism — Rule 11's good shape, not a rescue candidate.** The physics numbers the battery produced are reported below as **NOT-ADJUDICATED DIAGNOSTICS** and carry **no bin verdict**, per the frozen precedence.
 >
@@ -58,11 +63,11 @@
 
 ---
 
-## §2 — THE ONE MECHANISM behind all five failures
+## §2 — THE MECHANISMS behind all five failures
 
-The four failing gates and the unfired self-test are **not five problems**. They are one, and the battery measured it directly.
+The four failing gates and the unfired self-test are **not five independent problems**. They reduce to **two** mechanisms of the frozen instrument, M1 (§2.1) and M2 (§2.2), which the battery measured directly — plus a **third, independent** contamination source (§2.4) found by the PR #845 audit after this doc first shipped.
 
-### §2.1 The far-field expansion is asymptotic, not convergent
+### §2.1 M1 — the far-field expansion is asymptotic, not convergent
 
 The instrument's frozen far-field solution (prereg §4.2) is a series in `1/r` generated from the actual `mu(r)`, `rho(r)`. **That series is asymptotic: its error is minimised near an `R`-dependent optimal truncation and grows on BOTH sides of it.** The shipped `instrument_accuracy_map` measures this — deviation of the located pole from the best-available reference (`R_match = 60`, `N = 32`):
 
@@ -105,7 +110,15 @@ The shipped `certified_omega_I_band` measures where the count is trustworthy:
 | `7` | `40.0` | `0.2648080807146999` | `0.14389389410143283` | `1.8536565650028993` | `0.9201505121823758` |
 | `11` | `62.857142857142854` | `0.16851423344429386` | `0.09156884260787314` | `1.8536565678872325` | `0.9201505045003425` |
 
-`Omega` spread `1.5560e-09`; `Q` spread `1.1058e-08`; `r_peak/r_sat` spread `1.7511e-13`. **The gate FAILS at its frozen `1e-9`.** But read what it measured: **the scale-free eigenvalue and `Q` are `x_sat`-invariant to eight and nine significant figures.** The prereg's structural claim — that `Q` is *exactly* `nu_vac`-free because `r_sat` divides out of the radial system identically — is **CONFIRMED to the instrument's own accuracy floor** (§2.1: `~1e-8` at `R = 60`). The gate's `1e-9` simply sits below that floor.
+`Omega` spread `1.5560e-09`; `Q` spread `1.1058e-08`; `r_peak/r_sat` spread `1.7511e-13`. **The gate FAILS at its frozen `1e-9`.** But read what it measured: **the scale-free eigenvalue and `Q` are `x_sat`-invariant to eight and nine significant figures.** The prereg's structural claim — that `Q` is *exactly* `nu_vac`-free because `r_sat` divides out of the radial system identically — is **CONFIRMED at the level this instrument can resolve.**
+
+> **⚑ MIS-CITED FLOOR, corrected (PR #845 audit R5).** This paragraph originally cited the §2.1 map's `~1e-8` figure at `R_match = 60`. That is the wrong row. Under `scaled_geometry()` all three `x_sat` rows run at the **same scaled matching radius** `R_match/r_sat` = `5.714` — i.e. the `R_match = 40` row of the §2.1 map, whose floor is `4.3437e-07`, not `1e-8`. **The correction does not rescue the gate and does not change the reading:** because the three rows are the *same* scaled geometry, the truncation floor is **common-mode and largely cancels in the spread**, which is why the measured spread (`1.1058e-08`) sits more than an order BELOW the single-run floor. What survives the cancellation is the non-cancelling remainder of M1, and the frozen `1e-9` sits below *it*. **The gate still FAILS.**
+
+> **⚑ A real bug this battery found in ITS OWN first run, recorded rather than quietly fixed.** The first full battery returned `Q` spreads of `1.74` on this gate — a `174` percent violation. The cause was **mine, not the physics**: `R_match` and the search rectangle were held fixed in units of `M_g` while `x_sat` varied, which puts the far-field match *inside the grade* at `x_sat = 11` (`R/r_sat = 3.64`) and breaks the numerics' scale invariance even though the physics' scale invariance is exact. Fixed by scaling `R_match` and the rectangle with `x_sat` (`scaled_geometry()`, [`coldq_pole_derivation.py:389-401`](drivers/coldq_pole_derivation.py)), and re-run. **This is a code-correctness repair, not a criterion change — the frozen G8 string is untouched and the gate still fails at it.** The first-run numbers are on the record here so the repair is auditable.
+>
+> **⚑ DISCLOSURE the audit is entitled to (PR #845 R5).** The prereg **did not freeze** how the geometry should follow `x_sat` — `scaled_geometry()`'s convention (hold `R_match` and the rectangle fixed in units of `r_sat`) is an **UNFROZEN implementation choice that was settled AFTER seeing G8 fail.** Post-failure settlement of an unfrozen degree of freedom is exactly the shape Rule 11 exists to police, so it is named here rather than left to inference. **Rule 11 is preserved not because the choice is defensible in the abstract, but because the frozen G8 criterion string is byte-untouched and the gate STILL FAILS at it: the continued failure, not the repair, is what keeps this clean.** Had the repair converted the FAIL into a PASS, this paragraph would be a rescue and the result would not be bankable.
+>
+> **⚑ AS-RUN, NOT RE-DERIVABLE FROM THE SHIPPED ARTIFACTS (PR #845 audit R8).** `1.74`, `174` and `3.64` are first-run (pre-repair) numbers. **The pre-repair driver was never committed**, so these three cannot be re-derived from anything in this branch and are not in the shipped JSON; they are as-run prose, allow-listed in the number check rather than registered. They are recorded for auditability of the repair, and nothing in the result depends on them.
 
 ### §2.4 M3 — a SECOND, INDEPENDENT contamination source at the rectangle's low-frequency edge (found by the PR #845 audit)
 
@@ -193,7 +206,7 @@ Within the region where the extraction is conditioned there is **one** pole. The
 2. **The wall terminus is reached exactly, with no regulator.** **Frozen:** `the wall is reached exactly via the r = r_sat + sigma^2 substitution, which makes the two-component system analytic at sigma = 0; the initial condition is exactly (W,T) = (1,0) and no offset, series start, or regularized modulus floor is used`. G3 measures `3.5006e-10`. **The `A = 1` point is handled as a regular singular point of the ODE whose indicial structure selects the traction-free branch — not by a floor on `S`.**
 3. **Ax-3 losslessness is structural, not asserted.** G6: every closed-cavity eigenvalue is real to `0.0` exactly and the assembled transfer carries zero imaginary part; FT-3 shows a smuggled `Im(mu)/Re(mu) = 1e-3` is detected. **The only loss in the ledger is the radiative port** — #814's CF-11 instantiated.
 4. **FORK-10 and FORK-11 are dissolved as designed.** **Frozen:** `no port-Q is computed and no port-to-pole transfer is performed; the reported Q is the pole-Q that the GR comparator is`. Neither disputed spin-1 estimator was used and the `50` percent estimator spread recorded in #814 §1.3 never entered.
-5. **`Q`'s `nu_vac`-freedom is measured, not argued** (§2.3) — to eight significant figures, which is the strongest form of the #808 §2.1 requirement (*"cancellation is the actual requirement"*) yet produced in this arc.
+5. **`Q`'s `nu_vac`-freedom carries a unit-covariance receipt** (§2.3) — the three `x_sat` runs agree on `Omega` and `Q` to eight and nine significant figures. **Downgraded after review (PR #845 R5):** this is *a unit-covariance receipt for a cancellation the prereg establishes analytically*, **not** an independent measurement of that cancellation. Under `scaled_geometry()` the three `x_sat` runs are **the same problem in scaled units by construction**, so what the agreement certifies is that the code respects the scaling it was told to respect. That is worth having — it would have caught the first-run bug — but it is weaker than the #808 §2.1 requirement (*"cancellation is the actual requirement"*) taken at full strength, and this doc no longer claims otherwise.
 
 ---
 
