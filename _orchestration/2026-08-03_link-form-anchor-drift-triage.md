@@ -191,11 +191,43 @@ Seven rows verified by printing the cited line AND grepping the target for the e
       quote  "GAP — not mapped"   (Autoresonance row)
       truth  that row is at :224
 
- 6  manuscript/ave-kb/common/dual-reactance-storage-taxonomy.md:221
-    manuscript/ave-kb/common/trampoline-framework.md:681      (two citers, same stale anchor)
-      cites  vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20
-      quote  "TWO DISTINCT CLOCKS"
-      truth  that blockquote is at :38  (:20 = the TWO-"3"s disambiguation block)
+ 6  ⚠ REPAIR-SAFETY ROW — LINE GRANULARITY IS NOT ENOUGH HERE.
+    Two citing lines each carry THREE `master-equation.md):20` cites, and the three
+    do NOT share a truth value. Repair per OCCURRENCE (column), never per line.
+
+    manuscript/ave-kb/common/trampoline-framework.md:681        (one 2696-char line)
+      col  799   "A1 dilatation-MASS"                     :20 CORRECT — leave alone
+      col 1444   "TWO DISTINCT CLOCKS"                    stale → :38
+      col 2264   no quoted excerpt; prose reads
+                 "…the REFUTED flag at [`master-equation.md`](…):20."   stale → :36
+
+    manuscript/ave-kb/common/dual-reactance-storage-taxonomy.md:221   (one 2084-char
+    line; same three banners, mirrored — the 2nd and 3rd swap order)
+      col 1067   "TWO DISTINCT CLOCKS"                    stale → :38
+      col 1304   "A1 dilatation-MASS"                     :20 CORRECT — leave alone
+      col 2012   no quoted excerpt; prose reads
+                 "…REFUTED flag at [`master-equation.md`](…):20."      stale → :36
+
+    Columns are 0-based at the START OF THE PATH inside `](…)` — i.e. exactly what
+    CITE_RE's match .start() reports — so each occurrence is re-locatable directly.
+
+    Target truths, each re-grepped on this branch (master-equation.md, 117 lines):
+      "A1 dilatation-MASS"    → :20 and nowhere else  (:20 = the TWO-"3"s block)
+      "TWO DISTINCT CLOCKS"   → :38 and nowhere else  (:20 says TWO DISTINCT
+                                *objects*, a different phrase in the same banner)
+      the REFUTED banner      → :36   (":33 mentions "see the REFUTED-flag below"
+                                but is a pointer, not the flag)
+
+    ⚠ DO NOT blanket-repoint either line. Two of these six `:20` occurrences are
+      CORRECT; a line-granular sed/repoint would break working anchors while fixing
+      the stale ones. The `:36` target was UNNAMED in the first pass of this doc,
+      which reported the pair as a single ":20 → TWO DISTINCT CLOCKS" row: it is in
+      fact THREE distinct targets per line — :20 correct, :38 stale, :36 stale.
+
+      checker note: all six occurrences associate the same backtick span
+      `clm-533gvm` and report moved→:36. That is the right line for the two
+      REFUTED-flag occurrences and the wrong line for the other four — right
+      answer, wrong reason, the same failure shape as row 7 below.
 
  7  manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-transfer-function.md:41
       cites  theorem-3-1-q-factor.md:81
@@ -206,11 +238,42 @@ Seven rows verified by printing the cited line AND grepping the target for the e
              The drift is real; the checker's stated cause for it is not.
 ```
 
-**Mechanism, not a coincidence.** Rows ★1/★3/★4/★5 all point into
-`common/translation-tables/translation-circuit.md` and are all stale by **`+17`** (`+12` for
-★1, whose target sits above a second insertion point). One hub leaf absorbed insertions and
-every inbound link-form anchor from the vol1/vol2 leaves went stale together — **invisible,
-because the whole class was unscanned.** The same hub explains a large share of the 208.
+**Mechanism, not a coincidence — TWO insertion events, not one uniform shift.** Six anchors
+in the rows above point into `common/translation-tables/translation-circuit.md`, and their
+staleness is a **step function of depth in that file**, not a constant:
+
+| row | anchor | content is now at | Δ |
+|---|---|---|---|
+| ★1 | `:178` | `:190` | **`+12`** |
+| ★5 | `:207` | `:224` | `+17` |
+| ★3 | `:235` | `:252` | `+17` |
+| ★4 | `:237` | `:254` | `+17` |
+| ★1's companion `:238` (a bare fragment on ★1's line — no path, so neither regex branch sees it) | `:238` | `:255` | `+17` |
+| ★2 | `:637` | `:767` | `+130` |
+
+Read as insertion **zones**: `+12` above old-`:178`; **a further `+5`** between old-`:178`
+and old-`:207` (so everything from `:207` down is `+17`); and a further `+113` between
+old-`:238` and old-`:637`. **★1 is `+12`, not `+17`, because its target sits ABOVE the
+second insertion point.** The earlier wording here — "all stale by a uniform `+17` (`+12`
+for ★1)" — was self-contradictory on precisely the sharpest row, and is corrected.
+
+**The two-event reading is STRONGER evidence for the mechanism, not weaker.** One insertion
+shifting one anchor set is a single bad merge. What the history actually shows is a hub that
+kept absorbing insertions at *different depths* while its inbound anchors sat still:
+`git log --follow` on the leaf puts the `+12` across **six** commits and the extra `+5`
+across **four**, all between 2026-07-09 and 2026-07-28, with every one of these anchors
+CORRECT when written and correct continuously from 2026-06-11 to 2026-07-09. Nineteen days
+of continuous rot in a live hub, with nothing in the corpus flagging any of it, is a worse
+failure mode than one event — and it is the mode a line-anchor checker exists to catch.
+
+**How much of the 208 is this hub? `13` — measured, `6.2%`.** Not "a large share", and not
+even the largest: `master-equation.md` takes **`26`**, `theorem-3-1-q-factor.md` `8`,
+`physics-lineage-map.md` `7`. The hub does carry **`50` inbound link-form cites** across
+`22` distinct anchor values (`:178` ×6, `:207` ×6, `:35` ×6, `:637` ×5, `:245` ×3, …), but
+their disposition is `34` no-quote / `3` OK / `8` moved / `5` absent — so only `13` can
+surface as findings at all. **The finding count measures CHECKABILITY, not staleness:** the
+`34` no-quote cites into this leaf are unexamined, not verified-correct, and `3` is the
+number affirmatively confirmed good.
 
 **Not adjudicated here:** whether the correct repair is re-pointing each `:NN`, converting
 these to anchor-slug links, or retiring line anchors into `path-stable` frontmatter for
