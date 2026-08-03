@@ -179,7 +179,7 @@ is not an admissible closure."*
 | **(1) The observable both sides predict in the same coordinates** | the **enantiomer split of the scalar self-resonance**, $(f_R-f_L)/f_0$, on the as-fabbed HOPF-02a pair in an **achiral host** (air + FR-4) — the quantity a 1-port $S_{11}$ differential actually reads |
 | **(2) Classical value** | **exactly `0`** |
 | **(3) AVE value** | `1.751365e-02` fractional = **`11.9093` MHz** at `680` MHz |
-| **(4) The experiment that reads it** | **already fabbed** — the HOPF-02a enantiomer pair, differential $S_{11}$. Round-2 §4 inherits the S-8 fab floor ≈ `130` kHz = `1.911765e-04` fractional at `680` MHz ⇒ margin `91.6098`× |
+| **(4) The experiment that reads it** | the HOPF-02a enantiomer pair, differential $S_{11}$ — **designed to fab-artifact completeness (Gerbers + drill + DRC + BOM + ORDERING exported); NOT FABBED.** The physical fab order is AVE-HOPF **Phase 0b, gated on Grant, ~\$`123` BOM + build**. Round-2 §4 inherits the S-8 fab floor ≈ `130` kHz = `1.911765e-04` fractional at `680` MHz ⇒ margin `91.6098`× |
 
 **Why the classical value is exactly zero, and what that is conditional on.** Maxwell's equations
 are parity-covariant: the mirror image of a solution is a solution, so in a **mirror-symmetric
@@ -284,7 +284,9 @@ $\alpha$-injected: AVE-HOPF `docs/ave_crib_sheet.md:27`, verbatim:
 > The form is **generic parallel-Γ algebra**: `(α·p · α·q)/(α·p + α·q) = α · pq/(p+q)`.
 > Standard Kirchhoff parallel-impedance combination.
 
-### §6.2 FLAG-DON'T-FIX — a contradiction surfaced, both sides verbatim, neither reframed
+### §6.2 FLAG-DON'T-FIX — two contradictions surfaced, both sides verbatim, neither reframed
+
+#### §6.2.1 The one this lane exists to expose — what the enantiomer sign-flip is a sign-flip *of*
 
 **Side A — AVE-HOPF `main`:`research/2026-06-04_hopf-round2-chiral-counterfactual-result.md`
 §2.3 (lines 84–88), verbatim:**
@@ -313,6 +315,46 @@ $\alpha$-injected: AVE-HOPF `docs/ave_crib_sheet.md:27`, verbatim:
 
 So the contradiction is against **live, merged corpus text**, not a draft.
 
+#### §6.2.2 A SECOND contradiction, found while repairing this document: is the board fabbed?
+
+*(Rule 12 quote-and-correct, 2026-08-02. The `f9d5c86c` version of this document asserted the
+HOPF-02a board was **"already fabbed"** at four places, and the driver wrote the same claim into
+the shipped JSON at a fifth. All five are corrected above and in
+`K2_observable_matched`/`commensurability_checklist`. The claim was inherited, not invented — and
+its source is itself contradicted.)*
+
+**Side A — AVE-HOPF `main`:`.agents/HANDOFF.md:14`, verbatim (the live status line):**
+
+> Phase 0a fab-artifact-generation is **complete**; Grant can upload `hardware/Gerbers_hopf_02a/`
+> ZIP to JLCPCB per `hardware/hopf_02a_ORDERING.md`. **Working tree is clean.** **Next gate**:
+> Phase 0b — physical fab order for HOPF-02a (user action; ~$123 BOM; ordering guide ready)
+
+**and `.agents/HANDOFF.md:42`, verbatim (the live TODO list, item 1):**
+
+> 1. **(active, gated on user) Order HOPF-02a fab panel + 3D-print mandrels.** ~$123 BOM
+
+**Side B — AVE-HOPF `main`:`research/2026-06-04_hopf-round2-chiral-counterfactual-result.md:193`,
+verbatim:**
+
+> **Roll-up:** HOPF-02a (the fabbed, $123, enantiomer-pair board) was designed to deliver C4 as "the
+
+**Both are live, merged AVE-HOPF `main` text, and they cannot both be true.** A board whose fab
+order is the *next gate* is not a *fabbed* board. This lane has corrected **its own** documents to
+the HANDOFF reading, because HANDOFF is the file whose job is current status and it is the more
+recent of the two — but that is a working assumption, not an adjudication.
+
+**Flag-don't-fix.** Nothing was written to AVE-HOPF. Which of the two is wrong, and the correction
+to whichever it is, belongs to an AVE-HOPF lane and to Grant — who is the one person who knows
+whether a PCB order was ever placed. It is routed as question **(2)** in §8.
+
+**One more disclosure, so the trail is complete.** This lane's own **FROZEN** prereg carries the
+same inherited phrasing at `research/2026-08-02_pasteur-kappa-desk-calc_prereg-FROZEN.md:48–49`
+— "This lane runs it, at \$`0`, on the as-fabbed hardware." Read narrowly that is true (the
+desk-calc itself cost nothing and consumed the released as-fabbed *geometry*); read as a claim
+about a *bench*, it inherits the same error. **The prereg is frozen and was not touched** — a
+frozen document's errors are corrected in the result, not in the freeze. `git diff` on that file
+across this repair is empty by construction.
+
 **Scope of what this lane does and does not say.**
 
 - It does **not** adjudicate whether C4 returns. That is a framing call and it routes to Grant /
@@ -337,9 +379,12 @@ Constructively, three routes — each is a real experiment or a real derivation,
 2. **Derive the AVE side as a bulk parameter.** Show that $\alpha\,pq/(p+q)$ *is* the
    coefficient of a $k_\pm$ split for a wave in the AVE vacuum, with a stated density-free
    mechanism. Then C-iii and C-iv become SAME and the magnitude comparison adjudicates directly.
-3. **Measure the common observable (cheapest, already fabbed).** The enantiomer split of the
-   scalar self-resonance in air: `0` vs `1.751365e-02`, margin `91.6098`× over the fab floor.
-   This is the only one of the three that needs no new hardware and no new derivation.
+3. **Measure the common observable (cheapest — the board is *designed*, not built).** The
+   enantiomer split of the scalar self-resonance in air: `0` vs `1.751365e-02`, margin
+   `91.6098`× over the fab floor. This is still the cheapest of the three: it needs **no new
+   design and no new derivation**, only the fab order that is already staged and gated — AVE-HOPF
+   Phase 0b, ~\$`123` BOM **plus build time**, not \$`0`. Routes 1 and 2 need a whole new
+   composite slab and a whole new derivation respectively; this one needs a PCB order.
 
 ---
 
@@ -365,7 +410,8 @@ The classical chain is analytic + quadrature, validated against two closed-form 
 > **The round-2 MAGNITUDE leg cannot be run as posed, because the two κ's are different kinds of
 > object — a density-scaled bulk medium parameter versus a density-free per-topology
 > self-resonance shift (3 of 4 checklist items DIFFERENT). What CAN be run, and what the
-> already-fabbed hardware already measures, is the enantiomer split of the scalar self-resonance
+> **already-designed** HOPF-02a hardware is built to read once it is **ordered** (Phase 0b,
+> gated), is the enantiomer split of the scalar self-resonance
 > in an achiral host: classical EM gives exactly `0` (parity-covariance, with the as-fabbed
 > mirror verified to be a pure $x\to-x$ reflection at `0.0` mm residual, and AVE-HOPF's own NEC2
 > column reading `+0.000 MHz`), against AVE's `11.9093` MHz. That is a presence/absence
