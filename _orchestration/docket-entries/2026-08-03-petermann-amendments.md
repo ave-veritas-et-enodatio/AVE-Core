@@ -1,0 +1,58 @@
+### ENTRY 2026-08-03-petermann-amendments (2026-08-03): implementer — core-side instrument audit amends PR #857; the driver defect is repaired and pinned, the ppm labels are struck on Grant's ruling, and the factor-2 stays ROUTED
+
+- **Class: record correction + instrument repair + a Grant-ruled label strike.** Zero ids minted (no `clm-`/`def-`/`exp-`/`sup-`/`ilk-`); no `confidence`/`quality`/`solidity` field moves. **One physics adjudication is deliberately NOT made** (the factor-2 normalization) and is left open for Grant.
+- **★ Cross-session provenance, disclosed everywhere.** This lane amends **PR #857** (`kb/petermann-artifact-record`, opened by the manuscript-reconciliation **satellite** session at `4cdd136f`) from the **core** side, under the **2026-08-03 epic→core handoff** that routed the Petermann item to the core orchestrator. First action was to retitle #857 from `[REVIEW: CLEARED]` back to `[DO-NOT-MERGE][REVIEW: pending-orchestrator]` — the clearance predates these findings and the core orchestrator re-clears after receipt verification. Branch tip was confirmed still at `4cdd136f` (no concurrent pushes) before work started.
+- **★ #857's four receipts all REPRODUCED TO THE DIGIT.** This is not a dispute about arithmetic. Three of its *conclusions* are wrong or under-scoped, and one repairable driver defect sat underneath all of them.
+
+#### Grant's ruling (verbatim, [sic])
+
+> **"1, follow your rec"**
+
+Ruling scope as transmitted: (a) retire $-0.328427$ as artifact-class; (b) the leaf carries $-0.32846$ as a **5-decimal display** with the F2 caveat, not as "the converged value"; (c) **strike every ppm label — 50, 61, 158 — at all listed sites**, replaced by one scope sentence naming the two limiters, with **no ppm number substituted, not even the converged 60**. The **factor-2 adjudication stays ROUTED** (Grant walking it in-chat); this lane did not resolve it.
+
+#### F1 — the driver defect (REPAIRED + PINNED)
+
+- `src/scripts/vol_2_subatomic/simulate_g2_direction2.py:140` applied the retardation by **truncated integer index** (`int(tau_retard / dt) % n_t`), so the applied retardation was `tau_eff = 0.999997216` at the banked `n_t = 2e6`, not the asserted `tau = 1`. With `dC2/dtau = -11.4555` that is `+3.19e-5` in C₂ = **97 ppm** — the whole leaf-vs-driver gap. A **±1** change in `n_t` moved the output **92 ppm**.
+- **Fix:** the retarded rate is evaluated **analytically at the real-valued retarded time** `s = t - tau_retard` (`dV²/dt = -2 sin 4s + 3 sin 6s`). No `np.roll`, no `np.gradient`, no index truncation. **Receipt:** C₂ = `-0.3284592577155` at `n_t` ∈ {1e5, 2e6, 4e6}, **spread 2.776e-16** — n_t-invariant to 13 digits over a 40× range; the ±1 pair now returns the identical value.
+- **A second, smaller defect of the same class** is removed and recorded, not headlined: `np.gradient` was fed a **periodic** array with no wrap, so its one-sided endpoint stencil made cells 0 and −1 wrong by ~1.6e-5. Weight in the cycle mean ~1e-14, ~9 orders below the truncation defect.
+- The frozen `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md` is **NOT edited** — it receives a dated **addendum** (Rule 12, additive-only: 74 insertions, 0 deletions). Every artifact-class attribution was proven by **re-running the pre-repair driver blob**, not inferred: it reproduces `:50` `-0.341604`, `:51` `-0.328427`, `:63` `137.025871`, `:64` `137.034286` exactly.
+
+#### F7 — zero test coverage was the enabling condition (CLOSED)
+
+- The driver had **no** test or CI coverage; that is how a 97 ppm instrument error survived two months in a document quoted at ppm precision. `src/tests/test_petermann_c2_pin.py` (5 assertions) is auto-wired into `make test`.
+- **Tolerance is stated and justified in-file**, not asserted: `ABS_TOL = 1e-9` sits ~7 orders above the observed 2.8e-16 reproducibility floor and ~5 orders below the 3.2e-5 defect it must catch.
+- **★ The pin was demonstrated to FIRE, three ways**, each on a clean isolated run: tolerance mutated `1e-9 → 1e-18` ⇒ **3 failed, 2 passed**; pin value mutated to the retired artifact `-0.328427365` ⇒ **2 failed, 3 passed**; `NT_INVARIANCE_TOL 1e-12 → 1e-17` ⇒ **1 failed, 4 passed**. Restored ⇒ **5 passed**.
+- ⚑ **A stale-cache trap was hit and is recorded so the next lane does not bank a false green:** both value mutations are **same-byte-length** edits, and pytest's assertion-rewrite cache is keyed on `(st_mtime, st_size)` — so a restore within the same mtime second **re-ran stale bytecode and reported the mutated result on the restored file**. Caught by re-running, not by trusting. `__pycache__` must be cleared (or the file `touch`ed) between same-size mutation cycles.
+
+#### F2 — #857's headline conclusion is WRONG (record corrected)
+
+- #857 concludes the leaf's `-0.32846` *"is the correctly-**converged** rendering"*. It is not. The number traces to **AVE-QED** `scripts/g2_research/q_g19_alpha_saliency_sweep.py:65`, a **ROUND**-shift (`int(np.round(...))`) — a *different* instrument carrying its **own** `-4.096e-6` bias (**12.47 ppm**) from the same O(dt) defect. Round-shift returns `-0.3284633538`; exact returns `-0.3284592577`. **They agree at 5 dp (`-0.32846`) and disagree at 6 (`-0.328463` vs `-0.328459`).** So `-0.32846` survives as a **display**; the converged value is `-0.3284592577`.
+- ⚑ **Cite correction:** the dispatch attributed the sweep to AVE-QED commit `2d5c03a3`; **that revision does not exist in that repo**. The file's log returns `31e800c` and `7b8cc5a`. Content at `:65` verified verbatim; only the SHA was wrong.
+
+#### F3 — the convergence scan validated a coincidence (NEW finding)
+
+- `q_g19_alpha_route_b_convergence.py:83` scans `[10_000, 50_000, 200_000, 1_000_000, 5_000_000]`. On the decadal tail the dominant error `(1 - frac(Nt/2π))·2π/Nt` is **invariant** — `3.575642e-07` at **all three** of 2e5/1e6/5e6, giving C₂ = `-0.341639506` **bit-identical to 9 decimals across a 25× range**. The plateau is the bias sitting still, not convergence. Re-run non-decadal, the same instrument swings **616 ppm** (645 ppm saliency). *(Dispatch said ~520 ppm; the swing is ladder-dependent and the figures here are this lane's own measurement on its stated ladder.)*
+- The *"invariant under three derivative methods"* robustness receipt is **non-probative for this error**: `shift_idx`/`np.roll` sit at `:62-:63`, **outside** the `if derivative ==` branch at `:47-:60`, so the bias is strictly **common-mode**.
+
+#### F5 — the factor-2 is in the LEAF and the MANUSCRIPT (ROUTED, deliberately NOT resolved)
+
+- #857 says the both-forms structure *"is not in the leaf"*. **Under-scoped** — it searched for the rendered constant, not the implied form. Leaf `:47`'s Δa_e equation **implies** C₂ = ⟨·⟩/(πα); leaf `:48` **asserts** C₂ = 2⟨·⟩/(πα). Same display block, two lines apart, inconsistent by **exactly 2**: `-0.170818` (**−48.0%** vs PDG) vs `-0.341635` (**+4.005%**). The 2/(πα) form also prints at `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:516`.
+- **The corpus already half-adjudicated it, one way only:** the 2026-05-18 walk-back **doubled Δa_e and held C₂** (verbatim: *"computed with a silent factor of $1/2$"*; *"is independent of the conversion arithmetic and is preserved"*). The opposite branch was never considered and `:47` was never updated.
+- ⚑ **New: a residual site of that same halving survives in the leaf's own table.** The §"Numerical robustness" row prints Δa_e = `-9.21e-7` — the **un-doubled** `:47` form — while the Stage-2 display prints `-1.772e-6`, the **doubled** `:48` form; and the row's PDG cell `-8.86e-7` is **half** the textbook `-1.7723e-6`. The row is internally self-consistent (so its +4.0% is unaffected) but uses the **opposite convention** from the Stage-2 display.
+- **NOT ADJUDICATED.** Routed to Grant, open at commit time. Every value in the leaf and the repaired driver carries 2/(πα) and would **halve** if it resolves the other way — a factor-2 move, far larger than any ppm quantity in the dispute #857 was about.
+
+#### F6 — the ppm strike (EXECUTED on Grant's ruling, upgraded mid-lane from routed)
+
+- **No ppm label on any C₂ value is defensible.** Two limiters, either alone sufficient: (1) **τ_retard = 1/ω_C is asserted, not derived** — with `dC2/dtau = -11.4555`, a 60 ppm label needs τ to **1.7 ppm** (50 ppm → 1.43 ppm), and the corpus concedes the assertion in its own words at `research/2026-05-31_FT-alpha-reextraction-direction-2_result.md:126`; (2) the **Stage-2 postulate was refuted 2026-05-31**.
+- Struck across three files, **every strike Rule-12 quote-and-dated at its site**; **no ppm number substituted anywhere**. `.tex` and `.py` strikes use each file's own house preservation pattern (`%` comment block / docstring block) because strikethrough does not render there. **Result: zero live ppm labels remain in the `.tex`.**
+- ⚑ **Two strikes EXCEEDED the ruling's explicit site list and are disclosed, not buried:** the §"Final result" **heading** (it titles the block whose deviation sentence *was* listed) and the **residual-gap sentence** (it restates the −10 ppm removed from the display immediately above it). Leaving either would have restated a struck number one line from its strike.
+- ⚑ **Five live ppm mentions were NOT struck and are flagged, enumerated exhaustively in the leaf**: four *"the 50-ppm headline"*-class **back-references** (one of them on a *listed* line) plus the **Falsifier threshold** *"at 50 ppm precision"* — the last needs a physics decision (what precision the falsifier asserts once no ppm label is defensible) that is **not this lane's to make**. Recommended relabels stated, **not executed**. Plus one in `g_minus_2_lattice.py`'s superseded ORIGINAL HEADER (*"~1.5 ppm"*), a different quantity.
+
+#### F4 / F8 — the nuance, and what is untouched
+
+- The `-0.3284636` retraction **stands** (zero provenance, two-method-confirmed) — but it sits **2.46e-7** from `-0.3284633538`, the *actual* round-shift output. **"Zero provenance" ≠ "physically wrong number."** The objection is to its derivation, not its magnitude.
+- **Outcome C and Stage 1 are UNAFFECTED.** Stage-1 exact is **+4.0053%** (banked +4.00%; correction in the 4th sig-fig) against the 0.145% the discrimination demands — the **28×** shortfall and the Rule-11 closure both stand. The re-run driver still lands α_AVE⁻¹ = 137.025851, **−34.31 gap-widths**. The demoted status of the Stage-2 claim is not disturbed.
+
+#### Battery
+
+`make verify` → **exit 0** (run twice: after the driver repair, and after the record/strike edits). New pin test → **5 passed**, and **demonstrated to fire** under three separate mutations. `make vol2` run because this lane touched `.tex` (#857 had not). `ruff check` clean on all three touched `.py` files — the single reported error is a **pre-existing** E501 at `simulate_g2_direction2.py:63`, confirmed present at HEAD and untouched here. All 11 verbatim quotes byte-verified by script against their source files (including the two sibling-repo AVE-QED sources). Pure-corpus scan of the full diff → clean.
