@@ -17,46 +17,71 @@
 %  UNTOUCHED and CORRECT: the $6^3_2$ labels on the Proton / Neutron nodes -- INVARIANT-N1 names
 %  the $6^3_2$ Borromean linkage as the proton's REAL-SPACE body. No decay claim, threshold,
 %  coupling or geometry is changed.]
+%
+% [2026-08-02 HOUSE-STYLE RESTYLE, dark -> WHITE, under the standing ratified figure-style
+%  ruling. Single source of truth: src/ave/viz/README.md:1-3 -- "# `ave.viz` -- the shared AVE
+%  house figure style ... The single source of truth for manuscript / Vol-9 datasheet figure
+%  appearance" -- and :15, "style.apply()  # white-background 'print' profile (the default)";
+%  :36, '"print" = white bg / black text (manuscript default)'; :37, the semantic Okabe-Ito
+%  colourblind-safe palette. This file previously carried \definecolor{darkbg}{RGB}{15,15,15}
+%  with a \fill over the whole canvas plus a saturated neon palette (cyan / spring-green /
+%  red / magenta / yellow), i.e. the dark screen profile shipping into a print manuscript --
+%  exactly the drift README.md:46-49 records ("the corpus had drifted to 30x dark_background
+%  rasters shipping into a print manuscript").
+%  WHAT CHANGED: background fill removed (white), all text black, and the five neon colours
+%  replaced by the COLORS dict of src/ave/viz/style.py:54-59 verbatim. CONTENT IS UNCHANGED --
+%  identical nodes, identical coordinates, identical edges, identical labels, identical decay
+%  physics. Colour is not load-bearing here (every node carries a text label), per the
+%  ave-figure-discipline "never rely on colour alone" rule.
+%  SCOPE: this file only. 23 of the volume's 29 hand-authored TikZ standalones
+%  (22 figures/*.tex + 7 circuits/*.tex) still carry darkbg -- surfaced, not swept, since only
+%  this file is in the ratified vol6 set.
+%  NOTE: this standalone is currently an ORPHAN -- no chapter \includegraphics its PDF
+%  (`grep -rn circuit_h3_decay manuscript/` returns only this file), so the restyle produces no
+%  page or Overfull delta in `make vol6`. The tracked companion PDF is regenerated alongside.]
 \begin{document}
 \begin{tikzpicture}[>=latex']
 
-\definecolor{neonblue}{RGB}{0, 255, 255}
-\definecolor{neongreen}{RGB}{0, 255, 128}
-\definecolor{neonred}{RGB}{255, 50, 50}
-\definecolor{neonpurple}{RGB}{200, 0, 255}
-\definecolor{darkbg}{RGB}{15, 15, 15}
-\definecolor{neonyellow}{RGB}{255, 255, 0}
+% --- AVE house figure style: WHITE print profile, Okabe-Ito colourblind-safe palette.
+%     Single source of truth: src/ave/viz/README.md:1-3 ("the shared AVE house figure style ...
+%     The single source of truth for manuscript / Vol-9 datasheet figure appearance") and :15
+%     ("style.apply()  # white-background 'print' profile (the default)"). Hex values are the
+%     COLORS dict of src/ave/viz/style.py:54-59 verbatim -- ave #0072B2, comparison #D55E00,
+%     data #000000, accent #009E73, muted #7F7F7F.
+\definecolor{aveblue}{HTML}{0072B2}      % COLORS["ave"]        -- the AVE object under study
+\definecolor{avevermillion}{HTML}{D55E00} % COLORS["comparison"] -- rupture / ejection channel
+\definecolor{aveaccent}{HTML}{009E73}    % COLORS["accent"]     -- intact reactive couplings
+\definecolor{avemuted}{HTML}{7F7F7F}     % COLORS["muted"]      -- annotation frame
 
-% Fill background
-\fill[darkbg] (-6,-6) rectangle (6,5);
+% Background: white (house print profile). The prior dark fill is removed rather than recoloured.
 
 % Title
-\node[text=white, font=\bfseries\Large] at (0, 4) {Tritium ($\beta^-$-Decay Transient Failure)};
+\node[text=black, font=\bfseries\Large] at (0, 4) {Tritium ($\beta^-$-Decay Transient Failure)};
 
 \tikzset{
     proton block/.style={
-        draw=neonpurple, thick, fill=darkbg!80!neonpurple,
+        draw=black, thick, fill=white,
         circle, inner sep=2pt,
         minimum size=1.5cm,
-        text=white, font=\bfseries, align=center
+        text=black, font=\bfseries, align=center
     },
     neutron block/.style={
-        draw=neonblue, thick, fill=darkbg!80!neonblue,
+        draw=aveblue, thick, fill=white,
         circle, inner sep=2pt,
         minimum size=1.5cm,
-        text=white, font=\bfseries, align=center
+        text=black, font=\bfseries, align=center
     },
     electron/.style={
-        draw=neonyellow, thick, fill=neonyellow!30!darkbg,
+        draw=avevermillion, thick, fill=white,
         circle, inner sep=1pt,
         minimum size=0.8cm,
-        text=white, font=\bfseries, align=center
+        text=black, font=\bfseries, align=center
     },
     bus/.style={
-        draw=neongreen, thick, dashed
+        draw=aveaccent, thick, dashed
     },
     rupture/.style={
-        draw=neonred, ultra thick, decoration={zigzag, segment length=4pt, amplitude=2pt}, decorate
+        draw=avevermillion, ultra thick, decoration={zigzag, segment length=4pt, amplitude=2pt}, decorate
     }
 }
 
@@ -66,25 +91,27 @@
 \node[neutron block] (N2) at (2, -1.5) {Neutron\\$6^3_2 + \text{?}$};
 
 % Intact Couplings
-\draw[bus] (P1) -- (N1) node[midway, left=5pt, text=neongreen] {$M_{pn}$ (Stable)};
-\draw[bus] (N1) -- (N2) node[midway, below=5pt, text=neongreen] {$M_{nn}$ (Tension)};
+\draw[bus] (P1) -- (N1) node[midway, left=5pt, text=aveaccent] {$M_{pn}$ (Stable)};
+\draw[bus] (N1) -- (N2) node[midway, below=5pt, text=aveaccent] {$M_{nn}$ (Tension)};
 
 % Rupturing Coupling (Beta Decay specific)
 \draw[rupture] (P1) -- (N2);
 
 % Rupture Explosion Star on N2
-\node[starburst, fill=neonyellow, draw=neonred, line width=1pt, inner sep=2pt, font=\bfseries\tiny, text=black] at (1.5, 0.5) {OVERLOAD};
+\node[starburst, fill=white, draw=avevermillion, line width=1pt, inner sep=2pt, font=\bfseries\tiny, text=black] at (1.5, 0.5) {OVERLOAD};
 
 % Ejection Path
 \node[electron] (E) at (4, 1.5) {$e^-$};
-\draw[->, neonred, thick, dashed] (N2) -- (E) node[midway, sloped, above, text=neonred, font=\small] {Dielectric Rupture / Ejection};
+\draw[->, avevermillion, thick, dashed] (N2) -- (E) node[midway, sloped, above, text=avevermillion, font=\small] {Dielectric Rupture / Ejection};
 
 % Beta Decay Anti-neutrino representation
 \coordinate (Nu) at (5, -1);
-\draw[->, neonblue, thick, dashed] (N2) -- (Nu) node[right, text=neonblue] {$\bar{\nu}_e$ (Reactive Back-EMF)};
+\draw[->, aveblue, thick, dashed] (N2) -- (Nu) node[right, text=aveblue] {$\bar{\nu}_e$ (Reactive Back-EMF)};
 
 % Annotations
-\node[text=white, text width=10cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -4.5) {
+% text width widened 10cm -> 13.5cm and the anchor lowered -4.5 -> -5.2 so the (longer)
+% INVARIANT-N1-compliant sentence does not collide with the $M_{nn}$ bus label. Layout only.
+\node[text=black, text width=13.5cm, align=center, draw=avemuted, dashed, inner sep=8pt] at (0, -5.2) {
     \textbf{Tritium Beta-Minus ($^3\text{H} \rightarrow ^3\text{He} + e^- + \bar{\nu}_e$)}\\
     The geometric asymmetry of 1 Proton + 2 Neutrons creates an unstable LC loop.\\
     Capacitive tension in the overarching node cluster exceeds the structural $V_{yield}$ limit.\\
