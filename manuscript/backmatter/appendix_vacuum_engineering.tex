@@ -36,7 +36,29 @@ Fine-structure constant & $\alpha$ & 1/137.036 & Calibration \\
 Vacuum impedance & $Z_0$ & $376.73\;\Omega$ & Axiom 1 ($\sqrt{\mu_0/\varepsilon_0}$) \\
 Packing fraction (FCC) & $\phi_{crit}$ & 0.7405 & Axiom 1 LC mechanism ($\pi\sqrt{2}/6$) \\
 Void fraction & $1 - \phi_{crit}$ & 0.2595 & Axiom 1 LC complement \\
-Vacuum Poisson ratio & $\nu_{vac}$ & 2/7 & Axiom 1 LC + $K=2G$ at Axiom 2's $\alpha$ \\
+% [2026-08-02 CRIB-1 AXIOM-SOURCE CORRECTION -- board sec 3 (Grant-ratified 2026-08-02);
+%   wave-2 backmatter reconciliation. Board finding [MEDIUM][scope-lag] at this row.
+%   Prior cell preserved per Rule 12 (git trail), verbatim:
+%     "Axiom 1 LC + $K=2G$ at Axiom 2's $\alpha$"
+%   The Axiom-Source column booked nu_vac = 2/7 as axiom-derived under a section heading that
+%   reads "Universal Constants (Axiom-Derived)". Authority (verified at HEAD two-method):
+%   ave-kb/vol1/claim-quality.md:665 ("K=2G stays GR-imported (PR #261)" after BOTH closure
+%   attempts failed -- PR #506 Cauchy grade, PR #508 micropolar grade, 2026-07-04);
+%   ave-kb/common/form-deriving-value-importing.md:87 (K = 2G row: GR-IMPORTED, form-derived
+%   only); ave-kb/vol1/operators-and-regimes/ch6-universal-operators/srs-band-structure.md:116
+%   ("GR-imported, PR #261, NOT lattice-emergent"); ave-kb/common/theorem-thesaurus.md:227,:231
+%   (the Voigt-Reuss-Hill average is "Not a theorem and not a bound"; "nu_Hill = 2/7 is
+%   GR-imported"). VALUE UNCHANGED (2/7); NO VALUE REFILL -- the import is labelled, not
+%   replaced. The cell is kept short because the tabular sits inside a \resizebox; the scope
+%   rides a marked note below the designbox.
+%   ROUTED, not adjudicated here: whether K=2G is a FOURTH import row in the register or is
+%   subsumed under G's import -- docket 2026-08-02-mr-k2g-kb-internal item (a), which names
+%   THIS row and 12_mathematical_closure.tex:112 as the two backmatter DAG sites awaiting it.
+%   Executed anyway under the board's ratified authority rule (sec 4: the sec 5 per-finding
+%   disposition tags govern; this finding is tagged [mechanical]), same posture the board's
+%   Corrections note (i) applied to the varactor-keying held-back list. The register question
+%   stays open; this edit only removes the un-tagged axiom-derived assertion.
+Vacuum Poisson ratio & $\nu_{vac} \equiv \nu_{\text{Hill}}$ & 2/7 & Axiom 1 LC $+$ $K{=}2G$ --- \textbf{GR-imported}\textsuperscript{$\ddagger$} \\
 Dielectric yield voltage & $V_{yield}$ & 43.65 kV & Axiom 2 ($\sqrt{\alpha} \cdot V_{snap}$) \\
 Saturation operator & $S(x)$ & $\sqrt{1-x^2}$ & Axiom 4 ($n = 2$); A-034 \\
 Hydrogen bond energy & $E_{HB}$ & 0.2158 eV & Axiom 4 $\times$ void fraction \\
@@ -45,6 +67,8 @@ Hydrogen bond energy & $E_{HB}$ & 0.2158 eV & Axiom 4 $\times$ void fraction \\
 }
 \end{center}
 \end{designbox}
+
+\noindent\footnotesize\textsuperscript{$\ddagger$}\,\textbf{$\nu_{vac}$ provenance (2026-08-02, CRIB-1; value unchanged).} The $K = 2G$ operating point that fixes $\nu_{vac} = 2/7$ is \textbf{form-derived; value GR-imported} --- the substrate forces the \emph{form} of the elastic response $K/G = f(\rho)$, but the value is the GR trace-reversal identity, and the corpus's two closure attempts both returned negative (Cauchy grade, PR~\#506; chiral micropolar Bloch eigensolve on the ratified \emph{srs}-z3 carrier, PR~\#508). $2/7$ is $\nu_{\text{Hill}}$, the \textbf{isotropic Voigt--Reuss--Hill average} at that point: an averaging \emph{choice}, not a lattice-emergent bound. The row therefore is \emph{not} axiom-derived in the sense the column heading suggests, and no replacement provenance is claimed. Canonical: \kbleaf{ave-kb/common/form-deriving-value-importing.md}; \kbleaf{ave-kb/vol1/claim-quality.md}; \kbleaf{ave-kb/common/theorem-thesaurus.md}.\normalsize
 
 \noindent \textit{A-034 cross-scale note (canonical 2026-05-15 evening): the saturation operator $S(x) = \sqrt{1-x^2}$ above is the \textbf{Universal Saturation Kernel}, catalogued in 26 cross-scale instances spanning 21 orders of magnitude (atomic dielectric breakdown $\to$ BCS superconductivity at 0.00\% error $\to$ solar flares (NOAA validation pending live fetch --- LF-03) $\to$ BH ring-down at 1.7\% from GR $\to$ cosmic K4 crystallization). See Vol 0: Engineering Compendium backmatter for the full A-034 catalog.} % [2026-06-15 LF-03 -- prior wording preserved per Rule 12]: was "NOAA-validated solar flares". SUPERSEDED per KB leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; A-034 forward prediction, not a validated anchor.
 

@@ -58,6 +58,34 @@ Ch~\ref{app:universal_saturation_kernel}.
 
 \section{Three-Tier Architecture}
 
+% [2026-08-02 PACKAGE-TREE REFRESH -- wave-2 backmatter reconciliation; board finding
+%   [MEDIUM][mirror-drift] at 04_physics_engine_architecture.tex:99 ("mechanics/ impedance.py"
+%   / "hardware/ 7 modules"). This is the one VALUE-VERIFIED REPLACEMENT in this lane: the
+%   brief authorises listing the real packages, verified against `ls src/ave/` at HEAD.
+%   METHOD (two-method, re-run at this branch's base commit): (a) `ls -1 src/ave/` for the
+%   package set; (b) `[ -e src/ave/<path> ]` existence-test on EVERY path printed in the
+%   prior tree, plus a per-package non-__init__ module count.
+%   PRIOR TREE preserved per Rule 12 in the git trail. What it got wrong, itemised:
+%     ABSENT at HEAD (struck, no replacement invented):
+%       - regime_2_nonlinear/protein_fold.py   (Tier 2a; package holds only seismic*.py)
+%       - mechanics/impedance.py               (Tier 2b; no mechanics/ package exists)
+%       - hardware/ "7 modules"                (Tier 2b; no hardware/ package exists)
+%       - solvers/protein_bond_constants       (Tier 3)
+%     STALE COUNTS (corrected to the measured non-__init__ module count):
+%       - gravity/     printed "7 modules"  -> 11
+%       - topological/ printed "7 modules"  -> 19
+%     OMITTED PACKAGES (present at HEAD, absent from the prior tree): facade, bench, nuclear,
+%       qed, thermal, condensed, validation, utils, viz.
+%   NOTE ON THE BOARD'S RECEIPT (verify-before-cite): the finding's supporting receipt claimed
+%   "the 17 Tier-1/Tier-3 modules cited at :65-108 were each existence-tested and all 17
+%   returned OK, so the drift is localized to Tier-2b." That is FALSE and the board's own
+%   verify note already caught it -- protein_fold.py and protein_bond_constants are outside
+%   Tier 2b and are equally absent. Repairing only Tier 2b would have left a verifiably false
+%   figure, so the whole verbatim block is brought to the measured HEAD state.
+%   SCOPE: this is a code-tree inventory, not a physics claim. No axiom, operator, constant
+%   or derivation is added, removed or re-graded, and the curated (non-exhaustive) character
+%   of the figure is unchanged -- core/ and solvers/ still show a selected subset, now stated
+%   as such with the true totals.
 \begin{figure}[H]
 \centering
 \begin{verbatim}
@@ -74,33 +102,70 @@ Tier 1: CORE (never duplicated)
 |-- axioms/open_problems.py      Millennium problem demonstrations
 
 Tier 2a: REGIME BOUNDARY MODULES (explicit saturation / rupture physics)
-|-- regime_1_linear/              Linear vacuum regime
+|-- regime_1_linear/     2 mods  Linear vacuum regime
 |     |-- fluids_factory.py        Polymorphic fluid Z(T) factory
-|-- regime_2_nonlinear/           Non-linear topology solvers
-|     |-- protein_fold.py          JIT-compiled N-body optimizer
-|     |-- seismic.py               Seismic layer stacks
-|     |-- seismic_fdtd.py          3D seismic wave FDTD driver
-|-- regime_3_saturated/           Deep saturation regime
+|     |-- hexagonal_lattice.py     2D hexagonal lattice geometry
+|-- regime_2_nonlinear/  2 mods  Non-linear solvers
+|     |-- seismic.py / seismic_fdtd.py   Layer stacks + 3D wave FDTD
+|-- regime_3_saturated/  7 mods  Deep saturation regime
 |     |-- galactic_rotation.py     Axiom 4 MOND from a_0 = cH/(2pi)
 |     |-- orbital_impedance.py     Gravitational refractive strain
 |     |-- condensed_matter.py      T_melt, c_sound, E_gap (Regime II)
 |     |-- kolmogorov_cutoff.py     Turbulence spectral arrest at L_NODE
-|-- regime_4_rupture/             Lattice rupture regime (S = 0)
+|     |-- black_hole_core.py / cavitation_collapse.py /
+|         electrostatic_core.py    Saturated cores + collapse
+|-- regime_4_rupture/    3 mods  Lattice rupture regime (S = 0)
 |     |-- rupture_solver.py        c_eff -> 0, impedance collapse
 |     |-- black_hole_jets.py       Energy redirection at (1-S) -> 1
 |     |-- caustic_solver.py        Axiom 4 TL optical caustic arrest
+\end{verbatim}
+\caption{Engine architecture, part 1 of 2 --- Tier~1 core operators and
+Tier~2a regime boundary modules.
+Package and module inventory verified against \texttt{src/ave/} at HEAD
+(2026-08-02).
+Every computation flows downward; no tier re-derives operators
+from a higher tier.}
+\label{fig:engine_tiers}
+\end{figure}
 
+% [2026-08-02 FIGURE SPLIT -- wave-2 backmatter reconciliation, disclosed typographic repair.
+%   The architecture tree was ONE figure[H] holding a ~67-line verbatim. A figure[H] cannot
+%   break across pages, and the block did not fit: the BASELINE build (origin/main
+%   2fcde4db, before any edit in this branch) already reported
+%     "[63]Overfull \vbox (245.75883pt too high) has occurred while \output is active [][64]"
+%   in build/aux/vol_0_engineering_compendium.log -- roughly 21 verbatim lines silently
+%   clipped off page 64, i.e. essentially the whole Tier-3 SOLVERS block never rendered.
+%   Bringing the package inventory to the measured HEAD state made the block longer and the
+%   overflow worse (721.76pt), so the float is split in two here. Nothing in the corpus
+%   \ref's fig:engine_tiers (`git grep -n "fig:engine_tiers"` returns only its own \label),
+%   so the label is kept on part 1 and a second float carries part 2. This is a typographic
+%   repair of a PRE-EXISTING defect found while executing the assigned content fix, disclosed
+%   rather than silently absorbed; no tree row is dropped by the split.
+\begin{figure}[H]
+\centering
+\begin{verbatim}
 Tier 2b: DOMAIN ADAPTERS (thin wrappers providing eps/mu analogs)
-|-- gravity/                     7 modules: solar, galactic, GW, stellar,
-|                                  neutrino MSW, planetary magnetosphere
-|-- plasma/                      cutoff.py, superconductor.py
-|-- topological/                 7 modules: Skyrme, Borromean, Cosserat,
-|                                  soliton bond, combiner, tensors, SC sim
-|-- mechanics/                   impedance.py
-|-- hardware/                    7 modules: geometric diode, soliton memory,
-|                                  resonance cavity, I/O stepper, etc.
+|-- gravity/     11 mods  solar, galactic MOND drag, GW propagation +
+|                           detector, stellar, neutrino MSW, magnetosphere,
+|                           Lense-Thirring, orbital LC damping, backreaction
+|-- topological/ 19 mods  Faddeev-Skyrme, Borromean, Cosserat (+3D field),
+|                           K4 holonomy + coupling, srs-DEC (+punctured),
+|                           FR braid, charge quantization, soliton bond
+|-- condensed/    5 mods  Si crystal, Si/Ge/GaAs doping, BJT mechanics
+|-- nuclear/      8 mods  Si nucleus + per-species atoms (B,C,P,As,Ga,Ge,Si)
+|-- plasma/ 2: cutoff, superconductor | qed/ 2: birefringence, brillouin
+|-- thermal/ 1: f6_bath_meter
+
+Tier 2c: DISPATCH / BENCH / GATE INFRASTRUCTURE
+|-- facade/  1 mod   unified_engine -- regime dispatch over certified cores
+|-- bench/   8 mods  bench model, apparatus, adopters, SNR, sweep, SPICE
+|-- validation/ 6 mods  equation audit, planted source, reconcile gate,
+|                         runtime independence, liveness, degeneracy
+|-- utils/ 4 mods: winding extractor, genesis runner, genus, v8 instr.
+|-- viz/   1 mod:  style (manuscript figure house style)
 
 Tier 3: SOLVERS (consume Tiers 1+2, never re-derive operators)
+   [core/ holds 58 modules and solvers/ 31; rows below are a selection]
 |-- core/fdtd_3d.py              3D nonlinear FDTD (numpy)
 |-- core/fdtd_3d_jax.py          3D nonlinear FDTD (JAX GPU)
 |-- core/grid.py                 Grid infrastructure
@@ -112,19 +177,20 @@ Tier 3: SOLVERS (consume Tiers 1+2, never re-derive operators)
 |-- solvers/fdtd_lc_network       1D macroscopic gravity FDTD
 |-- solvers/fdtd_yee_lattice      2D TMz Yee animation
 |-- solvers/orbital_resonance     Shell eigenvalue solver
-|-- solvers/protein_bond_constants Backbone derivation + data
 |-- solvers/radial_eigenvalue     Regime-aware Hopf coupling
 |-- solvers/resonator             Single-mode LC resonator
+|-- solvers/graded_vacuum_network Graded vacuum impedance network
 |-- solvers/spice_transient       Topological SPICE extraction
 |-- solvers/spice_netlist_compiler Topology -> ngspice .cir compiler
 |-- solvers/transmission_line     S-parameters, Q-factor
 \end{verbatim}
-\caption{Three-tier architecture enforcing scale invariance.
-Tier~2a provides the regime boundary modules; Tier~2b provides the
-domain-specific constitutive adapters.
-Every computation flows downward; no tier re-derives operators
-from a higher tier.}
-\label{fig:engine_tiers}
+\caption{Engine architecture, part 2 of 2 --- Tier~2b domain-specific
+constitutive adapters, Tier~2c the regime-dispatch facade / bench model /
+gate-validation harnesses, and Tier~3 the solvers.
+Package and module inventory verified against \texttt{src/ave/} at HEAD
+(2026-08-02); \texttt{core/} and \texttt{solvers/} rows are a selection,
+with the true totals stated in the block.}
+\label{fig:engine_tiers_part2}
 \end{figure}
 
 
