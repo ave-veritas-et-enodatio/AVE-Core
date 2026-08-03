@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-v2sg8z]
 -->
 
-# AVE-Native Petermann Coefficient via Route B: 4% forward (no postulate) → ~~10 ppm at $a_e$~~ printed-precision agreement at $a_e$ (with n_q-additivity postulate)
+# AVE-Native Petermann Coefficient via Route B: 4% forward (no postulate) → ~~10 ppm at $a_e$~~ **[struck 2026-08-03 per Grant ruling; no ppm number substituted — see §"ppm-STRIKE RULING" for the ruling and its two limiters]** printed-precision agreement at $a_e$ (with n_q-additivity postulate)
 
 The Schwinger leading-order anomalous moment $a_e^{(1)} = \alpha/(2\pi)$ ([Higgs Mass](higgs-mass.md)) reproduces the canonical first-order QED result from the on-site capacitive displacement strain of the unknot. The **two-loop Petermann coefficient** $C_2 = -0.32848$ is similarly derivable from substrate dynamics in two stages, with explicit honesty about what's structurally derived vs what's postulated:
 
@@ -84,7 +84,7 @@ $$
 
 where $n_q = 3$ is the **q-axis poloidal winding number** of the $(2,3)$ trefoil and the factor $1/2$ is the same LC equipartition that appears in the Schwinger leading-order derivation ($E_L = E_C = E_{\text{tot}}/2$). The sign ($\delta < 0$) places the heavier reactance on the q-axis, the 3-winding side — consistent with the trefoil's topological weighting.
 
-## Final result: ~~50 ppm at $C_2$, 10 ppm at $a_e$ total~~ printed-precision agreement at $C_2$ and at $a_e$
+## Final result: ~~50 ppm at $C_2$, 10 ppm at $a_e$ total~~ **[struck 2026-08-03 per Grant ruling; no ppm number substituted — see §"ppm-STRIKE RULING" below, and its disclosure that this heading strike EXCEEDED the ruling's explicit site list]** printed-precision agreement at $C_2$ and at $a_e$
 
 With $\delta = -3\alpha/2$ and the textbook QED conversion $\Delta a^{(2)} = C_2\,(\alpha/\pi)^2$:
 
