@@ -151,3 +151,77 @@ The α_AVE⁻¹ inversion itself is **Class C (consistency check)**: it routes t
 > → Reference engine (sibling repo, read-only): `AVE-QED/scripts/g2_research/q_g19_alpha_route_b_petermann.py` — original Route B implementation whose −0.3413 (τ=1) the worktree driver reproduces
 > ↗ Method: this result is the prototype for `ave-external-provenance-check` — re-extract the raw observable through AVE's framework rather than deriving a correction to the SM-extracted number.
 > ↗ Lineage: prereg §6 lineage — thermal FT-1 (falsified) → α²/24 (rejected) → dual-loading magnitude (A-031-blocked) → Direction-2 (this, Outcome C).
+
+---
+
+## ADDENDUM — 2026-08-03: the driver's retardation quadrature was defective; the banked A₂ values are artifact-class
+
+> **Rule 12.** Nothing above is edited. The values printed at `:51` and `:64` — and every number in §2/§3 derived from them — **stay exactly as written** and are now **marked artifact-class**, with the mechanism named below. The 2026-05-31 verdict (**Outcome C**) is **unaffected**; see §D.
+>
+> **Provenance.** Core-side instrument audit, 2026-08-03. Written under the 2026-08-03 epic→core handoff that routed the Petermann item from the manuscript-reconciliation satellite session to the core orchestrator; lands as an amendment to PR #857 (`kb/petermann-artifact-record`), which reproduced the first receipt but drew the opposite conclusion from it.
+
+### §A — The defect
+
+The driver applied the retardation by **truncated integer index**, at what was then `simulate_g2_direction2.py:140`:
+
+```python
+dv2_dt = np.gradient(v_sq, dt)
+shift_idx = int(tau_retard / dt) % n_t
+tau_zx = -np.roll(dv2_dt, shift_idx)
+```
+
+The retardation actually applied is therefore `tau_eff = shift_idx · dt`, **not** the `tau_retard = 1` this doc's §2 ingredient 3 asserts. At the banked `n_t = 2×10⁶` (`dt = 2π/n_t`, `shift_idx = 318309`) that is **`tau_eff = 0.999997216`**. With the measured slope `dC₂/dτ = −11.4555` at τ=1, the resulting **first-order-in-`dt`** quadrature error is `−11.4555 × (0.999997216 − 1) = +3.19×10⁻⁵` in C₂ — **97 ppm**, and the sign is *toward* PDG.
+
+The instrument was never grid-converged. Shipped driver, δ = −3α/2, τ = 1:
+
+| n_t | `shift_idx` | `tau_eff` | C₂ |
+|---|---|---|---|
+| 100,000 | 15,915 | 0.999968942 | −0.328103471 |
+| 400,000 | 63,661 | 0.999984650 | −0.328283411 |
+| 1,000,000 | 159,154 | 0.999994074 | −0.328391377 |
+| **2,000,000** (banked) | 318,309 | 0.999997216 | **−0.328427365** |
+| **2,000,001** | 318,310 | 0.999999858 | **−0.328457626** |
+| 4,000,000 | 636,619 | 0.999998787 | −0.328445359 |
+
+A **±1** change in the grid count moves the output **92 ppm**. No n_t in that range is preferred on any physical ground; `2×10⁶` was a round number.
+
+### §B — The repair and the corrected values
+
+The retarded rate is now evaluated **analytically at the real-valued retarded time** `s = t − tau_retard`. For the (2,3) trefoil currents `I_d = cos 2t`, `I_q = sin 3t`:
+
+$$V^2 = \cos^2 2t + \sin^2 3t \;\Longrightarrow\; \frac{dV^2}{dt} = -2\sin 4t + 3\sin 6t$$
+
+evaluated at `s`, with no index truncation, no `np.roll` and no `np.gradient`. **Receipts (fixed driver, τ_retard = 1):**
+
+| n_t | C₂ (δ = −3α/2) | C₂ (δ = 0, Stage 1) |
+|---|---|---|
+| 100,000 | −0.3284592577155 | −0.3416354337828 |
+| 2,000,000 | −0.3284592577155 | −0.3416354337828 |
+| 4,000,000 | −0.3284592577155 | −0.3416354337828 |
+| spread | 2.776×10⁻¹⁶ | 2.220×10⁻¹⁶ |
+
+**n_t-invariant to 13 digits over a 40× range** — the property the shipped instrument never had. The ±1 discriminator that exposed the defect (2,000,000 vs 2,000,001) now returns the identical value.
+
+**Corrected, banked here (not written back into §2/§3):**
+
+| Quantity | 2026-05-31 banked (artifact-class) | 2026-08-03 corrected |
+|---|---|---|
+| A₂, symmetric (**no postulate**) — `:50` | −0.341604 | **−0.341635434** |
+| A₂, saliency (**with postulate**) — `:51` | −0.328427 | **−0.328459258** |
+| α_AVE⁻¹, symmetric — `:63` | 137.025871 | **137.025851** |
+| α_AVE⁻¹, saliency — `:64` | 137.034286 | **137.034266** |
+
+A second, much smaller defect of the same class is removed by the same repair and recorded rather than headlined: `np.gradient` was fed a **periodic** array with no wrap, so its one-sided endpoint stencil made cells 0 and −1 wrong by ~1.6×10⁻⁵. Its weight in the cycle mean is ~10⁻¹⁴ — about **9 orders below** the truncation defect, i.e. numerically irrelevant here, but the same failure mode.
+
+### §C — Regression coverage (there was none)
+
+The driver had **zero** test or CI coverage. That is the mechanism by which a 97 ppm instrument error survived two months in a document whose headline numbers are quoted at the ppm level. [`src/tests/test_petermann_c2_pin.py`](../src/tests/test_petermann_c2_pin.py) now pins both C₂ values at a stated tolerance, pins n_t-invariance (including the ±1 pair), pins the closed-form derivative against a numerical one, and pins the parity zeros — auto-wired into `make test`.
+
+### §D — What this does NOT change
+
+- **Outcome C stands, untouched.** The corrected parameter-free A₂ = **−0.341635** is **+4.0053%** off QED's C₂, against the **0.145%** the discrimination demands — still a **28× shortfall**. The re-run driver lands α_AVE⁻¹ = **137.025851**, **−34.31 gap-widths** from Q₀ and **−33.31** from QED. The verdict, its reasoning and its Rule-11 closure at §10 are all unaffected: the correction is ~10⁻⁵ in a quantity that misses by ~10⁻².
+- **FLAG-1 and FLAG-2 are unaffected.**
+- **§9's classification is unaffected** — and §9 `:126`'s own concession is now load-bearing beyond its original scope: *"the τ_retard = 1/ω_C choice is geometrically **asserted**, not derived."* With `dC₂/dτ = −11.4555`, defending even a 60 ppm label on C₂ requires τ known to **1.7 ppm**. No ppm-level label on any C₂ value in this corpus is defensible while τ is asserted.
+- **The factor-2 normalization question is NOT touched here.** `:44` carries the `A₂ = (2/πα)⟨…⟩` form; the KB leaf's own Δa_e formula implies the un-doubled `⟨…⟩/(πα)`. The two differ by exactly 2 (−0.341635 vs −0.170818 at Stage 1). **ROUTED to Grant, open.** Every corrected value in §B carries the shipped `2/(πα)` convention and would halve if the adjudication goes the other way.
+
+> **Driver, as repaired:** [`src/scripts/vol_2_subatomic/simulate_g2_direction2.py`](../src/scripts/vol_2_subatomic/simulate_g2_direction2.py) — see the dated block in `route_b_correlation`'s docstring.
