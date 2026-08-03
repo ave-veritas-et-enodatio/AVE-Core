@@ -1134,6 +1134,18 @@ The ratified chiral **srs-z3** carrier (non-centrosymmetric point group $432$, s
 
 > **🔴 CLAIM-BODY RELABEL + REACHABILITY (dated 2026-07-20, ratified-by-merge #741; KEEP-BOTH — claims/caveats/solidity above unchanged).** The band-map re-derivation (`research/2026-07-19_deep-space-band-map_derivation.md` §5, D1 / repair R1) sharpens the FLIP above at the claim-body level: the falsifier is a **reactive-reflection / zero-drag `v`-independence test** (reactive ruling ⇒ no secular `∝v` drag below the Cherenkov/Mach threshold; at most a bounded phase-coherent `Γ`-reflection), NOT the drag-spike stall. **Reachability: FUTURE.** The discriminating coordinate is the `~15,000` AU Oort/yield transition; **existing spacecraft nulls do NOT discriminate** — Pioneer 10/11, Voyager, New Horizons sit at ~50–160 AU (~2 OOM inside the boundary) and are thermal-recoil-confounded, so they bound only inner-region smooth drag. Solidity stays 0.30 (do-not-build; a not-yet-reachable falsifier does not lift the build band). Leaf: `boundary-trapping-test.md` (same-date claim-body relabel).
 
+> **⚑ CROSS-VOLUME NUMBER CONFLICT — FLAGGED 2026-08-03, DELIBERATELY NOT RECONCILED (claims / caveats / grades above PRESERVED unedited; no field moves).**
+>
+> **Vol 3 books `r_sat ≈ 7,439 AU`; Vol 4 books `~15,000 AU` for the claimed same boundary; one-object-or-two routed to Grant 2026-08-03.**
+>
+> This entry prints `~15,000 AU` at **four** places (`:1123`, `:1128`, `:1154`, `:1156`) and its leaves at two more (`boundary-trapping-test.md`:25, `advanced-protocols.md`:24) — always as a **round empirical** figure, never derived. Vol 3 prints `r_sat = √(GM_☉/a₀) = 7,438.9 AU` for what both volumes call the Oort boundary — a **derived** figure from `a₀ = c·H_∞/2π` ([`vol3/claim-quality.md`](../vol3/claim-quality.md):318, leaf [`oort-cloud-saturation-boundary.md`](../vol3/cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md)). A third number sits in the driver `src/scripts/vol_3_macroscopic/simulate_oort_cloud_trap.py`:76 (`10^4.2 ≈ 15,800 AU`, hand-placed and disclosed as such).
+>
+> **Factor 2.0 apart** — far outside the `-5.5%` a₀-provenance band on `r_sat`. Not a precision difference.
+>
+> **Why not reconciled:** deciding requires the physics answer to *are the Axiom-4 onset radius and the Vol-4 yield/impedance-step boundary one surface or two?* — **Grant's call, routed 2026-08-03.** Choosing a number here would silently answer it.
+>
+> **Companion (no grade effect on this entry):** the **Vol 3** containment claim was RETRACTED 2026-08-03, propagating the merged 2026-07-19 ruling that Vol 4 has carried since that date. `confidence` 0.3 / `solidity` 0.30 here are **unchanged**; no id minted. Docket: [`2026-08-03-oort-walkback-propagation.md`](../../../_orchestration/docket-entries/2026-08-03-oort-walkback-propagation.md).
+
 ### Quality
 - confidence: 0.3
 - depends-on:

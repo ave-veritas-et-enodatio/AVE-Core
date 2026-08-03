@@ -23,7 +23,16 @@ Physical basis:
 Key predictions:
   1. 'Oumuamua's anomalous acceleration = radiation pressure coupling
      to the impedance gradient (no outgassing required)
-  2. Oort Cloud inner edge ≈ radius where g_N ≈ a₀ (saturation onset)
+  2. Solar Axiom-4 onset radius = the g_N = a₀ isocline (outer edge of the
+     Newtonian region), under INTERNAL-FIELD keying.
+     🔴 RETRACTED + RELABELED 2026-08-03. This bullet formerly read, verbatim:
+     "Oort Cloud inner edge ≈ radius where g_N ≈ a₀ (saturation onset)".
+     That is a *population* claim and it is retracted — the only bridge from
+     a field isocline to a population edge was the Ax3-forbidden dissipative
+     stall (04_continuum_electrodynamics.tex:272, MECHANISM-RETRACTED
+     2026-07-19). What survives is a solar-FIELD radius, whose existence is
+     itself gated by the unadjudicated internal-vs-total-field keying fork.
+     See oort_cloud_prediction() below for the full retraction record.
   3. Kirkwood gaps = destructive interference in Jupiter's impedance cavity
 
 References:
@@ -317,10 +326,25 @@ def saturation_radius_au() -> float:
     """
     Radius where solar gravitational acceleration equals a₀ (MOND scale).
 
-    This is the impedance boundary of the solar system — beyond this
-    radius, gravitational dynamics enter the saturation regime.
+    The radius at which the Axiom-4 kernel turns on for the solar monopole
+    under INTERNAL-FIELD keying — equivalently, the outer edge of the Sun's
+    Newtonian region. This is a property of the solar FIELD and carries no
+    claim about where any body sits (see oort_cloud_prediction(): the Oort
+    containment claim was retracted 2026-08-03).
 
     g(r) = GM/r² = a₀  →  r = √(GM/a₀)
+
+    Value on canonical constants: 7438.9 AU, with a₀ = c·H_∞/2π =
+    1.0719e-10 m/s² (galactic_rotation.py:56). Honest accuracy band: a₀ is
+    itself 10.7% below the empirical MOND a₀ = 1.2e-10 (disclosed at
+    manuscript/ave-kb/vol3/claim-quality.md:259), and r ∝ a₀^(-1/2), so the
+    a₀-provenance band on this number is -5.5% (7030.7 AU on the empirical
+    a₀). Pinned in src/tests/test_solar_impedance.py.
+
+    ⚑ Existence gated by the unadjudicated T4 keying fork: under
+    total-local-field keying the Sun already sits at g_ext ≈ 2.0-2.1 a₀, so
+    no saturation transition exists anywhere in the solar system
+    (research/2026-07-10_collapse-target-registry.md:271-290). Grant's call.
 
     Returns:
         Saturation radius [AU].
@@ -331,30 +355,73 @@ def saturation_radius_au() -> float:
 
 def oort_cloud_prediction() -> dict[str, float | int | str]:
     """
-    AVE prediction for the Oort Cloud location.
+    Solar Axiom-4 onset radius under internal-field keying.
 
-    The Oort Cloud's inner edge should correspond to the radius where
-    the gravitational acceleration transitions from Newtonian to the
-    saturation regime (g ≈ a₀).
+    🔴 CONTAINMENT CLAIM RETRACTED 2026-08-03 (Oort containment-retraction
+    lane; propagation of the merged 2026-07-19 deep-space reactive-bulk
+    MECHANISM-RETRACTED ruling into Vol 3). This function's former docstring
+    and its former "prediction" string both asserted that the Oort Cloud's
+    inner edge *coincides with* the g = a₀ transition. That claim is
+    RETRACTED and the hard-coded Hills-cloud comparands it was measured
+    against are DELETED (below). Preserved verbatim for the record:
+
+        docstring : "AVE prediction for the Oort Cloud location. The Oort
+                     Cloud's inner edge should correspond to the radius
+                     where the gravitational acceleration transitions from
+                     Newtonian to the saturation regime (g ≈ a₀)."
+        prediction: "Inner Oort Cloud coincides with g=a₀ transition"
+        deleted   : r_hills_inner = 2000  # AU
+                    r_hills_outer = 5000  # AU
+
+    Why: the only bridge in this corpus from a *field isocline* (g_N = a₀)
+    to a *population edge* (where comets sit) was the dissipative stall
+    mechanism, and that stall is Axiom-3 forbidden — see
+    manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:272
+    ("any belt/Oort position derived from that kinetic-energy loss does not
+    survive as a bulk-dissipation result"). The two quantities are also not
+    comparands: r_sat is an instantaneous force-balance isocline; the Hills
+    inner edge is a 4.6-Gyr emplacement-timescale boundary. Agreement would
+    be a coincidence. The Hills bracket was additionally NOT observed — it
+    is a simulation-inferred convention with ~factor-10 author spread and is
+    uncited anywhere in this corpus (bibliography.bib has zero oort/hills/
+    comet entries), so it was deleted rather than sourced.
+
+    Per A47 v11b (substitution-not-retraction) the slot is NOT refilled: no
+    replacement bracket and no successor containment claim is entered here.
+
+    What this function DOES return: the radius at which the Axiom-4 kernel
+    turns on for the solar monopole under INTERNAL-FIELD keying — i.e. the
+    outer edge of the Newtonian region. Its very existence is gated by the
+    unadjudicated internal-vs-total-field keying fork (T4): under
+    total-local-field keying the Sun already sits at g_ext ≈ 2.0–2.1 a₀
+    (research/2026-07-10_collapse-target-registry.md:281-283), so no
+    saturation transition exists anywhere in the solar system. Grant's call;
+    routed 2026-08-03, not resolved here.
 
     Returns:
-        Dict with predictions vs observations.
+        Dict describing the solar-FIELD onset radius. No population claim.
     """
     r_sat_au = saturation_radius_au()
 
-    # Observed Oort Cloud inner edge: ~2,000-5,000 AU (Hills cloud)
-    # Outer edge: ~50,000-200,000 AU
-    r_hills_inner = 2000  # AU
-    r_hills_outer = 5000  # AU
-    r_oort_outer = 100000  # AU
+    # ⚑ FLAG (not fixed, 2026-08-03): r_oort_outer is the same defect class as
+    # the two deleted Hills constants — an uncited empirical/simulation
+    # convention with wide author spread (~50,000–200,000 AU). It is retained
+    # here only because the disposition dispatch scoped the deletion to the two
+    # Hills comparands, and it is NOT a comparand for anything this function
+    # computes. Surfaced rather than silently removed; deletion is routed.
+    r_oort_outer = 100000  # AU — empirical reference value only, carries NO AVE claim
 
     return {
         "r_saturation_au": r_sat_au,
         "r_saturation_ly": r_sat_au * AU / (9.461e15),
-        "r_hills_inner_au": r_hills_inner,
-        "r_hills_outer_au": r_hills_outer,
         "r_oort_outer_au": r_oort_outer,
-        "prediction": "Inner Oort Cloud coincides with g=a₀ transition",
+        "prediction": (
+            "Solar Axiom-4 onset radius under internal-field keying "
+            "(= outer edge of the Newtonian region). Field property only — "
+            "NO Oort-population claim; containment retracted 2026-08-03. "
+            "Existence gated by the unadjudicated internal-vs-total-field "
+            "keying fork (T4)."
+        ),
         "g_at_saturation": A0_LATTICE,
     }
 

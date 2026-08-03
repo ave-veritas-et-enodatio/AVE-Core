@@ -23,6 +23,16 @@ The Asteroid Belt and Oort Cloud are AVE impedance shear boundaries — where so
 
 **Test**: Deep-space probe transit velocity logs at $\sim 15{,}000$ AU Oort Cloud boundary should show sudden, otherwise inexplicable drag spike.
 
+> **🔴 SECTOR RELABEL — 2026-08-03 (Oort containment-retraction lane; Rule 12 — the Protocol-10 body at `:22`–`:24` above is left BYTE-UNTOUCHED, as the merged 2026-07-19 banner at `:20` asserts in print).**
+>
+> **★ The dispatched in-place relabel was NOT available, and the constraint is surfaced rather than worked around.** The 2026-07-19 banner immediately above states *"Protocol-10 text below **PRESERVED verbatim**"*. Editing `:22` in place would make that merged sentence false in the same file, in the same pass. This additive dated note is the Rule-12-legal shape (same precedent as `2026-08-03-stale-refs-propagation.md` ITEM 1).
+>
+> **The mis-sectoring.** `:22` reads *"where solar metric slipstream collides with the **galactic background impedance floor**"*. There is **no galactic-sector floor in this framework.** The floor invoked is `a₀`, and `a₀` is defined **`a₀ = c·H_∞/2π ≈ 1.0719×10⁻¹⁰ m/s²`** (`src/ave/regime_3_saturated/galactic_rotation.py`:56, from `C_0` and `H_INFINITY`) — a **cosmic-Hubble** quantity with **zero galactic input**: no Milky Way mass, no Galactocentric radius, no local stellar density enters it. The code comment at that site says so directly: *"Derived from the fundamental Topological Unknot Expansion (H_INFINITY) … NO empirical telescope parameter is used."* **Correct label: the cosmic saturation floor `a₀ = c·H_∞/2π`.** Per the sector-ownership discipline, a cosmic-sector quantity must not be booked as a galactic-sector one.
+>
+> **⚑ Why this matters beyond wording — it collides with the T4 fork.** There *is* a genuinely **galactic** field at the Sun (`g_ext ≈ 2.1×10⁻¹⁰ m/s² ≈ 2.0 a₀`, `research/2026-07-10_collapse-target-registry.md`:281–283), and whether it participates in the Axiom-4 kernel is the **unadjudicated internal-vs-total-field keying hinge**. Calling `a₀` "galactic" silently pre-answers that fork in the total-field direction. **Routed to Grant 2026-08-03; not resolved here.**
+>
+> **Scope fence.** This note relabels a **sector attribution only**. Protocol 10's status is otherwise governed by the merged 2026-07-19 flag at `:20` and the 2026-07-20 claim-body relabel on the primary leaf [`boundary-trapping-test.md`](../ch11-experimental-bench-falsification/boundary-trapping-test.md):27 — both unchanged. No grade field moves; no id minted. Docket: [`2026-08-03-oort-walkback-propagation.md`](../../../../../_orchestration/docket-entries/2026-08-03-oort-walkback-propagation.md).
+
 <!-- claim-quality: clm-5s5b0d -->
 ### Protocol 11: The Induced Vacuum Impedance Mirror
 
