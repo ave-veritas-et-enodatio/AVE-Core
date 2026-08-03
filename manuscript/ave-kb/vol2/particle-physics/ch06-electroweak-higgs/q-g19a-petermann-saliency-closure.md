@@ -94,6 +94,8 @@ $$
 
 versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%) at the $C_2$ level.**
 
+> **[Display-precision record — 2026-08-02. A record, not a value change; nothing above is struck, restated or recomputed.]** The two numbers **as printed** do not reproduce the stated deviation: $|-0.32846 - (-0.32848)|/0.32848 = 6.089 \times 10^{-5} \approx \mathbf{61\ ppm}$, not 50 ppm. The 50 ppm figure requires the **unrounded** $C_2^{\text{AVE}} \approx -0.3284636$ (which gives $49.9$ ppm); $-0.32846$ is that value displayed to five decimals, and the rounding alone moves the apparent deviation by $\sim 11$ ppm — about 20% of the headline. Recorded so a reader recomputing from the printed digits is not left with an unexplained gap. **No value is changed and no claim is withdrawn here**; the Stage-2 headline is postulate-conditional either way (see §"Falsification predictions" electron row and the Stage-1 scope label in §"Zero parameters fudged").
+
 Total Schwinger + Petermann shift:
 
 $$
