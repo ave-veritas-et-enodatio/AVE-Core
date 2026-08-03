@@ -122,7 +122,7 @@ def birefringence_bench_spec() -> BenchSpec:
             LedgerRow(
                 LedgerAspect.COUPLING,
                 LedgerStatus.DERIVED,
-                "A = E/E_YIELD (Axiom-4 per-node amplitude); E_YIELD constants.py:471",
+                "A = E/E_YIELD (Axiom-4 per-node amplitude); E_YIELD constants.py:516",
                 sm_also=True,  # QED equally keys on E/E_CRIT
             ),
             LedgerRow(
