@@ -198,18 +198,23 @@ ALLOWED = {
     "27": "structural: FT-5/G1 check-set point count and the FT-5 closed-form ell list",
     "5": "structural integer (x_sat = 5; FT-5 count)",
     "7": "structural integer (x_sat = 7; the r_sat coefficient)",
-    "11": "structural integer (x_sat = 11)",
+    "11": "structural integer (x_sat = 11); also the 2*R_match - a value at\n           R_match = 6 that the FT-5 winding did NOT equal (audit R4 receipt)",
     "40": "frozen R_match in M_g (prereg section 4.3)",
     "60": "frozen R_match member (prereg section 4.3)",
     "25": "frozen R_match member (prereg section 4.3)",
-    "8": "FT-4's out-of-regime R_match (prereg section 6)",
-    "12": "frozen series-order member N = 12 (prereg section 4.3)",
+    "8": "FT-4's out-of-regime R_match (prereg section 6); also the R_match of the\n          audit-R4 box-widening series and its first winding (external receipt)",
+    "12": "frozen series-order member N = 12 (prereg section 4.3); also a rung of the\n           audit-R4 box-widening winding series (external receipt)",
     "16": "series-order sweep point",
-    "20": "frozen series-order N = 20 (prereg section 4.3)",
+    "20": "frozen series-order N = 20 (prereg section 4.3); also the last rung of the\n           audit-R4 box-widening winding series (external receipt)",
     "24": "series-order sweep point",
     "32": "series-order sweep point / reference order",
     "36": "series-order sweep point",
-    "15": "structural: 2*R_match - a = 15, the optical length behind the FT-5 artifact",
+    # PR #845 audit R4: 15 is NOT a fixed signature.  The invariant behind the
+    # FT-5 artifact is a phase RATE, d(arg N)/d(omega_R) ~ 2*R_match - a on the
+    # deep edge; the COUNT is rate*Delta(omega_R)/(2*pi) and equalled 2*R_match-a
+    # only because the shipped box has Delta(omega_R) ~ 2*pi.
+    "15": "structural: the FT-5 winding COUNT for the shipped box; the invariant "
+          "is the phase RATE 2*R_match - a, not this integer (audit R4)",
     "64000": "frozen N_STEPS_POLISH (prereg section 4.3)",
     "16000": "frozen N_STEPS_SCAN (prereg section 4.3)",
     "8000": "step-sweep endpoint quoted in G3 prose",
@@ -218,12 +223,20 @@ ALLOWED = {
     "4096": "frozen contour sampling (prereg section 4.3)",
     "8192": "frozen contour sampling (prereg section 4.3)",
     "1.00": "frozen rectangle edge |omega_I| max (prereg section 4.3)",
+    "0.02": "frozen scan-rectangle LEFT edge omega_R*M_g (prereg section 4.3); the "
+            "low-frequency divergence site of audit R3 / result doc section 2.4",
+    "2.00": "frozen scan-rectangle right edge omega_R*M_g (prereg section 4.3)",
+    "2.2e-16": "quoted from prereg section 9 item 4 (the mu(z) Taylor agreement) — "
+               "a PREREG numeral, not a result of this battery",
+    "5.714": "R_match/r_sat under scaled_geometry(): 40/7 = 28.571.../5 = 62.857.../11, "
+             "the single scaled matching radius all three G8 rows run at",
     "0.70": "frozen band-ladder rung",
     "0.50": "frozen band-ladder rung",
     "0.40": "frozen band-ladder rung",
     "0.30": "frozen band-ladder rung",
     "0.25": "frozen band-ladder rung",
-    "0.20": "frozen band-ladder rung",
+    "0.20": "frozen band-ladder rung; also the moved contour LEFT edge in the "
+            "audit R3 receipt (result doc section 2.4)",
     "0.15": "frozen band-ladder rung",
     "0.10": "frozen band-ladder rung",
     "1.0": "window edge r/r_sat = 1.0 (prereg BIN-3)",
@@ -240,9 +253,23 @@ ALLOWED = {
     "814": "PR number", "261": "PR number", "506": "PR number",
     "770": "PR number", "775": "PR number", "782": "PR number",
     "761": "PR number", "767": "PR number", "792": "PR number", "796": "PR number",
-    "9": "gate count G1..G9", "6": "self-test count FT-1..FT-6",
-    "4": "failing-gate count / structural integer",
-    "2026": "year", "10": "structural integer", "122": "leaf line number",
+    "9": "gate count G1..G9",
+    "6": "self-test count FT-1..FT-6; also the audit-R4 R_match = 6 probe point",
+    "4": "failing-gate count / structural integer; also the audit-R4 phase-rate\n          agreement bound in percent (external receipt)",
+    "2026": "year", "122": "leaf line number",
+    # ---- PR #845 AUDIT RECEIPTS ------------------------------------------
+    # Measured in the AUDIT lane, not by this battery.  They are EXTERNAL to
+    # the shipped JSON and are NOT re-derivable from anything in this branch;
+    # the result doc states that at the point of use.  Allow-listed with the
+    # provenance named rather than silently registered against a wrong path.
+    "3.0000": "AUDIT RECEIPT (external, not re-derivable here): winding with the "
+              "contour left edge at omega_R = 0.02 (result doc section 2.4)",
+    "0.0000": "AUDIT RECEIPT (external, not re-derivable here): winding with the "
+              "contour left edge moved to omega_R = 0.20 (result doc section 2.4)",
+    "5.06e+07": "AUDIT RECEIPT (external, not re-derivable here): |c_20|/R^20 for the "
+                "far-field recursion at omega_R = 0.02, R_match = 40",
+    "10": "structural integer; also the audit-R4 FT-5 winding measured at R_match = 6 "
+          "(AUDIT RECEIPT, external, not re-derivable here)",
 }
 
 NON_REGISTRABLE = {"_runtime_sec"}
