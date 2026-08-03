@@ -8,6 +8,40 @@ path-stable: "referenced from common/ave-analytical-toolkit-index.md §1 and vol
 
 # Parametric Coupling Kernel (Axiom 4 Vacuum Varactor at Sub-Yield α-Slew Operating Point)
 
+> 🚩 **FLAG — DO NOT FIX. Internal contradiction with this leaf's own cited constitutive authority; routed to Grant, NOT resolved here (2026-08-03).**
+>
+> **Nothing below is edited.** No number, symbol, equation or disposition in this leaf is changed by this banner. It records a contradiction and names the ruling that would settle it.
+>
+> **Coordinate key (this banner displaces the body by 34 lines; both coordinates given so neither cite rots).** Line cites below are **post-banner**; the pre-banner coordinate, as found at `ae96ce22`, is in parentheses: `:57` (`:23`) resultbox $\delta_C/C_0$ bullet · `:80` (`:46`) constitutive-form citation · `:82` (`:48`) the $C_0/S$ form · `:94` (`:60`) the $V_{pump}$ operating point · `:104` (`:70`) the boxed $\delta C$ · `:106` (`:72`) *"independent of $\alpha$"* · `:132` (`:98`) $\varepsilon_{coupled}^{per-node}$.
+>
+> **The contradiction.** §2 (`:80`) cites [`nonlinear-vacuum-capacitance.md`](nonlinear-vacuum-capacitance.md) as this leaf's constitutive authority, then writes at `:82`
+> $$C_{eff}(V) = \frac{C_0}{\sqrt{1 - (V/V_{yield})^2}}$$
+> **That cited authority no longer prints that form.** Its resultbox reads $C_{eff}(V) = C_0/\sqrt{1-(V/V_{snap})^2}$, under the ratified header *"Grade-fork RESOLVED = T2 (Grant 2026-06-30; `def-vyvsn1` adjudicated)"* — the divergent $C_0/S$ is the **longitudinal-A1 bond compliance**, bounded at $V_{snap} = m_ec^2/e = 510{,}998.95$ V, not at the **transverse-Cosserat (T2) self-trap wall** $V_{yield} = \sqrt{\alpha}\,V_{snap} = 43{,}651.85$ V. This leaf is a **same-form leaf that the 2026-08-02/03 re-keying pass did not reach**; the mismatch is live at HEAD, and it is a mismatch **with this leaf's own upstream**, not with an external opinion.
+>
+> **Why this is a RULING and not propagation — the numbers, recomputed two ways from `src/ave/core/constants.py` (banked `V_SNAP`/`V_YIELD`, and independently $V_{yield}=\sqrt{\alpha}V_{snap}$; agreeing to the digit).** Re-keying does not merely rename a token here; it moves the operating point by exactly $1/\alpha$ and changes what the leaf says the substrate is doing:
+>
+> | quantity | as printed (keyed on $V_{yield}$) | if re-keyed to $V_{snap}$ | factor |
+> |---|---|---|---|
+> | $V_{pump}/V_\cdot$ (`:94`) | $0.428$ | $\mathbf{0.0366}$ | $\sqrt{\alpha}$ |
+> | $\delta_C/C_0$ (`:57`, `:106`) | $4.59\%$ | $\mathbf{0.0335\%}$ | $\alpha$ |
+> | $\varepsilon_{coupled}^{per-node}$ (`:132`) | $0.288$ | $\mathbf{0.0021}$ | $\alpha$ |
+> | $Q$ needed for $\kappa_{quality}=1$ ($Q\delta_C \ge 2$) | $Q \gtrsim 44$ | $\mathbf{Q \gtrsim 5.98\times10^{3}}$ | $1/\alpha$ |
+> | boxed closed form (`:104`) | $\delta C = e^2/(2m_ec^2)$ | $\delta C = \boldsymbol{\alpha}\,e^2/(2m_ec^2)$ | $\alpha$ |
+>
+> All five verified: $V_{pump} = \sqrt{2\alpha m_ec^2/C_0} = 18{,}694.13$ V on $C_0 = \varepsilon_0\ell_{node} = 3.4191\times10^{-24}$ F; $V_{pump}/V_{YIELD} = 0.428255$, $V_{pump}/V_{SNAP} = 0.0365835$; $\delta C_{yield} = 1.56769\times10^{-25}$ F $= e^2/(2m_ec^2)$ **exactly**, $\delta C_{snap} = 1.14400\times10^{-27}$ F $= \alpha e^2/(2m_ec^2)$ **exactly**, ratio $= 137.03600 = 1/\alpha$.
+>
+> **The load-bearing consequence.** The leaf's headline characterization is that the substrate sits at a **sub-yield but appreciable** operating point ($0.428$, *"sub-yield"* at `:94`) with an order-unity per-node coupling ($\approx0.29$) and a **clean $\alpha$-independent** modulation depth (*"This is a clean canonical form independent of $\alpha$"*, `:106`). Under the $V_{snap}$ keying the pump is at $3.7\%$ of the bound, the per-node coupling is $2\times10^{-3}$ not order-unity, the $\kappa_{quality}$ regenerative envelope moves by two decades in required $Q$, and the boxed form **acquires an explicit $\alpha$** — i.e. the $\alpha$-independence is an artifact of the keying, not a property of the substrate. **Re-keying therefore changes the leaf's physical characterization, its detection-probability magnitude, and its detector-class applicability.** That is an adjudication, and this lane does not take it.
+>
+> **The two keying candidates (both live; neither is elected here):**
+> 1. **A1 / re-key.** The α-slew pump squeezes the **longitudinal bond compliance**. The divergent $C_0/S$ is the A1 stretch-reactance and its bound is $V_{snap}$; the leaf re-keys, every row of the table above moves, and *"sub-yield"* stops meaning what the leaf says it means.
+> 2. **T2 / notation-only.** The α-slew pump twists the **transverse Cosserat sector**, whose wall genuinely is $V_{yield}$. Then the operating point, $0.428$, $4.59\%$, $0.29$ and the $\alpha$-free boxed form all **stand**, and the only defect is that the leaf wrote a *divergent* $C_0/S$ form where the T2 sector's constitutive law is the *rolling-off* $C_{diel} \propto S$ ($\varepsilon_{eff} = \varepsilon_0 S$) — a notation error, not a value error.
+>
+> **ROUTED TO GRANT (verbatim):** *"is the α-slew pump squeezing the BOND (A1 compliance — re-key, and sub-yield stops meaning what the leaf says) or twisting the TRANSVERSE sector (T2 — V_yield stands and only the divergent-form notation is wrong)?"*
+>
+> **Also observed, not fixed (same class, smaller):** `:57` and `:106` print $\delta_C/C_0 \approx 4.57\%$; recomputing the leaf's own $\tfrac14 (V_{pump}/V_{yield})^2$ from `constants.py` gives $4.585\%$. A $0.3\%$ arithmetic drift **within the printed keying**, independent of the fork above. Recorded, not edited — it should be settled in the same pass as the keying, since the keying decides whether that cell survives at all.
+>
+> **Same-form siblings carrying the identical unresolved keying, bannered with a pointer to this question in the same commit:** [`biquaternion-complex-coupled-network-equations.md`](biquaternion-complex-coupled-network-equations.md):99 and [`../../../vol9/ch3-pin-port-configuration/vacuum-node-im3-distortion.md`](../../../vol9/ch3-pin-port-configuration/vacuum-node-im3-distortion.md):79. Already re-keyed, for contrast: [`nonlinear-vacuum-capacitance.md`](nonlinear-vacuum-capacitance.md) and [`intermodulation-distortion.md`](intermodulation-distortion.md).
+
 ## Key Result
 
 > **[Resultbox]** *Parametric Coupling Efficiency at Substrate α-Slew Refresh Rate*
