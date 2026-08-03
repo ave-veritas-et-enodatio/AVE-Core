@@ -574,6 +574,46 @@ As fully derived in the supplementary \textit{Periodic Table of Knots}, the 3D s
 %   SPICE coupled inductors"; period-3/silicon/ee-equivalent.md:10 "378-parameter SPICE matrix
 %   decomposes into 21 inter-alpha links"). Residual wording nit only: print says "inductor
 %   nodes", KB says "coupled inductors".]
+%
+%   ---- CORRECTION 2026-08-03 (Rule 12 quote-and-date; the block above is preserved
+%   verbatim, unedited). The sentence above reading
+%       "the KB row is the staleness candidate (routed)"
+%   is STRUCK. It elects a side, and that election CONTRADICTS the ratified rev-2
+%   correction fragment for this exact item -- _orchestration/docket-entries/
+%   2026-08-02-mr-no-kb-home-correction.md:5-6. Three receipts, all re-verified by
+%   content 2026-08-03:
+%     (1) BOTH VALUES ARE FITS, neither is "the derived authority."
+%         simulate_element.py:10-15 (its own scope note): the radii "were 1-parameter
+%         Nelder-Mead fits against CODATA mass targets"; :388-389 "Numerically optimized
+%         to ~80.174370d ... matching the 26053.188074 MeV empirical nuclear target".
+%         solve_silicon.py:5-9: "a 1-parameter inverse-problem solve, NOT a forward
+%         prediction". symmetric-core-collapse.md:10 fits 83.0d to the SAME 26053.188
+%         MeV target. Engineering-choice fit tags apply on both sides; "the engine
+%         computed it, therefore it is canonical" is not an available argument.
+%     (2) THERE ARE TWO MODELS, not one solver with a stale mirror.
+%         ave-kb/vol6/framework/computational-mass-defect/semiconductor-nuclear-analysis.md
+%         :20 names simulate_element.py the "Bare K/r Model"; :22 names
+%         semiconductor_binding_engine.py the "Semiconductor Junction Model"; :26-32
+%         reconciles them per element (Si-28 row at :32 -- bare 85.6d vs semiconductor
+%         83.0d); :34 rules "The semiconductor model R values are the definitive
+%         mass-validated quantities."
+%     (3) platonic-progression.md:24's 83.0 is therefore the SEMICONDUCTOR /
+%         DEFINITIVE value -- it MATCHES the ruled-definitive column and is NOT stale.
+%   THE ACTUAL DIVERGENCE PAIR is a different pair entirely: the KB BARE cell
+%   (85.6d, semiconductor-nuclear-analysis.md:32) vs the engine bare hardcode
+%   (80.174370d, simulate_element.py:390) -- same model, same quantity, same units,
+%   two values. And the print sentence below quotes a BARE-model R (80.174d) under a
+%   regime where the KB rules the SEMICONDUCTOR R definitive.
+%   WHAT IS ROUTED (open, NOT adjudicated here): the METER CHOICE -- is the print
+%   quoting the wrong model for this passage (bare where semiconductor is ruled
+%   definitive), or has the KB bare cell gone stale against the engine? That is a
+%   Grant-level ruling and neither this comment nor this commit takes it. No printed
+%   number is edited here; only the wrong election is struck.
+%   Dependent set if any value moves (from the fragment :9): 83.0d sites --
+%   platonic-progression.md:24, semiconductor-nuclear-analysis.md:32,
+%   vol6/period-3/index.md:22, vol6/period-3/silicon/index.md:18,:31,
+%   vol6/period-3/silicon/symmetric-core-collapse.md:10; bare side --
+%   simulate_element.py:388-390, and the print sentence below. ----
 \noindent\textbf{Methodology disclosure (2026-08-02, per the Vol~6 fit/predict split; the paragraph below is preserved per Rule~12 KEEP-BOTH).} The Silicon-28 result below reports a residual as though it were a prediction error. Per the ruled disclosure, within the $(Z,A)$-forced bipyramid topology the inter-alpha distance $R_{bipyramid}$ is \textbf{the single fitted scalar adjusted per nucleus} so that the pairwise summation reproduces the CODATA mass. What is \emph{predicted} (axiom-derived) is the cluster topology as a function of $(Z,A)$ via minimum-impedance packing, the coupling $K_{mutual} = m_p c^2$, and the parameter count (one scalar per nucleus); what is \emph{fitted} is the numerical value of $R_{bipyramid}$. Consequently the quoted mass-mapping residual is \textbf{the optimizer's convergence tolerance on $R$, not an independent prediction error on the mass} --- an exactly-zero residual on a closed shell is structurally zero by construction, and the pipeline is \textbf{not} zero-parameter \emph{ab initio}. The falsifiable structural content is the topology and the one-scalar-per-nucleus parameter count (against the $\sim 5$ parameters per nucleus of liquid-drop or shell-model fits), not the residual. Read the ``strictest possible verification'' sentence below in that scope. Canonical: \kbleaf{ave-kb/vol1/operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md}.
 
 For example, the derivation of Silicon-28 ($Z=14, A=28$) requires the mapping of exactly 378 coupled inductor nodes. The solver algebraically targets the empirical CODATA nuclear mass~\cite{codata2018}, forcing the geometry to converge. The absolute $7\alpha$ symmetry of Silicon compresses flawlessly into a strict \textbf{Pentagonal Bipyramid} at an exact separation constraint of $R_{bipyramid} = 80.174d$, yielding a \textbf{$0.0000\%$ mass mapping error}. 
