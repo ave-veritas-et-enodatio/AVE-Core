@@ -184,8 +184,23 @@ ALLOWED = {
     "1e-40": "frozen G10(a) tolerance (prereg section 5)",
     "1e-15": "frozen FT-1 threshold and the FT-9 digest perturbation size",
     # prereg-quoted numerals that are NOT results of this battery
-    "5.3e-16": "quoted from the prereg section 9 justification: v2.1's measured "
-               "Chebyshev coefficient tail at n = 40 -- a PREREG numeral",
+    #
+    # CORRECTED 2026-08-03 (post-review).  The reason string below said
+    # "prereg section 9 justification".  That was wrong at five sites across
+    # this lane (this file, the result doc twice, the docket, the PR body):
+    # the receipt lives in the prereg's SECTION 6, the FT-2 non-vacuity cell at
+    # research/2026-08-03_coldq-pole-v2.2-root_prereg-FROZEN.md:337, whose own
+    # inner citation is to v2.1's section 9 item 7.  Section 9's G0 row cites an
+    # unrelated v2.1 measurement (C11's 8.9716e-16).  Comment/reason strings
+    # only; no key added or removed here, no checker logic touched.
+    "5.3e-16": "quoted from the prereg SECTION 6 FT-2 non-vacuity cell "
+               "(prereg :337): v2.1's measured Chebyshev coefficient tail at "
+               "n = 40 -- a PREREG numeral, NOT from this battery's JSON",
+    "8.9716e-16": "v2.1's C11 operator-identity measurement, quoted from the "
+                  "prereg SECTION 9 G0 tolerance row (prereg :474) by the "
+                  "2026-08-03 post-review pointer correction, to show what "
+                  "section 9 actually cites -- a PREREG numeral from ANOTHER "
+                  "lane, NOT from this battery's JSON",
     # structural integers / frozen numerics
     "0": "structural integer / exact zero / an isolation count",
     "1": "structural integer / the frozen G5 count / an isolation count",
