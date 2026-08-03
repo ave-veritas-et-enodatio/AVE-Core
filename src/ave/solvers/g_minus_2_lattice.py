@@ -13,10 +13,21 @@ REFUTED by Route B closure 2026-05-13 evening:
     (2,3) Cosserat unknot (src/ave/topological/cosserat_field_3d.py).
   - On the Cosserat substrate, Route B (dark-resonance × kernel-asymmetry
     correlation with QED-form normalization + saliency δ = -3α/2) gives
-    C_2 = -0.32846, matching PDG (-0.32848) to 50 ppm (0.005%).
-    NOTE: the 50 ppm is POSTULATE-DEPENDENT (n_q-additivity = 1-point fit,
-    not derivable, per FT-b 2026-05-31); the parameter-free result is the
-    +4.0% symmetric Route-B forward (C_2 = -0.3416).
+    C_2 = -0.32846, matching PDG (-0.32848) at the printed 5 decimals.
+    NOTE: the Stage-2 closure is POSTULATE-DEPENDENT (n_q-additivity =
+    1-point fit, not derivable, per FT-b 2026-05-31); the parameter-free
+    result is the +4.0% symmetric Route-B forward (C_2 = -0.3416).
+    [ppm-STRIKE 2026-08-03 -- Grant ruling; core-side instrument audit,
+     PR #857 amendment lane (cross-session, 2026-08-03 epic->core handoff).
+     Rule 12, struck text verbatim:
+       "C_2 = -0.32846, matching PDG (-0.32848) to 50 ppm (0.005%)."
+       "NOTE: the 50 ppm is POSTULATE-DEPENDENT (n_q-additivity = 1-point fit,"
+     NO ppm number replaces them. Two limiters, either alone sufficient:
+     tau_retard = 1/omega_C is ASSERTED not derived (dC2/dtau = -11.4555, so a
+     60 ppm label needs tau to 1.7 ppm), and the Stage-2 postulate was refuted
+     2026-05-31. -0.32846 is a 5-dp DISPLAY: the round-shift and exact
+     instruments agree at 5 dp (-0.32846) and disagree at 6 (-0.328463 vs
+     -0.328459). Converged value: -0.3284592577.]
   - Zero parameters fudged.
 
 See full closure:
@@ -28,7 +39,11 @@ See full closure:
 
 This script is preserved for historical reference. DO NOT cite its result
 (-0.0094) as the AVE prediction for C_2. The canonical AVE C_2 is now
--0.32846 (50 ppm match to PDG Petermann -0.32848) via Route B.
+-0.32846 via Route B -- a 5-decimal DISPLAY matching PDG Petermann -0.32848
+at that precision and no finer.
+[ppm-STRIKE 2026-08-03 -- Grant ruling; provenance as above. Rule 12, struck
+ text verbatim: "-0.32846 (50 ppm match to PDG Petermann -0.32848) via Route B."
+ No ppm number replaces it.]
 
 ORIGINAL HEADER (superseded):
 -----------------------------
