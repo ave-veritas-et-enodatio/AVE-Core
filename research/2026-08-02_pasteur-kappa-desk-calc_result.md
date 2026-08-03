@@ -187,16 +187,83 @@ fixture** the two enantiomers are exactly degenerate. This lane makes that premi
 rather than assumed*: the as-fabbed L↔R map was extracted from the CSVs and is a **pure
 reflection $x\to-x$ with zero translation**, max residual `0.0` mm (the two competing coordinate
 mirrors miss by `47.1397` mm and `40.1328` mm). The control wire lies exactly in that mirror
-plane. **The residual obligation, stated and not discharged here:** the *rest* of the fixture —
-board outline, feed position, hole pattern, connector — must also be symmetric about $x=0$ for
-the theorem to bind at the bench. Two independent corpus receipts already say the wire-level
-statement holds under a full classical solver:
+plane. Three independent corpus receipts say the wire-level statement holds under a full
+classical solver:
 
 - AVE-HOPF `docs/design/2026-05-05_hopf02_design_proposal.md:57`, verbatim:
   > the L↔R mirror is length-preserving (`f_R = f_L` to floating-point precision in NEC2)
+- AVE-HOPF `docs/design/2026-05-05_hopf02_nec2_prediction.md:72`, verbatim:
+  > **R and L give bit-identical NEC2 output for every antenna pair.** This confirms the L↔R
+  > wire-CSV mirror exactness propagates through MoM into bit-identical impedance predictions —
+  > Maxwell is parity-invariant and our wires are parity-symmetric inputs.
 - AVE-HOPF `docs/design/2026-05-05_hopf02_nec2_prediction.md:80` — the NEC2 prediction table's
   own `Δ_classical` column for $(2,3)$ reads **`+0.000 MHz`**, against
   `Δ_AVE_pred` = **`−11.91 MHz`** and `Δ_AVE / f₀` = **`1.75%`**.
+
+**★ The fixture-symmetry premise, DISCHARGED for the released fab artifacts.**
+*(2026-08-02 audit-lane check against AVE-HOPF `main`:`hardware/Gerbers_hopf_02a/`. Rule 12
+quote-and-correct: the version of this document committed at `f9d5c86c` read, verbatim, "**The
+residual obligation, stated and not discharged here:** the rest of the fixture — board outline,
+feed position, hole pattern, connector — must also be symmetric about $x=0$ for the theorem to
+bind at the bench." That obligation is now discharged for all four named items; what replaces it
+is a shorter and different list.)*
+
+| Fab artifact | What was checked | Result |
+|---|---|---|
+| `Edge_Cuts.gm1` | panel outline + internal v-score lines | `250` × `185` mm panel, v-scores at $x=$ `50` / `100` / `150` / `200` mm — five equal `50` mm coupon lanes, so **each enantiomer pair straddles a v-score, and the board outline is symmetric about it** |
+| `PTH.drl` | all `45` plated holes, per tool diameter | coupon0↔coupon1 about $x=$ `50`: max mirror residual **`0.000` mm**; coupon2↔coupon3 about $x=$ `150`: **`0.000` mm** |
+| `NPTH.drl` | all `94` unplated (wire-form) holes | **`0.001` mm** both pairs — the file's own 3-decimal-place quantization, not an asymmetry |
+| `F_Cu.gtl` / `B_Cu.gbl` | all `45` copper flashes per layer | **exact set match** under $x\to-x$ about each pair's v-score, on **both** layers, including the `6` mm SMA-ground aperture |
+| feed position | SMA centre-pin flash | `7.709` mm either side of the $x=$ `50` mirror line for the (2,3) pair (`8.436` mm about $x=$ `150` for (2,5)) — **the feed is mirror-placed, not merely present on both** |
+| control coupon4 | self-mirror about its own centre | **`0.000` mm** — the control is its own mirror image, as its role requires |
+
+So *board outline*, *hole pattern*, *feed position* and *connector ground* — all four items the
+prior text left open — are symmetric in the released artifacts, at the artifact's own numerical
+resolution.
+
+**The two residuals that survive that check — and they are not the ones the prior text named.**
+
+1. **FR-4 glass-weave off-diagonal permittivity.** A woven laminate is a *parity-even* dielectric
+   only if its weave axes are aligned with the board axes. If the panel is cut at an angle to the
+   weave, $\varepsilon$ acquires an off-diagonal $\varepsilon_{xy}$, the host stops being
+   $x\to-x$-invariant, and the two enantiomers see *different* dielectric environments. This is a
+   **systematic**, not a random fab tolerance: it is **not** in the S-8 geometry-only Monte Carlo
+   (AVE-HOPF `docs/analysis/2026-06-03_hopf_antenna_hardened_prereg.md:264`, whose `5000`-trial
+   draw is over hole, mandrel, wire-bend and operator — all *mechanical*). Order of magnitude: take
+   the weave anisotropy at the few-percent level of the split — `6` % of `11.9093` MHz is `0.7`
+   MHz — which is small against the signal but roughly `5`× **above** the `130` kHz S-8 floor. It
+   is the one channel that can put a nonzero classical number on this observable in an achiral
+   *bulk* host.
+2. **The singulation precondition.** The mirror premise is a statement about **singulated**
+   coupons. Measured at panel level, each coupon's neighbours are *not* its mirror image (coupon1's
+   left neighbour is coupon0, its right neighbour is coupon2), so neighbour-coupling breaks the
+   symmetry that the v-score-local check establishes. **Break the panel before measuring**, or the
+   theorem does not bind.
+
+**The cheap kill for residual 1.** The panel carries a **second, independent** enantiomer pair:
+$(p,q)=(2,5)$ on coupons 2/3, mirrored about $x=$ `150`. A weave systematic is **common-mode**
+across the two pairs (same laminate, same weave angle, same panel), whereas the AVE prediction
+scales as $pq/(p+q)$ — `1.2` for (2,3) against `1.429` for (2,5) in AVE-HOPF's own
+`nec2_prediction.md:81` row. So the two pairs discriminate a weave artifact from the predicted
+effect without any new hardware. *(Honest caveat, from AVE-HOPF's own text: `nec2_prediction.md:74`
+warns the (2,5) dip near `380` MHz "are likely both dominated by the cable counterpoise's
+resonance", so the (2,5) leg needs its mode identified before it can carry weight.)*
+
+**What class of zero this is — and why it is stronger than the last time this corpus wrote
+"exactly 0".** The classical `0` here is protected by a **symmetry theorem** (parity covariance of
+Maxwell, with the mirror operation itself computed rather than assumed), not by absence of
+imagination. That distinction is load-bearing, because this corpus has already been burned by the
+other kind: round-1's Cleave-01 asserted an exact classical zero and it was **false**. AVE-Core
+`research/2026-06-04_experimental-round2-synthesis.md:19`, verbatim:
+> | **Cleave-01** | **SURVIVES + upgraded** | Round-1's "SM predicts exactly 0.0" was *false*
+> (contact-potential-difference mimics the floor on magnitude + polarity). Cured by the
+> **gap-independence corner** → a 4-corner symmetry discriminator {linear ∧ polarity-odd ∧
+> material-indep ∧ gap-indep} no single classical mechanism fakes. The flagship GO ($7.7k). |
+
+A contact-potential difference could mimic Cleave-01's zero because nothing forbade it. Here,
+*any* classical mechanism that produces $f_R\neq f_L$ must break $x\to-x$ somewhere in the
+fixture — which is why the escape routes are **enumerable at all**, and why the table above
+closes four of them and the numbered list leaves exactly two.
 
 > **Independent reproduction:** this lane recomputed the AVE-side entry from
 > `ave.core.constants.ALPHA` and got `11.9093` MHz / `1.751365e-02`, matching AVE-HOPF's

@@ -152,6 +152,17 @@ def _register_all() -> None:
         max(qc["chi_rel_drift_vs_base"]))
     reg("derived: max R_rad relative mesh drift over the convergence probe",
         max(qc["R_rad_rel_drift_vs_base"]))
+    # --- 2026-08-02 audit-repair pass (PR #834 F1/F4) -----------------------
+    k2 = path("K2_observable_matched")
+    s3 = path("post_audit_supplementary_NOT_FROZEN>>S3_combined_floor_scope")
+    reg("derived: the S-8 + measurement COMBINED floor in kHz (F4) — "
+        "sqrt(130 kHz^2 + (290 kHz sqrt(2/10))^2), inputs cross-repo",
+        s3["combined_floor_Hz"] / 1e3)
+    reg("derived: the MEASUREMENT-only floor in kHz (F4) — 290 kHz sqrt(2/10)",
+        s3["measurement_floor_Hz"] / 1e3)
+    reg("derived: the FR-4 glass-weave systematic OOM in MHz (F1) — taken at "
+        "6 percent of the AVE enantiomer split, 0.06 * ave_value_MHz_at_f0",
+        0.06 * k2["ave_value_MHz_at_f0"])
 
 
 # ---------------------------------------------------------------------------
@@ -159,7 +170,8 @@ def _register_all() -> None:
 # ---------------------------------------------------------------------------
 ALLOWED = {
     # frozen bin edges / gate tolerances, quoted verbatim from the prereg
-    "3": "frozen magnitude-bin edge R>=3 / a plain count",
+    "3": "frozen magnitude-bin edge R>=3 / a plain count / the NPTH drill "
+         "file's decimal-place count",
     "10": "frozen STRONG sub-band edge R>=10",
     "0.1": "frozen STRONG sub-band edge R<=0.1 AND the linear-mixing ceiling",
     "1e-9": "frozen G1/G2/G3 tolerance",
@@ -203,8 +215,56 @@ ALLOWED = {
     "88": "line cite — round-2 result sec 2.3 last line",
     # this lane's own reported counts, quoted in the docs — re-run to verify
     "0": "exact zero (the classical enantiomer split; chi_control; G2/G3 residual)",
-    "6": "plain count",
-    "5": "plain count (idealizations I-1..I-5)",
+    "6": "plain count / the 6 mm SMA-ground aperture diameter in the Gerber "
+         "aperture list / the weave-anisotropy OOM as a percent of the split",
+    "5": "plain count (idealizations I-1..I-5) / the weave OOM as a multiple of "
+         "the 130 kHz S-8 floor, stated to one figure",
+    # -------------------------------------------------------------------
+    # 2026-08-02 AUDIT-REPAIR PASS (PR #834 F1/F2/F4 + nits).  Every entry
+    # below is a value READ FROM ANOTHER REPO's blob or a line cite — by
+    # construction not a leaf of this lane's JSON.  Each was re-read from the
+    # live git blob at repair time (`verify-before-cite`).
+    # -------------------------------------------------------------------
+    # AVE-HOPF main:hardware/Gerbers_hopf_02a/ — read-only symmetry check (F1)
+    "250": "AVE-HOPF Gerbers hopf_02a-Edge_Cuts.gm1 — panel x-extent in mm",
+    "185": "AVE-HOPF Gerbers hopf_02a-Edge_Cuts.gm1 — panel y-extent in mm",
+    "50": "AVE-HOPF Gerbers Edge_Cuts v-score / coupon-lane pitch in mm",
+    "100": "AVE-HOPF Gerbers Edge_Cuts v-score position in mm",
+    "150": "AVE-HOPF Gerbers Edge_Cuts v-score position in mm — the (2,5) "
+           "pair's mirror line",
+    "200": "AVE-HOPF Gerbers Edge_Cuts v-score position in mm",
+    "45": "AVE-HOPF Gerbers — PTH.drl hole count, and the per-layer copper "
+          "flash count in F_Cu.gtl / B_Cu.gbl",
+    "94": "AVE-HOPF Gerbers hopf_02a-NPTH.drl hole count",
+    "0.001": "AVE-HOPF Gerbers NPTH.drl mirror residual in mm — the file's own "
+             "3-decimal-place quantization, not a measured asymmetry",
+    "7.709": "AVE-HOPF Gerbers F_Cu.gtl — SMA centre-pin flash offset from the "
+             "x=50 mm mirror line, in mm (flashes at x=42.291 and x=57.709)",
+    "8.436": "AVE-HOPF Gerbers F_Cu.gtl — same, for the (2,5) pair about "
+             "x=150 mm (flashes at x=141.564 and x=158.436)",
+    # AVE-HOPF cross-repo quotes and line cites added by the repair pass
+    "72": "line cite AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:72",
+    "74": "line cite AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:74",
+    "81": "line cite AVE-HOPF docs/design/2026-05-05_hopf02_nec2_prediction.md:81",
+    "264": "line cite AVE-HOPF docs/analysis/"
+           "2026-06-03_hopf_antenna_hardened_prereg.md:264 (the S-8 row)",
+    "193": "line cite AVE-HOPF research/"
+           "2026-06-04_hopf-round2-chiral-counterfactual-result.md:193",
+    "14": "line cite AVE-HOPF .agents/HANDOFF.md:14 (the Phase-0b status line)",
+    "42": "line cite AVE-HOPF .agents/HANDOFF.md:42 (the gated fab-order TODO)",
+    "19": "line cite AVE-Core research/"
+          "2026-06-04_experimental-round2-synthesis.md:19 (Cleave-01 row)",
+    "28": "line cite AVE-Core research/"
+          "2026-06-04_experimental-round2-synthesis.md:28",
+    "116": "line cite AVE-HOPF PR #3 docs/open_questions.md:116",
+    "5000": "AVE-HOPF hardened-prereg:264 Monte-Carlo trial count, quoted",
+    "380": "AVE-HOPF nec2_prediction.md:81 f_classical for (2,5) in MHz, quoted",
+    "1.429": "AVE-HOPF nec2_prediction.md:81 pq/(p+q) for (2,5), quoted",
+    "123": "AVE-HOPF .agents/HANDOFF.md:14 and :42 HOPF-02a BOM cost in USD, "
+           "quoted — not a measurement of this lane",
+    "0.29": "AVE-HOPF PR #3 docs/open_questions.md:116 — the sigma_repeat "
+            "CEILING in MHz that S-1's own N>=10 implies, quoted. UNMEASURED.",
+    "290": "the same sigma_repeat ceiling in kHz",
 }
 
 _HEXY = re.compile(r"^[0-9a-f]{7,64}$")
@@ -221,6 +281,11 @@ PINNED: dict[str, tuple[str, object]] = {
     "20.35": ("derived", lambda: (path("K1_primary>>k23_R>>lambda_m")
                                   / 3.141592653589793)
               / path("K1_primary>>k23_R>>ell_e_mag_m")),
+    # 2026-08-02 audit-repair pass (F1): the glass-weave OOM is quoted to ONE
+    # figure on purpose (it is an order of magnitude, not a measurement), so it
+    # is below MIN_SIG and must be hand-mapped rather than auto-matched.
+    "0.7": ("derived",
+            lambda: 0.06 * path("K2_observable_matched>>ave_value_MHz_at_f0")),
 }
 
 
