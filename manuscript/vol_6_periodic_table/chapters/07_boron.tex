@@ -20,7 +20,28 @@ Fitting the position of Boron's Tritium halo using the standard Reactive Mutual 
 \begin{equation}
     R_{halo} = 11.8404 d
 \end{equation}
-Where $d = 4\hbar/m_pc \approx 0.841$ fm is the axiom-derived proton charge radius (gyroscopic spin radius of the cinquefoil knot). 
+% ---------------------------------------------------------------------------
+% LABEL CORRECTION 2026-08-03 (Rule 12 quote-and-date; struck label preserved
+% here, not deleted). The line printed:
+%   "Where d = 4\hbar/m_pc \approx 0.841 fm is the axiom-derived proton charge
+%    radius (gyroscopic spin radius of the cinquefoil knot)."
+% "proton charge radius" is the WRONG object. d is a SPIN/gyroscopic radius,
+% not a charge radius: it is derived in 01_computational.tex:91-104 from the
+% Axiom-1 standing-wave condition 2 pi (d/2) = 4 (lambda_Compton/2), and that
+% chapter labels it correctly at :94 -- "the proton spin radius d -- the
+% radius of a single nucleon's gyroscopic orbit" (engine symbol D_PROTON).
+% The parenthetical "gyroscopic spin radius of the cinquefoil knot" was
+% already correct and is KEPT.
+% WHY THE MISLABEL SURVIVED (coincidence flag): d = 4 hbar/(m_p c) evaluates
+% to 0.8412 fm, which is within 0.02% of the CODATA-2018 proton CHARGE radius
+% r_p = 0.8414 fm. The two are numerically near-identical and physically
+% distinct (spin/gyroscopic orbit vs charge distribution); the near-coincidence
+% is what let the wrong noun read as plausible. AVE does not derive r_p here,
+% and nothing in this chapter depends on the two being the same object.
+% SCOPE: label only. The VALUE 0.841 fm, the formula, and every R_halo = 11.84d
+% statement downstream are unchanged.
+% ---------------------------------------------------------------------------
+Where $d = 4\hbar/m_pc \approx 0.841$ fm is the axiom-derived proton \textbf{spin radius} --- the gyroscopic spin radius of the cinquefoil knot (\S\ref{sec:d_derivation} of Ch.~1; engine \texttt{D\_PROTON}), \emph{not} the proton charge radius. The two are numerically near-degenerate ($d = 0.8412$ fm vs the CODATA-2018 charge radius $r_p = 0.8414$ fm, $0.02\%$ apart) but are physically distinct objects, and no result in this chapter depends on identifying them.
 
 This specific scalar multiplier ($11.84$) is not an arbitrary empirical fitting artifact. In the topology of isotropic wave propagation expanding from a saturated point source (the Alpha core), the total structural strain cannot exceed the bounding spherical surface area integrating into the ambient $3D$ Euclidean metric. Mathematically, the ultimate maximum perimeter offset before the knot strain completely loses reactive coherence is defined by the full isotropic solid angle bounding horizon multiplied by the fundamental radial vector:
 
