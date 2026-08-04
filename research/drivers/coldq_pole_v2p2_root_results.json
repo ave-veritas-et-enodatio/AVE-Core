@@ -1,0 +1,768 @@
+{
+ "_digest": "a10f8aa906198605",
+ "_frozen_numerics": {
+  "R_iso": 0.5,
+  "dedupe_rel": 1e-06,
+  "dps": 50,
+  "dps_high": 80,
+  "ell": 2,
+  "invit_rounds": 4,
+  "lambda_set": [
+   -0.25,
+   0.0,
+   0.25
+  ],
+  "loc_points": 401,
+  "loc_window": [
+   1.0,
+   2.0
+  ],
+  "n_ladder": [
+   32,
+   48,
+   64,
+   80,
+   96
+  ],
+  "n_primary": 48,
+  "polish_iters": 60,
+  "polish_tol_exp": 38,
+  "runtime_budget_s": 3600.0,
+  "x_sat": 7.0,
+  "x_sat_set": [
+   5.0,
+   7.0,
+   11.0
+  ]
+ },
+ "_method": "compactified hyperboloidal Chebyshev spectral; ROOT-LOCAL certification only; NO winding, NO contour, NO region count",
+ "_non_claim": "this lane asserts the existence and location of THIS root; it asserts NOTHING about the absence or presence of other modes",
+ "_prereg": "research/2026-08-03_coldq-pole-v2.2-root_prereg-FROZEN.md",
+ "_prereg_commit": "f15a6e4d",
+ "_runtime_sec": 254.41,
+ "adjudication": {
+  "BIN_1": "N/A -- not adjudicated",
+  "BIN_2": "N/A -- not adjudicated",
+  "BIN_2_discriminator": "N/A -- not adjudicated",
+  "BIN_3": "N/A -- not adjudicated",
+  "BIN_4": "N/A BY CONSTRUCTION",
+  "precedence_fired": "BIN-F-ROOT"
+ },
+ "certification": "ROOT-NOT-CERTIFIED",
+ "certified_root": {
+  "Omega_im": -1.0072567831433188,
+  "Omega_im_mp": "-1.00725678314331889260211374956072904467",
+  "Omega_re": 1.8536552108408788,
+  "Omega_re_mp": "1.853655210840878848320699157729883961213",
+  "abs_Omega": 2.109645436528558,
+  "pencil_seed_double": [
+   1.8536552108110975,
+   -1.0072567831635564
+  ]
+ },
+ "comparators": {
+  "Omega_GR_n0": [
+   2.615704,
+   -0.622734
+  ],
+  "Omega_GR_n1": [
+   2.426977,
+   -1.917405
+  ],
+  "Omega_v1": [
+   1.8536565650028993,
+   -1.00725725871003
+  ],
+  "Q_GR": 2.1002135791366907,
+  "Q_GR_rounded_prose": 2.099438202247191,
+  "Q_convention": 2.0,
+  "nu_vac": 0.2857142857142857,
+  "omega_I_GR": 0.08896,
+  "omega_R_GR": 0.37367,
+  "omega_R_shortcut": 0.3673469387755102
+ },
+ "diagnostics": {
+  "spectral_convergence": {
+   "reference_n": 96,
+   "rows": [
+    {
+     "n": 32,
+     "ratio_to_next": 1544.6093947321715,
+     "rel_vs_n_ref": 1.2496816369074884e-10
+    },
+    {
+     "n": 48,
+     "ratio_to_next": 690.9729432434473,
+     "rel_vs_n_ref": 8.090599741070316e-14
+    },
+    {
+     "n": 64,
+     "ratio_to_next": 403.39016918622724,
+     "rel_vs_n_ref": 1.1708996452296386e-16
+    },
+    {
+     "n": 80,
+     "ratio_to_next": null,
+     "rel_vs_n_ref": 2.9026479440283196e-19
+    },
+    {
+     "n": 96,
+     "rel_vs_n_ref": 0.0
+    }
+   ],
+   "tag": "NOT-ADJUDICATED DIAGNOSTIC -- no gate, no bin, no verdict"
+  }
+ },
+ "failed_gates": [
+  "G2"
+ ],
+ "gates": {
+  "G0": {
+   "measured": 1.038488291045556e-15,
+   "pass": true,
+   "tol": 1e-13
+  },
+  "G1": {
+   "dps": 50,
+   "invit_rounds": 4,
+   "measured": 4.726832751705419e-50,
+   "n": 48,
+   "pass": true,
+   "tol": 1e-20
+  },
+  "G10": {
+   "Omega_mirror": [
+    -1.8536552108408788,
+    -1.0072567831433188
+   ],
+   "measured_a": 0.0,
+   "measured_b": 9.273121713408482e-47,
+   "pass": true,
+   "tol_a": 1e-40,
+   "tol_b": 1e-20
+  },
+  "G2": {
+   "ladder": [
+    32,
+    48,
+    64,
+    80,
+    96
+   ],
+   "measured": 1.2496816388248957e-10,
+   "pass": false,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552111039672,
+      -1.007256783157842
+     ],
+     "n": 32
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "n": 48
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433927
+     ],
+     "n": 64
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "n": 80
+    },
+    {
+     "Omega": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "n": 96
+    }
+   ],
+   "tol": 1e-10
+  },
+  "G3": {
+   "measured": 3.332294747541498e-14,
+   "pass": true,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552108408528,
+      -1.0072567831433368
+     ],
+     "lambda": -0.25
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "lambda": 0.0
+    },
+    {
+     "Omega": [
+      1.85365521084091,
+      -1.007256783143296
+     ],
+     "lambda": 0.25
+    }
+   ],
+   "tol": 1e-12
+  },
+  "G4": {
+   "dps_pair": [
+    50,
+    80
+   ],
+   "measured_a": 5.277782707837865e-47,
+   "measured_b": 1.755941633596894e-08,
+   "pass": true,
+   "rows": [
+    {
+     "n": 32,
+     "pencil_double": [
+      1.8536552111082487,
+      -1.0072567831622314
+     ],
+     "rel_double_vs_mp": 2.906500668451344e-12
+    },
+    {
+     "n": 48,
+     "pencil_double": [
+      1.8536552108110975,
+      -1.0072567831635564
+     ],
+     "rel_double_vs_mp": 1.7067672718253653e-11
+    },
+    {
+     "n": 64,
+     "pencil_double": [
+      1.853655211059697,
+      -1.0072567837689963
+     ],
+     "rel_double_vs_mp": 3.141848841149333e-10
+    },
+    {
+     "n": 80,
+     "pencil_double": [
+      1.8536552098579886,
+      -1.0072567801671972
+     ],
+     "rel_double_vs_mp": 1.4856751378261543e-09
+    },
+    {
+     "n": 96,
+     "pencil_double": [
+      1.8536551850497505,
+      -1.0072567565521509
+     ],
+     "rel_double_vs_mp": 1.755941633596894e-08
+    }
+   ],
+   "tol_a": 1e-25,
+   "tol_b": 1e-06
+  },
+  "G5": {
+   "R_iso": 0.5,
+   "counts": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pass": true,
+   "rows": [
+    {
+     "centre": [
+      1.8536552111039672,
+      -1.007256783157842
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552111082487,
+       -1.0072567831622314
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      1.8536552111039672,
+      -1.007256783157842
+     ]
+    },
+    {
+     "centre": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552108110975,
+       -1.0072567831635564
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433927
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.853655211059697,
+       -1.0072567837689963
+      ]
+     ],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433927
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536552098579886,
+       -1.0072567801671972
+      ]
+     ],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433925
+     ]
+    },
+    {
+     "centre": [
+      1.853655210840725,
+      -1.0072567831433925
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       1.8536551850497505,
+       -1.0072567565521509
+      ]
+     ],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": [
+      1.853655210840725,
+      -1.0072567831433925
+     ]
+    }
+   ]
+  },
+  "G6": {
+   "Omega_v1": [
+    1.8536565650028993,
+    -1.00725725871003
+   ],
+   "measured": 6.803231574438666e-07,
+   "pass": true,
+   "tol": 1e-05
+  },
+  "G7": {
+   "measured_a": 0.28423799223517354,
+   "measured_b": 0.19696614906560894,
+   "pass": true,
+   "strain_to_kinetic_spin1": 0.7618696377732791,
+   "strain_to_kinetic_spin2": 0.636500571355355,
+   "tol": 0.001,
+   "weight_spin1": 6,
+   "weight_spin2": 4
+  },
+  "G8": {
+   "Q_spread": 1.8618720608205777e-46,
+   "absOmega_spread": 6.063254577322465e-47,
+   "measured": 1.8618720608205777e-46,
+   "mp_end_to_end": true,
+   "pass": true,
+   "rows": [
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.37073104216817576,
+     "x_sat": 5.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.2648078872629827,
+     "x_sat": 7.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.16851411007644354,
+     "x_sat": 11.0
+    }
+   ],
+   "scaling_spread": 9.774131690910903e-47,
+   "tol": 1e-09
+  },
+  "G9": {
+   "note": "determinism is adjudicated EXTERNALLY by running the driver twice and diffing the shipped objects; this flag is a placeholder and is NOT a self-measurement",
+   "pass": true
+  }
+ },
+ "isolation_receipts": {
+  "GR_gap_over_R_iso": 2.6167085269628334,
+  "GR_overtone_gap": 1.3083542634814167,
+  "R_iso": 0.5,
+  "R_iso_over_abs_Omega": 0.23700665113790634,
+  "R_iso_over_dedupe": 237006.65113790636,
+  "abs_Omega_seed": 2.1096454365285577,
+  "artifact_over_R_iso": 4.255763013659168,
+  "dist_seed_to_artifact": 2.127881506829584
+ },
+ "localization": {
+  "interior_max": false,
+  "u_energy": 2.0000000000000004,
+  "u_kinetic": 2.0000000000000004,
+  "wall_fraction_of_peak": 0.040561477092864194,
+  "window": [
+   1.0,
+   2.0
+  ]
+ },
+ "seed": {
+  "Omega_seed": [
+   1.8536552108408788,
+   -1.0072567831433188
+  ],
+  "role": "SEED ONLY -- selects which pencil eigenvalue is polished; enters no gate, tolerance, comparator or bin",
+  "source": "research/drivers/coldq_pole_v2_results.json @ bdcfa678 (PR #854, not on origin/main)"
+ },
+ "self_tests": {
+  "FT_0": {
+   "fires": true,
+   "measured": 2.0668129728690202e-12,
+   "mutation": "C0 corrupted by 1e-12 relative",
+   "threshold": 1e-13
+  },
+  "FT_1": {
+   "fires": true,
+   "measured": 9.946402719819208e-12,
+   "mutation": "residual evaluated at Omega_star*(1 + 1e-10)",
+   "threshold": 1e-15
+  },
+  "FT_10": {
+   "fires": true,
+   "measured_a": 0.03167549395692262,
+   "measured_b": 0.0005836018036712878,
+   "mutation": "Im(mu)/Re(mu) = 1e-3 smuggled into the modulus",
+   "threshold_a": 1e-06,
+   "threshold_b": 1e-05
+  },
+  "FT_2": {
+   "fires": true,
+   "measured": 0.000440375300940382,
+   "mutation": "under-resolved order n = 8",
+   "threshold": 1e-06
+  },
+  "FT_3": {
+   "fires": true,
+   "measured": 0.3485948410197033,
+   "mutation": "lambda carried into B1 and C1 but omitted from C2",
+   "threshold": 1e-06
+  },
+  "FT_4": {
+   "fires": true,
+   "measured_a": 4.316731050519307e-17,
+   "measured_b": 0.0004403753009474462,
+   "mutation": "(a) dps = 20; (b) double pencil at n = 8 against the mp root at n = 48",
+   "threshold_a": 1e-25,
+   "threshold_b": 1e-06
+  },
+  "FT_5": {
+   "artifact_counts": [
+    2,
+    1,
+    2,
+    3,
+    0
+   ],
+   "artifact_drift": 0.16190809508521392,
+   "artifact_rows": [
+    {
+     "centre": [
+      0.2634122115130044,
+      -2.5170323837698896
+     ],
+     "count_within_R_iso": 2,
+     "inside": [
+      [
+       1.6707219653215641e-07,
+       -2.290166728225626
+      ],
+      [
+       0.2634159030903094,
+       -2.5170324383088145
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      0.2634122115130044,
+      -2.5170323837698896
+     ]
+    },
+    {
+     "centre": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       0.3052491848603351,
+       -2.4679724154164746
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ]
+    },
+    {
+     "centre": [
+      0.29585346894232556,
+      -2.467279185353117
+     ],
+     "count_within_R_iso": 2,
+     "inside": [
+      [
+       0.16172980938644502,
+       -2.1990449013096938
+      ],
+      [
+       0.4761773790668746,
+       -2.5470854813949813
+      ]
+     ],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": [
+      0.29585346894232556,
+      -2.467279185353117
+     ]
+    },
+    {
+     "centre": [
+      1.4142791927586542e-35,
+      -2.2057625766051365
+     ],
+     "count_within_R_iso": 3,
+     "inside": [
+      [
+       -0.4793866852059491,
+       -2.103142769298128
+      ],
+      [
+       -0.15973820020262086,
+       -1.7464287826204992
+      ],
+      [
+       0.2994558059173917,
+       -1.8857760824666665
+      ]
+     ],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": [
+      1.4142791927586542e-35,
+      -2.2057625766051365
+     ]
+    },
+    {
+     "centre": [
+      0.30587571217415294,
+      -2.4674822214282157
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": null
+    }
+   ],
+   "edge_counts": [
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "edge_rows": [
+    {
+     "centre": [
+      -2.269472960833127e-46,
+      -3.475288173639173
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       -2.9951116009907177e-07,
+       -3.475300396260647
+      ]
+     ],
+     "n": 32,
+     "pencil_total": 64,
+     "polished": [
+      -2.269472960833127e-46,
+      -3.475288173639173
+     ]
+    },
+    {
+     "centre": [
+      -4.340688455613318e-46,
+      -3.549687015211718
+     ],
+     "count_within_R_iso": 1,
+     "inside": [
+      [
+       -0.009019596263115166,
+       -3.5611674503964714
+      ]
+     ],
+     "n": 48,
+     "pencil_total": 96,
+     "polished": [
+      -4.340688455613318e-46,
+      -3.549687015211718
+     ]
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 64,
+     "pencil_total": 128,
+     "polished": null
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 80,
+     "pencil_total": 160,
+     "polished": null
+    },
+    {
+     "centre": [
+      0.14,
+      -3.5035
+     ],
+     "count_within_R_iso": 0,
+     "inside": [],
+     "n": 96,
+     "pencil_total": 192,
+     "polished": null
+    }
+   ],
+   "fires": true,
+   "fires_a": true,
+   "fires_b": true,
+   "mutation": "(a) centred on the v2.1 artifact; (b) centred on the v2.1 contaminated-edge C9 probe"
+  },
+  "FT_6": {
+   "fires": true,
+   "measured": 0.0005872196298821127,
+   "mutation": "C0 corrupted by 1e-3 relative",
+   "threshold": 1e-05
+  },
+  "FT_7": {
+   "fires": true,
+   "measured_a": 0.0,
+   "measured_b": 0.0,
+   "mutation": "REVERSE: identical specifications on both axes",
+   "threshold": 0.001
+  },
+  "FT_8": {
+   "fires": true,
+   "measured": 6.013720615540751e-07,
+   "mutation": "A -> A*(1 + 1e-6*(x_sat - 7)/7)",
+   "rows": [
+    {
+     "Omega": [
+      1.8536549761862235,
+      -1.0072564537224116
+     ],
+     "Q": 0.920150458870661,
+     "omega_R_M_g": 0.37073099523724473,
+     "x_sat": 5.0
+    },
+    {
+     "Omega": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "Q": 0.9201502744197102,
+     "omega_R_M_g": 0.2648078872629827,
+     "x_sat": 7.0
+    },
+    {
+     "Omega": [
+      1.853655680149931,
+      -1.0072574419851463
+     ],
+     "Q": 0.9201499055180306,
+     "omega_R_M_g": 0.1685141527409028,
+     "x_sat": 11.0
+    }
+   ],
+   "threshold": 1e-09
+  },
+  "FT_9": {
+   "digest": "2bbf4ed56f88a49f",
+   "fires": true,
+   "mutation": "gates.G1.measured perturbed by 1e-15 relative in a copy",
+   "perturbed_digest": "7fb7264003cde091"
+  }
+ },
+ "unfired_self_tests": []
+}

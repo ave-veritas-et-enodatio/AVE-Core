@@ -112,19 +112,82 @@ def _kernel_S(a_sq):
     return np.sqrt(np.clip(1.0 - a_sq, 0.0, 1.0))
 
 
+def _trefoil_currents(s):
+    """The (2,3) PHASE-SPACE trefoil currents at arbitrary real-valued time s.
+
+    ``I_d(s) = cos(2 s)``, ``I_q(s) = sin(3 s)`` in Compton-phase units
+    (s = w_C t). SINGLE SOURCE OF TRUTH for the (p, q) = (2, 3) winding: both
+    ``route_b_correlation`` and the numerical-derivative guard in
+    ``src/tests/test_petermann_c2_pin.py`` call THIS function, so a winding
+    change made here propagates into the guard and cannot pass silently
+    against a stale closed form. (Before 2026-08-03 the test re-declared the
+    currents inline, which made the guard structurally unable to fire on a
+    winding change -- see that file's docstring.)
+
+    COORDINATE NOTE (phase-space-coordinate-check / A46): these are
+    **phase-space** currents on the Clifford torus, not a real-space
+    parametrization. The Cosserat soliton is the real-space unknot 0_1; the
+    (2,3) trefoil is its phase-space portrait
+    (q-g19a-petermann-saliency-closure.md, ingredient 1). Do not read
+    ``_trefoil_currents`` as a real-space curve.
+    """
+    return np.cos(2.0 * s), np.sin(3.0 * s)
+
+
+def _dv2_dt_analytic(s):
+    """Exact d(V^2)/dt of the (2,3) trefoil, evaluated at arbitrary real time s.
+
+    V^2(t) = I_d^2 + I_q^2 = cos^2(2t) + sin^2(3t), so
+        d/dt cos^2(2t) = -4 sin(2t) cos(2t) = -2 sin(4t)
+        d/dt sin^2(3t) = +6 sin(3t) cos(3t) = +3 sin(6t)
+        => dV^2/dt = -2 sin(4t) + 3 sin(6t).
+
+    COUPLED to ``_trefoil_currents`` above, which is the single source of the
+    (p, q) winding for this driver. ``src/tests/test_petermann_c2_pin.py``
+    builds V^2 by CALLING ``_trefoil_currents`` and differentiates it
+    numerically against this closed form, so the coupling is live in both
+    directions: editing the winding in ``_trefoil_currents`` without editing
+    this closed form fires the guard, and editing this closed form alone fires
+    it too.
+
+    What the guard does NOT cover (stated so the coverage is not over-read):
+    a *consistent* change to both (intended, and it should pass), and a change
+    that bypasses ``_trefoil_currents`` by re-inlining currents inside
+    ``route_b_correlation`` -- that route would decouple the guard again and
+    is the thing not to do.
+    """
+    return -2.0 * np.sin(4.0 * s) + 3.0 * np.sin(6.0 * s)
+
+
 def route_b_correlation(delta=0.0, tau_retard=1.0, n_t=2_000_000):
     """Substrate dark-wake x kernel-asymmetry correlation <(S_d - S_q) tau_zx>.
 
     delta: d/q strain-split saliency (0 = symmetric Route B, parameter-free).
     tau_retard: dark-wake retardation in Compton-phase units (1 = 1/w_C, pinned).
     Returns the cycle-averaged correlation (the AVE second-order kernel structure).
+
+    RETARDATION QUADRATURE REPAIRED 2026-08-03 (core-side instrument audit;
+    PR #857 amendment lane). The retardation used to be applied by rolling a
+    np.gradient array by a TRUNCATED integer index:
+
+        dv2_dt = np.gradient(v_sq, dt)
+        shift_idx = int(tau_retard / dt) % n_t
+        tau_zx = -np.roll(dv2_dt, shift_idx)
+
+    which applies tau_eff = shift_idx * dt, NOT tau_retard. At the banked
+    n_t = 2e6 that is tau_eff = 0.999997216; with dC2/dtau = -11.4555 the
+    resulting first-order-in-dt error is +3.19e-5 in C2 = 97 ppm, and a +-1
+    change in n_t moved the output 92 ppm. The retarded rate is now evaluated
+    analytically AT the real-valued retarded time s = t - tau_retard, so no
+    grid quantization enters: C2 is n_t-invariant to 10 digits over
+    n_t in [1e5, 4e6]. See the dated addendum in
+    research/2026-05-31_FT-alpha-reextraction-direction-2_result.md.
     """
     t = np.linspace(0.0, 2.0 * pi, n_t, endpoint=False)
-    dt = t[1] - t[0]
 
-    # (2,3) phase-space trefoil currents
-    i_d = np.cos(2.0 * t)
-    i_q = np.sin(3.0 * t)
+    # (2,3) phase-space trefoil currents (single source of truth for the
+    # winding -- the pin test's derivative guard calls the same function)
+    i_d, i_q = _trefoil_currents(t)
 
     # Schwinger-budget strain amplitudes with optional saliency split
     a_peak_sq = 2.0 * pi * ALPHA
@@ -134,11 +197,9 @@ def route_b_correlation(delta=0.0, tau_retard=1.0, n_t=2_000_000):
     # Axiom-4 kernel asymmetry
     kernel_diff = _kernel_S(a_d_sq) - _kernel_S(a_q_sq)
 
-    # Dark wake: retarded derivative of total V^2
-    v_sq = i_d**2 + i_q**2
-    dv2_dt = np.gradient(v_sq, dt)
-    shift_idx = int(tau_retard / dt) % n_t
-    tau_zx = -np.roll(dv2_dt, shift_idx)
+    # Dark wake: retarded rate -dV^2/dt evaluated AT the retarded time
+    # s = t - tau_retard (exact; no index truncation, no np.roll, no gradient).
+    tau_zx = -_dv2_dt_analytic(t - tau_retard)
 
     return float(np.mean(kernel_diff * tau_zx))
 
