@@ -80,10 +80,22 @@ is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade un
 > magnetic constitutive parameter (a param of $Z_{\mathrm{EM}}$, $\Omega$), its own row above. **The bridge
 > between them is a TRANSDUCER, not a direct wire:** the Axiom-1 **micro-rotation$\leftrightarrow\mathbf B$**
 > coupling (`CLAUDE.md`:71, "3 microrotational $\to\mathbf B$") read through the **TKI-transducer**
-> ([def-tk1xfm](../../../common/vocabulary-register.md), Axiom-2 electromechanical dictionary, $\omega$/curl
-> $\leftrightarrow\mathbf B$) is the candidate bridge — but def-tk1xfm is `status:proposed`-not-ratified and
-> carries the *"identity-by-translation, NOT a derivation"* ceiling (`resonant-lc-solitons.md`:129) — **FLAGGED,
+> ([def-tk1xfm](../../../common/vocabulary-register.md):435, Axiom-2 electromechanical dictionary, $\omega$/curl
+> $\leftrightarrow\mathbf B$) is the candidate bridge — but ~~def-tk1xfm is `status:proposed`-not-ratified and~~
+> **def-tk1xfm is SOLID — ★Grant-ratified 2026-07-21** ([`vocabulary-register.md`](../../../common/vocabulary-register.md):441),
+> with the co-equality it asserts **REGIME-SCOPED** to below the band edge ($\omega\tau\ll1$ / long-wave); it still
+> carries the *"identity-by-translation, NOT a derivation"* ceiling (`resonant-lc-solitons.md`:133) — **FLAGGED,
 > not asserted as derived.** Do NOT direct-wire $\mu_{eff}$ onto the mechanical $Z_{\mathrm{shear}}$.
+>
+> **[Status-sync 2026-08-03 — `def-tk1xfm` proposed → SOLID. Rule 12 KEEP-BOTH: the prior status is struck in
+> place and preserved, not deleted.]** Discharged-decision propagation of an already-ruled state; it adjudicates
+> **nothing new** and asserts **no new wire**. The ratification discharges the *status* gate ONLY — the strength
+> ceiling **STANDS** (*"identity-by-translation, NOT emerges-from / NOT a derivation"*), so the bridge above
+> remains a **candidate, not an adjudicated wire**, and the "Do NOT direct-wire" instruction is unchanged.
+> Same treatment as the merged vol9 sync ([`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md):216,
+> :224 — which flagged this very site). *Cite-shift repaired in the same pass: the ceiling text is at
+> `resonant-lc-solitons.md`:133, not the `:129` this note previously cited (`:129` is the $Z_{\mathrm{bulk}}$
+> mass-store bullet).*
 
 > **↗ REFERENCE-ANCHOR tag (2026-07-03 — §8 rotation un-conflation + FLAG-2 sector split, `research/2026-07-03_em-readout-vsector-stage1_prereg.md` §8, `research/2026-06-15_ceff-epsilon-monotonicity_result.md`).** This table is the **clean reference** the other rotation-flavored sites reconcile to. Two things are already correctly separated here and cross-linked from elsewhere: (1) **rotation un-conflation** — the CHARGE row's **MECHANICAL Cosserat $(2,3)$ micro-rotation $\omega$** (gapped, $Z_{\mathrm{shear}}$, static Link) is distinct from the **$\mu$ EM-inductive** row (the massless $\mathbf B$/$T_2$-photon channel); (2) **FLAG-2 capacitance sector split** — `$C_{eff}=C_0/S$` (MASS row, ↑, the **longitudinal-A1 bond compliance**) vs `$\varepsilon_{eff}=\varepsilon_0 S \Rightarrow C_{diel}\propto S$` ($\varepsilon$ row, ↓, the **transverse-T2 dielectric permittivity**) — orthogonal reactances sharing the EE name, Grant-ratified 2026-06-15, NOT a sign error.
 
@@ -296,11 +308,16 @@ the magnetic-flux channel reflects at $\Gamma=-1$ and flux is **excluded** from 
 > $Z_{\mathrm{shear}}$ ($\rho\times$speed, Pa·s/m, `resonant-lc-solitons.md`:120,:124). These live in **different
 > DOMAINS**, so the coupling that lets a mechanical micro-rotation *circulation* load the EM $\mu$ is the
 > **Axiom-1 micro-rotation$\leftrightarrow\mathbf B$** map (`CLAUDE.md`:71, "3 microrotational $\to\mathbf B$")
-> read through the **TKI-transducer** ([def-tk1xfm](../../../common/vocabulary-register.md), the Axiom-2
-> electromechanical dictionary, $\omega$/curl $\leftrightarrow\mathbf B$). def-tk1xfm is
-> `status:proposed`-not-ratified and carries the *"identity-by-translation, NOT a derivation"* ceiling
-> (`resonant-lc-solitons.md`:129) — this bridge is **FLAGGED as a candidate, not asserted as derived**. Do NOT
+> read through the **TKI-transducer** ([def-tk1xfm](../../../common/vocabulary-register.md):435, the Axiom-2
+> electromechanical dictionary, $\omega$/curl $\leftrightarrow\mathbf B$). ~~def-tk1xfm is
+> `status:proposed`-not-ratified and carries~~ **def-tk1xfm is SOLID — ★Grant-ratified 2026-07-21**
+> ([`vocabulary-register.md`](../../../common/vocabulary-register.md):441), **REGIME-SCOPED** to below the band
+> edge ($\omega\tau\ll1$ / long-wave), and it still carries the *"identity-by-translation, NOT a derivation"* ceiling
+> (`resonant-lc-solitons.md`:133) — this bridge is **FLAGGED as a candidate, not asserted as derived**. Do NOT
 > direct-wire $\mu_{eff}$ onto $Z_{\mathrm{shear}}$.
+> *(Status-sync 2026-08-03, Rule 12 KEEP-BOTH — prior status struck in place, preserved, not deleted; see the
+> status-sync banner at the §-above table. The ratification discharges the STATUS gate only; the strength ceiling
+> STANDS and no wire is asserted. Cite-shift repaired in the same pass: `:129` → `:133`.)*
 
 **Port-level orthogonality — why the Meissner (EM μ) sector cannot confine the mass port.** The MASS port is the
 **A1 dilatation** (trace-of-translation, the longitudinal-V "3"); the Meissner sector is the **EM $\mu$** param,

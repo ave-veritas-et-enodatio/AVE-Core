@@ -57,9 +57,23 @@ $Z_{\mathrm{mech}} \approx 2\text{–}3\times10^{15}$ Rayl;
 *per channel* before "high" or "low" means anything. "Same principle, different hardware" is really
 "same *analogy*, different physics." EM↔mechanical coupling therefore needs a **transducer, not a wire**
 — the candidate bridge is the TKI-transformer
-([`def-tk1xfm`](../../../common/vocabulary-register.md):324), which is **`status:proposed`-not-ratified**
+([`def-tk1xfm`](../../../common/vocabulary-register.md):435), which is ~~**`status:proposed`-not-ratified**~~
+**SOLID — ★Grant-ratified 2026-07-21** ([`vocabulary-register.md`](../../../common/vocabulary-register.md):441),
+**REGIME-SCOPED** to below the band edge ($\omega\tau\ll1$ / long-wave),
 and carries an *"identity-by-translation, NOT a derivation"* ceiling. **Any cross-channel probe claim
-inherits that ceiling** ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):122).
+inherits that ceiling** ([`resonant-lc-solitons.md`](resonant-lc-solitons.md):133).
+
+> **[Status-sync 2026-08-03 — `def-tk1xfm` proposed → SOLID. Rule 12 KEEP-BOTH: the prior status is struck in
+> place and preserved, not deleted.]** Discharged-decision propagation of an already-ruled state
+> ([`vocabulary-register.md`](../../../common/vocabulary-register.md):441, verbatim `[sic]`: *"ratify def-tk1xfm"*);
+> it adjudicates **nothing new** and asserts **no new wire**. The ratification discharges the *status* gate ONLY —
+> the strength ceiling **STANDS**, so the transducer remains the **candidate** EM↔mechanical bridge and every
+> cross-channel probe claim in this leaf still **INHERITS THE CEILING** (§4 register row unchanged in verdict).
+> Same treatment as the merged vol9 sync
+> ([`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md):216, :224 — which
+> flagged this very site). *Two cite-shifts repaired in the same pass: the `def-tk1xfm` node is at
+> `vocabulary-register.md`:435 (status line :441), not the `:324` cited above — `:324` is the ξ-glyph
+> open-ambiguity flag, a different node; and the ceiling text is at `resonant-lc-solitons.md`:133, not `:122`.*
 
 ### 1.2 Know whether you are in READ-mode or MEASURE-mode (textbook)
 
@@ -270,7 +284,7 @@ payoff.
 | READ-vs-MEASURE dichotomy | **ASSERTED (textbook)** — standard instrumentation theory | §1.2 |
 | Reactive-tap rule / "minimize $\mathrm{Re}(Z)$, couple reactively" | **ASSERTED (textbook)** — standard | §1.3 |
 | Loaded-vs-intrinsic $Q$ (the mode does not decay; reactive re-absorption) | **CITED** (already in corpus) | [`theorem-3-1-q-factor.md`](theorem-3-1-q-factor.md):156 |
-| EM↔mechanical cross-channel probe path | **INHERITS CEILING** — goes through [`def-tk1xfm`](../../../common/vocabulary-register.md):324, `status:proposed`, "identity-by-translation NOT a derivation" | §1.1 |
+| EM↔mechanical cross-channel probe path | **INHERITS CEILING** — goes through [`def-tk1xfm`](../../../common/vocabulary-register.md):435, ~~`status:proposed`~~ **SOLID (★Grant-ratified 2026-07-21, `:441`; regime-scoped below the band edge)**, "identity-by-translation NOT a derivation" — *status-sync 2026-08-03, Rule 12 KEEP-BOTH; the verdict in this row is UNCHANGED: ratification discharges the status gate only, the ceiling STANDS and the path still INHERITS it* | §1.1 |
 | Bulk-sector coupling LOCATION (short vs rigid) | **OPEN — routed to Grant** | §3.2 🚩 |
 
 **Symbol naming (`Z_{probe}`, the ratio name) and leaf placement are Grant-calls** — see the §1.3
