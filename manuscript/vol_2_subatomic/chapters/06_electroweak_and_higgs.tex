@@ -515,7 +515,26 @@ Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/so
 \begin{equation*}
 C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle = -0.32846
 \end{equation*}
-matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$) --- a
+% [ppm-STRIKE 2026-08-03 --- Grant ruling; core-side instrument audit, PR #857
+%  amendment lane (cross-session, 2026-08-03 epic->core handoff). Rule 12: the
+%  struck text is preserved verbatim here and removed from the body below.
+%  STRUCK: "matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$) --- a"
+%  NO ppm number replaces it -- not even the converged 60. Two limiters, either
+%  alone sufficient: (1) tau_retard = 1/omega_C is ASSERTED, not derived, and
+%  with dC2/dtau = -11.4555 even a 60 ppm label needs tau known to 1.7 ppm
+%  (research/2026-05-31_FT-alpha-reextraction-direction-2_result.md:126 concedes
+%  the assertion); (2) the Stage-2 n_q-additivity postulate was REFUTED
+%  2026-05-31. Also: -0.32846 is a 5-DECIMAL DISPLAY, not a converged value --
+%  the two instruments that produce it agree at 5 dp and disagree at 6
+%  (-0.328463 round-shift vs -0.328459 exact).]
+% [ROUTED, NOT RESOLVED (2026-08-03): the 2/(pi*alpha) normalization printed at
+%  :516 above is inconsistent by exactly 2 with the Delta a_e form carried at
+%  q-g19a-petermann-saliency-closure.md:47, which implies C2 = <>/(pi*alpha).
+%  Numerically -0.341635 (+4.005%) vs -0.170818 (-48%). Adjudication is Grant's;
+%  open as of this commit. Every value on this page carries the 2/(pi*alpha)
+%  convention and would halve if it resolves the other way.]
+matching PDG Petermann ($-0.32848$) at the printed five-decimal precision, and at
+no finer precision than that --- a
 \textbf{postulate-conditional} match, not an unconditional forward one. It rides the
 $n_q$-additivity postulate, which the corpus resolved \textbf{NEGATIVE} on 2026-05-31; the
 \emph{parameter-free} forward result of this framework is the Stage-1 $+4.0\%$ figure derived in
@@ -666,17 +685,25 @@ weighting.
 %  deviation is not +0.075%, and three-loop contributes only ~1.5e-8 (12 ppm), which cannot account
 %  for 0.075%.
 %  SCOPE per :121 / :14: the 50 ppm figure is the Stage-2, postulate-conditional result.]
-\paragraph{Final result --- $50$ ppm at $C_2$, postulate-conditional.} With
+% [ppm-STRIKE 2026-08-03 --- Grant ruling; same provenance as the block above.
+%  Rule 12: struck text preserved verbatim, removed from the body below.
+%  STRUCK (paragraph title): "Final result --- $50$ ppm at $C_2$, postulate-conditional."
+%  STRUCK: "versus PDG/Petermann $C_2 = -0.32848$. \textbf{Deviation: $50$ ppm}"
+%          "($0.005\%$) at the $C_2$ level."
+%  STRUCK: "deviation $\approx -10$~ppm. The residual"
+%          "$\sim\!10$~ppm gap is the contribution of three-loop and higher QED corrections"
+%  NO ppm number replaces any of them. Limiters as recorded at the :518 block.]
+\paragraph{Final result --- printed-precision match at $C_2$, postulate-conditional.} With
 $\delta = -3\alpha/2$:
 \begin{equation}
     \Delta a_e^{(2),\text{AVE}} = -1.772\times 10^{-6},\qquad
     C_2^{\text{AVE}} = -0.32846
 \end{equation}
-versus PDG/Petermann $C_2 = -0.32848$. \textbf{Deviation: $50$ ppm}
-($0.005\%$) at the $C_2$ level. Total Schwinger + Petermann shift:
+versus PDG/Petermann $C_2 = -0.32848$ --- agreement at the printed five decimals,
+and at no finer precision than that. Total Schwinger + Petermann shift:
 $a_e^{(1)} + a_e^{(2)} = 1.15964\times 10^{-3}$ vs measured
-$1.15965\times 10^{-3}$, deviation $\approx -10$~ppm. The residual
-$\sim\!10$~ppm gap is the contribution of three-loop and higher QED corrections
+$1.15965\times 10^{-3}$. The residual
+gap is the contribution of three-loop and higher QED corrections
 ($C_3(\alpha/\pi)^3 \approx +1.5\times 10^{-8}$) plus hadronic and
 electroweak --- explicitly outside Q-G19$\alpha$'s
 leading-plus-first-correction scope.
@@ -686,7 +713,11 @@ closure).} They are \textbf{Stage-2} results and are \textbf{postulate-condition
 $n_q$-additivity postulate introduced with $\delta = -\alpha n_q/2$ above, and that postulate was
 \textbf{resolved NEGATIVE} on 2026-05-31 (next paragraph). The framework's \emph{unconditional,
 parameter-free} forward result at two loops is the \textbf{Stage-1 $+4.0\%$} offset
-($C_2^{\text{AVE,sym}} = -0.3416$), not the $50$~ppm figure. Quoting the $50$~ppm match without the
+% [ppm-STRIKE 2026-08-03 --- Grant ruling; same provenance as above. Rule 12:
+%  STRUCK: "($C_2^{\text{AVE,sym}} = -0.3416$), not the $50$~ppm figure. Quoting the $50$~ppm match without the"
+%  Replaced by the un-numbered form below; the sentence's POINT (Stage-1 is the
+%  unconditional result) is unchanged and is not a ppm claim.]
+($C_2^{\text{AVE,sym}} = -0.3416$), not the Stage-2 closure. Quoting the Stage-2 match without the
 postulate is an overstatement of what the substrate derives. Canonical:
 \kbleaf{ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md}
 (:12/:14 the two-stage split, :92/:100/:103 the values, :121 the postulate-conditional cell).
@@ -731,7 +762,9 @@ postulate is an overstatement of what the substrate derives. Canonical:
     law fits \emph{only} $q = 3$ (to $0.12\%$); at $q = 1, 5, 7$ it is
     $24$--$780\times$ off \emph{with the wrong sign}. $\delta = -3\alpha/2$
     is therefore a \textbf{one-point fit, not a winding law}, and the
-    $50$~ppm closure it produces is a postulate-dependent echo rather
+%   [ppm-STRIKE 2026-08-03 --- Grant ruling; same provenance as above. Rule 12:
+%    STRUCK: "$50$~ppm closure it produces is a postulate-dependent echo rather"]
+    Stage-2 closure it produces is a postulate-dependent echo rather
     than a derived result. No replacement mechanism is proposed here;
     what stands unconditionally is the Stage-1 $+4.0\%$ forward.
     (\kbleaf{ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md}:110.)
