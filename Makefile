@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -71,6 +71,7 @@ help:
 	@echo "  make verify-frozen-provenance : Check research/ result-doc Frozen-label criteria appear byte-identically in the lane prereg (date-gated)"
 	@echo "  make verify-lane-number-checks : Check research-lane result-doc numeric tokens against their shipped JSON sources (gating)"
 	@echo "  make verify-coldq-v2-number-check : Check the cold-Q v2.1 result-doc numerals against its shipped JSON (gating)"
+	@echo "  make verify-coldq-v22-number-check : Check the cold-Q v2.2 root-certification result-doc numerals against its shipped JSON (gating)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -100,7 +101,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
@@ -154,6 +155,14 @@ refresh-predictions:
 kb-claim-stats:
 	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
 	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) -m kb_cmd stats
+
+# Placed as its OWN target, and placed HERE rather than beside the other
+# number-check recipes: PR #854 has open, unmerged edits both to the
+# verify-lane-number-checks recipe and to the block after verify-anchor-content,
+# and a third edit adjacent to either would collide.  Same gating effect.
+verify-coldq-v22-number-check:
+	@echo "Checking the cold-Q v2.2 root-certification result-doc numerals against its shipped JSON (gating)..."
+	$(PYTHON) research/drivers/coldq_pole_v2p2_root_number_check.py
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
