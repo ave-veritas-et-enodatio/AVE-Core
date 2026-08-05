@@ -1,25 +1,30 @@
 """
 Unit tests for the predictions-manifest validator.
 
-Covers each of the 4 structural checks (schema, label, engine, parity) with
-both happy-path and failure fixtures, plus an end-to-end assertion that the
-live manifest has zero critical findings (its quality gate for CI).
+Covers each structural check (schema, label, engine, bridge, axioms,
+calibration_role, parity) with both happy-path and failure fixtures, plus an
+end-to-end assertion that the live manifest has zero critical findings (its
+quality gate for CI).
 
 Reference: src/scripts/predictions_manifest_validator.py,
            manuscript/predictions.yaml
 """
 
 from scripts.predictions_manifest_validator import (
+    ALLOWED_CALIBRATION_ROLES,
     ALLOWED_TYPES,
     MANIFEST_PATH,
+    PROVENANCE_MARKERS,
     REPO_ROOT,
     check_axioms,
     check_bridge,
+    check_calibration_role,
     check_engine,
     check_labels,
     check_living_reference_parity,
     check_readme_parity,
     check_schema,
+    collect_claim_cards,
     collect_constants_symbols,
     collect_dependency_edges,
     collect_manuscript_labels,
@@ -28,6 +33,8 @@ from scripts.predictions_manifest_validator import (
     extract_living_reference_prediction_rows,
     load_manifest,
     run,
+    scan_provenance,
+    suggest_role,
 )
 
 
@@ -365,6 +372,202 @@ class TestAxioms:
         assert len(adj) > 0
         # at least one claim depends directly on an axiom node
         assert any(any(t.startswith("axiom-") for t in tgts) for tgts in adj.values())
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# check_calibration_role — declared provenance vs CORPUS-DERIVED truth
+# ───────────────────────────────────────────────────────────────────────────
+class TestCalibrationRole:
+    """The reconciler's contract: the verdict comes from the claim CARD, never
+    from the manifest itself. Every fixture below supplies a synthetic card so
+    the corpus half of the comparison is explicit — if a test could pass with
+    an empty card dict, it would be testing a checklist, not a gate.
+    """
+
+    @staticmethod
+    def _cards(**bodies: str) -> dict[str, tuple[str, str, int]]:
+        """Build a {clm_id: (card_text, path, line)} map from kwargs keyed by
+        the trailing 6 chars of a clm id (kwargs can't contain a hyphen)."""
+        return {f"clm-{k}": (v, "manuscript/ave-kb/volX/claim-quality.md", 1) for k, v in bodies.items()}
+
+    # ── happy path ─────────────────────────────────────────────────────────
+    def test_reconciled_role_no_findings(self) -> None:
+        # Card grades the claim a consistency check; `consistency` is not in
+        # that marker's forbidden set -> RECONCILED, silent.
+        cards = self._cards(aaaaaa="- Classification is a consistency check (reproduces a known result).")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "consistency"}])
+        assert check_calibration_role(m, cards=cards) == []
+
+    def test_undeclared_role_is_skipped(self) -> None:
+        # calibration_role is optional (predictions.yaml:29). Absent -> nothing
+        # to reconcile, not a failure.
+        cards = self._cards(aaaaaa="- The value is GR-imported.")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        assert check_calibration_role(m, cards=cards) == []
+
+    def test_unbridged_entry_is_skipped(self) -> None:
+        # No clm bridge -> no corpus card exists to reconcile against.
+        cards = self._cards(aaaaaa="- The value is GR-imported.")
+        m = _manifest([{"id": "P01", "calibration_role": "chord"}])
+        assert check_calibration_role(m, cards=cards) == []
+
+    # ── failure mode 1: an imported VALUE contradicts `chord` ───────────────
+    def test_value_imported_contradicts_chord(self) -> None:
+        cards = self._cards(
+            aaaaaa=("- clm-iouqn9 [the vacuum Poisson ratio is the GR-imported trace-reversal value]"),
+        )
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].details["verdict"] == "CONTRADICTED"
+        assert findings[0].details["signals"] == ["VALUE_IMPORTED"]
+        # The receipt must be carried, not just the verdict.
+        assert "GR-imported" in findings[0].details["forbidding_signals"]["VALUE_IMPORTED"][0]
+
+    def test_form_vs_value_split_contradicts_chord_and_suggests_mixed(self) -> None:
+        cards = self._cards(
+            aaaaaa=("- so the FORM $\\sin^2\\theta_W$ is derived but the VALUE $2/9$ is import-capped"),
+        )
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert "FORM_VS_VALUE_SPLIT" in findings[0].details["signals"]
+        assert findings[0].details["suggested"] == "mixed"
+
+    # ── failure mode 2: a fitted / phenomenological VALUE contradicts `chord`
+    def test_value_fitted_contradicts_chord(self) -> None:
+        cards = self._cards(aaaaaa="- Mapping-conditional, disclosed-phenomenological match.")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].details["signals"] == ["VALUE_FITTED"]
+
+    # ── failure mode 3: a consistency grading contradicts forward-prediction
+    def test_consistency_class_contradicts_forward_prediction(self) -> None:
+        cards = self._cards(aaaaaa="- This is a **consistency check** (category iii).")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "forward-prediction"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].details["verdict"] == "CONTRADICTED"
+
+    # ── failure mode 4: the REVERSE direction — a card that refuses the
+    #    consistency grading contradicts a declared `consistency` ────────────
+    def test_consistency_denied_contradicts_consistency(self) -> None:
+        cards = self._cards(
+            aaaaaa=("- error 1.7% — a category (iv) derived prediction, not an identity or consistency check."),
+        )
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "consistency"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].details["forbidding_signals"].keys() == {"CONSISTENCY_DENIED"}
+
+    # ── failure mode 5: an unknown role is a precondition failure ───────────
+    def test_unknown_role_is_critical(self) -> None:
+        cards = self._cards(aaaaaa="- anything")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "vibes"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert findings[0].details["verdict"] == "UNKNOWN_ROLE"
+
+    # ── the UNRECONCILED case — corpus silent, no guess ─────────────────────
+    def test_silent_card_is_unreconciled_not_a_guess(self) -> None:
+        cards = self._cards(aaaaaa="- A clean algebraic chain with no provenance statement.")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards=cards)
+        assert len(findings) == 1
+        assert findings[0].severity == "info"
+        assert findings[0].details["verdict"] == "UNRECONCILED"
+        assert "suggested" not in findings[0].details
+
+    def test_missing_card_warns(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-zzzzzz", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards=self._cards(aaaaaa="x"))
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+        assert findings[0].details["verdict"] == "NO_CARD"
+
+    def test_empty_kb_warns_not_crashes(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        findings = check_calibration_role(m, cards={})
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+
+    # ── the negation guard (the false-positive class that would kill the gate)
+    def test_negated_marker_does_not_fire(self) -> None:
+        # Live text from vol3/claim-quality.md clm-395gps: the phrase
+        # "consistency check" appears, but NEGATED. A naive scanner would
+        # mis-grade a category-(iv) derived prediction as consistency-class.
+        body = "- a category (iv) derived prediction, not an identity or consistency check."
+        signals = {mk.signal for mk, _ in scan_provenance(body)}
+        assert "CONSISTENCY_CLASS" not in signals
+        assert "CONSISTENCY_DENIED" in signals
+
+    def test_vs_listing_does_not_fire_consistency(self) -> None:
+        # Live text from vol2/claim-quality.md clm-xhdai6 strengthen-by: a task
+        # line enumerating categories, not a grading of this claim.
+        body = "- Tabulate which of the 26 are derived predictions vs consistency checks vs identities."
+        assert "CONSISTENCY_CLASS" not in {mk.signal for mk, _ in scan_provenance(body)}
+
+    # ── the design invariant: positive derivation language licenses nothing ──
+    def test_form_forced_forbids_nothing(self) -> None:
+        # "zero free parameters" is equally consistent with `chord` and with
+        # `mixed` (form-derived / value-imported), so it must never clear or
+        # create a contradiction on its own.
+        assert all(mk.forbids == frozenset() for mk in PROVENANCE_MARKERS if mk.signal == "FORM_FORCED")
+        cards = self._cards(aaaaaa="- Derived with zero free parameters.")
+        for role in sorted(ALLOWED_CALIBRATION_ROLES):
+            m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": role}])
+            assert check_calibration_role(m, cards=cards) == []
+
+    def test_no_marker_reads_solidity_or_confidence(self) -> None:
+        # calibration_role is a PROVENANCE axis; solidity is a CONFIDENCE axis.
+        # Conflating them is a category error, so no pattern may key on either.
+        banned = ("solidity", "confidence", "build_status", "build_band", "use as input only")
+        for mk in PROVENANCE_MARKERS:
+            for token in banned:
+                assert token not in mk.pattern, f"{mk.signal} pattern keys on {token!r}"
+
+    # ── suggest_role is advisory-only ──────────────────────────────────────
+    def test_suggest_role_mapping(self) -> None:
+        assert suggest_role({"FORM_VS_VALUE_SPLIT"}) == "mixed"
+        assert suggest_role({"FORM_FORCED", "VALUE_FITTED"}) == "mixed"
+        assert suggest_role({"VALUE_IMPORTED"}) == "echo"
+        assert suggest_role({"CONSISTENCY_CLASS"}) == "consistency"
+        assert suggest_role({"FORM_FORCED"}) is None
+        assert suggest_role(set()) is None
+
+    def test_severity_knob_switches_gating_posture(self) -> None:
+        cards = self._cards(aaaaaa="- Mapping-conditional, disclosed-phenomenological match.")
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": "chord"}])
+        assert check_calibration_role(m, cards=cards)[0].severity == "warn"
+        assert check_calibration_role(m, cards=cards, severity="critical")[0].severity == "critical"
+
+    # ── live corpus ────────────────────────────────────────────────────────
+    def test_live_cards_load(self) -> None:
+        cards = collect_claim_cards()
+        assert len(cards) > 100, f"expected the live KB registers to yield >100 claim cards, got {len(cards)}"
+        for clm_id, (body, path, line) in cards.items():
+            assert clm_id.startswith("clm-")
+            assert body.lstrip().startswith("## "), f"{clm_id} card does not start at its ## heading"
+            assert path.startswith("manuscript/ave-kb/")
+            assert "tools/tests" not in path, "test fixtures must not be read as corpus authority"
+            assert line >= 1
+
+    def test_live_card_sections_do_not_bleed(self) -> None:
+        # Each card must own exactly one clm id marker — a slice that ran past
+        # the next `## ` heading would attribute a neighbour's provenance.
+        cards = collect_claim_cards()
+        for clm_id, (body, _, _) in cards.items():
+            assert body.count("<!-- id: clm-") == 1, f"{clm_id} card slice spans multiple claim entries"
+
+    def test_live_manifest_has_no_unknown_roles(self) -> None:
+        # The reconciler's precondition holds on the live manifest.
+        m = load_manifest(MANIFEST_PATH)
+        criticals = [f for f in check_calibration_role(m) if f.severity == "critical"]
+        assert criticals == [], "Live manifest declares a calibration_role outside the taxonomy:\n" + "\n".join(
+            f"  P={f.entry_id} {f.message}" for f in criticals
+        )
 
 
 # ───────────────────────────────────────────────────────────────────────────
