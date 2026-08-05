@@ -949,11 +949,22 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     # ── FORM_VS_VALUE_SPLIT ── the card states the FORM/VALUE split verbatim.
     # This is the `mixed` definition (predictions.yaml:32) written out longhand,
     # so it forbids `chord` and drives the `mixed` suggestion.
+    #
+    # AUDIT NOTE (2026-08-04). This marker shipped DEAD: it fired on 0 of 329
+    # cards, because the only site it matches is its own receipt and the
+    # unclamped negation window discarded it there. A table row that has never
+    # fired, whose receipt is its own suppression site, is decoration. The
+    # clause-scoped guard repair released it; re-measured, it fires on exactly
+    # 1 of 329 cards — clm-5zuo7g, the receipt below — so the receipt is honest
+    # and the row is kept. `test_form_vs_value_split_fires_on_its_live_receipt`
+    # pins that, and `test_every_marker_fires_somewhere_in_the_live_corpus`
+    # stops any marker from going dead again unnoticed.
     ProvenanceMarker(
         "FORM_VS_VALUE_SPLIT",
         r"FORM[^.]{0,220}is derived but the VALUE",
         frozenset({"chord"}),
-        "vol2/claim-quality.md clm-5zuo7g depends-on note; the axis itself is "
+        "vol2/claim-quality.md:120 clm-5zuo7g depends-on note (sole live site, "
+        "verified firing); the axis itself is "
         "common/form-deriving-value-importing.md",
     ),
     # ── CONSISTENCY_CLASS ── the card grades the claim as reproducing a known

@@ -674,6 +674,20 @@ class TestCalibrationRole:
         for clm_id, (body, _, _) in cards.items():
             assert body.count("<!-- id: clm-") == 1, f"{clm_id} card slice spans multiple claim entries"
 
+    def test_form_vs_value_split_fires_on_its_live_receipt(self) -> None:
+        # This marker shipped DEAD (0 of 329 cards) because the unclamped
+        # negation window discarded its only match — which was its own claimed
+        # receipt. Pin the re-measurement: it must fire on the LIVE clm-5zuo7g
+        # card, and that card must remain its sole live site (if a second site
+        # appears, the receipt is stale and needs re-verifying).
+        cards = collect_claim_cards()
+        firing = {
+            clm_id
+            for clm_id, (body, _, _) in cards.items()
+            if "FORM_VS_VALUE_SPLIT" in {mk.signal for mk, _ in scan_provenance(body)}
+        }
+        assert firing == {"clm-5zuo7g"}, f"FORM_VS_VALUE_SPLIT live sites drifted: {sorted(firing)}"
+
     def test_live_manifest_has_no_unknown_roles(self) -> None:
         # The reconciler's precondition holds on the live manifest.
         m = load_manifest(MANIFEST_PATH)
