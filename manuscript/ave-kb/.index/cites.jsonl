@@ -686,6 +686,7 @@
 {"claim_id": "clm-x19btt", "leaf_path": "vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-x5z09x", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-x5z09x", "leaf_path": "vol5/molecular-foundations/organic-circuitry/membrane-phase-buffering.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-xfrcst", "leaf_path": "common/transfer-cost-theorem.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-xhdai6", "leaf_path": "vol2/nuclear-field/ch10-open-problems/quantitative-resolutions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-xhdai6", "leaf_path": "vol2/nuclear-field/ch10-open-problems/scale-invariance-table.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-xhdai6", "leaf_path": "vol2/nuclear-field/ch10-open-problems/unification.md", "leaf_kind": "leaf", "tier2_marked": false}

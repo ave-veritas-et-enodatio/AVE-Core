@@ -1663,3 +1663,36 @@ At the swing-railed core the impedance **ordering of the channels flips** versus
 - strengthen-by:
   - pin what the circulation variable `A_I` does at the `(2,3)` knot core (cold vs rising vs Meissner-`μ→0`) — reconciles the relativistic-inductor / Route-C / wall-fork readings and closes the open sub-detail
   - Grant/auditor adjudication of the "impedance dual" framing over the already-ratified INVARIANT-S2 split
+
+---
+
+## The Transfer-Cost Theorem — the free/costed carve is at the SYSTEM boundary, and the cost is countability
+<!-- id: clm-xfrcst -->
+
+**Canonized 2026-08-04 (Grant ruling 2026-08-03; canonization resequenced into the mechanical-rulings batch per `_orchestration/docket-entries/2026-08-04-rulings-ringdown-wave-batch.md` item 6).** Statement, as ruled: **within-system reactive exchange is free however many CHANNELS it crosses; an arrow exists iff energy crosses the SYSTEM boundary into a continuum-counted port** — far-field radiation, a matter detector, or a topology change — and *"the cost is not paid to a resistor; it is paid in countability."* Canonical home [`transfer-cost-theorem.md`](./transfer-cost-theorem.md). This is a **consistency / organizing theorem over already-ruled canon** (Axiom 3; the three ruled loss channels at [`substrate-native-terminology.md`](./substrate-native-terminology.md):33; RULING 21 Op3; the PRODUCT/TRANSITION crossing-arrow licence): it originates no mechanism, predicts no number, and moves no other grade.
+
+- _Specific Claims_
+  - **The carve is at the SYSTEM boundary, not the channel boundary.** Channel crossings inside the boundary ($L\leftrightarrow C$, $A_1\leftrightarrow T_2$, electric ↔ magnetic) are free by Axiom 3. The receipt is a counterexample, not an appeal: the ideal LC tank **is** a channel crossing and is free ($Q\to\infty$), which falsifies both *"transfer costs"* and *"channel-crossing costs"*.
+  - **The three delivery modes are the corpus's three ruled loss channels** — radiative port / boundary-Joule extraction / Regime-IV rupture — read in the delivery register, with the counting done respectively by a continuum of external modes, a detector's own record, and a change in the lattice's mode inventory.
+  - **$R_{rad} \equiv Z_0$ (and $Z_{det}$) is a DELIVERY impedance, not a dissipation.** A real $\mathrm{Re}(Z)$ at the boundary is where the system stops, not where the substrate rubs; the energy leaves intact. The *"never paid to a resistor"* clause is therefore exact as *"no resistor inside the system"*.
+  - **Op3 is the negative control**: a genuine channel crossing ($A_1$ into the $T_2$ irreps) that crosses no system boundary, is unitary in code (`src/ave/core/k4_tlm.py:396-398`, *"Conserves total power"*), and correspondingly carries no arrow (RULING 21, LOSSLESS TRANSDUCTION).
+- _Specific Non-Claims and Caveats_
+  - **Does NOT settle whether it is a definition or a claim.** Whether *"crosses a counting boundary"* **defines** the arrow or **claims when arrows occur** is OPEN. The Op3 control is the argument that it has content (it forbids a reading canon might otherwise have taken); it is not a proof, and the tautology edge is recorded rather than dismissed.
+  - **Does NOT scope the near-yield fork.** The at/above-yield crossing (reversible vs memristive) stays OPEN ([`retention-transition-split.md`](./retention-transition-split.md):61, :65, :67; Grant leans reversible). The theorem banks it neither way: it asks any arrow which port counted it; it supplies none.
+  - **Does NOT claim novelty over the PRODUCT/TRANSITION split.** That it may be that split re-stated one altitude up is the honest null outcome and is not argued against. What is demonstrably new is the scope word (system, not channel) and the delivery register for $R_{rad}$.
+  - **Settles no unitarity question**, in particular not the black-hole information FLAG: it constrains the FORM any answer may take (an arrow must name its counting port) and picks no answer.
+  - **Not adversarially reviewed.** Landed by the mechanical-rulings batch as ruling execution; the PR review is the gate.
+
+> **Leaf references:** [transfer-cost-theorem](./transfer-cost-theorem.md).
+
+### Quality
+- confidence: 0.60
+- depends-on:
+  - Axiom 3 (lossless substrate — the free half of the carve, and the source of the LC-tank counterexample)
+  - clm-acdc07 — the AC/DC carve (the ports-and-boundaries reading of what is shared vs contested)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
+- rationale: Every constituent is already-ruled canon — Axiom 3, the three ruled loss channels (`substrate-native-terminology.md`:33, RULING 21 2026-07-19), the crossing-arrow licence (*"the arrow comes from mode-count or a click, never a valve"*, `research/2026-07-13_f6-tier1-two-reservoir-ledger_CHARTER.md`:256), and the SYSTEM-loss port row (`retention-transition-split.md`:60) — so the theorem carries no ungraded physical premise. Confidence 0.60 (not higher) for three reasons stated on the leaf: the definition-vs-claim edge is genuinely open (a scope theorem whose content rests on one negative control is not a proof), the near-yield fork is excluded rather than covered, and the possibility that this is the PRODUCT/TRANSITION split at higher altitude is unresolved. Confidence 0.60 (not lower) because the corrected scope word is receipted by a counterexample the corpus already owned and the $R_{rad}$-as-delivery reading is carried independently by two merged records (the ringdown-batch caption ruling and the SVA provenance section).
+- strengthen-by:
+  - close the definition-vs-claim edge: produce a second, independent case where the theorem FORBIDS a reading the corpus would otherwise have taken (Op3 is the first) — two independent forbiddings would move it from organizing scope-rule to theorem
+  - adjudicate whether the near-yield crossing sits inside or outside the theorem's scope once the yield fork resolves (the crux is #59 Flag F, a derivation question)
+  - run the altitude check explicitly: enumerate what `retention-transition-split.md` already licenses and show a statement this theorem makes that the split does not

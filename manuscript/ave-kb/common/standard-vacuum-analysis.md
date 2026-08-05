@@ -82,8 +82,11 @@ future walk-back. Failure closed: silent value-laundering (the V_BR 3.631-vs-3.5
 arrow exists iff energy crosses the system boundary into a continuum-counted port (far-field
 radiation, matter detector, topology change). On the vacuum Smith chart, all passive medium states
 live ON the rim (Axiom 3); the interior is reachable only through ports. No "loss," "dissipated,"
-or "Joule" without naming the port. Failure closed: delivery-vs-dissipation conflations. Home: the
-transfer-cost theorem (Grant ruling 2026-08-03; canonization in flight, mechanical-rulings batch).
+or "Joule" without naming the port. Failure closed: delivery-vs-dissipation conflations. Home:
+[`transfer-cost-theorem.md`](transfer-cost-theorem.md) — **canonized 2026-08-04** (`clm-xfrcst`,
+mechanical-rulings batch), which carries the three delivery modes, $R_{rad}$-as-delivery, and the
+Op3 negative control. *(This row's wording is the ruled statement; the leaf quotes it, not the
+reverse.)*
 
 **7. Calibratability.** From inside the medium there is no external calibration standard: the only
 self-calibratable observables are dimensionless ratios and phase differences at your own ports (the
