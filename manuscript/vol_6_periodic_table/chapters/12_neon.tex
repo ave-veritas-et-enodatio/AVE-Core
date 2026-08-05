@@ -33,11 +33,37 @@ Executing the $M_{ij}$ solver targeting the empirical CODATA Nuclear Mass of Neo
 %    "| Bipyramid radius | $R_{\text{bipyr}} = 81.158d$ (engine) / $81.181d$ (chapter body) |"
 %  That record lived only in the KB index; a reader of this chapter saw two values for one scalar
 %  with no explanation. This note propagates the RECORD, not a resolution.
-%  CITE-STATE FLAG: the board's verify note for this finding corrects the companion caption cite
-%  to ":54, not :53". At HEAD the caption carrying "$R=81.181d$" is at :53 (:52 is the
-%  \includegraphics) -- verified two-method (direct read + `grep -rn '81\.181'`). The original
-%  finding's ":53" was right; the verify note's correction is wrong at HEAD. Surfaced, not fixed
-%  in the board.]
+%  CITE-STATE FLAG [REPAIRED 2026-08-05 -- the flag was SELF-STALE; see below].
+%  The companion caption carrying "$R=81.181d$" is the "Topological density slice ($Z=0$
+%  Equatorial Plane) for Neon-20" caption in the figure labelled \label{fig:neon_20_density},
+%  later in this chapter. It is CITED BY ANCHOR TEXT, deliberately, and no line number is
+%  asserted for it -- see the cite-style ruling at the end of this note.
+%  WHAT WAS WRONG: the prior text of this flag read "At HEAD the caption ... is at :53 (:52 is
+%  the \includegraphics)" and concluded that the board verify note's ":54, not :53" correction
+%  was wrong. The flag was invalidated BY ITS OWN COMMIT. Receipts (verified two-method --
+%  quoted `grep -n '81\.181'` + independent `awk` line scan -- and by `git show` of the two
+%  ancestry points):
+%    - at 3cab9c4f~1 (the parent, i.e. the state the flag was written against) the caption was
+%      indeed at :53;
+%    - at 3cab9c4f ITSELF -- the very commit that introduced this flag, "docs(vol6): carry the
+%      known Neon-20 R_bipyr split into print at 12_neon.tex:24" (merged in PR #852) -- the
+%      same commit's insert pushed the caption DOWN to :70. So the flag shipped asserting an
+%      "At HEAD" line number that its own diff had already falsified;
+%    - two later commits on this file (1faee721 RULING 6, df4b049a finding-2 repair) moved it
+%      again; at the present HEAD it sits at :87, with the \includegraphics at :86.
+%  So neither ":53" nor ":54" is right now, and the flag's verdict on the board's correction was
+%  decided on a line number that had already moved. The adjudication is VACATED, not re-decided:
+%  which of ":53"/":54" was right against the pre-3cab9c4f state is moot, because both cite a
+%  file state that no longer exists. NO VALUE IS CHANGED by this repair -- $81.181d$ and
+%  $81.158d$ both stand exactly as printed, the KNOWN-SPLIT record above is untouched, and the
+%  question of which value is canonical remains NOT adjudicated in this lane.
+%  CITE-STYLE RULING (2026-08-05, applied here and recorded for reuse): where a target file is
+%  append-heavy or has shifted repeatedly, cite by ANCHOR TEXT -- a stable quoted phrase, a
+%  \label, or a section name -- rather than by ":NNN". Use ":NNN" only where the target is
+%  stable. This caption moved THREE times (:53 -> :70 -> :87) in the space of one PR plus two
+%  follow-ups, which is exactly the append-heavy case the ruling names; a pre-staging audit
+%  independently found a frontier-queue cite that moved twice in ten days (:26 -> :113 -> :266).
+%  Restating a fresh ":NNN" here would only reset the same decay clock.]
 \noindent\emph{Known split (recorded here, not resolved):} the engine value for this same scalar is $R_{\text{bipyr}} = 81.158\,d$ --- the value used in the Semiconductor Regime Classification section below and adopted for the Neon-20 core in Ch.~\ref{ch:sodium} --- while this chapter body and the density-slice caption quote $81.181\,d$. The discrepancy is logged in the knowledge base at \kbleaf{manuscript/ave-kb/vol6/period-2/neon/index.md} as ``$R_{\text{bipyr}} = 81.158d$ (engine) / $81.181d$ (chapter body)''. It is carried here so the split is visible in print; no value is retracted and no reconciliation is claimed.
 
 \section{Addressing the Curve-Fitting Fallacy}
