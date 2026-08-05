@@ -110,6 +110,13 @@ Modeling the Hulse-Taylor binary pulsar as a macro-electrical orbital LC tank (\
 
 The circuit model reproduces the observed orbital decay to within $\sim 2\%$, showing that the general-relativistic quadrupole result can be cast as transmission-line phase-retardation across the LC lattice.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_hulse_taylor_phase_slip.png}
+    \caption{\textbf{Quadrupole phase-slip damping of the binary orbital tank.} The blue branch is the radiated power \textbf{delivered to the far-field port}, $P_{\mathrm{rad}} = Q\,\delta$, against the reactive tank power $Q$ of the orbital LC tank; the grey dashed line is the reactive ceiling $P = Q$; the star marks PSR~B1913+16 at its empirical orbital bounds. \textbf{Transfer-cost framing, and it is load-bearing:} the ordinate is power \emph{delivered}, \textbf{not} power ``dissipated'' --- nothing in the binary is a resistor. Per the transfer-cost theorem (\kbleaf{ave-kb/common/transfer-cost-theorem.md}, \texttt{clm-xfrcst}), within-system reactive exchange is free however many channels it crosses; an arrow appears only where the transfer crosses the \emph{system boundary} through a counting port, and a real port at the boundary is a \textbf{delivery terminal} --- the substrate does not heat, the energy leaves intact into whatever counts it. \emph{Scope:} the $(v/c)^5$ quadrupole scaling and the Peters--Mathews coefficients are carried over from the standard radiation formula (see the derivation above), so this is a \textbf{consistency reproduction} cast in circuit variables, not an independent first-principles derivation of the decay rate.}
+    \label{fig:hulse_taylor_phase_slip}
+\end{figure}
+
 % Rule-12 closure (2026-07-20, Grant Q1 ruling): the "unresolved channel attribution"
 % warningbox is CLOSED with a dated RESOLVED-with-receipt lead-in; the ORIGINAL warningbox
 % text is PRESERVED VERBATIM below the lead-in per KEEP-BOTH (do not delete it). Grant ruled

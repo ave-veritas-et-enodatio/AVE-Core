@@ -46,7 +46,7 @@
 | `lithium_7_density_z_pos.png` | `vol_6 …05_lithium.tex:29` (off-equator minipage) | element render, slot exists. *(NB: 05_lithium.tex has a duplicate-figure bug.)* |
 | `circuit_be8_decay.pdf` | `vol_6 …06_beryllium.tex` §"Topological Area of Interest" | decay-circuit, figure-less section. |
 | `circuit_orbital_phase_jitter.pdf` | `vol_2 …07_…orbitals.tex:264` §"The Mutual Cavity" | figure-less subsection. |
-| `fig_hulse_taylor_phase_slip.png` | `vol_3 …08_gravitational_waves.tex` §"Hulse-Taylor Binary Pulsar" (:68-78) | the only figure-less stretch in ch08; *(gap-sweep)* |
+| ~~`fig_hulse_taylor_phase_slip.png`~~ **EXECUTED 2026-08-05** | `vol_3 …08_gravitational_waves.tex` §"Hulse-Taylor Binary Pulsar" | ~~the only figure-less stretch in ch08; *(gap-sweep)*~~ **PLACED in the ringdown wave (one-print-touch coupling, R6). Not placed as-is:** the figure was REGENERATED generator-first under the house print style (white, Okabe-Ito, legend outside the data, no on-figure title, honest quantity+symbol+unit axis labels — the prior raster printed a raw un-rendered `P_{real}`), and the caption carries the TRANSFER-COST framing (radiated power **delivered to the far-field port**, not "dissipated"; `common/transfer-cost-theorem.md`, `clm-xfrcst`). Generator: `src/scripts/vol_3_macroscopic/generate_manuscript_figures.py`. |
 | `sonoluminescence_challenge.png` | `vol_4 …11_experimental_falsification.tex` §"Acoustic Cavitation" | FOC-isomorphism subsection has no figure; *(gap-sweep)* |
 | `k4_native_chirality.png` | `vol_4 …01_vacuum_circuit_analysis.tex` §"K4-TLM (Tetrahedral Diamond)" | solver subsection describes chirality verbally, no figure; *(gap-sweep)* |
 
