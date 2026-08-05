@@ -71,7 +71,7 @@ Home: [`vocabulary-register.md`](vocabulary-register.md).
 of graded skin inverts short↔open) and its projection (series-graded ⇒ Z→∞, shunt-graded ⇒ Z→0
 at the same cutoff). The sign is computed from the branch-derived wall row, never chosen. In a
 medium with no outside, the plane declaration is a theorem, not a convention. Failure closed: the
-FLAG-W class of phantom contradictions. Home: [`wall-taxonomy.md`](wall-taxonomy.md) §9.
+FLAG-W class of phantom contradictions. Home: [`wall-taxonomy.md`](wall-taxonomy.md) §10.
 
 **5. Constitutive provenance.** Tag every grading law and constant as DERIVED (substrate-forced),
 IMPORTED (GR/SM/engineering value), FORKED (open, with fork-id), or ENG-CHOICE. The corpus-wide
