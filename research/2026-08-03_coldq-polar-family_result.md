@@ -72,6 +72,8 @@
 
 **Frozen:** `canon carries two opposite bulk-modulus signs at the same r_sat wall -- bulk-impedance-at-saturation-boundary.md:31 (c_bulk -> 0, Z_bulk -> 0, Gamma_bulk = -1) and saturating-modulus-and-backreaction.md:57 (D = 1/S -> infinity, the modulus goes rigid) -- with engine-capability-map.md:69 flagging the conflation as a firewall violation; this lane surfaces the contradiction with all three verbatim citations, repairs no leaf, adjudicates nothing, and runs BOTH branches`.
 
+> **[CITE-STATE NOTE — orchestrator receipt-verify, 2026-08-04.]** The frozen text and the FLAG-W rows above cite `saturating-modulus-and-backreaction.md:57`; at both the freeze-base (`origin/main` = `ce65b3b8`) and current HEAD the quoted line sits at **`:59`** — verified two-method (direct read + `git show origin/main:<path> | grep -n`). Two-line drift in the citation only; the quote itself is verbatim; per Rule 11 the frozen text is not altered — this note surfaces the drift rather than rewriting it.
+
 **Both branches were built and both were run.** They are **identical in the far field** (both give `K → 2G_vac`, `c_P → √(10/3) c₀` as `A → 0`) and differ **only at the wall** — which is the mechanical reason no axial lane could have surfaced this, and the reason it is load-bearing here. **`RIDER-2` cannot be evaluated**, because neither branch produced an `ω_R M_g` to compare.
 
 ### §2.2 The wall boundary condition, derived per channel rather than assumed to short together
