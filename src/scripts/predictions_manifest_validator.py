@@ -813,14 +813,62 @@ class ProvenanceMarker:
     receipt: str
 
 
-# Negation guard. A marker match is DISCARDED if a negation token governs it
-# from within this many characters immediately before the match. Without it,
-# "a category (iv) derived prediction, not an identity or consistency check"
-# (vol3/claim-quality.md, clm-395gps) would false-fire CONSISTENCY_CLASS, and
-# "derived predictions vs consistency checks vs identities" (vol2, clm-xhdai6,
-# a strengthen-by task line) would false-fire it too.
+# ── Two independent suppression guards ────────────────────────────────────
+# Both exist to stop FALSE POSITIVES. Both are themselves bounded, because an
+# over-broad suppressor is a FALSE NEGATIVE generator — and a detector that
+# silently declines to fire is a checklist wearing a gate's clothes, which is
+# the exact failure mode this whole check exists to kill. Every relaxation
+# below is regression-tested in BOTH directions: `TestCalibrationRole`'s
+# false-positive tests (the guard must fire) and its anti-over-suppression
+# tests (the guard must NOT fire), the latter keyed to live corpus sites.
+#
+# GUARD 1 — NEGATION, clause-scoped. A marker match is discarded only if a
+# negation token governs it: the token must lie inside `_NEGATION_WINDOW`
+# characters AND inside the SAME CLAUSE. The clause clamp is the repair for a
+# measured over-suppression: a bare character window reaches backwards across
+# sentence and clause boundaries and kills affirmations. Five live sites were
+# being silently discarded by the unclamped window, e.g.
+#   vol2/claim-quality.md:120 (clm-5zuo7g) "…value, NOT a free framework
+#     input; so the FORM … is derived but the VALUE …" — the NOT scopes over
+#     "a free framework input" and AFFIRMS the import, on the far side of a ';'
+#   vol2/claim-quality.md:1531 (clm-3i66gp) "…not an AVE numerical output.
+#     Structural/consistency-class only." — negation in the PREVIOUS sentence
+#   common/claim-quality.md:1477 (clm-strreg) "**RULED CONVENTION, NOT A
+#     DERIVATION — consistency-class.**" — denial, em-dash, then affirmation
+# A '.' ';' ':' '!' '?' only counts as a boundary when followed by whitespace,
+# so decimals ("solidity 0.55") and version strings cannot fake one; ')' counts
+# because a negation sealed inside a parenthetical cannot govern text outside
+# it; '—'/'–' count because an em-dash separates an assertion from its clause.
+# A bare ',' does NOT count — "not an identity or consistency check" must stay
+# suppressed, and so must a negated comma list ("not a chord, a consistency
+# check, or an identity") — but a comma followed by a clause-initial
+# pronoun+copula DOES ("This is not novel, it is a consistency check", the
+# near-canonical AVE self-description form). Measured: the comma rule changes
+# NOTHING on the live corpus today (suppression-event set identical with and
+# without it); it is carried for the constructed class, and its scope is
+# pinned by tests in both directions.
 _NEGATION_WINDOW = 40
-_NEGATION_RE = re.compile(r"\b(?:not|NOT|vs)\b")
+_NEGATION_RE = re.compile(r"\bnot\b", re.I)
+_CLAUSE_BOUNDARY_RE = re.compile(
+    r"(?:[.;:!?](?=\s|$)"
+    r"|[\n—–)]"
+    r"|,(?=\s+(?:it|this|that|they|these|those|which)\s+(?:is|are|was|were)\b))"
+)
+
+# GUARD 2 — ENUMERATION. `vs` was previously carried in the negation lexicon.
+# It is not a negation, it is a COMPARISON marker, and treating it as one
+# produced false negatives on ordinary comparative prose ("sub-1 ppm vs
+# CODATA). Classification is largely a consistency check…", clm-qde5gn;
+# "(−5.2% vs measured), zero free parameters", clm-m7qd0w). What actually
+# needs suppressing is the narrower ENUMERATION form — a list of taxonomy
+# CATEGORY NAMES being distinguished from one another rather than a grading of
+# this claim: "derived predictions vs consistency checks vs identities"
+# (vol2/claim-quality.md:903, clm-xhdai6, a strengthen-by task line). The tell
+# is that `vs` flanks the match on BOTH sides inside one clause; a single
+# trailing or leading `vs` is just a comparison and suppresses nothing.
+_ENUM_BEFORE_RE = re.compile(r"\b(?:vs\.?|versus)\s+$")
+_ENUM_AFTER_RE = re.compile(r"^\w*[\s,]+(?:vs\.?|versus)\b")
+_ENUM_WINDOW = 40
 
 PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
     # ── VALUE_IMPORTED ── the card states the row's value comes from outside
@@ -1019,19 +1067,48 @@ def collect_claim_cards(kb_root: Path = KB_ROOT) -> dict[str, tuple[str, str, in
     return cards
 
 
+def _clause_prefix(card_text: str, start: int) -> str:
+    """The text governing `start`: back to the nearest clause boundary, capped
+    at `_NEGATION_WINDOW` characters. A negation outside this span is in a
+    different clause or sentence and does not govern the match."""
+    window = card_text[max(0, start - _NEGATION_WINDOW) : start]
+    bounds = list(_CLAUSE_BOUNDARY_RE.finditer(window))
+    return window[bounds[-1].end() :] if bounds else window
+
+
+def _is_negated(card_text: str, start: int) -> bool:
+    """True if a negation token governs the match at `start` (GUARD 1)."""
+    return bool(_NEGATION_RE.search(_clause_prefix(card_text, start)))
+
+
+def _is_enumeration(card_text: str, start: int, end: int) -> bool:
+    """True if the match is an item in an `X vs Y vs Z` category list (GUARD 2).
+
+    Requires `vs`/`versus` on BOTH sides within the governing clause — a single
+    `vs` is a comparison, not an enumeration, and must not suppress.
+    """
+    if not _ENUM_BEFORE_RE.search(_clause_prefix(card_text, start)):
+        return False
+    tail = card_text[end : end + _ENUM_WINDOW]
+    bound = _CLAUSE_BOUNDARY_RE.search(tail)
+    return bool(_ENUM_AFTER_RE.search(tail[: bound.start()] if bound else tail))
+
+
 def scan_provenance(card_text: str) -> list[tuple[ProvenanceMarker, str]]:
     """Return the (marker, verbatim excerpt) pairs the card text supports.
 
-    Matches governed by a negation token within `_NEGATION_WINDOW` characters
-    immediately before them are discarded (see `_NEGATION_RE`). Every surviving
-    hit carries its verbatim excerpt so a reviewer can audit the verdict without
-    re-reading the card — a gate that cannot show its receipt is a checklist.
+    A match is discarded only if GUARD 1 (a negation token governing it inside
+    the same clause) or GUARD 2 (an `X vs Y vs Z` category enumeration) applies
+    — see the two guard blocks above. Every surviving hit carries its verbatim
+    excerpt so a reviewer can audit the verdict without re-reading the card: a
+    gate that cannot show its receipt is a checklist.
     """
     hits: list[tuple[ProvenanceMarker, str]] = []
     for marker in PROVENANCE_MARKERS:
         for m in re.finditer(marker.pattern, card_text):
-            prefix = card_text[max(0, m.start() - _NEGATION_WINDOW) : m.start()]
-            if _NEGATION_RE.search(prefix):
+            if _is_negated(card_text, m.start()) or _is_enumeration(
+                card_text, m.start(), m.end()
+            ):
                 continue
             lo = max(0, m.start() - 70)
             hi = min(len(card_text), m.end() + 70)

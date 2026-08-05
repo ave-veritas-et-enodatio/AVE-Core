@@ -504,10 +504,123 @@ class TestCalibrationRole:
         assert "CONSISTENCY_DENIED" in signals
 
     def test_vs_listing_does_not_fire_consistency(self) -> None:
-        # Live text from vol2/claim-quality.md clm-xhdai6 strengthen-by: a task
-        # line enumerating categories, not a grading of this claim.
+        # Live text from vol2/claim-quality.md:903 (clm-xhdai6 strengthen-by): a
+        # task line enumerating taxonomy categories, not a grading of this
+        # claim. Suppressed by the ENUMERATION guard (`vs` on BOTH sides), not
+        # by the negation guard — `vs` is a comparison marker, not a negation.
         body = "- Tabulate which of the 26 are derived predictions vs consistency checks vs identities."
         assert "CONSISTENCY_CLASS" not in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_negated_comma_list_stays_suppressed(self) -> None:
+        # The comma clause-boundary must NOT release an appositive inside a
+        # negated list. "not a chord, a consistency check, or an identity" is
+        # one negation over three items.
+        body = "- This is not a chord, a consistency check, or an identity."
+        assert "CONSISTENCY_CLASS" not in {mk.signal for mk, _ in scan_provenance(body)}
+
+    # ── ANTI-OVER-SUPPRESSION: the guard must not manufacture false negatives ─
+    #
+    # The mirror image of the two tests above, and the more dangerous failure:
+    # an over-broad guard silently downgrades CONTRADICTED to UNRECONCILED, so
+    # the gate reports "the corpus is silent" about a card that is shouting.
+    # Every fixture below is VERBATIM live corpus text, re-verified by two
+    # methods (line-addressed read + content grep) at the line cited.
+    def test_affirmed_import_after_semicolon_fires(self) -> None:
+        # vol2/claim-quality.md:120 (clm-5zuo7g depends-on note). The "NOT"
+        # scopes over "a free framework input" — it AFFIRMS the import — and
+        # the affirmation sits on the far side of a ';'.
+        body = (
+            "  - clm-iouqn9 — K4 Magic-Angle $K=2G$ (solidity 0.55) [the vacuum Poisson ratio "
+            "$2/7$ is the GR-imported trace-reversal value, NOT a free framework input; so the "
+            "FORM $\\sin^2\\theta_W = 1-1/(1+\\nu_{vac})$ is derived but the VALUE $2/9$ is "
+            "import-capped at $K=2G$'s solidity]"
+        )
+        assert "FORM_VS_VALUE_SPLIT" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_denial_then_affirmation_across_em_dash_fires(self) -> None:
+        # common/claim-quality.md:1477 (clm-strreg). "NOT A DERIVATION" is
+        # denied, then the consistency-class grading is affirmed after an
+        # em-dash. An em-dash separates the assertion from its clause.
+        body = (
+            "  - **RULED CONVENTION, NOT A DERIVATION — consistency-class.** Grant ruled which "
+            "strain the kernel eats; the VALUES ride CODATA-derived imports."
+        )
+        assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_comparison_vs_is_not_a_negation_rationale(self) -> None:
+        # vol2/claim-quality.md:861 (clm-qde5gn rationale). "sub-1 ppm vs
+        # CODATA" is a COMPARISON. Carrying `vs` in the negation lexicon killed
+        # an explicit consistency-check grading one sentence later.
+        body = (
+            "- rationale: the leaf states they are algebraically identical to Bohr, sub-1 ppm vs "
+            "CODATA). Classification is largely a consistency check / identity-rearrangement "
+            "carrying an ontological reinterpretation."
+        )
+        assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_comparison_vs_is_not_a_negation_form_forced(self) -> None:
+        # common/claim-quality.md:134 (clm-m7qd0w). "(−5.2% vs measured)" is a
+        # comparison inside a parenthetical; it must not eat the FORM_FORCED
+        # statement that follows it in the same sentence.
+        body = (
+            "  - The sub-derivation of $v_{backbone}$ from the soliton bond solver yields "
+            "5470 m/s (−5.2% vs measured), zero free parameters."
+        )
+        assert "FORM_FORCED" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_previous_sentence_negation_does_not_reach(self) -> None:
+        # vol2/claim-quality.md:1531 (clm-3i66gp). The negation lives in the
+        # PREVIOUS sentence; the character window crossed the '.' and killed an
+        # explicit "Structural/consistency-class only." grading.
+        body = (
+            "  - **NOT** a clean $0.65\\%$ AVE precision prediction: the dominant self-energy "
+            "($+1010$ MHz) is QED-imported, not an AVE numerical output. "
+            "Structural/consistency-class only."
+        )
+        assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_negation_sealed_in_parenthetical_does_not_reach(self) -> None:
+        # vol3/claim-quality.md:1254 (clm-zbvfpi). "REUSED not minted)" is a
+        # parenthetical aside; a negation sealed inside it cannot govern the
+        # "**Engine-capability / consistency-class**" grading outside it.
+        body = (
+            "The FIRST increment of the GR-QED extension engine (the ONE canonical Op14 kernel, "
+            "REUSED not minted). **Engine-capability / consistency-class** — a correction ON the "
+            "linear GR core, NOT a re-derivation of it."
+        )
+        assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_denial_then_independent_clause_affirmation_fires(self) -> None:
+        # Constructed, but the near-canonical AVE self-description form: a
+        # denial of novelty followed by a comma and an independent clause that
+        # affirms the consistency grading.
+        body = "- This is not novel, it is a consistency check."
+        assert "CONSISTENCY_CLASS" in {mk.signal for mk, _ in scan_provenance(body)}
+
+    def test_live_corpus_suppression_set_is_exactly_the_two_true_cases(self) -> None:
+        # The census-level statement of the same contract, run against the real
+        # registers: across all live claim cards, the ONLY matches the guards
+        # discard are the two regression cases above. Any third suppression is
+        # a new false negative and must be adjudicated, not absorbed silently.
+        import re as _re
+
+        from scripts.predictions_manifest_validator import (  # noqa: PLC0415
+            _is_enumeration,
+            _is_negated,
+        )
+
+        suppressed: set[tuple[str, str]] = set()
+        for clm_id, (body, _, _) in collect_claim_cards().items():
+            for mk in PROVENANCE_MARKERS:
+                for m in _re.finditer(mk.pattern, body):
+                    if _is_negated(body, m.start()) or _is_enumeration(body, m.start(), m.end()):
+                        suppressed.add((clm_id, mk.signal))
+                        continue
+                    break
+        assert suppressed == {
+            ("clm-395gps", "CONSISTENCY_CLASS"),  # vol3/claim-quality.md:199, negation
+            ("clm-xhdai6", "CONSISTENCY_CLASS"),  # vol2/claim-quality.md:903, enumeration
+        }, f"guard suppression set drifted: {sorted(suppressed)}"
 
     # ── the design invariant: positive derivation language licenses nothing ──
     def test_form_forced_forbids_nothing(self) -> None:
