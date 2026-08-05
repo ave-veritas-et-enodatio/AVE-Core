@@ -131,9 +131,9 @@ SUPPLEMENT: list[tuple[str, int, str]] = [
      "row 1: ', :48-54 (the three-channel table)' continues the :51 link"),
     ("../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md", 54,
      "row 1: range endpoint of ':48-54'"),
-    ("../vol3/claim-quality.md", 1097,
+    ("../vol3/claim-quality.md", 1118,
      "row 1: ', :1097 (the caveat)' continues the :1088 link"),
-    ("../vol3/claim-quality.md", 1109,
+    ("../vol3/claim-quality.md", 1130,
      "row 1: ', :1109 (solidity ...)' continues the :1088 link"),
     ("../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md", 58,
      "row 3: ', :58 ($r_3$; ...)' continues the :60 link"),
@@ -357,17 +357,17 @@ QUOTES: list[Quote] = [
           r"""a hard ultraviolet cutoff … **No mode can oscillate faster, eliminating UV divergence**.""",
           "ALTERED -- emphasis ADDED (source sentence is plain; leaf bolds it) + ellipsis elides 'at $\\omega_\\mathrm{max} = 2c/\\ell_\\mathrm{node}$.'"),
 
-    Quote("Q20", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 41,
+    Quote("Q20", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 57,
           r"""Any physical excitation operating *below* a medium's natural cutoff frequency becomes an **Evanescent Wave**.""",
           r"""Any physical excitation operating **below** a medium's natural cutoff frequency becomes an **Evanescent Wave**""",
           "ALTERED -- emphasis re-scoped: source italicises 'below', leaf bolds it (declared in-row)"),
 
-    Quote("Q21", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 39,
+    Quote("Q21", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 55,
           r"""**Characteristic Length Scale** ($l_c = \sqrt{\gamma_c/G_{vac}}$)""",
           r"""$\ell_c = \sqrt{\gamma_c/G_{vac}}$""",
           "ALTERED -- symbol re-render 'l_c' -> '\\ell_c' (leaf's table symbol; not inside a verbatim tag)"),
 
-    Quote("Q22", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 46,
+    Quote("Q22", KB + "vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md", 62,
           r"""V_{weak}(r) \propto \frac{e^{-r/l_c}}{r}""",
           r"""$V_{weak}(r) \propto e^{-r/l_c}/r$""",
           "ALTERED -- TeX re-render: '\\frac{a}{b}' -> 'a/b' (inline form; not inside a verbatim tag)"),
@@ -442,12 +442,12 @@ QUOTES: list[Quote] = [
           r"""a **falsifiable prediction** for any high-gravity observational test""",
           "EXACT (emphasis is the SOURCE's own bold)"),
 
-    Quote("Q37", KB + "vol3/claim-quality.md", 1097,
+    Quote("Q37", KB + "vol3/claim-quality.md", 1118,
           r"""EHT shadow / photon-ring radius do NOT discriminate $r_{\text{sat}}$ from $r_s$ (prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit).""",
           r"""(prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit).""",
           "EXACT"),
 
-    Quote("Q38", KB + "vol3/claim-quality.md", 1109,
+    Quote("Q38", KB + "vol3/claim-quality.md", 1130,
           r"""solidity: 0.55 (use as input only, don't build deeper)""",
           r"""use as input only, don't build deeper""",
           "EXACT"),
@@ -502,22 +502,24 @@ QUOTES: list[Quote] = [
           r"""$\omega^2 = c^2k^2 + 4G_c/I_\omega$""",
           "ALTERED -- TeX re-render ('\\frac{4 G_c}{I_\\omega}' -> '4G_c/I_\\omega'; display -> inline); not inside a verbatim tag"),
 
-    # --- off-main receipts (W7). Verified against the named ref, not main. ---
+    # --- coldQ v2.4 receipts. RE-POINTED TO main 2026-08-05 (ringdown wave): these were
+    # pinned @origin/research/coldq-pole-v2p3 while that lane was unmerged. PR #861 merged it,
+    # so the branch ref made the checker report "target unreadable" on content that is now on
+    # main. Line indices re-derived on main by content match, not carried over. ---
     Quote("Q49", "research/2026-08-03_coldq-pole-v2.4-root_result.md", 15,
           r"""**Certification: `ROOT-CERTIFIED`.** All twelve gates PASS; all twelve fireability self-tests FIRE. **The frozen precedence therefore reaches the physics bins for the first time in this arc, and they are adjudicated.**""",
           r"""The frozen precedence therefore reaches the physics bins for the first time in this arc, and they are adjudicated.**""",
-          "EXACT", ref="origin/research/coldq-pole-v2p3"),
+          "EXACT"),
 
-    Quote("Q50", "research/2026-08-03_coldq-pole-v2.4-root_result.md", 256,
+    Quote("Q50", "research/2026-08-03_coldq-pole-v2.4-root_result.md", 262,
           r"""A `ROOT-CERTIFIED` verdict is a statement about an INSTRUMENT, not about the world.""",
           r"""a statement about an INSTRUMENT, not about the world""",
-          "ALTERED -- source bolds the sentence; leaf quotes it inside its own emphasis run",
-          ref="origin/research/coldq-pole-v2p3"),
+          "ALTERED -- source bolds the sentence; leaf quotes it inside its own emphasis run"),
 
-    Quote("Q51", "research/2026-08-03_coldq-pole-v2.4-root_result.md", 256,
+    Quote("Q51", "research/2026-08-03_coldq-pole-v2.4-root_result.md", 262,
           r"""**Classification: INSTRUMENT-CONSISTENCY. It is not an emergence claim of any class and it cannot become one.**""",
           r"""**Classification: INSTRUMENT-CONSISTENCY. It is not an emergence claim of any class and it cannot become one.**""",
-          "EXACT", ref="origin/research/coldq-pole-v2p3"),
+          "EXACT"),
 ]
 
 
