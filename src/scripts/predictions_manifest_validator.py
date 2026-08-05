@@ -766,8 +766,34 @@ def check_axioms(
 # PROVENANCE axis. They are orthogonal — a 0.9-solidity claim can be a pure echo
 # and a 0.3-solidity claim can be a chord. No rule below reads solidity,
 # confidence, build_status, or build_band. Deriving a role from solidity would
-# be a category error that makes the gate wrong, so it is not done. (Solidity is
-# carried in the finding `details` as human context only, never as an input.)
+# be a category error that makes the gate wrong, so it is not done. Solidity
+# never enters this check at all: not as an input, and not as context in the
+# finding `details` either — the details dict carries declared / clm / card /
+# verdict / signals / forbidding_signals / surviving_roles / suggested /
+# receipts, and nothing else.
+#
+# THE `check_axioms` PRECEDENT — SAME ARCHITECTURE, WEAKER EPISTEMICS. This is
+# check #6 inside the existing validator rather than a new script because
+# `check_axioms` is the same SHAPE: a manifest field reconciled against
+# KB-derived truth (there the axiom cone, here the provenance card). But the
+# two are NOT epistemic peers, and that difference is exactly why their gating
+# postures differ:
+#
+#   check_axioms       `axioms_used` is MACHINE-WRITTEN (by
+#                      predictions_manifest_refresh.py) and GRAPH-DERIVED (the
+#                      transitive axiom cone of the clm bridge). Recomputing it
+#                      is deterministic and the drift is refresh-fixable, so it
+#                      gates at severity="critical".
+#   this check         `calibration_role` is HAND-AUTHORED, and the truth it is
+#                      reconciled against is REGEX-OVER-PROSE. There is no
+#                      recompute-and-diff; there is pattern-matching on English
+#                      written by humans for humans, with two suppression
+#                      guards whose scope is itself a judgement call. So it
+#                      reports at severity="warn" until its named backlog is
+#                      ruled (see the flip condition in check_calibration_role).
+#
+# Claiming these as equal precedent would overstate the gate. The architecture
+# is borrowed; the authority is not.
 #
 # HOW A ROLE IS FALSIFIED, NOT GUESSED. The corpus rarely says "this row is a
 # chord" in so many words, but it very often says the opposite in plain text:
@@ -1062,12 +1088,31 @@ def collect_claim_cards(kb_root: Path = KB_ROOT) -> dict[str, tuple[str, str, in
 
     A "card" is the full `## <title>` section that owns the `<!-- id: clm-… -->`
     marker — Specific Claims, Specific Non-Claims and Caveats, and the Quality
-    block (confidence / depends-on / solidity / rationale / strengthen-by). The
-    Non-Claims block is why the card is read from disk rather than from
-    `.index/claims.jsonl`: the index materializes `rationale` but NOT the
-    Non-Claims lines, and the Non-Claims lines are where the corpus most often
-    states provenance outright ("Does NOT claim derivation of …", "disclosed
-    phenomenological …").
+    block (confidence / depends-on / solidity / rationale / strengthen-by).
+
+    WHY FROM DISK AND NOT FROM `.index/`. Two reasons, and the first one has to
+    be stated narrowly or it is wrong:
+
+    1. `.index/claims.jsonl` materializes `rationale` but NOT the Specific
+       Non-Claims lines, and the Non-Claims block is where the corpus most
+       often states provenance outright ("Does NOT claim derivation of …",
+       "disclosed phenomenological …"). That is the real gap.
+       It is NOT true that "the index drops the evidence" in general:
+       `.index/depends-on.jsonl` carries P04's evidence VERBATIM in its
+       `context` field — "the vacuum Poisson ratio $2/7$ is the GR-imported
+       trace-reversal value, NOT a free framework input; so the FORM … is
+       derived but the VALUE $2/9$ is import-capped" — which is the exact text
+       both VALUE_IMPORTED and FORM_VS_VALUE_SPLIT fire on. So the index would
+       have served P04; it would not serve the Non-Claims class.
+
+    2. Reading raw markdown also keeps the CONFIDENCE axis out of the gate's
+       reach as STRUCTURED data. A `claims.jsonl` record exposes `solidity`,
+       `derivation_solidity`, `build_status` and `build_band` as typed fields
+       sitting next to `rationale`, and `depends-on.jsonl` exposes
+       `target_solidity_recorded`. On disk those are just prose lines inside a
+       card, indistinguishable from any other text and matched by no marker.
+       Provenance and confidence are orthogonal axes; the loader should not
+       hand the gate a convenient typed handle on the wrong one.
 
     Test fixtures under `tools/tests/` are excluded — they carry synthetic ids.
     A missing/unreadable KB returns an empty map (the check degrades to a
