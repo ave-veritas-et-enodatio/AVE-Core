@@ -429,7 +429,7 @@ The grade is **orthogonal to `status`**: `status` answers "is the adjudicated se
 
 ---
 
-<!-- PROPOSED CANDIDATE — awaiting Grant ratification; NOT yet canonical. Insert this block ABOVE the `## SubstrateExcitation *(proposed)*` heading (the anchor line). status:proposed, GATED on auditor + Grant. Verified 0 prior corpus hits for the surface form 'TKI-transformer' (the only existing 'transformer' object is the SOLITON STRUCTURE of translation-circuit.md §9.2 — see open-ambiguity, do NOT overload). -->
+<!-- BUILD-SCAFFOLD REMOVED 2026-08-05. An insertion-instruction comment sat here ("PROPOSED CANDIDATE — awaiting Grant ratification; NOT yet canonical … Insert this block ABOVE the `## SubstrateExcitation *(proposed)*` heading (the anchor line). status:proposed, GATED on auditor + Grant …") — PR #265 build scaffolding that was never removed when the block landed, and which CONTRADICTED the block immediately below it: `def-tk1xfm` is **SOLID — ★GRANT-RATIFIED 2026-07-21** (verbatim `[sic]`: "ratify def-tk1xfm"; adjudicated-meaning :438, status :441, verification :452). Removed as a stale BUILD ARTIFACT, not struck as a claim — the comment carried an insertion instruction and a gate that no longer exists, asserted no physics, and its two substantive provenance facts survive IN-BLOCK: the 0-prior-hits coinage check (verification field) and the 'transformer'-overload guard against the translation-circuit.md §9.2 SOLITON-STRUCTURE object (open-ambiguity-flag (b)). The removed text lives in git. Replacement is deliberately ONE line: `:435` / `:441` are cited by external leaves. -->
 
 ## TKI-transformer
 <!-- id: def-tk1xfm -->
