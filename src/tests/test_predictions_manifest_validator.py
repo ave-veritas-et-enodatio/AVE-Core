@@ -10,6 +10,8 @@ Reference: src/scripts/predictions_manifest_validator.py,
            manuscript/predictions.yaml
 """
 
+import re
+
 from scripts.predictions_manifest_validator import (
     ALLOWED_CALIBRATION_ROLES,
     ALLOWED_TYPES,
@@ -636,6 +638,14 @@ class TestCalibrationRole:
     def test_no_marker_reads_solidity_or_confidence(self) -> None:
         # calibration_role is a PROVENANCE axis; solidity is a CONFIDENCE axis.
         # Conflating them is a category error, so no pattern may key on either.
+        #
+        # NOTE this test is LEXICAL and therefore BYPASSABLE: a pattern keyed on
+        # the solidity NUMBER rather than the word (e.g. r"\(s\w+ity 0\.[0-5]\d?\)")
+        # slips straight through it. That is not a hole to widen the token list
+        # for — a blocklist can always be spelled around. The actual freeze is
+        # `TestProvenanceMarkerTableIsFrozen` below, which is a SNAPSHOT: any
+        # addition or edit to the table shows up as a test diff and needs a
+        # reviewer. Keep both; they fail on different things.
         banned = ("solidity", "confidence", "build_status", "build_band", "use as input only")
         for mk in PROVENANCE_MARKERS:
             for token in banned:
@@ -695,6 +705,122 @@ class TestCalibrationRole:
         assert criticals == [], "Live manifest declares a calibration_role outside the taxonomy:\n" + "\n".join(
             f"  P={f.entry_id} {f.message}" for f in criticals
         )
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# The marker table is FROZEN — snapshot, not blocklist
+# ───────────────────────────────────────────────────────────────────────────
+# The table is described as "frozen" throughout this branch. Before this class
+# the only thing enforcing that was `test_no_marker_reads_solidity_or_confidence`,
+# which is LEXICAL: it bans the token "solidity". An independent auditor bypassed
+# it in one line by adding a marker keyed on the solidity NUMBER instead of the
+# word — r"\(s\w+ity 0\.[0-5]\d?\)" — and every test still passed. A CONFIDENCE-axis
+# rule in a PROVENANCE costume walked straight in, and the walk-in surface is real:
+# `collect_claim_cards()` reads whole cards off disk, so "- solidity: 0.55 ..." and
+# "- confidence: 0.85" ARE inside the scan text. Only the lexicon kept them out, and
+# a blocklist can always be spelled around.
+#
+# A snapshot cannot be spelled around. Any addition, deletion or edit to a signal,
+# pattern or forbid-set shows up as a diff on the literal below, in the test file,
+# where a reviewer has to look at it and say yes.
+FROZEN_MARKER_TABLE: tuple[tuple[str, str, tuple[str, ...]], ...] = (
+    ("VALUE_IMPORTED", r"\bGR-imported\b", ("chord",)),
+    ("VALUE_IMPORTED", r"\bimport-capped\b", ("chord",)),
+    ("VALUE_IMPORTED", r"disclosed imports? (?:are|is)\b", ("chord",)),
+    ("VALUE_IMPORTED", r"back-?solved\b", ("chord",)),
+    ("VALUE_IMPORTED", r"\bimported, not derived\b", ("chord",)),
+    ("VALUE_FITTED", r"disclosed[- ]phenomenological", ("chord",)),
+    ("VALUE_FITTED", r"phenomenological[^.]{0,120}(?:formula|shift|fit\b)", ("chord",)),
+    ("VALUE_FITTED", r"\bis \*{0,2}FITTED\b", ("chord",)),
+    ("VALUE_FITTED", r"\brefined post-hoc\b|\bpost-hoc against\b", ("chord",)),
+    ("VALUE_FITTED", r"back-reaction fit\b", ("chord",)),
+    ("FORM_VS_VALUE_SPLIT", r"FORM[^.]{0,220}is derived but the VALUE", ("chord",)),
+    ("CONSISTENCY_CLASS", r"consistency check", ("chord", "forward-prediction")),
+    ("CONSISTENCY_CLASS", r"category \(iii\)", ("chord", "forward-prediction")),
+    ("CONSISTENCY_CLASS", r"consistency-class", ("chord", "forward-prediction")),
+    ("IDENTITY_CLASS", r"definitional[- ](?:identity|residual)", ("chord", "forward-prediction")),
+    (
+        "CONSISTENCY_DENIED",
+        r"not an identity or consistency check|NOT a consistency check",
+        ("consistency",),
+    ),
+    (
+        "NOT_SM_DISTINGUISHABLE",
+        r"not (?:a )?(?:novel )?[a-z ]{0,30}distinguishable from",
+        ("forward-prediction",),
+    ),
+    ("FORM_FORCED", r"zero free parameters", ()),
+    ("FORM_FORCED", r"category[ -]\(iv\)[ -]derived prediction", ()),
+)
+
+
+class TestProvenanceMarkerTableIsFrozen:
+    def test_table_matches_the_snapshot(self) -> None:
+        live = tuple((mk.signal, mk.pattern, tuple(sorted(mk.forbids))) for mk in PROVENANCE_MARKERS)
+        assert live == FROZEN_MARKER_TABLE, (
+            "PROVENANCE_MARKERS changed. This table is FROZEN: a marker is a rule about what "
+            "the corpus is allowed to mean, so adding or editing one is a reviewed act, not a "
+            "refactor. Update FROZEN_MARKER_TABLE in the same commit, and in the commit message "
+            "state (a) the corpus receipt the new/edited pattern was grep-verified against and "
+            "(b) that it keys on PROVENANCE, never on solidity / confidence / build_status / "
+            "build_band.\n"
+            f"  live     = {live}\n"
+            f"  snapshot = {FROZEN_MARKER_TABLE}"
+        )
+
+    def test_snapshot_is_the_complete_freeze_surface(self) -> None:
+        # The snapshot must pin every field that can change a VERDICT. `receipt`
+        # is deliberately outside it (prose, no verdict effect); `signal`,
+        # `pattern` and `forbids` are all of the rest.
+        verdict_fields = {"signal", "pattern", "forbids"}
+        fields = set(PROVENANCE_MARKERS[0].__dataclass_fields__)
+        assert fields - {"receipt"} == verdict_fields, (
+            f"ProvenanceMarker gained/lost a field ({sorted(fields)}); if it can affect a "
+            f"verdict it must be added to FROZEN_MARKER_TABLE."
+        )
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# Every marker must FIRE on the receipt it claims (the G3 gap)
+# ───────────────────────────────────────────────────────────────────────────
+# `receipt` asserts "this pattern was grep-confirmed against the live cards".
+# Nothing checked that. FORM_VS_VALUE_SPLIT shipped firing on 0 of 329 cards
+# with a receipt pointing at its own suppression site; these two tests would
+# have caught it on day one.
+class TestMarkerReceipts:
+    def test_every_marker_fires_somewhere_in_the_live_corpus(self) -> None:
+        cards = collect_claim_cards()
+        assert cards, "live KB registers did not load"
+        counts: dict[tuple[str, str], int] = {(mk.signal, mk.pattern): 0 for mk in PROVENANCE_MARKERS}
+        for _, (body, _, _) in cards.items():
+            for mk, _excerpt in scan_provenance(body):
+                counts[(mk.signal, mk.pattern)] += 1
+        dead = sorted(k for k, v in counts.items() if v == 0)
+        assert not dead, (
+            "Dead marker(s) — a frozen-table row that never fires is decoration, and if its "
+            "receipt is its own suppression site the receipt is self-referential. Either the "
+            "corpus phrasing moved (re-verify and re-derive the pattern) or the row should be "
+            f"retracted from the table AND from the PR body: {dead}"
+        )
+
+    def test_every_marker_fires_on_the_cards_its_receipt_names(self) -> None:
+        # Receipts name claim ids inline ("vol2/claim-quality.md:120 clm-5zuo7g
+        # depends-on note"). Every id a receipt names must be a real card that
+        # the marker actually fires on, or the receipt is stale.
+        cards = collect_claim_cards()
+        broken: list[str] = []
+        checked = 0
+        for mk in PROVENANCE_MARKERS:
+            named = sorted(set(re.findall(r"clm-[a-z0-9]{6}", mk.receipt)))
+            assert named, f"{mk.signal} {mk.pattern!r} receipt names no claim card to check against"
+            for clm_id in named:
+                checked += 1
+                if clm_id not in cards:
+                    broken.append(f"{mk.signal} {mk.pattern!r} -> {clm_id} has no card")
+                elif mk.signal not in {s.signal for s, _ in scan_provenance(cards[clm_id][0])}:
+                    broken.append(f"{mk.signal} {mk.pattern!r} -> does NOT fire on {clm_id}")
+        assert not broken, "Marker receipts do not hold:\n  " + "\n  ".join(broken)
+        assert checked >= len(PROVENANCE_MARKERS), "every marker must contribute at least one receipt card"
 
 
 # ───────────────────────────────────────────────────────────────────────────

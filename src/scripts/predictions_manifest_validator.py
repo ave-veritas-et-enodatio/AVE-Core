@@ -899,8 +899,10 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
         "VALUE_IMPORTED",
         r"back-?solved\b",
         frozenset({"chord"}),
-        "common/interlock-register.md ilk-gravmb: 'back-solved from CODATA G "
-        "... circular by construction'",
+        "common/claim-quality.md:452 clm-dsb560 (live firing site: 'u₀* is "
+        "back-solved from CODATA α, G'); meaning verified at "
+        "common/interlock-register.md:216 ilk-gravmb: 'back-solved from CODATA "
+        "G ... circular by construction'",
     ),
     ProvenanceMarker(
         "VALUE_IMPORTED",
