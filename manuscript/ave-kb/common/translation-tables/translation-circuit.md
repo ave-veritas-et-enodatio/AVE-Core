@@ -809,6 +809,11 @@ the core session 2026-08-05; Grant corrected the register to SEMICONDUCTOR and r
 1. What is depleted is **signal-band support** (the cells' propagating capacity), NOT charge carriers.
 2. The depletion edge is **drive-frequency-indexed**: each $\omega$ has its own $W(\omega)$; at fixed $\omega$ it is a pure DC level set (wall-taxonomy axis discipline).
 3. **No space-charge / built-in-field electrostatics ride along** — the mapping is small-signal network topology only.
+4. **Band-TOP is not a gap edge** (audit-confirmed, PR #885 Tier-2 verify): the srs net has NO
+   internal stop-band — its band top is a **Bragg / half-wave resonance**
+   (`srs-band-structure.md` §2), not a band-gap edge. The depletion-edge rows above apply to
+   CUTOFF/GAP-class boundaries (a frequency losing local support); they must NOT be read onto
+   band-top physics, where the correct EE object is the Bragg mirror, not the depleted junction.
 
 ### Carrier-sector rows (Grant "bank it" 2026-08-05; tags per row)
 
