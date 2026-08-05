@@ -141,6 +141,59 @@ orchestrator.
 
 ---
 
+## CITE-SHIFT SWEEP — run AFTER content settled, two-method, 123 cites classified
+
+**Method 1** — enumerate every `file:NNN` cite anywhere in the repo whose target basename is one
+of this wave's 16 touched files. **123 cites** into 10 targets.
+**Method 2** — per-cite *content* diff rather than a line count: for each cite, compare the line
+at `NNN` on `origin/main` against `HEAD`, and classify `STABLE` / `SHIFTED → :M` (base content
+found elsewhere in the file) / `REWRITTEN` (base content gone from the file).
+
+| class | count |
+|---|---|
+| `STABLE` (cite unaffected) | **90** |
+| `SHIFTED` (base content moved) | **11** |
+| `REWRITTEN` (base content is what this wave replaced) | **22** |
+
+**Mechanical repairs performed: ZERO — and that is the correct outcome, not an omission.** Every
+non-`STABLE` cite falls into one of three classes, none of which licenses a renumber:
+
+1. **The wave's own rewrite targets, cited from the frozen sweep record** (18 of the 22
+   `REWRITTEN`): `2026-08-02_manuscript-reconciliation-board.md` §5's per-finding entries at
+   ch15 `:23/:27/:271/:290/:292/:337/:354/:387`, `backmatter/07:{85,145,211,213}`,
+   `vol9 ch03:205`, plus four docket fragments at ch15 `:322`. **§5 is the frozen output of the
+   154-finding sweep** — it records what was found, at the state it was found. Renumbering it
+   would rewrite the record of the audit this wave discharges. Recorded here instead.
+2. **Dated / frozen documents** (all 11 `SHIFTED` bar two, plus the rest): the 2026-06-17
+   **frozen prereg** (its cite into `existing-experimental-signatures.md:48` now resolves at
+   `:55`), `research/2026-07-17_regime-iv-dissipation-audit_items.json` (a frozen audit artifact;
+   ch15 `:392 → :411`), `research/2026-06-06_doc-reconciles-result.md`,
+   `_orchestration/_archive/cosmic-axis-glossary.md`, and the ch08 board/docket cites
+   (`:250 → :257`, `:355 → :362`, `:364 → :371`, all +7 from this wave's figure environment).
+   **Frozen text gets a dated surface-note, never a rewrite** — which is exactly what
+   `research/2026-08-05_bh-shear-echo-prereg_surface-note.md` is.
+3. **★ BASELINE-STALE — recorded, deliberately NOT renumbered, and this one is a real finding.**
+   Two LIVE KB leaves — `manuscript/ave-kb/claim-quality-closure-roadmap.md:115` and
+   `manuscript/ave-kb/common/divergence-test-substrate-map.md:211` — cite
+   `04_generative_cosmology.tex:467` for the Planck CMB-axis *"(174°, −5°)"* reference. This
+   wave shifted that line to `:468`, and the naive repair is to write `:468`. **It would be
+   wrong.** `grep -n '174' manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`
+   returns **nothing** — that string is not in the file **at any line**, at base or at HEAD. The
+   cite was already pointing at unrelated content (`:467` is the *"A-034 is the recognition that
+   they describe ONE mechanism"* sentence) **before this wave touched anything**. Renumbering it
+   to `:468` would re-endorse a wrong cite under a fresh date and make it look freshly verified.
+   **Sharper still:** the roadmap site labels itself *"★cite-rot repair 2026-08-02"* and says it
+   *"read `:153,160,949`, all three wrong-target from the day they were written"* — so `:467` is
+   a **repair that landed on a third wrong target**, and a mechanical `+1` here would have been
+   the fourth. **Surfaced, not fixed.**
+
+Also recorded, no action needed: `manuscript/backmatter/12_mathematical_closure.tex:197`
+(a `%`-comment) cites `07_universal_saturation_kernel.tex:145`. That line's *content* changed
+(seam disclosed → seam resolved) but its *position* did not — `backmatter/07` is line-count-neutral
+under this wave — so the cite still lands on the paragraph it names.
+
+---
+
 ## EXPLICITLY EXCLUDED, byte-untouched
 
 - `manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex` — the sentence
