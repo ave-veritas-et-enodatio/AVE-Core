@@ -237,7 +237,7 @@ predictions:
     clm: clm-5zuo7g
     name: "sin²θ_W (weak mixing angle)"
     type: derived_prediction
-    calibration_role: chord
+    calibration_role: mixed
     derivation_label: "ch:electroweak_higgs"
     predicted_value: 0.2222
     observed_value: 0.2230
@@ -254,6 +254,50 @@ predictions:
       this derivation. ν_vac = 2/7 is an interlink between Axiom 1 (K4
       lattice geometry) and Axiom 2 (Cosserat TKI); both are load-bearing
       for the Poisson ratio used in the PAT stiffness projection.
+
+      RULED 2026-08-05 (Grant): calibration_role chord → mixed. The FORM is
+      derived and the VALUE is imported — the exact shape `mixed` is defined
+      for at line 32 of this file. FORM: sin²θ_W = ν_vac/(1+ν_vac) is the
+      two-channel diagonalization fraction — a divider ratio — where ν_vac is
+      the lattice's cross-channel elastic coupling. VALUE: ν_vac =
+      (3K−2G)/(2(3K+G)) evaluates to 2/7 only under K = 2G, which the corpus
+      grades GR-IMPORTED (the trace-reversal identity), so 2/9 is import-capped
+      at that provenance. Corpus receipt for the contradiction, verbatim from
+      manuscript/ave-kb/vol2/claim-quality.md:120 (quoted as written — the
+      source carries no bold): "the vacuum Poisson ratio $2/7$ is the
+      GR-imported trace-reversal value, NOT a free framework input; so the FORM
+      $\sin^2\theta_W = 1-1/(1+\nu_{vac})$ is derived but the VALUE $2/9$ is
+      import-capped at $K=2G$'s solidity". ν_vac is the framework's
+      most-cascaded number — manuscript/ave-kb/common/form-deriving-value-importing.md:87
+      (the K = 2G row: "GR-IMPORTED (echo for the value)") and :440 (the
+      cascade caveat: "the most-cascaded number in the framework").
+
+      RIDER (a) — the K = 2G dependency and its standing upgrade path. This
+      row's value rides K = 2G end to end. K = 2G is NOT a fourth calibration
+      input: it is a separately-tagged constitutive-FORM import edge, and the
+      ruled aspiration is to make it forced — form-deriving-value-importing.md:98-103,
+      the verbatim ruling at :100-101 (Grant 2026-08-03, [sic]): "1. Agree, and I
+      think we should at some point find it's a forced form". The lane is R11,
+      the K = 2G forced-form lane, whose named attack is the clm-satnec
+      static-existence test — impose the (2,3) winding as a boundary condition,
+      relax, ask whether the core rails S → 0 — which IS the #261
+      eigenmode-existence open item. Lane's current record:
+      _orchestration/docket-entries/2026-08-03-rulings-vocab-exercise-thirteen.md:63-64,
+      verbatim at :63 — "R11 — K=2G forced-form lane: attack = the clm-satnec
+      static eigenmode-existence question" — and at :64 — "Phase-2 step 5, not
+      yet dispatched". clm-satnec itself is OPEN, confidence and solidity *pending*
+      (manuscript/ave-kb/common/claim-quality.md:1616). If K = 2G is ever derived
+      as substrate-forced, this row's value upgrades through the same chain that
+      currently caps it, and this `mixed` label is the one to revisit.
+
+      RIDER (b) — scheme declaration. The 2/9 is the tree-level pole-mass
+      value and is compared against the ON-SHELL scheme, which is what this row's
+      observed_value / observed_source fields carry (observed_source: "PDG
+      on-shell"). It is NOT the MS-bar value, and the framework does not produce
+      the one-loop radiative running that converts on-shell to MS-bar. Receipt:
+      manuscript/ave-kb/vol2/claim-quality.md:110 — "This is the **on-shell
+      (tree-level pole-mass)** scheme, NOT $\overline{MS}$ … Any summary that
+      does not specify the scheme is silently wrong."
 
   - id: P07
     clm: clm-mnb3lt
