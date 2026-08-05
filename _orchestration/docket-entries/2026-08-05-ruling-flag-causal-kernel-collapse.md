@@ -35,3 +35,29 @@ row becomes derived-from-the-kernel rather than RHO-A-conditional); the FLAG-CAN
 FLAG-W leaf blocks gain the kernel-collapse derivation on canonical propagation — ALL gated on
 the lane's receipts + Grant. Cross-ref: the electron self-trap as the same mechanism pointed
 inward (feeds ontology-note E1; adjudicates nothing).
+
+---
+
+## Status addendum (2026-08-05, post-receipts — orchestrator)
+
+The routed lane (PR #888) and its Tier-2 verify returned. Receipt state:
+
+- **The mechanism's arithmetic is CONFIRMED exact**: the zero last-bond DISCONNECTS the
+  beyond-wall region (∂Z_load/∂Z_beyond ≡ 0 at k₀ = 0); Γ at the last-bond plane = −1 exactly;
+  density-profile independence exact across thirty decades and an infinite load. The |Γ| = 1
+  mirror is PLANE-INVARIANT; the SIGN is a last-bond-plane statement (one node outward it would
+  invert — the crossover sits a factor ~3.5 in S beyond physical parameters and does not fire).
+- **Wording fix owed at propagation**: point 2's "one big gap" is a BAND COLLAPSE (the gap
+  CLOSES; the drive sits above the collapsed band top) — right outcome, wrong mechanism name.
+- **The premise (point 1's "every transport coupling rides the kernel") is NOT settled, and the
+  fork is sharper than frozen**: canon is INTERNALLY SPLIT on cross-grade saturation
+  (`axiom-register.md:189` dissolves aggregation into a load-response bifurcation;
+  `trampoline-framework.md:255` + `axiom-register.md:232` keep it open) — routed as
+  **FLAG-COMBINE-SPLIT**. The decisive physical question, routed to Grant:
+  **does the static A1 dilatation grading induce micro-rotation (wryness) at r_sat through the
+  chiral srs bond geometry — does the squeeze twist?** If yes, the rotational budget depletes at
+  the wall and this ruling substantially survives without any aggregation rule. If no, the
+  ruling DEMOTES to conditional with a GAPLESS rotational leak channel (G_c rides the strain
+  kernel, so the gap closes; the surviving branch is acoustic).
+- Ruling status: **RULED — MECHANISM CONFIRMED, PREMISE PENDING the squeeze-twist walk.**
+  Canonical propagation stays gated on that walk.
