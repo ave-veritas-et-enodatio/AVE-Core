@@ -810,7 +810,28 @@ the core session 2026-08-05; Grant corrected the register to SEMICONDUCTOR and r
 2. The depletion edge is **drive-frequency-indexed**: each $\omega$ has its own $W(\omega)$; at fixed $\omega$ it is a pure DC level set (wall-taxonomy axis discipline).
 3. **No space-charge / built-in-field electrostatics ride along** — the mapping is small-signal network topology only.
 
+### Carrier-sector rows (Grant "bank it" 2026-08-05; tags per row)
+
+| Substrate object | EE (semiconductor) mapping | tag |
+|---|---|---|
+| The matter-free cold vacuum | **Intrinsic (undoped) crystal** | walk-ratified |
+| The pair-creation threshold $2m_ec^2 = 1.022$ MeV | **The bandgap $E_g$** | correspondence [T]; the VALUE is imported via $m_e$ (definitional) — the register derives no mass value |
+| Pair production | **Generation** (pumping a carrier pair across the gap) | [T] |
+| Annihilation $e^+e^-\to2\gamma$ | **Radiative recombination** (carrier falls into the hole; gap energy leaves as photons) | [T] — and historically exact: Dirac's 1930 hole theory IS this picture; the oldest QED ontology was semiconductor physics before semiconductors existed |
+| The positron | **The hole** | [T] (Dirac correspondence) |
+| The electron soliton (self-localized, lattice-deforming, carries its deformation) | **Self-trapped carrier, polaron class** | WALK-LEVEL, un-audited |
+| Why the cold vacuum is empty of pairs | $n_i \propto e^{-E_g/2kT}$ at $T_{CMB}$: $E_g/2kT \sim 10^9$ — doubly-exponentially nil | consistency-class |
+
+> **⚑ FLAG-BREAKDOWN-CLASS (canon-correction candidate, flag-don't-fix, routed):** the existing
+> Miller-avalanche ↔ Schwinger row compresses TWO device breakdown modes. Spontaneous
+> field-induced pair production ($\Gamma \propto e^{-\pi E_S/E}$, no seed carriers) is the
+> **ZENER class** (interband field-tunneling); **avalanche** (impact ionization, seed-carrier
+> multiplication) maps to **seeded QED cascades** in strong fields. Both rows are real; the
+> current single row mis-files the spontaneous mechanism. KEEP-BOTH until ruled.
+
 **Register-span note (consistency obligation, not decoration):** the semiconductor register now
-carries FOUR sectors — the Ax4 varactor kernel, the gravitational wall region (these rows), vacuum
-breakdown (the Miller-avalanche row), and the Vol-6 nuclear semiconductor-circuit chapters. The
-same words must bind the same circuit objects in all four.
+carries FIVE sectors — the Ax4 varactor kernel, the gravitational wall region, vacuum
+breakdown (the Miller/Zener rows, see the flag above), the Vol-6 nuclear semiconductor-circuit
+chapters, and the CARRIER sector (the rows above). The same words must bind the same circuit
+objects in all five. Proof-of-concept derivation candidate routed 2026-08-05: two-band bipartite
+k·p dispersion of the gapped lattice → the relativistic massive-carrier form (see the docket).
