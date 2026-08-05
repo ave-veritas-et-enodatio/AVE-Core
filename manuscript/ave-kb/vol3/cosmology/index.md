@@ -21,7 +21,7 @@ Cosmological and astrophysical phenomena derived from the substrate LC lattice: 
 | Mutual Inductive Accretion Time Constant | $\tau_{ind} \approx 65.1$ Myr [Ch.4](./ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md) |
 | Derived MOND Acceleration Scale | $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s$^2$ [Ch.5](./ch05-dark-sector/derived-mond-acceleration-scale.md) |
 | Effective Galactic Acceleration | $g_{eff} = g_N + \sqrt{g_N \cdot a_0}\,\sqrt{1 - (g_N/a_0)^2}$ [Ch.5](./ch05-dark-sector/effective-galactic-acceleration-mond.md) |
-| Oort Cloud Saturation Boundary | $r_{\text{sat}} = \sqrt{GM_\odot/a_0} \approx 7{,}400$ AU [Ch.6](./ch06-solar-system/oort-cloud-saturation-boundary.md) |
+| ~~Oort Cloud Saturation Boundary~~ → **DISSOLVED 2026-08-04** (T4 keying ruled TOTAL-field; the leaf's own existence gate fires — no solar-system saturation transition at any radius). The number survives only as an internal-field counterfactual | $r_{\text{sat}} = \sqrt{GM_\odot/a_0} = 7438.906$ AU *(diagnostic only)* [Ch.6](./ch06-solar-system/oort-cloud-saturation-boundary.md) |
 | Anomalous Perihelion Advance | $\Delta\phi = 6\pi G M_\odot / (c^2 a(1-e^2))$ [Ch.14](./ch14-orbital-mechanics/anomalous-perihelion-advance.md) |
 | AVE Merger Ringdown Eigenvalue | $\omega_R M_g = 18/49 = 0.3673$ (1.7% error) [Ch.15](./ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) |
 | QNM Quality Factor | $Q = \ell$ (cold $a_*=0$ anchor — B1) [Ch.15](./ch15-black-hole-orbitals/qnm-quality-factor.md) |

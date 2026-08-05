@@ -28,7 +28,7 @@ Applies the impedance framework to solar system boundaries, interstellar objects
 |---|---|
 | [Heliospheric Impedance Profile](heliospheric-impedance-profile.md) | Resultbox: solar wind impedance, heliopause at ~120 AU |
 | ['Oumuamua Acceleration](oumuamua-acceleration.md) | Resultbox: radiation pressure on high area-to-mass body |
-| [Solar Axiom-4 Onset Radius (Internal-Field Keying)](oort-cloud-saturation-boundary.md) | Resultbox: the $g_N = a_0$ isocline for the solar monopole — the outer edge of the Newtonian region. A solar-**field** radius; **no** Oort-population claim (containment retracted 2026-08-03), existence gated by the unadjudicated T4 keying fork |
+| [Solar Axiom-4 Onset Radius (Internal-Field Keying)](oort-cloud-saturation-boundary.md) | Resultbox: the $g_N = a_0$ isocline for the solar monopole — the outer edge of the Newtonian region. A solar-**field** radius; **no** Oort-population claim (containment retracted 2026-08-03). ⚑ **2026-08-04: the T4 keying fork is RULED — TOTAL local field — and the leaf's own existence gate fires: no saturation transition exists anywhere in the solar system, so this is no longer a boundary at all.** What survives is an internal-field **counterfactual isocline** (`√(GM_☉/a₀) = 7438.906 AU`, re-derived at execution), quotable as a diagnostic and not as a location |
 | [Kirkwood Gaps as Cavity Modes](kirkwood-gaps-cavity-modes.md) | Mean-motion resonance gaps reproduced to $<0.3\%$ |
 | [Planetary Magnetopause Standoff](planetary-magnetopause-standoff.md) | Resultbox: magnetic/dynamic pressure balance |
 | [Chapman-Ferraro Enhancement](chapman-ferraro-enhancement.md) | Resultbox: standing wave $4\times$ pressure enhancement |
