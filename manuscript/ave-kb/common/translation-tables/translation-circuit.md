@@ -835,3 +835,24 @@ breakdown (the Miller/Zener rows, see the flag above), the Vol-6 nuclear semicon
 chapters, and the CARRIER sector (the rows above). The same words must bind the same circuit
 objects in all five. Proof-of-concept derivation candidate routed 2026-08-05: two-band bipartite
 k·p dispersion of the gapped lattice → the relativistic massive-carrier form (see the docket).
+
+### The datasheet map (orientation; Grant-ratified frame 2026-08-05)
+
+The five-sector register is operationalized by reading the program's analyses as sections of a
+single device datasheet — the characterization of an ideal, intrinsic, parasitic-free crystal
+(the parasitic-free clause IS Axiom 3 + crystalline perfection; the model has ideal intended
+terminals — the transfer-cost ports — and one noise temperature, the CMB Johnson floor, which are
+datasheet items, not parasitics):
+
+| Datasheet section | Corpus object |
+|---|---|
+| DC operating point / bias network | The gravitational grading (the DC level-set fields of wall-taxonomy) |
+| Small-signal analysis | Maxwell / linear-GR wave physics; the certified ringdown circuits |
+| Large-signal analysis | Op14 saturation; the walls |
+| C–V characteristic | The Ax4 varactor kernel |
+| Band structure | The adjudicated dispersion (`srs-band-structure.md`) + sector gaps |
+| Depletion / reach-through | The wall-approach region (the semiconductor rows above) |
+| Transit-time analysis | The echo-delay laws (`research/2026-08-04_echo-delay-regulated-sum_result.md`) |
+| Breakdown modes | Zener class (spontaneous Schwinger) / avalanche class (seeded cascades) — see FLAG-BREAKDOWN-CLASS |
+| Absolute maximum ratings | V_snap, V_yield, the two I_max tiers (swing + slew) |
+| Generation–recombination | Pair production / annihilation (carrier-sector rows) |

@@ -1275,3 +1275,23 @@ promotion.
   ([`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md),
   semiconductor-register additions): depletion edge / depletion width / junction two-port /
   reach-through.
+
+---
+
+## "infinite" / "divergent" (continuum-limit artifacts) — a math-level cage entry
+<!-- dated 2026-08-05; Grant carve 2026-08-04, core session -->
+
+- A divergence produced by a CONTINUUM-LIMIT calculation on the lattice imports the continuum's
+  own theorems (true horizons, frozen coordinate time, infinite optical distance, unresolvable
+  self-energies) — theorems the discrete substrate cannot host, since a finite node count admits
+  no singular point. Before reading any continuum divergence as physics, check what the lattice
+  regulator does to it: the regulated quantity is typically FINITE and LOG-ENHANCED, and the
+  regulator leaves a computable signature (type case: the RHO-B optical distance — continuum
+  log-divergent, lattice-regulated to a finite delay with the Euler–Mascheroni discrete
+  correction; PR #876 carve + PR #880).
+- This is the vocabulary-cage discipline one level down: not an imported WORD carrying a foreign
+  theorem, but an imported LIMIT carrying its own singularity structure.
+- Cross-refs: frontier queue row 25 (the discrete near-wall chain as the substrate-native
+  instrument class); the `ave-infinity-discipline` skill; the Wilsonian reading in
+  `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md` (divergences mark where the
+  continuum description is insensitive to the substrate).
