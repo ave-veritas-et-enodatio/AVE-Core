@@ -1017,6 +1017,22 @@ PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
         "vol3/claim-quality.md clm-3kmt3p: 'not a novel mechanism "
         "distinguishable from classical resonance theory'; vol2 clm-7o8clt",
     ),
+    # ── DEVIATION_DISCLAIMED ── the card explicitly disclaims predicting a
+    # NON-ZERO deviation. `forward-prediction` is defined at
+    # predictions.yaml:35 as "untested, divergent-from-SM, AVE-distinct"; a card
+    # that refuses to predict a departure is stating a null that matches the
+    # standard expectation, so it cannot be divergent-from-SM. Forbids ONLY
+    # `forward-prediction` — a null can still be a forced form (α-invariance
+    # under symmetric gravity IS a forced cancellation), so `chord` is untouched
+    # and no import/fit is implied.
+    ProvenanceMarker(
+        "DEVIATION_DISCLAIMED",
+        r"[Dd]oes NOT claim[^.]{0,160}(?:\\neq|\\ne)\s*0",
+        frozenset({"forward-prediction"}),
+        "claim-quality.md:145 clm-3zz0f6 Non-Claims: 'Does NOT claim the "
+        "framework predicts $\\Delta\\alpha \\neq 0$ in any gravitational "
+        "regime.' (sole live site; 1 of 329 cards)",
+    ),
     # ── FORM_FORCED ── EVIDENCE ONLY, forbids NOTHING. A forced FORM is equally
     # consistent with `chord` and with `mixed`, so it can neither license nor
     # rule out a role. It only informs the advisory `suggested` field. Encoding
@@ -1171,7 +1187,7 @@ def check_calibration_role(
     `severity` is the gating knob: "warn" = report-only (the tool's exit code
     keys on criticals), "critical" = gating.
 
-    FIRST-RUN CENSUS (2026-08-05, 36 manifest rows, HEAD 2b30d9eb) — the
+    FIRST-RUN CENSUS (2026-08-04, 36 manifest rows, HEAD 2b30d9eb) — the
     measurement that set the initial posture:
 
         UNDECLARED    12   (field absent; optional, nothing to reconcile)
@@ -1179,21 +1195,46 @@ def check_calibration_role(
         UNRECONCILED  11   (card states no provenance — info, never gating)
         CONTRADICTED   2   P04 (chord) and P_A034_bh_ringdown (chord)
 
-    Both contradictions are the manifest's only two `chord` rows, and the
-    corpus contradicts both — which is the expected shape, since `chord` is the
-    one role that asserts "AVE genuinely forces this" and therefore the one
-    role an import/fit statement can falsify.
+    Both contradictions were the manifest's only two `chord` rows, and the
+    corpus contradicts both — the expected shape, since `chord` is the one role
+    that asserts "AVE genuinely forces this" and therefore the one role an
+    import/fit statement can falsify.
 
-    POSTURE = REPORT-ONLY (`severity="warn"`), not gating, because after the
-    single authorized relabel (P_A034_bh_ringdown chord -> mixed) exactly ONE
-    contradiction remains open: P04 (`public_in_readme: true`). Relabelling an
-    outward-facing public claim is an adjudication, not a sweep, so it is held
-    for a ruling rather than auto-fixed. Gating now would fail `make verify`
-    repo-wide on an open adjudication.
+    CENSUS AFTER THE AUDIT REPAIR PASS (2026-08-04, same 36 rows), i.e. after
+    the one authorized relabel + the clause-scoped guard + DEVIATION_DISCLAIMED:
+
+        UNDECLARED    12
+        RECONCILED    12   (+1: P_A034_bh_ringdown, relabelled chord -> mixed)
+        UNRECONCILED  10   (-1: P42, now detected)
+        CONTRADICTED   2   P04 (chord) and P42 (forward-prediction)
+
+    The guard repair alone moved NO row — it only strengthened P04's receipt
+    (VALUE_IMPORTED -> VALUE_IMPORTED + FORM_VS_VALUE_SPLIT), because the five
+    other markers it released sit on cards no manifest row bridges to. P42
+    moved because DEVIATION_DISCLAIMED mechanized a judgement that was
+    previously carried as a prose footnote for human eyes.
+
+    POSTURE = REPORT-ONLY (`severity="warn"`), not gating. Two contradictions
+    are open and BOTH are adjudications rather than sweeps:
+
+      P04  (`public_in_readme: true`) declares `chord`; the card states the
+           value is GR-imported and import-capped. Relabelling an
+           outward-facing public claim is Grant's call.
+      P42  declares `forward-prediction` on clm-3zz0f6, whose card says α is
+           "exactly invariant", "Multi-species $\\Delta\\alpha/\\alpha = 0$",
+           and "Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$
+           in any gravitational regime" — a null matching the standard
+           expectation, which is the opposite of predictions.yaml:35's
+           "untested, divergent-from-SM, AVE-distinct".
+
+    Gating now would fail `make verify` repo-wide on two open adjudications,
+    and the gate would get bypassed.
 
     FLIP CONDITION (named, so this does not drift into permanent advisory):
-    once P04 is ruled, register this check with `severity="critical"` — the
-    backlog is one row, not a class of rows.
+    once BOTH P04 and P42 are ruled, register this check with
+    `severity="critical"`. The backlog is two named rows, not a class of rows.
+    Flipping with either unruled would red-gate the repo on a label a human
+    already suspects is wrong — which is how gates get disabled.
     """
     findings: list[Finding] = []
     if cards is None:
@@ -1287,6 +1328,19 @@ def check_calibration_role(
         if not forbidden:
             continue  # RECONCILED
 
+        # The rules ELIMINATE; they do not select. Report what survives, and
+        # say plainly when the advisory has nothing to offer rather than
+        # printing 'None' as though it were a role.
+        suggested = suggest_role(signals)
+        survivors = sorted(
+            ALLOWED_CALIBRATION_ROLES - {r for mk, _ in hits for r in mk.forbids}
+        )
+        advice = (
+            f"Corpus-derived suggestion: '{suggested}'"
+            if suggested
+            else "No suggestion — the corpus eliminates but does not select here"
+        )
+
         findings.append(
             Finding(
                 check="calibration_role",
@@ -1296,8 +1350,7 @@ def check_calibration_role(
                     f"calibration_role '{declared}' CONTRADICTS the corpus "
                     f"grading of {clm} ({card_path}:{card_line}): the card "
                     f"carries {sorted(forbidden)}, which rule(s) out "
-                    f"'{declared}'. Corpus-derived suggestion: "
-                    f"'{suggest_role(signals)}'"
+                    f"'{declared}'. Roles not eliminated: {survivors}. {advice}"
                 ),
                 details={
                     "declared": declared,
@@ -1306,7 +1359,8 @@ def check_calibration_role(
                     "verdict": "CONTRADICTED",
                     "signals": sorted(signals),
                     "forbidding_signals": {k: v for k, v in sorted(forbidden.items())},
-                    "suggested": suggest_role(signals),
+                    "surviving_roles": survivors,
+                    "suggested": suggested,
                     "receipts": sorted(
                         {mk.receipt for mk, _ in hits if mk.signal in forbidden}
                     ),

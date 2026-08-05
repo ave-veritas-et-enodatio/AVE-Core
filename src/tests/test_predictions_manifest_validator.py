@@ -698,6 +698,23 @@ class TestCalibrationRole:
         }
         assert firing == {"clm-5zuo7g"}, f"FORM_VS_VALUE_SPLIT live sites drifted: {sorted(firing)}"
 
+    def test_deviation_disclaimed_forbids_only_forward_prediction(self) -> None:
+        # A card that refuses to predict a non-zero deviation is stating a NULL
+        # matching the standard expectation, so it cannot be
+        # "divergent-from-SM" (predictions.yaml:35). But a null can still be a
+        # forced FORM — α-invariance under symmetric gravity IS a forced
+        # cancellation — so the marker must leave every other role alone.
+        body = "  - Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$ in any gravitational regime."
+        assert "DEVIATION_DISCLAIMED" in {mk.signal for mk, _ in scan_provenance(body)}
+        cards = self._cards(aaaaaa=body)
+        for role in sorted(ALLOWED_CALIBRATION_ROLES):
+            m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "calibration_role": role}])
+            findings = check_calibration_role(m, cards=cards)
+            contradicted = [f for f in findings if f.details.get("verdict") == "CONTRADICTED"]
+            assert bool(contradicted) is (role == "forward-prediction"), (
+                f"DEVIATION_DISCLAIMED must contradict only 'forward-prediction', got {role} -> {findings}"
+            )
+
     def test_live_manifest_has_no_unknown_roles(self) -> None:
         # The reconciler's precondition holds on the live manifest.
         m = load_manifest(MANIFEST_PATH)
@@ -747,6 +764,11 @@ FROZEN_MARKER_TABLE: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     (
         "NOT_SM_DISTINGUISHABLE",
         r"not (?:a )?(?:novel )?[a-z ]{0,30}distinguishable from",
+        ("forward-prediction",),
+    ),
+    (
+        "DEVIATION_DISCLAIMED",
+        r"[Dd]oes NOT claim[^.]{0,160}(?:\\neq|\\ne)\s*0",
         ("forward-prediction",),
     ),
     ("FORM_FORCED", r"zero free parameters", ()),
