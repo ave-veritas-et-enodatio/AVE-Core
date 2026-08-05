@@ -141,6 +141,50 @@ orchestrator.
 
 ---
 
+## BATTERY — receipts
+
+| check | result |
+|---|---|
+| `make verify` | **ALL PHYSICS PROTOCOLS PASSED** |
+| `make verify-md-links` | **gating errors 0** (warn-only 209, inter-repo 42 — both at baseline); kbleaf 1252 cites, gating 0 |
+| `make refresh-kb-metadata` ×2 | **idempotent** — 0 files rewritten on both runs |
+| `verify-wall-taxonomy-anchors.py` BEFORE (clean `main`) | anchors 0 FAIL, **quotes 8 FAIL** |
+| `verify-wall-taxonomy-anchors.py` AFTER | anchors 0 FAIL, **quotes 0 FAIL** |
+| pure-corpus scan (full diff + every commit message) | **clean** |
+| `make pdf_manuscript` (full two-pass, 8 volumes) | **EXIT 0**, and see below |
+
+**Build deltas vs a clean `origin/main` baseline built in a separate worktree with the identical
+target** (like-for-like; a single-volume target would have resolved in one pass and given a FALSE
+GREEN on xr-hyper, and this wave touches **both** xr bases — vol0 via `backmatter/07`, and vol3):
+
+| volume | pages | Overfull `\hbox` | Underfull `\hbox` | NEW undefined refs |
+|---|---|---|---|---|
+| vol_0 | 140 → 140 (+0) | 31 → 31 (+0) | 155 → 158 (+3) | **0** |
+| vol_1 | 153 → 153 (+0) | 3 → 3 (+0) | 44 → 44 (+0) | **0** |
+| vol_2 | 259 → 259 (+0) | 6 → 6 (+0) | 47 → 47 (+0) | **0** |
+| vol_3 | 251 → 255 (**+4**) | 17 → 17 (+0) | 104 → 109 (+5) | **0** |
+| vol_4 | 181 → 181 (+0) | 8 → 8 (+0) | 83 → 83 (+0) | **0** |
+| vol_5 | 88 → 88 (+0) | 3 → 3 (+0) | 27 → 27 (+0) | **0** |
+| vol_6 | 190 → 190 (+0) | 7 → 7 (+0) | 28 → 28 (+0) | **0** |
+| vol_9 | 278 → 280 (**+2**) | 55 → 55 (+0) | 1066 → 1066 (+0) | **0** |
+
+**Two real defects the build caught that static review did not** (Rule-10, run-the-driver-early):
+a **fatal** `U+2605` in rendered `.tex` prose that killed the vol_3 and vol_9 PDFs outright (the
+corpus's existing stars are all inside `%`-comments, which is why the pattern looked safe), and one
+**new** `Overfull \hbox` in the re-scoped GW-memory resultbox. Both repaired; the tables above are
+post-repair.
+
+**Fence verifications, each run rather than asserted:**
+
+| fence | method | result |
+|---|---|---|
+| `manuscript/predictions.yaml` untouched (concurrent lane `docs/predictions-ruled-batch-0805`) | `git diff --name-only origin/main...HEAD` | **not in the diff** |
+| `research/2026-06-17_bh-shear-echo-forward-prereg.md` byte-untouched (FROZEN) | same | **not in the diff** |
+| ch08 *"propagate **exclusively** as lossless, trace-free, transverse"* byte-untouched (route-to-core, Q1/bulk fork) | line-set extraction at base vs HEAD, compared as a set | **byte-identical (3 occurrences, identical set)**; ch08's whole diff is **7 added lines, 0 removed** — the figure environment only |
+| already-done sites not re-fired | none of vol1 `04`/`07`, vol5 `02`, vol9 `07` appears in the 16 touched files | **confirmed** |
+
+---
+
 ## CITE-SHIFT SWEEP — run AFTER content settled, two-method, 123 cites classified
 
 **Method 1** — enumerate every `file:NNN` cite anywhere in the repo whose target basename is one
