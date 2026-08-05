@@ -377,3 +377,26 @@ The bulk rows carry a prefactor `sqrt(2)`; the shear rows carry `1`. Evaluated o
 ---
 
 > **Result provenance.** Resolves the frozen gates and bins of `research/2026-08-04_coldq-axial-rhob_prereg-FROZEN.md` (commit `e3a4181d`, COMMIT 1 of this lane, pushed **ALONE** before any driver code existed and before any number produced by this instrument existed). All numbers above are read from the shipped `research/drivers/coldq_axial_rhob_results.json` and are machine-verified against it by `research/drivers/coldq_axial_rhob_number_check.py`, wired into `make verify`. **Mints no `clm-`/`def-`; propagates to no leaf; engine byte-untouched; falsification ledger untouched.** Companion: the docket fragment `_orchestration/docket-entries/2026-08-04-coldq-axial-rhob.md`.
+
+---
+
+> **⚑ CONTINUUM-VS-LATTICE CARVE (Grant catch, 2026-08-04, post-return orchestrator note — amends
+> the FRAMING, not the derivation).** The infinite-optical-distance / no-reflection-event /
+> horizon-analogue statements above are properties of the **continuum limit** this instrument
+> solves: the divergence of the optical integral exists only because the continuum integrates all
+> the way to the level set. On the physical lattice the optical path is a **finite node-sum cut at
+> the last cell** — effectively infinite (log-enhanced), not infinite. The horizon reading is
+> therefore the continuum's own theorem, imported with the limit (the Lorentzian causal structure
+> of the effective metric degenerating at the wall — the lattice's characteristics never fully
+> collapse). Lattice-regulated statement: **total return after a finite, log-enhanced delay** —
+> port-like below the return time (a long lossless line presents a real input impedance until the
+> round trip completes), reactive store above it; the transfer-cost arrow never fires because the
+> line has an end. `FLAG-CAUSAL` dissolves into this carve accordingly; what remained for Grant was
+> ratifying the carve, given 2026-08-04 ("Go on all three"). The regulated-sum delay derivation —
+> including the band-edge turning-point question and cutoff-robustness — is dispatched as its own
+> lane (`research/echo-delay-regulated-sum` branch; docket
+> `2026-08-04-echo-delay-regulated-sum.md`). The echo consequence updates from "RHO-A-only" to:
+> both branches predict echoes with **different timing structure** — pending that lane's frozen
+> bins. This note preserves the lane's §body verbatim per Rule 12; the lane's derivation was
+> honest in its continuum terms, and its `FLAG-CAUSAL` framing was superseded by the carve, not
+> refuted.
