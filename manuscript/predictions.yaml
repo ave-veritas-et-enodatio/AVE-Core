@@ -496,7 +496,43 @@ predictions:
       Black-hole ring-down quasi-normal-mode (QNM) eigenvalue derived from
       saturation cavity at r_sat = 7 M_g: ω_R M_g = 18/49 = 0.3673,
       versus GR exact 0.3737 — 1.7% deviation with zero free parameters.
-      Validated against three LIGO merger events at 10-18% frequency error.
+
+      🔴 Rule 12 (2026-08-05) — the prior validation line, which asserted a
+      10–18% frequency error against three LIGO merger events, is RETRACTED
+      and REPLACED by the paragraph below. The retracted wording is not
+      restated here; git carries the history. Per Ruling B1
+      (2026-07-21) that figure is a FRAME-MIXED PRE-CORRECTION ARTIFACT
+      (#774: v1 frequency evaluated at source-frame mass and compared against
+      detector-frame f_obs on a corrupt Kerr table), not a frequency error
+      against true Kerr. Corpus, verbatim from
+      manuscript/ave-kb/vol3/claim-quality.md:217 — "the disclosed weak edge
+      is now the τ near-miss + the phenomenological photon-sphere-shift
+      provenance, NOT a 10–18% frequency error."
+
+      WHAT THIS ROW IS COMPARED AGAINST (the empirical anchor, preserved).
+      Two distinct comparisons ride this row, and only the first is its
+      predicted_value/observed_value pair:
+        1. ZERO-FREE-PARAMETER content — the COLD Schwarzschild ℓ=2
+           eigenvalue ω_R M_g = 18/49 against GR exact. That is the numeric
+           pair carried in the fields above, and it is the only
+           zero-parameter content on this row.
+        2. SPINNING-REMNANT comparison — the same three LIGO merger events
+           named in observed_source (GW150914, GW170104, GW151226), re-run
+           under Ruling B1 on the frame-independent C-1 dimensionless
+           comparator. The standing ω_R spin mapping is v1 (re-selected over
+           v2 by the ruling); on the primary catalog it lands +2.63% mean,
+           INSIDE the frozen |D̄| < 3% MATCH band, with τ an OPEN near-miss
+           tension outside it. The class is CONSISTENCY, MAPPING-CONDITIONAL
+           and DISCLOSED-PHENOMENOLOGICAL — NOT a zero-free-parameter
+           benchmark, and NOT a claim of sub-percent spinning agreement.
+           Per-event ladder, secondary catalog, and both τ variants live at
+           the leaf and are deliberately not duplicated here (R7):
+           manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:60-97
+           (§GRANT RULING B1) and manuscript/ave-kb/vol3/claim-quality.md:202,
+           :217. Provenance:
+           research/2026-07-20_kerr-table-correction_result.md and
+           research/2026-07-20_v1-spin-mapping-adjudication_result.md.
+
       Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
       (P_A034_solar_flare), and cosmic K4 crystallization.
       Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
