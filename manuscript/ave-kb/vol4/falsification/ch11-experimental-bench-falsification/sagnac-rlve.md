@@ -26,8 +26,10 @@ A macroscopic physical rotor is composed of fundamental nucleons (topological in
 For a solid Tungsten rotor ($\rho_W = 19{,}300\,\text{kg/m}^3$), the volumetric inductive coupling is precisely:
 
 $$
-\kappa_{entrain} = \frac{19{,}300}{7.916 \times 10^6} \approx \mathbf{0.00244}
+\kappa_{entrain} = \frac{19{,}300}{7.910 \times 10^6} \approx \mathbf{0.00244}
 $$
+
+> 🔴 **Engine-lockstep value re-pin, 2026-08-03 (Rule 12 — the prior denominator is quoted here and preserved, not deleted).** This denominator read $7.916 \times 10^6$ kg/m³. It is the **4-significant-figure member** of the same $\rho_{bulk}$ transcription-drift family closed at 3 s.f. elsewhere in this batch; re-pinned to `src/ave/core/constants.py` `RHO_BULK` $= 7{,}909{,}692.740007466$ kg/m³, i.e. $\mathbf{7.910 \times 10^6}$ to 4 s.f. Verified two ways, both on `constants.py`: banked `RHO_BULK` and a recompute of `XI_TOPO**2 * MU_0 / (P_C * L_NODE**2)` — bit-identical. **NO CASCADE, checked explicitly and not assumed:** $19{,}300/7.910\times10^6 = 0.00243995$ and $19{,}300/7{,}909{,}692.74 = 0.00244004$, both **$\approx 0.00244$** at the printed 3 s.f. (the struck $7.916\times10^6$ gave $0.00243810$ — same 3 s.f.). Downstream is likewise unchanged at printed precision: $v_{network} = 157 \times 0.00244 = 0.38$ m/s and $\Delta\phi = 2.07$ rad, and the scope-correction header's Earth-rotor coupling $\kappa_{earth} = 5515/\rho_{bulk} = 6.97\times10^{-4}$ holds on both values. Receipt site for the whole family: [`../../../vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md). Mirror re-pinned in the same commit: [`../ch11-experimental-bench/sagnac-rlve.md`](../ch11-experimental-bench/sagnac-rlve.md).
 
 As the Tungsten mass rotates at a tangential velocity $v_{tan}$, the embedded topological loops act as a primary inductor sweeping the bulk continuous vacuum network. If a safe, standard machine-shop Tungsten rotor ($15\,\text{cm}$ radius) spins at $10{,}000$ RPM ($v_{tan} \approx 157\,\text{m/s}$), the macroscopic induced drift velocity (the secondary phase shift) of the local vacuum is exactly:
 

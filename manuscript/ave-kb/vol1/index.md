@@ -28,7 +28,7 @@ The AVE framework models the physical vacuum as a discrete chiral LC resonant ne
 | Impedance Dimensional Isomorphism | $1\,\Omega = \xi_{topo}^{-2}\,\text{kg/s}$ |
 | Dielectric Snap Limit | $V_{snap} = m_e c^2 / e \approx 511.0$ kV |
 | Unifying AVE Master Equation | $\nabla^2 V - \mu_0 \varepsilon_0 \sqrt{1 - (V/V_{yield})^2}\;\partial^2 V/\partial t^2 = 0$ |
-| Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (p_c \ell_{node}^2) \approx 7.92 \times 10^6$ kg/m$^3$ |
+| Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (p_c \ell_{node}^2) \approx 7.91 \times 10^6$ kg/m$^3$ *(engine-lockstep re-pin 2026-08-03, Rule 12: prior value ~~$7.92\times10^6$~~; receipt at [`lc-electrodynamics.md`](dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md):35)* |
 | Asymptotic Hubble Constant | $H_\infty = 28\pi m_e^3 c G / (\hbar^2 \alpha^2) \approx 69.32$ km/s/Mpc |
 | Geometric Drift Acceleration (MOND $a_0$) | $a_{genesis} = c H_\infty / (2\pi) \approx 1.07 \times 10^{-10}$ m/s$^2$ |
 | Vacuum Compliance Scalar | $K \equiv \hbar/c = m_e \ell_{node}$ |

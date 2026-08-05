@@ -29,7 +29,7 @@ import numpy as np
 # -----------------------------------------------------------------
 # Fundamental Topological Values
 # -----------------------------------------------------------------
-from ave.core.constants import ALPHA, C_0, G
+from ave.core.constants import ALPHA, C_0, G, RHO_BULK
 from ave_path_util import sim_output
 
 # Astrophysical Constants
@@ -61,8 +61,27 @@ def calculate_ave_sagnac(
     # Zero-Parameter Analytical Derivations
     # ---------------------------------------------------------
     # The vacuum lattice possesses a fundamental mass density derived from Rigidity Percolation:
-    # rho_vacuum = mu_0 / (p_c * l_node^2) = ~ 7.92e6 kg/m^3
-    rho_vacuum = 7.92e6
+    #   rho_bulk = xi_topo^2 * mu_0 / (p_c * l_node^2) = 7,909,692.740007466 kg/m^3
+    #
+    # [ENGINE-LOCKSTEP CORRECTION 2026-08-03, Rule 12 quote-and-date -- the struck
+    #  lines are preserved verbatim here, not deleted. They read:
+    #      "# rho_vacuum = mu_0 / (p_c * l_node^2) = ~ 7.92e6 kg/m^3"
+    #      "rho_vacuum = 7.92e6"
+    #  TWO defects, both repaired:
+    #  (1) FORMULA: the comment omitted the xi_topo^2 numerator. The canonical form is
+    #      rho_bulk = xi_topo^2 * mu_0 / (p_c * l_node^2)  (src/ave/core/constants.py:758;
+    #      canonical derivation leaf manuscript/ave-kb/vol1/dynamics/
+    #      ch4-continuum-electrodynamics/lc-electrodynamics.md). Without xi_topo^2 the
+    #      written expression is dimensionally and numerically wrong, not merely imprecise.
+    #  (2) LIVE HARDCODE: 7.92e6 was a hard-coded number in an executed code path, a
+    #      +0.13% drift against the canonical constant. Replaced with the canonical import
+    #      (ave-canonical-source discipline: import, do not transcribe). Verified two ways
+    #      at repair time -- banked RHO_BULK = 7909692.740007466 and a recompute of
+    #      XI_TOPO**2 * MU_0 / (P_C * L_NODE**2) = 7909692.740007466, bit-identical.
+    #  NUMERICAL EFFECT: rho_vacuum enters only through Z_vac = rho_vacuum * C_0 in the
+    #  ratio Z_rotor / Z_vac, so every reported quantity shifts by +0.13% inside a term
+    #  already scaled by 1e-15; no printed figure or verdict in this script changes. ]
+    rho_vacuum = RHO_BULK
 
     # Fundamental Kinematic Impedance of the vacuum lattice
     Z_vac = rho_vacuum * C_0

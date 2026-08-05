@@ -22,7 +22,9 @@ A rapidly rotating high-density mass induces vacuum drift via **macroscopic mutu
 
 **Inductive coupling** (Tungsten, $\rho_W = 19{,}300$ kg/m³):
 
-$$\kappa_{entrain} = \frac{\rho_W}{\rho_{bulk}} = \frac{19{,}300}{7.916 \times 10^6} \approx 0.00244$$
+$$\kappa_{entrain} = \frac{\rho_W}{\rho_{bulk}} = \frac{19{,}300}{7.910 \times 10^6} \approx 0.00244$$
+
+> 🔴 **Engine-lockstep value re-pin, 2026-08-03 (Rule 12 — the prior denominator is quoted here and preserved, not deleted).** This denominator read $7.916 \times 10^6$ kg/m³, re-pinned to `src/ave/core/constants.py` `RHO_BULK` $= 7{,}909{,}692.74$ kg/m³ $= \mathbf{7.910 \times 10^6}$ (4 s.f.). **No cascade:** $\kappa_{entrain}$ still rounds to $0.00244$, $v_{network}$ to $0.38$ m/s and $\Delta\phi$ to $2.07$ rad. Full receipt (both computation methods and the digit-level no-cascade check) at the canonical twin [`../ch11-experimental-bench-falsification/sagnac-rlve.md`](../ch11-experimental-bench-falsification/sagnac-rlve.md), re-pinned in the same commit.
 
 **Vacuum drift** (15 cm radius, 10k RPM → $v_{tan} \approx 157$ m/s):
 

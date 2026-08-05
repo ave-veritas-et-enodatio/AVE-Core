@@ -17,7 +17,7 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | Unifying AVE Master Equation | $\nabla^2 V - \mu_0\varepsilon_0\sqrt{1-(V/V_{yield})^2}\;\partial^2 V/\partial t^2 = 0$ |
 | Field-Dependent Wave Speed | $c_{eff}(V) = c_0(1-(V/V_{yield})^2)^{-1/4}$ |
 | Effective Inductive Node Mass | $m_{node} = \xi_{topo}^2\mu_0\ell_{node}$ |
-| Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92\times10^6$ kg/m$^3$ |
+| Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.91\times10^6$ kg/m$^3$ *(engine-lockstep re-pin 2026-08-03, Rule 12: prior value ~~$7.92\times10^6$~~; receipt at [`lc-electrodynamics.md`](lc-electrodynamics.md):35)* |
 | Baseline 3D Vacuum Shear Modulus | $G_{vac} = \rho_{bulk} \cdot c^2 \approx 7.12\times10^{23}$ Pa (corrected 2026-05-17; cross-check $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c$) |
 | 1D String Tension Density (axial stiffness) | $G_{string} = m_e c^2/\ell_{node}^2 \approx 5.49\times10^{11}$ Pa (formerly mis-labeled as $G_{vac}$; distinct quantity per [`../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md:49-56`](../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md)) |
 | Kinematic Network Mutual Inductance | $\nu_{kin} = \alpha c\ell_{node} \approx 8.45\times10^{-7}$ m$^2$/s |
