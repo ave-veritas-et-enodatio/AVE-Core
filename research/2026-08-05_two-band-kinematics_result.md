@@ -304,3 +304,41 @@ so the mismatch is informative and an equality would have been peer, not superio
 **This lane does NOT license:** any statement about the electron's rest-mass value; any claim
 that the $\omega$-branch *is* the electron; any Zitterbewegung claim; any $O(k^4)$ or band-top
 statement on the ratified z=3 carrier; and any firing of LC-1's arc-level kill.
+
+---
+
+> **⚑ ORCHESTRATOR REVIEW BLOCK (Tier-2 verify processed, 2026-08-05; body above preserved per
+> Rule 12).** The independent audit CONFIRMED the headline identity (re-derived symbolically from
+> the canonical energy functional, general moduli; hidden-O(k) and symmetry-degeneracy attacks
+> failed), the cancellation mechanism (exact), FLAG-2's operator choice, and FLAG-3's rank-2 srs
+> computation (analytically forced: coplanar 3-coordination). Corrections applied:
+>
+> 1. **The 0.612 figure is retracted as a point value.** The driver's 400-point scan is a LOWER
+>    bound; the audit's denser scan measured ≥ 0.6133. Both KB sites now state the bound and the
+>    method; the < c_EM conclusion is unaffected.
+> 2. **The scale-separation attribution is softened:** "no scale separation because
+>    ℓ_node ≡ ħ/(m_ec)" holds only under the ADDITIONAL identification gap = Compton
+>    (G_c/I_ω = 1/4 reopens the window with ℓ_node untouched) — which is exactly FLAG-1's open
+>    item, not a settled premise.
+> 3. **FLAG-1 corrected and sharpened:** resolutions (b) and (c) are the same operation (two
+>    distinct resolutions, not three). NEW WITNESS the lane missed: `trampoline-framework.md:224`
+>    heads the cited lines "**A-008 resolution canonical** (Grant adjudication 2026-04-27)" —
+>    "the factor of 2 IS the half-cover" (frame m_Cosserat = 2 vs field ω_C = m_e = 1). A dated
+>    canonical ruling on this factor was presented as an open candidate. → Grant: does A-008
+>    close FLAG-1, and is E_g = ħω_m or 2ħω_m?
+> 4. **The VALUE-PROVENANCE absence claim is RETRACTED:** "no MeV gap value exists anywhere in
+>    the corpus" was a single-method grep false-negative — the audit's second method found ≥ 9
+>    tracked sites carrying ω_m ~ 1 MeV, including this landing's own leaf (:718) and
+>    load-bearing uses (the B-mode freeze ratio behind clm-hp7nlm). The placeholder findings
+>    (no constants.py symbols; engine pinning) STAND. Lesson re-banked: absence claims require a
+>    second method — now mandated in dispatch briefs.
+> 5. **The centrosymmetric justification is corrected:** TETRA_OFFSETS is NOT centrosymmetric;
+>    the O(k²) connectivity-independence holds because the least-squares gradient's asymmetric
+>    piece enters the eigenvalues only at O(k³) — the result stands, the stated reason did not
+>    cover the primary case.
+> 6. **Checker-scope gap routed:** the number-check gates only this result doc; the KB landing
+>    and claim card numerals are ungated. Routed as a follow-on (extend the scan surface), and
+>    the KB numerals were hand-reconciled in this repair pass.
+> 7. The scope-interpretation audit found **NO LEAK**: V-MISMATCH binds the linear microrotation
+>    branches on the diamond control net only; the canonical electron (nonlinear self-trapped
+>    soliton) is not bound by it, and no text conflates them.

@@ -334,7 +334,8 @@ reduction obtained as an $O(k^2)$ k·p term. The photon's speed is protected; th
 **★Validity fence carried with the row (do NOT read the mismatch as superluminal transport).** On
 this lattice the relativistic form's validity window closes *before* its own relativistic regime
 opens ($k_{\text{break}}/k_{\text{rel}} = 0.387$ and $0.424$), and the full-BZ carrier group
-velocity peaks at $0.612\,c_{EM}$. The mismatch is in the **low-energy effective theory's
+velocity stays below $c_{EM}$ everywhere (sampled maximum $\approx 0.61\,c_{EM}$ — a random-point
+LOWER bound; the supremum is uncertified, audit-measured $\geq 0.613$). The mismatch is in the **low-energy effective theory's
 invariant speed**, not in observed energy transport. Root cause recorded: with
 $\ell_{node}\equiv\hbar/(m_ec)$ there is no scale separation between the carrier's Compton scale
 and the lattice cutoff, so no lattice regularisation of this family has a wide relativistic
@@ -356,8 +357,9 @@ nothing here adjudicates it.
   nothing"*), and an unresolved **factor-2 tension** sits directly on the identification: under the
   relativistic reading the branch bottom is the REST frequency ($\hbar\omega_0=E_g/2$) and the
   $\pm\omega$ splitting is $E_g=2\hbar\omega_0$, but the placeholder moduli put the branch bottom at
-  $\omega_m = 2\omega_C$, giving $E_g = 4\,m_ec^2 = 2.044$ MeV rather than the 1.022 MeV the
-  Zitterbewegung / pair-threshold identification wants. Landing $E_g=2m_ec^2$ needs
+  $\omega_m = 2\omega_C$, giving $E_g = 4\,m_ec^2$ (placeholder-conditioned; no MeV numeral rendered here per the
+  VALUE refusal below) rather than the $2\,m_ec^2$ the Zitterbewegung / pair-threshold
+  identification wants. Landing $E_g=2m_ec^2$ needs
   $G_c/I_\omega = 1/4$, not 1. Recorded at `research/2026-08-05_two-band-kinematics_result.md` §7
   FLAG-1; **not adjudicated**.
 - **Nothing about the gap's VALUE.** The lane's VALUE-PROVENANCE axis returns **FACTOR DERIVED /
