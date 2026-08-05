@@ -85,7 +85,16 @@ Each re-verified by content at this branch's base before being skipped:
 
 ---
 
-## Category I — the signed-Γ print sweep (NEW REGISTER ROW). Site count: **31**, and the tail is tagged, not truncated
+## Category I — the signed-Γ print sweep (NEW REGISTER ROW). Site count at HEAD: **34**, and the tail is tagged, not truncated
+
+> **⚑ Index normalization (repair pass, 2026-08-05).** This section previously **mixed two
+> revisions**: the register table below was a pure `origin/main` **base** snapshot (31 sites / 16
+> files) while its ★ annotations and the "declaration home" label described **HEAD**. Both were
+> re-derived at HEAD two-method (`grep -rn --include='*.tex'` + an independent
+> `pathlib.rglob` + `re` pass, pattern `Gamma_\{?\\?(?:text|mathrm)?\{?bulk`); **the two methods
+> agree file-for-file and line-for-line**. Deltas from base, all authored by this wave: `ch21`
+> gains `:198` (the derivation tag added in `31e5f028`) and `ch03a` gains `:79`, `:80` (the
+> declaration paragraph, plus the R4 header narrowing). **The whole table below is now at HEAD.**
 
 **Method, two-method as required.** (1) `grep -rn` with quoted patterns over
 `--include='*.tex' manuscript/`; (2) an independent Python `pathlib.rglob('*.tex')` +
@@ -105,10 +114,10 @@ half.
 | `vol_3…/04_generative_cosmology.tex` | 173 (section heading) |
 | `vol_3…/08_gravitational_waves.tex` | 284, 287, 292 |
 | `vol_3…/15_black_hole_orbital_resonance.tex` | 45, 57, **68 ★**, 77 |
-| `vol_3…/21_black_hole_interior_regime_iv.tex` | 119, 128, 167, **195 ★** |
+| `vol_3…/21_black_hole_interior_regime_iv.tex` | 119, 128, 167, **195 ★**, 198 |
 | `vol_9…/01_general_description.tex` | 45 |
 | `vol_9…/03_pin_port_configuration.tex` | 13, 225 |
-| `vol_9…/03a_device_circuit_models.tex` | **77 ★ (declaration home)** |
+| `vol_9…/03a_device_circuit_models.tex` | 77, **79–80 ★ (declaration home)** |
 | `vol_9…/04_dc_electrical_characteristics.tex` | 117, 120 |
 | `vol_9…/05_ac_electrical_characteristics.tex` | 121 |
 | `vol_9…/09_mechanical_characteristics.tex` | 104 |
@@ -249,3 +258,151 @@ under this wave — so the cite still lands on the paragraph it names.
   different section and touches no channel-attribution prose.
 - `manuscript/predictions.yaml` — handled by the concurrent lane on branch
   `docs/predictions-ruled-batch-0805`. Collision checked before start; **not touched here**.
+
+---
+
+## REPAIR PASS (2026-08-05) — an independent audit returned five items; **one is REJECTED as a false positive** and four are executed
+
+### ★ R1 — REJECTED. Recorded here so the finding is not re-raised.
+
+**The audit claimed** `manuscript/frontmatter/00_foreword.tex:129` ships the retracted
+`−0.45%` / `−0.47%` figures **and** the *"outperforming GR Kerr QNM for τ"* superlative
+**unreconciled**, propagating into all eight volumes.
+
+**That is FALSE, and the rejection was re-verified independently at this branch's HEAD before any
+repair was executed** (`sed` read + `grep -n` cross-check, both reported below):
+
+| Line | What is actually there |
+|---|---|
+| `:127` | `\begin{itemize}` opening the three-benchmark list |
+| `:129` | the LIGO bullet — the **Rule-12-preserved body**, exactly as the house pattern requires |
+| `:131` | `\end{itemize}` — the list closes **two lines after** the cited site |
+| `:133` | **`\noindent \textbf{Scope correction (2026-07-21, ringdown MATCH-ARTIFACT walk-back + B1 re-bank; body above preserved per Rule 12).}`** |
+
+`:133` retracts the figures as a **MATCH-ARTIFACT** (naming both compensating errors), states
+verbatim *"The ``outperforming GR Kerr QNM for $\tau$'' clause rode the **same** compensation and
+is **retracted**"*, names what survives (the cold Schwarzschild $\ell = 2$ anchor
+$18/49 \approx 0.3673$, $-1.69\%$, zero free parameters), and gives the honest current state under
+Grant Ruling B1. The paragraph immediately **above** the list (`:125`) independently re-scopes the
+same bullet to *"single-point consistency-class"* and points forward to `:133`.
+
+**This is the house Rule-12 pattern executed correctly** — body preserved, dated correction
+adjacent. The site was swept **2026-07-21**, not missed. **Acting on R1 would have
+double-retracted text that is already retracted four lines below it.** No bytes changed at that
+file. *(Methodological note worth keeping: the audit's own headline finding was the wrong one, so
+every remaining item below was re-derived from source rather than trusted.)*
+
+### R2 — BLOCKING, executed. Coordinate mismatch: the singular point was printed at the wrong boundary
+
+`vol_3…/15_black_hole_orbital_resonance.tex:31` printed *"two channels radiating at different
+speeds **make the wall a singular point** that a polynomial basis cannot resolve."* The source says
+the **opposite location** — [`research/2026-08-03_coldq-polar-family_result.md`](../../research/2026-08-03_coldq-polar-family_result.md)`:101`:
+*"At the **compactified infinity `A = 0`** that term makes the radial equation's normalized
+coefficient diverge like `1/A²` — **`A = 0` is an irregular singular point of that equation**."*
+In that lane's coordinates `A = 0` is **radial infinity**; the **wall** is `η = 0` (`:81`,
+`du/dη|₀ = 0`), the other end of the interval. The word *"wall"* appears nowhere in the source
+mechanism, and that lane's **own docket entry already carried the correct location**
+(`docket-entries/2026-08-03-coldq-polar-family.md:50`).
+
+**Second defect at the same site, found while repairing the first:** the print asserted as a
+*fired* mechanism the one thing that lane explicitly did **not** evaluate — `BIN-PF-WALLSING`, the
+pre-registered **wall-singularity** bin, is in the **UNRUN** set (`:83`, `:125`: *"`BIN-PF-WALLSING`
+was therefore never evaluated. That is disclosed, not glossed."*). So the print relocated an
+instrument limitation at the **outer** boundary onto the **saturation wall** — the object this
+whole arc is about — and dressed an unevaluated bin as a result.
+
+**Repaired** to state the mechanism as the source does (beyond-all-orders suppression, `e^{-c/A}`
+unresolvable by a Chebyshev basis in the compactified coordinate), to name `A = 0` as radial
+infinity in bold, to say the wall is **not** implicated, and to disclose that `BIN-PF-WALLSING`
+was never evaluated. **`backmatter/07_universal_saturation_kernel.tex:145` carries the parallel
+note WITHOUT a location and is correct as written — deliberately left byte-untouched** rather than
+forced into agreement.
+
+### R3 — BLOCKING, executed. A branch-preferring assertion inside a note that declares it prefers no branch
+
+Two sites asserted the BH shear-echo prereg's **mechanism** stake (*a `Γ_shear = −1` reflector
+exists ⟹ echoes are predicted*) was **"untouched"** — in the surface-note's case **two lines above**
+a bullet reading *"No branch is selected."* Those cannot both hold: calling the stake unconditional
+**silently selects RHO-A**.
+
+Against the **MERGED** [`research/2026-08-04_coldq-axial-rhob_result.md`](../../research/2026-08-04_coldq-axial-rhob_result.md),
+both re-verified:
+
+- **`:332`** — `★ FLAG-CANON`, **explicitly routed to Grant and the auditor lane**. Substituting
+  [`vol3/claim-quality.md`](../../manuscript/ave-kb/vol3/claim-quality.md)`:124`'s own
+  *"$\rho_{eff} \to \infty$ as $\varepsilon_{11} \to 1$"* into that **same leaf's** `:122`
+  *"$Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$"* **inverts the conclusion
+  to $\Gamma_{shear} = +1$**; that lane measures the substitution as $Z_{shear} \propto 1/S$. It
+  also states `:123`'s downstream *"echoes are predicted"* is **RHO-A-conditional**.
+- **`:27`** — under RHO-B, $Z_{shear} = 1/S \to \infty$ and $\int dr/c_{shear}$ diverges
+  logarithmically, so **the wall sits at infinite optical distance and a wave launched inward never
+  arrives** — *"a horizon-analogue"*, not a finite-distance reflector.
+
+So on RHO-B the stake has **no inbound wave to reflect** and a **sign that reads the other way**.
+Both sites re-worded to carry the conditionality with those receipts:
+`research/2026-08-05_bh-shear-echo-prereg_surface-note.md:59–60` and
+`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/existing-experimental-signatures.md:49`.
+**FLAG-DON'T-FIX: the `Γ_shear` sign is NOT resolved, neither branch is preferred, no leaf is
+repaired, nothing is minted, no solidity moves.**
+
+### R4 — BLOCKING, executed. **CHOICE: option (a)** — narrow the header, open the `Γ_shear` register row
+
+`vol_9…/03a_device_circuit_models.tex:79` headed the declaration *"Sign-relativity declaration for
+**every signed Γ in this corpus**"* while the register (`wall-taxonomy.md` §9) and both derivation
+tags work exactly **one** channel, `Γ_bulk`. Re-derived at HEAD, two-method (`grep` + an
+independent Python walk over `manuscript/**/*.{md,tex}`):
+
+| Set | Lines | Files |
+|---|---|---|
+| signed `Γ = −1`, **any** channel | **746** | **197** |
+| `Γ_bulk` subset (adjudicated) | 76 | 44 |
+| **`Γ_shear` subset (omitted)** | **42** | **30** |
+
+*(A looser `grep` pattern returns 810 / 203 for row 1 — same order, and the direction is the same
+either way. These are this pass's own numbers, re-derived rather than inherited.)* The header
+therefore overstated by roughly **10× in lines by construction**, and the omitted channel is the
+one the **GW-echo falsifier rides**.
+
+**Why (a) and not (b):**
+
+1. The finding is a **declared-vs-delivered** mismatch and the mismatch lives **in the header**.
+   Option (b) — extending the fences at `ch15:68` and `ch21:194` — does not touch the header, so it
+   would leave the named defect standing.
+2. **(a) subtracts an overstatement; (b) would require writing NEW signed-`Γ_shear` print text at
+   two sites on an OPEN fork.** §9 item 3 of the ruling itself says the authority for a wall's `Γ`
+   phase is *a certified instrument's branch-derived wall row* — and **no instrument has adjudicated
+   a physics bin on RHO-B** (axial: `ROOT-NOT-CERTIFIED`; polar: `SOLVER-NOT-CERTIFIED`). Minting
+   fenced shear prose there is precisely the **import** this ruling exists to forbid.
+3. Both print sites already carry a *"canonical: `wall-taxonomy.md` §9"* pointer, so the new **§9.1**
+   row reaches them **by reference** without new print assertions on a live fork.
+
+**Executed:** `wall-taxonomy.md` **§9.1** (new) — the `Γ_shear` register row carrying the `:332`
+and `:27` receipts; `vol_9…/03a:79–80` — header narrowed to `Γ_bulk`, body now **states** its scope
+instead of assuming it and points at §9.1. **The `Γ_shear` sign is NOT resolved.** **Residual
+ROUTED, not silently fixed** (recorded in §9.1 with line numbers, → auditor / Grant): `ch15:68` and
+`ch21:194–203` still fence the **bulk** step only while asserting the **shear** step in the same
+breath.
+
+**Substrate note recorded at each site:** `Z = ρc` is the **same product** in the shear and bulk
+channels, so the *profile* declaration — the one leg that is a live fork — travels with **both**
+signs together. That is why this is one fork, not two.
+
+### R5 — HYGIENE, executed. The standing PNG trap, fourth occurrence
+
+`assets/sim_outputs/visualize_topological_bounds.png` rode into `974537cd` via `git add -A`,
+mentioned nowhere in this docket. It is regenerated by a `make verify` gate driver with bytes
+differing run-to-run (`566159 → 568834` here). **A prior lane already documented this exact trap**
+at `docket-entries/2026-08-04-mechanical-rulings-batch-executed.md:125` (verified verbatim), which
+records the same artifact riding merged commit `8e3f4761` and calls it *"a standing trap for every
+lane that runs the gate before staging"*; `b9a1c587` on `main` is the third occurrence's revert.
+**Reverted to `origin/main`; the branch diff now carries no binary.** Every commit in this repair
+pass staged **named paths only** — no `git add -A` — so this lane cannot re-add it.
+
+### Minor items landed with the pass
+
+- `research/2026-06-07_figure-audit-ledger.md:84` — Worklist item 1 still listed
+  `hulse_taylor→vol3 ch08` as to-do although its row at `:49` is stamped **EXECUTED 2026-08-05**.
+  Struck to match, with a pointer to the struck row.
+- **Category-I index normalization** — see the ⚑ block at the head of that section: the register
+  table was a `origin/main` base snapshot while its ★ annotations described HEAD. Whole table
+  re-derived at HEAD, two-method, methods agreeing line-for-line.
