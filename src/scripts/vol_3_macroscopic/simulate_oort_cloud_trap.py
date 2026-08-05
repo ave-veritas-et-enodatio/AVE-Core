@@ -42,7 +42,14 @@ def simulate_accumulation_boundaries() -> None:
     # 1. Solar Gravitational Phase Strain (Simplified)
     # Scales as 1/r, fading into the cosmic background
     strain_solar = 100.0 / r
-    strain_background = 0.05  # Galactic baseline
+    # Sector relabel 2026-08-03 (Oort containment-retraction lane): was "Galactic
+    # baseline". There is no galactic-sector floor in this framework. The floor
+    # this stands in for is a_0 = c * H_INFINITY / (2*pi) (see
+    # src/ave/regime_3_saturated/galactic_rotation.py:56), a COSMIC-Hubble
+    # quantity with zero galactic input. The value 0.05 below is an arbitrary
+    # plot-scale constant, not a_0 in any units -- this script is illustrative
+    # (see module docstring), so the comment is corrected, not the number.
+    strain_background = 0.05  # cosmic saturation floor a_0 = c*H_inf/(2*pi) (plot-scale proxy)
 
     # The actual encountered strain is the transition between the two
     strain_total = np.maximum(strain_solar, strain_background)
@@ -87,7 +94,14 @@ def simulate_accumulation_boundaries() -> None:
 
     # Plot the background strain
     ax1.loglog(r, strain_total, color="cyan", lw=3, label=r"Solar Dielectric Strain Field ($h_\perp$)")
-    ax1.axhline(strain_background, color="gray", ls="--", label="Galactic Background Impedance Floor")
+    # Sector relabel 2026-08-03: legend was "Galactic Background Impedance Floor"
+    # -- mis-sectored, see the strain_background comment above.
+    ax1.axhline(
+        strain_background,
+        color="gray",
+        ls="--",
+        label=r"Cosmic saturation floor $a_0 = cH_\infty/2\pi$ (illustrative scale)",
+    )
 
     ax1.set_xlabel("Orbital Radius from Sun (AU)", color="gray", fontsize=12)
     ax1.set_ylabel("Normalized Metric Strain Magnitude", color="cyan", fontsize=12)

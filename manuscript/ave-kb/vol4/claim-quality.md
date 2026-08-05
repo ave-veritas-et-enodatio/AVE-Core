@@ -1134,6 +1134,28 @@ The ratified chiral **srs-z3** carrier (non-centrosymmetric point group $432$, s
 
 > **🔴 CLAIM-BODY RELABEL + REACHABILITY (dated 2026-07-20, ratified-by-merge #741; KEEP-BOTH — claims/caveats/solidity above unchanged).** The band-map re-derivation (`research/2026-07-19_deep-space-band-map_derivation.md` §5, D1 / repair R1) sharpens the FLIP above at the claim-body level: the falsifier is a **reactive-reflection / zero-drag `v`-independence test** (reactive ruling ⇒ no secular `∝v` drag below the Cherenkov/Mach threshold; at most a bounded phase-coherent `Γ`-reflection), NOT the drag-spike stall. **Reachability: FUTURE.** The discriminating coordinate is the `~15,000` AU Oort/yield transition; **existing spacecraft nulls do NOT discriminate** — Pioneer 10/11, Voyager, New Horizons sit at ~50–160 AU (~2 OOM inside the boundary) and are thermal-recoil-confounded, so they bound only inner-region smooth drag. Solidity stays 0.30 (do-not-build; a not-yet-reachable falsifier does not lift the build band). Leaf: `boundary-trapping-test.md` (same-date claim-body relabel).
 
+> **⚑ CROSS-VOLUME NUMBER CONFLICT — FLAGGED 2026-08-03, DELIBERATELY NOT RECONCILED (claims / caveats / grades above PRESERVED unedited; no field moves).**
+>
+> **Vol 3 books `r_sat ≈ 7,439 AU`; Vol 4 books `~15,000 AU` for the claimed same boundary; one-object-or-two routed to Grant 2026-08-03.**
+>
+> This entry prints `~15,000 AU` at **four** places (`:1123`, `:1128`, `:1164`, `:1166`) and its leaves at two more (`boundary-trapping-test.md`:25, `advanced-protocols.md`:24) — always as a **round empirical** figure, never derived. Vol 3 prints `r_sat = √(GM_☉/a₀) = 7,438.9 AU` for what both volumes call the Oort boundary — a **derived** figure from `a₀ = c·H_∞/2π` ([`vol3/claim-quality.md`](../vol3/claim-quality.md):318, leaf [`oort-cloud-saturation-boundary.md`](../vol3/cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md)). A third number sits in the driver `src/scripts/vol_3_macroscopic/simulate_oort_cloud_trap.py`:76 (`10^4.2 ≈ 15,800 AU`, hand-placed and disclosed as such).
+>
+> **Factor 2.0 apart** — far outside the `-5.5%` a₀-provenance band on `r_sat`. Not a precision difference.
+>
+> **Why not reconciled:** deciding requires the physics answer to *are the Axiom-4 onset radius and the Vol-4 yield/impedance-step boundary one surface or two?* — **Grant's call, routed 2026-08-03.** Choosing a number here would silently answer it.
+>
+> **Companion (no grade effect on this entry):** the **Vol 3** containment claim was RETRACTED 2026-08-03, propagating the merged 2026-07-19 ruling that Vol 4 has carried since that date. `confidence` 0.3 / `solidity` 0.30 here are **unchanged**; no id minted. Docket: [`2026-08-03-oort-walkback-propagation.md`](../../../_orchestration/docket-entries/2026-08-03-oort-walkback-propagation.md).
+
+> **🔴 SECTOR RELABEL — 2026-08-03 (Oort containment-retraction lane, repair pass; Rule 12 — the claim block at `:1120` above is left BYTE-UNTOUCHED, as the merged 2026-07-19 banner at `:1133` asserts in print: *"claims/caveats above PRESERVED unedited"*). No grade field moves; no id minted.**
+>
+> **The mis-sectoring, stated at this site's own wording.** `:1120` reads, verbatim: *"…sharp impedance-shear boundaries where the local dielectric strain $h_\perp \propto 1/r$ collides with the **deep-space background impedance floor**."* ★ Note this entry says **"deep-space"**, not "galactic" — unlike its two print/leaf twins (`11_experimental_falsification.tex`:364 and [`boundary-trapping-test.md`](./falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md):17, which both read *"static background impedance floor of **deep galactic space**"*). **The wording is not identical and the defect is therefore stated separately rather than copied across:** this line does not name the galactic sector, but it does book `a₀` as a property of a **deep-space background medium**, i.e. as something a location in space *has*.
+>
+> **What `a₀` actually is.** `a₀ = c·H_∞/2π ≈ 1.0719×10⁻¹⁰ m/s²` (`src/ave/regime_3_saturated/galactic_rotation.py`:56, built from `C_0` and `H_INFINITY`) — a **cosmic-Hubble** constant with **zero** galactic *and* zero deep-space-locality input: no Milky Way mass, no Galactocentric radius, no local stellar density, no distance-from-anything enters it. That file's comment at `:52`–`:54` states: *"Derived from the fundamental Topological Unknot Expansion (H_INFINITY) … NO empirical telescope parameter is used."* It is not a floor that deep space has and the inner solar system lacks; it is the same everywhere. **Correct label: the cosmic saturation floor `a₀ = c·H_∞/2π`.**
+>
+> **⚑ Why this matters — it collides with the T4 fork.** A real, genuinely local external field *does* exist at the Sun (`g_ext ≈ 2.1×10⁻¹⁰ m/s²`, **≈1.8–2.0 a₀** depending on which `a₀` it is measured against; `research/2026-07-10_collapse-target-registry.md`:281–283), and whether it enters the Axiom-4 kernel `S(A) = √(1−A²)` is the **unadjudicated internal-vs-total-field keying hinge**. Describing `a₀` itself as a *background-of-deep-space* quantity blurs the one distinction that fork turns on. **Routed to Grant 2026-08-03; not resolved here** (flag-don't-fix).
+>
+> **Scope fence.** Sector attribution only. This entry's status is otherwise governed by the merged 2026-07-19 demotion at `:1133` and the 2026-07-20 claim-body relabel at `:1135` — both unchanged. Docket: [`2026-08-03-oort-walkback-propagation.md`](../../../_orchestration/docket-entries/2026-08-03-oort-walkback-propagation.md).
+
 ### Quality
 - confidence: 0.3
 - depends-on:

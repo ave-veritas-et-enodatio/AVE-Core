@@ -13,11 +13,11 @@ from ave.gravity.solar_impedance import (
     heliospheric_impedance_profile,
     kirkwood_gap_radius,
     kirkwood_impedance_model,
-    oort_cloud_prediction,
     oumuamua_impedance_acceleration,
     oumuamua_radiation_acceleration,
     oumuamua_summary,
     saturation_radius_au,
+    solar_axiom4_onset_summary,
     solar_radiation_pressure,
     solar_wind_density,
     solar_wind_impedance,
@@ -129,19 +129,87 @@ class TestOumuamua:
         assert abs(a_rad - a_imp) / a_rad < 0.01
 
 
-class TestOortCloud:
-    """Oort Cloud as saturation boundary."""
+class TestSolarAxiom4OnsetRadius:
+    """
+    Solar Axiom-4 onset radius (internal-field keying).
+
+    🔴 Class renamed from TestOortCloud 2026-08-03 (Oort containment-retraction
+    lane). The Oort *containment* claim — "inner Oort Cloud coincides with the
+    g = a₀ transition" — was retracted; what these tests pin is a solar-FIELD
+    radius, not a population edge. See ave/gravity/solar_impedance.py
+    solar_axiom4_onset_summary() for the full retraction record (that function
+    was named oort_cloud_prediction() until the 2026-08-03 repair pass renamed
+    it for the same reason this class was renamed), and note that the radius's
+    existence is gated by the unadjudicated internal-vs-total-field keying fork
+    (T4), routed to Grant 2026-08-03.
+    """
 
     def test_saturation_radius_order(self) -> None:
-        """Saturation radius should be ~10³-10⁵ AU."""
+        """Saturation radius should be ~10³-10⁵ AU. (Sanity floor, kept.)"""
         r = saturation_radius_au()
         assert 1e3 < r < 1e5, f"r_sat = {r:.0f} AU"
 
-    def test_oort_prediction_structure(self) -> None:
-        p = oort_cloud_prediction()
+    def test_saturation_radius_pin(self) -> None:
+        """
+        Pin r_sat = √(GM_☉/a₀) at the honest a₀-provenance band.
+
+        Canonical-chain value: 7438.9 AU, from a₀ = c·H_∞/2π = 1.0719e-10
+        m/s² (ave/regime_3_saturated/galactic_rotation.py:56) and G, M_SUN
+        from ave.core.constants.
+
+        TOLERANCE, STATED (this is a physics band, not a float-drift band):
+        a₀ is itself 10.7% BELOW the empirical MOND a₀ = 1.2e-10 m/s², a
+        deficit disclosed at manuscript/ave-kb/vol3/claim-quality.md:259
+        ("value is 10.7% below the empirical a₀ ≈ 1.2e-10 m/s²"). Since
+        r ∝ a₀^(-1/2), that 10.7% propagates to 5.49% on r_sat: on the
+        empirical a₀ the same formula gives 7030.7 AU. The pin is therefore
+        asserted at ±5.5% around 7438.9 AU — the number is not meaningful
+        to any tighter tolerance, and asserting tighter would overstate it.
+
+        A separate, tighter assertion below pins the CANONICAL CHAIN itself
+        (not the physics): if C_0, H_INFINITY, G or M_SUN move, that
+        assertion fires and forces a deliberate update rather than silent
+        drift. It is labelled as a chain pin, not an accuracy claim.
+        """
+        r = saturation_radius_au()
+
+        # (i) Physics band: ±5.5% = the a₀-provenance band, derived above.
+        r_canonical = 7438.9
+        band = 0.055
+        assert abs(r - r_canonical) / r_canonical < band, (
+            f"r_sat = {r:.1f} AU is outside the stated a₀-provenance band "
+            f"{r_canonical} ± {band * 100:.1f}% "
+            f"[{r_canonical * (1 - band):.1f}, {r_canonical * (1 + band):.1f}] AU"
+        )
+
+        # (ii) Chain pin (NOT an accuracy claim): catches constant drift.
+        assert abs(r - r_canonical) < 0.1, (
+            f"canonical-chain drift: r_sat = {r:.4f} AU, expected 7438.9 AU. "
+            "One of C_0 / H_INFINITY / G / M_SUN moved — update this pin "
+            "deliberately, do not widen it."
+        )
+
+    def test_onset_prediction_structure(self) -> None:
+        """
+        Structure of the onset-radius dict AFTER the 2026-08-03 retraction.
+
+        The Hills-cloud comparands (r_hills_inner_au / r_hills_outer_au) were
+        DELETED with the containment claim they existed to be compared
+        against; this test asserts their absence so they cannot be silently
+        reintroduced.
+        """
+        p = solar_axiom4_onset_summary()
         assert "r_saturation_au" in p
         assert "g_at_saturation" in p
         assert p["g_at_saturation"] == A0_LATTICE
+
+        # Deleted with the retracted containment claim — must stay deleted.
+        assert "r_hills_inner_au" not in p
+        assert "r_hills_outer_au" not in p
+
+        # And the prediction string must not re-assert population containment.
+        assert isinstance(p["prediction"], str)
+        assert "coincide" not in p["prediction"].lower()
 
 
 class TestKirkwoodGaps:
