@@ -551,3 +551,44 @@ verification in this repo, not a fact about this lane's physics.** Surfaced for 
 > mutation receipt. **Mints no `clm-`/`def-`; propagates to no leaf; engine byte-untouched and never
 > imported; falsification ledger untouched.** Companion: the docket fragment
 > `_orchestration/docket-entries/2026-08-05-last-bond-kernel-collapse.md`.
+
+---
+
+> **⚑ ORCHESTRATOR REVIEW BLOCK (Tier-2 verify processed, 2026-08-05; body above preserved per
+> Rule 12).** The audit CONFIRMED by independent re-derivation: the disconnection theorem and
+> Γ_LB = −1 (30-digit reproduction, counts reconciled to the shipped JSON), BIN-C-DISJOINT (the
+> antiderivative re-derived exactly; the RHO-A control ℓ-blind), the G-RHO2 diagnosis and its
+> named repair regime, the band-collapse direction, and FLAG-UNIWB (reproduced in a minimal
+> repo; in-arc blast radius zero; one prior two-method claim at risk cited). Corrections:
+>
+> 1. **FLAG-COMBINE's status claim is REFUTED IN PART — a material omission.**
+>    `axiom-register.md:189` carries the re-pinned 2026-07-02 FINAL wording: the "combine"
+>    question **dissolves** — a load-response bifurcation, no aggregation, "normalized-L2 being
+>    identically 1" — superseding the :190 history-item (3) this lane quoted (item (4) on the
+>    same line records the supersession). Canon remains INTERNALLY SPLIT:
+>    `trampoline-framework.md:255` (Grant-ratified) keeps it "an open discriminator" and
+>    `axiom-register.md:232` still reads "underdetermined at O(α)". Routed as
+>    **FLAG-COMBINE-SPLIT** (canon-conflict class). The lane's present-tense "canon states it is
+>    UNDERDETERMINED" overstated; the PREM direction survives, and the omission cuts TOWARD the
+>    exception arm, not away.
+> 2. **The L∞-arm's load-bearing premise is uncited** (result:147-150: a static gravitational
+>    grading "carries no micro-rotation at all" at r_sat). The decisive physical question is
+>    routed to Grant: **does the static A1 dilatation grading induce wryness at r_sat through
+>    the chiral srs bond geometry?** Auditor sharpening recorded: on the surviving arm the leak
+>    channel is GAPLESS (G_c rides the strain kernel even in the engine, so the gap closes and
+>    the surviving branch is acoustic) — a stronger leak than the body states.
+> 3. **"3.47 decades" is a FACTOR, not decades** (log₁₀ ≈ 0.54): the §3.4 wording was correct;
+>    the headline at :33 and the docket mislabeled the registered ratio. Corrected in the
+>    companion docket file.
+> 4. **One-way vs round-trip attributions corrected**: :35 attaches the one-way rate to the
+>    round-trip quantity (the round-trip ladder grows at 2·(½ln10) per decade); §4.3's endpoint
+>    pair and "nine decades" belong to different sweeps (wrong endpoints, wrong count, 9th-digit
+>    mismatch). The registered values themselves are correct; the prose attributions were not.
+> 5. **Engine-clip disclosure**: the combined-A² code paths clip at 1−1e-10 (S never exactly 0);
+>    only the separate-kernel path admits S = 0. The exact-zero row is an ANALYTIC-canon
+>    statement, member-conditioned in the operative engine — now disclosed.
+> 6. **Frozen-quote excerpting**: five of six freeze quotes are byte-exact but clipped
+>    mid-sentence, and the :41 excerpt inverts the rule's reading order (the rule: no gate,
+>    tolerance, or bin boundary may be changed after any lane-produced result is seen — the
+>    prereg §freeze text is authoritative). Disclosed rather than churned; the byte-gate class
+>    cannot catch grammatical inversion and this is noted for the checker follow-on.
