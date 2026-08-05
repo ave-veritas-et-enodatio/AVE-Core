@@ -88,3 +88,7 @@ The "three-valued boundary" (vocab-operator-unification audit §4d, 2026-06-11) 
 | `ave-dimensional-provenance-check` | $Z_{bulk}$ is bulk-channel impedance ($\rho\times$ speed), not a dimensionless coupling |
 
 ---
+
+---
+
+> **⚑ Sign-relativity declaration (Grant ruling 2026-08-04; [`wall-taxonomy.md`](../../../common/wall-taxonomy.md) §9; PR #869 FLAG-W).** The Resultbox (:36–40) and the Bulk row of the three-channel table above are stated (i) at the **LOAD plane** — the level-set itself, not the input plane outside the gradient skin (a quarter-wave of skin inverts the sign); (ii) on the **SHUNT-graded projection**; (iii) under the **constant-density (RHO-A) profile**: the step $Z_{bulk}=\rho_{bulk}\,c_{bulk}\to0$ multiplies the vanishing speed by a constant $\rho$. Under canon's $\rho_{eff}=\rho_0/S^3$ ([`saturating-modulus-and-backreaction.md`](../../gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):73; FORK-3(b), fenced, axial run in flight) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\,\rho_{eff}}\to\infty$. The signed value here is therefore profile-conditional and **computed-not-chosen** (branch-derived wall row = authority); the apparent conflict with the bulk-stiffening line ([`saturating-modulus-and-backreaction.md`](../../gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59) is plane/projection/profile relativity, not a contradiction. Body above preserved per Rule 12.
