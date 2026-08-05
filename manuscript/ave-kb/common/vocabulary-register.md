@@ -1255,3 +1255,23 @@ set as each is individually verified. (c) Grant adjudication of the 3 `proposed`
 coinages and the §45 A-vs-B canonical fork before any `proposed` → `SOLID`
 promotion.
 
+
+---
+
+## "skin" (gradient skin) — disambiguation vs the EE skin effect
+<!-- dated 2026-08-05; Grant-confirmed, core session -->
+
+- **"Gradient skin"** (wall-taxonomy §3) is ANATOMICAL: the thin sub-yield boundary layer hugging a
+  wall — a reactive stub. It is **NOT** the EE skin effect.
+- The substrate **cannot host a skin effect** under Axiom 3: no conductivity, no eddy dissipation,
+  no diffusive screening. Skin effect: $\arg(k) = 45°$, surface impedance with EQUAL real and
+  imaginary parts ($Z_s = (1+j)/\sigma\delta$), material-set depth, dissipative. The wall region's
+  decay: $\arg(k) = 90°$ (purely imaginary $k$ on the frozen antiphase pattern), ZERO real
+  impedance, geometry-set decay constant, purely reactive (evanescent).
+- **Discriminator = the real-part test:** any real part in a boundary-layer impedance is a defect
+  (it imports dissipation; same class as "drag"/"friction") — except at a declared transfer-cost
+  port ([`transfer-cost-theorem.md`](transfer-cost-theorem.md)).
+- Preferred register for the wall-approach region going forward: the **semiconductor register**
+  ([`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md),
+  semiconductor-register additions): depletion edge / depletion width / junction two-port /
+  reach-through.

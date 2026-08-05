@@ -788,3 +788,29 @@ The mapping (each right-column entry is already canonical; the reframe adds no n
 **The one falsifiable surface** is pre-existing and unchanged by the reframe: the universal $\xi_{topo}\cdot x$ floor is dielectric-invariant (topology-protected integer linking charge), while material piezoelectricity rides on top — the two-sided **C15-CLEAVE** femto-electrometer discriminator (P1 presence / P2 dielectric-invariance), the live bench at [`project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md):42-47,65,87. The reframe supplies only the one-line reading: *C15-CLEAVE measures the vacuum's direct piezoelectric coefficient $\xi_{topo}$, separated from any material $d_{ij}$ by the gap-sweep + material-swap.*
 
 > **Over-claim guard (`ave-evidence-framing-discipline`).** Correct strength: EM **is** (in substrate vocabulary) the vacuum's piezoelectric response — an identity-by-translation. NOT "EM emerges from / is derived from piezoelectricity" (causally backwards, too strong). The non-centrosymmetry tie is a Class B consistency observation; it does NOT independently select $I4_1 32$ (that is the substrate-topology argument, §7 Probe 2).
+
+---
+
+## Semiconductor-register additions — the depleted wall region (2026-08-05, Grant-ratified)
+
+**End-appended for line-pin safety; fold into the §4 table at the next consolidated pass. Skill-body
+mirror (`ave-ee-first-mapping` Step-2 table) and the vol2/vol4 secondary-instance mirror-check are
+OWED — tracked in the 2026-08-05 docket.** Origin: the echo-delay lane's §0.2 question, walked in
+the core session 2026-08-05; Grant corrected the register to SEMICONDUCTOR and ratified.
+
+| Substrate primitive | EE (semiconductor) mapping |
+|---|---|
+| The per-frequency turning point where the local band edge falls to the drive ($\omega_{max}(S(r)) = \omega$) | **Depletion edge** — the DC-bias-set surface where the medium stops supporting the signal band; bias-created, signal-discovered |
+| The choked section between the depletion edge and the physical end (the wall / last cell) | **Depletion region, width $W(\omega)$** — cells whose signal-band support the DC operating point has depleted |
+| The reactive coupling across the depleted cells (exact per-cell ABCD product; no propagating transfer, displacement-analog transfer persists) | **Junction capacitance / the junction two-port** |
+| The thin-$W$ limit where the far terminal sets the composite reflection (hard, achromatic) | **Reach-through / punch-through** (cf. reach-through APDs); the thin-junction direct-coupling geometry is the Zener/Esaki class; the large-signal fate of the same region is the existing Miller-avalanche row (Schwinger) |
+
+**Mandatory carves when applying these rows:**
+1. What is depleted is **signal-band support** (the cells' propagating capacity), NOT charge carriers.
+2. The depletion edge is **drive-frequency-indexed**: each $\omega$ has its own $W(\omega)$; at fixed $\omega$ it is a pure DC level set (wall-taxonomy axis discipline).
+3. **No space-charge / built-in-field electrostatics ride along** — the mapping is small-signal network topology only.
+
+**Register-span note (consistency obligation, not decoration):** the semiconductor register now
+carries FOUR sectors — the Ax4 varactor kernel, the gravitational wall region (these rows), vacuum
+breakdown (the Miller-avalanche row), and the Vol-6 nuclear semiconductor-circuit chapters. The
+same words must bind the same circuit objects in all four.
