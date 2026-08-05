@@ -317,15 +317,31 @@ The rupture physics described above is implemented in two modules of the \kbleaf
 \end{itemize}
 Both modules delegate all saturation and impedance computations to Tier~1 operators (Volume~0, Physics Engine Architecture).
 
-\subsection{Gravitational Wave Memory as Residual Strain}
+\subsection{Gravitational Wave Memory: A Null Prediction on the Substrate's Latch Channel}
 
-After a gravitational wave passes, the local metric retains a permanent offset---so-called ``memory'' or residual strain. In the AVE dielectric framework, this is the \textbf{permanent plastic deformation} of the LC lattice after being driven past its linear elastic limit by the passing wave. The residual memory strain scales as:
-\begin{resultbox}{GW Memory from Lattice Yield}
+\noindent\textbf{Re-scoped 2026-08-05 (Ruling R1, 2026-08-03; prior wording in the git trail).} This subsection previously read the observed metric offset as the \emph{permanent plastic deformation} of the LC lattice driven past its elastic limit, with a boxed $\Delta h_{memory} = h_{peak}(h_{peak}/h_{yield})^2$ scaling law and a metal-yield analogy. \textbf{That reading is retracted on three independent counts} --- parity, anhysteresis and magnitude --- and the boxed law goes with it: a boxed result is a claim, and this quantity is not derived. What replaces it is narrower and testable.
+
+After a gravitational wave passes, the local metric is observed to retain an offset---so-called ``memory'' or residual strain. General Relativity predicts this (the Christodoulou memory, $\sim 10^{-22}$ for a GW150914-class event) as a second-order effect of the wave's own \emph{energy flux}. \textbf{The AVE substrate, as canonized, contributes no memory of its own through its constitutive latch}---and that is a testable statement.
+
+\noindent\textbf{The substrate cannot rectify.} The Axiom~4 kernel $S(A) = \sqrt{1 - A^2}$ is \emph{even} in $A$, so the modulated strain response is \emph{odd} in $h$. An odd nonlinearity driven by a symmetric wave produces odd harmonics and \textbf{exactly zero DC}: $\cos^3\omega t = \tfrac34\cos\omega t + \tfrac14\cos 3\omega t$, so $\langle\cos^3\omega t\rangle = 0$. Rectification requires a diode; a lossless, even, single-valued substrate does not have one.
+
+\noindent\textbf{The substrate cannot retain.} The same kernel is \textbf{anhysteretic}---zero enclosed loop area, hence no remanence (\kbleaf{ave-kb/common/engine-capability-map.md} \S3.3). The response is a single-valued function of the instantaneous strain, so $h \to 0$ returns it identically to zero for \emph{every} drive history. Nothing is held.
+
+\noindent\textbf{The bound, if one insists on a residual.} The most generous estimate---taking the entire leading sub-yield nonlinearity and treating it as though it accumulated---is $\tfrac12 h_{peak}(h_{peak}/h_{yield})^2$, which for GW150914 ($h_{peak} = 10^{-21}$, $h_{yield} = \sqrt{\alpha} = 0.0854$, so $h_{peak}/h_{yield} = 1.2\times10^{-20}$) is $6.9\times10^{-62}$: about \textbf{39 orders of magnitude} below the GR value. Both the strict statement (zero) and the generous bound sit far below anything observable.
+
+\begin{resultbox}{Forward Null Prediction --- Substrate Latch Contribution to GW Memory}
 \begin{equation}
-    \Delta h_{memory} = h_{peak} \left(\frac{h_{peak}}{h_{yield}}\right)^2, \qquad h_{yield} = \sqrt{\alpha} \approx 0.085
+    \Delta h_{\text{memory}}^{\text{latch}} = 0
+    \quad\text{(strictly)}, \qquad
+    \left|\Delta h^{\text{latch}}\right| \lesssim
+    \tfrac12 h_{peak}\!\left(\frac{h_{peak}}{h_{yield}}\right)^{2}
+    \sim 10^{-61} \quad\text{(generous bound)} .
 \end{equation}
 \end{resultbox}
-This is directly analogous to a metal permanently deforming after exceeding its yield stress $\sigma_Y$. The dimensionless yield strain of the vacuum lattice $h_{yield} = \sqrt{\alpha}$ emerges from the same Axiom 4 saturation physics that defines $V_{yield}$.
+
+\noindent\textbf{★ Scope --- the carve this prediction lives or dies on, and it is a channel carve, not a hedge.} The three-strike result above kills \textbf{the medium-latch channel only}. It is \emph{not} a prediction that no memory is observed, and it is \emph{not} in tension with the GR value, because \textbf{the GR memory is source-side}: the wave's energy density is \emph{even} in $h$, so $\langle h^2\rangle \neq 0$ rectifies trivially, and that energy sources the A1 dilatation channel. \textbf{Whether AVE reproduces the GR/Christodoulou value through that flux channel is an OPEN derivation} --- it may; it has not been done. Read the null strictly: the substrate's own constitutive nonlinearity latches nothing. \textbf{The flux channel is not covered by this null and is not claimed either way.}
+
+\noindent\textbf{What would falsify the latch null.} A LISA or pulsar-timing-array detection of gravitational-wave memory \emph{in excess of} the GR/Christodoulou prediction, scaling as $h^3$ with an $h_{yield} = \sqrt{\alpha}$ normalisation, would falsify the lossless-anhysteretic substrate of this framework. A detection \emph{at} the GR level discriminates nothing here until the flux-channel derivation lands: that is what the open carve above means, and it is stated rather than left for a reader to discover.
 
 \subsection{EHT Shadow Fine Structure}
 
@@ -334,7 +350,7 @@ The Event Horizon Telescope (EHT) resolved the shadow of M87*. In the impedance 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1.0\textwidth]{bh_untapped_predictions.png}
-    \caption{\textbf{Untapped Impedance-Topology Predictions.} Panels derived from the AVE impedance topology; the Schwarzschild $\ell=2$ QNM eigenvalue is zero-free-parameter, while the spinning-remnant comparison in panel (1) is a post-hoc consistency check (see text). (1) Merger ringdown frequency vs. LIGO observations: the v2 Cosserat-back-reaction formula reaches \textbf{$-0.45\%$ mean $\omega_R$ + $-0.47\%$ mean $\tau$} per event (Phase 3+5 closure 2026-05-18) --- a post-hoc Kerr consistency check, not a forward prediction. (2) Iron K$\alpha$ line profile showing discrete sub-peaks at impedance band energies. (3) Jet impedance map: polar impedance matching ($\Gamma \approx 0$) produces a natural jet channel. (4) Hawking temperature from impedance boundary noise leakage. (5) GW memory strain as residual lattice deformation above $h_{yield} = \sqrt{\alpha}$. (6) Scale invariance: the same $1/d$ topology from the electron unknot ($10^{-13}$ m) to M87* ($10^{13}$ m).}
+    \caption{\textbf{Untapped Impedance-Topology Predictions.} Panels derived from the AVE impedance topology; the Schwarzschild $\ell=2$ QNM eigenvalue is zero-free-parameter. \textbf{★ RETRACTED-CONTENT NOTICE (2026-08-05).} \textbf{Two of the six plotted panels plot retracted quantities, and this raster has deliberately \emph{not} been re-plotted}: the retractions carry \emph{no replacement numbers} by ruling, so regenerating the panels would require minting content no receipt supplies. \textbf{(1) Merger ringdown vs.\ LIGO --- the plotted spinning-remnant comparison is RETRACTED} as a frame-mixed compensating-error artifact (Ruling~B1, \#774/\#780); the curve and its per-event agreement are the printed record of a superseded comparison, not a current result, and no replacement is claimed. \textbf{(5) GW memory --- the plotted ``residual lattice deformation above $h_{yield} = \sqrt{\alpha}$'' law is RETRACTED} on parity, anhysteresis and magnitude (Ruling~R1, 2026-08-03); the substrate's \emph{latch} contribution is a null $\lesssim 10^{-61}$ against a GR expectation $\sim 10^{-22}$, and the source-side flux channel is an \emph{open} derivation --- see the re-scoped subsection above. Panels (2) Iron K$\alpha$ line profile showing discrete sub-peaks at impedance band energies, (3) jet impedance map (polar impedance matching, $\Gamma \approx 0$, produces a natural jet channel), (4) Hawking temperature from impedance boundary noise leakage, and (6) scale invariance of the same $1/d$ topology from the electron unknot ($10^{-13}$ m) to M87* ($10^{13}$ m) are unaffected by either retraction.}
     \label{fig:untapped}
 \end{figure}
 
