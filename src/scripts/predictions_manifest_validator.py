@@ -1259,27 +1259,51 @@ def check_calibration_role(
     moved because DEVIATION_DISCLAIMED mechanized a judgement that was
     previously carried as a prose footnote for human eyes.
 
-    POSTURE = REPORT-ONLY (`severity="warn"`), not gating. Two contradictions
-    are open and BOTH are adjudications rather than sweeps:
+    CENSUS AFTER THE P04 RULING (2026-08-05, same 36 rows) — Grant ruled P04
+    `chord` -> `mixed`, the role the reconciler's corpus-derived suggestion
+    named, and the relabel landed with its two execution riders on the row:
 
-      P04  (`public_in_readme: true`) declares `chord`; the card states the
-           value is GR-imported and import-capped. Relabelling an
-           outward-facing public claim is Grant's call.
+        UNDECLARED    12
+        RECONCILED    13   (+1: P04, relabelled chord -> mixed)
+        UNRECONCILED  10
+        CONTRADICTED   1   P42 (forward-prediction)
+
+    POSTURE = REPORT-ONLY (`severity="warn"`), not gating. ONE contradiction
+    remains open, and it is an adjudication rather than a sweep:
+
+      P04  RULED AND LANDED 2026-08-05 (Grant): `chord` -> `mixed`. The card
+           states the value is GR-imported and import-capped, so the FORM is
+           derived while the VALUE rides `K = 2G` — the `mixed` shape. The
+           row now also carries the K=2G upgrade path (the R11 forced-form
+           lane, whose attack is the clm-satnec static-existence test) and an
+           explicit on-shell scheme declaration. Reconciles clean; not a
+           backlog item any more.
       P42  declares `forward-prediction` on clm-3zz0f6, whose card says α is
            "exactly invariant", "Multi-species $\\Delta\\alpha/\\alpha = 0$",
            and "Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$
            in any gravitational regime" — a null matching the standard
            expectation, which is the opposite of predictions.yaml:35's
-           "untested, divergent-from-SM, AVE-distinct".
+           "untested, divergent-from-SM, AVE-distinct". Grant approved
+           re-roling it off `forward-prediction` on 2026-08-05 with a
+           MANDATORY condition: an independent Tier-1 language-and-logic read
+           of the replacement wording BEFORE it lands. So the row is ruled in
+           direction but NOT yet landed, and the gate stays `warn`.
 
-    Gating now would fail `make verify` repo-wide on two open adjudications,
+    Gating now would fail `make verify` repo-wide on an open adjudication,
     and the gate would get bypassed.
 
     FLIP CONDITION (named, so this does not drift into permanent advisory):
-    once BOTH P04 and P42 are ruled, register this check with
-    `severity="critical"`. The backlog is two named rows, not a class of rows.
-    Flipping with either unruled would red-gate the repo on a label a human
-    already suspects is wrong — which is how gates get disabled.
+    once BOTH P04 and P42 are ruled AND their relabels have LANDED, register
+    this check with `severity="critical"`. The backlog is two named rows, not
+    a class of rows. Flipping with either still contradicting would red-gate
+    the repo on a label a human already suspects is wrong — which is how gates
+    get disabled.
+
+      P04  DONE — ruled and landed 2026-08-05; verdict RECONCILED.
+      P42  REMAINING — ruled in direction 2026-08-05, wording pending the
+           independent Tier-1 read; verdict still CONTRADICTED.
+
+    So exactly one row now stands between this check and `critical`.
     """
     findings: list[Finding] = []
     if cards is None:
