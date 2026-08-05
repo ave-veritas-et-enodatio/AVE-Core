@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -73,6 +73,7 @@ help:
 	@echo "  make verify-coldq-v2-number-check : Check the cold-Q v2.1 result-doc numerals against its shipped JSON (gating)"
 	@echo "  make verify-coldq-v22-number-check : Check the cold-Q v2.2 root-certification result-doc numerals against its shipped JSON (gating)"
 	@echo "  make verify-coldq-v24-number-check : Check the cold-Q v2.4 root-certification result-doc numerals against its shipped JSON (gating)"
+	@echo "  make verify-coldq-polar-number-check : Check the cold-Q POLAR FAMILY result-doc numerals against its shipped JSON (gating)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -102,7 +103,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
@@ -173,6 +174,16 @@ verify-coldq-v22-number-check:
 verify-coldq-v24-number-check:
 	@echo "Checking the cold-Q v2.4 root-certification result-doc numerals against its shipped JSON (gating)..."
 	$(PYTHON) research/drivers/coldq_pole_v2p4_root_number_check.py
+
+# FIFTH cold-Q number-check target.  Placed as its OWN target rather than
+# appended to any existing recipe: the four predecessor cold-Q recipes each
+# belong to a different branch's history, and a fifth edit inside any of them
+# would collide.  Same gating effect.  DISCLOSED (prereg FLAG-MK): the .PHONY
+# line and the verify: prerequisite line ARE shared and are a REAL two-line
+# conflict with any other open cold-Q branch, not an append-only merge.
+verify-coldq-polar-number-check:
+	@echo "Checking the cold-Q POLAR FAMILY result-doc numerals against its shipped JSON (gating)..."
+	$(PYTHON) research/drivers/coldq_polar_family_number_check.py
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."

@@ -1,0 +1,259 @@
+{
+ "_carry_over": "CARRY-OVER of the v2.4 numerical machinery by copy-with-attribution (prereg section P.5); NOT an independent reimplementation; no agreement with v2.4 on any shared quantity is independent corroboration",
+ "_certification_scope": {
+  "UNRUN_therefore_NOT_PASSED": [
+   "G1",
+   "G2",
+   "G2b",
+   "G3",
+   "G4",
+   "G5",
+   "G-C(c)",
+   "G-P",
+   "G8",
+   "G10",
+   "FT-0(b)",
+   "FT-1",
+   "FT-2",
+   "FT-2b",
+   "FT-3",
+   "FT-4",
+   "FT-5",
+   "FT-P",
+   "FT-8",
+   "FT-9",
+   "FT-10"
+  ],
+  "consequence": "the frozen precedence of prereg section 7 places solver certification FIRST; an UNRUN gate is not a passed gate, so this run is SOLVER-NOT-CERTIFIED and NO physics bin (BIN-P1, BIN-P2, BIN-P3) is adjudicated at any precedence level, including for any configuration that located a root",
+  "implemented_and_measured": [
+   "G0(a)",
+   "G0(b) degree limb",
+   "G0(c)",
+   "G-C(a)",
+   "G-C(b)"
+  ]
+ },
+ "_digest": "ac81dc1ac7142d11",
+ "_flag_W": {
+  "SOFT": "K = 2*G_vac*S  -- bulk-impedance-at-saturation-boundary.md:31 (c_bulk -> 0, Z_bulk -> 0, Gamma = -1)",
+  "STIFF": "K = 2*G_vac/S -- saturating-modulus-and-backreaction.md:57 (D = 1/S -> inf, the modulus goes rigid, Gamma = +1)",
+  "status": "SURFACED, NOT ADJUDICATED.  Both branches run; neither leaf repaired by this lane.",
+  "third_voice": "engine-capability-map.md:69 flags conflating the stiffening and softening branches as a firewall violation"
+ },
+ "_frozen_numerics": {
+  "R_iso": 0.5,
+  "dilatation_floor": 0.001,
+  "dps": 50,
+  "dps_coeff_extra": 30,
+  "dps_high": 80,
+  "ell": 2,
+  "g2b_c_floor": 1.0,
+  "g2b_resid_floor": 0.4,
+  "hgauge_set": [
+   -0.25,
+   0.0,
+   0.25
+  ],
+  "n_ladder": [
+   32,
+   48,
+   64,
+   80
+  ],
+  "n_ladder_g2": [
+   48,
+   64,
+   80
+  ],
+  "n_primary": 48,
+  "runtime_budget_s": 7200.0,
+  "seed_abs_max": 8.0,
+  "seed_stability_rel": 0.001,
+  "x_sat": 7.0
+ },
+ "_method": "compactified hyperboloidal Chebyshev spectral, TWO-FIELD coupled shear-bulk operator; NO winding, NO contour, NO region count anywhere",
+ "_non_claim": "this lane asserts the existence and location of the polar roots it CERTIFIES, on the branches it certifies them on; it certifies none here, and it asserts NOTHING about the absence or presence of other modes in either family and NOTHING about which FLAG-W branch the substrate is",
+ "_phase": "BUILD PHASE ONLY",
+ "_prereg": "research/2026-08-03_coldq-polar-family_prereg-FROZEN.md",
+ "_prereg_commit": "d9015e38",
+ "_runtime_sec": 36.59,
+ "adjudication": {
+  "BIN_P1": "N/A -- NOT ADJUDICATED (solver not certified)",
+  "BIN_P2": "N/A -- NOT ADJUDICATED (solver not certified)",
+  "BIN_P3": "N/A -- NOT ADJUDICATED (solver not certified)",
+  "BIN_P4": "N/A BY CONSTRUCTION",
+  "precedence_fired": "BIN-PF-SOLVER"
+ },
+ "axial_reference": {
+  "Omega": "1.853655210840878848320699157729883961213 -1.00725678314331889260211374956072904467",
+  "Q": 0.9201502744197102,
+  "artifact_c": 0.25002341694486013,
+  "ft2b_c": 0.07345138526200583,
+  "g2b_c": 6.216374478994577,
+  "omega_R_M_g": 0.2648078872629827,
+  "source": "research/drivers/coldq_pole_v2p4_root_results.json (MERGED on origin/main), keys certified_root.Omega_*_mp and adjudication.{omega_R_M_g,Q}"
+ },
+ "certification": "SOLVER-NOT-CERTIFIED",
+ "comparators": {
+  "GR_overtone_real_gap": 0.1887270000000001,
+  "Omega_GR_n0": [
+   2.615704,
+   -0.622734
+  ],
+  "Q_GR": 2.1002135791366907,
+  "c_P_over_c_shear_cold": 1.8257418583505538,
+  "nu_vac": 0.2857142857142857,
+  "omega_I_GR": 0.08896,
+  "omega_R_GR": 0.37367
+ },
+ "configurations": [
+  {
+   "BIN_PF_NOROOT": true,
+   "G0b_degree_residual": 9.905581241180269e-81,
+   "branch": "SOFT",
+   "n_stable_seed_candidates": 0,
+   "rho_mode": "A",
+   "role": "CO-PRIMARY",
+   "roots": {
+    "axial_seeded": {
+     "Omega": [
+      1.6034934906781686,
+      -0.029544365894952067
+     ],
+     "Omega_im_mp": "-0.02954436589495206692131161646149833001507",
+     "Omega_re_mp": "1.603493490678168582580224181136202026036",
+     "pencil_count_within_R_iso": 1,
+     "rel_to_axial": 0.4783784089087768,
+     "seed": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "within_R_iso_of_seed": false
+    },
+    "least_damped_n_stable": null
+   },
+   "seed_candidates": [],
+   "seed_rule": "double-pencil eigenvalues with Re > 0, Im < 0, |Omega| <= 8.0, n-stable between n = 48 and n = 80 at 0.001 relative, ordered by decreasing Re/(2|Im|).  SEED RULE ONLY: it makes NO completeness claim and NO mode count.",
+   "tag": "CFG-SOFT-A"
+  },
+  {
+   "BIN_PF_NOROOT": true,
+   "G0b_degree_residual": 6.327442222873393e-81,
+   "branch": "STIFF",
+   "n_stable_seed_candidates": 0,
+   "rho_mode": "A",
+   "role": "CO-PRIMARY",
+   "roots": {
+    "axial_seeded": {
+     "Omega": [
+      1.504128161894015,
+      -0.3908919035940713
+     ],
+     "Omega_im_mp": "-0.390891903594071294508338791735314348228",
+     "Omega_re_mp": "1.504128161894014956968250425058935437179",
+     "pencil_count_within_R_iso": 1,
+     "rel_to_axial": 0.3358727354137748,
+     "seed": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "within_R_iso_of_seed": false
+    },
+    "least_damped_n_stable": null
+   },
+   "seed_candidates": [],
+   "seed_rule": "double-pencil eigenvalues with Re > 0, Im < 0, |Omega| <= 8.0, n-stable between n = 48 and n = 80 at 0.001 relative, ordered by decreasing Re/(2|Im|).  SEED RULE ONLY: it makes NO completeness claim and NO mode count.",
+   "tag": "CFG-STIFF-A"
+  },
+  {
+   "BIN_PF_NOROOT": true,
+   "G0b_degree_residual": 3.998694576407435e-80,
+   "branch": "SOFT",
+   "n_stable_seed_candidates": 0,
+   "rho_mode": "B",
+   "role": "SENSITIVITY (FORK-3(b), first run)",
+   "roots": {
+    "axial_seeded": {
+     "Omega": [
+      2.1801549192754712,
+      -0.519680183561576
+     ],
+     "Omega_im_mp": "-0.5196801835615759328348003206520639260092",
+     "Omega_re_mp": "2.180154919275471359021045439811701627732",
+     "pencil_count_within_R_iso": 3,
+     "rel_to_axial": 0.2781505049702362,
+     "seed": [
+      1.8536552108408788,
+      -1.0072567831433188
+     ],
+     "within_R_iso_of_seed": false
+    },
+    "least_damped_n_stable": null
+   },
+   "seed_candidates": [],
+   "seed_rule": "double-pencil eigenvalues with Re > 0, Im < 0, |Omega| <= 8.0, n-stable between n = 48 and n = 80 at 0.001 relative, ordered by decreasing Re/(2|Im|).  SEED RULE ONLY: it makes NO completeness claim and NO mode count.",
+   "tag": "CFG-SOFT-B"
+  }
+ ],
+ "gates": {
+  "G-C": {
+   "Omega_toroidal_im_mp": "-1.00725678314331889260211374956072904467",
+   "Omega_toroidal_re_mp": "1.853655210840878848320699157729883961213",
+   "dps": 50,
+   "measured_a": 4.0091470651382935e-51,
+   "measured_b": 2.1392113069210418e-40,
+   "n": 48,
+   "note": "G-C(a) is an OPERATOR IDENTITY against the certified axial operator, entry by entry; G-C(b) is the root that operator returns.  Both gate the SHARED machinery and neither is a two-instrument agreement on any polar quantity.",
+   "pass": true,
+   "pass_a": true,
+   "pass_b": true,
+   "tol_a": 1e-40,
+   "tol_b": 1e-10
+  },
+  "G0a": {
+   "ell": 2,
+   "measured": 3.3409558876152446e-52,
+   "moduli": {
+    "c_P_over_c_S": 1.8257418583505538,
+    "lambda_L": 1.3333333333333333,
+    "mu": 1.0,
+    "rho": 1.0
+   },
+   "pass": true,
+   "tol": 1e-12
+  },
+  "G0c": {
+   "affine_in_L_residual_exactly_zero": true,
+   "ells_derived": [
+    2,
+    3,
+    4
+   ],
+   "pass": true,
+   "separability_residual_exactly_zero": true
+  },
+  "G9": {
+   "note": "determinism is adjudicated EXTERNALLY by running the driver twice and diffing the shipped objects; this driver deliberately emits NO pass field for G9 (prereg section 4.9, executing the successor instruction routed by the v2.4 result doc)"
+  }
+ },
+ "self_tests": {
+  "FT_0a": {
+   "fires": true,
+   "measured": 2.7824766158925944e-10,
+   "mutation": "the (lam_L + mu) coupling coefficient scaled by (1 + 1e-09)",
+   "threshold": 1e-12
+  },
+  "FT_0c": {
+   "affine_residual_becomes_nonzero": false,
+   "fires": false,
+   "mutation": "the (lam_L + mu) coupling coefficient scaled by (1 + 1e-09) in the SYMBOLIC derivation"
+  },
+  "FT_C": {
+   "fires": true,
+   "frozen_text_defect": "the frozen FT-C text names the spin-1 STORED-ENERGY WEIGHTING, which does not enter the operator and could not move it; the implemented mutation is v2.4's own spin-1 WALL row, which does.  DISCLOSED PRE-MEASUREMENT as a defect in the frozen text, not a post-hoc adjustment, and it is a STRENGTHENING: the frozen mutation would have been vacuous.",
+   "measured_op": 0.29103890693977286,
+   "mutation": "the toroidal instantiation compared against v2.4's SPIN-1 wall row instead of its spin-2 one",
+   "threshold_op": 1e-40
+  }
+ }
+}
