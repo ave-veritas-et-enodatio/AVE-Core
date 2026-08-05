@@ -83,6 +83,64 @@ Each re-verified by content at this branch's base before being skipped:
 | `vol_5…/02_organic_circuitry.tex` | the "Ring-down scope (2026-08-02, per Ruling B1…)" block | #846 |
 | `vol_3…/04_generative_cosmology.tex` list header + list item | the "Ring-down scope (2026-08-02…)" block covering the itemize | #848 |
 
+---
+
+## Category I — the signed-Γ print sweep (NEW REGISTER ROW). Site count: **31**, and the tail is tagged, not truncated
+
+**Method, two-method as required.** (1) `grep -rn` with quoted patterns over
+`--include='*.tex' manuscript/`; (2) an independent Python `pathlib.rglob('*.tex')` +
+`re` pass over the same tree with a widened pattern
+(`Gamma_\{?\\?(?:text|mathrm)?\{?bulk`). Method 1 with the narrow literal returned 13 sites in
+7 files; **method 2 returned 31 sites in 16 files** — the delta is the
+`\Gamma_{\mathrm{bulk}}` / `\Gamma_{\text{bulk}}` render variants and the standalone TikZ figure
+sources, which the narrow literal missed. **The 31 is the number of record**, and this is a live
+instance of the grep-completeness failure mode: a single-form grep under-reports by more than
+half.
+
+**Full register (file → lines):**
+
+| File | Lines |
+|---|---|
+| `vol_1…/04_continuum_electrodynamics.tex` | 105 |
+| `vol_3…/04_generative_cosmology.tex` | 173 (section heading) |
+| `vol_3…/08_gravitational_waves.tex` | 284, 287, 292 |
+| `vol_3…/15_black_hole_orbital_resonance.tex` | 45, 57, **68 ★**, 77 |
+| `vol_3…/21_black_hole_interior_regime_iv.tex` | 119, 128, 167, **195 ★** |
+| `vol_9…/01_general_description.tex` | 45 |
+| `vol_9…/03_pin_port_configuration.tex` | 13, 225 |
+| `vol_9…/03a_device_circuit_models.tex` | **77 ★ (declaration home)** |
+| `vol_9…/04_dc_electrical_characteristics.tex` | 117, 120 |
+| `vol_9…/05_ac_electrical_characteristics.tex` | 121 |
+| `vol_9…/09_mechanical_characteristics.tex` | 104 |
+| `vol_9…/13_application_examples.tex` | 39, 180 |
+| `vol_9…/17_engine_requirements.tex` | 61, 106, 121 |
+| `vol_9…/figures/circuit_electron_barrier.tex` | 13, 17, 36 |
+| `vol_9…/figures/circuit_three_channel_boundary.tex` | 21 |
+| `vol_9…/figures/node_2domain_nport.tex` | 45 |
+
+**What this wave tagged, and why not all 31.** Thirty-one inline copies of a four-clause
+declaration would be a duplication defect of exactly the kind R7 exists to prevent, across both
+xr-hyper bases. Instead:
+
+- **One canonical print declaration** at `vol_9…/03a_device_circuit_models.tex`
+  §"Graded Vacuum Impedance Network" — the print home of the three-channel Γ table that the vol9
+  ch09 / ch13 sites already cite as canonical. It carries all three declarations (reference plane
+  / projection / profile) verbatim in substance from `wall-taxonomy.md` §9, plus the
+  computed-not-chosen rule and the `|Γ| = 1`-only Axiom-3 fence.
+- **Two DERIVATION sites tagged in place** (marked ★ above) — the two places in print where the
+  signed bulk Γ is *derived* rather than quoted: `ch15:68` (`c_bulk → 0 ⇒ Z_bulk → 0 ⇒ Γ_bulk = −1`)
+  and `ch21:195` (the same step in the BH-interior chapter). These are where the profile
+  conditionality actually bites, because they multiply a vanishing speed by a constant density.
+- **The remaining 27 sites are QUOTING sites** — tables, summary rows, figure labels and
+  cross-references that restate a Γ derived elsewhere. **They are tagged in this register and
+  explicitly not edited**, so the count is auditable rather than silently truncated.
+
+**Not adjudicated here:** whether the 27 quoting sites should each carry a pointer, or whether the
+one declaration home plus the two derivation tags is the right print economy. Surfaced for the
+orchestrator.
+
+---
+
 ## EXPLICITLY EXCLUDED, byte-untouched
 
 - `manuscript/vol_3_macroscopic/chapters/08_gravitational_waves.tex` — the sentence
