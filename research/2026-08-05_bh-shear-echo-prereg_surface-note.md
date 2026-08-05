@@ -56,10 +56,32 @@ them may be quoted as a prediction.
 
 ## What is NOT being claimed here
 
-- **The prereg is not retracted.** Its *mechanism* stake — a `Γ_shear = −1` reflector exists,
-  therefore echoes are predicted — is untouched by anything above.
-- **No branch is selected.** This note does not prefer RHO-A over RHO-B or the reverse. That is
-  what "the fork is open" means.
+- **The prereg is not retracted.** It stays as written and is byte-untouched; nothing above
+  repairs it or withdraws its stake.
+- **But the *mechanism* stake is BRANCH-CONDITIONAL, not untouched — and saying otherwise
+  silently selects RHO-A.** The stake — a `Γ_shear = −1` reflector exists, therefore echoes are
+  predicted — rides the *same* open density fork as the quantity, because `Z_shear = ρ c_shear`
+  consumes the density profile directly. Two receipts in
+  [`2026-08-04_coldq-axial-rhob_result.md`](2026-08-04_coldq-axial-rhob_result.md):
+  - `:332` — `★ FLAG-CANON`, explicitly **routed to Grant and the auditor lane**. Substituting
+    the KB leaf's own density (`manuscript/ave-kb/vol3/claim-quality.md:124`, *"$\rho_{eff} \to
+    \infty$ as $\varepsilon_{11} \to 1$"*) into that same leaf's own impedance formula (`:122`,
+    *"$Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$"*) **inverts `:122`'s
+    conclusion from `Γ_shear = −1` to `Γ_shear = +1`**; that lane measures the substitution as
+    `Z_shear ∝ 1/S`. It repairs neither line and prefers neither. It also states that the
+    downstream *"echoes are predicted"* sentence at `:123` is **RHO-A-conditional**.
+  - `:27` — under RHO-B, `Z_shear = ρ c_shear = 1/S → ∞` (RHO-A gives `√S → 0`) and the
+    travel-time integral `∫dr/c_shear` diverges logarithmically, so **the wall sits at INFINITE
+    optical distance and a wave launched inward never arrives**. RHO-B converts the saturation
+    wall *"from a reflector at finite distance into a horizon-analogue."*
+
+  So on RHO-B the mechanism stake has no inbound wave to reflect and a sign that reads the other
+  way. **Neither the sign nor the branch is resolved here** — this note surfaces the
+  conditionality and stops.
+- **No branch is selected.** This note does not prefer RHO-A over RHO-B or the reverse, and
+  **does not resolve the `Γ_shear` sign**. That is what "the fork is open" means. Substrate note
+  for why this is one fork and not two: `Z = ρc` is the *same* product in both the shear and
+  bulk channels, so a live density fork moves both signs together.
 - **No number is refilled.** Nothing here supplies a replacement for the superseded `~4 ms`; the
   authority is cited so a reader gets the current value from the document that gates it under
   `make verify`.
