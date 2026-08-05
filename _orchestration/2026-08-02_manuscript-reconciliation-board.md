@@ -72,6 +72,51 @@ Collision ledger: `docs/factor7-and-782-basis-notes` (vol1 ch07 / vol3 ch07 / vo
 
 Refuted-finding note: the four REFUTED findings are dropped from execution but listed in §5 with reasons. The two ch15 refutations are CLASS-level only (the interim note at `:31` already discloses the retraction); the #780 per-occurrence rewrite obligation is unaffected and lives in the gated wave.
 
+## §6 CLOSE-OUT — waves 1 + 2 EXECUTED AND MERGED (2026-08-03)
+
+**All 12 epic PRs merged by Grant 2026-08-03.** Audit tags `audit/2026-08-03_mr-*` (9) pin every lane tip at review state; branches auto-deleted on merge, tips recovered from the merge commits' second parents.
+
+| Lane | PR | Outcome |
+|---|---|---|
+| board + 9 docket fragments | #825 | merged (repaired: §5 tags made the authoritative gating register) |
+| board corrections + 2 correction fragments | #831 | merged (Si-28 rev-2, varactor rev-2) |
+| KB-ward ch08 admixture | #826 | merged (KB was behind print — the inversion case) |
+| vol4 pilot | #827 | merged (9/9, no adjudications) |
+| vol1 | #836 | merged |
+| vol0 | #839 | merged (D2 register posture) |
+| vol2 | #840 | merged (digit-verified value changes) |
+| vol9 | #842 | merged |
+| vol4 muon winding | #843 | merged |
+| papers pointer-rows | #844 | merged (+ D7 collision resolved) |
+| vol5 | #846 | merged |
+| KB-lockstep (8 leaves) | #847 | merged |
+| vol3 non-ringdown | #848 | merged |
+| cite-rot routing | #850 | merged |
+| vol6 | #852 | merged |
+| backmatter | #853 | merged |
+
+**Every lane was independently audited refute-by-default; every audit found something real.** The defects that mattered most were caught in *orchestration artifacts*, not implementer output: a false BYTE-IDENTICAL claim (#842), an invented reconciling value with zero provenance (#847 — retracted), a REFUTED finding dispatched as work (#852 — reverted), a route-to-core mirror-pair breach (#853 — ratified with reasoning, veto open), and three stale cites in this board itself.
+
+### STILL GATED — the ringdown wave does NOT open
+
+The cold-Q derivation arc **landed and returned a non-verdict**: #845 reports **`SOLVER-NOT-CERTIFIED`**, so all four frozen physics bins read *N/A — not adjudicated*. #854 (contour-certified solver v2) is the live retry. **The gate therefore HOLDS**: vol3 ch08 + ch15, `backmatter/07:{85,211,213}`, and the ringdown-dependent mirror sites stay unexecuted. The known cost, disclosed in print: `backmatter/07` prints a withdrawal at `:145` while `:211/:213` still print the withdrawn claim.
+
+### OWED — board corrections (next board touch)
+1. `backmatter/01_appendices.tex:{132,135,196}` → re-tag crib-covered-mechanical (mirror-pair parity; ratification fragment `2026-08-03-backmatter-mirror-tag-ratification.md` is the authority until then).
+2. vol5 `07_solvent_damping.tex:41` (k_HB) → flip `[mechanical]` to routed (the #825 audit upgraded it to a ×9.96 contradiction vs INVARIANT-C3).
+3. finding-16 verify note: the neon caption cite is `:53` — the note's ":54, not :53" is wrong; the ORIGINAL finding was right.
+4. `A_heavy_element_catalog.tex:20` was dispatched as EXECUTE while tagged `[REFUTED — dropped]` (orchestrator error; reverted in #852).
+
+### OWED — addenda (out-of-set sites found by lanes, each with receipts in its PR)
+vol1 `07_regime_map.tex:19` (B1 tag, released by #820); vol2 `09_computational_proof.tex:50` ("sub-3 Å" in the Accuracy column vs `clm-u4vmgk`); vol6 `circuits/circuit_h1.tex:18` (INVARIANT-N1); `backmatter/12_mathematical_closure.tex:201` sentence-1 (CRIB-4 superlative, out-of-set under the same-sentence rule but its evidentiary count was just reduced 4→3); vol4 status-sync (4 leaves incl. `measurement-coupling-probe.md:273`); the dark-TikZ sweep (**23 of 29** standalones carry `darkbg`; several are orphans — restyle-vs-retire per figure).
+
+### OPEN — routed to core / awaiting Grant
+- **Petermann split (physics):** the KB leaf carries `C_2 = −0.32846` (50 ppm vs PDG) while the live driver returns `−0.328427` (~158 ppm). Load-bearing in the g−2 thread. Routed by #847.
+- **Cite-rot fix option** (#850): `verify-md-links` still strips `:NN` (`strip_target`, unchanged at HEAD) — #849 improved only the ADVISORY `verify-anchor-content` (markdown-link anchor form). The gating checker remains line-blind and the ~1,800 backticked-bare cites remain wholly unchecked. Options (1)–(4) stand.
+- **Rule-12 banner form:** in-doc verbatim `%`-preservation blocks vs the standing git-only-audit-trail directive. Wave-1/2 lanes used in-doc per the §3 rider; a ruling would settle future waves.
+- **Dedup-completion class** extended to *clause* byte-identity (orchestrator-ruled, #842) — veto open.
+- **`07` in-print seam** accepted as the cost of gating — confirm.
+
 ## §5 The classified board (154 findings, post-verify)
 
 (Appended below verbatim from the sweep+verify pipeline output; per-finding format: severity / class / disposition / file:line / printed excerpt / KB truth / verify note.)
