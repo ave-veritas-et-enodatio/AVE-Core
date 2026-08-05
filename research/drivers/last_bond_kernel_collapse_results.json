@@ -1,0 +1,991 @@
+{
+ "_digest": "778f6ef9f0819a6f",
+ "_frozen_numerics": {
+  "S_last_grid": [
+   "1e-3",
+   "1e-6",
+   "1e-9",
+   "1e-12",
+   "1e-15",
+   "1e-20",
+   "1e-25",
+   "1e-30"
+  ],
+  "Z_beyond_over_Z1_grid": [
+   "0",
+   "1e-40",
+   "1e-20",
+   "1",
+   "1e+20",
+   "1e+40",
+   "INFINITY"
+  ],
+  "bond_rules": [
+   "HARMONIC",
+   "ARITHMETIC"
+  ],
+  "dps": 60,
+  "ell_over_rsat_ladder": [
+   "6.0238983090250982e-19",
+   "1e-12",
+   "1e-6",
+   "1e-3"
+  ],
+  "om_over_omC_grid": [
+   "1e-25",
+   "1e-19",
+   "1e-13"
+  ],
+  "p_branches": {
+   "RHO-A": "0.5",
+   "RHO-B": "2"
+  },
+  "rho_beyond_grid": [
+   "1e-30",
+   "1e-15",
+   "1",
+   "1e+15",
+   "1e+30"
+  ]
+ },
+ "_method": "TASK 1 two-method corpus scan (git grep -P + independent os.walk/re); TASK 2 the four frozen theorems certified over the frozen sweep at mpmath dps = 60; TASK 3 the exact RHO-B optical closed form F(x) = x + (1/2)ln(x/(x+2)) on the ell_node ladder with the RHO-A finite-length negative control",
+ "_non_claim": "DERIVATION result. Mints no clm-/def-; propagates to no KB/manuscript leaf; changes no solidity; edits no falsification ledger; src/ave byte-untouched and not imported. Adjudicates neither the discrete nor the continuum wall row; settles nothing about FORK-3(b), FLAG-ECO, gamma/G_c VALUES, Regime-IV interior physics, or anything observational.",
+ "_prereg": "research/2026-08-05_last-bond-kernel-collapse_prereg-FROZEN.md",
+ "_ruling": "_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md (PR #887)",
+ "_runtime_sec": 42.25,
+ "gates": {
+  "G-BOND": {
+   "frozen": "k_0 == 0 exactly (mp) at every swept HARMONIC point",
+   "measured_max_abs_k0": "0.0",
+   "pass": true
+  },
+  "G-COLD": {
+   "frozen": "Gamma_LB(RHO-A) - Gamma_LB(RHO-B) == 0 exactly at every swept point",
+   "measured_max_sep": "0.0",
+   "pass": true
+  },
+  "G-COND": {
+   "cancellation_free_S2": "1.20477966180501963891137947488e-18",
+   "frozen": "the naive float64 1-A^2 must return exactly 0.0 at ell/r_sat = 6.02e-19",
+   "naive_float64_1_minus_A2": "0.0",
+   "pass": true
+  },
+  "G-NC-ARITH": {
+   "frozen": "the arithmetic rule must NOT collapse: k_0 != 0 and |Gamma+1| > 1e-30 somewhere",
+   "measured_max_k0": "830027291879898.135415708582244",
+   "measured_max_resid": "2.00000000000000000000000000000",
+   "pass": true
+  },
+  "G-NC-ECHO": {
+   "all_identity_and_W_zero": true,
+   "frozen": "the -1 member is in the predecessor's swept set AND its junction two-port is the identity",
+   "n_junction_two_port_entries": 4,
+   "pass": true,
+   "sweep_declaration_present": true
+  },
+  "G-NC-SIGN": {
+   "frozen": "the byte-exact free-end convention substring must be PRESENT in the echo-v2 prereg",
+   "needle": "`Γ_L = −1` in the traction↔voltage convention",
+   "pass": true,
+   "present": true,
+   "this_lane_Gamma_LB": "-1"
+  },
+  "G-PLANE": {
+   "frozen": "|Gamma_N0 - Gamma_LB| >= 1e-6 at >= 1 swept point",
+   "measured_max": "2.00000000000000000000000000000",
+   "pass": true
+  },
+  "G-PREC": {
+   "frozen": "relative separation <= 1e-12 on every quantity computed both ways",
+   "measured_worst_rel": "1.05470693719389027251354899102e-16",
+   "pass": true
+  },
+  "G-RHO": {
+   "frozen": "max over the Z_beyond x rho_beyond grid of the Gamma_LB spread == 0 exactly",
+   "measured_max_spread": "0.0",
+   "n_groups": 48,
+   "pass": true
+  },
+  "G-RHO2": {
+   "frozen": "fitted exponent of |dGamma/dZ_beyond| vs k_0 in [1.9, 2.1]",
+   "measured_exponent": "0.00370115115631918737071374823881",
+   "pass": false,
+   "per_pair": [
+    "0.000000753906665558065022906244826996",
+    "0.00740154840597281667640459023280"
+   ]
+  },
+  "G-ROW": {
+   "frozen": "|Gamma_LB + 1| == 0 exactly (mp) at every swept HARMONIC point",
+   "measured_max_abs_resid": "0.0",
+   "n_points": 1680,
+   "pass": true
+  },
+  "G-SCAN": {
+   "disagreements": [
+    "C3_Gc::ADJ_S",
+    "C5_op10::ADJ_S",
+    "C6_hopf::ADJ_S",
+    "C7_refl::ADJ_S"
+   ],
+   "frozen": "METHOD A and METHOD B hit sets identical per pattern; both file counts reported",
+   "method_a_scanned_files": 3921,
+   "method_b_scanned_files": 3921,
+   "n_patterns": 50,
+   "pass": false
+  },
+  "G-UNIT": {
+   "frozen": "||Gamma|-1| <= 1e-50 at PLANE-LB and PLANE-N0",
+   "measured_worst_LB": "0.0",
+   "measured_worst_N0": "0.0",
+   "pass": true
+  }
+ },
+ "self_tests": {
+  "FT-ARITH": {
+   "fires": true,
+   "frozen": "the arithmetic control must give |Gamma+1| > 1e-30 because k_0 = k_cold/2 > 0",
+   "measured_abs_resid": "0.999999999999999999999999999995",
+   "measured_k0_arith": "830027291.879898135415708582244",
+   "measured_k_cold_over_2": "830027291.879898135415708582244",
+   "reason_is_k0_positive": true
+  },
+  "FT-BOND": {
+   "fires": true,
+   "frozen": "injecting k_beyond = 1e-300 must make G-BOND FAIL (k_0 != 0)",
+   "measured_k0": "2.00000000000000000000000000000e-300"
+  },
+  "FT-COND": {
+   "fires": true,
+   "frozen": "the naive float64 1-A^2 must return exactly 0.0 at the innermost ratio",
+   "measured": "0.0"
+  },
+  "FT-PLANE": {
+   "fires": true,
+   "frozen": "at om -> 0 the two planes must COINCIDE, i.e. G-PLANE must fail at that limit",
+   "measured_sep_at_om_1e-200": "6.32455532033675866399778708887e-196"
+  },
+  "FT-RHO": {
+   "fires": true,
+   "frozen": "at the injected k_0 the Z_beyond grid must produce a spread > 0",
+   "measured_spread": "6.32455532033675866399778708887e-286"
+  },
+  "FT-ROW": {
+   "fires": true,
+   "frozen": "injecting k_0 = 1e-300*k_cold must make |Gamma_LB + 1| > 0",
+   "measured_abs_resid": "6.32455532033675866399778708887e-286"
+  },
+  "FT-SCAN": {
+   "absent_n_a": 1,
+   "absent_n_b": 1,
+   "fires": false,
+   "frozen": "absent sentinel -> zero hits on BOTH methods; present sentinel -> same non-zero set",
+   "present_agree": true,
+   "present_n_a": 118,
+   "present_n_b": 118
+  }
+ },
+ "task1_scan": {
+  "disagreements": [
+   "C3_Gc::ADJ_S",
+   "C5_op10::ADJ_S",
+   "C6_hopf::ADJ_S",
+   "C7_refl::ADJ_S"
+  ],
+  "method_a_scanned_files": 3921,
+  "method_b_scanned_files": 3921,
+  "patterns": {
+   "C1_G::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 3,
+    "n_method_b": 3,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})\\s*\\(A\\)",
+    "union_used": 3
+   },
+   "C1_G::ADJ_S": {
+    "agree": true,
+    "n_method_a": 44,
+    "n_method_b": 44,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})",
+    "union_used": 44
+   },
+   "C1_G::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 42,
+    "n_method_b": 42,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})",
+    "union_used": 42
+   },
+   "C1_G::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 14,
+    "n_method_b": 14,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})",
+    "union_used": 14
+   },
+   "C1_G::BARE": {
+    "agree": true,
+    "n_method_a": 589,
+    "n_method_b": 589,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "G_\\{?vac\\}?|G_shear|G_\\{shear\\}",
+    "union_used": 589
+   },
+   "C1_G::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 18,
+    "n_method_b": 18,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:G_\\{?vac\\}?|G_shear|G_\\{shear\\})",
+    "union_used": 18
+   },
+   "C2_K::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C2_K::ADJ_S": {
+    "agree": true,
+    "n_method_a": 10,
+    "n_method_b": 10,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)",
+    "union_used": 10
+   },
+   "C2_K::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 69,
+    "n_method_b": 69,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)",
+    "union_used": 69
+   },
+   "C2_K::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 28,
+    "n_method_b": 28,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)",
+    "union_used": 28
+   },
+   "C2_K::BARE": {
+    "agree": true,
+    "n_method_a": 1838,
+    "n_method_b": 1838,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?",
+    "union_used": 1838
+   },
+   "C2_K::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 87,
+    "n_method_b": 87,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:K\\s*=\\s*2\\s*\\*?\\s*G|K_\\{?vac\\}?)",
+    "union_used": 87
+   },
+   "C3_Gc::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 1,
+    "n_method_b": 1,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_c\\b|G_\\{c\\})\\s*\\(A\\)",
+    "union_used": 1
+   },
+   "C3_Gc::ADJ_S": {
+    "agree": false,
+    "n_method_a": 3,
+    "n_method_b": 2,
+    "only_in_a_sample": [
+     "research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md:1405"
+    ],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_c\\b|G_\\{c\\})[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:G_c\\b|G_\\{c\\})",
+    "union_used": 3
+   },
+   "C3_Gc::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 17,
+    "n_method_b": 17,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_c\\b|G_\\{c\\})[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:G_c\\b|G_\\{c\\})",
+    "union_used": 17
+   },
+   "C3_Gc::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_c\\b|G_\\{c\\})[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:G_c\\b|G_\\{c\\})",
+    "union_used": 0
+   },
+   "C3_Gc::BARE": {
+    "agree": true,
+    "n_method_a": 560,
+    "n_method_b": 560,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "G_c\\b|G_\\{c\\}",
+    "union_used": 560
+   },
+   "C3_Gc::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 5,
+    "n_method_b": 5,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:G_c\\b|G_\\{c\\})[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:G_c\\b|G_\\{c\\})",
+    "union_used": 5
+   },
+   "C4_gamma::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C4_gamma::ADJ_S": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)",
+    "union_used": 0
+   },
+   "C4_gamma::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 3,
+    "n_method_b": 3,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)",
+    "union_used": 3
+   },
+   "C4_gamma::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)",
+    "union_used": 0
+   },
+   "C4_gamma::BARE": {
+    "agree": true,
+    "n_method_a": 641,
+    "n_method_b": 641,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "gamma_c|\\\\gamma_c|couple-stress|couple stress",
+    "union_used": 641
+   },
+   "C4_gamma::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 46,
+    "n_method_b": 46,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:gamma_c|\\\\gamma_c|couple-stress|couple stress)",
+    "union_used": 46
+   },
+   "C5_op10::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_op10|Op10|Op 10)\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C5_op10::ADJ_S": {
+    "agree": false,
+    "n_method_a": 1,
+    "n_method_b": 0,
+    "only_in_a_sample": [
+     "research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md:1405"
+    ],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_op10|Op10|Op 10)[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:k_op10|Op10|Op 10)",
+    "union_used": 1
+   },
+   "C5_op10::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 24,
+    "n_method_b": 24,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_op10|Op10|Op 10)[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:k_op10|Op10|Op 10)",
+    "union_used": 24
+   },
+   "C5_op10::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_op10|Op10|Op 10)[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:k_op10|Op10|Op 10)",
+    "union_used": 0
+   },
+   "C5_op10::BARE": {
+    "agree": true,
+    "n_method_a": 591,
+    "n_method_b": 591,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "k_op10|Op10|Op 10",
+    "union_used": 591
+   },
+   "C5_op10::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 1,
+    "n_method_b": 1,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_op10|Op10|Op 10)[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:k_op10|Op10|Op 10)",
+    "union_used": 1
+   },
+   "C6_hopf::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_hopf|Hopf)\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C6_hopf::ADJ_S": {
+    "agree": false,
+    "n_method_a": 19,
+    "n_method_b": 13,
+    "only_in_a_sample": [
+     "research/2026-06-04_full-electron-transverse-selftrap-result.md:40",
+     "research/_archive/L3_electron_soliton/05_reading_equivalence_check.md:78",
+     "research/_archive/L3_electron_soliton/34_x4_constrained_s11.md:479",
+     "research/_archive/L3_electron_soliton/36_pathB_trefoil_z2_investigation.md:161",
+     "research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md:1405"
+    ],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_hopf|Hopf)[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:k_hopf|Hopf)",
+    "union_used": 19
+   },
+   "C6_hopf::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 33,
+    "n_method_b": 33,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_hopf|Hopf)[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:k_hopf|Hopf)",
+    "union_used": 33
+   },
+   "C6_hopf::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 4,
+    "n_method_b": 4,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_hopf|Hopf)[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:k_hopf|Hopf)",
+    "union_used": 4
+   },
+   "C6_hopf::BARE": {
+    "agree": true,
+    "n_method_a": 934,
+    "n_method_b": 934,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "k_hopf|Hopf",
+    "union_used": 934
+   },
+   "C6_hopf::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 17,
+    "n_method_b": 17,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_hopf|Hopf)[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:k_hopf|Hopf)",
+    "union_used": 17
+   },
+   "C7_refl::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_refl|reflection density|_reflection_density)\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C7_refl::ADJ_S": {
+    "agree": false,
+    "n_method_a": 3,
+    "n_method_b": 2,
+    "only_in_a_sample": [
+     "research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md:1405"
+    ],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_refl|reflection density|_reflection_density)[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:k_refl|reflection density|_reflection_density)",
+    "union_used": 3
+   },
+   "C7_refl::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 17,
+    "n_method_b": 17,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_refl|reflection density|_reflection_density)[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:k_refl|reflection density|_reflection_density)",
+    "union_used": 17
+   },
+   "C7_refl::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_refl|reflection density|_reflection_density)[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:k_refl|reflection density|_reflection_density)",
+    "union_used": 0
+   },
+   "C7_refl::BARE": {
+    "agree": true,
+    "n_method_a": 218,
+    "n_method_b": 218,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "k_refl|reflection density|_reflection_density",
+    "union_used": 218
+   },
+   "C7_refl::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:k_refl|reflection density|_reflection_density)[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:k_refl|reflection density|_reflection_density)",
+    "union_used": 0
+   },
+   "C8_Z0::ADJ_OFA": {
+    "agree": true,
+    "n_method_a": 0,
+    "n_method_b": 0,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})\\s*\\(A\\)",
+    "union_used": 0
+   },
+   "C8_Z0::ADJ_S": {
+    "agree": true,
+    "n_method_a": 49,
+    "n_method_b": 49,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})[^\\n]{0,40}(?:\\*|\\\\cdot|\\\\,|\\s)\\s*S\\b|\\bS\\s*(?:\\*|\\\\cdot)\\s*(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})",
+    "union_used": 49
+   },
+   "C8_Z0::ADJ_SAT": {
+    "agree": true,
+    "n_method_a": 144,
+    "n_method_b": 144,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})[^\\n]{0,80}saturat|saturat[^\\n]{0,80}(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})",
+    "union_used": 144
+   },
+   "C8_Z0::ADJ_SQRT": {
+    "agree": true,
+    "n_method_a": 31,
+    "n_method_b": 31,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})[^\\n]{0,80}(?:sqrt\\(1|\\\\sqrt\\{1)|(?:sqrt\\(1|\\\\sqrt\\{1)[^\\n]{0,80}(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})",
+    "union_used": 31
+   },
+   "C8_Z0::BARE": {
+    "agree": true,
+    "n_method_a": 3735,
+    "n_method_b": 3735,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\}",
+    "union_used": 3735
+   },
+   "C8_Z0::GRADE_VERB": {
+    "agree": true,
+    "n_method_a": 44,
+    "n_method_b": 44,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})[^\\n]{0,80}(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)|(?:grade[ds]?\\b|rides\\b|scales as|\\\\propto)[^\\n]{0,80}(?:Z_0\\b|Z_\\{0\\}|Z_EM|Z_\\{EM\\})",
+    "union_used": 44
+   },
+   "SENTINEL::ABSENT": {
+    "agree": true,
+    "n_method_a": 1,
+    "n_method_b": 1,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "zzq-last-bond-sentinel-absent-9f3a",
+    "union_used": 1
+   },
+   "SENTINEL::PRESENT": {
+    "agree": true,
+    "n_method_a": 118,
+    "n_method_b": 118,
+    "only_in_a_sample": [],
+    "only_in_b_sample": [],
+    "pattern": "Universal Saturation Kernel",
+    "union_used": 118
+   }
+  }
+ },
+ "task2_row": {
+  "n_rows": 3360,
+  "sample_rows": [
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "0",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "1e-40",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "1e-20",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "1",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "1e+20",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "0.0",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "6.32455532033675866399778708887e-24",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "S_last": "1e-3",
+    "Z1": "0.0316227766016837933199889354443",
+    "Z_beyond_over_Z1": "1e+40",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "0.0",
+    "branch": "RHO-A",
+    "k0": "0.0",
+    "om_over_omC": "1e-25",
+    "rho_beyond": "1e-30",
+    "rule": "HARMONIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "1e-40",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "1e-20",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "1",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "1e+20",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "1e+40",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   },
+   {
+    "Gamma_LB": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "-1.00000000000000000000000000000e-47",
+     "re": "-1.00000000000000000000000000000"
+    },
+    "Gamma_N0": {
+     "abs": "1.00000000000000000000000000000",
+     "im": "2.00000000000000000000000000000e-47",
+     "re": "1.00000000000000000000000000000"
+    },
+    "S_last": "1e-30",
+    "Z1": "1.00000000000000000000000000000e+30",
+    "Z_beyond_over_Z1": "INFINITY",
+    "abs_Gamma_LB": "1.00000000000000000000000000000",
+    "abs_Gamma_N0": "1.00000000000000000000000000000",
+    "abs_resid_LB": "1.00000000000000000000000000000e-47",
+    "branch": "RHO-B",
+    "k0": "8.30027291879898135415708582244e-13",
+    "om_over_omC": "1e-13",
+    "rho_beyond": "1e+30",
+    "rule": "ARITHMETIC"
+   }
+  ]
+ },
+ "task3_continuum": {
+  "ladder": [
+   {
+    "Gamma_LB": "-1 (exact, ell-independent -- Theorem 2)",
+    "S_last_from_exact_S2": "0.00000000109762455411903921151585733431",
+    "ell_over_rsat": "6.0238983090250982e-19",
+    "roundtrip_optical_RHO_A_over_rsat_c0": "2.53711866099496463908574175566",
+    "roundtrip_optical_RHO_B_over_rsat_c0": "43.5479170493955256194828841603"
+   },
+   {
+    "Gamma_LB": "-1 (exact, ell-independent -- Theorem 2)",
+    "S_last_from_exact_S2": "0.00000141421356237203438862990991939",
+    "ell_over_rsat": "1e-12",
+    "roundtrip_optical_RHO_A_over_rsat_c0": "2.53711865875262268475491205922",
+    "roundtrip_optical_RHO_B_over_rsat_c0": "29.2255560078188838262378842157"
+   },
+   {
+    "Gamma_LB": "-1 (exact, ell-independent -- Theorem 2)",
+    "S_last_from_exact_S2": "0.00141421250171393973397294133247",
+    "ell_over_rsat": "1e-6",
+    "roundtrip_optical_RHO_A_over_rsat_c0": "2.53704775037165751343703472091",
+    "roundtrip_optical_RHO_B_over_rsat_c0": "15.4100439498559847221716022637"
+   },
+   {
+    "Gamma_LB": "-1 (exact, ell-independent -- Theorem 2)",
+    "S_last_from_exact_S2": "0.0446878506420480353805937212568",
+    "ell_over_rsat": "1e-3",
+    "roundtrip_optical_RHO_A_over_rsat_c0": "2.52450674679608492105838669591",
+    "roundtrip_optical_RHO_B_over_rsat_c0": "8.50079004591562371799002486417"
+   }
+  ],
+  "log_rate_measured_per_decade": "1.15137588677240333934710329731",
+  "log_rate_predicted_half_ln10": "1.15129254649702284200899572734",
+  "log_rate_rel_sep": "0.0000723884434360948500593824509422",
+  "rho_a_control_T_at_1e-12": "1.26855932937631134237745602961",
+  "rho_a_control_T_at_1e-3": "1.26225337339804246052919334795",
+  "rho_a_control_growth_ratio": "1.00499579253354892345842477337",
+  "traction": {
+   "continuum_both_negative_so_T_diverges": true,
+   "continuum_exponent_sigma_minus_READ": "-0.8540436614074667",
+   "continuum_exponent_sigma_plus_READ": "-0.1459563385925332",
+   "continuum_resolution": "along a Frobenius branch -> infinity",
+   "indeterminate_form": "T = mu(r) * dpsi/dr  ->  0 * infinity",
+   "lattice_T_last_bond": "0",
+   "lattice_reason": "T_latt = k_0 * (x_0 - x_-1) with k_0 = 0 EXACTLY (Theorem 1) and the finite difference bounded by construction; the product is exactly zero and no difference quotient at the wall is ever taken",
+   "lattice_resolution": "modulus exactly 0 times a bounded finite difference -> 0"
+  }
+ }
+}

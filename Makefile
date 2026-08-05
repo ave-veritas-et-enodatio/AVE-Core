@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -106,7 +106,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
@@ -235,6 +235,21 @@ verify-echo-delay-v2-number-check:
 	$(PYTHON) research/drivers/echo_delay_v2_number_check.py
 	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
 	$(PYTHON) research/drivers/echo_delay_v2_number_check.py --mutation-receipt
+
+# Its OWN target (not appended to verify-lane-number-checks): that recipe already
+# carries an open unmerged edit from PR #845, and the umbrella-glob proposal that
+# would replace all of these with one wildcard target is PENDING, so a per-lane
+# target is still the shipping form.  Same gating effect.
+# DISCLOSED, carrying the FLAG forward unchanged: the .PHONY line and the verify:
+# prerequisite line ARE shared with every other lane's number-check target and are
+# a REAL two-line union-conflict class with any concurrent lane, not an
+# append-only merge.  This lane touched exactly those two shared lines plus this
+# appended block.
+verify-last-bond-number-check:
+	@echo "Checking the LAST-BOND kernel-collapse result-doc numerals against its shipped JSON (gating)..."
+	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py
+	@echo "Mutation receipt: the numeral checker must FAIL on perturbed sources..."
+	$(PYTHON) research/drivers/last_bond_kernel_collapse_number_check.py --mutation-receipt
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
