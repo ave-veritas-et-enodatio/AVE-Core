@@ -34,6 +34,13 @@ Key predictions:
      itself gated by the unadjudicated internal-vs-total-field keying fork.
      See solar_axiom4_onset_summary() below for the full retraction record
      (that function was named oort_cloud_prediction() until 2026-08-03).
+     🔴 DISSOLVED 2026-08-04: the T4 keying fork named above is RULED —
+     the Axiom-4 kernel keys on the TOTAL LOCAL FIELD. Under that keying
+     the Sun already sits at g_ext ≈ 1.8-2.0 a₀, so no saturation
+     transition exists anywhere in the solar system and this is not a
+     boundary at any radius. The formula is RETAINED as an internal-field
+     COUNTERFACTUAL/diagnostic (the isocline of the solar monopole taken
+     in isolation), not as a prediction. Nothing numeric changed.
   3. Kirkwood gaps = destructive interference in Jupiter's impedance cavity
 
 References:
@@ -319,7 +326,10 @@ def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict[str, float | bo
 
 
 # ═══════════════════════════════════════════════════════════════
-# Solar Axiom-4 onset radius (internal-field keying)
+# Solar Axiom-4 onset radius (internal-field keying) — COUNTERFACTUAL as of
+# 2026-08-04: the T4 keying fork is RULED total-local-field, so this block
+# computes a diagnostic isocline, NOT a solar-system boundary. See
+# saturation_radius_au() for the ruling record.
 # 🔴 RELABELED 2026-08-03 (Oort containment retraction, Rule 12).
 # This banner formerly read, verbatim: "Oort Cloud as impedance boundary".
 # Same relabel as the section title, figure caption and the two functions
@@ -347,9 +357,23 @@ def saturation_radius_au() -> float:
     a₀-provenance band on this number is -5.5% (7030.7 AU on the empirical
     a₀). Pinned in src/tests/test_solar_impedance.py.
 
-    ⚑ Existence gated by the unadjudicated T4 keying fork: under
-    total-local-field keying the Sun already sits at g_ext ≈ 1.8-2.0 a₀, so
-    no saturation transition exists anywhere in the solar system
+    🔴 THE BOUNDARY DISSOLVES — T4 RULED 2026-08-04 (total local field).
+    The gate below fired. Under the ruled total-local-field keying the Sun
+    already sits at g_ext ≈ 1.8-2.0 a₀ (2.1e-10/1.0719e-10 = 1.959 and
+    2.1e-10/1.2e-10 = 1.750, both > 1), so NO saturation transition exists
+    anywhere in the solar system: this radius is NOT a boundary. What this
+    function returns is the isocline of the SOLAR MONOPOLE TAKEN IN
+    ISOLATION — an internal-field COUNTERFACTUAL, kept because it is a
+    useful diagnostic and because the pinned arithmetic is unchanged. Do
+    not cite it as a location. Both Oort numbers (this 7438.9 AU and Vol 4's
+    ~15,000 AU) retire as boundaries; the "one object or two" question is
+    moot. Ruling relayed by the core-orchestrator mechanical-rulings batch
+    (2026-08-04); its own docket record is OWED and flagged there.
+
+    ⚑ Prior status (preserved, Rule 12): existence gated by the unadjudicated
+    T4 keying fork: under total-local-field keying the Sun already sits at
+    g_ext ≈ 1.8-2.0 a₀, so no saturation transition exists anywhere in the
+    solar system
     (research/2026-07-10_collapse-target-registry.md:271-290). Grant's call.
     [Ratio corrected 2026-08-03: this line shipped as "≈ 2.0-2.1 a₀", which
     read the mantissa of g_ext = 2.1e-10 m/s² as if it were a ratio. The
@@ -412,6 +436,15 @@ def solar_axiom4_onset_summary() -> dict[str, float | int | str]:
     Per A47 v11b (substitution-not-retraction) the slot is NOT refilled: no
     replacement bracket and no successor containment claim is entered here.
 
+    🔴 THE OBJECT DISSOLVES 2026-08-04 — T4 RULED: TOTAL LOCAL FIELD. The
+    existence gate recorded below fired. There is no solar-system Axiom-4
+    boundary at any radius; both Oort numbers (Vol 3's 7,438.9 AU and Vol 4's
+    ~15,000 AU) retire as boundaries and the cross-volume "one object or two"
+    question is MOOT rather than answered. This function is retained as an
+    INTERNAL-FIELD COUNTERFACTUAL: it computes the isocline of the solar
+    monopole taken in isolation, which is not what the kernel sees under the
+    ruled keying. Arithmetic, keys and pins are unchanged; only the status is.
+
     What this function DOES return: the radius at which the Axiom-4 kernel
     turns on for the solar monopole under INTERNAL-FIELD keying — i.e. the
     outer edge of the Newtonian region. Its very existence is gated by the
@@ -443,11 +476,12 @@ def solar_axiom4_onset_summary() -> dict[str, float | int | str]:
         "r_saturation_ly": r_sat_au * AU / (9.461e15),
         "r_oort_outer_au": r_oort_outer,
         "prediction": (
-            "Solar Axiom-4 onset radius under internal-field keying "
-            "(= outer edge of the Newtonian region). Field property only — "
-            "NO Oort-population claim; containment retracted 2026-08-03. "
-            "Existence gated by the unadjudicated internal-vs-total-field "
-            "keying fork (T4)."
+            "NOT A PREDICTION — internal-field COUNTERFACTUAL isocline of the "
+            "solar monopole taken in isolation. T4 keying RULED 2026-08-04 = "
+            "TOTAL local field, under which no saturation transition exists "
+            "anywhere in the solar system: this is not a boundary at any "
+            "radius. NO Oort-population claim (containment retracted "
+            "2026-08-03); both Oort numbers retire as boundaries."
         ),
         "g_at_saturation": A0_LATTICE,
     }

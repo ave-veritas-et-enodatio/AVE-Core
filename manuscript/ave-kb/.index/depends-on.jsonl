@@ -731,6 +731,8 @@
 {"source": "clm-x5z09x", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — the regime-boundary snap and yield mechanics", "fraction": null}
 {"source": "clm-x5z09x", "target": "clm-uowffm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-x5z09x", "target": "clm-yyhczl", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-xfrcst", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "lossless substrate — the free half of the carve, and the source of the LC-tank counterexample", "fraction": null}
+{"source": "clm-xfrcst", "target": "clm-acdc07", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-xhdai6", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "torus-knot crossing numbers $c_1,c_2,c_3$", "fraction": null}
 {"source": "clm-xhdai6", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "torus-knot crossing numbers $c_1,c_2,c_3$", "fraction": null}
 {"source": "clm-xhdai6", "target": "clm-4vwsjc", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
