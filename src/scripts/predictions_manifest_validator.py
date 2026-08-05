@@ -49,6 +49,7 @@ Reference: docs/framing_and_presentation.md (Tier 2 proposal),
            manuscript/predictions.yaml (the manifest).
 """
 import argparse
+import functools
 import json
 import math
 import re
@@ -788,12 +789,17 @@ def check_axioms(
 #                      reconciled against is REGEX-OVER-PROSE. There is no
 #                      recompute-and-diff; there is pattern-matching on English
 #                      written by humans for humans, with two suppression
-#                      guards whose scope is itself a judgement call. So it
-#                      reports at severity="warn" until its named backlog is
-#                      ruled (see the flip condition in check_calibration_role).
+#                      guards whose scope is itself a judgement call. It
+#                      therefore reported at severity="warn" until its named
+#                      backlog was ruled; both rows (P04, P42) were ruled and
+#                      landed 2026-08-05, so it now gates at
+#                      severity="critical" (see the flip condition and the
+#                      discharged backlog in check_calibration_role).
 #
-# Claiming these as equal precedent would overstate the gate. The architecture
-# is borrowed; the authority is not.
+# The postures now coincide, but the reason they do is a discharged backlog,
+# not equal epistemic footing: this check is still regex-over-prose and still
+# ELIMINATES rather than SELECTS. Claiming these as equal precedent would
+# overstate the gate. The architecture is borrowed; the authority is not.
 #
 # HOW A ROLE IS FALSIFIED, NOT GUESSED. The corpus rarely says "this row is a
 # chord" in so many words, but it very often says the opposite in plain text:
@@ -1268,42 +1274,57 @@ def check_calibration_role(
         UNRECONCILED  10
         CONTRADICTED   1   P42 (forward-prediction)
 
-    POSTURE = REPORT-ONLY (`severity="warn"`), not gating. ONE contradiction
-    remains open, and it is an adjudication rather than a sweep:
+    CENSUS AFTER THE P42 RULING (2026-08-05, same 36 rows) — Grant ruled P42
+    `forward-prediction` -> `consistency`, and the relabel landed with its
+    retraction and its out-of-scope block on the row:
+
+        UNDECLARED    12
+        RECONCILED    14   (+1: P42, relabelled forward-prediction ->
+                            consistency)
+        UNRECONCILED  10
+        CONTRADICTED   0
+
+    POSTURE = GATING (`severity="critical"`), flipped 2026-08-05. The named
+    backlog is empty; the flip condition below is satisfied and discharged:
 
       P04  RULED AND LANDED 2026-08-05 (Grant): `chord` -> `mixed`. The card
            states the value is GR-imported and import-capped, so the FORM is
            derived while the VALUE rides `K = 2G` — the `mixed` shape. The
            row now also carries the K=2G upgrade path (the R11 forced-form
            lane, whose attack is the clm-satnec static-existence test) and an
-           explicit on-shell scheme declaration. Reconciles clean; not a
-           backlog item any more.
-      P42  declares `forward-prediction` on clm-3zz0f6, whose card says α is
-           "exactly invariant", "Multi-species $\\Delta\\alpha/\\alpha = 0$",
-           and "Does NOT claim the framework predicts $\\Delta\\alpha \\neq 0$
-           in any gravitational regime" — a null matching the standard
-           expectation, which is the opposite of predictions.yaml:35's
-           "untested, divergent-from-SM, AVE-distinct". Grant approved
-           re-roling it off `forward-prediction` on 2026-08-05 with a
-           MANDATORY condition: an independent Tier-1 language-and-logic read
-           of the replacement wording BEFORE it lands. So the row is ruled in
-           direction but NOT yet landed, and the gate stays `warn`.
+           explicit on-shell scheme declaration. Reconciles clean.
+      P42  RULED AND LANDED 2026-08-05 (Grant): `forward-prediction` ->
+           `consistency`. The row declared `forward-prediction` on
+           clm-3zz0f6, whose card says α is "exactly invariant",
+           "Multi-species $\\Delta\\alpha/\\alpha = 0$", and "Does NOT claim
+           the framework predicts $\\Delta\\alpha \\neq 0$ in any
+           gravitational regime" — a null matching the standard expectation,
+           which is the opposite of predictions.yaml:35's "untested,
+           divergent-from-SM, AVE-distinct". The ruling carried a MANDATORY
+           condition, an independent Tier-1 language-and-logic read of the
+           replacement wording BEFORE it landed; that read returned role
+           CLEARED / wording CONDITIONAL, and the redlines were applied on
+           the row before it landed. Reconciles clean.
 
-    Gating now would fail `make verify` repo-wide on an open adjudication,
-    and the gate would get bypassed.
+    FLIP CONDITION (kept as the record of what was required, not deleted):
+    once BOTH P04 and P42 were ruled AND their relabels had LANDED, register
+    this check with `severity="critical"`. The backlog was two named rows,
+    not a class of rows. Flipping with either still contradicting would have
+    red-gated the repo on a label a human already suspects is wrong — which
+    is how gates get disabled. Both landed on the same PR that flipped the
+    gate, and the census above was re-measured at that HEAD (CONTRADICTED 0)
+    BEFORE the flip, so the gate goes green on merge rather than red.
 
-    FLIP CONDITION (named, so this does not drift into permanent advisory):
-    once BOTH P04 and P42 are ruled AND their relabels have LANDED, register
-    this check with `severity="critical"`. The backlog is two named rows, not
-    a class of rows. Flipping with either still contradicting would red-gate
-    the repo on a label a human already suspects is wrong — which is how gates
-    get disabled.
+    The flip is registered at the ALL_CHECKS table, not by moving this
+    function's default: the pure function stays posture-neutral for ad-hoc
+    callers, and the gating decision is visible where a reader looks for
+    "what gates" (see `ALL_CHECKS["calibration_role"]`).
 
-      P04  DONE — ruled and landed 2026-08-05; verdict RECONCILED.
-      P42  REMAINING — ruled in direction 2026-08-05, wording pending the
-           independent Tier-1 read; verdict still CONTRADICTED.
-
-    So exactly one row now stands between this check and `critical`.
+    What `critical` now catches: a NEW or EDITED row whose declared
+    calibration_role is contradicted by an explicit provenance marker on its
+    own claim card. UNRECONCILED stays at `info` — corpus silence is never
+    gating, and the 10 silent rows are not a backlog this flip converts into
+    one.
     """
     findings: list[Finding] = []
     if cards is None:
@@ -1579,7 +1600,12 @@ ALL_CHECKS = {
     "engine": check_engine,
     "bridge": check_bridge,
     "axioms": check_axioms,
-    "calibration_role": check_calibration_role,
+    # GATING since 2026-08-05. The flip condition named in
+    # `check_calibration_role`'s docstring — BOTH P04 and P42 ruled AND landed
+    # — is satisfied; the census at the flipping HEAD is CONTRADICTED 0. The
+    # function's own default stays "warn" so ad-hoc callers get a neutral
+    # reconciler; this registration is where the gating posture lives.
+    "calibration_role": functools.partial(check_calibration_role, severity="critical"),
     "parity": check_readme_parity,
     "lr_parity": check_living_reference_parity,
 }
