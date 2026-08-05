@@ -459,3 +459,47 @@ Delta_Omega_ripple = pi / [ (1/2)( psi(K + theta) - psi(theta) ) ]
 3. **The header has no row for CONTROLS AGAINST A PREDECESSOR**, and this lane's single most decisive discipline was the `208`-number exact-string-equality reproduction of v1. Row 9 mentions negative controls in passing. **On a rerun-class lane that is the whole game, and it is worth more than a clause.** Offered as feedback; **not proposed as a change.**
 
 **Pilot verdict from this lane, and it is only one data point:** rows 1, 3, 4, 8 and the adopted row 11 each changed what this lane computed or how it reported it, before any number existed — and row 4 is directly responsible for the lane's central negative being **found** rather than **shipped as a number**. **Both pilot-2 amendments earned their keep on this problem, and row 11 earned it with a named limitation attached. The canonization decision is Grant's and this log is input to it, not a vote.**
+
+---
+
+> **⚑ ORCHESTRATOR REVIEW BLOCK (Tier-2 verify processed, 2026-08-05; body above preserved per
+> Rule 12).** The independent audit CONFIRMED the load-bearing results — BIN-DISC re-derived
+> 17-digit identical from canonical sources on the unchanged v1 criterion; the W=0 closed form
+> re-derived and unbreakable (including the FT-W kill-test values); the K_disc law re-derived
+> independently; the G-UNIT hyperbolic-vs-Euclidean diagnosis verified exactly (the innermost
+> disc-automorphism derivative is exactly √2). Corrections from the audit, applied here:
+>
+> 1. **FT-DISC adjudication (orchestrator ruling, Grant-overridable).** The frozen row's two
+>    clauses read on different quantities, and the literal sub-clause "separation ≥ 0.02" is
+>    **arithmetically unsatisfiable by its own construction**: a 1.02 scaling yields
+>    |1/1.02 − 1| = 0.0196078 < 0.02 for any inputs. A criterion impossible at freeze is
+>    vacated, not failed (the vacated-cite principle applied to a frozen clause). The operative
+>    fireability content — the perturbed law makes G-DISC FAIL (separation 1.96× the unchanged
+>    1% tolerance) — is SATISFIED. CFG-B's certification therefore STANDS on the fireability
+>    reading, with this receipt, not on a silent choice.
+> 2. **G-KWIN scope softened:** the audited statement is that Γ_in at a near-wall plane is NOT
+>    PLANE-INVARIANT / ill-posed as posed (the reference impedance runs as 1/√K); the docket's
+>    "cannot converge" overstates — the shipped |Γ_in| sequence is monotone-decreasing and
+>    consistent with a limit. Corrected in the companion docket correction file.
+> 3. **FLAG-PLANE-RT gains a third option** (audit finding): fix the REFERENCE IMPEDANCE (e.g.
+>    Z₁ or the asymptotic Z — the standard pseudo-wave/power-wave renormalization) and let the
+>    plane move. The successor scoping decision now weighs three routes, not two.
+> 4. **G-PREC caveat:** frozen at K=10⁴ only — the window where G-UNIT passes. It does not
+>    certify the arithmetic at K=10⁶ where G-UNIT fails; "tolerance-derivation failure, not
+>    solver defect" is the best-supported reading but carries this caveat (the lane's own routed
+>    follow-on (b) concedes it).
+> 5. **§2P.2 wording corrected:** G-DECADE's tolerance WAS widened (1e-6 → 1e-4) after v1's
+>    result exposed the sizing error — legitimately, under the versioned-successor discipline
+>    (frozen in db98550b before any v2 number), and the sentence claiming otherwise overstated.
+>    Likewise: v1's prereg §4.5 pre-disclosed the O(S²) ORDER; the coefficient first appears in
+>    v1's result. And G-DECADE(b) is strengthening RELATIVE TO LIMB (a) — the v2 decade gate
+>    remains 100× looser than v1's unsatisfiable original at leading order.
+> 6. **Disclosure repairs:** the checker shipped as `echo_delay_v2_number_check.py` while the
+>    prereg froze the name `echo_delay_v2_reach_through_number_check.py` — frozen SUBSTANCE
+>    honoured, artifact NAME silently changed; disclosed here. The Makefile `help:` echo line is
+>    a third shared line in the union-conflict class. FT-V1's fireability receipt mutates a V1A
+>    target only; "the negative controls are fireable" is over-general for V1B.
+> 7. **FLAG-REGISTER upgraded to a ruled fourth carve** (audit-confirmed): the srs net has NO
+>    internal stop-band — the band TOP is a Bragg/half-wave resonance, not a band-GAP edge; the
+>    semiconductor register's depletion connotation must not be read onto band-top physics.
+>    Landed as carve 4 in the translation leaf (PR #881).
