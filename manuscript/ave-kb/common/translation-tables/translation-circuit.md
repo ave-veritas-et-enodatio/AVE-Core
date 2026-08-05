@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-fy05jc, clm-eemap1]
+claims: [clm-fy05jc, clm-eemap1, clm-2bkp7v]
 -->
 
 # Topo-Kinematic Circuit Identity + EE-as-Substrate-Native META Framework
@@ -307,6 +307,76 @@ Three genuinely-new rows that connect the **vessel-state / rim-inversion walk ob
   - **⚑ OPEN FLAG (flag-don't-fix — routed to Grant, NOT resolved here).** The corpus is currently in **tension on $m^*$**: it is **struck as SM-garbage-to-obsolete** in `vol_4_engineering/chapters/19_silicon_design_engine.tex`:45 ("rendering the entire thermal mobility and effective-mass ($m^*$) parameter set obsolete"), `11_experimental_falsification.tex`:463 ("empirical fitting constants (effective mass $m^*$)"), and the `doping_engine_map.svg` strikethrough (`vol6/period-3/silicon/topological-area.md`:17 is the SOFTER stance — it peer-frames the structural reading with the thermal-$m^*$ treatment rather than striking it, per the 2026-07-21 audit precision note) — **while** candidate-6 proposes $m^*=\hbar^2/(d^2E/dk^2)$ as a **substrate-native dispersion-read inertia to DERIVE** (and vol 2 Ch 7 + vol 3 already USE an AVE composite/emergent effective mass: $m_{eff}=m_e\sqrt{1+k}$, and "effective mass emerges from the converged field's own integrated energy"). Same symbol, opposite disposition (SM-fitting-param-to-strike vs substrate-native-quantity-to-derive). Surfaced with paths; adjudication is Grant's.
   - **✅ RULED 2026-07-26 — flag DISCHARGED (the evidence above is preserved byte-untouched per Rule 12; this block is additive and dated).** Grant, verbatim `[sic]`: *"correct, should not be a fitting parameter, a plus c should make sense"* — ratifying option **(a)+(c)**: the corpus's strike of $m^*$ **stands byte-untouched**, AND a disambiguating `def-` node is minted. **The tension was a HOMONYM, not a physics conflict:** $m^*$ names **two distinct objects**, separated by Grant's discriminator **derived-not-fitted** — **Sense A** = the SM thermal-statistical **fitting parameter** (an empirically fitted knob), which is what the `:45` / `:463` strike removes and which **stays struck**; **Sense B** = a **derived / substrate-read inertia** (the composite $m_{eff}=m_e\sqrt{1+k}$, the emergent $M_{eff}$, the dressed-branch acoustic $\rho_{eff}$), **a different object and not struck**. Canonical node: [`vocabulary-register.md`](../vocabulary-register.md) **`def-mstar1`** (status `ambiguous` — the surface symbol stays overloaded; the *disposition* is ruled). A distinct **name** for Sense B (**"dressed effective density"**) is minted there **proposed-for-ratification** with a surfaced dimension caveat — nothing is renamed at any site by that entry, so the `:45` / `:463` / `topological-area.md`:17 stances are all unchanged.
   - **★Consequence for the candidate-6 route above (2026-07-26).** The literal band-bottom read $m^*=\hbar^2/(d^2E/dk^2)$ is **DECORATION for the D1 question**, not a derivation of it: it is sector-blind at $k\to0$ (every gapped branch returns $m^*v^2=\hbar\omega_0=E$ identically — the gap divides out and the read hands back *that branch's own* $c^2$), so it **cannot adjudicate** which sector's $c^2$ divides $E_{trapped}$ (`research/2026-07-21_continuum-radial-solver_CHARTER.md`:15 D1, :62 I8). D1 stays **OPEN** on its own axis (the sector-of-storage walk, `_orchestration/2026-07-20_pending-rulings-and-frontier-queue.md` §1 item 13). The "cross-ref only" status of the row above is unchanged; what changes is that it is no longer carried as a *candidate derivation route for D1*. The finding has no tracked research doc as of this dated block — it is recorded at `def-mstar1`.
+
+### §4.6.4 — Two-band / k·p near-gap kinematics (2026-08-05 two-band-kinematics lane)
+<!-- claim-quality: clm-2bkp7v -->
+
+**END-APPEND to the semiconductor tier; line-pin-safe (nothing above is edited).** Provenance:
+`research/2026-08-05_two-band-kinematics_prereg-FROZEN.md` (frozen alone at `f5ddd995`) +
+`research/2026-08-05_two-band-kinematics_result.md`; driver
+`src/scripts/vol_1_foundations/two_band_kp_kinematics.py`; shipped artifact
+`research/drivers/two_band_kp_kinematics_results.json`, gated by
+`make verify-two-band-kp-number-check` (with mutation receipt). Operator: the CI-gated
+canonical 12×12 Cosserat two-sublattice Bloch matrix (PR #392), reproduced independently
+(G1, bit-exact) and re-certified against its own V1–V4 receipts (G2) before any new number
+was read.
+
+| # | Substrate primitive | Semiconductor analog | Means-test verdict |
+|---|---|---|---|
+| **D** | **Near-gap two-band structure of the carrier sector.** $D(0)$ is exactly diagonal: a 6-fold gapless translational ($u$) manifold and a 6-fold micro-rotational ($\omega$) manifold at $m^2 = 4G_c/I_\omega$, coupled at $O(k)$ by the micropolar term. Second-order degenerate PT gives, exactly and isotropically (verified as a characteristic-polynomial identity in 5 directions): carrier $v^2 = 2\gamma/I_\omega$ (×2, $\boldsymbol\omega\parallel\mathbf k$) and $2\gamma/I_\omega + G_c/\rho$ (×4, $\boldsymbol\omega\perp\mathbf k$); translational $v^2 = G/\rho$ (×4, the photon) and $10G/(3\rho)$ (×2, P-wave). | **Two-band k·p / Kane model** — a gapped pair of bands with a linear interband momentum matrix element, whose near-edge dispersion is $E^2 = (E_g/2)^2 + (\hbar v k)^2$ and whose band-edge curvature gives $m^\ast = E_g/(2v^2)$; the standard semiconductor near-gap kinematics. | **STRUCTURAL PASS on the FORM** — the substrate's carrier sector reproduces the two-band k·p structure exactly, with no $O(k)$ term (inversion symmetry) and no $O(k^2)$ anisotropy. **★NUMERICAL DISANALOGY, and it is the load-bearing content:** the carrier does **not** have one limiting velocity, and neither of its two limiting velocities is $c_{EM}=\sqrt{G/\rho}$. The splitting is exactly the gap-opening modulus, $v^2_\perp - v^2_\parallel = G_c/\rho = (I_\omega/4\rho)\,m^2$, so a single carrier limiting velocity requires $G_c=0$ — **no gap**. No positive moduli give a massive carrier one limiting speed. At the engine's placeholder moduli $v/c_{EM} = \sqrt2$ and $\sqrt3$. **Consistency-class on the form (Wilsonian-universal: any gapped two-band lattice yields it, and the Dirac equation postulates it); the DISANALOGY is the reportable finding.** **KEEP-BOTH:** distinct from the §4.6.1 vol-4-Ch-19 "band gap $E_g \leftrightarrow V_{BR}$" *device-scale* row — this row is the *near-gap dispersion kinematics* reading. |
+
+**★The one branch that IS at $c_{EM}$, and why (a derived cancellation, not a fit).** The direct
+micropolar stiffness contributes $(G+G_c)/\rho$ to the transverse-$u$ branch and the k·p level
+repulsion from the gapped $\omega$ manifold subtracts **exactly** $G_c/\rho$, leaving
+$v^2 = G/\rho \equiv c_{EM}^2$ **identically, for all moduli** — the long-wave micropolar→Cauchy
+reduction obtained as an $O(k^2)$ k·p term. The photon's speed is protected; the carrier's is not.
+
+**★Validity fence carried with the row (do NOT read the mismatch as superluminal transport).** On
+this lattice the relativistic form's validity window closes *before* its own relativistic regime
+opens ($k_{\text{break}}/k_{\text{rel}} = 0.387$ and $0.424$), and the full-BZ carrier group
+velocity peaks at $0.612\,c_{EM}$. The mismatch is in the **low-energy effective theory's
+invariant speed**, not in observed energy transport. Root cause recorded: with
+$\ell_{node}\equiv\hbar/(m_ec)$ there is no scale separation between the carrier's Compton scale
+and the lattice cutoff, so no lattice regularisation of this family has a wide relativistic
+window.
+
+**Cross-ref — this row DISCHARGES nothing on the $m^\ast$ axis and confirms the §4.6.3 ruling.**
+The 2026-07-26 dated block above rules that the literal band-bottom read $m^\ast=\hbar^2/(d^2E/dk^2)$
+is *"sector-blind at $k\to0$ (every gapped branch returns $m^\ast v^2=\hbar\omega_0=E$ identically
+— the gap divides out and the read hands back **that branch's own** $c^2$)"*. This lane's
+independently pre-registered declaration that $m^\ast = E_g/(2v^2)$ is **tautological** is the same
+finding, confirmed with residual `0.0`. What this lane adds is the **per-branch $c^2$ inventory in
+closed form** — i.e. *which* $c^2$ each branch hands back. **D1 (sector of storage) stays OPEN**;
+nothing here adjudicates it.
+
+#### §4.6.4.1 — ★What is NOT landed here (flag-don't-fix, per the §4.7.4 precedent)
+
+- **The Zitterbewegung correspondence row is REFUSED, not deferred-by-oversight.** The lane's own
+  frozen prereg fences it (*"any Zitterbewegung claim — §6 is a documented consequence, mints
+  nothing"*), and an unresolved **factor-2 tension** sits directly on the identification: under the
+  relativistic reading the branch bottom is the REST frequency ($\hbar\omega_0=E_g/2$) and the
+  $\pm\omega$ splitting is $E_g=2\hbar\omega_0$, but the placeholder moduli put the branch bottom at
+  $\omega_m = 2\omega_C$, giving $E_g = 4\,m_ec^2 = 2.044$ MeV rather than the 1.022 MeV the
+  Zitterbewegung / pair-threshold identification wants. Landing $E_g=2m_ec^2$ needs
+  $G_c/I_\omega = 1/4$, not 1. Recorded at `research/2026-08-05_two-band-kinematics_result.md` §7
+  FLAG-1; **not adjudicated**.
+- **Nothing about the gap's VALUE.** The lane's VALUE-PROVENANCE axis returns **FACTOR DERIVED /
+  VALUE IMPORTED**: the factor 4 is derived ([`cosserat-mass-gap.md`](../../vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):61)
+  but $G_c$ and $I_\omega$ are engine placeholders (`cosserat_field_3d.py`:12, :954; no
+  `constants.py` symbol exists for either) and the MeV scale is imported from CODATA $m_e$ via
+  $\ell_{node}$ (`cosserat-mass-gap.md`:143, :151).
+- **Nothing on the ratified z=3 srs carrier.** The canonical Cosserat operator runs on the **z=4
+  diamond CONTROL** net (`chiral_lattice.py`:240) rather than the D1-ratified `srs-z3` production
+  carrier (`:231`). The srs re-run is **BLOCKED-STRUCTURAL**, measured: every srs site's bond
+  tensor $\sum_b\hat d_b\otimes\hat d_b$ has spectrum $\{0,\tfrac32,\tfrac32\}$ (rank 2, trigonal
+  planar), so the engine's least-squares gradient functional does not transfer without a new
+  bond-based constitutive model. The $O(k^2)$ result above is nonetheless connectivity-INDEPENDENT
+  (identical closed forms on z=6 cubic, z=8 bcc and an anisotropic z=4 stencil — the least-squares
+  gradient symbol reduces to $i\mathbf k$ exactly for any full-rank centro-symmetric bond set), but
+  the $k^4$ coefficients, band tops and zone-edge structure are **diamond-specific** and are not
+  landed.
+- **LC-1's arc-level kill is NOT fired.** That requires an energy-carrying *inter-event* channel at
+  $\neq c$; this lane does not establish the carrier branch is one.
 
 ---
 

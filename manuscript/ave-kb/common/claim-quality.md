@@ -1612,6 +1612,63 @@ The Axiom-4 kernel `S(A) = √(1−(A/A_yield)²)` is a **circle constraint** (`
 
 ---
 
+## Two-band / k·p near-gap kinematics of the carrier sector — the relativistic FORM emerges, the limiting velocity does NOT equal $c_{EM}$
+<!-- id: clm-2bkp7v -->
+
+The K4/Cosserat carrier sector's near-gap dispersion **does** take the relativistic massive form
+$\omega^2(k)=\omega_0^2+v^2k^2+O(k^4)$ with $\omega_0^2 = m^2 = 4G_c/I_\omega$ — exactly, isotropically,
+with no $O(k)$ term — and the **carrier limiting velocity is NOT the EM-channel speed**. Exact
+second-order degenerate perturbation theory on the CI-gated canonical 12×12 Cosserat two-sublattice
+Bloch operator (PR #392) gives closed forms valid for all moduli: carrier branches
+$v^2 = 2\gamma/I_\omega$ (×2, $\boldsymbol\omega\parallel\mathbf k$) and $2\gamma/I_\omega+G_c/\rho$
+(×4, $\boldsymbol\omega\perp\mathbf k$); translational branches $v^2=G/\rho\equiv c_{EM}^2$ (×4, the
+photon) and $10G/(3\rho)$ (×2, P-wave). The **load-bearing structural statement** is that the carrier's
+velocity splitting is carried by the very modulus that opens the gap,
+$v^2_\perp-v^2_\parallel = G_c/\rho = (I_\omega/4\rho)\,m^2$, so a single carrier limiting velocity
+requires $G_c=0$ — i.e. **no gap**. No positive moduli give a massive carrier one limiting speed, let
+alone $c_{EM}$. The **one** branch that sits at $c_{EM}$ identically-for-all-moduli is the transverse
+translational (photon) branch, and it does so by a derived cancellation: the direct micropolar
+stiffness $(G+G_c)/\rho$ minus the k·p level repulsion $G_c/\rho$. Canonical home
+[`translation-tables/translation-circuit.md`](./translation-tables/translation-circuit.md) §4.6.4;
+lane record `research/2026-08-05_two-band-kinematics_result.md` (prereg frozen alone at `f5ddd995`);
+driver `src/scripts/vol_1_foundations/two_band_kp_kinematics.py`; shipped artifact
+`research/drivers/two_band_kp_kinematics_results.json`, gated by
+`make verify-two-band-kp-number-check` with a mutation receipt.
+
+- _Specific Claims_
+  - **FORM:** the near-gap dispersion of the Cosserat carrier sector is $E^2=(E_g/2)^2+(\hbar vk)^2$ to $O(k^2)$, isotropic, with the closed-form per-branch $v^2$ above (exact characteristic-polynomial identity in 5 directions; verified against the exact dispersion at `mpmath` 60 dps, worst successive-decade residual ratio deviation $3.5\times10^{-8}$).
+  - **STRUCTURE:** the two-band split is SECTOR-based ($u$ vs $\omega$, opened by the ON-SITE micropolar term), **not** sublattice-based — the bipartite doubling supplies a degenerate partner inside each manifold, not the gap.
+  - **NUMBER:** $v/c_{EM} = \sqrt2$ and $\sqrt3$ at the engine's moduli, against a frozen tolerance of $10^{-9}$; and the impossibility above is moduli-independent.
+  - **PROTECTION:** $v^2=G/\rho$ for the transverse-translational branch is an identity in all moduli — the photon's speed is protected by a k·p cancellation.
+- _Specific Non-Claims and Caveats_
+  - **PEER-WITH-SM, NOT a chord.** The Dirac equation postulates this form; Wilsonian universality says any gapped two-band lattice reproduces it near the gap. The only content that could have come out otherwise is the NUMBER $v/c_{EM}$ — and it did. The SM does not derive $v=c$ either (it builds it in), so a match would have been peer, not superior.
+  - **NOT superluminal transport.** The relativistic form's validity window closes BEFORE its own relativistic regime opens ($k_{\text{break}}/k_{\text{rel}} = 0.387$, $0.424$) and the full-BZ carrier group velocity peaks at $0.612\,c_{EM}$. The mismatch is in the low-energy effective theory's invariant speed.
+  - **Does NOT fire LC-1's arc-level kill**, which needs an energy-carrying INTER-EVENT channel at $\neq c$; this entry does not establish the carrier branch is one.
+  - **$m^\ast = E_g/(2v^2)$ is TAUTOLOGICAL** — declared so in the frozen prereg BEFORE the run, algebraically forced by the form, and independently the same finding as the §4.6.3 2026-07-26 `def-mstar1` ruling that the band-bottom read is sector-blind. Confirmed numerically (residual `0.0`) and **not counted as evidence**. **D1 (sector of storage) stays OPEN.**
+  - **Says NOTHING about the gap's VALUE.** Separate VALUE-PROVENANCE axis returns FACTOR DERIVED / VALUE IMPORTED: the factor 4 is derived (`clm-jz0xaw`) but $G_c$, $I_\omega$ are engine placeholders (`cosserat_field_3d.py`:12, :954 — no `constants.py` symbol exists for either) and the MeV scale is imported from CODATA $m_e$ via $\ell_{node}$ ([`cosserat-mass-gap.md`](../vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md):143, :151).
+  - **Zitterbewegung is REFUSED, not deferred.** The prereg fenced it and an unresolved factor-2 tension sits on the identification (branch bottom $\omega_m=2\omega_C$ ⇒ $E_g=4m_ec^2$, not the 1.022 MeV wanted; landing $E_g=2m_ec^2$ needs $G_c/I_\omega=1/4$). FLAG-1, not adjudicated.
+  - **CONNECTIVITY FENCE.** The canonical Cosserat operator runs on the **z=4 diamond CONTROL** net (`chiral_lattice.py`:240), not the D1-ratified `srs-z3` production carrier (`:231`). The pre-registered srs re-run is **BLOCKED-STRUCTURAL** (measured: every srs site's bond tensor has spectrum $\{0,\tfrac32,\tfrac32\}$, rank 2 — the least-squares gradient does not exist there). The $O(k^2)$ result IS connectivity-independent (identical closed forms on z=6 cubic, z=8 bcc, anisotropic z=4); the $k^4$ coefficients, band tops and zone-edge structure are diamond-specific and are NOT claimed.
+  - **Cold-linear regime only.** Axiom-4 saturation OFF; $\kappa_{chiral}$ is saturation-only, so the cold bands are parity-symmetric by construction and can host no chirality content. Pure-AC discrimination class — dead on arrival as a discriminator, declared up front.
+  - **NOT Grant-ratified.** Landed under the dispatch's conditional trigger on FORM certification; the framing-level reading of the mismatch is the orchestrator's / Grant's to make.
+
+> **Leaf references:** [translation-circuit](./translation-tables/translation-circuit.md).
+
+### Quality
+- confidence: 0.72
+- depends-on:
+  - clm-jz0xaw — the Cosserat mass gap $m^2=4G_c/I_\omega$ (the gap this expansion is taken about)
+  - clm-kmliqx — the no-$\tfrac12$ $\Sigma\kappa^2$ curvature convention (which fixes $2\gamma/I_\omega$, hence the carrier $v^2$)
+  - clm-j550uh — the transverse shear branch as $c=\sqrt{G/\rho}$ (the comparison speed $c_{EM}$)
+- solidity: 0.72 (ok to build on, see caveats) [= min(0.72, 0.82)]
+- rationale: The mathematics is as strong as this register gets — exact symbolic closed forms for general moduli, verified as a characteristic-polynomial identity in five directions and against the exact dispersion at 60 decimal digits, on an operator that reproduces the canonical one bit-exactly (G1) and re-passes its own certified V1–V4 receipts (G2) before any new number is read, with a declared numerical-conditioning receipt showing a float64-only extraction would have returned nine-orders-wide noise. Graded 0.72 rather than higher for four reasons, all structural and none numerical: (i) the operator runs on the z=4 diamond CONTROL net, not the ratified z=3 srs carrier — mitigated for the $O(k^2)$ result by a demonstrated connectivity-independence, but NOT discharged for anything else; (ii) $G_c$, $\gamma$, $I_\omega$ are engine placeholders, so every ratio quoted at "the engine's moduli" is placeholder-conditioned (the moduli-INDEPENDENT impossibility statement is not, and is the part that carries the grade); (iii) the FORM half is Wilsonian-universal and peer-with-SM, so it adds confidence in the engine rather than distinct content; (iv) not Grant-ratified and pre-review. Solidity is `*pending*` because `clm-jz0xaw`'s own branch is graded and this entry should inherit through the register's own computation rather than a hand-set value.
+- strengthen-by:
+  - adjudicate FLAG-1 (the factor-2 tension in the gap's relativistic reading) — a ruling either way sharpens or retires the $E_g$ identification this row deliberately leaves open
+  - build the bond-based micropolar constitutive model that DOES transfer to the z=3 srs carrier, and re-run the k·p there — the only way to discharge the connectivity fence beyond $O(k^2)$
+  - derive (or honestly tag) $\gamma$ and $I_\omega$ from the substrate rather than as placeholders; the whole $v/c_{EM}$ number is downstream of $\gamma/I_\omega$ vs $G/\rho$
+  - a Grant/orchestrator ruling on how the velocity mismatch feeds LC-1 (this entry deliberately does not fire the arc-level kill)
+
+---
+
 ## Topological necessity-to-saturation — a (2,3) winding forces the rail at its core (OPEN mechanism candidate)
 <!-- id: clm-satnec -->
 
