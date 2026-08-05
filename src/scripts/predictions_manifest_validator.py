@@ -25,6 +25,14 @@ validator catches STRUCTURAL inconsistencies:
                         bridges fail.
   5. Public parity    — every row in the README master table maps to a
                         manifest entry (no undocumented public claims)
+  6. Provenance
+     reconcile        — every declared `calibration_role` is reconciled against
+                        CORPUS-DERIVED provenance statements in the bridged
+                        claim's `claim-quality.md` card. NOT a self-check: the
+                        field is never validated against itself, against
+                        `type`, or against any other hand-written manifest
+                        field. See `check_calibration_role` for the frozen
+                        marker table + receipts.
 
 Exit codes:
   0 — clean (all structural checks pass)
@@ -112,7 +120,7 @@ PRE_REGISTERED_REQUIRED_FIELDS = {
 # ───────────────────────────────────────────────────────────────────────────
 @dataclass
 class Finding:
-    check: str  # "schema" | "label" | "engine" | "bridge" | "axioms" | "parity"
+    check: str  # "schema"|"label"|"engine"|"bridge"|"axioms"|"calibration_role"|"parity"
     severity: str  # "critical" | "warn" | "info"
     entry_id: str | None
     message: str
@@ -727,6 +735,498 @@ def check_axioms(
     return findings
 
 
+# ───────────────────────────────────────────────────────────────────────────
+# calibration_role reconciler — declared provenance vs CORPUS-DERIVED truth
+# ───────────────────────────────────────────────────────────────────────────
+# WHY THIS EXISTS. `calibration_role` (manuscript/predictions.yaml:29-35) is a
+# self-declared honesty field. Before this check it had ZERO consumers
+# corpus-wide: checks 1-5 gate schema / labels / engine / bridge / parity but
+# none of them read it, so it was free to drift from the corpus grading forever.
+#
+# THE DISCIPLINE THIS CHECK IS BUILT TO SATISFY. A gate that consumes a
+# self-declared field is a checklist, not a gate. So this check NEVER validates
+# `calibration_role` against itself, against `type`, against `notes`, or against
+# any other hand-authored manifest field. Its only authority is the CORPUS: the
+# bridged claim's card in `manuscript/ave-kb/**/claim-quality.md` — the same
+# authority that grades solidity, written by a different pass, in a different
+# file, under a different review gate.
+#
+# THE AXIS. `calibration_role` is the value-PROVENANCE axis of the FORM-deriving
+# / VALUE-importing meta-finding (canonical:
+# manuscript/ave-kb/common/form-deriving-value-importing.md — "The geometry and
+# topology of the chiral K4 Cosserat substrate FORCE the dimensionless FORMS
+# (the 'chords'). The dimensionful VALUES ... are calibration INPUTS it does not
+# independently select (the 'echoes')."). Its machine-enforced per-mechanism
+# sibling is `real_or_fitted` on `ilk-` nodes (INVARIANT-S13,
+# manuscript/ave-kb/common/interlock-register.md) — but that register is
+# per-CALIBRATION-CONSTANT (4 nodes), not per-prediction-row, so it cannot
+# adjudicate the 36 manifest rows. The per-row authority is the claim card.
+#
+# NOT SOLIDITY. `solidity` is a CONFIDENCE axis; `calibration_role` is a
+# PROVENANCE axis. They are orthogonal — a 0.9-solidity claim can be a pure echo
+# and a 0.3-solidity claim can be a chord. No rule below reads solidity,
+# confidence, build_status, or build_band. Deriving a role from solidity would
+# be a category error that makes the gate wrong, so it is not done. (Solidity is
+# carried in the finding `details` as human context only, never as an input.)
+#
+# HOW A ROLE IS FALSIFIED, NOT GUESSED. The corpus rarely says "this row is a
+# chord" in so many words, but it very often says the opposite in plain text:
+# "GR-imported", "import-capped", "disclosed-phenomenological", "the magnitude
+# is FITTED", "a category (iii) consistency check". So the reconciler is a
+# CONTRADICTION detector over a frozen table of EXPLICIT corpus phrases. Each
+# marker forbids a role SET; a declared role inside the forbidden set is a
+# contradiction. Where the card states no provenance at all the verdict is
+# UNRECONCILED — reported, never guessed. That asymmetry is deliberate:
+# positive derivation language ("zero free parameters") CANNOT license `chord`,
+# because a forced FORM is equally consistent with `mixed` (form-derived,
+# value-imported). So FORM_FORCED forbids nothing; it only informs the advisory
+# `suggested` field.
+
+KB_ROOT = REPO_ROOT / "manuscript" / "ave-kb"
+
+# The taxonomy declared at manuscript/predictions.yaml:30-35. An entry outside
+# this set is a precondition failure (the reconciler cannot reason about an
+# unknown role) — NOT a reconciliation verdict.
+ALLOWED_CALIBRATION_ROLES = {
+    "chord",
+    "echo",
+    "mixed",
+    "fitted",
+    "consistency",
+    "forward-prediction",
+}
+
+
+@dataclass(frozen=True)
+class ProvenanceMarker:
+    """An EXPLICIT corpus phrase that constrains a row's value-provenance.
+
+    `forbids` is the set of `calibration_role` values the phrase rules out.
+    `receipt` names the corpus site where the phrase was verified to carry that
+    meaning (verify-before-cite: every pattern below was grep-confirmed against
+    the live cards, not inferred).
+    """
+
+    signal: str
+    pattern: str
+    forbids: frozenset[str]
+    receipt: str
+
+
+# Negation guard. A marker match is DISCARDED if a negation token governs it
+# from within this many characters immediately before the match. Without it,
+# "a category (iv) derived prediction, not an identity or consistency check"
+# (vol3/claim-quality.md, clm-395gps) would false-fire CONSISTENCY_CLASS, and
+# "derived predictions vs consistency checks vs identities" (vol2, clm-xhdai6,
+# a strengthen-by task line) would false-fire it too.
+_NEGATION_WINDOW = 40
+_NEGATION_RE = re.compile(r"\b(?:not|NOT|vs)\b")
+
+PROVENANCE_MARKERS: tuple[ProvenanceMarker, ...] = (
+    # ── VALUE_IMPORTED ── the card states the row's value comes from outside
+    # the substrate. Forbids `chord` only: an imported value is by definition
+    # not "a FORM/ratio/selection-rule AVE genuinely forces" (predictions.yaml:30).
+    ProvenanceMarker(
+        "VALUE_IMPORTED",
+        r"\bGR-imported\b",
+        frozenset({"chord"}),
+        "vol2/claim-quality.md clm-5zuo7g depends-on note; taxonomy row "
+        "'K = 2G ... GR-IMPORTED (echo for the value)' in "
+        "common/form-deriving-value-importing.md",
+    ),
+    ProvenanceMarker(
+        "VALUE_IMPORTED",
+        r"\bimport-capped\b",
+        frozenset({"chord"}),
+        "vol2/claim-quality.md clm-5zuo7g: 'the FORM ... is derived but the "
+        "VALUE $2/9$ is import-capped'",
+    ),
+    ProvenanceMarker(
+        "VALUE_IMPORTED",
+        r"disclosed imports? (?:are|is)\b",
+        frozenset({"chord"}),
+        "vol2/claim-quality.md clm-5zuo7g rationale + clm-d9ivj1 rationale",
+    ),
+    ProvenanceMarker(
+        "VALUE_IMPORTED",
+        r"back-?solved\b",
+        frozenset({"chord"}),
+        "common/interlock-register.md ilk-gravmb: 'back-solved from CODATA G "
+        "... circular by construction'",
+    ),
+    ProvenanceMarker(
+        "VALUE_IMPORTED",
+        r"\bimported, not derived\b",
+        frozenset({"chord"}),
+        "vol3/claim-quality.md clm-c6k5om rationale: 'the standard formula "
+        "imported, not derived'",
+    ),
+    # ── VALUE_FITTED ── the card states the value / its extension is fitted,
+    # tuned, or disclosed-phenomenological. Same forbid set, different evidence
+    # class (a fit is not an import).
+    ProvenanceMarker(
+        "VALUE_FITTED",
+        r"disclosed[- ]phenomenological",
+        frozenset({"chord"}),
+        "vol3/claim-quality.md clm-395gps Non-Claims + rationale; "
+        "vol2/claim-quality.md clm-d9ivj1",
+    ),
+    ProvenanceMarker(
+        "VALUE_FITTED",
+        r"phenomenological[^.]{0,120}(?:formula|shift|fit\b)",
+        frozenset({"chord"}),
+        "vol3/claim-quality.md clm-395gps: 'a phenomenological photon-sphere "
+        "shift formula'; vol2/claim-quality.md clm-4vwsjc",
+    ),
+    ProvenanceMarker(
+        "VALUE_FITTED",
+        r"\bis \*{0,2}FITTED\b",
+        frozenset({"chord"}),
+        "vol1/claim-quality.md clm-009nkt rationale: 'the magnitude "
+        "$\\delta_{strain}$ ... is FITTED'",
+    ),
+    ProvenanceMarker(
+        "VALUE_FITTED",
+        r"\brefined post-hoc\b|\bpost-hoc against\b",
+        frozenset({"chord"}),
+        "vol3/claim-quality.md clm-395gps rationale: 'Cosserat back-reaction "
+        "fit (v2, refined post-hoc against LIGO)'",
+    ),
+    ProvenanceMarker(
+        "VALUE_FITTED",
+        r"back-reaction fit\b",
+        frozenset({"chord"}),
+        "vol3/claim-quality.md clm-395gps rationale",
+    ),
+    # ── FORM_VS_VALUE_SPLIT ── the card states the FORM/VALUE split verbatim.
+    # This is the `mixed` definition (predictions.yaml:32) written out longhand,
+    # so it forbids `chord` and drives the `mixed` suggestion.
+    ProvenanceMarker(
+        "FORM_VS_VALUE_SPLIT",
+        r"FORM[^.]{0,220}is derived but the VALUE",
+        frozenset({"chord"}),
+        "vol2/claim-quality.md clm-5zuo7g depends-on note; the axis itself is "
+        "common/form-deriving-value-importing.md",
+    ),
+    # ── CONSISTENCY_CLASS ── the card grades the claim as reproducing a known
+    # result. Forbids `chord` (not AVE-forced-novel) and `forward-prediction`
+    # (predictions.yaml:35 — 'untested, divergent-from-SM, AVE-distinct').
+    ProvenanceMarker(
+        "CONSISTENCY_CLASS",
+        r"consistency check",
+        frozenset({"chord", "forward-prediction"}),
+        "vol3/claim-quality.md clm-zf8eah: 'This is a **consistency check** "
+        "(category iii)'; 8 further live sites",
+    ),
+    ProvenanceMarker(
+        "CONSISTENCY_CLASS",
+        r"category \(iii\)",
+        frozenset({"chord", "forward-prediction"}),
+        "vol3/claim-quality.md clm-3kmt3p Non-Claims",
+    ),
+    ProvenanceMarker(
+        "CONSISTENCY_CLASS",
+        r"consistency-class",
+        frozenset({"chord", "forward-prediction"}),
+        "vol3/claim-quality.md clm-395gps: 'the spinning match is "
+        "consistency-class'",
+    ),
+    # ── IDENTITY_CLASS ── the card grades the value as definitional.
+    ProvenanceMarker(
+        "IDENTITY_CLASS",
+        r"definitional[- ](?:identity|residual)",
+        frozenset({"chord", "forward-prediction"}),
+        "vol1/claim-quality.md clm-009nkt + clm-0ktpcn rationale",
+    ),
+    # ── CONSISTENCY_DENIED ── the card explicitly refuses the consistency
+    # grading. The reverse direction: this forbids `consistency`, not `chord`.
+    ProvenanceMarker(
+        "CONSISTENCY_DENIED",
+        r"not an identity or consistency check|NOT a consistency check",
+        frozenset({"consistency"}),
+        "vol3/claim-quality.md clm-395gps Specific Claims: 'a category (iv) "
+        "derived prediction, not an identity or consistency check'",
+    ),
+    # ── NOT_SM_DISTINGUISHABLE ── the card says the result is not
+    # distinguishable from the standard one. Forbids `forward-prediction`.
+    ProvenanceMarker(
+        "NOT_SM_DISTINGUISHABLE",
+        r"not (?:a )?(?:novel )?[a-z ]{0,30}distinguishable from",
+        frozenset({"forward-prediction"}),
+        "vol3/claim-quality.md clm-3kmt3p: 'not a novel mechanism "
+        "distinguishable from classical resonance theory'; vol2 clm-7o8clt",
+    ),
+    # ── FORM_FORCED ── EVIDENCE ONLY, forbids NOTHING. A forced FORM is equally
+    # consistent with `chord` and with `mixed`, so it can neither license nor
+    # rule out a role. It only informs the advisory `suggested` field. Encoding
+    # it as a licence would be the exact failure this check exists to prevent.
+    ProvenanceMarker(
+        "FORM_FORCED",
+        r"zero free parameters",
+        frozenset(),
+        "vol3/claim-quality.md clm-395gps, vol2 clm-5zuo7g / clm-gfs4j8 / "
+        "clm-oltvwy",
+    ),
+    ProvenanceMarker(
+        "FORM_FORCED",
+        r"category[ -]\(iv\)[ -]derived prediction",
+        frozenset(),
+        "vol3/claim-quality.md clm-395gps + 4 further live sites",
+    ),
+)
+
+_CLAIM_CARD_ID_RE = re.compile(r"^<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->\s*$", re.M)
+_CARD_HEADING_RE = re.compile(r"^## ", re.M)
+
+
+def collect_claim_cards(kb_root: Path = KB_ROOT) -> dict[str, tuple[str, str, int]]:
+    """Return {clm_id: (card_text, repo_relative_path, start_line)} for every
+    claim card in the KB's `claim-quality.md` registers.
+
+    A "card" is the full `## <title>` section that owns the `<!-- id: clm-… -->`
+    marker — Specific Claims, Specific Non-Claims and Caveats, and the Quality
+    block (confidence / depends-on / solidity / rationale / strengthen-by). The
+    Non-Claims block is why the card is read from disk rather than from
+    `.index/claims.jsonl`: the index materializes `rationale` but NOT the
+    Non-Claims lines, and the Non-Claims lines are where the corpus most often
+    states provenance outright ("Does NOT claim derivation of …", "disclosed
+    phenomenological …").
+
+    Test fixtures under `tools/tests/` are excluded — they carry synthetic ids.
+    A missing/unreadable KB returns an empty map (the check degrades to a
+    single warn rather than crashing).
+    """
+    cards: dict[str, tuple[str, str, int]] = {}
+    if not kb_root.is_dir():
+        return cards
+    for path in sorted(kb_root.rglob("claim-quality.md")):
+        rel_parts = path.relative_to(kb_root).parts
+        if "tools" in rel_parts:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        rel = str(path.relative_to(REPO_ROOT))
+        for m in _CLAIM_CARD_ID_RE.finditer(text):
+            clm_id = m.group(1)
+            head = text.rfind("\n## ", 0, m.start())
+            start = head + 1 if head >= 0 else m.start()
+            nxt = _CARD_HEADING_RE.search(text, m.end())
+            end = nxt.start() if nxt else len(text)
+            start_line = text.count("\n", 0, start) + 1
+            cards[clm_id] = (text[start:end], rel, start_line)
+    return cards
+
+
+def scan_provenance(card_text: str) -> list[tuple[ProvenanceMarker, str]]:
+    """Return the (marker, verbatim excerpt) pairs the card text supports.
+
+    Matches governed by a negation token within `_NEGATION_WINDOW` characters
+    immediately before them are discarded (see `_NEGATION_RE`). Every surviving
+    hit carries its verbatim excerpt so a reviewer can audit the verdict without
+    re-reading the card — a gate that cannot show its receipt is a checklist.
+    """
+    hits: list[tuple[ProvenanceMarker, str]] = []
+    for marker in PROVENANCE_MARKERS:
+        for m in re.finditer(marker.pattern, card_text):
+            prefix = card_text[max(0, m.start() - _NEGATION_WINDOW) : m.start()]
+            if _NEGATION_RE.search(prefix):
+                continue
+            lo = max(0, m.start() - 70)
+            hi = min(len(card_text), m.end() + 70)
+            excerpt = " ".join(card_text[lo:hi].split())
+            hits.append((marker, excerpt))
+            break  # one receipt per marker is enough
+    return hits
+
+
+def suggest_role(signals: set[str]) -> str | None:
+    """ADVISORY only — never a verdict input, never auto-applied.
+
+    Reads the corpus signal set and names the taxonomy value it most nearly
+    matches (predictions.yaml:30-35). `mixed` = "form-derived but value rides
+    echoes ± a fitted scalar", so a card carrying BOTH a forced form and an
+    imported/fitted value maps there; an import/fit with no forced form maps to
+    `echo`; a consistency/identity grading maps to `consistency`.
+    """
+    imported_or_fitted = signals & {"VALUE_IMPORTED", "VALUE_FITTED"}
+    if "FORM_VS_VALUE_SPLIT" in signals:
+        return "mixed"
+    if imported_or_fitted and "FORM_FORCED" in signals:
+        return "mixed"
+    if imported_or_fitted:
+        return "echo"
+    if signals & {"CONSISTENCY_CLASS", "IDENTITY_CLASS"}:
+        return "consistency"
+    return None
+
+
+def check_calibration_role(
+    manifest: dict,
+    cards: dict[str, tuple[str, str, int]] | None = None,
+    severity: str = "warn",
+) -> list[Finding]:
+    """Reconcile each declared `calibration_role` against its bridged claim card.
+
+    Verdicts:
+      RECONCILED   — declared role is not in any forbidden set. No finding.
+      CONTRADICTED — declared role IS forbidden by ≥1 explicit corpus marker.
+                     One finding at `severity`, carrying the verbatim excerpt,
+                     the marker receipt, and the card's file:line.
+      UNRECONCILED — the card states no provenance at all. Reported at `info`;
+                     never guessed, never defaulted to a role.
+      (unbridged / undeclared rows are skipped — nothing to reconcile.)
+
+    `severity` is the gating knob: "warn" = report-only (the tool's exit code
+    keys on criticals), "critical" = gating.
+
+    FIRST-RUN CENSUS (2026-08-05, 36 manifest rows, HEAD 2b30d9eb) — the
+    measurement that set the initial posture:
+
+        UNDECLARED    12   (field absent; optional, nothing to reconcile)
+        RECONCILED    11
+        UNRECONCILED  11   (card states no provenance — info, never gating)
+        CONTRADICTED   2   P04 (chord) and P_A034_bh_ringdown (chord)
+
+    Both contradictions are the manifest's only two `chord` rows, and the
+    corpus contradicts both — which is the expected shape, since `chord` is the
+    one role that asserts "AVE genuinely forces this" and therefore the one
+    role an import/fit statement can falsify.
+
+    POSTURE = REPORT-ONLY (`severity="warn"`), not gating, because after the
+    single authorized relabel (P_A034_bh_ringdown chord -> mixed) exactly ONE
+    contradiction remains open: P04 (`public_in_readme: true`). Relabelling an
+    outward-facing public claim is an adjudication, not a sweep, so it is held
+    for a ruling rather than auto-fixed. Gating now would fail `make verify`
+    repo-wide on an open adjudication.
+
+    FLIP CONDITION (named, so this does not drift into permanent advisory):
+    once P04 is ruled, register this check with `severity="critical"` — the
+    backlog is one row, not a class of rows.
+    """
+    findings: list[Finding] = []
+    if cards is None:
+        cards = collect_claim_cards()
+    if not cards:
+        return [
+            Finding(
+                check="calibration_role",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    f"No claim cards found under {KB_ROOT} — cannot reconcile "
+                    f"declared calibration_role against corpus provenance."
+                ),
+            )
+        ]
+
+    for entry in manifest.get("predictions", []):
+        eid = entry.get("id", "<missing-id>")
+        declared = entry.get("calibration_role")
+        if declared is None:
+            continue  # optional field, not declared — nothing to reconcile
+
+        if declared not in ALLOWED_CALIBRATION_ROLES:
+            findings.append(
+                Finding(
+                    check="calibration_role",
+                    severity="critical",
+                    entry_id=eid,
+                    message=(
+                        f"calibration_role '{declared}' is not in the declared "
+                        f"taxonomy {sorted(ALLOWED_CALIBRATION_ROLES)} "
+                        f"(manuscript/predictions.yaml:30-35) — the reconciler "
+                        f"cannot reason about an unknown role"
+                    ),
+                    details={"declared": declared, "verdict": "UNKNOWN_ROLE"},
+                )
+            )
+            continue
+
+        clm = entry.get("clm")
+        if not clm:
+            continue  # unbridged: no corpus card to reconcile against
+        card = cards.get(clm)
+        if card is None:
+            findings.append(
+                Finding(
+                    check="calibration_role",
+                    severity="warn",
+                    entry_id=eid,
+                    message=(
+                        f"calibration_role '{declared}' declared but bridged "
+                        f"claim {clm} has no claim-quality card to reconcile "
+                        f"against"
+                    ),
+                    details={"declared": declared, "clm": clm, "verdict": "NO_CARD"},
+                )
+            )
+            continue
+
+        card_text, card_path, card_line = card
+        hits = scan_provenance(card_text)
+        if not hits:
+            findings.append(
+                Finding(
+                    check="calibration_role",
+                    severity="info",
+                    entry_id=eid,
+                    message=(
+                        f"calibration_role '{declared}' is UNRECONCILED — the "
+                        f"card for {clm} ({card_path}:{card_line}) states no "
+                        f"explicit value-provenance. Not a contradiction; the "
+                        f"corpus is silent, so no role is inferred."
+                    ),
+                    details={
+                        "declared": declared,
+                        "clm": clm,
+                        "card": f"{card_path}:{card_line}",
+                        "verdict": "UNRECONCILED",
+                    },
+                )
+            )
+            continue
+
+        signals = {mk.signal for mk, _ in hits}
+        forbidden: dict[str, list[str]] = {}
+        for mk, excerpt in hits:
+            if declared in mk.forbids:
+                forbidden.setdefault(mk.signal, []).append(excerpt)
+
+        if not forbidden:
+            continue  # RECONCILED
+
+        findings.append(
+            Finding(
+                check="calibration_role",
+                severity=severity,
+                entry_id=eid,
+                message=(
+                    f"calibration_role '{declared}' CONTRADICTS the corpus "
+                    f"grading of {clm} ({card_path}:{card_line}): the card "
+                    f"carries {sorted(forbidden)}, which rule(s) out "
+                    f"'{declared}'. Corpus-derived suggestion: "
+                    f"'{suggest_role(signals)}'"
+                ),
+                details={
+                    "declared": declared,
+                    "clm": clm,
+                    "card": f"{card_path}:{card_line}",
+                    "verdict": "CONTRADICTED",
+                    "signals": sorted(signals),
+                    "forbidding_signals": {k: v for k, v in sorted(forbidden.items())},
+                    "suggested": suggest_role(signals),
+                    "receipts": sorted(
+                        {mk.receipt for mk, _ in hits if mk.signal in forbidden}
+                    ),
+                },
+            )
+        )
+
+    return findings
+
+
 def check_readme_parity(manifest: dict) -> list[Finding]:
     """
     Every row in the README Master Prediction Table maps to a manifest
@@ -866,6 +1366,7 @@ ALL_CHECKS = {
     "engine": check_engine,
     "bridge": check_bridge,
     "axioms": check_axioms,
+    "calibration_role": check_calibration_role,
     "parity": check_readme_parity,
     "lr_parity": check_living_reference_parity,
 }
