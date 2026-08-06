@@ -41,8 +41,9 @@ pending-orchestrator]`.
 **DATED UPDATE 2026-08-06 PM (Tier-2 on #905, findings A3/A4/A5/A11):** item 3 widens —
 `wall-taxonomy.md` §10.2 quotes the SUPERSEDED v1 ruled text byte-identically and its
 "the ruled text above does NOT carry it" fence sentence is now false of the current
-ruling: replace the quote with the v2 ruled text (as amended by the v2-correction C1/C2)
-and repair the fence sentence. Item 4(a) gains its site list: five "engine actually
+ruling: replace the quote with the MERGED v2 blockquote VERBATIM (the correction fragment
+alters no ruled text — C1 declares an existing delta, C2 corrects prose OUTSIDE the
+blockquote) and repair the fence sentence. Item 4(a) gains its site list: five "engine actually
 codes" sites (`git grep -Fn "engine actually codes"`), of which `wall-taxonomy.md:528`
 is a live canon table row (edit) and `research/2026-08-05_last-bond-kernel-collapse_
 result.md:29` + `research/2026-08-05_approach-leak_result.md:495` are FROZEN result docs

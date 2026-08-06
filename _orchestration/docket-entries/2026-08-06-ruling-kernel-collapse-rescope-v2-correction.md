@@ -1,5 +1,7 @@
 # 🔴 Correction — kernel-collapse rescope v2 record (2026-08-06, post-merge Tier-2)
 
+### ENTRY 2026-08-06-rescope-v2-correction
+
 Correction fragment for `2026-08-06-ruling-kernel-collapse-rescope-v2.md` (merged,
 #905), from the independent Tier-2 verification that completed after Grant's merge.
 Post-merge correction-PR pattern; the v2 record body is preserved unedited. Two blocking
@@ -34,7 +36,8 @@ accurate residence map (Tier-2-verified at merge commit `5e7f367a`):
   `:618-619`/`:680-681` with the chirality bias at `:624-625`/`:684-685`
   (`_reflection_density_asymmetric:573`, `_update_saturation_kernels:652`), consumed by
   `k4_cosserat_coupling.py:157` inside `_coupling_energy_total_asymmetric:128` — a
-  DIFFERENT functional, and per its own docstring (`:114-116`) the DEFAULT under Phase 4
+  DIFFERENT functional, and per the sibling legacy function's docstring
+  (`k4_cosserat_coupling.py:114-116`) the DEFAULT under Phase 4
   (`use_asymmetric_saturation=True`).
 
 The v2's conclusion is UNCHANGED and re-affirmed: the engine codes the saturation
@@ -44,8 +47,8 @@ the engine actually codes" is over-broad; and the carve-out's structural receipt
 
 ## C3 (advisory A1) — the test-pinning sentence, made exact
 
-"`k_refl` is zeroed in the tests" is true at the two sites that isolate saturation but
-false as a universal: `test_cosserat_field_3d.py:547` sets `k_refl=1.0` under
+"`k_refl` is zeroed in the tests" is true at the four sites that isolate saturation
+(`test_cosserat_field_3d.py:257`, `:368`, `:544`, `:581`) but false as a universal: `test_cosserat_field_3d.py:547` sets `k_refl=1.0` under
 `use_saturation=True` (inequality assertion only, `:548`) and `:602` sets it to `1.0` in
 the FD-gradient test (moduli zeroed). Accurate form: **the aggregated kernel is live in
 two tests but only under inequality/FD-consistency assertions; no test discriminates the
