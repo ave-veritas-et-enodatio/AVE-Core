@@ -85,7 +85,22 @@ NUM_RE = re.compile(r"`([^`]+)`")
 # ---------------------------------------------------------------------------
 PRE_AMENDMENT_JSON_BLOB = "25b02dfc1f963caeee0f307694ef4887af15ac90"
 
-# The ONLY places the amendment is permitted to have moved a leaf.  Anything
+# AMENDMENT-NCBYTES-2026-08-06-B -- the records lane's disclosed supersession move.
+# The receipt is CHAINED rather than re-based, and that is the whole point: if the
+# single receipt were simply re-run from PRE_AMENDMENT_JSON_BLOB to the CURRENT JSON
+# it would silently re-scope amendment A's shipped receipt, and the result doc's §9
+# table (`297` / `350` / `5` / `53` / `0` / `0`) would go stale in place -- the exact
+# failure class the corpus calls a vacated cite.  Instead:
+#
+#   RECEIPT A : PRE_AMENDMENT_JSON_BLOB  ->  A_SHIP_JSON_BLOB    (unchanged forever)
+#   RECEIPT B : A_SHIP_JSON_BLOB         ->  the shipped JSON on disk
+#
+# A_SHIP_JSON_BLOB is the v2.1 JSON exactly as PR #904 merged it to `main`, so
+# receipt A reproduces the numbers §9 states, verbatim and on every `make verify`,
+# while receipt B carries the new move.  Both use the SAME hard criterion.
+A_SHIP_JSON_BLOB = "1ba0cfc1e0dc17e0c61d7619f2b31c63e3139a3e"
+
+# The ONLY places EITHER amendment is permitted to have moved a leaf.  Anything
 # outside these is a PHYSICS leaf by construction, and one is a hard FAIL.
 AMENDMENT_ALLOWED_PREFIXES = ("/gates/NC-BYTES/", "/_digest", "/_runtime_sec")
 
@@ -106,30 +121,62 @@ def _classify_leaf_delta(old: dict, new: dict) -> dict:
             "added": sorted(added), "removed": sorted(removed), "other": sorted(other)}
 
 
-def amendment_registry(d: dict) -> dict[str, str]:
-    """Recompute the amendment receipt from git and register its counts.
-
-    HARD CRITERION: `other` must be EMPTY -- the amendment may move the
-    `NC-BYTES` block, the `_digest` and `_runtime_sec`, and NOTHING else.  Every
-    physics leaf must be byte-identical to the pre-amendment ship."""
-    raw = subprocess.run(["git", "cat-file", "blob", PRE_AMENDMENT_JSON_BLOB],
+def _blob_json(sha: str, label: str) -> dict | None:
+    raw = subprocess.run(["git", "cat-file", "blob", sha],
                          cwd=REPO, capture_output=True, text=True)
     if raw.returncode != 0:
-        FAILURES.append("AMENDMENT receipt: pre-amendment v2 JSON blob "
-                        f"{PRE_AMENDMENT_JSON_BLOB[:12]} is unreachable from this tree")
-        return {}
-    delta = _classify_leaf_delta(json.loads(raw.stdout), d)
-    if delta["other"]:
-        FAILURES.append("AMENDMENT receipt: leaves changed OUTSIDE the NC-BYTES block / _digest / "
-                        "_runtime_sec -- a physics leaf moved: " + ", ".join(delta["other"][:10]))
-    return {
-        "amend_leaves_pre": str(delta["n_old"]),
-        "amend_leaves_post": str(delta["n_new"]),
-        "amend_changed": str(len(delta["changed"])),
-        "amend_added": str(len(delta["added"])),
-        "amend_removed": str(len(delta["removed"])),
-        "amend_other": str(len(delta["other"])),
-    }
+        FAILURES.append(f"AMENDMENT receipt: {label} v2 JSON blob {sha[:12]} is "
+                        "unreachable from this tree")
+        return None
+    return json.loads(raw.stdout)
+
+
+def amendment_registry(d: dict) -> dict[str, str]:
+    """Recompute BOTH amendment receipts from git and register their counts.
+
+    HARD CRITERION, applied to each link of the chain independently: `other` must
+    be EMPTY -- an amendment may move the `NC-BYTES` block, the `_digest` and
+    `_runtime_sec`, and NOTHING else.  Every physics leaf must be byte-identical
+    across the whole chain.
+
+    RECEIPT A is frozen at both ends (two git blobs), so the `297` / `350` / `5` /
+    `53` / `0` / `0` the v2 result doc §9 states keep reproducing after later
+    amendments land.  RECEIPT B runs from the merged v2.1 ship to the JSON on disk
+    and carries AMENDMENT-NCBYTES-2026-08-06-B.  A receipt whose baseline slides
+    forward with every edit is not a receipt."""
+    reg: dict[str, str] = {}
+
+    pre = _blob_json(PRE_AMENDMENT_JSON_BLOB, "pre-amendment")
+    a_ship = _blob_json(A_SHIP_JSON_BLOB, "amendment-A ship")
+    if pre is None or a_ship is None:
+        return reg
+
+    for tag, old, new in (("amend", pre, a_ship), ("amendB", a_ship, d)):
+        delta = _classify_leaf_delta(old, new)
+        if delta["other"]:
+            FAILURES.append(f"AMENDMENT receipt ({tag}): leaves changed OUTSIDE the NC-BYTES "
+                            "block / _digest / _runtime_sec -- a physics leaf moved: "
+                            + ", ".join(delta["other"][:10]))
+        reg.update({
+            f"{tag}_leaves_pre": str(delta["n_old"]),
+            f"{tag}_leaves_post": str(delta["n_new"]),
+            f"{tag}_changed": str(len(delta["changed"])),
+            f"{tag}_added": str(len(delta["added"])),
+            f"{tag}_removed": str(len(delta["removed"])),
+            f"{tag}_other": str(len(delta["other"])),
+        })
+
+    # Receipt A's right-hand end must be the state PR #904 actually merged, not a
+    # later tree: if the shipped JSON has moved past A_SHIP_JSON_BLOB then receipt B
+    # must be non-trivial, and if it has NOT moved then receipt B must be empty.
+    # Either way the two receipts must compose to the same leaf set as one direct
+    # comparison -- checked here so the chain cannot hide a leaf in the seam.
+    direct = _classify_leaf_delta(pre, d)
+    if direct["other"]:
+        FAILURES.append("AMENDMENT receipt (composed): a physics leaf moved somewhere in the "
+                        "chain: " + ", ".join(direct["other"][:10]))
+    reg["amend_chain_other"] = str(len(direct["other"]))
+    return reg
 
 
 def check(label: str, doc_value: str, ref_value: str) -> None:
@@ -425,6 +472,63 @@ def mutation() -> int:
     if raw6.returncode == 0:
         caught6 = bool(_classify_leaf_delta(json.loads(raw6.stdout), m6)["other"])
     results.append(("M6 physics leaf moved under the amendment receipt", caught6))
+
+    # M7 -- AMENDMENT-NCBYTES-2026-08-06-B's own receipt, on the SECOND link of the
+    #       chain.  M6 only exercises the pre-amendment baseline; without M7 the new
+    #       link could be a no-op and nothing would say so.
+    m7 = json.loads(json.dumps(d))
+    m7["gates"]["G-NC-SLAST"]["leg_A_rel"] = "9.99999e-99"
+    raw7 = subprocess.run(["git", "cat-file", "blob", A_SHIP_JSON_BLOB],
+                          cwd=REPO, capture_output=True, text=True)
+    caught7 = False
+    if raw7.returncode == 0:
+        caught7 = bool(_classify_leaf_delta(json.loads(raw7.stdout), m7)["other"])
+    results.append(("M7 physics leaf moved under the amendment-B receipt", caught7))
+
+    # M8 / M9 -- AMENDMENT-NCBYTES-2026-08-06-B's OWN conjuncts, exercised by RE-RUNNING
+    #       the gate under a perturbed declaration rather than by reading the shipped
+    #       row back.  Reading the row back would be a checklist; these are gates.
+    #       `nc_bytes()` is pure git + file reads, so re-running it is cheap and has no
+    #       physics side effects.  Every perturbation is restored in a `finally`.
+    sys.path.insert(0, str(HERE))
+    import approach_leak_v2 as drv                                  # noqa: E402
+    target = next(iter(drv.SUPERSESSION_BLOB_PIN))
+
+    # M8 -- the blob pin drifts: the pinned artifact's live bytes must be nailed to the
+    #       DECLARED object, so a wrong declaration must make NC-BYTES go false.
+    saved_pin = dict(drv.SUPERSESSION_BLOB_PIN)
+    try:
+        drv.SUPERSESSION_BLOB_PIN[target] = "0" * 40
+        caught8 = drv.nc_bytes()["pass"] is False
+    finally:
+        drv.SUPERSESSION_BLOB_PIN.clear()
+        drv.SUPERSESSION_BLOB_PIN.update(saved_pin)
+    results.append(("M8 supersession blob pin perturbed", caught8))
+
+    # M9 -- the frozen-verdict probes are what stop a "supersession note" from quietly
+    #       re-grading the record.  Inject a probe that is NOT in the file: the gate
+    #       must refuse even though the blob pin still matches.
+    saved_probes = {k: list(v) for k, v in drv.FROZEN_VERDICT_PROBES.items()}
+    try:
+        drv.FROZEN_VERDICT_PROBES[target] = saved_probes[target] + [
+            "ZZQX-NCBYTES-B-PROBE-THAT-IS-NOT-IN-THE-RECORD-4471"]
+        caught9 = drv.nc_bytes()["pass"] is False
+    finally:
+        drv.FROZEN_VERDICT_PROBES.clear()
+        drv.FROZEN_VERDICT_PROBES.update(saved_probes)
+    results.append(("M9 frozen-verdict probe made unsatisfiable", caught9))
+
+    # M10 -- the COMPUTED/DECLARED reconciliation of the supersession set: declaring an
+    #        EXTRA artifact as superseded when it did not move must fail, which is the
+    #        mirror of an undisclosed move slipping through.
+    saved_moved = set(drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE)
+    try:
+        drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE.add("research/drivers/approach_leak.py")
+        caught10 = drv.nc_bytes()["pass"] is False
+    finally:
+        drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE.clear()
+        drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE.update(saved_moved)
+    results.append(("M10 supersession moved-set over-declared", caught10))
 
     ok = all(caught for _, caught in results)
     print("APPROACH-LEAK v2 mutation receipt: "

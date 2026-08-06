@@ -627,6 +627,35 @@ and in the docket correction, which is where an amendment to a frozen instrument
 frozen pre-registration to match a later measurement is the exact move the freeze rule exists to
 prevent.
 
+**⚑ DATED SURFACE-NOTE, 2026-08-06 — `AMENDMENT-NCBYTES-2026-08-06-B` LANDED AFTER THIS SECTION WAS
+WRITTEN; NOTHING ABOVE IS REWRITTEN.** A SECOND disclosed move of a read-only predecessor has since
+been made — this one by the **records lane**, not the orchestrator: the frozen v1 kernel-collapse
+result document now carries a dated supersession note pointing at the `ROW-CERTIFIED` `G-RHO2` rerun
+that document's own §1.3 named (PR `#902`, merge commit `b06cbeb1`). Consequences for **this** section,
+stated so no sentence above has to be re-read charitably:
+
+- **The receipt table above is UNCHANGED and still reproduces.** It is now the FIRST link of a
+  CHAINED receipt whose right-hand end is pinned to the blob PR `#904` merged
+  (`1ba0cfc1`), so `297` → `350`, CHANGED `5`, ADDED `53`, REMOVED `0`, outside-set `0` keep
+  re-deriving on every `make verify` instead of sliding forward with each later amendment.
+- **A SECOND receipt runs from that blob to the JSON on disk:** `350` → `417` leaves, CHANGED `3`
+  (`_digest`, `_runtime_sec`, one `blob_live`), ADDED `67` — **every one inside the `NC-BYTES`
+  block** — REMOVED `0`, and **outside `NC-BYTES` ∪ `_digest` ∪ `_runtime_sec`: `0`**. The composed
+  pre-amendment-to-disk comparison is checked as well, so nothing can hide in the seam between the
+  two links.
+- **The digest moved again**, `4da48b39074d9fbc` → `f336bc5fe6281368`. **Read the `G-DET-V2` row in
+  §4 and every digest quoted above as the amendment-A ship's reading**, which is what they were when
+  measured; `G-DET-V2` itself still passes machine-gated, because it compares a re-run against the
+  CURRENT shipped JSON.
+- **Amendment B adds three conjuncts and drops none** (COMPUTED-vs-DECLARED reconciliation of the
+  superseded set; **ADDITIVE-ONLY** on the moved artifact, proved by line-subsequence rather than
+  asserted; and byte-exact survival of that record's own FAIL verdict strings, because a blob pin
+  says *which bytes* and never *which claim*). Mutations `M7`–`M10` prove each one fireable.
+
+Disclosure and rationale live in the records lane's docket fragment,
+[`2026-08-06-g-rho2-supersession.md`](../_orchestration/docket-entries/2026-08-06-g-rho2-supersession.md);
+the frozen pre-registration is **again not edited**.
+
 ### §9.2 Wording corrections (four), each sited at the sentence it repairs
 
 **None of these moves a number.** Each is a place where a true sentence was phrased so that a
