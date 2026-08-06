@@ -55,7 +55,7 @@ VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_m
 PAPER_DIR = papers/2026_birefringence_letter
 PAPER_JOB = sve_vacuum_birefringence_letter
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check refresh-provenance-baseline framing-audit verify-anchor-content verify-new-cite-excerpts test test-engine test-genesis test-tools pdf pdf_manuscript paper figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check gamma-census verify-approach-leak-number-check verify-approach-leak-v2-number-check
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -79,6 +79,7 @@ help:
 	@echo "  make verify-echo-delay-v2-number-check : Check the ECHO-DELAY v2 rerun + Y8 reach-through result-doc numerals + mutation receipt (gating)"
 	@echo "  make verify-srs-twist-number-check : Check the srs compression-twist result-doc numerals + mutation receipt (gating)"
 	@echo "  make verify-approach-leak-number-check : Check the approach-leak result-doc numerals + G-DET re-run + mutation receipt (gating)"
+	@echo "  make verify-approach-leak-v2-number-check : Check the approach-leak V2 result-doc numerals + G-DET-V2 re-run + BOTH mutation receipts, and the PRESERVED v1 target content (gating)"
 	@echo "  make refresh-provenance-baseline : Regenerate the grandfather baseline from the live scan (allowed to shrink)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make verify-anchor-content : Check cited path:NN vs adjacent backtick excerpt drift (WARN-CLASS advisory)"
@@ -110,7 +111,28 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check verify-approach-leak-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check verify-approach-leak-number-check verify-approach-leak-v2-number-check
+# FLAG-SCANFRAG -- REPAIRED UPSTREAM; the v1 target is RESTORED to this chain
+# (AMENDED 2026-08-06, research/2026-08-06_approach-leak-v2_result.md §9.2(c)).
+#
+# HISTORY, because the previous comment here asserted the fragility as live and it
+# is not: `verify-approach-leak-number-check` machine-gates G-DET by re-running the
+# v1 driver, whose shipped digest USED TO BE a function of how many tracked files
+# existed under manuscript/ research/ src/, so any commit adding one turned it RED.
+# That is why it was dropped from this list at the v2 freeze.  The orchestrator has
+# since PINNED the v1 driver's scan surface to a commit (approach_leak.py SCAN_PIN,
+# v1 tip f3607be8, merged into this branch), so the v1 digest is now a function of a
+# COMMIT and not of the working tree.  MEASURED on this merged tree, whose live
+# census under the scan directories is 4428 -- TEN above the pinned 4418 (five
+# from the v1 lane, five from the v2 lane) -- the v1 target is GREEN and reproduces
+# 2af8acfe23aabb96.  Re-measured with an eleventh, deliberately-added tracked file:
+# still green, same digest.  The basis for dropping it is void, so it is back.
+#
+# BOTH targets now gate.  `verify-approach-leak-v2-number-check` remains a STRICT
+# SUPERSET of the v1 target's content (v1 doc-numeral registry, v1 gate
+# reconciliations, v1 mutation receipt, v1 G-DET under the prereg §3.2 wrapper), so
+# the two overlap deliberately -- belt and braces on a gate that has already failed
+# once in a way a same-tree live-fire could not see.
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
@@ -286,6 +308,35 @@ verify-approach-leak-number-check:
 	$(PYTHON) research/drivers/approach_leak_number_check.py
 	@echo "Mutation receipt: the numeral checker must CATCH every perturbation..."
 	$(PYTHON) research/drivers/approach_leak_number_check.py --mutation-receipt
+
+# APPROACH-LEAK V2 lane number-check.  Its OWN target with its OWN recipe body --
+# no recipe line is shared with any other lane.  It MACHINE-GATES G-DET-V2 (re-runs
+# the v2 driver into a temp path via APPROACH_LEAK_V2_OUT and requires digest
+# equality) and it is a STRICT SUPERSET of `verify-approach-leak-number-check`
+# above: it runs that target's entire content by calling the v1 number-check
+# module's OWN functions, with v1's G-DET executed in-process under the prereg §3.2
+# wrapper.  Both mutation receipts run on EVERY invocation, so neither gate can
+# silently degrade into a no-op.  AMENDED 2026-08-06: the v1 target is ALSO back in
+# the `verify:` chain above -- the SCANFRAG repair landed upstream and the v1 target
+# is green on this merged tree -- so the superset relation is now redundancy rather
+# than a substitution.  That redundancy is deliberate and is kept.
+# It ALSO gates the AMENDMENT-NCBYTES-2026-08-06 leaf receipt: the pre-amendment v2
+# JSON is read out of git by blob hash and the leaf delta recomputed, so "only the
+# NC-BYTES block, the digest and _runtime_sec moved" is a GATE, not a sentence.
+# DISCLOSED UNION-CONFLICT CLASS (carried forward unchanged from the last-bond,
+# srs-twist and approach-leak lanes): the `.PHONY` line, the `verify:` prerequisite
+# line and the `help` block ARE shared with every other lane's number-check target.
+# Any concurrently open lane adding a number-check edits those same lines, and the
+# correct resolution is the UNION of all lanes' targets -- never a pick-one.  The
+# standing umbrella-glob proposal (one `verify-lane-number-checks` that globs
+# `research/drivers/*_number_check.py`) would retire this conflict class entirely
+# and REMAINS PENDING; it is not adopted here because adopting it unilaterally
+# would change the gate surface of every other open lane.
+verify-approach-leak-v2-number-check:
+	@echo "Checking the APPROACH-LEAK V2 result-doc numerals + the PRESERVED v1 target content (gating; includes the G-DET-V2 re-run)..."
+	$(PYTHON) research/drivers/approach_leak_v2_number_check.py
+	@echo "Mutation receipt: the v2 numeral checker must CATCH every perturbation..."
+	$(PYTHON) research/drivers/approach_leak_v2_number_check.py --mutation-receipt
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
