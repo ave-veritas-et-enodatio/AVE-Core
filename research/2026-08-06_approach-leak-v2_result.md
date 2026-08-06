@@ -46,6 +46,9 @@ and the `1431`-leaf byte-exact reproduction below is the receipt for that claim,
 > **LEG-A `1e-27`** (bound `5e-30` = half a unit in the 30th significant digit, headroom `200`×) and
 > **LEG-B `5e-16`** (bound `5e-17` = half a unit in the 17th, × a declared `10`× safety factor for
 > the seed's unauditable upstream chain).
+> *(AMENDED 2026-08-06 — §9.2(d): and a **new comparand pair** was added, not only a tolerance
+> re-anchored. `LEG-B` is v1's comparison, re-anchored. **`LEG-A` is NEW** — shipped comparand vs a
+> value recomputed from the source's **own shipped seed** — a different pair of objects.)*
 >
 > **★ AND THE ERROR MODEL CONFIRMED ITSELF RATHER THAN MERELY PASSING.** `LEG-A` measures
 > `7.74183e-31` — **below its own derived `5e-30` rendering bound**, i.e. the residual landed at the
@@ -93,6 +96,17 @@ and the `1431`-leaf byte-exact reproduction below is the receipt for that claim,
 **No frozen criterion was dropped, widened, or re-defined.** The **only** tolerance that moved is
 `G-NC-SLAST`'s, and it moved **before** any v2 number existed, on a derivation that takes v1's
 measured `2.04408e-17` as **no input at all**.
+
+> **AMENDED 2026-08-06 — §9.2(d). "ONE NEGATIVE-CONTROL TOLERANCE RE-ANCHORED" UNDERSTATES WHAT
+> HAPPENED, SO SAY THE OTHER HALF IN THE HEADLINE AND NOT ONLY IN THE TABLE.** A tolerance moved
+> **and a new comparand pair was added.** v1's single leg compared **this lane's mass-derived**
+> quantities against the predecessor's shipped strings; that comparison survives **verbatim** as
+> `LEG-B`, at a re-derived tolerance. **`LEG-A` is NEW** — it compares the shipped `S_last` against a
+> value recomputed **from the source's own shipped seed** through the identical cancellation-free
+> form. **That is a different pair of objects, not the same pair at a looser tolerance**, and it is
+> the leg that carries the `1e-27` claim. §2.2's leg table disclosed it from the start in its
+> *comparison form* column; the headline now carries it too, because a reader who stops at the
+> headline should not come away thinking only a number was loosened.
 
 ### §1.1 The v2 gates
 
@@ -342,10 +356,22 @@ CAVEAT.** The resolved reading, recorded here for the gated propagation pass:
 > every grading exponent canon or the engine states, the confinement is not merely spatial but
 > **spectral**: there is no propagating rotational state at the drive frequency at any radius on the
 > approach, so the 'leak' is a purely reactive admixture, bounded by `ζ_max` and transporting exactly
-> zero time-averaged power. **'One computable number' is answered: `ζ_max`, and it is below `1e-16`
-> on every stated member.** The answer is **conditional on a grading law for `I_ω(A)` that canon does
-> not state** — at `p ≥ 2` the verdict inverts, and the members that invert it are analogies, not
-> canon."*
+> zero time-averaged power. **'One computable number' is answered: `ζ_max`. On the members canon or
+> the engine actually states — `p = 0.5` and `p = 1.0` — it is bounded by
+> `7.64219872765688277388060621827e-17`, i.e. below `1e-16`.** The answer is **conditional on a
+> grading law for `I_ω(A)` that canon does not state** — at `p ≥ 2` the verdict inverts, and the
+> members that invert it are analogies, not canon."*
+
+> ★ **AND THE BOUND IS BOUND TO THOSE TWO MEMBERS, NOT TO THE BIN** *(AMENDED 2026-08-06 — §9.2(a);
+> the earlier wording said "on every stated member", which is true but invites exactly the
+> conflation below).* The `GAP-CLOSED` **bin** is `p ∈ {0.5, 1.0, 1.5}`. Its third member `p = 1.5`
+> is **filler** — `canon_or_engine_stated` is **false** for it — and it carries
+> `ζ_max = 0.0000000125049992972797073610801916705`, roughly eight orders **above** `1e-16`. It is
+> nonetheless `GAP-CLOSED`, because **`GAP-CLOSED` is an `N_open = 0` statement — spectral — and
+> never a `ζ`-magnitude statement.** Reading the `1e-16` bound across the whole bin is therefore
+> wrong in one member out of three, and the two claims must not be collapsed: *no propagating
+> rotational state at any swept row* is the bin; *how small the reactive admixture is* is a separate
+> number that happens to be tiny on the two stated members and is not tiny on the filler one.
 
 **★ THIS IS RECORDED, NOT EXECUTED.** This lane edits **no** KB leaf, **no** manuscript file, **no**
 ruling docket entry, **no** solidity, **no** matrix row and **no** falsification ledger. **The
@@ -365,9 +391,17 @@ is OUT OF SCOPE here.**
 ### §6.1 Carried forward BY POINTER — not restated, not re-litigated, not repaired
 
 `FLAG-EXP`, `FLAG-IOMEGA`, `FLAG-MECH`, `FLAG-ROTTOP` — bodies at
-[`research/2026-08-05_approach-leak_result.md`](2026-08-05_approach-leak_result.md) §7, **byte-untouched and gated as such
-(`NC-BYTES`)**. **The v1 bodies are the citable text.** This lane adds nothing to them and removes
-nothing from them.
+[`research/2026-08-05_approach-leak_result.md`](2026-08-05_approach-leak_result.md) §7, **untouched
+by this lane and gated as such (`NC-BYTES`)**. **The v1 bodies are the citable text.** This lane adds
+nothing to them and removes nothing from them.
+
+> **AMENDED 2026-08-06 — §9.2(b). Say it exactly, because "byte-untouched" is no longer the precise
+> word for the FILE.** The four flag **bodies** in v1 §7 are unchanged, character for character. The
+> **file** that carries them is **not** byte-identical to its `5e2694c0` blob: the ORCHESTRATOR's
+> disclosed post-ship SCANFRAG repair **appended a dated note to the end of it** (and rewrote
+> `research/drivers/approach_leak.py`'s scan surface). That is an extrinsic edit by another lane, and
+> `NC-BYTES` is amended to pin at the repaired tip `f3607be8` accordingly (§9.1). **What this lane
+> claims is the claim it always claimed: it wrote none of them.**
 
 ### §6.2 `FLAG-FREEZE` — DISCHARGED
 
@@ -417,6 +451,20 @@ verbatim as a target** while replacing it in the `verify:` prerequisite list wit
 — v1's doc-numeral registry, v1's gate reconciliations, v1's three-mutation receipt and v1's `G-DET`
 — plus the v2 checks. **No check dropped, no tolerance moved, v1's number-check module
 byte-untouched.**
+
+> **⚑ AMENDED 2026-08-06 — §9.2(c). `FLAG-SCANFRAG` IS DISCHARGED, AND THE V1 TARGET IS BACK IN THE
+> `verify:` CHAIN.** The orchestrator executed the named structural repair on the v1 branch — exactly
+> the pin-to-a-commit fix routed above — landing v1 at `f3607be8`, which this branch has merged. The
+> v1 driver's scan surface is now a function of a **commit**, not of the working tree. **Measured on
+> this merged tree, whose live census under the scan directories is `10` above the pinned `4418`
+> (`5` from the v1 lane, `5` from this one): the v1 target is GREEN and reproduces
+> `2af8acfe23aabb96`** — and it stays green, at the same digest, with an eleventh tracked file
+> deliberately added. The basis on which it was dropped from the prerequisite list
+> is therefore **void**, and the drop is reverted: **both targets gate.** The superset relation is
+> retained on purpose — it is now redundancy rather than substitution, on a gate that has already
+> failed once in a way a same-tree live-fire could not see. **This lane surfaced the flag and did not
+> repair it; the repair is the orchestrator's, on the v1 branch, and is cited here rather than
+> claimed.**
 
 ### §6.5 `FLAG-FENCEBLIND` — NEW, found while building this lane's own checker; repaired HERE, surfaced THERE
 
@@ -578,3 +626,32 @@ python3 research/drivers/approach_leak_v2_number_check.py     # recomputes the r
 and in the docket correction, which is where an amendment to a frozen instrument belongs; rewriting a
 frozen pre-registration to match a later measurement is the exact move the freeze rule exists to
 prevent.
+
+### §9.2 Wording corrections (four), each sited at the sentence it repairs
+
+**None of these moves a number.** Each is a place where a true sentence was phrased so that a
+reasonable reader would carry away a false one, and the repair is written **at the sentence**, not
+only here.
+
+| # | site | the defect | the repair |
+|---|---|---|---|
+| **(a)** | §5, the resolved leak clause | the `ζ` bound was attached to "every stated member", one sentence away from the `GAP-CLOSED` **bin** — and a reader carries it to the bin | the bound is now bound to `p = 0.5` and `p = 1.0` explicitly, with `p = 1.5`'s much larger `ζ_max` named and the bin restated as an `N_open = 0` statement, never a `ζ`-magnitude one |
+| **(b)** | §6.1 (and §8 item `6`, and the header line) | "byte-untouched" was the right word at freeze and the wrong word after the merge | the flag **bodies** are unchanged; the **file** is not byte-identical to its `5e2694c0` blob because of the ORCHESTRATOR's disclosed repair; **this lane wrote none of them** is what is actually claimed |
+| **(c)** | `Makefile` (and §6.4) | the `FLAG-SCANFRAG` rationale comment asserted the fragility as **live**, which it stopped being when the repair landed; the v1 target had been dropped from `verify:` on that basis | comment rewritten as history; **`verify-approach-leak-number-check` RESTORED to the `verify:` chain** — measured green on this merged tree — so **both** targets gate |
+| **(d)** | §1 and the HEADLINE | "ONE negative-control tolerance re-anchored" understates: a tolerance moved **and** a new comparand pair was added | `LEG-B` is v1's comparison re-anchored; **`LEG-A` is a NEW comparand pair** (shipped comparand vs a value recomputed from the source's own shipped seed). §2.2's leg table always disclosed it; the headline now does |
+
+**(d) has one action this lane cannot take:** the phrase also heads the **FROZEN prereg** and **PR
+#904's title**. The prereg stays frozen. **The PR title should pick up the same clause — orchestrator
+action, named here and not performed here.**
+
+### §9.3 Routed, not fixed — one line each
+
+- **`METHOD-A` colon-hardening.** Post-repair, v1's `scan_method_a` parses `git grep` tree-ish output
+  with `line.split(":", 3)` and takes `parts[1]`:`parts[2]`. Correct for the current roster; **wrong
+  for any scanned path containing a colon**, which would silently mis-attribute a hit and move a
+  pattern count. It is a v1-branch artifact and this lane may not edit it. **ROUTED.**
+- **The `S_n`-monotonicity argument.** The sweep checks the band's **last** cell and treats that as
+  sufficient. The reason is real — with `⟨P⟩ = 0` the reactive admixture is monotone in `n` across
+  the band, so the last cell bounds the rest — but it is **implicit in the driver and written down
+  nowhere**. An argument a reader must reconstruct is not a receipt. **ROUTED: write it at the site
+  where the sweep is defined.**
