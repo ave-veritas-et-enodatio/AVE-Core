@@ -36,3 +36,18 @@ pending-orchestrator]`.
    note) stays open — do not adjudicate. The un-audited framing note
    (`research/2026-08-06_rotation-substance-ontology_framing-note.md`) licenses NOTHING
    in print.
+
+---
+**DATED UPDATE 2026-08-06 PM (Tier-2 on #905, findings A3/A4/A5/A11):** item 3 widens —
+`wall-taxonomy.md` §10.2 quotes the SUPERSEDED v1 ruled text byte-identically and its
+"the ruled text above does NOT carry it" fence sentence is now false of the current
+ruling: replace the quote with the v2 ruled text (as amended by the v2-correction C1/C2)
+and repair the fence sentence. Item 4(a) gains its site list: five "engine actually
+codes" sites (`git grep -Fn "engine actually codes"`), of which `wall-taxonomy.md:528`
+is a live canon table row (edit) and `research/2026-08-05_last-bond-kernel-collapse_
+result.md:29` + `research/2026-08-05_approach-leak_result.md:495` are FROZEN result docs
+— dated surface-note pattern, never a rewrite. New item 9: docket-fragment hygiene — new
+fragments carry `### ENTRY <YYYY-MM-DD>-<lane-slug>` headers per the docket README (the
+keys gate is warn-only and currently vacuous for ~20 recent fragments; sweep optional,
+forward hygiene mandatory). Consume the corrected engine residence map from
+`2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md` C2 wherever item 4 lands.

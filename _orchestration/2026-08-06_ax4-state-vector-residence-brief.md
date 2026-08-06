@@ -47,3 +47,16 @@ not fiat** — deliver derivation + canon reconciliation, not a preference.
   item, not a code bug to silently close.
 - Two-method receipts with named regex engines on every absence claim.
 - Pointers-not-values: re-derive every number/quote you consume from the cited records.
+
+---
+**DATED SCOPE UPDATE 2026-08-06 PM (Tier-2 on #905, finding A2):** item 5's vacated-cite
+characterization is corrected — the 2026-07-02 doc's real defect is a
+**within-vs-across-grade misclassification** (it labels the `:411` aggregation "L∞ across
+grades, L2-sum within a grade"; ε and κ are different grades, so `:411` IS the
+across-grade aggregation), not a bare line miss. Scope addition: the SAME misread, with
+the same `:411,600` cite (`:600` now drifted to a docstring line), sits in CANON at
+`trampoline-framework.md:255` — vacate and re-derive that site too, same pattern. Also
+consume the corrected residence map in
+`2026-08-06-ruling-kernel-collapse-rescope-v2-correction.md` C2 (three definitions,
+two live functionals + a separate S11 objective; definition 3 is the Phase-4 default via
+`k4_cosserat_coupling`) as the authoritative engine-state statement.
