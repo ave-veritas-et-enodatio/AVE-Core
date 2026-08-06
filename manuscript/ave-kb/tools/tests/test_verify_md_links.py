@@ -249,6 +249,222 @@ def test_kbleaf_gating_kinds() -> None:
     assert not vml.is_gating(Finding(tex, 1, "broken inter", "AVE-X/y.tex"), repo_root)
 
 
+# --- line-cite existence pass (cite-rot options 2+3) ------------------------
+
+_LINECHECK = _FIXTURES / "linecheck"
+_CITER = "manuscript/ave-kb/common/citer.md"
+_FROZEN = "research/2026-01-01_fixture_prereg-FROZEN.md"
+
+
+def _scan_linecheck(vml, waived=frozenset()):
+    """Run the line-cite pass over the linecheck fixture repo."""
+    repo_root = _LINECHECK.resolve()
+    file_index, _ = vml.build_kbleaf_target_index(repo_root)
+    findings, stats = vml.scan(
+        repo_root, check_ids_enabled=False, file_index=file_index, waived_line_cites=waived
+    )
+    return repo_root, findings, stats
+
+
+def _cites(findings, repo_root, kind, source):
+    return sorted(
+        f.target
+        for f in findings
+        if f.kind == kind and str(f.file.resolve().relative_to(repo_root)) == source
+    )
+
+
+def test_line_cite_mutation_now_fails() -> None:
+    """THE REGRESSION TEST: the mutation that proved the gap must now gate.
+
+    The #847 auditor rewrote a live KB cite to a bogus path plus an absurd line
+    number and re-ran the checker: exit 0, `gating errors: 0`, finding list
+    byte-identical. Both halves of that mutation are reproduced in the fixture
+    (`no-such-file-anywhere.md:12` and `target.md:999`), and both must now be
+    seen — the line half as a GATING `dead line cite`, the path half as an
+    advisory `broken backtick path` (it was previously invisible end-to-end).
+    """
+    vml = _load_module()
+    repo_root, findings, _ = _scan_linecheck(vml)
+
+    dead = _cites(findings, repo_root, "dead line cite", _CITER)
+    assert "target.md:999" in dead, dead
+    gating = [f for f in findings if f.kind == "dead line cite" and vml.is_gating(f, repo_root)]
+    assert gating, "a KB-source dead line cite must flip the exit code"
+
+    bogus = _cites(findings, repo_root, "broken backtick path", _CITER)
+    assert bogus == ["no-such-file-anywhere.md:12"], bogus
+
+
+def test_line_cite_valid_cites_pass() -> None:
+    """A cite whose line exists produces no finding, in every written form."""
+    vml = _load_module()
+    repo_root, findings, _ = _scan_linecheck(vml)
+    flagged = {f.target for f in findings}
+
+    for good in (
+        "target.md:5",  # backticked, content line
+        "target.md:5-9",  # backticked range, fully inside the file
+        "../../../src/tool.py:5",  # parent-dir hop (the `..` regression)
+        "twin.md:300",  # ambiguous basename, one candidate is long enough
+    ):
+        assert good not in flagged, good
+
+
+def test_line_cite_sees_all_three_written_forms() -> None:
+    """Backticked-bare, link-in and link-ext cites are all parsed and checked."""
+    vml = _load_module()
+    text = (_LINECHECK / _CITER).read_text(encoding="utf-8")
+    forms = {(c.form, c.as_written) for c in vml.iter_line_cites(text)}
+
+    assert ("backticked", "target.md:999") in forms  # invisible before this pass
+    assert ("link-ext", "target.md:999") in forms  # KB house convention
+    assert ("link-in", "target.md:998") in forms
+    # A backticked span that is not wholly a path is not a cite.
+    assert not any(w == "the quick brown fox" for _, w in forms)
+    # Fenced-block cites stay illustrative: the fixture's last prose cite is on
+    # line 26 and its fenced examples are on line 32, so nothing past 26 parses.
+    assert max(c.lineno for c in vml.iter_line_cites(text)) == 26
+
+    repo_root, findings, _ = _scan_linecheck(vml)
+    dead = _cites(findings, repo_root, "dead line cite", _CITER)
+    assert dead.count("target.md:999") == 2, dead  # backticked + link-ext
+    assert "target.md:998" in dead  # link-in
+
+
+def test_line_cite_historical_pin_not_flagged() -> None:
+    """A cite on a line carrying a backticked SHA is deliberately past-state."""
+    vml = _load_module()
+    text = (_LINECHECK / _CITER).read_text(encoding="utf-8")
+    pinned = [c for c in vml.iter_line_cites(text) if c.pinned]
+    assert [c.as_written for c in pinned] == ["target.md:999"], pinned
+
+    _, _, stats = _scan_linecheck(vml)
+    assert stats["skipped_historical_pin"] == 1, stats
+    # The same cite text appears unpinned twice elsewhere in the fixture and
+    # IS flagged there, so the skip is the pin's doing, not the target's.
+    assert stats["dead"] >= 3
+
+
+def test_line_cite_frozen_doc_reported_not_gated() -> None:
+    """A dead cite in a byte-frozen research doc warns; it never forces an edit."""
+    vml = _load_module()
+    repo_root, findings, _ = _scan_linecheck(vml)
+
+    frozen = [
+        f
+        for f in findings
+        if f.kind == "dead line cite"
+        and str(f.file.resolve().relative_to(repo_root)) == _FROZEN
+    ]
+    assert len(frozen) == 1, frozen
+    assert not vml.is_gating(frozen[0], repo_root), "frozen research doc must not gate"
+
+
+def test_line_cite_zero_fp_guards() -> None:
+    """The shapes that must never be flagged: ambiguity, patterns, blanks, skips."""
+    vml = _load_module()
+    repo_root, findings, stats = _scan_linecheck(vml)
+    dead = _cites(findings, repo_root, "dead line cite", _CITER)
+
+    # Ambiguous basename: flagged only when NO candidate is long enough.
+    assert "twin.md:300" not in dead
+    assert "twin.md:900" in dead
+    # Range: flagged on the END overrunning, not just the start.
+    assert "target.md:28-44" in dead
+    # Shape skips never become findings.
+    for skipped in ("vol9/.../gone.md:4", "AVE-HOPF/docs/glossary.md:9", "~/.claude/notes.md:3"):
+        assert skipped not in {f.target for f in findings}, skipped
+    # Two of those three reach `cite_target_uncheckable`; the `~/...` one never
+    # parses as a cite at all (`~` is outside the path grammar), so it is
+    # dropped one layer earlier and is not counted as a shape skip.
+    assert stats["skipped_shape"] == 2, stats
+    # A bare path with no :NN is counted, never flagged.
+    assert stats["path_only"] == 1, stats
+
+    # Blank / decoration-only cited lines are ADVISORY, never gating.
+    blank = _cites(findings, repo_root, "blank line cite", _CITER)
+    assert blank == ["target.md:12", "target.md:18"], blank
+    for finding in findings:
+        if finding.kind in vml._ADVISORY_CITE_KINDS:
+            assert not vml.is_gating(finding, repo_root), finding
+
+
+def test_line_cite_waiver_and_staleness() -> None:
+    """A waived dead cite downgrades; a waiver with no live subject gates."""
+    vml = _load_module()
+
+    waived = frozenset({(_CITER, "target.md:999")})
+    repo_root, findings, stats = _scan_linecheck(vml, waived=waived)
+    kinds = {(f.kind, f.target) for f in findings}
+    assert ("waived line cite", "target.md:999") in kinds
+    assert stats["dead_waived"] == 2, stats  # backticked + link-ext, both waived
+    waived_findings = [f for f in findings if f.kind == "waived line cite"]
+    assert all(not vml.is_gating(f, repo_root) for f in waived_findings)
+
+    stale = frozenset({(_CITER, "already-repaired.md:1")})
+    _, findings, _ = _scan_linecheck(vml, waived=stale)
+    stale_findings = [f for f in findings if f.kind == "stale line-cite waiver"]
+    assert [f.target for f in stale_findings] == ["already-repaired.md:1"]
+    assert vml.is_gating(stale_findings[0], _LINECHECK.resolve())
+
+
+def test_line_cite_union_resolution_kills_the_wrong_file_fp() -> None:
+    """Bare-basename cites resolve to EVERY candidate, not the first one found.
+
+    Direct-only resolution fires falsely on live corpus cites: `CLAUDE.md:182`
+    resolves to the 125-line repo-root copy before the 353-line KB copy the
+    author meant. The union is what makes the check zero-FP.
+    """
+    vml = _load_module()
+    repo_root = _LINECHECK.resolve()
+    file_index, _ = vml.build_kbleaf_target_index(repo_root)
+    citer = repo_root / _CITER
+
+    candidates = vml.resolve_cite_candidates("twin.md", citer, repo_root, file_index)
+    rels = sorted(str(c.relative_to(repo_root)) for c in candidates)
+    assert rels == [
+        "manuscript/ave-kb/common/twin.md",
+        "manuscript/ave-kb/vol9/deep/twin.md",
+    ], rels
+
+
+def test_strip_fences_keeps_inline_spans() -> None:
+    """strip_fences is the complement of strip_code — inline spans SURVIVE."""
+    vml = _load_module()
+    text = "a `keep.md:1`\n```\n`drop.md:2`\n```\nb `keep.md:3`\n"
+    fenced = vml.strip_fences(text)
+    assert len(fenced.splitlines()) == len(text.splitlines())
+    assert "`keep.md:1`" in fenced and "`keep.md:3`" in fenced
+    assert "drop.md" not in fenced
+    # strip_code (used by the LINK pass) still blanks them — that difference is
+    # the whole reason the backticked form was invisible.
+    assert "keep.md" not in vml.strip_code(text)
+
+
+def test_cite_target_uncheckable_shapes() -> None:
+    vml = _load_module()
+    for pattern in (
+        "~/.claude/x.md",
+        "/abs/x.md",
+        "AVE-HOPF/docs/glossary.md",
+        "Applied-Vacuum-Engineering/manuscript/x.md",
+        "vol3/.../leaf.md",
+        "core/chiral_lattice_v9..v17.py",
+        "leaf.[a-z]d",
+        ".agents/handoffs/note.md",
+        "assets/sim_outputs/figure.csv",
+    ):
+        assert vml.cite_target_uncheckable(pattern), pattern
+    for real in (
+        "manuscript/ave-kb/common/leaf.md",
+        "../../src/ave/core/constants.py",
+        "../common/interlock-register.md",
+        "leaf.md",
+    ):
+        assert not vml.cite_target_uncheckable(real), real
+
+
 if __name__ == "__main__":
     test_fixture_findings()
     test_tex_and_home_targets_skipped()
@@ -261,4 +477,14 @@ if __name__ == "__main__":
     test_kbleaf_fixture_findings()
     test_kbleaf_waiver_and_staleness()
     test_kbleaf_gating_kinds()
+    test_line_cite_mutation_now_fails()
+    test_line_cite_valid_cites_pass()
+    test_line_cite_sees_all_three_written_forms()
+    test_line_cite_historical_pin_not_flagged()
+    test_line_cite_frozen_doc_reported_not_gated()
+    test_line_cite_zero_fp_guards()
+    test_line_cite_waiver_and_staleness()
+    test_line_cite_union_resolution_kills_the_wrong_file_fp()
+    test_strip_fences_keeps_inline_spans()
+    test_cite_target_uncheckable_shapes()
     print("OK: all self-tests passed")
