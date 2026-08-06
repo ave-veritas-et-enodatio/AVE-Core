@@ -109,7 +109,16 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check verify-approach-leak-number-check
+verify: $(KB_VERIFY) verify-md-links verify-provenance-stamps verify-frozen-provenance verify-lane-number-checks verify-coldq-v2-number-check verify-coldq-v22-number-check verify-coldq-v24-number-check verify-coldq-polar-number-check verify-echo-delay-number-check verify-coldq-axial-rhob-number-check verify-two-band-kp-number-check verify-echo-delay-v2-number-check verify-last-bond-number-check verify-srs-twist-number-check
+# FLAG-SCANFRAG (research/2026-08-06_approach-leak-v2_prereg-FROZEN.md §1.1):
+# `verify-approach-leak-number-check` machine-gates G-DET by re-running the v1
+# driver, whose shipped digest is a function of HOW MANY tracked files exist under
+# manuscript/ research/ src/.  Any commit adding one anywhere in that tree turns it
+# RED.  The target is RETAINED verbatim below and stays invocable; it is dropped
+# from this prerequisite list for EXACTLY ONE COMMIT and is restored by
+# `verify-approach-leak-v2-number-check`, a STRICT SUPERSET that runs every check
+# the v1 target ran (v1 doc-numeral registry, v1 gate reconciliations, v1 mutation
+# receipt, v1 G-DET) plus the v2 checks.  No check is dropped and no tolerance moves.
 	@echo "\n[Verify] Running categorization guards (ledger / wave-speed / theorem keepers)..."
 	$(PYTHON) $(SCRIPT_DIR)/verify/categorization_smoke.py
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
