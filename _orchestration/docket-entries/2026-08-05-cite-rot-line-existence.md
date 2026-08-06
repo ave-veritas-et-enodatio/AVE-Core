@@ -50,10 +50,12 @@ All five triaged as REAL (not FP), and all five are warn-only under the **pre-ex
 
 | kind | total | error-source |
 |---|---|---|
-| `blank line cite` (line exists, but is empty / decoration-only) | 1,061 | **255** |
-| `broken backtick path` (backticked cite whose path resolves nowhere) | 1,682 | **196** |
+| `blank line cite` (line exists, but is empty / decoration-only) | 1,068 | **255** |
+| `broken backtick path` (backticked cite whose path resolves nowhere) | 1,682 | **203** |
 
-Triage of the 196 error-source broken paths: the large majority are **not cites at all** — they are pattern/placeholder strings that happen to be path-shaped (`volN/claim-quality.md`, `A-NNN-prereg.md`, `_result.md`, `_prereg_FROZEN.md`), references to files that were never tracked (`mad-review/…`), or gitignored trees. A minority are genuinely dead pointers. **This is a triage pool, not 196 confirmed breaks** — the same caveat the 2026-08-02 entry attached to its 1,012.
+**⚠ MEASUREMENT BASIS — these counts are CHECKOUT-SENSITIVE, and the first version of this table got that wrong.** The pass walks the filesystem, so a working checkout carrying untracked / gitignored / generated files resolves cite paths that a fresh clone cannot. Measured with this branch's tool: on a **pristine `git worktree` checkout of `d5a1b06b`** the error-source populations are **255** and **203**; on a long-lived local working checkout of the same tree they read **255** and **181** (total 1,626, not 1,682) because local artifacts satisfy paths CI would not have. The row above is the **pristine** measurement — the one CI reproduces — and it is what the flip conditions in §3 are keyed to. This table's originally-published `196` was a dirty-checkout artifact of exactly this kind; corrected here after an independent re-measurement (two methods: the tool's own `is_error_source` split, and a recount of `--advisory-cites report` through a separately-written source-class predicate).
+
+Triage of the 203 error-source broken paths: the large majority are **not cites at all** — they are pattern/placeholder strings that happen to be path-shaped (`volN/claim-quality.md`, `A-NNN-prereg.md`, `_result.md`, `_prereg_FROZEN.md`), references to files that were never tracked (`mad-review/…`), or gitignored trees. A minority are genuinely dead pointers. **This is a triage pool, not 203 confirmed breaks** — the same caveat the 2026-08-02 entry attached to its 1,012.
 
 Sample of the `blank line cite` class, checked by hand: `master-equation.md:78` (content at `:79`), `refractive-index-of-gravity.md:11` (resultbox at `:12`), `pmns-eigenvalues.md:23` (equation at `:24`), `constants.py:589` (comment block at `:590`). Almost all are **one-line drift** — the pointer names the right neighbourhood and the wrong line.
 
@@ -63,9 +65,9 @@ Sample of the `blank line cite` class, checked by hand: `master-equation.md:78` 
 
 **`dead line cite` GATES from day one.** Its error-source population is **0**, so nothing is red-lighted, no backlog is gated into existence, and no waiver is needed (`WAIVED_LINE_CITE` ships empty). **The `make verify` 0 is because the gating class is genuinely CLEAN, not because the check was softened.**
 
-**`blank line cite` and `broken backtick path` do NOT gate.** Their error-source populations are 255 and 196. Gating either would fail the build on the first merge after landing, and a gate that fails on merge gets bypassed, not obeyed — which is the cite-rot failure mode this work exists to close, reproduced one level up.
+**`blank line cite` and `broken backtick path` do NOT gate.** Their error-source populations are 255 and 203 (pristine-checkout basis, §2). Gating either would fail the build on the first merge after landing, and a gate that fails on merge gets bypassed, not obeyed — which is the cite-rot failure mode this work exists to close, reproduced one level up.
 
-**Named flip conditions** (each is a measurement, not a vibe):
+**Named flip conditions** (each is a measurement, not a vibe). **Both are keyed to the PRISTINE-checkout population per §2** — a lane proposing a flip must re-measure in a fresh `git worktree`, not in its own working checkout, or it will read a number that is low by the count of its local untracked files:
 
 - **`blank line cite` → gating** when its error-source population reaches **0**, reachable by a repair sweep that re-points each cite to the adjacent content line. The count is printed by every `make verify` run, so the burn-down is visible without a tracker; `--advisory-cites report` emits the full list as the work queue.
 - **`broken backtick path` → gating** when its error-source population reaches **0**, which requires a *classification* pass first, not just repairs: the placeholder/pattern strings (`volN/…`, `A-NNN-…`, `_result.md`) need either a documented non-cite spelling or an extension of `cite_target_uncheckable`. **Do not flip this one by widening the skip set to make the number go to zero** — that converts a real check into a checklist.
