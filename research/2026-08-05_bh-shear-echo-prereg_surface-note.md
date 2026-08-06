@@ -24,7 +24,7 @@ prereg — a pre-registration is a record of what was staked in advance, and it 
 
 The density profile the delay derivation consumes is an **open fork**. Under the RHO-A branch
 (`ρ = ρ₀`, constant) the sentence holds. Under the RHO-B branch (`ρ_eff = ρ₀/S³`, FORK-3(b);
-`manuscript/ave-kb/common/wall-taxonomy.md` §9) it does **not**: the AVE delay **is** log-divergent
+`manuscript/ave-kb/common/wall-taxonomy.md` §10) it does **not**: the AVE delay **is** log-divergent
 in the continuum and log-enhanced on the lattice, which makes it **structurally degenerate with the
 standard ECO / near-horizon-firewall echo law** — a detected log-form echo delay would not select
 AVE on that branch. Receipt: [`2026-08-04_echo-delay-regulated-sum_result.md`](2026-08-04_echo-delay-regulated-sum_result.md)

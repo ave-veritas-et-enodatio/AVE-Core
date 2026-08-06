@@ -17,7 +17,7 @@ item 6).
 - `research/2026-08-04_coldq-axial-rhob_result.md` — the FORK-3(b) AXIAL run (see the staleness
   flag below).
 - `research/2026-08-04_echo-delay-regulated-sum_result.md` — the current timing authority.
-- `manuscript/ave-kb/common/wall-taxonomy.md` §9 (sign-relativity ruling) — the signed-Γ
+- `manuscript/ave-kb/common/wall-taxonomy.md` §10 (sign-relativity ruling) — the signed-Γ
   declaration frame.
 
 ---
@@ -134,7 +134,7 @@ xr-hyper bases. Instead:
 - **One canonical print declaration** at `vol_9…/03a_device_circuit_models.tex`
   §"Graded Vacuum Impedance Network" — the print home of the three-channel Γ table that the vol9
   ch09 / ch13 sites already cite as canonical. It carries all three declarations (reference plane
-  / projection / profile) verbatim in substance from `wall-taxonomy.md` §9, plus the
+  / projection / profile) verbatim in substance from `wall-taxonomy.md` §10, plus the
   computed-not-chosen rule and the `|Γ| = 1`-only Axiom-3 fence.
 - **Two DERIVATION sites tagged in place** (marked ★ above) — the two places in print where the
   signed bulk Γ is *derived* rather than quoted: `ch15:68` (`c_bulk → 0 ⇒ Z_bulk → 0 ⇒ Γ_bulk = −1`)
@@ -348,7 +348,7 @@ repaired, nothing is minted, no solidity moves.**
 ### R4 — BLOCKING, executed. **CHOICE: option (a)** — narrow the header, open the `Γ_shear` register row
 
 `vol_9…/03a_device_circuit_models.tex:79` headed the declaration *"Sign-relativity declaration for
-**every signed Γ in this corpus**"* while the register (`wall-taxonomy.md` §9) and both derivation
+**every signed Γ in this corpus**"* while the register (`wall-taxonomy.md` §10) and both derivation
 tags work exactly **one** channel, `Γ_bulk`. Re-derived at HEAD, two-method (`grep` + an
 independent Python walk over `manuscript/**/*.{md,tex}`):
 
@@ -369,17 +369,17 @@ one the **GW-echo falsifier rides**.
    Option (b) — extending the fences at `ch15:68` and `ch21:194` — does not touch the header, so it
    would leave the named defect standing.
 2. **(a) subtracts an overstatement; (b) would require writing NEW signed-`Γ_shear` print text at
-   two sites on an OPEN fork.** §9 item 3 of the ruling itself says the authority for a wall's `Γ`
+   two sites on an OPEN fork.** §10 item 3 of the ruling itself says the authority for a wall's `Γ`
    phase is *a certified instrument's branch-derived wall row* — and **no instrument has adjudicated
    a physics bin on RHO-B** (axial: `ROOT-NOT-CERTIFIED`; polar: `SOLVER-NOT-CERTIFIED`). Minting
    fenced shear prose there is precisely the **import** this ruling exists to forbid.
-3. Both print sites already carry a *"canonical: `wall-taxonomy.md` §9"* pointer, so the new **§9.1**
+3. Both print sites already carry a *"canonical: `wall-taxonomy.md` §10"* pointer, so the new **§10.1**
    row reaches them **by reference** without new print assertions on a live fork.
 
-**Executed:** `wall-taxonomy.md` **§9.1** (new) — the `Γ_shear` register row carrying the `:332`
+**Executed:** `wall-taxonomy.md` **§10.1** (new) — the `Γ_shear` register row carrying the `:332`
 and `:27` receipts; `vol_9…/03a:79–80` — header narrowed to `Γ_bulk`, body now **states** its scope
-instead of assuming it and points at §9.1. **The `Γ_shear` sign is NOT resolved.** **Residual
-ROUTED, not silently fixed** (recorded in §9.1 with line numbers, → auditor / Grant): `ch15:68` and
+instead of assuming it and points at §10.1. **The `Γ_shear` sign is NOT resolved.** **Residual
+ROUTED, not silently fixed** (recorded in §10.1 with line numbers, → auditor / Grant): `ch15:68` and
 `ch21:194–203` still fence the **bulk** step only while asserting the **shear** step in the same
 breath.
 
