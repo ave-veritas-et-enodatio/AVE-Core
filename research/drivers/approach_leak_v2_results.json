@@ -1,0 +1,481 @@
+{
+ "_digest": "4da48b39074d9fbc",
+ "_frozen_reanchor_constants": {
+  "bound_leg_A": "5e-30",
+  "bound_leg_Bs": "2.5e-16",
+  "bound_leg_Bx": "5e-16",
+  "comparand_significant_digits": 30,
+  "ft_coarse_perturbation": "1e-12",
+  "ft_fine_perturbation": "1e-26",
+  "seed_render_bound": "5e-17",
+  "seed_safety_factor": 10,
+  "seed_significant_digits": 17,
+  "tol_leg_A": "1e-27",
+  "tol_leg_B": "5e-16"
+ },
+ "_method": {
+  "dps": 60,
+  "error_model": "round-off only; no iterated map; closed forms evaluated once",
+  "no_v1_physics_reimplemented": true,
+  "v1_module_imported_and_its_main_called": true
+ },
+ "_non_claim": "DERIVATION result. Mints no clm-/def-/exp-/sup-/ilk-; propagates to no KB or manuscript leaf; moves no solidity. Engine src/ave byte-untouched and never imported. Every predecessor artifact byte-untouched (NC-BYTES).",
+ "_predecessor": "research/2026-08-05_approach-leak_prereg-FROZEN.md + _result.md (branch research/approach-leak, PR #903, CLEARED, UNMERGED)",
+ "_prereg": "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md (commit ebd1f4c7, pushed with no code)",
+ "_runtime_sec": 21.74,
+ "adjudication": {
+  "CHANNEL-OPENS_members": [
+   "2.0",
+   "2.5",
+   "3.0"
+  ],
+  "GAP-CLOSED_members": [
+   "0.5",
+   "1.0",
+   "1.5"
+  ],
+  "SCALE-UNDERDETERMINED": {
+   "field": "residual_backaction_QUARANTINED -- the prefactor 2*(G_c/G) and that alone",
+   "fires": true,
+   "not_extended_to": "any other field, per the v1 freeze",
+   "reason": "A-008 pins G_c/I_omega, NOT G_c/G; every other number in the lane is ratio-only (N_open is an integer, zeta_max a dimensionless amplitude ratio, the margin a competition between two powers of ell_node/r_sat)"
+  },
+  "UNDERDETERMINED-CANON": {
+   "P3_absence_receipt": true,
+   "P4_absence_receipt": true,
+   "fires": true,
+   "missing_laws_enumerated": [
+    "I_omega(A) grading law -- exponent b -- ZERO hits on P3 and P4, both engines",
+    "G_c(A) grading law -- exponent a -- no canon leaf states it; the only substantive P2 hit is the ENGINE line cosserat_field_3d.py:767, unratified"
+   ],
+   "n_files_scanned": 4418,
+   "note": "the absence receipts are RE-VERIFIED on this branch by the reproduction, not inherited from the v1 record"
+  },
+  "analogy_declaration": "every p >= 2 member rides the RHO-B 1/S^3 grading applied to the micro-inertia BY ANALOGY. It is an ANALOGY and NOT CANON, and is labelled as such at every site it appears.",
+  "bin_arithmetic_source": "ibid. section 7 frozen bin-arithmetic -- BOTH bins reported, members named, no member preferred, no single headline bin unless every member agrees",
+  "bin_definitions_source": "research/2026-08-05_approach-leak_prereg-FROZEN.md section 7 -- used VERBATIM; no boundary moved, no bin added or merged",
+  "every_stated_member_is_GAP-CLOSED": true,
+  "members": [
+   {
+    "N_open_distinct_values": [
+     0
+    ],
+    "bin_by_v1_frozen_definition": "GAP-CLOSED",
+    "canon_or_engine_stated": true,
+    "log10_margin_max": "28.5390213113265818034620588460",
+    "log10_margin_min": "24.3306470124535135807531307830",
+    "n_distinct": 1,
+    "p": "0.5",
+    "provenance": "(a=1,b=0) the DISPATCH's stated expectation, gap ~ sqrt(S_eps)",
+    "requires_unwritten_I_omega_law": false,
+    "side_of_p_crit": "below",
+    "split_overlay": false,
+    "zeta_max_over_sweep": "4.67038827711388070441696359081e-25"
+   },
+   {
+    "N_open_distinct_values": [
+     0
+    ],
+    "bin_by_v1_frozen_definition": "GAP-CLOSED",
+    "canon_or_engine_stated": true,
+    "log10_margin_max": "9.73783548490830106986411196927",
+    "log10_margin_min": "8.05839083655577165672576911697",
+    "n_distinct": 1,
+    "p": "1.0",
+    "provenance": "(a=2,b=0) the ENGINE's coded a (cosserat_field_3d.py:767 x :761) with I_omega ungraded",
+    "requires_unwritten_I_omega_law": false,
+    "side_of_p_crit": "below",
+    "split_overlay": false,
+    "zeta_max_over_sweep": "7.64219872765688277388060621827e-17"
+   },
+   {
+    "N_open_distinct_values": [
+     0
+    ],
+    "bin_by_v1_frozen_definition": "GAP-CLOSED",
+    "canon_or_engine_stated": false,
+    "log10_margin_max": "3.47077354276887415866479634368",
+    "log10_margin_min": "2.63430544458985768204998189494",
+    "n_distinct": 1,
+    "p": "1.5",
+    "provenance": "(a=3,b=0) or (a=0,b=3) -- filler member so the below-knife arm is not two-point",
+    "requires_unwritten_I_omega_law": false,
+    "side_of_p_crit": "below",
+    "split_overlay": false,
+    "zeta_max_over_sweep": "0.0000000125049992972797073610801916705"
+   },
+   {
+    "N_open_distinct_values": [
+     0,
+     1
+    ],
+    "bin_by_v1_frozen_definition": "CHANNEL-OPENS",
+    "canon_or_engine_stated": false,
+    "log10_margin_max": "0.337242571699160703065138530892",
+    "log10_margin_min": "-0.0777372513930993052879117160689",
+    "n_distinct": 2,
+    "p": "2.0",
+    "provenance": "(a=1,b=3) dispatch's a with the RHO-B ANALOGY for I_omega -- ANALOGY, NOT CANON",
+    "requires_unwritten_I_omega_law": true,
+    "side_of_p_crit": "ON",
+    "split_disaggregation_by_theta": {
+     "0.500": [
+      0,
+      1
+     ],
+     "1.00": [
+      0
+     ]
+    },
+    "split_note": "the aggregate hides a split; disaggregated by theta through v1's own N_open_count. The AWARDED bin remains v1's frozen CHANNEL-OPENS (N_open >= 1 at some row); the split is a REPORTING overlay and moves no boundary.",
+    "split_overlay": true,
+    "zeta_max_over_sweep": "91.3379208100579910158046584733"
+   },
+   {
+    "N_open_distinct_values": [
+     485,
+     "...",
+     3228
+    ],
+    "bin_by_v1_frozen_definition": "CHANNEL-OPENS",
+    "canon_or_engine_stated": false,
+    "log10_margin_max": "-1.34287601094266738233808332478",
+    "log10_margin_min": "-1.90496286898287349166893429868",
+    "n_distinct": 384,
+    "p": "2.5",
+    "provenance": "(a=2,b=3) engine's a with the RHO-B ANALOGY for I_omega -- ANALOGY, NOT CANON",
+    "requires_unwritten_I_omega_law": true,
+    "side_of_p_crit": "above",
+    "split_overlay": false,
+    "zeta_max_over_sweep": "1.00000019302787476201778887731"
+   },
+   {
+    "N_open_distinct_values": [
+     84316,
+     "...",
+     881448
+    ],
+    "bin_by_v1_frozen_definition": "CHANNEL-OPENS",
+    "canon_or_engine_stated": false,
+    "log10_margin_max": "-2.46295506603721943124461311657",
+    "log10_margin_min": "-3.12311328070938961993742507641",
+    "n_distinct": 387,
+    "p": "3.0",
+    "provenance": "(a=3,b=3) loosest member so the above-knife arm is not single-point",
+    "requires_unwritten_I_omega_law": true,
+    "side_of_p_crit": "above",
+    "split_overlay": false,
+    "zeta_max_over_sweep": "1.00000000000000166828253699831"
+   }
+  ],
+  "members_canon_or_engine_states": [
+   "0.5",
+   "1.0"
+  ],
+  "rotational_top_bracket_status": "MOOT on every below-knife member -- the drive never reaches the band at all, so its top is never consulted. Reported as moot, not silently dropped."
+ },
+ "certification": {
+  "all_gates_pass": true,
+  "all_self_tests_fire": true,
+  "consequence_clause": "v2 RETAINS the GLOBAL form of v1's consequence, unweakened (prereg section 5.1) -- a v2 choice recorded before any v2 number existed, and the stricter of the two options",
+  "verdict": "LEAK-CERTIFIED-V2"
+ },
+ "flags_carried_by_pointer": {
+  "FLAG-EXP": "research/2026-08-05_approach-leak_result.md section 7 -- not restated, not repaired",
+  "FLAG-FREEZE": "DISCHARGED by this lane; the v1 body stays byte-untouched (Rule 12)",
+  "FLAG-IOMEGA": "research/2026-08-05_approach-leak_result.md section 7 -- not restated, not repaired",
+  "FLAG-MECH": "research/2026-08-05_approach-leak_result.md section 7 -- not restated, not repaired",
+  "FLAG-ROTTOP": "research/2026-08-05_approach-leak_result.md section 7 -- not restated, not repaired",
+  "FLAG-RUNGPROV": "NEW, minted at freeze (prereg section 2.1). Surfaced, NOT repaired.",
+  "FLAG-SCANFRAG": "NEW, minted at freeze (prereg section 1.1). Surfaced, NOT repaired."
+ },
+ "gates": {
+  "G-DET-V1-WRAPPED": {
+   "frozen": "v1's own G-DET criterion, preserved under the section-1.1 build-wiring supersession: the v1 driver re-run in-process under the wrapper must reproduce the shipped digest. Same criterion, same tolerance (identity).",
+   "pass": true,
+   "recomputed_digest": "2af8acfe23aabb96",
+   "shipped_digest": "2af8acfe23aabb96"
+  },
+  "G-NC-REPRO": {
+   "declared_intervention": "v1._tracked_files is wrapped to additionally drop THIS lane's six artifacts, restoring the v1 scan surface exactly (prereg section 3.2). Without it the delta is exactly seven leaves, of which n_files_scanned and scan.P5 are pure self-reference. The wrapper is ITSELF GATED by requiring n_files_scanned = 4418.",
+   "digest_identical": true,
+   "frozen": "the v1 instrument, re-executed on this branch under the section-3.2 wrapper, reproduces the shipped approach_leak_results.json with EXACT STRING EQUALITY on every leaf apart from _runtime_sec; 0 mismatches required, and the recomputed _digest must equal the shipped one",
+   "ignored_leaves": [
+    "/_runtime_sec (machine-dependent; not a number-check target)"
+   ],
+   "mismatches": [],
+   "n_leaves_compared": 1431,
+   "n_leaves_ignored": 1,
+   "n_leaves_shipped_total": 1432,
+   "n_mismatches": 0,
+   "pass": true,
+   "recomputed_digest": "2af8acfe23aabb96",
+   "shipped_digest": "2af8acfe23aabb96",
+   "v2_artifacts_dropped_from_scan_surface": [
+    "_orchestration/docket-entries/2026-08-06-approach-leak-v2.md",
+    "research/2026-08-06_approach-leak-v2_prereg-FROZEN.md",
+    "research/2026-08-06_approach-leak-v2_result.md",
+    "research/drivers/approach_leak_v2.py",
+    "research/drivers/approach_leak_v2_number_check.py",
+    "research/drivers/approach_leak_v2_results.json"
+   ]
+  },
+  "G-NC-SLAST": {
+   "S_A_from_shipped_seed": "0.00000000109762455411903921151585733431",
+   "S_A_string_identical_to_shipped": true,
+   "bound_leg_A": "5e-30",
+   "bound_leg_Bs": "2.5e-16",
+   "bound_leg_Bx": "5e-16",
+   "derivation": "the tolerances derive from the DIGIT COUNTS of the shipped strings and from nothing else: half a unit in the 30th significant digit for the comparand's mp.nstr(x, 30) rendering, and half a unit in the 17th for the seed's, times a declared safety factor for the seed's unauditable upstream chain (FLAG-RUNGPROV). v1's measured 2.04408e-17 is NOT an input to either derivation.",
+   "frozen": "SEED-AWARE re-anchor (prereg section 2). LEG-A: S_last recomputed from the SHIPPED SEED through the identical cancellation-free form reproduces the shipped S_last. LEG-B: this lane's mass-derived ell/r_sat and S_1 reproduce the shipped strings. PASS iff ALL THREE legs pass.",
+   "headroom_leg_A": "200x",
+   "leg_A_pass": true,
+   "leg_A_rel": "7.74183e-31",
+   "leg_Bs_pass": true,
+   "leg_Bs_rel": "2.04408e-17",
+   "leg_Bx_pass": true,
+   "leg_Bx_rel": "4.08817e-17",
+   "pass": true,
+   "seed_render_bound": "5e-17",
+   "seed_safety_factor": 10,
+   "shipped_S_last": "0.00000000109762455411903921151585733431",
+   "shipped_comparand_significant_digits": 30,
+   "shipped_seed_ell_over_rsat": "6.0238983090250982e-19",
+   "shipped_seed_significant_digits": 17,
+   "this_lane_S_1": "0.00000000109762455411903923395222956603",
+   "this_lane_ell_over_rsat": "6.02389830902509844626713066887e-19",
+   "tol_leg_A": "1e-27",
+   "tol_leg_B": "5e-16",
+   "v1_domain_of_validity_violation": "1e-40 sat 10 orders below the comparand's own 30-digit rendering floor and 23 orders below the seed's 17-digit floor: unsatisfiable by ANY correct instrument, hence ARTIFACT-class",
+   "v1_frozen_tolerance_superseded": "1e-40 rel (single leg, mass-derived)"
+  },
+  "NC-BYTES": {
+   "amendment": "AMENDMENT-NCBYTES-2026-08-06",
+   "amendment_disclosure": "research/2026-08-06_approach-leak-v2_result.md section 9; _orchestration/docket-entries/2026-08-06-approach-leak-v2-correction.md",
+   "artifacts": [
+    {
+     "blob_at_v1_pin": "42f5c9630b73",
+     "blob_at_v1_ship": "42f5c9630b73",
+     "blob_live": "42f5c9630b73",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/2026-08-05_approach-leak_prereg-FROZEN.md"
+    },
+    {
+     "blob_at_v1_pin": "1671d36dac69",
+     "blob_at_v1_ship": "efa13ef999c7",
+     "blob_live": "1671d36dac69",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": true,
+     "moved_by_disclosed_repair_DECLARED": true,
+     "path": "research/2026-08-05_approach-leak_result.md"
+    },
+    {
+     "blob_at_v1_pin": "2fd15ea7387b",
+     "blob_at_v1_ship": "ac3068174e20",
+     "blob_live": "2fd15ea7387b",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": true,
+     "moved_by_disclosed_repair_DECLARED": true,
+     "path": "research/drivers/approach_leak.py"
+    },
+    {
+     "blob_at_v1_pin": "35415d29d317",
+     "blob_at_v1_ship": "35415d29d317",
+     "blob_live": "35415d29d317",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/drivers/approach_leak_results.json"
+    },
+    {
+     "blob_at_v1_pin": "4dc4f9929492",
+     "blob_at_v1_ship": "4dc4f9929492",
+     "blob_live": "4dc4f9929492",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/drivers/approach_leak_number_check.py"
+    },
+    {
+     "blob_at_v1_pin": "49b2e236e79b",
+     "blob_at_v1_ship": "49b2e236e79b",
+     "blob_live": "49b2e236e79b",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "_orchestration/docket-entries/2026-08-05-approach-leak.md"
+    },
+    {
+     "blob_at_v1_pin": "7406c8f793b7",
+     "blob_at_v1_ship": "7406c8f793b7",
+     "blob_live": "7406c8f793b7",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse.py"
+    },
+    {
+     "blob_at_v1_pin": "14b8e909421f",
+     "blob_at_v1_ship": "14b8e909421f",
+     "blob_live": "14b8e909421f",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse_results.json"
+    },
+    {
+     "blob_at_v1_pin": "bee3d3884f6b",
+     "blob_at_v1_ship": "bee3d3884f6b",
+     "blob_live": "bee3d3884f6b",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/drivers/last_bond_kernel_collapse_number_check.py"
+    },
+    {
+     "blob_at_v1_pin": "a9da71b525bc",
+     "blob_at_v1_ship": "a9da71b525bc",
+     "blob_live": "a9da71b525bc",
+     "byte_identical": true,
+     "declaration_reconciles": true,
+     "moved_by_disclosed_repair_COMPUTED": false,
+     "moved_by_disclosed_repair_DECLARED": false,
+     "path": "research/2026-08-05_last-bond-kernel-collapse_result.md"
+    }
+   ],
+   "artifacts_moved_between_pins_COMPUTED": [
+    "research/2026-08-05_approach-leak_result.md",
+    "research/drivers/approach_leak.py"
+   ],
+   "artifacts_moved_between_pins_DECLARED": [
+    "research/2026-08-05_approach-leak_result.md",
+    "research/drivers/approach_leak.py"
+   ],
+   "delta_declaration_reconciles": true,
+   "frozen": "every read-only predecessor artifact hashes to its blob at the pinned v1 commit -- this lane wrote none of them. AMENDED 2026-08-06: the pin is the REPAIRED v1 tip f3607be8, not the pre-repair ship 5e2694c0; two of the ten were rewritten between them by the ORCHESTRATOR's disclosed SCANFRAG repair, an event extrinsic to this lane. Purpose preserved, no conjunct dropped, two conjuncts ADDED that gate the re-pin itself.",
+   "n_artifacts": 10,
+   "pass": true,
+   "pin_choice": "ALL TEN re-pinned at the repaired v1 tip (not a split pin)",
+   "pin_choice_rationale": "one pin, one truth-source: f3607be8 is a descendant of 5e2694c0 whose diff touches exactly two of the ten, so for the other eight the pin is a COMPUTED no-op (see unmoved_artifacts_identical_at_both_commits); and the repaired tip is the predecessor state that will actually merge to main, so the gate tracks the mergeable predecessor rather than a superseded intermediate. A split pin would carry two commit references for one roster with no gain in strength and a standing drift hazard.",
+   "pin_commit": "f3607be8",
+   "superseded_pin_commit": "5e2694c0",
+   "superseded_pin_retained_per_artifact": true,
+   "unmoved_artifacts_identical_at_both_commits": true
+  },
+  "NC-FT": {
+   "frozen": "all 6 v1 self-test blocks reproduce, every field, every fires flag true",
+   "n_self_tests_firing": 6,
+   "pass": true,
+   "self_tests_firing": [
+    "FT-COND",
+    "FT-COUNT",
+    "FT-KNIFE",
+    "FT-REAL",
+    "FT-SCAN",
+    "FT-ZID"
+   ]
+  },
+  "NC-GATES": {
+   "frozen": "every v1 gate block reproduces, including the 9 shipped pass:true, the 1 shipped pass:false (v1's G-NC-SLAST at its OWN 1e-40 siting -- reproducing v1's FAILING value byte-exact is the strongest available proof that only the ANCHOR moved and not the instrument), and the 2 shipped pass:null",
+   "gates_pass_false": [
+    "G-NC-SLAST"
+   ],
+   "gates_pass_null": [
+    "G-DET",
+    "G-RHO-SPECTATOR"
+   ],
+   "gates_pass_true": [
+    "G-CANON",
+    "G-COND",
+    "G-COUNT",
+    "G-KNIFE",
+    "G-NC-BAND",
+    "G-REAL",
+    "G-SCAN",
+    "G-SUM",
+    "G-ZID"
+   ],
+   "n_gates_pass_false": 1,
+   "n_gates_pass_null": 2,
+   "n_gates_pass_true": 9,
+   "pass": true,
+   "v1_G_NC_SLAST_failing_value_reproduced": "2.04408e-17",
+   "v1_G_NC_SLAST_shipped_value": "2.04408e-17"
+  },
+  "NC-SCAN": {
+   "frozen": "n_files_scanned reproduces as 4418 and every P1-P5 hit count, agreement flag and union-hit list reproduces -- so the I_omega(A) absence receipt UNDERDETERMINED-CANON rests on is RE-VERIFIED, not inherited",
+   "n_files_scanned": 4418,
+   "n_files_scanned_expected": 4418,
+   "pass": true,
+   "per_pattern": {
+    "P1": {
+     "A": 4,
+     "B": 4,
+     "absence_receipt": false,
+     "agree": true
+    },
+    "P2": {
+     "A": 4,
+     "B": 4,
+     "absence_receipt": false,
+     "agree": true
+    },
+    "P3": {
+     "A": 0,
+     "B": 0,
+     "absence_receipt": true,
+     "agree": true
+    },
+    "P4": {
+     "A": 0,
+     "B": 0,
+     "absence_receipt": true,
+     "agree": true
+    },
+    "P5": {
+     "A": 5,
+     "B": 5,
+     "absence_receipt": false,
+     "agree": true
+    }
+   }
+  }
+ },
+ "gates_DET": {
+  "G-DET-V2": {
+   "frozen": "two full v2 runs, identical digest, byte-identical apart from _runtime_sec",
+   "method": "MACHINE-GATED on every make verify: approach_leak_v2_number_check.py re-runs this driver into a temporary path via APPROACH_LEAK_V2_OUT and requires the recomputed _digest to equal the shipped one",
+   "pass": null,
+   "status": "GATED BY THE NUMBER-CHECK"
+  }
+ },
+ "self_tests": {
+  "FT-SLAST": {
+   "coarse_fires": true,
+   "coarse_leg_A_pass": false,
+   "coarse_leg_A_rel": "5.00000e-13",
+   "coarse_leg_Bx_pass": false,
+   "coarse_leg_Bx_rel": "9.99959e-13",
+   "coarse_perturbation": "1e-12",
+   "fine_fires": true,
+   "fine_leg_A_pass": false,
+   "fine_leg_A_rel": "1.00008e-26",
+   "fine_leg_Bs_pass": true,
+   "fine_leg_Bx_pass": true,
+   "fine_perturbation": "1e-26",
+   "fires": true,
+   "frozen": "(i) COARSE: perturbing the shipped seed by 1e-12 must make LEG-A FAIL and LEG-B(x) FAIL. (ii) FINE: perturbing the shipped comparand by 1e-26 must make LEG-A FAIL while LEG-B is untouched and still passes -- proving the 1e-27 leg is non-vacuous at its own scale. BOTH parts required."
+  }
+ }
+}
