@@ -65,13 +65,23 @@ Line-cite (`path.ext:NN`) pass — added 2026-08-05, cite-rot options (2)+(3):
       whose path resolves nowhere.
     - `stale line-cite waiver` — GATING, like its kbleaf twin.
 
-  POSTURE (measured, not assumed — full counts in the docket fragment
-  `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`):
-  `dead line cite` gates from day one because its error-source population
-  measured ZERO at the landing HEAD; the two advisory kinds do NOT gate
-  because theirs measured 194 and 186, and a gate that red-lights merge on
-  day one gets bypassed rather than obeyed. Each advisory kind carries a named
-  flip condition in that fragment.
+  POSTURE (measured, not assumed). `dead line cite` gates from day one
+  because its error-source population measured ZERO — and that zero does not
+  go stale, because the gate itself re-asserts it on every `make verify`. The
+  two advisory kinds do NOT gate because their error-source populations are a
+  real pre-existing backlog, and a gate that red-lights merge on day one gets
+  bypassed rather than obeyed.
+
+  NO CENSUS IS BAKED INTO THIS DOCSTRING. The single source of truth for every
+  count — populations, flip conditions, measurement basis — is the docket
+  fragment `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
+  The live numbers are printed by every run (`make verify-md-links`, and
+  `--advisory-cites report` for the itemised queue). Three separate stale
+  figures shipped in this file's first draft; a comment that carries a census
+  is a comment that lies within the month, so it now carries a pointer.
+  N.B. the counts are CHECKOUT-SENSITIVE (this pass walks the filesystem, so
+  untracked local files resolve paths a fresh clone cannot) — measure in a
+  pristine `git worktree`, per the docket fragment's §2 measurement basis.
 
   Deliberately-historical cites ("§9 as shipped on `c4a546dc`") are skipped by
   a backticked-SHA-on-the-line heuristic — the corpus has no machine-readable
@@ -628,16 +638,20 @@ def check_line_cites(
 
     `blank line cite` — ADVISORY, never gating. The cited line exists but is
       empty or pure decoration, so the cite anchors nothing. Almost always
-      one-line drift (the content sits at N+1). Advisory because the measured
-      error-source population is a real backlog (258 at this HEAD) and a gate
-      that red-lights merge on day one gets bypassed, not obeyed.
+      one-line drift (the content sits at N+1). Advisory because its
+      error-source population is a real pre-existing backlog and a gate that
+      red-lights merge on day one gets bypassed, not obeyed.
 
     `broken backtick path` — ADVISORY, never gating. A backticked-bare cite
       whose path resolves nowhere. This form was never path-checked before, so
-      turning it on surfaces a pre-existing backlog (1,835 at this HEAD, heavy
-      with pattern/placeholder strings like `volN/claim-quality.md`). Reported
-      and counted; not gated. Link-form cites are NOT re-reported here — the
+      turning it on surfaces a pre-existing backlog, heavy with
+      pattern/placeholder strings like `volN/claim-quality.md`. Reported and
+      counted; not gated. Link-form cites are NOT re-reported here — the
       existing link pass already owns their paths.
+
+    Counts for both advisory kinds live in the docket fragment named in the
+    module docstring, not here — see the NO CENSUS IS BAKED note there. Every
+    run prints the live populations.
 
     Returns (findings, stats, matched_waiver_keys).
     """
@@ -1059,8 +1073,8 @@ def report_advisory_cites(
 
     `report` prints every advisory finding; `summary` prints per-kind counts
     (split error-source / warn-source) plus a capped sample of the
-    error-source ones. Advisory volume is ~2,900 findings at this HEAD —
-    printing it unconditionally would drown the gating report.
+    error-source ones. Advisory volume is in the thousands — printing it
+    unconditionally would drown the gating report.
     """
     advisory = [f for f in findings if f.kind in _ADVISORY_CITE_KINDS]
     if not advisory:
