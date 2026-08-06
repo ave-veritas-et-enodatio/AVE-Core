@@ -40,6 +40,36 @@ jobs:
       - name: make test
         run: make test
 
+  # Cite-rot option (3): the NEW-cite excerpt ratchet. PR-only — it measures
+  # what a branch ADDS against the merge base, so it is meaningless on a push
+  # to main. Needs full history (fetch-depth: 0) for the merge-base diff.
+  #
+  # SEPARATE JOB, and keep it NON-required in branch protection until the
+  # orchestrator flips it — same posture as the engine-sims job below, and for
+  # the same reason: this is a workflow change with blast radius past the
+  # checker itself. Back-tested over the last 25 merges to main, it would have
+  # blocked 4 of the 20 PR merges (each adding 1-8 excerpt-less KB cites) — which
+  # is the intended behaviour, not a defect, but it is the orchestrator's call
+  # to make it blocking, not the implementer's.
+  new-cite-excerpts:
+    name: new-cite excerpt ratchet (non-required)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (full history — merge-base diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: make verify-new-cite-excerpts
+        run: make verify-new-cite-excerpts CITE_BASE=origin/${{ github.base_ref }}
+
   # Opt-in lane: the slow tier-1/2 engine-simulation tests (`-m engine_sim`).
   # Runs on the same triggers so engine PRs get coverage feedback, but it is a
   # SEPARATE job — keep it NON-required in branch protection so its latency

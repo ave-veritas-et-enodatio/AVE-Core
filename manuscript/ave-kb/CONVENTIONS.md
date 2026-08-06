@@ -328,6 +328,84 @@ Cross-volume references must not paraphrase or summarize the target content.
 
 ---
 
+## Location cites (`path.ext:NN`) — excerpt requirement
+
+A **location cite** names a file and a line. Two written forms are in use:
+
+```markdown
+`path/leaf.md:42`                     backticked-bare
+[`leaf.md:42`](path/leaf.md)          label-external — the KB house form
+```
+
+It is the corpus's load-bearing provenance form, and a bare `:NN` **rots
+silently** — insert ten lines above it and the pointer still parses, still
+resolves, and now names the wrong content.
+
+**Every NEW location cite in the KB tree (or in `README.md` /
+`LIVING_REFERENCE.md` / `AGENTS.md`) must carry a verbatim excerpt of the cited
+content, on the same line or the line immediately above/below.**
+
+Two excerpt styles are accepted, because the corpus already writes both, and
+the checker recognises both:
+
+```markdown
+per [`some-leaf.md:42`](../volN/domain/chNN-topic/some-leaf.md)
+— `the verbatim sentence that line 42 actually carries`
+
+per [`some-leaf.md:42`](../volN/domain/chNN-topic/some-leaf.md)
+— *"the verbatim sentence that line 42 actually carries"*
+```
+
+Use **backticks** for symbols, identifiers, and code; use the
+**emphasised quote** (`*"…"*`, `**"…"**`, `_"…"_`) for running prose, which is
+the register most KB rulings quote in. An emphasised-quote excerpt is
+recognised even when it straddles a hard line-wrap. Neither style is preferred
+by the gate; a cite with **no** excerpt in either style is what it blocks.
+
+(The path above is deliberately synthetic. Do not copy a real-looking cite out
+of an example — an illustrative cite that names a real file is the seed of the
+next stale pointer.)
+
+The excerpt is what makes the cite **self-verifying**: when the target file
+moves, the drift checker can re-anchor the pointer by content instead of the
+`:NN` going quietly stale. A cite with no excerpt is uncheckable by any tool the
+repo has.
+
+**Enforcement is a ratchet, not a sweep.** `make verify-new-cite-excerpts`
+(`CITE_BASE=<ref>`, default `origin/main`) checks only the cites a branch
+**ADDS**, so the pre-existing backlog is never a blocker and never grows.
+Existing excerpt-less cites are repaired opportunistically, when a lane is in
+that file for another reason.
+
+**What the gates do and do not cover:**
+
+| check | scope | gating? |
+|---|---|---|
+| `verify-md-links` — path resolves | md-link cite forms | yes, from a KB source |
+| `verify-md-links` — cited line EXISTS | all three cite forms | yes, from a KB source |
+| `verify-md-links` — cited line is blank / decoration-only | all forms | no (advisory) |
+| `verify-md-links` — backticked-bare cite path resolves | backticked form | no (advisory) |
+| `verify-new-cite-excerpts` — added cites carry an excerpt | KB tree + root docs | yes |
+| `verify-anchor-content` — excerpt still at the cited line | cites with an excerpt | no (advisory) |
+
+Line **existence** gates; line **content drift** does not. Writing the excerpt is
+what moves a cite from the second row to the first.
+
+**Deliberately-historical cites** — a pointer pinned to a past repo state — are
+skipped by the line-existence check when the line carries a **backticked short
+SHA** (`` as shipped on `c4a546dc` ``). That backticked SHA is the only marker
+the corpus has; write it if a cite is meant to be read against a past commit.
+
+⚠ **That skip is LINE-scoped, and it is coarse.** A SHA anywhere on a line
+exempts **every** location cite on that line — including live ones. On a KB
+ledger row (routinely 500–2,000 characters, mixing one provenance SHA with
+several live derivation cites) this silently switches line-checking off for the
+whole row. So: **do not park a live cite on the same line as a provenance SHA**
+if you want it checked. Measured cost and precision, with worked instances, in
+§5 of `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
+
+---
+
 ## Adding New Content
 
 1. One file per source section (resultbox boundary or natural section break in the source).

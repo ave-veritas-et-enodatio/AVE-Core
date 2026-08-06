@@ -154,7 +154,7 @@ Three walk-level observations, each with its canon-side hook:
 
 **This is the single most abusable line in the taxonomy, so it is stated first and loudly.** A row's wall belongs to **one channel**. The other channels are entitled to walk straight through it, and in canon they demonstrably do:
 
-- **At $r_{sat}$, the same physical surface is three different things at once.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–54 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting.** That leaf's own conclusion, verbatim (`:54`): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).**
+- **At $r_{sat}$, the same physical surface is FOUR different things at once** *(three until 2026-08-05; row 4 added by the upgrade wave — the count is live, not decorative)*. [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):48–55 tabulates it: $\Gamma_{shear} = -1$ and $\Gamma_{bulk} = -1$, but $\Gamma_{EM} = 0$ — **the EM channel is matched, not reflecting** — and **row 4, the Cosserat micro-rotation channel, has NO WALL HERE AT ALL**: its transport survives at full cold value ($S_\kappa$(wall) measured `1` **to every digit double precision carries** at physical gradients — the ceiling is reached only at the unphysical one-node gradient `qℓ_node = 1`, where it is `0.999979916516139` at `ρ_bond = 1` and `0.998449148919932` at `ρ* = 9.7734`, a `77×` larger deficit and the honest ceiling to quote — [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):318,:319,:320–323,:325) and its own wall is a $\kappa$-*amplitude* surface (§10.2). That leaf's own conclusion, verbatim (`:55` — was `:54` before the 2026-08-05 row-4 insert): *"**BH-echo yes/no is therefore a channel question.** … Statements that 'the horizon is a perfect absorber' (EM) and 'the horizon reflects shear/GW modes' are **not contradictory** once channel subscripts are explicit."* **⚑ §10: the $\Gamma_{bulk}=-1$ entry there is the RHO-A/shunt-projection/load-plane value — sign-relativity ruling 2026-08-04 (§10).** **⚑ CROSS-GRADE FENCE — this row-4 sentence is the most abusable line in the most abusable section, so its condition rides with it.** *"Row 4 has no wall here"* holds on the **separate-kernel (L∞-across-grades)** member of an **open** fork; canon records the **cross-grade combine rule as underdetermined at $O(\alpha)$** ([`axiom-register.md`](axiom-register.md):190,:232), and on the **normalized-L2-across-grades** member every grade rides ONE kernel and the carve-out does **NOT** stand. Neither receipt lane chooses the member. **This fence is NOT in the ruled text — checked against the LANDED record, [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21` (PR #897); it is added by the doc lane 2026-08-05 and routed to Grant — full statement and receipts at §10.2.**
 - **The $\mu$-grade is keyed on circulation, so a static $\mathbf{B}$ sees no wall at all.** Route C: *"$\Delta n = 0$ under static B ($\mu$ = ideal relativistic inductor, circulation-keyed; static B has no $dB/dt \to S_\mu = 1$)"* ([`cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md):124; verdict leaf [`pvlas-static-b-verdict.md`](../vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md)). A field that would saturate the rotational grade if it were *circulating* does nothing to it when it is *static* — same field magnitude, no wall, because the wall's coordinate is the wrong one for that excitation.
 
 **Operational rule.** Before asserting a wall anywhere: name (i) the **channel**, (ii) the **axis** it lives on, and (iii) the **phase-state** (cold/sub-yield vs saturated). A claim missing any of the three is not yet a claim about a wall.
@@ -165,7 +165,7 @@ Three walk-level observations, each with its canon-side hook:
 
 | # | The wall | Axis | Channel | $\Gamma$ | What it tells you | Canon anchor (byte-verified) |
 |---|---|---|---|---|---|---|
-| **1** | $r_{sat} = 7GM/c^2$ | **space** | shear (and bulk ⚑1§10) | $-1$ short (shear, RHO-A branch); bulk: computed-not-chosen (§10) | The horizon-analog. AVE puts the saturation boundary at $3.5\,r_s$, **not** $r_s$ — quoted (emphasis added): *"a **falsifiable prediction** for any high-gravity observational test"*. ⚠ **Status of that prediction, carried per this leaf's own §Scope rule:** the owning claim is **`clm-law1ho`, solidity 0.55, build-band `input-only`** — canon's own wording, *"use as input only, don't build deeper"* — and canon **scopes the falsifier itself**: $r_{sat}=3.5\,r_s$ is a **shear-mode + matter** boundary, **NOT photon-geometric**; *"EHT shadow / photon-ring radius do NOT discriminate $r_{\text{sat}}$ from $r_s$ (prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit)."* **Do not read the falsifiability line as an open observational test on the photon channel.** ⚑ walk-level rider below | [`ave-bh-horizon-area-theorem.md`](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md):33 (boxed $r_{sat}=7GM/c^2$), :37 (the falsifiability line); claim `clm-law1ho` + solidity + build-band + the photon-channel caveat at [`vol3/claim-quality.md`](../vol3/claim-quality.md):1088 (id), :1097 (the caveat), :1109 (`solidity: 0.55 (use as input only, don't build deeper)`); [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):51 ($G_{shear}\to0 \Rightarrow \Gamma_{shear}=-1$), :48–54 (the three-channel table) |
+| **1** | $r_{sat} = 7GM/c^2$ | **space** | shear (and bulk ⚑1§10) | $-1$ short (shear, RHO-A branch); bulk: computed-not-chosen (§10) | The horizon-analog. AVE puts the saturation boundary at $3.5\,r_s$, **not** $r_s$ — quoted (emphasis added): *"a **falsifiable prediction** for any high-gravity observational test"*. ⚠ **Status of that prediction, carried per this leaf's own §Scope rule:** the owning claim is **`clm-law1ho`, solidity 0.55, build-band `input-only`** — canon's own wording, *"use as input only, don't build deeper"* — and canon **scopes the falsifier itself**: $r_{sat}=3.5\,r_s$ is a **shear-mode + matter** boundary, **NOT photon-geometric**; *"EHT shadow / photon-ring radius do NOT discriminate $r_{\text{sat}}$ from $r_s$ (prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit)."* **Do not read the falsifiability line as an open observational test on the photon channel.** ⚑ walk-level rider below | [`ave-bh-horizon-area-theorem.md`](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md):33 (boxed $r_{sat}=7GM/c^2$), :37 (the falsifiability line); claim `clm-law1ho` + solidity + build-band + the photon-channel caveat at [`vol3/claim-quality.md`](../vol3/claim-quality.md):1088 (id), :1097 (the caveat), :1109 (`solidity: 0.55 (use as input only, don't build deeper)`); [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):51 ($G_{shear}\to0 \Rightarrow \Gamma_{shear}=-1$), :48–55 (the four-channel table) |
 | **2** | **the particle's own wall** | **space (self)** | per-particle; the register its winding loads | $\pm1$ — **and the sign is a spin/sign SELECTOR, not a mass knob** | A resonator bounded by *its own* saturation. The wall is the observability boundary — *"total internal reflection … hiding the interior"* — and it is what carries $\mathcal{M},\mathcal{Q},\mathcal{J}$ outward. **#260 ruling: the magnetic-vs-capacitive branch is DEGENERATE (B3)** — it selects sign/spin, it is **not** a sector branch and **not** a mass mechanism (mass $=$ A1, settled independently) | [`envelope-anatomy.md`](envelope-anatomy.md):32 (the wall; the #260 sign-selector sentence); [`vocabulary-register.md`](vocabulary-register.md):404 (three-surface form); wall-branch fork ARC-04 receipts at [`program-arc-map.md`](program-arc-map.md):122,:126 (*"PR #260; `audit/2026-06-15_wall-branch-fork`"*) |
 | **3** | $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV | **amplitude** | dielectric / $\varepsilon$ (the $T_2$ electric yield) — ⚑ **see the $\varepsilon\!\leftrightarrow\!\Gamma$ pairing tension note below the table** | $-1$ from below; **topology destroyed** from above | The breakdown wall — and canon's own framing of it is *exactly* Grant's two-sided reading: *"from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces."* The approach is the Miller-multiplication regime; the crossing is $M\to\infty$ (see the ⚠ precision note below the table) | [`four-regimes.md`](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md):60 (the $r_3 = 1.0 \equiv V_{yield}$ identification + the two-faces sentence), :58 ($r_3$; *"$V_R = V_{BR}$, $M\to\infty$"*); [`zero-impedance-boundary.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md):19,:43; Schwinger↔Miller mapping row at [`translation-circuit.md`](translation-tables/translation-circuit.md):127; value at [`constants.py`](../../../src/ave/core/constants.py):505 |
 | **4** | $\omega_{max} = 2c/\ell_{node}$ | **frequency** | **shear** ($T_2$ shear-G) — **NOT "all channels"**; ⚑ see the in-row flag | band edge; $v_g \to 0$, standing/reactive | The lattice band edge — quoted (emphasis added): *"a hard ultraviolet cutoff … **No mode can oscillate faster, eliminating UV divergence**."* Casimir reads as **below-cutoff cavity exclusion** rather than as zero-point-energy bookkeeping — and canon tags that relabel **consistency-class, explicitly NOT a QED discriminator**. ⚑ **PRE-EXISTING CANON TENSION, SURFACED NOT FIXED — one lattice cutoff, or four?** This row previously read *"all channels (lattice-wide)."* **Canon does not speak with one voice here.** [`yang-mills-steps1-2.md`](../vol2/nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md):30 states a **UNIVERSAL** edge — *"No mode can oscillate faster"* — with **no channel subscript**, at $\omega_{max}=2c/\ell_{node}$. But [`port-register.md`](port-register.md):47–50 carries a **PER-CHANNEL edge table** that disagrees with that value on **three of the four channels**: EM-transverse *"arccos top $\pi\sqrt3\,\omega_C \approx 5.44\,\omega_C$"* (:47), shear *"edge $2c/\ell_{node}$"* (:48), bulk *"edge $2\sqrt2\,c/\ell_{node}$"* (:49), Cosserat *"**GAPPED** … edge $2\sqrt2\,c/\ell_{node}$"* (:50). **The value this row quotes — $2c/\ell_{node}$ — is the SHEAR edge specifically**, which is why the Channel cell now says shear. ⚑ **Routed to Grant, not adjudicated here: *"one lattice cutoff or four?"*** — i.e. is $2c/\ell_{node}$ a universal UV wall that the per-channel table refines, or is the universal phrasing an over-generalization of the shear row? **This leaf takes no position and changes nothing at either site.** (Second-order note: the Casimir/P5 anchors below sit on the **EM** channel, whose edge on the per-channel table is $\approx 5.44\,\omega_C$, not $2c/\ell_{node}$ — the same tension, one row down.) | [`yang-mills-steps1-2.md`](../vol2/nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md):30 (the universal-edge sentence); [`port-register.md`](port-register.md):47,:48,:49,:50 (the per-channel edge table — the conflicting side of the flag); Casimir row (with the consistency-class tag + the 2026-06-03 walk-back) at [`translation-circuit.md`](translation-tables/translation-circuit.md):154; port P5 *"Casimir below-cutoff"* (bold dropped) *"(closed by band position)"*, tagged **emergent-configurational**, at [`port-register.md`](port-register.md):73 |
@@ -292,7 +292,7 @@ Four places where the walk's recollection did not survive the grep. In every cas
 | 17 | `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md` | `:124` | **1/1 PASS** |
 | 18 | `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md` | `:47` | **1/1 PASS** |
 | 19 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` | `:33`, `:37`† | **2/2 PASS** |
-| 20 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md` | `:39`, `:48`, `:51`, `:54` | **4/4 PASS** |
+| 20 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md` | `:39`, `:48`, `:51`, `:55` (`:54` before the 2026-08-05 row-4 insert) | **4/4 PASS** |
 | 21 | `manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/gravitational-coupling-constant.md` | `:10` | **1/1 PASS** |
 | 22 | `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md` | (file only)† | **1/1 PASS** |
 | 23 | `research/2026-07-31_qlaw-framing-challenge_walk.md` | `:5`†, `:15`†, `:16`†, `:893`, `:898`, `:973`, `:1334` | **7/7 PASS** |
@@ -326,8 +326,8 @@ Four places where the walk's recollection did not survive the grep. In every cas
 | Q10 | `manuscript/ave-kb/common/operators.md:43` | EXACT (formula only; the surrounding prose is the leaf's, untagged) | **PASS** |
 | Q11 | `manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md:60` | EXACT | **PASS** |
 | Q12 | `manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md:58` | ALTERED -- spacing inside the math span ('M \to \infty' -> 'M\to\infty') | **PASS** |
-| Q13 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md:54` | EXACT | **PASS** |
-| Q14 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md:54` | ALTERED -- quote-mark swap (double->single) + ellipsis elides two intervening sentences | **PASS** |
+| Q13 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md:55` | EXACT | **PASS** |
+| Q14 | `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md:55` | ALTERED -- quote-mark swap (double->single) + ellipsis elides two intervening sentences | **PASS** |
 | Q15 | `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:124` | ALTERED -- TeX re-render (bare 'μ' -> '$\mu$'; two math spans merged; spacing) AND the parenthetical is CLOSED EARLY, dropping the source's trailing '-- [not "lattice symmetry"]' cross-link | **PASS** |
 | Q16 | `manuscript/ave-kb/common/vocabulary-register.md:404` | ALTERED -- PARENTHETICAL CLOSED EARLY: the leaf writes 'mirror …);' where the source's '(i)' parenthetical continues with three further clauses before its ')' | **PASS** |
 | Q17 | `manuscript/ave-kb/common/vocabulary-register.md:404` | EXACT | **PASS** |
@@ -430,11 +430,11 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > 2. **Projection.** $Z_0=\sqrt{\mathrm{series}/\mathrm{shunt}}$: the same cutoff presents $Z\to\infty$ when the saturation grading loads the SERIES branch (mass / modulus divergence) and $Z\to0$ when it loads the SHUNT branch (compliance divergence). Standard-EE instance: at one waveguide cutoff, $Z_{TE}\to\infty$ while $Z_{TM}\to0$. ⚠ The operator-level decomposition for the $r_{sat}$ wall is routed to the axial RHO-B lane's derived-consequence appendix — analogy-status until that lands.
 > 3. **Computed, not chosen.** The authority for a wall's $\Gamma$ phase is the branch-derived indicial wall row of a certified instrument. Hand-setting a sign is an import (the hand-set-perihelion pattern). Axiom 3 forces only $|\Gamma|=1$.
 >
-> **FLAG-W dissolution.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39,:48–54 ($\Gamma_{bulk}\to-1$) and [`saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59 (bulk rigid) are plane/projection/profile-relative statements, **not a contradiction**. The ch15 step $Z_{bulk}=\rho_{bulk}c_{bulk}\to0$ multiplies a vanishing speed by the CONSTANT density — valid only under the RHO-A profile; under canon's $\rho_{eff}=\rho_0/S^3$ (that leaf's own :73; FORK-3(b), fenced, un-adjudicated) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\rho_{eff}}\to\infty$. Open physics = the constitutive grading near the wall ($\rho(A)$: FORK-3(b) — **its axial run has now LANDED (2026-08-05) and returned `ROOT-NOT-CERTIFIED` with NO physics bin adjudicated, so the fork is still OPEN and none of that lane's figures may be quoted**; $K(A)$). Declaration blocks sit at the foot of both leaves.
+> **FLAG-W dissolution.** [`bulk-impedance-at-saturation-boundary.md`](../vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):39,:48–55 ($\Gamma_{bulk}\to-1$) and [`saturating-modulus-and-backreaction.md`](../vol3/gravity/ch02-general-relativity/saturating-modulus-and-backreaction.md):59 (bulk rigid) are plane/projection/profile-relative statements, **not a contradiction**. The ch15 step $Z_{bulk}=\rho_{bulk}c_{bulk}\to0$ multiplies a vanishing speed by the CONSTANT density — valid only under the RHO-A profile; under canon's $\rho_{eff}=\rho_0/S^3$ (that leaf's own :73; FORK-3(b), fenced, un-adjudicated) the same $c_{bulk}\to0$ coexists with $Z_{bulk}=\sqrt{K\rho_{eff}}\to\infty$. Open physics = the constitutive grading near the wall ($\rho(A)$: FORK-3(b) — **its axial run has now LANDED (2026-08-05) and returned `ROOT-NOT-CERTIFIED` with NO physics bin adjudicated, so the fork is still OPEN and none of that lane's figures may be quoted**; $K(A)$). Declaration blocks sit at the foot of both leaves.
 >
 > **⚑ coldQ clause RE-ISSUED (2026-08-05) — and it does not move this dissolution.** The FORK-3(b) status inside the paragraph above is the **re-issued** form of the ruled three-clause coldQ note, whose second clause was staged as *"FORK-3(b) is owed an axial run"* and had already been overtaken when it first printed. Read at the certification lines: the axial FORK-3(b) run is **not owed — it has RUN**, and its line reads `ROOT-NOT-CERTIFIED` **on every configuration that has a root**, thresholds not retuned, **no physics bin adjudicated** ([`research/2026-08-04_coldq-axial-rhob_result.md`](../../../research/2026-08-04_coldq-axial-rhob_result.md)); the polar family is un-adjudicated for an **instrument-class** reason, `SOLVER-NOT-CERTIFIED` with no bin adjudicated at any precedence level ([`research/2026-08-03_coldq-polar-family_result.md`](../../../research/2026-08-03_coldq-polar-family_result.md)); and the one **certified** axial toroidal instrument (`ROOT-CERTIFIED`) computes a pole that does **not** land on the printed eigenvalue ([`research/2026-08-03_coldq-pole-v2.4-root_result.md`](../../../research/2026-08-03_coldq-pole-v2.4-root_result.md)). **The fork is open because the run adjudicated nothing, not because a run is outstanding** — which is exactly what item 3 above requires before any signed wall row is read off this branch.
 >
-> **Kernel-collapse pointer — certification status carried at the sentence, per the standing print-certification rule (2026-08-05).** The wall's *end condition* now has a derived route: every transport coupling riding the Axiom-4 **strain** kernel is graded to zero at the last bond, so the beyond-wall region is removed from the algebra rather than out-weighed. **Certification state:** the three load-bearing disconnection theorems are **measured exact** (exactly `0` — a measurement, not a tolerance), the continuum-disjointness task is **certified** with its bin adjudicated, and the measured `Γ = −1` is a **last-bond-plane** statement (a full short↔open inversion sits one node outward, at a crossover the same lane shows does not fire at physical parameters); but the **discrete row's certification is PENDING** the named `G-RHO2` repair (`ROW-NOT-CERTIFIED`), and the premise scan is `SCAN-NOT-CERTIFIED` with no bin adjudicated ([`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md)). **Not "confirmed".** **What it does NOT do here:** it does not close FORK-3(b) and does not dissolve this leaf's open-physics line — the profile physics lives in the **approach**; the kernel-collapse route settles the **end**. Ruling records (pointers, not summaries): [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) with its status addendum, and the measured re-scope receipts [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md), which demote the ruling from universal to **channel-scoped** (the rotational transport is carved out — it reaches the wall untouched) and record that the final disposition word is **not on the record at this date**. **The kernel-collapse block's ruled home is §10.2 of this leaf and it has NOT landed** — this note points at the ruling records rather than at an anchor that does not yet exist, and §10.1 below is untouched by it.
+> **Kernel-collapse pointer — certification status carried at the sentence, per the standing print-certification rule (2026-08-05).** The wall's *end condition* now has a derived route: every transport coupling riding the Axiom-4 **strain** kernel is graded to zero at the last bond, so the beyond-wall region is removed from the algebra rather than out-weighed. **Certification state:** the three load-bearing disconnection theorems are **measured exact** (exactly `0` — a measurement, not a tolerance), the continuum-disjointness task is **certified** with its bin adjudicated, and the measured `Γ = −1` is a **last-bond-plane** statement (a full short↔open inversion sits one node outward, at a crossover the same lane shows does not fire at physical parameters); but the **discrete row's certification is PENDING** the named `G-RHO2` repair (`ROW-NOT-CERTIFIED`), and the premise scan is `SCAN-NOT-CERTIFIED` with no bin adjudicated ([`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md)). **Not "confirmed".** **What it does NOT do here:** it does not close FORK-3(b) and does not dissolve this leaf's open-physics line — the profile physics lives in the **approach**; the kernel-collapse route settles the **end**. Ruling records (pointers, not summaries): [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) with its status addendum, and the measured re-scope receipts [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md), which demote the ruling from universal to **channel-scoped** (the rotational transport is carved out — it reaches the wall untouched). **⚑ The carve-out does NOT travel unfenced:** it rides the **separate-kernel (L∞-across-grades)** member of an **open** fork — canon records the cross-grade combine rule as **underdetermined at $O(\alpha)$** ([`axiom-register.md`](axiom-register.md):190,:232) — and under **normalized-L2-across-grades** every grade rides ONE kernel and the carve-out does **not** stand; the full fence, with its two-method absence receipt against the ruled text, is **§10.2 below**. **★ CURRENCY, 2026-08-06 (base-currency merge).** Two clauses of this pointer were written against a state that has moved, and both are corrected here rather than left to rot. (i) *"the final disposition word is not on the record at this date"* is **superseded**: the final form landed with **PR #897** and is on `origin/main` — [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md), whose own header reads *FINAL FORM* and whose ruled text is quoted verbatim in §10.2. (ii) *"the kernel-collapse block's ruled home is §10.2 and it has NOT landed"* is **superseded**: **§10.2 HAS landed**, immediately below, so this note now points at a live anchor. **Nothing in this pointer's certification content moves** — the row is still `ROW-NOT-CERTIFIED` pending the named `G-RHO2` repair. §10.1 below remains untouched by it.
 
 ### §10.1 — ⚑ REGISTER SCOPE: this ruling has adjudicated ONE channel, and the omitted one is the channel the GW-echo falsifier rides (2026-08-05, ringdown wave)
 
@@ -448,3 +448,187 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **This row adjudicates nothing.** The $\Gamma_{shear}$ **sign is NOT resolved**, neither density branch is preferred, no leaf is repaired, no `clm-`/`def-` is minted and no solidity moves. Per §10 item 3 the authority for a shear wall's $\Gamma$ phase is a **certified instrument's branch-derived shear wall row**, and no such instrument has adjudicated a physics bin on the RHO-B branch — the axial RHO-B run is `ROOT-NOT-CERTIFIED` and the polar family is `SOLVER-NOT-CERTIFIED`.
 >
 > **⚑ ROUTED, not taken here — the residual after this row.** Two print sites still fence the *bulk* step only while asserting the shear step unfenced in the same breath: `manuscript/vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex:68` (*"That **bulk** step is profile-conditional"*, in a sentence whose preceding clause asserts $Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$) and `.../21_*.tex:194–203` (asserts $\Gamma_{shear} = \Gamma_{bulk} = -1$, then declares for $\Gamma_{bulk}$ alone). Both already carry a *"canonical: wall-taxonomy §10"* pointer, so this row reaches them **by reference**; neither is rewritten here, because writing new signed-$\Gamma_{shear}$ print text on an open fork is exactly the import this ruling forbids. → **auditor / Grant.**
+>
+> **★ STATUS OF THAT RESIDUAL, 2026-08-05 (upgrade wave) — PARTLY DISCHARGED, and the part that is not is named.** §10.2 landed below, and both print sites now carry the channel-scoped kernel-collapse row beside their pre-existing text. **What that discharges:** the *mirror* — total reflection for the strain-kernel channels — is now carried by a **measured** wall row that is **density-profile-independent**, so the sites no longer rest on an argument the open fork could move, and the added print text asserts **no plane-free signed $\Gamma_{shear}$**. **What it does NOT discharge, stated so it is not read as closed:** (i) FORK-3(b) is **still open**; (ii) the row is **`ROW-NOT-CERTIFIED`** pending the named `G-RHO2` repair, and the print text says so; (iii) the **sign** remains plane-dependent by the full inversion (`G-PLANE` $= 2.0$), so §10 item 1 still governs every signed quote; and (iv) the **pre-existing** sentences at `15_black_hole_orbital_resonance.tex`:68 and `21_black_hole_interior_regime_iv.tex` that assert the shear step unfenced are **byte-untouched** — they are scoped by the adjacent new paragraph, **not repaired**. Rewriting them is still → **auditor / Grant**.
+
+### §10.2 — Kernel-collapse self-termination at a strain-saturation wall, CHANNEL-SCOPED (Grant ruling 2026-08-05)
+
+> **⚑ Why this sits under §10 and not beside it.** This ruling is an **instance of §10 item 3** — a
+> branch-derived wall row with its plane declared, *computed, not chosen*. It does not replace the
+> three declarations; it supplies one channel-family's row under them. **Anchor:** cite this block as
+> `wall-taxonomy.md` **§10.2**. Ruling records dated 2026-08-05 that route kernel-collapse content to
+> "§10" (written before the #886 §9→§10 renumber) resolve **here**; those documents keep their wording,
+> and the **upgrade-wave-five ruling record** — [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md)`:6`–`:13`, PR #896, **landed** — is their dated redirect.
+>
+> **Provenance, with merge state stated rather than assumed (re-derived at this commit, two-method:
+> `gh pr list` + `git cat-file -e origin/main:<path>`).**
+>
+> | record | how it is cited here | state at this commit |
+> |---|---|---|
+> | **the kernel-collapse re-scope ruling** — the source of the ruled text below | [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md):8–21 (the ruled text), `:1` (its own header word, *FINAL FORM*) | **LANDED** — PR #897 **MERGED 2026-08-06T06:28:13Z**; in this branch's tree since the base-currency merge |
+> | **the upgrade-wave-five rulings** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md):6–13 (Q1), `:14`–`:18` (Q2) | **LANDED** — PR #896 **MERGED 2026-08-06T06:28:01Z**; in this branch's tree since the base-currency merge |
+> | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
+> | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged (PR #894)** |
+> | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
+>
+> ⚑ **CURRENCY NOTE, 2026-08-06 — the debt above is PAID; this records what it was and how it closed.**
+> When this section was first written both governing rulings were CLEARED-but-OPEN, their docket files
+> were absent from `origin/main`, and they were therefore cited **by ruling NAME plus PR number** —
+> because a path cite to an unlanded record is a dead cite at HEAD, and a dead cite is worse than a
+> name. A follow-on pass then found the rulings **merged** but the files still outside this branch's
+> tree, so the name-plus-number form was held one more commit for the same mechanical reason.
+> **Both conditions are now discharged.** Re-derived at this commit, two-method: `gh pr view` returns
+> **PR #896 MERGED `2026-08-06T06:28:01Z`** and **PR #897 MERGED `2026-08-06T06:28:13Z`**;
+> `git cat-file -e origin/main:<path>` **succeeds** for both docket files; and the base-currency merge
+> of `origin/main` into this branch has been taken, so both files are **in this tree**. The two rows
+> above are therefore **converted to real path cites with line ranges**, each range verified two-method
+> (explicit line read + independent `grep` anchor). The conflict that blocked the merge — PR #898's
+> re-issued coldQ clause in this leaf and in `existing-experimental-signatures.md` — was resolved as a
+> **union**: #898's clause and this wave's channel-scoped carve-out both stand, neither was dropped.
+> **Nothing about the ruled content changed in this conversion; only the citation form did.**
+>
+> **The ruled text — quoted verbatim from the kernel-collapse re-scope ruling
+> ([`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md):10–21)
+> as written and ratified. Do not paraphrase: the scope lives in the wording.**
+>
+> > **Kernel-collapse self-termination, channel-scoped (2026-08-05):** at any strain-saturation
+> > wall, every transport coupling riding the strain kernel — G, K (both fork branches), and the
+> > u↔φ coupling G_c — disconnects at the last bond: total reflection, phase computed from the
+> > branch-derived row at the declared plane, density-profile-independent (receipts: PR #888,
+> > #890, both Tier-2-verified). The rotational channel's transport (γ·S_κ) is carved out:
+> > unwalled at r_sat, its own wall being a κ-amplitude surface. Shear→rotation conversion cannot
+> > occur at the wall (the door closes with the strain kernel) and is confined to the graded
+> > approach where G_c·S_ε is finite — the leak is one computable number (a coupled two-channel
+> > scattering computation, routed as the approach-leak lane). Regime IV stays fenced out for
+> > every mirrored channel. The certified shear-echo physics — the delay laws, BIN-DISC's fork
+> > discriminability — is unaffected; the print form of the echo claim is the two-branch
+> > certified-timing statement with the mirror scoped to strain-kernel channels.
+>
+> **★★ THE CROSS-GRADE FENCE — the one the carve-out needs, and the ruled text above does NOT carry it.**
+> **This fence is added by the doc lane, 2026-08-05. It is not a paraphrase of the re-scope ruling and
+> it is not in it** — checkable now against the LANDED record,
+> [`2026-08-05-ruling-kernel-collapse-rescope.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-kernel-collapse-rescope.md)`:10`–`:21`.
+> Two-method absence receipt against the ruled text quoted above (`grep -c` and an independent Python
+> `re` count over the same block): the strings `combine`, `aggregat`, `underdetermined`, `L∞` and
+> `normalized-L2` occur **ZERO** times in it. **The omission is at the RULING, and it is routed to Grant
+> for a possible re-issue** — this leaf fences the claim rather than restating it unfenced, and says so
+> instead of papering over it. ⚑ **Note the changed standing of that routing:** PR #897 **MERGED
+> 2026-08-06** (currency note above), so the omission is now checkable against a **landed** record and a
+> re-issue would amend canon rather than a pending PR. **Nothing about the fence's content depends on
+> that** — it was true when #897 was open and it is true now.
+>
+> **The carve-out rides ONE member of an OPEN fork.** Canon records the rule that would decide it as
+> **underdetermined**: [`axiom-register.md`](axiom-register.md):190, verbatim *"the combine is
+> per-yield-normalized (single-radius-L2 falsified), **cross-grade aggregation underdetermined at
+> $O(\alpha)$**"*, carried into that register's Axiom-4 `residual_content` row at `:232` as
+> *"**cross-grade combine rule** underdetermined at $O(\alpha)$ (**PR #457**)"*.
+>
+> | member of the open fork | what happens at $r_{sat}$ | does the carve-out stand? |
+> |---|---|---|
+> | **L∞-across-grades** — *"the wall is whichever grade reaches `S→0` first"*; **the member the engine actually codes**, read at this commit: [`cosserat_field_3d.py`](../../../src/ave/topological/cosserat_field_3d.py):761–762 builds **two separate kernels** (`S_eps_sq`, `S_kappa_sq`) and `:767`–`:768` sums `(W_cauchy·G + W_micropolar·G_c)·S_eps_sq + W_kappa·γ·S_kappa_sq` — $G$ and $G_c$ ride the strain kernel, $\gamma$ rides its own | the **strain** grade sets the wall; the curvature grade's $S_\kappa$ is **untouched** there; $\gamma\,S_\kappa$ does **not** collapse | **YES** |
+> | **normalized-L2-across-grades** | **every grade rides ONE kernel**; the single kernel goes to zero at the wall | **NO** — $\gamma\,S_\kappa$ collapses with the rest and there is no fourth-channel exception |
+>
+> **Neither receipt lane closes the fork, and both say so.** The primary receipt states it in the same
+> breath as the exception —
+> [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):29,
+> verbatim: *"This lane **does not choose the member**, does not invent a grading law, and does not
+> promote the engine's coded choice to canon."* The twist lane leaves it where it found it —
+> [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):372,
+> verbatim: *"**the cross-grade combine rule stays open on its existing terms**"*, while recording at
+> `:373` that the engine's `L∞` reading is *"if anything, **reinforced**"* — because under a pure squeeze
+> the $\kappa$ budget is loaded $60{+}$ orders lighter, so the first grade to reach $S\to0$ is
+> unambiguously $\varepsilon$. **Reinforced is not closed.** A numerically unambiguous *wall location*
+> under both members does not settle whether the OTHER grade's kernel survives that wall, and that
+> survival is the entire content of the carve-out.
+>
+> **Operational rule for anyone quoting the carve-out.** *"Row 4 is unwalled at $r_{sat}$"* is a
+> claim **conditional on the separate-kernel member**. Quote it with that condition or do not quote it.
+> This fence adjudicates nothing, prefers no member, and promotes the engine's coded choice to nothing.
+>
+> **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ADOPTED 2026-08-05, not ruled).**
+> The grading is the record's own — [`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md) (PR #896) grades **Q1 RULED** (`:6`, §10.2) and **Q4 RULED** (`:23`), but Q2 (`:14`) —
+> this rule — reads *"**the print-certification rule (forced, adopted)**"*, with its origin stated as
+> *"the orchestrator's own two-grade promotion, owned on the record."* It is followed here because it is
+> right, not because Grant ruled it; **adopted** is the honest word and the leaf uses it.
+> Read at this commit from [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):
+>
+> | what | state | receipt |
+> |---|---|---|
+> | the three load-bearing theorems | **MEASURED EXACT** — last-bond stiffness `0.0`; residual $\lvert\Gamma_{LB}+1\rvert$ `0.0` over `1680` harmonic points; spread over the whole beyond-wall grid (`48` groups, `1e-30`…`1e+30`, loads including `0` and $\infty$) `0.0`; RHO-A−RHO-B separation `0.0`. *"Not a tolerance. Zero."* | `:27`; gates `G-BOND`/`G-ROW`/`G-RHO`/`G-COLD` at `:49`–`:53` |
+> | the discrete **row** | **`ROW-NOT-CERTIFIED`** — `G-RHO2` FAILS (fitted exponent `0.0037…` against a frozen `[1.9, 2.1]`) on an injection point sized wrong at freeze; **the named repair is `k_0 = ε·ω·Z_1`, not `ε·k_cold`**, and the tolerance was not moved nor the injections re-sited | `:24`, `:52`, `:78` |
+> | what `G-RHO2` gates | **Theorem 3(b) only** — the *off-limit* sensitivity. Theorem 3(a), the exact independence **at** the limit, is `G-RHO` and it **passes at exactly zero** | `:78` |
+> | the mirror's **magnitude** | plane-**invariant** — `G-UNIT` $= 0.0$ at both planes (Axiom 3; nothing crosses a port) | `:33`, `:54` |
+> | the mirror's **sign** | plane-**dependent by the full inversion** — `G-PLANE` measures $\lvert\Gamma_{N0}-\Gamma_{LB}\rvert = 2.0$; at physical parameters the inversion does **not** fire (it sits `3.47` decades-of-`S` away), but **a sign without its plane is not a claim** | `:33`, `:55` |
+>
+> **This section therefore states the mirror with its certification carried, not compressed.** A
+> `ROW-NOT-CERTIFIED` verdict does not un-measure the theorems, and the theorems do not certify the row.
+>
+> **⚑ PENDING-REFRESH NOTE, 2026-08-06 — a rerun that may retire the `ROW-NOT-CERTIFIED` state is
+> CLEARED and OPEN, and this leaf deliberately does NOT pre-write its outcome.** Read at this commit,
+> not from any brief: `gh pr view 902` returns **`state: OPEN`, `mergedAt: null`**, title
+> *"[REVIEW: CLEARED] research: G-RHO2 rerun — TASK 2 ROW-CERTIFIED …"*; and
+> `git cat-file -e origin/main:research/2026-08-05_last-bond-g-rho2-rerun_result.md` **fails** — the
+> result document is **not on `origin/main`** and not in this tree. **So the certification wording
+> above and at every mirror site stays exactly as it is.** The upgrade-wave-five record anticipated
+> this in advance ([`2026-08-05-rulings-upgrade-wave-five.md`](../../../_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md)`:18`,
+> verbatim: *"The `G-RHO2` certification rerun is queued core-side and **may moot the caveat** before
+> the wave fires"*) — it did not moot it before this commit, so the caveat prints.
+>
+> **What a refresh pass must do when #902 lands, scoped by measurement rather than by estimate.** The
+> certification sentence is mirrored across the corpus, and the print-certification rule makes every
+> one of them load-bearing, so a state change is a **lockstep edit that must ship in ONE commit**.
+> Re-derived at this commit, two-method (`grep -rni` + an independent Python walk over
+> `manuscript/**/*.{md,tex}`): `ROW-NOT-CERTIFIED` appears on **16 lines across 10 files**; widening
+> the pattern to also catch bare `G-RHO2` gives **18 lines across the same 10 files**. **⚑ Read that
+> count with its exclusion, or it will not reproduce: it EXCLUDES this note itself.** This note
+> quotes both strings while describing them, so a naive re-run of the same grep at HEAD returns
+> **18** and **26** — the extra `2` and `8` are these lines. The count that matters to a refresh pass
+> is the **payload** count, `16` / `18`, and the note is not payload: **do not "refresh" this
+> paragraph's own occurrences into a certified state — they are describing the search, not asserting
+> the verdict.** (Self-referential counts going stale on contact is the same failure class this
+> wave's own audit caught in print; it is fenced here rather than repeated.) The refresh
+> must (i) read the certification state **from the landed result document itself**, not from the PR
+> title and not from this note; (ii) preserve the distinction this leaf already draws — a certified
+> *row* does not retroactively certify the *premise scan*, which is separately `SCAN-NOT-CERTIFIED`
+> with no bin adjudicated; and (iii) keep compressed *"confirmed"* language docket-only.
+>
+> **⚑ CROSS-LANE DEPENDENCY, surfaced and NOT touched here.**
+> [`research/drivers/last_bond_kernel_collapse_number_check.py`](../../../research/drivers/last_bond_kernel_collapse_number_check.py)`:170`–`:171`
+> hard-asserts that `G-RHO2` is **recorded FAIL**, and it is wired into `make verify` as a **gating**
+> prerequisite (`Makefile`:111, target at `:250`). That checker is the **core lane's** file and this
+> documentation lane does not edit it. Checked at this commit rather than assumed: #902 adds a
+> *separate* target (`verify-last-bond-g-rho2-rerun-number-check`) reading its own driver and its own
+> JSON, and touches **neither** this checker nor the frozen kernel-collapse JSON it reads — so
+> `make verify` does **not** break when #902 lands, and the old assertion stays true of the *original*
+> run's frozen record. The live item is not a build break but a **corpus-state divergence**: after
+> #902 the corpus will hold a `ROW-CERTIFIED` rerun beside a gate that permanently records the first
+> run's failure, and the refresh must say which run each sentence is quoting. → **core lane / Grant.**
+>
+> **★ THE ROTATIONAL CARVE-OUT — stated, not glossed, and CONDITIONAL ON THE SEPARATE-KERNEL MEMBER
+> (see the cross-grade fence above; do not quote this paragraph without it).** The mirror above is scoped to the
+> **strain-kernel** channels. It does **not** reach the Cosserat micro-rotation channel: `γ·S_κ` is
+> **unwalled at $r_{sat}$**, and the rotational channel's own wall is a **κ-amplitude surface** that
+> this DC strain bias does not reach. The measured receipt is
+> [`research/2026-08-05_srs-twist-coefficient_result.md`](../../../research/2026-08-05_srs-twist-coefficient_result.md):`325`,
+> verbatim: *"**`S_κ` at the wall — the leak number the kernel-collapse ruling needs — is `1`.**"* — with
+> `S_κ(wall) = 1.000000000000000` at every physical gradient in that leaf's table (`:320`–`:323`) and
+> the ceiling reached only at the unphysical one-node gradient `qℓ_node = 1`. **There are TWO ceiling
+> rows, and the flattering one is not the one to quote:** `0.999979916516139` at `ρ_bond = 1` (`:318`)
+> and `0.998449148919932` at `ρ* = 9.7734` (`:319`) — deficits `2.008e-5` and `1.551e-3`, the second
+> **`77×` larger**. Quote `:319`. The same lane returned
+> **`NO-TWIST` by symmetry theorem** (Tier-2 verified), which is why the earlier squeeze-twist
+> consequents were retracted rather than propagated (PR #894).
+>
+> **What closes and what stays open at the wall.** The `u↔φ` door rides the strain kernel and therefore
+> **closes with it**: shear→rotation conversion cannot happen *at* the wall. Conversion is an **approach**
+> question — confined to the graded taper where $G_c\!\cdot\!S_\varepsilon$ is finite — and its size is
+> **one computable number** that no lane has computed. It is routed as the approach-leak lane and is
+> **not** estimated here.
+>
+> **What this section does NOT do.** It mints no `clm-`/`def-`/`exp-`/`sup-`/`ilk-` id, moves no
+> solidity, and adjudicates neither FORK-3(b) nor the $\Gamma_{shear}$ **sign** — §10.1's register row
+> stands, and the sign still travels only with its plane. It does **not** carry the frontier question the
+> ruling routes with the approach-leak lane: that reading is **walk-level and routed, not ruled**, and is
+> deliberately absent from this leaf. **Regime IV stays fenced out for every mirrored channel** — the
+> $A \ge 1$ region enters only as an arbitrary passive load, never as a solved domain
+> ([`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):`16`).
