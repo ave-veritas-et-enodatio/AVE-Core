@@ -46,6 +46,7 @@ import json
 import os
 import re
 import subprocess
+import tempfile
 import sys
 import time
 from pathlib import Path
@@ -296,6 +297,26 @@ PATTERNS: dict[str, str] = {
 }
 SCAN_DIRS = ("manuscript", "research", "src")
 
+# SCANFRAG repair (2026-08-06, orchestrator; disclosed in the result doc's dated note):
+# the scan surface is PINNED to the base tree this lane ran against, so the census and
+# every pattern hit are functions of a COMMIT, not of the live working tree. Before this
+# pin, any later tracked-file addition under SCAN_DIRS flipped the digest and turned the
+# machine-gated G-DET re-run red repo-wide.
+SCAN_PIN = "c4fdced0"  # the recorded base; own-artifacts were excluded, so base census == run census
+
+_PIN_DIR = None
+def _pinned_tree() -> Path:
+    """Materialize the pinned tree once (git archive) for METHOD B's independent reads."""
+    global _PIN_DIR
+    if _PIN_DIR is None:
+        td = Path(tempfile.mkdtemp(prefix="approach_leak_pin_"))
+        tar = subprocess.run(["git", "archive", SCAN_PIN, "--", *SCAN_DIRS],
+                             cwd=REPO, capture_output=True, check=True).stdout
+        subprocess.run(["tar", "-x", "-C", str(td)], input=tar, check=True)
+        _PIN_DIR = td
+    return _PIN_DIR
+
+
 # Sentinels for FT-SCAN, sited OUTSIDE the scanned tree by construction.
 SENTINEL_ABSENT = "ZZQX" + "APPROACHLEAK" + "ABSENT" + "9137"
 SENTINEL_PRESENT_FILE = "Makefile"
@@ -303,7 +324,8 @@ SENTINEL_PRESENT = "verify-md-links"
 
 
 def _tracked_files() -> list[str]:
-    out = subprocess.run(["git", "ls-files", "-z", *SCAN_DIRS], cwd=REPO,
+    out = subprocess.run(["git", "ls-tree", "-r", "--name-only", "-z", SCAN_PIN,
+                          "--", *SCAN_DIRS], cwd=REPO,
                          capture_output=True, text=True, check=True).stdout
     files = [f for f in out.split("\0") if f]
     return [f for f in files if f not in OWN_ARTIFACTS]
@@ -312,13 +334,14 @@ def _tracked_files() -> list[str]:
 def scan_method_a(pattern: str, files: list[str]) -> set[str]:
     """METHOD A: git grep -P (PCRE, ASCII \\w)."""
     proc = subprocess.run(
-        ["git", "grep", "-P", "-I", "-n", "-e", pattern, "--", *files],
+        ["git", "grep", "-P", "-I", "-n", "-e", pattern, SCAN_PIN, "--", *files],
         cwd=REPO, capture_output=True, text=True)
     hits = set()
     for line in proc.stdout.splitlines():
-        parts = line.split(":", 2)
-        if len(parts) >= 2:
-            hits.add(f"{parts[0]}:{parts[1]}")
+        # tree-ish output is "<pin>:path:line:content"
+        parts = line.split(":", 3)
+        if len(parts) >= 3:
+            hits.add(f"{parts[1]}:{parts[2]}")
     return hits
 
 
@@ -327,7 +350,7 @@ def scan_method_b(pattern: str, files: list[str]) -> set[str]:
     rx = re.compile(pattern)
     hits = set()
     for f in files:
-        pth = REPO / f
+        pth = _pinned_tree() / f
         try:
             text = pth.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):

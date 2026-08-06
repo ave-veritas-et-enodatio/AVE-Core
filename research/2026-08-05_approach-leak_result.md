@@ -582,3 +582,18 @@ FORM-class** consequence of the Ax-4 kernel plus lattice discreteness plus the A
 the engine's `a = 2` stands, `p = 2.5` and the diagnostic's pointing **inverts** — cells open, and
 the leak clause needs its second sentence. **That is the only way this pointing moves**, and it is
 named here rather than buried.
+
+---
+
+> **⚑ SCANFRAG REPAIR (orchestrator, 2026-08-06; body above preserved per Rule 12).** The v2 lane
+> measured that this lane's machine-gated G-DET re-run was TREE-STATE-DEPENDENT: the scan census
+> counted the live working tree, so any later tracked-file addition under the scan dirs flipped
+> the digest and turned `make verify` red repo-wide (FLAG-SCANFRAG). Repair, disclosed here: the
+> scan surface is now PINNED to the recorded base tree (`SCAN_PIN = c4fdced0` — own-artifacts
+> were excluded, so base census == run census), with METHOD A grepping the pinned tree-ish and
+> METHOD B reading the materialized pinned tree. Receipts: the shipped digest
+> `2af8acfe23aabb96` reproduces EXACTLY post-repair on the clean tree AND on a deliberately
+> perturbed tree (one tracked file added) — the shipped physics is byte-preserved; only the
+> accidental state-dependence is removed. The orchestrator's original receipt check missed this
+> because a same-tree live-fire cannot see state-dependence — checker receipts for
+> tree-scanning gates now require a perturbed-tree run (lesson banked).
