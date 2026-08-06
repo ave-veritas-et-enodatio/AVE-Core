@@ -396,6 +396,14 @@ skipped by the line-existence check when the line carries a **backticked short
 SHA** (`` as shipped on `c4a546dc` ``). That backticked SHA is the only marker
 the corpus has; write it if a cite is meant to be read against a past commit.
 
+⚠ **That skip is LINE-scoped, and it is coarse.** A SHA anywhere on a line
+exempts **every** location cite on that line — including live ones. On a KB
+ledger row (routinely 500–2,000 characters, mixing one provenance SHA with
+several live derivation cites) this silently switches line-checking off for the
+whole row. So: **do not park a live cite on the same line as a provenance SHA**
+if you want it checked. Measured cost and precision, with worked instances, in
+§5 of `_orchestration/docket-entries/2026-08-05-cite-rot-line-existence.md`.
+
 ---
 
 ## Adding New Content
