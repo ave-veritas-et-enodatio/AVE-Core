@@ -480,25 +480,42 @@ def knife(p: mp.mpf, theta: mp.mpf, Om: mp.mpf, near_wall: bool = True) -> tuple
 # The residual back-action field -- PLACEHOLDER-CONDITIONED, quarantined.
 # ---------------------------------------------------------------------------
 
-def residual_backaction(zeta_max: mp.mpf, theta: mp.mpf, p: mp.mpf) -> dict:
-    """SUM_n zeta_n^2 = zeta_max^2 * theta^(4p) * SUM_n (n-1+theta)^(-4p).
+def residual_backaction(zeta_max: mp.mpf, theta: mp.mpf, p: mp.mpf, n_cells: mp.mpf) -> dict:
+    """SUM_n zeta_n^2 = zeta_max^2 * theta^(2p) * SUM_n (n-1+theta)^(-2p).
 
-    At p = 1 this is zeta_max^2 * theta^2 * psi'(theta) with psi' = polygamma(1,.).
+    (Prereg section 2.6, exponent 2p.  At p = 1 the sum is psi'(theta).)
+    The sum CONVERGES iff 2p > 1; at p = 0.5 it is the harmonic sum and is
+    logarithmically divergent in the window, so the finite-window form with
+    N = r_sat/l_node cells is reported instead of a closed form.
+
     The prefactor 2*(G_c/G) rides an ABSOLUTE-MODULUS RATIO that is an engine
-    placeholder; the field is tagged and quarantined per prereg section 2.6.
+    placeholder; this whole field is tagged and quarantined per prereg 2.6.
     """
-    s_exact = mp.zeta(4 * p, theta)          # Hurwitz zeta = SUM (n-1+theta)^{-4p}
-    total = zeta_max**2 * theta ** (4 * p) * s_exact
     out = {
-        "sum_zeta_n_squared_over_zetamax2": _s(theta ** (4 * p) * s_exact, 30),
-        "total_sum_zeta_n_squared": _s(total, 30),
         "prefactor": "2*(G_c/G)",
         "TAG": "PLACEHOLDER-CONDITIONED -- rides the absolute-modulus ratio G_c/G",
+        "exponent_2p": _s(2 * p, 4),
     }
-    if p == 1:
-        out["psi1_theta"] = _s(mp.polygamma(1, theta), 30)
-        out["hurwitz_vs_polygamma_rel_sep"] = _s(
-            abs(s_exact - mp.polygamma(1, theta)) / mp.polygamma(1, theta), 30)
+    if 2 * p > 1:
+        s_exact = mp.zeta(2 * p, theta)         # Hurwitz zeta = SUM (n-1+theta)^{-2p}
+        out["convergent"] = True
+        out["sum_over_zetamax2"] = _s(theta ** (2 * p) * s_exact, 30)
+        out["total_sum_zeta_n_squared"] = _s(zeta_max**2 * theta ** (2 * p) * s_exact, 30)
+        if p == 1:
+            out["psi1_theta"] = _s(mp.polygamma(1, theta), 30)
+            out["hurwitz_vs_polygamma_rel_sep"] = _s(
+                abs(s_exact - mp.polygamma(1, theta)) / mp.polygamma(1, theta), 6)
+    else:
+        # harmonic window: SUM_{n=1..N} 1/(n-1+theta) = psi(N+theta) - psi(theta)
+        h = mp.psi(0, n_cells + theta) - mp.psi(0, theta)
+        out["convergent"] = False
+        out["window_cells_N"] = _s(n_cells, 20)
+        out["harmonic_window_sum"] = _s(h, 30)
+        out["sum_over_zetamax2"] = _s(theta ** (2 * p) * h, 30)
+        out["total_sum_zeta_n_squared"] = _s(zeta_max**2 * theta ** (2 * p) * h, 30)
+        out["NOTE"] = ("2p <= 1: the per-cell admixture sum is logarithmically divergent in the "
+                       "window, so the finite-window value over the whole graded region "
+                       "(N = r_sat/l_node cells) is reported in place of a closed form")
     return out
 
 
@@ -738,8 +755,16 @@ def main() -> int:
     }
 
     # ---- residual back-action (quarantined) --------------------------------
-    zmax_p1 = sw["per_p"]["1.0"]["zeta_max_over_sweep"]
-    resid = residual_backaction(mp.mpf(zmax_p1), mp.mpf(1), mp.mpf(1))
+    n_cells_full = rs_ref / L_NODE
+    resid = {}
+    for pp in P_BRACKET:
+        key = _pk(pp)
+        s1r = mp.sqrt(S2_exact(L_NODE, rs_ref))
+        zmx = zeta_from_transfer(BAND[-1], x_ref, pp, s1r)   # band TOP, M_ref, theta = 1
+        resid[key] = residual_backaction(zmx, mp.mpf(1), pp, n_cells_full)
+        resid[key]["zeta_max_at_M_ref_theta1_bandtop"] = _s(zmx, 30)
+    resid["_scope"] = ("evaluated at M_ref = 62 M_sun, theta = 1, band TOP; "
+                       f"N = r_sat/l_node = {_s(n_cells_full, 20)} cells")
 
     payload = {
         "_prereg": "research/2026-08-05_approach-leak_prereg-FROZEN.md (commit bdb8b4a4, pushed ALONE)",
