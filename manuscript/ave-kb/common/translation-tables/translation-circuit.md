@@ -124,7 +124,7 @@ The 23+ substrate primitives mapped to their canonical EE-component analog. Cros
 | **$\Gamma = 0$ matched-impedance** | **Filter-theory matched-impedance / peak power transfer** | Op17 anchor in [`operators.md`](../operators.md) |
 | **Op17 $T^2 = 1 - \Gamma^2$** | EE power-transmission identity | [`operators.md`](../operators.md) Op17 |
 | **Op21 $Q = \ell$ at $\Gamma = -1$** | EE Q-factor at boundary mode confinement | [`op21-multi-mode-mode-counting.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) |
-| **Schwinger pair production at $E_S$** | **Miller avalanche / impact ionization** at semiconductor avalanche-breakdown $V_{BR}$ | [`four-regimes.md`](../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) Regime III |
+| **Vacuum breakdown at $E_S$** — spontaneous (Schwinger) / seeded (QED cascades) | **Zener interband field-tunneling** (spontaneous) / **Miller avalanche, impact ionization** (seeded) at $V_{BR}$ — split ruled 2026-08-05, see the carrier-sector section | [`four-regimes.md`](../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) Regime III |
 | **Miller multiplication $M = 1/S(r)^2$** | Standard semiconductor avalanche-multiplication formula | Op22 anchor in [`operators.md`](../operators.md) |
 | **Topological winding $(p, q)$** | **Toroidal transformer winding numbers** (primary $p$, secondary $q$) — integer topological invariants | [`torus-knot-uniqueness.md`](../../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) |
 | **SU(2)→SO(3) double cover** | **Transformer 2:1 galvanic-isolation winding ratio** (traverse primary twice for one secondary cycle) | [`torus-knot-uniqueness.md`](../../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) |
@@ -894,7 +894,7 @@ the core session 2026-08-05; Grant corrected the register to SEMICONDUCTOR and r
 | The electron soliton (self-localized, lattice-deforming, carries its deformation) | **Self-trapped carrier, polaron class** | WALK-LEVEL, un-audited |
 | Why the cold vacuum is empty of pairs | $n_i \propto e^{-E_g/2kT}$ at $T_{CMB}$: $E_g/2kT \sim 10^9$ — doubly-exponentially nil | consistency-class |
 
-> **⚑ FLAG-BREAKDOWN-CLASS (canon-correction candidate, flag-don't-fix, routed):** the existing
+> **⚑ FLAG-BREAKDOWN-CLASS — RULED 2026-08-05 (sheet item 7): the split is canonical and the §4 row is updated in place.** The formerly-single row compressed
 > Miller-avalanche ↔ Schwinger row compresses TWO device breakdown modes. Spontaneous
 > field-induced pair production ($\Gamma \propto e^{-\pi E_S/E}$, no seed carriers) is the
 > **ZENER class** (interband field-tunneling); **avalanche** (impact ionization, seed-carrier
