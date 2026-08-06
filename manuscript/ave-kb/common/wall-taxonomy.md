@@ -462,7 +462,7 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > | record | how it is cited here | state at this commit |
 > |---|---|---|
 > | **the kernel-collapse re-scope ruling — PR #897** (`[REVIEW: CLEARED]`) — the source of the ruled text below | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
-> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision, the print-certification rule, the dated §10 redirect | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
+> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
 > | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
 > | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged** |
 > | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
@@ -524,7 +524,11 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > claim **conditional on the separate-kernel member**. Quote it with that condition or do not quote it.
 > This fence adjudicates nothing, prefers no member, and promotes the engine's coded choice to nothing.
 >
-> **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ruled 2026-08-05).**
+> **★ CERTIFICATION STATUS — stated first, per the standing print-certification rule (ADOPTED 2026-08-05, not ruled).**
+> The grading is the record's own: PR #896 grades **Q1 RULED** (§10.2) and **Q4 RULED**, but Q2 —
+> this rule — reads *"**the print-certification rule (forced, adopted)**"*, with its origin stated as
+> *"the orchestrator's own two-grade promotion, owned on the record."* It is followed here because it is
+> right, not because Grant ruled it; **adopted** is the honest word and the leaf uses it.
 > Read at this commit from [`research/2026-08-05_last-bond-kernel-collapse_result.md`](../../../research/2026-08-05_last-bond-kernel-collapse_result.md):
 >
 > | what | state | receipt |
