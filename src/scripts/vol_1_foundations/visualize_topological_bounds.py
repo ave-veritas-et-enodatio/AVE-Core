@@ -1,3 +1,4 @@
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -93,7 +94,12 @@ def visualize_baryon_bounds() -> None:
     ax3.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    output_path = sim_output("visualize_topological_bounds.png")
+    if os.environ.get("AVE_VERIFY_NO_WRITE"):
+        # verify must not mutate tracked artifacts: render to scratch, keep the computation
+        import tempfile
+        output_path = os.path.join(tempfile.gettempdir(), "visualize_topological_bounds.png")
+    else:
+        output_path = sim_output("visualize_topological_bounds.png")
     plt.savefig(output_path, dpi=300)
     print(f"Saved visualization to {output_path}")
 

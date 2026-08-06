@@ -32,7 +32,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 |---|---|
 | [Electron--BH Isomorphism](electron-bh-isomorphism.md) | Confinement boundary comparison, symmetric gravity, saturation phase transition |
 | [Lattice Extreme-Map / BH Rationality Test](lattice-extreme-bh-rationality.md) | One kernel, two extremes (compression→electron/BH, rarefaction→cavitation); BH$<2\%$ GR (rationality test); ties the CVR electron-wall sweep to the BH extreme; houses the $2GM$-vs-$7GM$ channel reconciliation (clm-ir8h78) |
-| [Bulk Impedance at Saturation Boundary](bulk-impedance-at-saturation-boundary.md) | Astrophysical $Z_{bulk}$ at $r_{\text{sat}}$; $\Gamma_{bulk} = -1$; three-channel boundary table |
+| [Bulk Impedance at Saturation Boundary](bulk-impedance-at-saturation-boundary.md) | Astrophysical $Z_{bulk}$ at $r_{\text{sat}}$; $\Gamma_{bulk} = -1$; four-channel boundary table (row 4 = Cosserat micro-rotation, unwalled at $r_{\text{sat}}$ — **conditional on the separate-kernel (L∞-across-grades) member; the cross-grade combine rule is canon-OPEN, see [`common/wall-taxonomy.md`](../../../common/wall-taxonomy.md) §10.2**) |
 | [Accretion Disk Resonance](accretion-disk-resonance.md) | Standing-wave quantisation, impedance band radii, QPO frequency predictions (GRS 1915+105) |
 | [QPO Frequency](qpo-frequency-impedance-resonance.md) | Standalone resultbox: QPO frequency from impedance resonance |
 | [Constructive vs. Destructive Paradox](constructive-destructive-paradox.md) | Electron preserves topology; black hole destroys it |
