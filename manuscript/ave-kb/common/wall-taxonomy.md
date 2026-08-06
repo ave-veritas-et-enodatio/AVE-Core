@@ -461,16 +461,27 @@ Four places where the walk's recollection did not survive the grep. In every cas
 >
 > | record | how it is cited here | state at this commit |
 > |---|---|---|
-> | **the kernel-collapse re-scope ruling — PR #897** (`[REVIEW: CLEARED]`) — the source of the ruled text below | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
-> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | **by NAME + PR number only** | **OPEN**; its docket file is **absent from `origin/main`** |
+> | **the kernel-collapse re-scope ruling — PR #897** — the source of the ruled text below | **by NAME + PR number only** (see the currency note) | **MERGED 2026-08-06T06:28:13Z**; its docket file is **PRESENT on `origin/main`** |
+> | **the upgrade-wave-five rulings — PR #896** (`[REVIEW: CLEARED]`) — the §10.2 anchor decision (**Q1, RULED**), the dated §10 redirect (**Q1**), and the print-certification rule (**Q2, *forced, adopted* — NOT ruled**; the record's own words, origin *"the orchestrator's own two-grade promotion, owned on the record"*) | **by NAME + PR number only** (see the currency note) | **MERGED 2026-08-06T06:28:01Z**; its docket file is **PRESENT on `origin/main`** |
 > | the FLAG-CAUSAL kernel-collapse ruling (+ addendum) — the *universal* form this one supersedes per its own kill condition | [`2026-08-05-ruling-flag-causal-kernel-collapse.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-kernel-collapse.md) | **merged** (PR #887) |
 > | the re-scope receipts — the measured exception arm | [`2026-08-05-ruling-flag-causal-rescope-receipts.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-flag-causal-rescope-receipts.md) | **merged (PR #894)** |
 > | the squeeze-twist retraction — NO-TWIST, `S_κ(wall)` | [`2026-08-05-ruling-squeeze-twist-correction.md`](../../../_orchestration/docket-entries/2026-08-05-ruling-squeeze-twist-correction.md) | **merged** (PR #894) |
 >
-> ⚑ **Why the first two carry no path.** A file-path cite to a record that does not exist on `origin/main`
-> is a dead cite at HEAD. The two governing rulings are **real and CLEARED**; they are simply not landed.
-> **They are therefore cited by ruling NAME plus PR number, and the path cites are OWED** — a follow-up
-> pass converts them to links once PRs #896/#897 merge. This note is the receipt for that debt.
+> ⚑ **CURRENCY NOTE, 2026-08-06 — the debt above is now PAYABLE, and this branch cannot pay it yet.**
+> When this section was written both governing rulings were CLEARED-but-OPEN, their docket files were
+> absent from `origin/main`, and they were therefore cited **by ruling NAME plus PR number** because a
+> path cite to an unlanded record is a dead cite at HEAD. **That is no longer the state.** Re-derived at
+> this commit, two-method: `gh pr view` returns **PR #896 MERGED `2026-08-06T06:28:01Z`** and **PR #897
+> MERGED `2026-08-06T06:28:13Z`**, and `git cat-file -e origin/main:<path>` now **succeeds** for both
+> `_orchestration/docket-entries/2026-08-05-rulings-upgrade-wave-five.md` and
+> `.../2026-08-05-ruling-kernel-collapse-rescope.md` (merge commits `e1051ba4` and `4e872025`).
+> **The name-plus-number citation is retained here for one reason only, and it is a mechanical one:**
+> those files exist on `origin/main` but **not in this branch's tree**, so writing the path cites now
+> would create two dead links *in this branch* and fail the link check. **The path cites are converted
+> in the same pass that merges `origin/main` into this branch** — that merge is NOT taken here (it
+> conflicts with PR #898's freshly-landed coldQ clause re-issue in this same leaf and in
+> `existing-experimental-signatures.md`, which is another lane's text and not this repair pass's to
+> resolve). **Routed to the orchestrator / Grant: base-currency merge + path-cite conversion.**
 >
 > **The ruled text — quoted verbatim from the kernel-collapse re-scope ruling (PR #897) as written and
 > ratified. Do not paraphrase: the scope lives in the wording.**
@@ -494,7 +505,10 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > `re` count over the same block): the strings `combine`, `aggregat`, `underdetermined`, `L∞` and
 > `normalized-L2` occur **ZERO** times in it. **The omission is at the RULING, and it is routed to Grant
 > for a possible re-issue** — this leaf fences the claim rather than restating it unfenced, and says so
-> instead of papering over it.
+> instead of papering over it. ⚑ **Note the changed standing of that routing:** PR #897 **MERGED
+> 2026-08-06** (currency note above), so the omission is now checkable against a **landed** record and a
+> re-issue would amend canon rather than a pending PR. **Nothing about the fence's content depends on
+> that** — it was true when #897 was open and it is true now.
 >
 > **The carve-out rides ONE member of an OPEN fork.** Canon records the rule that would decide it as
 > **underdetermined**: [`axiom-register.md`](axiom-register.md):190, verbatim *"the combine is
