@@ -1255,3 +1255,43 @@ set as each is individually verified. (c) Grant adjudication of the 3 `proposed`
 coinages and the §45 A-vs-B canonical fork before any `proposed` → `SOLID`
 promotion.
 
+
+---
+
+## "skin" (gradient skin) — disambiguation vs the EE skin effect
+<!-- dated 2026-08-05; Grant-confirmed, core session -->
+
+- **"Gradient skin"** (wall-taxonomy §3) is ANATOMICAL: the thin sub-yield boundary layer hugging a
+  wall — a reactive stub. It is **NOT** the EE skin effect.
+- The substrate **cannot host a skin effect** under Axiom 3: no conductivity, no eddy dissipation,
+  no diffusive screening. Skin effect: $\arg(k) = 45°$, surface impedance with EQUAL real and
+  imaginary parts ($Z_s = (1+j)/\sigma\delta$), material-set depth, dissipative. The wall region's
+  decay: $\arg(k) = 90°$ (purely imaginary $k$ on the frozen antiphase pattern), ZERO real
+  impedance, geometry-set decay constant, purely reactive (evanescent).
+- **Discriminator = the real-part test:** any real part in a boundary-layer impedance is a defect
+  (it imports dissipation; same class as "drag"/"friction") — except at a declared transfer-cost
+  port ([`transfer-cost-theorem.md`](transfer-cost-theorem.md)).
+- Preferred register for the wall-approach region going forward: the **semiconductor register**
+  ([`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md),
+  semiconductor-register additions): depletion edge / depletion width / junction two-port /
+  reach-through.
+
+---
+
+## "infinite" / "divergent" (continuum-limit artifacts) — a math-level cage entry
+<!-- dated 2026-08-05; Grant carve 2026-08-04, core session -->
+
+- A divergence produced by a CONTINUUM-LIMIT calculation on the lattice imports the continuum's
+  own theorems (true horizons, frozen coordinate time, infinite optical distance, unresolvable
+  self-energies) — theorems the discrete substrate cannot host, since a finite node count admits
+  no singular point. Before reading any continuum divergence as physics, check what the lattice
+  regulator does to it: the regulated quantity is typically FINITE and LOG-ENHANCED, and the
+  regulator leaves a computable signature (type case: the RHO-B optical distance — continuum
+  log-divergent, lattice-regulated to a finite delay with the Euler–Mascheroni discrete
+  correction; PR #876 carve + PR #880).
+- This is the vocabulary-cage discipline one level down: not an imported WORD carrying a foreign
+  theorem, but an imported LIMIT carrying its own singularity structure.
+- Cross-refs: frontier queue row 25 (the discrete near-wall chain as the substrate-native
+  instrument class); the `ave-infinity-discipline` skill; the Wilsonian reading in
+  `_orchestration/2026-08-04_lorentz-compliance-arc-brief.md` (divergences mark where the
+  continuum description is insensitive to the substrate).
