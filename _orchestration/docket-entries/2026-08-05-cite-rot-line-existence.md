@@ -1,0 +1,107 @@
+### ENTRY 2026-08-05-cite-rot-line-existence (2026-08-05): infra — the gating checker now asserts cited lines EXIST and sees backticked cites; posture measured, not assumed
+
+- **Class: tooling, EXECUTED. No physics, no corpus claim.** Discharges options **(2)** and **(3)** of `2026-08-02-cite-rot-checker-gap.md`. Option (1) (promoting the excerpt-anchored content check to gating) is **explicitly NOT implemented** — it still wants its FP-triage pass first, and nothing here half-implements it.
+
+---
+
+#### 1. Re-measured at HEAD (`d5a1b06b`) — the 2026-08-02 numbers were NOT inherited
+
+The 2026-08-02 entry measured through the advisory checker's own summary, which only counts cites it can see. The counts below come from an independent parser that reads all three written forms.
+
+| quantity | count |
+|---|---|
+| location cites parsed, corpus-wide (`path.ext:NN` + bare `path.ext`) | **32,643** |
+| — carrying a `:NN` | **12,505** |
+| — backticked-bare, carrying a `:NN` | **11,168** |
+| backticked-bare `:NN` cites inside `manuscript/ave-kb/` | **1,697** |
+| label-external `[`x`](x.md):NN` (the KB house convention) | **1,219** (984 in KB) |
+| in-target `](path.md:NN)` | **118** |
+| **line-cites the new pass actually checks** | **11,539** |
+| — of those, in the gating (error-source) class (independent probe) | **~2,590** |
+| skipped: shape (glob/elision, sibling repo, ephemeral dirs) | 553 |
+| skipped: deliberately-historical (backticked SHA on the line) | 361 |
+
+The 2026-08-02 shape held: the backticked-bare form dominates, and it was invisible **end-to-end** — `strip_code()` blanks inline spans before the link regex runs, so neither its path nor its line was ever checked.
+
+**Previously-invisible cites now checked: 11,168 backticked-bare `:NN` cites are parsed for the first time** (1,697 of them in the KB). Their paths are now checked (advisory) and their lines are now checked (gating from a KB source).
+
+---
+
+#### 2. The violation set, and what is real
+
+**GATING class — `dead line cite` (no resolvable candidate file HAS the cited line):**
+
+| source class | count |
+|---|---|
+| error-source (KB tree + `README`/`LIVING_REFERENCE`/`AGENTS`) | **0** |
+| warn-source (`_orchestration/`, `research/`, `papers/`) | **5** |
+
+All five triaged as REAL (not FP), and all five are warn-only under the **pre-existing** source-gating rule — no new exemption was written for them:
+
+1. `_orchestration/2026-06-16_groundup-engine-acceptance-plan.md:221` → `gw-impedance-perturbation.md:30` (file is 20 lines).
+2. `_orchestration/clm-0ktpcn-golden-torus-alpha-strengthen.md:100` → `phase-locked-topological-thread.md:187-199` (file is 189 lines; the range end overruns).
+3. `research/2026-05-25_clm-0ktpcn-golden-torus-alpha-strengthen-prereg.md:51` → same cite, same overrun (the pair travelled together).
+4. `research/2026-06-15_grid-definition-cartography.md:125` → `rupture_solver.py:60-150` (file is 142 lines).
+5. `research/2026-07-18_f6-meter-kappa-reval_result.md:281` → `validate.py:1005` (longest of 2 candidates is 193 lines).
+
+*(Quoting those five here re-flags four of them from this fragment — `make verify` reports `dead: 9 (gating: 0)`, not 5. That is the checker being correct about its own evidence list, not noise: this file really does contain four dead cites, deliberately. `_orchestration/` is warn-class, so the gating count is unaffected.)*
+
+**ADVISORY class, at HEAD:**
+
+| kind | total | error-source |
+|---|---|---|
+| `blank line cite` (line exists, but is empty / decoration-only) | 1,061 | **255** |
+| `broken backtick path` (backticked cite whose path resolves nowhere) | 1,682 | **196** |
+
+Triage of the 196 error-source broken paths: the large majority are **not cites at all** — they are pattern/placeholder strings that happen to be path-shaped (`volN/claim-quality.md`, `A-NNN-prereg.md`, `_result.md`, `_prereg_FROZEN.md`), references to files that were never tracked (`mad-review/…`), or gitignored trees. A minority are genuinely dead pointers. **This is a triage pool, not 196 confirmed breaks** — the same caveat the 2026-08-02 entry attached to its 1,012.
+
+Sample of the `blank line cite` class, checked by hand: `master-equation.md:78` (content at `:79`), `refractive-index-of-gravity.md:11` (resultbox at `:12`), `pmns-eigenvalues.md:23` (equation at `:24`), `constants.py:589` (comment block at `:590`). Almost all are **one-line drift** — the pointer names the right neighbourhood and the wrong line.
+
+---
+
+#### 3. POSTURE — and the counts that drove it
+
+**`dead line cite` GATES from day one.** Its error-source population is **0**, so nothing is red-lighted, no backlog is gated into existence, and no waiver is needed (`WAIVED_LINE_CITE` ships empty). **The `make verify` 0 is because the gating class is genuinely CLEAN, not because the check was softened.**
+
+**`blank line cite` and `broken backtick path` do NOT gate.** Their error-source populations are 255 and 196. Gating either would fail the build on the first merge after landing, and a gate that fails on merge gets bypassed, not obeyed — which is the cite-rot failure mode this work exists to close, reproduced one level up.
+
+**Named flip conditions** (each is a measurement, not a vibe):
+
+- **`blank line cite` → gating** when its error-source population reaches **0**, reachable by a repair sweep that re-points each cite to the adjacent content line. The count is printed by every `make verify` run, so the burn-down is visible without a tracker; `--advisory-cites report` emits the full list as the work queue.
+- **`broken backtick path` → gating** when its error-source population reaches **0**, which requires a *classification* pass first, not just repairs: the placeholder/pattern strings (`volN/…`, `A-NNN-…`, `_result.md`) need either a documented non-cite spelling or an extension of `cite_target_uncheckable`. **Do not flip this one by widening the skip set to make the number go to zero** — that converts a real check into a checklist.
+
+---
+
+#### 4. Two corrections to the routing entry's own framing (flag-don't-fix)
+
+**(i) "assert the line has at least N lines" does NOT catch the blank-line class.** The 2026-08-02 entry described option (2) as catching "the blank-line / deleted-tail / bogus-path cites, e.g. the `q-g19a:108` instances". Verified at HEAD: `q-g19a-petermann-saliency-closure.md` is **256 lines**, and line 108 is `>` — a blockquote continuation. **A blank line is a line that exists**, so a pure existence check passes it. That is why the `blank line cite` kind was added alongside — it is the check that actually reaches the entry's motivating instance, and it is advisory for the reason in §3.
+
+**(ii) the second motivating instance is not in this class at all.** `04_generative_cosmology.tex:467` — the entry's "cites a string absent from that file at every line" case — resolves to a **613-line** file, so `:467` exists. That is **content drift**, which option (2) explicitly does not attempt and which remains `verify-anchor-content`'s (advisory) territory. Recorded, not rescued.
+
+---
+
+#### 5. SHA-pinned and frozen cites
+
+**SHA-pinned: the corpus has NO machine-readable marker.** Searched at HEAD: the convention is free prose — *"as shipped on"*, *"at commit"*, *"frozen at"*, *"was correct at"* — always adjacent to a **backticked short hex SHA**. That backticked SHA is therefore the only reliable signal, and the pass uses it: any line carrying one has its line-cites skipped. **Measured coverage cost: 96 of 2,650 KB line-cites (3.6%) sit on a SHA-bearing line and go unchecked** — accepted, and recorded here rather than buried. The named example from the brief — `wall-taxonomy.md` §9 *(as shipped on `c4a546dc`)* in `research/2026-08-05_last-bond-kernel-collapse_prereg-FROZEN.md` — is a **§-section** cite carrying no `:NN`, so it was never in reach of this check regardless.
+
+**Frozen documents are never forced to change.** `research/*_prereg-FROZEN.md`, dated result docs, and `_orchestration/docket-entries/*` are all **outside** the error-source set, so their findings are warn-only under the pre-existing source-gating rule — no new carveout was written, and this fragment's four warn-class hits (§2) prove the path. A regression test asserts it directly. If a byte-frozen document ever lands *inside* the KB tree, `WAIVED_LINE_CITE` is the escape hatch, and it carries the same anti-rot property as `WAIVED_KBLEAF`: a waiver that outlives its subject is itself a gating failure.
+
+---
+
+#### 6. Option (3) — the NEW-cite excerpt ratchet
+
+`make verify-new-cite-excerpts` (`CITE_BASE=<ref>`, default `origin/main`) requires a verbatim backtick excerpt beside every line-cite a branch **ADDS** to the canonical-authority surface. Backlog-free by construction; the ~13k existing cites are untouched. Convention documented in `manuscript/ave-kb/CONVENTIONS.md` (new "Location cites" section, incl. a gate-coverage table).
+
+**Back-tested over the last 25 merges to `main` (20 PR merges + 5 integration merges): 4 of the 20 PR merges would have been blocked**, each adding 1–8 excerpt-less KB cites (`wall-taxonomy.md`, `translation-circuit.md`, `common/claim-quality.md`). That is the intended behaviour, not a defect — but it is a workflow change with blast radius past the checker, so it lands as a **SEPARATE, NON-REQUIRED CI job**, matching the repo's existing `engine-sims` posture. **Flipping it to required in branch protection is the orchestrator's call, not the implementer's** — it is a one-line branch-protection change, no code edit.
+
+---
+
+#### 7. Bug caught by running it (Rule 10)
+
+The first implementation's pattern filter used `\.{2,}`, which swallowed `..` **parent-dir hops** as if they were `...` elisions — silently skipping **639 of the KB's 2,650 line-cites (24%)**, the entire `../vol1/.../leaf.md` house style. Static reading did not catch it; the mutation regression test did, because its planted link-ext cite never fired. Fixed to a per-segment test: shape-skips fell 2,025 → 553 and checked lines rose 10,625 → 11,539. The mutation is now a permanent test.
+
+A second instance of the same class, caught by two-method verify-before-cite during authoring: an *illustrative* cite drafted for the new CONVENTIONS section quoted an excerpt that is **not** at the line it named. It was replaced with a deliberately synthetic path, and the section now says so in as many words — an example cite that names a real file is the seed of the next stale pointer.
+
+---
+
+- **Receipts:** `manuscript/ave-kb/tools/verify-md-links.py` (new line-cite pass + module docstring carrying the posture); `manuscript/ave-kb/tools/verify-anchor-content.py` (`--new-cites` ratchet + `tests/fixtures` crawl prune); `manuscript/ave-kb/tools/tests/test_verify_md_links.py` (9 new tests incl. the mutation regression) and `.../test_verify_anchor_content.py` (4 new); fixture repo at `manuscript/ave-kb/tools/tests/fixtures/linecheck/`; `Makefile` target `verify-new-cite-excerpts`; `.github/workflows/verify.yml` job `new-cite-excerpts`; `manuscript/ave-kb/CONVENTIONS.md` "Location cites" section. All counts above reproducible via `make verify-md-links` and `--advisory-cites report`.

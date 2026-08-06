@@ -81,6 +81,7 @@ always returns 0.
 
 import argparse
 import re
+import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass, field
@@ -100,8 +101,20 @@ SKIP_DIRS = {
     "__pycache__",
 }
 
+# Consecutive path-segment runs pruned anywhere in a file's relative path.
+# `tests/fixtures` holds DELIBERATELY broken cites (this tool's and
+# verify-md-links'); scanning them as real content pollutes the corpus counts
+# and, for --new-cites, would fail a branch on its own test data.
+# verify-md-links.SKIP_SEGMENT_RUNS carries the same run for the same reason.
+SKIP_SEGMENT_RUNS: tuple[tuple[str, ...], ...] = (("tests", "fixtures"),)
+
 # Roots whose .md files we scan for cites (repo-root-relative).
 CITING_ROOTS = ("research", "_orchestration", "manuscript/ave-kb")
+
+
+def _contains_run(parts: tuple[str, ...], run: tuple[str, ...]) -> bool:
+    """True if `run` appears as a consecutive subsequence of `parts`."""
+    return any(parts[i : i + len(run)] == run for i in range(len(parts) - len(run) + 1))
 
 # Target extensions a `path.EXT:NN` cite may point at.
 TARGET_EXTS = (
@@ -233,6 +246,8 @@ def iter_citing_files(repo_root: Path):
         for path in sorted(root.rglob("*.md")):
             parts = path.relative_to(repo_root).parts
             if any(part in SKIP_DIRS for part in parts):
+                continue
+            if any(_contains_run(parts, run) for run in SKIP_SEGMENT_RUNS):
                 continue
             yield path
 
@@ -437,6 +452,109 @@ def target_line_summary(target: str, near: str) -> str:
     return f"{name}:{near}"
 
 
+# --- NEW-cite excerpt requirement (cite-rot option 3) -----------------------
+#
+# The corpus-wide backlog is ~13k cites and roughly half carry no excerpt at
+# all, so a repo-wide excerpt requirement is not on the table. This RATCHET
+# requires an excerpt only on cites a branch ADDS, so the backlog stops growing
+# and every new cite is self-verifying (the advisory drift check above can
+# actually see it) without touching one byte of history.
+#
+# Scope is the same canonical-authority surface verify-md-links gates on — the
+# KB tree plus the repo-root user-facing docs — so research/ and
+# _orchestration/ lanes are never blocked. "Load-bearing" is that surface.
+
+_ERROR_SOURCE_ROOT_DOCS = {"README.md", "LIVING_REFERENCE.md", "AGENTS.md"}
+
+_DIFF_FILE_RE = re.compile(r"^\+\+\+ b/(.+)$")
+_DIFF_HUNK_RE = re.compile(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@")
+
+
+def is_load_bearing_source(rel: Path) -> bool:
+    """True if a repo-relative markdown path is on the canonical-authority surface."""
+    parts = rel.parts
+    if any(p in SKIP_DIRS for p in parts):
+        return False
+    if any(_contains_run(parts, run) for run in SKIP_SEGMENT_RUNS):
+        return False
+    if parts[:2] == ("manuscript", "ave-kb"):
+        return parts[2:3] != ("session",)
+    return len(parts) == 1 and parts[0] in _ERROR_SOURCE_ROOT_DOCS
+
+
+def added_lines_by_file(base_ref: str, repo_root: Path) -> dict[Path, set[int]]:
+    """Map repo-relative .md path -> set of line numbers ADDED vs `base_ref`.
+
+    Uses `git diff --unified=0 <base>...HEAD`, i.e. the merge-base three-dot
+    form, so a branch is measured against what it actually introduced rather
+    than against unrelated drift on the base.
+    """
+    proc = subprocess.run(
+        ["git", "diff", "--unified=0", "--diff-filter=d", f"{base_ref}...HEAD", "--", "*.md"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError(f"git diff against {base_ref!r} failed: {proc.stderr.strip()}")
+    added: dict[Path, set[int]] = {}
+    current: Path | None = None
+    lineno = 0
+    for raw in proc.stdout.splitlines():
+        file_match = _DIFF_FILE_RE.match(raw)
+        if file_match:
+            current = Path(file_match.group(1))
+            continue
+        hunk = _DIFF_HUNK_RE.match(raw)
+        if hunk:
+            lineno = int(hunk.group(1))
+            continue
+        if current is not None and raw.startswith("+") and not raw.startswith("+++"):
+            added.setdefault(current, set()).add(lineno)
+            lineno += 1
+    return added
+
+
+def check_new_cites(base_ref: str, repo_root: Path) -> list[tuple[Path, int, str]]:
+    """Every ADDED load-bearing line-cite that carries no adjacent excerpt.
+
+    Returns (repo-relative path, line, cite-as-written) triples.
+    """
+    violations: list[tuple[Path, int, str]] = []
+    for rel, added in sorted(added_lines_by_file(base_ref, repo_root).items()):
+        if not is_load_bearing_source(rel):
+            continue
+        path = repo_root / rel
+        if not path.is_file():
+            continue
+        lines = strip_fenced(path.read_text(encoding="utf-8", errors="replace")).splitlines()
+        for lineno in sorted(added):
+            if lineno > len(lines):
+                continue
+            line = lines[lineno - 1]
+            for match in CITE_RE.finditer(line):
+                if associate_quote(lines, lineno - 1, match.start()) is None:
+                    cited = f"{cite_path(match)}:{match.group('line')}"
+                    violations.append((rel, lineno, cited))
+    return violations
+
+
+def report_new_cites(violations: list[tuple[Path, int, str]], base_ref: str) -> None:
+    print(f"[anchor-content] NEW-cite excerpt requirement (vs {base_ref})")
+    if not violations:
+        print("  OK — every added load-bearing line-cite carries an adjacent excerpt.")
+        return
+    print(f"  {len(violations)} added cite(s) with no adjacent verbatim excerpt:\n")
+    for rel, lineno, cited in violations:
+        print(f"   · {rel}:{lineno}  ->  {cited}")
+    print(
+        "\n  Fix: put a backticked verbatim excerpt of the cited content beside the\n"
+        "  cite (same line, or the line above/below). That makes the cite\n"
+        "  self-verifying — the advisory drift check can then re-anchor it when\n"
+        "  the target file moves, instead of the `:NN` rotting silently."
+    )
+
+
 def run_self_test() -> int:
     print("[anchor-content] self-test ...")
     with tempfile.TemporaryDirectory() as td:
@@ -499,12 +617,28 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--self-test", action="store_true", help="run the built-in self-test and exit")
     parser.add_argument("--top", type=int, default=DEFAULT_TOP, help="max worst-offenders to print")
     parser.add_argument("--root", type=Path, default=None, help="repo root (default: auto-detect)")
+    parser.add_argument(
+        "--new-cites",
+        metavar="BASE_REF",
+        default=None,
+        help=(
+            "GATING ratchet: require a verbatim excerpt beside every line-cite this "
+            "branch ADDS to the canonical-authority surface (KB tree + root docs), "
+            "measured as `git diff BASE_REF...HEAD`. Exits nonzero on a violation. "
+            "The repo-wide scan below stays warn-class."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if args.self_test:
         return run_self_test()
 
     repo_root = args.root.resolve() if args.root else find_repo_root(Path(__file__).resolve().parent)
+
+    if args.new_cites:
+        violations = check_new_cites(args.new_cites, repo_root)
+        report_new_cites(violations, args.new_cites)
+        return 1 if violations else 0
     counts, findings = scan(list(iter_citing_files(repo_root)), repo_root)
     report(counts, findings, repo_root, args.top)
     # WARN-CLASS: never gate. Gating is a later, deliberate promotion.

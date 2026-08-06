@@ -14,15 +14,23 @@ Asserts, on one throwaway tree:
     i.e. the fix does not swallow unrelated `):` sequences
   * exit-code semantics are unchanged (the scan path always returns 0)
 
-The tree is built in a tmpdir rather than under tests/fixtures/ on purpose:
-verify-anchor-content's SKIP_DIRS does NOT prune `tests/fixtures` (unlike its
-sibling verify-md-links), so on-disk stale-anchor fixtures would be scanned as
-corpus and would show up as permanent findings in the advisory count.
+The tree is built in a tmpdir rather than under tests/fixtures/. That was
+originally forced — verify-anchor-content's crawl did NOT prune `tests/fixtures`
+(unlike its sibling verify-md-links), so on-disk stale-anchor fixtures would
+have been scanned as corpus. The 2026-08-05 cite-rot change added
+SKIP_SEGMENT_RUNS to this tool, so the constraint is lifted; the tmpdir form is
+retained because these cases also need a THROWAWAY GIT REPO for the --new-cites
+ratchet below.
+
+Also covers the NEW-cite excerpt ratchet (cite-rot option 3): every line-cite a
+branch ADDS to the canonical-authority surface must carry an adjacent verbatim
+excerpt, so the ~13k-cite backlog stops growing.
 
 Run directly (`python tools/tests/test_verify_anchor_content.py`) or via pytest.
 """
 
 import importlib.util
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -142,8 +150,118 @@ def test_scan_path_exit_code_is_still_zero() -> None:
         assert vac.main(["--root", str(root), "--top", "5"]) == 0
 
 
+# --- NEW-cite excerpt ratchet (cite-rot option 3) ---------------------------
+
+
+def _git(root: Path, *args: str) -> str:
+    proc = subprocess.run(
+        ["git", *args], cwd=root, capture_output=True, text=True, check=True,
+        env={"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t",
+             "GIT_COMMITTER_EMAIL": "t@t", "PATH": "/usr/bin:/bin:/usr/local/bin"},
+    )
+    return proc.stdout
+
+
+def _ratchet_repo(root: Path) -> None:
+    """A throwaway repo with a `base` commit and one branch commit on top."""
+    (root / "Makefile").write_text("# sentinel\n")
+    kb = root / "manuscript" / "ave-kb" / "common"
+    kb.mkdir(parents=True)
+    (root / "research").mkdir()
+    target = ["filler"] * 40
+    target[9] = _ANCHOR
+    (kb / "target.md").write_text("\n".join(target) + "\n")
+    (kb / "leaf.md").write_text("# Leaf\n\npre-existing bare cite: `target.md:10`\n")
+    _git(root, "init", "-q", "-b", "main")
+    _git(root, "add", "-A")
+    _git(root, "commit", "-q", "-m", "base")
+    _git(root, "branch", "base")
+
+
+def test_new_cite_ratchet_flags_only_added_unexcerpted_kb_cites() -> None:
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+
+        # The branch adds: one KB cite WITH an excerpt (ok), one KB cite with
+        # NO excerpt (violation), and one research/ cite with no excerpt
+        # (out of scope — research/ is not the canonical-authority surface).
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f"added WITH excerpt: `target.md:10` — `{_ANCHOR}`\n"
+            "added WITHOUT excerpt: `target.md:10`\n"
+        )
+        (root / "research" / "note.md").write_text("warn-class cite: `target.md:10`\n")
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        violations = vac.check_new_cites("base", root)
+        assert len(violations) == 1, violations
+        rel, lineno, cited = violations[0]
+        assert str(rel) == "manuscript/ave-kb/common/leaf.md", rel
+        assert lineno == 5 and cited == "target.md:10", violations
+        # Gating: the CLI path exits nonzero on a violation.
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 1
+
+
+def test_new_cite_ratchet_passes_when_every_added_cite_is_excerpted() -> None:
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _ratchet_repo(root)
+        kb = root / "manuscript" / "ave-kb" / "common"
+        (kb / "leaf.md").write_text(
+            "# Leaf\n\n"
+            "pre-existing bare cite: `target.md:10`\n"
+            f"added, excerpt on the line above:\n`{_ANCHOR}`\n`target.md:10`\n"
+        )
+        _git(root, "add", "-A")
+        _git(root, "commit", "-q", "-m", "branch work")
+
+        assert vac.check_new_cites("base", root) == []
+        assert vac.main(["--root", str(root), "--new-cites", "base"]) == 0
+
+
+def test_new_cite_ratchet_scope_predicate() -> None:
+    vac = _load_module()
+    for load_bearing in ("manuscript/ave-kb/common/leaf.md", "README.md", "AGENTS.md"):
+        assert vac.is_load_bearing_source(Path(load_bearing)), load_bearing
+    for out_of_scope in (
+        "research/note.md",  # warn-class lane, never blocked
+        "_orchestration/board.md",
+        "manuscript/ave-kb/session/scratch.md",  # session subtree
+        "manuscript/ave-kb/_archive/old.md",  # frozen archive
+        "manuscript/ave-kb/tools/tests/fixtures/linecheck/manuscript/ave-kb/x.md",
+        "docs/README.md",  # non-root README
+    ):
+        assert not vac.is_load_bearing_source(Path(out_of_scope)), out_of_scope
+
+
+def test_fixture_trees_are_pruned_from_the_advisory_crawl() -> None:
+    """tests/fixtures holds deliberately broken cites — never scanned as corpus."""
+    vac = _load_module()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        (root / "Makefile").write_text("# sentinel\n")
+        (root / "manuscript").mkdir()
+        kb = root / "manuscript" / "ave-kb"
+        (kb / "tools" / "tests" / "fixtures" / "x").mkdir(parents=True)
+        (kb / "tools" / "tests" / "fixtures" / "x" / "broken.md").write_text("`gone.md:9`\n")
+        (kb / "live.md").write_text("`gone.md:9`\n")
+        crawled = {p.name for p in vac.iter_citing_files(root)}
+        assert "live.md" in crawled
+        assert "broken.md" not in crawled
+
+
 if __name__ == "__main__":
     test_link_form_and_bare_form_stale_anchors_are_both_caught()
     test_cite_re_branches_and_cite_path_helper()
     test_scan_path_exit_code_is_still_zero()
+    test_new_cite_ratchet_flags_only_added_unexcerpted_kb_cites()
+    test_new_cite_ratchet_passes_when_every_added_cite_is_excerpted()
+    test_new_cite_ratchet_scope_predicate()
+    test_fixture_trees_are_pruned_from_the_advisory_crawl()
     print("test_verify_anchor_content: PASSED")
