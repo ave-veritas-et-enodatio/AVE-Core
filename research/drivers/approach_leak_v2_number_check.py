@@ -143,7 +143,17 @@ def amendment_registry(d: dict) -> dict[str, str]:
     `53` / `0` / `0` the v2 result doc §9 states keep reproducing after later
     amendments land.  RECEIPT B runs from the merged v2.1 ship to the JSON on disk
     and carries AMENDMENT-NCBYTES-2026-08-06-B.  A receipt whose baseline slides
-    forward with every edit is not a receipt."""
+    forward with every edit is not a receipt.
+
+    HONESTY CAVEAT (Tier-2 finding B1/A3, disclosed rather than papered over): these
+    counts ARE re-derived here on every run, but the §9 numerals as QUOTED IN THE DOC
+    are NOT currently scanned.  Raw line 471 of the result doc has an odd back-tick
+    count (7) and is the only odd-parity line surviving `strip_fences`, so global
+    pairing flips there and every token below it falls into an unscanned gap.  So
+    "kept registered" is, at this commit, a statement about this function and NOT
+    about the document.  What chaining actually preserves is that §9 stays TRUE --
+    a re-based receipt would compute 417/6/120 against the doc's 350/5/53.  The
+    parity gap is pre-existing at base and is routed as A3, not fixed here."""
     reg: dict[str, str] = {}
 
     pre = _blob_json(PRE_AMENDMENT_JSON_BLOB, "pre-amendment")
@@ -166,11 +176,19 @@ def amendment_registry(d: dict) -> dict[str, str]:
             f"{tag}_other": str(len(delta["other"])),
         })
 
-    # Receipt A's right-hand end must be the state PR #904 actually merged, not a
-    # later tree: if the shipped JSON has moved past A_SHIP_JSON_BLOB then receipt B
-    # must be non-trivial, and if it has NOT moved then receipt B must be empty.
-    # Either way the two receipts must compose to the same leaf set as one direct
-    # comparison -- checked here so the chain cannot hide a leaf in the seam.
+    # CORRECTED 2026-08-06 at Tier-2 (finding A4): the previous comment here described a
+    # CONDITIONAL ("if the shipped JSON has moved past A_SHIP_JSON_BLOB then receipt B
+    # must be non-trivial, and if it has NOT moved then receipt B must be empty") that
+    # this function does not implement and never did.  Comment-vs-code drift in a gate is
+    # the checklist-not-gate tell, so the comment is corrected to what is TRUE:
+    #
+    #   * The seam is closed BY CONSTRUCTION, not by a check.  Receipt A's right-hand end
+    #     and receipt B's left-hand end are THE SAME PYTHON OBJECT -- `a_ship`, built once
+    #     above and passed to both legs of the loop -- so no leaf can differ across the
+    #     seam, and there is nothing conditional to enforce.
+    #   * The direct pre-amendment-to-disk comparison below is therefore BELT-AND-BRACES:
+    #     it re-derives the whole-chain criterion independently of the two links, so a
+    #     future edit that breaks the same-object invariant is still caught.
     direct = _classify_leaf_delta(pre, d)
     if direct["other"]:
         FAILURES.append("AMENDMENT receipt (composed): a physics leaf moved somewhere in the "
@@ -529,6 +547,31 @@ def mutation() -> int:
         drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE.clear()
         drv.MOVED_BY_DISCLOSED_SUPERSESSION_NOTE.update(saved_moved)
     results.append(("M10 supersession moved-set over-declared", caught10))
+
+    # M11 -- THE ADDITIVE-ONLY CONJUNCT, which shipped in the pass conjunction with no
+    #        mutation of its own (Tier-2 finding B2).  Make the pinned text stop being a
+    #        subsequence of the live text by appending a line to the PINNED side only:
+    #        the blob pin still matches, the verdict probes are still present, and the
+    #        ONLY conjunct that can catch it is additive-only.  That isolation is the
+    #        point -- a mutation that trips three conjuncts at once proves none of them.
+    saved_blob_text = drv._blob_text
+    try:
+        def _blob_text_with_extra_pinned_line(sha: str) -> str:
+            out = saved_blob_text(sha)
+            return out + "\nZZQX-NCBYTES-B-LINE-DELETED-BY-THE-SUPERSESSION-EDIT-4471\n"
+        drv._blob_text = _blob_text_with_extra_pinned_line
+        nc11 = drv.nc_bytes()
+        row11 = next(r for r in nc11["artifacts"]
+                     if r.get("effective_pin_source") == "AMENDMENT-NCBYTES-2026-08-06-B")
+        caught11 = (nc11["pass"] is False
+                    and row11["supersession_additive_only_COMPUTED"] is False
+                    # isolation: the other two amendment-B conjuncts are UNDISTURBED,
+                    # so the catch is attributable to additive-only alone.
+                    and row11["byte_identical"] is True
+                    and row11["supersession_frozen_verdicts_preserved_COMPUTED"] is True)
+    finally:
+        drv._blob_text = saved_blob_text
+    results.append(("M11 additive-only violated (pinned line deleted)", caught11))
 
     ok = all(caught for _, caught in results)
     print("APPROACH-LEAK v2 mutation receipt: "

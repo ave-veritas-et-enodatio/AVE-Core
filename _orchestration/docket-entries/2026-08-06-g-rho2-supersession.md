@@ -79,16 +79,39 @@ ADDED `67` (**all inside `NC-BYTES`**), REMOVED `0`, **outside the permitted set
 pre-amendment-to-disk comparison is checked too, so nothing hides in the seam. Digest
 `4da48b39074d9fbc` → `f336bc5fe6281368`.
 
-Mutations `M7`–`M10` were added so each new conjunct is provably fireable: a physics leaf moved
-under receipt B; the blob pin perturbed; a frozen-verdict probe made unsatisfiable; and the
-supersession moved-set over-declared. All ten mutations are CAUGHT.
+Mutations `M7`–`M11` were added so each new conjunct is provably fireable: a physics leaf moved
+under receipt B; the blob pin perturbed; a frozen-verdict probe made unsatisfiable; the supersession
+moved-set over-declared; and the **ADDITIVE-ONLY** conjunct violated by deleting a line from the
+PINNED side. **All eleven mutations are CAUGHT.**
 
-## 4. ⚑ DISCLOSURE — the rerun lane's "BYTE-UNTOUCHED" claim is now HISTORICALLY SCOPED
+**⚑ CORRECTED, 2026-08-06, at Tier-2 (finding B2).** As first written this paragraph said `M7`–`M10`
+and claimed each new conjunct was provably fireable. **It was one short.** `ADDITIVE-ONLY` sat in
+`nc_bytes()`'s `pass` conjunction with **no mutation of its own**, so the claim over-stated the
+coverage it had. `M11` closes it, and is built to be **isolating**: it appends a line to the
+**pinned** side only, so the blob pin still matches and the verdict probes are still present, and
+`ADDITIVE-ONLY` is the only conjunct that can catch it. A mutation that trips three conjuncts at
+once proves none of them. **The commit message of `0c13a367` still says `M7`–`M10` and cannot be
+amended after push; this fragment is the correction of record.**
+
+## 4. ⚑ DISCLOSURE — the rerun lane's `NC-BYTES` INSTRUMENT no longer re-derives; its SENTENCE is still true
+
+**⚑ SHARPENED, 2026-08-06, at Tier-2 (finding A6). The first version of this section conflated a
+sentence with an instrument, and the distinction is the whole content.**
 
 `research/2026-08-05_last-bond-g-rho2-rerun_result.md`:9 carries
-`**Predecessor (merged, BYTE-UNTOUCHED by this lane — gated,` `NC-BYTES`\ `):**`. That claim was true
-of that lane's own run and is **no longer true of the tree**: the records edit above moved one of the
-four artifacts it names.
+`**Predecessor (merged, BYTE-UNTOUCHED by this lane — gated,` `NC-BYTES`\ `):**`.
+
+- **The SENTENCE is STILL TRUE, and always will be.** It is scoped *"by this lane"*. The rerun lane
+  did not touch the v1 record; the **records lane** did, months of provenance later. Nothing that
+  happens in this PR can falsify a claim about what the rerun lane wrote. **The earlier wording here
+  — *"no longer true of the tree"* — was wrong about which proposition was at stake, and is
+  withdrawn.**
+- **What went historically scoped is the INSTRUMENT.** `NC-BYTES` as that lane implements it does not
+  test *"did this lane write it"*; it tests *"is the predecessor byte-identical to its pin"*, which
+  reads FAIL at **any** tree where the predecessor moved **for any reason, by any author**. So the
+  gate no longer re-derives the sentence it was built to certify. **The gate under-specifies its own
+  claim** — the same class as amendment A's finding upstream, and the reason amendment B carries a
+  COMPUTED/DECLARED reconciliation instead of a bare byte-identity.
 
 **This is disclosed rather than repaired, and the reason is that its gate does not re-derive it.**
 `last_bond_g_rho2_rerun_number_check.py`:169 reads the **shipped** JSON only —
@@ -98,8 +121,8 @@ re-runs its driver. Shipped `n_modified` is `0` and stays `0`; `make verify` sta
 **Measured, not assumed.** Calling `last_bond_g_rho2_rerun.build_nc_bytes()` against this branch tree
 returns `n_modified` = `1`, `pass` = `False`, naming exactly
 `research/2026-08-05_last-bond-kernel-collapse_result.md`. So: **the shipped record is green and
-honest about its own run; a re-derivation at HEAD is red; and the two do not contradict each other
-because they quote different runs.** That is precisely the corpus-state divergence the wall-taxonomy
+honest about its own run; a re-derivation at HEAD is red; and the two do not contradict each other —
+because the red is the instrument's under-specification firing, not the sentence turning false.** That is precisely the corpus-state divergence the wall-taxonomy
 note routed — *"the refresh must say which run each sentence is quoting"* — now instantiated a second
 time, on the byte gate rather than on the certification wording.
 
@@ -133,10 +156,35 @@ the original note already set for its own occurrence counts.
 The brief named four files. **Two more were forced by the lockstep**, both discovered by reading the
 checker rather than by assumption:
 
-- **`research/drivers/approach_leak_v2_number_check.py`** — required. The checker's amendment receipt
-  registers its own leaf counts, and the v2 result doc back-ticks them at §9. A single re-based
+- **`research/drivers/approach_leak_v2_number_check.py`** — required, but **NOT for the reason this
+  fragment first gave.**
+
+  **🔴 RETRACTED, 2026-08-06, at Tier-2 (finding B1).** The original clause read: *"A single re-based
   receipt would have made the doc's `297` / `350` / `53` unregistered numerals and turned
-  `make verify` **red**. Chaining the receipt is what keeps them registered **and true**.
+  `make verify` **red**."* **That is measurably false and is withdrawn.** Measured: the BASE
+  (`dcc11323`) number check, run verbatim against this branch tree, returns **rc = `0`** with its
+  mutation receipt green. **Root cause, and it is a pre-existing corpus defect, not a fact about this
+  lane:** raw line `471` of the v2 result doc carries an **odd** back-tick count (`7`) — it is the
+  line that *describes* back-tick pairing, using a doubled span — and after `strip_fences` it is the
+  **only** odd-parity line in the document, so global pairing flips there and **everything below it
+  is never scanned**. Verified directly: `297`, `350`, `417`, `67` and `53` are all **absent** from
+  the scanned token set. §9's numerals were never checked, so nothing about them could have turned
+  anything red. Routed as **A3** below.
+
+  **The true justification, which is stronger and survives the correction:**
+
+  1. **Vacated-cite avoidance — a re-based receipt would make §9's shipped table a FALSE
+     STATEMENT.** §9 states pre `297`, post `350`, CHANGED `5`, ADDED `53`. Measured, a re-based
+     single receipt now computes pre `297`, post **`417`**, CHANGED **`6`**, ADDED **`120`** —
+     contradicting the shipped table on **three of six cells**. Whether or not a scanner happens to
+     look, a document that states `350` while its own instrument computes `417` is wrong. Chaining
+     keeps §9 **true**; that it also keeps it registered is secondary, and — per A3 — currently moot.
+  2. **Mutation coverage.** Without the new checker, amendment B's added conjuncts would ship with
+     **zero** mutation coverage. `M7`–`M11` live in this file and are what make them gates rather
+     than assertions.
+
+  **The chaining decision is unchanged and is not softened by this retraction** — only its stated
+  rationale is corrected.
 - **`research/2026-08-06_approach-leak-v2_result.md`** — a dated surface-note only, no rewrite. The
   `_digest` necessarily moves when `NC-BYTES` leaves change, so §4's `G-DET-V2` digest reading and
   §9's *"the digest moved"* sentence became historically scoped. Leaving a superseded digest
@@ -146,7 +194,39 @@ checker rather than by assumption:
 Everything else is as briefed: line 52 of the v1 record is byte-identical (now line 53, `md5`
 unchanged), staging was by explicit filename, and the wall-taxonomy note body was not rewritten.
 
-## 7. Receipts
+## 7. Routed, NOT repaired here
+
+**A3 — the back-tick parity gap in `scan_doc` (→ approach-leak-v2 / infra lane).** Raw line `471` of
+`research/2026-08-06_approach-leak-v2_result.md` carries an **odd** back-tick count (`7`): it is the
+line that *describes* the pairing regex, and it uses a doubled span to quote it. After
+`strip_fences` it is the **only** odd-parity line in the document, so `NUM_RE`'s global pairing
+flips there and **every back-ticked token below it lands in an unscanned gap** — measured: `297`,
+`350`, `417`, `67`, `53` are all absent from the scanned set.
+
+**Pre-existing at base `dcc11323`, and widened by this lane** (two new numerals, `417` and `67`,
+land in the gap). **Not fixed here**, because a real fix is not a one-liner: per-line pairing or
+explicit double-back-tick handling changes which tokens reach the registry **for the whole
+document**, which needs its own `ALLOWED_LITERAL` reconciliation and its own mutation receipt. That
+is instrument work on the approach-leak-v2 lane's own checker, not a records edit. **This is the
+same defect class the v2 lane already caught once and repaired with `strip_fences`** — the fence fix
+restored balanced pairing for fences and left doubled inline spans unhandled.
+
+### PENDING-GRANT — three framing questions surfaced by Tier-2, not answerable in-lane
+
+1. **Registered-vs-scanned: what is the standard?** A3 makes the two come apart. A numeral can be
+   *registered* (the instrument re-derives it every run) while never being *scanned* (no gate reads
+   the document's rendering of it). Which one does "gated numeral" mean in the corpus? The answer
+   changes how many result-doc numerals across the corpus are actually load-bearing.
+2. **Is subsequence + verdict-probes the right strength for a frozen-record pin?** Amendment B
+   proves *additive-only* and *these three strings survive*. It does **not** prove the added text is
+   non-contradictory — a note could be additive, preserve every probe, and still mislead. Is that
+   the intended ceiling for a mechanical gate, with the rest left to review?
+3. **`V1_PIN_COMMIT` is a self-declared pin.** `NC-BYTES` compares against a commit named **in the
+   file it is defending**. Nothing external certifies that `f3607be8` is the right pin; a lane could
+   re-pin to any commit and the gate would still read green. Amendment B inherits this. Should pins
+   be anchored to something the lane cannot choose?
+
+## 8. Receipts
 
 - `make verify` — green on the branch tree.
 - `make test` — green.

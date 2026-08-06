@@ -606,6 +606,14 @@ Four places where the walk's recollection did not survive the grep. In every cas
 > **⚑ This surface-note is NOT payload, on the same fence the note below already sets.** It quotes
 > `G-RHO2` while describing the search; the payload counts the refresh pass needs are the ones the
 > note below states, and these lines are excluded from them exactly as that note's own lines are.
+> **And the note below's own naive-recount diagnostic has drifted, so it is re-derived here rather
+> than left to mislead:** that note records a naive re-run returning **18** and **26**; at this
+> commit the same naive re-run returns **18** and **30**, so the self-referential extra is now
+> **2** and **12**, not **2** and **8** — these lines added four `G-RHO2` mentions and no
+> `ROW-NOT-CERTIFIED` one. **The payload counts are UNCHANGED at 16 / 18**, which is the only pair a
+> refresh pass should act on. Two-method, both engines agreeing (ugrep `-rc -i -E` and an
+> independent CPython `re` walk over `manuscript/**/*.{md,tex}`); base `dcc11323` still returns
+> 18 / 26.
 >
 > **What a refresh pass must do when #902 lands, scoped by measurement rather than by estimate.** The
 > certification sentence is mirrored across the corpus, and the print-certification rule makes every

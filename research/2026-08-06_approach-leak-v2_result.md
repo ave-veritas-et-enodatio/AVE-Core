@@ -656,6 +656,25 @@ Disclosure and rationale live in the records lane's docket fragment,
 [`2026-08-06-g-rho2-supersession.md`](../_orchestration/docket-entries/2026-08-06-g-rho2-supersession.md);
 the frozen pre-registration is **again not edited**.
 
+**⚑ DATED SURFACE-NOTE ON THE NOTE ABOVE, 2026-08-06 — two corrections from Tier-2 review, written
+here rather than back into the bullets they correct.**
+
+- **`M7`–`M10` should read `M7`–`M11` (finding B2).** The `ADDITIVE-ONLY` conjunct shipped inside
+  `nc_bytes()`'s `pass` conjunction with **no mutation of its own**, so *"Mutations `M7`–`M10` prove
+  each one fireable"* over-stated the coverage by one. `M11` closes it and is deliberately
+  **isolating**: it deletes a line from the **pinned** side only, leaving the blob pin matched and
+  the verdict probes present, so `ADDITIVE-ONLY` is the sole conjunct that can catch it. All eleven
+  are CAUGHT.
+- **"keep re-deriving on every `make verify`" is true of the RECEIPT, not of this document's quoted
+  numerals (findings B1 / A3).** Raw line `471` of this file carries an odd back-tick count and is
+  the only odd-parity line surviving `strip_fences`, so global pairing flips there and **every
+  back-ticked token below it — including this section's `297` / `350` / `417` / `53` / `67` — is
+  never scanned**. The chained receipt does re-derive those counts on every run; what it cannot
+  currently do is check that *this page* still quotes them correctly. **What chaining actually buys
+  is that §9 stays TRUE**: a re-based receipt would compute `417` / `6` / `120` against the table's
+  `350` / `5` / `53`. The parity gap is **pre-existing at base**, widened here by two numerals, and
+  is **routed** — not fixed in this lane.
+
 ### §9.2 Wording corrections (four), each sited at the sentence it repairs
 
 **None of these moves a number.** Each is a place where a true sentence was phrased so that a
