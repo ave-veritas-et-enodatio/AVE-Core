@@ -92,7 +92,7 @@ Forward scout (`src/scripts/vol_1_foundations/operating_point_coefficients.py`; 
 
 **Classification:** Class C — definitional channel assignments from registry §3.11; no new physics.
 
-One physical saturation boundary = **three channel-specific** $\Gamma$ values (three-impedance law; canonical render at [`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22 — the registry §3.11 source is `research/2026-06-10_field-symbol-registry.md`, a **NON-CANON DRAFT**, not the canonical anchor):
+One physical saturation boundary = **three channel-specific** $\Gamma$ values (three-impedance law; canonical render at [`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22 — the registry §3.11 source is `research/2026-06-10_field-symbol-registry.md`, a **NON-CANON DRAFT**, not the canonical anchor) — **⚑ COUNT SCOPE, 2026-08-05 (upgrade wave): the subject of this sentence is a *saturation boundary*, and as a count of THAT the "three" is incomplete by one.** The three rows below are the **three-impedance law**'s channels and that law is not re-counted here; the canonical $r_{\text{sat}}$ boundary carries **FOUR** channel views since 2026-08-05, the fourth being the Cosserat micro-rotation / wryness channel — see the COUNT SCOPE note directly below this table, which is the fuller statement and carries the certification status and the cross-grade fence:
 
 | Channel | Impedance | $\Gamma$ at saturation / horizon |
 |---|---|---|
